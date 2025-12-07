@@ -2025,7 +2025,7 @@ float CMMsl::KappaSevereCrashResult::KappaSevereCrashResult(uint64_t a1, uint64_
   return result;
 }
 
-CMMsl *CMMsl::KappaSevereCrashResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaSevereCrashResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -2042,38 +2042,35 @@ uint64_t CMMsl::KappaSevereCrashResult::formatText(CMMsl::KappaSevereCrashResult
   PB::TextFormatter::beginObject(a2, a3);
   if ((*(this + 368) & 0x40) != 0)
   {
-    v5 = *(this + 320);
     PB::TextFormatter::format(a2, "anyLowSense");
   }
 
-  v6 = *(this + 45);
-  if ((v6 & 0x100) != 0)
+  v5 = *(this + 45);
+  if ((v5 & 0x100) != 0)
   {
     PB::TextFormatter::format(a2, "autocorrelationPeriodicCount", *(this + 18));
-    v6 = *(this + 45);
+    v5 = *(this + 45);
   }
 
-  if ((v6 & 0x200) != 0)
+  if ((v5 & 0x200) != 0)
   {
     PB::TextFormatter::format(a2, "autocorrelationPeriodicCountThreshold", *(this + 19));
   }
 
   if ((*(this + 368) & 0x80) != 0)
   {
-    v7 = *(this + 321);
     PB::TextFormatter::format(a2, "crashDetectorDecision");
   }
 
-  v8 = *(this + 45);
-  if (v8)
+  v6 = *(this + 45);
+  if (v6)
   {
-    v26 = *(this + 1);
     PB::TextFormatter::format(a2, "crashTimestamp");
-    v8 = *(this + 45);
-    if ((v8 & 0x400) == 0)
+    v6 = *(this + 45);
+    if ((v6 & 0x400) == 0)
     {
 LABEL_11:
-      if ((v8 & 0x800) == 0)
+      if ((v6 & 0x800) == 0)
       {
         goto LABEL_12;
       }
@@ -2082,17 +2079,17 @@ LABEL_11:
     }
   }
 
-  else if ((v8 & 0x400) == 0)
+  else if ((v6 & 0x400) == 0)
   {
     goto LABEL_11;
   }
 
   PB::TextFormatter::format(a2, "cumulativeRotation", *(this + 20));
-  v8 = *(this + 45);
-  if ((v8 & 0x800) == 0)
+  v6 = *(this + 45);
+  if ((v6 & 0x800) == 0)
   {
 LABEL_12:
-    if ((v8 & 0x1000) == 0)
+    if ((v6 & 0x1000) == 0)
     {
       goto LABEL_13;
     }
@@ -2102,11 +2099,11 @@ LABEL_12:
 
 LABEL_131:
   PB::TextFormatter::format(a2, "cumulativeRotationHarmonicMean", *(this + 21));
-  v8 = *(this + 45);
-  if ((v8 & 0x1000) == 0)
+  v6 = *(this + 45);
+  if ((v6 & 0x1000) == 0)
   {
 LABEL_13:
-    if ((v8 & 0x2000) == 0)
+    if ((v6 & 0x2000) == 0)
     {
       goto LABEL_14;
     }
@@ -2116,11 +2113,11 @@ LABEL_13:
 
 LABEL_132:
   PB::TextFormatter::format(a2, "currentCadence", *(this + 22));
-  v8 = *(this + 45);
-  if ((v8 & 0x2000) == 0)
+  v6 = *(this + 45);
+  if ((v6 & 0x2000) == 0)
   {
 LABEL_14:
-    if ((v8 & 0x4000) == 0)
+    if ((v6 & 0x4000) == 0)
     {
       goto LABEL_15;
     }
@@ -2130,11 +2127,11 @@ LABEL_14:
 
 LABEL_133:
   PB::TextFormatter::format(a2, "deltaRealTrigger", *(this + 23));
-  v8 = *(this + 45);
-  if ((v8 & 0x4000) == 0)
+  v6 = *(this + 45);
+  if ((v6 & 0x4000) == 0)
   {
 LABEL_15:
-    if ((v8 & 0x8000) == 0)
+    if ((v6 & 0x8000) == 0)
     {
       goto LABEL_16;
     }
@@ -2143,13 +2140,12 @@ LABEL_15:
   }
 
 LABEL_134:
-  v27 = *(this + 24);
   PB::TextFormatter::format(a2, "deltaSteps");
-  v8 = *(this + 45);
-  if ((v8 & 0x8000) == 0)
+  v6 = *(this + 45);
+  if ((v6 & 0x8000) == 0)
   {
 LABEL_16:
-    if ((v8 & 0x10000) == 0)
+    if ((v6 & 0x10000) == 0)
     {
       goto LABEL_18;
     }
@@ -2166,16 +2162,15 @@ LABEL_17:
   }
 
 LABEL_18:
-  v9 = *(this + 46);
-  if ((v9 & 0x100) != 0)
+  v7 = *(this + 46);
+  if ((v7 & 0x100) != 0)
   {
-    v28 = *(this + 322);
     PB::TextFormatter::format(a2, "earlyCrashDetectorDecision");
-    v9 = *(this + 46);
-    if ((v9 & 0x200) == 0)
+    v7 = *(this + 46);
+    if ((v7 & 0x200) == 0)
     {
 LABEL_20:
-      if ((v9 & 0x400) == 0)
+      if ((v7 & 0x400) == 0)
       {
         goto LABEL_22;
       }
@@ -2184,57 +2179,50 @@ LABEL_20:
     }
   }
 
-  else if ((v9 & 0x200) == 0)
+  else if ((v7 & 0x200) == 0)
   {
     goto LABEL_20;
   }
 
-  v29 = *(this + 323);
   PB::TextFormatter::format(a2, "escalationCandidate");
   if ((*(this + 46) & 0x400) != 0)
   {
 LABEL_21:
-    v10 = *(this + 324);
     PB::TextFormatter::format(a2, "escalationCandidateSuppressed");
   }
 
 LABEL_22:
-  v11 = *(this + 45);
-  if ((v11 & 0x20000) != 0)
+  v8 = *(this + 45);
+  if ((v8 & 0x20000) != 0)
   {
-    v12 = *(this + 27);
     PB::TextFormatter::format(a2, "faultCounter");
-    v11 = *(this + 45);
+    v8 = *(this + 45);
   }
 
-  if ((v11 & 2) != 0)
+  if ((v8 & 2) != 0)
   {
-    v13 = *(this + 2);
     PB::TextFormatter::format(a2, "firstTimestampMAPDecision");
   }
 
   if ((*(this + 369) & 8) != 0)
   {
-    v14 = *(this + 325);
     PB::TextFormatter::format(a2, "hasSteps");
   }
 
   if ((*(this + 362) & 4) != 0)
   {
-    v15 = *(this + 28);
     PB::TextFormatter::format(a2, "highSensitivityBitmap");
   }
 
-  v16 = *(this + 46);
-  if ((v16 & 0x1000) != 0)
+  v9 = *(this + 46);
+  if ((v9 & 0x1000) != 0)
   {
-    v30 = *(this + 326);
     PB::TextFormatter::format(a2, "isAirbagDetectedOverWindow");
-    v16 = *(this + 46);
-    if ((v16 & 0x2000) == 0)
+    v9 = *(this + 46);
+    if ((v9 & 0x2000) == 0)
     {
 LABEL_32:
-      if ((v16 & 0x4000) == 0)
+      if ((v9 & 0x4000) == 0)
       {
         goto LABEL_33;
       }
@@ -2243,18 +2231,17 @@ LABEL_32:
     }
   }
 
-  else if ((v16 & 0x2000) == 0)
+  else if ((v9 & 0x2000) == 0)
   {
     goto LABEL_32;
   }
 
-  v31 = *(this + 327);
   PB::TextFormatter::format(a2, "isAutocorrelationDecided");
-  v16 = *(this + 46);
-  if ((v16 & 0x4000) == 0)
+  v9 = *(this + 46);
+  if ((v9 & 0x4000) == 0)
   {
 LABEL_33:
-    if ((v16 & 0x8000) == 0)
+    if ((v9 & 0x8000) == 0)
     {
       goto LABEL_34;
     }
@@ -2263,13 +2250,12 @@ LABEL_33:
   }
 
 LABEL_142:
-  v32 = *(this + 328);
   PB::TextFormatter::format(a2, "isCrashDetected");
-  v16 = *(this + 46);
-  if ((v16 & 0x8000) == 0)
+  v9 = *(this + 46);
+  if ((v9 & 0x8000) == 0)
   {
 LABEL_34:
-    if ((v16 & 0x10000) == 0)
+    if ((v9 & 0x10000) == 0)
     {
       goto LABEL_35;
     }
@@ -2278,13 +2264,12 @@ LABEL_34:
   }
 
 LABEL_143:
-  v33 = *(this + 329);
   PB::TextFormatter::format(a2, "isDecisionMadeAtBoundary");
-  v16 = *(this + 46);
-  if ((v16 & 0x10000) == 0)
+  v9 = *(this + 46);
+  if ((v9 & 0x10000) == 0)
   {
 LABEL_35:
-    if ((v16 & 0x20000) == 0)
+    if ((v9 & 0x20000) == 0)
     {
       goto LABEL_36;
     }
@@ -2293,13 +2278,12 @@ LABEL_35:
   }
 
 LABEL_144:
-  v34 = *(this + 330);
   PB::TextFormatter::format(a2, "isDescalationDecided");
-  v16 = *(this + 46);
-  if ((v16 & 0x20000) == 0)
+  v9 = *(this + 46);
+  if ((v9 & 0x20000) == 0)
   {
 LABEL_36:
-    if ((v16 & 0x40000) == 0)
+    if ((v9 & 0x40000) == 0)
     {
       goto LABEL_37;
     }
@@ -2308,13 +2292,12 @@ LABEL_36:
   }
 
 LABEL_145:
-  v35 = *(this + 331);
   PB::TextFormatter::format(a2, "isDescalationRequired");
-  v16 = *(this + 46);
-  if ((v16 & 0x40000) == 0)
+  v9 = *(this + 46);
+  if ((v9 & 0x40000) == 0)
   {
 LABEL_37:
-    if ((v16 & 0x80000) == 0)
+    if ((v9 & 0x80000) == 0)
     {
       goto LABEL_38;
     }
@@ -2323,13 +2306,12 @@ LABEL_37:
   }
 
 LABEL_146:
-  v36 = *(this + 332);
   PB::TextFormatter::format(a2, "isEvaluatingMovingGps");
-  v16 = *(this + 46);
-  if ((v16 & 0x80000) == 0)
+  v9 = *(this + 46);
+  if ((v9 & 0x80000) == 0)
   {
 LABEL_38:
-    if ((v16 & 0x100000) == 0)
+    if ((v9 & 0x100000) == 0)
     {
       goto LABEL_39;
     }
@@ -2338,13 +2320,12 @@ LABEL_38:
   }
 
 LABEL_147:
-  v37 = *(this + 333);
   PB::TextFormatter::format(a2, "isFreeFallDetectedEpoch");
-  v16 = *(this + 46);
-  if ((v16 & 0x100000) == 0)
+  v9 = *(this + 46);
+  if ((v9 & 0x100000) == 0)
   {
 LABEL_39:
-    if ((v16 & 0x200000) == 0)
+    if ((v9 & 0x200000) == 0)
     {
       goto LABEL_40;
     }
@@ -2353,13 +2334,12 @@ LABEL_39:
   }
 
 LABEL_148:
-  v38 = *(this + 334);
   PB::TextFormatter::format(a2, "isHighSpeedCrashDetected");
-  v16 = *(this + 46);
-  if ((v16 & 0x200000) == 0)
+  v9 = *(this + 46);
+  if ((v9 & 0x200000) == 0)
   {
 LABEL_40:
-    if ((v16 & 0x400000) == 0)
+    if ((v9 & 0x400000) == 0)
     {
       goto LABEL_41;
     }
@@ -2368,13 +2348,12 @@ LABEL_40:
   }
 
 LABEL_149:
-  v39 = *(this + 335);
   PB::TextFormatter::format(a2, "isHighSpeedCrashDetectedOverWindow");
-  v16 = *(this + 46);
-  if ((v16 & 0x400000) == 0)
+  v9 = *(this + 46);
+  if ((v9 & 0x400000) == 0)
   {
 LABEL_41:
-    if ((v16 & 0x800000) == 0)
+    if ((v9 & 0x800000) == 0)
     {
       goto LABEL_42;
     }
@@ -2383,13 +2362,12 @@ LABEL_41:
   }
 
 LABEL_150:
-  v40 = *(this + 336);
   PB::TextFormatter::format(a2, "isHighSpeedDetectedOverWindow");
-  v16 = *(this + 46);
-  if ((v16 & 0x800000) == 0)
+  v9 = *(this + 46);
+  if ((v9 & 0x800000) == 0)
   {
 LABEL_42:
-    if ((v16 & 0x1000000) == 0)
+    if ((v9 & 0x1000000) == 0)
     {
       goto LABEL_43;
     }
@@ -2398,13 +2376,12 @@ LABEL_42:
   }
 
 LABEL_151:
-  v41 = *(this + 337);
   PB::TextFormatter::format(a2, "isLowSensCrashDetected");
-  v16 = *(this + 46);
-  if ((v16 & 0x1000000) == 0)
+  v9 = *(this + 46);
+  if ((v9 & 0x1000000) == 0)
   {
 LABEL_43:
-    if ((v16 & 0x2000000) == 0)
+    if ((v9 & 0x2000000) == 0)
     {
       goto LABEL_44;
     }
@@ -2413,13 +2390,12 @@ LABEL_43:
   }
 
 LABEL_152:
-  v42 = *(this + 338);
   PB::TextFormatter::format(a2, "isLowSensRolloverCrashDetected");
-  v16 = *(this + 46);
-  if ((v16 & 0x2000000) == 0)
+  v9 = *(this + 46);
+  if ((v9 & 0x2000000) == 0)
   {
 LABEL_44:
-    if ((v16 & 0x4000000) == 0)
+    if ((v9 & 0x4000000) == 0)
     {
       goto LABEL_45;
     }
@@ -2428,13 +2404,12 @@ LABEL_44:
   }
 
 LABEL_153:
-  v43 = *(this + 339);
   PB::TextFormatter::format(a2, "isMAPFPDecided");
-  v16 = *(this + 46);
-  if ((v16 & 0x4000000) == 0)
+  v9 = *(this + 46);
+  if ((v9 & 0x4000000) == 0)
   {
 LABEL_45:
-    if ((v16 & 0x8000000) == 0)
+    if ((v9 & 0x8000000) == 0)
     {
       goto LABEL_46;
     }
@@ -2443,13 +2418,12 @@ LABEL_45:
   }
 
 LABEL_154:
-  v44 = *(this + 340);
   PB::TextFormatter::format(a2, "isQuiescenceDecided");
-  v16 = *(this + 46);
-  if ((v16 & 0x8000000) == 0)
+  v9 = *(this + 46);
+  if ((v9 & 0x8000000) == 0)
   {
 LABEL_46:
-    if ((v16 & 0x10000000) == 0)
+    if ((v9 & 0x10000000) == 0)
     {
       goto LABEL_47;
     }
@@ -2458,13 +2432,12 @@ LABEL_46:
   }
 
 LABEL_155:
-  v45 = *(this + 341);
   PB::TextFormatter::format(a2, "isRolloverCrashDetected");
-  v16 = *(this + 46);
-  if ((v16 & 0x10000000) == 0)
+  v9 = *(this + 46);
+  if ((v9 & 0x10000000) == 0)
   {
 LABEL_47:
-    if ((v16 & 0x20000000) == 0)
+    if ((v9 & 0x20000000) == 0)
     {
       goto LABEL_48;
     }
@@ -2473,13 +2446,12 @@ LABEL_47:
   }
 
 LABEL_156:
-  v46 = *(this + 342);
   PB::TextFormatter::format(a2, "isStepsDecided");
-  v16 = *(this + 46);
-  if ((v16 & 0x20000000) == 0)
+  v9 = *(this + 46);
+  if ((v9 & 0x20000000) == 0)
   {
 LABEL_48:
-    if ((v16 & 0x40000000) == 0)
+    if ((v9 & 0x40000000) == 0)
     {
       goto LABEL_50;
     }
@@ -2488,26 +2460,23 @@ LABEL_48:
   }
 
 LABEL_157:
-  v47 = *(this + 343);
   PB::TextFormatter::format(a2, "isTriggerClustersDecided");
   if ((*(this + 46) & 0x40000000) != 0)
   {
 LABEL_49:
-    v17 = *(this + 344);
     PB::TextFormatter::format(a2, "isUshaFPDecided");
   }
 
 LABEL_50:
-  v18 = *(this + 45);
-  if ((v18 & 4) != 0)
+  v10 = *(this + 45);
+  if ((v10 & 4) != 0)
   {
-    v48 = *(this + 3);
     PB::TextFormatter::format(a2, "lastLocalRealTriggerTimestamp");
-    v18 = *(this + 45);
-    if ((v18 & 8) == 0)
+    v10 = *(this + 45);
+    if ((v10 & 8) == 0)
     {
 LABEL_52:
-      if ((v18 & 0x10) == 0)
+      if ((v10 & 0x10) == 0)
       {
         goto LABEL_53;
       }
@@ -2516,18 +2485,17 @@ LABEL_52:
     }
   }
 
-  else if ((v18 & 8) == 0)
+  else if ((v10 & 8) == 0)
   {
     goto LABEL_52;
   }
 
-  v49 = *(this + 4);
   PB::TextFormatter::format(a2, "lastRemoteRealTriggerTimestamp");
-  v18 = *(this + 45);
-  if ((v18 & 0x10) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x10) == 0)
   {
 LABEL_53:
-    if ((v18 & 0x20) == 0)
+    if ((v10 & 0x20) == 0)
     {
       goto LABEL_54;
     }
@@ -2536,13 +2504,12 @@ LABEL_53:
   }
 
 LABEL_161:
-  v50 = *(this + 5);
   PB::TextFormatter::format(a2, "lastRemoteSampleTimestamp");
-  v18 = *(this + 45);
-  if ((v18 & 0x20) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x20) == 0)
   {
 LABEL_54:
-    if ((v18 & 0x80000) == 0)
+    if ((v10 & 0x80000) == 0)
     {
       goto LABEL_55;
     }
@@ -2551,13 +2518,12 @@ LABEL_54:
   }
 
 LABEL_162:
-  v51 = *(this + 6);
   PB::TextFormatter::format(a2, "lastTimestampMAPDecision");
-  v18 = *(this + 45);
-  if ((v18 & 0x80000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x80000) == 0)
   {
 LABEL_55:
-    if ((v18 & 0x100000) == 0)
+    if ((v10 & 0x100000) == 0)
     {
       goto LABEL_56;
     }
@@ -2566,13 +2532,12 @@ LABEL_55:
   }
 
 LABEL_163:
-  v52 = *(this + 29);
   PB::TextFormatter::format(a2, "lowSpeedOrFakeCountAtBoundaryThreshold");
-  v18 = *(this + 45);
-  if ((v18 & 0x100000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x100000) == 0)
   {
 LABEL_56:
-    if ((v18 & 0x200000) == 0)
+    if ((v10 & 0x200000) == 0)
     {
       goto LABEL_57;
     }
@@ -2582,11 +2547,11 @@ LABEL_56:
 
 LABEL_164:
   PB::TextFormatter::format(a2, "maxPulse", *(this + 30));
-  v18 = *(this + 45);
-  if ((v18 & 0x200000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x200000) == 0)
   {
 LABEL_57:
-    if ((v18 & 0x400000) == 0)
+    if ((v10 & 0x400000) == 0)
     {
       goto LABEL_58;
     }
@@ -2596,11 +2561,11 @@ LABEL_57:
 
 LABEL_165:
   PB::TextFormatter::format(a2, "maxPulseHarmonicMean", *(this + 31));
-  v18 = *(this + 45);
-  if ((v18 & 0x400000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x400000) == 0)
   {
 LABEL_58:
-    if ((v18 & 0x800000) == 0)
+    if ((v10 & 0x800000) == 0)
     {
       goto LABEL_59;
     }
@@ -2610,11 +2575,11 @@ LABEL_58:
 
 LABEL_166:
   PB::TextFormatter::format(a2, "maximumHoldDuration", *(this + 32));
-  v18 = *(this + 45);
-  if ((v18 & 0x800000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x800000) == 0)
   {
 LABEL_59:
-    if ((v18 & 0x1000000) == 0)
+    if ((v10 & 0x1000000) == 0)
     {
       goto LABEL_60;
     }
@@ -2624,11 +2589,11 @@ LABEL_59:
 
 LABEL_167:
   PB::TextFormatter::format(a2, "minimumHoldDuration", *(this + 33));
-  v18 = *(this + 45);
-  if ((v18 & 0x1000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x1000000) == 0)
   {
 LABEL_60:
-    if ((v18 & 0x2000000) == 0)
+    if ((v10 & 0x2000000) == 0)
     {
       goto LABEL_61;
     }
@@ -2637,13 +2602,12 @@ LABEL_60:
   }
 
 LABEL_168:
-  v53 = *(this + 34);
   PB::TextFormatter::format(a2, "movingCountThreshold");
-  v18 = *(this + 45);
-  if ((v18 & 0x2000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x2000000) == 0)
   {
 LABEL_61:
-    if ((v18 & 0x4000000) == 0)
+    if ((v10 & 0x4000000) == 0)
     {
       goto LABEL_62;
     }
@@ -2652,13 +2616,12 @@ LABEL_61:
   }
 
 LABEL_169:
-  v54 = *(this + 35);
   PB::TextFormatter::format(a2, "movingCountThresholdFromSydneyB");
-  v18 = *(this + 45);
-  if ((v18 & 0x4000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x4000000) == 0)
   {
 LABEL_62:
-    if ((v18 & 0x8000000) == 0)
+    if ((v10 & 0x8000000) == 0)
     {
       goto LABEL_63;
     }
@@ -2668,11 +2631,11 @@ LABEL_62:
 
 LABEL_170:
   PB::TextFormatter::format(a2, "movingGpsBlockoutWindow", *(this + 36));
-  v18 = *(this + 45);
-  if ((v18 & 0x8000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x8000000) == 0)
   {
 LABEL_63:
-    if ((v18 & 0x10000000) == 0)
+    if ((v10 & 0x10000000) == 0)
     {
       goto LABEL_64;
     }
@@ -2681,13 +2644,12 @@ LABEL_63:
   }
 
 LABEL_171:
-  v55 = *(this + 37);
   PB::TextFormatter::format(a2, "movingGpsCount");
-  v18 = *(this + 45);
-  if ((v18 & 0x10000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x10000000) == 0)
   {
 LABEL_64:
-    if ((v18 & 0x20000000) == 0)
+    if ((v10 & 0x20000000) == 0)
     {
       goto LABEL_65;
     }
@@ -2696,13 +2658,12 @@ LABEL_64:
   }
 
 LABEL_172:
-  v56 = *(this + 38);
   PB::TextFormatter::format(a2, "movingGpsCountTotal");
-  v18 = *(this + 45);
-  if ((v18 & 0x20000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x20000000) == 0)
   {
 LABEL_65:
-    if ((v18 & 0x40000000) == 0)
+    if ((v10 & 0x40000000) == 0)
     {
       goto LABEL_66;
     }
@@ -2711,13 +2672,12 @@ LABEL_65:
   }
 
 LABEL_173:
-  v57 = *(this + 39);
   PB::TextFormatter::format(a2, "numAudioSkiing");
-  v18 = *(this + 45);
-  if ((v18 & 0x40000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x40000000) == 0)
   {
 LABEL_66:
-    if ((v18 & 0x80000000) == 0)
+    if ((v10 & 0x80000000) == 0)
     {
       goto LABEL_67;
     }
@@ -2726,13 +2686,12 @@ LABEL_66:
   }
 
 LABEL_174:
-  v58 = *(this + 40);
   PB::TextFormatter::format(a2, "numAudioSkiingThreshold");
-  v18 = *(this + 45);
-  if ((v18 & 0x80000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x80000000) == 0)
   {
 LABEL_67:
-    if ((v18 & 0x100000000) == 0)
+    if ((v10 & 0x100000000) == 0)
     {
       goto LABEL_68;
     }
@@ -2741,13 +2700,12 @@ LABEL_67:
   }
 
 LABEL_175:
-  v59 = *(this + 41);
   PB::TextFormatter::format(a2, "numBaroIncreasesSkiing");
-  v18 = *(this + 45);
-  if ((v18 & 0x100000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x100000000) == 0)
   {
 LABEL_68:
-    if ((v18 & 0x200000000) == 0)
+    if ((v10 & 0x200000000) == 0)
     {
       goto LABEL_69;
     }
@@ -2756,13 +2714,12 @@ LABEL_68:
   }
 
 LABEL_176:
-  v60 = *(this + 42);
   PB::TextFormatter::format(a2, "numBaroIncreasesSkiingThreshold");
-  v18 = *(this + 45);
-  if ((v18 & 0x200000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x200000000) == 0)
   {
 LABEL_69:
-    if ((v18 & 0x400000000) == 0)
+    if ((v10 & 0x400000000) == 0)
     {
       goto LABEL_70;
     }
@@ -2771,13 +2728,12 @@ LABEL_69:
   }
 
 LABEL_177:
-  v61 = *(this + 43);
   PB::TextFormatter::format(a2, "numDeescalationAOI");
-  v18 = *(this + 45);
-  if ((v18 & 0x400000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x400000000) == 0)
   {
 LABEL_70:
-    if ((v18 & 0x800000000) == 0)
+    if ((v10 & 0x800000000) == 0)
     {
       goto LABEL_71;
     }
@@ -2786,13 +2742,12 @@ LABEL_70:
   }
 
 LABEL_178:
-  v62 = *(this + 44);
   PB::TextFormatter::format(a2, "numDeescalationMAP");
-  v18 = *(this + 45);
-  if ((v18 & 0x800000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x800000000) == 0)
   {
 LABEL_71:
-    if ((v18 & 0x1000000000) == 0)
+    if ((v10 & 0x1000000000) == 0)
     {
       goto LABEL_72;
     }
@@ -2801,13 +2756,12 @@ LABEL_71:
   }
 
 LABEL_179:
-  v63 = *(this + 45);
   PB::TextFormatter::format(a2, "numDeescalationTwoLevel");
-  v18 = *(this + 45);
-  if ((v18 & 0x1000000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x1000000000) == 0)
   {
 LABEL_72:
-    if ((v18 & 0x2000000000) == 0)
+    if ((v10 & 0x2000000000) == 0)
     {
       goto LABEL_73;
     }
@@ -2816,13 +2770,12 @@ LABEL_72:
   }
 
 LABEL_180:
-  v64 = *(this + 46);
   PB::TextFormatter::format(a2, "numDeescalationUsha");
-  v18 = *(this + 45);
-  if ((v18 & 0x2000000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x2000000000) == 0)
   {
 LABEL_73:
-    if ((v18 & 0x4000000000) == 0)
+    if ((v10 & 0x4000000000) == 0)
     {
       goto LABEL_74;
     }
@@ -2831,13 +2784,12 @@ LABEL_73:
   }
 
 LABEL_181:
-  v65 = *(this + 47);
   PB::TextFormatter::format(a2, "numGpsSamplesInHistory");
-  v18 = *(this + 45);
-  if ((v18 & 0x4000000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x4000000000) == 0)
   {
 LABEL_74:
-    if ((v18 & 0x8000000000) == 0)
+    if ((v10 & 0x8000000000) == 0)
     {
       goto LABEL_75;
     }
@@ -2846,13 +2798,12 @@ LABEL_74:
   }
 
 LABEL_182:
-  v66 = *(this + 48);
   PB::TextFormatter::format(a2, "numLowOrFakeGpsSamplesInHistory");
-  v18 = *(this + 45);
-  if ((v18 & 0x8000000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x8000000000) == 0)
   {
 LABEL_75:
-    if ((v18 & 0x10000000000) == 0)
+    if ((v10 & 0x10000000000) == 0)
     {
       goto LABEL_76;
     }
@@ -2861,13 +2812,12 @@ LABEL_75:
   }
 
 LABEL_183:
-  v67 = *(this + 49);
   PB::TextFormatter::format(a2, "numTriggersWithRecentSkiLiftDetected");
-  v18 = *(this + 45);
-  if ((v18 & 0x10000000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x10000000000) == 0)
   {
 LABEL_76:
-    if ((v18 & 0x20000000000) == 0)
+    if ((v10 & 0x20000000000) == 0)
     {
       goto LABEL_77;
     }
@@ -2876,13 +2826,12 @@ LABEL_76:
   }
 
 LABEL_184:
-  v68 = *(this + 50);
   PB::TextFormatter::format(a2, "numTriggersWithTrueBtHint");
-  v18 = *(this + 45);
-  if ((v18 & 0x20000000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x20000000000) == 0)
   {
 LABEL_77:
-    if ((v18 & 0x40000000000) == 0)
+    if ((v10 & 0x40000000000) == 0)
     {
       goto LABEL_78;
     }
@@ -2891,13 +2840,12 @@ LABEL_77:
   }
 
 LABEL_185:
-  v69 = *(this + 51);
   PB::TextFormatter::format(a2, "numUshaCPEpoch");
-  v18 = *(this + 45);
-  if ((v18 & 0x40000000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x40000000000) == 0)
   {
 LABEL_78:
-    if ((v18 & 0x80000000000) == 0)
+    if ((v10 & 0x80000000000) == 0)
     {
       goto LABEL_79;
     }
@@ -2906,13 +2854,12 @@ LABEL_78:
   }
 
 LABEL_186:
-  v70 = *(this + 52);
   PB::TextFormatter::format(a2, "numUshaCPEpochThreshold");
-  v18 = *(this + 45);
-  if ((v18 & 0x80000000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x80000000000) == 0)
   {
 LABEL_79:
-    if ((v18 & 0x100000000000) == 0)
+    if ((v10 & 0x100000000000) == 0)
     {
       goto LABEL_80;
     }
@@ -2921,13 +2868,12 @@ LABEL_79:
   }
 
 LABEL_187:
-  v71 = *(this + 53);
   PB::TextFormatter::format(a2, "numUshaFPEpoch");
-  v18 = *(this + 45);
-  if ((v18 & 0x100000000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x100000000000) == 0)
   {
 LABEL_80:
-    if ((v18 & 0x200000000000) == 0)
+    if ((v10 & 0x200000000000) == 0)
     {
       goto LABEL_81;
     }
@@ -2936,13 +2882,12 @@ LABEL_80:
   }
 
 LABEL_188:
-  v72 = *(this + 54);
   PB::TextFormatter::format(a2, "numUshaFPEpochThreshold");
-  v18 = *(this + 45);
-  if ((v18 & 0x200000000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x200000000000) == 0)
   {
 LABEL_81:
-    if ((v18 & 0x400000000000) == 0)
+    if ((v10 & 0x400000000000) == 0)
     {
       goto LABEL_82;
     }
@@ -2951,13 +2896,12 @@ LABEL_81:
   }
 
 LABEL_189:
-  v73 = *(this + 55);
   PB::TextFormatter::format(a2, "pedometerArmConstrainedState");
-  v18 = *(this + 45);
-  if ((v18 & 0x400000000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x400000000000) == 0)
   {
 LABEL_82:
-    if ((v18 & 0x800000000000) == 0)
+    if ((v10 & 0x800000000000) == 0)
     {
       goto LABEL_83;
     }
@@ -2967,11 +2911,11 @@ LABEL_82:
 
 LABEL_190:
   PB::TextFormatter::format(a2, "quiescenceCumulativeRotationHarmonicMeanThreshold", *(this + 56));
-  v18 = *(this + 45);
-  if ((v18 & 0x800000000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x800000000000) == 0)
   {
 LABEL_83:
-    if ((v18 & 0x1000000000000) == 0)
+    if ((v10 & 0x1000000000000) == 0)
     {
       goto LABEL_84;
     }
@@ -2981,11 +2925,11 @@ LABEL_83:
 
 LABEL_191:
   PB::TextFormatter::format(a2, "quiescenceMaxPulseHarmonicMeanThreshold", *(this + 57));
-  v18 = *(this + 45);
-  if ((v18 & 0x1000000000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x1000000000000) == 0)
   {
 LABEL_84:
-    if ((v18 & 0x2000000000000) == 0)
+    if ((v10 & 0x2000000000000) == 0)
     {
       goto LABEL_85;
     }
@@ -2994,13 +2938,12 @@ LABEL_84:
   }
 
 LABEL_192:
-  v74 = *(this + 58);
   PB::TextFormatter::format(a2, "quiescencePulseEpochCount");
-  v18 = *(this + 45);
-  if ((v18 & 0x2000000000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x2000000000000) == 0)
   {
 LABEL_85:
-    if ((v18 & 0x4000000000000) == 0)
+    if ((v10 & 0x4000000000000) == 0)
     {
       goto LABEL_86;
     }
@@ -3009,13 +2952,12 @@ LABEL_85:
   }
 
 LABEL_193:
-  v75 = *(this + 59);
   PB::TextFormatter::format(a2, "quiescenceSpinEpochCount");
-  v18 = *(this + 45);
-  if ((v18 & 0x4000000000000) == 0)
+  v10 = *(this + 45);
+  if ((v10 & 0x4000000000000) == 0)
   {
 LABEL_86:
-    if ((v18 & 0x8000000000000) == 0)
+    if ((v10 & 0x8000000000000) == 0)
     {
       goto LABEL_88;
     }
@@ -3024,7 +2966,6 @@ LABEL_86:
   }
 
 LABEL_194:
-  v76 = *(this + 60);
   PB::TextFormatter::format(a2, "sameEventState");
   if ((*(this + 45) & 0x8000000000000) != 0)
   {
@@ -3033,16 +2974,15 @@ LABEL_87:
   }
 
 LABEL_88:
-  v19 = *(this + 46);
-  if ((v19 & 0x80000000) != 0)
+  v11 = *(this + 46);
+  if ((v11 & 0x80000000) != 0)
   {
-    v77 = *(this + 345);
     PB::TextFormatter::format(a2, "shouldDeescalateBecauseOfAutocorrelationCondition");
-    v19 = *(this + 46);
-    if ((v19 & 0x100000000) == 0)
+    v11 = *(this + 46);
+    if ((v11 & 0x100000000) == 0)
     {
 LABEL_90:
-      if ((v19 & 0x200000000) == 0)
+      if ((v11 & 0x200000000) == 0)
       {
         goto LABEL_91;
       }
@@ -3051,18 +2991,17 @@ LABEL_90:
     }
   }
 
-  else if ((v19 & 0x100000000) == 0)
+  else if ((v11 & 0x100000000) == 0)
   {
     goto LABEL_90;
   }
 
-  v78 = *(this + 346);
   PB::TextFormatter::format(a2, "shouldDeescalateBecauseOfCrashClassifierCondition");
-  v19 = *(this + 46);
-  if ((v19 & 0x200000000) == 0)
+  v11 = *(this + 46);
+  if ((v11 & 0x200000000) == 0)
   {
 LABEL_91:
-    if ((v19 & 0x400000000) == 0)
+    if ((v11 & 0x400000000) == 0)
     {
       goto LABEL_92;
     }
@@ -3071,13 +3010,12 @@ LABEL_91:
   }
 
 LABEL_198:
-  v79 = *(this + 347);
   PB::TextFormatter::format(a2, "shouldDeescalateBecauseOfJointDetectionCondition");
-  v19 = *(this + 46);
-  if ((v19 & 0x400000000) == 0)
+  v11 = *(this + 46);
+  if ((v11 & 0x400000000) == 0)
   {
 LABEL_92:
-    if ((v19 & 0x800000000) == 0)
+    if ((v11 & 0x800000000) == 0)
     {
       goto LABEL_93;
     }
@@ -3086,13 +3024,12 @@ LABEL_92:
   }
 
 LABEL_199:
-  v80 = *(this + 348);
   PB::TextFormatter::format(a2, "shouldDeescalateBecauseOfMAPFPCondition");
-  v19 = *(this + 46);
-  if ((v19 & 0x800000000) == 0)
+  v11 = *(this + 46);
+  if ((v11 & 0x800000000) == 0)
   {
 LABEL_93:
-    if ((v19 & 0x1000000000) == 0)
+    if ((v11 & 0x1000000000) == 0)
     {
       goto LABEL_94;
     }
@@ -3101,13 +3038,12 @@ LABEL_93:
   }
 
 LABEL_200:
-  v81 = *(this + 349);
   PB::TextFormatter::format(a2, "shouldDeescalateBecauseOfMovingCondition");
-  v19 = *(this + 46);
-  if ((v19 & 0x1000000000) == 0)
+  v11 = *(this + 46);
+  if ((v11 & 0x1000000000) == 0)
   {
 LABEL_94:
-    if ((v19 & 0x2000000000) == 0)
+    if ((v11 & 0x2000000000) == 0)
     {
       goto LABEL_95;
     }
@@ -3116,13 +3052,12 @@ LABEL_94:
   }
 
 LABEL_201:
-  v82 = *(this + 350);
   PB::TextFormatter::format(a2, "shouldDeescalateBecauseOfQuiescenceCondition");
-  v19 = *(this + 46);
-  if ((v19 & 0x2000000000) == 0)
+  v11 = *(this + 46);
+  if ((v11 & 0x2000000000) == 0)
   {
 LABEL_95:
-    if ((v19 & 0x4000000000) == 0)
+    if ((v11 & 0x4000000000) == 0)
     {
       goto LABEL_96;
     }
@@ -3131,13 +3066,12 @@ LABEL_95:
   }
 
 LABEL_202:
-  v83 = *(this + 351);
   PB::TextFormatter::format(a2, "shouldDeescalateBecauseOfSkiLiftCondition");
-  v19 = *(this + 46);
-  if ((v19 & 0x4000000000) == 0)
+  v11 = *(this + 46);
+  if ((v11 & 0x4000000000) == 0)
   {
 LABEL_96:
-    if ((v19 & 0x8000000000) == 0)
+    if ((v11 & 0x8000000000) == 0)
     {
       goto LABEL_97;
     }
@@ -3146,13 +3080,12 @@ LABEL_96:
   }
 
 LABEL_203:
-  v84 = *(this + 352);
   PB::TextFormatter::format(a2, "shouldDeescalateBecauseOfSkiingCondition");
-  v19 = *(this + 46);
-  if ((v19 & 0x8000000000) == 0)
+  v11 = *(this + 46);
+  if ((v11 & 0x8000000000) == 0)
   {
 LABEL_97:
-    if ((v19 & 0x10000000000) == 0)
+    if ((v11 & 0x10000000000) == 0)
     {
       goto LABEL_98;
     }
@@ -3161,13 +3094,12 @@ LABEL_97:
   }
 
 LABEL_204:
-  v85 = *(this + 353);
   PB::TextFormatter::format(a2, "shouldDeescalateBecauseOfStaticCondition");
-  v19 = *(this + 46);
-  if ((v19 & 0x10000000000) == 0)
+  v11 = *(this + 46);
+  if ((v11 & 0x10000000000) == 0)
   {
 LABEL_98:
-    if ((v19 & 0x20000000000) == 0)
+    if ((v11 & 0x20000000000) == 0)
     {
       goto LABEL_99;
     }
@@ -3176,13 +3108,12 @@ LABEL_98:
   }
 
 LABEL_205:
-  v86 = *(this + 354);
   PB::TextFormatter::format(a2, "shouldDeescalateBecauseOfStepsCondition");
-  v19 = *(this + 46);
-  if ((v19 & 0x20000000000) == 0)
+  v11 = *(this + 46);
+  if ((v11 & 0x20000000000) == 0)
   {
 LABEL_99:
-    if ((v19 & 0x40000000000) == 0)
+    if ((v11 & 0x40000000000) == 0)
     {
       goto LABEL_100;
     }
@@ -3191,13 +3122,12 @@ LABEL_99:
   }
 
 LABEL_206:
-  v87 = *(this + 355);
   PB::TextFormatter::format(a2, "shouldDeescalateBecauseOfTriggerClustersCondition");
-  v19 = *(this + 46);
-  if ((v19 & 0x40000000000) == 0)
+  v11 = *(this + 46);
+  if ((v11 & 0x40000000000) == 0)
   {
 LABEL_100:
-    if ((v19 & 0x80000000000) == 0)
+    if ((v11 & 0x80000000000) == 0)
     {
       goto LABEL_101;
     }
@@ -3206,13 +3136,12 @@ LABEL_100:
   }
 
 LABEL_207:
-  v88 = *(this + 356);
   PB::TextFormatter::format(a2, "shouldDeescalateBecauseOfTwoLevelSensitivityCondition");
-  v19 = *(this + 46);
-  if ((v19 & 0x80000000000) == 0)
+  v11 = *(this + 46);
+  if ((v11 & 0x80000000000) == 0)
   {
 LABEL_101:
-    if ((v19 & 0x100000000000) == 0)
+    if ((v11 & 0x100000000000) == 0)
     {
       goto LABEL_103;
     }
@@ -3221,25 +3150,23 @@ LABEL_101:
   }
 
 LABEL_208:
-  v89 = *(this + 357);
   PB::TextFormatter::format(a2, "shouldDeescalateBecauseOfUshaFPCondition");
   if ((*(this + 46) & 0x100000000000) != 0)
   {
 LABEL_102:
-    v20 = *(this + 358);
     PB::TextFormatter::format(a2, "shouldEnableHighSensBecauseOfDistanceToRoadCondition");
   }
 
 LABEL_103:
-  v21 = *(this + 45);
-  if ((v21 & 0x10000000000000) != 0)
+  v12 = *(this + 45);
+  if ((v12 & 0x10000000000000) != 0)
   {
     PB::TextFormatter::format(a2, "skiingPressureChangeOverEpochThreshold", *(this + 62));
-    v21 = *(this + 45);
-    if ((v21 & 0x20000000000000) == 0)
+    v12 = *(this + 45);
+    if ((v12 & 0x20000000000000) == 0)
     {
 LABEL_105:
-      if ((v21 & 0x40000000000000) == 0)
+      if ((v12 & 0x40000000000000) == 0)
       {
         goto LABEL_106;
       }
@@ -3248,18 +3175,17 @@ LABEL_105:
     }
   }
 
-  else if ((v21 & 0x20000000000000) == 0)
+  else if ((v12 & 0x20000000000000) == 0)
   {
     goto LABEL_105;
   }
 
-  v90 = *(this + 63);
   PB::TextFormatter::format(a2, "staticCountThreshold");
-  v21 = *(this + 45);
-  if ((v21 & 0x40000000000000) == 0)
+  v12 = *(this + 45);
+  if ((v12 & 0x40000000000000) == 0)
   {
 LABEL_106:
-    if ((v21 & 0x80000000000000) == 0)
+    if ((v12 & 0x80000000000000) == 0)
     {
       goto LABEL_107;
     }
@@ -3268,13 +3194,12 @@ LABEL_106:
   }
 
 LABEL_212:
-  v91 = *(this + 64);
   PB::TextFormatter::format(a2, "staticGpsCount");
-  v21 = *(this + 45);
-  if ((v21 & 0x80000000000000) == 0)
+  v12 = *(this + 45);
+  if ((v12 & 0x80000000000000) == 0)
   {
 LABEL_107:
-    if ((v21 & 0x100000000000000) == 0)
+    if ((v12 & 0x100000000000000) == 0)
     {
       goto LABEL_108;
     }
@@ -3283,13 +3208,12 @@ LABEL_107:
   }
 
 LABEL_213:
-  v92 = *(this + 65);
   PB::TextFormatter::format(a2, "staticGpsCountTotal");
-  v21 = *(this + 45);
-  if ((v21 & 0x100000000000000) == 0)
+  v12 = *(this + 45);
+  if ((v12 & 0x100000000000000) == 0)
   {
 LABEL_108:
-    if ((v21 & 0x200000000000000) == 0)
+    if ((v12 & 0x200000000000000) == 0)
     {
       goto LABEL_109;
     }
@@ -3298,13 +3222,12 @@ LABEL_108:
   }
 
 LABEL_214:
-  v93 = *(this + 66);
   PB::TextFormatter::format(a2, "stationaryCountMissingAsNoOpThreshold");
-  v21 = *(this + 45);
-  if ((v21 & 0x200000000000000) == 0)
+  v12 = *(this + 45);
+  if ((v12 & 0x200000000000000) == 0)
   {
 LABEL_109:
-    if ((v21 & 0x40) == 0)
+    if ((v12 & 0x40) == 0)
     {
       goto LABEL_110;
     }
@@ -3313,13 +3236,12 @@ LABEL_109:
   }
 
 LABEL_215:
-  v94 = *(this + 67);
   PB::TextFormatter::format(a2, "stepCountEventTimestamp");
-  v21 = *(this + 45);
-  if ((v21 & 0x40) == 0)
+  v12 = *(this + 45);
+  if ((v12 & 0x40) == 0)
   {
 LABEL_110:
-    if ((v21 & 0x400000000000000) == 0)
+    if ((v12 & 0x400000000000000) == 0)
     {
       goto LABEL_111;
     }
@@ -3328,13 +3250,12 @@ LABEL_110:
   }
 
 LABEL_216:
-  v95 = *(this + 7);
   PB::TextFormatter::format(a2, "stepCountEventTimestamp64");
-  v21 = *(this + 45);
-  if ((v21 & 0x400000000000000) == 0)
+  v12 = *(this + 45);
+  if ((v12 & 0x400000000000000) == 0)
   {
 LABEL_111:
-    if ((v21 & 0x800000000000000) == 0)
+    if ((v12 & 0x800000000000000) == 0)
     {
       goto LABEL_112;
     }
@@ -3344,11 +3265,11 @@ LABEL_111:
 
 LABEL_217:
   PB::TextFormatter::format(a2, "stepsCadence", *(this + 68));
-  v21 = *(this + 45);
-  if ((v21 & 0x800000000000000) == 0)
+  v12 = *(this + 45);
+  if ((v12 & 0x800000000000000) == 0)
   {
 LABEL_112:
-    if ((v21 & 0x1000000000000000) == 0)
+    if ((v12 & 0x1000000000000000) == 0)
     {
       goto LABEL_113;
     }
@@ -3358,11 +3279,11 @@ LABEL_112:
 
 LABEL_218:
   PB::TextFormatter::format(a2, "stepsCadenceThreshold", *(this + 69));
-  v21 = *(this + 45);
-  if ((v21 & 0x1000000000000000) == 0)
+  v12 = *(this + 45);
+  if ((v12 & 0x1000000000000000) == 0)
   {
 LABEL_113:
-    if ((v21 & 0x2000000000000000) == 0)
+    if ((v12 & 0x2000000000000000) == 0)
     {
       goto LABEL_114;
     }
@@ -3371,19 +3292,17 @@ LABEL_113:
   }
 
 LABEL_219:
-  v96 = *(this + 70);
   PB::TextFormatter::format(a2, "stepsCount");
-  v21 = *(this + 45);
-  if ((v21 & 0x2000000000000000) == 0)
+  v12 = *(this + 45);
+  if ((v12 & 0x2000000000000000) == 0)
   {
 LABEL_114:
-    if ((v21 & 0x4000000000000000) == 0)
+    if ((v12 & 0x4000000000000000) == 0)
     {
       goto LABEL_115;
     }
 
 LABEL_221:
-    v98 = *(this + 72);
     PB::TextFormatter::format(a2, "stepsDeescalatedAtOpp");
     if ((*(this + 45) & 0x8000000000000000) == 0)
     {
@@ -3394,16 +3313,15 @@ LABEL_221:
   }
 
 LABEL_220:
-  v97 = *(this + 71);
   PB::TextFormatter::format(a2, "stepsCountThreshold");
-  v21 = *(this + 45);
-  if ((v21 & 0x4000000000000000) != 0)
+  v12 = *(this + 45);
+  if ((v12 & 0x4000000000000000) != 0)
   {
     goto LABEL_221;
   }
 
 LABEL_115:
-  if ((v21 & 0x8000000000000000) == 0)
+  if ((v12 & 0x8000000000000000) == 0)
   {
     goto LABEL_116;
   }
@@ -3411,15 +3329,15 @@ LABEL_115:
 LABEL_222:
   PB::TextFormatter::format(a2, "stepsEpochCount", *(this + 73));
 LABEL_116:
-  v22 = *(this + 46);
-  if (v22)
+  v13 = *(this + 46);
+  if (v13)
   {
     PB::TextFormatter::format(a2, "stepsPerMinute", *(this + 74));
-    v22 = *(this + 46);
-    if ((v22 & 2) == 0)
+    v13 = *(this + 46);
+    if ((v13 & 2) == 0)
     {
 LABEL_118:
-      if ((v22 & 4) == 0)
+      if ((v13 & 4) == 0)
       {
         goto LABEL_120;
       }
@@ -3428,7 +3346,7 @@ LABEL_118:
     }
   }
 
-  else if ((v22 & 2) == 0)
+  else if ((v13 & 2) == 0)
   {
     goto LABEL_118;
   }
@@ -3437,27 +3355,24 @@ LABEL_118:
   if ((*(this + 46) & 4) != 0)
   {
 LABEL_119:
-    v23 = *(this + 76);
     PB::TextFormatter::format(a2, "stepsSecondOpportunityLookbackLength");
   }
 
 LABEL_120:
   if ((*(this + 360) & 0x80) != 0)
   {
-    v24 = *(this + 8);
     PB::TextFormatter::format(a2, "timestamp");
   }
 
-  v25 = *(this + 46);
-  if ((v25 & 8) != 0)
+  v14 = *(this + 46);
+  if ((v14 & 8) != 0)
   {
-    v99 = *(this + 77);
     PB::TextFormatter::format(a2, "triggerClusterDeescalationWindowBoundary");
-    v25 = *(this + 46);
-    if ((v25 & 0x10) == 0)
+    v14 = *(this + 46);
+    if ((v14 & 0x10) == 0)
     {
 LABEL_124:
-      if ((v25 & 0x20) == 0)
+      if ((v14 & 0x20) == 0)
       {
         goto LABEL_126;
       }
@@ -3466,7 +3381,7 @@ LABEL_124:
     }
   }
 
-  else if ((v25 & 0x10) == 0)
+  else if ((v14 & 0x10) == 0)
   {
     goto LABEL_124;
   }
@@ -8717,12 +8632,10 @@ LABEL_4:
   }
 
 LABEL_141:
-  v44 = *(v3 + 136);
   this = PB::Writer::writeVarInt(a2);
   if ((*(v3 + 360) & 0x20000000000000) != 0)
   {
 LABEL_5:
-    v5 = *(v3 + 252);
     this = PB::Writer::writeVarInt(a2);
   }
 
@@ -8732,15 +8645,15 @@ LABEL_6:
     this = PB::Writer::write(a2, *(v3 + 300));
   }
 
-  v6 = *(v3 + 360);
-  if ((v6 & 0x800000000000000) != 0)
+  v5 = *(v3 + 360);
+  if ((v5 & 0x800000000000000) != 0)
   {
     this = PB::Writer::write(a2, *(v3 + 276));
-    v6 = *(v3 + 360);
-    if ((v6 & 0x800000000000) == 0)
+    v5 = *(v3 + 360);
+    if ((v5 & 0x800000000000) == 0)
     {
 LABEL_10:
-      if ((v6 & 0x400000000000) == 0)
+      if ((v5 & 0x400000000000) == 0)
       {
         goto LABEL_11;
       }
@@ -8749,17 +8662,17 @@ LABEL_10:
     }
   }
 
-  else if ((v6 & 0x800000000000) == 0)
+  else if ((v5 & 0x800000000000) == 0)
   {
     goto LABEL_10;
   }
 
   this = PB::Writer::write(a2, *(v3 + 228));
-  v6 = *(v3 + 360);
-  if ((v6 & 0x400000000000) == 0)
+  v5 = *(v3 + 360);
+  if ((v5 & 0x400000000000) == 0)
   {
 LABEL_11:
-    if ((v6 & 0x200) == 0)
+    if ((v5 & 0x200) == 0)
     {
       goto LABEL_12;
     }
@@ -8769,11 +8682,11 @@ LABEL_11:
 
 LABEL_145:
   this = PB::Writer::write(a2, *(v3 + 224));
-  v6 = *(v3 + 360);
-  if ((v6 & 0x200) == 0)
+  v5 = *(v3 + 360);
+  if ((v5 & 0x200) == 0)
   {
 LABEL_12:
-    if ((v6 & 0x100000000000000) == 0)
+    if ((v5 & 0x100000000000000) == 0)
     {
       goto LABEL_13;
     }
@@ -8783,11 +8696,11 @@ LABEL_12:
 
 LABEL_146:
   this = PB::Writer::write(a2, *(v3 + 76));
-  v6 = *(v3 + 360);
-  if ((v6 & 0x100000000000000) == 0)
+  v5 = *(v3 + 360);
+  if ((v5 & 0x100000000000000) == 0)
   {
 LABEL_13:
-    if ((v6 & 0x2000000) == 0)
+    if ((v5 & 0x2000000) == 0)
     {
       goto LABEL_14;
     }
@@ -8796,13 +8709,12 @@ LABEL_13:
   }
 
 LABEL_147:
-  v45 = *(v3 + 264);
   this = PB::Writer::writeVarInt(a2);
-  v6 = *(v3 + 360);
-  if ((v6 & 0x2000000) == 0)
+  v5 = *(v3 + 360);
+  if ((v5 & 0x2000000) == 0)
   {
 LABEL_14:
-    if ((v6 & 0x10000) == 0)
+    if ((v5 & 0x10000) == 0)
     {
       goto LABEL_16;
     }
@@ -8811,7 +8723,6 @@ LABEL_14:
   }
 
 LABEL_148:
-  v46 = *(v3 + 140);
   this = PB::Writer::writeVarInt(a2);
   if ((*(v3 + 360) & 0x10000) != 0)
   {
@@ -8820,28 +8731,27 @@ LABEL_15:
   }
 
 LABEL_16:
-  v7 = *(v3 + 368);
-  if ((v7 & 0x10) != 0)
+  v6 = *(v3 + 368);
+  if ((v6 & 0x10) != 0)
   {
     this = PB::Writer::write(a2, *(v3 + 312));
-    v7 = *(v3 + 368);
+    v6 = *(v3 + 368);
   }
 
-  if ((v7 & 0x20) != 0)
+  if ((v6 & 0x20) != 0)
   {
     this = PB::Writer::write(a2, *(v3 + 316));
   }
 
-  v8 = *(v3 + 360);
-  if ((v8 & 0x100000000000) != 0)
+  v7 = *(v3 + 360);
+  if ((v7 & 0x100000000000) != 0)
   {
-    v47 = *(v3 + 216);
     this = PB::Writer::writeVarInt(a2);
-    v8 = *(v3 + 360);
-    if ((v8 & 0x40000000000) == 0)
+    v7 = *(v3 + 360);
+    if ((v7 & 0x40000000000) == 0)
     {
 LABEL_22:
-      if ((v8 & 0x8000000000000) == 0)
+      if ((v7 & 0x8000000000000) == 0)
       {
         goto LABEL_23;
       }
@@ -8850,18 +8760,17 @@ LABEL_22:
     }
   }
 
-  else if ((v8 & 0x40000000000) == 0)
+  else if ((v7 & 0x40000000000) == 0)
   {
     goto LABEL_22;
   }
 
-  v48 = *(v3 + 208);
   this = PB::Writer::writeVarInt(a2);
-  v8 = *(v3 + 360);
-  if ((v8 & 0x8000000000000) == 0)
+  v7 = *(v3 + 360);
+  if ((v7 & 0x8000000000000) == 0)
   {
 LABEL_23:
-    if ((v8 & 0x2000000000000000) == 0)
+    if ((v7 & 0x2000000000000000) == 0)
     {
       goto LABEL_25;
     }
@@ -8874,26 +8783,24 @@ LABEL_152:
   if ((*(v3 + 360) & 0x2000000000000000) != 0)
   {
 LABEL_24:
-    v9 = *(v3 + 284);
     this = PB::Writer::writeVarInt(a2);
   }
 
 LABEL_25:
   if ((*(v3 + 368) & 4) != 0)
   {
-    v10 = *(v3 + 304);
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v11 = *(v3 + 360);
-  if ((v11 & 0x4000000) != 0)
+  v8 = *(v3 + 360);
+  if ((v8 & 0x4000000) != 0)
   {
     this = PB::Writer::write(a2, *(v3 + 144));
-    v11 = *(v3 + 360);
-    if ((v11 & 0x80) == 0)
+    v8 = *(v3 + 360);
+    if ((v8 & 0x80) == 0)
     {
 LABEL_29:
-      if ((v11 & 1) == 0)
+      if ((v8 & 1) == 0)
       {
         goto LABEL_31;
       }
@@ -8902,31 +8809,28 @@ LABEL_29:
     }
   }
 
-  else if ((v11 & 0x80) == 0)
+  else if ((v8 & 0x80) == 0)
   {
     goto LABEL_29;
   }
 
-  v49 = *(v3 + 64);
   this = PB::Writer::writeVarInt(a2);
   if (*(v3 + 360))
   {
 LABEL_30:
-    v12 = *(v3 + 8);
     this = PB::Writer::writeVarInt(a2);
   }
 
 LABEL_31:
-  v13 = *(v3 + 368);
-  if ((v13 & 0x80) != 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x80) != 0)
   {
-    v50 = *(v3 + 321);
     this = PB::Writer::write(a2);
-    v13 = *(v3 + 368);
-    if ((v13 & 0x100) == 0)
+    v9 = *(v3 + 368);
+    if ((v9 & 0x100) == 0)
     {
 LABEL_33:
-      if ((v13 & 0x10000) == 0)
+      if ((v9 & 0x10000) == 0)
       {
         goto LABEL_34;
       }
@@ -8935,18 +8839,17 @@ LABEL_33:
     }
   }
 
-  else if ((v13 & 0x100) == 0)
+  else if ((v9 & 0x100) == 0)
   {
     goto LABEL_33;
   }
 
-  v51 = *(v3 + 322);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x10000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x10000) == 0)
   {
 LABEL_34:
-    if ((v13 & 0x20000) == 0)
+    if ((v9 & 0x20000) == 0)
     {
       goto LABEL_35;
     }
@@ -8955,13 +8858,12 @@ LABEL_34:
   }
 
 LABEL_159:
-  v52 = *(v3 + 330);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x20000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x20000) == 0)
   {
 LABEL_35:
-    if ((v13 & 0x10000000) == 0)
+    if ((v9 & 0x10000000) == 0)
     {
       goto LABEL_36;
     }
@@ -8970,13 +8872,12 @@ LABEL_35:
   }
 
 LABEL_160:
-  v53 = *(v3 + 331);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x10000000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x10000000) == 0)
   {
 LABEL_36:
-    if ((v13 & 0x4000000) == 0)
+    if ((v9 & 0x4000000) == 0)
     {
       goto LABEL_37;
     }
@@ -8985,13 +8886,12 @@ LABEL_36:
   }
 
 LABEL_161:
-  v54 = *(v3 + 342);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x4000000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x4000000) == 0)
   {
 LABEL_37:
-    if ((v13 & 0x2000) == 0)
+    if ((v9 & 0x2000) == 0)
     {
       goto LABEL_38;
     }
@@ -9000,13 +8900,12 @@ LABEL_37:
   }
 
 LABEL_162:
-  v55 = *(v3 + 340);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x2000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x2000) == 0)
   {
 LABEL_38:
-    if ((v13 & 0x20000000) == 0)
+    if ((v9 & 0x20000000) == 0)
     {
       goto LABEL_39;
     }
@@ -9015,13 +8914,12 @@ LABEL_38:
   }
 
 LABEL_163:
-  v56 = *(v3 + 327);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x20000000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x20000000) == 0)
   {
 LABEL_39:
-    if ((v13 & 0x40000000) == 0)
+    if ((v9 & 0x40000000) == 0)
     {
       goto LABEL_40;
     }
@@ -9030,13 +8928,12 @@ LABEL_39:
   }
 
 LABEL_164:
-  v57 = *(v3 + 343);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x40000000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x40000000) == 0)
   {
 LABEL_40:
-    if ((v13 & 0x400) == 0)
+    if ((v9 & 0x400) == 0)
     {
       goto LABEL_41;
     }
@@ -9045,13 +8942,12 @@ LABEL_40:
   }
 
 LABEL_165:
-  v58 = *(v3 + 344);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x400) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x400) == 0)
   {
 LABEL_41:
-    if ((v13 & 0x2000000) == 0)
+    if ((v9 & 0x2000000) == 0)
     {
       goto LABEL_42;
     }
@@ -9060,13 +8956,12 @@ LABEL_41:
   }
 
 LABEL_166:
-  v59 = *(v3 + 324);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x2000000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x2000000) == 0)
   {
 LABEL_42:
-    if ((v13 & 0x4000) == 0)
+    if ((v9 & 0x4000) == 0)
     {
       goto LABEL_43;
     }
@@ -9075,13 +8970,12 @@ LABEL_42:
   }
 
 LABEL_167:
-  v60 = *(v3 + 339);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x4000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x4000) == 0)
   {
 LABEL_43:
-    if ((v13 & 0x8000000) == 0)
+    if ((v9 & 0x8000000) == 0)
     {
       goto LABEL_44;
     }
@@ -9090,13 +8984,12 @@ LABEL_43:
   }
 
 LABEL_168:
-  v61 = *(v3 + 328);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x8000000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x8000000) == 0)
   {
 LABEL_44:
-    if ((v13 & 0x100000) == 0)
+    if ((v9 & 0x100000) == 0)
     {
       goto LABEL_45;
     }
@@ -9105,13 +8998,12 @@ LABEL_44:
   }
 
 LABEL_169:
-  v62 = *(v3 + 341);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x100000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x100000) == 0)
   {
 LABEL_45:
-    if ((v13 & 0x8000000000) == 0)
+    if ((v9 & 0x8000000000) == 0)
     {
       goto LABEL_46;
     }
@@ -9120,13 +9012,12 @@ LABEL_45:
   }
 
 LABEL_170:
-  v63 = *(v3 + 334);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x8000000000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x8000000000) == 0)
   {
 LABEL_46:
-    if ((v13 & 0x800000000) == 0)
+    if ((v9 & 0x800000000) == 0)
     {
       goto LABEL_47;
     }
@@ -9135,13 +9026,12 @@ LABEL_46:
   }
 
 LABEL_171:
-  v64 = *(v3 + 353);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x800000000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x800000000) == 0)
   {
 LABEL_47:
-    if ((v13 & 0x10000000000) == 0)
+    if ((v9 & 0x10000000000) == 0)
     {
       goto LABEL_48;
     }
@@ -9150,13 +9040,12 @@ LABEL_47:
   }
 
 LABEL_172:
-  v65 = *(v3 + 349);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x10000000000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x10000000000) == 0)
   {
 LABEL_48:
-    if ((v13 & 0x1000000000) == 0)
+    if ((v9 & 0x1000000000) == 0)
     {
       goto LABEL_49;
     }
@@ -9165,13 +9054,12 @@ LABEL_48:
   }
 
 LABEL_173:
-  v66 = *(v3 + 354);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x1000000000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x1000000000) == 0)
   {
 LABEL_49:
-    if ((v13 & 0x80000000) == 0)
+    if ((v9 & 0x80000000) == 0)
     {
       goto LABEL_50;
     }
@@ -9180,13 +9068,12 @@ LABEL_49:
   }
 
 LABEL_174:
-  v67 = *(v3 + 350);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x80000000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x80000000) == 0)
   {
 LABEL_50:
-    if ((v13 & 0x1000) == 0)
+    if ((v9 & 0x1000) == 0)
     {
       goto LABEL_51;
     }
@@ -9195,13 +9082,12 @@ LABEL_50:
   }
 
 LABEL_175:
-  v68 = *(v3 + 345);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x1000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x1000) == 0)
   {
 LABEL_51:
-    if ((v13 & 0x200000) == 0)
+    if ((v9 & 0x200000) == 0)
     {
       goto LABEL_52;
     }
@@ -9210,13 +9096,12 @@ LABEL_51:
   }
 
 LABEL_176:
-  v69 = *(v3 + 326);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x200000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x200000) == 0)
   {
 LABEL_52:
-    if ((v13 & 0x20000000000) == 0)
+    if ((v9 & 0x20000000000) == 0)
     {
       goto LABEL_53;
     }
@@ -9225,13 +9110,12 @@ LABEL_52:
   }
 
 LABEL_177:
-  v70 = *(v3 + 335);
   this = PB::Writer::write(a2);
-  v13 = *(v3 + 368);
-  if ((v13 & 0x20000000000) == 0)
+  v9 = *(v3 + 368);
+  if ((v9 & 0x20000000000) == 0)
   {
 LABEL_53:
-    if ((v13 & 0x2000000000) == 0)
+    if ((v9 & 0x2000000000) == 0)
     {
       goto LABEL_55;
     }
@@ -9240,32 +9124,28 @@ LABEL_53:
   }
 
 LABEL_178:
-  v71 = *(v3 + 355);
   this = PB::Writer::write(a2);
   if ((*(v3 + 368) & 0x2000000000) != 0)
   {
 LABEL_54:
-    v14 = *(v3 + 351);
     this = PB::Writer::write(a2);
   }
 
 LABEL_55:
   if ((*(v3 + 362) & 2) != 0)
   {
-    v15 = *(v3 + 108);
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v16 = *(v3 + 368);
-  if ((v16 & 0x800000) != 0)
+  v10 = *(v3 + 368);
+  if ((v10 & 0x800000) != 0)
   {
-    v72 = *(v3 + 337);
     this = PB::Writer::write(a2);
-    v16 = *(v3 + 368);
-    if ((v16 & 0x1000000) == 0)
+    v10 = *(v3 + 368);
+    if ((v10 & 0x1000000) == 0)
     {
 LABEL_59:
-      if ((v16 & 0x40) == 0)
+      if ((v10 & 0x40) == 0)
       {
         goto LABEL_61;
       }
@@ -9274,37 +9154,33 @@ LABEL_59:
     }
   }
 
-  else if ((v16 & 0x1000000) == 0)
+  else if ((v10 & 0x1000000) == 0)
   {
     goto LABEL_59;
   }
 
-  v73 = *(v3 + 338);
   this = PB::Writer::write(a2);
   if ((*(v3 + 368) & 0x40) != 0)
   {
 LABEL_60:
-    v17 = *(v3 + 320);
     this = PB::Writer::write(a2);
   }
 
 LABEL_61:
   if ((*(v3 + 362) & 4) != 0)
   {
-    v18 = *(v3 + 112);
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v19 = *(v3 + 368);
-  if ((v19 & 0x100000000000) != 0)
+  v11 = *(v3 + 368);
+  if ((v11 & 0x100000000000) != 0)
   {
-    v74 = *(v3 + 358);
     this = PB::Writer::write(a2);
-    v19 = *(v3 + 368);
-    if ((v19 & 0x40000000000) == 0)
+    v11 = *(v3 + 368);
+    if ((v11 & 0x40000000000) == 0)
     {
 LABEL_65:
-      if ((v19 & 0x80000000000) == 0)
+      if ((v11 & 0x80000000000) == 0)
       {
         goto LABEL_66;
       }
@@ -9313,18 +9189,17 @@ LABEL_65:
     }
   }
 
-  else if ((v19 & 0x40000000000) == 0)
+  else if ((v11 & 0x40000000000) == 0)
   {
     goto LABEL_65;
   }
 
-  v75 = *(v3 + 356);
   this = PB::Writer::write(a2);
-  v19 = *(v3 + 368);
-  if ((v19 & 0x80000000000) == 0)
+  v11 = *(v3 + 368);
+  if ((v11 & 0x80000000000) == 0)
   {
 LABEL_66:
-    if ((v19 & 0x400000000) == 0)
+    if ((v11 & 0x400000000) == 0)
     {
       goto LABEL_67;
     }
@@ -9333,13 +9208,12 @@ LABEL_66:
   }
 
 LABEL_185:
-  v76 = *(v3 + 357);
   this = PB::Writer::write(a2);
-  v19 = *(v3 + 368);
-  if ((v19 & 0x400000000) == 0)
+  v11 = *(v3 + 368);
+  if ((v11 & 0x400000000) == 0)
   {
 LABEL_67:
-    if ((v19 & 0x200000000) == 0)
+    if ((v11 & 0x200000000) == 0)
     {
       goto LABEL_68;
     }
@@ -9348,13 +9222,12 @@ LABEL_67:
   }
 
 LABEL_186:
-  v77 = *(v3 + 348);
   this = PB::Writer::write(a2);
-  v19 = *(v3 + 368);
-  if ((v19 & 0x200000000) == 0)
+  v11 = *(v3 + 368);
+  if ((v11 & 0x200000000) == 0)
   {
 LABEL_68:
-    if ((v19 & 0x100000000) == 0)
+    if ((v11 & 0x100000000) == 0)
     {
       goto LABEL_70;
     }
@@ -9363,26 +9236,23 @@ LABEL_68:
   }
 
 LABEL_187:
-  v78 = *(v3 + 347);
   this = PB::Writer::write(a2);
   if ((*(v3 + 368) & 0x100000000) != 0)
   {
 LABEL_69:
-    v20 = *(v3 + 346);
     this = PB::Writer::write(a2);
   }
 
 LABEL_70:
-  v21 = *(v3 + 360);
-  if ((v21 & 0x40000000000000) != 0)
+  v12 = *(v3 + 360);
+  if ((v12 & 0x40000000000000) != 0)
   {
-    v79 = *(v3 + 256);
     this = PB::Writer::writeVarInt(a2);
-    v21 = *(v3 + 360);
-    if ((v21 & 0x80000000000000) == 0)
+    v12 = *(v3 + 360);
+    if ((v12 & 0x80000000000000) == 0)
     {
 LABEL_72:
-      if ((v21 & 0x8000000) == 0)
+      if ((v12 & 0x8000000) == 0)
       {
         goto LABEL_73;
       }
@@ -9391,18 +9261,17 @@ LABEL_72:
     }
   }
 
-  else if ((v21 & 0x80000000000000) == 0)
+  else if ((v12 & 0x80000000000000) == 0)
   {
     goto LABEL_72;
   }
 
-  v80 = *(v3 + 260);
   this = PB::Writer::writeVarInt(a2);
-  v21 = *(v3 + 360);
-  if ((v21 & 0x8000000) == 0)
+  v12 = *(v3 + 360);
+  if ((v12 & 0x8000000) == 0)
   {
 LABEL_73:
-    if ((v21 & 0x10000000) == 0)
+    if ((v12 & 0x10000000) == 0)
     {
       goto LABEL_75;
     }
@@ -9411,46 +9280,40 @@ LABEL_73:
   }
 
 LABEL_191:
-  v81 = *(v3 + 148);
   this = PB::Writer::writeVarInt(a2);
   if ((*(v3 + 360) & 0x10000000) != 0)
   {
 LABEL_74:
-    v22 = *(v3 + 152);
     this = PB::Writer::writeVarInt(a2);
   }
 
 LABEL_75:
-  v23 = *(v3 + 368);
-  if ((v23 & 0x40000) != 0)
+  v13 = *(v3 + 368);
+  if ((v13 & 0x40000) != 0)
   {
-    v24 = *(v3 + 332);
     this = PB::Writer::write(a2);
-    v23 = *(v3 + 368);
+    v13 = *(v3 + 368);
   }
 
-  if ((v23 & 0x8000) != 0)
+  if ((v13 & 0x8000) != 0)
   {
-    v25 = *(v3 + 329);
     this = PB::Writer::write(a2);
   }
 
-  v26 = *(v3 + 360);
-  if ((v26 & 0x4000000000) != 0)
+  v14 = *(v3 + 360);
+  if ((v14 & 0x4000000000) != 0)
   {
-    v82 = *(v3 + 192);
     this = PB::Writer::writeVarInt(a2);
-    v26 = *(v3 + 360);
-    if ((v26 & 0x80000) == 0)
+    v14 = *(v3 + 360);
+    if ((v14 & 0x80000) == 0)
     {
 LABEL_81:
-      if ((v26 & 0x2000000000) == 0)
+      if ((v14 & 0x2000000000) == 0)
       {
         goto LABEL_82;
       }
 
 LABEL_195:
-      v84 = *(v3 + 188);
       this = PB::Writer::writeVarInt(a2);
       if ((*(v3 + 360) & 0x8000000000000000) == 0)
       {
@@ -9461,21 +9324,20 @@ LABEL_195:
     }
   }
 
-  else if ((v26 & 0x80000) == 0)
+  else if ((v14 & 0x80000) == 0)
   {
     goto LABEL_81;
   }
 
-  v83 = *(v3 + 116);
   this = PB::Writer::writeVarInt(a2);
-  v26 = *(v3 + 360);
-  if ((v26 & 0x2000000000) != 0)
+  v14 = *(v3 + 360);
+  if ((v14 & 0x2000000000) != 0)
   {
     goto LABEL_195;
   }
 
 LABEL_82:
-  if ((v26 & 0x8000000000000000) == 0)
+  if ((v14 & 0x8000000000000000) == 0)
   {
     goto LABEL_83;
   }
@@ -9488,15 +9350,15 @@ LABEL_83:
     this = PB::Writer::write(a2, *(v3 + 296));
   }
 
-  v27 = *(v3 + 360);
-  if ((v27 & 0x400000000000000) != 0)
+  v15 = *(v3 + 360);
+  if ((v15 & 0x400000000000000) != 0)
   {
     this = PB::Writer::write(a2, *(v3 + 272));
-    v27 = *(v3 + 360);
-    if ((v27 & 0x1000000000000000) == 0)
+    v15 = *(v3 + 360);
+    if ((v15 & 0x1000000000000000) == 0)
     {
 LABEL_87:
-      if ((v27 & 0x4000000000000000) == 0)
+      if ((v15 & 0x4000000000000000) == 0)
       {
         goto LABEL_89;
       }
@@ -9505,37 +9367,33 @@ LABEL_87:
     }
   }
 
-  else if ((v27 & 0x1000000000000000) == 0)
+  else if ((v15 & 0x1000000000000000) == 0)
   {
     goto LABEL_87;
   }
 
-  v85 = *(v3 + 280);
   this = PB::Writer::writeVarInt(a2);
   if ((*(v3 + 360) & 0x4000000000000000) != 0)
   {
 LABEL_88:
-    v28 = *(v3 + 288);
     this = PB::Writer::writeVarInt(a2);
   }
 
 LABEL_89:
   if ((*(v3 + 369) & 8) != 0)
   {
-    v29 = *(v3 + 325);
     this = PB::Writer::write(a2);
   }
 
-  v30 = *(v3 + 360);
-  if ((v30 & 0x4000) != 0)
+  v16 = *(v3 + 360);
+  if ((v16 & 0x4000) != 0)
   {
-    v86 = *(v3 + 96);
     this = PB::Writer::writeVarInt(a2);
-    v30 = *(v3 + 360);
-    if ((v30 & 0x1000) == 0)
+    v16 = *(v3 + 360);
+    if ((v16 & 0x1000) == 0)
     {
 LABEL_93:
-      if ((v30 & 0x200000000000) == 0)
+      if ((v16 & 0x200000000000) == 0)
       {
         goto LABEL_94;
       }
@@ -9544,17 +9402,17 @@ LABEL_93:
     }
   }
 
-  else if ((v30 & 0x1000) == 0)
+  else if ((v16 & 0x1000) == 0)
   {
     goto LABEL_93;
   }
 
   this = PB::Writer::write(a2, *(v3 + 88));
-  v30 = *(v3 + 360);
-  if ((v30 & 0x200000000000) == 0)
+  v16 = *(v3 + 360);
+  if ((v16 & 0x200000000000) == 0)
   {
 LABEL_94:
-    if ((v30 & 0x200000000000000) == 0)
+    if ((v16 & 0x200000000000000) == 0)
     {
       goto LABEL_95;
     }
@@ -9563,13 +9421,12 @@ LABEL_94:
   }
 
 LABEL_202:
-  v87 = *(v3 + 220);
   this = PB::Writer::writeVarInt(a2);
-  v30 = *(v3 + 360);
-  if ((v30 & 0x200000000000000) == 0)
+  v16 = *(v3 + 360);
+  if ((v16 & 0x200000000000000) == 0)
   {
 LABEL_95:
-    if ((v30 & 0x40) == 0)
+    if ((v16 & 0x40) == 0)
     {
       goto LABEL_96;
     }
@@ -9578,13 +9435,12 @@ LABEL_95:
   }
 
 LABEL_203:
-  v88 = *(v3 + 268);
   this = PB::Writer::writeVarInt(a2);
-  v30 = *(v3 + 360);
-  if ((v30 & 0x40) == 0)
+  v16 = *(v3 + 360);
+  if ((v16 & 0x40) == 0)
   {
 LABEL_96:
-    if ((v30 & 0x1000000000000) == 0)
+    if ((v16 & 0x1000000000000) == 0)
     {
       goto LABEL_97;
     }
@@ -9593,13 +9449,12 @@ LABEL_96:
   }
 
 LABEL_204:
-  v89 = *(v3 + 56);
   this = PB::Writer::writeVarInt(a2);
-  v30 = *(v3 + 360);
-  if ((v30 & 0x1000000000000) == 0)
+  v16 = *(v3 + 360);
+  if ((v16 & 0x1000000000000) == 0)
   {
 LABEL_97:
-    if ((v30 & 0x2000000000000) == 0)
+    if ((v16 & 0x2000000000000) == 0)
     {
       goto LABEL_98;
     }
@@ -9608,13 +9463,12 @@ LABEL_97:
   }
 
 LABEL_205:
-  v90 = *(v3 + 232);
   this = PB::Writer::writeVarInt(a2);
-  v30 = *(v3 + 360);
-  if ((v30 & 0x2000000000000) == 0)
+  v16 = *(v3 + 360);
+  if ((v16 & 0x2000000000000) == 0)
   {
 LABEL_98:
-    if ((v30 & 0x100000) == 0)
+    if ((v16 & 0x100000) == 0)
     {
       goto LABEL_99;
     }
@@ -9623,13 +9477,12 @@ LABEL_98:
   }
 
 LABEL_206:
-  v91 = *(v3 + 236);
   this = PB::Writer::writeVarInt(a2);
-  v30 = *(v3 + 360);
-  if ((v30 & 0x100000) == 0)
+  v16 = *(v3 + 360);
+  if ((v16 & 0x100000) == 0)
   {
 LABEL_99:
-    if ((v30 & 0x400) == 0)
+    if ((v16 & 0x400) == 0)
     {
       goto LABEL_100;
     }
@@ -9639,11 +9492,11 @@ LABEL_99:
 
 LABEL_207:
   this = PB::Writer::write(a2, *(v3 + 120));
-  v30 = *(v3 + 360);
-  if ((v30 & 0x400) == 0)
+  v16 = *(v3 + 360);
+  if ((v16 & 0x400) == 0)
   {
 LABEL_100:
-    if ((v30 & 0x200000) == 0)
+    if ((v16 & 0x200000) == 0)
     {
       goto LABEL_101;
     }
@@ -9653,11 +9506,11 @@ LABEL_100:
 
 LABEL_208:
   this = PB::Writer::write(a2, *(v3 + 80));
-  v30 = *(v3 + 360);
-  if ((v30 & 0x200000) == 0)
+  v16 = *(v3 + 360);
+  if ((v16 & 0x200000) == 0)
   {
 LABEL_101:
-    if ((v30 & 0x800) == 0)
+    if ((v16 & 0x800) == 0)
     {
       goto LABEL_102;
     }
@@ -9667,11 +9520,11 @@ LABEL_101:
 
 LABEL_209:
   this = PB::Writer::write(a2, *(v3 + 124));
-  v30 = *(v3 + 360);
-  if ((v30 & 0x800) == 0)
+  v16 = *(v3 + 360);
+  if ((v16 & 0x800) == 0)
   {
 LABEL_102:
-    if ((v30 & 0x100) == 0)
+    if ((v16 & 0x100) == 0)
     {
       goto LABEL_104;
     }
@@ -9688,50 +9541,44 @@ LABEL_103:
   }
 
 LABEL_104:
-  v31 = *(v3 + 368);
-  if ((v31 & 0x400000) != 0)
+  v17 = *(v3 + 368);
+  if ((v17 & 0x400000) != 0)
   {
-    v32 = *(v3 + 336);
     this = PB::Writer::write(a2);
-    v31 = *(v3 + 368);
+    v17 = *(v3 + 368);
   }
 
-  if ((v31 & 8) != 0)
+  if ((v17 & 8) != 0)
   {
-    v33 = *(v3 + 308);
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v34 = *(v3 + 360);
-  if ((v34 & 0x20000000) != 0)
+  v18 = *(v3 + 360);
+  if ((v18 & 0x20000000) != 0)
   {
-    v35 = *(v3 + 156);
     this = PB::Writer::writeVarInt(a2);
-    v34 = *(v3 + 360);
+    v18 = *(v3 + 360);
   }
 
-  if ((v34 & 0x80000000) != 0)
+  if ((v18 & 0x80000000) != 0)
   {
-    v36 = *(v3 + 164);
     this = PB::Writer::writeVarInt(a2);
   }
 
   if ((*(v3 + 372) & 0x40) != 0)
   {
-    v37 = *(v3 + 352);
     this = PB::Writer::write(a2);
   }
 
-  v38 = *(v3 + 360);
-  if ((v38 & 0x100000000) != 0)
+  v19 = *(v3 + 360);
+  if ((v19 & 0x100000000) != 0)
   {
-    v92 = *(v3 + 168);
     this = PB::Writer::writeVarInt(a2);
-    v38 = *(v3 + 360);
-    if ((v38 & 0x40000000) == 0)
+    v19 = *(v3 + 360);
+    if ((v19 & 0x40000000) == 0)
     {
 LABEL_116:
-      if ((v38 & 0x10000000000000) == 0)
+      if ((v19 & 0x10000000000000) == 0)
       {
         goto LABEL_117;
       }
@@ -9740,18 +9587,17 @@ LABEL_116:
     }
   }
 
-  else if ((v38 & 0x40000000) == 0)
+  else if ((v19 & 0x40000000) == 0)
   {
     goto LABEL_116;
   }
 
-  v93 = *(v3 + 160);
   this = PB::Writer::writeVarInt(a2);
-  v38 = *(v3 + 360);
-  if ((v38 & 0x10000000000000) == 0)
+  v19 = *(v3 + 360);
+  if ((v19 & 0x10000000000000) == 0)
   {
 LABEL_117:
-    if ((v38 & 0x8000000000) == 0)
+    if ((v19 & 0x8000000000) == 0)
     {
       goto LABEL_118;
     }
@@ -9761,11 +9607,11 @@ LABEL_117:
 
 LABEL_214:
   this = PB::Writer::write(a2, *(v3 + 248));
-  v38 = *(v3 + 360);
-  if ((v38 & 0x8000000000) == 0)
+  v19 = *(v3 + 360);
+  if ((v19 & 0x8000000000) == 0)
   {
 LABEL_118:
-    if ((v38 & 0x10000000000) == 0)
+    if ((v19 & 0x10000000000) == 0)
     {
       goto LABEL_119;
     }
@@ -9774,13 +9620,12 @@ LABEL_118:
   }
 
 LABEL_215:
-  v94 = *(v3 + 196);
   this = PB::Writer::writeVarInt(a2);
-  v38 = *(v3 + 360);
-  if ((v38 & 0x10000000000) == 0)
+  v19 = *(v3 + 360);
+  if ((v19 & 0x10000000000) == 0)
   {
 LABEL_119:
-    if ((v38 & 0x8000) == 0)
+    if ((v19 & 0x8000) == 0)
     {
       goto LABEL_120;
     }
@@ -9789,13 +9634,12 @@ LABEL_119:
   }
 
 LABEL_216:
-  v95 = *(v3 + 200);
   this = PB::Writer::writeVarInt(a2);
-  v38 = *(v3 + 360);
-  if ((v38 & 0x8000) == 0)
+  v19 = *(v3 + 360);
+  if ((v19 & 0x8000) == 0)
   {
 LABEL_120:
-    if ((v38 & 0x80000000000) == 0)
+    if ((v19 & 0x80000000000) == 0)
     {
       goto LABEL_121;
     }
@@ -9805,11 +9649,11 @@ LABEL_120:
 
 LABEL_217:
   this = PB::Writer::write(a2, *(v3 + 100));
-  v38 = *(v3 + 360);
-  if ((v38 & 0x80000000000) == 0)
+  v19 = *(v3 + 360);
+  if ((v19 & 0x80000000000) == 0)
   {
 LABEL_121:
-    if ((v38 & 0x20000000000) == 0)
+    if ((v19 & 0x20000000000) == 0)
     {
       goto LABEL_122;
     }
@@ -9818,13 +9662,12 @@ LABEL_121:
   }
 
 LABEL_218:
-  v96 = *(v3 + 212);
   this = PB::Writer::writeVarInt(a2);
-  v38 = *(v3 + 360);
-  if ((v38 & 0x20000000000) == 0)
+  v19 = *(v3 + 360);
+  if ((v19 & 0x20000000000) == 0)
   {
 LABEL_122:
-    if ((v38 & 0x1000000000) == 0)
+    if ((v19 & 0x1000000000) == 0)
     {
       goto LABEL_123;
     }
@@ -9833,13 +9676,12 @@ LABEL_122:
   }
 
 LABEL_219:
-  v97 = *(v3 + 204);
   this = PB::Writer::writeVarInt(a2);
-  v38 = *(v3 + 360);
-  if ((v38 & 0x1000000000) == 0)
+  v19 = *(v3 + 360);
+  if ((v19 & 0x1000000000) == 0)
   {
 LABEL_123:
-    if ((v38 & 0x200000000) == 0)
+    if ((v19 & 0x200000000) == 0)
     {
       goto LABEL_124;
     }
@@ -9848,13 +9690,12 @@ LABEL_123:
   }
 
 LABEL_220:
-  v98 = *(v3 + 184);
   this = PB::Writer::writeVarInt(a2);
-  v38 = *(v3 + 360);
-  if ((v38 & 0x200000000) == 0)
+  v19 = *(v3 + 360);
+  if ((v19 & 0x200000000) == 0)
   {
 LABEL_124:
-    if ((v38 & 0x800000000) == 0)
+    if ((v19 & 0x800000000) == 0)
     {
       goto LABEL_126;
     }
@@ -9863,40 +9704,35 @@ LABEL_124:
   }
 
 LABEL_221:
-  v99 = *(v3 + 172);
   this = PB::Writer::writeVarInt(a2);
   if ((*(v3 + 360) & 0x800000000) != 0)
   {
 LABEL_125:
-    v39 = *(v3 + 180);
     this = PB::Writer::writeVarInt(a2);
   }
 
 LABEL_126:
-  v40 = *(v3 + 368);
-  if ((v40 & 0x200) != 0)
+  v20 = *(v3 + 368);
+  if ((v20 & 0x200) != 0)
   {
-    v41 = *(v3 + 323);
     this = PB::Writer::write(a2);
-    v40 = *(v3 + 368);
+    v20 = *(v3 + 368);
   }
 
-  if ((v40 & 0x80000) != 0)
+  if ((v20 & 0x80000) != 0)
   {
-    v42 = *(v3 + 333);
     this = PB::Writer::write(a2);
   }
 
-  v43 = *(v3 + 360);
-  if ((v43 & 0x400000000) != 0)
+  v21 = *(v3 + 360);
+  if ((v21 & 0x400000000) != 0)
   {
-    v100 = *(v3 + 176);
     this = PB::Writer::writeVarInt(a2);
-    v43 = *(v3 + 360);
-    if ((v43 & 2) == 0)
+    v21 = *(v3 + 360);
+    if ((v21 & 2) == 0)
     {
 LABEL_132:
-      if ((v43 & 0x20) == 0)
+      if ((v21 & 0x20) == 0)
       {
         goto LABEL_133;
       }
@@ -9905,18 +9741,17 @@ LABEL_132:
     }
   }
 
-  else if ((v43 & 2) == 0)
+  else if ((v21 & 2) == 0)
   {
     goto LABEL_132;
   }
 
-  v101 = *(v3 + 16);
   this = PB::Writer::writeVarInt(a2);
-  v43 = *(v3 + 360);
-  if ((v43 & 0x20) == 0)
+  v21 = *(v3 + 360);
+  if ((v21 & 0x20) == 0)
   {
 LABEL_133:
-    if ((v43 & 4) == 0)
+    if ((v21 & 4) == 0)
     {
       goto LABEL_134;
     }
@@ -9925,13 +9760,12 @@ LABEL_133:
   }
 
 LABEL_225:
-  v102 = *(v3 + 48);
   this = PB::Writer::writeVarInt(a2);
-  v43 = *(v3 + 360);
-  if ((v43 & 4) == 0)
+  v21 = *(v3 + 360);
+  if ((v21 & 4) == 0)
   {
 LABEL_134:
-    if ((v43 & 8) == 0)
+    if ((v21 & 8) == 0)
     {
       goto LABEL_135;
     }
@@ -9940,13 +9774,12 @@ LABEL_134:
   }
 
 LABEL_226:
-  v103 = *(v3 + 24);
   this = PB::Writer::writeVarInt(a2);
-  v43 = *(v3 + 360);
-  if ((v43 & 8) == 0)
+  v21 = *(v3 + 360);
+  if ((v21 & 8) == 0)
   {
 LABEL_135:
-    if ((v43 & 0x10) == 0)
+    if ((v21 & 0x10) == 0)
     {
       goto LABEL_136;
     }
@@ -9955,19 +9788,17 @@ LABEL_135:
   }
 
 LABEL_227:
-  v104 = *(v3 + 32);
   this = PB::Writer::writeVarInt(a2);
-  v43 = *(v3 + 360);
-  if ((v43 & 0x10) == 0)
+  v21 = *(v3 + 360);
+  if ((v21 & 0x10) == 0)
   {
 LABEL_136:
-    if ((v43 & 0x4000000000000) == 0)
+    if ((v21 & 0x4000000000000) == 0)
     {
       goto LABEL_137;
     }
 
 LABEL_229:
-    v106 = *(v3 + 240);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 360) & 0x2000) == 0)
     {
@@ -9978,22 +9809,1712 @@ LABEL_229:
   }
 
 LABEL_228:
-  v105 = *(v3 + 40);
   this = PB::Writer::writeVarInt(a2);
-  v43 = *(v3 + 360);
-  if ((v43 & 0x4000000000000) != 0)
+  v21 = *(v3 + 360);
+  if ((v21 & 0x4000000000000) != 0)
   {
     goto LABEL_229;
   }
 
 LABEL_137:
-  if ((v43 & 0x2000) == 0)
+  if ((v21 & 0x2000) == 0)
   {
     return this;
   }
 
 LABEL_230:
-  v107 = *(v3 + 92);
+  v22 = *(v3 + 92);
 
-  return PB::Writer::write(a2, v107);
+  return PB::Writer::write(a2, v22);
+}
+
+uint64_t CMMsl::KappaSevereCrashResult::hash_value(CMMsl::KappaSevereCrashResult *this)
+{
+  v1 = *(this + 45);
+  if ((v1 & 0x800000) != 0)
+  {
+    v3 = *(this + 33);
+    if (v3 == 0.0)
+    {
+      v2 = 0;
+    }
+
+    else
+    {
+      v2 = LODWORD(v3);
+    }
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  if ((v1 & 0x400000) == 0)
+  {
+    v156 = 0;
+    if ((v1 & 0x1000000) != 0)
+    {
+      goto LABEL_8;
+    }
+
+LABEL_13:
+    v155 = 0;
+    if ((v1 & 0x20000000000000) != 0)
+    {
+      goto LABEL_9;
+    }
+
+    goto LABEL_14;
+  }
+
+  v4 = *(this + 32);
+  v5 = LODWORD(v4);
+  if (v4 == 0.0)
+  {
+    v5 = 0;
+  }
+
+  v156 = v5;
+  if ((v1 & 0x1000000) == 0)
+  {
+    goto LABEL_13;
+  }
+
+LABEL_8:
+  v155 = *(this + 34);
+  if ((v1 & 0x20000000000000) != 0)
+  {
+LABEL_9:
+    v154 = *(this + 63);
+    goto LABEL_15;
+  }
+
+LABEL_14:
+  v154 = 0;
+LABEL_15:
+  v6 = *(this + 46);
+  if ((v6 & 2) == 0)
+  {
+    v153 = 0;
+    if ((v1 & 0x800000000000000) != 0)
+    {
+      goto LABEL_17;
+    }
+
+LABEL_168:
+    v152 = 0;
+    if ((v1 & 0x800000000000) != 0)
+    {
+      goto LABEL_20;
+    }
+
+LABEL_169:
+    v151 = 0;
+    if ((v1 & 0x400000000000) != 0)
+    {
+      goto LABEL_23;
+    }
+
+LABEL_170:
+    v150 = 0;
+    if ((v1 & 0x200) != 0)
+    {
+      goto LABEL_26;
+    }
+
+LABEL_171:
+    v149 = 0;
+    if ((v1 & 0x100000000000000) != 0)
+    {
+      goto LABEL_29;
+    }
+
+    goto LABEL_172;
+  }
+
+  v72 = *(this + 75);
+  v73 = LODWORD(v72);
+  if (v72 == 0.0)
+  {
+    v73 = 0;
+  }
+
+  v153 = v73;
+  if ((v1 & 0x800000000000000) == 0)
+  {
+    goto LABEL_168;
+  }
+
+LABEL_17:
+  v7 = *(this + 69);
+  v8 = LODWORD(v7);
+  if (v7 == 0.0)
+  {
+    v8 = 0;
+  }
+
+  v152 = v8;
+  if ((v1 & 0x800000000000) == 0)
+  {
+    goto LABEL_169;
+  }
+
+LABEL_20:
+  v9 = *(this + 57);
+  v10 = LODWORD(v9);
+  if (v9 == 0.0)
+  {
+    v10 = 0;
+  }
+
+  v151 = v10;
+  if ((v1 & 0x400000000000) == 0)
+  {
+    goto LABEL_170;
+  }
+
+LABEL_23:
+  v11 = *(this + 56);
+  v12 = LODWORD(v11);
+  if (v11 == 0.0)
+  {
+    v12 = 0;
+  }
+
+  v150 = v12;
+  if ((v1 & 0x200) == 0)
+  {
+    goto LABEL_171;
+  }
+
+LABEL_26:
+  v13 = *(this + 19);
+  v14 = LODWORD(v13);
+  if (v13 == 0.0)
+  {
+    v14 = 0;
+  }
+
+  v149 = v14;
+  if ((v1 & 0x100000000000000) != 0)
+  {
+LABEL_29:
+    v148 = *(this + 66);
+    if ((v1 & 0x2000000) != 0)
+    {
+      goto LABEL_30;
+    }
+
+    goto LABEL_173;
+  }
+
+LABEL_172:
+  v148 = 0;
+  if ((v1 & 0x2000000) != 0)
+  {
+LABEL_30:
+    v147 = *(this + 35);
+    if ((v1 & 0x10000) != 0)
+    {
+      goto LABEL_31;
+    }
+
+LABEL_174:
+    v146 = 0;
+    if ((v6 & 0x10) != 0)
+    {
+      goto LABEL_34;
+    }
+
+LABEL_175:
+    v145 = 0;
+    if ((v6 & 0x20) != 0)
+    {
+      goto LABEL_37;
+    }
+
+LABEL_176:
+    v144 = 0;
+    if ((v1 & 0x100000000000) != 0)
+    {
+      goto LABEL_40;
+    }
+
+    goto LABEL_177;
+  }
+
+LABEL_173:
+  v147 = 0;
+  if ((v1 & 0x10000) == 0)
+  {
+    goto LABEL_174;
+  }
+
+LABEL_31:
+  v15 = *(this + 26);
+  v16 = LODWORD(v15);
+  if (v15 == 0.0)
+  {
+    v16 = 0;
+  }
+
+  v146 = v16;
+  if ((v6 & 0x10) == 0)
+  {
+    goto LABEL_175;
+  }
+
+LABEL_34:
+  v17 = *(this + 78);
+  v18 = LODWORD(v17);
+  if (v17 == 0.0)
+  {
+    v18 = 0;
+  }
+
+  v145 = v18;
+  if ((v6 & 0x20) == 0)
+  {
+    goto LABEL_176;
+  }
+
+LABEL_37:
+  v19 = *(this + 79);
+  v20 = LODWORD(v19);
+  if (v19 == 0.0)
+  {
+    v20 = 0;
+  }
+
+  v144 = v20;
+  if ((v1 & 0x100000000000) != 0)
+  {
+LABEL_40:
+    v143 = *(this + 54);
+    if ((v1 & 0x40000000000) != 0)
+    {
+      goto LABEL_41;
+    }
+
+    goto LABEL_178;
+  }
+
+LABEL_177:
+  v143 = 0;
+  if ((v1 & 0x40000000000) != 0)
+  {
+LABEL_41:
+    v142 = *(this + 52);
+    if ((v1 & 0x8000000000000) != 0)
+    {
+      goto LABEL_42;
+    }
+
+LABEL_179:
+    v141 = 0;
+    if ((v1 & 0x2000000000000000) != 0)
+    {
+      goto LABEL_45;
+    }
+
+    goto LABEL_180;
+  }
+
+LABEL_178:
+  v142 = 0;
+  if ((v1 & 0x8000000000000) == 0)
+  {
+    goto LABEL_179;
+  }
+
+LABEL_42:
+  v21 = *(this + 61);
+  v22 = LODWORD(v21);
+  if (v21 == 0.0)
+  {
+    v22 = 0;
+  }
+
+  v141 = v22;
+  if ((v1 & 0x2000000000000000) != 0)
+  {
+LABEL_45:
+    v140 = *(this + 71);
+    if ((v6 & 4) != 0)
+    {
+      goto LABEL_46;
+    }
+
+    goto LABEL_181;
+  }
+
+LABEL_180:
+  v140 = 0;
+  if ((v6 & 4) != 0)
+  {
+LABEL_46:
+    v139 = *(this + 76);
+    if ((v1 & 0x4000000) != 0)
+    {
+      goto LABEL_47;
+    }
+
+LABEL_182:
+    v138 = 0;
+    if ((v1 & 0x80) != 0)
+    {
+      goto LABEL_50;
+    }
+
+    goto LABEL_183;
+  }
+
+LABEL_181:
+  v139 = 0;
+  if ((v1 & 0x4000000) == 0)
+  {
+    goto LABEL_182;
+  }
+
+LABEL_47:
+  v23 = *(this + 36);
+  v24 = LODWORD(v23);
+  if (v23 == 0.0)
+  {
+    v24 = 0;
+  }
+
+  v138 = v24;
+  if ((v1 & 0x80) != 0)
+  {
+LABEL_50:
+    v137 = *(this + 8);
+    if (v1)
+    {
+      goto LABEL_51;
+    }
+
+    goto LABEL_184;
+  }
+
+LABEL_183:
+  v137 = 0;
+  if (v1)
+  {
+LABEL_51:
+    v136 = *(this + 1);
+    if ((v6 & 0x80) != 0)
+    {
+      goto LABEL_52;
+    }
+
+    goto LABEL_185;
+  }
+
+LABEL_184:
+  v136 = 0;
+  if ((v6 & 0x80) != 0)
+  {
+LABEL_52:
+    v135 = *(this + 321);
+    if ((v6 & 0x100) != 0)
+    {
+      goto LABEL_53;
+    }
+
+    goto LABEL_186;
+  }
+
+LABEL_185:
+  v135 = 0;
+  if ((v6 & 0x100) != 0)
+  {
+LABEL_53:
+    v134 = *(this + 322);
+    if ((v6 & 0x10000) != 0)
+    {
+      goto LABEL_54;
+    }
+
+    goto LABEL_187;
+  }
+
+LABEL_186:
+  v134 = 0;
+  if ((v6 & 0x10000) != 0)
+  {
+LABEL_54:
+    v133 = *(this + 330);
+    if ((v6 & 0x20000) != 0)
+    {
+      goto LABEL_55;
+    }
+
+    goto LABEL_188;
+  }
+
+LABEL_187:
+  v133 = 0;
+  if ((v6 & 0x20000) != 0)
+  {
+LABEL_55:
+    v132 = *(this + 331);
+    if ((v6 & 0x10000000) != 0)
+    {
+      goto LABEL_56;
+    }
+
+    goto LABEL_189;
+  }
+
+LABEL_188:
+  v132 = 0;
+  if ((v6 & 0x10000000) != 0)
+  {
+LABEL_56:
+    v131 = *(this + 342);
+    if ((v6 & 0x4000000) != 0)
+    {
+      goto LABEL_57;
+    }
+
+    goto LABEL_190;
+  }
+
+LABEL_189:
+  v131 = 0;
+  if ((v6 & 0x4000000) != 0)
+  {
+LABEL_57:
+    v130 = *(this + 340);
+    if ((v6 & 0x2000) != 0)
+    {
+      goto LABEL_58;
+    }
+
+    goto LABEL_191;
+  }
+
+LABEL_190:
+  v130 = 0;
+  if ((v6 & 0x2000) != 0)
+  {
+LABEL_58:
+    v129 = *(this + 327);
+    if ((v6 & 0x20000000) != 0)
+    {
+      goto LABEL_59;
+    }
+
+    goto LABEL_192;
+  }
+
+LABEL_191:
+  v129 = 0;
+  if ((v6 & 0x20000000) != 0)
+  {
+LABEL_59:
+    v128 = *(this + 343);
+    if ((v6 & 0x40000000) != 0)
+    {
+      goto LABEL_60;
+    }
+
+    goto LABEL_193;
+  }
+
+LABEL_192:
+  v128 = 0;
+  if ((v6 & 0x40000000) != 0)
+  {
+LABEL_60:
+    v127 = *(this + 344);
+    if ((v6 & 0x400) != 0)
+    {
+      goto LABEL_61;
+    }
+
+    goto LABEL_194;
+  }
+
+LABEL_193:
+  v127 = 0;
+  if ((v6 & 0x400) != 0)
+  {
+LABEL_61:
+    v126 = *(this + 324);
+    if ((v6 & 0x2000000) != 0)
+    {
+      goto LABEL_62;
+    }
+
+    goto LABEL_195;
+  }
+
+LABEL_194:
+  v126 = 0;
+  if ((v6 & 0x2000000) != 0)
+  {
+LABEL_62:
+    v125 = *(this + 339);
+    if ((v6 & 0x4000) != 0)
+    {
+      goto LABEL_63;
+    }
+
+    goto LABEL_196;
+  }
+
+LABEL_195:
+  v125 = 0;
+  if ((v6 & 0x4000) != 0)
+  {
+LABEL_63:
+    v124 = *(this + 328);
+    if ((v6 & 0x8000000) != 0)
+    {
+      goto LABEL_64;
+    }
+
+    goto LABEL_197;
+  }
+
+LABEL_196:
+  v124 = 0;
+  if ((v6 & 0x8000000) != 0)
+  {
+LABEL_64:
+    v123 = *(this + 341);
+    if ((v6 & 0x100000) != 0)
+    {
+      goto LABEL_65;
+    }
+
+    goto LABEL_198;
+  }
+
+LABEL_197:
+  v123 = 0;
+  if ((v6 & 0x100000) != 0)
+  {
+LABEL_65:
+    v122 = *(this + 334);
+    if ((v6 & 0x8000000000) != 0)
+    {
+      goto LABEL_66;
+    }
+
+    goto LABEL_199;
+  }
+
+LABEL_198:
+  v122 = 0;
+  if ((v6 & 0x8000000000) != 0)
+  {
+LABEL_66:
+    v121 = *(this + 353);
+    if ((v6 & 0x800000000) != 0)
+    {
+      goto LABEL_67;
+    }
+
+    goto LABEL_200;
+  }
+
+LABEL_199:
+  v121 = 0;
+  if ((v6 & 0x800000000) != 0)
+  {
+LABEL_67:
+    v120 = *(this + 349);
+    if ((v6 & 0x10000000000) != 0)
+    {
+      goto LABEL_68;
+    }
+
+    goto LABEL_201;
+  }
+
+LABEL_200:
+  v120 = 0;
+  if ((v6 & 0x10000000000) != 0)
+  {
+LABEL_68:
+    v119 = *(this + 354);
+    if ((v6 & 0x1000000000) != 0)
+    {
+      goto LABEL_69;
+    }
+
+    goto LABEL_202;
+  }
+
+LABEL_201:
+  v119 = 0;
+  if ((v6 & 0x1000000000) != 0)
+  {
+LABEL_69:
+    v118 = *(this + 350);
+    if ((v6 & 0x80000000) != 0)
+    {
+      goto LABEL_70;
+    }
+
+    goto LABEL_203;
+  }
+
+LABEL_202:
+  v118 = 0;
+  if ((v6 & 0x80000000) != 0)
+  {
+LABEL_70:
+    v117 = *(this + 345);
+    if ((v6 & 0x1000) != 0)
+    {
+      goto LABEL_71;
+    }
+
+    goto LABEL_204;
+  }
+
+LABEL_203:
+  v117 = 0;
+  if ((v6 & 0x1000) != 0)
+  {
+LABEL_71:
+    v116 = *(this + 326);
+    if ((v6 & 0x200000) != 0)
+    {
+      goto LABEL_72;
+    }
+
+    goto LABEL_205;
+  }
+
+LABEL_204:
+  v116 = 0;
+  if ((v6 & 0x200000) != 0)
+  {
+LABEL_72:
+    v115 = *(this + 335);
+    if ((v6 & 0x20000000000) != 0)
+    {
+      goto LABEL_73;
+    }
+
+    goto LABEL_206;
+  }
+
+LABEL_205:
+  v115 = 0;
+  if ((v6 & 0x20000000000) != 0)
+  {
+LABEL_73:
+    v114 = *(this + 355);
+    if ((v6 & 0x2000000000) != 0)
+    {
+      goto LABEL_74;
+    }
+
+    goto LABEL_207;
+  }
+
+LABEL_206:
+  v114 = 0;
+  if ((v6 & 0x2000000000) != 0)
+  {
+LABEL_74:
+    v113 = *(this + 351);
+    if ((v1 & 0x20000) != 0)
+    {
+      goto LABEL_75;
+    }
+
+    goto LABEL_208;
+  }
+
+LABEL_207:
+  v113 = 0;
+  if ((v1 & 0x20000) != 0)
+  {
+LABEL_75:
+    v112 = *(this + 27);
+    if ((v6 & 0x800000) != 0)
+    {
+      goto LABEL_76;
+    }
+
+    goto LABEL_209;
+  }
+
+LABEL_208:
+  v112 = 0;
+  if ((v6 & 0x800000) != 0)
+  {
+LABEL_76:
+    v111 = *(this + 337);
+    if ((v6 & 0x1000000) != 0)
+    {
+      goto LABEL_77;
+    }
+
+    goto LABEL_210;
+  }
+
+LABEL_209:
+  v111 = 0;
+  if ((v6 & 0x1000000) != 0)
+  {
+LABEL_77:
+    v110 = *(this + 338);
+    if ((v6 & 0x40) != 0)
+    {
+      goto LABEL_78;
+    }
+
+    goto LABEL_211;
+  }
+
+LABEL_210:
+  v110 = 0;
+  if ((v6 & 0x40) != 0)
+  {
+LABEL_78:
+    v109 = *(this + 320);
+    if ((v1 & 0x40000) != 0)
+    {
+      goto LABEL_79;
+    }
+
+    goto LABEL_212;
+  }
+
+LABEL_211:
+  v109 = 0;
+  if ((v1 & 0x40000) != 0)
+  {
+LABEL_79:
+    v108 = *(this + 28);
+    if ((v6 & 0x100000000000) != 0)
+    {
+      goto LABEL_80;
+    }
+
+    goto LABEL_213;
+  }
+
+LABEL_212:
+  v108 = 0;
+  if ((v6 & 0x100000000000) != 0)
+  {
+LABEL_80:
+    v107 = *(this + 358);
+    if ((v6 & 0x40000000000) != 0)
+    {
+      goto LABEL_81;
+    }
+
+    goto LABEL_214;
+  }
+
+LABEL_213:
+  v107 = 0;
+  if ((v6 & 0x40000000000) != 0)
+  {
+LABEL_81:
+    v106 = *(this + 356);
+    if ((v6 & 0x80000000000) != 0)
+    {
+      goto LABEL_82;
+    }
+
+    goto LABEL_215;
+  }
+
+LABEL_214:
+  v106 = 0;
+  if ((v6 & 0x80000000000) != 0)
+  {
+LABEL_82:
+    v105 = *(this + 357);
+    if ((v6 & 0x400000000) != 0)
+    {
+      goto LABEL_83;
+    }
+
+    goto LABEL_216;
+  }
+
+LABEL_215:
+  v105 = 0;
+  if ((v6 & 0x400000000) != 0)
+  {
+LABEL_83:
+    v104 = *(this + 348);
+    if ((v6 & 0x200000000) != 0)
+    {
+      goto LABEL_84;
+    }
+
+    goto LABEL_217;
+  }
+
+LABEL_216:
+  v104 = 0;
+  if ((v6 & 0x200000000) != 0)
+  {
+LABEL_84:
+    v103 = *(this + 347);
+    if ((v6 & 0x100000000) != 0)
+    {
+      goto LABEL_85;
+    }
+
+    goto LABEL_218;
+  }
+
+LABEL_217:
+  v103 = 0;
+  if ((v6 & 0x100000000) != 0)
+  {
+LABEL_85:
+    v102 = *(this + 346);
+    if ((v1 & 0x40000000000000) != 0)
+    {
+      goto LABEL_86;
+    }
+
+    goto LABEL_219;
+  }
+
+LABEL_218:
+  v102 = 0;
+  if ((v1 & 0x40000000000000) != 0)
+  {
+LABEL_86:
+    v101 = *(this + 64);
+    if ((v1 & 0x80000000000000) != 0)
+    {
+      goto LABEL_87;
+    }
+
+    goto LABEL_220;
+  }
+
+LABEL_219:
+  v101 = 0;
+  if ((v1 & 0x80000000000000) != 0)
+  {
+LABEL_87:
+    v100 = *(this + 65);
+    if ((v1 & 0x8000000) != 0)
+    {
+      goto LABEL_88;
+    }
+
+    goto LABEL_221;
+  }
+
+LABEL_220:
+  v100 = 0;
+  if ((v1 & 0x8000000) != 0)
+  {
+LABEL_88:
+    v99 = *(this + 37);
+    if ((v1 & 0x10000000) != 0)
+    {
+      goto LABEL_89;
+    }
+
+    goto LABEL_222;
+  }
+
+LABEL_221:
+  v99 = 0;
+  if ((v1 & 0x10000000) != 0)
+  {
+LABEL_89:
+    v98 = *(this + 38);
+    if ((v6 & 0x40000) != 0)
+    {
+      goto LABEL_90;
+    }
+
+    goto LABEL_223;
+  }
+
+LABEL_222:
+  v98 = 0;
+  if ((v6 & 0x40000) != 0)
+  {
+LABEL_90:
+    v97 = *(this + 332);
+    if ((v6 & 0x8000) != 0)
+    {
+      goto LABEL_91;
+    }
+
+    goto LABEL_224;
+  }
+
+LABEL_223:
+  v97 = 0;
+  if ((v6 & 0x8000) != 0)
+  {
+LABEL_91:
+    v96 = *(this + 329);
+    if ((v1 & 0x4000000000) != 0)
+    {
+      goto LABEL_92;
+    }
+
+    goto LABEL_225;
+  }
+
+LABEL_224:
+  v96 = 0;
+  if ((v1 & 0x4000000000) != 0)
+  {
+LABEL_92:
+    v95 = *(this + 48);
+    if ((v1 & 0x80000) != 0)
+    {
+      goto LABEL_93;
+    }
+
+    goto LABEL_226;
+  }
+
+LABEL_225:
+  v95 = 0;
+  if ((v1 & 0x80000) != 0)
+  {
+LABEL_93:
+    v94 = *(this + 29);
+    if ((v1 & 0x2000000000) != 0)
+    {
+      goto LABEL_94;
+    }
+
+    goto LABEL_227;
+  }
+
+LABEL_226:
+  v94 = 0;
+  if ((v1 & 0x2000000000) != 0)
+  {
+LABEL_94:
+    v93 = *(this + 47);
+    if (v1 < 0)
+    {
+      goto LABEL_95;
+    }
+
+LABEL_228:
+    v92 = 0;
+    if (v6)
+    {
+      goto LABEL_98;
+    }
+
+LABEL_229:
+    v91 = 0;
+    if ((v1 & 0x400000000000000) != 0)
+    {
+      goto LABEL_101;
+    }
+
+LABEL_230:
+    v90 = 0;
+    if ((v1 & 0x1000000000000000) != 0)
+    {
+      goto LABEL_104;
+    }
+
+    goto LABEL_231;
+  }
+
+LABEL_227:
+  v93 = 0;
+  if ((v1 & 0x8000000000000000) == 0)
+  {
+    goto LABEL_228;
+  }
+
+LABEL_95:
+  v25 = *(this + 73);
+  v26 = LODWORD(v25);
+  if (v25 == 0.0)
+  {
+    v26 = 0;
+  }
+
+  v92 = v26;
+  if ((v6 & 1) == 0)
+  {
+    goto LABEL_229;
+  }
+
+LABEL_98:
+  v27 = *(this + 74);
+  v28 = LODWORD(v27);
+  if (v27 == 0.0)
+  {
+    v28 = 0;
+  }
+
+  v91 = v28;
+  if ((v1 & 0x400000000000000) == 0)
+  {
+    goto LABEL_230;
+  }
+
+LABEL_101:
+  v29 = *(this + 68);
+  v30 = LODWORD(v29);
+  if (v29 == 0.0)
+  {
+    v30 = 0;
+  }
+
+  v90 = v30;
+  if ((v1 & 0x1000000000000000) != 0)
+  {
+LABEL_104:
+    v89 = *(this + 70);
+    if ((v1 & 0x4000000000000000) != 0)
+    {
+      goto LABEL_105;
+    }
+
+    goto LABEL_232;
+  }
+
+LABEL_231:
+  v89 = 0;
+  if ((v1 & 0x4000000000000000) != 0)
+  {
+LABEL_105:
+    v88 = *(this + 72);
+    if ((v6 & 0x800) != 0)
+    {
+      goto LABEL_106;
+    }
+
+    goto LABEL_233;
+  }
+
+LABEL_232:
+  v88 = 0;
+  if ((v6 & 0x800) != 0)
+  {
+LABEL_106:
+    v87 = *(this + 325);
+    if ((v1 & 0x4000) != 0)
+    {
+      goto LABEL_107;
+    }
+
+    goto LABEL_234;
+  }
+
+LABEL_233:
+  v87 = 0;
+  if ((v1 & 0x4000) != 0)
+  {
+LABEL_107:
+    v86 = *(this + 24);
+    if ((v1 & 0x1000) != 0)
+    {
+      goto LABEL_108;
+    }
+
+LABEL_235:
+    v85 = 0;
+    if ((v1 & 0x200000000000) != 0)
+    {
+      goto LABEL_111;
+    }
+
+    goto LABEL_236;
+  }
+
+LABEL_234:
+  v86 = 0;
+  if ((v1 & 0x1000) == 0)
+  {
+    goto LABEL_235;
+  }
+
+LABEL_108:
+  v31 = *(this + 22);
+  v32 = LODWORD(v31);
+  if (v31 == 0.0)
+  {
+    v32 = 0;
+  }
+
+  v85 = v32;
+  if ((v1 & 0x200000000000) != 0)
+  {
+LABEL_111:
+    v84 = *(this + 55);
+    if ((v1 & 0x200000000000000) != 0)
+    {
+      goto LABEL_112;
+    }
+
+    goto LABEL_237;
+  }
+
+LABEL_236:
+  v84 = 0;
+  if ((v1 & 0x200000000000000) != 0)
+  {
+LABEL_112:
+    v83 = *(this + 67);
+    if ((v1 & 0x40) != 0)
+    {
+      goto LABEL_113;
+    }
+
+    goto LABEL_238;
+  }
+
+LABEL_237:
+  v83 = 0;
+  if ((v1 & 0x40) != 0)
+  {
+LABEL_113:
+    v82 = *(this + 7);
+    if ((v1 & 0x1000000000000) != 0)
+    {
+      goto LABEL_114;
+    }
+
+    goto LABEL_239;
+  }
+
+LABEL_238:
+  v82 = 0;
+  if ((v1 & 0x1000000000000) != 0)
+  {
+LABEL_114:
+    v81 = *(this + 58);
+    if ((v1 & 0x2000000000000) != 0)
+    {
+      goto LABEL_115;
+    }
+
+    goto LABEL_240;
+  }
+
+LABEL_239:
+  v81 = 0;
+  if ((v1 & 0x2000000000000) != 0)
+  {
+LABEL_115:
+    v80 = *(this + 59);
+    if ((v1 & 0x100000) != 0)
+    {
+      goto LABEL_116;
+    }
+
+LABEL_241:
+    v79 = 0;
+    if ((v1 & 0x400) != 0)
+    {
+      goto LABEL_119;
+    }
+
+LABEL_242:
+    v78 = 0;
+    if ((v1 & 0x200000) != 0)
+    {
+      goto LABEL_122;
+    }
+
+LABEL_243:
+    v77 = 0;
+    if ((v1 & 0x800) != 0)
+    {
+      goto LABEL_125;
+    }
+
+LABEL_244:
+    v76 = 0;
+    if ((v1 & 0x100) != 0)
+    {
+      goto LABEL_128;
+    }
+
+LABEL_245:
+    v75 = 0;
+    if ((v6 & 0x400000) != 0)
+    {
+      goto LABEL_131;
+    }
+
+    goto LABEL_246;
+  }
+
+LABEL_240:
+  v80 = 0;
+  if ((v1 & 0x100000) == 0)
+  {
+    goto LABEL_241;
+  }
+
+LABEL_116:
+  v33 = *(this + 30);
+  v34 = LODWORD(v33);
+  if (v33 == 0.0)
+  {
+    v34 = 0;
+  }
+
+  v79 = v34;
+  if ((v1 & 0x400) == 0)
+  {
+    goto LABEL_242;
+  }
+
+LABEL_119:
+  v35 = *(this + 20);
+  v36 = LODWORD(v35);
+  if (v35 == 0.0)
+  {
+    v36 = 0;
+  }
+
+  v78 = v36;
+  if ((v1 & 0x200000) == 0)
+  {
+    goto LABEL_243;
+  }
+
+LABEL_122:
+  v37 = *(this + 31);
+  v38 = LODWORD(v37);
+  if (v37 == 0.0)
+  {
+    v38 = 0;
+  }
+
+  v77 = v38;
+  if ((v1 & 0x800) == 0)
+  {
+    goto LABEL_244;
+  }
+
+LABEL_125:
+  v39 = *(this + 21);
+  v40 = LODWORD(v39);
+  if (v39 == 0.0)
+  {
+    v40 = 0;
+  }
+
+  v76 = v40;
+  if ((v1 & 0x100) == 0)
+  {
+    goto LABEL_245;
+  }
+
+LABEL_128:
+  v41 = *(this + 18);
+  v42 = LODWORD(v41);
+  if (v41 == 0.0)
+  {
+    v42 = 0;
+  }
+
+  v75 = v42;
+  if ((v6 & 0x400000) != 0)
+  {
+LABEL_131:
+    v43 = *(this + 336);
+    if ((v6 & 8) != 0)
+    {
+      goto LABEL_132;
+    }
+
+    goto LABEL_247;
+  }
+
+LABEL_246:
+  v43 = 0;
+  if ((v6 & 8) != 0)
+  {
+LABEL_132:
+    v44 = *(this + 77);
+    if ((v1 & 0x20000000) != 0)
+    {
+      goto LABEL_133;
+    }
+
+    goto LABEL_248;
+  }
+
+LABEL_247:
+  v44 = 0;
+  if ((v1 & 0x20000000) != 0)
+  {
+LABEL_133:
+    v45 = *(this + 39);
+    if ((v1 & 0x80000000) != 0)
+    {
+      goto LABEL_134;
+    }
+
+    goto LABEL_249;
+  }
+
+LABEL_248:
+  v45 = 0;
+  if ((v1 & 0x80000000) != 0)
+  {
+LABEL_134:
+    v46 = *(this + 41);
+    if ((v6 & 0x4000000000) != 0)
+    {
+      goto LABEL_135;
+    }
+
+    goto LABEL_250;
+  }
+
+LABEL_249:
+  v46 = 0;
+  if ((v6 & 0x4000000000) != 0)
+  {
+LABEL_135:
+    v47 = *(this + 352);
+    if ((v1 & 0x100000000) != 0)
+    {
+      goto LABEL_136;
+    }
+
+    goto LABEL_251;
+  }
+
+LABEL_250:
+  v47 = 0;
+  if ((v1 & 0x100000000) != 0)
+  {
+LABEL_136:
+    v48 = *(this + 42);
+    if ((v1 & 0x40000000) != 0)
+    {
+      goto LABEL_137;
+    }
+
+    goto LABEL_252;
+  }
+
+LABEL_251:
+  v48 = 0;
+  if ((v1 & 0x40000000) != 0)
+  {
+LABEL_137:
+    v49 = *(this + 40);
+    if ((v1 & 0x10000000000000) != 0)
+    {
+      goto LABEL_138;
+    }
+
+LABEL_253:
+    v51 = 0;
+    if ((v1 & 0x8000000000) != 0)
+    {
+      goto LABEL_142;
+    }
+
+    goto LABEL_254;
+  }
+
+LABEL_252:
+  v49 = 0;
+  if ((v1 & 0x10000000000000) == 0)
+  {
+    goto LABEL_253;
+  }
+
+LABEL_138:
+  v50 = *(this + 62);
+  if (v50 == 0.0)
+  {
+    v51 = 0;
+  }
+
+  else
+  {
+    v51 = LODWORD(v50);
+  }
+
+  if ((v1 & 0x8000000000) != 0)
+  {
+LABEL_142:
+    v52 = *(this + 49);
+    if ((v1 & 0x10000000000) != 0)
+    {
+      goto LABEL_143;
+    }
+
+    goto LABEL_255;
+  }
+
+LABEL_254:
+  v52 = 0;
+  if ((v1 & 0x10000000000) != 0)
+  {
+LABEL_143:
+    v53 = *(this + 50);
+    if ((v1 & 0x8000) != 0)
+    {
+      goto LABEL_144;
+    }
+
+LABEL_256:
+    v55 = 0;
+    if ((v1 & 0x80000000000) != 0)
+    {
+      goto LABEL_148;
+    }
+
+    goto LABEL_257;
+  }
+
+LABEL_255:
+  v53 = 0;
+  if ((v1 & 0x8000) == 0)
+  {
+    goto LABEL_256;
+  }
+
+LABEL_144:
+  v54 = *(this + 25);
+  if (v54 == 0.0)
+  {
+    v55 = 0;
+  }
+
+  else
+  {
+    v55 = LODWORD(v54);
+  }
+
+  if ((v1 & 0x80000000000) != 0)
+  {
+LABEL_148:
+    v56 = *(this + 53);
+    if ((v1 & 0x20000000000) != 0)
+    {
+      goto LABEL_149;
+    }
+
+    goto LABEL_258;
+  }
+
+LABEL_257:
+  v56 = 0;
+  if ((v1 & 0x20000000000) != 0)
+  {
+LABEL_149:
+    v57 = *(this + 51);
+    if ((v1 & 0x1000000000) != 0)
+    {
+      goto LABEL_150;
+    }
+
+    goto LABEL_259;
+  }
+
+LABEL_258:
+  v57 = 0;
+  if ((v1 & 0x1000000000) != 0)
+  {
+LABEL_150:
+    v58 = *(this + 46);
+    if ((v1 & 0x200000000) != 0)
+    {
+      goto LABEL_151;
+    }
+
+    goto LABEL_260;
+  }
+
+LABEL_259:
+  v58 = 0;
+  if ((v1 & 0x200000000) != 0)
+  {
+LABEL_151:
+    v59 = *(this + 43);
+    if ((v1 & 0x800000000) != 0)
+    {
+      goto LABEL_152;
+    }
+
+    goto LABEL_261;
+  }
+
+LABEL_260:
+  v59 = 0;
+  if ((v1 & 0x800000000) != 0)
+  {
+LABEL_152:
+    v60 = *(this + 45);
+    if ((v6 & 0x200) != 0)
+    {
+      goto LABEL_153;
+    }
+
+    goto LABEL_262;
+  }
+
+LABEL_261:
+  v60 = 0;
+  if ((v6 & 0x200) != 0)
+  {
+LABEL_153:
+    v61 = *(this + 323);
+    if ((v6 & 0x80000) != 0)
+    {
+      goto LABEL_154;
+    }
+
+    goto LABEL_263;
+  }
+
+LABEL_262:
+  v61 = 0;
+  if ((v6 & 0x80000) != 0)
+  {
+LABEL_154:
+    v62 = *(this + 333);
+    if ((v1 & 0x400000000) != 0)
+    {
+      goto LABEL_155;
+    }
+
+    goto LABEL_264;
+  }
+
+LABEL_263:
+  v62 = 0;
+  if ((v1 & 0x400000000) != 0)
+  {
+LABEL_155:
+    v63 = *(this + 44);
+    if ((v1 & 2) != 0)
+    {
+      goto LABEL_156;
+    }
+
+    goto LABEL_265;
+  }
+
+LABEL_264:
+  v63 = 0;
+  if ((v1 & 2) != 0)
+  {
+LABEL_156:
+    v64 = *(this + 2);
+    if ((v1 & 0x20) != 0)
+    {
+      goto LABEL_157;
+    }
+
+    goto LABEL_266;
+  }
+
+LABEL_265:
+  v64 = 0;
+  if ((v1 & 0x20) != 0)
+  {
+LABEL_157:
+    v65 = *(this + 6);
+    if ((v1 & 4) != 0)
+    {
+      goto LABEL_158;
+    }
+
+    goto LABEL_267;
+  }
+
+LABEL_266:
+  v65 = 0;
+  if ((v1 & 4) != 0)
+  {
+LABEL_158:
+    v66 = *(this + 3);
+    if ((v1 & 8) != 0)
+    {
+      goto LABEL_159;
+    }
+
+    goto LABEL_268;
+  }
+
+LABEL_267:
+  v66 = 0;
+  if ((v1 & 8) != 0)
+  {
+LABEL_159:
+    v67 = *(this + 4);
+    if ((v1 & 0x10) != 0)
+    {
+      goto LABEL_160;
+    }
+
+    goto LABEL_269;
+  }
+
+LABEL_268:
+  v67 = 0;
+  if ((v1 & 0x10) != 0)
+  {
+LABEL_160:
+    v68 = *(this + 5);
+    if ((v1 & 0x4000000000000) != 0)
+    {
+      goto LABEL_161;
+    }
+
+    goto LABEL_270;
+  }
+
+LABEL_269:
+  v68 = 0;
+  if ((v1 & 0x4000000000000) != 0)
+  {
+LABEL_161:
+    v69 = *(this + 60);
+    if ((v1 & 0x2000) != 0)
+    {
+      goto LABEL_162;
+    }
+
+LABEL_271:
+    v71 = 0;
+    return v156 ^ v2 ^ v155 ^ v154 ^ v153 ^ v152 ^ v151 ^ v150 ^ v149 ^ v148 ^ v147 ^ v146 ^ v145 ^ v144 ^ v143 ^ v142 ^ v141 ^ v140 ^ v139 ^ v138 ^ v137 ^ v136 ^ v135 ^ v134 ^ v133 ^ v132 ^ v131 ^ v130 ^ v129 ^ v128 ^ v127 ^ v126 ^ v125 ^ v124 ^ v123 ^ v122 ^ v121 ^ v120 ^ v119 ^ v118 ^ v117 ^ v116 ^ v115 ^ v114 ^ v113 ^ v112 ^ v111 ^ v110 ^ v109 ^ v108 ^ v107 ^ v106 ^ v105 ^ v104 ^ v103 ^ v102 ^ v101 ^ v100 ^ v99 ^ v98 ^ v97 ^ v96 ^ v95 ^ v94 ^ v93 ^ v92 ^ v91 ^ v90 ^ v89 ^ v88 ^ v87 ^ v86 ^ v85 ^ v84 ^ v83 ^ v82 ^ v81 ^ v80 ^ v79 ^ v78 ^ v77 ^ v76 ^ v75 ^ v43 ^ v44 ^ v45 ^ v46 ^ v47 ^ v48 ^ v49 ^ v51 ^ v52 ^ v53 ^ v55 ^ v56 ^ v57 ^ v58 ^ v59 ^ v60 ^ v61 ^ v62 ^ v63 ^ v64 ^ v65 ^ v66 ^ v67 ^ v68 ^ v69 ^ v71;
+  }
+
+LABEL_270:
+  v69 = 0;
+  if ((v1 & 0x2000) == 0)
+  {
+    goto LABEL_271;
+  }
+
+LABEL_162:
+  v70 = *(this + 23);
+  v71 = LODWORD(v70);
+  if (v70 == 0.0)
+  {
+    v71 = 0;
+  }
+
+  return v156 ^ v2 ^ v155 ^ v154 ^ v153 ^ v152 ^ v151 ^ v150 ^ v149 ^ v148 ^ v147 ^ v146 ^ v145 ^ v144 ^ v143 ^ v142 ^ v141 ^ v140 ^ v139 ^ v138 ^ v137 ^ v136 ^ v135 ^ v134 ^ v133 ^ v132 ^ v131 ^ v130 ^ v129 ^ v128 ^ v127 ^ v126 ^ v125 ^ v124 ^ v123 ^ v122 ^ v121 ^ v120 ^ v119 ^ v118 ^ v117 ^ v116 ^ v115 ^ v114 ^ v113 ^ v112 ^ v111 ^ v110 ^ v109 ^ v108 ^ v107 ^ v106 ^ v105 ^ v104 ^ v103 ^ v102 ^ v101 ^ v100 ^ v99 ^ v98 ^ v97 ^ v96 ^ v95 ^ v94 ^ v93 ^ v92 ^ v91 ^ v90 ^ v89 ^ v88 ^ v87 ^ v86 ^ v85 ^ v84 ^ v83 ^ v82 ^ v81 ^ v80 ^ v79 ^ v78 ^ v77 ^ v76 ^ v75 ^ v43 ^ v44 ^ v45 ^ v46 ^ v47 ^ v48 ^ v49 ^ v51 ^ v52 ^ v53 ^ v55 ^ v56 ^ v57 ^ v58 ^ v59 ^ v60 ^ v61 ^ v62 ^ v63 ^ v64 ^ v65 ^ v66 ^ v67 ^ v68 ^ v69 ^ v71;
 }

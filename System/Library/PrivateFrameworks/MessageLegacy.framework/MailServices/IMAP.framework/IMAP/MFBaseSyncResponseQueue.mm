@@ -210,54 +210,52 @@ uint64_t __39__MFBaseSyncResponseQueue_handleItems___block_invoke(uint64_t a1)
 
 - (id)sequenceIdentifierForItem:(id)item
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     [MFBaseSyncResponseQueue sequenceIdentifierForItem:];
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
-  result = [item countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  result = [item countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (result)
   {
     v5 = result;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(item);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
+        v8 = *(*(&v10 + 1) + 8 * v7);
         if ([v8 type] == 11)
         {
           modSequenceNumber = [v8 modSequenceNumber];
           if (modSequenceNumber == 0x7FFFFFFFFFFFFFFFLL)
           {
-            result = 0;
+            return 0;
           }
 
           else
           {
-            result = [MEMORY[0x277CCACA8] stringWithFormat:@"%llu", modSequenceNumber];
+            return [MEMORY[0x277CCACA8] stringWithFormat:@"%llu", modSequenceNumber];
           }
-
-          goto LABEL_14;
         }
 
         v7 = v7 + 1;
       }
 
       while (v5 != v7);
-      result = [item countByEnumeratingWithState:&v11 objects:v15 count:16];
+      result = [item countByEnumeratingWithState:&v10 objects:v14 count:16];
       v5 = result;
       if (result)
       {
@@ -268,8 +266,6 @@ uint64_t __39__MFBaseSyncResponseQueue_handleItems___block_invoke(uint64_t a1)
     }
   }
 
-LABEL_14:
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 

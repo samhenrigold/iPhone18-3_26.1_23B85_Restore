@@ -275,11 +275,11 @@
   count = self->_layoutState.groups.count;
   separatorIndex = self->_layoutState.groups.separatorIndex;
   v7 = *(&self->_layoutState.groups + 16);
-  v57 = isTableModalPresentation;
-  v58 = *(&self->_layoutState + 24);
+  v65 = isTableModalPresentation;
+  v66 = *(&self->_layoutState + 24);
   groupCellHeight = self->_layoutState.groupCellHeight;
   separationPadding = self->_layoutState.separationPadding;
-  v59 = *(&self->_layoutState + 28);
+  v67 = *(&self->_layoutState + 28);
   numberOfGroups = [WeakRetained numberOfGroups];
   indexOfSeparationGroup = [WeakRetained indexOfSeparationGroup];
   if (indexOfSeparationGroup == 0x7FFFFFFFFFFFFFFFLL || numberOfGroups == 0)
@@ -321,9 +321,9 @@
       v23 = 2 * (v22 & 2);
       if (v22 & 2) == 0 && (v20)
       {
-        v61 = *&p_layoutState->groups.count;
-        v62 = *(&self->_layoutState.groups + 2);
-        if ([WeakRetained groupStackView:self requiresSectionForPassType:1 withState:&v61])
+        v69 = *&p_layoutState->groups.count;
+        v70 = *(&self->_layoutState.groups + 2);
+        if ([WeakRetained groupStackView:self requiresSectionForPassType:1 withState:&v69])
         {
           v23 = 4;
         }
@@ -341,9 +341,9 @@
       v25 = v22 & 4;
       if (((v25 == 0) & v21) == 1)
       {
-        v61 = *&p_layoutState->groups.count;
-        v62 = *(&self->_layoutState.groups + 2);
-        if ([WeakRetained groupStackView:self requiresSectionForPassType:0 withState:&v61])
+        v69 = *&p_layoutState->groups.count;
+        v70 = *(&self->_layoutState.groups + 2);
+        if ([WeakRetained groupStackView:self requiresSectionForPassType:0 withState:&v69])
         {
           v26 = 8;
         }
@@ -364,9 +364,9 @@
       v28 = v24 & 0xFFFFFFF7 | v26;
       *(&self->_layoutState + 28) = v28;
       v29 = *&p_layoutState->groups.count;
-      v66 = *(&self->_layoutState.groups + 2);
+      v74 = *(&self->_layoutState.groups + 2);
       parentViewControllerWantsNavigationBar = self->_parentViewControllerWantsNavigationBar;
-      v65 = v29;
+      v73 = v29;
       v31 = parentViewControllerWantsNavigationBar | (v28 >> 1) & 6;
       v32 = objc_opt_respondsToSelector();
       v33 = *(&self->_layoutState + 28);
@@ -374,11 +374,11 @@
       {
         if ((v33 & 4) != 0)
         {
-          v61 = v65;
-          v62 = v66;
-          v63 = v31;
-          memset(v64, 0, sizeof(v64));
-          if ([WeakRetained groupStackView:self willHaveHeaderViewForPassType:1 withState:&v61])
+          v69 = v73;
+          v70 = v74;
+          v71 = v31;
+          memset(v72, 0, sizeof(v72));
+          if ([WeakRetained groupStackView:self willHaveHeaderViewForPassType:1 withState:&v69])
           {
             v34 = 16;
           }
@@ -400,11 +400,11 @@
         *(&self->_layoutState + 28) = v36;
         if ((v33 & 8) != 0)
         {
-          v61 = v65;
-          v62 = v66;
-          v63 = v31;
-          memset(v64, 0, sizeof(v64));
-          if ([WeakRetained groupStackView:self willHaveHeaderViewForPassType:0 withState:&v61])
+          v69 = v73;
+          v70 = v74;
+          v71 = v31;
+          memset(v72, 0, sizeof(v72));
+          if ([WeakRetained groupStackView:self willHaveHeaderViewForPassType:0 withState:&v69])
           {
             v37 = 32;
           }
@@ -435,11 +435,11 @@
       {
         if (objc_opt_respondsToSelector())
         {
-          v61 = v65;
-          v62 = v66;
-          v63 = v31;
-          memset(v64, 0, sizeof(v64));
-          v38 = [WeakRetained groupStackView:self willHaveSubheaderViewsWithState:&v61];
+          v69 = v73;
+          v70 = v74;
+          v71 = v31;
+          memset(v72, 0, sizeof(v72));
+          v38 = [WeakRetained groupStackView:self willHaveSubheaderViewsWithState:&v69];
           v39 = *(&self->_layoutState + 28);
           if ((v39 & 4) != 0)
           {
@@ -537,41 +537,46 @@ LABEL_57:
     if (v50)
     {
       [(PKPassGroupStackView *)self _scaleForTableGroup];
+      v52 = v51;
       frontmostPassView = [v50 frontmostPassView];
       [frontmostPassView sizeOfFrontFace];
+      v55 = v54;
       [v50 offsetForFrontmostPassWhileStacked];
+      v57 = v55 + v56;
 
-      PKFloatRoundToPixel();
-      v53 = fmax(v52, 0.0);
+      v58.n128_u64[0] = *&self->_layoutState.groupCellHeight;
+      v59.n128_f64[0] = v52 * v57 - v58.n128_f64[0];
+      PKFloatRoundToPixel(v59, v58);
+      v61 = fmax(v60, 0.0);
     }
 
     else
     {
-      v53 = 0.0;
+      v61 = 0.0;
     }
 
-    self->_layoutState.separationPadding = v53;
+    self->_layoutState.separationPadding = v61;
   }
 
-  if (count == p_layoutState->groups.count && ((*(&self->_layoutState.groups + 16) ^ v7) & 6) == 0 && separatorIndex == self->_layoutState.groups.separatorIndex && (v54 = *(&self->_layoutState + 28), ((v54 ^ v59) & 0xFC) == 0) && ((*(&self->_layoutState + 24) ^ v58) & 3) == 0 && groupCellHeight == self->_layoutState.groupCellHeight && separationPadding == self->_layoutState.separationPadding)
+  if (count == p_layoutState->groups.count && ((*(&self->_layoutState.groups + 16) ^ v7) & 6) == 0 && separatorIndex == self->_layoutState.groups.separatorIndex && (v62 = *(&self->_layoutState + 28), ((v62 ^ v67) & 0xFC) == 0) && ((*(&self->_layoutState + 24) ^ v66) & 3) == 0 && groupCellHeight == self->_layoutState.groupCellHeight && separationPadding == self->_layoutState.separationPadding)
   {
-    if ((v54 & 0xC) == 8)
+    if ((v62 & 0xC) == 8)
     {
-      v55 = v57 ^ [(PKPassGroupStackView *)self isTableModalPresentation];
+      v63 = v65 ^ [(PKPassGroupStackView *)self isTableModalPresentation];
     }
 
     else
     {
-      LOBYTE(v55) = 0;
+      LOBYTE(v63) = 0;
     }
   }
 
   else
   {
-    LOBYTE(v55) = 1;
+    LOBYTE(v63) = 1;
   }
 
-  return v55;
+  return v63;
 }
 
 - (BOOL)isTableModalPresentation
@@ -676,47 +681,54 @@ LABEL_57:
 
 LABEL_17:
   [(PKPassGroupStackView *)self bounds];
-  v13 = v12;
+  v15 = v14;
   top = self->_lastBoundsInsets.top;
   paymentHeaderContext = self->_paymentHeaderContext;
-  v16 = 0.0;
-  v17 = 0.0;
+  v18 = 0.0;
+  v19 = 0.0;
   if (paymentHeaderContext)
   {
-    v18 = paymentHeaderContext->_headerMargins.top;
+    v20 = paymentHeaderContext->_headerMargins.top;
     [(PKPGSVSectionHeaderContext *)self->_paymentHeaderContext _headerViewSize];
-    v17 = paymentHeaderContext->_headerMargins.bottom + v18 + v19;
+    v12.n128_f64[0] = v20 + v13.n128_f64[0];
+    v13.n128_u64[0] = *&paymentHeaderContext->_headerMargins.bottom;
+    v19 = v13.n128_f64[0] + v12.n128_f64[0];
   }
 
   passHeaderContext = self->_passHeaderContext;
   if (passHeaderContext)
   {
-    v21 = passHeaderContext->_headerMargins.top;
+    v22 = passHeaderContext->_headerMargins.top;
     [(PKPGSVSectionHeaderContext *)passHeaderContext _headerViewSize];
-    v16 = passHeaderContext->_headerMargins.bottom + v21 + v22;
+    v12.n128_f64[0] = v22 + v13.n128_f64[0];
+    v13.n128_u64[0] = *&passHeaderContext->_headerMargins.bottom;
+    v18 = v13.n128_f64[0] + v12.n128_f64[0];
   }
 
+  count = p_layoutState->groups.count;
   if (p_layoutState->groups.count)
   {
-    v23 = floor((v13 - (top + v17 + v16)) / p_layoutState->groups.count);
+    v13.n128_f64[0] = count;
+    v24 = floor((v15 - (top + v19 + v18)) / count);
   }
 
   else
   {
-    v23 = 0.0;
+    v24 = 0.0;
   }
 
   if (v4 <= 0.0)
   {
-    v24 = 1.79769313e308;
+    v25 = 1.79769313e308;
   }
 
   else
   {
-    PKFloatRoundToPixel();
+    v12.n128_f64[0] = v4 * 0.765957;
+    PKFloatRoundToPixel(v12, v13);
   }
 
-  return fmax(fmin(v23, v24), 55.0);
+  return fmax(fmin(v24, v25), 55.0);
 }
 
 - (unint64_t)_lastIndex
@@ -849,55 +861,72 @@ LABEL_2:
 {
   isTableModalPresentation = [(PKPassGroupStackView *)self isTableModalPresentation];
   p_layoutState = &self->_layoutState;
-  v5 = self->_layoutState.separationPadding + self->_layoutState.groupCellHeight * self->_layoutState.groups.count;
+  groupCellHeight = self->_layoutState.groupCellHeight;
+  v6 = self->_layoutState.separationPadding + groupCellHeight * self->_layoutState.groups.count;
   if (isTableModalPresentation)
   {
     p_lastBoundsSize = &self->_lastBoundsSize;
-    v7 = fmax(self->_lastBoundsSize.height, v5);
+    v8 = fmax(self->_lastBoundsSize.height, v6);
   }
 
   else
   {
     totalHeight = [(PKPGSVSectionHeaderContext *)self->_paymentHeaderContext totalHeight];
-    v9 = v5 + totalHeight + [(PKPGSVSectionHeaderContext *)self->_passHeaderContext totalHeight];
+    v10 = v6 + totalHeight + [(PKPGSVSectionHeaderContext *)self->_passHeaderContext totalHeight];
     if (p_layoutState->groups.count)
     {
-      v10 = *(&self->_layoutState + 28);
-      v11 = [(PKPassGroupStackView *)self _groupViewAtIndexWhileEnsuringVisible:p_layoutState->groups.count - 1 withContentMode:4];
-      if (v11)
+      v11 = *(&self->_layoutState + 28);
+      v12 = [(PKPassGroupStackView *)self _groupViewAtIndexWhileEnsuringVisible:p_layoutState->groups.count - 1 withContentMode:4];
+      if (v12)
       {
         [(PKPassGroupStackView *)self _scaleForTableGroup];
-        [v11 offsetForFrontmostPassWhileStacked];
-        if ((v10 & 0xC) == 4)
+        v14 = v13;
+        [v12 offsetForFrontmostPassWhileStacked];
+        v16 = v15;
+        if ((v11 & 0xC) == 4)
         {
-          frontmostPassView = [v11 frontmostPassView];
+          frontmostPassView = [v12 frontmostPassView];
           [frontmostPassView sizeOfFrontFace];
+          v19 = v16 + v18;
 
-          PKFloatRoundToPixel();
-          v14 = fmax(v13, 0.0);
+          v20.n128_u64[0] = *&self->_layoutState.groupCellHeight;
+          v21.n128_f64[0] = v14 * v19 - v20.n128_f64[0];
+          PKFloatRoundToPixel(v21, v20);
+          v23 = fmax(v22, 0.0);
         }
 
         else
         {
-          PKRunningInRemoteContext();
-          PKFloatRoundToPixel();
-          PKFloatRoundToPixel();
+          v24 = v14 * v15;
+          v25 = PKRunningInRemoteContext();
+          v27.n128_u64[0] = 3.5;
+          if (v25)
+          {
+            v27.n128_f64[0] = 1.5;
+          }
+
+          v26.n128_u64[0] = 0x404B800000000000;
+          v27.n128_f64[0] = v24 + v27.n128_f64[0] * 55.0;
+          PKFloatRoundToPixel(v27, v26);
+          v28.n128_f64[0] = fmax(groupCellHeight + -55.0, 0.0);
+          v30.n128_f64[0] = fmax(v29 - v28.n128_f64[0], 0.0);
+          PKFloatRoundToPixel(v30, v28);
         }
 
-        v9 = v9 + v14;
+        v10 = v10 + v23;
       }
     }
 
     p_lastBoundsSize = &self->_lastBoundsSize;
-    v7 = fmax(self->_lastBoundsSize.height, v9 + self->_lastBoundsInsets.top + self->_lastBoundsInsets.bottom);
+    v8 = fmax(self->_lastBoundsSize.height, v10 + self->_lastBoundsInsets.top + self->_lastBoundsInsets.bottom);
     if (self->_footerView)
     {
-      v7 = v7 + self->_footerViewMinimumHeight;
+      v8 = v8 + self->_footerViewMinimumHeight;
     }
   }
 
   width = p_lastBoundsSize->width;
-  result.height = v7;
+  result.height = v8;
   result.width = width;
   return result;
 }
@@ -1745,7 +1774,7 @@ uint64_t __52__PKPassGroupStackView_layoutHeaderFootersAnimated___block_invoke_2
 
 void __52__PKPassGroupStackView_layoutHeaderFootersAnimated___block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4, int a5, double a6)
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   v11 = a2;
   v12 = a3;
   v13 = a4;
@@ -1780,18 +1809,20 @@ void __52__PKPassGroupStackView_layoutHeaderFootersAnimated___block_invoke_3(uin
   {
     if (a5 && (*(a1 + 80) & 1) == 0)
     {
-      v26 = [*(a1 + 32) _layoutStateForHeaderContext:v11 inTableWithBounds:{*(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72)}];
-      if (v26)
+      v27 = [*(a1 + 32) _layoutStateForHeaderContext:v11 inTableWithBounds:{*(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72)}];
+      if (v27)
       {
-        v24 = v26[4];
-        v23 = v26[5];
-        v25 = v26[6];
+        v24 = v27[4];
+        v23 = v27[5];
+        v25 = v27[6];
+        v26 = v27[7];
       }
 
       else
       {
         v23 = 0.0;
         v25 = 0.0;
+        v26 = 0.0;
         v24 = 0.0;
       }
     }
@@ -1801,6 +1832,7 @@ void __52__PKPassGroupStackView_layoutHeaderFootersAnimated___block_invoke_3(uin
       v24 = v21[4];
       v23 = v21[5];
       v25 = v21[6];
+      v26 = v21[7];
     }
 
     else
@@ -1808,126 +1840,127 @@ void __52__PKPassGroupStackView_layoutHeaderFootersAnimated___block_invoke_3(uin
       v24 = 0.0;
       v23 = 0.0;
       v25 = 0.0;
+      v26 = 0.0;
     }
 
-    v27 = *(a1 + 40);
-    v28 = [(PKPGSVSectionHeaderContext *)v11 positionForHeaderViewInContainerFrame:v24, v23, v25];
-    v30 = v29;
+    v28 = *(a1 + 40);
+    v29 = [(PKPGSVSectionHeaderContext *)v11 positionForHeaderViewInContainerFrame:v24, v23, v25, v26];
+    v31 = v30;
     [(PKPGSVSectionHeaderContext *)v11 boundsForHeaderViewInContainerFrame:v24, v23, v25];
     if (v22)
     {
-      v35.n128_f64[0] = v22[2];
+      v36.n128_f64[0] = v22[2];
     }
 
     else
     {
-      v35.n128_u64[0] = 0;
+      v36.n128_u64[0] = 0;
     }
 
-    (*(v27 + 16))(v27, v15, *(*(a1 + 32) + 2664), v12, 0, 0, v28, v30, v31, v32, v33, v34, v35);
+    (*(v28 + 16))(v28, v15, *(*(a1 + 32) + 2664), v12, 0, 0, v29, v31, v32, v33, v34, v35, v36);
   }
 
-  v71 = 0u;
   v72 = 0u;
-  v69 = 0u;
+  v73 = 0u;
   v70 = 0u;
-  v68 = v11;
-  v66 = v15;
+  v71 = 0u;
+  v69 = v11;
+  v67 = v15;
   if (v22)
   {
-    v36 = *(v22 + 3);
+    v37 = *(v22 + 3);
   }
 
   else
   {
-    v36 = 0;
+    v37 = 0;
   }
 
-  v65 = v22;
-  v67 = v12;
-  v37 = v36;
-  v38 = [v37 countByEnumeratingWithState:&v69 objects:v73 count:16];
-  if (v38)
+  v66 = v22;
+  v68 = v12;
+  v38 = v37;
+  v39 = [v38 countByEnumeratingWithState:&v70 objects:v74 count:16];
+  if (v39)
   {
-    v39 = v38;
-    v40 = *v70;
+    v40 = v39;
+    v41 = *v71;
     do
     {
-      v41 = 0;
-      v42 = v13;
+      v42 = 0;
+      v43 = v13;
       do
       {
-        if (*v70 != v40)
+        if (*v71 != v41)
         {
-          objc_enumerationMutation(v37);
+          objc_enumerationMutation(v38);
         }
 
-        v43 = *(*(&v69 + 1) + 8 * v41);
-        if (v43)
+        v44 = *(*(&v70 + 1) + 8 * v42);
+        if (v44)
         {
-          v44 = *(v43 + 8);
-          v45 = v44;
-          v46 = v44 == 0;
-          if (v44)
+          v45 = *(v44 + 8);
+          v46 = v45;
+          v47 = v45 == 0;
+          if (v45)
           {
-            v47 = v44[1];
+            v48 = v45[1];
           }
 
           else
           {
-            v47 = 0;
+            v48 = 0;
           }
 
-          v13 = v47;
-          v48 = *(v43 + 16);
-          v49 = *(v43 + 24);
-          v50 = *(v43 + 32);
-          v51 = *(v43 + 40);
+          v13 = v48;
+          v49 = *(v44 + 16);
+          v50 = *(v44 + 24);
+          v51 = *(v44 + 32);
+          v52 = *(v44 + 40);
         }
 
         else
         {
           v13 = 0;
-          v45 = 0;
-          v49 = 0.0;
-          v46 = 1;
+          v46 = 0;
           v50 = 0.0;
+          v47 = 1;
           v51 = 0.0;
-          v48 = 0.0;
+          v52 = 0.0;
+          v49 = 0.0;
         }
 
-        v52 = *(a1 + 40);
-        v55 = [(PKPGSVSectionSubheaderContext *)v45 positionForViewInContainerFrame:v48, v49, v50, v51];
-        v57 = v56;
-        if (v46)
+        v53 = *(a1 + 40);
+        v56 = [(PKPGSVSectionSubheaderContext *)v46 positionForViewInContainerFrame:v49, v50, v51, v52];
+        v58 = v57;
+        if (v47)
         {
+          v55.n128_u64[0] = 0;
           v54.n128_u64[0] = 0;
-          v53.n128_u64[0] = 0;
-          v61 = 0.0;
-          v59 = 0.0;
+          v62 = 0.0;
+          v60 = 0.0;
         }
 
         else
         {
-          [v45[1] bounds];
-          v59 = v58;
-          v61 = v60;
-          v53.n128_u64[0] = v62;
+          [v46[1] bounds];
+          v60 = v59;
+          v62 = v61;
           v54.n128_u64[0] = v63;
+          v55.n128_u64[0] = v64;
         }
 
-        (*(v52 + 16))(v52, v13, *(*(a1 + 32) + 2672), v42, 1, a6 < 0.0, v55, v57, v59, v61, v53, v54, 1.0);
+        (*(v53 + 16))(v53, v13, *(*(a1 + 32) + 2672), v43, 1, a6 < 0.0, v56, v58, v60, v62, v54, v55, 1.0);
 
-        ++v41;
-        v42 = v13;
+        ++v42;
+        v43 = v13;
       }
 
-      while (v39 != v41);
-      v64 = [v37 countByEnumeratingWithState:&v69 objects:v73 count:16];
-      v39 = v64;
+      while (v40 != v42);
+      v65 = [v38 countByEnumeratingWithState:&v70 objects:v74 count:16];
+      v40 = v65;
     }
 
-    while (v64);
+    while (v65);
   }
 }
 
@@ -2531,7 +2564,7 @@ double __69__PKPassGroupStackView__updateTopContentSeparatorVisibilityAnimated__
   memset(&v15, 0, sizeof(v15));
   if (v3)
   {
-    [v3 transform];
+    objc_msgSend_transform(v3);
   }
 
   else
@@ -2714,7 +2747,7 @@ void __69__PKPassGroupStackView__updateTopContentSeparatorVisibilityAnimated___b
     memset(&v46, 0, sizeof(v46));
     if (layer)
     {
-      [layer transform];
+      objc_msgSend_transform(layer);
     }
 
     else
@@ -2961,8 +2994,8 @@ LABEL_30:
     v52 = delegate;
     v37 = v28;
     v38 = [[PKDashboardPassGroupViewController alloc] _initWithPassGroupView:self->_groupsController groupsController:self sizeProvider:v55 context:?];
-    [(PKPGSVExternalVCContext *)v38 setFooterSuppressed:self->_externalFooterSuppressed];
-    [(PKPGSVExternalVCContext *)v38 setDashboardPassGroupViewControllerDelegate:self];
+    [v38 setFooterSuppressed:self->_externalFooterSuppressed];
+    [v38 setDashboardPassGroupViewControllerDelegate:self];
     v64[0] = MEMORY[0x1E69E9820];
     v64[1] = 3221225472;
     v64[2] = __77__PKPassGroupStackView_setPresentationState_withContext_animated_completion___block_invoke;
@@ -2981,7 +3014,7 @@ LABEL_30:
 
     else
     {
-      [(PKPGSVExternalVCContext *)v38 invalidate];
+      [v38 invalidate];
 
       v53 = 0;
     }
@@ -3061,7 +3094,7 @@ LABEL_77:
           }
 
 LABEL_76:
-          [(PKPGSVExternalVCContext *)v29 invalidate];
+          [v29 invalidate];
           goto LABEL_77;
         }
       }
@@ -4611,18 +4644,18 @@ LABEL_9:
 
 - (void)_tombstone
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (self && (*(self + 2997) & 1) == 0)
   {
-    v2 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(self + 2624);
-      v4 = 134349312;
+      v4 = *(self + 2624);
+      v5 = 134349312;
       selfCopy = self;
-      v6 = 2050;
-      v7 = v3;
-      _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "PKPassGroupStackView (%{public}p:%{public}p): tombstoned.", &v4, 0x16u);
+      v7 = 2050;
+      v8 = v4;
+      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKPassGroupStackView (%{public}p:%{public}p): tombstoned.", &v5, 0x16u);
     }
 
     *(self + 2997) = 1;
@@ -5007,7 +5040,7 @@ LABEL_20:
           v43 = 0u;
           v40 = 0u;
           v41 = 0u;
-          [(PKPassGroupStackView *)self _transformForGroupView:v19 atIndex:index forState:state];
+          objc_msgSend__transformForGroupView_atIndex_forState_(self);
           if (v26)
           {
             [(PKPassGroupView *)v19 setCenter:v30, v32];
@@ -5299,7 +5332,7 @@ void __62__PKPassGroupStackView__tileGroupsForState_eager_withContext___block_in
       v11 = *(a1 + 40);
       if (v11)
       {
-        [v11 _transformForGroupView:v5 atIndex:a3 forState:*(a1 + 72)];
+        objc_msgSend__transformForGroupView_atIndex_forState_(v11);
       }
 
       v12 = MEMORY[0x1E69DD250];
@@ -6103,7 +6136,7 @@ id __81__PKPassGroupStackView__presentModalGroupView_externally_withContext_comp
   return result;
 }
 
-void __81__PKPassGroupStackView__presentModalGroupView_externally_withContext_completion___block_invoke_3(uint64_t a1, void *a2)
+void __81__PKPassGroupStackView__presentModalGroupView_externally_withContext_completion___block_invoke_3(void *a1, void *a2)
 {
   v3 = a2;
   v4 = v3;
@@ -6128,7 +6161,9 @@ LABEL_7:
 LABEL_5:
   v10 = v9;
 
-  [*(a1 + 32) _updateExternalVC:v4 toPresentationState:*(a1 + 56) initial:0 withSpringConfiguration:*(a1 + 40) preferModalSpringFactories:(*(*(a1 + 48) + 16))()];
+  v11 = a1[4];
+  (*(a1[6] + 16))();
+  objc_msgSend__updateExternalVC_toPresentationState_initial_withSpringConfiguration_preferModalSpringFactories_(v11);
 }
 
 void __81__PKPassGroupStackView__presentModalGroupView_externally_withContext_completion___block_invoke_4(uint64_t a1, void *a2, uint64_t a3)
@@ -7022,7 +7057,7 @@ void __65__PKPassGroupStackView__activeExternalVCContextForPassGroupView___block
 {
   v4 = a2;
   v15 = v4;
-  if (!v4 || (v5 = *(v4 + 6)) == 0)
+  if (!v4 || (v5 = v4[6]) == 0)
   {
     v8 = 0;
     v6 = 0;
@@ -7050,7 +7085,7 @@ LABEL_5:
       v11 = v15[4];
       if (v11)
       {
-        if (*(v11 + 552) - 1 <= 1)
+        if (v11[552] - 1 <= 1)
         {
           v12 = *(*(a1 + 40) + 8);
           v14 = *(v12 + 40);
@@ -8328,11 +8363,11 @@ void __49__PKPassGroupStackView__endGroupPanWithAnimator___block_invoke(void *a1
     v40 = 0u;
     v37 = 0u;
     v38 = 0u;
-    [v20 _transformForGroupView:v19 atIndex:a3 forState:v20[271]];
+    objc_msgSend__transformForGroupView_atIndex_forState_(v20);
     v21 = a1[6];
     if (v16)
     {
-      [v16 transform];
+      objc_msgSend_transform(v16);
     }
 
     else
@@ -8622,7 +8657,7 @@ uint64_t __64__PKPassGroupStackView__updateHeaderContext_toContext_animated___bl
     v37 = v41;
     v38 = v7;
     memset(v39, 0, sizeof(v39));
-    v12 = [(PKPGSVSectionHeaderContext *)v8 createUpdatedHeaderContextForGroupStackView:self passType:1 withState:&v36 hasPriorSection:0 currentContext:paymentHeaderContext allowHeader:(v10 >> 4) & 1 allowSubheaders:(v10 >> 6) & 1 containerWidth:?];
+    v12 = [PKPGSVSectionHeaderContext createUpdatedHeaderContextForGroupStackView:1 passType:&v36 withState:0 hasPriorSection:paymentHeaderContext currentContext:(v10 >> 4) & 1 allowHeader:(v10 >> 6) & 1 allowSubheaders:v8 containerWidth:?];
   }
 
   else
@@ -8640,7 +8675,7 @@ uint64_t __64__PKPassGroupStackView__updateHeaderContext_toContext_animated___bl
     v37 = v41;
     v38 = v7;
     memset(v39, 0, sizeof(v39));
-    v15 = [(PKPGSVSectionHeaderContext *)v9 createUpdatedHeaderContextForGroupStackView:self passType:0 withState:&v36 hasPriorSection:(v10 & 4) != 0 currentContext:passHeaderContext allowHeader:(v14 >> 5) & 1 allowSubheaders:(v14 >> 7) & 1 containerWidth:?];
+    v15 = [PKPGSVSectionHeaderContext createUpdatedHeaderContextForGroupStackView:0 passType:&v36 withState:(v10 & 4) != 0 hasPriorSection:passHeaderContext currentContext:(v14 >> 5) & 1 allowHeader:(v14 >> 7) & 1 allowSubheaders:v9 containerWidth:?];
   }
 
   else
@@ -9246,36 +9281,36 @@ LABEL_4:
     }
 
     context = self->_externalVC.context;
-    if (!context || !context->_sending || (v23 = context->_transitionState) == 0)
+    if (!context || !context->_sending || (v27 = context->_transitionState) == 0)
     {
       [(PKPassGroupStackView *)self bounds];
-      v33 = v32 + self->_lastBoundsInsets.top;
+      v37 = v36 + self->_lastBoundsInsets.top;
       +[PKDashboardPassFlowLayout topMarginInFirstSection];
-      v21 = v33 + v34;
+      v25 = v37 + v38;
       goto LABEL_36;
     }
 
-    v24 = v23;
-    v25 = v23->_destinationLayoutState;
-    v26 = v25;
-    if (v25)
+    v28 = v27;
+    v29 = v27->_destinationLayoutState;
+    v30 = v29;
+    if (v29)
     {
-      scale = v25->_viewControllerFrame.bounds.transform.scale;
-      position = v25->_viewFrame.position;
-      origin = v25->_viewControllerFrame.bounds.origin;
+      scale = v29->_viewControllerFrame.bounds.transform.scale;
+      position = v29->_viewFrame.position;
+      origin = v29->_viewControllerFrame.bounds.origin;
       if (scale == 1.0)
       {
-        v30 = vsubq_f64(position, origin);
+        v34 = vsubq_f64(position, origin);
 LABEL_35:
-        [(PKPassthroughView *)self->_passContainerView convertPoint:self->_externalVCContainerView fromView:*&v30];
-        v21 = v38;
+        [(PKPassthroughView *)self->_passContainerView convertPoint:self->_externalVCContainerView fromView:*&v34];
+        v25 = v42;
 
         goto LABEL_36;
       }
 
-      size = v25->_viewControllerFrame.bounds.size;
-      anchorPoint = v25->_viewControllerFrame.bounds.anchorPoint;
-      v37 = v25->_viewControllerFrame.position;
+      size = v29->_viewControllerFrame.bounds.size;
+      anchorPoint = v29->_viewControllerFrame.bounds.anchorPoint;
+      v41 = v29->_viewControllerFrame.position;
     }
 
     else
@@ -9285,10 +9320,10 @@ LABEL_35:
       anchorPoint = 0uLL;
       size = 0uLL;
       origin = 0uLL;
-      v37 = 0uLL;
+      v41 = 0uLL;
     }
 
-    v30 = vmlaq_f64(v37, vmulq_n_f64(size, scale), vdivq_f64(vsubq_f64(position, vmlaq_f64(origin, size, anchorPoint)), size));
+    v34 = vmlaq_f64(v41, vmulq_n_f64(size, scale), vdivq_f64(vsubq_f64(position, vmlaq_f64(origin, size, anchorPoint)), size));
     goto LABEL_35;
   }
 
@@ -9296,7 +9331,7 @@ LABEL_35:
   {
 LABEL_31:
     [(PKPassGroupStackView *)self _yForSingleGroupView:self->_modallyPresentedGroupView];
-    v21 = v31;
+    v25 = v35;
     goto LABEL_36;
   }
 
@@ -9332,23 +9367,24 @@ LABEL_31:
   if (!typeCopy && (*(&self->_layoutState + 28) & 0x400) != 0)
   {
     LAUIPhysicalButtonNormalizedFrame();
-    CGRectGetMaxY(v40);
+    MaxY = CGRectGetMaxY(v44);
     mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
     [mainScreen bounds];
-    PKFloatRoundToPixel();
-    v11 = fmax(v11, v19 + 26.0);
+    v21.n128_f64[0] = MaxY * v20;
+    PKFloatRoundToPixel(v21, v22);
+    v11 = fmax(v11, v23 + 26.0);
   }
 
-  v20 = 0.0;
+  v24 = 0.0;
   if (self->_presentationState != 4)
   {
     [(PKPassGroupStackView *)self bounds];
   }
 
-  v21 = v11 + v20;
+  v25 = v11 + v24;
 LABEL_36:
 
-  return v21;
+  return v25;
 }
 
 - (double)_yForSingleGroupView:(id)view
@@ -9643,8 +9679,10 @@ LABEL_7:
 - (double)_yForGroupInModalPileOfType:(unsigned __int8)type withModalGroupY:(double)y scale:(double)scale
 {
   [(PKPassGroupStackView *)self _maximumScaleForModalPileGroupWithModalScale:type, scale];
-  PKFloatRoundToPixel();
-  return v6 + y;
+  v6.n128_u64[0] = 18.0;
+  v8.n128_f64[0] = v7 * 18.0;
+  PKFloatRoundToPixel(v8, v6);
+  return v9 + y;
 }
 
 - (double)_yForGroupInPileAtIndex:(unint64_t)index
@@ -9743,13 +9781,24 @@ LABEL_7:
 - (CGRect)_xFrameForGroupViewInState:(int64_t)state
 {
   PKPassFrontFaceContentSize();
+  v5 = v4;
   [(PKPassGroupStackView *)self bounds];
+  v12.n128_u64[0] = v9.n128_u64[0];
+  v13.n128_u64[0] = v8.n128_u64[0];
+  v6.n128_u64[0] = v10.n128_u64[0];
+  v7 = v11.n128_u64[0];
+  v8.n128_u64[0] = 0;
+  v9.n128_u64[0] = v5;
+  v10.n128_u64[0] = v12.n128_u64[0];
+  v11.n128_u64[0] = v13.n128_u64[0];
+  v12.n128_u64[0] = v6.n128_u64[0];
+  v13.n128_u64[0] = v7;
 
-  PKSizeAlignedInRect();
-  result.size.height = v7;
-  result.size.width = v6;
-  result.origin.y = v5;
-  result.origin.x = v4;
+  PKSizeAlignedInRect(1, v9, v8, v10, v11, v12, v13, v6);
+  result.size.height = v17;
+  result.size.width = v16;
+  result.origin.y = v15;
+  result.origin.x = v14;
   return result;
 }
 
@@ -9960,7 +10009,7 @@ LABEL_23:
   if (v7 && (modalGroupIndex >= [(PKPassGroupStackView *)self _tablePresentationNumberOfCellsBeforeStacking]? (v9 = [(PKPassGroupStackView *)self _tablePresentationNumberOfCellsBeforeStacking]) : (v9 = self->_modalGroupIndex), v9 > 1))
   {
     v11 = modalGroupIndex + ~index;
-    [(PKPassGroupStackView *)self _modalPileStateForType:typeCopy];
+    objc_msgSend__modalPileStateForType_(self);
     if (v11)
     {
       if (v11 >= v9 - 1)
@@ -10213,14 +10262,14 @@ LABEL_23:
     v19 = v19 - v20;
   }
 
-  memset(&v36, 0, sizeof(v36));
+  memset(&v43, 0, sizeof(v43));
   remainder.origin.x = v6;
   remainder.origin.y = v8;
   remainder.size.width = v10;
   remainder.size.height = v12;
   if (self->_layoutState.pilingMode)
   {
-    memset(&v35, 0, sizeof(v35));
+    memset(&v42, 0, sizeof(v42));
     bottom = self->_lastBoundsInsets.bottom;
   }
 
@@ -10230,27 +10279,32 @@ LABEL_23:
     bottom = fmax(v22, self->_lastBoundsInsets.bottom);
   }
 
-  v38.origin.x = v6;
-  v38.origin.y = v8;
-  v38.size.width = v10;
-  v38.size.height = v12;
-  CGRectDivide(v38, &v35, &remainder, bottom, CGRectMaxYEdge);
-  CGRectDivide(remainder, &remainder, &v36, v19, CGRectMinYEdge);
+  v45.origin.x = v6;
+  v45.origin.y = v8;
+  v45.size.width = v10;
+  v45.size.height = v12;
+  CGRectDivide(v45, &v42, &remainder, bottom, CGRectMaxYEdge);
+  CGRectDivide(remainder, &remainder, &v43, v19, CGRectMinYEdge);
   PKPassFrontFaceContentSize();
-  PKSizeAlignedInRect();
-  v24 = v23;
-  v26 = v25;
-  v28 = v27;
-  v30 = v29;
+  v23.n128_u64[0] = *&v43.origin.x;
+  v24.n128_u64[0] = *&v43.origin.y;
+  v26.n128_u64[0] = *&v43.size.width;
+  v25.n128_u64[0] = *&v43.size.height;
+  v27.n128_u64[0] = *&v43.size.height;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v28, v25, v23, v24, v26, v27, v29);
+  v31 = v30;
+  v33 = v32;
+  v35 = v34;
+  v37 = v36;
 
-  v31 = v24;
-  v32 = v26;
-  v33 = v28;
-  v34 = v30;
-  result.size.height = v34;
-  result.size.width = v33;
-  result.origin.y = v32;
-  result.origin.x = v31;
+  v38 = v31;
+  v39 = v33;
+  v40 = v35;
+  v41 = v37;
+  result.size.height = v41;
+  result.size.width = v40;
+  result.origin.y = v39;
+  result.origin.x = v38;
   return result;
 }
 
@@ -10364,7 +10418,7 @@ LABEL_6:
     v13 = v12;
     v15 = v14;
     memset(&v49[1], 0, sizeof(CATransform3D));
-    [(PKPassGroupStackView *)self _transformForGroupView:viewCopy atIndex:index forState:state];
+    objc_msgSend__transformForGroupView_atIndex_forState_(self);
     [(PKPassGroupStackView *)self _opacityForGroupAtIndex:index withGroupView:viewCopy forState:state];
     v17 = v16;
     v18 = 0.0;
@@ -10400,7 +10454,7 @@ LABEL_6:
       memset(v49, 0, 128);
       if (v21)
       {
-        [v21 transform];
+        objc_msgSend_transform(v21);
       }
 
       a = v49[0];
@@ -10491,7 +10545,7 @@ uint64_t __87__PKPassGroupStackView__updateGroupView_toPresentationState_withSpr
     v75 = 0u;
     v72 = 0u;
     v73 = 0u;
-    [(PKPassGroupStackView *)self _transformForGroupView:viewCopy atIndex:index forState:state];
+    objc_msgSend__transformForGroupView_atIndex_forState_(self);
     [(PKPassGroupStackView *)self _opacityForGroupAtIndex:index withGroupView:viewCopy forState:state];
     v22 = v21;
     v23 = 10.0;
@@ -10541,7 +10595,7 @@ uint64_t __87__PKPassGroupStackView__updateGroupView_toPresentationState_withSpr
       v65 = 0u;
       if (viewCopy)
       {
-        [viewCopy transform3D];
+        objc_msgSend_transform3D(viewCopy);
         v35 = *&v64;
       }
 
@@ -10633,57 +10687,58 @@ uint64_t __118__PKPassGroupStackView__updateGroupView_toPresentationState_withSp
 {
   viewCopy = view;
   factoryCopy = factory;
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
+  [(PKPassGroupStackView *)self _indexOfGroupView:viewCopy];
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  [(PKPassGroupStackView *)self _transformForGroupView:viewCopy atIndex:[(PKPassGroupStackView *)self _indexOfGroupView:viewCopy] forState:state];
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  objc_msgSend__transformForGroupView_atIndex_forState_(self);
   layer = [viewCopy layer];
   if (factoryCopy)
   {
-    v11 = [factoryCopy highFrameRateSpringAnimationForView:viewCopy withKeyPath:@"transform" reason:1];
+    v10 = [factoryCopy highFrameRateSpringAnimationForView:viewCopy withKeyPath:@"transform" reason:1];
     if (layer)
     {
-      [layer transform];
+      objc_msgSend_transform(layer);
     }
 
     else
     {
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
-      v16 = 0u;
+      v20 = 0u;
       v17 = 0u;
-      v14 = 0u;
+      v18 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
     }
 
-    v13[4] = v26;
-    v13[5] = v27;
-    v13[6] = v28;
-    v13[7] = v29;
-    v13[0] = v22;
-    v13[1] = v23;
-    v13[2] = v24;
-    v13[3] = v25;
-    [v11 pkui_updateForAdditiveAnimationFromTransform:&v14 toTransform:v13];
-    v12 = [layer pkui_addAdditiveAnimation:v11];
+    v12[4] = v25;
+    v12[5] = v26;
+    v12[6] = v27;
+    v12[7] = v28;
+    v12[0] = v21;
+    v12[1] = v22;
+    v12[2] = v23;
+    v12[3] = v24;
+    [v10 pkui_updateForAdditiveAnimationFromTransform:&v13 toTransform:v12];
+    v11 = [layer pkui_addAdditiveAnimation:v10];
   }
 
+  v17 = v25;
   v18 = v26;
   v19 = v27;
   v20 = v28;
-  v21 = v29;
+  v13 = v21;
   v14 = v22;
   v15 = v23;
   v16 = v24;
-  v17 = v25;
-  [layer setTransform:&v14];
+  [layer setTransform:&v13];
 }
 
 - (void)_updatePositionForGroupView:(id)view toPresentationState:(int64_t)state withSpringFactory:(id)factory
@@ -10739,7 +10794,7 @@ uint64_t __118__PKPassGroupStackView__updateGroupView_toPresentationState_withSp
   if (!stateCopy || ((factories = factoriesCopy, (containedView = stateCopy->_containedView) == 0) ? (hasPassAnchorPoint = 0) : (hasPassAnchorPoint = containedView->_hasPassAnchorPoint), [(PKPGSVExternalVCContext *)&stateCopy->super.isa _containedView], v8 = objc_claimAutoreleasedReturnValue(), v20 = stateCopy->_viewController, [(UIViewController *)v20 view], (v21 = objc_claimAutoreleasedReturnValue()) == 0))
   {
     __break(1u);
-    goto LABEL_38;
+    goto LABEL_47;
   }
 
   v22 = v21;
@@ -10747,8 +10802,8 @@ uint64_t __118__PKPassGroupStackView__updateGroupView_toPresentationState_withSp
   retstr->var0.var0.x = v23;
   retstr->var0.var0.y = v24;
   [v22 anchorPoint];
-  v77 = v25;
-  v78 = v26;
+  v91 = v25;
+  v92 = v26;
   retstr->var0.var2.x = v25;
   retstr->var0.var2.y = v26;
   *&retstr->var0.var3.var0.top = 0u;
@@ -10767,129 +10822,143 @@ uint64_t __118__PKPassGroupStackView__updateGroupView_toPresentationState_withSp
   v38 = v37;
   retstr->var0.var1.width = v35;
   retstr->var0.var1.height = v37;
-  if (initial != 7 || self->_externalVC.context != stateCopy)
+  if (initial == 7 && self->_externalVC.context == stateCopy)
   {
-    v39 = stateCopy->_transitionCoordinator;
-    v40 = v39;
-    factoriesCopy2 = factories;
-    v79 = configurationCopy;
-    if (v39)
+    v40 = stateCopy->_transition;
+    v42 = stateCopy->_transitionState;
+    if (stateCopy->_sending && v40 && v40->_interactive && v42)
     {
-      v41 = v39->_state;
-      v42 = v41;
-      if (v41)
+      interactiveProgress = v40->_interactiveProgress;
+      v81 = v42[3];
+      if (v81)
       {
-        v43 = v11;
-        v44 = v41[1];
-LABEL_11:
-        v45 = v44;
-        v46 = [(PKPassGroupStackView *)self _indexOfGroupView:v45];
-        [(PKPassGroupStackView *)self _scaleForGroupView:v45 atIndex:v46 forState:initial];
-        [(PKPassGroupStackView *)self _scaleForExternalVCWithPassGroupViewScale:?];
-        retstr->var0.var4.var0 = v47;
-        if (hasPassAnchorPoint)
-        {
-          [(PKPassGroupStackView *)self __positionForGroupView:v45 atIndex:v46 forState:initial];
-          [v8 convertPoint:self->_passContainerView fromView:?];
-        }
-
-        else
-        {
-          PKSizeAlignedInRect();
-          v48 = v50 + v77 * v51;
-          v49 = v52 + v78 * v53;
-        }
-
-        v11 = v43;
-        retstr->var1.x = v48;
-        retstr->var1.y = v49;
-
-        interactiveProgress = 0.0;
-        factories = factoriesCopy2;
-        configurationCopy = v79;
-        goto LABEL_15;
+        v82 = *(v81 + 16);
+        *&retstr->var0.var3.var1.bottom = *(v81 + 15);
+        *&retstr->var0.var4.var0 = v82;
+        retstr->var1.y = *(v81 + 34);
+        v83 = *(v81 + 12);
+        retstr->var0.var2 = *(v81 + 11);
+        *&retstr->var0.var3.var0.top = v83;
+        v84 = *(v81 + 14);
+        *&retstr->var0.var3.var0.bottom = *(v81 + 13);
+        *&retstr->var0.var3.var1.top = v84;
+        v85 = *(v81 + 10);
+        retstr->var0.var0 = *(v81 + 9);
+        retstr->var0.var1 = v85;
       }
 
-      v43 = v11;
+      else
+      {
+        retstr->var1.y = 0.0;
+        *&retstr->var0.var3.var1.bottom = 0u;
+        *&retstr->var0.var4.var0 = 0u;
+        *&retstr->var0.var3.var0.bottom = 0u;
+        *&retstr->var0.var3.var1.top = 0u;
+        retstr->var0.var2 = 0u;
+        *&retstr->var0.var3.var0.top = 0u;
+        retstr->var0.var0 = 0u;
+        retstr->var0.var1 = 0u;
+      }
+
+      if (hasPassAnchorPoint)
+      {
+        hasPassAnchorPoint = 0;
+      }
+
+      else
+      {
+        hasPassAnchorPoint = 0;
+        var0 = retstr->var0.var4.var0;
+        v87 = vdup_n_s32(var0 == 1.0);
+        v88.i64[0] = v87.u32[0];
+        v88.i64[1] = v87.u32[1];
+        v89 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v88, 0x3FuLL)), retstr->var0.var1, vmulq_n_f64(retstr->var0.var1, var0));
+        v90.f64[0] = v91;
+        v90.f64[1] = v92;
+        retstr->var1 = vmlaq_f64(vmlsq_f64(retstr->var1, v89, retstr->var0.var2), v89, v90);
+        retstr->var0.var2.x = v91;
+        retstr->var0.var2.y = v92;
+      }
     }
 
     else
     {
-      v43 = v11;
-      v42 = 0;
+      hasPassAnchorPoint = 0;
+      retstr->var0.var4.var0 = 1.0;
+      retstr->var1.x = v32 + v91 * v36;
+      retstr->var1.y = v34 + v92 * v38;
+      interactiveProgress = 1.0;
     }
 
+    goto LABEL_18;
+  }
+
+  v39 = stateCopy->_transitionCoordinator;
+  v40 = v39;
+  factoriesCopy2 = factories;
+  v93 = configurationCopy;
+  if (!v39)
+  {
+    v43 = v11;
+    v42 = 0;
+LABEL_49:
     v44 = 0;
     goto LABEL_11;
   }
 
-  v40 = stateCopy->_transition;
-  v42 = stateCopy->_transitionState;
-  if (stateCopy->_sending && v40 && v40->_interactive && v42)
+  v41 = v39->_state;
+  v42 = v41;
+  if (!v41)
   {
-    interactiveProgress = v40->_interactiveProgress;
-    v67 = v42[3];
-    if (v67)
-    {
-      v68 = *(v67 + 16);
-      *&retstr->var0.var3.var1.bottom = *(v67 + 15);
-      *&retstr->var0.var4.var0 = v68;
-      retstr->var1.y = *(v67 + 34);
-      v69 = *(v67 + 12);
-      retstr->var0.var2 = *(v67 + 11);
-      *&retstr->var0.var3.var0.top = v69;
-      v70 = *(v67 + 14);
-      *&retstr->var0.var3.var0.bottom = *(v67 + 13);
-      *&retstr->var0.var3.var1.top = v70;
-      v71 = *(v67 + 10);
-      retstr->var0.var0 = *(v67 + 9);
-      retstr->var0.var1 = v71;
-    }
+    v43 = v11;
+    goto LABEL_49;
+  }
 
-    else
-    {
-      retstr->var1.y = 0.0;
-      *&retstr->var0.var3.var1.bottom = 0u;
-      *&retstr->var0.var4.var0 = 0u;
-      *&retstr->var0.var3.var0.bottom = 0u;
-      *&retstr->var0.var3.var1.top = 0u;
-      retstr->var0.var2 = 0u;
-      *&retstr->var0.var3.var0.top = 0u;
-      retstr->var0.var0 = 0u;
-      retstr->var0.var1 = 0u;
-    }
-
-    if (hasPassAnchorPoint)
-    {
-      hasPassAnchorPoint = 0;
-    }
-
-    else
-    {
-      hasPassAnchorPoint = 0;
-      var0 = retstr->var0.var4.var0;
-      v73 = vdup_n_s32(var0 == 1.0);
-      v74.i64[0] = v73.u32[0];
-      v74.i64[1] = v73.u32[1];
-      v75 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v74, 0x3FuLL)), retstr->var0.var1, vmulq_n_f64(retstr->var0.var1, var0));
-      v76.f64[0] = v77;
-      v76.f64[1] = v78;
-      retstr->var1 = vmlaq_f64(vmlsq_f64(retstr->var1, v75, retstr->var0.var2), v75, v76);
-      retstr->var0.var2.x = v77;
-      retstr->var0.var2.y = v78;
-    }
+  v43 = v11;
+  v44 = v41[1];
+LABEL_11:
+  v45 = v44;
+  v46 = [(PKPassGroupStackView *)self _indexOfGroupView:v45];
+  [(PKPassGroupStackView *)self _scaleForGroupView:v45 atIndex:v46 forState:initial];
+  [(PKPassGroupStackView *)self _scaleForExternalVCWithPassGroupViewScale:?];
+  *&retstr->var0.var4.var0 = v47.n128_u64[0];
+  if (hasPassAnchorPoint)
+  {
+    [(PKPassGroupStackView *)self __positionForGroupView:v45 atIndex:v46 forState:initial];
+    [v8 convertPoint:self->_passContainerView fromView:?];
   }
 
   else
   {
-    hasPassAnchorPoint = 0;
-    retstr->var0.var4.var0 = 1.0;
-    retstr->var1.x = v32 + v77 * v36;
-    retstr->var1.y = v34 + v78 * v38;
-    interactiveProgress = 1.0;
+    v48.n128_f64[0] = v38 * v47.n128_f64[0];
+    if (v47.n128_f64[0] == 1.0)
+    {
+      v48.n128_f64[0] = v38;
+      v47.n128_f64[0] = v36;
+    }
+
+    else
+    {
+      v47.n128_f64[0] = v36 * v47.n128_f64[0];
+    }
+
+    v49.n128_f64[0] = v32;
+    v50.n128_f64[0] = v34;
+    v51.n128_f64[0] = v36;
+    v52.n128_f64[0] = v38;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v47, v48, v49, v50, v51, v52, v53);
+    v54 = v56 + v91 * v57;
+    v55 = v58 + v92 * v59;
   }
 
-LABEL_15:
+  v11 = v43;
+  retstr->var1.x = v54;
+  retstr->var1.y = v55;
+
+  interactiveProgress = 0.0;
+  factories = factoriesCopy2;
+  configurationCopy = v93;
+LABEL_18:
 
   if (configurationCopy)
   {
@@ -10898,31 +10967,57 @@ LABEL_15:
     {
       [(PKPassGroupStackView *)self _scaleForTableGroup];
       [(PKPassGroupStackView *)self _scaleForExternalVCWithPassGroupViewScale:?];
-      retstr->var0.var4.var0 = v54;
+      *&retstr->var0.var4.var0 = v60.n128_u64[0];
       if (!hasPassAnchorPoint)
       {
-        PKSizeAlignedInRect();
-        v59 = v57 + retstr->var0.var2.y * v58;
-        retstr->var1.x = v55 + retstr->var0.var2.x * v56;
-        retstr->var1.y = v59;
+        v67 = v60.n128_f64[0] * retstr->var0.var1.height;
+        v68 = v60.n128_f64[0] == 1.0;
+        if (v60.n128_f64[0] == 1.0)
+        {
+          v60.n128_u64[0] = *&retstr->var0.var1.width;
+        }
+
+        else
+        {
+          v60.n128_f64[0] = v60.n128_f64[0] * retstr->var0.var1.width;
+        }
+
+        if (v68)
+        {
+          v61.n128_u64[0] = *&retstr->var0.var1.height;
+        }
+
+        else
+        {
+          v61.n128_f64[0] = v67;
+        }
+
+        v62.n128_f64[0] = v32;
+        v63.n128_f64[0] = v34;
+        v64.n128_f64[0] = v36;
+        v65.n128_f64[0] = v38;
+        PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v60, v61, v62, v63, v64, v65, v66);
+        v73 = v71 + retstr->var0.var2.y * v72;
+        retstr->var1.x = v69 + retstr->var0.var2.x * v70;
+        retstr->var1.y = v73;
       }
     }
   }
 
-  v60 = *&retstr->var0.var4.var0;
-  v82[6] = *&retstr->var0.var3.var1.bottom;
-  v82[7] = v60;
+  v74 = *&retstr->var0.var4.var0;
+  v96[6] = *&retstr->var0.var3.var1.bottom;
+  v96[7] = v74;
   y = retstr->var1.y;
-  v61 = *&retstr->var0.var3.var0.top;
-  v82[2] = retstr->var0.var2;
-  v82[3] = v61;
-  v62 = *&retstr->var0.var3.var1.top;
-  v82[4] = *&retstr->var0.var3.var0.bottom;
-  v82[5] = v62;
+  v75 = *&retstr->var0.var3.var0.top;
+  v96[2] = retstr->var0.var2;
+  v96[3] = v75;
+  v76 = *&retstr->var0.var3.var1.top;
+  v96[4] = *&retstr->var0.var3.var0.bottom;
+  v96[5] = v76;
   var1 = retstr->var0.var1;
-  v82[0] = retstr->var0.var0;
-  v82[1] = var1;
-  [(PKPGSVExternalVCContext *)stateCopy _updateForViewControllerFrame:v82 usingPassAnchorPoint:hasPassAnchorPoint withSpringConfiguration:factories preferModalSpringFactories:v11];
+  v96[0] = retstr->var0.var0;
+  v96[1] = var1;
+  [(PKPGSVExternalVCContext *)stateCopy _updateForViewControllerFrame:v96 usingPassAnchorPoint:hasPassAnchorPoint withSpringConfiguration:factories preferModalSpringFactories:v11];
   v9 = 10.0;
   if (interactiveProgress > 0.0)
   {
@@ -10935,15 +11030,15 @@ LABEL_15:
 
   if (factories)
   {
-    v64 = *(factories + 6);
-    goto LABEL_24;
+    v78 = *(factories + 6);
+    goto LABEL_33;
   }
 
-LABEL_38:
-  v64 = 0;
-LABEL_24:
-  v65 = v64;
-  [(PKPGSVExternalVCContextContainerView *)&stateCopy->_containedView->super.super.super.isa _updateAlpha:v65 blurRadius:interactiveProgress withSpringFactory:v9];
+LABEL_47:
+  v78 = 0;
+LABEL_33:
+  v79 = v78;
+  [(PKPGSVExternalVCContextContainerView *)&stateCopy->_containedView->super.super.super.isa _updateAlpha:v79 blurRadius:interactiveProgress withSpringFactory:v9];
 
   return result;
 }
@@ -11200,7 +11295,8 @@ LABEL_7:
 LABEL_5:
   v10 = v9;
 
-  [*(a1 + 32) _updateExternalVC:v4 toPresentationState:*(*(a1 + 32) + 2168) initial:0 withSpringConfiguration:*(a1 + 40) preferModalSpringFactories:(*(*(a1 + 48) + 16))()];
+  (*(*(a1 + 48) + 16))();
+  objc_msgSend__updateExternalVC_toPresentationState_initial_withSpringConfiguration_preferModalSpringFactories_(*(a1 + 32));
 }
 
 void __78__PKPassGroupStackView__layoutContentWithContext_positionAdjustment_animated___block_invoke_4(uint64_t a1, void *a2, uint64_t a3)
@@ -12266,11 +12362,11 @@ double __93__PKPassGroupStackView__setupSpringFactoryForPileAnimations_withMaxim
   return v12;
 }
 
-uint64_t __91__PKPassGroupStackView__setupSpringFactoryForExternalToTableAnimations_forModalGroupIndex___block_invoke(uint64_t result, uint64_t a2, unint64_t a3)
+id *__91__PKPassGroupStackView__setupSpringFactoryForExternalToTableAnimations_forModalGroupIndex___block_invoke(id *result, uint64_t a2, unint64_t a3)
 {
-  if (*(result + 40) < a3)
+  if (result[5] < a3)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
@@ -12419,7 +12515,7 @@ LABEL_23:
     v30 = 0;
     v28 = 0u;
     v29 = 0u;
-    [(PKPassGroupStackView *)self _modalPileStateForType:1];
+    objc_msgSend__modalPileStateForType_(self);
     modalGroupIndex = self->_modalGroupIndex;
     if (modalGroupIndex >= [(PKPassGroupStackView *)self _tablePresentationNumberOfCellsBeforeStacking])
     {
@@ -12493,11 +12589,11 @@ LABEL_23:
   }
 }
 
-uint64_t __72__PKPassGroupStackView__setupSpringFactoryForTableToExternalAnimations___block_invoke(uint64_t result, uint64_t a2, unint64_t a3)
+id *__72__PKPassGroupStackView__setupSpringFactoryForTableToExternalAnimations___block_invoke(id *result, uint64_t a2, unint64_t a3)
 {
-  if (*(*(result + 32) + 2208) > a3)
+  if (*(result[4] + 276) > a3)
   {
-    return [*(result + 40) addObject:a2];
+    return [result[5] addObject:a2];
   }
 
   return result;
@@ -12744,7 +12840,7 @@ LABEL_9:
             v41 = v9 * ((v39 - v38) / fmax(v36 * 0.25, 44.0));
             if (v23)
             {
-              [v23 transform3D];
+              objc_msgSend_transform3D(v23);
               v42 = v48;
             }
 
@@ -12763,7 +12859,7 @@ LABEL_9:
               v46 = v41;
             }
 
-            v45 = [(PKPGSVSpringAnimationConfiguration *)v34 createWithFactory:v9 modalFactory:v40 / v42 modalYImpulse:v46 modalYVelocity:PKPGSVSpringAnimationConfiguration modalScaleImpulse:factory modalScaleVelocity:v7];
+            v45 = [PKPGSVSpringAnimationConfiguration createWithFactory:factory modalFactory:v7 modalYImpulse:v34 modalYVelocity:v9 modalScaleImpulse:v40 / v42 modalScaleVelocity:v46];
           }
 
           else
@@ -15501,7 +15597,7 @@ LABEL_45:
   v93 = 0u;
   v94 = 0u;
   v92 = 0u;
-  [(PKPassGroupStackView *)self destinationViewSizeForExternalVCContext:?];
+  objc_msgSend_destinationViewSizeForExternalVCContext_(self);
   v90 = 0u;
   memset(v91, 0, sizeof(v91));
   v88 = 0u;
@@ -15549,7 +15645,7 @@ LABEL_45:
   v64 = v39;
   if (dirtyCopy && v5 && LOBYTE(v5->_transition) == 1)
   {
-    [(PKPassGroupStackView *)self _updateExternalVC:p_externalVC->context toPresentationState:self->_presentationState initial:1 withSpringConfiguration:0 preferModalSpringFactories:0];
+    objc_msgSend__updateExternalVC_toPresentationState_initial_withSpringConfiguration_preferModalSpringFactories_(self);
     v81 = v103;
     v82 = v104;
     v78 = v108;
@@ -15824,7 +15920,7 @@ LABEL_44:
     v80 = 0u;
     v81 = 0u;
     v79 = 0u;
-    [(PKPassGroupStackView *)selfCopy referenceExternalModallyPresentedSizeForPassGroupView:v46];
+    objc_msgSend_referenceExternalModallyPresentedSizeForPassGroupView_(selfCopy);
     v78 = *MEMORY[0x1E69DE258];
     memset(v73, 0, sizeof(v73));
     __asm { FMOV            V0.2D, #0.5 }
@@ -16110,7 +16206,7 @@ LABEL_8:
   v69 = 0u;
   if (self)
   {
-    [(PKPassGroupStackView *)self referenceExternalModallyPresentedSizeForPassGroupView:v19];
+    objc_msgSend_referenceExternalModallyPresentedSizeForPassGroupView_(self);
   }
 
   v67 = 0u;
@@ -16162,7 +16258,7 @@ LABEL_8:
     if (self)
     {
       v41 = v21.f64[0];
-      [(PKPassGroupStackView *)self destinationViewSizeForExternalVCContext:v6];
+      objc_msgSend_destinationViewSizeForExternalVCContext_(self);
       v21.f64[0] = v41;
       v20 = v44;
     }
@@ -16281,7 +16377,7 @@ LABEL_23:
   {
     [(PKPGSVExternalVCContext *)self->_externalVC.context _setTransition:transitionCopy];
     context = self->_externalVC.context;
-    if (context && context->_sending)
+    if (context && context[40] == 1)
     {
       if (dirtyCopy)
       {
@@ -16448,7 +16544,7 @@ LABEL_11:
     }
 
     [(PKPGSVExternalVCContext *)v5 _didDisappear];
-    [(PKPGSVExternalVCContextContainerView *)v5[4] _updateAlpha:0.0 blurRadius:10.0 withSpringFactory:?];
+    [(PKPGSVExternalVCContextContainerView *)*(v5 + 4) _updateAlpha:0.0 blurRadius:10.0 withSpringFactory:?];
 LABEL_8:
     [(PKPassGroupStackView *)self _removeExternalVCContext:v5 terminated:0];
     goto LABEL_9;
@@ -16457,8 +16553,8 @@ LABEL_8:
   if (dirtyCopy)
   {
     [(PKPGSVExternalVCContext *)v5 _didAppear];
-    [(PKPGSVExternalVCContextContainerView *)v5[4] _removePassAnchorPoint];
-    [(PKPassGroupStackView *)self _updateExternalVC:v5 toPresentationState:self->_presentationState initial:0 withSpringConfiguration:0 preferModalSpringFactories:0];
+    [(PKPGSVExternalVCContextContainerView *)*(v5 + 4) _removePassAnchorPoint];
+    objc_msgSend__updateExternalVC_toPresentationState_initial_withSpringConfiguration_preferModalSpringFactories_(self);
   }
 
 LABEL_9:

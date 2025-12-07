@@ -45,39 +45,35 @@ uint64_t BTAdvertiseMgr::BluetoothAvailabilityChanged(BTAdvertiseMgr *this, char
   {
     do
     {
-      v9 = *(*(this + 1) + 8);
-      v10 = *(v4 + 5) - *(v4 + 4);
-      v11 = *(v4 + 7);
-      v12 = *(v4 + 8);
       result = BTLocalDeviceRemoveData();
-      v13 = *(v4 + 1);
-      if (v13)
+      v9 = *(v4 + 1);
+      if (v9)
       {
         do
         {
-          v14 = v13;
-          v13 = *v13;
+          v10 = v9;
+          v9 = *v9;
         }
 
-        while (v13);
+        while (v9);
       }
 
       else
       {
         do
         {
-          v14 = *(v4 + 2);
-          v8 = *v14 == v4;
-          v4 = v14;
+          v10 = *(v4 + 2);
+          v8 = *v10 == v4;
+          v4 = v10;
         }
 
         while (!v8);
       }
 
-      v4 = v14;
+      v4 = v10;
     }
 
-    while (v14 != v5);
+    while (v10 != v5);
   }
 
   return result;
@@ -90,9 +86,6 @@ uint64_t BTAdvertiseMgr::_Advertise(uint64_t a1, void *a2, void *a3)
     return 0;
   }
 
-  v4 = *(*(a1 + 8) + 8);
-  v5 = a2[1] - *a2;
-  v6 = a3[1] - *a3;
   if (BTLocalDeviceAdvertiseData())
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -105,19 +98,16 @@ uint64_t BTAdvertiseMgr::_Advertise(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v8 = *(*(a1 + 8) + 8);
     if (BTLocalDeviceGetDiscoverable() && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       sub_9230();
     }
 
-    v9 = *(*(a1 + 8) + 8);
     if (BTLocalDeviceSetDiscoverable() && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       sub_92A0();
     }
 
-    v10 = *(*(a1 + 8) + 8);
     if (BTLocalDeviceSetConnectable() && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       sub_9310();
@@ -127,25 +117,25 @@ uint64_t BTAdvertiseMgr::_Advertise(uint64_t a1, void *a2, void *a3)
   }
 }
 
-uint64_t BTAdvertiseMgr::Advertise(uint64_t a1, uint64_t *a2, uint64_t *a3)
+uint64_t BTAdvertiseMgr::Advertise(uint64_t a1, void *a2, void *a3)
 {
   *__p = 0u;
   v11 = 0u;
   *v9 = 0u;
   sub_D84(v9, a2, a3);
-  v12 = v9;
-  if (*(sub_F6C(a1 + 24, v9) + 80))
+  v13 = v9;
+  if (*(sub_F6C(a1 + 24, v9, &unk_A71C, &v13, &v12) + 80))
   {
-    v12 = v9;
-    v6 = sub_F6C(a1 + 24, v9);
+    v13 = v9;
+    v6 = sub_F6C(a1 + 24, v9, &unk_A71C, &v13, &v12);
     v7 = 0;
     ++*(v6 + 80);
   }
 
   else
   {
-    v12 = v9;
-    *(sub_F6C(a1 + 24, v9) + 80) = 1;
+    v13 = v9;
+    *(sub_F6C(a1 + 24, v9, &unk_A71C, &v13, &v12) + 80) = 1;
     v7 = BTAdvertiseMgr::_Advertise(a1, a2, a3);
   }
 
@@ -183,37 +173,33 @@ uint64_t sub_B54(uint64_t a1)
   return a1;
 }
 
-uint64_t BTAdvertiseMgr::StopAdvertising(uint64_t a1, uint64_t *a2, uint64_t *a3)
+uint64_t BTAdvertiseMgr::StopAdvertising(uint64_t a1, void *a2, void *a3)
 {
   *__p = 0u;
-  v17 = 0u;
-  *v15 = 0u;
-  sub_D84(v15, a2, a3);
-  v18 = v15;
-  if (!*(sub_F6C(a1 + 24, v15) + 80))
+  v9 = 0u;
+  *v7 = 0u;
+  sub_D84(v7, a2, a3);
+  v11 = v7;
+  if (!*(sub_F6C(a1 + 24, v7, &unk_A71C, &v11, &v10) + 80))
   {
     goto LABEL_15;
   }
 
-  v18 = v15;
-  v6 = sub_F6C(a1 + 24, v15);
-  --*(v6 + 80);
-  v18 = v15;
-  if (*(sub_F6C(a1 + 24, v15) + 80))
+  v11 = v7;
+  v4 = sub_F6C(a1 + 24, v7, &unk_A71C, &v11, &v10);
+  --*(v4 + 80);
+  v11 = v7;
+  if (*(sub_F6C(a1 + 24, v7, &unk_A71C, &v11, &v10) + 80))
   {
     goto LABEL_15;
   }
 
-  sub_1534((a1 + 24), v15);
+  sub_1534((a1 + 24), v7);
   if (*(a1 + 16) != 1)
   {
     goto LABEL_15;
   }
 
-  v7 = *(*(a1 + 8) + 8);
-  v8 = a2[1] - *a2;
-  v9 = *a3;
-  v10 = a3[1];
   if (BTLocalDeviceRemoveData())
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -221,26 +207,24 @@ uint64_t BTAdvertiseMgr::StopAdvertising(uint64_t a1, uint64_t *a2, uint64_t *a3
       sub_9380();
     }
 
-    v11 = 1;
+    v5 = 1;
     goto LABEL_16;
   }
 
   if (*(a1 + 40))
   {
 LABEL_15:
-    v11 = 0;
+    v5 = 0;
     goto LABEL_16;
   }
 
-  v12 = *(*(a1 + 8) + 8);
   if (BTLocalDeviceSetConnectable() && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
     sub_9310();
   }
 
-  v13 = *(*(a1 + 8) + 8);
-  v11 = BTLocalDeviceSetDiscoverable();
-  if (v11)
+  v5 = BTLocalDeviceSetDiscoverable();
+  if (v5)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -253,29 +237,29 @@ LABEL_15:
 LABEL_16:
   if (__p[1])
   {
-    *&v17 = __p[1];
+    *&v9 = __p[1];
     operator delete(__p[1]);
   }
 
-  if (v15[0])
+  if (v7[0])
   {
-    v15[1] = v15[0];
-    operator delete(v15[0]);
+    v7[1] = v7[0];
+    operator delete(v7[0]);
   }
 
-  return v11;
+  return v5;
 }
 
-void *sub_D84(void *a1, uint64_t *a2, uint64_t *a3)
+uint64_t *sub_D84(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  sub_DF8(a1, *a2, a2[1], a2[1] - *a2);
+  sub_DF8(a1, *a2, *(a2 + 8), *(a2 + 8) - *a2);
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
-  sub_DF8((a1 + 3), *a3, a3[1], a3[1] - *a3);
+  sub_DF8(a1 + 3, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   return a1;
 }
 
@@ -291,7 +275,7 @@ void sub_DDC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_DF8(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *sub_DF8(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -313,7 +297,7 @@ void sub_E58(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_E74(uint64_t a1, uint64_t a2)
+void sub_E74(uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -335,19 +319,19 @@ std::logic_error *sub_F38(std::logic_error *a1, const char *a2)
   return result;
 }
 
-uint64_t sub_F6C(uint64_t a1, uint64_t a2)
+uint64_t sub_F6C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = 0;
-  v2 = *sub_1020(a1, &v7, a2);
-  if (!v2)
+  v10 = 0;
+  v5 = *sub_1020(a1, &v10, a2);
+  if (!v5)
   {
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
     sub_11A8();
   }
 
-  return v2;
+  return v5;
 }
 
 void *sub_1020(uint64_t a1, void *a2, uint64_t a3)
@@ -476,7 +460,7 @@ LABEL_32:
   return v4;
 }
 
-uint64_t *sub_1228(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *sub_1228(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -494,7 +478,7 @@ uint64_t *sub_1228(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
   return result;
 }
 
-uint64_t sub_1280(uint64_t a1)
+char **sub_1280(char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -511,16 +495,16 @@ uint64_t sub_1280(uint64_t a1)
   return a1;
 }
 
-void *sub_12CC(void *a1, uint64_t *a2)
+uint64_t *sub_12CC(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  sub_DF8(a1, *a2, a2[1], a2[1] - *a2);
+  sub_DF8(a1, *a2, *(a2 + 8), *(a2 + 8) - *a2);
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
-  sub_DF8((a1 + 3), a2[3], a2[4], a2[4] - a2[3]);
+  sub_DF8(a1 + 3, *(a2 + 24), *(a2 + 32), *(a2 + 32) - *(a2 + 24));
   return a1;
 }
 
@@ -544,12 +528,12 @@ uint64_t *sub_1340(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -563,22 +547,22 @@ uint64_t *sub_1340(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -612,13 +596,13 @@ uint64_t *sub_1340(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -979,31 +963,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -1012,180 +995,181 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
-void sub_1B44(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1B44(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 uint64_t BTBrowseMgr::BluetoothAvailabilityChanged(BTBrowseMgr *this, char a2)
@@ -1196,8 +1180,7 @@ uint64_t BTBrowseMgr::BluetoothAvailabilityChanged(BTBrowseMgr *this, char a2)
   {
     if (*(this + 13) || *(this + 16))
     {
-      v27 = *off_C360;
-      v4 = **(this + 1);
+      v20 = *off_C360;
       if (BTDiscoveryAgentCreate())
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -1208,92 +1191,86 @@ uint64_t BTBrowseMgr::BluetoothAvailabilityChanged(BTBrowseMgr *this, char a2)
         *(this + 20) = 0;
       }
 
-      v5 = *(this + 11);
-      if (v5 != (this + 96))
+      v4 = *(this + 11);
+      if (v4 != (this + 96))
       {
         do
         {
-          v6 = *(this + 20);
-          v7 = *(v5 + 4);
-          v8 = *(v5 + 5);
-          v9 = BTDiscoveryAgentAddKey();
-          if (v9 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+          v5 = BTDiscoveryAgentAddKey();
+          if (v5 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            sub_9540(buf, v9, &v34);
+            sub_9540(buf, v5, &buf[4]);
           }
 
-          v10 = *(v5 + 1);
-          if (v10)
+          v6 = *(v4 + 1);
+          if (v6)
           {
             do
             {
-              v11 = v10;
-              v10 = *v10;
+              v7 = v6;
+              v6 = *v6;
             }
 
-            while (v10);
+            while (v6);
           }
 
           else
           {
             do
             {
-              v11 = *(v5 + 2);
-              v12 = *v11 == v5;
-              v5 = v11;
+              v7 = *(v4 + 2);
+              v8 = *v7 == v4;
+              v4 = v7;
             }
 
-            while (!v12);
+            while (!v8);
           }
 
-          v5 = v11;
+          v4 = v7;
         }
 
-        while (v11 != (this + 96));
+        while (v7 != (this + 96));
       }
 
-      v13 = *(this + 14);
-      if (v13 != (this + 120))
+      v9 = *(this + 14);
+      if (v9 != (this + 120))
       {
         do
         {
-          v14 = *(this + 20);
-          v15 = *(v13 + 4);
-          v16 = *(v13 + 5);
-          v17 = BTDiscoveryAgentAddKey();
-          if (v17 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+          v10 = BTDiscoveryAgentAddKey();
+          if (v10 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            sub_9540(v31, v17, v32);
+            sub_9540(v24, v10, &v24[4]);
           }
 
-          v18 = *(v13 + 1);
-          if (v18)
+          v11 = *(v9 + 1);
+          if (v11)
           {
             do
             {
-              v19 = v18;
-              v18 = *v18;
+              v12 = v11;
+              v11 = *v11;
             }
 
-            while (v18);
+            while (v11);
           }
 
           else
           {
             do
             {
-              v19 = *(v13 + 2);
-              v12 = *v19 == v13;
-              v13 = v19;
+              v12 = *(v9 + 2);
+              v8 = *v12 == v9;
+              v9 = v12;
             }
 
-            while (!v12);
+            while (!v8);
           }
 
-          v13 = v19;
+          v9 = v12;
         }
 
-        while (v19 != (this + 120));
+        while (v12 != (this + 120));
       }
 
       BTBrowseMgr::_StartBrowsing(this, 0);
@@ -1302,9 +1279,9 @@ uint64_t BTBrowseMgr::BluetoothAvailabilityChanged(BTBrowseMgr *this, char a2)
 
   else
   {
-    v20 = *(this + 20);
+    v13 = *(this + 20);
     *(this + 42) = 0;
-    if (v20)
+    if (v13)
     {
       if (BTDiscoveryAgentStopScan() && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
@@ -1319,52 +1296,52 @@ uint64_t BTBrowseMgr::BluetoothAvailabilityChanged(BTBrowseMgr *this, char a2)
       *(this + 20) = 0;
     }
 
-    v21 = *(this + 17);
-    if (v21 != (this + 144))
+    v14 = *(this + 17);
+    if (v14 != (this + 144))
     {
       do
       {
-        v22 = *(v21 + 5);
-        if (v22 != (v21 + 48))
+        v15 = v14[5];
+        if (v15 != v14 + 6)
         {
           *__p = 0u;
-          v30 = 0u;
-          v27 = 0u;
-          *v28 = 0u;
-          sub_42DC(&v27, 1, 0, *(v21 + 4), v22 + 4, v22 + 7);
-          BTD2DPlugin::_QueueServiceEvent(*(this + 1));
+          v23 = 0u;
+          v20 = 0u;
+          *v21 = 0u;
+          sub_42DC(&v20, 1, 0, v14[4], (v15 + 4), (v15 + 7));
+          BTD2DPlugin::_QueueServiceEvent(*(this + 1), &v20);
         }
 
-        v23 = *(v21 + 1);
-        v24 = v21;
-        if (v23)
+        v16 = v14[1];
+        v17 = v14;
+        if (v16)
         {
           do
           {
-            v25 = v23;
-            v23 = *v23;
+            v18 = v16;
+            v16 = *v16;
           }
 
-          while (v23);
+          while (v16);
         }
 
         else
         {
           do
           {
-            v25 = *(v24 + 2);
-            v12 = *v25 == v24;
-            v24 = v25;
+            v18 = *(v17 + 2);
+            v8 = *v18 == v17;
+            v17 = v18;
           }
 
-          while (!v12);
+          while (!v8);
         }
 
-        sub_4C00(this + 17, v21);
-        v21 = v25;
+        sub_4C00(this + 17, v14);
+        v14 = v18;
       }
 
-      while (v25 != (this + 144));
+      while (v18 != (this + 144));
     }
   }
 
@@ -1382,7 +1359,6 @@ uint64_t BTBrowseMgr::_StartBrowsing(uint64_t a1, uint64_t *a2)
   if (!*(a1 + 160))
   {
     *__p = *off_C360;
-    v5 = **(a1 + 8);
     if (BTDiscoveryAgentCreate())
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -1399,19 +1375,16 @@ uint64_t BTBrowseMgr::_StartBrowsing(uint64_t a1, uint64_t *a2)
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
     {
       sub_2858(a2);
-      v6 = v14 >= 0 ? __p : __p[0];
+      v5 = v9 >= 0 ? __p : __p[0];
       *buf = 136315138;
-      v16 = v6;
+      v11 = v5;
       _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "Adding new key to browse: %s\n", buf, 0xCu);
-      if (v14 < 0)
+      if (v9 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    v7 = *v4;
-    v8 = *a2;
-    v9 = a2[1];
     if (BTDiscoveryAgentAddKey())
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -1423,21 +1396,20 @@ uint64_t BTBrowseMgr::_StartBrowsing(uint64_t a1, uint64_t *a2)
     }
   }
 
-  v10 = *(a1 + 168);
-  if (v10 == 3)
+  v6 = *(a1 + 168);
+  if (v6 == 3)
   {
     result = 0;
     *(a1 + 168) = 2;
     return result;
   }
 
-  if (v10)
+  if (v6)
   {
     return 0;
   }
 
   *(a1 + 168) = 1;
-  v11 = *(a1 + 160);
   result = BTDiscoveryAgentStartScanForAdvertizedData();
   if (result)
   {
@@ -1476,8 +1448,8 @@ uint64_t BTBrowseMgr::Browse(uint64_t a1, uint64_t *a2)
 {
   pthread_mutex_lock((a1 + 24));
   *&v13 = a2;
-  v4 = sub_4C40(a1 + 88, a2);
-  ++*(v4 + 56);
+  v4 = sub_4C40((a1 + 88), a2, &unk_A74E, &v13, &v17);
+  ++*(v4 + 14);
   if (*(a1 + 16) != 1)
   {
 LABEL_15:
@@ -1496,7 +1468,7 @@ LABEL_15:
         v18[0] = 0;
         v18[1] = 0;
         v17 = v18;
-        BTBrowseMgr::_GetServiceInstancesOfType(started, v7[4], a2);
+        BTBrowseMgr::_GetServiceInstancesOfType(started, v7[4], a2, &v17);
         v8 = v17;
         if (v17 != v18)
         {
@@ -1506,13 +1478,13 @@ LABEL_15:
             _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "Browse found value matching key on known device!\n", &v13, 2u);
           }
 
-          sub_50C4((v7 + 5), (v8 + 4));
+          sub_50C4(v7 + 5, (v8 + 4), (v8 + 4));
           *__p = 0u;
           v16 = 0u;
           v13 = 0u;
           *v14 = 0u;
-          sub_42DC(&v13, 0, 0, v7[4], v8 + 4, v8 + 7);
-          BTD2DPlugin::_QueueServiceEvent(*(a1 + 8));
+          sub_42DC(&v13, 0, 0, v7[4], (v8 + 4), (v8 + 7));
+          BTD2DPlugin::_QueueServiceEvent(*(a1 + 8), &v13);
         }
 
         sub_5068(&v17, v18[0]);
@@ -1556,33 +1528,31 @@ LABEL_16:
   return v6;
 }
 
-void BTBrowseMgr::_GetServiceInstancesOfType(uint64_t a1, uint64_t a2, uint64_t *a3)
+void BTBrowseMgr::_GetServiceInstancesOfType(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     sub_2858(a3);
-    v4 = v9 >= 0 ? __p : __p[0];
+    v5 = v8 >= 0 ? __p : __p[0];
     buf = 136315138;
-    *buf_4 = v4;
+    *buf_4 = v5;
     _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "_GetServiceInstancesOfType - %s\n", &buf, 0xCu);
-    if (v9 < 0)
+    if (v8 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  v5 = *a3;
-  v6 = a3[1];
-  v7 = BTDeviceMatchesAdvertisedKey();
+  v6 = BTDeviceMatchesAdvertisedKey();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     LODWORD(__p[0]) = 67109120;
-    HIDWORD(__p[0]) = v7;
+    HIDWORD(__p[0]) = v6;
     _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "BTDeviceMatchesAdvertisedKey says no match! Result was %d\n", __p, 8u);
   }
 }
 
-void sub_2818(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20)
+void sub_2818(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20)
 {
   sub_B54(&a13);
   if (__p)
@@ -1596,9 +1566,7 @@ void sub_2818(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 
 uint64_t sub_2858(uint64_t *a1)
 {
-  v24 = 0;
-  v22 = 0u;
-  v23 = 0u;
+  v22 = 0;
   v20 = 0u;
   v21 = 0u;
   v18 = 0u;
@@ -1607,55 +1575,54 @@ uint64_t sub_2858(uint64_t *a1)
   v17 = 0u;
   v14 = 0u;
   v15 = 0u;
-  *__p = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v10 = 0u;
-  memset(v11, 0, sizeof(v11));
-  sub_438C(&v10);
-  v2 = v10;
-  v3 = &v11[-1] + *(v10 - 24);
+  *__p = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  memset(v9, 0, sizeof(v9));
+  sub_438C(&v8);
+  v2 = v8;
+  v3 = &v9[-1] + *(v8 - 24);
   if (*(v3 + 36) == -1)
   {
-    std::ios_base::getloc((&v11[-1] + *(v10 - 24)));
-    v4 = std::locale::use_facet(&v25, &std::ctype<char>::id);
+    std::ios_base::getloc((&v9[-1] + *(v8 - 24)));
+    v4 = std::locale::use_facet(&v23, &std::ctype<char>::id);
     (v4->__vftable[2].~facet_0)(v4, 32);
-    std::locale::~locale(&v25);
-    v2 = v10;
+    std::locale::~locale(&v23);
+    v2 = v8;
   }
 
   *(v3 + 36) = 48;
-  *(v11 + *(v2 - 24) + 8) = 2;
-  *(&v11[-1] + *(v2 - 24) + 8) = 16392;
-  v5 = *a1;
+  *(v9 + *(v2 - 24) + 8) = 2;
+  *(&v9[-1] + *(v2 - 24) + 8) = 16392;
   if (a1[1] != *a1)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = *(v5 + v6);
-      v8 = std::ostream::operator<<();
-      sub_46BC(v8);
-      ++v6;
-      v5 = *a1;
+      v6 = std::ostream::operator<<();
+      sub_46BC(v6, " ", 1);
+      ++v5;
     }
 
-    while (v6 < a1[1] - *a1);
+    while (v5 < a1[1] - *a1);
   }
 
   std::stringbuf::str();
-  if (SHIBYTE(v13) < 0)
+  if (SHIBYTE(v11) < 0)
   {
     operator delete(__p[1]);
   }
 
-  std::locale::~locale(v11);
+  std::locale::~locale(v9);
   std::ostream::~ostream();
   return std::ios::~ios();
 }
 
-void sub_2AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void sub_2AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
-  std::locale::~locale((v9 - 56));
+  std::locale::~locale((v23 - 56));
   std::ios::~ios();
   _Unwind_Resume(a1);
 }
@@ -1722,7 +1689,6 @@ uint64_t BTBrowseMgr::_StopBrowsing(BTBrowseMgr *this)
 
   *(this + 42) = v3;
 LABEL_9:
-  v4 = *(this + 20);
   result = BTDiscoveryAgentStopScan();
   if (result)
   {
@@ -1737,78 +1703,78 @@ LABEL_9:
   return result;
 }
 
-uint64_t BTBrowseMgr::StopBrowsing(uint64_t a1, uint64_t a2)
+uint64_t BTBrowseMgr::StopBrowsing(uint64_t a1, const void **a2)
 {
   pthread_mutex_lock((a1 + 24));
   v4 = sub_4F18(a1 + 88, a2);
   if (a1 + 96 == v4)
   {
-    v10 = v4;
+    v7 = v4;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
     {
       LOWORD(__p[0]) = 0;
       _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "StopBrowsing: couldn't find key! Dumping browse list...\n", __p, 2u);
     }
 
-    v11 = *(a1 + 88);
-    if (v11 != v10)
+    v8 = *(a1 + 88);
+    if (v8 != v7)
     {
       do
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
         {
-          sub_2858(v11 + 4);
-          v12 = v19 >= 0 ? __p : __p[0];
-          v13 = *(v11 + 14);
+          sub_2858(v8 + 4);
+          v9 = v16 >= 0 ? __p : __p[0];
+          v10 = *(v8 + 14);
           *buf = 136315394;
-          v21 = v12;
-          v22 = 2048;
-          v23 = v13;
+          v18 = v9;
+          v19 = 2048;
+          v20 = v10;
           _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "Key - %s - count: %lu\n", buf, 0x16u);
-          if (v19 < 0)
+          if (v16 < 0)
           {
             operator delete(__p[0]);
           }
         }
 
-        v14 = v11[1];
-        if (v14)
+        v11 = v8[1];
+        if (v11)
         {
           do
           {
-            v15 = v14;
-            v14 = *v14;
+            v12 = v11;
+            v11 = *v11;
           }
 
-          while (v14);
+          while (v11);
         }
 
         else
         {
           do
           {
-            v15 = v11[2];
-            v16 = *v15 == v11;
-            v11 = v15;
+            v12 = v8[2];
+            v13 = *v12 == v8;
+            v8 = v12;
           }
 
-          while (!v16);
+          while (!v13);
         }
 
-        v11 = v15;
+        v8 = v12;
       }
 
-      while (v15 != v10);
+      while (v12 != v7);
     }
   }
 
   else
   {
     __p[0] = a2;
-    v5 = sub_4C40(a1 + 88, a2);
-    --*(v5 + 56);
+    v5 = sub_4C40((a1 + 88), a2, &unk_A74E, __p, buf);
+    --*(v5 + 14);
     __p[0] = a2;
-    if (!*(sub_4C40(a1 + 88, a2) + 56))
+    if (!*(sub_4C40((a1 + 88), a2, &unk_A74E, __p, buf) + 14))
     {
       sub_4ED0((a1 + 88), a2);
       if (a1 + 120 == sub_4F18(a1 + 112, a2) && *(a1 + 16) == 1)
@@ -1816,19 +1782,16 @@ uint64_t BTBrowseMgr::StopBrowsing(uint64_t a1, uint64_t a2)
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
         {
           sub_2858(a2);
-          v6 = v19 >= 0 ? __p : __p[0];
+          v6 = v16 >= 0 ? __p : __p[0];
           *buf = 136315138;
-          v21 = v6;
+          v18 = v6;
           _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "Removing key from browse: %s\n", buf, 0xCu);
-          if (v19 < 0)
+          if (v16 < 0)
           {
             operator delete(__p[0]);
           }
         }
 
-        v7 = *(a1 + 160);
-        v8 = *a2;
-        v9 = *(a2 + 8);
         if (BTDiscoveryAgentRemoveKey() && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           sub_9788();
@@ -1851,7 +1814,7 @@ uint64_t BTBrowseMgr::StartResolving(uint64_t a1, void *a2, const void **a3)
     v17[0] = 0;
     v16 = &v16 + 8;
     v20[0] = a2;
-    v6 = (sub_541C(a1 + 112, a2) + 56);
+    v6 = (sub_541C((a1 + 112), a2, &unk_A74E, v20, &v23) + 7);
     if (v6 != &v16)
     {
       sub_5600(v6, v16, &v16 + 1);
@@ -1861,16 +1824,16 @@ uint64_t BTBrowseMgr::StartResolving(uint64_t a1, void *a2, const void **a3)
   }
 
   *&v16 = a2;
-  v7 = sub_541C(a1 + 112, a2);
-  sub_5B30(v7 + 56, a3);
+  v7 = sub_541C((a1 + 112), a2, &unk_A74E, &v16, v20);
+  sub_5B30(v7 + 7, a3, a3);
   if (*(a1 + 16) == 1)
   {
     started = BTBrowseMgr::_StartBrowsing(a1, a2);
     if (started)
     {
       *&v16 = a2;
-      v9 = sub_541C(a1 + 112, a2);
-      sub_4ED0((v9 + 56), a3);
+      v9 = sub_541C((a1 + 112), a2, &unk_A74E, &v16, v20);
+      sub_4ED0(v9 + 7, a3);
     }
 
     else
@@ -1883,7 +1846,7 @@ uint64_t BTBrowseMgr::StartResolving(uint64_t a1, void *a2, const void **a3)
           v24[0] = 0;
           v24[1] = 0;
           v23 = v24;
-          BTBrowseMgr::_GetServiceInstancesOfType(started, v11[4], a2);
+          BTBrowseMgr::_GetServiceInstancesOfType(started, v11[4], a2, &v23);
           *v21 = 0u;
           v22 = 0u;
           *v20 = 0u;
@@ -1897,13 +1860,13 @@ uint64_t BTBrowseMgr::StartResolving(uint64_t a1, void *a2, const void **a3)
               _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "Resolve found matching key/value on known device!\n", &v16, 2u);
             }
 
-            sub_50C4((v11 + 5), v20);
+            sub_50C4(v11 + 5, v20, v20);
             *__p = 0u;
             v19 = 0u;
             v16 = 0u;
             *v17 = 0u;
-            sub_42DC(&v16, 2, 0, v11[4], (v12 + 32), (v12 + 56));
-            BTD2DPlugin::_QueueServiceEvent(*(a1 + 8));
+            sub_42DC(&v16, 2, 0, v11[4], (v12 + 4), (v12 + 7));
+            BTD2DPlugin::_QueueServiceEvent(*(a1 + 8), &v16);
           }
 
           if (v21[1])
@@ -1959,7 +1922,7 @@ uint64_t BTBrowseMgr::StartResolving(uint64_t a1, void *a2, const void **a3)
   return pthread_mutex_unlock((a1 + 24));
 }
 
-uint64_t BTBrowseMgr::StopResolving(uint64_t a1, uint64_t a2, const void **a3)
+uint64_t BTBrowseMgr::StopResolving(uint64_t a1, const void **a2, const void **a3)
 {
   pthread_mutex_lock((a1 + 24));
   v6 = sub_4F18(a1 + 112, a2);
@@ -1972,52 +1935,52 @@ uint64_t BTBrowseMgr::StopResolving(uint64_t a1, uint64_t a2, const void **a3)
       _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "StopResolving: couldn't find key! Dumping resolving list...\n", __p, 2u);
     }
 
-    v13 = *(a1 + 112);
-    if (v13 != v7)
+    v10 = *(a1 + 112);
+    if (v10 != v7)
     {
       do
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
         {
-          sub_2858(v13 + 4);
-          v14 = v20 >= 0 ? __p : __p[0];
+          sub_2858(v10 + 4);
+          v11 = v17 >= 0 ? __p : __p[0];
           *buf = 136315138;
-          v22 = v14;
+          v19 = v11;
           _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "Key: %s\n", buf, 0xCu);
-          if (v20 < 0)
+          if (v17 < 0)
           {
             operator delete(__p[0]);
           }
         }
 
-        v15 = v13[1];
-        if (v15)
+        v12 = v10[1];
+        if (v12)
         {
           do
           {
-            v16 = v15;
-            v15 = *v15;
+            v13 = v12;
+            v12 = *v12;
           }
 
-          while (v15);
+          while (v12);
         }
 
         else
         {
           do
           {
-            v16 = v13[2];
-            v17 = *v16 == v13;
-            v13 = v16;
+            v13 = v10[2];
+            v14 = *v13 == v10;
+            v10 = v13;
           }
 
-          while (!v17);
+          while (!v14);
         }
 
-        v13 = v16;
+        v10 = v13;
       }
 
-      while (v16 != v7);
+      while (v13 != v7);
     }
   }
 
@@ -2037,19 +2000,16 @@ uint64_t BTBrowseMgr::StopResolving(uint64_t a1, uint64_t a2, const void **a3)
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
           {
             sub_2858(a2);
-            v9 = v20 >= 0 ? __p : __p[0];
+            v9 = v17 >= 0 ? __p : __p[0];
             *buf = 136315138;
-            v22 = v9;
+            v19 = v9;
             _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "Removing key from browse: %s\n", buf, 0xCu);
-            if (v20 < 0)
+            if (v17 < 0)
             {
               operator delete(__p[0]);
             }
           }
 
-          v10 = *(a1 + 160);
-          v11 = *a2;
-          v12 = *(a2 + 8);
           if (BTDiscoveryAgentRemoveKey() && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             sub_9788();
@@ -2142,20 +2102,17 @@ LABEL_18:
   return v15;
 }
 
-void *sub_36A0(void *result, unint64_t a2)
+void sub_36A0(void *a1, unint64_t a2)
 {
-  if (result[2] - *result < a2)
+  if (a1[2] - *a1 < a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      v2 = result[1] - *result;
       operator new();
     }
 
     sub_EC4();
   }
-
-  return result;
 }
 
 uint64_t BTBrowseMgr::_ReportDiscoveryEvent(uint64_t a1, int a2, void *a3)
@@ -2174,7 +2131,7 @@ uint64_t BTBrowseMgr::_ReportDiscoveryEvent(uint64_t a1, int a2, void *a3)
       v6 = *(a1 + 144);
       if (v6)
       {
-        v7 = a1 + 144;
+        v7 = (a1 + 144);
         do
         {
           v8 = *(v6 + 32);
@@ -2189,17 +2146,17 @@ uint64_t BTBrowseMgr::_ReportDiscoveryEvent(uint64_t a1, int a2, void *a3)
         }
 
         while (v6);
-        if (v7 != a1 + 144 && *(v7 + 32) <= a3)
+        if (v7 != (a1 + 144) && v7[4] <= a3)
         {
-          v11 = *(v7 + 40);
-          if (v11 != v7 + 48)
+          v11 = v7[5];
+          if (v11 != v7 + 6)
           {
             *__p = 0u;
             v59 = 0u;
             *buf = 0u;
             *v57 = 0u;
-            sub_42DC(buf, 1, 0, *(v7 + 32), (v11 + 32), (v11 + 56));
-            BTD2DPlugin::_QueueServiceEvent(*(a1 + 8));
+            sub_42DC(buf, 1, 0, v7[4], (v11 + 4), (v11 + 7));
+            BTD2DPlugin::_QueueServiceEvent(*(a1 + 8), buf);
           }
 
           sub_4C00((a1 + 136), v7);
@@ -2225,7 +2182,7 @@ uint64_t BTBrowseMgr::_ReportDiscoveryEvent(uint64_t a1, int a2, void *a3)
     {
       do
       {
-        BTBrowseMgr::_GetServiceInstancesOfType(v12, a3, v13 + 4);
+        BTBrowseMgr::_GetServiceInstancesOfType(v12, a3, v13 + 4, &v63);
         v14 = v13[1];
         if (v14)
         {
@@ -2266,7 +2223,7 @@ uint64_t BTBrowseMgr::_ReportDiscoveryEvent(uint64_t a1, int a2, void *a3)
         v19 = (a1 + 144);
         do
         {
-          v20 = v17[4];
+          v20 = *(v17 + 32);
           v9 = v20 >= a3;
           v21 = v20 < a3;
           if (v9)
@@ -2274,7 +2231,7 @@ uint64_t BTBrowseMgr::_ReportDiscoveryEvent(uint64_t a1, int a2, void *a3)
             v19 = v17;
           }
 
-          v17 = v17[v21];
+          v17 = *(v17 + 8 * v21);
         }
 
         while (v17);
@@ -2374,8 +2331,8 @@ LABEL_34:
             v59 = 0u;
             *buf = 0u;
             *v57 = 0u;
-            sub_42DC(buf, 0, 0, a3, v63 + 4, v63 + 7);
-            BTD2DPlugin::_QueueServiceEvent(*(a1 + 8));
+            sub_42DC(buf, 0, 0, a3, (v63 + 4), (v63 + 7));
+            BTD2DPlugin::_QueueServiceEvent(*(a1 + 8), buf);
           }
         }
 
@@ -2459,7 +2416,7 @@ LABEL_34:
           v60 = &v61;
           v66[0] = v19[5];
           v69 = v63;
-          v70 = v19 + 6;
+          v70 = (v19 + 6);
           v68 = &v64;
           *v71 = &v60;
           *&v71[8] = &v61;
@@ -2470,8 +2427,8 @@ LABEL_34:
             v59 = 0u;
             *buf = 0u;
             *v57 = 0u;
-            sub_42DC(buf, 1, 0, a3, v60 + 4, v60 + 7);
-            BTD2DPlugin::_QueueServiceEvent(*(a1 + 8));
+            sub_42DC(buf, 1, 0, a3, v60 + 32, v60 + 56);
+            BTD2DPlugin::_QueueServiceEvent(*(a1 + 8), buf);
           }
 
           *&v71[8] = 0;
@@ -2492,8 +2449,8 @@ LABEL_34:
             v59 = 0u;
             *buf = 0u;
             *v57 = 0u;
-            sub_42DC(buf, 0, 0, a3, (*v71 + 32), (*v71 + 56));
-            BTD2DPlugin::_QueueServiceEvent(*(a1 + 8));
+            sub_42DC(buf, 0, 0, a3, *v71 + 32, *v71 + 56);
+            BTD2DPlugin::_QueueServiceEvent(*(a1 + 8), buf);
           }
 
           sub_4C00((a1 + 136), v19);
@@ -2503,7 +2460,7 @@ LABEL_34:
 
         v60 = a3;
         *buf = &v60;
-        v38 = (sub_6264(v29, &v60) + 5);
+        v38 = (sub_6264(v29, &v60, &unk_A74E, buf) + 5);
         if (v38 != &v63)
         {
           sub_6340(v38, v63, &v64);
@@ -2521,7 +2478,7 @@ LABEL_34:
     {
       do
       {
-        BTBrowseMgr::_GetServiceInstancesOfType(v39, a3, v40 + 4);
+        BTBrowseMgr::_GetServiceInstancesOfType(v39, a3, v40 + 4, &v63);
         v42 = v40[1];
         if (v42)
         {
@@ -2602,14 +2559,14 @@ LABEL_34:
 
               v60 = a3;
               *buf = &v60;
-              v52 = sub_6264(a1 + 136, &v60);
-              sub_50C4((v52 + 5), (v44 + 4));
+              v52 = sub_6264(a1 + 136, &v60, &unk_A74E, buf);
+              sub_50C4(v52 + 5, (v44 + 4), (v44 + 4));
               *__p = 0u;
               v59 = 0u;
               *buf = 0u;
               *v57 = 0u;
-              sub_42DC(buf, 2, 0, a3, (v46 + 32), (v47 + 32));
-              BTD2DPlugin::_QueueServiceEvent(*(a1 + 8));
+              sub_42DC(buf, 2, 0, a3, v46 + 32, v47 + 32);
+              BTD2DPlugin::_QueueServiceEvent(*(a1 + 8), buf);
             }
           }
 
@@ -2650,26 +2607,26 @@ LABEL_34:
   return pthread_mutex_unlock((a1 + 24));
 }
 
-void sub_4200(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, void *a28, uint64_t a29, char a30, void *a31)
+void sub_4200(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, void *a31)
 {
   sub_5068(&a27, a28);
   sub_5068(&a30, a31);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_42DC(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
+void *sub_42DC(void *a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 32) = 0;
-  sub_DF8(a1 + 16, *a5, a5[1], a5[1] - *a5);
-  *(a1 + 40) = 0;
-  *(a1 + 48) = 0;
-  *(a1 + 56) = 0;
-  sub_DF8(a1 + 40, *a6, a6[1], a6[1] - *a6);
+  a1[2] = 0;
+  a1[3] = 0;
+  a1[4] = 0;
+  sub_DF8(a1 + 2, *a5, *(a5 + 8), *(a5 + 8) - *a5);
+  a1[5] = 0;
+  a1[6] = 0;
+  a1[7] = 0;
+  sub_DF8(a1 + 5, *a6, *(a6 + 8), *(a6 + 8) - *a6);
   *a1 = a2;
-  *(a1 + 4) = a3;
-  *(a1 + 8) = a4;
+  *(a1 + 1) = a3;
+  a1[1] = a4;
   return a1;
 }
 
@@ -2798,7 +2755,7 @@ void sub_45B4(uint64_t a1)
   }
 }
 
-uint64_t sub_46BC(uint64_t a1)
+void *sub_46BC(void *a1, int a2, int a3)
 {
   std::ostream::sentry::sentry();
   std::ostream::sentry::~sentry();
@@ -2915,16 +2872,16 @@ uint64_t sub_4A70(uint64_t a1, uint64_t *a2)
   return std::ostream::~ostream();
 }
 
-void *sub_4B8C(void *a1, uint64_t *a2, uint64_t *a3)
+uint64_t *sub_4B8C(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  sub_DF8(a1, *a2, a2[1], a2[1] - *a2);
+  sub_DF8(a1, *a2, *(a2 + 8), *(a2 + 8) - *a2);
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
-  sub_DF8((a1 + 3), *a3, a3[1], a3[1] - *a3);
+  sub_DF8(a1 + 3, *a3, *(a3 + 8), *(a3 + 8) - *a3);
   return a1;
 }
 
@@ -2940,18 +2897,18 @@ void sub_4BE4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *sub_4C00(uint64_t **a1, uint64_t a2)
+uint64_t *sub_4C00(uint64_t **a1, uint64_t *a2)
 {
   v3 = sub_1750(a1, a2);
-  sub_5068(a2 + 40, *(a2 + 48));
+  sub_5068((a2 + 5), a2[6]);
   operator delete(a2);
   return v3;
 }
 
-uint64_t sub_4C40(uint64_t a1, uint64_t a2)
+void *sub_4C40(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = 0;
-  result = *sub_4CE4(a1, &v3, a2);
+  v6 = 0;
+  result = *sub_4CE4(a1, &v6, a2);
   if (!result)
   {
     sub_4DC8();
@@ -3185,19 +3142,19 @@ void sub_5068(uint64_t a1, void *a2)
   }
 }
 
-uint64_t sub_50C4(uint64_t a1, uint64_t a2)
+char *sub_50C4(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
-  v7 = 0;
-  v2 = *sub_5160(a1, &v7, a2);
-  if (!v2)
+  v8 = 0;
+  v3 = *sub_5160(a1, &v8, a2);
+  if (!v3)
   {
-    v4 = 0;
     v5 = 0;
     v6 = 0;
+    v7 = 0;
     sub_51FC();
   }
 
-  return v2;
+  return v3;
 }
 
 void *sub_5160(uint64_t a1, void *a2, uint64_t a3)
@@ -3246,7 +3203,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t sub_5274(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL sub_5274(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *a2;
   v5 = *(a2 + 8);
@@ -3344,22 +3301,22 @@ void sub_53B8(uint64_t a1, void *a2)
   }
 }
 
-uint64_t sub_541C(uint64_t a1, uint64_t a2)
+void *sub_541C(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = 0;
-  v2 = *sub_4CE4(a1, &v7, a2);
-  if (!v2)
+  v10 = 0;
+  v5 = *sub_4CE4(a1, &v10, a2);
+  if (!v5)
   {
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
     sub_54D0();
   }
 
-  return v2;
+  return v5;
 }
 
-uint64_t sub_5560(uint64_t a1)
+char **sub_5560(char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -3482,13 +3439,13 @@ uint64_t **sub_5600(uint64_t **result, uint64_t *a2, uint64_t *a3)
 
   if (a2 != a3)
   {
-    sub_5A0C();
+    sub_5A0C(v5);
   }
 
   return result;
 }
 
-void *sub_5794(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *sub_5794(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -3687,11 +3644,11 @@ uint64_t sub_59B4(uint64_t a1)
   return a1;
 }
 
-void sub_5A0C()
+void sub_5A0C(uint64_t **a1)
 {
-  v0 = 0;
   v1 = 0;
   v2 = 0;
+  v3 = 0;
   sub_5A94();
 }
 
@@ -3712,10 +3669,10 @@ void sub_5B14(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_5B30(uint64_t a1, uint64_t a2)
+void *sub_5B30(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
-  v3 = 0;
-  result = *sub_4CE4(a1, &v3, a2);
+  v4 = 0;
+  result = *sub_4CE4(a1, &v4, a2);
   if (!result)
   {
     sub_5A94();
@@ -3764,7 +3721,7 @@ uint64_t sub_5BBC(uint64_t a1, uint64_t a2)
   return v6;
 }
 
-double sub_5C4C@<D0>(void *a1@<X0>, void **a2@<X1>, void *a3@<X2>, void *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+double sub_5C4C@<D0>(void *a1@<X0>, void *a2@<X1>, void *a3@<X2>, void *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
   v6 = a5;
   v8 = *a1;
@@ -4036,11 +3993,11 @@ LABEL_58:
   return result;
 }
 
-void **sub_5F1C(void **a1, uint64_t a2)
+uint64_t ***sub_5F1C(uint64_t ***a1, uint64_t a2)
 {
-  v3 = sub_5F88(*a1, a1[1], a2);
+  v3 = sub_5F88(*a1, a1[1], a2, a2);
   a1[1] = v3;
-  v4 = *(v3 + 8);
+  v4 = *(v3 + 1);
   if (v4)
   {
     do
@@ -4056,7 +4013,7 @@ void **sub_5F1C(void **a1, uint64_t a2)
   {
     do
     {
-      v5 = *(v3 + 16);
+      v5 = *(v3 + 2);
       v6 = *v5 == v3;
       v3 = v5;
     }
@@ -4068,20 +4025,20 @@ void **sub_5F1C(void **a1, uint64_t a2)
   return a1;
 }
 
-uint64_t sub_5F88(void *a1, void *a2, uint64_t a3)
+char *sub_5F88(uint64_t **a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v8 = 0;
   v9 = 0;
-  v3 = *sub_6028(a1, a2, &v9, &v8, a3);
-  if (!v3)
+  v10 = 0;
+  v4 = *sub_6028(a1, a2, &v10, &v9, a3);
+  if (!v4)
   {
-    v5 = 0;
     v6 = 0;
     v7 = 0;
+    v8 = 0;
     sub_51FC();
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t *sub_6028(void *a1, void *a2, void *a3, uint64_t *a4, uint64_t a5)
@@ -4246,41 +4203,41 @@ double sub_61CC@<D0>(void *a1@<X1>, void *a2@<X2>, uint64_t a3@<X3>, uint64_t a4
   return result;
 }
 
-void *sub_6264(uint64_t a1, unint64_t *a2)
+void *sub_6264(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -4376,13 +4333,13 @@ uint64_t **sub_6340(uint64_t **result, char **a2, char **a3)
 
   if (a2 != a3)
   {
-    sub_65F0();
+    sub_65F0(v5, (a2 + 4));
   }
 
   return result;
 }
 
-char **sub_64C8(char **a1, char **a2)
+uint64_t *sub_64C8(uint64_t *a1, char **a2)
 {
   if (a1 != a2)
   {
@@ -4459,17 +4416,17 @@ uint64_t sub_6598(uint64_t a1)
   return a1;
 }
 
-void sub_65F0()
+void sub_65F0(uint64_t **a1, uint64_t a2)
 {
-  v0 = 0;
-  v1 = 0;
   v2 = 0;
+  v3 = 0;
+  v4 = 0;
   sub_51FC();
 }
 
-void sub_6664(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_6664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1280(va);
   _Unwind_Resume(a1);
 }
@@ -4479,14 +4436,13 @@ void BTInterestMgr::BluetoothAvailabilityChanged(BTInterestMgr *this, char a2)
   BTTaskMgr::BluetoothAvailabilityChanged(this, a2);
   if (*(this + 16) == 1)
   {
-    v3 = **(this + 1);
-    v4 = BTServiceAddCallbacksWithFilter();
-    if (v4)
+    v3 = BTServiceAddCallbacksWithFilter();
+    if (v3)
     {
-      v5 = v4;
+      v4 = v3;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_97F8(v5);
+        sub_97F8(v4);
       }
     }
 
@@ -4495,49 +4451,50 @@ void BTInterestMgr::BluetoothAvailabilityChanged(BTInterestMgr *this, char a2)
 
   pthread_mutex_lock((this + 24));
   *(this + 12) = *(this + 11);
-  v6 = *(this + 15);
-  v7 = *(this + 16);
+  v5 = *(this + 15);
+  v6 = *(this + 16);
   *(this + 19) = 0;
-  v8 = (v7 - v6) >> 3;
-  if (v8 >= 3)
+  v7 = (v6 - v5) >> 3;
+  if (v7 >= 3)
   {
     do
     {
-      operator delete(*v6);
-      v9 = *(this + 16);
-      v6 = (*(this + 15) + 8);
-      *(this + 15) = v6;
-      v8 = (v9 - v6) >> 3;
+      operator delete(*v5);
+      v8 = *(this + 16);
+      v5 = (*(this + 15) + 8);
+      *(this + 15) = v5;
+      v7 = (v8 - v5) >> 3;
     }
 
-    while (v8 > 2);
+    while (v7 > 2);
   }
 
-  if (v8 == 1)
+  if (v7 == 1)
   {
-    v10 = 256;
+    v9 = 256;
     goto LABEL_12;
   }
 
-  if (v8 == 2)
+  if (v7 == 2)
   {
-    v10 = 512;
+    v9 = 512;
 LABEL_12:
-    *(this + 18) = v10;
+    *(this + 18) = v9;
   }
 
   pthread_mutex_unlock((this + 24));
 }
 
-BOOL _btServiceEventCallback(_BOOL8 result, int a2, int a3, int a4, int a5, BTInterestMgr *this)
+BOOL _btServiceEventCallback(_BOOL8 result, int a2, int a3, int a4, uint64_t a5, BTInterestMgr *this)
 {
+  v7 = a5;
   v9 = result;
   if (a3 == 1)
   {
     result = BTInterestMgr::_IsDeviceRetained(this, result);
     if (result)
     {
-      if (a4 == 12 && !a5)
+      if (a4 == 12 && !v7)
       {
         BTInterestMgr::RemoveInterest(this, v9);
         v10 = this;
@@ -4559,7 +4516,7 @@ BOOL _btServiceEventCallback(_BOOL8 result, int a2, int a3, int a4, int a5, BTIn
     result = BTInterestMgr::_IsDeviceRetained(this, result);
     if (result)
     {
-      if (a4 == 11 && !a5)
+      if (a4 == 11 && !v7)
       {
         v10 = this;
         v11 = 0;
@@ -4569,7 +4526,7 @@ LABEL_11:
         goto LABEL_25;
       }
 
-      v14 = a4 == 1 && a5 == 0;
+      v14 = a4 == 1 && v7 == 0;
       v15 = v14;
       if (a4 && !v15)
       {
@@ -4578,7 +4535,7 @@ LABEL_11:
         v11 = 0;
 LABEL_24:
         v12 = v9;
-        v13 = a5;
+        v13 = v7;
 LABEL_25:
 
         BTInterestMgr::ReportInterestEvent(v10, v11, v12, v13);
@@ -4671,20 +4628,19 @@ LABEL_6:
     return 0;
   }
 
-  v24 = 0;
+  v23 = 0;
   __chkstk_darwin(v17);
-  v18 = v23;
-  bzero(v23, 0x800uLL);
-  v19 = *(*(this + 1) + 8);
-  if (BTLocalDeviceGetConnectedDevices() || (v22 = v24) == 0)
+  v18 = v22;
+  bzero(v22, 0x800uLL);
+  if (BTLocalDeviceGetConnectedDevices() || (v21 = v23) == 0)
   {
 LABEL_21:
-    v20 = BTDeviceConnectServices();
-    if (v20)
+    v19 = BTDeviceConnectServices();
+    if (v19)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_9878(a2, v20);
+        sub_9878(a2, v19);
       }
 
       return 1;
@@ -4696,7 +4652,7 @@ LABEL_21:
   while (*v18 != a2)
   {
     ++v18;
-    if (!--v22)
+    if (!--v21)
     {
       goto LABEL_21;
     }
@@ -4754,7 +4710,7 @@ void BTInterestMgr::ReportInterestEvent(uint64_t a1, int a2, uint64_t a3, int a4
   }
 
   sub_42DC(&v6, v5, a4 != 0, a3, v10, v10);
-  BTD2DPlugin::_QueueServiceEvent(*(a1 + 8));
+  BTD2DPlugin::_QueueServiceEvent(*(a1 + 8), &v6);
 }
 
 void sub_6BE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -4860,22 +4816,22 @@ uint64_t BTInterestMgr::_RetryConnection(BTInterestMgr *this, void *a2)
   return pthread_mutex_unlock((this + 24));
 }
 
-BOOL BTInterestMgr::_ShouldRetry(BTInterestMgr *this, void *a2)
+BOOL BTInterestMgr::_ShouldRetry(BTD2DPlugin **this, void *a2)
 {
-  if (BTD2DPlugin::_ResolvingServiceForDevice(*(this + 1), a2))
+  v3 = BTD2DPlugin::_ResolvingServiceForDevice(this[1], a2);
+  if (v3)
   {
-    v9 = 0;
-    __chkstk_darwin();
-    v4 = v8;
-    bzero(v8, 0x800uLL);
-    v5 = *(*(this + 1) + 8);
+    v8 = 0;
+    __chkstk_darwin(v3);
+    v4 = v7;
+    bzero(v7, 0x800uLL);
     if (BTLocalDeviceGetConnectedDevices())
     {
       return 1;
     }
 
-    v7 = v9;
-    if (!v9)
+    v6 = v8;
+    if (!v8)
     {
       return 1;
     }
@@ -4885,7 +4841,7 @@ BOOL BTInterestMgr::_ShouldRetry(BTInterestMgr *this, void *a2)
       while (*v4 != a2)
       {
         ++v4;
-        if (!--v7)
+        if (!--v6)
         {
           return 1;
         }
@@ -4895,7 +4851,7 @@ BOOL BTInterestMgr::_ShouldRetry(BTInterestMgr *this, void *a2)
       if (result)
       {
         *buf = 134217984;
-        v11 = a2;
+        v10 = a2;
         _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "Already connected to device %p\n", buf, 0xCu);
         return 0;
       }
@@ -4908,7 +4864,7 @@ BOOL BTInterestMgr::_ShouldRetry(BTInterestMgr *this, void *a2)
     if (result)
     {
       *buf = 134217984;
-      v11 = a2;
+      v10 = a2;
       _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_INFO, "No longer resolving anything for device %p\n", buf, 0xCu);
       return 0;
     }
@@ -4917,35 +4873,32 @@ BOOL BTInterestMgr::_ShouldRetry(BTInterestMgr *this, void *a2)
   return result;
 }
 
-void *sub_7050(void *result, void *a2)
+void sub_7050(unint64_t *result, void *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 6) - 1;
+    v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = sub_73C4(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    sub_73C4(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
 uint64_t BTInterestMgr::_RetryConnectionEvent(BTInterestMgr *this)
@@ -5013,7 +4966,6 @@ void *sub_72A0(void *a1, void *a2, void *a3, void *a4, void *a5)
     {
       if ((*a1 + 4096) == a2)
       {
-        v5 = a1[1];
         ++a1;
       }
 
@@ -5025,21 +4977,21 @@ void *sub_72A0(void *a1, void *a2, void *a3, void *a4, void *a5)
 
   else
   {
-    v6 = *a1 + 4096;
-    if (v6 == a2)
+    v5 = (*a1 + 4096);
+    if (v5 == a2)
     {
       goto LABEL_20;
     }
 
     while (*a2 != *a5)
     {
-      if (++a2 == v6)
+      if (++a2 == v5)
       {
         goto LABEL_20;
       }
     }
 
-    if (a2 != v6)
+    if (a2 != v5)
     {
       return a1;
     }
@@ -5047,50 +4999,49 @@ void *sub_72A0(void *a1, void *a2, void *a3, void *a4, void *a5)
 LABEL_20:
     while (1)
     {
-      v8 = a1[1];
+      v7 = a1[1];
       if (a1 + 1 == a3)
       {
         break;
       }
 
-      v7 = 0;
+      v6 = 0;
       ++a1;
       do
       {
-        if (v8[v7] == *a5)
+        if (v7[v6] == *a5)
         {
           break;
         }
 
-        ++v7;
+        ++v6;
       }
 
-      while (v7 != 512);
-      if (v7 != 512)
+      while (v6 != 512);
+      if (v6 != 512)
       {
         return a1;
       }
     }
 
-    if (v8 != a4)
+    if (v7 != a4)
     {
-      v9 = 0;
-      v10 = a1[1];
+      v8 = 0;
+      v9 = a1[1];
       do
       {
-        if (*v10 == *a5)
+        if (*v9 == *a5)
         {
           break;
         }
 
-        v9 += 8;
-        ++v10;
+        v8 += 8;
+        ++v9;
       }
 
-      while (v10 != a4);
-      if (v9 == 4096)
+      while (v9 != a4);
+      if (v8 == 4096)
       {
-        v11 = a1[2];
         a1 += 2;
         return a1;
       }
@@ -5100,19 +5051,19 @@ LABEL_20:
   return a3;
 }
 
-void *sub_73C4(void *a1)
+void sub_73C4(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -5120,25 +5071,25 @@ void *sub_73C4(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    sub_7258(a1, v9);
+    v10 = a1;
+    sub_7258(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return sub_7598(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  sub_7598(a1, &v9);
 }
 
 void sub_754C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -5152,27 +5103,26 @@ void sub_754C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
   _Unwind_Resume(a1);
 }
 
-void *sub_7598(void *result, void *a2)
+void sub_7598(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      sub_7258(result, v11);
+      sub_7258(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -5181,28 +5131,26 @@ void *sub_7598(void *result, void *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **sub_76A0(const void **result, void *a2)
+void sub_76A0(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -5215,52 +5163,50 @@ const void **sub_76A0(const void **result, void *a2)
         v9 = (v7 - v4) >> 2;
       }
 
-      sub_7258(result, v9);
+      sub_7258(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
-void *sub_77AC(void *result, void *a2)
+void sub_77AC(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      sub_7258(result[4], v11);
+      sub_7258(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -5269,28 +5215,26 @@ void *sub_77AC(void *result, void *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **sub_78B4(const void **result, void *a2)
+void sub_78B4(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -5303,29 +5247,28 @@ const void **sub_78B4(const void **result, void *a2)
         v9 = (v7 - v4) >> 2;
       }
 
-      sub_7258(result[4], v9);
+      sub_7258(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 uint64_t sub_79C0(uint64_t a1, int a2)
@@ -5811,12 +5754,10 @@ uint64_t BTD2DPlugin::BluetoothStatusChanged(uint64_t this, int a2)
     v3 = this;
     *(this + 16) = a2;
     (***(this + 24))(*(this + 24));
-    v4 = *(v3 + 16);
     (***(v3 + 32))();
-    v5 = *(v3 + 16);
-    v6 = ***(v3 + 40);
+    v4 = ***(v3 + 40);
 
-    return v6();
+    return v4();
   }
 
   return this;
@@ -5840,7 +5781,7 @@ uint64_t BTD2DPlugin::Cleanup(BTD2DPlugin *this)
   return result;
 }
 
-void _btLocalDeviceCallback(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+void _btLocalDeviceCallback(uint64_t result, int a2, uint64_t a3, uint64_t a4)
 {
   if (!a2)
   {
@@ -5868,7 +5809,7 @@ void BTD2DPlugin::_ReportServiceEvent(BTD2DPlugin *this)
     v5 = 0u;
     v2 = 0u;
     *v3 = 0u;
-    sub_9048(&v2, (*(this + 18) + 16));
+    sub_9048(&v2, *(this + 18) + 16);
     sub_8AF8(this + 136);
     pthread_mutex_unlock((this + 72));
     if (v3[1] != v3[0])
@@ -5896,9 +5837,9 @@ void BTD2DPlugin::_ReportServiceEvent(BTD2DPlugin *this)
   }
 }
 
-void sub_8A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_8A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_20FC(va);
   _Unwind_Resume(a1);
 }
@@ -6127,18 +6068,18 @@ uint64_t sub_8FE8(uint64_t a1)
   return a1;
 }
 
-void *sub_9048(void *a1, void *a2)
+void *sub_9048(void *a1, uint64_t a2)
 {
   a1[2] = 0;
   a1[3] = 0;
   a1[4] = 0;
-  sub_DF8((a1 + 2), a2[2], a2[3], a2[3] - a2[2]);
+  sub_DF8(a1 + 2, *(a2 + 16), *(a2 + 24), *(a2 + 24) - *(a2 + 16));
   a1[5] = 0;
   a1[6] = 0;
   a1[7] = 0;
-  sub_DF8((a1 + 5), a2[5], a2[6], a2[6] - a2[5]);
+  sub_DF8(a1 + 5, *(a2 + 40), *(a2 + 48), *(a2 + 48) - *(a2 + 40));
   *a1 = *a2;
-  a1[1] = a2[1];
+  a1[1] = *(a2 + 8);
   return a1;
 }
 
@@ -6154,7 +6095,7 @@ void sub_90C0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_90DC(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *sub_90DC(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {

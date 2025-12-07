@@ -77,31 +77,30 @@
 void __91__CCUIContinuousSliderViewAccessibility__accessibilityAdjustSliderValueInForwardDirection___block_invoke(uint64_t a1)
 {
   objc_opt_class();
-  v2 = *(a1 + 32);
-  v3 = __UIAccessibilityCastAsClass();
-  v4 = [*(a1 + 32) safeUIViewForKey:@"superview"];
+  v2 = __UIAccessibilityCastAsClass();
+  v3 = [*(a1 + 32) safeUIViewForKey:@"superview"];
   MEMORY[0x29C2D2560](@"MRUVolumeView");
   isKindOfClass = objc_opt_isKindOfClass();
 
   if (isKindOfClass)
   {
-    v6 = *(a1 + 40);
-    *&v6 = v6;
-    [*(a1 + 32) setValue:v6];
+    v5 = *(a1 + 40);
+    *&v5 = v5;
+    [*(a1 + 32) setValue:v5];
     [*(a1 + 32) _axSetVolumeValue:*(a1 + 40)];
-    v7 = 4096;
+    v6 = 4096;
   }
 
   else
   {
-    [v3 sendActionsForControlEvents:0x10000];
-    v8 = *(a1 + 40);
-    *&v8 = v8;
-    [*(a1 + 32) setValue:0 animated:v8];
-    v7 = 0x40000;
+    [v2 sendActionsForControlEvents:0x10000];
+    v7 = *(a1 + 40);
+    *&v7 = v7;
+    [*(a1 + 32) setValue:0 animated:v7];
+    v6 = 0x40000;
   }
 
-  [v3 sendActionsForControlEvents:v7];
+  [v2 sendActionsForControlEvents:v6];
 }
 
 - (unint64_t)accessibilityTraits

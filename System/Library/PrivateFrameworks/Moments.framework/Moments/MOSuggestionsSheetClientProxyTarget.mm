@@ -50,14 +50,14 @@
 
 - (void)didReceiveStateUpdateRequest:(id)request
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = _mo_log_facility_get_os_log(MOLogFacilityUIService);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109120;
-    v11[1] = [requestCopy intValue];
-    _os_log_impl(&dword_22D8C5000, v5, OS_LOG_TYPE_DEFAULT, "client proxy callback, transitioned to state=%d", v11, 8u);
+    v10[0] = 67109120;
+    v10[1] = [requestCopy intValue];
+    _os_log_impl(&dword_22D8C5000, v5, OS_LOG_TYPE_DEFAULT, "client proxy callback, transitioned to state=%d", v10, 8u);
   }
 
   delegate = [(MOSuggestionSheetController *)self->_controller delegate];
@@ -78,21 +78,19 @@
     delegate2 = [(MOSuggestionSheetController *)self->_controller delegate];
     [delegate2 suggestionSheetController:self->_controller didTransitionTo:unsignedIntValue];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performTask:(id)task suggestion:(id)suggestion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   suggestionCopy = suggestion;
   v8 = _mo_log_facility_get_os_log(MOLogFacilityUIService);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14[0] = 67109120;
-    v14[1] = [taskCopy intValue];
-    _os_log_impl(&dword_22D8C5000, v8, OS_LOG_TYPE_DEFAULT, "client proxy callback, requested task=%d", v14, 8u);
+    v13[0] = 67109120;
+    v13[1] = [taskCopy intValue];
+    _os_log_impl(&dword_22D8C5000, v8, OS_LOG_TYPE_DEFAULT, "client proxy callback, requested task=%d", v13, 8u);
   }
 
   delegate = [(MOSuggestionSheetController *)self->_controller delegate];
@@ -104,8 +102,6 @@
     delegate2 = [(MOSuggestionSheetController *)self->_controller delegate];
     [delegate2 suggestionSheetController:self->_controller shouldPerformTask:unsignedIntValue forSuggestion:suggestionCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didGrantSandboxAccessFor:(id)for

@@ -488,7 +488,7 @@ void __67__PKPaymentDocumentSubmissionInfoViewController_updateUIWithState___blo
   }
 }
 
-uint64_t __67__PKPaymentDocumentSubmissionInfoViewController_updateUIWithState___block_invoke_3(uint64_t result, char a2)
+void *__67__PKPaymentDocumentSubmissionInfoViewController_updateUIWithState___block_invoke_3(void *result, uint64_t a2)
 {
   v8 = *MEMORY[0x1E69E9840];
   if ((a2 & 1) == 0)
@@ -504,7 +504,7 @@ uint64_t __67__PKPaymentDocumentSubmissionInfoViewController_updateUIWithState__
       _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Error: Failed to present view controller terminating setup flow from: %@", &v6, 0xCu);
     }
 
-    return [*(*(v2 + 32) + 1080) terminateSetupFlow];
+    return [*(v2[4] + 1080) terminateSetupFlow];
   }
 
   return result;

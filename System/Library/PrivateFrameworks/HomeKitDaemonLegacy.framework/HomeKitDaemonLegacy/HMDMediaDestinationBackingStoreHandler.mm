@@ -28,7 +28,7 @@
 
 - (void)transactionObjectRemoved:(id)removed message:(id)message
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   messageCopy = message;
   v8 = objc_autoreleasePoolPush();
@@ -37,23 +37,21 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2112;
-    v17 = removedCopy;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove unknown transaction object: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2112;
+    v16 = removedCopy;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove unknown transaction object: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   v12 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:15];
   [messageCopy respondWithError:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -64,9 +62,9 @@
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v49 = v14;
-    v50 = 2112;
-    v51 = valuesCopy;
+    v48 = v14;
+    v49 = 2112;
+    v50 = valuesCopy;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling transaction object updated with new object: %@", buf, 0x16u);
   }
 
@@ -80,7 +78,7 @@
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v49 = v18;
+      v48 = v18;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Skipping due to Home Theater QFA enabled", buf, 0xCu);
     }
 
@@ -116,9 +114,9 @@
         {
           v45 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v49 = v45;
-          v50 = 2112;
-          v51 = v21;
+          v48 = v45;
+          v49 = 2112;
+          v50 = v21;
           _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_ERROR, "%{public}@Failed to update audio destination with unrecongnized model: %@", buf, 0x16u);
         }
 
@@ -143,7 +141,7 @@
         destination2 = [(HMDMediaDestinationBackingStoreHandler *)selfCopy destination];
         if ((HMFEqualObjects() & 1) == 0)
         {
-          v47 = updatedCopy;
+          v46 = updatedCopy;
           v31 = objc_autoreleasePoolPush();
           v32 = selfCopy;
           v33 = HMFGetOSLogHandle();
@@ -151,11 +149,11 @@
           {
             v34 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v49 = v34;
-            v50 = 2112;
-            v51 = v23;
-            v52 = 2112;
-            v53 = destination2;
+            v48 = v34;
+            v49 = 2112;
+            v50 = v23;
+            v51 = 2112;
+            v52 = destination2;
             _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_INFO, "%{public}@Updated audio destination: %@ new audio destination: %@", buf, 0x20u);
           }
 
@@ -169,7 +167,7 @@
           delegate = [(HMDMediaDestinationBackingStoreHandler *)v32 delegate];
           [delegate mediaDestinationBackingStoreHandler:v32 didUpdateDestination:destination2];
 
-          updatedCopy = v47;
+          updatedCopy = v46;
         }
 
         [messageCopy respondWithSuccess];
@@ -185,9 +183,9 @@
       {
         v41 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v49 = v41;
-        v50 = 2112;
-        v51 = v19;
+        v48 = v41;
+        v49 = 2112;
+        v50 = v19;
         _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_ERROR, "%{public}@Failed to process unknown transaction object: %@", buf, 0x16u);
       }
 
@@ -196,8 +194,6 @@
       [messageCopy respondWithError:v23];
     }
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAudioGroupIdentifier:(id)identifier
@@ -219,7 +215,7 @@
 - (HMMediaDestination)destination
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(HMMutableMediaDestination *)self->_destination copy];
+  v3 = objc_msgSend_copy(self->_destination);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -227,7 +223,7 @@
 
 - (void)recoverDueToInvalidRecordInCloudWithHome:(id)home migrationQueue:(id)queue completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   queueCopy = queue;
   completionCopy = completion;
@@ -238,7 +234,7 @@
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v28 = v14;
+    v27 = v14;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Recovering cloud data due to invalid cloud record", buf, 0xCu);
   }
 
@@ -255,33 +251,29 @@
   v20 = [HMDMediaDestinationBackingStoreHandler backingStoreObjectForMediaDestination:destination2];
 
   [v20 setObjectChangeType:2];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __109__HMDMediaDestinationBackingStoreHandler_recoverDueToInvalidRecordInCloudWithHome_migrationQueue_completion___block_invoke;
-  v24[3] = &unk_279735738;
-  v25 = v20;
-  v26 = completionCopy;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __109__HMDMediaDestinationBackingStoreHandler_recoverDueToInvalidRecordInCloudWithHome_migrationQueue_completion___block_invoke;
+  v23[3] = &unk_279735738;
+  v24 = v20;
+  v25 = completionCopy;
   v21 = v20;
   v22 = completionCopy;
-  dispatch_async(queueCopy, v24);
-
-  v23 = *MEMORY[0x277D85DE8];
+  dispatch_async(queueCopy, v23);
 }
 
 void __109__HMDMediaDestinationBackingStoreHandler_recoverDueToInvalidRecordInCloudWithHome_migrationQueue_completion___block_invoke(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
-  v4[0] = *(a1 + 32);
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+  v3[0] = *(a1 + 32);
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
   (*(v1 + 16))(v1, MEMORY[0x277CBEBF8], v2, 0);
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)migrateWithCurrentCloudRecord:(id)record home:(id)home cloudZone:(id)zone migrationQueue:(id)queue completion:(id)completion
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   homeCopy = home;
   zoneCopy = zone;
@@ -303,7 +295,7 @@ void __109__HMDMediaDestinationBackingStoreHandler_recoverDueToInvalidRecordInCl
 
   if (v19)
   {
-    v42 = homeCopy;
+    v41 = homeCopy;
     destination = [(HMDMediaDestinationBackingStoreHandler *)self destination];
     supportedOptions = [v19 supportedOptions];
     integerValue = [supportedOptions integerValue];
@@ -318,7 +310,7 @@ void __109__HMDMediaDestinationBackingStoreHandler_recoverDueToInvalidRecordInCl
       v28 = queueCopy;
       v29 = recordCopy;
       v31 = v30 = zoneCopy;
-      v41 = HMFEqualObjects();
+      v40 = HMFEqualObjects();
 
       zoneCopy = v30;
       recordCopy = v29;
@@ -328,16 +320,16 @@ void __109__HMDMediaDestinationBackingStoreHandler_recoverDueToInvalidRecordInCl
       self = selfCopy;
       destination = v24;
 
-      if (v41)
+      if (v40)
       {
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __113__HMDMediaDestinationBackingStoreHandler_migrateWithCurrentCloudRecord_home_cloudZone_migrationQueue_completion___block_invoke_2;
         block[3] = &unk_2797348C0;
-        v44 = completionCopy;
+        v43 = completionCopy;
         dispatch_async(queueCopy, block);
 
-        homeCopy = v42;
+        homeCopy = v41;
         goto LABEL_15;
       }
     }
@@ -353,17 +345,17 @@ void __109__HMDMediaDestinationBackingStoreHandler_recoverDueToInvalidRecordInCl
     {
       v39 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v48 = v39;
-      v49 = 2112;
-      v50 = v19;
-      v51 = 2112;
-      v52 = destination;
+      v47 = v39;
+      v48 = 2112;
+      v49 = v19;
+      v50 = 2112;
+      v51 = destination;
       _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_INFO, "%{public}@Recovering due to miss matched model: %@ destination: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v36);
-    homeCopy = v42;
-    [(HMDMediaDestinationBackingStoreHandler *)selfCopy2 recoverDueToInvalidRecordInCloudWithHome:v42 migrationQueue:queueCopy completion:completionCopy];
+    homeCopy = v41;
+    [(HMDMediaDestinationBackingStoreHandler *)selfCopy2 recoverDueToInvalidRecordInCloudWithHome:v41 migrationQueue:queueCopy completion:completionCopy];
   }
 
   else
@@ -375,30 +367,28 @@ void __109__HMDMediaDestinationBackingStoreHandler_recoverDueToInvalidRecordInCl
     {
       v35 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v48 = v35;
-      v49 = 2112;
-      v50 = recordCopy;
+      v47 = v35;
+      v48 = 2112;
+      v49 = recordCopy;
       _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, "%{public}@Failed to migrate due to unknown model extracted from record: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v32);
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __113__HMDMediaDestinationBackingStoreHandler_migrateWithCurrentCloudRecord_home_cloudZone_migrationQueue_completion___block_invoke;
-    v45[3] = &unk_2797348C0;
-    v46 = completionCopy;
-    dispatch_async(queueCopy, v45);
-    destination = v46;
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __113__HMDMediaDestinationBackingStoreHandler_migrateWithCurrentCloudRecord_home_cloudZone_migrationQueue_completion___block_invoke;
+    v44[3] = &unk_2797348C0;
+    v45 = completionCopy;
+    dispatch_async(queueCopy, v44);
+    destination = v45;
   }
 
 LABEL_15:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recoverDueToNoRecordInCloudWithHome:(id)home migrationQueue:(id)queue completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   queueCopy = queue;
   completionCopy = completion;
@@ -409,7 +399,7 @@ LABEL_15:
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v24 = v14;
+    v23 = v14;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Recovering cloud data due to no record added", buf, 0xCu);
   }
 
@@ -417,23 +407,21 @@ LABEL_15:
   destination = [(HMDMediaDestinationBackingStoreHandler *)selfCopy destination];
   uniqueIdentifier = [destination uniqueIdentifier];
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __104__HMDMediaDestinationBackingStoreHandler_recoverDueToNoRecordInCloudWithHome_migrationQueue_completion___block_invoke;
-  v20[3] = &unk_27972F8D8;
-  v20[4] = selfCopy;
-  v21 = queueCopy;
-  v22 = completionCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __104__HMDMediaDestinationBackingStoreHandler_recoverDueToNoRecordInCloudWithHome_migrationQueue_completion___block_invoke;
+  v19[3] = &unk_27972F8D8;
+  v19[4] = selfCopy;
+  v20 = queueCopy;
+  v21 = completionCopy;
   v17 = completionCopy;
   v18 = queueCopy;
-  [homeCopy cleanChangesIfNoAddChangeObjectID:uniqueIdentifier completion:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [homeCopy cleanChangesIfNoAddChangeObjectID:uniqueIdentifier completion:v19];
 }
 
 void __104__HMDMediaDestinationBackingStoreHandler_recoverDueToNoRecordInCloudWithHome_migrationQueue_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -444,7 +432,7 @@ void __104__HMDMediaDestinationBackingStoreHandler_recoverDueToNoRecordInCloudWi
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v9;
+      v24 = v9;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Skipping migration due to add transaction already exists", buf, 0xCu);
     }
 
@@ -454,9 +442,9 @@ void __104__HMDMediaDestinationBackingStoreHandler_recoverDueToNoRecordInCloudWi
     block[2] = __104__HMDMediaDestinationBackingStoreHandler_recoverDueToNoRecordInCloudWithHome_migrationQueue_completion___block_invoke_20;
     block[3] = &unk_2797348C0;
     v10 = *(a1 + 40);
-    v23 = *(a1 + 48);
+    v22 = *(a1 + 48);
     dispatch_async(v10, block);
-    v11 = v23;
+    v11 = v22;
   }
 
   else
@@ -469,30 +457,26 @@ void __104__HMDMediaDestinationBackingStoreHandler_recoverDueToNoRecordInCloudWi
     v14 = [HMDMediaDestinationBackingStoreHandler backingStoreObjectForMediaDestination:v13];
 
     [v14 setObjectChangeType:1];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __104__HMDMediaDestinationBackingStoreHandler_recoverDueToNoRecordInCloudWithHome_migrationQueue_completion___block_invoke_2;
-    v19[3] = &unk_279735738;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __104__HMDMediaDestinationBackingStoreHandler_recoverDueToNoRecordInCloudWithHome_migrationQueue_completion___block_invoke_2;
+    v18[3] = &unk_279735738;
     v15 = *(a1 + 40);
     v16 = *(a1 + 48);
-    v20 = v14;
-    v21 = v16;
+    v19 = v14;
+    v20 = v16;
     v17 = v14;
-    dispatch_async(v15, v19);
+    dispatch_async(v15, v18);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __104__HMDMediaDestinationBackingStoreHandler_recoverDueToNoRecordInCloudWithHome_migrationQueue_completion___block_invoke_2(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
-  v4[0] = *(a1 + 32);
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+  v3[0] = *(a1 + 32);
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
   (*(v1 + 16))(v1, v2, MEMORY[0x277CBEBF8], 0);
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)migrateWithHome:(id)home cloudZone:(id)zone migrationQueue:(id)queue completion:(id)completion
@@ -536,7 +520,7 @@ uint64_t __94__HMDMediaDestinationBackingStoreHandler_migrateWithHome_cloudZone_
 
 - (void)updateAudioGroupIdentifier:(id)identifier completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   v8 = objc_autoreleasePoolPush();
@@ -545,11 +529,11 @@ uint64_t __94__HMDMediaDestinationBackingStoreHandler_migrateWithHome_cloudZone_
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v29 = 138543618;
-    v30 = v11;
-    v31 = 2112;
-    v32 = identifierCopy;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating to audio group identifier: %@", &v29, 0x16u);
+    v28 = 138543618;
+    v29 = v11;
+    v30 = 2112;
+    v31 = identifierCopy;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating to audio group identifier: %@", &v28, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -568,9 +552,9 @@ uint64_t __94__HMDMediaDestinationBackingStoreHandler_migrateWithHome_cloudZone_
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         v19 = HMFGetLogIdentifier();
-        v29 = 138543362;
-        v30 = v19;
-        _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Attempting forced push due to audio group identifier already updated", &v29, 0xCu);
+        v28 = 138543362;
+        v29 = v19;
+        _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Attempting forced push due to audio group identifier already updated", &v28, 0xCu);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -595,20 +579,18 @@ uint64_t __94__HMDMediaDestinationBackingStoreHandler_migrateWithHome_cloudZone_
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       v27 = HMFGetLogIdentifier();
-      v29 = 138543362;
-      v30 = v27;
-      _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to update audio group identifier due to no completion", &v29, 0xCu);
+      v28 = 138543362;
+      v29 = v27;
+      _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to update audio group identifier due to no completion", &v28, 0xCu);
     }
 
     objc_autoreleasePoolPop(v24);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSupportedOptions:(unint64_t)options completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = HMMediaDestinationSupportOptionsAsString();
   v8 = objc_autoreleasePoolPush();
@@ -618,9 +600,9 @@ uint64_t __94__HMDMediaDestinationBackingStoreHandler_migrateWithHome_cloudZone_
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v28 = v11;
-    v29 = 2112;
-    v30 = v7;
+    v27 = v11;
+    v28 = 2112;
+    v29 = v7;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating to supported options: %@", buf, 0x16u);
   }
 
@@ -637,7 +619,7 @@ uint64_t __94__HMDMediaDestinationBackingStoreHandler_migrateWithHome_cloudZone_
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v28 = v16;
+        v27 = v16;
         _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Supported options already updated", buf, 0xCu);
       }
 
@@ -668,19 +650,17 @@ uint64_t __94__HMDMediaDestinationBackingStoreHandler_migrateWithHome_cloudZone_
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v20;
+      v27 = v20;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to update supported options due to no completion", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v17);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mergeDestination:(id)destination
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   destinationCopy = destination;
   os_unfair_lock_lock_with_options();
   if (([(HMMutableMediaDestination *)self->_destination isEqual:destinationCopy]& 1) != 0)
@@ -701,17 +681,15 @@ uint64_t __94__HMDMediaDestinationBackingStoreHandler_migrateWithHome_cloudZone_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = destinationCopy;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Merged destination: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2112;
+      v14 = destinationCopy;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Merged destination: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMediaDestinationBackingStoreHandler)initWithDestination:(id)destination backingStore:(id)store metricsDispatcher:(id)dispatcher delegate:(id)delegate
@@ -773,12 +751,11 @@ LABEL_9:
 
 uint64_t __53__HMDMediaDestinationBackingStoreHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v25_37843;
-  logCategory__hmf_once_v25_37843 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v25_37843;
+  logCategory__hmf_once_v25_37843 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)backingStoreObjectForMediaDestination:(id)destination

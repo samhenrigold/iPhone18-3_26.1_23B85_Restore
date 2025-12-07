@@ -8,54 +8,54 @@
 - (PTEffectReactionBackgroundDimming)initWithMetalContext:(id)context
 {
   contextCopy = context;
-  v17.receiver = self;
-  v17.super_class = PTEffectReactionBackgroundDimming;
-  v6 = [(PTEffectReactionBackgroundDimming *)&v17 init];
+  v18.receiver = self;
+  v18.super_class = PTEffectReactionBackgroundDimming;
+  v6 = [(PTEffectReactionBackgroundDimming *)&v18 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_metalContext, context);
     v8 = objc_opt_new();
-    v16 = 0;
+    v17 = 0;
     backgroundDimAndConvertYUVtoRGB = v7->_backgroundDimAndConvertYUVtoRGB;
     while (1)
     {
       [v8 reset];
-      [v8 setConstantValue:&v16 type:29 withName:@"kColorTransferFunction"];
+      [v8 setConstantValue:&v17 type:29 withName:@"kColorTransferFunction"];
       v10 = [contextCopy computePipelineStateFor:@"backgroundDimAndConvertYUVToRGB" withConstants:v8];
-      v11 = backgroundDimAndConvertYUVtoRGB[v16];
-      backgroundDimAndConvertYUVtoRGB[v16] = v10;
+      v11 = backgroundDimAndConvertYUVtoRGB[v17];
+      backgroundDimAndConvertYUVtoRGB[v17] = v10;
 
-      v12 = v16;
-      if (!backgroundDimAndConvertYUVtoRGB[v16])
+      v13 = v17;
+      if (!backgroundDimAndConvertYUVtoRGB[v17])
       {
         break;
       }
 
-      ++v16;
-      if (v12 > 7)
+      ++v17;
+      if (v13 > 7)
       {
-        v13 = v7;
+        v14 = v7;
         goto LABEL_10;
       }
     }
 
-    v14 = _PTLogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _PTLogSystem(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [PTEffectReactionBackgroundDimming initWithMetalContext:v14];
+      [PTEffectReactionBackgroundDimming initWithMetalContext:v15];
     }
 
-    v13 = 0;
+    v14 = 0;
 LABEL_10:
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 - (int)backgroundDimAndConvertRGBLinearFromPTTexture:(id)texture inPTTexture:(id)tTexture inCenteredDisparity:(id)disparity inSegmentation:(id)segmentation outRGBA:(id)a dimmingFactor:(float)factor disparityRemapping:(CGRect)remapping outColorROI:(CGRect)self0
@@ -71,20 +71,20 @@ LABEL_10:
   _D1 = factor * 0.6;
   __asm { FCVT            H1, D1 }
 
-  v56[0] = LOWORD(_D1);
+  v57[0] = LOWORD(_D1);
   _D1 = factor * 0.85;
   __asm { FCVT            H1, D1 }
 
-  v56[1] = LOWORD(_D1);
+  v57[1] = LOWORD(_D1);
   _D0 = factor * 0.95;
   __asm { FCVT            H0, D0 }
 
-  v56[2] = LOWORD(_D0);
-  v57 = -1207911424;
+  v57[2] = LOWORD(_D0);
+  v58 = -1207911424;
   if (segmentationCopy)
   {
     v27 = segmentationCopy;
-    v57 = 1006632960;
+    v58 = 1006632960;
   }
 
   else
@@ -92,7 +92,7 @@ LABEL_10:
     v27 = disparityCopy;
   }
 
-  memset(v55, 0, sizeof(v55));
+  memset(v56, 0, sizeof(v56));
   aCopy = a;
   textureCopy = texture;
   transferFunction = [tTextureCopy transferFunction];
@@ -102,14 +102,14 @@ LABEL_10:
 
   if (!computeCommandEncoder)
   {
-    v34 = _PTLogSystem();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v35 = _PTLogSystem(v33);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      [PTEffectReactionBackgroundDimming backgroundDimAndConvertRGBLinearFromPTTexture:v34 inPTTexture:? inCenteredDisparity:? inSegmentation:? outRGBA:? dimmingFactor:? disparityRemapping:? outColorROI:?];
+      [PTEffectReactionBackgroundDimming backgroundDimAndConvertRGBLinearFromPTTexture:v35 inPTTexture:? inCenteredDisparity:? inSegmentation:? outRGBA:? dimmingFactor:? disparityRemapping:? outColorROI:?];
     }
   }
 
-  [computeCommandEncoder setComputePipelineState:{self->_backgroundDimAndConvertYUVtoRGB[v31], *&i.size.height, v33}];
+  [computeCommandEncoder setComputePipelineState:{self->_backgroundDimAndConvertYUVtoRGB[v31], *&i.size.height, v34}];
   if ([tTextureCopy isRGB])
   {
     texRGBA = [tTextureCopy texRGBA];
@@ -120,39 +120,39 @@ LABEL_10:
 
   else
   {
-    [PTColorConversion getColorMatrix:tTextureCopy toRGB:1];
-    v36 = tTextureCopy;
-    texLuma = [v36 texLuma];
+    objc_msgSend_getColorMatrix_toRGB_(PTColorConversion);
+    v37 = tTextureCopy;
+    texLuma = [v37 texLuma];
     [computeCommandEncoder setTexture:texLuma atIndex:0];
 
-    texChroma = [v36 texChroma];
+    texChroma = [v37 texChroma];
 
     [computeCommandEncoder setTexture:texChroma atIndex:1];
   }
 
   [computeCommandEncoder setTexture:v27 atIndex:2];
   [computeCommandEncoder setTexture:aCopy atIndex:3];
-  [computeCommandEncoder setBytes:v55 length:24 atIndex:0];
-  [computeCommandEncoder setBytes:v56 length:10 atIndex:1];
-  v39.f64[0] = width;
-  v40.f64[0] = x;
-  v39.f64[1] = height;
-  v40.f64[1] = y;
-  v54 = vcvt_hight_f32_f64(vcvt_f32_f64(v40), v39);
-  [computeCommandEncoder setBytes:&v54 length:16 atIndex:2];
-  v41.f64[0] = i.size.width;
-  v41.f64[1] = v45;
-  v53 = vcvt_hight_f32_f64(vcvt_f32_f64(i.origin), v41);
-  [computeCommandEncoder setBytes:&v53 length:16 atIndex:3];
+  [computeCommandEncoder setBytes:v56 length:24 atIndex:0];
+  [computeCommandEncoder setBytes:v57 length:10 atIndex:1];
+  v40.f64[0] = width;
+  v41.f64[0] = x;
+  v40.f64[1] = height;
+  v41.f64[1] = y;
+  v55 = vcvt_hight_f32_f64(vcvt_f32_f64(v41), v40);
+  [computeCommandEncoder setBytes:&v55 length:16 atIndex:2];
+  v42.f64[0] = i.size.width;
+  v42.f64[1] = v46;
+  v54 = vcvt_hight_f32_f64(vcvt_f32_f64(i.origin), v42);
+  [computeCommandEncoder setBytes:&v54 length:16 atIndex:3];
   width = [aCopy width];
   height = [aCopy height];
 
-  v52[0] = width;
-  v52[1] = height;
-  v52[2] = 1;
-  v50 = xmmword_2244A5230;
-  v51 = 1;
-  [computeCommandEncoder dispatchThreads:v52 threadsPerThreadgroup:&v50];
+  v53[0] = width;
+  v53[1] = height;
+  v53[2] = 1;
+  v51 = xmmword_2244A5230;
+  v52 = 1;
+  [computeCommandEncoder dispatchThreads:v53 threadsPerThreadgroup:&v51];
   [computeCommandEncoder endEncoding];
 
   return 0;

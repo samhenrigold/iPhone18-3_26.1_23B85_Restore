@@ -8,11 +8,11 @@
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
   nameCopy = name;
-  mpsFileLoc("[MPSGraphAvgPooling2DOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphPoolingOps.mm", __p);
-  MPSSymbolTable::getLocationByInsertingOp<mlir::mps::PoolAvgOp>(table, builder, __p, 0x165u, nameCopy);
-  if (v17 < 0)
+  mpsFileLoc(&__p, "[MPSGraphAvgPooling2DOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphPoolingOps.mm");
+  MPSSymbolTable::getLocationByInsertingOp<mlir::mps::PoolAvgOp>(table, builder, &__p, 0x165u, nameCopy);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   kernelWidth = [(MPSGraphPooling2DOpDescriptor *)self->super._desc kernelWidth];

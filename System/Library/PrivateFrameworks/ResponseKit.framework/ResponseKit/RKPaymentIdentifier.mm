@@ -28,68 +28,61 @@ uint64_t __36__RKPaymentIdentifier_sharedManager__block_invoke()
 - (id)amountsFromMessage:(id)message
 {
   messageCopy = message;
-  v15[0] = 0;
-  v15[1] = v15;
-  v15[2] = 0x2020000000;
-  v15[3] = 0;
+  v13[0] = 0;
+  v13[1] = v13;
+  v13[2] = 0x2020000000;
+  v13[3] = 0;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __42__RKPaymentIdentifier_amountsFromMessage___block_invoke;
   block[3] = &unk_279B10020;
-  block[4] = v15;
+  block[4] = v13;
   if (amountsFromMessage__onceToken != -1)
   {
     dispatch_once(&amountsFromMessage__onceToken, block);
   }
 
-  if (amountsFromMessage__scanner && DDScannerScanString() && (v4 = *MEMORY[0x277D041F0], v5 = DDScannerCopyResultsWithOptions(), (v6 = v5) != 0))
+  if (amountsFromMessage__scanner && DDScannerScanString() && (v4 = DDScannerCopyResultsWithOptions(), (v5 = v4) != 0))
   {
-    Count = CFArrayGetCount(v5);
+    Count = CFArrayGetCount(v4);
     if (Count < 1)
     {
-      v8 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v9 = 0;
-      v10 = *MEMORY[0x277D04140];
-      do
+      v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      for (i = 0; i != Count; ++i)
       {
-        CFArrayGetValueAtIndex(v6, v9);
+        CFArrayGetValueAtIndex(v5, i);
         if (DDResultHasType())
         {
           Value = DDResultGetValue();
           if (DDResultCurrencyExtraction())
           {
-            v12 = [[RKCurrencyAmount alloc] initWithString:Value currency:0 value:0.0];
-            [v8 addObject:v12];
+            v10 = [[RKCurrencyAmount alloc] initWithString:Value currency:0 value:0.0];
+            [v7 addObject:v10];
           }
         }
-
-        ++v9;
       }
-
-      while (Count != v9);
     }
 
-    CFRelease(v6);
+    CFRelease(v5);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  _Block_object_dispose(v15, 8);
+  _Block_object_dispose(v13, 8);
 
-  return v8;
+  return v7;
 }
 
 uint64_t __42__RKPaymentIdentifier_amountsFromMessage___block_invoke(uint64_t a1)
 {
-  v1 = *(*(a1 + 32) + 8);
   result = DDScannerCreateWithType();
   amountsFromMessage__scanner = result;
   return result;

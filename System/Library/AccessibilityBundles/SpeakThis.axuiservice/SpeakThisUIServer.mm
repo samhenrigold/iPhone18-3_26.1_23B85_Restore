@@ -17,6 +17,7 @@
 - (id)_assertionAttributesForStayingAlive;
 - (id)_convertAXValueSceneReferenceRects:(id)rects toView:(id)view fromElement:(id)element;
 - (id)_fetchNextElementsAndReturnContentStringUsingAppElement:(id)element startingWithPageTurnElement:(BOOL)turnElement shouldScrollOpaqueProviderIfNecessary:(BOOL)necessary deviceOrientation:(int64_t)orientation;
+- (id)_fetchNextElementsFromOpaqueProviderAndScroll:(BOOL)scroll;
 - (id)_handlePauseSpeaking;
 - (id)_handleResumeSpeaking;
 - (id)_handleSpeakFaster;
@@ -36,6 +37,8 @@
 - (unint64_t)_findIndexOfRange:(_NSRange)range;
 - (unint64_t)speakFingerState;
 - (void)_addContentViewControllerForWindowScene:(id)scene;
+- (void)_addFetchingContentAssertionForPid:(int)pid;
+- (void)_addStayingAliveAssertionForPid:(int)pid;
 - (void)_appendContentFromElementsAndStrings:(id)strings toContentString:(id)string speakingRanges:(id)ranges startWithPageTurnElement:(BOOL)element deviceOrientation:(int64_t)orientation;
 - (void)_clearAllAssertions;
 - (void)_clearAssertions:(id)assertions;
@@ -44,6 +47,7 @@
 - (void)_fetchContentStartingWithPageTurnElement:(BOOL)element shouldRefreshContent:(BOOL)content completion:(id)completion;
 - (void)_fetchNextSpeakThisElementsAndScrollOpaqueProviderIfNecessary:(BOOL)necessary withCompletion:(id)completion;
 - (void)_fetchTextRectsAndApplyHighlightToContent:(id)content withRange:(_NSRange)range elementRange:(id)elementRange updateSentences:(BOOL)sentences scrollWords:(BOOL)words scrollSentences:(BOOL)scrollSentences;
+- (void)_finishHandlingPageScroll:(BOOL)scroll;
 - (void)_frontmostAppMayHaveChanged:(BOOL)changed;
 - (void)_giveUpWaitingForPageToScroll;
 - (void)_handleFastForward:(id)forward;
@@ -60,6 +64,7 @@
 - (void)_handleSpeakingStopped;
 - (void)_initializeUIIfNeccessary;
 - (void)_kbFrameWillUpdate:(id)update withCompletion:(id)completion;
+- (void)_observeNotifications:(BOOL)notifications;
 - (void)_pageDidScroll:(id)scroll;
 - (void)_readNextPageIfApplicableInForwardDirection:(BOOL)direction completion:(id)completion;
 - (void)_reallyHideUI;
@@ -86,8 +91,10 @@
 - (void)oratorDidPauseSpeaking:(id)speaking;
 - (void)oratorDidResumeSpeaking:(id)speaking;
 - (void)oratorDidStartSpeaking:(id)speaking;
+- (void)oratorShouldFetchNextElements:(id)elements shouldScrollOpaqueProviderIfNecessary:(BOOL)necessary;
 - (void)playButtonPressedForBundleID:(id)d sceneID:(id)iD rootAccessibilityElementIdentifier:(id)identifier;
 - (void)processMessageAsynchronously:(id)asynchronously withIdentifier:(unint64_t)identifier fromClientWithIdentifier:(id)withIdentifier completion:(id)completion;
+- (void)setIdleTimerDisabled:(BOOL)disabled;
 - (void)speakElementAtPoint:(CGPoint)point withEventProcessor:(id)processor;
 - (void)speakUnderFingerButtonPressed;
 - (void)speedButtonPressed;
@@ -310,6 +317,23 @@
   v7.receiver = self;
   v7.super_class = SpeakThisUIServer;
   [(SpeakThisUIServer *)&v7 dealloc];
+}
+
+- (void)_observeNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  if (notifications)
+  {
+    [AXElement registerNotifications:&off_31D88 withIdentifier:@"SpeakScreen" withHandler:&stru_30B58];
+  }
+
+  else
+  {
+    [AXElement unregisterNotifications:@"SpeakScreen"];
+  }
+
+  v4 = +[AXElement systemWideElement];
+  [v4 setPassivelyListeningForEvents:notificationsCopy];
 }
 
 - (id)processMessage:(id)message withIdentifier:(unint64_t)identifier fromClientWithIdentifier:(id)withIdentifier error:(id *)error
@@ -687,7 +711,7 @@ LABEL_32:
   v3 = AXLogSpeakScreen();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    sub_1B270(self);
+    sub_1B270();
   }
 
   viewController = self->_viewController;
@@ -1163,6 +1187,58 @@ LABEL_36:
   _AXSetAllowsSuspendedAppServer();
 }
 
+- (id)_fetchNextElementsFromOpaqueProviderAndScroll:(BOOL)scroll
+{
+  scrollCopy = scroll;
+  v5 = +[NSMutableArray array];
+  v6 = [NSValue valueWithRange:0x7FFFFFFFLL, 0, &off_31CB0, &off_31CC8];
+  v16[2] = v6;
+  v16[3] = @"UIAccessibilitySpeakThisIdentifier";
+  v7 = [NSNumber numberWithBool:scrollCopy];
+  v16[4] = v7;
+  v8 = 5;
+  v9 = [NSArray arrayWithObjects:v16 count:5];
+
+  while (1)
+  {
+    v10 = [(UIElementProtocol *)self->_currentElementForFetching objectWithAXAttribute:95225 parameter:v9];
+    if (!v10)
+    {
+      break;
+    }
+
+    v11 = v10;
+    [v5 addObject:v10];
+    v12 = [AXUIElement uiElementWithAXElement:v11];
+    v13 = [v12 pid];
+    if (v13 != [(UIElementProtocol *)self->_currentElementForFetching pid])
+    {
+      objc_storeStrong(&self->_savedOpaqueParentForFetching, self->_currentElementForFetching);
+      currentElementForFetching = self->_currentElementForFetching;
+      self->_currentElementForFetching = v12;
+
+      goto LABEL_9;
+    }
+
+    if (!--v8)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  v11 = AXLogSpeakScreen();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  {
+    sub_1B320(v5);
+  }
+
+LABEL_9:
+
+LABEL_10:
+
+  return v5;
+}
+
 - (id)_fetchNextElementsAndReturnContentStringUsingAppElement:(id)element startingWithPageTurnElement:(BOOL)turnElement shouldScrollOpaqueProviderIfNecessary:(BOOL)necessary deviceOrientation:(int64_t)orientation
 {
   turnElementCopy = turnElement;
@@ -1221,26 +1297,26 @@ LABEL_36:
     else
     {
       orientationCopy = orientation;
-      v57 = AXLogSpeakScreen();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+      v55 = AXLogSpeakScreen();
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
       {
         currentElementForFetching = self->_currentElementForFetching;
         currentElementForFetchingRemoteParent = self->_currentElementForFetchingRemoteParent;
         *buf = 138412546;
-        v75 = currentElementForFetching;
-        v76 = 2112;
-        v77 = currentElementForFetchingRemoteParent;
-        _os_log_impl(&dword_0, v57, OS_LOG_TYPE_INFO, "The currently fetched element %@ could not be used for continued fetching, trying to recover using remote parent: %@", buf, 0x16u);
+        v73 = currentElementForFetching;
+        v74 = 2112;
+        v75 = currentElementForFetchingRemoteParent;
+        _os_log_impl(&dword_0, v55, OS_LOG_TYPE_INFO, "The currently fetched element %@ could not be used for continued fetching, trying to recover using remote parent: %@", buf, 0x16u);
       }
 
-      v60 = [(UIElementProtocol *)self->_currentElementForFetchingRemoteParent uiElementsWithAttribute:2197];
-      v61 = v60;
+      v58 = [(UIElementProtocol *)self->_currentElementForFetchingRemoteParent uiElementsWithAttribute:2197];
+      v59 = v58;
       currentElementIndex = self->_currentElementIndex;
-      if ((currentElementIndex & 0x8000000000000000) == 0 && currentElementIndex < [v60 count])
+      if ((currentElementIndex & 0x8000000000000000) == 0 && currentElementIndex < [v58 count])
       {
-        v63 = [v61 objectAtIndex:self->_currentElementIndex];
-        v64 = self->_currentElementForFetching;
-        self->_currentElementForFetching = v63;
+        v61 = [v59 objectAtIndex:self->_currentElementIndex];
+        v62 = self->_currentElementForFetching;
+        self->_currentElementForFetching = v61;
       }
 
       v13 = 0;
@@ -1249,92 +1325,86 @@ LABEL_36:
   }
 
   lastObject = [v10 lastObject];
-  v18 = &MKBGetDeviceLockState_ptr;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     lastObject2 = [v10 lastObject];
-    v20 = [lastObject2 isEqualToString:@"SpeakThis-LegacyMethodWasUsed"];
-
-    v18 = &MKBGetDeviceLockState_ptr;
+    v19 = [lastObject2 isEqualToString:@"SpeakThis-LegacyMethodWasUsed"];
   }
 
   else
   {
-    v20 = 0;
+    v19 = 0;
   }
 
-  if ([v10 count] >= 6 && (v20 & 1) == 0)
+  if ([v10 count] >= 6 && (v19 & 1) == 0)
   {
-    v21 = [v10 subarrayWithRange:{0, 5}];
-    v22 = [v21 mutableCopy];
+    v20 = [v10 subarrayWithRange:{0, 5}];
+    v21 = [v20 mutableCopy];
 
-    v18 = &MKBGetDeviceLockState_ptr;
-    v10 = v22;
+    v10 = v21;
   }
 
-  if (v20)
+  if (v19)
   {
     [v10 removeLastObject];
   }
 
   if (!(([v10 count] == 0) | v13 & 1))
   {
-    v66 = elementCopy;
-    v23 = +[NSMutableArray array];
+    v64 = elementCopy;
+    v22 = +[NSMutableArray array];
+    v67 = 0u;
+    v68 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v71 = 0u;
-    v72 = 0u;
-    v24 = v10;
-    v25 = [v24 countByEnumeratingWithState:&v69 objects:v73 count:16];
-    if (v25)
+    v23 = v10;
+    v24 = [v23 countByEnumeratingWithState:&v67 objects:v71 count:16];
+    if (v24)
     {
-      v26 = v25;
+      v25 = v24;
       orientationCopy2 = orientation;
-      v27 = *v70;
-      v28 = &MKBGetDeviceLockState_ptr;
+      v26 = *v68;
+      v27 = &MKBGetDeviceLockState_ptr;
       while (2)
       {
-        for (i = 0; i != v26; i = i + 1)
+        for (i = 0; i != v25; i = i + 1)
         {
-          if (*v70 != v27)
+          if (*v68 != v26)
           {
-            objc_enumerationMutation(v24);
+            objc_enumerationMutation(v23);
           }
 
-          v30 = *(*(&v69 + 1) + 8 * i);
-          v31 = v18[254];
+          v29 = *(*(&v67 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v32 = [v28[223] uiElementWithAXElement:v30];
-            objc_storeStrong(&self->_currentElementForFetching, v32);
-            v33 = [(UIElementProtocol *)self->_currentElementForFetching objectWithAXAttribute:2092];
-            v34 = v28;
-            v35 = v33;
-            if (v33)
+            v30 = [v27[223] uiElementWithAXElement:v29];
+            objc_storeStrong(&self->_currentElementForFetching, v30);
+            v31 = [(UIElementProtocol *)self->_currentElementForFetching objectWithAXAttribute:2092];
+            v32 = v27;
+            v33 = v31;
+            if (v31)
             {
-              v36 = [v34[223] uiElementWithAXElement:v33 cache:0];
-              if (([v36 isEqual:self->_currentElementForFetchingRemoteParent] & 1) == 0)
+              v34 = [v32[223] uiElementWithAXElement:v31 cache:0];
+              if (([v34 isEqual:self->_currentElementForFetchingRemoteParent] & 1) == 0)
               {
-                objc_storeStrong(&self->_currentElementForFetchingRemoteParent, v36);
+                objc_storeStrong(&self->_currentElementForFetchingRemoteParent, v34);
                 self->_currentElementIndex = -1;
               }
 
-              v37 = self->_currentElementIndex + 1;
-              v18 = &MKBGetDeviceLockState_ptr;
+              v35 = self->_currentElementIndex + 1;
             }
 
             else
             {
-              v38 = self->_currentElementForFetchingRemoteParent;
+              v36 = self->_currentElementForFetchingRemoteParent;
               self->_currentElementForFetchingRemoteParent = 0;
 
-              v37 = 0;
+              v35 = 0;
             }
 
-            self->_currentElementIndex = v37;
+            self->_currentElementIndex = v35;
             if ([(UIElementProtocol *)self->_currentElementForFetching BOOLWithAXAttribute:2065])
             {
               [(UIElementProtocol *)self->_currentElementForFetching performAXAction:2058 withValue:@"UIAccessibilitySpeakThisIdentifier"];
@@ -1343,14 +1413,14 @@ LABEL_36:
               goto LABEL_40;
             }
 
-            v28 = &MKBGetDeviceLockState_ptr;
+            v27 = &MKBGetDeviceLockState_ptr;
           }
 
-          [v23 addObject:v30];
+          [v22 addObject:v29];
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v69 objects:v73 count:16];
-        if (v26)
+        v25 = [v23 countByEnumeratingWithState:&v67 objects:v71 count:16];
+        if (v25)
         {
           continue;
         }
@@ -1369,14 +1439,14 @@ LABEL_40:
       v13 = 0;
     }
 
-    v10 = v23;
+    v10 = v22;
     [(SpeakThisUIServer *)self _addFetchingContentAssertionForPid:[(UIElementProtocol *)self->_currentElementForFetching pid]];
     [(SpeakThisUIServer *)self _addFetchingContentAssertionForPid:[(AXElement *)self->_currentApp pid]];
     [(SpeakThisUIServer *)self _addStayingAliveAssertionForPid:[(UIElementProtocol *)self->_currentElementForFetching pid]];
-    v39 = [(AXElement *)self->_currentApp pid];
+    v37 = [(AXElement *)self->_currentApp pid];
 
-    [(SpeakThisUIServer *)self _addStayingAliveAssertionForPid:v39];
-    elementCopy = v66;
+    [(SpeakThisUIServer *)self _addStayingAliveAssertionForPid:v37];
+    elementCopy = v64;
   }
 
   if (![v10 count] && v13)
@@ -1390,44 +1460,44 @@ LABEL_40:
     if (savedOpaqueParentForFetching)
     {
       objc_storeStrong(&self->_currentElementForFetching, savedOpaqueParentForFetching);
-      v55 = self->_savedOpaqueParentForFetching;
+      v53 = self->_savedOpaqueParentForFetching;
       self->_savedOpaqueParentForFetching = 0;
 
 LABEL_45:
-      v40 = [(SpeakThisUIServer *)self _fetchNextElementsFromOpaqueProviderAndScroll:necessaryCopy];
+      v38 = [(SpeakThisUIServer *)self _fetchNextElementsFromOpaqueProviderAndScroll:necessaryCopy];
 
-      v10 = v40;
+      v10 = v38;
     }
   }
 
   if (!v13 || [v10 count] || necessaryCopy)
   {
-    v42 = v9;
-    v41 = +[NSMutableString string];
-    v43 = AXLogSpeakScreen();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+    v40 = v9;
+    v39 = +[NSMutableString string];
+    v41 = AXLogSpeakScreen();
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v75 = v10;
-      _os_log_impl(&dword_0, v43, OS_LOG_TYPE_INFO, "Received elements and strings: %{public}@", buf, 0xCu);
+      v73 = v10;
+      _os_log_impl(&dword_0, v41, OS_LOG_TYPE_INFO, "Received elements and strings: %{public}@", buf, 0xCu);
     }
 
-    array = [v42[271] array];
-    v45 = [v10 count];
-    [(SpeakThisUIServer *)self _appendContentFromElementsAndStrings:v10 toContentString:v41 speakingRanges:array startWithPageTurnElement:turnElementCopy deviceOrientation:orientation];
-    if ((v13 & 1) == 0 && [v10 count] > v45)
+    array = [v40[271] array];
+    v43 = [v10 count];
+    [(SpeakThisUIServer *)self _appendContentFromElementsAndStrings:v10 toContentString:v39 speakingRanges:array startWithPageTurnElement:turnElementCopy deviceOrientation:orientation];
+    if ((v13 & 1) == 0 && [v10 count] > v43)
     {
-      v46 = +[AXUIElement uiElementWithAXElement:](AXUIElement, "uiElementWithAXElement:", [v10 lastObject]);
-      v47 = self->_currentElementForFetching;
-      self->_currentElementForFetching = v46;
+      v44 = +[AXUIElement uiElementWithAXElement:](AXUIElement, "uiElementWithAXElement:", [v10 lastObject]);
+      v45 = self->_currentElementForFetching;
+      self->_currentElementForFetching = v44;
     }
 
-    v48 = AXLogSpeakScreen();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+    v46 = AXLogSpeakScreen();
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
     {
       *buf = 138477827;
-      v75 = v41;
-      _os_log_impl(&dword_0, v48, OS_LOG_TYPE_INFO, "Content string was %{private}@", buf, 0xCu);
+      v73 = v39;
+      _os_log_impl(&dword_0, v46, OS_LOG_TYPE_INFO, "Content string was %{private}@", buf, 0xCu);
     }
 
     speakingRangeAndElements = [(SpeakThisUIServer *)self speakingRangeAndElements];
@@ -1435,8 +1505,8 @@ LABEL_45:
     if (speakingRangeAndElements)
     {
       speakingRangeAndElements2 = [(SpeakThisUIServer *)self speakingRangeAndElements];
-      v51 = [speakingRangeAndElements2 arrayByAddingObjectsFromArray:array];
-      [(SpeakThisUIServer *)self setSpeakingRangeAndElements:v51];
+      v49 = [speakingRangeAndElements2 arrayByAddingObjectsFromArray:array];
+      [(SpeakThisUIServer *)self setSpeakingRangeAndElements:v49];
     }
 
     else
@@ -1444,12 +1514,12 @@ LABEL_45:
       [(SpeakThisUIServer *)self setSpeakingRangeAndElements:array];
     }
 
-    v52 = AXLogSpeakScreen();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+    v50 = AXLogSpeakScreen();
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
     {
       *buf = 138477827;
-      v75 = array;
-      _os_log_impl(&dword_0, v52, OS_LOG_TYPE_INFO, "Speaking ranges were %{private}@", buf, 0xCu);
+      v73 = array;
+      _os_log_impl(&dword_0, v50, OS_LOG_TYPE_INFO, "Speaking ranges were %{private}@", buf, 0xCu);
     }
 
     _AXSetAllowsSuspendedAppServer();
@@ -1458,10 +1528,10 @@ LABEL_45:
 
   else
   {
-    v41 = [(SpeakThisUIServer *)self _fetchNextElementsAndReturnContentStringUsingAppElement:0 startingWithPageTurnElement:0 shouldScrollOpaqueProviderIfNecessary:1 deviceOrientation:orientation];
+    v39 = [(SpeakThisUIServer *)self _fetchNextElementsAndReturnContentStringUsingAppElement:0 startingWithPageTurnElement:0 shouldScrollOpaqueProviderIfNecessary:1 deviceOrientation:orientation];
   }
 
-  return v41;
+  return v39;
 }
 
 - (void)_fetchContentStartingWithPageTurnElement:(BOOL)element shouldRefreshContent:(BOOL)content completion:(id)completion
@@ -1616,6 +1686,174 @@ LABEL_45:
   v3 = [NSArray arrayWithObjects:&v5 count:1];
 
   return v3;
+}
+
+- (void)_addStayingAliveAssertionForPid:(int)pid
+{
+  if (pid)
+  {
+    v3 = *&pid;
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    assertionsForStayingAlive = [(SpeakThisUIServer *)self assertionsForStayingAlive];
+    v6 = [assertionsForStayingAlive countByEnumeratingWithState:&v22 objects:v34 count:16];
+    if (v6)
+    {
+      v7 = v6;
+      v8 = *v23;
+LABEL_4:
+      v9 = 0;
+      while (1)
+      {
+        if (*v23 != v8)
+        {
+          objc_enumerationMutation(assertionsForStayingAlive);
+        }
+
+        target = [*(*(&v22 + 1) + 8 * v9) target];
+        v11 = [RBSTarget targetWithPid:v3];
+        v12 = [target isEqual:v11];
+
+        if (v12)
+        {
+          break;
+        }
+
+        if (v7 == ++v9)
+        {
+          v7 = [assertionsForStayingAlive countByEnumeratingWithState:&v22 objects:v34 count:16];
+          if (v7)
+          {
+            goto LABEL_4;
+          }
+
+          goto LABEL_10;
+        }
+      }
+    }
+
+    else
+    {
+LABEL_10:
+
+      v13 = [RBSAssertion alloc];
+      v14 = [NSString stringWithFormat:@"Speak Screen Assertion-%d", v3];
+      v15 = [RBSTarget targetWithPid:v3];
+      _assertionAttributesForStayingAlive = [(SpeakThisUIServer *)self _assertionAttributesForStayingAlive];
+      assertionsForStayingAlive = [v13 initWithExplanation:v14 target:v15 attributes:_assertionAttributesForStayingAlive];
+
+      [assertionsForStayingAlive acquireWithInvalidationHandler:&stru_30CB0];
+      v17 = AXLogSpeakScreen();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      {
+        attributes = [assertionsForStayingAlive attributes];
+        explanation = [assertionsForStayingAlive explanation];
+        v20 = [NSNumber numberWithInt:v3];
+        *buf = 134218754;
+        v27 = assertionsForStayingAlive;
+        v28 = 2112;
+        v29 = attributes;
+        v30 = 2112;
+        v31 = explanation;
+        v32 = 2112;
+        v33 = v20;
+        _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "Acquire staying alive assertion: %p %@  %@ %@", buf, 0x2Au);
+      }
+
+      if (assertionsForStayingAlive)
+      {
+        assertionsForStayingAlive2 = [(SpeakThisUIServer *)self assertionsForStayingAlive];
+        [assertionsForStayingAlive2 addObject:assertionsForStayingAlive];
+      }
+    }
+  }
+}
+
+- (void)_addFetchingContentAssertionForPid:(int)pid
+{
+  if (pid)
+  {
+    v3 = *&pid;
+    v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    assertionsForFetchingContent = [(SpeakThisUIServer *)self assertionsForFetchingContent];
+    v6 = [assertionsForFetchingContent countByEnumeratingWithState:&v21 objects:v27 count:16];
+    if (v6)
+    {
+      v7 = v6;
+      v8 = *v22;
+LABEL_4:
+      v9 = 0;
+      while (1)
+      {
+        if (*v22 != v8)
+        {
+          objc_enumerationMutation(assertionsForFetchingContent);
+        }
+
+        target = [*(*(&v21 + 1) + 8 * v9) target];
+        v11 = [RBSTarget targetWithPid:v3];
+        v12 = [target isEqual:v11];
+
+        if (v12)
+        {
+          break;
+        }
+
+        if (v7 == ++v9)
+        {
+          v7 = [assertionsForFetchingContent countByEnumeratingWithState:&v21 objects:v27 count:16];
+          if (v7)
+          {
+            goto LABEL_4;
+          }
+
+          goto LABEL_10;
+        }
+      }
+    }
+
+    else
+    {
+LABEL_10:
+
+      assertionsForFetchingContent = [RBSTarget targetWithPid:v3];
+      if (assertionsForFetchingContent)
+      {
+        v13 = [RBSAssertion alloc];
+        uiElement = [(AXElement *)self->_currentApp uiElement];
+        v15 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Speak Screen Assertion-%d", [uiElement pid]);
+        _assertionAttributesForFetchingMoreContent = [(SpeakThisUIServer *)self _assertionAttributesForFetchingMoreContent];
+        v17 = [v13 initWithExplanation:v15 target:assertionsForFetchingContent attributes:_assertionAttributesForFetchingMoreContent];
+
+        [v17 acquireWithInvalidationHandler:&stru_30CD0];
+        v18 = AXLogSpeakScreen();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        {
+          attributes = [v17 attributes];
+          *buf = 138412290;
+          v26 = attributes;
+          _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Acquire fetching content assertion: %@", buf, 0xCu);
+        }
+
+        assertionsForFetchingContent2 = [(SpeakThisUIServer *)self assertionsForFetchingContent];
+        [assertionsForFetchingContent2 addObject:v17];
+      }
+
+      else
+      {
+        v17 = AXLogSpeakScreen();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        {
+          sub_1B3A0(v3, v17);
+        }
+      }
+    }
+  }
 }
 
 - (void)_handleSpeakThisWithOptions:(int64_t)options appPoint:(id)point completion:(id)completion
@@ -2104,6 +2342,28 @@ LABEL_12:
   }
 }
 
+- (void)_finishHandlingPageScroll:(BOOL)scroll
+{
+  scrollCopy = scroll;
+  v5 = AXLogSpeakScreen();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v8[0] = 67109120;
+    v8[1] = scrollCopy;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "Finishing handling page scroll.  Did read next page: %i", v8, 8u);
+  }
+
+  readNextPageCompletion = [(SpeakThisUIServer *)self readNextPageCompletion];
+
+  if (readNextPageCompletion)
+  {
+    readNextPageCompletion2 = [(SpeakThisUIServer *)self readNextPageCompletion];
+    readNextPageCompletion2[2](readNextPageCompletion2, scrollCopy);
+  }
+
+  [(SpeakThisUIServer *)self setIsWaitingForPageScroll:0];
+}
+
 - (void)_handleNewPage
 {
   sentenceRanges = [(SpeakThisUIServer *)self sentenceRanges];
@@ -2251,6 +2511,16 @@ LABEL_12:
   }
 
 LABEL_30:
+}
+
+- (void)setIdleTimerDisabled:(BOOL)disabled
+{
+  if (!self->_lockButtonPressedSinceReadAllStart)
+  {
+    disabledCopy = disabled;
+    v5 = +[UIApplication sharedApplication];
+    [v5 _setIdleTimerDisabled:disabledCopy forReason:@"SpeakThis"];
+  }
 }
 
 - (void)_clearAllAssertions
@@ -2917,6 +3187,49 @@ LABEL_15:
   quickSpeakHighlightOption = [v2 quickSpeakHighlightOption];
 
   return (quickSpeakHighlightOption & 0xFFFFFFFFFFFFFFFELL) == 2;
+}
+
+- (void)oratorShouldFetchNextElements:(id)elements shouldScrollOpaqueProviderIfNecessary:(BOOL)necessary
+{
+  necessaryCopy = necessary;
+  v6 = AXLogSpeakScreen();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    v7 = @"disabled";
+    if (necessaryCopy)
+    {
+      v7 = @"enabled";
+    }
+
+    v11 = 138412290;
+    v12 = v7;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "AXOrator requested more elements with scrolling %@", &v11, 0xCu);
+  }
+
+  stopType = self->_stopType;
+  v9 = AXLogSpeakScreen();
+  v10 = v9;
+  if (stopType)
+  {
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      sub_1B800();
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "Updating flags on assertion so that we can fetch more content.", &v11, 2u);
+    }
+
+    [(SpeakThisUIServer *)self _addFetchingContentAssertionForPid:[(AXElement *)self->_currentApp pid]];
+    [(SpeakThisUIServer *)self _addFetchingContentAssertionForPid:[(UIElementProtocol *)self->_currentElementForFetching pid]];
+    AXOverrideRequestingClientType();
+    [(SpeakThisUIServer *)self _fetchNextSpeakThisElementsAndScrollOpaqueProviderIfNecessary:necessaryCopy withCompletion:&stru_30DE0];
+  }
 }
 
 - (void)startNewReadAllFromGesture
@@ -3861,7 +4174,7 @@ LABEL_16:
 - (void)updateSpeakScreenUI
 {
   sub_1A614();
-  sub_1A76C(&qword_382B8);
+  sub_1A76C(&qword_382B8, &protocol conformance descriptor for SpeakThisUIServer);
   selfCopy = self;
   sub_1BEB4();
   sub_1BEC4();

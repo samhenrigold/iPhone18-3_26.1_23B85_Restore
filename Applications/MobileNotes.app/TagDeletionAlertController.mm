@@ -16,7 +16,7 @@
 
 - (id)makeDeleteTagAlertControllerWithTags:(id)tags sendNotification:(BOOL)notification
 {
-  sub_1000054A4(0, &qword_1006C63E0);
+  sub_1000054A4(0, &qword_1006C63E0, ICHashtag_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   v8 = sub_10029A700(v6, notification);

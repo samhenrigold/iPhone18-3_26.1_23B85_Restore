@@ -55,60 +55,60 @@
 {
   cellCopy = cell;
   v11 = objc_msgSend_legendLayoutItem(self, v7, v8, v9, v10);
-  v69 = *MEMORY[0x277CBF3A8];
+  v66 = *MEMORY[0x277CBF3A8];
   v12 = *(MEMORY[0x277CBF398] + 16);
-  v68.origin = *MEMORY[0x277CBF398];
-  v68.size = v12;
-  memset(&v67, 0, sizeof(v67));
-  v15 = objc_msgSend_seriesIndex(cellCopy, v13, 0.0, v12.width, v14);
-  v20 = objc_msgSend_cellType(cellCopy, v16, v17, v18, v19);
+  v65.origin = *MEMORY[0x277CBF398];
+  v65.size = v12;
+  memset(&v64, 0, sizeof(v64));
+  objc_msgSend_seriesIndex(cellCopy, v13, 0.0, v12.width, v14);
+  objc_msgSend_cellType(cellCopy, v15, v16, v17, v18);
   if (v11)
   {
-    objc_msgSend_transformForRenderingBadge_cellType_outElementSize_outClipRect_(v11, v21, v22, v23, v24, v15, v20, &v69, &v68);
+    objc_msgSend_transformForRenderingBadge_cellType_outElementSize_outClipRect_(v11, v19, v20, v21);
   }
 
   else
   {
-    memset(&v67, 0, sizeof(v67));
+    memset(&v64, 0, sizeof(v64));
   }
 
-  if (!CGRectIsNull(v68))
+  if (!CGRectIsNull(v65))
   {
     CGContextSaveGState(context);
-    v66 = v67;
-    CGContextConcatCTM(context, &v66);
+    v63 = v64;
+    CGContextConcatCTM(context, &v63);
     TSURectWithSize();
-    v26 = v25;
-    v28 = v27;
-    v30 = v29;
-    v32 = v31;
-    sub_27628CB34(context, v25, v27, v29, v31, 0.0);
-    v34 = v33;
-    v36 = v35;
-    v38 = v37;
-    v40 = v39;
-    v43 = objc_msgSend_fill(cellCopy, v41, v33, v35, v37);
-    if (v43)
+    v23 = v22;
+    v25 = v24;
+    v27 = v26;
+    v29 = v28;
+    sub_27628CB34(context, v22, v24, v26, v28, 0.0);
+    v31 = v30;
+    v33 = v32;
+    v35 = v34;
+    v37 = v36;
+    v40 = objc_msgSend_fill(cellCopy, v38, v30, v32, v34);
+    if (v40)
     {
-      objc_msgSend_drawFill_inContext_frame_(TSCHRenderUtilities, v42, v34, v36, v38, v43, context, v40);
+      objc_msgSend_drawFill_inContext_frame_(TSCHRenderUtilities, v39, v31, v33, v35, v40, context, v37);
     }
 
-    v47 = objc_msgSend_stroke(cellCopy, v42, v44, v45, v46);
-    if (objc_msgSend_shouldRender(v47, v48, v49, v50, v51))
+    v44 = objc_msgSend_stroke(cellCopy, v39, v41, v42, v43);
+    if (objc_msgSend_shouldRender(v44, v45, v46, v47, v48))
     {
-      objc_msgSend_effectiveStrokeWidth(cellCopy, v52, v53, v54, v55);
-      sub_27628CB34(context, v26, v28, v30, v32, v56 + v56);
-      v58 = v57;
-      v60 = v59;
-      v62 = v61;
-      v64 = v63;
-      objc_msgSend_applyToContext_insideStroke_(v47, v65, v57, v59, v61, context, 1);
+      objc_msgSend_effectiveStrokeWidth(cellCopy, v49, v50, v51, v52);
+      sub_27628CB34(context, v23, v25, v27, v29, v53 + v53);
+      v55 = v54;
+      v57 = v56;
+      v59 = v58;
+      v61 = v60;
+      objc_msgSend_applyToContext_insideStroke_(v44, v62, v54, v56, v58, context, 1);
       CGContextClipToRectSafe();
-      v70.origin.x = v58;
-      v70.origin.y = v60;
-      v70.size.width = v62;
-      v70.size.height = v64;
-      CGContextStrokeRect(context, v70);
+      v67.origin.x = v55;
+      v67.origin.y = v57;
+      v67.size.width = v59;
+      v67.size.height = v61;
+      CGContextStrokeRect(context, v67);
     }
 
     CGContextRestoreGState(context);
@@ -119,97 +119,97 @@
 {
   cellCopy = cell;
   v11 = objc_msgSend_legendLayoutItem(self, v7, v8, v9, v10);
-  v156 = *MEMORY[0x277CBF3A8];
+  v153 = *MEMORY[0x277CBF3A8];
   v12 = *(MEMORY[0x277CBF398] + 16);
-  v155.origin = *MEMORY[0x277CBF398];
-  v155.size = v12;
-  memset(&v154, 0, sizeof(v154));
-  v15 = objc_msgSend_seriesIndex(cellCopy, v13, 0.0, v12.width, v14);
-  v20 = objc_msgSend_cellType(cellCopy, v16, v17, v18, v19);
+  v152.origin = *MEMORY[0x277CBF398];
+  v152.size = v12;
+  memset(&v151, 0, sizeof(v151));
+  objc_msgSend_seriesIndex(cellCopy, v13, 0.0, v12.width, v14);
+  objc_msgSend_cellType(cellCopy, v15, v16, v17, v18);
   if (v11)
   {
-    objc_msgSend_transformForRenderingBadge_cellType_outElementSize_outClipRect_(v11, v21, v22, v23, v24, v15, v20, &v156, &v155);
+    objc_msgSend_transformForRenderingBadge_cellType_outElementSize_outClipRect_(v11, v19, v20, v21);
   }
 
   else
   {
-    memset(&v154, 0, sizeof(v154));
+    memset(&v151, 0, sizeof(v151));
   }
 
   HasBackgroundsSuppressed = TSDCGContextHasBackgroundsSuppressed();
-  if (!CGRectIsNull(v155))
+  if (!CGRectIsNull(v152))
   {
     CGContextSaveGState(context);
-    transform = v154;
+    transform = v151;
     CGContextConcatCTM(context, &transform);
-    width_low = objc_msgSend_symbolType(cellCopy, v26, v27, v28, v29);
+    width_low = objc_msgSend_symbolType(cellCopy, v23, v24, v25, v26);
     TSURectWithSize();
-    v32 = v31;
-    v34 = v33;
-    v36 = v35;
+    v29 = v28;
+    v31 = v30;
+    v33 = v32;
+    v35 = v34;
+    objc_msgSend_badgeFillFrame(cellCopy, v36, v28, v30, v32);
     v38 = v37;
-    objc_msgSend_badgeFillFrame(cellCopy, v39, v31, v33, v35);
-    v41 = v40;
-    v43 = v42;
-    v45 = v44;
-    v47 = v46;
-    sub_27628CB34(context, v32, v34, v36, v38, 0.0);
-    v49 = v48;
-    v51 = v50;
-    v53 = v52;
-    v55 = v54;
-    rect.origin.x = v41;
-    rect.origin.y = v43;
-    v56 = v41;
-    v57 = v49;
-    v149 = v45;
-    v150 = v47;
-    sub_27628CB34(context, v56, v43, v45, v47, 0.0);
-    rect.size.width = v58;
-    v60 = v59;
-    v62 = v61;
-    v64 = v63;
-    v66 = objc_msgSend_stroke(cellCopy, v65, v58, v59, v61);
-    v71 = objc_msgSend_fill(cellCopy, v67, v68, v69, v70);
-    v76 = objc_msgSend_symbolStroke(cellCopy, v72, v73, v74, v75);
-    v81 = objc_msgSend_symbolFill(cellCopy, v77, v78, v79, v80);
-    if (v71)
+    v40 = v39;
+    v42 = v41;
+    v44 = v43;
+    sub_27628CB34(context, v29, v31, v33, v35, 0.0);
+    v46 = v45;
+    v48 = v47;
+    v50 = v49;
+    v52 = v51;
+    rect.origin.x = v38;
+    rect.origin.y = v40;
+    v53 = v38;
+    v54 = v46;
+    v146 = v42;
+    v147 = v44;
+    sub_27628CB34(context, v53, v40, v42, v44, 0.0);
+    rect.size.width = v55;
+    v57 = v56;
+    v59 = v58;
+    v61 = v60;
+    v63 = objc_msgSend_stroke(cellCopy, v62, v55, v56, v58);
+    v68 = objc_msgSend_fill(cellCopy, v64, v65, v66, v67);
+    v73 = objc_msgSend_symbolStroke(cellCopy, v69, v70, v71, v72);
+    v78 = objc_msgSend_symbolFill(cellCopy, v74, v75, v76, v77);
+    if (v68)
     {
       CGContextSaveGState(context);
       CGContextClipToRectSafe();
-      objc_msgSend_drawFill_inContext_frame_(TSCHRenderUtilities, v82, rect.size.width, v60, v62, v71, context, v64);
+      objc_msgSend_drawFill_inContext_frame_(TSCHRenderUtilities, v79, rect.size.width, v57, v59, v68, context, v61);
       CGContextRestoreGState(context);
     }
 
-    v83 = v62 * 0.6;
+    v80 = v59 * 0.6;
     CGContextSaveGState(context);
     if (width_low == 7)
     {
-      v88 = 0;
+      v85 = 0;
     }
 
-    else if ((objc_msgSend_badgeType(cellCopy, v84, v85, v86, v87) != 1 || objc_msgSend_lineType(cellCopy, v84, v85, v86, v87)) && objc_msgSend_shouldRender(v66, v84, v85, v86, v87))
+    else if ((objc_msgSend_badgeType(cellCopy, v81, v82, v83, v84) != 1 || objc_msgSend_lineType(cellCopy, v81, v82, v83, v84)) && objc_msgSend_shouldRender(v63, v81, v82, v83, v84))
     {
       LODWORD(rect.size.width) = width_low;
-      v89 = objc_msgSend_pattern(v66, v84, v85, v86, v87);
-      if (v89 && (v90 = v89, v148 = HasBackgroundsSuppressed, objc_msgSend_pattern(v66, v84, v85, v86, v87), v91 = objc_claimAutoreleasedReturnValue(), v96 = objc_msgSend_patternType(v91, v92, v93, v94, v95), v91, v90, v96 != 2))
+      v86 = objc_msgSend_pattern(v63, v81, v82, v83, v84);
+      if (v86 && (v87 = v86, v145 = HasBackgroundsSuppressed, objc_msgSend_pattern(v63, v81, v82, v83, v84), v88 = objc_claimAutoreleasedReturnValue(), v93 = objc_msgSend_patternType(v88, v89, v90, v91, v92), v88, v87, v93 != 2))
       {
-        v157.origin.x = v57;
-        v157.origin.y = v51;
-        v157.size.width = v53;
-        v157.size.height = v55;
-        CGContextBeginTransparencyLayerWithRect(context, v157, 0);
+        v154.origin.x = v54;
+        v154.origin.y = v48;
+        v154.size.width = v50;
+        v154.size.height = v52;
+        CGContextBeginTransparencyLayerWithRect(context, v154, 0);
         CGContextSetBlendMode(context, kCGBlendModeCopy);
         CGContextSaveGState(context);
         TSUCenterOfRect();
-        v100 = objc_msgSend_newClipPathForSymbol_at_width_stroke_(TSCHRenderUtilities, v97, v98, v99, v83, LODWORD(rect.size.width), v76);
-        if (v100)
+        v97 = objc_msgSend_newClipPathForSymbol_at_width_stroke_(TSCHRenderUtilities, v94, v95, v96, v80, LODWORD(rect.size.width), v73);
+        if (v97)
         {
-          v158.origin.x = v57;
-          v158.origin.y = v51;
-          v158.size.width = v53;
-          v158.size.height = v55;
-          CGContextAddRect(context, v158);
+          v155.origin.x = v54;
+          v155.origin.y = v48;
+          v155.size.width = v50;
+          v155.size.height = v52;
+          CGContextAddRect(context, v155);
           CGContextAddPathSafe();
           CGContextEOClip(context);
         }
@@ -219,75 +219,75 @@
           CGContextClipToRectSafe();
         }
 
-        objc_msgSend_applyToContext_(v66, v101, v102, v103, v104, context);
-        v109 = objc_msgSend_badgeType(cellCopy, v105, v106, v107, v108);
-        if (v71 && v109 == 6 && !LODWORD(rect.size.width))
+        objc_msgSend_applyToContext_(v63, v98, v99, v100, v101, context);
+        v106 = objc_msgSend_badgeType(cellCopy, v102, v103, v104, v105);
+        if (v68 && v106 == 6 && !LODWORD(rect.size.width))
         {
-          objc_msgSend_width(v66, v110, v111, v112, v113);
-          sub_27628CB34(context, rect.origin.x, rect.origin.y, v149, v150, v114);
-          v119 = objc_msgSend_bezierPathWithRect_(MEMORY[0x277D81160], v115, v116, v117, v118);
-          objc_msgSend_addPathToContext_(v119, v120, v121, v122, v123, context);
+          objc_msgSend_width(v63, v107, v108, v109, v110);
+          sub_27628CB34(context, rect.origin.x, rect.origin.y, v146, v147, v111);
+          v116 = objc_msgSend_bezierPathWithRect_(MEMORY[0x277D81160], v112, v113, v114, v115);
+          objc_msgSend_addPathToContext_(v116, v117, v118, v119, v120, context);
         }
 
         else
         {
-          v159.origin.y = rect.origin.y;
-          v159.origin.x = rect.origin.x;
-          v159.size.width = v149;
-          v159.size.height = v150;
-          MinX = CGRectGetMinX(v159);
-          v160.origin.x = rect.origin.x;
-          v160.origin.y = rect.origin.y;
-          v160.size.width = v149;
-          v160.size.height = v150;
-          MinY = CGRectGetMinY(v160);
+          v156.origin.y = rect.origin.y;
+          v156.origin.x = rect.origin.x;
+          v156.size.width = v146;
+          v156.size.height = v147;
+          MinX = CGRectGetMinX(v156);
+          v157.origin.x = rect.origin.x;
+          v157.origin.y = rect.origin.y;
+          v157.size.width = v146;
+          v157.size.height = v147;
+          MinY = CGRectGetMinY(v157);
           transform.a = MinX;
           transform.b = MinY;
-          v161.origin.x = rect.origin.x;
-          v161.origin.y = rect.origin.y;
-          v161.size.width = v149;
-          v161.size.height = v150;
-          MaxX = CGRectGetMaxX(v161);
-          v162.origin.x = rect.origin.x;
-          v162.origin.y = rect.origin.y;
-          v162.size.width = v149;
-          v162.size.height = v150;
+          v158.origin.x = rect.origin.x;
+          v158.origin.y = rect.origin.y;
+          v158.size.width = v146;
+          v158.size.height = v147;
+          MaxX = CGRectGetMaxX(v158);
+          v159.origin.x = rect.origin.x;
+          v159.origin.y = rect.origin.y;
+          v159.size.width = v146;
+          v159.size.height = v147;
           rect.size.height = MaxX;
-          v152 = CGRectGetMinY(v162);
-          objc_msgSend_width(v66, v129, v152, MaxX, v130);
-          v132 = v131;
-          v136 = objc_msgSend_cap(v66, v133, v131, v134, v135);
-          sub_27628C654(context, &transform.a, &rect.size.height, v136, v132);
+          v149 = CGRectGetMinY(v159);
+          objc_msgSend_width(v63, v126, v149, MaxX, v127);
+          v129 = v128;
+          v133 = objc_msgSend_cap(v63, v130, v128, v131, v132);
+          sub_27628C654(context, &transform.a, &rect.size.height, v133, v129);
           CGContextMoveToPoint(context, transform.a, transform.b);
-          CGContextAddLineToPoint(context, rect.size.height, v152);
+          CGContextAddLineToPoint(context, rect.size.height, v149);
         }
 
-        if (v148)
+        if (v145)
         {
-          objc_msgSend_blackColor(MEMORY[0x277D81180], v124, v125, v126, v127);
+          objc_msgSend_blackColor(MEMORY[0x277D81180], v121, v122, v123, v124);
         }
 
         else
         {
-          objc_msgSend_color(v66, v124, v125, v126, v127);
+          objc_msgSend_color(v63, v122, v123, v124);
         }
-        v137 = ;
-        v142 = objc_msgSend_CGColor(v137, v138, v139, v140, v141);
-        CGContextSetStrokeColorWithColor(context, v142);
+        v134 = ;
+        v139 = objc_msgSend_CGColor(v134, v135, v136, v137, v138);
+        CGContextSetStrokeColorWithColor(context, v139);
 
         CGContextStrokePath(context);
-        if (v100)
+        if (v97)
         {
-          CGPathRelease(v100);
+          CGPathRelease(v97);
         }
 
         CGContextRestoreGState(context);
-        v88 = 1;
+        v85 = 1;
       }
 
       else
       {
-        v88 = 0;
+        v85 = 0;
       }
 
       width_low = LODWORD(rect.size.width);
@@ -295,16 +295,16 @@
 
     else
     {
-      v88 = 0;
+      v85 = 0;
     }
 
-    if ((objc_msgSend_shouldRender(v76, v84, v85, v86, v87) & 1) != 0 || v81)
+    if ((objc_msgSend_shouldRender(v73, v81, v82, v83, v84) & 1) != 0 || v78)
     {
       TSUCenterOfRect();
-      objc_msgSend_drawSymbol_inContext_at_width_fill_stroke_(TSCHRenderUtilities, v143, v144, v145, v83, width_low, context, v81, v76);
+      objc_msgSend_drawSymbol_inContext_at_width_fill_stroke_(TSCHRenderUtilities, v140, v141, v142, v80, width_low, context, v78, v73);
     }
 
-    if (v88)
+    if (v85)
     {
       CGContextEndTransparencyLayer(context);
     }
@@ -318,49 +318,49 @@
 {
   cellCopy = cell;
   v11 = objc_msgSend_legendLayoutItem(self, v7, v8, v9, v10);
-  v57 = *MEMORY[0x277CBF3A8];
+  v54 = *MEMORY[0x277CBF3A8];
   v12 = *(MEMORY[0x277CBF398] + 16);
-  v56.origin = *MEMORY[0x277CBF398];
-  v56.size = v12;
-  memset(&v55, 0, sizeof(v55));
-  v15 = objc_msgSend_seriesIndex(cellCopy, v13, 0.0, v12.width, v14);
-  v20 = objc_msgSend_cellType(cellCopy, v16, v17, v18, v19);
+  v53.origin = *MEMORY[0x277CBF398];
+  v53.size = v12;
+  memset(&v52, 0, sizeof(v52));
+  objc_msgSend_seriesIndex(cellCopy, v13, 0.0, v12.width, v14);
+  objc_msgSend_cellType(cellCopy, v15, v16, v17, v18);
   if (v11)
   {
-    objc_msgSend_transformForRenderingBadge_cellType_outElementSize_outClipRect_(v11, v21, v22, v23, v24, v15, v20, &v57, &v56);
+    objc_msgSend_transformForRenderingBadge_cellType_outElementSize_outClipRect_(v11, v19, v20, v21);
   }
 
   else
   {
-    memset(&v55, 0, sizeof(v55));
+    memset(&v52, 0, sizeof(v52));
   }
 
-  if (!CGRectIsNull(v56))
+  if (!CGRectIsNull(v53))
   {
-    v29 = objc_msgSend_fill(cellCopy, v25, v26, v27, v28);
-    v34 = objc_msgSend_stroke(cellCopy, v30, v31, v32, v33);
+    v26 = objc_msgSend_fill(cellCopy, v22, v23, v24, v25);
+    v31 = objc_msgSend_stroke(cellCopy, v27, v28, v29, v30);
     CGContextSaveGState(context);
-    v54 = v55;
-    CGContextConcatCTM(context, &v54);
+    v51 = v52;
+    CGContextConcatCTM(context, &v51);
     TSURectWithSize();
-    v36 = v35;
-    v38 = v37;
-    v40 = v39;
-    v42 = v41;
-    objc_msgSend_effectiveStrokeWidth(cellCopy, v43, v35, v37, v39);
-    sub_27628CB34(context, v36, v38, v40, v42, v44 + v44);
+    v33 = v32;
+    v35 = v34;
+    v37 = v36;
+    v39 = v38;
+    objc_msgSend_effectiveStrokeWidth(cellCopy, v40, v32, v34, v36);
+    sub_27628CB34(context, v33, v35, v37, v39, v41 + v41);
     Mutable = CGPathCreateMutable();
     CGPathAddEllipseInRectSafe();
     CGContextAddPathSafe();
     CGContextClip(context);
-    if (v29)
+    if (v26)
     {
-      objc_msgSend_drawFill_inContext_path_(TSCHRenderUtilities, v46, v47, v48, v49, v29, context, Mutable);
+      objc_msgSend_drawFill_inContext_path_(TSCHRenderUtilities, v43, v44, v45, v46, v26, context, Mutable);
     }
 
-    if (objc_msgSend_shouldRender(v34, v46, v47, v48, v49))
+    if (objc_msgSend_shouldRender(v31, v43, v44, v45, v46))
     {
-      objc_msgSend_applyToContext_insideStroke_(v34, v50, v51, v52, v53, context, 1);
+      objc_msgSend_applyToContext_insideStroke_(v31, v47, v48, v49, v50, context, 1);
       CGContextAddPathSafe();
       CGContextStrokePath(context);
     }
@@ -374,71 +374,71 @@
 {
   cellCopy = cell;
   v11 = objc_msgSend_legendLayoutItem(self, v7, v8, v9, v10);
-  v69 = *MEMORY[0x277CBF3A8];
+  v66 = *MEMORY[0x277CBF3A8];
   v12 = *(MEMORY[0x277CBF398] + 16);
-  v68.origin = *MEMORY[0x277CBF398];
-  v68.size = v12;
-  memset(&v67, 0, sizeof(v67));
-  v15 = objc_msgSend_seriesIndex(cellCopy, v13, 0.0, v12.width, v14);
-  v20 = objc_msgSend_cellType(cellCopy, v16, v17, v18, v19);
+  v65.origin = *MEMORY[0x277CBF398];
+  v65.size = v12;
+  memset(&v64, 0, sizeof(v64));
+  objc_msgSend_seriesIndex(cellCopy, v13, 0.0, v12.width, v14);
+  objc_msgSend_cellType(cellCopy, v15, v16, v17, v18);
   if (v11)
   {
-    objc_msgSend_transformForRenderingBadge_cellType_outElementSize_outClipRect_(v11, v21, v22, v23, v24, v15, v20, &v69, &v68);
+    objc_msgSend_transformForRenderingBadge_cellType_outElementSize_outClipRect_(v11, v19, v20, v21);
   }
 
   else
   {
-    memset(&v67, 0, sizeof(v67));
+    memset(&v64, 0, sizeof(v64));
   }
 
-  if (!CGRectIsNull(v68))
+  if (!CGRectIsNull(v65))
   {
-    v29 = objc_msgSend_fill(cellCopy, v25, v26, v27, v28);
-    v34 = objc_msgSend_stroke(cellCopy, v30, v31, v32, v33);
+    v26 = objc_msgSend_fill(cellCopy, v22, v23, v24, v25);
+    v31 = objc_msgSend_stroke(cellCopy, v27, v28, v29, v30);
     CGContextSaveGState(context);
-    transform = v67;
+    transform = v64;
     CGContextConcatCTM(context, &transform);
-    if (*&v69 >= *(&v69 + 1))
+    if (*&v66 >= *(&v66 + 1))
     {
-      v35 = *(&v69 + 1);
+      v32 = *(&v66 + 1);
     }
 
     else
     {
-      v35 = *&v69;
+      v32 = *&v66;
     }
 
-    v36 = (*&v69 - v35) * 0.5;
-    v37 = (*(&v69 + 1) - v35) * 0.5;
-    v70.origin.x = v36;
-    v70.origin.y = v37;
-    v70.size.width = v35;
-    v70.size.height = v35;
-    CGRectGetMidX(v70);
-    v71.origin.x = v36;
-    v71.origin.y = v37;
-    v71.size.width = v35;
-    v71.size.height = v35;
-    MidY = CGRectGetMidY(v71);
-    v42 = objc_msgSend_series(cellCopy, v39, MidY, v40, v41);
-    v47 = objc_msgSend_chartInfo(v42, v43, v44, v45, v46);
+    v33 = (*&v66 - v32) * 0.5;
+    v34 = (*(&v66 + 1) - v32) * 0.5;
+    v67.origin.x = v33;
+    v67.origin.y = v34;
+    v67.size.width = v32;
+    v67.size.height = v32;
+    CGRectGetMidX(v67);
+    v68.origin.x = v33;
+    v68.origin.y = v34;
+    v68.size.width = v32;
+    v68.size.height = v32;
+    MidY = CGRectGetMidY(v68);
+    v39 = objc_msgSend_series(cellCopy, v36, MidY, v37, v38);
+    v44 = objc_msgSend_chartInfo(v39, v40, v41, v42, v43);
 
-    v52 = objc_msgSend_valueForProperty_(v47, v48, v49, v50, v51, 1103);
-    objc_msgSend_floatValue(v52, v53, v54, v55, v56);
+    v49 = objc_msgSend_valueForProperty_(v44, v45, v46, v47, v48, 1103);
+    objc_msgSend_floatValue(v49, v50, v51, v52, v53);
     Mutable = CGPathCreateMutable();
     CGPathMoveToPointSafe();
     CGPathAddLineToPointSafe();
     CGPathAddArcSafe();
     CGPathAddLineToPointSafe();
     CGPathAddArcSafe();
-    if (v29)
+    if (v26)
     {
-      objc_msgSend_drawFill_inContext_path_(TSCHRenderUtilities, v58, v59, v60, v61, v29, context, Mutable);
+      objc_msgSend_drawFill_inContext_path_(TSCHRenderUtilities, v55, v56, v57, v58, v26, context, Mutable);
     }
 
-    if (objc_msgSend_shouldRender(v34, v58, v59, v60, v61))
+    if (objc_msgSend_shouldRender(v31, v55, v56, v57, v58))
     {
-      objc_msgSend_applyToContext_insideStroke_(v34, v62, v63, v64, v65, context, 1);
+      objc_msgSend_applyToContext_insideStroke_(v31, v59, v60, v61, v62, context, 1);
       CGContextAddPathSafe();
       CGContextStrokePath(context);
     }
@@ -452,39 +452,39 @@
 {
   cellCopy = cell;
   v11 = objc_msgSend_legendLayoutItem(self, v7, v8, v9, v10);
-  v43 = *MEMORY[0x277CBF3A8];
+  v40 = *MEMORY[0x277CBF3A8];
   v12 = *(MEMORY[0x277CBF398] + 16);
-  v42.origin = *MEMORY[0x277CBF398];
-  v42.size = v12;
-  memset(&v41, 0, sizeof(v41));
-  v15 = objc_msgSend_seriesIndex(cellCopy, v13, 0.0, v12.width, v14);
-  v20 = objc_msgSend_cellType(cellCopy, v16, v17, v18, v19);
+  v39.origin = *MEMORY[0x277CBF398];
+  v39.size = v12;
+  memset(&v38, 0, sizeof(v38));
+  objc_msgSend_seriesIndex(cellCopy, v13, 0.0, v12.width, v14);
+  objc_msgSend_cellType(cellCopy, v15, v16, v17, v18);
   if (v11)
   {
-    objc_msgSend_transformForRenderingBadge_cellType_outElementSize_outClipRect_(v11, v21, v22, v23, v24, v15, v20, &v43, &v42);
+    objc_msgSend_transformForRenderingBadge_cellType_outElementSize_outClipRect_(v11, v19, v20, v21);
   }
 
   else
   {
-    memset(&v41, 0, sizeof(v41));
+    memset(&v38, 0, sizeof(v38));
   }
 
-  if (!CGRectIsNull(v42))
+  if (!CGRectIsNull(v39))
   {
     CGContextSaveGState(context);
-    v40 = v41;
-    CGContextConcatCTM(context, &v40);
-    *(&v43 + 1) = *(&v43 + 1) * 0.25;
+    v37 = v38;
+    CGContextConcatCTM(context, &v37);
+    *(&v40 + 1) = *(&v40 + 1) * 0.25;
     TSURectWithCenterAndSize();
-    sub_27628CB34(context, v25, v26, v27, v28, 0.0);
-    v30 = v29;
-    v32 = v31;
-    v34 = v33;
-    v36 = v35;
-    v39 = objc_msgSend_fill(cellCopy, v37, v29, v31, v33);
-    if (v39)
+    sub_27628CB34(context, v22, v23, v24, v25, 0.0);
+    v27 = v26;
+    v29 = v28;
+    v31 = v30;
+    v33 = v32;
+    v36 = objc_msgSend_fill(cellCopy, v34, v26, v28, v30);
+    if (v36)
     {
-      objc_msgSend_drawFill_inContext_frame_(TSCHRenderUtilities, v38, v30, v32, v34, v39, context, v36);
+      objc_msgSend_drawFill_inContext_frame_(TSCHRenderUtilities, v35, v27, v29, v31, v36, context, v33);
     }
 
     CGContextRestoreGState(context);
@@ -533,62 +533,62 @@ LABEL_9:
 {
   cellCopy = cell;
   v13 = objc_msgSend_legendLayoutItem(self, v9, v10, v11, v12);
-  v109 = *MEMORY[0x277CBF3A8];
+  v106 = *MEMORY[0x277CBF3A8];
   v14 = *(MEMORY[0x277CBF398] + 16);
-  v108.origin = *MEMORY[0x277CBF398];
-  v108.size = v14;
-  memset(&v107, 0, sizeof(v107));
-  v17 = objc_msgSend_seriesIndex(cellCopy, v15, 0.0, v14.width, v16);
-  v22 = objc_msgSend_cellType(cellCopy, v18, v19, v20, v21);
+  v105.origin = *MEMORY[0x277CBF398];
+  v105.size = v14;
+  memset(&v104, 0, sizeof(v104));
+  objc_msgSend_seriesIndex(cellCopy, v15, 0.0, v14.width, v16);
+  objc_msgSend_cellType(cellCopy, v17, v18, v19, v20);
   if (v13)
   {
-    objc_msgSend_transformForRenderingLabel_cellType_outElementSize_outClipRect_(v13, v23, v24, v25, v26, v17, v22, &v109, &v108);
+    objc_msgSend_transformForRenderingLabel_cellType_outElementSize_outClipRect_(v13, v21, v22, v23);
   }
 
   else
   {
-    memset(&v107, 0, sizeof(v107));
+    memset(&v104, 0, sizeof(v104));
   }
 
-  if (!CGRectIsNull(v108))
+  if (!CGRectIsNull(v105))
   {
     CGContextSaveGState(context);
-    transform = v107;
+    transform = v104;
     CGContextConcatCTM(context, &transform);
     TSURectWithSize();
-    v28 = v27;
-    v30 = v29;
-    v32 = v31;
-    v34 = v33;
-    v36 = objc_msgSend_p_selectionPathForCell_(self, v35, v27, v29, v31, cellCopy);
-    v41 = objc_msgSend_textDrawingFlagForSelectionPath_(self, v37, v38, v39, v40, v36);
+    v25 = v24;
+    v27 = v26;
+    v29 = v28;
+    v31 = v30;
+    v33 = objc_msgSend_p_selectionPathForCell_(self, v32, v24, v26, v28, cellCopy);
+    v38 = objc_msgSend_textDrawingFlagForSelectionPath_(self, v34, v35, v36, v37, v33);
 
-    if (v41 != 2)
+    if (v38 != 2)
     {
-      if (v41 == 1)
+      if (v38 == 1)
       {
-        v46 = objc_msgSend_yellowColor(MEMORY[0x277D81180], v42, v43, v44, v45);
-        v51 = objc_msgSend_CGColor(v46, v47, v48, v49, v50);
-        CGContextSetFillColorWithColor(context, v51);
+        v43 = objc_msgSend_yellowColor(MEMORY[0x277D81180], v39, v40, v41, v42);
+        v48 = objc_msgSend_CGColor(v43, v44, v45, v46, v47);
+        CGContextSetFillColorWithColor(context, v48);
 
-        v56 = objc_msgSend_yellowColor(MEMORY[0x277D81180], v52, v53, v54, v55);
-        v61 = objc_msgSend_CGColor(v56, v57, v58, v59, v60);
-        CGContextSetStrokeColorWithColor(context, v61);
+        v53 = objc_msgSend_yellowColor(MEMORY[0x277D81180], v49, v50, v51, v52);
+        v58 = objc_msgSend_CGColor(v53, v54, v55, v56, v57);
+        CGContextSetStrokeColorWithColor(context, v58);
 
-        v112.origin.x = v28;
-        v112.origin.y = v30;
-        v112.size.width = v32;
-        v112.size.height = v34;
-        CGContextFillRect(context, v112);
+        v109.origin.x = v25;
+        v109.origin.y = v27;
+        v109.size.width = v29;
+        v109.size.height = v31;
+        CGContextFillRect(context, v109);
       }
 
-      v62 = objc_msgSend_chartInfo(self, v42, v43, v44, v45);
-      v67 = objc_msgSend_legend(v62, v63, v64, v65, v66);
-      v72 = objc_msgSend_intValueForProperty_defaultValue_(v67, v68, v69, v70, v71, 1214, 0);
+      v59 = objc_msgSend_chartInfo(self, v39, v40, v41, v42);
+      v64 = objc_msgSend_legend(v59, v60, v61, v62, v63);
+      v69 = objc_msgSend_intValueForProperty_defaultValue_(v64, v65, v66, v67, v68, 1214, 0);
 
-      v77 = objc_msgSend_paragraphStyleAtIndex_(v62, v73, v74, v75, v76, v72);
-      v82 = objc_msgSend_labelString(cellCopy, v78, v79, v80, v81);
-      v87 = v82;
+      v74 = objc_msgSend_paragraphStyleAtIndex_(v59, v70, v71, v72, v73, v69);
+      v79 = objc_msgSend_labelString(cellCopy, v75, v76, v77, v78);
+      v84 = v79;
       if (ptr)
       {
         location = ptr->location;
@@ -601,16 +601,16 @@ LABEL_9:
         length = -1;
       }
 
-      v110.length = objc_msgSend_length(v82, v83, v84, v85, v86);
-      v110.location = 0;
-      v111.location = location;
-      v111.length = length;
-      v90 = NSIntersectionRange(v110, v111);
-      v94 = objc_msgSend_sharedText(TSCHText, v90.length, v91, v92, v93);
-      objc_msgSend_viewScale(self, v95, v96, v97, v98);
-      v100 = v99;
-      v104 = objc_msgSend_textStyleProvidingSource(v13, v101, v99, v102, v103);
-      objc_msgSend_drawText_paragraphStyle_intoContext_wrapWidth_atPosition_range_viewScale_layoutProperties_styleProvidingSource_outTextLayoutResults_(v94, v105, 0.0, v28, v30, v87, v77, context, v90.location, v90.length, 0, v100, v104, 0);
+      v107.length = objc_msgSend_length(v79, v80, v81, v82, v83);
+      v107.location = 0;
+      v108.location = location;
+      v108.length = length;
+      v87 = NSIntersectionRange(v107, v108);
+      v91 = objc_msgSend_sharedText(TSCHText, v87.length, v88, v89, v90);
+      objc_msgSend_viewScale(self, v92, v93, v94, v95);
+      v97 = v96;
+      v101 = objc_msgSend_textStyleProvidingSource(v13, v98, v96, v99, v100);
+      objc_msgSend_drawText_paragraphStyle_intoContext_wrapWidth_atPosition_range_viewScale_layoutProperties_styleProvidingSource_outTextLayoutResults_(v91, v102, 0.0, v25, v27, v84, v74, context, v87.location, v87.length, 0, v97, v101, 0);
     }
 
     CGContextRestoreGState(context);
@@ -828,7 +828,7 @@ LABEL_9:
     v46 = objc_msgSend_range(selectionCopy, v44, 0.0, v43.width, v45, 0, 0, 0, 0, 0, 0);
     if (v20)
     {
-      objc_msgSend_transformForRenderingLabel_cellType_range_outElementSize_outClipRect_(v20, v47, v48, v49, v50, v31, isEqual ^ 1u, v46, v47, &v52, &v51);
+      objc_msgSend_transformForRenderingLabel_cellType_range_outElementSize_outClipRect_(v20, v48, v49, v50, v47, v31, isEqual ^ 1u, v46, v47, &v52, &v51);
     }
 
     if (!CGRectIsNull(v51) && (*v42 != *&v52 || v42[1] != *(&v52 + 1)))

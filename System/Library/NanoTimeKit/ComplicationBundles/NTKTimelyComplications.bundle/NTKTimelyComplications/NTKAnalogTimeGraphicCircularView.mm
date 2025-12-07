@@ -28,18 +28,8 @@
   y = v10.origin.y;
   width = v10.size.width;
   height = v10.size.height;
-  if (CGRectIsNull(v10))
+  if (CGRectIsNull(v10) || (v11.origin.x = x, v11.origin.y = y, v11.size.width = width, v11.size.height = height, CGRectIsEmpty(v11)) || (v12.origin.x = x, v12.origin.y = y, v12.size.width = width, v12.size.height = height, CGRectIsInfinite(v12)))
   {
-    goto LABEL_4;
-  }
-
-  v11.origin.x = x;
-  v11.origin.y = y;
-  v11.size.width = width;
-  v11.size.height = height;
-  if (CGRectIsEmpty(v11) || (v12.origin.x = x, v12.origin.y = y, v12.size.width = width, v12.size.height = height, CGRectIsInfinite(v12)))
-  {
-LABEL_4:
     [worldClockCircularView setBounds:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
   }
 

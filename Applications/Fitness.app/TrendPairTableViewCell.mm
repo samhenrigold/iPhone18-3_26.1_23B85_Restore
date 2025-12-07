@@ -26,7 +26,7 @@
 {
   senderCopy = sender;
   selfCopy = self;
-  sub_1005946CC();
+  sub_1005946CC(senderCopy);
 }
 
 - (void)prepareForReuse

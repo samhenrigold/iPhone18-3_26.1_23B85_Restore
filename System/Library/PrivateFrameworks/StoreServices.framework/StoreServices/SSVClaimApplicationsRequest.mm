@@ -24,53 +24,51 @@
 {
   v23 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(blockCopy, v5) && _os_feature_enabled_impl())
   {
-    v5 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v5)
+    v6 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v6)
     {
-      v5 = +[SSLogConfig sharedConfig];
+      v6 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v5 shouldLog];
-    if ([v5 shouldLogToDisk])
+    shouldLog = [v6 shouldLog];
+    if ([v6 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      v8 = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      v8 = shouldLog;
     }
 
-    oSLogObject = [v5 OSLogObject];
+    oSLogObject = [v6 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v9 = v7;
+      v10 = v8;
     }
 
     else
     {
-      v9 = v7 & 2;
+      v10 = v8 & 2;
     }
 
-    if (v9)
+    if (v10)
     {
       v21 = 136446210;
       v22 = "[SSVClaimApplicationsRequest startWithResponseBlock:]";
-      LODWORD(v18) = 12;
-      v10 = _os_log_send_and_compose_impl();
 
-      if (!v10)
+      if (!v11)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v21, v18}];
-      free(v10);
-      SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v11);
+      SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, oSLogObject);
     }
 
     goto LABEL_15;
@@ -83,7 +81,7 @@ LABEL_16:
   v19[3] = &unk_1E84ABEF0;
   v19[4] = self;
   v20 = blockCopy;
-  v17 = blockCopy;
+  v18 = blockCopy;
   [(SSRequest *)self _startWithMessageID:138 messageBlock:v19];
 }
 
@@ -95,44 +93,44 @@ void __54__SSVClaimApplicationsRequest_startWithResponseBlock___block_invoke(uin
   {
     if (v3 == MEMORY[0x1E69E9E18])
     {
-      v8 = SSError(@"SSErrorDomain", 121, 0, 0);
-      v5 = 0;
-      v9 = 0;
+      v9 = SSError(@"SSErrorDomain", 121, 0, 0);
+      v6 = 0;
+      v10 = 0;
     }
 
     else
     {
-      objc_opt_class();
-      v5 = SSXPCDictionaryCopyCFObjectWithClass(v4, "3");
-      v6 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v7 = xpc_dictionary_get_value(v4, "2");
-      v8 = [v6 initWithXPCEncoding:v7];
+      v5 = objc_opt_class();
+      v6 = SSXPCDictionaryCopyCFObjectWithClass(v4, "3", v5);
+      v7 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v8 = xpc_dictionary_get_value(v4, "2");
+      v9 = [v7 initWithXPCEncoding:v8];
 
-      v9 = xpc_dictionary_get_BOOL(v4, "1");
-      if (v9)
+      v10 = xpc_dictionary_get_BOOL(v4, "1");
+      if (v10)
       {
 LABEL_8:
-        v10 = dispatch_get_global_queue(0, 0);
-        v14 = MEMORY[0x1E69E9820];
-        v15 = 3221225472;
-        v16 = __54__SSVClaimApplicationsRequest_startWithResponseBlock___block_invoke_2;
-        v17 = &unk_1E84AD020;
-        v11 = *(a1 + 40);
-        v19 = v8;
-        v20 = v11;
-        v21 = v9;
-        v18 = v5;
-        v12 = v8;
-        v13 = v5;
-        dispatch_async(v10, &v14);
+        v11 = dispatch_get_global_queue(0, 0);
+        v15 = MEMORY[0x1E69E9820];
+        v16 = 3221225472;
+        v17 = __54__SSVClaimApplicationsRequest_startWithResponseBlock___block_invoke_2;
+        v18 = &unk_1E84AD020;
+        v12 = *(a1 + 40);
+        v20 = v9;
+        v21 = v12;
+        v22 = v10;
+        v19 = v6;
+        v13 = v9;
+        v14 = v6;
+        dispatch_async(v11, &v15);
 
         goto LABEL_9;
       }
     }
 
-    if (!v8)
+    if (!v9)
     {
-      v8 = SSError(@"SSErrorDomain", 100, 0, 0);
+      v9 = SSError(@"SSErrorDomain", 100, 0, 0);
     }
 
     goto LABEL_8;

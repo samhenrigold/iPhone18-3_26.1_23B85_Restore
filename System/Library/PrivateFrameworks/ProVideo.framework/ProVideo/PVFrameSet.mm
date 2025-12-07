@@ -197,7 +197,7 @@
     v6 = colorSampleBuffer2;
     if (colorSampleBuffer2)
     {
-      [colorSampleBuffer2 presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(colorSampleBuffer2);
     }
 
     else

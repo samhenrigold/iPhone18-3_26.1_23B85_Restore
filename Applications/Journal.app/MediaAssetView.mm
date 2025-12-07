@@ -45,7 +45,7 @@
   }
 
   v8.receiver = self;
-  v8.super_class = type metadata accessor for MediaAssetView();
+  v8.super_class = type metadata accessor for MediaAssetView(0);
   [(MediaAssetView *)&v8 dealloc];
 }
 

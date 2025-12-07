@@ -88,7 +88,7 @@ void __105__AAUIAccountBeneficiaryManagementHook__showAccountBeneficiaryManageme
 {
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v7 = _AAUILogSystem();
+  v7 = _AAUILogSystem(WeakRetained);
   v8 = v7;
   if (a2)
   {

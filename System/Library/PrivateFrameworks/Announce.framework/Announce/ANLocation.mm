@@ -91,7 +91,7 @@
 
 - (ANLocation)initWithMessage:(id)message
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if ([messageCopy count])
   {
@@ -104,8 +104,8 @@
         v7 = [(ANLocation *)self initWithHomeID:v6];
         if (v7)
         {
-          v45 = v6;
-          v46 = v5;
+          v44 = v6;
+          v45 = v5;
           v8 = [messageCopy objectForKey:@"flags"];
           v9 = v8;
           if (v8)
@@ -113,131 +113,131 @@
             v7->_flags = [v8 unsignedIntegerValue];
           }
 
-          v44 = v9;
-          v48 = v7;
+          v43 = v9;
+          v47 = v7;
           v10 = [messageCopy objectForKey:@"zones"];
           v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v10, "count")}];
+          v56 = 0u;
           v57 = 0u;
           v58 = 0u;
           v59 = 0u;
-          v60 = 0u;
           v12 = v10;
-          v13 = [v12 countByEnumeratingWithState:&v57 objects:v63 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v56 objects:v62 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v58;
+            v15 = *v57;
             do
             {
               for (i = 0; i != v14; ++i)
               {
-                if (*v58 != v15)
+                if (*v57 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v17 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(*(&v57 + 1) + 8 * i)];
+                v17 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(*(&v56 + 1) + 8 * i)];
                 if (v17)
                 {
                   [v11 addObject:v17];
                 }
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v57 objects:v63 count:16];
+              v14 = [v12 countByEnumeratingWithState:&v56 objects:v62 count:16];
             }
 
             while (v14);
           }
 
-          v43 = v12;
+          v42 = v12;
 
-          objc_storeStrong(&v48->_zoneUUIDs, v11);
+          objc_storeStrong(&v47->_zoneUUIDs, v11);
           v18 = [messageCopy objectForKey:@"rooms"];
           v19 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v18, "count")}];
+          v52 = 0u;
           v53 = 0u;
           v54 = 0u;
           v55 = 0u;
-          v56 = 0u;
           v20 = v18;
-          v21 = [v20 countByEnumeratingWithState:&v53 objects:v62 count:16];
+          v21 = [v20 countByEnumeratingWithState:&v52 objects:v61 count:16];
           if (v21)
           {
             v22 = v21;
-            v23 = *v54;
+            v23 = *v53;
             do
             {
               for (j = 0; j != v22; ++j)
               {
-                if (*v54 != v23)
+                if (*v53 != v23)
                 {
                   objc_enumerationMutation(v20);
                 }
 
-                v25 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:{*(*(&v53 + 1) + 8 * j), v43}];
+                v25 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:{*(*(&v52 + 1) + 8 * j), v42}];
                 if (v25)
                 {
                   [v19 addObject:v25];
                 }
               }
 
-              v22 = [v20 countByEnumeratingWithState:&v53 objects:v62 count:16];
+              v22 = [v20 countByEnumeratingWithState:&v52 objects:v61 count:16];
             }
 
             while (v22);
           }
 
-          objc_storeStrong(&v48->_roomUUIDs, v19);
-          v47 = messageCopy;
+          objc_storeStrong(&v47->_roomUUIDs, v19);
+          v46 = messageCopy;
           v26 = [messageCopy objectForKey:@"users"];
           v27 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v26, "count")}];
+          v48 = 0u;
           v49 = 0u;
           v50 = 0u;
           v51 = 0u;
-          v52 = 0u;
           v28 = v26;
-          v29 = [v28 countByEnumeratingWithState:&v49 objects:v61 count:16];
+          v29 = [v28 countByEnumeratingWithState:&v48 objects:v60 count:16];
           if (v29)
           {
             v30 = v29;
-            v31 = *v50;
+            v31 = *v49;
             do
             {
               for (k = 0; k != v30; ++k)
               {
-                if (*v50 != v31)
+                if (*v49 != v31)
                 {
                   objc_enumerationMutation(v28);
                 }
 
-                v33 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(*(&v49 + 1) + 8 * k)];
+                v33 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(*(&v48 + 1) + 8 * k)];
                 if (v33)
                 {
                   [(NSArray *)v27 addObject:v33];
                 }
               }
 
-              v30 = [v28 countByEnumeratingWithState:&v49 objects:v61 count:16];
+              v30 = [v28 countByEnumeratingWithState:&v48 objects:v60 count:16];
             }
 
             while (v30);
           }
 
-          v7 = v48;
-          userUUIDs = v48->_userUUIDs;
-          v48->_userUUIDs = v27;
+          v7 = v47;
+          userUUIDs = v47->_userUUIDs;
+          v47->_userUUIDs = v27;
           v35 = v27;
 
-          messageCopy = v47;
-          v36 = [v47 objectForKey:@"devices"];
-          deviceIDs = v48->_deviceIDs;
-          v48->_deviceIDs = v36;
+          messageCopy = v46;
+          v36 = [v46 objectForKey:@"devices"];
+          deviceIDs = v47->_deviceIDs;
+          v47->_deviceIDs = v36;
 
-          v38 = [v47 objectForKey:@"homeLocationStatus"];
-          homeLocationStatus = v48->_homeLocationStatus;
-          v48->_homeLocationStatus = v38;
+          v38 = [v46 objectForKey:@"homeLocationStatus"];
+          homeLocationStatus = v47->_homeLocationStatus;
+          v47->_homeLocationStatus = v38;
 
-          v6 = v45;
-          v5 = v46;
+          v6 = v44;
+          v5 = v45;
         }
 
         self = v7;
@@ -261,13 +261,12 @@
     selfCopy = 0;
   }
 
-  v41 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (id)message
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:4];
   uUIDString = [(NSUUID *)self->_homeUUID UUIDString];
   [v3 setValue:uUIDString forKey:@"home"];
@@ -276,30 +275,30 @@
   [v3 setValue:v5 forKey:@"flags"];
 
   v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](self->_zoneUUIDs, "count")}];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v7 = self->_zoneUUIDs;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v37 objects:v43 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v36 objects:v42 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v38;
+    v10 = *v37;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v38 != v10)
+        if (*v37 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        uUIDString2 = [*(*(&v37 + 1) + 8 * i) UUIDString];
+        uUIDString2 = [*(*(&v36 + 1) + 8 * i) UUIDString];
         [v6 addObject:uUIDString2];
       }
 
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v36 objects:v42 count:16];
     }
 
     while (v9);
@@ -307,30 +306,30 @@
 
   [v3 setValue:v6 forKey:@"zones"];
   v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](self->_roomUUIDs, "count")}];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v14 = self->_roomUUIDs;
-  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v33 objects:v42 count:16];
+  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v32 objects:v41 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v34;
+    v17 = *v33;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v34 != v17)
+        if (*v33 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        uUIDString3 = [*(*(&v33 + 1) + 8 * j) UUIDString];
+        uUIDString3 = [*(*(&v32 + 1) + 8 * j) UUIDString];
         [v13 addObject:uUIDString3];
       }
 
-      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v33 objects:v42 count:16];
+      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v32 objects:v41 count:16];
     }
 
     while (v16);
@@ -338,30 +337,30 @@
 
   [v3 setValue:v13 forKey:@"rooms"];
   v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](self->_userUUIDs, "count")}];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v21 = self->_userUUIDs;
-  v22 = [(NSArray *)v21 countByEnumeratingWithState:&v29 objects:v41 count:16];
+  v22 = [(NSArray *)v21 countByEnumeratingWithState:&v28 objects:v40 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v30;
+    v24 = *v29;
     do
     {
       for (k = 0; k != v23; ++k)
       {
-        if (*v30 != v24)
+        if (*v29 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        uUIDString4 = [*(*(&v29 + 1) + 8 * k) UUIDString];
+        uUIDString4 = [*(*(&v28 + 1) + 8 * k) UUIDString];
         [v20 addObject:uUIDString4];
       }
 
-      v23 = [(NSArray *)v21 countByEnumeratingWithState:&v29 objects:v41 count:16];
+      v23 = [(NSArray *)v21 countByEnumeratingWithState:&v28 objects:v40 count:16];
     }
 
     while (v23);
@@ -370,8 +369,6 @@
   [v3 setValue:v20 forKey:@"users"];
   [v3 setValue:self->_deviceIDs forKey:@"devices"];
   [v3 setValue:self->_homeLocationStatus forKey:@"homeLocationStatus"];
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

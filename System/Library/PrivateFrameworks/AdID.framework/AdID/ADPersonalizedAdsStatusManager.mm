@@ -24,7 +24,6 @@
 
 uint64_t __48__ADPersonalizedAdsStatusManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance__instance_1 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -197,40 +196,38 @@ void __91__ADPersonalizedAdsStatusManager_sendPersonalizedAdsStatusToAdPlatforms
 
 void __91__ADPersonalizedAdsStatusManager_sendPersonalizedAdsStatusToAdPlatforms_completionHandler___block_invoke_37(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v21 = a2;
+  v19 = a2;
   v7 = a3;
   v8 = a4;
   if (v8)
   {
     v9 = MEMORY[0x277CCACA8];
-    v10 = *(a1 + 32);
-    v11 = objc_opt_class();
-    v12 = *(*(*(a1 + 56) + 8) + 40);
-    v13 = ClientTypeToString();
-    v14 = [v8 code];
-    v15 = [v8 localizedDescription];
-    v16 = [v9 stringWithFormat:@"[%@] Error sending segments to AdPlatforms for %@ %@. Error %ld - %@", v11, v12, v13, v14, v15];
+    v10 = objc_opt_class();
+    v11 = *(*(*(a1 + 56) + 8) + 40);
+    v12 = ClientTypeToString();
+    v13 = [v8 code];
+    v14 = [v8 localizedDescription];
+    v15 = [v9 stringWithFormat:@"[%@] Error sending segments to AdPlatforms for %@ %@. Error %ld - %@", v10, v11, v12, v13, v14];
     _ADLog();
   }
 
   else
   {
-    v13 = [objc_alloc(MEMORY[0x277CE9688]) initWithData:v21];
-    v17 = *(a1 + 32);
-    v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@] Received opt-out response: %@", objc_opt_class(), v13];
+    v12 = [objc_alloc(MEMORY[0x277CE9688]) initWithData:v19];
+    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@] Received opt-out response: %@", objc_opt_class(), v12];
     _ADLog();
 
-    v19 = [MEMORY[0x277CBEAA8] date];
-    [*(a1 + 40) setLastSentPersonalizedAdsTimestamp:{objc_msgSend(v19, "AD_toServerTime")}];
+    v17 = [MEMORY[0x277CBEAA8] date];
+    [*(a1 + 40) setLastSentPersonalizedAdsTimestamp:{objc_msgSend(v17, "AD_toServerTime")}];
 
     [*(a1 + 40) setLastSentPersonalizedAdsStatus:*(a1 + 64)];
   }
 
   [*(a1 + 32) setSendingPersonalizedAdsToAdPlatforms:0];
-  v20 = *(a1 + 48);
-  if (v20)
+  v18 = *(a1 + 48);
+  if (v18)
   {
-    (*(v20 + 16))(v20, v8, 1);
+    (*(v18 + 16))(v18, v8, 1);
   }
 }
 

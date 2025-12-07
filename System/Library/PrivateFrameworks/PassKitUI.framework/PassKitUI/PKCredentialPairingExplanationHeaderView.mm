@@ -55,9 +55,9 @@
 
 - (void)layoutSubviews
 {
-  v17.receiver = self;
-  v17.super_class = PKCredentialPairingExplanationHeaderView;
-  [(PKCredentialPairingExplanationHeaderView *)&v17 layoutSubviews];
+  v38.receiver = self;
+  v38.super_class = PKCredentialPairingExplanationHeaderView;
+  [(PKCredentialPairingExplanationHeaderView *)&v38 layoutSubviews];
   image = [(UIImageView *)self->_imageView image];
   [(PKCredentialPairingExplanationHeaderView *)self bounds];
   v5 = v4;
@@ -66,11 +66,26 @@
   v11 = v10;
   [image size];
   PKSizeAspectFill();
-  PKSizeAlignedInRect();
-  [(UIImageView *)self->_imageView setFrame:v12 + 0.0, v13 + 1.0, v15, v14 + -2.0];
+  v12 = *MEMORY[0x1E69BB7F8];
+  v13.n128_f64[0] = v5;
+  v14.n128_f64[0] = v7;
+  v15.n128_f64[0] = v9;
+  v16.n128_f64[0] = v11;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v17, v18, v13, v14, v15, v16, v19);
+  v21 = *&v20;
+  v23 = *&v22;
+  v25 = *&v24;
+  v27 = *&v26;
+  [(UIImageView *)self->_imageView setFrame:v20 + 0.0, v22 + 1.0, v24, v26 + -2.0];
   [(UIActivityIndicatorView *)self->_spinner frame];
+  v29.n128_u64[0] = v28;
+  v31.n128_u64[0] = v30;
   spinner = self->_spinner;
-  PKSizeAlignedInRect();
+  v33.n128_u64[0] = v21;
+  v34.n128_u64[0] = v23;
+  v35.n128_u64[0] = v25;
+  v36.n128_u64[0] = v27;
+  PKSizeAlignedInRect(v12, v29, v31, v33, v34, v35, v36, v37);
   [(UIActivityIndicatorView *)spinner setFrame:?];
   [(UIVisualEffectView *)self->_blurView setFrame:v5, v7, v9, v11];
 }
@@ -173,11 +188,11 @@ uint64_t __61__PKCredentialPairingExplanationHeaderView__setPairingImage___block
   return [v2 setAlpha:0.0];
 }
 
-uint64_t __61__PKCredentialPairingExplanationHeaderView__setPairingImage___block_invoke_3(uint64_t result, int a2)
+void *__61__PKCredentialPairingExplanationHeaderView__setPairingImage___block_invoke_3(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 432) removeFromSuperview];
+    return [*(result[4] + 432) removeFromSuperview];
   }
 
   return result;

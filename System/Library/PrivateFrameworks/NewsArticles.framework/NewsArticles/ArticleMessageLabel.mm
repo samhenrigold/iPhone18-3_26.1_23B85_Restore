@@ -15,7 +15,7 @@
   swift_unknownObjectWeakInit();
   v9 = OBJC_IVAR____TtC12NewsArticles19ArticleMessageLabel_accessoryPresentationMode;
   (*(v5 + 104))(v8, *MEMORY[0x1E69D8018], v4);
-  sub_1D7CA713C();
+  sub_1D7CA713C(0);
   swift_allocObject();
   *(&self->super.super.super.super.isa + v9) = sub_1D7D28ECC();
   result = sub_1D7D3160C();

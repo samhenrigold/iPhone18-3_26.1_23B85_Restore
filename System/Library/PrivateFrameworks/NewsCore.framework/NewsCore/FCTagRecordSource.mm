@@ -46,22 +46,22 @@
 
 - (FCTagRecordSource)initWithContentDatabase:(id)database contentDirectory:(id)directory appActivityMonitor:(id)monitor backgroundTaskable:(id)taskable defaultTTL:(double)l desiredTagRecordFieldOptions:(unint64_t)options
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   directoryCopy = directory;
   monitorCopy = monitor;
   taskableCopy = taskable;
   if (!databaseCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentDatabase"];
+    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentDatabase"];
     *buf = 136315906;
-    v28 = "[FCTagRecordSource initWithContentDatabase:contentDirectory:appActivityMonitor:backgroundTaskable:defaultTTL:desiredTagRecordFieldOptions:]";
-    v29 = 2080;
-    v30 = "FCTagRecordSource.m";
-    v31 = 1024;
-    v32 = 193;
-    v33 = 2114;
-    v34 = v24;
+    v27 = "[FCTagRecordSource initWithContentDatabase:contentDirectory:appActivityMonitor:backgroundTaskable:defaultTTL:desiredTagRecordFieldOptions:]";
+    v28 = 2080;
+    v29 = "FCTagRecordSource.m";
+    v30 = 1024;
+    v31 = 193;
+    v32 = 2114;
+    v33 = v23;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (directoryCopy)
@@ -77,22 +77,22 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentDirectory"];
+    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentDirectory"];
     *buf = 136315906;
-    v28 = "[FCTagRecordSource initWithContentDatabase:contentDirectory:appActivityMonitor:backgroundTaskable:defaultTTL:desiredTagRecordFieldOptions:]";
-    v29 = 2080;
-    v30 = "FCTagRecordSource.m";
-    v31 = 1024;
-    v32 = 194;
-    v33 = 2114;
-    v34 = v25;
+    v27 = "[FCTagRecordSource initWithContentDatabase:contentDirectory:appActivityMonitor:backgroundTaskable:defaultTTL:desiredTagRecordFieldOptions:]";
+    v28 = 2080;
+    v29 = "FCTagRecordSource.m";
+    v30 = 1024;
+    v31 = 194;
+    v32 = 2114;
+    v33 = v24;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v26.receiver = self;
-  v26.super_class = FCTagRecordSource;
-  v18 = [(FCRecordSource *)&v26 initWithContentDatabase:databaseCopy contentDirectory:directoryCopy appActivityMonitor:monitorCopy backgroundTaskable:taskableCopy defaultTTL:0 experimentalizableFieldsPostfix:0 activeTreatmentID:l];
+  v25.receiver = self;
+  v25.super_class = FCTagRecordSource;
+  v18 = [(FCRecordSource *)&v25 initWithContentDatabase:databaseCopy contentDirectory:directoryCopy appActivityMonitor:monitorCopy backgroundTaskable:taskableCopy defaultTTL:0 experimentalizableFieldsPostfix:0 activeTreatmentID:l];
   v19 = v18;
   if (v18)
   {
@@ -102,7 +102,6 @@ LABEL_6:
     v19->_nonLocalizableKeys = v20;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -177,29 +176,27 @@ void __36__FCTagRecordSource_localizableKeys__block_invoke(uint64_t a1)
 
 void __36__FCTagRecordSource_localizableKeys__block_invoke_2(uint64_t a1, void *a2)
 {
-  v6[12] = *MEMORY[0x1E69E9840];
+  v5[12] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (([*(a1 + 32) desiredFieldOptions] & 2) != 0)
   {
     [v3 addObject:@"name"];
   }
 
-  v6[0] = @"publisherPaidOfferableConfig";
-  v6[1] = @"publisherPaidDescriptionStrings";
-  v6[2] = @"isHidden";
-  v6[3] = @"paidBundleSubscriptionButtonConfig";
-  v6[4] = @"articleRecirculationConfiguration";
-  v6[5] = @"superfeedConfigResourceID";
-  v6[6] = @"sportsRecommendationMappings";
-  v6[7] = @"isSportsRecommendable";
-  v6[8] = @"highlightsArticleListID";
-  v6[9] = @"sportsData";
-  v6[10] = @"subscriptionRate";
-  v6[11] = @"groupingAvailability";
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:12];
+  v5[0] = @"publisherPaidOfferableConfig";
+  v5[1] = @"publisherPaidDescriptionStrings";
+  v5[2] = @"isHidden";
+  v5[3] = @"paidBundleSubscriptionButtonConfig";
+  v5[4] = @"articleRecirculationConfiguration";
+  v5[5] = @"superfeedConfigResourceID";
+  v5[6] = @"sportsRecommendationMappings";
+  v5[7] = @"isSportsRecommendable";
+  v5[8] = @"highlightsArticleListID";
+  v5[9] = @"sportsData";
+  v5[10] = @"subscriptionRate";
+  v5[11] = @"groupingAvailability";
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:12];
   [v3 addObjectsFromArray:v4];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)alwaysLocalizedKeys
@@ -231,21 +228,19 @@ void __40__FCTagRecordSource_alwaysLocalizedKeys__block_invoke(uint64_t a1)
 
 void __40__FCTagRecordSource_alwaysLocalizedKeys__block_invoke_2(uint64_t a1, void *a2)
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v5[4] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (([*(a1 + 32) desiredFieldOptions] & 0x200) != 0)
   {
     [v3 addObject:@"stocksFeedConfiguration"];
   }
 
-  v6[0] = @"feedConfiguration";
-  v6[1] = @"propertyFlagsLocalized";
-  v6[2] = @"sectionFeedConfiguration";
-  v6[3] = @"foodGroupingAvailability";
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:4];
+  v5[0] = @"feedConfiguration";
+  v5[1] = @"propertyFlagsLocalized";
+  v5[2] = @"sectionFeedConfiguration";
+  v5[3] = @"foodGroupingAvailability";
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
   [v3 addObjectsFromArray:v4];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)localizableLanguageSpecificKeys
@@ -271,63 +266,63 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
 
 - (id)recordFromCKRecord:(id)record base:(id)base
 {
-  v270 = *MEMORY[0x1E69E9840];
+  v264 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   baseCopy = base;
-  v253 = objc_alloc_init(MEMORY[0x1E69B7000]);
-  v255 = baseCopy;
-  [v253 setBase:baseCopy];
+  v247 = objc_alloc_init(MEMORY[0x1E69B7000]);
+  v249 = baseCopy;
+  [v247 setBase:baseCopy];
   localizedKeysByOriginalKey = [(FCRecordSource *)self localizedKeysByOriginalKey];
   v9 = [localizedKeysByOriginalKey objectForKeyedSubscript:@"name"];
-  v239 = [recordCopy objectForKey:v9];
+  v233 = [recordCopy objectForKey:v9];
 
   v10 = [localizedKeysByOriginalKey objectForKeyedSubscript:@"nameCompact"];
   v11 = [recordCopy objectForKey:v10];
 
   v12 = [localizedKeysByOriginalKey objectForKeyedSubscript:@"feedConfiguration"];
-  v250 = [recordCopy objectForKey:v12];
+  v244 = [recordCopy objectForKey:v12];
 
   v13 = [localizedKeysByOriginalKey objectForKeyedSubscript:?];
-  v249 = [recordCopy objectForKey:v13];
+  v243 = [recordCopy objectForKey:v13];
 
   v14 = [localizedKeysByOriginalKey objectForKeyedSubscript:?];
-  v248 = [recordCopy objectForKey:v14];
+  v242 = [recordCopy objectForKey:v14];
 
   v15 = [localizedKeysByOriginalKey objectForKeyedSubscript:?];
-  v247 = [recordCopy objectForKey:v15];
+  v241 = [recordCopy objectForKey:v15];
 
   v16 = [localizedKeysByOriginalKey objectForKeyedSubscript:?];
-  v246 = [recordCopy objectForKey:v16];
+  v240 = [recordCopy objectForKey:v16];
 
   v17 = [localizedKeysByOriginalKey objectForKeyedSubscript:?];
-  v245 = [recordCopy objectForKey:v17];
+  v239 = [recordCopy objectForKey:v17];
 
-  v244 = [FCRecordSource resolveLocalizableExperimentalizableFieldforKey:"resolveLocalizableExperimentalizableFieldforKey:inRecord:activeExperimentIDKey:" inRecord:? activeExperimentIDKey:?];
+  v238 = [FCRecordSource resolveLocalizableExperimentalizableFieldforKey:"resolveLocalizableExperimentalizableFieldforKey:inRecord:activeExperimentIDKey:" inRecord:? activeExperimentIDKey:?];
   v18 = [localizedKeysByOriginalKey objectForKeyedSubscript:?];
-  v243 = [recordCopy objectForKey:v18];
+  v237 = [recordCopy objectForKey:v18];
 
   v19 = [localizedKeysByOriginalKey objectForKeyedSubscript:?];
-  v242 = [recordCopy objectForKey:v19];
+  v236 = [recordCopy objectForKey:v19];
 
   v20 = [localizedKeysByOriginalKey objectForKeyedSubscript:?];
-  v237 = [recordCopy objectForKey:v20];
+  v231 = [recordCopy objectForKey:v20];
 
-  v251 = localizedKeysByOriginalKey;
+  v245 = localizedKeysByOriginalKey;
   v21 = [localizedKeysByOriginalKey objectForKeyedSubscript:?];
-  v241 = [recordCopy objectForKey:v21];
+  v235 = [recordCopy objectForKey:v21];
 
   experimentalizedKeysByOriginalKey = [(FCRecordSource *)self experimentalizedKeysByOriginalKey];
   v23 = [experimentalizedKeysByOriginalKey objectForKeyedSubscript:@"activeExperimentID"];
   v24 = [recordCopy objectForKey:v23];
 
-  v236 = experimentalizedKeysByOriginalKey;
+  v230 = experimentalizedKeysByOriginalKey;
   v25 = [experimentalizedKeysByOriginalKey objectForKeyedSubscript:@"publisherSpecifiedArticleIDs"];
   v26 = [recordCopy objectForKey:v25];
 
   v27 = [recordCopy objectForKey:@"publisherSpecifiedArticleIDs"];
-  v234 = v26;
-  v235 = v24;
-  v233 = v27;
+  v228 = v26;
+  v229 = v24;
+  v227 = v27;
   selfCopy = self;
   if ([v26 count])
   {
@@ -350,12 +345,12 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
     v30 = v27;
   }
 
-  v232 = v30;
+  v226 = v30;
   v31 = [v30 mutableCopy];
-  [v253 setPublisherSpecifiedArticleIDs:v31];
+  [v247 setPublisherSpecifiedArticleIDs:v31];
 
   v32 = [recordCopy objectForKey:@"publisherSpecifiedArticles"];
-  [v253 setPublisherSpecifiedArticlesJson:v32];
+  [v247 setPublisherSpecifiedArticlesJson:v32];
 
   objc_opt_class();
   v33 = [recordCopy objectForKey:@"publisherSpecifiedArticleIDsModifiedDate"];
@@ -379,38 +374,38 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
 
   v35 = v34;
   pbDate = [v35 pbDate];
-  [v253 setPublisherSpecifiedArticleIDsModifiedDate:pbDate];
+  [v247 setPublisherSpecifiedArticleIDsModifiedDate:pbDate];
 
   localizedLanguageSpecificKeysByOriginalKey = [(FCRecordSource *)self localizedLanguageSpecificKeysByOriginalKey];
   v37 = [localizedLanguageSpecificKeysByOriginalKey objectForKeyedSubscript:@"name"];
   v38 = [recordCopy objectForKey:v37];
 
   v39 = [recordCopy objectForKey:@"hideAccessoryText"];
-  [v253 setHideAccessoryText:{objc_msgSend(v39, "BOOLValue")}];
+  [v247 setHideAccessoryText:{objc_msgSend(v39, "BOOLValue")}];
 
-  v230 = v38;
-  if ([v38 length] || (v38 = v239, objc_msgSend(v239, "length")))
+  v224 = v38;
+  if ([v38 length] || (v38 = v233, objc_msgSend(v233, "length")))
   {
-    [v253 setName:v38];
+    [v247 setName:v38];
   }
 
   else
   {
-    v225 = [recordCopy objectForKey:@"name"];
-    [v253 setName:v225];
+    v219 = [recordCopy objectForKey:@"name"];
+    [v247 setName:v219];
   }
 
   if ([v11 length])
   {
-    v40 = v253;
-    [v253 setNameCompact:v11];
+    v40 = v247;
+    [v247 setNameCompact:v11];
   }
 
   else
   {
     v41 = [recordCopy objectForKey:@"nameCompact"];
-    v40 = v253;
-    [v253 setNameCompact:v41];
+    v40 = v247;
+    [v247 setNameCompact:v41];
   }
 
   v42 = [recordCopy objectForKey:@"type"];
@@ -468,40 +463,40 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
   }
 
   v58 = v57;
-  [v253 setLogoURL:v58];
+  [v247 setLogoURL:v58];
 
   v59 = [recordCopy objectForKey:@"iAdCategories"];
   v60 = [v59 mutableCopy];
-  [v253 setIAdCategories:v60];
+  [v247 setIAdCategories:v60];
 
   v61 = [recordCopy objectForKey:@"iAdKeywords"];
   v62 = [v61 mutableCopy];
-  [v253 setIAdKeywords:v62];
+  [v247 setIAdKeywords:v62];
 
   v63 = [recordCopy objectForKey:@"blockedStorefrontIDs"];
   v64 = [v63 mutableCopy];
-  [v253 setBlockedStorefrontIDs:v64];
+  [v247 setBlockedStorefrontIDs:v64];
 
   v65 = [recordCopy objectForKey:@"allowedStorefrontIDs"];
   v66 = [v65 mutableCopy];
-  [v253 setAllowedStorefrontIDs:v66];
+  [v247 setAllowedStorefrontIDs:v66];
 
-  v67 = [v250 length];
+  v67 = [v244 length];
   v68 = MEMORY[0x1E69B6E28];
   if (v67)
   {
-    v69 = [MEMORY[0x1E69B6E28] feedConfigurationFromJSON:v250];
-    [v253 setFeedConfiguration:v69];
+    v69 = [MEMORY[0x1E69B6E28] feedConfigurationFromJSON:v244];
+    [v247 setFeedConfiguration:v69];
   }
 
   else
   {
     v69 = [recordCopy objectForKey:@"feedConfiguration"];
     v70 = [v68 feedConfigurationFromJSON:v69];
-    [v253 setFeedConfiguration:v70];
+    [v247 setFeedConfiguration:v70];
   }
 
-  v71 = v253;
+  v71 = v247;
 
   objc_opt_class();
   v72 = [recordCopy objectForKey:@"nameImage"];
@@ -524,7 +519,7 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
   }
 
   v74 = v73;
-  [v253 setNameImageURL:v74];
+  [v247 setNameImageURL:v74];
 
   objc_opt_class();
   v75 = [recordCopy objectForKey:@"nameImageCompact"];
@@ -547,7 +542,7 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
   }
 
   v77 = v76;
-  [v253 setNameImageCompactURL:v77];
+  [v247 setNameImageCompactURL:v77];
 
   objc_opt_class();
   v78 = [recordCopy objectForKey:@"nameImageForDarkBackground"];
@@ -570,7 +565,7 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
   }
 
   v80 = v79;
-  [v253 setNameImageForDarkBackgroundURL:v80];
+  [v247 setNameImageForDarkBackgroundURL:v80];
 
   objc_opt_class();
   v81 = [recordCopy objectForKey:@"nameImageMask"];
@@ -593,43 +588,43 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
   }
 
   v83 = v82;
-  [v253 setNameImageMaskURL:v83];
+  [v247 setNameImageMaskURL:v83];
 
   v84 = [recordCopy objectForKey:@"nameImageMetadata"];
-  [v253 setNameImageMetadata:v84];
+  [v247 setNameImageMetadata:v84];
 
   v85 = [recordCopy objectForKey:@"nameImageCompactMetadata"];
-  [v253 setNameImageCompactMetadata:v85];
+  [v247 setNameImageCompactMetadata:v85];
 
   v86 = [recordCopy objectForKey:@"nameImageMaskWidgetSmall"];
-  [v253 setNameImageMaskWidgetLQURL:v86];
+  [v247 setNameImageMaskWidgetLQURL:v86];
 
   v87 = [recordCopy objectForKey:@"nameImageMaskWidgetLarge"];
-  [v253 setNameImageMaskWidgetHQURL:v87];
+  [v247 setNameImageMaskWidgetHQURL:v87];
 
   v88 = [recordCopy objectForKey:@"nameImageLarge"];
-  [v253 setNameImageLargeURL:v88];
+  [v247 setNameImageLargeURL:v88];
 
   v89 = [recordCopy objectForKey:@"nameImageLargeMask"];
-  [v253 setNameImageLargeMaskURL:v89];
+  [v247 setNameImageLargeMaskURL:v89];
 
   v90 = [recordCopy objectForKey:@"navigationChromeBackgroundImage"];
-  [v253 setNavigationChromeBackgroundImageURL:v90];
+  [v247 setNavigationChromeBackgroundImageURL:v90];
 
   v91 = [recordCopy objectForKey:@"navigationChromeBackgroundDarkModeImage"];
-  [v253 setDarkStyleNavigationChromeBackgroundImageURL:v91];
+  [v247 setDarkStyleNavigationChromeBackgroundImageURL:v91];
 
   v92 = [recordCopy objectForKey:@"navigationChromeBackgroundImageCompact"];
-  [v253 setNavigationChromeBackgroundImageCompactURL:v92];
+  [v247 setNavigationChromeBackgroundImageCompactURL:v92];
 
   v93 = [recordCopy objectForKey:@"navigationChromeBackgroundDarkModeImageCompact"];
-  [v253 setDarkStyleNavigationChromeBackgroundImageCompactURL:v93];
+  [v247 setDarkStyleNavigationChromeBackgroundImageCompactURL:v93];
 
   v94 = [recordCopy objectForKey:@"navigationChromeBackgroundImageLarge"];
-  [v253 setNavigationChromeBackgroundImageLargeURL:v94];
+  [v247 setNavigationChromeBackgroundImageLargeURL:v94];
 
   v95 = [recordCopy objectForKey:@"navigationChromeBackgroundDarkModeImageLarge"];
-  [v253 setDarkStyleNavigationChromeBackgroundImageLargeURL:v95];
+  [v247 setDarkStyleNavigationChromeBackgroundImageLargeURL:v95];
 
   objc_opt_class();
   v96 = [recordCopy objectForKey:@"coverImage"];
@@ -652,7 +647,7 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
   }
 
   v98 = v97;
-  [v253 setCoverImageURL:v98];
+  [v247 setCoverImageURL:v98];
 
   objc_opt_class();
   v99 = [recordCopy objectForKey:@"feedNavImage"];
@@ -675,7 +670,7 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
   }
 
   v101 = v100;
-  [v253 setFeedNavImageURL:v101];
+  [v247 setFeedNavImageURL:v101];
 
   objc_opt_class();
   v102 = [recordCopy objectForKey:@"feedNavImageHQ"];
@@ -698,7 +693,7 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
   }
 
   v104 = v103;
-  [v253 setFeedNavImageHQURL:v104];
+  [v247 setFeedNavImageHQURL:v104];
 
   objc_opt_class();
   v105 = [recordCopy objectForKey:@"language"];
@@ -721,7 +716,7 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
   }
 
   v107 = v106;
-  [v253 setLanguage:v107];
+  [v247 setLanguage:v107];
 
   objc_opt_class();
   v108 = [recordCopy objectForKey:@"magazineGenre"];
@@ -744,19 +739,19 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
   }
 
   v110 = v109;
-  [v253 setMagazineGenre:v110];
+  [v247 setMagazineGenre:v110];
 
   v111 = [recordCopy objectForKey:@"template"];
-  [v253 setTemplateJson:v111];
+  [v247 setTemplateJson:v111];
 
   v112 = [recordCopy objectForKey:@"score"];
-  [v253 setScore:{objc_msgSend(v112, "unsignedLongLongValue")}];
+  [v247 setScore:{objc_msgSend(v112, "unsignedLongLongValue")}];
 
   v113 = [recordCopy objectForKey:@"minNewsVersion"];
-  [v253 setMinimumNewsVersion:{+[FCRestrictions integerRepresentationOfShortVersionString:](FCRestrictions, "integerRepresentationOfShortVersionString:", v113)}];
+  [v247 setMinimumNewsVersion:{+[FCRestrictions integerRepresentationOfShortVersionString:](FCRestrictions, "integerRepresentationOfShortVersionString:", v113)}];
 
   v114 = [recordCopy objectForKey:@"isNotificationEnabled"];
-  [v253 setIsNotificationEnabled:{objc_msgSend(v114, "BOOLValue")}];
+  [v247 setIsNotificationEnabled:{objc_msgSend(v114, "BOOLValue")}];
 
   objc_opt_class();
   v115 = [recordCopy objectForKey:@"subtitle"];
@@ -779,41 +774,41 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
   }
 
   v117 = v116;
-  [v253 setSubtitle:v117];
+  [v247 setSubtitle:v117];
 
   v118 = [recordCopy objectForKey:@"latestIssueIDs"];
-  [v253 setLatestIssueIDs:v118];
+  [v247 setLatestIssueIDs:v118];
 
   v119 = [recordCopy objectForKey:@"recentIssueIDs"];
-  [v253 setRecentIssueIDs:v119];
+  [v247 setRecentIssueIDs:v119];
 
-  v120 = [v251 objectForKeyedSubscript:@"highlightsArticleListID"];
+  v120 = [v245 objectForKeyedSubscript:@"highlightsArticleListID"];
   v121 = [recordCopy objectForKey:v120];
-  [v253 setHighlightsArticleListID:v121];
+  [v247 setHighlightsArticleListID:v121];
 
   v122 = [recordCopy objectForKey:@"archiveIssueListID"];
-  [v253 setArchiveIssueListID:v122];
+  [v247 setArchiveIssueListID:v122];
 
-  if (v241)
+  if (v235)
   {
-    [v241 doubleValue];
-    [v253 setSubscriptionRate:?];
+    [v235 doubleValue];
+    [v247 setSubscriptionRate:?];
   }
 
   else
   {
     v123 = [recordCopy objectForKey:@"subscriptionRate"];
     [v123 doubleValue];
-    [v253 setSubscriptionRate:?];
+    [v247 setSubscriptionRate:?];
   }
 
   v124 = [recordCopy objectForKey:@"adTargetingKeywords"];
   v125 = [v124 mutableCopy];
-  [v253 setAdTargetingKeywords:v125];
+  [v247 setAdTargetingKeywords:v125];
 
-  if ([v247 length])
+  if ([v241 length])
   {
-    v126 = v247;
+    v126 = v241;
   }
 
   else
@@ -821,38 +816,38 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
     v126 = [recordCopy objectForKey:@"sectionFeedConfiguration"];
   }
 
-  v229 = v126;
+  v223 = v126;
   v127 = [MEMORY[0x1E695DF20] fc_dictionaryFromJSON:v126];
   v128 = [v127 objectForKey:@"sectionFeedConfigurations"];
 
-  v252 = recordCopy;
-  v238 = v11;
-  v256 = v128;
+  v246 = recordCopy;
+  v232 = v11;
+  v250 = v128;
   if (v128)
   {
     array = [MEMORY[0x1E695DF70] array];
-    v257 = 0u;
-    v258 = 0u;
-    v259 = 0u;
-    v260 = 0u;
-    channelSectionIDs = [v253 channelSectionIDs];
-    v131 = [channelSectionIDs countByEnumeratingWithState:&v257 objects:v269 count:16];
+    v251 = 0u;
+    v252 = 0u;
+    v253 = 0u;
+    v254 = 0u;
+    channelSectionIDs = [v247 channelSectionIDs];
+    v131 = [channelSectionIDs countByEnumeratingWithState:&v251 objects:v263 count:16];
     if (v131)
     {
       v132 = v131;
-      v133 = *v258;
+      v133 = *v252;
       do
       {
         for (i = 0; i != v132; ++i)
         {
-          if (*v258 != v133)
+          if (*v252 != v133)
           {
             objc_enumerationMutation(channelSectionIDs);
           }
 
-          v135 = *(*(&v257 + 1) + 8 * i);
+          v135 = *(*(&v251 + 1) + 8 * i);
           v136 = MEMORY[0x1E69B6E28];
-          v137 = [v256 objectForKeyedSubscript:v135];
+          v137 = [v250 objectForKeyedSubscript:v135];
           v138 = [v136 feedConfigurationFromDict:v137];
 
           if (v138)
@@ -866,31 +861,31 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
             if (os_log_type_enabled(FCRecordSourceLog, OS_LOG_TYPE_ERROR))
             {
               v140 = v139;
-              identifier = [v255 identifier];
+              identifier = [v249 identifier];
               *buf = 138412546;
-              v262 = identifier;
-              v263 = 2112;
-              v264 = v135;
+              v256 = identifier;
+              v257 = 2112;
+              v258 = v135;
               _os_log_error_impl(&dword_1B63EF000, v140, OS_LOG_TYPE_ERROR, "channel %@ is missing a feed configuration for section %@", buf, 0x16u);
             }
           }
         }
 
-        v132 = [channelSectionIDs countByEnumeratingWithState:&v257 objects:v269 count:16];
+        v132 = [channelSectionIDs countByEnumeratingWithState:&v251 objects:v263 count:16];
       }
 
       while (v132);
     }
 
-    v71 = v253;
-    [v253 setChannelSectionFeedConfigurations:array];
+    v71 = v247;
+    [v247 setChannelSectionFeedConfigurations:array];
 
     v55 = 0x1E696A000;
   }
 
   else
   {
-    channelSectionIDs2 = [v253 channelSectionIDs];
+    channelSectionIDs2 = [v247 channelSectionIDs];
     v143 = [channelSectionIDs2 count];
 
     if (v143)
@@ -898,18 +893,18 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
       v144 = FCRecordSourceLog;
       if (os_log_type_enabled(FCRecordSourceLog, OS_LOG_TYPE_ERROR))
       {
-        v227 = v144;
-        identifier2 = [v255 identifier];
+        v221 = v144;
+        identifier2 = [v249 identifier];
         *buf = 138412290;
-        v262 = identifier2;
-        _os_log_error_impl(&dword_1B63EF000, v227, OS_LOG_TYPE_ERROR, "channel %@ is missing section feed configurations", buf, 0xCu);
+        v256 = identifier2;
+        _os_log_error_impl(&dword_1B63EF000, v221, OS_LOG_TYPE_ERROR, "channel %@ is missing section feed configurations", buf, 0xCu);
       }
     }
   }
 
-  if ([v246 length])
+  if ([v240 length])
   {
-    [v71 setStocksFeedConfigurationJson:v246];
+    [v71 setStocksFeedConfigurationJson:v240];
   }
 
   else
@@ -918,127 +913,146 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
     [v71 setStocksFeedConfigurationJson:v145];
   }
 
-  v146 = *(v55 + 3776);
   objc_opt_class();
-  v147 = [recordCopy objectForKey:@"publisherPaidAuthorizationURL"];
-  if (v147)
+  v146 = [recordCopy objectForKey:@"publisherPaidAuthorizationURL"];
+  if (v146)
   {
     if (objc_opt_isKindOfClass())
     {
-      v148 = v147;
+      v147 = v146;
     }
 
     else
     {
-      v148 = 0;
+      v147 = 0;
     }
   }
 
   else
   {
-    v148 = 0;
+    v147 = 0;
   }
 
-  v149 = v148;
-  [v71 setPublisherPaidAuthorizationURL:v149];
+  v148 = v147;
+  [v71 setPublisherPaidAuthorizationURL:v148];
 
-  v150 = *(v55 + 3776);
   objc_opt_class();
-  v151 = [recordCopy objectForKey:@"publisherPaidVerificationURL"];
-  if (v151)
+  v149 = [recordCopy objectForKey:@"publisherPaidVerificationURL"];
+  if (v149)
   {
     if (objc_opt_isKindOfClass())
     {
-      v152 = v151;
+      v150 = v149;
     }
 
     else
     {
-      v152 = 0;
+      v150 = 0;
     }
   }
 
   else
   {
-    v152 = 0;
+    v150 = 0;
   }
 
-  v153 = v152;
-  [v71 setPublisherPaidVerificationURL:v153];
+  v151 = v150;
+  [v71 setPublisherPaidVerificationURL:v151];
 
-  v154 = *(v55 + 3776);
   objc_opt_class();
-  v155 = [recordCopy objectForKey:@"publisherPaidWebAccessURL"];
+  v152 = [recordCopy objectForKey:@"publisherPaidWebAccessURL"];
+  if (v152)
+  {
+    if (objc_opt_isKindOfClass())
+    {
+      v153 = v152;
+    }
+
+    else
+    {
+      v153 = 0;
+    }
+  }
+
+  else
+  {
+    v153 = 0;
+  }
+
+  v154 = v153;
+  [v71 setPublisherPaidWebaccessURL:v154];
+
+  v155 = [v243 length];
+  v156 = MEMORY[0x1E69B6F58];
   if (v155)
   {
-    if (objc_opt_isKindOfClass())
-    {
-      v156 = v155;
-    }
-
-    else
-    {
-      v156 = 0;
-    }
+    v157 = [MEMORY[0x1E69B6F58] purchaseOfferableConfigurationsFromJSON:v243];
+    [v71 setPurchaseOfferableConfigurations:v157];
   }
 
   else
   {
-    v156 = 0;
+    v157 = [recordCopy objectForKey:@"publisherPaidOfferableConfig"];
+    v158 = [v156 purchaseOfferableConfigurationsFromJSON:v157];
+    [v71 setPurchaseOfferableConfigurations:v158];
   }
 
-  v157 = v156;
-  [v71 setPublisherPaidWebaccessURL:v157];
-
-  v158 = [v249 length];
-  v159 = MEMORY[0x1E69B6F58];
-  if (v158)
+  v159 = [v242 length];
+  v160 = MEMORY[0x1E69B6F40];
+  if (v159)
   {
-    v160 = [MEMORY[0x1E69B6F58] purchaseOfferableConfigurationsFromJSON:v249];
-    [v71 setPurchaseOfferableConfigurations:v160];
+    v161 = [MEMORY[0x1E69B6F40] publisherPaidDescriptionStringsFromJSON:v242];
+    [v71 setPublisherPaidDescriptionStrings:v161];
   }
 
   else
   {
-    v160 = [recordCopy objectForKey:@"publisherPaidOfferableConfig"];
-    v161 = [v159 purchaseOfferableConfigurationsFromJSON:v160];
-    [v71 setPurchaseOfferableConfigurations:v161];
+    v161 = [recordCopy objectForKey:@"publisherPaidDescriptionStrings"];
+    v162 = [v160 publisherPaidDescriptionStringsFromJSON:v161];
+    [v71 setPublisherPaidDescriptionStrings:v162];
   }
 
-  v162 = [v248 length];
-  v163 = MEMORY[0x1E69B6F40];
-  if (v162)
-  {
-    v164 = [MEMORY[0x1E69B6F40] publisherPaidDescriptionStringsFromJSON:v248];
-    [v71 setPublisherPaidDescriptionStrings:v164];
-  }
+  v163 = [recordCopy objectForKey:@"publisherPaidFeldsparablePurchaseIDs"];
+  v164 = [v163 mutableCopy];
+  [v71 setPublisherPaidFeldsparablePurchaseIDs:v164];
 
-  else
-  {
-    v164 = [recordCopy objectForKey:@"publisherPaidDescriptionStrings"];
-    v165 = [v163 publisherPaidDescriptionStringsFromJSON:v164];
-    [v71 setPublisherPaidDescriptionStrings:v165];
-  }
+  v165 = [recordCopy objectForKey:@"publisherPaidBundlePurchaseIDs"];
+  v166 = [v165 mutableCopy];
+  [v71 setPublisherPaidBundlePurchaseIDs:v166];
 
-  v166 = [recordCopy objectForKey:@"publisherPaidFeldsparablePurchaseIDs"];
-  v167 = [v166 mutableCopy];
-  [v71 setPublisherPaidFeldsparablePurchaseIDs:v167];
-
-  v168 = [recordCopy objectForKey:@"publisherPaidBundlePurchaseIDs"];
-  v169 = [v168 mutableCopy];
-  [v71 setPublisherPaidBundlePurchaseIDs:v169];
-
-  v170 = [recordCopy objectForKey:@"publisherPaidLeakyPaywallOptOut"];
-  [v71 setPublisherPaidLeakyPaywallOptOut:{objc_msgSend(v170, "BOOLValue")}];
+  v167 = [recordCopy objectForKey:@"publisherPaidLeakyPaywallOptOut"];
+  [v71 setPublisherPaidLeakyPaywallOptOut:{objc_msgSend(v167, "BOOLValue")}];
 
   publisherPaidWebaccessURL = [v71 publisherPaidWebaccessURL];
   [v71 setPublisherPaidWebOptIn:{objc_msgSend(publisherPaidWebaccessURL, "length") != 0}];
 
-  v172 = v55;
-  v173 = *(v55 + 3776);
+  v169 = v55;
   objc_opt_class();
-  v174 = [v251 objectForKeyedSubscript:@"paidBundleSubscriptionButtonConfig"];
-  v175 = [recordCopy objectForKey:v174];
+  v170 = [v245 objectForKeyedSubscript:@"paidBundleSubscriptionButtonConfig"];
+  v171 = [recordCopy objectForKey:v170];
+  if (v171)
+  {
+    if (objc_opt_isKindOfClass())
+    {
+      v172 = v171;
+    }
+
+    else
+    {
+      v172 = 0;
+    }
+  }
+
+  else
+  {
+    v172 = 0;
+  }
+
+  v173 = v172;
+
+  v174 = v169;
+  objc_opt_class();
+  v175 = [recordCopy objectForKey:@"paidBundleSubscriptionButtonConfig"];
   if (v175)
   {
     if (objc_opt_isKindOfClass())
@@ -1059,243 +1073,217 @@ uint64_t __52__FCTagRecordSource_localizableLanguageSpecificKeys__block_invoke_2
 
   v177 = v176;
 
-  v178 = v172;
-  v179 = *(v172 + 3776);
-  objc_opt_class();
-  v180 = [recordCopy objectForKey:@"paidBundleSubscriptionButtonConfig"];
-  if (v180)
+  v178 = [v173 length];
+  v179 = v173;
+  if (!v178)
   {
-    if (objc_opt_isKindOfClass())
+    if ([v177 length])
     {
-      v181 = v180;
+      v179 = v177;
     }
 
     else
     {
-      v181 = 0;
+      v179 = 0;
     }
   }
 
-  else
-  {
-    v181 = 0;
-  }
-
-  v182 = v181;
-
-  v183 = [v177 length];
-  v184 = v177;
-  if (!v183)
-  {
-    if ([v182 length])
-    {
-      v184 = v182;
-    }
-
-    else
-    {
-      v184 = 0;
-    }
-  }
-
-  v254 = v182;
-  [v71 setPaidBundlePaywallConfigurationJson:v184];
+  v248 = v177;
+  [v71 setPaidBundlePaywallConfigurationJson:v179];
   allowedStorefrontIDs = [v71 allowedStorefrontIDs];
   [allowedStorefrontIDs removeObject:&stru_1F2DC7DC0];
 
-  v186 = [recordCopy objectForKey:@"nameImageScaleFactor"];
-  [v186 doubleValue];
+  v181 = [recordCopy objectForKey:@"nameImageScaleFactor"];
+  [v181 doubleValue];
   [v71 setNameImageScaleFactor:?];
 
-  v187 = [recordCopy objectForKey:@"nameImageBaselineShift"];
-  [v71 setNameImageBaselineShift:{objc_msgSend(v187, "integerValue")}];
+  v182 = [recordCopy objectForKey:@"nameImageBaselineShift"];
+  [v71 setNameImageBaselineShift:{objc_msgSend(v182, "integerValue")}];
 
-  v188 = [(FCRecordSource *)selfCopy resolveLocalizableExperimentalizableFieldforKey:@"groupingAvailability" inRecord:recordCopy activeExperimentIDKey:@"activeExperimentID"];
-  v189 = v188;
-  if (v188)
+  v183 = [(FCRecordSource *)selfCopy resolveLocalizableExperimentalizableFieldforKey:@"groupingAvailability" inRecord:recordCopy activeExperimentIDKey:@"activeExperimentID"];
+  v184 = v183;
+  if (v183)
   {
-    integerValue = [v188 integerValue];
+    integerValue = [v183 integerValue];
     if (integerValue < 4)
     {
-      v191 = integerValue;
+      v186 = integerValue;
       goto LABEL_142;
     }
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v189 = [objc_alloc(*(v178 + 3776)) initWithFormat:@"Encountered an unknown grouping availability value %@", v189];
+      v184 = [objc_alloc(*(v174 + 3776)) initWithFormat:@"Encountered an unknown grouping availability value %@", v184];
       *buf = 136315906;
-      v262 = "[FCTagRecordSource recordFromCKRecord:base:]";
-      v263 = 2080;
-      v264 = "FCTagRecordSource.m";
-      v265 = 1024;
-      v266 = 489;
-      v267 = 2114;
-      v268 = v189;
+      v256 = "[FCTagRecordSource recordFromCKRecord:base:]";
+      v257 = 2080;
+      v258 = "FCTagRecordSource.m";
+      v259 = 1024;
+      v260 = 489;
+      v261 = 2114;
+      v262 = v184;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
   }
 
-  v191 = 0;
+  v186 = 0;
 LABEL_142:
-  [v71 setGroupingAvailability:v191];
-  if (v245)
+  [v71 setGroupingAvailability:v186];
+  if (v239)
   {
-    [v71 setIsHidden:{objc_msgSend(v245, "BOOLValue")}];
+    [v71 setIsHidden:{objc_msgSend(v239, "BOOLValue")}];
   }
 
   else
   {
-    v192 = [recordCopy objectForKey:@"isHidden"];
-    [v71 setIsHidden:{objc_msgSend(v192, "BOOLValue")}];
+    v187 = [recordCopy objectForKey:@"isHidden"];
+    [v71 setIsHidden:{objc_msgSend(v187, "BOOLValue")}];
   }
 
-  v193 = [recordCopy objectForKey:@"behaviorFlags"];
-  [v71 setBehaviorFlags:{objc_msgSend(v193, "unsignedLongLongValue")}];
+  v188 = [recordCopy objectForKey:@"behaviorFlags"];
+  [v71 setBehaviorFlags:{objc_msgSend(v188, "unsignedLongLongValue")}];
 
-  v194 = [recordCopy objectForKey:@"propertyFlags"];
-  [v71 setPropertyFlags:{objc_msgSend(v194, "unsignedLongLongValue")}];
+  v189 = [recordCopy objectForKey:@"propertyFlags"];
+  [v71 setPropertyFlags:{objc_msgSend(v189, "unsignedLongLongValue")}];
 
-  v195 = [v251 objectForKeyedSubscript:@"propertyFlagsLocalized"];
-  v196 = [recordCopy objectForKey:v195];
-  [v71 setPropertyFlagsLocalized:{objc_msgSend(v196, "unsignedLongLongValue")}];
+  v190 = [v245 objectForKeyedSubscript:@"propertyFlagsLocalized"];
+  v191 = [recordCopy objectForKey:v190];
+  [v71 setPropertyFlagsLocalized:{objc_msgSend(v191, "unsignedLongLongValue")}];
 
   objc_opt_class();
-  v197 = [v251 objectForKeyedSubscript:@"articleRecirculationConfiguration"];
-  v198 = [recordCopy objectForKey:v197];
-  if (v198)
+  v192 = [v245 objectForKeyedSubscript:@"articleRecirculationConfiguration"];
+  v193 = [recordCopy objectForKey:v192];
+  if (v193)
   {
     if (objc_opt_isKindOfClass())
     {
-      v199 = v198;
+      v194 = v193;
     }
 
     else
     {
-      v199 = 0;
+      v194 = 0;
     }
   }
 
   else
   {
-    v199 = 0;
+    v194 = 0;
   }
 
-  v200 = v199;
+  v195 = v194;
 
   objc_opt_class();
-  v201 = [v252 objectForKey:@"articleRecirculationConfiguration"];
-  if (v201)
+  v196 = [v246 objectForKey:@"articleRecirculationConfiguration"];
+  if (v196)
   {
     if (objc_opt_isKindOfClass())
     {
-      v202 = v201;
+      v197 = v196;
     }
 
     else
     {
-      v202 = 0;
+      v197 = 0;
     }
   }
 
   else
   {
-    v202 = 0;
+    v197 = 0;
   }
 
-  v203 = v202;
+  v198 = v197;
 
-  if (v200)
+  if (v195)
   {
-    v204 = v200;
+    v199 = v195;
   }
 
   else
   {
-    v204 = v203;
+    v199 = v198;
   }
 
-  [v71 setArticleRecirculationConfiguration:v204];
-  v205 = [v252 objectForKey:@"superGroupKnobs"];
-  v206 = [v205 mutableCopy];
-  [v71 setSupergroupKnobsJson:v206];
+  [v71 setArticleRecirculationConfiguration:v199];
+  v200 = [v246 objectForKey:@"superGroupKnobs"];
+  v201 = [v200 mutableCopy];
+  [v71 setSupergroupKnobsJson:v201];
 
-  v207 = [v252 objectForKey:@"superGroupConfig"];
-  v208 = [v207 mutableCopy];
-  [v71 setSupergroupConfigJson:v208];
+  v202 = [v246 objectForKey:@"superGroupConfig"];
+  v203 = [v202 mutableCopy];
+  [v71 setSupergroupConfigJson:v203];
 
-  if (v244)
+  if (v238)
   {
     [v71 setSuperfeedConfigResourceID:?];
   }
 
   else
   {
-    v209 = [v252 objectForKey:@"superfeedConfigResourceID"];
-    [v71 setSuperfeedConfigResourceID:v209];
+    v204 = [v246 objectForKey:@"superfeedConfigResourceID"];
+    [v71 setSuperfeedConfigResourceID:v204];
   }
 
-  if (v243)
+  if (v237)
   {
     [v71 setSportsRecommendationMappingsJson:?];
   }
 
   else
   {
-    v210 = [v252 objectForKey:@"sportsRecommendationMappings"];
-    [v71 setSportsRecommendationMappingsJson:v210];
+    v205 = [v246 objectForKey:@"sportsRecommendationMappings"];
+    [v71 setSportsRecommendationMappingsJson:v205];
   }
 
-  v211 = v242;
-  if (!v242)
+  v206 = v236;
+  if (!v236)
   {
-    v211 = [v252 objectForKey:@"isSportsRecommendable"];
+    v206 = [v246 objectForKey:@"isSportsRecommendable"];
   }
 
-  [v71 setIsSportsRecommendable:{objc_msgSend(v211, "BOOLValue")}];
-  if (!v242)
+  [v71 setIsSportsRecommendable:{objc_msgSend(v206, "BOOLValue")}];
+  if (!v236)
   {
   }
 
-  if (v237)
+  if (v231)
   {
-    [v71 setSportsData:v237];
-    v212 = v252;
+    [v71 setSportsData:v231];
+    v207 = v246;
   }
 
   else
   {
-    v212 = v252;
-    v213 = [v252 objectForKey:@"sportsData"];
-    [v71 setSportsData:v213];
+    v207 = v246;
+    v208 = [v246 objectForKey:@"sportsData"];
+    [v71 setSportsData:v208];
   }
 
-  v214 = [v212 objectForKey:@"sportsTheme"];
-  [v71 setSportsTheme:v214];
+  v209 = [v207 objectForKey:@"sportsTheme"];
+  [v71 setSportsTheme:v209];
 
-  v215 = [v212 objectForKey:@"sportsLogoImage"];
-  [v71 setSportsLogoImageURL:v215];
+  v210 = [v207 objectForKey:@"sportsLogoImage"];
+  [v71 setSportsLogoImageURL:v210];
 
-  v216 = [v212 objectForKey:@"sportsLogoImageCompact"];
-  [v71 setSportsLogoImageCompactURL:v216];
+  v211 = [v207 objectForKey:@"sportsLogoImageCompact"];
+  [v71 setSportsLogoImageCompactURL:v211];
 
-  v217 = [v212 objectForKey:@"sportsLogoImageLarge"];
-  [v71 setSportsLogoImageLargeURL:v217];
+  v212 = [v207 objectForKey:@"sportsLogoImageLarge"];
+  [v71 setSportsLogoImageLargeURL:v212];
 
-  v218 = [v212 objectForKey:@"sportsLogoAltImage"];
-  [v71 setSportsLogoAltImageURL:v218];
+  v213 = [v207 objectForKey:@"sportsLogoAltImage"];
+  [v71 setSportsLogoAltImageURL:v213];
 
-  v219 = [v212 objectForKey:@"sportsLogoAltImageCompact"];
-  [v71 setSportsLogoAltImageCompactURL:v219];
+  v214 = [v207 objectForKey:@"sportsLogoAltImageCompact"];
+  [v71 setSportsLogoAltImageCompactURL:v214];
 
-  v220 = [v212 objectForKey:@"sportsLogoAltImageLarge"];
-  [v71 setSportsLogoAltImageLargeURL:v220];
+  v215 = [v207 objectForKey:@"sportsLogoAltImageLarge"];
+  [v71 setSportsLogoAltImageLargeURL:v215];
 
-  v221 = [v251 objectForKeyedSubscript:@"foodGroupingAvailability"];
-  v222 = [v212 objectForKey:v221];
-  [v71 setFoodGroupingAvailability:{objc_msgSend(v222, "unsignedLongLongValue")}];
-
-  v223 = *MEMORY[0x1E69E9840];
+  v216 = [v245 objectForKeyedSubscript:@"foodGroupingAvailability"];
+  v217 = [v207 objectForKey:v216];
+  [v71 setFoodGroupingAvailability:{objc_msgSend(v217, "unsignedLongLongValue")}];
 
   return v71;
 }

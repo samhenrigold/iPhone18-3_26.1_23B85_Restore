@@ -48,8 +48,7 @@
   if (v17)
   {
     v26 = timesSelectionCopy;
-    [(NCModalNavigationController *)v17 setPresenterDelegate:delegateCopy];
-    v19 = NCUserNotificationsUIKitFrameworkBundle();
+    v19 = NCUserNotificationsUIKitFrameworkBundle([(NCModalNavigationController *)v17 setPresenterDelegate:delegateCopy]);
     v20 = [v19 localizedStringForKey:@"NOTIFICATION_DIGEST_ONBOARDING_INTRODUCTION_NEXT_BUTTON" value:&stru_282FE84F8 table:0];
     [v16 setNextButtonText:v20];
 

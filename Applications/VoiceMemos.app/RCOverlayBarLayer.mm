@@ -169,31 +169,31 @@
   v12 = v11;
   [(RCOverlayBarLayer *)self selectionBarWidth];
   v14 = v13;
-  v52[0] = _NSConcreteStackBlock;
-  v52[1] = 3221225472;
-  v52[2] = sub_1000503C0;
-  v52[3] = &unk_10028AD68;
+  v72[0] = _NSConcreteStackBlock;
+  v72[1] = 3221225472;
+  v72[2] = sub_1000503C0;
+  v72[3] = &unk_10028AD68;
   knobsCopy = knobs;
-  v55 = v12;
-  v56 = v13;
+  v75 = v12;
+  v76 = v13;
   v15 = colorCopy;
-  v53 = v15;
-  v16 = objc_retainBlock(v52);
-  v46 = _NSConcreteStackBlock;
-  v47 = 3221225472;
-  v48 = sub_100050444;
-  v49 = &unk_10028AD90;
-  v51 = v12;
+  v73 = v15;
+  v16 = objc_retainBlock(v72);
+  v66 = _NSConcreteStackBlock;
+  v67 = 3221225472;
+  v68 = sub_100050444;
+  v69 = &unk_10028AD90;
+  v71 = v12;
   v17 = v15;
-  v50 = v17;
-  v18 = objc_retainBlock(&v46);
+  v70 = v17;
+  v18 = objc_retainBlock(&v66);
   v22 = (v18[2])(v18, v19, v20, v21);
   topKnob = self->_topKnob;
   self->_topKnob = v22;
 
   if (!knobCopy)
   {
-    [(CALayer *)self->_topKnob bounds:v46];
+    [(CALayer *)self->_topKnob bounds:v66];
     [(CALayer *)self->_topKnob setBounds:?];
   }
 
@@ -211,50 +211,52 @@
   bar = self->_bar;
   self->_bar = v26;
 
-  v28 = RCRoundCoord(v12 + v14 * -0.5);
+  v30 = RCRoundCoord(v28, v29, v12 + v14 * -0.5);
   [(CALayer *)self->_topKnob bounds];
-  Height = CGRectGetHeight(v57);
-  v30 = RCRoundCoord(Height);
+  Height = CGRectGetHeight(v77);
+  v34 = RCRoundCoord(v32, v33, Height);
+  frame = [(CALayer *)self->_bar frame];
+  v38 = RCRoundCoord(frame, v36, v37);
+  frame2 = [(CALayer *)self->_bar frame];
+  [(CALayer *)self->_bar setFrame:v30, v34, v38, RCRoundCoord(frame2, v40, v41)];
   [(CALayer *)self->_bar frame];
-  v32 = RCRoundCoord(v31);
-  [(CALayer *)self->_bar frame];
-  [(CALayer *)self->_bar setFrame:v28, v30, v32, RCRoundCoord(v33)];
-  [(CALayer *)self->_bar frame];
-  MaxY = CGRectGetMaxY(v58);
-  if ([(RCOverlayBarLayer *)self barWidthMatchesKnobs])
+  MaxY = CGRectGetMaxY(v78);
+  barWidthMatchesKnobs = [(RCOverlayBarLayer *)self barWidthMatchesKnobs];
+  if (barWidthMatchesKnobs)
   {
-    v35 = v12;
+    v45 = v12;
   }
 
   else
   {
-    v35 = 0.0;
+    v45 = 0.0;
   }
 
-  v36 = RCRoundCoord(MaxY - v35);
-  [(CALayer *)self->_bottomKnob frame];
-  v38 = RCRoundCoord(v37);
-  [(CALayer *)self->_bottomKnob frame];
-  [(CALayer *)self->_bottomKnob setFrame:0.0, v36, v38, RCRoundCoord(v39)];
-  if ([(RCOverlayBarLayer *)self barWidthMatchesKnobs])
+  v46 = RCRoundCoord(barWidthMatchesKnobs, v44, MaxY - v45);
+  frame3 = [(CALayer *)self->_bottomKnob frame];
+  v50 = RCRoundCoord(frame3, v48, v49);
+  frame4 = [(CALayer *)self->_bottomKnob frame];
+  [(CALayer *)self->_bottomKnob setFrame:0.0, v46, v50, RCRoundCoord(frame4, v52, v53)];
+  barWidthMatchesKnobs2 = [(RCOverlayBarLayer *)self barWidthMatchesKnobs];
+  if (barWidthMatchesKnobs2)
   {
-    v40 = v12;
+    v56 = v12;
   }
 
   else
   {
-    v40 = 0.0;
+    v56 = 0.0;
   }
 
-  v41 = RCRoundCoord(v40);
-  [(CALayer *)self->_topKnob frame];
-  v43 = RCRoundCoord(v42);
-  [(CALayer *)self->_topKnob frame];
-  [(CALayer *)self->_topKnob setFrame:0.0, v41, v43, RCRoundCoord(v44)];
+  v57 = RCRoundCoord(barWidthMatchesKnobs2, v55, v56);
+  frame5 = [(CALayer *)self->_topKnob frame];
+  v61 = RCRoundCoord(frame5, v59, v60);
+  frame6 = [(CALayer *)self->_topKnob frame];
+  [(CALayer *)self->_topKnob setFrame:0.0, v57, v61, RCRoundCoord(frame6, v63, v64)];
   [(CALayer *)self->_bottomKnob frame];
-  Width = CGRectGetWidth(v59);
+  Width = CGRectGetWidth(v79);
   [(CALayer *)self->_bottomKnob frame];
-  [(RCOverlayBarLayer *)self setBounds:0.0, 0.0, Width, CGRectGetMaxY(v60)];
+  [(RCOverlayBarLayer *)self setBounds:0.0, 0.0, Width, CGRectGetMaxY(v80)];
   [(RCOverlayBarLayer *)self setAnchorPoint:CGPointZero.x, CGPointZero.y];
   [(RCOverlayBarLayer *)self addSublayer:self->_bar];
   if (knobCopy)
@@ -270,9 +272,9 @@
 
 - (void)layoutSublayers
 {
-  v47.receiver = self;
-  v47.super_class = RCOverlayBarLayer;
-  [(RCOverlayBarLayer *)&v47 layoutSublayers];
+  v55.receiver = self;
+  v55.super_class = RCOverlayBarLayer;
+  [(RCOverlayBarLayer *)&v55 layoutSublayers];
   [(RCOverlayBarLayer *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -281,80 +283,80 @@
   [(CALayer *)self->_bottomKnob frame];
   v12 = v11;
   v14 = v13;
-  v48.origin.x = v4;
-  v48.origin.y = v6;
-  v48.size.width = v8;
-  v48.size.height = v10;
-  MidX = CGRectGetMidX(v48);
+  v56.origin.x = v4;
+  v56.origin.y = v6;
+  v56.size.width = v8;
+  v56.size.height = v10;
+  MidX = CGRectGetMidX(v56);
   [(CALayer *)self->_bottomKnob bounds];
-  v16 = CGRectGetMidX(v49);
-  v17 = RCRoundCoord(MidX - v16);
-  v50.origin.x = v4;
-  v50.origin.y = v6;
-  v50.size.width = v8;
-  v50.size.height = v10;
-  Height = CGRectGetHeight(v50);
+  v16 = CGRectGetMidX(v57);
+  v19 = RCRoundCoord(v17, v18, MidX - v16);
+  v58.origin.x = v4;
+  v58.origin.y = v6;
+  v58.size.width = v8;
+  v58.size.height = v10;
+  Height = CGRectGetHeight(v58);
   [(CALayer *)self->_bottomKnob frame];
-  v19 = CGRectGetHeight(v51);
-  [(CALayer *)self->_bottomKnob setFrame:v17, RCRoundCoord(Height - v19), v12, v14];
+  v21 = CGRectGetHeight(v59);
+  [(CALayer *)self->_bottomKnob setFrame:v19, RCRoundCoord(v22, v23, Height - v21), v12, v14];
   [(CALayer *)self->_topKnob frame];
-  v21 = v20;
-  v23 = v22;
-  v52.origin.x = v4;
-  v52.origin.y = v6;
-  v52.size.width = v8;
-  v52.size.height = v10;
-  v24 = CGRectGetMidX(v52);
-  [(CALayer *)self->_topKnob bounds];
-  v25 = CGRectGetMidX(v53);
-  [(CALayer *)self->_topKnob setFrame:RCRoundCoord(v24 - v25), 0.0, v21, v23];
-  [(CALayer *)self->_bar frame];
+  v25 = v24;
   v27 = v26;
-  v29 = v28;
-  v54.origin.x = v4;
-  v54.origin.y = v6;
-  v54.size.width = v8;
-  v54.size.height = v10;
-  v30 = CGRectGetMidX(v54);
-  [(RCOverlayBarLayer *)self selectionBarWidth];
-  v32 = RCRoundCoord(v30 + v31 * -0.5);
+  v60.origin.x = v4;
+  v60.origin.y = v6;
+  v60.size.width = v8;
+  v60.size.height = v10;
+  v28 = CGRectGetMidX(v60);
+  [(CALayer *)self->_topKnob bounds];
+  v29 = CGRectGetMidX(v61);
+  [(CALayer *)self->_topKnob setFrame:RCRoundCoord(v30, v31, v28 - v29), 0.0, v25, v27];
+  [(CALayer *)self->_bar frame];
+  v33 = v32;
+  v35 = v34;
+  v62.origin.x = v4;
+  v62.origin.y = v6;
+  v62.size.width = v8;
+  v62.size.height = v10;
+  v36 = CGRectGetMidX(v62);
+  selectionBarWidth = [(RCOverlayBarLayer *)self selectionBarWidth];
+  v40 = RCRoundCoord(selectionBarWidth, v39, v36 + v38 * -0.5);
   barWidthMatchesKnobs = [(RCOverlayBarLayer *)self barWidthMatchesKnobs];
   topKnob = self->_topKnob;
   if (barWidthMatchesKnobs)
   {
     [(CALayer *)topKnob frame];
-    MidY = CGRectGetMidY(v55);
+    MidY = CGRectGetMidY(v63);
   }
 
   else
   {
     [(CALayer *)topKnob bounds];
-    MidY = CGRectGetMaxY(v56);
+    MidY = CGRectGetMaxY(v64);
   }
 
-  v36 = MidY;
+  v44 = MidY;
   barWidthMatchesKnobs2 = [(RCOverlayBarLayer *)self barWidthMatchesKnobs];
   [(CALayer *)self->_bottomKnob frame];
   if (barWidthMatchesKnobs2)
   {
-    MinY = CGRectGetMidY(*&v38);
+    MinY = CGRectGetMidY(*&v46);
   }
 
   else
   {
-    MinY = CGRectGetMinY(*&v38);
+    MinY = CGRectGetMinY(*&v46);
   }
 
-  v43 = MinY;
-  v57.origin.x = v32;
-  v57.origin.y = v36;
-  v57.size.width = v27;
-  v57.size.height = v29;
-  [(CALayer *)self->_bar setFrame:v32, v36, v27, v43 - CGRectGetMinY(v57)];
+  v51 = MinY;
+  v65.origin.x = v40;
+  v65.origin.y = v44;
+  v65.size.width = v33;
+  v65.size.height = v35;
+  [(CALayer *)self->_bar setFrame:v40, v44, v33, v51 - CGRectGetMinY(v65)];
   if (self->_barType != 2)
   {
-    v44 = +[RCRecorderStyleProvider sharedStyleProvider];
-    [v44 trimHandleCornerRadius];
+    v52 = +[RCRecorderStyleProvider sharedStyleProvider];
+    [v52 trimHandleCornerRadius];
     [(CALayer *)self->_bar setCornerRadius:?];
 
     barType = self->_barType;
@@ -365,15 +367,15 @@
         return;
       }
 
-      v46 = 10;
+      v54 = 10;
     }
 
     else
     {
-      v46 = 5;
+      v54 = 5;
     }
 
-    [(CALayer *)self->_bar setMaskedCorners:v46];
+    [(CALayer *)self->_bar setMaskedCorners:v54];
   }
 }
 

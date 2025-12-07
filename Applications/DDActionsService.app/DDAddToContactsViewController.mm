@@ -3,8 +3,11 @@
 - (CGSize)preferredContentSize;
 - (void)cancelPressed:(id)pressed;
 - (void)contactViewControllerForUnknownContactDidEndAddingToContacts:(id)contacts;
+- (void)doneWithAddingContactShouldDismiss:(BOOL)dismiss;
 - (void)prepareForAction:(id)action;
 - (void)setCancelButtonVisible:(BOOL)visible;
+- (void)setCancellable:(BOOL)cancellable;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)willTransitionToTraitCollection:(id)collection withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -39,8 +42,7 @@
     result = [actionCopy result];
     if (result)
     {
-      [actionCopy result];
-      result = sub_1000094C8();
+      result = sub_1000094C8([actionCopy result]);
     }
 
     v5 = v8;
@@ -49,8 +51,7 @@
   else if ([actionCopy result])
   {
     DDAugmentContactWithResultsFromAction();
-    [actionCopy result];
-    result = sub_1000094C8();
+    result = sub_1000094C8([actionCopy result]);
   }
 
   else
@@ -230,6 +231,15 @@ LABEL_10:
   }
 }
 
+- (void)doneWithAddingContactShouldDismiss:(BOOL)dismiss
+{
+  dismissCopy = dismiss;
+  _remoteViewControllerProxy = [(DDAddToContactsViewController *)self _remoteViewControllerProxy];
+  [_remoteViewControllerProxy actionDidFinishShouldDismiss:dismissCopy];
+
+  [(DDAddToContactsViewController *)self setCancellable:1];
+}
+
 - (void)willTransitionToTraitCollection:(id)collection withTransitionCoordinator:(id)coordinator
 {
   collectionCopy = collection;
@@ -253,12 +263,38 @@ LABEL_10:
   }
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  if (self->_contactBeingAdded)
+  {
+    self->_ignoredIsDismissed = 1;
+  }
+
+  else
+  {
+    disappearCopy = disappear;
+    [(DDAddToContactsViewController *)self doneWithAddingContactShouldDismiss:0];
+    *&disappear = disappearCopy;
+  }
+
+  v5.receiver = self;
+  v5.super_class = DDAddToContactsViewController;
+  [(DDAddToContactsViewController *)&v5 viewDidDisappear:disappear];
+}
+
 - (void)cancelPressed:(id)pressed
 {
   if (!self->_contactBeingAdded)
   {
     [(DDAddToContactsViewController *)self doneWithAddingContactShouldDismiss:1];
   }
+}
+
+- (void)setCancellable:(BOOL)cancellable
+{
+  cancellableCopy = cancellable;
+  _remoteViewControllerProxy = [(DDAddToContactsViewController *)self _remoteViewControllerProxy];
+  [_remoteViewControllerProxy actionCanBeCancelledExternally:cancellableCopy];
 }
 
 - (void)contactViewControllerForUnknownContactDidEndAddingToContacts:(id)contacts

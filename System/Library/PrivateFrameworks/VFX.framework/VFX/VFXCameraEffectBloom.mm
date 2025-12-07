@@ -36,18 +36,18 @@
     sub_1AFDD6E4C();
   }
 
-  v0 = sub_1AF0D160C(qword_1ED73AE40, 0x70uLL);
-  *(v0 + 64) = 1;
+  v2 = sub_1AF0D160C(qword_1ED73AE40, 0x70uLL);
+  *(v2 + 64) = 1;
   __asm { FMOV            V0.2S, #1.0 }
 
-  *(v0 + 72) = result;
-  *(v0 + 80) = 1036831949;
-  *(v0 + 84) = 1;
+  *(v2 + 72) = result;
+  *(v2 + 80) = 1036831949;
+  *(v2 + 84) = 1;
   __asm { FMOV            V1.4S, #1.0 }
 
-  *(v0 + 96) = _Q1;
-  *(v0 + 112) = result;
-  *(v0 + 120) = 10;
+  *(v2 + 96) = _Q1;
+  *(v2 + 112) = result;
+  *(v2 + 120) = 10;
   return result;
 }
 
@@ -58,18 +58,18 @@
     return *(&self->super._enabled + 1);
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF160FEC(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF160FEC(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -87,7 +87,7 @@
     v5[2] = sub_1AF2AFE50;
     v5[3] = &unk_1E7A7E270;
     v5[4] = self;
-    intensityCopy = intensity;
+    *&v6 = intensity;
     objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, a2, self, @"intensity", v5);
   }
 }
@@ -99,18 +99,18 @@
     return self->_intensity;
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF160C84(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF160C84(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -128,7 +128,7 @@
     v5[2] = sub_1AF2AFFB0;
     v5[3] = &unk_1E7A7E270;
     v5[4] = self;
-    thresholdCopy = threshold;
+    *&v6 = threshold;
     objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, a2, self, @"threshold", v5);
   }
 }
@@ -140,18 +140,18 @@
     return self->_threshold;
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF160D20(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF160D20(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -169,7 +169,7 @@
     v5[2] = sub_1AF2B0110;
     v5[3] = &unk_1E7A7E270;
     v5[4] = self;
-    smoothnessCopy = smoothness;
+    *&v6 = smoothness;
     objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, a2, self, @"thresholdSmoothness", v5);
   }
 }
@@ -178,18 +178,18 @@
 {
   if (self->super._isPresentationObject)
   {
-    v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-    v9 = v5;
-    if (v5)
+    v4 = objc_msgSend_worldRef(self, a2, v2);
+    v7 = v4;
+    if (v4)
     {
-      sub_1AF1CEA20(v5);
+      sub_1AF1CEA20(v4, v5);
     }
 
-    v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-    thresholdSmoothness_low = sub_1AF1611EC(v10);
-    if (v9)
+    v8 = objc_msgSend_cfxObject(self, v5, v6);
+    thresholdSmoothness_low = sub_1AF1611EC(v8, v9);
+    if (v7)
     {
-      sub_1AF1CEA9C(v9);
+      sub_1AF1CEA9C(v7, v10);
     }
   }
 
@@ -222,19 +222,19 @@
 {
   if (self[1].n128_u8[12] == 1)
   {
-    v5 = objc_msgSend_worldRef(self, a2, a3, a4);
-    v9 = v5;
-    if (v5)
+    v4 = objc_msgSend_worldRef(self, a2, a3);
+    v7 = v4;
+    if (v4)
     {
-      sub_1AF1CEA20(v5);
+      sub_1AF1CEA20(v4, v5);
     }
 
-    v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-    result = sub_1AF162408(v10);
-    if (v9)
+    v8 = objc_msgSend_cfxObject(self, v5, v6);
+    result = sub_1AF162408(v8, v9);
+    if (v7)
     {
       v12 = result;
-      sub_1AF1CEA9C(v9);
+      sub_1AF1CEA9C(v7, v10);
       return v12;
     }
   }
@@ -269,18 +269,18 @@
     return self->_contrast;
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF1624AC(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF1624AC(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -298,7 +298,7 @@
     v5[2] = sub_1AF2B0538;
     v5[3] = &unk_1E7A7E270;
     v5[4] = self;
-    contrastCopy = contrast;
+    *&v6 = contrast;
     objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, a2, self, @"contrast", v5);
   }
 }
@@ -310,18 +310,18 @@
     return self->_saturation;
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF162548(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF162548(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -339,7 +339,7 @@
     v5[2] = sub_1AF2B0698;
     v5[3] = &unk_1E7A7E270;
     v5[4] = self;
-    saturationCopy = saturation;
+    *&v6 = saturation;
     objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, a2, self, @"saturation", v5);
   }
 }
@@ -351,18 +351,18 @@
     return self->_iterationCount;
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF1625E4(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF1625E4(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -388,11 +388,11 @@
 - (BOOL)rawFloat3ForKey:(id)key value:
 {
   v4 = v3;
-  isEqualToString = objc_msgSend_isEqualToString_(key, a2, @"colorFilter", v3);
+  isEqualToString = objc_msgSend_isEqualToString_(key, a2, @"colorFilter");
   if (isEqualToString)
   {
-    objc_msgSend_colorFilter(self, v6, v7, v8);
-    *v4 = v10;
+    objc_msgSend_colorFilter(self, v6, v7);
+    *v4 = v9;
   }
 
   return isEqualToString;
@@ -400,36 +400,36 @@
 
 - (id)valueForKey:(id)key
 {
-  if (objc_msgSend_isEqualToString_(key, a2, @"colorFilter", v3))
+  if (objc_msgSend_isEqualToString_(key, a2, @"colorFilter"))
   {
-    v9 = MEMORY[0x1E696B098];
-    objc_msgSend_colorFilter(self, v6, v7, v8);
+    v7 = MEMORY[0x1E696B098];
+    objc_msgSend_colorFilter(self, v5, v6);
 
-    return objc_msgSend_valueWithVFXFloat3_(v9, v10, v11, v12);
+    return objc_msgSend_valueWithVFXFloat3_(v7, v8, v9);
   }
 
   else
   {
-    v14.receiver = self;
-    v14.super_class = VFXCameraEffectBloom;
-    return [(VFXCameraEffectBloom *)&v14 valueForKey:key];
+    v11.receiver = self;
+    v11.super_class = VFXCameraEffectBloom;
+    return [(VFXCameraEffectBloom *)&v11 valueForKey:key];
   }
 }
 
 - (void)setValue:(id)value forKey:(id)key
 {
-  if (objc_msgSend_isEqualToString_(key, a2, @"colorFilter", key))
+  if (objc_msgSend_isEqualToString_(key, a2, @"colorFilter"))
   {
-    objc_msgSend_VFXFloat3Value(value, v7, v8, v9);
+    objc_msgSend_VFXFloat3Value(value, v7, v8);
 
-    objc_msgSend_setColorFilter_(self, v10, v11, v12);
+    objc_msgSend_setColorFilter_(self, v9, v10);
   }
 
   else
   {
-    v13.receiver = self;
-    v13.super_class = VFXCameraEffectBloom;
-    [(VFXCameraEffectBloom *)&v13 setValue:value forKey:key];
+    v11.receiver = self;
+    v11.super_class = VFXCameraEffectBloom;
+    [(VFXCameraEffectBloom *)&v11 setValue:value forKey:key];
   }
 }
 
@@ -442,38 +442,38 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v33.receiver = self;
-  v33.super_class = VFXCameraEffectBloom;
-  v4 = [(VFXCameraEffect *)&v33 copyWithZone:zone];
+  v25.receiver = self;
+  v25.super_class = VFXCameraEffectBloom;
+  v4 = [(VFXCameraEffect *)&v25 copyWithZone:zone];
   LODWORD(v5) = *(&self->super._enabled + 1);
-  objc_msgSend_setIntensity_(v4, v6, v7, v8, v5);
-  *&v9 = self->_intensity;
-  objc_msgSend_setThreshold_(v4, v10, v11, v12, v9);
-  *&v13 = self->_threshold;
-  objc_msgSend_setThresholdSmoothness_(v4, v14, v15, v16, v13);
-  objc_msgSend_setUseHighQuality_(v4, v17, LOBYTE(self->_thresholdSmoothness), v18);
-  objc_msgSend_setColorFilter_(v4, v19, v20, v21, *&self->_colorFilter[3]);
-  *&v22 = self->_contrast;
-  objc_msgSend_setContrast_(v4, v23, v24, v25, v22);
-  *&v26 = self->_saturation;
-  objc_msgSend_setSaturation_(v4, v27, v28, v29, v26);
-  objc_msgSend_setIterationCount_(v4, v30, self->_iterationCount, v31);
+  objc_msgSend_setIntensity_(v4, v6, v7, v5);
+  *&v8 = self->_intensity;
+  objc_msgSend_setThreshold_(v4, v9, v10, v8);
+  *&v11 = self->_threshold;
+  objc_msgSend_setThresholdSmoothness_(v4, v12, v13, v11);
+  objc_msgSend_setUseHighQuality_(v4, v14, LOBYTE(self->_thresholdSmoothness));
+  objc_msgSend_setColorFilter_(v4, v15, v16, *&self->_colorFilter[3]);
+  *&v17 = self->_contrast;
+  objc_msgSend_setContrast_(v4, v18, v19, v17);
+  *&v20 = self->_saturation;
+  objc_msgSend_setSaturation_(v4, v21, v22, v20);
+  objc_msgSend_setIterationCount_(v4, v23, self->_iterationCount);
   return v4;
 }
 
 - (void)_updateModelFromPresentation
 {
-  v3.receiver = self;
-  v3.super_class = VFXCameraEffectBloom;
-  [(VFXCameraEffect *)&v3 _updateModelFromPresentation];
-  *(&self->super._enabled + 1) = sub_1AF160FEC(self->super._cameraEffect);
-  self->_intensity = sub_1AF160C84(self->super._cameraEffect);
-  self->_threshold = sub_1AF160D20(self->super._cameraEffect);
-  LOBYTE(self->_thresholdSmoothness) = sub_1AF1611EC(self->super._cameraEffect);
-  *&self->_colorFilter[3] = sub_1AF162408(self->super._cameraEffect);
-  self->_contrast = sub_1AF1624AC(self->super._cameraEffect);
-  self->_saturation = sub_1AF162548(self->super._cameraEffect);
-  self->_iterationCount = sub_1AF1625E4(self->super._cameraEffect);
+  v11.receiver = self;
+  v11.super_class = VFXCameraEffectBloom;
+  [(VFXCameraEffect *)&v11 _updateModelFromPresentation];
+  *(&self->super._enabled + 1) = sub_1AF160FEC(self->super._cameraEffect, v3);
+  self->_intensity = sub_1AF160C84(self->super._cameraEffect, v4);
+  self->_threshold = sub_1AF160D20(self->super._cameraEffect, v5);
+  LOBYTE(self->_thresholdSmoothness) = sub_1AF1611EC(self->super._cameraEffect, v6);
+  *&self->_colorFilter[3] = sub_1AF162408(self->super._cameraEffect, v7);
+  self->_contrast = sub_1AF1624AC(self->super._cameraEffect, v8);
+  self->_saturation = sub_1AF162548(self->super._cameraEffect, v9);
+  self->_iterationCount = sub_1AF1625E4(self->super._cameraEffect, v10);
 }
 
 - (void)_updatePresentationFromModel
@@ -488,53 +488,53 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v22.receiver = self;
-  v22.super_class = VFXCameraEffectBloom;
-  [(VFXCameraEffect *)&v22 encodeWithCoder:?];
+  v17.receiver = self;
+  v17.super_class = VFXCameraEffectBloom;
+  [(VFXCameraEffect *)&v17 encodeWithCoder:?];
   LODWORD(v5) = *(&self->super._enabled + 1);
-  objc_msgSend_encodeFloat_forKey_(coder, v6, @"intensity", v7, v5);
-  *&v8 = self->_intensity;
-  objc_msgSend_encodeFloat_forKey_(coder, v9, @"threshold", v10, v8);
-  *&v11 = self->_threshold;
-  objc_msgSend_encodeFloat_forKey_(coder, v12, @"thresholdSmoothness", v13, v11);
-  objc_msgSend_encodeBool_forKey_(coder, v14, LOBYTE(self->_thresholdSmoothness), @"useHighQuality");
+  objc_msgSend_encodeFloat_forKey_(coder, v6, @"intensity", v5);
+  *&v7 = self->_intensity;
+  objc_msgSend_encodeFloat_forKey_(coder, v8, @"threshold", v7);
+  *&v9 = self->_threshold;
+  objc_msgSend_encodeFloat_forKey_(coder, v10, @"thresholdSmoothness", v9);
+  objc_msgSend_encodeBool_forKey_(coder, v11, LOBYTE(self->_thresholdSmoothness), @"useHighQuality");
   sub_1AF371A8C(coder, @"colorFilter", *&self->_colorFilter[3]);
-  *&v15 = self->_contrast;
-  objc_msgSend_encodeFloat_forKey_(coder, v16, @"contrast", v17, v15);
-  *&v18 = self->_saturation;
-  objc_msgSend_encodeFloat_forKey_(coder, v19, @"saturation", v20, v18);
-  objc_msgSend_encodeInteger_forKey_(coder, v21, self->_iterationCount, @"iterationCount");
+  *&v12 = self->_contrast;
+  objc_msgSend_encodeFloat_forKey_(coder, v13, @"contrast", v12);
+  *&v14 = self->_saturation;
+  objc_msgSend_encodeFloat_forKey_(coder, v15, @"saturation", v14);
+  objc_msgSend_encodeInteger_forKey_(coder, v16, self->_iterationCount, @"iterationCount");
 }
 
 - (VFXCameraEffectBloom)initWithCoder:(id)coder
 {
-  v53.receiver = self;
-  v53.super_class = VFXCameraEffectBloom;
-  v7 = [(VFXCameraEffect *)&v53 initWithCoder:?];
-  if (v7)
+  v35.receiver = self;
+  v35.super_class = VFXCameraEffectBloom;
+  v6 = [(VFXCameraEffect *)&v35 initWithCoder:?];
+  if (v6)
   {
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-    objc_msgSend_decodeFloatForKey_(coder, v11, @"intensity", v12);
-    objc_msgSend_setIntensity_(v7, v13, v14, v15);
-    objc_msgSend_decodeFloatForKey_(coder, v16, @"threshold", v17);
-    objc_msgSend_setThreshold_(v7, v18, v19, v20);
-    objc_msgSend_decodeFloatForKey_(coder, v21, @"thresholdSmoothness", v22);
-    objc_msgSend_setThresholdSmoothness_(v7, v23, v24, v25);
-    v28 = objc_msgSend_decodeBoolForKey_(coder, v26, @"useHighQuality", v27);
-    objc_msgSend_setUseHighQuality_(v7, v29, v28, v30);
-    v31 = sub_1AF371BC4(coder, @"colorFilter");
-    objc_msgSend_setColorFilter_(v7, v32, v33, v34, v31);
-    objc_msgSend_decodeFloatForKey_(coder, v35, @"contrast", v36);
-    objc_msgSend_setContrast_(v7, v37, v38, v39);
-    objc_msgSend_decodeFloatForKey_(coder, v40, @"saturation", v41);
-    objc_msgSend_setSaturation_(v7, v42, v43, v44);
-    v47 = objc_msgSend_decodeIntegerForKey_(coder, v45, @"iterationCount", v46);
-    objc_msgSend_setIterationCount_(v7, v48, v47, v49);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v50, v8, v51);
+    v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+    objc_msgSend_decodeFloatForKey_(coder, v9, @"intensity");
+    objc_msgSend_setIntensity_(v6, v10, v11);
+    objc_msgSend_decodeFloatForKey_(coder, v12, @"threshold");
+    objc_msgSend_setThreshold_(v6, v13, v14);
+    objc_msgSend_decodeFloatForKey_(coder, v15, @"thresholdSmoothness");
+    objc_msgSend_setThresholdSmoothness_(v6, v16, v17);
+    v19 = objc_msgSend_decodeBoolForKey_(coder, v18, @"useHighQuality");
+    objc_msgSend_setUseHighQuality_(v6, v20, v19);
+    v21 = sub_1AF371BC4(coder, @"colorFilter");
+    objc_msgSend_setColorFilter_(v6, v22, v23, v21);
+    objc_msgSend_decodeFloatForKey_(coder, v24, @"contrast");
+    objc_msgSend_setContrast_(v6, v25, v26);
+    objc_msgSend_decodeFloatForKey_(coder, v27, @"saturation");
+    objc_msgSend_setSaturation_(v6, v28, v29);
+    v31 = objc_msgSend_decodeIntegerForKey_(coder, v30, @"iterationCount");
+    objc_msgSend_setIterationCount_(v6, v32, v31);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v33, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 @end

@@ -21,23 +21,23 @@
 
 - (id)initWithMachServiceName:(void *)name exportedClient:
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   v5 = a2;
   nameCopy = name;
   if (self)
   {
-    v19.receiver = self;
-    v19.super_class = BCSXPCDaemonConnection;
-    self = objc_msgSendSuper2(&v19, sel_init);
+    v18.receiver = self;
+    v18.super_class = BCSXPCDaemonConnection;
+    self = objc_msgSendSuper2(&v18, sel_init);
     if (self)
     {
       v7 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_285465CF0];
       v8 = MEMORY[0x277CBEB98];
-      v21[0] = objc_opt_class();
-      v21[1] = objc_opt_class();
-      v21[2] = objc_opt_class();
-      v21[3] = objc_opt_class();
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+      v20[0] = objc_opt_class();
+      v20[1] = objc_opt_class();
+      v20[2] = objc_opt_class();
+      v20[3] = objc_opt_class();
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
       v10 = [v8 setWithArray:v9];
       [v7 setClasses:v10 forSelector:sel_fetchBusinessMetadataForEmails_forClientBundleID_requestId_completion_ argumentIndex:0 ofReply:1];
 
@@ -48,11 +48,11 @@
       [self[1] setRemoteObjectInterface:v7];
       v13 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_285463D10];
       v14 = MEMORY[0x277CBEB98];
-      v20[0] = objc_opt_class();
-      v20[1] = objc_opt_class();
-      v20[2] = objc_opt_class();
-      v20[3] = objc_opt_class();
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
+      v19[0] = objc_opt_class();
+      v19[1] = objc_opt_class();
+      v19[2] = objc_opt_class();
+      v19[3] = objc_opt_class();
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
       v16 = [v14 setWithArray:v15];
       [v13 setClasses:v16 forSelector:sel_didFetchBusinessMetadataForEmailsForRequestId_error_reply_ argumentIndex:0 ofReply:0];
 
@@ -61,7 +61,6 @@
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return self;
 }
 

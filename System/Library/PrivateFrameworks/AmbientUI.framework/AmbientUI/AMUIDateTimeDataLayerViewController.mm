@@ -9,6 +9,7 @@
 - (void)setDateProvider:(id)provider;
 - (void)updateViewConstraints;
 - (void)viewDidLoad;
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear;
 - (void)viewWillMoveToWindow:(id)window;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
@@ -31,77 +32,78 @@
 
 - (BOOL)updatePosterConfiguration:(id)configuration withAnimationSettings:(id)settings
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   settingsCopy = settings;
-  v32 = 0;
-  v8 = [configurationCopy pr_loadTitleStyleConfigurationWithError:&v32];
-  v9 = v32;
+  v33 = 0;
+  v8 = [configurationCopy pr_loadTitleStyleConfigurationWithError:&v33];
+  v9 = v33;
+  v10 = v9;
   if (!v8)
   {
-    v10 = AMUILogDataLayer();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = AMUILogDataLayer(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v9;
-      _os_log_impl(&dword_23F38B000, v10, OS_LOG_TYPE_INFO, "Failed to load poster title style configuration (will use default style) %@", &buf, 0xCu);
+      *(&buf + 4) = v10;
+      _os_log_impl(&dword_23F38B000, v11, OS_LOG_TYPE_INFO, "Failed to load poster title style configuration (will use default style) %@", &buf, 0xCu);
     }
 
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x2050000000;
-    v11 = getPRMutablePosterTitleStyleConfigurationClass_softClass;
-    v36 = getPRMutablePosterTitleStyleConfigurationClass_softClass;
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x2050000000;
+    v12 = getPRMutablePosterTitleStyleConfigurationClass_softClass;
+    v37 = getPRMutablePosterTitleStyleConfigurationClass_softClass;
     if (!getPRMutablePosterTitleStyleConfigurationClass_softClass)
     {
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v38 = __getPRMutablePosterTitleStyleConfigurationClass_block_invoke;
-      v39 = &unk_278C75E70;
-      v40 = &v33;
+      v39 = __getPRMutablePosterTitleStyleConfigurationClass_block_invoke;
+      v40 = &unk_278C75E70;
+      v41 = &v34;
       __getPRMutablePosterTitleStyleConfigurationClass_block_invoke(&buf);
-      v11 = v34[3];
+      v12 = v35[3];
     }
 
-    v12 = v11;
-    _Block_object_dispose(&v33, 8);
-    v13 = objc_alloc_init(v11);
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x2050000000;
-    v14 = getPRPosterColorClass_softClass;
-    v36 = getPRPosterColorClass_softClass;
+    v13 = v12;
+    _Block_object_dispose(&v34, 8);
+    v14 = objc_alloc_init(v12);
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x2050000000;
+    v15 = getPRPosterColorClass_softClass;
+    v37 = getPRPosterColorClass_softClass;
     if (!getPRPosterColorClass_softClass)
     {
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v38 = __getPRPosterColorClass_block_invoke;
-      v39 = &unk_278C75E70;
-      v40 = &v33;
+      v39 = __getPRPosterColorClass_block_invoke;
+      v40 = &unk_278C75E70;
+      v41 = &v34;
       __getPRPosterColorClass_block_invoke(&buf);
-      v14 = v34[3];
+      v15 = v35[3];
     }
 
-    v15 = v14;
-    _Block_object_dispose(&v33, 8);
-    v16 = [v14 alloc];
+    v16 = v15;
+    _Block_object_dispose(&v34, 8);
+    v17 = [v15 alloc];
     whiteColor = [MEMORY[0x277D75348] whiteColor];
-    v18 = [whiteColor colorWithAlphaComponent:0.9];
-    v19 = [v16 initWithColor:v18 preferredStyle:2];
+    v19 = [whiteColor colorWithAlphaComponent:0.9];
+    v20 = [v17 initWithColor:v19 preferredStyle:2];
 
-    [v13 setTitleColor:v19];
-    v8 = [v13 copy];
+    [v14 setTitleColor:v20];
+    v8 = [v14 copy];
   }
 
   pr_posterProvider = [configurationCopy pr_posterProvider];
   if (pr_posterProvider)
   {
-    v21 = [objc_alloc(MEMORY[0x277CC1E50]) initWithBundleIdentifier:pr_posterProvider error:0];
-    v22 = [v21 URL];
+    v22 = [objc_alloc(MEMORY[0x277CC1E50]) initWithBundleIdentifier:pr_posterProvider error:0];
+    v23 = [v22 URL];
 
-    if (v22)
+    if (v23)
     {
-      vibrancyConfiguration = [v8 vibrancyConfigurationWithExtensionBundleURL:v22];
+      vibrancyConfiguration = [v8 vibrancyConfigurationWithExtensionBundleURL:v23];
 
       goto LABEL_18;
     }
@@ -109,32 +111,31 @@
 
   else
   {
-    v24 = AMUILogDataLayer();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v26 = AMUILogDataLayer(0);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      [AMUIDateTimeDataLayerViewController updatePosterConfiguration:configurationCopy withAnimationSettings:v24];
+      [AMUIDateTimeDataLayerViewController updatePosterConfiguration:configurationCopy withAnimationSettings:v26];
     }
   }
 
-  v25 = AMUILogDataLayer();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+  v27 = AMUILogDataLayer(v24);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
   {
-    [AMUIDateTimeDataLayerViewController updatePosterConfiguration:configurationCopy withAnimationSettings:v25];
+    [AMUIDateTimeDataLayerViewController updatePosterConfiguration:configurationCopy withAnimationSettings:v27];
   }
 
   vibrancyConfiguration = [v8 vibrancyConfiguration];
 LABEL_18:
-  v26 = MEMORY[0x277CF0D38];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __87__AMUIDateTimeDataLayerViewController_updatePosterConfiguration_withAnimationSettings___block_invoke;
-  v30[3] = &unk_278C75DD8;
-  v30[4] = self;
-  v31 = vibrancyConfiguration;
-  v27 = vibrancyConfiguration;
-  [v26 animateWithSettings:settingsCopy actions:v30];
+  v28 = MEMORY[0x277CF0D38];
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __87__AMUIDateTimeDataLayerViewController_updatePosterConfiguration_withAnimationSettings___block_invoke;
+  v31[3] = &unk_278C75DD8;
+  v31[4] = self;
+  v32 = vibrancyConfiguration;
+  v29 = vibrancyConfiguration;
+  [v28 animateWithSettings:settingsCopy actions:v31];
 
-  v28 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -227,27 +228,26 @@ LABEL_18:
 
 void __50__AMUIDateTimeDataLayerViewController_viewDidLoad__block_invoke(uint64_t a1, void *a2)
 {
-  v13[5] = *MEMORY[0x277D85DE8];
+  v12[5] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAAD0];
   v4 = *(a1 + 32);
   v5 = a2;
   v6 = [v4 topAnchor];
   v7 = [*(a1 + 40) topAnchor];
   v8 = [v6 constraintEqualToAnchor:v7 constant:34.0];
-  v13[0] = v8;
+  v12[0] = v8;
   v9 = *(a1 + 48);
-  v13[1] = v9[126];
-  v13[2] = v9[127];
-  v13[3] = v9[128];
-  v13[4] = v9[129];
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:5];
+  v12[1] = v9[126];
+  v12[2] = v9[127];
+  v12[3] = v9[128];
+  v12[4] = v9[129];
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:5];
   [v3 activateConstraints:v10];
 
   v11 = [*(a1 + 48) view];
   [v11 setNeedsUpdateConstraints];
 
   v5[2](v5);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateViewConstraints
@@ -266,6 +266,24 @@ void __50__AMUIDateTimeDataLayerViewController_viewDidLoad__block_invoke(uint64_
   [(AMUIDateTimeDataLayerViewController *)&v5 viewWillMoveToWindow:window];
   viewIfLoaded = [(AMUIDateTimeDataLayerViewController *)self viewIfLoaded];
   [viewIfLoaded setNeedsUpdateConstraints];
+}
+
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  windowCopy = window;
+  v10.receiver = self;
+  v10.super_class = AMUIDateTimeDataLayerViewController;
+  [(AMUIDateTimeDataLayerViewController *)&v10 viewDidMoveToWindow:windowCopy shouldAppearOrDisappear:disappearCopy];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  v8 = *MEMORY[0x277D772D8];
+  [defaultCenter removeObserver:self name:*MEMORY[0x277D772D8] object:0];
+  if (windowCopy)
+  {
+    [defaultCenter addObserver:self selector:sel__noteWindowWillRotate_ name:v8 object:windowCopy];
+    viewIfLoaded = [(AMUIDateTimeDataLayerViewController *)self viewIfLoaded];
+    [viewIfLoaded setNeedsUpdateConstraints];
+  }
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -396,20 +414,18 @@ uint64_t __61__AMUIDateTimeDataLayerViewController__noteWindowWillRotate___block
 
 - (void)updatePosterConfiguration:(uint64_t)a1 withAnimationSettings:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23F38B000, a2, OS_LOG_TYPE_ERROR, "Missing poster provider from the poster configuration %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23F38B000, a2, OS_LOG_TYPE_ERROR, "Missing poster provider from the poster configuration %@", &v2, 0xCu);
 }
 
 - (void)updatePosterConfiguration:(uint64_t)a1 withAnimationSettings:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_23F38B000, a2, OS_LOG_TYPE_FAULT, "Unable to find extension bundle URL for config %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_23F38B000, a2, OS_LOG_TYPE_FAULT, "Unable to find extension bundle URL for config %{public}@", &v2, 0xCu);
 }
 
 @end

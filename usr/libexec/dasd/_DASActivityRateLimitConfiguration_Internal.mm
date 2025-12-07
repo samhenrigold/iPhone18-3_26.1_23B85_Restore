@@ -138,7 +138,7 @@
 {
   dateCopy = date;
   pendingActivities = [(_DASActivityRateLimitConfiguration_Internal *)self pendingActivities];
-  v6 = [pendingActivities count];
+  v6 = objc_msgSend_count(pendingActivities);
 
   if (v6)
   {

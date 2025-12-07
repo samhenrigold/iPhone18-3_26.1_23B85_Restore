@@ -16,6 +16,7 @@
 - (void)_setupCustomFeatureStore;
 - (void)_tap;
 - (void)dealloc;
+- (void)updateMapZoom:(BOOL)zoom withLocation:(id)location;
 @end
 
 @implementation MAMapSnippetView
@@ -424,6 +425,137 @@ LABEL_17:
   }
 
   return v11 + v7 + v10 + v9;
+}
+
+- (void)updateMapZoom:(BOOL)zoom withLocation:(id)location
+{
+  zoomCopy = zoom;
+  locationCopy = location;
+  location = [(SALocalSearchMapItem *)self->_mapItem location];
+  clRepresentation = [location clRepresentation];
+
+  if (!self->_itemRepresentsCurrentLocation)
+  {
+    [(MAResultView *)self->_resultView setReferenceLocation:locationCopy];
+    [(MAMapSnippetView *)self _mapkit_setNeedsLayout];
+  }
+
+  [clRepresentation coordinate];
+  v9 = MKMapPointForCoordinate(v39);
+  [locationCopy coordinate];
+  v41 = MKMapPointForCoordinate(v40);
+  v10 = MKMetersBetweenMapPoints(v41, v9);
+  if (locationCopy)
+  {
+    v11 = v10;
+    [locationCopy coordinate];
+    v13 = v12;
+    v15 = fabs(v14);
+    p_regionOfInterestRadiusInMiles = &self->_regionOfInterestRadiusInMiles;
+    [(NSNumber *)self->_regionOfInterestRadiusInMiles doubleValue];
+    if (v15 <= 180.0 && fabs(v13) <= 90.0 && v11 < 100000.0)
+    {
+      if (!*p_regionOfInterestRadiusInMiles || v11 < v17 * 1609.344)
+      {
+        MKMapRectBoundingMapPoints();
+        if (v21 >= 3000.0)
+        {
+          v22 = v21;
+        }
+
+        else
+        {
+          v22 = 3000.0;
+        }
+
+        if (v21 >= 3000.0)
+        {
+          v23 = v19;
+        }
+
+        else
+        {
+          v23 = v19 + (v21 + -3000.0) * 0.5;
+        }
+
+        if (v20 >= 3000.0)
+        {
+          v24 = v20;
+        }
+
+        else
+        {
+          v24 = 3000.0;
+        }
+
+        if (v20 >= 3000.0)
+        {
+          v25 = v18;
+        }
+
+        else
+        {
+          v25 = v18 + (v20 + -3000.0) * 0.5;
+        }
+
+        if (self->_customFeatureAnnotation)
+        {
+          top = 83.3333359;
+          *&v27 = 35.3333321;
+          bottom = 35.3333321;
+        }
+
+        else
+        {
+          annotations = [(MKMapView *)self->_snippetMapView annotations];
+          v35 = [annotations count];
+
+          if (!v35)
+          {
+            bottom = UIEdgeInsetsZero.bottom;
+            top = UIEdgeInsetsZero.top;
+            left = UIEdgeInsetsZero.left;
+            goto LABEL_32;
+          }
+
+          +[MKPinAnnotationView _perceivedSize];
+          v27 = v36;
+          bottom = v37;
+          top = floor(v37 + v37 * 0.5);
+        }
+
+        left = *&v27;
+LABEL_32:
+        [(MKMapView *)self->_snippetMapView setVisibleMapRect:zoomCopy edgePadding:v25 animated:v23, v24, v22, top, left, bottom];
+        goto LABEL_28;
+      }
+
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+    p_regionOfInterestRadiusInMiles = &self->_regionOfInterestRadiusInMiles;
+    [(NSNumber *)self->_regionOfInterestRadiusInMiles doubleValue];
+  }
+
+  if (!*p_regionOfInterestRadiusInMiles)
+  {
+    v32 = 3000.0;
+    goto LABEL_27;
+  }
+
+LABEL_25:
+  [clRepresentation coordinate];
+  v30 = MKMapPointsPerMeterAtLatitude(v29);
+  [*p_regionOfInterestRadiusInMiles doubleValue];
+  v32 = v30 * (v31 * 1609.344);
+LABEL_27:
+  [clRepresentation coordinate];
+  v33 = MKMapPointForCoordinate(v42);
+  [(MKMapView *)self->_snippetMapView setVisibleMapRect:zoomCopy animated:v33.x - v32 * 0.5, v33.y - v32 * 0.5, v32, v32];
+LABEL_28:
 }
 
 - (void)_tap

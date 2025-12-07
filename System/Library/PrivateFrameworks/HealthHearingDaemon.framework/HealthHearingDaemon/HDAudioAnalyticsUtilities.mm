@@ -240,30 +240,30 @@
 
 + (id)boundedIntegerForValue:(double)value orderedBuckets:(id)buckets sentinel:(id)sentinel transformer:(id)transformer
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   bucketsCopy = buckets;
   sentinelCopy = sentinel;
   v11 = (*(transformer + 2))(transformer, value);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v12 = bucketsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v22;
+    v15 = *v21;
     while (2)
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v22 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v21 + 1) + 8 * i);
+        v17 = *(*(&v20 + 1) + 8 * i);
         if (v11 <= [v17 integerValue])
         {
           v18 = v17;
@@ -272,7 +272,7 @@
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v14)
       {
         continue;
@@ -285,14 +285,12 @@
   v18 = sentinelCopy;
 LABEL_11:
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 + (id)audioAverageAndDurationForExposureType:(int64_t)type profile:(id)profile startDate:(id)date endDate:(id)endDate error:(id *)error
 {
-  v36[3] = *MEMORY[0x277D85DE8];
+  v35[3] = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   dateCopy = date;
   endDateCopy = endDate;
@@ -300,17 +298,17 @@ LABEL_11:
   if (v15)
   {
     errorCopy = error;
-    v35 = endDateCopy;
+    v34 = endDateCopy;
     v16 = MEMORY[0x277D10B20];
     v17 = HDSampleEntityPredicateForStartDate();
-    v36[0] = v17;
+    v35[0] = v17;
     [v15 maximumAllowedDuration];
     v19 = [dateCopy dateByAddingTimeInterval:-v18];
     v20 = HDSampleEntityPredicateForStartDate();
-    v36[1] = v20;
+    v35[1] = v20;
     v21 = HDSampleEntityPredicateForEndDate();
-    v36[2] = v21;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:3];
+    v35[2] = v21;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:3];
     v23 = [v16 predicateMatchingAllPredicates:v22];
 
     if (type == 2)
@@ -331,7 +329,7 @@ LABEL_11:
     [v30 setDataSource:v25];
     [v30 setSourceOrderProvider:v29];
     currentStatistics = 0;
-    endDateCopy = v35;
+    endDateCopy = v34;
     if ([v30 queryForInitialStatisticsWithError:errorCopy])
     {
       currentStatistics = [v30 currentStatistics];
@@ -358,8 +356,6 @@ LABEL_11:
     currentStatistics = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return currentStatistics;
 }
 
@@ -375,7 +371,7 @@ LABEL_11:
 
 + (id)audioExposureEventsForExposureType:(int64_t)type profile:(id)profile startDate:(id)date endDate:(id)endDate error:(id *)error
 {
-  v62[3] = *MEMORY[0x277D85DE8];
+  v61[3] = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   dateCopy = date;
   endDateCopy = endDate;
@@ -391,23 +387,23 @@ LABEL_11:
 
   v14 = [MEMORY[0x277CCD720] categoryTypeForIdentifier:*v13];
   v15 = MEMORY[0x277D10B20];
-  v49 = endDateCopy;
+  v48 = endDateCopy;
   v16 = HDSampleEntityPredicateForStartDate();
-  v62[0] = v16;
+  v61[0] = v16;
   [v14 maximumAllowedDuration];
   v18 = [dateCopy dateByAddingTimeInterval:-v17];
   v19 = HDSampleEntityPredicateForStartDate();
-  v62[1] = v19;
+  v61[1] = v19;
   v20 = HDSampleEntityPredicateForEndDate();
-  v62[2] = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:3];
+  v61[2] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:3];
   v22 = [v15 predicateMatchingAllPredicates:v21];
 
-  v60 = 0;
-  v53 = v14;
-  v54 = profileCopy;
-  v23 = [MEMORY[0x277D105E8] samplesWithType:v14 profile:profileCopy encodingOptions:0 predicate:v22 limit:0 anchor:0 error:&v60];
-  v24 = v60;
+  v59 = 0;
+  v52 = v14;
+  v53 = profileCopy;
+  v23 = [MEMORY[0x277D105E8] samplesWithType:v14 profile:profileCopy encodingOptions:0 predicate:v22 limit:0 anchor:0 error:&v59];
+  v24 = v59;
   v25 = v24;
   if (!v23)
   {
@@ -432,51 +428,51 @@ LABEL_11:
     array = [MEMORY[0x277CBEB18] array];
     if ([v23 count])
     {
-      v46 = v25;
-      v47 = v22;
-      v48 = dateCopy;
+      v45 = v25;
+      v46 = v22;
+      v47 = dateCopy;
       v28 = 0;
-      v51 = *MEMORY[0x277CCCB60];
-      v52 = v23;
+      v50 = *MEMORY[0x277CCCB60];
+      v51 = v23;
       do
       {
         v29 = MEMORY[0x277D10B20];
-        v58 = [v23 objectAtIndexedSubscript:v28];
-        endDate = [v58 endDate];
-        v55 = HDSampleEntityPredicateForStartDate();
-        v61[0] = v55;
+        v57 = [v23 objectAtIndexedSubscript:v28];
+        endDate = [v57 endDate];
+        v54 = HDSampleEntityPredicateForStartDate();
+        v60[0] = v54;
         v30 = [v23 objectAtIndexedSubscript:v28];
         startDate = [v30 startDate];
-        [v53 maximumAllowedDuration];
+        [v52 maximumAllowedDuration];
         v33 = [startDate dateByAddingTimeInterval:-v32];
         v34 = HDSampleEntityPredicateForStartDate();
-        v61[1] = v34;
+        v60[1] = v34;
         v35 = [v23 objectAtIndexedSubscript:v28];
         startDate2 = [v35 startDate];
         v37 = HDSampleEntityPredicateForEndDate();
-        v61[2] = v37;
-        v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:3];
+        v60[2] = v37;
+        v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:3];
         v39 = [v29 predicateMatchingAllPredicates:v38];
 
         v40 = MEMORY[0x277D10810];
-        v41 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:v51];
-        v59 = 0;
-        v42 = [v40 countOfSamplesWithType:v41 profile:v54 matchingPredicate:v39 withError:&v59];
+        v41 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:v50];
+        v58 = 0;
+        v42 = [v40 countOfSamplesWithType:v41 profile:v53 matchingPredicate:v39 withError:&v58];
 
-        v23 = v52;
+        v23 = v51;
         if (v42 >= 1)
         {
-          v43 = [v52 objectAtIndexedSubscript:v28];
+          v43 = [v51 objectAtIndexedSubscript:v28];
           [array addObject:v43];
         }
 
         ++v28;
       }
 
-      while ([v52 count] > v28);
-      v22 = v47;
-      dateCopy = v48;
-      v25 = v46;
+      while ([v51 count] > v28);
+      v22 = v46;
+      dateCopy = v47;
+      v25 = v45;
     }
   }
 
@@ -484,8 +480,6 @@ LABEL_11:
   {
     array = v23;
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 
   return array;
 }

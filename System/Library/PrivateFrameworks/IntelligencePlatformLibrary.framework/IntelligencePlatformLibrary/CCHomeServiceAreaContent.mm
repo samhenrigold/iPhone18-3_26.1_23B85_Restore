@@ -256,9 +256,9 @@ LABEL_21:
     {
       v33 = [CCHomeServiceAreaMap alloc];
       v34 = CCPBReaderReadDataNoCopy();
-      v48 = 0;
-      v35 = [(CCItemMessage *)v33 initWithData:v34 error:&v48];
-      v9 = v48;
+      v46 = 0;
+      v35 = [(CCItemMessage *)v33 initWithData:v34 error:&v46];
+      v9 = v46;
       map = self->_map;
       self->_map = v35;
 
@@ -275,9 +275,9 @@ LABEL_21:
     {
       v28 = [CCHomeServiceArea alloc];
       v29 = CCPBReaderReadDataNoCopy();
-      v49 = 0;
-      v30 = [(CCItemMessage *)v28 initWithData:v29 error:&v49];
-      v9 = v49;
+      v47 = 0;
+      v30 = [(CCItemMessage *)v28 initWithData:v29 error:&v47];
+      v9 = v47;
       v31 = self->_area;
       self->_area = v30;
 
@@ -342,7 +342,6 @@ LABEL_40:
     {
       v38 = objc_opt_class();
       v39 = NSStringFromClass(v38);
-      v40 = *&v5[*v8];
       v9 = CCSkipFieldErrorForMessage();
     }
   }
@@ -359,24 +358,23 @@ LABEL_45:
     if (!*&v5[*v8])
     {
       v9 = 0;
-      v45 = 1;
+      v43 = 1;
       goto LABEL_49;
     }
 
 LABEL_46:
-    v41 = objc_opt_class();
-    v42 = NSStringFromClass(v41);
-    v43 = *&v5[*v8];
-    v44 = CCInvalidBufferErrorForMessage();
+    v40 = objc_opt_class();
+    v41 = NSStringFromClass(v40);
+    v42 = CCInvalidBufferErrorForMessage();
     CCSetError();
 
     v9 = 0;
   }
 
-  v45 = 0;
+  v43 = 0;
 LABEL_49:
 
-  return v45;
+  return v43;
 }
 
 - (CCHomeServiceAreaContent)initWithMatterDeviceIdentifier:(id)identifier serviceArea:(id)area serviceAreaType:(unsigned int)type error:(id *)error

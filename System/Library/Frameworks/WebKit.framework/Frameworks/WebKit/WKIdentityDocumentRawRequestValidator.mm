@@ -9,16 +9,15 @@
 {
   v7 = sub_23B59D2D0();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x28223BE20](v7);
-  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23B59D2C0();
   requestCopy = request;
   selfCopy = self;
-  v14 = sub_23B5839F4(requestCopy, v11);
-  (*(v8 + 8))(v11, v7);
+  v13 = sub_23B5839F4(requestCopy, v10);
+  (*(v8 + 8))(v10, v7);
 
-  return v14;
+  return v13;
 }
 
 - (WKIdentityDocumentRawRequestValidator)init

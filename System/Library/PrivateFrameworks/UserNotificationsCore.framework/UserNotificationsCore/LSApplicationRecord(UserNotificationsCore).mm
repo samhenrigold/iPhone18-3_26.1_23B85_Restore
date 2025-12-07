@@ -86,65 +86,60 @@
 
 + (void)_uns_enumerateRecordsWithOptions:()UserNotificationsCore block:
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a4;
   v6 = [MEMORY[0x1E69635F8] enumeratorWithOptions:a3];
   [v6 setFilter:&__block_literal_global_16];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v5[2](v5, *(*(&v13 + 1) + 8 * v11++));
+        v5[2](v5, *(*(&v12 + 1) + 8 * v11++));
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)unc_applicationRecordIfEligibleToDeliverNotificationsForBundleIdentifier:()UserNotificationsCore .cold.1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = a2 != 0;
   v5 = a3;
   v6 = MEMORY[0x1E12729D0](v4);
-  v8 = 138543618;
-  v9 = a1;
-  v10 = 2114;
-  v11 = v6;
-  _os_log_error_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_ERROR, "Error looking up application record for bundle-id '%{public}@'. Bundle record exists: '%{public}@'", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138543618;
+  v8 = a1;
+  v9 = 2114;
+  v10 = v6;
+  _os_log_error_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_ERROR, "Error looking up application record for bundle-id '%{public}@'. Bundle record exists: '%{public}@'", &v7, 0x16u);
 }
 
 + (void)unc_applicationRecordIfEligibleToDeliverNotificationsForBundleIdentifier:()UserNotificationsCore .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DA7A9000, a2, OS_LOG_TYPE_ERROR, "Application record for bundle-id '%{public}@' is ineligible to deliver notifications.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DA7A9000, a2, OS_LOG_TYPE_ERROR, "Application record for bundle-id '%{public}@' is ineligible to deliver notifications.", &v2, 0xCu);
 }
 
 @end

@@ -47,7 +47,7 @@
 
 - (void)didRecognizeGesture
 {
-  v3 = sub_10015DA04(&unk_1006C1710);
+  v3 = sub_10015DA04(&unk_1006C1710, &qword_10053BA80);
   __chkstk_darwin(v3 - 8);
   v5 = &v11 - v4;
   v6 = *(self + OBJC_IVAR___ICAppStoreRatingObserver_appStoreRatingController);
@@ -101,11 +101,11 @@
 
 - (void)controller:(id)controller didChangeContentWithDifference:(id)difference
 {
-  v6 = sub_10015DA04(&qword_1006C8CE0);
+  v6 = sub_10015DA04(&qword_1006C8CE0, &qword_10054B308);
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v9 = &v12 - v8;
-  sub_1000054A4(0, &qword_1006BFEC0);
+  sub_1000054A4(0, &qword_1006BFEC0, NSManagedObjectID_ptr);
   static CollectionDifference._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;

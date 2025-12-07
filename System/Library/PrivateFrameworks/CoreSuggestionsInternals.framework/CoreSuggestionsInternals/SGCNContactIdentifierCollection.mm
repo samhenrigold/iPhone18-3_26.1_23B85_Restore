@@ -32,7 +32,7 @@
 
 id __45__SGCNContactIdentifierCollection_proxyArray__block_invoke(uint64_t a1, unint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
   if (v4 <= a2)
   {
@@ -43,36 +43,35 @@ id __45__SGCNContactIdentifierCollection_proxyArray__block_invoke(uint64_t a1, u
   uuid_unparse_upper(([*(a1 + 32) bytes] + 16 * a2), out);
   qmemcpy(&out[36], ":ABPerson", 9);
   v5 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:out length:45 encoding:1];
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (BOOL)_optimizeAndAddCNContactIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if ([identifierCopy length] == 45)
   {
     *in = 0u;
-    memset(v13, 0, 30);
+    memset(v12, 0, 30);
     if ([identifierCopy getCString:in maxLength:46 encoding:1])
     {
-      if (*&v13[5] == 0x6F7372655042413ALL && LOBYTE(v13[7]) == 110)
+      if (*&v12[5] == 0x6F7372655042413ALL && LOBYTE(v12[7]) == 110)
       {
-        v9 = 0;
-        while (in[v9] - 97 >= 0x1A)
+        v8 = 0;
+        while (in[v8] - 97 >= 0x1A)
         {
-          if (++v9 == 36)
+          if (++v8 == 36)
           {
-            LOBYTE(v13[5]) = 0;
-            v11[0] = 0;
-            v11[1] = 0;
-            v10 = uuid_parse(in, v11);
-            v6 = v10 == 0;
-            if (!v10)
+            LOBYTE(v12[5]) = 0;
+            v10[0] = 0;
+            v10[1] = 0;
+            v9 = uuid_parse(in, v10);
+            v6 = v9 == 0;
+            if (!v9)
             {
-              [(NSMutableData *)self->_optimizedBuffer appendBytes:v11 length:16];
+              [(NSMutableData *)self->_optimizedBuffer appendBytes:v10 length:16];
             }
 
             goto LABEL_8;
@@ -85,7 +84,6 @@ id __45__SGCNContactIdentifierCollection_proxyArray__block_invoke(uint64_t a1, u
   v6 = 0;
 LABEL_8:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

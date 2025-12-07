@@ -102,17 +102,18 @@
   systemApertureController = [WeakRetained systemApertureController];
 
   handleHomeButtonPress = [systemApertureController handleHomeButtonPress];
+  v5 = handleHomeButtonPress;
   if (handleHomeButtonPress)
   {
-    v5 = SBLogContinuityDisplay();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogContinuityDisplay(handleHomeButtonPress);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "System aperture controller handled the home button event", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "System aperture controller handled the home button event", v8, 2u);
     }
   }
 
-  return handleHomeButtonPress;
+  return v5;
 }
 
 - (BOOL)_processHomeButtonInBannerManager
@@ -129,7 +130,7 @@
   {
 
 LABEL_7:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_8;
   }
 
@@ -141,17 +142,17 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v11 = SBLogContinuityDisplay();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = SBLogContinuityDisplay(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 0;
-    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Banner manager handled the home button event", v14, 2u);
+    *v15 = 0;
+    _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Banner manager handled the home button event", v15, 2u);
   }
 
-  v12 = 1;
+  v13 = 1;
 LABEL_8:
 
-  return v12;
+  return v13;
 }
 
 - (BOOL)_processHomeButtonInCommandTabUI
@@ -161,8 +162,7 @@ LABEL_8:
   isVisible = [commandTabController isVisible];
   if (isVisible)
   {
-    [commandTabController dismiss];
-    v5 = SBLogContinuityDisplay();
+    v5 = SBLogContinuityDisplay([commandTabController dismiss]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v7 = 0;
@@ -186,22 +186,22 @@ LABEL_8:
     libraryViewController = [modalLibraryController libraryViewController];
     [libraryViewController popPresentationState];
 
-    v8 = SBLogContinuityDisplay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogContinuityDisplay(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Library view controller handled the home button event", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Library view controller handled the home button event", v12, 2u);
     }
 
-    v9 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (BOOL)_processHomeButtonInSwitcherController
@@ -209,17 +209,18 @@ LABEL_8:
   windowScene = [(SBContinuityButtonActions *)self windowScene];
   switcherController = [windowScene switcherController];
   handleHomeButtonPress = [switcherController handleHomeButtonPress];
+  v5 = handleHomeButtonPress;
   if (handleHomeButtonPress)
   {
-    v5 = SBLogContinuityDisplay();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogContinuityDisplay(handleHomeButtonPress);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "SBMainSwitcherCoordinator handled the home button event", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "SBMainSwitcherCoordinator handled the home button event", v8, 2u);
     }
   }
 
-  return handleHomeButtonPress;
+  return v5;
 }
 
 - (BOOL)_processHomeButtonInApp
@@ -230,11 +231,11 @@ LABEL_8:
 
   if (v4)
   {
-    v5 = SBLogContinuityDisplay();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogContinuityDisplay(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "UIController handled the home button event", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "UIController handled the home button event", v8, 2u);
     }
   }
 
@@ -243,7 +244,7 @@ LABEL_8:
 
 - (void)_requeueHomeButtonRequest
 {
-  v3 = SBLogContinuityDisplay();
+  v3 = SBLogContinuityDisplay(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;

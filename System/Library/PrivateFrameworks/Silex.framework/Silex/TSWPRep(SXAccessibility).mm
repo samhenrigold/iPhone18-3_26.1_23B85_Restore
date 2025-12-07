@@ -1,4 +1,5 @@
 @interface TSWPRep(SXAccessibility)
+- (char)_accessibilityLineEndPosition;
 - (double)_accessibilityFrameForRange:()SXAccessibility;
 - (double)accessibilityFrameForLineNumber:()SXAccessibility;
 - (id)_STAXColumnForLineIndex:()SXAccessibility;
@@ -12,7 +13,6 @@
 - (id)accessibilityContentForLineNumber:()SXAccessibility;
 - (id)accessibilityLanguage;
 - (id)sxaxNameForEditRotorAction:()SXAccessibility;
-- (uint64_t)_accessibilityLineEndPosition;
 - (uint64_t)_accessibilityLineRangeForPosition:()SXAccessibility;
 - (uint64_t)_accessibilityLineStartPosition;
 - (uint64_t)_accessibilityRangeForLineNumber:()SXAccessibility;
@@ -356,7 +356,7 @@ LABEL_13:
   return [self sxaxRepRelativeRangeFromStorageRelativeRange:{v9, v10}];
 }
 
-- (uint64_t)_accessibilityLineEndPosition
+- (char)_accessibilityLineEndPosition
 {
   selection = [self selection];
   range = [selection range];
@@ -364,7 +364,7 @@ LABEL_13:
 
   v6 = [self _sxaxStorageRelativeRangeOfLineFragmentAtStorageRelativeCharIndex:range + v5];
   v8 = [self sxaxRepRelativeRangeFromStorageRelativeRange:{v6, v7}];
-  return v8 + v9;
+  return (v8 + v9);
 }
 
 - (unint64_t)_sxaxStorageRelativeRangeOfLineFragmentAtStorageRelativeCharIndex:()SXAccessibility

@@ -9,8 +9,8 @@
 - (id)interestTokenForAssetIdentifier:(id)identifier;
 - (id)interestTokenForAssetIdentifiers:(id)identifiers;
 - (int64_t)storageSize;
-- (uint64_t)_prepareForUse;
 - (unint64_t)cacheCoordinatorCurrentSizeWithReadLock:(id)lock;
+- (void)_prepareForUse;
 - (void)adoptFileAtURL:(id)l forAssetIdentifier:(id)identifier remoteURL:(id)rL contentKeyIdentifiers:(id)identifiers extension:(id)extension;
 - (void)cacheCoordinator:(id)coordinator flushKeysWithWriteLock:(id)lock;
 - (void)enableFlushingWithFlushingThreshold:(unint64_t)threshold;
@@ -87,11 +87,11 @@
   return v6;
 }
 
-- (uint64_t)_prepareForUse
+- (void)_prepareForUse
 {
   if (result)
   {
-    v1 = *(result + 16);
+    v1 = result[2];
     v2[0] = MEMORY[0x1E69E9820];
     v2[1] = 3221225472;
     v2[2] = __32__FCAVAssetCache__prepareForUse__block_invoke;
@@ -262,11 +262,11 @@ void __50__FCAVAssetCache_cachedFileURLForAssetIdentifier___block_invoke(void *a
 
 void __51__FCAVAssetCache_contentKeyIdentifiersForAllAssets__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -279,22 +279,22 @@ void __51__FCAVAssetCache_contentKeyIdentifiersForAllAssets__block_invoke(uint64
   }
 
   v4 = [v3 allKeys];
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       v8 = 0;
       do
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * v8);
+        v9 = *(*(&v18 + 1) + 8 * v8);
         objc_opt_class();
         v10 = *(a1 + 32);
         if (v10)
@@ -336,14 +336,12 @@ void __51__FCAVAssetCache_contentKeyIdentifiersForAllAssets__block_invoke(uint64
       }
 
       while (v6 != v8);
-      v17 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v17 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
       v6 = v17;
     }
 
     while (v17);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)adoptFileAtURL:(id)l forAssetIdentifier:(id)identifier remoteURL:(id)rL contentKeyIdentifiers:(id)identifiers extension:(id)extension
@@ -399,20 +397,18 @@ void __51__FCAVAssetCache_contentKeyIdentifiersForAllAssets__block_invoke(uint64
 
 void __94__FCAVAssetCache_adoptFileAtURL_forAssetIdentifier_remoteURL_contentKeyIdentifiers_extension___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v6 = 138543618;
-    v7 = v4;
-    v8 = 2114;
-    v9 = v5;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "AV asset cache failed to generate bookmark for asset %{public}@ with error: %{public}@", &v6, 0x16u);
+    v3 = *(a1 + 32);
+    v4 = *(a1 + 40);
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "AV asset cache failed to generate bookmark for asset %{public}@ with error: %{public}@", &v5, 0x16u);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __94__FCAVAssetCache_adoptFileAtURL_forAssetIdentifier_remoteURL_contentKeyIdentifiers_extension___block_invoke_16(uint64_t a1)
@@ -643,7 +639,7 @@ void __51__FCAVAssetCache_contentArchiveForAssetIdentifier___block_invoke(void *
 
 void __32__FCAVAssetCache_importAVAsset___block_invoke(uint64_t a1)
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -671,13 +667,13 @@ void __32__FCAVAssetCache_importAVAsset___block_invoke(uint64_t a1)
 
   if (v13)
   {
-    v50[0] = MEMORY[0x1E69E9820];
-    v50[1] = 3221225472;
-    v50[2] = __32__FCAVAssetCache_importAVAsset___block_invoke_2;
-    v50[3] = &unk_1E7C36EA0;
-    v51 = *(a1 + 40);
-    __32__FCAVAssetCache_importAVAsset___block_invoke_2(v50);
-    v14 = v51;
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __32__FCAVAssetCache_importAVAsset___block_invoke_2;
+    v49[3] = &unk_1E7C36EA0;
+    v50 = *(a1 + 40);
+    __32__FCAVAssetCache_importAVAsset___block_invoke_2(v49);
+    v14 = v50;
   }
 
   else
@@ -694,9 +690,9 @@ void __32__FCAVAssetCache_importAVAsset___block_invoke(uint64_t a1)
         v19 = [v17 identifier];
         v20 = [v14 path];
         *buf = 138543618;
-        v53 = v19;
-        v54 = 2114;
-        v55 = v20;
+        v52 = v19;
+        v53 = 2114;
+        v54 = v20;
         _os_log_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_DEFAULT, "AV asset cache will copy external AV asset %{public}@, path=%{public}@", buf, 0x16u);
       }
 
@@ -711,15 +707,15 @@ void __32__FCAVAssetCache_importAVAsset___block_invoke(uint64_t a1)
       v24 = [v22 URLByAppendingPathComponent:v23];
 
       v25 = [MEMORY[0x1E696AC08] defaultManager];
-      v47 = 0;
-      v26 = [v25 copyItemAtURL:v14 toURL:v24 error:&v47];
-      v27 = v47;
+      v46 = 0;
+      v26 = [v25 copyItemAtURL:v14 toURL:v24 error:&v46];
+      v27 = v46;
 
       if (v26)
       {
-        v44 = 0;
-        v28 = [v24 bookmarkDataWithOptions:0 includingResourceValuesForKeys:0 relativeToURL:0 error:&v44];
-        v29 = v44;
+        v43 = 0;
+        v28 = [v24 bookmarkDataWithOptions:0 includingResourceValuesForKeys:0 relativeToURL:0 error:&v43];
+        v29 = v43;
         if (v28)
         {
           v30 = v28;
@@ -750,113 +746,103 @@ void __32__FCAVAssetCache_importAVAsset___block_invoke(uint64_t a1)
 
         else
         {
-          v41[0] = MEMORY[0x1E69E9820];
-          v41[1] = 3221225472;
-          v41[2] = __32__FCAVAssetCache_importAVAsset___block_invoke_23;
-          v41[3] = &unk_1E7C36C58;
-          v42 = *(a1 + 40);
-          v43 = v29;
-          __32__FCAVAssetCache_importAVAsset___block_invoke_23(v41);
+          v40[0] = MEMORY[0x1E69E9820];
+          v40[1] = 3221225472;
+          v40[2] = __32__FCAVAssetCache_importAVAsset___block_invoke_23;
+          v40[3] = &unk_1E7C36C58;
+          v41 = *(a1 + 40);
+          v42 = v29;
+          __32__FCAVAssetCache_importAVAsset___block_invoke_23(v40);
 
-          v30 = v42;
+          v30 = v41;
         }
       }
 
       else
       {
-        v45[0] = MEMORY[0x1E69E9820];
-        v45[1] = 3221225472;
-        v45[2] = __32__FCAVAssetCache_importAVAsset___block_invoke_22;
-        v45[3] = &unk_1E7C36EA0;
-        v46 = v27;
-        __32__FCAVAssetCache_importAVAsset___block_invoke_22(v45);
-        v29 = v46;
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __32__FCAVAssetCache_importAVAsset___block_invoke_22;
+        v44[3] = &unk_1E7C36EA0;
+        v45 = v27;
+        __32__FCAVAssetCache_importAVAsset___block_invoke_22(v44);
+        v29 = v45;
       }
     }
 
     else
     {
-      v48[0] = MEMORY[0x1E69E9820];
-      v48[1] = 3221225472;
-      v48[2] = __32__FCAVAssetCache_importAVAsset___block_invoke_21;
-      v48[3] = &unk_1E7C36EA0;
-      v49 = *(a1 + 40);
-      __32__FCAVAssetCache_importAVAsset___block_invoke_21(v48);
+      v47[0] = MEMORY[0x1E69E9820];
+      v47[1] = 3221225472;
+      v47[2] = __32__FCAVAssetCache_importAVAsset___block_invoke_21;
+      v47[3] = &unk_1E7C36EA0;
+      v48 = *(a1 + 40);
+      __32__FCAVAssetCache_importAVAsset___block_invoke_21(v47);
 
       v14 = 0;
     }
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 void __32__FCAVAssetCache_importAVAsset___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 identifier];
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "skipping AV asset import because the asset already lives in the cache, identifier=%{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "skipping AV asset import because the asset already lives in the cache, identifier=%{public}@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __32__FCAVAssetCache_importAVAsset___block_invoke_21(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
   {
-    v4 = *(a1 + 32);
-    v5 = v2;
-    v6 = [v4 identifier];
-    v7 = 138543362;
-    v8 = v6;
-    _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "skipping AV asset import because the asset URL could not be resolved, identifier=%{public}@", &v7, 0xCu);
+    v3 = *(a1 + 32);
+    v4 = v2;
+    v5 = [v3 identifier];
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_error_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_ERROR, "skipping AV asset import because the asset URL could not be resolved, identifier=%{public}@", &v6, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __32__FCAVAssetCache_importAVAsset___block_invoke_22(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
   {
-    v4 = *(a1 + 32);
-    v5 = 138543362;
-    v6 = v4;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "AV asset cache failed to copy external AV asset with error: %{public}@", &v5, 0xCu);
+    v3 = *(a1 + 32);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "AV asset cache failed to copy external AV asset with error: %{public}@", &v4, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __32__FCAVAssetCache_importAVAsset___block_invoke_23(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = FCAVAssetLog;
   if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
   {
-    v4 = *(a1 + 32);
-    v5 = v2;
-    v6 = [v4 identifier];
-    v7 = *(a1 + 40);
-    v8 = 138543618;
-    v9 = v6;
-    v10 = 2114;
-    v11 = v7;
-    _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "AV asset cache failed to generate bookmark for copied asset %{public}@ with error: %{public}@", &v8, 0x16u);
+    v3 = *(a1 + 32);
+    v4 = v2;
+    v5 = [v3 identifier];
+    v6 = *(a1 + 40);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2114;
+    v10 = v6;
+    _os_log_error_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_ERROR, "AV asset cache failed to generate bookmark for copied asset %{public}@ with error: %{public}@", &v7, 0x16u);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)storageSize
@@ -934,12 +920,12 @@ uint64_t __29__FCAVAssetCache_storageSize__block_invoke_2(uint64_t a1, uint64_t 
 
 - (unint64_t)cacheCoordinatorCurrentSizeWithReadLock:(id)lock
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   keysWithZeroInterest = [lock keysWithZeroInterest];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   if (self)
   {
     metadataStore = self->_metadataStore;
@@ -951,24 +937,24 @@ uint64_t __29__FCAVAssetCache_storageSize__block_invoke_2(uint64_t a1, uint64_t 
   }
 
   allKeys = [(FCKeyValueStore *)metadataStore allKeys];
-  v7 = [allKeys countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
     v10 = 0;
-    v11 = *v29;
+    v11 = *v28;
     do
     {
       v12 = 0;
       do
       {
-        if (*v29 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v13 = *(*(&v28 + 1) + 8 * v12);
+        v13 = *(*(&v27 + 1) + 8 * v12);
         if (self)
         {
           v14 = self->_metadataStore;
@@ -979,7 +965,7 @@ uint64_t __29__FCAVAssetCache_storageSize__block_invoke_2(uint64_t a1, uint64_t 
           v14 = 0;
         }
 
-        v15 = [(FCKeyValueStore *)v14 objectForKey:*(*(&v28 + 1) + 8 * v12)];
+        v15 = [(FCKeyValueStore *)v14 objectForKey:*(*(&v27 + 1) + 8 * v12)];
         v16 = [keysWithZeroInterest containsObject:v13];
         v17 = [v15 size];
         if (v16)
@@ -1009,7 +995,7 @@ uint64_t __29__FCAVAssetCache_storageSize__block_invoke_2(uint64_t a1, uint64_t 
       }
 
       while (v8 != v12);
-      v20 = [allKeys countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v20 = [allKeys countByEnumeratingWithState:&v27 objects:v35 count:16];
       v8 = v20;
     }
 
@@ -1030,19 +1016,18 @@ uint64_t __29__FCAVAssetCache_storageSize__block_invoke_2(uint64_t a1, uint64_t 
     v24 = [v22 stringFromByteCount:v9 countStyle:0];
     v25 = [MEMORY[0x1E696AAF0] stringFromByteCount:v10 countStyle:0];
     *buf = 138543618;
-    v33 = v24;
-    v34 = 2114;
-    v35 = v25;
+    v32 = v24;
+    v33 = 2114;
+    v34 = v25;
     _os_log_impl(&dword_1B63EF000, v23, OS_LOG_TYPE_DEFAULT, "AV asset cache contains %{public}@ of held assets and %{public}@ of non-held assets", buf, 0x16u);
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (void)cacheCoordinator:(id)coordinator flushKeysWithWriteLock:(id)lock
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   coordinatorCopy = coordinator;
   lockCopy = lock;
   v7 = FCAVAssetLog;
@@ -1050,33 +1035,33 @@ uint64_t __29__FCAVAssetCache_storageSize__block_invoke_2(uint64_t a1, uint64_t 
   {
     v8 = v7;
     *buf = 134218242;
-    v32 = [lockCopy count];
-    v33 = 2114;
-    v34 = lockCopy;
+    v31 = [lockCopy count];
+    v32 = 2114;
+    v33 = lockCopy;
     _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "AV asset cache is flushing %lu assets, identifiers=%{public}@", buf, 0x16u);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = lockCopy;
-  v9 = [obj countByEnumeratingWithState:&v27 objects:v39 count:16];
+  v9 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v28;
+    v11 = *v27;
     do
     {
       v12 = 0;
       do
       {
-        if (*v28 != v11)
+        if (*v27 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v27 + 1) + 8 * v12);
+        v13 = *(*(&v26 + 1) + 8 * v12);
         if (self)
         {
           metadataStore = self->_metadataStore;
@@ -1087,26 +1072,26 @@ uint64_t __29__FCAVAssetCache_storageSize__block_invoke_2(uint64_t a1, uint64_t 
           metadataStore = 0;
         }
 
-        v15 = [(FCKeyValueStore *)metadataStore objectForKey:*(*(&v27 + 1) + 8 * v12)];
+        v15 = [(FCKeyValueStore *)metadataStore objectForKey:*(*(&v26 + 1) + 8 * v12)];
         resolvedCacheURL = [(NTPBAVAsset *)v15 resolvedCacheURL];
         if (resolvedCacheURL)
         {
           defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-          v26 = 0;
-          v18 = [defaultManager removeItemAtURL:resolvedCacheURL error:&v26];
-          v19 = v26;
+          v25 = 0;
+          v18 = [defaultManager removeItemAtURL:resolvedCacheURL error:&v25];
+          v19 = v25;
 
           if ((v18 & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
           {
             v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"AV asset cache failed to remove asset %@ with error: %@", v13, v19];
             *buf = 136315906;
-            v32 = "[FCAVAssetCache cacheCoordinator:flushKeysWithWriteLock:]";
-            v33 = 2080;
-            v34 = "FCAVAssetCache.m";
-            v35 = 1024;
-            v36 = 321;
-            v37 = 2114;
-            v38 = v21;
+            v31 = "[FCAVAssetCache cacheCoordinator:flushKeysWithWriteLock:]";
+            v32 = 2080;
+            v33 = "FCAVAssetCache.m";
+            v34 = 1024;
+            v35 = 321;
+            v36 = 2114;
+            v37 = v21;
             _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: AVAssetFlushFailed) : %s %s:%d %{public}@", buf, 0x26u);
           }
 
@@ -1117,13 +1102,13 @@ uint64_t __29__FCAVAssetCache_storageSize__block_invoke_2(uint64_t a1, uint64_t 
         {
           v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"AV asset cache failed to resolve cache URL for asset %@", v13];
           *buf = 136315906;
-          v32 = "[FCAVAssetCache cacheCoordinator:flushKeysWithWriteLock:]";
-          v33 = 2080;
-          v34 = "FCAVAssetCache.m";
-          v35 = 1024;
-          v36 = 314;
-          v37 = 2114;
-          v38 = v19;
+          v31 = "[FCAVAssetCache cacheCoordinator:flushKeysWithWriteLock:]";
+          v32 = 2080;
+          v33 = "FCAVAssetCache.m";
+          v34 = 1024;
+          v35 = 314;
+          v36 = 2114;
+          v37 = v19;
           _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: AVAssetFlushNoURL) : %s %s:%d %{public}@", buf, 0x26u);
 LABEL_14:
         }
@@ -1144,19 +1129,17 @@ LABEL_14:
       }
 
       while (v10 != v12);
-      v22 = [obj countByEnumeratingWithState:&v27 objects:v39 count:16];
+      v22 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
       v10 = v22;
     }
 
     while (v22);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __32__FCAVAssetCache__prepareForUse__block_invoke(uint64_t a1)
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (!*(v1 + 24))
   {
@@ -1164,7 +1147,7 @@ void __32__FCAVAssetCache__prepareForUse__block_invoke(uint64_t a1)
     [(FCKeyValueStoreClassRegistry *)v2 registerClass:objc_opt_class()];
     v3 = [FCKeyValueStore alloc];
     v4 = *(v1 + 8);
-    v54 = v2;
+    v53 = v2;
     v5 = [(FCKeyValueStore *)v3 initWithName:@"metadata" directory:v4 version:4 options:0 classRegistry:v2];
     v6 = *(v1 + 24);
     *(v1 + 24) = v5;
@@ -1190,32 +1173,32 @@ void __32__FCAVAssetCache__prepareForUse__block_invoke(uint64_t a1)
     if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v84 = v15;
+      v83 = v15;
       _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "AV asset cache loaded with cached assets: %{public}@", buf, 0xCu);
     }
 
-    v56 = [MEMORY[0x1E695DFA8] set];
+    v55 = [MEMORY[0x1E695DFA8] set];
+    v64 = 0u;
     v65 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
     obj = v15;
-    v17 = [obj countByEnumeratingWithState:&v65 objects:buf count:16];
-    v57 = *MEMORY[0x1E695DB00];
+    v17 = [obj countByEnumeratingWithState:&v64 objects:buf count:16];
+    v56 = *MEMORY[0x1E695DB00];
     if (v17)
     {
       v18 = v17;
-      v19 = *v66;
+      v19 = *v65;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v66 != v19)
+          if (*v65 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v65 + 1) + 8 * i);
+          v21 = *(*(&v64 + 1) + 8 * i);
           v22 = [*(v1 + 24) objectForKey:v21];
           v23 = v22;
           if (!v22)
@@ -1230,11 +1213,11 @@ void __32__FCAVAssetCache__prepareForUse__block_invoke(uint64_t a1)
           }
 
           v25 = v24;
-          *&v61 = 0;
-          *v69 = 0;
-          v26 = [v25 getResourceValue:&v61 forKey:v57 error:v69];
-          v27 = v61;
-          v28 = *v69;
+          *&v60 = 0;
+          *v68 = 0;
+          v26 = [v25 getResourceValue:&v60 forKey:v56 error:v68];
+          v27 = v60;
+          v28 = *v68;
           if (v26)
           {
             v29 = v27;
@@ -1242,19 +1225,19 @@ void __32__FCAVAssetCache__prepareForUse__block_invoke(uint64_t a1)
 
           else
           {
-            *&v77 = MEMORY[0x1E69E9820];
-            *(&v77 + 1) = 3221225472;
-            v78 = __47__NTPBAVAsset_Bookmark__resolvedFileResourceID__block_invoke_2;
-            v79 = &unk_1E7C40070;
-            v80 = v23;
-            v81 = v25;
-            v82 = v28;
-            v29 = __47__NTPBAVAsset_Bookmark__resolvedFileResourceID__block_invoke_2(&v77);
+            *&v76 = MEMORY[0x1E69E9820];
+            *(&v76 + 1) = 3221225472;
+            v77 = __47__NTPBAVAsset_Bookmark__resolvedFileResourceID__block_invoke_2;
+            v78 = &unk_1E7C40070;
+            v79 = v23;
+            v80 = v25;
+            v81 = v28;
+            v29 = __47__NTPBAVAsset_Bookmark__resolvedFileResourceID__block_invoke_2(&v76);
           }
 
           if (v29)
           {
-            [v56 addObject:v29];
+            [v55 addObject:v29];
           }
 
           else
@@ -1263,9 +1246,9 @@ LABEL_17:
             v30 = FCAVAssetLog;
             if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
             {
-              LODWORD(v77) = 138543362;
-              *(&v77 + 4) = v21;
-              _os_log_error_impl(&dword_1B63EF000, v30, OS_LOG_TYPE_ERROR, "AV asset cache will remove missing asset from metadata store: %{public}@", &v77, 0xCu);
+              LODWORD(v76) = 138543362;
+              *(&v76 + 4) = v21;
+              _os_log_error_impl(&dword_1B63EF000, v30, OS_LOG_TYPE_ERROR, "AV asset cache will remove missing asset from metadata store: %{public}@", &v76, 0xCu);
             }
 
             [*(v1 + 24) removeObjectForKey:v21];
@@ -1273,60 +1256,60 @@ LABEL_17:
           }
         }
 
-        v18 = [obj countByEnumeratingWithState:&v65 objects:buf count:16];
+        v18 = [obj countByEnumeratingWithState:&v64 objects:buf count:16];
       }
 
       while (v18);
     }
 
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
     v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     v31 = [MEMORY[0x1E696AC08] defaultManager];
     v32 = *(v1 + 32);
-    v76 = v57;
-    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v76 count:1];
+    v75 = v56;
+    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
     v34 = [v31 contentsOfDirectoryAtURL:v32 includingPropertiesForKeys:v33 options:5 error:0];
 
-    v35 = [v34 countByEnumeratingWithState:&v61 objects:&v77 count:16];
+    v35 = [v34 countByEnumeratingWithState:&v60 objects:&v76 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v62;
+      v37 = *v61;
       do
       {
         for (j = 0; j != v36; ++j)
         {
-          if (*v62 != v37)
+          if (*v61 != v37)
           {
             objc_enumerationMutation(v34);
           }
 
-          v39 = *(*(&v61 + 1) + 8 * j);
+          v39 = *(*(&v60 + 1) + 8 * j);
+          v58 = 0;
           v59 = 0;
-          v60 = 0;
-          v40 = [v39 getResourceValue:&v60 forKey:v57 error:&v59];
-          v41 = v60;
-          v42 = v59;
+          v40 = [v39 getResourceValue:&v59 forKey:v56 error:&v58];
+          v41 = v59;
+          v42 = v58;
           if (v40)
           {
-            if (([v56 containsObject:v41] & 1) == 0)
+            if (([v55 containsObject:v41] & 1) == 0)
             {
               v43 = FCAVAssetLog;
               if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
               {
                 v50 = v43;
                 v51 = [v39 lastPathComponent];
-                *v69 = 138543362;
-                *&v69[4] = v51;
-                _os_log_error_impl(&dword_1B63EF000, v50, OS_LOG_TYPE_ERROR, "AV asset cache will remove unknown file from asset store: %{public}@", v69, 0xCu);
+                *v68 = 138543362;
+                *&v68[4] = v51;
+                _os_log_error_impl(&dword_1B63EF000, v50, OS_LOG_TYPE_ERROR, "AV asset cache will remove unknown file from asset store: %{public}@", v68, 0xCu);
               }
 
               v44 = [MEMORY[0x1E696AC08] defaultManager];
-              v58 = 0;
-              v45 = [v44 removeItemAtURL:v39 error:&v58];
-              v46 = v58;
+              v57 = 0;
+              v45 = [v44 removeItemAtURL:v39 error:&v57];
+              v46 = v57;
 
               if ((v45 & 1) == 0)
               {
@@ -1336,15 +1319,15 @@ LABEL_17:
                 if ((v48 & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
                 {
                   v52 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"AV asset cache failed to remove unknown file with error: %@", v46];
-                  *v69 = 136315906;
-                  *&v69[4] = "[FCAVAssetCache _initStores]";
-                  v70 = 2080;
-                  v71 = "FCAVAssetCache.m";
-                  v72 = 1024;
-                  v73 = 406;
-                  v74 = 2114;
-                  v75 = v52;
-                  _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: AVAssetCleanupFailed) : %s %s:%d %{public}@", v69, 0x26u);
+                  *v68 = 136315906;
+                  *&v68[4] = "[FCAVAssetCache _initStores]";
+                  v69 = 2080;
+                  v70 = "FCAVAssetCache.m";
+                  v71 = 1024;
+                  v72 = 406;
+                  v73 = 2114;
+                  v74 = v52;
+                  _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: AVAssetCleanupFailed) : %s %s:%d %{public}@", v68, 0x26u);
                 }
               }
             }
@@ -1355,23 +1338,21 @@ LABEL_17:
             v49 = FCAVAssetLog;
             if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
             {
-              *v69 = 138543618;
-              *&v69[4] = v39;
-              v70 = 2114;
-              v71 = v42;
-              _os_log_error_impl(&dword_1B63EF000, v49, OS_LOG_TYPE_ERROR, "AV asset cache failed to look up resource ID, url=%{public}@, error=%{public}@", v69, 0x16u);
+              *v68 = 138543618;
+              *&v68[4] = v39;
+              v69 = 2114;
+              v70 = v42;
+              _os_log_error_impl(&dword_1B63EF000, v49, OS_LOG_TYPE_ERROR, "AV asset cache failed to look up resource ID, url=%{public}@, error=%{public}@", v68, 0x16u);
             }
           }
         }
 
-        v36 = [v34 countByEnumeratingWithState:&v61 objects:&v77 count:16];
+        v36 = [v34 countByEnumeratingWithState:&v60 objects:&v76 count:16];
       }
 
       while (v36);
     }
   }
-
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __29__FCAVAssetCache__initStores__block_invoke(uint64_t a1, void *a2)

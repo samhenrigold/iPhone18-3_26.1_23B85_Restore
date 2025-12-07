@@ -8,11 +8,13 @@
 + (void)setAPFSPurgeability:(id)purgeability;
 - (BOOL)isKappaTrigger:(id)trigger;
 - (BOOL)isMartyTrigger:(id)trigger;
+- (BOOL)startRecordingWithTTRManagedMsl:(BOOL)msl andPreempt:(BOOL)preempt;
 - (CSAnomalyEventService)init;
 - (void)abortSession;
 - (void)beginService;
 - (void)didInitWithUnprocessedCrash:(id)crash withCompanionUUID:(id)d;
 - (void)didReceiveSOSAck:(int64_t)ack forMode:(unsigned __int8)mode;
+- (void)didReceiveSOSStatusUpdate:(id)update forMode:(unsigned __int8)mode;
 - (void)endService;
 - (void)enqueueHeldRecordingForUploadWithConsent:(id)consent withError:(id *)error;
 - (void)feedSortedSamples:(id)samples;
@@ -23,6 +25,8 @@
 - (void)locationManager:(id)manager didReportVisit:(id)visit;
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations;
 - (void)locationManager:(id)manager didVisit:(id)visit;
+- (void)onCompanionConnectionStatusUpdate:(int)update cftime:(double)cftime sputime:(unint64_t)sputime;
+- (void)onCompanionMessage:(int)message data:(id)data receivedTimestamp:(double)timestamp;
 - (void)onCompanionStatusUpdate:(BOOL)update pairedDevice:(id)device updatedTimestamp:(double)timestamp;
 - (void)replyToXPCMessage;
 - (void)requestLocation:(int)location;
@@ -296,6 +300,92 @@ LABEL_10:
   return v16;
 }
 
+- (BOOL)startRecordingWithTTRManagedMsl:(BOOL)msl andPreempt:(BOOL)preempt
+{
+  uuid = self->_uuid;
+  if (!uuid)
+  {
+    sub_1002CD4DC(0, a2);
+  }
+
+  mslCopy = msl;
+  if (!preempt)
+  {
+    if (CSAOPSvc::isRecording(self->_aop))
+    {
+      if (qword_1004567D8 != -1)
+      {
+        sub_1002CD4A0();
+      }
+
+      v7 = qword_1004567E0;
+      if (os_log_type_enabled(qword_1004567E0, OS_LOG_TYPE_DEBUG))
+      {
+        LOWORD(v17) = 0;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "cannot start when a recording is already in progress", &v17, 2u);
+      }
+
+      v8 = 0;
+      mslRecording = self->_mslRecording;
+      self->_mslRecording = 0;
+      goto LABEL_21;
+    }
+
+    uuid = self->_uuid;
+  }
+
+  uUIDString = [(NSUUID *)uuid UUIDString];
+  mslRecording = [CSAnomalyEventService generateMslUrl:uUIDString andSessionType:self->_sessionType ttrManagedMsl:mslCopy];
+
+  v11 = [[CSMSLDataRecording alloc] initWithURL:mslRecording];
+  v12 = self->_mslRecording;
+  self->_mslRecording = v11;
+
+  [(CSMSLDataRecording *)self->_mslRecording setTtrManagedMsl:mslCopy];
+  if (self->_mslRecording)
+  {
+    if (qword_1004567D8 != -1)
+    {
+      sub_1002CD4A0();
+    }
+
+    v13 = qword_1004567E0;
+    if (os_log_type_enabled(qword_1004567E0, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = self->_mslRecording;
+      v17 = 134218242;
+      v18 = v14;
+      v19 = 2114;
+      v20 = mslRecording;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Recording to %p %{public}@", &v17, 0x16u);
+    }
+
+    v8 = 1;
+  }
+
+  else
+  {
+    if (qword_1004567D8 != -1)
+    {
+      sub_1002CD4A0();
+    }
+
+    v15 = qword_1004567E0;
+    if (os_log_type_enabled(qword_1004567E0, OS_LOG_TYPE_FAULT))
+    {
+      v17 = 138543362;
+      v18 = mslRecording;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_FAULT, "Unable to open msl recording at %{public}@", &v17, 0xCu);
+    }
+
+    v8 = 0;
+  }
+
+LABEL_21:
+
+  return v8;
+}
+
 - (void)triggered:(id)triggered
 {
   triggeredCopy = triggered;
@@ -311,7 +401,7 @@ LABEL_10:
   v8 = qword_1004567E0;
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v57 = v7;
+    v59 = v7;
     v9 = v5;
     v10 = v6;
     v11 = *([triggeredCopy c_struct] + 1);
@@ -321,21 +411,21 @@ LABEL_10:
     v15 = *([triggeredCopy c_struct] + 93);
     v16 = *([triggeredCopy c_struct] + 92);
     *buf = 67110400;
-    LODWORD(v63) = v11;
-    WORD2(v63) = 1024;
-    *(&v63 + 6) = v12;
-    WORD5(v63) = 1024;
-    HIDWORD(v63) = v13;
-    v64 = 1024;
-    v65 = v14;
+    LODWORD(v65) = v11;
+    WORD2(v65) = 1024;
+    *(&v65 + 6) = v12;
+    WORD5(v65) = 1024;
+    HIDWORD(v65) = v13;
     v66 = 1024;
-    v67 = v15;
+    v67 = v14;
     v68 = 1024;
-    v69 = v16;
+    v69 = v15;
+    v70 = 1024;
+    v71 = v16;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "triggered: trigger path %d marty path %d igneous path %d enabledMode %d overrideMode %d locallyArmed %d", buf, 0x26u);
     v6 = v10;
     v5 = v9;
-    v7 = v57;
+    v7 = v59;
   }
 
   v17 = +[CSPermissions sharedInstance];
@@ -421,9 +511,9 @@ LABEL_45:
     {
       sessionNum = self->_sessionNum;
       *buf = 67109376;
-      LODWORD(v63) = sessionNum;
-      WORD2(v63) = 1024;
-      *(&v63 + 6) = v22;
+      LODWORD(v65) = sessionNum;
+      WORD2(v65) = 1024;
+      *(&v65 + 6) = v22;
       _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEBUG, "starting session %d type=%d", buf, 0xEu);
     }
 
@@ -470,35 +560,36 @@ LABEL_59:
           {
             if (v39 == 4)
             {
-              if (*([triggeredCopy c_struct] + 64))
+              c_struct = [triggeredCopy c_struct];
+              if (c_struct[64])
               {
-                v49 = sub_1002C7914();
-                if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+                v51 = sub_1002C7914(c_struct, v50);
+                if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
                 {
-                  v50 = *([triggeredCopy c_struct] + 64);
-                  c_struct = [triggeredCopy c_struct];
+                  v52 = *([triggeredCopy c_struct] + 64);
+                  c_struct2 = [triggeredCopy c_struct];
                   *buf = 67109378;
-                  LODWORD(v63) = v50;
-                  WORD2(v63) = 2080;
-                  *(&v63 + 6) = c_struct + 65;
-                  _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "igneous trigger path %d with guid %s", buf, 0x12u);
+                  LODWORD(v65) = v52;
+                  WORD2(v65) = 2080;
+                  *(&v65 + 6) = c_struct2 + 65;
+                  _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "igneous trigger path %d with guid %s", buf, 0x12u);
                 }
 
                 mslRecording = self->_mslRecording;
-                v60[0] = @"igneousGUID";
-                v53 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", [triggeredCopy c_struct] + 65);
-                v61[0] = v53;
-                v60[1] = @"igneousPath";
-                v54 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", *([triggeredCopy c_struct] + 64));
-                v60[2] = @"shouldUploadIndependentlyOfSOS";
-                v61[1] = v54;
-                v61[2] = &off_10043D528;
-                v55 = [NSDictionary dictionaryWithObjects:v61 forKeys:v60 count:3];
-                [(CSMSLDataRecording *)mslRecording updateMetadata:v55];
+                v62[0] = @"igneousGUID";
+                v55 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", [triggeredCopy c_struct] + 65);
+                v63[0] = v55;
+                v62[1] = @"igneousPath";
+                v56 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", *([triggeredCopy c_struct] + 64));
+                v62[2] = @"shouldUploadIndependentlyOfSOS";
+                v63[1] = v56;
+                v63[2] = &off_10043D528;
+                v57 = [NSDictionary dictionaryWithObjects:v63 forKeys:v62 count:3];
+                [(CSMSLDataRecording *)mslRecording updateMetadata:v57];
 
                 self->_igneousPath = *([triggeredCopy c_struct] + 64);
-                v56 = +[CSPower sharedInstance];
-                [v56 powerlogActivity:8 event:1 isActive:CFAbsoluteTimeGetCurrent()];
+                v58 = +[CSPower sharedInstance];
+                [v58 powerlogActivity:8 event:1 isActive:CFAbsoluteTimeGetCurrent()];
               }
 
               goto LABEL_67;
@@ -511,10 +602,10 @@ LABEL_67:
 LABEL_74:
               [(CSAnomalyEventService *)self requestLocation:v39];
               v42 = self->_mslRecording;
-              v58 = @"sessionType";
+              v60 = @"sessionType";
               v43 = [NSNumber numberWithInt:self->_sessionType];
-              v59 = v43;
-              v44 = [NSDictionary dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+              v61 = v43;
+              v44 = [NSDictionary dictionaryWithObjects:&v61 forKeys:&v60 count:1];
               [(CSMSLDataRecording *)v42 updateMetadata:v44];
 
               if (qword_1004567D8 != -1)
@@ -527,7 +618,7 @@ LABEL_74:
               {
                 v46 = *([triggeredCopy c_struct] + 1);
                 *buf = 67109120;
-                LODWORD(v63) = v46;
+                LODWORD(v65) = v46;
                 _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEBUG, "got a trigger path %d", buf, 8u);
               }
 
@@ -551,7 +642,7 @@ LABEL_69:
         if (os_log_type_enabled(qword_1004567E0, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109120;
-          LODWORD(v63) = v39;
+          LODWORD(v65) = v39;
           _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEBUG, "cannot collect recording for %d", buf, 8u);
         }
 
@@ -585,7 +676,7 @@ LABEL_69:
     {
       sessionType = self->_sessionType;
       *buf = 67109120;
-      LODWORD(v63) = sessionType;
+      LODWORD(v65) = sessionType;
       _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "converting session %d into a kappa one", buf, 8u);
     }
 
@@ -628,7 +719,7 @@ LABEL_69:
       {
         v32 = self->_uuid;
         *buf = 138412290;
-        *&v63 = v32;
+        *&v65 = v32;
         _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "creating new recording for preemption %@", buf, 0xCu);
       }
     }
@@ -1940,21 +2031,21 @@ LABEL_43:
           sub_1002CD4A0();
         }
 
-        v6 = qword_1004567E0;
+        v8 = qword_1004567E0;
         if (os_log_type_enabled(qword_1004567E0, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "setting forced kappa trigger", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "setting forced kappa trigger", buf, 2u);
         }
 
         *self->_details.__ptr_ = 1;
         return;
       }
 
-      sub_1002CD72C();
+      v5 = sub_1002CD72C(v5, v6);
 LABEL_27:
-      v11 = sub_1002CD608();
-      [(CSAnomalyEventService *)v11 setPreTriggerForcedCompanionTrigger];
+      v13 = sub_1002CD608(v5, v6);
+      [(CSAnomalyEventService *)v13 setPreTriggerForcedCompanionTrigger];
       return;
     }
 
@@ -1963,11 +2054,11 @@ LABEL_27:
       sub_1002CD4A0();
     }
 
-    v9 = qword_1004567E0;
+    v11 = qword_1004567E0;
     if (os_log_type_enabled(qword_1004567E0, OS_LOG_TYPE_DEBUG))
     {
-      *v15 = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "setting forced marty trigger", v15, 2u);
+      *v17 = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "setting forced marty trigger", v17, 2u);
     }
 
     *(self->_details.__ptr_ + 1) = 1;
@@ -1975,7 +2066,7 @@ LABEL_27:
 
   else
   {
-    v7 = Current;
+    v9 = Current;
     if (triggerCopy == 2)
     {
       if (qword_1004567D8 != -1)
@@ -1983,14 +2074,14 @@ LABEL_27:
         sub_1002CD4A0();
       }
 
-      v10 = qword_1004567E0;
+      v12 = qword_1004567E0;
       if (os_log_type_enabled(qword_1004567E0, OS_LOG_TYPE_DEBUG))
       {
-        *v13 = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "setting forced marty trigger ts", v13, 2u);
+        *v15 = 0;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "setting forced marty trigger ts", v15, 2u);
       }
 
-      *(self->_details.__ptr_ + 2) = v7;
+      *(self->_details.__ptr_ + 2) = v9;
     }
 
     else
@@ -2005,14 +2096,14 @@ LABEL_27:
         sub_1002CD4A0();
       }
 
-      v8 = qword_1004567E0;
+      v10 = qword_1004567E0;
       if (os_log_type_enabled(qword_1004567E0, OS_LOG_TYPE_DEBUG))
       {
-        *v14 = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "setting forced kappa trigger ts", v14, 2u);
+        *v16 = 0;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "setting forced kappa trigger ts", v16, 2u);
       }
 
-      *(self->_details.__ptr_ + 1) = v7;
+      *(self->_details.__ptr_ + 1) = v9;
     }
   }
 }
@@ -2060,6 +2151,150 @@ LABEL_27:
     }
 
     *(self->_details.__ptr_ + 1) = 1;
+  }
+}
+
+- (void)onCompanionMessage:(int)message data:(id)data receivedTimestamp:(double)timestamp
+{
+  v6 = *&message;
+  dataCopy = data;
+  if (qword_1004567D8 != -1)
+  {
+    sub_1002CD4A0();
+  }
+
+  v9 = qword_1004567E0;
+  if (os_log_type_enabled(qword_1004567E0, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "onCompanionMessage anomaly event service", buf, 2u);
+  }
+
+  v10 = &OBJC_IVAR___CSAnomalyEventService__kappaDetectionService;
+  if (v6 <= 200)
+  {
+    if (v6 >= 0xC && (v6 - 100) >= 3)
+    {
+      goto LABEL_8;
+    }
+
+    goto LABEL_16;
+  }
+
+  if (v6 <= 301)
+  {
+    if (v6 <= 202)
+    {
+      if (v6 != 201)
+      {
+        [(CSAnomalyEventService *)self setForcedCompanionTrigger:1];
+        v10 = &OBJC_IVAR___CSAnomalyEventService__kappaDetectionService;
+      }
+
+      goto LABEL_16;
+    }
+
+    switch(v6)
+    {
+      case 0xCB:
+LABEL_16:
+        [*&self->CLIntersiloService_opaque[*v10] onCompanionMessage:v6 data:dataCopy receivedTimestamp:timestamp];
+        goto LABEL_17;
+      case 0x12C:
+LABEL_15:
+        v10 = &OBJC_IVAR___CSAnomalyEventService__martyDetectionService;
+        goto LABEL_16;
+      case 0x12D:
+        [(CSAnomalyEventService *)self setForcedCompanionTrigger:2];
+        goto LABEL_15;
+    }
+
+LABEL_8:
+    if (qword_1004567D8 != -1)
+    {
+      sub_1002CD4B4();
+    }
+
+    v11 = qword_1004567E0;
+    if (os_log_type_enabled(qword_1004567E0, OS_LOG_TYPE_INFO))
+    {
+      *buf = 67109120;
+      *&buf[4] = v6;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "unhandled message %d", buf, 8u);
+    }
+
+    goto LABEL_17;
+  }
+
+  if (v6 <= 399)
+  {
+    if ((v6 - 302) < 5)
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_8;
+  }
+
+  if (v6 > 401)
+  {
+    if (v6 == 402)
+    {
+      sub_100019918(dataCopy);
+    }
+
+    if (v6 == 403)
+    {
+      sub_100019BCC(dataCopy);
+    }
+
+    goto LABEL_8;
+  }
+
+  if (v6 == 400)
+  {
+    sub_100019250(dataCopy);
+  }
+
+  sub_100019544(dataCopy, buf);
+  if (*buf)
+  {
+    aop = self->_aop;
+    if (aop)
+    {
+      CSAOPSvc::onSafetyRemoteSample(aop, *buf);
+      v13 = *buf;
+      *buf = 0;
+      if (!v13)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    else
+    {
+      *buf = 0;
+    }
+
+    operator delete();
+  }
+
+LABEL_17:
+}
+
+- (void)onCompanionConnectionStatusUpdate:(int)update cftime:(double)cftime sputime:(unint64_t)sputime
+{
+  aop = self->_aop;
+  if (aop)
+  {
+
+    CSAOPSvc::onCompanionStatusUpdate(aop, *&update, sputime);
+  }
+
+  else
+  {
+    v7 = sub_1002CD850(aop, a2);
+    [(CSAnomalyEventService *)v7 requestLocation:v8, v9];
   }
 }
 
@@ -2364,6 +2599,34 @@ LABEL_5:
       [martyDetectionService didReceiveSOSAck:ack forMode:v5];
     }
   }
+}
+
+- (void)didReceiveSOSStatusUpdate:(id)update forMode:(unsigned __int8)mode
+{
+  modeCopy = mode;
+  updateCopy = update;
+  if (modeCopy == 2)
+  {
+    v6 = 32;
+  }
+
+  else
+  {
+    if (modeCopy != 1)
+    {
+      goto LABEL_7;
+    }
+
+    v6 = 24;
+  }
+
+  v7 = *&self->CLIntersiloService_opaque[v6];
+  if (v7)
+  {
+    [v7 didReceiveSOSStatusUpdate:updateCopy forMode:modeCopy];
+  }
+
+LABEL_7:
 }
 
 @end

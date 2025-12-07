@@ -42,7 +42,7 @@
 
 - (id)chipStorageContentFromFabricData:(id)data
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v5 = [dataCopy ipk];
@@ -58,22 +58,22 @@
   v11 = [v9 convertX509Certificate:residentOperationalCert];
   [dictionary setObject:v11 forKeyedSubscript:@"f/1/n"];
 
-  v39 = 0x12C1349002515;
-  v40 = 24;
-  v12 = [MEMORY[0x277CBEA90] dataWithBytes:&v39 length:9];
+  v38 = 0x12C1349002515;
+  v39 = 24;
+  v12 = [MEMORY[0x277CBEA90] dataWithBytes:&v38 length:9];
   [dictionary setObject:v12 forKeyedSubscript:@"f/1/m"];
 
   residentOperationalKeyPair = [dataCopy residentOperationalKeyPair];
   serialize = [residentOperationalKeyPair serialize];
   [dictionary setObject:serialize forKeyedSubscript:@"f/1/o"];
 
-  v37 = 0x104013602002415;
-  v38 = 6168;
-  v15 = [MEMORY[0x277CBEA90] dataWithBytes:&v37 length:10];
+  v36 = 0x104013602002415;
+  v37 = 6168;
+  v15 = [MEMORY[0x277CBEA90] dataWithBytes:&v36 length:10];
   [dictionary setObject:v15 forKeyedSubscript:@"g/fidx"];
 
-  v36 = 0x1829625600002615;
-  v16 = [MEMORY[0x277CBEA90] dataWithBytes:&v36 length:8];
+  v35 = 0x1829625600002615;
+  v16 = [MEMORY[0x277CBEA90] dataWithBytes:&v35 length:8];
   [dictionary setObject:v16 forKeyedSubscript:@"g/lkgt"];
 
   residentOperationalCert2 = [dataCopy residentOperationalCert];
@@ -83,46 +83,45 @@
   [dictionary setObject:rootCert2 forKeyedSubscript:@"HMD.MTRPlugin.RootCert"];
 
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v20 = dictionary;
-  v21 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v32;
+    v23 = *v31;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v32 != v23)
+        if (*v31 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v31 + 1) + 8 * i);
-        v26 = [v20 objectForKeyedSubscript:{v25, v31}];
+        v25 = *(*(&v30 + 1) + 8 * i);
+        v26 = [v20 objectForKeyedSubscript:{v25, v30}];
         v27 = [v26 base64EncodedStringWithOptions:0];
         [dictionary2 setObject:v27 forKeyedSubscript:v25];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v22);
   }
 
   v28 = [dictionary2 copy];
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
 
 - (BOOL)commit
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2FabricDataStoreDelegate = [(HMMTRMultiFabricDataStoreUpdate *)self v2FabricDataStoreDelegate];
   fabricData = [(HMMTRMultiFabricDataStoreUpdate *)self fabricData];
   v5 = [v2FabricDataStoreDelegate storeFabricData:fabricData];
@@ -135,11 +134,11 @@
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v24 = HMFGetLogIdentifier();
-      v29 = 138543362;
-      v30 = v24;
+      v28 = 138543362;
+      v29 = v24;
       v25 = "%{public}@Failed to store fabric data into combined data store";
 LABEL_8:
-      _os_log_impl(&dword_22AEAE000, v19, OS_LOG_TYPE_ERROR, v25, &v29, 0xCu);
+      _os_log_impl(&dword_22AEAE000, v19, OS_LOG_TYPE_ERROR, v25, &v28, 0xCu);
     }
 
 LABEL_9:
@@ -171,11 +170,11 @@ LABEL_9:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         v21 = HMFGetLogIdentifier();
-        v29 = 138543362;
-        v30 = v21;
+        v28 = 138543362;
+        v29 = v21;
         v22 = "%{public}@Successfully stored new fabric data";
 LABEL_12:
-        _os_log_impl(&dword_22AEAE000, v19, OS_LOG_TYPE_INFO, v22, &v29, 0xCu);
+        _os_log_impl(&dword_22AEAE000, v19, OS_LOG_TYPE_INFO, v22, &v28, 0xCu);
 
         goto LABEL_13;
       }
@@ -186,8 +185,8 @@ LABEL_12:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v24 = HMFGetLogIdentifier();
-      v29 = 138543362;
-      v30 = v24;
+      v28 = 138543362;
+      v29 = v24;
       v25 = "%{public}@Failed to store fabric parameters to CHIP storage";
       goto LABEL_8;
     }
@@ -202,8 +201,8 @@ LABEL_12:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     v21 = HMFGetLogIdentifier();
-    v29 = 138543362;
-    v30 = v21;
+    v28 = 138543362;
+    v29 = v21;
     v22 = "%{public}@Failed to store fabric keys to common key store - it is expected in some cases. Not updating CHIP storage";
     goto LABEL_12;
   }
@@ -211,7 +210,6 @@ LABEL_12:
 LABEL_13:
 
   objc_autoreleasePoolPop(v16);
-  v27 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -250,10 +248,11 @@ LABEL_13:
 
 uint64_t __46__HMMTRMultiFabricDataStoreUpdate_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v5 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5;
+  logCategory__hmf_once_v5 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

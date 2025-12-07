@@ -295,7 +295,7 @@ LABEL_6:
   v5 = v7;
   if (viewModel)
   {
-    [viewModel shareCounts];
+    objc_msgSend_shareCounts(viewModel);
   }
 
   if (v5 + v4 >= 1)

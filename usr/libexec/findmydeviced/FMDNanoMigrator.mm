@@ -95,45 +95,45 @@
   if (v8)
   {
     v9 = v8;
-    v10 = sub_100002880();
+    v10 = sub_100002880(v8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v16 = v9;
+      v18 = v9;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "FMDNanoMigrator will attempt to unregister %li", buf, 0xCu);
     }
 
-    v11 = sub_10017DFC4();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_10017DFC4(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v16 = v9;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Watch Migration: Unregister device count %li", buf, 0xCu);
+      v18 = v9;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Watch Migration: Unregister device count %li", buf, 0xCu);
     }
 
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_10017C318;
-    v14[3] = &unk_1002CF8C0;
-    v14[4] = self;
-    *&v14[5] = v6;
-    [unregisterDeviceInfoAdaptors enumerateObjectsUsingBlock:v14];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10017C318;
+    v16[3] = &unk_1002CF8C0;
+    v16[4] = self;
+    *&v16[5] = v6;
+    [unregisterDeviceInfoAdaptors enumerateObjectsUsingBlock:v16];
   }
 
   else
   {
-    v12 = sub_10017DFC4();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Watch Migration: There were no devices or no tokens to unregister.", buf, 2u);
-    }
-
-    v13 = sub_100002880();
+    v13 = sub_10017DFC4(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "FMDNanoMigrator there were no devices or no tokens to unregister.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Watch Migration: There were no devices or no tokens to unregister.", buf, 2u);
+    }
+
+    v15 = sub_100002880(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "FMDNanoMigrator there were no devices or no tokens to unregister.", buf, 2u);
     }
   }
 }
@@ -151,18 +151,18 @@
 
   if (janitor <= 0.0 || accessoriesNeedUnregister == 0)
   {
-    v8 = sub_100002880();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      LOWORD(v22) = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "FMDNanoMigrator deactivating janitor", &v22, 2u);
-    }
-
-    v9 = sub_10017DFC4();
+    v9 = sub_100002880(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Watch Migration: deactivating janitor", &v22, 2u);
+      LOWORD(v26) = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FMDNanoMigrator deactivating janitor", &v26, 2u);
+    }
+
+    v11 = sub_10017DFC4(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v26) = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Watch Migration: deactivating janitor", &v26, 2u);
     }
 
     [(FMDNanoMigrator *)self setJanitorScheduledDate:0];
@@ -174,44 +174,44 @@
   {
     janitor = [(FMDNanoMigrator *)self lastScheduledJanitorDate];
     [janitor timeIntervalSinceReferenceDate];
-    v12 = v11;
-    v13 = +[NSDate date];
-    [v13 timeIntervalSinceReferenceDate];
-    v15 = v12 - v14;
+    v14 = v13;
+    v15 = +[NSDate date];
+    [v15 timeIntervalSinceReferenceDate];
+    v17 = v14 - v16;
 
-    v16 = janitor;
-    if (v15 < 60.0)
+    v19 = janitor;
+    if (v17 < 60.0)
     {
-      v17 = sub_100002880();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v20 = sub_100002880(v18);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v22) = 0;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "FMDNanoMigrator The last scheduled time is too short, rescheduling.", &v22, 2u);
+        LOWORD(v26) = 0;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "FMDNanoMigrator The last scheduled time is too short, rescheduling.", &v26, 2u);
       }
 
-      v16 = [NSDate dateWithTimeIntervalSinceNow:janitor];
+      v19 = [NSDate dateWithTimeIntervalSinceNow:janitor];
     }
 
-    v18 = sub_100002880();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v21 = sub_100002880(v18);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138412290;
-      v23 = v16;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "FMDNanoMigrator scheduling janitor to run %@", &v22, 0xCu);
+      v26 = 138412290;
+      v27 = v19;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "FMDNanoMigrator scheduling janitor to run %@", &v26, 0xCu);
     }
 
-    v19 = sub_10017DFC4();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v23 = sub_10017DFC4(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      fm_epoch = [v16 fm_epoch];
-      v22 = 134217984;
-      v23 = fm_epoch;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Watch Migration: scheduling janitor to run %lli", &v22, 0xCu);
+      fm_epoch = [v19 fm_epoch];
+      v26 = 134217984;
+      v27 = fm_epoch;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Watch Migration: scheduling janitor to run %lli", &v26, 0xCu);
     }
 
-    [(FMDNanoMigrator *)self setJanitorScheduledDate:v16];
+    [(FMDNanoMigrator *)self setJanitorScheduledDate:v19];
     janitor2 = [(FMDNanoMigrator *)self janitor];
-    [janitor2 schedule:v16 requireClass:1];
+    [janitor2 schedule:v19 requireClass:1];
   }
 }
 

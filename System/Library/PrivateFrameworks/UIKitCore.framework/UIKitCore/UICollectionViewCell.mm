@@ -302,7 +302,7 @@
   return _viewConfigurationState;
 }
 
-uint64_t __58__UICollectionViewCell__subclassOverridesContentViewClass__block_invoke()
+void *__58__UICollectionViewCell__subclassOverridesContentViewClass__block_invoke()
 {
   result = [UICollectionViewCell methodForSelector:sel__contentViewClass];
   qword_1ED4964E0 = result;
@@ -533,7 +533,7 @@ uint64_t __58__UICollectionViewCell__subclassOverridesContentViewClass__block_in
   v5.receiver = self;
   v5.super_class = UICollectionViewCell;
   [(UIView *)&v5 layoutSubviews];
-  if (_UISolariumEnabled() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_CollectionViewCellEagerlyEnsuresFloatingContentView, @"CollectionViewCellEagerlyEnsuresFloatingContentView") & 1) != 0 || byte_1EA95E23C))
+  if (_UISolariumEnabled() && (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_CollectionViewCellEagerlyEnsuresFloatingContentView, @"CollectionViewCellEagerlyEnsuresFloatingContentView") || byte_1EA95E23C))
   {
     [(UICollectionViewCell *)self _ensureFocusedFloatingContentView];
   }
@@ -1145,7 +1145,7 @@ LABEL_43:
     v16 = viewForContentConfiguration;
     if (objc_opt_respondsToSelector())
     {
-      v17 = [v16 supportsConfiguration:v15];
+      isEqualToString = [v16 supportsConfiguration:v15];
     }
 
     else
@@ -1195,12 +1195,12 @@ LABEL_43:
         v24 = 0;
       }
 
-      v17 = [v21 isEqualToString:v24];
+      isEqualToString = objc_msgSend_isEqualToString_(v21);
       a2 = v33;
     }
 
     *&self->_collectionCellFlags |= 0x1000u;
-    if (!v17)
+    if (!isEqualToString)
     {
       if (!iCopy)
       {
@@ -1742,7 +1742,7 @@ LABEL_14:
 {
   animatedCopy = animated;
   selectedCopy = selected;
-  if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_CollectionViewCellContextMenuSuppressesSelectionState, @"CollectionViewCellContextMenuSuppressesSelectionState") & 1) != 0 || byte_1ED48AAE4)
+  if (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_CollectionViewCellContextMenuSuppressesSelectionState, @"CollectionViewCellContextMenuSuppressesSelectionState") || byte_1ED48AAE4)
   {
     if ((*&self->_collectionCellFlags & 0xE0) != 0)
     {
@@ -1780,7 +1780,7 @@ LABEL_4:
 
     v10[4] = self;
     v11 = selectedCopy;
-    [(UIView *)0.3 _animateCollectionTableAnimationWithDuration:UIView delay:v9 options:v10 animations:0 completion:?];
+    [UIView _animateCollectionTableAnimationWithDuration:v9 delay:v10 options:0 animations:0.3 completion:0.0];
     return;
   }
 
@@ -2197,9 +2197,9 @@ LABEL_8:
     v13 = buttonCopy;
     if (buttonCopy)
     {
-      menu = [(UIButton *)buttonCopy menu];
+      v7 = objc_msgSend_menu(buttonCopy);
 
-      if (!menu)
+      if (!v7)
       {
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
         [currentHandler handleFailureInMethod:a2 object:self file:@"UICollectionViewCell.m" lineNumber:1926 description:{@"Popup menu button must be configured with a menu: %@", v13}];
@@ -2255,7 +2255,7 @@ LABEL_8:
 
     v8[4] = self;
     highlightedCopy = highlighted;
-    [(UIView *)0.3 _animateCollectionTableAnimationWithDuration:UIView delay:v7 options:v8 animations:0 completion:?];
+    [UIView _animateCollectionTableAnimationWithDuration:v7 delay:v8 options:0 animations:0.3 completion:0.0];
   }
 
   else

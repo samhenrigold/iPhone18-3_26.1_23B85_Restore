@@ -49,28 +49,28 @@
 
 - (id)assetTypes
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v25 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v30 = *MEMORY[0x1E69E9840];
+  v24 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = self->_properties;
-  v3 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v3 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v27;
+    v5 = *v26;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v27 != v5)
+        if (*v26 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v26 + 1) + 8 * i);
+        v7 = *(*(&v25 + 1) + 8 * i);
         v8 = objc_alloc_init(SRAssetType);
         [(SRAssetType *)v8 setAssetType:v7];
         v9 = [(NSMutableDictionary *)self->_properties objectForKeyedSubscript:v7];
@@ -112,18 +112,16 @@
           [(SRAssetType *)v8 setCompatibilityVersion:-1];
         }
 
-        [v25 setObject:v8 forKeyedSubscript:v7];
+        [v24 setObject:v8 forKeyedSubscript:v7];
       }
 
-      v4 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v4 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v4);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
-  return v25;
+  return v24;
 }
 
 - (id)debugDescription
@@ -160,7 +158,7 @@
 
 - (void)setProperties:(id)properties client:(id)client
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   clientCopy = client;
   v8 = [propertiesCopy objectForKeyedSubscript:@"AssetType"];
@@ -168,7 +166,7 @@
   v10 = [v9 objectForKeyedSubscript:@"_XPCName"];
   v11 = [v9 objectForKeyedSubscript:@"_CompatibilityVersion"];
   v12 = [propertiesCopy objectForKeyedSubscript:@"DeliveryTypes"];
-  v67 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v66 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   if (!v10)
   {
     v10 = v8;
@@ -176,12 +174,12 @@
 
   if (v8 && v12)
   {
-    v60 = v10;
-    v61 = v9;
-    v59 = v11;
-    v63 = propertiesCopy;
-    v64 = v12;
-    v65 = clientCopy;
+    v59 = v10;
+    v60 = v9;
+    v58 = v11;
+    v62 = propertiesCopy;
+    v63 = v12;
+    v64 = clientCopy;
     if (v10 && v11)
     {
       v13 = [(NSMutableDictionary *)self->_properties objectForKeyedSubscript:v8];
@@ -208,25 +206,25 @@
         [v20 setObject:v19 forKeyedSubscript:@"DeliveryTypes"];
       }
 
-      v86 = 0u;
-      v87 = 0u;
-      v84 = 0u;
       v85 = 0u;
+      v86 = 0u;
+      v83 = 0u;
+      v84 = 0u;
       v21 = v12;
-      obj = [v21 countByEnumeratingWithState:&v84 objects:v91 count:16];
+      obj = [v21 countByEnumeratingWithState:&v83 objects:v90 count:16];
       if (obj)
       {
-        v68 = *v85;
+        v67 = *v84;
         do
         {
           for (i = 0; i != obj; i = i + 1)
           {
-            if (*v85 != v68)
+            if (*v84 != v67)
             {
               objc_enumerationMutation(v21);
             }
 
-            v23 = *(*(&v84 + 1) + 8 * i);
+            v23 = *(*(&v83 + 1) + 8 * i);
             v24 = [(NSMutableDictionary *)self->_properties objectForKeyedSubscript:v8];
             v25 = [v24 objectForKeyedSubscript:@"DeliveryTypes"];
             v26 = [v25 objectForKeyedSubscript:v23];
@@ -246,16 +244,16 @@
             [v32 addObjectsFromArray:v33];
           }
 
-          obj = [v21 countByEnumeratingWithState:&v84 objects:v91 count:16];
+          obj = [v21 countByEnumeratingWithState:&v83 objects:v90 count:16];
         }
 
         while (obj);
       }
 
-      clientCopy = v65;
+      clientCopy = v64;
     }
 
-    v62 = v8;
+    v61 = v8;
     v34 = [(NSMutableDictionary *)self->_clientMap objectForKeyedSubscript:clientCopy];
 
     if (!v34)
@@ -264,49 +262,49 @@
       [(NSMutableDictionary *)self->_clientMap setObject:v35 forKeyedSubscript:clientCopy];
     }
 
-    v82 = 0u;
-    v83 = 0u;
-    v80 = 0u;
     v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
     obja = v12;
-    v69 = [obja countByEnumeratingWithState:&v80 objects:v90 count:16];
-    if (v69)
+    v68 = [obja countByEnumeratingWithState:&v79 objects:v89 count:16];
+    if (v68)
     {
-      v66 = *v81;
+      v65 = *v80;
       do
       {
-        for (j = 0; j != v69; ++j)
+        for (j = 0; j != v68; ++j)
         {
-          if (*v81 != v66)
+          if (*v80 != v65)
           {
             objc_enumerationMutation(obja);
           }
 
-          v37 = *(*(&v80 + 1) + 8 * j);
+          v37 = *(*(&v79 + 1) + 8 * j);
           [(NSMutableSet *)self->_deliveryTypes addObject:v37];
           v38 = [obja objectForKeyedSubscript:v37];
-          [v67 addObjectsFromArray:v38];
+          [v66 addObjectsFromArray:v38];
 
-          v78 = 0u;
-          v79 = 0u;
-          v76 = 0u;
           v77 = 0u;
+          v78 = 0u;
+          v75 = 0u;
+          v76 = 0u;
           v39 = [obja objectForKeyedSubscript:v37];
-          v40 = [v39 countByEnumeratingWithState:&v76 objects:v89 count:16];
+          v40 = [v39 countByEnumeratingWithState:&v75 objects:v88 count:16];
           if (v40)
           {
             v41 = v40;
-            v42 = *v77;
+            v42 = *v76;
             do
             {
               for (k = 0; k != v41; ++k)
               {
-                if (*v77 != v42)
+                if (*v76 != v42)
                 {
                   objc_enumerationMutation(v39);
                 }
 
-                v44 = *(*(&v76 + 1) + 8 * k);
+                v44 = *(*(&v75 + 1) + 8 * k);
                 v45 = [(NSMutableDictionary *)self->_deliveryTypeMap objectForKeyedSubscript:v44];
 
                 if (!v45)
@@ -319,40 +317,40 @@
                 [v47 addObject:v37];
               }
 
-              v41 = [v39 countByEnumeratingWithState:&v76 objects:v89 count:16];
+              v41 = [v39 countByEnumeratingWithState:&v75 objects:v88 count:16];
             }
 
             while (v41);
           }
         }
 
-        v69 = [obja countByEnumeratingWithState:&v80 objects:v90 count:16];
+        v68 = [obja countByEnumeratingWithState:&v79 objects:v89 count:16];
       }
 
-      while (v69);
+      while (v68);
     }
 
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
     v73 = 0u;
-    v48 = v67;
-    v49 = [v48 countByEnumeratingWithState:&v72 objects:v88 count:16];
-    clientCopy = v65;
+    v74 = 0u;
+    v71 = 0u;
+    v72 = 0u;
+    v48 = v66;
+    v49 = [v48 countByEnumeratingWithState:&v71 objects:v87 count:16];
+    clientCopy = v64;
     if (v49)
     {
       v50 = v49;
-      v51 = *v73;
+      v51 = *v72;
       do
       {
         for (m = 0; m != v50; ++m)
         {
-          if (*v73 != v51)
+          if (*v72 != v51)
           {
             objc_enumerationMutation(v48);
           }
 
-          v53 = *(*(&v72 + 1) + 8 * m);
+          v53 = *(*(&v71 + 1) + 8 * m);
           v54 = [(NSMutableDictionary *)self->_contentTypeMap objectForKeyedSubscript:v53];
 
           if (!v54)
@@ -362,27 +360,25 @@
           }
 
           v56 = [(NSMutableDictionary *)self->_contentTypeMap objectForKeyedSubscript:v53];
-          [v56 addObject:v65];
+          [v56 addObject:v64];
 
-          v57 = [(NSMutableDictionary *)self->_clientMap objectForKeyedSubscript:v65];
+          v57 = [(NSMutableDictionary *)self->_clientMap objectForKeyedSubscript:v64];
           [v57 addObject:v53];
         }
 
-        v50 = [v48 countByEnumeratingWithState:&v72 objects:v88 count:16];
+        v50 = [v48 countByEnumeratingWithState:&v71 objects:v87 count:16];
       }
 
       while (v50);
     }
 
-    v8 = v62;
-    propertiesCopy = v63;
-    v10 = v60;
-    v9 = v61;
-    v11 = v59;
-    v12 = v64;
+    v8 = v61;
+    propertiesCopy = v62;
+    v10 = v59;
+    v9 = v60;
+    v11 = v58;
+    v12 = v63;
   }
-
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clear

@@ -3,7 +3,7 @@
 
 @implementation UIPreviewInteractionPresentationTransition
 
-uint64_t __74___UIPreviewInteractionPresentationTransition_startInteractiveTransition___block_invoke(uint64_t a1)
+void *__74___UIPreviewInteractionPresentationTransition_startInteractiveTransition___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (v2[34] == 1)

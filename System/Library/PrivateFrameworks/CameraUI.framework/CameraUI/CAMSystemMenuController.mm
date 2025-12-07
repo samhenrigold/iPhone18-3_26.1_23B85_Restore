@@ -116,27 +116,27 @@
 {
   commandCopy = command;
   selfCopy = self;
-  sub_1A396D57C(commandCopy, &v13);
+  sub_1A396D57C(commandCopy, &v14);
 
-  v6 = v14;
-  if (v14)
+  v6 = v15;
+  if (v15)
   {
-    v7 = __swift_project_boxed_opaque_existential_1(&v13, v14);
+    v7 = __swift_project_boxed_opaque_existential_1(&v14, v15);
     v8 = *(v6 - 8);
-    MEMORY[0x1EEE9AC00](v7);
-    v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v8 + 16))(v10);
-    v11 = sub_1A3A321B0();
-    (*(v8 + 8))(v10, v6);
-    __swift_destroy_boxed_opaque_existential_0(&v13);
+    v9 = MEMORY[0x1EEE9AC00](v7);
+    v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v8 + 16))(v11, v9);
+    v12 = sub_1A3A321B0();
+    (*(v8 + 8))(v11, v6);
+    __swift_destroy_boxed_opaque_existential_0(&v14);
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (CAMSystemMenuController)init

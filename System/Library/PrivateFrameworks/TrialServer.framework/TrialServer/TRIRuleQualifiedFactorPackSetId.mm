@@ -1,8 +1,10 @@
 @interface TRIRuleQualifiedFactorPackSetId
++ (id)factorPackSetIdWithIdent:(id)ident targetingRuleIndex:(int)index;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToFactorPackSetId:(id)id;
 - (TRIRuleQualifiedFactorPackSetId)initWithIdent:(id)ident targetingRuleIndex:(int)index;
 - (id)copyWithReplacementIdent:(id)ident;
+- (id)copyWithReplacementTargetingRuleIndex:(int)index;
 - (id)description;
 @end
 
@@ -30,6 +32,15 @@
   return v10;
 }
 
++ (id)factorPackSetIdWithIdent:(id)ident targetingRuleIndex:(int)index
+{
+  v4 = *&index;
+  identCopy = ident;
+  v7 = [[self alloc] initWithIdent:identCopy targetingRuleIndex:v4];
+
+  return v7;
+}
+
 - (id)copyWithReplacementIdent:(id)ident
 {
   identCopy = ident;
@@ -38,22 +49,21 @@
   return v5;
 }
 
+- (id)copyWithReplacementTargetingRuleIndex:(int)index
+{
+  v3 = *&index;
+  v5 = objc_alloc(objc_opt_class());
+  ident = self->_ident;
+
+  return [v5 initWithIdent:ident targetingRuleIndex:v3];
+}
+
 - (BOOL)isEqualToFactorPackSetId:(id)id
 {
   idCopy = id;
   v5 = idCopy;
-  if (!idCopy)
+  if (!idCopy || (v6 = self->_ident == 0, [idCopy ident], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (ident = self->_ident) != 0 && (objc_msgSend(v5, "ident"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[TRIFactorPackSetId isEqual:](ident, "isEqual:", v10), v10, !v11))
   {
-    goto LABEL_6;
-  }
-
-  v6 = self->_ident == 0;
-  ident = [idCopy ident];
-  v8 = ident != 0;
-
-  if (v6 == v8 || (ident = self->_ident) != 0 && ([v5 ident], v10 = objc_claimAutoreleasedReturnValue(), v11 = -[TRIFactorPackSetId isEqual:](ident, "isEqual:", v10), v10, !v11))
-  {
-LABEL_6:
     v13 = 0;
   }
 

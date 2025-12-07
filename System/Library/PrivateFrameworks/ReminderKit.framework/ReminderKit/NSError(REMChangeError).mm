@@ -62,7 +62,7 @@
 
 + (id)errorWithREMChangeErrorCode:()REMChangeError description:underlyingError:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = a5;
   if (v7 | v8)
@@ -90,18 +90,17 @@
   v12 = os_log_create("com.apple.reminderkit", "default");
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v16 = [MEMORY[0x1E696AD98] numberWithInteger:a3];
-    v17 = 138412802;
-    v18 = v16;
-    v19 = 2112;
-    v20 = v7;
-    v21 = 2112;
-    v22 = v8;
-    _os_log_debug_impl(&dword_19A0DB000, v12, OS_LOG_TYPE_DEBUG, "ERROR: REMChangeError occurred - code=%@, desc=%@, nserror=%@", &v17, 0x20u);
+    v15 = [MEMORY[0x1E696AD98] numberWithInteger:a3];
+    v16 = 138412802;
+    v17 = v15;
+    v18 = 2112;
+    v19 = v7;
+    v20 = 2112;
+    v21 = v8;
+    _os_log_debug_impl(&dword_19A0DB000, v12, OS_LOG_TYPE_DEBUG, "ERROR: REMChangeError occurred - code=%@, desc=%@, nserror=%@", &v16, 0x20u);
   }
 
   v13 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"com.apple.ReminderKit.REMChangeErrorDomain" code:a3 userInfo:v11];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

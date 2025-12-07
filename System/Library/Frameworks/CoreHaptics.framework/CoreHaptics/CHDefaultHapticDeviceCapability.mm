@@ -29,29 +29,29 @@
 
 - (float)maximumValueForEventParameter:(id)parameter
 {
-  v12[10] = *MEMORY[0x277D85DE8];
+  v11[10] = *MEMORY[0x277D85DE8];
   parameterCopy = parameter;
-  v11[0] = CHHapticEventParameterIDHapticIntensity;
-  v11[1] = CHHapticEventParameterIDHapticSharpness;
-  v12[0] = &unk_28279D7A0;
-  v12[1] = &unk_28279D7A0;
-  v11[2] = CHHapticEventParameterIDAttackTime;
-  v11[3] = CHHapticEventParameterIDDecayTime;
-  v12[2] = &unk_28279D7A0;
-  v12[3] = &unk_28279D7A0;
-  v11[4] = CHHapticEventParameterIDReleaseTime;
-  v11[5] = CHHapticEventParameterIDSustained;
-  v12[4] = &unk_28279D7A0;
-  v12[5] = &unk_28279D7A0;
-  v11[6] = CHHapticEventParameterIDAudioVolume;
-  v11[7] = CHHapticEventParameterIDAudioPitch;
-  v12[6] = &unk_28279D7A0;
-  v12[7] = &unk_28279D7A0;
-  v11[8] = CHHapticEventParameterIDAudioPan;
-  v11[9] = CHHapticEventParameterIDAudioBrightness;
-  v12[8] = &unk_28279D7A0;
-  v12[9] = &unk_28279D7A0;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:10];
+  v10[0] = CHHapticEventParameterIDHapticIntensity;
+  v10[1] = CHHapticEventParameterIDHapticSharpness;
+  v11[0] = &unk_28279D7A0;
+  v11[1] = &unk_28279D7A0;
+  v10[2] = CHHapticEventParameterIDAttackTime;
+  v10[3] = CHHapticEventParameterIDDecayTime;
+  v11[2] = &unk_28279D7A0;
+  v11[3] = &unk_28279D7A0;
+  v10[4] = CHHapticEventParameterIDReleaseTime;
+  v10[5] = CHHapticEventParameterIDSustained;
+  v11[4] = &unk_28279D7A0;
+  v11[5] = &unk_28279D7A0;
+  v10[6] = CHHapticEventParameterIDAudioVolume;
+  v10[7] = CHHapticEventParameterIDAudioPitch;
+  v11[6] = &unk_28279D7A0;
+  v11[7] = &unk_28279D7A0;
+  v10[8] = CHHapticEventParameterIDAudioPan;
+  v10[9] = CHHapticEventParameterIDAudioBrightness;
+  v11[8] = &unk_28279D7A0;
+  v11[9] = &unk_28279D7A0;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:10];
   v5 = [v4 objectForKey:parameterCopy];
   v6 = v5;
   if (v5)
@@ -65,35 +65,34 @@
     v8 = -999.0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (float)minimumValueForEventParameter:(id)parameter
 {
-  v12[10] = *MEMORY[0x277D85DE8];
+  v11[10] = *MEMORY[0x277D85DE8];
   parameterCopy = parameter;
-  v11[0] = CHHapticEventParameterIDHapticIntensity;
-  v11[1] = CHHapticEventParameterIDHapticSharpness;
-  v12[0] = &unk_28279D7B0;
-  v12[1] = &unk_28279D7B0;
-  v11[2] = CHHapticEventParameterIDAttackTime;
-  v11[3] = CHHapticEventParameterIDDecayTime;
-  v12[2] = &unk_28279D7B0;
-  v12[3] = &unk_28279D7B0;
-  v11[4] = CHHapticEventParameterIDReleaseTime;
-  v11[5] = CHHapticEventParameterIDSustained;
-  v12[4] = &unk_28279D7B0;
-  v12[5] = &unk_28279D7B0;
-  v11[6] = CHHapticEventParameterIDAudioVolume;
-  v11[7] = CHHapticEventParameterIDAudioPitch;
-  v12[6] = &unk_28279D7B0;
-  v12[7] = &unk_28279D7C0;
-  v11[8] = CHHapticEventParameterIDAudioPan;
-  v11[9] = CHHapticEventParameterIDAudioBrightness;
-  v12[8] = &unk_28279D7C0;
-  v12[9] = &unk_28279D7B0;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:10];
+  v10[0] = CHHapticEventParameterIDHapticIntensity;
+  v10[1] = CHHapticEventParameterIDHapticSharpness;
+  v11[0] = &unk_28279D7B0;
+  v11[1] = &unk_28279D7B0;
+  v10[2] = CHHapticEventParameterIDAttackTime;
+  v10[3] = CHHapticEventParameterIDDecayTime;
+  v11[2] = &unk_28279D7B0;
+  v11[3] = &unk_28279D7B0;
+  v10[4] = CHHapticEventParameterIDReleaseTime;
+  v10[5] = CHHapticEventParameterIDSustained;
+  v11[4] = &unk_28279D7B0;
+  v11[5] = &unk_28279D7B0;
+  v10[6] = CHHapticEventParameterIDAudioVolume;
+  v10[7] = CHHapticEventParameterIDAudioPitch;
+  v11[6] = &unk_28279D7B0;
+  v11[7] = &unk_28279D7C0;
+  v10[8] = CHHapticEventParameterIDAudioPan;
+  v10[9] = CHHapticEventParameterIDAudioBrightness;
+  v11[8] = &unk_28279D7C0;
+  v11[9] = &unk_28279D7B0;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:10];
   v5 = [v4 objectForKey:parameterCopy];
   v6 = v5;
   if (v5)
@@ -107,40 +106,39 @@
     v8 = -999.0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (float)defaultValueForEventParameter:(id)parameter eventType:(id)type
 {
-  v15[10] = *MEMORY[0x277D85DE8];
+  v14[10] = *MEMORY[0x277D85DE8];
   parameterCopy = parameter;
   typeCopy = type;
   if (![parameterCopy isEqualToString:CHHapticEventParameterIDHapticIntensity] || (v7 = 0.75, (objc_msgSend(typeCopy, "isEqualToString:", CHHapticEventTypeHapticTransient) & 1) == 0))
   {
     if (![parameterCopy isEqualToString:CHHapticEventParameterIDHapticSharpness] || (v7 = 0.5, (objc_msgSend(typeCopy, "isEqualToString:", CHHapticEventTypeHapticTransient) & 1) == 0))
     {
-      v14[0] = CHHapticEventParameterIDHapticIntensity;
-      v14[1] = CHHapticEventParameterIDHapticSharpness;
-      v15[0] = &unk_28279D7D0;
-      v15[1] = &unk_28279D7E0;
-      v14[2] = CHHapticEventParameterIDAttackTime;
-      v14[3] = CHHapticEventParameterIDDecayTime;
-      v15[2] = &unk_28279D7B0;
-      v15[3] = &unk_28279D7B0;
-      v14[4] = CHHapticEventParameterIDReleaseTime;
-      v14[5] = CHHapticEventParameterIDSustained;
-      v15[4] = &unk_28279D7B0;
-      v15[5] = &unk_28279D7B0;
-      v14[6] = CHHapticEventParameterIDAudioVolume;
-      v14[7] = CHHapticEventParameterIDAudioPitch;
-      v15[6] = &unk_28279D7A0;
-      v15[7] = &unk_28279D7B0;
-      v14[8] = CHHapticEventParameterIDAudioPan;
-      v14[9] = CHHapticEventParameterIDAudioBrightness;
-      v15[8] = &unk_28279D7B0;
-      v15[9] = &unk_28279D7A0;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:10];
+      v13[0] = CHHapticEventParameterIDHapticIntensity;
+      v13[1] = CHHapticEventParameterIDHapticSharpness;
+      v14[0] = &unk_28279D7D0;
+      v14[1] = &unk_28279D7E0;
+      v13[2] = CHHapticEventParameterIDAttackTime;
+      v13[3] = CHHapticEventParameterIDDecayTime;
+      v14[2] = &unk_28279D7B0;
+      v14[3] = &unk_28279D7B0;
+      v13[4] = CHHapticEventParameterIDReleaseTime;
+      v13[5] = CHHapticEventParameterIDSustained;
+      v14[4] = &unk_28279D7B0;
+      v14[5] = &unk_28279D7B0;
+      v13[6] = CHHapticEventParameterIDAudioVolume;
+      v13[7] = CHHapticEventParameterIDAudioPitch;
+      v14[6] = &unk_28279D7A0;
+      v14[7] = &unk_28279D7B0;
+      v13[8] = CHHapticEventParameterIDAudioPan;
+      v13[9] = CHHapticEventParameterIDAudioBrightness;
+      v14[8] = &unk_28279D7B0;
+      v14[9] = &unk_28279D7A0;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:10];
       v9 = [v8 objectForKey:parameterCopy];
       v10 = v9;
       if (v9)
@@ -156,39 +154,38 @@
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (float)maximumValueForDynamicParameter:(id)parameter
 {
-  v12[12] = *MEMORY[0x277D85DE8];
+  v11[12] = *MEMORY[0x277D85DE8];
   parameterCopy = parameter;
-  v11[0] = CHHapticDynamicParameterIDHapticIntensityControl;
-  v11[1] = CHHapticDynamicParameterIDHapticSharpnessControl;
-  v12[0] = &unk_28279D7A0;
-  v12[1] = &unk_28279D7A0;
-  v11[2] = CHHapticDynamicParameterIDHapticAttackTimeControl;
-  v11[3] = CHHapticDynamicParameterIDHapticDecayTimeControl;
-  v12[2] = &unk_28279D7A0;
-  v12[3] = &unk_28279D7A0;
-  v11[4] = CHHapticDynamicParameterIDHapticReleaseTimeControl;
-  v11[5] = CHHapticDynamicParameterIDAudioVolumeControl;
-  v12[4] = &unk_28279D7A0;
-  v12[5] = &unk_28279D7A0;
-  v11[6] = CHHapticDynamicParameterIDAudioPanControl;
-  v11[7] = CHHapticDynamicParameterIDAudioBrightnessControl;
-  v12[6] = &unk_28279D7A0;
-  v12[7] = &unk_28279D7A0;
-  v11[8] = CHHapticDynamicParameterIDAudioPitchControl;
-  v11[9] = CHHapticDynamicParameterIDAudioAttackTimeControl;
-  v12[8] = &unk_28279D7A0;
-  v12[9] = &unk_28279D7A0;
-  v11[10] = CHHapticDynamicParameterIDAudioDecayTimeControl;
-  v11[11] = CHHapticDynamicParameterIDAudioReleaseTimeControl;
-  v12[10] = &unk_28279D7A0;
-  v12[11] = &unk_28279D7A0;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:12];
+  v10[0] = CHHapticDynamicParameterIDHapticIntensityControl;
+  v10[1] = CHHapticDynamicParameterIDHapticSharpnessControl;
+  v11[0] = &unk_28279D7A0;
+  v11[1] = &unk_28279D7A0;
+  v10[2] = CHHapticDynamicParameterIDHapticAttackTimeControl;
+  v10[3] = CHHapticDynamicParameterIDHapticDecayTimeControl;
+  v11[2] = &unk_28279D7A0;
+  v11[3] = &unk_28279D7A0;
+  v10[4] = CHHapticDynamicParameterIDHapticReleaseTimeControl;
+  v10[5] = CHHapticDynamicParameterIDAudioVolumeControl;
+  v11[4] = &unk_28279D7A0;
+  v11[5] = &unk_28279D7A0;
+  v10[6] = CHHapticDynamicParameterIDAudioPanControl;
+  v10[7] = CHHapticDynamicParameterIDAudioBrightnessControl;
+  v11[6] = &unk_28279D7A0;
+  v11[7] = &unk_28279D7A0;
+  v10[8] = CHHapticDynamicParameterIDAudioPitchControl;
+  v10[9] = CHHapticDynamicParameterIDAudioAttackTimeControl;
+  v11[8] = &unk_28279D7A0;
+  v11[9] = &unk_28279D7A0;
+  v10[10] = CHHapticDynamicParameterIDAudioDecayTimeControl;
+  v10[11] = CHHapticDynamicParameterIDAudioReleaseTimeControl;
+  v11[10] = &unk_28279D7A0;
+  v11[11] = &unk_28279D7A0;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:12];
   v5 = [v4 objectForKey:parameterCopy];
   v6 = v5;
   if (v5)
@@ -202,39 +199,38 @@
     v8 = -999.0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (float)minimumValueForDynamicParameter:(id)parameter
 {
-  v12[12] = *MEMORY[0x277D85DE8];
+  v11[12] = *MEMORY[0x277D85DE8];
   parameterCopy = parameter;
-  v11[0] = CHHapticDynamicParameterIDHapticIntensityControl;
-  v11[1] = CHHapticDynamicParameterIDHapticSharpnessControl;
-  v12[0] = &unk_28279D7B0;
-  v12[1] = &unk_28279D7C0;
-  v11[2] = CHHapticDynamicParameterIDHapticAttackTimeControl;
-  v11[3] = CHHapticDynamicParameterIDHapticDecayTimeControl;
-  v12[2] = &unk_28279D7C0;
-  v12[3] = &unk_28279D7C0;
-  v11[4] = CHHapticDynamicParameterIDHapticReleaseTimeControl;
-  v11[5] = CHHapticDynamicParameterIDAudioVolumeControl;
-  v12[4] = &unk_28279D7C0;
-  v12[5] = &unk_28279D7B0;
-  v11[6] = CHHapticDynamicParameterIDAudioPanControl;
-  v11[7] = CHHapticDynamicParameterIDAudioBrightnessControl;
-  v12[6] = &unk_28279D7C0;
-  v12[7] = &unk_28279D7C0;
-  v11[8] = CHHapticDynamicParameterIDAudioPitchControl;
-  v11[9] = CHHapticDynamicParameterIDAudioAttackTimeControl;
-  v12[8] = &unk_28279D7C0;
-  v12[9] = &unk_28279D7C0;
-  v11[10] = CHHapticDynamicParameterIDAudioDecayTimeControl;
-  v11[11] = CHHapticDynamicParameterIDAudioReleaseTimeControl;
-  v12[10] = &unk_28279D7C0;
-  v12[11] = &unk_28279D7C0;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:12];
+  v10[0] = CHHapticDynamicParameterIDHapticIntensityControl;
+  v10[1] = CHHapticDynamicParameterIDHapticSharpnessControl;
+  v11[0] = &unk_28279D7B0;
+  v11[1] = &unk_28279D7C0;
+  v10[2] = CHHapticDynamicParameterIDHapticAttackTimeControl;
+  v10[3] = CHHapticDynamicParameterIDHapticDecayTimeControl;
+  v11[2] = &unk_28279D7C0;
+  v11[3] = &unk_28279D7C0;
+  v10[4] = CHHapticDynamicParameterIDHapticReleaseTimeControl;
+  v10[5] = CHHapticDynamicParameterIDAudioVolumeControl;
+  v11[4] = &unk_28279D7C0;
+  v11[5] = &unk_28279D7B0;
+  v10[6] = CHHapticDynamicParameterIDAudioPanControl;
+  v10[7] = CHHapticDynamicParameterIDAudioBrightnessControl;
+  v11[6] = &unk_28279D7C0;
+  v11[7] = &unk_28279D7C0;
+  v10[8] = CHHapticDynamicParameterIDAudioPitchControl;
+  v10[9] = CHHapticDynamicParameterIDAudioAttackTimeControl;
+  v11[8] = &unk_28279D7C0;
+  v11[9] = &unk_28279D7C0;
+  v10[10] = CHHapticDynamicParameterIDAudioDecayTimeControl;
+  v10[11] = CHHapticDynamicParameterIDAudioReleaseTimeControl;
+  v11[10] = &unk_28279D7C0;
+  v11[11] = &unk_28279D7C0;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:12];
   v5 = [v4 objectForKey:parameterCopy];
   v6 = v5;
   if (v5)
@@ -248,39 +244,38 @@
     v8 = -999.0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (float)defaultValueForDynamicParameter:(id)parameter
 {
-  v12[12] = *MEMORY[0x277D85DE8];
+  v11[12] = *MEMORY[0x277D85DE8];
   parameterCopy = parameter;
-  v11[0] = CHHapticDynamicParameterIDHapticIntensityControl;
-  v11[1] = CHHapticDynamicParameterIDHapticSharpnessControl;
-  v12[0] = &unk_28279D7A0;
-  v12[1] = &unk_28279D7B0;
-  v11[2] = CHHapticDynamicParameterIDHapticAttackTimeControl;
-  v11[3] = CHHapticDynamicParameterIDHapticDecayTimeControl;
-  v12[2] = &unk_28279D7B0;
-  v12[3] = &unk_28279D7B0;
-  v11[4] = CHHapticDynamicParameterIDHapticReleaseTimeControl;
-  v11[5] = CHHapticDynamicParameterIDAudioVolumeControl;
-  v12[4] = &unk_28279D7B0;
-  v12[5] = &unk_28279D7A0;
-  v11[6] = CHHapticDynamicParameterIDAudioPanControl;
-  v11[7] = CHHapticDynamicParameterIDAudioBrightnessControl;
-  v12[6] = &unk_28279D7B0;
-  v12[7] = &unk_28279D7B0;
-  v11[8] = CHHapticDynamicParameterIDAudioPitchControl;
-  v11[9] = CHHapticDynamicParameterIDAudioAttackTimeControl;
-  v12[8] = &unk_28279D7B0;
-  v12[9] = &unk_28279D7B0;
-  v11[10] = CHHapticDynamicParameterIDAudioDecayTimeControl;
-  v11[11] = CHHapticDynamicParameterIDAudioReleaseTimeControl;
-  v12[10] = &unk_28279D7B0;
-  v12[11] = &unk_28279D7B0;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:12];
+  v10[0] = CHHapticDynamicParameterIDHapticIntensityControl;
+  v10[1] = CHHapticDynamicParameterIDHapticSharpnessControl;
+  v11[0] = &unk_28279D7A0;
+  v11[1] = &unk_28279D7B0;
+  v10[2] = CHHapticDynamicParameterIDHapticAttackTimeControl;
+  v10[3] = CHHapticDynamicParameterIDHapticDecayTimeControl;
+  v11[2] = &unk_28279D7B0;
+  v11[3] = &unk_28279D7B0;
+  v10[4] = CHHapticDynamicParameterIDHapticReleaseTimeControl;
+  v10[5] = CHHapticDynamicParameterIDAudioVolumeControl;
+  v11[4] = &unk_28279D7B0;
+  v11[5] = &unk_28279D7A0;
+  v10[6] = CHHapticDynamicParameterIDAudioPanControl;
+  v10[7] = CHHapticDynamicParameterIDAudioBrightnessControl;
+  v11[6] = &unk_28279D7B0;
+  v11[7] = &unk_28279D7B0;
+  v10[8] = CHHapticDynamicParameterIDAudioPitchControl;
+  v10[9] = CHHapticDynamicParameterIDAudioAttackTimeControl;
+  v11[8] = &unk_28279D7B0;
+  v11[9] = &unk_28279D7B0;
+  v10[10] = CHHapticDynamicParameterIDAudioDecayTimeControl;
+  v10[11] = CHHapticDynamicParameterIDAudioReleaseTimeControl;
+  v11[10] = &unk_28279D7B0;
+  v11[11] = &unk_28279D7B0;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:12];
   v5 = [v4 objectForKey:parameterCopy];
   v6 = v5;
   if (v5)
@@ -294,13 +289,12 @@
     v8 = -999.0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)attributesForEventParameter:(id)parameter eventType:(id)type error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   parameterCopy = parameter;
   typeCopy = type;
   [(CHDefaultHapticDeviceCapability *)self minimumValueForEventParameter:parameterCopy];
@@ -332,15 +326,15 @@
 LABEL_9:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v25 = 136315906;
-      v26 = "CHDeviceCapability.mm";
-      v27 = 1024;
-      v28 = 355;
-      v29 = 2080;
-      v30 = "[CHDefaultHapticDeviceCapability attributesForEventParameter:eventType:error:]";
-      v31 = 2112;
-      v32 = parameterCopy;
-      _os_log_impl(&dword_21569A000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: In parameter %@ is not a valid CHHapticEventParameter", &v25, 0x26u);
+      v24 = 136315906;
+      v25 = "CHDeviceCapability.mm";
+      v26 = 1024;
+      v27 = 355;
+      v28 = 2080;
+      v29 = "[CHDefaultHapticDeviceCapability attributesForEventParameter:eventType:error:]";
+      v30 = 2112;
+      v31 = parameterCopy;
+      _os_log_impl(&dword_21569A000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: In parameter %@ is not a valid CHHapticEventParameter", &v24, 0x26u);
     }
   }
 
@@ -357,14 +351,12 @@ LABEL_9:
 
 LABEL_15:
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (id)attributesForDynamicParameter:(id)parameter error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   parameterCopy = parameter;
   [(CHDefaultHapticDeviceCapability *)self minimumValueForDynamicParameter:parameterCopy];
   v8 = v7;
@@ -395,15 +387,15 @@ LABEL_15:
 LABEL_9:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v22 = 136315906;
-      v23 = "CHDeviceCapability.mm";
-      v24 = 1024;
-      v25 = 370;
-      v26 = 2080;
-      v27 = "[CHDefaultHapticDeviceCapability attributesForDynamicParameter:error:]";
-      v28 = 2112;
-      v29 = parameterCopy;
-      _os_log_impl(&dword_21569A000, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: In parameter %@ is not a valid CHHapticDynamicParameter", &v22, 0x26u);
+      v21 = 136315906;
+      v22 = "CHDeviceCapability.mm";
+      v23 = 1024;
+      v24 = 370;
+      v25 = 2080;
+      v26 = "[CHDefaultHapticDeviceCapability attributesForDynamicParameter:error:]";
+      v27 = 2112;
+      v28 = parameterCopy;
+      _os_log_impl(&dword_21569A000, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: In parameter %@ is not a valid CHHapticDynamicParameter", &v21, 0x26u);
     }
   }
 
@@ -419,8 +411,6 @@ LABEL_9:
   }
 
 LABEL_15:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

@@ -50,7 +50,6 @@ LABEL_12:
   if (v3 == 1)
   {
     v6 = accessibilityLocalizedString(@"motion.wallpapers");
-    v7 = *MEMORY[0x29EDC7378];
     v4 = AXAttributedStringForBetterPronuciation();
   }
 
@@ -61,36 +60,35 @@ LABEL_13:
 
 - (id)accessibilityUserInputLabels
 {
-  v13[1] = *MEMORY[0x29EDCA608];
+  v12[1] = *MEMORY[0x29EDCA608];
   v3 = [(WSBundleCollectionOptionViewAccessibility *)self safeValueForKey:@"bundleCollection"];
   v4 = [v3 safeUnsignedIntegerForKey:@"wallpaperType"];
 
   if (v4 == 2)
   {
     v5 = accessibilityLocalizedString(@"dynamic.wallpapers.short");
-    v12 = v5;
+    v11 = v5;
     v6 = MEMORY[0x29EDB8D80];
-    v7 = &v12;
+    v7 = &v11;
     goto LABEL_5;
   }
 
   if (!v4)
   {
     v5 = accessibilityLocalizedString(@"still.wallpapers.short");
-    v13[0] = v5;
+    v12[0] = v5;
     v6 = MEMORY[0x29EDB8D80];
-    v7 = v13;
+    v7 = v12;
 LABEL_5:
     accessibilityUserInputLabels = [v6 arrayWithObjects:v7 count:1];
 
     goto LABEL_7;
   }
 
-  v11.receiver = self;
-  v11.super_class = WSBundleCollectionOptionViewAccessibility;
-  accessibilityUserInputLabels = [(WSBundleCollectionOptionViewAccessibility *)&v11 accessibilityUserInputLabels];
+  v10.receiver = self;
+  v10.super_class = WSBundleCollectionOptionViewAccessibility;
+  accessibilityUserInputLabels = [(WSBundleCollectionOptionViewAccessibility *)&v10 accessibilityUserInputLabels];
 LABEL_7:
-  v9 = *MEMORY[0x29EDCA608];
 
   return accessibilityUserInputLabels;
 }

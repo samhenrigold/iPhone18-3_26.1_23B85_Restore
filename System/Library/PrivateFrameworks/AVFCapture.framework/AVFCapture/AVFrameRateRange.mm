@@ -40,11 +40,11 @@
 
   if (equal)
   {
-    [equal maxFrameDuration];
+    objc_msgSend_maxFrameDuration(equal);
     if (self)
     {
 LABEL_5:
-      [(AVFrameRateRange *)self maxFrameDuration];
+      objc_msgSend_maxFrameDuration(self);
       goto LABEL_9;
     }
   }
@@ -80,14 +80,14 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  [equal minFrameDuration];
+  objc_msgSend_minFrameDuration(equal);
   if (!self)
   {
     goto LABEL_14;
   }
 
 LABEL_12:
-  [(AVFrameRateRange *)self minFrameDuration:v9.value];
+  objc_msgSend_minFrameDuration(self, v9.value, *&v9.timescale, v9.epoch, time1.value, *&time1.timescale, time1.epoch);
 LABEL_15:
   if (CMTimeCompare(&time1, &v9))
   {

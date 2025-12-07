@@ -167,7 +167,7 @@
 {
   if (!name)
   {
-    name = [TSTBundle() localizedStringForKey:@"Custom Format" value:&stru_287D36338 table:@"TSTables"];
+    name = [TSTBundle(self a2)];
   }
 
   nameCopy = name;

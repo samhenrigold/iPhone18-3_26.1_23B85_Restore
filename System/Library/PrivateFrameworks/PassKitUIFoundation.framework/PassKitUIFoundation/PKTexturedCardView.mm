@@ -1,9 +1,9 @@
 @interface PKTexturedCardView
 - (id)_initWithPixelFormat:(void *)format renderer:;
-- (uint64_t)_updatePaused;
-- (void)_setDeviceAttitude:(uint64_t)attitude;
+- (void)_setDeviceAttitude:(float32x4_t *)attitude;
 - (void)_updateDrawableSize;
 - (void)_updateMotionEnabled;
+- (void)_updatePaused;
 - (void)dealloc;
 - (void)didMoveToWindow;
 - (void)invalidate;
@@ -16,14 +16,14 @@
 
 @implementation PKTexturedCardView
 
-- (uint64_t)_updatePaused
+- (void)_updatePaused
 {
   if (result)
   {
     v1 = result;
-    if (*(result + 409) == 1 && (*(result + 408) & 1) == 0)
+    if (*(result + 409) == 1 && (result[51] & 1) == 0)
     {
-      result = [(PKTexturedCardRenderer *)*(result + 440) isInvalidated];
+      result = [(PKTexturedCardRenderer *)result[55] isInvalidated];
       v2 = result;
     }
 
@@ -35,7 +35,7 @@
     if (*(v1 + 410) != v2)
     {
       *(v1 + 410) = v2;
-      v3 = *(v1 + 432);
+      v3 = v1[54];
 
       return [v3 setPaused:?];
     }
@@ -205,7 +205,7 @@
         [v9 setDelegate:self];
         if (formatCopy)
         {
-          v10 = (formatCopy)[2](formatCopy, self[54]);
+          v10 = formatCopy[2](formatCopy, self[54]);
         }
 
         else
@@ -247,7 +247,7 @@ LABEL_14:
   return self;
 }
 
-- (void)_setDeviceAttitude:(uint64_t)attitude
+- (void)_setDeviceAttitude:(float32x4_t *)attitude
 {
   if (attitude)
   {
@@ -258,7 +258,7 @@ LABEL_14:
     v6.i32[0] = v4.i32[1];
     v6.i32[3] = v4.i32[2];
     v7 = vaddq_f32(vmlaq_f32(vmulq_f32(v3, vdupq_n_s32(0x3F74C5EFu)), 0, v6), vmlaq_f32(vmulq_f32(vextq_s8(v3, v4, 8uLL), 0), vdupq_n_s32(0x3E95F619u), vextq_s8(v5, v5, 8uLL)));
-    if (*(attitude + 448) == 1)
+    if (attitude[28].i8[0] == 1)
     {
       v8 = vmulq_f32(v7, xmmword_25E0D5BF0);
       v9 = vnegq_f32(v8);
@@ -353,8 +353,8 @@ LABEL_14:
     }
 
     v66 = v42;
-    [(PKTexturedCardRenderer *)*(attitude + 440) setRotation:v42];
-    v49 = *(attitude + 416);
+    [(PKTexturedCardRenderer *)attitude[27].i64[1] setRotation:v42];
+    v49 = attitude[26];
     v50 = vmulq_f32(v49, xmmword_25E0D5BF0);
     v51 = vmulq_f32(v49, v49);
     *v51.i8 = vadd_f32(*v51.i8, *&vextq_s8(v51, v51, 8uLL));
@@ -372,7 +372,7 @@ LABEL_14:
     v60 = atan2f(sqrtf(v59.f32[2] + vaddv_f32(*v59.f32)), v58.f32[3]);
     if (fabsf(v60 + v60) > 0.0008)
     {
-      *(attitude + 409) = 1;
+      attitude[25].i8[9] = 1;
 
       [(PKTexturedCardView *)attitude _updatePaused];
     }

@@ -10,19 +10,19 @@
 
 + (id)pathForResource:(id)resource ofType:(id)type inDirectory:(id)directory
 {
-  v72[3] = *MEMORY[0x1E69E9840];
+  v71[3] = *MEMORY[0x1E69E9840];
   resourceCopy = resource;
   typeCopy = type;
   directoryCopy = directory;
   v10 = MEMORY[0x1E696AAE8];
-  v63 = resourceCopy;
-  v64 = typeCopy;
+  v62 = resourceCopy;
+  v63 = typeCopy;
   v11 = objc_opt_class();
-  v65 = objc_msgSend_bundleForClass_(v10, v12, v11, v13, v14);
+  v64 = objc_msgSend_bundleForClass_(v10, v12, v11, v13, v14);
   v18 = objc_msgSend_stringByAppendingPathComponent_(directoryCopy, v15, resourceCopy, v16, v17);
-  v66 = objc_msgSend_stringByAppendingPathExtension_(v18, v19, typeCopy, v20, v21);
+  v65 = objc_msgSend_stringByAppendingPathExtension_(v18, v19, typeCopy, v20, v21);
 
-  v23 = objc_msgSend_pathForResource_ofType_inDirectory_(v65, v22, resourceCopy, typeCopy, directoryCopy);
+  v23 = objc_msgSend_pathForResource_ofType_inDirectory_(v64, v22, resourceCopy, typeCopy, directoryCopy);
   v27 = v23;
   if (v23)
   {
@@ -31,35 +31,35 @@
 
   else
   {
-    v29 = objc_msgSend_stringByAppendingPathComponent_(@"/Library/Application Support/com.apple.CoreSceneUnderstanding", v24, v66, v25, v26, resourceCopy, typeCopy);
-    v72[0] = v29;
+    v29 = objc_msgSend_stringByAppendingPathComponent_(@"/Library/Application Support/com.apple.CoreSceneUnderstanding", v24, v65, v25, v26, resourceCopy, typeCopy);
+    v71[0] = v29;
     v30 = NSHomeDirectory();
-    v34 = objc_msgSend_stringByAppendingPathComponent_(@"Library/Application Support/com.apple.CoreSceneUnderstanding", v31, v66, v32, v33);
+    v34 = objc_msgSend_stringByAppendingPathComponent_(@"Library/Application Support/com.apple.CoreSceneUnderstanding", v31, v65, v32, v33);
     v38 = objc_msgSend_stringByAppendingPathComponent_(v30, v35, v34, v36, v37);
-    v72[1] = v38;
-    v42 = objc_msgSend_stringByAppendingPathComponent_(@"/var/mobile/Library/Application Support/com.apple.CoreSceneUnderstanding", v39, v66, v40, v41);
-    v72[2] = v42;
-    v45 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v43, v72, 3, v44);
+    v71[1] = v38;
+    v42 = objc_msgSend_stringByAppendingPathComponent_(@"/var/mobile/Library/Application Support/com.apple.CoreSceneUnderstanding", v39, v65, v40, v41);
+    v71[2] = v42;
+    v45 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v43, v71, 3, v44);
 
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
     v68 = 0u;
+    v69 = 0u;
+    v66 = 0u;
+    v67 = 0u;
     v46 = v45;
-    v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v46, v47, &v67, v71, 16);
+    v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v46, v47, &v66, v70, 16);
     if (v48)
     {
-      v49 = *v68;
+      v49 = *v67;
 LABEL_5:
       v50 = 0;
       while (1)
       {
-        if (*v68 != v49)
+        if (*v67 != v49)
         {
           objc_enumerationMutation(v46);
         }
 
-        v28 = *(*(&v67 + 1) + 8 * v50);
+        v28 = *(*(&v66 + 1) + 8 * v50);
         v55 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v51, v52, v53, v54);
         v59 = objc_msgSend_fileExistsAtPath_(v55, v56, v28, v57, v58);
 
@@ -70,7 +70,7 @@ LABEL_5:
 
         if (v48 == ++v50)
         {
-          v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v46, v60, &v67, v71, 16);
+          v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v46, v60, &v66, v70, 16);
           if (v48)
           {
             goto LABEL_5;
@@ -87,8 +87,6 @@ LABEL_11:
       v28 = 0;
     }
   }
-
-  v61 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
@@ -172,27 +170,27 @@ LABEL_6:
 
 - (int)espressoExecutionEngine
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   objc_msgSend_supportedComputeDevices(self, a2, v2, v3, v4);
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v5 = v15 = 0u;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v14, v18, 16);
+  v13 = 0u;
+  v5 = v14 = 0u;
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v13, v17, 16);
   if (v8)
   {
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
+        v11 = *(*(&v13 + 1) + 8 * v10);
         if (v11)
         {
           objc_opt_class();
@@ -207,7 +205,7 @@ LABEL_6:
       }
 
       while (v8 != v10);
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v14, v18, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v13, v17, 16);
     }
 
     while (v8);
@@ -215,7 +213,6 @@ LABEL_6:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

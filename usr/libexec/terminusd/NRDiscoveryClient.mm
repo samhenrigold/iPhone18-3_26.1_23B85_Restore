@@ -296,68 +296,52 @@
   messageCopy = message;
   if (messageCopy)
   {
-    v7 = [[NRNANServiceInfo alloc] initWithData:messageCopy];
-    if (v7)
+    v6 = [[NRNANServiceInfo alloc] initWithData:messageCopy];
+    if (v6)
     {
-      if (self)
-      {
-        nrUUID = self->_nrUUID;
-      }
-
-      v9 = _NRCopyLogObjectForNRUUID();
+      v7 = _NRCopyLogObjectForNRUUID();
       IsLevelEnabled = _NRLogIsLevelEnabled();
 
       if (!IsLevelEnabled)
       {
-        goto LABEL_9;
+LABEL_6:
+
+        goto LABEL_7;
       }
 
-      if (self)
-      {
-        v11 = self->_nrUUID;
-      }
+      v9 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v9, 0, "%s%.30s:%-4d NAN: publisher received message %@", ", "[NRDiscoveryClient publisher:receivedMessage:fromSubscriberID:subscriberAddress:]"", 2155, v6);
     }
 
     else
     {
-      if (self)
+      v12 = _NRCopyLogObjectForNRUUID();
+      v13 = _NRLogIsLevelEnabled();
+
+      if (!v13)
       {
-        v15 = self->_nrUUID;
+        v6 = 0;
+        goto LABEL_6;
       }
 
-      v16 = _NRCopyLogObjectForNRUUID();
-      v17 = _NRLogIsLevelEnabled();
-
-      if (!v17)
-      {
-        v7 = 0;
-        goto LABEL_9;
-      }
-
-      if (self)
-      {
-        v18 = self->_nrUUID;
-      }
+      v9 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v9, 16, "%s%.30s:%-4d Failed to decode NAN service info protobuf");
     }
 
-    v12 = _NRCopyLogObjectForNRUUID();
-    _NRLogWithArgs();
-
-LABEL_9:
-    goto LABEL_10;
+    goto LABEL_6;
   }
 
-  v13 = sub_10014A248();
-  v14 = _NRLogIsLevelEnabled();
+  v10 = sub_10014A248();
+  v11 = _NRLogIsLevelEnabled();
 
-  if (v14)
+  if (v11)
   {
-    v7 = sub_10014A248();
-    _NRLogWithArgs();
-    goto LABEL_9;
+    v6 = sub_10014A248();
+    _NRLogWithArgs(v6, 17, "%s called with null message", "[NRDiscoveryClient publisher:receivedMessage:fromSubscriberID:subscriberAddress:]");
+    goto LABEL_6;
   }
 
-LABEL_10:
+LABEL_7:
 }
 
 - (void)publisher:(id)publisher terminatedWithReason:(int64_t)reason
@@ -410,33 +394,21 @@ LABEL_10:
 
 - (void)publisherStarted:(id)started
 {
-  if (self)
-  {
-    nrUUID = self->_nrUUID;
-  }
-
-  v5 = _NRCopyLogObjectForNRUUID();
+  v3 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
-    if (self)
-    {
-      v7 = self->_nrUUID;
-    }
-
-    v8 = _NRCopyLogObjectForNRUUID();
-    _NRLogWithArgs();
+    v5 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v5, 0, "%s%.30s:%-4d NAN: publisher started", ", "[NRDiscoveryClient publisherStarted:]"", 2119);
   }
 }
 
 - (NSString)description
 {
-  v3 = [NSString alloc];
-  identifier = self->_identifier;
-  v5 = [v3 initWithFormat:@"NRDiscoveryClient[%llu, %@]", identifier, self->_candidateServiceIdentifier];
+  v2 = [[NSString alloc] initWithFormat:@"NRDiscoveryClient[%llu, %@]", self->_identifier, self->_candidateServiceIdentifier];
 
-  return v5;
+  return v2;
 }
 
 @end

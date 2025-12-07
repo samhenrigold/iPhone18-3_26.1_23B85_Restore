@@ -31,7 +31,7 @@
   v64 = anchorCopy;
   if (anchorCopy)
   {
-    v14 = [anchorCopy copy];
+    v14 = objc_msgSend_copy(anchorCopy);
   }
 
   else
@@ -271,7 +271,7 @@ LABEL_37:
       v56 = v65;
       if (v17 == v16)
       {
-        v60 = [v65 copy];
+        v60 = objc_msgSend_copy(v65);
       }
 
       else
@@ -303,7 +303,7 @@ LABEL_37:
       }
 
       v56 = v65;
-      v60 = [MEMORY[0x277CCD9F0] sortedQueryAnchorWithSortDescriptors:v59 followingSample:*(v19 - 8) objectID:v94[3]];
+      v60 = [MEMORY[0x277CCD9F0] sortedQueryAnchorWithSortDescriptors:v59 followingSample:*(v19 - 1) objectID:v94[3]];
     }
 
     v62 = v98[5];

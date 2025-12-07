@@ -38,18 +38,16 @@
 
 - (void)_processResults
 {
-  v6 = *MEMORY[0x277D85DE8];
   qos_class_self();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __38__SPQueryResultsQueue__processResults__block_invoke(uint64_t a1)
 {
   v29 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
-  v3 = logForCSLogCategoryDefault();
+  v3 = logForCSLogCategoryDefault(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __38__SPQueryResultsQueue__processResults__block_invoke_cold_1();
@@ -92,66 +90,66 @@ void __38__SPQueryResultsQueue__processResults__block_invoke(uint64_t a1)
 
     if (v11)
     {
-      v12 = *v8;
-      v13 = logForCSLogCategoryQuery();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v13 = *v8;
+      v14 = logForCSLogCategoryQuery(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v19 = *(*(a1 + 32) + 16);
+        v20 = *(*(a1 + 32) + 16);
         *buf = 134218242;
-        v26 = v12;
+        v26 = v13;
         v27 = 2112;
-        v28 = v19;
-        _os_log_debug_impl(&dword_231A35000, v13, OS_LOG_TYPE_DEBUG, "Processing results, kind:%ld, identifier:%@", buf, 0x16u);
+        v28 = v20;
+        _os_log_debug_impl(&dword_231A35000, v14, OS_LOG_TYPE_DEBUG, "Processing results, kind:%ld, identifier:%@", buf, 0x16u);
       }
 
-      v14 = [v11 resultsHandler];
-      v15 = v14;
-      if (v14)
+      v15 = [v11 resultsHandler];
+      v16 = v15;
+      if (v15)
       {
-        if (v12 > 5)
+        if (v13 > 5)
         {
-          if (v12 <= 8)
+          if (v13 <= 8)
           {
-            if (v12 == 6)
+            if (v13 == 6)
             {
-              (*(v14 + 16))(v14, v11, 5, *(v8 + 4), 0, 0);
+              (*(v15 + 16))(v15, v11, 5, *(v8 + 4), 0, 0);
               goto LABEL_45;
             }
 
-            if (v12 == 7)
+            if (v13 == 7)
             {
-              v16 = v8[14];
-              if (v16 > 3)
+              v17 = v8[14];
+              if (v17 > 3)
               {
-                v17 = -1;
+                v18 = -1;
               }
 
               else
               {
-                v17 = qword_231AED600[v16];
+                v18 = qword_231AED600[v17];
               }
 
-              (*(v14 + 16))(v14, v11, v17, *(v8 + 6), *(v8 + 4), *(v8 + 5));
+              (*(v15 + 16))(v15, v11, v18, *(v8 + 6), *(v8 + 4), *(v8 + 5));
               goto LABEL_45;
             }
           }
 
           else
           {
-            switch(v12)
+            switch(v13)
             {
               case 0xB:
-                (*(v14 + 16))(v14, v11, 11, 0, 0, *(v8 + 5));
+                (*(v15 + 16))(v15, v11, 11, 0, 0, *(v8 + 5));
                 SIResultBatchFree();
                 goto LABEL_41;
               case 0xA:
-                v21 = objc_autoreleasePoolPush();
-                (v15)[2](v15, v11, 9, 0, 0, *(v8 + 4));
-                objc_autoreleasePoolPop(v21);
+                v22 = objc_autoreleasePoolPush();
+                (v16)[2](v16, v11, 9, 0, 0, *(v8 + 4));
+                objc_autoreleasePoolPop(v22);
                 SIResultBatchFree();
                 goto LABEL_41;
               case 9:
-                (*(v14 + 16))(v14, v11, 8, *(v8 + 6), *(v8 + 4), *(v8 + 5));
+                (*(v15 + 16))(v15, v11, 8, *(v8 + 6), *(v8 + 4), *(v8 + 5));
                 SIResultBatchFree();
                 goto LABEL_41;
             }
@@ -160,25 +158,25 @@ void __38__SPQueryResultsQueue__processResults__block_invoke(uint64_t a1)
 
         else
         {
-          if (v12 > 2)
+          if (v13 > 2)
           {
-            if (v12 != 3)
+            if (v13 != 3)
             {
-              if (v12 != 4 && *(*(a1 + 32) + 10) == 1)
+              if (v13 != 4 && *(*(a1 + 32) + 10) == 1)
               {
-                (*(v14 + 16))(v14, v11, 2, 0, 0, 0);
+                (*(v15 + 16))(v15, v11, 2, 0, 0, 0);
                 SIResultBatchFree();
                 goto LABEL_41;
               }
 
-              (*(v14 + 16))(v14, v11, 1, 0, 0, 0);
+              (*(v15 + 16))(v15, v11, 1, 0, 0, 0);
 LABEL_33:
               SIResultBatchFree();
               [v11 setResultsHandler:0];
-              v18 = *(*(a1 + 32) + 32);
-              objc_sync_enter(v18);
+              v19 = *(*(a1 + 32) + 32);
+              objc_sync_enter(v19);
               [*(*(a1 + 32) + 32) removeObjectForKey:v9];
-              objc_sync_exit(v18);
+              objc_sync_exit(v19);
 
 LABEL_41:
               if ((v6 & 1) == 0)
@@ -201,30 +199,30 @@ LABEL_46:
               goto LABEL_48;
             }
 
-            (*(v14 + 16))(v14, v11, 4, 0, 0, *(v8 + 4));
+            (*(v15 + 16))(v15, v11, 4, 0, 0, *(v8 + 4));
 LABEL_45:
             SIResultBatchFree();
             goto LABEL_46;
           }
 
-          if (v12 == 1)
+          if (v13 == 1)
           {
-            v20 = logForCSLogCategoryQuery();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+            v21 = logForCSLogCategoryQuery(v15);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
             {
-              v22 = *(v8 + 6);
+              v23 = *(v8 + 6);
               *buf = v24;
-              v26 = v22;
-              _os_log_debug_impl(&dword_231A35000, v20, OS_LOG_TYPE_DEBUG, "%ld items", buf, 0xCu);
+              v26 = v23;
+              _os_log_debug_impl(&dword_231A35000, v21, OS_LOG_TYPE_DEBUG, "%ld items", buf, 0xCu);
             }
 
-            (v15)[2](v15, v11, 0, *(v8 + 6), *(v8 + 4), *(v8 + 5));
+            (v16)[2](v16, v11, 0, *(v8 + 6), *(v8 + 4), *(v8 + 5));
             goto LABEL_45;
           }
 
-          if (v12 == 2)
+          if (v13 == 2)
           {
-            (*(v14 + 16))(v14, v11, 3, 0, 0, *(v8 + 4));
+            (*(v15 + 16))(v15, v11, 3, 0, 0, *(v8 + 4));
             v6 = 1;
             goto LABEL_33;
           }
@@ -256,7 +254,6 @@ LABEL_56:
 
 LABEL_58:
   objc_autoreleasePoolPop(v2);
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasPausedResults
@@ -296,13 +293,12 @@ LABEL_58:
 void __29__SPQueryResultsQueue_cancel__block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = logForCSLogCategoryQuery();
+  v3 = logForCSLogCategoryQuery(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __29__SPQueryResultsQueue_cancel__block_invoke_cold_1(a1);
+    __29__SPQueryResultsQueue_cancel__block_invoke_cold_1();
   }
 
-  v4 = *(*(a1 + 32) + 24);
   SIResultQueueCancel();
   [*(a1 + 32) _scheduleWakeupForced:1];
   objc_autoreleasePoolPop(v2);
@@ -326,26 +322,23 @@ void __29__SPQueryResultsQueue_cancel__block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  OUTLINED_FUNCTION_3(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_231A35000, v1, v2, "Released query results queue, identifier:%@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_231A35000, v0, v1, "Released query results queue, identifier:%@", v2, v3, v4, v5);
 }
 
 - (void)pauseResults
 {
-  OUTLINED_FUNCTION_3(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_231A35000, v1, v2, "Paused results, identifier:%@, count:%ld");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_231A35000, v0, v1, "Paused results, identifier:%@, count:%ld");
 }
 
 - (void)resumeResults
 {
-  OUTLINED_FUNCTION_3(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_231A35000, v1, v2, "Resumed results, identifier:%@, count:%ld");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_231A35000, v0, v1, "Resumed results, identifier:%@, count:%ld");
 }
 
 void __36__SPQueryResultsQueue_resumeResults__block_invoke(uint64_t a1)
@@ -375,9 +368,11 @@ void __36__SPQueryResultsQueue_resumeResults__block_invoke(uint64_t a1)
 
 uint64_t __49__SPQueryResultsQueue_startTrackingResultsQueue___block_invoke()
 {
-  sResultsQueueMap = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
+  v0 = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
+  v1 = sResultsQueueMap;
+  sResultsQueueMap = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (void)stopTrackingResultsQueueWithIdentifier:(id)identifier
@@ -497,8 +492,7 @@ void __62__SPQueryResultsQueue_sharedInstanceMaintenanceDispatchQueue___block_in
     v10->_jobs = v11;
 
     [(SPQueryResultsQueue *)v10 _startTracking];
-    [(SPQueryResultsQueue *)v10 _scheduleWakeupForced:1];
-    v13 = logForCSLogCategoryQuery();
+    v13 = logForCSLogCategoryQuery([(SPQueryResultsQueue *)v10 _scheduleWakeupForced:1]);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [(SPQueryResultsQueue *)identifierCopy initWithIdentifier:v13 dispatchQueue:v14, v15, v16, v17, v18, v19];
@@ -540,20 +534,21 @@ void __62__SPQueryResultsQueue_sharedInstanceMaintenanceDispatchQueue___block_in
       {
         [v8 setResultsHandler:0];
         dispatchQueue = self->_dispatchQueue;
-        v13 = MEMORY[0x277D85DD0];
-        v14 = 3221225472;
-        v15 = __33__SPQueryResultsQueue_cancelJob___block_invoke;
-        v16 = &unk_278934078;
-        v18 = resultsHandler;
-        v17 = v8;
-        v11 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &v13);
+        v14 = MEMORY[0x277D85DD0];
+        v15 = 3221225472;
+        v16 = __33__SPQueryResultsQueue_cancelJob___block_invoke;
+        v17 = &unk_278934078;
+        v19 = resultsHandler;
+        v18 = v8;
+        v11 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &v14);
         dispatch_async(dispatchQueue, v11);
       }
 
-      if ([v8 siJob])
+      siJob = [v8 siJob];
+      if (siJob)
       {
-        v12 = logForCSLogCategoryQuery();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v13 = logForCSLogCategoryQuery(siJob);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           [SPQueryResultsQueue cancelJob:v8];
         }
@@ -569,7 +564,6 @@ void __62__SPQueryResultsQueue_sharedInstanceMaintenanceDispatchQueue___block_in
 void __33__SPQueryResultsQueue_cancelJob___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 
   objc_autoreleasePoolPop(v2);
@@ -578,48 +572,45 @@ void __33__SPQueryResultsQueue_cancelJob___block_invoke(uint64_t a1)
 - (void)_scheduleWakeupForced:(BOOL)forced
 {
   forcedCopy = forced;
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (forced || ![(SPQueryResultsQueue *)self hasPausedResults])
   {
     v5 = self->_identifier;
-    v6 = logForCSLogCategoryQuery();
+    v6 = logForCSLogCategoryQuery(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v10 = @"NO";
+      v8 = @"NO";
       canceled = self->_canceled;
       if (forcedCopy)
-      {
-        v12 = @"YES";
-      }
-
-      else
-      {
-        v12 = @"NO";
-      }
-
-      v13 = 138412802;
-      v14 = v5;
-      v15 = 2112;
-      if (canceled)
       {
         v10 = @"YES";
       }
 
-      v16 = v12;
-      v17 = 2112;
-      v18 = v10;
-      _os_log_debug_impl(&dword_231A35000, v6, OS_LOG_TYPE_DEBUG, "Schedule wakeup, identifier:%@, forced:%@, canceled:%@", &v13, 0x20u);
+      else
+      {
+        v10 = @"NO";
+      }
+
+      v11 = 138412802;
+      v12 = v5;
+      v13 = 2112;
+      if (canceled)
+      {
+        v8 = @"YES";
+      }
+
+      v14 = v10;
+      v15 = 2112;
+      v16 = v8;
+      _os_log_debug_impl(&dword_231A35000, v6, OS_LOG_TYPE_DEBUG, "Schedule wakeup, identifier:%@, forced:%@, canceled:%@", &v11, 0x20u);
     }
 
-    siResultsQueue = self->_siResultsQueue;
-    v8 = v5;
+    v7 = v5;
     if ((SIResultQueueSetWakeupTrigger() & 1) == 0)
     {
-      CFRelease(v8);
+      CFRelease(v7);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resumeResultsIfSystemInGoodState
@@ -657,37 +648,24 @@ void __55__SPQueryResultsQueue_resumeResultsIfSystemInGoodState__block_invoke(ui
 
 - (void)initWithIdentifier:(uint64_t)a3 dispatchQueue:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_231A35000, a2, a3, "Created query results queue, identifier:%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_231A35000, a2, a3, "Created query results queue, identifier:%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)cancelJob:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   qos_class_self();
   [a1 siJob];
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __29__SPQueryResultsQueue_cancel__block_invoke_cold_1(uint64_t a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(*(a1 + 32) + 16);
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_231A35000, v2, v3, "Canceling query results queue, identifier:%@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __38__SPQueryResultsQueue__processResults__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   qos_class_self();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

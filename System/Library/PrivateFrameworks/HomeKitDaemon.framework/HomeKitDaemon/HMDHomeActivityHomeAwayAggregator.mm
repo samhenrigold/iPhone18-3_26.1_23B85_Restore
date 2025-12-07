@@ -19,14 +19,14 @@
 
 - (void)handleRestrictedGuestScheduleEndedForUserUUID:(id)d
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataSource = [(HMDHomeActivityStateAggregator *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
 
   rawUserActivityMap = [(HMDHomeActivityStateAggregator *)self rawUserActivityMap];
-  v8 = [rawUserActivityMap copy];
+  v8 = objc_msgSend_copy(rawUserActivityMap);
 
   v9 = [v8 objectForKeyedSubscript:dCopy];
   v10 = v9;
@@ -38,10 +38,10 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v16;
-      v23 = 2112;
-      v24 = dCopy;
+      v20 = 138543618;
+      v21 = v16;
+      v22 = 2112;
+      v23 = dCopy;
       v17 = "%{public}@Ignoring RG schedule ended notification because we don't have report from user %@";
 LABEL_11:
       v18 = v15;
@@ -66,15 +66,15 @@ LABEL_13:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v16;
-      v23 = 2112;
-      v24 = dCopy;
+      v20 = 138543618;
+      v21 = v16;
+      v22 = 2112;
+      v23 = dCopy;
       v17 = "%{public}@Received RG schedule ended notification for user that's not RG %@";
       v18 = v15;
       v19 = OS_LOG_TYPE_ERROR;
 LABEL_12:
-      _os_log_impl(&dword_229538000, v18, v19, v17, &v21, 0x16u);
+      _os_log_impl(&dword_229538000, v18, v19, v17, &v20, 0x16u);
 
       goto LABEL_13;
     }
@@ -90,10 +90,10 @@ LABEL_12:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v16;
-      v23 = 2112;
-      v24 = dCopy;
+      v20 = 138543618;
+      v21 = v16;
+      v22 = 2112;
+      v23 = dCopy;
       v17 = "%{public}@RG schedule ended but not sending home presence update notification because user is already away %@";
       goto LABEL_11;
     }
@@ -103,8 +103,6 @@ LABEL_12:
 
   [HMDHomeActivityHomeAwayAggregator _postHomePresenceUpdateNotificationWithReport:v10 userActivityMap:v8 isUpdate:?];
 LABEL_14:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postHomePresenceUpdateNotificationWithReport:(HMDHomeActivityHomeAwayUserStatesDetails *)report userActivityMap:(void *)map isUpdate:(void *)update
@@ -154,7 +152,7 @@ LABEL_14:
 
 - (void)_postHomePresenceUpdateNotificationWithHomePresence:(void *)presence userPresence:(void *)userPresence causingDevice:(uint64_t)device isUpdate:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v9 = a2;
   presenceCopy = presence;
   userPresenceCopy = userPresence;
@@ -166,21 +164,19 @@ LABEL_14:
   {
     v16 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v24 = v16;
-    v25 = 2112;
-    v26 = v12;
+    v23 = v16;
+    v24 = 2112;
+    v25 = v12;
     _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Sending user activity state changed notification %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v13);
   dataSource = [selfCopy dataSource];
   notificationCenter = [dataSource notificationCenter];
-  v21 = @"HMDHomePresenceUpdateKey";
-  v22 = v12;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v20 = @"HMDHomePresenceUpdateKey";
+  v21 = v12;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
   [notificationCenter postNotificationName:@"HMDHomePresenceUpdateNotification" object:selfCopy userInfo:v19];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HMDHomeActivityHomeAwayAggregator__userActivityStatesDetailsWithMap___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -215,14 +211,14 @@ void __71__HMDHomeActivityHomeAwayAggregator__userActivityStatesDetailsWithMap__
 
 - (void)handleRestrictedGuestScheduleStartedForUserUUID:(id)d
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataSource = [(HMDHomeActivityStateAggregator *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
 
   rawUserActivityMap = [(HMDHomeActivityStateAggregator *)self rawUserActivityMap];
-  v8 = [rawUserActivityMap copy];
+  v8 = objc_msgSend_copy(rawUserActivityMap);
 
   v9 = [v8 objectForKeyedSubscript:dCopy];
   v10 = v9;
@@ -234,10 +230,10 @@ void __71__HMDHomeActivityHomeAwayAggregator__userActivityStatesDetailsWithMap__
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v16;
-      v23 = 2112;
-      v24 = dCopy;
+      v20 = 138543618;
+      v21 = v16;
+      v22 = 2112;
+      v23 = dCopy;
       v17 = "%{public}@Ignoring RG schedule started notification because we don't have report from user %@";
 LABEL_11:
       v18 = v15;
@@ -262,15 +258,15 @@ LABEL_13:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v16;
-      v23 = 2112;
-      v24 = dCopy;
+      v20 = 138543618;
+      v21 = v16;
+      v22 = 2112;
+      v23 = dCopy;
       v17 = "%{public}@Received RG schedule started notification for user that's not RG %@";
       v18 = v15;
       v19 = OS_LOG_TYPE_ERROR;
 LABEL_12:
-      _os_log_impl(&dword_229538000, v18, v19, v17, &v21, 0x16u);
+      _os_log_impl(&dword_229538000, v18, v19, v17, &v20, 0x16u);
 
       goto LABEL_13;
     }
@@ -286,10 +282,10 @@ LABEL_12:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v16;
-      v23 = 2112;
-      v24 = dCopy;
+      v20 = 138543618;
+      v21 = v16;
+      v22 = 2112;
+      v23 = dCopy;
       v17 = "%{public}@RG schedule started but not sending home presence update notification because user is not home yet %@";
       goto LABEL_11;
     }
@@ -299,8 +295,6 @@ LABEL_12:
 
   [HMDHomeActivityHomeAwayAggregator _postHomePresenceUpdateNotificationWithReport:v10 userActivityMap:v8 isUpdate:?];
 LABEL_14:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isStateEquivalentForExistingReport:(id)report newReport:(id)newReport
@@ -388,7 +382,7 @@ LABEL_14:
 - (HMDHomeActivityHomeAwayUserStatesDetails)userActivityStatesDetails
 {
   rawUserActivityMap = [(HMDHomeActivityStateAggregator *)self rawUserActivityMap];
-  v4 = [rawUserActivityMap copy];
+  v4 = objc_msgSend_copy(rawUserActivityMap);
 
   v5 = [(HMDHomeActivityHomeAwayAggregator *)self _userActivityStatesDetailsWithMap:v4];
 
@@ -397,7 +391,7 @@ LABEL_14:
 
 - (HMDHomeActivityHomeAwayAggregatorState)computedState
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -406,9 +400,9 @@ LABEL_14:
     v6 = HMFGetLogIdentifier();
     userActivityMap = [(HMDHomeActivityStateAggregator *)selfCopy userActivityMap];
     *buf = 138543618;
-    v21 = v6;
-    v22 = 2112;
-    v23 = userActivityMap;
+    v20 = v6;
+    v21 = 2112;
+    v22 = userActivityMap;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Computing state from user activity map %@", buf, 0x16u);
   }
 
@@ -419,12 +413,12 @@ LABEL_14:
   if (v9 && (-[HMDHomeActivityHomeAwayAggregator userActivityStatesDetails](selfCopy, "userActivityStatesDetails"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v10 isAnyUserAtHome], v10, !v11))
   {
     userActivityMap3 = [(HMDHomeActivityStateAggregator *)selfCopy userActivityMap];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __50__HMDHomeActivityHomeAwayAggregator_computedState__block_invoke;
-    v19[3] = &unk_278676F70;
-    v19[4] = selfCopy;
-    v14 = [userActivityMap3 na_filter:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __50__HMDHomeActivityHomeAwayAggregator_computedState__block_invoke;
+    v18[3] = &unk_278676F70;
+    v18[4] = selfCopy;
+    v14 = [userActivityMap3 na_filter:v18];
     distantPast = [MEMORY[0x277CBEAA8] distantPast];
     v16 = [v14 na_reduceWithInitialValue:distantPast reducer:&__block_literal_global_89522];
 
@@ -435,8 +429,6 @@ LABEL_14:
   {
     v12 = [[HMDHomeActivityHomeAwayAggregatorState alloc] initWithType:1 awayChangedTimestamp:0];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -464,7 +456,7 @@ id __50__HMDHomeActivityHomeAwayAggregator_computedState__block_invoke_2(uint64_
 
 - (BOOL)isReportTimestampWithinValidPeriod:(id)period
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   periodCopy = period;
   if (periodCopy)
   {
@@ -484,31 +476,30 @@ id __50__HMDHomeActivityHomeAwayAggregator_computedState__block_invoke_2(uint64_
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v13;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Did not find the changed time stamp.", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v13;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Did not find the changed time stamp.", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)handleUpdateFromDetector:(id)detector
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   detectorCopy = detector;
   dataSource = [(HMDHomeActivityStateAggregator *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
 
   userActivityStatesDetails = [(HMDHomeActivityHomeAwayAggregator *)self userActivityStatesDetails];
-  v43.receiver = self;
-  v43.super_class = HMDHomeActivityHomeAwayAggregator;
-  v8 = [(HMDHomeActivityStateAggregator *)&v43 handleUpdateFromDetector:detectorCopy];
+  v42.receiver = self;
+  v42.super_class = HMDHomeActivityHomeAwayAggregator;
+  v8 = [(HMDHomeActivityStateAggregator *)&v42 handleUpdateFromDetector:detectorCopy];
   if (v8)
   {
     v9 = detectorCopy;
@@ -528,7 +519,7 @@ id __50__HMDHomeActivityHomeAwayAggregator_computedState__block_invoke_2(uint64_
     if (v11)
     {
       v12 = v11;
-      v42 = userActivityStatesDetails;
+      v41 = userActivityStatesDetails;
       if (self)
       {
         dataSource2 = [(HMDHomeActivityStateAggregator *)self dataSource];
@@ -541,36 +532,36 @@ id __50__HMDHomeActivityHomeAwayAggregator_computedState__block_invoke_2(uint64_
           userActivityStatesDetails2 = [(HMDHomeActivityHomeAwayAggregator *)self userActivityStatesDetails];
           context = v12;
           sourceDevice = [v12 sourceDevice];
-          v18 = [v42 detailForUser:user];
-          v39 = userActivityStatesDetails2;
+          v18 = [v41 detailForUser:user];
+          v38 = userActivityStatesDetails2;
           v19 = [userActivityStatesDetails2 detailForUser:user];
           isNotAtHome = [v18 isNotAtHome];
-          v37 = v18;
+          v36 = v18;
           isAtHome = [v18 isAtHome];
           isNotAtHome2 = [v19 isNotAtHome];
-          v34 = v19;
+          v33 = v19;
           isAtHome2 = [v19 isAtHome];
           v24 = isAtHome2;
-          v33 = isNotAtHome;
-          v40 = user;
+          v32 = isNotAtHome;
+          v39 = user;
           if ((isNotAtHome & isAtHome2 & 1) != 0 || (isAtHome & isNotAtHome2) != 0)
           {
             v12 = context;
             if ([context reason] == 11)
             {
               changedTimestamp = [context changedTimestamp];
-              v41 = [(HMDHomeActivityHomeAwayAggregator *)self isReportTimestampWithinValidPeriod:changedTimestamp];
+              v40 = [(HMDHomeActivityHomeAwayAggregator *)self isReportTimestampWithinValidPeriod:changedTimestamp];
             }
 
             else
             {
-              v41 = 0;
+              v40 = 0;
             }
           }
 
           else
           {
-            v41 = 0;
+            v40 = 0;
             v12 = context;
           }
 
@@ -583,34 +574,33 @@ id __50__HMDHomeActivityHomeAwayAggregator_computedState__block_invoke_2(uint64_
             v29 = v24;
             v30 = v28;
             *buf = 138544642;
-            v45 = v28;
-            v46 = 1024;
-            v47 = isAtHome;
-            v48 = 1024;
-            v49 = v33;
-            v50 = 1024;
-            v51 = v29 & 1;
-            v52 = 1024;
-            v53 = isNotAtHome2 & 1;
-            v54 = 1024;
-            v55 = v41;
+            v44 = v28;
+            v45 = 1024;
+            v46 = isAtHome;
+            v47 = 1024;
+            v48 = v32;
+            v49 = 1024;
+            v50 = v29 & 1;
+            v51 = 1024;
+            v52 = isNotAtHome2 & 1;
+            v53 = 1024;
+            v54 = v40;
             _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@Sending user activity state changed notification for Old(H: %{BOOL}d, A: %{BOOL}d) -> New(H: %{BOOL}d, A: %{BOOL}d), isUpdate: %{BOOL}d", buf, 0x2Au);
           }
 
           objc_autoreleasePoolPop(contexta);
-          [(HMDHomeActivityHomeAwayAggregator *)selfCopy _postHomePresenceUpdateNotificationWithHomePresence:v39 userPresence:v34 causingDevice:sourceDevice isUpdate:v41];
+          [(HMDHomeActivityHomeAwayAggregator *)selfCopy _postHomePresenceUpdateNotificationWithHomePresence:v38 userPresence:v33 causingDevice:sourceDevice isUpdate:v40];
         }
       }
     }
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)processUserPresenceWithAuthStatus:(id)status regionStatus:(id)regionStatus updateReason:(id)reason forUser:(id)user fromDevice:(id)device
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   regionStatusCopy = regionStatus;
   reasonCopy = reason;
@@ -639,9 +629,9 @@ LABEL_13:
     v31 = HMFGetLogIdentifier();
     shortDescription = [userCopy shortDescription];
     *buf = 138543618;
-    v50 = v31;
-    v51 = 2114;
-    v52 = shortDescription;
+    v49 = v31;
+    v50 = 2114;
+    v51 = shortDescription;
     _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Ignoring presence update from %{public}@ because they're not allowed to contribute to Home Activity State", buf, 0x16u);
 
 LABEL_11:
@@ -667,9 +657,9 @@ LABEL_15:
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v50 = v38;
-      v51 = 2112;
-      v52 = v34;
+      v49 = v38;
+      v50 = 2112;
+      v51 = v34;
       _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@Location authorization was revoked. Removed report: %@", buf, 0x16u);
     }
 
@@ -698,7 +688,7 @@ LABEL_4:
 
     v31 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v50 = v31;
+    v49 = v31;
     _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Ignoring presence update because authorization status is not determined", buf, 0xCu);
     goto LABEL_11;
   }
@@ -713,7 +703,7 @@ LABEL_4:
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v50 = v26;
+      v49 = v26;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Ignoring presence update because the state is unknown or unspecified", buf, 0xCu);
     }
 
@@ -723,24 +713,24 @@ LABEL_4:
 
   if (v25)
   {
-    v48 = HMFGetLogIdentifier();
-    v47 = off_278672FD8[v19];
-    v46 = HMDUserActivityStateDetectorUpdateReasonAsString(v21);
+    v47 = HMFGetLogIdentifier();
+    v46 = off_278672FD8[v19];
+    v45 = HMDUserActivityStateDetectorUpdateReasonAsString(v21);
     [userCopy userID];
-    v39 = v45 = v22;
+    v39 = v44 = v22;
     *buf = 138544386;
-    v50 = v48;
-    v51 = 2114;
-    v52 = statusCopy;
-    v53 = 2114;
-    v54 = v47;
-    v55 = 2114;
-    v56 = v46;
-    v57 = 2112;
-    v58 = v39;
+    v49 = v47;
+    v50 = 2114;
+    v51 = statusCopy;
+    v52 = 2114;
+    v53 = v46;
+    v54 = 2114;
+    v55 = v45;
+    v56 = 2112;
+    v57 = v39;
     _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Received user presence with auth: %{public}@, homeAwayState: %{public}@, updateReason: %{public}@, user: %@", buf, 0x34u);
 
-    v22 = v45;
+    v22 = v44;
   }
 
   objc_autoreleasePoolPop(v22);
@@ -751,7 +741,6 @@ LABEL_4:
   v33 = [(HMDHomeActivityHomeAwayAggregator *)selfCopy4 handleUpdateFromDetector:v42];
 
 LABEL_23:
-  v43 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
@@ -778,10 +767,9 @@ LABEL_23:
 
 void __48__HMDHomeActivityHomeAwayAggregator_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v20_89541;
-  logCategory__hmf_once_v20_89541 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v20_89541;
+  logCategory__hmf_once_v20_89541 = v0;
 }
 
 @end

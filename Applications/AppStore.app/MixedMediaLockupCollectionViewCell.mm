@@ -9,7 +9,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000DBBF8();
+  sub_1000DBBF8(selfCopy, v2);
 }
 
 - (_TtC8AppStore9VideoView)accessibilityVideoView
@@ -22,7 +22,7 @@
 - (void)prepareForReuse
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for MixedMediaLockupCollectionViewCell();
+  v4.super_class = type metadata accessor for MixedMediaLockupCollectionViewCell(0);
   v2 = v4.receiver;
   [(MixedMediaLockupCollectionViewCell *)&v4 prepareForReuse];
   v3 = *&v2[OBJC_IVAR____TtC8AppStore34MixedMediaLockupCollectionViewCell_mediaView];

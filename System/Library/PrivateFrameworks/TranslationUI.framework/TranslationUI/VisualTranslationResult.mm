@@ -14,24 +14,21 @@
 {
   v3 = sub_26F49D968();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = MEMORY[0x28223BE20](v3);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v8, self + OBJC_IVAR____TtC13TranslationUI23VisualTranslationResult_uuid, v3, v6);
-  v9 = sub_26F49D928();
-  (*(v4 + 8))(v8, v3);
+  v5 = MEMORY[0x28223BE20](v3);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v7, self + OBJC_IVAR____TtC13TranslationUI23VisualTranslationResult_uuid, v3, v5);
+  v8 = sub_26F49D928();
+  (*(v4 + 8))(v7, v3);
 
-  return v9;
+  return v8;
 }
 
 - (NSString)string
 {
-  v2 = *(self + OBJC_IVAR____TtC13TranslationUI23VisualTranslationResult_string);
-  v3 = *(self + OBJC_IVAR____TtC13TranslationUI23VisualTranslationResult_string + 8);
 
-  v4 = sub_26F49F898();
+  v2 = sub_26F49F898();
 
-  return v4;
+  return v2;
 }
 
 - (CGPoint)topLeft

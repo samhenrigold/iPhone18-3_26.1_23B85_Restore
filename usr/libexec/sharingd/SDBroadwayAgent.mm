@@ -89,13 +89,16 @@
 - (void)_invalidate
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_100971838 <= 30 && (dword_100971838 != -1 || _LogCategory_Initialize()))
+  if (dword_100971838 <= 30)
   {
-    sub_100164CE8();
+    if (dword_100971838 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_100164CE8(v3, v4, v5);
+    }
   }
 
-  v3 = +[NSDistributedNotificationCenter defaultCenter];
-  [v3 removeObserver:self];
+  v6 = +[NSDistributedNotificationCenter defaultCenter];
+  [v6 removeObserver:self];
 }
 
 - (void)_applePayCardDectected:(id)dectected
@@ -128,11 +131,15 @@
 {
   codeCopy = code;
   infoCopy = info;
+  v9 = infoCopy;
   if (byte_1009A0614 == 1)
   {
-    if (dword_100971838 <= 30 && (dword_100971838 != -1 || _LogCategory_Initialize()))
+    if (dword_100971838 <= 30)
     {
-      sub_100164D44();
+      if (dword_100971838 != -1 || (infoCopy = _LogCategory_Initialize(), infoCopy))
+      {
+        sub_100164D44(infoCopy, v7, v8);
+      }
     }
   }
 
@@ -140,10 +147,10 @@
   {
     if (dword_100971838 <= 30 && (dword_100971838 != -1 || _LogCategory_Initialize()))
     {
-      sub_100164D04();
+      sub_100164D04(codeCopy);
     }
 
-    [(SDBroadwayAgent *)self lookUpValidAccountWithBroadwayActivationCode:codeCopy testInfo:infoCopy];
+    [(SDBroadwayAgent *)self lookUpValidAccountWithBroadwayActivationCode:codeCopy testInfo:v9];
   }
 }
 
@@ -153,7 +160,7 @@
   infoCopy = info;
   if (dword_100971838 <= 30 && (dword_100971838 != -1 || _LogCategory_Initialize()))
   {
-    sub_100164D60();
+    sub_100164D60(codeCopy);
   }
 
   v8 = [infoCopy objectForKeyedSubscript:@"testParams"];
@@ -167,7 +174,7 @@
     v9 = 0;
   }
 
-  sharedInstance = [off_1009718A8[0]() sharedInstance];
+  sharedInstance = [(objc_class *)off_1009718A8() sharedInstance];
   objc_initWeak(&location, self);
   v13[0] = _NSConcreteStackBlock;
   v13[1] = 3221225472;
@@ -191,7 +198,7 @@
   infoCopy = info;
   if (dword_100971838 <= 30 && (dword_100971838 != -1 || _LogCategory_Initialize()))
   {
-    sub_100164E08();
+    sub_100164E08(codeCopy);
   }
 
   v8 = [infoCopy objectForKeyedSubscript:@"testParams"];
@@ -205,7 +212,7 @@
     v9 = 0;
   }
 
-  sharedInstance = [off_1009718A8[0]() sharedInstance];
+  sharedInstance = [(objc_class *)off_1009718A8() sharedInstance];
   objc_initWeak(&location, self);
   v11 = v9 & 1;
   v12 = HIDWORD(v9) & 1;
@@ -231,7 +238,7 @@
   {
     if (dword_100971838 <= 90 && (dword_100971838 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_100971838, "[SDBroadwayAgent lookupPhysicalCardWithBroadwayActivationCode:testInfo:]", 90, "PKAccountService does not respond to new selector");
     }
 
     v13 = v16;
@@ -261,7 +268,24 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!codeCopy)
   {
-    goto LABEL_33;
+    NSErrorWithOSStatusF(4294960591, "Missing activation code");
+    v14 = LABEL_37:;
+LABEL_9:
+    v15 = 0;
+    v16 = 0;
+    v17 = 0;
+    if (!v14)
+    {
+      goto LABEL_27;
+    }
+
+LABEL_10:
+    if (dword_100971838 <= 60 && (dword_100971838 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_100971838, "[SDBroadwayAgent _startUIWithPhysicalCard:activationCode:testInfo:]", 60, "### Start UI failed: %{error}, with activation code: %@", v14, codeCopy);
+    }
+
+    goto LABEL_27;
   }
 
   if (cardCopy)
@@ -280,47 +304,44 @@
 
     if (unsignedIntegerValue == 5 || !unsignedIntegerValue)
     {
-      v24 = off_1009718C0(unsignedIntegerValue);
-      v13 = NSErrorWithOSStatusF();
+      v13 = off_1009718C0(unsignedIntegerValue);
+      v14 = NSErrorWithOSStatusF(4294960591, "Physical card has invalid state %@", v13);
 
       goto LABEL_9;
     }
   }
 
-  if (gSDProxCardsSuppressed == 1 || -[SDBroadwayAgent _uiShowing](self, "_uiShowing") || (+[SDStatusMonitor sharedMonitor](SDStatusMonitor, "sharedMonitor"), v17 = objc_claimAutoreleasedReturnValue(), v18 = [v17 systemUIFlags] & 0x5C808, v17, v18))
+  if (gSDProxCardsSuppressed == 1)
   {
-LABEL_33:
-    v13 = NSErrorWithOSStatusF();
-LABEL_9:
-    v14 = 0;
-    v15 = 0;
-    v16 = 0;
-    if (!v13)
-    {
-      goto LABEL_27;
-    }
+    NSErrorWithOSStatusF(4294960561, "");
+    goto LABEL_37;
+  }
 
-LABEL_10:
-    if (dword_100971838 <= 60 && (dword_100971838 != -1 || _LogCategory_Initialize()))
-    {
-      LogPrintF();
-    }
+  if ([(SDBroadwayAgent *)self _uiShowing])
+  {
+    NSErrorWithOSStatusF(4294960575, "");
+    goto LABEL_37;
+  }
 
-    goto LABEL_27;
+  v18 = +[SDStatusMonitor sharedMonitor];
+  v19 = [v18 systemUIFlags] & 0x5C808;
+
+  if (v19)
+  {
+    NSErrorWithOSStatusF(4294960587, "");
+    goto LABEL_37;
   }
 
   if (dword_100971838 <= 30 && (dword_100971838 != -1 || _LogCategory_Initialize()))
   {
-    v23 = cardCopy;
-    v25 = codeCopy;
-    LogPrintF();
+    LogPrintF(&dword_100971838, "[SDBroadwayAgent _startUIWithPhysicalCard:activationCode:testInfo:]", 30, "UI Start for card: %@ with code: %@", cardCopy, codeCopy);
   }
 
-  v15 = [[NSMutableDictionary alloc] initWithDictionary:infoCopy];
-  [v15 setObject:codeCopy forKeyedSubscript:@"activationCode"];
-  v16 = [[SBSRemoteAlertDefinition alloc] initWithServiceName:@"com.apple.SharingViewService" viewControllerClassName:@"BroadwayActivationMainController"];
-  v14 = objc_opt_new();
-  [v14 setUserInfo:v15];
+  v16 = [[NSMutableDictionary alloc] initWithDictionary:infoCopy];
+  [v16 setObject:codeCopy forKeyedSubscript:@"activationCode"];
+  v17 = [[SBSRemoteAlertDefinition alloc] initWithServiceName:@"com.apple.SharingViewService" viewControllerClassName:@"BroadwayActivationMainController"];
+  v15 = objc_opt_new();
+  [v15 setUserInfo:v16];
   alertHandle = self->_alertHandle;
   if (alertHandle)
   {
@@ -328,15 +349,15 @@ LABEL_10:
     [(SBSRemoteAlertHandle *)self->_alertHandle invalidate];
   }
 
-  v20 = [SBSRemoteAlertHandle newHandleWithDefinition:v16 configurationContext:v14, v23, v25];
-  v21 = self->_alertHandle;
-  self->_alertHandle = v20;
-
+  v21 = [SBSRemoteAlertHandle newHandleWithDefinition:v17 configurationContext:v15];
   v22 = self->_alertHandle;
-  if (!v22)
+  self->_alertHandle = v21;
+
+  v23 = self->_alertHandle;
+  if (!v23)
   {
-    v13 = NSErrorWithOSStatusF();
-    if (!v13)
+    v14 = NSErrorWithOSStatusF(4294960556, "Create remote alert handle failed");
+    if (!v14)
     {
       goto LABEL_27;
     }
@@ -344,14 +365,14 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  [(SBSRemoteAlertHandle *)v22 addObserver:self];
+  [(SBSRemoteAlertHandle *)v23 addObserver:self];
   [(SBSRemoteAlertHandle *)self->_alertHandle activateWithContext:0];
   if (dword_100971838 <= 30 && (dword_100971838 != -1 || _LogCategory_Initialize()))
   {
-    sub_100164E9C();
+    sub_100164E9C(codeCopy);
   }
 
-  v13 = 0;
+  v14 = 0;
 LABEL_27:
 }
 

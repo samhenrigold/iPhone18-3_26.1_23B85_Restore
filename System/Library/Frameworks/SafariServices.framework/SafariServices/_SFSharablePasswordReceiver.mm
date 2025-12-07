@@ -9,16 +9,16 @@
   v3 = MEMORY[0x1E6963608];
   lCopy = l;
   defaultWorkspace = [v3 defaultWorkspace];
-  v9 = 0;
-  v6 = [defaultWorkspace openSensitiveURL:lCopy withOptions:0 error:&v9];
+  v11 = 0;
+  v6 = [defaultWorkspace openSensitiveURL:lCopy withOptions:0 error:&v11];
 
-  v7 = v9;
+  v7 = v11;
   if ((v6 & 1) == 0)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXPasswordSharing();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXPasswordSharing(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(_SFSharablePasswordReceiver *)v8 openPasswordManagerURL:v7];
+      [(_SFSharablePasswordReceiver *)v10 openPasswordManagerURL:v7];
     }
   }
 }

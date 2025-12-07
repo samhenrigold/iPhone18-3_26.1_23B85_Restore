@@ -30,7 +30,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v28 = 1;
+    v14 = 1;
   }
 
   else
@@ -39,63 +39,63 @@
     if (objc_opt_isKindOfClass())
     {
       v5 = equalCopy;
-      v8 = objc_msgSend_version(self, v6, v7);
-      v11 = objc_msgSend_version(v5, v9, v10);
-      isEqualToString = objc_msgSend_isEqualToString_(v8, v12, v11);
+      version = [(APOdmlVector *)self version];
+      version2 = [(APOdmlVector *)v5 version];
+      v8 = [version isEqualToString:version2];
 
-      v16 = objc_msgSend_data(self, v14, v15);
-      v19 = objc_msgSend_data(v5, v17, v18);
-      isEqualToData = objc_msgSend_isEqualToData_(v16, v20, v19);
+      data = [(APOdmlVector *)self data];
+      data2 = [(APOdmlVector *)v5 data];
+      v11 = [data isEqualToData:data2];
 
-      v24 = objc_msgSend_length(self, v22, v23);
-      if (v24 == objc_msgSend_length(v5, v25, v26))
+      v12 = [(APOdmlVector *)self length];
+      if (v12 == [(APOdmlVector *)v5 length])
       {
-        v27 = isEqualToData;
+        v13 = v11;
       }
 
       else
       {
-        v27 = 0;
+        v13 = 0;
       }
 
-      if (isEqualToString)
+      if (v8)
       {
-        v28 = v27;
+        v14 = v13;
       }
 
       else
       {
-        v28 = 0;
+        v14 = 0;
       }
     }
 
     else
     {
-      v28 = 0;
+      v14 = 0;
     }
   }
 
-  return v28;
+  return v14;
 }
 
 - (unint64_t)hash
 {
-  v4 = objc_msgSend_version(self, a2, v2);
-  v7 = objc_msgSend_hash(v4, v5, v6);
-  v10 = objc_msgSend_length(self, v8, v9);
-  v13 = objc_msgSend_data(self, v11, v12);
-  v16 = v7 ^ objc_msgSend_hash(v13, v14, v15);
+  version = [(APOdmlVector *)self version];
+  v4 = [version hash];
+  v5 = [(APOdmlVector *)self length];
+  data = [(APOdmlVector *)self data];
+  v7 = v4 ^ [data hash];
 
-  return v16 ^ v10;
+  return v7 ^ v5;
 }
 
 - (APOdmlVector)initWithVersion:(id)version length:(unsigned int)length floats:(float *)floats
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   versionCopy = version;
-  v18.receiver = self;
-  v18.super_class = APOdmlVector;
-  v10 = [(APOdmlVector *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = APOdmlVector;
+  v10 = [(APOdmlVector *)&v17 init];
   if (!v10)
   {
     goto LABEL_4;
@@ -118,9 +118,9 @@ LABEL_4:
   {
     v14 = objc_opt_class();
     *buf = 138412546;
-    v20 = v14;
-    v21 = 1024;
-    v22 = 4 * length;
+    v19 = v14;
+    v20 = 1024;
+    v21 = 4 * length;
     v15 = v14;
     _os_log_impl(&dword_260ECB000, v13, OS_LOG_TYPE_ERROR, "[%@] ERROR: Could not alloc space of %ul", buf, 0x12u);
   }
@@ -128,90 +128,86 @@ LABEL_4:
   v12 = 0;
 LABEL_8:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (APOdmlVector)initWithVersion:(id)version data:(id)data
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   versionCopy = version;
   dataCopy = data;
-  v21.receiver = self;
-  v21.super_class = APOdmlVector;
-  v11 = [(APOdmlVector *)&v21 init];
-  if (!v11)
+  v17.receiver = self;
+  v17.super_class = APOdmlVector;
+  v9 = [(APOdmlVector *)&v17 init];
+  if (!v9)
   {
     goto LABEL_4;
   }
 
-  v12 = objc_msgSend_length(dataCopy, v9, v10);
-  v13 = malloc_type_malloc(v12, 0xA5CE0DC7uLL);
-  *(v11 + 1) = v13;
-  if (v13)
+  v10 = [dataCopy length];
+  v11 = malloc_type_malloc(v10, 0xA5CE0DC7uLL);
+  v9->_dataPtr = v11;
+  if (v11)
   {
-    *(v11 + 4) = v12 >> 2;
-    objc_storeStrong(v11 + 3, version);
-    objc_msgSend_getBytes_range_(dataCopy, v14, *(v11 + 1), 0, v12);
+    v9->_length = v10 >> 2;
+    objc_storeStrong(&v9->_version, version);
+    [dataCopy getBytes:v9->_dataPtr range:{0, v10}];
 LABEL_4:
-    v15 = v11;
+    v12 = v9;
     goto LABEL_8;
   }
 
-  v16 = OdmlLogForCategory(2uLL);
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v13 = OdmlLogForCategory(2uLL);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    v17 = objc_opt_class();
+    v14 = objc_opt_class();
     *buf = 138412546;
-    v23 = v17;
-    v24 = 1024;
-    v25 = v12;
-    v18 = v17;
-    _os_log_impl(&dword_260ECB000, v16, OS_LOG_TYPE_ERROR, "[%@] ERROR: Could not alloc space of %ul", buf, 0x12u);
+    v19 = v14;
+    v20 = 1024;
+    v21 = v10;
+    v15 = v14;
+    _os_log_impl(&dword_260ECB000, v13, OS_LOG_TYPE_ERROR, "[%@] ERROR: Could not alloc space of %ul", buf, 0x12u);
   }
 
-  v15 = 0;
+  v12 = 0;
 LABEL_8:
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v12;
 }
 
 - (APOdmlVector)initWithDictionary:(id)dictionary
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v5 = objc_opt_class();
-  v7 = objc_msgSend_objectForKey_ofKindOfClass_(dictionaryCopy, v6, @"vector", v5);
-  v8 = objc_opt_class();
-  v10 = objc_msgSend_objectForKey_ofKindOfClass_(dictionaryCopy, v9, @"version", v8);
-  v13 = objc_msgSend_copy(v10, v11, v12);
+  v5 = [dictionaryCopy objectForKey:@"vector" ofKindOfClass:objc_opt_class()];
+  v6 = [dictionaryCopy objectForKey:@"version" ofKindOfClass:objc_opt_class()];
+  v7 = [v6 copy];
 
-  if (v7)
+  if (v5)
   {
-    v15 = v13 == 0;
+    v8 = v7 == 0;
   }
 
   else
   {
-    v15 = 1;
+    v8 = 1;
   }
 
-  if (v15)
+  if (v8)
   {
-    v16 = OdmlLogForCategory(2uLL);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v9 = OdmlLogForCategory(2uLL);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v21 = 138413058;
-      v22 = objc_opt_class();
-      v23 = 2112;
-      v24 = v13;
-      v25 = 2112;
-      v26 = v7;
-      v27 = 2112;
-      v28 = dictionaryCopy;
-      v17 = v22;
-      _os_log_impl(&dword_260ECB000, v16, OS_LOG_TYPE_ERROR, "[%@] ERROR: Invalid dictionary\nVersion:\t%@\nVector:\t%@\nDict:\t%@", &v21, 0x2Au);
+      v13 = 138413058;
+      v14 = objc_opt_class();
+      v15 = 2112;
+      v16 = v7;
+      v17 = 2112;
+      v18 = v5;
+      v19 = 2112;
+      v20 = dictionaryCopy;
+      v10 = v14;
+      _os_log_impl(&dword_260ECB000, v9, OS_LOG_TYPE_ERROR, "[%@] ERROR: Invalid dictionary\nVersion:\t%@\nVector:\t%@\nDict:\t%@", &v13, 0x2Au);
     }
 
     selfCopy = 0;
@@ -219,67 +215,63 @@ LABEL_8:
 
   else
   {
-    self = objc_msgSend_initWithVersion_andArray_(self, v14, v13, v7);
+    self = [(APOdmlVector *)self initWithVersion:v7 andArray:v5];
     selfCopy = self;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (APOdmlVector)initWithVersion:(id)version andArray:(id)array
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   versionCopy = version;
   arrayCopy = array;
-  v24.receiver = self;
-  v24.super_class = APOdmlVector;
-  v8 = [(APOdmlVector *)&v24 init];
-  v10 = v8;
-  if (v8 && (v8->_dataPtr = objc_msgSend__createDataPtrFromArray_(v8, v9, arrayCopy), v10->_length = objc_msgSend_count(arrayCopy, v11, v12), v15 = objc_msgSend_copy(versionCopy, v13, v14), v16 = v10->_version, v10->_version = v15, v16, !v10->_version))
+  v18.receiver = self;
+  v18.super_class = APOdmlVector;
+  v8 = [(APOdmlVector *)&v18 init];
+  v9 = v8;
+  if (v8 && (v8->_dataPtr = -[APOdmlVector _createDataPtrFromArray:](v8, "_createDataPtrFromArray:", arrayCopy), v9->_length = [arrayCopy count], v10 = objc_msgSend(versionCopy, "copy"), v11 = v9->_version, v9->_version = v10, v11, !v9->_version))
   {
-    v18 = OdmlLogForCategory(2uLL);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v13 = OdmlLogForCategory(2uLL);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v19 = objc_opt_class();
-      version = v10->_version;
+      v14 = objc_opt_class();
+      version = v9->_version;
       *buf = 138412802;
-      v26 = v19;
-      v27 = 2112;
+      v20 = v14;
+      v21 = 2112;
       versionCopy2 = version;
-      v29 = 2112;
-      v30 = arrayCopy;
-      v21 = v19;
-      _os_log_impl(&dword_260ECB000, v18, OS_LOG_TYPE_ERROR, "[%@] ERROR: Invalid initializer\nVersion:\t%@\nVector:\t%@", buf, 0x20u);
+      v23 = 2112;
+      v24 = arrayCopy;
+      v16 = v14;
+      _os_log_impl(&dword_260ECB000, v13, OS_LOG_TYPE_ERROR, "[%@] ERROR: Invalid initializer\nVersion:\t%@\nVector:\t%@", buf, 0x20u);
     }
 
-    v17 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v17 = v10;
+    v12 = v9;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v12;
 }
 
 - (APOdmlVector)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = APOdmlVector;
-  v5 = [(APOdmlVector *)&v17 init];
+  v9.receiver = self;
+  v9.super_class = APOdmlVector;
+  v5 = [(APOdmlVector *)&v9 init];
   if (v5)
   {
-    v6 = objc_opt_class();
-    v8 = objc_msgSend_decodeArrayOfObjectsOfClass_forKey_(coderCopy, v7, v6, @"vector");
-    v5->_dataPtr = objc_msgSend__createDataPtrFromArray_(v5, v9, v8);
-    v5->_length = objc_msgSend_count(v8, v10, v11);
-    v12 = objc_opt_class();
-    v14 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v13, v12, @"version");
-    objc_msgSend_setVersion_(v5, v15, v14);
+    v6 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"vector"];
+    v5->_dataPtr = [(APOdmlVector *)v5 _createDataPtrFromArray:v6];
+    v5->_length = [v6 count];
+    v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"version"];
+    [(APOdmlVector *)v5 setVersion:v7];
   }
 
   return v5;
@@ -305,10 +297,10 @@ LABEL_8:
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v12 = objc_msgSend_arrayOfNumbers(self, v5, v6);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v7, v12, @"vector");
-  v10 = objc_msgSend_version(self, v8, v9);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v11, v10, @"version");
+  arrayOfNumbers = [(APOdmlVector *)self arrayOfNumbers];
+  [coderCopy encodeObject:arrayOfNumbers forKey:@"vector"];
+  version = [(APOdmlVector *)self version];
+  [coderCopy encodeObject:version forKey:@"version"];
 }
 
 - (void)dealloc
@@ -337,136 +329,132 @@ LABEL_8:
 
 - (float)_createDataPtrFromArray:(id)array
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
-  v6 = arrayCopy;
-  if (arrayCopy && (v7 = 4 * objc_msgSend_count(arrayCopy, v4, v5)) != 0)
+  v4 = arrayCopy;
+  if (arrayCopy && (v5 = 4 * [arrayCopy count]) != 0)
   {
-    v10 = malloc_type_malloc(v7, 0xD56414C8uLL);
-    if (v10)
+    v6 = malloc_type_malloc(v5, 0xD56414C8uLL);
+    if (v6)
     {
-      v11 = objc_msgSend_count(v6, v8, v9);
-      v25 = 0u;
-      v26 = 0u;
-      v27 = 0u;
-      v28 = 0u;
-      v12 = v6;
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v25, v29, 16);
-      if (v14)
+      v7 = [v4 count];
+      v17 = 0u;
+      v18 = 0u;
+      v19 = 0u;
+      v20 = 0u;
+      v8 = v4;
+      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      if (v9)
       {
-        v17 = v14;
-        v18 = &v10[v11];
-        v19 = *v26;
-        v20 = v10;
+        v10 = v9;
+        v11 = &v6[v7];
+        v12 = *v18;
+        v13 = v6;
         do
         {
-          v21 = 0;
+          v14 = 0;
           do
           {
-            if (*v26 != v19)
+            if (*v18 != v12)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v8);
             }
 
-            if (v20 < v18)
+            if (v13 < v11)
             {
-              objc_msgSend_floatValue(*(*(&v25 + 1) + 8 * v21), v15, v16, v25);
-              *v20++ = v22;
+              [*(*(&v17 + 1) + 8 * v14) floatValue];
+              *v13++ = v15;
             }
 
-            ++v21;
+            ++v14;
           }
 
-          while (v17 != v21);
-          v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v25, v29, 16);
+          while (v10 != v14);
+          v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
-        while (v17);
+        while (v10);
       }
     }
   }
 
   else
   {
-    v10 = 0;
+    v6 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v6;
 }
 
 - (id)arrayOfNumbers
 {
-  v3 = objc_alloc(MEMORY[0x277CBEB18]);
-  v7 = objc_msgSend_initWithCapacity_(v3, v4, self->_length);
+  v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:self->_length];
   if (self->_length)
   {
-    v9 = 0;
+    v5 = 0;
     do
     {
-      *&v8 = self->_dataPtr[v9];
-      v10 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v5, v6, v8);
-      objc_msgSend_addObject_(v7, v11, v10);
+      *&v4 = self->_dataPtr[v5];
+      v6 = [MEMORY[0x277CCABB0] numberWithFloat:v4];
+      [v3 addObject:v6];
 
-      ++v9;
+      ++v5;
     }
 
-    while (v9 < self->_length);
+    while (v5 < self->_length);
   }
 
-  v12 = objc_msgSend_copy(v7, v5, v6);
+  v7 = [v3 copy];
 
-  return v12;
+  return v7;
 }
 
 - (void)setArrayOfNumber:(id)number
 {
   numberCopy = number;
-  DataPtrFromArray = objc_msgSend__createDataPtrFromArray_(self, v5, numberCopy);
-  objc_msgSend_setDataPtr_(self, v7, DataPtrFromArray);
-  v10 = objc_msgSend_count(numberCopy, v8, v9);
+  [(APOdmlVector *)self setDataPtr:[(APOdmlVector *)self _createDataPtrFromArray:numberCopy]];
+  v5 = [numberCopy count];
 
-  self->_length = v10;
+  self->_length = v5;
 }
 
 - (id)dictionaryRepresentation
 {
-  v6 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2);
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (self->_dataPtr)
   {
-    v7 = objc_msgSend_arrayOfNumbers(self, v4, v5);
-    objc_msgSend_setObject_forKey_(v6, v8, v7, @"vector");
+    arrayOfNumbers = [(APOdmlVector *)self arrayOfNumbers];
+    [dictionary setObject:arrayOfNumbers forKey:@"vector"];
   }
 
   version = self->_version;
   if (version)
   {
-    objc_msgSend_setObject_forKey_(v6, v4, version, @"version");
+    [dictionary setObject:version forKey:@"version"];
   }
 
-  v10 = objc_msgSend_dictionaryWithDictionary_(MEMORY[0x277CBEAC0], v4, v6);
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:dictionary];
 
-  return v10;
+  return v6;
 }
 
 - (NSData)data
 {
   v3 = 4 * self->_length;
-  v4 = objc_alloc(MEMORY[0x277CBEB28]);
-  v6 = objc_msgSend_initWithCapacity_(v4, v5, 4 * v3);
-  v9 = v6;
+  v4 = [objc_alloc(MEMORY[0x277CBEB28]) initWithCapacity:4 * v3];
+  v5 = v4;
   if (v3)
   {
     dataPtr = self->_dataPtr;
     if (dataPtr)
     {
-      objc_msgSend_appendBytes_length_(v6, v7, dataPtr, v3);
+      [v4 appendBytes:dataPtr length:v3];
     }
   }
 
-  v10 = objc_msgSend_copy(v9, v7, dataPtr);
+  v7 = [v5 copy];
 
-  return v10;
+  return v7;
 }
 
 - (id)scalarMultiply:(float)multiply
@@ -478,68 +466,67 @@ LABEL_8:
     v5 = v4;
     MEMORY[0x2666F4EF0](self->_dataPtr, 1, &multiplyCopy, v4, 1, self->_length);
     v6 = [APOdmlVector alloc];
-    v9 = objc_msgSend_version(self, v7, v8);
-    v11 = objc_msgSend__initWithVersion_length_rawMallocedFloats_(v6, v10, v9, self->_length, v5);
+    version = [(APOdmlVector *)self version];
+    v8 = [(APOdmlVector *)v6 _initWithVersion:version length:self->_length rawMallocedFloats:v5];
   }
 
   else
   {
-    v11 = 0;
+    v8 = 0;
   }
 
-  return v11;
+  return v8;
 }
 
 - (float)dotProduct:(id)product
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   productCopy = product;
-  v7 = objc_msgSend_version(self, v5, v6);
-  v10 = objc_msgSend_version(productCopy, v8, v9);
-  v12 = objc_msgSend_compare_(v7, v11, v10);
+  version = [(APOdmlVector *)self version];
+  version2 = [productCopy version];
+  v7 = [version compare:version2];
 
-  v15 = 0.0;
-  if (!v12)
+  v8 = 0.0;
+  if (!v7)
   {
-    v16 = objc_msgSend_length(self, v13, v14);
-    if (v16 == objc_msgSend_length(productCopy, v17, v18))
+    v9 = [(APOdmlVector *)self length];
+    if (v9 == [productCopy length])
     {
-      v28 = 0;
-      vDSP_dotpr(self->_dataPtr, 1, productCopy[1], 1, &v28, self->_length);
-      v15 = *&v28;
+      v14 = 0;
+      vDSP_dotpr(self->_dataPtr, 1, productCopy[1], 1, &v14, self->_length);
+      v8 = *&v14;
     }
 
     else
     {
-      v19 = OdmlLogForCategory(2uLL);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v10 = OdmlLogForCategory(2uLL);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v20 = objc_opt_class();
-        v21 = v20;
-        v28 = 138412802;
-        v29 = v20;
-        v30 = 2048;
-        v31 = objc_msgSend_length(self, v22, v23);
-        v32 = 2048;
-        v33 = objc_msgSend_length(productCopy, v24, v25);
-        _os_log_impl(&dword_260ECB000, v19, OS_LOG_TYPE_ERROR, "[%@] ERROR: (Dot Product) Vectors are not of equal length:\nSelf: %lu\t Input: %lu", &v28, 0x20u);
+        v11 = objc_opt_class();
+        v12 = v11;
+        v14 = 138412802;
+        v15 = v11;
+        v16 = 2048;
+        v17 = [(APOdmlVector *)self length];
+        v18 = 2048;
+        v19 = [productCopy length];
+        _os_log_impl(&dword_260ECB000, v10, OS_LOG_TYPE_ERROR, "[%@] ERROR: (Dot Product) Vectors are not of equal length:\nSelf: %lu\t Input: %lu", &v14, 0x20u);
       }
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v8;
 }
 
 - (id)vectorAdd:(id)add
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   addCopy = add;
-  v7 = objc_msgSend_version(self, v5, v6);
-  v10 = objc_msgSend_version(addCopy, v8, v9);
-  v12 = objc_msgSend_compare_(v7, v11, v10);
+  version = [(APOdmlVector *)self version];
+  version2 = [addCopy version];
+  v7 = [version compare:version2];
 
-  if (v12)
+  if (v7)
   {
 LABEL_8:
     selfCopy = self;
@@ -547,33 +534,33 @@ LABEL_8:
   }
 
   length = self->_length;
-  if (length != objc_msgSend_length(addCopy, v13, v14))
+  if (length != [addCopy length])
   {
-    v24 = OdmlLogForCategory(2uLL);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v14 = OdmlLogForCategory(2uLL);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v25 = objc_opt_class();
-      v26 = v25;
-      v33 = 138412802;
-      v34 = v25;
-      v35 = 2048;
-      v36 = objc_msgSend_length(self, v27, v28);
-      v37 = 2048;
-      v38 = objc_msgSend_length(addCopy, v29, v30);
-      _os_log_impl(&dword_260ECB000, v24, OS_LOG_TYPE_ERROR, "[%@] ERROR: (Vector Add) Vectors are not of equal length:\nSelf: %lu\t Input: %lu", &v33, 0x20u);
+      v15 = objc_opt_class();
+      v16 = v15;
+      v18 = 138412802;
+      v19 = v15;
+      v20 = 2048;
+      v21 = [(APOdmlVector *)self length];
+      v22 = 2048;
+      v23 = [addCopy length];
+      _os_log_impl(&dword_260ECB000, v14, OS_LOG_TYPE_ERROR, "[%@] ERROR: (Vector Add) Vectors are not of equal length:\nSelf: %lu\t Input: %lu", &v18, 0x20u);
     }
 
     goto LABEL_8;
   }
 
-  v16 = malloc_type_malloc(4 * self->_length, 0xBEC08917uLL);
-  if (v16)
+  v9 = malloc_type_malloc(4 * self->_length, 0xBEC08917uLL);
+  if (v9)
   {
-    v17 = v16;
-    MEMORY[0x2666F4EE0](self->_dataPtr, 1, addCopy[1], 1, v16, 1, self->_length);
-    v18 = [APOdmlVector alloc];
-    v21 = objc_msgSend_version(self, v19, v20);
-    selfCopy = objc_msgSend__initWithVersion_length_rawMallocedFloats_(v18, v22, v21, self->_length, v17);
+    v10 = v9;
+    MEMORY[0x2666F4EE0](self->_dataPtr, 1, addCopy[1], 1, v9, 1, self->_length);
+    v11 = [APOdmlVector alloc];
+    version3 = [(APOdmlVector *)self version];
+    selfCopy = [(APOdmlVector *)v11 _initWithVersion:version3 length:self->_length rawMallocedFloats:v10];
   }
 
   else
@@ -582,55 +569,53 @@ LABEL_8:
   }
 
 LABEL_9:
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
 
 - (id)vectorSubtract:(id)subtract
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   subtractCopy = subtract;
-  v7 = objc_msgSend_version(self, v5, v6);
-  v10 = objc_msgSend_version(subtractCopy, v8, v9);
-  v12 = objc_msgSend_compare_(v7, v11, v10);
+  version = [(APOdmlVector *)self version];
+  version2 = [subtractCopy version];
+  v7 = [version compare:version2];
 
-  if (v12)
+  if (v7)
   {
 LABEL_8:
     selfCopy = self;
     goto LABEL_9;
   }
 
-  v15 = objc_msgSend_length(self, v13, v14);
-  if (v15 != objc_msgSend_length(subtractCopy, v16, v17))
+  v8 = [(APOdmlVector *)self length];
+  if (v8 != [subtractCopy length])
   {
-    v26 = OdmlLogForCategory(2uLL);
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v14 = OdmlLogForCategory(2uLL);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v27 = objc_opt_class();
-      v28 = v27;
-      v35 = 138412802;
-      v36 = v27;
-      v37 = 2048;
-      v38 = objc_msgSend_length(self, v29, v30);
-      v39 = 2048;
-      v40 = objc_msgSend_length(subtractCopy, v31, v32);
-      _os_log_impl(&dword_260ECB000, v26, OS_LOG_TYPE_ERROR, "[%@] ERROR: (Vector Subtract) Vectors are not of equal length:\nSelf: %lu\t Input: %lu", &v35, 0x20u);
+      v15 = objc_opt_class();
+      v16 = v15;
+      v18 = 138412802;
+      v19 = v15;
+      v20 = 2048;
+      v21 = [(APOdmlVector *)self length];
+      v22 = 2048;
+      v23 = [subtractCopy length];
+      _os_log_impl(&dword_260ECB000, v14, OS_LOG_TYPE_ERROR, "[%@] ERROR: (Vector Subtract) Vectors are not of equal length:\nSelf: %lu\t Input: %lu", &v18, 0x20u);
     }
 
     goto LABEL_8;
   }
 
-  v18 = malloc_type_malloc(4 * self->_length, 0xBBB1F084uLL);
-  if (v18)
+  v9 = malloc_type_malloc(4 * self->_length, 0xBBB1F084uLL);
+  if (v9)
   {
-    v19 = v18;
-    MEMORY[0x2666F4F00](subtractCopy[1], 1, self->_dataPtr, 1, v18, 1, self->_length);
-    v20 = [APOdmlVector alloc];
-    v23 = objc_msgSend_version(self, v21, v22);
-    selfCopy = objc_msgSend__initWithVersion_length_rawMallocedFloats_(v20, v24, v23, self->_length, v19);
+    v10 = v9;
+    MEMORY[0x2666F4F00](subtractCopy[1], 1, self->_dataPtr, 1, v9, 1, self->_length);
+    v11 = [APOdmlVector alloc];
+    version3 = [(APOdmlVector *)self version];
+    selfCopy = [(APOdmlVector *)v11 _initWithVersion:version3 length:self->_length rawMallocedFloats:v10];
   }
 
   else
@@ -639,8 +624,6 @@ LABEL_8:
   }
 
 LABEL_9:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
@@ -648,91 +631,89 @@ LABEL_9:
 - (float)magnitude
 {
   __C = 0.0;
-  dataPtr = self->_dataPtr;
-  v4 = objc_msgSend_length(self, a2, v2);
-  vDSP_svesq(dataPtr, 1, &__C, v4);
+  vDSP_svesq(self->_dataPtr, 1, &__C, [(APOdmlVector *)self length]);
   return sqrtf(__C);
 }
 
 - (id)cosineSimilarity:(id)similarity
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   similarityCopy = similarity;
-  v7 = objc_msgSend_version(self, v5, v6);
-  v10 = objc_msgSend_version(similarityCopy, v8, v9);
-  v12 = objc_msgSend_compare_(v7, v11, v10);
+  version = [(APOdmlVector *)self version];
+  version2 = [similarityCopy version];
+  v7 = [version compare:version2];
 
-  if (v12)
+  if (v7)
   {
     goto LABEL_14;
   }
 
-  v15 = objc_msgSend_length(self, v13, v14);
-  if (v15 != objc_msgSend_length(similarityCopy, v16, v17))
+  v8 = [(APOdmlVector *)self length];
+  if (v8 != [similarityCopy length])
   {
-    v31 = OdmlLogForCategory(2uLL);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v15 = OdmlLogForCategory(2uLL);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v36 = objc_opt_class();
-      v37 = v36;
-      v45 = 138412802;
-      v46 = v36;
-      v47 = 2048;
-      *&v48 = objc_msgSend_length(self, v38, v39);
-      v49 = 2048;
-      *&v50 = objc_msgSend_length(similarityCopy, v40, v41);
-      _os_log_impl(&dword_260ECB000, v31, OS_LOG_TYPE_ERROR, "[%@] ERROR: (Cosine Similarity) Vectors are not of equal length:\nSelf: %lu\t Input: %lu", &v45, 0x20u);
+      v20 = objc_opt_class();
+      v21 = v20;
+      v24 = 138412802;
+      v25 = v20;
+      v26 = 2048;
+      *&v27 = [(APOdmlVector *)self length];
+      v28 = 2048;
+      *&v29 = [similarityCopy length];
+      _os_log_impl(&dword_260ECB000, v15, OS_LOG_TYPE_ERROR, "[%@] ERROR: (Cosine Similarity) Vectors are not of equal length:\nSelf: %lu\t Input: %lu", &v24, 0x20u);
     }
 
     goto LABEL_13;
   }
 
-  objc_msgSend_magnitude(self, v18, v19);
-  v21 = v20;
-  objc_msgSend_magnitude(similarityCopy, v22, v23);
-  v26 = v25;
-  if (v21 == 0.0 || v25 == 0.0)
+  [(APOdmlVector *)self magnitude];
+  v10 = v9;
+  [similarityCopy magnitude];
+  v12 = v11;
+  if (v10 == 0.0 || v11 == 0.0)
   {
-    v31 = OdmlLogForCategory(2uLL);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v15 = OdmlLogForCategory(2uLL);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v45 = 138412802;
-      v46 = objc_opt_class();
-      v47 = 2048;
-      v48 = v21;
-      v49 = 2048;
-      v50 = v26;
-      v32 = v46;
-      v33 = "[%@] ERROR: We are going to divide by zero:\nOur Magnitude:\t%f\nVec Magnitude:\t%f";
-      v34 = v31;
-      v35 = 32;
+      v24 = 138412802;
+      v25 = objc_opt_class();
+      v26 = 2048;
+      v27 = v10;
+      v28 = 2048;
+      v29 = v12;
+      v16 = v25;
+      v17 = "[%@] ERROR: We are going to divide by zero:\nOur Magnitude:\t%f\nVec Magnitude:\t%f";
+      v18 = v15;
+      v19 = 32;
       goto LABEL_12;
     }
 
 LABEL_13:
 
 LABEL_14:
-    v42 = 0;
+    v22 = 0;
     goto LABEL_15;
   }
 
-  objc_msgSend_dotProduct_(self, v24, similarityCopy);
-  v30 = *&v29 / (v21 * v26);
-  if (fabsf(v30) > 1.0)
+  [(APOdmlVector *)self dotProduct:similarityCopy];
+  v14 = *&v13 / (v10 * v12);
+  if (fabsf(v14) > 1.0)
   {
-    v31 = OdmlLogForCategory(2uLL);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v15 = OdmlLogForCategory(2uLL);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v45 = 138412546;
-      v46 = objc_opt_class();
-      v47 = 2048;
-      v48 = v30;
-      v32 = v46;
-      v33 = "[%@] ERROR: Cosine Similarity is out of bounds: %f";
-      v34 = v31;
-      v35 = 22;
+      v24 = 138412546;
+      v25 = objc_opt_class();
+      v26 = 2048;
+      v27 = v14;
+      v16 = v25;
+      v17 = "[%@] ERROR: Cosine Similarity is out of bounds: %f";
+      v18 = v15;
+      v19 = 22;
 LABEL_12:
-      _os_log_impl(&dword_260ECB000, v34, OS_LOG_TYPE_ERROR, v33, &v45, v35);
+      _os_log_impl(&dword_260ECB000, v18, OS_LOG_TYPE_ERROR, v17, &v24, v19);
 
       goto LABEL_13;
     }
@@ -740,13 +721,11 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  *&v29 = v30;
-  v42 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v27, v28, v29);
+  *&v13 = v14;
+  v22 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
 LABEL_15:
 
-  v43 = *MEMORY[0x277D85DE8];
-
-  return v42;
+  return v22;
 }
 
 @end

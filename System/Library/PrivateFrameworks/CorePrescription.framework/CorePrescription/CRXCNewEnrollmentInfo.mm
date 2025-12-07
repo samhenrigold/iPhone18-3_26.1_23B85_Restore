@@ -11,12 +11,10 @@
 
 - (NSString)uuid
 {
-  v2 = *(self + OBJC_IVAR___CRXCNewEnrollmentInfo_uuid);
-  v3 = *(self + OBJC_IVAR___CRXCNewEnrollmentInfo_uuid + 8);
 
-  v4 = sub_247365C44();
+  v2 = sub_247365C44();
 
-  return v4;
+  return v2;
 }
 
 - (CRXCNewEnrollmentInfo)initWithUuid:(id)uuid lensCalibrationStatus:(int64_t)status
@@ -65,17 +63,15 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = *(self + OBJC_IVAR___CRXCNewEnrollmentInfo_uuid);
-  v5 = *(self + OBJC_IVAR___CRXCNewEnrollmentInfo_uuid + 8);
   coderCopy = coder;
   selfCopy = self;
-  v8 = sub_247365C44();
-  v9 = sub_247365C44();
-  [coderCopy encodeObject:v8 forKey:v9];
+  v6 = sub_247365C44();
+  v7 = sub_247365C44();
+  [coderCopy encodeObject:v6 forKey:v7];
 
-  v10 = *(selfCopy + OBJC_IVAR___CRXCNewEnrollmentInfo_lensCalibrationStatus);
-  v11 = sub_247365C44();
-  [coderCopy encodeInteger:v10 forKey:v11];
+  v8 = *(selfCopy + OBJC_IVAR___CRXCNewEnrollmentInfo_lensCalibrationStatus);
+  v9 = sub_247365C44();
+  [coderCopy encodeInteger:v8 forKey:v9];
 }
 
 - (CRXCNewEnrollmentInfo)init

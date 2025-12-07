@@ -406,55 +406,50 @@
     index = self->_index;
     subindex = self->_subindex;
     *buf = 138413058;
-    v29 = pathsCopy;
-    v30 = 2048;
-    v31 = index;
-    v32 = 2048;
-    v33 = index;
-    v34 = 2048;
-    v35 = subindex;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "[MBErrorInjectorDrive remoteItemsAtPath:%@]: %lu %lu %lu", buf, 0x2Au);
-    index2 = [(MBDriveScript *)self->_script index];
-    v26 = self->_index;
-    v27 = self->_subindex;
     v24 = pathsCopy;
-    v25 = index2;
-    _MBLog();
+    v25 = 2048;
+    v26 = index;
+    v27 = 2048;
+    v28 = index;
+    v29 = 2048;
+    v30 = subindex;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "[MBErrorInjectorDrive remoteItemsAtPath:%@]: %lu %lu %lu", buf, 0x2Au);
+    _MBLog(@"I ", "[MBErrorInjectorDrive remoteItemsAtPath:%@]: %lu %lu %lu", pathsCopy, [(MBDriveScript *)self->_script index], self->_index, self->_subindex);
   }
 
   if ([(MBDriveScript *)self->_script index]== self->_index)
   {
     if ([pathsCopy count])
     {
-      v18 = self->_subindex;
-      if (v18 >= [pathsCopy count])
+      v17 = self->_subindex;
+      if (v17 >= [pathsCopy count])
       {
-        v23 = +[NSAssertionHandler currentHandler];
-        [v23 handleFailureInMethod:a2 object:self file:@"MBErrorInjectorDrive.m" lineNumber:194 description:@"Subindex out of range"];
+        v22 = +[NSAssertionHandler currentHandler];
+        [v22 handleFailureInMethod:a2 object:self file:@"MBErrorInjectorDrive.m" lineNumber:194 description:@"Subindex out of range"];
       }
 
-      v19 = [pathsCopy subarrayWithRange:{0, self->_subindex, v24, v25, v26, v27}];
-      v20 = [(MBDrive *)self->_delegate removeItemsAtPaths:v19 options:optionsCopy results:results error:error];
-      if (error && v20)
+      v18 = [pathsCopy subarrayWithRange:{0, self->_subindex}];
+      v19 = [(MBDrive *)self->_delegate removeItemsAtPaths:v18 options:optionsCopy results:results error:error];
+      if (error && v19)
       {
         *error = [MBError errorWithCode:100 format:@"Simulated I/O error"];
       }
 
-      v21 = 0;
+      v20 = 0;
     }
 
     else
     {
-      v21 = 1;
+      v20 = 1;
     }
   }
 
   else
   {
-    v21 = [(MBDrive *)self->_delegate removeItemsAtPaths:pathsCopy options:optionsCopy results:results error:error];
+    v20 = [(MBDrive *)self->_delegate removeItemsAtPaths:pathsCopy options:optionsCopy results:results error:error];
   }
 
-  return v21;
+  return v20;
 }
 
 @end

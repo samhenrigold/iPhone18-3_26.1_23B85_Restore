@@ -1,7 +1,10 @@
 @interface TSPClassRegistry
+- (Class)classForExtensionNumber:(int)number;
 - (Class)classForMessage:(const Message *)message;
+- (Class)p_classForExtensionNumber:(int)number;
 - (TSPClassRegistry)init;
 - (TSPClassRegistry)initWithName:(id)name;
+- (void)registerClass:(Class)class forExtensionNumber:(int)number;
 @end
 
 @implementation TSPClassRegistry
@@ -102,6 +105,66 @@ LABEL_11:
 LABEL_13:
 
   return v29;
+}
+
+- (Class)classForExtensionNumber:(int)number
+{
+  v3 = *&number;
+  v6 = objc_msgSend_p_classForExtensionNumber_(self, a2, *&number);
+  if (!v6)
+  {
+    v7 = MEMORY[0x277D81150];
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSPClassRegistry classForExtensionNumber:]");
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPClassRegistry.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 51, 0, "%{public}@ could not find class for extension number: %d", self->_name, v3);
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
+  }
+
+  return v6;
+}
+
+- (Class)p_classForExtensionNumber:(int)number
+{
+  self->_didFinishRegistration = 1;
+  registry = self->_registry;
+  v4 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], a2, *&number);
+  v6 = objc_msgSend_objectForKeyedSubscript_(registry, v5, v4);
+
+  return v6;
+}
+
+- (void)registerClass:(Class)class forExtensionNumber:(int)number
+{
+  v4 = *&number;
+  if (self->_didFinishRegistration)
+  {
+    v7 = MEMORY[0x277D81150];
+    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSPClassRegistry registerClass:forExtensionNumber:]");
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPClassRegistry.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v10, v25, v9, 61, 0, "Cannot register classes anymore.");
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12);
+  }
+
+  v26 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], a2, v4);
+  v15 = objc_msgSend_objectForKeyedSubscript_(self->_registry, v13, v26);
+  if (v15)
+  {
+    v16 = MEMORY[0x277D81150];
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSPClassRegistry registerClass:forExtensionNumber:]");
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPClassRegistry.mm");
+    v20 = NSStringFromClass(v15);
+    v21 = NSStringFromClass(class);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v22, v17, v19, 68, 0, "Both %{public}@ and %{public}@ classes are registered for extension number %d.", v20, v21, v4);
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24);
+  }
+
+  else
+  {
+    objc_msgSend_setObject_forKeyedSubscript_(self->_registry, v14, class, v26);
+  }
 }
 
 @end

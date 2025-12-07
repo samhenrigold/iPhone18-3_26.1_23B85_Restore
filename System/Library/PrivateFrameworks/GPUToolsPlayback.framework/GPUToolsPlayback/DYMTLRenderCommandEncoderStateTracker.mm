@@ -142,20 +142,19 @@
 
 - (BOOL)respondsToSelector:(SEL)selector
 {
-  v7.receiver = self;
-  v7.super_class = DYMTLRenderCommandEncoderStateTracker;
-  if ([(DYMTLRenderCommandEncoderStateTracker *)&v7 respondsToSelector:?])
+  v5.receiver = self;
+  v5.super_class = DYMTLRenderCommandEncoderStateTracker;
+  if ([(DYMTLRenderCommandEncoderStateTracker *)&v5 respondsToSelector:?])
   {
-    v4 = 1;
+    v3 = 1;
   }
 
   else
   {
-    renderEncoder = self->_renderEncoder;
-    v4 = objc_opt_respondsToSelector();
+    v3 = objc_opt_respondsToSelector();
   }
 
-  return v4 & 1;
+  return v3 & 1;
 }
 
 - (void)_setDefaultsWithDescriptor:(id)descriptor device:(id)device
@@ -186,12 +185,12 @@ LABEL_9:
 
     else
     {
-      [rasterizationRateMap screenSize];
+      objc_msgSend_screenSize(rasterizationRateMap);
       renderTargetWidth = *&v13[0];
       if (!v11)
       {
 LABEL_7:
-        [rasterizationRateMap screenSize];
+        objc_msgSend_screenSize(rasterizationRateMap);
         v11 = *(&v13[0] + 1);
       }
     }
@@ -205,7 +204,7 @@ LABEL_10:
   v13[0] = 0uLL;
   v13[1] = vcvtq_f64_f32(vcvt_f32_f64(vcvtq_f64_u64(*&self->_width)));
   v13[2] = xmmword_24D740DE0;
-  std::vector<MTLViewport>::assign(&self->_viewports.__begin_, 1uLL, v13);
+  std::vector<MTLViewport>::assign(&self->_viewports, 1uLL, v13);
   self->_frontFacingWinding = 0;
   self->_cullMode = 0;
   self->_depthClipMode = 0;
@@ -214,7 +213,7 @@ LABEL_10:
   self->_depthBiasClamp = 0.0;
   v12[0] = 0uLL;
   v12[1] = *&self->_width;
-  std::vector<MTLScissorRect>::assign(&self->_scissorRects.__begin_, 1uLL, v12);
+  std::vector<MTLScissorRect>::assign(&self->_scissorRects, 1uLL, v12);
   self->_triangleFillMode = 0;
   self->_visibilityResultMode = 0;
   *&self->_amplificationMode = xmmword_24D740C30;
@@ -857,7 +856,7 @@ LABEL_10:
 
 - (void)setViewport:(id *)viewport
 {
-  std::vector<MTLViewport>::assign(&self->_viewports.__begin_, 1uLL, viewport);
+  std::vector<MTLViewport>::assign(&self->_viewports, 1uLL, viewport);
   renderEncoder = self->_renderEncoder;
   v6 = *&viewport->var2;
   v7[0] = *&viewport->var0;
@@ -878,7 +877,7 @@ LABEL_10:
     memset(v7, 0, sizeof(v7));
     v8 = 0;
     v9 = 0x3FF0000000000000;
-    std::vector<MTLViewport>::assign(&self->_viewports.__begin_, 1uLL, v7);
+    std::vector<MTLViewport>::assign(&self->_viewports, 1uLL, v7);
   }
 
   [(MTLRenderCommandEncoderSPI *)self->_renderEncoder setViewports:viewports count:count];
@@ -894,7 +893,7 @@ LABEL_10:
 
 - (void)setScissorRect:(id *)rect
 {
-  std::vector<MTLScissorRect>::assign(&self->_scissorRects.__begin_, 1uLL, rect);
+  std::vector<MTLScissorRect>::assign(&self->_scissorRects, 1uLL, rect);
   renderEncoder = self->_renderEncoder;
   v6 = *&rect->var2;
   v7[0] = *&rect->var0;
@@ -912,7 +911,7 @@ LABEL_10:
   else
   {
     memset(v7, 0, sizeof(v7));
-    std::vector<MTLScissorRect>::assign(&self->_scissorRects.__begin_, 1uLL, v7);
+    std::vector<MTLScissorRect>::assign(&self->_scissorRects, 1uLL, v7);
   }
 
   [(MTLRenderCommandEncoderSPI *)self->_renderEncoder setScissorRects:rects count:count];
@@ -942,18 +941,18 @@ LABEL_10:
 
 - (void)setColorStoreAction:(unint64_t)action atIndex:(unint64_t)index
 {
-  v6[0] = index;
-  v6[2] = v6;
-  std::__hash_table<std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,DYMTLStoreInfo>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&self->_colorStoreInfos.__table_.__bucket_list_.__ptr_, v6)[3] = action;
-  [(MTLRenderCommandEncoderSPI *)self->_renderEncoder setColorStoreAction:action atIndex:v6[0]];
+  indexCopy = index;
+  v7 = &indexCopy;
+  std::__hash_table<std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,DYMTLStoreInfo>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&self->_colorStoreInfos.__table_.__bucket_list_.__ptr_, &indexCopy, &std::piecewise_construct, &v7)[3] = action;
+  [(MTLRenderCommandEncoderSPI *)self->_renderEncoder setColorStoreAction:action atIndex:indexCopy];
 }
 
 - (void)setColorStoreActionOptions:(unint64_t)options atIndex:(unint64_t)index
 {
-  v6[0] = index;
-  v6[2] = v6;
-  std::__hash_table<std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,DYMTLStoreInfo>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&self->_colorStoreInfos.__table_.__bucket_list_.__ptr_, v6)[4] = options;
-  [(MTLRenderCommandEncoderSPI *)self->_renderEncoder setColorStoreActionOptions:options atIndex:v6[0]];
+  indexCopy = index;
+  v7 = &indexCopy;
+  std::__hash_table<std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,DYMTLStoreInfo>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&self->_colorStoreInfos.__table_.__bucket_list_.__ptr_, &indexCopy, &std::piecewise_construct, &v7)[4] = options;
+  [(MTLRenderCommandEncoderSPI *)self->_renderEncoder setColorStoreActionOptions:options atIndex:indexCopy];
 }
 
 - (void)setVisibilityResultMode:(unint64_t)mode offset:(unint64_t)offset
@@ -1093,9 +1092,7 @@ LABEL_10:
 {
   encoderCopy = encoder;
   blockCopy = block;
-  v8 = (self->_viewports.__end_ - self->_viewports.__begin_) >> 4;
   [encoderCopy setViewports:? count:?];
-  v9 = self->_scissorRects.__end_ - self->_scissorRects.__begin_;
   [encoderCopy setScissorRects:? count:?];
   [encoderCopy setFrontFacingWinding:self->_frontFacingWinding];
   [encoderCopy setCullMode:self->_cullMode];
@@ -1121,34 +1118,34 @@ LABEL_10:
 
   if (self->_tessellationFactorSet)
   {
-    *&v10 = self->_tessellationFactorScale;
-    [encoderCopy setTessellationFactorScale:v10];
+    *&v8 = self->_tessellationFactorScale;
+    [encoderCopy setTessellationFactorScale:v8];
     [encoderCopy setTessellationFactorBuffer:self->_tessellationFactorBuffer offset:self->_tessellationFactorBufferOffset instanceStride:self->_tessellationFactorBufferInstanceStride];
   }
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __82__DYMTLRenderCommandEncoderStateTracker__applyVertexStateToEncoder_rawBytesBlock___block_invoke;
-  v20[3] = &unk_27930F8C0;
-  v12 = blockCopy;
-  v22 = v12;
-  v13 = encoderCopy;
-  v21 = v13;
-  [(DYMTLRenderCommandEncoderStateTracker *)self enumerateVertexBuffersUsingBlock:v20];
   v18[0] = MEMORY[0x277D85DD0];
   v18[1] = 3221225472;
-  v18[2] = __82__DYMTLRenderCommandEncoderStateTracker__applyVertexStateToEncoder_rawBytesBlock___block_invoke_2;
-  v18[3] = &unk_27930F538;
-  v14 = v13;
-  v19 = v14;
-  [(DYMTLRenderCommandEncoderStateTracker *)self enumerateVertexTexturesUsingBlock:v18];
+  v18[2] = __82__DYMTLRenderCommandEncoderStateTracker__applyVertexStateToEncoder_rawBytesBlock___block_invoke;
+  v18[3] = &unk_27930F8C0;
+  v10 = blockCopy;
+  v20 = v10;
+  v11 = encoderCopy;
+  v19 = v11;
+  [(DYMTLRenderCommandEncoderStateTracker *)self enumerateVertexBuffersUsingBlock:v18];
   v16[0] = MEMORY[0x277D85DD0];
   v16[1] = 3221225472;
-  v16[2] = __82__DYMTLRenderCommandEncoderStateTracker__applyVertexStateToEncoder_rawBytesBlock___block_invoke_3;
-  v16[3] = &unk_27930F8E8;
-  v15 = v14;
-  v17 = v15;
-  [(DYMTLRenderCommandEncoderStateTracker *)self enumerateVertexSamplersUsingBlock:v16];
+  v16[2] = __82__DYMTLRenderCommandEncoderStateTracker__applyVertexStateToEncoder_rawBytesBlock___block_invoke_2;
+  v16[3] = &unk_27930F538;
+  v12 = v11;
+  v17 = v12;
+  [(DYMTLRenderCommandEncoderStateTracker *)self enumerateVertexTexturesUsingBlock:v16];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __82__DYMTLRenderCommandEncoderStateTracker__applyVertexStateToEncoder_rawBytesBlock___block_invoke_3;
+  v14[3] = &unk_27930F8E8;
+  v13 = v12;
+  v15 = v13;
+  [(DYMTLRenderCommandEncoderStateTracker *)self enumerateVertexSamplersUsingBlock:v14];
 }
 
 void __82__DYMTLRenderCommandEncoderStateTracker__applyVertexStateToEncoder_rawBytesBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1167,26 +1164,25 @@ void __82__DYMTLRenderCommandEncoderStateTracker__applyVertexStateToEncoder_rawB
       v8 = 0;
     }
 
-    v13 = v7;
+    v12 = v7;
     [v6 setVertexBuffer:v7 offset:v8 atIndex:a3];
   }
 
   else
   {
-    v9 = *(a1 + 40);
-    v10 = (*(*(a1 + 40) + 16))();
-    v11 = *(a1 + 32);
+    v9 = (*(*(a1 + 40) + 16))();
+    v10 = *(a1 + 32);
     if (*a2 || !*(a2 + 8))
     {
-      v12 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v12 = *(a2 + 16);
+      v11 = *(a2 + 16);
     }
 
-    [v11 setVertexBytes:v10 length:v12 atIndex:a3];
+    [v10 setVertexBytes:v9 length:v11 atIndex:a3];
   }
 }
 
@@ -1242,26 +1238,25 @@ void __84__DYMTLRenderCommandEncoderStateTracker__applyFragmentStateToEncoder_ra
       v8 = 0;
     }
 
-    v13 = v7;
+    v12 = v7;
     [v6 setFragmentBuffer:v7 offset:v8 atIndex:a3];
   }
 
   else
   {
-    v9 = *(a1 + 40);
-    v10 = (*(*(a1 + 40) + 16))();
-    v11 = *(a1 + 32);
+    v9 = (*(*(a1 + 40) + 16))();
+    v10 = *(a1 + 32);
     if (*a2 || !*(a2 + 8))
     {
-      v12 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v12 = *(a2 + 16);
+      v11 = *(a2 + 16);
     }
 
-    [v11 setFragmentBytes:v10 length:v12 atIndex:a3];
+    [v10 setFragmentBytes:v9 length:v11 atIndex:a3];
   }
 }
 
@@ -1367,26 +1362,25 @@ void __78__DYMTLRenderCommandEncoderStateTracker_applyAllStateToEncoder_rawBytes
       v8 = 0;
     }
 
-    v13 = v7;
+    v12 = v7;
     [v6 setTileBuffer:v7 offset:v8 atIndex:a3];
   }
 
   else
   {
-    v9 = *(a1 + 40);
-    v10 = (*(*(a1 + 40) + 16))();
-    v11 = *(a1 + 32);
+    v9 = (*(*(a1 + 40) + 16))();
+    v10 = *(a1 + 32);
     if (*a2 || !*(a2 + 8))
     {
-      v12 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v12 = *(a2 + 16);
+      v11 = *(a2 + 16);
     }
 
-    [v11 setTileBytes:v10 length:v12 atIndex:a3];
+    [v10 setTileBytes:v9 length:v11 atIndex:a3];
   }
 }
 

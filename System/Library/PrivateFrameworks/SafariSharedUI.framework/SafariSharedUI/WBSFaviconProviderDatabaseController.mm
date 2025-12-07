@@ -317,28 +317,30 @@ uint64_t __156__WBSFaviconProviderDatabaseController_linkAndUpdateTimestampForIc
 void __100__WBSFaviconProviderDatabaseController_linkPageURLString_toExistingIconURLString_completionHandler___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _fetchIconUUIDForPageURLString:*(a1 + 40)];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__3;
-  v30 = __Block_byref_object_dispose__3;
-  v31 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__3;
-  v24 = __Block_byref_object_dispose__3;
-  v25 = [*(a1 + 32) _fetchIconInfoForIconURLString:*(a1 + 48)];
-  if (!v21[5])
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__3;
+  v34 = __Block_byref_object_dispose__3;
+  v35 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__3;
+  v28 = __Block_byref_object_dispose__3;
+  v3 = [*(a1 + 32) _fetchIconInfoForIconURLString:*(a1 + 48)];
+  v29 = v3;
+  if (!v25[5])
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v3, v4);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
+    if (v12)
     {
-      __100__WBSFaviconProviderDatabaseController_linkPageURLString_toExistingIconURLString_completionHandler___block_invoke_cold_1(v9);
+      __100__WBSFaviconProviderDatabaseController_linkPageURLString_toExistingIconURLString_completionHandler___block_invoke_cold_1(v11);
     }
 
-    v10 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v14 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       __100__WBSFaviconProviderDatabaseController_linkPageURLString_toExistingIconURLString_completionHandler___block_invoke_cold_2();
     }
@@ -348,43 +350,43 @@ void __100__WBSFaviconProviderDatabaseController_linkPageURLString_toExistingIco
 
   if (!v2)
   {
-    v11 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    v13 = [v21[5] UUIDString];
-    [v11 _setPageURL:v12 toIconUUID:v13];
+    v15 = *(a1 + 32);
+    v16 = *(a1 + 40);
+    v17 = [v25[5] UUIDString];
+    [v15 _setPageURL:v16 toIconUUID:v17];
 
     goto LABEL_10;
   }
 
-  v3 = [v21[5] UUIDString];
-  v4 = [v2 isEqualToString:v3];
+  v5 = [v25[5] UUIDString];
+  v6 = [v2 isEqualToString:v5];
 
-  if (v4)
+  if (v6)
   {
 LABEL_10:
     (*(*(a1 + 56) + 16))();
     goto LABEL_11;
   }
 
-  v5 = [*(a1 + 32) database];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __100__WBSFaviconProviderDatabaseController_linkPageURLString_toExistingIconURLString_completionHandler___block_invoke_26;
-  v14[3] = &unk_1E8284680;
-  v6 = *(a1 + 40);
-  v14[4] = *(a1 + 32);
-  v15 = v6;
-  v16 = v2;
-  v18 = &v26;
-  v19 = &v20;
-  v17 = *(a1 + 48);
-  [v5 tryToPerformTransactionInBlock:v14];
+  v7 = [*(a1 + 32) database];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __100__WBSFaviconProviderDatabaseController_linkPageURLString_toExistingIconURLString_completionHandler___block_invoke_26;
+  v18[3] = &unk_1E8284680;
+  v8 = *(a1 + 40);
+  v18[4] = *(a1 + 32);
+  v19 = v8;
+  v20 = v2;
+  v22 = &v30;
+  v23 = &v24;
+  v21 = *(a1 + 48);
+  [v7 tryToPerformTransactionInBlock:v18];
 
-  (*(*(a1 + 56) + 16))(*(a1 + 56), 1, v27[5], v7, v8);
+  (*(*(a1 + 56) + 16))(*(a1 + 56), 1, v31[5], v9, v10);
 LABEL_11:
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v24, 8);
 
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v30, 8);
 }
 
 uint64_t __100__WBSFaviconProviderDatabaseController_linkPageURLString_toExistingIconURLString_completionHandler___block_invoke_26(uint64_t a1)
@@ -491,40 +493,40 @@ uint64_t __78__WBSFaviconProviderDatabaseController_removePageURLString_completi
 
 void __79__WBSFaviconProviderDatabaseController_removePageURLStrings_completionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = __Block_byref_object_copy__3;
-  v15 = __Block_byref_object_dispose__3;
-  v16 = objc_opt_new();
+  v23 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__3;
+  v19 = __Block_byref_object_dispose__3;
+  v20 = objc_opt_new();
   v2 = [MEMORY[0x1E695DF00] date];
   v3 = [*(a1 + 32) database];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __79__WBSFaviconProviderDatabaseController_removePageURLStrings_completionHandler___block_invoke_2;
-  v8[3] = &unk_1E82846A8;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __79__WBSFaviconProviderDatabaseController_removePageURLStrings_completionHandler___block_invoke_2;
+  v12[3] = &unk_1E82846A8;
   v4 = *(a1 + 40);
-  v8[4] = *(a1 + 32);
-  v9 = v4;
-  v10 = &v11;
-  [v3 tryToPerformTransactionInBlock:v8];
+  v12[4] = *(a1 + 32);
+  v13 = v4;
+  v14 = &v15;
+  [v3 tryToPerformTransactionInBlock:v12];
 
-  v5 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
-  {
-    [v2 timeIntervalSinceNow];
-    __79__WBSFaviconProviderDatabaseController_removePageURLStrings_completionHandler___block_invoke_cold_1(buf, v5, v6);
-  }
-
-  v7 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
+  v7 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v5, v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    __79__WBSFaviconProviderDatabaseController_removePageURLStrings_completionHandler___block_invoke_cold_2(v17, [v12[5] count], objc_msgSend(*(a1 + 40), "count"), v7);
+    [v2 timeIntervalSinceNow];
+    __79__WBSFaviconProviderDatabaseController_removePageURLStrings_completionHandler___block_invoke_cold_1(buf, v7, v8);
+  }
+
+  v11 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v9, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  {
+    __79__WBSFaviconProviderDatabaseController_removePageURLStrings_completionHandler___block_invoke_cold_2(v21, [v16[5] count], objc_msgSend(*(a1 + 40), "count"), v11);
   }
 
   (*(*(a1 + 48) + 16))();
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v15, 8);
 }
 
 uint64_t __79__WBSFaviconProviderDatabaseController_removePageURLStrings_completionHandler___block_invoke_2(uint64_t a1)
@@ -996,59 +998,59 @@ void __95__WBSFaviconProviderDatabaseController_firstIconInfoMatchingIconURLStri
 
 void __79__WBSFaviconProviderDatabaseController_fetchAllIconUUIDsWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DFA8] set];
   v3 = [*(a1 + 32) database];
   v4 = SafariShared::WBSSQLiteDatabaseFetch<>(v3, @"SELECT uuid FROM page_url");
 
-  v20 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
+  v20 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
-    v7 = *v19;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         v10 = [v9 stringAtIndex:0];
         if ([v10 length])
         {
-          v11 = [v9 stringAtIndex:0];
-          [v2 addObject:v11];
+          v12 = [v9 stringAtIndex:0];
+          [v2 addObject:v12];
         }
 
         else
         {
-          v12 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v13 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(0, v11);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            __79__WBSFaviconProviderDatabaseController_fetchAllIconUUIDsWithCompletionHandler___block_invoke_cold_1(&v16, v17, v12);
+            __79__WBSFaviconProviderDatabaseController_fetchAllIconUUIDsWithCompletionHandler___block_invoke_cold_1(&v17, v18, v13);
           }
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
   }
 
-  v13 = [v5 statement];
-  [v13 invalidate];
+  v14 = [v5 statement];
+  [v14 invalidate];
 
-  v14 = *(a1 + 40);
-  v15 = [v2 copy];
-  (*(v14 + 16))(v14, v15);
+  v15 = *(a1 + 40);
+  v16 = [v2 copy];
+  (*(v15 + 16))(v15, v16);
 }
 
 - (void)fetchPageURLStringsWithPrefixesIn:(id)in completionHandler:(id)handler
@@ -1358,7 +1360,7 @@ void __66__WBSFaviconProviderDatabaseController__findOrphansFromIconUUIDs___bloc
 
 - (void)_setPageURL:(id)l toIconUUID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   lCopy = l;
   dCopy = d;
   database = [(WBSSQLiteStore *)self database];
@@ -1366,29 +1368,30 @@ void __66__WBSFaviconProviderDatabaseController__findOrphansFromIconUUIDs___bloc
 
   if (v7 != 101)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v8, v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    if (v11)
     {
       [WBSFaviconProviderDatabaseController _setPageURL:toIconUUID:];
     }
 
-    v9 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v13 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138478339;
-      v13 = lCopy;
-      v14 = 2113;
-      v15 = dCopy;
-      v16 = 1024;
-      v17 = v7;
-      _os_log_debug_impl(&dword_1C6968000, v9, OS_LOG_TYPE_DEBUG, "Failed to set page url: %{private}@ to icon UUID: %{private}@. Error code: %d", buf, 0x1Cu);
+      v17 = lCopy;
+      v18 = 2113;
+      v19 = dCopy;
+      v20 = 1024;
+      v21 = v7;
+      _os_log_debug_impl(&dword_1C6968000, v13, OS_LOG_TYPE_DEBUG, "Failed to set page url: %{private}@ to icon UUID: %{private}@. Error code: %d", buf, 0x1Cu);
     }
   }
 }
 
 - (id)_setIconUUID:(id)d forIconURLString:(id)string size:(CGSize)size hasGeneratedResolutions:(BOOL)resolutions
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   sizeCopy = size;
   dCopy = d;
   stringCopy = string;
@@ -1401,22 +1404,23 @@ void __66__WBSFaviconProviderDatabaseController__findOrphansFromIconUUIDs___bloc
 
   if (v12 != 101)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v13, v14);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+    if (v16)
     {
       [WBSFaviconProviderDatabaseController _setIconUUID:forIconURLString:size:hasGeneratedResolutions:];
     }
 
-    v14 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v18 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138478339;
       *&buf[4] = dCopy;
-      v21 = 2113;
-      v22 = stringCopy;
-      v23 = 1024;
-      v24 = v12;
-      _os_log_debug_impl(&dword_1C6968000, v14, OS_LOG_TYPE_DEBUG, "Failed to set icon UUID: %{private}@ for icon url: %{private}@. Error code: %d", buf, 0x1Cu);
+      v25 = 2113;
+      v26 = stringCopy;
+      v27 = 1024;
+      v28 = v12;
+      _os_log_debug_impl(&dword_1C6968000, v18, OS_LOG_TYPE_DEBUG, "Failed to set icon UUID: %{private}@ for icon url: %{private}@. Error code: %d", buf, 0x1Cu);
     }
   }
 
@@ -1429,13 +1433,13 @@ void __66__WBSFaviconProviderDatabaseController__findOrphansFromIconUUIDs___bloc
   date = [MEMORY[0x1E695DF00] date];
   database = [(WBSSQLiteStore *)self database];
   [date timeIntervalSinceReferenceDate];
-  v9 = v6;
-  LODWORD(self) = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<double,NSString * {__strong}&>(database, 0, @"UPDATE icon_info SET timestamp=? WHERE uuid=?", &v9, &dCopy);
+  v11 = v6;
+  LODWORD(self) = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<double,NSString * {__strong}&>(database, 0, @"UPDATE icon_info SET timestamp=? WHERE uuid=?", &v11, &dCopy);
 
   if (self != 101)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [WBSFaviconProviderDatabaseController _setTimestampToNowForIconUUID:];
     }
@@ -1446,7 +1450,7 @@ void __66__WBSFaviconProviderDatabaseController__findOrphansFromIconUUIDs___bloc
 
 - (BOOL)_setRejectedResourceForPageURL:(id)l iconURLString:(id)string
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   lCopy = l;
   stringCopy = string;
   date = [MEMORY[0x1E695DF00] date];
@@ -1457,22 +1461,23 @@ void __66__WBSFaviconProviderDatabaseController__findOrphansFromIconUUIDs___bloc
 
   if (v9 != 101)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v10, v11);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+    if (v13)
     {
       [WBSFaviconProviderDatabaseController _setRejectedResourceForPageURL:iconURLString:];
     }
 
-    v11 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v15 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138478339;
       *&buf[4] = lCopy;
-      v16 = 2113;
-      v17 = stringCopy;
-      v18 = 1024;
-      v19 = v9;
-      _os_log_debug_impl(&dword_1C6968000, v11, OS_LOG_TYPE_DEBUG, "Failed to set rejected resource for page url %{private}@ and icon url %{private}@. Error code: %d", buf, 0x1Cu);
+      v20 = 2113;
+      v21 = stringCopy;
+      v22 = 1024;
+      v23 = v9;
+      _os_log_debug_impl(&dword_1C6968000, v15, OS_LOG_TYPE_DEBUG, "Failed to set rejected resource for page url %{private}@ and icon url %{private}@. Error code: %d", buf, 0x1Cu);
     }
   }
 
@@ -1487,14 +1492,15 @@ void __66__WBSFaviconProviderDatabaseController__findOrphansFromIconUUIDs___bloc
 
   if (self != 101)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v5, v6);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+    if (v8)
     {
       [WBSFaviconProviderDatabaseController _deletePageURL:];
     }
 
-    v6 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v10 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [WBSFaviconProviderDatabaseController _deletePageURL:];
     }
@@ -1516,16 +1522,18 @@ void __66__WBSFaviconProviderDatabaseController__findOrphansFromIconUUIDs___bloc
 void __56__WBSFaviconProviderDatabaseController__deletePageURLs___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if ([v2 execute] != 101)
+  v3 = [v2 execute];
+  if (v3 != 101)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v3, v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (v6)
     {
       __56__WBSFaviconProviderDatabaseController__deletePageURLs___block_invoke_cold_1();
     }
 
-    v4 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v8 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       __56__WBSFaviconProviderDatabaseController__deletePageURLs___block_invoke_cold_2();
     }
@@ -1536,7 +1544,7 @@ void __56__WBSFaviconProviderDatabaseController__deletePageURLs___block_invoke(u
 
 - (BOOL)_deleteRejectedResourceForPageURLString:(id)string iconURLString:(id)lString
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   lStringCopy = lString;
   database = [(WBSSQLiteStore *)self database];
@@ -1544,22 +1552,23 @@ void __56__WBSFaviconProviderDatabaseController__deletePageURLs___block_invoke(u
 
   if (v7 != 101)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v8, v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    if (v11)
     {
       [WBSFaviconProviderDatabaseController _deleteRejectedResourceForPageURLString:iconURLString:];
     }
 
-    v9 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v13 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138478339;
-      v14 = stringCopy;
-      v15 = 2113;
-      v16 = lStringCopy;
-      v17 = 1024;
-      v18 = v7;
-      _os_log_debug_impl(&dword_1C6968000, v9, OS_LOG_TYPE_DEBUG, "Failed to reset rejected resource for page url %{private}@, icon url %{private}@. Error code: %d", buf, 0x1Cu);
+      v18 = stringCopy;
+      v19 = 2113;
+      v20 = lStringCopy;
+      v21 = 1024;
+      v22 = v7;
+      _os_log_debug_impl(&dword_1C6968000, v13, OS_LOG_TYPE_DEBUG, "Failed to reset rejected resource for page url %{private}@, icon url %{private}@. Error code: %d", buf, 0x1Cu);
     }
   }
 
@@ -1574,14 +1583,15 @@ void __56__WBSFaviconProviderDatabaseController__deletePageURLs___block_invoke(u
 
   if (self != 101)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v5, v6);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+    if (v8)
     {
       [WBSFaviconProviderDatabaseController _deleteRejectedResourceForPageURLString:];
     }
 
-    v6 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v10 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [WBSFaviconProviderDatabaseController _deleteRejectedResourceForPageURLString:];
     }
@@ -1603,16 +1613,18 @@ void __56__WBSFaviconProviderDatabaseController__deletePageURLs___block_invoke(u
 void __81__WBSFaviconProviderDatabaseController__deleteRejectedResourceForPageURLStrings___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if ([v2 execute] != 101)
+  v3 = [v2 execute];
+  if (v3 != 101)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v3, v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (v6)
     {
       __81__WBSFaviconProviderDatabaseController__deleteRejectedResourceForPageURLStrings___block_invoke_cold_1();
     }
 
-    v4 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v8 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       __81__WBSFaviconProviderDatabaseController__deleteRejectedResourceForPageURLStrings___block_invoke_cold_2();
     }
@@ -1640,8 +1652,8 @@ void __81__WBSFaviconProviderDatabaseController__deleteRejectedResourceForPageUR
 
   if (self != 101)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [WBSFaviconProviderDatabaseController _deletePageURLsWithUUIDFromPageInfo:];
     }
@@ -1656,8 +1668,8 @@ void __81__WBSFaviconProviderDatabaseController__deleteRejectedResourceForPageUR
 
   if (self != 101)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [WBSFaviconProviderDatabaseController _deleteIconWithUUIDFromIconInfo:];
     }
@@ -1679,10 +1691,11 @@ void __81__WBSFaviconProviderDatabaseController__deleteRejectedResourceForPageUR
 void __74__WBSFaviconProviderDatabaseController__deleteIconsWithUUIDsFromIconInfo___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if ([v2 execute] != 101)
+  v3 = [v2 execute];
+  if (v3 != 101)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __74__WBSFaviconProviderDatabaseController__deleteIconsWithUUIDsFromIconInfo___block_invoke_cold_1();
     }
@@ -1698,32 +1711,32 @@ void __74__WBSFaviconProviderDatabaseController__deleteIconsWithUUIDsFromIconInf
 
   if (v4 != 101)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [WBSFaviconProviderDatabaseController _deleteAllPageAndIconEntries];
     }
   }
 
   database2 = [(WBSSQLiteStore *)self database];
-  v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database2, 0, @"DELETE FROM icon_info");
+  v9 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database2, 0, @"DELETE FROM icon_info");
 
-  if (v7 != 101)
+  if (v9 != 101)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [WBSFaviconProviderDatabaseController _deleteAllPageAndIconEntries];
     }
   }
 
   database3 = [(WBSSQLiteStore *)self database];
-  v10 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database3, 0, @"DELETE FROM rejected_resources");
+  v14 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database3, 0, @"DELETE FROM rejected_resources");
 
-  if (v10 != 101)
+  if (v14 != 101)
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v17 = WBS_LOG_CHANNEL_PREFIXFaviconDatabase(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [WBSFaviconProviderDatabaseController _deleteAllPageAndIconEntries];
     }

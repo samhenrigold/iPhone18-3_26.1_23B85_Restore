@@ -34,7 +34,7 @@
 
   stringGUID = [MEMORY[0x1E696AEC0] stringGUID];
   v13 = MEMORY[0x1E695DFF8];
-  v14 = IMSafeTemporaryDirectory();
+  v14 = IMSafeTemporaryDirectory(stringGUID);
   path = [v14 path];
   v32[0] = path;
   v32[1] = @"AudioPreviewMetadata";

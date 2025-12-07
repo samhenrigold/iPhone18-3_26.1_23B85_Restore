@@ -70,7 +70,7 @@ uint64_t __100__CCUIContentModuleContainerReducedMotionTransition_performTransit
 
   v8 = *(a1 + 32);
   v9 = v8[8];
-  [v8 snapshotCorrectiveTransform];
+  objc_msgSend_snapshotCorrectiveTransform(v8);
   return [v9 setTransform:&v11];
 }
 

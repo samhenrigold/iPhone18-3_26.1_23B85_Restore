@@ -83,10 +83,10 @@
   v4 = sub_18B7DEE8C();
   swift_beginAccess();
   *(swift_allocObject() + 16) = 13;
-  sub_18BC1E3F8();
-  v5 = sub_18B7F8244();
+  v5 = sub_18BC1E3F8();
+  v7 = sub_18B7F8244(v5, v6);
 
-  return v5;
+  return v7;
 }
 
 - (int64_t)visibleSnapshotLimitForBounds:(CGRect)bounds traitCollection:(id)collection

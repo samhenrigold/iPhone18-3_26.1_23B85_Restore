@@ -4,8 +4,8 @@
 - (FigSubtitleCALayer)init;
 - (FigSubtitleCALayer)initWithLayer:(id)layer;
 - (NSString)captionRenderingStrategy;
+- (double)init;
 - (id)actionForKey:(id)key;
-- (uint64_t)init;
 - (void)_addBoundsAnimation:(id)animation forKey:(id)key;
 - (void)_addPositionAnimation:(id)animation forKey:(id)key;
 - (void)addAnimations:(id)animations forKey:(id)key;
@@ -746,11 +746,12 @@ uint64_t __51__FigSubtitleCALayer_handleNeedsLayoutNotification__block_invoke_2(
       {
         CMNotificationCenterGetDefaultLocalCenter();
         CMNotificationCenterAddListener();
-        FigBaseObject = FigPlayerGetFigBaseObject(layerInternal->var0);
-        v8 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-        if (v8)
+        FigPlayerGetFigBaseObject();
+        v8 = v7;
+        v9 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+        if (v9)
         {
-          v8(FigBaseObject, @"LastSentSubtitleSample", *MEMORY[0x1E695E480], &cf);
+          v9(v8, @"LastSentSubtitleSample", *MEMORY[0x1E695E480], &cf);
           if (cf)
           {
             digestSubtitleSample(1, layerInternal, cf);
@@ -848,19 +849,19 @@ uint64_t __51__FigSubtitleCALayer_handleNeedsLayoutNotification__block_invoke_2(
 {
   layerInternal = self->layerInternal;
   var12 = layerInternal->var12;
-  v7 = layerInternal;
+  v8 = layerInternal;
   if (!var12)
   {
-    FigCaptionRendererSessionSetLayoutContext_Gravity(layerInternal->var14, obscuring);
-    v7 = self->layerInternal;
-    var12 = v7->var12;
+    FigCaptionRendererSessionSetLayoutContext_Gravity(layerInternal->var14, obscuring, obscuring, v3);
+    v8 = self->layerInternal;
+    var12 = v8->var12;
   }
 
   layerInternal->var4 = obscuring;
   if (var12 == 1)
   {
 
-    updateSubtitleDisplay(v7, 0);
+    updateSubtitleDisplay(v8, 0);
   }
 }
 
@@ -996,25 +997,25 @@ uint64_t __51__FigSubtitleCALayer_handleNeedsLayoutNotification__block_invoke_2(
   layerInternal = self->layerInternal;
   if (!layerInternal->var12)
   {
-    FigCaptionRendererSessionSetLayoutContext_Overscan(layerInternal->var14, enabled);
+    FigCaptionRendererSessionSetLayoutContext_Overscan(layerInternal->var14, enabled, enabled, v3);
   }
 
   [(FigSubtitleCALayer *)self bounds];
   var11 = self->layerInternal->var11;
   if (var11)
   {
-    v11 = v6;
     v12 = v7;
     v13 = v8;
     v14 = v9;
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __56__FigSubtitleCALayer_setOverscanSubtitleSupportEnabled___block_invoke;
-    v15[3] = &unk_1E7483B70;
-    v15[4] = self;
+    v15 = v10;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __56__FigSubtitleCALayer_setOverscanSubtitleSupportEnabled___block_invoke;
+    v16[3] = &unk_1E7483B70;
+    v16[4] = self;
     enabledCopy = enabled;
-    dispatch_sync(var11, v15);
-    [(FigSubtitleBackdropCALayer *)self setBounds:v11, v12, v13, v14];
+    dispatch_sync(var11, v16);
+    [(FigSubtitleBackdropCALayer *)self setBounds:v12, v13, v14, v15];
   }
 }
 
@@ -1068,11 +1069,11 @@ uint64_t __51__FigSubtitleCALayer_handleNeedsLayoutNotification__block_invoke_2(
   }
 }
 
-- (uint64_t)init
+- (double)init
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1, v2, vars0);
 }
 
 @end

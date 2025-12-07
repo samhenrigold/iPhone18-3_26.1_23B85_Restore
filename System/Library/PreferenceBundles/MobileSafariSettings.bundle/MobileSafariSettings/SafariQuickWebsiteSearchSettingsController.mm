@@ -12,11 +12,13 @@
 - (void)_updateDeleteButton;
 - (void)_updateEditButton;
 - (void)dealloc;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didDeselectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didEndEditingRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view willBeginEditingRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)willBecomeActive;
 - (void)willResignActive;
 @end
@@ -46,6 +48,68 @@
   }
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v15.receiver = self;
+  v15.super_class = SafariQuickWebsiteSearchSettingsController;
+  [(SafariQuickWebsiteSearchSettingsController *)&v15 viewWillAppear:appear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.mobilesafari/USE_SITE_SPECIFIC_SEARCH"];
+  v5 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v5 bundleURL];
+
+  v7 = +[NSLocale currentLocale];
+  v8 = [[_NSLocalizedStringResource alloc] initWithKey:@"Quick Website Search" table:@"Safari" locale:v7 bundleURL:bundleURL];
+  v9 = [[_NSLocalizedStringResource alloc] initWithKey:@"Apps" table:@"Safari" locale:v7 bundleURL:bundleURL];
+  v10 = [[_NSLocalizedStringResource alloc] initWithKey:@"Safari" table:@"Safari" locale:v7 bundleURL:bundleURL];
+  if (objc_opt_respondsToSelector())
+  {
+    v16[0] = v9;
+    v16[1] = v10;
+    v11 = [NSArray arrayWithObjects:v16 count:2];
+    [(SafariQuickWebsiteSearchSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.mobilesafari" title:v8 localizedNavigationComponents:v11 deepLink:v4];
+  }
+
+  editButtonItem = [(SafariQuickWebsiteSearchSettingsController *)self editButtonItem];
+  navigationItem = [(SafariQuickWebsiteSearchSettingsController *)self navigationItem];
+  [navigationItem setRightBarButtonItem:editButtonItem];
+
+  [(SafariQuickWebsiteSearchSettingsController *)self _updateEditButton];
+  table = [(SafariQuickWebsiteSearchSettingsController *)self table];
+  [table setAllowsSelection:0];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  v11.receiver = self;
+  v11.super_class = SafariQuickWebsiteSearchSettingsController;
+  [SafariQuickWebsiteSearchSettingsController setEditing:"setEditing:animated:" animated:?];
+  navigationItem = [(SafariQuickWebsiteSearchSettingsController *)self navigationItem];
+  [navigationItem setHidesBackButton:editingCopy animated:animatedCopy];
+  if (editingCopy)
+  {
+    [(SafariQuickWebsiteSearchSettingsController *)self _updateDeleteButton];
+    _deleteBarButtonItem = [(SafariQuickWebsiteSearchSettingsController *)self _deleteBarButtonItem];
+    [navigationItem setLeftBarButtonItem:_deleteBarButtonItem animated:animatedCopy];
+
+    [(SafariQuickWebsiteSearchSettingsController *)self _cancelBarButtonItem];
+  }
+
+  else
+  {
+    [(SafariQuickWebsiteSearchSettingsController *)self _updateEditButton];
+    [navigationItem setLeftBarButtonItem:0 animated:animatedCopy];
+    [(SafariQuickWebsiteSearchSettingsController *)self editButtonItem];
+  }
+  v9 = ;
+  [navigationItem setRightBarButtonItem:v9 animated:animatedCopy];
+
+  table = [(SafariQuickWebsiteSearchSettingsController *)self table];
+  [table setAllowsMultipleSelectionDuringEditing:editingCopy];
+  [table setEditing:editingCopy animated:animatedCopy];
 }
 
 - (void)dealloc

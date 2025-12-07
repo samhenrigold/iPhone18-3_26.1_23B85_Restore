@@ -64,17 +64,16 @@
 - (void)safariViewControllerDidFinish:(id)finish
 {
   v4 = sub_1000047BC(&unk_100088F10, &qword_100065D60);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v11 - v6;
-  v8 = type metadata accessor for TaskPriority();
-  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
-  v9 = swift_allocObject();
-  v9[2] = 0;
-  v9[3] = 0;
-  v9[4] = self;
+  v6 = &v10 - v5;
+  v7 = type metadata accessor for TaskPriority();
+  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  v8 = swift_allocObject();
+  v8[2] = 0;
+  v8[3] = 0;
+  v8[4] = self;
   selfCopy = self;
-  sub_100007654(0, 0, v7, &unk_1000662F0, v9);
+  sub_100007654(0, 0, v6, &unk_1000662F0, v8);
 }
 
 - (void)presentationControllerDidDismiss:(id)dismiss

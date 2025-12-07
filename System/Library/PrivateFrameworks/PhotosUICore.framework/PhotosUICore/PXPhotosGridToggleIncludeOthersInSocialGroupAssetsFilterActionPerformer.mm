@@ -63,7 +63,7 @@
 - (PXPhotosGridToggleIncludeOthersInSocialGroupAssetsFilterActionPerformer)initWithViewModel:(id)model actionType:(id)type
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for PhotosGridToggleIncludeOthersInSocialGroupAssetsFilterActionPerformer();
+  v7.super_class = type metadata accessor for PhotosGridToggleIncludeOthersInSocialGroupAssetsFilterActionPerformer(self, a2);
   return [(PXPhotosGridActionPerformer *)&v7 initWithViewModel:model actionType:type];
 }
 

@@ -21,7 +21,7 @@
 
 - (void)donateElementsFromDisplayLayout:(id)layout withContext:(id)context
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   layoutCopy = layout;
   contextCopy = context;
   displayElementStream = [(_DKApplicationMonitor *)self displayElementStream];
@@ -38,79 +38,79 @@
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v100 = 0;
+      v99 = 0;
       displayElementStream2 = [(_DKApplicationMonitor *)self displayElementStream];
       publisher = [displayElementStream2 publisher];
-      v94[0] = MEMORY[0x277D85DD0];
-      v94[1] = 3221225472;
-      v94[2] = __97___DKApplicationMonitor_BMFrontBoardDisplayElement__donateElementsFromDisplayLayout_withContext___block_invoke;
-      v94[3] = &unk_27856F740;
-      v94[4] = self;
-      v94[5] = buf;
       v93[0] = MEMORY[0x277D85DD0];
       v93[1] = 3221225472;
-      v93[2] = __97___DKApplicationMonitor_BMFrontBoardDisplayElement__donateElementsFromDisplayLayout_withContext___block_invoke_6;
-      v93[3] = &unk_27856F768;
+      v93[2] = __97___DKApplicationMonitor_BMFrontBoardDisplayElement__donateElementsFromDisplayLayout_withContext___block_invoke;
+      v93[3] = &unk_27856F740;
       v93[4] = self;
       v93[5] = buf;
-      v11 = [publisher sinkWithCompletion:v94 receiveInput:v93];
+      v92[0] = MEMORY[0x277D85DD0];
+      v92[1] = 3221225472;
+      v92[2] = __97___DKApplicationMonitor_BMFrontBoardDisplayElement__donateElementsFromDisplayLayout_withContext___block_invoke_6;
+      v92[3] = &unk_27856F768;
+      v92[4] = self;
+      v92[5] = buf;
+      v11 = [publisher sinkWithCompletion:v93 receiveInput:v92];
 
       _Block_object_dispose(buf, 8);
     }
 
     elements = [layoutCopy elements];
-    v62 = [elements _pas_filteredArrayWithTest:&__block_literal_global_13];
+    v61 = [elements _pas_filteredArrayWithTest:&__block_literal_global_13];
 
-    v13 = [v62 sortedArrayUsingComparator:&__block_literal_global_11];
+    v13 = [v61 sortedArrayUsingComparator:&__block_literal_global_11];
     v14 = objc_opt_new();
-    v91 = 0u;
-    v92 = 0u;
-    v89 = 0u;
     v90 = 0u;
+    v91 = 0u;
+    v88 = 0u;
+    v89 = 0u;
     v15 = v13;
-    v16 = [v15 countByEnumeratingWithState:&v89 objects:v98 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v88 objects:v97 count:16];
     if (v16)
     {
-      v17 = *v90;
+      v17 = *v89;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v90 != v17)
+          if (*v89 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          identifier = [*(*(&v89 + 1) + 8 * i) identifier];
+          identifier = [*(*(&v88 + 1) + 8 * i) identifier];
           [v14 addObject:identifier];
         }
 
-        v16 = [v15 countByEnumeratingWithState:&v89 objects:v98 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v88 objects:v97 count:16];
       }
 
       while (v16);
     }
 
-    v64 = objc_opt_new();
-    v87 = 0u;
-    v88 = 0u;
-    v85 = 0u;
+    v63 = objc_opt_new();
     v86 = 0u;
+    v87 = 0u;
+    v84 = 0u;
+    v85 = 0u;
     obj = v15;
-    v20 = [obj countByEnumeratingWithState:&v85 objects:v97 count:16];
+    v20 = [obj countByEnumeratingWithState:&v84 objects:v96 count:16];
     if (v20)
     {
-      v21 = *v86;
+      v21 = *v85;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v86 != v21)
+          if (*v85 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v23 = *(*(&v85 + 1) + 8 * j);
+          v23 = *(*(&v84 + 1) + 8 * j);
           currentFrontBoardElements2 = [(_DKApplicationMonitor *)self currentFrontBoardElements];
           identifier2 = [v23 identifier];
           v26 = [currentFrontBoardElements2 objectForKeyedSubscript:identifier2];
@@ -131,17 +131,17 @@
             v29 = [(_DKMonitor *)self log];
             if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
             {
-              [(_DKApplicationMonitor(BMFrontBoardDisplayElement) *)&v83 donateElementsFromDisplayLayout:v84 withContext:v29];
+              [(_DKApplicationMonitor(BMFrontBoardDisplayElement) *)&v82 donateElementsFromDisplayLayout:v83 withContext:v29];
             }
           }
 
           else
           {
-            [v64 addObject:v28];
+            [v63 addObject:v28];
           }
         }
 
-        v20 = [obj countByEnumeratingWithState:&v85 objects:v97 count:16];
+        v20 = [obj countByEnumeratingWithState:&v84 objects:v96 count:16];
       }
 
       while (v20);
@@ -149,18 +149,18 @@
 
     v30 = objc_opt_new();
     currentFrontBoardElements3 = [(_DKApplicationMonitor *)self currentFrontBoardElements];
-    v78[0] = MEMORY[0x277D85DD0];
-    v78[1] = 3221225472;
-    v78[2] = __97___DKApplicationMonitor_BMFrontBoardDisplayElement__donateElementsFromDisplayLayout_withContext___block_invoke_15;
-    v78[3] = &unk_27856F7D0;
-    v60 = v14;
-    v79 = v60;
+    v77[0] = MEMORY[0x277D85DD0];
+    v77[1] = 3221225472;
+    v77[2] = __97___DKApplicationMonitor_BMFrontBoardDisplayElement__donateElementsFromDisplayLayout_withContext___block_invoke_15;
+    v77[3] = &unk_27856F7D0;
+    v59 = v14;
+    v78 = v59;
     selfCopy = self;
     v32 = layoutCopy;
-    v81 = v32;
-    v61 = v30;
-    v82 = v61;
-    [currentFrontBoardElements3 enumerateKeysAndObjectsUsingBlock:v78];
+    v80 = v32;
+    v60 = v30;
+    v81 = v60;
+    [currentFrontBoardElements3 enumerateKeysAndObjectsUsingBlock:v77];
 
     displayElementSource = [(_DKApplicationMonitor *)self displayElementSource];
     v34 = displayElementSource;
@@ -176,25 +176,25 @@
       [(_DKApplicationMonitor *)self setDisplayElementSource:source];
     }
 
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
     v75 = 0u;
-    v65 = v64;
-    v37 = [v65 countByEnumeratingWithState:&v74 objects:v96 count:16];
+    v76 = 0u;
+    v73 = 0u;
+    v74 = 0u;
+    v64 = v63;
+    v37 = [v64 countByEnumeratingWithState:&v73 objects:v95 count:16];
     if (v37)
     {
-      v38 = *v75;
+      v38 = *v74;
       do
       {
         for (k = 0; k != v37; ++k)
         {
-          if (*v75 != v38)
+          if (*v74 != v38)
           {
-            objc_enumerationMutation(v65);
+            objc_enumerationMutation(v64);
           }
 
-          v40 = *(*(&v74 + 1) + 8 * k);
+          v40 = *(*(&v73 + 1) + 8 * k);
           timestamp = [v32 timestamp];
           [timestamp timeIntervalSinceReferenceDate];
           [source sendEvent:v40 timestamp:?];
@@ -212,36 +212,36 @@
             *&buf[12] = 2112;
             *&buf[14] = identifier3;
             *&buf[22] = 2112;
-            v100 = bundleIdentifier;
+            v99 = bundleIdentifier;
             _os_log_debug_impl(&dword_22595A000, v42, OS_LOG_TYPE_DEBUG, "BMFrontBoardDisplayElement - Writing %@ event for identifier: %@ bundleIdentifier: %@", buf, 0x20u);
           }
         }
 
-        v37 = [v65 countByEnumeratingWithState:&v74 objects:v96 count:16];
+        v37 = [v64 countByEnumeratingWithState:&v73 objects:v95 count:16];
       }
 
       while (v37);
     }
 
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
     v71 = 0u;
-    v46 = v61;
-    v47 = [v46 countByEnumeratingWithState:&v70 objects:v95 count:16];
+    v72 = 0u;
+    v69 = 0u;
+    v70 = 0u;
+    v46 = v60;
+    v47 = [v46 countByEnumeratingWithState:&v69 objects:v94 count:16];
     if (v47)
     {
-      v48 = *v71;
+      v48 = *v70;
       do
       {
         for (m = 0; m != v47; ++m)
         {
-          if (*v71 != v48)
+          if (*v70 != v48)
           {
             objc_enumerationMutation(v46);
           }
 
-          v50 = *(*(&v70 + 1) + 8 * m);
+          v50 = *(*(&v69 + 1) + 8 * m);
           timestamp2 = [v32 timestamp];
           [timestamp2 timeIntervalSinceReferenceDate];
           [source sendEvent:v50 timestamp:?];
@@ -259,12 +259,12 @@
             *&buf[12] = 2112;
             *&buf[14] = identifier4;
             *&buf[22] = 2112;
-            v100 = bundleIdentifier2;
+            v99 = bundleIdentifier2;
             _os_log_debug_impl(&dword_22595A000, v52, OS_LOG_TYPE_DEBUG, "BMFrontBoardDisplayElement - Writing %@ event for identifier: %@ bundleIdentifier: %@", buf, 0x20u);
           }
         }
 
-        v47 = [v46 countByEnumeratingWithState:&v70 objects:v95 count:16];
+        v47 = [v46 countByEnumeratingWithState:&v69 objects:v94 count:16];
       }
 
       while (v47);
@@ -277,12 +277,12 @@
     }
 
     currentFrontBoardElements4 = [(_DKApplicationMonitor *)self currentFrontBoardElements];
-    v69[0] = MEMORY[0x277D85DD0];
-    v69[1] = 3221225472;
-    v69[2] = __97___DKApplicationMonitor_BMFrontBoardDisplayElement__donateElementsFromDisplayLayout_withContext___block_invoke_17;
-    v69[3] = &unk_27856F7F8;
-    v69[4] = self;
-    [currentFrontBoardElements4 enumerateKeysAndObjectsUsingBlock:v69];
+    v68[0] = MEMORY[0x277D85DD0];
+    v68[1] = 3221225472;
+    v68[2] = __97___DKApplicationMonitor_BMFrontBoardDisplayElement__donateElementsFromDisplayLayout_withContext___block_invoke_17;
+    v68[3] = &unk_27856F7F8;
+    v68[4] = self;
+    [currentFrontBoardElements4 enumerateKeysAndObjectsUsingBlock:v68];
 
     v58 = [(_DKMonitor *)self log];
     if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
@@ -290,7 +290,7 @@
       [_DKApplicationMonitor(BMFrontBoardDisplayElement) donateElementsFromDisplayLayout:v58 withContext:?];
     }
 
-    v35 = v62;
+    v35 = v61;
   }
 
   else
@@ -302,8 +302,6 @@
       _os_log_impl(&dword_22595A000, v35, OS_LOG_TYPE_INFO, "BMFrontBoardDisplayElement - Waiting for first unlock before donating event", buf, 2u);
     }
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateCurrentElementsWithDisplayElement:(id)element
@@ -616,7 +614,7 @@ LABEL_11:
 
 - (id)elementsForDisplayLayout:(id)layout
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   layoutCopy = layout;
   v5 = layoutCopy;
   if (layoutCopy)
@@ -629,9 +627,9 @@ LABEL_11:
       v8 = [(_DKMonitor *)self log];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v11 = 138412290;
-        v12 = v7;
-        _os_log_impl(&dword_22595A000, v8, OS_LOG_TYPE_INFO, "Layout monitor filtered elements: %@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = v7;
+        _os_log_impl(&dword_22595A000, v8, OS_LOG_TYPE_INFO, "Layout monitor filtered elements: %@", &v10, 0xCu);
       }
     }
 
@@ -640,8 +638,8 @@ LABEL_11:
       v8 = [(_DKMonitor *)self log];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&dword_22595A000, v8, OS_LOG_TYPE_INFO, "Screen is off", &v11, 2u);
+        LOWORD(v10) = 0;
+        _os_log_impl(&dword_22595A000, v8, OS_LOG_TYPE_INFO, "Screen is off", &v10, 2u);
       }
 
       v7 = MEMORY[0x277CBEBF8];
@@ -652,8 +650,6 @@ LABEL_11:
   {
     v7 = MEMORY[0x277CBEBF8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -711,7 +707,7 @@ LABEL_11:
 
 - (void)updateFocalApplication:(id)application timestamp:(id)timestamp displayType:(unint64_t)type transitionReason:(id)reason transaction:(id)transaction
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   timestampCopy = timestamp;
   reasonCopy = reason;
@@ -720,69 +716,43 @@ LABEL_11:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v49 = applicationCopy;
+    v48 = applicationCopy;
     _os_log_impl(&dword_22595A000, v15, OS_LOG_TYPE_INFO, "Frontmost application: %@", buf, 0xCu);
   }
 
   v16 = transactionCopy;
   [(_DKApplicationMonitorBase *)self updateContextStoreWithFocalApplication:applicationCopy launchReason:reasonCopy];
+  v45 = 0;
   v46 = 0;
-  v47 = 0;
-  [(_DKApplicationMonitorBase *)self lookupApplication:applicationCopy shortVersionString:&v47 exactBundleVersion:&v46];
-  v17 = v47;
-  v18 = v46;
-  v45 = [(_DKApplicationMonitorBase *)self _eventWithTimestamp:timestampCopy bundleIdentifier:applicationCopy launchReason:reasonCopy shortVersionString:v17 exactBundleVersion:v18];
+  [(_DKApplicationMonitorBase *)self lookupApplication:applicationCopy shortVersionString:&v46 exactBundleVersion:&v45];
+  v17 = v46;
+  v18 = v45;
+  v44 = [(_DKApplicationMonitorBase *)self _eventWithTimestamp:timestampCopy bundleIdentifier:applicationCopy launchReason:reasonCopy shortVersionString:v17 exactBundleVersion:v18];
   if (applicationCopy)
   {
     currentEvent = [(_DKMonitor *)self currentEvent];
-    if (!currentEvent)
+    if (!currentEvent || (v20 = currentEvent, [(_DKMonitor *)self eventComparator], v21 = objc_claimAutoreleasedReturnValue(), [(_DKMonitor *)self currentEvent], v41 = self, v22 = applicationCopy, v23 = reasonCopy, v24 = v18, v25 = v17, v26 = v16, v27 = timestampCopy, v28 = objc_claimAutoreleasedReturnValue(), v29 = (v21)[2](v21, v28, v44), v28, timestampCopy = v27, v16 = v26, v17 = v25, v18 = v24, reasonCopy = v23, applicationCopy = v22, self = v41, v21, v20, v29))
     {
-      goto LABEL_6;
-    }
-
-    v20 = currentEvent;
-    eventComparator = [(_DKMonitor *)self eventComparator];
-    [(_DKMonitor *)self currentEvent];
-    selfCopy = self;
-    v22 = applicationCopy;
-    v23 = reasonCopy;
-    v24 = v18;
-    v25 = v17;
-    v26 = v16;
-    v28 = v27 = timestampCopy;
-    v29 = (eventComparator)[2](eventComparator, v28, v45);
-
-    timestampCopy = v27;
-    v16 = v26;
-    v17 = v25;
-    v18 = v24;
-    reasonCopy = v23;
-    applicationCopy = v22;
-    self = selfCopy;
-
-    if (v29)
-    {
-LABEL_6:
-      v43 = timestampCopy;
+      v42 = timestampCopy;
       currentEvent2 = [(_DKMonitor *)self currentEvent];
       value = [currentEvent2 value];
       stringValue = [value stringValue];
 
-      timestampCopy = v43;
+      timestampCopy = v42;
       v33 = [&unk_2838F7820 containsObject:stringValue];
       if (([MEMORY[0x277D42598] isClassCLocked] & 1) == 0)
       {
-        [(_DKMonitor *)self setCurrentEvent:v45 inferHistoricalState:v33 ^ 1u];
+        [(_DKMonitor *)self setCurrentEvent:v44 inferHistoricalState:v33 ^ 1u];
         if (([stringValue isEqual:applicationCopy] & 1) == 0 && (objc_msgSend(&unk_2838F7838, "containsObject:", applicationCopy) & 1) == 0)
         {
           if ([stringValue length])
           {
-            [(_DKApplicationMonitorBase *)self updateBiomeAppInFocusWithStopEventAtTimestamp:v43 reason:0];
+            [(_DKApplicationMonitorBase *)self updateBiomeAppInFocusWithStopEventAtTimestamp:v42 reason:0];
             v34 = [(_DKMonitor *)self log];
             if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v49 = stringValue;
+              v48 = stringValue;
               _os_log_impl(&dword_22595A000, v34, OS_LOG_TYPE_INFO, "BMAppInFocus stopped %@", buf, 0xCu);
             }
           }
@@ -810,15 +780,15 @@ LABEL_6:
             }
 
             v37 = objc_alloc(MEMORY[0x277CF0FD8]);
-            LODWORD(v41) = v35;
-            timestampCopy = v43;
-            v38 = [v37 initWithLaunchReason:reasonCopy type:v36 starting:MEMORY[0x277CBEC38] absoluteTimestamp:v43 bundleID:applicationCopy parentBundleID:0 extensionHostID:0 shortVersionString:v17 exactVersionString:v18 dyldPlatform:0 isNativeArchitecture:0 displayType:v41];
+            LODWORD(v40) = v35;
+            timestampCopy = v42;
+            v38 = [v37 initWithLaunchReason:reasonCopy type:v36 starting:MEMORY[0x277CBEC38] absoluteTimestamp:v42 bundleID:applicationCopy parentBundleID:0 extensionHostID:0 shortVersionString:v17 exactVersionString:v18 dyldPlatform:0 isNativeArchitecture:0 displayType:v40];
             [(_DKApplicationMonitorBase *)self updateBiomeWithAppInFocusStartEvent:v38];
             v39 = [(_DKMonitor *)self log];
             if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v49 = applicationCopy;
+              v48 = applicationCopy;
               _os_log_impl(&dword_22595A000, v39, OS_LOG_TYPE_INFO, "BMAppInFocus started %@", buf, 0xCu);
             }
           }
@@ -826,8 +796,6 @@ LABEL_6:
       }
     }
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (id)displayLayoutTransitionHandler
@@ -862,7 +830,7 @@ LABEL_6:
 
 - (void)processMonitor:(id)monitor didUpdateState:(id)state forProcess:(id)process
 {
-  v70[2] = *MEMORY[0x277D85DE8];
+  v69[2] = *MEMORY[0x277D85DE8];
   stateCopy = state;
   processCopy = process;
   identity = [processCopy identity];
@@ -891,9 +859,9 @@ LABEL_6:
 
   if ([processCopy isXPCService] && !-[_DKApplicationMonitor ignoreAppExtension:](self, "ignoreAppExtension:", identifier))
   {
-    v60 = 0;
-    v16 = [objc_alloc(MEMORY[0x277CC1E50]) initWithBundleIdentifier:identifier error:&v60];
-    v17 = v60;
+    v59 = 0;
+    v16 = [objc_alloc(MEMORY[0x277CC1E50]) initWithBundleIdentifier:identifier error:&v59];
+    v17 = v59;
     if (v17)
     {
       identifier2 = [(_DKMonitor *)self log];
@@ -923,29 +891,29 @@ LABEL_6:
 
           state2 = [stateCopy state];
           endowmentNamespaces = [state2 endowmentNamespaces];
-          v55 = [endowmentNamespaces containsObject:@"com.apple.frontboard.visibility"];
+          v54 = [endowmentNamespaces containsObject:@"com.apple.frontboard.visibility"];
 
-          v28 = isRunning & v55;
-          v52 = isRunning & v55;
+          v28 = isRunning & v54;
+          v51 = isRunning & v54;
           date = [MEMORY[0x277CBEAA8] date];
-          v58 = objc_alloc(MEMORY[0x277CF0FD8]);
+          v57 = objc_alloc(MEMORY[0x277CF0FD8]);
           v30 = [MEMORY[0x277CCABB0] numberWithBool:v28];
-          LODWORD(v45) = 0;
-          v31 = v58;
-          v59 = date;
-          v56 = [v31 initWithLaunchReason:0 type:2 starting:v30 absoluteTimestamp:date bundleID:identifier parentBundleID:bundleIdentifier extensionHostID:identifier2 shortVersionString:0 exactVersionString:0 dyldPlatform:0 isNativeArchitecture:0 displayType:v45];
+          LODWORD(v44) = 0;
+          v31 = v57;
+          v58 = date;
+          v55 = [v31 initWithLaunchReason:0 type:2 starting:v30 absoluteTimestamp:date bundleID:identifier parentBundleID:bundleIdentifier extensionHostID:identifier2 shortVersionString:0 exactVersionString:0 dyldPlatform:0 isNativeArchitecture:0 displayType:v44];
 
           v32 = [(NSMutableDictionary *)self->_activeExtensions objectForKeyedSubscript:identifier];
           v33 = v32;
-          if (v52 == 1)
+          if (v51 == 1)
           {
 
             if (!v33)
             {
               appInFocusSource = self->_appInFocusSource;
-              [v59 timeIntervalSinceReferenceDate];
-              [(BMSource *)appInFocusSource sendEvent:v56 timestamp:?];
-              [(NSMutableDictionary *)self->_activeExtensions setObject:v59 forKeyedSubscript:identifier];
+              [v58 timeIntervalSinceReferenceDate];
+              [(BMSource *)appInFocusSource sendEvent:v55 timestamp:?];
+              [(NSMutableDictionary *)self->_activeExtensions setObject:v58 forKeyedSubscript:identifier];
             }
           }
 
@@ -954,35 +922,35 @@ LABEL_6:
 
             if (v33)
             {
-              v53 = self->_appInFocusSource;
-              [v59 timeIntervalSinceReferenceDate];
-              [(BMSource *)v53 sendEvent:v56 timestamp:?];
-              v54 = [(NSMutableDictionary *)self->_activeExtensions objectForKeyedSubscript:identifier];
-              v51 = v59;
-              v49 = MEMORY[0x277CFE1D8];
+              v52 = self->_appInFocusSource;
+              [v58 timeIntervalSinceReferenceDate];
+              [(BMSource *)v52 sendEvent:v55 timestamp:?];
+              v53 = [(NSMutableDictionary *)self->_activeExtensions objectForKeyedSubscript:identifier];
+              v50 = v58;
+              v48 = MEMORY[0x277CFE1D8];
               appInFocusStream = [MEMORY[0x277CFE298] appInFocusStream];
               v35 = [MEMORY[0x277CFE1A8] withBundle:identifier];
-              v46 = v35;
+              v45 = v35;
               extensionHostIdentifier = [MEMORY[0x277CFE178] extensionHostIdentifier];
-              v69[0] = extensionHostIdentifier;
+              v68[0] = extensionHostIdentifier;
               v36 = &stru_2838F0870;
               if (identifier2)
               {
                 v36 = identifier2;
               }
 
-              v70[0] = v36;
+              v69[0] = v36;
               extensionContainingBundleIdentifier = [MEMORY[0x277CFE178] extensionContainingBundleIdentifier];
-              v69[1] = extensionContainingBundleIdentifier;
+              v68[1] = extensionContainingBundleIdentifier;
               v37 = &stru_2838F0870;
               if (bundleIdentifier)
               {
                 v37 = bundleIdentifier;
               }
 
-              v70[1] = v37;
-              v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v69 count:2];
-              v39 = [v49 eventWithStream:appInFocusStream startDate:v54 endDate:v51 value:v35 metadata:v38];
+              v69[1] = v37;
+              v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:2];
+              v39 = [v48 eventWithStream:appInFocusStream startDate:v53 endDate:v50 value:v35 metadata:v38];
 
               v40 = v39;
               if (v39)
@@ -997,15 +965,15 @@ LABEL_6:
                 if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
                 {
                   appInFocusStream2 = [MEMORY[0x277CFE298] appInFocusStream];
-                  v44 = [MEMORY[0x277CFE1A8] withBundle:identifier];
+                  v43 = [MEMORY[0x277CFE1A8] withBundle:identifier];
                   *buf = 138413058;
-                  v62 = appInFocusStream2;
-                  v63 = 2112;
-                  v64 = v54;
-                  v65 = 2112;
-                  v66 = v51;
-                  v67 = 2112;
-                  v68 = v44;
+                  v61 = appInFocusStream2;
+                  v62 = 2112;
+                  v63 = v53;
+                  v64 = 2112;
+                  v65 = v50;
+                  v66 = 2112;
+                  v67 = v43;
                   _os_log_error_impl(&dword_22595A000, v41, OS_LOG_TYPE_ERROR, "Failed to create _DKEvent: {%@, %@, %@, %@}", buf, 0x2Au);
 
                   v40 = 0;
@@ -1017,8 +985,6 @@ LABEL_6:
       }
     }
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (id)processUpdateHandler
@@ -1038,13 +1004,12 @@ LABEL_6:
 
 - (void)processMonitor:(uint64_t)a1 didUpdateState:(uint64_t)a2 forProcess:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_22595A000, log, OS_LOG_TYPE_ERROR, "Failed to look up extension record for identifier %@, error, %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_22595A000, log, OS_LOG_TYPE_ERROR, "Failed to look up extension record for identifier %@, error, %@", &v3, 0x16u);
 }
 
 @end

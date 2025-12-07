@@ -3,6 +3,8 @@
 + (BOOL)cacheAssetWithIdentifier:(id)identifier serverToken:(id)token storeIdentifier:(id)storeIdentifier fileURL:(id)l error:(id *)error;
 + (BOOL)removeAllCachedAssetsForStoreIdentifier:(id)identifier error:(id *)error;
 + (BOOL)removeCachedAsset:(id)asset serverToken:(id)token storeIdentifier:(id)identifier error:(id *)error;
++ (id)_cacheDirectoryForStoreWithIdentifier:(id)identifier createIfNeeded:(BOOL)needed error:(id *)error;
++ (id)_cacheFileForAssetWithIdentifier:(id)identifier serverToken:(id)token storeIdentifier:(id)storeIdentifier createIfNeeded:(BOOL)needed error:(id *)error;
 + (id)cachedAssetDataWithIdentifier:(id)identifier serverToken:(id)token storeIdentifier:(id)storeIdentifier error:(id *)error;
 + (id)cachedAssetFileWithIdentifier:(id)identifier serverToken:(id)token storeIdentifier:(id)storeIdentifier error:(id *)error;
 @end
@@ -339,6 +341,80 @@
   }
 
   return v15;
+}
+
++ (id)_cacheDirectoryForStoreWithIdentifier:(id)identifier createIfNeeded:(BOOL)needed error:(id *)error
+{
+  neededCopy = needed;
+  identifierCopy = identifier;
+  v8 = [RMLocations assetCacheDirectoryURLCreateIfNeeded:neededCopy];
+  v9 = [v8 URLByAppendingPathComponent:identifierCopy];
+
+  if (!neededCopy)
+  {
+    goto LABEL_6;
+  }
+
+  v10 = +[NSFileManager defaultManager];
+  path = [v9 path];
+  v12 = [v10 fileExistsAtPath:path];
+
+  if (v12)
+  {
+LABEL_5:
+
+LABEL_6:
+    v16 = v9;
+    goto LABEL_7;
+  }
+
+  v20 = 0;
+  v13 = [v10 createDirectoryAtURL:v9 withIntermediateDirectories:0 attributes:0 error:&v20];
+  v14 = v20;
+  v15 = v14;
+  if (v13)
+  {
+
+    goto LABEL_5;
+  }
+
+  v18 = +[RMLog storeAssetCache];
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  {
+    sub_10006E0E4();
+  }
+
+  if (error && v15)
+  {
+    v19 = v15;
+    *error = v15;
+  }
+
+  v16 = 0;
+LABEL_7:
+
+  return v16;
+}
+
++ (id)_cacheFileForAssetWithIdentifier:(id)identifier serverToken:(id)token storeIdentifier:(id)storeIdentifier createIfNeeded:(BOOL)needed error:(id *)error
+{
+  neededCopy = needed;
+  identifierCopy = identifier;
+  tokenCopy = token;
+  v13 = [RMStoreAssetCache _cacheDirectoryForStoreWithIdentifier:storeIdentifier createIfNeeded:neededCopy error:error];
+  if (v13)
+  {
+    v14 = [RMStoreAssetKey newAssetKeyWithAssetIdentifier:identifierCopy assetServerToken:tokenCopy];
+    v15 = [v14 key];
+    v16 = [v13 URLByAppendingPathComponent:v15];
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  return v16;
 }
 
 @end

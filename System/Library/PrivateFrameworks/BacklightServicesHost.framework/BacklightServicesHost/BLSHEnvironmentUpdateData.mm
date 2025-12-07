@@ -30,15 +30,14 @@
 {
   v3 = MEMORY[0x277CCACA8];
   environmentIdentifier = self->_environmentIdentifier;
-  newBacklightState = self->_newBacklightState;
-  v6 = NSStringFromBLSBacklightState();
+  v5 = NSStringFromBLSBacklightState();
   pendingTransitionStateCount = self->_pendingTransitionStateCount;
-  v8 = objc_alloc(MEMORY[0x277CBEAA8]);
-  v9 = [v8 bls_initWithMachContinuousTime:self->_timeStamp];
-  bls_shortLoggingString = [v9 bls_shortLoggingString];
-  v11 = [v3 stringWithFormat:@"update %@ %@ %lu %@", environmentIdentifier, v6, pendingTransitionStateCount, bls_shortLoggingString];
+  v7 = objc_alloc(MEMORY[0x277CBEAA8]);
+  v8 = [v7 bls_initWithMachContinuousTime:self->_timeStamp];
+  bls_shortLoggingString = [v8 bls_shortLoggingString];
+  v10 = [v3 stringWithFormat:@"update %@ %@ %lu %@", environmentIdentifier, v5, pendingTransitionStateCount, bls_shortLoggingString];
 
-  return v11;
+  return v10;
 }
 
 - (BOOL)isEqual:(id)equal

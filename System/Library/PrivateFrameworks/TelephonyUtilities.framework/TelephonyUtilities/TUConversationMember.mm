@@ -177,31 +177,31 @@ LABEL_16:
 
 - (TUConversationMember)initWithContact:(id)contact additionalHandles:(id)handles
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   v7 = [handles mutableCopy];
   if ([contactCopy isKeyAvailable:*MEMORY[0x1E695C330]])
   {
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     phoneNumbers = [contactCopy phoneNumbers];
-    v9 = [phoneNumbers countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v9 = [phoneNumbers countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v35;
+      v11 = *v34;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v35 != v11)
+          if (*v34 != v11)
           {
             objc_enumerationMutation(phoneNumbers);
           }
 
-          v13 = *(*(&v34 + 1) + 8 * i);
+          v13 = *(*(&v33 + 1) + 8 * i);
           if (([v13 tuIsSuggested] & 1) == 0)
           {
             v14 = [TUHandle alloc];
@@ -213,7 +213,7 @@ LABEL_16:
           }
         }
 
-        v10 = [phoneNumbers countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v10 = [phoneNumbers countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v10);
@@ -222,26 +222,26 @@ LABEL_16:
 
   if ([contactCopy isKeyAvailable:*MEMORY[0x1E695C208]])
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     emailAddresses = [contactCopy emailAddresses];
-    v19 = [emailAddresses countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v19 = [emailAddresses countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v31;
+      v21 = *v30;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v31 != v21)
+          if (*v30 != v21)
           {
             objc_enumerationMutation(emailAddresses);
           }
 
-          v23 = *(*(&v30 + 1) + 8 * j);
+          v23 = *(*(&v29 + 1) + 8 * j);
           if (([v23 tuIsSuggested] & 1) == 0)
           {
             v24 = [TUHandle alloc];
@@ -252,7 +252,7 @@ LABEL_16:
           }
         }
 
-        v20 = [emailAddresses countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v20 = [emailAddresses countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v20);
@@ -261,7 +261,6 @@ LABEL_16:
 
   v27 = [(TUConversationMember *)self initWithHandles:v7];
 
-  v28 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
@@ -403,21 +402,19 @@ LABEL_16:
 
   if (!v4)
   {
-    v5 = TUDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = TUDefaultLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       handle2 = [(TUConversationMember *)self handle];
       v10 = 138412290;
       v11 = handle2;
-      _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "[WARN] Could not convert %@ to IDS fromID", &v10, 0xCu);
+      _os_log_impl(&dword_1956FD000, v6, OS_LOG_TYPE_DEFAULT, "[WARN] Could not convert %@ to IDS fromID", &v10, 0xCu);
     }
   }
 
-  v7 = [v4 copy];
+  v8 = [v4 copy];
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v8;
 }
 
 - (NSString)idsDestination
@@ -428,31 +425,27 @@ LABEL_16:
 
   if (!v4)
   {
-    v5 = TUDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = TUDefaultLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       handle2 = [(TUConversationMember *)self handle];
       v10 = 138412290;
       v11 = handle2;
-      _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "[WARN] Could not convert %@ to IDS destination", &v10, 0xCu);
+      _os_log_impl(&dword_1956FD000, v6, OS_LOG_TYPE_DEFAULT, "[WARN] Could not convert %@ to IDS destination", &v10, 0xCu);
     }
   }
 
-  v7 = [v4 copy];
+  v8 = [v4 copy];
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v8;
 }
 
 - (NSArray)idsDestinations
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   idsDestination = [(TUConversationMember *)self idsDestination];
-  v6[0] = idsDestination;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = idsDestination;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }

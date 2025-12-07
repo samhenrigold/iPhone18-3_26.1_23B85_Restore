@@ -88,7 +88,7 @@
     v8 = 0;
     do
     {
-      v9 = objc_msgSend_bufferForResourceID_(context->var3, a2, self->_buffers[v7].var0, context);
+      v9 = objc_msgSend_bufferForResourceID_(context->var3, a2, self->_buffers[v7].var0);
       objc_msgSend_setBuffer_offset_atIndex_(encoder, v10, v9, self->_buffers[v7].var1, self->_buffers[v7].var2);
       objc_msgSend_useResource_usage_stages_(context->var0, v11, v9, 1, 3);
       ++v8;
@@ -104,7 +104,7 @@
     v13 = 0;
     do
     {
-      v14 = objc_msgSend_textureForResourceID_(context->var3, a2, self->_textures[v12].var0, context);
+      v14 = objc_msgSend_textureForResourceID_(context->var3, a2, self->_textures[v12].var0);
       if (v14)
       {
         v15 = v14;
@@ -125,7 +125,7 @@
     v18 = 0;
     do
     {
-      v19 = objc_msgSend_samplerStateForSamplerDesc_(context->var3, a2, *&self->_samplers[v17].var0, context);
+      v19 = objc_msgSend_samplerStateForSamplerDesc_(context->var3, a2, *&self->_samplers[v17].var0);
       objc_msgSend_setSamplerState_atIndex_(encoder, v20, v19, self->_samplers[v17].var1);
       ++v18;
       ++v17;

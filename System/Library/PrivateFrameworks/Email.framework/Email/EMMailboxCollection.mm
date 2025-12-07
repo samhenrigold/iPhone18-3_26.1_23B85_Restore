@@ -1,4 +1,5 @@
 @interface EMMailboxCollection
+- (EMMailboxCollection)initWithAccount:(id)account topLevelOnly:(BOOL)only repository:(id)repository;
 - (EMMailboxCollection)initWithCoder:(id)coder;
 - (EMMailboxCollection)initWithMailbox:(id)mailbox repository:(id)repository;
 - (EMMailboxCollection)initWithObjectID:(id)d query:(id)query;
@@ -51,6 +52,28 @@
   queryCopy = query;
   [(EMMailboxCollection *)self doesNotRecognizeSelector:a2];
   __assert_rtn("[EMMailboxCollection initWithObjectID:query:]", "EMMailboxCollection.m", 25, "0");
+}
+
+- (EMMailboxCollection)initWithAccount:(id)account topLevelOnly:(BOOL)only repository:(id)repository
+{
+  onlyCopy = only;
+  accountCopy = account;
+  repositoryCopy = repository;
+  v10 = [EMQuery alloc];
+  v11 = objc_opt_class();
+  v12 = [EMMailbox predicateForMailboxAccount:accountCopy topLevelOnly:onlyCopy];
+  v13 = [(EMQuery *)v10 initWithTargetClass:v11 predicate:v12 sortDescriptors:MEMORY[0x1E695E0F0]];
+
+  v17.receiver = self;
+  v17.super_class = EMMailboxCollection;
+  v14 = [(EMQueryingCollection *)&v17 initWithObjectID:0 query:v13];
+  v15 = v14;
+  if (v14)
+  {
+    [(EMMailboxCollection *)v14 setRepository:repositoryCopy];
+  }
+
+  return v15;
 }
 
 - (EMMailboxCollection)initWithMailbox:(id)mailbox repository:(id)repository

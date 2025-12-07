@@ -19,6 +19,7 @@
 - (void)presentHiddenFreshmintWithContext:(id)context completion:(id)completion;
 - (void)registerAccount:(id)account foriCloudNotificationsWithReason:(unint64_t)reason completion:(id)completion;
 - (void)registerDeviceForLoggedOutiCloudNotificationsWithReason:(unint64_t)reason completion:(id)completion;
+- (void)remoteFreshmintFlowCompletedWithSuccess:(BOOL)success completion:(id)completion;
 - (void)renewCredentialsWithCompletion:(id)completion;
 - (void)teardownOffersForAccount:(id)account withCompletion:(id)completion;
 - (void)unregisterAccount:(id)account fromiCloudNotificationsWithCompletion:(id)completion;
@@ -43,8 +44,7 @@
     [(NSXPCConnection *)v2->_connection setRemoteObjectInterface:v5];
 
     [(NSXPCConnection *)v2->_connection setInterruptionHandler:&__block_literal_global];
-    [(NSXPCConnection *)v2->_connection setInvalidationHandler:&__block_literal_global_8];
-    v6 = _INLogSystem();
+    v6 = _INLogSystem([(NSXPCConnection *)v2->_connection setInvalidationHandler:&__block_literal_global_8]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [INDaemonConnection init];
@@ -63,19 +63,19 @@
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __26__INDaemonConnection_init__block_invoke_6()
+void __26__INDaemonConnection_init__block_invoke_6(uint64_t a1)
 {
-  v0 = _INLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = _INLogSystem(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __26__INDaemonConnection_init__block_invoke_6_cold_1();
   }
 }
 
-void __26__INDaemonConnection_init__block_invoke()
+void __26__INDaemonConnection_init__block_invoke(uint64_t a1)
 {
-  v0 = _INLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = _INLogSystem(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __26__INDaemonConnection_init__block_invoke_cold_1();
   }
@@ -110,7 +110,7 @@ void __26__INDaemonConnection_init__block_invoke()
   v11 = v9;
   v22 = v11;
   v12 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v21];
-  v13 = _INLogSystem();
+  v13 = _INLogSystem(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [INDaemonConnection registerAccount:foriCloudNotificationsWithReason:error:];
@@ -121,36 +121,36 @@ void __26__INDaemonConnection_init__block_invoke()
 
   if (error)
   {
-    *error = v25[5];
+    v15 = v25[5];
+    *error = v15;
   }
 
-  v15 = _INLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = _INLogSystem(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     if (*(v31 + 24))
     {
-      v16 = @"YES";
+      v17 = @"YES";
     }
 
     else
     {
-      v16 = @"NO";
+      v17 = @"NO";
     }
 
-    v17 = v25[5];
+    v18 = v25[5];
     *buf = 138412546;
-    v35 = v16;
+    v35 = v17;
     v36 = 2112;
-    v37 = v17;
-    _os_log_impl(&dword_275568000, v15, OS_LOG_TYPE_DEFAULT, "Registration result (%@) with error: %@", buf, 0x16u);
+    v37 = v18;
+    _os_log_impl(&dword_275568000, v16, OS_LOG_TYPE_DEFAULT, "Registration result (%@) with error: %@", buf, 0x16u);
   }
 
-  v18 = *(v31 + 24);
+  v19 = *(v31 + 24);
   _Block_object_dispose(&v24, 8);
 
   _Block_object_dispose(&v30, 8);
-  v19 = *MEMORY[0x277D85DE8];
-  return v18 & 1;
+  return v19 & 1;
 }
 
 - (void)registerAccount:(id)account foriCloudNotificationsWithReason:(unint64_t)reason completion:(id)completion
@@ -173,7 +173,7 @@ void __26__INDaemonConnection_init__block_invoke()
   v18 = v11;
   v13 = v11;
   v14 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v17];
-  v15 = _INLogSystem();
+  v15 = _INLogSystem(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [INDaemonConnection registerAccount:foriCloudNotificationsWithReason:completion:];
@@ -186,9 +186,9 @@ void __26__INDaemonConnection_init__block_invoke()
 
 void __82__INDaemonConnection_registerAccount_foriCloudNotificationsWithReason_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _INLogSystem();
+  v6 = _INLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -197,11 +197,11 @@ void __82__INDaemonConnection_registerAccount_foriCloudNotificationsWithReason_c
       v7 = @"YES";
     }
 
-    v10 = 138412546;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_275568000, v6, OS_LOG_TYPE_DEFAULT, "Registration result (%@) with error: %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_275568000, v6, OS_LOG_TYPE_DEFAULT, "Registration result (%@) with error: %@", &v9, 0x16u);
   }
 
   v8 = *(a1 + 40);
@@ -209,8 +209,6 @@ void __82__INDaemonConnection_registerAccount_foriCloudNotificationsWithReason_c
   {
     (*(v8 + 16))(v8, a2, v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)unregisterAccount:(id)account fromiCloudNotificationsWithError:(id *)error
@@ -242,7 +240,7 @@ void __82__INDaemonConnection_registerAccount_foriCloudNotificationsWithReason_c
   v9 = v7;
   v20 = v9;
   v10 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v19];
-  v11 = _INLogSystem();
+  v11 = _INLogSystem(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [INDaemonConnection unregisterAccount:fromiCloudNotificationsWithError:];
@@ -253,36 +251,36 @@ void __82__INDaemonConnection_registerAccount_foriCloudNotificationsWithReason_c
 
   if (error)
   {
-    *error = v23[5];
+    v13 = v23[5];
+    *error = v13;
   }
 
-  v13 = _INLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = _INLogSystem(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     if (*(v29 + 24))
     {
-      v14 = @"YES";
+      v15 = @"YES";
     }
 
     else
     {
-      v14 = @"NO";
+      v15 = @"NO";
     }
 
-    v15 = v23[5];
+    v16 = v23[5];
     *buf = 138412546;
-    v33 = v14;
+    v33 = v15;
     v34 = 2112;
-    v35 = v15;
-    _os_log_impl(&dword_275568000, v13, OS_LOG_TYPE_DEFAULT, "Unregistration success: %@. Error: %@", buf, 0x16u);
+    v35 = v16;
+    _os_log_impl(&dword_275568000, v14, OS_LOG_TYPE_DEFAULT, "Unregistration success: %@. Error: %@", buf, 0x16u);
   }
 
-  v16 = *(v29 + 24);
+  v17 = *(v29 + 24);
   _Block_object_dispose(&v22, 8);
 
   _Block_object_dispose(&v28, 8);
-  v17 = *MEMORY[0x277D85DE8];
-  return v16 & 1;
+  return v17 & 1;
 }
 
 - (void)unregisterAccount:(id)account fromiCloudNotificationsWithCompletion:(id)completion
@@ -305,7 +303,7 @@ void __82__INDaemonConnection_registerAccount_foriCloudNotificationsWithReason_c
   v16 = v9;
   v11 = v9;
   v12 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v15];
-  v13 = _INLogSystem();
+  v13 = _INLogSystem(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [INDaemonConnection unregisterAccount:fromiCloudNotificationsWithCompletion:];
@@ -318,9 +316,9 @@ void __82__INDaemonConnection_registerAccount_foriCloudNotificationsWithReason_c
 
 void __78__INDaemonConnection_unregisterAccount_fromiCloudNotificationsWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _INLogSystem();
+  v6 = _INLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -329,11 +327,11 @@ void __78__INDaemonConnection_unregisterAccount_fromiCloudNotificationsWithCompl
       v7 = @"YES";
     }
 
-    v10 = 138412546;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_275568000, v6, OS_LOG_TYPE_DEFAULT, "Unregistration success: %@. Error: %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_275568000, v6, OS_LOG_TYPE_DEFAULT, "Unregistration success: %@. Error: %@", &v9, 0x16u);
   }
 
   v8 = *(a1 + 40);
@@ -341,8 +339,6 @@ void __78__INDaemonConnection_unregisterAccount_fromiCloudNotificationsWithCompl
   {
     (*(v8 + 16))(v8, a2, v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)teardownOffersForAccount:(id)account withCompletion:(id)completion
@@ -357,7 +353,7 @@ void __78__INDaemonConnection_unregisterAccount_fromiCloudNotificationsWithCompl
   v8 = completionCopy;
   accountCopy = account;
   v10 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v12];
-  v11 = _INLogSystem();
+  v11 = _INLogSystem(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [INDaemonConnection teardownOffersForAccount:withCompletion:];
@@ -401,7 +397,7 @@ void __78__INDaemonConnection_unregisterAccount_fromiCloudNotificationsWithCompl
   v7 = v5;
   v16 = v7;
   v8 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:&v12];
-  v9 = _INLogSystem();
+  v9 = _INLogSystem(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [INDaemonConnection clearAllRegistrationDigestsWithError:];
@@ -425,24 +421,25 @@ void __78__INDaemonConnection_unregisterAccount_fromiCloudNotificationsWithCompl
 void __59__INDaemonConnection_clearAllRegistrationDigestsWithError___block_invoke(void *a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _INLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _INLogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __59__INDaemonConnection_clearAllRegistrationDigestsWithError___block_invoke_cold_1();
     }
   }
 
   *(*(a1[4] + 8) + 24) = a2;
-  v7 = *(a1[5] + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v5;
-  v9 = v5;
+  v8 = *(a1[5] + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v6;
+  v10 = v6;
 
-  v10 = *(a1[6] + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = 0;
+  v11 = *(a1[6] + 8);
+  v12 = *(v11 + 40);
+  *(v11 + 40) = 0;
 }
 
 - (id)diagnosticReport
@@ -475,7 +472,7 @@ void __59__INDaemonConnection_clearAllRegistrationDigestsWithError___block_invok
   v5 = v3;
   v11 = v5;
   v6 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v10];
-  v7 = _INLogSystem();
+  v7 = _INLogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [INDaemonConnection diagnosticReport];
@@ -494,23 +491,24 @@ void __38__INDaemonConnection_diagnosticReport__block_invoke(uint64_t a1, void *
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _INLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _INLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __38__INDaemonConnection_diagnosticReport__block_invoke_cold_1();
     }
   }
 
-  v8 = *(*(a1 + 32) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v5;
-  v10 = v5;
+  v9 = *(*(a1 + 32) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v5;
+  v11 = v5;
 
-  v11 = *(*(a1 + 40) + 8);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = 0;
+  v12 = *(*(a1 + 40) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = 0;
 }
 
 - (void)updateOfferForAccount:(id)account offerId:(id)id buttonId:(id)buttonId info:(id)info completion:(id)completion
@@ -527,7 +525,7 @@ void __38__INDaemonConnection_diagnosticReport__block_invoke(uint64_t a1, void *
   v31[4] = __Block_byref_object_dispose_;
   selfCopy = self;
   v32 = selfCopy;
-  v18 = _INLogSystem();
+  v18 = _INLogSystem(selfCopy);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     [INDaemonConnection updateOfferForAccount:offerId:buttonId:info:completion:];
@@ -542,7 +540,7 @@ void __38__INDaemonConnection_diagnosticReport__block_invoke(uint64_t a1, void *
   v29 = v20;
   v30 = v31;
   v21 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v28];
-  v22 = _INLogSystem();
+  v22 = _INLogSystem(v21);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
     [INDaemonConnection diagnosticReport];
@@ -572,7 +570,7 @@ void __77__INDaemonConnection_updateOfferForAccount_offerId_buttonId_info_comple
 void __77__INDaemonConnection_updateOfferForAccount_offerId_buttonId_info_completion___block_invoke_24(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = _INLogSystem();
+  v6 = _INLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     __77__INDaemonConnection_updateOfferForAccount_offerId_buttonId_info_completion___block_invoke_24_cold_1();
@@ -609,7 +607,7 @@ void __77__INDaemonConnection_updateOfferForAccount_offerId_buttonId_info_comple
   v21 = v12;
   v22 = v23;
   v13 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v20];
-  v14 = _INLogSystem();
+  v14 = _INLogSystem(v13);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [INDaemonConnection diagnosticReport];
@@ -638,25 +636,23 @@ void __69__INDaemonConnection_iCloudServerOfferForAccount_options_completion___b
 
 void __69__INDaemonConnection_iCloudServerOfferForAccount_options_completion___block_invoke_25(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _INLogSystem();
+  v7 = _INLogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_275568000, v7, OS_LOG_TYPE_DEFAULT, "iCloud offer: %@ error: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_275568000, v7, OS_LOG_TYPE_DEFAULT, "iCloud offer: %@ error: %@", &v10, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
   v8 = *(*(a1 + 40) + 8);
   v9 = *(v8 + 40);
   *(v8 + 40) = 0;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentHiddenFreshmintWithContext:(id)context completion:(id)completion
@@ -670,7 +666,7 @@ void __69__INDaemonConnection_iCloudServerOfferForAccount_options_completion___b
   v20[4] = __Block_byref_object_dispose_;
   selfCopy = self;
   v21 = selfCopy;
-  v9 = _INLogSystem();
+  v9 = _INLogSystem(selfCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [INDaemonConnection presentHiddenFreshmintWithContext:completion:];
@@ -700,7 +696,7 @@ void __69__INDaemonConnection_iCloudServerOfferForAccount_options_completion___b
 void __67__INDaemonConnection_presentHiddenFreshmintWithContext_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _INLogSystem();
+  v4 = _INLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __67__INDaemonConnection_presentHiddenFreshmintWithContext_completion___block_invoke_cold_1();
@@ -720,7 +716,7 @@ void __67__INDaemonConnection_presentHiddenFreshmintWithContext_completion___blo
 void __67__INDaemonConnection_presentHiddenFreshmintWithContext_completion___block_invoke_27(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = _INLogSystem();
+  v6 = _INLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     __67__INDaemonConnection_presentHiddenFreshmintWithContext_completion___block_invoke_27_cold_1();
@@ -773,7 +769,7 @@ void __67__INDaemonConnection_presentHiddenFreshmintWithContext_completion___blo
 void __61__INDaemonConnection_commonHeadersForRequest_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _INLogSystem();
+  v4 = _INLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __67__INDaemonConnection_presentHiddenFreshmintWithContext_completion___block_invoke_cold_1();
@@ -821,7 +817,7 @@ void __61__INDaemonConnection_commonHeadersForRequest_withCompletion___block_inv
 void __53__INDaemonConnection_renewCredentialsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _INLogSystem();
+  v3 = _INLogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __67__INDaemonConnection_presentHiddenFreshmintWithContext_completion___block_invoke_cold_1();
@@ -838,16 +834,16 @@ void __53__INDaemonConnection_renewCredentialsWithCompletion___block_invoke_32(u
 
 - (void)notifyDeviceStorageLevel:(int64_t)level completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v21[0] = 0;
-  v21[1] = v21;
-  v21[2] = 0x3032000000;
-  v21[3] = __Block_byref_object_copy_;
-  v21[4] = __Block_byref_object_dispose_;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x3032000000;
+  v20[3] = __Block_byref_object_copy_;
+  v20[4] = __Block_byref_object_dispose_;
   selfCopy = self;
-  v22 = selfCopy;
-  v8 = _INLogSystem();
+  v21 = selfCopy;
+  v8 = _INLogSystem(selfCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -856,31 +852,30 @@ void __53__INDaemonConnection_renewCredentialsWithCompletion___block_invoke_32(u
   }
 
   connection = selfCopy->_connection;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __58__INDaemonConnection_notifyDeviceStorageLevel_completion___block_invoke;
-  v18[3] = &unk_27A650640;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __58__INDaemonConnection_notifyDeviceStorageLevel_completion___block_invoke;
+  v17[3] = &unk_27A650640;
   v10 = completionCopy;
-  v19 = v10;
-  v20 = v21;
-  v11 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v18];
-  v12 = _INLogSystem();
+  v18 = v10;
+  v19 = v20;
+  v11 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v17];
+  v12 = _INLogSystem(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [INDaemonConnection diagnosticReport];
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __58__INDaemonConnection_notifyDeviceStorageLevel_completion___block_invoke_34;
-  v15[3] = &unk_27A650668;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __58__INDaemonConnection_notifyDeviceStorageLevel_completion___block_invoke_34;
+  v14[3] = &unk_27A650668;
   v13 = v10;
-  v16 = v13;
-  v17 = v21;
-  [v11 notifyDeviceStorageLevel:level completion:v15];
+  v15 = v13;
+  v16 = v20;
+  [v11 notifyDeviceStorageLevel:level completion:v14];
 
-  _Block_object_dispose(v21, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v20, 8);
 }
 
 void __58__INDaemonConnection_notifyDeviceStorageLevel_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -899,7 +894,7 @@ void __58__INDaemonConnection_notifyDeviceStorageLevel_completion___block_invoke
 void __58__INDaemonConnection_notifyDeviceStorageLevel_completion___block_invoke_34(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = _INLogSystem();
+  v6 = _INLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     __58__INDaemonConnection_notifyDeviceStorageLevel_completion___block_invoke_34_cold_1();
@@ -916,10 +911,35 @@ void __58__INDaemonConnection_notifyDeviceStorageLevel_completion___block_invoke
   *(v8 + 40) = 0;
 }
 
+- (void)remoteFreshmintFlowCompletedWithSuccess:(BOOL)success completion:(id)completion
+{
+  successCopy = success;
+  completionCopy = completion;
+  v16[0] = 0;
+  v16[1] = v16;
+  v16[2] = 0x3032000000;
+  v16[3] = __Block_byref_object_copy_;
+  v16[4] = __Block_byref_object_dispose_;
+  selfCopy = self;
+  connection = selfCopy->_connection;
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __73__INDaemonConnection_remoteFreshmintFlowCompletedWithSuccess_completion___block_invoke;
+  v13 = &unk_27A650640;
+  v8 = completionCopy;
+  v14 = v8;
+  v15 = v16;
+  v9 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:&v10];
+  [v9 remoteFreshmintFlowCompletedWithSuccess:successCopy error:{0, v10, v11, v12, v13}];
+  (*(v8 + 2))(v8, 1, 0);
+
+  _Block_object_dispose(v16, 8);
+}
+
 void __73__INDaemonConnection_remoteFreshmintFlowCompletedWithSuccess_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _INLogSystem();
+  v4 = _INLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __73__INDaemonConnection_remoteFreshmintFlowCompletedWithSuccess_completion___block_invoke_cold_1();
@@ -964,7 +984,7 @@ void __73__INDaemonConnection_remoteFreshmintFlowCompletedWithSuccess_completion
 void __76__INDaemonConnection_appLaunchLinkDidPresentForBundleIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _INLogSystem();
+  v4 = _INLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __73__INDaemonConnection_remoteFreshmintFlowCompletedWithSuccess_completion___block_invoke_cold_1();
@@ -1008,7 +1028,7 @@ void __76__INDaemonConnection_appLaunchLinkDidPresentForBundleIdentifier_complet
 void __53__INDaemonConnection_getCacheDataForLink_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _INLogSystem();
+  v4 = _INLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __73__INDaemonConnection_remoteFreshmintFlowCompletedWithSuccess_completion___block_invoke_cold_1();
@@ -1113,7 +1133,7 @@ void __56__INDaemonConnection_synchronousDaemonWithErrorHandler___block_invoke(u
 void __64__INDaemonConnection_displayDelayedOfferWithContext_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _INLogSystem();
+  v4 = _INLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __64__INDaemonConnection_displayDelayedOfferWithContext_completion___block_invoke_cold_1();
@@ -1152,7 +1172,7 @@ void __64__INDaemonConnection_displayDelayedOfferWithContext_completion___block_
   v14 = v8;
   v10 = v8;
   v11 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v13];
-  v12 = _INLogSystem();
+  v12 = _INLogSystem(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [INDaemonConnection registerDeviceForLoggedOutiCloudNotificationsWithReason:completion:];
@@ -1163,9 +1183,9 @@ void __64__INDaemonConnection_displayDelayedOfferWithContext_completion___block_
 
 void __89__INDaemonConnection_registerDeviceForLoggedOutiCloudNotificationsWithReason_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _INLogSystem();
+  v6 = _INLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -1174,11 +1194,11 @@ void __89__INDaemonConnection_registerDeviceForLoggedOutiCloudNotificationsWithR
       v7 = @"YES";
     }
 
-    v10 = 138412546;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_275568000, v6, OS_LOG_TYPE_DEFAULT, "Registration result (%@) with error: %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_275568000, v6, OS_LOG_TYPE_DEFAULT, "Registration result (%@) with error: %@", &v9, 0x16u);
   }
 
   v8 = *(a1 + 40);
@@ -1186,8 +1206,6 @@ void __89__INDaemonConnection_registerDeviceForLoggedOutiCloudNotificationsWithR
   {
     (*(v8 + 16))(v8, a2, v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterDeviceFromLoggedOutiCloudNotificationsWithCompletion:(id)completion
@@ -1209,7 +1227,7 @@ void __89__INDaemonConnection_registerDeviceForLoggedOutiCloudNotificationsWithR
   v12 = v6;
   v8 = v6;
   v9 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v11];
-  v10 = _INLogSystem();
+  v10 = _INLogSystem(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [INDaemonConnection unregisterDeviceFromLoggedOutiCloudNotificationsWithCompletion:];
@@ -1220,9 +1238,9 @@ void __89__INDaemonConnection_registerDeviceForLoggedOutiCloudNotificationsWithR
 
 void __85__INDaemonConnection_unregisterDeviceFromLoggedOutiCloudNotificationsWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _INLogSystem();
+  v6 = _INLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -1231,11 +1249,11 @@ void __85__INDaemonConnection_unregisterDeviceFromLoggedOutiCloudNotificationsWi
       v7 = @"YES";
     }
 
-    v10 = 138412546;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_275568000, v6, OS_LOG_TYPE_DEFAULT, "Unregistration success: %@. Error: %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_275568000, v6, OS_LOG_TYPE_DEFAULT, "Unregistration success: %@. Error: %@", &v9, 0x16u);
   }
 
   v8 = *(a1 + 40);
@@ -1243,8 +1261,6 @@ void __85__INDaemonConnection_unregisterDeviceFromLoggedOutiCloudNotificationsWi
   {
     (*(v8 + 16))(v8, a2, v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeFPItem:(id)item notifyURL:(id)l completion:(id)completion
@@ -1269,62 +1285,6 @@ void __85__INDaemonConnection_unregisterDeviceFromLoggedOutiCloudNotificationsWi
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)registerAccount:foriCloudNotificationsWithReason:error:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)registerAccount:foriCloudNotificationsWithReason:completion:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)unregisterAccount:fromiCloudNotificationsWithError:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)unregisterAccount:fromiCloudNotificationsWithCompletion:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)teardownOffersForAccount:withCompletion:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)clearAllRegistrationDigestsWithError:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __59__INDaemonConnection_clearAllRegistrationDigestsWithError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_275568000, v0, v1, "Failed to clear registration cache with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)diagnosticReport
 {
   OUTLINED_FUNCTION_4();
@@ -1332,96 +1292,32 @@ void __59__INDaemonConnection_clearAllRegistrationDigestsWithError___block_invok
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __38__INDaemonConnection_diagnosticReport__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_275568000, v0, v1, "Failed to fetch diagnostic report with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)updateOfferForAccount:offerId:buttonId:info:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __77__INDaemonConnection_updateOfferForAccount_offerId_buttonId_info_completion___block_invoke_24_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentHiddenFreshmintWithContext:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __67__INDaemonConnection_presentHiddenFreshmintWithContext_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_275568000, v0, v1, "Creating daemon failed with proxy error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __67__INDaemonConnection_presentHiddenFreshmintWithContext_completion___block_invoke_27_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __58__INDaemonConnection_notifyDeviceStorageLevel_completion___block_invoke_34_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __73__INDaemonConnection_remoteFreshmintFlowCompletedWithSuccess_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_275568000, v0, v1, "Failed to connect to ind with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __64__INDaemonConnection_displayDelayedOfferWithContext_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_275568000, v0, v1, "Failed to create daemon with proxy error [%@].", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)registerDeviceForLoggedOutiCloudNotificationsWithReason:completion:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)unregisterDeviceFromLoggedOutiCloudNotificationsWithCompletion:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

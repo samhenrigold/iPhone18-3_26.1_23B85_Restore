@@ -32,35 +32,34 @@
     }
 
     [v2 setFareOptions:v3];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = sub_10001C5E0([selfCopy disabledModes]);
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [v2 addAvoidedMode:{objc_msgSend(*(*(&v13 + 1) + 8 * i), "integerValue")}];
+          [v2 addAvoidedMode:{objc_msgSend(*(*(&v12 + 1) + 8 * i), "integerValue")}];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
     }
 
-    v11 = NavigationConfig_DebugNavigationIncludeRealtimeUpdates[1];
     if (GEOConfigGetBOOL())
     {
       [v2 setRoutingBehavior:1];

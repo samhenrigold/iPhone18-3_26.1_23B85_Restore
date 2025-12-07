@@ -1,6 +1,7 @@
 @interface HealthAppLinkBuilder
 - (HealthAppLinkBuilder)init;
 - (HealthAppLinkBuilder)initWithHealthStore:(id)store;
+- (HealthAppLinkBuilder)initWithHealthStore:(id)store useExternalURLScheme:(BOOL)scheme;
 - (HealthAppLinkBuilder)initWithProfileIdentifier:(id)identifier source:(id)source useExternalURLScheme:(BOOL)scheme;
 @end
 
@@ -38,6 +39,15 @@
   v5 = [(HealthAppLinkBuilder *)self initWithProfileIdentifier:profileIdentifier source:0 useExternalURLScheme:0];
 
   return v5;
+}
+
+- (HealthAppLinkBuilder)initWithHealthStore:(id)store useExternalURLScheme:(BOOL)scheme
+{
+  schemeCopy = scheme;
+  profileIdentifier = [store profileIdentifier];
+  v7 = [(HealthAppLinkBuilder *)self initWithProfileIdentifier:profileIdentifier source:0 useExternalURLScheme:schemeCopy];
+
+  return v7;
 }
 
 @end

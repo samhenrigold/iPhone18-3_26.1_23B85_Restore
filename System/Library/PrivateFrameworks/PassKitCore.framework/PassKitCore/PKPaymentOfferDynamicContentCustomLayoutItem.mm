@@ -25,16 +25,16 @@
   {
     if (v5)
     {
-      v7 = [(__CFString *)v5 isEqualToString:@"text"];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-      if (v7)
+      if (isEqualToString)
       {
         goto LABEL_5;
       }
 
       v13 = v6;
       v14 = v13;
-      if (v13 == @"divider" || (v15 = [(__CFString *)v13 isEqualToString:@"divider"], v14, (v15 & 1) != 0))
+      if (v13 == @"divider" || (v15 = objc_msgSend_isEqualToString_(v13), v14, (v15 & 1) != 0))
       {
 
         v10 = 0;

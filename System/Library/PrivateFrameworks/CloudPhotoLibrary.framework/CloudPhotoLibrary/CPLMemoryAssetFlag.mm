@@ -226,7 +226,6 @@ LABEL_8:
       goto LABEL_56;
     }
 
-    v6 = equalCopy[13];
     if (self->_isRepresentative)
     {
       if ((equalCopy[13] & 1) == 0)
@@ -253,7 +252,6 @@ LABEL_8:
       goto LABEL_56;
     }
 
-    v7 = equalCopy[8];
     if (self->_isCurated)
     {
       if ((equalCopy[8] & 1) == 0)
@@ -280,7 +278,6 @@ LABEL_8:
       goto LABEL_56;
     }
 
-    v8 = equalCopy[12];
     if (self->_isMovieCurated)
     {
       if ((equalCopy[12] & 1) == 0)
@@ -307,7 +304,6 @@ LABEL_8:
       goto LABEL_56;
     }
 
-    v9 = equalCopy[11];
     if (self->_isKeyAsset)
     {
       if ((equalCopy[11] & 1) == 0)
@@ -334,7 +330,6 @@ LABEL_8:
       goto LABEL_56;
     }
 
-    v10 = equalCopy[10];
     if (self->_isExtendedCurated)
     {
       if ((equalCopy[10] & 1) == 0)
@@ -371,7 +366,6 @@ LABEL_56:
     goto LABEL_56;
   }
 
-  v11 = equalCopy[14];
   if (self->_isUserCurated)
   {
     if ((equalCopy[14] & 1) == 0)
@@ -618,7 +612,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 0x20) != 0)
   {
-    isRepresentative = self->_isRepresentative;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 1) == 0)
@@ -638,7 +631,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  isCurated = self->_isCurated;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -653,7 +645,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  isMovieCurated = self->_isMovieCurated;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -668,7 +659,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  isKeyAsset = self->_isKeyAsset;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -683,7 +673,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  isExtendedCurated = self->_isExtendedCurated;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -698,12 +687,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  isUserCurated = self->_isUserCurated;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_8:
-    isCustomUserAsset = self->_isCustomUserAsset;
     PBDataWriterWriteBOOLField();
   }
 

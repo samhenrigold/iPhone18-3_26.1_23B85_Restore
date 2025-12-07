@@ -263,7 +263,6 @@ LABEL_10:
   has = self->_has;
   if (has)
   {
-    availableStorageInBytes = self->_availableStorageInBytes;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -283,7 +282,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  numberOfApps = self->_numberOfApps;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -298,7 +296,6 @@ LABEL_4:
   }
 
 LABEL_15:
-  numberOfSongs = self->_numberOfSongs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -313,7 +310,6 @@ LABEL_5:
   }
 
 LABEL_16:
-  numberOfPhotos = self->_numberOfPhotos;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -328,7 +324,6 @@ LABEL_6:
   }
 
 LABEL_17:
-  batteryCurrentCapacity = self->_batteryCurrentCapacity;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -343,7 +338,6 @@ LABEL_7:
   }
 
 LABEL_18:
-  batteryIsCharging = self->_batteryIsCharging;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -358,12 +352,10 @@ LABEL_8:
   }
 
 LABEL_19:
-  purgeableSpace = self->_purgeableSpace;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_9:
-    userDeletableSpace = self->_userDeletableSpace;
     PBDataWriterWriteUint64Field();
   }
 
@@ -678,7 +670,7 @@ LABEL_9:
     }
 
 LABEL_43:
-    v6 = 0;
+    v5 = 0;
     goto LABEL_44;
   }
 
@@ -687,7 +679,6 @@ LABEL_43:
     goto LABEL_43;
   }
 
-  v5 = *(equalCopy + 64);
   if (self->_batteryIsCharging)
   {
     if ((*(equalCopy + 64) & 1) == 0)
@@ -715,7 +706,7 @@ LABEL_29:
     goto LABEL_43;
   }
 
-  v6 = (*(equalCopy + 68) & 0x40) == 0;
+  v5 = (*(equalCopy + 68) & 0x40) == 0;
   if ((*&self->_has & 0x40) != 0)
   {
     if ((*(equalCopy + 68) & 0x40) == 0 || self->_userDeletableSpace != *(equalCopy + 7))
@@ -723,12 +714,12 @@ LABEL_29:
       goto LABEL_43;
     }
 
-    v6 = 1;
+    v5 = 1;
   }
 
 LABEL_44:
 
-  return v6;
+  return v5;
 }
 
 - (unint64_t)hash

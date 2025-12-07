@@ -7,17 +7,15 @@
 
 - (id)createControlItemsWithOptions:(id)options
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   controlItemValueSourceForPrimaryService = [(HFServiceItem *)self controlItemValueSourceForPrimaryService];
   v4 = [HFValueTransformer transformerForValueClass:objc_opt_class() transformBlock:&__block_literal_global_154 reverseTransformBlock:&__block_literal_global_7_5];
-  v11 = @"controlItemPurpose";
-  v12[0] = &unk_2825245E8;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = @"controlItemPurpose";
+  v11[0] = &unk_2825245E8;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v6 = [HFPrimaryStateControlItem alloc];
   v7 = [(HFPrimaryStateControlItem *)v6 initWithValueSource:controlItemValueSourceForPrimaryService characteristicType:*MEMORY[0x277CCFB80] valueTransformer:v4 displayResults:v5];
   v8 = [MEMORY[0x277CBEB98] setWithObject:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -113,7 +111,7 @@ id __56__HFInputSourceServiceItem__subclass_updateWithOptions___block_invoke(uin
   }
 
   [v7 setObject:v16 forKeyedSubscript:@"HFInputSourceCanHideKey"];
-  v17 = [*(a1 + 32) service];
+  v17 = objc_msgSend_service(*(a1 + 32));
   if ([v17 isNameModifiable])
   {
     v18 = v12;
@@ -126,7 +124,7 @@ id __56__HFInputSourceServiceItem__subclass_updateWithOptions___block_invoke(uin
 
   [v7 setObject:v18 forKeyedSubscript:@"isDisabled"];
 
-  v19 = [*(a1 + 32) service];
+  v19 = objc_msgSend_service(*(a1 + 32));
   v20 = [v19 configurationState];
 
   if (v20 == 3 && v5)

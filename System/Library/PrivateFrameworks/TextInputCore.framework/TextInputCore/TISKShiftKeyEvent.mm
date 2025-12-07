@@ -1,4 +1,5 @@
 @interface TISKShiftKeyEvent
+- (id)init:(id)init emojiSearchMode:(BOOL)mode order:(int64_t)order;
 - (void)reportInterKeyTiming:(id)timing previousEvent:(id)event;
 - (void)reportToSession:(id)session;
 @end
@@ -44,6 +45,13 @@ LABEL_8:
   sessionCopy = session;
   [sessionCopy addSample:&unk_28400BF10 forKey:v3];
   [sessionCopy addToCounterForRateMetric:1 forKey:kTISKTapTypingSpeed];
+}
+
+- (id)init:(id)init emojiSearchMode:(BOOL)mode order:(int64_t)order
+{
+  v6.receiver = self;
+  v6.super_class = TISKShiftKeyEvent;
+  return [(TISKEvent *)&v6 init:4 emojiSearchMode:mode order:order tap:init];
 }
 
 @end

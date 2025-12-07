@@ -40,12 +40,12 @@
 
 - (id)bulletinRegistrationFromFetchRequest:(id)request context:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   contextCopy = context;
-  v17 = 0;
-  v8 = [contextCopy executeFetchRequest:requestCopy error:&v17];
-  v9 = v17;
+  v16 = 0;
+  v8 = [contextCopy executeFetchRequest:requestCopy error:&v16];
+  v9 = v16;
   if (v8)
   {
     firstObject = [v8 firstObject];
@@ -60,19 +60,17 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v19 = v14;
-      v20 = 2112;
-      v21 = selfCopy;
-      v22 = 2112;
-      v23 = v9;
+      v18 = v14;
+      v19 = 2112;
+      v20 = selfCopy;
+      v21 = 2112;
+      v22 = v9;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch bulletin registrations on accessory %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
     firstObject = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -87,10 +85,10 @@
 
 - (void)willSave
 {
-  v61 = *MEMORY[0x277D85DE8];
-  v54.receiver = self;
-  v54.super_class = _MKFAppleMediaAccessory;
-  [(_MKFModel *)&v54 willSave];
+  v60 = *MEMORY[0x277D85DE8];
+  v53.receiver = self;
+  v53.super_class = _MKFAppleMediaAccessory;
+  [(_MKFModel *)&v53 willSave];
   if ([(_MKFAppleMediaAccessory *)self isDeleted])
   {
     managedObjectContext = [(_MKFAppleMediaAccessory *)self managedObjectContext];
@@ -104,7 +102,7 @@
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v56 = v15;
+        v55 = v15;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not find MOC when processing removal for AppleMediaAccessory", buf, 0xCu);
       }
 
@@ -124,7 +122,7 @@
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v56 = v19;
+        v55 = v19;
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Could not find local store when processing removal for AppleMediaAccessory", buf, 0xCu);
       }
 
@@ -154,7 +152,7 @@
 LABEL_44:
 
 LABEL_45:
-        goto LABEL_46;
+        return;
       }
     }
 
@@ -173,7 +171,7 @@ LABEL_45:
       {
         v40 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v56 = v40;
+        v55 = v40;
         _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_ERROR, "%{public}@Nil identifier when processing removal for AppleMediaAccessory", buf, 0xCu);
       }
 
@@ -225,9 +223,9 @@ LABEL_45:
               {
                 v36 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v56 = v36;
-                v57 = 2112;
-                v58 = modelID;
+                v55 = v36;
+                v56 = 2112;
+                v57 = modelID;
                 _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_INFO, "%{public}@Storing removed current accessory uuid into local store metadata %@", buf, 0x16u);
               }
 
@@ -245,7 +243,7 @@ LABEL_45:
           {
             v52 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v56 = v52;
+            v55 = v52;
             _os_log_impl(&dword_229538000, v51, OS_LOG_TYPE_ERROR, "%{public}@Nil accessory uuid/modelID when processing removal for AppleMediaAccessory", buf, 0xCu);
           }
 
@@ -262,11 +260,11 @@ LABEL_45:
       {
         v44 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v56 = v44;
-        v57 = 2112;
-        v58 = identifier;
-        v59 = 2112;
-        v60 = v21;
+        v55 = v44;
+        v56 = 2112;
+        v57 = identifier;
+        v58 = 2112;
+        v59 = v21;
         v45 = "%{public}@Removed accessory identifier (%@) does not match current accessory media routeID %@";
         v46 = v43;
         v47 = OS_LOG_TYPE_INFO;
@@ -284,7 +282,7 @@ LABEL_45:
       {
         v44 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v56 = v44;
+        v55 = v44;
         v45 = "%{public}@Nil current device media route id when processing removal for AppleMediaAccessory";
         v46 = v43;
         v47 = OS_LOG_TYPE_ERROR;
@@ -300,9 +298,6 @@ LABEL_42:
 LABEL_43:
     goto LABEL_44;
   }
-
-LABEL_46:
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 @end

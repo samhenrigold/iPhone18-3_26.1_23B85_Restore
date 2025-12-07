@@ -1,5 +1,6 @@
 @interface ASDSRCStream
 - (ASDSRCStream)initWithDirection:(unsigned int)direction withPlugin:(id)plugin;
+- (ASDSRCStream)initWithOwningDevice:(id)device underlyingStreams:(id)streams direction:(unsigned int)direction plugin:(id)plugin;
 - (BOOL)_allocateStreamingResources;
 - (BOOL)changePhysicalFormat:(id)format;
 - (id)readInputBlock;
@@ -9,6 +10,7 @@
 - (void)_deallocateStreamingResources;
 - (void)_updateLatency;
 - (void)_updateMaximumFramesPerIOCycle;
+- (void)setIsActive:(BOOL)active;
 - (void)setUnderlyingStreams:(id)streams;
 - (void)startStream;
 - (void)stopStream;
@@ -24,6 +26,81 @@
   [v5 raise:*MEMORY[0x277CBE660] format:{@"Do not call %@", v6}];
 
   return 0;
+}
+
+- (ASDSRCStream)initWithOwningDevice:(id)device underlyingStreams:(id)streams direction:(unsigned int)direction plugin:(id)plugin
+{
+  v7 = *&direction;
+  v41 = *MEMORY[0x277D85DE8];
+  deviceCopy = device;
+  streamsCopy = streams;
+  v39.receiver = self;
+  v39.super_class = ASDSRCStream;
+  v12 = [(ASDStream *)&v39 initWithDirection:v7 withPlugin:plugin];
+  v13 = v12;
+  if (v12)
+  {
+    objc_storeWeak(&v12->_owningDevice, deviceCopy);
+    objc_storeStrong(&v13->_underlyingStreams, streams);
+    v13->_ioReferenceCount = 0;
+    v34 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    bundleIdentifier = [v34 bundleIdentifier];
+    v15 = MEMORY[0x277CCACA8];
+    streamName = [(ASDStream *)v13 streamName];
+    v17 = [v15 stringWithFormat:@"%@.srcStream.%@.srcQueue", bundleIdentifier, streamName];
+    v18 = v17;
+    v19 = dispatch_queue_create([v17 UTF8String], 0);
+    srcQueue = v13->_srcQueue;
+    v13->_srcQueue = v19;
+
+    v21 = MEMORY[0x277CCACA8];
+    streamName2 = [(ASDStream *)v13 streamName];
+    v23 = [v21 stringWithFormat:@"%@.srcStream.%@.propertyQueue", bundleIdentifier, streamName2];
+    v24 = v23;
+    v25 = dispatch_queue_create([v23 UTF8String], 0);
+    propertyQueue = v13->_propertyQueue;
+    v13->_propertyQueue = v25;
+
+    v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v27 = streamsCopy;
+    v28 = [v27 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    if (v28)
+    {
+      v29 = *v36;
+      do
+      {
+        v30 = 0;
+        do
+        {
+          if (*v36 != v29)
+          {
+            objc_enumerationMutation(v27);
+          }
+
+          if ([*(*(&v35 + 1) + 8 * v30) direction] != v7)
+          {
+            currentHandler = [MEMORY[0x277CCA890] currentHandler];
+            [currentHandler handleFailureInMethod:a2 object:v13 file:@"ASDSRCStream.mm" lineNumber:57 description:@"Underlying stream has a different direction than the SRC stream"];
+          }
+
+          ++v30;
+        }
+
+        while (v28 != v30);
+        v28 = [v27 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      }
+
+      while (v28);
+    }
+
+    [(ASDSRCStream *)v13 _updateMaximumFramesPerIOCycle];
+    [(ASDSRCStream *)v13 _updateLatency];
+  }
+
+  return v13;
 }
 
 - (void)setUnderlyingStreams:(id)streams
@@ -57,35 +134,35 @@
 
 uint64_t __27__ASDSRCStream_startStream__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   result = *(a1 + 32);
   if (!*(result + 328))
   {
     [result _updateMaximumFramesPerIOCycle];
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     v3 = *(*(a1 + 32) + 336);
-    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v4)
     {
-      v5 = *v10;
+      v5 = *v9;
       do
       {
         v6 = 0;
         do
         {
-          if (*v10 != v5)
+          if (*v9 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          [*(*(&v9 + 1) + 8 * v6++) startStream];
+          [*(*(&v8 + 1) + 8 * v6++) startStream];
         }
 
         while (v4 != v6);
-        v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v4);
@@ -93,8 +170,8 @@ uint64_t __27__ASDSRCStream_startStream__block_invoke(uint64_t a1)
 
     if (([*(a1 + 32) _allocateStreamingResources] & 1) == 0)
     {
-      v8 = [MEMORY[0x277CCA890] currentHandler];
-      [v8 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"ASDSRCStream.mm" lineNumber:86 description:@"Couldn't allocate streaming resources"];
+      v7 = [MEMORY[0x277CCA890] currentHandler];
+      [v7 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"ASDSRCStream.mm" lineNumber:86 description:@"Couldn't allocate streaming resources"];
     }
 
     ++*(*(a1 + 32) + 328);
@@ -102,7 +179,6 @@ uint64_t __27__ASDSRCStream_startStream__block_invoke(uint64_t a1)
   }
 
   *(result + 312) = 1;
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -120,11 +196,11 @@ uint64_t __27__ASDSRCStream_startStream__block_invoke(uint64_t a1)
   dispatch_sync(srcQueue, block);
 }
 
-uint64_t __26__ASDSRCStream_stopStream__block_invoke(uint64_t result)
+void *__26__ASDSRCStream_stopStream__block_invoke(void *result)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  *(*(result + 32) + 312) = 0;
-  v1 = *(result + 32);
+  v16 = *MEMORY[0x277D85DE8];
+  *(result[4] + 312) = 0;
+  v1 = result[4];
   v2 = *(v1 + 328);
   v3 = v2 < 1;
   v4 = v2 - 1;
@@ -132,43 +208,42 @@ uint64_t __26__ASDSRCStream_stopStream__block_invoke(uint64_t result)
   {
     v5 = result;
     *(v1 + 328) = v4;
-    v6 = *(result + 32);
+    v6 = result[4];
     if (!*(v6 + 328))
     {
-      v14 = 0u;
-      v15 = 0u;
-      v12 = 0u;
       v13 = 0u;
+      v14 = 0u;
+      v11 = 0u;
+      v12 = 0u;
       v7 = *(v6 + 336);
-      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v8)
       {
-        v9 = *v13;
+        v9 = *v12;
         do
         {
           v10 = 0;
           do
           {
-            if (*v13 != v9)
+            if (*v12 != v9)
             {
               objc_enumerationMutation(v7);
             }
 
-            [*(*(&v12 + 1) + 8 * v10++) stopStream];
+            [*(*(&v11 + 1) + 8 * v10++) stopStream];
           }
 
           while (v8 != v10);
-          v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+          v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
         }
 
         while (v8);
       }
 
-      result = [*(v5 + 32) _deallocateStreamingResources];
+      return [v5[4] _deallocateStreamingResources];
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -206,18 +281,17 @@ uint64_t __37__ASDSRCStream_changePhysicalFormat___block_invoke(uint64_t a1)
 
 - (BOOL)_allocateStreamingResources
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __43__ASDSRCStream__allocateStreamingResources__block_invoke;
-  v5[3] = &unk_278CE3AD0;
-  v5[4] = self;
-  v6 = &unk_2853444C8;
-  v7 = 0;
-  v8 = &v6;
-  v2 = ASDDSP::exceptionBarrier<BOOL({block_pointer} {__strong})(void)>(v5);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](&v6);
-  v3 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __43__ASDSRCStream__allocateStreamingResources__block_invoke;
+  v4[3] = &unk_278CE3AD0;
+  v4[4] = self;
+  v5 = &unk_2853444C8;
+  v6 = 0;
+  v7 = &v5;
+  v2 = ASDDSP::exceptionBarrier<BOOL({block_pointer} {__strong})(void)>(v4);
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](&v5);
   return v2;
 }
 
@@ -228,7 +302,7 @@ void __43__ASDSRCStream__allocateStreamingResources__block_invoke(uint64_t a1)
   v2 = v1;
   if (v1)
   {
-    [v1 audioStreamBasicDescription];
+    objc_msgSend_audioStreamBasicDescription(v1);
   }
 
   else
@@ -285,7 +359,7 @@ void __43__ASDSRCStream__allocateStreamingResources__block_invoke(uint64_t a1)
         v10 = v9;
         if (v9)
         {
-          [v9 audioStreamBasicDescription];
+          objc_msgSend_audioStreamBasicDescription(v9);
         }
 
         else
@@ -357,17 +431,16 @@ void __43__ASDSRCStream__allocateStreamingResources__block_invoke(uint64_t a1)
 
 - (void)_deallocateStreamingResources
 {
-  v4[4] = *MEMORY[0x277D85DE8];
-  v3[0] = MEMORY[0x277D85DD0];
-  v3[1] = 3221225472;
-  v3[2] = __45__ASDSRCStream__deallocateStreamingResources__block_invoke;
-  v3[3] = &unk_278CE39D0;
-  v3[4] = self;
-  v4[0] = &unk_285344558;
-  v4[3] = v4;
-  ASDDSP::exceptionBarrier<void({block_pointer} {__strong})(void)>(v3);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v4);
-  v2 = *MEMORY[0x277D85DE8];
+  v3[4] = *MEMORY[0x277D85DE8];
+  v2[0] = MEMORY[0x277D85DD0];
+  v2[1] = 3221225472;
+  v2[2] = __45__ASDSRCStream__deallocateStreamingResources__block_invoke;
+  v2[3] = &unk_278CE39D0;
+  v2[4] = self;
+  v3[0] = &unk_285344558;
+  v3[3] = v3;
+  ASDDSP::exceptionBarrier<void({block_pointer} {__strong})(void)>(v2);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v3);
 }
 
 ASDSRCStreamHelper *__45__ASDSRCStream__deallocateStreamingResources__block_invoke(uint64_t a1)
@@ -414,7 +487,7 @@ ASDSRCStreamHelper *__45__ASDSRCStream__deallocateStreamingResources__block_invo
   return v3;
 }
 
-uint64_t __39__ASDSRCStream_maximumFramesPerIOCycle__block_invoke(uint64_t a1)
+void *__39__ASDSRCStream_maximumFramesPerIOCycle__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _updateMaximumFramesPerIOCycle];
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 320);
@@ -423,7 +496,7 @@ uint64_t __39__ASDSRCStream_maximumFramesPerIOCycle__block_invoke(uint64_t a1)
 
 - (void)_updateLatency
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_owningDevice);
   [WeakRetained samplingRate];
   v5 = v4;
@@ -431,33 +504,33 @@ uint64_t __39__ASDSRCStream_maximumFramesPerIOCycle__block_invoke(uint64_t a1)
   [underlyingDevice samplingRate];
   v8 = v7;
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v9 = self->_underlyingStreams;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v10)
   {
     latency = 0;
-    v12 = *v29;
+    v12 = *v28;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
+        v14 = *(*(&v27 + 1) + 8 * i);
         if ([v14 latency] > latency)
         {
           latency = [v14 latency];
         }
       }
 
-      v10 = [(NSArray *)v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v10 = [(NSArray *)v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v10);
@@ -491,9 +564,7 @@ uint64_t __39__ASDSRCStream_maximumFramesPerIOCycle__block_invoke(uint64_t a1)
     v26 = 0;
   }
 
-  [(ASDStream *)self setLatency:v26 + vcvtpd_u64_f64(v5 / v8 * v15), v28];
-
-  v27 = *MEMORY[0x277D85DE8];
+  [(ASDStream *)self setLatency:v26 + vcvtpd_u64_f64(v5 / v8 * v15), v27];
 }
 
 - (id)readInputBlock
@@ -541,7 +612,7 @@ uint64_t __30__ASDSRCStream_readInputBlock__block_invoke(uint64_t a1, uint64_t a
   return v2;
 }
 
-uint64_t __29__ASDSRCStream_writeMixBlock__block_invoke(uint64_t a1, unsigned int a2, const AudioServerPlugInIOCycleInfo *a3, void *a4, void *a5)
+uint64_t __29__ASDSRCStream_writeMixBlock__block_invoke(uint64_t a1, uint64_t a2, const AudioServerPlugInIOCycleInfo *a3, void *a4, void *a5)
 {
   v6 = **(*(*(a1 + 32) + 8) + 24);
   if (!v6)
@@ -578,6 +649,44 @@ uint64_t __38__ASDSRCStream_readIsolatedInputBlock__block_invoke(uint64_t a1, ui
   }
 
   return ASDSRCStreamHelper::readIsolatedInput(v5, a2, a3, a4);
+}
+
+- (void)setIsActive:(BOOL)active
+{
+  activeCopy = active;
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  underlyingStreams = [(ASDSRCStream *)self underlyingStreams];
+  v6 = [underlyingStreams countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
+  {
+    v7 = *v11;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v11 != v7)
+        {
+          objc_enumerationMutation(underlyingStreams);
+        }
+
+        [*(*(&v10 + 1) + 8 * v8++) setIsActive:activeCopy];
+      }
+
+      while (v6 != v8);
+      v6 = [underlyingStreams countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v6);
+  }
+
+  v9.receiver = self;
+  v9.super_class = ASDSRCStream;
+  [(ASDStream *)&v9 setIsActive:activeCopy];
 }
 
 @end

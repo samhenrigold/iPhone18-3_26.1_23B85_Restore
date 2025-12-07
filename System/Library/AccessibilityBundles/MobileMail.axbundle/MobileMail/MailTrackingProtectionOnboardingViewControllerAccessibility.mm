@@ -15,44 +15,42 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v17 = *MEMORY[0x29EDCA608];
-  v15.receiver = self;
-  v15.super_class = MailTrackingProtectionOnboardingViewControllerAccessibility;
-  [(MailTrackingProtectionOnboardingViewControllerAccessibility *)&v15 _accessibilityLoadAccessibilityInformation];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v16 = *MEMORY[0x29EDCA608];
+  v14.receiver = self;
+  v14.super_class = MailTrackingProtectionOnboardingViewControllerAccessibility;
+  [(MailTrackingProtectionOnboardingViewControllerAccessibility *)&v14 _accessibilityLoadAccessibilityInformation];
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   objc_opt_class();
   v3 = [(MailTrackingProtectionOnboardingViewControllerAccessibility *)self safeValueForKey:@"collectionView"];
   v4 = __UIAccessibilityCastAsClass();
 
   visibleCells = [v4 visibleCells];
 
-  v6 = [visibleCells countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v6 = [visibleCells countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        [*(*(&v11 + 1) + 8 * i) _setAccessibilityAdditionalTraitsBlock:&__block_literal_global_0];
+        [*(*(&v10 + 1) + 8 * i) _setAccessibilityAdditionalTraitsBlock:&__block_literal_global_0];
       }
 
-      v7 = [visibleCells countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v7 = [visibleCells countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_configureCell:(id)cell viewModel:(id)model

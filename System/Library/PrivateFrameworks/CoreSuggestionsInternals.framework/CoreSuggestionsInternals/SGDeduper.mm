@@ -35,7 +35,7 @@ uint64_t __39__SGDeduper_splitContactDetailsByType___block_invoke(uint64_t a1, v
 
 + (id)dedupeContactDetails:(id)details
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   detailsCopy = details;
   if (!detailsCopy)
   {
@@ -49,26 +49,26 @@ uint64_t __39__SGDeduper_splitContactDetailsByType___block_invoke(uint64_t a1, v
 
   v9 = objc_opt_new();
   v10 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v11 = v8;
-  v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v25;
+    v14 = *v24;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v25 != v14)
+        if (*v24 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v24 + 1) + 8 * i);
+        v16 = *(*(&v23 + 1) + 8 * i);
         if ([v16 type] == 1)
         {
           v17 = v10;
@@ -82,7 +82,7 @@ uint64_t __39__SGDeduper_splitContactDetailsByType___block_invoke(uint64_t a1, v
         [v17 addObject:v16];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v13);
@@ -94,14 +94,12 @@ uint64_t __39__SGDeduper_splitContactDetailsByType___block_invoke(uint64_t a1, v
   v20 = [self _dedupePostalAddresses:v10];
   [v19 addObjectsFromArray:v20];
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 id __34__SGDeduper_dedupeContactDetails___block_invoke(uint64_t a1, void *a2)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 label];
   v4 = v3;
@@ -115,7 +113,7 @@ id __34__SGDeduper_dedupeContactDetails___block_invoke(uint64_t a1, void *a2)
     v5 = &stru_284703F00;
   }
 
-  v11[0] = v5;
+  v10[0] = v5;
   v6 = [v2 value];
 
   if (v6)
@@ -128,10 +126,8 @@ id __34__SGDeduper_dedupeContactDetails___block_invoke(uint64_t a1, void *a2)
     v7 = &stru_284703F00;
   }
 
-  v11[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
 
   return v8;
 }
@@ -169,7 +165,7 @@ id __42__SGDeduper__dedupeGenericContactDetails___block_invoke(uint64_t a1, void
 + (id)_dedupePostalAddresses:(id)addresses
 {
   addressesCopy = addresses;
-  if ([addressesCopy count] > 0x14)
+  if (objc_msgSend_count(addressesCopy) > 0x14)
   {
     [SGDeduper bucketerWithMapping:&__block_literal_global_30];
   }
@@ -272,7 +268,7 @@ void __86__SGDeduper_enumerateEKEventsForPseudoEventBySimilarStartAndEndTime_sto
     {
       v8 = _PASGetNounsAndNames();
       v14 = title2;
-      if ([v8 count])
+      if (objc_msgSend_count(v8))
       {
         v15 = _PASGetNounsAndNames();
         if ([v8 isEqualToArray:v15])
@@ -282,8 +278,8 @@ LABEL_10:
           goto LABEL_3;
         }
 
-        v16 = [v8 count];
-        v17 = [v15 count];
+        v16 = objc_msgSend_count(v8);
+        v17 = objc_msgSend_count(v15);
         if (v16 >= v17)
         {
           v18 = v15;
@@ -306,12 +302,12 @@ LABEL_10:
 
         v20 = v18;
         v21 = v19;
-        if ([v20 count] >= 3)
+        if (objc_msgSend_count(v20) >= 3)
         {
-          v22 = [v20 count] + 1;
-          if (v22 == [v21 count])
+          v22 = objc_msgSend_count(v20) + 1;
+          if (v22 == objc_msgSend_count(v21))
           {
-            if (![v21 count])
+            if (!objc_msgSend_count(v21))
             {
 
               goto LABEL_10;
@@ -324,7 +320,7 @@ LABEL_10:
             v24 = 0;
             do
             {
-              if (v24 < [v20 count])
+              if (v24 < objc_msgSend_count(v20))
               {
                 v25 = [v20 objectAtIndexedSubscript:v24];
                 v26 = [v21 objectAtIndexedSubscript:v23];
@@ -341,7 +337,7 @@ LABEL_10:
               ++v23;
             }
 
-            while (v23 < [v21 count]);
+            while (v23 < objc_msgSend_count(v21));
 
             if (v23 - v24 < 2)
             {
@@ -375,27 +371,27 @@ LABEL_30:
 
 + (unsigned)eventsHaveIdenticalReservationIds:(id)ids ekEventFromStore:(id)store
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   storeCopy = store;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   tags = [ids tags];
-  v7 = [tags countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [tags countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
-    v8 = *v23;
+    v8 = *v22;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v23 != v8)
+      if (*v22 != v8)
       {
         objc_enumerationMutation(tags);
       }
 
-      v10 = *(*(&v22 + 1) + 8 * v9);
+      v10 = *(*(&v21 + 1) + 8 * v9);
       if ([v10 isEventMetadata])
       {
         eventMetadata = [v10 eventMetadata];
@@ -407,7 +403,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [tags countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v7 = [tags countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -464,7 +460,6 @@ LABEL_18:
 
 LABEL_21:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -522,13 +517,13 @@ uint64_t __72__SGDeduper_resolveSGContactDetailsPreferringPhraseExtractionsAndLa
 
 id __48__SGDeduper_resolveByScoreBreakTiesArbitrarily___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (!v4)
   {
     goto LABEL_12;
@@ -536,18 +531,18 @@ id __48__SGDeduper_resolveByScoreBreakTiesArbitrarily___block_invoke(uint64_t a1
 
   v5 = v4;
   v6 = 0;
-  v7 = *v18;
+  v7 = *v17;
   v8 = 0x80000000;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v18 != v7)
+      if (*v17 != v7)
       {
         objc_enumerationMutation(v3);
       }
 
-      v10 = *(*(&v17 + 1) + 8 * i);
+      v10 = *(*(&v16 + 1) + 8 * i);
       v11 = (*(*(a1 + 32) + 16))();
       if (v11 > v8)
       {
@@ -559,14 +554,14 @@ id __48__SGDeduper_resolveByScoreBreakTiesArbitrarily___block_invoke(uint64_t a1
       }
     }
 
-    v5 = [v3 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v5 = [v3 countByEnumeratingWithState:&v16 objects:v21 count:16];
   }
 
   while (v5);
   if (v6)
   {
-    v21 = v6;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+    v20 = v6;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
   }
 
   else
@@ -574,8 +569,6 @@ id __48__SGDeduper_resolveByScoreBreakTiesArbitrarily___block_invoke(uint64_t a1
 LABEL_12:
     v14 = MEMORY[0x277CBEBF8];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -596,13 +589,13 @@ LABEL_12:
 
 id __28__SGDeduper_resolveByPairs___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (!v4)
   {
     goto LABEL_13;
@@ -610,12 +603,12 @@ id __28__SGDeduper_resolveByPairs___block_invoke(uint64_t a1, void *a2)
 
   v5 = v4;
   v6 = 0;
-  v7 = *v14;
+  v7 = *v13;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v14 != v7)
+      if (*v13 != v7)
       {
         objc_enumerationMutation(v3);
       }
@@ -629,18 +622,18 @@ id __28__SGDeduper_resolveByPairs___block_invoke(uint64_t a1, void *a2)
 
       else
       {
-        v6 = *(*(&v13 + 1) + 8 * i);
+        v6 = *(*(&v12 + 1) + 8 * i);
       }
     }
 
-    v5 = [v3 countByEnumeratingWithState:&v13 objects:v18 count:16];
+    v5 = [v3 countByEnumeratingWithState:&v12 objects:v17 count:16];
   }
 
   while (v5);
   if (v6)
   {
-    v17 = v6;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+    v16 = v6;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
   }
 
   else
@@ -648,8 +641,6 @@ id __28__SGDeduper_resolveByPairs___block_invoke(uint64_t a1, void *a2)
 LABEL_13:
     v10 = MEMORY[0x277CBEBF8];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -670,48 +661,48 @@ LABEL_13:
 
 id __38__SGDeduper_bucketerWithEqualityTest___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v19 = objc_opt_new();
+  v18 = objc_opt_new();
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = v3;
-  v20 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
-  if (v20)
+  v19 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  if (v19)
   {
-    v18 = *v26;
+    v17 = *v25;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v26 != v18)
+        if (*v25 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v25 + 1) + 8 * i);
+        v5 = *(*(&v24 + 1) + 8 * i);
+        v20 = 0u;
         v21 = 0u;
         v22 = 0u;
         v23 = 0u;
-        v24 = 0u;
-        v6 = v19;
-        v7 = [v6 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v6 = v18;
+        v7 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v22;
+          v9 = *v21;
           while (2)
           {
             for (j = 0; j != v8; ++j)
             {
-              if (*v22 != v9)
+              if (*v21 != v9)
               {
                 objc_enumerationMutation(v6);
               }
 
-              v11 = *(*(&v21 + 1) + 8 * j);
+              v11 = *(*(&v20 + 1) + 8 * j);
               v12 = *(a1 + 32);
               v13 = [v11 objectAtIndexedSubscript:0];
               LODWORD(v12) = (*(v12 + 16))(v12, v5, v13);
@@ -723,7 +714,7 @@ id __38__SGDeduper_bucketerWithEqualityTest___block_invoke(uint64_t a1, void *a2
               }
             }
 
-            v8 = [v6 countByEnumeratingWithState:&v21 objects:v29 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
             if (v8)
             {
               continue;
@@ -739,15 +730,13 @@ id __38__SGDeduper_bucketerWithEqualityTest___block_invoke(uint64_t a1, void *a2
 LABEL_16:
       }
 
-      v20 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v19 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
-    while (v20);
+    while (v19);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v18;
 }
 
 + (id)bucketerWithLabeledBuckets:(id)buckets
@@ -766,31 +755,31 @@ LABEL_16:
 
 id __40__SGDeduper_bucketerWithLabeledBuckets___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = (*(*(a1 + 32) + 16))(*(a1 + 32));
-        v12 = [v4 objectForKeyedSubscript:{v11, v15}];
+        v12 = [v4 objectForKeyedSubscript:{v11, v14}];
         if (!v12)
         {
           v12 = objc_opt_new();
@@ -800,13 +789,11 @@ id __40__SGDeduper_bucketerWithLabeledBuckets___block_invoke(uint64_t a1, void *
         [v12 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -827,33 +814,33 @@ id __40__SGDeduper_bucketerWithLabeledBuckets___block_invoke(uint64_t a1, void *
 
 id __33__SGDeduper_bucketerWithMapping___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
         v12 = (*(*(a1 + 32) + 16))(*(a1 + 32));
         objc_autoreleasePoolPop(v11);
-        v13 = [v4 objectForKeyedSubscript:{v12, v18}];
+        v13 = [v4 objectForKeyedSubscript:{v12, v17}];
         if (!v13)
         {
           v13 = objc_opt_new();
@@ -863,7 +850,7 @@ id __33__SGDeduper_bucketerWithMapping___block_invoke(uint64_t a1, void *a2)
         [v13 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -873,14 +860,12 @@ id __33__SGDeduper_bucketerWithMapping___block_invoke(uint64_t a1, void *a2)
   v15 = [v4 allValues];
   objc_autoreleasePoolPop(v14);
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 + (id)dedupe:(id)dedupe bucketer:(id)bucketer resolver:(id)resolver
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   dedupeCopy = dedupe;
   bucketerCopy = bucketer;
   resolverCopy = resolver;
@@ -892,28 +877,28 @@ id __33__SGDeduper_bucketerWithMapping___block_invoke(uint64_t a1, void *a2)
   }
 
   v10 = Mutable;
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
-  v29 = bucketerCopy;
-  v30 = dedupeCopy;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v28 = bucketerCopy;
+  v29 = dedupeCopy;
   v11 = (*(bucketerCopy + 2))(bucketerCopy, dedupeCopy);
-  v12 = [v11 countByEnumeratingWithState:&v40 objects:v46 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v39 objects:v45 count:16];
   if (v12)
   {
-    v13 = *v41;
+    v13 = *v40;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v41 != v13)
+        if (*v40 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v40 + 1) + 8 * i);
-        if ([v15 count] < 2)
+        v15 = *(*(&v39 + 1) + 8 * i);
+        if (objc_msgSend_count(v15) < 2)
         {
           v16 = [v15 objectAtIndexedSubscript:0];
           CFSetAddValue(v10, v16);
@@ -921,28 +906,28 @@ id __33__SGDeduper_bucketerWithMapping___block_invoke(uint64_t a1, void *a2)
 
         else
         {
-          v38 = 0u;
-          v39 = 0u;
-          v36 = 0u;
           v37 = 0u;
+          v38 = 0u;
+          v35 = 0u;
+          v36 = 0u;
           v16 = resolverCopy[2](resolverCopy, v15);
-          v17 = [v16 countByEnumeratingWithState:&v36 objects:v45 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v35 objects:v44 count:16];
           if (v17)
           {
-            v18 = *v37;
+            v18 = *v36;
             do
             {
               for (j = 0; j != v17; ++j)
               {
-                if (*v37 != v18)
+                if (*v36 != v18)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                CFSetAddValue(v10, *(*(&v36 + 1) + 8 * j));
+                CFSetAddValue(v10, *(*(&v35 + 1) + 8 * j));
               }
 
-              v17 = [v16 countByEnumeratingWithState:&v36 objects:v45 count:16];
+              v17 = [v16 countByEnumeratingWithState:&v35 objects:v44 count:16];
             }
 
             while (v17);
@@ -950,32 +935,32 @@ id __33__SGDeduper_bucketerWithMapping___block_invoke(uint64_t a1, void *a2)
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v40 objects:v46 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v39 objects:v45 count:16];
     }
 
     while (v12);
   }
 
   v20 = objc_opt_new();
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
-  v21 = v30;
-  v22 = [v21 countByEnumeratingWithState:&v32 objects:v44 count:16];
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v21 = v29;
+  v22 = [v21 countByEnumeratingWithState:&v31 objects:v43 count:16];
   if (v22)
   {
-    v23 = *v33;
+    v23 = *v32;
     do
     {
       for (k = 0; k != v22; ++k)
       {
-        if (*v33 != v23)
+        if (*v32 != v23)
         {
           objc_enumerationMutation(v21);
         }
 
-        v25 = *(*(&v32 + 1) + 8 * k);
+        v25 = *(*(&v31 + 1) + 8 * k);
         if (CFSetContainsValue(v10, v25))
         {
           [v20 addObject:v25];
@@ -983,14 +968,13 @@ id __33__SGDeduper_bucketerWithMapping___block_invoke(uint64_t a1, void *a2)
         }
       }
 
-      v22 = [v21 countByEnumeratingWithState:&v32 objects:v44 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v31 objects:v43 count:16];
     }
 
     while (v22);
   }
 
   CFRelease(v10);
-  v27 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

@@ -1,36 +1,3 @@
-void *sub_1AF53EAD4(unint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = a1;
-  v7 = HIDWORD(a1);
-  v3[6] = a1;
-  v3[7] = a2;
-  sub_1AF5A9240(0, &qword_1EB6338C0, &type metadata for EmitterShape.Shape, type metadata accessor for EntityGetSet);
-  v8 = swift_allocObject();
-  v8[4] = sub_1AF5A946C;
-  v8[5] = a3;
-  v8[2] = sub_1AF5A97D0;
-  v8[3] = a3;
-  v8[6] = a3;
-  v3[8] = v8;
-  v9 = swift_allocObject();
-  *(v9 + 16) = v8;
-  *(v9 + 24) = v6;
-  *(v9 + 28) = v7;
-  *(v9 + 32) = a2;
-  v10 = swift_allocObject();
-  *(v10 + 16) = v8;
-  *(v10 + 24) = v6;
-  *(v10 + 28) = v7;
-  *(v10 + 32) = a2;
-  v3[2] = sub_1AF58E8B0;
-  v3[3] = v9;
-  v3[4] = sub_1AF58E8E0;
-  v3[5] = v10;
-
-  swift_retain_n();
-  return v3;
-}
-
 void *sub_1AF53EC10(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = a1;
@@ -169,7 +136,7 @@ void *sub_1AF53F100(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57AAE8();
+  sub_1AF57AAE8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A95F8;
   v8[5] = a3;
@@ -235,7 +202,7 @@ void *sub_1AF53F354(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF579ADC();
+  sub_1AF579ADC(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A95A4;
   v8[5] = a3;
@@ -598,7 +565,7 @@ void *sub_1AF5400C4(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57AAE8();
+  sub_1AF57AAE8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A95FC;
   v8[5] = a3;
@@ -697,7 +664,7 @@ void *sub_1AF540454(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF586F6C();
+  sub_1AF586F6C(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5AA0F8;
   v8[5] = a3;
@@ -1027,7 +994,7 @@ void *sub_1AF541094(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57AAE8();
+  sub_1AF57AAE8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A987C;
   v8[5] = a3;
@@ -1225,7 +1192,7 @@ void *sub_1AF5417D8(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57AAE8();
+  sub_1AF57AAE8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A9614;
   v8[5] = a3;
@@ -1555,7 +1522,7 @@ void *sub_1AF542418(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF581BEC();
+  sub_1AF581BEC(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A9654;
   v8[5] = a3;
@@ -1753,7 +1720,7 @@ void *sub_1AF542B68(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57AAE8();
+  sub_1AF57AAE8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A9600;
   v8[5] = a3;
@@ -1951,7 +1918,7 @@ void *sub_1AF5432C4(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57AAE8();
+  sub_1AF57AAE8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A9A10;
   v8[5] = a3;
@@ -2050,7 +2017,7 @@ void *sub_1AF543660(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57B9C0();
+  sub_1AF57B9C0(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A95EC;
   v8[5] = a3;
@@ -2215,7 +2182,7 @@ void *sub_1AF543C68(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57AAE8();
+  sub_1AF57AAE8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A624C;
   v8[5] = a3;
@@ -2281,7 +2248,7 @@ void *sub_1AF543EBC(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57B9C0();
+  sub_1AF57B9C0(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A624C;
   v8[5] = a3;
@@ -2512,7 +2479,7 @@ void *sub_1AF544748(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF587D00();
+  sub_1AF587D00(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A973C;
   v8[5] = a3;
@@ -2644,7 +2611,7 @@ void *sub_1AF544C2C(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57C8C8();
+  sub_1AF57C8C8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A6550;
   v8[5] = a3;
@@ -2809,7 +2776,7 @@ void *sub_1AF545234(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57A3F8();
+  sub_1AF57A3F8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A98EC;
   v8[5] = a3;
@@ -3007,7 +2974,7 @@ void *sub_1AF545978(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57F2F4();
+  sub_1AF57F2F4(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5AA330;
   v8[5] = a3;
@@ -3073,7 +3040,7 @@ void *sub_1AF545BCC(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57F2F4();
+  sub_1AF57F2F4(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5AA32C;
   v8[5] = a3;
@@ -3106,7 +3073,7 @@ void *sub_1AF545CE4(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57F2F4();
+  sub_1AF57F2F4(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5AA340;
   v8[5] = a3;
@@ -3601,7 +3568,7 @@ void *sub_1AF546F5C(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57F2F4();
+  sub_1AF57F2F4(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5AA348;
   v8[5] = a3;
@@ -3667,7 +3634,7 @@ void *sub_1AF5471B0(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57B9C0();
+  sub_1AF57B9C0(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A97A0;
   v8[5] = a3;
@@ -3898,7 +3865,7 @@ void *sub_1AF547A30(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57F2F4();
+  sub_1AF57F2F4(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5AA344;
   v8[5] = a3;
@@ -3964,7 +3931,7 @@ void *sub_1AF547C84(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57C8C8();
+  sub_1AF57C8C8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5AA2CC;
   v8[5] = a3;
@@ -4063,7 +4030,7 @@ void *sub_1AF548014(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57F2F4();
+  sub_1AF57F2F4(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5AA2CC;
   v8[5] = a3;
@@ -4261,7 +4228,7 @@ void *sub_1AF548758(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57F2F4();
+  sub_1AF57F2F4(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5AA360;
   v8[5] = a3;
@@ -4492,7 +4459,7 @@ void *sub_1AF548FD8(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57B9C0();
+  sub_1AF57B9C0(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A9634;
   v8[5] = a3;
@@ -4657,7 +4624,7 @@ void *sub_1AF5495E0(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57A3F8();
+  sub_1AF57A3F8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A95B0;
   v8[5] = a3;
@@ -4855,7 +4822,7 @@ void *sub_1AF549D24(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57B9C0();
+  sub_1AF57B9C0(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A833C;
   v8[5] = a3;
@@ -4921,7 +4888,7 @@ void *sub_1AF549F78(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57F2F4();
+  sub_1AF57F2F4(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5AA2D0;
   v8[5] = a3;
@@ -5053,7 +5020,7 @@ void *sub_1AF54A444(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF589DF0();
+  sub_1AF589DF0(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A976C;
   v8[5] = a3;
@@ -5878,7 +5845,7 @@ void *sub_1AF54C32C(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57B9C0();
+  sub_1AF57B9C0(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A893C;
   v8[5] = a3;
@@ -6010,7 +5977,7 @@ void *sub_1AF54C804(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57C8C8();
+  sub_1AF57C8C8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5AA400;
   v8[5] = a3;
@@ -6604,7 +6571,7 @@ void *sub_1AF54DE18(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57AAE8();
+  sub_1AF57AAE8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A9780;
   v8[5] = a3;
@@ -7924,7 +7891,7 @@ void *sub_1AF550F6C(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57C8C8();
+  sub_1AF57C8C8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5AA3D8;
   v8[5] = a3;
@@ -8023,7 +7990,7 @@ void *sub_1AF5512FC(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57AAE8();
+  sub_1AF57AAE8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A9974;
   v8[5] = a3;
@@ -8386,7 +8353,7 @@ void *sub_1AF552078(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57A3F8();
+  sub_1AF57A3F8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A988C;
   v8[5] = a3;
@@ -8452,7 +8419,7 @@ void *sub_1AF5522CC(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF581BEC();
+  sub_1AF581BEC(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A97EC;
   v8[5] = a3;
@@ -8716,7 +8683,7 @@ void *sub_1AF552C88(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57F2F4();
+  sub_1AF57F2F4(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5AA334;
   v8[5] = a3;
@@ -8947,7 +8914,7 @@ void *sub_1AF55352C(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57C8C8();
+  sub_1AF57C8C8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5AA2E8;
   v8[5] = a3;
@@ -8980,7 +8947,7 @@ void *sub_1AF553644(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57B9C0();
+  sub_1AF57B9C0(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A9674;
   v8[5] = a3;
@@ -9079,7 +9046,7 @@ void *sub_1AF5539E0(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57A3F8();
+  sub_1AF57A3F8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A974C;
   v8[5] = a3;
@@ -9211,7 +9178,7 @@ void *sub_1AF553EC4(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57AAE8();
+  sub_1AF57AAE8(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5A7F3C;
   v8[5] = a3;
@@ -9871,7 +9838,7 @@ void *sub_1AF555768(unint64_t a1, uint64_t a2, uint64_t a3)
   v7 = HIDWORD(a1);
   v3[6] = a1;
   v3[7] = a2;
-  sub_1AF57F2F4();
+  sub_1AF57F2F4(0);
   v8 = swift_allocObject();
   v8[4] = sub_1AF5AA3D0;
   v8[5] = a3;
@@ -10024,6 +9991,39 @@ void *sub_1AF555C34(unint64_t a1, uint64_t a2, uint64_t a3)
   v3[2] = sub_1AF5AA77C;
   v3[3] = v9;
   v3[4] = sub_1AF5AA58C;
+  v3[5] = v10;
+
+  swift_retain_n();
+  return v3;
+}
+
+void *sub_1AF555D70(unint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = a1;
+  v7 = HIDWORD(a1);
+  v3[6] = a1;
+  v3[7] = a2;
+  sub_1AF5A9240(0, &qword_1ED722B80, MEMORY[0x1E69E6370], type metadata accessor for EntityGetSet);
+  v8 = swift_allocObject();
+  v8[4] = sub_1AF5AA220;
+  v8[5] = a3;
+  v8[2] = sub_1AF5A9F34;
+  v8[3] = a3;
+  v8[6] = a3;
+  v3[8] = v8;
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = v6;
+  *(v9 + 28) = v7;
+  *(v9 + 32) = a2;
+  v10 = swift_allocObject();
+  *(v10 + 16) = v8;
+  *(v10 + 24) = v6;
+  *(v10 + 28) = v7;
+  *(v10 + 32) = a2;
+  v3[2] = sub_1AF5AA6E8;
+  v3[3] = v9;
+  v3[4] = sub_1AF5AA548;
   v3[5] = v10;
 
   swift_retain_n();

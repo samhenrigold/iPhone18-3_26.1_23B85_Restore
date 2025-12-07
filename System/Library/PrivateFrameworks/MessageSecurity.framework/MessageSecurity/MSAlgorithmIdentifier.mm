@@ -36,16 +36,17 @@
 
 - (void)dealloc
 {
-  if (self->_asn1AlgId)
+  asn1AlgId = self->_asn1AlgId;
+  if (asn1AlgId)
   {
-    free_AlgorithmIdentifier();
+    free_AlgorithmIdentifier(asn1AlgId);
     free(self->_asn1AlgId);
     self->_asn1AlgId = 0;
   }
 
-  v3.receiver = self;
-  v3.super_class = MSAlgorithmIdentifier;
-  [(MSAlgorithmIdentifier *)&v3 dealloc];
+  v4.receiver = self;
+  v4.super_class = MSAlgorithmIdentifier;
+  [(MSAlgorithmIdentifier *)&v4 dealloc];
 }
 
 - (AlgorithmIdentifier)encode
@@ -164,7 +165,7 @@
 - (id)decode:(id)decode error:(id *)error
 {
   memset(v8, 0, sizeof(v8));
-  if (nsheim_decode_AlgorithmIdentifier(decode))
+  if (nsheim_decode_AlgorithmIdentifier(decode, v8))
   {
     if (error)
     {
@@ -181,7 +182,7 @@
   else
   {
     v6 = [(MSAlgorithmIdentifier *)self initWithAsn1AlgId:v8 error:error];
-    free_AlgorithmIdentifier();
+    free_AlgorithmIdentifier(v8);
   }
 
   return v6;
@@ -232,7 +233,7 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v8 = copy_AlgorithmIdentifier();
+  v8 = copy_AlgorithmIdentifier(id, v7);
   if (!v8)
   {
     v10 = [MSOID OIDWithAsn1OID:v6->_asn1AlgId error:error];
@@ -451,69 +452,67 @@ LABEL_13:
 
 void __37__MSAlgorithmIdentifier_ccAlgorithm___block_invoke()
 {
-  v23[19] = *MEMORY[0x277D85DE8];
-  v22[0] = @"1.3.14.3.2.6";
-  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
-  v23[0] = v21;
-  v22[1] = @"1.3.14.3.2.7";
+  v22[19] = *MEMORY[0x277D85DE8];
+  v21[0] = @"1.3.14.3.2.6";
   v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
-  v23[1] = v20;
-  v22[2] = @"1.2.840.113549.3.7";
-  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:2];
-  v23[2] = v19;
-  v22[3] = @"1.2.840.113549.3.2";
-  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:5];
-  v23[3] = v18;
-  v22[4] = @"2.16.840.1.101.3.4.1.1";
-  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
-  v23[4] = v17;
-  v22[5] = @"2.16.840.1.101.3.4.1.2";
+  v22[0] = v20;
+  v21[1] = @"1.3.14.3.2.7";
+  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
+  v22[1] = v19;
+  v21[2] = @"1.2.840.113549.3.7";
+  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:2];
+  v22[2] = v18;
+  v21[3] = @"1.2.840.113549.3.2";
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:5];
+  v22[3] = v17;
+  v21[4] = @"2.16.840.1.101.3.4.1.1";
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
-  v23[5] = v16;
-  v22[6] = @"2.16.840.1.101.3.4.1.21";
+  v22[4] = v16;
+  v21[5] = @"2.16.840.1.101.3.4.1.2";
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
-  v23[6] = v15;
-  v22[7] = @"2.16.840.1.101.3.4.1.22";
+  v22[5] = v15;
+  v21[6] = @"2.16.840.1.101.3.4.1.21";
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
-  v23[7] = v14;
-  v22[8] = @"2.16.840.1.101.3.4.1.41";
+  v22[6] = v14;
+  v21[7] = @"2.16.840.1.101.3.4.1.22";
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
-  v23[8] = v13;
-  v22[9] = @"2.16.840.1.101.3.4.1.42";
+  v22[7] = v13;
+  v21[8] = @"2.16.840.1.101.3.4.1.41";
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
+  v22[8] = v12;
+  v21[9] = @"2.16.840.1.101.3.4.1.42";
   v0 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
-  v23[9] = v0;
-  v22[10] = @"2.16.840.1.101.3.4.1.7";
+  v22[9] = v0;
+  v21[10] = @"2.16.840.1.101.3.4.1.7";
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
-  v23[10] = v1;
-  v22[11] = @"2.16.840.1.101.3.4.1.6";
+  v22[10] = v1;
+  v21[11] = @"2.16.840.1.101.3.4.1.6";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
-  v23[11] = v2;
-  v22[12] = @"2.16.840.1.101.3.4.1.47";
+  v22[11] = v2;
+  v21[12] = @"2.16.840.1.101.3.4.1.47";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
-  v23[12] = v3;
-  v22[13] = @"2.16.840.1.101.3.4.1.46";
+  v22[12] = v3;
+  v21[13] = @"2.16.840.1.101.3.4.1.46";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
-  v23[13] = v4;
-  v22[14] = @"2.16.840.1.101.3.4.1.27";
+  v22[13] = v4;
+  v21[14] = @"2.16.840.1.101.3.4.1.27";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
-  v23[14] = v5;
-  v22[15] = @"2.16.840.1.101.3.4.1.26";
+  v22[14] = v5;
+  v21[15] = @"2.16.840.1.101.3.4.1.26";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
-  v23[15] = v6;
-  v22[16] = @"2.16.840.1.101.3.4.1.5";
+  v22[15] = v6;
+  v21[16] = @"2.16.840.1.101.3.4.1.5";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
-  v23[16] = v7;
-  v22[17] = @"2.16.840.1.101.3.4.1.25";
+  v22[16] = v7;
+  v21[17] = @"2.16.840.1.101.3.4.1.25";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
-  v23[17] = v8;
-  v22[18] = @"2.16.840.1.101.3.4.1.45";
+  v22[17] = v8;
+  v21[18] = @"2.16.840.1.101.3.4.1.45";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
-  v23[18] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:19];
+  v22[18] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:19];
   v11 = ccAlgorithm__knownEncryptionAlgs;
   ccAlgorithm__knownEncryptionAlgs = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)ccMode:(id *)mode
@@ -572,60 +571,58 @@ LABEL_13:
 
 void __32__MSAlgorithmIdentifier_ccMode___block_invoke()
 {
-  v20[16] = *MEMORY[0x277D85DE8];
-  v19[0] = @"1.3.14.3.2.6";
-  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
-  v20[0] = v18;
-  v19[1] = @"1.3.14.3.2.7";
-  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:2];
-  v20[1] = v17;
-  v19[2] = @"1.2.840.113549.3.7";
+  v19[16] = *MEMORY[0x277D85DE8];
+  v18[0] = @"1.3.14.3.2.6";
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
+  v19[0] = v17;
+  v18[1] = @"1.3.14.3.2.7";
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:2];
-  v20[2] = v16;
-  v19[3] = @"1.2.840.113549.3.2";
+  v19[1] = v16;
+  v18[2] = @"1.2.840.113549.3.7";
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:2];
-  v20[3] = v15;
-  v19[4] = @"2.16.840.1.101.3.4.1.1";
-  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
-  v20[4] = v14;
-  v19[5] = @"2.16.840.1.101.3.4.1.2";
-  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:2];
-  v20[5] = v13;
-  v19[6] = @"2.16.840.1.101.3.4.1.21";
+  v19[2] = v15;
+  v18[3] = @"1.2.840.113549.3.2";
+  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:2];
+  v19[3] = v14;
+  v18[4] = @"2.16.840.1.101.3.4.1.1";
+  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
+  v19[4] = v13;
+  v18[5] = @"2.16.840.1.101.3.4.1.2";
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:2];
+  v19[5] = v12;
+  v18[6] = @"2.16.840.1.101.3.4.1.21";
   v0 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
-  v20[6] = v0;
-  v19[7] = @"2.16.840.1.101.3.4.1.22";
+  v19[6] = v0;
+  v18[7] = @"2.16.840.1.101.3.4.1.22";
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:2];
-  v20[7] = v1;
-  v19[8] = @"2.16.840.1.101.3.4.1.41";
+  v19[7] = v1;
+  v18[8] = @"2.16.840.1.101.3.4.1.41";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
-  v20[8] = v2;
-  v19[9] = @"2.16.840.1.101.3.4.1.42";
+  v19[8] = v2;
+  v18[9] = @"2.16.840.1.101.3.4.1.42";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:2];
-  v20[9] = v3;
-  v19[10] = @"2.16.840.1.101.3.4.1.7";
+  v19[9] = v3;
+  v18[10] = @"2.16.840.1.101.3.4.1.7";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:12];
-  v20[10] = v4;
-  v19[11] = @"2.16.840.1.101.3.4.1.6";
+  v19[10] = v4;
+  v18[11] = @"2.16.840.1.101.3.4.1.6";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:11];
-  v20[11] = v5;
-  v19[12] = @"2.16.840.1.101.3.4.1.47";
+  v19[11] = v5;
+  v18[12] = @"2.16.840.1.101.3.4.1.47";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:12];
-  v20[12] = v6;
-  v19[13] = @"2.16.840.1.101.3.4.1.46";
+  v19[12] = v6;
+  v18[13] = @"2.16.840.1.101.3.4.1.46";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:11];
-  v20[13] = v7;
-  v19[14] = @"2.16.840.1.101.3.4.1.27";
+  v19[13] = v7;
+  v18[14] = @"2.16.840.1.101.3.4.1.27";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:12];
-  v20[14] = v8;
-  v19[15] = @"2.16.840.1.101.3.4.1.26";
+  v19[14] = v8;
+  v18[15] = @"2.16.840.1.101.3.4.1.26";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:11];
-  v20[15] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:16];
+  v19[15] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:16];
   v11 = ccMode__knownEncryptionAlgs;
   ccMode__knownEncryptionAlgs = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)blockSize:(id *)size
@@ -684,69 +681,67 @@ LABEL_13:
 
 void __35__MSAlgorithmIdentifier_blockSize___block_invoke()
 {
-  v23[19] = *MEMORY[0x277D85DE8];
-  v22[0] = @"1.3.14.3.2.6";
-  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:8];
-  v23[0] = v21;
-  v22[1] = @"1.3.14.3.2.7";
+  v22[19] = *MEMORY[0x277D85DE8];
+  v21[0] = @"1.3.14.3.2.6";
   v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:8];
-  v23[1] = v20;
-  v22[2] = @"1.2.840.113549.3.7";
+  v22[0] = v20;
+  v21[1] = @"1.3.14.3.2.7";
   v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:8];
-  v23[2] = v19;
-  v22[3] = @"1.2.840.113549.3.2";
+  v22[1] = v19;
+  v21[2] = @"1.2.840.113549.3.7";
   v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:8];
-  v23[3] = v18;
-  v22[4] = @"2.16.840.1.101.3.4.1.1";
-  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[4] = v17;
-  v22[5] = @"2.16.840.1.101.3.4.1.2";
+  v22[2] = v18;
+  v21[3] = @"1.2.840.113549.3.2";
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:8];
+  v22[3] = v17;
+  v21[4] = @"2.16.840.1.101.3.4.1.1";
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[5] = v16;
-  v22[6] = @"2.16.840.1.101.3.4.1.21";
+  v22[4] = v16;
+  v21[5] = @"2.16.840.1.101.3.4.1.2";
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[6] = v15;
-  v22[7] = @"2.16.840.1.101.3.4.1.22";
+  v22[5] = v15;
+  v21[6] = @"2.16.840.1.101.3.4.1.21";
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[7] = v14;
-  v22[8] = @"2.16.840.1.101.3.4.1.41";
+  v22[6] = v14;
+  v21[7] = @"2.16.840.1.101.3.4.1.22";
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[8] = v13;
-  v22[9] = @"2.16.840.1.101.3.4.1.42";
+  v22[7] = v13;
+  v21[8] = @"2.16.840.1.101.3.4.1.41";
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
+  v22[8] = v12;
+  v21[9] = @"2.16.840.1.101.3.4.1.42";
   v0 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[9] = v0;
-  v22[10] = @"2.16.840.1.101.3.4.1.7";
+  v22[9] = v0;
+  v21[10] = @"2.16.840.1.101.3.4.1.7";
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[10] = v1;
-  v22[11] = @"2.16.840.1.101.3.4.1.6";
+  v22[10] = v1;
+  v21[11] = @"2.16.840.1.101.3.4.1.6";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[11] = v2;
-  v22[12] = @"2.16.840.1.101.3.4.1.47";
+  v22[11] = v2;
+  v21[12] = @"2.16.840.1.101.3.4.1.47";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[12] = v3;
-  v22[13] = @"2.16.840.1.101.3.4.1.46";
+  v22[12] = v3;
+  v21[13] = @"2.16.840.1.101.3.4.1.46";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[13] = v4;
-  v22[14] = @"2.16.840.1.101.3.4.1.27";
+  v22[13] = v4;
+  v21[14] = @"2.16.840.1.101.3.4.1.27";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[14] = v5;
-  v22[15] = @"2.16.840.1.101.3.4.1.26";
+  v22[14] = v5;
+  v21[15] = @"2.16.840.1.101.3.4.1.26";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[15] = v6;
-  v22[16] = @"2.16.840.1.101.3.4.1.5";
+  v22[15] = v6;
+  v21[16] = @"2.16.840.1.101.3.4.1.5";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[16] = v7;
-  v22[17] = @"2.16.840.1.101.3.4.1.25";
+  v22[16] = v7;
+  v21[17] = @"2.16.840.1.101.3.4.1.25";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[17] = v8;
-  v22[18] = @"2.16.840.1.101.3.4.1.45";
+  v22[17] = v8;
+  v21[18] = @"2.16.840.1.101.3.4.1.45";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[18] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:19];
+  v22[18] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:19];
   v11 = blockSize__knownEncryptionAlgs;
   blockSize__knownEncryptionAlgs = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)keySize:(id *)size
@@ -805,69 +800,67 @@ LABEL_13:
 
 void __33__MSAlgorithmIdentifier_keySize___block_invoke()
 {
-  v23[19] = *MEMORY[0x277D85DE8];
-  v22[0] = @"1.3.14.3.2.6";
-  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:8];
-  v23[0] = v21;
-  v22[1] = @"1.3.14.3.2.7";
+  v22[19] = *MEMORY[0x277D85DE8];
+  v21[0] = @"1.3.14.3.2.6";
   v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:8];
-  v23[1] = v20;
-  v22[2] = @"1.2.840.113549.3.7";
-  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:24];
-  v23[2] = v19;
-  v22[3] = @"1.2.840.113549.3.2";
-  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:128];
-  v23[3] = v18;
-  v22[4] = @"2.16.840.1.101.3.4.1.1";
-  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[4] = v17;
-  v22[5] = @"2.16.840.1.101.3.4.1.2";
+  v22[0] = v20;
+  v21[1] = @"1.3.14.3.2.7";
+  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:8];
+  v22[1] = v19;
+  v21[2] = @"1.2.840.113549.3.7";
+  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:24];
+  v22[2] = v18;
+  v21[3] = @"1.2.840.113549.3.2";
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:128];
+  v22[3] = v17;
+  v21[4] = @"2.16.840.1.101.3.4.1.1";
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[5] = v16;
-  v22[6] = @"2.16.840.1.101.3.4.1.21";
-  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:24];
-  v23[6] = v15;
-  v22[7] = @"2.16.840.1.101.3.4.1.22";
+  v22[4] = v16;
+  v21[5] = @"2.16.840.1.101.3.4.1.2";
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
+  v22[5] = v15;
+  v21[6] = @"2.16.840.1.101.3.4.1.21";
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:24];
-  v23[7] = v14;
-  v22[8] = @"2.16.840.1.101.3.4.1.41";
-  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:32];
-  v23[8] = v13;
-  v22[9] = @"2.16.840.1.101.3.4.1.42";
+  v22[6] = v14;
+  v21[7] = @"2.16.840.1.101.3.4.1.22";
+  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:24];
+  v22[7] = v13;
+  v21[8] = @"2.16.840.1.101.3.4.1.41";
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:32];
+  v22[8] = v12;
+  v21[9] = @"2.16.840.1.101.3.4.1.42";
   v0 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:32];
-  v23[9] = v0;
-  v22[10] = @"2.16.840.1.101.3.4.1.7";
+  v22[9] = v0;
+  v21[10] = @"2.16.840.1.101.3.4.1.7";
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[10] = v1;
-  v22[11] = @"2.16.840.1.101.3.4.1.6";
+  v22[10] = v1;
+  v21[11] = @"2.16.840.1.101.3.4.1.6";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[11] = v2;
-  v22[12] = @"2.16.840.1.101.3.4.1.47";
+  v22[11] = v2;
+  v21[12] = @"2.16.840.1.101.3.4.1.47";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:32];
-  v23[12] = v3;
-  v22[13] = @"2.16.840.1.101.3.4.1.46";
+  v22[12] = v3;
+  v21[13] = @"2.16.840.1.101.3.4.1.46";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:32];
-  v23[13] = v4;
-  v22[14] = @"2.16.840.1.101.3.4.1.27";
+  v22[13] = v4;
+  v21[14] = @"2.16.840.1.101.3.4.1.27";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:24];
-  v23[14] = v5;
-  v22[15] = @"2.16.840.1.101.3.4.1.26";
+  v22[14] = v5;
+  v21[15] = @"2.16.840.1.101.3.4.1.26";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:24];
-  v23[15] = v6;
-  v22[16] = @"2.16.840.1.101.3.4.1.5";
+  v22[15] = v6;
+  v21[16] = @"2.16.840.1.101.3.4.1.5";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:16];
-  v23[16] = v7;
-  v22[17] = @"2.16.840.1.101.3.4.1.25";
+  v22[16] = v7;
+  v21[17] = @"2.16.840.1.101.3.4.1.25";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:24];
-  v23[17] = v8;
-  v22[18] = @"2.16.840.1.101.3.4.1.45";
+  v22[17] = v8;
+  v21[18] = @"2.16.840.1.101.3.4.1.45";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:32];
-  v23[18] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:19];
+  v22[18] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:19];
   v11 = keySize__knownEncryptionAlgs;
   keySize__knownEncryptionAlgs = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,5 +1,6 @@
 @interface NRGIconCatalog
 - (NRGIconCatalog)init;
+- (NRGIconCatalog)initWithURL:(id)l readonly:(BOOL)readonly;
 - (id)readIcon;
 - (void)readIcons:(id)icons;
 - (void)remove;
@@ -19,6 +20,70 @@
   v7 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s/%@", [temporaryDirectory fileSystemRepresentation], v6);
   v8 = [NSURL fileURLWithPath:v7];
   v9 = [(NRGIconCatalog *)self initWithURL:v8 readonly:0];
+
+  return v9;
+}
+
+- (NRGIconCatalog)initWithURL:(id)l readonly:(BOOL)readonly
+{
+  readonlyCopy = readonly;
+  lCopy = l;
+  v20.receiver = self;
+  v20.super_class = NRGIconCatalog;
+  v8 = [(NRGIconCatalog *)&v20 init];
+  v9 = v8;
+  if (!v8)
+  {
+    goto LABEL_13;
+  }
+
+  objc_storeStrong(&v8->_url, l);
+  v10 = [NSString stringWithCString:[(NSURL *)v9->_url fileSystemRepresentation] encoding:4];
+  path = v9->_path;
+  v9->_path = v10;
+
+  v9->_readonly = readonlyCopy;
+  url = v9->_url;
+  if (readonlyCopy)
+  {
+    v13 = [NSInputStream inputStreamWithURL:url];
+    if (v13)
+    {
+      objc_storeStrong(&v9->_stream, v13);
+      v14 = [[PBMessageStreamReader alloc] initWithStream:v13];
+      v15 = 16;
+LABEL_7:
+      v16 = *(&v9->super.isa + v15);
+      *(&v9->super.isa + v15) = v14;
+    }
+  }
+
+  else
+  {
+    v13 = [NSOutputStream outputStreamWithURL:url append:0];
+    if (v13)
+    {
+      objc_storeStrong(&v9->_stream, v13);
+      v14 = [[PBMessageStreamWriter alloc] initWithOutputStream:v13];
+      v15 = 24;
+      goto LABEL_7;
+    }
+  }
+
+  stream = v9->_stream;
+  if (!stream)
+  {
+    v18 = nrg_daemon_log();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      sub_100010D1C(&v9->_path, readonlyCopy, v18);
+    }
+
+    stream = v9->_stream;
+  }
+
+  [(NSStream *)stream open];
+LABEL_13:
 
   return v9;
 }

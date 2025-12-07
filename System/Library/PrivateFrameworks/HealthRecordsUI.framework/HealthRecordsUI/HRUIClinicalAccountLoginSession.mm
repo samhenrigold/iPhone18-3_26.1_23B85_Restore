@@ -48,7 +48,7 @@
   gatewayCopy = gateway;
   selfCopy = self;
   v20 = gatewayCopy;
-  sub_1D102CE24(v13);
+  sub_1D102CE24(v13, v15);
 
   v21 = sub_1D139059C();
   v22 = swift_allocObject();
@@ -63,7 +63,7 @@
   v22[9] = v16;
   sub_1D10BDAEC(0, 0, v12, &unk_1D139FE20, v22);
 
-  sub_1D102CC60(v13);
+  sub_1D102CC60(v13, v15);
 
   return 1;
 }
@@ -100,7 +100,7 @@
   v25 = accountCopy;
   v26 = controllerCopy;
   v27 = profileCopy;
-  sub_1D102CE24(v16);
+  sub_1D102CE24(v16, v18);
 
   v28 = sub_1D139059C();
   v29 = swift_allocObject();
@@ -117,7 +117,7 @@
   v29[11] = v19;
   sub_1D10BDDF8(0, 0, v15, &unk_1D139FE18, v29);
 
-  sub_1D102CC60(v16);
+  sub_1D102CC60(v16, v18);
 
   return 1;
 }

@@ -237,7 +237,7 @@ LABEL_11:
     v48 = 0u;
     if (v11)
     {
-      [v11 _preferredAnchor];
+      objc_msgSend__preferredAnchor(v11);
     }
 
     [_window bounds];
@@ -434,15 +434,15 @@ LABEL_11:
   {
     [(NSMapTable *)self->_configurationItems setObject:v12 forKey:configurationCopy];
     preparedMenuConfiguration = [v12 preparedMenuConfiguration];
-    menu = [preparedMenuConfiguration menu];
+    v14 = objc_msgSend_menu(preparedMenuConfiguration);
   }
 
   else
   {
-    menu = 0;
+    v14 = 0;
   }
 
-  return menu;
+  return v14;
 }
 
 - (CGRect)editMenuInteraction:(id)interaction targetRectForConfiguration:(id)configuration

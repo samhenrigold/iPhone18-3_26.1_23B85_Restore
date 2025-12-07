@@ -7,8 +7,8 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v11[3] = *MEMORY[0x277D85DE8];
-  v10[0] = @"exitType";
+  v10[3] = *MEMORY[0x277D85DE8];
+  v9[0] = @"exitType";
   exitType = [(HMDProcessExitInfoLogEvent *)self exitType];
   if (exitType)
   {
@@ -20,8 +20,8 @@
     [MEMORY[0x277CBEB68] null];
   }
   v4 = ;
-  v11[0] = v4;
-  v10[1] = @"exitReason";
+  v10[0] = v4;
+  v9[1] = @"exitReason";
   exitReason = [(HMDProcessExitInfoLogEvent *)self exitReason];
   if (exitReason)
   {
@@ -33,12 +33,10 @@
     [MEMORY[0x277CBEB68] null];
   }
   v6 = ;
-  v10[2] = @"exitCount";
-  v11[1] = v6;
-  v11[2] = &unk_286627910;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[2] = @"exitCount";
+  v10[1] = v6;
+  v10[2] = &unk_286627910;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
   return v7;
 }

@@ -37,7 +37,7 @@
   if (*&v4[OBJC_IVAR____TtC23ShelfKitCollectionViews25LoadingPageViewController_loadTask])
   {
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_3FBD88);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_3FBD88, &unk_317C20);
     sub_30C478();
   }
 }

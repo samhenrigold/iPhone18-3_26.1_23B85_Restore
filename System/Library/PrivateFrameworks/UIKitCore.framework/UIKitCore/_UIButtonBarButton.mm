@@ -378,9 +378,9 @@
     goto LABEL_8;
   }
 
-  v8 = [(_UIBarAppearanceData *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_appearanceData, data);
@@ -571,8 +571,8 @@ LABEL_9:
   {
     contextMenuInteraction = [(UIControl *)self contextMenuInteraction];
     WeakRetained = objc_loadWeakRetained(&self->_visualProvider->_barButtonItem);
-    menu = [WeakRetained menu];
-    _UIControlMenuUpdateVisibleMenu(contextMenuInteraction, fromCopy, menu);
+    v8 = objc_msgSend_menu(WeakRetained);
+    _UIControlMenuUpdateVisibleMenu(contextMenuInteraction, fromCopy, v8);
 
     [(_UIButtonBarButtonVisualProvider *)self->_visualProvider updateMenu];
   }

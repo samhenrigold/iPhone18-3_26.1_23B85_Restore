@@ -248,7 +248,7 @@ LABEL_12:
               v69.size.height = v44;
               CGContextDrawImage(context, v69, cGImage);
               CGContextScaleCTM(context, scale, scale);
-              +[UIColor blackColor];
+              objc_msgSend_blackColor(UIColor);
               v53 = v18;
               v54 = v15;
               v56 = v55 = v17;
@@ -395,9 +395,9 @@ LABEL_17:
     goto LABEL_16;
   }
 
-  v10 = [(NSArray *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6);
 
-  if (v10)
+  if (isEqual)
   {
 LABEL_10:
     colors = self->_colors;
@@ -423,7 +423,7 @@ LABEL_10:
 
     if (!v15)
     {
-      v11 = [(NSArray *)v6 isEqual:v14];
+      v11 = objc_msgSend_isEqual_(v6);
 LABEL_18:
 
       goto LABEL_19;

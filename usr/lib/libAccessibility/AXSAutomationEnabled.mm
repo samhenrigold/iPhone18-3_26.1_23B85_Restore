@@ -3,7 +3,7 @@
 
 @implementation AXSAutomationEnabled
 
-uint64_t ___AXSAutomationEnabled_block_invoke()
+void *___AXSAutomationEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

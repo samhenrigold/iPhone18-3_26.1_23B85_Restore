@@ -19,20 +19,18 @@
   return v3;
 }
 
-void __48__HFIdleAlarmSensorStatusItem_statusItemClasses__block_invoke_2()
+void __48__HFIdleAlarmSensorStatusItem_statusItemClasses__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
-  v2 = [v0 setWithArray:v1];
-  v3 = qword_280E03108;
-  qword_280E03108 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v6[3] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
+  v4 = [v2 setWithArray:v3];
+  v5 = qword_280E03108;
+  qword_280E03108 = v4;
 }
 
 - (BOOL)shouldEncapsulateItem:(id)item

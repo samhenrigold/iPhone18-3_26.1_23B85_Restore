@@ -94,7 +94,7 @@
 
 void __52__TRIRetargetAllTask_runUsingContext_withTaskQueue___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 isManuallyTargeted])
   {
@@ -103,11 +103,11 @@ void __52__TRIRetargetAllTask_runUsingContext_withTaskQueue___block_invoke(uint6
     {
       v5 = [v3 experimentDeployment];
       v6 = [v5 shortDesc];
-      v11 = 138412290;
-      v12 = v6;
+      v10 = 138412290;
+      v11 = v6;
       v7 = "Retargeting is being suppressed for manually-targeted experiment: %@";
 LABEL_4:
-      _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, v7, &v11, 0xCu);
+      _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, v7, &v10, 0xCu);
     }
   }
 
@@ -127,15 +127,14 @@ LABEL_4:
     {
       v5 = [v3 experimentDeployment];
       v6 = [v5 shortDesc];
-      v11 = 138412290;
-      v12 = v6;
+      v10 = 138412290;
+      v11 = v6;
       v7 = "Retargeting is being suppressed for expired and ineligible experiment: %@";
       goto LABEL_4;
     }
   }
 
 LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __52__TRIRetargetAllTask_runUsingContext_withTaskQueue___block_invoke_40(uint64_t a1, void *a2)
@@ -173,17 +172,17 @@ void __52__TRIRetargetAllTask_runUsingContext_withTaskQueue___block_invoke_40(ui
 
 + (id)parseFromData:(id)data
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v4 = [(TRIPBMessage *)TRIRetargetAllPersistedTask parseFromData:data error:&v14];
-  v5 = v14;
+  v16 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v4 = [(TRIPBMessage *)TRIRetargetAllPersistedTask parseFromData:data error:&v13];
+  v5 = v13;
   if (!v4)
   {
     v7 = TRILogCategory_Server();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v16 = v5;
+      v15 = v5;
       v8 = "Unable to parse buffer as TRIRetargetAllPersistedTask: %{public}@";
       v9 = v7;
       v10 = 12;
@@ -225,8 +224,6 @@ LABEL_14:
 
   v11 = [[self alloc] initWithTaskAttribution:v7];
 LABEL_10:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

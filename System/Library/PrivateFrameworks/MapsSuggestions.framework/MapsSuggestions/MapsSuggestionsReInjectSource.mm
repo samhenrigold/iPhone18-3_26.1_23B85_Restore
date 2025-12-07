@@ -549,7 +549,7 @@ LABEL_83:
 
 - (void)_processFileAtPath:(void *)path handler:
 {
-  v185 = *MEMORY[0x1E69E9840];
+  v189 = *MEMORY[0x1E69E9840];
   v5 = a2;
   pathCopy = path;
   selfCopy = self;
@@ -560,15 +560,15 @@ LABEL_83:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v178 = v7;
+      v182 = v7;
       _os_log_impl(&dword_1C5126000, v8, OS_LOG_TYPE_DEBUG, "Reading from: %@", buf, 0xCu);
     }
 
     v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithContentsOfFile:v7 encoding:4 error:0];
-    v147 = v9;
+    v151 = v9;
     if ([v9 length])
     {
-      v146 = v9;
+      v150 = v9;
       v10 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
@@ -578,35 +578,35 @@ LABEL_83:
 
       v11 = 0x1E696A000uLL;
       newlineCharacterSet = [MEMORY[0x1E696AB08] newlineCharacterSet];
-      v12 = [v146 componentsSeparatedByCharactersInSet:?];
+      v12 = [v150 componentsSeparatedByCharactersInSet:?];
       v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v12, "count")}];
-      v172 = 0u;
-      v173 = 0u;
-      v174 = 0u;
-      v175 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v178 = 0u;
+      v179 = 0u;
       v14 = v12;
-      v163 = [v14 countByEnumeratingWithState:&v172 objects:buf count:16];
-      if (v163)
+      v167 = [v14 countByEnumeratingWithState:&v176 objects:buf count:16];
+      if (v167)
       {
-        v162 = *v173;
+        v166 = *v177;
         *&v15 = 138412290;
-        v157 = v15;
-        v150 = pathCopy;
-        v151 = v5;
-        v149 = v7;
-        v152 = v13;
-        v154 = v14;
+        v161 = v15;
+        v154 = pathCopy;
+        v155 = v5;
+        v153 = v7;
+        v156 = v13;
+        v158 = v14;
 LABEL_9:
         v16 = 0;
         while (1)
         {
-          if (*v173 != v162)
+          if (*v177 != v166)
           {
             objc_enumerationMutation(v14);
           }
 
-          v164 = v16;
-          v17 = *(*(&v172 + 1) + 8 * v16);
+          v168 = v16;
+          v17 = *(*(&v176 + 1) + 8 * v16);
           whitespaceCharacterSet = [*(v11 + 2824) whitespaceCharacterSet];
           v19 = [v17 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
 
@@ -620,11 +620,11 @@ LABEL_9:
 
 LABEL_86:
 
-          v16 = v164 + 1;
-          if (v164 + 1 == v163)
+          v16 = v168 + 1;
+          if (v168 + 1 == v167)
           {
-            v163 = [v14 countByEnumeratingWithState:&v172 objects:buf count:16];
-            if (!v163)
+            v167 = [v14 countByEnumeratingWithState:&v176 objects:buf count:16];
+            if (!v167)
             {
               goto LABEL_88;
             }
@@ -633,7 +633,7 @@ LABEL_86:
           }
         }
 
-        v159 = v19;
+        v163 = v19;
         if (![v19 hasPrefix:@"APPLY "])
         {
           v25 = [MapsSuggestionsEntry entryFromSerializedString:v19];
@@ -649,8 +649,8 @@ LABEL_86:
             v26 = GEOFindOrCreateLog();
             if (OUTLINED_FUNCTION_12(v26))
             {
-              *v179 = v157;
-              v180 = v17;
+              *v183 = v161;
+              v184 = v17;
               OUTLINED_FUNCTION_1_5();
               _os_log_impl(v27, v28, v29, "Cannot deserialize '%@'", v30, 0xCu);
             }
@@ -665,66 +665,66 @@ LABEL_86:
           v21 = [v19 substringFromIndex:{objc_msgSend(@"APPLY ", "length")}];
           v22 = [v21 dataUsingEncoding:4];
 
-          v171 = 0;
-          v23 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v22 options:0 error:&v171];
-          v155 = v23;
-          v156 = v171;
-          if (v156)
+          v175 = 0;
+          v23 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v22 options:0 error:&v175];
+          v159 = v23;
+          v160 = v175;
+          if (v160)
           {
             v24 = GEOFindOrCreateLog();
             if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
-              *v179 = 138412546;
-              v180 = v156;
-              v181 = 2112;
-              *v182 = v19;
-              _os_log_impl(&dword_1C5126000, v24, OS_LOG_TYPE_ERROR, "Could not decode JSON: %@, for line: %@", v179, 0x16u);
+              *v183 = 138412546;
+              v184 = v160;
+              v185 = 2112;
+              *v186 = v19;
+              _os_log_impl(&dword_1C5126000, v24, OS_LOG_TYPE_ERROR, "Could not decode JSON: %@, for line: %@", v183, 0x16u);
             }
 
             goto LABEL_84;
           }
 
-          v169 = 0u;
-          v170 = 0u;
-          v167 = 0u;
-          v168 = 0u;
+          v173 = 0u;
+          v174 = 0u;
+          v171 = 0u;
+          v172 = 0u;
           v24 = v23;
-          v31 = [v24 countByEnumeratingWithState:&v167 objects:v176 count:16];
+          v31 = [v24 countByEnumeratingWithState:&v171 objects:v180 count:16];
           if (!v31)
           {
-            v13 = v152;
+            v13 = v156;
 LABEL_84:
 
-            v14 = v154;
+            v14 = v158;
 LABEL_85:
 
             v11 = 0x1E696A000;
-            v19 = v159;
+            v19 = v163;
             goto LABEL_86;
           }
 
           v32 = v31;
-          v153 = v22;
-          v166 = *v168;
+          v157 = v22;
+          v170 = *v172;
 LABEL_26:
           v33 = 0;
           while (1)
           {
-            if (*v168 != v166)
+            if (*v172 != v170)
             {
               objc_enumerationMutation(v24);
             }
 
-            v34 = *(*(&v167 + 1) + 8 * v33);
+            v34 = *(*(&v171 + 1) + 8 * v33);
             v35 = [v24 objectForKeyedSubscript:v34];
             v36 = GEOFindOrCreateLog();
             if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
             {
-              *v179 = 138412546;
-              v180 = v34;
-              v181 = 2112;
-              *v182 = v35;
-              _os_log_impl(&dword_1C5126000, v36, OS_LOG_TYPE_DEBUG, "Applying %@ => %@", v179, 0x16u);
+              *v183 = 138412546;
+              v184 = v34;
+              v185 = 2112;
+              *v186 = v35;
+              _os_log_impl(&dword_1C5126000, v36, OS_LOG_TYPE_DEBUG, "Applying %@ => %@", v183, 0x16u);
             }
 
             v37 = lastObject;
@@ -740,56 +740,56 @@ LABEL_26:
                 goto LABEL_45;
               }
 
-              OUTLINED_FUNCTION_5_6(v46, v47, v48, v49, v50, v51, v52, v53, newlineCharacterSet, v146, v147, selfCopy, v149, v150, v151, v152, v153, v154, v155, v156, v157, *(&v157 + 1), v158, v159, v160, v161, v162, v163, v164, v165, v54);
+              OUTLINED_FUNCTION_5_6(v46, v47, v48, v49, v50, v51, v52, v53, v54, newlineCharacterSet, v150, v151, selfCopy, v153, v154, v155, v156, v157, v158, v159, v160, v161, *(&v161 + 1), v162, v163, v164, v165, v166, v167, v168, v169, v55);
               OUTLINED_FUNCTION_3_4("/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsReInjectSource.m");
               OUTLINED_FUNCTION_2_8(158);
-              *&v182[6] = "void _applyValue(MapsSuggestionsEntry *__strong, NSString *__strong, NSObject *__strong)";
-              v183 = v55;
-              v184 = "nil == (entry)";
+              *&v186[6] = "void _applyValue(MapsSuggestionsEntry *__strong, NSString *__strong, NSObject *__strong)";
+              v187 = v56;
+              v188 = "nil == (entry)";
               OUTLINED_FUNCTION_1_5();
-              v60 = "At %{public}s:%d, %{public}s forbids: %{public}s. Requires an entry";
+              v61 = "At %{public}s:%d, %{public}s forbids: %{public}s. Requires an entry";
 LABEL_43:
-              v83 = 38;
+              v86 = 38;
               goto LABEL_44;
             }
 
             if (!v38)
             {
-              v61 = GEOFindOrCreateLog();
-              v62 = OUTLINED_FUNCTION_12(v61);
-              if (!v62)
+              v62 = GEOFindOrCreateLog();
+              v63 = OUTLINED_FUNCTION_12(v62);
+              if (!v63)
               {
                 goto LABEL_45;
               }
 
-              OUTLINED_FUNCTION_5_6(v62, v63, v64, v65, v66, v67, v68, v69, newlineCharacterSet, v146, v147, selfCopy, v149, v150, v151, v152, v153, v154, v155, v156, v157, *(&v157 + 1), v158, v159, v160, v161, v162, v163, v164, v165, v70);
+              OUTLINED_FUNCTION_5_6(v63, v64, v65, v66, v67, v68, v69, v70, v71, newlineCharacterSet, v150, v151, selfCopy, v153, v154, v155, v156, v157, v158, v159, v160, v161, *(&v161 + 1), v162, v163, v164, v165, v166, v167, v168, v169, v72);
               OUTLINED_FUNCTION_3_4("/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsReInjectSource.m");
               OUTLINED_FUNCTION_2_8(159);
-              *&v182[6] = "void _applyValue(MapsSuggestionsEntry *__strong, NSString *__strong, NSObject *__strong)";
-              v183 = v71;
-              v184 = "nil == (key)";
+              *&v186[6] = "void _applyValue(MapsSuggestionsEntry *__strong, NSString *__strong, NSObject *__strong)";
+              v187 = v73;
+              v188 = "nil == (key)";
               OUTLINED_FUNCTION_1_5();
-              v60 = "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a key";
+              v61 = "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a key";
               goto LABEL_43;
             }
 
             if (!v39)
             {
-              v72 = GEOFindOrCreateLog();
-              v73 = OUTLINED_FUNCTION_12(v72);
-              if (!v73)
+              v74 = GEOFindOrCreateLog();
+              v75 = OUTLINED_FUNCTION_12(v74);
+              if (!v75)
               {
                 goto LABEL_45;
               }
 
-              OUTLINED_FUNCTION_5_6(v73, v74, v75, v76, v77, v78, v79, v80, newlineCharacterSet, v146, v147, selfCopy, v149, v150, v151, v152, v153, v154, v155, v156, v157, *(&v157 + 1), v158, v159, v160, v161, v162, v163, v164, v165, v81);
+              OUTLINED_FUNCTION_5_6(v75, v76, v77, v78, v79, v80, v81, v82, v83, newlineCharacterSet, v150, v151, selfCopy, v153, v154, v155, v156, v157, v158, v159, v160, v161, *(&v161 + 1), v162, v163, v164, v165, v166, v167, v168, v169, v84);
               OUTLINED_FUNCTION_3_4("/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsReInjectSource.m");
               OUTLINED_FUNCTION_2_8(160);
-              *&v182[6] = "void _applyValue(MapsSuggestionsEntry *__strong, NSString *__strong, NSObject *__strong)";
-              v183 = v82;
-              v184 = "nil == (value)";
+              *&v186[6] = "void _applyValue(MapsSuggestionsEntry *__strong, NSString *__strong, NSObject *__strong)";
+              v187 = v85;
+              v188 = "nil == (value)";
               OUTLINED_FUNCTION_1_5();
-              v60 = "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a value";
+              v61 = "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a value";
               goto LABEL_43;
             }
 
@@ -804,25 +804,25 @@ LABEL_43:
             if (objc_opt_isKindOfClass())
             {
 
-              v84 = v37;
-              v85 = v38;
-              v86 = v41;
-              if ([v85 isEqualToString:@".type"])
+              v87 = v37;
+              v88 = v38;
+              v89 = v41;
+              if ([v88 isEqualToString:@".type"])
               {
-                [v84 _overrideType:{objc_msgSend(v86, "unsignedIntegerValue")}];
+                [v87 _overrideType:{objc_msgSend(v89, "unsignedIntegerValue")}];
               }
 
               else
               {
-                if (![v85 isEqualToString:@".weight"])
+                if (![v88 isEqualToString:@".weight"])
                 {
 
-                  [v84 setNumber:v86 forKey:v85];
+                  [v87 setNumber:v89 forKey:v88];
                   goto LABEL_59;
                 }
 
-                [v86 doubleValue];
-                [v84 setWeight:?];
+                [v89 doubleValue];
+                [v87 setWeight:?];
               }
 
               goto LABEL_58;
@@ -832,16 +832,16 @@ LABEL_43:
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
 
-              v100 = GEOFindOrCreateLog();
-              if (OUTLINED_FUNCTION_12(v100))
+              v103 = GEOFindOrCreateLog();
+              if (OUTLINED_FUNCTION_12(v103))
               {
-                *v179 = v157;
-                v180 = v38;
+                *v183 = v161;
+                v184 = v38;
                 OUTLINED_FUNCTION_1_5();
-                v60 = "Cannot apply unknown type for key %@";
-                v83 = 12;
+                v61 = "Cannot apply unknown type for key %@";
+                v86 = 12;
 LABEL_44:
-                _os_log_impl(v56, v57, v58, v60, v59, v83);
+                _os_log_impl(v57, v58, v59, v61, v60, v86);
               }
 
 LABEL_45:
@@ -849,103 +849,103 @@ LABEL_45:
               goto LABEL_59;
             }
 
-            v87 = qword_1EDC51F00;
-            v88 = v41;
-            if (v87 != -1)
+            v90 = qword_1EDC51F00;
+            v91 = v41;
+            if (v90 != -1)
             {
               dispatch_once(&qword_1EDC51F00, &__block_literal_global_39);
             }
 
-            v89 = [_MergedGlobals_5 dateFromString:v88];
+            v92 = [_MergedGlobals_5 dateFromString:v91];
 
-            v165 = v37;
-            v90 = v38;
-            v91 = v88;
-            if (!v89)
+            v169 = v37;
+            v93 = v38;
+            v94 = v91;
+            if (!v92)
             {
-              v161 = v91;
-              if ([v90 isEqualToString:@".title"])
+              v165 = v94;
+              if ([v93 isEqualToString:@".title"])
               {
-                v101 = [v91 copy];
-                v84 = v165;
-                [v165 setTitle:v101];
+                v104 = [v94 copy];
+                v87 = v169;
+                [v169 setTitle:v104];
 
                 goto LABEL_76;
               }
 
-              if ([v90 isEqualToString:@".subtitle"])
+              if ([v93 isEqualToString:@".subtitle"])
               {
-                v104 = [v91 copy];
-                [OUTLINED_FUNCTION_0_9(v104 v105];
+                v107 = [v94 copy];
+                [OUTLINED_FUNCTION_0_9(v107 v108];
                 goto LABEL_75;
               }
 
-              if ([v90 isEqualToString:@".undecoratedTitle"])
+              if ([v93 isEqualToString:@".undecoratedTitle"])
               {
-                v104 = [v91 copy];
-                [OUTLINED_FUNCTION_0_9(v104 v112];
+                v107 = [v94 copy];
+                [OUTLINED_FUNCTION_0_9(v107 v115];
                 goto LABEL_75;
               }
 
-              if ([v90 isEqualToString:@".undecoratedSubtitle"])
+              if ([v93 isEqualToString:@".undecoratedSubtitle"])
               {
-                v104 = [v91 copy];
-                [OUTLINED_FUNCTION_0_9(v104 v119];
+                v107 = [v94 copy];
+                [OUTLINED_FUNCTION_0_9(v107 v122];
 LABEL_75:
 
-                v84 = v91;
+                v87 = v94;
 LABEL_76:
-                v91 = v161;
+                v94 = v165;
                 goto LABEL_77;
               }
 
-              if ([v90 isEqualToString:@".type"])
+              if ([v93 isEqualToString:@".type"])
               {
-                v84 = v165;
-                [v165 _overrideType:MapsSuggestionsEntryTypeFromString(v91)];
+                v87 = v169;
+                [v169 _overrideType:MapsSuggestionsEntryTypeFromString(v94)];
 LABEL_77:
 
 LABEL_58:
                 goto LABEL_59;
               }
 
-              v42 = v165;
-              v43 = v91;
-              v44 = v90;
+              v42 = v169;
+              v43 = v94;
+              v44 = v93;
               goto LABEL_36;
             }
 
-            if (![v90 isEqualToString:@".expires"])
+            if (![v93 isEqualToString:@".expires"])
             {
 
-              v102 = qword_1EDC51F00;
-              v103 = v91;
-              if (v102 != -1)
+              v105 = qword_1EDC51F00;
+              v106 = v94;
+              if (v105 != -1)
               {
                 dispatch_once(&qword_1EDC51F00, &__block_literal_global_39);
               }
 
-              v84 = [_MergedGlobals_5 dateFromString:v103];
+              v87 = [_MergedGlobals_5 dateFromString:v106];
 
-              [v165 setDate:v84 forKey:v90];
+              [v169 setDate:v87 forKey:v93];
               goto LABEL_58;
             }
 
-            v92 = [v91 copy];
-            [OUTLINED_FUNCTION_0_9(v92 v93];
+            v95 = [v94 copy];
+            [OUTLINED_FUNCTION_0_9(v95 v96];
 
 LABEL_59:
             if (v32 == ++v33)
             {
-              v126 = [v24 countByEnumeratingWithState:&v167 objects:v176 count:16];
-              v32 = v126;
-              if (!v126)
+              v129 = [v24 countByEnumeratingWithState:&v171 objects:v180 count:16];
+              v32 = v129;
+              if (!v129)
               {
-                pathCopy = v150;
-                v5 = v151;
-                v7 = v149;
-                v13 = v152;
-                v22 = v153;
+                pathCopy = v154;
+                v5 = v155;
+                v7 = v153;
+                v13 = v156;
+                v22 = v157;
                 goto LABEL_84;
               }
 
@@ -961,24 +961,24 @@ LABEL_36:
           goto LABEL_59;
         }
 
-        v129 = GEOFindOrCreateLog();
-        v130 = OUTLINED_FUNCTION_12(v129);
-        if (v130)
+        v132 = GEOFindOrCreateLog();
+        v133 = OUTLINED_FUNCTION_12(v132);
+        if (v133)
         {
-          OUTLINED_FUNCTION_5_6(v130, v131, v132, v133, v134, v135, v136, v137, newlineCharacterSet, v146, v147, selfCopy, v149, v150, v151, v152, v153, v154, v155, v156, v157, *(&v157 + 1), v158, v19, v160, v161, v162, v163, v164, v165, v138);
-          v180 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsReInjectSource.m";
-          v181 = 1024;
-          *v182 = 222;
-          *&v182[4] = 2082;
-          *&v182[6] = "MapsSuggestionsEntries *_entriesFromMultilineString(NSString *__strong)";
-          v183 = 2082;
-          v184 = "0u == entries.count";
+          OUTLINED_FUNCTION_5_6(v133, v134, v135, v136, v137, v138, v139, v140, v141, newlineCharacterSet, v150, v151, selfCopy, v153, v154, v155, v156, v157, v158, v159, v160, v161, *(&v161 + 1), v162, v19, v164, v165, v166, v167, v168, v169, v142);
+          v184 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsReInjectSource.m";
+          v185 = 1024;
+          *v186 = 222;
+          *&v186[4] = 2082;
+          *&v186[6] = "MapsSuggestionsEntries *_entriesFromMultilineString(NSString *__strong)";
+          v187 = 2082;
+          v188 = "0u == entries.count";
           OUTLINED_FUNCTION_1_5();
-          _os_log_impl(v139, v140, v141, v142, v143, 0x26u);
+          _os_log_impl(v143, v144, v145, v146, v147, 0x26u);
         }
 
-        v128 = 0;
-        v127 = newlineCharacterSet;
+        v131 = 0;
+        v130 = newlineCharacterSet;
       }
 
       else
@@ -991,27 +991,27 @@ LABEL_88:
           v13 = 0;
         }
 
-        v127 = newlineCharacterSet;
-        v128 = [v13 copy];
+        v130 = newlineCharacterSet;
+        v131 = [v13 copy];
       }
     }
 
     else
     {
-      v128 = 0;
+      v131 = 0;
     }
 
-    if (v128)
+    if (v131)
     {
-      v144 = v128;
+      v148 = v131;
     }
 
     else
     {
-      v144 = MEMORY[0x1E695E0F0];
+      v148 = MEMORY[0x1E695E0F0];
     }
 
-    [selfCopy addOrUpdateMySuggestionEntries:v144];
+    [selfCopy addOrUpdateMySuggestionEntries:v148];
     if (pathCopy)
     {
       pathCopy[2](pathCopy);

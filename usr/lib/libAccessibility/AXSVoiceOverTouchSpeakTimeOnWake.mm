@@ -3,7 +3,7 @@
 
 @implementation AXSVoiceOverTouchSpeakTimeOnWake
 
-uint64_t ___AXSVoiceOverTouchSpeakTimeOnWake_block_invoke()
+void *___AXSVoiceOverTouchSpeakTimeOnWake_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

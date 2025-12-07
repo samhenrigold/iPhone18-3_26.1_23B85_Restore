@@ -11,25 +11,23 @@
 
 - (id)attributeDescriptions
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = HMDCameraClipAddSignificantEventOperation;
-  attributeDescriptions = [(HMDCameraClipOperation *)&v11 attributeDescriptions];
+  v11[1] = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = HMDCameraClipAddSignificantEventOperation;
+  attributeDescriptions = [(HMDCameraClipOperation *)&v10 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   significantEvent = [(HMDCameraClipAddSignificantEventOperation *)self significantEvent];
   v6 = [v4 initWithName:@"Significant Event" value:significantEvent];
-  v12[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v8 = [attributeDescriptions arrayByAddingObjectsFromArray:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (void)updateMirrorOutputModel:(id)model
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -57,11 +55,11 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = HMFGetLogIdentifier();
-      v22 = 138543618;
-      v23 = v14;
-      v24 = 2112;
-      v25 = v6;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Adding assets to significant event model for mirror output: %@", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v14;
+      v23 = 2112;
+      v24 = v6;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Adding assets to significant event model for mirror output: %@", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -83,13 +81,11 @@
       [v6 setFaceCropAsset:v20];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)modelsToAdd
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
   v4 = [HMDCameraSignificantEventNotificationModel alloc];
   significantEvent = [(HMDCameraClipAddSignificantEventOperation *)self significantEvent];
@@ -122,8 +118,8 @@
   v22 = [v20 initWithModelID:clipModelID2 action:1];
   [(HMDCameraSignificantEventNotificationModel *)v8 setAssociatedClip:v22];
 
-  v53 = v3;
-  v54 = v8;
+  v52 = v3;
+  v53 = v8;
   [v3 addObject:v8];
   v23 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -133,39 +129,39 @@
     v26 = HMFGetLogIdentifier();
     v27 = [(HMBModel *)v8 debugDescription];
     *buf = 138543618;
-    v62 = v26;
-    v63 = 2112;
-    v64 = v27;
+    v61 = v26;
+    v62 = 2112;
+    v63 = v27;
     _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Updating significant event model: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v23);
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   significantEvent6 = [(HMDCameraClipAddSignificantEventOperation *)selfCopy significantEvent];
   faceClassifications = [significantEvent6 faceClassifications];
 
   obj = faceClassifications;
-  v30 = [faceClassifications countByEnumeratingWithState:&v56 objects:v60 count:16];
+  v30 = [faceClassifications countByEnumeratingWithState:&v55 objects:v59 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v57;
+    v32 = *v56;
     do
     {
       for (i = 0; i != v31; ++i)
       {
-        if (*v57 != v32)
+        if (*v56 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v34 = *(*(&v56 + 1) + 8 * i);
+        v34 = *(*(&v55 + 1) + 8 * i);
         v35 = [HMDCameraSignificantEventFaceClassificationModel alloc];
         uUID2 = [v34 UUID];
-        hmbModelID = [(HMBModel *)v54 hmbModelID];
+        hmbModelID = [(HMBModel *)v53 hmbModelID];
         v38 = [(HMBModel *)v35 initWithModelID:uUID2 parentModelID:hmbModelID];
 
         personManagerUUID = [v34 personManagerUUID];
@@ -180,7 +176,7 @@
         unassociatedFaceCropUUID = [v34 unassociatedFaceCropUUID];
         [(HMDCameraSignificantEventFaceClassificationModel *)v38 setUnassociatedFaceCropUUID:unassociatedFaceCropUUID];
 
-        [v53 addObject:v38];
+        [v52 addObject:v38];
         v43 = objc_autoreleasePoolPush();
         v44 = selfCopy;
         v45 = HMFGetOSLogHandle();
@@ -189,27 +185,25 @@
           v46 = HMFGetLogIdentifier();
           v47 = [(HMBModel *)v38 debugDescription];
           *buf = 138543618;
-          v62 = v46;
-          v63 = 2112;
-          v64 = v47;
+          v61 = v46;
+          v62 = 2112;
+          v63 = v47;
           _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_INFO, "%{public}@Updating face classification model: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v43);
       }
 
-      v31 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
+      v31 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
     }
 
     while (v31);
   }
 
-  v55.receiver = selfCopy;
-  v55.super_class = HMDCameraClipAddSignificantEventOperation;
-  modelsToAdd = [(HMDCameraClipAddModelsOperation *)&v55 modelsToAdd];
-  v49 = [modelsToAdd setByAddingObjectsFromSet:v53];
-
-  v50 = *MEMORY[0x277D85DE8];
+  v54.receiver = selfCopy;
+  v54.super_class = HMDCameraClipAddSignificantEventOperation;
+  modelsToAdd = [(HMDCameraClipAddModelsOperation *)&v54 modelsToAdd];
+  v49 = [modelsToAdd setByAddingObjectsFromSet:v52];
 
   return v49;
 }
@@ -253,7 +247,7 @@ LABEL_11:
   v15 = [(HMDCameraClipOperation *)&v24 initWithClipModelID:dCopy localZone:zoneCopy dataSource:sourceCopy];
   if (v15)
   {
-    v16 = [eventCopy copy];
+    v16 = objc_msgSend_copy(eventCopy);
     significantEvent = v15->_significantEvent;
     v15->_significantEvent = v16;
   }
@@ -286,10 +280,9 @@ LABEL_11:
 
 void __56__HMDCameraClipAddSignificantEventOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_140957;
-  logCategory__hmf_once_v5_140957 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_140957;
+  logCategory__hmf_once_v5_140957 = v0;
 }
 
 @end

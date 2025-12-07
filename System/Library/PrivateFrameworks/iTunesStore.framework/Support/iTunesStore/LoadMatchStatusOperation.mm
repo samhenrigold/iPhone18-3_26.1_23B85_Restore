@@ -62,7 +62,7 @@
 
 - (void)run
 {
-  v36 = 0;
+  v39 = 0;
   v3 = +[SSLogConfig sharedDaemonConfig];
   if (!v3)
   {
@@ -72,53 +72,57 @@
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v3 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (v5)
   {
-    v6 = objc_opt_class();
+    v7 = objc_opt_class();
     accountID = self->_accountID;
-    v37 = 138412546;
-    v38 = v6;
-    v39 = 2112;
-    v40 = accountID;
-    LODWORD(v35) = 22;
-    v33 = &v37;
-    v8 = _os_log_send_and_compose_impl();
-    if (v8)
+    v40 = 138412546;
+    v41 = v7;
+    v42 = 2112;
+    v43 = accountID;
+    v9 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Loading match status for account: %@", &v40, 22);
+    if (v9)
     {
-      v9 = v8;
-      v10 = [NSString stringWithCString:v8 encoding:4, &v37, v35];
-      free(v9);
-      v33 = v10;
+      v10 = v9;
+      v11 = [NSString stringWithCString:v9 encoding:4];
+      free(v10);
+      v36 = v11;
       SSFileLog();
     }
   }
 
-  v11 = [SSURLBagContext contextWithBagType:0, v33];
-  [(SSURLBagContext *)v11 setIgnoresCaches:1];
-  [(SSURLBagContext *)v11 setUserIdentifier:self->_accountID];
+  v12 = [SSURLBagContext contextWithBagType:0, v36];
+  [(SSURLBagContext *)v12 setIgnoresCaches:1];
+  [(SSURLBagContext *)v12 setUserIdentifier:self->_accountID];
   userAgent = [(LoadMatchStatusOperation *)self userAgent];
-  [(SSURLBagContext *)v11 setValue:userAgent forHTTPHeaderField:SSHTTPHeaderUserAgent];
-  v13 = [(LoadMatchStatusOperation *)self loadedURLBagWithContext:v11 returningError:&v36];
-  if (v13)
+  [(SSURLBagContext *)v12 setValue:userAgent forHTTPHeaderField:SSHTTPHeaderUserAgent];
+  v14 = [(LoadMatchStatusOperation *)self loadedURLBagWithContext:v12 returningError:&v39];
+  if (v14)
   {
-    v14 = v13;
-    v15 = [v13 valueForKey:@"isMatchServiceEnabled"];
+    v15 = v14;
+    v16 = [v14 valueForKey:@"isMatchServiceEnabled"];
     if (objc_opt_respondsToSelector())
     {
-      bOOLValue = [v15 BOOLValue];
+      bOOLValue = [v16 BOOLValue];
     }
 
     else
@@ -126,76 +130,81 @@
       bOOLValue = 0;
     }
 
-    [v14 valueForKey:@"cloud-welcome"];
+    [v15 valueForKey:@"cloud-welcome"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       bOOLValue |= 2uLL;
     }
 
-    v17 = [(LoadMatchStatusOperation *)self _newMatchStatusOperationWithURLBag:v14];
-    if (v17)
+    v18 = [(LoadMatchStatusOperation *)self _newMatchStatusOperationWithURLBag:v15];
+    if (v18)
     {
-      v18 = v17;
-      if ([(LoadMatchStatusOperation *)self runSubOperation:v17 returningError:&v36])
+      v19 = v18;
+      if ([(LoadMatchStatusOperation *)self runSubOperation:v18 returningError:&v39])
       {
-        v19 = [objc_msgSend(objc_msgSend(v18 "dataProvider")];
-        if ((objc_opt_respondsToSelector() & 1) != 0 && [v19 BOOLValue])
+        v20 = [objc_msgSend(objc_msgSend(v19 "dataProvider")];
+        if ((objc_opt_respondsToSelector() & 1) != 0 && [v20 BOOLValue])
         {
           bOOLValue |= 4uLL;
         }
 
-        v20 = +[SSLogConfig sharedDaemonConfig];
-        if (!v20)
+        v21 = +[SSLogConfig sharedDaemonConfig];
+        if (!v21)
         {
-          v20 = +[SSLogConfig sharedConfig];
+          v21 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog2 = [v20 shouldLog];
-        if ([v20 shouldLogToDisk])
+        shouldLog2 = [v21 shouldLog];
+        if ([v21 shouldLogToDisk])
         {
-          v22 = shouldLog2 | 2;
+          LODWORD(v23) = shouldLog2 | 2;
         }
 
         else
         {
-          v22 = shouldLog2;
+          LODWORD(v23) = shouldLog2;
         }
 
-        v23 = 1;
-        if (!os_log_type_enabled([v20 OSLogObject], OS_LOG_TYPE_INFO))
+        oSLogObject2 = [v21 OSLogObject];
+        v25 = 1;
+        if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
         {
-          v22 &= 2u;
+          v23 = v23;
         }
 
-        if (!v22)
+        else
         {
-          goto LABEL_45;
+          v23 &= 2u;
         }
 
-        v24 = objc_opt_class();
-        v25 = self->_accountID;
-        v37 = 138412802;
-        v38 = v24;
-        v39 = 2048;
-        v40 = bOOLValue;
-        v41 = 2112;
-        v42 = v25;
-        LODWORD(v35) = 32;
-        v34 = &v37;
-        v26 = _os_log_send_and_compose_impl();
-        if (!v26)
+        if (!v23)
         {
-          goto LABEL_45;
+          goto LABEL_48;
         }
 
-LABEL_43:
-        v31 = v26;
-        v32 = [NSString stringWithCString:v26 encoding:4, &v37, v35];
-        free(v31);
-        v34 = v32;
+        v26 = objc_opt_class();
+        v27 = self->_accountID;
+        v40 = 138412802;
+        v41 = v26;
+        v42 = 2048;
+        v43 = bOOLValue;
+        v44 = 2112;
+        v45 = v27;
+        LODWORD(v38) = 32;
+        v28 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Loaded match status: %ld for account: %@", &v40, v38);
+        if (!v28)
+        {
+          goto LABEL_48;
+        }
+
+LABEL_46:
+        v34 = v28;
+        v35 = [NSString stringWithCString:v28 encoding:4];
+        free(v34);
+        v37 = v35;
         SSFileLog();
-        goto LABEL_45;
+        goto LABEL_48;
       }
     }
   }
@@ -205,54 +214,59 @@ LABEL_43:
     bOOLValue = 0;
   }
 
-  v27 = +[SSLogConfig sharedDaemonConfig];
-  if (!v27)
+  v29 = +[SSLogConfig sharedDaemonConfig];
+  if (!v29)
   {
-    v27 = +[SSLogConfig sharedConfig];
+    v29 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog3 = [v27 shouldLog];
-  if ([v27 shouldLogToDisk])
+  shouldLog3 = [v29 shouldLog];
+  if ([v29 shouldLogToDisk])
   {
-    v29 = shouldLog3 | 2;
+    LODWORD(v31) = shouldLog3 | 2;
   }
 
   else
   {
-    v29 = shouldLog3;
+    LODWORD(v31) = shouldLog3;
   }
 
-  if (!os_log_type_enabled([v27 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject3 = [v29 OSLogObject];
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
   {
-    v29 &= 2u;
+    v31 = v31;
   }
 
-  if (!v29)
+  else
   {
-    v23 = 0;
-    goto LABEL_45;
+    v31 &= 2u;
   }
 
-  v30 = objc_opt_class();
-  v37 = 138412546;
-  v38 = v30;
-  v39 = 2112;
-  v40 = v36;
-  LODWORD(v35) = 22;
-  v34 = &v37;
-  v26 = _os_log_send_and_compose_impl();
-  v23 = 0;
-  if (v26)
+  if (!v31)
   {
-    goto LABEL_43;
+    v25 = 0;
+    goto LABEL_48;
   }
 
-LABEL_45:
+  v33 = objc_opt_class();
+  v40 = 138412546;
+  v41 = v33;
+  v42 = 2112;
+  v43 = v39;
+  LODWORD(v38) = 22;
+  v28 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Could not load match status: %@", &v40, v38);
+  v25 = 0;
+  if (v28)
+  {
+    goto LABEL_46;
+  }
+
+LABEL_48:
   [(LoadMatchStatusOperation *)self lock];
   self->_matchStatus = bOOLValue;
   [(LoadMatchStatusOperation *)self unlock];
-  [(LoadMatchStatusOperation *)self setError:v36];
-  [(LoadMatchStatusOperation *)self setSuccess:v23];
+  [(LoadMatchStatusOperation *)self setError:v39];
+  [(LoadMatchStatusOperation *)self setSuccess:v25];
 }
 
 - (id)_newMatchStatusOperationWithURLBag:(id)bag

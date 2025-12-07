@@ -1,5 +1,6 @@
 @interface EKDayViewAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
+- (EKDayViewAccessibility)initWithFrame:(CGRect)frame sizeClass:(int64_t)class orientation:(int64_t)orientation displayDate:(id)date backgroundColor:(id)color opaque:(BOOL)opaque scrollbarShowsInside:(BOOL)inside isMiniPreviewInEventDetail:(BOOL)self0 rightClickDelegate:(id)self1;
 - (id)accessibilityCustomRotors;
 - (id)accessibilityScrollView;
 - (void)_accessibilityLoadAccessibilityInformation;
@@ -43,31 +44,43 @@
   [(EKDayViewAccessibility *)self _axAnnotateScroller];
 }
 
+- (EKDayViewAccessibility)initWithFrame:(CGRect)frame sizeClass:(int64_t)class orientation:(int64_t)orientation displayDate:(id)date backgroundColor:(id)color opaque:(BOOL)opaque scrollbarShowsInside:(BOOL)inside isMiniPreviewInEventDetail:(BOOL)self0 rightClickDelegate:(id)self1
+{
+  v15.receiver = self;
+  v15.super_class = EKDayViewAccessibility;
+  delegate = [(EKDayViewAccessibility *)&v15 initWithFrame:class sizeClass:orientation orientation:date displayDate:color backgroundColor:opaque opaque:inside scrollbarShowsInside:frame.origin.x isMiniPreviewInEventDetail:frame.origin.y rightClickDelegate:frame.size.width, frame.size.height, detail, delegate];
+  v12 = delegate;
+  if (delegate)
+  {
+    [(EKDayViewAccessibility *)delegate _axAnnotateScroller];
+  }
+
+  return v12;
+}
+
 - (id)accessibilityCustomRotors
 {
-  v15[1] = *MEMORY[0x29EDCA608];
+  v14[1] = *MEMORY[0x29EDCA608];
   v3 = [(EKDayViewAccessibility *)self _accessibilityValueForKey:@"AXCustomRotor"];
   if (!v3)
   {
     objc_initWeak(&location, self);
     v4 = objc_alloc(MEMORY[0x29EDC78E8]);
     v5 = accessibilityLocalizedString(@"rotor.events");
-    v9 = MEMORY[0x29EDCA5F8];
-    v10 = 3221225472;
-    v11 = __51__EKDayViewAccessibility_accessibilityCustomRotors__block_invoke;
-    v12 = &unk_29F2BCA78;
-    objc_copyWeak(&v13, &location);
-    v3 = [v4 initWithName:v5 itemSearchBlock:&v9];
+    v8 = MEMORY[0x29EDCA5F8];
+    v9 = 3221225472;
+    v10 = __51__EKDayViewAccessibility_accessibilityCustomRotors__block_invoke;
+    v11 = &unk_29F2BCA78;
+    objc_copyWeak(&v12, &location);
+    v3 = [v4 initWithName:v5 itemSearchBlock:&v8];
 
-    [(EKDayViewAccessibility *)self _accessibilitySetRetainedValue:v3 forKey:@"AXCustomRotor", v9, v10, v11, v12];
-    objc_destroyWeak(&v13);
+    [(EKDayViewAccessibility *)self _accessibilitySetRetainedValue:v3 forKey:@"AXCustomRotor", v8, v9, v10, v11];
+    objc_destroyWeak(&v12);
     objc_destroyWeak(&location);
   }
 
-  v15[0] = v3;
-  v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v15 count:1];
-
-  v7 = *MEMORY[0x29EDCA608];
+  v14[0] = v3;
+  v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v14 count:1];
 
   return v6;
 }

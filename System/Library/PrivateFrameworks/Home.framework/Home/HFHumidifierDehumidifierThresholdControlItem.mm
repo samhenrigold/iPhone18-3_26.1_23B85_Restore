@@ -86,17 +86,15 @@ LABEL_14:
 
 void __75__HFHumidifierDehumidifierThresholdControlItem_readOnlyCharacteristicTypes__block_invoke_2()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277CCF850];
-  v6[0] = *MEMORY[0x277CCFB30];
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+  v5[0] = *MEMORY[0x277CCFB30];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
   v3 = [v0 setWithArray:v2];
   v4 = qword_27C84C4C0;
   qword_27C84C4C0 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)rangeModeWithCharacteristicValuesKeyedByType:(id)type

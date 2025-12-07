@@ -26,6 +26,7 @@
 - (void)submit;
 - (void)textFieldDidChange:(id)change;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation LACUIPasscodeField
@@ -59,9 +60,21 @@
   [(LACUIPasscodeField *)self _setup];
 }
 
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = LACUIPasscodeField;
+  [(LACUIPasscodeField *)&v6 viewWillDisappear:disappear];
+  passcodeField = [(LACUIPasscodeField *)self passcodeField];
+  [passcodeField setText:&stru_28681D590];
+
+  passcodeField2 = [(LACUIPasscodeField *)self passcodeField];
+  [passcodeField2 endEditing:1];
+}
+
 - (BOOL)canBecomeFirstResponder
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   passcodeField = [(LACUIPasscodeField *)self passcodeField];
   canBecomeFirstResponder = [passcodeField canBecomeFirstResponder];
 
@@ -69,18 +82,17 @@
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithBool:canBecomeFirstResponder];
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_256063000, v4, OS_LOG_TYPE_DEFAULT, "PasscodeField canBecomeFirstResponder:%@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_256063000, v4, OS_LOG_TYPE_DEFAULT, "PasscodeField canBecomeFirstResponder:%@", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return canBecomeFirstResponder;
 }
 
 - (BOOL)becomeFirstResponder
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   [(LACUIPasscodeFieldConfiguring *)self->_configurator setUpKeyboardForPasscodeFieldStyle:self->_style];
   passcodeField = [(LACUIPasscodeField *)self passcodeField];
   becomeFirstResponder = [passcodeField becomeFirstResponder];
@@ -89,18 +101,17 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [MEMORY[0x277CCABB0] numberWithBool:becomeFirstResponder];
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_256063000, v5, OS_LOG_TYPE_DEFAULT, "PasscodeField becomeFirstResponder:%@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_256063000, v5, OS_LOG_TYPE_DEFAULT, "PasscodeField becomeFirstResponder:%@", &v8, 0xCu);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return becomeFirstResponder;
 }
 
 - (BOOL)resignFirstResponder
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   [(LACUIPasscodeFieldConfiguring *)self->_configurator tearDownKeyboard];
   passcodeField = [(LACUIPasscodeField *)self passcodeField];
   resignFirstResponder = [passcodeField resignFirstResponder];
@@ -109,12 +120,11 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [MEMORY[0x277CCABB0] numberWithBool:resignFirstResponder];
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_256063000, v5, OS_LOG_TYPE_DEFAULT, "PasscodeField resignFirstResponder:%@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_256063000, v5, OS_LOG_TYPE_DEFAULT, "PasscodeField resignFirstResponder:%@", &v8, 0xCu);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return resignFirstResponder;
 }
 
@@ -358,36 +368,36 @@ LABEL_9:
 
 - (void)_setup
 {
-  v142[2] = *MEMORY[0x277D85DE8];
-  v112 = objc_alloc_init(MEMORY[0x277D75D18]);
-  [v112 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v141[2] = *MEMORY[0x277D85DE8];
+  v111 = objc_alloc_init(MEMORY[0x277D75D18]);
+  [v111 setTranslatesAutoresizingMaskIntoConstraints:0];
   val = self;
   view = [(LACUIPasscodeField *)self view];
-  [view addSubview:v112];
+  [view addSubview:v111];
 
-  heightAnchor = [v112 heightAnchor];
+  heightAnchor = [v111 heightAnchor];
   v5 = [heightAnchor constraintEqualToConstant:65.0];
   [v5 setActive:1];
 
-  topAnchor = [v112 topAnchor];
+  topAnchor = [v111 topAnchor];
   view2 = [(LACUIPasscodeField *)val view];
   topAnchor2 = [view2 topAnchor];
   v9 = [topAnchor constraintEqualToAnchor:topAnchor2];
   [v9 setActive:1];
 
-  bottomAnchor = [v112 bottomAnchor];
+  bottomAnchor = [v111 bottomAnchor];
   view3 = [(LACUIPasscodeField *)val view];
   bottomAnchor2 = [view3 bottomAnchor];
   v13 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2 constant:0.0];
   [v13 setActive:1];
 
-  leadingAnchor = [v112 leadingAnchor];
+  leadingAnchor = [v111 leadingAnchor];
   view4 = [(LACUIPasscodeField *)val view];
   leadingAnchor2 = [view4 leadingAnchor];
   v17 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
   [v17 setActive:1];
 
-  trailingAnchor = [v112 trailingAnchor];
+  trailingAnchor = [v111 trailingAnchor];
   view5 = [(LACUIPasscodeField *)val view];
   trailingAnchor2 = [view5 trailingAnchor];
   v21 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
@@ -400,31 +410,31 @@ LABEL_9:
   objc_storeWeak(&val->_mainContainer, v23);
   [v23 setAxis:0];
   [v23 setAlignment:3];
-  v113 = v23;
+  v112 = v23;
   [v23 setSpacing:16.0];
   view6 = [(LACUIPasscodeField *)val view];
-  [view6 addSubview:v113];
+  [view6 addSubview:v112];
 
-  [v113 setTranslatesAutoresizingMaskIntoConstraints:0];
-  topAnchor3 = [v113 topAnchor];
+  [v112 setTranslatesAutoresizingMaskIntoConstraints:0];
+  topAnchor3 = [v112 topAnchor];
   view7 = [(LACUIPasscodeField *)val view];
   topAnchor4 = [view7 topAnchor];
   v28 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
   [v28 setActive:1];
 
-  bottomAnchor3 = [v113 bottomAnchor];
+  bottomAnchor3 = [v112 bottomAnchor];
   view8 = [(LACUIPasscodeField *)val view];
   bottomAnchor4 = [view8 bottomAnchor];
   v32 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
   [v32 setActive:1];
 
-  leadingAnchor3 = [v113 leadingAnchor];
+  leadingAnchor3 = [v112 leadingAnchor];
   view9 = [(LACUIPasscodeField *)val view];
   leadingAnchor4 = [view9 leadingAnchor];
   v36 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
   [v36 setActive:1];
 
-  trailingAnchor3 = [v113 trailingAnchor];
+  trailingAnchor3 = [v112 trailingAnchor];
   view10 = [(LACUIPasscodeField *)val view];
   trailingAnchor4 = [view10 trailingAnchor];
   v40 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
@@ -438,9 +448,9 @@ LABEL_9:
   v43 = objc_alloc_init(MEMORY[0x277D75A68]);
   [v43 setAxis:1];
   objc_storeWeak(&val->_passcodeFieldContainer, v43);
-  [v113 addArrangedSubview:v43];
+  [v112 addArrangedSubview:v43];
   [v43 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v116 = v43;
+  v115 = v43;
   heightAnchor2 = [v43 heightAnchor];
   [(LACUIPasscodeFieldConfiguring *)val->_configurator passcodeFieldMinHeight];
   v45 = [heightAnchor2 constraintGreaterThanOrEqualToConstant:?];
@@ -452,51 +462,51 @@ LABEL_9:
   [obj setConfiguration:v46];
 
   [obj addTarget:val action:sel_submit forControlEvents:64];
-  [v113 addArrangedSubview:obj];
+  [v112 addArrangedSubview:obj];
   [obj setTranslatesAutoresizingMaskIntoConstraints:0];
   v47 = MEMORY[0x277CCAAD0];
   widthAnchor = [obj widthAnchor];
   v49 = [widthAnchor constraintEqualToConstant:44.0];
-  v142[0] = v49;
+  v141[0] = v49;
   heightAnchor3 = [obj heightAnchor];
   widthAnchor2 = [obj widthAnchor];
   v52 = [heightAnchor3 constraintEqualToAnchor:widthAnchor2];
-  v142[1] = v52;
-  v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v142 count:2];
+  v141[1] = v52;
+  v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v141 count:2];
   [v47 activateConstraints:v53];
 
   v54 = objc_alloc_init(MEMORY[0x277CBEB18]);
   fieldLayouts = val->_fieldLayouts;
   val->_fieldLayouts = v54;
 
-  v137 = 0u;
-  v138 = 0u;
-  v135 = 0u;
   v136 = 0u;
-  v117 = [&unk_286827240 countByEnumeratingWithState:&v135 objects:v141 count:16];
-  if (v117)
+  v137 = 0u;
+  v134 = 0u;
+  v135 = 0u;
+  v116 = [&unk_286827240 countByEnumeratingWithState:&v134 objects:v140 count:16];
+  if (v116)
   {
-    v115 = *v136;
-    v114 = *MEMORY[0x277D77020];
+    v114 = *v135;
+    v113 = *MEMORY[0x277D77020];
     do
     {
-      for (i = 0; i != v117; ++i)
+      for (i = 0; i != v116; ++i)
       {
-        if (*v136 != v115)
+        if (*v135 != v114)
         {
           objc_enumerationMutation(&unk_286827240);
         }
 
-        unsignedIntegerValue = [*(*(&v135 + 1) + 8 * i) unsignedIntegerValue];
-        v124 = objc_alloc_init(MEMORY[0x277D75D18]);
-        [v116 addArrangedSubview:v124];
-        [v124 setTranslatesAutoresizingMaskIntoConstraints:0];
-        heightAnchor4 = [v124 heightAnchor];
+        unsignedIntegerValue = [*(*(&v134 + 1) + 8 * i) unsignedIntegerValue];
+        v123 = objc_alloc_init(MEMORY[0x277D75D18]);
+        [v115 addArrangedSubview:v123];
+        [v123 setTranslatesAutoresizingMaskIntoConstraints:0];
+        heightAnchor4 = [v123 heightAnchor];
         [(LACUIPasscodeFieldConfiguring *)val->_configurator passcodeFieldMinHeight];
         v57 = [heightAnchor4 constraintGreaterThanOrEqualToConstant:?];
         [v57 setActive:1];
 
-        [v124 setHidden:1];
+        [v123 setHidden:1];
         v58 = objc_alloc_init(LAUITextField);
         [(LAUITextField *)v58 setShouldHideEditMenu:[(LACUIPasscodeField *)val _shouldUseAlphanumericKeyboardForStyle:unsignedIntegerValue]^ 1];
         [(LAUITextField *)v58 disablePrediction];
@@ -505,7 +515,7 @@ LABEL_9:
         [(LAUITextField *)v58 setBorderStyle:[(LACUIPasscodeFieldConfiguring *)val->_configurator passcodeFieldBorderStyleForPasscodeFieldStyle:unsignedIntegerValue]];
         [(LAUITextField *)v58 setSecureTextEntry:1];
         [(LAUITextField *)v58 setDisplaySecureTextUsingPlainText:[(LACUIPasscodeFieldConfiguring *)val->_configurator shouldConcealInputs]^ 1];
-        [(LAUITextField *)v58 setTextContentType:v114];
+        [(LAUITextField *)v58 setTextContentType:v113];
         [(LAUITextField *)v58 setAutocapitalizationType:0];
         [(LAUITextField *)v58 setAutocorrectionType:1];
         passcodeFieldFont = [(LACUIPasscodeFieldConfiguring *)val->_configurator passcodeFieldFont];
@@ -545,45 +555,45 @@ LABEL_9:
         _passcodeFieldColor = [(LACUIPasscodeField *)val _passcodeFieldColor];
         v66 = _passcodeFieldColor;
         cGColor = [_passcodeFieldColor CGColor];
-        layer = [v124 layer];
+        layer = [v123 layer];
         [layer setBackgroundColor:cGColor];
 
         [(LAUITextField *)v58 addTarget:val action:sel_textFieldDidChange_ forControlEvents:0x20000];
-        [v124 addSubview:v58];
+        [v123 addSubview:v58];
         [(LAUITextField *)v58 setTranslatesAutoresizingMaskIntoConstraints:0];
-        v118 = MEMORY[0x277CCAAD0];
+        v117 = MEMORY[0x277CCAAD0];
         topAnchor5 = [(LAUITextField *)v58 topAnchor];
-        topAnchor6 = [v124 topAnchor];
+        topAnchor6 = [v123 topAnchor];
         [(LACUIPasscodeFieldConfiguring *)val->_configurator passcodeFieldPadding];
-        v120 = [topAnchor5 constraintEqualToAnchor:topAnchor6 constant:?];
-        v140[0] = v120;
+        v119 = [topAnchor5 constraintEqualToAnchor:topAnchor6 constant:?];
+        v139[0] = v119;
         bottomAnchor5 = [(LAUITextField *)v58 bottomAnchor];
-        bottomAnchor6 = [v124 bottomAnchor];
+        bottomAnchor6 = [v123 bottomAnchor];
         [(LACUIPasscodeFieldConfiguring *)val->_configurator passcodeFieldPadding];
         v71 = [bottomAnchor5 constraintEqualToAnchor:bottomAnchor6 constant:-v70];
-        v140[1] = v71;
+        v139[1] = v71;
         leadingAnchor5 = [(LAUITextField *)v58 leadingAnchor];
-        leadingAnchor6 = [v124 leadingAnchor];
+        leadingAnchor6 = [v123 leadingAnchor];
         [(LACUIPasscodeFieldConfiguring *)val->_configurator passcodeFieldPadding];
         v74 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6 constant:?];
-        v140[2] = v74;
+        v139[2] = v74;
         trailingAnchor5 = [(LAUITextField *)v58 trailingAnchor];
-        trailingAnchor6 = [v124 trailingAnchor];
+        trailingAnchor6 = [v123 trailingAnchor];
         [(LACUIPasscodeFieldConfiguring *)val->_configurator passcodeFieldPadding];
         v78 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6 constant:-v77];
-        v140[3] = v78;
-        v79 = [MEMORY[0x277CBEA60] arrayWithObjects:v140 count:4];
-        [v118 activateConstraints:v79];
+        v139[3] = v78;
+        v79 = [MEMORY[0x277CBEA60] arrayWithObjects:v139 count:4];
+        [v117 activateConstraints:v79];
 
         [(LACUIPasscodeFieldConfiguring *)val->_configurator passcodeFieldCornerRadius:v58 forPasscodeStyle:unsignedIntegerValue];
         v81 = v80;
         [(LAUITextField *)v58 _setRoundedRectBackgroundCornerRadius:?];
-        layer2 = [v124 layer];
+        layer2 = [v123 layer];
         [layer2 setCornerRadius:v81];
 
         if ([(LACUIPasscodeField *)val _shouldUseDotPatternForStyle:unsignedIntegerValue])
         {
-          layer3 = [v124 layer];
+          layer3 = [v123 layer];
           clearColor = [MEMORY[0x277D75348] clearColor];
           v85 = clearColor;
           [layer3 setBackgroundColor:{objc_msgSend(clearColor, "CGColor")}];
@@ -617,25 +627,25 @@ LABEL_9:
             while (v87 < [(LACUIPasscodeField *)val _passcodeLengthForStyle:unsignedIntegerValue]);
           }
 
-          [v124 addSubview:v86];
+          [v123 addSubview:v86];
           [v86 setTranslatesAutoresizingMaskIntoConstraints:0];
           if (_UISolariumEnabled())
           {
             leadingAnchor7 = [v86 leadingAnchor];
-            [v124 leadingAnchor];
+            [v123 leadingAnchor];
           }
 
           else
           {
             leadingAnchor7 = [v86 centerXAnchor];
-            [v124 centerXAnchor];
+            [v123 centerXAnchor];
           }
           v94 = ;
           v95 = [leadingAnchor7 constraintEqualToAnchor:v94];
           [v95 setActive:1];
 
           centerYAnchor = [v86 centerYAnchor];
-          centerYAnchor2 = [v124 centerYAnchor];
+          centerYAnchor2 = [v123 centerYAnchor];
           v98 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
           [v98 setActive:1];
 
@@ -655,61 +665,58 @@ LABEL_9:
         }
 
         v101 = val->_fieldLayouts;
-        v130[0] = MEMORY[0x277D85DD0];
-        v130[1] = 3221225472;
-        v130[2] = __28__LACUIPasscodeField__setup__block_invoke_44;
-        v130[3] = &unk_27981E980;
-        v131 = v58;
-        v132 = v86;
-        v133 = v124;
-        v134 = unsignedIntegerValue;
-        v102 = v124;
+        v129[0] = MEMORY[0x277D85DD0];
+        v129[1] = 3221225472;
+        v129[2] = __28__LACUIPasscodeField__setup__block_invoke_44;
+        v129[3] = &unk_27981E980;
+        v130 = v58;
+        v131 = v86;
+        v132 = v123;
+        v133 = unsignedIntegerValue;
+        v102 = v123;
         v103 = v86;
         v104 = v58;
-        v105 = __28__LACUIPasscodeField__setup__block_invoke_44(v130);
+        v105 = __28__LACUIPasscodeField__setup__block_invoke_44(v129);
         [(NSMutableArray *)v101 addObject:v105];
       }
 
-      v117 = [&unk_286827240 countByEnumeratingWithState:&v135 objects:v141 count:16];
+      v116 = [&unk_286827240 countByEnumeratingWithState:&v134 objects:v140 count:16];
     }
 
-    while (v117);
+    while (v116);
   }
 
   [(LACUIPasscodeField *)val _activateFieldLayoutForSelectedPasscodeStyle];
   objc_initWeak(&location, val);
   v106 = objc_opt_self();
-  v139 = v106;
-  v107 = [MEMORY[0x277CBEA60] arrayWithObjects:&v139 count:1];
-  v127[0] = MEMORY[0x277D85DD0];
-  v127[1] = 3221225472;
-  v127[2] = __28__LACUIPasscodeField__setup__block_invoke_2;
-  v127[3] = &unk_27981E9A8;
-  objc_copyWeak(&v128, &location);
-  v108 = [(LACUIPasscodeField *)val registerForTraitChanges:v107 withHandler:v127];
+  v138 = v106;
+  v107 = [MEMORY[0x277CBEA60] arrayWithObjects:&v138 count:1];
+  v126[0] = MEMORY[0x277D85DD0];
+  v126[1] = 3221225472;
+  v126[2] = __28__LACUIPasscodeField__setup__block_invoke_2;
+  v126[3] = &unk_27981E9A8;
+  objc_copyWeak(&v127, &location);
+  v108 = [(LACUIPasscodeField *)val registerForTraitChanges:v107 withHandler:v126];
 
-  objc_destroyWeak(&v128);
+  objc_destroyWeak(&v127);
   objc_destroyWeak(&location);
-
-  v109 = *MEMORY[0x277D85DE8];
 }
 
 id __28__LACUIPasscodeField__setup__block_invoke()
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D75230] grayButtonConfiguration];
   v1 = objc_alloc(MEMORY[0x277CCA898]);
   v2 = +[LACUILocalization ok];
-  v8 = *MEMORY[0x277D740A8];
+  v7 = *MEMORY[0x277D740A8];
   v3 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76988]];
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v1 initWithString:v2 attributes:v4];
   [v0 setAttributedTitle:v5];
 
   [v0 setContentInsets:{*MEMORY[0x277D75060], *(MEMORY[0x277D75060] + 8), *(MEMORY[0x277D75060] + 16), *(MEMORY[0x277D75060] + 24)}];
   [v0 setCornerStyle:4];
-  v6 = *MEMORY[0x277D85DE8];
 
   return v0;
 }
@@ -743,27 +750,27 @@ void __28__LACUIPasscodeField__setup__block_invoke_2(uint64_t a1)
 
 void __66__LACUIPasscodeField__activateFieldLayoutForSelectedPasscodeStyle__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v2 = *(*(a1 + 32) + 1032);
-  v3 = [v2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v19;
+    v5 = *v18;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v19 != v5)
+        if (*v18 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v18 + 1) + 8 * i);
+        v7 = *(*(&v17 + 1) + 8 * i);
         v8 = [v7 style];
         v9 = *(a1 + 32);
         if (v8 == *(v9 + 1072))
@@ -788,7 +795,7 @@ void __66__LACUIPasscodeField__activateFieldLayoutForSelectedPasscodeStyle__bloc
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v4);
@@ -803,8 +810,6 @@ void __66__LACUIPasscodeField__activateFieldLayoutForSelectedPasscodeStyle__bloc
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 1000));
     [WeakRetained layoutIfNeeded];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_applyStyleToFieldLayout
@@ -843,7 +848,7 @@ void __66__LACUIPasscodeField__activateFieldLayoutForSelectedPasscodeStyle__bloc
   }
 }
 
-unint64_t __39__LACUIPasscodeField__updateDotPattern__block_invoke(uint64_t a1)
+void *__39__LACUIPasscodeField__updateDotPattern__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _passcodeLength];
   if (result)
@@ -892,7 +897,7 @@ unint64_t __39__LACUIPasscodeField__updateDotPattern__block_invoke(uint64_t a1)
 
 - (id)_alphanumericFieldPlaceholder
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CCA898]);
   placeholderText = [(LACUIPasscodeField *)self placeholderText];
   v5 = placeholderText;
@@ -907,21 +912,19 @@ unint64_t __39__LACUIPasscodeField__updateDotPattern__block_invoke(uint64_t a1)
   }
 
   v7 = *MEMORY[0x277D74118];
-  v14[4] = self;
-  v15[0] = v7;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __51__LACUIPasscodeField__alphanumericFieldPlaceholder__block_invoke;
-  v14[3] = &unk_27981E9D0;
-  v8 = __51__LACUIPasscodeField__alphanumericFieldPlaceholder__block_invoke(v14);
-  v16[0] = v8;
-  v15[1] = *MEMORY[0x277D740A8];
+  v13[4] = self;
+  v14[0] = v7;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __51__LACUIPasscodeField__alphanumericFieldPlaceholder__block_invoke;
+  v13[3] = &unk_27981E9D0;
+  v8 = __51__LACUIPasscodeField__alphanumericFieldPlaceholder__block_invoke(v13);
+  v15[0] = v8;
+  v14[1] = *MEMORY[0x277D740A8];
   v9 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
-  v16[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v15[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
   v11 = [v3 initWithString:v6 attributes:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

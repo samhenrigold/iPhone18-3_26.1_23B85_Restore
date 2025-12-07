@@ -57,14 +57,14 @@
 
 - (id)dictionary
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   *uuid = 0;
-  v15 = 0;
-  *v12 = 0;
-  v13 = 0;
-  v11.receiver = self;
-  v11.super_class = NENetworkAgentRegistrationFileHandle;
-  dictionary = [(NEFileHandle *)&v11 dictionary];
+  v14 = 0;
+  *v11 = 0;
+  v12 = 0;
+  v10.receiver = self;
+  v10.super_class = NENetworkAgentRegistrationFileHandle;
+  dictionary = [(NEFileHandle *)&v10 dictionary];
   sessionType = [(NENetworkAgentRegistrationFileHandle *)self sessionType];
   xpc_dictionary_set_uint64(dictionary, "session-type", [sessionType unsignedLongLongValue]);
 
@@ -73,9 +73,9 @@
 
   xpc_dictionary_set_uuid(dictionary, "configuration-identifier", uuid);
   agentUUID = [(NENetworkAgentRegistrationFileHandle *)self agentUUID];
-  [agentUUID getUUIDBytes:v12];
+  [agentUUID getUUIDBytes:v11];
 
-  xpc_dictionary_set_uuid(dictionary, "agent-uuid", v12);
+  xpc_dictionary_set_uuid(dictionary, "agent-uuid", v11);
   xpc_dictionary_set_uint64(dictionary, "agent-flags", [(NENetworkAgentRegistrationFileHandle *)self agentFlags]);
   name = [(NENetworkAgentRegistrationFileHandle *)self name];
 
@@ -84,8 +84,6 @@
     name2 = [(NENetworkAgentRegistrationFileHandle *)self name];
     xpc_dictionary_set_string(dictionary, "agent-name", [name2 UTF8String]);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

@@ -3,6 +3,7 @@
 - (PTChannelManagerDelegate)channelEventDelegate;
 - (PTChannelRestorationDelegate)channelRestorationDelegate;
 - (id)_initWithEventDelegate:(id)delegate restorationDelegate:(id)restorationDelegate instantiationCompletion:(id)completion;
+- (void)_appendPendingPushForUUID:(id)d payload:(id)payload reply:(id)reply isServiceUpdateMessage:(BOOL)message isHighPriority:(BOOL)priority remainingHighPriorityBudget:(int64_t)budget;
 - (void)_deliverChannelManagerInstanceToClientIfNeeded;
 - (void)_deliverPendingPushes;
 - (void)_ensureDelegateIsReadyToReceiveActions:(id)actions joinReason:(int64_t)reason;
@@ -10,11 +11,13 @@
 - (void)_handlePushResult:(id)result pendingPush:(id)push;
 - (void)_performChannelRestorationAndUpdateChannelDescriptor:(id)descriptor pushPayload:(id)payload;
 - (void)_requestJoinChannelWithUUID:(id)d channelDescriptor:(id)descriptor originator:(int64_t)originator completion:(id)completion;
+- (void)_setActiveRemoteParticipant:(id)participant forChannelUUID:(id)d shouldReplaceOutgoingTransmission:(BOOL)transmission completionHandler:(id)handler;
 - (void)leaveChannelWithUUID:(NSUUID *)channelUUID;
 - (void)provider:(id)provider didActivateAudioSession:(id)session;
 - (void)provider:(id)provider didDeactivateAudioSession:(id)session;
 - (void)provider:(id)provider didReceiveChannelPushToken:(id)token;
 - (void)provider:(id)provider didReceiveCheckInResult:(int64_t)result channelUUID:(id)d;
+- (void)provider:(id)provider didReceivePushPayload:(id)payload channelUUID:(id)d reply:(id)reply isServiceUpdateMessage:(BOOL)message isHighPriority:(BOOL)priority remainingHighPriorityBudget:(int64_t)budget;
 - (void)provider:(id)provider performChannelJoinAction:(id)action;
 - (void)provider:(id)provider performChannelLeaveAction:(id)action;
 - (void)provider:(id)provider performChannelTransmitStartAction:(id)action;
@@ -23,6 +26,7 @@
 - (void)providerDidReset:(id)reset;
 - (void)requestBeginTransmittingWithChannelUUID:(NSUUID *)channelUUID;
 - (void)requestJoinChannelWithUUID:(NSUUID *)channelUUID descriptor:(PTChannelDescriptor *)descriptor;
+- (void)setAccessoryButtonEventsEnabled:(BOOL)enabled forChannelUUID:(NSUUID *)channelUUID completionHandler:(void *)completionHandler;
 - (void)setChannelDescriptor:(PTChannelDescriptor *)channelDescriptor forChannelUUID:(NSUUID *)channelUUID completionHandler:(void *)completionHandler;
 - (void)setServiceStatus:(PTServiceStatus)status forChannelUUID:(NSUUID *)channelUUID completionHandler:(void *)completionHandler;
 - (void)setTransmissionMode:(PTTransmissionMode)transmissionMode forChannelUUID:(NSUUID *)channelUUID completionHandler:(void *)completionHandler;
@@ -86,7 +90,7 @@
 
   else
   {
-    v11 = PTDefaultLog();
+    v11 = PTDefaultLog(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -177,7 +181,7 @@ void __60__PTChannelManager_requestBeginTransmittingWithChannelUUID___block_invo
 {
   v2 = (a1 + 32);
   v3 = *(a1 + 32);
-  v4 = PTDefaultLog();
+  v4 = PTDefaultLog(a1);
   v5 = v4;
   if (!v3)
   {
@@ -209,13 +213,13 @@ LABEL_8:
 - (void)stopTransmittingWithChannelUUID:(NSUUID *)channelUUID
 {
   v4 = channelUUID;
-  if (self->_isWaitingForPushResult && (waitingForPushResultChannelUUID = self->_waitingForPushResultChannelUUID) != 0 && [(NSUUID *)waitingForPushResultChannelUUID isEqual:v4])
+  if (self->_isWaitingForPushResult && (waitingForPushResultChannelUUID = self->_waitingForPushResultChannelUUID) != 0 && (v6 = [(NSUUID *)waitingForPushResultChannelUUID isEqual:v4], v6))
   {
-    v6 = PTDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PTDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23A70A000, v6, OS_LOG_TYPE_DEFAULT, "Stop Transmit requested while waiting for a PTPushResult. The Stop Transmit action will be fulfilled after the PTPushResult is processed.", buf, 2u);
+      _os_log_impl(&dword_23A70A000, v7, OS_LOG_TYPE_DEFAULT, "Stop Transmit requested while waiting for a PTPushResult. The Stop Transmit action will be fulfilled after the PTPushResult is processed.", buf, 2u);
     }
 
     self->_stopTransmitRequestedWhileWaitingForPushResult = 1;
@@ -223,16 +227,16 @@ LABEL_8:
 
   else
   {
-    v7 = [objc_alloc(MEMORY[0x277CBAFB0]) initWithChannelUUID:v4];
-    [v7 setOriginator:2];
+    v8 = [objc_alloc(MEMORY[0x277CBAFB0]) initWithChannelUUID:v4];
+    [v8 setOriginator:2];
     callController = self->_callController;
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __52__PTChannelManager_stopTransmittingWithChannelUUID___block_invoke;
-    v9[3] = &unk_278B556F0;
-    v9[4] = self;
-    v10 = v4;
-    [(CXCallController *)callController requestTransactionWithAction:v7 completion:v9];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __52__PTChannelManager_stopTransmittingWithChannelUUID___block_invoke;
+    v10[3] = &unk_278B556F0;
+    v10[4] = self;
+    v11 = v4;
+    [(CXCallController *)callController requestTransactionWithAction:v8 completion:v10];
   }
 }
 
@@ -257,7 +261,7 @@ void __52__PTChannelManager_stopTransmittingWithChannelUUID___block_invoke_2(uin
 {
   v2 = (a1 + 32);
   v3 = *(a1 + 32);
-  v4 = PTDefaultLog();
+  v4 = PTDefaultLog(a1);
   v5 = v4;
   if (!v3)
   {
@@ -354,12 +358,13 @@ void __58__PTChannelManager_requestJoinChannelWithUUID_descriptor___block_invoke
 void __88__PTChannelManager__requestJoinChannelWithUUID_channelDescriptor_originator_completion___block_invoke(id *a1, void *a2)
 {
   v3 = _pttAttemptTranslateErrorFromCXError(a2);
+  v4 = v3;
   if (v3)
   {
-    v4 = PTDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PTDefaultLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __88__PTChannelManager__requestJoinChannelWithUUID_channelDescriptor_originator_completion___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+      __88__PTChannelManager__requestJoinChannelWithUUID_channelDescriptor_originator_completion___block_invoke_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
@@ -368,24 +373,24 @@ void __88__PTChannelManager__requestJoinChannelWithUUID_channelDescriptor_origin
     WeakRetained = objc_loadWeakRetained(a1 + 6);
     [WeakRetained setSuppressRejoinForRecentlyDisconnectedChannelUUID:0];
 
-    v4 = PTDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = PTDefaultLog(v13);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23A70A000, v4, OS_LOG_TYPE_DEFAULT, "PTT join request completed successfully, should be fulfilled soon", buf, 2u);
+      _os_log_impl(&dword_23A70A000, v5, OS_LOG_TYPE_DEFAULT, "PTT join request completed successfully, should be fulfilled soon", buf, 2u);
     }
   }
 
-  v12 = [a1[4] callbackQueue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __88__PTChannelManager__requestJoinChannelWithUUID_channelDescriptor_originator_completion___block_invoke_62;
-  v15[3] = &unk_278B55718;
-  v13 = a1[5];
-  v16 = v3;
-  v17 = v13;
-  v14 = v3;
-  dispatch_async(v12, v15);
+  v14 = [a1[4] callbackQueue];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __88__PTChannelManager__requestJoinChannelWithUUID_channelDescriptor_originator_completion___block_invoke_62;
+  v17[3] = &unk_278B55718;
+  v15 = a1[5];
+  v18 = v4;
+  v19 = v15;
+  v16 = v4;
+  dispatch_async(v14, v17);
 }
 
 - (void)leaveChannelWithUUID:(NSUUID *)channelUUID
@@ -407,7 +412,7 @@ void __88__PTChannelManager__requestJoinChannelWithUUID_channelDescriptor_origin
 void __41__PTChannelManager_leaveChannelWithUUID___block_invoke(uint64_t a1, void *a2)
 {
   v3 = _pttAttemptTranslateErrorFromCXError(a2);
-  v4 = PTDefaultLog();
+  v4 = PTDefaultLog(v3);
   v5 = v4;
   if (v3)
   {
@@ -447,6 +452,37 @@ void __41__PTChannelManager_leaveChannelWithUUID___block_invoke_64(uint64_t a1)
   {
     v4 = [*(a1 + 32) channelEventDelegate];
     [v4 channelManager:*(a1 + 32) failedToLeaveChannelWithUUID:*(a1 + 40) error:*(a1 + 48)];
+  }
+}
+
+- (void)_setActiveRemoteParticipant:(id)participant forChannelUUID:(id)d shouldReplaceOutgoingTransmission:(BOOL)transmission completionHandler:(id)handler
+{
+  transmissionCopy = transmission;
+  handlerCopy = handler;
+  v11 = MEMORY[0x277CBAFB8];
+  dCopy = d;
+  participantCopy = participant;
+  v14 = objc_alloc_init(v11);
+  underlyingParticipant = [participantCopy underlyingParticipant];
+
+  [v14 setActiveRemoteParticipant:underlyingParticipant];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __115__PTChannelManager__setActiveRemoteParticipant_forChannelUUID_shouldReplaceOutgoingTransmission_completionHandler___block_invoke;
+  v20[3] = &unk_278B55768;
+  v21 = handlerCopy;
+  v16 = handlerCopy;
+  v17 = MEMORY[0x23EE8B1E0](v20);
+  underlyingProvider = [(PTChannelManager *)self underlyingProvider];
+  v19 = underlyingProvider;
+  if (participantCopy)
+  {
+    [underlyingProvider reportIncomingTransmissionStartedForChannelWithUUID:dCopy update:v14 shouldReplaceOutgoingTransmission:transmissionCopy completionHandler:v17];
+  }
+
+  else
+  {
+    [underlyingProvider reportIncomingTransmissionEndedForChannelWithUUID:dCopy reason:0 completionHandler:v17];
   }
 }
 
@@ -559,6 +595,24 @@ uint64_t __73__PTChannelManager_setTransmissionMode_forChannelUUID_completionHan
   return MEMORY[0x2821F96F8]();
 }
 
+- (void)setAccessoryButtonEventsEnabled:(BOOL)enabled forChannelUUID:(NSUUID *)channelUUID completionHandler:(void *)completionHandler
+{
+  v6 = enabled;
+  v8 = completionHandler;
+  v9 = MEMORY[0x277CBAFB8];
+  v10 = channelUUID;
+  v11 = objc_alloc_init(v9);
+  [v11 setAccessoryButtonEventsEnabled:v6];
+  underlyingProvider = [(PTChannelManager *)self underlyingProvider];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __85__PTChannelManager_setAccessoryButtonEventsEnabled_forChannelUUID_completionHandler___block_invoke;
+  v14[3] = &unk_278B55768;
+  v15 = v8;
+  v13 = v8;
+  [underlyingProvider reportChannelWithUUID:v10 updated:v11 completionHandler:v14];
+}
+
 uint64_t __85__PTChannelManager_setAccessoryButtonEventsEnabled_forChannelUUID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   _pttAttemptTranslateErrorFromCXError(a2);
@@ -574,7 +628,7 @@ uint64_t __85__PTChannelManager_setAccessoryButtonEventsEnabled_forChannelUUID_c
 
 - (void)unregisterChannelPushToken
 {
-  v3 = PTDefaultLog();
+  v3 = PTDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [(PTChannelManager *)v3 unregisterChannelPushToken];
@@ -586,7 +640,7 @@ uint64_t __85__PTChannelManager_setAccessoryButtonEventsEnabled_forChannelUUID_c
 
 - (void)providerDidBegin:(id)begin
 {
-  v3 = PTDefaultLog();
+  v3 = PTDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -603,43 +657,86 @@ uint64_t __85__PTChannelManager_setAccessoryButtonEventsEnabled_forChannelUUID_c
   underlyingProvider2 = [(PTChannelManager *)self underlyingProvider];
   [underlyingProvider2 invalidate];
 
-  v6 = PTDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = PTDefaultLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    [PTChannelManager providerDidReset:v6];
+    [PTChannelManager providerDidReset:v7];
   }
 
   activeChannelUUID = self->_activeChannelUUID;
   self->_activeChannelUUID = 0;
 
-  v8 = objc_alloc_init(MEMORY[0x277CBAFA0]);
-  v9 = [objc_alloc(MEMORY[0x277CBAF98]) initWithConfiguration:v8];
+  v9 = objc_alloc_init(MEMORY[0x277CBAFA0]);
+  v10 = [objc_alloc(MEMORY[0x277CBAF98]) initWithConfiguration:v9];
   underlyingProvider = self->_underlyingProvider;
-  self->_underlyingProvider = v9;
+  self->_underlyingProvider = v10;
 
-  v11 = objc_alloc_init(MEMORY[0x277CBAF50]);
+  v12 = objc_alloc_init(MEMORY[0x277CBAF50]);
   callController = self->_callController;
-  self->_callController = v11;
+  self->_callController = v12;
 
   [(CXChannelProvider *)self->_underlyingProvider setDelegate:self queue:self->_callbackQueue];
 }
 
+- (void)_appendPendingPushForUUID:(id)d payload:(id)payload reply:(id)reply isServiceUpdateMessage:(BOOL)message isHighPriority:(BOOL)priority remainingHighPriorityBudget:(int64_t)budget
+{
+  priorityCopy = priority;
+  messageCopy = message;
+  replyCopy = reply;
+  payloadCopy = payload;
+  dCopy = d;
+  v18 = objc_alloc_init(PTPendingPush);
+  [(PTPendingPush *)v18 setUuid:dCopy];
+
+  [(PTPendingPush *)v18 setPayload:payloadCopy];
+  [(PTPendingPush *)v18 setReply:replyCopy];
+
+  [(PTPendingPush *)v18 setIsServiceUpdateMessage:messageCopy];
+  [(PTPendingPush *)v18 setIsHighPriority:priorityCopy];
+  [(PTPendingPush *)v18 setRemainingHighPriorityBudget:budget];
+  pendingPushes = [(PTChannelManager *)self pendingPushes];
+  [pendingPushes addObject:v18];
+}
+
+- (void)provider:(id)provider didReceivePushPayload:(id)payload channelUUID:(id)d reply:(id)reply isServiceUpdateMessage:(BOOL)message isHighPriority:(BOOL)priority remainingHighPriorityBudget:(int64_t)budget
+{
+  priorityCopy = priority;
+  messageCopy = message;
+  payloadCopy = payload;
+  dCopy = d;
+  callbackQueue = self->_callbackQueue;
+  replyCopy = reply;
+  dispatch_assert_queue_V2(callbackQueue);
+  [(PTChannelManager *)self _appendPendingPushForUUID:dCopy payload:payloadCopy reply:replyCopy isServiceUpdateMessage:messageCopy isHighPriority:priorityCopy remainingHighPriorityBudget:budget];
+
+  if (self->_activeChannelUUID)
+  {
+    [(PTChannelManager *)self _deliverPendingPushes];
+  }
+
+  else
+  {
+    [(PTChannelManager *)self _performChannelRestorationAndUpdateChannelDescriptor:dCopy pushPayload:payloadCopy];
+  }
+}
+
 - (void)_performChannelRestorationAndUpdateChannelDescriptor:(id)descriptor pushPayload:(id)payload
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   payloadCopy = payload;
   dispatch_assert_queue_V2(self->_callbackQueue);
   if (!self->_attemptingChannelRestoration)
   {
-    if ([(NSUUID *)self->_suppressRejoinForRecentlyDisconnectedChannelUUID isEqual:descriptorCopy])
+    v8 = [(NSUUID *)self->_suppressRejoinForRecentlyDisconnectedChannelUUID isEqual:descriptorCopy];
+    if (v8)
     {
-      v8 = PTDefaultLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = PTDefaultLog(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v17 = descriptorCopy;
-        _os_log_impl(&dword_23A70A000, v8, OS_LOG_TYPE_DEFAULT, "PTChannelManager skipping channel restoration for channel that was just torn down %@", buf, 0xCu);
+        v18 = descriptorCopy;
+        _os_log_impl(&dword_23A70A000, v9, OS_LOG_TYPE_DEFAULT, "PTChannelManager skipping channel restoration for channel that was just torn down %@", buf, 0xCu);
       }
     }
 
@@ -649,37 +746,35 @@ uint64_t __85__PTChannelManager_setAccessoryButtonEventsEnabled_forChannelUUID_c
       underlyingProvider = [(PTChannelManager *)self underlyingProvider];
       [underlyingProvider requestChannelPushToken];
 
-      v10 = PTDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = PTDefaultLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v17 = descriptorCopy;
-        _os_log_impl(&dword_23A70A000, v10, OS_LOG_TYPE_DEFAULT, "PTChannelManager asking channel restoration delegate for descriptor for %{public}@", buf, 0xCu);
+        v18 = descriptorCopy;
+        _os_log_impl(&dword_23A70A000, v12, OS_LOG_TYPE_DEFAULT, "PTChannelManager asking channel restoration delegate for descriptor for %{public}@", buf, 0xCu);
       }
 
       channelRestorationDelegate = [(PTChannelManager *)self channelRestorationDelegate];
-      v8 = [channelRestorationDelegate channelDescriptorForRestoredChannelUUID:descriptorCopy];
+      v9 = [channelRestorationDelegate channelDescriptorForRestoredChannelUUID:descriptorCopy];
 
-      if (!v8)
+      if (!v9)
       {
         [PTChannelManager _performChannelRestorationAndUpdateChannelDescriptor:pushPayload:];
       }
 
       objc_initWeak(buf, self);
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __85__PTChannelManager__performChannelRestorationAndUpdateChannelDescriptor_pushPayload___block_invoke;
-      v13[3] = &unk_278B55790;
-      objc_copyWeak(&v15, buf);
-      v14 = descriptorCopy;
-      [(PTChannelManager *)self setChannelDescriptor:v8 forChannelUUID:v14 completionHandler:v13];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __85__PTChannelManager__performChannelRestorationAndUpdateChannelDescriptor_pushPayload___block_invoke;
+      v14[3] = &unk_278B55790;
+      objc_copyWeak(&v16, buf);
+      v15 = descriptorCopy;
+      [(PTChannelManager *)self setChannelDescriptor:v9 forChannelUUID:v15 completionHandler:v14];
 
-      objc_destroyWeak(&v15);
+      objc_destroyWeak(&v16);
       objc_destroyWeak(buf);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __85__PTChannelManager__performChannelRestorationAndUpdateChannelDescriptor_pushPayload___block_invoke(uint64_t a1, void *a2)
@@ -689,7 +784,7 @@ void __85__PTChannelManager__performChannelRestorationAndUpdateChannelDescriptor
   v5 = WeakRetained;
   if (v3)
   {
-    v6 = PTDefaultLog();
+    v6 = PTDefaultLog(WeakRetained);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __85__PTChannelManager__performChannelRestorationAndUpdateChannelDescriptor_pushPayload___block_invoke_cold_1(v3, v6, v7, v8, v9, v10, v11, v12);
@@ -700,8 +795,7 @@ void __85__PTChannelManager__performChannelRestorationAndUpdateChannelDescriptor
 
   else
   {
-    [WeakRetained _ensureDelegateIsReadyToReceiveActions:*(a1 + 32) joinReason:1];
-    v13 = PTDefaultLog();
+    v13 = PTDefaultLog([WeakRetained _ensureDelegateIsReadyToReceiveActions:*(a1 + 32) joinReason:1]);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *v14 = 0;
@@ -717,12 +811,12 @@ void __85__PTChannelManager__performChannelRestorationAndUpdateChannelDescriptor
   v24 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   dispatch_assert_queue_V2(self->_callbackQueue);
-  v5 = PTDefaultLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = PTDefaultLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     v23 = resultCopy;
-    _os_log_impl(&dword_23A70A000, v5, OS_LOG_TYPE_DEFAULT, "PTChannelManager leaving channel with UUID %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_23A70A000, v6, OS_LOG_TYPE_DEFAULT, "PTChannelManager leaving channel with UUID %{public}@", buf, 0xCu);
   }
 
   underlyingProvider = [(PTChannelManager *)self underlyingProvider];
@@ -738,38 +832,36 @@ void __85__PTChannelManager__performChannelRestorationAndUpdateChannelDescriptor
   v17 = 0u;
   v18 = 0u;
   pendingPushes = [(PTChannelManager *)self pendingPushes];
-  v10 = [pendingPushes countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v10)
+  v11 = [pendingPushes countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v18;
+    v12 = v11;
+    v13 = *v18;
     do
     {
-      v13 = 0;
+      v14 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(pendingPushes);
         }
 
-        reply = [*(*(&v17 + 1) + 8 * v13) reply];
+        reply = [*(*(&v17 + 1) + 8 * v14) reply];
         reply[2](reply, 1, 0);
 
-        ++v13;
+        ++v14;
       }
 
-      while (v11 != v13);
-      v11 = [pendingPushes countByEnumeratingWithState:&v17 objects:v21 count:16];
+      while (v12 != v14);
+      v12 = [pendingPushes countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 
   pendingPushes2 = [(PTChannelManager *)self pendingPushes];
   [pendingPushes2 removeAllObjects];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)provider:(id)provider didReceiveCheckInResult:(int64_t)result channelUUID:(id)d
@@ -777,14 +869,14 @@ void __85__PTChannelManager__performChannelRestorationAndUpdateChannelDescriptor
   v14 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dispatch_assert_queue_V2(self->_callbackQueue);
-  v8 = PTDefaultLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = PTDefaultLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 134218242;
     resultCopy = result;
     v12 = 2114;
     v13 = dCopy;
-    _os_log_impl(&dword_23A70A000, v8, OS_LOG_TYPE_DEFAULT, "PTChannelManager checked in with result %ld uuid:%{public}@", &v10, 0x16u);
+    _os_log_impl(&dword_23A70A000, v9, OS_LOG_TYPE_DEFAULT, "PTChannelManager checked in with result %ld uuid:%{public}@", &v10, 0x16u);
   }
 
   if (result <= 2)
@@ -815,32 +907,30 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deliverChannelManagerInstanceToClientIfNeeded
 {
   dispatch_assert_queue_V2(self->_callbackQueue);
-  v3 = PTDefaultLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = PTDefaultLog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_23A70A000, v3, OS_LOG_TYPE_DEFAULT, "PTChannelManager instantiation completed", buf, 2u);
+    _os_log_impl(&dword_23A70A000, v4, OS_LOG_TYPE_DEFAULT, "PTChannelManager instantiation completed", buf, 2u);
   }
 
   instantiationCompletionBlock = [(PTChannelManager *)self instantiationCompletionBlock];
-  v5 = instantiationCompletionBlock;
+  v6 = instantiationCompletionBlock;
   if (instantiationCompletionBlock)
   {
     callbackQueue = self->_callbackQueue;
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __66__PTChannelManager__deliverChannelManagerInstanceToClientIfNeeded__block_invoke;
-    v8[3] = &unk_278B55718;
-    v8[4] = self;
-    v9 = instantiationCompletionBlock;
-    dispatch_async(callbackQueue, v8);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __66__PTChannelManager__deliverChannelManagerInstanceToClientIfNeeded__block_invoke;
+    v9[3] = &unk_278B55718;
+    v9[4] = self;
+    v10 = instantiationCompletionBlock;
+    dispatch_async(callbackQueue, v9);
   }
 
   instantiationCompletionBlock = self->_instantiationCompletionBlock;
@@ -907,13 +997,13 @@ LABEL_8:
   }
 }
 
-void __50__PTChannelManager__handlePushResult_pendingPush___block_invoke()
+void __50__PTChannelManager__handlePushResult_pendingPush___block_invoke(uint64_t a1)
 {
-  v0 = PTDefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = PTDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_23A70A000, v0, OS_LOG_TYPE_DEFAULT, "PTChannelManager setting a remote participant in response to a push ", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_23A70A000, v1, OS_LOG_TYPE_DEFAULT, "PTChannelManager setting a remote participant in response to a push ", v2, 2u);
   }
 }
 
@@ -922,11 +1012,11 @@ void __50__PTChannelManager__handlePushResult_pendingPush___block_invoke()
   callbackQueue = self->_callbackQueue;
   tokenCopy = token;
   dispatch_assert_queue_V2(callbackQueue);
-  v7 = PTDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = PTDefaultLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_23A70A000, v7, OS_LOG_TYPE_DEFAULT, "PTChannelManager did receive channel push token", v9, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_23A70A000, v8, OS_LOG_TYPE_DEFAULT, "PTChannelManager did receive channel push token", v10, 2u);
   }
 
   channelEventDelegate = [(PTChannelManager *)self channelEventDelegate];
@@ -938,18 +1028,18 @@ void __50__PTChannelManager__handlePushResult_pendingPush___block_invoke()
   callbackQueue = self->_callbackQueue;
   actionCopy = action;
   dispatch_assert_queue_V2(callbackQueue);
-  v7 = PTDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = PTDefaultLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    *v10 = 0;
-    _os_log_impl(&dword_23A70A000, v7, OS_LOG_TYPE_DEFAULT, "PTChannelManager did join", v10, 2u);
+    *v11 = 0;
+    _os_log_impl(&dword_23A70A000, v8, OS_LOG_TYPE_DEFAULT, "PTChannelManager did join", v11, 2u);
   }
 
   [actionCopy fulfill];
-  v8 = PTChannelJoinReasonForCXActionOriginator([actionCopy originator]);
+  v9 = PTChannelJoinReasonForCXActionOriginator([actionCopy originator]);
   channelUUID = [actionCopy channelUUID];
 
-  [(PTChannelManager *)self _ensureDelegateIsReadyToReceiveActions:channelUUID joinReason:v8];
+  [(PTChannelManager *)self _ensureDelegateIsReadyToReceiveActions:channelUUID joinReason:v9];
 }
 
 - (void)provider:(id)provider performChannelLeaveAction:(id)action
@@ -964,17 +1054,17 @@ void __50__PTChannelManager__handlePushResult_pendingPush___block_invoke()
   activeChannelUUID = self->_activeChannelUUID;
   self->_activeChannelUUID = 0;
 
-  v9 = PTDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = PTDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 0;
-    _os_log_impl(&dword_23A70A000, v9, OS_LOG_TYPE_DEFAULT, "PTChannelManager did leave", v13, 2u);
+    *v14 = 0;
+    _os_log_impl(&dword_23A70A000, v10, OS_LOG_TYPE_DEFAULT, "PTChannelManager did leave", v14, 2u);
   }
 
-  v10 = PTChannelLeaveReasonForCXActionOriginator([actionCopy originator]);
+  v11 = PTChannelLeaveReasonForCXActionOriginator([actionCopy originator]);
   channelEventDelegate = [(PTChannelManager *)self channelEventDelegate];
   channelUUID2 = [actionCopy channelUUID];
-  [channelEventDelegate channelManager:self didLeaveChannelWithUUID:channelUUID2 reason:v10];
+  [channelEventDelegate channelManager:self didLeaveChannelWithUUID:channelUUID2 reason:v11];
 
   [(PTChannelManager *)self _deliverChannelManagerInstanceToClientIfNeeded];
   [(NSMutableArray *)self->_pendingPushes removeAllObjects];
@@ -987,8 +1077,7 @@ void __50__PTChannelManager__handlePushResult_pendingPush___block_invoke()
   channelUUID = [actionCopy channelUUID];
   [(PTChannelManager *)self _ensureDelegateIsReadyToReceiveActions:channelUUID joinReason:1];
 
-  [actionCopy fulfill];
-  v7 = PTDefaultLog();
+  v7 = PTDefaultLog([actionCopy fulfill]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -1008,8 +1097,7 @@ void __50__PTChannelManager__handlePushResult_pendingPush___block_invoke()
   channelUUID = [actionCopy channelUUID];
   [(PTChannelManager *)self _ensureDelegateIsReadyToReceiveActions:channelUUID joinReason:1];
 
-  [actionCopy fulfill];
-  v7 = PTDefaultLog();
+  v7 = PTDefaultLog([actionCopy fulfill]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -1026,14 +1114,15 @@ void __50__PTChannelManager__handlePushResult_pendingPush___block_invoke()
 {
   v14 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
-  if ([(NSUUID *)self->_suppressRejoinForRecentlyDisconnectedChannelUUID isEqual:actionsCopy])
+  v8 = [(NSUUID *)self->_suppressRejoinForRecentlyDisconnectedChannelUUID isEqual:actionsCopy];
+  if (v8)
   {
-    v8 = PTDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PTDefaultLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138412290;
       v13 = actionsCopy;
-      _os_log_impl(&dword_23A70A000, v8, OS_LOG_TYPE_DEFAULT, "Not delivering the didJoin event because this channel recently saw a leave action %@", &v12, 0xCu);
+      _os_log_impl(&dword_23A70A000, v9, OS_LOG_TYPE_DEFAULT, "Not delivering the didJoin event because this channel recently saw a leave action %@", &v12, 0xCu);
     }
   }
 
@@ -1047,8 +1136,6 @@ void __50__PTChannelManager__handlePushResult_pendingPush___block_invoke()
     [(PTChannelManager *)self _deliverChannelManagerInstanceToClientIfNeeded];
     [(PTChannelManager *)self _deliverPendingPushes];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)provider:(id)provider didActivateAudioSession:(id)session
@@ -1056,18 +1143,16 @@ void __50__PTChannelManager__handlePushResult_pendingPush___block_invoke()
   v11 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   dispatch_assert_queue_V2(self->_callbackQueue);
-  v6 = PTDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = PTDefaultLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 134217984;
     v10 = sessionCopy;
-    _os_log_impl(&dword_23A70A000, v6, OS_LOG_TYPE_DEFAULT, "PTChannelManager did activate audio session %p", &v9, 0xCu);
+    _os_log_impl(&dword_23A70A000, v7, OS_LOG_TYPE_DEFAULT, "PTChannelManager did activate audio session %p", &v9, 0xCu);
   }
 
   channelEventDelegate = [(PTChannelManager *)self channelEventDelegate];
   [channelEventDelegate channelManager:self didActivateAudioSession:sessionCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)provider:(id)provider didDeactivateAudioSession:(id)session
@@ -1075,18 +1160,16 @@ void __50__PTChannelManager__handlePushResult_pendingPush___block_invoke()
   v11 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   dispatch_assert_queue_V2(self->_callbackQueue);
-  v6 = PTDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = PTDefaultLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 134217984;
     v10 = sessionCopy;
-    _os_log_impl(&dword_23A70A000, v6, OS_LOG_TYPE_DEFAULT, "PTChannelManager did deactivate audio session %p", &v9, 0xCu);
+    _os_log_impl(&dword_23A70A000, v7, OS_LOG_TYPE_DEFAULT, "PTChannelManager did deactivate audio session %p", &v9, 0xCu);
   }
 
   channelEventDelegate = [(PTChannelManager *)self channelEventDelegate];
   [channelEventDelegate channelManager:self didDeactivateAudioSession:sessionCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (PTChannelRestorationDelegate)channelRestorationDelegate
@@ -1105,39 +1188,37 @@ void __50__PTChannelManager__handlePushResult_pendingPush___block_invoke()
 
 void __60__PTChannelManager_requestBeginTransmittingWithChannelUUID___block_invoke_2_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0(&dword_23A70A000, a2, a3, "PTT transmission start request failed with error %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_23A70A000, a2, a3, "PTT transmission start request failed with error %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __52__PTChannelManager_stopTransmittingWithChannelUUID___block_invoke_2_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0(&dword_23A70A000, a2, a3, "PTT transmission stop request failed with error %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_23A70A000, a2, a3, "PTT transmission stop request failed with error %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __88__PTChannelManager__requestJoinChannelWithUUID_channelDescriptor_originator_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23A70A000, a2, a3, "PTT join request failed because %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_23A70A000, a2, a3, "PTT join request failed because %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __41__PTChannelManager_leaveChannelWithUUID___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23A70A000, a2, a3, "PTT leave request failed because %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_23A70A000, a2, a3, "PTT leave request failed because %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __85__PTChannelManager__performChannelRestorationAndUpdateChannelDescriptor_pushPayload___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23A70A000, a2, a3, "PTChannelManager rejoin channel descriptor flush failed with error %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_23A70A000, a2, a3, "PTChannelManager rejoin channel descriptor flush failed with error %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

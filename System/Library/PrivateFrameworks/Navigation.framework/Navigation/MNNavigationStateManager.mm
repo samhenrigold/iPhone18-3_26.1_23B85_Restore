@@ -10,7 +10,10 @@
 - (unint64_t)currentStateType;
 - (void)_changeToDesiredLocationProviderTypeForState:(id)state;
 - (void)_replayStateForNewObserver:(id)observer;
+- (void)acceptReroute:(BOOL)reroute forTrafficIncidentAlert:(id)alert;
 - (void)advanceToNextLeg;
+- (void)changeOfflineMode:(unsigned __int8)mode;
+- (void)changeTransportType:(int)type route:(id)route;
 - (void)changeUserOptions:(id)options;
 - (void)dealloc;
 - (void)disableNavigationCapability:(unint64_t)capability;
@@ -30,13 +33,17 @@
 - (void)resumeRealtimeUpdatesForSubscriber:(id)subscriber;
 - (void)setCurrentState:(id)state;
 - (void)setDisplayedStepIndex:(unint64_t)index;
+- (void)setGuidancePromptsEnabled:(BOOL)enabled;
 - (void)setGuidanceType:(unint64_t)type;
+- (void)setIsConnectedToCarplay:(BOOL)carplay;
+- (void)setIsDisplayingNavigationTray:(BOOL)tray;
 - (void)setJunctionViewImageWidth:(double)width height:(double)height;
 - (void)setRideIndex:(unint64_t)index forSegmentIndex:(unint64_t)segmentIndex;
 - (void)setRoutesForPreview:(id)preview selectedRouteIndex:(unint64_t)index;
 - (void)setSimulationPosition:(double)position;
 - (void)setSimulationSpeedMultiplier:(double)multiplier;
 - (void)setSimulationSpeedOverride:(double)override;
+- (void)setTraceIsPlaying:(BOOL)playing;
 - (void)setTracePlaybackSpeed:(double)speed;
 - (void)setTracePosition:(double)position;
 - (void)setVoiceGuidanceLevelOverride:(unint64_t)override;
@@ -85,18 +92,17 @@
 
 - (MNNavigationState)currentState
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__21188;
-  v9 = __Block_byref_object_dispose__21189;
-  v10 = 0;
-  isolater = self->_isolater;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__21188;
+  v8 = __Block_byref_object_dispose__21189;
+  v9 = 0;
   geo_isolate_sync_data();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (MNNavigationSessionManagerDelegate)navigationDelegate
@@ -104,6 +110,13 @@
   WeakRetained = objc_loadWeakRetained(&self->_navigationDelegate);
 
   return WeakRetained;
+}
+
+- (void)changeOfflineMode:(unsigned __int8)mode
+{
+  modeCopy = mode;
+  currentState = [(MNNavigationStateManager *)self currentState];
+  [currentState changeOfflineMode:modeCopy];
 }
 
 - (void)resumeRealtimeUpdatesForSubscriber:(id)subscriber
@@ -164,6 +177,21 @@
   [currentState setTracePlaybackSpeed:speed];
 }
 
+- (void)setTraceIsPlaying:(BOOL)playing
+{
+  playingCopy = playing;
+  currentState = [(MNNavigationStateManager *)self currentState];
+  [currentState setTraceIsPlaying:playingCopy];
+}
+
+- (void)acceptReroute:(BOOL)reroute forTrafficIncidentAlert:(id)alert
+{
+  rerouteCopy = reroute;
+  alertCopy = alert;
+  currentState = [(MNNavigationStateManager *)self currentState];
+  [currentState acceptReroute:rerouteCopy forTrafficIncidentAlert:alertCopy];
+}
+
 - (void)enableNavigationCapability:(unint64_t)capability
 {
   currentState = [(MNNavigationStateManager *)self currentState];
@@ -199,6 +227,27 @@
 {
   currentState = [(MNNavigationStateManager *)self currentState];
   [currentState setDisplayedStepIndex:index];
+}
+
+- (void)setIsConnectedToCarplay:(BOOL)carplay
+{
+  carplayCopy = carplay;
+  currentState = [(MNNavigationStateManager *)self currentState];
+  [currentState setIsConnectedToCarplay:carplayCopy];
+}
+
+- (void)setIsDisplayingNavigationTray:(BOOL)tray
+{
+  trayCopy = tray;
+  currentState = [(MNNavigationStateManager *)self currentState];
+  [currentState setIsDisplayingNavigationTray:trayCopy];
+}
+
+- (void)setGuidancePromptsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  currentState = [(MNNavigationStateManager *)self currentState];
+  [currentState setGuidancePromptsEnabled:enabledCopy];
 }
 
 - (void)stopCurrentGuidancePrompt
@@ -251,6 +300,14 @@
 {
   currentState = [(MNNavigationStateManager *)self currentState];
   [currentState switchToDestinationRoute];
+}
+
+- (void)changeTransportType:(int)type route:(id)route
+{
+  v4 = *&type;
+  routeCopy = route;
+  currentState = [(MNNavigationStateManager *)self currentState];
+  [currentState changeTransportType:v4 route:routeCopy];
 }
 
 - (void)switchToRoute:(id)route
@@ -410,15 +467,14 @@
 
 - (BOOL)isStarted
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  isolater = self->_isolater;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   geo_isolate_sync_data();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (void)registerObserver:(id)observer
@@ -448,33 +504,31 @@
 
 - (void)start
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self->_isStarted)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Start should only be called once."];
-    v7 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Start should only be called once."];
+    v5 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v9 = "[MNNavigationStateManager start]";
-      v10 = 2080;
-      v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/NavigationState/MNNavigationStateManager.m";
-      v12 = 1024;
-      v13 = 78;
-      v14 = 2080;
-      v15 = "!_isStarted";
-      v16 = 2112;
-      v17 = v6;
-      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
+      v7 = "[MNNavigationStateManager start]";
+      v8 = 2080;
+      v9 = "/Library/Caches/com.apple.xbs/Sources/Navigation/NavigationState/MNNavigationStateManager.m";
+      v10 = 1024;
+      v11 = 78;
+      v12 = 2080;
+      v13 = "!_isStarted";
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
     }
   }
 
   _initialState = [(MNNavigationStateManager *)self _initialState];
   [(MNNavigationStateManager *)self transitionToState:_initialState];
 
-  isolater = self->_isolater;
   geo_isolate_sync();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -521,9 +575,7 @@ void __41__MNNavigationStateManager_sharedManager__block_invoke()
 - (void)setCurrentState:(id)state
 {
   stateCopy = state;
-  isolater = self->_isolater;
-  v7 = stateCopy;
-  v6 = stateCopy;
+  v3 = stateCopy;
   geo_isolate_sync();
 }
 
@@ -615,7 +667,7 @@ LABEL_17:
 
 - (void)transitionToState:(id)state
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   currentState = [(MNNavigationStateManager *)self currentState];
   v6 = [(MNNavigationStateManager *)self _stateTypeForState:currentState];
@@ -644,9 +696,9 @@ LABEL_17:
     }
 
     *buf = 138543618;
-    v22 = v9;
-    v23 = 2114;
-    v24 = v10;
+    v20 = v9;
+    v21 = 2114;
+    v22 = v10;
     _os_signpost_emit_with_name_impl(&dword_1D311E000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "TransitionToState", "%{public}@ to %{public}@", buf, 0x16u);
   }
 
@@ -654,80 +706,77 @@ LABEL_17:
   [(GEOObserverHashTable *)self->_navigationStateObservers stateManager:self willChangeFromState:v6 toState:v7];
   [currentState leaveState];
   [(MNNavigationStateManager *)self _changeToDesiredLocationProviderTypeForState:stateCopy];
-  isolater = self->_isolater;
-  v20 = MEMORY[0x1E69E9820];
-  v12 = stateCopy;
+  v18 = MEMORY[0x1E69E9820];
+  v11 = stateCopy;
   geo_isolate_sync();
-  [v12 enterState];
+  [v11 enterState];
   if (os_signpost_enabled(v8))
   {
     if (v6 > 6)
+    {
+      v12 = @"MNNavigationStateTypeInvalid";
+    }
+
+    else
+    {
+      v12 = *(&off_1E8430980 + v6);
+    }
+
+    if (v7 > 6)
     {
       v13 = @"MNNavigationStateTypeInvalid";
     }
 
     else
     {
-      v13 = *(&off_1E8430980 + v6);
+      v13 = *(&off_1E8430980 + v7);
     }
 
-    if (v7 > 6)
+    *buf = 138543618;
+    v20 = v12;
+    v21 = 2114;
+    v22 = v13;
+    _os_signpost_emit_with_name_impl(&dword_1D311E000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "TransitionToState", "%{public}@ to %{public}@", buf, 0x16u);
+  }
+
+  v14 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    if (v6 > 6)
     {
-      v14 = @"MNNavigationStateTypeInvalid";
+      v15 = @"MNNavigationStateTypeInvalid";
     }
 
     else
     {
-      v14 = *(&off_1E8430980 + v7);
+      v15 = *(&off_1E8430980 + v6);
     }
 
-    *buf = 138543618;
-    v22 = v13;
-    v23 = 2114;
-    v24 = v14;
-    _os_signpost_emit_with_name_impl(&dword_1D311E000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "TransitionToState", "%{public}@ to %{public}@", buf, 0x16u);
-  }
-
-  v15 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-  {
-    if (v6 > 6)
+    if (v7 > 6)
     {
       v16 = @"MNNavigationStateTypeInvalid";
     }
 
     else
     {
-      v16 = *(&off_1E8430980 + v6);
-    }
-
-    if (v7 > 6)
-    {
-      v17 = @"MNNavigationStateTypeInvalid";
-    }
-
-    else
-    {
-      v17 = *(&off_1E8430980 + v7);
+      v16 = *(&off_1E8430980 + v7);
     }
 
     *buf = 138412546;
+    v20 = v15;
+    v21 = 2112;
     v22 = v16;
-    v23 = 2112;
-    v24 = v17;
-    _os_log_impl(&dword_1D311E000, v15, OS_LOG_TYPE_DEFAULT, "Changed from state %@ to %@", buf, 0x16u);
+    _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_DEFAULT, "Changed from state %@ to %@", buf, 0x16u);
   }
 
-  if ([v12 shouldClearStoredRoutes])
+  if ([v11 shouldClearStoredRoutes])
   {
-    v18 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:-5.0];
-    MNClearStoredRoutesWithSubpathUsedBefore(v18, 0);
+    v17 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:-5.0];
+    MNClearStoredRoutesWithSubpathUsedBefore(v17, 0);
   }
 
   [(GEOObserverHashTable *)self->_navigationStateObservers stateManager:self didChangeFromState:v6 toState:v7];
-  [v12 postEnterState];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [v11 postEnterState];
 }
 
 - (id)navSessionDestination

@@ -164,7 +164,7 @@ void __126__BRCUserNotificationRequestAccessApprovedRequestID_performOnActionWit
 
 void __126__BRCUserNotificationRequestAccessApprovedRequestID_performOnActionWithNotificationResponse_sessionContext_completionHandler___block_invoke_195(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -173,13 +173,13 @@ void __126__BRCUserNotificationRequestAccessApprovedRequestID_performOnActionWit
     v8 = brc_default_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v18 = *(a1 + 32);
+      v17 = *(a1 + 32);
       *buf = 138412802;
-      v23 = v18;
-      v24 = 2112;
-      v25 = v6;
-      v26 = 2112;
-      v27 = v7;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v6;
+      v25 = 2112;
+      v26 = v7;
       _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Got an error while computing the URL of %@ - %@%@", buf, 0x20u);
     }
 
@@ -189,16 +189,16 @@ void __126__BRCUserNotificationRequestAccessApprovedRequestID_performOnActionWit
   else
   {
     v9 = *MEMORY[0x277D0AC70];
-    v20[0] = *MEMORY[0x277D0AC58];
-    v20[1] = v9;
-    v21[0] = MEMORY[0x277CBEC38];
-    v21[1] = MEMORY[0x277CBEC38];
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v19[0] = *MEMORY[0x277D0AC58];
+    v19[1] = v9;
+    v20[0] = MEMORY[0x277CBEC38];
+    v20[1] = MEMORY[0x277CBEC38];
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
     v11 = [*(a1 + 32) recordName];
     v12 = *(a1 + 32);
-    v19 = 0;
-    v13 = [BRCSharingUtil openSharedSideFaultFileWithURL:v5 recordName:v11 scheduleOpenOperationBlock:&__block_literal_global_198 options:v10 skipOpenIfNeeded:0 delegate:v12 error:&v19];
-    v14 = v19;
+    v18 = 0;
+    v13 = [BRCSharingUtil openSharedSideFaultFileWithURL:v5 recordName:v11 scheduleOpenOperationBlock:&__block_literal_global_198 options:v10 skipOpenIfNeeded:0 delegate:v12 error:&v18];
+    v14 = v18;
 
     if (!v13)
     {
@@ -207,34 +207,31 @@ void __126__BRCUserNotificationRequestAccessApprovedRequestID_performOnActionWit
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412802;
-        v23 = v5;
-        v24 = 2112;
-        v25 = v14;
-        v26 = 2112;
-        v27 = v15;
+        v22 = v5;
+        v23 = 2112;
+        v24 = v14;
+        v25 = 2112;
+        v26 = v15;
         _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] Couldn't open item at path %@: %@%@", buf, 0x20u);
       }
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __126__BRCUserNotificationRequestAccessApprovedRequestID_performOnActionWithNotificationResponse_sessionContext_completionHandler___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: li%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: li%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,5 +1,6 @@
 @interface SETransceiveHelper
 - (BOOL)crsSetSharingResult:(id)result signature:(id)signature error:(id *)error;
+- (BOOL)getSEPK:(id *)k andSEID:(id *)d deleteExisting:(BOOL)existing error:(id *)error;
 - (BOOL)setAuthRandom:(id)random mac:(id)mac error:(id *)error;
 - (SETransceiveHelper)initWithSEController:(shared_ptr<SEUpdater::P73BaseSEController>)controller;
 - (id).cxx_construct;
@@ -80,17 +81,17 @@
 {
   dCopy = d;
   v4 = [MEMORY[0x29EDB8DA0] dataWithHexString:dCopy];
-  [APDUUtil getCXXApduWithCla:0 ins:164 p1:4 p2:0 payload:v4];
+  objc_msgSend_getCXXApduWithCla_ins_p1_p2_payload_(APDUUtil);
 
-  SERestoreInfo::Apdu::Apdu(&v6);
+  SERestoreInfo::Apdu::Apdu(&v6, 0x2037uLL);
 }
 
 - (id)copySeid:(id *)seid
 {
   v3 = [MEMORY[0x29EDB8DA0] dataWithHexString:@"DF21"];
-  [APDUUtil getCXXApduWithCla:128 ins:202 p1:0 p2:254 payload:v3];
+  objc_msgSend_getCXXApduWithCla_ins_p1_p2_payload_(APDUUtil);
 
-  SERestoreInfo::Apdu::Apdu(&v5);
+  SERestoreInfo::Apdu::Apdu(&v5, 0x2037uLL);
 }
 
 - (id)copyCasdCert:(id *)cert
@@ -110,38 +111,37 @@
 - (int64_t)copyDeviceType:(id *)type
 {
   v3 = [MEMORY[0x29EDB8DA0] dataWithHexString:@"DF31"];
-  [APDUUtil getCXXApduWithCla:128 ins:202 p1:0 p2:254 payload:v3];
+  objc_msgSend_getCXXApduWithCla_ins_p1_p2_payload_(APDUUtil);
 
-  SERestoreInfo::Apdu::Apdu(&v5);
+  SERestoreInfo::Apdu::Apdu(&v5, 0x2037uLL);
 }
 
 - (id)copyA9Parameters:(id *)parameters
 {
-  v11[12] = *MEMORY[0x29EDCA608];
+  v10[12] = *MEMORY[0x29EDCA608];
   v4 = [(SETransceiveHelper *)self selectWithAID:@"A0000001515350414141504C"];
   v8 = v4;
   if (!v4)
   {
-    [APDUUtil getCXXApduWithCla:128 ins:202 p1:127 p2:33 payload:0];
-    SERestoreInfo::Apdu::Apdu(v11);
+    objc_msgSend_getCXXApduWithCla_ins_p1_p2_payload_(APDUUtil);
+    SERestoreInfo::Apdu::Apdu(v10, 0x2037uLL);
   }
 
   _ObjCLogWrapOutError(parameters, v4, 0, "[SETransceiveHelper copyA9Parameters:]", @"Error encountered when selecting Star SD %@\n", v5, v6, v7, v4);
 
-  v9 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
 - (id)copySESignature:(id)signature hsmChallengeSE:(id)e ecid:(id)ecid outError:(id *)error
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   signatureCopy = signature;
   eCopy = e;
   ecidCopy = ecid;
   v16 = [(SETransceiveHelper *)self selectWithAID:@"A00000015153504341534400"];
   if (v16)
   {
-    _ObjCLogWrapOutError(error, v16, 0, "[SETransceiveHelper copySESignature:hsmChallengeSE:ecid:outError:]", @"Failed to select CASD\n", v13, v14, v15, v27);
+    _ObjCLogWrapOutError(error, v16, 0, "[SETransceiveHelper copySESignature:hsmChallengeSE:ecid:outError:]", @"Failed to select CASD\n", v13, v14, v15, v26);
   }
 
   else
@@ -149,37 +149,34 @@
     v17 = objc_opt_new();
     [v17 appendData:signatureCopy];
     [v17 appendData:eCopy];
-    v29 = 0;
-    [ecidCopy getValue:&v29];
-    [v17 appendU64LE:v29];
-    memset(v30, 0, sizeof(v30));
+    v28 = 0;
+    [ecidCopy getValue:&v28];
+    [v17 appendU64LE:v28];
+    memset(v29, 0, sizeof(v29));
     v18 = v17;
     [v17 bytes];
     [v17 length];
     v19 = AMSupportDigestSha256();
     if (!v19)
     {
-      v24 = [MEMORY[0x29EDB8DA0] dataWithBytes:v30 length:32];
-      [APDUUtil getCXXApduWithCla:0 ins:136 p1:240 p2:3 payload:v24];
+      v24 = [MEMORY[0x29EDB8DA0] dataWithBytes:v29 length:32];
+      objc_msgSend_getCXXApduWithCla_ins_p1_p2_payload_(APDUUtil);
 
-      SERestoreInfo::Apdu::Apdu(&v28);
+      SERestoreInfo::Apdu::Apdu(&v27, 0x2037uLL);
     }
 
     _ObjCLogOutError(error, 0, "[SETransceiveHelper copySESignature:hsmChallengeSE:ecid:outError:]", @"Unable to get AM Digest with error code %d\n", v20, v21, v22, v23, v19);
     v16 = 0;
   }
 
-  v25 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
 - (BOOL)crsSetSharingResult:(id)result signature:(id)signature error:(id *)error
 {
-  signatureCopy = signature;
-  v7 = [result mutableCopy];
-  [v7 appendData:signatureCopy];
-  [APDUUtil getCXXApduWithCla:128 ins:230 p1:0 p2:0 payload:v7];
-  SERestoreInfo::Apdu::Apdu(&v9);
+  [objc_msgSend(result "mutableCopy")];
+  objc_msgSend_getCXXApduWithCla_ins_p1_p2_payload_(APDUUtil);
+  SERestoreInfo::Apdu::Apdu(&v6, 0x2037uLL);
 }
 
 - (id)transceiveAndRecordCapdu:(void *)capdu rapdu:(void *)rapdu
@@ -205,7 +202,7 @@
   asHexString = [v9 asHexString];
   _ObjCLog(3, "[SETransceiveHelper transceiveAndRecordCapdu:rapdu:]", &cfstr_Se.isa, asHexString);
 
-  SEUpdater::P73BaseSEController::transceive(self->_fSeController.__ptr_, capdu, rapdu, 0, 3);
+  SEUpdater::P73BaseSEController::transceive(self->_fSeController.__ptr_, capdu, rapdu, 0, 3, 1uLL);
 }
 
 - (void)recordApdu:(Apdu *)apdu toRecord:(id)record
@@ -225,11 +222,22 @@
   [recordCopy addObject:v6];
 }
 
+- (BOOL)getSEPK:(id *)k andSEID:(id *)d deleteExisting:(BOOL)existing error:(id *)error
+{
+  if (k && d)
+  {
+    SERestoreInfo::Apdu::Apdu(&v10, 0x2037uLL);
+  }
+
+  _ObjCLogOutError(error, 14, "[SETransceiveHelper getSEPK:andSEID:deleteExisting:error:]", @"Missing mandatory outparam", existing, error, v6, v7, v9);
+  return 0;
+}
+
 - (BOOL)setAuthRandom:(id)random mac:(id)mac error:(id *)error
 {
   randomCopy = random;
   macCopy = mac;
-  SERestoreInfo::Apdu::Apdu(&v9);
+  SERestoreInfo::Apdu::Apdu(&v9, 0x2037uLL);
 }
 
 - (shared_ptr<SEUpdater::P73BaseSEController>)fSeController

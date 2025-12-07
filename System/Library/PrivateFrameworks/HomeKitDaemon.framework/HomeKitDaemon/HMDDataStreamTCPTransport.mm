@@ -26,7 +26,7 @@
 
 - (void)setTrafficClass:(unint64_t)class
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   tcpConnection = [(HMDDataStreamTCPTransport *)self tcpConnection];
 
   if (tcpConnection)
@@ -37,19 +37,17 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v9;
-      v14 = 2048;
+      v11 = 138543618;
+      v12 = v9;
+      v13 = 2048;
       classCopy = class;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Setting traffic class to %lu", &v12, 0x16u);
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Setting traffic class to %lu", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     tcpConnection2 = [(HMDDataStreamTCPTransport *)selfCopy tcpConnection];
     [tcpConnection2 resetTrafficClass:class];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendRawFrame:(id)frame completion:(id)completion
@@ -75,7 +73,7 @@
 
 void __53__HMDDataStreamTCPTransport_sendRawFrame_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -86,31 +84,29 @@ void __53__HMDDataStreamTCPTransport_sendRawFrame_completion___block_invoke(uint
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@DataStream Socket write error (%@)", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@DataStream Socket write error (%@)", &v10, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@DataStream Socket wrote bytes.", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@DataStream Socket wrote bytes.", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_closeWithError:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   tcpConnection = [(HMDDataStreamTCPTransport *)self tcpConnection];
 
@@ -123,9 +119,9 @@ void __53__HMDDataStreamTCPTransport_sendRawFrame_completion___block_invoke(uint
     if (v9)
     {
       v10 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v10;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@DataStream Socket closing socket.", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v10;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@DataStream Socket closing socket.", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -152,20 +148,18 @@ void __53__HMDDataStreamTCPTransport_sendRawFrame_completion___block_invoke(uint
     if (v9)
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v14;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@DataStream Socket invoked closed but nothing to clean up.", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v14;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@DataStream Socket invoked closed but nothing to clean up.", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_doReceive
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   byteReader = [(HMDDataStreamTCPTransport *)self byteReader];
   hasFailed = [byteReader hasFailed];
 
@@ -178,7 +172,7 @@ void __53__HMDDataStreamTCPTransport_sendRawFrame_completion___block_invoke(uint
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v17 = v8;
+      v16 = v8;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@DataStream has encountered irrecoverable framing issue. Closing socket.", buf, 0xCu);
     }
 
@@ -194,23 +188,21 @@ void __53__HMDDataStreamTCPTransport_sendRawFrame_completion___block_invoke(uint
     bytesNeededForCurrentFrame = [byteReader2 bytesNeededForCurrentFrame];
 
     tcpConnection = [(HMDDataStreamTCPTransport *)self tcpConnection];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __39__HMDDataStreamTCPTransport__doReceive__block_invoke;
-    v14[3] = &unk_27867C098;
-    objc_copyWeak(&v15, buf);
-    [tcpConnection receiveWithMinLength:bytesNeededForCurrentFrame maxLength:(bytesNeededForCurrentFrame + 256) completion:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __39__HMDDataStreamTCPTransport__doReceive__block_invoke;
+    v13[3] = &unk_27867C098;
+    objc_copyWeak(&v14, buf);
+    [tcpConnection receiveWithMinLength:bytesNeededForCurrentFrame maxLength:(bytesNeededForCurrentFrame + 256) completion:v13];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(buf);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __39__HMDDataStreamTCPTransport__doReceive__block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a3;
   v10 = a5;
@@ -225,11 +217,11 @@ void __39__HMDDataStreamTCPTransport__doReceive__block_invoke(uint64_t a1, void 
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         v15 = HMFGetLogIdentifier();
-        v21 = 138543618;
-        v22 = v15;
-        v23 = 2048;
+        v20 = 138543618;
+        v21 = v15;
+        v22 = 2048;
         size = dispatch_data_get_size(v8);
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@DataStream Socket read %zd bytes", &v21, 0x16u);
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@DataStream Socket read %zd bytes", &v20, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -244,11 +236,11 @@ void __39__HMDDataStreamTCPTransport__doReceive__block_invoke(uint64_t a1, void 
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         v19 = HMFGetLogIdentifier();
-        v21 = 138543618;
-        v22 = v19;
-        v23 = 2112;
+        v20 = 138543618;
+        v21 = v19;
+        v22 = 2112;
         size = v10;
-        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@DataStream Socket read error (%@)", &v21, 0x16u);
+        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@DataStream Socket read error (%@)", &v20, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -260,8 +252,6 @@ void __39__HMDDataStreamTCPTransport__doReceive__block_invoke(uint64_t a1, void 
       [WeakRetained _doReceive];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_consumeReceivedData:(id)data
@@ -343,25 +333,24 @@ void __57__HMDDataStreamTCPTransport__registerForConnectionEvents__block_invoke(
 
 - (void)_handleReadClose
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@DataStream Socket read-end closed (half-close scenario)", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@DataStream Socket read-end closed (half-close scenario)", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connect
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   tcpConnection = [(HMDDataStreamTCPTransport *)self tcpConnection];
 
   if (tcpConnection)
@@ -377,7 +366,7 @@ void __57__HMDDataStreamTCPTransport__registerForConnectionEvents__block_invoke(
       {
         v9 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v32 = v9;
+        v31 = v9;
         _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Connect called on an already-running transport", buf, 0xCu);
       }
     }
@@ -386,7 +375,7 @@ void __57__HMDDataStreamTCPTransport__registerForConnectionEvents__block_invoke(
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v18;
+      v31 = v18;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Connect called on an already-connecting transport", buf, 0xCu);
     }
 
@@ -405,12 +394,12 @@ void __57__HMDDataStreamTCPTransport__registerForConnectionEvents__block_invoke(
     {
       objc_initWeak(&location, self);
       tcpConnection3 = [(HMDDataStreamTCPTransport *)self tcpConnection];
-      v25 = MEMORY[0x277D85DD0];
-      v26 = 3221225472;
-      v27 = __36__HMDDataStreamTCPTransport_connect__block_invoke;
-      v28 = &unk_27867C070;
-      objc_copyWeak(&v29, &location);
-      [tcpConnection3 setStateChangedHandler:&v25];
+      v24 = MEMORY[0x277D85DD0];
+      v25 = 3221225472;
+      v26 = __36__HMDDataStreamTCPTransport_connect__block_invoke;
+      v27 = &unk_27867C070;
+      objc_copyWeak(&v28, &location);
+      [tcpConnection3 setStateChangedHandler:&v24];
 
       v13 = objc_autoreleasePoolPush();
       selfCopy2 = self;
@@ -419,15 +408,15 @@ void __57__HMDDataStreamTCPTransport__registerForConnectionEvents__block_invoke(
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v32 = v16;
+        v31 = v16;
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@DataStream Socket starting", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v13);
-      v17 = [(HMDDataStreamTCPTransport *)selfCopy2 tcpConnection:v25];
+      v17 = [(HMDDataStreamTCPTransport *)selfCopy2 tcpConnection:v24];
       [v17 start];
 
-      objc_destroyWeak(&v29);
+      objc_destroyWeak(&v28);
       objc_destroyWeak(&location);
     }
 
@@ -440,7 +429,7 @@ void __57__HMDDataStreamTCPTransport__registerForConnectionEvents__block_invoke(
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v32 = v22;
+        v31 = v22;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to create TCP connection (out of memory?)", buf, 0xCu);
       }
 
@@ -449,13 +438,12 @@ void __57__HMDDataStreamTCPTransport__registerForConnectionEvents__block_invoke(
       [(HMDDataStreamTCPTransport *)selfCopy3 _stopWithError:v23];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-void __36__HMDDataStreamTCPTransport_connect__block_invoke(uint64_t a1, int a2, void *a3)
+void __36__HMDDataStreamTCPTransport_connect__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -468,22 +456,22 @@ void __36__HMDDataStreamTCPTransport_connect__block_invoke(uint64_t a1, int a2, 
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = HMFGetLogIdentifier();
-        v20 = 138543874;
-        v21 = v10;
-        v22 = 2080;
-        v23 = nw_connection_state_to_string();
-        v24 = 2112;
-        v25 = v5;
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@DataStream Socket disconnected with failure in state %s: %@", &v20, 0x20u);
+        v19 = 138543874;
+        v20 = v10;
+        v21 = 2080;
+        v22 = nw_connection_state_to_string();
+        v23 = 2112;
+        v24 = v5;
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@DataStream Socket disconnected with failure in state %s: %@", &v19, 0x20u);
       }
 
       objc_autoreleasePoolPop(v7);
       [v8 _stopWithError:v5];
     }
 
-    if ((a2 - 4) >= 2)
+    if ((v3 - 4) >= 2)
     {
-      if (a2 == 3)
+      if (v3 == 3)
       {
         v15 = objc_autoreleasePoolPush();
         v16 = WeakRetained;
@@ -491,9 +479,9 @@ void __36__HMDDataStreamTCPTransport_connect__block_invoke(uint64_t a1, int a2, 
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           v18 = HMFGetLogIdentifier();
-          v20 = 138543362;
-          v21 = v18;
-          _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@DataStream Socket connected", &v20, 0xCu);
+          v19 = 138543362;
+          v20 = v18;
+          _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@DataStream Socket connected", &v19, 0xCu);
         }
 
         objc_autoreleasePoolPop(v15);
@@ -509,22 +497,20 @@ void __36__HMDDataStreamTCPTransport_connect__block_invoke(uint64_t a1, int a2, 
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         v14 = HMFGetLogIdentifier();
-        v20 = 138543362;
-        v21 = v14;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@DataStream Socket disconnected", &v20, 0xCu);
+        v19 = 138543362;
+        v20 = v14;
+        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@DataStream Socket disconnected", &v19, 0xCu);
       }
 
       objc_autoreleasePoolPop(v11);
       [v12 _stopWithError:0];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createTcpConnection
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -532,11 +518,11 @@ void __36__HMDDataStreamTCPTransport_connect__block_invoke(uint64_t a1, int a2, 
   {
     v6 = HMFGetLogIdentifier();
     schedulingMode = selfCopy->_schedulingMode;
-    v21 = 138543618;
-    v22 = v6;
-    v23 = 2048;
-    v24 = schedulingMode;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Creating TCP connection with scheduling mode %ld", &v21, 0x16u);
+    v18 = 138543618;
+    v19 = v6;
+    v20 = 2048;
+    v21 = schedulingMode;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Creating TCP connection with scheduling mode %ld", &v18, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -546,7 +532,6 @@ void __36__HMDDataStreamTCPTransport_connect__block_invoke(uint64_t a1, int a2, 
   {
     v9 = nw_context_create();
     nw_context_set_isolate_protocol_stack();
-    v10 = selfCopy->_schedulingMode;
     nw_context_set_scheduling_mode();
     nw_parameters_set_context();
   }
@@ -554,7 +539,6 @@ void __36__HMDDataStreamTCPTransport_connect__block_invoke(uint64_t a1, int a2, 
   remoteAddress = [(HMDDataStreamTCPTransport *)selfCopy remoteAddress];
   addressString = [remoteAddress addressString];
   [addressString UTF8String];
-  remotePort_low = LOWORD(selfCopy->_remotePort);
   host_with_numeric_port = nw_endpoint_create_host_with_numeric_port();
 
   connectionFactory = [(HMDDataStreamTCPTransport *)selfCopy connectionFactory];
@@ -562,20 +546,18 @@ void __36__HMDDataStreamTCPTransport_connect__block_invoke(uint64_t a1, int a2, 
   if (connectionFactory)
   {
     connectionFactory2 = [(HMDDataStreamTCPTransport *)selfCopy connectionFactory];
-    v17 = (connectionFactory2)[2](connectionFactory2, host_with_numeric_port, secure_tcp);
+    v15 = (connectionFactory2)[2](connectionFactory2, host_with_numeric_port, secure_tcp);
   }
 
   else
   {
-    v17 = [[HMDNetworkConnection alloc] initWithEndpoint:host_with_numeric_port parameters:secure_tcp];
+    v15 = [[HMDNetworkConnection alloc] initWithEndpoint:host_with_numeric_port parameters:secure_tcp];
   }
 
   workQueue = [(HMDDataStreamTCPTransport *)selfCopy workQueue];
-  [(HMDNetworkConnection *)v17 setQueue:workQueue];
+  [(HMDNetworkConnection *)v15 setQueue:workQueue];
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v15;
 }
 
 - (void)dealloc
@@ -627,7 +609,7 @@ void __36__HMDDataStreamTCPTransport_connect__block_invoke(uint64_t a1, int a2, 
     byteReader = v15->_byteReader;
     v15->_byteReader = v16;
 
-    v18 = [identifierCopy copy];
+    v18 = objc_msgSend_copy(identifierCopy);
     logIdentifier = v15->_logIdentifier;
     v15->_logIdentifier = v18;
 

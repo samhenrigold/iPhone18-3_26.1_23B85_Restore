@@ -41,45 +41,46 @@
 {
   if (MKBGetDeviceLockState() == 1 || MKBGetDeviceLockState() == 2)
   {
-    v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
+    v15 = 0u;
     callContainer = [(CSDCallStateMonitor *)self callContainer];
     currentAudioAndVideoCalls = [callContainer currentAudioAndVideoCalls];
 
-    v5 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v13 objects:v19 count:16];
+    v5 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v14 objects:v20 count:16];
     if (v5)
     {
       v7 = v5;
-      v8 = *v14;
+      v8 = *v15;
       *&v6 = 138412290;
-      v12 = v6;
+      v13 = v6;
       do
       {
         for (i = 0; i != v7; i = i + 1)
         {
-          if (*v14 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(currentAudioAndVideoCalls);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * i);
-          if ([v10 isSharingScreen])
+          v10 = *(*(&v14 + 1) + 8 * i);
+          isSharingScreen = [v10 isSharingScreen];
+          if (isSharingScreen)
           {
-            v11 = sub_100004778();
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+            v12 = sub_100004778(isSharingScreen);
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v12;
-              v18 = v10;
-              _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Device is locked so stopping sharing screen for call %@", buf, 0xCu);
+              *buf = v13;
+              v19 = v10;
+              _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Device is locked so stopping sharing screen for call %@", buf, 0xCu);
             }
 
             [v10 setSharingScreen:0];
           }
         }
 
-        v7 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v13 objects:v19 count:16];
+        v7 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v14 objects:v20 count:16];
       }
 
       while (v7);
@@ -99,15 +100,15 @@
     if (callDurationLimitTimer || !v4)
     {
       callDurationLimitTimer2 = [(CSDCallStateMonitor *)self callDurationLimitTimer];
-      v11 = (callDurationLimitTimer2 == 0) | v4;
+      v12 = (callDurationLimitTimer2 == 0) | v4;
 
-      if ((v11 & 1) == 0)
+      if ((v12 & 1) == 0)
       {
-        v12 = sub_100004778();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v14 = sub_100004778(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(buf[0]) = 0;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Stopping call duration limit timer", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Stopping call duration limit timer", buf, 2u);
         }
 
         callDurationLimitTimer3 = [(CSDCallStateMonitor *)self callDurationLimitTimer];
@@ -119,28 +120,28 @@
 
     else
     {
-      v6 = sub_100004778();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_100004778(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Starting call duration limit timer as we are in a retail environment", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Starting call duration limit timer as we are in a retail environment", buf, 2u);
       }
 
       queue = [(CSDCallStateMonitor *)self queue];
-      v8 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, queue);
+      v9 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, queue);
 
-      v9 = dispatch_time(0, 300000000000);
-      dispatch_source_set_timer(v8, v9, 0xFFFFFFFFFFFFFFFFLL, 0);
+      v10 = dispatch_time(0, 300000000000);
+      dispatch_source_set_timer(v9, v10, 0xFFFFFFFFFFFFFFFFLL, 0);
       objc_initWeak(buf, self);
       handler[0] = _NSConcreteStackBlock;
       handler[1] = 3221225472;
       handler[2] = sub_1000BDEA4;
       handler[3] = &unk_10061A740;
-      objc_copyWeak(&v15, buf);
-      dispatch_source_set_event_handler(v8, handler);
-      [(CSDCallStateMonitor *)self setCallDurationLimitTimer:v8];
-      dispatch_activate(v8);
-      objc_destroyWeak(&v15);
+      objc_copyWeak(&v17, buf);
+      dispatch_source_set_event_handler(v9, handler);
+      [(CSDCallStateMonitor *)self setCallDurationLimitTimer:v9];
+      dispatch_activate(v9);
+      objc_destroyWeak(&v17);
       objc_destroyWeak(buf);
     }
   }
@@ -148,14 +149,14 @@
 
 - (void)_updateCallMutingForHoldMusic
 {
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   callCenter = [(CSDCallStateMonitor *)self callCenter];
   currentAudioAndVideoCalls = [callCenter currentAudioAndVideoCalls];
 
-  v5 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v5 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (!v5)
   {
 
@@ -166,17 +167,17 @@
   v6 = v5;
   v7 = 0;
   v8 = 0;
-  v9 = *v20;
+  v9 = *v23;
   do
   {
     for (i = 0; i != v6; i = i + 1)
     {
-      if (*v20 != v9)
+      if (*v23 != v9)
       {
         objc_enumerationMutation(currentAudioAndVideoCalls);
       }
 
-      v11 = *(*(&v19 + 1) + 8 * i);
+      v11 = *(*(&v22 + 1) + 8 * i);
       if (![v11 wantsHoldMusic])
       {
         v12 = v7;
@@ -197,31 +198,32 @@ LABEL_10:
       }
     }
 
-    v6 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v6 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v22 objects:v28 count:16];
   }
 
   while (v6);
 
   if (v8)
   {
-    v15 = sub_100004778();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100004778(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = v8;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Found active call needing hold music: %@", buf, 0xCu);
+      v27 = v8;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Found active call needing hold music: %@", buf, 0xCu);
     }
 
-    if (![(CSDCallStateMonitor *)self isAudioMutedForHoldMusic])
+    isAudioMutedForHoldMusic = [(CSDCallStateMonitor *)self isAudioMutedForHoldMusic];
+    if ((isAudioMutedForHoldMusic & 1) == 0)
     {
-      v16 = sub_100004778();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = sub_100004778(isAudioMutedForHoldMusic);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Hold music enabled - call is active so muting uplink and downlink", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Hold music enabled - call is active so muting uplink and downlink", buf, 2u);
       }
 
-      v17 = 1;
+      v19 = 1;
       [v8 setUplinkMuted:1];
       [v8 setDownlinkMuted:1];
       goto LABEL_25;
@@ -231,21 +233,22 @@ LABEL_10:
   }
 
 LABEL_21:
-  if ([(CSDCallStateMonitor *)self isAudioMutedForHoldMusic])
+  isAudioMutedForHoldMusic2 = [(CSDCallStateMonitor *)self isAudioMutedForHoldMusic];
+  if (isAudioMutedForHoldMusic2)
   {
-    v18 = sub_100004778();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v21 = sub_100004778(isAudioMutedForHoldMusic2);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Hold music disabled - unmuting uplink and downlink", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Hold music disabled - unmuting uplink and downlink", buf, 2u);
     }
 
     [v7 setUplinkMuted:0];
     [v7 setDownlinkMuted:0];
-    v17 = 0;
+    v19 = 0;
     v8 = 0;
 LABEL_25:
-    [(CSDCallStateMonitor *)self setAudioMutedForHoldMusic:v17];
+    [(CSDCallStateMonitor *)self setAudioMutedForHoldMusic:v19];
   }
 
   else
@@ -262,26 +265,26 @@ LABEL_27:
   _allCalls = [callContainer _allCalls];
 
   v4 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [_allCalls count]);
-  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
   v5 = _allCalls;
-  v6 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v30;
+    v8 = *v31;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v30 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v29 + 1) + 8 * i);
+        v10 = *(*(&v30 + 1) + 8 * i);
         if ([v10 callStatus] != 6)
         {
           activeRemoteParticipant = [v10 activeRemoteParticipant];
@@ -303,25 +306,25 @@ LABEL_27:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v7);
   }
 
-  v28 = 0;
-  v16 = [[CSDSandboxExtensionDirectory alloc] initWithName:@"Images" error:&v28];
-  v17 = v28;
-  v27 = v17;
-  v18 = [(CSDSandboxExtensionDirectory *)v16 removeLinksForFilenamesNotInArray:v4 error:&v27];
-  v19 = v27;
+  v29 = 0;
+  v16 = [[CSDSandboxExtensionDirectory alloc] initWithName:@"Images" error:&v29];
+  v17 = v29;
+  v28 = v17;
+  v18 = [(CSDSandboxExtensionDirectory *)v16 removeLinksForFilenamesNotInArray:v4 error:&v28];
+  v19 = v28;
 
   if ((v18 & 1) == 0)
   {
-    v20 = sub_100004778();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = sub_100004778(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      sub_1004737A4(v19, v20, v21, v22, v23, v24, v25, v26);
+      sub_1004737A4(v19, v21, v22, v23, v24, v25, v26, v27);
     }
   }
 }
@@ -451,13 +454,13 @@ LABEL_27:
 
   else
   {
-    v8 = sub_100004778();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004778(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       object3 = [notificationCopy object];
-      v10 = 138412290;
-      v11 = object3;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Not handling call status changed notification for object that is not CSDCall: %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = object3;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not handling call status changed notification for object that is not CSDCall: %@", &v11, 0xCu);
     }
   }
 }
@@ -505,31 +508,19 @@ LABEL_27:
 
       if (supportsSimultaneousVoiceAndData)
       {
-        v12 = 0;
+        v13 = 0;
       }
 
       else
       {
-        v12 = nonWifiFaceTimeAvailable & (wiFiActiveAndReachable ^ 1);
+        v13 = nonWifiFaceTimeAvailable & (wiFiActiveAndReachable ^ 1);
       }
 
-      v13 = sub_100004778();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100004778(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = @"NO";
-        if (v12)
-        {
-          v15 = @"YES";
-        }
-
-        else
-        {
-          v15 = @"NO";
-        }
-
-        v31 = 138413314;
-        v32 = v15;
-        if (supportsSimultaneousVoiceAndData)
+        v15 = @"NO";
+        if (v13)
         {
           v16 = @"YES";
         }
@@ -539,9 +530,9 @@ LABEL_27:
           v16 = @"NO";
         }
 
-        v33 = 2112;
-        v34 = v16;
-        if (nonWifiFaceTimeAvailable)
+        v32 = 138413314;
+        v33 = v16;
+        if (supportsSimultaneousVoiceAndData)
         {
           v17 = @"YES";
         }
@@ -551,45 +542,57 @@ LABEL_27:
           v17 = @"NO";
         }
 
-        v35 = 2112;
-        v36 = v17;
-        if (wiFiActiveAndReachable)
+        v34 = 2112;
+        v35 = v17;
+        if (nonWifiFaceTimeAvailable)
         {
-          v14 = @"YES";
+          v18 = @"YES";
         }
 
-        v37 = 2112;
-        v38 = v14;
-        v39 = 2112;
-        v40 = callCopy;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Determined wants break before make is %@ (supportsSimultaneousVoiceAndData: %@, nonWifiFaceTimeAvailable: %@, wiFiActiveAndReachable: %@) for call %@", &v31, 0x34u);
+        else
+        {
+          v18 = @"NO";
+        }
+
+        v36 = 2112;
+        v37 = v18;
+        if (wiFiActiveAndReachable)
+        {
+          v15 = @"YES";
+        }
+
+        v38 = 2112;
+        v39 = v15;
+        v40 = 2112;
+        v41 = callCopy;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Determined wants break before make is %@ (supportsSimultaneousVoiceAndData: %@, nonWifiFaceTimeAvailable: %@, wiFiActiveAndReachable: %@) for call %@", &v32, 0x34u);
       }
     }
 
     else
     {
-      v13 = sub_100004778();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = sub_100004778(0);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        sub_100473810(callCopy, v13, v24, v25, v26, v27, v28, v29);
+        sub_100473810(callCopy, v14, v25, v26, v27, v28, v29, v30);
       }
 
-      LOBYTE(v12) = 0;
+      LOBYTE(v13) = 0;
     }
   }
 
   else
   {
-    v6 = sub_100004778();
+    v6 = sub_100004778(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10047387C(callCopy, v6, v18, v19, v20, v21, v22, v23);
+      sub_10047387C(callCopy, v6, v19, v20, v21, v22, v23, v24);
     }
 
-    LOBYTE(v12) = 0;
+    LOBYTE(v13) = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 + (double)breakBeforeMakeTimeout
@@ -637,8 +640,8 @@ LABEL_27:
           if ((isSystemProvider & 1) == 0)
           {
             uniqueProxyIdentifier = [changedCopy uniqueProxyIdentifier];
-            v31 = [(CSDCallStateMonitor *)self _ringingTimerForCallWithIdentifier:uniqueProxyIdentifier];
-            [changedCopy setTimeoutTimer:v31];
+            v34 = [(CSDCallStateMonitor *)self _ringingTimerForCallWithIdentifier:uniqueProxyIdentifier];
+            [changedCopy setTimeoutTimer:v34];
           }
         }
 
@@ -648,23 +651,23 @@ LABEL_27:
       goto LABEL_37;
     }
 
-    v15 = sub_100004778();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100004778(status);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v39 = changedCopy;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Call started outgoing: %@", buf, 0xCu);
+      v42 = changedCopy;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Call started outgoing: %@", buf, 0xCu);
     }
 
-    v35 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
+    v37 = 0u;
     callContainer = [(CSDCallStateMonitor *)self callContainer];
     currentAudioAndVideoCalls = [callContainer currentAudioAndVideoCalls];
 
-    v18 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v33 objects:v37 count:16];
-    if (!v18)
+    v19 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v36 objects:v40 count:16];
+    if (!v19)
     {
 LABEL_34:
 
@@ -674,65 +677,77 @@ LABEL_34:
       goto LABEL_37;
     }
 
-    v20 = v18;
-    v21 = *v34;
-    *&v19 = 138412290;
-    v32 = v19;
+    v21 = v19;
+    v22 = *v37;
+    *&v20 = 138412290;
+    v35 = v20;
 LABEL_18:
-    v22 = 0;
+    v23 = 0;
     while (1)
     {
-      if (*v34 != v21)
+      if (*v37 != v22)
       {
         objc_enumerationMutation(currentAudioAndVideoCalls);
       }
 
-      v23 = *(*(&v33 + 1) + 8 * v22);
-      if (v23 == changedCopy)
+      v24 = *(*(&v36 + 1) + 8 * v23);
+      if (v24 == changedCopy)
       {
         goto LABEL_32;
       }
 
-      if ([*(*(&v33 + 1) + 8 * v22) isVideo])
+      isVideo = [*(*(&v36 + 1) + 8 * v23) isVideo];
+      if (isVideo)
       {
-        v24 = sub_100004778();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v26 = sub_100004778(isVideo);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v32;
-          v39 = v23;
-          v25 = v24;
-          v26 = "Disconnecting video call because another call started outgoing: %@";
+          *buf = v35;
+          v42 = v24;
+          v27 = v26;
+          v28 = "Disconnecting video call because another call started outgoing: %@";
 LABEL_25:
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, v26, buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, v28, buf, 0xCu);
         }
       }
 
       else
       {
-        if (![changedCopy isVideo] || !objc_msgSend(v23, "isUsingBaseband") || !-[CSDCallStateMonitor wantsBreakBeforeMakeForCall:](self, "wantsBreakBeforeMakeForCall:", v23))
+        if (![changedCopy isVideo])
         {
           goto LABEL_32;
         }
 
-        v24 = sub_100004778();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        if (![v24 isUsingBaseband])
         {
-          *buf = v32;
-          v39 = v23;
-          v25 = v24;
-          v26 = "Disconnecting call using the baseband because a video call started outgoing and wantsBreakBeforeMake=YES: %@";
+          goto LABEL_32;
+        }
+
+        v30 = [(CSDCallStateMonitor *)self wantsBreakBeforeMakeForCall:v24];
+        if (!v30)
+        {
+          goto LABEL_32;
+        }
+
+        v26 = sub_100004778(v30);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = v35;
+          v42 = v24;
+          v27 = v26;
+          v28 = "Disconnecting call using the baseband because a video call started outgoing and wantsBreakBeforeMake=YES: %@";
           goto LABEL_25;
         }
       }
 
       callCenter = [(CSDCallStateMonitor *)self callCenter];
-      [callCenter disconnectCall:v23];
+      [callCenter disconnectCall:v24];
 
 LABEL_32:
-      if (v20 == ++v22)
+      if (v21 == ++v23)
       {
-        v20 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v33 objects:v37 count:16];
-        if (!v20)
+        v21 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v36 objects:v40 count:16];
+        if (!v21)
         {
           goto LABEL_34;
         }
@@ -757,16 +772,16 @@ LABEL_36:
 
     if ((hasCurrentCalls & 1) == 0)
     {
-      v10 = sub_100004778();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100004778(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "All calls ended. Setting uplink and downlink muted to NO", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "All calls ended. Setting uplink and downlink muted to NO", buf, 2u);
       }
 
       [changedCopy unmuteAfterDisconnect];
-      v11 = +[TUAudioSystemController sharedAudioSystemController];
-      [v11 setDownlinkMuted:0];
+      v12 = +[TUAudioSystemController sharedAudioSystemController];
+      [v12 setDownlinkMuted:0];
 
       featureFlags = [(CSDCallStateMonitor *)self featureFlags];
       sessionBasedMutingEnabled = [featureFlags sessionBasedMutingEnabled];
@@ -774,8 +789,8 @@ LABEL_36:
       if ((sessionBasedMutingEnabled & 1) == 0)
       {
         [(CSDCallStateMonitor *)self clearUplinkMutedCacheIfNecessary];
-        v14 = +[TUAudioSystemController sharedAudioSystemController];
-        [v14 setUplinkMuted:0];
+        v15 = +[TUAudioSystemController sharedAudioSystemController];
+        [v15 setUplinkMuted:0];
       }
     }
 
@@ -784,7 +799,7 @@ LABEL_36:
   }
 
 LABEL_37:
-  [(CSDCallStateMonitor *)self setHeySiriEnabled:v6, v32];
+  [(CSDCallStateMonitor *)self setHeySiriEnabled:v6, v35];
 }
 
 - (void)clearUplinkMutedCacheIfNecessary
@@ -813,7 +828,7 @@ LABEL_37:
 - (void)_handleCallStartedConnecting:(id)connecting
 {
   connectingCopy = connecting;
-  v5 = sub_100004778();
+  v5 = sub_100004778(connectingCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -864,7 +879,7 @@ LABEL_37:
 
         if ((v17 & 1) == 0 && [v14 state] == 3 && !objc_msgSend(v14, "avMode"))
         {
-          v18 = sub_100004778();
+          v18 = sub_100004778(0);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
@@ -889,7 +904,7 @@ LABEL_37:
 - (void)callIsOnHoldChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004778();
+  v5 = sub_100004778(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -909,7 +924,48 @@ LABEL_37:
 - (void)handleCallOneToOneModeChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004778();
+  v5 = sub_100004778(notificationCopy);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = objc_opt_class();
+    v7 = v6;
+    name = [notificationCopy name];
+    v13 = 138412546;
+    v14 = v6;
+    v15 = 2112;
+    v16 = name;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling %@", &v13, 0x16u);
+  }
+
+  object = [notificationCopy object];
+  if ([object isConversation])
+  {
+    if (([object isOneToOneModeEnabled] & 1) == 0 && (objc_msgSend(object, "isEndpointOnCurrentDevice") & 1) == 0)
+    {
+      isHostedOnCurrentDevice = [object isHostedOnCurrentDevice];
+      if (isHostedOnCurrentDevice)
+      {
+        v11 = sub_100004778(isHostedOnCurrentDevice);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v13) = 0;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Pulling relaying calls from client since one to one mode changed for relaying calls if it requires GFT and device does not support GFT relay", &v13, 2u);
+        }
+
+        callCenter = [(CSDCallStateMonitor *)self callCenter];
+        [callCenter pullRelayingGFTCallsFromClientIfNecessary];
+
+        [object setUplinkMuted:1];
+        [object setIsSendingVideo:0];
+      }
+    }
+  }
+}
+
+- (void)handleCallUpgradedToVideoNotification:(id)notification
+{
+  notificationCopy = notification;
+  v5 = sub_100004778(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -923,48 +979,15 @@ LABEL_37:
   }
 
   object = [notificationCopy object];
-  if ([object isConversation] && (objc_msgSend(object, "isOneToOneModeEnabled") & 1) == 0 && (objc_msgSend(object, "isEndpointOnCurrentDevice") & 1) == 0 && objc_msgSend(object, "isHostedOnCurrentDevice"))
+  isVideo = [object isVideo];
+  if (isVideo)
   {
-    v10 = sub_100004778();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100004778(isVideo);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Pulling relaying calls from client since one to one mode changed for relaying calls if it requires GFT and device does not support GFT relay", &v12, 2u);
-    }
-
-    callCenter = [(CSDCallStateMonitor *)self callCenter];
-    [callCenter pullRelayingGFTCallsFromClientIfNecessary];
-
-    [object setUplinkMuted:1];
-    [object setIsSendingVideo:0];
-  }
-}
-
-- (void)handleCallUpgradedToVideoNotification:(id)notification
-{
-  notificationCopy = notification;
-  v5 = sub_100004778();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = objc_opt_class();
-    v7 = v6;
-    name = [notificationCopy name];
-    v11 = 138412546;
-    v12 = v6;
-    v13 = 2112;
-    v14 = name;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling %@", &v11, 0x16u);
-  }
-
-  object = [notificationCopy object];
-  if ([object isVideo])
-  {
-    v10 = sub_100004778();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      v11 = 138412290;
-      v12 = object;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Call upgraded to video: %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = object;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Call upgraded to video: %@", &v12, 0xCu);
     }
 
     [(CSDCallStateMonitor *)self disconnectAllCallsBesides:object];
@@ -979,14 +1002,15 @@ LABEL_37:
   [(CSDCallStateMonitor *)self _handleAudioReadyForCall:connectedCopy];
   [(CSDCallStateMonitor *)self leaveAVLessConversationsIfNecessaryForCall:connectedCopy];
   [(CSDCallStateMonitor *)self disconnectActiveCallsBasedOnCallStatusForCall:connectedCopy];
-  if ([connectedCopy isVideo])
+  isVideo = [connectedCopy isVideo];
+  if (isVideo)
   {
-    v5 = sub_100004778();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004778(isVideo);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
-      v7 = connectedCopy;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Video call connected: %@", &v6, 0xCu);
+      v7 = 138412290;
+      v8 = connectedCopy;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Video call connected: %@", &v7, 0xCu);
     }
 
     [(CSDCallStateMonitor *)self disconnectAllCallsBesides:connectedCopy];
@@ -996,51 +1020,51 @@ LABEL_37:
 - (void)disconnectAllCallsBesides:(id)besides
 {
   besidesCopy = besides;
-  v5 = sub_100004778();
+  v5 = sub_100004778(besidesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = besidesCopy;
+    v27 = besidesCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Requesting to disconnect all calls besides: %@", buf, 0xCu);
   }
 
-  v22 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
+  v22 = 0u;
   callContainer = [(CSDCallStateMonitor *)self callContainer];
   currentAudioAndVideoCalls = [callContainer currentAudioAndVideoCalls];
 
-  v8 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v21;
+    v11 = *v22;
     *&v9 = 138412290;
-    v19 = v9;
+    v20 = v9;
     do
     {
       v12 = 0;
       do
       {
-        if (*v21 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(currentAudioAndVideoCalls);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * v12);
+        v13 = *(*(&v21 + 1) + 8 * v12);
         uniqueProxyIdentifier = [besidesCopy uniqueProxyIdentifier];
         uniqueProxyIdentifier2 = [v13 uniqueProxyIdentifier];
         v16 = [uniqueProxyIdentifier isEqualToString:uniqueProxyIdentifier2];
 
         if ((v16 & 1) == 0)
         {
-          v17 = sub_100004778();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v18 = sub_100004778(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v19;
-            v26 = v13;
-            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Disconnecting call because it is not compatible with call: %@", buf, 0xCu);
+            *buf = v20;
+            v27 = v13;
+            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Disconnecting call because it is not compatible with call: %@", buf, 0xCu);
           }
 
           callCenter = [(CSDCallStateMonitor *)self callCenter];
@@ -1051,7 +1075,7 @@ LABEL_37:
       }
 
       while (v10 != v12);
-      v10 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
@@ -1061,31 +1085,31 @@ LABEL_37:
 - (void)disconnectActiveCallsBasedOnCallStatusForCall:(id)call
 {
   callCopy = call;
-  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
   callContainer = [(CSDCallStateMonitor *)self callContainer];
   currentAudioAndVideoCalls = [callContainer currentAudioAndVideoCalls];
 
-  v7 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v7 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v20;
+    v10 = *v21;
     *&v8 = 138412546;
-    v18 = v8;
+    v19 = v8;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v20 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(currentAudioAndVideoCalls);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
-        if (([v12 isEqualToCall:{callCopy, v18}] & 1) == 0 && objc_msgSend(v12, "status") == 1 && objc_msgSend(callCopy, "status") == 1 && (objc_msgSend(v12, "isOnHold") & 1) == 0 && (objc_msgSend(callCopy, "isOnHold") & 1) == 0)
+        v12 = *(*(&v20 + 1) + 8 * i);
+        if (([v12 isEqualToCall:{callCopy, v19}] & 1) == 0 && objc_msgSend(v12, "status") == 1 && objc_msgSend(callCopy, "status") == 1 && (objc_msgSend(v12, "isOnHold") & 1) == 0 && (objc_msgSend(callCopy, "isOnHold") & 1) == 0)
         {
           callGroupUUID = [v12 callGroupUUID];
           callGroupUUID2 = [callCopy callGroupUUID];
@@ -1093,14 +1117,14 @@ LABEL_37:
 
           if ((v15 & 1) == 0)
           {
-            v16 = sub_100004778();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            v17 = sub_100004778(v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v18;
-              v24 = v12;
-              v25 = 2112;
-              v26 = callCopy;
-              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Ending current active call %@ because call %@ is going to go active", buf, 0x16u);
+              *buf = v19;
+              v25 = v12;
+              v26 = 2112;
+              v27 = callCopy;
+              _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Ending current active call %@ because call %@ is going to go active", buf, 0x16u);
             }
 
             callCenter = [(CSDCallStateMonitor *)self callCenter];
@@ -1109,7 +1133,7 @@ LABEL_37:
         }
       }
 
-      v9 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v9 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v9);
@@ -1119,26 +1143,27 @@ LABEL_37:
 - (void)enableEmergencyModeIfNecessaryForCall:(id)call
 {
   callCopy = call;
-  if (([callCopy isEmergency] & 1) != 0 || objc_msgSend(callCopy, "isSOS"))
+  isEmergency = [callCopy isEmergency];
+  if ((isEmergency & 1) != 0 || (isEmergency = [callCopy isSOS], isEmergency))
   {
-    v4 = sub_100004778();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004778(isEmergency);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Reporting emergency call to screen time", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Reporting emergency call to screen time", buf, 2u);
     }
 
-    v5 = +[DMFEmergencyModeMonitor sharedMonitor];
-    v9 = 0;
-    v6 = [v5 enableEmergencyModeWithError:&v9];
-    v7 = v9;
+    v6 = +[DMFEmergencyModeMonitor sharedMonitor];
+    v11 = 0;
+    v7 = [v6 enableEmergencyModeWithError:&v11];
+    v8 = v11;
 
-    if (!v6 || v7)
+    if (!v7 || v8)
     {
-      v8 = sub_100004778();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = sub_100004778(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        sub_1004738E8(v6, v7, v8);
+        sub_1004738E8(v7, v8, v10);
       }
     }
   }
@@ -1146,7 +1171,7 @@ LABEL_37:
 
 - (void)_notifyCLTMOfIncomingCall
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412546;
@@ -1163,63 +1188,64 @@ LABEL_37:
 - (void)_disconnectOrPullExistingCallsForCallIfNecessary:(id)necessary
 {
   necessaryCopy = necessary;
-  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
   callContainer = [(CSDCallStateMonitor *)self callContainer];
   _allCalls = [callContainer _allCalls];
 
-  v7 = [_allCalls countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v7 = [_allCalls countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (!v7)
   {
     goto LABEL_26;
   }
 
   v8 = v7;
-  v19 = 0;
-  v9 = *v21;
+  v20 = 0;
+  v9 = *v22;
   do
   {
     v10 = 0;
     do
     {
-      if (*v21 != v9)
+      if (*v22 != v9)
       {
         objc_enumerationMutation(_allCalls);
       }
 
-      v11 = *(*(&v20 + 1) + 8 * v10);
+      v11 = *(*(&v21 + 1) + 8 * v10);
       if (([v11 isPTT] & 1) == 0 && v11 != necessaryCopy)
       {
         isHostedOnCurrentDevice = [necessaryCopy isHostedOnCurrentDevice];
         if (isHostedOnCurrentDevice != [v11 isHostedOnCurrentDevice] || (v13 = objc_msgSend(necessaryCopy, "isEndpointOnCurrentDevice"), v13 != objc_msgSend(v11, "isEndpointOnCurrentDevice")))
         {
-          if ([necessaryCopy isEndpointOnCurrentDevice] && objc_msgSend(v11, "isHostedOnCurrentDevice") && (objc_msgSend(v11, "isEndpointOnCurrentDevice") & 1) == 0 && (objc_msgSend(v11, "provider"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isTinCanProvider"), v14, (v15 & 1) == 0))
+          isEndpointOnCurrentDevice = [necessaryCopy isEndpointOnCurrentDevice];
+          if (isEndpointOnCurrentDevice && (isEndpointOnCurrentDevice = [v11 isHostedOnCurrentDevice], isEndpointOnCurrentDevice) && (isEndpointOnCurrentDevice = objc_msgSend(v11, "isEndpointOnCurrentDevice"), (isEndpointOnCurrentDevice & 1) == 0) && (objc_msgSend(v11, "provider"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "isTinCanProvider"), v15, (v16 & 1) == 0))
           {
-            callCenter = sub_100004778();
+            callCenter = sub_100004778(isEndpointOnCurrentDevice);
             if (os_log_type_enabled(callCenter, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v25 = v11;
-              v26 = 2112;
-              v27 = necessaryCopy;
+              v26 = v11;
+              v27 = 2112;
+              v28 = necessaryCopy;
               _os_log_impl(&_mh_execute_header, callCenter, OS_LOG_TYPE_DEFAULT, "Requesting to pull call %@ because its continuity state is different from call %@", buf, 0x16u);
             }
 
-            v19 = 1;
+            v20 = 1;
           }
 
           else
           {
-            v16 = sub_100004778();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            v17 = sub_100004778(isEndpointOnCurrentDevice);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v25 = v11;
-              v26 = 2112;
-              v27 = necessaryCopy;
-              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Disconnecting call %@ because its continuity state is different from call %@", buf, 0x16u);
+              v26 = v11;
+              v27 = 2112;
+              v28 = necessaryCopy;
+              _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Disconnecting call %@ because its continuity state is different from call %@", buf, 0x16u);
             }
 
             callCenter = [(CSDCallStateMonitor *)self callCenter];
@@ -1232,13 +1258,13 @@ LABEL_37:
     }
 
     while (v8 != v10);
-    v18 = [_allCalls countByEnumeratingWithState:&v20 objects:v28 count:16];
-    v8 = v18;
+    v19 = [_allCalls countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v8 = v19;
   }
 
-  while (v18);
+  while (v19);
 
-  if (v19)
+  if (v20)
   {
     _allCalls = [(CSDCallStateMonitor *)self callCenter];
     [_allCalls pullRelayingCallsFromClient];
@@ -1254,16 +1280,16 @@ LABEL_26:
 
   if (endpointIDSDestination)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       dialRequest2 = [necessaryCopy dialRequest];
       endpointIDSDestination2 = [dialRequest2 endpointIDSDestination];
-      v25 = 138412546;
-      v26 = endpointIDSDestination2;
-      v27 = 2112;
-      v28 = necessaryCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "An endpointIDSDestination %@ is present for call %@ so pushing all hosted calls to that destination", &v25, 0x16u);
+      v27 = 138412546;
+      v28 = endpointIDSDestination2;
+      v29 = 2112;
+      v30 = necessaryCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "An endpointIDSDestination %@ is present for call %@ so pushing all hosted calls to that destination", &v27, 0x16u);
     }
 
     callCenter = [(CSDCallStateMonitor *)self callCenter];
@@ -1281,20 +1307,20 @@ LABEL_11:
   {
 
 LABEL_8:
-    v18 = sub_100004778();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100004778(v16);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       dialRequest5 = [necessaryCopy dialRequest];
       endpointRapportMediaSystemIdentifier2 = [dialRequest5 endpointRapportMediaSystemIdentifier];
       dialRequest6 = [necessaryCopy dialRequest];
       endpointRapportEffectiveIdentifier = [dialRequest6 endpointRapportEffectiveIdentifier];
-      v25 = 138412802;
-      v26 = endpointRapportMediaSystemIdentifier2;
-      v27 = 2112;
-      v28 = endpointRapportEffectiveIdentifier;
+      v27 = 138412802;
+      v28 = endpointRapportMediaSystemIdentifier2;
       v29 = 2112;
-      v30 = necessaryCopy;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "An endpointRapportMediaSystemIdentifier=%@ or endpointRapportEffectiveIdentifier=%@ is present on dial request for call %@ so attempting to pick matching route", &v25, 0x20u);
+      v30 = endpointRapportEffectiveIdentifier;
+      v31 = 2112;
+      v32 = necessaryCopy;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "An endpointRapportMediaSystemIdentifier=%@ or endpointRapportEffectiveIdentifier=%@ is present on dial request for call %@ so attempting to pick matching route", &v27, 0x20u);
     }
 
     callCenter = [(CSDCallStateMonitor *)self callCenter];
@@ -1309,9 +1335,9 @@ LABEL_8:
 
   dialRequest8 = [necessaryCopy dialRequest];
   endpointRapportEffectiveIdentifier3 = [dialRequest8 endpointRapportEffectiveIdentifier];
-  v17 = [endpointRapportEffectiveIdentifier3 length];
+  v19 = [endpointRapportEffectiveIdentifier3 length];
 
-  if (v17)
+  if (v19)
   {
     goto LABEL_8;
   }
@@ -1325,7 +1351,7 @@ LABEL_12:
   if ([callCopy status] == 3 && objc_msgSend(callCopy, "isVideo") && objc_msgSend(callCopy, "mayRequireBreakBeforeMake"))
   {
     uniqueProxyIdentifier = [callCopy uniqueProxyIdentifier];
-    v6 = sub_100004778();
+    v6 = sub_100004778(uniqueProxyIdentifier);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -1354,47 +1380,48 @@ LABEL_12:
     routeManager = [(CSDCallStateMonitor *)self routeManager];
     isCarPlayRouteAvailable = [routeManager isCarPlayRouteAvailable];
 
-    v7 = isCarPlayRouteAvailable | [callCopy isEmergency];
-    v8 = sub_100004778();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-    if (v7)
+    isEmergency = [callCopy isEmergency];
+    v8 = isCarPlayRouteAvailable | isEmergency;
+    v9 = sub_100004778(isEmergency);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    if (v8)
     {
-      if (v9)
+      if (v10)
       {
-        v18 = 138412290;
-        v19 = callCopy;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "CarPlay is connected; unmuting uplink for RTT call %@", &v18, 0xCu);
+        v21 = 138412290;
+        v22 = callCopy;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "CarPlay is connected; unmuting uplink for RTT call %@", &v21, 0xCu);
       }
 
 LABEL_13:
-      v14 = (v7 ^ 1) & 1;
-      v13 = callCopy;
+      v16 = (v8 ^ 1) & 1;
+      v15 = callCopy;
 LABEL_16:
-      [v13 setUplinkMuted:v14];
+      [v15 setUplinkMuted:v16];
       goto LABEL_17;
     }
 
-    if (v9)
+    if (v10)
     {
-      v18 = 138412290;
-      v19 = callCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "CarPlay is not connected; muting uplink for RTT call %@", &v18, 0xCu);
+      v21 = 138412290;
+      v22 = callCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "CarPlay is not connected; muting uplink for RTT call %@", &v21, 0xCu);
     }
 
     rttUtilities = [(CSDCallStateMonitor *)self rttUtilities];
-    v16 = [rttUtilities answerRTTCallAsMutedForCall:callCopy];
+    v18 = [rttUtilities answerRTTCallAsMutedForCall:callCopy];
 
-    if (v16)
+    if (v18)
     {
       goto LABEL_13;
     }
 
-    v17 = sub_100004778();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100004778(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = callCopy;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Not muting uplink because RTTUUtilities says not to mute the uplink for RTT calls %@", &v18, 0xCu);
+      v21 = 138412290;
+      v22 = callCopy;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Not muting uplink because RTTUUtilities says not to mute the uplink for RTT calls %@", &v21, 0xCu);
     }
   }
 
@@ -1405,23 +1432,23 @@ LABEL_16:
 
     if (isTinCanProvider)
     {
-      v12 = sub_100004778();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100004778(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138412290;
-        v19 = callCopy;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Setting uplink muted for TinCan call %@", &v18, 0xCu);
+        v21 = 138412290;
+        v22 = callCopy;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Setting uplink muted for TinCan call %@", &v21, 0xCu);
       }
 
-      v13 = callCopy;
-      v14 = 1;
+      v15 = callCopy;
+      v16 = 1;
       goto LABEL_16;
     }
 
     if (([callCopy uplinkWasExplicitlyMuted] & 1) == 0)
     {
-      v13 = callCopy;
-      v14 = 0;
+      v15 = callCopy;
+      v16 = 0;
       goto LABEL_16;
     }
   }
@@ -1432,7 +1459,7 @@ LABEL_17:
 - (id)_ringingTimerForCallWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = sub_100004778();
+  v5 = sub_100004778(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1466,62 +1493,63 @@ LABEL_17:
   callContainer = [(CSDCallStateMonitor *)self callContainer];
   v4 = [callContainer callsPassingTest:&stru_10061ABB8];
 
-  if ([v4 count])
+  v5 = [v4 count];
+  if (v5)
   {
-    v5 = sub_100004778();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004778(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v27 = v4;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Disconnecting restricted calls because the limited call duration timer fired: %@", buf, 0xCu);
+      v28 = v4;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Disconnecting restricted calls because the limited call duration timer fired: %@", buf, 0xCu);
     }
 
-    v23 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v7)
+    v23 = 0u;
+    v7 = v4;
+    v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = *v22;
+      v9 = v8;
+      v10 = *v23;
       do
       {
-        v10 = 0;
+        v11 = 0;
         do
         {
-          if (*v22 != v9)
+          if (*v23 != v10)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * v10);
+          v12 = *(*(&v22 + 1) + 8 * v11);
           callCenter = [(CSDCallStateMonitor *)self callCenter];
-          [callCenter disconnectCall:v11];
+          [callCenter disconnectCall:v12];
 
-          v10 = v10 + 1;
+          v11 = v11 + 1;
         }
 
-        while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        while (v9 != v11);
+        v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
 
-    v13 = TUBundle();
-    v14 = [v13 localizedStringForKey:@"CALL_ENDED" value:&stru_100631E68 table:@"TelephonyUtilities"];
-    v15 = TUBundle();
-    v16 = [v15 localizedStringForKey:@"CALL_ENDED_DEMO_EXPLANATION" value:&stru_100631E68 table:@"TelephonyUtilities"];
-    v17 = TUBundle();
-    v18 = [v17 localizedStringForKey:@"OK" value:&stru_100631E68 table:@"TelephonyUtilities"];
-    v19 = [IMUserNotification userNotificationWithIdentifier:@"RetailDemoNotification" title:v14 message:v16 defaultButton:v18 alternateButton:0 otherButton:0];
+    v14 = TUBundle();
+    v15 = [v14 localizedStringForKey:@"CALL_ENDED" value:&stru_100631E68 table:@"TelephonyUtilities"];
+    v16 = TUBundle();
+    v17 = [v16 localizedStringForKey:@"CALL_ENDED_DEMO_EXPLANATION" value:&stru_100631E68 table:@"TelephonyUtilities"];
+    v18 = TUBundle();
+    v19 = [v18 localizedStringForKey:@"OK" value:&stru_100631E68 table:@"TelephonyUtilities"];
+    v20 = [IMUserNotification userNotificationWithIdentifier:@"RetailDemoNotification" title:v15 message:v17 defaultButton:v19 alternateButton:0 otherButton:0];
 
-    [v19 setUsesNotificationCenter:0];
-    [v19 setRepresentedApplicationBundle:TUBundleIdentifierTelephonyUtilitiesFramework];
-    v20 = +[IMUserNotificationCenter sharedInstance];
-    [v20 addUserNotification:v19 listener:0 completionHandler:0];
+    [v20 setUsesNotificationCenter:0];
+    [v20 setRepresentedApplicationBundle:TUBundleIdentifierTelephonyUtilitiesFramework];
+    v21 = +[IMUserNotificationCenter sharedInstance];
+    [v21 addUserNotification:v20 listener:0 completionHandler:0];
   }
 }
 
@@ -1533,35 +1561,35 @@ LABEL_17:
     provider = [conversationCopy provider];
     isTelephonyWithSharePlayProvider = [provider isTelephonyWithSharePlayProvider];
 
-    v8 = sub_100004778();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = sub_100004778(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
     if (isTelephonyWithSharePlayProvider)
     {
-      if (v9)
+      if (v10)
       {
-        v15 = 138412290;
-        v16 = conversationCopy;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "conversation %@ is TelephonyWithSharePlayProvider, do not disconnect calls", &v15, 0xCu);
+        v16 = 138412290;
+        v17 = conversationCopy;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "conversation %@ is TelephonyWithSharePlayProvider, do not disconnect calls", &v16, 0xCu);
       }
 
       goto LABEL_14;
     }
 
-    if (v9)
+    if (v10)
     {
-      v15 = 138412290;
-      v16 = conversationCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Disconnecting all calls since we have an AVLess conversation that is Joined: %@", &v15, 0xCu);
+      v16 = 138412290;
+      v17 = conversationCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Disconnecting all calls since we have an AVLess conversation that is Joined: %@", &v16, 0xCu);
     }
 
     callCenter = [(CSDCallStateMonitor *)self callCenter];
     groupUUID = [conversationCopy groupUUID];
-    v8 = [callCenter callForConversationWithGroupUUID:groupUUID];
+    v9 = [callCenter callForConversationWithGroupUUID:groupUUID];
 
     presentationContext = [conversationCopy presentationContext];
-    if ([presentationContext mode] == 2 && v8)
+    if ([presentationContext mode] == 2 && v9)
     {
-      status = [v8 status];
+      status = [v9 status];
 
       if (status != 4)
       {
@@ -1574,7 +1602,7 @@ LABEL_14:
       }
 
       presentationContext = [(CSDCallStateMonitor *)self callCenter];
-      [presentationContext disconnectCall:v8 withReason:1];
+      [presentationContext disconnectCall:v9 withReason:1];
     }
 
     goto LABEL_13;

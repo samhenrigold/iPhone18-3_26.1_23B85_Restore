@@ -224,7 +224,7 @@ LABEL_23:
   v5 = v4;
   if (v4)
   {
-    [v4 decimalValue];
+    objc_msgSend_decimalValue(v4);
   }
 
   else
@@ -1168,7 +1168,7 @@ LABEL_5:
   v14 = v13;
   if (v13)
   {
-    [v13 decimalValue];
+    objc_msgSend_decimalValue(v13);
   }
 
   else

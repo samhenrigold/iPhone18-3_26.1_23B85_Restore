@@ -3,6 +3,8 @@
 - (SysDropSession)init;
 - (id)_getAirDropDiscoverableMode;
 - (id)_getAirDropID;
+- (id)createSysDropAirDropEvent:(unsigned int)event error:(id)error;
+- (id)createSysDropRPFileTransferEvent:(unsigned int)event error:(id)error fileTransferProgress:(id)progress;
 - (id)createSysDropSysDiagnoseEvent:(id)event;
 - (id)fileTransferredSysDiagnosePath;
 - (int)_runAirDrop;
@@ -228,18 +230,8 @@ void __28__SysDropSession_disconnect__block_invoke(uint64_t a1)
   {
     if (sfSessionState)
     {
-      if (gLogCategory_SysDropSession <= 30)
+      if (gLogCategory_SysDropSession <= 30 && (gLogCategory_SysDropSession != -1 || _LogCategory_Initialize()))
       {
-        if (gLogCategory_SysDropSession == -1)
-        {
-          if (!_LogCategory_Initialize())
-          {
-            return self->_sfSessionState;
-          }
-
-          v12 = self->_sfSessionState;
-        }
-
         LogPrintF();
       }
     }
@@ -295,31 +287,31 @@ LABEL_10:
         [(SFSession *)self->_sfSession setPeerDevice:self->_peerDevice];
         [(SFSession *)self->_sfSession setServiceIdentifier:*MEMORY[0x277D54D80]];
         [(SFSession *)self->_sfSession setSessionFlags:1];
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __36__SysDropSession__runSFSessionStart__block_invoke;
-        v16[3] = &unk_279714198;
-        v16[4] = self;
-        [(SFSession *)self->_sfSession setErrorHandler:v16];
         v15[0] = MEMORY[0x277D85DD0];
         v15[1] = 3221225472;
-        v15[2] = __36__SysDropSession__runSFSessionStart__block_invoke_2;
-        v15[3] = &unk_279713FF0;
+        v15[2] = __36__SysDropSession__runSFSessionStart__block_invoke;
+        v15[3] = &unk_279714198;
         v15[4] = self;
-        [(SFSession *)self->_sfSession setInterruptionHandler:v15];
-        v10 = self->_sfSession;
+        [(SFSession *)self->_sfSession setErrorHandler:v15];
         v14[0] = MEMORY[0x277D85DD0];
         v14[1] = 3221225472;
-        v14[2] = __36__SysDropSession__runSFSessionStart__block_invoke_3;
-        v14[3] = &unk_279714198;
+        v14[2] = __36__SysDropSession__runSFSessionStart__block_invoke_2;
+        v14[3] = &unk_279713FF0;
         v14[4] = self;
-        [(SFSession *)v10 activateWithCompletion:v14];
+        [(SFSession *)self->_sfSession setInterruptionHandler:v14];
+        v10 = self->_sfSession;
         v13[0] = MEMORY[0x277D85DD0];
         v13[1] = 3221225472;
-        v13[2] = __36__SysDropSession__runSFSessionStart__block_invoke_42;
-        v13[3] = &unk_279713F50;
+        v13[2] = __36__SysDropSession__runSFSessionStart__block_invoke_3;
+        v13[3] = &unk_279714198;
         v13[4] = self;
-        [(SFSession *)self->_sfSession setReceivedObjectHandler:v13];
+        [(SFSession *)v10 activateWithCompletion:v13];
+        v12[0] = MEMORY[0x277D85DD0];
+        v12[1] = 3221225472;
+        v12[2] = __36__SysDropSession__runSFSessionStart__block_invoke_42;
+        v12[3] = &unk_279713F50;
+        v12[4] = self;
+        [(SFSession *)self->_sfSession setReceivedObjectHandler:v12];
       }
     }
   }
@@ -329,11 +321,11 @@ LABEL_10:
 
 void __36__SysDropSession__runSFSessionStart__block_invoke_2(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = MEMORY[0x277CCA9B8];
   v3 = *MEMORY[0x277CCA590];
-  v10 = *MEMORY[0x277CCA450];
+  v9 = *MEMORY[0x277CCA450];
   v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
   v5 = v4;
   v6 = @"?";
@@ -342,12 +334,10 @@ void __36__SysDropSession__runSFSessionStart__block_invoke_2(uint64_t a1)
     v6 = v4;
   }
 
-  v11[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v8 = [v2 errorWithDomain:v3 code:-6762 userInfo:v7];
   [v1 _reportError:v8 label:@"SFSessionInterruption-SysDrop"];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __36__SysDropSession__runSFSessionStart__block_invoke_3(uint64_t a1, void *a2)
@@ -371,19 +361,17 @@ void __36__SysDropSession__runSFSessionStart__block_invoke_3(uint64_t a1, void *
           _os_signpost_emit_with_name_impl(&dword_252F78000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v9, "SFSessionStart", "", buf, 2u);
         }
       }
-
-      v10 = *v4;
     }
 
-    v11 = [objc_opt_class() signpostLog];
-    v12 = [*v4 signpostID];
-    if ((v12 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+    v10 = [objc_opt_class() signpostLog];
+    v11 = [*v4 signpostID];
+    if ((v11 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v13 = v12;
-      if (os_signpost_enabled(v11))
+      v12 = v11;
+      if (os_signpost_enabled(v10))
       {
-        *v21 = 0;
-        _os_signpost_emit_with_name_impl(&dword_252F78000, v11, OS_SIGNPOST_INTERVAL_END, v13, "SFSessionStart", "", v21, 2u);
+        *v19 = 0;
+        _os_signpost_emit_with_name_impl(&dword_252F78000, v10, OS_SIGNPOST_INTERVAL_END, v12, "SFSessionStart", "", v19, 2u);
       }
     }
 
@@ -395,30 +383,28 @@ void __36__SysDropSession__runSFSessionStart__block_invoke_3(uint64_t a1, void *
   {
     if (!v6)
     {
-      v14 = [objc_opt_class() signpostLog];
-      v15 = [*v4 signpostID];
-      if ((v15 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+      v13 = [objc_opt_class() signpostLog];
+      v14 = [*v4 signpostID];
+      if ((v14 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v16 = v15;
-        if (os_signpost_enabled(v14))
+        v15 = v14;
+        if (os_signpost_enabled(v13))
         {
-          *v24 = 0;
-          _os_signpost_emit_with_name_impl(&dword_252F78000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v16, "SFSessionStart", "", v24, 2u);
+          *v22 = 0;
+          _os_signpost_emit_with_name_impl(&dword_252F78000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v15, "SFSessionStart", "", v22, 2u);
         }
       }
-
-      v17 = *v4;
     }
 
-    v18 = [objc_opt_class() signpostLog];
-    v19 = [*v4 signpostID];
-    if ((v19 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+    v16 = [objc_opt_class() signpostLog];
+    v17 = [*v4 signpostID];
+    if ((v17 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v20 = v19;
-      if (os_signpost_enabled(v18))
+      v18 = v17;
+      if (os_signpost_enabled(v16))
       {
-        *v23 = 0;
-        _os_signpost_emit_with_name_impl(&dword_252F78000, v18, OS_SIGNPOST_INTERVAL_END, v20, "SFSessionStart", "", v23, 2u);
+        *v21 = 0;
+        _os_signpost_emit_with_name_impl(&dword_252F78000, v16, OS_SIGNPOST_INTERVAL_END, v18, "SFSessionStart", "", v21, 2u);
       }
     }
 
@@ -457,21 +443,12 @@ void __36__SysDropSession__runSFSessionStart__block_invoke_42(uint64_t a1, uint6
     {
       return self->_preCheckState;
     }
+
+    goto LABEL_12;
   }
 
-  else
+  if (preCheckState)
   {
-    if (!preCheckState)
-    {
-      if (gLogCategory_SysDropSession <= 30 && (gLogCategory_SysDropSession != -1 || _LogCategory_Initialize()))
-      {
-        [SysDropSession _runPreCheck];
-      }
-
-      [(SysDropSession *)self _runPreCheckRequest];
-      return self->_preCheckState;
-    }
-
     if (preCheckState == 1)
     {
       if (gLogCategory_SysDropSession <= 30 && (gLogCategory_SysDropSession != -1 || _LogCategory_Initialize()))
@@ -481,23 +458,22 @@ void __36__SysDropSession__runSFSessionStart__block_invoke_42(uint64_t a1, uint6
 
       return self->_preCheckState;
     }
-  }
 
-  if (gLogCategory_SysDropSession <= 30)
-  {
-    if (gLogCategory_SysDropSession == -1)
+LABEL_12:
+    if (gLogCategory_SysDropSession <= 30 && (gLogCategory_SysDropSession != -1 || _LogCategory_Initialize()))
     {
-      if (!_LogCategory_Initialize())
-      {
-        return self->_preCheckState;
-      }
-
-      v6 = self->_preCheckState;
+      LogPrintF();
     }
 
-    LogPrintF();
+    return self->_preCheckState;
   }
 
+  if (gLogCategory_SysDropSession <= 30 && (gLogCategory_SysDropSession != -1 || _LogCategory_Initialize()))
+  {
+    [SysDropSession _runPreCheck];
+  }
+
+  [(SysDropSession *)self _runPreCheckRequest];
   return self->_preCheckState;
 }
 
@@ -1043,6 +1019,151 @@ void __32__SysDropSession__setupHandlers__block_invoke_4(uint64_t a1, void *a2)
   return v5;
 }
 
+- (id)createSysDropAirDropEvent:(unsigned int)event error:(id)error
+{
+  v4 = *&event;
+  errorCopy = error;
+  v7 = objc_opt_new();
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+  [v7 setObject:v8 forKeyedSubscript:@"sd_ad_e"];
+
+  if (errorCopy)
+  {
+    v9 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(errorCopy, "code")}];
+    [v7 setObject:v9 forKeyedSubscript:@"sd_ad_er"];
+  }
+
+  else
+  {
+    [v7 setObject:0 forKeyedSubscript:@"sd_ad_er"];
+  }
+
+  domain = [errorCopy domain];
+
+  [v7 setObject:domain forKeyedSubscript:@"sd_ad_ed"];
+  setupError = self->_setupError;
+  if (setupError)
+  {
+    v12 = [MEMORY[0x277CCABB0] numberWithInteger:{-[NSError code](setupError, "code")}];
+    [v7 setObject:v12 forKeyedSubscript:@"sd_er"];
+  }
+
+  else
+  {
+    [v7 setObject:0 forKeyedSubscript:@"sd_er"];
+  }
+
+  domain2 = [(NSError *)self->_setupError domain];
+  [v7 setObject:domain2 forKeyedSubscript:@"sd_ed"];
+
+  v14 = [(NSError *)self->_setupError description];
+  [v7 setObject:v14 forKeyedSubscript:@"sd_de"];
+
+  return v7;
+}
+
+- (id)createSysDropRPFileTransferEvent:(unsigned int)event error:(id)error fileTransferProgress:(id)progress
+{
+  v6 = *&event;
+  progressCopy = progress;
+  errorCopy = error;
+  v10 = objc_opt_new();
+  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
+  [v10 setObject:v11 forKeyedSubscript:@"sd_rp_e"];
+
+  if (errorCopy)
+  {
+    v12 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(errorCopy, "code")}];
+    [v10 setObject:v12 forKeyedSubscript:@"sd_rp_er"];
+  }
+
+  else
+  {
+    [v10 setObject:0 forKeyedSubscript:@"sd_rp_er"];
+  }
+
+  domain = [errorCopy domain];
+
+  [v10 setObject:domain forKeyedSubscript:@"sd_rp_ed"];
+  setupError = self->_setupError;
+  if (setupError)
+  {
+    v15 = [MEMORY[0x277CCABB0] numberWithInteger:{-[NSError code](setupError, "code")}];
+    [v10 setObject:v15 forKeyedSubscript:@"sd_er"];
+  }
+
+  else
+  {
+    [v10 setObject:0 forKeyedSubscript:@"sd_er"];
+  }
+
+  domain2 = [(NSError *)self->_setupError domain];
+  [v10 setObject:domain2 forKeyedSubscript:@"sd_ed"];
+
+  v17 = [(NSError *)self->_setupError description];
+  [v10 setObject:v17 forKeyedSubscript:@"sd_de"];
+
+  if (gLogCategory_SysDropSession <= 30 && (gLogCategory_SysDropSession != -1 || _LogCategory_Initialize()))
+  {
+    [SysDropSession createSysDropRPFileTransferEvent:progressCopy error:? fileTransferProgress:?];
+    if (progressCopy)
+    {
+      goto LABEL_11;
+    }
+
+LABEL_13:
+    v20 = -1.0;
+    goto LABEL_14;
+  }
+
+  if (!progressCopy)
+  {
+    goto LABEL_13;
+  }
+
+LABEL_11:
+  transferredByteCount = [progressCopy transferredByteCount];
+  v20 = transferredByteCount / [progressCopy totalByteCount];
+LABEL_14:
+  *&v18 = v20;
+  v21 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
+  [v10 setObject:v21 forKeyedSubscript:@"sd_rp_pr"];
+
+  if (gLogCategory_SysDropSession <= 30 && (gLogCategory_SysDropSession != -1 || _LogCategory_Initialize()))
+  {
+    [SysDropSession createSysDropRPFileTransferEvent:error:fileTransferProgress:];
+    if (progressCopy)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  else if (progressCopy)
+  {
+LABEL_18:
+    [progressCopy remainingSeconds];
+    goto LABEL_21;
+  }
+
+  v22 = -1.0;
+LABEL_21:
+  v23 = [MEMORY[0x277CCABB0] numberWithDouble:v22];
+  [v10 setObject:v23 forKeyedSubscript:@"sd_rp_rs"];
+
+  if ([progressCopy type])
+  {
+    v24 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(progressCopy, "type")}];
+    [v10 setObject:v24 forKeyedSubscript:@"sd_pt"];
+  }
+
+  else
+  {
+    [v10 setObject:0 forKeyedSubscript:@"sd_pt"];
+  }
+
+  return v10;
+}
+
 - (void)startAirDropSysdiagnose
 {
   _getAirDropID = [(SysDropSession *)self _getAirDropID];
@@ -1123,7 +1244,7 @@ void __41__SysDropSession_startAirDropSysdiagnose__block_invoke_2(uint64_t a1)
 {
   if (gLogCategory_SysDropSession <= 30 && (gLogCategory_SysDropSession != -1 || _LogCategory_Initialize()))
   {
-    __41__SysDropSession_startAirDropSysdiagnose__block_invoke_2_cold_1(a1);
+    __41__SysDropSession_startAirDropSysdiagnose__block_invoke_2_cold_1();
   }
 
   v2 = *(a1 + 48);
@@ -1175,7 +1296,7 @@ void __41__SysDropSession_startAirDropSysdiagnose__block_invoke_2(uint64_t a1)
     {
       if (gLogCategory_SysDropSession != -1 || _LogCategory_Initialize())
       {
-        [SysDropSession handlePeerEvent:? flags:?];
+        [SysDropSession handlePeerEvent:flags:];
       }
 
       if (gLogCategory_SysDropSession <= 30 && (gLogCategory_SysDropSession != -1 || _LogCategory_Initialize()))
@@ -1205,7 +1326,7 @@ void __41__SysDropSession_startAirDropSysdiagnose__block_invoke_2(uint64_t a1)
 
 - (void)_reportError:(id)error label:(id)label
 {
-  v32[4] = *MEMORY[0x277D85DE8];
+  v29[4] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   labelCopy = label;
   v8 = gLogCategory_SysDropSession;
@@ -1224,76 +1345,72 @@ void __41__SysDropSession_startAirDropSysdiagnose__block_invoke_2(uint64_t a1)
     LogPrintF();
   }
 
-  v9 = *MEMORY[0x277D85E08];
-  FPrintF();
-  [(SysDropSession *)self _cleanupSession:labelCopy];
+  FPrintF(*MEMORY[0x277D85E08], "CmdHomeDeviceSetupNoUI _reportError called: %@, %{error}\n", labelCopy, errorCopy);
+  [(SysDropSession *)self _cleanupSession];
   if (self->_totalSecs == 0.0)
   {
     mach_absolute_time();
-    startTicks = self->_startTicks;
     UpTicksToSecondsF();
-    self->_totalSecs = v11;
+    self->_totalSecs = v9;
   }
 
   if ([errorCopy code] != -6723)
   {
-    v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v32[0] = labelCopy;
-    v31[0] = @"label";
-    v31[1] = @"errDomain";
+    v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v29[0] = labelCopy;
+    v28[0] = @"label";
+    v28[1] = @"errDomain";
     domain = [errorCopy domain];
-    v14 = domain;
-    v15 = @"?";
+    v12 = domain;
+    v13 = @"?";
     if (domain)
     {
-      v15 = domain;
+      v13 = domain;
     }
 
-    v32[1] = v15;
-    v31[2] = @"errCode";
-    v16 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(errorCopy, "code")}];
-    v32[2] = v16;
-    v31[3] = @"totalMs";
-    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:(self->_totalSecs * 1000.0)];
-    v32[3] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:4];
-    [v12 addEntriesFromDictionary:v18];
+    v29[1] = v13;
+    v28[2] = @"errCode";
+    v14 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(errorCopy, "code")}];
+    v29[2] = v14;
+    v28[3] = @"totalMs";
+    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:(self->_totalSecs * 1000.0)];
+    v29[3] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
+    [v10 addEntriesFromDictionary:v16];
 
-    HDSMetricsLog(@"com.apple.sharing.ASSetupError", v12);
+    HDSMetricsLog(@"com.apple.sharing.ASSetupError", v10);
     progressHandler = self->_progressHandler;
     if (progressHandler)
     {
-      v29 = @"eo";
-      v20 = errorCopy;
+      v26 = @"eo";
+      v18 = errorCopy;
       if (!errorCopy)
       {
-        v21 = MEMORY[0x277CCA9B8];
-        v22 = *MEMORY[0x277CCA590];
-        v27 = *MEMORY[0x277CCA450];
-        v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
-        v14 = v23;
-        v24 = @"?";
-        if (v23)
+        v19 = MEMORY[0x277CCA9B8];
+        v20 = *MEMORY[0x277CCA590];
+        v24 = *MEMORY[0x277CCA450];
+        v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
+        v12 = v21;
+        v22 = @"?";
+        if (v21)
         {
-          v24 = v23;
+          v22 = v21;
         }
 
-        v28 = v24;
-        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-        v20 = [v21 errorWithDomain:v22 code:-6700 userInfo:v16];
+        v25 = v22;
+        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+        v18 = [v19 errorWithDomain:v20 code:-6700 userInfo:v14];
       }
 
-      v30 = v20;
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-      progressHandler[2](progressHandler, 30, v25);
+      v27 = v18;
+      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+      progressHandler[2](progressHandler, 30, v23);
 
       if (!errorCopy)
       {
       }
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)discoveryControllerSettingsDidChange:(id)change
@@ -1410,24 +1527,6 @@ void __36__SysDropSession__runSFSessionStart__block_invoke_3_cold_1(uint64_t a1)
 {
   [a1 transferredByteCount];
   [a1 totalByteCount];
-  return LogPrintF();
-}
-
-uint64_t __41__SysDropSession_startAirDropSysdiagnose__block_invoke_2_cold_1(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  return LogPrintF();
-}
-
-- (uint64_t)handlePeerEvent:(unsigned int *)a1 flags:.cold.1(unsigned int *a1)
-{
-  v1 = *a1;
-  if (v1 <= 3)
-  {
-    v2 = off_279714688[v1];
-  }
-
   return LogPrintF();
 }
 

@@ -10,73 +10,72 @@
   blockCopy = block;
   v6 = objc_alloc_init(MEMORY[0x277D3A430]);
   [v6 setLimit:500];
-  v33[0] = 0;
-  v33[1] = v33;
-  v33[2] = 0x3032000000;
-  v33[3] = __Block_byref_object_copy__432;
-  v33[4] = __Block_byref_object_dispose__433;
-  v34 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__432;
-  v27 = __Block_byref_object_dispose__433;
+  v32[0] = 0;
+  v32[1] = v32;
+  v32[2] = 0x3032000000;
+  v32[3] = __Block_byref_object_copy__432;
+  v32[4] = __Block_byref_object_dispose__433;
+  v33 = 0;
   v28 = 0;
-  v21[0] = 0;
-  v21[1] = v21;
-  v21[2] = 0x2020000000;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
   v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__432;
+  v26 = __Block_byref_object_dispose__433;
+  v27 = 0;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x2020000000;
+  v21 = 0;
   v7 = objc_opt_new();
-  v9 = (v24 + 5);
-  v8 = v24[5];
-  v19 = &v29;
+  v9 = (v23 + 5);
+  v8 = v23[5];
+  v18 = &v28;
   obj = v8;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __63__KMPortraitEntitiesBridge_enumerateItemsWithError_usingBlock___block_invoke;
-  v14[3] = &unk_279805BA0;
-  v16 = v33;
-  v17 = v21;
-  v14[4] = self;
-  v18 = &v23;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __63__KMPortraitEntitiesBridge_enumerateItemsWithError_usingBlock___block_invoke;
+  v13[3] = &unk_279805BA0;
+  v15 = v32;
+  v16 = v20;
+  v13[4] = self;
+  v17 = &v22;
   v10 = blockCopy;
-  v15 = v10;
-  [v7 iterRankedNamedEntitiesWithQuery:v6 error:&obj block:v14];
+  v14 = v10;
+  [v7 iterRankedNamedEntitiesWithQuery:v6 error:&obj block:v13];
   objc_storeStrong(v9, obj);
 
-  v11 = *(v30 + 24);
+  v11 = *(v29 + 24);
   if (v11 == 1)
   {
-    v12 = v24[5];
     KVSetError();
   }
 
-  _Block_object_dispose(v21, 8);
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(v20, 8);
+  _Block_object_dispose(&v22, 8);
 
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(v33, 8);
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(v32, 8);
 
   return v11 ^ 1;
 }
 
 void __63__KMPortraitEntitiesBridge_enumerateItemsWithError_usingBlock___block_invoke(void *a1, void *a2, _BYTE *a3)
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = objc_autoreleasePoolPush();
-  v30 = *(a1[4] + 16);
+  v29 = *(a1[4] + 16);
   v7 = MEMORY[0x277CCACA8];
   v8 = *(a1[7] + 8);
   v9 = *(v8 + 24);
   *(v8 + 24) = v9 + 1;
   v10 = [v7 stringWithFormat:@"%ld", v9];
-  v31[0] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+  v30[0] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
   v12 = *(a1[6] + 8);
   v13 = *(v12 + 40);
   *(v12 + 40) = v11;
@@ -104,13 +103,13 @@ void __63__KMPortraitEntitiesBridge_enumerateItemsWithError_usingBlock___block_i
     v20 = KMLogContextCore;
     if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v22 = *(*(a1[8] + 8) + 40);
+      v21 = *(*(a1[8] + 8) + 40);
       *buf = 136315650;
-      v25 = "[KMPortraitEntitiesBridge enumerateItemsWithError:usingBlock:]_block_invoke";
-      v26 = 2112;
-      v27 = v17;
-      v28 = 2112;
-      v29 = v22;
+      v24 = "[KMPortraitEntitiesBridge enumerateItemsWithError:usingBlock:]_block_invoke";
+      v25 = 2112;
+      v26 = v17;
+      v27 = 2112;
+      v28 = v21;
       _os_log_error_impl(&dword_2559DF000, v20, OS_LOG_TYPE_ERROR, "%s Unexepected items: %@ error: %@", buf, 0x20u);
     }
   }
@@ -120,23 +119,22 @@ void __63__KMPortraitEntitiesBridge_enumerateItemsWithError_usingBlock___block_i
 LABEL_7:
 
   objc_autoreleasePoolPop(v6);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (KMPortraitEntitiesBridge)init
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = KMPortraitEntitiesBridge;
-  v2 = [(KMPortraitEntitiesBridge *)&v13 init];
+  v17 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = KMPortraitEntitiesBridge;
+  v2 = [(KMPortraitEntitiesBridge *)&v12 init];
   if (!v2)
   {
     goto LABEL_4;
   }
 
-  v12 = 0;
-  v3 = [objc_alloc(MEMORY[0x277D22D30]) initWithObjectClass:objc_opt_class() error:&v12];
-  v4 = v12;
+  v11 = 0;
+  v3 = [objc_alloc(MEMORY[0x277D22D30]) initWithObjectClass:objc_opt_class() error:&v11];
+  v4 = v11;
   itemMapper = v2->_itemMapper;
   v2->_itemMapper = v3;
 
@@ -155,16 +153,15 @@ LABEL_4:
   if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v15 = "[KMPortraitEntitiesBridge init]";
-    v16 = 2112;
-    v17 = v4;
+    v14 = "[KMPortraitEntitiesBridge init]";
+    v15 = 2112;
+    v16 = v4;
     _os_log_error_impl(&dword_2559DF000, v9, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
   }
 
   v8 = 0;
 LABEL_8:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

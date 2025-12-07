@@ -24,7 +24,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v10 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -35,26 +35,26 @@
       v5 = equalCopy;
       name = [(TINameReadingPair *)self name];
       name2 = [(TINameReadingPair *)v5 name];
-      if ([name isEqualToString:name2])
+      if (objc_msgSend_isEqualToString_(name))
       {
         reading = [(TINameReadingPair *)self reading];
         reading2 = [(TINameReadingPair *)v5 reading];
-        v10 = [reading isEqualToString:reading2];
+        isEqualToString = objc_msgSend_isEqualToString_(reading);
       }
 
       else
       {
-        v10 = 0;
+        isEqualToString = 0;
       }
     }
 
     else
     {
-      v10 = 0;
+      isEqualToString = 0;
     }
   }
 
-  return v10;
+  return isEqualToString;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

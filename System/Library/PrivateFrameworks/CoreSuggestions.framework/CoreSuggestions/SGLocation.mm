@@ -1,7 +1,6 @@
 @interface SGLocation
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToLocation:(id)location;
-- (BOOL)isGeocoded;
 - (NSString)description;
 - (SGLocation)initWithCoder:(id)coder;
 - (SGLocation)initWithId:(id)id origin:(id)origin type:(unint64_t)type label:(id)label address:(id)address airportCode:(id)code latitude:(double)latitude longitude:(double)self0 accuracy:(double)self1 quality:(double)self2 handle:(id)self3 country:(id)self4 state:(id)self5 city:(id)self6 thoroughfare:(id)self7 subThoroughfare:(id)self8 postalCode:(id)self9;
@@ -100,19 +99,9 @@ LABEL_7:
 
 - (NSString)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  latitude = self->_latitude;
-  label = self->_label;
-  v6 = [v3 initWithFormat:@"<SGLocation@%0.2f/%0.2f label: '%@' address: '%@'>", *&latitude, *&self->_longitude, label, self->_address];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"<SGLocation@%0.2f/%0.2f label: '%@' address: '%@'>", *&self->_latitude, *&self->_longitude, self->_label, self->_address];
 
-  return v6;
-}
-
-- (BOOL)isGeocoded
-{
-  latitude = self->_latitude;
-  longitude = self->_longitude;
-  return 1;
+  return v2;
 }
 
 - (int64_t)compare:(id)compare

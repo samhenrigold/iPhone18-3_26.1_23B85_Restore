@@ -106,7 +106,7 @@ void __44__BLSHDiagnosticsServer_domainSpecification__block_invoke()
       v19 = bls_diagnostics_log();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        [(BLSHDiagnosticsServer *)v16 initWithFlipbookDiagnosticsProvider:?];
+        [BLSHDiagnosticsServer initWithFlipbookDiagnosticsProvider:];
       }
 
       [v16[2] activate];
@@ -210,85 +210,65 @@ uint64_t __67__BLSHDiagnosticsServer_listener_didReceiveConnection_withContext__
 
 + (void)serverWithFlipbookDiagnosticsProvider:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_0_4(&dword_21FD11000, v0, v1, "did startServer:%{public}@ withFlipbookDiagnosticsProvider:%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __44__BLSHDiagnosticsServer_domainSpecification__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_fault_impl(&dword_21FD11000, v1, OS_LOG_TYPE_FAULT, "if we own the defaultShellMachName:%{public}@ then BacklightServices.diagnostics must be registered there not:%@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_fault_impl(&dword_21FD11000, v1, OS_LOG_TYPE_FAULT, "if we own the defaultShellMachName:%{public}@ then BacklightServices.diagnostics must be registered there not:%@", v2, 0x16u);
 }
 
 - (void)initWithFlipbookDiagnosticsProvider:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 identifier];
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_debug_impl(&dword_21FD11000, a3, OS_LOG_TYPE_DEBUG, "%{public}@ init with diagnostics domain:%{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithFlipbookDiagnosticsProvider:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_4(&dword_21FD11000, v3, v4, "%p diagnostics init with listener:%{public}@");
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_debug_impl(&dword_21FD11000, a3, OS_LOG_TYPE_DEBUG, "%{public}@ init with diagnostics domain:%{public}@", &v6, 0x16u);
 }
 
 void __61__BLSHDiagnosticsServer_initWithFlipbookDiagnosticsProvider___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_debug_impl(&dword_21FD11000, a2, OS_LOG_TYPE_DEBUG, "%p did config diagnostics server", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_debug_impl(&dword_21FD11000, a2, OS_LOG_TYPE_DEBUG, "%p did config diagnostics server", &v3, 0xCu);
 }
 
 - (void)listener:didReceiveConnection:withContext:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_0_4(&dword_21FD11000, v0, v1, "%p did activate diagnostics peer:%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __67__BLSHDiagnosticsServer_listener_didReceiveConnection_withContext___block_invoke_cold_1(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 134218242;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 134218242;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_0_4(&dword_21FD11000, v1, v2, "%p did configure diagnostics connection:%{public}@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_4(&dword_21FD11000, v1, v2, "%p did configure diagnostics connection:%{public}@", v3, DWORD2(v3));
 }
 
 void __67__BLSHDiagnosticsServer_listener_didReceiveConnection_withContext___block_invoke_8_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(*(*(a1 + 48) + 8) + 40);
-  v5 = 134218242;
-  v6 = v2;
-  v7 = 2114;
-  v8 = v3;
-  _os_log_debug_impl(&dword_21FD11000, a2, OS_LOG_TYPE_DEBUG, "%p did invalidate diagnostics connection for interfaceTarget:%{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218242;
+  v5 = v2;
+  v6 = 2114;
+  v7 = v3;
+  _os_log_debug_impl(&dword_21FD11000, a2, OS_LOG_TYPE_DEBUG, "%p did invalidate diagnostics connection for interfaceTarget:%{public}@", &v4, 0x16u);
 }
 
 @end

@@ -1,5 +1,6 @@
 @interface NCSetCaptureModeResponse
 - (BOOL)isEqual:(id)equal;
+- (id)captureModeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -25,6 +26,21 @@
   {
     return 0;
   }
+}
+
+- (id)captureModeAsString:(int)string
+{
+  if (string < 0xD && ((0x1FABu >> string) & 1) != 0)
+  {
+    v4 = *(&off_100035058 + string);
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCaptureMode:(id)mode
@@ -156,26 +172,24 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    captureMode = self->_captureMode;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    success = self->_success;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_internalState)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -237,7 +251,6 @@
     goto LABEL_12;
   }
 
-  v5 = *(equalCopy + 28);
   if (*&self->_has)
   {
     if ((*(equalCopy + 28) & 1) == 0 || self->_captureMode != *(equalCopy + 2))
@@ -259,7 +272,7 @@
     }
 
 LABEL_12:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_13;
   }
 
@@ -268,7 +281,6 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v9 = *(equalCopy + 24);
   if (self->_success)
   {
     if ((*(equalCopy + 24) & 1) == 0)
@@ -286,17 +298,17 @@ LABEL_9:
   internalState = self->_internalState;
   if (internalState | *(equalCopy + 2))
   {
-    v7 = [(NCCameraStateChangedRequest *)internalState isEqual:?];
+    v6 = [(NCCameraStateChangedRequest *)internalState isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_13:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

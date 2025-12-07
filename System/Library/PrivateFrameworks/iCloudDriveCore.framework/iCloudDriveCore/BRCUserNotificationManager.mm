@@ -31,18 +31,16 @@
 
 - (id)_notificationCategories
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CE1F80] actionWithIdentifier:@"APPROVE_ACTION" title:@"Approve" options:1];
   v3 = [MEMORY[0x277CE1F80] actionWithIdentifier:@"DECLINE_ACTION" title:@"Decline" options:1];
   v4 = MEMORY[0x277CE1F98];
-  v10[0] = v2;
-  v10[1] = v3;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[0] = v2;
+  v9[1] = v3;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   v6 = [v4 categoryWithIdentifier:@"com.apple.bird.notifications.request.access" actions:v5 intentIdentifiers:MEMORY[0x277CBEBF8] options:1];
 
   v7 = [MEMORY[0x277CBEB98] setWithObject:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -75,19 +73,19 @@
 
 void __61__BRCUserNotificationManager__getSessionContextForAccountID___block_invoke(uint64_t a1)
 {
-  v1 = (a1 + 40);
+  v1 = a1 + 40;
   v2 = [*(*(a1 + 32) + 24) objectForKeyedSubscript:*(a1 + 40)];
-  v3 = *(v1[1] + 8);
+  v3 = *(*(v1 + 8) + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  if (!*(*(v1[1] + 8) + 40))
+  if (!*(*(*(v1 + 8) + 8) + 40))
   {
     v5 = brc_bread_crumbs();
     v6 = brc_default_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      __61__BRCUserNotificationManager__getSessionContextForAccountID___block_invoke_cold_1(v1);
+      __61__BRCUserNotificationManager__getSessionContextForAccountID___block_invoke_cold_1();
     }
   }
 }
@@ -213,35 +211,35 @@ void __67__BRCUserNotificationManager_unRegisterSessionContextForAccountID___blo
 
 void __67__BRCUserNotificationManager_unRegisterSessionContextForAccountID___block_invoke_2(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
   if (WeakRetained)
   {
-    v19 = WeakRetained;
+    v18 = WeakRetained;
     v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v3, "count")}];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v20 = v3;
+    v19 = v3;
     v7 = v3;
-    v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v22;
+      v10 = *v21;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v22 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * i);
+          v12 = *(*(&v20 + 1) + 8 * i);
           v13 = [v12 request];
           v14 = [v13 identifier];
           v15 = [v14 containsString:*(a1 + 32)];
@@ -254,19 +252,17 @@ void __67__BRCUserNotificationManager_unRegisterSessionContextForAccountID___blo
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v9);
     }
 
-    v5 = v19;
-    [v19[1] removeDeliveredNotificationsWithIdentifiers:v6];
+    v5 = v18;
+    [v18[1] removeDeliveredNotificationsWithIdentifiers:v6];
 
-    v3 = v20;
+    v3 = v19;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDeliveredNotificationsMatchingPredicate:(id)predicate
@@ -285,29 +281,29 @@ void __67__BRCUserNotificationManager_unRegisterSessionContextForAccountID___blo
 
 void __76__BRCUserNotificationManager_removeDeliveredNotificationsMatchingPredicate___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v17 = objc_opt_new();
+  v16 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = [v9 request];
         v11 = [v10 identifier];
         v12 = [BRCUserNotificationRequestAccessRequestID decodeWithRequestIDString:v11];
@@ -322,27 +318,25 @@ void __76__BRCUserNotificationManager_removeDeliveredNotificationsMatchingPredic
         if ((*(*(a1 + 40) + 16))())
         {
           v15 = [v12 encode];
-          [v17 addObject:v15];
+          [v16 addObject:v15];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
 
-  if ([v17 count])
+  if ([v16 count])
   {
-    [*(*(a1 + 32) + 8) removeDeliveredNotificationsWithIdentifiers:v17];
+    [*(*(a1 + 32) + 8) removeDeliveredNotificationsWithIdentifiers:v16];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_buildNotificationWithMetadata:(id)metadata requestID:(id)d
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   dCopy = d;
   v7 = objc_alloc_init(MEMORY[0x277CE1F60]);
@@ -370,9 +364,9 @@ void __76__BRCUserNotificationManager_removeDeliveredNotificationsMatchingPredic
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
     thumbnailURL2 = [metadataCopy thumbnailURL];
-    v33 = 0;
-    v18 = [v14 attachmentWithIdentifier:uUIDString URL:thumbnailURL2 options:0 error:&v33];
-    v19 = v33;
+    v32 = 0;
+    v18 = [v14 attachmentWithIdentifier:uUIDString URL:thumbnailURL2 options:0 error:&v32];
+    v19 = v32;
 
     if (v19 || !v18)
     {
@@ -386,8 +380,8 @@ void __76__BRCUserNotificationManager_removeDeliveredNotificationsMatchingPredic
 
     else
     {
-      v34[0] = v18;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+      v33[0] = v18;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
       [v7 setAttachments:v20];
     }
   }
@@ -419,8 +413,6 @@ void __76__BRCUserNotificationManager_removeDeliveredNotificationsMatchingPredic
   v28 = MEMORY[0x277CE1FC0];
   encode = [dCopy encode];
   v30 = [v28 requestWithIdentifier:encode content:v7 trigger:0];
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -517,7 +509,7 @@ void __76__BRCUserNotificationManager_removeDeliveredNotificationsMatchingPredic
 
 void __72__BRCUserNotificationManager_schedulePendingNotificationWithIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -525,18 +517,16 @@ void __72__BRCUserNotificationManager_schedulePendingNotificationWithIdentifier_
     v5 = brc_default_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v7 = [*(a1 + 32) identifier];
-      v8 = 138412802;
-      v9 = v7;
-      v10 = 2112;
-      v11 = v3;
-      v12 = 2112;
-      v13 = v4;
-      _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] Error while adding notification request %@ %@%@", &v8, 0x20u);
+      v6 = [*(a1 + 32) identifier];
+      v7 = 138412802;
+      v8 = v6;
+      v9 = 2112;
+      v10 = v3;
+      v11 = 2112;
+      v12 = v4;
+      _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] Error while adding notification request %@ %@%@", &v7, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleNotificationWithMetadata:(id)metadata requestID:(id)d
@@ -555,7 +545,7 @@ void __72__BRCUserNotificationManager_schedulePendingNotificationWithIdentifier_
 
 void __73__BRCUserNotificationManager_scheduleNotificationWithMetadata_requestID___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -563,23 +553,21 @@ void __73__BRCUserNotificationManager_scheduleNotificationWithMetadata_requestID
     v5 = brc_default_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v7 = *(a1 + 32);
-      v8 = 138412802;
-      v9 = v7;
-      v10 = 2112;
-      v11 = v3;
-      v12 = 2112;
-      v13 = v4;
-      _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] Error while adding notification request %@ %@%@", &v8, 0x20u);
+      v6 = *(a1 + 32);
+      v7 = 138412802;
+      v8 = v6;
+      v9 = 2112;
+      v10 = v3;
+      v11 = 2112;
+      v12 = v4;
+      _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] Error while adding notification request %@ %@%@", &v7, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   handlerCopy = handler;
   notification = [responseCopy notification];
@@ -591,13 +579,13 @@ void __73__BRCUserNotificationManager_scheduleNotificationWithMetadata_requestID
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     actionIdentifier = [responseCopy actionIdentifier];
-    v25 = 138412802;
-    v26 = actionIdentifier;
-    v27 = 2112;
-    v28 = identifier;
-    v29 = 2112;
-    v30 = v12;
-    _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] Received notification response %@ for request %@%@", &v25, 0x20u);
+    v24 = 138412802;
+    v25 = actionIdentifier;
+    v26 = 2112;
+    v27 = identifier;
+    v28 = 2112;
+    v29 = v12;
+    _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] Received notification response %@ for request %@%@", &v24, 0x20u);
   }
 
   v14 = [BRCUserNotificationRequestAccessRequestID decodeWithRequestIDString:identifier];
@@ -646,99 +634,62 @@ LABEL_12:
   }
 
 LABEL_15:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-void __61__BRCUserNotificationManager__getSessionContextForAccountID___block_invoke_cold_1(uint64_t *a1)
+void __61__BRCUserNotificationManager__getSessionContextForAccountID___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_9();
-  _os_log_fault_impl(v2, v3, OS_LOG_TYPE_FAULT, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x16u);
 }
 
 - (void)registerSessionContext:forAccountID:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] Trying to register session context for nil account ID%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] Trying to register session context for nil account ID%@", v1, 0xCu);
 }
 
 - (void)unRegisterSessionContextForAccountID:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] Trying to un register session context for nil account ID%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_buildNotificationWithMetadata:requestID:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Could not attach thumbnail to notification: %@%@");
   v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1();
+  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] Trying to un register session context for nil account ID%@", v1, 0xCu);
 }
 
 - (void)addPendingNotificationWithMetadata:(void *)a1 requestID:forKey:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v2, v3, "[DEBUG] Adding %@ to pending notifications%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v2, v3, "[DEBUG] Adding %@ to pending notifications%@", v4, v5, v6, v7);
 }
 
 - (void)addPendingNotificationWithMetadata:requestID:forKey:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: request%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: request%@", v1, 0xCu);
 }
 
 - (void)addPendingNotificationWithMetadata:requestID:forKey:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_20(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)schedulePendingNotificationWithIdentifier:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: identifier%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: identifier%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)schedulePendingNotificationWithIdentifier:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Couldn't find notification request for %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Got unknown request ID %@%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

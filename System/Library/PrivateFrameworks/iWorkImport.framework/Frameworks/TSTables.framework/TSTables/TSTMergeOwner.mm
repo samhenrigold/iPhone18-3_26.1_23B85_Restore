@@ -76,33 +76,33 @@
 - (TSTMergeOwner)initWithTableModel:(id)model ownerUID:(const TSKUIDStruct *)d
 {
   modelCopy = model;
-  v31.receiver = self;
-  v31.super_class = TSTMergeOwner;
-  v7 = [(TSTMergeOwner *)&v31 init];
+  v27.receiver = self;
+  v27.super_class = TSTMergeOwner;
+  v7 = [(TSTMergeOwner *)&v27 init];
   v8 = v7;
   if (v7)
   {
     objc_storeWeak(&v7->_tableModel, modelCopy);
     if (*d == 0)
     {
-      v12 = MEMORY[0x277D81150];
-      v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSTMergeOwner initWithTableModel:ownerUID:]", v10, v11);
-      v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v15, v16);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v18, v13, v17, 87, 0, "valid ownerUID is required");
+      v11 = MEMORY[0x277D81150];
+      v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSTMergeOwner initWithTableModel:ownerUID:]", v10);
+      v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v14);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v16, v12, v15, 87, 0, "valid ownerUID is required");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21, v22);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19);
     }
 
     v8->_ownerUID = *d;
-    v23 = [TSTFormulaStore alloc];
-    v26 = objc_msgSend_initWithOwnerUID_(v23, v24, d->_lower, d->_upper, v25);
+    v20 = [TSTFormulaStore alloc];
+    v22 = objc_msgSend_initWithOwnerUID_(v20, v21, d->_lower, d->_upper);
     formulaStore = v8->_formulaStore;
-    v8->_formulaStore = v26;
+    v8->_formulaStore = v22;
 
     v8->_mergeCacheLoaded = 0;
-    v28 = objc_alloc_init(TSTCellRangeCache);
+    v24 = objc_alloc_init(TSTCellRangeCache);
     mergeRangeCache = v8->_mergeRangeCache;
-    v8->_mergeRangeCache = v28;
+    v8->_mergeRangeCache = v24;
   }
 
   return v8;
@@ -111,13 +111,13 @@
 - (TSTMergeOwner)initWithTableModel:(id)model
 {
   modelCopy = model;
-  *&v17 = objc_msgSend_tableUID(modelCopy, v5, v6, v7, v8);
-  *(&v17 + 1) = v9;
-  v18[0] = sub_2212C4930(&v17, 5, v10, v11, v12);
-  v18[1] = v13;
-  v15 = objc_msgSend_initWithTableModel_ownerUID_(self, v13, modelCopy, v18, v14);
+  *&v14 = objc_msgSend_tableUID(modelCopy, v5, v6, v7);
+  *(&v14 + 1) = v8;
+  v15[0] = sub_2212C4930(&v14, 5, v9, v10);
+  v15[1] = v11;
+  v12 = objc_msgSend_initWithTableModel_ownerUID_(self, v11, modelCopy, v15);
 
-  return v15;
+  return v12;
 }
 
 - (TSTMergeChangeDistributor)mergeChangeDistributor
@@ -138,56 +138,56 @@
 - (void)rollbackToMark:(unint64_t)mark
 {
   WeakRetained = objc_loadWeakRetained(&self->_tableModel);
-  objc_msgSend_willModify(WeakRetained, v6, v7, v8, v9);
+  objc_msgSend_willModify(WeakRetained, v6, v7, v8);
 
-  objc_msgSend_rollbackToMark_(self->_formulaStore, v10, mark, v11, v12);
+  objc_msgSend_rollbackToMark_(self->_formulaStore, v9, mark, v10);
 
-  objc_msgSend_resetMergeCache(self, v13, v14, v15, v16);
+  objc_msgSend_resetMergeCache(self, v11, v12, v13);
 }
 
 - (id)allMergesAsString
 {
-  v6 = objc_msgSend_string(MEMORY[0x277CCAB68], a2, v2, v3, v4);
-  v11 = objc_msgSend_mergeRangeCache(self, v7, v8, v9, v10);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = sub_221397900;
-  v26[3] = &unk_2784611F8;
-  v12 = v6;
-  v27 = v12;
-  objc_msgSend_enumerateCacheItemsUsingBlock_(v11, v13, v26, v14, v15);
+  v5 = objc_msgSend_string(MEMORY[0x277CCAB68], a2, v2, v3);
+  v9 = objc_msgSend_mergeRangeCache(self, v6, v7, v8);
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = sub_221397900;
+  v21[3] = &unk_2784611F8;
+  v10 = v5;
+  v22 = v10;
+  objc_msgSend_enumerateCacheItemsUsingBlock_(v9, v11, v21, v12);
 
-  v20 = objc_msgSend_whitespaceCharacterSet(MEMORY[0x277CCA900], v16, v17, v18, v19);
-  v24 = objc_msgSend_stringByTrimmingCharactersInSet_(v12, v21, v20, v22, v23);
+  v16 = objc_msgSend_whitespaceCharacterSet(MEMORY[0x277CCA900], v13, v14, v15);
+  v19 = objc_msgSend_stringByTrimmingCharactersInSet_(v10, v17, v16, v18);
 
-  return v24;
+  return v19;
 }
 
 - (TSTMergeOwner)initWithArchive:(const void *)archive unarchiver:(id)unarchiver forTableModel:(id)model
 {
   unarchiverCopy = unarchiver;
   modelCopy = model;
-  v18[0] = TSKUIDStruct::loadFromMessage();
-  v18[1] = v10;
-  v12 = objc_msgSend_initWithTableModel_ownerUID_(self, v10, modelCopy, v18, v11);
-  if (v12 && (*(archive + 16) & 2) != 0)
+  v17[0] = TSKUIDStruct::loadFromMessage();
+  v17[1] = v10;
+  v11 = objc_msgSend_initWithTableModel_ownerUID_(self, v10, modelCopy, v17);
+  if (v11 && (*(archive + 16) & 2) != 0)
   {
-    v13 = [TSTFormulaStore alloc];
+    v12 = [TSTFormulaStore alloc];
     if (*(archive + 4))
     {
-      v15 = objc_msgSend_initWithOwnerUID_archive_unarchiver_(v13, v14, &v12->_ownerUID, *(archive + 4), unarchiverCopy);
+      v14 = objc_msgSend_initWithOwnerUID_archive_unarchiver_(v12, v13, &v11->_ownerUID, *(archive + 4), unarchiverCopy);
     }
 
     else
     {
-      v15 = objc_msgSend_initWithOwnerUID_archive_unarchiver_(v13, v14, &v12->_ownerUID, &TST::_FormulaStoreArchive_default_instance_, unarchiverCopy);
+      v14 = objc_msgSend_initWithOwnerUID_archive_unarchiver_(v12, v13, &v11->_ownerUID, &TST::_FormulaStoreArchive_default_instance_, unarchiverCopy);
     }
 
-    formulaStore = v12->_formulaStore;
-    v12->_formulaStore = v15;
+    formulaStore = v11->_formulaStore;
+    v11->_formulaStore = v14;
   }
 
-  return v12;
+  return v11;
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
@@ -212,20 +212,20 @@
   if (formulaStore)
   {
     *(archive + 4) |= 2u;
-    v11 = *(archive + 4);
-    if (!v11)
+    v10 = *(archive + 4);
+    if (!v10)
     {
-      v12 = *(archive + 1);
-      if (v12)
+      v11 = *(archive + 1);
+      if (v11)
       {
-        v12 = *(v12 & 0xFFFFFFFFFFFFFFFELL);
+        v11 = *(v11 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v11 = google::protobuf::Arena::CreateMaybeMessage<TST::FormulaStoreArchive>(v12);
-      *(archive + 4) = v11;
+      v10 = google::protobuf::Arena::CreateMaybeMessage<TST::FormulaStoreArchive>(v11);
+      *(archive + 4) = v10;
     }
 
-    objc_msgSend_saveToArchive_archiver_(formulaStore, v8, v11, archiverCopy, v9);
+    objc_msgSend_saveToArchive_archiver_(formulaStore, v8, v10, archiverCopy);
   }
 }
 
@@ -234,7 +234,7 @@
   upper = d._upper;
   lower = d._lower;
   WeakRetained = objc_loadWeakRetained(&self->_tableModel);
-  objc_msgSend_willModify(WeakRetained, v7, v8, v9, v10);
+  objc_msgSend_willModify(WeakRetained, v7, v8, v9);
 
   self->_ownerUID._lower = lower;
   self->_ownerUID._upper = upper;
@@ -242,7 +242,7 @@
   if (formulaStore)
   {
 
-    objc_msgSend_setFormulaOwnerUID_(formulaStore, v11, lower, upper, v12);
+    objc_msgSend_setFormulaOwnerUID_(formulaStore, v10, lower, upper);
   }
 }
 
@@ -260,70 +260,70 @@
 
   if (!WeakRetained)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSTMergeOwner mergeIndexesForRange:]", v7, v8);
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v12, v13);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v15, v10, v14, 209, 0, "The tableModel must be set on the mergeOwner before this API can be used.");
+    v8 = MEMORY[0x277D81150];
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSTMergeOwner mergeIndexesForRange:]", v7);
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v11);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v12, 209, 0, "The tableModel must be set on the mergeOwner before this API can be used.");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18, v19);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
   }
 
-  objc_msgSend_loadMergeCache(self, v5, v6, v7, v8, *&var0.origin, *&var0.size);
+  objc_msgSend_loadMergeCache(self, v5, v6, v7, *&var0.origin, *&var0.size);
   if (TSUCellRect::isValid(&var0))
   {
-    v22 = objc_msgSend_indexesForRange_(self->_mergeRangeCache, v20, *&var0.origin, *&var0.size, v21);
+    v18 = objc_msgSend_indexesForRange_(self->_mergeRangeCache, v17, *&var0.origin, *&var0.size);
   }
 
   else
   {
-    v22 = 0;
+    v18 = 0;
   }
 
-  return v22;
+  return v18;
 }
 
 - (id)mergeIndexesForBaseCellRegion:(id)region
 {
   regionCopy = region;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = sub_221397E90;
-  v24 = sub_221397EA0;
-  v25 = 0;
-  if (objc_msgSend_isValid(regionCopy, v5, v6, v7, v8) && (objc_msgSend_isEmpty(regionCopy, v9, v10, v11, v12) & 1) == 0)
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_221397E90;
+  v21 = sub_221397EA0;
+  v22 = 0;
+  if (objc_msgSend_isValid(regionCopy, v5, v6, v7) && (objc_msgSend_isEmpty(regionCopy, v8, v9, v10) & 1) == 0)
   {
-    v13 = objc_autoreleasePoolPush();
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = sub_221397EA8;
-    v19[3] = &unk_2784611A8;
-    v19[4] = self;
-    v19[5] = &v20;
-    objc_msgSend_enumerateModelCellRectsUsingBlock_(regionCopy, v14, v19, v15, v16);
-    objc_autoreleasePoolPop(v13);
+    v11 = objc_autoreleasePoolPush();
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = sub_221397EA8;
+    v16[3] = &unk_2784611A8;
+    v16[4] = self;
+    v16[5] = &v17;
+    objc_msgSend_enumerateModelCellRectsUsingBlock_(regionCopy, v12, v16, v13);
+    objc_autoreleasePoolPop(v11);
   }
 
-  v17 = v21[5];
-  _Block_object_dispose(&v20, 8);
+  v14 = v18[5];
+  _Block_object_dispose(&v17, 8);
 
-  return v17;
+  return v14;
 }
 
 - (unint64_t)count
 {
-  objc_msgSend_loadMergeCache(self, a2, v2, v3, v4);
+  objc_msgSend_loadMergeCache(self, a2, v2, v3);
   mergeRangeCache = self->_mergeRangeCache;
 
-  return objc_msgSend_count(mergeRangeCache, v6, v7, v8, v9);
+  return objc_msgSend_count(mergeRangeCache, v5, v6, v7);
 }
 
 - (BOOL)isEmpty
 {
-  objc_msgSend_loadMergeCache(self, a2, v2, v3, v4);
+  objc_msgSend_loadMergeCache(self, a2, v2, v3);
   mergeRangeCache = self->_mergeRangeCache;
 
-  return objc_msgSend_isEmpty(mergeRangeCache, v6, v7, v8, v9);
+  return objc_msgSend_isEmpty(mergeRangeCache, v5, v6, v7);
 }
 
 - (void)p_updateOriginMapWithSourceCellCoord:(TSUModelCellCoord)coord destCellCoord:(TSUModelCellCoord)cellCoord
@@ -338,7 +338,7 @@
       v6 = v5;
       v16 = v5[3];
       v19 = &v16;
-      v7 = sub_22139DE94(&self->_mergeOriginsMap.__table_.__bucket_list_.__ptr_, &v16);
+      v7 = sub_22139DE94(&self->_mergeOriginsMap.__table_.__bucket_list_.__ptr_, &v16, &unk_2217E18F0, &v19);
       v7[3] = cellCoordCopy;
       sub_2210CDD3C(&self->_reverseOriginsMap.__table_.__bucket_list_.__ptr_, v6);
       v19 = &cellCoordCopy;
@@ -352,10 +352,10 @@
       if (!v10)
       {
         v19 = &coordCopy;
-        v15 = sub_22139DE94(&self->_mergeOriginsMap.__table_.__bucket_list_.__ptr_, &coordCopy);
+        v15 = sub_22139DE94(&self->_mergeOriginsMap.__table_.__bucket_list_.__ptr_, &coordCopy, &unk_2217E18F0, &v19);
         v15[3] = cellCoordCopy;
         v19 = &cellCoordCopy;
-        v13 = sub_22139DE94(&self->_reverseOriginsMap.__table_.__bucket_list_.__ptr_, &cellCoordCopy);
+        v13 = sub_22139DE94(&self->_reverseOriginsMap.__table_.__bucket_list_.__ptr_, &cellCoordCopy, &unk_2217E18F0, &v19);
         v14 = coordCopy;
         goto LABEL_8;
       }
@@ -363,7 +363,7 @@
       v11 = v10;
       v16 = v10[3];
       v19 = &v16;
-      v12 = sub_22139DE94(&self->_reverseOriginsMap.__table_.__bucket_list_.__ptr_, &v16);
+      v12 = sub_22139DE94(&self->_reverseOriginsMap.__table_.__bucket_list_.__ptr_, &v16, &unk_2217E18F0, &v19);
       v12[3] = coordCopy;
       sub_2210CDD3C(&self->_mergeOriginsMap.__table_.__bucket_list_.__ptr_, v11);
       v19 = &coordCopy;
@@ -371,7 +371,7 @@
       v9 = &coordCopy;
     }
 
-    v13 = sub_22139DE94(p_reverseOriginsMap, v9);
+    v13 = sub_22139DE94(p_reverseOriginsMap, v9, &unk_2217E18F0, &v19);
     v14 = v16;
 LABEL_8:
     v13[3] = v14;
@@ -381,29 +381,29 @@ LABEL_8:
 - (void)p_moveCellFromCellCoord:(TSUModelCellCoord)coord toCellCoord:(TSUModelCellCoord)cellCoord
 {
   WeakRetained = objc_loadWeakRetained(&self->_tableModel);
-  v42 = objc_msgSend_cellAtBaseCellCoord_(WeakRetained, v8, *&coord, v9, v10);
+  v34 = objc_msgSend_cellAtBaseCellCoord_(WeakRetained, v8, *&coord, v9);
 
-  if (v42)
+  if (v34)
   {
-    v13 = objc_loadWeakRetained(&self->_tableModel);
-    v18 = objc_msgSend_newCell(v13, v14, v15, v16, v17);
+    v11 = objc_loadWeakRetained(&self->_tableModel);
+    v15 = objc_msgSend_newCell(v11, v12, v13, v14);
 
-    objc_msgSend_clear(v18, v19, v20, v21, v22);
-    objc_msgSend_copyJustStrokesToCell_(v42, v23, v18, v24, v25);
-    objc_msgSend_clearStrokes(v42, v26, v27, v28, v29);
-    v30 = objc_loadWeakRetained(&self->_tableModel);
-    objc_msgSend_setCell_atBaseCellCoord_ignoreFormula_clearImportWarnings_(v30, v31, v18, *&coord, 0, 0);
+    objc_msgSend_clear(v15, v16, v17, v18);
+    objc_msgSend_copyJustStrokesToCell_(v34, v19, v15, v20);
+    objc_msgSend_clearStrokes(v34, v21, v22, v23);
+    v24 = objc_loadWeakRetained(&self->_tableModel);
+    objc_msgSend_setCell_atBaseCellCoord_ignoreFormula_clearImportWarnings_(v24, v25, v15, *&coord, 0, 0);
 
-    v32 = objc_loadWeakRetained(&self->_tableModel);
-    objc_msgSend_setCell_atBaseCellCoord_ignoreFormula_clearImportWarnings_(v32, v33, v42, *&cellCoord, 0, 0);
+    v26 = objc_loadWeakRetained(&self->_tableModel);
+    objc_msgSend_setCell_atBaseCellCoord_ignoreFormula_clearImportWarnings_(v26, v27, v34, *&cellCoord, 0, 0);
 
-    if (TSULogCat_IsCategoryEnabled() && objc_msgSend_hasFormula(v42, v34, v35, v36, v37))
+    if (TSULogCat_IsCategoryEnabled() && objc_msgSend_hasFormula(v34, v28, v29, v30))
     {
-      objc_msgSend_formulaObject(v42, v38, v39, v40, v41);
+      objc_msgSend_formulaObject(v34, v31, v32, v33);
     }
   }
 
-  objc_msgSend_p_updateOriginMapWithSourceCellCoord_destCellCoord_(self, v11, *&coord, *&cellCoord, v12);
+  objc_msgSend_p_updateOriginMapWithSourceCellCoord_destCellCoord_(self, v10, *&coord, *&cellCoord);
 }
 
 - (id)p_shrinkMergesAtIndexes:(id)indexes intersectedByBaseRegion:(id)region formulaReplacer:(id)replacer
@@ -411,152 +411,152 @@ LABEL_8:
   indexesCopy = indexes;
   regionCopy = region;
   replacerCopy = replacer;
-  if (objc_msgSend_count(indexesCopy, v11, v12, v13, v14))
+  if (objc_msgSend_count(indexesCopy, v11, v12, v13))
   {
-    v57 = 0;
-    v58 = &v57;
-    v59 = 0x4812000000;
-    v60 = sub_221398600;
-    v61 = sub_221398624;
-    v62 = &unk_22188E88F;
-    memset(v63, 0, sizeof(v63));
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v56[2] = sub_221398650;
-    v56[3] = &unk_278463AC8;
-    v56[4] = self;
-    v56[5] = &v57;
-    objc_msgSend_enumerateModelCellRectsUsingBlock_(regionCopy, v15, v56, v16, v17);
-    v18 = [TSTMergeAction alloc];
-    v21 = objc_msgSend_initWithType_uidRanges_(v18, v19, 4, (v58 + 6), v20);
-    v54[0] = 0;
-    v54[1] = v54;
-    v54[2] = 0x9812000000;
-    v54[3] = sub_2213987B4;
-    v54[4] = nullsub_57;
-    v54[5] = TSTCategoryAggregateFormulaOwner__ivarLayout;
+    v50 = 0;
+    v51 = &v50;
+    v52 = 0x4812000000;
+    v53 = sub_221398600;
+    v54 = sub_221398624;
+    v55 = &unk_22188E88F;
+    memset(v56, 0, sizeof(v56));
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = sub_221398650;
+    v49[3] = &unk_278463AC8;
+    v49[4] = self;
+    v49[5] = &v50;
+    objc_msgSend_enumerateModelCellRectsUsingBlock_(regionCopy, v14, v49, v15);
+    v16 = [TSTMergeAction alloc];
+    v18 = objc_msgSend_initWithType_uidRanges_(v16, v17, 4, (v51 + 6));
+    v47[0] = 0;
+    v47[1] = v47;
+    v47[2] = 0x9812000000;
+    v47[3] = sub_2213987B4;
+    v47[4] = nullsub_57;
+    v47[5] = TSTCategoryAggregateFormulaOwner__ivarLayout;
     WeakRetained = objc_loadWeakRetained(&self->_calculationEngine);
-    v53.coordinate = 0;
-    v53._tableUID._lower = objc_msgSend_ownerUID(self, v23, v24, v25, v26);
-    v53._tableUID._upper = v27;
-    TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v55, WeakRetained, &v53);
+    v46.coordinate = 0;
+    v46._tableUID._lower = objc_msgSend_ownerUID(self, v20, v21, v22);
+    v46._tableUID._upper = v23;
+    TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v48, WeakRetained, &v46);
 
-    v28 = objc_loadWeakRetained(&self->_tableModel);
-    objc_msgSend_willModify(v28, v29, v30, v31, v32);
+    v24 = objc_loadWeakRetained(&self->_tableModel);
+    objc_msgSend_willModify(v24, v25, v26, v27);
 
-    v44 = MEMORY[0x277D85DD0];
-    v45 = 3221225472;
-    v46 = sub_221398804;
-    v47 = &unk_278463AF0;
+    v37 = MEMORY[0x277D85DD0];
+    v38 = 3221225472;
+    v39 = sub_221398804;
+    v40 = &unk_278463AF0;
     selfCopy = self;
-    v52 = v54;
-    v33 = v21;
-    v49 = v33;
-    v50 = regionCopy;
-    v51 = replacerCopy;
-    objc_msgSend_enumerateIndexesUsingBlock_(indexesCopy, v34, &v44, v35, v36);
-    if (objc_msgSend_hasMergeFormulas(v33, v37, v38, v39, v40, v44, v45, v46, v47, selfCopy))
+    v45 = v47;
+    v28 = v18;
+    v42 = v28;
+    v43 = regionCopy;
+    v44 = replacerCopy;
+    objc_msgSend_enumerateIndexesUsingBlock_(indexesCopy, v29, &v37, v30);
+    if (objc_msgSend_hasMergeFormulas(v28, v31, v32, v33, v37, v38, v39, v40, selfCopy))
     {
-      v41 = v33;
+      v34 = v28;
     }
 
     else
     {
-      v41 = 0;
+      v34 = 0;
     }
 
-    v42 = v41;
+    v35 = v34;
 
-    _Block_object_dispose(v54, 8);
-    _Block_object_dispose(&v57, 8);
-    v54[0] = v63;
-    sub_2210BC30C(v54);
+    _Block_object_dispose(v47, 8);
+    _Block_object_dispose(&v50, 8);
+    v47[0] = v56;
+    sub_2210BC30C(v47);
   }
 
   else
   {
-    v42 = 0;
+    v35 = 0;
   }
 
-  return v42;
+  return v35;
 }
 
 - (id)mergeActionForBaseCellRegion:(id)region
 {
-  v4 = objc_msgSend_mergeActionForBaseCellRegion_nonOriginPartialsOnly_(self, a2, region, 0, v3);
+  v3 = objc_msgSend_mergeActionForBaseCellRegion_nonOriginPartialsOnly_(self, a2, region, 0);
 
-  return v4;
+  return v3;
 }
 
 - (id)mergeActionForBaseCellRegion:(id)region nonOriginPartialsOnly:(BOOL)only
 {
   regionCopy = region;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x4812000000;
-  v49 = sub_221398600;
-  v50 = sub_221398624;
-  v51 = &unk_22188E88F;
-  memset(v52, 0, sizeof(v52));
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = sub_221398DF4;
-  v45[3] = &unk_278463AC8;
-  v45[4] = self;
-  v45[5] = &v46;
-  objc_msgSend_enumerateModelCellRectsUsingBlock_(regionCopy, v7, v45, v8, v9);
-  v10 = [TSTMergeAction alloc];
-  v13 = objc_msgSend_initWithType_uidRanges_(v10, v11, 4, (v47 + 6), v12);
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x4812000000;
+  v43 = sub_221398600;
+  v44 = sub_221398624;
+  v45 = &unk_22188E88F;
+  memset(v46, 0, sizeof(v46));
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = sub_221398DF4;
+  v39[3] = &unk_278463AC8;
+  v39[4] = self;
+  v39[5] = &v40;
+  objc_msgSend_enumerateModelCellRectsUsingBlock_(regionCopy, v7, v39, v8);
+  v9 = [TSTMergeAction alloc];
+  v11 = objc_msgSend_initWithType_uidRanges_(v9, v10, 4, (v41 + 6));
   WeakRetained = objc_loadWeakRetained(&self->_calculationEngine);
 
   if (WeakRetained)
   {
-    v43[0] = 0;
-    v43[1] = v43;
-    v43[2] = 0x9812000000;
-    v43[3] = sub_2213987B4;
-    v43[4] = nullsub_57;
-    v43[5] = TSTCategoryAggregateFormulaOwner__ivarLayout;
-    v15 = objc_loadWeakRetained(&self->_calculationEngine);
-    v42.coordinate = 0;
-    v42._tableUID._lower = objc_msgSend_ownerUID(self, v16, v17, v18, v19);
-    v42._tableUID._upper = v20;
-    TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v44, v15, &v42);
+    v37[0] = 0;
+    v37[1] = v37;
+    v37[2] = 0x9812000000;
+    v37[3] = sub_2213987B4;
+    v37[4] = nullsub_57;
+    v37[5] = TSTCategoryAggregateFormulaOwner__ivarLayout;
+    v13 = objc_loadWeakRetained(&self->_calculationEngine);
+    v36.coordinate = 0;
+    v36._tableUID._lower = objc_msgSend_ownerUID(self, v14, v15, v16);
+    v36._tableUID._upper = v17;
+    TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v38, v13, &v36);
 
-    v24 = objc_msgSend_mergeIndexesForBaseCellRegion_(self, v21, regionCopy, v22, v23);
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = sub_221398F30;
-    v37[3] = &unk_278463B18;
-    v37[4] = self;
+    v20 = objc_msgSend_mergeIndexesForBaseCellRegion_(self, v18, regionCopy, v19);
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = sub_221398F30;
+    v31[3] = &unk_278463B18;
+    v31[4] = self;
     onlyCopy = only;
-    v38 = regionCopy;
-    v40 = v43;
-    v39 = v13;
-    objc_msgSend_enumerateIndexesUsingBlock_(v24, v25, v37, v26, v27);
+    v32 = regionCopy;
+    v34 = v37;
+    v33 = v11;
+    objc_msgSend_enumerateIndexesUsingBlock_(v20, v21, v31, v22);
 
-    _Block_object_dispose(v43, 8);
+    _Block_object_dispose(v37, 8);
   }
 
-  v28 = v13;
-  v33 = objc_msgSend_mergeFormulas(v28, v29, v30, v31, v32);
-  if (v33[1] == *v33)
+  v23 = v11;
+  v27 = objc_msgSend_mergeFormulas(v23, v24, v25, v26);
+  if (v27[1] == *v27)
   {
-    v34 = 0;
+    v28 = 0;
   }
 
   else
   {
-    v34 = v13;
+    v28 = v11;
   }
 
-  v35 = v34;
+  v29 = v28;
 
-  _Block_object_dispose(&v46, 8);
-  v43[0] = v52;
-  sub_2210BC30C(v43);
+  _Block_object_dispose(&v40, 8);
+  v37[0] = v46;
+  sub_2210BC30C(v37);
 
-  return v35;
+  return v29;
 }
 
 - (BOOL)isValidMergeRange:(TSUModelCellRect)range
@@ -568,17 +568,17 @@ LABEL_8:
 
     if (!WeakRetained)
     {
-      v10 = MEMORY[0x277D81150];
-      v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTMergeOwner isValidMergeRange:]", v8, v9);
-      v3 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v13, v14);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v15, v11, v3, 420, 0, "invalid nil value for '%{public}s'", "_tableModel");
+      v9 = MEMORY[0x277D81150];
+      v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTMergeOwner isValidMergeRange:]", v8);
+      v3 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v12);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v13, v10, v3, 420, 0, "invalid nil value for '%{public}s'", "_tableModel");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18, v19);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
     }
 
-    v20 = objc_msgSend_tableModel(self, v6, v7, v8, v9);
-    v25 = objc_msgSend_tableInfo(v20, v21, v22, v23, v24);
-    hasActiveFilters = objc_msgSend_hasActiveFilters(v25, v26, v27, v28, v29);
+    v17 = objc_msgSend_tableModel(self, v6, v7, v8);
+    v21 = objc_msgSend_tableInfo(v17, v18, v19, v20);
+    hasActiveFilters = objc_msgSend_hasActiveFilters(v21, v22, v23, v24);
     if (hasActiveFilters)
     {
       if (var0.size.numberOfRows <= 1)
@@ -589,42 +589,42 @@ LABEL_8:
 
     else
     {
-      v3 = objc_msgSend_tableInfo(v20, v30, v31, v32, v33);
-      if ((objc_msgSend_isCategorized(v3, v36, v37, v38, v39) & 1) == 0 || var0.size.numberOfRows < 2)
+      v3 = objc_msgSend_tableInfo(v17, v25, v26, v27);
+      if ((objc_msgSend_isCategorized(v3, v30, v31, v32) & 1) == 0 || var0.size.numberOfRows < 2)
       {
 
 LABEL_15:
 LABEL_16:
-        v63.origin = objc_msgSend_tableAreaForBaseCellCoord_(v20, v42, *&var0.origin, v43, v44);
-        v45 = TSUCellRect::bottomRight(&var0);
-        v62 = objc_msgSend_tableAreaForBaseCellCoord_(v20, v46, v45, v47, v48);
-        sub_2210F73F8(&v63);
-        sub_2210F73F8(&v62);
-        if (*&v63.origin == v62)
+        v51.origin = objc_msgSend_tableAreaForBaseCellCoord_(v17, v35, *&var0.origin, v36);
+        v37 = TSUCellRect::bottomRight(&var0);
+        v50 = objc_msgSend_tableAreaForBaseCellCoord_(v17, v38, v37, v39);
+        sub_2210F73F8(&v51);
+        sub_2210F73F8(&v50);
+        if (*&v51.origin == v50)
         {
-          v53 = objc_msgSend_tableInfo(v20, v49, v50, v51, v52);
-          v58 = objc_msgSend_hiddenStates(v53, v54, v55, v56, v57);
+          v43 = objc_msgSend_tableInfo(v17, v40, v41, v42);
+          v47 = objc_msgSend_hiddenStates(v43, v44, v45, v46);
 
-          v35 = (var0.size.numberOfRows < 2 || !objc_msgSend_numberOfHiddenRowsInBaseCellRange_(v58, v59, *&var0.origin, *&var0.size, v60)) && ((var0.size.numberOfColumns & 0xFFFE) == 0 || !objc_msgSend_numberOfHiddenColumnsInBaseCellRange_(v58, v59, *&var0.origin, *&var0.size, v60));
+          v29 = (var0.size.numberOfRows < 2 || !objc_msgSend_numberOfHiddenRowsInBaseCellRange_(v47, v48, *&var0.origin, *&var0.size)) && ((var0.size.numberOfColumns & 0xFFFE) == 0 || !objc_msgSend_numberOfHiddenColumnsInBaseCellRange_(v47, v48, *&var0.origin, *&var0.size));
           goto LABEL_25;
         }
 
 LABEL_22:
-        v35 = 0;
+        v29 = 0;
 LABEL_25:
 
-        return v35;
+        return v29;
       }
     }
 
-    v63.origin = objc_msgSend_bodyRowRange(v20, v30, v31, v32, v33);
-    v63.size = v40;
-    v41 = TSUCellRect::intersects(&v63, &var0);
+    v51.origin = objc_msgSend_bodyRowRange(v17, v25, v26, v27);
+    v51.size = v33;
+    v34 = TSUCellRect::intersects(&v51, &var0);
     if ((hasActiveFilters & 1) == 0)
     {
     }
 
-    if (v41)
+    if (v34)
     {
       goto LABEL_22;
     }
@@ -644,12 +644,12 @@ LABEL_25:
 
     if (indexesCopy)
     {
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = sub_2213993A8;
-      v9[3] = &unk_27845E958;
-      v9[4] = self;
-      objc_msgSend_enumerateIndexesUsingBlock_(indexesCopy, v6, v9, v7, v8);
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = sub_2213993A8;
+      v8[3] = &unk_27845E958;
+      v8[4] = self;
+      objc_msgSend_enumerateIndexesUsingBlock_(indexesCopy, v6, v8, v7);
     }
   }
 
@@ -661,9 +661,9 @@ LABEL_25:
 - (void)resetMergeCache
 {
   self->_mergeCacheLoaded = 0;
-  objc_msgSend_clear(self->_mergeRangeCache, a2, v2, v3, v4);
+  objc_msgSend_clear(self->_mergeRangeCache, a2, v2, v3);
 
-  objc_msgSend_loadMergeCache(self, v6, v7, v8, v9);
+  objc_msgSend_loadMergeCache(self, v5, v6, v7);
 }
 
 - (void)loadMergeCache
@@ -674,12 +674,12 @@ LABEL_25:
     if (formulaStore)
     {
       self->_mergeCacheLoaded = 1;
-      v6[0] = MEMORY[0x277D85DD0];
-      v6[1] = 3221225472;
-      v6[2] = sub_221399540;
-      v6[3] = &unk_278460990;
-      v6[4] = self;
-      objc_msgSend_foreach_(formulaStore, a2, v6, v2, v3);
+      v5[0] = MEMORY[0x277D85DD0];
+      v5[1] = 3221225472;
+      v5[2] = sub_221399540;
+      v5[3] = &unk_278460990;
+      v5[4] = self;
+      objc_msgSend_foreach_(formulaStore, a2, v5, v2);
     }
   }
 }
@@ -695,20 +695,20 @@ LABEL_25:
     if (v7)
     {
       v8 = objc_loadWeakRetained(&self->_tableModel);
-      v13 = objc_msgSend_calcEngine(v8, v9, v10, v11, v12);
-      v14 = j__TSUCellRectToTSCERangeCoordinate(*&merge->var0.origin, *&merge->var0.size);
-      v16 = v15;
-      v17 = objc_loadWeakRetained(&self->_tableModel);
-      v42[0] = objc_msgSend_tableUID(v17, v18, v19, v20, v21);
-      v42[1] = v22;
-      v23 = objc_loadWeakRetained(&self->_tableModel);
-      v28 = objc_msgSend_headerRowRange(v23, v24, v25, v26, v27);
-      v30 = j__TSUCellRectToTSCERangeCoordinate(v28, v29);
-      v32 = v31;
-      v33 = objc_loadWeakRetained(&self->_tableModel);
-      v38 = objc_msgSend_headerColumnRange(v33, v34, v35, v36, v37);
-      v40 = j__TSUCellRectToTSCERangeCoordinate(v38, v39);
-      objc_msgSend_dirtyCellsForMergingRange_forTable_headerRowRange_headerColumnRange_(v13, v41, v14, v16, v42, v30, v32, v40, v41);
+      v12 = objc_msgSend_calcEngine(v8, v9, v10, v11);
+      v13 = j__TSUCellRectToTSCERangeCoordinate(*&merge->var0.origin, *&merge->var0.size);
+      v15 = v14;
+      v16 = objc_loadWeakRetained(&self->_tableModel);
+      v38[0] = objc_msgSend_tableUID(v16, v17, v18, v19);
+      v38[1] = v20;
+      v21 = objc_loadWeakRetained(&self->_tableModel);
+      v25 = objc_msgSend_headerRowRange(v21, v22, v23, v24);
+      v27 = j__TSUCellRectToTSCERangeCoordinate(v25, v26);
+      v29 = v28;
+      v30 = objc_loadWeakRetained(&self->_tableModel);
+      v34 = objc_msgSend_headerColumnRange(v30, v31, v32, v33);
+      v36 = j__TSUCellRectToTSCERangeCoordinate(v34, v35);
+      objc_msgSend_dirtyCellsForMergingRange_forTable_headerRowRange_headerColumnRange_(v12, v37, v13, v15, v38, v27, v29, v36, v37);
     }
   }
 }
@@ -718,7 +718,7 @@ LABEL_25:
   size = range.var0.size;
   origin = range.var0.origin;
   rangeCopy = range;
-  isValidMergeRange = objc_msgSend_isValidMergeRange_(self, a2, *&range.var0.origin, *&range.var0.size, v3);
+  isValidMergeRange = objc_msgSend_isValidMergeRange_(self, a2, *&range.var0.origin, *&range.var0.size);
   WeakRetained = objc_loadWeakRetained(&self->_tableModel);
 
   if (WeakRetained)
@@ -731,35 +731,35 @@ LABEL_25:
     goto LABEL_5;
   }
 
-  v13 = MEMORY[0x277D81150];
-  v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSTMergeOwner insertBaseMergeRange:]", v11, v12);
-  v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v16, v17);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v19, v14, v18, 504, 0, "invalid nil value for '%{public}s'", "_tableModel");
+  v11 = MEMORY[0x277D81150];
+  v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSTMergeOwner insertBaseMergeRange:]", v10);
+  v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v14);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v16, v12, v15, 504, 0, "invalid nil value for '%{public}s'", "_tableModel");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23);
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19);
   if (isValidMergeRange)
   {
 LABEL_5:
-    objc_msgSend_loadMergeCache(self, v9, v10, v11, v12);
-    Index = objc_msgSend_reserveNextIndex(self->_formulaStore, v24, v25, v26, v27);
+    objc_msgSend_loadMergeCache(self, v8, v9, v10);
+    Index = objc_msgSend_reserveNextIndex(self->_formulaStore, v20, v21, v22);
     formulaStore = self->_formulaStore;
-    v30 = objc_loadWeakRetained(&self->_tableModel);
-    v67[0] = objc_msgSend_tableUID(v30, v31, v32, v33, v34);
-    v67[1] = v35;
-    v36 = objc_msgSend_createFormulaObjectForRange_atIndex_tableUID_(formulaStore, v35, origin, size, Index, v67);
+    v25 = objc_loadWeakRetained(&self->_tableModel);
+    v53[0] = objc_msgSend_tableUID(v25, v26, v27, v28);
+    v53[1] = v29;
+    v30 = objc_msgSend_createFormulaObjectForRange_atIndex_tableUID_(formulaStore, v29, origin, size, Index, v53);
 
-    v37 = objc_loadWeakRetained(&self->_tableModel);
-    objc_msgSend_willModify(v37, v38, v39, v40, v41);
+    v31 = objc_loadWeakRetained(&self->_tableModel);
+    objc_msgSend_willModify(v31, v32, v33, v34);
 
-    objc_msgSend_setFormulaObject_atIndex_(self->_formulaStore, v42, v36, Index, v43);
-    v48 = objc_msgSend_mergeRangeCache(self, v44, v45, v46, v47);
-    objc_msgSend_setCellRange_atIndex_(v48, v49, origin, size, Index);
+    objc_msgSend_setFormulaObject_atIndex_(self->_formulaStore, v35, v30, Index);
+    v39 = objc_msgSend_mergeRangeCache(self, v36, v37, v38);
+    objc_msgSend_setCellRange_atIndex_(v39, v40, origin, size, Index);
 
-    v52 = objc_msgSend_mergeIndexesForRange_(self, v50, origin, size, v51);
-    objc_msgSend_reloadMergeCacheForIndexes_(self, v53, v52, v54, v55);
-    objc_msgSend_p_dirtyCellsForMerge_(self, v56, &rangeCopy, v57, v58);
-    v63 = objc_msgSend_mergeChangeDistributor(self, v59, v60, v61, v62);
-    objc_msgSend_didMergeRange_(v63, v64, *&rangeCopy.var0.origin, *&rangeCopy.var0.size, v65);
+    v42 = objc_msgSend_mergeIndexesForRange_(self, v41, origin, size);
+    objc_msgSend_reloadMergeCacheForIndexes_(self, v43, v42, v44);
+    objc_msgSend_p_dirtyCellsForMerge_(self, v45, &rangeCopy, v46);
+    v50 = objc_msgSend_mergeChangeDistributor(self, v47, v48, v49);
+    objc_msgSend_didMergeRange_(v50, v51, *&rangeCopy.var0.origin, *&rangeCopy.var0.size);
   }
 
   return isValidMergeRange;
@@ -770,96 +770,96 @@ LABEL_5:
   size = overlaps.var0.size;
   origin = overlaps.var0.origin;
   var0 = overlaps.var0;
-  isValidMergeRange = objc_msgSend_isValidMergeRange_(self, a2, *&overlaps.var0.origin, *&overlaps.var0.size, v3);
+  isValidMergeRange = objc_msgSend_isValidMergeRange_(self, a2, *&overlaps.var0.origin, *&overlaps.var0.size);
   if (isValidMergeRange)
   {
-    objc_msgSend_mergeRangesIntersectingBaseCellRect_(self, v7, origin, size, v8);
-    if (v32 == v33)
+    objc_msgSend_mergeRangesIntersectingBaseCellRect_(self, v6, origin, size);
+    if (v27 == v28)
     {
-      objc_msgSend_insertBaseMergeRange_(self, v32, *&var0.origin, *&var0.size, v10);
+      objc_msgSend_insertBaseMergeRange_(self, v27, *&var0.origin, *&var0.size);
     }
 
     else
     {
-      v30 = 0;
-      v31 = 0;
-      v28 = 0;
-      v29 = &v30;
+      v25 = 0;
+      v26 = 0;
+      v23 = 0;
+      v24 = &v25;
       __p = 0;
-      v27 = 0;
-      sub_2211E5AD4(&__p, v32, v33, (v33 - v32) >> 4);
-      v13 = v32;
-      v14 = v33;
-      while (v13 != v14)
+      v22 = 0;
+      sub_2211E5AD4(&__p, v27, v28, (v28 - v27) >> 4);
+      v9 = v27;
+      v10 = v28;
+      while (v9 != v10)
       {
-        objc_msgSend_removeBaseMergeRange_(self, v11, *v13, v13[1], v12);
-        sub_2212E4518(&v29, v13);
-        v13 += 2;
+        objc_msgSend_removeBaseMergeRange_(self, v8, *v9, v9[1]);
+        sub_2212E4518(&v24, v9, v9);
+        v9 += 2;
       }
 
-      sub_2212E4518(&v29, &var0);
-      v23 = 0;
-      v24 = 0;
-      v25 = 0;
-      if (v31)
+      sub_2212E4518(&v24, &var0, &var0);
+      v18 = 0;
+      v19 = 0;
+      v20 = 0;
+      if (v26)
       {
         do
         {
-          v22 = *(v29 + 28);
-          sub_2212E4768(&v29, &v22);
-          v21 = 0uLL;
-          if (v23 == v24)
+          v17 = *(v24 + 28);
+          sub_2212E4768(&v24, &v17);
+          v16 = 0uLL;
+          if (v18 == v19)
           {
-            v21 = v22;
+            v16 = v17;
           }
 
           else
           {
-            *&v21 = TSUModelCellRect::largestWithoutRectsAndContainsCoord();
-            *(&v21 + 1) = v15;
+            *&v16 = TSUModelCellRect::largestWithoutRectsAndContainsCoord();
+            *(&v16 + 1) = v11;
           }
 
-          if (TSUCellRect::isValid(&v21) && (DWORD2(v21) * HIDWORD(v21)) >= 2)
+          if (TSUCellRect::isValid(&v16) && (DWORD2(v16) * HIDWORD(v16)) >= 2)
           {
-            sub_221083454(&v23, &v21);
+            sub_221083454(&v18, &v16);
           }
         }
 
-        while (v31);
-        v18 = v23;
-        v19 = v24;
-        if (v23 != v24)
+        while (v26);
+        v13 = v18;
+        v14 = v19;
+        if (v18 != v19)
         {
           do
           {
-            objc_msgSend_insertBaseMergeRange_(self, v16, *v18, v18[1], v17, v21);
-            v18 += 2;
+            objc_msgSend_insertBaseMergeRange_(self, v12, *v13, v13[1], v16);
+            v13 += 2;
           }
 
-          while (v18 != v19);
-          v18 = v23;
+          while (v13 != v14);
+          v13 = v18;
         }
 
-        if (v18)
+        if (v13)
         {
-          v24 = v18;
-          operator delete(v18);
+          v19 = v13;
+          operator delete(v13);
         }
       }
 
       if (__p)
       {
-        v27 = __p;
+        v22 = __p;
         operator delete(__p);
       }
 
-      sub_2210BC9F8(&v29, v30);
+      sub_2210BC9F8(&v24, v25);
     }
 
-    if (v32)
+    if (v27)
     {
-      v33 = v32;
-      operator delete(v32);
+      v28 = v27;
+      operator delete(v27);
     }
   }
 
@@ -870,176 +870,176 @@ LABEL_5:
 {
   size = range.var0.size;
   origin = range.var0.origin;
-  v7 = objc_msgSend_mergeIndexesForRange_(self, a2, *&range.var0.origin, *&range.var0.size, v3);
-  if (objc_msgSend_count(v7, v8, v9, v10, v11) != 1)
+  v6 = objc_msgSend_mergeIndexesForRange_(self, a2, *&range.var0.origin, *&range.var0.size);
+  if (objc_msgSend_count(v6, v7, v8, v9) != 1)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSTMergeOwner removeBaseMergeRange:]", v13, v14);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v21, v16, v20, 577, 0, "Unexpectedly not just removing one range");
+    v12 = MEMORY[0x277D81150];
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSTMergeOwner removeBaseMergeRange:]", v11);
+    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v15);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v17, v13, v16, 577, 0, "Unexpectedly not just removing one range");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v18, v19, v20);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_tableModel);
-  objc_msgSend_willModify(WeakRetained, v27, v28, v29, v30);
+  objc_msgSend_willModify(WeakRetained, v22, v23, v24);
 
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = sub_221399D28;
-  v41[3] = &unk_27845E958;
-  v41[4] = self;
-  objc_msgSend_enumerateIndexesUsingBlock_(v7, v31, v41, v32, v33);
-  v38 = objc_msgSend_mergeChangeDistributor(self, v34, v35, v36, v37);
-  objc_msgSend_didUnmergeRange_(v38, v39, origin, size, v40);
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = sub_221399D28;
+  v32[3] = &unk_27845E958;
+  v32[4] = self;
+  objc_msgSend_enumerateIndexesUsingBlock_(v6, v25, v32, v26);
+  v30 = objc_msgSend_mergeChangeDistributor(self, v27, v28, v29);
+  objc_msgSend_didUnmergeRange_(v30, v31, origin, size);
 }
 
 - (id)performActionReturningInverse:(id)inverse formulaReplacer:(id)replacer
 {
   inverseCopy = inverse;
   replacerCopy = replacer;
-  objc_msgSend_verify(inverseCopy, v8, v9, v10, v11);
+  objc_msgSend_verify(inverseCopy, v8, v9, v10);
   if (!inverseCopy)
   {
-    v25 = 0;
-    objc_msgSend_verify(0, v12, v13, v14, v15);
+    v21 = 0;
+    objc_msgSend_verify(0, v11, v12, v13);
     goto LABEL_9;
   }
 
-  v16 = objc_msgSend_type(inverseCopy, v12, v13, v14, v15);
-  if (v16 == 3)
+  v14 = objc_msgSend_type(inverseCopy, v11, v12, v13);
+  if (v14 == 3)
   {
-    v20 = objc_msgSend_p_shrinkReturningInverseForAction_formulaReplacer_(self, v17, inverseCopy, replacerCopy, v19);
+    v17 = objc_msgSend_p_shrinkReturningInverseForAction_formulaReplacer_(self, v15, inverseCopy, replacerCopy);
     goto LABEL_7;
   }
 
-  if (v16 == 4)
+  if (v14 == 4)
   {
-    v20 = objc_msgSend_p_growReturningInverseForAction_formulaReplacer_(self, v17, inverseCopy, replacerCopy, v19);
+    v17 = objc_msgSend_p_growReturningInverseForAction_formulaReplacer_(self, v15, inverseCopy, replacerCopy);
 LABEL_7:
-    v25 = v20;
-    objc_msgSend_verify(v20, v21, v22, v23, v24);
+    v21 = v17;
+    objc_msgSend_verify(v17, v18, v19, v20);
     goto LABEL_9;
   }
 
-  v26 = MEMORY[0x277D81150];
-  v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSTMergeOwner performActionReturningInverse:formulaReplacer:]", v18, v19);
-  v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v29, v30);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v32, v27, v31, 597, 0, "Invalid merge action");
+  v22 = MEMORY[0x277D81150];
+  v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSTMergeOwner performActionReturningInverse:formulaReplacer:]", v16);
+  v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v25);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v27, v23, v26, 597, 0, "Invalid merge action");
 
-  v25 = 0;
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v34, v35, v36);
-  objc_msgSend_verify(0, v37, v38, v39, v40);
+  v21 = 0;
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30);
+  objc_msgSend_verify(0, v31, v32, v33);
 LABEL_9:
 
-  return v25;
+  return v21;
 }
 
 - (id)removeReturningInverseForBaseCellRegion:(id)region
 {
   regionCopy = region;
-  if (!objc_msgSend_count(self, v5, v6, v7, v8))
+  if (!objc_msgSend_count(self, v5, v6, v7))
   {
     goto LABEL_12;
   }
 
-  v9 = objc_opt_new();
-  v72[0] = MEMORY[0x277D85DD0];
-  v72[1] = 3221225472;
-  v72[2] = sub_22139A36C;
-  v72[3] = &unk_278463B40;
-  v72[4] = self;
-  v10 = v9;
-  v73 = v10;
-  objc_msgSend_enumerateModelCellRectsUsingBlock_(regionCopy, v11, v72, v12, v13);
-  v65 = 0;
-  v66 = &v65;
-  v67 = 0x4812000000;
-  v68 = sub_221398600;
-  v69 = sub_221398624;
-  v70 = &unk_22188E88F;
-  memset(v71, 0, sizeof(v71));
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x4812000000;
-  v61 = sub_22139A380;
-  v62 = sub_22139A3A4;
-  v63 = &unk_22188E88F;
-  memset(v64, 0, sizeof(v64));
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x4812000000;
-  v52 = sub_22139A3D0;
-  v53 = sub_22139A3F4;
-  v54 = &unk_22188E88F;
-  v56 = 0;
+  v8 = objc_opt_new();
+  v64[0] = MEMORY[0x277D85DD0];
+  v64[1] = 3221225472;
+  v64[2] = sub_22139A36C;
+  v64[3] = &unk_278463B40;
+  v64[4] = self;
+  v9 = v8;
+  v65 = v9;
+  objc_msgSend_enumerateModelCellRectsUsingBlock_(regionCopy, v10, v64, v11);
   v57 = 0;
+  v58 = &v57;
+  v59 = 0x4812000000;
+  v60 = sub_221398600;
+  v61 = sub_221398624;
+  v62 = &unk_22188E88F;
+  memset(v63, 0, sizeof(v63));
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x4812000000;
+  v53 = sub_22139A380;
+  v54 = sub_22139A3A4;
+  v55 = &unk_22188E88F;
+  memset(v56, 0, sizeof(v56));
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x4812000000;
+  v44 = sub_22139A3D0;
+  v45 = sub_22139A3F4;
+  v46 = &unk_22188E88F;
+  v48 = 0;
+  v49 = 0;
   __p = 0;
-  v47[0] = 0;
-  v47[1] = v47;
-  v47[2] = 0x9812000000;
-  v47[3] = sub_2213987B4;
-  v47[4] = nullsub_57;
-  v47[5] = TSTCategoryAggregateFormulaOwner__ivarLayout;
+  v39[0] = 0;
+  v39[1] = v39;
+  v39[2] = 0x9812000000;
+  v39[3] = sub_2213987B4;
+  v39[4] = nullsub_57;
+  v39[5] = TSTCategoryAggregateFormulaOwner__ivarLayout;
   WeakRetained = objc_loadWeakRetained(&self->_calculationEngine);
-  v46.coordinate = 0;
-  v46._tableUID._lower = objc_msgSend_ownerUID(self, v15, v16, v17, v18);
-  v46._tableUID._upper = v19;
-  TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v48, WeakRetained, &v46);
+  v38.coordinate = 0;
+  v38._tableUID._lower = objc_msgSend_ownerUID(self, v13, v14, v15);
+  v38._tableUID._upper = v16;
+  TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v40, WeakRetained, &v38);
 
-  v20 = objc_loadWeakRetained(&self->_tableModel);
-  objc_msgSend_willModify(v20, v21, v22, v23, v24);
+  v17 = objc_loadWeakRetained(&self->_tableModel);
+  objc_msgSend_willModify(v17, v18, v19, v20);
 
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = sub_22139A40C;
-  v45[3] = &unk_278463B68;
-  v45[4] = self;
-  v45[5] = v47;
-  v45[6] = &v65;
-  v45[7] = &v58;
-  v45[8] = &v49;
-  objc_msgSend_enumerateIndexesUsingBlock_(v10, v25, v45, v26, v27);
-  v29 = v59[6];
-  v28 = v59[7];
-  if (v28 != v29)
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = sub_22139A40C;
+  v37[3] = &unk_278463B68;
+  v37[4] = self;
+  v37[5] = v39;
+  v37[6] = &v57;
+  v37[7] = &v50;
+  v37[8] = &v41;
+  objc_msgSend_enumerateIndexesUsingBlock_(v9, v21, v37, v22);
+  v24 = v51[6];
+  v23 = v51[7];
+  if (v23 != v24)
   {
-    v30 = [TSTMergeAction alloc];
-    self = objc_msgSend_initWithType_uidRanges_(v30, v31, 4, (v66 + 6), v32);
-    v36 = v59[6];
-    v37 = v59[7];
-    while (v36 != v37)
+    v25 = [TSTMergeAction alloc];
+    self = objc_msgSend_initWithType_uidRanges_(v25, v26, 4, (v58 + 6));
+    v29 = v51[6];
+    v30 = v51[7];
+    while (v29 != v30)
     {
-      v38 = *v36;
-      objc_msgSend_addFormula_(self, v39, v38, v40, v41);
+      v31 = *v29;
+      objc_msgSend_addFormula_(self, v32, v31, v33);
 
-      ++v36;
+      ++v29;
     }
 
-    v42 = v50[6];
-    v43 = v50[7];
-    while (v42 != v43)
+    v34 = v42[6];
+    v35 = v42[7];
+    while (v34 != v35)
     {
-      objc_msgSend_addFormulaIndex_(self, v33, *v42++, v34, v35);
+      objc_msgSend_addFormulaIndex_(self, v27, *v34++, v28);
     }
   }
 
-  _Block_object_dispose(v47, 8);
-  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(v39, 8);
+  _Block_object_dispose(&v41, 8);
   if (__p)
   {
-    v56 = __p;
+    v48 = __p;
     operator delete(__p);
   }
 
-  _Block_object_dispose(&v58, 8);
-  v47[0] = v64;
-  sub_22107C2C0(v47);
-  _Block_object_dispose(&v65, 8);
-  v47[0] = v71;
-  sub_2210BC30C(v47);
+  _Block_object_dispose(&v50, 8);
+  v39[0] = v56;
+  sub_22107C2C0(v39);
+  _Block_object_dispose(&v57, 8);
+  v39[0] = v63;
+  sub_2210BC30C(v39);
 
-  if (v28 == v29)
+  if (v23 == v24)
   {
 LABEL_12:
     self = 0;
@@ -1052,63 +1052,63 @@ LABEL_12:
 {
   regionCopy = region;
   WeakRetained = objc_loadWeakRetained(&self->_calculationEngine);
-  v8 = objc_msgSend_shrinkReturningInverseForBaseCellRegion_formulaReplacer_(self, v6, regionCopy, WeakRetained, v7);
+  v7 = objc_msgSend_shrinkReturningInverseForBaseCellRegion_formulaReplacer_(self, v6, regionCopy, WeakRetained);
 
-  return v8;
+  return v7;
 }
 
 - (id)shrinkReturningInverseForBaseCellRegion:(id)region formulaReplacer:(id)replacer
 {
   regionCopy = region;
   replacerCopy = replacer;
-  v12 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v8, v9, v10, v11);
+  v11 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v8, v9, v10);
   WeakRetained = objc_loadWeakRetained(&self->_tableModel);
 
   if (!WeakRetained)
   {
-    v17 = MEMORY[0x277D81150];
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSTMergeOwner shrinkReturningInverseForBaseCellRegion:formulaReplacer:]", v15, v16);
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v20, v21);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v23, v18, v22, 686, 0, "invalid nil value for '%{public}s'", "_tableModel");
+    v15 = MEMORY[0x277D81150];
+    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSTMergeOwner shrinkReturningInverseForBaseCellRegion:formulaReplacer:]", v14);
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v18);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v20, v16, v19, 686, 0, "invalid nil value for '%{public}s'", "_tableModel");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26, v27);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23);
   }
 
-  v28 = objc_loadWeakRetained(&self->_calculationEngine);
+  v24 = objc_loadWeakRetained(&self->_calculationEngine);
 
-  if (v28)
+  if (v24)
   {
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = sub_22139A954;
-    v36[3] = &unk_278463B40;
-    v36[4] = self;
-    v29 = v12;
-    v37 = v29;
-    objc_msgSend_enumerateModelCellRectsUsingBlock_(regionCopy, v30, v36, v31, v32);
-    v34 = objc_msgSend_p_shrinkMergesAtIndexes_intersectedByBaseRegion_formulaReplacer_(self, v33, v29, regionCopy, replacerCopy);
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = sub_22139A954;
+    v31[3] = &unk_278463B40;
+    v31[4] = self;
+    v25 = v11;
+    v32 = v25;
+    objc_msgSend_enumerateModelCellRectsUsingBlock_(regionCopy, v26, v31, v27);
+    v29 = objc_msgSend_p_shrinkMergesAtIndexes_intersectedByBaseRegion_formulaReplacer_(self, v28, v25, regionCopy, replacerCopy);
   }
 
   else
   {
-    v34 = 0;
+    v29 = 0;
   }
 
-  return v34;
+  return v29;
 }
 
 - (id)p_shrinkReturningInverseForAction:(id)action formulaReplacer:(id)replacer
 {
   actionCopy = action;
   replacerCopy = replacer;
-  v12 = objc_msgSend_invalidRegion(TSTCellRegion, v8, v9, v10, v11);
-  v13 = actionCopy;
-  v18 = objc_msgSend_uidRanges(v13, v14, v15, v16, v17);
-  v21 = *v18;
-  v22 = v18[1];
-  if (*v18 == v22)
+  v11 = objc_msgSend_invalidRegion(TSTCellRegion, v8, v9, v10);
+  v12 = actionCopy;
+  v16 = objc_msgSend_uidRanges(v12, v13, v14, v15);
+  v18 = *v16;
+  v19 = v16[1];
+  if (*v16 == v19)
   {
-    v36 = v12;
+    v30 = v11;
   }
 
   else
@@ -1116,84 +1116,84 @@ LABEL_12:
     do
     {
       WeakRetained = objc_loadWeakRetained(&self->_tableModel);
-      v28 = objc_msgSend_columnRowUIDMap(WeakRetained, v24, v25, v26, v27);
-      v32 = objc_msgSend_cellRegionForUIDRange_(v28, v29, v21, v30, v31);
-      v36 = objc_msgSend_regionByAddingRegion_(v12, v33, v32, v34, v35);
+      v24 = objc_msgSend_columnRowUIDMap(WeakRetained, v21, v22, v23);
+      v27 = objc_msgSend_cellRegionForUIDRange_(v24, v25, v18, v26);
+      v30 = objc_msgSend_regionByAddingRegion_(v11, v28, v27, v29);
 
-      v21 += 48;
-      v12 = v36;
+      v18 += 48;
+      v11 = v30;
     }
 
-    while (v21 != v22);
+    while (v18 != v19);
   }
 
-  v37 = objc_msgSend_shrinkReturningInverseForBaseCellRegion_formulaReplacer_(self, v19, v36, replacerCopy, v20);
+  v31 = objc_msgSend_shrinkReturningInverseForBaseCellRegion_formulaReplacer_(self, v17, v30, replacerCopy);
 
-  return v37;
+  return v31;
 }
 
 - (TSUModelCellRect)p_growRangeFrom:(TSUModelCellRect)from toDesired:(TSUModelCellRect)desired
 {
   var0 = from.var0;
-  v58 = desired.var0;
+  v51 = desired.var0;
   WeakRetained = objc_loadWeakRetained(&self->_tableModel);
 
   if (!WeakRetained)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTMergeOwner p_growRangeFrom:toDesired:]", v7, v8);
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v12, v13);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v15, v10, v14, 715, 0, "invalid nil value for '%{public}s'", "_tableModel");
+    v8 = MEMORY[0x277D81150];
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTMergeOwner p_growRangeFrom:toDesired:]", v7);
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v11);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v12, 715, 0, "invalid nil value for '%{public}s'", "_tableModel");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18, v19);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
   }
 
   origin = 0x7FFF7FFFFFFFLL;
-  if (TSUCellRect::isValid(&v58))
+  if (TSUCellRect::isValid(&v51))
   {
-    v52 = 0;
-    v53 = &v52;
-    v54 = 0x3032000000;
-    v55 = sub_221397E90;
-    v56 = sub_221397EA0;
-    v21 = objc_loadWeakRetained(&self->_tableModel);
-    v57 = objc_msgSend_regionForValueOrCommentCellsInBaseCellRect_(v21, v22, *&v58.origin, *&v58.size, v23);
+    v45 = 0;
+    v46 = &v45;
+    v47 = 0x3032000000;
+    v48 = sub_221397E90;
+    v49 = sub_221397EA0;
+    v18 = objc_loadWeakRetained(&self->_tableModel);
+    v50 = objc_msgSend_regionForValueOrCommentCellsInBaseCellRect_(v18, v19, *&v51.origin, *&v51.size);
 
-    v28 = objc_msgSend_mergeRangeCache(self, v24, v25, v26, v27);
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = sub_22139AE64;
-    v49[3] = &unk_278463B90;
-    v50 = var0;
-    v51 = v58;
-    v49[4] = &v52;
-    objc_msgSend_enumerateCacheItemsIntersectingBaseCellRect_usingBlock_(v28, v29, *&v58.origin, *&v58.size, v49);
+    v23 = objc_msgSend_mergeRangeCache(self, v20, v21, v22);
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = sub_22139AE64;
+    v42[3] = &unk_278463B90;
+    v43 = var0;
+    v44 = v51;
+    v42[4] = &v45;
+    objc_msgSend_enumerateCacheItemsIntersectingBaseCellRect_usingBlock_(v23, v24, *&v51.origin, *&v51.size, v42);
 
     if (TSUCellRect::isValid(&var0))
     {
-      v33 = objc_msgSend_regionBySubtractingModelCellRect_(v53[5], v30, *&var0.origin, 0x100000001, v32);
-      v34 = v53[5];
-      v53[5] = v33;
+      v27 = objc_msgSend_regionBySubtractingModelCellRect_(v46[5], v25, *&var0.origin, 0x100000001);
+      v28 = v46[5];
+      v46[5] = v27;
 
-      v39 = v53[5];
-      if (v39)
+      v32 = v46[5];
+      if (v32)
       {
 LABEL_10:
-        objc_msgSend_modelCellRanges(v39, v35, v36, v37, v38);
+        objc_msgSend_modelCellRanges(v32, v29, v30, v31);
         goto LABEL_16;
       }
 
       __p.origin = 0;
       __p.size = 0;
-      v48 = 0;
+      v41 = 0;
     }
 
     else
     {
-      if (v58.size.numberOfColumns * v58.size.numberOfRows < 2)
+      if (v51.size.numberOfColumns * v51.size.numberOfRows < 2)
       {
-        __p.origin = objc_msgSend_mergedRangeForBaseCellCoord_(self, v30, *&v58.origin, v31, v32);
-        __p.size = v43;
+        __p.origin = objc_msgSend_mergedRangeForBaseCellCoord_(self, v25, *&v51.origin, v26);
+        __p.size = v36;
         if (TSUCellRect::isValid(&__p))
         {
           size = 0;
@@ -1201,34 +1201,34 @@ LABEL_10:
 
         else
         {
-          origin = v58.origin;
-          size = v58.size;
+          origin = v51.origin;
+          size = v51.size;
         }
 
 LABEL_18:
-        _Block_object_dispose(&v52, 8);
+        _Block_object_dispose(&v45, 8);
 
         goto LABEL_19;
       }
 
-      v41 = objc_msgSend_regionBySubtractingModelCellRect_(v53[5], v30, *&v58.origin, 0x100000001, v32);
-      v42 = v53[5];
-      v53[5] = v41;
+      v34 = objc_msgSend_regionBySubtractingModelCellRect_(v46[5], v25, *&v51.origin, 0x100000001);
+      v35 = v46[5];
+      v46[5] = v34;
 
-      v39 = v53[5];
-      if (v39)
+      v32 = v46[5];
+      if (v32)
       {
         goto LABEL_10;
       }
 
       __p.origin = 0;
       __p.size = 0;
-      v48 = 0;
+      v41 = 0;
     }
 
 LABEL_16:
     origin = TSUModelCellRect::largestWithoutRectsAndContainsCoord();
-    size = v44;
+    size = v37;
     if (__p.origin)
     {
       __p.size = __p.origin;
@@ -1240,10 +1240,10 @@ LABEL_16:
 
   size = 0;
 LABEL_19:
-  v45 = origin;
-  v46 = size;
-  result.var0.size = v46;
-  result.var0.origin = v45;
+  v38 = origin;
+  v39 = size;
+  result.var0.size = v39;
+  result.var0.origin = v38;
   return result;
 }
 
@@ -1253,119 +1253,119 @@ LABEL_19:
   replacerCopy = replacer;
   WeakRetained = objc_loadWeakRetained(&self->_tableModel);
 
-  v228 = actionCopy;
+  v183 = actionCopy;
   if (!WeakRetained)
   {
-    v11 = MEMORY[0x277D81150];
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSTMergeOwner p_growReturningInverseForAction:formulaReplacer:]", v9, v10);
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v14, v15);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v17, v12, v16, 753, 0, "invalid nil value for '%{public}s'", "_tableModel");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSTMergeOwner p_growReturningInverseForAction:formulaReplacer:]", v9);
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v13);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v15, v11, v14, 753, 0, "invalid nil value for '%{public}s'", "_tableModel");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v18, v19, v20, v21);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18);
   }
 
-  v22 = objc_loadWeakRetained(&self->_tableModel);
-  objc_msgSend_willModify(v22, v23, v24, v25, v26);
+  v19 = objc_loadWeakRetained(&self->_tableModel);
+  objc_msgSend_willModify(v19, v20, v21, v22);
 
-  v31 = objc_msgSend_invalidRegion(TSTCellRegion, v27, v28, v29, v30);
-  v32 = actionCopy;
-  v37 = objc_msgSend_uidRanges(v32, v33, v34, v35, v36);
-  v42 = *v37;
-  v43 = v37[1];
-  if (*v37 == v43)
+  v26 = objc_msgSend_invalidRegion(TSTCellRegion, v23, v24, v25);
+  v27 = actionCopy;
+  v31 = objc_msgSend_uidRanges(v27, v28, v29, v30);
+  v35 = *v31;
+  v36 = v31[1];
+  if (*v31 == v36)
   {
-    v57 = v31;
+    v47 = v26;
   }
 
   else
   {
     do
     {
-      v44 = objc_loadWeakRetained(&self->_tableModel);
-      v49 = objc_msgSend_columnRowUIDMap(v44, v45, v46, v47, v48);
-      v53 = objc_msgSend_cellRegionForUIDRange_(v49, v50, v42, v51, v52);
-      v57 = objc_msgSend_regionByAddingRegion_(v31, v54, v53, v55, v56);
+      v37 = objc_loadWeakRetained(&self->_tableModel);
+      v41 = objc_msgSend_columnRowUIDMap(v37, v38, v39, v40);
+      v44 = objc_msgSend_cellRegionForUIDRange_(v41, v42, v35, v43);
+      v47 = objc_msgSend_regionByAddingRegion_(v26, v45, v44, v46);
 
-      v42 += 48;
-      v31 = v57;
+      v35 += 48;
+      v26 = v47;
     }
 
-    while (v42 != v43);
+    while (v35 != v36);
   }
 
-  v245 = 0;
-  v246 = 0;
-  v247 = 0;
-  v242 = 0;
-  v243 = 0;
-  v244 = 0;
-  v58 = objc_msgSend_invalidRegion(TSTCellRegion, v38, v39, v40, v41);
-  v59 = objc_loadWeakRetained(&self->_calculationEngine);
-  v229 = v57;
+  v200 = 0;
+  v201 = 0;
+  v202 = 0;
+  v197 = 0;
+  v198 = 0;
+  v199 = 0;
+  v48 = objc_msgSend_invalidRegion(TSTCellRegion, v32, v33, v34);
+  v49 = objc_loadWeakRetained(&self->_calculationEngine);
+  v184 = v47;
   __p.coordinate = 0;
-  __p._tableUID._lower = objc_msgSend_ownerUID(self, v60, v61, v62, v63);
-  __p._tableUID._upper = v64;
-  TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v241, v59, &__p);
+  __p._tableUID._lower = objc_msgSend_ownerUID(self, v50, v51, v52);
+  __p._tableUID._upper = v53;
+  TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v196, v49, &__p);
 
-  v65 = actionCopy;
-  v70 = *objc_msgSend_mergeFormulaIndexes(v65, v66, v67, v68, v69);
-  v71 = actionCopy;
-  v76 = objc_msgSend_mergeFormulas(v71, v72, v73, v74, v75);
-  v80 = *v76;
-  v227 = *(v76 + 8);
-  if (*v76 != v227)
+  v54 = actionCopy;
+  v58 = *objc_msgSend_mergeFormulaIndexes(v54, v55, v56, v57);
+  v59 = actionCopy;
+  v63 = objc_msgSend_mergeFormulas(v59, v60, v61, v62);
+  v66 = *v63;
+  v182 = *(v63 + 8);
+  if (*v63 != v182)
   {
-    v81 = v70;
+    v67 = v58;
     do
     {
-      v82 = *v80;
-      v240 = 0x7FFFFFFFFFFFFFFFLL;
-      v239 = xmmword_2217E18E0;
-      v83 = v228;
-      v230 = v82;
-      if (v81 != *(objc_msgSend_mergeFormulaIndexes(v83, v84, v85, v86, v87) + 8))
+      v68 = *v66;
+      v195 = 0x7FFFFFFFFFFFFFFFLL;
+      v194 = xmmword_2217E18E0;
+      v69 = v183;
+      v185 = v68;
+      if (v67 != *(objc_msgSend_mergeFormulaIndexes(v69, v70, v71, v72) + 8))
       {
-        v88 = *v81++;
-        v240 = v88;
+        v73 = *v67++;
+        v195 = v73;
       }
 
-      v89 = objc_loadWeakRetained(&self->_tableModel);
-      v90 = sub_221387F30(v82, v89);
+      v74 = objc_loadWeakRetained(&self->_tableModel);
+      v75 = sub_221387F30(v68, v74);
 
-      v238 = 0uLL;
-      if (objc_msgSend_isValid(v90, v91, v92, v93, v94))
+      v193 = 0uLL;
+      if (objc_msgSend_isValid(v75, v76, v77, v78))
       {
-        *&v238 = objc_msgSend_boundingModelCellRect(v90, v95, v96, v97, v98);
-        *(&v238 + 1) = v95;
+        *&v193 = objc_msgSend_boundingModelCellRect(v75, v79, v80, v81);
+        *(&v193 + 1) = v79;
       }
 
       else
       {
-        v238 = xmmword_2217E18E0;
+        v193 = xmmword_2217E18E0;
       }
 
-      v99 = objc_msgSend_regionBySubtractingRegion_(v90, v95, v229, v97, v98);
-      v103 = objc_msgSend_mergeIndexesForBaseCellRegion_(self, v100, v99, v101, v102);
-      if (objc_msgSend_count(v103, v104, v105, v106, v107) == 1)
+      v82 = objc_msgSend_regionBySubtractingRegion_(v75, v79, v184, v81);
+      v85 = objc_msgSend_mergeIndexesForBaseCellRegion_(self, v83, v82, v84);
+      if (objc_msgSend_count(v85, v86, v87, v88) == 1)
       {
-        v237.origin = 0;
-        v237.size = 0;
+        v192.origin = 0;
+        v192.size = 0;
         mergeRangeCache = self->_mergeRangeCache;
-        Index = objc_msgSend_firstIndex(v103, v108, v109, v110, v111);
-        v237.origin = objc_msgSend_cellRangeAtIndex_(mergeRangeCache, v114, Index, v115, v116);
-        v237.size = v117;
-        v119 = objc_msgSend_regionFromModelCellRect_(TSTCellRegion, v117, v238, *(&v238 + 1), v118);
-        v123 = objc_msgSend_regionBySubtractingModelCellRegion_(v119, v120, v90, v121, v122);
+        Index = objc_msgSend_firstIndex(v85, v89, v90, v91);
+        v192.origin = objc_msgSend_cellRangeAtIndex_(mergeRangeCache, v94, Index, v95);
+        v192.size = v96;
+        v97 = objc_msgSend_regionFromModelCellRect_(TSTCellRegion, v96, v193, *(&v193 + 1));
+        v100 = objc_msgSend_regionBySubtractingModelCellRegion_(v97, v98, v75, v99);
 
         TSUModelCellRect::operator|=();
-        if (!objc_msgSend_isValid(v123, v124, v125, v126, v127))
+        if (!objc_msgSend_isValid(v100, v101, v102, v103))
         {
           goto LABEL_22;
         }
 
-        if (v123)
+        if (v100)
         {
-          objc_msgSend_modelCellRanges(v123, v128, v129, v130, v131);
+          objc_msgSend_modelCellRanges(v100, v104, v105, v106);
         }
 
         else
@@ -1373,158 +1373,158 @@ LABEL_19:
           memset(&__p, 0, sizeof(__p));
         }
 
-        v132 = TSUModelCellRect::intersectsAll();
+        v107 = TSUModelCellRect::intersectsAll();
         if (__p.coordinate)
         {
           __p._tableUID._lower = __p.coordinate;
           operator delete(*&__p.coordinate);
         }
 
-        if (v132)
+        if (v107)
         {
 LABEL_22:
-          v239 = v237;
-          v240 = objc_msgSend_firstIndex(v103, v128, v129, v130, v131);
+          v194 = v192;
+          v195 = objc_msgSend_firstIndex(v85, v104, v105, v106);
         }
       }
 
-      if ((objc_msgSend_isEmpty(v99, v108, v109, v110, v111) & 1) != 0 || TSUCellRect::isValid(&v239))
+      if ((objc_msgSend_isEmpty(v82, v89, v90, v91) & 1) != 0 || TSUCellRect::isValid(&v194))
       {
-        v237.origin = 0;
-        v237.size = 0;
+        v192.origin = 0;
+        v192.size = 0;
         selfCopy = self;
-        v135 = objc_msgSend_p_growRangeFrom_toDesired_(self, v133, *&v239.origin, *&v239.size, v238, *(&v238 + 1));
-        v136 = v81;
-        v237.origin = v135;
-        v237.size = v137;
-        v139 = objc_msgSend_regionFromModelCellRect_(TSTCellRegion, v137, v135, v137, v138);
-        v140 = v58;
-        v143 = objc_msgSend_regionBySubtractingModelCellRect_(v139, v141, *&v239.origin, *&v239.size, v142);
+        v110 = objc_msgSend_p_growRangeFrom_toDesired_(self, v108, *&v194.origin, *&v194.size, v193);
+        v111 = v67;
+        v192.origin = v110;
+        v192.size = v112;
+        v113 = objc_msgSend_regionFromModelCellRect_(TSTCellRegion, v112, v110, v112);
+        v114 = v48;
+        v116 = objc_msgSend_regionBySubtractingModelCellRect_(v113, v115, *&v194.origin, *&v194.size);
 
-        if (TSUCellRect::isValid(&v237) && (v237.origin.row != v239.origin.row || ((*&v239.origin ^ *&v237.origin) & 0x101FFFF00000000) != 0 || *&v237.size != *&v239.size) && ((objc_msgSend_isEmpty(v229, v144, v145, v146, v147) & 1) != 0 || objc_msgSend_intersectsModelCellRect_(v229, v148, *&v237.origin, *&v237.size, v149)) && objc_msgSend_isValidMergeRange_(selfCopy, v148, *&v237.origin, *&v237.size, v149) && (objc_msgSend_mergeIndexesForBaseCellRegion_(selfCopy, v150, v143, v151, v152), v153 = objc_claimAutoreleasedReturnValue(), v158 = objc_msgSend_count(v153, v154, v155, v156, v157), v153, !v158))
+        if (TSUCellRect::isValid(&v192) && (v192.origin.row != v194.origin.row || ((*&v194.origin ^ *&v192.origin) & 0x101FFFF00000000) != 0 || *&v192.size != *&v194.size) && ((objc_msgSend_isEmpty(v184, v117, v118, v119) & 1) != 0 || objc_msgSend_intersectsModelCellRect_(v184, v120, *&v192.origin, *&v192.size)) && objc_msgSend_isValidMergeRange_(selfCopy, v120, *&v192.origin, *&v192.size) && (objc_msgSend_mergeIndexesForBaseCellRegion_(selfCopy, v121, v116, v122), v123 = objc_claimAutoreleasedReturnValue(), v127 = objc_msgSend_count(v123, v124, v125, v126), v123, !v127))
         {
-          if (TSUCellRect::isValid(&v239))
+          if (TSUCellRect::isValid(&v194))
           {
-            objc_msgSend_clearFormulaAtIndex_formulaReplacer_(selfCopy->_formulaStore, v159, v240, replacerCopy, v162);
-            objc_msgSend_removeCellRangeAtIndex_(selfCopy->_mergeRangeCache, v163, v240, v164, v165);
+            objc_msgSend_clearFormulaAtIndex_formulaReplacer_(selfCopy->_formulaStore, v128, v195, replacerCopy);
+            objc_msgSend_removeCellRangeAtIndex_(selfCopy->_mergeRangeCache, v131, v195, v132);
           }
 
-          else if (v240 == 0x7FFFFFFFFFFFFFFFLL)
+          else if (v195 == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v240 = objc_msgSend_reserveNextIndex(selfCopy->_formulaStore, v159, v160, v161, v162);
+            v195 = objc_msgSend_reserveNextIndex(selfCopy->_formulaStore, v128, v129, v130);
           }
 
-          v58 = objc_msgSend_regionByAddingRegion_(v140, v159, v143, v161, v162);
+          v48 = objc_msgSend_regionByAddingRegion_(v114, v128, v116, v130);
 
           formulaStore = selfCopy->_formulaStore;
-          size = v237.size;
-          origin = v237.origin;
-          v222 = v240;
-          v167 = objc_loadWeakRetained(&selfCopy->_tableModel);
-          __p.coordinate = objc_msgSend_tableUID(v167, v168, v169, v170, v171);
-          __p._tableUID._lower = v172;
-          v225 = objc_msgSend_createFormulaObjectForRange_atIndex_tableUID_(formulaStore, v172, origin, size, v222, &__p);
+          size = v192.size;
+          origin = v192.origin;
+          v177 = v195;
+          v134 = objc_loadWeakRetained(&selfCopy->_tableModel);
+          __p.coordinate = objc_msgSend_tableUID(v134, v135, v136, v137);
+          __p._tableUID._lower = v138;
+          v180 = objc_msgSend_createFormulaObjectForRange_atIndex_tableUID_(formulaStore, v138, origin, size, v177, &__p);
 
-          v81 = v136;
-          __p.coordinate = objc_msgSend_coordFromIndex_(TSTFormulaStore, v173, v240, v174, v175);
-          TSCEFormulaRewriteContext::setContainingCellCoord(&v241, &__p.coordinate);
-          v179 = objc_msgSend_copyByRewritingReferencesToUidForm_(v225, v176, &v241, v177, v178);
+          v67 = v111;
+          __p.coordinate = objc_msgSend_coordFromIndex_(TSTFormulaStore, v139, v195, v140);
+          TSCEFormulaRewriteContext::setContainingCellCoord(&v196, &__p.coordinate);
+          v143 = objc_msgSend_copyByRewritingReferencesToUidForm_(v180, v141, &v196, v142);
           self = selfCopy;
-          v180 = v246;
-          if (v246 >= v247)
+          v144 = v201;
+          if (v201 >= v202)
           {
-            v182 = v246 - v245;
-            if ((v182 + 1) >> 61)
+            v146 = v201 - v200;
+            if ((v146 + 1) >> 61)
             {
               sub_22107C148();
             }
 
-            v183 = (v247 - v245) >> 2;
-            if (v183 <= v182 + 1)
+            v147 = (v202 - v200) >> 2;
+            if (v147 <= v146 + 1)
             {
-              v183 = v182 + 1;
+              v147 = v146 + 1;
             }
 
-            if (v247 - v245 >= 0x7FFFFFFFFFFFFFF8)
+            if (v202 - v200 >= 0x7FFFFFFFFFFFFFF8)
             {
-              v184 = 0x1FFFFFFFFFFFFFFFLL;
+              v148 = 0x1FFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v184 = v183;
+              v148 = v147;
             }
 
-            v234 = &v245;
-            if (v184)
+            v189 = &v200;
+            if (v148)
             {
-              sub_22107C1F0(&v245, v184);
+              sub_22107C1F0(&v200, v148);
             }
 
             __p.coordinate = 0;
-            __p._tableUID._lower = 8 * v182;
-            v233 = 0;
-            *__p._tableUID._lower = v179;
-            __p._tableUID._upper = 8 * v182 + 8;
-            sub_22107C098(&v245, &__p);
-            v181 = v246;
+            __p._tableUID._lower = 8 * v146;
+            v188 = 0;
+            *__p._tableUID._lower = v143;
+            __p._tableUID._upper = 8 * v146 + 8;
+            sub_22107C098(&v200, &__p);
+            v145 = v201;
             sub_22107C26C(&__p);
           }
 
           else
           {
-            *v246 = v179;
-            v181 = v180 + 1;
+            *v201 = v143;
+            v145 = v144 + 1;
           }
 
-          v246 = v181;
-          sub_2211531C0(&v242, &v240);
-          objc_msgSend_setFormulaObject_atIndex_formulaReplacer_(selfCopy->_formulaStore, v185, v225, v240, replacerCopy);
-          v190 = objc_msgSend_mergeRangeCache(selfCopy, v186, v187, v188, v189);
-          objc_msgSend_setCellRange_atIndex_(v190, v191, *&v237.origin, *&v237.size, v240);
+          v201 = v145;
+          sub_2211531C0(&v197, &v195);
+          objc_msgSend_setFormulaObject_atIndex_formulaReplacer_(selfCopy->_formulaStore, v149, v180, v195, replacerCopy);
+          v153 = objc_msgSend_mergeRangeCache(selfCopy, v150, v151, v152);
+          objc_msgSend_setCellRange_atIndex_(v153, v154, *&v192.origin, *&v192.size, v195);
 
-          if (TSUCellRect::isValid(&v239) && (v239.origin.row != v237.origin.row || ((*&v237.origin ^ *&v239.origin) & 0x101FFFF00000000) != 0))
+          if (TSUCellRect::isValid(&v194) && (v194.origin.row != v192.origin.row || ((*&v192.origin ^ *&v194.origin) & 0x101FFFF00000000) != 0))
           {
-            objc_msgSend_p_moveCellFromCellCoord_toCellCoord_(selfCopy, v192, *&v239.origin, *&v237.origin, v193);
+            objc_msgSend_p_moveCellFromCellCoord_toCellCoord_(selfCopy, v155, *&v194.origin, *&v192.origin);
           }
 
-          v194 = objc_loadWeakRetained(&selfCopy->_tableModel);
-          *&__p.coordinate.row = v237;
-          objc_msgSend_clearSpillCellsInRange_(v194, v195, &__p, v196, v197);
+          v156 = objc_loadWeakRetained(&selfCopy->_tableModel);
+          *&__p.coordinate.row = v192;
+          objc_msgSend_clearSpillCellsInRange_(v156, v157, &__p, v158);
 
-          objc_msgSend_p_dirtyCellsForMerge_(selfCopy, v198, &v237, v199, v200);
-          v205 = objc_msgSend_mergeChangeDistributor(selfCopy, v201, v202, v203, v204);
-          objc_msgSend_didMergeRange_(v205, v206, *&v237.origin, *&v237.size, v207);
+          objc_msgSend_p_dirtyCellsForMerge_(selfCopy, v159, &v192, v160);
+          v164 = objc_msgSend_mergeChangeDistributor(selfCopy, v161, v162, v163);
+          objc_msgSend_didMergeRange_(v164, v165, *&v192.origin, *&v192.size);
         }
 
         else
         {
           if (TSULogCat_IsCategoryEnabled())
           {
-            TSUCellRect::isValid(&v239);
+            TSUCellRect::isValid(&v194);
           }
 
-          v58 = v140;
-          v81 = v136;
+          v48 = v114;
+          v67 = v111;
           self = selfCopy;
         }
       }
 
       else if (TSULogCat_IsCategoryEnabled())
       {
-        TSUCellRect::isValid(&v239);
+        TSUCellRect::isValid(&v194);
       }
 
-      ++v80;
+      ++v66;
     }
 
-    while (v80 != v227);
+    while (v66 != v182);
   }
 
-  if (v246 == v245)
+  if (v201 == v200)
   {
-    v215 = 0;
-    v208 = v228;
+    v171 = 0;
+    v166 = v183;
   }
 
   else
@@ -1532,71 +1532,71 @@ LABEL_22:
     __p.coordinate = 0;
     __p._tableUID._lower = &__p;
     __p._tableUID._upper = 0x4812000000;
-    v233 = sub_221398600;
-    v234 = sub_221398624;
-    v235 = &unk_22188E88F;
-    memset(v236, 0, 24);
-    v231[0] = MEMORY[0x277D85DD0];
-    v231[1] = 3221225472;
-    v231[2] = sub_22139B9F0;
-    v231[3] = &unk_278463AC8;
-    v231[4] = self;
-    v231[5] = &__p;
-    v208 = v228;
-    objc_msgSend_enumerateModelCellRectsUsingBlock_(v58, v77, v231, v78, v79);
-    v209 = [TSTMergeAction alloc];
-    v215 = objc_msgSend_initWithType_uidRanges_(v209, v210, 3, __p._tableUID._lower + 48, v211);
-    v216 = v245;
-    if (v246 != v245)
+    v188 = sub_221398600;
+    v189 = sub_221398624;
+    v190 = &unk_22188E88F;
+    memset(v191, 0, 24);
+    v186[0] = MEMORY[0x277D85DD0];
+    v186[1] = 3221225472;
+    v186[2] = sub_22139B9F0;
+    v186[3] = &unk_278463AC8;
+    v186[4] = self;
+    v186[5] = &__p;
+    v166 = v183;
+    objc_msgSend_enumerateModelCellRectsUsingBlock_(v48, v64, v186, v65);
+    v167 = [TSTMergeAction alloc];
+    v171 = objc_msgSend_initWithType_uidRanges_(v167, v168, 3, __p._tableUID._lower + 48);
+    v172 = v200;
+    if (v201 != v200)
     {
-      v217 = 0;
+      v173 = 0;
       do
       {
-        objc_msgSend_addFormula_(v215, v212, v216[v217], v213, v214);
-        objc_msgSend_addFormulaIndex_(v215, v218, v242[v217++], v219, v220);
-        v216 = v245;
+        objc_msgSend_addFormula_(v171, v169, v172[v173], v170);
+        objc_msgSend_addFormulaIndex_(v171, v174, v197[v173++], v175);
+        v172 = v200;
       }
 
-      while (v217 < v246 - v245);
+      while (v173 < v201 - v200);
     }
 
     _Block_object_dispose(&__p, 8);
-    v239.origin = v236;
-    sub_2210BC30C(&v239);
+    v194.origin = v191;
+    sub_2210BC30C(&v194);
   }
 
-  if (v242)
+  if (v197)
   {
-    v243 = v242;
-    operator delete(v242);
+    v198 = v197;
+    operator delete(v197);
   }
 
-  v241.var0 = &v245;
-  sub_22107C2C0(&v241);
+  v196.var0 = &v200;
+  sub_22107C2C0(&v196);
 
-  return v215;
+  return v171;
 }
 
 - (BOOL)find:(TSUModelCellRect)find
 {
   size = find.var0.size;
   origin = find.var0.origin;
-  v7 = objc_msgSend_mergeIndexesForRange_(self, a2, *&find.var0.origin, *&find.var0.size, v3);
-  if (objc_msgSend_count(v7, v8, v9, v10, v11))
+  v6 = objc_msgSend_mergeIndexesForRange_(self, a2, *&find.var0.origin, *&find.var0.size);
+  if (objc_msgSend_count(v6, v7, v8, v9))
   {
-    for (i = objc_msgSend_firstIndex(v7, v12, v13, v14, v15); ; i = objc_msgSend_indexGreaterThanIndex_(v7, v29, i, v30, v31))
+    for (i = objc_msgSend_firstIndex(v6, v10, v11, v12); ; i = objc_msgSend_indexGreaterThanIndex_(v6, v24, i, v25))
     {
-      v21 = i != 0x7FFFFFFFFFFFFFFFLL;
+      v17 = i != 0x7FFFFFFFFFFFFFFFLL;
       if (i == 0x7FFFFFFFFFFFFFFFLL)
       {
         break;
       }
 
-      v22 = objc_msgSend_mergeRangeCache(self, v16, v17, v18, v19);
-      v26 = objc_msgSend_cellRangeAtIndex_(v22, v23, i, v24, v25);
-      v28 = v27;
+      v18 = objc_msgSend_mergeRangeCache(self, v13, v14, v15);
+      v21 = objc_msgSend_cellRangeAtIndex_(v18, v19, i, v20);
+      v23 = v22;
 
-      if (origin.row == v26 && ((v26 ^ *&origin) & 0x101FFFF00000000) == 0 && size == v28)
+      if (origin.row == v21 && ((v21 ^ *&origin) & 0x101FFFF00000000) == 0 && size == v23)
       {
         break;
       }
@@ -1605,49 +1605,49 @@ LABEL_22:
 
   else
   {
-    v21 = 0;
+    v17 = 0;
   }
 
-  return v21;
+  return v17;
 }
 
 - (void)p_enumerateMergesUsingBlock:(id)block
 {
   blockCopy = block;
-  objc_msgSend_loadMergeCache(self, v4, v5, v6, v7);
-  v12 = objc_msgSend_mergeRangeCache(self, v8, v9, v10, v11);
-  objc_msgSend_enumerateCacheItemsUsingBlock_(v12, v13, blockCopy, v14, v15);
+  objc_msgSend_loadMergeCache(self, v4, v5, v6);
+  v10 = objc_msgSend_mergeRangeCache(self, v7, v8, v9);
+  objc_msgSend_enumerateCacheItemsUsingBlock_(v10, v11, blockCopy, v12);
 }
 
 - (void)enumerateMergesIntersectingBaseCellRegion:(id)region usingBlock:(id)block
 {
   regionCopy = region;
   blockCopy = block;
-  objc_msgSend_loadMergeCache(self, v7, v8, v9, v10);
-  v15 = objc_msgSend_mergeRangeCache(self, v11, v12, v13, v14);
-  objc_msgSend_enumerateCacheItemsIntersectingBaseCellRegion_usingBlock_(v15, v16, regionCopy, blockCopy, v17);
+  objc_msgSend_loadMergeCache(self, v7, v8, v9);
+  v13 = objc_msgSend_mergeRangeCache(self, v10, v11, v12);
+  objc_msgSend_enumerateCacheItemsIntersectingBaseCellRegion_usingBlock_(v13, v14, regionCopy, blockCopy);
 }
 
 - (void)enumerateMergeFormulasUsingBlock:(id)block
 {
   blockCopy = block;
   formulaStore = self->_formulaStore;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_22139BDB8;
-  v10[3] = &unk_278463BB8;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_22139BDB8;
+  v9[3] = &unk_278463BB8;
+  v10 = blockCopy;
   v6 = blockCopy;
-  objc_msgSend_foreach_(formulaStore, v7, v10, v8, v9);
+  objc_msgSend_foreach_(formulaStore, v7, v9, v8);
 }
 
 - (id)mergedGridIndicesForDimension:(int64_t)dimension
 {
-  objc_msgSend_loadMergeCache(self, a2, dimension, v3, v4);
-  v11 = objc_msgSend_mergeRangeCache(self, v7, v8, v9, v10);
-  v15 = objc_msgSend_mergedGridIndicesForDimension_(v11, v12, dimension, v13, v14);
+  objc_msgSend_loadMergeCache(self, a2, dimension, v3);
+  v9 = objc_msgSend_mergeRangeCache(self, v6, v7, v8);
+  v12 = objc_msgSend_mergedGridIndicesForDimension_(v9, v10, dimension, v11);
 
-  return v15;
+  return v12;
 }
 
 - (vector<TSUModelCellRect,)allValidMergesForMergeList:()vector<TSUModelCellRect
@@ -1655,27 +1655,27 @@ LABEL_22:
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->var2 = 0;
-  v5 = *a4;
-  v6 = *(a4 + 1);
-  if (*a4 != v6)
+  v4 = *a4;
+  v5 = *(a4 + 1);
+  if (*a4 != v5)
   {
     selfCopy = self;
     do
     {
-      self = objc_msgSend_isValidMergeRange_(selfCopy, a3, *v5, v5[1], v4);
+      self = objc_msgSend_isValidMergeRange_(selfCopy, a3, *v4, v4[1]);
       if (self)
       {
-        self = TSUCellRect::isSingleCell(v5);
+        self = TSUCellRect::isSingleCell(v4);
         if ((self & 1) == 0)
         {
-          sub_221083454(retstr, v5);
+          sub_221083454(retstr, v4);
         }
       }
 
-      v5 += 2;
+      v4 += 2;
     }
 
-    while (v5 != v6);
+    while (v4 != v5);
   }
 
   return self;
@@ -1756,53 +1756,53 @@ LABEL_22:
 
 - (void)clearAllMergeRanges
 {
-  if ((objc_msgSend_isEmpty(self, a2, v2, v3, v4) & 1) == 0)
+  if ((objc_msgSend_isEmpty(self, a2, v2, v3) & 1) == 0)
   {
-    v10 = objc_msgSend_tableModel(self, v6, v7, v8, v9);
-    objc_msgSend_willModify(v10, v11, v12, v13, v14);
+    v8 = objc_msgSend_tableModel(self, v5, v6, v7);
+    objc_msgSend_willModify(v8, v9, v10, v11);
 
-    objc_msgSend_mergeRanges(self, v15, v16, v17, v18);
-    v21 = v22;
-    if (v22 != v23)
+    objc_msgSend_mergeRanges(self, v12, v13, v14);
+    v16 = v17;
+    if (v17 != v18)
     {
       do
       {
-        objc_msgSend_removeBaseMergeRange_(self, v19, *v21, v21[1], v20);
-        v21 += 2;
+        objc_msgSend_removeBaseMergeRange_(self, v15, *v16, v16[1]);
+        v16 += 2;
       }
 
-      while (v21 != v23);
-      v21 = v22;
+      while (v16 != v18);
+      v16 = v17;
     }
 
-    if (v21)
+    if (v16)
     {
-      operator delete(v21);
+      operator delete(v16);
     }
   }
 }
 
 - (vector<TSUModelCellRect,)mergeRanges
 {
-  objc_msgSend_loadMergeCache(self, a3, v3, v4, v5);
-  v11 = objc_msgSend_mergeRangeCache(self, v7, v8, v9, v10);
-  v16 = v11;
-  if (v11)
+  objc_msgSend_loadMergeCache(self, a3, v3, v4);
+  v9 = objc_msgSend_mergeRangeCache(self, v6, v7, v8);
+  v13 = v9;
+  if (v9)
   {
-    objc_msgSend_mergeRanges(v11, v12, v13, v14, v15);
+    objc_msgSend_mergeRanges(v9, v10, v11, v12);
   }
 
   else
   {
     __p = 0;
-    v19 = 0;
-    v20 = 0;
+    v16 = 0;
+    v17 = 0;
   }
 
-  objc_msgSend_allValidMergesForMergeList_(self, v12, &__p, v14, v15);
+  objc_msgSend_allValidMergesForMergeList_(self, v10, &__p, v12);
   if (__p)
   {
-    v19 = __p;
+    v16 = __p;
     operator delete(__p);
   }
 
@@ -1813,25 +1813,25 @@ LABEL_22:
 {
   size = a4.var0.size;
   origin = a4.var0.origin;
-  objc_msgSend_loadMergeCache(self, a3, *&a4.var0.origin, *&a4.var0.size, v4);
-  v12 = objc_msgSend_mergeRangeCache(self, v8, v9, v10, v11);
-  v16 = v12;
-  if (v12)
+  objc_msgSend_loadMergeCache(self, a3, *&a4.var0.origin, *&a4.var0.size);
+  v10 = objc_msgSend_mergeRangeCache(self, v7, v8, v9);
+  v13 = v10;
+  if (v10)
   {
-    objc_msgSend_mergeRangesIntersectingBaseCellRect_(v12, v13, origin, size, v15);
+    objc_msgSend_mergeRangesIntersectingBaseCellRect_(v10, v11, origin, size);
   }
 
   else
   {
     __p = 0;
-    v19 = 0;
-    v20 = 0;
+    v16 = 0;
+    v17 = 0;
   }
 
-  objc_msgSend_allValidMergesForMergeList_(self, v13, &__p, v14, v15);
+  objc_msgSend_allValidMergesForMergeList_(self, v11, &__p, v12);
   if (__p)
   {
-    v19 = __p;
+    v16 = __p;
     operator delete(__p);
   }
 
@@ -1841,25 +1841,25 @@ LABEL_22:
 - (vector<TSUModelCellRect,)mergeRangesIntersectingBaseCellRegion:(TSTMergeOwner *)self
 {
   v5 = a4;
-  objc_msgSend_loadMergeCache(self, v6, v7, v8, v9);
-  v14 = objc_msgSend_mergeRangeCache(self, v10, v11, v12, v13);
-  v18 = v14;
-  if (v14)
+  objc_msgSend_loadMergeCache(self, v6, v7, v8);
+  v12 = objc_msgSend_mergeRangeCache(self, v9, v10, v11);
+  v15 = v12;
+  if (v12)
   {
-    objc_msgSend_mergeRangesIntersectingBaseCellRegion_(v14, v15, v5, v16, v17);
+    objc_msgSend_mergeRangesIntersectingBaseCellRegion_(v12, v13, v5, v14);
   }
 
   else
   {
     __p = 0;
-    v21 = 0;
-    v22 = 0;
+    v18 = 0;
+    v19 = 0;
   }
 
-  objc_msgSend_allValidMergesForMergeList_(self, v15, &__p, v16, v17);
+  objc_msgSend_allValidMergesForMergeList_(self, v13, &__p, v14);
   if (__p)
   {
-    v21 = __p;
+    v18 = __p;
     operator delete(__p);
   }
 
@@ -1870,12 +1870,12 @@ LABEL_22:
 {
   size = a4.var0.size;
   origin = a4.var0.origin;
-  objc_msgSend_loadMergeCache(self, a3, *&a4.var0.origin, *&a4.var0.size, v4);
-  v13 = objc_msgSend_mergeRangeCache(self, v9, v10, v11, v12);
-  v16 = v13;
-  if (v13)
+  objc_msgSend_loadMergeCache(self, a3, *&a4.var0.origin, *&a4.var0.size);
+  v11 = objc_msgSend_mergeRangeCache(self, v8, v9, v10);
+  v14 = v11;
+  if (v11)
   {
-    objc_msgSend_mergeRangesIntersectingBaseCellRect_includeCrumbs_(v13, v14, origin, size, 1);
+    objc_msgSend_mergeRangesIntersectingBaseCellRect_includeCrumbs_(v11, v12, origin, size, 1);
   }
 
   else
@@ -1890,18 +1890,40 @@ LABEL_22:
 
 - (BOOL)hasMergeRanges
 {
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v13 = 0;
+  if (objc_msgSend_count(self, a2, v2, v3))
+  {
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = sub_22139C470;
+    v9[3] = &unk_278461220;
+    v9[4] = &v10;
+    objc_msgSend_p_enumerateMergesUsingBlock_(self, v5, v9, v6);
+  }
+
+  v7 = *(v11 + 24);
+  _Block_object_dispose(&v10, 8);
+  return v7;
+}
+
+- (BOOL)hasMergeRangesIntersectingBaseCellRect:(const TSUModelCellRect *)rect
+{
   v12 = 0;
   v13 = &v12;
   v14 = 0x2020000000;
   v15 = 0;
-  if (objc_msgSend_count(self, a2, v2, v3, v4))
+  if (objc_msgSend_hasMergeRanges(self, a2, rect, v3))
   {
+    v7 = objc_msgSend_regionFromModelCellRect_(TSTCellRegion, v6, *&rect->var0.origin, *&rect->var0.size);
     v11[0] = MEMORY[0x277D85DD0];
     v11[1] = 3221225472;
-    v11[2] = sub_22139C470;
+    v11[2] = sub_22139C5CC;
     v11[3] = &unk_278461220;
     v11[4] = &v12;
-    objc_msgSend_p_enumerateMergesUsingBlock_(self, v6, v11, v7, v8);
+    objc_msgSend_enumerateMergesIntersectingBaseCellRegion_usingBlock_(self, v8, v7, v11);
   }
 
   v9 = *(v13 + 24);
@@ -1909,72 +1931,50 @@ LABEL_22:
   return v9;
 }
 
-- (BOOL)hasMergeRangesIntersectingBaseCellRect:(const TSUModelCellRect *)rect
-{
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
-  if (objc_msgSend_hasMergeRanges(self, a2, rect, v3, v4))
-  {
-    v9 = objc_msgSend_regionFromModelCellRect_(TSTCellRegion, v7, *&rect->var0.origin, *&rect->var0.size, v8);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = sub_22139C5CC;
-    v14[3] = &unk_278461220;
-    v14[4] = &v15;
-    objc_msgSend_enumerateMergesIntersectingBaseCellRegion_usingBlock_(self, v10, v9, v14, v11);
-  }
-
-  v12 = *(v16 + 24);
-  _Block_object_dispose(&v15, 8);
-  return v12;
-}
-
 - (BOOL)hasMergeRangesIntersectingBaseCellRegion:(id)region
 {
   regionCopy = region;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 0;
-  if (objc_msgSend_hasMergeRanges(self, v5, v6, v7, v8))
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  if (objc_msgSend_hasMergeRanges(self, v5, v6, v7))
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = sub_22139C6CC;
-    v13[3] = &unk_278461220;
-    v13[4] = &v14;
-    objc_msgSend_enumerateMergesIntersectingBaseCellRegion_usingBlock_(self, v9, regionCopy, v13, v10);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = sub_22139C6CC;
+    v11[3] = &unk_278461220;
+    v11[4] = &v12;
+    objc_msgSend_enumerateMergesIntersectingBaseCellRegion_usingBlock_(self, v8, regionCopy, v11);
   }
 
-  v11 = *(v15 + 24);
-  _Block_object_dispose(&v14, 8);
+  v9 = *(v13 + 24);
+  _Block_object_dispose(&v12, 8);
 
-  return v11;
+  return v9;
 }
 
 - (TSUModelCellRect)mergedRangeForBaseCellCoord:(TSUModelCellCoord)coord
 {
-  objc_msgSend_loadMergeCache(self, a2, *&coord, v3, v4);
+  objc_msgSend_loadMergeCache(self, a2, *&coord, v3);
   mergeRangeCache = self->_mergeRangeCache;
 
-  v11 = objc_msgSend_mergedRangeForBaseCellCoord_(mergeRangeCache, v7, *&coord, v8, v9);
-  result.var0.size = v12;
-  result.var0.origin = v11;
+  v9 = objc_msgSend_mergedRangeForBaseCellCoord_(mergeRangeCache, v6, *&coord, v7);
+  result.var0.size = v10;
+  result.var0.origin = v9;
   return result;
 }
 
 - (TSUModelCellCoord)mergeOriginForBaseCellCoord:(TSUModelCellCoord)coord
 {
   coordCopy = coord;
-  if ((objc_msgSend_isEmpty(self, a2, *&coord, v3, v4) & 1) == 0)
+  if ((objc_msgSend_isEmpty(self, a2, *&coord, v3) & 1) == 0)
   {
-    v12.origin = objc_msgSend_mergedRangeForBaseCellCoord_(self, v7, coordCopy, v8, v9);
-    v12.size = v10;
-    if (TSUCellRect::isValid(&v12))
+    v10.origin = objc_msgSend_mergedRangeForBaseCellCoord_(self, v6, coordCopy, v7);
+    v10.size = v8;
+    if (TSUCellRect::isValid(&v10))
     {
-      return v12.origin;
+      return v10.origin;
     }
   }
 
@@ -1985,9 +1985,9 @@ LABEL_22:
 {
   size = rect.var0.size;
   origin = rect.var0.origin;
-  objc_msgSend_loadMergeCache(self, a2, *&rect.var0.origin, *&rect.var0.size, v3);
-  v11 = objc_msgSend_mergeRangeCache(self, v7, v8, v9, v10);
-  LOBYTE(size.numberOfColumns) = objc_msgSend_partiallyIntersectsBaseCellRect_(v11, v12, origin, *&size, v13);
+  objc_msgSend_loadMergeCache(self, a2, *&rect.var0.origin, *&rect.var0.size);
+  v9 = objc_msgSend_mergeRangeCache(self, v6, v7, v8);
+  LOBYTE(size.numberOfColumns) = objc_msgSend_partiallyIntersectsBaseCellRect_(v9, v10, origin, *&size);
 
   return size.numberOfColumns;
 }
@@ -1995,11 +1995,11 @@ LABEL_22:
 - (BOOL)mergeRangesPartiallyIntersectBaseCellRegion:(id)region
 {
   regionCopy = region;
-  objc_msgSend_loadMergeCache(self, v5, v6, v7, v8);
-  v13 = objc_msgSend_mergeRangeCache(self, v9, v10, v11, v12);
-  v17 = objc_msgSend_partiallyIntersectsBaseCellRegion_(v13, v14, regionCopy, v15, v16);
+  objc_msgSend_loadMergeCache(self, v5, v6, v7);
+  v11 = objc_msgSend_mergeRangeCache(self, v8, v9, v10);
+  v14 = objc_msgSend_partiallyIntersectsBaseCellRegion_(v11, v12, regionCopy, v13);
 
-  return v17;
+  return v14;
 }
 
 - (BOOL)hasMergeRangeSpanningRowsForBaseCellRect:(TSUModelCellRect)rect
@@ -2010,9 +2010,9 @@ LABEL_22:
     return 0;
   }
 
-  objc_msgSend_loadMergeCache(self, v4, v5, v6, v7);
-  v12 = objc_msgSend_mergeRangeCache(self, v8, v9, v10, v11);
-  hasRangeSpanningRowsForCellRect = objc_msgSend_hasRangeSpanningRowsForCellRect_(v12, v13, *&var0.origin, *&var0.size, v14);
+  objc_msgSend_loadMergeCache(self, v4, v5, v6);
+  v10 = objc_msgSend_mergeRangeCache(self, v7, v8, v9);
+  hasRangeSpanningRowsForCellRect = objc_msgSend_hasRangeSpanningRowsForCellRect_(v10, v11, *&var0.origin, *&var0.size);
 
   return hasRangeSpanningRowsForCellRect;
 }
@@ -2022,10 +2022,10 @@ LABEL_22:
   var0 = cells.var0;
   if (TSUCellRect::isValid(&var0))
   {
-    objc_msgSend_loadMergeCache(self, v4, v5, v6, v7);
-    v12 = objc_msgSend_mergeRangeCache(self, v8, v9, v10, v11);
-    origin = objc_msgSend_expandBaseCellRectToCoverMergedCells_(v12, v13, *&var0.origin, *&var0.size, v14);
-    size = v16;
+    objc_msgSend_loadMergeCache(self, v4, v5, v6);
+    v10 = objc_msgSend_mergeRangeCache(self, v7, v8, v9);
+    origin = objc_msgSend_expandBaseCellRectToCoverMergedCells_(v10, v11, *&var0.origin, *&var0.size);
+    size = v13;
   }
 
   else
@@ -2034,30 +2034,30 @@ LABEL_22:
     size = var0.size;
   }
 
-  v18 = origin;
-  v19 = size;
-  result.var0.size = v19;
-  result.var0.origin = v18;
+  v15 = origin;
+  v16 = size;
+  result.var0.size = v16;
+  result.var0.origin = v15;
   return result;
 }
 
 - (id)expandBaseCellRegionToCoverMergedCells:(id)cells
 {
   cellsCopy = cells;
-  objc_msgSend_loadMergeCache(self, v5, v6, v7, v8);
-  v13 = objc_msgSend_mergeRangeCache(self, v9, v10, v11, v12);
-  v17 = objc_msgSend_expandBaseCellRegionToCoverMergedCells_(v13, v14, cellsCopy, v15, v16);
+  objc_msgSend_loadMergeCache(self, v5, v6, v7);
+  v11 = objc_msgSend_mergeRangeCache(self, v8, v9, v10);
+  v14 = objc_msgSend_expandBaseCellRegionToCoverMergedCells_(v11, v12, cellsCopy, v13);
 
-  return v17;
+  return v14;
 }
 
 - (BOOL)hasRangeSpanningRowsForCellRange:(TSUModelCellRect)range
 {
   size = range.var0.size;
   origin = range.var0.origin;
-  objc_msgSend_loadMergeCache(self, a2, *&range.var0.origin, *&range.var0.size, v3);
-  v11 = objc_msgSend_mergeRangeCache(self, v7, v8, v9, v10);
-  LOBYTE(size.numberOfColumns) = objc_msgSend_hasRangeSpanningRowsForCellRange_(v11, v12, origin, *&size, v13);
+  objc_msgSend_loadMergeCache(self, a2, *&range.var0.origin, *&range.var0.size);
+  v9 = objc_msgSend_mergeRangeCache(self, v6, v7, v8);
+  LOBYTE(size.numberOfColumns) = objc_msgSend_hasRangeSpanningRowsForCellRange_(v9, v10, origin, *&size);
 
   return size.numberOfColumns;
 }
@@ -2065,9 +2065,9 @@ LABEL_22:
 - (BOOL)hasRangeSpanningRowsForCellRegion:(id)region
 {
   regionCopy = region;
-  objc_msgSend_loadMergeCache(self, v5, v6, v7, v8);
-  v13 = objc_msgSend_mergeRangeCache(self, v9, v10, v11, v12);
-  hasRangeSpanningRowsForCellRegion = objc_msgSend_hasRangeSpanningRowsForCellRegion_(v13, v14, regionCopy, v15, v16);
+  objc_msgSend_loadMergeCache(self, v5, v6, v7);
+  v11 = objc_msgSend_mergeRangeCache(self, v8, v9, v10);
+  hasRangeSpanningRowsForCellRegion = objc_msgSend_hasRangeSpanningRowsForCellRegion_(v11, v12, regionCopy, v13);
 
   return hasRangeSpanningRowsForCellRegion;
 }
@@ -2078,57 +2078,57 @@ LABEL_22:
   v7 = sub_221119F90(map, &self->_ownerUID._lower);
   if (v7)
   {
-    objc_msgSend_setOwnerUID_(self, v8, v7[4], v7[5], v11);
+    objc_msgSend_setOwnerUID_(self, v8, v7[4], v7[5]);
   }
 
-  v12 = objc_msgSend_tableModel(self, v8, v9, v10, v11);
-  objc_msgSend_willModify(v12, v13, v14, v15, v16);
+  v11 = objc_msgSend_tableModel(self, v8, v9, v10);
+  objc_msgSend_willModify(v11, v12, v13, v14);
 
-  v21 = objc_msgSend_formulaStore(self, v17, v18, v19, v20);
-  v26 = objc_msgSend_tableModel(self, v22, v23, v24, v25);
-  v34[0] = objc_msgSend_tableUID(v26, v27, v28, v29, v30);
-  v34[1] = v31;
-  objc_msgSend_remapRangeFormulasToOwnerUID_(v21, v31, v34, v32, v33);
+  v18 = objc_msgSend_formulaStore(self, v15, v16, v17);
+  v22 = objc_msgSend_tableModel(self, v19, v20, v21);
+  v28[0] = objc_msgSend_tableUID(v22, v23, v24, v25);
+  v28[1] = v26;
+  objc_msgSend_remapRangeFormulasToOwnerUID_(v18, v26, v28, v27);
 }
 
 - (void)openRewritingTransaction
 {
-  v9 = objc_msgSend_mergeRangeCache(self, a2, v2, v3, v4);
-  objc_msgSend_openRewritingTransaction(v9, v5, v6, v7, v8);
+  v7 = objc_msgSend_mergeRangeCache(self, a2, v2, v3);
+  objc_msgSend_openRewritingTransaction(v7, v4, v5, v6);
 }
 
 - (void)commitRewritingTransaction
 {
-  v9 = objc_msgSend_mergeRangeCache(self, a2, v2, v3, v4);
-  objc_msgSend_commitRewritingTransaction(v9, v5, v6, v7, v8);
+  v7 = objc_msgSend_mergeRangeCache(self, a2, v2, v3);
+  objc_msgSend_commitRewritingTransaction(v7, v4, v5, v6);
 }
 
 - (TSUModelCellRect)rewroteFormula:(id)formula atCoordinate:(TSUModelCellCoord)coordinate withRewriteSpec:(id)spec isUndo:(BOOL)undo
 {
   coordinateCopy = coordinate;
   formulaCopy = formula;
-  v42 = objc_msgSend_rangeFromFormulaObject_atCoord_(TSTFormulaStore, v8, formulaCopy, &coordinateCopy, v9);
-  v43 = v10;
-  v13 = objc_msgSend_indexFromCoord_(TSTFormulaStore, v10, &coordinateCopy, v11, v12);
-  v18 = objc_msgSend_mergeRangeCache(self, v14, v15, v16, v17);
-  v41[0] = objc_msgSend_cellRangeAtIndex_(v18, v19, v13, v20, v21);
-  v41[1] = v22;
+  v34 = objc_msgSend_rangeFromFormulaObject_atCoord_(TSTFormulaStore, v8, formulaCopy, &coordinateCopy);
+  v35 = v9;
+  v11 = objc_msgSend_indexFromCoord_(TSTFormulaStore, v9, &coordinateCopy, v10);
+  v15 = objc_msgSend_mergeRangeCache(self, v12, v13, v14);
+  v33[0] = objc_msgSend_cellRangeAtIndex_(v15, v16, v11, v17);
+  v33[1] = v18;
 
-  v23 = sub_2211E55F8(&v42, v41);
-  v25 = v24;
-  if ((objc_msgSend_isValidMergeRange_(self, v24, v42, v43, v26) & 1) == 0)
+  v19 = sub_2211E55F8(&v34, v33);
+  v21 = v20;
+  if ((objc_msgSend_isValidMergeRange_(self, v20, v34, v35) & 1) == 0)
   {
-    v31 = objc_msgSend_mergeRangeCache(self, v27, v28, v29, v30);
-    objc_msgSend_removeCellRangeAtIndex_(v31, v32, v13, v33, v34);
+    v25 = objc_msgSend_mergeRangeCache(self, v22, v23, v24);
+    objc_msgSend_removeCellRangeAtIndex_(v25, v26, v11, v27);
   }
 
-  v35 = objc_msgSend_mergeIndexesForRange_(self, v27, v23, v25, v30);
-  objc_msgSend_reloadMergeCacheForIndexes_(self, v36, v35, v37, v38);
+  v28 = objc_msgSend_mergeIndexesForRange_(self, v22, v19, v21);
+  objc_msgSend_reloadMergeCacheForIndexes_(self, v29, v28, v30);
 
-  v39 = v23;
-  v40 = v25;
-  result.var0.size = v40;
-  result.var0.origin = v39;
+  v31 = v19;
+  v32 = v21;
+  result.var0.size = v32;
+  result.var0.origin = v31;
   return result;
 }
 
@@ -2147,68 +2147,68 @@ LABEL_22:
       location = range.location;
     }
 
-    v9 = sub_22139D0D0(location, (1000000 - range.location), range.location, range.length, uids);
+    v9 = sub_22139D0D0(location, (1000000 - range.location), range.location, range.length);
   }
 
   else
   {
     if (range.location >= 0x3E7)
     {
-      v12 = 999;
+      v11 = 999;
     }
 
     else
     {
-      v12 = range.location;
+      v11 = range.location;
     }
 
-    v9 = sub_22139D234(v12, (1000 - range.location), range.location, range.length, uids);
+    v9 = sub_22139D234(v11, (1000 - range.location), range.location, range.length);
   }
 
-  v13 = objc_msgSend_mergeIndexesForRange_(self, v10, v9, v10, v11);
-  if (objc_msgSend_count(v13, v14, v15, v16, v17))
+  v12 = objc_msgSend_mergeIndexesForRange_(self, v10, v9, v10);
+  if (objc_msgSend_count(v12, v13, v14, v15))
   {
     WeakRetained = objc_loadWeakRetained(&self->_tableModel);
 
     if (!WeakRetained)
     {
-      v22 = MEMORY[0x277D81150];
-      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSTMergeOwner rewriteMergesForRemovedRange:uids:isRows:]", v20, v21);
-      v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v25, v26);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v28, v23, v27, 1154, 0, "invalid nil value for '%{public}s'", "_tableModel");
+      v19 = MEMORY[0x277D81150];
+      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSTMergeOwner rewriteMergesForRemovedRange:uids:isRows:]", v18);
+      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v22);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v24, v20, v23, 1154, 0, "invalid nil value for '%{public}s'", "_tableModel");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30, v31, v32);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27);
     }
 
-    v33 = objc_loadWeakRetained(&self->_tableModel);
-    objc_msgSend_willModify(v33, v34, v35, v36, v37);
-    v38 = objc_loadWeakRetained(&self->_calculationEngine);
-    objc_msgSend_willModify(v38, v39, v40, v41, v42);
+    v28 = objc_loadWeakRetained(&self->_tableModel);
+    objc_msgSend_willModify(v28, v29, v30, v31);
+    v32 = objc_loadWeakRetained(&self->_calculationEngine);
+    objc_msgSend_willModify(v32, v33, v34, v35);
 
-    v43 = objc_loadWeakRetained(&self->_calculationEngine);
-    objc_msgSend_beginSuppressingWillModifyCalls(v43, v44, v45, v46, v47);
+    v36 = objc_loadWeakRetained(&self->_calculationEngine);
+    objc_msgSend_beginSuppressingWillModifyCalls(v36, v37, v38, v39);
 
-    v48 = [TSTFormulaRewriteSpec alloc];
-    v74[0] = objc_msgSend_tableUID(v33, v49, v50, v51, v52);
-    v74[1] = v53;
-    v54 = objc_msgSend_initForRemoveRowsOrColumnsFromTable_rowColumnUuids_areRows_(v48, v53, v74, uids, rowsCopy);
-    objc_msgSend_setCanBeNested_(v54, v55, 0, v56, v57);
-    v58 = objc_loadWeakRetained(&self->_calculationEngine);
-    objc_msgSend_willModifyTable_uidResolver_calcEngine_(v54, v59, v33, v33, v58);
+    v40 = [TSTFormulaRewriteSpec alloc];
+    v61[0] = objc_msgSend_tableUID(v28, v41, v42, v43);
+    v61[1] = v44;
+    v45 = objc_msgSend_initForRemoveRowsOrColumnsFromTable_rowColumnUuids_areRows_(v40, v44, v61, uids, rowsCopy);
+    objc_msgSend_setCanBeNested_(v45, v46, 0, v47);
+    v48 = objc_loadWeakRetained(&self->_calculationEngine);
+    objc_msgSend_willModifyTable_uidResolver_calcEngine_(v45, v49, v28, v28, v48);
 
-    v60 = objc_loadWeakRetained(&self->_calculationEngine);
-    objc_msgSend_didModifyTable_calcEngine_(v54, v61, v33, v60, v62);
+    v50 = objc_loadWeakRetained(&self->_calculationEngine);
+    objc_msgSend_didModifyTable_calcEngine_(v45, v51, v28, v50);
 
-    v72[0] = MEMORY[0x277D85DD0];
-    v72[1] = 3221225472;
-    v72[2] = sub_22139D3A4;
-    v72[3] = &unk_27845DE60;
-    v72[4] = self;
-    v63 = v54;
-    v73 = v63;
-    objc_msgSend_enumerateIndexesUsingBlock_(v13, v64, v72, v65, v66);
-    v67 = objc_loadWeakRetained(&self->_calculationEngine);
-    objc_msgSend_endSuppressingWillModifyCalls(v67, v68, v69, v70, v71);
+    v59[0] = MEMORY[0x277D85DD0];
+    v59[1] = 3221225472;
+    v59[2] = sub_22139D3A4;
+    v59[3] = &unk_27845DE60;
+    v59[4] = self;
+    v52 = v45;
+    v60 = v52;
+    objc_msgSend_enumerateIndexesUsingBlock_(v12, v53, v59, v54);
+    v55 = objc_loadWeakRetained(&self->_calculationEngine);
+    objc_msgSend_endSuppressingWillModifyCalls(v55, v56, v57, v58);
   }
 }
 
@@ -2227,89 +2227,89 @@ LABEL_22:
       location = range.location;
     }
 
-    v9 = sub_22139D0D0(location, (1000000 - range.location), range.location, range.length, uids);
+    v9 = sub_22139D0D0(location, (1000000 - range.location), range.location, range.length);
   }
 
   else
   {
     if (range.location >= 0x3E7)
     {
-      v12 = 999;
+      v11 = 999;
     }
 
     else
     {
-      v12 = range.location;
+      v11 = range.location;
     }
 
-    v9 = sub_22139D234(v12, (1000 - range.location), range.location, range.length, uids);
+    v9 = sub_22139D234(v11, (1000 - range.location), range.location, range.length);
   }
 
-  v13 = objc_msgSend_mergeIndexesForRange_(self, v10, v9, v10, v11);
-  if (objc_msgSend_count(v13, v14, v15, v16, v17))
+  v12 = objc_msgSend_mergeIndexesForRange_(self, v10, v9, v10);
+  if (objc_msgSend_count(v12, v13, v14, v15))
   {
     WeakRetained = objc_loadWeakRetained(&self->_tableModel);
 
     if (!WeakRetained)
     {
-      v22 = MEMORY[0x277D81150];
-      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSTMergeOwner rewriteMergesForInsertedRange:uids:isRows:]", v20, v21);
-      v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v25, v26);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v28, v23, v27, 1222, 0, "invalid nil value for '%{public}s'", "_tableModel");
+      v19 = MEMORY[0x277D81150];
+      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSTMergeOwner rewriteMergesForInsertedRange:uids:isRows:]", v18);
+      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTMergeOwner.mm", v22);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v24, v20, v23, 1222, 0, "invalid nil value for '%{public}s'", "_tableModel");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30, v31, v32);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27);
     }
 
-    v33 = objc_loadWeakRetained(&self->_tableModel);
-    objc_msgSend_willModify(v33, v34, v35, v36, v37);
-    v38 = objc_loadWeakRetained(&self->_calculationEngine);
-    objc_msgSend_willModify(v38, v39, v40, v41, v42);
+    v28 = objc_loadWeakRetained(&self->_tableModel);
+    objc_msgSend_willModify(v28, v29, v30, v31);
+    v32 = objc_loadWeakRetained(&self->_calculationEngine);
+    objc_msgSend_willModify(v32, v33, v34, v35);
 
-    v43 = objc_loadWeakRetained(&self->_calculationEngine);
-    objc_msgSend_beginSuppressingWillModifyCalls(v43, v44, v45, v46, v47);
+    v36 = objc_loadWeakRetained(&self->_calculationEngine);
+    objc_msgSend_beginSuppressingWillModifyCalls(v36, v37, v38, v39);
 
-    v48 = [TSTFormulaRewriteSpec alloc];
-    v82 = objc_msgSend_tableUID(v33, v49, v50, v51, v52);
-    v83 = v53;
-    v54 = objc_msgSend_initForInsertingRowsOrColumnsIntoTable_rowColumnUuids_areRows_(v48, v53, &v82, uids, rowsCopy);
-    objc_msgSend_setCanBeNested_(v54, v55, 0, v56, v57);
-    v62 = objc_msgSend_calcEngine(v33, v58, v59, v60, v61);
-    objc_msgSend_willModifyTable_uidResolver_calcEngine_(v54, v63, v33, v33, v62);
+    v40 = [TSTFormulaRewriteSpec alloc];
+    v68 = objc_msgSend_tableUID(v28, v41, v42, v43);
+    v69 = v44;
+    v45 = objc_msgSend_initForInsertingRowsOrColumnsIntoTable_rowColumnUuids_areRows_(v40, v44, &v68, uids, rowsCopy);
+    objc_msgSend_setCanBeNested_(v45, v46, 0, v47);
+    v51 = objc_msgSend_calcEngine(v28, v48, v49, v50);
+    objc_msgSend_willModifyTable_uidResolver_calcEngine_(v45, v52, v28, v28, v51);
 
-    objc_msgSend_didModifyTable_(v54, v64, v33, v65, v66);
-    v82 = 0;
-    v83 = &v82;
-    v84 = 0x4812000000;
-    v85 = sub_22139D8AC;
-    v86 = sub_22139D8D0;
-    v87 = &unk_22188E88F;
-    v89 = 0;
-    v90 = 0;
+    objc_msgSend_didModifyTable_(v45, v53, v28, v54);
+    v68 = 0;
+    v69 = &v68;
+    v70 = 0x4812000000;
+    v71 = sub_22139D8AC;
+    v72 = sub_22139D8D0;
+    v73 = &unk_22188E88F;
+    v75 = 0;
+    v76 = 0;
     __p = 0;
-    v79[0] = MEMORY[0x277D85DD0];
-    v79[1] = 3221225472;
-    v79[2] = sub_22139D8E8;
-    v79[3] = &unk_278463BE0;
-    v79[4] = self;
-    v67 = v54;
-    v80 = v67;
-    v81 = &v82;
-    objc_msgSend_enumerateIndexesUsingBlock_(v13, v68, v79, v69, v70);
-    v72 = v83[6];
-    v73 = v83[7];
-    while (v72 != v73)
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = sub_22139D8E8;
+    v65[3] = &unk_278463BE0;
+    v65[4] = self;
+    v55 = v45;
+    v66 = v55;
+    v67 = &v68;
+    objc_msgSend_enumerateIndexesUsingBlock_(v12, v56, v65, v57);
+    v59 = v69[6];
+    v60 = v69[7];
+    while (v59 != v60)
     {
-      objc_msgSend_setCellRange_atIndex_(self->_mergeRangeCache, v71, *v72, v72[1], v72[2]);
-      v72 += 3;
+      objc_msgSend_setCellRange_atIndex_(self->_mergeRangeCache, v58, *v59, v59[1], v59[2]);
+      v59 += 3;
     }
 
-    v74 = objc_loadWeakRetained(&self->_calculationEngine);
-    objc_msgSend_endSuppressingWillModifyCalls(v74, v75, v76, v77, v78);
+    v61 = objc_loadWeakRetained(&self->_calculationEngine);
+    objc_msgSend_endSuppressingWillModifyCalls(v61, v62, v63, v64);
 
-    _Block_object_dispose(&v82, 8);
+    _Block_object_dispose(&v68, 8);
     if (__p)
     {
-      v89 = __p;
+      v75 = __p;
       operator delete(__p);
     }
   }
@@ -2319,35 +2319,35 @@ LABEL_22:
 {
   engineCopy = engine;
   objc_storeWeak(&self->_calculationEngine, engineCopy);
-  objc_msgSend_setCalcEngine_(self->_formulaStore, v7, engineCopy, v8, v9);
+  objc_msgSend_setCalcEngine_(self->_formulaStore, v7, engineCopy, v8);
   WeakRetained = objc_loadWeakRetained(&self->_calculationEngine);
-  v12 = objc_msgSend_registerOwnerWithOwnerUID_owner_referenceResolver_baseOwnerUID_ownerKind_(WeakRetained, v11, self->_ownerUID._lower, self->_ownerUID._upper, self, 0, d->_lower, d->_upper, 5);
+  v11 = objc_msgSend_registerOwnerWithOwnerUID_owner_referenceResolver_baseOwnerUID_ownerKind_(WeakRetained, v10, self->_ownerUID._lower, self->_ownerUID._upper, self, 0, d->_lower, d->_upper, 5);
 
   if (self->_formulaStore)
   {
-    memset(v34, 0, sizeof(v34));
-    v35 = 1065353216;
-    v33 = xmmword_2217E18D0;
-    v17 = objc_msgSend_tableModel(self, v13, v14, v15, v16);
-    v22 = objc_msgSend_tableUID(v17, v18, v19, v20, v21);
-    v24 = v23;
-    v36 = &v33;
-    v25 = sub_221230440(v34, &v33);
-    v25[4] = v22;
-    v25[5] = v24;
+    memset(v29, 0, sizeof(v29));
+    v30 = 1065353216;
+    v28 = xmmword_2217E18D0;
+    v15 = objc_msgSend_tableModel(self, v12, v13, v14);
+    v19 = objc_msgSend_tableUID(v15, v16, v17, v18);
+    v21 = v20;
+    v31 = &v28;
+    v22 = sub_221230440(v29, &v28, &unk_2217E18F0, &v31);
+    v22[4] = v19;
+    v22[5] = v21;
 
-    objc_msgSend_remapTableUIDsInFormulasWithMap_calcEngine_(self, v26, v34, engineCopy, v27);
-    if (!v12)
+    objc_msgSend_remapTableUIDsInFormulasWithMap_calcEngine_(self, v23, v29, engineCopy);
+    if (!v11)
     {
-      objc_msgSend_registerAllFormulaToCalculationEngine(self->_formulaStore, v28, v29, v30, v31);
+      objc_msgSend_registerAllFormulaToCalculationEngine(self->_formulaStore, v24, v25, v26);
     }
 
-    sub_2210BDEC0(v34);
+    sub_2210BDEC0(v29);
   }
 
-  objc_msgSend_resetMergeCache(self, v13, v14, v15, v16);
+  objc_msgSend_resetMergeCache(self, v12, v13, v14);
 
-  return v12;
+  return v11;
 }
 
 - (void)unregisterFromCalcEngine
@@ -2355,11 +2355,11 @@ LABEL_22:
   formulaStore = self->_formulaStore;
   if (formulaStore)
   {
-    objc_msgSend_setCalcEngine_(formulaStore, a2, 0, v2, v3);
+    objc_msgSend_setCalcEngine_(formulaStore, a2, 0, v2);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_calculationEngine);
-  objc_msgSend_unregisterOwner_(WeakRetained, v7, self->_ownerUID._lower, self->_ownerUID._upper, v8);
+  objc_msgSend_unregisterOwner_(WeakRetained, v6, self->_ownerUID._lower, self->_ownerUID._upper);
 
   objc_storeWeak(&self->_calculationEngine, 0);
 }

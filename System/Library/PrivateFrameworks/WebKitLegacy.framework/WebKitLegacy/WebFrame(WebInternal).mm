@@ -39,19 +39,19 @@
 
 + (id)_createFrameWithPage:()WebInternal frameName:frameView:ownerElement:
 {
-  v5 = *(self + 8);
-  v6 = WTF::fastMalloc(0x28);
-  result = WebCore::LocalFrameLoaderClient::LocalFrameLoaderClient(v6, a2);
-  *(v6 + 2) = 0;
-  *v6 = &unk_1F472B518;
-  *(v6 + 3) = v5;
-  if (v5)
+  v6 = *(self + 8);
+  v7 = WTF::fastMalloc(0x28);
+  result = WebCore::LocalFrameLoaderClient::LocalFrameLoaderClient(v7, a3);
+  *(v7 + 2) = 0;
+  *v7 = &unk_1F472B518;
+  *(v7 + 3) = v6;
+  if (v6)
   {
-    result = v5;
+    result = v6;
   }
 
-  *(v6 + 4) = 0;
-  *a3 = v6;
+  *(v7 + 4) = 0;
+  *a4 = v7;
   return result;
 }
 

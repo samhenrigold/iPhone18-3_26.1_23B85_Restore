@@ -84,29 +84,29 @@
 
 - (void)getNextExpirationDate:(id *)date wasPurged:(BOOL *)purged
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   *purged = 0;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   allKeys = [(NSMutableDictionary *)self->_mutableExpirationDateByThreadID allKeys];
-  v7 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         v13 = [(NSMutableDictionary *)self->_mutableExpirationDateByThreadID valueForKey:v12];
         if ([(UNCThreadsMuteAssertion *)self isActiveForThreadIdentifier:v12])
         {
@@ -125,7 +125,7 @@
         }
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
@@ -138,8 +138,6 @@
 
   v15 = v9;
   *date = v9;
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (NSSet)threadIDs
@@ -193,20 +191,18 @@ void __31__UNCThreadsMuteAssertion_hash__block_invoke(uint64_t a1, void *a2, voi
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass())) && (v5 = equalCopy) != 0)
+  if ((objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass())) && (v4 = equalCopy) != 0)
   {
-    v6 = v5;
-    mutableExpirationDateByThreadID = self->_mutableExpirationDateByThreadID;
-    v8 = v6[1];
-    v9 = BSEqualDictionaries();
+    v5 = v4;
+    v6 = BSEqualDictionaries();
   }
 
   else
   {
-    v9 = 0;
+    v6 = 0;
   }
 
-  return v9;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

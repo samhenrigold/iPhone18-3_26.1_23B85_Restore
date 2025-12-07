@@ -21,14 +21,43 @@ id ACSettingsLocalizedStringWithTable(void *a1, void *a2)
   return v6;
 }
 
-void sub_3130(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_3130(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_41D0(uint64_t a1, uint64_t a2)
 {
   v4 = +[NSAssertionHandler currentHandler];
   [v4 handleFailureInMethod:a1 object:a2 file:@"ACSettingsSwitchSetting.m" lineNumber:110 description:{@"Asked to show cellular data snippet, but device doesn't support cellular data"}];
+}
+
+void sub_4234()
+{
+  v6 = 136315394;
+  sub_3120();
+  sub_3130(&dword_0, v0, v1, "%s Failed to add self as a DNDStateUpdateListener: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_42AC()
+{
+  v6 = 136315394;
+  sub_3120();
+  sub_3130(&dword_0, v0, v1, "%s Failed to turn off DND: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_4328()
+{
+  v6 = 136315394;
+  sub_3120();
+  sub_3130(&dword_0, v0, v1, "%s Failed to turn on DND: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_43A0()
+{
+  v6 = 136315394;
+  sub_3120();
+  sub_3130(&dword_0, v0, v1, "%s Failed to query DND state: %@", v2, v3, v4, v5, v6);
 }

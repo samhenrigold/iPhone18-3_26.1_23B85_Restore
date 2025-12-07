@@ -88,13 +88,13 @@
 
       else
       {
-        sub_100001674();
+        sub_100001674(0);
       }
     }
 
     else
     {
-      sub_100001680();
+      sub_100001680(0);
     }
 
     [v6 removeAllObjects];

@@ -187,42 +187,46 @@
       shouldLog = [v24 shouldLog];
       if ([v24 shouldLogToDisk])
       {
-        v40 = shouldLog | 2;
+        LODWORD(v40) = shouldLog | 2;
       }
 
       else
       {
-        v40 = shouldLog;
+        LODWORD(v40) = shouldLog;
       }
 
       oSLogObject = [v24 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+      {
+        v40 = v40;
+      }
+
+      else
       {
         v40 &= 2u;
       }
 
       if (!v40)
       {
-        goto LABEL_98;
+        goto LABEL_105;
       }
 
-      v81 = 138543618;
-      v82 = objc_opt_class();
-      v83 = 2114;
-      v84 = appCopy;
-      v41 = v82;
-      LODWORD(v67) = 22;
-      v42 = _os_log_send_and_compose_impl();
+      v82 = 138543618;
+      v83 = objc_opt_class();
+      v84 = 2114;
+      v85 = appCopy;
+      v41 = v83;
+      v42 = _os_log_send_and_compose_impl(v40, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@]: No new receipt for %{public}@", &v82, 22);
 
       if (!v42)
       {
-        goto LABEL_99;
+        goto LABEL_106;
       }
 
-      oSLogObject = [NSString stringWithCString:v42 encoding:4, &v81, v67];
+      oSLogObject = [NSString stringWithCString:v42 encoding:4];
       free(v42);
       SSFileLog();
-      goto LABEL_98;
+      goto LABEL_105;
     }
 
     bundleIdentifier = [appCopy bundleIdentifier];
@@ -240,7 +244,7 @@
         {
           if (!-[AppReceiptRefreshOperationOptions performSinfMirartionCheckBeforeFailing](self->_options, "performSinfMirartionCheckBeforeFailing") || ([appCopy hasMIDBasedSINF] & 1) != 0 || (v22 & 8) == 0)
           {
-LABEL_32:
+LABEL_34:
             [(AppReceiptOperationResult *)self->_operationResult addRevoked:appCopy, v66];
             oSLogObject = +[SSLogConfig sharedDaemonConfig];
             if (!oSLogObject)
@@ -251,16 +255,21 @@ LABEL_32:
             shouldLog2 = [oSLogObject shouldLog];
             if ([oSLogObject shouldLogToDisk])
             {
-              v33 = shouldLog2 | 2;
+              LODWORD(v33) = shouldLog2 | 2;
             }
 
             else
             {
-              v33 = shouldLog2;
+              LODWORD(v33) = shouldLog2;
             }
 
             v31OSLogObject = [oSLogObject OSLogObject];
-            if (!os_log_type_enabled(v31OSLogObject, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v31OSLogObject, OS_LOG_TYPE_DEFAULT))
+            {
+              v33 = v33;
+            }
+
+            else
             {
               v33 &= 2u;
             }
@@ -269,36 +278,36 @@ LABEL_32:
             {
               v75 = optionsCopy;
               v35 = objc_opt_class();
-              v78 = v35;
+              v79 = v35;
               itemName = [appCopy itemName];
               v37 = [v13 length];
-              v81 = 138544130;
-              v82 = v35;
-              v83 = 2114;
-              v84 = itemName;
-              v85 = 2114;
-              v86 = appCopy;
-              v87 = 2048;
-              v88 = v37;
+              v82 = 138544130;
+              v83 = v35;
+              v84 = 2114;
+              v85 = itemName;
+              v86 = 2114;
+              v87 = appCopy;
+              v88 = 2048;
+              v89 = v37;
               LODWORD(v67) = 42;
-              v38 = _os_log_send_and_compose_impl();
+              v38 = _os_log_send_and_compose_impl(v33, 0, 0, 0, &_mh_execute_header, v31OSLogObject, 0, "[%{public}@]: Rewrote a Revoked receipt for app: [%{public}@] [%{public}@] [%ld bytes]", &v82, v67);
 
               if (!v38)
               {
                 optionsCopy = v75;
-                goto LABEL_98;
+                goto LABEL_105;
               }
 
-              v31OSLogObject = [NSString stringWithCString:v38 encoding:4, &v81, v67];
+              v31OSLogObject = [NSString stringWithCString:v38 encoding:4];
               free(v38);
               SSFileLog();
               optionsCopy = v75;
             }
 
-            goto LABEL_97;
+            goto LABEL_104;
           }
 
-          v77 = [(AppReceiptRefreshOperation *)self _preformMigrationCheckForApp:appCopy];
+          v78 = [(AppReceiptRefreshOperation *)self _preformMigrationCheckForApp:appCopy];
           v25 = +[SSLogConfig sharedDaemonConfig];
           if (!v25)
           {
@@ -306,57 +315,116 @@ LABEL_32:
           }
 
           v26 = v25;
-          shouldLog3 = [v25 shouldLog];
+          LODWORD(v27) = [v25 shouldLog];
           if ([v26 shouldLogToDisk])
           {
-            shouldLog3 |= 2u;
+            LODWORD(v27) = v27 | 2;
           }
 
           v74 = v26;
           oSLogObject2 = [v26 OSLogObject];
-          if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
           {
-            shouldLog3 &= 2u;
+            v27 = v27;
           }
 
-          if (shouldLog3)
+          else
+          {
+            v27 &= 2u;
+          }
+
+          if (v27)
           {
             v70 = oSLogObject2;
             v29 = objc_opt_class();
             v72 = v29;
             bundleIdentifier2 = [appCopy bundleIdentifier];
-            v81 = 138543874;
-            v82 = v29;
-            v83 = 2114;
-            v84 = bundleIdentifier2;
-            v85 = 1024;
-            LODWORD(v86) = v77;
-            LODWORD(v67) = 28;
-            v66 = &v81;
-            v30 = _os_log_send_and_compose_impl();
+            v82 = 138543874;
+            v83 = v29;
+            v84 = 2114;
+            v85 = bundleIdentifier2;
+            v86 = 1024;
+            LODWORD(v87) = v78;
+            v30 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &_mh_execute_header, v70, 0, "[%{public}@]: Attempted VPP migration of server revoked app with bundleIdentifier: %{public}@ with result: %d", &v82, 28);
 
             if (!v30)
             {
-              goto LABEL_31;
+              goto LABEL_33;
             }
 
-            oSLogObject2 = [NSString stringWithCString:v30 encoding:4, &v81, v67];
+            oSLogObject2 = [NSString stringWithCString:v30 encoding:4];
             free(v30);
             v66 = oSLogObject2;
             SSFileLog();
           }
 
-LABEL_31:
-          if ((v77 & 1) == 0)
+LABEL_33:
+          if ((v78 & 1) == 0)
           {
-            goto LABEL_32;
+            goto LABEL_34;
           }
 
-LABEL_99:
+LABEL_106:
           LOBYTE(v18) = 1;
-          goto LABEL_100;
+          goto LABEL_107;
         }
 
+        oSLogObject = +[SSLogConfig sharedDaemonConfig];
+        if (!oSLogObject)
+        {
+          oSLogObject = +[SSLogConfig sharedConfig];
+        }
+
+        shouldLog3 = [oSLogObject shouldLog];
+        if ([oSLogObject shouldLogToDisk])
+        {
+          LODWORD(v63) = shouldLog3 | 2;
+        }
+
+        else
+        {
+          LODWORD(v63) = shouldLog3;
+        }
+
+        v31OSLogObject = [oSLogObject OSLogObject];
+        if (os_log_type_enabled(v31OSLogObject, OS_LOG_TYPE_DEFAULT))
+        {
+          v63 = v63;
+        }
+
+        else
+        {
+          v63 &= 2u;
+        }
+
+        if (!v63)
+        {
+LABEL_104:
+
+          goto LABEL_105;
+        }
+
+        v64 = objc_opt_class();
+        v81 = v64;
+        v82 = 138543874;
+        v83 = v64;
+        v84 = 2114;
+        v85 = appCopy;
+        v86 = 2048;
+        v87 = [v13 length];
+        v61 = _os_log_send_and_compose_impl(v63, 0, 0, 0, &_mh_execute_header, v31OSLogObject, 0, "[%{public}@]: Rewrote the receipt for app: [%{public}@] [%ld bytes]", &v82, 32);
+        goto LABEL_102;
+      }
+
+      if ((v22 & 8) == 0)
+      {
+        goto LABEL_106;
+      }
+
+      if (!-[AppReceiptRefreshOperationOptions performSinfMirartionCheckBeforeFailing](self->_options, "performSinfMirartionCheckBeforeFailing") || ([appCopy hasMIDBasedSINF] & 1) != 0)
+      {
+LABEL_83:
+        [(AppReceiptOperationResult *)self->_operationResult addRevoked:appCopy, v66];
         oSLogObject = +[SSLogConfig sharedDaemonConfig];
         if (!oSLogObject)
         {
@@ -366,64 +434,12 @@ LABEL_99:
         shouldLog4 = [oSLogObject shouldLog];
         if ([oSLogObject shouldLogToDisk])
         {
-          v63 = shouldLog4 | 2;
+          v55 = shouldLog4 | 2;
         }
 
         else
         {
-          v63 = shouldLog4;
-        }
-
-        v31OSLogObject = [oSLogObject OSLogObject];
-        if (!os_log_type_enabled(v31OSLogObject, OS_LOG_TYPE_DEFAULT))
-        {
-          v63 &= 2u;
-        }
-
-        if (!v63)
-        {
-LABEL_97:
-
-          goto LABEL_98;
-        }
-
-        v64 = objc_opt_class();
-        v80 = v64;
-        v81 = 138543874;
-        v82 = v64;
-        v83 = 2114;
-        v84 = appCopy;
-        v85 = 2048;
-        v86 = [v13 length];
-        LODWORD(v67) = 32;
-        v61 = _os_log_send_and_compose_impl();
-        goto LABEL_95;
-      }
-
-      if ((v22 & 8) == 0)
-      {
-        goto LABEL_99;
-      }
-
-      if (!-[AppReceiptRefreshOperationOptions performSinfMirartionCheckBeforeFailing](self->_options, "performSinfMirartionCheckBeforeFailing") || ([appCopy hasMIDBasedSINF] & 1) != 0)
-      {
-LABEL_77:
-        [(AppReceiptOperationResult *)self->_operationResult addRevoked:appCopy, v66];
-        oSLogObject = +[SSLogConfig sharedDaemonConfig];
-        if (!oSLogObject)
-        {
-          oSLogObject = +[SSLogConfig sharedConfig];
-        }
-
-        shouldLog5 = [oSLogObject shouldLog];
-        if ([oSLogObject shouldLogToDisk])
-        {
-          v55 = shouldLog5 | 2;
-        }
-
-        else
-        {
-          v55 = shouldLog5;
+          v55 = shouldLog4;
         }
 
         v31OSLogObject = [oSLogObject OSLogObject];
@@ -436,39 +452,40 @@ LABEL_77:
 
         if (!v57)
         {
-          goto LABEL_97;
+          goto LABEL_104;
         }
 
+        v77 = v57;
         v58 = objc_opt_class();
-        v80 = v58;
+        v81 = v58;
         itemName2 = [appCopy itemName];
         v60 = [v13 length];
-        v81 = 138413058;
-        v82 = v58;
-        v83 = 2114;
-        v84 = itemName2;
-        v85 = 2114;
-        v86 = appCopy;
-        v87 = 2048;
-        v88 = v60;
+        v82 = 138413058;
+        v83 = v58;
+        v84 = 2114;
+        v85 = itemName2;
+        v86 = 2114;
+        v87 = appCopy;
+        v88 = 2048;
+        v89 = v60;
         LODWORD(v67) = 42;
-        v61 = _os_log_send_and_compose_impl();
+        v61 = _os_log_send_and_compose_impl(v77, 0, 0, 0, &_mh_execute_header, v31OSLogObject, 0, "[%@]: Rewrote a Revoked receipt for app: [%{public}@] [%{public}@] [%ld bytes]", &v82, v67);
 
-LABEL_95:
+LABEL_102:
         if (v61)
         {
-          v31OSLogObject = [NSString stringWithCString:v61 encoding:4, &v81, v67];
+          v31OSLogObject = [NSString stringWithCString:v61 encoding:4];
           free(v61);
           SSFileLog();
-          goto LABEL_97;
+          goto LABEL_104;
         }
 
-LABEL_98:
+LABEL_105:
 
-        goto LABEL_99;
+        goto LABEL_106;
       }
 
-      v79 = [(AppReceiptRefreshOperation *)self _preformMigrationCheckForApp:appCopy];
+      v80 = [(AppReceiptRefreshOperation *)self _preformMigrationCheckForApp:appCopy];
       v48 = +[SSLogConfig sharedDaemonConfig];
       if (!v48)
       {
@@ -476,53 +493,56 @@ LABEL_98:
       }
 
       v49 = v48;
-      shouldLog6 = [v48 shouldLog];
+      LODWORD(v50) = [v48 shouldLog];
       if ([v49 shouldLogToDisk])
       {
-        shouldLog6 |= 2u;
+        LODWORD(v50) = v50 | 2;
       }
 
       v76 = v49;
       oSLogObject3 = [v49 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
       {
-        shouldLog6 &= 2u;
+        v50 = v50;
       }
 
-      if (shouldLog6)
+      else
+      {
+        v50 &= 2u;
+      }
+
+      if (v50)
       {
         v71 = oSLogObject3;
         v52 = objc_opt_class();
         v73 = v52;
         bundleIdentifier3 = [appCopy bundleIdentifier];
-        v81 = 138543874;
-        v82 = v52;
-        v83 = 2114;
-        v84 = bundleIdentifier3;
-        v85 = 1024;
-        LODWORD(v86) = v79;
-        LODWORD(v67) = 28;
-        v66 = &v81;
-        v53 = _os_log_send_and_compose_impl();
+        v82 = 138543874;
+        v83 = v52;
+        v84 = 2114;
+        v85 = bundleIdentifier3;
+        v86 = 1024;
+        LODWORD(v87) = v80;
+        v53 = _os_log_send_and_compose_impl(v50, 0, 0, 0, &_mh_execute_header, v71, 0, "[%{public}@]: Attempted VPP migration of revoked app with bundleIdentifier: %{public}@ with result: %d", &v82, 28);
 
         if (!v53)
         {
-          goto LABEL_76;
+          goto LABEL_82;
         }
 
-        oSLogObject3 = [NSString stringWithCString:v53 encoding:4, &v81, v67];
+        oSLogObject3 = [NSString stringWithCString:v53 encoding:4];
         free(v53);
         v66 = oSLogObject3;
         SSFileLog();
       }
 
-LABEL_76:
-      if (v79)
+LABEL_82:
+      if (v80)
       {
-        goto LABEL_99;
+        goto LABEL_106;
       }
 
-      goto LABEL_77;
+      goto LABEL_83;
     }
 
     v24 = +[SSLogConfig sharedDaemonConfig];
@@ -531,19 +551,24 @@ LABEL_76:
       v24 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog7 = [v24 shouldLog];
+    shouldLog5 = [v24 shouldLog];
     if ([v24 shouldLogToDisk])
     {
-      v44 = shouldLog7 | 2;
+      LODWORD(v44) = shouldLog5 | 2;
     }
 
     else
     {
-      v44 = shouldLog7;
+      LODWORD(v44) = shouldLog5;
     }
 
     oSLogObject4 = [v24 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
+    {
+      v44 = v44;
+    }
+
+    else
     {
       v44 &= 2u;
     }
@@ -552,29 +577,28 @@ LABEL_76:
     {
       v46 = objc_opt_class();
       v47 = v46;
-      v81 = 138543874;
-      v82 = v46;
-      v83 = 2114;
-      v84 = appCopy;
-      v85 = 2048;
-      v86 = [v13 length];
-      LODWORD(v67) = 32;
-      v18 = _os_log_send_and_compose_impl();
+      v82 = 138543874;
+      v83 = v46;
+      v84 = 2114;
+      v85 = appCopy;
+      v86 = 2048;
+      v87 = [v13 length];
+      v18 = _os_log_send_and_compose_impl(v44, 0, 0, 0, &_mh_execute_header, oSLogObject4, 16, "[%{public}@]: Failed to re-write the receipt for app: [%{public}@] [%ld bytes]", &v82, 32);
 
       if (!v18)
       {
-LABEL_100:
+LABEL_107:
 
-        goto LABEL_101;
+        goto LABEL_108;
       }
 
-      oSLogObject4 = [NSString stringWithCString:v18 encoding:4, &v81, v67];
+      oSLogObject4 = [NSString stringWithCString:v18 encoding:4];
       free(v18);
       SSFileLog();
     }
 
     LOBYTE(v18) = 0;
-    goto LABEL_100;
+    goto LABEL_107;
   }
 
   v13 = +[SSLogConfig sharedDaemonConfig];
@@ -583,47 +607,51 @@ LABEL_100:
     v13 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog8 = [v13 shouldLog];
+  shouldLog6 = [v13 shouldLog];
   if ([v13 shouldLogToDisk])
   {
-    v15 = shouldLog8 | 2;
+    LODWORD(v15) = shouldLog6 | 2;
   }
 
   else
   {
-    v15 = shouldLog8;
+    LODWORD(v15) = shouldLog6;
   }
 
   oSLogObject5 = [v13 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_ERROR))
+  {
+    v15 = v15;
+  }
+
+  else
   {
     v15 &= 2u;
   }
 
   if (!v15)
   {
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-  v81 = 138543618;
-  v82 = objc_opt_class();
-  v83 = 2114;
-  v84 = responseCopy;
-  v17 = v82;
-  LODWORD(v67) = 22;
-  v18 = _os_log_send_and_compose_impl();
+  v82 = 138543618;
+  v83 = objc_opt_class();
+  v84 = 2114;
+  v85 = responseCopy;
+  v17 = v83;
+  v18 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject5, 16, "[%{public}@]: Unexpected status code: %{public}@", &v82, 22);
 
   if (v18)
   {
-    oSLogObject5 = [NSString stringWithCString:v18 encoding:4, &v81, v67];
+    oSLogObject5 = [NSString stringWithCString:v18 encoding:4];
     free(v18);
     SSFileLog();
-LABEL_13:
+LABEL_14:
 
     LOBYTE(v18) = 0;
   }
 
-LABEL_101:
+LABEL_108:
 
   return v18;
 }
@@ -766,13 +794,11 @@ LABEL_7:
             v93 = stringValue;
             v94 = 2114;
             v95 = v80;
-            LODWORD(v75) = 52;
-            v74 = &v86;
-            v41 = _os_log_send_and_compose_impl();
+            v41 = _os_log_send_and_compose_impl(v38, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@]: Using app account: %{public}@ item with bundleID: %{public}@ due to different item storeFront: %{public}@ primary account storeFront: %{public}@", &v86, 52);
 
             if (v41)
             {
-              v42 = [NSString stringWithCString:v41 encoding:4, &v86, v75];
+              v42 = [NSString stringWithCString:v41 encoding:4];
               free(v41);
               v74 = v42;
               SSFileLog();
@@ -834,9 +860,7 @@ LABEL_7:
           v91 = bundleIdentifier2;
           v92 = 2114;
           v93 = v80;
-          LODWORD(v75) = 42;
-          v74 = &v86;
-          v33 = _os_log_send_and_compose_impl();
+          v33 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "[%{public}@]: Using family primary account: %{public}@ to restore bundleID: %{public}@ storeFront: %{public}@", &v86, 42);
 
           if (!v33)
           {
@@ -847,7 +871,7 @@ LABEL_42:
             goto LABEL_43;
           }
 
-          oSLogObject2 = [NSString stringWithCString:v33 encoding:4, &v86, v75];
+          oSLogObject2 = [NSString stringWithCString:v33 encoding:4];
           free(v33);
           v74 = oSLogObject2;
           SSFileLog();
@@ -1007,7 +1031,7 @@ LABEL_43:
       v89 = v63;
       v70 = v69;
       LODWORD(v75) = 22;
-      v71 = _os_log_send_and_compose_impl();
+      v71 = _os_log_send_and_compose_impl(v68, 0, 0, 0, &_mh_execute_header, oSLogObject3, 16, "[%{public}@]: Error creating receipt request: %{public}@", &v86, v75);
 
       if (!v71)
       {
@@ -1016,7 +1040,7 @@ LABEL_86:
         goto LABEL_87;
       }
 
-      oSLogObject3 = [NSString stringWithCString:v71 encoding:4, &v86, v75];
+      oSLogObject3 = [NSString stringWithCString:v71 encoding:4];
       free(v71);
       SSFileLog();
     }
@@ -1088,19 +1112,24 @@ LABEL_87:
       v23 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v23 shouldLog];
+    LODWORD(v24) = [v23 shouldLog];
     if ([v23 shouldLogToDisk])
     {
-      shouldLog |= 2u;
+      LODWORD(v24) = v24 | 2;
     }
 
     oSLogObject = [v23 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog &= 2u;
+      v24 = v24;
     }
 
-    if (shouldLog)
+    else
+    {
+      v24 &= 2u;
+    }
+
+    if (v24)
     {
       v26 = objc_opt_class();
       v60 = 138543618;
@@ -1115,9 +1144,7 @@ LABEL_87:
       v31 = applicationCopy;
       v32 = v15;
       v33 = v26;
-      LODWORD(v52) = 22;
-      v50 = &v60;
-      v34 = _os_log_send_and_compose_impl();
+      v34 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@]: Updating receipt for: %{public}@", &v60, 22);
 
       v15 = v32;
       applicationCopy = v31;
@@ -1129,7 +1156,7 @@ LABEL_87:
 
       if (!v34)
       {
-LABEL_19:
+LABEL_20:
 
         v58 = v13;
         v35 = [(AppReceiptRefreshOperation *)self runSubOperation:v14 returningError:&v58];
@@ -1144,7 +1171,7 @@ LABEL_19:
           {
             v20 = 1;
             error = errorCopy;
-            goto LABEL_39;
+            goto LABEL_41;
           }
         }
 
@@ -1155,19 +1182,24 @@ LABEL_19:
         }
 
         v54 = v14;
-        shouldLog2 = [v39 shouldLog];
+        LODWORD(v40) = [v39 shouldLog];
         if ([v39 shouldLogToDisk])
         {
-          shouldLog2 |= 2u;
+          LODWORD(v40) = v40 | 2;
         }
 
         oSLogObject2 = [v39 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
         {
-          shouldLog2 &= 2u;
+          v40 = v40;
         }
 
-        if (shouldLog2)
+        else
+        {
+          v40 &= 2u;
+        }
+
+        if (v40)
         {
           v42 = objc_opt_class();
           v60 = 138543874;
@@ -1180,13 +1212,12 @@ LABEL_19:
           v44 = v15;
           v45 = v42;
           LODWORD(v52) = 32;
-          v51 = &v60;
-          v46 = _os_log_send_and_compose_impl();
+          v46 = _os_log_send_and_compose_impl(v40, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "[%{public}@]: Receipt refresh failed for: %{public}@, error: %{public}@", &v60, v52);
 
           v15 = v44;
           if (!v46)
           {
-LABEL_33:
+LABEL_35:
 
             resultingError = [(AppReceiptOperationResult *)self->_operationResult resultingError];
 
@@ -1211,19 +1242,19 @@ LABEL_33:
             }
 
             v14 = v54;
-LABEL_39:
+LABEL_41:
 
             v13 = v36;
             v12 = v56;
             if (!error)
             {
-              goto LABEL_42;
+              goto LABEL_44;
             }
 
-            goto LABEL_40;
+            goto LABEL_42;
           }
 
-          oSLogObject2 = [NSString stringWithCString:v46 encoding:4, &v60, v52];
+          oSLogObject2 = [NSString stringWithCString:v46 encoding:4];
           free(v46);
           v51 = oSLogObject2;
           SSFileLog();
@@ -1234,32 +1265,32 @@ LABEL_39:
           v43 = applicationCopy;
         }
 
-        goto LABEL_33;
+        goto LABEL_35;
       }
 
-      oSLogObject = [NSString stringWithCString:v34 encoding:4, &v60, v52];
+      oSLogObject = [NSString stringWithCString:v34 encoding:4];
       free(v34);
       v50 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   v20 = 0;
   if (!error)
   {
-    goto LABEL_42;
+    goto LABEL_44;
   }
 
-LABEL_40:
+LABEL_42:
   if (!v20)
   {
     v48 = v13;
     *error = v13;
   }
 
-LABEL_42:
+LABEL_44:
 
   return v20;
 }

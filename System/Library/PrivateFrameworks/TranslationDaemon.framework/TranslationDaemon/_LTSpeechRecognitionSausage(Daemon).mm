@@ -7,9 +7,9 @@
 - (id)initWithRecognition:()Daemon wordConfidenceThreshold:
 {
   v6 = a3;
-  v26.receiver = self;
-  v26.super_class = &off_28488F108;
-  v7 = objc_msgSendSuper2(&v26, sel_init);
+  v27.receiver = self;
+  v27.super_class = &off_28488F108;
+  v7 = objc_msgSendSuper2(&v27, sel_init);
   if (v7)
   {
     array = [MEMORY[0x277CBEB18] array];
@@ -17,7 +17,7 @@
     firstObject = [interpretationIndices firstObject];
 
     tokenSausage = [v6 tokenSausage];
-    v23 = v7;
+    v24 = v7;
     if ([tokenSausage count])
     {
       v12 = 0;
@@ -33,12 +33,12 @@
         tokenSausage2 = [v6 tokenSausage];
         v15 = [tokenSausage2 objectAtIndexedSubscript:v12];
 
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __83___LTSpeechRecognitionSausage_Daemon__initWithRecognition_wordConfidenceThreshold___block_invoke;
-        v25[3] = &__block_descriptor_40_e56____LTSpeechRecognitionTokensAlternative_16__0__NSArray_8l;
-        v25[4] = a4;
-        v16 = [v15 _ltCompactMap:v25];
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __83___LTSpeechRecognitionSausage_Daemon__initWithRecognition_wordConfidenceThreshold___block_invoke;
+        v26[3] = &__block_descriptor_40_e56____LTSpeechRecognitionTokensAlternative_16__0__NSArray_8l;
+        v26[4] = a4;
+        v16 = [v15 _ltCompactMap:v26];
         v17 = [firstObject objectAtIndexedSubscript:v12];
         v18 = objc_alloc_init(MEMORY[0x277CE1B88]);
         [v18 setBestAlternativeIndex:{objc_msgSend(v17, "unsignedIntegerValue")}];
@@ -59,16 +59,16 @@
 LABEL_6:
     }
 
-    v19 = [array _ltCompactMap:{&__block_literal_global_28, v23}];
-    v20 = _LTOSLogSpeech();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v19 = [array _ltCompactMap:{&__block_literal_global_28, v24}];
+    v21 = _LTOSLogSpeech(v19, v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      [_LTSpeechRecognitionSausage(Daemon) initWithRecognition:v20 wordConfidenceThreshold:v19];
+      [_LTSpeechRecognitionSausage(Daemon) initWithRecognition:v21 wordConfidenceThreshold:v19];
     }
 
-    v7 = v24;
-    [v24 setBins:array];
-    v21 = v24;
+    v7 = v25;
+    [v25 setBins:array];
+    v22 = v25;
   }
 
   return v7;
@@ -76,14 +76,12 @@ LABEL_6:
 
 - (void)initWithRecognition:()Daemon wordConfidenceThreshold:.cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 componentsJoinedByString:{@", "}];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_debug_impl(&dword_232E53000, v3, OS_LOG_TYPE_DEBUG, "Sausage confidences: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_debug_impl(&dword_232E53000, v3, OS_LOG_TYPE_DEBUG, "Sausage confidences: %@", &v5, 0xCu);
 }
 
 @end

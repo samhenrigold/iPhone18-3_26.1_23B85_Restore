@@ -42,7 +42,7 @@
 
 - (id)_generateHashIdentifierForAnonymousShareTuple:(id)tuple
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   tupleCopy = tuple;
   v7 = objc_msgSend_zoneID(tupleCopy, v5, v6);
   v10 = objc_msgSend_zoneName(v7, v8, v9);
@@ -58,7 +58,7 @@
   if (objc_msgSend_length(v22, v25, v26) <= 0x41)
   {
     *md = 0u;
-    v56 = 0u;
+    v55 = 0u;
     v38 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x277CBEA90], v27, md, 32, 0);
     v41 = objc_msgSend_UTF8String(v24, v39, v40);
     v43 = objc_msgSend_lengthOfBytesUsingEncoding_(v24, v42, 4);
@@ -75,9 +75,9 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v52 = v37;
-      v53 = 2112;
-      v54 = v22;
+      v51 = v37;
+      v52 = 2112;
+      v53 = v22;
       _os_log_debug_impl(&dword_22506F000, v48, OS_LOG_TYPE_DEBUG, "Generated anonymousShareTupleHash: %@ for anonymousUserID: %@", buf, 0x16u);
     }
   }
@@ -91,8 +91,6 @@
     v34 = PCSFPCreateDerivedDataFromMasterKey();
     v37 = objc_msgSend_CKLowercaseHexStringWithoutSpaces(v34, v35, v36);
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return v37;
 }
@@ -156,7 +154,7 @@
 
 - (void)_locked_encryptShareTuples:(id)tuples withCompletionBlock:(id)block
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   tuplesCopy = tuples;
   blockCopy = block;
   v10 = objc_msgSend_synchronizeQueue(self, v8, v9);
@@ -166,69 +164,68 @@
 
   if (v13)
   {
-    v69 = blockCopy;
-    v71 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v74 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v67 = blockCopy;
+    v69 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v72 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v74 = 0u;
+    v75 = 0u;
     v76 = 0u;
     v77 = 0u;
-    v78 = 0u;
-    v79 = 0u;
-    v70 = tuplesCopy;
+    v68 = tuplesCopy;
     obj = tuplesCopy;
-    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v14, &v76, v82, 16);
+    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v14, &v74, v80, 16);
     if (!v15)
     {
       goto LABEL_23;
     }
 
     v17 = v15;
-    v18 = *v77;
-    v72 = *MEMORY[0x277CBBF50];
+    v18 = *v75;
+    v70 = *MEMORY[0x277CBBF50];
     while (1)
     {
       v19 = 0;
       do
       {
-        if (*v77 != v18)
+        if (*v75 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v76 + 1) + 8 * v19);
-        v21 = objc_msgSend__generateHashIdentifierForAnonymousShareTuple_(self, v16, v20, v69);
+        v20 = *(*(&v74 + 1) + 8 * v19);
+        v21 = objc_msgSend__generateHashIdentifierForAnonymousShareTuple_(self, v16, v20, v67);
         objc_msgSend_setCkAnonymousShareHashIdentifier_(v20, v22, v21);
 
         v25 = objc_msgSend_ckAnonymousShareHashIdentifier(v20, v23, v24);
 
         if (v25)
         {
-          v75 = 0;
-          v27 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x277CCAAB0], v26, v20, 1, &v75);
-          v28 = v75;
+          v73 = 0;
+          v27 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x277CCAAB0], v26, v20, 1, &v73);
+          v28 = v73;
           objc_msgSend_dataUsingEncoding_(@"CKDAnonymousShareTuple", v29, 4);
           v32 = objc_msgSend_zonePCSData(self, v30, v31);
           objc_msgSend_zoneishPCS(v32, v33, v34);
           v35 = PCSFPCopyEncryptedData();
 
-          v36 = *MEMORY[0x277CBC880] == -1;
           if (*MEMORY[0x277CBC880] != -1)
           {
             dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
           }
 
-          v45 = *MEMORY[0x277CBC830];
+          v44 = *MEMORY[0x277CBC830];
           if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
           {
-            v50 = v45;
-            v53 = objc_msgSend_zonePCSData(self, v51, v52);
-            v56 = objc_msgSend_pcs(v53, v54, v55);
+            v49 = v44;
+            v52 = objc_msgSend_zonePCSData(self, v50, v51);
+            v55 = objc_msgSend_pcs(v52, v53, v54);
             *buf = 138412290;
-            v81 = v56;
-            _os_log_debug_impl(&dword_22506F000, v50, OS_LOG_TYPE_DEBUG, "Encrypted data with zone PCS %@:", buf, 0xCu);
+            v79 = v55;
+            _os_log_debug_impl(&dword_22506F000, v49, OS_LOG_TYPE_DEBUG, "Encrypted data with zone PCS %@:", buf, 0xCu);
           }
 
-          v48 = objc_msgSend_ckAnonymousShareHashIdentifier(v20, v46, v47);
-          objc_msgSend_setObject_forKey_(v71, v49, v35, v48);
+          v47 = objc_msgSend_ckAnonymousShareHashIdentifier(v20, v45, v46);
+          objc_msgSend_setObject_forKey_(v69, v48, v35, v47);
 
           goto LABEL_20;
         }
@@ -238,20 +235,20 @@
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
         }
 
-        v37 = *MEMORY[0x277CBC830];
+        v36 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_debug_impl(&dword_22506F000, v37, OS_LOG_TYPE_DEBUG, "Error generating ckAnonymousShareHashIdentifier for CKDAnonymousShareTuple", buf, 2u);
+          _os_log_debug_impl(&dword_22506F000, v36, OS_LOG_TYPE_DEBUG, "Error generating ckAnonymousShareHashIdentifier for CKDAnonymousShareTuple", buf, 2u);
         }
 
-        v28 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v38, v72, 1000, @"Error generating ckAnonymousShareHashIdentifier for CKDAnonymousShareTuple.");
-        v41 = objc_msgSend_shareID(v20, v39, v40);
+        v28 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v37, v70, 1000, @"Error generating ckAnonymousShareHashIdentifier for CKDAnonymousShareTuple.");
+        v40 = objc_msgSend_shareID(v20, v38, v39);
 
-        if (v41)
+        if (v40)
         {
-          v27 = objc_msgSend_shareID(v20, v42, v43);
-          objc_msgSend_setObject_forKeyedSubscript_(v74, v44, v28, v27);
+          v27 = objc_msgSend_shareID(v20, v41, v42);
+          objc_msgSend_setObject_forKeyedSubscript_(v72, v43, v28, v27);
 LABEL_20:
         }
 
@@ -259,29 +256,29 @@ LABEL_20:
       }
 
       while (v17 != v19);
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v76, v82, 16);
+      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v74, v80, 16);
       if (!v17)
       {
 LABEL_23:
 
-        if (objc_msgSend_count(v74, v57, v58))
+        if (objc_msgSend_count(v72, v56, v57))
         {
-          v61 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v59, v60);
-          objc_msgSend_setObject_forKeyedSubscript_(v61, v62, v74, *MEMORY[0x277CBBFB0]);
-          v64 = objc_msgSend_errorWithDomain_code_userInfo_format_(MEMORY[0x277CBC560], v63, *MEMORY[0x277CBC120], 1011, v61, @"Failed to encrypt some anonymous share tuples.");
+          v60 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v58, v59);
+          objc_msgSend_setObject_forKeyedSubscript_(v60, v61, v72, *MEMORY[0x277CBBFB0]);
+          v63 = objc_msgSend_errorWithDomain_code_userInfo_format_(MEMORY[0x277CBC560], v62, *MEMORY[0x277CBC120], 1011, v60, @"Failed to encrypt some anonymous share tuples.");
         }
 
         else
         {
-          v64 = 0;
+          v63 = 0;
         }
 
-        blockCopy = v69;
-        tuplesCopy = v70;
-        v67 = v71;
-        if (v69)
+        blockCopy = v67;
+        tuplesCopy = v68;
+        v66 = v69;
+        if (v67)
         {
-          v69[2](v69, v71, v64);
+          v67[2](v67, v69, v63);
         }
 
         goto LABEL_35;
@@ -294,22 +291,20 @@ LABEL_23:
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
   }
 
-  v65 = *MEMORY[0x277CBC830];
+  v64 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_debug_impl(&dword_22506F000, v65, OS_LOG_TYPE_DEBUG, "_encryptShareTuple zonePCSData is still not available. Terminating without additional retry.", buf, 2u);
+    _os_log_debug_impl(&dword_22506F000, v64, OS_LOG_TYPE_DEBUG, "_encryptShareTuple zonePCSData is still not available. Terminating without additional retry.", buf, 2u);
   }
 
-  v67 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v66, *MEMORY[0x277CBBF50], 1000, @"_locked_encryptShareTuples zonePCSData is still not available. Terminating without additional retry.");
+  v66 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v65, *MEMORY[0x277CBBF50], 1000, @"_locked_encryptShareTuples zonePCSData is still not available. Terminating without additional retry.");
   if (blockCopy)
   {
-    blockCopy[2](blockCopy, 0, v67);
+    blockCopy[2](blockCopy, 0, v66);
   }
 
 LABEL_35:
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 - (void)decryptShareTuple:(id)tuple withCompletionBlock:(id)block
@@ -331,7 +326,7 @@ LABEL_35:
 
 - (void)_locked_decryptShareTuple:(id)tuple withCompletionBlock:(id)block
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   tupleCopy = tuple;
   blockCopy = block;
   v10 = objc_msgSend_synchronizeQueue(self, v8, v9);
@@ -358,9 +353,9 @@ LABEL_35:
       if (os_log_type_enabled(*v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v47 = tupleCopy;
-        v48 = 2112;
-        v49 = cf;
+        v45 = tupleCopy;
+        v46 = 2112;
+        v47 = cf;
         _os_log_error_impl(&dword_22506F000, v21, OS_LOG_TYPE_ERROR, "Failed to get keyID from encrypted data %@. PCS error: %@.", buf, 0x16u);
       }
     }
@@ -369,32 +364,31 @@ LABEL_35:
     objc_msgSend_zoneishPCS(v22, v23, v24);
     v25 = PCSFPCopyDecryptedData();
 
-    v26 = *v15 == -1;
     if (*v15 != -1)
     {
       dispatch_once(MEMORY[0x277CBC880], *v20);
     }
 
-    v29 = *v16;
+    v28 = *v16;
     if (os_log_type_enabled(*v16, OS_LOG_TYPE_DEBUG))
     {
-      v37 = v29;
-      v40 = objc_msgSend_zonePCSData(self, v38, v39);
-      v43 = objc_msgSend_pcs(v40, v41, v42);
+      v35 = v28;
+      v38 = objc_msgSend_zonePCSData(self, v36, v37);
+      v41 = objc_msgSend_pcs(v38, v39, v40);
       *buf = 138412290;
-      v47 = v43;
-      _os_log_debug_impl(&dword_22506F000, v37, OS_LOG_TYPE_DEBUG, "Decrypted data with zone PCS %@:", buf, 0xCu);
+      v45 = v41;
+      _os_log_debug_impl(&dword_22506F000, v35, OS_LOG_TYPE_DEBUG, "Decrypted data with zone PCS %@:", buf, 0xCu);
     }
 
     if (v25)
     {
-      v30 = MEMORY[0x277CCAAC8];
-      v31 = objc_opt_class();
-      v44 = 0;
-      v33 = objc_msgSend_unarchivedObjectOfClass_fromData_error_(v30, v32, v31, v25, &v44);
+      v29 = MEMORY[0x277CCAAC8];
+      v30 = objc_opt_class();
+      v42 = 0;
+      v32 = objc_msgSend_unarchivedObjectOfClass_fromData_error_(v29, v31, v30, v25, &v42);
       if (blockCopy)
       {
-        blockCopy[2](blockCopy, v33, 0);
+        blockCopy[2](blockCopy, v32, 0);
       }
     }
 
@@ -405,17 +399,17 @@ LABEL_35:
         dispatch_once(MEMORY[0x277CBC880], *v20);
       }
 
-      v34 = *v16;
+      v33 = *v16;
       if (os_log_type_enabled(*v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_debug_impl(&dword_22506F000, v34, OS_LOG_TYPE_DEBUG, "_locked_decryptShareTuple Unable to decrypt share tuple data.", buf, 2u);
+        _os_log_debug_impl(&dword_22506F000, v33, OS_LOG_TYPE_DEBUG, "_locked_decryptShareTuple Unable to decrypt share tuple data.", buf, 2u);
       }
 
-      v33 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v35, *MEMORY[0x277CBBF50], 1000, @"_locked_decryptShareTuple Unable to decrypt share tuple data.");
+      v32 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v34, *MEMORY[0x277CBBF50], 1000, @"_locked_decryptShareTuple Unable to decrypt share tuple data.");
       if (blockCopy)
       {
-        (blockCopy)[2](blockCopy, 0, v33);
+        (blockCopy)[2](blockCopy, 0, v32);
       }
     }
   }
@@ -427,21 +421,19 @@ LABEL_35:
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
     }
 
-    v27 = *v16;
+    v26 = *v16;
     if (os_log_type_enabled(*v16, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_debug_impl(&dword_22506F000, v27, OS_LOG_TYPE_DEBUG, "_locked_decryptShareTuple zonePCSData is still not available. Terminating without additional retry.", buf, 2u);
+      _os_log_debug_impl(&dword_22506F000, v26, OS_LOG_TYPE_DEBUG, "_locked_decryptShareTuple zonePCSData is still not available. Terminating without additional retry.", buf, 2u);
     }
 
-    v19 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v28, *MEMORY[0x277CBBF50], 1000, @"_locked_decryptShareTuple zonePCSData is still not available. Terminating without additional retry.");
+    v19 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v27, *MEMORY[0x277CBBF50], 1000, @"_locked_decryptShareTuple zonePCSData is still not available. Terminating without additional retry.");
     if (blockCopy)
     {
       (blockCopy)[2](blockCopy, 0, v19);
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (id)pcsCache
@@ -454,18 +446,18 @@ LABEL_35:
 
 - (void)_lockedFetchSystemZonePCSDataWithCompletion:(id)completion
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = objc_msgSend_synchronizeQueue(self, v5, v6);
   dispatch_assert_queue_V2(v7);
 
   objc_initWeak(&location, self);
-  v43[0] = 0;
-  v43[1] = v43;
-  v43[2] = 0x3032000000;
-  v43[3] = sub_2250741BC;
-  v43[4] = sub_22507365C;
-  v44 = 0;
+  v42[0] = 0;
+  v42[1] = v42;
+  v42[2] = 0x3032000000;
+  v42[3] = sub_2250741BC;
+  v42[4] = sub_22507365C;
+  v43 = 0;
   v10 = objc_msgSend_defaultConvenienceOperationConfiguration(MEMORY[0x277CBC4F0], v8, v9);
   v11 = objc_opt_new();
   objc_msgSend_setRequestOriginator_(v11, v12, 1);
@@ -487,33 +479,32 @@ LABEL_35:
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543618;
-    v47 = @"zoneish ";
-    v48 = 2112;
-    v49 = v26;
+    v46 = @"zoneish ";
+    v47 = 2112;
+    v48 = v26;
     _os_log_debug_impl(&dword_22506F000, v27, OS_LOG_TYPE_DEBUG, "Fetching %{public}@PCS data for zone %@", buf, 0x16u);
   }
 
   v30 = objc_msgSend_pcsCache(self, v28, v29);
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = sub_2253B88C0;
-  v36[3] = &unk_27854D338;
-  objc_copyWeak(&v42, &location);
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = sub_2253B88C0;
+  v35[3] = &unk_27854D338;
+  objc_copyWeak(&v41, &location);
   v31 = v20;
-  v37 = v31;
+  v36 = v31;
   selfCopy = self;
   v32 = v26;
-  v39 = v32;
-  v41 = v43;
+  v38 = v32;
+  v40 = v42;
   v33 = completionCopy;
-  v40 = v33;
-  objc_msgSend_fetchPCSForZoneWithID_forOperation_options_withCompletionHandler_(v30, v34, v32, v31, 8, v36);
+  v39 = v33;
+  objc_msgSend_fetchPCSForZoneWithID_forOperation_options_withCompletionHandler_(v30, v34, v32, v31, 8, v35);
 
-  objc_destroyWeak(&v42);
-  _Block_object_dispose(v43, 8);
+  objc_destroyWeak(&v41);
+  _Block_object_dispose(v42, 8);
 
   objc_destroyWeak(&location);
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (CKDContainer)container

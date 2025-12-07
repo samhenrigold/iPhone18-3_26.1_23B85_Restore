@@ -2,8 +2,8 @@
 - (BOOL)finishAndFlushWithError:(id *)error;
 - (_HDDataEntitySyncMessageBuilder)init;
 - (_HDDataEntitySyncMessageBuilder)initWithProfile:(id)profile transaction:(id)transaction entityClass:(Class)class version:(id)version provenanceCache:(id)cache encodingOptions:(id)options messageHandler:(id)handler bytesPerChangeSet:(int64_t)self0 bytesPerChange:(int64_t)self1;
+- (id)_sendCurrentCollectionIsFinal:(uint64_t)final error:;
 - (int64_t)addEntity:(id)entity row:(HDSQLiteRow *)row anchor:(int64_t)anchor error:(id *)error;
-- (uint64_t)_sendCurrentCollectionIsFinal:(uint64_t)final error:;
 @end
 
 @implementation _HDDataEntitySyncMessageBuilder
@@ -53,7 +53,7 @@
 
 - (int64_t)addEntity:(id)entity row:(HDSQLiteRow *)row anchor:(int64_t)anchor error:(id *)error
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   v11 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnWithNameAsInt64()];
   v12 = [(HDDataProvenanceCache *)self->_provenanceCache provenanceWithID:v11];
@@ -77,31 +77,31 @@ LABEL_9:
 
   v16 = entityCopy;
   v17 = v12;
-  v38[0] = 0;
-  v38[1] = v38;
-  v38[2] = 0x2020000000;
-  v39 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
-  v37 = 0;
+  v37[0] = 0;
+  v37[1] = v37;
+  v37[2] = 0x2020000000;
+  v38 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
   entityEncoder = self->_entityEncoder;
-  v27 = v16;
+  v26 = v16;
   persistentID = [v16 persistentID];
   maxEncodedBytesPerChange = self->_maxEncodedBytesPerChange;
   anchorCopy = anchor;
-  v33 = 0;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __68___HDDataEntitySyncMessageBuilder__addEntity_row_anchor_provenance___block_invoke;
-  v28[3] = &unk_2786215C0;
-  v28[4] = self;
-  v30 = &v34;
-  v31 = v38;
+  v32 = 0;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __68___HDDataEntitySyncMessageBuilder__addEntity_row_anchor_provenance___block_invoke;
+  v27[3] = &unk_2786215C0;
+  v27[4] = self;
+  v29 = &v33;
+  v30 = v37;
   v21 = v17;
-  v29 = v21;
-  LOBYTE(v17) = [(HDEntityEncoder *)entityEncoder generateCodableRepresentationsForPersistentID:persistentID row:row maxBytesPerRepresentation:maxEncodedBytesPerChange error:&v33 handler:v28];
-  v22 = v33;
+  v28 = v21;
+  LOBYTE(v17) = [(HDEntityEncoder *)entityEncoder generateCodableRepresentationsForPersistentID:persistentID row:row maxBytesPerRepresentation:maxEncodedBytesPerChange error:&v32 handler:v27];
+  v22 = v32;
   if ((v17 & 1) == 0)
   {
     _HKInitializeLogging();
@@ -110,19 +110,18 @@ LABEL_9:
     {
       *buf = 138543618;
       selfCopy = self;
-      v42 = 2114;
-      v43 = v22;
+      v41 = 2114;
+      v42 = v22;
       _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "%{public}@: failed to generate codable representation for sync: %{public}@", buf, 0x16u);
     }
   }
 
-  v24 = v35[3];
+  v24 = v34[3];
 
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(v38, 8);
+  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(v37, 8);
 
 LABEL_10:
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -136,18 +135,18 @@ LABEL_10:
 
   self->_didSendFinal = 1;
 
-  return [(_HDDataEntitySyncMessageBuilder *)self _sendCurrentCollectionIsFinal:error error:?];
+  return [(_HDDataEntitySyncMessageBuilder *)&self->super.isa _sendCurrentCollectionIsFinal:error error:?];
 }
 
-- (uint64_t)_sendCurrentCollectionIsFinal:(uint64_t)final error:
+- (id)_sendCurrentCollectionIsFinal:(uint64_t)final error:
 {
   if (result)
   {
     v5 = result;
-    allCodableObjectCollections = [*(result + 32) allCodableObjectCollections];
-    v7 = [*(v5 + 56) sendCodableChange:allCodableObjectCollections version:*(v5 + 24) resultAnchor:*(v5 + 96) sequence:*(v5 + 104) done:a2 error:final];
-    [*(v5 + 32) clearCodableObjectCollections];
-    *(v5 + 88) = 0;
+    allCodableObjectCollections = [result[4] allCodableObjectCollections];
+    v7 = [v5[7] sendCodableChange:allCodableObjectCollections version:v5[3] resultAnchor:v5[12] sequence:v5[13] done:a2 error:final];
+    [v5[4] clearCodableObjectCollections];
+    v5[11] = 0;
 
     return v7;
   }

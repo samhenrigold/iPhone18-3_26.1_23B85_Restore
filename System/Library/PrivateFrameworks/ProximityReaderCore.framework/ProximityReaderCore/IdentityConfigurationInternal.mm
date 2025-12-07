@@ -14,13 +14,11 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC19ProximityReaderCore29IdentityConfigurationInternal_readerIdentifier);
-  v5 = *&self->readerIdentifier[OBJC_IVAR____TtC19ProximityReaderCore29IdentityConfigurationInternal_readerIdentifier];
   coderCopy = coder;
   selfCopy = self;
-  v7 = sub_26121CC50();
-  v8 = sub_26121CC50();
-  [coderCopy encodeObject:v7 forKey:v8];
+  v5 = sub_26121CC50();
+  v6 = sub_26121CC50();
+  [coderCopy encodeObject:v5 forKey:v6];
 }
 
 @end

@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)intentHandlingStatusAsString:(int)string;
+- (id)intentTypeAsString:(int)string;
+- (id)interactionDirectionAsString:(int)string;
 - (int)StringAsIntentHandlingStatus:(id)status;
 - (int)StringAsIntentType:(id)type;
 - (int)StringAsInteractionDirection:(id)direction;
@@ -75,6 +78,21 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)intentTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E6E536D8 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsIntentType:(id)type
 {
   typeCopy = type;
@@ -119,6 +137,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)intentHandlingStatusAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E6E536F8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsIntentHandlingStatus:(id)status
@@ -195,6 +228,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)interactionDirectionAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E6E53730 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsInteractionDirection:(id)direction
@@ -357,86 +405,81 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v7 = toCopy;
   if (*&self->_has)
   {
-    absoluteTimestamp = self->_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_bundleID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_sourceId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_intentClass)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_intentVerb)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    intentType = self->_intentType;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
+    toCopy = v7;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    intentHandlingStatus = self->_intentHandlingStatus;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_interaction)
   {
     PBDataWriterWriteDataField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_itemID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
-  v9 = self->_has;
-  if ((v9 & 0x10) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x10) != 0)
   {
-    donatedBySiri = self->_donatedBySiri;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
-    v9 = self->_has;
+    toCopy = v7;
+    v6 = self->_has;
   }
 
-  if ((v9 & 8) != 0)
+  if ((v6 & 8) != 0)
   {
-    interactionDirection = self->_interactionDirection;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_groupIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 }
 
@@ -598,7 +641,6 @@
     goto LABEL_43;
   }
 
-  v5 = *(equalCopy + 92);
   if (*&self->_has)
   {
     if ((*(equalCopy + 92) & 1) == 0 || self->_absoluteTimestamp != *(equalCopy + 1))
@@ -645,7 +687,6 @@
     }
   }
 
-  v10 = *(equalCopy + 92);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 92) & 4) == 0 || self->_intentType != *(equalCopy + 11))
@@ -687,7 +728,6 @@
     }
   }
 
-  v13 = *(equalCopy + 92);
   if ((*&self->_has & 0x10) == 0)
   {
     if ((*(equalCopy + 92) & 0x10) == 0)
@@ -696,7 +736,7 @@
     }
 
 LABEL_43:
-    v16 = 0;
+    v12 = 0;
     goto LABEL_44;
   }
 
@@ -705,7 +745,6 @@ LABEL_43:
     goto LABEL_43;
   }
 
-  v14 = *(equalCopy + 88);
   if (self->_donatedBySiri)
   {
     if ((*(equalCopy + 88) & 1) == 0)
@@ -736,17 +775,17 @@ LABEL_31:
   groupIdentifier = self->_groupIdentifier;
   if (groupIdentifier | *(equalCopy + 3))
   {
-    v16 = [(NSString *)groupIdentifier isEqual:?];
+    v12 = [(NSString *)groupIdentifier isEqual:?];
   }
 
   else
   {
-    v16 = 1;
+    v12 = 1;
   }
 
 LABEL_44:
 
-  return v16;
+  return v12;
 }
 
 - (unint64_t)hash

@@ -236,7 +236,7 @@ uint64_t *std::__partition_with_equals_on_left[abi:nn200100]<std::_ClassicAlgPol
     while ((v28 & 1) != 0);
   }
 
-  v29 = (i - 2);
+  v29 = i - 2;
   if (i - 2 != a1)
   {
     v30 = *v29;
@@ -491,7 +491,7 @@ uint64_t *std::__partition_with_equals_on_right[abi:nn200100]<std::_ClassicAlgPo
     while (v21 < v22);
   }
 
-  v33 = (v21 - 2);
+  v33 = v21 - 2;
   if (v21 - 2 != a1)
   {
     v34 = *v33;
@@ -536,7 +536,7 @@ void sub_26C74AF10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t *, uint64_t *))
+BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(uint64_t *a1, char *a2, uint64_t (**a3)(uint64_t *, uint64_t *))
 {
   v4 = a2;
   v6 = (a2 - a1) >> 4;
@@ -758,7 +758,7 @@ void sub_26C74B298(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t (**a4)(uint64_t *, uint64_t *))
+char *std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(char *a1, char *a2, char *a3, uint64_t (**a4)(uint64_t *, uint64_t *))
 {
   if (a1 != a2)
   {
@@ -768,7 +768,7 @@ uint64_t *std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,BOOL (*&
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[2 * v9];
+      v11 = &a1[16 * v9];
       do
       {
         std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(a1, a4, v8, v11);
@@ -786,7 +786,7 @@ uint64_t *std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,BOOL (*&
       do
       {
         v13 = *a4;
-        v14 = v12[1];
+        v14 = *(v12 + 1);
         v23 = *v12;
         v24 = v14;
         if (v14)
@@ -794,7 +794,7 @@ uint64_t *std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,BOOL (*&
           atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v15 = a1[1];
+        v15 = *(a1 + 1);
         v21 = *a1;
         v22 = v15;
         if (v15)
@@ -818,13 +818,13 @@ uint64_t *std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,BOOL (*&
           v17 = *v12;
           *v12 = *a1;
           *a1 = v17;
-          v18 = v12[1];
-          v12[1] = a1[1];
-          a1[1] = v18;
+          v18 = *(v12 + 1);
+          *(v12 + 1) = *(a1 + 1);
+          *(a1 + 1) = v18;
           std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(a1, a4, v8, a1);
         }
 
-        v12 += 2;
+        v12 += 16;
       }
 
       while (v12 != a3);
@@ -880,7 +880,7 @@ void std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
 
   v9 = (a4 - a1) >> 3;
   v10 = v9 + 1;
-  v11 = (a1 + 16 * (v9 + 1));
+  v11 = a1 + 16 * (v9 + 1);
   v12 = v9 + 2;
   if (v9 + 2 < a3)
   {
@@ -891,8 +891,8 @@ void std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
       atomic_fetch_add_explicit((*(&v50 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
-    v14 = *(v11 + 3);
-    v48 = *(v11 + 2);
+    v14 = *(v11 + 24);
+    v48 = *(v11 + 16);
     v49 = v14;
     if (v14)
     {
@@ -919,14 +919,14 @@ void std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
     if (v15)
     {
 LABEL_12:
-      ++v11;
+      v11 += 16;
       v10 = v12;
     }
   }
 
 LABEL_13:
   v16 = *a2;
-  v17 = *(v11 + 1);
+  v17 = *(v11 + 8);
   v46 = *v11;
   v47 = v17;
   if (v17)
@@ -965,7 +965,7 @@ LABEL_13:
       v22 = v11;
       v23 = *v11;
       *v11 = 0;
-      *(v11 + 1) = 0;
+      *(v11 + 8) = 0;
       v24 = v5[1];
       *v5 = v23;
       if (v24)
@@ -989,7 +989,7 @@ LABEL_48:
 
       v25 = 2 * v10;
       v10 = (2 * v10) | 1;
-      v11 = (v6 + 16 * v10);
+      v11 = v6 + 16 * v10;
       v26 = v25 + 2;
       if (v25 + 2 < a3)
       {
@@ -1001,8 +1001,8 @@ LABEL_48:
           atomic_fetch_add_explicit((*(&v28 + 1) + 8), 1uLL, memory_order_relaxed);
         }
 
-        v29 = *(v11 + 3);
-        v41 = *(v11 + 2);
+        v29 = *(v11 + 24);
+        v41 = *(v11 + 16);
         v42 = v29;
         if (v29)
         {
@@ -1023,7 +1023,7 @@ LABEL_48:
           }
 
 LABEL_35:
-          ++v11;
+          v11 += 16;
           v10 = v26;
           goto LABEL_36;
         }
@@ -1037,7 +1037,7 @@ LABEL_35:
 
 LABEL_36:
       v31 = *a2;
-      v32 = *(v11 + 1);
+      v32 = *(v11 + 8);
       v39 = *v11;
       v40 = v32;
       if (v32)
@@ -1088,14 +1088,14 @@ void sub_26C74B740(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__pop_heap[abi:nn200100]<std::_ClassicAlgPolicy,BOOL (*)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(uint64_t *a1, uint64_t a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4)
+void std::__pop_heap[abi:nn200100]<std::_ClassicAlgPolicy,BOOL (*)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(char *a1, uint64_t a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4)
 {
   if (a4 >= 2)
   {
     v8 = *a1;
-    v7 = a1[1];
+    v7 = *(a1 + 1);
     *a1 = 0;
-    a1[1] = 0;
+    *(a1 + 1) = 0;
     v9 = std::__floyd_sift_down[abi:nn200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>,std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>),std::shared_ptr<EQKit::OpticalKern::Edge::Segment const>*>(a1, a3, a4);
     v10 = v9;
     if (v9 == (a2 - 16))
@@ -1609,9 +1609,9 @@ void EQKit::OpticalKern::Spec::appendEntry(EQKit::OpticalKern::Spec *this, CGPoi
   EQKit::OpticalKern::Spec::Entry::~Entry(v4);
 }
 
-void sub_26C74BFD0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C74BFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::OpticalKern::Spec::Entry::~Entry(va);
   _Unwind_Resume(a1);
 }
@@ -1642,9 +1642,9 @@ void EQKit::OpticalKern::Spec::appendEntry(EQKit::OpticalKern::Spec *this, CGPoi
   EQKit::OpticalKern::Spec::Entry::~Entry(v5);
 }
 
-void sub_26C74C07C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C74C07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::OpticalKern::Spec::Entry::~Entry(va);
   _Unwind_Resume(a1);
 }
@@ -1663,9 +1663,9 @@ void EQKit::OpticalKern::Spec::appendEntry(EQKit::OpticalKern::Spec *this, CGPoi
   EQKit::OpticalKern::Spec::Entry::~Entry(&v3);
 }
 
-void sub_26C74C0E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C74C0E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::OpticalKern::Spec::Entry::~Entry(va);
   _Unwind_Resume(a1);
 }
@@ -1720,9 +1720,9 @@ uint64_t std::vector<EQKit::OpticalKern::Spec::Entry>::__emplace_back_slow_path<
   return v12;
 }
 
-void sub_26C74C22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26C74C22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<EQKit::OpticalKern::Spec::Entry>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1812,10 +1812,10 @@ void sub_26C74CDF0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_26C74CEA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_26C74CEA4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = TSPObjectContext;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -1878,77 +1878,69 @@ void *std::__hash_table<std::__hash_value_type<long long const,NSMutableArray * 
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<long long const,NSMutableArray * {__strong}>,std::__unordered_map_hasher<long long const,std::__hash_value_type<long long const,NSMutableArray * {__strong}>,TSP::IdentifierHash,std::equal_to<long long const>,true>,std::__unordered_map_equal<long long const,std::__hash_value_type<long long const,NSMutableArray * {__strong}>,std::equal_to<long long const>,TSP::IdentifierHash,true>,std::allocator<std::__hash_value_type<long long const,NSMutableArray * {__strong}>>>::__emplace_unique_key_args<long long,std::pair<long long const,NSMutableArray * {__strong}>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long long const,NSMutableArray * {__strong}>,std::__unordered_map_hasher<long long const,std::__hash_value_type<long long const,NSMutableArray * {__strong}>,TSP::IdentifierHash,std::equal_to<long long const>,true>,std::__unordered_map_equal<long long const,std::__hash_value_type<long long const,NSMutableArray * {__strong}>,std::equal_to<long long const>,TSP::IdentifierHash,true>,std::allocator<std::__hash_value_type<long long const,NSMutableArray * {__strong}>>>::__emplace_unique_key_args<long long,std::pair<long long const,NSMutableArray * {__strong}>>(void *a1, unint64_t *a2, uint64_t *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -1956,49 +1948,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void sub_26C74F4A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C74F4A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<long long const,NSMutableArray * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long long const,NSMutableArray * {__strong}>,void *>>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -2049,12 +2041,12 @@ void std::__hash_table<std::__hash_value_type<long long const,NSMutableArray * {
   }
 }
 
-void sub_26C74F7F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_26C74F7F0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = TSPDataManager;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2065,7 +2057,7 @@ void sub_26C74F918(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_26C74FA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_26C74FA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -2079,14 +2071,14 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_26C74FF28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_26C74FF28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_26C7501C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_26C7501C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -2116,55 +2108,55 @@ void sub_26C751EC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void TSP::DataDigestForString(TSP *this@<X0>, uint64_t a2@<X8>)
+void TSP::DataDigestForString(uint64_t *__return_ptr a1@<X8>, TSP *this@<X0>)
 {
-  v11 = this;
-  if ([(TSP *)v11 length]== 40)
+  v10 = this;
+  if ([(TSP *)v10 length]== 40)
   {
-    v4 = [(TSP *)v11 UTF8String];
-    v5 = 0;
-    v6 = (v4 + 1);
+    v3 = [(TSP *)v10 UTF8String];
+    v4 = 0;
+    v5 = (v3 + 1);
     do
     {
-      v7 = *(v6 - 1);
-      v8 = *v6;
+      v6 = *(v5 - 1);
+      v7 = *v5;
+      if (v6 > 96)
+      {
+        LOBYTE(v6) = v6 - 32;
+      }
+
+      v8 = v6;
       if (v7 > 96)
       {
         LOBYTE(v7) = v7 - 32;
       }
 
-      v9 = v7;
-      if (v8 > 96)
+      if (v7 > 64)
       {
-        LOBYTE(v8) = v8 - 32;
+        LOBYTE(v7) = v7 + 9;
       }
 
+      v9 = 16 * v6;
       if (v8 > 64)
       {
-        LOBYTE(v8) = v8 + 9;
+        v9 -= 112;
       }
 
-      v10 = 16 * v7;
-      if (v9 > 64)
-      {
-        v10 -= 112;
-      }
-
-      *(a2 + v5++) = v10 & 0xF0 | v8 & 0xF;
-      v6 += 2;
+      *(a1 + v4++) = v9 & 0xF0 | v7 & 0xF;
+      v5 += 2;
     }
 
-    while (v5 != 20);
+    while (v4 != 20);
   }
 
   else
   {
-    [(TSP *)v11 length];
+    [(TSP *)v10 length];
     TSULogErrorInFunction();
   }
 }
 
-void sub_26C7522EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_26C7522EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a23, 8);
 
@@ -2286,33 +2278,33 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::array<unsi
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<long long const,TSPData * {__weak}>,std::__unordered_map_hasher<long long const,std::__hash_value_type<long long const,TSPData * {__weak}>,TSP::ObjectIdentifierHash,std::equal_to<long long const>,true>,std::__unordered_map_equal<long long const,std::__hash_value_type<long long const,TSPData * {__weak}>,std::equal_to<long long const>,TSP::ObjectIdentifierHash,true>,std::allocator<std::__hash_value_type<long long const,TSPData * {__weak}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long long const,TSPData * {__weak}>,std::__unordered_map_hasher<long long const,std::__hash_value_type<long long const,TSPData * {__weak}>,TSP::ObjectIdentifierHash,std::equal_to<long long const>,true>,std::__unordered_map_equal<long long const,std::__hash_value_type<long long const,TSPData * {__weak}>,std::equal_to<long long const>,TSP::ObjectIdentifierHash,true>,std::allocator<std::__hash_value_type<long long const,TSPData * {__weak}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -2320,80 +2312,80 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_26C754DD4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C754DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<long long const,TSPData * {__weak}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long long const,TSPData * {__weak}>,void *>>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>,std::__unordered_map_hasher<std::array<unsigned char,20ul> const,std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>,TSP::DataDigestHash,TSP::DataDigestEqualTo,true>,std::__unordered_map_equal<std::array<unsigned char,20ul> const,std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>,TSP::DataDigestEqualTo,TSP::DataDigestHash,true>,std::allocator<std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>>>::__emplace_unique_key_args<std::array<unsigned char,20ul>,std::piecewise_construct_t const&,std::tuple<std::array<unsigned char,20ul> const&>,std::tuple<>>(void *a1, unint64_t *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>,std::__unordered_map_hasher<std::array<unsigned char,20ul> const,std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>,TSP::DataDigestHash,TSP::DataDigestEqualTo,true>,std::__unordered_map_equal<std::array<unsigned char,20ul> const,std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>,TSP::DataDigestEqualTo,TSP::DataDigestHash,true>,std::allocator<std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>>>::__emplace_unique_key_args<std::array<unsigned char,20ul>,std::piecewise_construct_t const&,std::tuple<std::array<unsigned char,20ul> const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, __int128 **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_25;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_25:
     operator new();
@@ -2401,49 +2393,49 @@ LABEL_25:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_25;
     }
 
 LABEL_24:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_25;
     }
   }
 
-  if (v7[2] != *a2 || v7[3] != a2[1] || *(v7 + 8) != *(a2 + 4))
+  if (v9[2] != *a2 || v9[3] != a2[1] || *(v9 + 8) != *(a2 + 4))
   {
     goto LABEL_24;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_26C755050(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C755050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::array<unsigned char,20ul> const,TSPData * {__weak}>,void *>>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -2515,15 +2507,15 @@ void sub_26C755758(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_26C755E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, ...)
+void sub_26C755E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C7567D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_26C7567D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -2542,16 +2534,16 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_26C7568F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_26C7568F4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = TSPData;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_26C757A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_26C757A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   objc_end_catch();
   _Block_object_dispose(&a19, 8);
@@ -2567,7 +2559,7 @@ void sub_26C757DF8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_26C758978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_26C758978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -2581,42 +2573,42 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_26C758B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C758B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C758DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_26C758DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_26C758F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_26C758F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_26C759270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_26C759270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_26C7595E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7595E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t TSPCGDataProviderSkipForward(void *a1, uint64_t a2)
+char *TSPCGDataProviderSkipForward(void *a1, uint64_t a2)
 {
   v3 = a1;
   v4 = [v3 offset];
@@ -2668,60 +2660,60 @@ void sub_26C75BC34(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_26C75BCC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_26C75BCC0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = TSPDataRepReadChannel;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_26C75D13C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_26C75D2E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_26C75D468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_26C75D620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_26C75DAA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26C75D13C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id UnsafePointer()
+void sub_26C75D2E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_26C75D468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_26C75D620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_26C75DAA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id UnsafePointer(uint64_t a1)
 {
   if (TSPBundle::once != -1)
   {
     TSPBundle_cold_1();
   }
 
-  v1 = TSPBundle::bundle;
+  v2 = TSPBundle::bundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __TSPBundle_block_invoke()
@@ -2883,19 +2875,19 @@ void sub_26C75F240(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_26C75F764(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_26C75F764(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = TSPAVAssetResourceLoaderDelegate;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_26C7604DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_26C7604DC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = TSPCryptoComponentWriteChannel;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2906,10 +2898,10 @@ void sub_26C760A1C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_26C760F68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_26C760F68(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = TSPCryptoReadChannel;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2949,20 +2941,27 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t TSKMainThreadRunLoopHash()
+void sub_26C763F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  objc_opt_class();
-  v0 = TSUDynamicCast();
-
-  return [v0 hash];
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
-uint64_t TSKMainThreadRunLoopPerform()
+uint64_t TSKMainThreadRunLoopHash(uint64_t a1)
 {
   objc_opt_class();
-  v0 = TSUDynamicCast();
+  v1 = TSUDynamicCast();
 
-  return [v0 p_flushPendingMainThreadBlocksQueueAcquiringLock:1];
+  return [v1 hash];
+}
+
+uint64_t TSKMainThreadRunLoopPerform(uint64_t a1)
+{
+  objc_opt_class();
+  v1 = TSUDynamicCast();
+
+  return [v1 p_flushPendingMainThreadBlocksQueueAcquiringLock:1];
 }
 
 void sub_26C766438(void *exc_buf)
@@ -3006,14 +3005,14 @@ void -[TSKAccessController p_blockMainThreadForWrite](TSKAccessController *self,
   [(TSKAccessController *)self waitOnIdentifier:@"kTSKPostWriteCompleteIdentifier"];
 }
 
-void sub_26C76AEC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C76AEC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t TSKModelPathToDescendant(void *a1, void *a2)
+void *TSKModelPathToDescendant(void *a1, void *a2)
 {
   v27 = *MEMORY[0x277D85DE8];
   if ((objc_opt_respondsToSelector() & 1) == 0)
@@ -3079,7 +3078,7 @@ LABEL_13:
     v13 = *v18;
     while (2)
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v12; i = i + 1)
       {
         if (*v18 != v13)
         {
@@ -3118,7 +3117,7 @@ uint64_t __TSKModelPathToDescendant_block_invoke(int a1, void *a2, id a3)
   return [a2 modelPathComponentForChild:a3];
 }
 
-uint64_t TSKBundle()
+uint64_t TSKBundle(uint64_t a1, uint64_t a2)
 {
   if (TSKBundle_onceToken != -1)
   {
@@ -3128,7 +3127,7 @@ uint64_t TSKBundle()
   return TSKBundle_sTSKBundle;
 }
 
-uint64_t __TSKBundle_block_invoke()
+void *__TSKBundle_block_invoke()
 {
   result = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   TSKBundle_sTSKBundle = result;
@@ -3235,21 +3234,21 @@ uint64_t TSKPositionSearchReferenceComparator_block_invoke(uint64_t a1, void *a2
   }
 }
 
-void sub_26C788C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26C788C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C78936C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C78936C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-CFIndex p_registerProperty(uint64_t a1, const void *a2)
+void *p_registerProperty(uint64_t a1, const void *a2)
 {
   v4 = sStringToPropertyMap;
   if (!sStringToPropertyMap)
@@ -3499,7 +3498,7 @@ __CFString *String(unsigned int a1)
   return 0;
 }
 
-CFIndex __p_buildStringToPropertyMapsIfNeeded_block_invoke()
+void *__p_buildStringToPropertyMapsIfNeeded_block_invoke()
 {
   p_registerProperty(0, @"invalidProperty");
   p_registerProperty(1, @"testString");
@@ -4205,7 +4204,7 @@ CFIndex __p_buildStringToPropertyMapsIfNeeded_block_invoke()
   return p_registerProperty(4623, @"thumbnailStroke");
 }
 
-__CFString *p_infoStringFromPropertyValue(int a1)
+__CFString *p_infoStringFromPropertyValue(int a1, uint64_t a2)
 {
   if (a1 > 1)
   {
@@ -4271,16 +4270,16 @@ __CFString *p_summaryFromPropertyValue(uint64_t a1, void *a2)
   }
 }
 
-void sub_26C78E950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C78E950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C78EB08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_26C78EB08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4423,7 +4422,7 @@ LABEL_22:
   return v8;
 }
 
-uint64_t String(uint64_t a1, uint64_t a2, int a3)
+void *String(uint64_t a1, uint64_t a2, int a3)
 {
   if (a2 >> 4 >= 0x121)
   {
@@ -4457,7 +4456,7 @@ uint64_t String(uint64_t a1, uint64_t a2, int a3)
   return result;
 }
 
-uint64_t String(uint64_t a1, uint64_t a2, float a3)
+void *String(uint64_t a1, uint64_t a2, float a3)
 {
   if (a2 >> 4 >= 0x121)
   {
@@ -4491,7 +4490,7 @@ uint64_t String(uint64_t a1, uint64_t a2, float a3)
   return result;
 }
 
-uint64_t String(uint64_t a1, uint64_t a2, double a3)
+void *String(uint64_t a1, uint64_t a2, double a3)
 {
   if (a2 >> 4 >= 0x121)
   {
@@ -4523,70 +4522,6 @@ uint64_t String(uint64_t a1, uint64_t a2, double a3)
   *(a1 + 10) = 3;
   *a1 = a3;
   return result;
-}
-
-{
-  if (*(a1 + 8) != *(a2 + 8))
-  {
-    return 0;
-  }
-
-  v20 = v3;
-  v12 = *(a1 + 10);
-  if (v12 != *(a2 + 10))
-  {
-    return 0;
-  }
-
-  if (*(a1 + 10) <= 1u)
-  {
-    if (*(a1 + 10))
-    {
-      v13 = String(a1);
-      if (v13 != String(a2))
-      {
-        return 0;
-      }
-    }
-
-    else
-    {
-      v18 = *a1;
-      if (v18 != *a2 && ([v18 isEqual:?] & 1) == 0)
-      {
-        return 0;
-      }
-    }
-
-    return 1;
-  }
-
-  if (v12 == 2)
-  {
-    *&v19 = String(a1, a3);
-    if (*&v19 == String(a2, v19))
-    {
-      return 1;
-    }
-  }
-
-  else if (v12 == 3)
-  {
-    v15 = String(a1);
-    if (v15 == String(a2))
-    {
-      return 1;
-    }
-  }
-
-  else
-  {
-    v16 = [MEMORY[0x277D6C290] currentHandler];
-    v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL TSSPropertyEntryEqual(const TSSPropertyEntry *, const TSSPropertyEntry *)"}];
-    [v16 handleFailureInFunction:v17 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/styles/TSSPropertyEntry_Internal.m"), 239, @"Unexpected entry type"}];
-  }
-
-  return 0;
 }
 
 id String(uint64_t a1, uint64_t a2, void *a3)
@@ -5373,28 +5308,26 @@ double String(size_t *a1, unsigned __int16 a2)
   return String(v2);
 }
 
+void String(size_t *a1, unsigned __int16 a2)
 {
   v2 = p_TSSPropertyStoreSearch(a1, a2);
-  if (!v2)
+  if (v2)
   {
-    return INFINITY;
-  }
-
-  v4 = *(v2 + 10);
-  if (v4 != 3)
-  {
-    if (v4 == 2)
+    v4 = *(v2 + 10);
+    if (v4 == 3)
     {
-      return String(v2, v3);
+
+      String(v2);
     }
 
-    return INFINITY;
+    else if (v4 == 2)
+    {
+      String(v2, v3);
+    }
   }
-
-  return String(v2);
 }
 
-uint64_t *String(size_t *a1, unsigned __int16 a2)
+size_t *String(size_t *a1, unsigned __int16 a2)
 {
   result = p_TSSPropertyStoreSearch(a1, a2);
   if (result)
@@ -5406,7 +5339,6 @@ uint64_t *String(size_t *a1, unsigned __int16 a2)
   return result;
 }
 
-unsigned int *String(size_t *a1, unsigned __int16 a2)
 {
   result = p_TSSPropertyStoreSearch(a1, a2);
   if (result)
@@ -5507,7 +5439,7 @@ LABEL_8:
   }
 }
 
-uint64_t String(uint64_t *a1)
+uint64_t String(unint64_t *a1)
 {
   v2 = [MEMORY[0x277CCAB68] string];
   if (a1)
@@ -5539,44 +5471,36 @@ uint64_t String(uint64_t *a1)
   return [MEMORY[0x277CCACA8] stringWithFormat:@"TSSPropertyStoreDescription(%p) %lu entries {\n%@\n}", a1, v3, objc_msgSend(MEMORY[0x277CCACA8], "tsu_stringByIndentingString:", v2)];
 }
 
+void String(unint64_t *a1)
 {
-  if (!a1)
-  {
-    v2 = [MEMORY[0x277D6C290] currentHandler];
-    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"id TSSPropertyEntryGetObjectValue(const TSSPropertyEntry *)"];
-    [v2 handleFailureInFunction:v3 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/styles/TSSPropertyEntry_Internal.m"), 131, @"invalid nil value for '%s'", "entry"}];
-  }
+  v1 = String(a1);
+  NSLog(@"%@", v1);
+}
 
-  if (*(a1 + 10) - 1 >= 3)
+{
+  v3 = *a1;
+  v2 = a1[1];
+  if (*a1)
   {
-    if (*(a1 + 10))
+    v4 = 0;
+    v5 = 1;
+    do
     {
-      v7 = [MEMORY[0x277D6C290] currentHandler];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"id TSSPropertyEntryGetObjectValue(const TSSPropertyEntry *)"];
-      [v7 handleFailureInFunction:v8 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/styles/TSSPropertyEntry_Internal.m"), 146, @"Unexpected entry type", v11}];
-    }
-
-    else
-    {
-      result = *a1;
-      if (*a1)
+      v6 = &v2[16 * v4];
+      if (!*(v6 + 10))
       {
-        return result;
       }
+
+      v4 = v5;
     }
+
+    while (v3 > v5++);
+    v2 = a1[1];
   }
 
-  else
-  {
-    v4 = [MEMORY[0x277D6C290] currentHandler];
-    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"id TSSPropertyEntryGetObjectValue(const TSSPropertyEntry *)"];
-    [v4 handleFailureInFunction:v5 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/styles/TSSPropertyEntry_Internal.m"), 143, @"Asked for object value of a %@-valued property.", String(*(a1 + 10))}];
-  }
-
-  v9 = [MEMORY[0x277D6C290] currentHandler];
-  v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"id TSSPropertyEntryGetObjectValue(const TSSPropertyEntry *)"];
-  [v9 handleFailureInFunction:v10 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/styles/TSSPropertyEntry_Internal.m"), 150, @"Undefined value in entry for property %d %@", *(a1 + 4), String(*(a1 + 4))}];
-  return 0;
+  free(v2);
+  *a1 = 0;
+  a1[1] = 0;
 }
 
 void *String(void *a1, void *a2, char a3)
@@ -5634,9 +5558,9 @@ void *String(void *a1, void *a2, char a3)
   return v11;
 }
 
-void sub_26C790B64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_26C790B64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5660,7 +5584,7 @@ TSSMutablePropertySet *p_TSSPropertyStoreBuildPropertySet(void *a1)
   return v2;
 }
 
-unint64_t __TSSPropertyStoreDiffDescription_block_invoke(uint64_t a1, unsigned __int16 a2)
+void *__TSSPropertyStoreDiffDescription_block_invoke(uint64_t a1, unsigned __int16 a2)
 {
   v31 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CBEB18] array];
@@ -5839,7 +5763,7 @@ uint64_t String(void *a1, void *a2)
   return result;
 }
 
-uint64_t __TSSPropertyStoreDiffPropertyNames_block_invoke(uint64_t a1, uint64_t a2)
+size_t *__TSSPropertyStoreDiffPropertyNames_block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = p_TSSPropertyStoreSearch(*(a1 + 56), a2);
   result = p_TSSPropertyStoreSearch(*(a1 + 64), a2);
@@ -5959,33 +5883,6 @@ LABEL_23:
       p_TSSPropertyStoreSort(a1);
     }
   }
-}
-
-void String(unint64_t *a1)
-{
-  v3 = *a1;
-  v2 = a1[1];
-  if (*a1)
-  {
-    v4 = 0;
-    v5 = 1;
-    do
-    {
-      v6 = &v2[16 * v4];
-      if (!*(v6 + 10))
-      {
-      }
-
-      v4 = v5;
-    }
-
-    while (v3 > v5++);
-    v2 = a1[1];
-  }
-
-  free(v2);
-  *a1 = 0;
-  a1[1] = 0;
 }
 
 void String(unint64_t *a1, uint64_t *a2, double a3)
@@ -6470,28 +6367,28 @@ uint64_t __TSSDebugStyleRelationshipDescription_block_invoke_3(uint64_t result, 
   return result;
 }
 
-void sub_26C7925BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C7925BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C794744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C794744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C7948A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C7948A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __TSSFullPropertyMapForStyle_block_invoke(uint64_t a1, uint64_t a2)
+void *__TSSFullPropertyMapForStyle_block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) boxedValueForProperty:a2];
   if (result)
@@ -6645,7 +6542,48 @@ double String(uint64_t a1)
   return INFINITY;
 }
 
-uint64_t String(unsigned int *a1, double a2)
+uint64_t String(uint64_t *a1)
+{
+  if (!a1)
+  {
+    v2 = [MEMORY[0x277D6C290] currentHandler];
+    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"id TSSPropertyEntryGetObjectValue(const TSSPropertyEntry *)"];
+    [v2 handleFailureInFunction:v3 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/styles/TSSPropertyEntry_Internal.m"), 131, @"invalid nil value for '%s'", "entry"}];
+  }
+
+  if (*(a1 + 10) - 1 >= 3)
+  {
+    if (*(a1 + 10))
+    {
+      v7 = [MEMORY[0x277D6C290] currentHandler];
+      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"id TSSPropertyEntryGetObjectValue(const TSSPropertyEntry *)"];
+      [v7 handleFailureInFunction:v8 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/styles/TSSPropertyEntry_Internal.m"), 146, @"Unexpected entry type", v11}];
+    }
+
+    else
+    {
+      result = *a1;
+      if (*a1)
+      {
+        return result;
+      }
+    }
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277D6C290] currentHandler];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"id TSSPropertyEntryGetObjectValue(const TSSPropertyEntry *)"];
+    [v4 handleFailureInFunction:v5 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/styles/TSSPropertyEntry_Internal.m"), 143, @"Asked for object value of a %@-valued property.", String(*(a1 + 10))}];
+  }
+
+  v9 = [MEMORY[0x277D6C290] currentHandler];
+  v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"id TSSPropertyEntryGetObjectValue(const TSSPropertyEntry *)"];
+  [v9 handleFailureInFunction:v10 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/styles/TSSPropertyEntry_Internal.m"), 150, @"Undefined value in entry for property %d %@", *(a1 + 4), String(*(a1 + 4))}];
+  return 0;
+}
+
+void *String(unsigned int *a1, double a2)
 {
   if (!a1)
   {
@@ -6696,7 +6634,7 @@ uint64_t String(unsigned int *a1, double a2)
 
     if (v5 == 1)
     {
-      result = [MEMORY[0x277CCABB0] numberWithInt:*a1];
+      result = [MEMORY[0x277CCABB0] numberWithInt:{*a1, a2}];
       if (result)
       {
         return result;
@@ -6716,33 +6654,130 @@ LABEL_16:
   return 0;
 }
 
-void sub_26C7992F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+uint64_t String(uint64_t a1, uint64_t a2, double a3)
 {
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t String()
-{
-  v0 = TSUProtocolCast();
-  v1 = TSUProtocolCast();
-  v2 = v1;
-  if (v0)
+  if (*(a1 + 8) != *(a2 + 8))
   {
-    v1 = v0;
-    return [v1 isThemeEquivalent:v2];
+    return 0;
   }
 
-  if (v1)
+  v20 = v3;
+  v12 = *(a1 + 10);
+  if (v12 != *(a2 + 10))
   {
-    v2 = 0;
-    return [v1 isThemeEquivalent:v2];
+    return 0;
+  }
+
+  if (*(a1 + 10) <= 1u)
+  {
+    if (*(a1 + 10))
+    {
+      v13 = String(a1);
+      if (v13 != String(a2))
+      {
+        return 0;
+      }
+    }
+
+    else
+    {
+      v18 = *a1;
+      if (v18 != *a2 && ([v18 isEqual:a3] & 1) == 0)
+      {
+        return 0;
+      }
+    }
+
+    return 1;
+  }
+
+  if (v12 == 2)
+  {
+    *&v19 = String(a1, a3);
+    if (*&v19 == String(a2, v19))
+    {
+      return 1;
+    }
+  }
+
+  else if (v12 == 3)
+  {
+    v15 = String(a1);
+    if (v15 == String(a2))
+    {
+      return 1;
+    }
+  }
+
+  else
+  {
+    v16 = [MEMORY[0x277D6C290] currentHandler];
+    v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL TSSPropertyEntryEqual(const TSSPropertyEntry *, const TSSPropertyEntry *)"}];
+    [v16 handleFailureInFunction:v17 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/styles/TSSPropertyEntry_Internal.m"), 239, @"Unexpected entry type"}];
   }
 
   return 0;
 }
 
+void sub_26C7992F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t String(uint64_t a1, uint64_t a2)
+{
+  v2 = TSUProtocolCast();
+  v3 = TSUProtocolCast();
+  v4 = v3;
+  if (v2)
+  {
+    v3 = v2;
+    return [v3 isThemeEquivalent:v4];
+  }
+
+  if (v3)
+  {
+    v4 = 0;
+    return [v3 isThemeEquivalent:v4];
+  }
+
+  return 0;
+}
+
+void sub_26C79C470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_26C79C9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t _styleValidationQueue(uint64_t a1, uint64_t a2)
+{
+  if (_styleValidationQueue_onceToken != -1)
+  {
+    _styleValidationQueue_cold_1();
+  }
+
+  return _styleValidationQueue_queue;
+}
+
+dispatch_queue_t ___styleValidationQueue_block_invoke()
+{
+  result = dispatch_queue_create("TSSValidation", 0);
+  _styleValidationQueue_queue = result;
+  return result;
+}
+
+uint64_t String()
 {
   v3 = 0;
   v4 = &v3;
@@ -6764,37 +6799,6 @@ uint64_t String()
   return v0;
 }
 
-void sub_26C79C470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_26C79C9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t _styleValidationQueue()
-{
-  if (_styleValidationQueue_onceToken != -1)
-  {
-    _styleValidationQueue_cold_1();
-  }
-
-  return _styleValidationQueue_queue;
-}
-
-dispatch_queue_t ___styleValidationQueue_block_invoke()
-{
-  result = dispatch_queue_create("TSSValidation", 0);
-  _styleValidationQueue_queue = result;
-  return result;
-}
-
 double __TSSShouldValidateStyles_block_invoke(uint64_t a1)
 {
   *(*(*(a1 + 32) + 8) + 24) = String == 0;
@@ -6812,16 +6816,16 @@ double __TSSShouldValidateStyles_block_invoke(uint64_t a1)
   return result;
 }
 
-void String()
+void String(uint64_t a1, uint64_t a2)
 {
   if (_styleValidationQueue_onceToken != -1)
   {
     _styleValidationQueue_cold_1();
   }
 
-  v1 = _styleValidationQueue_queue;
+  v3 = _styleValidationQueue_queue;
 
-  dispatch_sync(v1, &__block_literal_global_4);
+  dispatch_sync(v3, &__block_literal_global_4);
 }
 
 {
@@ -6830,9 +6834,9 @@ void String()
     _styleValidationQueue_cold_1();
   }
 
-  v1 = _styleValidationQueue_queue;
+  v3 = _styleValidationQueue_queue;
 
-  dispatch_sync(v1, &__block_literal_global_6);
+  dispatch_sync(v3, &__block_literal_global_6);
 }
 
 void __TSSEnableStyleValidation_block_invoke()
@@ -6853,31 +6857,32 @@ void __TSSSuppressStyleValidation_block_invoke()
   }
 }
 
-void sub_26C79F910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C79F910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C7A0560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_26C7A0560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a16, 8);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C7A97A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C7A97A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C7AF780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7AF780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7258,7 +7263,7 @@ void *TSUCompositeImageWithColor(void *result, void *a2, CGBlendMode a3, CGFloat
   return result;
 }
 
-double TSDComputeBoxTransformAndSizeForPDFPageIgnoringAngle(CGPDFPage *a1, uint64_t a2, CGFloat *a3, int a4)
+double TSDComputeBoxTransformAndSizeForPDFPageIgnoringAngle(CGPDFPage *a1, uint64_t a2, CGFloat *a3, uint64_t a4)
 {
   if (!a1)
   {
@@ -7268,6 +7273,7 @@ double TSDComputeBoxTransformAndSizeForPDFPageIgnoringAngle(CGPDFPage *a1, uint6
     return *MEMORY[0x277CBF3A0];
   }
 
+  v4 = a4;
   BoxRect = CGPDFPageGetBoxRect(a1, kCGPDFMediaBox);
   x = BoxRect.origin.x;
   y = BoxRect.origin.y;
@@ -7320,7 +7326,7 @@ double TSDComputeBoxTransformAndSizeForPDFPageIgnoringAngle(CGPDFPage *a1, uint6
   v44.size.height = v19;
   v23 = CGRectGetHeight(v44);
   RotationAngle = CGPDFPageGetRotationAngle(a1);
-  if (a4)
+  if (v4)
   {
     v25 = 0;
   }
@@ -7675,9 +7681,9 @@ double TSDCGContextGetShadowedLayoutAngle(uint64_t a1)
   return v1;
 }
 
-void sub_26C7B91C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7B91C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7708,14 +7714,14 @@ uint64_t TSDCGContextIsShadowContext(uint64_t a1)
   return v1;
 }
 
-void sub_26C7B92D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7B92D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __TSDCGContextIsShadowContext_block_invoke(uint64_t a1, void *a2)
+void *__TSDCGContextIsShadowContext_block_invoke(uint64_t a1, void *a2)
 {
   result = [objc_msgSend(a2 objectForKey:{*(a1 + 40)), "objectForKey:", @"TSDCGContextInfoDictionaryKeyShadowedLayoutAngle"}];
   *(*(*(a1 + 32) + 8) + 24) = result != 0;
@@ -7740,14 +7746,14 @@ uint64_t TSDCGContextGetIsReflection(uint64_t a1)
   return v1;
 }
 
-void sub_26C7B93E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7B93E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __TSDCGContextGetIsReflection_block_invoke(uint64_t a1, void *a2)
+void *__TSDCGContextGetIsReflection_block_invoke(uint64_t a1, void *a2)
 {
   result = [objc_msgSend(objc_msgSend(a2 objectForKey:{*(a1 + 40)), "objectForKey:", @"TSDCGContextInfoDictionaryKeyIsReflection", "BOOLValue"}];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -7774,14 +7780,14 @@ uint64_t TSDCGContextGetBitmapQualityInfo(uint64_t a1)
   return v1;
 }
 
-void sub_26C7B9514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7B9514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __TSDCGContextGetBitmapQualityInfo_block_invoke(uint64_t a1, void *a2)
+void *__TSDCGContextGetBitmapQualityInfo_block_invoke(uint64_t a1, void *a2)
 {
   result = [objc_msgSend(a2 objectForKey:{*(a1 + 40)), "objectForKey:", @"TSDCGContextInfoDictionaryKeyBitmapQualityInfo"}];
   *(*(*(a1 + 32) + 8) + 40) = result;
@@ -7806,9 +7812,9 @@ double TSDCGContextGetLayoutAngle(uint64_t a1)
   return v1;
 }
 
-void sub_26C7B9640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7B9640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7839,14 +7845,14 @@ uint64_t TSDCGContextIsPrintContext(uint64_t a1)
   return v1;
 }
 
-void sub_26C7B9750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7B9750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __TSDCGContextIsPrintContext_block_invoke(uint64_t a1, void *a2)
+void *__TSDCGContextIsPrintContext_block_invoke(uint64_t a1, void *a2)
 {
   result = [objc_msgSend(objc_msgSend(a2 objectForKey:{*(a1 + 40)), "objectForKey:", @"TSDCGContextInfoDictionaryKeyIsPrintContext", "BOOLValue"}];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -7871,14 +7877,14 @@ uint64_t TSDCGContextHasBackgroundsSuppressed(uint64_t a1)
   return v1;
 }
 
-void sub_26C7B985C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7B985C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __TSDCGContextHasBackgroundsSuppressed_block_invoke(uint64_t a1, void *a2)
+void *__TSDCGContextHasBackgroundsSuppressed_block_invoke(uint64_t a1, void *a2)
 {
   result = [objc_msgSend(objc_msgSend(a2 objectForKey:{*(a1 + 40)), "objectForKey:", @"TSDCGContextInfoDictionaryKeyHasBackgroundsSuppressed", "BOOLValue"}];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -7903,14 +7909,14 @@ uint64_t TSDCGContextIsPDFContext(uint64_t a1)
   return v1;
 }
 
-void sub_26C7B9968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7B9968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __TSDCGContextIsPDFContext_block_invoke(uint64_t a1, void *a2)
+void *__TSDCGContextIsPDFContext_block_invoke(uint64_t a1, void *a2)
 {
   result = [objc_msgSend(objc_msgSend(a2 objectForKey:{*(a1 + 40)), "objectForKey:", @"TSDCGContextInfoDictionaryKeyIsPDFContext", "BOOLValue"}];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -7935,14 +7941,14 @@ uint64_t TSDCGContextIsCALayerContext(uint64_t a1)
   return v1;
 }
 
-void sub_26C7B9A74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7B9A74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __TSDCGContextIsCALayerContext_block_invoke(uint64_t a1, void *a2)
+void *__TSDCGContextIsCALayerContext_block_invoke(uint64_t a1, void *a2)
 {
   result = [objc_msgSend(objc_msgSend(a2 objectForKey:{*(a1 + 40)), "objectForKey:", @"TSDCGContextInfoDictionaryKeyIsCALayerContext", "BOOLValue"}];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -7973,9 +7979,9 @@ double TSDCGContextAssociatedScreenScale(uint64_t a1)
   return v1;
 }
 
-void sub_26C7B9B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7B9B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8026,9 +8032,9 @@ BOOL TSDCGContextHasTileOffset(uint64_t a1, uint64_t a2)
   return v7;
 }
 
-void sub_26C7B9D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7B9D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8060,14 +8066,14 @@ uint64_t TSDCGContextPrefersRasterRendering(uint64_t a1)
   return v1;
 }
 
-void sub_26C7B9E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7B9E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __TSDCGContextPrefersRasterRendering_block_invoke(uint64_t a1, void *a2)
+void *__TSDCGContextPrefersRasterRendering_block_invoke(uint64_t a1, void *a2)
 {
   result = [objc_msgSend(objc_msgSend(a2 objectForKeyedSubscript:{*(a1 + 40)), "objectForKeyedSubscript:", @"TSDCGContextInfoDictionaryKeyPrefersRasterRendering", "BOOLValue"}];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -8112,36 +8118,36 @@ uint64_t TSDAccessCGContextInfoDictionaryWithBlock(uint64_t result, int a2, uint
   return result;
 }
 
-CGFloat TSDTransformConvertingRectToRectAtPercent@<D0>(uint64_t a1@<X8>, double a2@<D0>, double a3@<D2>, double a4@<D3>, double a5@<D4>, double a6@<D5>, double a7@<D6>, double a8@<D7>, double a9)
+CGFloat TSDTransformConvertingRectToRectAtPercent@<D0>(uint64_t a2@<X8>, double a3@<D0>, double a5@<D2>, double a6@<D3>, double a7@<D4>, double a8@<D5>, double a9@<D6>, double a10@<D7>, double a11)
 {
-  v14 = TSDSubtractPoints(a5, a6, a2);
-  v15 = a7 / a3;
-  v16 = a8 / a4;
-  v18 = TSDMultiplyPointScalar(v14, v17, a9);
-  v20 = v19;
-  v21 = TSDMixSizes(1.0, 1.0, v15, v16, a9);
-  v23 = v22;
-  v24 = MEMORY[0x277CBF2C0];
-  v25 = *MEMORY[0x277CBF2C0];
-  v26 = *(MEMORY[0x277CBF2C0] + 16);
-  *a1 = *MEMORY[0x277CBF2C0];
-  *(a1 + 16) = v26;
-  v27 = *(v24 + 32);
-  *(a1 + 32) = v27;
-  *&v32.a = v25;
-  *&v32.c = v26;
-  *&v32.tx = v27;
-  CGAffineTransformTranslate(a1, &v32, v18, v20);
-  v28 = *(a1 + 16);
-  *&v31.a = *a1;
-  *&v31.c = v28;
-  *&v31.tx = *(a1 + 32);
-  CGAffineTransformScale(&v32, &v31, v21, v23);
-  v29 = *&v32.c;
-  *a1 = *&v32.a;
-  *(a1 + 16) = v29;
-  result = v32.tx;
-  *(a1 + 32) = *&v32.tx;
+  v16 = TSDSubtractPoints(a7, a8, a3);
+  v17 = a9 / a5;
+  v18 = a10 / a6;
+  v20 = TSDMultiplyPointScalar(v16, v19, a11);
+  v22 = v21;
+  v23 = TSDMixSizes(1.0, 1.0, v17, v18, a11);
+  v25 = v24;
+  v26 = MEMORY[0x277CBF2C0];
+  v27 = *MEMORY[0x277CBF2C0];
+  v28 = *(MEMORY[0x277CBF2C0] + 16);
+  *a2 = *MEMORY[0x277CBF2C0];
+  *(a2 + 16) = v28;
+  v29 = *(v26 + 32);
+  *(a2 + 32) = v29;
+  *&v34.a = v27;
+  *&v34.c = v28;
+  *&v34.tx = v29;
+  CGAffineTransformTranslate(a2, &v34, v20, v22);
+  v30 = *(a2 + 16);
+  *&v33.a = *a2;
+  *&v33.c = v30;
+  *&v33.tx = *(a2 + 32);
+  CGAffineTransformScale(&v34, &v33, v23, v25);
+  v31 = *&v34.c;
+  *a2 = *&v34.a;
+  *(a2 + 16) = v31;
+  result = v34.tx;
+  *(a2 + 32) = *&v34.tx;
   return result;
 }
 
@@ -8862,7 +8868,7 @@ uint64_t TSDLineIntersectsRect(CGFloat a1, CGFloat a2, double a3, double a4, CGF
 
     v19 = (v13 + a1) * 0.5;
     v20 = (v12 + a2) * 0.5;
-    v21 = TSDLineIntersectsRect(1, a1, a2, v19, v20, a5, a6, a7, a8);
+    v21 = TSDLineIntersectsRect(a1, a2, v19, v20, a5, a6, a7, a8);
     a1 = v19;
     a2 = v20;
     v13 = a3;

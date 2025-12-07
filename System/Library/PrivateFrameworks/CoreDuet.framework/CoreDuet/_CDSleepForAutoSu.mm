@@ -50,7 +50,7 @@
 
 - (id)proposeTimesFromRelativeOffsetsForDate:(id)date lastUnlock:(int)unlock suStart:(int)start suEnd:(int)end unrestrictedSleepEnd:(int)sleepEnd config:(id)config
 {
-  v43[6] = *MEMORY[0x1E69E9840];
+  v42[6] = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v14 = MEMORY[0x1E695DFE8];
   configCopy = config;
@@ -71,8 +71,8 @@
     v24 = +[_CDLogging autoSUChannel];
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      *v41 = 0;
-      _os_log_impl(&dword_191750000, v24, OS_LOG_TYPE_INFO, "unlock_start overriden", v41, 2u);
+      *v40 = 0;
+      _os_log_impl(&dword_191750000, v24, OS_LOG_TYPE_INFO, "unlock_start overriden", v40, 2u);
     }
 
     v25 = dateCopy;
@@ -87,8 +87,8 @@
     v28 = +[_CDLogging autoSUChannel];
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
-      *v41 = 0;
-      _os_log_impl(&dword_191750000, v28, OS_LOG_TYPE_INFO, "su_start overriden", v41, 2u);
+      *v40 = 0;
+      _os_log_impl(&dword_191750000, v28, OS_LOG_TYPE_INFO, "su_start overriden", v40, 2u);
     }
 
     v29 = [dateCopy dateByAddingTimeInterval:300.0];
@@ -97,26 +97,24 @@
   }
 
   v30 = v18;
-  v42[0] = @"sleep_query_status";
-  v42[1] = @"unlock_start";
-  v43[0] = @"ok";
-  v43[1] = v22;
-  v42[2] = @"su_start";
-  v42[3] = @"su_end";
-  v43[2] = v21;
-  v43[3] = v30;
-  v42[4] = @"expiration_time";
-  v42[5] = @"unrestricted_sleep_end";
-  v43[4] = v30;
-  v43[5] = v23;
-  v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:6];
+  v41[0] = @"sleep_query_status";
+  v41[1] = @"unlock_start";
+  v42[0] = @"ok";
+  v42[1] = v22;
+  v41[2] = @"su_start";
+  v41[3] = @"su_end";
+  v42[2] = v21;
+  v42[3] = v30;
+  v41[4] = @"expiration_time";
+  v41[5] = @"unrestricted_sleep_end";
+  v42[4] = v30;
+  v42[5] = v23;
+  v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:6];
   v32 = +[_CDLogging autoSUChannel];
   if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
   {
     [(_CDSleepForAutoSu *)v31 proposeTimesFromRelativeOffsetsForDate:v32 lastUnlock:v33 suStart:v34 suEnd:v35 unrestrictedSleepEnd:v36 config:v37, v38];
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return v31;
 }
@@ -132,7 +130,7 @@
 
 - (id)defaultTimesWhenPredictionUnavailable:(id)unavailable withConfig:(id)config
 {
-  v28[5] = *MEMORY[0x1E69E9840];
+  v27[5] = *MEMORY[0x1E69E9840];
   unavailableCopy = unavailable;
   v6 = MEMORY[0x1E695DFE8];
   configCopy = config;
@@ -148,24 +146,22 @@
   LODWORD(v12) = [configCopy suEndDefaultTimeOffsetFromSuStart];
 
   v16 = [v14 dateByAddingTimeInterval:v12];
-  v27[0] = @"sleep_query_status";
-  v27[1] = @"unlock_start";
-  v28[0] = @"next_day_prediction_not_available";
-  v28[1] = v15;
-  v27[2] = @"su_start";
-  v27[3] = @"su_end";
-  v28[2] = v14;
-  v28[3] = v16;
-  v27[4] = @"expiration_time";
-  v28[4] = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:5];
+  v26[0] = @"sleep_query_status";
+  v26[1] = @"unlock_start";
+  v27[0] = @"next_day_prediction_not_available";
+  v27[1] = v15;
+  v26[2] = @"su_start";
+  v26[3] = @"su_end";
+  v27[2] = v14;
+  v27[3] = v16;
+  v26[4] = @"expiration_time";
+  v27[4] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:5];
   v18 = +[_CDLogging autoSUChannel];
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     [(_CDSleepForAutoSu *)v17 defaultTimesWhenPredictionUnavailable:v18 withConfig:v19, v20, v21, v22, v23, v24];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -202,15 +198,14 @@
 
 + (id)defaultTuningConfiguration
 {
-  v6[3] = *MEMORY[0x1E69E9840];
-  v5[0] = @"kSleepTuningLong";
-  v5[1] = @"kSleepTuningShort";
-  v6[0] = &unk_1F05EF150;
-  v6[1] = &unk_1F05EF160;
-  v5[2] = @"kSleepTuningRatio";
-  v6[2] = &unk_1F05EF170;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:3];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
+  v4[0] = @"kSleepTuningLong";
+  v4[1] = @"kSleepTuningShort";
+  v5[0] = &unk_1F05EF150;
+  v5[1] = &unk_1F05EF160;
+  v4[2] = @"kSleepTuningRatio";
+  v5[2] = &unk_1F05EF170;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:3];
 
   return v2;
 }
@@ -281,7 +276,7 @@
 
 - (id)predictedSleepDictionaryForDate:(id)date usingKnowledge:(id)knowledge
 {
-  v54[1] = *MEMORY[0x1E69E9840];
+  v53[1] = *MEMORY[0x1E69E9840];
   dateCopy = date;
   knowledgeCopy = knowledge;
   if ([(_CDSleepForAutoSu *)self enableCaching])
@@ -303,30 +298,30 @@
 
   localTimeZone = [MEMORY[0x1E695DFE8] localTimeZone];
   v11 = [dateCopy cd_dateWithCeilingForAlignment:localTimeZone withOffset:86400.0 inTimeZone:16.0 * 3600.0];
-  v39 = [v11 dateByAddingTimeInterval:-(21.0 * 86400.0)];
-  v38 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:v39 duration:21.0 * 86400.0];
+  v38 = [v11 dateByAddingTimeInterval:-(21.0 * 86400.0)];
+  v37 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:v38 duration:21.0 * 86400.0];
   v18 = [_CDSleepPredictor gatherBitmapHistoryFromStore:knowledgeCopy forPeriod:?];
   v19 = v18;
   if (!v18 || ![v18 count])
   {
-    v40 = 0;
+    v39 = 0;
     v22 = 0;
     v24 = 0;
 LABEL_11:
-    v53 = @"_DKDebugMetadataKey-debug";
+    v52 = @"_DKDebugMetadataKey-debug";
     v28 = MEMORY[0x1E695E0F0];
     if (v22)
     {
       v28 = v22;
     }
 
-    v51[0] = @"probabilityVector";
-    v51[1] = @"predictionPeriodStart";
-    v52[0] = v28;
-    v52[1] = v11;
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:2];
-    v54[0] = v23;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:&v53 count:1];
+    v50[0] = @"probabilityVector";
+    v50[1] = @"predictionPeriodStart";
+    v51[0] = v28;
+    v51[1] = v11;
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:2];
+    v53[0] = v23;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:&v52 count:1];
     goto LABEL_14;
   }
 
@@ -335,8 +330,8 @@ LABEL_11:
   v22 = [v20 predictFrom:v19 withTuning:tuningDictionary usingVersion:2];
 
   v23 = [_CDSleepPredictor findSleepPeriodInDayStarting:v11 FromActivityProbabilities:v22];
-  v40 = dateCopy;
-  v24 = [v40 dateByAddingTimeInterval:86400.0];
+  v39 = dateCopy;
+  v24 = [v39 dateByAddingTimeInterval:86400.0];
   if (!v23)
   {
 
@@ -345,24 +340,24 @@ LABEL_11:
 
   endDate = [v23 endDate];
 
-  v36 = +[_DKPeriodMetadataKey periodStart];
-  v49[0] = v36;
+  v35 = +[_DKPeriodMetadataKey periodStart];
+  v48[0] = v35;
   startDate = [v23 startDate];
-  v50[0] = startDate;
-  v34 = +[_DKPeriodMetadataKey periodEnd];
-  v49[1] = v34;
+  v49[0] = startDate;
+  v33 = +[_DKPeriodMetadataKey periodEnd];
+  v48[1] = v33;
   endDate2 = [v23 endDate];
-  v50[1] = endDate2;
-  v49[2] = @"_DKDebugMetadataKey-debug";
-  v47[0] = @"probabilityVector";
-  v47[1] = @"predictionPeriodStart";
-  v48[0] = v22;
-  v48[1] = v11;
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:2];
+  v49[1] = endDate2;
+  v48[2] = @"_DKDebugMetadataKey-debug";
+  v46[0] = @"probabilityVector";
+  v46[1] = @"predictionPeriodStart";
+  v47[0] = v22;
+  v47[1] = v11;
+  [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:2];
   v25 = dateCopy;
   v27 = v26 = knowledgeCopy;
-  v50[2] = v27;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:3];
+  v49[2] = v27;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:3];
 
   knowledgeCopy = v26;
   dateCopy = v25;
@@ -377,19 +372,18 @@ LABEL_14:
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v42 = v10;
-      v43 = 2112;
-      v44 = v40;
-      v45 = 2112;
-      v46 = v24;
+      v41 = v10;
+      v42 = 2112;
+      v43 = v39;
+      v44 = 2112;
+      v45 = v24;
       _os_log_debug_impl(&dword_191750000, v30, OS_LOG_TYPE_DEBUG, "Caching prediction %@ valid between [%@, %@]", buf, 0x20u);
     }
 
-    [v29 setCachedPredictedSleepDictionary:v10 validityStartDate:v40 validityEndDate:v24];
+    [v29 setCachedPredictedSleepDictionary:v10 validityStartDate:v39 validityEndDate:v24];
   }
 
 LABEL_19:
-  v31 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -500,7 +494,7 @@ LABEL_21:
 
 - (id)predictForDate:(id)date fromState:(id)state withConfig:(id)config
 {
-  v35[96] = *MEMORY[0x1E69E9840];
+  v34[96] = *MEMORY[0x1E69E9840];
   dateCopy = date;
   configCopy = config;
   v10 = [(_CDSleepForAutoSu *)self retrieveSleepProbabilities:state];
@@ -517,50 +511,50 @@ LABEL_21:
       v13 = [v10 objectAtIndex:i];
       [v13 doubleValue];
       v15 = 1.0 - v14;
-      *&v35[i] = 1.0 - v14;
+      *&v34[i] = 1.0 - v14;
 
       v16 = +[_CDLogging autoSUChannel];
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109376;
-        v32 = i;
-        v33 = 2048;
-        v34 = v15;
+        v31 = i;
+        v32 = 2048;
+        v33 = v15;
         _os_log_debug_impl(&dword_191750000, v16, OS_LOG_TYPE_DEBUG, "Prob[%d] = %f", buf, 0x12u);
       }
     }
 
     *buf = 0;
+    v26 = 0;
     v27 = 0;
-    v28 = 0;
-    if (findAutoSuPlanByProbability(v35, buf, &v28 + 1, &v28, &v27 + 1, &v27, configCopy) != -1 && ![configCopy alwaysFallBackToDefault])
+    if (findAutoSuPlanByProbability(v34, buf, &v27 + 1, &v27, &v26 + 1, &v26, configCopy) != -1 && ![configCopy alwaysFallBackToDefault])
     {
-      v21 = [(_CDSleepForAutoSu *)self proposeTimesFromRelativeOffsetsForDate:dateCopy lastUnlock:*buf suStart:HIDWORD(v28) suEnd:v28 unrestrictedSleepEnd:v27 config:configCopy];
+      v20 = [(_CDSleepForAutoSu *)self proposeTimesFromRelativeOffsetsForDate:dateCopy lastUnlock:*buf suStart:HIDWORD(v27) suEnd:v27 unrestrictedSleepEnd:v26 config:configCopy];
       if ([configCopy alwaysReturnUnlockNow])
       {
-        v29[0] = @"sleep_query_status";
-        v22 = [v21 objectForKeyedSubscript:?];
-        v30[0] = v22;
-        v30[1] = dateCopy;
-        v29[1] = @"unlock_start";
-        v29[2] = @"su_start";
-        v23 = [v21 objectForKeyedSubscript:?];
-        v30[2] = v23;
-        v29[3] = @"su_end";
-        v24 = [v21 objectForKeyedSubscript:?];
-        v30[3] = v24;
-        v29[4] = @"expiration_time";
-        v25 = [v21 objectForKeyedSubscript:?];
-        v30[4] = v25;
-        v29[5] = @"unrestricted_sleep_end";
-        v26 = [v21 objectForKeyedSubscript:?];
-        v30[5] = v26;
-        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:6];
+        v28[0] = @"sleep_query_status";
+        v21 = [v20 objectForKeyedSubscript:?];
+        v29[0] = v21;
+        v29[1] = dateCopy;
+        v28[1] = @"unlock_start";
+        v28[2] = @"su_start";
+        v22 = [v20 objectForKeyedSubscript:?];
+        v29[2] = v22;
+        v28[3] = @"su_end";
+        v23 = [v20 objectForKeyedSubscript:?];
+        v29[3] = v23;
+        v28[4] = @"expiration_time";
+        v24 = [v20 objectForKeyedSubscript:?];
+        v29[4] = v24;
+        v28[5] = @"unrestricted_sleep_end";
+        v25 = [v20 objectForKeyedSubscript:?];
+        v29[5] = v25;
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:6];
       }
 
       else
       {
-        v18 = v21;
+        v18 = v20;
       }
 
       goto LABEL_14;
@@ -575,8 +569,6 @@ LABEL_21:
 
   v18 = [(_CDSleepForAutoSu *)self defaultTimesWhenPredictionUnavailable:dateCopy];
 LABEL_14:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -628,23 +620,23 @@ LABEL_14:
 
 - (void)proposeTimesFromRelativeOffsetsForDate:(uint64_t)a3 lastUnlock:(uint64_t)a4 suStart:(uint64_t)a5 suEnd:(uint64_t)a6 unrestrictedSleepEnd:(uint64_t)a7 config:(uint64_t)a8 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2(&dword_191750000, a2, a3, "(non-default) proposed_times = %@\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&dword_191750000, a2, a3, "(non-default) proposed_times = %@\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)defaultTimesWhenPredictionUnavailable:(uint64_t)a3 withConfig:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2(&dword_191750000, a2, a3, "(default) proposed_times = %@\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&dword_191750000, a2, a3, "(default) proposed_times = %@\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)predictedSleepDictionaryForDate:(uint64_t)a3 usingKnowledge:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2(&dword_191750000, a2, a3, "Returning cached prediction %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&dword_191750000, a2, a3, "Returning cached prediction %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)retrieveSleepProbabilities:.cold.1()
@@ -684,11 +676,10 @@ LABEL_14:
 
 - (void)predictForDate:(os_log_t)log fromState:withConfig:.cold.1(os_log_t log)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 67109120;
-  v2[1] = 96;
-  _os_log_debug_impl(&dword_191750000, log, OS_LOG_TYPE_DEBUG, "Listing %d probabilities (0: wake; 1: sleep)", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 67109120;
+  v1[1] = 96;
+  _os_log_debug_impl(&dword_191750000, log, OS_LOG_TYPE_DEBUG, "Listing %d probabilities (0: wake; 1: sleep)", v1, 8u);
 }
 
 - (void)predictForDate:fromState:withConfig:.cold.2()

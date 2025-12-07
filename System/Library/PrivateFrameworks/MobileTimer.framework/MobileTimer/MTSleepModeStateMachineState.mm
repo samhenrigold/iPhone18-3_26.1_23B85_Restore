@@ -6,14 +6,24 @@
 - (id)nextSleepModeStartDateAfterDate:(id)date;
 - (void)sleepModeEnabled:(BOOL)enabled userRequested:(BOOL)requested date:(id)date;
 - (void)updateModeKeepOffUntilDateIfNecessary;
+- (void)updateState:(BOOL)state;
 - (void)userWokeUp;
 @end
 
 @implementation MTSleepModeStateMachineState
 
+- (void)updateState:(BOOL)state
+{
+  stateCopy = state;
+  [(MTSleepModeStateMachineState *)self updateModeKeepOffUntilDateIfNecessary];
+  v6 = [(MTSleepModeStateMachineState *)self determineNextState:stateCopy];
+  stateMachine = [(MTStateMachineState *)self stateMachine];
+  [stateMachine enterState:v6];
+}
+
 - (void)updateModeKeepOffUntilDateIfNecessary
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   stateMachine = [(MTStateMachineState *)self stateMachine];
   currentDate = [stateMachine currentDate];
 
@@ -28,11 +38,11 @@
       v8 = MTLogForCategory(7);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138543618;
+        v11 = 138543618;
         selfCopy = self;
-        v14 = 2114;
-        v15 = v7;
-        _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ Updating keep off until date: %{public}@", &v12, 0x16u);
+        v13 = 2114;
+        v14 = v7;
+        _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ Updating keep off until date: %{public}@", &v11, 0x16u);
       }
 
       stateMachine3 = [(MTStateMachineState *)self stateMachine];
@@ -40,14 +50,12 @@
       [stateMachine3 stateMachine:stateMachine4 keepSleepModeOffUntilDate:v7];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)determineNextState:(BOOL)state
 {
   stateCopy = state;
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   stateMachine = [(MTStateMachineState *)self stateMachine];
   currentDate = [stateMachine currentDate];
 
@@ -64,11 +72,11 @@
       v22 = MTLogForCategory(7);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = 138543618;
+        v31 = 138543618;
         selfCopy7 = self;
-        v34 = 2114;
-        v35 = @"sleep mode";
-        _os_log_impl(&dword_1B1F9F000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ no sleep alarm, turning off %{public}@ if it's on", &v32, 0x16u);
+        v33 = 2114;
+        v34 = @"sleep mode";
+        _os_log_impl(&dword_1B1F9F000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ no sleep alarm, turning off %{public}@ if it's on", &v31, 0x16u);
       }
 
       goto LABEL_24;
@@ -89,13 +97,13 @@
             if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
               alarmIDString = [sleepAlarm alarmIDString];
-              v32 = 138543874;
+              v31 = 138543874;
               selfCopy7 = self;
-              v34 = 2114;
-              v35 = @"sleep mode";
-              v36 = 2114;
-              v37 = alarmIDString;
-              _os_log_impl(&dword_1B1F9F000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ turning on %{public}@ if it's not on for alarm %{public}@", &v32, 0x20u);
+              v33 = 2114;
+              v34 = @"sleep mode";
+              v35 = 2114;
+              v36 = alarmIDString;
+              _os_log_impl(&dword_1B1F9F000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ turning on %{public}@ if it's not on for alarm %{public}@", &v31, 0x20u);
             }
 
             stateMachine5 = [(MTStateMachineState *)self stateMachine];
@@ -105,17 +113,17 @@
             goto LABEL_26;
           }
 
-          v30 = MTLogForCategory(7);
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+          v29 = MTLogForCategory(7);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
             alarmIDString2 = [sleepAlarm alarmIDString];
-            v32 = 138543874;
+            v31 = 138543874;
             selfCopy7 = self;
-            v34 = 2114;
-            v35 = @"sleep mode";
-            v36 = 2114;
-            v37 = alarmIDString2;
-            _os_log_impl(&dword_1B1F9F000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@ waiting 60 seconds before turning on %{public}@ for alarm %{public}@", &v32, 0x20u);
+            v33 = 2114;
+            v34 = @"sleep mode";
+            v35 = 2114;
+            v36 = alarmIDString2;
+            _os_log_impl(&dword_1B1F9F000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@ waiting 60 seconds before turning on %{public}@ for alarm %{public}@", &v31, 0x20u);
           }
 
           stateMachine5 = [(MTStateMachineState *)self stateMachine];
@@ -131,12 +139,12 @@ LABEL_26:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           alarmIDString3 = [sleepAlarm alarmIDString];
-          v32 = 138543874;
+          v31 = 138543874;
           selfCopy7 = self;
-          v34 = 2114;
-          v35 = alarmIDString3;
-          v36 = 2114;
-          v37 = @"sleep mode";
+          v33 = 2114;
+          v34 = alarmIDString3;
+          v35 = 2114;
+          v36 = @"sleep mode";
           v24 = "%{public}@ not in sleep window for alarm %{public}@, turning off %{public}@ if it's on";
           goto LABEL_20;
         }
@@ -148,14 +156,14 @@ LABEL_26:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           alarmIDString3 = [sleepAlarm alarmIDString];
-          v32 = 138544130;
+          v31 = 138544130;
           selfCopy7 = self;
-          v34 = 2114;
-          v35 = @"sleep mode";
-          v36 = 2114;
-          v37 = alarmIDString3;
-          v38 = 2114;
-          v39 = @"sleep mode";
+          v33 = 2114;
+          v34 = @"sleep mode";
+          v35 = 2114;
+          v36 = alarmIDString3;
+          v37 = 2114;
+          v38 = @"sleep mode";
           v24 = "%{public}@ %{public}@ not enabled for alarm %{public}@, turning off %{public}@ if it's on";
           v25 = v22;
           v26 = 42;
@@ -170,18 +178,18 @@ LABEL_26:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         alarmIDString3 = [sleepAlarm alarmIDString];
-        v32 = 138543874;
+        v31 = 138543874;
         selfCopy7 = self;
-        v34 = 2114;
-        v35 = alarmIDString3;
-        v36 = 2114;
-        v37 = @"sleep mode";
+        v33 = 2114;
+        v34 = alarmIDString3;
+        v35 = 2114;
+        v36 = @"sleep mode";
         v24 = "%{public}@ sleep schedule for %{public}@ not enabled, turning off %{public}@ if it's on";
 LABEL_20:
         v25 = v22;
         v26 = 32;
 LABEL_23:
-        _os_log_impl(&dword_1B1F9F000, v25, OS_LOG_TYPE_DEFAULT, v24, &v32, v26);
+        _os_log_impl(&dword_1B1F9F000, v25, OS_LOG_TYPE_DEFAULT, v24, &v31, v26);
       }
     }
 
@@ -195,20 +203,18 @@ LABEL_24:
   v9 = MTLogForCategory(7);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = 138543874;
+    v31 = 138543874;
     selfCopy7 = self;
-    v34 = 2114;
-    v35 = keepOffUntilDate;
-    v36 = 2114;
-    v37 = @"sleep mode";
-    _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ We are before keep off until date: %{public}@, turning off %{public}@ if it's on", &v32, 0x20u);
+    v33 = 2114;
+    v34 = keepOffUntilDate;
+    v35 = 2114;
+    v36 = @"sleep mode";
+    _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ We are before keep off until date: %{public}@, turning off %{public}@ if it's on", &v31, 0x20u);
   }
 
   sleepAlarm = [(MTStateMachineState *)self stateMachine];
   v11 = [sleepAlarm userRequestedOffStateWithKeepOffUntilDate:keepOffUntilDate];
 LABEL_27:
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -217,7 +223,7 @@ LABEL_27:
 {
   requestedCopy = requested;
   enabledCopy = enabled;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   if (enabledCopy)
   {
@@ -249,9 +255,9 @@ LABEL_27:
       stateMachine = MTLogForCategory(7);
       if (os_log_type_enabled(stateMachine, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 138543362;
+        v19 = 138543362;
         selfCopy = self;
-        _os_log_impl(&dword_1B1F9F000, stateMachine, OS_LOG_TYPE_DEFAULT, "%{public}@ ignoring user requested off because it's for previous sleep window", &v20, 0xCu);
+        _os_log_impl(&dword_1B1F9F000, stateMachine, OS_LOG_TYPE_DEFAULT, "%{public}@ ignoring user requested off because it's for previous sleep window", &v19, 0xCu);
       }
 
       goto LABEL_4;
@@ -267,8 +273,6 @@ LABEL_27:
 
 LABEL_4:
 LABEL_9:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)userWokeUp

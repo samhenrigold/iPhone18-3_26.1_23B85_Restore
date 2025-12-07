@@ -87,48 +87,48 @@
 
   if (liveIDLookupEnabled)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = handleCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "fetchLiveBlockingInfoForHandle handle=%@", &v15, 0xCu);
+      v17 = 138412290;
+      v18 = handleCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "fetchLiveBlockingInfoForHandle handle=%@", &v17, 0xCu);
     }
 
     manager = [(CSDCallDirectoryManager *)self manager];
 
-    v9 = 0;
+    v11 = 0;
     if (handleCopy && manager)
     {
       manager2 = [(CSDCallDirectoryManager *)self manager];
       serverBag = [(CSDCallDirectoryManager *)self serverBag];
       [serverBag liveLookupTimeoutSeconds];
-      v9 = [manager2 fetchLiveBlockingInfoForHandle:handleCopy timeout:?];
+      v11 = [manager2 fetchLiveBlockingInfoForHandle:handleCopy timeout:?];
     }
 
-    v12 = sub_100004778();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100004778(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = @"NO";
-      if (v9)
+      v15 = @"NO";
+      if (v11)
       {
-        v13 = @"YES";
+        v15 = @"YES";
       }
 
-      v15 = 138412546;
-      v16 = handleCopy;
-      v17 = 2112;
-      v18 = v13;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "fetchLiveBlockingInfoForHandle handle=%@ block=%@", &v15, 0x16u);
+      v17 = 138412546;
+      v18 = handleCopy;
+      v19 = 2112;
+      v20 = v15;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "fetchLiveBlockingInfoForHandle handle=%@ block=%@", &v17, 0x16u);
     }
   }
 
   else
   {
-    LOBYTE(v9) = 0;
+    LOBYTE(v11) = 0;
   }
 
-  return v9;
+  return v11;
 }
 
 - (id)firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber:(id)number
@@ -139,12 +139,12 @@
 
   if (liveIDLookupEnabled)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = numberCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber handle=%@", &v14, 0xCu);
+      v16 = 138412290;
+      v17 = numberCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber handle=%@", &v16, 0xCu);
     }
 
     manager = [(CSDCallDirectoryManager *)self manager];
@@ -154,61 +154,62 @@
       manager2 = [(CSDCallDirectoryManager *)self manager];
       serverBag = [(CSDCallDirectoryManager *)self serverBag];
       [serverBag liveLookupTimeoutSeconds];
-      v11 = [manager2 firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber:numberCopy timeout:?];
+      v13 = [manager2 firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber:numberCopy timeout:?];
     }
 
     else
     {
-      v11 = 0;
+      v13 = 0;
     }
 
-    v12 = sub_100004778();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100004778(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412546;
-      v15 = numberCopy;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber handle=%@ blockedByExtension=%@", &v14, 0x16u);
+      v16 = 138412546;
+      v17 = numberCopy;
+      v18 = 2112;
+      v19 = v13;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber handle=%@ blockedByExtension=%@", &v16, 0x16u);
     }
   }
 
   else
   {
-    v11 = 0;
+    v13 = 0;
   }
 
-  return v11;
+  return v13;
 }
 
 - (void)beginDailyMaintenanceWithActivity:(id)activity
 {
   activityCopy = activity;
-  v5 = sub_100004778();
+  v5 = sub_100004778(activityCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Setting activity state to XPC_ACTIVITY_STATE_CONTINUE", buf, 2u);
   }
 
-  if (!xpc_activity_set_state(activityCopy, 4))
+  v6 = xpc_activity_set_state(activityCopy, 4);
+  if (!v6)
   {
-    v6 = sub_100004778();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100004778(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100474254();
     }
   }
 
   queue = [(CSDCallDirectoryManager *)self queue];
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_1000DD4D4;
-  v9[3] = &unk_100619D88;
-  v9[4] = self;
-  v10 = activityCopy;
-  v8 = activityCopy;
-  dispatch_async(queue, v9);
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_1000DD4D4;
+  v10[3] = &unk_100619D88;
+  v10[4] = self;
+  v11 = activityCopy;
+  v9 = activityCopy;
+  dispatch_async(queue, v10);
 }
 
 - (void)callDirectoryNSExtensionManager:(id)manager extensionsChanged:(id)changed
@@ -222,25 +223,25 @@
   if (manager)
   {
     [(CSDCallDirectoryManager *)self setCountOfNotificationsReceived:[(CSDCallDirectoryManager *)self countOfNotificationsReceived]+ 1];
-    v8 = [NSString stringWithFormat:@"extensionsChangedForCallDirectoryExtensionManager-%lu", [(CSDCallDirectoryManager *)self countOfNotificationsReceived]];
-    v9 = +[CSDTransactionManager sharedInstance];
-    [v9 beginTransactionIfNecessaryForObject:v8 withReason:@"CXCallDirectoryNSExtensionManagerDelegate"];
+    v9 = [NSString stringWithFormat:@"extensionsChangedForCallDirectoryExtensionManager-%lu", [(CSDCallDirectoryManager *)self countOfNotificationsReceived]];
+    v10 = +[CSDTransactionManager sharedInstance];
+    [v10 beginTransactionIfNecessaryForObject:v9 withReason:@"CXCallDirectoryNSExtensionManagerDelegate"];
 
     manager2 = [(CSDCallDirectoryManager *)self manager];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_1000DDA34;
-    v12[3] = &unk_10061A498;
-    v12[4] = self;
-    v13 = v8;
-    v11 = v8;
-    [manager2 synchronizeExtensionsWithCompletionHandler:v12];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_1000DDA34;
+    v13[3] = &unk_10061A498;
+    v13[4] = self;
+    v14 = v9;
+    v12 = v9;
+    [manager2 synchronizeExtensionsWithCompletionHandler:v13];
   }
 
   else
   {
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100004778(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1004743B4();
     }

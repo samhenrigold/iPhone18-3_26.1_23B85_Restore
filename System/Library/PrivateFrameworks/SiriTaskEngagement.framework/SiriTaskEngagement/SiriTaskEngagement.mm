@@ -208,7 +208,7 @@ uint64_t sub_2691F6C0C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_2691F6CC4(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_2691F6CC4(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -323,18 +323,12 @@ uint64_t sub_2691F6FE0(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_2691F70F4()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 40);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
 
 uint64_t sub_2691F7144()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
@@ -1011,7 +1005,6 @@ uint64_t sub_2691F8F60(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_2691F9120()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
@@ -1174,7 +1167,6 @@ uint64_t ProtoContactEntitySignal.familyName.getter()
   if (v1[1])
   {
     v2 = *v1;
-    v3 = v1[1];
   }
 
   else
@@ -1210,7 +1202,6 @@ uint64_t key path setter for ProtoContactEntitySignal.familyName : ProtoContactE
   v3 = *a1;
   v2 = a1[1];
   v4 = (a2 + *(type metadata accessor for ProtoContactEntitySignal(0) + 36));
-  v5 = v4[1];
 
   *v4 = v3;
   v4[1] = v2;
@@ -1220,7 +1211,6 @@ uint64_t key path setter for ProtoContactEntitySignal.familyName : ProtoContactE
 uint64_t ProtoContactEntitySignal.familyName.setter(uint64_t a1, uint64_t a2)
 {
   v5 = (v2 + *(type metadata accessor for ProtoContactEntitySignal(0) + 36));
-  v6 = v5[1];
 
   *v5 = a1;
   v5[1] = a2;
@@ -1268,7 +1258,6 @@ uint64_t (*ProtoContactEntitySignal.familyName.modify(uint64_t *a1))()
 Swift::Void __swiftcall ProtoContactEntitySignal.clearFamilyName()()
 {
   v1 = (v0 + *(type metadata accessor for ProtoContactEntitySignal(0) + 36));
-  v2 = v1[1];
 
   *v1 = 0;
   v1[1] = 0;
@@ -1302,7 +1291,6 @@ uint64_t ProtoContactEntitySignal.identifier.getter(uint64_t (*a1)(void))
   if (v2[1])
   {
     v3 = *v2;
-    v4 = v2[1];
   }
 
   else
@@ -1337,8 +1325,7 @@ uint64_t key path setter for ProtoContactEntitySignal.identifier : ProtoContactE
 {
   v6 = *a1;
   v5 = a1[1];
-  v7 = (a2 + *(a5(0) + 20));
-  v8 = v7[1];
+  v7 = (a2 + *((a5)(0, a2, a3, a4) + 20));
 
   *v7 = v6;
   v7[1] = v5;
@@ -1348,7 +1335,6 @@ uint64_t key path setter for ProtoContactEntitySignal.identifier : ProtoContactE
 uint64_t ProtoContactEntitySignal.identifier.setter(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
   v6 = (v3 + *(a3(0) + 20));
-  v7 = v6[1];
 
   *v6 = a1;
   v6[1] = a2;
@@ -1396,7 +1382,6 @@ uint64_t (*ProtoLocationEntitySignal.poiIdentifier.modify(uint64_t *a1))()
 uint64_t ProtoContactEntitySignal.clearIdentifier()(uint64_t (*a1)(void))
 {
   v2 = (v1 + *(a1(0) + 20));
-  v3 = v2[1];
 
   *v2 = 0;
   v2[1] = 0;
@@ -1560,7 +1545,7 @@ uint64_t ProtoDateComponentSignal.year.setter(int a1)
   return result;
 }
 
-uint64_t (*ProtoDateComponentSignal.year.modify(uint64_t a1))()
+uint64_t (*ProtoDateComponentSignal.year.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for ProtoDateComponentSignal(0) + 20);
@@ -1638,7 +1623,7 @@ uint64_t ProtoDateComponentSignal.month.setter(int a1)
   return result;
 }
 
-uint64_t (*ProtoDateComponentSignal.month.modify(uint64_t a1))()
+uint64_t (*ProtoDateComponentSignal.month.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for ProtoDateComponentSignal(0) + 24);
@@ -1802,7 +1787,7 @@ uint64_t ProtoDateComponentSignal.hour.setter(int a1)
   return result;
 }
 
-uint64_t (*ProtoDateComponentSignal.hour.modify(uint64_t a1))()
+uint64_t (*ProtoDateComponentSignal.hour.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for ProtoDateComponentSignal(0) + 32);
@@ -1880,7 +1865,7 @@ uint64_t ProtoDateComponentSignal.minute.setter(int a1)
   return result;
 }
 
-uint64_t (*ProtoDateComponentSignal.minute.modify(uint64_t a1))()
+uint64_t (*ProtoDateComponentSignal.minute.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for ProtoDateComponentSignal(0) + 36);
@@ -1958,7 +1943,7 @@ uint64_t ProtoDateComponentSignal.second.setter(int a1)
   return result;
 }
 
-uint64_t (*ProtoDateComponentSignal.second.modify(uint64_t a1))()
+uint64_t (*ProtoDateComponentSignal.second.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for ProtoDateComponentSignal(0) + 40);
@@ -2010,7 +1995,7 @@ int *ProtoDateComponentSignal.init()@<X0>(uint64_t a1@<X8>)
   return result;
 }
 
-uint64_t type metadata accessor for ProtoContactEntitySignal(uint64_t a1, uint64_t *a2)
+uint64_t type metadata accessor for ProtoContactEntitySignal(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -2065,7 +2050,6 @@ uint64_t ProtoContactEntitySignal.handleValue.getter(uint64_t (*a1)(void))
   if (v2[1])
   {
     v3 = *v2;
-    v4 = v2[1];
   }
 
   else
@@ -2100,8 +2084,7 @@ uint64_t key path setter for ProtoContactEntitySignal.handleValue : ProtoContact
 {
   v6 = *a1;
   v5 = a1[1];
-  v7 = (a2 + *(a5(0) + 24));
-  v8 = v7[1];
+  v7 = (a2 + *((a5)(0, a2, a3, a4) + 24));
 
   *v7 = v6;
   v7[1] = v5;
@@ -2111,7 +2094,6 @@ uint64_t key path setter for ProtoContactEntitySignal.handleValue : ProtoContact
 uint64_t ProtoContactEntitySignal.handleValue.setter(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
   v6 = (v3 + *(a3(0) + 24));
-  v7 = v6[1];
 
   *v6 = a1;
   v6[1] = a2;
@@ -2159,7 +2141,6 @@ uint64_t (*ProtoMediaEntitySignal.artist.modify(uint64_t *a1))()
 uint64_t ProtoContactEntitySignal.clearHandleValue()(uint64_t (*a1)(void))
 {
   v2 = (v1 + *(a1(0) + 24));
-  v3 = v2[1];
 
   *v2 = 0;
   v2[1] = 0;
@@ -2172,7 +2153,6 @@ uint64_t ProtoContactEntitySignal.displayName.getter(uint64_t (*a1)(void))
   if (v2[1])
   {
     v3 = *v2;
-    v4 = v2[1];
   }
 
   else
@@ -2207,8 +2187,7 @@ uint64_t key path setter for ProtoContactEntitySignal.displayName : ProtoContact
 {
   v6 = *a1;
   v5 = a1[1];
-  v7 = (a2 + *(a5(0) + 28));
-  v8 = v7[1];
+  v7 = (a2 + *((a5)(0, a2, a3, a4) + 28));
 
   *v7 = v6;
   v7[1] = v5;
@@ -2218,7 +2197,6 @@ uint64_t key path setter for ProtoContactEntitySignal.displayName : ProtoContact
 uint64_t ProtoContactEntitySignal.displayName.setter(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
   v6 = (v3 + *(a3(0) + 28));
-  v7 = v6[1];
 
   *v6 = a1;
   v6[1] = a2;
@@ -2266,7 +2244,6 @@ uint64_t (*ProtoMediaEntitySignal.title.modify(uint64_t *a1))()
 uint64_t ProtoContactEntitySignal.clearDisplayName()(uint64_t (*a1)(void))
 {
   v2 = (v1 + *(a1(0) + 28));
-  v3 = v2[1];
 
   *v2 = 0;
   v2[1] = 0;
@@ -2279,7 +2256,6 @@ uint64_t ProtoContactEntitySignal.givenName.getter(uint64_t (*a1)(void))
   if (v2[1])
   {
     v3 = *v2;
-    v4 = v2[1];
   }
 
   else
@@ -2314,8 +2290,7 @@ uint64_t key path setter for ProtoContactEntitySignal.givenName : ProtoContactEn
 {
   v6 = *a1;
   v5 = a1[1];
-  v7 = (a2 + *(a5(0) + 32));
-  v8 = v7[1];
+  v7 = (a2 + *((a5)(0, a2, a3, a4) + 32));
 
   *v7 = v6;
   v7[1] = v5;
@@ -2325,7 +2300,6 @@ uint64_t key path setter for ProtoContactEntitySignal.givenName : ProtoContactEn
 uint64_t ProtoContactEntitySignal.givenName.setter(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
   v6 = (v3 + *(a3(0) + 32));
-  v7 = v6[1];
 
   *v6 = a1;
   v6[1] = a2;
@@ -2376,25 +2350,21 @@ void ProtoContactEntitySignal.identifier.modify(uint64_t **a1, char a2)
   v4 = **a1;
   v3 = (*a1)[1];
   v5 = *(*a1 + 8);
-  v7 = (*a1)[2];
-  v6 = (*a1)[3];
+  v6 = (*a1)[2];
   if (a2)
   {
-    v8 = (v7 + v5);
-    v9 = (*a1)[1];
+    v7 = (v6 + v5);
 
-    *v8 = v4;
-    v8[1] = v3;
-    v10 = v2[1];
+    *v7 = v4;
+    v7[1] = v3;
   }
 
   else
   {
-    v11 = (*a1)[3];
 
-    v12 = (v7 + v5);
-    *v12 = v4;
-    v12[1] = v3;
+    v8 = (v6 + v5);
+    *v8 = v4;
+    v8[1] = v3;
   }
 
   free(v2);
@@ -2403,7 +2373,6 @@ void ProtoContactEntitySignal.identifier.modify(uint64_t **a1, char a2)
 uint64_t ProtoContactEntitySignal.clearGivenName()(uint64_t (*a1)(void))
 {
   v2 = (v1 + *(a1(0) + 32));
-  v3 = v2[1];
 
   *v2 = 0;
   v2[1] = 0;
@@ -3399,18 +3368,17 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   __swift_project_value_buffer(v0, static ProtoSendMessageTaskFeatureSet._protobuf_nameMap);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMd, &_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMR);
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_26923AA70;
-  v5 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v5 = "contactEntities";
-  *(v5 + 8) = 15;
-  *(v5 + 16) = 2;
-  v6 = *MEMORY[0x277D21870];
-  v7 = type metadata accessor for _NameMap.NameDescription();
-  (*(*(v7 - 8) + 104))(v5, v6, v7);
+  v2 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v3 = swift_allocObject();
+  *(v3 + 16) = xmmword_26923AA70;
+  v4 = v3 + v2 + v1[14];
+  *(v3 + v2) = 1;
+  *v4 = "contactEntities";
+  *(v4 + 8) = 15;
+  *(v4 + 16) = 2;
+  v5 = *MEMORY[0x277D21870];
+  v6 = type metadata accessor for _NameMap.NameDescription();
+  (*(*(v6 - 8) + 104))(v4, v5, v6);
   return _NameMap.init(dictionaryLiteral:)();
 }
 
@@ -3691,62 +3659,33 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t ProtoContactEntitySignal.decodeMessage<A>(decoder:)()
+uint64_t ProtoContactEntitySignal.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
     while (1)
     {
-      if (v2)
+      if (v5)
       {
         return result;
       }
 
       if (result <= 2)
       {
-        if (result == 1)
+        if (result == 1 || result == 2)
         {
-          v3 = v0;
-          v8 = *(type metadata accessor for ProtoContactEntitySignal(0) + 20);
-        }
-
-        else
-        {
-          if (result != 2)
-          {
-            goto LABEL_15;
-          }
-
-          v3 = v0;
-          v5 = *(type metadata accessor for ProtoContactEntitySignal(0) + 24);
+LABEL_10:
+          type metadata accessor for ProtoContactEntitySignal(0);
+          dispatch thunk of Decoder.decodeSingularStringField(value:)();
         }
       }
 
-      else
+      else if (result == 3 || result == 4 || result == 5)
       {
-        switch(result)
-        {
-          case 3:
-            v3 = v0;
-            v6 = *(type metadata accessor for ProtoContactEntitySignal(0) + 28);
-            break;
-          case 4:
-            v3 = v0;
-            v7 = *(type metadata accessor for ProtoContactEntitySignal(0) + 32);
-            break;
-          case 5:
-            v3 = v0;
-            v4 = *(type metadata accessor for ProtoContactEntitySignal(0) + 36);
-            break;
-          default:
-            goto LABEL_15;
-        }
+        goto LABEL_10;
       }
 
-      v0 = v3;
-      dispatch thunk of Decoder.decodeSingularStringField(value:)();
-LABEL_15:
       result = dispatch thunk of Decoder.nextFieldNumber()();
     }
   }
@@ -3762,20 +3701,18 @@ uint64_t ProtoContactEntitySignal.traverse<A>(visitor:)(uint64_t a1, uint64_t a2
     closure #2 in ProtoContactEntitySignal.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoContactEntitySignal);
     closure #3 in ProtoContactEntitySignal.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoContactEntitySignal);
     closure #4 in ProtoContactEntitySignal.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoContactEntitySignal);
-    closure #5 in ProtoContactEntitySignal.traverse<A>(visitor:)(v3);
+    closure #5 in ProtoContactEntitySignal.traverse<A>(visitor:)(v3, a1, a2, a3);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
   return result;
 }
 
-uint64_t closure #5 in ProtoContactEntitySignal.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #5 in ProtoContactEntitySignal.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ProtoContactEntitySignal(0);
-  v3 = (a1 + *(result + 36));
-  if (v3[1])
+  if (*(a1 + *(result + 36) + 8))
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
 
@@ -3807,21 +3744,21 @@ uint64_t protocol witness for Message.init() in conformance ProtoContactEntitySi
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ProtoContactEntitySignal(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal, type metadata accessor for ProtoContactEntitySignal);
+  v4 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal, type metadata accessor for ProtoContactEntitySignal, &protocol conformance descriptor for ProtoContactEntitySignal);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ProtoContactEntitySignal(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal, type metadata accessor for ProtoContactEntitySignal);
+  v2 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal, type metadata accessor for ProtoContactEntitySignal, &protocol conformance descriptor for ProtoContactEntitySignal);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ProtoContactEntitySignal()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ProtoContactEntitySignal(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal, type metadata accessor for ProtoContactEntitySignal);
+  lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal, type metadata accessor for ProtoContactEntitySignal, &protocol conformance descriptor for ProtoContactEntitySignal);
 
   return Message.hash(into:)();
 }
@@ -3835,19 +3772,19 @@ uint64_t one-time initialization function for _protobuf_nameMap(uint64_t a1)
   return one-time initialization function for _protobuf_nameMap(a1, static ProtoDateTimeEntitySignal._protobuf_nameMap, "datetimeTimestampMs", 19);
 }
 
-uint64_t ProtoLocationEntitySignal.decodeMessage<A>(decoder:)()
+uint64_t ProtoLocationEntitySignal.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       break;
     }
 
     if (result == 1)
     {
-      v3 = *(type metadata accessor for ProtoLocationEntitySignal(0) + 20);
+      type metadata accessor for ProtoLocationEntitySignal(0);
       dispatch thunk of Decoder.decodeSingularStringField(value:)();
     }
   }
@@ -3869,10 +3806,8 @@ uint64_t ProtoLocationEntitySignal.traverse<A>(visitor:)(uint64_t a1, uint64_t a
 uint64_t closure #1 in ProtoContactEntitySignal.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
   result = a5(0);
-  v7 = (a1 + *(result + 20));
-  if (v7[1])
+  if (*(a1 + *(result + 20) + 8))
   {
-    v8 = *v7;
     return dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
 
@@ -3890,21 +3825,21 @@ uint64_t protocol witness for Message.init() in conformance ProtoLocationEntityS
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ProtoLocationEntitySignal(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoLocationEntitySignal and conformance ProtoLocationEntitySignal, type metadata accessor for ProtoLocationEntitySignal);
+  v4 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoLocationEntitySignal and conformance ProtoLocationEntitySignal, type metadata accessor for ProtoLocationEntitySignal, &protocol conformance descriptor for ProtoLocationEntitySignal);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ProtoLocationEntitySignal(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoLocationEntitySignal and conformance ProtoLocationEntitySignal, type metadata accessor for ProtoLocationEntitySignal);
+  v2 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoLocationEntitySignal and conformance ProtoLocationEntitySignal, type metadata accessor for ProtoLocationEntitySignal, &protocol conformance descriptor for ProtoLocationEntitySignal);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ProtoLocationEntitySignal()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ProtoLocationEntitySignal(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoLocationEntitySignal and conformance ProtoLocationEntitySignal, type metadata accessor for ProtoLocationEntitySignal);
+  lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoLocationEntitySignal and conformance ProtoLocationEntitySignal, type metadata accessor for ProtoLocationEntitySignal, &protocol conformance descriptor for ProtoLocationEntitySignal);
 
   return Message.hash(into:)();
 }
@@ -3916,34 +3851,33 @@ uint64_t one-time initialization function for _protobuf_nameMap(uint64_t a1, uin
   __swift_project_value_buffer(v7, a2);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMd, &_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMR);
   v8 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
-  v9 = *(*v8 + 72);
-  v10 = (*(*v8 + 80) + 32) & ~*(*v8 + 80);
-  v11 = swift_allocObject();
-  *(v11 + 16) = xmmword_26923AA70;
-  v12 = v11 + v10 + v8[14];
-  *(v11 + v10) = 1;
-  *v12 = a3;
-  *(v12 + 8) = a4;
-  *(v12 + 16) = 2;
-  v13 = *MEMORY[0x277D21870];
-  v14 = type metadata accessor for _NameMap.NameDescription();
-  (*(*(v14 - 8) + 104))(v12, v13, v14);
+  v9 = (*(*v8 + 80) + 32) & ~*(*v8 + 80);
+  v10 = swift_allocObject();
+  *(v10 + 16) = xmmword_26923AA70;
+  v11 = v10 + v9 + v8[14];
+  *(v10 + v9) = 1;
+  *v11 = a3;
+  *(v11 + 8) = a4;
+  *(v11 + 16) = 2;
+  v12 = *MEMORY[0x277D21870];
+  v13 = type metadata accessor for _NameMap.NameDescription();
+  (*(*(v13 - 8) + 104))(v11, v12, v13);
   return _NameMap.init(dictionaryLiteral:)();
 }
 
-uint64_t ProtoDateTimeEntitySignal.decodeMessage<A>(decoder:)()
+uint64_t ProtoDateTimeEntitySignal.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       break;
     }
 
     if (result == 1)
     {
-      v3 = *(type metadata accessor for ProtoDateTimeEntitySignal(0) + 20);
+      type metadata accessor for ProtoDateTimeEntitySignal(0);
       dispatch thunk of Decoder.decodeSingularUInt64Field(value:)();
     }
   }
@@ -3951,10 +3885,10 @@ uint64_t ProtoDateTimeEntitySignal.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t ProtoDateTimeEntitySignal.traverse<A>(visitor:)()
+uint64_t ProtoDateTimeEntitySignal.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  result = closure #1 in ProtoDateTimeEntitySignal.traverse<A>(visitor:)(v0);
-  if (!v1)
+  result = closure #1 in ProtoDateTimeEntitySignal.traverse<A>(visitor:)(v3, a1, a2, a3);
+  if (!v4)
   {
     return UnknownStorage.traverse<A>(visitor:)();
   }
@@ -3962,13 +3896,11 @@ uint64_t ProtoDateTimeEntitySignal.traverse<A>(visitor:)()
   return result;
 }
 
-uint64_t closure #1 in ProtoDateTimeEntitySignal.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #1 in ProtoDateTimeEntitySignal.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ProtoDateTimeEntitySignal(0);
-  v3 = (a1 + *(result + 20));
-  if ((v3[1] & 1) == 0)
+  if ((*(a1 + *(result + 20) + 8) & 1) == 0)
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularUInt64Field(value:fieldNumber:)();
   }
 
@@ -3986,82 +3918,52 @@ uint64_t protocol witness for Message.init() in conformance ProtoDateTimeEntityS
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ProtoDateTimeEntitySignal(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoDateTimeEntitySignal and conformance ProtoDateTimeEntitySignal, type metadata accessor for ProtoDateTimeEntitySignal);
+  v4 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoDateTimeEntitySignal and conformance ProtoDateTimeEntitySignal, type metadata accessor for ProtoDateTimeEntitySignal, &protocol conformance descriptor for ProtoDateTimeEntitySignal);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ProtoDateTimeEntitySignal(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoDateTimeEntitySignal and conformance ProtoDateTimeEntitySignal, type metadata accessor for ProtoDateTimeEntitySignal);
+  v2 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoDateTimeEntitySignal and conformance ProtoDateTimeEntitySignal, type metadata accessor for ProtoDateTimeEntitySignal, &protocol conformance descriptor for ProtoDateTimeEntitySignal);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ProtoDateTimeEntitySignal()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ProtoDateTimeEntitySignal(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoDateTimeEntitySignal and conformance ProtoDateTimeEntitySignal, type metadata accessor for ProtoDateTimeEntitySignal);
+  lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoDateTimeEntitySignal and conformance ProtoDateTimeEntitySignal, type metadata accessor for ProtoDateTimeEntitySignal, &protocol conformance descriptor for ProtoDateTimeEntitySignal);
 
   return Message.hash(into:)();
 }
 
-uint64_t ProtoDateComponentSignal.decodeMessage<A>(decoder:)()
+uint64_t ProtoDateComponentSignal.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
     while (1)
     {
-      if (v2)
+      if (v5)
       {
         return result;
       }
 
       if (result > 3)
       {
-        switch(result)
+        if (result == 4 || result == 5 || result == 6)
         {
-          case 4:
-            v3 = v0;
-            v7 = *(type metadata accessor for ProtoDateComponentSignal(0) + 32);
-            break;
-          case 5:
-            v3 = v0;
-            v9 = *(type metadata accessor for ProtoDateComponentSignal(0) + 36);
-            break;
-          case 6:
-            v3 = v0;
-            v5 = *(type metadata accessor for ProtoDateComponentSignal(0) + 40);
-            break;
-          default:
-            goto LABEL_17;
+LABEL_11:
+          type metadata accessor for ProtoDateComponentSignal(0);
+          dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
         }
       }
 
-      else
+      else if (result == 1 || result == 2 || result == 3)
       {
-        switch(result)
-        {
-          case 1:
-            v3 = v0;
-            v6 = *(type metadata accessor for ProtoDateComponentSignal(0) + 20);
-            break;
-          case 2:
-            v3 = v0;
-            v8 = *(type metadata accessor for ProtoDateComponentSignal(0) + 24);
-            break;
-          case 3:
-            v3 = v0;
-            v4 = *(type metadata accessor for ProtoDateComponentSignal(0) + 28);
-            break;
-          default:
-            goto LABEL_17;
-        }
+        goto LABEL_11;
       }
 
-      v0 = v3;
-      dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-LABEL_17:
       result = dispatch thunk of Decoder.nextFieldNumber()();
     }
   }
@@ -4069,94 +3971,82 @@ LABEL_17:
   return result;
 }
 
-uint64_t ProtoDateComponentSignal.traverse<A>(visitor:)()
+uint64_t ProtoDateComponentSignal.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  result = closure #1 in ProtoDateComponentSignal.traverse<A>(visitor:)(v0);
-  if (!v1)
+  result = closure #1 in ProtoDateComponentSignal.traverse<A>(visitor:)(v3, a1, a2, a3);
+  if (!v4)
   {
-    closure #2 in ProtoDateComponentSignal.traverse<A>(visitor:)(v0);
-    closure #3 in ProtoDateComponentSignal.traverse<A>(visitor:)(v0);
-    closure #4 in ProtoDateComponentSignal.traverse<A>(visitor:)(v0);
-    closure #5 in ProtoDateComponentSignal.traverse<A>(visitor:)(v0);
-    closure #6 in ProtoDateComponentSignal.traverse<A>(visitor:)(v0);
+    closure #2 in ProtoDateComponentSignal.traverse<A>(visitor:)(v3, a1, a2, a3);
+    closure #3 in ProtoDateComponentSignal.traverse<A>(visitor:)(v3, a1, a2, a3);
+    closure #4 in ProtoDateComponentSignal.traverse<A>(visitor:)(v3, a1, a2, a3);
+    closure #5 in ProtoDateComponentSignal.traverse<A>(visitor:)(v3, a1, a2, a3);
+    closure #6 in ProtoDateComponentSignal.traverse<A>(visitor:)(v3, a1, a2, a3);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
   return result;
 }
 
-uint64_t closure #1 in ProtoDateComponentSignal.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #1 in ProtoDateComponentSignal.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ProtoDateComponentSignal(0);
-  v3 = (a1 + *(result + 20));
-  if ((v3[1] & 1) == 0)
+  if ((*(a1 + *(result + 20) + 4) & 1) == 0)
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
   return result;
 }
 
-uint64_t closure #2 in ProtoDateComponentSignal.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #2 in ProtoDateComponentSignal.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ProtoDateComponentSignal(0);
-  v3 = (a1 + *(result + 24));
-  if ((v3[1] & 1) == 0)
+  if ((*(a1 + *(result + 24) + 4) & 1) == 0)
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
   return result;
 }
 
-uint64_t closure #3 in ProtoDateComponentSignal.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #3 in ProtoDateComponentSignal.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ProtoDateComponentSignal(0);
-  v3 = (a1 + *(result + 28));
-  if ((v3[1] & 1) == 0)
+  if ((*(a1 + *(result + 28) + 4) & 1) == 0)
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
   return result;
 }
 
-uint64_t closure #4 in ProtoDateComponentSignal.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #4 in ProtoDateComponentSignal.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ProtoDateComponentSignal(0);
-  v3 = (a1 + *(result + 32));
-  if ((v3[1] & 1) == 0)
+  if ((*(a1 + *(result + 32) + 4) & 1) == 0)
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
   return result;
 }
 
-uint64_t closure #5 in ProtoDateComponentSignal.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #5 in ProtoDateComponentSignal.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ProtoDateComponentSignal(0);
-  v3 = (a1 + *(result + 36));
-  if ((v3[1] & 1) == 0)
+  if ((*(a1 + *(result + 36) + 4) & 1) == 0)
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
   return result;
 }
 
-uint64_t closure #6 in ProtoDateComponentSignal.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #6 in ProtoDateComponentSignal.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ProtoDateComponentSignal(0);
-  v3 = (a1 + *(result + 40));
-  if ((v3[1] & 1) == 0)
+  if ((*(a1 + *(result + 40) + 4) & 1) == 0)
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularUInt32Field(value:fieldNumber:)();
   }
 
@@ -4192,21 +4082,21 @@ uint64_t protocol witness for Message.init() in conformance ProtoDateComponentSi
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ProtoDateComponentSignal(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoDateComponentSignal and conformance ProtoDateComponentSignal, type metadata accessor for ProtoDateComponentSignal);
+  v4 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoDateComponentSignal and conformance ProtoDateComponentSignal, type metadata accessor for ProtoDateComponentSignal, &protocol conformance descriptor for ProtoDateComponentSignal);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ProtoDateComponentSignal(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoDateComponentSignal and conformance ProtoDateComponentSignal, type metadata accessor for ProtoDateComponentSignal);
+  v2 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoDateComponentSignal and conformance ProtoDateComponentSignal, type metadata accessor for ProtoDateComponentSignal, &protocol conformance descriptor for ProtoDateComponentSignal);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ProtoDateComponentSignal()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ProtoDateComponentSignal(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoDateComponentSignal and conformance ProtoDateComponentSignal, type metadata accessor for ProtoDateComponentSignal);
+  lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoDateComponentSignal and conformance ProtoDateComponentSignal, type metadata accessor for ProtoDateComponentSignal, &protocol conformance descriptor for ProtoDateComponentSignal);
 
   return Message.hash(into:)();
 }
@@ -4225,58 +4115,33 @@ uint64_t static ProtoContactEntitySignal._protobuf_nameMap.getter@<X0>(void *a1@
   return v7(a3, v6, v5);
 }
 
-uint64_t ProtoMediaEntitySignal.decodeMessage<A>(decoder:)()
+uint64_t ProtoMediaEntitySignal.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
     while (1)
     {
-      if (v2)
+      if (v5)
       {
         return result;
       }
 
       if (result > 2)
       {
-        if (result == 3)
+        if (result == 3 || result == 4)
         {
-          v3 = v0;
-          v7 = *(type metadata accessor for ProtoMediaEntitySignal(0) + 28);
-        }
-
-        else
-        {
-          if (result != 4)
-          {
-            goto LABEL_13;
-          }
-
-          v3 = v0;
-          v5 = *(type metadata accessor for ProtoMediaEntitySignal(0) + 32);
+LABEL_9:
+          type metadata accessor for ProtoMediaEntitySignal(0);
+          dispatch thunk of Decoder.decodeSingularStringField(value:)();
         }
       }
 
-      else if (result == 1)
+      else if (result == 1 || result == 2)
       {
-        v3 = v0;
-        v6 = *(type metadata accessor for ProtoMediaEntitySignal(0) + 20);
+        goto LABEL_9;
       }
 
-      else
-      {
-        if (result != 2)
-        {
-          goto LABEL_13;
-        }
-
-        v3 = v0;
-        v4 = *(type metadata accessor for ProtoMediaEntitySignal(0) + 24);
-      }
-
-      v0 = v3;
-      dispatch thunk of Decoder.decodeSingularStringField(value:)();
-LABEL_13:
       result = dispatch thunk of Decoder.nextFieldNumber()();
     }
   }
@@ -4301,10 +4166,8 @@ uint64_t ProtoMediaEntitySignal.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, 
 uint64_t closure #2 in ProtoContactEntitySignal.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
   result = a5(0);
-  v7 = (a1 + *(result + 24));
-  if (v7[1])
+  if (*(a1 + *(result + 24) + 8))
   {
-    v8 = *v7;
     return dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
 
@@ -4314,10 +4177,8 @@ uint64_t closure #2 in ProtoContactEntitySignal.traverse<A>(visitor:)(uint64_t a
 uint64_t closure #3 in ProtoContactEntitySignal.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
   result = a5(0);
-  v7 = (a1 + *(result + 28));
-  if (v7[1])
+  if (*(a1 + *(result + 28) + 8))
   {
-    v8 = *v7;
     return dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
 
@@ -4327,21 +4188,19 @@ uint64_t closure #3 in ProtoContactEntitySignal.traverse<A>(visitor:)(uint64_t a
 uint64_t closure #4 in ProtoContactEntitySignal.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
   result = a5(0);
-  v7 = (a1 + *(result + 32));
-  if (v7[1])
+  if (*(a1 + *(result + 32) + 8))
   {
-    v8 = *v7;
     return dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
 
   return result;
 }
 
-Swift::Int ProtoContactEntitySignal.hashValue.getter(void (*a1)(void), unint64_t *a2, void (*a3)(uint64_t))
+Swift::Int ProtoContactEntitySignal.hashValue.getter(uint64_t (*a1)(void), unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   Hasher.init(_seed:)();
   a1(0);
-  lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(a2, a3);
+  lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(a2, a3, a4);
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
@@ -4368,47 +4227,47 @@ uint64_t protocol witness for Message.init() in conformance ProtoMediaEntitySign
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ProtoMediaEntitySignal(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoMediaEntitySignal and conformance ProtoMediaEntitySignal, type metadata accessor for ProtoMediaEntitySignal);
+  v4 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoMediaEntitySignal and conformance ProtoMediaEntitySignal, type metadata accessor for ProtoMediaEntitySignal, &protocol conformance descriptor for ProtoMediaEntitySignal);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t protocol witness for static _ProtoNameProviding._protobuf_nameMap.getter in conformance ProtoContactEntitySignal@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a3@<X8>)
+uint64_t protocol witness for static _ProtoNameProviding._protobuf_nameMap.getter in conformance ProtoContactEntitySignal@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = type metadata accessor for _NameMap();
-  v6 = __swift_project_value_buffer(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = type metadata accessor for _NameMap();
+  v7 = __swift_project_value_buffer(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ProtoMediaEntitySignal(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoMediaEntitySignal and conformance ProtoMediaEntitySignal, type metadata accessor for ProtoMediaEntitySignal);
+  v2 = lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoMediaEntitySignal and conformance ProtoMediaEntitySignal, type metadata accessor for ProtoMediaEntitySignal, &protocol conformance descriptor for ProtoMediaEntitySignal);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance ProtoContactEntitySignal()
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance ProtoContactEntitySignal(uint64_t a1, uint64_t a2)
 {
   Hasher.init(_seed:)();
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ProtoMediaEntitySignal()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ProtoMediaEntitySignal(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoMediaEntitySignal and conformance ProtoMediaEntitySignal, type metadata accessor for ProtoMediaEntitySignal);
+  lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type ProtoMediaEntitySignal and conformance ProtoMediaEntitySignal, type metadata accessor for ProtoMediaEntitySignal, &protocol conformance descriptor for ProtoMediaEntitySignal);
 
   return Message.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ProtoContactEntitySignal()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ProtoContactEntitySignal(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Hasher.init(_seed:)();
   dispatch thunk of Hashable.hash(into:)();
@@ -4438,7 +4297,7 @@ uint64_t specialized static ProtoLocationEntitySignal.== infix(_:_:)(uint64_t a1
   {
 LABEL_8:
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+    lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
     return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
   }
 
@@ -4474,7 +4333,7 @@ uint64_t specialized static ProtoDateTimeEntitySignal.== infix(_:_:)(uint64_t a1
   }
 
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -4589,7 +4448,7 @@ uint64_t specialized static ProtoMediaEntitySignal.== infix(_:_:)(uint64_t a1, u
   {
 LABEL_35:
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+    lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
     return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
   }
 
@@ -4756,7 +4615,7 @@ uint64_t specialized static ProtoDateComponentSignal.== infix(_:_:)(uint64_t a1,
   }
 
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -4896,14 +4755,14 @@ uint64_t specialized static ProtoContactEntitySignal.== infix(_:_:)(uint64_t a1,
   {
 LABEL_42:
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+    lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
     return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
   }
 
   return 0;
 }
 
-uint64_t lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type ProtoContactEntitySignal and conformance ProtoContactEntitySignal(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4916,26 +4775,26 @@ uint64_t lazy protocol witness table accessor for type ProtoContactEntitySignal 
   return result;
 }
 
-void type metadata completion function for ProtoContactEntitySignal()
+void type metadata completion function for ProtoContactEntitySignal(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for String?(319, &lazy cache variable for type metadata for String?);
-    if (v1 <= 0x3F)
+    type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0]);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void type metadata completion function for ProtoLocationEntitySignal(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4)
+void type metadata completion function for ProtoLocationEntitySignal(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t a5)
 {
   type metadata accessor for UnknownStorage();
-  if (v5 <= 0x3F)
+  if (v7 <= 0x3F)
   {
-    type metadata accessor for String?(319, a4);
-    if (v6 <= 0x3F)
+    type metadata accessor for String?(319, a4, a5);
+    if (v8 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -4958,27 +4817,27 @@ uint64_t __swift_store_extra_inhabitant_index_59Tm(uint64_t a1, uint64_t a2)
   return v5(a1, a2, a2, v4);
 }
 
-void type metadata completion function for ProtoDateComponentSignal()
+void type metadata completion function for ProtoDateComponentSignal(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for String?(319, &lazy cache variable for type metadata for UInt32?);
-    if (v1 <= 0x3F)
+    type metadata accessor for String?(319, &lazy cache variable for type metadata for UInt32?, MEMORY[0x277D84CC0]);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void type metadata accessor for String?(uint64_t a1, unint64_t *a2)
+void type metadata accessor for String?(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
-    v3 = type metadata accessor for Optional();
-    if (!v4)
+    v4 = type metadata accessor for Optional();
+    if (!v5)
     {
-      atomic_store(v3, a2);
+      atomic_store(v4, a2);
     }
   }
 }
@@ -5031,13 +4890,13 @@ uint64_t __swift_store_extra_inhabitant_indexTm(uint64_t a1, uint64_t a2, int a3
   return result;
 }
 
-void type metadata completion function for ProtoMediaEntitySignal()
+void type metadata completion function for ProtoMediaEntitySignal(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for String?(319, &lazy cache variable for type metadata for String?);
-    if (v1 <= 0x3F)
+    type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0]);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -5046,14 +4905,11 @@ void type metadata completion function for ProtoMediaEntitySignal()
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -5064,7 +4920,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -5075,171 +4930,164 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
 uint64_t INStartCallIntentFeatureExtractor.extract(from:)@<X0>(void *a1@<X0>, unsigned int (**a2)(char *, uint64_t, uint64_t)@<X8>)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement24ProtoContactEntitySignalVSgMd, &_s18SiriTaskEngagement24ProtoContactEntitySignalVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v60 - v6;
-  v73 = type metadata accessor for ProtoContactEntitySignal(0);
-  v71 = *(v73 - 8);
-  v8 = *(v71 + 64);
-  MEMORY[0x28223BE20](v73);
-  v72 = &v60 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for ProtoStartCallTaskFeatureSet(0);
-  v11 = *(*(v10 - 8) + 64);
-  v12 = MEMORY[0x28223BE20](v10);
-  v65 = &v60 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v15 = (&v60 - v14);
-  v16 = type metadata accessor for ProtoTaskFeatureSet(0);
-  v68 = *(v16 - 8);
-  v17 = *(v68 + 64);
+  v6 = &v53 - v5;
+  v66 = type metadata accessor for ProtoContactEntitySignal(0);
+  v64 = *(v66 - 8);
+  MEMORY[0x28223BE20](v66);
+  v65 = &v53 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for ProtoStartCallTaskFeatureSet(0);
+  v9 = MEMORY[0x28223BE20](v8);
+  v58 = &v53 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v12 = (&v53 - v11);
+  v13 = type metadata accessor for ProtoTaskFeatureSet(0);
+  v61 = *(v13 - 8);
+  MEMORY[0x28223BE20](v13);
+  v62 = &v53 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
+  v16 = MEMORY[0x28223BE20](v15 - 8);
+  v18 = &v53 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v16);
-  v69 = &v60 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
-  v20 = *(*(v19 - 8) + 64);
-  v21 = MEMORY[0x28223BE20](v19 - 8);
-  v23 = &v60 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v21);
-  v25 = &v60 - v24;
-  v26 = [a1 intent];
+  v20 = &v53 - v19;
+  v21 = [a1 intent];
   objc_opt_self();
-  v27 = swift_dynamicCastObjCClass();
-  if (v27)
+  v22 = swift_dynamicCastObjCClass();
+  if (v22)
   {
-    v28 = v27;
-    v66 = v26;
-    v67 = v16;
-    v29 = [a1 dateInterval];
-    if (v29)
+    v23 = v22;
+    v59 = v21;
+    v60 = v13;
+    v24 = [a1 dateInterval];
+    if (v24)
     {
-      v30 = v29;
+      v25 = v24;
       static DateInterval._unconditionallyBridgeFromObjectiveC(_:)();
 
-      v31 = type metadata accessor for DateInterval();
-      (*(*(v31 - 8) + 56))(v23, 0, 1, v31);
+      v26 = type metadata accessor for DateInterval();
+      (*(*(v26 - 8) + 56))(v18, 0, 1, v26);
     }
 
     else
     {
-      v31 = type metadata accessor for DateInterval();
-      (*(*(v31 - 8) + 56))(v23, 1, 1, v31);
+      v26 = type metadata accessor for DateInterval();
+      (*(*(v26 - 8) + 56))(v18, 1, 1, v26);
     }
 
-    outlined init with take of DateInterval?(v23, v25, &_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
+    outlined init with take of DateInterval?(v18, v20, &_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
     type metadata accessor for DateInterval();
-    if ((*(*(v31 - 8) + 48))(v25, 1, v31))
+    if ((*(*(v26 - 8) + 48))(v20, 1, v26))
     {
-      outlined destroy of DateInterval?(v25, &_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
-      v34 = -1.0;
+      outlined destroy of DateInterval?(v20, &_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
+      v29 = -1.0;
     }
 
     else
     {
       DateInterval.duration.getter();
-      v34 = v35;
-      outlined destroy of DateInterval?(v25, &_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
+      v29 = v30;
+      outlined destroy of DateInterval?(v20, &_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
     }
 
-    v37 = v66;
-    v36 = v67;
-    v38 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
-    v39 = *(v38 - 8);
-    v40 = *(v39 + 56);
-    v41 = v69;
-    v63 = v39 + 56;
-    v64 = v40;
-    v40(v69, 1, 1, v38);
-    v42 = v41 + *(v36 + 20);
+    v32 = v59;
+    v31 = v60;
+    v33 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
+    v34 = *(v33 - 8);
+    v35 = *(v34 + 56);
+    v36 = v62;
+    v56 = v34 + 56;
+    v57 = v35;
+    v35(v62, 1, 1, v33);
     UnknownStorage.init()();
-    v43 = (v41 + *(v36 + 24));
-    *v43 = 0;
-    v43[1] = 0;
-    *v15 = MEMORY[0x277D84F90];
-    v44 = v15 + *(v10 + 20);
+    v37 = (v36 + *(v31 + 24));
+    *v37 = 0;
+    v37[1] = 0;
+    *v12 = MEMORY[0x277D84F90];
     UnknownStorage.init()();
-    v45 = (v15 + *(v10 + 24));
-    *v45 = v34;
-    *(v45 + 8) = 0;
-    v46 = [v28 contacts];
-    if (v46)
+    v38 = (v12 + *(v8 + 24));
+    *v38 = v29;
+    *(v38 + 8) = 0;
+    v39 = [v23 contacts];
+    if (v39)
     {
-      v47 = v46;
+      v40 = v39;
       type metadata accessor for INPerson(0, &lazy cache variable for type metadata for INPerson, 0x277CD3E90);
-      v48 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+      v41 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-      if (v48 >> 62)
+      if (v41 >> 62)
       {
         goto LABEL_35;
       }
 
-      for (i = *((v48 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x26D634210](v59))
+      for (i = *((v41 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x26D634210](v52))
       {
-        v60 = v38;
-        v61 = v15;
-        v62 = a2;
+        v53 = v33;
+        v54 = v12;
+        v55 = a2;
         if (!i)
         {
           break;
         }
 
-        v50 = 0;
-        v38 = v48 & 0xC000000000000001;
-        v15 = (v48 & 0xFFFFFFFFFFFFFF8);
-        a2 = (v71 + 48);
-        v51 = MEMORY[0x277D84F90];
-        v70 = i;
+        v43 = 0;
+        v33 = v41 & 0xC000000000000001;
+        v12 = (v41 & 0xFFFFFFFFFFFFFF8);
+        a2 = (v64 + 48);
+        v44 = MEMORY[0x277D84F90];
+        v63 = i;
         while (1)
         {
-          if (v38)
+          if (v33)
           {
-            v52 = MEMORY[0x26D6341F0](v50, v48);
+            v45 = MEMORY[0x26D6341F0](v43, v41);
           }
 
           else
           {
-            if (v50 >= *((v48 & 0xFFFFFFFFFFFFFF8) + 0x10))
+            if (v43 >= *((v41 & 0xFFFFFFFFFFFFFF8) + 0x10))
             {
               goto LABEL_34;
             }
 
-            v52 = *(v48 + 8 * v50 + 32);
+            v45 = *(v41 + 8 * v43 + 32);
           }
 
-          v53 = v52;
-          v54 = v50 + 1;
-          if (__OFADD__(v50, 1))
+          v46 = v45;
+          v47 = v43 + 1;
+          if (__OFADD__(v43, 1))
           {
             break;
           }
 
-          INPerson.extract()(v7);
+          INPerson.extract()(v6);
 
-          if ((*a2)(v7, 1, v73) == 1)
+          if ((*a2)(v6, 1, v66) == 1)
           {
-            outlined destroy of DateInterval?(v7, &_s18SiriTaskEngagement24ProtoContactEntitySignalVSgMd, &_s18SiriTaskEngagement24ProtoContactEntitySignalVSgMR);
+            outlined destroy of DateInterval?(v6, &_s18SiriTaskEngagement24ProtoContactEntitySignalVSgMd, &_s18SiriTaskEngagement24ProtoContactEntitySignalVSgMR);
           }
 
           else
           {
-            outlined init with take of ProtoStartCallTaskFeatureSet(v7, v72, type metadata accessor for ProtoContactEntitySignal);
+            outlined init with take of ProtoStartCallTaskFeatureSet(v6, v65, type metadata accessor for ProtoContactEntitySignal);
             if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
             {
-              v51 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v51[2] + 1, 1, v51, &_ss23_ContiguousArrayStorageCy18SiriTaskEngagement24ProtoContactEntitySignalVGMd, &_ss23_ContiguousArrayStorageCy18SiriTaskEngagement24ProtoContactEntitySignalVGMR, type metadata accessor for ProtoContactEntitySignal);
+              v44 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v44[2] + 1, 1, v44, &_ss23_ContiguousArrayStorageCy18SiriTaskEngagement24ProtoContactEntitySignalVGMd, &_ss23_ContiguousArrayStorageCy18SiriTaskEngagement24ProtoContactEntitySignalVGMR, type metadata accessor for ProtoContactEntitySignal);
             }
 
-            v56 = v51[2];
-            v55 = v51[3];
-            if (v56 >= v55 >> 1)
+            v49 = v44[2];
+            v48 = v44[3];
+            if (v49 >= v48 >> 1)
             {
-              v51 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v55 > 1, v56 + 1, 1, v51, &_ss23_ContiguousArrayStorageCy18SiriTaskEngagement24ProtoContactEntitySignalVGMd, &_ss23_ContiguousArrayStorageCy18SiriTaskEngagement24ProtoContactEntitySignalVGMR, type metadata accessor for ProtoContactEntitySignal);
+              v44 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v48 > 1), v49 + 1, 1, v44, &_ss23_ContiguousArrayStorageCy18SiriTaskEngagement24ProtoContactEntitySignalVGMd, &_ss23_ContiguousArrayStorageCy18SiriTaskEngagement24ProtoContactEntitySignalVGMR, type metadata accessor for ProtoContactEntitySignal);
             }
 
-            v51[2] = v56 + 1;
-            outlined init with take of ProtoStartCallTaskFeatureSet(v72, v51 + ((*(v71 + 80) + 32) & ~*(v71 + 80)) + *(v71 + 72) * v56, type metadata accessor for ProtoContactEntitySignal);
-            i = v70;
+            v44[2] = v49 + 1;
+            outlined init with take of ProtoStartCallTaskFeatureSet(v65, v44 + ((*(v64 + 80) + 32) & ~*(v64 + 80)) + *(v64 + 72) * v49, type metadata accessor for ProtoContactEntitySignal);
+            i = v63;
           }
 
-          ++v50;
-          if (v54 == i)
+          ++v43;
+          if (v47 == i)
           {
             goto LABEL_31;
           }
@@ -5249,180 +5097,174 @@ uint64_t INStartCallIntentFeatureExtractor.extract(from:)@<X0>(void *a1@<X0>, un
 LABEL_34:
         __break(1u);
 LABEL_35:
-        if (v48 < 0)
+        if (v41 < 0)
         {
-          v59 = v48;
+          v52 = v41;
         }
 
         else
         {
-          v59 = v48 & 0xFFFFFFFFFFFFFF8;
+          v52 = v41 & 0xFFFFFFFFFFFFFF8;
         }
       }
 
-      v51 = MEMORY[0x277D84F90];
+      v44 = MEMORY[0x277D84F90];
 LABEL_31:
 
-      v15 = v61;
-      a2 = v62;
-      *v61 = v51;
-      v36 = v67;
-      v38 = v60;
+      v12 = v54;
+      a2 = v55;
+      *v54 = v44;
+      v31 = v60;
+      v33 = v53;
     }
 
     else
     {
     }
 
-    v57 = v65;
-    outlined init with copy of ProtoStartCallTaskFeatureSet(v15, v65, type metadata accessor for ProtoStartCallTaskFeatureSet);
-    v58 = v69;
-    outlined destroy of DateInterval?(v69, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
-    outlined init with take of ProtoStartCallTaskFeatureSet(v57, v58, type metadata accessor for ProtoStartCallTaskFeatureSet);
+    v50 = v58;
+    outlined init with copy of ProtoStartCallTaskFeatureSet(v12, v58, type metadata accessor for ProtoStartCallTaskFeatureSet);
+    v51 = v62;
+    outlined destroy of DateInterval?(v62, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
+    outlined init with take of ProtoStartCallTaskFeatureSet(v50, v51, type metadata accessor for ProtoStartCallTaskFeatureSet);
     swift_storeEnumTagMultiPayload();
-    v64(v58, 0, 1, v38);
-    outlined init with take of ProtoStartCallTaskFeatureSet(v58, a2, type metadata accessor for ProtoTaskFeatureSet);
-    (*(v68 + 56))(a2, 0, 1, v36);
-    return outlined destroy of ProtoStartCallTaskFeatureSet(v15, type metadata accessor for ProtoStartCallTaskFeatureSet);
+    v57(v51, 0, 1, v33);
+    outlined init with take of ProtoStartCallTaskFeatureSet(v51, a2, type metadata accessor for ProtoTaskFeatureSet);
+    (*(v61 + 56))(a2, 0, 1, v31);
+    return outlined destroy of ProtoStartCallTaskFeatureSet(v12, type metadata accessor for ProtoStartCallTaskFeatureSet);
   }
 
   else
   {
 
-    v32 = *(v68 + 56);
+    v27 = *(v61 + 56);
 
-    return v32(a2, 1, 1, v16);
+    return v27(a2, 1, 1, v13);
   }
 }
 
 uint64_t INSendMessageIntentFeatureExtractor.extract(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement24ProtoContactEntitySignalVSgMd, &_s18SiriTaskEngagement24ProtoContactEntitySignalVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v42 - v6;
-  v55 = type metadata accessor for ProtoContactEntitySignal(0);
-  v53 = *(v55 - 8);
-  v8 = *(v53 + 64);
-  MEMORY[0x28223BE20](v55);
-  v54 = &v42 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for ProtoSendMessageTaskFeatureSet(0);
-  v11 = *(*(v10 - 8) + 64);
-  v12 = MEMORY[0x28223BE20](v10);
-  v14 = &v42 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v42 - v15;
-  v17 = type metadata accessor for ProtoTaskFeatureSet(0);
-  v51 = *(v17 - 8);
-  v18 = *(v51 + 64);
-  MEMORY[0x28223BE20](v17);
-  v20 = (&v42 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v21 = [a1 intent];
+  v6 = &v36 - v5;
+  v49 = type metadata accessor for ProtoContactEntitySignal(0);
+  v47 = *(v49 - 8);
+  MEMORY[0x28223BE20](v49);
+  v48 = &v36 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for ProtoSendMessageTaskFeatureSet(0);
+  v9 = MEMORY[0x28223BE20](v8);
+  v11 = &v36 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = &v36 - v12;
+  v14 = type metadata accessor for ProtoTaskFeatureSet(0);
+  v45 = *(v14 - 8);
+  MEMORY[0x28223BE20](v14);
+  v16 = (&v36 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v17 = [a1 intent];
   objc_opt_self();
-  v22 = swift_dynamicCastObjCClass();
-  if (v22)
+  v18 = swift_dynamicCastObjCClass();
+  if (v18)
   {
-    v23 = v22;
-    v48 = v21;
-    v24 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
-    v25 = *(v24 - 8);
-    v26 = *(v25 + 56);
-    v49 = v25 + 56;
-    v50 = v26;
-    v26(v20, 1, 1, v24);
-    v27 = v20 + *(v17 + 20);
+    v19 = v18;
+    v42 = v17;
+    v20 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
+    v21 = *(v20 - 8);
+    v22 = *(v21 + 56);
+    v43 = v21 + 56;
+    v44 = v22;
+    v22(v16, 1, 1, v20);
     UnknownStorage.init()();
-    v28 = v20 + *(v17 + 24);
-    *v28 = 0;
-    *(v28 + 1) = 0;
-    *v16 = MEMORY[0x277D84F90];
-    v29 = v16 + *(v10 + 20);
+    v23 = v16 + *(v14 + 24);
+    *v23 = 0;
+    *(v23 + 1) = 0;
+    *v13 = MEMORY[0x277D84F90];
     UnknownStorage.init()();
-    v30 = [v23 recipients];
-    if (v30)
+    v24 = [v19 recipients];
+    if (v24)
     {
-      v31 = v30;
+      v25 = v24;
       type metadata accessor for INPerson(0, &lazy cache variable for type metadata for INPerson, 0x277CD3E90);
-      v32 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+      v26 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-      if (v32 >> 62)
+      if (v26 >> 62)
       {
         goto LABEL_29;
       }
 
-      for (i = *((v32 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x26D634210](v41))
+      for (i = *((v26 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x26D634210](v35))
       {
-        v42 = v24;
-        v43 = v20;
-        v44 = v14;
-        v45 = v17;
-        v46 = v16;
-        v47 = a2;
+        v36 = v20;
+        v37 = v16;
+        v38 = v11;
+        v39 = v14;
+        v40 = v13;
+        v41 = a2;
         if (!i)
         {
           break;
         }
 
-        v17 = i;
-        v16 = 0;
-        v14 = (v32 & 0xC000000000000001);
-        v24 = v32 & 0xFFFFFFFFFFFFFF8;
-        v20 = (v53 + 48);
+        v14 = i;
+        v13 = 0;
+        v11 = (v26 & 0xC000000000000001);
+        v20 = v26 & 0xFFFFFFFFFFFFFF8;
+        v16 = (v47 + 48);
         a2 = MEMORY[0x277D84F90];
-        v52 = i;
+        v46 = i;
         while (1)
         {
-          if (v14)
+          if (v11)
           {
-            v34 = MEMORY[0x26D6341F0](v16, v32);
+            v28 = MEMORY[0x26D6341F0](v13, v26);
           }
 
           else
           {
-            if (v16 >= *((v32 & 0xFFFFFFFFFFFFFF8) + 0x10))
+            if (v13 >= *((v26 & 0xFFFFFFFFFFFFFF8) + 0x10))
             {
               goto LABEL_28;
             }
 
-            v34 = *(v32 + 8 * v16 + 32);
+            v28 = *(v26 + 8 * v13 + 32);
           }
 
-          v35 = v34;
-          v36 = v16 + 1;
-          if (__OFADD__(v16, 1))
+          v29 = v28;
+          v30 = v13 + 1;
+          if (__OFADD__(v13, 1))
           {
             break;
           }
 
-          INPerson.extract()(v7);
+          INPerson.extract()(v6);
 
-          if ((*v20)(v7, 1, v55) == 1)
+          if ((*v16)(v6, 1, v49) == 1)
           {
-            outlined destroy of DateInterval?(v7, &_s18SiriTaskEngagement24ProtoContactEntitySignalVSgMd, &_s18SiriTaskEngagement24ProtoContactEntitySignalVSgMR);
+            outlined destroy of DateInterval?(v6, &_s18SiriTaskEngagement24ProtoContactEntitySignalVSgMd, &_s18SiriTaskEngagement24ProtoContactEntitySignalVSgMR);
           }
 
           else
           {
-            outlined init with take of ProtoStartCallTaskFeatureSet(v7, v54, type metadata accessor for ProtoContactEntitySignal);
+            outlined init with take of ProtoStartCallTaskFeatureSet(v6, v48, type metadata accessor for ProtoContactEntitySignal);
             if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
             {
               a2 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, a2[2] + 1, 1, a2, &_ss23_ContiguousArrayStorageCy18SiriTaskEngagement24ProtoContactEntitySignalVGMd, &_ss23_ContiguousArrayStorageCy18SiriTaskEngagement24ProtoContactEntitySignalVGMR, type metadata accessor for ProtoContactEntitySignal);
             }
 
-            v38 = a2[2];
-            v37 = a2[3];
-            if (v38 >= v37 >> 1)
+            v32 = a2[2];
+            v31 = a2[3];
+            if (v32 >= v31 >> 1)
             {
-              a2 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v37 > 1, v38 + 1, 1, a2, &_ss23_ContiguousArrayStorageCy18SiriTaskEngagement24ProtoContactEntitySignalVGMd, &_ss23_ContiguousArrayStorageCy18SiriTaskEngagement24ProtoContactEntitySignalVGMR, type metadata accessor for ProtoContactEntitySignal);
+              a2 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v31 > 1), v32 + 1, 1, a2, &_ss23_ContiguousArrayStorageCy18SiriTaskEngagement24ProtoContactEntitySignalVGMd, &_ss23_ContiguousArrayStorageCy18SiriTaskEngagement24ProtoContactEntitySignalVGMR, type metadata accessor for ProtoContactEntitySignal);
             }
 
-            a2[2] = v38 + 1;
-            outlined init with take of ProtoStartCallTaskFeatureSet(v54, a2 + ((*(v53 + 80) + 32) & ~*(v53 + 80)) + *(v53 + 72) * v38, type metadata accessor for ProtoContactEntitySignal);
-            v17 = v52;
+            a2[2] = v32 + 1;
+            outlined init with take of ProtoStartCallTaskFeatureSet(v48, a2 + ((*(v47 + 80) + 32) & ~*(v47 + 80)) + *(v47 + 72) * v32, type metadata accessor for ProtoContactEntitySignal);
+            v14 = v46;
           }
 
-          ++v16;
-          if (v36 == v17)
+          ++v13;
+          if (v30 == v14)
           {
             goto LABEL_25;
           }
@@ -5432,49 +5274,49 @@ uint64_t INSendMessageIntentFeatureExtractor.extract(from:)@<X0>(void *a1@<X0>, 
 LABEL_28:
         __break(1u);
 LABEL_29:
-        if (v32 < 0)
+        if (v26 < 0)
         {
-          v41 = v32;
+          v35 = v26;
         }
 
         else
         {
-          v41 = v32 & 0xFFFFFFFFFFFFFF8;
+          v35 = v26 & 0xFFFFFFFFFFFFFF8;
         }
       }
 
       a2 = MEMORY[0x277D84F90];
 LABEL_25:
 
-      v17 = v45;
-      v16 = v46;
-      *v46 = a2;
-      a2 = v47;
-      v20 = v43;
-      v14 = v44;
-      v24 = v42;
+      v14 = v39;
+      v13 = v40;
+      *v40 = a2;
+      a2 = v41;
+      v16 = v37;
+      v11 = v38;
+      v20 = v36;
     }
 
     else
     {
     }
 
-    outlined init with copy of ProtoStartCallTaskFeatureSet(v16, v14, type metadata accessor for ProtoSendMessageTaskFeatureSet);
-    outlined destroy of DateInterval?(v20, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
-    outlined init with take of ProtoStartCallTaskFeatureSet(v14, v20, type metadata accessor for ProtoSendMessageTaskFeatureSet);
+    outlined init with copy of ProtoStartCallTaskFeatureSet(v13, v11, type metadata accessor for ProtoSendMessageTaskFeatureSet);
+    outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
+    outlined init with take of ProtoStartCallTaskFeatureSet(v11, v16, type metadata accessor for ProtoSendMessageTaskFeatureSet);
     swift_storeEnumTagMultiPayload();
-    v50(v20, 0, 1, v24);
-    outlined init with take of ProtoStartCallTaskFeatureSet(v20, a2, type metadata accessor for ProtoTaskFeatureSet);
-    (*(v51 + 56))(a2, 0, 1, v17);
-    return outlined destroy of ProtoStartCallTaskFeatureSet(v16, type metadata accessor for ProtoSendMessageTaskFeatureSet);
+    v44(v16, 0, 1, v20);
+    outlined init with take of ProtoStartCallTaskFeatureSet(v16, a2, type metadata accessor for ProtoTaskFeatureSet);
+    (*(v45 + 56))(a2, 0, 1, v14);
+    return outlined destroy of ProtoStartCallTaskFeatureSet(v13, type metadata accessor for ProtoSendMessageTaskFeatureSet);
   }
 
   else
   {
 
-    v39 = *(v51 + 56);
+    v33 = *(v45 + 56);
 
-    return v39(a2, 1, 1, v17);
+    return v33(a2, 1, 1, v14);
   }
 }
 
@@ -5482,345 +5324,341 @@ void INAddTasksIntentFeatureExtractor.extract(from:)(void (*a1)(char *, uint64_t
 {
   v4 = type metadata accessor for ProtoDateTimeEntitySignal(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x28223BE20](v4);
-  v127 = v118 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v126 = v118 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  v12 = MEMORY[0x28223BE20](v10 - 8);
-  v125 = v118 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = MEMORY[0x28223BE20](v4);
+  v123 = v114 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v122 = v114 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v10 = MEMORY[0x28223BE20](v9 - 8);
+  v121 = v114 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = MEMORY[0x28223BE20](v10);
+  v125 = v114 - v13;
   v14 = MEMORY[0x28223BE20](v12);
-  v129 = v118 - v15;
-  v16 = MEMORY[0x28223BE20](v14);
-  v128 = (v118 - v17);
-  MEMORY[0x28223BE20](v16);
-  v130 = v118 - v18;
-  v19 = type metadata accessor for Date();
-  v131 = *(v19 - 8);
-  v132 = v19;
-  v20 = *(v131 + 64);
-  v21 = MEMORY[0x28223BE20](v19);
-  v123 = v118 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v21);
-  v124 = v118 - v23;
-  v24 = type metadata accessor for ProtoReminderTaskFeatureSet(0);
-  v25 = *(*(v24 - 1) + 64);
-  v26 = MEMORY[0x28223BE20](v24);
-  v28 = v118 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v26);
-  v30 = v118 - v29;
-  v31 = type metadata accessor for ProtoTaskFeatureSet(0);
-  v141 = *(v31 - 8);
-  v32 = *(v141 + 64);
-  MEMORY[0x28223BE20](v31);
-  v34 = v118 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v140 = a1;
-  v35 = [a1 intent];
+  v124 = (v114 - v15);
+  MEMORY[0x28223BE20](v14);
+  v126 = v114 - v16;
+  v17 = type metadata accessor for Date();
+  v127 = *(v17 - 8);
+  v128 = v17;
+  v18 = MEMORY[0x28223BE20](v17);
+  v119 = v114 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v18);
+  v120 = v114 - v20;
+  v21 = type metadata accessor for ProtoReminderTaskFeatureSet(0);
+  v22 = MEMORY[0x28223BE20](v21);
+  v24 = v114 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v22);
+  v26 = v114 - v25;
+  v27 = type metadata accessor for ProtoTaskFeatureSet(0);
+  v137 = *(v27 - 8);
+  MEMORY[0x28223BE20](v27);
+  v29 = v114 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v136 = a1;
+  v30 = [a1 intent];
   objc_opt_self();
-  v36 = swift_dynamicCastObjCClass();
-  if (v36)
+  v31 = swift_dynamicCastObjCClass();
+  if (v31)
   {
-    v37 = v36;
-    v138 = v35;
-    v139 = v28;
-    v137 = a2;
-    v38 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
-    v39 = *(v38 - 8);
-    v135 = *(v39 + 56);
-    v136 = v38;
-    v134 = v39 + 56;
-    v135(v34, 1, 1);
-    v40 = &v34[*(v31 + 20)];
+    v32 = v31;
+    v134 = v30;
+    v135 = v24;
+    v133 = a2;
+    v33 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
+    v34 = *(v33 - 8);
+    v131 = *(v34 + 56);
+    v132 = v33;
+    v130 = v34 + 56;
+    v131(v29, 1, 1);
     UnknownStorage.init()();
-    v41 = v31;
-    v42 = *(v31 + 24);
-    v133 = v34;
-    v43 = &v34[v42];
-    *v43 = 0;
-    *(v43 + 1) = 0;
+    v35 = v27;
+    v36 = *(v27 + 24);
+    v129 = v29;
+    v37 = &v29[v36];
+    *v37 = 0;
+    *(v37 + 1) = 0;
     UnknownStorage.init()();
-    v44 = &v30[v24[5]];
-    *v44 = 0;
-    *(v44 + 1) = 0;
-    v121 = v44;
-    v45 = v24[6];
-    v30[v45] = 2;
-    v46 = v24[7];
-    v30[v46] = 2;
-    v47 = *(v5 + 56);
-    v120 = v24[8];
-    v47(&v30[v120], 1, 1, v4);
-    v119 = v24[9];
-    v122 = v4;
-    v48 = v4;
-    v49 = v5 + 56;
-    v47(&v30[v119], 1, 1, v48);
-    v50 = [v37 spatialEventTrigger];
+    v38 = &v26[v21[5]];
+    *v38 = 0;
+    *(v38 + 1) = 0;
+    v117 = v38;
+    v39 = v21[6];
+    v26[v39] = 2;
+    v40 = v21[7];
+    v26[v40] = 2;
+    v41 = *(v5 + 56);
+    v116 = v21[8];
+    v41(&v26[v116], 1, 1, v4);
+    v115 = v21[9];
+    v118 = v4;
+    v42 = v4;
+    v43 = v5 + 56;
+    v41(&v26[v115], 1, 1, v42);
+    v44 = [v32 spatialEventTrigger];
+    v45 = v44;
+    v46 = v26;
+    if (v44)
+    {
+    }
+
+    v26[v39] = v45 != 0;
+    v47 = [v32 temporalEventTrigger];
+    v48 = v47;
+    v49 = v134;
+    if (v47)
+    {
+    }
+
+    v26[v40] = v48 != 0;
+    v50 = [v136 intentResponse];
+    if (!v50)
+    {
+
+      v53 = v35;
+      goto LABEL_52;
+    }
+
     v51 = v50;
-    v52 = v30;
-    if (v50)
-    {
-    }
-
-    v30[v45] = v51 != 0;
-    v53 = [v37 temporalEventTrigger];
-    v54 = v53;
-    v55 = v138;
-    if (v53)
-    {
-    }
-
-    v30[v46] = v54 != 0;
-    v56 = [v140 intentResponse];
-    if (!v56)
-    {
-
-      v59 = v41;
-      goto LABEL_52;
-    }
-
-    v57 = v56;
     objc_opt_self();
-    v58 = swift_dynamicCastObjCClass();
-    v59 = v41;
-    if (!v58)
+    v52 = swift_dynamicCastObjCClass();
+    v53 = v35;
+    if (!v52)
     {
 
       goto LABEL_52;
     }
 
-    v140 = v47;
-    v60 = [v58 addedTasks];
-    v61 = v139;
-    if (!v60)
+    v136 = v41;
+    v54 = [v52 addedTasks];
+    v55 = v135;
+    if (!v54)
     {
 
 LABEL_53:
-      v115 = v133;
-      outlined init with copy of ProtoStartCallTaskFeatureSet(v30, v61, type metadata accessor for ProtoReminderTaskFeatureSet);
-      outlined destroy of DateInterval?(v115, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
-      outlined init with take of ProtoStartCallTaskFeatureSet(v61, v115, type metadata accessor for ProtoReminderTaskFeatureSet);
-      v116 = v136;
+      v111 = v129;
+      outlined init with copy of ProtoStartCallTaskFeatureSet(v26, v55, type metadata accessor for ProtoReminderTaskFeatureSet);
+      outlined destroy of DateInterval?(v111, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
+      outlined init with take of ProtoStartCallTaskFeatureSet(v55, v111, type metadata accessor for ProtoReminderTaskFeatureSet);
+      v112 = v132;
       swift_storeEnumTagMultiPayload();
-      (v135)(v115, 0, 1, v116);
-      outlined destroy of ProtoStartCallTaskFeatureSet(v30, type metadata accessor for ProtoReminderTaskFeatureSet);
-      v117 = v137;
-      outlined init with take of ProtoStartCallTaskFeatureSet(v115, v137, type metadata accessor for ProtoTaskFeatureSet);
-      (*(v141 + 56))(v117, 0, 1, v59);
+      (v131)(v111, 0, 1, v112);
+      outlined destroy of ProtoStartCallTaskFeatureSet(v26, type metadata accessor for ProtoReminderTaskFeatureSet);
+      v113 = v133;
+      outlined init with take of ProtoStartCallTaskFeatureSet(v111, v133, type metadata accessor for ProtoTaskFeatureSet);
+      (*(v137 + 56))(v113, 0, 1, v53);
       return;
     }
 
-    v62 = v60;
+    v56 = v54;
     type metadata accessor for INPerson(0, &lazy cache variable for type metadata for INTask, 0x277CD4220);
-    v63 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v57 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v118[1] = v49;
-    if (v63 >> 62)
+    v114[1] = v43;
+    if (v57 >> 62)
     {
-      if (v63 < 0)
+      if (v57 < 0)
       {
-        v114 = v63;
+        v110 = v57;
       }
 
       else
       {
-        v114 = v63 & 0xFFFFFFFFFFFFFF8;
+        v110 = v57 & 0xFFFFFFFFFFFFFF8;
       }
 
-      if (MEMORY[0x26D634210](v114))
+      if (MEMORY[0x26D634210](v110))
       {
 LABEL_11:
-        v64 = v63 & 0xC000000000000001;
-        if ((v63 & 0xC000000000000001) != 0)
+        v58 = v57 & 0xC000000000000001;
+        if ((v57 & 0xC000000000000001) != 0)
         {
-          v65 = MEMORY[0x26D6341F0](0, v63);
+          v59 = MEMORY[0x26D6341F0](0, v57);
         }
 
         else
         {
-          if (!*((v63 & 0xFFFFFFFFFFFFFF8) + 0x10))
+          if (!*((v57 & 0xFFFFFFFFFFFFFF8) + 0x10))
           {
             __break(1u);
             goto LABEL_56;
           }
 
-          v65 = *(v63 + 32);
+          v59 = *(v57 + 32);
         }
 
-        v66 = v65;
-        v67 = [v65 identifier];
+        v60 = v59;
+        v61 = [v59 identifier];
 
-        if (v67)
+        if (v61)
         {
-          v68 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v69 = v63;
-          v71 = v70;
+          v62 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v63 = v57;
+          v65 = v64;
 
-          v72 = v121;
-          *v121 = v68;
-          v72[1] = v71;
-          v63 = v69;
-          v52 = v30;
+          v66 = v117;
+          *v117 = v62;
+          v66[1] = v65;
+          v57 = v63;
+          v46 = v26;
         }
 
-        if (v64)
+        if (v58)
         {
-          v73 = MEMORY[0x26D6341F0](0, v63);
+          v67 = MEMORY[0x26D6341F0](0, v57);
           goto LABEL_26;
         }
 
-        if (*((v63 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (*((v57 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
-          v73 = *(v63 + 32);
+          v67 = *(v57 + 32);
 LABEL_26:
-          v75 = v73;
-          v76 = [v73 temporalEventTrigger];
+          v69 = v67;
+          v70 = [v67 temporalEventTrigger];
 
-          v121 = v57;
-          if (v76)
+          v117 = v51;
+          if (v70)
           {
-            v118[0] = v63;
-            v77 = [v76 dateComponentsRange];
+            v114[0] = v57;
+            v71 = [v70 dateComponentsRange];
 
-            v78 = [v77 startDate];
-            if (v78)
+            v72 = [v71 startDate];
+            if (v72)
             {
-              v79 = v128;
+              v73 = v124;
               static Date._unconditionallyBridgeFromObjectiveC(_:)();
 
-              v80 = 0;
-              v82 = v131;
-              v81 = v132;
+              v74 = 0;
+              v76 = v127;
+              v75 = v128;
             }
 
             else
             {
-              v80 = 1;
-              v82 = v131;
-              v81 = v132;
-              v79 = v128;
+              v74 = 1;
+              v76 = v127;
+              v75 = v128;
+              v73 = v124;
             }
 
-            v128 = *(v82 + 56);
-            v128(v79, v80, 1, v81);
-            v83 = v130;
-            outlined init with take of DateInterval?(v79, v130, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-            if ((*(v82 + 48))(v83, 1, v81) != 1)
+            v124 = *(v76 + 56);
+            v124(v73, v74, 1, v75);
+            v77 = v126;
+            outlined init with take of DateInterval?(v73, v126, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+            if ((*(v76 + 48))(v77, 1, v75) != 1)
             {
-              v86 = v124;
-              (*(v82 + 32))(v124, v83, v81);
-              v130 = v64;
-              v87 = v126;
+              v80 = v120;
+              (*(v76 + 32))(v120, v77, v75);
+              v126 = v58;
+              v81 = v122;
               UnknownStorage.init()();
+              v82 = v75;
+              v83 = v76;
+              v84 = &v81[*(v118 + 20)];
+              *v84 = 0;
+              v84[8] = 1;
+              specialized static SiriTaskEngagementUtils.convertDateTimeToUInt64(date:)(v80);
+              v86 = v85;
+              v87 = v82;
+              v49 = v134;
+              (*(v83 + 8))(v80, v87);
+              *v84 = v86;
+              v84[8] = 0;
               v88 = v81;
-              v89 = v82;
-              v90 = &v87[*(v122 + 20)];
-              *v90 = 0;
-              v90[8] = 1;
-              v91 = specialized static SiriTaskEngagementUtils.convertDateTimeToUInt64(date:)(v86);
-              v92 = v88;
-              v55 = v138;
-              (*(v89 + 8))(v86, v92);
-              *v90 = v91;
-              v90[8] = 0;
-              v93 = v87;
-              v94 = v130;
-              v95 = v127;
-              outlined init with take of ProtoStartCallTaskFeatureSet(v93, v127, type metadata accessor for ProtoDateTimeEntitySignal);
-              v96 = v120;
-              outlined destroy of DateInterval?(&v52[v120], &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-              outlined init with take of ProtoStartCallTaskFeatureSet(v95, &v52[v96], type metadata accessor for ProtoDateTimeEntitySignal);
-              v140(&v52[v96], 0, 1, v122);
-              v57 = v121;
-              v63 = v118[0];
-              v84 = v128;
-              if (v94)
+              v89 = v126;
+              v90 = v123;
+              outlined init with take of ProtoStartCallTaskFeatureSet(v88, v123, type metadata accessor for ProtoDateTimeEntitySignal);
+              v91 = v116;
+              outlined destroy of DateInterval?(&v46[v116], &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
+              outlined init with take of ProtoStartCallTaskFeatureSet(v90, &v46[v91], type metadata accessor for ProtoDateTimeEntitySignal);
+              v136(&v46[v91], 0, 1, v118);
+              v51 = v117;
+              v57 = v114[0];
+              v78 = v124;
+              if (v89)
               {
                 goto LABEL_34;
               }
 
 LABEL_36:
-              if (*((v63 & 0xFFFFFFFFFFFFFF8) + 0x10))
+              if (*((v57 & 0xFFFFFFFFFFFFFF8) + 0x10))
               {
-                v85 = *(v63 + 32);
+                v79 = *(v57 + 32);
                 goto LABEL_38;
               }
 
               goto LABEL_57;
             }
 
-            v57 = v121;
-            v63 = v118[0];
-            v84 = v128;
+            v51 = v117;
+            v57 = v114[0];
+            v78 = v124;
           }
 
           else
           {
-            v83 = v130;
-            v84 = *(v131 + 56);
-            v84(v130, 1, 1, v132);
+            v77 = v126;
+            v78 = *(v127 + 56);
+            v78(v126, 1, 1, v128);
           }
 
-          outlined destroy of DateInterval?(v83, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-          if (v64)
+          outlined destroy of DateInterval?(v77, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+          if (v58)
           {
 LABEL_34:
-            v85 = MEMORY[0x26D6341F0](0, v63);
+            v79 = MEMORY[0x26D6341F0](0, v57);
 LABEL_38:
-            v97 = v85;
+            v92 = v79;
 
-            v98 = [v97 temporalEventTrigger];
+            v93 = [v92 temporalEventTrigger];
 
-            if (v98)
+            if (v93)
             {
-              v99 = [v98 dateComponentsRange];
+              v94 = [v93 dateComponentsRange];
 
-              v100 = [v99 endDate];
-              if (v100)
+              v95 = [v94 endDate];
+              if (v95)
               {
-                v101 = v125;
+                v96 = v121;
                 static Date._unconditionallyBridgeFromObjectiveC(_:)();
 
-                v102 = 0;
-                v103 = v129;
-                v104 = v132;
+                v97 = 0;
+                v98 = v125;
+                v99 = v128;
               }
 
               else
               {
-                v102 = 1;
-                v103 = v129;
-                v104 = v132;
-                v101 = v125;
+                v97 = 1;
+                v98 = v125;
+                v99 = v128;
+                v96 = v121;
               }
 
-              v105 = v131;
-              v84(v101, v102, 1, v104);
-              outlined init with take of DateInterval?(v101, v103, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-              if ((*(v105 + 48))(v103, 1, v104) != 1)
+              v100 = v127;
+              v78(v96, v97, 1, v99);
+              outlined init with take of DateInterval?(v96, v98, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+              if ((*(v100 + 48))(v98, 1, v99) != 1)
               {
-                v106 = v123;
-                (*(v105 + 32))(v123, v103, v104);
-                v107 = v126;
+                v101 = v119;
+                (*(v100 + 32))(v119, v98, v99);
+                v102 = v122;
                 UnknownStorage.init()();
-                v108 = v55;
-                v109 = v104;
-                v110 = v107 + *(v122 + 20);
-                *v110 = 0;
-                *(v110 + 8) = 1;
-                v111 = specialized static SiriTaskEngagementUtils.convertDateTimeToUInt64(date:)(v106);
+                v103 = v49;
+                v104 = v99;
+                v105 = v102 + *(v118 + 20);
+                *v105 = 0;
+                *(v105 + 8) = 1;
+                specialized static SiriTaskEngagementUtils.convertDateTimeToUInt64(date:)(v101);
+                v107 = v106;
 
-                (*(v105 + 8))(v106, v109);
-                *v110 = v111;
-                *(v110 + 8) = 0;
-                v112 = v127;
-                outlined init with take of ProtoStartCallTaskFeatureSet(v107, v127, type metadata accessor for ProtoDateTimeEntitySignal);
-                v113 = v119;
-                outlined destroy of DateInterval?(&v30[v119], &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-                outlined init with take of ProtoStartCallTaskFeatureSet(v112, &v30[v113], type metadata accessor for ProtoDateTimeEntitySignal);
-                v140(&v30[v113], 0, 1, v122);
+                (*(v100 + 8))(v101, v104);
+                *v105 = v107;
+                *(v105 + 8) = 0;
+                v108 = v123;
+                outlined init with take of ProtoStartCallTaskFeatureSet(v102, v123, type metadata accessor for ProtoDateTimeEntitySignal);
+                v109 = v115;
+                outlined destroy of DateInterval?(&v26[v115], &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
+                outlined init with take of ProtoStartCallTaskFeatureSet(v108, &v26[v109], type metadata accessor for ProtoDateTimeEntitySignal);
+                v136(&v26[v109], 0, 1, v118);
                 goto LABEL_52;
               }
             }
@@ -5828,13 +5666,13 @@ LABEL_38:
             else
             {
 
-              v103 = v129;
-              v84(v129, 1, 1, v132);
+              v98 = v125;
+              v78(v125, 1, 1, v128);
             }
 
-            outlined destroy of DateInterval?(v103, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+            outlined destroy of DateInterval?(v98, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
 LABEL_52:
-            v61 = v139;
+            v55 = v135;
             goto LABEL_53;
           }
 
@@ -5849,7 +5687,7 @@ LABEL_57:
       }
     }
 
-    else if (*((v63 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    else if (*((v57 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
       goto LABEL_11;
     }
@@ -5857,272 +5695,268 @@ LABEL_57:
     goto LABEL_52;
   }
 
-  v74 = *(v141 + 56);
+  v68 = *(v137 + 56);
 
-  v74(a2, 1, 1, v31);
+  v68(a2, 1, 1, v27);
 }
 
 uint64_t INSetTaskAttributeIntentFeatureExtractor.extract(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = type metadata accessor for ProtoDateTimeEntitySignal(0);
-  v123 = *(v4 - 8);
-  v5 = *(v123 + 64);
-  v6 = MEMORY[0x28223BE20](v4);
-  v8 = &v101 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v115 = &v101 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  v12 = MEMORY[0x28223BE20](v10 - 8);
-  v114 = &v101 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v119 = *(v4 - 8);
+  v5 = MEMORY[0x28223BE20](v4);
+  v7 = &v97 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v111 = &v97 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v10 = MEMORY[0x28223BE20](v9 - 8);
+  v110 = &v97 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = MEMORY[0x28223BE20](v10);
+  v112 = &v97 - v13;
   v14 = MEMORY[0x28223BE20](v12);
-  v116 = &v101 - v15;
-  v16 = MEMORY[0x28223BE20](v14);
-  v113 = (&v101 - v17);
-  MEMORY[0x28223BE20](v16);
-  v19 = &v101 - v18;
-  v20 = type metadata accessor for Date();
-  v121 = *(v20 - 8);
-  v122 = v20;
-  v21 = *(v121 + 64);
-  v22 = MEMORY[0x28223BE20](v20);
-  v106 = &v101 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v22);
-  v105 = &v101 - v24;
-  v25 = type metadata accessor for ProtoReminderTaskFeatureSet(0);
-  v26 = *(*(v25 - 1) + 64);
-  v27 = MEMORY[0x28223BE20](v25);
-  v117 = &v101 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v109 = (&v97 - v15);
+  MEMORY[0x28223BE20](v14);
+  v17 = &v97 - v16;
+  v18 = type metadata accessor for Date();
+  v117 = *(v18 - 8);
+  v118 = v18;
+  v19 = MEMORY[0x28223BE20](v18);
+  v102 = &v97 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v19);
+  v101 = &v97 - v21;
+  v22 = type metadata accessor for ProtoReminderTaskFeatureSet(0);
+  v23 = MEMORY[0x28223BE20](v22);
+  v113 = &v97 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v23);
+  v26 = &v97 - v25;
+  v27 = type metadata accessor for ProtoTaskFeatureSet(0);
+  v116 = *(v27 - 8);
   MEMORY[0x28223BE20](v27);
-  v30 = &v101 - v29;
-  v31 = type metadata accessor for ProtoTaskFeatureSet(0);
-  v120 = *(v31 - 8);
-  v32 = *(v120 + 64);
-  MEMORY[0x28223BE20](v31);
-  v34 = &v101 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v35 = [a1 intent];
+  v29 = &v97 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v30 = [a1 intent];
   objc_opt_self();
-  v36 = swift_dynamicCastObjCClass();
-  if (v36)
+  v31 = swift_dynamicCastObjCClass();
+  if (v31)
   {
-    v37 = v36;
-    v108 = v19;
-    v118 = v35;
-    v104 = v8;
-    v112 = a2;
-    v38 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
-    v39 = *(v38 - 8);
-    v110 = *(v39 + 56);
-    v111 = v38;
-    v109 = v39 + 56;
-    v110(v34, 1, 1);
-    v40 = &v34[*(v31 + 20)];
+    v32 = v31;
+    v104 = v17;
+    v114 = v30;
+    v100 = v7;
+    v108 = a2;
+    v33 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
+    v34 = *(v33 - 8);
+    v106 = *(v34 + 56);
+    v107 = v33;
+    v105 = v34 + 56;
+    v106(v29, 1, 1);
     UnknownStorage.init()();
-    v119 = v31;
-    v41 = &v34[*(v31 + 24)];
-    *v41 = 0;
-    *(v41 + 1) = 0;
+    v115 = v27;
+    v35 = &v29[*(v27 + 24)];
+    *v35 = 0;
+    *(v35 + 1) = 0;
     UnknownStorage.init()();
-    v42 = &v30[v25[5]];
-    *v42 = 0;
-    v42[1] = 0;
-    v43 = v4;
-    v44 = v123;
-    v45 = v25[6];
-    v30[v45] = 2;
-    v46 = v25[7];
-    v30[v46] = 2;
-    v48 = *(v44 + 56);
-    v47 = v44 + 56;
-    v101 = v25[8];
-    v48(&v30[v101], 1, 1, v43);
-    v102 = v25[9];
-    v107 = v43;
-    v103 = v48;
-    v48(&v30[v102], 1, 1, v43);
-    v49 = [v37 spatialEventTrigger];
-    v50 = v49;
-    if (v49)
+    v36 = &v26[v22[5]];
+    *v36 = 0;
+    v36[1] = 0;
+    v37 = v4;
+    v38 = v119;
+    v39 = v22[6];
+    v26[v39] = 2;
+    v40 = v22[7];
+    v26[v40] = 2;
+    v42 = *(v38 + 56);
+    v41 = v38 + 56;
+    v97 = v22[8];
+    v42(&v26[v97], 1, 1, v37);
+    v98 = v22[9];
+    v103 = v37;
+    v99 = v42;
+    v42(&v26[v98], 1, 1, v37);
+    v43 = [v32 spatialEventTrigger];
+    v44 = v43;
+    if (v43)
     {
     }
 
-    v30[v45] = v50 != 0;
-    v51 = [v37 temporalEventTrigger];
-    v52 = v51;
-    if (v51)
+    v26[v39] = v44 != 0;
+    v45 = [v32 temporalEventTrigger];
+    v46 = v45;
+    if (v45)
     {
     }
 
-    v30[v46] = v52 != 0;
-    v53 = [v37 targetTask];
-    v123 = v47;
-    v54 = v108;
-    if (v53)
+    v26[v40] = v46 != 0;
+    v47 = [v32 targetTask];
+    v119 = v41;
+    v48 = v104;
+    if (v47)
     {
-      v55 = v53;
-      v56 = [v53 identifier];
+      v49 = v47;
+      v50 = [v47 identifier];
 
-      if (v56)
+      if (v50)
       {
-        v57 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v59 = v58;
+        v51 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v53 = v52;
 
-        *v42 = v57;
-        v42[1] = v59;
+        *v36 = v51;
+        v36[1] = v53;
       }
     }
 
-    v60 = [v37 temporalEventTrigger];
-    v61 = &unk_279C52000;
-    v62 = v119;
-    if (v60)
+    v54 = [v32 temporalEventTrigger];
+    v55 = &unk_279C52000;
+    v56 = v115;
+    if (v54)
     {
-      v63 = v60;
-      v64 = [v60 dateComponentsRange];
+      v57 = v54;
+      v58 = [v54 dateComponentsRange];
 
-      v65 = [v64 startDate];
-      v66 = v121;
-      if (v65)
+      v59 = [v58 startDate];
+      v60 = v117;
+      if (v59)
       {
-        v67 = v113;
+        v61 = v109;
         static Date._unconditionallyBridgeFromObjectiveC(_:)();
 
-        v68 = 0;
+        v62 = 0;
       }
 
       else
       {
-        v68 = 1;
-        v67 = v113;
+        v62 = 1;
+        v61 = v109;
       }
 
-      v72 = v122;
-      v113 = *(v66 + 56);
-      v113(v67, v68, 1, v122);
-      outlined init with take of DateInterval?(v67, v54, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-      if ((*(v66 + 48))(v54, 1, v72) != 1)
+      v66 = v118;
+      v109 = *(v60 + 56);
+      v109(v61, v62, 1, v118);
+      outlined init with take of DateInterval?(v61, v48, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      if ((*(v60 + 48))(v48, 1, v66) != 1)
       {
-        v74 = v105;
-        (*(v66 + 32))(v105, v54, v72);
-        v75 = v115;
+        v68 = v101;
+        (*(v60 + 32))(v101, v48, v66);
+        v69 = v111;
         UnknownStorage.init()();
-        v76 = v107;
-        v77 = v66;
-        v78 = v75 + *(v107 + 20);
-        *v78 = 0;
-        *(v78 + 8) = 1;
-        v79 = specialized static SiriTaskEngagementUtils.convertDateTimeToUInt64(date:)(v74);
-        (*(v77 + 8))(v74, v72);
-        *v78 = v79;
-        *(v78 + 8) = 0;
-        v80 = v104;
-        outlined init with take of ProtoStartCallTaskFeatureSet(v75, v104, type metadata accessor for ProtoDateTimeEntitySignal);
-        v81 = v101;
-        outlined destroy of DateInterval?(&v30[v101], &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-        outlined init with take of ProtoStartCallTaskFeatureSet(v80, &v30[v81], type metadata accessor for ProtoDateTimeEntitySignal);
-        v62 = v119;
-        v103(&v30[v81], 0, 1, v76);
-        v73 = v118;
-        v71 = v113;
-        v61 = &unk_279C52000;
+        v70 = v103;
+        v71 = v60;
+        v72 = v69 + *(v103 + 20);
+        *v72 = 0;
+        *(v72 + 8) = 1;
+        specialized static SiriTaskEngagementUtils.convertDateTimeToUInt64(date:)(v68);
+        v74 = v73;
+        (*(v71 + 8))(v68, v66);
+        *v72 = v74;
+        *(v72 + 8) = 0;
+        v75 = v100;
+        outlined init with take of ProtoStartCallTaskFeatureSet(v69, v100, type metadata accessor for ProtoDateTimeEntitySignal);
+        v76 = v97;
+        outlined destroy of DateInterval?(&v26[v97], &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
+        outlined init with take of ProtoStartCallTaskFeatureSet(v75, &v26[v76], type metadata accessor for ProtoDateTimeEntitySignal);
+        v56 = v115;
+        v99(&v26[v76], 0, 1, v70);
+        v67 = v114;
+        v65 = v109;
+        v55 = &unk_279C52000;
 LABEL_21:
-        v82 = [v37 temporalEventTrigger];
-        v83 = v116;
-        if (v82)
+        v77 = [v32 temporalEventTrigger];
+        v78 = v112;
+        if (v77)
         {
-          v84 = v82;
-          v85 = [v82 v61[79]];
+          v79 = v77;
+          v80 = [v77 v55[79]];
 
-          v86 = [v85 endDate];
-          if (v86)
+          v81 = [v80 endDate];
+          if (v81)
           {
-            v87 = v114;
+            v82 = v110;
             static Date._unconditionallyBridgeFromObjectiveC(_:)();
 
-            v88 = 0;
-            v89 = v107;
-            v90 = v122;
+            v83 = 0;
+            v84 = v103;
+            v85 = v118;
           }
 
           else
           {
-            v88 = 1;
-            v89 = v107;
-            v90 = v122;
-            v87 = v114;
+            v83 = 1;
+            v84 = v103;
+            v85 = v118;
+            v82 = v110;
           }
 
-          v92 = v121;
-          v71(v87, v88, 1, v90);
-          outlined init with take of DateInterval?(v87, v83, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-          if ((*(v92 + 48))(v83, 1, v90) != 1)
+          v87 = v117;
+          v65(v82, v83, 1, v85);
+          outlined init with take of DateInterval?(v82, v78, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+          if ((*(v87 + 48))(v78, 1, v85) != 1)
           {
-            v93 = v106;
-            (*(v92 + 32))(v106, v83, v90);
-            v94 = v115;
+            v88 = v102;
+            (*(v87 + 32))(v102, v78, v85);
+            v89 = v111;
             UnknownStorage.init()();
-            v95 = v94 + *(v89 + 20);
-            *v95 = 0;
-            *(v95 + 8) = 1;
-            v96 = specialized static SiriTaskEngagementUtils.convertDateTimeToUInt64(date:)(v93);
+            v90 = v89 + *(v84 + 20);
+            *v90 = 0;
+            *(v90 + 8) = 1;
+            specialized static SiriTaskEngagementUtils.convertDateTimeToUInt64(date:)(v88);
+            v92 = v91;
 
-            (*(v92 + 8))(v93, v90);
-            *v95 = v96;
-            *(v95 + 8) = 0;
-            v97 = v104;
-            outlined init with take of ProtoStartCallTaskFeatureSet(v94, v104, type metadata accessor for ProtoDateTimeEntitySignal);
-            v98 = v102;
-            outlined destroy of DateInterval?(&v30[v102], &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-            outlined init with take of ProtoStartCallTaskFeatureSet(v97, &v30[v98], type metadata accessor for ProtoDateTimeEntitySignal);
-            v103(&v30[v98], 0, 1, v89);
-            v91 = v112;
-            v62 = v119;
+            (*(v87 + 8))(v88, v85);
+            *v90 = v92;
+            *(v90 + 8) = 0;
+            v93 = v100;
+            outlined init with take of ProtoStartCallTaskFeatureSet(v89, v100, type metadata accessor for ProtoDateTimeEntitySignal);
+            v94 = v98;
+            outlined destroy of DateInterval?(&v26[v98], &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
+            outlined init with take of ProtoStartCallTaskFeatureSet(v93, &v26[v94], type metadata accessor for ProtoDateTimeEntitySignal);
+            v99(&v26[v94], 0, 1, v84);
+            v86 = v108;
+            v56 = v115;
             goto LABEL_30;
           }
 
-          v91 = v112;
-          v62 = v119;
+          v86 = v108;
+          v56 = v115;
         }
 
         else
         {
 
-          v71(v83, 1, 1, v122);
-          v91 = v112;
+          v65(v78, 1, 1, v118);
+          v86 = v108;
         }
 
-        outlined destroy of DateInterval?(v83, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+        outlined destroy of DateInterval?(v78, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
 LABEL_30:
-        v99 = v117;
-        outlined init with copy of ProtoStartCallTaskFeatureSet(v30, v117, type metadata accessor for ProtoReminderTaskFeatureSet);
-        outlined destroy of DateInterval?(v34, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
-        outlined init with take of ProtoStartCallTaskFeatureSet(v99, v34, type metadata accessor for ProtoReminderTaskFeatureSet);
-        v100 = v111;
+        v95 = v113;
+        outlined init with copy of ProtoStartCallTaskFeatureSet(v26, v113, type metadata accessor for ProtoReminderTaskFeatureSet);
+        outlined destroy of DateInterval?(v29, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
+        outlined init with take of ProtoStartCallTaskFeatureSet(v95, v29, type metadata accessor for ProtoReminderTaskFeatureSet);
+        v96 = v107;
         swift_storeEnumTagMultiPayload();
-        (v110)(v34, 0, 1, v100);
-        outlined destroy of ProtoStartCallTaskFeatureSet(v30, type metadata accessor for ProtoReminderTaskFeatureSet);
-        outlined init with take of ProtoStartCallTaskFeatureSet(v34, v91, type metadata accessor for ProtoTaskFeatureSet);
-        return (*(v120 + 56))(v91, 0, 1, v62);
+        (v106)(v29, 0, 1, v96);
+        outlined destroy of ProtoStartCallTaskFeatureSet(v26, type metadata accessor for ProtoReminderTaskFeatureSet);
+        outlined init with take of ProtoStartCallTaskFeatureSet(v29, v86, type metadata accessor for ProtoTaskFeatureSet);
+        return (*(v116 + 56))(v86, 0, 1, v56);
       }
 
-      v71 = v113;
-      v61 = &unk_279C52000;
+      v65 = v109;
+      v55 = &unk_279C52000;
     }
 
     else
     {
-      v71 = *(v121 + 56);
-      v71(v54, 1, 1, v122);
+      v65 = *(v117 + 56);
+      v65(v48, 1, 1, v118);
     }
 
-    outlined destroy of DateInterval?(v54, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-    v73 = v118;
+    outlined destroy of DateInterval?(v48, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v67 = v114;
     goto LABEL_21;
   }
 
-  v69 = *(v120 + 56);
+  v63 = *(v116 + 56);
 
-  return v69(a2, 1, 1, v31);
+  return v63(a2, 1, 1, v27);
 }
 
 Swift::String_optional __swiftcall AlarmIntentFeatureExtractor.deriveAlarmIdentifier(from:)(INInteraction from)
@@ -6506,77 +6340,72 @@ LABEL_38:
 
 unint64_t AlarmIntentFeatureExtractor.extract(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v76 = a2;
+  v71 = a2;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v4 - 8);
-  v66 = &v64 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v68 = (&v64 - v8);
-  v9 = type metadata accessor for ProtoDateComponentSignal(0);
-  v10 = *(v9 - 1);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x28223BE20](v9);
-  v67 = &v64 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v15 = &v64 - v14;
-  v16 = type metadata accessor for ProtoAlarmTaskFeatureSet(0);
-  v17 = v16 - 8;
-  v18 = *(*(v16 - 8) + 64);
-  v19 = MEMORY[0x28223BE20](v16);
-  v73 = &v64 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v19);
-  v22 = &v64 - v21;
-  v23 = type metadata accessor for ProtoTaskFeatureSet(0);
-  v74 = *(v23 - 8);
-  v24 = *(v74 + 64);
-  MEMORY[0x28223BE20](v23);
-  v26 = &v64 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
-  v28 = *(v27 - 8);
-  v71 = *(v28 + 56);
-  v72 = v27;
-  v70 = v28 + 56;
-  v71(v26, 1, 1);
-  v29 = &v26[*(v23 + 20)];
+  v5 = MEMORY[0x28223BE20](v4 - 8);
+  v61 = &v59 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v63 = (&v59 - v7);
+  v8 = type metadata accessor for ProtoDateComponentSignal(0);
+  v9 = *(v8 - 1);
+  v10 = MEMORY[0x28223BE20](v8);
+  v62 = &v59 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v59 - v12;
+  v14 = type metadata accessor for ProtoAlarmTaskFeatureSet(0);
+  v15 = v14 - 8;
+  v16 = MEMORY[0x28223BE20](v14);
+  v68 = &v59 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v16);
+  v19 = &v59 - v18;
+  v20 = type metadata accessor for ProtoTaskFeatureSet(0);
+  v69 = *(v20 - 8);
+  MEMORY[0x28223BE20](v20);
+  v22 = &v59 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
+  v24 = *(v23 - 8);
+  v66 = *(v24 + 56);
+  v67 = v23;
+  v65 = v24 + 56;
+  v66(v22, 1, 1);
   UnknownStorage.init()();
-  v75 = v23;
-  v30 = &v26[*(v23 + 24)];
-  *v30 = 0;
-  *(v30 + 1) = 0;
+  v70 = v20;
+  v25 = &v22[*(v20 + 24)];
+  *v25 = 0;
+  *(v25 + 1) = 0;
   UnknownStorage.init()();
-  v31 = &v22[*(v17 + 28)];
-  *v31 = 0;
-  v31[1] = 0;
-  v32 = *(v17 + 32);
-  v69 = v10;
-  v34 = *(v10 + 56);
-  v33 = v10 + 56;
-  v77 = v34;
-  v34(&v22[v32], 1, 1, v9);
-  v35 = (*(*v2 + 80))(a1);
-  if (v36)
+  v26 = &v19[*(v15 + 28)];
+  *v26 = 0;
+  v26[1] = 0;
+  v27 = *(v15 + 32);
+  v64 = v9;
+  v29 = *(v9 + 56);
+  v28 = v9 + 56;
+  v72 = v29;
+  v29(&v19[v27], 1, 1, v8);
+  v30 = (*(*v2 + 80))(a1);
+  if (v31)
   {
-    *v31 = v35;
-    v31[1] = v36;
+    *v26 = v30;
+    v26[1] = v31;
   }
 
-  v37 = [a1 intent];
-  v38 = (*(*v2 + 88))();
+  v32 = [a1 intent];
+  v33 = (*(*v2 + 88))();
 
-  if (!v38)
+  if (!v33)
   {
     goto LABEL_17;
   }
 
-  result = [v38 hour];
+  result = [v33 hour];
   if ((result & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_19;
   }
 
-  v40 = result;
+  v35 = result;
   if (HIDWORD(result))
   {
 LABEL_19:
@@ -6586,116 +6415,116 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v65 = v38;
-  v41 = v68;
-  outlined init with copy of ProtoDateComponentSignal?(&v22[v32], v68);
-  v42 = *(v69 + 48);
-  if ((v42)(v41, 1, v9) == 1)
+  v60 = v33;
+  v36 = v63;
+  outlined init with copy of ProtoDateComponentSignal?(&v19[v27], v63);
+  v37 = *(v64 + 48);
+  if ((v37)(v36, 1, v8) == 1)
   {
     UnknownStorage.init()();
-    v43 = &v15[v9[5]];
+    v38 = &v13[v8[5]];
+    *v38 = 0;
+    v38[4] = 1;
+    v39 = &v13[v8[6]];
+    *v39 = 0;
+    v39[4] = 1;
+    v40 = &v13[v8[7]];
+    *v40 = 0;
+    v40[4] = 1;
+    v41 = &v13[v8[8]];
+    *v41 = 0;
+    v41[4] = 1;
+    v42 = &v13[v8[9]];
+    *v42 = 0;
+    v42[4] = 1;
+    v43 = &v13[v8[10]];
     *v43 = 0;
     v43[4] = 1;
-    v44 = &v15[v9[6]];
-    *v44 = 0;
-    v44[4] = 1;
-    v45 = &v15[v9[7]];
-    *v45 = 0;
-    v45[4] = 1;
-    v46 = &v15[v9[8]];
-    *v46 = 0;
-    v46[4] = 1;
-    v47 = &v15[v9[9]];
-    *v47 = 0;
-    v47[4] = 1;
-    v48 = &v15[v9[10]];
-    *v48 = 0;
-    v48[4] = 1;
-    if ((v42)(v41, 1, v9) != 1)
+    if ((v37)(v36, 1, v8) != 1)
     {
-      outlined destroy of DateInterval?(v41, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
+      outlined destroy of DateInterval?(v36, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
     }
   }
 
   else
   {
-    outlined init with take of ProtoStartCallTaskFeatureSet(v41, v15, type metadata accessor for ProtoDateComponentSignal);
+    outlined init with take of ProtoStartCallTaskFeatureSet(v36, v13, type metadata accessor for ProtoDateComponentSignal);
   }
 
-  v49 = &v15[v9[8]];
-  *v49 = v40;
-  v49[4] = 0;
-  outlined destroy of DateInterval?(&v22[v32], &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
-  outlined init with take of ProtoStartCallTaskFeatureSet(v15, &v22[v32], type metadata accessor for ProtoDateComponentSignal);
-  v77(&v22[v32], 0, 1, v9);
-  v50 = v65;
-  result = [v65 minute];
+  v44 = &v13[v8[8]];
+  *v44 = v35;
+  v44[4] = 0;
+  outlined destroy of DateInterval?(&v19[v27], &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
+  outlined init with take of ProtoStartCallTaskFeatureSet(v13, &v19[v27], type metadata accessor for ProtoDateComponentSignal);
+  v72(&v19[v27], 0, 1, v8);
+  v45 = v60;
+  result = [v60 minute];
   if ((result & 0x8000000000000000) != 0)
   {
     goto LABEL_20;
   }
 
-  v51 = result;
+  v46 = result;
   if (!HIDWORD(result))
   {
-    v69 = v33;
-    v52 = v66;
-    outlined init with copy of ProtoDateComponentSignal?(&v22[v32], v66);
-    if ((v42)(v52, 1, v9) == 1)
+    v64 = v28;
+    v47 = v61;
+    outlined init with copy of ProtoDateComponentSignal?(&v19[v27], v61);
+    if ((v37)(v47, 1, v8) == 1)
     {
-      v68 = v42;
-      v53 = v67;
+      v63 = v37;
+      v48 = v62;
       UnknownStorage.init()();
 
-      v54 = v53 + v9[5];
+      v49 = v48 + v8[5];
+      *v49 = 0;
+      *(v49 + 4) = 1;
+      v50 = v48 + v8[6];
+      *v50 = 0;
+      *(v50 + 4) = 1;
+      v51 = v48 + v8[7];
+      *v51 = 0;
+      *(v51 + 4) = 1;
+      v52 = v48 + v8[8];
+      *v52 = 0;
+      *(v52 + 4) = 1;
+      v53 = v48 + v8[9];
+      *v53 = 0;
+      *(v53 + 4) = 1;
+      v54 = v48 + v8[10];
       *v54 = 0;
       *(v54 + 4) = 1;
-      v55 = v53 + v9[6];
-      *v55 = 0;
-      *(v55 + 4) = 1;
-      v56 = v53 + v9[7];
-      *v56 = 0;
-      *(v56 + 4) = 1;
-      v57 = v53 + v9[8];
-      *v57 = 0;
-      *(v57 + 4) = 1;
-      v58 = v53 + v9[9];
-      *v58 = 0;
-      *(v58 + 4) = 1;
-      v59 = v53 + v9[10];
-      *v59 = 0;
-      *(v59 + 4) = 1;
-      if ((v68)(v52, 1, v9) != 1)
+      if ((v63)(v47, 1, v8) != 1)
       {
-        outlined destroy of DateInterval?(v52, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
+        outlined destroy of DateInterval?(v47, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
       }
     }
 
     else
     {
 
-      v53 = v67;
-      outlined init with take of ProtoStartCallTaskFeatureSet(v52, v67, type metadata accessor for ProtoDateComponentSignal);
+      v48 = v62;
+      outlined init with take of ProtoStartCallTaskFeatureSet(v47, v62, type metadata accessor for ProtoDateComponentSignal);
     }
 
-    v60 = v53 + v9[9];
-    *v60 = v51;
-    *(v60 + 4) = 0;
-    outlined destroy of DateInterval?(&v22[v32], &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
-    outlined init with take of ProtoStartCallTaskFeatureSet(v53, &v22[v32], type metadata accessor for ProtoDateComponentSignal);
-    v77(&v22[v32], 0, 1, v9);
+    v55 = v48 + v8[9];
+    *v55 = v46;
+    *(v55 + 4) = 0;
+    outlined destroy of DateInterval?(&v19[v27], &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
+    outlined init with take of ProtoStartCallTaskFeatureSet(v48, &v19[v27], type metadata accessor for ProtoDateComponentSignal);
+    v72(&v19[v27], 0, 1, v8);
 LABEL_17:
-    v61 = v73;
-    outlined init with copy of ProtoStartCallTaskFeatureSet(v22, v73, type metadata accessor for ProtoAlarmTaskFeatureSet);
-    outlined destroy of DateInterval?(v26, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
-    outlined init with take of ProtoStartCallTaskFeatureSet(v61, v26, type metadata accessor for ProtoAlarmTaskFeatureSet);
-    v62 = v72;
+    v56 = v68;
+    outlined init with copy of ProtoStartCallTaskFeatureSet(v19, v68, type metadata accessor for ProtoAlarmTaskFeatureSet);
+    outlined destroy of DateInterval?(v22, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
+    outlined init with take of ProtoStartCallTaskFeatureSet(v56, v22, type metadata accessor for ProtoAlarmTaskFeatureSet);
+    v57 = v67;
     swift_storeEnumTagMultiPayload();
-    (v71)(v26, 0, 1, v62);
-    outlined destroy of ProtoStartCallTaskFeatureSet(v22, type metadata accessor for ProtoAlarmTaskFeatureSet);
-    v63 = v76;
-    outlined init with take of ProtoStartCallTaskFeatureSet(v26, v76, type metadata accessor for ProtoTaskFeatureSet);
-    return (*(v74 + 56))(v63, 0, 1, v75);
+    (v66)(v22, 0, 1, v57);
+    outlined destroy of ProtoStartCallTaskFeatureSet(v19, type metadata accessor for ProtoAlarmTaskFeatureSet);
+    v58 = v71;
+    outlined init with take of ProtoStartCallTaskFeatureSet(v22, v71, type metadata accessor for ProtoTaskFeatureSet);
+    return (*(v69 + 56))(v58, 0, 1, v70);
   }
 
 LABEL_21:
@@ -6842,7 +6671,7 @@ uint64_t outlined init with take of DateInterval?(uint64_t a1, uint64_t a2, uint
   return a2;
 }
 
-size_t specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(size_t result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
+void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
 {
   v9 = result;
   if (a3)
@@ -6902,7 +6731,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v16 == 0x8000000000000000 && v15 == -1)
+  if ((result - v16) == 0x8000000000000000 && v15 == -1)
   {
     goto LABEL_29;
   }
@@ -6934,7 +6763,7 @@ LABEL_19:
   return v17;
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -7032,16 +6861,14 @@ LABEL_8:
   }
 }
 
-uint64_t _StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
+void *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -7138,7 +6965,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -7152,15 +6978,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v3);
+  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -7175,15 +7001,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -7192,12 +7018,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -7305,23 +7131,24 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v10;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
-uint64_t type metadata accessor for INPerson(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t type metadata accessor for INPerson(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -7433,19 +7260,18 @@ uint64_t static SiriTaskEngagementRetriever.retrieveSiriTaskEngagementWithStream
 uint64_t static SiriTaskEngagementRetriever.convertToProtoSiriTaskEngagement(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = type metadata accessor for JSONDecodingOptions();
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v6 = [a1 json];
-  if (v6)
+  v5 = [a1 json];
+  if (v5)
   {
-    v7 = v6;
+    v6 = v5;
     static String._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v8 = type metadata accessor for ProtoSiriTaskEngagement(0);
+    v7 = type metadata accessor for ProtoSiriTaskEngagement(0);
     JSONDecodingOptions.init()();
     lazy protocol witness table accessor for type ProtoSiriTaskEngagement and conformance ProtoSiriTaskEngagement();
     Message.init(jsonString:options:)();
-    return (*(*(v8 - 8) + 56))(a2, 0, 1, v8);
+    return (*(*(v7 - 8) + 56))(a2, 0, 1, v7);
   }
 
   else
@@ -7455,100 +7281,97 @@ uint64_t static SiriTaskEngagementRetriever.convertToProtoSiriTaskEngagement(fro
       swift_once();
     }
 
-    v9 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v9, static Logger.feature);
-    v13 = 322;
-    Logger.error(_:_:)(0xD000000000000023, 0x800000026923F7D0, &v13);
-    v10 = type metadata accessor for ProtoSiriTaskEngagement(0);
-    v11 = *(*(v10 - 8) + 56);
+    v8 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v8, static Logger.feature);
+    v12 = 322;
+    Logger.error(_:_:)(0xD000000000000023, 0x800000026923F7D0, &v12);
+    v9 = type metadata accessor for ProtoSiriTaskEngagement(0);
+    v10 = *(*(v9 - 8) + 56);
 
-    return v11(a2, 1, 1, v10);
+    return v10(a2, 1, 1, v9);
   }
 }
 
 void *static SiriTaskEngagementRetriever.retrieveAllSiriTaskEngagement(streamId:)(unint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for JSONDecodingOptions();
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v51 = &v45 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v45 - v9;
-  v11 = type metadata accessor for ProtoSiriTaskEngagement(0);
-  v46 = *(v11 - 8);
-  v12 = *(v46 + 64);
-  MEMORY[0x28223BE20](v11);
-  v50 = &v45 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v48 = &v42 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v42 - v7;
+  v9 = type metadata accessor for ProtoSiriTaskEngagement(0);
+  v43 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9);
+  v47 = &v42 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a2)
   {
-    v14 = a1;
+    v11 = a1;
   }
 
   else
   {
-    v14 = 0xD000000000000012;
+    v11 = 0xD000000000000012;
   }
 
   if (a2)
   {
-    v15 = a2;
+    v12 = a2;
   }
 
   else
   {
-    v15 = 0x800000026923B4E0;
+    v12 = 0x800000026923B4E0;
   }
 
-  v16 = one-time initialization token for shared;
+  v13 = one-time initialization token for shared;
 
-  if (v16 != -1)
+  if (v13 != -1)
   {
     goto LABEL_41;
   }
 
   while (1)
   {
-    v17 = PSEFeatureStoreManager.getStream(streamId:)(v14, v15);
+    v14 = PSEFeatureStoreManager.getStream(streamId:)(v11, v12);
 
-    if (!v17)
+    if (!v14)
     {
       if (one-time initialization token for feature != -1)
       {
         swift_once();
       }
 
-      v42 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v42, static Logger.feature);
-      LOWORD(v59) = 325;
-      Logger.error(_:_:)(0xD00000000000003ELL, 0x800000026923F760, &v59);
+      v39 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v39, static Logger.feature);
+      LOWORD(v56) = 325;
+      Logger.error(_:_:)(0xD00000000000003ELL, 0x800000026923F760, &v56);
       return 0;
     }
 
-    v19 = (*(*v17 + 168))(v18);
-    if (!v19)
+    v16 = (*(*v14 + 168))(v15);
+    if (!v16)
     {
       if (one-time initialization token for feature != -1)
       {
         swift_once();
       }
 
-      v43 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v43, static Logger.feature);
-      LOWORD(v59) = 323;
-      Logger.error(_:_:)(0xD000000000000023, 0x800000026923F7A0, &v59);
+      v40 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v40, static Logger.feature);
+      LOWORD(v56) = 323;
+      Logger.error(_:_:)(0xD000000000000023, 0x800000026923F7A0, &v56);
 
       return 0;
     }
 
-    v21 = v19;
-    v22 = v19 & 0xFFFFFFFFFFFFFF8;
-    if (!(v19 >> 62))
+    v18 = v16;
+    v19 = v16 & 0xFFFFFFFFFFFFFF8;
+    if (!(v16 >> 62))
     {
-      v23 = *((v19 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      v45 = v17;
-      if (!v23)
+      v20 = *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      v42 = v14;
+      if (!v20)
       {
         break;
       }
@@ -7556,75 +7379,75 @@ void *static SiriTaskEngagementRetriever.retrieveAllSiriTaskEngagement(streamId:
       goto LABEL_12;
     }
 
-    if (v19 >= 0)
+    if (v16 >= 0)
     {
-      v19 &= 0xFFFFFFFFFFFFFF8uLL;
+      v16 &= 0xFFFFFFFFFFFFFF8uLL;
     }
 
-    v23 = MEMORY[0x26D634210](v19);
-    v45 = v17;
-    if (!v23)
+    v20 = MEMORY[0x26D634210](v16);
+    v42 = v14;
+    if (!v20)
     {
       break;
     }
 
 LABEL_12:
-    v14 = 0;
-    v15 = 0;
-    v57 = v21 & 0xC000000000000001;
-    v49 = "interaction to Json";
-    v53 = (v46 + 56);
-    v24 = " siriTaskEngagement";
-    v52 = MEMORY[0x277D84F90];
-    *&v20 = 136315138;
-    v47 = v20;
-    v55 = v22;
-    v56 = v21;
-    v54 = v23;
-    v58 = " siriTaskEngagement";
-    v48 = v10;
-    while (v57)
+    v11 = 0;
+    v12 = 0;
+    v54 = v18 & 0xC000000000000001;
+    v46 = "interaction to Json";
+    v50 = (v43 + 56);
+    v21 = " siriTaskEngagement";
+    v49 = MEMORY[0x277D84F90];
+    *&v17 = 136315138;
+    v44 = v17;
+    v52 = v19;
+    v53 = v18;
+    v51 = v20;
+    v55 = " siriTaskEngagement";
+    v45 = v8;
+    while (v54)
     {
-      v27 = MEMORY[0x26D6341F0](v14, v21);
-      v28 = v14 + 1;
-      if (__OFADD__(v14, 1))
+      v24 = MEMORY[0x26D6341F0](v11, v18);
+      v25 = v11 + 1;
+      if (__OFADD__(v11, 1))
       {
         goto LABEL_39;
       }
 
 LABEL_18:
-      v29 = [v27 json];
-      if (v29)
+      v26 = [v24 json];
+      if (v26)
       {
-        v30 = v29;
+        v27 = v26;
         static String._unconditionallyBridgeFromObjectiveC(_:)();
 
         JSONDecodingOptions.init()();
         lazy protocol witness table accessor for type ProtoSiriTaskEngagement and conformance ProtoSiriTaskEngagement();
         Message.init(jsonString:options:)();
         swift_unknownObjectRelease();
-        (*v53)(v10, 0, 1, v11);
-        outlined init with take of ProtoSiriTaskEngagement(v10, v50);
-        v37 = v52;
+        (*v50)(v8, 0, 1, v9);
+        outlined init with take of ProtoSiriTaskEngagement(v8, v47);
+        v34 = v49;
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
-          v37 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v37[2] + 1, 1, v37);
+          v34 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v34[2] + 1, 1, v34);
         }
 
-        v21 = v56;
-        v40 = v37[2];
-        v39 = v37[3];
-        v52 = v37;
-        if (v40 >= v39 >> 1)
+        v18 = v53;
+        v37 = v34[2];
+        v36 = v34[3];
+        v49 = v34;
+        if (v37 >= v36 >> 1)
         {
-          v52 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v39 > 1, v40 + 1, 1, v52);
+          v49 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v36 > 1), v37 + 1, 1, v49);
         }
 
-        v41 = v52;
-        v52[2] = v40 + 1;
-        outlined init with take of ProtoSiriTaskEngagement(v50, v41 + ((*(v46 + 80) + 32) & ~*(v46 + 80)) + *(v46 + 72) * v40);
-        v22 = v55;
+        v38 = v49;
+        v49[2] = v37 + 1;
+        outlined init with take of ProtoSiriTaskEngagement(v47, v38 + ((*(v43 + 80) + 32) & ~*(v43 + 80)) + *(v43 + 72) * v37);
+        v19 = v52;
       }
 
       else
@@ -7634,53 +7457,53 @@ LABEL_18:
           swift_once();
         }
 
-        v31 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v31, static Logger.feature);
-        v32 = Logger.logObject.getter();
-        v33 = static os_log_type_t.error.getter();
-        if (os_log_type_enabled(v32, v33))
+        v28 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v28, static Logger.feature);
+        v29 = Logger.logObject.getter();
+        v30 = static os_log_type_t.error.getter();
+        if (os_log_type_enabled(v29, v30))
         {
-          v34 = swift_slowAlloc();
-          v35 = swift_slowAlloc();
-          v59 = v35;
-          *v34 = v47;
-          *(v34 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000023, v58 | 0x8000000000000000, &v59);
-          _os_log_impl(&dword_2691F5000, v32, v33, "%s", v34, 0xCu);
-          __swift_destroy_boxed_opaque_existential_0(v35);
-          MEMORY[0x26D634770](v35, -1, -1);
-          v36 = v34;
-          v24 = v58;
-          MEMORY[0x26D634770](v36, -1, -1);
+          v31 = swift_slowAlloc();
+          v32 = swift_slowAlloc();
+          v56 = v32;
+          *v31 = v44;
+          *(v31 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000023, v55 | 0x8000000000000000, &v56);
+          _os_log_impl(&dword_2691F5000, v29, v30, "%s", v31, 0xCu);
+          __swift_destroy_boxed_opaque_existential_0(v32);
+          MEMORY[0x26D634770](v32, -1, -1);
+          v33 = v31;
+          v21 = v55;
+          MEMORY[0x26D634770](v33, -1, -1);
         }
 
-        v21 = v56;
-        v25 = specialized static SiriTaskEngagementUtils.formulateSimplifiedReliabilityReasonDescription(reliabilityDescription:)(0xD000000000000023, v24 | 0x8000000000000000);
-        LOWORD(v59) = 322;
-        specialized static CoreAnalyticsService.submitReliabilityAnalytics(category:reason:)(&v59, v25, v26);
+        v18 = v53;
+        v22 = specialized static SiriTaskEngagementUtils.formulateSimplifiedReliabilityReasonDescription(reliabilityDescription:)(0xD000000000000023, v21 | 0x8000000000000000);
+        LOWORD(v56) = 322;
+        specialized static CoreAnalyticsService.submitReliabilityAnalytics(category:reason:)(&v56, v22, v23);
         swift_unknownObjectRelease();
 
-        v22 = v55;
-        (*v53)(v10, 1, 1, v11);
-        outlined destroy of ProtoSiriTaskEngagement?(v10);
+        v19 = v52;
+        (*v50)(v8, 1, 1, v9);
+        outlined destroy of ProtoSiriTaskEngagement?(v8);
       }
 
-      v24 = v58;
-      ++v14;
-      if (v28 == v54)
+      v21 = v55;
+      ++v11;
+      if (v25 == v51)
       {
         goto LABEL_46;
       }
     }
 
-    if (v14 >= *(v22 + 16))
+    if (v11 >= *(v19 + 16))
     {
       goto LABEL_40;
     }
 
-    v27 = *(v21 + 8 * v14 + 32);
+    v24 = *(v18 + 8 * v11 + 32);
     swift_unknownObjectRetain();
-    v28 = v14 + 1;
-    if (!__OFADD__(v14, 1))
+    v25 = v11 + 1;
+    if (!__OFADD__(v11, 1))
     {
       goto LABEL_18;
     }
@@ -7693,15 +7516,15 @@ LABEL_41:
     swift_once();
   }
 
-  v52 = MEMORY[0x277D84F90];
+  v49 = MEMORY[0x277D84F90];
 LABEL_46:
 
-  return v52;
+  return v49;
 }
 
 uint64_t outlined destroy of ProtoSiriTaskEngagement?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -7858,7 +7681,7 @@ uint64_t ProtoSiriTaskInteractionType.includesConfirm.setter(char a1)
   return result;
 }
 
-uint64_t (*ProtoSiriTaskInteractionType.includesConfirm.modify(uint64_t a1))()
+uint64_t (*ProtoSiriTaskInteractionType.includesConfirm.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for ProtoSiriTaskInteractionType(0) + 24);
@@ -7874,7 +7697,7 @@ uint64_t ProtoSiriTaskInteractionType.includesDisambiguate.setter(char a1)
   return result;
 }
 
-uint64_t (*ProtoSiriTaskInteractionType.includesDisambiguate.modify(uint64_t a1))()
+uint64_t (*ProtoSiriTaskInteractionType.includesDisambiguate.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for ProtoSiriTaskInteractionType(0) + 28);
@@ -7890,7 +7713,7 @@ uint64_t ProtoSiriTaskInteractionType.includesUnsupportedPrompt.setter(char a1)
   return result;
 }
 
-uint64_t (*ProtoSiriTaskInteractionType.includesUnsupportedPrompt.modify(uint64_t a1))()
+uint64_t (*ProtoSiriTaskInteractionType.includesUnsupportedPrompt.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for ProtoSiriTaskInteractionType(0) + 32);
@@ -7899,20 +7722,19 @@ uint64_t (*ProtoSiriTaskInteractionType.includesUnsupportedPrompt.modify(uint64_
   return ProtoSiriTaskEvaluationSummary.taskCompletion.modify;
 }
 
-int *ProtoSiriTaskInteractionType.init()@<X0>(uint64_t a1@<X8>)
+int *ProtoSiriTaskInteractionType.init()@<X0>(uint64_t a2@<X8>)
 {
   UnknownStorage.init()();
   result = type metadata accessor for ProtoSiriTaskInteractionType(0);
-  *(a1 + result[5]) = 2;
-  *(a1 + result[6]) = 2;
-  *(a1 + result[7]) = 2;
-  *(a1 + result[8]) = 2;
+  *(a2 + result[5]) = 2;
+  *(a2 + result[6]) = 2;
+  *(a2 + result[7]) = 2;
+  *(a2 + result[8]) = 2;
   return result;
 }
 
 uint64_t ProtoSiriTaskEvaluationSummary.requestIds.setter(uint64_t a1)
 {
-  v3 = *v1;
 
   *v1 = a1;
   return result;
@@ -7939,7 +7761,7 @@ uint64_t ProtoSiriTaskEvaluationSummary.taskCompletion.setter(char *a1)
   return result;
 }
 
-uint64_t (*ProtoSiriTaskEvaluationSummary.taskCompletion.modify(uint64_t a1))()
+uint64_t (*ProtoSiriTaskEvaluationSummary.taskCompletion.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for ProtoSiriTaskEvaluationSummary(0) + 24);
@@ -7993,23 +7815,50 @@ uint64_t (*ProtoSiriTaskEvaluationSummary.taskSuccess.modify(uint64_t a1))(uint6
 uint64_t ProtoSiriTaskEvaluationSummary.interactionType.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v10 - v4;
+  v6 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
+  outlined init with copy of ProtoSiriTaskInteractionType?(v1 + *(v6 + 32), v5, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
+  v7 = type metadata accessor for ProtoSiriTaskInteractionType(0);
+  v8 = *(*(v7 - 1) + 48);
+  if (v8(v5, 1, v7) != 1)
+  {
+    return outlined init with take of ProtoSiriTaskInteractionType(v5, a1, type metadata accessor for ProtoSiriTaskInteractionType);
+  }
+
+  UnknownStorage.init()();
+  *(a1 + v7[5]) = 2;
+  *(a1 + v7[6]) = 2;
+  *(a1 + v7[7]) = 2;
+  *(a1 + v7[8]) = 2;
+  result = (v8)(v5, 1, v7);
+  if (result != 1)
+  {
+    return outlined destroy of DateInterval?(v5, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
+  }
+
+  return result;
+}
+
+uint64_t key path getter for ProtoSiriTaskEvaluationSummary.interactionType : ProtoSiriTaskEvaluationSummary@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
-  outlined init with copy of ProtoSiriTaskInteractionType?(v1 + *(v7 + 32), v6, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
+  outlined init with copy of ProtoSiriTaskInteractionType?(a1 + *(v7 + 32), v6, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
   v8 = type metadata accessor for ProtoSiriTaskInteractionType(0);
   v9 = *(*(v8 - 1) + 48);
   if (v9(v6, 1, v8) != 1)
   {
-    return outlined init with take of ProtoSiriTaskInteractionType(v6, a1, type metadata accessor for ProtoSiriTaskInteractionType);
+    return outlined init with take of ProtoSiriTaskInteractionType(v6, a2, type metadata accessor for ProtoSiriTaskInteractionType);
   }
 
   UnknownStorage.init()();
-  *(a1 + v8[5]) = 2;
-  *(a1 + v8[6]) = 2;
-  *(a1 + v8[7]) = 2;
-  *(a1 + v8[8]) = 2;
+  *(a2 + v8[5]) = 2;
+  *(a2 + v8[6]) = 2;
+  *(a2 + v8[7]) = 2;
+  *(a2 + v8[8]) = 2;
   result = (v9)(v6, 1, v8);
   if (result != 1)
   {
@@ -8019,47 +7868,17 @@ uint64_t ProtoSiriTaskEvaluationSummary.interactionType.getter@<X0>(uint64_t a1@
   return result;
 }
 
-uint64_t key path getter for ProtoSiriTaskEvaluationSummary.interactionType : ProtoSiriTaskEvaluationSummary@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v12 - v6;
-  v8 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
-  outlined init with copy of ProtoSiriTaskInteractionType?(a1 + *(v8 + 32), v7, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
-  v9 = type metadata accessor for ProtoSiriTaskInteractionType(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v7, 1, v9) != 1)
-  {
-    return outlined init with take of ProtoSiriTaskInteractionType(v7, a2, type metadata accessor for ProtoSiriTaskInteractionType);
-  }
-
-  UnknownStorage.init()();
-  *(a2 + v9[5]) = 2;
-  *(a2 + v9[6]) = 2;
-  *(a2 + v9[7]) = 2;
-  *(a2 + v9[8]) = 2;
-  result = (v10)(v7, 1, v9);
-  if (result != 1)
-  {
-    return outlined destroy of DateInterval?(v7, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
-  }
-
-  return result;
-}
-
 uint64_t key path setter for ProtoSiriTaskEvaluationSummary.interactionType : ProtoSiriTaskEvaluationSummary(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for ProtoSiriTaskInteractionType(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of ProtoSiriTaskInteractionType(a1, v8, type metadata accessor for ProtoSiriTaskInteractionType);
-  v9 = *(type metadata accessor for ProtoSiriTaskEvaluationSummary(0) + 32);
-  outlined destroy of DateInterval?(a2 + v9, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
-  outlined init with take of ProtoSiriTaskInteractionType(v8, a2 + v9, type metadata accessor for ProtoSiriTaskInteractionType);
-  return (*(v5 + 56))(a2 + v9, 0, 1, v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of ProtoSiriTaskInteractionType(a1, v7, type metadata accessor for ProtoSiriTaskInteractionType);
+  v8 = *(type metadata accessor for ProtoSiriTaskEvaluationSummary(0) + 32);
+  outlined destroy of DateInterval?(a2 + v8, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
+  outlined init with take of ProtoSiriTaskInteractionType(v7, a2 + v8, type metadata accessor for ProtoSiriTaskInteractionType);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
 }
 
 uint64_t ProtoSiriTaskEvaluationSummary.interactionType.setter(uint64_t a1)
@@ -8183,15 +8002,14 @@ void ProtoSiriTaskEvaluationSummary.interactionType.modify(uint64_t **a1, char a
 BOOL ProtoSiriTaskEvaluationSummary.hasInteractionType.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v9 - v3;
-  v5 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
-  outlined init with copy of ProtoSiriTaskInteractionType?(v0 + *(v5 + 32), v4, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
-  v6 = type metadata accessor for ProtoSiriTaskInteractionType(0);
-  v7 = (*(*(v6 - 8) + 48))(v4, 1, v6) != 1;
-  outlined destroy of DateInterval?(v4, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
-  return v7;
+  v3 = &v8 - v2;
+  v4 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
+  outlined init with copy of ProtoSiriTaskInteractionType?(v0 + *(v4 + 32), v3, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
+  v5 = type metadata accessor for ProtoSiriTaskInteractionType(0);
+  v6 = (*(*(v5 - 8) + 48))(v3, 1, v5) != 1;
+  outlined destroy of DateInterval?(v3, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
+  return v6;
 }
 
 Swift::Void __swiftcall ProtoSiriTaskEvaluationSummary.clearInteractionType()()
@@ -8227,7 +8045,7 @@ uint64_t ProtoSiriTaskEvaluationSummary.startTimestampMs.setter(uint64_t a1)
   return result;
 }
 
-uint64_t (*ProtoSiriTaskEvaluationSummary.startTimestampMs.modify(uint64_t a1))()
+uint64_t (*ProtoSiriTaskEvaluationSummary.startTimestampMs.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for ProtoSiriTaskEvaluationSummary(0) + 36);
@@ -8326,19 +8144,18 @@ uint64_t ProtoSiriTaskEvaluationSummary.init()@<X0>(void *a1@<X8>)
 {
   *a1 = MEMORY[0x277D84F90];
   v2 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
-  v3 = a1 + v2[5];
   UnknownStorage.init()();
   *(a1 + v2[6]) = 5;
   *(a1 + v2[7]) = 5;
-  v4 = v2[8];
-  v5 = type metadata accessor for ProtoSiriTaskInteractionType(0);
-  result = (*(*(v5 - 8) + 56))(a1 + v4, 1, 1, v5);
-  v7 = a1 + v2[9];
+  v3 = v2[8];
+  v4 = type metadata accessor for ProtoSiriTaskInteractionType(0);
+  result = (*(*(v4 - 8) + 56))(a1 + v3, 1, 1, v4);
+  v6 = a1 + v2[9];
+  *v6 = 0;
+  v6[8] = 1;
+  v7 = a1 + v2[10];
   *v7 = 0;
   v7[8] = 1;
-  v8 = a1 + v2[10];
-  *v8 = 0;
-  v8[8] = 1;
   return result;
 }
 
@@ -8385,50 +8202,42 @@ uint64_t key path setter for ProtoSiriTaskEngagement.taskID : ProtoSiriTaskEngag
   v3 = a1[1];
   v5 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
 
-  v6 = *(a2 + v5);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *(a2 + v5);
+  v7 = *(a2 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v9 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v10 = *(v9 + 48);
-    v11 = *(v9 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v12 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v8);
+    v8 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v7);
 
-    *(a2 + v5) = v12;
-    v8 = v12;
+    *(a2 + v5) = v8;
+    v7 = v8;
   }
 
   swift_beginAccess();
-  v13 = v8[3];
-  v8[2] = v4;
-  v8[3] = v3;
+  v7[2] = v4;
+  v7[3] = v3;
 }
 
 uint64_t ProtoSiriTaskEngagement.taskID.setter(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
   v6 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
-  v7 = *(v2 + v6);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v2 + v6);
+  v8 = *(v2 + v6);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v13 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v9);
+    v9 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v8);
 
-    *(v3 + v6) = v13;
-    v9 = v13;
+    *(v3 + v6) = v9;
+    v8 = v9;
   }
 
   swift_beginAccess();
-  v14 = v9[3];
-  v9[2] = a1;
-  v9[3] = a2;
+  v8[2] = a1;
+  v8[3] = a2;
 }
 
 void (*ProtoSiriTaskEngagement.taskID.modify(uint64_t *a1))(uint64_t *a1, char a2)
@@ -8477,56 +8286,45 @@ void ProtoSiriTaskEngagement.taskID.modify(uint64_t *a1, char a2)
   v6 = *(*a1 + 88);
   if (a2)
   {
-    v7 = *(*a1 + 80);
 
-    v8 = *(v6 + v4);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v10 = *(v6 + v4);
+    v8 = *(v6 + v4);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v11 = *(v2 + 96);
-      v12 = *(v2 + 88);
-      v13 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-      v14 = *(v13 + 48);
-      v15 = *(v13 + 52);
+      v9 = *(v2 + 96);
+      v10 = *(v2 + 88);
+      type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
       swift_allocObject();
-      v16 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v10);
+      v11 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v8);
 
-      *(v12 + v11) = v16;
-      v10 = v16;
+      *(v10 + v9) = v11;
+      v8 = v11;
     }
 
     swift_beginAccess();
-    v17 = v10[3];
-    v10[2] = v3;
-    v10[3] = v5;
-
-    v18 = *(v2 + 80);
+    v8[2] = v3;
+    v8[3] = v5;
   }
 
   else
   {
-    v19 = *(v6 + v4);
-    v20 = swift_isUniquelyReferenced_nonNull_native();
-    v21 = *(v6 + v4);
-    if ((v20 & 1) == 0)
+    v12 = swift_isUniquelyReferenced_nonNull_native();
+    v13 = *(v6 + v4);
+    if ((v12 & 1) == 0)
     {
-      v22 = *(v2 + 96);
-      v23 = *(v2 + 88);
-      v24 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-      v25 = *(v24 + 48);
-      v26 = *(v24 + 52);
+      v14 = *(v2 + 96);
+      v15 = *(v2 + 88);
+      type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
       swift_allocObject();
-      v27 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v21);
+      v16 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v13);
 
-      *(v23 + v22) = v27;
-      v21 = v27;
+      *(v15 + v14) = v16;
+      v13 = v16;
     }
 
     swift_beginAccess();
-    v28 = v21[3];
-    v21[2] = v3;
-    v21[3] = v5;
+    v13[2] = v3;
+    v13[3] = v5;
   }
 
   free(v2);
@@ -8543,25 +8341,21 @@ Swift::Void __swiftcall ProtoSiriTaskEngagement.clearTaskID()()
 {
   v1 = v0;
   v2 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v9 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v5);
+    v5 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
   swift_beginAccess();
-  v10 = v5[3];
-  v5[2] = 0;
-  v5[3] = 0;
+  v4[2] = 0;
+  v4[3] = 0;
 }
 
 uint64_t ProtoSiriTaskEngagement.taskName.getter()
@@ -8607,50 +8401,42 @@ uint64_t key path setter for ProtoSiriTaskEngagement.taskName : ProtoSiriTaskEng
   v3 = a1[1];
   v5 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
 
-  v6 = *(a2 + v5);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *(a2 + v5);
+  v7 = *(a2 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v9 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v10 = *(v9 + 48);
-    v11 = *(v9 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v12 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v8);
+    v8 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v7);
 
-    *(a2 + v5) = v12;
-    v8 = v12;
+    *(a2 + v5) = v8;
+    v7 = v8;
   }
 
   swift_beginAccess();
-  v13 = v8[5];
-  v8[4] = v4;
-  v8[5] = v3;
+  v7[4] = v4;
+  v7[5] = v3;
 }
 
 uint64_t ProtoSiriTaskEngagement.taskName.setter(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
   v6 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
-  v7 = *(v2 + v6);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v2 + v6);
+  v8 = *(v2 + v6);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v13 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v9);
+    v9 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v8);
 
-    *(v3 + v6) = v13;
-    v9 = v13;
+    *(v3 + v6) = v9;
+    v8 = v9;
   }
 
   swift_beginAccess();
-  v14 = v9[5];
-  v9[4] = a1;
-  v9[5] = a2;
+  v8[4] = a1;
+  v8[5] = a2;
 }
 
 void (*ProtoSiriTaskEngagement.taskName.modify(uint64_t *a1))(uint64_t *a1, char a2)
@@ -8699,56 +8485,45 @@ void ProtoSiriTaskEngagement.taskName.modify(uint64_t *a1, char a2)
   v6 = *(*a1 + 88);
   if (a2)
   {
-    v7 = *(*a1 + 80);
 
-    v8 = *(v6 + v4);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v10 = *(v6 + v4);
+    v8 = *(v6 + v4);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v11 = *(v2 + 96);
-      v12 = *(v2 + 88);
-      v13 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-      v14 = *(v13 + 48);
-      v15 = *(v13 + 52);
+      v9 = *(v2 + 96);
+      v10 = *(v2 + 88);
+      type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
       swift_allocObject();
-      v16 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v10);
+      v11 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v8);
 
-      *(v12 + v11) = v16;
-      v10 = v16;
+      *(v10 + v9) = v11;
+      v8 = v11;
     }
 
     swift_beginAccess();
-    v17 = v10[5];
-    v10[4] = v3;
-    v10[5] = v5;
-
-    v18 = *(v2 + 80);
+    v8[4] = v3;
+    v8[5] = v5;
   }
 
   else
   {
-    v19 = *(v6 + v4);
-    v20 = swift_isUniquelyReferenced_nonNull_native();
-    v21 = *(v6 + v4);
-    if ((v20 & 1) == 0)
+    v12 = swift_isUniquelyReferenced_nonNull_native();
+    v13 = *(v6 + v4);
+    if ((v12 & 1) == 0)
     {
-      v22 = *(v2 + 96);
-      v23 = *(v2 + 88);
-      v24 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-      v25 = *(v24 + 48);
-      v26 = *(v24 + 52);
+      v14 = *(v2 + 96);
+      v15 = *(v2 + 88);
+      type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
       swift_allocObject();
-      v27 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v21);
+      v16 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v13);
 
-      *(v23 + v22) = v27;
-      v21 = v27;
+      *(v15 + v14) = v16;
+      v13 = v16;
     }
 
     swift_beginAccess();
-    v28 = v21[5];
-    v21[4] = v3;
-    v21[5] = v5;
+    v13[4] = v3;
+    v13[5] = v5;
   }
 
   free(v2);
@@ -8765,32 +8540,28 @@ Swift::Void __swiftcall ProtoSiriTaskEngagement.clearTaskName()()
 {
   v1 = v0;
   v2 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v9 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v5);
+    v5 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
   swift_beginAccess();
-  v10 = v5[5];
-  v5[4] = 0;
-  v5[5] = 0;
+  v4[4] = 0;
+  v4[5] = 0;
 }
 
 uint64_t ProtoSiriTaskEngagement.evaluationSummary.getter@<X0>(void *a1@<X8>)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v5 = &v16 - v4;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v15 - v4;
   v6 = *(v1 + *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20));
   v7 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__evaluationSummary;
   swift_beginAccess();
@@ -8803,19 +8574,18 @@ uint64_t ProtoSiriTaskEngagement.evaluationSummary.getter@<X0>(void *a1@<X8>)
   }
 
   *a1 = MEMORY[0x277D84F90];
-  v10 = a1 + v8[5];
   UnknownStorage.init()();
   *(a1 + v8[6]) = 5;
   *(a1 + v8[7]) = 5;
-  v11 = v8[8];
-  v12 = type metadata accessor for ProtoSiriTaskInteractionType(0);
-  (*(*(v12 - 8) + 56))(a1 + v11, 1, 1, v12);
-  v13 = a1 + v8[9];
+  v10 = v8[8];
+  v11 = type metadata accessor for ProtoSiriTaskInteractionType(0);
+  (*(*(v11 - 8) + 56))(a1 + v10, 1, 1, v11);
+  v12 = a1 + v8[9];
+  *v12 = 0;
+  v12[8] = 1;
+  v13 = a1 + v8[10];
   *v13 = 0;
   v13[8] = 1;
-  v14 = a1 + v8[10];
-  *v14 = 0;
-  v14[8] = 1;
   result = (v9)(v5, 1, v8);
   if (result != 1)
   {
@@ -8828,36 +8598,31 @@ uint64_t ProtoSiriTaskEngagement.evaluationSummary.getter@<X0>(void *a1@<X8>)
 uint64_t key path setter for ProtoSiriTaskEngagement.evaluationSummary : ProtoSiriTaskEngagement(uint64_t a1, uint64_t a2)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v23 - v6;
-  v8 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
-  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of ProtoSiriTaskInteractionType(a1, v12, type metadata accessor for ProtoSiriTaskEvaluationSummary);
-  v13 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
-  v14 = *(a2 + v13);
+  v6 = &v17 - v5;
+  v7 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of ProtoSiriTaskInteractionType(a1, v10, type metadata accessor for ProtoSiriTaskEvaluationSummary);
+  v11 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v16 = *(a2 + v13);
+  v13 = *(a2 + v11);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v17 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v18 = *(v17 + 48);
-    v19 = *(v17 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v20 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v16);
+    v14 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v13);
 
-    *(a2 + v13) = v20;
-    v16 = v20;
+    *(a2 + v11) = v14;
+    v13 = v14;
   }
 
-  outlined init with take of ProtoSiriTaskInteractionType(v12, v7, type metadata accessor for ProtoSiriTaskEvaluationSummary);
-  (*(v9 + 56))(v7, 0, 1, v8);
-  v21 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__evaluationSummary;
+  outlined init with take of ProtoSiriTaskInteractionType(v10, v6, type metadata accessor for ProtoSiriTaskEvaluationSummary);
+  (*(v8 + 56))(v6, 0, 1, v7);
+  v15 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__evaluationSummary;
   swift_beginAccess();
-  outlined assign with take of ProtoSiriTaskEvaluationSummary?(v7, v16 + v21, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
+  outlined assign with take of ProtoSiriTaskEvaluationSummary?(v6, v13 + v15, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
   return swift_endAccess();
 }
 
@@ -8865,35 +8630,31 @@ uint64_t ProtoSiriTaskEngagement.evaluationSummary.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v19 - v6;
-  v8 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v14 - v5;
+  v7 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v15 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v11);
+    v10 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v9);
 
-    *(v2 + v8) = v15;
-    v11 = v15;
+    *(v2 + v7) = v10;
+    v9 = v10;
   }
 
-  outlined init with take of ProtoSiriTaskInteractionType(a1, v7, type metadata accessor for ProtoSiriTaskEvaluationSummary);
-  v16 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
-  (*(*(v16 - 8) + 56))(v7, 0, 1, v16);
-  v17 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__evaluationSummary;
+  outlined init with take of ProtoSiriTaskInteractionType(a1, v6, type metadata accessor for ProtoSiriTaskEvaluationSummary);
+  v11 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
+  (*(*(v11 - 8) + 56))(v6, 0, 1, v11);
+  v12 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__evaluationSummary;
   swift_beginAccess();
-  outlined assign with take of ProtoSiriTaskEvaluationSummary?(v7, v11 + v17, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
+  outlined assign with take of ProtoSiriTaskEvaluationSummary?(v6, v9 + v12, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
   return swift_endAccess();
 }
 
-void (*ProtoSiriTaskEngagement.evaluationSummary.modify(uint64_t *a1))(uint64_t *a1, char a2)
+void (*ProtoSiriTaskEngagement.evaluationSummary.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   v3 = MEMORY[0x277D84FD8];
   if (MEMORY[0x277D84FD8])
@@ -8954,19 +8715,18 @@ void (*ProtoSiriTaskEngagement.evaluationSummary.modify(uint64_t *a1))(uint64_t 
   if (v18(v8, 1, v9) == 1)
   {
     *v14 = MEMORY[0x277D84F90];
-    v19 = v14 + v9[5];
     UnknownStorage.init()();
     *(v14 + v9[6]) = 5;
     *(v14 + v9[7]) = 5;
-    v20 = v9[8];
-    v21 = type metadata accessor for ProtoSiriTaskInteractionType(0);
-    (*(*(v21 - 8) + 56))(v14 + v20, 1, 1, v21);
-    v22 = v14 + v9[9];
+    v19 = v9[8];
+    v20 = type metadata accessor for ProtoSiriTaskInteractionType(0);
+    (*(*(v20 - 8) + 56))(v14 + v19, 1, 1, v20);
+    v21 = v14 + v9[9];
+    *v21 = 0;
+    v21[8] = 1;
+    v22 = v14 + v9[10];
     *v22 = 0;
     v22[8] = 1;
-    v23 = v14 + v9[10];
-    *v23 = 0;
-    v23[8] = 1;
     if (v18(v8, 1, v9) != 1)
     {
       outlined destroy of DateInterval?(v8, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
@@ -8984,10 +8744,40 @@ void (*ProtoSiriTaskEngagement.evaluationSummary.modify(uint64_t *a1))(uint64_t 
 uint64_t ProtoSiriTaskEngagement.siriTaskFeatureSet.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v15 - v5;
-  v7 = *(v1 + *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20));
+  v5 = &v13 - v4;
+  v6 = *(v1 + *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20));
+  v7 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__siriTaskFeatureSet;
+  swift_beginAccess();
+  outlined init with copy of ProtoSiriTaskInteractionType?(v6 + v7, v5, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+  v8 = type metadata accessor for ProtoTaskFeatureSet(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return outlined init with take of ProtoSiriTaskInteractionType(v5, a1, type metadata accessor for ProtoTaskFeatureSet);
+  }
+
+  v10 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
+  (*(*(v10 - 8) + 56))(a1, 1, 1, v10);
+  UnknownStorage.init()();
+  v11 = (a1 + *(v8 + 24));
+  *v11 = 0;
+  v11[1] = 0;
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return outlined destroy of DateInterval?(v5, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+  }
+
+  return result;
+}
+
+uint64_t key path getter for ProtoSiriTaskEngagement.siriTaskFeatureSet : ProtoSiriTaskEngagement@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v14 - v5;
+  v7 = *(a1 + *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20));
   v8 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__siriTaskFeatureSet;
   swift_beginAccess();
   outlined init with copy of ProtoSiriTaskInteractionType?(v7 + v8, v6, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
@@ -8995,16 +8785,15 @@ uint64_t ProtoSiriTaskEngagement.siriTaskFeatureSet.getter@<X0>(uint64_t a1@<X8>
   v10 = *(*(v9 - 8) + 48);
   if (v10(v6, 1, v9) != 1)
   {
-    return outlined init with take of ProtoSiriTaskInteractionType(v6, a1, type metadata accessor for ProtoTaskFeatureSet);
+    return outlined init with take of ProtoSiriTaskInteractionType(v6, a2, type metadata accessor for ProtoTaskFeatureSet);
   }
 
   v11 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
-  (*(*(v11 - 8) + 56))(a1, 1, 1, v11);
-  v12 = a1 + *(v9 + 20);
+  (*(*(v11 - 8) + 56))(a2, 1, 1, v11);
   UnknownStorage.init()();
-  v13 = (a1 + *(v9 + 24));
-  *v13 = 0;
-  v13[1] = 0;
+  v12 = (a2 + *(v9 + 24));
+  *v12 = 0;
+  v12[1] = 0;
   result = (v10)(v6, 1, v9);
   if (result != 1)
   {
@@ -9014,72 +8803,34 @@ uint64_t ProtoSiriTaskEngagement.siriTaskFeatureSet.getter@<X0>(uint64_t a1@<X8>
   return result;
 }
 
-uint64_t key path getter for ProtoSiriTaskEngagement.siriTaskFeatureSet : ProtoSiriTaskEngagement@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v16 - v6;
-  v8 = *(a1 + *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20));
-  v9 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__siriTaskFeatureSet;
-  swift_beginAccess();
-  outlined init with copy of ProtoSiriTaskInteractionType?(v8 + v9, v7, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-  v10 = type metadata accessor for ProtoTaskFeatureSet(0);
-  v11 = *(*(v10 - 8) + 48);
-  if (v11(v7, 1, v10) != 1)
-  {
-    return outlined init with take of ProtoSiriTaskInteractionType(v7, a2, type metadata accessor for ProtoTaskFeatureSet);
-  }
-
-  v12 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
-  (*(*(v12 - 8) + 56))(a2, 1, 1, v12);
-  v13 = a2 + *(v10 + 20);
-  UnknownStorage.init()();
-  v14 = (a2 + *(v10 + 24));
-  *v14 = 0;
-  v14[1] = 0;
-  result = (v11)(v7, 1, v10);
-  if (result != 1)
-  {
-    return outlined destroy of DateInterval?(v7, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-  }
-
-  return result;
-}
-
 uint64_t key path setter for ProtoSiriTaskEngagement.siriTaskFeatureSet : ProtoSiriTaskEngagement(uint64_t a1, uint64_t a2)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v23 - v6;
-  v8 = type metadata accessor for ProtoTaskFeatureSet(0);
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
-  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of ProtoSiriTaskInteractionType(a1, v12, type metadata accessor for ProtoTaskFeatureSet);
-  v13 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
-  v14 = *(a2 + v13);
+  v6 = &v17 - v5;
+  v7 = type metadata accessor for ProtoTaskFeatureSet(0);
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of ProtoSiriTaskInteractionType(a1, v10, type metadata accessor for ProtoTaskFeatureSet);
+  v11 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v16 = *(a2 + v13);
+  v13 = *(a2 + v11);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v17 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v18 = *(v17 + 48);
-    v19 = *(v17 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v20 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v16);
+    v14 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v13);
 
-    *(a2 + v13) = v20;
-    v16 = v20;
+    *(a2 + v11) = v14;
+    v13 = v14;
   }
 
-  outlined init with take of ProtoSiriTaskInteractionType(v12, v7, type metadata accessor for ProtoTaskFeatureSet);
-  (*(v9 + 56))(v7, 0, 1, v8);
-  v21 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__siriTaskFeatureSet;
+  outlined init with take of ProtoSiriTaskInteractionType(v10, v6, type metadata accessor for ProtoTaskFeatureSet);
+  (*(v8 + 56))(v6, 0, 1, v7);
+  v15 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__siriTaskFeatureSet;
   swift_beginAccess();
-  outlined assign with take of ProtoSiriTaskEvaluationSummary?(v7, v16 + v21, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+  outlined assign with take of ProtoSiriTaskEvaluationSummary?(v6, v13 + v15, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
   return swift_endAccess();
 }
 
@@ -9087,35 +8838,31 @@ uint64_t ProtoSiriTaskEngagement.siriTaskFeatureSet.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v19 - v6;
-  v8 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v14 - v5;
+  v7 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v15 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v11);
+    v10 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v9);
 
-    *(v2 + v8) = v15;
-    v11 = v15;
+    *(v2 + v7) = v10;
+    v9 = v10;
   }
 
-  outlined init with take of ProtoSiriTaskInteractionType(a1, v7, type metadata accessor for ProtoTaskFeatureSet);
-  v16 = type metadata accessor for ProtoTaskFeatureSet(0);
-  (*(*(v16 - 8) + 56))(v7, 0, 1, v16);
-  v17 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__siriTaskFeatureSet;
+  outlined init with take of ProtoSiriTaskInteractionType(a1, v6, type metadata accessor for ProtoTaskFeatureSet);
+  v11 = type metadata accessor for ProtoTaskFeatureSet(0);
+  (*(*(v11 - 8) + 56))(v6, 0, 1, v11);
+  v12 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__siriTaskFeatureSet;
   swift_beginAccess();
-  outlined assign with take of ProtoSiriTaskEvaluationSummary?(v7, v11 + v17, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+  outlined assign with take of ProtoSiriTaskEvaluationSummary?(v6, v9 + v12, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
   return swift_endAccess();
 }
 
-void (*ProtoSiriTaskEngagement.siriTaskFeatureSet.modify(uint64_t *a1))(uint64_t *a1, char a2)
+void (*ProtoSiriTaskEngagement.siriTaskFeatureSet.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   v3 = MEMORY[0x277D84FD8];
   if (MEMORY[0x277D84FD8])
@@ -9177,11 +8924,10 @@ void (*ProtoSiriTaskEngagement.siriTaskFeatureSet.modify(uint64_t *a1))(uint64_t
   {
     v19 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
     (*(*(v19 - 8) + 56))(v14, 1, 1, v19);
-    v20 = v14 + *(v9 + 20);
     UnknownStorage.init()();
-    v21 = (v14 + *(v9 + 24));
-    *v21 = 0;
-    v21[1] = 0;
+    v20 = (v14 + *(v9 + 24));
+    *v20 = 0;
+    v20[1] = 0;
     if (v18(v8, 1, v9) != 1)
     {
       outlined destroy of DateInterval?(v8, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
@@ -9204,76 +8950,70 @@ void ProtoSiriTaskEngagement.evaluationSummary.modify(uint64_t *a1, char a2, uin
   {
     v10 = *(v8 + 72);
     outlined init with copy of ProtoSiriTaskInteractionType(*(v8 + 120), *(v8 + 112), a3);
-    v11 = *(v10 + v9);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v13 = *(v10 + v9);
+    v12 = *(v10 + v9);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v14 = *(v8 + 128);
-      v15 = *(v8 + 72);
-      v16 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-      v17 = *(v16 + 48);
-      v18 = *(v16 + 52);
+      v13 = *(v8 + 128);
+      v14 = *(v8 + 72);
+      type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
       swift_allocObject();
-      v19 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v13);
+      v15 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v12);
 
-      *(v15 + v14) = v19;
-      v13 = v19;
+      *(v14 + v13) = v15;
+      v12 = v15;
     }
 
-    v21 = *(v8 + 112);
-    v20 = *(v8 + 120);
-    v22 = *(v8 + 96);
-    v23 = *(v8 + 104);
-    v25 = *(v8 + 80);
-    v24 = *(v8 + 88);
-    outlined init with take of ProtoSiriTaskInteractionType(v21, v25, a3);
-    (*(v23 + 56))(v25, 0, 1, v22);
-    v26 = *a4;
+    v17 = *(v8 + 112);
+    v16 = *(v8 + 120);
+    v18 = *(v8 + 96);
+    v19 = *(v8 + 104);
+    v21 = *(v8 + 80);
+    v20 = *(v8 + 88);
+    outlined init with take of ProtoSiriTaskInteractionType(v17, v21, a3);
+    (*(v19 + 56))(v21, 0, 1, v18);
+    v22 = *a4;
     swift_beginAccess();
-    outlined assign with take of ProtoSiriTaskEvaluationSummary?(v25, v13 + v26, a5, a6);
+    outlined assign with take of ProtoSiriTaskEvaluationSummary?(v21, v12 + v22, a5, a6);
     swift_endAccess();
-    outlined destroy of ProtoSiriTaskInteractionType(v20, a3);
+    outlined destroy of ProtoSiriTaskInteractionType(v16, a3);
   }
 
   else
   {
-    v27 = *(v8 + 72);
-    v28 = *(v27 + v9);
-    v29 = swift_isUniquelyReferenced_nonNull_native();
-    v30 = *(v27 + v9);
-    if ((v29 & 1) == 0)
+    v23 = *(v8 + 72);
+    v24 = swift_isUniquelyReferenced_nonNull_native();
+    v25 = *(v23 + v9);
+    if ((v24 & 1) == 0)
     {
-      v31 = *(v8 + 128);
-      v32 = *(v8 + 72);
-      v33 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-      v34 = *(v33 + 48);
-      v35 = *(v33 + 52);
+      v26 = *(v8 + 128);
+      v27 = *(v8 + 72);
+      type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
       swift_allocObject();
-      v36 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v30);
+      v28 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v25);
 
-      *(v32 + v31) = v36;
-      v30 = v36;
+      *(v27 + v26) = v28;
+      v25 = v28;
     }
 
-    v21 = *(v8 + 112);
-    v20 = *(v8 + 120);
-    v37 = *(v8 + 96);
-    v38 = *(v8 + 104);
-    v25 = *(v8 + 80);
-    v24 = *(v8 + 88);
-    outlined init with take of ProtoSiriTaskInteractionType(v20, v25, a3);
-    (*(v38 + 56))(v25, 0, 1, v37);
-    v39 = *a4;
+    v17 = *(v8 + 112);
+    v16 = *(v8 + 120);
+    v29 = *(v8 + 96);
+    v30 = *(v8 + 104);
+    v21 = *(v8 + 80);
+    v20 = *(v8 + 88);
+    outlined init with take of ProtoSiriTaskInteractionType(v16, v21, a3);
+    (*(v30 + 56))(v21, 0, 1, v29);
+    v31 = *a4;
     swift_beginAccess();
-    outlined assign with take of ProtoSiriTaskEvaluationSummary?(v25, v30 + v39, a5, a6);
+    outlined assign with take of ProtoSiriTaskEvaluationSummary?(v21, v25 + v31, a5, a6);
     swift_endAccess();
   }
 
+  free(v16);
+  free(v17);
   free(v20);
   free(v21);
-  free(v24);
-  free(v25);
 
   free(v8);
 }
@@ -9281,47 +9021,42 @@ void ProtoSiriTaskEngagement.evaluationSummary.modify(uint64_t *a1, char a2, uin
 BOOL ProtoSiriTaskEngagement.hasEvaluationSummary.getter(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t (*a4)(void))
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v18 - v11;
-  v13 = *(v4 + *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20));
-  v14 = *a3;
+  v11 = &v17 - v10;
+  v12 = *(v4 + *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20));
+  v13 = *a3;
   swift_beginAccess();
-  outlined init with copy of ProtoSiriTaskInteractionType?(v13 + v14, v12, a1, a2);
-  v15 = a4(0);
-  v16 = (*(*(v15 - 8) + 48))(v12, 1, v15) != 1;
-  outlined destroy of DateInterval?(v12, a1, a2);
-  return v16;
+  outlined init with copy of ProtoSiriTaskInteractionType?(v12 + v13, v11, a1, a2);
+  v14 = a4(0);
+  v15 = (*(*(v14 - 8) + 48))(v11, 1, v14) != 1;
+  outlined destroy of DateInterval?(v11, a1, a2);
+  return v15;
 }
 
 uint64_t ProtoSiriTaskEngagement.clearEvaluationSummary()(uint64_t *a1, uint64_t *a2, uint64_t (*a3)(void), uint64_t *a4)
 {
   v9 = v4;
   v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
-  v11 = *(*(v10 - 8) + 64);
   MEMORY[0x28223BE20](v10 - 8);
-  v13 = &v25 - v12;
-  v14 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
-  v15 = *(v4 + v14);
+  v12 = &v20 - v11;
+  v13 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v17 = *(v4 + v14);
+  v15 = *(v4 + v13);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v18 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v19 = *(v18 + 48);
-    v20 = *(v18 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v21 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v17);
+    v16 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v15);
 
-    *(v9 + v14) = v21;
-    v17 = v21;
+    *(v9 + v13) = v16;
+    v15 = v16;
   }
 
-  v22 = a3(0);
-  (*(*(v22 - 8) + 56))(v13, 1, 1, v22);
-  v23 = *a4;
+  v17 = a3(0);
+  (*(*(v17 - 8) + 56))(v12, 1, 1, v17);
+  v18 = *a4;
   swift_beginAccess();
-  outlined assign with take of ProtoSiriTaskEvaluationSummary?(v13, v17 + v23, a1, a2);
+  outlined assign with take of ProtoSiriTaskEvaluationSummary?(v12, v15 + v18, a1, a2);
   return swift_endAccess();
 }
 
@@ -9358,25 +9093,22 @@ uint64_t key path setter for ProtoSiriTaskEngagement.followupTimeWindowInMs : Pr
 {
   v3 = *a1;
   v4 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
-  v5 = *(a2 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(a2 + v4);
+  v6 = *(a2 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v11 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v7);
+    v7 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v6);
 
-    *(a2 + v4) = v11;
-    v7 = v11;
+    *(a2 + v4) = v7;
+    v6 = v7;
   }
 
-  v12 = v7 + OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__followupTimeWindowInMs;
+  v8 = v6 + OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__followupTimeWindowInMs;
   result = swift_beginAccess();
-  *v12 = v3;
-  v12[8] = 0;
+  *v8 = v3;
+  v8[8] = 0;
   return result;
 }
 
@@ -9384,29 +9116,26 @@ uint64_t ProtoSiriTaskEngagement.followupTimeWindowInMs.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
-  v5 = *(v1 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v1 + v4);
+  v6 = *(v1 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v11 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v7);
+    v7 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v6);
 
-    *(v2 + v4) = v11;
-    v7 = v11;
+    *(v2 + v4) = v7;
+    v6 = v7;
   }
 
-  v12 = v7 + OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__followupTimeWindowInMs;
+  v8 = v6 + OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__followupTimeWindowInMs;
   result = swift_beginAccess();
-  *v12 = a1;
-  v12[8] = 0;
+  *v8 = a1;
+  v8[8] = 0;
   return result;
 }
 
-void (*ProtoSiriTaskEngagement.followupTimeWindowInMs.modify(uint64_t *a1))(uint64_t *a1)
+void (*ProtoSiriTaskEngagement.followupTimeWindowInMs.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -9435,35 +9164,32 @@ void (*ProtoSiriTaskEngagement.followupTimeWindowInMs.modify(uint64_t *a1))(uint
   return ProtoSiriTaskEngagement.followupTimeWindowInMs.modify;
 }
 
-void ProtoSiriTaskEngagement.followupTimeWindowInMs.modify(uint64_t *a1)
+void ProtoSiriTaskEngagement.followupTimeWindowInMs.modify(uint64_t *a1, char a2)
 {
-  v1 = *a1;
-  v2 = *(*a1 + 72);
-  v3 = *(*a1 + 88);
-  v4 = *(*a1 + 80);
-  v5 = *(v4 + v3);
+  v2 = *a1;
+  v3 = *(*a1 + 72);
+  v4 = *(*a1 + 88);
+  v5 = *(*a1 + 80);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v4 + v3);
+  v7 = *(v5 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = *(v1 + 88);
-    v9 = *(v1 + 80);
-    v10 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
+    v8 = *(v2 + 88);
+    v9 = *(v2 + 80);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v13 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v7);
+    v10 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v7);
 
-    *(v9 + v8) = v13;
-    v7 = v13;
+    *(v9 + v8) = v10;
+    v7 = v10;
   }
 
-  v14 = v7 + OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__followupTimeWindowInMs;
+  v11 = v7 + OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__followupTimeWindowInMs;
   swift_beginAccess();
-  *v14 = v2;
-  v14[8] = 0;
+  *v11 = v3;
+  v11[8] = 0;
 
-  free(v1);
+  free(v2);
 }
 
 BOOL ProtoSiriTaskEngagement.hasFollowupTimeWindowInMs.getter()
@@ -9477,33 +9203,28 @@ Swift::Void __swiftcall ProtoSiriTaskEngagement.clearFollowupTimeWindowInMs()()
 {
   v1 = v0;
   v2 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v9 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v5);
+    v5 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = v5 + OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__followupTimeWindowInMs;
+  v6 = v4 + OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__followupTimeWindowInMs;
   swift_beginAccess();
-  *v10 = 0;
-  v10[8] = 1;
+  *v6 = 0;
+  v6[8] = 1;
 }
 
 uint64_t ProtoSiriTaskEngagement.followupUserInitatedEngagements.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20));
-  v2 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__followupUserInitatedEngagements;
+  type metadata accessor for ProtoSiriTaskEngagement(0);
   swift_beginAccess();
-  v3 = *(v1 + v2);
 }
 
 uint64_t key path getter for ProtoSiriTaskEngagement.followupUserInitatedEngagements : ProtoSiriTaskEngagement@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
@@ -9519,50 +9240,42 @@ uint64_t key path setter for ProtoSiriTaskEngagement.followupUserInitatedEngagem
   v3 = *a1;
   v4 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
 
-  v5 = *(a2 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(a2 + v4);
+  v6 = *(a2 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v11 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v7);
+    v7 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v6);
 
-    *(a2 + v4) = v11;
-    v7 = v11;
+    *(a2 + v4) = v7;
+    v6 = v7;
   }
 
-  v12 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__followupUserInitatedEngagements;
+  v8 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__followupUserInitatedEngagements;
   swift_beginAccess();
-  v13 = *(v7 + v12);
-  *(v7 + v12) = v3;
+  *(v6 + v8) = v3;
 }
 
 uint64_t ProtoSiriTaskEngagement.followupUserInitatedEngagements.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
-  v5 = *(v1 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v1 + v4);
+  v6 = *(v1 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v11 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v7);
+    v7 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v6);
 
-    *(v2 + v4) = v11;
-    v7 = v11;
+    *(v2 + v4) = v7;
+    v6 = v7;
   }
 
-  v12 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__followupUserInitatedEngagements;
+  v8 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__followupUserInitatedEngagements;
   swift_beginAccess();
-  v13 = *(v7 + v12);
-  *(v7 + v12) = a1;
+  *(v6 + v8) = a1;
 }
 
 void (*ProtoSiriTaskEngagement.followupUserInitatedEngagements.modify(uint64_t *a1))(uint64_t *a1, char a2)
@@ -9593,68 +9306,56 @@ void (*ProtoSiriTaskEngagement.followupUserInitatedEngagements.modify(uint64_t *
 void ProtoSiriTaskEngagement.followupUserInitatedEngagements.modify(uint64_t *a1, char a2)
 {
   v2 = *a1;
-  v4 = (*a1 + 72);
-  v3 = *v4;
-  v5 = *(*a1 + 88);
-  v6 = *(*a1 + 80);
+  v3 = *(*a1 + 72);
+  v4 = *(*a1 + 88);
+  v5 = *(*a1 + 80);
   if (a2)
   {
-    v7 = *(*a1 + 72);
 
-    v8 = *(v6 + v5);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v10 = *(v6 + v5);
+    v7 = *(v5 + v4);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v11 = *(v2 + 88);
-      v12 = *(v2 + 80);
-      v13 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-      v14 = *(v13 + 48);
-      v15 = *(v13 + 52);
+      v8 = *(v2 + 88);
+      v9 = *(v2 + 80);
+      type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
       swift_allocObject();
-      v16 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v10);
+      v10 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v7);
 
-      *(v12 + v11) = v16;
-      v10 = v16;
+      *(v9 + v8) = v10;
+      v7 = v10;
     }
 
-    v17 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__followupUserInitatedEngagements;
+    v11 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__followupUserInitatedEngagements;
     swift_beginAccess();
-    v18 = *(v10 + v17);
-    *(v10 + v17) = v3;
-
-    v19 = *v4;
+    *(v7 + v11) = v3;
   }
 
   else
   {
-    v20 = *(v6 + v5);
-    v21 = swift_isUniquelyReferenced_nonNull_native();
-    v22 = *(v6 + v5);
-    if ((v21 & 1) == 0)
+    v12 = swift_isUniquelyReferenced_nonNull_native();
+    v13 = *(v5 + v4);
+    if ((v12 & 1) == 0)
     {
-      v23 = *(v2 + 88);
-      v24 = *(v2 + 80);
-      v25 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-      v26 = *(v25 + 48);
-      v27 = *(v25 + 52);
+      v14 = *(v2 + 88);
+      v15 = *(v2 + 80);
+      type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
       swift_allocObject();
-      v28 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v22);
+      v16 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v13);
 
-      *(v24 + v23) = v28;
-      v22 = v28;
+      *(v15 + v14) = v16;
+      v13 = v16;
     }
 
-    v29 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__followupUserInitatedEngagements;
+    v17 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__followupUserInitatedEngagements;
     swift_beginAccess();
-    v30 = *(v22 + v29);
-    *(v22 + v29) = v3;
+    *(v13 + v17) = v3;
   }
 
   free(v2);
 }
 
-void (*ProtoSiriTaskEngagement.nextTaskID.modify(uint64_t *a1))(uint64_t *a1, char a2)
+void (*ProtoSiriTaskEngagement.nextTaskID.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -9734,55 +9435,47 @@ uint64_t key path setter for ProtoSiriTaskEngagement.nextTaskID : ProtoSiriTaskE
   v7 = a1[1];
   v9 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
 
-  v10 = *(a2 + v9);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v12 = *(a2 + v9);
+  v11 = *(a2 + v9);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v13 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v14 = *(v13 + 48);
-    v15 = *(v13 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v16 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v12);
+    v12 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v11);
 
-    *(a2 + v9) = v16;
-    v12 = v16;
+    *(a2 + v9) = v12;
+    v11 = v12;
   }
 
-  v17 = (v12 + *a5);
+  v13 = (v11 + *a5);
   swift_beginAccess();
-  v18 = v17[1];
-  *v17 = v8;
-  v17[1] = v7;
+  *v13 = v8;
+  v13[1] = v7;
 }
 
 uint64_t ProtoSiriTaskEngagement.nextTaskID.setter(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = v3;
   v8 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
-  v9 = *(v3 + v8);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v3 + v8);
+  v10 = *(v3 + v8);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
     swift_allocObject();
-    v15 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v11);
+    v11 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v10);
 
-    *(v5 + v8) = v15;
-    v11 = v15;
+    *(v5 + v8) = v11;
+    v10 = v11;
   }
 
-  v16 = (v11 + *a3);
+  v12 = (v10 + *a3);
   swift_beginAccess();
-  v17 = v16[1];
-  *v16 = a1;
-  v16[1] = a2;
+  *v12 = a1;
+  v12[1] = a2;
 }
 
-void (*ProtoSiriTaskEngagement.previousTaskID.modify(uint64_t *a1))(uint64_t *a1, char a2)
+void (*ProtoSiriTaskEngagement.previousTaskID.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -9828,59 +9521,353 @@ void ProtoSiriTaskEngagement.nextTaskID.modify(uint64_t *a1, char a2, void *a3)
   v8 = *(*a1 + 88);
   if (a2)
   {
-    v9 = *(*a1 + 80);
 
-    v10 = *(v8 + v6);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v12 = *(v8 + v6);
+    v10 = *(v8 + v6);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v13 = *(v4 + 96);
-      v14 = *(v4 + 88);
-      v15 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-      v16 = *(v15 + 48);
-      v17 = *(v15 + 52);
+      v11 = *(v4 + 96);
+      v12 = *(v4 + 88);
+      type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
       swift_allocObject();
-      v18 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v12);
+      v13 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v10);
 
-      *(v14 + v13) = v18;
-      v12 = v18;
+      *(v12 + v11) = v13;
+      v10 = v13;
     }
 
-    v19 = (v12 + *a3);
+    v14 = (v10 + *a3);
     swift_beginAccess();
-    v20 = v19[1];
-    *v19 = v5;
-    v19[1] = v7;
-
-    v21 = *(v4 + 80);
+    *v14 = v5;
+    v14[1] = v7;
   }
 
   else
   {
-    v22 = *(v8 + v6);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v8 + v6);
-    if ((v23 & 1) == 0)
+    v15 = swift_isUniquelyReferenced_nonNull_native();
+    v16 = *(v8 + v6);
+    if ((v15 & 1) == 0)
     {
-      v25 = *(v4 + 96);
-      v26 = *(v4 + 88);
-      v27 = type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
+      v17 = *(v4 + 96);
+      v18 = *(v4 + 88);
+      type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
       swift_allocObject();
-      v30 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v24);
+      v19 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v16);
 
-      *(v26 + v25) = v30;
-      v24 = v30;
+      *(v18 + v17) = v19;
+      v16 = v19;
     }
 
-    v31 = (v24 + *a3);
+    v20 = (v16 + *a3);
     swift_beginAccess();
-    v32 = v31[1];
-    *v31 = v5;
-    v31[1] = v7;
+    *v20 = v5;
+    v20[1] = v7;
   }
 
   free(v4);
+}
+
+BOOL ProtoSiriTaskEngagement.hasNextTaskID.getter(void *a1)
+{
+  v2 = *(v1 + *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20)) + *a1;
+  swift_beginAccess();
+  return *(v2 + 8) != 0;
+}
+
+uint64_t ProtoSiriTaskEngagement.clearNextTaskID()(void *a1)
+{
+  v3 = v1;
+  v4 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v6 = *(v1 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
+    swift_allocObject();
+    v7 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v6);
+
+    *(v3 + v4) = v7;
+    v6 = v7;
+  }
+
+  v8 = (v6 + *a1);
+  swift_beginAccess();
+  *v8 = 0;
+  v8[1] = 0;
+}
+
+uint64_t ProtoSiriTaskEngagement.engagementType.getter@<X0>(_BYTE *a1@<X8>)
+{
+  v3 = *(v1 + *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20));
+  v4 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__engagementType;
+  result = swift_beginAccess();
+  v6 = *(v3 + v4);
+  if (v6 == 14)
+  {
+    LOBYTE(v6) = 0;
+  }
+
+  *a1 = v6;
+  return result;
+}
+
+uint64_t key path getter for ProtoSiriTaskEngagement.engagementType : ProtoSiriTaskEngagement@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+{
+  v3 = *(a1 + *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20));
+  v4 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__engagementType;
+  result = swift_beginAccess();
+  v6 = *(v3 + v4);
+  if (v6 == 14)
+  {
+    LOBYTE(v6) = 0;
+  }
+
+  *a2 = v6;
+  return result;
+}
+
+void (*ProtoSiriTaskEngagement.engagementType.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  v7 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__engagementType;
+  swift_beginAccess();
+  v8 = *(v6 + v7);
+  if (v8 == 14)
+  {
+    LOBYTE(v8) = 0;
+  }
+
+  *(v4 + 84) = v8;
+  return ProtoSiriTaskEngagement.engagementType.modify;
+}
+
+BOOL ProtoSiriTaskEngagement.hasEngagementType.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20));
+  v2 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__engagementType;
+  swift_beginAccess();
+  return *(v1 + v2) != 14;
+}
+
+uint64_t ProtoSiriTaskEngagement.domainType.getter@<X0>(_BYTE *a1@<X8>)
+{
+  v3 = *(v1 + *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20));
+  v4 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__domainType;
+  result = swift_beginAccess();
+  v6 = *(v3 + v4);
+  if (v6 == 9)
+  {
+    LOBYTE(v6) = 0;
+  }
+
+  *a1 = v6;
+  return result;
+}
+
+uint64_t key path getter for ProtoSiriTaskEngagement.domainType : ProtoSiriTaskEngagement@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+{
+  v3 = *(a1 + *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20));
+  v4 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__domainType;
+  result = swift_beginAccess();
+  v6 = *(v3 + v4);
+  if (v6 == 9)
+  {
+    LOBYTE(v6) = 0;
+  }
+
+  *a2 = v6;
+  return result;
+}
+
+uint64_t key path setter for ProtoSiriTaskEngagement.engagementType : ProtoSiriTaskEngagement(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+{
+  v7 = *a1;
+  v8 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v10 = *(a2 + v8);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
+    swift_allocObject();
+    v11 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v10);
+
+    *(a2 + v8) = v11;
+    v10 = v11;
+  }
+
+  v12 = *a5;
+  result = swift_beginAccess();
+  *(v10 + v12) = v7;
+  return result;
+}
+
+uint64_t ProtoSiriTaskEngagement.engagementType.setter(char *a1, uint64_t *a2)
+{
+  v4 = v2;
+  v5 = *a1;
+  v6 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v8 = *(v2 + v6);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
+    swift_allocObject();
+    v9 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v8);
+
+    *(v4 + v6) = v9;
+    v8 = v9;
+  }
+
+  v10 = *a2;
+  result = swift_beginAccess();
+  *(v8 + v10) = v5;
+  return result;
+}
+
+void (*ProtoSiriTaskEngagement.domainType.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  if (MEMORY[0x277D84FD8])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  v7 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__domainType;
+  swift_beginAccess();
+  v8 = *(v6 + v7);
+  if (v8 == 9)
+  {
+    LOBYTE(v8) = 0;
+  }
+
+  *(v4 + 84) = v8;
+  return ProtoSiriTaskEngagement.domainType.modify;
+}
+
+void ProtoSiriTaskEngagement.engagementType.modify(uint64_t *a1, char a2, uint64_t *a3)
+{
+  v4 = *a1;
+  v5 = *(*a1 + 84);
+  v6 = *(*a1 + 80);
+  v7 = *(*a1 + 72);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v7 + v6);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v10 = *(v4 + 80);
+    v11 = *(v4 + 72);
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
+    swift_allocObject();
+    v12 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v9);
+
+    *(v11 + v10) = v12;
+    v9 = v12;
+  }
+
+  v13 = *a3;
+  swift_beginAccess();
+  *(v9 + v13) = v5;
+
+  free(v4);
+}
+
+BOOL ProtoSiriTaskEngagement.hasDomainType.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20));
+  v2 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__domainType;
+  swift_beginAccess();
+  return *(v1 + v2) != 9;
+}
+
+uint64_t ProtoSiriTaskEngagement.clearEngagementType()(uint64_t *a1, char a2)
+{
+  v5 = v2;
+  v6 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v8 = *(v2 + v6);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for ProtoSiriTaskEngagement._StorageClass(0);
+    swift_allocObject();
+    v9 = specialized ProtoSiriTaskEngagement._StorageClass.init(copying:)(v8);
+
+    *(v5 + v6) = v9;
+    v8 = v9;
+  }
+
+  v10 = *a1;
+  result = swift_beginAccess();
+  *(v8 + v10) = a2;
+  return result;
+}
+
+uint64_t ProtoSiriTaskEngagement.init()@<X0>(uint64_t a2@<X8>)
+{
+  UnknownStorage.init()();
+  v3 = *(type metadata accessor for ProtoSiriTaskEngagement(0) + 20);
+  if (one-time initialization token for defaultInstance != -1)
+  {
+    swift_once();
+  }
+
+  *(a2 + v3) = static ProtoSiriTaskEngagement._StorageClass.defaultInstance;
+}
+
+uint64_t ProtoSiriTaskInteractionType.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = dispatch thunk of Decoder.nextFieldNumber()();
+  if (!v3)
+  {
+    while (1)
+    {
+      if (v5)
+      {
+        return result;
+      }
+
+      if (result > 2)
+      {
+        if (result == 3 || result == 4)
+        {
+LABEL_9:
+          type metadata accessor for ProtoSiriTaskInteractionType(0);
+          dispatch thunk of Decoder.decodeSingularBoolField(value:)();
+        }
+      }
+
+      else if (result == 1 || result == 2)
+      {
+        goto LABEL_9;
+      }
+
+      result = dispatch thunk of Decoder.nextFieldNumber()();
+    }
+  }
+
+  return result;
 }

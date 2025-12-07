@@ -12,6 +12,9 @@
 - (void)_pressedTableView;
 - (void)_setFunctionalThresholdPower:(id)power;
 - (void)setConfiguration:(id)configuration;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HPRFSessionTrackerAppCyclingPowerFTPViewController
@@ -34,6 +37,39 @@
   }
 
   return v10;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = HPRFSessionTrackerAppCyclingPowerFTPViewController;
+  [(HPRFSessionTrackerAppCyclingPowerFTPViewController *)&v7 viewWillAppear:appear];
+  table = [(HPRFSessionTrackerAppCyclingPowerFTPViewController *)self table];
+  tapGesture = [(HPRFSessionTrackerAppCyclingPowerFTPViewController *)self tapGesture];
+  [table addGestureRecognizer:tapGesture];
+
+  v6 = +[NSNotificationCenter defaultCenter];
+  [v6 addObserver:self selector:"_didBeginEditing:" name:UITextFieldTextDidBeginEditingNotification object:0];
+
+  [(HPRFSessionTrackerAppCyclingPowerFTPViewController *)self reloadSpecifiers];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  editableTextField = [(HPRFSessionTrackerAppCyclingPowerFTPViewController *)self editableTextField];
+  [editableTextField becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = HPRFSessionTrackerAppCyclingPowerFTPViewController;
+  [(HPRFSessionTrackerAppCyclingPowerFTPViewController *)&v6 viewWillDisappear:disappear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 removeObserver:self name:UITextFieldTextDidBeginEditingNotification object:0];
+
+  table = [(HPRFSessionTrackerAppCyclingPowerFTPViewController *)self table];
+  [table endEditing:1];
 }
 
 - (id)localizedPaneTitle

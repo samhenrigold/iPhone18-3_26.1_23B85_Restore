@@ -7,7 +7,7 @@
 - (void)didFinishFetchingCustodians
 {
 
-  sub_1C5582824();
+  sub_1C5582824(v2, v3);
 }
 
 @end

@@ -8,13 +8,12 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v5 = *(&self->super.isa + OBJC_IVAR____TtC9Archetype23ATArrayOfCalendarEvents_calendarEvents);
   type metadata accessor for ATCalendarEvent();
   coderCopy = coder;
   selfCopy = self;
-  v7 = sub_240FAE9C0();
-  v8 = sub_240FAE970();
-  [coderCopy encodeObject:v7 forKey:v8];
+  v6 = sub_240FAE9C0();
+  v7 = sub_240FAE970();
+  [coderCopy encodeObject:v6 forKey:v7];
 }
 
 - (_TtC9Archetype23ATArrayOfCalendarEvents)initWithCoder:(id)coder

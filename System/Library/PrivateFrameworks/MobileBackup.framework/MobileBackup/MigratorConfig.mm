@@ -33,14 +33,13 @@
 {
   v3 = type metadata accessor for URL();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (self->state[OBJC_IVAR____TtC7backupd14MigratorConfig_state + 8] == 1)
   {
-    v8 = *(&self->super.isa + OBJC_IVAR____TtC7backupd14MigratorConfig_state);
+    v7 = *(&self->super.isa + OBJC_IVAR____TtC7backupd14MigratorConfig_state);
     selfCopy = self;
-    persona = [v8 persona];
+    persona = [v7 persona];
     demotedAppsPlistPath = [persona demotedAppsPlistPath];
 
     static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -53,11 +52,11 @@
     URL.init(fileURLWithPath:isDirectory:)();
   }
 
-  URL._bridgeToObjectiveC()(v12);
-  v15 = v14;
-  (*(v4 + 8))(v7, v3);
+  URL._bridgeToObjectiveC()(v11);
+  v14 = v13;
+  (*(v4 + 8))(v6, v3);
 
-  return v15;
+  return v14;
 }
 
 - (MBServiceAccount)account
@@ -80,7 +79,6 @@
   v2 = *(&self->super.isa + OBJC_IVAR____TtC7backupd14MigratorConfig_state);
   if (!self->state[OBJC_IVAR____TtC7backupd14MigratorConfig_state + 8])
   {
-    v6 = *&self->state[OBJC_IVAR____TtC7backupd14MigratorConfig_state];
 
     goto LABEL_5;
   }
@@ -93,15 +91,15 @@
 
     static String._unconditionallyBridgeFromObjectiveC(_:)();
 LABEL_5:
-    v7 = String._bridgeToObjectiveC()();
+    v6 = String._bridgeToObjectiveC()();
 
     goto LABEL_7;
   }
 
-  v7 = 0;
+  v6 = 0;
 LABEL_7:
 
-  return v7;
+  return v6;
 }
 
 - (BOOL)isDataSeparated

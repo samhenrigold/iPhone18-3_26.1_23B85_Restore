@@ -176,15 +176,15 @@
 
 - (void)setGradientColors:(id)colors locations:(id)locations
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   colorsCopy = colors;
   locationsCopy = locations;
   objc_storeStrong(&self->_gradientColors, colors);
   if (self->_monochromeFraction == 1.0)
   {
     whiteColor = [MEMORY[0x277D75348] whiteColor];
-    v26[0] = whiteColor;
-    v10 = v26;
+    v25[0] = whiteColor;
+    v10 = v25;
   }
 
   else
@@ -194,38 +194,38 @@
       goto LABEL_5;
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     whiteColor = colorsCopy;
-    v14 = [whiteColor countByEnumeratingWithState:&v20 objects:v25 count:16];
-    if (v14)
+    v13 = [whiteColor countByEnumeratingWithState:&v19 objects:v24 count:16];
+    if (v13)
     {
-      v15 = v14;
-      v16 = *v21;
+      v14 = v13;
+      v15 = *v20;
       while (2)
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v21 != v16)
+          if (*v20 != v15)
           {
             objc_enumerationMutation(whiteColor);
           }
 
-          v18 = *(*(&v20 + 1) + 8 * i);
+          v17 = *(*(&v19 + 1) + 8 * i);
           firstObject = [whiteColor firstObject];
-          LODWORD(v18) = [v18 isEqual:firstObject];
+          LODWORD(v17) = [v17 isEqual:firstObject];
 
-          if (!v18)
+          if (!v17)
           {
             v11 = whiteColor;
             goto LABEL_4;
           }
         }
 
-        v15 = [whiteColor countByEnumeratingWithState:&v20 objects:v25 count:16];
-        if (v15)
+        v14 = [whiteColor countByEnumeratingWithState:&v19 objects:v24 count:16];
+        if (v14)
         {
           continue;
         }
@@ -235,11 +235,11 @@
     }
 
     whiteColor = [whiteColor firstObject];
-    v24 = whiteColor;
-    v10 = &v24;
+    v23 = whiteColor;
+    v10 = &v23;
   }
 
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:{1, v20}];
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:{1, v19}];
 
 LABEL_4:
   colorsCopy = v11;
@@ -250,8 +250,6 @@ LABEL_5:
     objc_storeStrong(&self->_gradientLocations, locations);
     [(CDRichComplicationShapeView *)self _updateGradient];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updatePath
@@ -307,7 +305,7 @@ LABEL_5:
 
 - (void)_updateGradient
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CD9FF0] begin];
   [MEMORY[0x277CD9FF0] setDisableActions:1];
   [(CDRichComplicationShapeView *)self unfreezeForTransaction];
@@ -324,30 +322,30 @@ LABEL_5:
   {
     array = [MEMORY[0x277CBEB18] array];
     v5 = [(CDRichComplicationShapeView *)self _normalizeGradientLocations:self->_gradientLocations];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v6 = self->_filteredGradientColors;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v23;
+      v9 = *v22;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v23 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v22 + 1) + 8 * i);
-          [array addObject:{objc_msgSend(v11, "CGColor", v22)}];
+          v11 = *(*(&v21 + 1) + 8 * i);
+          [array addObject:{objc_msgSend(v11, "CGColor", v21)}];
         }
 
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v8);
@@ -382,7 +380,6 @@ LABEL_5:
   }
 
   [MEMORY[0x277CD9FF0] commit];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_shapeStrokeColor
@@ -410,7 +407,7 @@ LABEL_5:
 
 - (void)_setupGradientLayer:(id)layer
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self);
   OUTLINED_FUNCTION_0();
 
   NSRequestConcreteImplementation();
@@ -418,7 +415,7 @@ LABEL_5:
 
 - (double)_shapeLineWidth
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self);
   OUTLINED_FUNCTION_0();
   NSRequestConcreteImplementation();
   return 0.0;
@@ -426,7 +423,7 @@ LABEL_5:
 
 - (CGPoint)_pointAtProgress:(float)progress
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self);
   OUTLINED_FUNCTION_0();
   NSRequestConcreteImplementation();
   v3 = *MEMORY[0x277CBF348];
@@ -438,7 +435,7 @@ LABEL_5:
 
 - (id)_normalizeGradientLocations:(id)locations
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self);
   OUTLINED_FUNCTION_0();
   NSRequestConcreteImplementation();
   return 0;
@@ -446,7 +443,7 @@ LABEL_5:
 
 - (CGPath)_generatePath
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self);
   OUTLINED_FUNCTION_0();
   NSRequestConcreteImplementation();
   return 0;
@@ -454,7 +451,7 @@ LABEL_5:
 
 - (BOOL)_shouldReverseGradient
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self);
   OUTLINED_FUNCTION_0();
   NSRequestConcreteImplementation();
   return 0;

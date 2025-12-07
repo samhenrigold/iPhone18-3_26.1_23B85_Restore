@@ -6,21 +6,17 @@
 
 + (id)newAssertionWithReason:(id)reason
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  if (reason)
+  v8[1] = *MEMORY[0x1E69E9840];
+  if (!reason)
   {
-    v5 = @"kCLConnectionMessagePurposeKey";
-    v6[0] = reason;
-    result = -[CLAssertion initWithRegistrationMessageName:messageDictionary:]([CLLocationIndependenceAssertion alloc], "initWithRegistrationMessageName:messageDictionary:", "LocationIndependenceAssertion/kCLConnectionMessage", [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1]);
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v7 = @"kCLConnectionMessagePurposeKey";
+  v8[0] = reason;
+  v3 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v8, &v7, 1);
+  v4 = [CLLocationIndependenceAssertion alloc];
+  return objc_msgSend_initWithRegistrationMessageName_messageDictionary_(v4, v5, "LocationIndependenceAssertion/kCLConnectionMessage", v3);
 }
 
 @end

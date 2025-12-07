@@ -62,11 +62,11 @@
   v6 = sub_29E2BCFB4();
   v7 = *(v6 - 8);
   MEMORY[0x2A1C7C4A8](v6);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_29E2BCF44();
   viewCopy = view;
   selfCopy = self;
-  sub_29E1FE89C(viewCopy);
+  sub_29E1FE89C(viewCopy, v12);
 
   (*(v7 + 8))(v9, v6);
 }

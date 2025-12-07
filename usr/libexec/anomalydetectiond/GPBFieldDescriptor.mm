@@ -1,5 +1,6 @@
 @interface GPBFieldDescriptor
 - ($452E035DCF5B90C660B45AC6A1361EDE)defaultValue;
+- (BOOL)isValidEnumValue:(int)value;
 - (GPBEnumDescriptor)enumDescriptor;
 - (GPBFieldDescriptor)init;
 - (GPBFieldDescriptor)initWithFieldDescription:(void *)description includesDefault:(BOOL)default usesClassRefs:(BOOL)refs proto3OptionalKnown:(BOOL)known syntax:(unsigned __int8)syntax;
@@ -235,6 +236,25 @@ LABEL_29:
   return 7;
 }
 
+- (BOOL)isValidEnumValue:(int)value
+{
+  v3 = *&value;
+  description = self->description_;
+  if (description->var6 != 17)
+  {
+    [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInMethod:"handleFailureInMethod:object:file:lineNumber:description:" object:a2 file:self lineNumber:@"GPBDescriptor.m" description:670, @"Field Must be of type GPBDataTypeEnum"];
+    description = self->description_;
+  }
+
+  enumDescriptor = self->enumHandling_.enumDescriptor_;
+  if ((description->var5 & 0x80) != 0)
+  {
+    enumDescriptor = [(GPBEnumDescriptor *)self->enumHandling_.enumDescriptor_ enumVerifier];
+  }
+
+  return (enumDescriptor)(v3);
+}
+
 - (GPBEnumDescriptor)enumDescriptor
 {
   if ((self->description_->var5 & 0x80) != 0)
@@ -257,7 +277,7 @@ LABEL_29:
     var6 = description->var6;
     if (var6 == 13 && valueInt64 == 0)
     {
-      return GPBEmptyNSData();
+      return GPBEmptyNSData(valueInt64, a2);
     }
 
     else

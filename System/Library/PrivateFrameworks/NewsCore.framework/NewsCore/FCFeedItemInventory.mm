@@ -132,16 +132,16 @@
 
 - (id)allFeedItemScoreProfilesForConfigurationSet:(int64_t)set scoringVersion:(unint64_t)version
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   [(FCFeedItemInventory *)self _prepareForUse];
   v7 = [FCMapTable mapTableWithKeyOptions:512 valueOptions:0];
   latestInventory = [(FCFeedItemInventory *)self latestInventory];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   feedItems = [latestInventory feedItems];
-  v10 = [feedItems countByEnumeratingWithState:&v28 objects:v38 count:16];
+  v10 = [feedItems countByEnumeratingWithState:&v27 objects:v37 count:16];
   if (!v10)
   {
 
@@ -150,21 +150,21 @@
 
   v11 = v10;
   selfCopy = self;
-  v27 = latestInventory;
-  v12 = *v29;
+  v26 = latestInventory;
+  v12 = *v28;
   while (2)
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v29 != v12)
+      if (*v28 != v12)
       {
         objc_enumerationMutation(feedItems);
       }
 
-      v14 = *(*(&v28 + 1) + 8 * i);
+      v14 = *(*(&v27 + 1) + 8 * i);
       if (set == 11)
       {
-        scoreProfiles = [*(*(&v28 + 1) + 8 * i) scoreProfiles];
+        scoreProfiles = [*(*(&v27 + 1) + 8 * i) scoreProfiles];
         forYouGroupScoreProfile = [scoreProfiles forYouGroupScoreProfile];
       }
 
@@ -176,20 +176,20 @@
           {
             v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case not implemented"];
             *buf = 136315906;
-            v33 = "[FCFeedItemInventory allFeedItemScoreProfilesForConfigurationSet:scoringVersion:]";
-            v34 = 2080;
-            v35 = "FCFeedItemInventory.m";
-            v36 = 1024;
-            LODWORD(v37[0]) = 128;
-            WORD2(v37[0]) = 2114;
-            *(v37 + 6) = v19;
+            v32 = "[FCFeedItemInventory allFeedItemScoreProfilesForConfigurationSet:scoringVersion:]";
+            v33 = 2080;
+            v34 = "FCFeedItemInventory.m";
+            v35 = 1024;
+            LODWORD(v36[0]) = 128;
+            WORD2(v36[0]) = 2114;
+            *(v36 + 6) = v19;
             _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
           }
 
           continue;
         }
 
-        scoreProfiles = [*(*(&v28 + 1) + 8 * i) scoreProfiles];
+        scoreProfiles = [*(*(&v27 + 1) + 8 * i) scoreProfiles];
         forYouGroupScoreProfile = [scoreProfiles defaultScoreProfile];
       }
 
@@ -206,16 +206,16 @@
             loggingKey = [(FCFeedItemInventory *)selfCopy loggingKey];
             scoringVersion = [v17 scoringVersion];
             *buf = 138543874;
-            v33 = loggingKey;
-            v34 = 2048;
-            v35 = scoringVersion;
-            v36 = 2048;
-            v37[0] = version;
+            v32 = loggingKey;
+            v33 = 2048;
+            v34 = scoringVersion;
+            v35 = 2048;
+            v36[0] = version;
             _os_log_impl(&dword_1B63EF000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] rescoring inventory because cached scored version of %llu doesn't match %llu", buf, 0x20u);
           }
 
-          latestInventory = v27;
-          [(FCFeedItemInventory *)selfCopy _rescoreInventoryIfNeeded:v27 forScoringVersion:version];
+          latestInventory = v26;
+          [(FCFeedItemInventory *)selfCopy _rescoreInventoryIfNeeded:v26 forScoringVersion:version];
           goto LABEL_22;
         }
 
@@ -224,7 +224,7 @@
       }
     }
 
-    v11 = [feedItems countByEnumeratingWithState:&v28 objects:v38 count:16];
+    v11 = [feedItems countByEnumeratingWithState:&v27 objects:v37 count:16];
     if (v11)
     {
       continue;
@@ -233,10 +233,8 @@
     break;
   }
 
-  latestInventory = v27;
+  latestInventory = v26;
 LABEL_22:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -281,62 +279,60 @@ uint64_t __45__FCFeedItemInventory_allFeedItemsWithTopic___block_invoke(uint64_t
 
 - (void)operationThrottler:(id)throttler performAsyncOperationWithCompletion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   throttlerCopy = throttler;
   completionCopy = completion;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__80;
-  v27 = __Block_byref_object_dispose__80;
-  v28 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__80;
+  v26 = __Block_byref_object_dispose__80;
+  v27 = 0;
   articleIDsToRescoreLock = [(FCFeedItemInventory *)self articleIDsToRescoreLock];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __78__FCFeedItemInventory_operationThrottler_performAsyncOperationWithCompletion___block_invoke;
-  v22[3] = &unk_1E7C37160;
-  v22[4] = self;
-  v22[5] = &v23;
-  [articleIDsToRescoreLock performWithLockSync:v22];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __78__FCFeedItemInventory_operationThrottler_performAsyncOperationWithCompletion___block_invoke;
+  v21[3] = &unk_1E7C37160;
+  v21[4] = self;
+  v21[5] = &v22;
+  [articleIDsToRescoreLock performWithLockSync:v21];
 
   v9 = FCFeedItemInventoryLog;
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     loggingKey = [(FCFeedItemInventory *)self loggingKey];
-    v11 = [v24[5] count];
+    v11 = [v23[5] count];
     *buf = 138543618;
-    v30 = loggingKey;
-    v31 = 2048;
-    v32 = v11;
+    v29 = loggingKey;
+    v30 = 2048;
+    v31 = v11;
     _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] processing %ld article IDs for targeted rescoring", buf, 0x16u);
   }
 
-  if ([v24[5] count])
+  if ([v23[5] count])
   {
     feedItemsRefreshSerialQueue = [(FCFeedItemInventory *)self feedItemsRefreshSerialQueue];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __78__FCFeedItemInventory_operationThrottler_performAsyncOperationWithCompletion___block_invoke_2;
-    v14[3] = &unk_1E7C45EE0;
-    v14[4] = self;
-    v16 = &v23;
-    v15 = completionCopy;
-    [feedItemsRefreshSerialQueue enqueueBlock:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __78__FCFeedItemInventory_operationThrottler_performAsyncOperationWithCompletion___block_invoke_2;
+    v13[3] = &unk_1E7C45EE0;
+    v13[4] = self;
+    v15 = &v22;
+    v14 = completionCopy;
+    [feedItemsRefreshSerialQueue enqueueBlock:v13];
   }
 
   else
   {
-    v17 = MEMORY[0x1E69E9820];
-    v18 = 3221225472;
-    v19 = __78__FCFeedItemInventory_operationThrottler_performAsyncOperationWithCompletion___block_invoke_19;
-    v20 = &unk_1E7C379C8;
-    v21 = completionCopy;
-    v21[2]();
+    v16 = MEMORY[0x1E69E9820];
+    v17 = 3221225472;
+    v18 = __78__FCFeedItemInventory_operationThrottler_performAsyncOperationWithCompletion___block_invoke_19;
+    v19 = &unk_1E7C379C8;
+    v20 = completionCopy;
+    v20[2]();
   }
 
-  _Block_object_dispose(&v23, 8);
-
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v22, 8);
 }
 
 void __78__FCFeedItemInventory_operationThrottler_performAsyncOperationWithCompletion___block_invoke(uint64_t a1)
@@ -353,16 +349,16 @@ void __78__FCFeedItemInventory_operationThrottler_performAsyncOperationWithCompl
 
 void __78__FCFeedItemInventory_operationThrottler_performAsyncOperationWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) latestInventory];
   v5 = [v4 feedItems];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __78__FCFeedItemInventory_operationThrottler_performAsyncOperationWithCompletion___block_invoke_3;
-  v15[3] = &unk_1E7C45EB8;
-  v15[4] = *(a1 + 48);
-  v6 = [v5 fc_arrayOfObjectsPassingTest:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __78__FCFeedItemInventory_operationThrottler_performAsyncOperationWithCompletion___block_invoke_3;
+  v14[3] = &unk_1E7C45EB8;
+  v14[4] = *(a1 + 48);
+  v6 = [v5 fc_arrayOfObjectsPassingTest:v14];
 
   v7 = FCFeedItemInventoryLog;
   if (os_log_type_enabled(FCFeedItemInventoryLog, OS_LOG_TYPE_DEFAULT))
@@ -372,9 +368,9 @@ void __78__FCFeedItemInventory_operationThrottler_performAsyncOperationWithCompl
     v10 = [v8 loggingKey];
     v11 = [v6 count];
     *buf = 138543618;
-    v17 = v10;
-    v18 = 2048;
-    v19 = v11;
+    v16 = v10;
+    v17 = 2048;
+    v18 = v11;
     _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] identified %ld feed items for targeted rescoring", buf, 0x16u);
   }
 
@@ -388,13 +384,11 @@ void __78__FCFeedItemInventory_operationThrottler_performAsyncOperationWithCompl
 
   else
   {
-    v13 = v3;
-    v14 = *(a1 + 40);
-    v13[2](v13);
-    v14[2]();
+    v12 = v3;
+    v13 = *(a1 + 40);
+    v12[2](v12);
+    v13[2]();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __78__FCFeedItemInventory_operationThrottler_performAsyncOperationWithCompletion___block_invoke_3(uint64_t a1, void *a2)
@@ -416,26 +410,26 @@ uint64_t __78__FCFeedItemInventory_operationThrottler_performAsyncOperationWithC
 
 - (void)readingHistory:(id)history didChangeFeaturesForArticles:(id)articles
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   articlesCopy = articles;
   v6 = objc_opt_new();
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __67__FCFeedItemInventory_readingHistory_didChangeFeaturesForArticles___block_invoke;
-  v18[3] = &unk_1E7C41CC8;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __67__FCFeedItemInventory_readingHistory_didChangeFeaturesForArticles___block_invoke;
+  v17[3] = &unk_1E7C41CC8;
   v7 = v6;
-  v19 = v7;
-  [articlesCopy enumerateKeysAndObjectsUsingBlock:v18];
+  v18 = v7;
+  [articlesCopy enumerateKeysAndObjectsUsingBlock:v17];
 
   articleIDsToRescoreLock = [(FCFeedItemInventory *)self articleIDsToRescoreLock];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __67__FCFeedItemInventory_readingHistory_didChangeFeaturesForArticles___block_invoke_2;
-  v16[3] = &unk_1E7C36C58;
-  v16[4] = self;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __67__FCFeedItemInventory_readingHistory_didChangeFeaturesForArticles___block_invoke_2;
+  v15[3] = &unk_1E7C36C58;
+  v15[4] = self;
   v9 = v7;
-  v17 = v9;
-  [articleIDsToRescoreLock performWithLockSync:v16];
+  v16 = v9;
+  [articleIDsToRescoreLock performWithLockSync:v15];
 
   v10 = FCFeedItemInventoryLog;
   if (os_log_type_enabled(FCFeedItemInventoryLog, OS_LOG_TYPE_DEFAULT))
@@ -444,16 +438,14 @@ uint64_t __78__FCFeedItemInventory_operationThrottler_performAsyncOperationWithC
     loggingKey = [(FCFeedItemInventory *)self loggingKey];
     v13 = [v9 count];
     *buf = 138543618;
-    v21 = loggingKey;
-    v22 = 2048;
-    v23 = v13;
+    v20 = loggingKey;
+    v21 = 2048;
+    v22 = v13;
     _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] enqueuing %ld article IDs for targeted rescoring", buf, 0x16u);
   }
 
   targetedRescoreThrottler = [(FCFeedItemInventory *)self targetedRescoreThrottler];
   [targetedRescoreThrottler tickle];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __67__FCFeedItemInventory_readingHistory_didChangeFeaturesForArticles___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -542,35 +534,35 @@ void __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_2(uint64_t a1, voi
 
 void __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_3(id *a1, void *a2)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v3 = a2;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_4;
   aBlock[3] = &unk_1E7C45F08;
-  v47 = a1[5];
+  v46 = a1[5];
   v4 = v3;
-  v48 = v4;
+  v47 = v4;
   v5 = _Block_copy(aBlock);
-  v43[0] = MEMORY[0x1E69E9820];
-  v43[1] = 3221225472;
-  v43[2] = __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_5;
-  v43[3] = &unk_1E7C3F590;
-  v44 = a1[6];
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_5;
+  v42[3] = &unk_1E7C3F590;
+  v43 = a1[6];
   v6 = v4;
-  v45 = v6;
-  v7 = _Block_copy(v43);
+  v44 = v6;
+  v7 = _Block_copy(v42);
   if (([a1[4] _isRefreshNeeded] & 1) == 0)
   {
-    v41[0] = MEMORY[0x1E69E9820];
-    v41[1] = 3221225472;
-    v41[2] = __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_6;
-    v41[3] = &unk_1E7C37778;
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_6;
+    v40[3] = &unk_1E7C37778;
     v17 = v5;
-    v41[4] = a1[4];
-    v42 = v17;
-    __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_6(v41);
-    v18 = v42;
+    v40[4] = a1[4];
+    v41 = v17;
+    __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_6(v40);
+    v18 = v41;
     goto LABEL_16;
   }
 
@@ -589,9 +581,9 @@ void __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_3(id *a1, void *a2
       v15 = [v14 lastRefreshed];
       v16 = [v15 nsDate];
       *buf = 138543618;
-      v50 = v13;
-      v51 = 2114;
-      v52 = v16;
+      v49 = v13;
+      v50 = 2114;
+      v51 = v16;
       _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] will refresh because last refresh was at %{public}@", buf, 0x16u);
 
 LABEL_8:
@@ -604,7 +596,7 @@ LABEL_8:
     v12 = v9;
     v13 = [v19 loggingKey];
     *buf = 138543362;
-    v50 = v13;
+    v49 = v13;
     _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] will refresh because there is no cached instance", buf, 0xCu);
     goto LABEL_8;
   }
@@ -638,30 +630,29 @@ LABEL_8:
 
   v28 = objc_opt_new();
   v29 = [a1[4] feedItemService];
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_29;
-  v39[3] = &unk_1E7C3C778;
-  v40 = v28;
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_2_31;
-  v37[3] = &unk_1E7C45F30;
-  v38 = a1[4];
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_3_33;
-  v32[3] = &unk_1E7C45F58;
-  v32[4] = v38;
-  v33 = v40;
-  v34 = v7;
-  v36 = v21;
-  v35 = v5;
-  v30 = v40;
-  [v29 fetchFeedItemsWithCursor:v18 feedItemHandler:v39 networkEventHandler:v37 completionHandler:v32];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_29;
+  v38[3] = &unk_1E7C3C778;
+  v39 = v28;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_2_31;
+  v36[3] = &unk_1E7C45F30;
+  v37 = a1[4];
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_3_33;
+  v31[3] = &unk_1E7C45F58;
+  v31[4] = v37;
+  v32 = v39;
+  v33 = v7;
+  v35 = v21;
+  v34 = v5;
+  v30 = v39;
+  [v29 fetchFeedItemsWithCursor:v18 feedItemHandler:v38 networkEventHandler:v36 completionHandler:v31];
 
 LABEL_16:
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_4(uint64_t a1)
@@ -699,19 +690,19 @@ void __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_2_31(uint64_t a1, 
 
 void __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_3_33(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
   {
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_4_34;
-    v22[3] = &unk_1E7C38FF0;
-    v22[4] = *(a1 + 32);
-    v23 = v3;
-    v24 = *(a1 + 48);
-    __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_4_34(v22);
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_4_34;
+    v21[3] = &unk_1E7C38FF0;
+    v21[4] = *(a1 + 32);
+    v22 = v3;
+    v23 = *(a1 + 48);
+    __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_4_34(v21);
   }
 
   else
@@ -727,11 +718,11 @@ void __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_3_33(uint64_t a1, 
       [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
       v12 = (fmax(v11 - *(a1 + 64), 0.0) * 1000.0);
       *buf = 138543874;
-      v26 = v9;
-      v27 = 2048;
-      v28 = v10;
-      v29 = 2048;
-      v30 = v12;
+      v25 = v9;
+      v26 = 2048;
+      v27 = v10;
+      v28 = 2048;
+      v29 = v12;
       _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] successfully fetched %lu feed items in %llums, will generate score profiles", buf, 0x20u);
     }
 
@@ -745,9 +736,9 @@ void __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_3_33(uint64_t a1, 
       [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
       v18 = (fmax(v17 - *(a1 + 64), 0.0) * 1000.0);
       *buf = 138543618;
-      v26 = v16;
-      v27 = 2048;
-      v28 = v18;
+      v25 = v16;
+      v26 = 2048;
+      v27 = v18;
       _os_log_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] successfully refreshed in %llums", buf, 0x16u);
     }
 
@@ -761,13 +752,11 @@ void __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_3_33(uint64_t a1, 
     [*(a1 + 32) _adoptInventory:v19];
     (*(*(a1 + 56) + 16))();
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_4_34(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = FCFeedItemInventoryLog;
   if (os_log_type_enabled(FCFeedItemInventoryLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -775,17 +764,14 @@ uint64_t __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_4_34(void *a1)
     v4 = v2;
     v5 = [v3 loggingKey];
     v6 = a1[5];
-    v10 = 138543618;
-    v11 = v5;
-    v12 = 2114;
-    v13 = v6;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] failed to refresh with error: %{public}@", &v10, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v6;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] failed to refresh with error: %{public}@", &v8, 0x16u);
   }
 
-  v7 = a1[5];
-  result = (*(a1[6] + 16))();
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 - (void)_adoptInventory:(id)inventory
@@ -802,14 +788,14 @@ uint64_t __39__FCFeedItemInventory__refreshIfNeeded__block_invoke_4_34(void *a1)
 
 void __39__FCFeedItemInventory__adoptInventory___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) latestInventory];
   v3 = [v2 data];
 
   v4 = [*(a1 + 32) fileURL];
-  v17 = 0;
-  v5 = [v3 writeToURL:v4 options:1 error:&v17];
-  v6 = v17;
+  v16 = 0;
+  v5 = [v3 writeToURL:v4 options:1 error:&v16];
+  v6 = v16;
 
   v7 = FCFeedItemInventoryLog;
   v8 = os_log_type_enabled(FCFeedItemInventoryLog, OS_LOG_TYPE_DEFAULT);
@@ -822,9 +808,9 @@ void __39__FCFeedItemInventory__adoptInventory___block_invoke(uint64_t a1)
       v11 = [v9 loggingKey];
       v12 = [MEMORY[0x1E696AAF0] stringFromByteCount:objc_msgSend(v3 countStyle:{"length"), 0}];
       *buf = 138543618;
-      v19 = v11;
-      v20 = 2114;
-      v21 = v12;
+      v18 = v11;
+      v19 = 2114;
+      v20 = v12;
       _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] successfully persisted with size: %{public}@", buf, 0x16u);
     }
   }
@@ -835,13 +821,11 @@ void __39__FCFeedItemInventory__adoptInventory___block_invoke(uint64_t a1)
     v14 = v7;
     v15 = [v13 loggingKey];
     *buf = 138543618;
-    v19 = v15;
-    v20 = 2114;
-    v21 = v6;
+    v18 = v15;
+    v19 = 2114;
+    v20 = v6;
     _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] failed to persist with error: %{public}@", buf, 0x16u);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isRefreshNeeded
@@ -881,14 +865,14 @@ void __39__FCFeedItemInventory__adoptInventory___block_invoke(uint64_t a1)
   [feedItemsRefreshSerialQueue enqueueBlock:v9];
 }
 
-void __67__FCFeedItemInventory__rescoreInventoryIfNeeded_forScoringVersion___block_invoke(uint64_t a1, void *a2)
+void __67__FCFeedItemInventory__rescoreInventoryIfNeeded_forScoringVersion___block_invoke(id *a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
+  v27 = *MEMORY[0x1E69E9840];
+  v3 = a1[4];
   v4 = a2;
   v5 = [v3 latestInventory];
   v6 = v5;
-  if (v5 == *(a1 + 40))
+  if (v5 == a1[5])
   {
     v11 = [v5 feedItems];
     v12 = [v11 lastObject];
@@ -897,7 +881,7 @@ void __67__FCFeedItemInventory__rescoreInventoryIfNeeded_forScoringVersion___blo
 
     if (v9)
     {
-      if ([v9 scoringVersion]== *(a1 + 48))
+      if ([v9 scoringVersion]== a1[6])
       {
         v14 = FCFeedItemInventoryLog;
         if (!os_log_type_enabled(FCFeedItemInventoryLog, OS_LOG_TYPE_DEFAULT))
@@ -905,32 +889,32 @@ void __67__FCFeedItemInventory__rescoreInventoryIfNeeded_forScoringVersion___blo
           goto LABEL_13;
         }
 
-        v15 = *(a1 + 32);
+        v15 = a1[4];
         v16 = v14;
         v17 = [v15 loggingKey];
-        v26 = 138543362;
-        v27 = v17;
+        v25 = 138543362;
+        v26 = v17;
         v18 = "[%{public}@] not rescoring inventory due to version match";
       }
 
       else
       {
-        v21 = *(a1 + 32);
+        v21 = a1[4];
         v22 = [v6 feedItems];
         [v21 _populateScoreProfilesForFeedItems:v22];
 
-        [*(a1 + 32) _adoptInventory:v6];
+        [a1[4] _adoptInventory:v6];
         v23 = FCFeedItemInventoryLog;
         if (!os_log_type_enabled(FCFeedItemInventoryLog, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_13;
         }
 
-        v24 = *(a1 + 32);
+        v24 = a1[4];
         v16 = v23;
         v17 = [v24 loggingKey];
-        v26 = 138543362;
-        v27 = v17;
+        v25 = 138543362;
+        v26 = v17;
         v18 = "[%{public}@] rescored inventory";
       }
     }
@@ -943,15 +927,15 @@ void __67__FCFeedItemInventory__rescoreInventoryIfNeeded_forScoringVersion___blo
         goto LABEL_13;
       }
 
-      v20 = *(a1 + 32);
+      v20 = a1[4];
       v16 = v19;
       v17 = [v20 loggingKey];
-      v26 = 138543362;
-      v27 = v17;
+      v25 = 138543362;
+      v26 = v17;
       v18 = "[%{public}@] not rescoring inventory due to no score profile";
     }
 
-    _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, v18, &v26, 0xCu);
+    _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, v18, &v25, 0xCu);
 
     goto LABEL_13;
   }
@@ -959,35 +943,33 @@ void __67__FCFeedItemInventory__rescoreInventoryIfNeeded_forScoringVersion___blo
   v7 = FCFeedItemInventoryLog;
   if (os_log_type_enabled(FCFeedItemInventoryLog, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
+    v8 = a1[4];
     v9 = v7;
     v10 = [v8 loggingKey];
-    v26 = 138543362;
-    v27 = v10;
-    _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] did not rescore inventory because it is no longer the latest", &v26, 0xCu);
+    v25 = 138543362;
+    v26 = v10;
+    _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] did not rescore inventory because it is no longer the latest", &v25, 0xCu);
 
 LABEL_13:
   }
 
   v4[2](v4);
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_loadInventoryFromCache
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if ([MEMORY[0x1E696AF00] isMainThread] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"This operation must not be performed on the main thread."];
+    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"This operation must not be performed on the main thread."];
     *buf = 136315906;
-    v34 = "[FCFeedItemInventory _loadInventoryFromCache]";
-    v35 = 2080;
-    v36 = "FCFeedItemInventory.m";
-    v37 = 1024;
-    *v38 = 391;
-    *&v38[4] = 2114;
-    *&v38[6] = v24;
+    v33 = "[FCFeedItemInventory _loadInventoryFromCache]";
+    v34 = 2080;
+    v35 = "FCFeedItemInventory.m";
+    v36 = 1024;
+    *v37 = 391;
+    *&v37[4] = 2114;
+    *&v37[6] = v23;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -999,12 +981,12 @@ LABEL_13:
 
   if (!v7)
   {
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke;
-    v32[3] = &unk_1E7C36F98;
-    v32[4] = self;
-    v20 = __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke(v32);
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke;
+    v31[3] = &unk_1E7C36F98;
+    v31[4] = self;
+    v20 = __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke(v31);
     goto LABEL_18;
   }
 
@@ -1031,13 +1013,13 @@ LABEL_13:
           lastRefreshed = [(FCPBFeedItemInventory *)v11 lastRefreshed];
           nsDate = [lastRefreshed nsDate];
           *buf = 138544130;
-          v34 = loggingKey;
-          v35 = 2048;
-          v36 = (fmax(v14 - v4, 0.0) * 1000.0);
-          v37 = 2048;
-          *v38 = v17;
-          *&v38[8] = 2114;
-          *&v38[10] = nsDate;
+          v33 = loggingKey;
+          v34 = 2048;
+          v35 = (fmax(v14 - v4, 0.0) * 1000.0);
+          v36 = 2048;
+          *v37 = v17;
+          *&v37[8] = 2114;
+          *&v37[10] = nsDate;
           _os_log_impl(&dword_1B63EF000, log, OS_LOG_TYPE_DEFAULT, "[%{public}@] loaded cached data in %llums with %lu feed items and last-refresh date %{public}@", buf, 0x2Au);
         }
 
@@ -1045,107 +1027,80 @@ LABEL_13:
         goto LABEL_16;
       }
 
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_47;
-      v27[3] = &unk_1E7C397D0;
-      v27[4] = self;
-      v28 = v11;
-      v20 = __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_47(v27);
-      v21 = v28;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_47;
+      v26[3] = &unk_1E7C397D0;
+      v26[4] = self;
+      v27 = v11;
+      v20 = __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_47(v26);
+      v21 = v27;
     }
 
     else
     {
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_46;
-      v29[3] = &unk_1E7C397D0;
-      v29[4] = self;
-      v30 = v11;
-      v20 = __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_46(v29);
-      v21 = v30;
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_46;
+      v28[3] = &unk_1E7C397D0;
+      v28[4] = self;
+      v29 = v11;
+      v20 = __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_46(v28);
+      v21 = v29;
     }
 
 LABEL_16:
     goto LABEL_17;
   }
 
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_45;
-  v31[3] = &unk_1E7C36F98;
-  v31[4] = self;
-  v20 = __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_45(v31);
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_45;
+  v30[3] = &unk_1E7C36F98;
+  v30[4] = self;
+  v20 = __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_45(v30);
 LABEL_17:
 
 LABEL_18:
-  v22 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
 
 uint64_t __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCFeedItemInventoryLog;
   if (os_log_type_enabled(FCFeedItemInventoryLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 loggingKey];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] found no cached data on disk", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] found no cached data on disk", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_45(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCFeedItemInventoryLog;
   if (os_log_type_enabled(FCFeedItemInventoryLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 loggingKey];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] failed to initialize inventory from cached data", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] failed to initialize inventory from cached data", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_46(uint64_t a1)
-{
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = FCFeedItemInventoryLog;
-  if (os_log_type_enabled(FCFeedItemInventoryLog, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = [v3 loggingKey];
-    v6 = [*(a1 + 40) inventoryVersion];
-    v7 = [*(a1 + 32) version];
-    v10 = 138543874;
-    v11 = v5;
-    v12 = 1024;
-    v13 = v6;
-    v14 = 1024;
-    v15 = v7;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] ignoring cached data because its inventory version %u does not match the current version %u", &v10, 0x18u);
-  }
-
-  v8 = *MEMORY[0x1E69E9840];
-  return 0;
-}
-
-uint64_t __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_47(uint64_t a1)
 {
   v15 = *MEMORY[0x1E69E9840];
   v2 = FCFeedItemInventoryLog;
@@ -1154,23 +1109,45 @@ uint64_t __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_47(uint
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 loggingKey];
-    v6 = [*(a1 + 40) feedItemVersion];
+    v6 = [*(a1 + 40) inventoryVersion];
+    v7 = [*(a1 + 32) version];
     v9 = 138543874;
     v10 = v5;
     v11 = 1024;
     v12 = v6;
     v13 = 1024;
-    v14 = 24;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] ignoring cached data because its feed item version %u does not match the current version %u", &v9, 0x18u);
+    v14 = v7;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] ignoring cached data because its inventory version %u does not match the current version %u", &v9, 0x18u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
+  return 0;
+}
+
+uint64_t __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_47(uint64_t a1)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  v2 = FCFeedItemInventoryLog;
+  if (os_log_type_enabled(FCFeedItemInventoryLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = *(a1 + 32);
+    v4 = v2;
+    v5 = [v3 loggingKey];
+    v6 = [*(a1 + 40) feedItemVersion];
+    v8 = 138543874;
+    v9 = v5;
+    v10 = 1024;
+    v11 = v6;
+    v12 = 1024;
+    v13 = 24;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] ignoring cached data because its feed item version %u does not match the current version %u", &v8, 0x18u);
+  }
+
   return 0;
 }
 
 - (void)_populateScoreProfilesForFeedItems:(id)items
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
   v6 = v5;
@@ -1183,49 +1160,47 @@ uint64_t __46__FCFeedItemInventory__loadInventoryFromCache__block_invoke_47(uint
   {
     v10 = v9;
     loggingKey = [(FCFeedItemInventory *)self loggingKey];
-    v13 = 138543874;
-    v14 = loggingKey;
-    v15 = 2048;
-    v16 = (fmax(v8 - v6, 0.0) * 1000.0);
-    v17 = 2048;
-    v18 = [itemsCopy count];
-    _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] took %llums to generate score profiles for %ld items", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = loggingKey;
+    v14 = 2048;
+    v15 = (fmax(v8 - v6, 0.0) * 1000.0);
+    v16 = 2048;
+    v17 = [itemsCopy count];
+    _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] took %llums to generate score profiles for %ld items", &v12, 0x20u);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_populateScoreProfilesForFeedItems:(id)items configurationSet:(int64_t)set
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   context = objc_autoreleasePoolPush();
   feedPersonalizer = [(FCFeedItemInventory *)self feedPersonalizer];
-  v25 = itemsCopy;
+  v24 = itemsCopy;
   v8 = [feedPersonalizer sortItems:itemsCopy options:1 configurationSet:set];
 
-  v23 = v8;
+  v22 = v8;
   scoreProfiles = [v8 scoreProfiles];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v10 = [scoreProfiles countByEnumeratingWithState:&v26 objects:v38 count:16];
+  v10 = [scoreProfiles countByEnumeratingWithState:&v25 objects:v37 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v27;
+    v12 = *v26;
     v13 = MEMORY[0x1E69E9C10];
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(scoreProfiles);
         }
 
-        v15 = *(*(&v26 + 1) + 8 * i);
+        v15 = *(*(&v25 + 1) + 8 * i);
         v16 = [scoreProfiles objectForKey:v15];
         scoreProfiles2 = [v15 scoreProfiles];
 
@@ -1257,27 +1232,26 @@ LABEL_12:
         {
           v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case not implemented"];
           *buf = 136315906;
-          v31 = "[FCFeedItemInventory _populateScoreProfilesForFeedItems:configurationSet:]";
-          v32 = 2080;
-          v33 = "FCFeedItemInventory.m";
-          v34 = 1024;
-          v35 = 457;
-          v36 = 2114;
-          v37 = v21;
+          v30 = "[FCFeedItemInventory _populateScoreProfilesForFeedItems:configurationSet:]";
+          v31 = 2080;
+          v32 = "FCFeedItemInventory.m";
+          v33 = 1024;
+          v34 = 457;
+          v35 = 2114;
+          v36 = v21;
           _os_log_error_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
         }
 
 LABEL_15:
       }
 
-      v11 = [scoreProfiles countByEnumeratingWithState:&v26 objects:v38 count:16];
+      v11 = [scoreProfiles countByEnumeratingWithState:&v25 objects:v37 count:16];
     }
 
     while (v11);
   }
 
   objc_autoreleasePoolPop(context);
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 @end

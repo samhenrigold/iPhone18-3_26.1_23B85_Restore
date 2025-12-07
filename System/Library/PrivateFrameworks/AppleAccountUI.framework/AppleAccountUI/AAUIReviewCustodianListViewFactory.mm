@@ -8,32 +8,32 @@
 + (id)createWithAccountManager:(id)manager repairHelper:(id)helper
 {
   swift_getObjCClassMetadata();
-  MEMORY[0x1E69E5928](manager);
-  MEMORY[0x1E69E5928](helper);
+  MEMORY[0x1E69E5928](manager, v4);
+  MEMORY[0x1E69E5928](helper, v5);
   swift_getObjCClassMetadata();
-  v7 = static ReviewCustodianListViewFactory.create(accountManager:repairHelper:)(manager, helper);
+  v9 = static ReviewCustodianListViewFactory.create(accountManager:repairHelper:)(manager, helper);
   MEMORY[0x1E69E5920](helper);
   MEMORY[0x1E69E5920](manager);
 
-  return v7;
+  return v9;
 }
 
 + (id)createWithAccountManager:(id)manager repairHelper:(id)helper telemetryFlowID:(id)d
 {
   swift_getObjCClassMetadata();
-  MEMORY[0x1E69E5928](manager);
-  MEMORY[0x1E69E5928](helper);
-  MEMORY[0x1E69E5928](d);
-  v7 = sub_1C5596574();
-  v8 = v5;
+  MEMORY[0x1E69E5928](manager, v5);
+  MEMORY[0x1E69E5928](helper, v6);
+  MEMORY[0x1E69E5928](d, v7);
+  v10 = sub_1C5596574();
+  v11 = v8;
   swift_getObjCClassMetadata();
-  v12 = static ReviewCustodianListViewFactory.create(accountManager:repairHelper:telemetryFlowID:)(manager, helper, v7, v8);
+  v15 = static ReviewCustodianListViewFactory.create(accountManager:repairHelper:telemetryFlowID:)(manager, helper, v10, v11);
 
   MEMORY[0x1E69E5920](d);
   MEMORY[0x1E69E5920](helper);
   MEMORY[0x1E69E5920](manager);
 
-  return v12;
+  return v15;
 }
 
 @end

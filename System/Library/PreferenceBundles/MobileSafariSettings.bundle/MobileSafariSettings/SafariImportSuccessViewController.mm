@@ -1,6 +1,7 @@
 @interface SafariImportSuccessViewController
 - (SafariImportSuccessViewController)initWithImportedItems:(id)items;
 - (SafariImportSuccessViewControllerDelegate)delegate;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -106,6 +107,18 @@ void __59__SafariImportSuccessViewController_initWithImportedItems___block_invok
     widthAnchor2 = [layoutMarginsGuide widthAnchor];
     v18 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
     [v18 setActive:1];
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = SafariImportSuccessViewController;
+  [(SafariImportSuccessViewController *)&v5 viewDidDisappear:disappear];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  if (objc_opt_respondsToSelector())
+  {
+    [WeakRetained importSuccessViewControllerDidDismiss:self];
   }
 }
 

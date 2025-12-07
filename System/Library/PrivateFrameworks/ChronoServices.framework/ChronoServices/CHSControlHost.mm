@@ -14,12 +14,10 @@
 
 - (NSString)identifier
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___CHSControlHost__identifier);
-  v3 = *(&self->configuration + OBJC_IVAR___CHSControlHost__identifier);
 
-  v4 = sub_195FA0888();
+  v2 = sub_195FA0888();
 
-  return v4;
+  return v2;
 }
 
 - (void)setConfiguration:(id)configuration

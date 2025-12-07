@@ -63,7 +63,7 @@
 
 - (NSDate)timeStartedShowing
 {
-  v3 = sub_1005B981C(&qword_101A0A320);
+  v3 = sub_1005B981C(&qword_101A0A320, &qword_10146D650);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR____TtC8Freeform39CRLTransientStartEndFollowHUDController_timeStartedShowing;
@@ -85,7 +85,7 @@
 
 - (void)setTimeStartedShowing:(id)showing
 {
-  v5 = sub_1005B981C(&qword_101A0A320);
+  v5 = sub_1005B981C(&qword_101A0A320, &qword_10146D650);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   if (showing)
@@ -191,17 +191,19 @@
 
 - (_TtC8Freeform39CRLTransientStartEndFollowHUDController)initWithManager:(id)manager followingParticipant:(id)participant delegate:(id)delegate canvasWidth:(double)width isStartFollow:(BOOL)follow
 {
+  followCopy = follow;
   swift_unknownObjectRetain();
   participantCopy = participant;
   swift_unknownObjectRetain();
-  return sub_100809028(width, manager, participantCopy, delegate, follow);
+  return sub_100809028(manager, participantCopy, delegate, followCopy, width);
 }
 
 - (_TtC8Freeform39CRLTransientStartEndFollowHUDController)initWithManager:(id)manager numberOfParticipants:(int64_t)participants delegate:(id)delegate canvasWidth:(double)width isStartFollow:(BOOL)follow
 {
+  followCopy = follow;
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  return sub_1008092AC(width, manager, participants, delegate, follow);
+  return sub_1008092AC(manager, participants, delegate, followCopy, width);
 }
 
 - (_TtC8Freeform39CRLTransientStartEndFollowHUDController)init

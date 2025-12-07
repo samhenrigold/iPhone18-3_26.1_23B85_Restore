@@ -29,20 +29,18 @@
 
 - (id)_accessibilitySupplementaryFooterViews
 {
-  v6[1] = *MEMORY[0x29EDCA608];
+  v5[1] = *MEMORY[0x29EDCA608];
   v2 = [(OBBulletedListItemAccessibility *)self safeUIViewForKey:@"accessoryButton"];
   if ([v2 _accessibilityViewIsVisible])
   {
-    v6[0] = v2;
-    v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v6 count:1];
+    v5[0] = v2;
+    v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v5 count:1];
   }
 
   else
   {
     v3 = 0;
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 
   return v3;
 }

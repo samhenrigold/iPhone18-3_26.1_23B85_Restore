@@ -19,19 +19,19 @@
 
 - (VGSkeletonDefinition)initWithCoder:(id)coder
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = VGSkeletonDefinition;
-  v5 = [(VGSkeletonDefinition *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = VGSkeletonDefinition;
+  v5 = [(VGSkeletonDefinition *)&v12 init];
   if (v5)
   {
     -[VGSkeletonDefinition setJointCount:](v5, "setJointCount:", [coderCopy decodeInt64ForKey:@"jointCount"]);
     -[VGSkeletonDefinition setRootJointIndex:](v5, "setRootJointIndex:", [coderCopy decodeIntegerForKey:@"rootJointIndex"]);
     v6 = MEMORY[0x277CBEB98];
-    v14[0] = objc_opt_class();
-    v14[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[0] = objc_opt_class();
+    v13[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"parentChildOrder"];
     [(VGSkeletonDefinition *)v5 setParentChildOrder:v9];
@@ -40,7 +40,6 @@
     v10 = v5;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

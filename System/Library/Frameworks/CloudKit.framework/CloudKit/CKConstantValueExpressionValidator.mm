@@ -19,7 +19,7 @@
 
 - (BOOL)validate:(id)validate error:(id *)error
 {
-  v38[2] = *MEMORY[0x1E69E9840];
+  v37[2] = *MEMORY[0x1E69E9840];
   validateCopy = validate;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -27,12 +27,12 @@
     if (error)
     {
       v11 = MEMORY[0x1E696ABC0];
-      v37[0] = *MEMORY[0x1E696A578];
+      v36[0] = *MEMORY[0x1E696A578];
       v12 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v7, @"<%@> is not an expression", validateCopy);
-      v37[1] = @"ck_isComparisonError";
-      v38[0] = v12;
-      v38[1] = MEMORY[0x1E695E118];
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v14, v38, v37, 2);
+      v36[1] = @"ck_isComparisonError";
+      v37[0] = v12;
+      v37[1] = MEMORY[0x1E695E118];
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v14, v37, v36, 2);
       goto LABEL_7;
     }
 
@@ -44,12 +44,12 @@
     if (error)
     {
       v11 = MEMORY[0x1E696ABC0];
-      v35[0] = *MEMORY[0x1E696A578];
+      v34[0] = *MEMORY[0x1E696A578];
       v12 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v9, @"<%@> is not a constantValue expression", validateCopy);
-      v35[1] = @"ck_isComparisonError";
-      v36[0] = v12;
-      v36[1] = MEMORY[0x1E695E118];
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v13, v36, v35, 2);
+      v34[1] = @"ck_isComparisonError";
+      v35[0] = v12;
+      v35[1] = MEMORY[0x1E695E118];
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v13, v35, v34, 2);
       v15 = LABEL_7:;
       v17 = objc_msgSend_errorWithDomain_code_userInfo_(v11, v16, @"CKErrorDomain", 12, v15);
 
@@ -66,12 +66,12 @@
     if (error)
     {
       v11 = MEMORY[0x1E696ABC0];
-      v33[0] = *MEMORY[0x1E696A578];
+      v32[0] = *MEMORY[0x1E696A578];
       v12 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v21, @"%@ is not a valid constant value", validateCopy);
-      v33[1] = @"ck_isComparisonError";
-      v34[0] = v12;
-      v34[1] = MEMORY[0x1E695E118];
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v29, v34, v33, 2);
+      v32[1] = @"ck_isComparisonError";
+      v33[0] = v12;
+      v33[1] = MEMORY[0x1E695E118];
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v29, v33, v32, 2);
       goto LABEL_7;
     }
 
@@ -91,9 +91,9 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v32 = 0;
-  v28 = objc_msgSend_validate_error_(v23, v26, v27, &v32);
-  v17 = v32;
+  v31 = 0;
+  v28 = objc_msgSend_validate_error_(v23, v26, v27, &v31);
+  v17 = v31;
 
   if (v28)
   {
@@ -107,7 +107,6 @@ LABEL_8:
   *error = v17;
 LABEL_17:
 
-  v30 = *MEMORY[0x1E69E9840];
   return v19 & 1;
 }
 

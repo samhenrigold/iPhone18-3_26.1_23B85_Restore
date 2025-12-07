@@ -26,7 +26,7 @@
   {
     if (softLinkIMStringIsPhoneNumber(stringCopy))
     {
-      v7 = @"\x1B\\tn=phone\\%@\x1B\\tn=normal\\"";
+      v7 = @"\x1B\\tn=phone\\%@\x1B\\tn=normal\";
       goto LABEL_7;
     }
   }
@@ -43,7 +43,7 @@ LABEL_8:
 
     if (softLinkIMStringIsEmail(stringCopy))
     {
-      v7 = @"\x1B\\tn=email\\%@\x1B\\tn=normal\\"";
+      v7 = @"\x1B\\tn=email\\%@\x1B\\tn=normal\";
 LABEL_7:
       v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:v7, v6];
 
@@ -104,11 +104,11 @@ LABEL_10:
     v9 = v40;
     v10 = v39;
     v11 = v38;
-    if ([codeCopy isEqualToString:@"en-IN"])
+    if (objc_msgSend_isEqualToString_(codeCopy))
     {
       v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%C", 27];
-      v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\\toi=x-sampa-internal\\"", v12];
-      v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\\toi=orth\\"", v12];
+      v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\\toi=x-sampa-internal\", v12];
+      v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\\toi=orth\", v12];
     }
 
     else
@@ -581,7 +581,7 @@ LABEL_7:
   familyName2 = [v16 familyName];
   spokenName2 = [v16 spokenName];
   v18 = spokenName2;
-  if (!givenName || !spokenName2 || !familyName || !familyName2 || ![familyName isEqualToString:familyName2] || (AFRingtoneLocalizedString(@"TWO_CONTACTS_SHARED_FAMILY_NAME", codeCopy), v24 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(objc_alloc(MEMORY[0x1E696AEC0]), "initWithFormat:", v24, givenName, v18), v24, !v13))
+  if (!givenName || !spokenName2 || !familyName || !familyName2 || !objc_msgSend_isEqualToString_(familyName) || (AFRingtoneLocalizedString(@"TWO_CONTACTS_SHARED_FAMILY_NAME", codeCopy), v24 = objc_claimAutoreleasedReturnValue(), v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:v24, givenName, v18], v24, !v13))
   {
     if (!spokenName || !v18 || (AFRingtoneLocalizedString(@"TWO_CONTACTS", codeCopy), v25 = givenName, v19 = objc_claimAutoreleasedReturnValue(), v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:v19, spokenName, v18], v19, givenName = v25, !v13))
     {
@@ -679,7 +679,7 @@ LABEL_12:
   if (self->_shouldAppendAutoAnswerTip)
   {
     v5 = AFRingtoneLocalizedString(@"AUTO_ANSWER", self->_voiceLanguage);
-    v6 = [v4 stringByAppendingString:@"\x1B\\pause=2000\\""];
+    v6 = [v4 stringByAppendingString:@"\x1B\\pause=2000\"];
     v7 = [v6 stringByAppendingString:v5];
   }
 

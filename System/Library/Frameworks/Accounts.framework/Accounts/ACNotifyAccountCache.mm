@@ -35,7 +35,7 @@
 
 - (id)cachedAccounts
 {
-  if (ACIsAccountsd())
+  if (ACIsAccountsd(self, a2))
   {
     v3 = 0;
   }
@@ -109,11 +109,12 @@ LABEL_11:
 
 void __31__ACNotifyAccountCache__getUID__block_invoke()
 {
-  _getUID__uid = geteuid();
-  if ((ACIsAccountsd() & 1) == 0 && !_getUID__uid)
+  v0 = geteuid();
+  _getUID__uid = v0;
+  if ((ACIsAccountsd(v0, v1) & 1) == 0 && !_getUID__uid)
   {
-    v0 = +[ACAccountStore defaultStore];
-    _getUID__uid = [v0 _uidOfAccountsd];
+    v2 = +[ACAccountStore defaultStore];
+    _getUID__uid = [v2 _uidOfAccountsd];
   }
 }
 
@@ -149,7 +150,7 @@ void __31__ACNotifyAccountCache__getUID__block_invoke()
 
 + (unint64_t)generationForAccounts:(id)accounts
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   accountsCopy = accounts;
   v4 = accountsCopy;
   v5 = 0;
@@ -157,31 +158,31 @@ void __31__ACNotifyAccountCache__getUID__block_invoke()
   {
     if ([accountsCopy count])
     {
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
       v14 = 0u;
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
       v6 = v4;
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v14;
+        v9 = *v13;
         do
         {
           v10 = 0;
           do
           {
-            if (*v14 != v9)
+            if (*v13 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            v5 += [*(*(&v13 + 1) + 8 * v10++) notifyGenerationID];
+            v5 += [*(*(&v12 + 1) + 8 * v10++) notifyGenerationID];
           }
 
           while (v8 != v10);
-          v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
         }
 
         while (v8);
@@ -194,7 +195,6 @@ void __31__ACNotifyAccountCache__getUID__block_invoke()
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -293,7 +293,7 @@ void __34__ACNotifyAccountCache_generation__block_invoke(uint64_t a1)
 
 void __38__ACNotifyAccountCache_cacheAccounts___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = [ACNotifyAccountCache generationForAccounts:*(a1 + 32)];
   v3 = [*(a1 + 40) reader];
   v4 = [v3 currentValue];
@@ -301,32 +301,32 @@ void __38__ACNotifyAccountCache_cacheAccounts___block_invoke(uint64_t a1)
   if (v4 == v2)
   {
     v5 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:*(a1 + 32) copyItems:1];
+    v17 = 0u;
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v22 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v20;
+      v9 = *v18;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
+          v11 = *(*(&v17 + 1) + 8 * i);
           [v11 _clearCachedCredentials];
           [v11 _clearCachedChildAccounts];
           [v11 _clearCachedTrackedSets];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v8);
@@ -339,16 +339,13 @@ void __38__ACNotifyAccountCache_cacheAccounts___block_invoke(uint64_t a1)
     v14 = *(a1 + 40);
     v15 = *(v14 + 16);
     *(v14 + 16) = v13;
-
-    v16 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v17 = *(a1 + 40);
-    v18 = *MEMORY[0x1E69E9840];
+    v16 = *(a1 + 40);
 
-    [v17 _lock_clearCachedAccounts];
+    [v16 _lock_clearCachedAccounts];
   }
 }
 

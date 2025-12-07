@@ -1,10 +1,10 @@
 @interface BWUBNRFProcessorRequest
 - (const)clientBracketFrame;
 - (id)description;
+- (id)receivedAllFrames;
 - (uint64_t)fusionErrorRecoveryImageType;
 - (uint64_t)imageType;
 - (uint64_t)processingType;
-- (uint64_t)receivedAllFrames;
 - (uint64_t)useFrameForMultiFrameProcessing:(uint64_t)result;
 - (void)dealloc;
 - (void)initWithInput:(void *)input output:(void *)output deepFusionOutput:(char)fusionOutput processErrorRecoveryFrame:(char)frame processOriginalImage:(int)image clientBracketSequenceNumber:(char)number processSemanticRendering:(char)rendering provideInferenceInputImageForProcessing:(char)self0 inferencesAvailable:(void *)self1 delegate:;
@@ -260,7 +260,7 @@ LABEL_12:
   return result;
 }
 
-- (uint64_t)receivedAllFrames
+- (id)receivedAllFrames
 {
   if (result)
   {
@@ -268,24 +268,24 @@ LABEL_12:
     OUTLINED_FUNCTION_50_0();
     if (v3)
     {
-      errorRecoveryFrame = [*(v2 + 8) errorRecoveryFrame];
-      return errorRecoveryFrame != 0;
+      errorRecoveryFrame = [v2[1] errorRecoveryFrame];
+      return (errorRecoveryFrame != 0);
     }
 
     if (*(v2 + 33) == 1)
     {
-      errorRecoveryFrame = [*(v2 + 8) originalImage];
-      return errorRecoveryFrame != 0;
+      errorRecoveryFrame = [v2[1] originalImage];
+      return (errorRecoveryFrame != 0);
     }
 
-    if (*(v2 + 36) >= 1)
+    if (*(v2 + 9) >= 1)
     {
       errorRecoveryFrame = [(BWUBNRFProcessorRequest *)v2 clientBracketFrame];
-      return errorRecoveryFrame != 0;
+      return (errorRecoveryFrame != 0);
     }
 
-    v5 = [objc_msgSend(objc_msgSend(*(v2 + 8) "captureStreamSettings")];
-    v6 = *(v2 + 8);
+    v5 = [objc_msgSend(objc_msgSend(v2[1] "captureStreamSettings")];
+    v6 = v2[1];
     if (v5)
     {
 
@@ -303,7 +303,7 @@ LABEL_12:
       v7 = OUTLINED_FUNCTION_27_0();
       if ([(BWUBNRFProcessorRequest *)v7 processingType])
       {
-        expectedFrameCount = [*(v2 + 8) expectedFrameCount];
+        expectedFrameCount = [v2[1] expectedFrameCount];
       }
 
       else
@@ -311,14 +311,14 @@ LABEL_12:
         expectedFrameCount = 1;
       }
 
-      return v1 == expectedFrameCount;
+      return (v1 == expectedFrameCount);
     }
   }
 
   return result;
 }
 
-- (uint64_t)useFrameForMultiFrameProcessing:(const void *)a1 .cold.1(const void *a1, _BYTE *a2)
+- (void)useFrameForMultiFrameProcessing:(const void *)a1 .cold.1(const void *a1, _BYTE *a2)
 {
   result = [objc_msgSend(CMGetAttachment(a1 *off_1E798A3C8];
   *a2 = result ^ 1;

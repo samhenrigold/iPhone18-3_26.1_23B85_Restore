@@ -76,12 +76,11 @@
 
 void __38__NRActiveDeviceAssertion_description__block_invoke(uint64_t a1)
 {
-  v6 = [*(*(a1 + 32) + 8) valueForProperty:@"pairingID"];
-  v2 = *(a1 + 32);
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%@: %p identifier = %@; pairingID = %@>", objc_opt_class(), v2, *(v2 + 16), v6];;
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v5 = [*(*(a1 + 32) + 8) valueForProperty:@"pairingID"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%@: %p identifier = %@; pairingID = %@>", objc_opt_class(), *(a1 + 32), *(*(a1 + 32) + 16), v5];;
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 }
 
 - (BOOL)isActive

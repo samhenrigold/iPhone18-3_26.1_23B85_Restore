@@ -12,7 +12,7 @@
 - (NSArray)activities
 {
   SharingActivityProvider.activities.getter();
-  sub_1D7E0A1A8(0, &qword_1ECA0F288);
+  sub_1D7E0A1A8(0, &qword_1ECA0F288, 0x1E69CD9E8);
   v2 = sub_1D8191304();
 
   return v2;
@@ -20,7 +20,7 @@
 
 - (void)setActivities:(id)activities
 {
-  sub_1D7E0A1A8(0, &qword_1ECA0F288);
+  sub_1D7E0A1A8(0, &qword_1ECA0F288, 0x1E69CD9E8);
   v4 = sub_1D8191314();
   selfCopy = self;
   SharingActivityProvider.activities.setter(v4);
@@ -81,7 +81,7 @@
 
 - (TSSharingActivityProvider)initWithActivityItems:(id)items activitySources:(id)sources excludedActivityTypes:(id)types linkPresentationSource:(id)source
 {
-  sub_1D7E0A1A8(0, &qword_1ECA0F288);
+  sub_1D7E0A1A8(0, &qword_1ECA0F288, 0x1E69CD9E8);
   sub_1D8191314();
   sub_1D7FF6F28();
   sub_1D8191314();

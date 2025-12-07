@@ -1590,7 +1590,7 @@ LABEL_14:
           else if (v20.msgh_id == 40339)
           {
             v18 = 4294966996;
-            if ((v20.msgh_bits & 0x80000000) == 0 && *&v20.msgh_size == 36)
+            if ((v20.msgh_bits & 0x80000000) == 0 && v20.msgh_size == 36 && !v20.msgh_remote_port)
             {
               v18 = v22;
               if (!v22)
@@ -1602,7 +1602,7 @@ LABEL_14:
                   CA::Display::Display::update(impl);
                 }
 
-                goto LABEL_30;
+                goto LABEL_31;
               }
             }
           }
@@ -1618,7 +1618,7 @@ LABEL_14:
         CAVerifyServerReturn(v18);
       }
 
-LABEL_30:
+LABEL_31:
       v19 = *MEMORY[0x1E69E9A60];
 
       mach_port_deallocate(v19, v14);
@@ -1971,8 +1971,8 @@ LABEL_32:
       v17.i64[1] = v29.i32[3];
       v6 = vmlaq_f64(_Q1, vcvtq_f64_s64(v17), vmulq_f64(vcvtq_f64_f32(vsub_f32(_D0, __PAIR64__(v27, v28))), _Q1));
       v18 = vmovn_s64(vcvtq_s64_f64(v6));
-      *v6.i8 = vadd_s32(*v29.i8, v18);
-      v19.i64[0] = v6.i64[0];
+      *&v6.f64[0] = vadd_s32(*v29.i8, v18);
+      v19.i64[0] = *&v6.f64[0];
       v19.u64[1] = vsub_s32(*&vextq_s8(v29, v29, 8uLL), vadd_s32(v18, v18));
       v20 = vclez_s32(v19.u64[1]);
       v5 = vmovl_s16(vdup_lane_s16(vorr_s8(v20, vdup_lane_s32(v20, 1)), 0));
@@ -1999,7 +1999,7 @@ LABEL_32:
   }
 
   v5.i32[0] = 1073741822;
-  v6.i32[0] = v21;
+  LODWORD(v6.f64[0]) = v21;
   v22.i64[0] = v7.i32[0];
   v22.i64[1] = v7.i32[1];
   v23 = vbslq_s8(vdupq_lane_s32(*&vcgtq_s32(v6, v5), 0), vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL), vcvtq_f64_s64(v22));

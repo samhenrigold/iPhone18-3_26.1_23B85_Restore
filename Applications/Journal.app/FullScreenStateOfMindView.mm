@@ -12,7 +12,7 @@
   x = frame.origin.x;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC7Journal25FullScreenStateOfMindView_stateOfMindAsset) = 0;
   v8 = OBJC_IVAR____TtC7Journal25FullScreenStateOfMindView_stateOfMindView;
-  type metadata accessor for StateOfMindAssetGridView();
+  type metadata accessor for StateOfMindAssetGridView(0);
   *(&self->super.super.super.isa + v8) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   v9 = OBJC_IVAR____TtC7Journal25FullScreenStateOfMindView_scrollView;
   *(&self->super.super.super.isa + v9) = [objc_allocWithZone(UIScrollView) init];

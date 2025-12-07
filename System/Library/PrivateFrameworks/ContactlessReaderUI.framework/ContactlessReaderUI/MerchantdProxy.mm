@@ -185,9 +185,9 @@
 
 - (void)vasReadSuccessWithMerchantNames:(id)names
 {
-  sub_2440D3220();
+  v3 = sub_2440D3220();
 
-  sub_243FEC4F4();
+  sub_243FEC4F4(v3);
 }
 
 - (void)requiresCardPIN:(id)n

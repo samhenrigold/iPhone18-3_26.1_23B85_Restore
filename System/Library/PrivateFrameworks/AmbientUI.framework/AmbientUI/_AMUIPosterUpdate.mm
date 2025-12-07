@@ -82,33 +82,33 @@
 
 - (void)adoptCompletionsFromStaleUpdate:(id)update
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = updateCopy[2];
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v9);
+        v10 = *(*(&v15 + 1) + 8 * v9);
         if (selfCopy->_isFinished)
         {
-          (v10)[2](*(*(&v16 + 1) + 8 * v9), selfCopy->_firedConfiguration, selfCopy->_firedError);
+          (v10)[2](*(*(&v15 + 1) + 8 * v9), selfCopy->_firedConfiguration, selfCopy->_firedError);
         }
 
         else
@@ -131,19 +131,18 @@
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(selfCopy);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)fireCompletionBlocksWithUpdatedPosterConfiguration:(id)configuration error:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   errorCopy = error;
   selfCopy = self;
@@ -158,31 +157,31 @@
     selfCopy->_isFinished = 1;
     objc_storeStrong(&selfCopy->_firedConfiguration, configuration);
     objc_storeStrong(&selfCopy->_firedError, error);
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v11 = selfCopy->_completions;
-    v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v12)
     {
-      v13 = *v19;
+      v13 = *v18;
       do
       {
         v14 = 0;
         do
         {
-          if (*v19 != v13)
+          if (*v18 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          (*(*(*(&v18 + 1) + 8 * v14) + 16))(*(*(&v18 + 1) + 8 * v14));
+          (*(*(*(&v17 + 1) + 8 * v14) + 16))(*(*(&v17 + 1) + 8 * v14));
           ++v14;
         }
 
         while (v12 != v14);
-        v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v12);
@@ -197,7 +196,6 @@
 
   objc_sync_exit(selfCopy);
 
-  v16 = *MEMORY[0x277D85DE8];
   return isFinished;
 }
 

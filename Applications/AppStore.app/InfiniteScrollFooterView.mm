@@ -28,7 +28,7 @@
   v6 = type metadata accessor for StaticDimension();
   sub_1000056A8(v6, qword_1009D2460);
   type metadata accessor for TraitEnvironmentPlaceholder();
-  sub_10002849C(&qword_100973210);
+  sub_10002849C(&qword_100973210, qword_1007B0BB0);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_1007B0B70;
   *(v7 + 32) = traitCollection;
@@ -56,7 +56,7 @@
   v4 = type metadata accessor for StaticDimension();
   sub_1000056A8(v4, qword_1009D2460);
   type metadata accessor for TraitEnvironmentPlaceholder();
-  sub_10002849C(&qword_100973210);
+  sub_10002849C(&qword_100973210, qword_1007B0BB0);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_1007B0B70;
   *(v5 + 32) = traitCollection;

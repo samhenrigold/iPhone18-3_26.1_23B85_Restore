@@ -136,7 +136,7 @@
 {
   tapCopy = tap;
   selfCopy = self;
-  sub_20D08A6C0();
+  sub_20D08A6C0(selfCopy);
 }
 
 - (void)performAction
@@ -144,11 +144,12 @@
   v2 = *(self + OBJC_IVAR___HUNavigationBarButton_actionHandler);
   if (v2)
   {
+    v3 = *(self + OBJC_IVAR___HUNavigationBarButton_actionHandler + 8);
     selfCopy = self;
-    sub_20CEC81F4(v2);
+    sub_20CEC81F4(v2, v3);
     v2(selfCopy);
 
-    sub_20CEC8164(v2);
+    sub_20CEC8164(v2, v3);
   }
 }
 

@@ -200,4 +200,25 @@ uint64_t __50__ASCModalViewInteraction_installWithCancelBlock___block_invoke(uin
   return WeakRetained;
 }
 
+- (void)installWithCancelBlock:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_21571A000, MEMORY[0x277D86220], a3, "Cannot install %{public}@ because its view does not have a window", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)installWithCancelBlock:(uint64_t)a3 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_21571A000, MEMORY[0x277D86220], a3, "Cannot install %{public}@ because its view is nil", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)cancelGestureDidChange:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_21571A000, MEMORY[0x277D86220], a3, "Cancel block of %{public}@ is nil", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 @end

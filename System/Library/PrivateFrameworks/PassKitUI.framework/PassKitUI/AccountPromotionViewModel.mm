@@ -20,7 +20,7 @@
   }
 
   v5.receiver = self;
-  v5.super_class = type metadata accessor for AccountPromotionViewModel();
+  v5.super_class = type metadata accessor for AccountPromotionViewModel(0);
   [(AccountPromotionViewModel *)&v5 dealloc];
 }
 

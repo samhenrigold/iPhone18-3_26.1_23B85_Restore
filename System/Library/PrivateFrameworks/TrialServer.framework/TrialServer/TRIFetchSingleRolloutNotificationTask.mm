@@ -102,7 +102,7 @@ LABEL_3:
 
 - (void)runDequeueHandlerUsingContext:(id)context
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   deployment = self->_deployment;
   contextCopy = context;
   v6 = [TRIContentTracker contentIdentifierForRolloutArtifactWithDeployment:deployment];
@@ -115,31 +115,29 @@ LABEL_3:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       shortDesc = [(TRIRolloutDeployment *)self->_deployment shortDesc];
-      v11 = 138543362;
-      v12 = shortDesc;
-      _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Failed to drop reference on artifact for rollout %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = shortDesc;
+      _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Failed to drop reference on artifact for rollout %{public}@", &v10, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)runUsingContext:(id)context withTaskQueue:(id)queue
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   queueCopy = queue;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   dsema = a2;
-  v61 = os_transaction_create();
+  v60 = os_transaction_create();
   v10 = TRILogCategory_Server();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v52 = objc_opt_class();
+    v51 = objc_opt_class();
     shortDesc = [(TRIRolloutDeployment *)selfCopy->_deployment shortDesc];
     *buf = 138543618;
-    *&buf[4] = v52;
+    *&buf[4] = v51;
     *&buf[12] = 2114;
     *&buf[14] = shortDesc;
     _os_log_debug_impl(&dword_26F567000, v10, OS_LOG_TYPE_DEBUG, "starting %{public}@ with rollout %{public}@", buf, 0x16u);
@@ -192,24 +190,24 @@ LABEL_3:
       [networkOptions setActivity:v30];
     }
 
-    v58 = [[TRIFetchOptions alloc] initWithDownloadOptions:networkOptions cacheDeleteAvailableSpaceClass:&unk_287FC4D50];
+    v57 = [[TRIFetchOptions alloc] initWithDownloadOptions:networkOptions cacheDeleteAvailableSpaceClass:&unk_287FC4D50];
     v31 = dispatch_semaphore_create(0);
-    v79 = 0;
-    v80 = &v79;
-    v81 = 0x2020000000;
-    v82 = 2;
+    v78 = 0;
+    v79 = &v78;
+    v80 = 0x2020000000;
+    v81 = 2;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v91 = __Block_byref_object_copy__52;
-    v92 = __Block_byref_object_dispose__52;
-    v93 = 0;
-    v73 = 0;
-    v74 = &v73;
-    v75 = 0x3032000000;
-    v76 = __Block_byref_object_copy__52;
-    v77 = __Block_byref_object_dispose__52;
-    v78 = 0;
+    v90 = __Block_byref_object_copy__52;
+    v91 = __Block_byref_object_dispose__52;
+    v92 = 0;
+    v72 = 0;
+    v73 = &v72;
+    v74 = 0x3032000000;
+    v75 = __Block_byref_object_copy__52;
+    v76 = __Block_byref_object_dispose__52;
+    v77 = 0;
     v32 = TRILogCategory_Server();
     v33 = os_signpost_id_generate(v32);
 
@@ -219,27 +217,27 @@ LABEL_3:
     {
       rolloutId = [(TRIRolloutDeployment *)selfCopy->_deployment rolloutId];
       deploymentId = [(TRIRolloutDeployment *)selfCopy->_deployment deploymentId];
-      *v84 = 138543618;
-      v85 = rolloutId;
-      v86 = 1024;
-      LODWORD(v87) = deploymentId;
-      _os_signpost_emit_with_name_impl(&dword_26F567000, v35, OS_SIGNPOST_INTERVAL_BEGIN, v33, "FetchRolloutNotificationWithDeployment", "r: %{public}@, d: %d", v84, 0x12u);
+      *v83 = 138543618;
+      v84 = rolloutId;
+      v85 = 1024;
+      LODWORD(v86) = deploymentId;
+      _os_signpost_emit_with_name_impl(&dword_26F567000, v35, OS_SIGNPOST_INTERVAL_BEGIN, v33, "FetchRolloutNotificationWithDeployment", "r: %{public}@, d: %d", v83, 0x12u);
     }
 
     deployment = selfCopy->_deployment;
-    v66[0] = MEMORY[0x277D85DD0];
-    v66[1] = 3221225472;
-    v66[2] = __71__TRIFetchSingleRolloutNotificationTask_runUsingContext_withTaskQueue___block_invoke;
-    v66[3] = &unk_279DE4950;
-    v66[4] = selfCopy;
-    v69 = &v79;
-    v70 = buf;
-    v71 = &v73;
-    v72 = dsema;
-    v67 = contextCopy;
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = __71__TRIFetchSingleRolloutNotificationTask_runUsingContext_withTaskQueue___block_invoke;
+    v65[3] = &unk_279DE4950;
+    v65[4] = selfCopy;
+    v68 = &v78;
+    v69 = buf;
+    v70 = &v72;
+    v71 = dsema;
+    v66 = contextCopy;
     dsemaa = v31;
-    v68 = dsemaa;
-    [v12 fetchRolloutNotificationWithDeployment:deployment options:v58 completion:v66];
+    v67 = dsemaa;
+    [v12 fetchRolloutNotificationWithDeployment:deployment options:v57 completion:v65];
     dispatch_semaphore_wait(dsemaa, 0xFFFFFFFFFFFFFFFFLL);
     v39 = TRILogCategory_Server();
     v40 = v39;
@@ -247,66 +245,66 @@ LABEL_3:
     {
       rolloutId2 = [(TRIRolloutDeployment *)selfCopy->_deployment rolloutId];
       deploymentId2 = [(TRIRolloutDeployment *)selfCopy->_deployment deploymentId];
-      *v84 = 138543618;
-      v85 = rolloutId2;
-      v86 = 1024;
-      LODWORD(v87) = deploymentId2;
-      _os_signpost_emit_with_name_impl(&dword_26F567000, v40, OS_SIGNPOST_INTERVAL_END, v33, "FetchRolloutNotificationWithDeployment", "r: %{public}@, d: %d", v84, 0x12u);
+      *v83 = 138543618;
+      v84 = rolloutId2;
+      v85 = 1024;
+      LODWORD(v86) = deploymentId2;
+      _os_signpost_emit_with_name_impl(&dword_26F567000, v40, OS_SIGNPOST_INTERVAL_END, v33, "FetchRolloutNotificationWithDeployment", "r: %{public}@, d: %d", v83, 0x12u);
     }
 
     v43 = TRILogCategory_Server();
     if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
     {
-      v54 = objc_opt_class();
+      v53 = objc_opt_class();
       shortDesc2 = [(TRIRolloutDeployment *)selfCopy->_deployment shortDesc];
-      v56 = *(v80 + 6);
-      if (v56 >= 5)
+      v55 = *(v79 + 6);
+      if (v55 >= 5)
       {
-        v57 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *(v80 + 6)];
+        v56 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *(v79 + 6)];
       }
 
       else
       {
-        v57 = off_279DE4970[v56];
+        v56 = off_279DE4970[v55];
       }
 
-      *v84 = 138543874;
-      v85 = v54;
-      v86 = 2114;
-      v87 = shortDesc2;
-      v88 = 2114;
-      v89 = v57;
-      _os_log_debug_impl(&dword_26F567000, v43, OS_LOG_TYPE_DEBUG, "Finished %{public}@ with rollout %{public}@: %{public}@", v84, 0x20u);
+      *v83 = 138543874;
+      v84 = v53;
+      v85 = 2114;
+      v86 = shortDesc2;
+      v87 = 2114;
+      v88 = v56;
+      _os_log_debug_impl(&dword_26F567000, v43, OS_LOG_TYPE_DEBUG, "Finished %{public}@ with rollout %{public}@: %{public}@", v83, 0x20u);
     }
 
-    if (v74[5])
+    if (v73[5])
     {
       selfCopy->wasDeferred = [TRICKNativeArtifactProvider isActivityDeferralError:?];
-      v44 = TRIFetchErrorParseToMetrics(v74[5]);
+      v44 = TRIFetchErrorParseToMetrics(v73[5]);
       if ([v44 count])
       {
-        v64 = 0u;
-        v65 = 0u;
-        v62 = 0u;
         v63 = 0u;
+        v64 = 0u;
+        v61 = 0u;
+        v62 = 0u;
         v45 = v44;
-        v46 = [v45 countByEnumeratingWithState:&v62 objects:v83 count:16];
+        v46 = [v45 countByEnumeratingWithState:&v61 objects:v82 count:16];
         if (v46)
         {
-          v47 = *v63;
+          v47 = *v62;
           do
           {
             for (i = 0; i != v46; ++i)
             {
-              if (*v63 != v47)
+              if (*v62 != v47)
               {
                 objc_enumerationMutation(v45);
               }
 
-              [(TRIRolloutTaskSupport *)selfCopy->_support addMetric:*(*(&v62 + 1) + 8 * i)];
+              [(TRIRolloutTaskSupport *)selfCopy->_support addMetric:*(*(&v61 + 1) + 8 * i)];
             }
 
-            v46 = [v45 countByEnumeratingWithState:&v62 objects:v83 count:16];
+            v46 = [v45 countByEnumeratingWithState:&v61 objects:v82 count:16];
           }
 
           while (v46);
@@ -314,12 +312,12 @@ LABEL_3:
       }
     }
 
-    v16 = [TRITaskRunResult resultWithRunStatus:*(v80 + 6) reportResultToServer:1 nextTasks:MEMORY[0x277CBEBF8] earliestRetryDate:*(*&buf[8] + 40)];
+    v16 = [TRITaskRunResult resultWithRunStatus:*(v79 + 6) reportResultToServer:1 nextTasks:MEMORY[0x277CBEBF8] earliestRetryDate:*(*&buf[8] + 40)];
 
-    _Block_object_dispose(&v73, 8);
+    _Block_object_dispose(&v72, 8);
     _Block_object_dispose(buf, 8);
 
-    _Block_object_dispose(&v79, 8);
+    _Block_object_dispose(&v78, 8);
 LABEL_34:
 
     goto LABEL_35;
@@ -339,14 +337,13 @@ LABEL_34:
 LABEL_35:
 
   objc_sync_exit(selfCopy);
-  v50 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 void __71__TRIFetchSingleRolloutNotificationTask_runUsingContext_withTaskQueue___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -358,8 +355,8 @@ void __71__TRIFetchSingleRolloutNotificationTask_runUsingContext_withTaskQueue__
 
       if (!v12)
       {
-        v32 = [MEMORY[0x277CCA890] currentHandler];
-        [v32 handleFailureInMethod:*(a1 + 80) object:*(a1 + 32) file:@"TRIFetchSingleRolloutNotificationTask.m" lineNumber:172 description:{@"Invalid parameter not satisfying: %@", @"artifact.namespaceNames"}];
+        v31 = [MEMORY[0x277CCA890] currentHandler];
+        [v31 handleFailureInMethod:*(a1 + 80) object:*(a1 + 32) file:@"TRIFetchSingleRolloutNotificationTask.m" lineNumber:172 description:{@"Invalid parameter not satisfying: %@", @"artifact.namespaceNames"}];
       }
 
       v13 = [v9 rollout];
@@ -372,8 +369,8 @@ void __71__TRIFetchSingleRolloutNotificationTask_runUsingContext_withTaskQueue__
 
         if (!v16)
         {
-          v33 = [MEMORY[0x277CCA890] currentHandler];
-          [v33 handleFailureInMethod:*(a1 + 80) object:*(a1 + 32) file:@"TRIFetchSingleRolloutNotificationTask.m" lineNumber:175 description:{@"Expression was unexpectedly nil/false: %@", @"artifact.rollout.rampId"}];
+          v32 = [MEMORY[0x277CCA890] currentHandler];
+          [v32 handleFailureInMethod:*(a1 + 80) object:*(a1 + 32) file:@"TRIFetchSingleRolloutNotificationTask.m" lineNumber:175 description:{@"Expression was unexpectedly nil/false: %@", @"artifact.rollout.rampId"}];
         }
 
         v17 = TRIValidateRampId();
@@ -406,9 +403,9 @@ void __71__TRIFetchSingleRolloutNotificationTask_runUsingContext_withTaskQueue__
         v29 = TRILogCategory_Server();
         if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          v31 = [*(*(a1 + 32) + 24) shortDesc];
+          v30 = [*(*(a1 + 32) + 24) shortDesc];
           *buf = 138543362;
-          v35 = v31;
+          v34 = v30;
           _os_log_error_impl(&dword_26F567000, v29, OS_LOG_TYPE_ERROR, "Unexpected conflict when saving rollout to database: %{public}@", buf, 0xCu);
         }
 
@@ -423,7 +420,7 @@ void __71__TRIFetchSingleRolloutNotificationTask_runUsingContext_withTaskQueue__
       {
         v23 = [*(*(a1 + 32) + 24) shortDesc];
         *buf = 138543362;
-        v35 = v23;
+        v34 = v23;
         _os_log_impl(&dword_26F567000, v22, OS_LOG_TYPE_DEFAULT, "No valid and compatible rollout artifact was received for %{public}@.", buf, 0xCu);
       }
 
@@ -438,9 +435,9 @@ void __71__TRIFetchSingleRolloutNotificationTask_runUsingContext_withTaskQueue__
     {
       v21 = [*(*(a1 + 32) + 24) shortDesc];
       *buf = 138543618;
-      v35 = v21;
-      v36 = 2114;
-      v37 = v11;
+      v34 = v21;
+      v35 = 2114;
+      v36 = v11;
       _os_log_impl(&dword_26F567000, v20, OS_LOG_TYPE_DEFAULT, "Unable to fetch rollout notification %{public}@: %{public}@", buf, 0x16u);
     }
 
@@ -450,8 +447,6 @@ void __71__TRIFetchSingleRolloutNotificationTask_runUsingContext_withTaskQueue__
   }
 
   dispatch_semaphore_signal(*(a1 + 48));
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -531,17 +526,17 @@ void __71__TRIFetchSingleRolloutNotificationTask_runUsingContext_withTaskQueue__
 
 + (id)parseFromData:(id)data
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v25 = 0;
-  v3 = [(TRIPBMessage *)TRIFetchSingleRolloutNotificationPersistedTask parseFromData:data error:&v25];
-  v4 = v25;
+  v27 = *MEMORY[0x277D85DE8];
+  v24 = 0;
+  v3 = [(TRIPBMessage *)TRIFetchSingleRolloutNotificationPersistedTask parseFromData:data error:&v24];
+  v4 = v24;
   if (!v3)
   {
     v8 = TRILogCategory_Server();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v27 = v4;
+      v26 = v4;
       _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Unable to parse buffer as TRIFetchSingleRolloutNotificationPersistedTask: %{public}@", buf, 0xCu);
     }
 
@@ -553,10 +548,10 @@ void __71__TRIFetchSingleRolloutNotificationTask_runUsingContext_withTaskQueue__
     v13 = TRILogCategory_Server();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
+      v22 = objc_opt_class();
+      v23 = NSStringFromClass(v22);
       *buf = 138412290;
-      v27 = v24;
+      v26 = v23;
       _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "Cannot decode message of type %@ with missing field: rolloutId", buf, 0xCu);
     }
 
@@ -569,7 +564,7 @@ void __71__TRIFetchSingleRolloutNotificationTask_runUsingContext_withTaskQueue__
     v14 = objc_opt_class();
     v15 = NSStringFromClass(v14);
     *buf = 138412290;
-    v27 = v15;
+    v26 = v15;
     v16 = "Cannot decode message of type %@ with missing field: rolloutId";
     goto LABEL_23;
   }
@@ -588,7 +583,7 @@ void __71__TRIFetchSingleRolloutNotificationTask_runUsingContext_withTaskQueue__
     v17 = objc_opt_class();
     v15 = NSStringFromClass(v17);
     *buf = 138412290;
-    v27 = v15;
+    v26 = v15;
     v16 = "Cannot decode message of type %@ with field of length 0: rolloutId";
 LABEL_23:
     _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, v16, buf, 0xCu);
@@ -607,7 +602,7 @@ LABEL_23:
     v18 = objc_opt_class();
     v15 = NSStringFromClass(v18);
     *buf = 138412290;
-    v27 = v15;
+    v26 = v15;
     v16 = "Cannot decode message of type %@ with missing field: deploymentId";
     goto LABEL_23;
   }
@@ -623,7 +618,7 @@ LABEL_23:
     v19 = objc_opt_class();
     v15 = NSStringFromClass(v19);
     *buf = 138412290;
-    v27 = v15;
+    v26 = v15;
     v16 = "Cannot decode message of type %@ with missing field: taskAttribution";
     goto LABEL_23;
   }
@@ -636,7 +631,7 @@ LABEL_23:
       v20 = objc_opt_class();
       v15 = NSStringFromClass(v20);
       *buf = 138412290;
-      v27 = v15;
+      v26 = v15;
       v16 = "Cannot decode message of type %@ with missing field: retryCount";
       goto LABEL_23;
     }
@@ -672,7 +667,6 @@ LABEL_24:
   }
 
 LABEL_25:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

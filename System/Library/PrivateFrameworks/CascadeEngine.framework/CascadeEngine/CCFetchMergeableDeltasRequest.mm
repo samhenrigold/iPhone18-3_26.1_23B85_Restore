@@ -1,10 +1,34 @@
 @interface CCFetchMergeableDeltasRequest
++ (id)fetchMergableDeltasRequestFromPeerToPeerMessage:(id)message set:(id)set stateVector:(id)vector atomBatchVersion:(unint64_t)version requestOptions:(unsigned __int16)options;
 - (id)dictionaryRepresentation;
 - (id)initFromDictionary:(id)dictionary;
 - (void)dictionaryRepresentation;
 @end
 
 @implementation CCFetchMergeableDeltasRequest
+
++ (id)fetchMergableDeltasRequestFromPeerToPeerMessage:(id)message set:(id)set stateVector:(id)vector atomBatchVersion:(unint64_t)version requestOptions:(unsigned __int16)options
+{
+  optionsCopy = options;
+  vectorCopy = vector;
+  setCopy = set;
+  messageCopy = message;
+  v14 = [CCFetchMergeableDeltasRequest alloc];
+  syncReason = [messageCopy syncReason];
+  senderDeviceUUID = [messageCopy senderDeviceUUID];
+  protocolVersion = [messageCopy protocolVersion];
+  [messageCopy walltime];
+  v19 = v18;
+
+  v20 = [(CCPeerToPeerMessage *)v14 initWithSyncReason:syncReason senderDeviceUUID:senderDeviceUUID protocolVersion:protocolVersion wallTime:v19];
+  [(CCFetchMergeableDeltasRequest *)v20 setSet:setCopy];
+
+  [(CCFetchMergeableDeltasRequest *)v20 setStateVector:vectorCopy];
+  [(CCFetchMergeableDeltasRequest *)v20 setAtomBatchVersion:version];
+  [(CCFetchMergeableDeltasRequest *)v20 setRequestOptions:optionsCopy];
+
+  return v20;
+}
 
 - (id)initFromDictionary:(id)dictionary
 {
@@ -67,11 +91,11 @@
 
 - (id)dictionaryRepresentation
 {
-  v22[5] = *MEMORY[0x1E69E9840];
+  v21[5] = *MEMORY[0x1E69E9840];
   stateVector = self->_stateVector;
-  v20 = 0;
-  v4 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:stateVector requiringSecureCoding:1 error:&v20];
-  v5 = v20;
+  v19 = 0;
+  v4 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:stateVector requiringSecureCoding:1 error:&v19];
+  v5 = v19;
   if (v5)
   {
     v6 = __biome_log_for_category();
@@ -81,22 +105,22 @@
     }
   }
 
-  v18 = v5;
-  v21[0] = @"stateVector";
+  v17 = v5;
+  v20[0] = @"stateVector";
   data = v4;
   if (!v4)
   {
     data = [MEMORY[0x1E695DEF0] data];
   }
 
-  v22[0] = data;
-  v21[1] = @"atomBatchVersion";
+  v21[0] = data;
+  v20[1] = @"atomBatchVersion";
   v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_atomBatchVersion];
-  v22[1] = v8;
-  v21[2] = @"fetchDeltasRequestOptions";
+  v21[1] = v8;
+  v20[2] = @"fetchDeltasRequestOptions";
   v9 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:self->_requestOptions];
-  v22[2] = v9;
-  v21[3] = @"peerPublicKey";
+  v21[2] = v9;
+  v20[3] = @"peerPublicKey";
   peerPublicKey = self->_peerPublicKey;
   data2 = peerPublicKey;
   if (!peerPublicKey)
@@ -104,11 +128,11 @@
     data2 = [MEMORY[0x1E695DEF0] data];
   }
 
-  v22[3] = data2;
-  v21[4] = @"set";
+  v21[3] = data2;
+  v20[4] = @"set";
   dictionaryRepresentation = [(CCSet *)self->_set dictionaryRepresentation];
-  v22[4] = dictionaryRepresentation;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:5];
+  v21[4] = dictionaryRepresentation;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:5];
   v14 = [v13 mutableCopy];
 
   if (!peerPublicKey)
@@ -119,32 +143,28 @@
   {
   }
 
-  v19.receiver = self;
-  v19.super_class = CCFetchMergeableDeltasRequest;
-  dictionaryRepresentation2 = [(CCPeerToPeerMessage *)&v19 dictionaryRepresentation];
+  v18.receiver = self;
+  v18.super_class = CCFetchMergeableDeltasRequest;
+  dictionaryRepresentation2 = [(CCPeerToPeerMessage *)&v18 dictionaryRepresentation];
   [v14 addEntriesFromDictionary:dictionaryRepresentation2];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (void)initFromDictionary:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1DA444000, a2, OS_LOG_TYPE_FAULT, "failed to unarchive CKDistributedTimestampStateVector with error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1DA444000, a2, OS_LOG_TYPE_FAULT, "failed to unarchive CKDistributedTimestampStateVector with error %@", &v2, 0xCu);
 }
 
 - (void)dictionaryRepresentation
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_fault_impl(&dword_1DA444000, a2, OS_LOG_TYPE_FAULT, "failed to archive CKDistributedTimestampStateVector with error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1DA444000, a2, OS_LOG_TYPE_FAULT, "failed to archive CKDistributedTimestampStateVector with error %@", &v2, 0xCu);
 }
 
 @end

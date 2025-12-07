@@ -1,634 +1,13 @@
-uint64_t SDUnlockLongTermKeyRequestReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v26 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v26 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v26 & 0x7F) << v5;
-        if ((v26 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) == 3)
-      {
-        v21 = PBReaderReadData();
-        v22 = 8;
-      }
-
-      else
-      {
-        if (v13 != 2)
-        {
-          if (v13 == 1)
-          {
-            v14 = 0;
-            v15 = 0;
-            v16 = 0;
-            *(a1 + 28) |= 1u;
-            while (1)
-            {
-              v27 = 0;
-              v17 = [a2 position] + 1;
-              if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
-              {
-                v19 = [a2 data];
-                [v19 getBytes:&v27 range:{objc_msgSend(a2, "position"), 1}];
-
-                [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-              }
-
-              else
-              {
-                [a2 _setError];
-              }
-
-              v16 |= (v27 & 0x7F) << v14;
-              if ((v27 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v14 += 7;
-              v11 = v15++ >= 9;
-              if (v11)
-              {
-                v20 = 0;
-                goto LABEL_37;
-              }
-            }
-
-            if ([a2 hasError])
-            {
-              v20 = 0;
-            }
-
-            else
-            {
-              v20 = v16;
-            }
-
-LABEL_37:
-            *(a1 + 24) = v20;
-          }
-
-          else
-          {
-            result = PBReaderSkipValueWithTag();
-            if (!result)
-            {
-              return result;
-            }
-          }
-
-          goto LABEL_38;
-        }
-
-        v21 = PBReaderReadString();
-        v22 = 16;
-      }
-
-      v23 = *(a1 + v22);
-      *(a1 + v22) = v21;
-
-LABEL_38:
-      v25 = [a2 position];
-    }
-
-    while (v25 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-void sub_10008C204(id a1)
-{
-  v1 = objc_alloc_init(SDDeviceAssetMonitor);
-  v2 = qword_100989A58;
-  qword_100989A58 = v1;
-}
-
-void sub_10008C538(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
-{
-  objc_destroyWeak((v20 + 32));
-  objc_destroyWeak((v19 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_10008C564(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained activateIfReady];
-}
-
-void sub_10008C5A4(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained activateIfReady];
-}
-
-void sub_10008C714(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v2 + 32));
-  objc_destroyWeak((v1 + 32));
-  objc_destroyWeak((v3 - 56));
-  _Unwind_Resume(a1);
-}
-
-void sub_10008C744(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained bluetoothDevicePaired:v3];
-}
-
-void sub_10008C7A0(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained bluetoothDeviceUnpaired:v3];
-}
-
-void sub_10008CEA4(uint64_t a1, void *a2, uint64_t a3, int a4, void *a5)
-{
-  v8 = a2;
-  v9 = a5;
-  v10 = asset_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-  {
-    if (a4)
-    {
-      v11 = @"Fallback ";
-    }
-
-    else
-    {
-      v11 = &stru_1008EFBD0;
-    }
-
-    v12 = *(a1 + 32);
-    v13 = [v8 bundlePath];
-    v15 = 138413058;
-    v16 = v11;
-    v17 = 2112;
-    v18 = v12;
-    v19 = 2112;
-    v20 = v13;
-    v21 = 2112;
-    v22 = v9;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@Asset matching query %@ now available at %@ (%@)", &v15, 0x2Au);
-  }
-
-  if (a4)
-  {
-    v14 = 2;
-  }
-
-  else
-  {
-    v14 = 1;
-  }
-
-  [*(a1 + 40) setState:v14];
-}
-
-void sub_10008D8B4(id a1)
-{
-  qword_100989A68 = dlopen([@"/System/Library/PrivateFrameworks/URLFormatting.framework/URLFormatting" UTF8String], 2);
-  if (!qword_100989A68)
-  {
-    v1 = airdrop_log();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
-    {
-      sub_10008D92C(v1);
-    }
-  }
-}
-
-void sub_10008D92C(os_log_t log)
-{
-  v1 = 138412290;
-  v2 = @"/System/Library/PrivateFrameworks/URLFormatting.framework/URLFormatting";
-  _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Failed to softlink: %@", &v1, 0xCu);
-}
-
-void sub_10008D9F4(id a1)
-{
-  v1 = objc_alloc_init(SDAutoUnlockNotificationsManager);
-  v2 = qword_100989A78;
-  qword_100989A78 = v1;
-}
-
-void sub_10008E06C(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  if (v6)
-  {
-    obj = auto_unlock_log();
-    if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
-    {
-      sub_10008F02C();
-    }
-
-    goto LABEL_4;
-  }
-
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  obj = v5;
-  v7 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
-  if (!v7)
-  {
-LABEL_4:
-
-    goto LABEL_5;
-  }
-
-  v8 = v7;
-  v25 = v5;
-  v27 = *v31;
-LABEL_8:
-  v9 = 0;
-  while (1)
-  {
-    if (*v31 != v27)
-    {
-      objc_enumerationMutation(obj);
-    }
-
-    v10 = *(*(&v30 + 1) + 8 * v9);
-    v11 = [v10 userInfo];
-    v12 = [v11 objectForKeyedSubscript:@"SDPhoneAutoUnlockNotificationUpsellKey"];
-    if (v12)
-    {
-      break;
-    }
-
-LABEL_16:
-    if (v8 == ++v9)
-    {
-      v8 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
-      if (v8)
-      {
-        goto LABEL_8;
-      }
-
-      v5 = v25;
-      goto LABEL_4;
-    }
-  }
-
-  v13 = v12;
-  v14 = [v10 userInfo];
-  v15 = [v14 objectForKeyedSubscript:@"SDPhoneAutoUnlockNotificationUpsellKey"];
-  v16 = [v15 BOOLValue];
-  v17 = a1;
-  v18 = *(a1 + 40);
-
-  v19 = v18 == v16;
-  a1 = v17;
-  if (!v19)
-  {
-    goto LABEL_16;
-  }
-
-  v20 = auto_unlock_log();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Found matching item to clear", buf, 2u);
-  }
-
-  v22 = *(*(v17 + 32) + 8);
-  v34 = @"com.apple.sharingd.phone-auto-unlock-upsell";
-  v23 = [NSArray arrayWithObjects:&v34 count:1];
-  v28 = 0;
-  [v22 clearPendingFollowUpItemsWithUniqueIdentifiers:v23 error:&v28];
-  v24 = v28;
-
-  v5 = v25;
-  if (v24)
-  {
-    obj = auto_unlock_log();
-    if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
-    {
-      sub_10008F0A0();
-    }
-
-    goto LABEL_4;
-  }
-
-LABEL_5:
-}
-
-void sub_10008E6F4(uint64_t a1)
-{
-  v2 = auto_unlock_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Attempting to create Auto Relock Notification", buf, 2u);
-  }
-
-  error = 0;
-  v3 = objc_opt_new();
-  [v3 setObject:*(a1 + 32) forKeyedSubscript:kCFUserNotificationAlertHeaderKey];
-  [v3 setObject:*(a1 + 40) forKeyedSubscript:kCFUserNotificationAlertMessageKey];
-  [v3 setObject:&__kCFBooleanTrue forKeyedSubscript:kCFUserNotificationAlertTopMostKey];
-  [v3 setObject:&__kCFBooleanFalse forKeyedSubscript:SBUserNotificationDismissOnLock];
-  [v3 setObject:&__kCFBooleanFalse forKeyedSubscript:SBUserNotificationDontDismissOnUnlock];
-  qword_1009A05F0 = CFUserNotificationCreate(0, 0.0, 0x23uLL, &error, v3);
-  if (qword_1009A05F0)
-  {
-    v4 = auto_unlock_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Successfully created Auto Relock Notification", v8, 2u);
-    }
-
-    RunLoopSource = CFUserNotificationCreateRunLoopSource(0, qword_1009A05F0, sub_10008E8E0, 0);
-    Main = CFRunLoopGetMain();
-    CFRunLoopAddSource(Main, RunLoopSource, kCFRunLoopDefaultMode);
-    CFRelease(RunLoopSource);
-  }
-
-  if (error)
-  {
-    v7 = auto_unlock_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      sub_10008F18C(&error);
-    }
-  }
-}
-
-void sub_10008E8E0()
-{
-  if (qword_1009A05F0)
-  {
-    v0 = auto_unlock_log();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-    {
-      *v1 = 0;
-      _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "Releasing Auto Relock Notification", v1, 2u);
-    }
-
-    CFRelease(qword_1009A05F0);
-    qword_1009A05F0 = 0;
-  }
-}
-
-void sub_10008EA40(uint64_t a1)
-{
-  v2 = auto_unlock_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Attempting to create Unlock Request Notification", buf, 2u);
-  }
-
-  error = 0;
-  v3 = objc_opt_new();
-  [v3 setObject:*(a1 + 32) forKeyedSubscript:kCFUserNotificationAlertHeaderKey];
-  [v3 setObject:*(a1 + 40) forKeyedSubscript:kCFUserNotificationAlertMessageKey];
-  [v3 setObject:&__kCFBooleanTrue forKeyedSubscript:kCFUserNotificationAlertTopMostKey];
-  [v3 setObject:&__kCFBooleanFalse forKeyedSubscript:SBUserNotificationDismissOnLock];
-  [v3 setObject:&__kCFBooleanFalse forKeyedSubscript:SBUserNotificationDontDismissOnUnlock];
-  qword_1009A05F8 = CFUserNotificationCreate(0, 0.0, 0x23uLL, &error, v3);
-  if (qword_1009A05F8)
-  {
-    v4 = auto_unlock_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Successfully created Unlock Request Notification", v8, 2u);
-    }
-
-    RunLoopSource = CFUserNotificationCreateRunLoopSource(0, qword_1009A05F8, sub_10008EC2C, 0);
-    Main = CFRunLoopGetMain();
-    CFRunLoopAddSource(Main, RunLoopSource, kCFRunLoopDefaultMode);
-    CFRelease(RunLoopSource);
-  }
-
-  if (error)
-  {
-    v7 = auto_unlock_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      sub_10008F18C(&error);
-    }
-  }
-}
-
-void sub_10008EC2C()
-{
-  if (qword_1009A05F8)
-  {
-    v0 = auto_unlock_log();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-    {
-      *v1 = 0;
-      _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "Releasing Auto Relock Notification", v1, 2u);
-    }
-
-    CFRelease(qword_1009A05F8);
-    qword_1009A05F8 = 0;
-  }
-}
-
-id sub_10008EDFC(uint64_t a1)
-{
-  v2 = auto_unlock_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Notification timer fired", v4, 2u);
-  }
-
-  [*(a1 + 32) dismissNotification];
-  return [*(a1 + 32) notifyObservers:"suggestionNotificationTimedOut"];
-}
-
-void sub_10008F18C(int *a1)
-{
-  v6 = *a1;
-  sub_100008830();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-uint64_t SDAutoUnlockCleanUpAWDLReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v22 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v22 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v22 & 0x7F) << v5;
-        if ((v22 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        v13 = 0;
-        v14 = 0;
-        v15 = 0;
-        *(a1 + 12) |= 1u;
-        while (1)
-        {
-          v23 = 0;
-          v16 = [a2 position] + 1;
-          if (v16 >= [a2 position] && (v17 = objc_msgSend(a2, "position") + 1, v17 <= objc_msgSend(a2, "length")))
-          {
-            v18 = [a2 data];
-            [v18 getBytes:&v23 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v15 |= (v23 & 0x7F) << v13;
-          if ((v23 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v13 += 7;
-          v11 = v14++ >= 9;
-          if (v11)
-          {
-            v19 = 0;
-            goto LABEL_32;
-          }
-        }
-
-        v19 = [a2 hasError] ? 0 : v15;
-LABEL_32:
-        *(a1 + 8) = v19;
-      }
-
-      else
-      {
-        result = PBReaderSkipValueWithTag();
-        if (!result)
-        {
-          return result;
-        }
-      }
-
-      v21 = [a2 position];
-    }
-
-    while (v21 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-id sub_10008F9A4()
+id sub_10008F9A4(uint64_t a1)
 {
   if (qword_100989A90 != -1)
   {
     sub_100093184();
   }
 
-  v1 = qword_100989A98;
+  v2 = qword_100989A98;
 
-  return v1;
+  return v2;
 }
 
 void sub_10008F9E8(id a1)
@@ -815,7 +194,7 @@ BOOL sub_100090158(void *a1, void *a2, _BYTE *a3)
   v6 = [v5 count];
   v7 = SFNodeCopyModel();
   v8 = [v7 length];
-  v9 = sub_100090294();
+  v9 = sub_100090294(a2);
   if (!v6)
   {
     v15 = 0;
@@ -842,7 +221,7 @@ LABEL_9:
     }
   }
 
-  v13 = sub_100090294();
+  v13 = sub_100090294(v12);
   if (![v13 intersectsSet:v9])
   {
 LABEL_8:
@@ -872,15 +251,35 @@ LABEL_14:
   return v15;
 }
 
-id sub_100090294()
+id sub_100090294(uint64_t a1)
 {
-  v0 = +[SDStatusMonitor sharedMonitor];
-  v1 = SFNodeCopyAppleID();
-  if (v1 && ([v0 verifiedIdentityForAppleID:v1], v2 = objc_claimAutoreleasedReturnValue(), v2, v2))
+  v1 = +[SDStatusMonitor sharedMonitor];
+  v2 = SFNodeCopyAppleID();
+  if (v2 && ([v1 verifiedIdentityForAppleID:v2], v3 = objc_claimAutoreleasedReturnValue(), v3, v3))
   {
-    v3 = SFNodeCopyEmailHash();
-    v4 = SFNodeCopyPhoneHash();
-    v5 = [v0 contactsForEmailHash:v3 phoneHash:v4];
+    v4 = SFNodeCopyEmailHash();
+    v5 = SFNodeCopyPhoneHash();
+    v6 = [v1 contactsForEmailHash:v4 phoneHash:v5];
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
+}
+
+uint64_t sub_100090360(uint64_t a1)
+{
+  v1 = +[SDStatusMonitor sharedMonitor];
+  v2 = [v1 myAppleIDCommonName];
+  v3 = SFNodeCopyAppleID();
+  v4 = [v1 verifiedIdentityForAppleID:v3];
+
+  if (v4)
+  {
+    v5 = [v4 accountIdentifier];
   }
 
   else
@@ -888,63 +287,43 @@ id sub_100090294()
     v5 = 0;
   }
 
-  return v5;
-}
-
-uint64_t sub_100090360()
-{
-  v0 = +[SDStatusMonitor sharedMonitor];
-  v1 = [v0 myAppleIDCommonName];
-  v2 = SFNodeCopyAppleID();
-  v3 = [v0 verifiedIdentityForAppleID:v2];
-
-  if (v3)
+  if ([v2 length] && objc_msgSend(v5, "length") && (objc_msgSend(v2, "isEqualToString:", v5) & 1) != 0)
   {
-    v4 = [v3 accountIdentifier];
+    v6 = 1;
   }
 
   else
   {
-    v4 = 0;
-  }
-
-  if ([v1 length] && objc_msgSend(v4, "length") && (objc_msgSend(v1, "isEqualToString:", v4) & 1) != 0)
-  {
-    v5 = 1;
-  }
-
-  else
-  {
-    v6 = SFNodeCopyKinds();
-    if ([v6 containsObject:kSFNodeKindRapport])
+    v7 = SFNodeCopyKinds();
+    if ([v7 containsObject:kSFNodeKindRapport])
     {
-      v5 = [v6 containsObject:kSFNodeKindMe];
+      v6 = [v7 containsObject:kSFNodeKindMe];
     }
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
   }
 
-  return v5;
+  return v6;
 }
 
-id sub_100090478()
+id sub_100090478(uint64_t a1)
 {
-  v0 = sub_100090294();
-  v1 = sub_1001EAB78(v0);
-
-  return v1;
-}
-
-id sub_1000904C4()
-{
-  v0 = sub_100090294();
-  v1 = sub_100090528(v0);
-  v2 = [v1 identifier];
+  v1 = sub_100090294(a1);
+  v2 = sub_1001EAB78(v1);
 
   return v2;
+}
+
+id sub_1000904C4(uint64_t a1)
+{
+  v1 = sub_100090294(a1);
+  v2 = sub_100090528(v1);
+  v3 = [v2 identifier];
+
+  return v3;
 }
 
 id sub_100090528(void *a1)
@@ -960,7 +339,7 @@ void sub_100090598(void *a1, void *a2)
 {
   v11 = a2;
   v12 = 0;
-  v3 = sub_100090360();
+  v3 = sub_100090360(a1);
   v4 = SFNodeCopyDisplayName();
   v5 = SFNodeCopyComputerName();
   if ([v4 isEqualToString:v5] & 1) != 0 || ((sub_100090158(v11, a1, &v12) | v3) & 1) == 0 || (+[SDStatusMonitor sharedMonitor](SDStatusMonitor, "sharedMonitor"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "coalesceMe"), v6, (v7))
@@ -1132,34 +511,10 @@ void sub_100090C24(void *a1, void *a2, void *a3, int a4)
   v20 = a2;
   v7 = a3;
   v8 = SFNodeCopyComputerName();
-  v9 = sub_100090294();
+  v9 = sub_100090294(a1);
   v10 = sub_100090528(v9);
   v11 = v10;
-  if (!v10)
-  {
-    goto LABEL_4;
-  }
-
-  v12 = [v10 identifier];
-  SFNodeSetContactIdentifier();
-
-  sub_1001EAB78(v9);
-  SFNodeSetContactIdentifiers();
-  v13 = [v11 givenName];
-  SFNodeSetFirstName();
-
-  v14 = [v11 familyName];
-  SFNodeSetLastName();
-
-  v15 = [v11 nickname];
-  SFNodeSetNickName();
-
-  v16 = objc_alloc_init(CNContactFormatter);
-  v17 = [v11 mutableCopy];
-  [v17 setMiddleName:&stru_1008EFBD0];
-  v18 = [v16 stringFromContact:v17];
-
-  if (v18)
+  if (v10 && ([v10 identifier], v12 = objc_claimAutoreleasedReturnValue(), SFNodeSetContactIdentifier(), v12, sub_1001EAB78(v9), SFNodeSetContactIdentifiers(), objc_msgSend(v11, "givenName"), v13 = objc_claimAutoreleasedReturnValue(), SFNodeSetFirstName(), v13, objc_msgSend(v11, "familyName"), v14 = objc_claimAutoreleasedReturnValue(), SFNodeSetLastName(), v14, objc_msgSend(v11, "nickname"), v15 = objc_claimAutoreleasedReturnValue(), SFNodeSetNickName(), v15, v16 = objc_alloc_init(CNContactFormatter), v17 = objc_msgSend(v11, "mutableCopy"), objc_msgSend(v17, "setMiddleName:", &stru_1008EFBD0), objc_msgSend(v16, "stringFromContact:", v17), v18 = objc_claimAutoreleasedReturnValue(), v18, v17, v16, v18))
   {
     SFNodeSetDisplayName();
     sub_100090598(a1, v20);
@@ -1169,7 +524,6 @@ void sub_100090C24(void *a1, void *a2, void *a3, int a4)
 
   else
   {
-LABEL_4:
     SFNodeAddKind();
     SFNodeSetDisplayName();
     SFNodeSetSecondaryName();
@@ -1341,7 +695,7 @@ LABEL_23:
 LABEL_53:
 }
 
-__CFArray *sub_100091420(__SecTrust *a1)
+__CFArray *sub_100091420(__SecTrust *a1, uint64_t a2)
 {
   if (a1)
   {
@@ -1367,8 +721,8 @@ LABEL_18:
         return Mutable;
       }
 
-      v7 = airdrop_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = airdrop_log();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_100093468();
       }
@@ -1376,16 +730,16 @@ LABEL_18:
 
     else
     {
+      v9 = airdrop_log();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        sub_100093380();
+      }
+
       v8 = airdrop_log();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        sub_100093380(&result);
-      }
-
-      v7 = airdrop_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-      {
-        sub_1000933F0(&error);
+        sub_1000933F0();
       }
     }
 
@@ -1393,8 +747,8 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v6 = airdrop_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = airdrop_log();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     sub_1000934DC();
   }
@@ -1402,59 +756,57 @@ LABEL_18:
   return 0;
 }
 
-NSObject *sub_10009159C(__SecTrust *a1)
+NSObject *sub_10009159C(__SecTrust *a1, uint64_t a2)
 {
-  v1 = sub_100091420(a1);
-  if ([(__CFArray *)v1 count])
+  v2 = sub_100091420(a1, a2);
+  if ([(__CFArray *)v2 count])
   {
-    v9 = 0;
     if (SFAppleIDVerifyCertificateChainSync())
     {
-      [(__CFArray *)v1 objectAtIndexedSubscript:0];
+      [(__CFArray *)v2 objectAtIndexedSubscript:0];
 
-      v2 = SFAppleIDCommonNameForCertificate();
-      v3 = 0;
-      v4 = v3;
-      v9 = v2;
-      if (!v2)
+      v3 = SFAppleIDCommonNameForCertificate();
+      v4 = 0;
+      v5 = v4;
+      if (!v3)
       {
-        v4 = v3;
-        v7 = v4;
+        v5 = v4;
+        v8 = v5;
         goto LABEL_13;
       }
 
-      v5 = airdrop_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = airdrop_log();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        sub_100093588(&v9);
+        sub_100093588();
       }
     }
 
     else
     {
-      v4 = airdrop_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = airdrop_log();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        sub_100093518(&v9);
+        sub_100093518();
       }
     }
 
-    v7 = 0;
+    v8 = 0;
 LABEL_13:
 
     goto LABEL_14;
   }
 
-  v6 = airdrop_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = airdrop_log();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     sub_1000935F8();
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_14:
 
-  return v7;
+  return v8;
 }
 
 uint64_t sub_1000916EC(void *a1, __SecTrust *a2, void *a3, void *a4, void *a5)
@@ -1488,111 +840,109 @@ uint64_t sub_1000916EC(void *a1, __SecTrust *a2, void *a3, void *a4, void *a5)
 
         if ([v19 length])
         {
-          v20 = sub_100091420(a2);
-          if ([v20 count])
+          v21 = sub_100091420(a2, v20);
+          if ([v21 count])
           {
-            v41 = 0;
             if (!SFAppleIDVerifyCertificateChainSync())
             {
-              v23 = airdrop_log();
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+              v24 = airdrop_log();
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
               {
-                sub_1000936A4(v10, &v41);
+                sub_1000936A4();
               }
 
               v18 = 0;
               goto LABEL_39;
             }
 
-            [v20 objectAtIndexedSubscript:0];
+            [v21 objectAtIndexedSubscript:0];
 
-            v21 = SFAppleIDCommonNameForCertificate();
-            v22 = 0;
-            v23 = v22;
-            v41 = v21;
-            if (v21)
+            v22 = SFAppleIDCommonNameForCertificate();
+            v23 = 0;
+            v24 = v23;
+            if (v22)
             {
-              v24 = airdrop_log();
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+              v25 = airdrop_log();
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
-                sub_10009371C(v10, &v41);
+                sub_10009371C();
               }
             }
 
             else
             {
-              if (([v22 hasSuffix:v19]& 1) != 0)
+              if (([v23 hasSuffix:v19]& 1) != 0)
               {
-                v35 = v23;
-                v26 = [v14 objectForKeyedSubscript:@"ValidatedEmailHashes"];
-                v27 = [v14 objectForKeyedSubscript:@"ValidatedPhoneHashes"];
-                v40 = sub_100091C80(v26);
-                v38 = v27;
-                v28 = v27;
-                v24 = v26;
-                v39 = sub_100091C80(v28);
+                v36 = v24;
+                v27 = [v14 objectForKeyedSubscript:@"ValidatedEmailHashes"];
+                v28 = [v14 objectForKeyedSubscript:@"ValidatedPhoneHashes"];
+                v41 = sub_100091C80(v27);
+                v39 = v28;
+                v29 = v28;
+                v25 = v27;
+                v40 = sub_100091C80(v29);
                 log = airdrop_log();
                 if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
                 {
+                  v34 = SFShortHashArrayDescription();
                   v33 = SFShortHashArrayDescription();
-                  v32 = SFShortHashArrayDescription();
                   *buf = 138478083;
-                  v44 = v33;
+                  v44 = v34;
                   v45 = 2113;
-                  v46 = v32;
+                  v46 = v33;
                   _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "Hashes in validation record: Email=[%{private}@], Phone=[%{private}@]", buf, 0x16u);
                 }
 
-                v29 = [v11 emailOrPhoneForEmailHash:v40 phoneHash:v39];
-                v23 = v35;
-                loga = v29;
-                if (v29)
+                v30 = [v11 emailOrPhoneForEmailHash:v41 phoneHash:v40];
+                v24 = v36;
+                loga = v30;
+                if (v30)
                 {
-                  sub_100091E04(v20, v10, v29);
+                  sub_100091E04(v21, v10, v30);
                 }
 
                 else
                 {
-                  v34 = airdrop_log();
-                  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+                  v35 = airdrop_log();
+                  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 0;
-                    _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Hashes in validation record are not recognized.", buf, 2u);
+                    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Hashes in validation record are not recognized.", buf, 2u);
                   }
                 }
 
                 if (a4)
                 {
-                  *a4 = v40;
+                  *a4 = v41;
                 }
 
                 if (a5)
                 {
-                  *a5 = v39;
+                  *a5 = v40;
                 }
 
-                v31 = airdrop_log();
-                if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+                v32 = airdrop_log();
+                if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
                   v44 = v10;
-                  _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Validation record data is accepted for %@", buf, 0xCu);
+                  _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Validation record data is accepted for %@", buf, 0xCu);
                 }
 
                 v18 = 1;
                 goto LABEL_38;
               }
 
-              v24 = airdrop_log();
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+              v25 = airdrop_log();
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412802;
                 v44 = v19;
                 v45 = 2112;
-                v46 = v23;
+                v46 = v24;
                 v47 = 2112;
                 v48 = v10;
-                _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%@ doesn't match %@ for %@", buf, 0x20u);
+                _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "%@ doesn't match %@ for %@", buf, 0x20u);
               }
             }
 
@@ -1603,8 +953,8 @@ LABEL_39:
             goto LABEL_40;
           }
 
-          v25 = airdrop_log();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v26 = airdrop_log();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             sub_100093794();
           }
@@ -1612,8 +962,8 @@ LABEL_39:
 
         else
         {
-          v20 = airdrop_log();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v21 = airdrop_log();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             sub_100093804();
           }
@@ -2052,7 +1402,7 @@ BOOL sub_10009268C()
       {
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          sub_100093AC8(&error);
+          sub_100093AC8();
         }
 
         if (qword_1009A0600)
@@ -2113,7 +1463,7 @@ id sub_1000929B4()
       v9 = airdrop_log();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        sub_100093B38(&error);
+        sub_100093B38();
       }
 
       if (qword_1009A0608)
@@ -2370,19 +1720,12 @@ void sub_1000932D0(uint64_t a1, uint64_t a2, NSObject *a3)
   _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "No icon data for node with model = %@, id = %@", &v6, 0x16u);
 }
 
-void sub_100093380(unsigned int *a1)
+void sub_100093380()
 {
-  sub_100019C38(a1);
+  sub_100019C38();
   sub_100035D3C();
   sub_100008830();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_1000933F0(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_100008830();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1000934DC()
@@ -2392,20 +1735,20 @@ void sub_1000934DC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100093518(unsigned int *a1)
+void sub_100093518()
 {
-  sub_100019C38(a1);
+  sub_100019C38();
   sub_100035D3C();
   sub_100008830();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100093588(unsigned int *a1)
+void sub_100093588()
 {
-  sub_100019C38(a1);
+  sub_100019C38();
   sub_100035D3C();
   sub_100008830();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1000935F8()
@@ -2420,20 +1763,6 @@ void sub_100093634()
   sub_10000883C();
   sub_100008830();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-}
-
-void sub_1000936A4(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  sub_10000883C();
-  sub_10002FC40(&_mh_execute_header, v3, v4, "Certificate chain not trusted. SFAppleIDVerifyCertificateChainSync for %@ failed with error %d");
-}
-
-void sub_10009371C(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  sub_10000883C();
-  sub_10002FC40(&_mh_execute_header, v3, v4, "SFAppleIDCommonNameForCertificate for %@ failed with error %d");
 }
 
 void sub_100093794()
@@ -2478,20 +1807,20 @@ void sub_100093A18()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100093AC8(unsigned int *a1)
+void sub_100093AC8()
 {
-  sub_100019C38(a1);
+  sub_100019C38();
   sub_100035D3C();
   sub_100008830();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100093B38(unsigned int *a1)
+void sub_100093B38()
 {
-  sub_100019C38(a1);
+  sub_100019C38();
   sub_100035D3C();
   sub_100008830();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100093BEC(id a1)
@@ -2531,13 +1860,13 @@ void sub_100094018(uint64_t a1)
   }
 }
 
-id sub_1000952E0(uint64_t a1)
+id sub_1000952E0(uint64_t a1, uint64_t a2)
 {
-  v2 = streams_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = streams_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Republishing service", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Republishing service", v5, 2u);
   }
 
   return [*(a1 + 32) publish];
@@ -2570,19 +1899,22 @@ void sub_100095B88(id a1)
   gSDSetupAgent = v1;
 }
 
-void *sub_1000968F8(void *result)
+void *sub_1000968F8(void *result, uint64_t a2, uint64_t a3)
 {
   if (*(result[4] + 72) != -1)
   {
-    v2 = result;
-    if (dword_10096FEF8 <= 40 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    v4 = result;
+    if (dword_10096FEF8 <= 40)
     {
-      sub_1000A48A8();
+      if (dword_10096FEF8 != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        sub_1000A48A8(result, a2, a3);
+      }
     }
 
-    v3 = v2[4];
+    v5 = v4[4];
 
-    return [v3 prefsChanged];
+    return [v5 prefsChanged];
   }
 
   return result;
@@ -2590,37 +1922,44 @@ void *sub_1000968F8(void *result)
 
 void sub_100096B70(uint64_t a1)
 {
-  if (![*(a1 + 32) _uiShowing])
+  v2 = [*(a1 + 32) _uiShowing];
+  if (!v2)
   {
-    if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 50)
     {
-      sub_1000A48E0();
+      if (dword_10096FEF8 != -1 || (v2 = _LogCategory_Initialize(), v2))
+      {
+        sub_1000A48E0(v2, v3, v4);
+      }
     }
 
-    v5 = objc_alloc_init(SFDevice);
-    v3 = +[NSUUID UUID];
-    [v5 setIdentifier:v3];
+    v8 = objc_alloc_init(SFDevice);
+    v6 = +[NSUUID UUID];
+    [v8 setIdentifier:v6];
 
-    [*(a1 + 32) _uiStartWithDevice:v5 viewControllerName:@"NFCTagReaderMainController" xpcEndpoint:*(a1 + 40) label:@"NFCUI" unlessApps:0 extraInfo:*(a1 + 48)];
-    v4 = *(a1 + 56);
-    if (v4)
+    [*(a1 + 32) _uiStartWithDevice:v8 viewControllerName:@"NFCTagReaderMainController" xpcEndpoint:*(a1 + 40) label:@"NFCUI" unlessApps:0 extraInfo:*(a1 + 48)];
+    v7 = *(a1 + 56);
+    if (v7)
     {
-      (*(v4 + 16))(v4, 0);
+      (*(v7 + 16))(v7, 0);
     }
 
     goto LABEL_12;
   }
 
-  if (dword_10096FEF8 <= 60 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+  if (dword_10096FEF8 <= 60)
   {
-    sub_1000A48FC();
+    if (dword_10096FEF8 != -1 || (v2 = _LogCategory_Initialize(), v2))
+    {
+      sub_1000A48FC(v2, v3, v4);
+    }
   }
 
-  v2 = *(a1 + 56);
-  if (v2)
+  v5 = *(a1 + 56);
+  if (v5)
   {
-    v5 = NSErrorWithOSStatusF();
-    (*(v2 + 16))(v2, v5);
+    v8 = NSErrorWithOSStatusF(4294960575, "Prox UI Already Active");
+    (*(v5 + 16))(v5, v8);
 LABEL_12:
   }
 }
@@ -2662,13 +2001,13 @@ void sub_100097914(uint64_t a1)
         {
           if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
           {
-            sub_1000A4D94();
+            sub_1000A4D94(v3);
           }
 
           if ([v3 deviceActionType] == 90)
           {
             v4 = [v3 bleDevice];
-            v5 = [v4 advertisementFields];
+            v5 = objc_msgSend_advertisementFields(v4);
             v6 = [v5 objectForKeyedSubscript:@"dpp"];
           }
 
@@ -2682,7 +2021,7 @@ void sub_100097914(uint64_t a1)
 
         else if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
         {
-          sub_1000A4D54();
+          sub_1000A4D54(v3);
         }
       }
 
@@ -2690,7 +2029,7 @@ void sub_100097914(uint64_t a1)
       {
         if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
         {
-          sub_1000A4D14();
+          sub_1000A4D14(v3);
         }
 
         [*(a1 + 32) _uiStartSetupiOS:v3 autoStart:1];
@@ -2747,66 +2086,77 @@ uint64_t sub_100097D20(uint64_t a1)
 
 void sub_100097E38(uint64_t a1)
 {
-  if (![*(a1 + 32) _uiShowing])
+  v2 = [*(a1 + 32) _uiShowing];
+  if (!v2)
   {
-    if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 50)
     {
-      sub_1000A4E08();
+      if (dword_10096FEF8 != -1 || (v2 = _LogCategory_Initialize(), v2))
+      {
+        sub_1000A4E08(v2, v3, v4);
+      }
     }
 
-    v5 = objc_alloc_init(SFDevice);
-    v3 = +[NSUUID UUID];
-    [v5 setIdentifier:v3];
+    v8 = objc_alloc_init(SFDevice);
+    v6 = +[NSUUID UUID];
+    [v8 setIdentifier:v6];
 
-    [*(a1 + 32) _uiStartWithDevice:v5 viewControllerName:@"ProfileDevicePickerMainController" label:@"DevicePicker" unlessApps:0 extraInfo:*(a1 + 40)];
-    v4 = *(a1 + 48);
-    if (v4)
+    [*(a1 + 32) _uiStartWithDevice:v8 viewControllerName:@"ProfileDevicePickerMainController" label:@"DevicePicker" unlessApps:0 extraInfo:*(a1 + 40)];
+    v7 = *(a1 + 48);
+    if (v7)
     {
-      (*(v4 + 16))(v4, 0);
+      (*(v7 + 16))(v7, 0);
     }
 
     goto LABEL_12;
   }
 
-  if (dword_10096FEF8 <= 60 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+  if (dword_10096FEF8 <= 60)
   {
-    sub_1000A4E24();
+    if (dword_10096FEF8 != -1 || (v2 = _LogCategory_Initialize(), v2))
+    {
+      sub_1000A4E24(v2, v3, v4);
+    }
   }
 
-  v2 = *(a1 + 48);
-  if (v2)
+  v5 = *(a1 + 48);
+  if (v5)
   {
-    v5 = NSErrorWithOSStatusF();
-    (*(v2 + 16))(v2, v5);
+    v8 = NSErrorWithOSStatusF(4294960575, "Prox UI Already Active");
+    (*(v5 + 16))(v5, v8);
 LABEL_12:
   }
 }
 
 void sub_100098058(uint64_t a1)
 {
-  if ([*(a1 + 32) _uiShowing])
+  v2 = [*(a1 + 32) _uiShowing];
+  if (v2)
   {
-    if (dword_10096FEF8 <= 60 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    if (dword_10096FEF8 <= 60)
     {
-      sub_1000A4E84();
+      if (dword_10096FEF8 != -1 || (v2 = _LogCategory_Initialize(), v2))
+      {
+        sub_1000A4E84(v2, v3, v4);
+      }
     }
 
-    v2 = *(a1 + 48);
-    if (v2)
+    v5 = *(a1 + 48);
+    if (v5)
     {
-      v10 = NSLocalizedDescriptionKey;
-      v3 = [NSString stringWithUTF8String:DebugGetErrorString()];
-      v4 = v3;
-      v5 = @"?";
-      if (v3)
+      v13 = NSLocalizedDescriptionKey;
+      v6 = [NSString stringWithUTF8String:DebugGetErrorString()];
+      v7 = v6;
+      v8 = @"?";
+      if (v6)
       {
-        v5 = v3;
+        v8 = v6;
       }
 
-      v11 = v5;
-      v6 = [NSDictionary dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-      v7 = [NSError errorWithDomain:NSOSStatusErrorDomain code:-6721 userInfo:v6];
-      (*(v2 + 16))(v2, v7);
+      v14 = v8;
+      v9 = [NSDictionary dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+      v10 = [NSError errorWithDomain:NSOSStatusErrorDomain code:-6721 userInfo:v9];
+      (*(v5 + 16))(v5, v10);
     }
   }
 
@@ -2818,29 +2168,32 @@ void sub_100098058(uint64_t a1)
     }
 
     [*(a1 + 32) _uiStartHomeKitDeviceDetectedWithURL:*(a1 + 40)];
-    v8 = *(a1 + 48);
-    if (v8)
+    v11 = *(a1 + 48);
+    if (v11)
     {
-      v9 = *(v8 + 16);
+      v12 = *(v11 + 16);
 
-      v9();
+      v12();
     }
   }
 }
 
-void *sub_100098BDC(void *result)
+void *sub_100098BDC(void *result, uint64_t a2, uint64_t a3)
 {
   if (*(result[4] + 256) != -1)
   {
-    v2 = result;
-    if (dword_10096FEF8 <= 40 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    v4 = result;
+    if (dword_10096FEF8 <= 40)
     {
-      sub_1000A4F70();
+      if (dword_10096FEF8 != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        sub_1000A4F70(result, a2, a3);
+      }
     }
 
-    v3 = v2[4];
+    v5 = v4[4];
 
-    return [v3 _iTunesAccountsChanged];
+    return [v5 _iTunesAccountsChanged];
   }
 
   return result;
@@ -2857,17 +2210,17 @@ id sub_100098C70(uint64_t a1)
 void sub_100098CCC(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = v2;
+  v4 = v2;
   if (v2)
   {
     if (dword_10096FEF8 <= 60)
     {
       v6 = v2;
-      if (dword_10096FEF8 != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
+      if (dword_10096FEF8 != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
       {
-        sub_1000A4F8C();
+        sub_1000A4F8C(v4);
 LABEL_13:
-        v3 = v6;
+        v4 = v6;
       }
     }
   }
@@ -2875,9 +2228,9 @@ LABEL_13:
   else if (dword_10096FEF8 <= 30)
   {
     v6 = 0;
-    if (dword_10096FEF8 != -1 || (v5 = _LogCategory_Initialize(), v3 = 0, v5))
+    if (dword_10096FEF8 != -1 || (v2 = _LogCategory_Initialize(), v4 = 0, v2))
     {
-      sub_1000A4FCC();
+      sub_1000A4FCC(v2, v4, v3);
       goto LABEL_13;
     }
   }
@@ -2891,7 +2244,7 @@ void sub_100098D7C(uint64_t a1, void *a2)
   {
     if (dword_1009731D8 != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      sub_1000A4FE8();
+      sub_1000A4FE8(v3);
       v3 = v5;
     }
   }
@@ -2908,7 +2261,7 @@ void sub_100098E0C(id a1, SFBLEDevice *a2)
     v5 = v2;
     if (dword_1009731D8 != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      sub_1000A5028();
+      sub_1000A5028(v3);
       v3 = v5;
     }
   }
@@ -2922,7 +2275,7 @@ void sub_100098E84(uint64_t a1, void *a2)
   {
     if (dword_1009731D8 != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      sub_1000A5068();
+      sub_1000A5068(v3);
       v3 = v5;
     }
   }
@@ -2941,7 +2294,7 @@ void sub_100098F14(id a1, NSError *a2)
       v5 = v2;
       if (dword_10096FEF8 != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
       {
-        sub_1000A50A8();
+        sub_1000A50A8(v3);
         v3 = v5;
       }
     }
@@ -2957,7 +2310,7 @@ void sub_100099314(id a1, OS_xpc_object *a2)
     v5 = v2;
     if (dword_10096FEF8 != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      sub_1000A5160();
+      sub_1000A5160(v3);
       v3 = v5;
     }
   }
@@ -2972,7 +2325,7 @@ void sub_10009939C(uint64_t a1)
   }
 }
 
-uint64_t sub_1000995F0(uint64_t result)
+uint64_t sub_1000995F0(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (*(result + 32) == *(*(result + 40) + 80))
   {
@@ -2980,13 +2333,13 @@ uint64_t sub_1000995F0(uint64_t result)
     {
       if (dword_10096FEF8 != -1)
       {
-        return sub_1000A5248();
+        return sub_1000A5248(result, a2, a3);
       }
 
       result = _LogCategory_Initialize();
       if (result)
       {
-        return sub_1000A5248();
+        return sub_1000A5248(result, a2, a3);
       }
     }
   }
@@ -2995,20 +2348,20 @@ uint64_t sub_1000995F0(uint64_t result)
   {
     if (dword_10096FEF8 != -1)
     {
-      return sub_1000A522C();
+      return sub_1000A522C(result, a2, a3);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return sub_1000A522C();
+      return sub_1000A522C(result, a2, a3);
     }
   }
 
   return result;
 }
 
-uint64_t sub_10009970C(uint64_t result)
+uint64_t sub_10009970C(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (*(result + 32) == *(*(result + 40) + 80))
   {
@@ -3016,13 +2369,13 @@ uint64_t sub_10009970C(uint64_t result)
     {
       if (dword_10096FEF8 != -1)
       {
-        return sub_1000A5280();
+        return sub_1000A5280(result, a2, a3);
       }
 
       result = _LogCategory_Initialize();
       if (result)
       {
-        return sub_1000A5280();
+        return sub_1000A5280(result, a2, a3);
       }
     }
   }
@@ -3031,13 +2384,13 @@ uint64_t sub_10009970C(uint64_t result)
   {
     if (dword_10096FEF8 != -1)
     {
-      return sub_1000A5264();
+      return sub_1000A5264(result, a2, a3);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return sub_1000A5264();
+      return sub_1000A5264(result, a2, a3);
     }
   }
 
@@ -3073,19 +2426,22 @@ void sub_100099854(uint64_t a1)
   }
 }
 
-void *sub_1000999A8(void *result)
+void *sub_1000999A8(void *result, uint64_t a2, uint64_t a3)
 {
   if (*(result[4] + 128))
   {
-    v1 = result;
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    v3 = result;
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A5324();
+      if (dword_10096FEF8 != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        sub_1000A5324(result, a2, a3);
+      }
     }
 
-    v2 = v1[4];
+    v4 = v3[4];
 
-    return [v2 _resetTriggers];
+    return [v4 _resetTriggers];
   }
 
   return result;
@@ -3102,24 +2458,31 @@ void *sub_100099CD8(uint64_t a1)
 
   if (dword_10096FEF8 <= 30)
   {
-    if (dword_10096FEF8 == -1)
+    if (dword_10096FEF8 != -1)
     {
-      v4 = _LogCategory_Initialize();
-      result = *(a1 + 32);
-      if (!v4)
+LABEL_4:
+      v4 = [v3 screenOn];
+      v5 = "off";
+      if (v4)
       {
-        goto LABEL_7;
+        v5 = "on";
       }
 
-      v3 = result[16];
+      LogPrintF(&dword_10096FEF8, "[SDSetupAgent _screenStateChanged]_block_invoke", 30, "Screen state changed to %s\n", v5);
+      result = *(a1 + 32);
+      goto LABEL_9;
     }
 
-    [v3 screenOn];
-    LogPrintF();
+    v6 = _LogCategory_Initialize();
     result = *(a1 + 32);
+    if (v6)
+    {
+      v3 = result[16];
+      goto LABEL_4;
+    }
   }
 
-LABEL_7:
+LABEL_9:
 
   return [result _update];
 }
@@ -3135,34 +2498,42 @@ void *sub_10009A218(uint64_t a1)
 
   if (dword_10096FEF8 <= 30)
   {
-    if (dword_10096FEF8 == -1)
+    if (dword_10096FEF8 != -1)
     {
-      v4 = _LogCategory_Initialize();
-      result = *(a1 + 32);
-      if (!v4)
+LABEL_4:
+      v4 = [v3 screenLocked];
+      v5 = "unlocked";
+      if (v4)
       {
-        goto LABEL_7;
+        v5 = "locked";
       }
 
-      v3 = result[17];
+      LogPrintF(&dword_10096FEF8, "[SDSetupAgent _uiLockStatusChanged]_block_invoke", 30, "UI lock status changed to %s\n", v5);
+      result = *(a1 + 32);
+      goto LABEL_9;
     }
 
-    [v3 screenLocked];
-    LogPrintF();
+    v6 = _LogCategory_Initialize();
     result = *(a1 + 32);
+    if (v6)
+    {
+      v3 = result[17];
+      goto LABEL_4;
+    }
   }
 
-LABEL_7:
+LABEL_9:
 
   return [result _update];
 }
 
-void sub_10009B1E0(uint64_t a1, unsigned int a2, void *a3)
+void sub_10009B1E0(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v7 = a3;
   if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A5648(a2);
+    sub_1000A5648(v3, v7);
   }
 
   [*(*(a1 + 32) + 160) invalidate];
@@ -3170,13 +2541,20 @@ void sub_10009B1E0(uint64_t a1, unsigned int a2, void *a3)
   v6 = *(v5 + 160);
   *(v5 + 160) = 0;
 
-  if (a2 == 1 && !v7)
+  if (v3 == 1 && !v7)
   {
     [*(a1 + 32) _uiStartTVLatencySetup:*(a1 + 40) extraInfo:0 forActionType:*(a1 + 48)];
   }
 }
 
-void sub_10009BA38(uint64_t a1)
+void sub_10009BA0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
+{
+  va_start(va, a46);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_10009BA38(uint64_t a1, uint64_t a2)
 {
   Int64 = CFDictionaryGetInt64();
   if (dword_10096FEF8 > 20 || dword_10096FEF8 == -1 && !_LogCategory_Initialize())
@@ -3189,7 +2567,7 @@ void sub_10009BA38(uint64_t a1)
     goto LABEL_5;
   }
 
-  sub_1000A58D8(a1);
+  sub_1000A58D8(a1, Int64 == 0);
   if (Int64)
   {
 LABEL_5:
@@ -3197,9 +2575,9 @@ LABEL_5:
   }
 
 LABEL_6:
-  v3 = *(a1 + 48);
+  v4 = *(a1 + 48);
 
-  dispatch_group_leave(v3);
+  dispatch_group_leave(v4);
 }
 
 id sub_10009BAE4(uint64_t a1)
@@ -3225,24 +2603,25 @@ id sub_10009BAE4(uint64_t a1)
 BOOL sub_10009C690(id a1, NRDevice *a2)
 {
   v2 = a2;
-  v3 = off_10096FF70();
+  v3 = off_10096FF70(v2);
   v4 = [(NRDevice *)v2 valueForProperty:v3];
 
-  if ([v4 BOOLValue])
+  v5 = [v4 BOOLValue];
+  if (v5)
   {
-    v5 = off_10096FF78();
-    v6 = [(NRDevice *)v2 valueForProperty:v5];
+    v6 = off_10096FF78(v5);
+    v7 = [(NRDevice *)v2 valueForProperty:v6];
 
-    v7 = [v6 BOOLValue];
-    v4 = v6;
+    v8 = [v7 BOOLValue];
+    v4 = v7;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 void sub_10009C7FC(uint64_t a1, void *a2)
@@ -3256,27 +2635,26 @@ void sub_10009C7FC(uint64_t a1, void *a2)
       goto LABEL_11;
     }
 
-    v8 = v3;
+    v7 = v3;
     if (dword_10096FEF8 == -1)
     {
       v6 = _LogCategory_Initialize();
-      v4 = v8;
+      v4 = v7;
       if (!v6)
       {
         goto LABEL_11;
       }
     }
 
-    v7 = *(a1 + 32);
-    LogPrintF();
+    LogPrintF(&dword_10096FEF8, "[SDSetupAgent _watchStartMigration:]_block_invoke", 60, "### Watch migration failed: %@, %{error}\n", *(a1 + 32), v4);
 LABEL_5:
-    v4 = v8;
+    v4 = v7;
     goto LABEL_11;
   }
 
   if (dword_10096FEF8 <= 50)
   {
-    v8 = 0;
+    v7 = 0;
     if (dword_10096FEF8 != -1 || (v5 = _LogCategory_Initialize(), v4 = 0, v5))
     {
       sub_1000A5AFC(a1);
@@ -3295,7 +2673,7 @@ void sub_10009CB08(uint64_t a1, void *a2)
     v6 = v3;
     if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000A5B78();
+      sub_1000A5B78(v6);
     }
 
     [*(*(a1 + 32) + 56) invalidate];
@@ -3309,9 +2687,12 @@ void sub_10009CB08(uint64_t a1, void *a2)
 
 void sub_10009CBAC(id a1)
 {
-  if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+  if (dword_10096FEF8 <= 30)
   {
-    sub_1000A5BB8();
+    if (dword_10096FEF8 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1000A5BB8(a1, v1, v2);
+    }
   }
 }
 
@@ -3323,7 +2704,7 @@ void sub_10009CBF8(uint64_t a1, void *a2)
   {
     if (dword_10096FEF8 != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      sub_1000A5BD4();
+      sub_1000A5BD4(v3);
       v3 = v5;
     }
   }
@@ -3334,19 +2715,19 @@ void sub_10009CBF8(uint64_t a1, void *a2)
 void sub_10009CC88(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = v3;
+  v5 = v3;
   if (v3)
   {
     v8 = v3;
     if (dword_10096FEF8 <= 60 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000A5C14();
+      sub_1000A5C14(v8);
     }
 
     [*(*(a1 + 32) + 48) invalidate];
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 48);
-    *(v5 + 48) = 0;
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 48);
+    *(v6 + 48) = 0;
 
     goto LABEL_6;
   }
@@ -3354,11 +2735,11 @@ void sub_10009CC88(uint64_t a1, void *a2)
   if (dword_10096FEF8 <= 30)
   {
     v8 = 0;
-    if (dword_10096FEF8 != -1 || (v7 = _LogCategory_Initialize(), v4 = 0, v7))
+    if (dword_10096FEF8 != -1 || (v3 = _LogCategory_Initialize(), v5 = 0, v3))
     {
-      sub_1000A5C54();
+      sub_1000A5C54(v3, v5, v4);
 LABEL_6:
-      v4 = v8;
+      v5 = v8;
     }
   }
 }
@@ -3368,7 +2749,7 @@ void sub_10009D108(uint64_t a1, void *a2)
   v5 = a2;
   if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A5DD0(a1);
+    sub_1000A5DD0(a1, v5);
   }
 
   [*(*(a1 + 32) + 56) invalidate];
@@ -3377,19 +2758,22 @@ void sub_10009D108(uint64_t a1, void *a2)
   *(v3 + 56) = 0;
 }
 
-void *sub_10009D84C(void *result)
+void *sub_10009D84C(void *result, uint64_t a2, uint64_t a3)
 {
   if (*(result[4] + 252) != -1)
   {
-    v2 = result;
-    if (dword_10096FEF8 <= 40 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    v4 = result;
+    if (dword_10096FEF8 <= 40)
     {
-      sub_1000A6074();
+      if (dword_10096FEF8 != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        sub_1000A6074(result, a2, a3);
+      }
     }
 
-    v3 = v2[4];
+    v5 = v4[4];
 
-    return [v3 _repairHandleCFUItemsChanged];
+    return [v5 _repairHandleCFUItemsChanged];
   }
 
   return result;
@@ -3447,38 +2831,42 @@ void *sub_10009D8E0(void *result, unint64_t a2)
   return result;
 }
 
-void *sub_10009D9D4(void *result)
+void *sub_10009D9D4(void *result, uint64_t a2, uint64_t a3)
 {
   if (*(result[4] + 340) != -1)
   {
-    v2 = result;
-    if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+    v4 = result;
+    if (dword_10096FEF8 <= 30)
     {
-      sub_1000A60F0();
+      if (dword_10096FEF8 != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        sub_1000A60F0(result, a2, a3);
+      }
     }
 
-    v3 = v2[4];
+    v5 = v4[4];
 
-    return [v3 _repairHandleCNSStateChanged];
+    return [v5 _repairHandleCNSStateChanged];
   }
 
   return result;
 }
 
-void sub_10009DA50(uint64_t a1, int a2, void *a3)
+void sub_10009DA50(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   v7 = v5;
   if (dword_10096FEF8 <= 30)
   {
     if (dword_10096FEF8 != -1 || (v6 = _LogCategory_Initialize(), v5 = v7, v6))
     {
-      sub_1000A610C(a2);
+      sub_1000A610C(v3, v7);
       v5 = v7;
     }
   }
 
-  if (a2 == 96)
+  if (v3 == 96)
   {
     [*(a1 + 32) _repairHandleCompletion];
     v5 = v7;
@@ -4047,15 +3435,15 @@ uint64_t sub_10009E7B0(void *a1)
 
 void sub_10009E930(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v8 = a3;
   if (v8)
   {
     if (dword_10096FEF8 <= 90 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000A6214();
+      sub_1000A6214(v3);
     }
 
-    v4 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 
@@ -4063,7 +3451,7 @@ void sub_10009E930(uint64_t a1, uint64_t a2, void *a3)
   {
     if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000A6254();
+      sub_1000A6254(v3);
     }
 
     v5 = [*(a1 + 32) mutableCopy];
@@ -4097,20 +3485,21 @@ void *sub_10009EBA8(void *result)
   if (*(result[4] + 252) != -1)
   {
     v1 = result;
-    if (result[5])
+    v2 = result[5];
+    if (v2)
     {
       if (dword_10096FEF8 <= 60)
       {
         if (dword_10096FEF8 != -1)
         {
-          return LogPrintF();
+          return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _repairHandleCFUItemsChanged]_block_invoke_2", 60, "TTF: ### CFU get items failed: %{error}\n", v2);
         }
 
         result = _LogCategory_Initialize();
         if (result)
         {
-          v4 = v1[5];
-          return LogPrintF();
+          v2 = v1[5];
+          return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _repairHandleCFUItemsChanged]_block_invoke_2", 60, "TTF: ### CFU get items failed: %{error}\n", v2);
         }
       }
     }
@@ -4122,14 +3511,14 @@ void *sub_10009EBA8(void *result)
         sub_1000A6294(v1);
       }
 
-      v2 = v1[4];
-      v3 = v1[6];
+      v3 = v1[4];
+      v4 = v1[6];
       v5[0] = _NSConcreteStackBlock;
       v5[1] = 3221225472;
       v5[2] = sub_10009ECD0;
       v5[3] = &unk_1008CE2E8;
-      v5[4] = v2;
-      return [v2 _renewAccountIfNecessaryForCFUItems:v3 completion:v5];
+      v5[4] = v3;
+      return [v3 _renewAccountIfNecessaryForCFUItems:v4 completion:v5];
     }
   }
 
@@ -4157,20 +3546,21 @@ void sub_10009F4A0(uint64_t a1, void *a2, void *a3)
 uint64_t sub_10009F56C(uint64_t result)
 {
   v1 = result;
-  if (*(result + 32))
+  v2 = *(result + 32);
+  if (v2)
   {
     if (dword_10096FEF8 <= 30)
     {
       if (dword_10096FEF8 != -1)
       {
-        return LogPrintF();
+        return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _fetchSymptomsReport]_block_invoke_2", 30, "TTF: Received error trying to generate report: %@\n", v2);
       }
 
       result = _LogCategory_Initialize();
       if (result)
       {
-        v5 = *(v1 + 32);
-        return LogPrintF();
+        v2 = *(v1 + 32);
+        return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _fetchSymptomsReport]_block_invoke_2", 30, "TTF: Received error trying to generate report: %@\n", v2);
       }
     }
   }
@@ -4182,15 +3572,15 @@ uint64_t sub_10009F56C(uint64_t result)
       sub_1000A6394(v1);
     }
 
-    v2 = *(*(v1 + 48) + 376) & 0xFFFDFFF9;
+    v3 = *(*(v1 + 48) + 376) & 0xFFFDFFF9;
     result = [*(v1 + 40) combinedProblemFlags];
-    v3 = *(v1 + 48);
-    if ((result | v2) != *(v3 + 376))
+    v4 = *(v1 + 48);
+    if ((result | v3) != *(v4 + 376))
     {
-      *(v3 + 376) = result | v2;
-      v4 = *(v1 + 48);
+      *(v4 + 376) = result | v3;
+      v5 = *(v1 + 48);
 
-      return [v4 _repairProblemFlagsChanged];
+      return [v5 _repairProblemFlagsChanged];
     }
   }
 
@@ -4208,7 +3598,7 @@ void sub_1000A00D8(uint64_t a1)
     {
       if (dword_10096FEF8 != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
       {
-        sub_1000A66EC();
+        sub_1000A66EC(v3);
         v3 = v5;
       }
     }
@@ -4345,7 +3735,7 @@ void sub_1000A1C04(uint64_t a1, void *a2)
   v3 = a2;
   if (dword_10096FEF8 <= 90 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000A6B84();
+    sub_1000A6B84(v3);
   }
 
   [*(a1 + 32) invalidate];
@@ -4353,9 +3743,12 @@ void sub_1000A1C04(uint64_t a1, void *a2)
 
 void sub_1000A1C88(id a1)
 {
-  if (dword_10096FEF8 <= 30 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+  if (dword_10096FEF8 <= 30)
   {
-    sub_1000A6BC4();
+    if (dword_10096FEF8 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1000A6BC4(a1, v1, v2);
+    }
   }
 }
 
@@ -4368,7 +3761,7 @@ void sub_1000A1CD4(id a1, NSError *a2)
     v5 = v2;
     if (dword_10096FEF8 != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      sub_1000A6BE0();
+      sub_1000A6BE0(v3);
       v3 = v5;
     }
   }
@@ -4419,16 +3812,16 @@ Class sub_1000A23FC()
   return result;
 }
 
-id sub_1000A2488()
+id sub_1000A2488(uint64_t a1)
 {
   if (qword_100989AF8 != -1)
   {
     sub_1000A6CB4();
   }
 
-  v1 = qword_100989AD0;
+  v2 = qword_100989AD0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000A24CC(id a1)
@@ -4447,16 +3840,16 @@ void sub_1000A24CC(id a1)
   off_10096FF70 = sub_1000A2534;
 }
 
-id sub_1000A2540()
+id sub_1000A2540(uint64_t a1)
 {
   if (qword_100989B00 != -1)
   {
     sub_1000A6CC8();
   }
 
-  v1 = qword_100989AD8;
+  v2 = qword_100989AD8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000A2584(id a1)
@@ -4475,16 +3868,16 @@ void sub_1000A2584(id a1)
   off_10096FF78 = sub_1000A25EC;
 }
 
-id sub_1000A25F8()
+id sub_1000A25F8(uint64_t a1)
 {
   if (qword_100989B08 != -1)
   {
     sub_1000A6CDC();
   }
 
-  v1 = qword_100989AC8;
+  v2 = qword_100989AC8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000A263C(id a1)
@@ -4503,7 +3896,7 @@ void sub_1000A263C(id a1)
   off_10096FF80 = sub_1000A26A4;
 }
 
-Class sub_1000A26B0()
+Class sub_1000A26B0(uint64_t a1)
 {
   if (qword_100989AE8 != -1)
   {
@@ -4542,16 +3935,16 @@ Class sub_1000A279C()
   return result;
 }
 
-id sub_1000A2828()
+id sub_1000A2828(uint64_t a1)
 {
   if (qword_100989B48 != -1)
   {
     sub_1000A6D18();
   }
 
-  v1 = qword_100989AC0;
+  v2 = qword_100989AC0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000A286C(id a1)
@@ -4609,134 +4002,278 @@ Class sub_1000A2A24()
   return result;
 }
 
-uint64_t sub_1000A53B8(uint64_t result)
+uint64_t sub_1000A4834()
+{
+  sub_100019C60();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent setPreventRepair:]", 30, "Prevent repair changed: %s -> %s\n", v2, v0);
+}
+
+uint64_t sub_1000A4998()
+{
+  sub_100019C60();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent prefsChanged]", 40, "Repair CDP enabled: %s -> %s\n", v2, v0);
+}
+
+uint64_t sub_1000A49F0()
+{
+  sub_100019C60();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent prefsChanged]", 40, "Client enabled: %s -> %s\n", v2, v0);
+}
+
+uint64_t sub_1000A4A48()
+{
+  sub_100019C60();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent prefsChanged]", 40, "Wi-Fi password sharing autoGranting enabled: %s -> %s\n", v2, v0);
+}
+
+uint64_t sub_1000A4AA0()
+{
+  sub_100019C60();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent prefsChanged]", 40, "Wi-Fi password sharing granting enabled: %s -> %s\n", v2, v0);
+}
+
+uint64_t sub_1000A4AF8()
+{
+  sub_100019C60();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent prefsChanged]", 40, "Repair enabled: %s -> %s\n", v2, v0);
+}
+
+uint64_t sub_1000A4B50()
+{
+  sub_100019C60();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent prefsChanged]", 40, "Repair silent: %s -> %s\n", v2, v0);
+}
+
+uint64_t sub_1000A4BA8()
+{
+  sub_100019C60();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent prefsChanged]", 40, "Server enabled: %s -> %s\n", v2, v0);
+}
+
+uint64_t sub_1000A4C00()
+{
+  sub_100019C60();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent prefsChanged]", 40, "WatchMigration enabled: %s -> %s\n", v2, v0);
+}
+
+uint64_t sub_1000A4C58()
+{
+  sub_100019C60();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent prefsChanged]", 40, "WatchSetup enabled: %s -> %s\n", v2, v0);
+}
+
+unsigned int *sub_1000A53B8(unsigned int *result, uint64_t a2)
 {
   if (dword_10096FEF8 <= 60)
   {
     if (dword_10096FEF8 != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _shouldOfferPassword:]", 60, "### WPS: Get network share mode failed: %#m\n", a2);
     }
 
-    v1 = result;
+    v2 = result;
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *v1;
-      return LogPrintF();
+      a2 = *v2;
+      return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _shouldOfferPassword:]", 60, "### WPS: Get network share mode failed: %#m\n", a2);
     }
   }
 
   return result;
 }
 
-uint64_t sub_1000A552C()
+uint64_t sub_1000A5440(const __CFString *a1, char a2)
+{
+  v4 = IsAppleInternalBuild();
+  v5 = @"*";
+  if (v4)
+  {
+    v5 = a1;
+  }
+
+  v6 = "no";
+  if (a2)
+  {
+    v6 = "yes";
+  }
+
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _shouldOfferPassword:]", 30, "WPS: Should share network %@: %s", v5, v6);
+}
+
+uint64_t sub_1000A552C(uint64_t result, uint64_t a2)
 {
   if (dword_10096FEF8 <= 50)
   {
+    v3 = result;
     if (dword_10096FEF8 != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _uiStartTVLatencySetup:forActionType:withBLEDevice:]", 50, "Ignoring proximity TVLatency%@Setup with another %@\n", v3, a2);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _uiStartTVLatencySetup:forActionType:withBLEDevice:]", 50, "Ignoring proximity TVLatency%@Setup with another %@\n", v3, a2);
     }
   }
 
   return result;
 }
 
-uint64_t sub_1000A55AC()
+uint64_t sub_1000A55AC(uint64_t result, uint64_t a2)
 {
   if (dword_10096FEF8 <= 50)
   {
+    v3 = result;
     if (dword_10096FEF8 != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _uiStartTVLatencySetup:forActionType:withBLEDevice:]", 50, "Ignoring proximity TVLatency%@Setup: unsupported, %@\n", v3, a2);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _uiStartTVLatencySetup:forActionType:withBLEDevice:]", 50, "Ignoring proximity TVLatency%@Setup: unsupported, %@\n", v3, a2);
     }
   }
 
   return result;
 }
 
-uint64_t sub_1000A5648(unsigned int a1)
+uint64_t sub_1000A5648(unsigned int a1, uint64_t a2)
 {
-  if (a1 <= 5)
+  if (a1 > 5)
   {
-    v1 = off_1008CF008[a1];
+    v4 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v4 = off_1008CF008[a1];
+  }
+
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _uiStartTVLatencyBanner:forActionType:]_block_invoke", 50, "UNote action: TVLatency, %s, %{error}\n", v4, a2, v2, v3);
 }
 
-void sub_1000A56C4(int a1, NSErrorUserInfoKey *a2, const __CFString **a3, void *a4)
+void sub_1000A56C4(uint64_t a1, NSErrorUserInfoKey *a2, const __CFString **a3, void *a4)
 {
-  if (dword_10096FEF8 <= 60 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
+  if (dword_10096FEF8 <= 60)
   {
-    v8 = a1;
-    *a2 = NSLocalizedDescriptionKey;
-    v9 = [NSString stringWithUTF8String:DebugGetErrorString()];
-    v10 = v9;
-    v11 = @"?";
-    if (v9)
+    v7 = a1;
+    if (dword_10096FEF8 != -1 || _LogCategory_Initialize())
     {
-      v11 = v9;
-    }
+      v8 = v7;
+      *a2 = NSLocalizedDescriptionKey;
+      v9 = [NSString stringWithUTF8String:DebugGetErrorString()];
+      v10 = v9;
+      v11 = @"?";
+      if (v9)
+      {
+        v11 = v9;
+      }
 
-    *a3 = v11;
-    v12 = [NSDictionary dictionaryWithObjects:a3 forKeys:a2 count:1];
-    v13 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v8 userInfo:v12];
-    LogPrintF();
+      *a3 = v11;
+      v12 = [NSDictionary dictionaryWithObjects:a3 forKeys:a2 count:1];
+      v13 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v8 userInfo:v12];
+      LogPrintF(&dword_10096FEF8, "[SDSetupAgent _uiStartWiFiPasswordSharing:]", 60, "WPS: Error generating PSK: %@", v13);
+    }
   }
 
   *a4 = 0;
 }
 
-void sub_1000A5818()
+void sub_1000A5818(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_10096FEF8 <= 60 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_100019C4C();
+    sub_100019C4C(&dword_10096FEF8, "[SDSetupAgent _uiStartWiFiPasswordSharing:]", a3, "### WPS: Not showing UI, no request SSID\n");
   }
 }
 
-void sub_1000A5878()
+void sub_1000A5878(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_10096FEF8 <= 50 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    sub_100019DA8();
+    sub_100019DA8(&dword_10096FEF8, "[SDSetupAgent _uiStartWiFiPasswordSharing:]", a3, "WPS: Not showing UI for non-contact peer\n");
   }
 }
 
-uint64_t sub_1000A58D8(uint64_t a1)
+uint64_t sub_1000A58D8(uint64_t a1, char a2)
 {
-  v3 = *(a1 + 40);
-  v2 = *(a1 + 32);
-  return LogPrintF();
+  v2 = "yes";
+  if (a2)
+  {
+    v2 = "no";
+  }
+
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _uiStartWithDevice:viewControllerName:xpcEndpoint:label:unlessApps:extraInfo:]_block_invoke", 20, "%@: Frontmost state of %@: %s\n", *(a1 + 32), *(a1 + 40), v2);
 }
 
-uint64_t sub_1000A5CA8()
+uint64_t sub_1000A5CA8(uint64_t result)
 {
   if (dword_10096FEF8 <= 60)
   {
+    v1 = result;
     if (dword_10096FEF8 != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _pinPairHandleRequest:]", 60, "### PINPair request no UUID: %#m\n", v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _pinPairHandleRequest:]", 60, "### PINPair request no UUID: %#m\n", v1);
     }
   }
 
@@ -4747,70 +4284,166 @@ void sub_1000A5D68()
 {
   if (dword_10096FEF8 <= 60 && (dword_10096FEF8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_10096FEF8, "[SDSetupAgent _pinPairHandleRequest:]", 60, "### PINPair request UUID failed\n", v0, v1);
   }
 }
 
-uint64_t sub_1000A5E34(int a1)
+uint64_t sub_1000A5E34(int a1, const __CFString *a2)
 {
-  if (!(!v2 & v1))
+  if (!(!v3 & v2))
   {
     switch(a1)
     {
       case 30:
+        v6 = "Error";
+        goto LABEL_24;
       case 31:
+        v6 = "SessionStarted";
+        goto LABEL_24;
       case 32:
+        v6 = "SessionEnded";
+        goto LABEL_24;
       case 33:
+        v6 = "SessionSecured";
+        goto LABEL_24;
       case 34:
       case 35:
       case 36:
       case 37:
       case 38:
       case 39:
+        goto LABEL_18;
       case 40:
-        return LogPrintF();
+        v6 = "PreAuthStart";
+        goto LABEL_24;
       default:
         JUMPOUT(0);
     }
   }
 
-  return LogPrintF();
+  if (a1)
+  {
+    switch(a1)
+    {
+      case 10:
+        v6 = "Start";
+        break;
+      case 20:
+        v6 = "Final";
+        break;
+      case 50:
+        v6 = "PreAuthFinish";
+        break;
+      case 60:
+        v6 = "SecurityStart";
+        break;
+      case 70:
+        v6 = "SecurityFinished";
+        break;
+      case 100:
+        v6 = "Finished";
+        break;
+      default:
+LABEL_18:
+        v6 = "?";
+        break;
+    }
+  }
+
+  else
+  {
+    v6 = "Invalid";
+  }
+
+LABEL_24:
+  v7 = &stru_1008EFBD0;
+  if (a2)
+  {
+    v7 = a2;
+  }
+
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _pwsHandleProgressEvent:info:]", 30, "PWS progress: %s, %@", v6, v7, v4, v5);
 }
 
 uint64_t sub_1000A6090(unint64_t a1)
 {
-  if (a1 <= 3)
+  if (a1 > 3)
+  {
+    v1 = "?";
+  }
+
+  else
   {
     v1 = off_1008CF038[a1];
   }
 
-  return LogPrintF();
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _repairEnsuredStarted]_block_invoke_5", 30, "TTF: WiFi health status changed: %s\n", v1);
+}
+
+uint64_t sub_1000A610C(int a1, const __CFString *a2)
+{
+  v3 = sub_10009DAF0(a1);
+  v4 = &stru_1008EFBD0;
+  if (a2)
+  {
+    v4 = a2;
+  }
+
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _repairEnsuredStarted]_block_invoke_7", 30, "TTF: Problem reporting repair progress: %s %@\n", v3, v4);
 }
 
 uint64_t sub_1000A6448(id *a1)
 {
   v1 = [*a1 manateeState];
-  if (v1 <= 2)
+  if (v1 > 2)
+  {
+    v2 = "?";
+  }
+
+  else
   {
     v2 = off_1008CF058[v1];
   }
 
-  return LogPrintF();
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _repairProblemCheck]", 30, "Repair periodic check: CDP %s\n", v2);
+}
+
+uint64_t sub_1000A64B0(char a1)
+{
+  v1 = "yes";
+  if (a1)
+  {
+    v1 = "no";
+  }
+
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _repairProblemFlagsChanged]", 30, "CNS required: %s\n", v1);
+}
+
+uint64_t sub_1000A65F0(int a1, const __CFString *a2)
+{
+  v3 = sub_10009DAF0(a1);
+  v4 = &stru_1008EFBD0;
+  if (a2)
+  {
+    v4 = a2;
+  }
+
+  return LogPrintF(&dword_10096FEF8, "[SDSetupAgent _repairSilentProgress:info:]", 30, "Repair silent progress: %s %##@\n", v3, v4);
 }
 
 void sub_1000A672C(uint64_t a1)
 {
   v1 = [*(*a1 + 32) description];
-  LogPrintF();
+  LogPrintF(&dword_10096FEF8, "[SDSetupAgent proximityDeviceDidTrigger:]_block_invoke", 50, "#ni_estimator deviceslist: %@", v1);
 }
 
 void sub_1000A67D4(id *a1, uint64_t a2, void *a3)
 {
   v5 = [*a1 description];
   *a3 = v5;
-  [v5 UTF8String];
-  v6 = [*(*a2 + 32) description];
-  LogPrintF();
+  v6 = [v5 UTF8String];
+  v7 = [*(*a2 + 32) description];
+  LogPrintF(&dword_10096FEF8, "[SDSetupAgent proximityDeviceDidTrigger:]_block_invoke", 50, "#ni_estimator SDSetup device: %s not of interest. _devices: %@", v6, v7);
 }
 
 uint64_t SDAuthenticationRelockRequestReadFrom(uint64_t a1, void *a2)
@@ -5179,28 +4812,33 @@ LABEL_11:
         goto LABEL_11;
       }
 
-      if (([(SFAirDropNode *)v6 isMe]& 1) == 0 && ([(SFAirDropNode *)v8 isMe]& 1) != 0)
+      v20 = [(SFAirDropNode *)v6 isMe];
+      if ((v20 & 1) == 0)
       {
+        v20 = [(SFAirDropNode *)v8 isMe];
+        if (v20)
+        {
 LABEL_8:
-        v9 = -1;
-        goto LABEL_28;
+          v9 = -1;
+          goto LABEL_28;
+        }
       }
 
-      v20 = magic_head_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = magic_head_log(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = [(SFAirDropNode *)v6 discoveryDate];
-        v22 = [(SFAirDropNode *)v8 discoveryDate];
-        v26 = 138412546;
-        v27 = v21;
-        v28 = 2112;
-        v29 = v22;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Sorting 1st slot based upon discoveryDate. A: %@, B: %@", &v26, 0x16u);
+        v22 = [(SFAirDropNode *)v6 discoveryDate];
+        v23 = [(SFAirDropNode *)v8 discoveryDate];
+        v27 = 138412546;
+        v28 = v22;
+        v29 = 2112;
+        v30 = v23;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Sorting 1st slot based upon discoveryDate. A: %@, B: %@", &v27, 0x16u);
       }
 
-      v23 = [(SFAirDropNode *)v8 discoveryDate];
-      v24 = [(SFAirDropNode *)v6 discoveryDate];
-      v9 = [v23 compare:v24];
+      v24 = [(SFAirDropNode *)v8 discoveryDate];
+      v25 = [(SFAirDropNode *)v6 discoveryDate];
+      v9 = [v24 compare:v25];
     }
   }
 
@@ -5219,19 +4857,19 @@ void sub_1000AA7BC(uint64_t a1, NSObject *a2)
 
 void sub_1000AABD0(uint64_t a1)
 {
-  v2 = daemon_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v1 = daemon_log();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    sub_1000B28A0(a1);
+    sub_1000B28A0();
   }
 }
 
-void sub_1000AC730(uint64_t a1)
+void sub_1000AC730(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_new();
-  [v2 setObject:*(a1 + 32) forKeyedSubscript:kSFOperationBytesCopiedKey];
-  [v2 setObject:*(a1 + 40) forKeyedSubscript:kSFOperationTimeRemainingKey];
-  [*(a1 + 48) notifyClientForEvent:7 withProperty:v2];
+  v3 = objc_opt_new();
+  [v3 setObject:*(a1 + 32) forKeyedSubscript:kSFOperationBytesCopiedKey];
+  [v3 setObject:*(a1 + 40) forKeyedSubscript:kSFOperationTimeRemainingKey];
+  [*(a1 + 48) notifyClientForEvent:7 withProperty:v3];
 }
 
 void sub_1000AC840(uint64_t a1)
@@ -5286,34 +4924,34 @@ void sub_1000AC840(uint64_t a1)
   dispatch_async(v19, v20);
 }
 
-id sub_1000ACBC0(uint64_t a1)
+id sub_1000ACBC0(uint64_t a1, uint64_t a2)
 {
-  v2 = airdrop_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = airdrop_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    if (v3[72])
+    v4 = *(a1 + 32);
+    if (v4[72])
     {
-      v4 = "discovery";
+      v5 = "discovery";
     }
 
     else
     {
-      v4 = "ask";
+      v5 = "ask";
     }
 
-    v5 = [v3 personID];
-    v7 = 136315394;
-    v8 = v4;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Retry %s request for %@", &v7, 0x16u);
+    v6 = [v4 personID];
+    v8 = 136315394;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Retry %s request for %@", &v8, 0x16u);
   }
 
   return [*(a1 + 32) resolve];
 }
 
-uint64_t sub_1000AD43C(uint64_t a1, char a2)
+uint64_t sub_1000AD43C(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
@@ -5327,11 +4965,12 @@ uint64_t sub_1000AD43C(uint64_t a1, char a2)
   return (*(*(a1 + 32) + 16))();
 }
 
-void sub_1000ADDC8(void *a1, char a2)
+void sub_1000ADDC8(void *a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = airdrop_log();
   v5 = v4;
-  if (a2)
+  if (v2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
@@ -5481,7 +5120,7 @@ void sub_1000AFF78(uint64_t a1, void *a2)
     v4 = airdrop_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_1000B3418(v3, a1);
+      sub_1000B3418();
     }
 
     [*(a1 + 32) notifyClientForEvent:10 withProperty:v3];
@@ -5496,46 +5135,39 @@ void sub_1000AFF78(uint64_t a1, void *a2)
       [v6 addAirDropPerson:*(*(a1 + 32) + 200)];
 
       *(*(a1 + 32) + 208) = 1;
-      v5 = *(a1 + 32);
     }
 
-    v7 = *(v5 + 200);
-    v8 = SFNodeCopyAppleID();
-    v9 = *(*(a1 + 32) + 200);
-    v10 = SFNodeCopyServiceName();
-    v11 = *(*(a1 + 32) + 200);
-    v12 = SFNodeCopyComputerName();
-    if (v10)
+    v7 = SFNodeCopyAppleID();
+    v8 = SFNodeCopyServiceName();
+    v9 = SFNodeCopyComputerName();
+    if (v8)
     {
-      [*(*(a1 + 32) + 224) setObject:v10 forKeyedSubscript:kSFOperationReceiverIDKey];
+      [*(*(a1 + 32) + 224) setObject:v8 forKeyedSubscript:kSFOperationReceiverIDKey];
     }
 
-    if (v12)
+    if (v9)
     {
-      [*(*(a1 + 32) + 224) setObject:v12 forKeyedSubscript:kSFOperationReceiverComputerNameKey];
+      [*(*(a1 + 32) + 224) setObject:v9 forKeyedSubscript:kSFOperationReceiverComputerNameKey];
     }
 
-    if (v8 && ([*(*(a1 + 32) + 176) verifiedIdentityForAppleID:v8], v13 = objc_claimAutoreleasedReturnValue(), v13, v13))
+    if (v7 && ([*(*(a1 + 32) + 176) verifiedIdentityForAppleID:v7], v10 = objc_claimAutoreleasedReturnValue(), v10, v10))
     {
-      v14 = *(*(a1 + 32) + 200);
       Name = SFNodeCopyLastName();
-      v16 = *(*(a1 + 32) + 200);
-      v17 = SFNodeCopyFirstName();
-      v18 = *(*(a1 + 32) + 200);
-      v19 = SFNodeCopyDisplayName();
+      v12 = SFNodeCopyFirstName();
+      v13 = SFNodeCopyDisplayName();
       if (Name)
       {
         [*(*(a1 + 32) + 224) setObject:Name forKeyedSubscript:kSFOperationReceiverLastNameKey];
       }
 
-      if (v17)
+      if (v12)
       {
-        [*(*(a1 + 32) + 224) setObject:v17 forKeyedSubscript:kSFOperationReceiverFirstNameKey];
+        [*(*(a1 + 32) + 224) setObject:v12 forKeyedSubscript:kSFOperationReceiverFirstNameKey];
       }
 
-      if (v19)
+      if (v13)
       {
-        [*(*(a1 + 32) + 224) setObject:v19 forKeyedSubscript:kSFOperationReceiverCompositeNameKey];
+        [*(*(a1 + 32) + 224) setObject:v13 forKeyedSubscript:kSFOperationReceiverCompositeNameKey];
       }
 
       [*(*(a1 + 32) + 224) setObject:&__kCFBooleanTrue forKeyedSubscript:kSFOperationVerifiableIdentityKey];
@@ -5546,7 +5178,6 @@ void sub_1000AFF78(uint64_t a1, void *a2)
       [*(*(a1 + 32) + 224) setObject:&__kCFBooleanFalse forKeyedSubscript:kSFOperationVerifiableIdentityKey];
     }
 
-    v20 = *(*(a1 + 32) + 200);
     *(*(a1 + 32) + 264) = sub_1000922D8();
     if (*(a1 + 40) == 1)
     {
@@ -5554,25 +5185,25 @@ void sub_1000AFF78(uint64_t a1, void *a2)
     }
 
     [*(a1 + 32) removeFileIconsFromProperties];
-    v21 = [*(*(a1 + 32) + 224) objectForKeyedSubscript:kSFOperationFilesKey];
-    v22 = [*(*(a1 + 32) + 224) objectForKeyedSubscript:kSFOperationItemsKey];
-    v23 = [v21 count];
-    if (!v23)
+    v14 = [*(*(a1 + 32) + 224) objectForKeyedSubscript:kSFOperationFilesKey];
+    v15 = [*(*(a1 + 32) + 224) objectForKeyedSubscript:kSFOperationItemsKey];
+    v16 = [v14 count];
+    if (!v16)
     {
-      v23 = [v22 count];
+      v16 = [v15 count];
     }
 
-    v24 = airdrop_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v17 = airdrop_log();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v25 = *(*(a1 + 32) + 224);
-      v26 = 138412802;
-      v27 = v12;
-      v28 = 2048;
-      v29 = v23;
-      v30 = 2112;
-      v31 = v25;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "startSending to: %@, validated %lu airdrop items. properties: %@", &v26, 0x20u);
+      v18 = *(*(a1 + 32) + 224);
+      v19 = 138412802;
+      v20 = v9;
+      v21 = 2048;
+      v22 = v16;
+      v23 = 2112;
+      v24 = v18;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "startSending to: %@, validated %lu airdrop items. properties: %@", &v19, 0x20u);
     }
 
     if ((*(a1 + 40) & 1) == 0)
@@ -5598,20 +5229,19 @@ void sub_1000B0668(uint64_t a1, void *a2)
 
   else
   {
-    v5 = *(*(a1 + 40) + 200);
-    v6 = SFNodeCopyComputerName();
-    v7 = airdrop_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v5 = SFNodeCopyComputerName();
+    v6 = airdrop_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v8 = [*(*(a1 + 40) + 112) count];
-      v9 = *(*(a1 + 40) + 112);
-      v10 = 134218498;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v9;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Starting to send %lu files to %@, fileURLs: %@", &v10, 0x20u);
+      v7 = [*(*(a1 + 40) + 112) count];
+      v8 = *(*(a1 + 40) + 112);
+      v9 = 134218498;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v5;
+      v13 = 2112;
+      v14 = v8;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Starting to send %lu files to %@, fileURLs: %@", &v9, 0x20u);
     }
 
     [*(a1 + 40) startSending];
@@ -5622,8 +5252,8 @@ void sub_1000B0E34(uint64_t a1)
 {
   sub_1001F061C();
   sub_10008FEB8(*(a1 + 32));
-  v2 = sub_10008F9A4();
-  dispatch_resume(v2);
+  v3 = sub_10008F9A4(v2);
+  dispatch_resume(v3);
 }
 
 void sub_1000B17EC(uint64_t a1)
@@ -5644,8 +5274,8 @@ void sub_1000B1974(uint64_t a1, void *a2)
     v5 = airdrop_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "_shouldPublishProgress, adding total unit count of 100", v8, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "_shouldPublishProgress, adding total unit count of 100", v7, 2u);
     }
 
     [*(*(a1 + 32) + 64) setTotalUnitCount:{objc_msgSend(*(*(a1 + 32) + 64), "totalUnitCount") + 100}];
@@ -5653,7 +5283,6 @@ void sub_1000B1974(uint64_t a1, void *a2)
     v4 = *(a1 + 32);
   }
 
-  v6 = *(v4 + 312);
   if (*(v4 + 57) == 1)
   {
     if (*(v4 + 312))
@@ -5789,12 +5418,11 @@ void sub_1000B2580(id a1, BOOL a2, NSError *a3)
   }
 }
 
-void sub_1000B28A0(uint64_t a1)
+void sub_1000B28A0()
 {
-  v1 = *(a1 + 32);
   sub_100021E68();
   sub_100008830();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1000B2914()
@@ -5867,20 +5495,18 @@ void sub_1000B2C34()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1000B2C70(uint64_t *a1)
+void sub_1000B2C70()
 {
-  v1 = *a1;
   sub_100021E68();
   sub_100008830();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1000B2CE4(uint64_t *a1)
+void sub_1000B2CE4()
 {
-  v1 = *a1;
   sub_100021E68();
   sub_100008830();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1000B2DC4()
@@ -5956,13 +5582,6 @@ void sub_1000B33DC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1000B3418(uint64_t a1, uint64_t a2)
-{
-  v2 = *(*(a2 + 32) + 224);
-  sub_10000883C();
-  sub_100019DC4(&_mh_execute_header, v3, v4, "startSending, did NOT validate airdrop items. Error: %@. properties: %@");
-}
-
 void sub_1000B3494()
 {
   sub_100019C0C();
@@ -5972,11 +5591,9 @@ void sub_1000B3494()
 
 void sub_1000B34D0(uint64_t a1)
 {
-  v7 = *(a1 + 32);
   [*(*(a1 + 40) + 112) count];
-  v8 = *(*(a1 + 40) + 112);
   sub_100008860();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Au);
 }
 
 void sub_1000B3594(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -6021,12 +5638,11 @@ void sub_1000B36E4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1000B3754(uint64_t *a1)
+void sub_1000B3754()
 {
-  v1 = *a1;
   sub_100021E68();
   sub_100008830();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1000B39D8(id a1)
@@ -6057,52 +5673,62 @@ id sub_1000B4104(uint64_t a1)
   return [*(a1 + 32) update];
 }
 
-id sub_1000B4AA4(uint64_t a1)
+id sub_1000B4AA4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (dword_100970200 <= 50 && (dword_100970200 != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (dword_100970200 <= 50)
   {
-    sub_1000BBEC8();
+    if (dword_100970200 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1000BBEC8(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 16);
-  *(v2 + 16) = 0;
+  v4 = *(v3 + 32);
+  v5 = *(v4 + 16);
+  *(v4 + 16) = 0;
 
-  v4 = *(a1 + 32);
+  v6 = *(v3 + 32);
 
-  return [v4 _update];
+  return [v6 _update];
 }
 
 void sub_1000B4B30(id a1)
 {
-  if (dword_100970200 <= 90 && (dword_100970200 != -1 || _LogCategory_Initialize()))
+  if (dword_100970200 <= 90)
   {
-    sub_1000BBEE4();
+    if (dword_100970200 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1000BBEE4(a1, v1, v2);
+    }
   }
 }
 
 void sub_1000B4B7C(id a1)
 {
-  if (dword_100970200 <= 90 && (dword_100970200 != -1 || _LogCategory_Initialize()))
+  if (dword_100970200 <= 90)
   {
-    sub_1000BBF00();
+    if (dword_100970200 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1000BBF00(a1, v1, v2);
+    }
   }
 }
 
 void sub_1000B4BC8(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = v2;
+  v4 = v2;
   if (v2)
   {
     if (dword_100970200 <= 90)
     {
       v6 = v2;
-      if (dword_100970200 != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
+      if (dword_100970200 != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
       {
-        sub_1000BBF1C();
+        sub_1000BBF1C(v4);
 LABEL_13:
-        v3 = v6;
+        v4 = v6;
       }
     }
   }
@@ -6110,9 +5736,9 @@ LABEL_13:
   else if (dword_100970200 <= 50)
   {
     v6 = 0;
-    if (dword_100970200 != -1 || (v5 = _LogCategory_Initialize(), v3 = 0, v5))
+    if (dword_100970200 != -1 || (v2 = _LogCategory_Initialize(), v4 = 0, v2))
     {
-      sub_1000BBF5C();
+      sub_1000BBF5C(v2, v4, v3);
       goto LABEL_13;
     }
   }
@@ -6157,63 +5783,64 @@ id sub_1000B502C(uint64_t a1)
   return [v2 _update];
 }
 
-void sub_1000B61CC(uint64_t a1)
+void sub_1000B61CC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a1;
   if (*(*(a1 + 32) + 216))
   {
-    v2 = arc4random();
-    v3 = [*(a1 + 32) _logCategoryCreateWithLabel:@"TetheringAgent" sessionID:v2];
-    v4 = objc_alloc_init(SFRemoteHotspotDevice);
-    [v4 setDeviceIdentifier:*(*(a1 + 32) + 216)];
-    v5 = objc_opt_new();
-    v6 = v5;
-    if (*(a1 + 56))
+    v4 = arc4random();
+    v5 = [*(v3 + 32) _logCategoryCreateWithLabel:@"TetheringAgent" sessionID:v4];
+    v6 = objc_alloc_init(SFRemoteHotspotDevice);
+    [v6 setDeviceIdentifier:*(*(v3 + 32) + 216)];
+    v7 = objc_opt_new();
+    v8 = v7;
+    if (*(v3 + 56))
     {
-      v7 = 2;
+      v9 = 2;
     }
 
     else
     {
-      v7 = 3;
+      v9 = 3;
     }
 
-    [v5 setRequestType:v7];
-    [v6 setHotspotDevice:v4];
-    [v6 setLogCategory:v3];
-    [v6 setSessionID:v2];
-    [v6 setTrafficFilterParams:*(a1 + 40)];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1000B6414;
-    v13[3] = &unk_1008CF428;
-    v14 = *(a1 + 48);
-    [v6 setHotspotInfoHandler:v13];
-    if (*v3 <= 40 && (*v3 != -1 || _LogCategory_Initialize()))
+    [v7 setRequestType:v9];
+    [v8 setHotspotDevice:v6];
+    [v8 setLogCategory:v5];
+    [v8 setSessionID:v4];
+    [v8 setTrafficFilterParams:*(v3 + 40)];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1000B6414;
+    v12[3] = &unk_1008CF428;
+    v13 = *(v3 + 48);
+    [v8 setHotspotInfoHandler:v12];
+    if (*v5 <= 40 && (*v5 != -1 || _LogCategory_Initialize()))
     {
-      v8 = "Removing";
-      if (*(a1 + 56))
+      v10 = "Removing";
+      if (*(v3 + 56))
       {
-        v8 = "Adding";
+        v10 = "Adding";
       }
 
-      v10 = *(*(a1 + 32) + 216);
-      v11 = *(a1 + 40);
-      v9 = v8;
-      LogPrintF();
+      LogPrintF(v5, "[SDHotspotAgent updateLowLatencyFilter:isAddFilter:completion:]_block_invoke", 40, "%s low latency fiter using companion link device %@ with params %@", v10, *(*(v3 + 32) + 216), *(v3 + 40));
     }
 
-    [*(a1 + 32) _companionLinkActivateWithRequest:{v6, v9, v10, v11}];
+    [*(v3 + 32) _companionLinkActivateWithRequest:v8];
   }
 
   else
   {
-    if (dword_100970200 <= 90 && (dword_100970200 != -1 || _LogCategory_Initialize()))
+    if (dword_100970200 <= 90)
     {
-      sub_1000BC340();
+      if (dword_100970200 != -1 || (a1 = _LogCategory_Initialize(), a1))
+      {
+        sub_1000BC340(a1, a2, a3);
+      }
     }
 
-    v12 = NSErrorWithOSStatusF();
-    (*(*(a1 + 48) + 16))();
+    v11 = NSErrorWithOSStatusF(4294960569, "Remote hotspot device identifer is missing");
+    (*(*(v3 + 48) + 16))();
   }
 }
 
@@ -6225,7 +5852,7 @@ void sub_1000B66A8(uint64_t a1, void *a2)
   {
     if (dword_100970200 != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      sub_1000BC3BC();
+      sub_1000BC3BC(v3);
       v3 = v5;
     }
   }
@@ -6241,7 +5868,7 @@ void sub_1000B6738(uint64_t a1, void *a2)
   {
     if (dword_100970200 != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      sub_1000BC3FC();
+      sub_1000BC3FC(v3);
       v3 = v5;
     }
   }
@@ -6251,34 +5878,40 @@ void sub_1000B6738(uint64_t a1, void *a2)
 
 void sub_1000B67C8(id a1)
 {
-  if (dword_100970200 <= 90 && (dword_100970200 != -1 || _LogCategory_Initialize()))
+  if (dword_100970200 <= 90)
   {
-    sub_1000BC43C();
+    if (dword_100970200 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1000BC43C(a1, v1, v2);
+    }
   }
 }
 
 void sub_1000B6814(id a1)
 {
-  if (dword_100970200 <= 90 && (dword_100970200 != -1 || _LogCategory_Initialize()))
+  if (dword_100970200 <= 90)
   {
-    sub_1000BC458();
+    if (dword_100970200 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1000BC458(a1, v1, v2);
+    }
   }
 }
 
 void sub_1000B6860(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = v2;
+  v4 = v2;
   if (v2)
   {
     if (dword_100970200 <= 90)
     {
       v6 = v2;
-      if (dword_100970200 != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
+      if (dword_100970200 != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
       {
-        sub_1000BC474();
+        sub_1000BC474(v4);
 LABEL_13:
-        v3 = v6;
+        v4 = v6;
       }
     }
   }
@@ -6286,9 +5919,9 @@ LABEL_13:
   else if (dword_100970200 <= 50)
   {
     v6 = 0;
-    if (dword_100970200 != -1 || (v5 = _LogCategory_Initialize(), v3 = 0, v5))
+    if (dword_100970200 != -1 || (v2 = _LogCategory_Initialize(), v4 = 0, v2))
     {
-      sub_1000BC4B4();
+      sub_1000BC4B4(v2, v4, v3);
       goto LABEL_13;
     }
   }
@@ -6337,63 +5970,59 @@ uint64_t sub_1000B6E98(uint64_t result)
 void sub_1000B6EF4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = **(a1 + 64);
-  v11 = v3;
+  v4 = *(a1 + 64);
+  v5 = *v4;
+  v7 = v3;
   if (v3)
   {
-    if (v4 <= 90)
+    if (v5 <= 90)
     {
-      if (v4 == -1)
+      if (v5 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_9;
         }
 
-        v6 = *(a1 + 64);
-        v3 = v11;
+        v4 = *(a1 + 64);
+        v3 = v7;
       }
 
-      v8 = *(a1 + 32);
-      v10 = v3;
-      LogPrintF();
+      LogPrintF(v4, "[SDHotspotAgent _companionLinkActivateWithRequest:]_block_invoke_3", 90, "### CompanionLink activation failed: %@, error: %@", *(a1 + 32), v3);
     }
 
 LABEL_9:
-    v5 = [*(a1 + 40) hotspotInfoHandler];
-    (v5)[2](v5, 0, v11);
+    v6 = [*(a1 + 40) hotspotInfoHandler];
+    (v6)[2](v6, 0, v7);
 
     goto LABEL_12;
   }
 
-  if (v4 <= 50)
+  if (v5 <= 50)
   {
-    if (v4 != -1)
+    if (v5 == -1)
     {
-LABEL_7:
-      v9 = *(a1 + 48);
-      LogPrintF();
-      [*(a1 + 56) _companionLinkActivatedRequest:{*(a1 + 40), v9}];
-      goto LABEL_12;
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_11;
+      }
+
+      v4 = *(a1 + 64);
     }
 
-    if (_LogCategory_Initialize())
-    {
-      v7 = *(a1 + 64);
-      goto LABEL_7;
-    }
+    LogPrintF(v4, "[SDHotspotAgent _companionLinkActivateWithRequest:]_block_invoke_3", 50, "Companion link client activated for device: %@", *(a1 + 48));
   }
 
-  [*(a1 + 56) _companionLinkActivatedRequest:{*(a1 + 40), v8}];
+LABEL_11:
+  [*(a1 + 56) _companionLinkActivatedRequest:*(a1 + 40)];
 LABEL_12:
 }
 
 void sub_1000B7C3C(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v7 = *(a1 + 40);
-  v8 = a4;
-  v9 = a3;
-  v10 = a2;
+  v7 = a4;
+  v8 = a3;
+  v9 = a2;
   LogCategory_Remove();
   (*(*(a1 + 32) + 16))();
 }
@@ -6436,58 +6065,63 @@ void sub_1000B8698(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
   dispatch_async(v13, block);
 }
 
-void sub_1000B87CC(uint64_t a1)
+void sub_1000B87CC(uint64_t a1, uint64_t a2)
 {
-  v2 = **(a1 + 72);
-  if (v2 <= 50)
+  v3 = *(a1 + 72);
+  if (*v3 <= 50)
   {
-    if (v2 != -1)
+    if (*v3 == -1)
     {
-LABEL_3:
-      v3 = *(a1 + 32);
-      v4 = *(a1 + 40);
-      *(a1 + 48);
-      v13 = *(a1 + 56);
-      v14 = objc_retainBlock(*(a1 + 64));
-      LogPrintF();
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_8;
+      }
 
-      goto LABEL_5;
+      v3 = *(a1 + 72);
     }
 
-    v5 = *(a1 + 72);
-    if (_LogCategory_Initialize())
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v6 = *(a1 + 56);
+    if (*(a1 + 48))
     {
-      v12 = *(a1 + 72);
-      goto LABEL_3;
+      v7 = "yes";
     }
+
+    else
+    {
+      v7 = "no";
+    }
+
+    v8 = objc_retainBlock(*(a1 + 64));
+    LogPrintF(v3, "[SDHotspotAgent _companionLinkStartTetheringWithResponse:logCategory:modelID:productVersion:canConnectOn5GHz:]_block_invoke_2", 50, "Personal hotspot started: Nm %@, Ch %@, Ps %s, Er %@ Hd %@", v4, v5, v7, v6, v8);
   }
 
-LABEL_5:
-  v6 = objc_opt_new();
-  v8 = v6;
-  v9 = *(a1 + 32);
-  v15 = v6;
-  if (v9)
-  {
-    [v6 setObject:v9 forKeyedSubscript:@"name"];
-    v8 = v15;
-  }
-
-  v10 = *(a1 + 48);
-  if (v10)
-  {
-    [v8 setObject:v10 forKeyedSubscript:@"pass"];
-    v8 = v15;
-  }
-
-  v11 = *(a1 + 40);
+LABEL_8:
+  v9 = objc_opt_new();
+  v10 = v9;
+  v11 = *(a1 + 32);
+  v14 = v9;
   if (v11)
   {
-    [v8 setObject:v11 forKeyedSubscript:@"chan"];
-    v8 = v15;
+    [v9 setObject:v11 forKeyedSubscript:@"name"];
+    v10 = v14;
   }
 
-  (*(*(a1 + 64) + 16))(*(a1 + 64), v8, 0, *(a1 + 56), v7);
+  v12 = *(a1 + 48);
+  if (v12)
+  {
+    [v10 setObject:v12 forKeyedSubscript:@"pass"];
+    v10 = v14;
+  }
+
+  v13 = *(a1 + 40);
+  if (v13)
+  {
+    [v10 setObject:v13 forKeyedSubscript:@"chan"];
+  }
+
+  (*(*(a1 + 64) + 16))();
 }
 
 void sub_1000B9200(uint64_t a1, void *a2, void *a3)
@@ -6505,7 +6139,7 @@ void sub_1000B9200(uint64_t a1, void *a2, void *a3)
 
     else if (dword_100970200 <= 90 && (dword_100970200 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000BCC70();
+      sub_1000BCC70(v8);
     }
   }
 }
@@ -6612,110 +6246,125 @@ void sub_1000B9BF4(uint64_t a1)
   }
 }
 
-id sub_1000BA5B8(uint64_t a1)
+id sub_1000BA5B8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (dword_100970200 <= 50 && (dword_100970200 != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (dword_100970200 <= 50)
   {
-    sub_1000BD0C0();
+    if (dword_100970200 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1000BD0C0(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 136) = -1;
-  v2 = *(a1 + 32);
+  *(*(v3 + 32) + 136) = -1;
+  v4 = *(v3 + 32);
 
-  return [v2 _update];
+  return [v4 _update];
 }
 
-id sub_1000BA62C(uint64_t a1)
+id sub_1000BA62C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (dword_100970200 <= 50 && (dword_100970200 != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (dword_100970200 <= 50)
   {
-    sub_1000BD0DC();
+    if (dword_100970200 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1000BD0DC(a1, a2, a3);
+    }
   }
 
-  [*(a1 + 32) _legacyBrowswerUpdateD2DState];
-  [*(a1 + 32) _update];
-  v2 = *(a1 + 32);
+  [*(v3 + 32) _legacyBrowswerUpdateD2DState];
+  [*(v3 + 32) _update];
+  v4 = *(v3 + 32);
 
-  return [v2 _discoveryUpdateCombined:0];
+  return [v4 _discoveryUpdateCombined:0];
 }
 
-id sub_1000BA6A8(uint64_t a1)
+id sub_1000BA6A8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (dword_100970200 <= 50 && (dword_100970200 != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (dword_100970200 <= 50)
   {
-    sub_1000BD0F8();
+    if (dword_100970200 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1000BD0F8(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(v3 + 32);
 
-  return [v2 _update];
+  return [v4 _update];
 }
 
-id sub_1000BA710(uint64_t a1)
+id sub_1000BA710(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (dword_100970200 <= 50 && (dword_100970200 != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (dword_100970200 <= 50)
   {
-    sub_1000BD114();
+    if (dword_100970200 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1000BD114(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 321) = 1;
-  [*(a1 + 32) _legacyBrowswerUpdateD2DState];
-  v2 = *(a1 + 32);
+  *(*(v3 + 32) + 321) = 1;
+  [*(v3 + 32) _legacyBrowswerUpdateD2DState];
+  v4 = *(v3 + 32);
 
-  return [v2 _update];
+  return [v4 _update];
 }
 
-id sub_1000BB110(uint64_t a1, int a2)
+id sub_1000BB110(void *a1, int a2)
 {
-  v3 = **(a1 + 64);
+  v3 = a1[8];
+  v4 = *v3;
   if (a2 == 1)
   {
-    if (v3 <= 50)
+    if (v4 <= 50)
     {
-      if (v3 == -1)
+      if (v4 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_9;
         }
 
-        v8 = *(a1 + 64);
+        v3 = a1[8];
       }
 
-      v10 = *(a1 + 32);
-      LogPrintF();
+      LogPrintF(v3, "[SDHotspotAgent _postUserAlertForName:altDSID:logCategory:completion:]_block_invoke", 50, "User allowed Personal Hotspot request for %@", a1[4]);
     }
 
 LABEL_9:
-    (*(*(a1 + 56) + 16))(*(a1 + 56));
+    (*(a1[7] + 16))();
     goto LABEL_12;
   }
 
-  if (v3 <= 90)
+  if (v4 <= 90)
   {
-    if (v3 == -1)
+    if (v4 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_11;
       }
 
-      v9 = *(a1 + 64);
+      v3 = a1[8];
     }
 
-    v11 = *(a1 + 32);
-    LogPrintF();
+    LogPrintF(v3, "[SDHotspotAgent _postUserAlertForName:altDSID:logCategory:completion:]_block_invoke", 90, "### User denied Personal Hotspot request for %@", a1[4]);
   }
 
 LABEL_11:
-  v4 = NSErrorWithOSStatusF();
-  (*(*(a1 + 56) + 16))(*(a1 + 56));
+  v5 = NSErrorWithOSStatusF(4294896150, "User denied request to turn on Personal Hotspot.");
+  (*(a1[7] + 16))();
 
 LABEL_12:
-  v5 = *(a1 + 48);
-  v6 = *(*(a1 + 40) + 336);
+  v6 = a1[6];
+  v7 = *(a1[5] + 336);
 
-  return [v6 removeObjectForKey:v5];
+  return [v7 removeObjectForKey:v6];
 }
 
 void sub_1000BB2B0(uint64_t a1)
@@ -6775,16 +6424,16 @@ void sub_1000BB7BC(uint64_t a1)
   }
 }
 
-id sub_1000BBA40()
+id sub_1000BBA40(uint64_t a1)
 {
   if (qword_100989BC0 != -1)
   {
     sub_1000BD2A0();
   }
 
-  v1 = qword_100989BB8;
+  v2 = qword_100989BB8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000BBA84(id a1)
@@ -6803,120 +6452,274 @@ void sub_1000BBA84(id a1)
   off_100970270 = sub_1000BBAEC;
 }
 
+uint64_t sub_1000BBB8C()
+{
+  sub_100019C60();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_100970200, "[SDHotspotAgent _prefsChanged:]", 50, "Advertising disabled: %s -> %s\n", v2, v0);
+}
+
+uint64_t sub_1000BBBE4()
+{
+  sub_100019C60();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_100970200, "[SDHotspotAgent _prefsChanged:]", 50, "Charging override disabled: %s -> %s\n", v2, v0);
+}
+
+uint64_t sub_1000BBC3C(id *a1, char a2)
+{
+  v3 = [*a1 BOOLValue];
+  v4 = "no";
+  if (v3)
+  {
+    v5 = "yes";
+  }
+
+  else
+  {
+    v5 = "no";
+  }
+
+  if (a2)
+  {
+    v4 = "yes";
+  }
+
+  return LogPrintF(&dword_100970200, "[SDHotspotAgent _prefsChanged:]", 50, "Family hotspot state overridden: %s -> %s\n", v5, v4);
+}
+
+uint64_t sub_1000BBCB0()
+{
+  sub_100019C60();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_100970200, "[SDHotspotAgent _prefsChanged:]", 50, "Legacy disabled: %s -> %s\n", v2, v0);
+}
+
 void sub_1000BBD08(unsigned __int8 a1, unsigned __int8 a2)
 {
   v3 = SFHotspotNetworkTypeString(a1);
   v4 = SFHotspotNetworkTypeString(a2);
-  LogPrintF();
+  LogPrintF(&dword_100970200, "[SDHotspotAgent _prefsChanged:]", 50, "Network type overriden: %@ -> %@\n", v3, v4);
 }
 
-void sub_1000BC094(void *a1, uint64_t a2)
+uint64_t sub_1000BBD7C()
 {
-  v2 = [a1 _appMonitorStringForState:a2];
-  LogPrintF();
+  sub_100019C60();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_100970200, "[SDHotspotAgent _prefsChanged:]", 50, "Rapport disabled: %s -> %s\n", v2, v0);
 }
 
-void sub_1000BC0F4(void *a1)
+uint64_t sub_1000BBDF0()
 {
-  v1 = [a1 bundleID];
-  LogPrintF();
+  sub_100019C60();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_100970200, "[SDHotspotAgent _advertiserUpdate]", 50, "Updating for change: Bat: %s, Fam: %s", v2, v0);
+}
+
+uint64_t sub_1000BBFCC(uint64_t a1)
+{
+  v1 = [*(*(a1 + 32) + 224) isTetheringSupported];
+  v2 = "no";
+  if (v1)
+  {
+    v2 = "yes";
+  }
+
+  return LogPrintF(&dword_100970200, "[SDHotspotAgent hotspotManagerTetheringSupportChanged:]_block_invoke", 50, "Tethering supported changed: %s", v2);
+}
+
+void sub_1000BC094(void *a1, uint64_t a2, uint64_t a3)
+{
+  v4 = [a1 _appMonitorStringForState:a2];
+  LogPrintF(&dword_100970200, "[SDHotspotAgent _appMonitorUpdate]", 50, "App state updated: %@ state %@", a3, v4);
+}
+
+void sub_1000BC0F4(void *a1, uint64_t a2)
+{
+  v3 = [a1 bundleID];
+  LogPrintF(&dword_100970200, "[SDHotspotAgent _removeClientID:]", 50, "Removing client proxy (ClientID %@ Bundle %@)", a2, v3);
 }
 
 void sub_1000BC160(void *a1)
 {
   v1 = [a1 UUIDString];
-  LogPrintF();
+  LogPrintF(&dword_100970200, "[SDHotspotAgent startBrowsing]", 50, "Browsing for client (%@)", v1);
 }
 
 void sub_1000BC1D8(void *a1)
 {
   v1 = [a1 bundleID];
-  LogPrintF();
+  LogPrintF(&dword_100970200, "[SDHotspotAgent _startBrowsingForClientID:]", 50, "Start Browsing (%@)", v1);
 }
 
 void sub_1000BC288(void *a1)
 {
   v1 = [a1 bundleID];
-  LogPrintF();
+  LogPrintF(&dword_100970200, "[SDHotspotAgent _stopBrowsingForClientID:]", 50, "Stop Browsing (%@)", v1);
 }
 
 uint64_t sub_1000BC6A8(char a1, uint64_t a2, void *a3, unint64_t a4)
 {
   if (a1)
   {
-    LogPrintF();
+    LogPrintF(a2, "[SDHotspotAgent _companionLinkHandleRequest:options:responseHandler:]", 50, "Group: %@", @"iCloud");
     return 1;
   }
 
   else
   {
-    v6 = [a3 firstName];
-    v7 = v6;
+    v7 = [a3 firstName];
+    v8 = v7;
     if (a4 > 2)
     {
-      v8 = "?";
+      v9 = "?";
     }
 
     else
     {
-      v8 = off_1008CF708[a4];
+      v9 = off_1008CF708[a4];
     }
 
-    v9 = [NSString stringWithFormat:@"Family ('%@') - %s", v6, v8];
-    LogPrintF();
+    v10 = [NSString stringWithFormat:@"Family ('%@') - %s", v7, v9];
+    LogPrintF(a2, "[SDHotspotAgent _companionLinkHandleRequest:options:responseHandler:]", 50, "Group: %@", v10);
 
     return 0;
   }
 }
 
-uint64_t sub_1000BC8B0(void *a1, uint64_t *a2)
+uint64_t sub_1000BCD30(char a1, uint64_t a2, uint64_t a3)
 {
-  [a1 logCategory];
-  v4 = *a2;
-  return LogPrintF();
+  if (a1)
+  {
+    v3 = "yes";
+  }
+
+  else
+  {
+    v3 = "no";
+  }
+
+  return LogPrintF(&dword_100970200, "-[SDHotspotAgent _discoveryUpdateCombined:]", 50, "Devices changed: %s %@proxy %d", v3, a3, [*(a2 + 72) count]);
 }
 
 uint64_t sub_1000BCF70(_BYTE *a1)
 {
-  a1[264];
-  a1[24];
-  a1[48];
-  [a1 _sysMonitorD2DEncryptionIsAvailable];
-  [a1 _idsLegacyHostDeviceCount];
-  return LogPrintF();
+  v2 = "no";
+  if (a1[264])
+  {
+    v3 = "yes";
+  }
+
+  else
+  {
+    v3 = "no";
+  }
+
+  if (a1[24])
+  {
+    v4 = "yes";
+  }
+
+  else
+  {
+    v4 = "no";
+  }
+
+  if (a1[48])
+  {
+    v5 = "no";
+  }
+
+  else
+  {
+    v5 = "yes";
+  }
+
+  if ([a1 _sysMonitorD2DEncryptionIsAvailable])
+  {
+    v2 = "yes";
+  }
+
+  return LogPrintF(&dword_100970200, "-[SDHotspotAgent _legacyBrowserShouldBrowse]", 40, "Legacy browser should browse: Pref %s, Active %s, Client %s, ManateeAvailable %s, Hosts %ld", v3, v4, v5, v2, [a1 _idsLegacyHostDeviceCount]);
 }
 
 uint64_t sub_1000BD01C(uint64_t a1)
 {
-  *(a1 + 264);
-  [*(a1 + 224) maxConnectionsReached];
-  [a1 _sysMonitorD2DEncryptionIsAvailable];
-  [a1 _idsLegacyClientDeviceCount];
-  return LogPrintF();
+  v2 = "no";
+  if (*(a1 + 264))
+  {
+    v3 = "yes";
+  }
+
+  else
+  {
+    v3 = "no";
+  }
+
+  if ([*(a1 + 224) maxConnectionsReached])
+  {
+    v4 = "yes";
+  }
+
+  else
+  {
+    v4 = "no";
+  }
+
+  if ([a1 _sysMonitorD2DEncryptionIsAvailable])
+  {
+    v2 = "yes";
+  }
+
+  return LogPrintF(&dword_100970200, "-[SDHotspotAgent _legacyBrowserShouldScan]", 40, "Legacy browser should scan: Pref %s, Max Cnx %s, ManateeAvailable %s, Clients %ld", v3, v4, v2, [a1 _idsLegacyClientDeviceCount]);
 }
 
 uint64_t sub_1000BD160(uint64_t a1)
 {
   v1 = *(*a1 + 348);
-  if (v1 <= 5)
+  if (v1 > 5)
+  {
+    v2 = "?";
+  }
+
+  else
   {
     v2 = off_1008CF720[v1];
   }
 
-  v4 = *(*a1 + 348);
-  return LogPrintF();
+  return LogPrintF(&dword_100970200, "[SDHotspotAgent _registerForWombatActivityNotifications]_block_invoke", 30, "Received wombat activity state change notification: %s (0x%x)\n", v2, v1);
 }
 
 void sub_1000BD1E4(void *a1, uint64_t a2)
 {
   v2 = [a1 _slicingLLPHSStateNotificationValueToString:a2];
-  LogPrintF();
+  LogPrintF(&dword_100970200, "[SDHotspotAgent _registerForCellularSlicingAvailabilityNotifications]", 30, "Cellular slicing availability initialized to: %@\n", v2);
 }
 
 void sub_1000BD240(id *a1, uint64_t a2)
 {
   v2 = [*a1 _slicingLLPHSStateNotificationValueToString:a2];
-  LogPrintF();
+  LogPrintF(&dword_100970200, "[SDHotspotAgent _registerForCellularSlicingAvailabilityNotifications]_block_invoke", 30, "Cellular slicing availability changed to: %@\n", v2);
 }
 
 void sub_1000BD30C(id a1)
@@ -6991,20 +6794,18 @@ void sub_1000BD880(uint64_t a1)
     if (!v5)
     {
       objc_storeStrong(v4, v2);
-      v7 = *(a1 + 40);
-      v8 = *(v7 + 80);
-      v9 = *(v7 + 56);
+      v7 = *(*(a1 + 40) + 80);
 
-      [v8 addDelegate:? queue:?];
+      [v7 addDelegate:? queue:?];
     }
   }
 
   else if (v5)
   {
     [v5 removeDelegate:?];
-    v10 = *(a1 + 40);
-    v11 = *(v10 + 80);
-    *(v10 + 80) = 0;
+    v8 = *(a1 + 40);
+    v9 = *(v8 + 80);
+    *(v8 + 80) = 0;
   }
 }
 
@@ -7070,9 +6871,9 @@ void *sub_1000BDAFC(void *result)
   return result;
 }
 
-void sub_1000BEFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000BEFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7455,7 +7256,7 @@ id sub_1000C1BA8(uint64_t a1)
       v7 = tethering_log();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_1000C618C(v2);
+        sub_1000C618C();
       }
 
       if (![*v3 outstandingRequestsHasHotspotDeviceForID:*v2])
@@ -7710,13 +7511,6 @@ void sub_1000C6150()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1000C618C(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_100008830();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_1000C6204(uint64_t *a1, uint64_t a2, os_log_t log)
 {
   v3 = *a1;
@@ -7854,13 +7648,12 @@ void sub_1000C6748()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1000C67B8(void *a1, uint64_t *a2)
+void sub_1000C67B8(void *a1)
 {
-  v3 = [a1 UUIDString];
-  v4 = *a2;
+  v1 = [a1 UUIDString];
   sub_10000883C();
   sub_100008860();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void sub_1000C6860()
@@ -8293,7 +8086,7 @@ void sub_1000CC458()
   v2 = [v1 localizedDescription];
   sub_10000883C();
   sub_100035D48();
-  sub_1000088E8(&_mh_execute_header, v3, v4, "Error event %@ for recordID %@", v5, v6, v7, v8, v9);
+  sub_1000088E8(&_mh_execute_header, v3, v4, "Error event %@ for recordID %@", v5, v6, v7, v8);
 }
 
 void sub_1000CC618()
@@ -8302,21 +8095,29 @@ void sub_1000CC618()
   v1 = [v0 identifier];
   sub_10000883C();
   sub_100035D48();
-  sub_1000088E8(&_mh_execute_header, v2, v3, "No handler for transfer with id %@, ignore action triggered event for action %@", v4, v5, v6, v7, v8);
+  sub_1000088E8(&_mh_execute_header, v2, v3, "No handler for transfer with id %@, ignore action triggered event for action %@", v4, v5, v6, v7);
 }
 
 void sub_1000CC6A8(uint64_t a1, void *a2)
 {
-  v8 = [a2 identifier];
-  sub_1000088E8(&_mh_execute_header, v2, v3, "Handler %@ failed for transfer with id %@", v4, v5, v6, v7, 2u);
+  v3 = [a2 identifier];
+  *v10 = 138412546;
+  *&v10[4] = a1;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  sub_1000088E8(&_mh_execute_header, v4, v5, "Handler %@ failed for transfer with id %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 void sub_1000CC74C()
 {
   sub_100021E7C();
   v1 = [v0 identifier];
-  v8 = SFAirDropTransferFailureReasonToString();
-  sub_1000088E8(&_mh_execute_header, v2, v3, "Transfer with id %@ failed with reason %@", v4, v5, v6, v7, 2u);
+  v2 = SFAirDropTransferFailureReasonToString();
+  *v9 = 138412546;
+  *&v9[4] = v1;
+  *&v9[12] = 2112;
+  *&v9[14] = v2;
+  sub_1000088E8(&_mh_execute_header, v3, v4, "Transfer with id %@ failed with reason %@", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 void sub_1000CC7FC()
@@ -8366,7 +8167,7 @@ void sub_1000CE0CC(uint64_t a1)
   v2 = handoff_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000CFAF0(v1);
+    sub_1000CFAF0(v1, v2);
   }
 
   v3 = [NSTimer scheduledTimerWithTimeInterval:"scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:" target:*(*v1 + 96) selector:? userInfo:? repeats:?];
@@ -8374,7 +8175,7 @@ void sub_1000CE0CC(uint64_t a1)
   *(*v1 + 104) = v3;
 }
 
-void sub_1000CE518(uint64_t a1, char a2, _BYTE *a3, int a4)
+void sub_1000CE518(uint64_t a1, uint64_t a2, _BYTE *a3, int a4)
 {
   v6 = *(a1 + 40);
   v6[3] = a2;
@@ -8383,63 +8184,60 @@ void sub_1000CE518(uint64_t a1, char a2, _BYTE *a3, int a4)
   v7 = handoff_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v8 = *(a1 + 32);
-    v9 = SFHexStringForData();
-    v10 = [NSData dataWithBytes:*(a1 + 40) + 4 length:10];
-    v11 = SFHexStringForData();
-    v12 = 138412802;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v11;
-    v16 = 1024;
-    v17 = a4;
-    _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Encrypted (sharing flags + advertisementPayload): %@ => %@, counter %u", &v12, 0x1Cu);
+    v8 = SFHexStringForData();
+    v9 = [NSData dataWithBytes:*(a1 + 40) + 4 length:10];
+    v10 = SFHexStringForData();
+    v11 = 138412802;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v10;
+    v15 = 1024;
+    v16 = a4;
+    _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Encrypted (sharing flags + advertisementPayload): %@ => %@, counter %u", &v11, 0x1Cu);
   }
 }
 
-uint64_t sub_1000CEEBC(uint64_t a1)
+uint64_t sub_1000CEEBC(uint64_t a1, uint64_t a2)
 {
-  v2 = handoff_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = handoff_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
     v4 = SFAdvertisementDescriptionFromPayloadData();
-    v5 = *(a1 + 40);
-    v6 = SFCompactStringFromCollection();
+    v5 = SFCompactStringFromCollection();
     *buf = 138412546;
-    v35 = v4;
-    v36 = 2112;
-    v37 = v6;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Request to advertise %@ with options %@", buf, 0x16u);
+    v34 = v4;
+    v35 = 2112;
+    v36 = v5;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Request to advertise %@ with options %@", buf, 0x16u);
   }
 
-  v7 = [*(a1 + 40) objectForKeyedSubscript:@"name"];
+  v6 = [*(a1 + 40) objectForKeyedSubscript:@"name"];
 
-  if (v7)
+  if (v6)
   {
-    v8 = [*(a1 + 40) objectForKeyedSubscript:@"name"];
-    v9 = [v8 componentsSeparatedByString:@"-"];
+    v7 = [*(a1 + 40) objectForKeyedSubscript:@"name"];
+    v8 = [v7 componentsSeparatedByString:@"-"];
 
-    if ([v9 count] >= 5)
+    if ([v8 count] >= 5)
     {
-      v10 = [v9 objectAtIndexedSubscript:5];
-      *(*(a1 + 48) + 156) = [v10 intValue];
+      v9 = [v8 objectAtIndexedSubscript:5];
+      *(*(a1 + 48) + 156) = [v9 intValue];
     }
   }
 
-  v11 = *(a1 + 32);
-  v12 = (v11 | *(*(a1 + 48) + 160)) == 0;
-  v13 = [v11 isEqual:?];
-  v14 = *(a1 + 40);
-  v15 = (v14 | *(*(a1 + 48) + 168)) == 0;
-  v16 = [v14 isEqual:?];
-  if ((v12 | v13) & 1) != 0 && ((v15 | v16))
+  v10 = *(a1 + 32);
+  v11 = (v10 | *(*(a1 + 48) + 160)) == 0;
+  v12 = [v10 isEqual:?];
+  v13 = *(a1 + 40);
+  v14 = (v13 | *(*(a1 + 48) + 168)) == 0;
+  v15 = [v13 isEqual:?];
+  if ((v11 | v12) & 1) != 0 && ((v14 | v15))
   {
-    v17 = handoff_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v16 = handoff_log();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Advertisement contents does not differ from current, continuing previous advertising", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Advertisement contents does not differ from current, continuing previous advertising", buf, 2u);
     }
 
     goto LABEL_15;
@@ -8447,47 +8245,47 @@ uint64_t sub_1000CEEBC(uint64_t a1)
 
   [*(a1 + 48) invalidateGoodbyeTimer];
   *(*(a1 + 48) + 120) = 1;
-  v18 = [*(a1 + 32) copy];
-  v19 = *(a1 + 48);
-  v20 = *(v19 + 160);
-  *(v19 + 160) = v18;
+  v17 = [*(a1 + 32) copy];
+  v18 = *(a1 + 48);
+  v19 = *(v18 + 160);
+  *(v18 + 160) = v17;
 
-  v21 = [*(a1 + 40) copy];
-  v22 = *(a1 + 48);
-  v23 = *(v22 + 168);
-  *(v22 + 168) = v21;
+  v20 = [*(a1 + 40) copy];
+  v21 = *(a1 + 48);
+  v22 = *(v21 + 168);
+  *(v21 + 168) = v20;
 
   if (([*(a1 + 48) updateAdvertiser] & 1) == 0)
   {
-    v17 = +[SDStatusMonitor sharedMonitor];
-    if (![v17 alwaysSendPayload])
+    v16 = +[SDStatusMonitor sharedMonitor];
+    if (![v16 alwaysSendPayload])
     {
 LABEL_15:
 
-      return (*(*(a1 + 56) + 16))(*(a1 + 56), 0, v24, v25);
+      return (*(*(a1 + 56) + 16))(*(a1 + 56), 0, v23, v24);
     }
 
-    v26 = *(*(a1 + 48) + 160);
+    v25 = *(*(a1 + 48) + 160);
 
-    if (v26)
+    if (v25)
     {
-      v27 = [*(*(a1 + 48) + 144) copy];
-      v28 = *(a1 + 48);
-      v29 = v28[20];
-      v31[0] = _NSConcreteStackBlock;
-      v31[1] = 3221225472;
-      v31[2] = sub_1000CF210;
-      v31[3] = &unk_1008CFB20;
-      v32 = v27;
-      v33 = *(a1 + 32);
-      v17 = v27;
-      [v28 activityPayloadForAdvertisementPayload:v29 command:0 requestedByDevice:0 withCompletionHandler:v31];
+      v26 = [*(*(a1 + 48) + 144) copy];
+      v27 = *(a1 + 48);
+      v28 = v27[20];
+      v30[0] = _NSConcreteStackBlock;
+      v30[1] = 3221225472;
+      v30[2] = sub_1000CF210;
+      v30[3] = &unk_1008CFB20;
+      v31 = v26;
+      v32 = *(a1 + 32);
+      v16 = v26;
+      [v27 activityPayloadForAdvertisementPayload:v28 command:0 requestedByDevice:0 withCompletionHandler:v30];
 
       goto LABEL_15;
     }
   }
 
-  return (*(*(a1 + 56) + 16))(*(a1 + 56), 0, v24, v25);
+  return (*(*(a1 + 56) + 16))(*(a1 + 56), 0, v23, v24);
 }
 
 void sub_1000CF210(uint64_t a1, void *a2, void *a3)
@@ -8597,16 +8395,16 @@ void sub_1000CF600(uint64_t a1)
   (*(*(a1 + 40) + 16))();
 }
 
-id sub_1000CF8EC()
+id sub_1000CF8EC(uint64_t a1)
 {
   if (qword_100989C20 != -1)
   {
     sub_1000D00E4();
   }
 
-  v1 = qword_100989C18;
+  v2 = qword_100989C18;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000CF930(id a1)
@@ -8632,30 +8430,28 @@ void sub_1000CFA78(int a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "IOPMAssertionCreateWithProperties returned %x", v2, 8u);
 }
 
-void sub_1000CFAF0(uint64_t *a1)
+void sub_1000CFAF0(void *a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = *(*a1 + 96);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
   sub_100008870();
-  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
-void sub_1000CFBB8()
+void sub_1000CFBB8(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v8 = NSStringFromClass(v2);
   sub_100008870();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-void sub_1000CFC4C()
+void sub_1000CFC4C(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v8 = NSStringFromClass(v2);
   sub_100008870();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void sub_1000CFCE0(id *a1, NSObject *a2)
@@ -8760,34 +8556,34 @@ void sub_1000D0600(uint64_t a1)
   }
 }
 
-void sub_1000D09E8(uint64_t a1)
+void sub_1000D09E8(uint64_t a1, uint64_t a2)
 {
-  v2 = airdrop_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = airdrop_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Finished opening %@", &v5, 0xCu);
+    v4 = *(a1 + 32);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Finished opening %@", &v6, 0xCu);
   }
 
   if (*(a1 + 48) == 1)
   {
-    v4 = [*(a1 + 40) completionHandler];
-    v4[2](v4, *(a1 + 49), 0, 1);
+    v5 = [*(a1 + 40) completionHandler];
+    v5[2](v5, *(a1 + 49), 0, 1);
   }
 }
 
-id sub_1000D0D34()
+id sub_1000D0D34(uint64_t a1)
 {
   if (qword_100989C40 != -1)
   {
     sub_1000D0F50();
   }
 
-  v1 = qword_100989C38;
+  v2 = qword_100989C38;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000D0D78(id a1)
@@ -9054,24 +8850,24 @@ void sub_1000D3450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1000D3474()
+void sub_1000D3474(uint64_t a1)
 {
-  v0 = auto_unlock_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = auto_unlock_log();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "Buddy setup completed. Checking whether behavior upsell is needed", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "Buddy setup completed. Checking whether behavior upsell is needed", buf, 2u);
   }
 
-  v1 = +[SDAutoUnlockSessionManager sharedManager];
-  v2 = [v1 sessionManagerQueue];
+  v2 = +[SDAutoUnlockSessionManager sharedManager];
+  v3 = [v2 sessionManagerQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000E3480;
   block[3] = &unk_1008CDEA0;
-  v5 = v1;
-  v3 = v1;
-  dispatch_async(v2, block);
+  v6 = v2;
+  v4 = v2;
+  dispatch_async(v3, block);
 }
 
 void sub_1000D3568(uint64_t a1, int token)
@@ -9198,6 +8994,191 @@ void sub_1000D3BB0(uint64_t a1)
       }
 
       v5 = [v3 countByEnumeratingWithState:&v10 objects:v16 count:16];
+    }
+
+    while (v5);
+  }
+}
+
+void sub_1000D3E20(uint64_t a1)
+{
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v2 = [*(a1 + 32) observerTable];
+  v3 = [v2 allObjects];
+
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v16 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v11;
+    do
+    {
+      for (i = 0; i != v5; i = i + 1)
+      {
+        if (*v11 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = *(*(&v10 + 1) + 8 * i);
+        if (objc_opt_respondsToSelector())
+        {
+          v9 = auto_unlock_log();
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v15 = v8;
+            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "### Calling failed to enable %@", buf, 0xCu);
+          }
+
+          [v8 session:*(a1 + 32) didFailToEnableDevice:*(a1 + 40) error:*(a1 + 48)];
+        }
+      }
+
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v16 count:16];
+    }
+
+    while (v5);
+  }
+}
+
+void sub_1000D4070(uint64_t a1)
+{
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v2 = [*(a1 + 32) observerTable];
+  v3 = [v2 allObjects];
+
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v16 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v11;
+    do
+    {
+      for (i = 0; i != v5; i = i + 1)
+      {
+        if (*v11 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = *(*(&v10 + 1) + 8 * i);
+        if (objc_opt_respondsToSelector())
+        {
+          v9 = auto_unlock_log();
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v15 = v8;
+            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Calling began %@", buf, 0xCu);
+          }
+
+          [v8 session:*(a1 + 32) didBeginAttemptWithDevice:*(a1 + 40)];
+        }
+      }
+
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v16 count:16];
+    }
+
+    while (v5);
+  }
+}
+
+void sub_1000D42D0(uint64_t a1)
+{
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v2 = [*(a1 + 32) observerTable];
+  v3 = [v2 allObjects];
+
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v16 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v11;
+    do
+    {
+      for (i = 0; i != v5; i = i + 1)
+      {
+        if (*v11 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = *(*(&v10 + 1) + 8 * i);
+        if (objc_opt_respondsToSelector())
+        {
+          v9 = auto_unlock_log();
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v15 = v8;
+            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Calling completed %@", buf, 0xCu);
+          }
+
+          [v8 session:*(a1 + 32) didCompleteUnlockWithDevice:*(a1 + 40)];
+        }
+      }
+
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v16 count:16];
+    }
+
+    while (v5);
+  }
+}
+
+void sub_1000D4540(uint64_t a1)
+{
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v2 = [*(a1 + 32) observerTable];
+  v3 = [v2 allObjects];
+
+  obj = v3;
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v16;
+    do
+    {
+      for (i = 0; i != v5; i = i + 1)
+      {
+        if (*v16 != v6)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v8 = *(*(&v15 + 1) + 8 * i);
+        if (objc_opt_respondsToSelector())
+        {
+          v9 = auto_unlock_log();
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v20 = v8;
+            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "### Calling failed %@", buf, 0xCu);
+          }
+
+          v10 = *(a1 + 32);
+          v11 = *(a1 + 40);
+          v12 = *(a1 + 48);
+          v13 = [v10 incrementedCountID];
+          [v8 session:v10 didFailUnlockWithResults:v11 error:v12 incrementedAttempt:v13 != 0];
+        }
+      }
+
+      v5 = [obj countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v5);

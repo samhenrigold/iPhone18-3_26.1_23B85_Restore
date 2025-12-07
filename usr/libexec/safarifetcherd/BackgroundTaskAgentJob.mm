@@ -57,13 +57,13 @@
     v3 = xpc_array_create(&objects, 1uLL);
     xpc_dictionary_set_value(self->_requirements, XPC_ACTIVITY_DUET_RELATED_APPLICATIONS, v3);
     xpc_dictionary_set_BOOL(self->_requirements, XPC_ACTIVITY_RUN_WHEN_APP_FOREGROUNDED, 1);
-    v4 = sub_100009E64();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100009E64(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       name = self->_name;
       *buf = 138543362;
-      v12 = name;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "background activity [%{public}@] to be scheduled.", buf, 0xCu);
+      v14 = name;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "background activity [%{public}@] to be scheduled.", buf, 0xCu);
     }
 
     uTF8String = [(NSString *)self->_name UTF8String];
@@ -71,10 +71,10 @@
     handler[1] = 3221225472;
     handler[2] = sub_100007150;
     handler[3] = &unk_10001C8D8;
-    objc_copyWeak(&v8, &location);
+    objc_copyWeak(&v10, &location);
     xpc_activity_register(uTF8String, XPC_ACTIVITY_CHECK_IN, handler);
     self->_isScheduled = 1;
-    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v10);
 
     objc_destroyWeak(&location);
   }
@@ -108,13 +108,13 @@
   }
 
   xpc_activity_unregister([(NSString *)self->_name UTF8String]);
-  v5 = sub_100009E64();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100009E64(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     name = self->_name;
-    v7 = 138543362;
-    v8 = name;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "background activity [%{public}@] is unscheduled.", &v7, 0xCu);
+    v9 = 138543362;
+    v10 = name;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "background activity [%{public}@] is unscheduled.", &v9, 0xCu);
   }
 
   *&self->_isSatisfied = 0;

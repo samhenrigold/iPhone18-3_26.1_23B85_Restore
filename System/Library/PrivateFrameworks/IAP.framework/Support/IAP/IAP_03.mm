@@ -541,12 +541,13 @@ uint64_t sub_10004041C(uint64_t result, int a2, uint64_t a3)
   *(result + 102) = 0;
   *(result + 104) = 0;
   *(result + 112) = 0;
-  if (sub_10003F088() < 1)
+  v6 = sub_10003F088();
+  if (v6 < 1)
   {
     return 1;
   }
 
-  result = sub_1000CC7A0();
+  result = sub_1000CC7A0(v6, v7);
   if (!result || (result & 7) != 0)
   {
     goto LABEL_12;
@@ -583,7 +584,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t sub_10004050C(uint64_t result, int a2, uint64_t a3, char a4)
+uint64_t sub_10004050C(uint64_t result, uint64_t a2, uint64_t a3, char a4)
 {
   if (!result)
   {
@@ -596,11 +597,12 @@ uint64_t sub_10004050C(uint64_t result, int a2, uint64_t a3, char a4)
     goto LABEL_15;
   }
 
+  v7 = a2;
   *(result + 100) = 0;
   *(result + 102) = 0;
   *(result + 104) = 0;
   *(result + 112) = 0;
-  result = sub_1000CC7A0();
+  result = sub_1000CC7A0(result, a2);
   if (!result || (result & 7) != 0)
   {
     goto LABEL_15;
@@ -633,14 +635,14 @@ LABEL_10:
   if (sub_10003F088() < 1)
   {
     v8 = sub_100067278();
-    return !((sub_10006814C(*(v4 + 96), v8, 1) < 0x3E9) & ~a4 & a2);
+    return !((sub_10006814C(*(v4 + 96), v8, 1) < 0x3E9) & ~a4 & v7);
   }
 
   else
   {
     *(v4 + 112) = a3;
     result = 0;
-    if (a2)
+    if (v7)
     {
       *(v4 + 102) = 1;
     }
@@ -737,9 +739,9 @@ LABEL_19:
 LABEL_16:
 }
 
-void sub_1000408FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000408FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -757,9 +759,9 @@ void sub_100040914(uint64_t a1)
       {
         v10 = [objc_msgSend(+[MPMediaQuery geniusMixesQuery](MPMediaQuery "geniusMixesQuery")];
         (*(*v2 + 656))(v2);
-        [v4 setQueueWithGeniusMixPlaylist:v10];
+        v11 = [v4 setQueueWithGeniusMixPlaylist:v10];
         *(*(*(a1 + 32) + 8) + 24) = 0;
-        if ((sub_100036DB4() & 1) == 0)
+        if ((sub_100036DB4(v11) & 1) == 0)
         {
           NSLog(@"%s:%d no systemMusicPlayer! unlikely to be starting genius mix", "Play_block_invoke", 3363);
         }
@@ -788,8 +790,7 @@ void sub_100040914(uint64_t a1)
           v9 = sub_1000300CC(v5, v8, v7);
           (*(*v2 + 656))(v2);
           [v4 setQueueWithRadioStation:v9];
-          [v4 prepareQueueForPlayback];
-          if ((sub_100036DB4() & 1) == 0)
+          if ((sub_100036DB4([v4 prepareQueueForPlayback]) & 1) == 0)
           {
             NSLog(@"%s:%d no systemMusicPlayer! unlikely to be starting radio", "Play_block_invoke", 3350);
           }
@@ -805,17 +806,18 @@ uint64_t sub_100040AD4(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = +[MediaPlayerHelper sharedSystemMusicPlayer];
+  v4 = v3;
   if (*(a1 + 48) != -1)
   {
-    if (sub_100036DB4())
+    if (sub_100036DB4(v3))
     {
-      v4 = [v3 nowPlayingItemAtIndex:*(a1 + 48)];
-      if (!v4)
+      v5 = [v4 nowPlayingItemAtIndex:*(a1 + 48)];
+      if (!v5)
       {
-        NSLog(@"%s:%d Failed nowPlayingItemAtIndex: numberOfItems=%d index=%d mediaItem=%@", "Play_block_invoke_2", 3388, [v3 numberOfItems], *(a1 + 48), 0);
+        NSLog(@"%s:%d Failed nowPlayingItemAtIndex: numberOfItems=%d index=%d mediaItem=%@", "Play_block_invoke_2", 3388, [v4 numberOfItems], *(a1 + 48), 0);
       }
 
-      [v3 setNowPlayingItem:v4];
+      v3 = [v4 setNowPlayingItem:v5];
     }
 
     else
@@ -824,9 +826,10 @@ uint64_t sub_100040AD4(uint64_t a1)
     }
   }
 
-  if (!sub_100036DB4() || [v3 playbackState] || objc_msgSend(v3, "queueAsQuery"))
+  v6 = sub_100036DB4(v3);
+  if (!v6 || (v6 = [v4 playbackState]) != 0 || (v6 = objc_msgSend(v4, "queueAsQuery")) != 0)
   {
-    if ((sub_100036DB4() & 1) == 0)
+    if ((sub_100036DB4(v6) & 1) == 0)
     {
       NSLog(@"%s:%d can't queue all songs for systemMusicPlayer!", "Play_block_invoke_2", 3421);
     }
@@ -834,8 +837,8 @@ uint64_t sub_100040AD4(uint64_t a1)
 
   else
   {
-    v8 = +[MPMediaQuery songsQuery];
-    result = sub_100025E90();
+    v10 = +[MPMediaQuery songsQuery];
+    result = sub_100025E90(v10, v11);
     if (!result || (result & 7) != 0)
     {
       goto LABEL_31;
@@ -856,22 +859,22 @@ uint64_t sub_100040AD4(uint64_t a1)
 
       if ((*(*qword_10012BB20 + 624))())
       {
-        [(MPMediaQuery *)v8 addFilterPredicate:[MPMediaPropertyPredicate predicateWithValue:&__kCFBooleanTrue forProperty:MPMediaItemPropertyIsLocal]];
+        [(MPMediaQuery *)v10 addFilterPredicate:[MPMediaPropertyPredicate predicateWithValue:&__kCFBooleanTrue forProperty:MPMediaItemPropertyIsLocal]];
       }
     }
 
     if (sub_100036874())
     {
-      [(MPMediaQuery *)v8 setIgnoreSystemFilterPredicates:1];
+      [(MPMediaQuery *)v10 setIgnoreSystemFilterPredicates:1];
     }
 
-    [v3 setQueueWithQuery:v8];
-    [v3 prepareQueueForPlayback];
+    [v4 setQueueWithQuery:v10];
+    [v4 prepareQueueForPlayback];
   }
 
   result = (*(*v2 + 520))(v2, *(a1 + 40));
-  v6 = *(a1 + 52);
-  if (v6 >= 2)
+  v8 = *(a1 + 52);
+  if (v8 >= 2)
   {
     __break(0x550Au);
 LABEL_31:
@@ -879,11 +882,11 @@ LABEL_31:
     return result;
   }
 
-  if (v6)
+  if (v8)
   {
-    v7 = *(*v2 + 656);
+    v9 = *(*v2 + 656);
 
-    return v7(v2);
+    return v9(v2);
   }
 
   return result;
@@ -938,7 +941,7 @@ NSObject *sub_100040EAC(NSObject *result)
     v7 = &v6;
     v8 = 0x2020000000;
     v9 = 0;
-    v2 = sub_100036DB4();
+    v2 = sub_100036DB4(result);
     if (!v2)
     {
       goto LABEL_10;
@@ -1003,7 +1006,7 @@ NSObject *sub_1000410BC(NSObject *result)
     v7 = &v6;
     v8 = 0x2020000000;
     v9 = 0;
-    v2 = sub_100036DB4();
+    v2 = sub_100036DB4(result);
     if (!v2)
     {
       goto LABEL_10;
@@ -1063,7 +1066,7 @@ void sub_1000412CC(uint64_t a1)
     goto LABEL_12;
   }
 
-  if (sub_100036DB4())
+  if (sub_100036DB4(a1))
   {
     v1 = +[MediaPlayerHelper sharedSystemMusicPlayerQueue];
     if (v1)
@@ -1144,7 +1147,7 @@ NSObject *sub_1000414DC(NSObject *result, unsigned int a2)
   }
 
   v4 = objc_alloc_init(NSAutoreleasePool);
-  if (!sub_100036DB4())
+  if (!sub_100036DB4(v4))
   {
     result = [(objc_class *)v2[15].isa nowPlayingAppPlaybackState];
     if (result <= 3)
@@ -1329,23 +1332,24 @@ LABEL_32:
   return result;
 }
 
-NSObject *sub_1000418D0(NSObject *result, int a2)
+NSObject *sub_1000418D0(NSObject *result, uint64_t a2)
 {
-  if (!result || (p_isa = &result->isa, (result & 7) != 0))
+  if (!result || (v2 = result, (result & 7) != 0))
   {
     __break(0x5516u);
   }
 
   else
   {
+    v3 = a2;
     sub_10004237C(result, 1);
-    if (((*(*p_isa + 74))(p_isa) & 1) == 0 && ((*(*p_isa + 75))(p_isa) & 1) == 0 && ((*(*p_isa + 76))(p_isa) & 1) == 0)
+    if (((*(v2->isa + 74))(v2) & 1) == 0 && ((*(v2->isa + 75))(v2) & 1) == 0 && ((*(v2->isa + 76))(v2) & 1) == 0)
     {
       operator new();
     }
 
     v4 = objc_alloc_init(NSAutoreleasePool);
-    if (!(*(*p_isa + 52))(p_isa))
+    if (!(*(v2->isa + 52))(v2))
     {
 
       return 0;
@@ -1357,15 +1361,15 @@ NSObject *sub_1000418D0(NSObject *result, int a2)
     v10 = sub_100042670;
     v11 = sub_100042680;
     v12 = 0;
-    if (((*(*p_isa + 75))(p_isa) & 1) != 0 || (*(*p_isa + 76))(p_isa))
+    if (((*(v2->isa + 75))(v2) & 1) != 0 || (*(v2->isa + 76))(v2))
     {
-      v5 = sub_1000331F4([p_isa[15] currentNowPlayingInfoPID]);
+      v5 = sub_1000331F4([(objc_class *)v2[15].isa currentNowPlayingInfoPID]);
 LABEL_10:
       v8[5] = v5;
       goto LABEL_11;
     }
 
-    if (!a2)
+    if (!v3)
     {
       v5 = [+[MediaPlayerHelper sharedSystemMusicPlayer](MediaPlayerHelper "sharedSystemMusicPlayer")];
       goto LABEL_10;
@@ -1403,7 +1407,7 @@ NSObject *sub_100041C90(NSObject *result, unsigned int a2)
   }
 
   v4 = objc_alloc_init(NSAutoreleasePool);
-  if (!sub_100036DB4())
+  if (!sub_100036DB4(v4))
   {
     result = [(objc_class *)v2[15].isa nowPlayingAppPlaybackState];
     if (result <= 3)
@@ -1575,23 +1579,23 @@ LABEL_36:
   return result;
 }
 
-NSObject *sub_1000420CC(NSObject *result, int a2)
+NSObject *sub_1000420CC(NSObject *result, uint64_t a2)
 {
   if (!result)
   {
     goto LABEL_30;
   }
 
-  p_isa = &result->isa;
+  v2 = result;
   if ((result & 7) != 0)
   {
     goto LABEL_30;
   }
 
   v4 = objc_alloc_init(NSAutoreleasePool);
-  if (!(*(*p_isa + 74))(p_isa) || sub_10003AF10(p_isa, a2))
+  if (!(*(v2->isa + 74))(v2) || sub_10003AF10(v2, a2))
   {
-    result = [p_isa[15] currentPlaybackTime];
+    result = [(objc_class *)v2[15].isa currentPlaybackTime];
     if (v5 >= 0.0 && v5 <= 2147483.65)
     {
       v6 = v5 * 1000.0;
@@ -1614,7 +1618,7 @@ NSObject *sub_1000420CC(NSObject *result, int a2)
     {
       v8 = (*(*qword_10012BB20 + 504))() - 1;
 LABEL_18:
-      v9 = (*(*p_isa + 74))(p_isa);
+      v9 = (*(v2->isa + 74))(v2);
       sub_1000DDE90(6u, @"MP: IsNowPlayingAppIPod()=%d, timeElapsed=%d", v9, v8);
       v10 = v8;
 LABEL_29:
@@ -1668,9 +1672,9 @@ LABEL_32:
   return result;
 }
 
-void sub_10004234C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10004234C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1701,7 +1705,7 @@ uint64_t sub_10004237C(uint64_t result, char a2)
 
   if ((a2 & 1) != 0 || dword_100129630 != 4 || (result = [*(result + 120) fakeStreamTrackIndexTimeExpired], result))
   {
-    pthread_mutex_lock((v2 + 208));
+    pthread_mutex_lock((v2 + 26));
     if (*(v2 + 51))
     {
       v3 = sub_100067278();
@@ -1755,13 +1759,13 @@ uint64_t sub_10004237C(uint64_t result, char a2)
           goto LABEL_42;
         }
 
-        if ((*(v2 + 100) & 0x80000000) != 0 && (result = [*(v2 + 15) iBooksAppSelected], (result & 1) == 0))
+        if ((v2[50] & 0x80000000) != 0 && (result = [v2[15] iBooksAppSelected], (result & 1) == 0))
         {
-          result = [*(v2 + 15) podcastAppSelected];
+          result = [v2[15] podcastAppSelected];
           v11 = 5000;
           if ((result & 1) == 0)
           {
-            result = [*(v2 + 15) iTunesUAppSelected];
+            result = [v2[15] iTunesUAppSelected];
             if (result)
             {
               v11 = 5000;
@@ -1835,14 +1839,14 @@ LABEL_42:
           v18.tv_nsec = v15 - 1000000000;
         }
 
-        if (pthread_cond_timedwait((v2 + 272), (v2 + 208), &v18) == 60)
+        if (pthread_cond_timedwait((v2 + 34), (v2 + 26), &v18) == 60)
         {
           NSLog(@"%s:%d, Timed out waiting for MR notifications", "WaitForMRNotification", 3726);
         }
       }
     }
 
-    return pthread_mutex_unlock((v2 + 208));
+    return pthread_mutex_unlock((v2 + 26));
   }
 
   return result;
@@ -1917,7 +1921,7 @@ NSObject *sub_1000426E0(NSObject *result)
 
 NSObject *sub_1000426F8(NSObject *result)
 {
-  if (!result || (p_isa = &result->isa, (result & 7) != 0))
+  if (!result || (v1 = result, (result & 7) != 0))
   {
     __break(0x5516u);
   }
@@ -1929,15 +1933,15 @@ NSObject *sub_1000426F8(NSObject *result)
     v7 = &v6;
     v8 = 0x2020000000;
     v9 = 0;
-    sub_10004237C(p_isa, 0);
-    if (!(*(*p_isa + 52))(p_isa))
+    sub_10004237C(v1, 0);
+    if (!(*(v1->isa + 52))(v1))
     {
       goto LABEL_9;
     }
 
-    v3 = [p_isa[15] currentNowPlayingInfoTrackCount];
+    v3 = [(objc_class *)v1[15].isa currentNowPlayingInfoTrackCount];
     *(v7 + 6) = v3;
-    if ([p_isa[15] currentNowPlayingInfoTrackCountExists] & 1) != 0 || !(*(*p_isa + 74))(p_isa) || ((*(*p_isa + 64))(p_isa))
+    if ([(objc_class *)v1[15].isa currentNowPlayingInfoTrackCountExists]& 1) != 0 || !(*(v1->isa + 74))(v1) || ((*(v1->isa + 64))(v1))
     {
       goto LABEL_9;
     }
@@ -1971,114 +1975,116 @@ id sub_1000428EC(uint64_t a1)
   return result;
 }
 
-uint64_t sub_100042928(uint64_t result, unsigned int a2)
+void sub_100042928(id *a1, unsigned int a2)
 {
-  if (result)
+  if (a1 && (a1 & 7) == 0)
   {
-    v2 = result;
-    if ((result & 7) == 0)
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
+    v24 = 0;
+    sub_10004237C(a1, 1);
+    if ((*(*a1 + 74))(a1) & 1) != 0 || ((*(*a1 + 75))(a1) & 1) != 0 || ((*(*a1 + 76))(a1))
     {
-      v17 = 0;
-      v18 = &v17;
-      v19 = 0x2020000000;
-      v20 = 0;
-      sub_10004237C(result, 1);
-      if ((*(*v2 + 74))(v2) & 1) != 0 || ((*(*v2 + 75))(v2) & 1) != 0 || ((*(*v2 + 76))(v2))
+      if ((*(*a1 + 49))(a1) > a2)
       {
-        result = (*(*v2 + 49))(v2);
-        if (result > a2)
+        v4 = objc_alloc_init(NSAutoreleasePool);
+        v5 = [a1[15] currentNowPlayingInfoTrack];
+        if (((*(*a1 + 75))(a1) & 1) == 0)
         {
-          v4 = objc_alloc_init(NSAutoreleasePool);
-          v5 = [v2[15] currentNowPlayingInfoTrack];
-          if (((*(*v2 + 75))(v2) & 1) == 0 && (*(*v2 + 64))(v2) && sub_100036DB4())
+          v6 = (*(*a1 + 64))(a1);
+          if (v6)
           {
-            operator new();
-          }
-
-          [+[IAPStackshot sharedInstance](IAPStackshot startTimer:"startTimer:withInfo:" withInfo:@"MediaPlayer::GetIndTrackAccessor", 3.0];
-          v11 = 0;
-          v12 = &v11;
-          v13 = 0x3052000000;
-          v14 = sub_100042670;
-          v15 = sub_100042680;
-          v16 = 0;
-          if ((*(*v2 + 75))(v2))
-          {
-            if (v5 != a2)
+            if (sub_100036DB4(v6))
             {
-              goto LABEL_16;
+              operator new();
             }
-
-            goto LABEL_15;
           }
+        }
 
-          if ((*(*v2 + 76))(v2))
+        [+[IAPStackshot sharedInstance](IAPStackshot startTimer:"startTimer:withInfo:" withInfo:@"MediaPlayer::GetIndTrackAccessor", 3.0];
+        v15 = 0;
+        v16 = &v15;
+        v17 = 0x3052000000;
+        v18 = sub_100042670;
+        v19 = sub_100042680;
+        v20 = 0;
+        if ((*(*a1 + 75))(a1))
+        {
+          if (v5 != a2)
           {
-LABEL_15:
-            v6 = sub_1000331F4([v2[15] currentNowPlayingInfoPID]);
-            v12[5] = v6;
             goto LABEL_16;
           }
 
-          if (!sub_100036DB4())
+          goto LABEL_15;
+        }
+
+        v7 = (*(*a1 + 76))(a1);
+        if (v7)
+        {
+LABEL_15:
+          v8 = sub_1000331F4([a1[15] currentNowPlayingInfoPID]);
+          v16[5] = v8;
+          goto LABEL_16;
+        }
+
+        v10 = sub_100036DB4(v7);
+        if (!v10)
+        {
+          if ((sub_100036DB4(v10) & 1) == 0)
           {
-            if ((sub_100036DB4() & 1) == 0)
-            {
-              sub_1000DDE90(0, @"%s:%s:%d no systemMusicPlayer, can't get nowPlayingItemAtIndex", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/MediaPlayer.mm", "GetIndTrackAccessor", 3944);
-            }
+            sub_1000DDE90(0, @"%s:%s:%d no systemMusicPlayer, can't get nowPlayingItemAtIndex", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/MediaPlayer.mm", "GetIndTrackAccessor", 3944);
+          }
 
 LABEL_16:
-            operator new();
-          }
-
-          result = +[MediaPlayerHelper sharedSystemMusicPlayerQueue];
-          if (result)
-          {
-            v8[0] = _NSConcreteStackBlock;
-            v8[1] = 3221225472;
-            v8[2] = sub_1000430C8;
-            v8[3] = &unk_100114388;
-            v9 = a2;
-            v10 = v5;
-            v8[4] = &v11;
-            dispatch_sync(result, v8);
-            goto LABEL_16;
-          }
-
-          goto LABEL_31;
-        }
-      }
-
-      else
-      {
-        [v2[15] currentNowPlayingInfoTrack];
-        result = (*(*v2 + 64))(v2);
-        if ((result & 1) != 0 || (a2 & 0x80000000) == 0 && (result = (*(*v2 + 49))(v2), result > a2))
-        {
           operator new();
         }
-      }
 
-      v7 = v18[3];
-      if (!v7)
+        v11 = +[MediaPlayerHelper sharedSystemMusicPlayerQueue];
+        if (v11)
+        {
+          v12[0] = _NSConcreteStackBlock;
+          v12[1] = 3221225472;
+          v12[2] = sub_1000430C8;
+          v12[3] = &unk_100114388;
+          v13 = a2;
+          v14 = v5;
+          v12[4] = &v15;
+          dispatch_sync(v11, v12);
+          goto LABEL_16;
+        }
+
+        goto LABEL_31;
+      }
+    }
+
+    else
+    {
+      [a1[15] currentNowPlayingInfoTrack];
+      if (((*(*a1 + 64))(a1) & 1) != 0 || (a2 & 0x80000000) == 0 && (*(*a1 + 49))(a1) > a2)
       {
+        operator new();
+      }
+    }
+
+    v9 = v22[3];
+    if (!v9)
+    {
 LABEL_20:
-        _Block_object_dispose(&v17, 8);
-        return v7;
-      }
+      _Block_object_dispose(&v21, 8);
+      return;
+    }
 
-      if ((v7 & 7) == 0)
-      {
-        *(v7 + 48) = 1;
-        goto LABEL_20;
-      }
+    if ((v9 & 7) == 0)
+    {
+      *(v9 + 48) = 1;
+      goto LABEL_20;
     }
   }
 
   __break(0x5516u);
 LABEL_31:
   __break(0x5510u);
-  return result;
 }
 
 uint64_t sub_100043024(uint64_t a1)
@@ -2464,7 +2470,7 @@ uint64_t sub_100043A7C(uint64_t result)
   return result;
 }
 
-uint64_t sub_100043B2C(uint64_t result)
+BOOL sub_100043B2C(_BOOL8 result)
 {
   if (result && (result & 7) == 0)
   {
@@ -2508,16 +2514,16 @@ uint64_t sub_100043BB4(uint64_t result)
   return result;
 }
 
-void sub_100043BCC(uint64_t a1)
+void sub_100043BCC(uint64_t result)
 {
-  if (!a1 || (a1 & 7) != 0)
+  if (!result || (result & 7) != 0)
   {
     __break(0x5516u);
   }
 
   else
   {
-    sub_100043BE4(a1, 1);
+    sub_100043BE4(result, 1);
   }
 }
 
@@ -2532,22 +2538,23 @@ LABEL_15:
   }
 
   v4 = objc_alloc_init(NSAutoreleasePool);
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v11 = 0;
-  if (!sub_100036DB4() || !(*(*a1 + 592))(a1))
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
+  v12 = 0;
+  v5 = sub_100036DB4(v4);
+  if (!v5 || (v5 = (*(*a1 + 592))(a1), !v5))
   {
-    if ((sub_100036DB4() & 1) == 0)
+    if ((sub_100036DB4(v5) & 1) == 0)
     {
       sub_1000DDE90(0, @"%s:%s:%d no systemMusicPlayer!", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/MediaPlayer.mm", "_IsNowPlayingGeniusMix", 4300);
     }
 
 LABEL_11:
 
-    if (*(v9 + 24) <= 1u)
+    if (*(v10 + 24) <= 1u)
     {
-      _Block_object_dispose(&v8, 8);
+      _Block_object_dispose(&v9, 8);
       return;
     }
 
@@ -2561,20 +2568,20 @@ LABEL_11:
 
   if (!a2)
   {
-    v6 = [+[MediaPlayerHelper sharedSystemMusicPlayer](MediaPlayerHelper "sharedSystemMusicPlayer")];
-    *(v9 + 24) = v6;
+    v7 = [+[MediaPlayerHelper sharedSystemMusicPlayer](MediaPlayerHelper "sharedSystemMusicPlayer")];
+    *(v10 + 24) = v7;
     goto LABEL_11;
   }
 
-  v5 = +[MediaPlayerHelper sharedSystemMusicPlayerQueue];
-  if (v5)
+  v6 = +[MediaPlayerHelper sharedSystemMusicPlayerQueue];
+  if (v6)
   {
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100043DB8;
     block[3] = &unk_1001149D0;
-    block[4] = &v8;
-    dispatch_sync(v5, block);
+    block[4] = &v9;
+    dispatch_sync(v6, block);
     goto LABEL_11;
   }
 
@@ -2582,9 +2589,9 @@ LABEL_16:
   __break(0x5510u);
 }
 
-void sub_100043DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100043DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3145,7 +3152,7 @@ void sub_1000448E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 BOOL sub_10004491C(_BOOL8 result)
 {
-  if (!result || (v1 = result, (result & 7) != 0))
+  if (!result || (v1 = result, result & 7))
   {
     __break(0x5516u);
   }
@@ -3160,7 +3167,7 @@ BOOL sub_10004491C(_BOOL8 result)
 
 BOOL sub_100044970(_BOOL8 result)
 {
-  if (result && (result & 7) == 0)
+  if (result && !(result & 7))
   {
     return [*(result + 120) nowPlayingAppIsVideosApp] != 0;
   }
@@ -3171,7 +3178,7 @@ BOOL sub_100044970(_BOOL8 result)
 
 BOOL sub_1000449A4(_BOOL8 result)
 {
-  if (result && (result & 7) == 0)
+  if (result && !(result & 7))
   {
     return [*(result + 120) nowPlayingAppIsiBooksApp] != 0;
   }
@@ -3182,7 +3189,7 @@ BOOL sub_1000449A4(_BOOL8 result)
 
 BOOL sub_1000449D8(_BOOL8 result)
 {
-  if (result && (result & 7) == 0)
+  if (result && !(result & 7))
   {
     return [*(result + 120) nowPlayingAppIsPodcastApp] != 0;
   }
@@ -3566,19 +3573,20 @@ NSObject *sub_10004516C(NSObject *result)
 
   if (![(objc_class *)result[15].isa podcastAppSelected])
   {
-    if ([*(v1 + 120) iBooksAppSelected])
+    if ([(objc_class *)v1[15].isa iBooksAppSelected])
     {
       NSLog(@"MusicPlayerPlay: iBooksAppSelected, send MR Play to iBooks");
       goto LABEL_9;
     }
 
-    if ([*(v1 + 120) iTunesUAppSelected])
+    v2 = [(objc_class *)v1[15].isa iTunesUAppSelected];
+    if (v2)
     {
       NSLog(@"MusicPlayerPlay: iTunesUAppSelected, send MR Play to iTunesU");
       goto LABEL_9;
     }
 
-    if ((sub_100036DB4() & 1) == 0)
+    if ((sub_100036DB4(v2) & 1) == 0)
     {
       NSLog(@"MusicPlayerPlay: No systemMusicPlayer. send MR Play instead");
       MRSystemAppPlaybackQueueInternalPrepareBundleIDForPlayback();
@@ -3616,7 +3624,7 @@ void sub_1000452B4(id a1)
   [v1 play];
 }
 
-NSObject *sub_1000452E4(NSObject *result)
+uint64_t sub_1000452E4(uint64_t result)
 {
   if (!result || (v1 = result, (result & 7) != 0))
   {
@@ -3624,7 +3632,7 @@ NSObject *sub_1000452E4(NSObject *result)
     goto LABEL_11;
   }
 
-  if ((sub_100036DB4() & 1) == 0)
+  if ((sub_100036DB4(result) & 1) == 0)
   {
     NSLog(@"MusicPlayerPause: No systemMusicPlayer. send MR Pause instead");
     MRMediaRemoteSendCommandToApp();
@@ -3662,7 +3670,7 @@ uint64_t sub_1000453DC(uint64_t result)
 
   else
   {
-    if (sub_100036DB4())
+    if (sub_100036DB4(result))
     {
       NSLog(@"MusicPlayerStop: systemMusicPlayer stop");
       [+[MediaPlayerHelper sharedSystemMusicPlayer](MediaPlayerHelper "sharedSystemMusicPlayer")];
@@ -3696,7 +3704,7 @@ LABEL_10:
   v10 = 2;
   v2 = objc_alloc_init(NSAutoreleasePool);
   v3 = [+[IAPStackshot sharedInstance](IAPStackshot startTimer:"startTimer:withInfo:" withInfo:@"MediaPlayer::GetPlaybackState", 3.0];
-  if ((sub_100036DB4() & 1) == 0)
+  if ((sub_100036DB4(v3) & 1) == 0)
   {
     sub_1000DDE90(0, @"%s:%s:%d [[MPMusicPlayerController systemMusicPlayer] playbackState] unlikely to work with no systemMusicPlayer. Use media remote playback state instead", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/MediaPlayer.mm", "MusicPlayerState", 4954);
     v5 = [*(a1 + 120) nowPlayingAppPlaybackState];
@@ -3729,9 +3737,9 @@ LABEL_11:
   __break(0x5510u);
 }
 
-void sub_1000455EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000455EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3795,9 +3803,9 @@ LABEL_7:
   return result;
 }
 
-void sub_100045700(uint64_t a1, uint64_t a2)
+void sub_100045700(uint64_t result, uint64_t a2)
 {
-  if (!a1 || (a1 & 7) != 0)
+  if (!result || (result & 7) != 0)
   {
     __break(0x5516u);
   }
@@ -3808,7 +3816,7 @@ void sub_100045700(uint64_t a1, uint64_t a2)
     if (byte_100129624 < 2u)
     {
       byte_100129625 = byte_100129624;
-      *(a1 + 395) = a2;
+      *(result + 395) = a2;
       sub_1000DDE90(7u, @"%s:%s Just froze cloud tracks, __showCloudTracksSettingWhenSettingFrozen=%d, _cloudTracksSettingFrozen=%d", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/MediaPlayer.mm", "FreezeCloudTracksHiddenSetting", v4, a2, v2, v3);
       return;
     }
@@ -3856,7 +3864,7 @@ id sub_1000457F0(void *a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    sub_1000DDE90(7u, @"MR: %s:%d index=%d, call _setFakeStreamTrackIndexForSetCurIndex", "SetFakeStreamTrackIndexForSetCurIndex", 5017, a2);
+    sub_1000DDE90(7u, @"MR: %s:%d index=%d, call _setFakeStreamTrackIndexForSetCurIndex", a3, "SetFakeStreamTrackIndexForSetCurIndex", 5017, a2);
     a1 = v3[15];
     a3 = a2;
   }
@@ -3914,19 +3922,19 @@ void sub_100045928()
   pthread_mutex_lock(&stru_100129648);
   sub_1000187F0(&qword_10012BAD0);
   pthread_mutex_unlock(&stru_100129648);
-  sub_1000CA360(0, 3, 0);
+  sub_1000CA360(0, 3u, 0);
   qword_10012BB10 = v0;
-  sub_1000CA360(0, 3, 0);
+  sub_1000CA360(0, 3u, 0);
   qword_10012BB18 = v1;
 }
 
-void sub_1000459A8(uint64_t a1)
+void sub_1000459A8(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
   if (a1)
   {
     if ((a1 & 7) == 0)
     {
-      v1 = xmmword_1000EB380;
+      v4 = xmmword_1000EB380;
       operator new();
     }
   }
@@ -3942,7 +3950,7 @@ uint64_t sub_100045A68()
   return __cxa_atexit(sub_1000385F0, &qword_10012BAD0, &_mh_execute_header);
 }
 
-uint64_t sub_100045A94()
+uint64_t sub_100045A94(uint64_t a1, uint64_t a2)
 {
   if (qword_10012BB38 != -1)
   {
@@ -4013,17 +4021,17 @@ uint64_t sub_100045C48(uint64_t result)
   return result;
 }
 
-void sub_100045CC8(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_100045CC8(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (!a1 || (a1 & 7) != 0)
+  if (!result || (result & 7) != 0)
   {
     __break(0x5516u);
   }
 
   else
   {
-    *(a1 + 96) = 1;
-    sub_100045CE8(a1, a2, a3, 1);
+    *(result + 96) = 1;
+    sub_100045CE8(result, a2, a3, 1);
   }
 }
 
@@ -4036,38 +4044,39 @@ void sub_100045CE8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   if (!a2)
   {
-    NSLog(@"ERROR - %s:%s - %d need a port", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/MediaVolumeMgr.mm", "SetVolumeMaster", 105);
+    NSLog(@"ERROR - %s:%s - %d need a port", 0, a3, a4, "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/MediaVolumeMgr.mm", "SetVolumeMaster", 105);
     return;
   }
 
-  v17 = objc_alloc_init(NSAutoreleasePool);
-  if ((*(*a1 + 136))(a1) < a3)
+  v7 = a3;
+  v21 = objc_alloc_init(NSAutoreleasePool);
+  if ((*(*a1 + 136))(a1) < v7)
   {
-    a3 = (*(*a1 + 136))(a1);
+    v7 = (*(*a1 + 136))(a1);
   }
 
-  sub_1000DDE90(8u, @"%s - volume changing from %d to %d, notifyApp=%d", "SetVolumeMaster", dword_10012C668, a3, a4);
-  v8 = a3 - dword_10012C668;
-  if (a3 <= dword_10012C668)
+  sub_1000DDE90(8u, @"%s - volume changing from %d to %d, notifyApp=%d", "SetVolumeMaster", dword_10012C668, v7, a4);
+  v10 = v7 - dword_10012C668;
+  if (v7 <= dword_10012C668)
   {
-    v8 = dword_10012C668 - a3;
+    v10 = dword_10012C668 - v7;
   }
 
-  if (v8)
+  if (v10)
   {
-    if (a3)
+    if (v7)
     {
       dword_10012C66C = 0;
     }
 
-    dword_10012C668 = a3;
-    v9 = sub_1000C4254();
-    if (!v9 || (v9 & 7) != 0)
+    dword_10012C668 = v7;
+    v11 = sub_1000C4254(v8, v9);
+    if (!v11 || (v11 & 7) != 0)
     {
       goto LABEL_24;
     }
 
-    (*(*v9 + 48))(v9, 512, 0, 0, 0);
+    (*(*v11 + 48))(v11, 512, 0, 0, 0);
   }
 
   if (a4)
@@ -4077,22 +4086,22 @@ void sub_100045CE8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     sub_1000DDE90(8u, @"%s - sending IAPAudioVolumeChangedNotification", "SetVolumeMaster");
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, IAPAudioVolumeChangedNotification, 0, 0, 0);
-    v11 = sub_1000CC7A0();
-    if (!v11 || (v11 & 7) != 0)
+    v15 = sub_1000CC7A0(v13, v14);
+    if (!v15 || (v15 & 7) != 0)
     {
       goto LABEL_24;
     }
 
-    v12 = (*(*v11 + 104))(v11, a2);
-    if (v12)
+    v16 = (*(*v15 + 104))(v15, a2);
+    if (v16)
     {
-      v13 = v12;
-      v14 = +[EAManager sharedManager];
-      *&v15 = dword_10012C668 / 255.0;
-      v16 = [NSNumber numberWithFloat:v15];
-      if ((v13 & 7) == 0)
+      v17 = v16;
+      v18 = +[EAManager sharedManager];
+      *&v19 = dword_10012C668 / 255.0;
+      v20 = [NSNumber numberWithFloat:v19];
+      if ((v17 & 7) == 0)
       {
-        [v14 updateValueFromIap:v16 forPort:kCFAccessoryPortLineOut andPortPorperty:kCFAccessoryPortPropertyVolumeScalar forAccessory:(*(*v13 + 40))(v13)];
+        [v18 updateValueFromIap:v20 forPort:kCFAccessoryPortLineOut andPortPorperty:kCFAccessoryPortPropertyVolumeScalar forAccessory:(*(*v17 + 40))(v17)];
         goto LABEL_20;
       }
 
@@ -4132,15 +4141,15 @@ uint64_t sub_100045FF0(uint64_t result)
   return result;
 }
 
-void sub_100046038()
+void sub_100046038(uint64_t a1)
 {
   SBSSpringBoardServerPort();
   SBGetMediaVolume();
-  v0 = 0.0 * 255.0;
-  if ((0.0 * 255.0) > -1.0 && v0 < 4295000000.0)
+  v1 = 0.0 * 255.0;
+  if ((0.0 * 255.0) > -1.0 && v1 < 4295000000.0)
   {
-    dword_10012C668 = v0;
-    sub_1000DDE90(8u, @"MediaVolumeMgr::InitVolumeOnce %d", v0);
+    dword_10012C668 = v1;
+    sub_1000DDE90(8u, @"MediaVolumeMgr::InitVolumeOnce %d", v1);
   }
 
   else
@@ -4220,7 +4229,7 @@ void sub_100046168(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
     goto LABEL_19;
   }
 
-  v17 = objc_alloc_init(NSAutoreleasePool);
+  v19 = objc_alloc_init(NSAutoreleasePool);
   if (!a2 || (a2 & 7) != 0)
   {
     goto LABEL_19;
@@ -4237,31 +4246,31 @@ void sub_100046168(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
     a2[89] = a3;
     v9 = (*(*a2 + 200))(a2);
     sub_1000DDE90(8u, @"%s - setting legacy volume support %d, port=%hhx(%s)", "SetLegacyVolumeSupport", a3, a2, v9);
-    v10 = sub_1000CC7A0();
-    if (v10 && (v10 & 7) == 0)
+    v12 = sub_1000CC7A0(v10, v11);
+    if (v12 && (v12 & 7) == 0)
     {
-      v11 = (*(*v10 + 96))(v10, a4);
-      if (!v11)
+      v13 = (*(*v12 + 96))(v12, a4);
+      if (!v13)
       {
         goto LABEL_12;
       }
 
-      v12 = v11;
-      v13 = +[EAManager sharedManager];
-      v14 = [NSNumber numberWithInt:a3];
-      if ((v12 & 7) == 0)
+      v14 = v13;
+      v15 = +[EAManager sharedManager];
+      v16 = [NSNumber numberWithInt:a3];
+      if ((v14 & 7) == 0)
       {
-        [v13 updateValueFromIap:v14 forPort:kCFAccessoryPortLineOut andPortPorperty:kCFAccessoryPortPropertyVolumeControlIsSupported forAccessory:(*(*v12 + 40))(v12)];
+        [v15 updateValueFromIap:v16 forPort:kCFAccessoryPortLineOut andPortPorperty:kCFAccessoryPortPropertyVolumeControlIsSupported forAccessory:(*(*v14 + 40))(v14)];
 LABEL_12:
         sub_1000DDE90(8u, @"%s - sending IAPAudioVolumeControlSupportChangedNotification", "SetLegacyVolumeSupport");
         DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
         CFNotificationCenterPostNotification(DarwinNotifyCenter, IAPAudioVolumeControlSupportChangedNotification, 0, 0, 0);
         if (a3)
         {
-          v16 = *(a1 + 96);
-          if (v16 <= 1)
+          v18 = *(a1 + 96);
+          if (v18 <= 1)
           {
-            if (v16)
+            if (v18)
             {
               sub_100045CE8(a1, a2, dword_10012C668, 1);
             }
@@ -4322,7 +4331,7 @@ void sub_100046400(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
     goto LABEL_20;
   }
 
-  v15 = objc_alloc_init(NSAutoreleasePool);
+  v17 = objc_alloc_init(NSAutoreleasePool);
   if (!a3)
   {
     NSLog(@"ERROR - %s:%s - %d couldn't find transport for accID %hhx", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAP/link/MediaVolumeMgr.mm", "SetVolumeControlSupported", 219, 0);
@@ -4345,31 +4354,31 @@ void sub_100046400(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
     a3[88] = a2;
     v7 = (*(*a3 + 200))(a3);
     sub_1000DDE90(8u, @"%s - setting non-legacy volume support %d, port=%hhx(%s)", "SetVolumeControlSupported", a2, a3, v7);
-    v8 = sub_1000CC7A0();
-    if (v8 && (v8 & 7) == 0)
+    v10 = sub_1000CC7A0(v8, v9);
+    if (v10 && (v10 & 7) == 0)
     {
-      v9 = (*(*v8 + 104))(v8, a3);
-      if (!v9)
+      v11 = (*(*v10 + 104))(v10, a3);
+      if (!v11)
       {
         goto LABEL_12;
       }
 
-      v10 = v9;
-      v11 = +[EAManager sharedManager];
-      v12 = [NSNumber numberWithInt:a2];
-      if ((v10 & 7) == 0)
+      v12 = v11;
+      v13 = +[EAManager sharedManager];
+      v14 = [NSNumber numberWithInt:a2];
+      if ((v12 & 7) == 0)
       {
-        [v11 updateValueFromIap:v12 forPort:kCFAccessoryPortLineOut andPortPorperty:kCFAccessoryPortPropertyVolumeControlIsSupported forAccessory:(*(*v10 + 40))(v10)];
+        [v13 updateValueFromIap:v14 forPort:kCFAccessoryPortLineOut andPortPorperty:kCFAccessoryPortPropertyVolumeControlIsSupported forAccessory:(*(*v12 + 40))(v12)];
 LABEL_12:
         sub_1000DDE90(8u, @"%s - sending IAPAudioVolumeControlSupportChangedNotification", "SetVolumeControlSupported");
         DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
         CFNotificationCenterPostNotification(DarwinNotifyCenter, IAPAudioVolumeControlSupportChangedNotification, 0, 0, 0);
         if (a2)
         {
-          v14 = *(a1 + 96);
-          if (v14 <= 1)
+          v16 = *(a1 + 96);
+          if (v16 <= 1)
           {
-            if (v14)
+            if (v16)
             {
               sub_100045CE8(a1, a3, dword_10012C668, 1);
             }
@@ -4430,7 +4439,7 @@ void sub_1000466C0(uint64_t a1, uint64_t a2, uint64_t a3)
     goto LABEL_19;
   }
 
-  v10 = objc_alloc_init(NSAutoreleasePool);
+  v12 = objc_alloc_init(NSAutoreleasePool);
   if (a2)
   {
     if ((a2 & 7) != 0)
@@ -4447,22 +4456,22 @@ void sub_1000466C0(uint64_t a1, uint64_t a2, uint64_t a3)
         goto LABEL_14;
       }
 
-      +[IAPServer sendAudioStateChangedNotification];
-      v5 = sub_1000CC7A0();
-      if (v5 && (v5 & 7) == 0)
+      v5 = +[IAPServer sendAudioStateChangedNotification];
+      v7 = sub_1000CC7A0(v5, v6);
+      if (v7 && (v7 & 7) == 0)
       {
-        v6 = (*(*v5 + 104))(v5, a2);
-        if (!v6)
+        v8 = (*(*v7 + 104))(v7, a2);
+        if (!v8)
         {
           goto LABEL_14;
         }
 
-        v7 = v6;
-        v8 = +[EAManager sharedManager];
-        v9 = [NSNumber numberWithInt:a3];
-        if ((v7 & 7) == 0)
+        v9 = v8;
+        v10 = +[EAManager sharedManager];
+        v11 = [NSNumber numberWithInt:a3];
+        if ((v9 & 7) == 0)
         {
-          [v8 updateValueFromIap:v9 forPort:kCFAccessoryPortLineOut andPortPorperty:kCFAccessoryPortPropertyIsConnected forAccessory:(*(*v7 + 40))(v7)];
+          [v10 updateValueFromIap:v11 forPort:kCFAccessoryPortLineOut andPortPorperty:kCFAccessoryPortPropertyIsConnected forAccessory:(*(*v9 + 40))(v9)];
 LABEL_14:
           if (byte_10012C60C <= 1u)
           {
@@ -4515,9 +4524,9 @@ LABEL_7:
   return result;
 }
 
-void sub_100046930(uint64_t a1)
+void sub_100046930(uint64_t result)
 {
-  if (!a1 || (a1 & 7) != 0)
+  if (!result || (result & 7) != 0)
   {
     __break(0x5516u);
   }
@@ -4525,7 +4534,7 @@ void sub_100046930(uint64_t a1)
   else
   {
     sub_1000DDE90(8u, @"MediaVolumeMgr::SetVolumeAsUninitialized");
-    *(a1 + 96) = 0;
+    *(result + 96) = 0;
   }
 }
 
@@ -4554,7 +4563,7 @@ uint64_t sub_1000469D4(uint64_t result)
   return result;
 }
 
-uint64_t sub_100046A8C()
+uint64_t sub_100046A8C(uint64_t a1, uint64_t a2)
 {
   if (qword_10012BB58 != -1)
   {
@@ -5702,7 +5711,7 @@ LABEL_28:
   return v7;
 }
 
-void *sub_100048198(void *result, int a2)
+uint64_t sub_100048198(uint64_t result, unsigned int a2)
 {
   if (!result || (v2 = result, (result & 7) != 0))
   {
@@ -5714,7 +5723,7 @@ void *sub_100048198(void *result, int a2)
   else
   {
     *result = off_100114D58;
-    result[1] = 0;
+    *(result + 8) = 0;
     *(result + 14) = 0;
     v4 = objc_alloc_init(NSAutoreleasePool);
     if (a2 != -1)
@@ -5774,7 +5783,7 @@ uint64_t sub_1000483A8(uint64_t result)
 
 BOOL sub_100048448(_BOOL8 result)
 {
-  if (result && (result & 7) == 0)
+  if (result && !(result & 7))
   {
     return *(result + 8) != 0;
   }
@@ -5973,7 +5982,7 @@ uint64_t sub_100048608(uint64_t result)
   return result;
 }
 
-uint64_t sub_100048620()
+uint64_t sub_100048620(uint64_t a1, uint64_t a2)
 {
   if (qword_10012BB80 != -1)
   {
@@ -6636,7 +6645,7 @@ LABEL_23:
       result = (*(*result + 208))(result);
       if (!result)
       {
-        result = sub_1000CC7A0();
+        result = sub_1000CC7A0(result, v5);
         if (!result || (result & 7) != 0)
         {
           break;
@@ -6708,7 +6717,7 @@ LABEL_21:
       result = (*(*result + 208))(result);
       if (!result)
       {
-        result = sub_1000CC7A0();
+        result = sub_1000CC7A0(result, v5);
         if (!result || (result & 7) != 0)
         {
           break;
@@ -6886,7 +6895,7 @@ uint64_t sub_1000499C8(uint64_t result, uint64_t a2)
     goto LABEL_15;
   }
 
-  result = sub_100046A8C();
+  result = sub_100046A8C(result, a2);
   if (!result || (result & 7) != 0)
   {
     goto LABEL_15;
@@ -7028,7 +7037,7 @@ LABEL_11:
   }
 }
 
-void sub_100049C78(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void sub_100049C78(uint64_t a1, uint64_t a2, int a3, const char *a4, const char *a5, const char *a6)
 {
   if (!a1 || (a1 & 7) != 0 || !a2 || (a2 & 7) != 0)
   {
@@ -7053,7 +7062,7 @@ void sub_100049C78(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, u
   }
 
   v15 = v13;
-  v27 = v14;
+  v28 = v14;
   v16 = (*(*a1 + 232))(a1);
   v17 = (*(*a1 + 240))(a1);
   if (!v17 || v16 > v17)
@@ -7079,13 +7088,13 @@ LABEL_38:
   }
 
   v21 = sub_100047284();
-  v22 = sub_1000C4254();
-  if (!v22 || (v22 & 7) != 0)
+  v23 = sub_1000C4254(v21, v22);
+  if (!v23 || (v23 & 7) != 0)
   {
     goto LABEL_35;
   }
 
-  v23 = sub_10005A468(v22, a2);
+  v24 = sub_10005A468(v23, a2);
   if (v21 >= 8)
   {
 LABEL_37:
@@ -7093,26 +7102,16 @@ LABEL_37:
     goto LABEL_38;
   }
 
-  sub_100047814(v12, a4, a5, a6, v23, v21, v14, v19, &v27);
-  if (v27 == v15)
+  sub_100047814(v12, a4, a5, a6, v24, v21, v14, v19, &v28);
+  if (v28 == v15)
   {
     return;
   }
 
-  v24 = "(nil)";
+  v25 = "(nil)";
   if (a4)
   {
-    v25 = a4;
-  }
-
-  else
-  {
-    v25 = "(nil)";
-  }
-
-  if (a5)
-  {
-    v26 = a5;
+    v26 = a4;
   }
 
   else
@@ -7120,12 +7119,22 @@ LABEL_37:
     v26 = "(nil)";
   }
 
-  if (a6)
+  if (a5)
   {
-    v24 = a6;
+    v27 = a5;
   }
 
-  sub_1000DDE90(0xAu, @"CheckAndLimitChargingAtStart: override chargingCurrent %d -> %d for %s / %s / %s", v14, v27, v25, v26, v24);
+  else
+  {
+    v27 = "(nil)";
+  }
+
+  if (a6)
+  {
+    v25 = a6;
+  }
+
+  sub_1000DDE90(0xAu, @"CheckAndLimitChargingAtStart: override chargingCurrent %d -> %d for %s / %s / %s", v14, v28, v26, v27, v25);
   if (qword_10012BB80 != -1)
   {
     sub_1000E2098();
@@ -7657,28 +7666,30 @@ void sub_10004AA1C(id a1)
   }
 }
 
-void sub_10004AA74()
+void sub_10004AA74(uint64_t a1, uint64_t a2)
 {
-  sub_1000C4254();
-  if (!sub_1000CC7A0())
+  v2 = sub_1000C4254(a1, a2);
+  v4 = sub_1000CC7A0(v2, v3);
+  if (!v4)
   {
     syslog(4, "Can't create and IPodAccessoryMgr instance\n");
   }
 
-  if (!sub_1000D6570())
+  v6 = sub_1000D6570(v4, v5);
+  if (!v6)
   {
     syslog(4, "Can't create and IPodSimpleRemote instance\n");
   }
 
-  if (!sub_1000CB9FC())
+  if (!sub_1000CB9FC(v6, v7))
   {
     syslog(4, "Can't create and IPodAccessoryEQ instance\n");
   }
 }
 
-uint64_t sub_10004AAD8()
+uint64_t sub_10004AAD8(uint64_t a1, uint64_t a2)
 {
-  result = sub_1000C4254();
+  result = sub_1000C4254(a1, a2);
   if (!result || (result & 7) != 0)
   {
     __break(0x5516u);
@@ -7687,13 +7698,13 @@ uint64_t sub_10004AAD8()
   else
   {
 
-    return sub_1000C8004(result);
+    return sub_1000C8004(result, v3);
   }
 
   return result;
 }
 
-uint64_t sub_10004AB10()
+uint64_t sub_10004AB10(uint64_t a1, uint64_t a2)
 {
   if (qword_10012BBA8 != -1)
   {
@@ -7919,7 +7930,7 @@ uint64_t sub_10004B164(uint64_t result, unsigned int a2, unsigned int a3)
   return result;
 }
 
-uint64_t sub_10004B1AC()
+uint64_t sub_10004B1AC(uint64_t a1, uint64_t a2)
 {
   if (qword_10012BBB8 != -1)
   {
@@ -7949,45 +7960,37 @@ uint64_t sub_10004B258(uint64_t result)
       context.info = v1;
       memset(&context.retain, 0, 24);
       qword_10012C6A0 = dispatch_queue_create("SystemStatus BT global event queue", 0);
-      if (!notify_register_mach_port("com.apple.springboard.lockstate", &notify_port, 0, (v1 + 96)))
+      v2 = notify_register_mach_port("com.apple.springboard.lockstate", &notify_port, 0, (v1 + 96));
+      if (!v2)
       {
         v2 = CFMachPortCreateWithPort(kCFAllocatorDefault, notify_port, sub_10004B8D8, &context, &shouldFreeInfo);
+        v4 = v2;
         if (v2)
         {
           RunLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, v2, 0);
-          CFRelease(v2);
+          CFRelease(v4);
           Main = CFRunLoopGetMain();
           CFRunLoopAddSource(Main, RunLoopSource, kCFRunLoopDefaultMode);
           CFRelease(RunLoopSource);
           check = 0;
-          v5 = notify_check(*(v1 + 96), &check);
-          v6 = 0;
-          if (!v5 && check)
+          v2 = notify_check(*(v1 + 96), &check);
+          v7 = 0;
+          if (!v2 && check)
           {
-            v6 = SBSGetScreenLockStatus();
+            v2 = SBSGetScreenLockStatus();
+            v7 = v2;
           }
 
-          *(v1 + 104) = v6;
+          *(v1 + 104) = v7;
         }
       }
 
-      result = sub_100046A8C();
+      result = sub_100046A8C(v2, v3);
       if (result && (result & 7) == 0)
       {
         if ((*(*result + 176))(result))
         {
-          v7 = CFPreferencesCopyAppValue(kIAPVideoTVOutSystem, @"com.apple.iapd");
-          if (v7)
-          {
-            CFRelease(v7);
-          }
-
-          else
-          {
-            CFPreferencesSetValue(kIAPVideoTVOutSystem, kIAPVideoTVOutSystem_NTSC, @"com.apple.iapd", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
-          }
-
-          v8 = CFPreferencesCopyAppValue(kIAPVideoTVOutFitSystem, @"com.apple.iapd");
+          v8 = CFPreferencesCopyAppValue(kIAPVideoTVOutSystem, @"com.apple.iapd");
           if (v8)
           {
             CFRelease(v8);
@@ -7995,10 +7998,10 @@ uint64_t sub_10004B258(uint64_t result)
 
           else
           {
-            CFPreferencesSetValue(kIAPVideoTVOutFitSystem, kIAPVideoTVOutFitSystem_ScaleToFill, @"com.apple.iapd", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+            CFPreferencesSetValue(kIAPVideoTVOutSystem, kIAPVideoTVOutSystem_NTSC, @"com.apple.iapd", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
           }
 
-          v9 = CFPreferencesCopyAppValue(kIAPVideoTVOutAspectRatio, @"com.apple.iapd");
+          v9 = CFPreferencesCopyAppValue(kIAPVideoTVOutFitSystem, @"com.apple.iapd");
           if (v9)
           {
             CFRelease(v9);
@@ -8006,10 +8009,10 @@ uint64_t sub_10004B258(uint64_t result)
 
           else
           {
-            CFPreferencesSetValue(kIAPVideoTVOutAspectRatio, kIAPVideoTVOutAspectRatio_16_9, @"com.apple.iapd", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+            CFPreferencesSetValue(kIAPVideoTVOutFitSystem, kIAPVideoTVOutFitSystem_ScaleToFill, @"com.apple.iapd", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
           }
 
-          v10 = CFPreferencesCopyAppValue(kIAPVideoTVOutSignal, @"com.apple.iapd");
+          v10 = CFPreferencesCopyAppValue(kIAPVideoTVOutAspectRatio, @"com.apple.iapd");
           if (v10)
           {
             CFRelease(v10);
@@ -8017,10 +8020,10 @@ uint64_t sub_10004B258(uint64_t result)
 
           else
           {
-            CFPreferencesSetValue(kIAPVideoTVOutSignal, kIAPVideoTVOutSignal_None, @"com.apple.iapd", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+            CFPreferencesSetValue(kIAPVideoTVOutAspectRatio, kIAPVideoTVOutAspectRatio_16_9, @"com.apple.iapd", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
           }
 
-          v11 = CFPreferencesCopyAppValue(kIAPVideoTVOutCaptioning, @"com.apple.iapd");
+          v11 = CFPreferencesCopyAppValue(kIAPVideoTVOutSignal, @"com.apple.iapd");
           if (v11)
           {
             CFRelease(v11);
@@ -8028,10 +8031,10 @@ uint64_t sub_10004B258(uint64_t result)
 
           else
           {
-            CFPreferencesSetValue(kIAPVideoTVOutCaptioning, kIAPVideoTVOutCaptioning_Off, @"com.apple.iapd", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+            CFPreferencesSetValue(kIAPVideoTVOutSignal, kIAPVideoTVOutSignal_None, @"com.apple.iapd", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
           }
 
-          v12 = CFPreferencesCopyAppValue(kIAPVideoTVOutReservedForiPodOut, @"com.apple.iapd");
+          v12 = CFPreferencesCopyAppValue(kIAPVideoTVOutCaptioning, @"com.apple.iapd");
           if (v12)
           {
             CFRelease(v12);
@@ -8039,13 +8042,24 @@ uint64_t sub_10004B258(uint64_t result)
 
           else
           {
-            CFPreferencesSetValue(kIAPVideoTVOutReservedForiPodOut, kIAPVideoTVOutReservedForiPodOut_NO, @"com.apple.iapd", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+            CFPreferencesSetValue(kIAPVideoTVOutCaptioning, kIAPVideoTVOutCaptioning_Off, @"com.apple.iapd", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
           }
 
-          v13 = CFPreferencesCopyAppValue(kIAPVideoTVOutReservedForRemoteUI, @"com.apple.iapd");
+          v13 = CFPreferencesCopyAppValue(kIAPVideoTVOutReservedForiPodOut, @"com.apple.iapd");
           if (v13)
           {
             CFRelease(v13);
+          }
+
+          else
+          {
+            CFPreferencesSetValue(kIAPVideoTVOutReservedForiPodOut, kIAPVideoTVOutReservedForiPodOut_NO, @"com.apple.iapd", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+          }
+
+          v14 = CFPreferencesCopyAppValue(kIAPVideoTVOutReservedForRemoteUI, @"com.apple.iapd");
+          if (v14)
+          {
+            CFRelease(v14);
           }
 
           else
@@ -8097,19 +8111,19 @@ uint64_t sub_10004B258(uint64_t result)
         }
 
         byte_10012C699 = AppBooleanValue;
-        v17 = CFPreferencesCopyAppValue(@"IapImitate", @"com.apple.iapd");
-        v18 = v17;
-        if (v17)
+        v18 = CFPreferencesCopyAppValue(@"IapImitate", @"com.apple.iapd");
+        v19 = v18;
+        if (v18)
         {
-          v19 = CFGetTypeID(v17);
-          if (v19 == CFStringGetTypeID())
+          v20 = CFGetTypeID(v18);
+          if (v20 == CFStringGetTypeID())
           {
-            qword_10012C688 = v18;
+            qword_10012C688 = v19;
           }
 
           else
           {
-            CFRelease(v18);
+            CFRelease(v19);
           }
         }
 
@@ -8153,18 +8167,18 @@ void sub_10004B8D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     return;
   }
 
-  v6 = sub_1000154F0();
-  if (!v6 || (v6 & 7) != 0)
+  v7 = sub_1000154F0(v5, v6);
+  if (!v7 || (v7 & 7) != 0)
   {
 LABEL_13:
     __break(0x5516u);
     return;
   }
 
-  sub_1000178E4(v6);
+  sub_1000178E4(v7);
 }
 
-uint64_t sub_10004B964()
+uint64_t sub_10004B964(uint64_t a1, uint64_t a2)
 {
   if (qword_10012BBB8 != -1)
   {
@@ -8174,19 +8188,19 @@ uint64_t sub_10004B964()
   result = qword_10012BBB0;
   if (qword_10012BBB0)
   {
-    v1 = (qword_10012BBB0 & 7) == 0;
+    v3 = (qword_10012BBB0 & 7) == 0;
   }
 
   else
   {
-    v1 = 0;
+    v3 = 0;
   }
 
-  if (v1)
+  if (v3)
   {
-    v2 = *(*qword_10012BBB0 + 32);
+    v4 = *(*qword_10012BBB0 + 32);
 
-    return v2();
+    return v4();
   }
 
   else
@@ -8197,7 +8211,7 @@ uint64_t sub_10004B964()
   return result;
 }
 
-uint64_t sub_10004B9EC()
+uint64_t sub_10004B9EC(uint64_t a1, uint64_t a2)
 {
   if (qword_10012BBB8 != -1)
   {
@@ -8207,19 +8221,19 @@ uint64_t sub_10004B9EC()
   result = qword_10012BBB0;
   if (qword_10012BBB0)
   {
-    v1 = (qword_10012BBB0 & 7) == 0;
+    v3 = (qword_10012BBB0 & 7) == 0;
   }
 
   else
   {
-    v1 = 0;
+    v3 = 0;
   }
 
-  if (v1)
+  if (v3)
   {
-    v2 = *(*qword_10012BBB0 + 32);
+    v4 = *(*qword_10012BBB0 + 32);
 
-    return v2();
+    return v4();
   }
 
   else
@@ -8422,7 +8436,7 @@ BOOL sub_10004BE88(_BOOL8 result)
   return result;
 }
 
-unint64_t sub_10004BEAC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+unint64_t sub_10004BEAC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   if (!a1 || (a1 & 7) != 0)
   {
@@ -8558,27 +8572,27 @@ LABEL_27:
     return;
   }
 
-  v12 = sub_100046A8C();
-  if (!v12 || (v12 & 7) != 0)
+  v14 = sub_100046A8C(v12, v13);
+  if (!v14 || (v14 & 7) != 0)
   {
 LABEL_28:
     __break(0x5516u);
     return;
   }
 
-  v13 = sub_1000469D4(v12);
-  if (v13)
+  v15 = sub_1000469D4(v14);
+  if (v15)
   {
-    v14 = v13;
+    v16 = v15;
     sub_1000DDE90(0xCu, @"VideoOut Logging: DP enabled = %d", v9);
-    v15 = &kCFBooleanTrue;
+    v17 = &kCFBooleanTrue;
     if (!v9)
     {
-      v15 = &kCFBooleanFalse;
+      v17 = &kCFBooleanFalse;
     }
 
-    IORegistryEntrySetCFProperty(v14, @"PowerState", *v15);
-    IOObjectRelease(v14);
+    IORegistryEntrySetCFProperty(v16, @"PowerState", *v17);
+    IOObjectRelease(v16);
   }
 
   else
@@ -8598,8 +8612,7 @@ void sub_10004C1D0(uint64_t a1@<X0>, std::string *a2@<X8>)
 
   else
   {
-    a2->__r_.__value_.__r.__words[0] = 0;
-    a2->__r_.__value_.__l.__size_ = 0;
+    *&a2->__r_.__value_.__l.__data_ = 0uLL;
     a2->__r_.__value_.__r.__words[2] = 0;
     if (!qword_10012C688 || CFStringCompare(qword_10012C688, @"iPod_5G", 1uLL) && CFStringCompare(qword_10012C688, @"iPod_Classic", 1uLL) && CFStringCompare(qword_10012C688, @"iPod_3G_nano", 1uLL))
     {
@@ -8642,8 +8655,7 @@ void sub_10004C2E8(uint64_t a1@<X0>, std::string *a2@<X8>)
 
   else
   {
-    a2->__r_.__value_.__r.__words[0] = 0;
-    a2->__r_.__value_.__l.__size_ = 0;
+    *&a2->__r_.__value_.__l.__data_ = 0uLL;
     a2->__r_.__value_.__r.__words[2] = 0;
     if (!qword_10012C688 || CFStringCompare(qword_10012C688, @"iPod_5G", 1uLL) && CFStringCompare(qword_10012C688, @"iPod_Classic", 1uLL) && CFStringCompare(qword_10012C688, @"iPod_3G_nano", 1uLL))
     {
@@ -8677,7 +8689,7 @@ void sub_10004C3C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t sub_10004C400@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+unint64_t sub_10004C400@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   if (!a1 || (a1 & 7) != 0)
   {
@@ -8865,7 +8877,7 @@ uint64_t sub_10004C694(uint64_t result)
   return result;
 }
 
-void sub_10004C7D0(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void sub_10004C7D0(uint64_t a1@<X0>, void *a2@<X8>)
 {
   if (!a1 || (a1 & 7) != 0)
   {
@@ -9073,8 +9085,8 @@ LABEL_65:
     goto LABEL_66;
   }
 
-  v17 = v16 + v15;
-  v18 = sub_100025108(v16 + v13, (v16 + v15), ".", "", sub_1000251B0);
+  v17 = (v16 + v15);
+  v18 = sub_100025108((v16 + v13), (v16 + v15), ".", "", sub_1000251B0);
   if (v18 == v17)
   {
     v19 = -1;
@@ -9217,7 +9229,7 @@ void sub_10004CDFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL sub_10004CE7C(_BOOL8 result)
 {
-  if (result && (result & 7) == 0)
+  if (result && !(result & 7))
   {
     return *(result + 104) != 0;
   }
@@ -9333,34 +9345,25 @@ uint64_t sub_10004CF48(uint64_t a1, int a2, __n128 a3)
   return _BKSDisplayBrightnessSetWithImplicitTransaction(a3);
 }
 
-uint64_t sub_10004CF94(uint64_t result)
+void sub_10004CF94(uint64_t a1)
 {
-  if (!result || (result & 7) != 0)
+  if (!a1 || (a1 & 7) != 0)
   {
     __break(0x5516u);
-LABEL_15:
+LABEL_12:
     __break(0x5505u);
-    return result;
+    return;
   }
 
-  result = BKSDisplayBrightnessGetCurrent();
-  if (v1 < 0.00000011921)
+  BKSDisplayBrightnessGetCurrent();
+  if (v1 >= 0.00000011921 && v1 <= 1.0)
   {
-    return 0;
+    v2 = v1 * 255.0;
+    if (v2 <= -1.0 || v2 >= 65536.0)
+    {
+      goto LABEL_12;
+    }
   }
-
-  if (v1 > 1.0)
-  {
-    return 255;
-  }
-
-  v2 = v1 * 255.0;
-  if (v2 <= -1.0 || v2 >= 65536.0)
-  {
-    goto LABEL_15;
-  }
-
-  return v2;
 }
 
 uint64_t sub_10004D014(uint64_t result)
@@ -9459,38 +9462,18 @@ uint64_t sub_10004D0BC(uint64_t result)
 
 void sub_10004D0D4(uint64_t a1)
 {
-  if (!a1)
+  if (!a1 || (a1 & 7) != 0 || (NSLog(@"sda mode unlocked"), valuePtr = 1, v1 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr), v2 = kIapdServerName, CFPreferencesSetValue(@"SDAModeUnlocked", v1, kIapdServerName, kCFPreferencesCurrentUser, kCFPreferencesAnyHost), CFPreferencesSetValue(@"SDAModeEnabled", v1, v2, kCFPreferencesCurrentUser, kCFPreferencesAnyHost), CFPreferencesSynchronize(v2, kCFPreferencesCurrentUser, kCFPreferencesAnyHost), CFRelease(v1), (v5 = sub_1000154F0(v3, v4)) == 0) || (v5 & 7) != 0)
   {
-    goto LABEL_6;
-  }
-
-  if ((a1 & 7) != 0)
-  {
-    goto LABEL_6;
-  }
-
-  NSLog(@"sda mode unlocked");
-  valuePtr = 1;
-  v1 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
-  v2 = kIapdServerName;
-  CFPreferencesSetValue(@"SDAModeUnlocked", v1, kIapdServerName, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
-  CFPreferencesSetValue(@"SDAModeEnabled", v1, v2, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
-  CFPreferencesSynchronize(v2, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
-  CFRelease(v1);
-  v3 = sub_1000154F0();
-  if (!v3 || (v3 & 7) != 0)
-  {
-LABEL_6:
     __break(0x5516u);
   }
 
   else
   {
-    sub_100017914(v3);
+    sub_100017914(v5);
   }
 }
 
-void sub_10004D1C8(uint64_t a1)
+void sub_10004D1C8(uint64_t result)
 {
   v2 = byte_10012C6B0;
   if (byte_10012C6B0)
@@ -9512,15 +9495,15 @@ void sub_10004D1C8(uint64_t a1)
 
   if (v2 == dword_10012BBD8)
   {
-    if (!a1)
+    if (!result)
     {
       v4 = "NULL";
       goto LABEL_13;
     }
 
-    if ((a1 & 7) == 0)
+    if ((result & 7) == 0)
     {
-      v4 = (*(*a1 + 200))(a1);
+      v4 = (*(*result + 200))(result);
 LABEL_13:
       sub_1000DDE90(0xCu, @"Video %@ setting set to %@ for port %s - ignoring as duplicate", @"Out", v3, v4);
       return;
@@ -9531,24 +9514,24 @@ LABEL_13:
 
   dword_10012BBD8 = v2;
   notify_set_state(dword_10012C67C, v2);
-  if (!a1)
+  if (!result)
   {
     v5 = "NULL";
     goto LABEL_15;
   }
 
-  if ((a1 & 7) != 0)
+  if ((result & 7) != 0)
   {
 LABEL_19:
     __break(0x5516u);
     return;
   }
 
-  v5 = (*(*a1 + 200))(a1);
+  v5 = (*(*result + 200))(result);
 LABEL_15:
   sub_1000DDE90(0xCu, @"Video %@ setting set to %@ for port %s", @"Out", v3, v5);
 
-  sub_10004D334(a1);
+  sub_10004D334(result);
 }
 
 void sub_10004D334(uint64_t a1)

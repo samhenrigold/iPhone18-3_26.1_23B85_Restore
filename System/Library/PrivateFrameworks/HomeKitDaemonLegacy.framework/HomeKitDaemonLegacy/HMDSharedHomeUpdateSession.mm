@@ -38,7 +38,7 @@
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:retryCount];
   [dictionary setObject:v6 forKeyedSubscript:@"Retry Count"];
 
-  v7 = [dictionary copy];
+  v7 = objc_msgSend_copy(dictionary);
 
   return v7;
 }
@@ -68,7 +68,7 @@
 
 - (void)_requestDataSync
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if (self)
   {
     if (*(self + 64) < 3uLL)
@@ -84,18 +84,18 @@
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __45__HMDSharedHomeUpdateSession__selectResident__block_invoke;
-        v39 = &unk_279733B48;
-        v40 = sharedHomeSourceVersion;
+        v38 = &unk_279733B48;
+        v39 = sharedHomeSourceVersion;
         v12 = sharedHomeSourceVersion;
         v13 = [availableResidentDevices hmf_objectsPassingTest:buf];
 
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __45__HMDSharedHomeUpdateSession__selectResident__block_invoke_2;
-        v36[3] = &unk_279733B70;
-        v37 = primaryResident;
+        v35[0] = MEMORY[0x277D85DD0];
+        v35[1] = 3221225472;
+        v35[2] = __45__HMDSharedHomeUpdateSession__selectResident__block_invoke_2;
+        v35[3] = &unk_279733B70;
+        v36 = primaryResident;
         v14 = primaryResident;
-        v15 = [v13 sortedArrayUsingComparator:v36];
+        v15 = [v13 sortedArrayUsingComparator:v35];
         lastObject = [v15 lastObject];
       }
 
@@ -118,7 +118,7 @@
           *&buf[12] = 2112;
           *&buf[14] = selfCopy;
           *&buf[22] = 2112;
-          v39 = lastObject;
+          v38 = lastObject;
           _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Sending sync request session %@ with resident %@", buf, 0x20u);
         }
 
@@ -131,17 +131,17 @@
         v26 = [(HMDRemoteDeviceMessageDestination *)v22 initWithTarget:uuid device:device];
         v27 = [HMDRemoteMessage secureMessageWithName:@"kRequestHomeDataSyncRequestKey" destination:v26 messagePayload:selfCopy[5]];
         objc_initWeak(buf, selfCopy);
-        v31 = MEMORY[0x277D85DD0];
-        v32 = 3221225472;
-        v33 = __46__HMDSharedHomeUpdateSession__requestDataSync__block_invoke;
-        v34 = &unk_279733B98;
-        objc_copyWeak(&v35, buf);
-        [v27 setResponseHandler:&v31];
+        v30 = MEMORY[0x277D85DD0];
+        v31 = 3221225472;
+        v32 = __46__HMDSharedHomeUpdateSession__requestDataSync__block_invoke;
+        v33 = &unk_279733B98;
+        objc_copyWeak(&v34, buf);
+        [v27 setResponseHandler:&v30];
         v28 = selfCopy[6];
-        [v28 sendMessage:v27 completionHandler:{0, v31, v32, v33, v34}];
+        [v28 sendMessage:v27 completionHandler:{0, v30, v31, v32, v33}];
 
         ++*(self + 64);
-        objc_destroyWeak(&v35);
+        objc_destroyWeak(&v34);
         objc_destroyWeak(buf);
       }
 
@@ -177,8 +177,6 @@
       [(HMDSharedHomeUpdateSession *)selfCopy2 _callDelegate];
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callDelegate
@@ -199,7 +197,7 @@
 
 void __46__HMDSharedHomeUpdateSession__requestDataSync__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -211,9 +209,9 @@ void __46__HMDSharedHomeUpdateSession__requestDataSync__block_invoke(uint64_t a1
       v4 = HMFGetLogIdentifier();
       v5 = [MEMORY[0x277CCABB0] numberWithDouble:*(v2 + 9)];
       *buf = 138543618;
-      v18 = v4;
-      v19 = 2112;
-      v20 = v5;
+      v17 = v4;
+      v18 = 2112;
+      v19 = v5;
       _os_log_impl(&dword_2531F8000, v3, OS_LOG_TYPE_INFO, "%{public}@Starting the retry timer with %@ seconds", buf, 0x16u);
     }
 
@@ -237,16 +235,14 @@ void __46__HMDSharedHomeUpdateSession__requestDataSync__block_invoke(uint64_t a1
       v13 = HMFGetLogIdentifier();
       v14 = [MEMORY[0x277CCABB0] numberWithDouble:*(v2 + 9)];
       *buf = 138543618;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v14;
+      v17 = v13;
+      v18 = 2112;
+      v19 = v14;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Bumped the next timer's value to %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__HMDSharedHomeUpdateSession__selectResident__block_invoke(uint64_t a1, void *a2)
@@ -396,7 +392,7 @@ void __43__HMDSharedHomeUpdateSession__callDelegate__block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -404,15 +400,14 @@ void __43__HMDSharedHomeUpdateSession__callDelegate__block_invoke(uint64_t a1)
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v10 = v6;
+    v9 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Deallocating the session", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8.receiver = selfCopy;
-  v8.super_class = HMDSharedHomeUpdateSession;
-  [(HMDSharedHomeUpdateSession *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = selfCopy;
+  v7.super_class = HMDSharedHomeUpdateSession;
+  [(HMDSharedHomeUpdateSession *)&v7 dealloc];
 }
 
 - (HMDSharedHomeUpdateSession)initWithHome:(id)home delegate:(id)delegate workQueue:(id)queue messagePayload:(id)payload messageDispatcher:(id)dispatcher
@@ -458,12 +453,11 @@ void __43__HMDSharedHomeUpdateSession__callDelegate__block_invoke(uint64_t a1)
 
 uint64_t __41__HMDSharedHomeUpdateSession_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_183254;
-  logCategory__hmf_once_v2_183254 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_183254;
+  logCategory__hmf_once_v2_183254 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

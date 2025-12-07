@@ -82,7 +82,7 @@ uint64_t __51___UICollectionViewSubviewCollection_containsView___block_invoke(ui
   return result;
 }
 
-uint64_t __61___UICollectionViewSubviewCollection_updateCellsUsingFilter___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__61___UICollectionViewSubviewCollection_updateCellsUsingFilter___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)

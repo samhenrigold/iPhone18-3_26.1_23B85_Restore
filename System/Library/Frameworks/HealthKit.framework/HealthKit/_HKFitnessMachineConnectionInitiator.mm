@@ -67,26 +67,26 @@
 
 - (void)connectionInvalidated
 {
-  v7 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
+  v6 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
   v3 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Connection invalidated", &v5, 0xCu);
+    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Connection invalidated", &v4, 0xCu);
   }
 
   [(_HKFitnessMachineConnectionInitiator *)self connectionInterrupted];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerClientIfNeeded
 {
-  v9 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
+  v10 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
   v3 = HKLogWorkouts;
-  if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
+  v4 = os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
     *buf = 138412290;
     selfCopy2 = self;
@@ -95,24 +95,22 @@
 
   if (atomic_exchange(&self->_requiresRegistration, 0))
   {
-    _HKInitializeLogging();
-    v4 = HKLogWorkouts;
+    _HKInitializeLogging(v4, v5);
+    v6 = HKLogWorkouts;
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "Registering Client. Fitness machine connection initiator %@", buf, 0xCu);
+      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "Registering Client. Fitness machine connection initiator %@", buf, 0xCu);
     }
 
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __62___HKFitnessMachineConnectionInitiator_registerClientIfNeeded__block_invoke;
-    v6[3] = &unk_1E7379168;
-    v6[4] = self;
-    [(_HKFitnessMachineConnectionInitiator *)self _fetchProxyWithHandler:v6];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __62___HKFitnessMachineConnectionInitiator_registerClientIfNeeded__block_invoke;
+    v7[3] = &unk_1E7379168;
+    v7[4] = self;
+    [(_HKFitnessMachineConnectionInitiator *)self _fetchProxyWithHandler:v7];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)permitConnectionForFitnessMachineSessionUUID:(id)d activityType:(unint64_t)type

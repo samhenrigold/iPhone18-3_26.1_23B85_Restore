@@ -36,29 +36,32 @@
 
   else
   {
-    if (AXShouldReportValidationErrors())
+    v8 = AXShouldReportValidationErrors();
+    if (v8)
     {
-      v8 = +[AXValidationManager sharedInstance];
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      [v8 sendExceptionForSafeIVarKey:v4 onTarget:v10 overrideProcessName:0];
+      v10 = +[AXValidationManager sharedInstance];
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      [v10 sendExceptionForSafeIVarKey:v4 onTarget:v12 overrideProcessName:0];
     }
 
-    if (AXShouldLogValidationErrors())
+    v13 = AXShouldLogValidationErrors(v8, v9);
+    if (v13)
     {
-      v11 = AXLogValidations();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v14 = AXLogValidations(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(NSObject(UIAccessibilitySafeCategory) *)v4 safeIvarForKey:self, v11];
+        [(NSObject(UIAccessibilitySafeCategory) *)v4 safeIvarForKey:self, v14];
       }
     }
 
-    if (AXShouldCrashOnValidationErrors())
+    v15 = AXShouldCrashOnValidationErrors();
+    if (v15)
     {
-      v12 = AXLogValidations();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+      v16 = AXLogValidations(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        [(NSObject(UIAccessibilitySafeCategory) *)v4 safeIvarForKey:self, v12];
+        [(NSObject(UIAccessibilitySafeCategory) *)v4 safeIvarForKey:self, v16];
       }
     }
 
@@ -219,27 +222,26 @@
 
 - (id)safeValueForKey:()UIAccessibilitySafeCategory
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__5;
-  v16 = __Block_byref_object_dispose__5;
-  v17 = 0;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __57__NSObject_UIAccessibilitySafeCategory__safeValueForKey___block_invoke;
-  v9[3] = &unk_1E735B780;
-  v11 = &v12;
-  v9[4] = self;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__5;
+  v15 = __Block_byref_object_dispose__5;
+  v16 = 0;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __57__NSObject_UIAccessibilitySafeCategory__safeValueForKey___block_invoke;
+  v8[3] = &unk_1E735B780;
+  v10 = &v11;
+  v8[4] = self;
   v5 = v4;
-  v10 = v5;
-  [self _accessibilityPerformSafeValueKeyBlock:v9 withKey:v5 onClass:objc_opt_class()];
-  v6 = v13[5];
+  v9 = v5;
+  [self _accessibilityPerformSafeValueKeyBlock:v8 withKey:v5 onClass:objc_opt_class()];
+  v6 = v12[5];
 
-  _Block_object_dispose(&v12, 8);
-  v7 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v11, 8);
 
   return v6;
 }
@@ -294,34 +296,27 @@
 
 - (void)_accessibilityPerformSafeValueKeyBlock:()UIAccessibilitySafeCategory withKey:onClass:
 {
-  v8 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a4;
   v5[2](v5);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)safeIvarForKey:()UIAccessibilitySafeCategory .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(&dword_19159B000, a3, OS_LOG_TYPE_ERROR, "UIAccessibility Error. Could not safe access iVar: %{public}@ on class: %{public}@", v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19159B000, a3, OS_LOG_TYPE_ERROR, "UIAccessibility Error. Could not safe access iVar: %{public}@ on class: %{public}@", v6, 0x16u);
 }
 
 - (void)safeIvarForKey:()UIAccessibilitySafeCategory .cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_2();
-  _os_log_fault_impl(&dword_19159B000, a3, OS_LOG_TYPE_FAULT, "UIAccessibility Error. Could not safe access iVar: %{public}@ on class: %{public}@", v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_19159B000, a3, OS_LOG_TYPE_FAULT, "UIAccessibility Error. Could not safe access iVar: %{public}@ on class: %{public}@", v6, 0x16u);
 }
 
 @end

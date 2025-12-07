@@ -46,8 +46,8 @@
     v21 = OCXFindChild(Child, pXPresentationMLNamespace, "text");
     if (v21)
     {
-      v22 = *(v21 + 24);
-      if (v22 && *(v22 + 80))
+      children = v21->children;
+      if (children && children->content)
       {
         v23 = [MEMORY[0x277CCACA8] tc_stringWithXmlString:?];
       }

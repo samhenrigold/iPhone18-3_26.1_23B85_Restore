@@ -457,7 +457,7 @@ void __37__AVCMoments_connectWithStreamToken___block_invoke(uint64_t a1)
   [(AVConferenceXPCClient *)self->_connection registerBlockForService:"vcMediaRecorderServerDidDisconnect" block:v4 queue:self->_delegateQueue];
 }
 
-uint64_t __44__AVCMoments_registerBlocksForNotifications__block_invoke(uint64_t result, void *a2, uint64_t a3)
+id *__44__AVCMoments_registerBlocksForNotifications__block_invoke(id *result, void *a2, uint64_t a3)
 {
   v17 = *MEMORY[0x1E69E9840];
   if (!a3)
@@ -466,7 +466,7 @@ uint64_t __44__AVCMoments_registerBlocksForNotifications__block_invoke(uint64_t 
     result = [a2 objectForKeyedSubscript:@"SERVERDIED"];
     if (!result)
     {
-      result = [*(v4 + 32) strong];
+      result = [v4[4] strong];
       if (result)
       {
         v5 = result;
@@ -506,7 +506,7 @@ uint64_t __44__AVCMoments_registerBlocksForNotifications__block_invoke(uint64_t 
   return result;
 }
 
-uint64_t __44__AVCMoments_registerBlocksForNotifications__block_invoke_36(uint64_t result, void *a2, uint64_t a3)
+id *__44__AVCMoments_registerBlocksForNotifications__block_invoke_36(id *result, void *a2, uint64_t a3)
 {
   v17 = *MEMORY[0x1E69E9840];
   if (!a3)
@@ -515,7 +515,7 @@ uint64_t __44__AVCMoments_registerBlocksForNotifications__block_invoke_36(uint64
     result = [a2 objectForKeyedSubscript:@"SERVERDIED"];
     if (!result)
     {
-      result = [*(v4 + 32) strong];
+      result = [v4[4] strong];
       if (result)
       {
         v5 = result;
@@ -555,7 +555,7 @@ uint64_t __44__AVCMoments_registerBlocksForNotifications__block_invoke_36(uint64
   return result;
 }
 
-uint64_t __44__AVCMoments_registerBlocksForNotifications__block_invoke_38(uint64_t result, void *a2, uint64_t a3)
+id *__44__AVCMoments_registerBlocksForNotifications__block_invoke_38(id *result, void *a2, uint64_t a3)
 {
   v17 = *MEMORY[0x1E69E9840];
   if (!a3)
@@ -564,7 +564,7 @@ uint64_t __44__AVCMoments_registerBlocksForNotifications__block_invoke_38(uint64
     result = [a2 objectForKeyedSubscript:@"SERVERDIED"];
     if (!result)
     {
-      result = [*(v4 + 32) strong];
+      result = [v4[4] strong];
       if (result)
       {
         v5 = result;
@@ -2048,7 +2048,7 @@ LABEL_17:
     }
   }
 
-  v17 = [request validateWithError:{error, *v23, *&v23[16], v24, selfCopy2, v26}];
+  v17 = [request validateWithError:{error, *v23, *&v23[8], v24, selfCopy2, v26}];
   if (v17)
   {
     -[AVConferenceXPCClient sendMessageAsync:arguments:](self->_connection, "sendMessageAsync:arguments:", "vcMediaRecorderStartRequest", [request serialize]);
@@ -2200,7 +2200,7 @@ LABEL_17:
     }
   }
 
-  v17 = [request validateWithError:{error, *v22, *&v22[16], v23, selfCopy2, v25}];
+  v17 = [request validateWithError:{error, *v22, *&v22[8], v23, selfCopy2, v25}];
   if (v17)
   {
     if ([request mediaType] == 2 || objc_msgSend(request, "mediaType") == 4 || objc_msgSend(request, "mediaType") == 5)
@@ -2324,7 +2324,7 @@ LABEL_17:
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_4_2();
       OUTLINED_FUNCTION_21();
-      OUTLINED_FUNCTION_10_3(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to set up delegate with streamToken=%u", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_10_3(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to set up delegate with streamToken=%u", v2, v3, v4, v5);
     }
   }
 }
@@ -2339,7 +2339,7 @@ LABEL_17:
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_4_2();
       OUTLINED_FUNCTION_21();
-      OUTLINED_FUNCTION_10_3(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to connect to moments server with streamToken=%u", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_10_3(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to connect to moments server with streamToken=%u", v2, v3, v4, v5);
     }
   }
 }

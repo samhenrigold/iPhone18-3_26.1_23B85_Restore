@@ -10,22 +10,19 @@
 
 - (NSString)donationBundleIdentifier
 {
-  v2 = *(self + OBJC_IVAR___ATXRelevantShortcutCandidate_donationBundleIdentifier);
-  v3 = *(self + OBJC_IVAR___ATXRelevantShortcutCandidate_donationBundleIdentifier + 8);
 
-  v4 = sub_2268363F8();
+  v2 = sub_2268363F8();
 
-  return v4;
+  return v2;
 }
 
 - (NSArray)relevantContexts
 {
-  v2 = *(self + OBJC_IVAR___ATXRelevantShortcutCandidate_relevantContexts);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D7A1E40, qword_226873F88);
-  v3 = sub_226836558();
+  v2 = sub_226836558();
 
-  return v3;
+  return v2;
 }
 
 - (ATXRelevantShortcutCandidate)initWithWidgetDescriptor:(id)descriptor donationBundleIdentifier:(id)identifier intent:(id)intent relevantContexts:(id)contexts

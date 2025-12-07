@@ -2,11 +2,13 @@
 - (MUOfflineMapProvider)offlineMapProvider;
 - (MUPlaceUnifiedActionRowSectionController)initWithMapItem:(id)item configuration:(id)configuration;
 - (MUPlaceUnifiedActionRowSectionControllerDelegate)actionDelegate;
+- (id)analyticsModuleForAction:(int)action presentationOptions:(id)options;
 - (id)leadingActionBarItem;
 - (id)menuActionBarItems;
 - (id)menuElementForActionItem:(id)item;
 - (id)menuForActionItem:(id)item;
 - (id)trailingActionBarItems;
+- (int)analyticsModuleTypeForAction:(int)action presentationOptions:(id)options;
 - (void)_buildButtonLayout;
 - (void)_createSectionView;
 - (void)_populateRevealedAnalyticsModule:(id)module;
@@ -37,7 +39,6 @@
 
 - (id)menuActionBarItems
 {
-  actionsRowView = self->_actionsRowView;
   if (objc_opt_respondsToSelector())
   {
     menuActionBarItems = [(MUGroupedActionsRowView *)self->_actionsRowView menuActionBarItems];
@@ -53,7 +54,6 @@
 
 - (id)trailingActionBarItems
 {
-  actionsRowView = self->_actionsRowView;
   if (objc_opt_respondsToSelector())
   {
     trailingActionBarItems = [(MUGroupedActionsRowView *)self->_actionsRowView trailingActionBarItems];
@@ -69,7 +69,6 @@
 
 - (id)leadingActionBarItem
 {
-  actionsRowView = self->_actionsRowView;
   if (objc_opt_respondsToSelector())
   {
     leadingActionBarItem = [(MUGroupedActionsRowView *)self->_actionsRowView leadingActionBarItem];
@@ -85,35 +84,35 @@
 
 - (void)_updateActions:(id)actions
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
   if (([(NSArray *)self->_actionItemViewModels isEqual:actionsCopy]& 1) == 0)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v6 = self->_actionItemViewModels;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v22;
+      v9 = *v21;
       do
       {
         v10 = 0;
         do
         {
-          if (*v22 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(*(&v21 + 1) + 8 * v10++) removeObserver:self];
+          [*(*(&v20 + 1) + 8 * v10++) removeObserver:self];
         }
 
         while (v8 != v10);
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v8);
@@ -121,31 +120,31 @@
 
     objc_storeStrong(&self->_actionItemViewModels, actions);
     [(MUGroupedActionsRowView *)self->_actionsRowView setViewModels:actionsCopy];
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v11 = self->_actionItemViewModels;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v18;
+      v14 = *v17;
       do
       {
         v15 = 0;
         do
         {
-          if (*v18 != v14)
+          if (*v17 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [*(*(&v17 + 1) + 8 * v15++) addObserver:{self, v17}];
+          [*(*(&v16 + 1) + 8 * v15++) addObserver:{self, v16}];
         }
 
         while (v13 != v15);
-        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
       }
 
       while (v13);
@@ -153,8 +152,6 @@
 
     [(MUPlaceUnifiedActionRowSectionController *)self _updateHasContent];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setOfflineFeatureDiscoveryView:(id)view
@@ -251,7 +248,7 @@
 
 - (void)actionsRowView:(id)view didSelectViewModel:(id)model presentationOptions:(id)options
 {
-  v38[5] = *MEMORY[0x1E69E9840];
+  v37[5] = *MEMORY[0x1E69E9840];
   modelCopy = model;
   optionsCopy = options;
   configuration = [(MUPlaceUnifiedActionRowSectionController *)self configuration];
@@ -277,22 +274,22 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v37[0] = *MEMORY[0x1E696F118];
+    v36[0] = *MEMORY[0x1E696F118];
     sourceView = [optionsCopy sourceView];
     v14 = *MEMORY[0x1E696F108];
-    v38[0] = sourceView;
-    v38[1] = v11;
+    v37[0] = sourceView;
+    v37[1] = v11;
     v15 = *MEMORY[0x1E696F100];
-    v37[1] = v14;
-    v37[2] = v15;
-    v38[2] = MEMORY[0x1E695E110];
-    v37[3] = *MEMORY[0x1E696F0F0];
+    v36[1] = v14;
+    v36[2] = v15;
+    v37[2] = MEMORY[0x1E695E110];
+    v36[3] = *MEMORY[0x1E696F0F0];
     v16 = [MEMORY[0x1E696AD98] numberWithBool:isForActionBar];
-    v38[3] = v16;
-    v37[4] = *MEMORY[0x1E696F0F8];
+    v37[3] = v16;
+    v36[4] = *MEMORY[0x1E696F0F8];
     v17 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(optionsCopy, "isForActionBarMoreMenu")}];
-    v38[4] = v17;
-    actionDelegate = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:5];
+    v37[4] = v17;
+    actionDelegate = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:5];
 
     configuration2 = [(MUPlaceUnifiedActionRowSectionController *)self configuration];
     actionManager = [configuration2 actionManager];
@@ -317,28 +314,28 @@ LABEL_11:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v35[0] = *MEMORY[0x1E696F118];
-    v25 = modelCopy;
+    v34[0] = *MEMORY[0x1E696F118];
+    v24 = modelCopy;
     sourceView2 = [optionsCopy sourceView];
-    v27 = *MEMORY[0x1E696F108];
-    v36[0] = sourceView2;
-    v36[1] = v11;
-    v28 = *MEMORY[0x1E696F100];
-    v35[1] = v27;
-    v35[2] = v28;
-    v36[2] = MEMORY[0x1E695E110];
-    v35[3] = *MEMORY[0x1E696F0F0];
-    v29 = [MEMORY[0x1E696AD98] numberWithBool:isForActionBar];
-    v36[3] = v29;
-    v35[4] = *MEMORY[0x1E696F0F8];
-    v30 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(optionsCopy, "isForActionBarMoreMenu")}];
-    v36[4] = v30;
-    actionDelegate = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:5];
+    v26 = *MEMORY[0x1E696F108];
+    v35[0] = sourceView2;
+    v35[1] = v11;
+    v27 = *MEMORY[0x1E696F100];
+    v34[1] = v26;
+    v34[2] = v27;
+    v35[2] = MEMORY[0x1E695E110];
+    v34[3] = *MEMORY[0x1E696F0F0];
+    v28 = [MEMORY[0x1E696AD98] numberWithBool:isForActionBar];
+    v35[3] = v28;
+    v34[4] = *MEMORY[0x1E696F0F8];
+    v29 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(optionsCopy, "isForActionBarMoreMenu")}];
+    v35[4] = v29;
+    actionDelegate = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:5];
 
-    v31 = MEMORY[0x1E696F308];
-    actionItemType = [v25 actionItemType];
+    v30 = MEMORY[0x1E696F308];
+    actionItemType = [v24 actionItemType];
 
-    configuration3 = [v31 actionItemWithType:actionItemType];
+    configuration3 = [v30 actionItemWithType:actionItemType];
     configuration4 = [(MUPlaceUnifiedActionRowSectionController *)self configuration];
     actionManager2 = [configuration4 actionManager];
     [actionManager2 performAction:configuration3 options:actionDelegate completion:0];
@@ -371,73 +368,72 @@ LABEL_11:
 LABEL_12:
 
 LABEL_13:
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_populateRevealedAnalyticsModule:(id)module
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   moduleCopy = module;
   v5 = objc_alloc_init(MEMORY[0x1E69A24E0]);
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v7 = self->_actionItemViewModels;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       v11 = 0;
       do
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        analyticsButtonValues = [*(*(&v23 + 1) + 8 * v11) analyticsButtonValues];
+        analyticsButtonValues = [*(*(&v22 + 1) + 8 * v11) analyticsButtonValues];
         [v6 _mapsui_addObjectsFromArrayIfNotNil:analyticsButtonValues];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v9);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v13 = v6;
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     do
     {
       v17 = 0;
       do
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [v5 addButtons:{*(*(&v19 + 1) + 8 * v17++), v19}];
+        [v5 addButtons:{*(*(&v18 + 1) + 8 * v17++), v18}];
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v15);
@@ -447,8 +443,27 @@ LABEL_13:
   {
     [moduleCopy setUnifiedActionRow:v5];
   }
+}
 
-  v18 = *MEMORY[0x1E69E9840];
+- (int)analyticsModuleTypeForAction:(int)action presentationOptions:(id)options
+{
+  if ([options isForActionBar])
+  {
+    return 46;
+  }
+
+  else
+  {
+    return 39;
+  }
+}
+
+- (id)analyticsModuleForAction:(int)action presentationOptions:(id)options
+{
+  v4 = MEMORY[0x1E69A1B10];
+  v5 = [(MUPlaceUnifiedActionRowSectionController *)self analyticsModuleTypeForAction:*&action presentationOptions:options];
+
+  return [v4 moduleFromModuleType:v5];
 }
 
 - (void)_updateHasContent

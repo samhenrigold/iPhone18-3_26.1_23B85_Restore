@@ -60,7 +60,7 @@ void __109__CLKComplicationTemplateGraphicCircularOpenMeteredGaugeImage__enumera
   qword_27DE91BA8 = v3;
   [v5 setNewestAllowedSizeClass:&unk_284A34128];
   [v5 scaledValue:3 withOverride:27.0 forSizeClass:31.0];
-  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1413 = v4;
+  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1413[0] = v4;
 }
 
 @end

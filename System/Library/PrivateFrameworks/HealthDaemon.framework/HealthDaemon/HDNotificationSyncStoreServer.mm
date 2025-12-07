@@ -52,12 +52,11 @@
 
 + (id)requiredEntitlements
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CCC588];
-  v6[0] = *MEMORY[0x277CCC1B8];
-  v6[1] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = *MEMORY[0x277CCC1B8];
+  v5[1] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
 
   return v3;
 }
@@ -74,18 +73,18 @@
 
 - (void)remote_sendNotificationInstruction:(id)instruction savingObjectAsExistsCriteria:(id)criteria completion:(id)completion
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   instructionCopy = instruction;
   criteriaCopy = criteria;
   completionCopy = completion;
   client = [(HDStandardTaskServer *)self client];
   profile = [client profile];
   dataManager = [profile dataManager];
-  v25[0] = criteriaCopy;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
-  v24 = 0;
-  v15 = [dataManager insertDataObjects:v14 error:&v24];
-  v16 = v24;
+  v24[0] = criteriaCopy;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23 = 0;
+  v15 = [dataManager insertDataObjects:v14 error:&v23];
+  v16 = v23;
 
   if (v15)
   {
@@ -94,9 +93,9 @@
     v19 = [(HDNotificationInstructionUUIDCriteria *)v17 initWithUUID:uUID];
 
     syncClient = self->_syncClient;
-    v23 = 0;
-    v21 = [(HDNotificationSyncClient *)syncClient sendNotificationInstruction:instructionCopy criteria:v19 error:&v23];
-    v16 = v23;
+    v22 = 0;
+    v21 = [(HDNotificationSyncClient *)syncClient sendNotificationInstruction:instructionCopy criteria:v19 error:&v22];
+    v16 = v22;
     completionCopy[2](completionCopy, v21, v16);
   }
 
@@ -104,8 +103,6 @@
   {
     completionCopy[2](completionCopy, 0, v16);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_notificationHoldInstructionsWithCompletion:(id)completion

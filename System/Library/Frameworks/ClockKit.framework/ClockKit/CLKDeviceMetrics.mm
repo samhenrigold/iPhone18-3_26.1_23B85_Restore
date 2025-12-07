@@ -308,7 +308,7 @@ void __39__CLKDeviceMetrics__effectiveSizeClass__block_invoke()
       v7.n128_u64[0] = 1.0;
       v6.n128_f64[0] = behavior;
 
-      MEMORY[0x2821DE7E8](4, v6, v7);
+      MEMORY[0x2821DE7E8](v6, v7);
       return result;
     }
 
@@ -567,7 +567,7 @@ uint64_t __46__CLKDeviceMetrics_scaledValue_withOverrides___block_invoke_2(uint6
   {
     if (roundingBehavior == 1)
     {
-      CLKPointRoundForDevice(self->_device);
+      CLKPointRoundForDevice(self->_device, x, y);
       goto LABEL_8;
     }
   }
@@ -577,12 +577,12 @@ uint64_t __46__CLKDeviceMetrics_scaledValue_withOverrides___block_invoke_2(uint6
     switch(roundingBehavior)
     {
       case 2:
-        CLKPointRoundForDevice(self->_device);
+        CLKPointRoundForDevice(self->_device, 0.0, 0.0);
         x = v9 + v9;
         y = v10 + v10;
         break;
       case 3:
-        CLKPointRoundForDevice(self->_device);
+        CLKPointRoundForDevice(self->_device, 0.0, 0.0);
         x = v11 * 0.5;
         y = v12 * 0.5;
         break;
@@ -956,7 +956,7 @@ LABEL_21:
     {
       if (roundingBehavior == 2)
       {
-        CLKSizeRoundForDevice(self->_device);
+        CLKSizeRoundForDevice(self->_device, width * 0.5, height * 0.5);
         width = v7 + v7;
         height = v8 + v8;
       }
@@ -964,7 +964,7 @@ LABEL_21:
       goto LABEL_11;
     }
 
-    CLKSizeRoundForDevice(self->_device);
+    CLKSizeRoundForDevice(self->_device, width, height);
 LABEL_9:
     width = v9;
     height = v10;
@@ -973,7 +973,7 @@ LABEL_9:
 
   if (roundingBehavior == 3)
   {
-    CLKSizeRoundForDevice(self->_device);
+    CLKSizeRoundForDevice(self->_device, width + width, height + height);
     width = v11 * 0.5;
     height = v12 * 0.5;
     goto LABEL_11;

@@ -5,7 +5,7 @@
 
 void __APSZeroTracker_StartZeroLoggerDispatch_block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = FigCFWeakReferenceHolderCopyReferencedObject();
@@ -35,7 +35,7 @@ void __APSZeroTracker_StartZeroLoggerDispatch_block_invoke(uint64_t a1)
         v2[17] = 0;
         if (gLogCategory_APSAudioStats <= 50 && (gLogCategory_APSAudioStats != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APSAudioStats, "void APSZeroTracker_LogZeroInstances(APSAudioStatsRef, const Float64)", 33554482, "Digital zeros detected continuously for  %.2lf seconds. Total duration of the digital zeros detected until now = %.2lf Secs.\n", v10, v9);
         }
 
         v11 = LogCategoryCopyOSLogHandle();
@@ -53,9 +53,9 @@ void __APSZeroTracker_StartZeroLoggerDispatch_block_invoke(uint64_t a1)
         if (os_signpost_enabled(v13))
         {
           *buf = 134218240;
-          v16 = v10;
-          v17 = 2048;
-          v18 = v9;
+          v15 = v10;
+          v16 = 2048;
+          v17 = v9;
           _os_signpost_emit_with_name_impl(&dword_2222B4000, v13, OS_SIGNPOST_EVENT, 0x2B8D0934uLL, "AP_SIGNPOST_CAR_DIGITAL_ZEROS_TRACKER", "Digital zeros detected (%.2lf seconds). Total Duration = %.2lf Secs.\n", buf, 0x16u);
         }
 
@@ -68,8 +68,6 @@ void __APSZeroTracker_StartZeroLoggerDispatch_block_invoke(uint64_t a1)
       CFRelease(v5);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __APSZeroTracker_StartZeroLoggerDispatch_block_invoke_2(uint64_t a1)

@@ -1,3 +1,19 @@
+void MIDICISessionList::~MIDICISessionList(MIDICISessionList *this)
+{
+  *this = &unk_284A46860;
+  v2 = (this + 32);
+  OwnedPtrVector<MIDICIServerSession *>::~OwnedPtrVector(this + 120);
+  CADeprecated::CAMutex::~CAMutex(v2);
+
+  OwnedPtrVector<MIDICIServerSession *>::~OwnedPtrVector(this);
+}
+
+{
+  MIDICISessionList::~MIDICISessionList(this);
+
+  JUMPOUT(0x2383C8250);
+}
+
 uint64_t OwnedPtrVector<MIDICIServerSession *>::~OwnedPtrVector(uint64_t a1)
 {
   *a1 = &unk_284A46A10;
@@ -1059,7 +1075,7 @@ void MIDICISessionManager::MIDICISessionManager(MIDICISessionManager *this)
   *(this + 15) = &unk_284A46A10;
   *(this + 18) = 0;
   *(this + 19) = &unk_284A46768;
-  _ZNSt3__115allocate_sharedB8ne200100INS_15recursive_mutexENS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
+  _ZNSt3__115allocate_sharedB8ne200100INS_15recursive_mutexENS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(this + 20);
 }
 
 void sub_2371F16B4(_Unwind_Exception *a1)
@@ -1306,7 +1322,7 @@ void sub_2371F3714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void MIDI2::DeviceInfo::serialize(MIDI2::DeviceInfo *this, uint64_t a2)
+void MIDI2::DeviceInfo::serialize(MIDI2::DeviceInfo *this, unsigned __int8 *a2)
 {
   v2[11] = *MEMORY[0x277D85DE8];
   memset(v2, 0, 24);
@@ -1600,7 +1616,7 @@ applesauce::CF::TypeRef *applesauce::CF::TypeRefPair::TypeRefPair<char const* co
   return a1;
 }
 
-void sub_2371F4188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void **a13)
+void sub_2371F4188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char *a13)
 {
   a13 = &a10;
   std::vector<applesauce::CF::NumberRef>::__destroy_vector::operator()[abi:ne200100](&a13);
@@ -1697,15 +1713,15 @@ CFNumberRef std::allocator_traits<std::allocator<applesauce::CF::NumberRef>>::co
   return result;
 }
 
-void std::vector<applesauce::CF::NumberRef>::__swap_out_circular_buffer(uint64_t a1, void *a2)
+void std::vector<applesauce::CF::NumberRef>::__swap_out_circular_buffer(uint64_t result, void *a2)
 {
-  v4 = *a1;
-  v5 = *(a1 + 8);
-  v6 = a2[1] + *a1 - v5;
-  if (v5 != *a1)
+  v4 = *result;
+  v5 = *(result + 8);
+  v6 = a2[1] + *result - v5;
+  if (v5 != *result)
   {
-    v7 = *a1;
-    v8 = (a2[1] + *a1 - v5);
+    v7 = *result;
+    v8 = (a2[1] + *result - v5);
     do
     {
       *v8++ = *v7;
@@ -1720,18 +1736,18 @@ void std::vector<applesauce::CF::NumberRef>::__swap_out_circular_buffer(uint64_t
     }
 
     while (v4 != v5);
-    v4 = *a1;
+    v4 = *result;
   }
 
   a2[1] = v6;
-  *a1 = v6;
-  *(a1 + 8) = v4;
+  *result = v6;
+  *(result + 8) = v4;
   a2[1] = v4;
-  v10 = *(a1 + 8);
-  *(a1 + 8) = a2[2];
+  v10 = *(result + 8);
+  *(result + 8) = a2[2];
   a2[2] = v10;
-  v11 = *(a1 + 16);
-  *(a1 + 16) = a2[3];
+  v11 = *(result + 16);
+  *(result + 16) = a2[3];
   a2[3] = v11;
   *a2 = a2[1];
 }
@@ -1789,11 +1805,11 @@ void std::__destroy_at[abi:ne200100]<applesauce::CF::NumberRef,0>(const void *a1
   }
 }
 
-void UMPStream::EndpointPair::deserialize(std::string *this@<X0>, const __CFDictionary **a2@<X1>, void *a3@<X8>)
+void UMPStream::EndpointPair::deserialize(std::string *this@<X0>, const __CFDictionary **a2@<X1>, uint64_t **a3@<X8>)
 {
   a3[1] = 0;
   a3[2] = 0;
-  *a3 = a3 + 1;
+  *a3 = (a3 + 1);
   std::string::basic_string[abi:ne200100]<0>(&__p, "name");
   if (!*a2)
   {
@@ -1802,15 +1818,15 @@ void UMPStream::EndpointPair::deserialize(std::string *this@<X0>, const __CFDict
   }
 
   applesauce::CF::details::find_at_key_or_optional<std::string,std::string const&>(&__str, *a2, &__p);
-  if (LOBYTE(__str.length) == 1)
+  if (v79 == 1)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p, &__p);
   }
 
   else
   {
-    LOBYTE(__str.isa) = 0;
-    LOBYTE(__str.length) = 0;
+    __str.__r_.__value_.__s.__data_[0] = 0;
+    v79 = 0;
   }
 
   if (v77 < 0)
@@ -1818,12 +1834,12 @@ void UMPStream::EndpointPair::deserialize(std::string *this@<X0>, const __CFDict
     operator delete(__p);
   }
 
-  if (LOBYTE(__str.length) == 1)
+  if (v79 == 1)
   {
     std::string::operator=(this + 3, &__str);
-    if ((__str.length & 1) != 0 && SHIBYTE(__str.data) < 0)
+    if ((v79 & 1) != 0 && SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(__str.isa);
+      operator delete(__str.__r_.__value_.__l.__data_);
     }
   }
 
@@ -1841,7 +1857,7 @@ void UMPStream::EndpointPair::deserialize(std::string *this@<X0>, const __CFDict
     v8 = v7;
     if ((v7 & 0x100000000) != 0)
     {
-      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str, &__str);
       v9 = 0;
       v10 = v8;
       goto LABEL_17;
@@ -1856,7 +1872,7 @@ void UMPStream::EndpointPair::deserialize(std::string *this@<X0>, const __CFDict
   v10 = 0;
   v9 = 1;
 LABEL_17:
-  if ((SHIBYTE(__str.data) & 0x80000000) == 0)
+  if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if (v9)
     {
@@ -1866,7 +1882,7 @@ LABEL_17:
     goto LABEL_19;
   }
 
-  operator delete(__str.isa);
+  operator delete(__str.__r_.__value_.__l.__data_);
   if ((v9 & 1) == 0)
   {
 LABEL_19:
@@ -1888,7 +1904,7 @@ LABEL_20:
     v13 = v12;
     if ((v12 & 0x100000000) != 0)
     {
-      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str, &__str);
       v14 = 0;
       v15 = v13;
       goto LABEL_28;
@@ -1903,7 +1919,7 @@ LABEL_20:
   v15 = 0;
   v14 = 1;
 LABEL_28:
-  if ((SHIBYTE(__str.data) & 0x80000000) == 0)
+  if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if (v14)
     {
@@ -1913,7 +1929,7 @@ LABEL_28:
     goto LABEL_30;
   }
 
-  operator delete(__str.isa);
+  operator delete(__str.__r_.__value_.__l.__data_);
   if ((v14 & 1) == 0)
   {
 LABEL_30:
@@ -1935,7 +1951,7 @@ LABEL_31:
     v18 = v17;
     if ((v17 & 0x100000000) != 0)
     {
-      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str, &__str);
       v19 = 0;
       v20 = v18;
       goto LABEL_39;
@@ -1950,7 +1966,7 @@ LABEL_31:
   v20 = 0;
   v19 = 1;
 LABEL_39:
-  if ((SHIBYTE(__str.data) & 0x80000000) == 0)
+  if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if (v19)
     {
@@ -1960,7 +1976,7 @@ LABEL_39:
     goto LABEL_41;
   }
 
-  operator delete(__str.isa);
+  operator delete(__str.__r_.__value_.__l.__data_);
   if ((v19 & 1) == 0)
   {
 LABEL_41:
@@ -1978,7 +1994,7 @@ LABEL_42:
   applesauce::CF::details::find_at_key_or_optional<applesauce::CF::DictionaryRef,std::string const&>(&__p, *a2, &__str);
   if (v76 == 1)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str, &__str);
   }
 
   else
@@ -1987,9 +2003,9 @@ LABEL_42:
     v76 = 0;
   }
 
-  if (SHIBYTE(__str.data) < 0)
+  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__str.isa);
+    operator delete(__str.__r_.__value_.__l.__data_);
   }
 
   if (v76 == 1)
@@ -2013,15 +2029,15 @@ LABEL_42:
   }
 
   applesauce::CF::details::find_at_key_or_optional<std::string,std::string const&>(&__str, *a2, &__p);
-  if (LOBYTE(__str.length) == 1)
+  if (v79 == 1)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p, &__p);
   }
 
   else
   {
-    LOBYTE(__str.isa) = 0;
-    LOBYTE(__str.length) = 0;
+    __str.__r_.__value_.__s.__data_[0] = 0;
+    v79 = 0;
   }
 
   if (v77 < 0)
@@ -2029,12 +2045,12 @@ LABEL_42:
     operator delete(__p);
   }
 
-  if (LOBYTE(__str.length) == 1)
+  if (v79 == 1)
   {
     std::string::operator=(this + 5, &__str);
-    if ((__str.length & 1) != 0 && SHIBYTE(__str.data) < 0)
+    if ((v79 & 1) != 0 && SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(__str.isa);
+      operator delete(__str.__r_.__value_.__l.__data_);
     }
   }
 
@@ -2048,7 +2064,7 @@ LABEL_42:
   v21 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a2, &__str);
   if (v21 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str, &__str);
     v22 = v21;
   }
 
@@ -2057,9 +2073,9 @@ LABEL_42:
     v22 = 0;
   }
 
-  if (SHIBYTE(__str.data) < 0)
+  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__str.isa);
+    operator delete(__str.__r_.__value_.__l.__data_);
   }
 
   if (v21 >= 0x100u)
@@ -2077,7 +2093,7 @@ LABEL_42:
   v23 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a2, &__str);
   if (v23 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str, &__str);
     v24 = v23;
   }
 
@@ -2086,9 +2102,9 @@ LABEL_42:
     v24 = 0;
   }
 
-  if (SHIBYTE(__str.data) < 0)
+  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__str.isa);
+    operator delete(__str.__r_.__value_.__l.__data_);
   }
 
   if (v23 >= 0x100u)
@@ -2106,7 +2122,7 @@ LABEL_42:
   v25 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a2, &__str);
   if (v25 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str, &__str);
     v26 = v25;
   }
 
@@ -2115,9 +2131,9 @@ LABEL_42:
     v26 = 0;
   }
 
-  if (SHIBYTE(__str.data) < 0)
+  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__str.isa);
+    operator delete(__str.__r_.__value_.__l.__data_);
   }
 
   if (v25 >= 0x100u)
@@ -2135,7 +2151,7 @@ LABEL_42:
   v27 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a2, &__str);
   if (v27 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str, &__str);
     v28 = v27;
   }
 
@@ -2144,9 +2160,9 @@ LABEL_42:
     v28 = 0;
   }
 
-  if (SHIBYTE(__str.data) < 0)
+  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__str.isa);
+    operator delete(__str.__r_.__value_.__l.__data_);
   }
 
   if (v27 >= 0x100u)
@@ -2164,7 +2180,7 @@ LABEL_42:
   v29 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a2, &__str);
   if (v29 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str, &__str);
     v30 = v29;
   }
 
@@ -2173,9 +2189,9 @@ LABEL_42:
     v30 = 0;
   }
 
-  if (SHIBYTE(__str.data) < 0)
+  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__str.isa);
+    operator delete(__str.__r_.__value_.__l.__data_);
   }
 
   if (v29 >= 0x100u)
@@ -2193,7 +2209,7 @@ LABEL_42:
   applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,std::string const&>(&__p, *a2, &__str);
   if (v76 == 1)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str, &__str);
   }
 
   else
@@ -2202,9 +2218,9 @@ LABEL_42:
     v76 = 0;
   }
 
-  if (SHIBYTE(__str.data) < 0)
+  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__str.isa);
+    operator delete(__str.__r_.__value_.__l.__data_);
   }
 
   if (v76 == 1)
@@ -2242,7 +2258,7 @@ LABEL_42:
         }
 
         applesauce::CF::details::at_to<applesauce::CF::TypeRef>(&__str, v31, v36);
-        applesauce::CF::TypeRef::operator applesauce::CF::DictionaryRef(&cf, &__str.isa);
+        applesauce::CF::TypeRef::operator applesauce::CF::DictionaryRef(&cf, &__str.__r_.__value_.__l.__data_);
         if (!cf)
         {
           v54 = __cxa_allocate_exception(0x10uLL);
@@ -2271,7 +2287,7 @@ LABEL_128:
             operator new();
           }
 
-          UMPStream::FunctionBlock::deserialize(*size, &cf, v71);
+          UMPStream::FunctionBlock::deserialize(v71, *size, &cf);
           std::__tree<std::string>::destroy(v71[1]);
         }
 
@@ -2280,9 +2296,9 @@ LABEL_128:
           CFRelease(cf);
         }
 
-        if (__str.isa)
+        if (__str.__r_.__value_.__r.__words[0])
         {
-          CFRelease(__str.isa);
+          CFRelease(__str.__r_.__value_.__l.__data_);
         }
 
         ++v36;
@@ -2309,7 +2325,7 @@ LABEL_134:
   v42 = v41;
   if (v41)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str, &__str);
     v43 = v40;
   }
 
@@ -2318,7 +2334,7 @@ LABEL_134:
     v43 = 0;
   }
 
-  if ((SHIBYTE(__str.data) & 0x80000000) == 0)
+  if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if ((v42 & 1) == 0)
     {
@@ -2328,7 +2344,7 @@ LABEL_134:
     goto LABEL_143;
   }
 
-  operator delete(__str.isa);
+  operator delete(__str.__r_.__value_.__l.__data_);
   if (v42)
   {
 LABEL_143:
@@ -2353,7 +2369,7 @@ LABEL_144:
       if (CFNumberGetValue(v44, kCFNumberCharType, &__p))
       {
         LOBYTE(v44) = __p;
-        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str, &__str);
         v46 = 0;
         goto LABEL_151;
       }
@@ -2364,7 +2380,7 @@ LABEL_144:
 
   v46 = 1;
 LABEL_151:
-  if ((SHIBYTE(__str.data) & 0x80000000) == 0)
+  if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if (v46)
     {
@@ -2374,7 +2390,7 @@ LABEL_151:
     goto LABEL_153;
   }
 
-  operator delete(__str.isa);
+  operator delete(__str.__r_.__value_.__l.__data_);
   if ((v46 & 1) == 0)
   {
 LABEL_153:
@@ -2392,7 +2408,7 @@ LABEL_154:
   v47 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a2, &__str);
   if (v47 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str, &__str);
     v48 = v47;
   }
 
@@ -2401,9 +2417,9 @@ LABEL_154:
     v48 = 0;
   }
 
-  if (SHIBYTE(__str.data) < 0)
+  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__str.isa);
+    operator delete(__str.__r_.__value_.__l.__data_);
   }
 
   if (v47 >= 0x100u)
@@ -2425,7 +2441,7 @@ LABEL_154:
     v51 = v50;
     if ((v50 & 0x100000000) != 0)
     {
-      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str, &__str);
       v52 = 0;
       v53 = v51;
       goto LABEL_172;
@@ -2440,7 +2456,7 @@ LABEL_154:
   v53 = 0;
   v52 = 1;
 LABEL_172:
-  if ((SHIBYTE(__str.data) & 0x80000000) == 0)
+  if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if (v52)
     {
@@ -2450,7 +2466,7 @@ LABEL_172:
     goto LABEL_174;
   }
 
-  operator delete(__str.isa);
+  operator delete(__str.__r_.__value_.__l.__data_);
   if ((v52 & 1) == 0)
   {
 LABEL_174:
@@ -2467,7 +2483,7 @@ void sub_2371F5424(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-double applesauce::CF::details::find_at_key_or_optional<std::string,std::string const&>(uint64_t a1, const __CFDictionary *a2, const __CFString *a3)
+double applesauce::CF::details::find_at_key_or_optional<std::string,std::string const&>(uint64_t a1, const __CFDictionary *a2, const UInt8 *a3)
 {
   v4 = applesauce::CF::details::at_key<std::string const&>(a2, a3);
   if (v4 && (v6 = v4, TypeID = CFStringGetTypeID(), TypeID == CFGetTypeID(v6)))
@@ -2533,10 +2549,10 @@ double applesauce::CF::details::find_at_key_or_optional<std::string,std::string 
   return result;
 }
 
-uint64_t std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t a1, void **a2)
+uint64_t *std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t **a1, uint64_t ***a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -2546,34 +2562,34 @@ LABEL_7:
   {
     while (1)
     {
-      v4 = v2;
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, (v2 + 32)) & 0x80) == 0)
+      v5 = v3;
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v3 + 32) & 0x80) == 0)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_7;
       }
     }
 
-    result = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v4 + 4, a2);
+    result = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v5 + 4, a2);
     if ((result & 0x80) == 0)
     {
       return result;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
   }
 }
 
-void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::DictionaryRef,std::string const&>(_BYTE *a1, const __CFDictionary *a2, const __CFString *a3)
+void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::DictionaryRef,std::string const&>(_BYTE *a1, const __CFDictionary *a2, const UInt8 *a3)
 {
   v4 = applesauce::CF::details::at_key<std::string const&>(a2, a3);
   if (!v4)
@@ -2629,7 +2645,7 @@ void MIDI2::DeviceInfo::deserialize(MIDI2::DeviceInfo *this, const applesauce::C
   v6 = v28;
   if (v28 == 1)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(this, &__p.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(this, &__p, &__p);
   }
 
   else
@@ -2679,7 +2695,7 @@ LABEL_13:
   v12 = applesauce::CF::details::find_at_key_or_optional<unsigned short,std::string const&>(*a3, &__p.length);
   if (v12 >= 0x10000)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(this, &__p.length);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(this, &__p.length, &__p.length);
     v13 = v12;
   }
 
@@ -2708,7 +2724,7 @@ LABEL_13:
   v14 = applesauce::CF::details::find_at_key_or_optional<unsigned short,std::string const&>(*a3, &__p.length);
   if (v14 >= 0x10000)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(this, &__p.length);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(this, &__p.length, &__p.length);
     v15 = v14;
   }
 
@@ -2738,7 +2754,7 @@ LABEL_13:
   v16 = v28;
   if (v28 == 1)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(this, &__p.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(this, &__p, &__p);
   }
 
   else
@@ -2793,7 +2809,7 @@ void sub_2371F5CF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(const __CFDictionary *a1, const __CFString *a2)
+uint64_t applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(const __CFDictionary *a1, const UInt8 *a2)
 {
   v2 = applesauce::CF::details::at_key<std::string const&>(a1, a2);
   if (v2)
@@ -2810,7 +2826,7 @@ uint64_t applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const
   return v2 | (v3 << 8);
 }
 
-void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,std::string const&>(_BYTE *a1, const __CFDictionary *a2, const __CFString *a3)
+void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,std::string const&>(_BYTE *a1, const __CFDictionary *a2, const UInt8 *a3)
 {
   v4 = applesauce::CF::details::at_key<std::string const&>(a2, a3);
   if (!v4)
@@ -3013,7 +3029,7 @@ uint64_t *std::unique_ptr<UMPStream::FunctionBlock>::reset[abi:ne200100](uint64_
   return result;
 }
 
-const __CFNumber *applesauce::CF::details::find_at_key_or_optional<unsigned long long,std::string const&>(const __CFDictionary *a1, const __CFString *a2)
+const __CFNumber *applesauce::CF::details::find_at_key_or_optional<unsigned long long,std::string const&>(const __CFDictionary *a1, const UInt8 *a2)
 {
   result = applesauce::CF::details::at_key<std::string const&>(a1, a2);
   if (result)
@@ -3024,7 +3040,7 @@ const __CFNumber *applesauce::CF::details::find_at_key_or_optional<unsigned long
   return result;
 }
 
-uint64_t applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(const __CFDictionary *a1, const __CFString *a2)
+uint64_t applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(const __CFDictionary *a1, const UInt8 *a2)
 {
   v2 = applesauce::CF::details::at_key<std::string const&>(a1, a2);
   if (v2)
@@ -3041,26 +3057,26 @@ uint64_t applesauce::CF::details::find_at_key_or_optional<unsigned char,std::str
   return v2 | (v3 << 8);
 }
 
-const void *applesauce::CF::details::at_key<std::string const&>(const __CFDictionary *a1, CFStringRef a2)
+const void *applesauce::CF::details::at_key<std::string const&>(const __CFDictionary *a1, const UInt8 *a2)
 {
   v2 = a2;
-  data_high = HIBYTE(a2->data);
-  if ((data_high & 0x80u) != 0)
+  v4 = a2[23];
+  if ((v4 & 0x80u) != 0)
   {
-    a2 = a2->isa;
+    a2 = *a2;
   }
 
   if (a2)
   {
-    info = v2->info;
-    if ((data_high & 0x80u) == 0)
+    v5 = *(v2 + 1);
+    if ((v4 & 0x80u) == 0)
     {
-      v6 = data_high;
+      v6 = v4;
     }
 
     else
     {
-      v6 = info;
+      v6 = v5;
     }
 
     a2 = CFStringCreateWithBytes(0, a2, v6, 0x8000100u, 0);
@@ -3086,9 +3102,9 @@ const void *applesauce::CF::details::at_key<std::string const&>(const __CFDictio
   return Value;
 }
 
-void sub_2371F6350(void *a1, uint64_t a2, ...)
+void sub_2371F6350(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
@@ -3390,7 +3406,7 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::string,voi
   operator delete(__p);
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void **a2)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t ***a1, char *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -3400,7 +3416,7 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
     v2 = v3;
   }
 
-  v4 = *(a2 + 23);
+  v4 = a2[23];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -3413,12 +3429,12 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = *(a2 + 1);
   }
 
   return std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(a1, v2, v5, v6);
@@ -3501,7 +3517,7 @@ void UMPStream::EndpointPair::~EndpointPair(void **this)
   BaseOpaqueObject::~BaseOpaqueObject(this);
 }
 
-uint64_t *std::__introsort<std::_RangeAlgPolicy,UMPStream::EndpointPair::addFunctionBlock(std::unique_ptr<UMPStream::FunctionBlock>)::$_1 &,std::unique_ptr<UMPStream::FunctionBlock>*,false>(uint64_t *result, uint64_t *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_RangeAlgPolicy,UMPStream::EndpointPair::addFunctionBlock(std::unique_ptr<UMPStream::FunctionBlock>)::$_1 &,std::unique_ptr<UMPStream::FunctionBlock>*,false>(uint64_t result, uint64_t *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
@@ -4256,7 +4272,7 @@ LABEL_60:
         goto LABEL_2;
       }
 
-      if ((v68 & 1) == 0)
+      if (!v68)
       {
 LABEL_79:
         result = std::__introsort<std::_RangeAlgPolicy,UMPStream::EndpointPair::addFunctionBlock(std::unique_ptr<UMPStream::FunctionBlock>)::$_1 &,std::unique_ptr<UMPStream::FunctionBlock>*,false>(v7, v55, a3, a4 & 1);
@@ -4277,7 +4293,7 @@ LABEL_79:
       v159 = v52;
       if (v53 >= *(*v8 + 96))
       {
-        v70 = v7 + 1;
+        v70 = (v7 + 1);
         do
         {
           v9 = v70;
@@ -4286,7 +4302,7 @@ LABEL_79:
             break;
           }
 
-          ++v70;
+          v70 += 8;
         }
 
         while (v53 >= *(*v9 + 96));
@@ -4506,7 +4522,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_RangeAlgPolicy,UMPStream::EndpointPair::addFunctionBlock(std::unique_ptr<UMPStream::FunctionBlock>)::$_1 &,std::unique_ptr<UMPStream::FunctionBlock>*>(uint64_t *a1, uint64_t *a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_RangeAlgPolicy,UMPStream::EndpointPair::addFunctionBlock(std::unique_ptr<UMPStream::FunctionBlock>)::$_1 &,std::unique_ptr<UMPStream::FunctionBlock>*>(uint64_t *a1, uint64_t *a2)
 {
   v4 = a2 - a1;
   if (v4 > 2)
@@ -5013,7 +5029,7 @@ LABEL_12:
         }
 
         v8 += v15;
-        v28 = *(v27 + 2);
+        v28 = v27[2];
         if (v8 >= v28)
         {
           break;
@@ -5080,17 +5096,17 @@ void sub_2371F81BC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void NotificationQueue::~NotificationQueue(NotificationQueue *this)
+void NotificationQueue::~NotificationQueue(NotificationQueue **this)
 {
   NotificationQueue::eraseall(this);
-  if (*(this + 2))
+  if (this[2])
   {
-    v2 = *(this + 1);
-    v3 = *(*this + 8);
+    v2 = this[1];
+    v3 = *(*this + 1);
     v4 = *v2;
     *(v4 + 8) = v3;
     *v3 = v4;
-    *(this + 2) = 0;
+    this[2] = 0;
     if (v2 != this)
     {
       do
@@ -5235,7 +5251,7 @@ void SetupManager::Install(SetupManager *this, MIDISetup *a2, char a3)
   *v5 = a2;
   MIDISetup::CreationEffects(a2);
   MIDISetup::ScanForDriverDevices(a2);
-  MIDIServer::startMIDI(v17, v18);
+  MIDIServer::startMIDI(v17);
   if ((a3 & 1) == 0)
   {
     *(v5 + 81) = 1;
@@ -5254,14 +5270,17 @@ void SetupManager::PropertyDirty(SetupManager *this, MIDIObject *a2, const __CFS
     SetupManager::SchedulePrefSaver(v7);
   }
 
-  (*(*a2 + 72))(a2);
+  v67 = 0x1800000004;
+  v68 = *(a2 + 2);
+  v69 = (*(*a2 + 72))(a2);
+  v70 = a3;
   CFRetain(a3);
-  SetupManager::AddNotification(this);
+  SetupManager::AddNotification(this, &v67);
   if (CFEqual(a3, kMIDIPropertyOffline))
   {
     v8 = *this;
-    v67 = 0;
-    IntegerProperty = MIDIObject::GetIntegerProperty(a2, kMIDIPropertyOffline, &v67);
+    v71 = 0;
+    IntegerProperty = MIDIObject::GetIntegerProperty(a2, kMIDIPropertyOffline, &v71);
     if (!IntegerProperty)
     {
       v10 = MIDIServer::defaultInstance(IntegerProperty);
@@ -5276,7 +5295,7 @@ void SetupManager::PropertyDirty(SetupManager *this, MIDIObject *a2, const __CFS
           v14 = *v12;
           if (*(*(*v12 + 9) + 48) == a2)
           {
-            if (v67)
+            if (v71)
             {
               MIDISetup::ObjectRemoved(v8, *v12);
             }
@@ -5287,20 +5306,20 @@ void SetupManager::PropertyDirty(SetupManager *this, MIDIObject *a2, const __CFS
             }
 
             v16 = MIDIServer::defaultInstance(v15);
-            v17 = v67;
+            v17 = v71;
             PairedEndpoint = MIDIEndpoint::GetPairedEndpoint(v14);
-            v69[0] = 0;
-            v19 = MIDIObject::GetIntegerProperty(v14, v13[158], v69);
-            if (!v19 && (LOWORD(v69[0]) ^ (LOWORD(v69[0]) - 1)) <= LOWORD(v69[0]) - 1 && PairedEndpoint)
+            v73[0] = 0;
+            v19 = MIDIObject::GetIntegerProperty(v14, v13[158], v73);
+            if (!v19 && (LOWORD(v73[0]) ^ (LOWORD(v73[0]) - 1)) <= LOWORD(v73[0]) - 1 && PairedEndpoint)
             {
               v27 = v16 + 110;
               if (v17)
               {
                 v28 = *(v14 + 2);
                 std::mutex::lock((v16 + 114));
-                *v69 = 0;
-                v70 = 0;
-                v71 = 0;
+                *v73 = 0;
+                v74 = 0;
+                v75 = 0;
                 v29 = v16[111];
                 v30 = v16[112];
                 v66 = (v16 + 114);
@@ -5322,7 +5341,7 @@ void SetupManager::PropertyDirty(SetupManager *this, MIDIObject *a2, const __CFS
                   }
 
                   LODWORD(cf) = *(v31 + 8);
-                  std::vector<unsigned int>::push_back[abi:ne200100](v69, &cf);
+                  std::vector<unsigned int>::push_back[abi:ne200100](v73, &cf);
                   if (v29 != v30)
                   {
                     for (i = v29 + 1; i != v30; ++i)
@@ -5337,7 +5356,7 @@ void SetupManager::PropertyDirty(SetupManager *this, MIDIObject *a2, const __CFS
                       else
                       {
                         LODWORD(cf) = *(v54 + 8);
-                        std::vector<unsigned int>::push_back[abi:ne200100](v69, &cf);
+                        std::vector<unsigned int>::push_back[abi:ne200100](v73, &cf);
                       }
                     }
                   }
@@ -5345,9 +5364,9 @@ void SetupManager::PropertyDirty(SetupManager *this, MIDIObject *a2, const __CFS
 
 LABEL_87:
                 std::vector<std::unique_ptr<UMPStream::EndpointPair>>::erase((v16 + 111), v29, v16[112]);
-                v56 = *v69;
-                v55 = v70;
-                for (j = *v69; j != v55; ++j)
+                v56 = *v73;
+                v55 = v74;
+                for (j = *v73; j != v55; ++j)
                 {
                   v58 = *v27;
                   v59 = *j;
@@ -5417,15 +5436,15 @@ LABEL_106:
             v20 = MIDIServer::defaultInstance(v19);
             if ((*(v14 + 97) & 1) == 0)
             {
-              if ((v21 = v20, v22 = v67, MIDIEndpoint::IsPartOfLegacyDevice(v14)) && MIDIEndpoint::GetPairedEndpoint(v14) || MIDIEndpoint::IsPartOfUMPDevice(v14) && (MIDIEndpoint::IsPartOfPhantomEntity(*(v14 + 9)) & 1) != 0 || *(v14 + 7))
+              if ((v21 = v20, v22 = v71, MIDIEndpoint::IsPartOfLegacyDevice(v14)) && MIDIEndpoint::GetPairedEndpoint(v14) || MIDIEndpoint::IsPartOfUMPDevice(v14) && (MIDIEndpoint::IsPartOfPhantomEntity(*(v14 + 9)) & 1) != 0 || *(v14 + 7))
               {
                 if (v22)
                 {
                   v23 = *(v14 + 2);
                   std::mutex::lock((v21 + 90));
-                  *v69 = 0;
-                  v70 = 0;
-                  v71 = 0;
+                  *v73 = 0;
+                  v74 = 0;
+                  v75 = 0;
                   v24 = v21[87];
                   v25 = v21[88];
                   if (v24 != v25)
@@ -5446,7 +5465,7 @@ LABEL_106:
                     }
 
                     LODWORD(cf) = *(v26 + 2);
-                    std::vector<unsigned int>::push_back[abi:ne200100](v69, &cf);
+                    std::vector<unsigned int>::push_back[abi:ne200100](v73, &cf);
                     if (v24 != v25)
                     {
                       for (k = v24 + 1; k != v25; ++k)
@@ -5461,7 +5480,7 @@ LABEL_106:
                         else
                         {
                           LODWORD(cf) = *(v37 + 2);
-                          std::vector<unsigned int>::push_back[abi:ne200100](v69, &cf);
+                          std::vector<unsigned int>::push_back[abi:ne200100](v73, &cf);
                         }
                       }
                     }
@@ -5528,9 +5547,9 @@ LABEL_53:
                     }
                   }
 
-                  v49 = *v69;
-                  v48 = v70;
-                  for (m = *v69; m != v48; ++m)
+                  v49 = *v73;
+                  v48 = v74;
+                  for (m = *v73; m != v48; ++m)
                   {
                     v51 = v21[86];
                     v52 = *m;
@@ -5610,7 +5629,7 @@ LABEL_101:
         v64 = *n;
         if (*(*(*n + 9) + 48) == a2)
         {
-          if (v67)
+          if (v71)
           {
             MIDISetup::ObjectRemoved(v8, v64);
           }
@@ -5778,14 +5797,14 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
@@ -5813,8 +5832,8 @@ LABEL_8:
     v17 = *v7;
     if (*v7 && *(v17 + 24) != 1)
     {
-      v18 = v7[1];
-      if (v18 && (v18[3] & 1) == 0)
+      v18 = *(v7 + 8);
+      if (v18 && (*(v18 + 24) & 1) == 0)
       {
 LABEL_58:
         v17 = v7;
@@ -5824,22 +5843,22 @@ LABEL_58:
       {
         *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v26 = v17[1];
+        v26 = *(v17 + 8);
         *v7 = v26;
         if (v26)
         {
           *(v26 + 16) = v7;
         }
 
-        v27 = v7[2];
-        v17[2] = v27;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
         v27[*v27 != v7] = v17;
-        v17[1] = v7;
-        v7[2] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
         v18 = v7;
       }
 
-      v28 = v17[2];
+      v28 = *(v17 + 16);
       *(v17 + 24) = *(v28 + 24);
       *(v28 + 24) = 1;
       *(v18 + 24) = 1;
@@ -5858,14 +5877,14 @@ LABEL_58:
       goto LABEL_71;
     }
 
-    v18 = v7[1];
+    v18 = *(v7 + 8);
     if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_58;
     }
 
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
@@ -5875,11 +5894,11 @@ LABEL_49:
     v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v20 = v13[1];
+    v20 = *(v13 + 8);
     *v12 = v20;
     if (v20)
     {
@@ -5887,11 +5906,11 @@ LABEL_49:
     }
 
     v21 = v12[2];
-    v13[2] = v21;
+    *(v13 + 16) = v21;
     v21[*v21 != v12] = v13;
-    v13[1] = v12;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v22 = v7[1];
+    v22 = *(v7 + 8);
     if (result == v22)
     {
       result = v7;
@@ -5906,11 +5925,11 @@ LABEL_49:
     goto LABEL_67;
   }
 
-  v24 = v7[1];
+  v24 = *(v7 + 8);
   if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
@@ -5921,7 +5940,7 @@ LABEL_52:
     goto LABEL_49;
   }
 
-  if (v23 && (v23[3] & 1) == 0)
+  if (v23 && (*(v23 + 24) & 1) == 0)
   {
 LABEL_67:
     v24 = v7;
@@ -5931,20 +5950,20 @@ LABEL_67:
   *(v24 + 24) = 1;
   *(v7 + 24) = 0;
   v32 = *v24;
-  v7[1] = *v24;
+  *(v7 + 8) = *v24;
   if (v32)
   {
     *(v32 + 16) = v7;
   }
 
-  v33 = v7[2];
-  v24[2] = v33;
+  v33 = *(v7 + 16);
+  *(v24 + 16) = v33;
   v33[*v33 != v7] = v24;
   *v24 = v7;
-  v7[2] = v24;
+  *(v7 + 16) = v24;
   v23 = v7;
 LABEL_68:
-  v28 = v24[2];
+  v28 = *(v24 + 16);
   *(v24 + 24) = *(v28 + 24);
   *(v28 + 24) = 1;
   *(v23 + 24) = 1;
@@ -5968,7 +5987,7 @@ LABEL_71:
 uint64_t _MIDIObjectGetIntegerProperty(MIDIServer *a1, const __CFString *a2, int *a3)
 {
   v5 = a1;
-  v6 = MIDIServer::defaultInstance(a1, a2) + 16;
+  v6 = MIDIServer::defaultInstance(a1) + 2;
   v7 = (*(*v6 + 16))(v6);
   v8 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIObject>::sRTTI, v5);
   IntegerProperty = 0;
@@ -6053,7 +6072,7 @@ void sub_2371F91C0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x2371F9174);
 }
 
-uint64_t _MIDIObjectSetIntegerProperty(MIDIServer *a1, const __CFString *a2, int a3)
+uint64_t _MIDIObjectSetIntegerProperty(MIDIServer *a1, const __CFString *a2, DeviceList *a3)
 {
   v5 = a1;
   v6 = MIDIServer::defaultInstance(a1) + 2;
@@ -6061,8 +6080,8 @@ uint64_t _MIDIObjectSetIntegerProperty(MIDIServer *a1, const __CFString *a2, int
   v8 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIObject>::sRTTI, v5);
   if (!v8)
   {
-    v12 = 0;
-    v13 = 4294967246;
+    v13 = 0;
+    v14 = 4294967246;
     if (!v7)
     {
       goto LABEL_12;
@@ -6076,10 +6095,10 @@ uint64_t _MIDIObjectSetIntegerProperty(MIDIServer *a1, const __CFString *a2, int
   if (v10)
   {
     v11 = SetupManager::instance(v10);
-    if (MIDISetup::FindObjectByUniqueID(*v11, a3, v9))
+    if (MIDISetup::FindObjectByUniqueID(*v11, a3, v9, v12))
     {
-      v12 = 0;
-      v13 = 4294956453;
+      v13 = 0;
+      v14 = 4294956453;
       if (!v7)
       {
         goto LABEL_12;
@@ -6091,27 +6110,27 @@ LABEL_11:
     }
   }
 
-  v14 = MIDIObject::SetProperty(v9, a2, a3);
-  if (v14)
+  v15 = MIDIObject::SetProperty(v9, a2, a3);
+  if (v15)
   {
-    v15 = SetupManager::instance(v14);
-    SetupManager::PropertyDirty(v15, v9, a2);
+    v16 = SetupManager::instance(v15);
+    SetupManager::PropertyDirty(v16, v9, a2);
   }
 
-  v13 = 4294956453;
-  v12 = 1;
+  v14 = 4294956453;
+  v13 = 1;
   if (v7)
   {
     goto LABEL_11;
   }
 
 LABEL_12:
-  if (v12)
+  if (v13)
   {
     return 0;
   }
 
-  return v13;
+  return v14;
 }
 
 void sub_2371F939C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
@@ -6774,7 +6793,7 @@ OSStatus MIDIDeviceCreate(MIDIDriverRef owner, CFStringRef name, CFStringRef man
 
 void sub_2371FA608(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::exception a9)
 {
-  MEMORY[0x2383C8250](v9, 0x10E1C400F55952ELL);
+  MEMORY[0x2383C8250](v9, 0x10E1C400F55952ELL, a3, a4, a5, a6, a7, a8);
   CADeprecated::CAMutex::Locker::~Locker(&a9);
   if (a2 == 2)
   {
@@ -6814,7 +6833,7 @@ OSStatus MIDIDeviceDispose(MIDIDeviceRef device)
   return 0;
 }
 
-uint64_t _MIDIDeviceAddEntity(MIDIServer *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t _MIDIDeviceAddEntity(MIDIServer *a1, const __CFString *a2, MIDIProtocolID a3, int a4, int a5, int a6, _DWORD *a7)
 {
   v7 = a1;
   v8 = MIDIServer::defaultInstance(a1) + 2;
@@ -6833,9 +6852,9 @@ uint64_t _MIDIDeviceAddEntity(MIDIServer *a1, uint64_t a2, uint64_t a3, uint64_t
   return 4294967246;
 }
 
-void sub_2371FAC50(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::exception a14)
+void sub_2371FAC50(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::exception a14)
 {
-  MEMORY[0x2383C8250](v14, 0x10E1C40CE33DE92);
+  MEMORY[0x2383C8250](v14, 0x10E1C40CE33DE92, a3, a4, a5, a6, a7, a8);
   CADeprecated::CAMutex::Locker::~Locker(&a14);
   if (a2 == 2)
   {
@@ -6852,31 +6871,31 @@ void sub_2371FAC50(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x2371FAC1CLL);
 }
 
-uint64_t _MIDIDeviceGetNumberOfEntities(MIDIServer *a1)
+uint64_t _MIDIDeviceGetNumberOfEntities(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIDevice>::sRTTI, v1);
-  if (v4)
+  v2 = a1;
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIDevice>::sRTTI, v2);
+  if (v5)
   {
-    v5 = (*(v4 + 88) - *(v4 + 80)) >> 3;
-    if (!v3)
+    v6 = (*(v5 + 88) - *(v5 + 80)) >> 3;
+    if (!v4)
     {
-      return v5;
+      return v6;
     }
 
     goto LABEL_5;
   }
 
-  v5 = 0;
-  if (v3)
+  v6 = 0;
+  if (v4)
   {
 LABEL_5:
-    (*(*v2 + 24))(v2);
+    (*(*v3 + 24))(v3);
   }
 
-  return v5;
+  return v6;
 }
 
 uint64_t _MIDIDeviceGetEntity(MIDIServer *a1, unint64_t a2)
@@ -6910,31 +6929,31 @@ LABEL_6:
   return v8;
 }
 
-uint64_t _MIDIEntityGetNumberOfSources(MIDIServer *a1)
+uint64_t _MIDIEntityGetNumberOfSources(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIEntity>::sRTTI, v1);
-  if (v4)
+  v2 = a1;
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIEntity>::sRTTI, v2);
+  if (v5)
   {
-    v5 = (*(v4 + 80) - *(v4 + 72)) >> 3;
-    if (!v3)
+    v6 = (*(v5 + 80) - *(v5 + 72)) >> 3;
+    if (!v4)
     {
-      return v5;
+      return v6;
     }
 
     goto LABEL_5;
   }
 
-  v5 = 0;
-  if (v3)
+  v6 = 0;
+  if (v4)
   {
 LABEL_5:
-    (*(*v2 + 24))(v2);
+    (*(*v3 + 24))(v3);
   }
 
-  return v5;
+  return v6;
 }
 
 uint64_t _MIDIEntityGetSource(MIDIServer *a1, unint64_t a2)
@@ -6968,31 +6987,31 @@ LABEL_6:
   return v8;
 }
 
-uint64_t _MIDIEntityGetNumberOfDestinations(MIDIServer *a1)
+uint64_t _MIDIEntityGetNumberOfDestinations(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIEntity>::sRTTI, v1);
-  if (v4)
+  v2 = a1;
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIEntity>::sRTTI, v2);
+  if (v5)
   {
-    v5 = (*(v4 + 112) - *(v4 + 104)) >> 3;
-    if (!v3)
+    v6 = (*(v5 + 112) - *(v5 + 104)) >> 3;
+    if (!v4)
     {
-      return v5;
+      return v6;
     }
 
     goto LABEL_5;
   }
 
-  v5 = 0;
-  if (v3)
+  v6 = 0;
+  if (v4)
   {
 LABEL_5:
-    (*(*v2 + 24))(v2);
+    (*(*v3 + 24))(v3);
   }
 
-  return v5;
+  return v6;
 }
 
 uint64_t _MIDIEntityGetDestination(MIDIServer *a1, unint64_t a2)
@@ -7086,53 +7105,53 @@ OSStatus MIDIEndpointGetRefCons(MIDIEndpointRef endpt, void **ref1, void **ref2)
   return 0;
 }
 
-uint64_t _MIDIClientCreate(MIDIServer *a1, uint64_t a2, _DWORD *a3)
+uint64_t _MIDIClientCreate(MIDIServer *a1, const __CFString *a2, _DWORD *a3, const void *a4)
 {
-  v4 = a1;
-  v5 = MIDIServer::defaultInstance(a1) + 2;
-  v6 = (*(*v5 + 16))(v5);
-  v7 = v6;
+  v5 = a1;
+  v6 = MIDIServer::defaultInstance(a1) + 2;
+  v7 = (*(*v6 + 16))(v6);
+  v8 = v7;
   if (a3)
   {
-    v8 = MIDIServer::defaultInstance(v6);
-    v9 = gMIDIIOThread;
+    v9 = MIDIServer::defaultInstance(v7);
+    v10 = gMIDIIOThread;
     if (gMIDIIOThread && *(gMIDIIOThread + 140))
     {
       *a3 = 0;
-      v10 = *(v9 + 140);
-      if (!v7)
+      v11 = *(v10 + 140);
+      if (!v8)
       {
-        return v10;
+        return v11;
       }
 
       goto LABEL_14;
     }
 
-    if (!v4)
+    if (!v5)
     {
 LABEL_13:
       operator new();
     }
 
-    v11 = MIDIServer::defaultInstance(v8);
-    for (i = v11[29]; i != v11[30]; i += 8)
+    v12 = MIDIServer::defaultInstance(v9);
+    for (i = v12[29]; i != v12[30]; i += 8)
     {
-      if (*(*i + 8) == v4)
+      if (*(*i + 8) == v5)
       {
         goto LABEL_13;
       }
     }
   }
 
-  v10 = 4294967246;
-  if (!v7)
+  v11 = 4294967246;
+  if (!v8)
   {
-    return v10;
+    return v11;
   }
 
 LABEL_14:
-  (*(*v5 + 24))(v5);
-  return v10;
+  (*(*v6 + 24))(v6);
+  return v11;
 }
 
 void sub_2371FBA48(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::exception a9)
@@ -7168,38 +7187,38 @@ void sub_2371FBA48(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint
   JUMPOUT(0x2371FBA14);
 }
 
-uint64_t _MIDIClientDispose(MIDIServer *a1)
+uint64_t _MIDIClientDispose(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v14 = MIDIServer::defaultInstance(a1) + 13;
-  v2 = (*(*v14 + 16))();
-  v15 = v2;
-  v3 = MIDIServer::defaultInstance(v2) + 2;
-  v4 = (*(*v3 + 16))(v3);
-  v5 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIClient>::sRTTI, v1);
-  if (v5)
+  v2 = a1;
+  v15 = MIDIServer::defaultInstance(a1) + 13;
+  v3 = (*(*v15 + 16))();
+  v16 = v3;
+  v4 = MIDIServer::defaultInstance(v3) + 2;
+  v5 = (*(*v4 + 16))(v4);
+  v6 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIClient>::sRTTI, v2);
+  if (v6)
   {
-    v6 = v5;
-    v7 = MIDIServer::defaultInstance(v5);
-    v8 = MIDIServer::defaultInstance(v7);
-    v9 = v8[25];
-    v10 = v8[26];
-    if (v9 != v10)
+    v7 = v6;
+    v8 = MIDIServer::defaultInstance(v6);
+    v9 = MIDIServer::defaultInstance(v8);
+    v10 = v9[25];
+    v11 = v9[26];
+    if (v10 != v11)
     {
-      while (*v9 != v6)
+      while (*v10 != v7)
       {
-        if (++v9 == v10)
+        if (++v10 == v11)
         {
           goto LABEL_11;
         }
       }
     }
 
-    if (v9 == v10)
+    if (v10 == v11)
     {
 LABEL_11:
-      v12 = 4294956466;
-      if (!v4)
+      v13 = 4294956466;
+      if (!v5)
       {
         goto LABEL_13;
       }
@@ -7207,33 +7226,33 @@ LABEL_11:
 
     else
     {
-      v11 = OwnedPtrVector<MIDIClient *>::erase((v8 + 24), v9);
-      ScheduleCheckServerShutdown(v11);
-      v12 = 0;
-      if (!v4)
+      v12 = OwnedPtrVector<MIDIClient *>::erase((v9 + 24), v10);
+      ScheduleCheckServerShutdown(v12);
+      v13 = 0;
+      if (!v5)
       {
         goto LABEL_13;
       }
     }
 
 LABEL_12:
-    (*(*v3 + 24))(v3);
+    (*(*v4 + 24))(v4);
     goto LABEL_13;
   }
 
-  v12 = 4294967246;
-  if (v4)
+  v13 = 4294967246;
+  if (v5)
   {
     goto LABEL_12;
   }
 
 LABEL_13:
-  if (v15 == 1)
+  if (v16 == 1)
   {
-    (*(*v14 + 24))(v14);
+    (*(*v15 + 24))(v15);
   }
 
-  return v12;
+  return v13;
 }
 
 void sub_2371FBCA8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
@@ -7266,14 +7285,14 @@ void sub_2371FBCA8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x2371FBC54);
 }
 
-void sub_2371FBD40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2371FBD40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   CADeprecated::CAMutex::Locker::~Locker(va);
   _Unwind_Resume(a1);
 }
 
-void *OwnedPtrVector<MIDIClient *>::erase(uint64_t a1, uint64_t *__dst)
+void *OwnedPtrVector<MIDIClient *>::erase(uint64_t a1, void **__dst)
 {
   result = *__dst;
   if (*__dst)
@@ -7283,7 +7302,7 @@ void *OwnedPtrVector<MIDIClient *>::erase(uint64_t a1, uint64_t *__dst)
 
   v5 = *(a1 + 16);
   v6 = v5 - (__dst + 1);
-  if (v5 != __dst + 1)
+  if (v5 != (__dst + 1))
   {
     result = memmove(__dst, __dst + 1, v5 - (__dst + 1));
   }
@@ -7292,19 +7311,19 @@ void *OwnedPtrVector<MIDIClient *>::erase(uint64_t a1, uint64_t *__dst)
   return result;
 }
 
-uint64_t _MIDICapabilityGetDiscoveryMUID(MIDIServer *a1)
+uint64_t _MIDICapabilityGetDiscoveryMUID(MIDIServer *a1, int a2)
 {
-  v1 = MIDIServer::defaultInstance(a1) + 2;
-  v2 = (*(*v1 + 16))(v1);
-  v3 = v2;
-  v4 = MIDIServer::defaultInstance(v2);
-  v5 = *(MIDICISessionManager::Instance(v4) + 664);
-  if (v3)
+  v2 = MIDIServer::defaultInstance(a1) + 2;
+  v3 = (*(*v2 + 16))(v2);
+  v4 = v3;
+  v5 = MIDIServer::defaultInstance(v3);
+  v6 = *(MIDICISessionManager::Instance(v5) + 664);
+  if (v4)
   {
-    (*(*v1 + 24))(v1);
+    (*(*v2 + 24))(v2);
   }
 
-  return v5;
+  return v6;
 }
 
 void sub_2371FBE7C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
@@ -7327,21 +7346,21 @@ void sub_2371FBE7C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x2371FBE60);
 }
 
-uint64_t _MIDICapabilityMUIDCollides(MIDIServer *a1)
+uint64_t _MIDICapabilityMUIDCollides(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = v3;
-  v5 = MIDIServer::defaultInstance(v3);
-  v6 = MIDICISessionManager::Instance(v5);
-  v7 = MIDICIMUIDList::Add((v6 + 200), v1);
-  if (v4)
+  v2 = a1;
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = v4;
+  v6 = MIDIServer::defaultInstance(v4);
+  v7 = MIDICISessionManager::Instance(v6);
+  v8 = MIDICIMUIDList::Add((v7 + 200), v2);
+  if (v5)
   {
-    (*(*v2 + 24))(v2);
+    (*(*v3 + 24))(v3);
   }
 
-  return v7 ^ 1u;
+  return v8 ^ 1u;
 }
 
 void sub_2371FBFB0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
@@ -7488,205 +7507,204 @@ void sub_2371FC6F0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t _UMPCIObjectDispose(MIDIServer *a1)
+uint64_t _UMPCIObjectDispose(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, v1);
-  if (!v4)
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, a1);
+  if (!v5)
   {
-    v14 = 4294967246;
-    if (!v3)
+    v15 = 4294967246;
+    if (!v4)
     {
-      return v14;
+      return v15;
     }
 
     goto LABEL_55;
   }
 
-  v5 = v4;
-  MIDIServer::defaultInstance(v4);
-  v6 = (*(*v5 + 96))(v5);
-  if ((v6 - 1) < 2)
+  v6 = v5;
+  MIDIServer::defaultInstance(v5);
+  v7 = (*(*v6 + 96))(v6);
+  if ((v7 - 1) < 2)
   {
-    v15 = MIDIServer::defaultInstance(v6);
-    std::mutex::lock((v15 + 114));
-    v16 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, v1);
-    if (!v16 || *(v16 + 148) != 1)
+    v16 = MIDIServer::defaultInstance(v7);
+    std::mutex::lock((v16 + 114));
+    v17 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, a1);
+    if (!v17 || *(v17 + 148) != 1)
     {
       goto LABEL_52;
     }
 
-    v17 = v15[111];
-    v18 = v15[112];
-    if (v17 != v18)
+    v18 = v16[111];
+    v19 = v16[112];
+    if (v18 != v19)
     {
-      v19 = *(v16 + 100);
-      v20 = *(v16 + 104);
+      v20 = *(v17 + 100);
+      v21 = *(v17 + 104);
       while (1)
       {
-        v21 = *v17;
-        if (!v20 && *(v21 + 100) == v19)
+        v22 = *v18;
+        if (!v21 && *(v22 + 100) == v20)
         {
           break;
         }
 
-        if (!v19 && *(v21 + 104) == v20 || *(v21 + 100) == v19 && *(v21 + 104) == v20)
+        if (!v20 && *(v22 + 104) == v21 || *(v22 + 100) == v20 && *(v22 + 104) == v21)
         {
           break;
         }
 
-        if (++v17 == v18)
+        if (++v18 == v19)
         {
           goto LABEL_52;
         }
       }
     }
 
-    if (v17 != v18)
+    if (v18 != v19)
     {
-      v27 = v17 + 1;
-      if (v17 + 1 != v18)
+      v28 = v18 + 1;
+      if (v18 + 1 != v19)
       {
         do
         {
-          v17 = v27;
-          v28 = v27 - 1;
-          v29 = *v27;
-          *v27++ = 0;
-          std::unique_ptr<UMPStream::EndpointPair>::reset[abi:ne200100](v28, v29);
+          v18 = v28;
+          v29 = v28 - 1;
+          v30 = *v28;
+          *v28++ = 0;
+          std::unique_ptr<UMPStream::EndpointPair>::reset[abi:ne200100](v29, v30);
         }
 
-        while (v27 != v18);
-        v18 = v15[112];
+        while (v28 != v19);
+        v19 = v16[112];
       }
 
-      while (v18 != v17)
+      while (v19 != v18)
       {
-        std::unique_ptr<UMPStream::EndpointPair>::reset[abi:ne200100](--v18, 0);
+        std::unique_ptr<UMPStream::EndpointPair>::reset[abi:ne200100](--v19, 0);
       }
 
-      v15[112] = v17;
-      v30 = v15[110];
+      v16[112] = v18;
+      v31 = v16[110];
       cf = 0;
-      UMPCIServerContext::sendNotificationForObject(v30, 2, v1, &cf);
+      UMPCIServerContext::sendNotificationForObject(v31, 2, a1, &cf);
       if (cf)
       {
         CFRelease(cf);
       }
 
-      v14 = 0;
+      v15 = 0;
     }
 
     else
     {
 LABEL_52:
-      v14 = 4294956454;
+      v15 = 4294956454;
     }
 
-    v26 = (v15 + 114);
+    v27 = (v16 + 114);
   }
 
   else
   {
-    if ((v6 - 3) >= 2)
+    if ((v7 - 3) >= 2)
     {
-      v14 = 4294956452;
-      if (!v3)
+      v15 = 4294956452;
+      if (!v4)
       {
-        return v14;
+        return v15;
       }
 
       goto LABEL_55;
     }
 
-    v7 = MIDIServer::defaultInstance(v6);
-    std::mutex::lock((v7 + 90));
-    v8 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, v1);
-    if (!v8 || *(v8 + 113) != 1)
+    v8 = MIDIServer::defaultInstance(v7);
+    std::mutex::lock((v8 + 90));
+    v9 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, a1);
+    if (!v9 || *(v9 + 113) != 1)
     {
       goto LABEL_41;
     }
 
-    v9 = v7[87];
-    v10 = v7[88];
-    if (v9 != v10)
+    v10 = v8[87];
+    v11 = v8[88];
+    if (v10 != v11)
     {
-      v11 = *(v8 + 72);
-      v12 = *(v8 + 76);
+      v12 = *(v9 + 72);
+      v13 = *(v9 + 76);
       while (1)
       {
-        v13 = *v9;
-        if (!v12 && *(v13 + 18) == v11)
+        v14 = *v10;
+        if (!v13 && *(v14 + 18) == v12)
         {
           break;
         }
 
-        if (!v11 && *(v13 + 19) == v12 || *(v13 + 18) == v11 && *(v13 + 19) == v12)
+        if (!v12 && *(v14 + 19) == v13 || *(v14 + 18) == v12 && *(v14 + 19) == v13)
         {
           break;
         }
 
-        if (++v9 == v10)
+        if (++v10 == v11)
         {
           goto LABEL_41;
         }
       }
     }
 
-    if (v9 != v10)
+    if (v10 != v11)
     {
-      v22 = v9 + 1;
-      if (v9 + 1 != v10)
+      v23 = v10 + 1;
+      if (v10 + 1 != v11)
       {
         do
         {
-          v9 = v22;
-          v23 = v22 - 1;
-          v24 = *v22;
-          *v22++ = 0;
-          std::unique_ptr<MIDICI::Device>::reset[abi:ne200100](v23, v24);
+          v10 = v23;
+          v24 = v23 - 1;
+          v25 = *v23;
+          *v23++ = 0;
+          std::unique_ptr<MIDICI::Device>::reset[abi:ne200100](v24, v25);
         }
 
-        while (v22 != v10);
-        v10 = v7[88];
+        while (v23 != v11);
+        v11 = v8[88];
       }
 
-      while (v10 != v9)
+      while (v11 != v10)
       {
-        std::unique_ptr<MIDICI::Device>::reset[abi:ne200100](--v10, 0);
+        std::unique_ptr<MIDICI::Device>::reset[abi:ne200100](--v11, 0);
       }
 
-      v7[88] = v9;
-      v25 = v7[86];
+      v8[88] = v10;
+      v26 = v8[86];
       cf = 0;
-      UMPCIServerContext::sendNotificationForObject(v25, 2, v1, &cf);
+      UMPCIServerContext::sendNotificationForObject(v26, 2, a1, &cf);
       if (cf)
       {
         CFRelease(cf);
       }
 
-      v14 = 0;
+      v15 = 0;
     }
 
     else
     {
 LABEL_41:
-      v14 = 4294956454;
+      v15 = 4294956454;
     }
 
-    v26 = (v7 + 90);
+    v27 = (v8 + 90);
   }
 
-  std::mutex::unlock(v26);
-  if (v3)
+  std::mutex::unlock(v27);
+  if (v4)
   {
 LABEL_55:
-    (*(*v2 + 24))(v2);
+    (*(*v3 + 24))(v3);
   }
 
-  return v14;
+  return v15;
 }
 
 void sub_2371FCA80(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::exception a10, uint64_t a11, const void *a12)
@@ -7713,13 +7731,12 @@ void sub_2371FCA80(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
 
 uint64_t _UMPCIObjectSetDescription(MIDIServer *a1, const void *a2)
 {
-  v3 = a1;
   v5 = MIDIServer::defaultInstance(a1) + 2;
   v4 = *v5;
   cf[1] = v5;
   v6 = (*(v4 + 16))(v5);
   v36 = v6;
-  if (!BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, v3) || (v7 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, v3)) == 0)
+  if (!BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, a1) || (v7 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, a1)) == 0)
   {
     v17 = 4294967246;
     goto LABEL_52;
@@ -7733,7 +7750,7 @@ uint64_t _UMPCIObjectSetDescription(MIDIServer *a1, const void *a2)
   {
     v18 = MIDIServer::defaultInstance(v9);
     std::mutex::lock((v18 + 114));
-    v19 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, v3);
+    v19 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, a1);
     if (v19)
     {
       v20 = v19;
@@ -7757,7 +7774,7 @@ uint64_t _UMPCIObjectSetDescription(MIDIServer *a1, const void *a2)
 
       v22 = v18[110];
       v37 = 0;
-      UMPCIServerContext::sendNotificationForObject(v22, 1, v3, &v37);
+      UMPCIServerContext::sendNotificationForObject(v22, 1, a1, &v37);
       v23 = v37;
       if (!v37)
       {
@@ -7767,7 +7784,7 @@ uint64_t _UMPCIObjectSetDescription(MIDIServer *a1, const void *a2)
 
     else
     {
-      v30 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, v3);
+      v30 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, a1);
       if (!v30)
       {
         v17 = 4294956454;
@@ -7790,7 +7807,7 @@ LABEL_48:
         CFRelease(v38);
       }
 
-      if (v41 != 1 || (v33 = v18[110], v37 = 0, UMPCIServerContext::sendNotificationForObject(v33, 1, v3, &v37), (v23 = v37) == 0))
+      if (v41 != 1 || (v33 = v18[110], v37 = 0, UMPCIServerContext::sendNotificationForObject(v33, 1, a1, &v37), (v23 = v37) == 0))
       {
 LABEL_45:
         if (v41 == 1)
@@ -7815,7 +7832,7 @@ LABEL_45:
 
   v10 = MIDIServer::defaultInstance(v9);
   std::mutex::lock((v10 + 90));
-  v11 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, v3);
+  v11 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, a1);
   if (v11)
   {
     v12 = v11;
@@ -7845,7 +7862,7 @@ LABEL_45:
 
     v15 = v10[86];
     v39 = 0;
-    UMPCIServerContext::sendNotificationForObject(v15, 1, v3, &v39);
+    UMPCIServerContext::sendNotificationForObject(v15, 1, a1, &v39);
     v16 = v39;
     if (!v39)
     {
@@ -7855,7 +7872,7 @@ LABEL_45:
     goto LABEL_34;
   }
 
-  v24 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, v3);
+  v24 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, a1);
   if (!v24)
   {
     v17 = 4294956454;
@@ -7886,7 +7903,7 @@ LABEL_45:
   {
     v28 = v10[86];
     v39 = 0;
-    UMPCIServerContext::sendNotificationForObject(v28, 1, v3, &v39);
+    UMPCIServerContext::sendNotificationForObject(v28, 1, a1, &v39);
     v16 = v39;
     if (v39)
     {
@@ -7956,11 +7973,10 @@ void sub_2371FCEDC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
 
 uint64_t _UMPCIObjectSetEnableState(MIDIServer *a1, int a2)
 {
-  v3 = a1;
   v4 = MIDIServer::defaultInstance(a1) + 2;
   v5 = (*(*v4 + 16))(v4);
-  v6 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, v3);
-  if (!v6 || (MIDIServer::defaultInstance(v6), (v7 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, v3)) == 0))
+  v6 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, a1);
+  if (!v6 || (MIDIServer::defaultInstance(v6), (v7 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, a1)) == 0))
   {
     v13 = 4294967246;
     if (!v5)
@@ -7987,13 +8003,13 @@ uint64_t _UMPCIObjectSetEnableState(MIDIServer *a1, int a2)
 
     v9 = MIDIServer::defaultInstance(v8);
     std::mutex::lock((v9 + 114));
-    v10 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, v3);
+    v10 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, a1);
     if (v10)
     {
       *(v10 + 147) = a2 != 0;
       v11 = v9[110];
       cf = 0;
-      UMPCIServerContext::sendNotificationForObject(v11, 1, v3, &cf);
+      UMPCIServerContext::sendNotificationForObject(v11, 1, a1, &cf);
       v12 = cf;
       if (cf)
       {
@@ -8004,7 +8020,7 @@ LABEL_17:
 
     else
     {
-      v18 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, v3);
+      v18 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, a1);
       if (!v18)
       {
         v13 = 4294956454;
@@ -8014,7 +8030,7 @@ LABEL_17:
       *(v18 + 64) = a2 != 0;
       v19 = v9[110];
       cf = 0;
-      UMPCIServerContext::sendNotificationForObject(v19, 1, v3, &cf);
+      UMPCIServerContext::sendNotificationForObject(v19, 1, a1, &cf);
       v12 = cf;
       if (cf)
       {
@@ -8030,13 +8046,13 @@ LABEL_19:
 
   v14 = MIDIServer::defaultInstance(v8);
   std::mutex::lock((v14 + 90));
-  v15 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, v3);
+  v15 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, a1);
   if (v15)
   {
     *(v15 + 112) = a2 != 0;
     v16 = v14[86];
     cf = 0;
-    UMPCIServerContext::sendNotificationForObject(v16, 1, v3, &cf);
+    UMPCIServerContext::sendNotificationForObject(v16, 1, a1, &cf);
     v17 = cf;
     if (cf)
     {
@@ -8047,7 +8063,7 @@ LABEL_22:
 
   else
   {
-    v21 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, v3);
+    v21 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<UMPCIObject>::sRTTI, a1);
     if (!v21)
     {
       v13 = 4294956454;
@@ -8057,7 +8073,7 @@ LABEL_22:
     *(v21 + 116) = a2 != 0;
     v22 = v14[86];
     cf = 0;
-    UMPCIServerContext::sendNotificationForObject(v22, 1, v3, &cf);
+    UMPCIServerContext::sendNotificationForObject(v22, 1, a1, &cf);
     v17 = cf;
     if (cf)
     {
@@ -8111,109 +8127,109 @@ void sub_2371FD2CC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x2371FD298);
 }
 
-uint64_t _UMPCIGlobalState(MIDIServer *a1)
+uint64_t _UMPCIGlobalState(MIDIServer *a1, int a2)
 {
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = v3;
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = v4;
   if (!a1)
   {
-    v10 = 4294967246;
-    if (!v3)
+    v11 = 4294967246;
+    if (!v4)
     {
-      return v10;
+      return v11;
     }
 
     goto LABEL_16;
   }
 
-  MIDIServer::defaultInstance(v3);
+  MIDIServer::defaultInstance(v4);
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
-  v6 = MIDIServer::defaultInstance(Mutable);
+  v7 = MIDIServer::defaultInstance(Mutable);
   if (Mutable)
   {
-    v7 = v6;
+    v8 = v7;
     CFRetain(Mutable);
-    std::mutex::lock((v7 + 114));
-    v18 = 0;
+    std::mutex::lock((v8 + 114));
     v19 = 0;
     v20 = 0;
-    v8 = v7[111];
-    if (v8 != v7[112])
+    v21 = 0;
+    v9 = v8[111];
+    if (v9 != v8[112])
     {
-      UMPStream::EndpointPair::serialize(*v8);
+      UMPStream::EndpointPair::serialize(*v9);
     }
 
-    v9 = applesauce::CF::details::make_CFArrayRef<applesauce::CF::DictionaryRef>(&v18);
-    cf = v9;
-    CFDictionaryAddValue(Mutable, @"ump_endpoints", v9);
-    CFRelease(v9);
-    cf = &v18;
+    v10 = applesauce::CF::details::make_CFArrayRef<applesauce::CF::DictionaryRef>(&v19);
+    cf = v10;
+    CFDictionaryAddValue(Mutable, @"ump_endpoints", v10);
+    CFRelease(v10);
+    cf = &v19;
     std::vector<applesauce::CF::DictionaryRef>::__destroy_vector::operator()[abi:ne200100](&cf);
-    std::mutex::unlock((v7 + 114));
+    std::mutex::unlock((v8 + 114));
     CFRelease(Mutable);
   }
 
-  v11 = MIDIServer::defaultInstance(v6);
+  v12 = MIDIServer::defaultInstance(v7);
   if (Mutable)
   {
-    v12 = v11;
+    v13 = v12;
     CFRetain(Mutable);
-    std::mutex::lock((v12 + 90));
-    v18 = 0;
+    std::mutex::lock((v13 + 90));
     v19 = 0;
     v20 = 0;
-    v13 = v12[87];
-    if (v13 != v12[88])
+    v21 = 0;
+    v14 = v13[87];
+    if (v14 != v13[88])
     {
-      MIDICI::Device::serialize(*v13);
+      MIDICI::Device::serialize(*v14);
     }
 
-    v14 = applesauce::CF::details::make_CFArrayRef<applesauce::CF::DictionaryRef>(&v18);
-    cf = v14;
-    CFDictionaryAddValue(Mutable, @"midi_ci_devices", v14);
-    CFRelease(v14);
-    LODWORD(valuePtr) = *(v12 + 196);
-    v15 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+    v15 = applesauce::CF::details::make_CFArrayRef<applesauce::CF::DictionaryRef>(&v19);
     cf = v15;
-    if (!v15)
+    CFDictionaryAddValue(Mutable, @"midi_ci_devices", v15);
+    CFRelease(v15);
+    LODWORD(valuePtr) = *(v13 + 196);
+    v16 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+    cf = v16;
+    if (!v16)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x2383C7ED0](exception, "Could not construct");
     }
 
-    CFDictionaryAddValue(Mutable, @"device_manager_muid", v15);
+    CFDictionaryAddValue(Mutable, @"device_manager_muid", v16);
     if (cf)
     {
       CFRelease(cf);
     }
 
-    cf = &v18;
+    cf = &v19;
     std::vector<applesauce::CF::DictionaryRef>::__destroy_vector::operator()[abi:ne200100](&cf);
-    std::mutex::unlock((v12 + 90));
+    std::mutex::unlock((v13 + 90));
     CFRelease(Mutable);
   }
 
-  v10 = 0;
+  v11 = 0;
   *a1 = Mutable;
-  if (v4)
+  if (v5)
   {
 LABEL_16:
-    (*(*v2 + 24))(v2);
+    (*(*v3 + 24))(v3);
   }
 
-  return v10;
+  return v11;
 }
 
-void sub_2371FD7D0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, __int16 a11, char a12, char a13, int a14, const void *a15, __int16 a16, char a17, char a18, uint64_t a19, std::exception a20, uint64_t a21, uint64_t a22, char a23, int a24, const void *a25)
+void sub_2371FD7D0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, __int16 a12, char a13, char a14, int a15, const void *a16, __int16 a20, char a21, char a22, uint64_t a23, std::exception a24, uint64_t a25, uint64_t a26, char a27, int a28, const void *a29)
 {
-  applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(&a25);
-  *(v26 - 88) = &a20;
+  applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(&a29);
+  *(v26 - 88) = &a24;
   std::vector<applesauce::CF::DictionaryRef>::__destroy_vector::operator()[abi:ne200100]((v26 - 88));
   std::mutex::unlock((v25 + 720));
   applesauce::CF::ObjectRef<__CFDictionary *>::~ObjectRef(&a10);
-  applesauce::CF::ObjectRef<__CFDictionary *>::~ObjectRef(&a15);
-  CADeprecated::CAMutex::Locker::~Locker(&a16);
+  applesauce::CF::ObjectRef<__CFDictionary *>::~ObjectRef(&a16);
+  CADeprecated::CAMutex::Locker::~Locker(&a20);
   if (a2 == 3)
   {
     __cxa_begin_catch(a1);
@@ -8225,9 +8241,9 @@ void sub_2371FD7D0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
     if (a2 == 2)
     {
       __cxa_get_exception_ptr(a1);
-      a20.__vftable = (MEMORY[0x277D82910] + 16);
+      a24.__vftable = (MEMORY[0x277D82910] + 16);
       __cxa_begin_catch(a1);
-      std::exception::~exception(&a20);
+      std::exception::~exception(&a24);
     }
 
     else
@@ -8252,154 +8268,154 @@ const void **applesauce::CF::ObjectRef<__CFDictionary *>::~ObjectRef(const void 
   return a1;
 }
 
-uint64_t _UMPCIDiscover(MIDIServer *a1)
+uint64_t _UMPCIDiscover(MIDIServer *a1, int a2)
 {
-  v1 = MIDIServer::defaultInstance(a1) + 2;
-  v2 = (*(*v1 + 16))(v1);
-  v3 = v2;
-  v4 = *SetupManager::instance(v2);
-  if (!v4)
+  v2 = MIDIServer::defaultInstance(a1) + 2;
+  v3 = (*(*v2 + 16))(v2);
+  v4 = v3;
+  v5 = *SetupManager::instance(v3);
+  if (!v5)
   {
-    v17 = 4294956452;
-    if (!v3)
+    v18 = 4294956452;
+    if (!v4)
     {
-      return v17;
+      return v18;
     }
 
     goto LABEL_42;
   }
 
   __src = 0;
-  v41 = 0;
   v42 = 0;
-  std::vector<MIDISource *>::__init_with_size[abi:ne200100]<MIDISource **,MIDISource **>(&__src, *(v4 + 88), *(v4 + 96), (*(v4 + 96) - *(v4 + 88)) >> 3);
-  v6 = SetupManager::instance(v5);
+  v43 = 0;
+  std::vector<MIDISource *>::__init_with_size[abi:ne200100]<MIDISource **,MIDISource **>(&__src, *(v5 + 88), *(v5 + 96), (*(v5 + 96) - *(v5 + 88)) >> 3);
+  v7 = SetupManager::instance(v6);
   __p = 0;
-  v38 = 0;
   v39 = 0;
-  std::vector<MIDISource *>::__init_with_size[abi:ne200100]<MIDISource **,MIDISource **>(&__p, *(v6 + 8), *(v6 + 16), (*(v6 + 16) - *(v6 + 8)) >> 3);
-  v9 = __p;
-  v8 = v38;
-  v10 = v38 - __p;
-  v11 = (v38 - __p) >> 3;
-  v13 = __src;
-  v12 = v41;
-  if (v11 < 1)
+  v40 = 0;
+  std::vector<MIDISource *>::__init_with_size[abi:ne200100]<MIDISource **,MIDISource **>(&__p, *(v7 + 8), *(v7 + 16), (*(v7 + 16) - *(v7 + 8)) >> 3);
+  v10 = __p;
+  v9 = v39;
+  v11 = v39 - __p;
+  v12 = (v39 - __p) >> 3;
+  v14 = __src;
+  v13 = v42;
+  if (v12 < 1)
   {
-    v18 = v41;
+    v19 = v42;
   }
 
-  else if (v42 - v41 >= v10)
+  else if (v43 - v42 >= v11)
   {
-    while (v9 != v8)
+    while (v10 != v9)
     {
-      v16 = *v9++;
-      *v12 = v16;
-      v12 += 8;
+      v17 = *v10++;
+      *v13 = v17;
+      v13 += 8;
     }
 
-    v18 = v12;
-    v41 = v12;
+    v19 = v13;
+    v42 = v13;
   }
 
   else
   {
-    v14 = v11 + ((v41 - __src) >> 3);
-    if (v14 >> 61)
+    v15 = v12 + ((v42 - __src) >> 3);
+    if (v15 >> 61)
     {
       std::vector<CADeprecated::XMachServer::Client *>::__throw_length_error[abi:ne200100]();
     }
 
-    if ((v42 - __src) >> 2 > v14)
+    if ((v43 - __src) >> 2 > v15)
     {
-      v14 = (v42 - __src) >> 2;
+      v15 = (v43 - __src) >> 2;
     }
 
-    if ((v42 - __src) >= 0x7FFFFFFFFFFFFFF8)
+    if ((v43 - __src) >= 0x7FFFFFFFFFFFFFF8)
     {
-      v15 = 0x1FFFFFFFFFFFFFFFLL;
+      v16 = 0x1FFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v15 = v14;
+      v16 = v15;
     }
 
-    if (v15)
+    if (v16)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<ClientProcess *>>(v15);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<ClientProcess *>>(v16);
     }
 
-    v19 = 8 * ((v41 - __src) >> 3);
-    v18 = v19 + v10;
-    v20 = v19;
+    v20 = 8 * ((v42 - __src) >> 3);
+    v19 = v20 + v11;
+    v21 = v20;
     do
     {
-      v21 = *v9++;
-      *v20++ = v21;
-      v10 -= 8;
+      v22 = *v10++;
+      *v21++ = v22;
+      v11 -= 8;
     }
 
-    while (v10);
-    v22 = __src;
-    v13 = (v19 - (v12 - __src));
-    v7 = memcpy(v13, __src, v12 - __src);
-    __src = v13;
-    v41 = v18;
-    v42 = 0;
-    if (v22)
+    while (v11);
+    v23 = __src;
+    v14 = (v20 - (v13 - __src));
+    v8 = memcpy(v14, __src, v13 - __src);
+    __src = v14;
+    v42 = v19;
+    v43 = 0;
+    if (v23)
     {
-      operator delete(v22);
+      operator delete(v23);
     }
   }
 
-  v33 = v3;
-  v23 = MIDIServer::defaultInstance(v7);
-  v34 = 0;
+  v34 = v4;
+  v24 = MIDIServer::defaultInstance(v8);
   v35 = 0;
   v36 = 0;
-  std::vector<MIDISource *>::__init_with_size[abi:ne200100]<MIDISource **,MIDISource **>(&v34, v13, v18, (v18 - v13) >> 3);
-  v24 = v34;
+  v37 = 0;
+  std::vector<MIDISource *>::__init_with_size[abi:ne200100]<MIDISource **,MIDISource **>(&v35, v14, v19, (v19 - v14) >> 3);
   v25 = v35;
-  if (v34 != v35)
+  v26 = v36;
+  if (v35 != v36)
   {
-    v26 = kMIDIPropertyAssociatedEndpoint;
-    v27 = v34;
+    v27 = kMIDIPropertyAssociatedEndpoint;
+    v28 = v35;
     do
     {
-      v28 = *v27;
-      if ((*(*v27 + 97) & 1) == 0 && (MIDIEndpoint::IsPartOfLegacyDevice(*v27) && MIDIEndpoint::GetPairedEndpoint(v28) || MIDIEndpoint::IsPartOfUMPDevice(v28) && (MIDIEndpoint::IsPartOfPhantomEntity(*(v28 + 9)) & 1) != 0 || *(v28 + 7)))
+      v29 = *v28;
+      if ((*(*v28 + 97) & 1) == 0 && (MIDIEndpoint::IsPartOfLegacyDevice(*v28) && MIDIEndpoint::GetPairedEndpoint(v29) || MIDIEndpoint::IsPartOfUMPDevice(v29) && (MIDIEndpoint::IsPartOfPhantomEntity(*(v29 + 9)) & 1) != 0 || *(v29 + 7)))
       {
-        PairedEndpoint = MIDIEndpoint::GetPairedEndpoint(v28);
+        PairedEndpoint = MIDIEndpoint::GetPairedEndpoint(v29);
         if (!PairedEndpoint)
         {
           outValue = 0;
-          MIDIObjectGetIntegerProperty(*(v28 + 2), v26, &outValue);
+          MIDIObjectGetIntegerProperty(*(v29 + 2), v27, &outValue);
           outObject = 0;
           outObjectType = kMIDIObjectType_Other;
           MIDIObjectFindByUniqueID(outValue, &outObject, &outObjectType);
           PairedEndpoint = outObject;
         }
 
-        v30 = 0;
+        v31 = 0;
         do
         {
-          v31 = v30;
-          MIDICI::DeviceManager::sendDiscoveryInquiry((v23 + 86), *(v28 + 2), PairedEndpoint, v30++);
+          v32 = v31;
+          MIDICI::DeviceManager::sendDiscoveryInquiry((v24 + 86), *(v29 + 2), PairedEndpoint, v31++);
         }
 
-        while (v31 < 0xF);
+        while (v32 < 0xF);
       }
 
-      ++v27;
+      ++v28;
     }
 
-    while (v27 != v25);
+    while (v28 != v26);
   }
 
-  if (v24)
+  if (v25)
   {
-    operator delete(v24);
+    operator delete(v25);
   }
 
   if (__p)
@@ -8412,17 +8428,17 @@ uint64_t _UMPCIDiscover(MIDIServer *a1)
     operator delete(__src);
   }
 
-  v17 = 0;
-  if (v33)
+  v18 = 0;
+  if (v34)
   {
 LABEL_42:
-    (*(*v1 + 24))(v1);
+    (*(*v2 + 24))(v2);
   }
 
-  return v17;
+  return v18;
 }
 
-void sub_2371FDCF4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18)
+void sub_2371FDCF4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18)
 {
   if (__p)
   {
@@ -8615,27 +8631,27 @@ void sub_2371FEA08(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t _MIDIInputPortCreate(MIDIServer *a1)
+uint64_t _MIDIInputPortCreate(MIDIServer *a1, const __CFString *a2, int a3, _DWORD *a4, const void *a5, const void *a6)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  if (BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIClient>::sRTTI, v1))
+  v6 = a1;
+  v7 = MIDIServer::defaultInstance(a1) + 2;
+  v8 = (*(*v7 + 16))(v7);
+  if (BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIClient>::sRTTI, v6))
   {
     operator new();
   }
 
-  if (v3)
+  if (v8)
   {
-    (*(*v2 + 24))(v2);
+    (*(*v7 + 24))(v7);
   }
 
   return 4294967246;
 }
 
-void sub_2371FEF3C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::exception a10, uint64_t a11, uint64_t a12)
+void sub_2371FEF3C(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::exception a10, uint64_t a11, uint64_t a12)
 {
-  MEMORY[0x2383C8250](v12, 0x10E1C40D52198E0);
+  MEMORY[0x2383C8250](v12, 0x10E1C40D52198E0, a3, a4, a5, a6, a7, a8);
   CADeprecated::CAMutex::Locker::~Locker(&a10);
   if (a2 == 3)
   {
@@ -8664,19 +8680,19 @@ void sub_2371FEF3C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x2371FEF14);
 }
 
-uint64_t _MIDIOutputPortCreate(MIDIServer *a1)
+uint64_t _MIDIOutputPortCreate(MIDIServer *a1, const __CFString *a2, _DWORD *a3)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  if (BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIClient>::sRTTI, v1))
+  v3 = a1;
+  v4 = MIDIServer::defaultInstance(a1) + 2;
+  v5 = (*(*v4 + 16))(v4);
+  if (BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIClient>::sRTTI, v3))
   {
     operator new();
   }
 
-  if (v3)
+  if (v5)
   {
-    (*(*v2 + 24))(v2);
+    (*(*v4 + 24))(v4);
   }
 
   return 4294967246;
@@ -8684,7 +8700,7 @@ uint64_t _MIDIOutputPortCreate(MIDIServer *a1)
 
 void sub_2371FF14C(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::exception a9)
 {
-  MEMORY[0x2383C8250](v9, 0x10E1C403A02A5B8);
+  MEMORY[0x2383C8250](v9, 0x10E1C403A02A5B8, a3, a4, a5, a6, a7, a8);
   CADeprecated::CAMutex::Locker::~Locker(&a9);
   if (a2 == 3)
   {
@@ -8713,19 +8729,19 @@ void sub_2371FF14C(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint
   JUMPOUT(0x2371FF12CLL);
 }
 
-uint64_t _MIDIPortDispose(MIDIServer *a1)
+uint64_t _MIDIPortDispose(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v13 = MIDIServer::defaultInstance(a1) + 13;
-  v2 = (*(*v13 + 16))();
-  v3 = v2;
-  v4 = MIDIServer::defaultInstance(v2) + 2;
-  v5 = (*(*v4 + 16))(v4);
-  v6 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIPort>::sRTTI, v1);
-  if (!v6)
+  v2 = a1;
+  v14 = MIDIServer::defaultInstance(a1) + 13;
+  v3 = (*(*v14 + 16))();
+  v4 = v3;
+  v5 = MIDIServer::defaultInstance(v3) + 2;
+  v6 = (*(*v5 + 16))(v5);
+  v7 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIPort>::sRTTI, v2);
+  if (!v7)
   {
-    v11 = 4294967246;
-    if (!v5)
+    v12 = 4294967246;
+    if (!v6)
     {
       goto LABEL_17;
     }
@@ -8733,26 +8749,26 @@ uint64_t _MIDIPortDispose(MIDIServer *a1)
     goto LABEL_16;
   }
 
-  v7 = *(v6 + 48);
-  v9 = *(v7 + 72);
-  v8 = *(v7 + 80);
-  if (v9 != v8)
+  v8 = *(v7 + 48);
+  v10 = *(v8 + 72);
+  v9 = *(v8 + 80);
+  if (v10 != v9)
   {
-    while (*v9 != v6)
+    while (*v10 != v7)
     {
-      v9 += 8;
-      if (v9 == v8)
+      v10 += 8;
+      if (v10 == v9)
       {
         goto LABEL_15;
       }
     }
   }
 
-  if (v9 == v8)
+  if (v10 == v9)
   {
 LABEL_15:
-    v11 = 4294956465;
-    if (!v5)
+    v12 = 4294956465;
+    if (!v6)
     {
       goto LABEL_17;
     }
@@ -8760,39 +8776,39 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  if (*v9)
+  if (*v10)
   {
-    (*(**v9 + 8))(*v9);
-    v8 = *(v7 + 80);
+    (*(**v10 + 8))(*v10);
+    v9 = *(v8 + 80);
   }
 
-  v10 = v8 - (v9 + 8);
-  if (v8 != v9 + 8)
+  v11 = v9 - (v10 + 8);
+  if (v9 != v10 + 8)
   {
-    memmove(v9, v9 + 8, v8 - (v9 + 8));
+    memmove(v10, v10 + 8, v9 - (v10 + 8));
   }
 
-  v11 = 0;
-  *(v7 + 80) = &v9[v10];
-  if (v5)
+  v12 = 0;
+  *(v8 + 80) = &v10[v11];
+  if (v6)
   {
 LABEL_16:
-    (*(*v4 + 24))(v4);
+    (*(*v5 + 24))(v5);
   }
 
 LABEL_17:
-  if (v3)
+  if (v4)
   {
-    (*(*v13 + 24))(v13);
+    (*(*v14 + 24))(v14);
   }
 
-  return v11;
+  return v12;
 }
 
-uint64_t _MIDIPortConnectSource(MIDIServer *a1, unsigned int a2, uint64_t a3)
+uint64_t _MIDIPortConnectSource(MIDIServer *a1, unsigned int a2, void (**a3)())
 {
   v5 = a1;
-  v62 = *MEMORY[0x277D85DE8];
+  v58[7] = *MEMORY[0x277D85DE8];
   v6 = MIDIServer::defaultInstance(a1) + 2;
   v7 = (*(*v6 + 16))(v6);
   v8 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIPort>::sRTTI, v5);
@@ -8910,7 +8926,7 @@ LABEL_15:
     v34 = (v13 + 80);
     if (v33 == *(v13 + 11) && (*(v13 + 12) - v33) <= 0xFF)
     {
-      v61 = v13 + 80;
+      v58[4] = (v13 + 80);
       operator new();
     }
 
@@ -8927,10 +8943,10 @@ LABEL_15:
     if (v36)
     {
       v37 = *(v13 + 14);
-      v58 = caulk::inplace_function<void ()(MIDI::EventList const*),48ul,8ul,caulk::inplace_function_detail::rt_vtable>::k_wrapper_vtable<MIDIInputPort::AddConnectedSource(MIDISource *,void *)::$_1>;
-      v59 = v36;
-      v60 = a3;
-      MIDI::EventListDeliverer::create(&v51, v37);
+      v58[0] = caulk::inplace_function<void ()(MIDI::EventList const*),48ul,8ul,caulk::inplace_function_detail::rt_vtable>::k_wrapper_vtable<MIDIInputPort::AddConnectedSource(MIDISource *,void *)::$_1>;
+      v58[1] = v36;
+      v58[2] = a3;
+      MIDI::EventListDeliverer::create(&v51, v37, v58);
     }
 
     v38 = *(v13 + 11);
@@ -9025,7 +9041,7 @@ LABEL_10:
   return v20;
 }
 
-void sub_2371FFA34(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::exception a12, uint64_t a13, char a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28)
+void sub_2371FFA34(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::exception a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28)
 {
   if (a2)
   {
@@ -9140,19 +9156,19 @@ void sub_2371FFD48(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x2371FFD24);
 }
 
-void _MIDISetupCreate(MIDIServer *a1)
+void _MIDISetupCreate(MIDIServer *a1, int a2)
 {
-  v3 = MIDIServer::defaultInstance(a1) + 2;
-  (*(*v3 + 16))(v3);
+  v4 = MIDIServer::defaultInstance(a1) + 2;
+  (*(*v4 + 16))(v4);
   Scheduler::FlushAllOutput(gScheduler);
-  v2 = MIDIServer::defaultInstance(v1);
-  MIDIDriverMgr::StopMIDI(v2[33]);
+  v3 = MIDIServer::defaultInstance(v2);
+  MIDIDriverMgr::StopMIDI(v3[33]);
   operator new();
 }
 
 void sub_2371FFED8(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::exception a9)
 {
-  MEMORY[0x2383C8250](v9, 0x10E1C4053490D92);
+  MEMORY[0x2383C8250](v9, 0x10E1C4053490D92, a3, a4, a5, a6, a7, a8);
   CADeprecated::CAMutex::Locker::~Locker(&a9);
   if (a2 == 3)
   {
@@ -9181,25 +9197,25 @@ void sub_2371FFED8(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint
   JUMPOUT(0x2371FFEBCLL);
 }
 
-uint64_t _MIDISetupInstall(MIDIServer *a1)
+uint64_t _MIDISetupInstall(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDISetup>::sRTTI, v1);
-  v5 = v4;
+  v2 = a1;
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDISetup>::sRTTI, v2);
+  v6 = v5;
+  if (v5)
+  {
+    v7 = SetupManager::instance(v5);
+    SetupManager::Install(v7, v6, 0);
+  }
+
   if (v4)
   {
-    v6 = SetupManager::instance(v4);
-    SetupManager::Install(v6, v5, 0);
+    (*(*v3 + 24))(v3);
   }
 
-  if (v3)
-  {
-    (*(*v2 + 24))(v2);
-  }
-
-  if (v5)
+  if (v6)
   {
     return 0;
   }
@@ -9210,20 +9226,20 @@ uint64_t _MIDISetupInstall(MIDIServer *a1)
   }
 }
 
-uint64_t _MIDISetupGetCurrent(MIDIServer *a1)
+uint64_t _MIDISetupGetCurrent(MIDIServer *a1, int a2)
 {
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = v3;
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = v4;
   if (a1)
   {
-    v5 = SetupManager::instance(v3);
-    if (*v5)
+    v6 = SetupManager::instance(v4);
+    if (*v6)
     {
-      *a1 = *(*v5 + 8);
-      v6 = 4294956459;
-      v7 = 1;
-      if (!v4)
+      *a1 = *(*v6 + 8);
+      v7 = 4294956459;
+      v8 = 1;
+      if (!v5)
       {
         goto LABEL_9;
       }
@@ -9231,33 +9247,33 @@ uint64_t _MIDISetupGetCurrent(MIDIServer *a1)
 
     else
     {
-      v7 = 0;
-      v6 = 4294956459;
-      if (!v4)
+      v8 = 0;
+      v7 = 4294956459;
+      if (!v5)
       {
         goto LABEL_9;
       }
     }
 
 LABEL_8:
-    (*(*v2 + 24))(v2);
+    (*(*v3 + 24))(v3);
     goto LABEL_9;
   }
 
-  v7 = 0;
-  v6 = 4294967246;
-  if (v3)
+  v8 = 0;
+  v7 = 4294967246;
+  if (v4)
   {
     goto LABEL_8;
   }
 
 LABEL_9:
-  if (v7)
+  if (v8)
   {
     return 0;
   }
 
-  return v6;
+  return v7;
 }
 
 void sub_2372001E8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
@@ -9290,7 +9306,7 @@ void sub_2372001E8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x2372001CCLL);
 }
 
-uint64_t _MIDISetupFromData(MIDIServer *a1, uint64_t a2)
+uint64_t _MIDISetupFromData(MIDIServer *a1, _DWORD *a2)
 {
   v4 = MIDIServer::defaultInstance(a1) + 2;
   v5 = (*(*v4 + 16))(v4);
@@ -9326,7 +9342,7 @@ uint64_t _MIDISetupFromData(MIDIServer *a1, uint64_t a2)
 
 void sub_2372003BC(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::exception a9)
 {
-  MEMORY[0x2383C8250](v9, 0x10E1C4053490D92);
+  MEMORY[0x2383C8250](v9, 0x10E1C4053490D92, a3, a4, a5, a6, a7, a8);
   CADeprecated::CAMutex::Locker::~Locker(&a9);
   if (a2 == 2)
   {
@@ -9343,46 +9359,46 @@ void sub_2372003BC(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint
   JUMPOUT(0x23720039CLL);
 }
 
-uint64_t _MIDIGetNumberOfDevices(MIDIServer *a1)
+uint64_t _MIDIGetNumberOfDevices(MIDIServer *a1, int a2)
 {
-  v1 = MIDIServer::defaultInstance(a1) + 2;
-  v2 = (*(*v1 + 16))(v1);
-  v3 = v2;
-  v4 = *SetupManager::instance(v2);
-  if (!v4 || (v5 = *(v4 + 64), v6 = *(v4 + 72), v5 == v6))
+  v2 = MIDIServer::defaultInstance(a1) + 2;
+  v3 = (*(*v2 + 16))(v2);
+  v4 = v3;
+  v5 = *SetupManager::instance(v3);
+  if (!v5 || (v6 = *(v5 + 64), v7 = *(v5 + 72), v6 == v7))
   {
-    v7 = 0;
-    if (!v3)
+    v8 = 0;
+    if (!v4)
     {
-      return v7;
+      return v8;
     }
 
 LABEL_10:
-    (*(*v1 + 24))(v1);
-    return v7;
+    (*(*v2 + 24))(v2);
+    return v8;
   }
 
-  v7 = 0;
+  v8 = 0;
   do
   {
-    v8 = *v5;
-    v10 = 0;
-    MIDIObject::GetIntegerProperty(v8, kMIDIPropertyPrivate, &v10);
-    if (!v10)
+    v9 = *v6;
+    v11 = 0;
+    MIDIObject::GetIntegerProperty(v9, kMIDIPropertyPrivate, &v11);
+    if (!v11)
     {
-      ++v7;
+      ++v8;
     }
 
-    ++v5;
+    ++v6;
   }
 
-  while (v5 != v6);
-  if (v3)
+  while (v6 != v7);
+  if (v4)
   {
     goto LABEL_10;
   }
 
-  return v7;
+  return v8;
 }
 
 void sub_237200574(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::exception a10)
@@ -9405,64 +9421,64 @@ void sub_237200574(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x237200554);
 }
 
-uint64_t _MIDIGetDevice(MIDIServer *a1)
+uint64_t _MIDIGetDevice(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = v3;
-  v5 = SetupManager::instance(v3);
-  v6 = *(*v5 + 64);
-  v7 = *(*v5 + 72);
-  if (v6 == v7)
+  v2 = a1;
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = v4;
+  v6 = SetupManager::instance(v4);
+  v7 = *(*v6 + 64);
+  v8 = *(*v6 + 72);
+  if (v7 == v8)
   {
     goto LABEL_6;
   }
 
   while (1)
   {
-    v8 = *v6;
-    v11 = 0;
-    MIDIObject::GetIntegerProperty(v8, kMIDIPropertyPrivate, &v11);
-    if (!v11)
+    v9 = *v7;
+    v12 = 0;
+    MIDIObject::GetIntegerProperty(v9, kMIDIPropertyPrivate, &v12);
+    if (!v12)
     {
       break;
     }
 
 LABEL_5:
-    if (++v6 == v7)
+    if (++v7 == v8)
     {
       goto LABEL_6;
     }
   }
 
-  if (v1)
+  if (v2)
   {
-    v1 = (v1 - 1);
+    v2 = (v2 - 1);
     goto LABEL_5;
   }
 
-  if (!v8)
+  if (!v9)
   {
 LABEL_6:
-    v9 = 0;
-    if (v4)
+    v10 = 0;
+    if (v5)
     {
       goto LABEL_7;
     }
 
-    return v9;
+    return v10;
   }
 
-  v9 = v8[2];
-  if (!v4)
+  v10 = v9[2];
+  if (!v5)
   {
-    return v9;
+    return v10;
   }
 
 LABEL_7:
-  (*(*v2 + 24))(v2);
-  return v9;
+  (*(*v3 + 24))(v3);
+  return v10;
 }
 
 void sub_237200708(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::exception a10)
@@ -9485,95 +9501,95 @@ void sub_237200708(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x2372006D4);
 }
 
-uint64_t _MIDIGetNumberOfSources(MIDIServer *a1)
+uint64_t _MIDIGetNumberOfSources(MIDIServer *a1, int a2)
 {
-  v1 = MIDIServer::defaultInstance(a1) + 2;
-  v2 = (*(*v1 + 16))(v1);
-  v3 = v2;
-  IntegerProperty = SetupManager::instance(v2);
-  v5 = *IntegerProperty;
+  v2 = MIDIServer::defaultInstance(a1) + 2;
+  v3 = (*(*v2 + 16))(v2);
+  v4 = v3;
+  IntegerProperty = SetupManager::instance(v3);
+  v6 = *IntegerProperty;
   if (!*IntegerProperty)
   {
-    v10 = 0;
-    if (!v3)
+    v11 = 0;
+    if (!v4)
     {
-      return v10;
+      return v11;
     }
 
     goto LABEL_21;
   }
 
-  v6 = *(v5 + 88);
-  v7 = *(v5 + 96);
-  if (v6 == v7)
+  v7 = *(v6 + 88);
+  v8 = *(v6 + 96);
+  if (v7 == v8)
   {
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
     do
     {
-      v9 = *v6;
-      v17 = 0;
-      IntegerProperty = MIDIObject::GetIntegerProperty(v9, kMIDIPropertyOffline, &v17);
-      if (!v17)
+      v10 = *v7;
+      v18 = 0;
+      IntegerProperty = MIDIObject::GetIntegerProperty(v10, kMIDIPropertyOffline, &v18);
+      if (!v18)
       {
-        v17 = 0;
-        IntegerProperty = MIDIObject::GetIntegerProperty(v9, kMIDIPropertyPrivate, &v17);
-        if (!v17)
+        v18 = 0;
+        IntegerProperty = MIDIObject::GetIntegerProperty(v10, kMIDIPropertyPrivate, &v18);
+        if (!v18)
         {
-          ++v8;
+          ++v9;
         }
       }
 
-      ++v6;
+      ++v7;
     }
 
-    while (v6 != v7);
+    while (v7 != v8);
   }
 
-  v11 = SetupManager::instance(IntegerProperty);
-  v12 = *(v11 + 8);
-  v13 = *(v11 + 16);
-  if (v12 == v13)
+  v12 = SetupManager::instance(IntegerProperty);
+  v13 = *(v12 + 8);
+  v14 = *(v12 + 16);
+  if (v13 == v14)
   {
-    v14 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
     do
     {
-      v15 = *v12;
-      v17 = 0;
-      MIDIObject::GetIntegerProperty(v15, kMIDIPropertyOffline, &v17);
-      if (!v17)
+      v16 = *v13;
+      v18 = 0;
+      MIDIObject::GetIntegerProperty(v16, kMIDIPropertyOffline, &v18);
+      if (!v18)
       {
-        v17 = 0;
-        MIDIObject::GetIntegerProperty(v15, kMIDIPropertyPrivate, &v17);
-        if (!v17)
+        v18 = 0;
+        MIDIObject::GetIntegerProperty(v16, kMIDIPropertyPrivate, &v18);
+        if (!v18)
         {
-          ++v14;
+          ++v15;
         }
       }
 
-      ++v12;
+      ++v13;
     }
 
-    while (v12 != v13);
+    while (v13 != v14);
   }
 
-  v10 = v14 + v8;
-  if (v3)
+  v11 = v15 + v9;
+  if (v4)
   {
 LABEL_21:
-    (*(*v1 + 24))(v1);
+    (*(*v2 + 24))(v2);
   }
 
-  return v10;
+  return v11;
 }
 
 void sub_23720093C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::exception a10)
@@ -9596,76 +9612,76 @@ void sub_23720093C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x237200914);
 }
 
-uint64_t _MIDIGetSource(MIDIServer *a1)
+uint64_t _MIDIGetSource(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = v3;
-  IntegerProperty = SetupManager::instance(v3);
-  v6 = *(*IntegerProperty + 88);
-  v7 = *(*IntegerProperty + 96);
+  v2 = a1;
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = v4;
+  IntegerProperty = SetupManager::instance(v4);
+  v7 = *(*IntegerProperty + 88);
+  v8 = *(*IntegerProperty + 96);
   while (1)
   {
-    if (v6 == v7)
+    if (v7 == v8)
     {
       goto LABEL_10;
     }
 
-    v8 = *v6;
-    v14 = 0;
-    IntegerProperty = MIDIObject::GetIntegerProperty(v8, kMIDIPropertyOffline, &v14);
-    if (!v14)
+    v9 = *v7;
+    v15 = 0;
+    IntegerProperty = MIDIObject::GetIntegerProperty(v9, kMIDIPropertyOffline, &v15);
+    if (!v15)
     {
-      v14 = 0;
-      IntegerProperty = MIDIObject::GetIntegerProperty(v8, kMIDIPropertyPrivate, &v14);
-      if (!v14)
+      v15 = 0;
+      IntegerProperty = MIDIObject::GetIntegerProperty(v9, kMIDIPropertyPrivate, &v15);
+      if (!v15)
       {
         break;
       }
     }
 
 LABEL_7:
-    ++v6;
+    ++v7;
   }
 
-  if (v1)
+  if (v2)
   {
-    --v1;
+    --v2;
     goto LABEL_7;
   }
 
-  if (v8)
+  if (v9)
   {
 LABEL_18:
-    v12 = v8[2];
-    if (!v4)
+    v13 = v9[2];
+    if (!v5)
     {
-      return v12;
+      return v13;
     }
 
     goto LABEL_21;
   }
 
-  v1 = -1;
+  v2 = -1;
 LABEL_10:
-  v9 = SetupManager::instance(IntegerProperty);
-  v10 = *(v9 + 8);
-  v11 = *(v9 + 16);
-  while (v10 != v11)
+  v10 = SetupManager::instance(IntegerProperty);
+  v11 = *(v10 + 8);
+  v12 = *(v10 + 16);
+  while (v11 != v12)
   {
-    v8 = *v10;
-    v14 = 0;
-    MIDIObject::GetIntegerProperty(v8, kMIDIPropertyOffline, &v14);
-    if (!v14)
+    v9 = *v11;
+    v15 = 0;
+    MIDIObject::GetIntegerProperty(v9, kMIDIPropertyOffline, &v15);
+    if (!v15)
     {
-      v14 = 0;
-      MIDIObject::GetIntegerProperty(v8, kMIDIPropertyPrivate, &v14);
-      if (!v14)
+      v15 = 0;
+      MIDIObject::GetIntegerProperty(v9, kMIDIPropertyPrivate, &v15);
+      if (!v15)
       {
-        if (!v1)
+        if (!v2)
         {
-          if (v8)
+          if (v9)
           {
             goto LABEL_18;
           }
@@ -9673,21 +9689,21 @@ LABEL_10:
           break;
         }
 
-        --v1;
+        --v2;
       }
     }
 
-    ++v10;
+    ++v11;
   }
 
-  v12 = 0;
-  if (v4)
+  v13 = 0;
+  if (v5)
   {
 LABEL_21:
-    (*(*v2 + 24))(v2);
+    (*(*v3 + 24))(v3);
   }
 
-  return v12;
+  return v13;
 }
 
 void sub_237200B60(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::exception a10)
@@ -9710,93 +9726,93 @@ void sub_237200B60(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x237200B3CLL);
 }
 
-uint64_t _MIDIGetNumberOfDestinations(MIDIServer *a1)
+uint64_t _MIDIGetNumberOfDestinations(MIDIServer *a1, int a2)
 {
-  v1 = MIDIServer::defaultInstance(a1) + 2;
-  v2 = (*(*v1 + 16))(v1);
-  v3 = v2;
-  IntegerProperty = SetupManager::instance(v2);
-  v5 = *IntegerProperty;
+  v2 = MIDIServer::defaultInstance(a1) + 2;
+  v3 = (*(*v2 + 16))(v2);
+  v4 = v3;
+  IntegerProperty = SetupManager::instance(v3);
+  v6 = *IntegerProperty;
   if (!*IntegerProperty)
   {
-    v10 = 0;
-    if (!v3)
+    v11 = 0;
+    if (!v4)
     {
-      return v10;
+      return v11;
     }
 
     goto LABEL_21;
   }
 
-  v6 = *(v5 + 112);
-  v7 = *(v5 + 120);
-  if (v6 == v7)
+  v7 = *(v6 + 112);
+  v8 = *(v6 + 120);
+  if (v7 == v8)
   {
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
     do
     {
-      v9 = *v6;
-      v17 = 0;
-      IntegerProperty = MIDIObject::GetIntegerProperty(v9, kMIDIPropertyOffline, &v17);
-      if (!v17)
+      v10 = *v7;
+      v18 = 0;
+      IntegerProperty = MIDIObject::GetIntegerProperty(v10, kMIDIPropertyOffline, &v18);
+      if (!v18)
       {
-        v17 = 0;
-        IntegerProperty = MIDIObject::GetIntegerProperty(v9, kMIDIPropertyPrivate, &v17);
-        if (!v17)
+        v18 = 0;
+        IntegerProperty = MIDIObject::GetIntegerProperty(v10, kMIDIPropertyPrivate, &v18);
+        if (!v18)
         {
-          ++v8;
+          ++v9;
         }
       }
 
-      ++v6;
+      ++v7;
     }
 
-    while (v6 != v7);
+    while (v7 != v8);
   }
 
-  v11 = SetupManager::instance(IntegerProperty);
-  v12 = *(v11 + 32);
-  v13 = *(v11 + 40);
-  if (v12 == v13)
+  v12 = SetupManager::instance(IntegerProperty);
+  v13 = *(v12 + 32);
+  v14 = *(v12 + 40);
+  if (v13 == v14)
   {
-    v14 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
     do
     {
-      v15 = *v12;
-      v17 = 0;
-      MIDIObject::GetIntegerProperty(v15, kMIDIPropertyOffline, &v17);
-      if (!v17)
+      v16 = *v13;
+      v18 = 0;
+      MIDIObject::GetIntegerProperty(v16, kMIDIPropertyOffline, &v18);
+      if (!v18)
       {
-        v17 = 0;
-        MIDIObject::GetIntegerProperty(v15, kMIDIPropertyPrivate, &v17);
-        if (!v17)
+        v18 = 0;
+        MIDIObject::GetIntegerProperty(v16, kMIDIPropertyPrivate, &v18);
+        if (!v18)
         {
-          ++v14;
+          ++v15;
         }
       }
 
-      ++v12;
+      ++v13;
     }
 
-    while (v12 != v13);
+    while (v13 != v14);
   }
 
-  v10 = v14 + v8;
-  if (v3)
+  v11 = v15 + v9;
+  if (v4)
   {
 LABEL_21:
-    (*(*v1 + 24))(v1);
+    (*(*v2 + 24))(v2);
   }
 
-  return v10;
+  return v11;
 }

@@ -9,13 +9,11 @@
 - (HMDNetworkInfoController)init
 {
   type metadata accessor for NetworkInfoSCDataSource();
-  v3 = swift_allocObject();
-  v4 = sub_2298047A4(v3);
+  v2 = swift_allocObject();
+  v3 = sub_2298047A4(v2);
   swift_getObjectType();
-  v5 = *((*MEMORY[0x277D85000] & self->super.isa) + 0x30);
-  v6 = *((*MEMORY[0x277D85000] & self->super.isa) + 0x34);
   swift_deallocPartialClassInstance();
-  return v4;
+  return v3;
 }
 
 - (void)start

@@ -13,7 +13,7 @@
   v8 = [datasetCopy sortedArrayUsingComparator:&__block_literal_global_29402];
   array = [MEMORY[0x1E695DF70] array];
   averageNumberOfObjects = self->_averageNumberOfObjects;
-  v11 = [datasetCopy count];
+  v11 = objc_msgSend_count(datasetCopy);
   v22 = 0;
   if (averageNumberOfObjects >= v11)
   {
@@ -74,9 +74,9 @@ uint64_t __57__PLTimeSpanClustering_performWithDataset_progressBlock___block_inv
 - (unint64_t)_findNearestIndexMatchingTimeSpan:(unint64_t)span inDataset:(id)dataset
 {
   datasetCopy = dataset;
-  if ([datasetCopy count] <= span)
+  if (objc_msgSend_count(datasetCopy) <= span)
   {
-    spanCopy = [datasetCopy count] - 1;
+    spanCopy = objc_msgSend_count(datasetCopy) - 1;
   }
 
   else
@@ -93,9 +93,9 @@ uint64_t __57__PLTimeSpanClustering_performWithDataset_progressBlock___block_inv
     v32 = datasetCopy;
     while (1)
     {
-      if (v8 >= [datasetCopy count])
+      if (v8 >= objc_msgSend_count(datasetCopy, spanCopy2))
       {
-        spanCopy = [datasetCopy count] - 1;
+        spanCopy = objc_msgSend_count(datasetCopy) - 1;
         v12 = v9;
         v24 = v33;
         goto LABEL_19;

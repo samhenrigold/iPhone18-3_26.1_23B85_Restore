@@ -112,9 +112,9 @@
 uint64_t __37__ARFrameUpdateTimer__storeNewFrame___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v4 = a3;
-  [a2 timestamp];
+  objc_msgSend_timestamp(a2);
   v6 = v5;
-  [v4 timestamp];
+  objc_msgSend_timestamp(v4);
   v8 = v7;
 
   if (v6 >= v8)
@@ -130,7 +130,7 @@ uint64_t __37__ARFrameUpdateTimer__storeNewFrame___block_invoke(uint64_t a1, voi
 
 - (void)_vendFrameIfAtLastTickNoFrameWasVended
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (!self->_frameWasVendedAtLastTimerTick)
   {
     [(ARFrameUpdateTimer *)self _timeTillNextTimerTick];
@@ -140,23 +140,23 @@ uint64_t __37__ARFrameUpdateTimer__storeNewFrame___block_invoke(uint64_t a1, voi
     {
       os_unfair_lock_lock_with_options();
       firstObject = [(NSMutableArray *)self->_unvendedFrames firstObject];
-      if (!firstObject || [(ARFrameUpdateTimer *)self _latencyIsTooLowForFrame:firstObject]&& self->_lastFrameVendReason == 1)
+      if (!firstObject || (v7 = [(ARFrameUpdateTimer *)self _latencyIsTooLowForFrame:firstObject], v7) && self->_lastFrameVendReason == 1)
       {
         os_unfair_lock_unlock(&self->_unvendedFramesLock);
       }
 
       else
       {
-        v7 = _ARLogGeneral_40();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+        v8 = _ARLogGeneral_40(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          v8 = objc_opt_class();
-          v9 = NSStringFromClass(v8);
-          v10 = 138543618;
-          v11 = v9;
-          v12 = 2048;
+          v9 = objc_opt_class();
+          v10 = NSStringFromClass(v9);
+          v11 = 138543618;
+          v12 = v10;
+          v13 = 2048;
           selfCopy = self;
-          _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Vending frame outside of timer tick.", &v10, 0x16u);
+          _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Vending frame outside of timer tick.", &v11, 0x16u);
         }
 
         [(NSMutableArray *)self->_unvendedFrames removeObjectAtIndex:0];
@@ -169,33 +169,34 @@ uint64_t __37__ARFrameUpdateTimer__storeNewFrame___block_invoke(uint64_t a1, voi
 
 - (void)_vendFramesThatExceedTheMaximumLatency
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   os_unfair_lock_lock_with_options();
   *&v4 = 138543874;
-  v14 = v4;
+  v15 = v4;
   while ([(NSMutableArray *)self->_unvendedFrames count])
   {
     firstObject = [(NSMutableArray *)self->_unvendedFrames firstObject];
-    if (![(ARFrameUpdateTimer *)self _latencyIsTooHighForFrame:firstObject])
+    v6 = [(ARFrameUpdateTimer *)self _latencyIsTooHighForFrame:firstObject];
+    if ((v6 & 1) == 0)
     {
 
       break;
     }
 
-    v6 = _ARLogGeneral_40();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = _ARLogGeneral_40(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
       maxDesiredLatency = self->_maxDesiredLatency;
-      *buf = v14;
-      v21 = v8;
-      v22 = 2048;
+      *buf = v15;
+      v22 = v9;
+      v23 = 2048;
       selfCopy = self;
-      v24 = 2048;
-      v25 = maxDesiredLatency;
-      _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Vending frame outside of timer tick because maximum latency of %f s is reached.", buf, 0x20u);
+      v25 = 2048;
+      v26 = maxDesiredLatency;
+      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Vending frame outside of timer tick because maximum latency of %f s is reached.", buf, 0x20u);
     }
 
     [(NSMutableArray *)self->_unvendedFrames removeObjectAtIndex:0];
@@ -203,33 +204,33 @@ uint64_t __37__ARFrameUpdateTimer__storeNewFrame___block_invoke(uint64_t a1, voi
   }
 
   os_unfair_lock_unlock(&self->_unvendedFramesLock);
-  v17 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v10 = v3;
-  v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v11)
+  v17 = 0u;
+  v11 = v3;
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v12)
   {
-    v12 = *v16;
+    v13 = *v17;
     do
     {
-      v13 = 0;
+      v14 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v17 != v13)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        [(ARFrameUpdateTimer *)self _vendFrame:*(*(&v15 + 1) + 8 * v13++) withReason:2];
+        [(ARFrameUpdateTimer *)self _vendFrame:*(*(&v16 + 1) + 8 * v14++) withReason:2];
       }
 
-      while (v11 != v13);
-      v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v12 != v14);
+      v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 }
 
@@ -243,7 +244,7 @@ uint64_t __37__ARFrameUpdateTimer__storeNewFrame___block_invoke(uint64_t a1, voi
   while ([(NSMutableArray *)self->_unvendedFrames count]>= 3)
   {
     firstObject = [(NSMutableArray *)self->_unvendedFrames firstObject];
-    v6 = _ARLogGeneral_40();
+    v6 = _ARLogGeneral_40(firstObject);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v7 = objc_opt_class();
@@ -297,7 +298,7 @@ uint64_t __37__ARFrameUpdateTimer__storeNewFrame___block_invoke(uint64_t a1, voi
 {
   active = self->_active;
   frameCopy = frame;
-  [frameCopy timestamp];
+  objc_msgSend_timestamp(frameCopy);
   if (active)
   {
     [(ARFrameUpdateTimer *)self _unvendedFramesCount];
@@ -359,7 +360,7 @@ uint64_t __37__ARFrameUpdateTimer__storeNewFrame___block_invoke(uint64_t a1, voi
 - (void)_startExecutorWithFrameRate:(unint64_t)rate initialDelay:(double)delay
 {
   v21 = *MEMORY[0x1E69E9840];
-  v7 = _ARLogGeneral_40();
+  v7 = _ARLogGeneral_40(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v8 = objc_opt_class();
@@ -420,7 +421,7 @@ void __63__ARFrameUpdateTimer__startExecutorWithFrameRate_initialDelay___block_i
 
 - (void)_frameUpdateTick
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   [(ARTimeProviding *)self->_timeProvider currentTime];
   self->_lastTimerTick = v3;
   os_unfair_lock_lock_with_options();
@@ -432,16 +433,26 @@ void __63__ARFrameUpdateTimer__startExecutorWithFrameRate_initialDelay___block_i
     [(ARFrameUpdateTimer *)self _frameDuration];
     v7 = v6;
     v8 = [(ARFrameUpdateTimer *)self _latencyIsTooLowForFrame:firstObject];
-    if (lastTimerTick - lastFrameVendTimestamp <= v7 && v8)
+    if (lastTimerTick - lastFrameVendTimestamp <= v7)
     {
-      v10 = _ARLogGeneral_40();
+      v9 = v8;
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    if (v9 == 1)
+    {
+      v10 = _ARLogGeneral_40(v8);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         v11 = objc_opt_class();
         v12 = NSStringFromClass(v11);
         *buf = 138543618;
-        v18 = v12;
-        v19 = 2048;
+        v19 = v12;
+        v20 = 2048;
         selfCopy2 = self;
         _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Holding back frame because we're under the minimum latency.", buf, 0x16u);
       }
@@ -468,17 +479,17 @@ void __63__ARFrameUpdateTimer__startExecutorWithFrameRate_initialDelay___block_i
     os_unfair_lock_unlock(&self->_unvendedFramesLock);
   }
 
-  kdebug_trace();
-  v13 = _ARLogGeneral_40();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v13 = kdebug_trace();
+  v14 = _ARLogGeneral_40(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
+    v15 = objc_opt_class();
+    v16 = NSStringFromClass(v15);
     *buf = 138543618;
-    v18 = v15;
-    v19 = 2048;
+    v19 = v16;
+    v20 = 2048;
     selfCopy2 = self;
-    _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: No new unvended frame ready to publish at timer tick. Will attempt to push shortly.", buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: No new unvended frame ready to publish at timer tick. Will attempt to push shortly.", buf, 0x16u);
   }
 
   self->_frameWasVendedAtLastTimerTick = 0;
@@ -487,10 +498,10 @@ void __63__ARFrameUpdateTimer__startExecutorWithFrameRate_initialDelay___block_i
 - (void)_vendFrame:(id)frame withReason:(unint64_t)reason
 {
   frameCopy = frame;
-  [frameCopy timestamp];
+  objc_msgSend_timestamp(frameCopy);
   [(ARTimeProviding *)self->_timeProvider currentTime];
   [frameCopy scheduledTimestamp];
-  ARInstrumentsValueFromFrameVendReason();
+  ARInstrumentsValueFromFrameVendReason(reason);
   kdebug_trace();
   [(ARTimeProviding *)self->_timeProvider currentTime];
   self->_lastFrameVendTimestamp = v7;

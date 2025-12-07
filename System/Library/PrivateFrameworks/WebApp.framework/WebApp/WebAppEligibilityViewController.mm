@@ -3,6 +3,8 @@
 - (void)_openURLAndDestroySceneIfNeeded;
 - (void)loadView;
 - (void)presentAlertIfNeeded;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation WebAppEligibilityViewController
@@ -52,6 +54,26 @@ void __57__WebAppEligibilityViewController_initWithWebClip_scene___block_invoke(
     v5 = *(*(a1 + 32) + 1008);
 
     [v5 _sf_destroyScene];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WebAppEligibilityViewController;
+  [(WebAppEligibilityViewController *)&v4 viewDidAppear:appear];
+  [(WebAppEligibilityViewController *)self presentAlertIfNeeded];
+  [(WebAppEligibilityViewController *)self _openURLAndDestroySceneIfNeeded];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = WebAppEligibilityViewController;
+  [(WebAppEligibilityViewController *)&v4 viewWillDisappear:disappear];
+  if (self->_hasPendingDestroyScene)
+  {
+    [(UIScene *)self->_scene _sf_destroyScene];
   }
 }
 

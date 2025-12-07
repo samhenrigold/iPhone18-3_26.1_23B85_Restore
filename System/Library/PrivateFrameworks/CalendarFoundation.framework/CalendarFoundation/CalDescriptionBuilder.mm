@@ -10,6 +10,7 @@
 - (void)setKey:(id)key withDouble:(double)double;
 - (void)setKey:(id)key withEnumNumericalValue:(int64_t)value andStringValue:(id)stringValue;
 - (void)setKey:(id)key withFloat:(float)float;
+- (void)setKey:(id)key withInt:(int)int;
 - (void)setKey:(id)key withInteger:(int64_t)integer;
 - (void)setKey:(id)key withLong:(int64_t)long;
 - (void)setKey:(id)key withLongLong:(int64_t)long;
@@ -18,9 +19,12 @@
 - (void)setKey:(id)key withSelector:(SEL)selector;
 - (void)setKey:(id)key withShort:(signed __int16)short;
 - (void)setKey:(id)key withSize:(unint64_t)size;
+- (void)setKey:(id)key withUnsignedChar:(unsigned __int8)char;
+- (void)setKey:(id)key withUnsignedInt:(unsigned int)int;
 - (void)setKey:(id)key withUnsignedInteger:(unint64_t)integer;
 - (void)setKey:(id)key withUnsignedLong:(unint64_t)long;
 - (void)setKey:(id)key withUnsignedLongLong:(unint64_t)long;
+- (void)setKey:(id)key withUnsignedShort:(unsigned __int16)short;
 @end
 
 @implementation CalDescriptionBuilder
@@ -208,6 +212,16 @@ void __30__CalDescriptionBuilder_build__block_invoke_2(uint64_t a1, void *a2, ui
   [descriptionUnderConstruction setObject:float forKey:keyCopy];
 }
 
+- (void)setKey:(id)key withInt:(int)int
+{
+  v4 = *&int;
+  v6 = MEMORY[0x1E696AEC0];
+  keyCopy = key;
+  v9 = [[v6 alloc] initWithFormat:@"%d", v4];
+  descriptionUnderConstruction = [(CalDescriptionBuilder *)self descriptionUnderConstruction];
+  [descriptionUnderConstruction setObject:v9 forKey:keyCopy];
+}
+
 - (void)setKey:(id)key withInteger:(int64_t)integer
 {
   v6 = MEMORY[0x1E696AEC0];
@@ -245,6 +259,26 @@ void __30__CalDescriptionBuilder_build__block_invoke_2(uint64_t a1, void *a2, ui
   [descriptionUnderConstruction setObject:shortCopy forKey:keyCopy];
 }
 
+- (void)setKey:(id)key withUnsignedChar:(unsigned __int8)char
+{
+  charCopy = char;
+  v6 = MEMORY[0x1E696AEC0];
+  keyCopy = key;
+  charCopy = [[v6 alloc] initWithFormat:@"%c", charCopy];
+  descriptionUnderConstruction = [(CalDescriptionBuilder *)self descriptionUnderConstruction];
+  [descriptionUnderConstruction setObject:charCopy forKey:keyCopy];
+}
+
+- (void)setKey:(id)key withUnsignedInt:(unsigned int)int
+{
+  v4 = *&int;
+  v6 = MEMORY[0x1E696AEC0];
+  keyCopy = key;
+  v9 = [[v6 alloc] initWithFormat:@"%u", v4];
+  descriptionUnderConstruction = [(CalDescriptionBuilder *)self descriptionUnderConstruction];
+  [descriptionUnderConstruction setObject:v9 forKey:keyCopy];
+}
+
 - (void)setKey:(id)key withUnsignedInteger:(unint64_t)integer
 {
   v6 = MEMORY[0x1E696AEC0];
@@ -270,6 +304,16 @@ void __30__CalDescriptionBuilder_build__block_invoke_2(uint64_t a1, void *a2, ui
   long = [[v6 alloc] initWithFormat:@"%llu", long];
   descriptionUnderConstruction = [(CalDescriptionBuilder *)self descriptionUnderConstruction];
   [descriptionUnderConstruction setObject:long forKey:keyCopy];
+}
+
+- (void)setKey:(id)key withUnsignedShort:(unsigned __int16)short
+{
+  shortCopy = short;
+  v6 = MEMORY[0x1E696AEC0];
+  keyCopy = key;
+  shortCopy = [[v6 alloc] initWithFormat:@"%hu", shortCopy];
+  descriptionUnderConstruction = [(CalDescriptionBuilder *)self descriptionUnderConstruction];
+  [descriptionUnderConstruction setObject:shortCopy forKey:keyCopy];
 }
 
 - (void)setKey:(id)key withCGColor:(const CGColor *)color

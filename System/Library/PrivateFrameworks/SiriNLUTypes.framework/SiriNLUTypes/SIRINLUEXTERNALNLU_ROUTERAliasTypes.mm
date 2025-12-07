@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)optionsAsString:(int)string;
 - (int)StringAsOptions:(id)options;
 - (int)optionsAtIndex:(unint64_t)index;
 - (void)copyTo:(id)to;
@@ -76,7 +77,6 @@
     v4 = 0;
     do
     {
-      v5 = p_options->list[v4];
       PBDataWriterWriteInt32Field();
       ++v4;
     }
@@ -175,6 +175,21 @@
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)optionsAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E8327E40[string];
   }
 
   return v4;

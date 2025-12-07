@@ -201,40 +201,38 @@ void __36__CAFASCTree__nodesOfType_fromDict___block_invoke(uint64_t a1, uint64_t
 
 - (id)treeLogLines
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   accessories = [(CAFASCTree *)self accessories];
   allValues = [accessories allValues];
 
-  v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = [*(*(&v13 + 1) + 8 * i) treeLogLinesIndent:0];
+        v10 = [*(*(&v12 + 1) + 8 * i) treeLogLinesIndent:0];
         [v3 addObjectsFromArray:v10];
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -310,10 +308,10 @@ void __36__CAFASCTree__nodesOfType_fromDict___block_invoke(uint64_t a1, uint64_t
     missingRegistrations3 = [(CAFASCTree *)self missingRegistrations];
     [missingRegistrations3 addObject:registrationCopy];
 
-    v9 = CAFRegistrationLogging();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = CAFRegistrationLogging(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(CAFASCTree *)registrationCopy logErrorIfNeededForMissingRegistration:v9];
+      [(CAFASCTree *)registrationCopy logErrorIfNeededForMissingRegistration:v10];
     }
   }
 
@@ -322,11 +320,10 @@ void __36__CAFASCTree__nodesOfType_fromDict___block_invoke(uint64_t a1, uint64_t
 
 - (void)logErrorIfNeededForMissingRegistration:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_231618000, a2, OS_LOG_TYPE_ERROR, "!! This app is not registered for %@ !!", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_231618000, a2, OS_LOG_TYPE_ERROR, "!! This app is not registered for %@ !!", &v2, 0xCu);
 }
 
 @end

@@ -102,18 +102,18 @@ void __86__INRelevantShortcutStore_setRelevantShortcuts_forBundleIdentifier_comp
 
 void __86__INRelevantShortcutStore_setRelevantShortcuts_forBundleIdentifier_completionHandler___block_invoke_2_13(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = INSiriLogContextIntents;
   if (v3)
   {
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "[INRelevantShortcutStore setRelevantShortcuts:forBundleIdentifier:completionHandler:]_block_invoke_2";
-      v12 = 2114;
-      v13 = v3;
-      _os_log_error_impl(&dword_18E991000, v4, OS_LOG_TYPE_ERROR, "%s Error when trying to set new relevant shortcuts: %{public}@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[INRelevantShortcutStore setRelevantShortcuts:forBundleIdentifier:completionHandler:]_block_invoke_2";
+      v11 = 2114;
+      v12 = v3;
+      _os_log_error_impl(&dword_18E991000, v4, OS_LOG_TYPE_ERROR, "%s Error when trying to set new relevant shortcuts: %{public}@", &v9, 0x16u);
     }
   }
 
@@ -122,11 +122,11 @@ void __86__INRelevantShortcutStore_setRelevantShortcuts_forBundleIdentifier_comp
     v5 = *(a1 + 32);
     v6 = v4;
     v7 = [v5 allObjects];
-    v10 = 136315394;
-    v11 = "[INRelevantShortcutStore setRelevantShortcuts:forBundleIdentifier:completionHandler:]_block_invoke";
-    v12 = 2050;
-    v13 = [v7 count];
-    _os_log_impl(&dword_18E991000, v6, OS_LOG_TYPE_INFO, "%s Updated relevant shortcuts with %{public}lu shortcuts", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[INRelevantShortcutStore setRelevantShortcuts:forBundleIdentifier:completionHandler:]_block_invoke";
+    v11 = 2050;
+    v12 = [v7 count];
+    _os_log_impl(&dword_18E991000, v6, OS_LOG_TYPE_INFO, "%s Updated relevant shortcuts with %{public}lu shortcuts", &v9, 0x16u);
   }
 
   v8 = *(a1 + 40);
@@ -134,13 +134,11 @@ void __86__INRelevantShortcutStore_setRelevantShortcuts_forBundleIdentifier_comp
   {
     (*(v8 + 16))(v8, v3);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __86__INRelevantShortcutStore_setRelevantShortcuts_forBundleIdentifier_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -148,14 +146,14 @@ void __86__INRelevantShortcutStore_setRelevantShortcuts_forBundleIdentifier_comp
     v7 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
-      v10 = 136315650;
-      v11 = "[INRelevantShortcutStore setRelevantShortcuts:forBundleIdentifier:completionHandler:]_block_invoke_2";
-      v12 = 2114;
-      v13 = v9;
-      v14 = 2114;
-      v15 = v6;
-      _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s Error injecting image proxies into %{public}@: %{public}@", &v10, 0x20u);
+      v8 = *(a1 + 32);
+      v9 = 136315650;
+      v10 = "[INRelevantShortcutStore setRelevantShortcuts:forBundleIdentifier:completionHandler:]_block_invoke_2";
+      v11 = 2114;
+      v12 = v8;
+      v13 = 2114;
+      v14 = v6;
+      _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s Error injecting image proxies into %{public}@: %{public}@", &v9, 0x20u);
     }
   }
 
@@ -163,8 +161,6 @@ void __86__INRelevantShortcutStore_setRelevantShortcuts_forBundleIdentifier_comp
   [*(a1 + 48) replacePointerAtIndex:*(a1 + 64) withPointer:v5];
   [*(a1 + 40) unlock];
   dispatch_group_leave(*(a1 + 56));
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (INRelevantShortcutStore)initWithSearchableIndex:(id)index

@@ -22,6 +22,7 @@
 - (float)originY;
 - (float)width;
 - (id)name;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -337,6 +338,167 @@
   v4 = v3;
 
   return v4;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000037000007"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    displayPanelIdentifierCharacteristic = [(CAFOverlayView *)self displayPanelIdentifierCharacteristic];
+    uniqueIdentifier2 = [displayPanelIdentifierCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      displayPanelIdentifier = [(CAFOverlayView *)self displayPanelIdentifier];
+      [observers overlayViewService:self didUpdateDisplayPanelIdentifier:displayPanelIdentifier];
+LABEL_8:
+
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFOverlayView *)self name];
+      [observers2 overlayViewService:self didUpdateName:name];
+
+LABEL_29:
+      goto LABEL_30;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000019"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    identifierCharacteristic = [(CAFOverlayView *)self identifierCharacteristic];
+    uniqueIdentifier4 = [identifierCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      displayPanelIdentifier = [(CAFOverlayView *)self identifier];
+      [observers overlayViewService:self didUpdateIdentifier:displayPanelIdentifier];
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000030000002"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    onCharacteristic = [(CAFOverlayView *)self onCharacteristic];
+    uniqueIdentifier6 = [onCharacteristic uniqueIdentifier];
+    v25 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v25)
+    {
+      observers2 = [(CAFService *)self observers];
+      [observers2 overlayViewService:self didUpdateOn:{-[CAFOverlayView on](self, "on")}];
+      goto LABEL_29;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x000000003600006A"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    originXCharacteristic = [(CAFOverlayView *)self originXCharacteristic];
+    uniqueIdentifier8 = [originXCharacteristic uniqueIdentifier];
+    v30 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v30)
+    {
+      observers2 = [(CAFService *)self observers];
+      [(CAFOverlayView *)self originX];
+      [observers2 overlayViewService:self didUpdateOriginX:?];
+      goto LABEL_29;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType5 = [updateCopy characteristicType];
+  if ([characteristicType5 isEqual:@"0x000000003600006B"])
+  {
+    uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+    originYCharacteristic = [(CAFOverlayView *)self originYCharacteristic];
+    uniqueIdentifier10 = [originYCharacteristic uniqueIdentifier];
+    v35 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+    if (v35)
+    {
+      observers2 = [(CAFService *)self observers];
+      [(CAFOverlayView *)self originY];
+      [observers2 overlayViewService:self didUpdateOriginY:?];
+      goto LABEL_29;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType6 = [updateCopy characteristicType];
+  if ([characteristicType6 isEqual:@"0x000000003600006C"])
+  {
+    uniqueIdentifier11 = [updateCopy uniqueIdentifier];
+    widthCharacteristic = [(CAFOverlayView *)self widthCharacteristic];
+    uniqueIdentifier12 = [widthCharacteristic uniqueIdentifier];
+    v40 = [uniqueIdentifier11 isEqual:uniqueIdentifier12];
+
+    if (v40)
+    {
+      observers2 = [(CAFService *)self observers];
+      [(CAFOverlayView *)self width];
+      [observers2 overlayViewService:self didUpdateWidth:?];
+      goto LABEL_29;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers2 = [updateCopy characteristicType];
+  if (![observers2 isEqual:@"0x000000003600006D"])
+  {
+    goto LABEL_29;
+  }
+
+  uniqueIdentifier13 = [updateCopy uniqueIdentifier];
+  heightCharacteristic = [(CAFOverlayView *)self heightCharacteristic];
+  uniqueIdentifier14 = [heightCharacteristic uniqueIdentifier];
+  v44 = [uniqueIdentifier13 isEqual:uniqueIdentifier14];
+
+  if (v44)
+  {
+    observers2 = [(CAFService *)self observers];
+    [(CAFOverlayView *)self height];
+    [observers2 overlayViewService:self didUpdateHeight:?];
+    goto LABEL_29;
+  }
+
+LABEL_30:
+  v45.receiver = self;
+  v45.super_class = CAFOverlayView;
+  [(CAFService *)&v45 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForDisplayPanelIdentifier

@@ -59,36 +59,36 @@
 
 - (AWAttentionEvent)initWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v15 = 0;
-  v14.receiver = self;
-  v14.super_class = AWAttentionEvent;
-  v5 = [(AWAttentionEvent *)&v14 init];
-  if (v5 && ((v5->_eventMask = decodeUInt64(coderCopy, &v15, @"eventMask"), v5->_timestamp = decodeDouble(coderCopy, &v15, @"timestamp"), v5->_tagIndex = decodeUInt64(coderCopy, &v15, @"tagIndex"), v5->_eventMask == 1) || (v15 & 1) != 0))
+  v14 = 0;
+  v13.receiver = self;
+  v13.super_class = AWAttentionEvent;
+  v5 = [(AWAttentionEvent *)&v13 init];
+  if (v5 && ((v5->_eventMask = decodeUInt64(coderCopy, &v14, @"eventMask"), v5->_timestamp = decodeDouble(coderCopy, &v14, @"timestamp"), v5->_tagIndex = decodeUInt64(coderCopy, &v14, @"tagIndex"), v5->_eventMask == 1) || (v14 & 1) != 0))
   {
     if (currentLogLevel >= 3)
     {
       v6 = _AALog();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v10 = absTimeNS();
-        if (v10 == -1)
+        v9 = absTimeNS();
+        if (v9 == -1)
         {
-          v11 = INFINITY;
+          v10 = INFINITY;
         }
 
         else
         {
-          v11 = v10 / 1000000000.0;
+          v10 = v9 / 1000000000.0;
         }
 
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
         *buf = 134218242;
-        v17 = v11;
-        v18 = 2112;
-        v19 = v13;
+        v16 = v10;
+        v17 = 2112;
+        v18 = v12;
         _os_log_error_impl(&dword_1BB2EF000, v6, OS_LOG_TYPE_ERROR, "%13.5f: failed to decode %@", buf, 0x16u);
       }
     }
@@ -101,7 +101,6 @@
     v7 = v5;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

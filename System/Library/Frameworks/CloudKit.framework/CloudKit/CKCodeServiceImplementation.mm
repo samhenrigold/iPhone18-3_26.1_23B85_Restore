@@ -1,5 +1,6 @@
 @interface CKCodeServiceImplementation
 - (CKContainerImplementation)containerImplementation;
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand;
 - (id)CKStatusReportArray;
 - (id)initInternalWithContainerImplementation:(id)implementation serviceName:(id)name boxedDatabaseScope:(id)scope serviceInstanceURL:(id)l;
 - (void)_addPreparedOperation:(id)operation;
@@ -51,6 +52,39 @@
   }
 
   return v15;
+}
+
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand
+{
+  v33[2] = *MEMORY[0x1E69E9840];
+  v32[0] = @"serviceName";
+  v6 = objc_msgSend_serviceName(self, a2, public, private, expand);
+  v32[1] = @"container";
+  v33[0] = v6;
+  v9 = objc_msgSend_containerImplementation(self, v7, v8);
+  v33[1] = v9;
+  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v10, v33, v32, 2);
+  v14 = objc_msgSend_mutableCopy(v11, v12, v13);
+
+  v17 = objc_msgSend_boxedDatabaseScope(self, v15, v16);
+
+  if (v17)
+  {
+    v20 = objc_msgSend_boxedDatabaseScope(self, v18, v19);
+    v23 = objc_msgSend_integerValue(v20, v21, v22);
+    v24 = CKDatabaseScopeString(v23);
+    objc_msgSend_setObject_forKeyedSubscript_(v14, v25, v24, @"databaseScope");
+  }
+
+  v26 = objc_msgSend_serviceInstanceURL(self, v18, v19);
+
+  if (v26)
+  {
+    v29 = objc_msgSend_serviceInstanceURL(self, v27, v28);
+    objc_msgSend_setObject_forKeyedSubscript_(v14, v30, v29, @"serviceInstanceURL");
+  }
+
+  return v14;
 }
 
 - (void)_addPreparedOperation:(id)operation
@@ -151,7 +185,7 @@ LABEL_14:
 
 - (id)CKStatusReportArray
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = MEMORY[0x1E696AEC0];
   v7 = objc_msgSend_operationQueue(self, v5, v6);
@@ -167,32 +201,32 @@ LABEL_14:
   if (v25)
   {
     objc_msgSend_addObject_(v3, v26, @"\nOperations: {");
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v29 = objc_msgSend_operationQueue(self, v27, v28);
     v32 = objc_msgSend_operations(v29, v30, v31);
 
-    v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v33, &v44, v48, 16);
+    v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v33, &v43, v47, 16);
     if (v34)
     {
       v36 = v34;
-      v37 = *v45;
+      v37 = *v44;
       do
       {
         for (i = 0; i != v36; ++i)
         {
-          if (*v45 != v37)
+          if (*v44 != v37)
           {
             objc_enumerationMutation(v32);
           }
 
-          v39 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v35, @"\t%@", *(*(&v44 + 1) + 8 * i));
+          v39 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v35, @"\t%@", *(*(&v43 + 1) + 8 * i));
           objc_msgSend_addObject_(v3, v40, v39);
         }
 
-        v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v35, &v44, v48, 16);
+        v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v35, &v43, v47, 16);
       }
 
       while (v36);
@@ -200,8 +234,6 @@ LABEL_14:
 
     objc_msgSend_addObject_(v3, v41, @"}");
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

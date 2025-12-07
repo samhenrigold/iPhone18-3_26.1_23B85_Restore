@@ -659,7 +659,7 @@ void __59__PLAssetsdPhotoKitService_analyzeAssets_forFeature_reply___block_invok
   wrapperCopy = wrapper;
   progressCopy = progress;
   completionCopy = completion;
-  if ([itemsCopy count])
+  if (objc_msgSend_count(itemsCopy))
   {
     firstObject = [itemsCopy firstObject];
     v18[0] = MEMORY[0x1E69E9820];
@@ -685,7 +685,7 @@ void __59__PLAssetsdPhotoKitService_analyzeAssets_forFeature_reply___block_invok
 
     else
     {
-      [progressCopy setTotalUnitCount:{objc_msgSend(progressCopy, "totalUnitCount") + objc_msgSend(firstObject, "count")}];
+      [progressCopy setTotalUnitCount:{objc_msgSend(progressCopy, "totalUnitCount") + objc_msgSend_count(firstObject)}];
       [(PLAssetsdPhotoKitService *)self _syncWorkItems:firstObject upToDate:dateCopy syncServiceWrapper:wrapperCopy progress:progressCopy completion:completionCopy];
     }
   }
@@ -704,7 +704,7 @@ void __91__PLAssetsdPhotoKitService__syncWorkItems_upToDate_syncServiceWrapper_p
   else
   {
     [*(a1 + 32) setCompletedUnitCount:{objc_msgSend(*(a1 + 32), "completedUnitCount") + 1}];
-    if ([*(a1 + 32) isCancelled] && objc_msgSend(*(a1 + 40), "count") >= 2)
+    if ([*(a1 + 32) isCancelled] && objc_msgSend_count(*(a1 + 40)) >= 2)
     {
       v4 = *(a1 + 72);
       v5 = MEMORY[0x1E696ABC0];
@@ -719,7 +719,7 @@ void __91__PLAssetsdPhotoKitService__syncWorkItems_upToDate_syncServiceWrapper_p
     else
     {
       v9 = *(a1 + 48);
-      v10 = [*(a1 + 40) subarrayWithRange:{1, objc_msgSend(*(a1 + 40), "count") - 1}];
+      v10 = [*(a1 + 40) subarrayWithRange:{1, objc_msgSend_count(*(a1 + 40)) - 1}];
       [v9 _syncWorkItems:? upToDate:? syncServiceWrapper:? progress:? completion:?];
     }
   }
@@ -837,7 +837,7 @@ void __68__PLAssetsdPhotoKitService_forceSyndicationIngestAsyncToDate_reply___bl
     SetPLSpotlightReceiverLastUpdate(a1[6]);
     v8 = [[PLSyndicationSyncServiceWrapper alloc] initWithPhotoLibrary:v6 ingestClient:3];
     v9 = [(PLSyndicationSyncServiceWrapper *)v8 workItemsNeedingProcessing];
-    [a1[5] setTotalUnitCount:{objc_msgSend(v9, "count")}];
+    [a1[5] setTotalUnitCount:objc_msgSend_count(v9)];
     v21[0] = MEMORY[0x1E69E9820];
     v21[1] = 3221225472;
     v21[2] = __68__PLAssetsdPhotoKitService_forceSyndicationIngestAsyncToDate_reply___block_invoke_2;

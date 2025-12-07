@@ -396,8 +396,8 @@ LABEL_9:
     v38 = v19;
     if (v19)
     {
-      configuration = [v19 configuration];
-      isResumingMultipointRoute = [configuration isResumingMultipointRoute];
+      entry = objc_msgSend_configuration(v19);
+      isResumingMultipointRoute = [entry isResumingMultipointRoute];
       sharingContacts = 0;
     }
 
@@ -422,8 +422,8 @@ LABEL_23:
 
         if ([sharingContacts count])
         {
-          configuration2 = [build configuration];
-          sharedTripPrefetchContext = [configuration2 sharedTripPrefetchContext];
+          v32 = objc_msgSend_configuration(build);
+          sharedTripPrefetchContext = [v32 sharedTripPrefetchContext];
 
           [sharedTripPrefetchContext setAutomaticSharingContacts:sharingContacts];
           v34 = sub_100006E1C();
@@ -456,11 +456,11 @@ LABEL_23:
       }
 
       routeGeniusEntry = [v13 routeGeniusEntry];
-      configuration = [routeGeniusEntry entry];
+      entry = [routeGeniusEntry entry];
 
-      if ([configuration type] == 11)
+      if ([entry type] == 11)
       {
-        waypoints = [configuration waypoints];
+        waypoints = [entry waypoints];
         isResumingMultipointRoute = [waypoints count] > 2;
       }
 
@@ -469,7 +469,7 @@ LABEL_23:
         isResumingMultipointRoute = 0;
       }
 
-      sharingContacts = [configuration sharingContacts];
+      sharingContacts = [entry sharingContacts];
     }
 
     goto LABEL_23;

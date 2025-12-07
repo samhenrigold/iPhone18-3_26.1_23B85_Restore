@@ -849,11 +849,11 @@ void __55__CSRemoteContentModalViewController__createProperties__block_invoke(ui
   [MEMORY[0x277D75D18] sb_animateWithSettings:scaleSettings mode:v4 animations:v8 completion:v6];
 }
 
-uint64_t __70__CSRemoteContentModalViewController__updateContentScale_interactive___block_invoke_2(uint64_t result)
+id *__70__CSRemoteContentModalViewController__updateContentScale_interactive___block_invoke_2(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(result + 32) _setCornerRounded:0];
+    return [result[4] _setCornerRounded:0];
   }
 
   return result;

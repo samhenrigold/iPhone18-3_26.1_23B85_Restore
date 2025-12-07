@@ -74,7 +74,7 @@ LABEL_6:
 
 - (HMDCapabilityFlags)initWithCapabilities:(id)capabilities
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   capabilitiesCopy = capabilities;
   v5 = [capabilitiesCopy sortedArrayUsingSelector:sel_compare_];
   v6 = [v5 valueForKeyPath:@"@max.self"];
@@ -98,7 +98,7 @@ LABEL_6:
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v30 = v12;
+      v29 = v12;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Ran over 64 bits, you sure this is expected?", buf, 0xCu);
     }
 
@@ -107,30 +107,30 @@ LABEL_6:
 
   v13 = malloc_type_malloc(v9, 0x100004077774924uLL);
   bzero(v13, v9);
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v14 = v5;
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        unsignedIntegerValue2 = [*(*(&v24 + 1) + 8 * i) unsignedIntegerValue];
+        unsignedIntegerValue2 = [*(*(&v23 + 1) + 8 * i) unsignedIntegerValue];
         *(v13 + (unsignedIntegerValue2 >> 3)) |= 1 << (unsignedIntegerValue2 & 7);
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v16);
@@ -139,7 +139,6 @@ LABEL_6:
   v20 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v13 length:v9 freeWhenDone:1];
   v21 = [(HMDCapabilityFlags *)self initWithData:v20];
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

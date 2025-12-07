@@ -1,8 +1,8 @@
 @interface PKPGSVExternalVCContextContainerView
 - (BOOL)gestureRecognizerShouldBegin:(id)begin;
+- (char)_removePassAnchorPoint;
 - (id)_animatingView;
 - (id)hitTest:(CGPoint)test withEvent:(id)event;
-- (uint64_t)_removePassAnchorPoint;
 - (uint64_t)_setPassAnchorPoint:(double)point withDisplacement:(float64x2_t)displacement;
 - (void)_interruptTransferedGroupView:(uint64_t)view;
 - (void)_updateAlpha:(double)alpha blurRadius:(double)radius withSpringFactory:;
@@ -317,7 +317,7 @@ LABEL_5:
   v43 = 0u;
   if (layer)
   {
-    [layer transform];
+    objc_msgSend_transform(layer);
     v34 = *&v42;
   }
 
@@ -417,25 +417,25 @@ uint64_t __77__PKPGSVExternalVCContextContainerView__setPassAnchorPoint_withDisp
   return [v2 setCenter:*&v3];
 }
 
-- (uint64_t)_removePassAnchorPoint
+- (char)_removePassAnchorPoint
 {
   if (result)
   {
     v1 = result;
-    if (*(result + 601) == 1)
+    if (result[601] == 1)
     {
-      *(result + 601) = 0;
-      v2 = *(result + 528);
+      result[601] = 0;
+      v2 = *(result + 66);
       v3 = vdup_n_s32(v2 == 1.0);
       v4.i64[0] = v3.u32[0];
       v4.i64[1] = v3.u32[1];
-      v5 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v4, 0x3FuLL)), *(result + 432), vmulq_n_f64(*(result + 432), v2));
-      v8 = vmlsq_f64(*(result + 536), v5, *(result + 448));
+      v5 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v4, 0x3FuLL)), *(result + 27), vmulq_n_f64(*(result + 27), v2));
+      v8 = vmlsq_f64(*(result + 536), v5, *(result + 28));
       v9 = v5;
-      [*(result + 408) anchorPoint];
-      *(v1 + 448) = v6;
-      *(v1 + 456) = v7;
-      *(v1 + 536) = vmlaq_f64(v8, v9, *(v1 + 448));
+      [*(result + 51) anchorPoint];
+      *(v1 + 56) = v6;
+      *(v1 + 57) = v7;
+      *(v1 + 536) = vmlaq_f64(v8, v9, *(v1 + 28));
       v10[0] = MEMORY[0x1E69E9820];
       v10[1] = 3221225472;
       v10[2] = __62__PKPGSVExternalVCContextContainerView__removePassAnchorPoint__block_invoke;

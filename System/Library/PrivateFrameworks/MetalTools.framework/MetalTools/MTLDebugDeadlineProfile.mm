@@ -14,8 +14,9 @@
       return;
     }
 
-LABEL_9:
-    [MTLDebugDeadlineProfile validateCommandQueue:];
+    v6 = 29;
+LABEL_11:
+    [MTLDebugDeadlineProfile validateCommandQueue:v6];
     return;
   }
 
@@ -32,7 +33,8 @@ LABEL_9:
 
   if (v3 && v5 != queue)
   {
-    goto LABEL_9;
+    v6 = 25;
+    goto LABEL_11;
   }
 }
 

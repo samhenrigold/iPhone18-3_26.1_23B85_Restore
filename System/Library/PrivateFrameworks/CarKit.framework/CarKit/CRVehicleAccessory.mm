@@ -118,7 +118,7 @@ LABEL_8:
   }
 
   v7 = vehicleAccessoryInfoKeysCache;
-  v8 = CarGeneralLogging();
+  v8 = CarGeneralLogging(vehicleAccessoryInfoKeysCache);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -314,7 +314,7 @@ LABEL_25:
 
 - (BOOL)_updateName
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   accessory = [(CRVehicleAccessory *)self accessory];
   vehicleInfoDataCache = [(CRVehicleAccessory *)self vehicleInfoDataCache];
   v5 = [vehicleInfoDataCache objectForKey:*MEMORY[0x1E6966D90]];
@@ -331,12 +331,12 @@ LABEL_25:
   {
     name = [accessory name];
 
-    v7 = CarGeneralLogging();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = CarGeneralLogging(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = name;
-      _os_log_impl(&dword_1C81FC000, v7, OS_LOG_TYPE_DEFAULT, "Vehicle did not have display name, falling back to %@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = name;
+      _os_log_impl(&dword_1C81FC000, v8, OS_LOG_TYPE_DEFAULT, "Vehicle did not have display name, falling back to %@", &v17, 0xCu);
     }
 
     if (!name)
@@ -346,30 +346,30 @@ LABEL_25:
   }
 
   newlineCharacterSet = [MEMORY[0x1E696AB08] newlineCharacterSet];
-  v9 = [name componentsSeparatedByCharactersInSet:newlineCharacterSet];
-  v10 = [v9 componentsJoinedByString:@" "];
+  v10 = [name componentsSeparatedByCharactersInSet:newlineCharacterSet];
+  v11 = [v10 componentsJoinedByString:@" "];
 
   whitespaceAndNewlineCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
-  name = [v10 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
+  name = [v11 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
 
   if (name)
   {
     vehicleName = [(CRVehicleAccessory *)self vehicleName];
-    v13 = [name isEqualToString:vehicleName];
+    v14 = [name isEqualToString:vehicleName];
 
-    if ((v13 & 1) == 0)
+    if ((v14 & 1) == 0)
     {
       [(CRVehicleAccessory *)self setVehicleName:name];
-      v14 = 1;
+      v15 = 1;
       goto LABEL_10;
     }
   }
 
 LABEL_9:
-  v14 = 0;
+  v15 = 0;
 LABEL_10:
 
-  return v14;
+  return v15;
 }
 
 - (void)beginWiredBluetoothPairing:(id)pairing
@@ -396,7 +396,7 @@ void __49__CRVehicleAccessory_beginWiredBluetoothPairing___block_invoke(uint64_t
 {
   v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = CarGeneralLogging();
+  v6 = CarGeneralLogging(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8[0] = 67109378;
@@ -415,7 +415,7 @@ void __49__CRVehicleAccessory_beginWiredBluetoothPairing___block_invoke(uint64_t
 
 - (void)requestWiFiCredentials
 {
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -431,7 +431,7 @@ void __49__CRVehicleAccessory_beginWiredBluetoothPairing___block_invoke(uint64_t
   v11 = *MEMORY[0x1E69E9840];
   v3 = MGGetStringAnswer();
   v4 = MGGetStringAnswer();
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412546;

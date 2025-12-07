@@ -20,6 +20,8 @@
 - (BOOL)appendCameraOneToOneSettingsToMediaBlob:(id)blob;
 - (BOOL)appendCodecFeaturesToMediaBlob:(id)blob;
 - (BOOL)appendGeneralInfoToMediaBlob:(id)blob;
+- (BOOL)appendMicrophoneOneToOneSettingsToMediaBlob:(id)blob;
+- (BOOL)appendMomentsSettingsToMediaBlob:(id)blob;
 - (BOOL)appendStreamGroupsToMediaBlob:(id)blob;
 - (BOOL)mediaBlobHasFLSPerCodec:(id)codec;
 - (BOOL)negotiateStreamGroupConfig:(id)config remoteInviteBlob:(id)blob;
@@ -188,20 +190,20 @@ LABEL_13:
   [v5 printWithTitle:@"Received invite media blob (version 2)" logFile:0];
   if (![(VCMediaNegotiatorV2 *)self setupNegotiatedResultsWithRemoteMediaBlob:v6])
   {
-    [(VCMediaNegotiatorV2 *)v6 processRemoteNegotiationData:v10];
+    [VCMediaNegotiatorV2 processRemoteNegotiationData:];
     goto LABEL_13;
   }
 
   [(VCMediaNegotiatorV2 *)self setupNegotiatedFaceTimeSettingsWithRemoteMediaBlob:v6];
   if (![(VCMediaNegotiatorV2 *)self setupNegotiatedMomentsResultsWithRemoteMediaBlob:v6])
   {
-    [(VCMediaNegotiatorV2 *)v6 processRemoteNegotiationData:v10];
+    [VCMediaNegotiatorV2 processRemoteNegotiationData:];
     goto LABEL_13;
   }
 
   if (![(VCMediaNegotiatorV2 *)self setupStreamGroupsWithRemoteMediaBlob:v6])
   {
-    [(VCMediaNegotiatorV2 *)v6 processRemoteNegotiationData:v10];
+    [VCMediaNegotiatorV2 processRemoteNegotiationData:];
     goto LABEL_13;
   }
 
@@ -2148,14 +2150,14 @@ LABEL_33:
   [configCopy setPayloadPreference:{+[VCMediaNegotiatorBase getPreferredVideoPayloadList:localSupportedPayloads:mediaType:](VCMediaNegotiatorV2, "getPreferredVideoPayloadList:localSupportedPayloads:mediaType:", objc_msgSend(objc_msgSend(configCopy, "videoRuleCollections"), "supportedPayloads"), payloads, 2)}];
   if (![objc_msgSend(configCopy "payloadPreference")])
   {
-    [VCMediaNegotiatorV2 updateCameraU1Config:&v45 forNegotiationBlob:&v46 + 7 localSupportedVideoPayloads:? u1AuthTagEnabled:?];
+    +[VCMediaNegotiatorV2 updateCameraU1Config:forNegotiationBlob:localSupportedVideoPayloads:u1AuthTagEnabled:];
     goto LABEL_33;
   }
 
   v43 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (!v43)
   {
-    [VCMediaNegotiatorV2 updateCameraU1Config:&v45 forNegotiationBlob:&v46 + 7 localSupportedVideoPayloads:? u1AuthTagEnabled:?];
+    +[VCMediaNegotiatorV2 updateCameraU1Config:forNegotiationBlob:localSupportedVideoPayloads:u1AuthTagEnabled:];
     goto LABEL_33;
   }
 
@@ -2197,7 +2199,7 @@ LABEL_33:
         }
 
         v30 = *(*(&v53 + 1) + 8 * i);
-        [v43 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", objc_msgSend(v30, "payload", v36))}];
+        [v43 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", objc_msgSend(v30, "payload", v36, v37, v39))}];
         [v20 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", objc_msgSend(v30, "parameterSet"))}];
         if ([v30 hasEncodeDecodeFeatures])
         {
@@ -2577,7 +2579,7 @@ LABEL_49:
               v30 = [objc_msgSend(objc_msgSend(configCopy "codecConfigs")];
               if (v30 == 128)
               {
-                [VCMediaNegotiatorV2 updateVideoU1ConfigWithStreamGroupConfig:buf forNegotiationBlob:&v72 + 7 streamGroupBlob:? localSupportedVideoPayloads:? u1AuthTagEnabled:?];
+                +[VCMediaNegotiatorV2 updateVideoU1ConfigWithStreamGroupConfig:forNegotiationBlob:streamGroupBlob:localSupportedVideoPayloads:u1AuthTagEnabled:];
                 goto LABEL_33;
               }
 
@@ -2763,13 +2765,13 @@ LABEL_35:
 
     else
     {
-      [VCMediaNegotiatorV2 updateVideoU1ConfigWithStreamGroupConfig:buf forNegotiationBlob:&v72 + 7 streamGroupBlob:? localSupportedVideoPayloads:? u1AuthTagEnabled:?];
+      +[VCMediaNegotiatorV2 updateVideoU1ConfigWithStreamGroupConfig:forNegotiationBlob:streamGroupBlob:localSupportedVideoPayloads:u1AuthTagEnabled:];
     }
   }
 
   else
   {
-    [VCMediaNegotiatorV2 updateVideoU1ConfigWithStreamGroupConfig:buf forNegotiationBlob:&v72 + 7 streamGroupBlob:? localSupportedVideoPayloads:? u1AuthTagEnabled:?];
+    +[VCMediaNegotiatorV2 updateVideoU1ConfigWithStreamGroupConfig:forNegotiationBlob:streamGroupBlob:localSupportedVideoPayloads:u1AuthTagEnabled:];
   }
 
 LABEL_33:
@@ -2841,6 +2843,110 @@ LABEL_19:
 LABEL_16:
 
   return v3;
+}
+
+- (BOOL)appendMicrophoneOneToOneSettingsToMediaBlob:(id)blob
+{
+  OUTLINED_FUNCTION_37();
+  v4 = v3;
+  v6 = v5;
+  if ([*(v5 + 8) oneToOneModeSupported])
+  {
+    v7 = [*(v6 + 8) mediaConfigurationForMediaType:1];
+    v8 = -[VCMediaNegotiationBlobV2MicrophoneSettingsU1 initWithSSRC:audioPayloads:u1AuthTagEnabled:]([VCMediaNegotiationBlobV2MicrophoneSettingsU1 alloc], "initWithSSRC:audioPayloads:u1AuthTagEnabled:", [v7 ssrc], objc_msgSend(v7, "audioPayloads"), objc_msgSend(*(v6 + 8), "isOneToOneAuthTagEnabled"));
+    if (v8)
+    {
+      v9 = v8;
+      [v4 setMicrophoneU1:v8];
+    }
+
+    else
+    {
+      if (VRTraceGetErrorLogLevelForModule() >= 3)
+      {
+        VRTraceErrorLogLevelToCSTR();
+        if (OUTLINED_FUNCTION_34())
+        {
+          OUTLINED_FUNCTION_11();
+          OUTLINED_FUNCTION_0();
+          OUTLINED_FUNCTION_17(&dword_1DB56E000, v11, v12, " [%s] %s:%d Failed to allocate media blob (v2) microphone U+1 settings", v13, v14, v15, v16);
+        }
+      }
+
+      v9 = 0;
+    }
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  OUTLINED_FUNCTION_36();
+  return result;
+}
+
+- (BOOL)appendMomentsSettingsToMediaBlob:(id)blob
+{
+  OUTLINED_FUNCTION_37();
+  v22 = v3;
+  v23 = v4;
+  v6 = v5;
+  v8 = v7;
+  v21 = *MEMORY[0x1E69E9840];
+  if (![+[VCDefaults momentsUserPreferenceEnabled] sharedInstance]
+  {
+    if (VRTraceGetErrorLogLevelForModule() >= 6)
+    {
+      VRTraceErrorLogLevelToCSTR();
+      v12 = *MEMORY[0x1E6986650];
+      if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+      {
+        OUTLINED_FUNCTION_11();
+        OUTLINED_FUNCTION_0();
+        v20 = 381;
+        _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Moments user preference not enabled.", v19, 0x1Cu);
+      }
+    }
+
+    goto LABEL_10;
+  }
+
+  if (![*(v8 + 8) mediaRecorderVideoCodecs] && !objc_msgSend(*(v8 + 8), "mediaRecorderImageTypes"))
+  {
+LABEL_10:
+    v10 = 0;
+    goto LABEL_6;
+  }
+
+  v9 = -[VCMediaNegotiationBlobV2MomentsSettings initWithVideoCodecs:imageTypes:capabilitiesOneToOne:capabilitiesMultiway:]([VCMediaNegotiationBlobV2MomentsSettings alloc], "initWithVideoCodecs:imageTypes:capabilitiesOneToOne:capabilitiesMultiway:", [*(v8 + 8) mediaRecorderVideoCodecs], objc_msgSend(*(v8 + 8), "mediaRecorderImageTypes"), -[VCVideoRuleCollectionsMediaRecorder mediaRecorderCapabilities](+[VCVideoRuleCollectionsMediaRecorder sharedInstance](VCVideoRuleCollectionsMediaRecorder, "sharedInstance"), "mediaRecorderCapabilities"), -[VCVideoRuleCollectionsMediaRecorder mediaRecorderCapabilities](+[VCVideoRuleCollectionsMediaRecorder sharedInstance](VCVideoRuleCollectionsMediaRecorder, "sharedInstance"), "mediaRecorderCapabilities"));
+  if (v9)
+  {
+    v10 = v9;
+    [v6 setMomentsSettings:v9];
+  }
+
+  else
+  {
+    if (VRTraceGetErrorLogLevelForModule() >= 3)
+    {
+      VRTraceErrorLogLevelToCSTR();
+      if (OUTLINED_FUNCTION_34())
+      {
+        OUTLINED_FUNCTION_11();
+        OUTLINED_FUNCTION_0();
+        v20 = 388;
+        OUTLINED_FUNCTION_17(&dword_1DB56E000, v13, v14, " [%s] %s:%d Failed to allocate media blob (v2) moments settings", v15, v16, v17, v18);
+      }
+    }
+
+    v10 = 0;
+  }
+
+LABEL_6:
+
+  OUTLINED_FUNCTION_36();
+  return result;
 }
 
 + (void)newCompressedBlob:.cold.1()
@@ -2920,6 +3026,66 @@ LABEL_16:
   OUTLINED_FUNCTION_20();
 }
 
+- (void)processRemoteNegotiationData:.cold.1()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_30();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_31())
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to generated negotiated results", v4, v5, v6, v7);
+    }
+  }
+
+  *v0 = v1;
+  OUTLINED_FUNCTION_18();
+  OUTLINED_FUNCTION_36();
+}
+
+- (void)processRemoteNegotiationData:.cold.2()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_30();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_31())
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to generated negotiated moments results", v4, v5, v6, v7);
+    }
+  }
+
+  *v0 = v1;
+  OUTLINED_FUNCTION_18();
+  OUTLINED_FUNCTION_36();
+}
+
+- (void)processRemoteNegotiationData:.cold.3()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_30();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_31())
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to generated negotiated stream groups", v4, v5, v6, v7);
+    }
+  }
+
+  *v0 = v1;
+  OUTLINED_FUNCTION_18();
+  OUTLINED_FUNCTION_36();
+}
+
 - (void)processRemoteNegotiationData:(uint64_t)a1 .cold.4(uint64_t a1, void *a2)
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -2965,7 +3131,7 @@ LABEL_16:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate system audio configuration", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate system audio configuration", v2, v3, v4, v5);
     }
   }
 }
@@ -3021,7 +3187,7 @@ LABEL_16:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate media blob (v2) banwidth settings", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate media blob (v2) banwidth settings", v2, v3, v4, v5);
     }
   }
 }
@@ -3044,7 +3210,7 @@ LABEL_16:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate media blob (v2) codec features", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate media blob (v2) codec features", v2, v3, v4, v5);
     }
   }
 }
@@ -3398,7 +3564,7 @@ LABEL_16:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to generated negotiated video results", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to generated negotiated video results", v2, v3, v4, v5);
     }
   }
 }
@@ -3506,7 +3672,45 @@ LABEL_16:
   OUTLINED_FUNCTION_36();
 }
 
-+ (void)updateCameraU1Config:(uint64_t)a3 forNegotiationBlob:(uint64_t)a4 localSupportedVideoPayloads:(uint64_t)a5 u1AuthTagEnabled:(uint64_t)a6 .cold.5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
++ (void)updateCameraU1Config:forNegotiationBlob:localSupportedVideoPayloads:u1AuthTagEnabled:.cold.3()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_15();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_31())
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate videoPayloads array", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_36();
+}
+
++ (void)updateCameraU1Config:forNegotiationBlob:localSupportedVideoPayloads:u1AuthTagEnabled:.cold.4()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_15();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_31())
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d No available payloads", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_36();
+}
+
++ (void)updateCameraU1Config:(uint64_t)a3 forNegotiationBlob:(uint64_t)a4 localSupportedVideoPayloads:(uint64_t)a5 u1AuthTagEnabled:(uint64_t)a6 .cold.5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   OUTLINED_FUNCTION_37();
   a21 = v22;
@@ -3631,6 +3835,25 @@ LABEL_16:
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
++ (void)updateVideoU1ConfigWithStreamGroupConfig:forNegotiationBlob:streamGroupBlob:localSupportedVideoPayloads:u1AuthTagEnabled:.cold.1()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_15();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_31())
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid payload in streamconfig", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_36();
+}
+
 + (void)updateVideoU1ConfigWithStreamGroupConfig:forNegotiationBlob:streamGroupBlob:localSupportedVideoPayloads:u1AuthTagEnabled:.cold.2()
 {
   OUTLINED_FUNCTION_3();
@@ -3674,6 +3897,44 @@ LABEL_16:
   OUTLINED_FUNCTION_0();
   v3 = 1134;
   OUTLINED_FUNCTION_26(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid payload in streamconfig", v2);
+}
+
++ (void)updateVideoU1ConfigWithStreamGroupConfig:forNegotiationBlob:streamGroupBlob:localSupportedVideoPayloads:u1AuthTagEnabled:.cold.5()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_15();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_31())
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate videoPayloads array", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_36();
+}
+
++ (void)updateVideoU1ConfigWithStreamGroupConfig:forNegotiationBlob:streamGroupBlob:localSupportedVideoPayloads:u1AuthTagEnabled:.cold.6()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_15();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_31())
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_13(&dword_1DB56E000, v0, v1, " [%s] %s:%d No available payloads", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_36();
 }
 
 + (void)updateVideoU1ConfigWithStreamGroupConfig:forNegotiationBlob:streamGroupBlob:localSupportedVideoPayloads:u1AuthTagEnabled:.cold.7()

@@ -38,92 +38,95 @@
 
     if (v8)
     {
-      objc_opt_class();
-      v9 = sub_6DAF0(v6, @"literal");
-      v10 = 0;
-      v11 = v10;
-      if (v9 || !v10)
+      v9 = objc_opt_class();
+      v27 = 0;
+      v10 = sub_6DAF0(v6, @"literal", v9, &v27);
+      v11 = v27;
+      v12 = v11;
+      if (v10 || !v11)
       {
 
-        objc_opt_class();
-        v14 = sub_6DAF0(v6, @"variable");
-        v15 = 0;
-        v11 = v15;
-        if (v14 || !v15)
+        v15 = objc_opt_class();
+        v26 = 0;
+        v16 = sub_6DAF0(v6, @"variable", v15, &v26);
+        v17 = v26;
+        v12 = v17;
+        if (v16 || !v17)
         {
 
-          objc_opt_class();
-          v17 = sub_6DAF0(v6, @"mode");
-          v18 = 0;
-          v11 = v18;
-          if (v17 || !v18)
+          v19 = objc_opt_class();
+          v25 = 0;
+          v20 = sub_6DAF0(v6, @"mode", v19, &v25);
+          v21 = v25;
+          v12 = v21;
+          if (v20 || !v21)
           {
-            v20 = [v17 hk_map:&stru_108268 error:error];
-            if (v20 || ![v17 count])
+            v23 = [v20 hk_map:&stru_108268 error:error];
+            if (v23 || ![v20 count])
             {
-              v13 = [[HKClinicalGatewayEndpointSchemaParameter alloc] initWithParam:v8 literal:v9 variable:v14 mode:v20];
+              v14 = [[HKClinicalGatewayEndpointSchemaParameter alloc] initWithParam:v8 literal:v10 variable:v16 mode:v23];
             }
 
             else
             {
-              v13 = 0;
+              v14 = 0;
             }
           }
 
           else if (error)
           {
-            v19 = v18;
-            v13 = 0;
-            *error = v11;
+            v22 = v21;
+            v14 = 0;
+            *error = v12;
           }
 
           else
           {
             _HKLogDroppedError();
-            v13 = 0;
+            v14 = 0;
           }
         }
 
         else if (error)
         {
-          v16 = v15;
-          v13 = 0;
-          *error = v11;
+          v18 = v17;
+          v14 = 0;
+          *error = v12;
         }
 
         else
         {
           _HKLogDroppedError();
-          v13 = 0;
+          v14 = 0;
         }
       }
 
       else if (error)
       {
-        v12 = v10;
-        v13 = 0;
-        *error = v11;
+        v13 = v11;
+        v14 = 0;
+        *error = v12;
       }
 
       else
       {
         _HKLogDroppedError();
-        v13 = 0;
+        v14 = 0;
       }
     }
 
     else
     {
-      v13 = 0;
+      v14 = 0;
     }
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 @end

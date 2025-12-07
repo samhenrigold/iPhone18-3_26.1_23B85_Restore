@@ -8,18 +8,18 @@
 
 - (HDCodableWorkoutZones)codableRepresentationForSync
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(HDCodableWorkoutZones);
-  v12.receiver = self;
-  v12.super_class = &off_283D45970;
-  v3 = objc_msgSendSuper2(&v12, sel_codableRepresentationForSync);
+  v11.receiver = self;
+  v11.super_class = &off_283D45970;
+  v3 = objc_msgSendSuper2(&v11, sel_codableRepresentationForSync);
   [(HDCodableWorkoutZones *)v2 setSample:v3];
 
   v4 = MEMORY[0x277CCAAB0];
   zones = [self zones];
-  v11 = 0;
-  v6 = [v4 archivedDataWithRootObject:zones requiringSecureCoding:1 error:&v11];
-  v7 = v11;
+  v10 = 0;
+  v6 = [v4 archivedDataWithRootObject:zones requiringSecureCoding:1 error:&v10];
+  v7 = v10;
 
   if (!v6)
   {
@@ -28,14 +28,12 @@
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v7;
+      v13 = v7;
       _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "Error archiving zones: %@", buf, 0xCu);
     }
   }
 
   [(HDCodableWorkoutZones *)v2 setZones:v6];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

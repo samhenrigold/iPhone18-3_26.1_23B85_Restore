@@ -17,9 +17,9 @@
 - (ARConfiguration)configuration
 {
   stateManager = [(VIOSessionMonitor *)self stateManager];
-  configuration = [stateManager configuration];
+  v3 = objc_msgSend_configuration(stateManager);
 
-  return configuration;
+  return v3;
 }
 
 - (ARSession)session

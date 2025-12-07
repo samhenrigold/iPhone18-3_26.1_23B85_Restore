@@ -14,7 +14,7 @@
 - (NSSet)activityData
 {
   swift_beginAccess();
-  sub_21E9F8880(0, &qword_28125B790);
+  sub_21E9F8880(0, &qword_28125B790, 0x277CFC9B8);
   sub_21E9F84D4();
 
   v2 = sub_21EAA8F50();
@@ -31,7 +31,7 @@
 
 - (void)setActivityData:(id)data
 {
-  sub_21E9F8880(0, &qword_28125B790);
+  sub_21E9F8880(0, &qword_28125B790, 0x277CFC9B8);
   sub_21E9F84D4();
   v4 = sub_21EAA8F60();
   v5 = OBJC_IVAR____TtC15ControlCenterUI32CCUIGameModeActivityDataProvider_activityData;

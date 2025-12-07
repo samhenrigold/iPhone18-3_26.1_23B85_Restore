@@ -10,76 +10,74 @@
 
 + (uint64_t)ec_copyAttributionRegularExpressionForType:()ECMessageBodyParser
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithContentsOfFile:{objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "pathForResource:ofType:", @"AttributionPatterns", @"plist"}];
   selfCopy = self;
   if (a3 > 3)
   {
-    v20 = 0;
+    v18 = 0;
   }
 
   else
   {
-    v20 = off_27874BC48[a3];
-    v6 = off_27874BC68[a3];
+    v18 = off_27874BC48[a3];
   }
 
-  v21 = v5;
-  v7 = [v5 objectForKey:?];
-  v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v7, "count")}];
+  v19 = v5;
+  v6 = [v5 objectForKey:?];
+  v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v6, "count")}];
+  v22 = 0u;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
-  if (v9)
+  v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  if (v8)
   {
-    v10 = v9;
-    v11 = *v25;
+    v9 = v8;
+    v10 = *v23;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v11)
+        if (*v23 != v10)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = [MEMORY[0x277CCAC68] escapedPatternForString:*(*(&v24 + 1) + 8 * i)];
-        v14 = v13;
+        v12 = [MEMORY[0x277CCAC68] escapedPatternForString:*(*(&v22 + 1) + 8 * i)];
+        v13 = v12;
         if (a3 == 1)
         {
-          v15 = [v13 rangeOfString:@"%@"];
-          if (!v15)
+          v14 = [v12 rangeOfString:@"%@"];
+          if (!v14)
           {
-            v15 = [v14 rangeOfString:@"%@" options:0 range:{1, objc_msgSend(v14, "length") - 1}];
+            v14 = [v13 rangeOfString:@"%@" options:0 range:{1, objc_msgSend(v13, "length") - 1}];
           }
 
-          if (v15 != 0x7FFFFFFFFFFFFFFFLL)
+          if (v14 != 0x7FFFFFFFFFFFFFFFLL)
           {
-            v14 = [objc_msgSend(v14 "substringToIndex:{"stringByAppendingString:", @"%@"}")];
+            v13 = [objc_msgSend(v13 "substringToIndex:{"stringByAppendingString:", @"%@"}")];
           }
         }
 
-        [v8 addObject:{objc_msgSend(objc_msgSend(v14, "stringByReplacingOccurrencesOfString:withString:", @"%@", @".+", "stringByReplacingOccurrencesOfString:withString:", @" ", @"\\s"}];
+        [v7 addObject:{objc_msgSend(objc_msgSend(v13, "stringByReplacingOccurrencesOfString:withString:", @"%@", @".+", "stringByReplacingOccurrencesOfString:withString:", @" ", @"\\s"}];
       }
 
-      v10 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
-    while (v10);
+    while (v9);
   }
 
-  v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v20, objc_msgSend(v8, "componentsJoinedByString:", @"|"];
-  v23 = 0;
-  v17 = [[selfCopy alloc] initWithPattern:v16 options:1 error:&v23];
-  if (!v17)
+  v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v18, objc_msgSend(v7, "componentsJoinedByString:", @"|"];
+  v21 = 0;
+  v16 = [[selfCopy alloc] initWithPattern:v15 options:1 error:&v21];
+  if (!v16)
   {
     +[NSRegularExpression(ECMessageBodyParser) ec_copyAttributionRegularExpressionForType:];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v16;
 }
 
 + (uint64_t)ec_attributionExpression

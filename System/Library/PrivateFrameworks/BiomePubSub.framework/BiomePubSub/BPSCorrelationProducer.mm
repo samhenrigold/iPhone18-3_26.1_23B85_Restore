@@ -237,21 +237,19 @@ LABEL_6:
 
 - (id)upstreamSubscriptions
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   subscription = [(BPSCorrelationProducer *)self subscription];
   if (subscription)
   {
     subscription2 = [(BPSCorrelationProducer *)self subscription];
-    v8[0] = subscription2;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+    v7[0] = subscription2;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = MEMORY[0x1E695E0F0];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

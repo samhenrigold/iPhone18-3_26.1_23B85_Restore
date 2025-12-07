@@ -1264,9 +1264,10 @@ LABEL_125:
 
 uint64_t __PLLogSMCMetrics_block_invoke()
 {
-  qword_2811F3D38 = os_log_create("com.apple.PerfPowerServices", "smcmetrics");
+  v0 = os_log_create("com.apple.PerfPowerServices", "smcmetrics");
+  qword_2811F3D38 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 void sub_21A58F9D4(_Unwind_Exception *a1)
@@ -1276,14 +1277,14 @@ void sub_21A58F9D4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_21A5912AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21A5912AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1303,9 +1304,10 @@ id PLLogUserActiveState()
 
 uint64_t __PLLogUserActiveState_block_invoke()
 {
-  _MergedGlobals_1_1 = os_log_create("com.apple.powerlog", "userActiveState");
+  v0 = os_log_create("com.apple.powerlog", "userActiveState");
+  _MergedGlobals_1_1 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t AWDMETRICSKCellularLteDataInactivityBeforeIdleReadFrom(uint64_t a1, void *a2)
@@ -1558,9 +1560,10 @@ id PLLogGameMode()
 
 uint64_t __PLLogGameMode_block_invoke()
 {
-  _MergedGlobals_80 = os_log_create("com.apple.powerlog", "gamemode");
+  v0 = os_log_create("com.apple.powerlog", "gamemode");
+  _MergedGlobals_80 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t AWDMETRICSKCellularPowerLogXOShutdownReadFrom(uint64_t a1, void *a2)
@@ -6197,9 +6200,10 @@ LABEL_200:
 
 uint64_t __PLLogCoreDuet_block_invoke()
 {
-  _MergedGlobals_1_2 = os_log_create("com.apple.powerlog", "coreduet");
+  v0 = os_log_create("com.apple.powerlog", "coreduet");
+  _MergedGlobals_1_2 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t AWDMETRICSKCellularPowerLogLteCarrierComponentInfoReadFrom(uint64_t a1, void *a2)
@@ -6463,9 +6467,10 @@ id PLLogHomeKit()
 
 uint64_t __PLLogHomeKit_block_invoke()
 {
-  _MergedGlobals_1_4 = os_log_create("com.apple.powerlog", "homekit");
+  v0 = os_log_create("com.apple.powerlog", "homekit");
+  _MergedGlobals_1_4 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t KCellularServingCellRfBandHistReadFrom(uint64_t a1, void *a2)
@@ -7873,7 +7878,7 @@ void PLProcessCPU::cleanupDeadPids(PLProcessCPU *this)
       {
         v7 = v6[3];
         v11 = v6 + 3;
-        v8 = std::__hash_table<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 6, v7);
+        v8 = std::__hash_table<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 12, v7, &v11);
         std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__erase_unique<int>(v8 + 3, v5);
         std::__hash_table<std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::__unordered_map_hasher<int,std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>>>::__erase_unique<int>(this + 1, v5);
       }
@@ -7914,7 +7919,7 @@ __darwin_ino64_t PLProcessCPU::getInode(PLProcessCPU *this, const char *a2)
   }
 }
 
-uint64_t PLProcessCPU::updateInodeMap(PLProcessCPU *this, int *a2)
+unint64_t PLProcessCPU::updateInodeMap(PLProcessCPU *this, int *a2)
 {
   buffer[128] = *MEMORY[0x277D85DE8];
   if (*a2)
@@ -7927,12 +7932,12 @@ uint64_t PLProcessCPU::updateInodeMap(PLProcessCPU *this, int *a2)
     }
 
     v4 = (**this)(this, buffer);
-    v26 = v4;
+    v25 = v4;
     if (v4 == -1)
     {
-      v22 = __cxa_allocate_exception(8uLL);
-      *v22 = "Cannot find the inode for the process";
-      __cxa_throw(v22, MEMORY[0x277D82740], 0);
+      v21 = __cxa_allocate_exception(8uLL);
+      *v21 = "Cannot find the inode for the process";
+      __cxa_throw(v21, MEMORY[0x277D82740], 0);
     }
 
     v5 = *a2;
@@ -7942,13 +7947,14 @@ uint64_t PLProcessCPU::updateInodeMap(PLProcessCPU *this, int *a2)
   {
     v5 = 0;
     v4 = 0;
-    v26 = 0;
+    v25 = 0;
     strcpy(buffer, "kernel_task");
   }
 
-  std::__hash_table<std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::__unordered_map_hasher<int,std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 1, v5)[3] = v4;
-  *&__dst = &v26;
-  v6 = std::__hash_table<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 6, v26);
+  *&__dst = a2;
+  std::__hash_table<std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::__unordered_map_hasher<int,std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 2, v5, &__dst)[3] = v4;
+  *&__dst = &v25;
+  v6 = std::__hash_table<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 12, v25, &__dst);
   v7 = v6;
   v8 = *a2;
   v9 = v6[4];
@@ -8034,9 +8040,9 @@ LABEL_28:
     v16 = v15;
     if (!v15)
     {
-      v23 = __cxa_allocate_exception(8uLL);
-      *v23 = "Unable to get basename for the process";
-      __cxa_throw(v23, MEMORY[0x277D82740], 0);
+      v22 = __cxa_allocate_exception(8uLL);
+      *v22 = "Unable to get basename for the process";
+      __cxa_throw(v22, MEMORY[0x277D82740], 0);
     }
 
     v17 = strlen(v15);
@@ -8051,7 +8057,7 @@ LABEL_28:
       operator new();
     }
 
-    HIBYTE(v25) = v17;
+    HIBYTE(v24) = v17;
     if (v17)
     {
       memmove(&__dst, v16, v17);
@@ -8064,12 +8070,10 @@ LABEL_28:
     }
 
     *(v7 + 4) = __dst;
-    v7[10] = v25;
+    v7[10] = v24;
   }
 
-  result = v26;
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return v25;
 }
 
 uint64_t PLProcessCPU::getRawCpu(PLProcessCPU *this, int *a2, unint64_t *a3)
@@ -8097,7 +8101,6 @@ uint64_t PLProcessCPU::aggregateCpu(uint64_t a1, uint64_t *a2, uint64_t *a3, uni
   v5 = *a4;
   if (!*&v4)
   {
-    v9 = *a3;
     goto LABEL_33;
   }
 
@@ -8118,20 +8121,20 @@ uint64_t PLProcessCPU::aggregateCpu(uint64_t a1, uint64_t *a2, uint64_t *a3, uni
     v8 = (*&v4 - 1) & v5;
   }
 
-  v10 = *(v6 + 8 * v8);
-  if (v10)
+  v9 = *(v6 + 8 * v8);
+  if (v9)
   {
-    for (i = *v10; i; i = *i)
+    for (i = *v9; i; i = *i)
     {
-      v12 = i[1];
-      if (v12 == v5)
+      v11 = i[1];
+      if (v11 == v5)
       {
         if (i[2] == v5)
         {
           result = i[3];
-          v18 = *a3 + result;
-          *a3 = v18;
-          i[3] = v18;
+          v17 = *a3 + result;
+          *a3 = v17;
+          i[3] = v17;
           return result;
         }
       }
@@ -8140,18 +8143,18 @@ uint64_t PLProcessCPU::aggregateCpu(uint64_t a1, uint64_t *a2, uint64_t *a3, uni
       {
         if (v7.u32[0] > 1uLL)
         {
-          if (v12 >= *&v4)
+          if (v11 >= *&v4)
           {
-            v12 %= *&v4;
+            v11 %= *&v4;
           }
         }
 
         else
         {
-          v12 &= *&v4 - 1;
+          v11 &= *&v4 - 1;
         }
 
-        if (v12 != v8)
+        if (v11 != v8)
         {
           break;
         }
@@ -8161,20 +8164,20 @@ uint64_t PLProcessCPU::aggregateCpu(uint64_t a1, uint64_t *a2, uint64_t *a3, uni
 
   if (v7.u32[0] > 1uLL)
   {
-    v13 = *a4;
+    v12 = *a4;
     if (*&v4 <= v5)
     {
-      v13 = v5 % *&v4;
+      v12 = v5 % *&v4;
     }
   }
 
   else
   {
-    v13 = (*&v4 - 1) & v5;
+    v12 = (*&v4 - 1) & v5;
   }
 
-  v14 = *(v6 + 8 * v13);
-  if (!v14 || (v15 = *v14) == 0)
+  v13 = *(v6 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_33:
     operator new();
@@ -8182,57 +8185,57 @@ LABEL_33:
 
   while (1)
   {
-    v16 = v15[1];
-    if (v16 == v5)
+    v15 = v14[1];
+    if (v15 == v5)
     {
       break;
     }
 
     if (v7.u32[0] > 1uLL)
     {
-      if (v16 >= *&v4)
+      if (v15 >= *&v4)
       {
-        v16 %= *&v4;
+        v15 %= *&v4;
       }
     }
 
     else
     {
-      v16 &= *&v4 - 1;
+      v15 &= *&v4 - 1;
     }
 
-    if (v16 != v13)
+    if (v15 != v12)
     {
       goto LABEL_33;
     }
 
 LABEL_32:
-    v15 = *v15;
-    if (!v15)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_33;
     }
   }
 
-  if (v15[2] != v5)
+  if (v14[2] != v5)
   {
     goto LABEL_32;
   }
 
   result = 0;
-  v15[3] = *a3;
+  v14[3] = *a3;
   return result;
 }
 
-void PLProcessCPU::addToReport(uint64_t a1, unint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t *a5, unint64_t *a6)
+void PLProcessCPU::addToReport(uint64_t a1, unint64_t *a2, uint64_t *a3, uint64_t **a4, uint64_t *a5, unint64_t *a6)
 {
   v10 = PLProcessCPU::aggregateCpu(a1, a3, a5, a2);
-  v12 = (a4 + 8);
-  v11 = *(a4 + 8);
+  v12 = a4 + 1;
+  v11 = a4[1];
   if (v11)
   {
     v13 = *a2;
-    v14 = (a4 + 8);
+    v14 = (a4 + 1);
     do
     {
       v15 = v11[5];
@@ -8283,7 +8286,7 @@ void PLProcessCPU::addToReport(uint64_t a1, unint64_t *a2, uint64_t *a3, uint64_
     }
   }
 
-  v26 = *(a4 + 16);
+  v26 = a4[2];
   v27 = *a5;
   v28 = v26 != 10 || v27 > *a6;
   if (v28)
@@ -8341,7 +8344,7 @@ LABEL_44:
       do
       {
         v38 = *v12;
-        v39 = (a4 + 8);
+        v39 = a4 + 1;
         if (*v12)
         {
           do
@@ -8415,14 +8418,14 @@ LABEL_59:
         operator delete(v42);
       }
 
-      while (*(a4 + 16) > 0xAuLL);
+      while (a4[2] > 0xA);
     }
   }
 }
 
 void PLProcessCPU::reportCpus(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277D3F258] secondsFromMachTime:*a3];
   v6 = v5 * 1000.0;
   [MEMORY[0x277D3F258] secondsFromMachTime:*(a1 + 120 + 8 * *(a1 + 136)) - *(a1 + 120 + 8 * *(a1 + 140))];
@@ -8434,9 +8437,9 @@ void PLProcessCPU::reportCpus(uint64_t a1, void *a2, void *a3)
     {
       v10 = v8;
       *buf = 134218240;
-      *v31 = v6;
-      *&v31[8] = 2048;
-      *&v31[10] = v10;
+      *v30 = v6;
+      *&v30[8] = 2048;
+      *&v30[10] = v10;
       _os_log_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEFAULT, "plcpu-00, %8.2f ms, %6.2f s", buf, 0x16u);
     }
   }
@@ -8449,19 +8452,19 @@ void PLProcessCPU::reportCpus(uint64_t a1, void *a2, void *a3)
     v14 = 0;
     v15 = v6;
     *&v7 = 67110146;
-    v27 = v7;
+    v26 = v7;
     do
     {
-      v28 = *(v12 + 2);
-      [MEMORY[0x277D3F258] secondsFromMachTime:{*(&v28 + 1), v27}];
+      v27 = *(v12 + 2);
+      [MEMORY[0x277D3F258] secondsFromMachTime:{*(&v27 + 1), v26}];
       v17 = v16;
       v18 = *(a1 + 152);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = &v28;
-        v19 = *(std::__hash_table<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 48), v28)[5] + 16);
-        v29 = &v28;
-        v20 = std::__hash_table<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 48), v28);
+        v28 = &v27;
+        v19 = *(std::__hash_table<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 48), v27, &v28)[5] + 16);
+        v28 = &v27;
+        v20 = std::__hash_table<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 48), v27, &v28);
         v21 = v20 + 8;
         if (*(v20 + 87) < 0)
         {
@@ -8470,16 +8473,16 @@ void PLProcessCPU::reportCpus(uint64_t a1, void *a2, void *a3)
 
         v22 = v17 * 1000.0;
         ++v14;
-        *buf = v27;
-        *v31 = v14;
-        *&v31[4] = 2048;
-        *&v31[6] = v22;
-        *&v31[14] = 2048;
-        *&v31[16] = v22 * 100.0 / v15;
-        v32 = 1024;
-        v33 = v19;
-        v34 = 2080;
-        v35 = v21;
+        *buf = v26;
+        *v30 = v14;
+        *&v30[4] = 2048;
+        *&v30[6] = v22;
+        *&v30[14] = 2048;
+        *&v30[16] = v22 * 100.0 / v15;
+        v31 = 1024;
+        v32 = v19;
+        v33 = 2080;
+        v34 = v21;
         _os_log_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEFAULT, "plcpu-%02d, %8.2f ms, %6.2f %%, %5d, %s", buf, 0x2Cu);
       }
 
@@ -8512,8 +8515,6 @@ void PLProcessCPU::reportCpus(uint64_t a1, void *a2, void *a3)
 
     while (v24 != v11);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t PLProcessCPU::processPids(int32x2_t *this)
@@ -8570,7 +8571,7 @@ uint64_t PLProcessCPU::processPids(int32x2_t *this)
       else
       {
         v20 = &v13;
-        std::__hash_table<std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::__unordered_map_hasher<int,std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&this[1], v13)[this[17].i32[0] + 4] = RawCpu;
+        std::__hash_table<std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::__unordered_map_hasher<int,std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&this[1], v13, &v20)[this[17].i32[0] + 4] = RawCpu;
       }
 
       ++v6;
@@ -8754,32 +8755,32 @@ uint64_t *std::__hash_table<std::__hash_value_type<int,PLProcessCPU::inode_cpu_t
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(float *a1, unint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -8787,49 +8788,49 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void sub_21A5E4A88(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21A5E4A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9151,32 +9152,32 @@ LABEL_24:
   operator delete(v3);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::__unordered_map_hasher<int,std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::__unordered_map_hasher<int,std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,PLProcessCPU::inode_cpu_t>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(float *a1, int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -9184,44 +9185,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 void *std::__hash_table<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PLProcessCPU::inode_data_t>>>::find<unsigned long long>(void *a1, unint64_t a2)
@@ -9254,45 +9255,37 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,PLProcessCPU::
     return 0;
   }
 
-  result = *v5;
-  if (*v5)
+  for (result = *v5; result; result = *result)
   {
-    do
+    v7 = result[1];
+    if (v7 == a2)
     {
-      v7 = result[1];
-      if (v7 == a2)
+      if (result[2] == a2)
       {
-        if (result[2] == a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v3.u32[0] > 1uLL)
+      {
+        if (v7 >= *&v2)
         {
-          return result;
+          v7 %= *&v2;
         }
       }
 
       else
       {
-        if (v3.u32[0] > 1uLL)
-        {
-          if (v7 >= *&v2)
-          {
-            v7 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v7 &= *&v2 - 1;
-        }
-
-        if (v7 != v4)
-        {
-          return 0;
-        }
+        v7 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v7 != v4)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -9318,11 +9311,11 @@ uint64_t **std::__tree<std::pair<unsigned long long,unsigned long long>,PLProces
     do
     {
       v3 = v4[2];
-      v30 = *v3 == v4;
+      v29 = *v3 == v4;
       v4 = v3;
     }
 
-    while (!v30);
+    while (!v29);
   }
 
   if (*result == a2)
@@ -9424,7 +9417,6 @@ LABEL_16:
   {
     v16 = v11[2];
     v17 = *v16;
-    v18 = *(v11 + 24);
     if (*v16 == v11)
     {
       break;
@@ -9434,19 +9426,19 @@ LABEL_16:
     {
       *(v11 + 24) = 1;
       *(v16 + 24) = 0;
-      v19 = v16[1];
-      v20 = *v19;
-      v16[1] = *v19;
-      if (v20)
+      v18 = *(v16 + 8);
+      v19 = *v18;
+      *(v16 + 8) = *v18;
+      if (v19)
       {
-        *(v20 + 16) = v16;
+        *(v19 + 16) = v16;
       }
 
-      v21 = v16[2];
-      v19[2] = v21;
-      v21[*v21 != v16] = v19;
-      *v19 = v16;
-      v16[2] = v19;
+      v20 = *(v16 + 16);
+      v18[2] = v20;
+      v20[*v20 != v16] = v18;
+      *v18 = v16;
+      *(v16 + 16) = v18;
       if (v5 == *v11)
       {
         v5 = v11;
@@ -9455,159 +9447,159 @@ LABEL_16:
       v11 = *(*v11 + 8);
     }
 
-    v22 = *v11;
-    if (*v11 && *(v22 + 24) != 1)
+    v21 = *v11;
+    if (*v11 && *(v21 + 24) != 1)
     {
-      v23 = v11[1];
-      if (v23 && (v23[3] & 1) == 0)
+      v22 = v11[1];
+      if (v22 && (v22[3] & 1) == 0)
       {
 LABEL_66:
-        v22 = v11;
+        v21 = v11;
       }
 
       else
       {
-        *(v22 + 24) = 1;
+        *(v21 + 24) = 1;
         *(v11 + 24) = 0;
-        v31 = v22[1];
-        *v11 = v31;
-        if (v31)
+        v30 = *(v21 + 8);
+        *v11 = v30;
+        if (v30)
         {
-          *(v31 + 16) = v11;
+          *(v30 + 16) = v11;
         }
 
-        v32 = v11[2];
-        v22[2] = v32;
-        v32[*v32 != v11] = v22;
-        v22[1] = v11;
-        v11[2] = v22;
-        v23 = v11;
+        v31 = v11[2];
+        *(v21 + 16) = v31;
+        v31[*v31 != v11] = v21;
+        *(v21 + 8) = v11;
+        v11[2] = v21;
+        v22 = v11;
       }
 
-      v33 = v22[2];
-      *(v22 + 24) = *(v33 + 24);
-      *(v33 + 24) = 1;
-      *(v23 + 24) = 1;
-      v34 = *(v33 + 8);
-      v35 = *v34;
-      *(v33 + 8) = *v34;
-      if (v35)
+      v32 = *(v21 + 16);
+      *(v21 + 24) = *(v32 + 24);
+      *(v32 + 24) = 1;
+      *(v22 + 24) = 1;
+      v33 = *(v32 + 8);
+      v34 = *v33;
+      *(v32 + 8) = *v33;
+      if (v34)
       {
-        *(v35 + 16) = v33;
+        *(v34 + 16) = v32;
       }
 
-      v36 = *(v33 + 16);
-      v34[2] = v36;
-      v36[*v36 != v33] = v34;
-      *v34 = v33;
+      v35 = *(v32 + 16);
+      v33[2] = v35;
+      v35[*v35 != v32] = v33;
+      *v33 = v32;
       goto LABEL_79;
     }
 
-    v23 = v11[1];
-    if (v23 && *(v23 + 24) != 1)
+    v22 = v11[1];
+    if (v22 && *(v22 + 24) != 1)
     {
       goto LABEL_66;
     }
 
     *(v11 + 24) = 0;
-    v24 = v11[2];
-    if (v24 == v5 || (v24[3] & 1) == 0)
+    v23 = v11[2];
+    if (v23 == v5 || (v23[3] & 1) == 0)
     {
       goto LABEL_60;
     }
 
 LABEL_57:
-    v11 = *(v24[2] + 8 * (*v24[2] == v24));
+    v11 = *(v23[2] + 8 * (*v23[2] == v23));
   }
 
   if ((v11[3] & 1) == 0)
   {
     *(v11 + 24) = 1;
     *(v16 + 24) = 0;
-    v25 = v17[1];
-    *v16 = v25;
-    if (v25)
+    v24 = v17[1];
+    *v16 = v24;
+    if (v24)
     {
-      *(v25 + 16) = v16;
+      *(v24 + 16) = v16;
     }
 
-    v26 = v16[2];
-    v17[2] = v26;
-    v26[*v26 != v16] = v17;
+    v25 = *(v16 + 16);
+    v17[2] = v25;
+    v25[*v25 != v16] = v17;
     v17[1] = v16;
-    v16[2] = v17;
-    v27 = v11[1];
-    if (v5 == v27)
+    *(v16 + 16) = v17;
+    v26 = v11[1];
+    if (v5 == v26)
     {
       v5 = v11;
     }
 
-    v11 = *v27;
+    v11 = *v26;
   }
 
-  v28 = *v11;
-  if (*v11 && *(v28 + 24) != 1)
+  v27 = *v11;
+  if (*v11 && *(v27 + 24) != 1)
   {
     goto LABEL_75;
   }
 
-  v29 = v11[1];
-  if (!v29 || *(v29 + 24) == 1)
+  v28 = v11[1];
+  if (!v28 || *(v28 + 24) == 1)
   {
     *(v11 + 24) = 0;
-    v24 = v11[2];
-    v30 = *(v24 + 24) != 1 || v24 == v5;
-    if (v30)
+    v23 = v11[2];
+    v29 = *(v23 + 24) != 1 || v23 == v5;
+    if (v29)
     {
 LABEL_60:
-      *(v24 + 24) = 1;
+      *(v23 + 24) = 1;
       return result;
     }
 
     goto LABEL_57;
   }
 
-  if (v28 && (v28[3] & 1) == 0)
+  if (v27 && (*(v27 + 24) & 1) == 0)
   {
 LABEL_75:
-    v29 = v11;
+    v28 = v11;
     goto LABEL_76;
   }
 
-  *(v29 + 24) = 1;
-  *(v11 + 24) = 0;
-  v37 = *v29;
-  v11[1] = *v29;
-  if (v37)
-  {
-    *(v37 + 16) = v11;
-  }
-
-  v38 = v11[2];
-  v29[2] = v38;
-  v38[*v38 != v11] = v29;
-  *v29 = v11;
-  v11[2] = v29;
-  v28 = v11;
-LABEL_76:
-  v33 = v29[2];
-  *(v29 + 24) = *(v33 + 24);
-  *(v33 + 24) = 1;
   *(v28 + 24) = 1;
-  v34 = *v33;
-  v39 = *(*v33 + 8);
-  *v33 = v39;
-  if (v39)
+  *(v11 + 24) = 0;
+  v36 = *v28;
+  v11[1] = *v28;
+  if (v36)
   {
-    *(v39 + 16) = v33;
+    *(v36 + 16) = v11;
   }
 
-  v40 = *(v33 + 16);
-  v34[2] = v40;
-  v40[*v40 != v33] = v34;
-  v34[1] = v33;
+  v37 = v11[2];
+  v28[2] = v37;
+  v37[*v37 != v11] = v28;
+  *v28 = v11;
+  v11[2] = v28;
+  v27 = v11;
+LABEL_76:
+  v32 = v28[2];
+  *(v28 + 24) = *(v32 + 24);
+  *(v32 + 24) = 1;
+  *(v27 + 24) = 1;
+  v33 = *v32;
+  v38 = *(*v32 + 8);
+  *v32 = v38;
+  if (v38)
+  {
+    *(v38 + 16) = v32;
+  }
+
+  v39 = *(v32 + 16);
+  v33[2] = v39;
+  v39[*v39 != v32] = v33;
+  v33[1] = v32;
 LABEL_79:
-  *(v33 + 16) = v34;
+  *(v32 + 16) = v33;
   return result;
 }
 

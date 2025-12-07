@@ -432,27 +432,27 @@ LABEL_115:
 
 - (XRConstantEngineeringValue)thread
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   if (sub_247F83314(self->_tableRowDecoder.__ptr_, self->_columns.thread))
   {
     v3 = *(self->_tableRowDecoder.__ptr_ + 9);
-    v4 = v3[9];
+    v4 = *(v3 + 72);
     if (*(v4 + 8) == 19)
     {
-      v5 = v3[8];
+      v5 = *(v3 + 64);
       v6 = v5 + *(v4 + 4);
       if (*(v6 - 4) == 2)
       {
-        v7 = (v3[3] + *(v6 - 28));
-        v3[8] = v7;
-        v3[9] = v6 - 28;
+        v7 = (*(v3 + 24) + *(v6 - 28));
+        *(v3 + 64) = v7;
+        *(v3 + 72) = v6 - 28;
         v8 = *(v6 - 24);
         v9 = *v7;
-        v26 = *v7;
+        v25 = *v7;
         if (v8 <= 7)
         {
-          memset(&v27[-1] + v8, *(v6 - 19), 8 - v8);
-          v9 = v26;
+          memset(&v26[-1] + v8, *(v6 - 19), 8 - v8);
+          v9 = v25;
         }
 
         v10 = [(XRIntKeyedDictionary *)self->_threadsByTID objectForIntegerKey:v9];
@@ -474,17 +474,17 @@ LABEL_8:
           if (v16 >= 2)
           {
             v17 = v14 - 12 * v15;
-            v3[8] = v3[3] + *(v17 + 12);
-            v3[9] = v17 + 12;
-            v25 = *(v3 + 4);
-            v18 = sub_247F83398(&v25, v3, self);
+            *(v3 + 64) = *(v3 + 24) + *(v17 + 12);
+            *(v3 + 72) = v17 + 12;
+            v24 = *(v3 + 64);
+            v18 = sub_247F83398(&v24, v3, self);
             v19 = MEMORY[0x277D036A0];
             v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v9];
             v21 = [v19 engineeringValueWithTypeID:7 value:v20];
 
-            v27[0] = v21;
-            v27[1] = v18;
-            v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+            v26[0] = v21;
+            v26[1] = v18;
+            v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
             v12 = [MEMORY[0x277D036A0] engineeringValueWithTypeID:8 value:v22];
 
             goto LABEL_8;
@@ -496,7 +496,6 @@ LABEL_8:
 
   v12 = 0;
 LABEL_13:
-  v23 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

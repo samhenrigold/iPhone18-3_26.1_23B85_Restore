@@ -302,13 +302,13 @@ LABEL_19:
       v68 = 0u;
       v69 = 0u;
       v67 = 0u;
-      [(CAMLiquidShutterRenderer *)self centerShape];
-      [(CAMLiquidShutterRenderer *)self _fragmentForShape:v63 scale:v14];
+      objc_msgSend_centerShape(self);
+      objc_msgSend__fragmentForShape_scale_(self, v14);
       v65 = 0u;
       v66 = 0u;
       v64 = 0u;
-      [(CAMLiquidShutterRenderer *)self dragHandleShape];
-      [(CAMLiquidShutterRenderer *)self _fragmentForShape:v63 scale:v14];
+      objc_msgSend_dragHandleShape(self);
+      objc_msgSend__fragmentForShape_scale_(self, v14);
       *&v15 = v9;
       *&v16 = v11;
       LODWORD(v17) = 1120403456;
@@ -483,7 +483,7 @@ LABEL_20:
     v11 = os_log_create("com.apple.camera", "DynamicShutter");
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __45__CAMLiquidShutterRenderer_renderIfNecessary__block_invoke_2_cold_2(v11, v13, v14, v15, v16, v17, v18, v19);
+      __45__CAMLiquidShutterRenderer_renderIfNecessary__block_invoke_2_cold_2(v11, v13, v14, v15, v16, v17, v18, v19, v10);
     }
 
     goto LABEL_20;
@@ -492,7 +492,7 @@ LABEL_20:
 LABEL_21:
 }
 
-unint64_t __45__CAMLiquidShutterRenderer_renderIfNecessary__block_invoke_37(uint64_t a1)
+void *__45__CAMLiquidShutterRenderer_renderIfNecessary__block_invoke_37(uint64_t a1)
 {
   result = [*(a1 + 32) _lastRenderedID];
   if (result < *(a1 + 40))
@@ -579,6 +579,27 @@ unint64_t __45__CAMLiquidShutterRenderer_renderIfNecessary__block_invoke_37(uint
   return WeakRetained;
 }
 
+- (void)initWithDevice:(uint64_t)a3 commandQueue:(uint64_t)a4 pixelFormat:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1A3640000, a2, a3, "Failed to create Metal render pipeline using cache, falling back to run-time compilation: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithDevice:(uint64_t)a3 commandQueue:(uint64_t)a4 pixelFormat:(uint64_t)a5 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1A3640000, a2, a3, "Failed to create Metal render pipeline state: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithDevice:(uint64_t)a3 commandQueue:(uint64_t)a4 pixelFormat:(uint64_t)a5 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1A3640000, a2, a3, "Failed to create Metal library: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __45__CAMLiquidShutterRenderer_renderIfNecessary__block_invoke_2_cold_1(uint64_t a1, NSObject *a2, double a3)
 {
   v7 = *MEMORY[0x1E69E9840];
@@ -587,6 +608,13 @@ void __45__CAMLiquidShutterRenderer_renderIfNecessary__block_invoke_2_cold_1(uin
   v5 = 2114;
   v6 = a1;
   _os_log_error_impl(&dword_1A3640000, a2, OS_LOG_TYPE_ERROR, "Dynamic shutter render did not complete successfully. Time: %.4f Command buffer status: %{public}@", &v3, 0x16u);
+}
+
+void __45__CAMLiquidShutterRenderer_renderIfNecessary__block_invoke_2_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_0_0(&dword_1A3640000, a1, a3, "Dynamic shutter render took %.4f seconds", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 @end

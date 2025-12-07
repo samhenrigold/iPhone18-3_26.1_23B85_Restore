@@ -39,7 +39,6 @@
 
 - (MTLDevice)device
 {
-  parent = self->super._parent;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   result = self->super._parent;

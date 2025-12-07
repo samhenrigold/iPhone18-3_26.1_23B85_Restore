@@ -69,7 +69,7 @@
   v11 = v10;
   fieldCopy = field;
   selfCopy = self;
-  LOBYTE(length) = sub_24E2D821C(fieldCopy, location, length, v9, v11);
+  LOBYTE(length) = sub_24E2D821C(fieldCopy, location, length, v14, v9, v11);
 
   return length & 1;
 }

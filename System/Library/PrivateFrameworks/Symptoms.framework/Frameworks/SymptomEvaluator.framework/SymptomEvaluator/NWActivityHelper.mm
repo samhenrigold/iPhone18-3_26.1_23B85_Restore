@@ -67,7 +67,7 @@
 
   else
   {
-    v9 = activityLogHandle();
+    v9 = activityLogHandle(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -120,7 +120,7 @@
 
 - (void)startNWActivitySuperMetricProcessing
 {
-  v3 = activityLogHandle();
+  v3 = activityLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -134,38 +134,39 @@
   block[3] = &unk_27898A0C8;
   block[4] = self;
   dispatch_sync(queue, block);
-  v5 = activityLogHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = activityLogHandle(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Finished NWActivitySuperMetricProcessing", buf, 2u);
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Finished NWActivitySuperMetricProcessing", buf, 2u);
   }
 }
 
 uint64_t __56__NWActivityHelper_startNWActivitySuperMetricProcessing__block_invoke(uint64_t a1)
 {
-  v2 = activityLogHandle();
+  v2 = activityLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
     _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Posting NWActivity DB stats to CA", buf, 2u);
   }
 
-  if (([*(a1 + 32) _uploadNWActivityDatabaseStats] & 1) == 0)
+  v3 = [*(a1 + 32) _uploadNWActivityDatabaseStats];
+  if ((v3 & 1) == 0)
   {
-    v3 = activityLogHandle();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = activityLogHandle(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_ERROR, "Error posting NWActivity database stats to CA", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "Error posting NWActivity database stats to CA", v8, 2u);
     }
   }
 
-  v4 = activityLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = activityLogHandle(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Processing NWActivities...", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Processing NWActivities...", v7, 2u);
   }
 
   [*(a1 + 32) _uploadCompleteNWActivityMetrics];
@@ -193,7 +194,7 @@ id __50__NWActivityHelper__uploadNWActivityDatabaseStats__block_invoke(uint64_t 
 
   else
   {
-    v4 = activityLogHandle();
+    v4 = activityLogHandle(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *v6 = 0;
@@ -208,13 +209,13 @@ id __50__NWActivityHelper__uploadNWActivityDatabaseStats__block_invoke(uint64_t 
 
 - (id)_statsForNWActivityFragmentTypes
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   analyticsWorkspace = [(NWActivityHelper *)self analyticsWorkspace];
   mainObjectContext = [analyticsWorkspace mainObjectContext];
 
   if (!mainObjectContext)
   {
-    mainObjectContext = activityLogHandle();
+    mainObjectContext = activityLogHandle(v5);
     if (os_log_type_enabled(mainObjectContext, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -224,46 +225,46 @@ id __50__NWActivityHelper__uploadNWActivityDatabaseStats__block_invoke(uint64_t 
     goto LABEL_10;
   }
 
-  v5 = objc_alloc_init(MEMORY[0x277D6B510]);
-  v6 = countOfKeyDescriptor();
-  [v5 addGroupByProperty:@"type"];
-  [v5 addAggregateProperty:v6];
+  v6 = objc_alloc_init(MEMORY[0x277D6B510]);
+  v7 = countOfKeyDescriptor();
+  [v6 addGroupByProperty:@"type"];
+  [v6 addAggregateProperty:v7];
   _NWActivityFragmentSpace = [(NWActivityHelper *)self _NWActivityFragmentSpace];
-  LOBYTE(v15) = 0;
-  v8 = [_NWActivityFragmentSpace fetchEntityDictionariesWithProperties:&unk_2847EEBF8 fetchRequestProperties:v5 predicate:0 sortDescriptors:0 limit:0 offset:0 includeObjectID:v15];
+  LOBYTE(v16) = 0;
+  v9 = [_NWActivityFragmentSpace fetchEntityDictionariesWithProperties:&unk_2847EEBF8 fetchRequestProperties:v6 predicate:0 sortDescriptors:0 limit:0 offset:0 includeObjectID:v16];
 
-  if (!v8)
+  if (!v9)
   {
-    v12 = activityLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = activityLogHandle(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "Failed to fetch NWActivity database stats", buf, 2u);
+      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "Failed to fetch NWActivity database stats", buf, 2u);
     }
 
 LABEL_10:
-    v10 = 0;
+    v12 = 0;
     goto LABEL_11;
   }
 
-  if ([v8 count])
+  if ([v9 count])
   {
-    v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
     *buf = 0;
-    v20 = buf;
-    v21 = 0x2020000000;
-    v22 = 0;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __52__NWActivityHelper__statsForNWActivityFragmentTypes__block_invoke;
-    v16[3] = &unk_27898CB30;
-    v18 = buf;
-    v10 = v9;
-    v17 = v10;
-    [v8 enumerateObjectsUsingBlock:v16];
-    self->_numberOfFragmentsInDB = *(v20 + 3);
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
-    [v10 setObject:v11 forKeyedSubscript:@"numberOfFragments"];
+    v21 = buf;
+    v22 = 0x2020000000;
+    v23 = 0;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __52__NWActivityHelper__statsForNWActivityFragmentTypes__block_invoke;
+    v17[3] = &unk_27898CB30;
+    v19 = buf;
+    v12 = v11;
+    v18 = v12;
+    [v9 enumerateObjectsUsingBlock:v17];
+    self->_numberOfFragmentsInDB = *(v21 + 3);
+    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+    [v12 setObject:v13 forKeyedSubscript:@"numberOfFragments"];
 
     _Block_object_dispose(buf, 8);
   }
@@ -271,14 +272,12 @@ LABEL_10:
   else
   {
 
-    v10 = &unk_2847EF4F8;
+    v12 = &unk_2847EF4F8;
   }
 
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v12;
 }
 
 void __52__NWActivityHelper__statsForNWActivityFragmentTypes__block_invoke(uint64_t a1, void *a2)
@@ -318,7 +317,7 @@ void __52__NWActivityHelper__statsForNWActivityFragmentTypes__block_invoke(uint6
 
     else
     {
-      v11 = activityLogHandle();
+      v11 = activityLogHandle(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *v12 = 0;
@@ -329,7 +328,7 @@ void __52__NWActivityHelper__statsForNWActivityFragmentTypes__block_invoke(uint6
 
   else
   {
-    v7 = activityLogHandle();
+    v7 = activityLogHandle(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -340,7 +339,7 @@ void __52__NWActivityHelper__statsForNWActivityFragmentTypes__block_invoke(uint6
 
 - (void)cleanOutNWActivityMetrics
 {
-  v3 = activityLogHandle();
+  v3 = activityLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -354,17 +353,17 @@ void __52__NWActivityHelper__statsForNWActivityFragmentTypes__block_invoke(uint6
   block[3] = &unk_27898A0C8;
   block[4] = self;
   dispatch_sync(queue, block);
-  v5 = activityLogHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = activityLogHandle(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Finished cleanOutNWActivityMetrics", buf, 2u);
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Finished cleanOutNWActivityMetrics", buf, 2u);
   }
 }
 
 uint64_t __45__NWActivityHelper_cleanOutNWActivityMetrics__block_invoke(uint64_t a1)
 {
-  v2 = activityLogHandle();
+  v2 = activityLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -376,7 +375,7 @@ uint64_t __45__NWActivityHelper_cleanOutNWActivityMetrics__block_invoke(uint64_t
 
 - (void)purgeOldNWActivityMetrics
 {
-  v3 = activityLogHandle();
+  v3 = activityLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -394,7 +393,7 @@ uint64_t __45__NWActivityHelper_cleanOutNWActivityMetrics__block_invoke(uint64_t
 
 void __45__NWActivityHelper_purgeOldNWActivityMetrics__block_invoke(uint64_t a1)
 {
-  v2 = activityLogHandle();
+  v2 = activityLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -403,8 +402,7 @@ void __45__NWActivityHelper_purgeOldNWActivityMetrics__block_invoke(uint64_t a1)
 
   +[AnalyticsLaunchpad leaveBreadcrumbForDestroyPersistentStore];
   [*(a1 + 32) _deleteOldMetrics];
-  +[AnalyticsLaunchpad clearDestroyPersistentStoreBreadcrumb];
-  v3 = activityLogHandle();
+  v3 = activityLogHandle(+[AnalyticsLaunchpad clearDestroyPersistentStoreBreadcrumb]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -414,17 +412,17 @@ void __45__NWActivityHelper_purgeOldNWActivityMetrics__block_invoke(uint64_t a1)
 
 - (void)retrieveNWActivityMetricsForActivity:(id)activity completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   completionCopy = completion;
   v8 = completionCopy;
   if (activityCopy && completionCopy)
   {
-    v9 = activityLogHandle();
+    v9 = activityLogHandle(completionCopy);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = activityCopy;
+      v15 = activityCopy;
       _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Retrieving metrics for activity %@", buf, 0xCu);
     }
 
@@ -434,28 +432,26 @@ void __45__NWActivityHelper_purgeOldNWActivityMetrics__block_invoke(uint64_t a1)
     block[2] = __68__NWActivityHelper_retrieveNWActivityMetricsForActivity_completion___block_invoke;
     block[3] = &unk_27898C710;
     block[4] = self;
-    v13 = activityCopy;
-    v14 = v8;
+    v12 = activityCopy;
+    v13 = v8;
     dispatch_async(queue, block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __68__NWActivityHelper_retrieveNWActivityMetricsForActivity_completion___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) _fetchMetricsForUUID:*(a1 + 40)];
   v4 = v3;
-  if (v3 && [v3 count])
+  if (v3 && (v3 = [v3 count]) != 0)
   {
-    v5 = activityLogHandle();
+    v5 = activityLogHandle(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 138412290;
-      v12 = v4;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "Calling completion with results %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v4;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "Calling completion with results %@", &v10, 0xCu);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -463,11 +459,11 @@ void __68__NWActivityHelper_retrieveNWActivityMetricsForActivity_completion___bl
 
   else
   {
-    v6 = activityLogHandle();
+    v6 = activityLogHandle(v3);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "Calling completion with error", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "Calling completion with error", &v10, 2u);
     }
 
     v7 = *(a1 + 48);
@@ -477,23 +473,23 @@ void __68__NWActivityHelper_retrieveNWActivityMetricsForActivity_completion___bl
   }
 
   objc_autoreleasePoolPop(v2);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createDictionarySupermetricForActivity:(id)activity withContext:(id)context
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   contextCopy = context;
+  v8 = contextCopy;
   if (!activityCopy)
   {
-    v9 = activityLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = activityLogHandle(contextCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v19 = "activity is required";
+      v20 = "activity is required";
 LABEL_18:
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, v19, buf, 2u);
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, v20, buf, 2u);
     }
 
 LABEL_19:
@@ -501,106 +497,105 @@ LABEL_19:
     goto LABEL_30;
   }
 
-  v8 = activityLogHandle();
-  v9 = v8;
-  if (!contextCopy)
+  v9 = activityLogHandle(contextCopy);
+  v10 = v9;
+  if (!v8)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v19 = "context is required";
+      v20 = "context is required";
       goto LABEL_18;
     }
 
     goto LABEL_19;
   }
 
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v35[0] = activityCopy;
-    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "Fetching metrics for activity %@", buf, 0xCu);
+    v37[0] = activityCopy;
+    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "Fetching metrics for activity %@", buf, 0xCu);
   }
 
-  v33 = 0;
-  v10 = [(NWActivityHelper *)self _fetchFragmentsForUUID:activityCopy fromContext:contextCopy withError:&v33];
-  v11 = v33;
-  v12 = v11;
-  if (v10)
+  v35 = 0;
+  v11 = [(NWActivityHelper *)self _fetchFragmentsForUUID:activityCopy fromContext:v8 withError:&v35];
+  v12 = v35;
+  v13 = v12;
+  if (v11)
   {
-    v27 = [(NWActivityHelper *)self _createSupermetricFromFragments:v10 forMetricUUID:activityCopy];
-    v29 = 0u;
-    v30 = 0u;
+    v29 = [(NWActivityHelper *)self _createSupermetricFromFragments:v11 forMetricUUID:activityCopy];
     v31 = 0u;
     v32 = 0u;
-    v13 = v10;
-    v14 = [v13 countByEnumeratingWithState:&v29 objects:v36 count:16];
-    if (v14)
+    v33 = 0u;
+    v34 = 0u;
+    v14 = v11;
+    v15 = [v14 countByEnumeratingWithState:&v31 objects:v38 count:16];
+    if (v15)
     {
-      v15 = v14;
-      v16 = 0;
-      v17 = *v30;
+      v16 = v15;
+      v17 = 0;
+      v18 = *v32;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v30 != v17)
+          if (*v32 != v18)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v14);
           }
 
-          [(NWActivityHelper *)self _deleteNWActivityFragment:*(*(&v29 + 1) + 8 * i) fromContext:contextCopy, v27];
+          [(NWActivityHelper *)self _deleteNWActivityFragment:*(*(&v31 + 1) + 8 * i) fromContext:v8, v29];
         }
 
-        v16 += v15;
-        v15 = [v13 countByEnumeratingWithState:&v29 objects:v36 count:16];
+        v17 += v16;
+        v16 = [v14 countByEnumeratingWithState:&v31 objects:v38 count:16];
       }
 
-      while (v15);
+      while (v16);
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
     }
 
-    v21 = activityLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v23 = activityLogHandle(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      LODWORD(v35[0]) = v16;
-      WORD2(v35[0]) = 2112;
-      *(v35 + 6) = activityCopy;
-      _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_INFO, "Deleted %u fragments for activity %@", buf, 0x12u);
+      LODWORD(v37[0]) = v17;
+      WORD2(v37[0]) = 2112;
+      *(v37 + 6) = activityCopy;
+      _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_INFO, "Deleted %u fragments for activity %@", buf, 0x12u);
     }
 
-    v28 = v12;
-    v22 = [contextCopy save:&v28];
-    v9 = v28;
+    v30 = v13;
+    v24 = [v8 save:&v30];
+    v10 = v30;
 
-    if ((v22 & 1) == 0)
+    if ((v24 & 1) == 0)
     {
-      v23 = activityLogHandle();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v26 = activityLogHandle(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v35[0] = v9;
-        _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_ERROR, "Failed to delete the metric, error: %@", buf, 0xCu);
+        v37[0] = v10;
+        _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, "Failed to delete the metric, error: %@", buf, 0xCu);
       }
     }
 
-    v24 = v27;
-    dictionaryRepresentation = [v27 dictionaryRepresentation];
+    v27 = v29;
+    dictionaryRepresentation = [v29 dictionaryRepresentation];
   }
 
   else
   {
     dictionaryRepresentation = 0;
-    v9 = v11;
+    v10 = v12;
   }
 
 LABEL_30:
-  v25 = *MEMORY[0x277D85DE8];
 
   return dictionaryRepresentation;
 }
@@ -608,21 +603,21 @@ LABEL_30:
 - (void)_fetchMetricsForActivity:(id)activity maxChildDepth:(unsigned __int8)depth destinationArray:(id)array
 {
   depthCopy = depth;
-  v47 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   arrayCopy = array;
   v10 = arrayCopy;
   if (!activityCopy || !arrayCopy)
   {
-    v29 = activityLogHandle();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v32 = activityLogHandle(arrayCopy);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v30 = "activity and destinationArray are required";
-      v31 = v29;
-      v32 = OS_LOG_TYPE_ERROR;
+      v33 = "activity and destinationArray are required";
+      v34 = v32;
+      v35 = OS_LOG_TYPE_ERROR;
 LABEL_29:
-      _os_log_impl(&dword_23255B000, v31, v32, v30, buf, 2u);
+      _os_log_impl(&dword_23255B000, v34, v35, v33, buf, 2u);
     }
 
 LABEL_30:
@@ -632,13 +627,13 @@ LABEL_30:
 
   if (!depthCopy)
   {
-    v29 = activityLogHandle();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    v32 = activityLogHandle(arrayCopy);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v30 = "Exceeded maximum depth for child activity hierarchy, stopping";
-      v31 = v29;
-      v32 = OS_LOG_TYPE_INFO;
+      v33 = "Exceeded maximum depth for child activity hierarchy, stopping";
+      v34 = v32;
+      v35 = OS_LOG_TYPE_INFO;
       goto LABEL_29;
     }
 
@@ -651,25 +646,25 @@ LABEL_30:
 
   if (!mainObjectContext)
   {
-    v33 = activityLogHandle();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v36 = activityLogHandle(v14);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_ERROR, "Failed to get context when uploading complete metrics, stopping", buf, 2u);
+      _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_ERROR, "Failed to get context when uploading complete metrics, stopping", buf, 2u);
     }
 
     goto LABEL_35;
   }
 
-  v14 = [(NWActivityHelper *)self _createDictionarySupermetricForActivity:activityCopy withContext:mainObjectContext];
-  if (v14)
+  v15 = [(NWActivityHelper *)self _createDictionarySupermetricForActivity:activityCopy withContext:mainObjectContext];
+  if (v15)
   {
-    [v10 addObject:v14];
+    [v10 addObject:v15];
   }
 
-  v41 = 0;
-  v15 = [(NWActivityHelper *)self _fetchChildrenForUUID:activityCopy fromContext:mainObjectContext withError:&v41];
-  if (!v15)
+  v43 = 0;
+  v16 = [(NWActivityHelper *)self _fetchChildrenForUUID:activityCopy fromContext:mainObjectContext withError:&v43];
+  if (!v16)
   {
 
 LABEL_35:
@@ -677,87 +672,86 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  v16 = v15;
-  v36 = v10;
+  v17 = v16;
+  v38 = v10;
   [mainObjectContext reset];
 
   objc_autoreleasePoolPop(v11);
+  v41 = 0u;
+  v42 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v17 = v16;
-  v18 = [v17 countByEnumeratingWithState:&v37 objects:v46 count:16];
-  if (v18)
+  v18 = v17;
+  v19 = [v18 countByEnumeratingWithState:&v39 objects:v48 count:16];
+  if (v19)
   {
-    v20 = v18;
-    v21 = *v38;
-    v22 = depthCopy - 1;
-    *&v19 = 138412546;
-    v35 = v19;
+    v21 = v19;
+    v22 = *v40;
+    v23 = depthCopy - 1;
+    *&v20 = 138412546;
+    v37 = v20;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v38 != v21)
+        if (*v40 != v22)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v18);
         }
 
-        v24 = *(*(&v37 + 1) + 8 * i);
-        v25 = [v24 isEqual:{activityCopy, v35}];
-        v26 = activityLogHandle();
-        v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG);
-        if (v25)
+        v25 = *(*(&v39 + 1) + 8 * i);
+        v26 = [v25 isEqual:{activityCopy, v37}];
+        v27 = v26;
+        v28 = activityLogHandle(v26);
+        v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG);
+        if (v27)
         {
-          if (v27)
+          if (v29)
           {
             *buf = 138412290;
-            v43 = activityCopy;
-            _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEBUG, "Skipping metric for child identical to activity %@", buf, 0xCu);
+            v45 = activityCopy;
+            _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEBUG, "Skipping metric for child identical to activity %@", buf, 0xCu);
           }
         }
 
         else
         {
-          if (v27)
+          if (v29)
           {
-            *buf = v35;
-            v43 = v24;
-            v44 = 2112;
-            v45 = activityCopy;
-            _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEBUG, "Fetching metric for child %@ of activity %@", buf, 0x16u);
+            *buf = v37;
+            v45 = v25;
+            v46 = 2112;
+            v47 = activityCopy;
+            _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEBUG, "Fetching metric for child %@ of activity %@", buf, 0x16u);
           }
 
-          [(NWActivityHelper *)self _fetchMetricsForActivity:v24 maxChildDepth:v22 destinationArray:v36];
+          [(NWActivityHelper *)self _fetchMetricsForActivity:v25 maxChildDepth:v23 destinationArray:v38];
         }
       }
 
-      v20 = [v17 countByEnumeratingWithState:&v37 objects:v46 count:16];
+      v21 = [v18 countByEnumeratingWithState:&v39 objects:v48 count:16];
     }
 
-    while (v20);
+    while (v21);
   }
 
-  v28 = activityLogHandle();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+  v31 = activityLogHandle(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v43 = activityCopy;
-    _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEBUG, "Finished with activity %@", buf, 0xCu);
+    v45 = activityCopy;
+    _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_DEBUG, "Finished with activity %@", buf, 0xCu);
   }
 
-  v10 = v36;
+  v10 = v38;
 LABEL_36:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fetchMetricsForUUID:(id)d
 {
   v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v5 = activityLogHandle();
+  v5 = activityLogHandle(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     v11 = 138412290;
@@ -767,27 +761,25 @@ LABEL_36:
 
   if (dCopy)
   {
-    v6 = objc_autoreleasePoolPush();
-    v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    [(NWActivityHelper *)self _fetchMetricsForActivity:dCopy maxChildDepth:30 destinationArray:v7];
-    objc_autoreleasePoolPop(v6);
+    v7 = objc_autoreleasePoolPush();
+    v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    [(NWActivityHelper *)self _fetchMetricsForActivity:dCopy maxChildDepth:30 destinationArray:v8];
+    objc_autoreleasePoolPop(v7);
   }
 
   else
   {
-    v8 = activityLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = activityLogHandle(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       LOWORD(v11) = 0;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "UUID is required", &v11, 2u);
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "UUID is required", &v11, 2u);
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v8;
 }
 
 - (void)_deleteOldMetrics
@@ -799,33 +791,33 @@ LABEL_36:
 
 - (void)_deleteAllFragmentsMatchingPredicate:(id)predicate
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
-  v26 = objc_autoreleasePoolPush();
-  v4 = activityLogHandle();
+  v30 = objc_autoreleasePoolPush();
+  v4 = activityLogHandle(v30);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v39 = predicateCopy;
+    v43 = predicateCopy;
     _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "_deleteAllFragmentsMatchingPredicate %@ for NWActivityMetrics", buf, 0xCu);
   }
 
-  v27 = 0;
+  v31 = 0;
   v5 = 0;
   while (1)
   {
-    v30 = v5;
+    v34 = v5;
     context = objc_autoreleasePoolPush();
     v6 = [(NWActivityHelper *)self _fetchActivitiesWithPredicate:predicateCopy batch:1];
     v7 = v6;
-    if (v6 && [v6 count])
+    if (v6 && (v6 = [v6 count]) != 0)
     {
-      v8 = activityLogHandle();
+      v8 = activityLogHandle(v6);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         v9 = [v7 count];
         *buf = 134217984;
-        v39 = v9;
+        v43 = v9;
         _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "Found %lu activities to delete: ", buf, 0xCu);
       }
 
@@ -834,144 +826,147 @@ LABEL_36:
 
       if (mainObjectContext)
       {
-        v28 = [v7 count];
-        v35 = 0u;
-        v36 = 0u;
-        v33 = 0u;
-        v34 = 0u;
-        v12 = v7;
-        v13 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
-        if (v13)
+        v32 = [v7 count];
+        v39 = 0u;
+        v40 = 0u;
+        v37 = 0u;
+        v38 = 0u;
+        v13 = v7;
+        v14 = [v13 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v15 = v14;
+        if (v14)
         {
-          v14 = *v34;
+          v16 = *v38;
           do
           {
-            for (i = 0; i != v13; ++i)
+            v17 = 0;
+            do
             {
-              if (*v34 != v14)
+              if (*v38 != v16)
               {
-                objc_enumerationMutation(v12);
+                objc_enumerationMutation(v13);
               }
 
-              v16 = *(*(&v33 + 1) + 8 * i);
-              v17 = activityLogHandle();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+              v18 = *(*(&v37 + 1) + 8 * v17);
+              v19 = activityLogHandle(v14);
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v39 = v16;
-                _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "Deleting activity %@", buf, 0xCu);
+                v43 = v18;
+                _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "Deleting activity %@", buf, 0xCu);
               }
 
-              [(NWActivityHelper *)self _deleteNWActivityFragment:v16 fromContext:mainObjectContext];
+              v14 = [(NWActivityHelper *)self _deleteNWActivityFragment:v18 fromContext:mainObjectContext];
+              ++v17;
             }
 
-            v13 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
+            while (v15 != v17);
+            v14 = [v13 countByEnumeratingWithState:&v37 objects:v41 count:16];
+            v15 = v14;
           }
 
-          while (v13);
+          while (v14);
         }
 
-        v32 = 0;
-        v18 = [mainObjectContext save:&v32];
-        v19 = v32;
-        if ((v18 & 1) == 0)
+        v36 = 0;
+        v20 = [mainObjectContext save:&v36];
+        v21 = v36;
+        v22 = v21;
+        if ((v20 & 1) == 0)
         {
-          v20 = activityLogHandle();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v23 = activityLogHandle(v21);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v39 = v19;
-            _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, "Failed to delete metrics, error: %@", buf, 0xCu);
+            v43 = v22;
+            _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_ERROR, "Failed to delete metrics, error: %@", buf, 0xCu);
           }
         }
 
-        [mainObjectContext reset];
-        v21 = activityLogHandle();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v24 = activityLogHandle([mainObjectContext reset]);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v39 = v28;
-          _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "Deleted %ld metrics in current pass", buf, 0xCu);
+          v43 = v32;
+          _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "Deleted %ld metrics in current pass", buf, 0xCu);
         }
 
-        v27 += v28;
-        if (v19)
+        v31 += v32;
+        if (v22)
         {
-          v22 = activityLogHandle();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v26 = activityLogHandle(v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v39 = v19;
-            _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "Encountered error when saving context after deletion: %@", buf, 0xCu);
+            v43 = v22;
+            _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, "Encountered error when saving context after deletion: %@", buf, 0xCu);
           }
 
           v7 = 0;
-          v23 = 3;
+          v27 = 3;
         }
 
         else
         {
           v7 = 0;
-          v23 = 0;
+          v27 = 0;
         }
       }
 
       else
       {
-        v19 = activityLogHandle();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v22 = activityLogHandle(v12);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "Failed to fetch context when deleting metrics, stopping...", buf, 2u);
+          _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "Failed to fetch context when deleting metrics, stopping...", buf, 2u);
         }
 
-        v23 = 1;
+        v27 = 1;
       }
     }
 
     else
     {
-      mainObjectContext = activityLogHandle();
+      mainObjectContext = activityLogHandle(v6);
       if (os_log_type_enabled(mainObjectContext, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
         _os_log_impl(&dword_23255B000, mainObjectContext, OS_LOG_TYPE_INFO, "Did not find any more activities, stopping...", buf, 2u);
       }
 
-      v23 = 3;
+      v27 = 3;
     }
 
     objc_autoreleasePoolPop(context);
-    if (v23)
+    if (v27)
     {
       break;
     }
 
-    v5 = v30 + 1;
-    if (v30 == 9999999)
+    v5 = v34 + 1;
+    if (v34 == 9999999)
     {
       goto LABEL_40;
     }
   }
 
-  if (v23 != 3)
+  if (v27 != 3)
   {
     goto LABEL_43;
   }
 
 LABEL_40:
-  v24 = activityLogHandle();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v29 = activityLogHandle(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v39 = v27;
-    _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "Deleted %ld total metrics", buf, 0xCu);
+    v43 = v31;
+    _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_DEFAULT, "Deleted %ld total metrics", buf, 0xCu);
   }
 
 LABEL_43:
-  objc_autoreleasePoolPop(v26);
-
-  v25 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v30);
 }
 
 - (void)_deleteNWActivityFragment:(id)fragment fromContext:(id)context
@@ -988,14 +983,14 @@ LABEL_43:
 
     if (v10 >= 2)
     {
-      v11 = activityLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = activityLogHandle(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         metricData2 = [fragmentCopy metricData];
         fragment2 = [metricData2 fragment];
         v16 = 134217984;
         v17 = [fragment2 count];
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "Severing NWActivityFragment relationship with metricData as relationship count is %ld", &v16, 0xCu);
+        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "Severing NWActivityFragment relationship with metricData as relationship count is %ld", &v16, 0xCu);
       }
 
       [fragmentCopy setMetricData:0];
@@ -1006,20 +1001,18 @@ LABEL_43:
 
   else
   {
-    v14 = activityLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = activityLogHandle(contextCopy);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       LOWORD(v16) = 0;
-      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "Cannot delete fragment if fragment or context is nil, ignoring", &v16, 2u);
+      _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "Cannot delete fragment if fragment or context is nil, ignoring", &v16, 2u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_garbageCollectNWActivityMetrics
 {
-  v3 = activityLogHandle();
+  v3 = activityLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1034,167 +1027,166 @@ LABEL_43:
 - (id)_fetchActivitiesWithPredicate:(id)predicate batch:(BOOL)batch
 {
   batchCopy = batch;
-  v28 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   analyticsWorkspace = [(NWActivityHelper *)self analyticsWorkspace];
   mainObjectContext = [analyticsWorkspace mainObjectContext];
 
   if (!mainObjectContext)
   {
-    mainObjectContext = activityLogHandle();
+    mainObjectContext = activityLogHandle(v9);
     if (os_log_type_enabled(mainObjectContext, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v23 = predicateCopy;
+      v26 = predicateCopy;
       _os_log_impl(&dword_23255B000, mainObjectContext, OS_LOG_TYPE_ERROR, "Failed to fetch context when fetching metrics, skipping predicate %@", buf, 0xCu);
     }
 
     goto LABEL_25;
   }
 
-  v9 = MEMORY[0x277CBE428];
+  v10 = MEMORY[0x277CBE428];
   entityName = [MEMORY[0x277D6B528] entityName];
-  v11 = [v9 fetchRequestWithEntityName:entityName];
+  v12 = [v10 fetchRequestWithEntityName:entityName];
 
-  if (!v11)
+  if (!v12)
   {
-    v17 = activityLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v21 = activityLogHandle(v13);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       entityName2 = [MEMORY[0x277D6B528] entityName];
       *buf = 138412290;
-      v23 = entityName2;
-      _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Failed to create fetch request for entity name: %@", buf, 0xCu);
+      v26 = entityName2;
+      _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "Failed to create fetch request for entity name: %@", buf, 0xCu);
     }
 
 LABEL_25:
-    v12 = 0;
+    v14 = 0;
     goto LABEL_26;
   }
 
   if (predicateCopy)
   {
-    [v11 setPredicate:predicateCopy];
+    [v12 setPredicate:predicateCopy];
   }
 
   if (batchCopy)
   {
-    [v11 setFetchLimit:100];
+    [v12 setFetchLimit:100];
   }
 
-  v21 = 0;
-  v12 = [mainObjectContext executeFetchRequest:v11 error:&v21];
-  v13 = v21;
-  if (!v12)
+  v24 = 0;
+  v14 = [mainObjectContext executeFetchRequest:v12 error:&v24];
+  v15 = v24;
+  v16 = v15;
+  if (!v14)
   {
-    v14 = activityLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = activityLogHandle(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v23 = predicateCopy;
-      v24 = 2112;
-      v25 = v13;
-      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "Failed to fetch activity entries from the database for predicate %@. Error: %@", buf, 0x16u);
+      v26 = predicateCopy;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Failed to fetch activity entries from the database for predicate %@. Error: %@", buf, 0x16u);
     }
 
-    v12 = 0;
+    v14 = 0;
   }
 
-  if (![v12 count])
+  v18 = [v14 count];
+  if (!v18)
   {
-    v15 = activityLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v19 = activityLogHandle(0);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v23 = predicateCopy;
-      _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_INFO, "Did not find any activity metrics in the database for predicate %@", buf, 0xCu);
+      v26 = predicateCopy;
+      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_INFO, "Did not find any activity metrics in the database for predicate %@", buf, 0xCu);
     }
   }
 
-  if (v13)
+  if (v16)
   {
-    v16 = activityLogHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v20 = activityLogHandle(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v23 = predicateCopy;
-      v24 = 2112;
-      v25 = v12;
-      v26 = 2112;
-      v27 = v13;
-      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "Should not have a valid activity list: %@ and an error: %@ for predicate: %@", buf, 0x20u);
+      v26 = predicateCopy;
+      v27 = 2112;
+      v28 = v14;
+      v29 = 2112;
+      v30 = v16;
+      _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, "Should not have a valid activity list: %@ and an error: %@ for predicate: %@", buf, 0x20u);
     }
   }
 
-  mainObjectContext = v13;
+  mainObjectContext = v16;
 LABEL_26:
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v14;
 }
 
 - (id)_findNWActivityMetricsForUploading
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  if (nw_activity_has_global_investigation_identifier())
+  has_global_investigation_identifier = nw_activity_has_global_investigation_identifier();
+  if (has_global_investigation_identifier)
   {
-    v4 = activityLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = activityLogHandle(has_global_investigation_identifier);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Investigation ID is set, processing all activities", buf, 2u);
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Investigation ID is set, processing all activities", buf, 2u);
     }
 
-    v5 = [MEMORY[0x277CCAC30] predicateWithFormat:@"type == %@", &unk_2847EF728];
-    v6 = [(NWActivityHelper *)self _fetchActivitiesWithPredicate:v5 batch:0];
+    v6 = [MEMORY[0x277CCAC30] predicateWithFormat:@"type == %@", &unk_2847EF728];
+    v7 = [(NWActivityHelper *)self _fetchActivitiesWithPredicate:v6 batch:0];
 
-    if (v6)
+    if (v7)
     {
-      [v3 addObjectsFromArray:v6];
+      [v3 addObjectsFromArray:v7];
     }
   }
 
   else
   {
-    v7 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-86400.0];
-    v8 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-604800.0];
-    v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"type == %@ AND date < %@", &unk_2847EF740, v7];
-    v10 = [(NWActivityHelper *)self _fetchActivitiesWithPredicate:v9 batch:0];
+    v8 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-86400.0];
+    v9 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-604800.0];
+    v10 = [MEMORY[0x277CCAC30] predicateWithFormat:@"type == %@ AND date < %@", &unk_2847EF740, v8];
+    v11 = [(NWActivityHelper *)self _fetchActivitiesWithPredicate:v10 batch:0];
 
-    if (v10)
+    if (v11)
     {
-      [v3 addObjectsFromArray:v10];
+      [v3 addObjectsFromArray:v11];
     }
 
-    v11 = [MEMORY[0x277CCAC30] predicateWithFormat:@"date < %@", v8];
-    v12 = [(NWActivityHelper *)self _fetchActivitiesWithPredicate:v11 batch:0];
+    v12 = [MEMORY[0x277CCAC30] predicateWithFormat:@"date < %@", v9];
+    v13 = [(NWActivityHelper *)self _fetchActivitiesWithPredicate:v12 batch:0];
 
-    if (v12)
+    if (v13)
     {
-      [v3 addObjectsFromArray:v12];
+      [v3 addObjectsFromArray:v13];
     }
 
-    v6 = activityLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = activityLogHandle(v14);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218242;
-      v16 = [v3 count];
-      v17 = 2112;
-      v18 = v3;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "Found %lu metrics to upload:\n%@", buf, 0x16u);
+      v17 = [v3 count];
+      v18 = 2112;
+      v19 = v3;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "Found %lu metrics to upload:\n%@", buf, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)_fetchFragmentsForUUID:(id)d fromContext:(id)context withError:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
   contextCopy = context;
   v9 = contextCopy;
@@ -1213,48 +1205,49 @@ LABEL_26:
 
     if (v10)
     {
-      if ([v10 count])
+      v16 = [v10 count];
+      if (v16)
       {
         if (!*error)
         {
           goto LABEL_17;
         }
 
-        v15 = activityLogHandle();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v17 = activityLogHandle(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v16 = *error;
+          v18 = *error;
           *buf = 138412546;
-          v23 = v10;
-          v24 = 2112;
-          v25 = v16;
-          _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "Should never have a valid fragments list (%@) and an error: %@", buf, 0x16u);
+          v24 = v10;
+          v25 = 2112;
+          v26 = v18;
+          _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Should never have a valid fragments list (%@) and an error: %@", buf, 0x16u);
         }
       }
 
       else
       {
-        v19 = activityLogHandle();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v21 = activityLogHandle(0);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v23 = dCopy;
-          _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "Activity %@ has no corresponding fragments", buf, 0xCu);
+          v24 = dCopy;
+          _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "Activity %@ has no corresponding fragments", buf, 0xCu);
         }
       }
     }
 
     else
     {
-      v17 = activityLogHandle();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = activityLogHandle(v15);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v18 = *error;
+        v20 = *error;
         *buf = 138412546;
-        v23 = dCopy;
-        v24 = 2112;
-        v25 = v18;
-        _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Failed to get all the metrics with UUID %@. Error: %@", buf, 0x16u);
+        v24 = dCopy;
+        v25 = 2112;
+        v26 = v20;
+        _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "Failed to get all the metrics with UUID %@. Error: %@", buf, 0x16u);
       }
     }
 
@@ -1263,14 +1256,12 @@ LABEL_26:
 
 LABEL_17:
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)_fetchChildrenForUUID:(id)d fromContext:(id)context withError:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dCopy = d;
   contextCopy = context;
   v9 = contextCopy;
@@ -1285,92 +1276,93 @@ LABEL_17:
     dCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"parentUUID == %@", dCopy];
     [v14 setPredicate:dCopy];
 
-    v32 = 0;
-    v16 = [v9 executeFetchRequest:v14 error:&v32];
-    v17 = v32;
+    v33 = 0;
+    v16 = [v9 executeFetchRequest:v14 error:&v33];
+    v17 = v33;
 
     if (v16)
     {
-      if ([v16 count])
+      v19 = [v16 count];
+      if (v19)
       {
         if (!v17)
         {
-          v19 = objc_alloc_init(MEMORY[0x277CBEB58]);
-          v30 = 0u;
+          v21 = objc_alloc_init(MEMORY[0x277CBEB58]);
           v31 = 0u;
-          v28 = 0u;
+          v32 = 0u;
           v29 = 0u;
+          v30 = 0u;
           v16 = v16;
-          v20 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
-          if (v20)
+          v22 = [v16 countByEnumeratingWithState:&v29 objects:v34 count:16];
+          if (v22)
           {
-            v21 = *v29;
+            v23 = *v30;
             do
             {
-              for (i = 0; i != v20; ++i)
+              for (i = 0; i != v22; ++i)
               {
-                if (*v29 != v21)
+                if (*v30 != v23)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                uuid = [*(*(&v28 + 1) + 8 * i) uuid];
-                [v19 addObject:uuid];
+                uuid = [*(*(&v29 + 1) + 8 * i) uuid];
+                [v21 addObject:uuid];
               }
 
-              v20 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
+              v22 = [v16 countByEnumeratingWithState:&v29 objects:v34 count:16];
             }
 
-            while (v20);
+            while (v22);
           }
 
-          allObjects = [v19 allObjects];
-          v24 = activityLogHandle();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+          allObjects = [v21 allObjects];
+          v26 = activityLogHandle(allObjects);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v35 = dCopy;
-            v36 = 2112;
-            v37 = allObjects;
-            _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEBUG, "Activity %@ has child UUIDs: %@", buf, 0x16u);
+            v36 = dCopy;
+            v37 = 2112;
+            v38 = allObjects;
+            _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEBUG, "Activity %@ has child UUIDs: %@", buf, 0x16u);
           }
 
           v17 = 0;
           goto LABEL_26;
         }
 
-        v18 = activityLogHandle();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v20 = activityLogHandle(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v35 = v16;
-          v36 = 2112;
-          v37 = v17;
-          _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "Should never have a valid child fragments list (%@) and an error: %@", buf, 0x16u);
+          v36 = v16;
+          v37 = 2112;
+          v38 = v17;
+          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, "Should never have a valid child fragments list (%@) and an error: %@", buf, 0x16u);
         }
       }
 
       else
       {
-        v18 = activityLogHandle();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+        v20 = activityLogHandle(0);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v35 = dCopy;
-          _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_INFO, "Activity %@ has no corresponding child fragments", buf, 0xCu);
+          v36 = dCopy;
+          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_INFO, "Activity %@ has no corresponding child fragments", buf, 0xCu);
         }
       }
     }
 
     else
     {
-      v16 = activityLogHandle();
+      v16 = activityLogHandle(v18);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v35 = dCopy;
-        v36 = 2112;
-        v37 = v17;
+        v36 = dCopy;
+        v37 = 2112;
+        v38 = v17;
         _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "Failed to get all the child metrics with UUID %@. Error: %@", buf, 0x16u);
       }
     }
@@ -1379,35 +1371,33 @@ LABEL_17:
 LABEL_26:
 
     objc_autoreleasePoolPop(v11);
-    v25 = v17;
+    v27 = v17;
     *error = v17;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }
 
 - (id)_createSupermetricFromFragments:(id)fragments forMetricUUID:(id)d
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   fragmentsCopy = fragments;
   dCopy = d;
-  v62 = fragmentsCopy;
+  v78 = fragmentsCopy;
   if (!fragmentsCopy)
   {
-    v66 = 0;
+    v82 = 0;
     goto LABEL_133;
   }
 
-  v61 = dCopy;
-  v66 = objc_alloc_init(NWActivitySuperMetric);
-  v69 = 0u;
-  v70 = 0u;
-  v71 = 0u;
-  v72 = 0u;
+  v77 = dCopy;
+  v82 = objc_alloc_init(NWActivitySuperMetric);
+  v85 = 0u;
+  v86 = 0u;
+  v87 = 0u;
+  v88 = 0u;
   v7 = fragmentsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v69 objects:v77 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v85 objects:v93 count:16];
   if (!v8)
   {
     v10 = 0;
@@ -1415,29 +1405,29 @@ LABEL_26:
     goto LABEL_130;
   }
 
-  v64 = 0;
-  v65 = 0;
-  v63 = 0;
+  v80 = 0;
+  v81 = 0;
+  v79 = 0;
   v10 = 0;
   v11 = 0;
-  v12 = *v70;
+  v12 = *v86;
   *&v9 = 138412546;
-  v60 = v9;
+  v76 = v9;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v70 != v12)
+      if (*v86 != v12)
       {
         objc_enumerationMutation(v7);
       }
 
-      v14 = *(*(&v69 + 1) + 8 * i);
+      v14 = *(*(&v85 + 1) + 8 * i);
       type = [v14 type];
       integerValue = [type integerValue];
 
-      v17 = activityLogHandle();
-      v18 = v17;
+      v18 = activityLogHandle(v17);
+      v19 = v18;
       if (integerValue > 4)
       {
         if (integerValue > 6)
@@ -1446,13 +1436,13 @@ LABEL_26:
           {
             if (integerValue == 8)
             {
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 0;
-                _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEBUG, "Found Terminus fragment", buf, 2u);
+                _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "Found Terminus fragment", buf, 2u);
               }
 
-              data3 = activityLogHandle();
+              data3 = activityLogHandle(v41);
               if (os_log_type_enabled(data3, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
@@ -1465,19 +1455,20 @@ LABEL_26:
             goto LABEL_77;
           }
 
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEBUG, "Found client metric fragment", buf, 2u);
+            _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "Found client metric fragment", buf, 2u);
           }
 
-          if (v64 >= [NWActivitySuperMetric limitForFragmentType:7])
+          v58 = [NWActivitySuperMetric limitForFragmentType:7];
+          if (v80 >= v58)
           {
-            v51 = activityLogHandle();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+            v67 = activityLogHandle(v58);
+            if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
             {
               *buf = 0;
-              _os_log_impl(&dword_23255B000, v51, OS_LOG_TYPE_DEBUG, "Exceeded fragment limit, skipping", buf, 2u);
+              _os_log_impl(&dword_23255B000, v67, OS_LOG_TYPE_DEBUG, "Exceeded fragment limit, skipping", buf, 2u);
             }
 
             goto LABEL_94;
@@ -1486,43 +1477,44 @@ LABEL_26:
           metricData = [v14 metricData];
           data = [metricData data];
 
-          v46 = activityLogHandle();
-          v26 = v46;
+          v61 = activityLogHandle(v60);
+          v30 = v61;
           if (data)
           {
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+            if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
             {
               *buf = 0;
-              _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEBUG, "got data for a client metric fragment", buf, 2u);
+              _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEBUG, "got data for a client metric fragment", buf, 2u);
             }
 
-            v67 = 0;
-            v47 = [MEMORY[0x277CCAAA0] JSONObjectWithData:data options:0 error:&v67];
-            v26 = v67;
-            if (v47 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            v83 = 0;
+            v62 = [MEMORY[0x277CCAAA0] JSONObjectWithData:data options:0 error:&v83];
+            isKindOfClass = v83;
+            v30 = isKindOfClass;
+            if (v62 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
             {
-              clientFragments = [(NWActivitySuperMetric *)v66 clientFragments];
-              [clientFragments addObject:v47];
+              clientFragments = [(NWActivitySuperMetric *)v82 clientFragments];
+              [clientFragments addObject:v62];
 
-              LODWORD(v64) = v64 + 1;
+              LODWORD(v80) = v80 + 1;
             }
 
             else
             {
-              v56 = activityLogHandle();
-              if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+              v72 = activityLogHandle(isKindOfClass);
+              if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                *v74 = v26;
-                _os_log_impl(&dword_23255B000, v56, OS_LOG_TYPE_ERROR, "Failed to decode client fragment, skipping (error %@)", buf, 0xCu);
+                *v90 = v30;
+                _os_log_impl(&dword_23255B000, v72, OS_LOG_TYPE_ERROR, "Failed to decode client fragment, skipping (error %@)", buf, 0xCu);
               }
             }
           }
 
-          else if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+          else if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, "Client metric data is nil, skipping", buf, 2u);
+            _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_ERROR, "Client metric data is nil, skipping", buf, 2u);
           }
 
 LABEL_123:
@@ -1532,19 +1524,20 @@ LABEL_123:
 
         if (integerValue != 5)
         {
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEBUG, "Found Cellular fragment", buf, 2u);
+            _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "Found Cellular fragment", buf, 2u);
           }
 
-          if (v63 >= [NWActivitySuperMetric limitForFragmentType:6])
+          v25 = [NWActivitySuperMetric limitForFragmentType:6];
+          if (v79 >= v25)
           {
-            v51 = activityLogHandle();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+            v67 = activityLogHandle(v25);
+            if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
             {
               *buf = 0;
-              _os_log_impl(&dword_23255B000, v51, OS_LOG_TYPE_DEBUG, "Exceeded fragment limit, skipping", buf, 2u);
+              _os_log_impl(&dword_23255B000, v67, OS_LOG_TYPE_DEBUG, "Exceeded fragment limit, skipping", buf, 2u);
             }
 
             goto LABEL_94;
@@ -1553,61 +1546,63 @@ LABEL_123:
           metricData2 = [v14 metricData];
           data = [metricData2 data];
 
-          v25 = activityLogHandle();
-          v26 = v25;
+          v29 = activityLogHandle(v28);
+          v30 = v29;
           if (data)
           {
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
             {
               *buf = 0;
-              _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEBUG, "got data for a Cellular fragment", buf, 2u);
+              _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEBUG, "got data for a Cellular fragment", buf, 2u);
             }
 
-            v68 = 0;
-            v27 = [MEMORY[0x277CCAAA0] JSONObjectWithData:data options:0 error:&v68];
-            v26 = v68;
-            if (v27 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            v84 = 0;
+            v31 = [MEMORY[0x277CCAAA0] JSONObjectWithData:data options:0 error:&v84];
+            v32 = v84;
+            v30 = v32;
+            if (v31 && (objc_opt_class(), v32 = objc_opt_isKindOfClass(), (v32 & 1) != 0))
             {
-              cellularFragments = [(NWActivitySuperMetric *)v66 cellularFragments];
-              [cellularFragments addObject:v27];
+              cellularFragments = [(NWActivitySuperMetric *)v82 cellularFragments];
+              [cellularFragments addObject:v31];
 
-              ++v63;
+              ++v79;
             }
 
             else
             {
-              v55 = activityLogHandle();
-              if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+              v71 = activityLogHandle(v32);
+              if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                *v74 = v26;
-                _os_log_impl(&dword_23255B000, v55, OS_LOG_TYPE_ERROR, "Failed to decode cellular fragment, skipping (error %@)", buf, 0xCu);
+                *v90 = v30;
+                _os_log_impl(&dword_23255B000, v71, OS_LOG_TYPE_ERROR, "Failed to decode cellular fragment, skipping (error %@)", buf, 0xCu);
               }
             }
           }
 
-          else if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          else if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, "Cellular metric data is nil, skipping", buf, 2u);
+            _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_ERROR, "Cellular metric data is nil, skipping", buf, 2u);
           }
 
           goto LABEL_123;
         }
 
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEBUG, "Found Wi-Fi fragment", buf, 2u);
+          _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "Found Wi-Fi fragment", buf, 2u);
         }
 
-        if (HIDWORD(v65) >= [NWActivitySuperMetric limitForFragmentType:5])
+        v46 = [NWActivitySuperMetric limitForFragmentType:5];
+        if (HIDWORD(v81) >= v46)
         {
-          v51 = activityLogHandle();
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+          v67 = activityLogHandle(v46);
+          if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_23255B000, v51, OS_LOG_TYPE_DEBUG, "Exceeded fragment limit, skipping", buf, 2u);
+            _os_log_impl(&dword_23255B000, v67, OS_LOG_TYPE_DEBUG, "Exceeded fragment limit, skipping", buf, 2u);
           }
 
           goto LABEL_94;
@@ -1618,29 +1613,29 @@ LABEL_123:
 
         if (data2)
         {
-          v38 = activityLogHandle();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+          v49 = activityLogHandle(v48);
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_DEBUG, "got data for a Wi-Fi fragment", buf, 2u);
+            _os_log_impl(&dword_23255B000, v49, OS_LOG_TYPE_DEBUG, "got data for a Wi-Fi fragment", buf, 2u);
           }
 
-          v39 = [objc_alloc(MEMORY[0x277D7B950]) initWithPBCodableData:data2];
-          if (v39)
+          v50 = [objc_alloc(MEMORY[0x277D7B950]) initWithPBCodableData:data2];
+          if (v50)
           {
-            wifiFragments = [(NWActivitySuperMetric *)v66 wifiFragments];
-            [wifiFragments addObject:v39];
+            wifiFragments = [(NWActivitySuperMetric *)v82 wifiFragments];
+            [wifiFragments addObject:v50];
 
-            ++HIDWORD(v65);
+            ++HIDWORD(v81);
           }
 
           else
           {
-            v52 = activityLogHandle();
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+            v68 = activityLogHandle(0);
+            if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&dword_23255B000, v52, OS_LOG_TYPE_ERROR, "failed to recreate Wi-Fi fragment, dropping", buf, 2u);
+              _os_log_impl(&dword_23255B000, v68, OS_LOG_TYPE_ERROR, "failed to recreate Wi-Fi fragment, dropping", buf, 2u);
             }
           }
         }
@@ -1654,19 +1649,20 @@ LABEL_113:
       {
         if (integerValue == 3)
         {
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEBUG, "Found CFNetwork fragment", buf, 2u);
+            _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "Found CFNetwork fragment", buf, 2u);
           }
 
-          if (v65 >= [NWActivitySuperMetric limitForFragmentType:3])
+          v52 = [NWActivitySuperMetric limitForFragmentType:3];
+          if (v81 >= v52)
           {
-            v51 = activityLogHandle();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+            v67 = activityLogHandle(v52);
+            if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
             {
               *buf = 0;
-              _os_log_impl(&dword_23255B000, v51, OS_LOG_TYPE_DEBUG, "Exceeded fragment limit, skipping", buf, 2u);
+              _os_log_impl(&dword_23255B000, v67, OS_LOG_TYPE_DEBUG, "Exceeded fragment limit, skipping", buf, 2u);
             }
 
             goto LABEL_94;
@@ -1677,29 +1673,29 @@ LABEL_113:
 
           if (data2)
           {
-            v42 = activityLogHandle();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+            v55 = activityLogHandle(v54);
+            if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
             {
               *buf = 0;
-              _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_DEBUG, "got data for a CFNetwork fragment", buf, 2u);
+              _os_log_impl(&dword_23255B000, v55, OS_LOG_TYPE_DEBUG, "got data for a CFNetwork fragment", buf, 2u);
             }
 
-            v43 = [objc_alloc(MEMORY[0x277CBABD8]) initWithJSONData:data2];
-            if (v43)
+            v56 = [objc_alloc(MEMORY[0x277CBABD8]) initWithJSONData:data2];
+            if (v56)
             {
-              taskMetrics = [(NWActivitySuperMetric *)v66 taskMetrics];
-              [taskMetrics addObject:v43];
+              taskMetrics = [(NWActivitySuperMetric *)v82 taskMetrics];
+              [taskMetrics addObject:v56];
 
-              LODWORD(v65) = v65 + 1;
+              LODWORD(v81) = v81 + 1;
             }
 
             else
             {
-              v53 = activityLogHandle();
-              if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+              v69 = activityLogHandle(0);
+              if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
               {
                 *buf = 0;
-                _os_log_impl(&dword_23255B000, v53, OS_LOG_TYPE_ERROR, "failed to recreate CFNetwork fragment, dropping", buf, 2u);
+                _os_log_impl(&dword_23255B000, v69, OS_LOG_TYPE_ERROR, "failed to recreate CFNetwork fragment, dropping", buf, 2u);
               }
             }
           }
@@ -1707,19 +1703,20 @@ LABEL_113:
 
         else
         {
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEBUG, "Found libnetcore fragment", buf, 2u);
+            _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "Found libnetcore fragment", buf, 2u);
           }
 
-          if (HIDWORD(v64) >= [NWActivitySuperMetric limitForFragmentType:4])
+          v34 = [NWActivitySuperMetric limitForFragmentType:4];
+          if (HIDWORD(v80) >= v34)
           {
-            v51 = activityLogHandle();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+            v67 = activityLogHandle(v34);
+            if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
             {
               *buf = 0;
-              _os_log_impl(&dword_23255B000, v51, OS_LOG_TYPE_DEBUG, "Exceeded fragment limit, skipping", buf, 2u);
+              _os_log_impl(&dword_23255B000, v67, OS_LOG_TYPE_DEBUG, "Exceeded fragment limit, skipping", buf, 2u);
             }
 
 LABEL_94:
@@ -1733,29 +1730,29 @@ LABEL_94:
 
           if (data2)
           {
-            v31 = activityLogHandle();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+            v38 = activityLogHandle(v37);
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
             {
               *buf = 0;
-              _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_DEBUG, "got data for a libnetcore fragment", buf, 2u);
+              _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_DEBUG, "got data for a libnetcore fragment", buf, 2u);
             }
 
-            v32 = [objc_alloc(MEMORY[0x277CD91C0]) initWithJSONData:data2];
-            if (v32)
+            v39 = [objc_alloc(MEMORY[0x277CD91C0]) initWithJSONData:data2];
+            if (v39)
             {
-              connectionReports = [(NWActivitySuperMetric *)v66 connectionReports];
-              [connectionReports addObject:v32];
+              connectionReports = [(NWActivitySuperMetric *)v82 connectionReports];
+              [connectionReports addObject:v39];
 
-              ++HIDWORD(v64);
+              ++HIDWORD(v80);
             }
 
             else
             {
-              v54 = activityLogHandle();
-              if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+              v70 = activityLogHandle(0);
+              if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
               {
                 *buf = 0;
-                _os_log_impl(&dword_23255B000, v54, OS_LOG_TYPE_ERROR, "failed to recreate libnetcore fragment, dropping", buf, 2u);
+                _os_log_impl(&dword_23255B000, v70, OS_LOG_TYPE_ERROR, "failed to recreate libnetcore fragment, dropping", buf, 2u);
               }
             }
           }
@@ -1766,10 +1763,10 @@ LABEL_94:
 
       if (integerValue == 1)
       {
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEBUG, "Found activity fragment", buf, 2u);
+          _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "Found activity fragment", buf, 2u);
         }
 
         metricData6 = [v14 metricData];
@@ -1777,15 +1774,15 @@ LABEL_94:
 
         if (data3)
         {
-          v35 = activityLogHandle();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+          v44 = activityLogHandle(v43);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEBUG, "got data for an activity fragment", buf, 2u);
+            _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_DEBUG, "got data for an activity fragment", buf, 2u);
           }
 
-          v36 = [objc_alloc(MEMORY[0x277CD91B0]) initWithJSONData:data3];
-          [(NWActivitySuperMetric *)v66 setActivity:v36];
+          v45 = [objc_alloc(MEMORY[0x277CD91B0]) initWithJSONData:data3];
+          [(NWActivitySuperMetric *)v82 setActivity:v45];
         }
 
         goto LABEL_51;
@@ -1793,10 +1790,10 @@ LABEL_94:
 
       if (integerValue == 2)
       {
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEBUG, "Found activity epilogue fragment", buf, 2u);
+          _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "Found activity epilogue fragment", buf, 2u);
         }
 
         metricData7 = [v14 metricData];
@@ -1804,15 +1801,15 @@ LABEL_94:
 
         if (data3)
         {
-          v21 = activityLogHandle();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+          v23 = activityLogHandle(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEBUG, "got data for an activity epilogue fragment", buf, 2u);
+            _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEBUG, "got data for an activity epilogue fragment", buf, 2u);
           }
 
-          v22 = [objc_alloc(MEMORY[0x277CD91A8]) initWithJSONData:data3];
-          [(NWActivitySuperMetric *)v66 setActivityEpilogue:v22];
+          v24 = [objc_alloc(MEMORY[0x277CD91A8]) initWithJSONData:data3];
+          [(NWActivitySuperMetric *)v82 setActivityEpilogue:v24];
         }
 
 LABEL_51:
@@ -1823,39 +1820,38 @@ LABEL_124:
       }
 
 LABEL_77:
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         type2 = [v14 type];
         integerValue2 = [type2 integerValue];
         *buf = 134217984;
-        *v74 = integerValue2;
-        _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "unknown fragment type: %ld", buf, 0xCu);
+        *v90 = integerValue2;
+        _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "unknown fragment type: %ld", buf, 0xCu);
       }
     }
 
-    v8 = [v7 countByEnumeratingWithState:&v69 objects:v77 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v85 objects:v93 count:16];
   }
 
   while (v8);
 LABEL_130:
 
-  v57 = activityLogHandle();
-  if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+  v74 = activityLogHandle(v73);
+  if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
   {
     *buf = 67109634;
-    *v74 = v11;
-    *&v74[4] = 2112;
-    *&v74[6] = v61;
-    v75 = 1024;
-    v76 = v10;
-    _os_log_impl(&dword_23255B000, v57, OS_LOG_TYPE_INFO, "Processed %u fragments for activity %@, skipped %u fragments", buf, 0x18u);
+    *v90 = v11;
+    *&v90[4] = 2112;
+    *&v90[6] = v77;
+    v91 = 1024;
+    v92 = v10;
+    _os_log_impl(&dword_23255B000, v74, OS_LOG_TYPE_INFO, "Processed %u fragments for activity %@, skipped %u fragments", buf, 0x18u);
   }
 
-  dCopy = v61;
+  dCopy = v77;
 LABEL_133:
 
-  v58 = *MEMORY[0x277D85DE8];
-  return v66;
+  return v82;
 }
 
 - (id)_getNWActivitySummaryReport:(id)report
@@ -2446,16 +2442,16 @@ LABEL_6:
 
 - (void)_uploadCompleteNWActivityMetrics
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   _findNWActivityMetricsForUploading = [(NWActivityHelper *)self _findNWActivityMetricsForUploading];
   v4 = _findNWActivityMetricsForUploading;
-  if (_findNWActivityMetricsForUploading && [_findNWActivityMetricsForUploading count])
+  if (_findNWActivityMetricsForUploading && (_findNWActivityMetricsForUploading = [_findNWActivityMetricsForUploading count]) != 0)
   {
-    v5 = activityLogHandle();
+    v5 = activityLogHandle(_findNWActivityMetricsForUploading);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v69 = [v4 count];
+      v70 = [v4 count];
       _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Found %ld metrics to upload", buf, 0xCu);
     }
 
@@ -2464,127 +2460,127 @@ LABEL_6:
 
     if (mainObjectContext)
     {
-      v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
-      v61 = 0u;
+      v9 = objc_alloc_init(MEMORY[0x277CBEB58]);
       v62 = 0u;
       v63 = 0u;
       v64 = 0u;
-      v45 = v4;
-      v9 = v4;
-      v10 = [v9 countByEnumeratingWithState:&v61 objects:v67 count:16];
-      if (v10)
+      v65 = 0u;
+      v46 = v4;
+      v10 = v4;
+      v11 = [v10 countByEnumeratingWithState:&v62 objects:v68 count:16];
+      if (v11)
       {
-        v11 = v10;
-        v12 = *v62;
+        v12 = v11;
+        v13 = *v63;
         do
         {
-          for (i = 0; i != v11; ++i)
+          for (i = 0; i != v12; ++i)
           {
-            if (*v62 != v12)
+            if (*v63 != v13)
             {
-              objc_enumerationMutation(v9);
+              objc_enumerationMutation(v10);
             }
 
-            v14 = *(*(&v61 + 1) + 8 * i);
-            uuid = [v14 uuid];
+            v15 = *(*(&v62 + 1) + 8 * i);
+            uuid = [v15 uuid];
 
             if (uuid)
             {
-              uuid2 = [v14 uuid];
-              [v8 addObject:uuid2];
+              uuid2 = [v15 uuid];
+              [v9 addObject:uuid2];
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v61 objects:v67 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v62 objects:v68 count:16];
         }
 
-        while (v11);
+        while (v12);
       }
 
+      v61 = 0u;
+      v59 = 0u;
       v60 = 0u;
       v58 = 0u;
-      v59 = 0u;
-      v57 = 0u;
-      v17 = v8;
-      v49 = [v17 countByEnumeratingWithState:&v57 objects:v66 count:16];
-      if (v49)
+      v18 = v9;
+      v50 = [v18 countByEnumeratingWithState:&v58 objects:v67 count:16];
+      if (v50)
       {
-        v18 = 0;
-        v48 = *v58;
-        v46 = v17;
+        v19 = 0;
+        v49 = *v59;
+        v47 = v18;
         do
         {
-          for (j = 0; j != v49; ++j)
+          for (j = 0; j != v50; ++j)
           {
-            if (*v58 != v48)
+            if (*v59 != v49)
             {
-              objc_enumerationMutation(v17);
+              objc_enumerationMutation(v18);
             }
 
-            v20 = *(*(&v57 + 1) + 8 * j);
-            v21 = objc_autoreleasePoolPush();
-            v22 = activityLogHandle();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+            v21 = *(*(&v58 + 1) + 8 * j);
+            v22 = objc_autoreleasePoolPush();
+            v23 = activityLogHandle(v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v69 = v20;
-              _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_INFO, "Processing activity %@", buf, 0xCu);
+              v70 = v21;
+              _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_INFO, "Processing activity %@", buf, 0xCu);
             }
 
-            v56 = v18;
-            v23 = [(NWActivityHelper *)self _fetchFragmentsForUUID:v20 fromContext:mainObjectContext withError:&v56];
-            v24 = v56;
+            v57 = v19;
+            v24 = [(NWActivityHelper *)self _fetchFragmentsForUUID:v21 fromContext:mainObjectContext withError:&v57];
+            v25 = v57;
 
-            if (v23)
+            if (v24)
             {
-              v50 = v21;
-              v25 = [(NWActivityHelper *)self _createSupermetricFromFragments:v23 forMetricUUID:v20];
-              if (v25)
+              v51 = v22;
+              v26 = [(NWActivityHelper *)self _createSupermetricFromFragments:v24 forMetricUUID:v21];
+              if (v26)
               {
-                [NWActivityAlgosScore processNWActivitySuperMetric:v25];
-                v47 = v25;
-                dictionaryRepresentation = [v25 dictionaryRepresentation];
-                v27 = activityLogHandle();
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+                [NWActivityAlgosScore processNWActivitySuperMetric:v26];
+                v48 = v26;
+                dictionaryRepresentation = [v26 dictionaryRepresentation];
+                v28 = activityLogHandle(dictionaryRepresentation);
+                if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v69 = dictionaryRepresentation;
-                  _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_DEBUG, "Generated report: \n%@", buf, 0xCu);
+                  v70 = dictionaryRepresentation;
+                  _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEBUG, "Generated report: \n%@", buf, 0xCu);
                 }
 
                 [(NWActivityHelper *)self sendReportToMetricStream:dictionaryRepresentation];
                 if (nw_activity_should_report_to_destination())
                 {
-                  v28 = metricsLogHandle;
+                  v29 = metricsLogHandle;
                   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 0;
-                    _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEBUG, "Sending supermetric report to destination two", buf, 2u);
+                    _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_DEBUG, "Sending supermetric report to destination two", buf, 2u);
                   }
 
-                  v29 = objc_alloc_init(MEMORY[0x277CBEB38]);
-                  [NWActivitySuperMetric flattenObject:dictionaryRepresentation intoDictionary:v29 atPath:&stru_2847966D8];
+                  v30 = objc_alloc_init(MEMORY[0x277CBEB38]);
+                  [NWActivitySuperMetric flattenObject:dictionaryRepresentation intoDictionary:v30 atPath:&stru_2847966D8];
                   AnalyticsSendEvent();
                 }
 
                 if (nw_activity_should_report_to_destination())
                 {
-                  v30 = metricsLogHandle;
+                  v31 = metricsLogHandle;
                   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 0;
-                    _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEBUG, "Sending supermetric report to destination three", buf, 2u);
+                    _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_DEBUG, "Sending supermetric report to destination three", buf, 2u);
                   }
 
-                  v31 = _CFXPCCreateXPCObjectFromCFObject();
-                  v32 = metricsLogHandle;
-                  if (v31)
+                  v32 = _CFXPCCreateXPCObjectFromCFObject();
+                  v33 = metricsLogHandle;
+                  if (v32)
                   {
                     if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 138412290;
-                      v69 = v31;
-                      _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_DEBUG, "Generated supermetric report for STAnalytics: %@", buf, 0xCu);
+                      v70 = v32;
+                      _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_DEBUG, "Generated supermetric report for STAnalytics: %@", buf, 0xCu);
                     }
 
                     SecTrustReportNetworkingAnalytics();
@@ -2593,163 +2589,163 @@ LABEL_6:
                   else if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 0;
-                    _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_ERROR, "Failed to generate report for STAnalytics", buf, 2u);
+                    _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_ERROR, "Failed to generate report for STAnalytics", buf, 2u);
                   }
                 }
 
-                v33 = metricsLogHandle;
+                v34 = metricsLogHandle;
                 if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_DEBUG, "Checking libnetcore for destination four", buf, 2u);
+                  _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEBUG, "Checking libnetcore for destination four", buf, 2u);
                 }
 
                 if (nw_activity_should_report_to_destination())
                 {
-                  v34 = metricsLogHandle;
+                  v35 = metricsLogHandle;
                   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 0;
-                    _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEBUG, "Sending NWActivity summary report to destination four", buf, 2u);
+                    _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEBUG, "Sending NWActivity summary report to destination four", buf, 2u);
                   }
 
-                  v35 = [(NWActivityHelper *)self _getNWActivitySummaryReport:dictionaryRepresentation];
-                  v36 = metricsLogHandle;
+                  v36 = [(NWActivityHelper *)self _getNWActivitySummaryReport:dictionaryRepresentation];
+                  v37 = metricsLogHandle;
                   if (os_log_type_enabled(metricsLogHandle, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412290;
-                    v69 = v35;
-                    _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_DEBUG, "Generated NWActivity summary report: %@", buf, 0xCu);
+                    v70 = v36;
+                    _os_log_impl(&dword_23255B000, v37, OS_LOG_TYPE_DEBUG, "Generated NWActivity summary report: %@", buf, 0xCu);
                   }
 
                   AnalyticsSendEvent();
                 }
 
-                v54 = 0u;
                 v55 = 0u;
-                v52 = 0u;
+                v56 = 0u;
                 v53 = 0u;
-                v37 = v23;
-                v38 = [v37 countByEnumeratingWithState:&v52 objects:v65 count:16];
-                if (v38)
+                v54 = 0u;
+                v38 = v24;
+                v39 = [v38 countByEnumeratingWithState:&v53 objects:v66 count:16];
+                if (v39)
                 {
-                  v39 = v38;
-                  v40 = *v53;
+                  v40 = v39;
+                  v41 = *v54;
                   do
                   {
-                    for (k = 0; k != v39; ++k)
+                    for (k = 0; k != v40; ++k)
                     {
-                      if (*v53 != v40)
+                      if (*v54 != v41)
                       {
-                        objc_enumerationMutation(v37);
+                        objc_enumerationMutation(v38);
                       }
 
-                      [(NWActivityHelper *)self _deleteNWActivityFragment:*(*(&v52 + 1) + 8 * k) fromContext:mainObjectContext];
+                      [(NWActivityHelper *)self _deleteNWActivityFragment:*(*(&v53 + 1) + 8 * k) fromContext:mainObjectContext];
                     }
 
-                    v39 = [v37 countByEnumeratingWithState:&v52 objects:v65 count:16];
+                    v40 = [v38 countByEnumeratingWithState:&v53 objects:v66 count:16];
                   }
 
-                  while (v39);
+                  while (v40);
                 }
 
-                v51 = v24;
-                v42 = [mainObjectContext save:&v51];
-                v18 = v51;
+                v52 = v25;
+                v43 = [mainObjectContext save:&v52];
+                v19 = v52;
 
-                if ((v42 & 1) == 0)
+                if ((v43 & 1) == 0)
                 {
-                  v43 = activityLogHandle();
-                  if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+                  v45 = activityLogHandle(v44);
+                  if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v69 = v18;
-                    _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_ERROR, "Failed to delete the metric, error: %@", buf, 0xCu);
+                    v70 = v19;
+                    _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_ERROR, "Failed to delete the metric, error: %@", buf, 0xCu);
                   }
                 }
 
-                v17 = v46;
-                v25 = v47;
+                v18 = v47;
+                v26 = v48;
               }
 
               else
               {
-                v18 = v24;
+                v19 = v25;
               }
 
-              v21 = v50;
+              v22 = v51;
             }
 
             else
             {
-              v18 = v24;
+              v19 = v25;
             }
 
-            objc_autoreleasePoolPop(v21);
+            objc_autoreleasePoolPop(v22);
           }
 
-          v49 = [v17 countByEnumeratingWithState:&v57 objects:v66 count:16];
+          v50 = [v18 countByEnumeratingWithState:&v58 objects:v67 count:16];
         }
 
-        while (v49);
+        while (v50);
       }
 
-      v4 = v45;
+      v4 = v46;
     }
 
     else
     {
-      v17 = activityLogHandle();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = activityLogHandle(v8);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Failed to get context when uploading complete metrics, stopping", buf, 2u);
+        _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "Failed to get context when uploading complete metrics, stopping", buf, 2u);
       }
     }
   }
 
   else
   {
-    mainObjectContext = activityLogHandle();
+    mainObjectContext = activityLogHandle(_findNWActivityMetricsForUploading);
     if (os_log_type_enabled(mainObjectContext, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_23255B000, mainObjectContext, OS_LOG_TYPE_DEFAULT, "Did not find any metrics to upload", buf, 2u);
     }
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendReportToMetricStream:(id)stream
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   if (streamCopy)
   {
-    if (![MEMORY[0x277CCAAA0] isValidJSONObject:streamCopy])
+    v5 = [MEMORY[0x277CCAAA0] isValidJSONObject:streamCopy];
+    if (!v5)
     {
-      v6 = activityLogHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = activityLogHandle(v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Report is not valid JSON, dropping", buf, 2u);
+        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "Report is not valid JSON, dropping", buf, 2u);
       }
 
       goto LABEL_16;
     }
 
-    v10 = 0;
-    v5 = [MEMORY[0x277CCAAA0] dataWithJSONObject:streamCopy options:0 error:&v10];
-    v6 = v10;
-    if (v6 || !v5)
+    v11 = 0;
+    v6 = [MEMORY[0x277CCAAA0] dataWithJSONObject:streamCopy options:0 error:&v11];
+    v7 = v11;
+    v8 = v7;
+    if (v7 || !v6)
     {
-      v7 = activityLogHandle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = activityLogHandle(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v12 = v6;
-        _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Failed to create JSON data from metric, dropping: %@", buf, 0xCu);
+        v13 = v8;
+        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "Failed to create JSON data from metric, dropping: %@", buf, 0xCu);
       }
     }
 
@@ -2757,31 +2753,29 @@ LABEL_6:
     {
       if (![(NWActivityHelper *)self shouldSendMetricStream])
       {
-        v6 = 0;
+        v8 = 0;
 LABEL_15:
 
 LABEL_16:
         goto LABEL_17;
       }
 
-      v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v5 encoding:4];
-      v8 = metricstreamLogHandle();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v6 encoding:4];
+      v10 = metricstreamLogHandle(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v12 = v7;
-        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+        v13 = v9;
+        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
       }
 
-      v6 = 0;
+      v8 = 0;
     }
 
     goto LABEL_15;
   }
 
 LABEL_17:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldSendMetricStream

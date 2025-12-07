@@ -63,9 +63,9 @@ id mostRecentEmbedding(void *a1)
   return v2;
 }
 
-void sub_19D490AF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19D490AF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -78,7 +78,7 @@ BOOL BOOLDefaultForKey(uint64_t a1)
   return getenv(v2) != 0;
 }
 
-id stringDefaultForKey(uint64_t a1)
+char *stringDefaultForKey(uint64_t a1)
 {
   v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"NL%@", a1];
   v2 = [v1 UTF8String];
@@ -258,7 +258,7 @@ uint64_t granularityForOptions(void *a1)
 
 id splitIndexes(unint64_t a1, double a2, double a3)
 {
-  v25[3] = *MEMORY[0x1E69E9840];
+  v24[3] = *MEMORY[0x1E69E9840];
   v6 = objc_alloc_init(NLNumberGenerator);
   v7 = [MEMORY[0x1E695DF70] array];
   v8 = 0;
@@ -304,13 +304,11 @@ id splitIndexes(unint64_t a1, double a2, double a3)
     v21 = [v7 subarrayWithRange:{v12 + v10, v11}];
     v22 = [v21 sortedArrayUsingSelector:sel_compare_];
 
-    v25[0] = v18;
-    v25[1] = v20;
-    v25[2] = v22;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:3];
+    v24[0] = v18;
+    v24[1] = v20;
+    v24[2] = v22;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:3];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -1158,13 +1156,13 @@ void sub_19D4942EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ME_Model::perform_GIS(char **this)
+uint64_t ME_Model::perform_GIS(void **this)
 {
   v2 = 0;
   __p = 0;
   v21 = 0;
   v22 = 0;
-  v3 = (this + 24);
+  v3 = this + 24;
   v4 = 1;
   v5 = -999999.0;
   do
@@ -1315,160 +1313,162 @@ void sub_19D494578(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t ME_Model::conditional_probability(uint64_t a1, void *a2, double **a3)
 {
-  std::vector<double>::vector[abi:ne200100](&v46, *(a1 + 280));
-  v6 = a2[1];
-  v7 = a2[2];
-  v8 = v46;
-  if (v6 != v7)
+  v6 = *(a1 + 280);
+  v47 = 0;
+  std::vector<double>::vector[abi:ne200100](&v48, v6, &v47);
+  v7 = a2[1];
+  v8 = a2[2];
+  v9 = v48;
+  if (v7 != v8)
   {
-    v9 = *(a1 + 336);
+    v10 = *(a1 + 336);
     do
     {
-      v10 = (v9 + 24 * *v6);
-      v11 = *v10;
-      v12 = v10[1];
-      if (v11 != v12)
+      v11 = (v10 + 24 * *v7);
+      v12 = *v11;
+      v13 = v11[1];
+      if (v12 != v13)
       {
-        v13 = *(a1 + 192);
-        v14 = *(a1 + 256);
+        v14 = *(a1 + 192);
+        v15 = *(a1 + 256);
         do
         {
-          v15 = *v11++;
-          v8[*(v14 + 4 * v15)] = *(v13 + 8 * v15) + v8[*(v14 + 4 * v15)];
+          v16 = *v12++;
+          v9[*(v15 + 4 * v16)] = *(v14 + 8 * v16) + v9[*(v15 + 4 * v16)];
         }
 
-        while (v11 != v12);
+        while (v12 != v13);
       }
 
-      ++v6;
+      ++v7;
     }
 
-    while (v6 != v7);
+    while (v7 != v8);
   }
 
-  v16 = a2[4];
-  v17 = a2[5];
-  if (v16 != v17)
+  v17 = a2[4];
+  v18 = a2[5];
+  if (v17 != v18)
   {
-    v18 = *(a1 + 336);
+    v19 = *(a1 + 336);
     do
     {
-      v19 = (v18 + 24 * *v16);
-      v20 = *v19;
-      v21 = v19[1];
-      if (v20 != v21)
+      v20 = (v19 + 24 * *v17);
+      v21 = *v20;
+      v22 = v20[1];
+      if (v21 != v22)
       {
-        v22 = *(a1 + 192);
-        v23 = *(a1 + 256);
+        v23 = *(a1 + 192);
+        v24 = *(a1 + 256);
         do
         {
-          v24 = *v20++;
-          v8[*(v23 + 4 * v24)] = v8[*(v23 + 4 * v24)] + *(v22 + 8 * v24) * v16[1];
+          v25 = *v21++;
+          v9[*(v24 + 4 * v25)] = v9[*(v24 + 4 * v25)] + *(v23 + 8 * v25) * v17[1];
         }
 
-        while (v20 != v21);
+        while (v21 != v22);
       }
 
-      v16 += 2;
+      v17 += 2;
     }
 
-    while (v16 != v17);
+    while (v17 != v18);
   }
 
-  v25 = v8 + 1;
-  v26 = v8 == v47 || v25 == v47;
-  v27 = v8;
-  if (!v26)
+  v26 = v9 + 1;
+  v27 = v9 == v49 || v26 == v49;
+  v28 = v9;
+  if (!v27)
   {
-    v28 = *v8;
-    v27 = v8;
-    v29 = v8 + 1;
+    v29 = *v9;
+    v28 = v9;
+    v30 = v9 + 1;
     do
     {
-      v30 = *v29++;
-      v31 = v30;
-      if (v28 < v30)
+      v31 = *v30++;
+      v32 = v31;
+      if (v29 < v31)
       {
-        v28 = v31;
-        v27 = v25;
+        v29 = v32;
+        v28 = v26;
       }
 
-      v25 = v29;
+      v26 = v30;
     }
 
-    while (v29 != v47);
+    while (v30 != v49);
   }
 
-  v32 = *(a1 + 280);
-  if (v32 < 1)
+  v33 = *(a1 + 280);
+  if (v33 < 1)
   {
-    v42 = 0;
-    if (!v8)
+    v43 = 0;
+    if (!v9)
     {
-      return v42;
+      return v43;
     }
 
     goto LABEL_32;
   }
 
-  v33 = 0.0;
-  v34 = fmax(*v27 + -700.0, 0.0);
-  v35 = *(a1 + 432);
-  v36 = a2[7];
-  v37 = *a3;
-  v38 = v32;
-  v39 = v8;
+  v34 = 0.0;
+  v35 = fmax(*v28 + -700.0, 0.0);
+  v36 = *(a1 + 432);
+  v37 = a2[7];
+  v38 = *a3;
+  v39 = v33;
+  v40 = v9;
   do
   {
-    v40 = exp(*v39 - v34);
-    if (v35)
+    v41 = exp(*v40 - v35);
+    if (v36)
     {
-      v40 = v40 * *v36;
+      v41 = v41 * *v37;
     }
 
-    *v37++ = v40;
-    v33 = v33 + v40;
-    ++v39;
-    ++v36;
-    --v38;
+    *v38++ = v41;
+    v34 = v34 + v41;
+    ++v40;
+    ++v37;
+    --v39;
   }
 
-  while (v38);
-  v41 = 0;
-  LODWORD(v42) = 0;
-  v43 = *a3;
+  while (v39);
+  v42 = 0;
+  LODWORD(v43) = 0;
+  v44 = *a3;
   do
   {
-    v44 = v43[v41] / v33;
-    v43[v41] = v44;
-    if (v44 <= v43[v42])
+    v45 = v44[v42] / v34;
+    v44[v42] = v45;
+    if (v45 <= v44[v43])
     {
-      v42 = v42;
+      v43 = v43;
     }
 
     else
     {
-      v42 = v41;
+      v43 = v42;
     }
 
-    ++v41;
+    ++v42;
   }
 
-  while (v32 != v41);
-  if (v8)
+  while (v33 != v42);
+  if (v9)
   {
 LABEL_32:
-    v47 = v8;
-    operator delete(v8);
+    v49 = v9;
+    operator delete(v9);
   }
 
-  return v42;
+  return v43;
 }
 
 uint64_t ME_Model::make_feature_bag(ME_Model *this, int a2)
 {
-  memset(v22, 0, sizeof(v22));
-  v23 = 1065353216;
+  memset(v21, 0, sizeof(v21));
+  v22 = 1065353216;
   if (a2 <= 0)
   {
     i = *(this + 7);
@@ -1481,17 +1481,17 @@ uint64_t ME_Model::make_feature_bag(ME_Model *this, int a2)
     {
       for (j = *(v5 + 8); j != *(v5 + 16); ++j)
       {
-        v21 = *v5 + (*j << 8);
-        v24 = &v21;
-        v7 = std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v22, &v21);
+        v20 = *v5 + (*j << 8);
+        v23 = &v20;
+        v7 = std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v21, &v20, &std::piecewise_construct, &v23);
         ++*(v7 + 5);
       }
 
       for (k = *(v5 + 32); k != *(v5 + 40); k += 4)
       {
-        v21 = *v5 + (*k << 8);
-        v24 = &v21;
-        v9 = std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v22, &v21);
+        v20 = *v5 + (*k << 8);
+        v23 = &v20;
+        v9 = std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v21, &v20, &std::piecewise_construct, &v23);
         ++*(v9 + 5);
       }
 
@@ -1510,13 +1510,12 @@ uint64_t ME_Model::make_feature_bag(ME_Model *this, int a2)
     LODWORD(v11) = 0;
     do
     {
-      v12 = *(v10 + 8);
-      v13 = *(v10 + 16);
-      v14 = *(v10 + 8);
-      v15 = (v13 - v14) >> 2;
-      if (v11 <= v15)
+      v12 = *(v10 + 16);
+      v13 = *(v10 + 8);
+      v14 = (v12 - v13) >> 2;
+      if (v11 <= v14)
       {
-        v11 = v15;
+        v11 = v14;
       }
 
       else
@@ -1524,38 +1523,38 @@ uint64_t ME_Model::make_feature_bag(ME_Model *this, int a2)
         v11 = v11;
       }
 
-      if (v13 != v14)
+      if (v12 != v13)
       {
         do
         {
-          v16 = *v10 + (*v14 << 8);
-          v21 = v16;
-          if (a2 < 1 || (v20 = v16, v24 = &v20, *(std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v22, &v20) + 5) > a2))
+          v15 = *v10 + (*v13 << 8);
+          v20 = v15;
+          if (a2 < 1 || (v19 = v15, v23 = &v19, *(std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v21, &v19, &std::piecewise_construct, &v23) + 5) > a2))
           {
-            ME_Model::ME_FeatureBag::Put(this + 27, &v21);
+            ME_Model::ME_FeatureBag::Put(this + 27, &v20);
           }
 
-          v14 += 4;
+          v13 += 4;
         }
 
-        while (v14 != *(v10 + 16));
+        while (v13 != *(v10 + 16));
       }
 
       for (m = *(v10 + 32); m != *(v10 + 40); m += 4)
       {
-        v18 = *v10 + (*m << 8);
-        v21 = v18;
+        v17 = *v10 + (*m << 8);
+        v20 = v17;
         if (a2 >= 1)
         {
-          v20 = v18;
-          v24 = &v20;
-          if (*(std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v22, &v20) + 5) <= a2)
+          v19 = v17;
+          v23 = &v19;
+          if (*(std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v21, &v19, &std::piecewise_construct, &v23) + 5) <= a2)
           {
             continue;
           }
         }
 
-        ME_Model::ME_FeatureBag::Put(this + 27, &v21);
+        ME_Model::ME_FeatureBag::Put(this + 27, &v20);
       }
 
       v10 += 80;
@@ -1564,20 +1563,20 @@ uint64_t ME_Model::make_feature_bag(ME_Model *this, int a2)
     while (v10 != *(this + 7));
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::clear(v22);
+  std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::clear(v21);
   ME_Model::init_feature2mef(this);
-  std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::~__hash_table(v22);
+  std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::~__hash_table(v21);
   return v11;
 }
 
-void sub_19D494A24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19D494A24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ME_Model::ME_FeatureBag::Put(void *a1, _DWORD *a2)
+uint64_t ME_Model::ME_FeatureBag::Put(void *a1, int *a2)
 {
   LODWORD(v18) = *a2;
   v4 = std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::find<unsigned int>(a1, &v18);
@@ -1633,13 +1632,13 @@ uint64_t ME_Model::ME_FeatureBag::Put(void *a1, _DWORD *a2)
   else
   {
     *v7 = *a2;
-    v10 = (v7 + 4);
+    v10 = (v7 + 1);
   }
 
   a1[6] = v10;
   v17 = *a2;
   v18 = &v17;
-  *(std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1, &v17) + 5) = v5;
+  *(std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a1, &v17, &std::piecewise_construct, &v18) + 5) = v5;
   return v5;
 }
 
@@ -1792,20 +1791,20 @@ uint64_t ME_Model::classify(uint64_t a1, void *a2, uint64_t a3)
   return result;
 }
 
-void std::vector<double>::resize(void *a1, unint64_t a2)
+void std::vector<double>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<double>::__append(a1, a2 - v2);
+    std::vector<double>::__append(result, a2 - v2);
   }
 }
 
@@ -1821,7 +1820,7 @@ uint64_t ME_Model::train(ME_Model *a1, std::string **a2, uint64_t a3)
   return 0;
 }
 
-void ME_Model::add_training_sample(ME_Model *this, std::string *a2)
+void ME_Model::add_training_sample(ME_Model **this, std::string *a2)
 {
   v26 = 0;
   __p = 0u;
@@ -1899,7 +1898,7 @@ void ME_Model::add_training_sample(ME_Model *this, std::string *a2)
     std::vector<std::pair<int,double>>::push_back[abi:ne200100](&v23 + 8, &v18);
   }
 
-  if (*(this + 54))
+  if (this[54])
   {
     if (SHIBYTE(a2->__r_.__value_.__r.__words[2]) < 0)
     {
@@ -1912,10 +1911,10 @@ void ME_Model::add_training_sample(ME_Model *this, std::string *a2)
     }
 
     memset(v19, 0, sizeof(v19));
-    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v19, a2[1].__r_.__value_.__l.__data_, a2[1].__r_.__value_.__l.__size_, 0xAAAAAAAAAAAAAAABLL * ((a2[1].__r_.__value_.__l.__size_ - a2[1].__r_.__value_.__r.__words[0]) >> 3));
+    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v19, a2[1].__r_.__value_.__r.__words[0], a2[1].__r_.__value_.__l.__size_, 0xAAAAAAAAAAAAAAABLL * ((a2[1].__r_.__value_.__l.__size_ - a2[1].__r_.__value_.__r.__words[0]) >> 3));
     memset(v20, 0, 24);
-    std::vector<std::pair<std::string,double>>::__init_with_size[abi:ne200100]<std::pair<std::string,double>*,std::pair<std::string,double>*>(v20, a2[2].__r_.__value_.__l.__data_, a2[2].__r_.__value_.__l.__size_, (a2[2].__r_.__value_.__l.__size_ - a2[2].__r_.__value_.__r.__words[0]) >> 5);
-    ME_Model::classify(*(this + 54), &v18, &v16);
+    std::vector<std::pair<std::string,double>>::__init_with_size[abi:ne200100]<std::pair<std::string,double>*,std::pair<std::string,double>*>(v20, a2[2].__r_.__value_.__r.__words[0], a2[2].__r_.__value_.__l.__size_, (a2[2].__r_.__value_.__l.__size_ - a2[2].__r_.__value_.__r.__words[0]) >> 5);
+    ME_Model::classify(&v16, this[54], &v18);
     if (__p)
     {
       *(&__p + 1) = __p;
@@ -1934,7 +1933,7 @@ void ME_Model::add_training_sample(ME_Model *this, std::string *a2)
     }
   }
 
-  std::vector<ME_Model::Sample>::push_back[abi:ne200100](this + 48, &v21);
+  std::vector<ME_Model::Sample>::push_back[abi:ne200100](this + 6, &v21);
   if (__p)
   {
     *(&__p + 1) = __p;
@@ -2029,7 +2028,7 @@ uint64_t ME_Model::train(ME_Model *this, uint64_t a2)
         v15 = 0;
         do
         {
-          std::vector<ME_Model::Sample>::push_back[abi:ne200100](this + 360, *(this + 7) - 80);
+          std::vector<ME_Model::Sample>::push_back[abi:ne200100](this + 45, (*(this + 7) - 80));
           std::vector<ME_Model::Sample>::__base_destruct_at_end[abi:ne200100](this + 48, (*(this + 7) - 80));
           ++v15;
         }
@@ -2039,7 +2038,7 @@ uint64_t ME_Model::train(ME_Model *this, uint64_t a2)
       }
 
       v16 = *(this + 6);
-      v17 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * (&v4[-v16] >> 4));
+      v17 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * ((v4 - v16) >> 4));
       if (v4 == v16)
       {
         v18 = 0;
@@ -2198,11 +2197,12 @@ uint64_t ME_Model::StringBag::Put(void *a1, uint64_t *a2)
 
   v5 = -1431655765 * ((a1[7] - a1[6]) >> 3);
   std::vector<std::string>::push_back[abi:ne200100]((a1 + 6), a2);
-  *(std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 1, a2) + 10) = v5;
+  v8 = a2;
+  *(std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 1, a2, &std::piecewise_construct, &v8, &v7) + 10) = v5;
   return v5;
 }
 
-uint64_t ME_Model::MiniStringBag::Put(unsigned int *a1, uint64_t *a2)
+uint64_t ME_Model::MiniStringBag::Put(_DWORD *a1, uint64_t *a2)
 {
   v4 = std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::find<std::string>(a1 + 1, a2);
   if (v4)
@@ -2212,7 +2212,8 @@ uint64_t ME_Model::MiniStringBag::Put(unsigned int *a1, uint64_t *a2)
 
   v5 = *a1;
   *a1 = v5 + 1;
-  *(std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 1, a2) + 10) = v5;
+  v8 = a2;
+  *(std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 1, a2, &std::piecewise_construct, &v8, &v7) + 10) = v5;
   return v5;
 }
 
@@ -2275,13 +2276,13 @@ void std::vector<std::pair<int,double>>::push_back[abi:ne200100](uint64_t a1, _O
   *(a1 + 8) = v6;
 }
 
-void ME_Model::classify(ME_Model *this@<X0>, ME_Sample *a2@<X1>, void *a3@<X8>)
+void ME_Model::classify(uint64_t *__return_ptr a1@<X8>, ME_Model *this@<X0>, ME_Sample *a3@<X1>)
 {
   memset(&__p, 0, sizeof(__p));
   v17 = 0u;
   *v16 = 0u;
   *v15 = 0u;
-  for (i = *(a2 + 3); i != *(a2 + 4); i += 3)
+  for (i = *(a3 + 3); i != *(a3 + 4); i += 3)
   {
     v7 = std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::find<std::string>(this + 19, i);
     if (v7)
@@ -2294,7 +2295,7 @@ void ME_Model::classify(ME_Model *this@<X0>, ME_Sample *a2@<X1>, void *a3@<X8>)
     }
   }
 
-  for (j = *(a2 + 6); j != *(a2 + 7); j += 32)
+  for (j = *(a3 + 6); j != *(a3 + 7); j += 32)
   {
     v9 = std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::find<std::string>(this + 19, j);
     if (v9 && (v9[5] & 0x80000000) == 0)
@@ -2308,7 +2309,7 @@ void ME_Model::classify(ME_Model *this@<X0>, ME_Sample *a2@<X1>, void *a3@<X8>)
   v10 = *(this + 54);
   if (v10)
   {
-    ME_Model::classify(&v13, v10, a2);
+    ME_Model::classify(&v13, v10, a3);
     if (__p.__r_.__value_.__r.__words[0])
     {
       __p.__r_.__value_.__l.__size_ = __p.__r_.__value_.__r.__words[0];
@@ -2319,8 +2320,8 @@ void ME_Model::classify(ME_Model *this@<X0>, ME_Sample *a2@<X1>, void *a3@<X8>)
     ME_Model::set_ref_dist(this, &v14);
   }
 
-  std::vector<double>::vector[abi:ne200100](a3, *(this + 70));
-  v11 = *(this + 15) + 24 * ME_Model::classify(this, &v14, a3);
+  std::vector<double>::vector[abi:ne200100](a1, *(this + 70));
+  v11 = *(this + 15) + 24 * ME_Model::classify(this, &v14, a1);
   if (*(v11 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(&v13, *v11, *(v11 + 8));
@@ -2333,12 +2334,12 @@ void ME_Model::classify(ME_Model *this@<X0>, ME_Sample *a2@<X1>, void *a3@<X8>)
     *&v13.__r_.__value_.__l.__data_ = v12;
   }
 
-  if (*(a2 + 23) < 0)
+  if (*(a3 + 23) < 0)
   {
-    operator delete(*a2);
+    operator delete(*a3);
   }
 
-  *a2 = v13;
+  *a3 = v13;
   if (__p.__r_.__value_.__r.__words[0])
   {
     __p.__r_.__value_.__l.__size_ = __p.__r_.__value_.__r.__words[0];
@@ -2358,24 +2359,24 @@ void ME_Model::classify(ME_Model *this@<X0>, ME_Sample *a2@<X1>, void *a3@<X8>)
   }
 }
 
-void sub_19D495958(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_19D495958(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  v7 = *v5;
-  if (*v5)
+  va_start(va, a9);
+  v11 = *v9;
+  if (*v9)
   {
-    *(v5 + 8) = v7;
-    operator delete(v7);
+    *(v9 + 8) = v11;
+    operator delete(v11);
   }
 
   ME_Model::Sample::~Sample(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<ME_Model::Sample>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<ME_Model::Sample>::push_back[abi:ne200100](unint64_t *a1, _DWORD *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<ME_Model::Sample>::__emplace_back_slow_path<ME_Model::Sample const&>(a1, a2);
   }
@@ -2386,7 +2387,7 @@ uint64_t std::vector<ME_Model::Sample>::push_back[abi:ne200100](uint64_t a1, uin
     result = v3 + 80;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -2664,7 +2665,7 @@ void std::vector<std::vector<int>>::clear[abi:ne200100](uint64_t *a1)
 
 BOOL ME_Model::load_from_file(uint64_t a1, uint64_t a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (*(a2 + 23) >= 0)
   {
     v3 = a2;
@@ -2739,25 +2740,25 @@ BOOL ME_Model::load_from_file(uint64_t a1, uint64_t a2)
 
       size = -1;
 LABEL_21:
-      std::string::basic_string(&v31, &__str, 0, v9, &v30);
-      std::string::basic_string(&v30, &__str, v9 + 1, size - (v9 + 1), &v28);
-      v29 = 0.0;
-      std::string::basic_string(&v28, &__str, size + 1, 0xFFFFFFFFFFFFFFFFLL, &v27);
-      if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::string::basic_string(&v30, &__str, 0, v9, &v29);
+      std::string::basic_string(&v29, &__str, v9 + 1, size - (v9 + 1), &v27);
+      v28 = 0.0;
+      std::string::basic_string(&v27, &__str, size + 1, 0xFFFFFFFFFFFFFFFFLL, &v26);
+      if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v11 = &v28;
+        v11 = &v27;
       }
 
       else
       {
-        v11 = v28.__r_.__value_.__r.__words[0];
+        v11 = v27.__r_.__value_.__r.__words[0];
       }
 
-      sscanf(v11, "%f", &v29);
-      v12 = ME_Model::StringBag::Put((a1 + 72), &v31);
-      v27 = v12 + (ME_Model::MiniStringBag::Put((a1 + 144), &v30) << 8);
-      ME_Model::ME_FeatureBag::Put((a1 + 216), &v27);
-      v13 = v29;
+      sscanf(v11, "%f", &v28);
+      v12 = ME_Model::StringBag::Put((a1 + 72), &v30);
+      v26 = v12 + (ME_Model::MiniStringBag::Put((a1 + 144), &v29) << 8);
+      ME_Model::ME_FeatureBag::Put((a1 + 216), &v26);
+      v13 = v28;
       v15 = *(a1 + 200);
       v14 = *(a1 + 208);
       if (v15 >= v14)
@@ -2809,19 +2810,19 @@ LABEL_21:
       }
 
       *(a1 + 200) = v16;
-      if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v28.__r_.__value_.__l.__data_);
+        operator delete(v27.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v29.__r_.__value_.__l.__data_);
       }
 
       if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v30.__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v31.__r_.__value_.__l.__data_);
       }
 
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -2835,9 +2836,7 @@ LABEL_21:
     fclose(v4);
   }
 
-  result = v4 != 0;
-  v26 = *MEMORY[0x1E69E9840];
-  return result;
+  return v4 != 0;
 }
 
 void sub_19D4962A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36)
@@ -2865,7 +2864,7 @@ void sub_19D4962A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2879,17 +2878,17 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -2944,7 +2943,7 @@ void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   a1[1] = v6;
 }
 
-uint64_t std::vector<std::vector<int>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<int>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -2955,7 +2954,7 @@ uint64_t std::vector<std::vector<int>>::push_back[abi:ne200100](uint64_t a1, uin
   else
   {
     std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std::vector<int> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
@@ -3208,7 +3207,7 @@ void sub_19D496908(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -3283,7 +3282,7 @@ void *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(v
   return result;
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -3324,29 +3323,17 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x1E69E5420], MEMORY[0x1E69E52A8]);
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_19D496C38(_Unwind_Exception *exception_object)
@@ -3380,6 +3367,19 @@ __n128 std::vector<double>::__move_assign(uint64_t a1, __n128 *a2)
   a2->n128_u64[1] = 0;
   a2[1].n128_u64[0] = 0;
   return result;
+}
+
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_19D496D64(_Unwind_Exception *exception_object)
@@ -3532,14 +3532,14 @@ void std::vector<double>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void std::vector<ME_Model::Sample>::__base_destruct_at_end[abi:ne200100](uint64_t a1, void *a2)
+void std::vector<ME_Model::Sample>::__base_destruct_at_end[abi:ne200100](uint64_t result, void *a2)
 {
-  for (i = *(a1 + 8); i != a2; std::allocator_traits<std::allocator<ME_Model::Sample>>::destroy[abi:ne200100]<ME_Model::Sample,void,0>(a1, i))
+  for (i = *(result + 8); i != a2; std::allocator_traits<std::allocator<ME_Model::Sample>>::destroy[abi:ne200100]<ME_Model::Sample,void,0>(result, i))
   {
     i -= 10;
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 void std::allocator_traits<std::allocator<ME_Model::Sample>>::destroy[abi:ne200100]<ME_Model::Sample,void,0>(uint64_t a1, void *a2)
@@ -3726,7 +3726,6 @@ uint64_t ME_Model::hashfun_str::operator()(uint64_t a1, uint64_t *a2)
 {
   LODWORD(v2) = *(a2 + 23);
   v3 = v2;
-  v4 = *a2;
   if ((v2 & 0x80u) != 0)
   {
     v2 = a2[1];
@@ -3739,53 +3738,53 @@ uint64_t ME_Model::hashfun_str::operator()(uint64_t a1, uint64_t *a2)
 
   else
   {
-    v5 = 0;
+    v4 = 0;
     result = 0;
     if (v3 >= 0)
     {
-      v7 = a2;
+      v6 = a2;
     }
 
     else
     {
-      v7 = *a2;
+      v6 = *a2;
     }
 
-    v8 = v2 / 4;
+    v7 = v2 / 4;
     do
     {
-      result ^= (*(v7 + v5) << (v5 & 4));
-      v5 += 4;
-      --v8;
+      result ^= (*(v6 + v4) << (v4 & 4));
+      v4 += 4;
+      --v7;
     }
 
-    while (v8);
+    while (v7);
   }
 
   if ((v2 & 3) != 0)
   {
-    v9 = 0;
-    v10 = 4 * (v2 / 4);
-    v11 = v2 & 3;
+    v8 = 0;
+    v9 = 4 * (v2 / 4);
+    v10 = v2 & 3;
     if (v3 >= 0)
     {
-      v12 = a2;
+      v11 = a2;
     }
 
     else
     {
-      v12 = *a2;
+      v11 = *a2;
     }
 
-    v13 = v12 + v10;
+    v12 = v11 + v9;
     do
     {
-      v14 = *v13++;
-      result ^= v14 << v9;
-      v9 += 8;
+      v13 = *v12++;
+      result ^= v13 << v8;
+      v8 += 8;
     }
 
-    while (8 * v11 != v9);
+    while (8 * v10 != v8);
   }
 
   return result;
@@ -3963,35 +3962,35 @@ void std::__split_buffer<std::string>::__destruct_at_end[abi:ne200100](uint64_t 
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = ME_Model::hashfun_str::operator()(a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = ME_Model::hashfun_str::operator()(a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -3999,44 +3998,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_19D4977A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -4056,7 +4055,7 @@ void sub_19D497870(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -4072,7 +4071,7 @@ void std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -4080,7 +4079,7 @@ void std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -4104,7 +4103,7 @@ void std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -4159,7 +4158,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<int,double>
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4169,14 +4168,14 @@ uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,s
   return result;
 }
 
-void sub_19D497BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_19D497BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -4279,7 +4278,7 @@ void std::vector<std::string>::clear[abi:ne200100](void ***a1)
   a1[1] = v2;
 }
 
-uint64_t std::vector<std::pair<std::string,double>>::__init_with_size[abi:ne200100]<std::pair<std::string,double>*,std::pair<std::string,double>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<std::string,double>>::__init_with_size[abi:ne200100]<std::pair<std::string,double>*,std::pair<std::string,double>*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4289,14 +4288,14 @@ uint64_t std::vector<std::pair<std::string,double>>::__init_with_size[abi:ne2001
   return result;
 }
 
-void sub_19D497EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_19D497EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<std::pair<std::string,double>>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::pair<std::string,double>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<std::string,double>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -4424,22 +4423,22 @@ void ME_Sample::~ME_Sample(void **this)
   }
 }
 
-uint64_t std::vector<ME_Model::Sample>::__construct_one_at_end[abi:ne200100]<ME_Model::Sample const&>(uint64_t a1, uint64_t a2)
+uint64_t *std::vector<ME_Model::Sample>::__construct_one_at_end[abi:ne200100]<ME_Model::Sample const&>(uint64_t a1, _DWORD *a2)
 {
   v4 = *(a1 + 8);
   *v4 = *a2;
   *(v4 + 8) = 0;
   *(v4 + 16) = 0;
   *(v4 + 24) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v4 + 8, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((v4 + 8), *(a2 + 1), *(a2 + 2), (*(a2 + 2) - *(a2 + 1)) >> 2);
   *(v4 + 32) = 0;
   *(v4 + 40) = 0;
   *(v4 + 48) = 0;
-  std::vector<std::pair<int,double>>::__init_with_size[abi:ne200100]<std::pair<int,double>*,std::pair<int,double>*>(v4 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 4);
+  std::vector<std::pair<int,double>>::__init_with_size[abi:ne200100]<std::pair<int,double>*,std::pair<int,double>*>((v4 + 32), *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 4);
   *(v4 + 56) = 0;
   *(v4 + 64) = 0;
   *(v4 + 72) = 0;
-  result = std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v4 + 56, *(a2 + 56), *(a2 + 64), (*(a2 + 64) - *(a2 + 56)) >> 3);
+  result = std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>((v4 + 56), *(a2 + 7), *(a2 + 8), (*(a2 + 8) - *(a2 + 7)) >> 3);
   *(a1 + 8) = v4 + 80;
   return result;
 }
@@ -4464,21 +4463,21 @@ void sub_19D498244(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<ME_Model::Sample>::__emplace_back_slow_path<ME_Model::Sample const&>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<ME_Model::Sample>::__emplace_back_slow_path<ME_Model::Sample const&>(unint64_t *a1, _DWORD *a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 4);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
   if (v2 + 1 > 0x333333333333333)
   {
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 4) > v3)
+  if (0x999999999999999ALL * ((a1[2] - *a1) >> 4) > v3)
   {
-    v3 = 0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 4);
+    v3 = 0x999999999999999ALL * ((a1[2] - *a1) >> 4);
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 4) >= 0x199999999999999)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 4) >= 0x199999999999999)
   {
     v6 = 0x333333333333333;
   }
@@ -4503,24 +4502,24 @@ uint64_t std::vector<ME_Model::Sample>::__emplace_back_slow_path<ME_Model::Sampl
   *(v8 + 8) = 0;
   *(v7 + 16) = 0;
   *(v7 + 24) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v8 + 8, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((v8 + 8), *(a2 + 1), *(a2 + 2), (*(a2 + 2) - *(a2 + 1)) >> 2);
   *(v7 + 32) = 0;
   *(v7 + 40) = 0;
   *(v7 + 48) = 0;
-  std::vector<std::pair<int,double>>::__init_with_size[abi:ne200100]<std::pair<int,double>*,std::pair<int,double>*>(v7 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 4);
+  std::vector<std::pair<int,double>>::__init_with_size[abi:ne200100]<std::pair<int,double>*,std::pair<int,double>*>((v7 + 32), *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 4);
   *(v7 + 56) = 0;
   *(v7 + 64) = 0;
   *(v7 + 72) = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v7 + 56, *(a2 + 56), *(a2 + 64), (*(a2 + 64) - *(a2 + 56)) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>((v7 + 56), *(a2 + 7), *(a2 + 8), (*(a2 + 8) - *(a2 + 7)) >> 3);
   *&v17 = v17 + 80;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = v16 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ME_Model::Sample>,ME_Model::Sample*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -4529,28 +4528,28 @@ uint64_t std::vector<ME_Model::Sample>::__emplace_back_slow_path<ME_Model::Sampl
   return v14;
 }
 
-void sub_19D498400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19D498400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  v8 = *v5;
-  if (*v5)
+  va_start(va, a7);
+  v11 = *v8;
+  if (*v8)
   {
-    *(v6 + 40) = v8;
-    operator delete(v8);
+    *(v9 + 40) = v11;
+    operator delete(v11);
   }
 
-  v9 = *v4;
-  if (*v4)
+  v12 = *v7;
+  if (*v7)
   {
-    *(v6 + 16) = v9;
-    operator delete(v9);
+    *(v9 + 16) = v12;
+    operator delete(v12);
   }
 
   std::__split_buffer<ME_Model::Sample>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4572,7 +4571,7 @@ void sub_19D4984A4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<int>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<int>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -4582,7 +4581,7 @@ void std::vector<int>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<double>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<std::pair<int,double>>::__init_with_size[abi:ne200100]<std::pair<int,double>*,std::pair<int,double>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<int,double>>::__init_with_size[abi:ne200100]<std::pair<int,double>*,std::pair<int,double>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4604,7 +4603,7 @@ void sub_19D498554(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<int,double>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<int,double>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -4740,15 +4739,15 @@ void std::__split_buffer<ME_Model::Sample>::__destruct_at_end[abi:ne200100](uint
   }
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,false>(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,false>(std::vector<int> *result, char *a2, uint64_t a3, uint64_t a4, char a5)
 {
 LABEL_1:
-  v9 = a1;
+  v9 = result;
 LABEL_2:
   v10 = 1 - a4;
   while (1)
   {
-    a1 = v9;
+    result = v9;
     v11 = v10;
     v12 = a2 - v9;
     v13 = 0xCCCCCCCCCCCCCCCDLL * ((a2 - v9) >> 4);
@@ -4821,29 +4820,29 @@ LABEL_10:
       v17 = (v9 + 80 * v14 - 80);
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,0>((v9 + 80), v17, (a2 - 160));
       v18 = (v9 + 16 * v16 + 80);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,0>((a1 + 160), v18, (a2 - 240));
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,0>((result + 160), v18, a2 - 10);
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,0>(v17, v15, v18);
-      std::swap[abi:ne200100]<ME_Model::Sample>(a1, v15);
+      std::swap[abi:ne200100]<ME_Model::Sample>(result, v15);
       if (a5)
       {
         goto LABEL_17;
       }
     }
 
-    if ((ME_Model::Sample::operator<(a1 - 80, a1) & 1) == 0)
+    if ((ME_Model::Sample::operator<(&result[-4].__end_cap_, result) & 1) == 0)
     {
-      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,ME_Model::Sample *,std::__less<void,void> &>(a1, a2);
+      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,ME_Model::Sample *,std::__less<void,void> &>(result, a2);
       goto LABEL_22;
     }
 
 LABEL_17:
-    v19 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,ME_Model::Sample *,std::__less<void,void> &>(a1, a2);
+    v19 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,ME_Model::Sample *,std::__less<void,void> &>(result, a2);
     if ((v20 & 1) == 0)
     {
       goto LABEL_20;
     }
 
-    v21 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *>(a1, v19);
+    v21 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *>(result, v19);
     v9 = &v19[10];
     if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *>(&v19[10], a2))
     {
@@ -4861,7 +4860,7 @@ LABEL_17:
     if (!v21)
     {
 LABEL_20:
-      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,false>(a1, v19, a3, -v11, a5 & 1);
+      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,false>(result, v19, a3, -v11, a5 & 1);
       v9 = &v19[10];
 LABEL_22:
       a5 = 0;
@@ -4889,7 +4888,7 @@ LABEL_22:
     goto LABEL_10;
   }
 
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,0>(v9, (v9 + 80), &v9[6].__end_cap_);
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,0>(v9, (v9 + 80), (v9 + 160));
   if (ME_Model::Sample::operator<((a2 - 80), &v9[6].__end_cap_))
   {
     std::swap[abi:ne200100]<ME_Model::Sample>((v9 + 160), (a2 - 80));
@@ -4908,7 +4907,7 @@ LABEL_33:
   }
 }
 
-uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,0>(std::vector<int> *a1, std::vector<int> *a2, uint64_t a3)
+uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,0>(std::vector<int> *a1, std::vector<int> *a2, std::vector<int> *a3)
 {
   v6 = ME_Model::Sample::operator<(a2, a1);
   result = ME_Model::Sample::operator<(a3, a2);
@@ -4987,14 +4986,14 @@ double std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> 
   return result;
 }
 
-void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *>(uint64_t a1, _DWORD *a2)
+void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *>(_DWORD *a1, _DWORD *a2)
 {
   if (a1 != a2)
   {
     __p[14] = v2;
     __p[15] = v3;
-    v6 = a1 + 80;
-    if ((a1 + 80) != a2)
+    v6 = (a1 + 20);
+    if (a1 + 20 != a2)
     {
       v7 = 0;
       v8 = a1;
@@ -5025,17 +5024,17 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void
             v11 = a1 + v10;
             *(a1 + v10 + 80) = *(a1 + v10);
             std::vector<double>::__move_assign(a1 + v10 + 88, (a1 + v10 + 8));
-            std::vector<double>::__move_assign(v11 + 112, (v11 + 32));
-            std::vector<double>::__move_assign(v11 + 136, (v11 + 56));
+            std::vector<double>::__move_assign((v11 + 112), v11 + 2);
+            std::vector<double>::__move_assign((v11 + 136), (v11 + 56));
             if (!v10)
             {
               break;
             }
 
             v10 -= 80;
-            if ((ME_Model::Sample::operator<(v18, v10 + a1) & 1) == 0)
+            if ((ME_Model::Sample::operator<(v18, a1 + v10) & 1) == 0)
             {
-              v12 = a1 + v10 + 80;
+              v12 = (a1 + v10 + 80);
               goto LABEL_10;
             }
           }
@@ -5043,12 +5042,12 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void
           v12 = a1;
 LABEL_10:
           *v12 = v18[0];
-          v15 = *(v11 + 8);
-          v14 = (v11 + 8);
+          v15 = *(v11 + 1);
+          v14 = v11 + 8;
           v13 = v15;
           if (v15)
           {
-            *(v12 + 16) = v13;
+            *(v12 + 2) = v13;
             operator delete(v13);
             *v14 = 0;
             v14[1] = 0;
@@ -5056,12 +5055,12 @@ LABEL_10:
           }
 
           *v14 = *&v18[2];
-          *(v12 + 16) = *&v18[4];
+          *(v12 + 1) = *&v18[4];
           memset(&v18[2], 0, 24);
           v16 = v14[3];
           if (v16)
           {
-            *(v12 + 40) = v16;
+            *(v12 + 5) = v16;
             operator delete(v16);
             v14[3] = 0;
             v14[4] = 0;
@@ -5069,12 +5068,12 @@ LABEL_10:
           }
 
           v14[3] = __p[0];
-          *(v12 + 40) = *&__p[1];
+          *(v12 + 10) = *&__p[1];
           memset(__p, 0, 24);
           v17 = v14[6];
           if (v17)
           {
-            *(v12 + 64) = v17;
+            *(v12 + 8) = v17;
             operator delete(v17);
             v14[6] = 0;
             v14[7] = 0;
@@ -5083,7 +5082,7 @@ LABEL_10:
           }
 
           v14[6] = __p[3];
-          *(v12 + 64) = *&__p[4];
+          *(v12 + 4) = *&__p[4];
           memset(&__p[3], 0, 24);
           if (v17)
           {
@@ -5108,17 +5107,17 @@ LABEL_10:
   }
 }
 
-void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *>(uint64_t a1, unsigned __int32 *a2)
+void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *>(unsigned __int32 *a1, unsigned __int32 *a2)
 {
   if (a1 != a2)
   {
     v21 = v2;
     v22 = v3;
     v5 = a1;
-    v6 = a1 + 80;
-    if ((a1 + 80) != a2)
+    v6 = (a1 + 20);
+    if (a1 + 20 != a2)
     {
-      v7 = (a1 + 152);
+      v7 = a1 + 38;
       do
       {
         v8 = v6;
@@ -5212,7 +5211,7 @@ void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::_
         }
 
         v6 = (v8 + 20);
-        v7 += 5;
+        v7 += 20;
         v5 = v8;
       }
 
@@ -5225,19 +5224,19 @@ std::vector<int> *std::__partition_with_equals_on_left[abi:ne200100]<std::_Class
 {
   v2 = a2;
   value = a1->__value_;
-  v4 = &a1[1];
+  v4 = a1 + 1;
   *v15 = *&a1[1].__value_;
   v16 = a1[3].__value_;
   a1[1].__value_ = 0;
   a1[2].__value_ = 0;
   a1[3].__value_ = 0;
-  v5 = &a1[4];
+  v5 = a1 + 4;
   *__p = *&a1[4].__value_;
   v18 = a1[6].__value_;
   a1[4].__value_ = 0;
   a1[5].__value_ = 0;
   a1[6].__value_ = 0;
-  v6 = &a1[7];
+  v6 = a1 + 7;
   v19 = *&a1[7].__value_;
   v20 = a1[9].__value_;
   a1[8].__value_ = 0;
@@ -5256,7 +5255,7 @@ std::vector<int> *std::__partition_with_equals_on_left[abi:ne200100]<std::_Class
 
   else
   {
-    p_end = &a1[10];
+    p_end = a1 + 10;
     do
     {
       v7 = p_end;
@@ -5372,20 +5371,20 @@ std::__compressed_pair<int *> *std::__partition_with_equals_on_right[abi:ne20010
 {
   v4 = 0;
   value = a1->__value_;
-  v5 = &a1[1];
+  v5 = a1 + 1;
   *v16 = *&a1[1].__value_;
   v17 = a1[3].__value_;
   a1[1].__value_ = 0;
   a1[2].__value_ = 0;
   a1[3].__value_ = 0;
-  v6 = &a1[4];
+  v6 = a1 + 4;
   *__p = *&a1[4].__value_;
   v19 = a1[6].__value_;
   a1[4].__value_ = 0;
   a1[5].__value_ = 0;
   a1[6].__value_ = 0;
   v21 = a1[9].__value_;
-  v7 = &a1[7];
+  v7 = a1 + 7;
   v20 = *&a1[7].__value_;
   a1[8].__value_ = 0;
   a1[9].__value_ = 0;
@@ -5523,11 +5522,11 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
     switch(v4)
     {
       case 3:
-        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,0>(a1, (a1 + 80), a2 - 80);
+        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,0>(a1, (a1 + 80), (a2 - 80));
         return 1;
       case 4:
         v20 = a2 - 80;
-        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,0>(a1, (a1 + 80), a1 + 160);
+        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,0>(a1, (a1 + 80), (a1 + 160));
         if (!ME_Model::Sample::operator<(v20, a1 + 160))
         {
           return 1;
@@ -5577,7 +5576,7 @@ LABEL_6:
   }
 
   v8 = a1 + 160;
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,0>(a1, (a1 + 80), a1 + 160);
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,0>(a1, (a1 + 80), (a1 + 160));
   v9 = a1 + 240;
   if (a1 + 240 == a2)
   {
@@ -5787,7 +5786,7 @@ __n128 std::swap[abi:ne200100]<ME_Model::Sample>(std::vector<int> *this, uint64_
   return result;
 }
 
-std::vector<int> *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,ME_Model::Sample *>(uint64_t a1, uint64_t a2, std::vector<int> *a3, uint64_t a4)
+std::vector<int> *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *,ME_Model::Sample *>(int *a1, std::vector<int> *a2, std::vector<int> *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -5798,7 +5797,7 @@ std::vector<int> *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,
     {
       v10 = (v9 - 2) >> 1;
       v11 = v10 + 1;
-      v12 = a1 + 80 * v10;
+      v12 = &a1[20 * v10];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *>(a1, a4, v9, v12);
@@ -5833,7 +5832,7 @@ std::vector<int> *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,
       do
       {
         std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,ME_Model::Sample *>(a1, v6, a4, v14);
-        v6 -= 80;
+        v6 = (v6 - 80);
       }
 
       while (v14-- > 2);
@@ -5972,28 +5971,28 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void
   }
 }
 
-__n128 std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,ME_Model::Sample *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+__n128 std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,ME_Model::Sample *>(int *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4 >= 2)
   {
     v7 = *a1;
-    v8 = *(a1 + 8);
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-    v10 = *(a1 + 24);
-    v9 = *(a1 + 32);
+    v8 = *(a1 + 2);
+    *(a1 + 1) = 0;
+    *(a1 + 2) = 0;
+    v10 = *(a1 + 3);
+    v9 = *(a1 + 4);
     v25 = v8;
-    v11 = *(a1 + 40);
-    *(a1 + 24) = 0;
-    *(a1 + 32) = 0;
-    *(a1 + 40) = 0;
-    *(a1 + 48) = 0;
+    v11 = *(a1 + 10);
+    *(a1 + 3) = 0;
+    *(a1 + 4) = 0;
+    *(a1 + 5) = 0;
+    *(a1 + 6) = 0;
     v26 = v11;
-    v27 = *(a1 + 56);
-    v12 = *(a1 + 72);
-    *(a1 + 56) = 0;
-    *(a1 + 64) = 0;
-    *(a1 + 72) = 0;
+    v27 = *(a1 + 14);
+    v12 = *(a1 + 9);
+    *(a1 + 7) = 0;
+    *(a1 + 8) = 0;
+    *(a1 + 9) = 0;
     v13 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,ME_Model::Sample *>(a1, a3, a4);
     v14 = v13;
     if (v13 == (a2 - 80))
@@ -6043,7 +6042,7 @@ __n128 std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,voi
     {
       v24 = v12;
       *v13 = *(a2 - 80);
-      v15 = v13 + 20;
+      v15 = (v13 + 20);
       std::vector<double>::__move_assign((v13 + 2), (a2 - 72));
       std::vector<double>::__move_assign((v14 + 8), (a2 - 48));
       std::vector<double>::__move_assign((v14 + 14), (a2 - 24));
@@ -6091,9 +6090,9 @@ __n128 std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,voi
   return result;
 }
 
-void sub_19D49A0EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_19D49A0EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   ME_Model::Sample::~Sample(va);
   _Unwind_Resume(a1);
 }
@@ -6309,22 +6308,22 @@ uint64_t std::pair<std::pair<std::string,std::string>,double>::~pair(uint64_t a1
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::clear(uint64_t a1)
+void std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::clear(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__deallocate_node(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
@@ -6349,32 +6348,32 @@ void std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_
   }
 }
 
-uint64_t std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std::vector<int> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std::vector<int> const&>(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
   v3[1] = 0;
   v3[2] = 0;
-  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v3, *a2, a2[1], (a2[1] - *a2) >> 2);
+  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v3, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   *(a1 + 8) = v3 + 3;
   return result;
 }
 
-uint64_t std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int> const&>(uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int> const&>(char **a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -6398,16 +6397,16 @@ uint64_t std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(24 * v2, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((24 * v2), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -6416,9 +6415,9 @@ uint64_t std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int
   return v8;
 }
 
-void sub_19D49A75C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D49A75C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<int>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6465,7 +6464,7 @@ void std::__split_buffer<std::vector<int>>::__destruct_at_end[abi:ne200100](uint
   }
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6512,33 +6511,33 @@ uint64_t std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unord
   return a1;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -6546,44 +6545,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void *std::__hash_table<std::__hash_value_type<unsigned int,int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,int>>>::clear(void *result)
@@ -6737,37 +6736,37 @@ id stringArrayRepresentationFromData(void *a1)
 
 id stringArrayRepresentationFromInverseMap(void *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [MEMORY[0x1E695DF70] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v3 = [v1 allKeys];
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = [*(*(&v16 + 1) + 8 * i) unsignedIntegerValue];
+        v9 = [*(*(&v15 + 1) + 8 * i) unsignedIntegerValue];
         if (v9 > v6)
         {
           v6 = v9;
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
@@ -6801,42 +6800,40 @@ id stringArrayRepresentationFromInverseMap(void *a1)
 
   while (v10 <= v6);
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v2;
 }
 
 id dataFromStringArrayRepresentation(void *a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v1 = a1;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = 0;
-    v5 = *v27;
+    v5 = *v26;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v27 != v5)
+        if (*v26 != v5)
         {
           objc_enumerationMutation(v1);
         }
 
-        v7 = [*(*(&v26 + 1) + 8 * i) UTF8String];
+        v7 = [*(*(&v25 + 1) + 8 * i) UTF8String];
         if (v7)
         {
           v4 += strlen(v7) + 1;
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v3);
@@ -6849,26 +6846,26 @@ id dataFromStringArrayRepresentation(void *a1)
 
   v8 = [MEMORY[0x1E695DF88] dataWithLength:v4];
   v9 = [v8 mutableBytes];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v10 = v1;
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v23;
+    v13 = *v22;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * j);
+        v15 = *(*(&v21 + 1) + 8 * j);
         v16 = [v15 UTF8String];
         if (v16)
         {
@@ -6881,20 +6878,18 @@ id dataFromStringArrayRepresentation(void *a1)
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v12);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
-void sub_19D49D5A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19D49D5A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6906,44 +6901,43 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_19D49D750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19D49D750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t isAcceptableTokenArray(void *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v1 count])
   {
-    v13 = 0u;
-    v14 = 0u;
     v11 = 0u;
     v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v2 = v1;
-    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v12;
+      v5 = *v10;
       while (2)
       {
         v6 = 0;
         do
         {
-          if (*v12 != v5)
+          if (*v10 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v11 + 1) + 8 * v6);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v8 = 0;
+            v7 = 0;
             goto LABEL_16;
           }
 
@@ -6951,7 +6945,7 @@ uint64_t isAcceptableTokenArray(void *a1)
         }
 
         while (v4 != v6);
-        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v4)
         {
           continue;
@@ -6961,43 +6955,42 @@ uint64_t isAcceptableTokenArray(void *a1)
       }
     }
 
-    v8 = 1;
+    v7 = 1;
 LABEL_16:
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v7;
 }
 
-void sub_19D49DB4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19D49DB4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19D49DD18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19D49DD18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19D49DF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19D49DF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t MurmurHash3_x86_32(uint64_t result, int a2, int a3, unsigned int *a4)
+uint64_t MurmurHash3_x86_32(uint64_t result, unsigned int a2, int a3, unsigned int *a4)
 {
-  if (a2 >= 0)
+  if ((a2 & 0x80000000) == 0)
   {
     v4 = a2;
   }
@@ -7008,7 +7001,7 @@ uint64_t MurmurHash3_x86_32(uint64_t result, int a2, int a3, unsigned int *a4)
   }
 
   v5 = (result + (v4 & 0xFFFFFFFC));
-  if ((a2 + 3) >= 7)
+  if (a2 + 3 >= 7)
   {
     v6 = -(v4 >> 2);
     do
@@ -7022,7 +7015,7 @@ uint64_t MurmurHash3_x86_32(uint64_t result, int a2, int a3, unsigned int *a4)
   }
 
   v9 = 0;
-  if ((a2 & 3u) > 1)
+  if ((a2 & 3) > 1)
   {
     if ((a2 & 3) != 2)
     {
@@ -7044,9 +7037,9 @@ LABEL_15:
   return result;
 }
 
-int32x2_t MurmurHash3_x86_128(char *a1, signed int a2, unsigned int a3, char *a4)
+int32x2_t MurmurHash3_x86_128(char *a1, unsigned int a2, unsigned int a3, char *a4)
 {
-  if (a2 >= 0)
+  if ((a2 & 0x80000000) == 0)
   {
     v4 = a2;
   }
@@ -7058,7 +7051,7 @@ int32x2_t MurmurHash3_x86_128(char *a1, signed int a2, unsigned int a3, char *a4
 
   v5 = v4 & 0xFFFFFFF0;
   v6 = vdup_n_s32(a3);
-  if ((a2 + 15) >= 0x1F)
+  if (a2 + 15 >= 0x1F)
   {
     v8 = v4 >> 4;
     v9 = &a1[v5 - 16 * v8];
@@ -7092,35 +7085,35 @@ int32x2_t MurmurHash3_x86_128(char *a1, signed int a2, unsigned int a3, char *a4
   v15 = 0;
   switch(a2 & 0xF)
   {
-    case 1:
+    case 1u:
       goto LABEL_23;
-    case 2:
+    case 2u:
       goto LABEL_22;
-    case 3:
+    case 3u:
       goto LABEL_21;
-    case 4:
+    case 4u:
       goto LABEL_20;
-    case 5:
+    case 5u:
       goto LABEL_19;
-    case 6:
+    case 6u:
       goto LABEL_18;
-    case 7:
+    case 7u:
       goto LABEL_17;
-    case 8:
+    case 8u:
       goto LABEL_16;
-    case 9:
+    case 9u:
       goto LABEL_15;
-    case 0xA:
+    case 0xAu:
       goto LABEL_14;
-    case 0xB:
+    case 0xBu:
       goto LABEL_13;
-    case 0xC:
+    case 0xCu:
       goto LABEL_12;
-    case 0xD:
+    case 0xDu:
       goto LABEL_11;
-    case 0xE:
+    case 0xEu:
       goto LABEL_10;
-    case 0xF:
+    case 0xFu:
       v15 = v14[14] << 16;
 LABEL_10:
       v15 |= v14[13] << 8;
@@ -7291,7 +7284,7 @@ uint64_t ME_Model::perform_SGD(ME_Model *this)
   if (v70 != v69)
   {
     v4 = 0;
-    v5 = (v70 - v69) >> 2;
+    v5 = v70 - v69;
     if (v5 <= 1)
     {
       v5 = 1;
@@ -7334,8 +7327,10 @@ uint64_t ME_Model::perform_SGD(ME_Model *this)
   v13 = (v3 >> 2);
   std::vector<double>::vector[abi:ne200100](v68, v13);
   v14 = *(this + 1);
-  std::vector<double>::vector[abi:ne200100](v67, v13);
-  std::vector<int>::vector[abi:ne200100](v66, v13);
+  v61[0] = 0;
+  std::vector<double>::vector[abi:ne200100](v67, v13, v61);
+  LODWORD(v61[0]) = 0;
+  std::vector<int>::vector[abi:ne200100](v66, v13, v61);
   v63 = 0;
   v64 = 0;
   v65 = 0;
@@ -7630,7 +7625,7 @@ void *std::endl[abi:ne200100]<char,std::char_traits<char>>(void *a1)
   return a1;
 }
 
-void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<double>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -7679,7 +7674,7 @@ void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -7708,29 +7703,17 @@ void sub_19D4A14CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<int>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<int>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_19D4A1544(_Unwind_Exception *exception_object)
@@ -7743,6 +7726,19 @@ void sub_19D4A1544(_Unwind_Exception *exception_object)
   }
 
   _Unwind_Resume(exception_object);
+}
+
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, int *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<int>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_19D4A1658(_Unwind_Exception *exception_object)
@@ -7763,16 +7759,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x1E69E5318]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -7795,9 +7791,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_19D4A17B4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_19D4A17B4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x19EAFC060](&a10);
+  MEMORY[0x19EAFC060](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -7887,7 +7883,7 @@ void sub_19D4A19E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__shuffle[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<int *>,std::__wrap_iter<int *>,std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u> &>(unint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::__shuffle[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<int *>,std::__wrap_iter<int *>,std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u> &>(int *a1, uint64_t a2, uint64_t a3)
 {
   v4 = (a2 - a1) >> 2;
   if (v4 >= 2)
@@ -8122,9 +8118,9 @@ std::mersenne_twister_engine<unsigned int, 32, 624, 397, 31, 2567483615, 11, 429
   return (v6 << 15) & 0xEFC60000 ^ v6 ^ (((v6 << 15) & 0xEFC60000 ^ v6) >> 18);
 }
 
-void sub_19D4A2DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19D4A2DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8136,18 +8132,18 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_19D4A2FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19D4A2FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_19D4A37B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_19D4A37B0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = NLE5Embedding;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8158,80 +8154,183 @@ void sub_19D4A3D14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void compileModel(uint64_t a1, int a2, void *a3)
+void compileModel(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v4 = a3;
-  MEMORY[0x19EAFBE50](v10);
+  MEMORY[0x19EAFBE50](v9);
   std::string::basic_string[abi:ne200100]<0>(&__p, "/private/var/db/com.apple.naturallanguaged");
   E5RT::E5CompilerConfigOptions::SetBundleCacheLocation();
-  if (v9 < 0)
+  if (v8 < 0)
   {
     operator delete(__p);
   }
 
   E5RT::E5Compiler::MakeCompiler();
-  createE5CompilerOptions(a2, v4, &v7);
+  createE5CompilerOptions(v3, v4);
   E5RT::E5Compiler::Compile();
-  v5 = v7;
-  v7 = 0;
+  if (v6)
+  {
+    (*(*v6 + 8))();
+  }
+
+  v5 = __p;
+  __p = 0;
   if (v5)
   {
     (*(*v5 + 8))(v5);
   }
 
-  v6 = __p;
-  __p = 0;
-  if (v6)
-  {
-    (*(*v6 + 8))(v6);
-  }
-
-  MEMORY[0x19EAFBE60](v10);
+  MEMORY[0x19EAFBE60](v9);
 }
 
-void sub_19D4A4370(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
+void sub_19D4A4370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
 {
   if (a9)
   {
-    compileModel(a9);
+    compileModel();
   }
 
   if (__p)
   {
-    (*(*__p + 8))(__p);
+    (*(*__p + 8))(__p, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  MEMORY[0x19EAFBE60](&a16);
+  MEMORY[0x19EAFBE60](&a16, a2, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
 
-void createE5CompilerOptions(int a1@<W0>, void *a2@<X1>, uint64_t *a3@<X8>)
+void sub_19D4A4694(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, __CFString *a20, __int128 buf)
 {
-  v51 = *MEMORY[0x1E69E9840];
-  v36 = a2;
-  E5RT::E5CompilerOptions::Create(v36);
-  v50.__first_ = 1;
-  v47 = 0;
-  v48 = 0;
+  if (a2)
+  {
+
+    if (a11)
+    {
+      (*(*a11 + 8))(a11);
+    }
+
+    if (a12)
+    {
+      (*(*a12 + 8))(a12);
+    }
+
+    MEMORY[0x19EAFBE60](&a13);
+    if (a2 == 3)
+    {
+      v26 = __cxa_begin_catch(exception_object);
+      v27 = objc_autoreleasePoolPush();
+      v28 = NLGetLogCategory(0);
+      v29 = [v28 internal];
+
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      {
+        v30 = NLGetLogIdentifier(0);
+        v31 = MEMORY[0x1E696AEC0];
+        (*(*v26 + 16))(v26);
+        v32 = [v31 stringWithFormat:@"%s"];
+        LODWORD(buf) = 138543618;
+        *(&buf + 4) = v30;
+        WORD6(buf) = 2114;
+        *(&buf + 14) = v32;
+        _os_log_impl(&dword_19D48F000, v29, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", &buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v27);
+      if (v21)
+      {
+        v33 = MEMORY[0x1E696ABC0];
+        a15 = *MEMORY[0x1E696A578];
+        v34 = MEMORY[0x1E696AEC0];
+        (*(*v26 + 16))(v26);
+        v35 = [v34 stringWithFormat:@"Compilation failed: %s"];
+        a16 = v35;
+        v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&a16 forKeys:&a15 count:1];
+        *v21 = [v33 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:7 userInfo:v36];
+      }
+    }
+
+    else
+    {
+      v37 = __cxa_begin_catch(exception_object);
+      if (a2 == 2)
+      {
+        v38 = v37;
+        v39 = objc_autoreleasePoolPush();
+        v40 = NLGetLogCategory(0);
+        v41 = [v40 internal];
+
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+        {
+          v42 = NLGetLogIdentifier(0);
+          v43 = MEMORY[0x1E696AEC0];
+          (*(*v38 + 16))(v38);
+          v44 = [v43 stringWithFormat:@"%s"];
+          LODWORD(buf) = 138543618;
+          *(&buf + 4) = v42;
+          WORD6(buf) = 2114;
+          *(&buf + 14) = v44;
+          _os_log_impl(&dword_19D48F000, v41, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", &buf, 0x16u);
+        }
+
+        objc_autoreleasePoolPop(v39);
+        if (v21)
+        {
+          v45 = MEMORY[0x1E696ABC0];
+          a17 = *MEMORY[0x1E696A578];
+          v46 = MEMORY[0x1E696AEC0];
+          (*(*v38 + 16))(v38);
+          v47 = [v46 stringWithFormat:@"Compilation failed: %s"];
+          a18 = v47;
+          v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&a18 forKeys:&a17 count:1];
+          *v21 = [v45 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:7 userInfo:v48];
+        }
+      }
+
+      else if (v21)
+      {
+        v49 = MEMORY[0x1E696ABC0];
+        a19 = *MEMORY[0x1E696A578];
+        a20 = @"Compilation failed";
+        v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&a20 forKeys:&a19 count:1];
+        *v21 = [v49 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:7 userInfo:v50];
+      }
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x19D4A464CLL);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void createE5CompilerOptions(int a1, void *a2)
+{
+  v46 = *MEMORY[0x1E69E9840];
+  v31 = a2;
+  E5RT::E5CompilerOptions::Create(v31);
+  v45.__first_ = 1;
+  v42 = 0;
+  v43 = 0;
   __src = 0;
-  std::vector<E5RT::ComputeDeviceType>::__init_with_size[abi:ne200100]<E5RT::ComputeDeviceType const*,E5RT::ComputeDeviceType const*>(&__src, &v50, &v50.__begin_, 1uLL);
+  std::vector<E5RT::ComputeDeviceType>::__init_with_size[abi:ne200100]<E5RT::ComputeDeviceType const*,E5RT::ComputeDeviceType const*>(&__src, &v45, &v45.__begin_, 1uLL);
   if (a1)
   {
-    v4 = v47;
-    if (v47 >= v48)
+    v4 = v42;
+    if (v42 >= v43)
     {
       v6 = __src;
-      v7 = v47 - __src;
-      v8 = (v47 - __src) >> 3;
+      v7 = v42 - __src;
+      v8 = (v42 - __src) >> 3;
       v9 = v8 + 1;
       if ((v8 + 1) >> 61)
       {
         std::vector<double>::__throw_length_error[abi:ne200100]();
       }
 
-      v10 = v48 - __src;
-      if ((v48 - __src) >> 2 > v9)
+      v10 = v43 - __src;
+      if ((v43 - __src) >> 2 > v9)
       {
         v9 = v10 >> 2;
       }
@@ -8249,14 +8348,14 @@ void createE5CompilerOptions(int a1@<W0>, void *a2@<X1>, uint64_t *a3@<X8>)
       }
 
       v13 = (8 * v8);
-      v14 = &v13[-((v47 - __src) >> 3)];
+      v14 = &v13[-((v42 - __src) >> 3)];
       *v13 = 4;
       v5 = (v13 + 1);
       memcpy(v14, v6, v7);
       v15 = __src;
       __src = v14;
-      v47 = v5;
-      v48 = 0;
+      v42 = v5;
+      v43 = 0;
       if (v15)
       {
         operator delete(v15);
@@ -8265,60 +8364,60 @@ void createE5CompilerOptions(int a1@<W0>, void *a2@<X1>, uint64_t *a3@<X8>)
 
     else
     {
-      *v47 = 4;
+      *v42 = 4;
       v5 = v4 + 8;
     }
 
-    v47 = v5;
+    v42 = v5;
   }
 
-  if ([(E5RT::E5CompilerOptions *)v36 count])
+  if ([(E5RT::E5CompilerOptions *)v31 count])
   {
-    std::string::basic_string[abi:ne200100]<0>(&v50, "main");
-    v43 = 0;
-    v44 = 0;
-    v45 = 0;
-    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v43, &v50, &v50.__end_cap_, 1uLL);
-    if (SHIBYTE(v50.__end_) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v45, "main");
+    v38 = 0;
+    v39 = 0;
+    v40 = 0;
+    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v38, &v45, &v45.__end_cap_, 1uLL);
+    if (SHIBYTE(v45.__end_) < 0)
     {
-      operator delete(v50.__first_);
+      operator delete(v45.__first_);
     }
 
-    v39 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v16 = v36;
-    v17 = [(E5RT::E5CompilerOptions *)v16 countByEnumeratingWithState:&v39 objects:v49 count:16];
+    v34 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v16 = v31;
+    v17 = [(E5RT::E5CompilerOptions *)v16 countByEnumeratingWithState:&v34 objects:v44 count:16];
     if (v17)
     {
-      v18 = *v40;
+      v18 = *v35;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v40 != v18)
+          if (*v35 != v18)
           {
             objc_enumerationMutation(v16);
           }
 
-          std::string::basic_string[abi:ne200100]<0>(__p, [*(*(&v39 + 1) + 8 * i) UTF8String]);
-          v20 = v44;
-          if (v44 >= v45)
+          std::string::basic_string[abi:ne200100]<0>(__p, [*(*(&v34 + 1) + 8 * i) UTF8String]);
+          v20 = v39;
+          if (v39 >= v40)
           {
-            v22 = 0xAAAAAAAAAAAAAAABLL * ((v44 - v43) >> 3);
+            v22 = 0xAAAAAAAAAAAAAAABLL * ((v39 - v38) >> 3);
             v23 = v22 + 1;
             if (v22 + 1 > 0xAAAAAAAAAAAAAAALL)
             {
               std::vector<double>::__throw_length_error[abi:ne200100]();
             }
 
-            if (0x5555555555555556 * ((v45 - v43) >> 3) > v23)
+            if (0x5555555555555556 * ((v40 - v38) >> 3) > v23)
             {
-              v23 = 0x5555555555555556 * ((v45 - v43) >> 3);
+              v23 = 0x5555555555555556 * ((v40 - v38) >> 3);
             }
 
-            if (0xAAAAAAAAAAAAAAABLL * ((v45 - v43) >> 3) >= 0x555555555555555)
+            if (0xAAAAAAAAAAAAAAABLL * ((v40 - v38) >> 3) >= 0x555555555555555)
             {
               v24 = 0xAAAAAAAAAAAAAAALL;
             }
@@ -8328,34 +8427,34 @@ void createE5CompilerOptions(int a1@<W0>, void *a2@<X1>, uint64_t *a3@<X8>)
               v24 = v23;
             }
 
-            v50.__end_cap_.__value_ = &v43;
+            v45.__end_cap_.__value_ = &v38;
             if (v24)
             {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(&v43, v24);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(&v38, v24);
             }
 
-            v25 = 8 * ((v44 - v43) >> 3);
+            v25 = 8 * ((v39 - v38) >> 3);
             v26 = *__p;
-            *(v25 + 16) = v38;
+            *(v25 + 16) = v33;
             *v25 = v26;
             __p[1] = 0;
-            v38 = 0;
+            v33 = 0;
             __p[0] = 0;
             v27 = 24 * v22 + 24;
-            v28 = (24 * v22 - (v44 - v43));
-            memcpy((v25 - (v44 - v43)), v43, v44 - v43);
-            v29 = v43;
-            v30 = v45;
-            v43 = v28;
-            v44 = v27;
-            v45 = 0;
-            v50.__end_ = v29;
-            v50.__end_cap_.__value_ = v30;
-            v50.__first_ = v29;
-            v50.__begin_ = v29;
-            std::__split_buffer<std::string>::~__split_buffer(&v50);
-            v44 = v27;
-            if (SHIBYTE(v38) < 0)
+            v28 = (24 * v22 - (v39 - v38));
+            memcpy((v25 - (v39 - v38)), v38, v39 - v38);
+            v29 = v38;
+            v30 = v40;
+            v38 = v28;
+            v39 = v27;
+            v40 = 0;
+            v45.__end_ = v29;
+            v45.__end_cap_.__value_ = v30;
+            v45.__first_ = v29;
+            v45.__begin_ = v29;
+            std::__split_buffer<std::string>::~__split_buffer(&v45);
+            v39 = v27;
+            if (SHIBYTE(v33) < 0)
             {
               operator delete(__p[0]);
             }
@@ -8364,44 +8463,39 @@ void createE5CompilerOptions(int a1@<W0>, void *a2@<X1>, uint64_t *a3@<X8>)
           else
           {
             v21 = *__p;
-            *(v44 + 2) = v38;
+            *(v39 + 2) = v33;
             *v20 = v21;
-            v44 = v20 + 24;
+            v39 = v20 + 24;
           }
         }
 
-        v17 = [(E5RT::E5CompilerOptions *)v16 countByEnumeratingWithState:&v39 objects:v49 count:16];
+        v17 = [(E5RT::E5CompilerOptions *)v16 countByEnumeratingWithState:&v34 objects:v44 count:16];
       }
 
       while (v17);
     }
 
-    v31 = *a3;
     E5RT::E5CompilerOptions::SetMilEntryPoints();
-    v50.__first_ = &v43;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v50);
+    v45.__first_ = &v38;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v45);
   }
 
-  v32 = *a3;
   E5RT::E5CompilerOptions::SetComputeDeviceTypesAllowed();
-  v33 = *a3;
-  std::string::basic_string[abi:ne200100]<0>(&v50, "bnns");
+  std::string::basic_string[abi:ne200100]<0>(&v45, "bnns");
   E5RT::E5CompilerOptions::SetPreferredCpuBackend();
-  if (SHIBYTE(v50.__end_) < 0)
+  if (SHIBYTE(v45.__end_) < 0)
   {
-    operator delete(v50.__first_);
+    operator delete(v45.__first_);
   }
 
   if (__src)
   {
-    v47 = __src;
+    v42 = __src;
     operator delete(__src);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
-void sub_19D4A50B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10, void *a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, void *__p, uint64_t a31)
+void sub_19D4A50B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10, void *a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, void *__p, uint64_t a31)
 {
   if (__p)
   {
@@ -8412,7 +8506,64 @@ void sub_19D4A50B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   *a10 = 0;
   if (v32)
   {
-    (*(*v32 + 8))(v32);
+    (*(*v32 + 8))(v32, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_19D4A64CC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, uint64_t a24, __int128 buf)
+{
+  if (a2)
+  {
+
+    if (a19)
+    {
+      (*(*a19 + 8))(a19);
+    }
+
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::~__hash_table(&buf);
+    v30 = __cxa_begin_catch(a1);
+    v31 = objc_autoreleasePoolPush();
+    if (a2 == 2)
+    {
+      v32 = NLGetLogCategory(v25);
+      v33 = [v32 internal];
+
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      {
+        v34 = NLGetLogIdentifier(v25);
+        v35 = MEMORY[0x1E696AEC0];
+        (*(*v30 + 16))(v30);
+        v36 = [v35 stringWithFormat:@"Unexpected Espresso E5 error when loading embedding: %s"];
+        LODWORD(buf) = 138543618;
+        *(&buf + 4) = v34;
+        WORD6(buf) = 2114;
+        *(&buf + 14) = v36;
+        _os_log_impl(&dword_19D48F000, v33, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", &buf, 0x16u);
+      }
+    }
+
+    else
+    {
+      v37 = NLGetLogCategory(v25);
+      v33 = [v37 internal];
+
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      {
+        v38 = NLGetLogIdentifier(v25);
+        v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to load embedding from MIL representation"];
+        LODWORD(buf) = 138543618;
+        *(&buf + 4) = v38;
+        WORD6(buf) = 2114;
+        *(&buf + 14) = v39;
+        _os_log_impl(&dword_19D48F000, v33, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", &buf, 0x16u);
+      }
+    }
+
+    objc_autoreleasePoolPop(v31);
+    __cxa_end_catch();
+    JUMPOUT(0x19D4A647CLL);
   }
 
   _Unwind_Resume(a1);
@@ -8451,18 +8602,18 @@ void sub_19D4A7394(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void applesauce::CF::ArrayRef::from_ns(applesauce::CF::ArrayRef *this@<X0>, applesauce::CF::ArrayRef **a2@<X8>)
+void applesauce::CF::ArrayRef::from_ns(applesauce::CF::ArrayRef **__return_ptr a1@<X8>, applesauce::CF::ArrayRef *this@<X0>)
 {
-  v4 = this;
-  if (v4)
+  v3 = this;
+  if (v3)
   {
-    cf = v4;
-    CFRetain(v4);
-    *a2 = cf;
-    v5 = CFGetTypeID(cf);
-    v6 = v5 == CFArrayGetTypeID();
-    v4 = cf;
-    if (!v6)
+    cf = v3;
+    CFRetain(v3);
+    *a1 = cf;
+    v4 = CFGetTypeID(cf);
+    v5 = v4 == CFArrayGetTypeID();
+    v3 = cf;
+    if (!v5)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x19EAFBFD0](exception, "Could not construct");
@@ -8472,7 +8623,7 @@ void applesauce::CF::ArrayRef::from_ns(applesauce::CF::ArrayRef *this@<X0>, appl
 
   else
   {
-    *a2 = 0;
+    *a1 = 0;
   }
 }
 
@@ -8491,6 +8642,60 @@ void applesauce::CF::ArrayRef::~ArrayRef(const void **this)
   {
     CFRelease(v1);
   }
+}
+
+void sub_19D4A7E44(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf)
+{
+  if (a2)
+  {
+    v13 = __cxa_begin_catch(a1);
+    v14 = objc_autoreleasePoolPush();
+    if (a2 == 2)
+    {
+      v15 = NLGetLogCategory(v11);
+      v16 = [v15 internal];
+
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        v17 = NLGetLogIdentifier(v11);
+        v18 = MEMORY[0x1E696AEC0];
+        (*(*v13 + 16))(v13);
+        v19 = [v18 stringWithFormat:@"Unexpected Espresso E5 error when computing embedding: %s"];
+        LODWORD(buf) = 138543618;
+        *(&buf + 4) = v17;
+        WORD6(buf) = 2114;
+        *(&buf + 14) = v19;
+        _os_log_impl(&dword_19D48F000, v16, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", &buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v14);
+      __cxa_end_catch();
+    }
+
+    else
+    {
+      v20 = NLGetLogCategory(v11);
+      v21 = [v20 internal];
+
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        v22 = NLGetLogIdentifier(v11);
+        v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected error when computing embedding"];
+        LODWORD(buf) = 138543618;
+        *(&buf + 4) = v22;
+        WORD6(buf) = 2114;
+        *(&buf + 14) = v23;
+        _os_log_impl(&dword_19D48F000, v21, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", &buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v14);
+      __cxa_end_catch();
+    }
+
+    JUMPOUT(0x19D4A7DF0);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 void sub_19D4A8494(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23)
@@ -8523,6 +8728,82 @@ void std::vector<int>::resize(std::vector<int> *this, std::vector<int>::size_typ
   }
 }
 
+void sub_19D4A865C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *a14, __int128 buf)
+{
+  if (a2)
+  {
+    v18 = __cxa_begin_catch(a1);
+    v19 = objc_autoreleasePoolPush();
+    if (a2 == 2)
+    {
+      v20 = NLGetLogCategory(v16);
+      v21 = [v20 internal];
+
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        v22 = NLGetLogIdentifier(v16);
+        v23 = MEMORY[0x1E696AEC0];
+        (*(*v18 + 16))(v18);
+        v24 = [v23 stringWithFormat:@"Unexpected Espresso E5 error when computing embedding: %s"];
+        LODWORD(buf) = 138543618;
+        *(&buf + 4) = v22;
+        WORD6(buf) = 2114;
+        *(&buf + 14) = v24;
+        _os_log_impl(&dword_19D48F000, v21, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", &buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v19);
+      if (v15)
+      {
+        v25 = MEMORY[0x1E696ABC0];
+        a11 = *MEMORY[0x1E696A578];
+        v26 = MEMORY[0x1E696AEC0];
+        (*(*v18 + 16))(v18);
+        v27 = [v26 stringWithFormat:@"Embedding failed: %s"];
+        a12 = v27;
+        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&a12 forKeys:&a11 count:1];
+        *v15 = [v25 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:7 userInfo:v28];
+      }
+
+      __cxa_end_catch();
+    }
+
+    else
+    {
+      v29 = NLGetLogCategory(v16);
+      v30 = [v29 internal];
+
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      {
+        v31 = NLGetLogIdentifier(v16);
+        v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected error when computing embedding"];
+        LODWORD(buf) = 138543618;
+        *(&buf + 4) = v31;
+        WORD6(buf) = 2114;
+        *(&buf + 14) = v32;
+        _os_log_impl(&dword_19D48F000, v30, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", &buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v19);
+      if (v15)
+      {
+        v33 = MEMORY[0x1E696ABC0];
+        a13 = *MEMORY[0x1E696A578];
+        v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Embedding failed"];
+        a14 = v34;
+        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&a14 forKeys:&a13 count:1];
+        *v15 = [v33 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:7 userInfo:v35];
+      }
+
+      __cxa_end_catch();
+    }
+
+    JUMPOUT(0x19D4A860CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 uint64_t ___ZL30getSentencePieceModelLoadQueuev_block_invoke()
 {
   getSentencePieceModelLoadQueue(void)::queue = dispatch_queue_create("com.apple.NaturalLanguage.SentencePieceModelLoadQueue", 0);
@@ -8530,7 +8811,7 @@ uint64_t ___ZL30getSentencePieceModelLoadQueuev_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t std::vector<E5RT::ComputeDeviceType>::__init_with_size[abi:ne200100]<E5RT::ComputeDeviceType const*,E5RT::ComputeDeviceType const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<E5RT::ComputeDeviceType>::__init_with_size[abi:ne200100]<E5RT::ComputeDeviceType const*,E5RT::ComputeDeviceType const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8552,7 +8833,7 @@ void sub_19D4A8F5C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8633,7 +8914,7 @@ const void **applesauce::CF::ObjectRef<__CFArray const*>::~ObjectRef(const void 
   return a1;
 }
 
-char *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -8642,8 +8923,8 @@ char *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 2)
   {
     v11 = *a1;
@@ -8681,23 +8962,24 @@ char *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>
     v35 = (4 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 4;
       *v35++ = v36;
       v34 -= 4;
     }
 
     while (v34);
-    memcpy((v33 + 4 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 4 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 4 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 4 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -8712,14 +8994,14 @@ char *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>
   {
     v29 = &__dst[4 * a5];
     v30 = (v10 - 4 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[4 * a5], __dst, v10 - v29);
@@ -8734,11 +9016,11 @@ char *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[4 * a5];
@@ -8758,7 +9040,7 @@ char *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[4 * a5], v5, v21 - v22);
@@ -8846,41 +9128,41 @@ uint64_t std::unordered_map<std::string,std::shared_ptr<E5RT::ProgramFunction>>:
   std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,ME_Model::hashfun_str,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,ME_Model::hashfun_str,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<E5RT::ProgramFunction>> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<E5RT::ProgramFunction>> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<E5RT::ProgramFunction>> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<E5RT::ProgramFunction>> const&>(void *a1, const void **a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::__construct_node_hash<std::pair<std::string const,std::shared_ptr<E5RT::ProgramFunction>> const&>();
@@ -8888,73 +9170,73 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_19D4A97A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19D4A97A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>>>>::~unique_ptr[abi:ne200100](va, a2);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1, uint64_t a2)
 {
-  v2 = *a1;
+  v3 = *a1;
   *a1 = 0;
-  if (v2)
+  if (v3)
   {
     if (*(a1 + 16) == 1)
     {
-      std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::shared_ptr<E5RT::ProgramFunction>>,0>(v2 + 16);
+      std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::shared_ptr<E5RT::ProgramFunction>>,0>(v3 + 16, a2);
     }
 
-    operator delete(v2);
+    operator delete(v3);
   }
 
   return a1;
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -9132,19 +9414,19 @@ std::string *std::pair<std::string const,std::shared_ptr<E5RT::ProgramFunction>>
   return this;
 }
 
-void std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::shared_ptr<E5RT::ProgramFunction>>,0>(uint64_t a1)
+void std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::shared_ptr<E5RT::ProgramFunction>>,0>(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
   if (*(a1 + 23) < 0)
   {
-    v3 = *a1;
+    v4 = *a1;
 
-    operator delete(v3);
+    operator delete(v4);
   }
 }
 
@@ -9179,7 +9461,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::
     do
     {
       v3 = *v2;
-      std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::shared_ptr<E5RT::ProgramFunction>>,0>((v2 + 2));
+      std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::shared_ptr<E5RT::ProgramFunction>>,0>((v2 + 2), a2);
       operator delete(v2);
       v2 = v3;
     }
@@ -9188,7 +9470,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -9325,18 +9607,18 @@ const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_pt
   return i;
 }
 
-uint64_t *std::shared_ptr<E5RT::ExecutionStreamOperation>::shared_ptr[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<E5RT::ExecutionStreamOperation>::shared_ptr[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void std::__shared_ptr_pointer<E5RT::ExecutionStreamOperation  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
@@ -9355,347 +9637,4 @@ uint64_t std::__shared_ptr_pointer<E5RT::ExecutionStreamOperation  *>::__on_zero
   }
 
   return result;
-}
-
-uint64_t std::__shared_ptr_pointer<E5RT::ExecutionStreamOperation  *>::__get_deleter(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-BOOL std::type_info::operator==[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 8);
-  if (v2 == v3)
-  {
-    return 1;
-  }
-
-  if ((v3 & v2) < 0 != __OFSUB__(v2, v3))
-  {
-    return strcmp((v2 & 0x7FFFFFFFFFFFFFFFLL), (v3 & 0x7FFFFFFFFFFFFFFFLL)) == 0;
-  }
-
-  return 0;
-}
-
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::string const&,std::unique_ptr<E5RT::BufferObject>>(void *a1, const void **a2)
-{
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__construct_node_hash<std::string const&,std::unique_ptr<E5RT::BufferObject>>();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
-}
-
-void sub_19D4AA498(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-std::string *std::pair<std::string const,std::shared_ptr<E5RT::BufferObject>>::pair[abi:ne200100]<std::string const&,std::unique_ptr<E5RT::BufferObject>,0>(std::string *this, __int128 *a2, uint64_t *a3)
-{
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(this, *a2, *(a2 + 1));
-  }
-
-  else
-  {
-    v5 = *a2;
-    this->__r_.__value_.__r.__words[2] = *(a2 + 2);
-    *&this->__r_.__value_.__l.__data_ = v5;
-  }
-
-  std::shared_ptr<E5RT::BufferObject>::shared_ptr[abi:ne200100]<E5RT::BufferObject,std::default_delete<E5RT::BufferObject>,0>(&this[1], a3);
-  return this;
-}
-
-void sub_19D4AA598(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t *std::shared_ptr<E5RT::BufferObject>::shared_ptr[abi:ne200100]<E5RT::BufferObject,std::default_delete<E5RT::BufferObject>,0>(uint64_t *result, uint64_t *a2)
-{
-  v2 = *a2;
-  *result = *a2;
-  if (v2)
-  {
-    operator new();
-  }
-
-  result[1] = 0;
-  *a2 = 0;
-  return result;
-}
-
-void std::__shared_ptr_pointer<E5RT::BufferObject  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
-{
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x19EAFC130);
-}
-
-uint64_t std::__shared_ptr_pointer<E5RT::BufferObject  *>::__on_zero_shared(uint64_t a1)
-{
-  result = *(a1 + 24);
-  if (result)
-  {
-    return (*(*result + 8))();
-  }
-
-  return result;
-}
-
-uint64_t std::__shared_ptr_pointer<E5RT::BufferObject  *>::__get_deleter(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
-{
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
-}
-
-void sub_19D4AA940(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<E5RT::ProgramFunction>>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::BufferObject>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, const void **a2)
-{
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
 }

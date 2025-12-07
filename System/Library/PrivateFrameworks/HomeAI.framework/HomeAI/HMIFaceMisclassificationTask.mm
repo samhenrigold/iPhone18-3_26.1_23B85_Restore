@@ -31,13 +31,10 @@
   v4 = MEMORY[0x277CBEB98];
   faceCrop = [(HMIFaceMisclassificationTask *)self faceCrop];
   personUUID = [faceCrop personUUID];
-  v7 = [v4 setWithObject:personUUID];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __57__HMIFaceMisclassificationTask_mainInsideAutoreleasePool__block_invoke;
-  v8[3] = &unk_278753D20;
+  v7 = [v4 setWithObject:?];
+  v8 = MEMORY[0x277D85DD0];
   objc_copyWeak(&v9, &location);
-  [dataSource fetchFaceCropsForPersonsWithUUIDs:v7 completion:v8];
+  [dataSource fetchFaceCropsForPersonsWithUUIDs:v8 completion:{3221225472, __57__HMIFaceMisclassificationTask_mainInsideAutoreleasePool__block_invoke, &unk_278753D20}];
 
   objc_destroyWeak(&v9);
   objc_destroyWeak(&location);
@@ -53,16 +50,13 @@ void __57__HMIFaceMisclassificationTask_mainInsideAutoreleasePool__block_invoke(
   {
     if (v5)
     {
-      v8 = [v5 na_map:&__block_literal_global_19];
+      v8 = [v5 na_map:?];
       objc_initWeak(location, WeakRetained);
       v9 = [WeakRetained dataSource];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __57__HMIFaceMisclassificationTask_mainInsideAutoreleasePool__block_invoke_2;
-      v14[3] = &unk_278754268;
+      v14 = MEMORY[0x277D85DD0];
       objc_copyWeak(&v16, location);
       v15 = v5;
-      [v9 fetchFaceprintsForFaceCropsWithUUIDs:v8 completion:v14];
+      [v9 fetchFaceprintsForFaceCropsWithUUIDs:v14 completion:{3221225472, __57__HMIFaceMisclassificationTask_mainInsideAutoreleasePool__block_invoke_2, &unk_278754268}];
 
       objc_destroyWeak(&v16);
       objc_destroyWeak(location);
@@ -84,7 +78,7 @@ void __57__HMIFaceMisclassificationTask_mainInsideAutoreleasePool__block_invoke(
       }
 
       objc_autoreleasePoolPop(v10);
-      [v11 cancelWithError:v6];
+      [v11 cancelWithError:?];
     }
   }
 }
@@ -100,7 +94,7 @@ void __57__HMIFaceMisclassificationTask_mainInsideAutoreleasePool__block_invoke_
   {
     if (v5)
     {
-      [WeakRetained removeNearestFaceprint:v5 withFaceCrops:*(a1 + 32)];
+      [WeakRetained removeNearestFaceprint:? withFaceCrops:?];
     }
 
     else
@@ -119,24 +113,24 @@ void __57__HMIFaceMisclassificationTask_mainInsideAutoreleasePool__block_invoke_
       }
 
       objc_autoreleasePoolPop(v9);
-      [v10 cancelWithError:v6];
+      [v10 cancelWithError:?];
     }
   }
 }
 
 - (void)removeNearestFaceprint:(id)faceprint withFaceCrops:(id)crops
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   faceprintCopy = faceprint;
   cropsCopy = crops;
-  v58 = 0;
-  v46 = objc_alloc_init(HMIFaceprinter);
-  v44 = cropsCopy;
-  v48 = [(HMIFaceprinter *)v46 updatedFaceprintsForFaceCrops:cropsCopy withExistingFaceprints:faceprintCopy error:&v58];
-  v7 = v58;
-  if (v48)
+  v56 = 0;
+  v45 = objc_alloc_init(HMIFaceprinter);
+  v43 = cropsCopy;
+  v47 = [HMIFaceprinter updatedFaceprintsForFaceCrops:v45 withExistingFaceprints:"updatedFaceprintsForFaceCrops:withExistingFaceprints:error:" error:?];
+  v7 = 0;
+  if (v47)
   {
-    allAtCurrentVersion = [v48 allAtCurrentVersion];
+    allAtCurrentVersion = [v47 allAtCurrentVersion];
     if ([allAtCurrentVersion hmf_isEmpty])
     {
       v8 = objc_autoreleasePoolPush();
@@ -148,9 +142,9 @@ void __57__HMIFaceMisclassificationTask_mainInsideAutoreleasePool__block_invoke_
         faceCrop = [(HMIFaceMisclassificationTask *)selfCopy faceCrop];
         personUUID = [faceCrop personUUID];
         *buf = 138543618;
-        v61 = v11;
-        v62 = 2112;
-        v63 = personUUID;
+        v58 = v11;
+        v59 = 2112;
+        v60 = personUUID;
         _os_log_impl(&dword_22D12F000, v10, OS_LOG_TYPE_INFO, "%{public}@Person (%@) has no faceprints -- nothing to remove", buf, 0x16u);
       }
 
@@ -161,35 +155,35 @@ void __57__HMIFaceMisclassificationTask_mainInsideAutoreleasePool__block_invoke_
     else
     {
       faceCrop2 = [(HMIFaceMisclassificationTask *)self faceCrop];
-      v57 = v7;
-      v43 = [(HMIFaceprinter *)v46 generateFaceprintForFaceCrop:faceCrop2 error:&v57];
-      v42 = v57;
+      v55 = v7;
+      v42 = [HMIFaceprinter generateFaceprintForFaceCrop:v45 error:"generateFaceprintForFaceCrop:error:"];
+      v41 = v7;
 
-      faceprint = [v43 faceprint];
-      v55 = 0u;
-      v56 = 0u;
+      faceprint = [v42 faceprint];
       v53 = 0u;
       v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
       v19 = allAtCurrentVersion;
       v20 = 0;
-      v21 = [v19 countByEnumeratingWithState:&v53 objects:v59 count:16];
+      v21 = [v19 countByEnumeratingWithState:? objects:? count:?];
       if (v21)
       {
-        v22 = *v54;
+        v22 = *v52;
         v23 = 1.79769313e308;
         do
         {
-          for (i = 0; i != v21; ++i)
+          for (i = 0; i != v21; i = (i + 1))
           {
-            if (*v54 != v22)
+            if (*v52 != v22)
             {
               objc_enumerationMutation(v19);
             }
 
-            v25 = *(*(&v53 + 1) + 8 * i);
+            v25 = *(*(&v51 + 1) + 8 * i);
             descriptorData = [faceprint descriptorData];
             data = [v25 data];
-            [HMIGreedyClustering faceDistanceFromDescriptor:descriptorData toDescriptor:data];
+            [HMIGreedyClustering faceDistanceFromDescriptor:"faceDistanceFromDescriptor:toDescriptor:" toDescriptor:?];
             v29 = v28;
 
             v30 = v29;
@@ -202,7 +196,7 @@ void __57__HMIFaceMisclassificationTask_mainInsideAutoreleasePool__block_invoke_
             }
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v53 objects:v59 count:16];
+          v21 = [v19 countByEnumeratingWithState:? objects:? count:?];
         }
 
         while (v21);
@@ -216,9 +210,9 @@ void __57__HMIFaceMisclassificationTask_mainInsideAutoreleasePool__block_invoke_
         v35 = HMFGetLogIdentifier();
         faceCropUUID = [v20 faceCropUUID];
         *buf = 138543618;
-        v61 = v35;
-        v62 = 2112;
-        v63 = faceCropUUID;
+        v58 = v35;
+        v59 = 2112;
+        v60 = faceCropUUID;
         _os_log_impl(&dword_22D12F000, v34, OS_LOG_TYPE_INFO, "%{public}@Nearest face crop to be removed: %@", buf, 0x16u);
       }
 
@@ -227,20 +221,15 @@ void __57__HMIFaceMisclassificationTask_mainInsideAutoreleasePool__block_invoke_
       dataSource = [(HMIFaceMisclassificationTask *)selfCopy2 dataSource];
       v38 = MEMORY[0x277CBEB98];
       faceCropUUID2 = [v20 faceCropUUID];
-      v40 = [v38 setWithObject:faceCropUUID2];
-      v50[0] = MEMORY[0x277D85DD0];
-      v50[1] = 3221225472;
-      v50[2] = __69__HMIFaceMisclassificationTask_removeNearestFaceprint_withFaceCrops___block_invoke;
-      v50[3] = &unk_278754290;
-      objc_copyWeak(&v52, buf);
-      v41 = v20;
-      v51 = v41;
-      [dataSource removeFaceCropsWithUUIDs:v40 completion:v50];
+      v40 = [v38 setWithObject:?];
+      objc_copyWeak(&v50, buf);
+      v49 = v20;
+      [dataSource removeFaceCropsWithUUIDs:? completion:?];
 
-      objc_destroyWeak(&v52);
+      objc_destroyWeak(&v50);
       objc_destroyWeak(buf);
 
-      v7 = v42;
+      v7 = v41;
     }
   }
 
@@ -253,14 +242,14 @@ void __57__HMIFaceMisclassificationTask_mainInsideAutoreleasePool__block_invoke_
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v61 = v17;
-      v62 = 2112;
-      v63 = v7;
+      v58 = v17;
+      v59 = 2112;
+      v60 = v7;
       _os_log_impl(&dword_22D12F000, v16, OS_LOG_TYPE_ERROR, "%{public}@Error faceprinting face crops:%@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
-    [(HMFOperation *)selfCopy3 cancelWithError:v7];
+    [(HMFOperation *)selfCopy3 cancelWithError:?];
   }
 }
 
@@ -288,7 +277,7 @@ void __69__HMIFaceMisclassificationTask_removeNearestFaceprint_withFaceCrops___b
       }
 
       objc_autoreleasePoolPop(v5);
-      [v6 cancelWithError:v3];
+      [v6 cancelWithError:?];
     }
 
     else

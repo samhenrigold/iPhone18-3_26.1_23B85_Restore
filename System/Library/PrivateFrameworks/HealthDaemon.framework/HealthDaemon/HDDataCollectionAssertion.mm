@@ -7,7 +7,7 @@
 
 - (void)setObserverState:(id)state
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   os_unfair_lock_lock(&self->_lock);
   if ([stateCopy isEqual:self->_observerState])
@@ -17,7 +17,7 @@
 
   else
   {
-    v4 = [stateCopy copy];
+    v4 = objc_msgSend_copy(stateCopy);
     observerState = self->_observerState;
     self->_observerState = v4;
 
@@ -36,7 +36,7 @@
         *&buf[12] = 2114;
         *&buf[14] = selfCopy;
         *&buf[22] = 2114;
-        v17 = v8;
+        v16 = v8;
         _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Data collection observer %{public}@ changed to state %{public}@", buf, 0x20u);
       }
 
@@ -51,32 +51,29 @@
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __66__HDDataCollectionManager__dataCollectionObserver_didChangeState___block_invoke;
-      v17 = &unk_278616D68;
-      v18 = WeakRetained;
-      v19 = selfCopy;
-      v20 = v8;
-      v21 = v10;
+      v16 = &unk_278616D68;
+      v17 = WeakRetained;
+      v18 = selfCopy;
+      v19 = v8;
+      v20 = v10;
       v12 = v10;
       dispatch_async(v11, buf);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
 {
   os_unfair_lock_lock(&self->_lock);
   v3 = MEMORY[0x277CCACA8];
-  v8.receiver = self;
-  v8.super_class = HDDataCollectionAssertion;
-  v4 = [(HDAssertion *)&v8 description];
-  sampleTypes = self->_sampleTypes;
-  v6 = [v3 stringWithFormat:@"<%@: %@, %@>", v4, sampleTypes, self->_observerState];
+  v7.receiver = self;
+  v7.super_class = HDDataCollectionAssertion;
+  v4 = [(HDAssertion *)&v7 description];
+  v5 = [v3 stringWithFormat:@"<%@: %@, %@>", v4, self->_sampleTypes, self->_observerState];
 
   os_unfair_lock_unlock(&self->_lock);
 
-  return v6;
+  return v5;
 }
 
 @end

@@ -32,14 +32,14 @@
 
 + (BOOL)createDefaultAttributeDirectoryIfNeeded:(id)needed
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v9 = 0;
+  v15 = *MEMORY[0x277D85DE8];
+  v8 = 0;
   if ([objc_msgSend(MEMORY[0x277CCAA08] "defaultManager")])
   {
-    if ((v9 & 1) == 0)
+    if ((v8 & 1) == 0)
     {
       [VCDiskUtils createDefaultAttributeDirectoryIfNeeded:needed];
-      goto LABEL_16;
+      return buf[0];
     }
 
     if (([self checkAttributesForDirectory:needed] & 1) == 0)
@@ -51,11 +51,11 @@
         if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          v11 = v5;
-          v12 = 2080;
-          v13 = "+[VCDiskUtils createDefaultAttributeDirectoryIfNeeded:]";
-          v14 = 1024;
-          v15 = 60;
+          v10 = v5;
+          v11 = 2080;
+          v12 = "+[VCDiskUtils createDefaultAttributeDirectoryIfNeeded:]";
+          v13 = 1024;
+          v14 = 60;
           _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Existing logs directory exists but has invalid attributes", buf, 0x1Cu);
         }
       }
@@ -63,9 +63,7 @@
       if (([self setAttributesForDirectory:needed] & 1) == 0)
       {
         +[VCDiskUtils createDefaultAttributeDirectoryIfNeeded:];
-LABEL_16:
-        result = buf[0];
-        goto LABEL_12;
+        return buf[0];
       }
     }
   }
@@ -75,20 +73,17 @@ LABEL_16:
     if ((VCDiskUtils_CreateDirectory([needed UTF8String]) & 1) == 0)
     {
       +[VCDiskUtils createDefaultAttributeDirectoryIfNeeded:];
-      goto LABEL_16;
+      return buf[0];
     }
 
     if (([self setAttributesForDirectory:needed] & 1) == 0)
     {
       +[VCDiskUtils createDefaultAttributeDirectoryIfNeeded:];
-      goto LABEL_16;
+      return buf[0];
     }
   }
 
-  result = 1;
-LABEL_12:
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 + (BOOL)checkAttributesForDirectory:(id)directory
@@ -97,7 +92,7 @@ LABEL_12:
   v3 = [objc_msgSend(MEMORY[0x277CCAA08] "defaultManager")];
   if (v11)
   {
-    [VCDiskUtils checkAttributesForDirectory:?];
+    +[VCDiskUtils checkAttributesForDirectory:];
     LOBYTE(v9) = v12;
   }
 
@@ -128,22 +123,20 @@ LABEL_12:
 
 + (BOOL)setAttributesForDirectory:(id)directory
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v10[2] = [MEMORY[0x277CCABA8] numberWithInt:{493, 0, *MEMORY[0x277CCA168], *MEMORY[0x277CCA128], *MEMORY[0x277CCA188], @"mobile", @"mobile"}];
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:3];
+  v9[3] = *MEMORY[0x277D85DE8];
+  v9[2] = [MEMORY[0x277CCABA8] numberWithInt:{493, 0, *MEMORY[0x277CCA168], *MEMORY[0x277CCA128], *MEMORY[0x277CCA188], @"mobile", @"mobile"}];
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:3];
   v5 = [objc_msgSend(MEMORY[0x277CCAA08] "defaultManager")];
   if ((v5 & 1) == 0)
   {
-    [VCDiskUtils setAttributesForDirectory:?];
+    +[VCDiskUtils setAttributesForDirectory:];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 + (void)createDefaultAttributeDirectoryIfNeeded:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -152,17 +145,15 @@ LABEL_12:
       OUTLINED_FUNCTION_3_0();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_6_0();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
     }
   }
 
   OUTLINED_FUNCTION_4_1();
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 + (void)createDefaultAttributeDirectoryIfNeeded:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -171,17 +162,16 @@ LABEL_12:
       OUTLINED_FUNCTION_3_0();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_6_0();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
     }
   }
 
   OUTLINED_FUNCTION_4_1();
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 + (void)createDefaultAttributeDirectoryIfNeeded:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -189,23 +179,21 @@ LABEL_12:
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_6_1();
-      v5 = 2080;
-      v6 = "+[VCDiskUtils createDefaultAttributeDirectoryIfNeeded:]";
-      v7 = 1024;
-      v8 = 57;
-      v9 = 2112;
-      v10 = a1;
-      _os_log_error_impl(&dword_23D4DF000, v2, OS_LOG_TYPE_ERROR, " [%s] %s:%d Cannot create logs directory, file exists at path=%@", v4, 0x26u);
+      v4 = 2080;
+      v5 = "+[VCDiskUtils createDefaultAttributeDirectoryIfNeeded:]";
+      v6 = 1024;
+      v7 = 57;
+      v8 = 2112;
+      v9 = a1;
+      _os_log_error_impl(&dword_23D4DF000, v2, OS_LOG_TYPE_ERROR, " [%s] %s:%d Cannot create logs directory, file exists at path=%@", v3, 0x26u);
     }
   }
 
   OUTLINED_FUNCTION_4_1();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (void)createDefaultAttributeDirectoryIfNeeded:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -214,53 +202,46 @@ LABEL_12:
       OUTLINED_FUNCTION_3_0();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_6_0();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
     }
   }
 
   OUTLINED_FUNCTION_4_1();
-  v0 = *MEMORY[0x277D85DE8];
 }
 
-+ (void)checkAttributesForDirectory:(uint64_t *)a1 .cold.1(uint64_t *a1)
++ (void)checkAttributesForDirectory:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
     if (OUTLINED_FUNCTION_19())
     {
-      v3 = *a1;
       OUTLINED_FUNCTION_6_1();
       OUTLINED_FUNCTION_12();
       OUTLINED_FUNCTION_8_1();
       OUTLINED_FUNCTION_6_0();
-      _os_log_error_impl(v4, v5, v6, v7, v8, 0x26u);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
     }
   }
 
   OUTLINED_FUNCTION_4_1();
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-+ (void)setAttributesForDirectory:(uint64_t *)a1 .cold.1(uint64_t *a1)
++ (void)setAttributesForDirectory:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
-    v2 = gVRTraceOSLog;
+    v0 = gVRTraceOSLog;
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
       OUTLINED_FUNCTION_7_1();
       OUTLINED_FUNCTION_12();
       OUTLINED_FUNCTION_8_1();
-      _os_log_error_impl(&dword_23D4DF000, v2, OS_LOG_TYPE_ERROR, " [%s] %s:%d Failed to set owner for logs directory, error=%@", v5, 0x26u);
+      _os_log_error_impl(&dword_23D4DF000, v0, OS_LOG_TYPE_ERROR, " [%s] %s:%d Failed to set owner for logs directory, error=%@", v1, 0x26u);
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

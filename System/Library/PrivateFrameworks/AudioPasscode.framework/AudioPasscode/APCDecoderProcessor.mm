@@ -8,13 +8,13 @@
 
 - (APCDecoderProcessor)initWithInputURL:(id)l codecConfig:(id)config resultData:(id)data error:(id *)error
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   lCopy = l;
   configCopy = config;
   dataCopy = data;
-  v42.receiver = self;
-  v42.super_class = APCDecoderProcessor;
-  v13 = [(APCDecoderProcessor *)&v42 init];
+  v44.receiver = self;
+  v44.super_class = APCDecoderProcessor;
+  v13 = [(APCDecoderProcessor *)&v44 init];
   if (!v13)
   {
     goto LABEL_11;
@@ -25,91 +25,91 @@
   {
     +[AUPasscodeDecoder registerAU];
     v15 = [AUPasscodeDecoder alloc];
-    +[AUPasscodeDecoder getAUDesc];
+    objc_msgSend_getAUDesc(AUPasscodeDecoder);
     v16 = [(AUPasscodeDecoder *)v15 initWithComponentDescription:buf options:0 error:error];
     decoderAU = v13->_decoderAU;
     v13->_decoderAU = v16;
 
     if (v13->_decoderAU)
     {
-      v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
       payloadsReceived = v13->_payloadsReceived;
-      v13->_payloadsReceived = v18;
+      v13->_payloadsReceived = v19;
 
       [configCopy setSampleRate:-1];
       [(AUPasscodeDecoder *)v13->_decoderAU setCodecConfig:configCopy];
       objc_initWeak(&location, v13->_payloadsReceived);
-      v20 = dispatch_get_global_queue(0, 0);
-      [(AUPasscodeDecoder *)v13->_decoderAU setDispatchQueue:v20];
+      v21 = dispatch_get_global_queue(0, 0);
+      [(AUPasscodeDecoder *)v13->_decoderAU setDispatchQueue:v21];
 
-      v36 = MEMORY[0x277D85DD0];
-      v37 = 3221225472;
-      v38 = __69__APCDecoderProcessor_initWithInputURL_codecConfig_resultData_error___block_invoke;
-      v39 = &unk_278CE1E18;
-      objc_copyWeak(&v40, &location);
-      [(AUPasscodeDecoder *)v13->_decoderAU setDataHandler:&v36];
-      [(AUPasscodeDecoder *)v13->_decoderAU setRenderingOffline:1, v36, v37, v38, v39];
+      v38 = MEMORY[0x277D85DD0];
+      v39 = 3221225472;
+      v40 = __69__APCDecoderProcessor_initWithInputURL_codecConfig_resultData_error___block_invoke;
+      v41 = &unk_278CE1E18;
+      objc_copyWeak(&v42, &location);
+      [(AUPasscodeDecoder *)v13->_decoderAU setDataHandler:&v38];
+      [(AUPasscodeDecoder *)v13->_decoderAU setRenderingOffline:1, v38, v39, v40, v41];
       [(AUPasscodeDecoder *)v13->_decoderAU setResultData:dataCopy];
       resultData = [(AUPasscodeDecoder *)v13->_decoderAU resultData];
-      LOBYTE(v20) = resultData == 0;
+      LOBYTE(v21) = resultData == 0;
 
-      if ((v20 & 1) == 0)
+      if ((v21 & 1) == 0)
       {
         resultData2 = [(AUPasscodeDecoder *)v13->_decoderAU resultData];
         [resultData2 reset];
       }
 
-      v23 = APCLogObject();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v25 = APCLogObject(v23);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v46 = lCopy;
-        _os_log_impl(&dword_24158E000, v23, OS_LOG_TYPE_INFO, "Recording URL: %@", buf, 0xCu);
+        v48 = lCopy;
+        _os_log_impl(&dword_24158E000, v25, OS_LOG_TYPE_INFO, "Recording URL: %@", buf, 0xCu);
       }
 
-      v24 = -[AUAudioUnitOfflineProcessor initWithAudioUnit:inputFileURL:outputFileURL:ioSampleRate:]([AUAudioUnitOfflineProcessor alloc], "initWithAudioUnit:inputFileURL:outputFileURL:ioSampleRate:", v13->_decoderAU, lCopy, 0, [configCopy sampleRate]);
+      v26 = -[AUAudioUnitOfflineProcessor initWithAudioUnit:inputFileURL:outputFileURL:ioSampleRate:]([AUAudioUnitOfflineProcessor alloc], "initWithAudioUnit:inputFileURL:outputFileURL:ioSampleRate:", v13->_decoderAU, lCopy, 0, [configCopy sampleRate]);
       processor = v13->_processor;
-      v13->_processor = v24;
+      v13->_processor = v26;
 
       if (v13->_processor)
       {
         inputBusses = [(AUPasscodeDecoder *)v13->_decoderAU inputBusses];
-        v27 = [inputBusses objectAtIndexedSubscript:0];
-        format = [v27 format];
+        v30 = [inputBusses objectAtIndexedSubscript:0];
+        format = [v30 format];
         [format sampleRate];
-        [configCopy setSampleRate:v29];
+        [configCopy setSampleRate:v32];
 
-        objc_destroyWeak(&v40);
+        objc_destroyWeak(&v42);
         objc_destroyWeak(&location);
 LABEL_11:
         v14 = v13;
         goto LABEL_19;
       }
 
-      v31 = APCLogObject();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v34 = APCLogObject(v28);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_24158E000, v31, OS_LOG_TYPE_ERROR, "Failed to create the offline processor", buf, 2u);
+        _os_log_impl(&dword_24158E000, v34, OS_LOG_TYPE_ERROR, "Failed to create the offline processor", buf, 2u);
       }
 
-      v32 = MEMORY[0x277CCA9B8];
-      v43 = *MEMORY[0x277CCA450];
-      v44 = @"Failed to create the offline decoder processor";
-      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-      *error = [v32 errorWithDomain:@"com.apple.audiopasscode" code:101 userInfo:v33];
+      v35 = MEMORY[0x277CCA9B8];
+      v45 = *MEMORY[0x277CCA450];
+      v46 = @"Failed to create the offline decoder processor";
+      v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+      *error = [v35 errorWithDomain:@"com.apple.audiopasscode" code:101 userInfo:v36];
 
-      objc_destroyWeak(&v40);
+      objc_destroyWeak(&v42);
       objc_destroyWeak(&location);
     }
 
     else
     {
-      v30 = APCLogObject();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v33 = APCLogObject(v18);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_24158E000, v30, OS_LOG_TYPE_ERROR, "Failed to create the decoder AU", buf, 2u);
+        _os_log_impl(&dword_24158E000, v33, OS_LOG_TYPE_ERROR, "Failed to create the decoder AU", buf, 2u);
       }
     }
 
@@ -118,7 +118,6 @@ LABEL_11:
 
 LABEL_19:
 
-  v34 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

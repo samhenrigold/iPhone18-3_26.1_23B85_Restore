@@ -96,9 +96,9 @@
       goto LABEL_12;
     }
 
-    v21 = [(__CFString *)lowercaseString isEqualToString:@"system"];
+    isEqualToString = objc_msgSend_isEqualToString_(lowercaseString);
 
-    if (v21)
+    if (isEqualToString)
     {
 LABEL_8:
       v22 = 1;
@@ -106,7 +106,7 @@ LABEL_8:
     }
 
     v23 = v20;
-    if (v23 == @"customer" || (v24 = v23, v25 = [(__CFString *)v23 isEqualToString:@"customer"], v24, v25))
+    if (v23 == @"customer" || (v24 = v23, v25 = objc_msgSend_isEqualToString_(v23), v24, v25))
     {
       v22 = 2;
     }
@@ -127,7 +127,7 @@ LABEL_13:
     {
       if (lowercaseString2)
       {
-        v29 = [(__CFString *)lowercaseString2 isEqualToString:@"creditlimitincreased"];
+        v29 = objc_msgSend_isEqualToString_(lowercaseString2);
 
         if (v29)
         {
@@ -135,21 +135,21 @@ LABEL_13:
         }
 
         v31 = v28;
-        if (v31 == @"creditlimitdecreased" || (v32 = v31, v33 = [(__CFString *)v31 isEqualToString:@"creditlimitdecreased"], v32, (v33 & 1) != 0))
+        if (v31 == @"creditlimitdecreased" || (v32 = v31, v33 = objc_msgSend_isEqualToString_(v31), v32, (v33 & 1) != 0))
         {
           v30 = 2;
           goto LABEL_27;
         }
 
         v34 = v32;
-        if (v34 == @"creditlimitincreaserequest" || (v35 = v34, v36 = [(__CFString *)v34 isEqualToString:@"creditlimitincreaserequest"], v35, (v36 & 1) != 0))
+        if (v34 == @"creditlimitincreaserequest" || (v35 = v34, v36 = objc_msgSend_isEqualToString_(v34), v35, (v36 & 1) != 0))
         {
           v30 = 3;
           goto LABEL_27;
         }
 
         v37 = v35;
-        if (v37 == @"creditlimitdecreaserequest" || (v38 = v37, v39 = [(__CFString *)v37 isEqualToString:@"creditlimitdecreaserequest"], v38, v39))
+        if (v37 == @"creditlimitdecreaserequest" || (v38 = v37, v39 = objc_msgSend_isEqualToString_(v37), v38, v39))
         {
           v30 = 4;
           goto LABEL_27;

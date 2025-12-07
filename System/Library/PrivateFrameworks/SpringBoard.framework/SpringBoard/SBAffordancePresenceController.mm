@@ -68,8 +68,7 @@
 
   if ([(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient isEnabled])
   {
-    [(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient setEnabled:0];
-    v5 = SBLogAffordancePresenceController();
+    v5 = SBLogAffordancePresenceController([(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient setEnabled:0]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [SBAffordancePresenceController dealloc];
@@ -283,18 +282,17 @@ void __72__SBAffordancePresenceController__updatePresence_withAnimationSettings_
   _os_log_debug_impl(&dword_21ED4E000, a2, OS_LOG_TYPE_DEBUG, "affordance=%p touch idleness changed - preparing to stop asserting hidden after %fs", &v3, 0x16u);
 }
 
-uint64_t __53__SBAffordancePresenceController__unhideIfAutoHidden__block_invoke(uint64_t result)
+char *__53__SBAffordancePresenceController__unhideIfAutoHidden__block_invoke(char *result)
 {
-  v2 = (result + 32);
-  v1 = *(result + 32);
+  v2 = result + 32;
+  v1 = *(result + 4);
   if (*(v1 + 16) == 2)
   {
     v3 = result;
-    if (*(result + 40) == *(v1 + 32))
+    if (*(result + 5) == *(v1 + 32))
     {
       *(v1 + 16) = 0;
-      [*(*v2 + 8) resetAttentionLostTimeout];
-      v4 = SBLogAffordancePresenceController();
+      v4 = SBLogAffordancePresenceController([*(*v2 + 8) resetAttentionLostTimeout]);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
         __53__SBAffordancePresenceController__unhideIfAutoHidden__block_invoke_cold_1(v2, v3, v4);
@@ -356,10 +354,11 @@ LABEL_3:
     [(NSMutableSet *)self->_hiddenOverrides removeObject:reasonCopy];
   }
 
-  if ((v10 == 0) == ([(NSMutableSet *)self->_hiddenOverrides count]!= 0))
+  v17 = [(NSMutableSet *)self->_hiddenOverrides count];
+  if ((v10 == 0) == (v17 != 0))
   {
-    v17 = SBLogAffordancePresenceController();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = SBLogAffordancePresenceController(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [SBAffordancePresenceController setHidden:forReason:animated:];
     }
@@ -367,15 +366,15 @@ LABEL_3:
     _calculatePresence = [(SBAffordancePresenceController *)self _calculatePresence];
     if (animatedCopy)
     {
-      v19 = [(SBAffordancePresenceController *)self _animationSettingsForTransitionFromPresence:self->_presence toPresence:_calculatePresence];
+      v20 = [(SBAffordancePresenceController *)self _animationSettingsForTransitionFromPresence:self->_presence toPresence:_calculatePresence];
     }
 
     else
     {
-      v19 = 0;
+      v20 = 0;
     }
 
-    [(SBAffordancePresenceController *)self _updatePresence:_calculatePresence withAnimationSettings:v19];
+    [(SBAffordancePresenceController *)self _updatePresence:_calculatePresence withAnimationSettings:v20];
   }
 }
 
@@ -386,11 +385,12 @@ LABEL_3:
     [SBAffordancePresenceController client:attentionLostTimeoutDidExpire:forConfigurationGeneration:withAssociatedObject:];
   }
 
-  if ([(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient isEnabled]&& self->_touchState != 1)
+  isEnabled = [(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient isEnabled];
+  if (isEnabled && self->_touchState != 1)
   {
     self->_touchState = 1;
-    v7 = SBLogAffordancePresenceController();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = SBLogAffordancePresenceController(isEnabled);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [SBAffordancePresenceController client:attentionLostTimeoutDidExpire:forConfigurationGeneration:withAssociatedObject:];
     }

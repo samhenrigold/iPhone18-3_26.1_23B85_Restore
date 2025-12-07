@@ -132,7 +132,7 @@ uint64_t __71__QLPreviewExtensionServiceContext_iOS__extensionAuxiliaryHostProto
 
 void __52__QLPreviewExtensionServiceContext_iOS_protocolHost__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = MEMORY[0x277D43EF8];
   v4 = *MEMORY[0x277D43EF8];
@@ -146,12 +146,10 @@ void __52__QLPreviewExtensionServiceContext_iOS_protocolHost__block_invoke(uint6
   {
     v5 = v4;
     v6 = [v2 localizedDescription];
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_ERROR, "Error while calling service: %@ #Remote", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_ERROR, "Error while calling service: %@ #Remote", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __58__QLPreviewExtensionServiceContext_iOS_previewWillAppear___block_invoke(uint64_t a1)
@@ -199,47 +197,45 @@ void __100__QLPreviewExtensionServiceContext_iOS_loadPreviewControllerWithConten
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
-  v18 = v2;
-  v19 = v3;
-  v20 = v4;
+  v16 = v2;
+  v17 = v3;
+  v18 = v4;
   v5 = _Block_copy(aBlock);
   objc_storeStrong((*(a1 + 40) + 32), *(a1 + 32));
-  v6 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7 = [*(a1 + 40) previewViewController];
+    v6 = [*(a1 + 40) previewViewController];
     objc_opt_respondsToSelector();
 
-    v8 = [*(a1 + 40) previewViewController];
-    v9 = [*(a1 + 32) searchableItemUniqueIdentifier];
-    v10 = [*(a1 + 32) queryString];
-    [v8 preparePreviewOfSearchableItemWithIdentifier:v9 queryString:v10 completionHandler:v5];
+    v7 = [*(a1 + 40) previewViewController];
+    v8 = [*(a1 + 32) searchableItemUniqueIdentifier];
+    v9 = [*(a1 + 32) queryString];
+    [v7 preparePreviewOfSearchableItemWithIdentifier:v8 queryString:v9 completionHandler:v5];
   }
 
   else
   {
-    v11 = *(a1 + 32);
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v13 = *(a1 + 40);
+    v11 = *(a1 + 40);
     if (isKindOfClass)
     {
-      v14 = [v13 previewViewController];
+      v12 = [v11 previewViewController];
       objc_opt_respondsToSelector();
 
-      v8 = [*(a1 + 40) previewViewController];
-      v15 = [*(a1 + 32) fileURL];
-      [v8 preparePreviewOfFileAtURL:v15 completionHandler:v5];
+      v7 = [*(a1 + 40) previewViewController];
+      v13 = [*(a1 + 32) fileURL];
+      [v7 preparePreviewOfFileAtURL:v13 completionHandler:v5];
     }
 
     else
     {
-      v16 = v13[4];
-      v13[4] = 0;
+      v14 = v11[4];
+      v11[4] = 0;
 
-      v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.quicklook.QLRemoteItemViewController" code:4 userInfo:0];
-      v5[2](v5, v8);
+      v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.quicklook.QLRemoteItemViewController" code:4 userInfo:0];
+      v5[2](v5, v7);
     }
   }
 }
@@ -248,15 +244,14 @@ void __100__QLPreviewExtensionServiceContext_iOS_loadPreviewControllerWithConten
 {
   v3 = a2;
   v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
+  v6 = *(a1 + 48);
   v4 = v3;
   QLRunInMainThread();
 }
 
 void __100__QLPreviewExtensionServiceContext_iOS_loadPreviewControllerWithContents_context_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   if (*(a1 + 32))
   {
@@ -272,11 +267,11 @@ void __100__QLPreviewExtensionServiceContext_iOS_loadPreviewControllerWithConten
     {
       v6 = *(a1 + 32);
       v5 = *(a1 + 40);
-      v16 = 138412546;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v6;
-      _os_log_impl(&dword_23A714000, v4, OS_LOG_TYPE_ERROR, "Error while attempting to load preview from preview item '%@': %@ #Remote", &v16, 0x16u);
+      v14 = 138412546;
+      v15 = v5;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_23A714000, v4, OS_LOG_TYPE_ERROR, "Error while attempting to load preview from preview item '%@': %@ #Remote", &v14, 0x16u);
     }
   }
 
@@ -301,15 +296,12 @@ void __100__QLPreviewExtensionServiceContext_iOS_loadPreviewControllerWithConten
     [*(a1 + 48) _startObservingPreviewControllerAttributeChanges];
   }
 
-  v14 = *(a1 + 32);
   (*(*(a1 + 56) + 16))();
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __73__QLPreviewExtensionServiceContext_iOS_generatePreviewForURL_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v5 replyType];
@@ -336,20 +328,20 @@ void __73__QLPreviewExtensionServiceContext_iOS_generatePreviewForURL_completion
     v16 = v15;
     v18 = v17;
     v8 = [objc_alloc(MEMORY[0x277D43EB0]) initWithPreview:*(a1 + 32)];
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __73__QLPreviewExtensionServiceContext_iOS_generatePreviewForURL_completion___block_invoke_2;
-    v31[3] = &unk_278B58DE0;
-    v32 = v5;
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __73__QLPreviewExtensionServiceContext_iOS_generatePreviewForURL_completion___block_invoke_3;
-    v28[3] = &unk_278B58E08;
-    v29 = v32;
-    v30 = *(a1 + 48);
-    [v8 drawInContextOfSize:v31 drawingBlock:v28 completionHandler:{v16, v18}];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __73__QLPreviewExtensionServiceContext_iOS_generatePreviewForURL_completion___block_invoke_2;
+    v30[3] = &unk_278B58DE0;
+    v31 = v5;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __73__QLPreviewExtensionServiceContext_iOS_generatePreviewForURL_completion___block_invoke_3;
+    v27[3] = &unk_278B58E08;
+    v28 = v31;
+    v29 = *(a1 + 48);
+    [v8 drawInContextOfSize:v30 drawingBlock:v27 completionHandler:{v16, v18}];
 
-    v13 = v32;
+    v13 = v31;
     goto LABEL_10;
   }
 
@@ -364,20 +356,20 @@ LABEL_8:
   [v5 contentSize];
   v10 = v9;
   v12 = v11;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __73__QLPreviewExtensionServiceContext_iOS_generatePreviewForURL_completion___block_invoke_4;
-  v26[3] = &unk_278B58DE0;
-  v27 = v5;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __73__QLPreviewExtensionServiceContext_iOS_generatePreviewForURL_completion___block_invoke_5;
-  v23[3] = &unk_278B58E30;
-  v24 = v27;
-  v25 = *(a1 + 48);
-  [v8 drawInPDFContextOfSize:v26 drawingBlock:v23 completionHandler:{v10, v12}];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __73__QLPreviewExtensionServiceContext_iOS_generatePreviewForURL_completion___block_invoke_4;
+  v25[3] = &unk_278B58DE0;
+  v26 = v5;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __73__QLPreviewExtensionServiceContext_iOS_generatePreviewForURL_completion___block_invoke_5;
+  v22[3] = &unk_278B58E30;
+  v23 = v26;
+  v24 = *(a1 + 48);
+  [v8 drawInPDFContextOfSize:v25 drawingBlock:v22 completionHandler:{v10, v12}];
 
-  v13 = v27;
+  v13 = v26;
 LABEL_10:
 
 LABEL_12:
@@ -394,28 +386,24 @@ LABEL_13:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v34 = v19;
+    v33 = v19;
     _os_log_impl(&dword_23A714000, v21, OS_LOG_TYPE_DEBUG, "Finished calling generation extension for: %@ #Remote", buf, 0xCu);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __73__QLPreviewExtensionServiceContext_iOS_generatePreviewForURL_completion___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v7 = *(a1 + 32);
-  v9 = a4;
+  v8 = a4;
   [v7 updateWithImageData:a2 bitmapFormat:a3];
-  v8 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
 void __73__QLPreviewExtensionServiceContext_iOS_generatePreviewForURL_completion___block_invoke_5(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = *(a1 + 32);
-  v7 = a3;
+  v6 = a3;
   [v5 updateWithPDFData:a2];
-  v6 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 

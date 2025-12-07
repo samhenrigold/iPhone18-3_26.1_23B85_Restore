@@ -177,12 +177,15 @@ LABEL_29:
 uint64_t __122__PHSearchSuggestionProcessor_searchSuggestionsFromPLSearchSuggestions_suggestions_queryId_batchId_rangeOfSuggestionText___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 40) _pHSearchSuggestionFromPLSearchSuggestion:a2 rangeOfSuggestionText:{*(a1 + 48), *(a1 + 56)}];
+  v4 = v3;
   if (v3)
   {
-    [*(a1 + 32) addObject:v3];
+    v6 = v3;
+    v3 = [*(a1 + 32) addObject:v3];
+    v4 = v6;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
 @end

@@ -1852,49 +1852,48 @@ LABEL_304:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v30 = toCopy;
+  v9 = toCopy;
   if (self->_fileID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v30;
+    toCopy = v9;
   }
 
   if (self->_domainName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v30;
+    toCopy = v9;
   }
 
   if (self->_relativePath)
   {
     PBDataWriterWriteStringField();
-    toCopy = v30;
+    toCopy = v9;
   }
 
   if (self->_absolutePath)
   {
     PBDataWriterWriteStringField();
-    toCopy = v30;
+    toCopy = v9;
   }
 
   if (self->_linkTarget)
   {
     PBDataWriterWriteStringField();
-    toCopy = v30;
+    toCopy = v9;
   }
 
   if (self->_signature)
   {
     PBDataWriterWriteDataField();
-    toCopy = v30;
+    toCopy = v9;
   }
 
   has = self->_has;
   if ((*&has & 0x40) != 0)
   {
-    birth = self->_birth;
     PBDataWriterWriteInt32Field();
-    toCopy = v30;
+    toCopy = v9;
     has = self->_has;
     if ((*&has & 0x2000) == 0)
     {
@@ -1913,35 +1912,32 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  modified = self->_modified;
   PBDataWriterWriteInt32Field();
-  toCopy = v30;
+  toCopy = v9;
   if ((*&self->_has & 0x8000) != 0)
   {
 LABEL_16:
-    statusChanged = self->_statusChanged;
     PBDataWriterWriteInt32Field();
-    toCopy = v30;
+    toCopy = v9;
   }
 
 LABEL_17:
   if (self->_encryptionKey)
   {
     PBDataWriterWriteDataField();
-    toCopy = v30;
+    toCopy = v9;
   }
 
-  v7 = self->_has;
-  if ((*&v7 & 0x4000) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x4000) != 0)
   {
-    protectionClass = self->_protectionClass;
     PBDataWriterWriteInt32Field();
-    toCopy = v30;
-    v7 = self->_has;
-    if ((*&v7 & 4) == 0)
+    toCopy = v9;
+    v6 = self->_has;
+    if ((*&v6 & 4) == 0)
     {
 LABEL_21:
-      if ((*&v7 & 0x200) == 0)
+      if ((*&v6 & 0x200) == 0)
       {
         goto LABEL_22;
       }
@@ -1950,19 +1946,18 @@ LABEL_21:
     }
   }
 
-  else if ((*&v7 & 4) == 0)
+  else if ((*&v6 & 4) == 0)
   {
     goto LABEL_21;
   }
 
-  size = self->_size;
   PBDataWriterWriteInt64Field();
-  toCopy = v30;
-  v7 = self->_has;
-  if ((*&v7 & 0x200) == 0)
+  toCopy = v9;
+  v6 = self->_has;
+  if ((*&v6 & 0x200) == 0)
   {
 LABEL_22:
-    if ((*&v7 & 0x800) == 0)
+    if ((*&v6 & 0x800) == 0)
     {
       goto LABEL_23;
     }
@@ -1971,14 +1966,13 @@ LABEL_22:
   }
 
 LABEL_62:
-  fileType = self->_fileType;
   PBDataWriterWriteInt32Field();
-  toCopy = v30;
-  v7 = self->_has;
-  if ((*&v7 & 0x800) == 0)
+  toCopy = v9;
+  v6 = self->_has;
+  if ((*&v6 & 0x800) == 0)
   {
 LABEL_23:
-    if ((*&v7 & 0x10000) == 0)
+    if ((*&v6 & 0x10000) == 0)
     {
       goto LABEL_24;
     }
@@ -1987,14 +1981,13 @@ LABEL_23:
   }
 
 LABEL_63:
-  groupID = self->_groupID;
   PBDataWriterWriteInt32Field();
-  toCopy = v30;
-  v7 = self->_has;
-  if ((*&v7 & 0x10000) == 0)
+  toCopy = v9;
+  v6 = self->_has;
+  if ((*&v6 & 0x10000) == 0)
   {
 LABEL_24:
-    if ((*&v7 & 0x1000) == 0)
+    if ((*&v6 & 0x1000) == 0)
     {
       goto LABEL_25;
     }
@@ -2003,14 +1996,13 @@ LABEL_24:
   }
 
 LABEL_64:
-  userID = self->_userID;
   PBDataWriterWriteInt32Field();
-  toCopy = v30;
-  v7 = self->_has;
-  if ((*&v7 & 0x1000) == 0)
+  toCopy = v9;
+  v6 = self->_has;
+  if ((*&v6 & 0x1000) == 0)
   {
 LABEL_25:
-    if ((*&v7 & 0x40000) == 0)
+    if ((*&v6 & 0x40000) == 0)
     {
       goto LABEL_27;
     }
@@ -2019,60 +2011,56 @@ LABEL_25:
   }
 
 LABEL_65:
-  mode = self->_mode;
   PBDataWriterWriteInt32Field();
-  toCopy = v30;
+  toCopy = v9;
   if ((*&self->_has & 0x40000) != 0)
   {
 LABEL_26:
-    deleted = self->_deleted;
     PBDataWriterWriteBOOLField();
-    toCopy = v30;
+    toCopy = v9;
   }
 
 LABEL_27:
   if (self->_absolutePathPrefix)
   {
     PBDataWriterWriteStringField();
-    toCopy = v30;
+    toCopy = v9;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    sizeBeforeCopy = self->_sizeBeforeCopy;
     PBDataWriterWriteInt64Field();
-    toCopy = v30;
+    toCopy = v9;
   }
 
   if (self->_subDomain)
   {
     PBDataWriterWriteStringField();
-    toCopy = v30;
+    toCopy = v9;
   }
 
   if (self->_stashedAssetPath)
   {
     PBDataWriterWriteStringField();
-    toCopy = v30;
+    toCopy = v9;
   }
 
   if (self->_stashedResourcePath)
   {
     PBDataWriterWriteStringField();
-    toCopy = v30;
+    toCopy = v9;
   }
 
-  v10 = self->_has;
-  if ((*&v10 & 0x100000) != 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x100000) != 0)
   {
-    stashedAssetIsDecrypted = self->_stashedAssetIsDecrypted;
     PBDataWriterWriteBOOLField();
-    toCopy = v30;
-    v10 = self->_has;
-    if ((*&v10 & 2) == 0)
+    toCopy = v9;
+    v7 = self->_has;
+    if ((*&v7 & 2) == 0)
     {
 LABEL_39:
-      if ((*&v10 & 0x400) == 0)
+      if ((*&v7 & 0x400) == 0)
       {
         goto LABEL_40;
       }
@@ -2081,19 +2069,18 @@ LABEL_39:
     }
   }
 
-  else if ((*&v10 & 2) == 0)
+  else if ((*&v7 & 2) == 0)
   {
     goto LABEL_39;
   }
 
-  resourcesSize = self->_resourcesSize;
   PBDataWriterWriteInt64Field();
-  toCopy = v30;
-  v10 = self->_has;
-  if ((*&v10 & 0x400) == 0)
+  toCopy = v9;
+  v7 = self->_has;
+  if ((*&v7 & 0x400) == 0)
   {
 LABEL_40:
-    if ((*&v10 & 0x100) == 0)
+    if ((*&v7 & 0x100) == 0)
     {
       goto LABEL_41;
     }
@@ -2102,14 +2089,13 @@ LABEL_40:
   }
 
 LABEL_69:
-  flags = self->_flags;
   PBDataWriterWriteUint32Field();
-  toCopy = v30;
-  v10 = self->_has;
-  if ((*&v10 & 0x100) == 0)
+  toCopy = v9;
+  v7 = self->_has;
+  if ((*&v7 & 0x100) == 0)
   {
 LABEL_41:
-    if ((*&v10 & 0x80) == 0)
+    if ((*&v7 & 0x80) == 0)
     {
       goto LABEL_43;
     }
@@ -2118,48 +2104,44 @@ LABEL_41:
   }
 
 LABEL_70:
-  contentEncodingMethod = self->_contentEncodingMethod;
   PBDataWriterWriteInt32Field();
-  toCopy = v30;
+  toCopy = v9;
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_42:
-    contentCompressionMethod = self->_contentCompressionMethod;
     PBDataWriterWriteInt32Field();
-    toCopy = v30;
+    toCopy = v9;
   }
 
 LABEL_43:
   if (self->_decodedAssetPath)
   {
     PBDataWriterWriteStringField();
-    toCopy = v30;
+    toCopy = v9;
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    sizeBeforeEncoding = self->_sizeBeforeEncoding;
     PBDataWriterWriteInt64Field();
-    toCopy = v30;
+    toCopy = v9;
   }
 
   if (self->_sha256Signature)
   {
     PBDataWriterWriteDataField();
-    toCopy = v30;
+    toCopy = v9;
   }
 
-  v13 = self->_has;
-  if ((*&v13 & 0x80000) != 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x80000) != 0)
   {
-    isMMCSEncryptedOnly = self->_isMMCSEncryptedOnly;
     PBDataWriterWriteBOOLField();
-    toCopy = v30;
-    v13 = self->_has;
-    if ((*&v13 & 1) == 0)
+    toCopy = v9;
+    v8 = self->_has;
+    if ((*&v8 & 1) == 0)
     {
 LABEL_51:
-      if ((*&v13 & 0x20) == 0)
+      if ((*&v8 & 0x20) == 0)
       {
         goto LABEL_52;
       }
@@ -2168,19 +2150,18 @@ LABEL_51:
     }
   }
 
-  else if ((*&v13 & 1) == 0)
+  else if ((*&v8 & 1) == 0)
   {
     goto LABEL_51;
   }
 
-  inode = self->_inode;
   PBDataWriterWriteInt64Field();
-  toCopy = v30;
-  v13 = self->_has;
-  if ((*&v13 & 0x20) == 0)
+  toCopy = v9;
+  v8 = self->_has;
+  if ((*&v8 & 0x20) == 0)
   {
 LABEL_52:
-    if ((*&v13 & 0x20000) == 0)
+    if ((*&v8 & 0x20000) == 0)
     {
       goto LABEL_54;
     }
@@ -2189,15 +2170,13 @@ LABEL_52:
   }
 
 LABEL_74:
-  sourceDeviceInode = self->_sourceDeviceInode;
   PBDataWriterWriteInt64Field();
-  toCopy = v30;
+  toCopy = v9;
   if ((*&self->_has & 0x20000) != 0)
   {
 LABEL_53:
-    volumeType = self->_volumeType;
     PBDataWriterWriteUint32Field();
-    toCopy = v30;
+    toCopy = v9;
   }
 
 LABEL_54:
@@ -3042,7 +3021,6 @@ LABEL_27:
       goto LABEL_88;
     }
 
-    v15 = *(equalCopy + 224);
     if (self->_deleted)
     {
       if ((*(equalCopy + 224) & 1) == 0)
@@ -3111,16 +3089,15 @@ LABEL_27:
     }
   }
 
-  v19 = self->_has;
-  v20 = *(equalCopy + 57);
-  if ((*&v19 & 0x100000) != 0)
+  v18 = self->_has;
+  v19 = *(equalCopy + 57);
+  if ((*&v18 & 0x100000) != 0)
   {
-    if ((v20 & 0x100000) == 0)
+    if ((v19 & 0x100000) == 0)
     {
       goto LABEL_88;
     }
 
-    v23 = *(equalCopy + 226);
     if (self->_stashedAssetIsDecrypted)
     {
       if ((*(equalCopy + 226) & 1) == 0)
@@ -3135,59 +3112,59 @@ LABEL_27:
     }
   }
 
-  else if ((v20 & 0x100000) != 0)
+  else if ((v19 & 0x100000) != 0)
   {
     goto LABEL_88;
   }
 
-  if ((*&v19 & 2) != 0)
+  if ((*&v18 & 2) != 0)
   {
-    if ((v20 & 2) == 0 || self->_resourcesSize != *(equalCopy + 2))
+    if ((v19 & 2) == 0 || self->_resourcesSize != *(equalCopy + 2))
     {
       goto LABEL_88;
     }
   }
 
-  else if ((v20 & 2) != 0)
+  else if ((v19 & 2) != 0)
   {
     goto LABEL_88;
   }
 
-  if ((*&v19 & 0x400) != 0)
+  if ((*&v18 & 0x400) != 0)
   {
-    if ((v20 & 0x400) == 0 || self->_flags != *(equalCopy + 31))
+    if ((v19 & 0x400) == 0 || self->_flags != *(equalCopy + 31))
     {
       goto LABEL_88;
     }
   }
 
-  else if ((v20 & 0x400) != 0)
+  else if ((v19 & 0x400) != 0)
   {
     goto LABEL_88;
   }
 
-  if ((*&v19 & 0x100) != 0)
+  if ((*&v18 & 0x100) != 0)
   {
-    if ((v20 & 0x100) == 0 || self->_contentEncodingMethod != *(equalCopy + 20))
+    if ((v19 & 0x100) == 0 || self->_contentEncodingMethod != *(equalCopy + 20))
     {
       goto LABEL_88;
     }
   }
 
-  else if ((v20 & 0x100) != 0)
+  else if ((v19 & 0x100) != 0)
   {
     goto LABEL_88;
   }
 
-  if ((*&v19 & 0x80) != 0)
+  if ((*&v18 & 0x80) != 0)
   {
-    if ((v20 & 0x80) == 0 || self->_contentCompressionMethod != *(equalCopy + 19))
+    if ((v19 & 0x80) == 0 || self->_contentCompressionMethod != *(equalCopy + 19))
     {
       goto LABEL_88;
     }
   }
 
-  else if ((v20 & 0x80) != 0)
+  else if ((v19 & 0x80) != 0)
   {
     goto LABEL_88;
   }
@@ -3200,19 +3177,19 @@ LABEL_27:
       goto LABEL_88;
     }
 
-    v19 = self->_has;
-    v20 = *(equalCopy + 57);
+    v18 = self->_has;
+    v19 = *(equalCopy + 57);
   }
 
-  if ((*&v19 & 0x10) != 0)
+  if ((*&v18 & 0x10) != 0)
   {
-    if ((v20 & 0x10) == 0 || self->_sizeBeforeEncoding != *(equalCopy + 5))
+    if ((v19 & 0x10) == 0 || self->_sizeBeforeEncoding != *(equalCopy + 5))
     {
       goto LABEL_88;
     }
   }
 
-  else if ((v20 & 0x10) != 0)
+  else if ((v19 & 0x10) != 0)
   {
     goto LABEL_88;
   }
@@ -3225,18 +3202,17 @@ LABEL_27:
       goto LABEL_88;
     }
 
-    v19 = self->_has;
-    v20 = *(equalCopy + 57);
+    v18 = self->_has;
+    v19 = *(equalCopy + 57);
   }
 
-  if ((*&v19 & 0x80000) != 0)
+  if ((*&v18 & 0x80000) != 0)
   {
-    if ((v20 & 0x80000) == 0)
+    if ((v19 & 0x80000) == 0)
     {
       goto LABEL_88;
     }
 
-    v26 = *(equalCopy + 225);
     if (self->_isMMCSEncryptedOnly)
     {
       if ((*(equalCopy + 225) & 1) == 0)
@@ -3251,54 +3227,54 @@ LABEL_27:
     }
   }
 
-  else if ((v20 & 0x80000) != 0)
+  else if ((v19 & 0x80000) != 0)
   {
     goto LABEL_88;
   }
 
-  if (*&v19)
+  if (*&v18)
   {
-    if ((v20 & 1) == 0 || self->_inode != *(equalCopy + 1))
+    if ((v19 & 1) == 0 || self->_inode != *(equalCopy + 1))
     {
       goto LABEL_88;
     }
   }
 
-  else if (v20)
+  else if (v19)
   {
     goto LABEL_88;
   }
 
-  if ((*&v19 & 0x20) != 0)
+  if ((*&v18 & 0x20) != 0)
   {
-    if ((v20 & 0x20) == 0 || self->_sourceDeviceInode != *(equalCopy + 6))
+    if ((v19 & 0x20) == 0 || self->_sourceDeviceInode != *(equalCopy + 6))
     {
       goto LABEL_88;
     }
   }
 
-  else if ((v20 & 0x20) != 0)
+  else if ((v19 & 0x20) != 0)
   {
     goto LABEL_88;
   }
 
-  if ((*&v19 & 0x20000) == 0)
+  if ((*&v18 & 0x20000) == 0)
   {
-    v21 = (v20 & 0x20000) == 0;
+    v20 = (v19 & 0x20000) == 0;
     goto LABEL_89;
   }
 
-  if ((v20 & 0x20000) != 0 && self->_volumeType == *(equalCopy + 55))
+  if ((v19 & 0x20000) != 0 && self->_volumeType == *(equalCopy + 55))
   {
-    v21 = 1;
+    v20 = 1;
     goto LABEL_89;
   }
 
 LABEL_88:
-  v21 = 0;
+  v20 = 0;
 LABEL_89:
 
-  return v21;
+  return v20;
 }
 
 - (unint64_t)hash

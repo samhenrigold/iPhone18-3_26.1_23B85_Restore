@@ -12,45 +12,45 @@
 
 - (void)firstPayloadFromExtensionItems:(id)items completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   completionCopy = completion;
   identifier = [*MEMORY[0x1E6982E48] identifier];
   firstObject = [itemsCopy firstObject];
   [firstObject attachments];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v9 = v21 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = v20 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
+        v14 = *(*(&v17 + 1) + 8 * i);
         if ([v14 hasItemConformingToTypeIdentifier:identifier])
         {
-          v16[0] = MEMORY[0x1E69E9820];
-          v16[1] = 3221225472;
-          v16[2] = __83__PUPhotoPickerAbstractExtensionContext_firstPayloadFromExtensionItems_completion___block_invoke;
-          v16[3] = &unk_1E83F72D0;
-          v17 = completionCopy;
-          [v14 loadItemForTypeIdentifier:identifier options:0 completionHandler:v16];
+          v15[0] = MEMORY[0x1E69E9820];
+          v15[1] = 3221225472;
+          v15[2] = __83__PUPhotoPickerAbstractExtensionContext_firstPayloadFromExtensionItems_completion___block_invoke;
+          v15[3] = &unk_1E83F72D0;
+          v16 = completionCopy;
+          [v14 loadItemForTypeIdentifier:identifier options:0 completionHandler:v15];
 
           goto LABEL_12;
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v11)
       {
         continue;
@@ -66,8 +66,6 @@
   }
 
 LABEL_12:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __83__PUPhotoPickerAbstractExtensionContext_firstPayloadFromExtensionItems_completion___block_invoke(uint64_t a1)
@@ -186,15 +184,13 @@ uint64_t __74__PUPhotoPickerAbstractExtensionContext__extensionAuxiliaryVendorPr
 
 void __67__PUPhotoPickerAbstractExtensionContext__allowedItemPayloadClasses__block_invoke()
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
+  v4[0] = objc_opt_class();
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
   v2 = [v0 setWithArray:v1];
   v3 = _allowedItemPayloadClasses_allowedItemPayloadClasses;
   _allowedItemPayloadClasses_allowedItemPayloadClasses = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

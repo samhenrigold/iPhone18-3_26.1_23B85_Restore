@@ -44,13 +44,13 @@
 
 - (HMDCameraRecordingSessionRetryContext)initWithWorkQueue:(id)queue homePresenceByPairingIdentity:(id)identity preferences:(id)preferences
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   identityCopy = identity;
   preferencesCopy = preferences;
-  v28.receiver = self;
-  v28.super_class = HMDCameraRecordingSessionRetryContext;
-  v12 = [(HMDCameraRecordingSessionRetryContext *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = HMDCameraRecordingSessionRetryContext;
+  v12 = [(HMDCameraRecordingSessionRetryContext *)&v27 init];
   v13 = v12;
   if (v12)
   {
@@ -75,18 +75,17 @@
       retryInterval = v13->_retryInterval;
       maxRetryInterval = v13->_maxRetryInterval;
       *buf = 138543874;
-      v30 = v23;
-      v31 = 2048;
-      v32 = retryInterval;
-      v33 = 2048;
-      v34 = maxRetryInterval;
+      v29 = v23;
+      v30 = 2048;
+      v31 = retryInterval;
+      v32 = 2048;
+      v33 = maxRetryInterval;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Recording session retry interval is: %f and max retry interval is: %f", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v20);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

@@ -8,13 +8,20 @@
 
 - (int64_t)hash
 {
+  v3 = *&self->useCase[OBJC_IVAR____TtC5JetUIP33_925E47A64C9969C34ACE8A7AFC4CB7868CacheKey_useCase + 24];
+  v4 = self->useCase[OBJC_IVAR____TtC5JetUIP33_925E47A64C9969C34ACE8A7AFC4CB7868CacheKey_useCase + 32];
+  v5 = *&self->useCase[OBJC_IVAR____TtC5JetUIP33_925E47A64C9969C34ACE8A7AFC4CB7868CacheKey_useCase + 8];
+  v11 = *(&self->super.isa + OBJC_IVAR____TtC5JetUIP33_925E47A64C9969C34ACE8A7AFC4CB7868CacheKey_useCase);
+  v12 = v5;
+  v13 = v3;
+  v14 = v4;
   sub_1BAD9DB48();
   selfCopy = self;
-  FontUseCase.hash(into:)();
-  v4 = sub_1BAD9DB88();
-  v5 = [*(&selfCopy->super.isa + OBJC_IVAR____TtC5JetUIP33_925E47A64C9969C34ACE8A7AFC4CB7868CacheKey_traitCollection) hash];
+  FontUseCase.hash(into:)(v10);
+  v7 = sub_1BAD9DB88();
+  v8 = [*(&selfCopy->super.isa + OBJC_IVAR____TtC5JetUIP33_925E47A64C9969C34ACE8A7AFC4CB7868CacheKey_traitCollection) hash];
 
-  return v5 ^ v4;
+  return v8 ^ v7;
 }
 
 - (BOOL)isEqual:(id)equal

@@ -63,25 +63,24 @@ LABEL_7:
 
 void __45__HMMTRVendorMetadataFileStore_timerDidFire___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_INFO, "%{public}@Retry cancelled - fetch no longer in progress", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_INFO, "%{public}@Retry cancelled - fetch no longer in progress", &v6, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)supportedAccessories:(id)accessories forProductGroup:(id)group isComplete:(BOOL)complete
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   groupCopy = group;
   v9 = objc_autoreleasePoolPush();
@@ -93,36 +92,36 @@ void __45__HMMTRVendorMetadataFileStore_timerDidFire___block_invoke(uint64_t a1)
     v13 = [accessoriesCopy count];
     v14 = HMFBooleanToString();
     *buf = 138543874;
-    v30 = v12;
-    v31 = 2048;
-    v32 = v13;
-    v33 = 2112;
-    v34 = v14;
+    v29 = v12;
+    v30 = 2048;
+    v31 = v13;
+    v32 = 2112;
+    v33 = v14;
     _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_INFO, "%{public}@Received batched supported accessories, number of entries: %lu, isComplete: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
   os_unfair_lock_lock_with_options();
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v15 = accessoriesCopy;
-  v16 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v16)
   {
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       v18 = 0;
       do
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(v15);
         }
 
-        v19 = [HMMTRUARPAccessory fromUARPSupportedAccessory:*(*(&v24 + 1) + 8 * v18)];
+        v19 = [HMMTRUARPAccessory fromUARPSupportedAccessory:*(*(&v23 + 1) + 8 * v18)];
         if (v19)
         {
           [(NSMutableSet *)selfCopy->_batchedAccessories addObject:v19];
@@ -132,7 +131,7 @@ void __45__HMMTRVendorMetadataFileStore_timerDidFire___block_invoke(uint64_t a1)
       }
 
       while (v16 != v18);
-      v16 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v16);
@@ -152,13 +151,11 @@ void __45__HMMTRVendorMetadataFileStore_timerDidFire___block_invoke(uint64_t a1)
   {
     os_unfair_lock_unlock(&selfCopy->_lock);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processSupportedAccessories:(id)accessories
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -166,11 +163,11 @@ void __45__HMMTRVendorMetadataFileStore_timerDidFire___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v15 = 138543618;
-    v16 = v8;
-    v17 = 2048;
-    v18 = [accessoriesCopy count];
-    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Processing all supported accessories, number of entries: %lu", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v8;
+    v16 = 2048;
+    v17 = [accessoriesCopy count];
+    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Processing all supported accessories, number of entries: %lu", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -190,16 +187,14 @@ void __45__HMMTRVendorMetadataFileStore_timerDidFire___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v13;
-      _os_log_impl(&dword_22AEAE000, v12, OS_LOG_TYPE_ERROR, "%{public}@No vendor/product information available", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_22AEAE000, v12, OS_LOG_TYPE_ERROR, "%{public}@No vendor/product information available", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     [(HMMTRVendorMetadataFileStore *)v11 _handleCloudMetadataFetchFailure];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -217,33 +212,33 @@ void __45__HMMTRVendorMetadataFileStore_timerDidFire___block_invoke(uint64_t a1)
 
 - (void)_addProductInfoToMetadata:(id)metadata accessories:(id)accessories
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = accessories;
-  v5 = [obj countByEnumeratingWithState:&v39 objects:v50 count:16];
+  v5 = [obj countByEnumeratingWithState:&v38 objects:v49 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v40;
+    v8 = *v39;
     *&v6 = 138543874;
-    v33 = v6;
-    v35 = *v40;
+    v32 = v6;
+    v34 = *v39;
     do
     {
       v9 = 0;
-      v36 = v7;
+      v35 = v7;
       do
       {
-        if (*v40 != v8)
+        if (*v39 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v39 + 1) + 8 * v9);
+        v10 = *(*(&v38 + 1) + 8 * v9);
         productNumber = [v10 productNumber];
         v12 = [productNumber isEqualToString:@"0000"];
 
@@ -258,8 +253,8 @@ void __45__HMMTRVendorMetadataFileStore_timerDidFire___block_invoke(uint64_t a1)
             v16 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(v10, "productID")}];
             v17 = +[HMMTRProtocolMap protocolMap];
             v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v10, "accessoryCategoryNumber")}];
-            v43 = v18;
-            v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+            v42 = v18;
+            v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
             v20 = [v17 categoriesForDeviceTypes:v19];
 
             if (v20)
@@ -297,7 +292,7 @@ void __45__HMMTRVendorMetadataFileStore_timerDidFire___block_invoke(uint64_t a1)
             [v15 addProduct:v27];
             [metadataCopy addVendor:v15];
 
-            v8 = v35;
+            v8 = v34;
           }
 
           else
@@ -308,58 +303,56 @@ void __45__HMMTRVendorMetadataFileStore_timerDidFire___block_invoke(uint64_t a1)
             if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
             {
               v26 = HMFGetLogIdentifier();
-              *buf = v33;
-              v45 = v26;
-              v46 = 2112;
-              v47 = v13;
-              v48 = 2112;
-              v49 = v10;
+              *buf = v32;
+              v44 = v26;
+              v45 = 2112;
+              v46 = v13;
+              v47 = 2112;
+              v48 = v10;
               _os_log_impl(&dword_22AEAE000, v25, OS_LOG_TYPE_INFO, "%{public}@Vendor %@ not found for product record %@", buf, 0x20u);
             }
 
             objc_autoreleasePoolPop(v23);
           }
 
-          v7 = v36;
+          v7 = v35;
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v39 objects:v50 count:16];
+      v7 = [obj countByEnumeratingWithState:&v38 objects:v49 count:16];
     }
 
     while (v7);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addVendorInfoToMetadata:(id)metadata accessories:(id)accessories
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   accessoriesCopy = accessories;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v7 = [accessoriesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [accessoriesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(accessoriesCopy);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         productNumber = [v11 productNumber];
         v13 = [productNumber isEqualToString:@"0000"];
 
@@ -380,13 +373,11 @@ void __45__HMMTRVendorMetadataFileStore_timerDidFire___block_invoke(uint64_t a1)
         }
       }
 
-      v8 = [accessoriesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [accessoriesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_prepopulateCacheForKnownAccessories:(id)accessories
@@ -423,14 +414,14 @@ id *__69__HMMTRVendorMetadataFileStore__prepopulateCacheForKnownAccessories___bl
 
 - (void)_saveMetadata:(id)metadata
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   fileManager = [(HMMTRVendorMetadataFileStore *)self fileManager];
   dictionaryRepresentation = [metadataCopy dictionaryRepresentation];
   fileURL = [(HMMTRVendorMetadataFileStore *)self fileURL];
-  v21 = 0;
-  v8 = [fileManager writeDictionary:dictionaryRepresentation toURL:fileURL error:&v21];
-  v9 = v21;
+  v20 = 0;
+  v8 = [fileManager writeDictionary:dictionaryRepresentation toURL:fileURL error:&v20];
+  v9 = v20;
 
   if (v8)
   {
@@ -443,9 +434,9 @@ id *__69__HMMTRVendorMetadataFileStore__prepopulateCacheForKnownAccessories___bl
       v13 = HMFGetLogIdentifier();
       fileURL2 = [(HMMTRVendorMetadataFileStore *)selfCopy fileURL];
       *buf = 138543618;
-      v23 = v13;
-      v24 = 2112;
-      v25 = fileURL2;
+      v22 = v13;
+      v23 = 2112;
+      v24 = fileURL2;
       _os_log_impl(&dword_22AEAE000, v12, OS_LOG_TYPE_INFO, "%{public}@Successfully saved metadata to %@", buf, 0x16u);
     }
 
@@ -467,23 +458,21 @@ id *__69__HMMTRVendorMetadataFileStore__prepopulateCacheForKnownAccessories___bl
       v18 = HMFGetLogIdentifier();
       fileURL3 = [(HMMTRVendorMetadataFileStore *)selfCopy2 fileURL];
       *buf = 138543874;
-      v23 = v18;
-      v24 = 2112;
-      v25 = fileURL3;
-      v26 = 2112;
-      v27 = v9;
+      v22 = v18;
+      v23 = 2112;
+      v24 = fileURL3;
+      v25 = 2112;
+      v26 = v9;
       _os_log_impl(&dword_22AEAE000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to write vendor metadata to %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)overrideMetadata
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   vendorMetadataCache = [(HMMTRVendorMetadataFileStore *)self vendorMetadataCache];
   v4 = [vendorMetadataCache objectForKey:@"vendor-metadata-local"];
 
@@ -543,14 +532,14 @@ id *__69__HMMTRVendorMetadataFileStore__prepopulateCacheForKnownAccessories___bl
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           HMFGetLogIdentifier();
-          v26 = v33 = v22;
+          v26 = v32 = v22;
           *buf = 138543618;
-          v35 = v26;
-          v36 = 2112;
-          v37 = absoluteURL;
+          v34 = v26;
+          v35 = 2112;
+          v36 = absoluteURL;
           _os_log_impl(&dword_22AEAE000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Using override vendor metadata from %@", buf, 0x16u);
 
-          v22 = v33;
+          v22 = v32;
         }
 
         objc_autoreleasePoolPop(v22);
@@ -566,9 +555,9 @@ id *__69__HMMTRVendorMetadataFileStore__prepopulateCacheForKnownAccessories___bl
         {
           v29 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v35 = v29;
-          v36 = 2112;
-          v37 = absoluteURL;
+          v34 = v29;
+          v35 = 2112;
+          v36 = absoluteURL;
           _os_log_impl(&dword_22AEAE000, v25, OS_LOG_TYPE_ERROR, "%{public}@Ignoring invalid override vendor metadata from %@", buf, 0x16u);
         }
 
@@ -593,19 +582,17 @@ LABEL_17:
     }
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return fileManager;
 }
 
 - (id)staticMetadata
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   fileManager = [(HMMTRVendorMetadataFileStore *)self fileManager];
   staticMetadataFileURL = [(HMMTRVendorMetadataFileStore *)self staticMetadataFileURL];
-  v22 = 0;
-  v5 = [fileManager dictionaryWithContentsOfURL:staticMetadataFileURL error:&v22];
-  v6 = v22;
+  v21 = 0;
+  v5 = [fileManager dictionaryWithContentsOfURL:staticMetadataFileURL error:&v21];
+  v6 = v21;
 
   if (v5)
   {
@@ -625,7 +612,7 @@ LABEL_17:
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v24 = v19;
+        v23 = v19;
         _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode local vendor metadata from dictionary representation", buf, 0xCu);
       }
 
@@ -646,19 +633,17 @@ LABEL_17:
       v13 = HMFGetLogIdentifier();
       staticMetadataFileURL2 = [(HMMTRVendorMetadataFileStore *)selfCopy2 staticMetadataFileURL];
       *buf = 138543874;
-      v24 = v13;
-      v25 = 2112;
-      v26 = staticMetadataFileURL2;
-      v27 = 2112;
-      v28 = v6;
+      v23 = v13;
+      v24 = 2112;
+      v25 = staticMetadataFileURL2;
+      v26 = 2112;
+      v27 = v6;
       _os_log_impl(&dword_22AEAE000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to load local vendor metadata at file URL %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
     v15 = objc_alloc_init(HMMTRVendorMetadata);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -683,7 +668,7 @@ LABEL_17:
 
 - (id)_retrieveVendorMetadataForVendorID:(id)d productID:(id)iD metadata:(id)metadata
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   metadataCopy = metadata;
@@ -718,13 +703,13 @@ LABEL_17:
       v15 = v24;
     }
 
-    v59 = v15;
+    v58 = v15;
     v26 = [v15 vendorWithID:v11];
     v27 = v26;
     if (v26)
     {
-      v56 = 0;
-      v60 = 0;
+      v55 = 0;
+      v59 = 0;
       v28 = v26;
     }
 
@@ -736,9 +721,9 @@ LABEL_17:
         metadata = [(HMMTRVendorMetadataFileStore *)self metadata];
       }
 
-      v60 = [metadata vendorWithID:v11];
-      v56 = v60 == 0;
-      if (v60)
+      v59 = [metadata vendorWithID:v11];
+      v55 = v59 == 0;
+      if (v59)
       {
         v29 = v28;
         objc_opt_class();
@@ -754,7 +739,7 @@ LABEL_17:
 
         v31 = v30;
 
-        [(HMMTRMutableVendorMetadataVendor *)v31 copyVendorDetailsFromVendor:v60];
+        [(HMMTRMutableVendorMetadataVendor *)v31 copyVendorDetailsFromVendor:v59];
       }
 
       else
@@ -762,28 +747,28 @@ LABEL_17:
         [(HMMTRVendorMetadataVendor *)v28 setInvalid:1];
       }
 
-      [v59 addVendor:v28];
+      [v58 addVendor:v28];
     }
 
     if ([(HMMTRVendorMetadataVendor *)v28 invalid])
     {
-      v54 = metadataCopy;
+      v53 = metadataCopy;
       retryQueue = self->_retryQueue;
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __86__HMMTRVendorMetadataFileStore__retrieveVendorMetadataForVendorID_productID_metadata___block_invoke;
       block[3] = &unk_2786ED878;
       block[4] = self;
-      v50 = &v69;
-      v69 = v11;
-      v33 = &v70;
-      v53 = iDCopy;
-      v70 = iDCopy;
-      v72 = v13 == 0;
-      v73 = v27 == 0;
-      v74 = v56;
-      v34 = &v71;
-      v71 = v28;
+      v49 = &v68;
+      v68 = v11;
+      v33 = &v69;
+      v52 = iDCopy;
+      v69 = iDCopy;
+      v71 = v13 == 0;
+      v72 = v27 == 0;
+      v73 = v55;
+      v34 = &v70;
+      v70 = v28;
       dispatch_async(retryQueue, block);
       v20 = 0;
     }
@@ -795,31 +780,31 @@ LABEL_17:
         v35 = [(HMMTRVendorMetadataVendor *)v28 productWithID:iDCopy includeInvalids:1];
         if (v35)
         {
-          v55 = v35;
+          v54 = v35;
         }
 
         else
         {
-          if (!v60)
+          if (!v59)
           {
             if (!metadata)
             {
               metadata = [(HMMTRVendorMetadataFileStore *)self metadata];
             }
 
-            v60 = [metadata vendorWithID:v11];
+            v59 = [metadata vendorWithID:v11];
           }
 
-          v38 = [v60 productWithID:iDCopy];
-          v51 = v38;
+          v38 = [v59 productWithID:iDCopy];
+          v50 = v38;
           if (v38)
           {
-            v55 = [v38 copy];
+            v54 = [v38 copy];
           }
 
           else
           {
-            v55 = [(HMMTRVendorMetadataProduct *)[HMMTRMutableVendorMetadataProduct alloc] initWithIdentifier:iDCopy categoryNumber:&unk_283EE7BD8 isInvalid:1];
+            v54 = [(HMMTRVendorMetadataProduct *)[HMMTRMutableVendorMetadataProduct alloc] initWithIdentifier:iDCopy categoryNumber:&unk_283EE7BD8 isInvalid:1];
           }
 
           v39 = v28;
@@ -836,7 +821,7 @@ LABEL_17:
 
           v41 = v40;
 
-          [(HMMTRMutableVendorMetadataVendor *)v41 addProduct:v55];
+          [(HMMTRMutableVendorMetadataVendor *)v41 addProduct:v54];
         }
 
         os_unfair_lock_unlock(&self->_lock);
@@ -845,30 +830,30 @@ LABEL_17:
         v43 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
         {
-          v52 = HMFGetLogIdentifier();
-          v49 = HMFBooleanToString();
+          v51 = HMFGetLogIdentifier();
           v48 = HMFBooleanToString();
-          v57 = HMFBooleanToString();
+          v47 = HMFBooleanToString();
+          v56 = HMFBooleanToString();
           v44 = HMFBooleanToString();
           v45 = HMFBooleanToString();
           *buf = 138545410;
-          v76 = v52;
-          v77 = 2112;
-          v78 = v11;
-          v79 = 2112;
-          v80 = iDCopy;
-          v81 = 2112;
-          v82 = v49;
-          v83 = 2112;
-          v84 = v48;
-          v85 = 2112;
-          v86 = v57;
-          v87 = 2112;
-          v88 = v44;
-          v89 = 2112;
-          v90 = v45;
-          v91 = 2112;
-          v92 = v28;
+          v75 = v51;
+          v76 = 2112;
+          v77 = v11;
+          v78 = 2112;
+          v79 = iDCopy;
+          v80 = 2112;
+          v81 = v48;
+          v82 = 2112;
+          v83 = v47;
+          v84 = 2112;
+          v85 = v56;
+          v86 = 2112;
+          v87 = v44;
+          v88 = 2112;
+          v89 = v45;
+          v90 = 2112;
+          v91 = v28;
           _os_log_impl(&dword_22AEAE000, v43, OS_LOG_TYPE_INFO, "%{public}@retrieveVendorMetadataForVendorID:%@ productID:%@ (newMetadata:%@,vendor(cacheMiss:%@,metadataMiss:%@),product(cacheMiss:%@,metadataMiss:%@)) -> returning metadata: %@", buf, 0x5Cu);
         }
 
@@ -878,30 +863,30 @@ LABEL_17:
         goto LABEL_42;
       }
 
-      v53 = 0;
-      v54 = metadataCopy;
+      v52 = 0;
+      v53 = metadataCopy;
       v36 = self->_retryQueue;
-      v61[0] = MEMORY[0x277D85DD0];
-      v61[1] = 3221225472;
-      v61[2] = __86__HMMTRVendorMetadataFileStore__retrieveVendorMetadataForVendorID_productID_metadata___block_invoke_82;
-      v61[3] = &unk_2786ED878;
-      v61[4] = self;
-      v50 = &v62;
-      v33 = &v63;
-      v62 = v11;
-      v63 = 0;
-      v65 = v13 == 0;
-      v66 = v27 == 0;
-      v34 = &v64;
-      v67 = v56;
+      v60[0] = MEMORY[0x277D85DD0];
+      v60[1] = 3221225472;
+      v60[2] = __86__HMMTRVendorMetadataFileStore__retrieveVendorMetadataForVendorID_productID_metadata___block_invoke_82;
+      v60[3] = &unk_2786ED878;
+      v60[4] = self;
+      v49 = &v61;
+      v33 = &v62;
+      v61 = v11;
+      v62 = 0;
+      v64 = v13 == 0;
+      v65 = v27 == 0;
+      v34 = &v63;
+      v66 = v55;
       v37 = v28;
-      v64 = v37;
-      dispatch_async(v36, v61);
+      v63 = v37;
+      dispatch_async(v36, v60);
       v20 = v37;
     }
 
-    iDCopy = v53;
-    metadataCopy = v54;
+    iDCopy = v52;
+    metadataCopy = v53;
 
     os_unfair_lock_unlock(&self->_lock);
 LABEL_42:
@@ -916,11 +901,11 @@ LABEL_42:
   {
     v19 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v76 = v19;
-    v77 = 2112;
-    v78 = 0;
-    v79 = 2112;
-    v80 = iDCopy;
+    v75 = v19;
+    v76 = 2112;
+    v77 = 0;
+    v78 = 2112;
+    v79 = iDCopy;
     _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_INFO, "%{public}@retrieveVendorMetadataForVendorID:%@ productID:%@ -> nil vendor, returning nil", buf, 0x20u);
   }
 
@@ -928,14 +913,12 @@ LABEL_42:
   v20 = 0;
 LABEL_43:
 
-  v46 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 void __86__HMMTRVendorMetadataFileStore__retrieveVendorMetadataForVendorID_productID_metadata___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -944,37 +927,33 @@ void __86__HMMTRVendorMetadataFileStore__retrieveVendorMetadataForVendorID_produ
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
-    v8 = *(a1 + 64);
+    v8 = HMFBooleanToString();
     v9 = HMFBooleanToString();
-    v10 = *(a1 + 65);
-    v11 = HMFBooleanToString();
-    v12 = *(a1 + 66);
-    v13 = HMFBooleanToString();
-    v14 = *(a1 + 56);
-    v16 = 138544898;
-    v17 = v5;
+    v10 = HMFBooleanToString();
+    v11 = *(a1 + 56);
+    v12 = 138544898;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v6;
+    v16 = 2112;
+    v17 = v7;
     v18 = 2112;
-    v19 = v6;
+    v19 = v8;
     v20 = 2112;
-    v21 = v7;
+    v21 = v9;
     v22 = 2112;
-    v23 = v9;
+    v23 = v10;
     v24 = 2112;
     v25 = v11;
-    v26 = 2112;
-    v27 = v13;
-    v28 = 2112;
-    v29 = v14;
-    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_INFO, "%{public}@retrieveVendorMetadataForVendorID:%@ productID:%@ (newMetadata:%@,vendor(cacheMiss:%@,metadataMiss:%@)) -> returning metadata: %@", &v16, 0x48u);
+    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_INFO, "%{public}@retrieveVendorMetadataForVendorID:%@ productID:%@ (newMetadata:%@,vendor(cacheMiss:%@,metadataMiss:%@)) -> returning metadata: %@", &v12, 0x48u);
   }
 
   objc_autoreleasePoolPop(v2);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __86__HMMTRVendorMetadataFileStore__retrieveVendorMetadataForVendorID_productID_metadata___block_invoke_82(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -983,37 +962,33 @@ void __86__HMMTRVendorMetadataFileStore__retrieveVendorMetadataForVendorID_produ
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
-    v8 = *(a1 + 64);
+    v8 = HMFBooleanToString();
     v9 = HMFBooleanToString();
-    v10 = *(a1 + 65);
-    v11 = HMFBooleanToString();
-    v12 = *(a1 + 66);
-    v13 = HMFBooleanToString();
-    v14 = *(a1 + 56);
-    v16 = 138544898;
-    v17 = v5;
+    v10 = HMFBooleanToString();
+    v11 = *(a1 + 56);
+    v12 = 138544898;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v6;
+    v16 = 2112;
+    v17 = v7;
     v18 = 2112;
-    v19 = v6;
+    v19 = v8;
     v20 = 2112;
-    v21 = v7;
+    v21 = v9;
     v22 = 2112;
-    v23 = v9;
+    v23 = v10;
     v24 = 2112;
     v25 = v11;
-    v26 = 2112;
-    v27 = v13;
-    v28 = 2112;
-    v29 = v14;
-    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_INFO, "%{public}@retrieveVendorMetadataForVendorID:%@ productID:%@ (newMetadata:%@,vendor(cacheMiss:%@,metadataMiss:%@)) -> returning metadata: %@", &v16, 0x48u);
+    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_INFO, "%{public}@retrieveVendorMetadataForVendorID:%@ productID:%@ (newMetadata:%@,vendor(cacheMiss:%@,metadataMiss:%@)) -> returning metadata: %@", &v12, 0x48u);
   }
 
   objc_autoreleasePoolPop(v2);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)attemptCloudMetadataFetch
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -1021,9 +996,9 @@ void __86__HMMTRVendorMetadataFileStore__retrieveVendorMetadataForVendorID_produ
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v19 = v6;
-    v20 = 2048;
-    v21 = [(HMMTRVendorMetadataFileStore *)selfCopy retryCount]+ 1;
+    v18 = v6;
+    v19 = 2048;
+    v20 = [(HMMTRVendorMetadataFileStore *)selfCopy retryCount]+ 1;
     _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Fetching cloud metadata by requesting supported accessories from UARP controller (attempt %lu)", buf, 0x16u);
   }
 
@@ -1057,20 +1032,18 @@ void __86__HMMTRVendorMetadataFileStore__retrieveVendorMetadataForVendorID_produ
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v19 = v15;
+      v18 = v15;
       _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to request supported accessories from UARP controller", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
     [(HMMTRVendorMetadataFileStore *)v13 _handleCloudMetadataFetchFailure];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HMMTRVendorMetadataFileStore_attemptCloudMetadataFetch__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1078,20 +1051,19 @@ void __57__HMMTRVendorMetadataFileStore_attemptCloudMetadataFetch__block_invoke(
   {
     v5 = HMFGetLogIdentifier();
     v6 = [*(*(a1 + 32) + 40) count];
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2048;
-    v11 = v6;
-    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_INFO, "%{public}@Unexpected, found %lu batched accessories. Previous batch may not be complete", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2048;
+    v10 = v6;
+    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_INFO, "%{public}@Unexpected, found %lu batched accessories. Previous batch may not be complete", &v7, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCloudMetadataFetchFailure
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   HMFUptime();
   v4 = v3;
   os_unfair_lock_lock_with_options();
@@ -1154,11 +1126,11 @@ void __57__HMMTRVendorMetadataFileStore_attemptCloudMetadataFetch__block_invoke(
       v16 = HMFGetLogIdentifier();
       v17 = self->_retryCount;
       *buf = 138543874;
-      v24 = v16;
-      v25 = 2048;
-      v26 = v17;
-      v27 = 2048;
-      v28 = v12;
+      v23 = v16;
+      v24 = 2048;
+      v25 = v17;
+      v26 = 2048;
+      v27 = v12;
       _os_log_impl(&dword_22AEAE000, v15, OS_LOG_TYPE_INFO, "%{public}@Cloud metadata fetch failed, scheduling retry %lu in %.1f seconds", buf, 0x20u);
     }
 
@@ -1174,41 +1146,39 @@ void __57__HMMTRVendorMetadataFileStore_attemptCloudMetadataFetch__block_invoke(
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HMMTRVendorMetadataFileStore__handleCloudMetadataFetchFailure__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = HMFGetLogIdentifier();
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 2048;
-    v10 = 0x4018000000000000;
-    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_ERROR, "%{public}@Maximum retry time (%.1f hours) exceeded, giving up on cloud metadata fetch", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2048;
+    v9 = 0x4018000000000000;
+    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_ERROR, "%{public}@Maximum retry time (%.1f hours) exceeded, giving up on cloud metadata fetch", &v6, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCloudMetadataFetchSuccess
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Cloud metadata fetch succeeded, resetting retry state", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Cloud metadata fetch succeeded, resetting retry state", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -1225,12 +1195,11 @@ void __64__HMMTRVendorMetadataFileStore__handleCloudMetadataFetchFailure__block_
   }
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelCloudMetadataFetch
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -1238,7 +1207,7 @@ void __64__HMMTRVendorMetadataFileStore__handleCloudMetadataFetchFailure__block_
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v13 = v6;
+    v12 = v6;
     _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Cancelling cloud metadata fetch", buf, 0xCu);
   }
 
@@ -1267,30 +1236,28 @@ void __64__HMMTRVendorMetadataFileStore__handleCloudMetadataFetchFailure__block_
   }
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __56__HMMTRVendorMetadataFileStore_cancelCloudMetadataFetch__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_INFO, "%{public}@Cloud metadata fetch cancelled", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_INFO, "%{public}@Cloud metadata fetch cancelled", &v6, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchCloudMetadata
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   overrideMetadata = [(HMMTRVendorMetadataFileStore *)self overrideMetadata];
 
   if (overrideMetadata)
@@ -1302,58 +1269,58 @@ void __56__HMMTRVendorMetadataFileStore_cancelCloudMetadataFetch__block_invoke(u
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v13 = v7;
+      v11 = v7;
       _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_INFO, "%{public}@Skipping cloud fetch of metadata because override metadata is active", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
-    goto LABEL_7;
   }
 
-  os_unfair_lock_lock_with_options();
-  if (self->_fetchInProgress)
+  else
   {
-    retryQueue = self->_retryQueue;
-    block[0] = MEMORY[0x277D85DD0];
-    block[1] = 3221225472;
-    block[2] = __50__HMMTRVendorMetadataFileStore_fetchCloudMetadata__block_invoke;
-    block[3] = &unk_2786F0CA8;
-    block[4] = self;
-    dispatch_async(retryQueue, block);
-    os_unfair_lock_unlock(&self->_lock);
-LABEL_7:
-    v9 = *MEMORY[0x277D85DE8];
-    return;
+    os_unfair_lock_lock_with_options();
+    if (self->_fetchInProgress)
+    {
+      retryQueue = self->_retryQueue;
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __50__HMMTRVendorMetadataFileStore_fetchCloudMetadata__block_invoke;
+      block[3] = &unk_2786F0CA8;
+      block[4] = self;
+      dispatch_async(retryQueue, block);
+      os_unfair_lock_unlock(&self->_lock);
+    }
+
+    else
+    {
+      self->_fetchInProgress = 1;
+      os_unfair_lock_unlock(&self->_lock);
+
+      [(HMMTRVendorMetadataFileStore *)self attemptCloudMetadataFetch];
+    }
   }
-
-  self->_fetchInProgress = 1;
-  os_unfair_lock_unlock(&self->_lock);
-  v10 = *MEMORY[0x277D85DE8];
-
-  [(HMMTRVendorMetadataFileStore *)self attemptCloudMetadataFetch];
 }
 
 void __50__HMMTRVendorMetadataFileStore_fetchCloudMetadata__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_INFO, "%{public}@Cloud metadata fetch already in progress, skipping duplicate request", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_INFO, "%{public}@Cloud metadata fetch already in progress, skipping duplicate request", &v6, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (HMMTRVendorMetadata)metadata
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   overrideMetadata = [(HMMTRVendorMetadataFileStore *)self overrideMetadata];
   v4 = overrideMetadata;
   if (overrideMetadata)
@@ -1384,9 +1351,9 @@ void __50__HMMTRVendorMetadataFileStore_fetchCloudMetadata__block_invoke(uint64_
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           v18 = HMFGetLogIdentifier();
-          v21 = 138543362;
-          v22 = v18;
-          _os_log_impl(&dword_22AEAE000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode vendor metadata from dictionary representation", &v21, 0xCu);
+          v20 = 138543362;
+          v21 = v18;
+          _os_log_impl(&dword_22AEAE000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode vendor metadata from dictionary representation", &v20, 0xCu);
         }
 
         objc_autoreleasePoolPop(v15);
@@ -1404,9 +1371,9 @@ void __50__HMMTRVendorMetadataFileStore_fetchCloudMetadata__block_invoke(uint64_
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = HMFGetLogIdentifier();
-        v21 = 138543362;
-        v22 = v14;
-        _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_ERROR, "%{public}@No DCL data available, defaulting to static metadata", &v21, 0xCu);
+        v20 = 138543362;
+        v21 = v14;
+        _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_ERROR, "%{public}@No DCL data available, defaulting to static metadata", &v20, 0xCu);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -1414,8 +1381,6 @@ void __50__HMMTRVendorMetadataFileStore_fetchCloudMetadata__block_invoke(uint64_
       staticMetadata = [(HMMTRVendorMetadataFileStore *)selfCopy2 staticMetadata];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return staticMetadata;
 }
@@ -1532,10 +1497,11 @@ LABEL_11:
 
 uint64_t __43__HMMTRVendorMetadataFileStore_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v39 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v39;
+  logCategory__hmf_once_v39 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

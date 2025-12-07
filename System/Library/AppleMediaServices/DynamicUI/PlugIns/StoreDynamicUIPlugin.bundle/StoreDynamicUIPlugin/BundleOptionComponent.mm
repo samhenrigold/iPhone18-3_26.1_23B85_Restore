@@ -13,7 +13,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_530D0();
+  sub_530D0(selfCopy);
 }
 
 - (void)layoutSubviews
@@ -25,21 +25,22 @@
 - (BOOL)isHighlighted
 {
   selfCopy = self;
-  v3 = sub_536AC();
+  v3 = sub_536AC(selfCopy);
 
   return v3 & 1;
 }
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_53734(highlighted);
+  sub_53734(highlightedCopy);
 }
 
 - (void)tintColorDidChange
 {
   selfCopy = self;
-  sub_53AA4();
+  sub_53AA4(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -54,7 +55,7 @@
   height = size.height;
   width = size.width;
   selfCopy = self;
-  v9 = sub_54B9C(width, height, priority);
+  v9 = sub_54B9C(width, height, priority, selfCopy);
   v11 = v10;
 
   v12 = v9;

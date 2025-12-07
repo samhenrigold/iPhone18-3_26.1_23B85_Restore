@@ -55,7 +55,7 @@
   v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_757590();
   selfCopy = self;
-  v9 = sub_164754();
+  v9 = sub_164754(v7);
 
   (*(v5 + 8))(v7, v4);
 
@@ -69,20 +69,20 @@
   y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  v8 = sub_164D28(x, y, width, height);
+  v9 = sub_164D28(x, y, width, height, selfCopy, v8);
 
-  if (v8)
+  if (v9)
   {
     sub_E59C4();
-    v9.super.isa = sub_769450().super.isa;
+    v10.super.isa = sub_769450().super.isa;
   }
 
   else
   {
-    v9.super.isa = 0;
+    v10.super.isa = 0;
   }
 
-  return v9.super.isa;
+  return v10.super.isa;
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)change
@@ -92,9 +92,9 @@
   y = change.origin.y;
   x = change.origin.x;
   selfCopy = self;
-  v8 = sub_165388(x, y, width, height);
+  v9 = sub_165388(selfCopy, v8, x, y, width, height);
 
-  return v8 & 1;
+  return v9 & 1;
 }
 
 - (id)invalidationContextForBoundsChange:(CGRect)change
@@ -104,16 +104,16 @@
   y = change.origin.y;
   x = change.origin.x;
   selfCopy = self;
-  v8 = sub_165520(x, y, width, height);
+  v9 = sub_165520(selfCopy, v8, x, y, width, height);
 
-  return v8;
+  return v9;
 }
 
 - (void)invalidateLayoutWithContext:(id)context
 {
   contextCopy = context;
   selfCopy = self;
-  sub_1657C4(contextCopy);
+  sub_1657C4(contextCopy, selfCopy);
 }
 
 @end

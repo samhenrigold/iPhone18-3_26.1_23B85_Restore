@@ -13,25 +13,25 @@
 
 - (_NTKCFaceDetailCollectionCellLabel)init
 {
-  v12.receiver = self;
-  v12.super_class = _NTKCFaceDetailCollectionCellLabel;
-  v2 = [(_NTKCFaceDetailCollectionCellLabel *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = _NTKCFaceDetailCollectionCellLabel;
+  v2 = [(_NTKCFaceDetailCollectionCellLabel *)&v13 init];
   if (v2)
   {
     layer = [MEMORY[0x277CD9F90] layer];
     background = v2->_background;
     v2->_background = layer;
 
-    v5 = NTKCActiveColor();
-    -[CAShapeLayer setFillColor:](v2->_background, "setFillColor:", [v5 CGColor]);
+    v6 = NTKCActiveColor(v5);
+    -[CAShapeLayer setFillColor:](v2->_background, "setFillColor:", [v6 CGColor]);
 
     [(CAShapeLayer *)v2->_background setHidden:1];
     layer2 = [(_NTKCFaceDetailCollectionCellLabel *)v2 layer];
     [layer2 addSublayer:v2->_background];
 
-    v7 = objc_opt_new();
+    v8 = objc_opt_new();
     label = v2->_label;
-    v2->_label = v7;
+    v2->_label = v8;
 
     [(UILabel *)v2->_label setAllowsDefaultTighteningForTruncation:1];
     _inactiveFont = [(_NTKCFaceDetailCollectionCellLabel *)v2 _inactiveFont];
@@ -239,7 +239,7 @@
 - (CGRect)_textBounds
 {
   usesShortTextWidth = self->_usesShortTextWidth;
-  v3 = NTKCScreenStyle();
+  v3 = NTKCScreenStyle(self, a2);
   v4 = 90.6666667;
   if (usesShortTextWidth)
   {

@@ -1,5 +1,6 @@
 @interface HMDCloudHomeManagerZone
 + (void)createHomeManagerZoneWithName:(id)name owner:(id)owner cacheZone:(id)zone cloudCache:(id)cache completion:(id)completion;
+- (id)createCloudZoneChangeTemporaryCache:(BOOL)cache;
 - (void)setServerChangeToken:(id)token;
 @end
 
@@ -11,6 +12,13 @@
   v4.super_class = HMDCloudHomeManagerZone;
   [(HMDCloudZone *)&v4 setServerChangeToken:token];
   [(HMDCloudZone *)self updateCurrentServerChangeToken];
+}
+
+- (id)createCloudZoneChangeTemporaryCache:(BOOL)cache
+{
+  v3 = [[HMDCloudHomeManagerZoneChange alloc] initWithZone:self temporaryCache:cache];
+
+  return v3;
 }
 
 + (void)createHomeManagerZoneWithName:(id)name owner:(id)owner cacheZone:(id)zone cloudCache:(id)cache completion:(id)completion

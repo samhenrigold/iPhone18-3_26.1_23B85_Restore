@@ -21,26 +21,27 @@
   agentCopy = agent;
   unpairCopy = unpair;
   ownerDelegate = [(EPResource *)self ownerDelegate];
-  if (objc_opt_respondsToSelector())
+  v9 = objc_opt_respondsToSelector();
+  if (v9)
   {
-    v9 = sub_1000A98C0();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v10 = sub_1000A98C0(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-    if (v10)
+    if (v11)
     {
-      v11 = sub_1000A98C0();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_1000A98C0(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
         identifier = [unpairCopy identifier];
-        v15 = 138412802;
-        v16 = v13;
-        v17 = 2048;
-        v18 = ownerDelegate;
-        v19 = 2112;
-        v20 = identifier;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Calling pairingAgent:peerDidUnpair: on %@[%p] with peer %@", &v15, 0x20u);
+        v17 = 138412802;
+        v18 = v15;
+        v19 = 2048;
+        v20 = ownerDelegate;
+        v21 = 2112;
+        v22 = identifier;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Calling pairingAgent:peerDidUnpair: on %@[%p] with peer %@", &v17, 0x20u);
       }
     }
 
@@ -53,26 +54,27 @@
   agentCopy = agent;
   pairingCopy = pairing;
   ownerDelegate = [(EPResource *)self ownerDelegate];
-  if (objc_opt_respondsToSelector())
+  v9 = objc_opt_respondsToSelector();
+  if (v9)
   {
-    v9 = sub_1000A98C0();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v10 = sub_1000A98C0(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-    if (v10)
+    if (v11)
     {
-      v11 = sub_1000A98C0();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_1000A98C0(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
         identifier = [pairingCopy identifier];
-        v15 = 138412802;
-        v16 = v13;
-        v17 = 2048;
-        v18 = ownerDelegate;
-        v19 = 2112;
-        v20 = identifier;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Calling pairingAgent:peerDidCompletePairing: on %@[%p] with peer %@", &v15, 0x20u);
+        v17 = 138412802;
+        v18 = v15;
+        v19 = 2048;
+        v20 = ownerDelegate;
+        v21 = 2112;
+        v22 = identifier;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Calling pairingAgent:peerDidCompletePairing: on %@[%p] with peer %@", &v17, 0x20u);
       }
     }
 
@@ -86,28 +88,29 @@
   pairingCopy = pairing;
   errorCopy = error;
   ownerDelegate = [(EPResource *)self ownerDelegate];
-  if (objc_opt_respondsToSelector())
+  v12 = objc_opt_respondsToSelector();
+  if (v12)
   {
-    v12 = sub_1000A98C0();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+    v13 = sub_1000A98C0(v12);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
 
-    if (v13)
+    if (v14)
     {
-      v14 = sub_1000A98C0();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = sub_1000A98C0(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v15 = objc_opt_class();
-        v16 = NSStringFromClass(v15);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
         identifier = [pairingCopy identifier];
-        v18 = 138413058;
-        v19 = v16;
-        v20 = 2048;
-        v21 = ownerDelegate;
-        v22 = 2112;
-        v23 = identifier;
+        v20 = 138413058;
+        v21 = v18;
+        v22 = 2048;
+        v23 = ownerDelegate;
         v24 = 2112;
-        v25 = errorCopy;
-        _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Calling pairingAgent:peerDidFailToCompletePairing: on %@[%p] with peer %@ error %@", &v18, 0x2Au);
+        v25 = identifier;
+        v26 = 2112;
+        v27 = errorCopy;
+        _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Calling pairingAgent:peerDidFailToCompletePairing: on %@[%p] with peer %@ error %@", &v20, 0x2Au);
       }
     }
 
@@ -121,35 +124,36 @@
   pairingCopy = pairing;
   passkeyCopy = passkey;
   ownerDelegate = [(EPResource *)self ownerDelegate];
-  if (objc_opt_respondsToSelector())
+  v14 = objc_opt_respondsToSelector();
+  if (v14)
   {
-    v14 = sub_1000A98C0();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v15 = sub_1000A98C0(v14);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
 
-    if (v15)
+    if (v16)
     {
-      v16 = sub_1000A98C0();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = sub_1000A98C0(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = objc_opt_class();
-        v18 = NSStringFromClass(v17);
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
         identifier = [pairingCopy identifier];
-        v20 = [EPDevice stringFromCBPairingType:type];
-        v21 = objc_opt_class();
-        v22 = NSStringFromClass(v21);
-        v23 = 138413570;
-        v24 = v18;
-        v25 = 2048;
-        v26 = ownerDelegate;
-        v27 = 2112;
-        v28 = identifier;
+        v22 = [EPDevice stringFromCBPairingType:type];
+        v23 = objc_opt_class();
+        v24 = NSStringFromClass(v23);
+        v25 = 138413570;
+        v26 = v20;
+        v27 = 2048;
+        v28 = ownerDelegate;
         v29 = 2112;
-        v30 = v20;
+        v30 = identifier;
         v31 = 2112;
-        v32 = passkeyCopy;
+        v32 = v22;
         v33 = 2112;
-        v34 = v22;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Calling pairingAgent:peerDidRequestPairing:type:passkey: on %@[%p] with peer %@ type=%@ passkey=%@ peer=%@", &v23, 0x3Eu);
+        v34 = passkeyCopy;
+        v35 = 2112;
+        v36 = v24;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Calling pairingAgent:peerDidRequestPairing:type:passkey: on %@[%p] with peer %@ type=%@ passkey=%@ peer=%@", &v25, 0x3Eu);
       }
     }
 

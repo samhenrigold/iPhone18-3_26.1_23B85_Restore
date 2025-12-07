@@ -65,7 +65,7 @@ void __74__TRIUserAdjustableSettings_updateExperimentOptOutStateWithServerContex
 
 void __74__TRIUserAdjustableSettings_updateExperimentOptOutStateWithServerContext___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 40) _optOutSoftwareUpdatePreferenceForAnyUser];
   v3 = [*(a1 + 32) keyValueStore];
   v4 = [TRIPersistentUserSettings settingsWithKeyValueStore:v3];
@@ -74,11 +74,11 @@ void __74__TRIUserAdjustableSettings_updateExperimentOptOutStateWithServerContex
   v6 = TRILogCategory_Server();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109376;
-    v8[1] = v5;
-    v9 = 1024;
-    v10 = v2;
-    _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "Updating persisted experiment opt-out from: %d to: %d", v8, 0xEu);
+    v7[0] = 67109376;
+    v7[1] = v5;
+    v8 = 1024;
+    v9 = v2;
+    _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "Updating persisted experiment opt-out from: %d to: %d", v7, 0xEu);
   }
 
   [v4 persistOptOutStatus:v2];
@@ -86,13 +86,11 @@ void __74__TRIUserAdjustableSettings_updateExperimentOptOutStateWithServerContex
   {
     [TRIUserAdjustableSettings _deactivateAllActiveExperimentsWithServerContext:*(a1 + 32)];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)getExperimentOptOut:(id)out
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   outCopy = out;
   if (!outCopy)
   {
@@ -119,7 +117,7 @@ void __74__TRIUserAdjustableSettings_updateExperimentOptOutStateWithServerContex
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v18 = _optOutSoftwareUpdatePreferenceForAnyUser == 1;
+      v17 = _optOutSoftwareUpdatePreferenceForAnyUser == 1;
       v12 = "Using persisted experiment opt-out: '%d'";
 LABEL_10:
       _os_log_impl(&dword_26F567000, v11, OS_LOG_TYPE_DEFAULT, v12, buf, 8u);
@@ -133,13 +131,12 @@ LABEL_10:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v18 = _optOutSoftwareUpdatePreferenceForAnyUser == 1;
+      v17 = _optOutSoftwareUpdatePreferenceForAnyUser == 1;
       v12 = "No persisted opt-out state, returning current setting: '%d'";
       goto LABEL_10;
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return _optOutSoftwareUpdatePreferenceForAnyUser == 1;
 }
 
@@ -239,7 +236,7 @@ void __78__TRIUserAdjustableSettings__deactivateAllActiveExperimentsWithServerCo
 
 + (unsigned)_optOutSoftwareUpdatePreferenceForAnyUser
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CBF040];
   v3 = *MEMORY[0x277CBF010];
   CFPreferencesSynchronize(@"com.apple.softwareupdateservicesd", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
@@ -250,11 +247,11 @@ void __78__TRIUserAdjustableSettings__deactivateAllActiveExperimentsWithServerCo
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v15 = 0;
+      v14 = 0;
       _os_log_impl(&dword_26F567000, v8, OS_LOG_TYPE_DEFAULT, "Nothing to convert, value of opt-out preference: %{public}@", buf, 0xCu);
     }
 
-    goto LABEL_16;
+    return 2;
   }
 
   v5 = v4;
@@ -270,7 +267,7 @@ void __78__TRIUserAdjustableSettings__deactivateAllActiveExperimentsWithServerCo
   {
 LABEL_15:
     CFRelease(v5);
-    goto LABEL_16;
+    return 2;
   }
 
   valuePtr = -1;
@@ -280,7 +277,7 @@ LABEL_15:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v15 = v5;
+      v14 = v5;
       _os_log_error_impl(&dword_26F567000, v11, OS_LOG_TYPE_ERROR, "Failed to convert CFNumberRef value into int when getting opt-out preference: %{public}@", buf, 0xCu);
     }
 
@@ -290,17 +287,12 @@ LABEL_15:
   Value = valuePtr;
 LABEL_10:
   CFRelease(v5);
-  if (Value)
+  if (!Value)
   {
-LABEL_16:
-    result = 2;
-    goto LABEL_17;
+    return 1;
   }
 
-  result = 1;
-LABEL_17:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return 2;
 }
 
 @end

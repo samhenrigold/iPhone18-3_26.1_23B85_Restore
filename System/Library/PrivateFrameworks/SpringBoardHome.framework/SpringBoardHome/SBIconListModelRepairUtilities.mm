@@ -177,66 +177,69 @@ id __150__SBIconListModelRepairUtilities_repairModelByEliminatingGapsInIcons_avo
   infoCopy = info;
   providerCopy = provider;
   blockCopy = block;
-  v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v13 = 20;
   while (1)
   {
     v14 = [iconsCopy copy];
-    if (!blockCopy[2](blockCopy, infoCopy))
+    v15 = blockCopy[2](blockCopy, infoCopy);
+    if (!v15)
     {
       break;
     }
 
-    v15 = providerCopy[2](providerCopy);
-    if ([v15 isEqual:infoCopy])
+    v16 = providerCopy[2](providerCopy);
+    v17 = [v16 isEqual:infoCopy];
+    if (v17)
     {
-      v16 = SBLogIcon();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = SBLogIcon(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1BEB18000, v16, OS_LOG_TYPE_DEFAULT, "List model repair did not change icon order, rolling back and stopping", buf, 2u);
+        _os_log_impl(&dword_1BEB18000, v18, OS_LOG_TYPE_DEFAULT, "List model repair did not change icon order, rolling back and stopping", buf, 2u);
       }
 
       nodes = [v14 nodes];
       [iconsCopy setNodes:nodes];
 
-      v18 = 0;
-      v19 = v14;
-      v20 = iconsCopy;
+      v20 = 0;
+      v21 = v14;
+      v22 = iconsCopy;
       iconsCopy = v14;
     }
 
     else
     {
-      if ([v26 containsObject:v15])
+      v23 = [v29 containsObject:v16];
+      if (v23)
       {
-        v21 = SBLogIcon();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v24 = SBLogIcon(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          *v27 = 0;
-          _os_log_impl(&dword_1BEB18000, v21, OS_LOG_TYPE_DEFAULT, "Previous layout detecting when trying to repair list model", v27, 2u);
+          *v30 = 0;
+          _os_log_impl(&dword_1BEB18000, v24, OS_LOG_TYPE_DEFAULT, "Previous layout detecting when trying to repair list model", v30, 2u);
         }
 
-        v18 = 0;
+        v20 = 0;
       }
 
       else
       {
-        [v26 insertObject:v15 atIndex:0];
-        if ([v26 count] >= 4)
+        [v29 insertObject:v16 atIndex:0];
+        if ([v29 count] >= 4)
         {
-          [v26 removeLastObject];
+          [v29 removeLastObject];
         }
 
-        v18 = 1;
+        v20 = 1;
       }
 
-      v19 = v15;
-      v20 = infoCopy;
-      infoCopy = v15;
+      v21 = v16;
+      v22 = infoCopy;
+      infoCopy = v16;
     }
 
-    v22 = v19;
+    v25 = v21;
 
     if (!v13)
     {
@@ -244,7 +247,7 @@ id __150__SBIconListModelRepairUtilities_repairModelByEliminatingGapsInIcons_avo
     }
 
     --v13;
-    if ((v18 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
       goto LABEL_23;
     }
@@ -256,15 +259,15 @@ id __150__SBIconListModelRepairUtilities_repairModelByEliminatingGapsInIcons_avo
   }
 
 LABEL_19:
-  v23 = SBLogIcon();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v26 = SBLogIcon(v15);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
-    [SBIconListModelRepairUtilities _performRepairOnIcons:v23 startingGridCellInfo:? gridCellInfoProvider:? usingRepairBlock:?];
+    [SBIconListModelRepairUtilities _performRepairOnIcons:v26 startingGridCellInfo:? gridCellInfoProvider:? usingRepairBlock:?];
   }
 
 LABEL_22:
 LABEL_23:
-  v24 = infoCopy;
+  v27 = infoCopy;
 
   return infoCopy;
 }
@@ -449,12 +452,12 @@ void __85__SBIconListModelRepairUtilities__findAndRepairEmptyRows_avoidingIcons_
     {
       v33 = v18;
       selfCopy = self;
-      v42 = behaviorCopy;
+      v43 = behaviorCopy;
       v20 = 0;
       v39 = 0;
       v21 = 0;
       v22 = gridSize;
-      v41 = v9;
+      v42 = v9;
       v36 = gridSize;
       v35 = gapsCopy;
       while (1)
@@ -462,26 +465,27 @@ void __85__SBIconListModelRepairUtilities__findAndRepairEmptyRows_avoidingIcons_
         v23 = [infoCopy iconIndexForGridCellIndex:v21];
         if (v23 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v9 = v9 & 0xFFFFFFFF00000000 | v41;
-          if (_SBIconListIsColumnValidForGridSize(v21 % v22, v22, v9, v42))
+          v9 = v9 & 0xFFFFFFFF00000000 | v42;
+          if (_SBIconListIsColumnValidForGridSize(v21 % v22, v22, v9, v43))
           {
-            v40 = v40 & 0xFFFFFFFF00000000 | v41;
-            if (_SBIconListIsRowValidForGridSize(v21 / v22, v41, [infoCopy gridSize], v42))
+            v40 = v40 & 0xFFFFFFFF00000000 | v42;
+            v41 = v41 & 0xFFFFFFFF00000000 | [infoCopy gridSize];
+            if (_SBIconListIsRowValidForGridSize(v21 / v22, v40, v41, v43))
             {
-              v46 = 0;
-              v47 = &v46;
-              v48 = 0x2020000000;
-              v49 = 1;
-              v43[0] = MEMORY[0x1E69E9820];
-              v43[1] = 3221225472;
-              v43[2] = __131__SBIconListModelRepairUtilities__findAndRepairWidgetSizedGaps_widgetGridSizeClass_widgetGridSize_iconLayoutBehavior_gridCellInfo___block_invoke_2;
-              v43[3] = &unk_1E808E400;
+              v47 = 0;
+              v48 = &v47;
+              v49 = 0x2020000000;
+              v50 = 1;
+              v44[0] = MEMORY[0x1E69E9820];
+              v44[1] = 3221225472;
+              v44[2] = __131__SBIconListModelRepairUtilities__findAndRepairWidgetSizedGaps_widgetGridSizeClass_widgetGridSize_iconLayoutBehavior_gridCellInfo___block_invoke_2;
+              v44[3] = &unk_1E808E400;
               v24 = infoCopy;
-              v44 = v24;
-              v45 = &v46;
+              v45 = v24;
+              v46 = &v47;
               v37 = v37 & 0xFFFFFFFF00000000 | v36;
-              SBHIconGridRangeEnumerateCellIndexes(v21, v41, v36, v43);
-              if (*(v47 + 24) == 1)
+              SBHIconGridRangeEnumerateCellIndexes(v21, v42, v36, v44);
+              if (*(v48 + 24) == 1)
               {
                 v25 = v20 + 1;
                 v26 = [gapsCopy count] - (v20 + 1);
@@ -528,7 +532,7 @@ LABEL_24:
                 v31 = 1;
               }
 
-              _Block_object_dispose(&v46, 8);
+              _Block_object_dispose(&v47, 8);
               if ((v31 & 1) == 0)
               {
                 goto LABEL_32;
@@ -574,7 +578,7 @@ uint64_t __131__SBIconListModelRepairUtilities__findAndRepairWidgetSizedGaps_wid
   return v5;
 }
 
-uint64_t __131__SBIconListModelRepairUtilities__findAndRepairWidgetSizedGaps_widgetGridSizeClass_widgetGridSize_iconLayoutBehavior_gridCellInfo___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__131__SBIconListModelRepairUtilities__findAndRepairWidgetSizedGaps_widgetGridSizeClass_widgetGridSize_iconLayoutBehavior_gridCellInfo___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) iconIndexForGridCellIndex:a2];
   if (result != 0x7FFFFFFFFFFFFFFFLL)

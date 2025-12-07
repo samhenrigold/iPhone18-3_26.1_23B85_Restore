@@ -42,7 +42,7 @@
     [(_UIBackdropViewSettings *)self setColorTint:v10];
 
     [(_UIBackdropViewSettings *)self setColorTintAlpha:1.0];
-    v7 = +[UIColor blackColor];
+    v7 = objc_msgSend_blackColor(UIColor);
   }
 
   else

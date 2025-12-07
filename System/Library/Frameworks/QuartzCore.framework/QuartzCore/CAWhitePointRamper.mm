@@ -53,11 +53,11 @@
   {
     if (self)
     {
-      [(CAWhitePointRamper *)self whitePointStart];
+      objc_msgSend_whitePointStart(self);
       v34 = *&buf[v31];
-      [(CAWhitePointRamper *)self whitePointEnd];
+      objc_msgSend_whitePointEnd(self);
       v35 = *(v55 + v31);
-      [(CAWhitePointRamper *)self whitePointStart];
+      objc_msgSend_whitePointStart(self);
     }
 
     else

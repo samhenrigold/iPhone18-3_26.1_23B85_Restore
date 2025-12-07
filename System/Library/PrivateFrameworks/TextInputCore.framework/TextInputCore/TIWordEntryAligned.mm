@@ -9,39 +9,39 @@
 
 - (NSArray)alignedTouches
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   alignedTouches = self->_alignedTouches;
   if (!alignedTouches)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     alignedKeyboardInputs = [(TIWordEntryAligned *)self alignedKeyboardInputs];
-    v6 = [alignedKeyboardInputs countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [alignedKeyboardInputs countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         v9 = 0;
         do
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(alignedKeyboardInputs);
           }
 
-          touchEvent = [*(*(&v15 + 1) + 8 * v9) touchEvent];
+          touchEvent = [*(*(&v14 + 1) + 8 * v9) touchEvent];
           [(NSArray *)array addObject:touchEvent];
 
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [alignedKeyboardInputs countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [alignedKeyboardInputs countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -54,7 +54,6 @@
   }
 
   v12 = alignedTouches;
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

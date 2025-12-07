@@ -53,12 +53,12 @@ uint64_t __FigNote_GetValue_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __FigNote_ConfigureRingBuffer_block_invoke(uint64_t result)
+uint64_t __FigNote_ConfigureRingBuffer_block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
-  v1 = *(*(result + 40) + 8);
-  if (v1)
+  v9 = *(*(result + 40) + 8);
+  if (v9)
   {
-    if (v1 >= 0x200000)
+    if (v9 >= 0x200000)
     {
       return __FigNote_ConfigureRingBuffer_block_invoke_cold_1(result);
     }
@@ -66,79 +66,79 @@ uint64_t __FigNote_ConfigureRingBuffer_block_invoke(uint64_t result)
 
   else
   {
-    v1 = 0x100000;
+    v9 = 0x100000;
   }
 
-  qword_1ED4CC180 = v1;
+  qword_1ED4CC180 = v9;
   if (byte_1ED4CC169)
   {
-    fig_note_dropRingBufferDataStructuresInternal();
+    fig_note_dropRingBufferDataStructuresInternal(result, a2, a3, a4, a5, a6, a7, a8);
 
-    return fig_note_makeRingBufferDataStructuresInternal();
+    return fig_note_makeRingBufferDataStructuresInternal(v10, v11, v12, v13, v14, v15, v16, v17, a9);
   }
 
   return result;
 }
 
-void __FigNote_EnableRingBuffer_block_invoke(uint64_t a1)
+void __FigNote_EnableRingBuffer_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (*(a1 + 32))
   {
-    v2 = byte_1ED4CC169 == 0;
+    v9 = byte_1ED4CC169 == 0;
   }
 
   else
   {
-    v2 = 0;
+    v9 = 0;
   }
 
-  if (v2)
+  if (v9)
   {
-    fig_note_makeRingBufferDataStructuresInternal();
+    fig_note_makeRingBufferDataStructuresInternal(a1, a2, a3, a4, a5, a6, a7, a8, v11);
   }
 
   else
   {
     if (*(a1 + 32))
     {
-      v3 = 1;
+      v10 = 1;
     }
 
     else
     {
-      v3 = byte_1ED4CC169 == 0;
+      v10 = byte_1ED4CC169 == 0;
     }
 
-    if (!v3)
+    if (!v10)
     {
-      fig_note_dropRingBufferDataStructuresInternal();
+      fig_note_dropRingBufferDataStructuresInternal(a1, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
   byte_1ED4CC169 = *(a1 + 32);
 }
 
-void __FigNote_CopyRingBufferLogArrayAndResetRing_block_invoke(uint64_t a1)
+void __FigNote_CopyRingBufferLogArrayAndResetRing_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
-  v2 = atomic_load(&qword_1ED4CC178);
-  *(*(*(a1 + 32) + 8) + 24) = v2;
-  v3 = qword_1ED4CC170;
+  v10 = atomic_load(&qword_1ED4CC178);
+  *(*(*(a1 + 32) + 8) + 24) = v10;
+  v11 = qword_1ED4CC170;
   if (qword_1ED4CC170)
   {
-    v3 = CFRetain(qword_1ED4CC170);
+    v11 = CFRetain(qword_1ED4CC170);
   }
 
-  *(*(*(a1 + 40) + 8) + 24) = v3;
+  *(*(*(a1 + 40) + 8) + 24) = v11;
   if (*(*(*(a1 + 40) + 8) + 24))
   {
     *(*(*(a1 + 48) + 8) + 24) = qword_1ED4CC180;
     if (!*(a1 + 56) || (~*(*(*(a1 + 32) + 8) + 24) & 0x1FFFFF) != 0)
     {
-      fig_note_dropRingBufferDataStructuresInternal();
+      fig_note_dropRingBufferDataStructuresInternal(v11, a2, a3, a4, a5, a6, a7, a8);
       if (*(a1 + 56))
       {
 
-        fig_note_makeRingBufferDataStructuresInternal();
+        fig_note_makeRingBufferDataStructuresInternal(v12, v13, v14, v15, v16, v17, v18, v19, a9);
       }
 
       else
@@ -179,7 +179,7 @@ size_t __FigNote_ConfigureRingBuffer_block_invoke_cold_1(uint64_t a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBED8uLL, "|FigNote|", 0xA83, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBED8uLL, "|FigNote|", 0xA83, v3, v4, v5, v7);
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }

@@ -58,24 +58,25 @@ void __68__TVRCUpNextController_markAsWatchedWithMediaIdentifier_completion___bl
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = [WeakRetained error];
+  v4 = v3;
   if (v3)
   {
-    v4 = _TVRCRapportLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _TVRCRapportLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __68__TVRCUpNextController_markAsWatchedWithMediaIdentifier_completion___block_invoke_cold_1(a1);
+      __68__TVRCUpNextController_markAsWatchedWithMediaIdentifier_completion___block_invoke_cold_1();
     }
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __68__TVRCUpNextController_markAsWatchedWithMediaIdentifier_completion___block_invoke_1;
-  v7[3] = &unk_279D82408;
-  v5 = *(a1 + 40);
-  v8 = v3;
-  v9 = v5;
-  v6 = v3;
-  dispatch_async(MEMORY[0x277D85CD0], v7);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __68__TVRCUpNextController_markAsWatchedWithMediaIdentifier_completion___block_invoke_1;
+  v8[3] = &unk_279D82408;
+  v6 = *(a1 + 40);
+  v9 = v4;
+  v10 = v6;
+  v7 = v4;
+  dispatch_async(MEMORY[0x277D85CD0], v8);
 }
 
 - (void)addItemWithMediaIdentifier:(id)identifier completion:(id)completion
@@ -97,24 +98,25 @@ void __68__TVRCUpNextController_markAsWatchedWithMediaIdentifier_completion___bl
 void __62__TVRCUpNextController_addItemWithMediaIdentifier_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _TVRCRapportLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _TVRCRapportLog(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __62__TVRCUpNextController_addItemWithMediaIdentifier_completion___block_invoke_cold_1(a1);
+      __62__TVRCUpNextController_addItemWithMediaIdentifier_completion___block_invoke_cold_1();
     }
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __62__TVRCUpNextController_addItemWithMediaIdentifier_completion___block_invoke_4;
-  v8[3] = &unk_279D82408;
-  v6 = *(a1 + 40);
-  v9 = v4;
-  v10 = v6;
-  v7 = v4;
-  dispatch_async(MEMORY[0x277D85CD0], v8);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __62__TVRCUpNextController_addItemWithMediaIdentifier_completion___block_invoke_4;
+  v9[3] = &unk_279D82408;
+  v7 = *(a1 + 40);
+  v10 = v5;
+  v11 = v7;
+  v8 = v5;
+  dispatch_async(MEMORY[0x277D85CD0], v9);
 }
 
 - (void)removeItemWithMediaIdentifier:(id)identifier completion:(id)completion
@@ -136,24 +138,25 @@ void __62__TVRCUpNextController_addItemWithMediaIdentifier_completion___block_in
 void __65__TVRCUpNextController_removeItemWithMediaIdentifier_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _TVRCRapportLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _TVRCRapportLog(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __65__TVRCUpNextController_removeItemWithMediaIdentifier_completion___block_invoke_cold_1(a1);
+      __65__TVRCUpNextController_removeItemWithMediaIdentifier_completion___block_invoke_cold_1();
     }
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __65__TVRCUpNextController_removeItemWithMediaIdentifier_completion___block_invoke_7;
-  v8[3] = &unk_279D82408;
-  v6 = *(a1 + 40);
-  v9 = v4;
-  v10 = v6;
-  v7 = v4;
-  dispatch_async(MEMORY[0x277D85CD0], v8);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __65__TVRCUpNextController_removeItemWithMediaIdentifier_completion___block_invoke_7;
+  v9[3] = &unk_279D82408;
+  v7 = *(a1 + 40);
+  v10 = v5;
+  v11 = v7;
+  v8 = v5;
+  dispatch_async(MEMORY[0x277D85CD0], v9);
 }
 
 - (void)playItem:(id)item completion:(id)completion
@@ -170,17 +173,18 @@ LABEL_5:
     goto LABEL_9;
   }
 
-  if ([itemCopy hasURL])
+  hasURL = [itemCopy hasURL];
+  if (hasURL)
   {
     mediaIdentifier = [itemCopy url];
     [(TVRCUpNextController *)self _openURL:mediaIdentifier completion:completionCopy];
     goto LABEL_5;
   }
 
-  v10 = _TVRCRapportLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = _TVRCRapportLog(hasURL);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    [TVRCUpNextController playItem:v10 completion:?];
+    [TVRCUpNextController playItem:v11 completion:?];
   }
 
   completionCopy[2](completionCopy, 0);
@@ -262,47 +266,48 @@ void __72__TVRCUpNextController__fetchUpNextInfosWithPaginationToken_completion_
   if (WeakRetained)
   {
     v5 = [v3 error];
+    v6 = v5;
     if (v5)
     {
-      v6 = _TVRCRapportLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = _TVRCRapportLog(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __72__TVRCUpNextController__fetchUpNextInfosWithPaginationToken_completion___block_invoke_cold_1(v5, v6);
+        __72__TVRCUpNextController__fetchUpNextInfosWithPaginationToken_completion___block_invoke_cold_1(v6, v7);
       }
     }
 
     v21 = v4;
-    v7 = [v4 response];
-    v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v8 = [v4 response];
+    v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v20 = v7;
-    v9 = [v7 items];
-    v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
-    if (v10)
+    v20 = v8;
+    v10 = [v8 items];
+    v11 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v27;
+      v12 = v11;
+      v13 = *v27;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v27 != v12)
+          if (*v27 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = [*(*(&v26 + 1) + 8 * i) dictionary];
-          v15 = [TVRCUpNextInfo upNextInfoWithDictionary:v14];
-          [v8 addObject:v15];
+          v15 = [*(*(&v26 + 1) + 8 * i) dictionary];
+          v16 = [TVRCUpNextInfo upNextInfoWithDictionary:v15];
+          [v9 addObject:v16];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
 
     block[0] = MEMORY[0x277D85DD0];
@@ -310,28 +315,24 @@ void __72__TVRCUpNextController__fetchUpNextInfosWithPaginationToken_completion_
     block[2] = __72__TVRCUpNextController__fetchUpNextInfosWithPaginationToken_completion___block_invoke_12;
     block[3] = &unk_279D824A8;
     block[4] = WeakRetained;
-    v23 = v8;
-    v16 = a1[4];
-    v24 = v5;
-    v25 = v16;
-    v17 = v5;
-    v18 = v8;
+    v23 = v9;
+    v17 = a1[4];
+    v24 = v6;
+    v25 = v17;
+    v18 = v6;
+    v19 = v9;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
     v4 = v21;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __72__TVRCUpNextController__fetchUpNextInfosWithPaginationToken_completion___block_invoke_12(uint64_t a1)
 {
   [*(a1 + 32) setUpNextInfos:*(a1 + 40)];
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 40);
-  v4 = *(*(a1 + 56) + 16);
+  v2 = *(*(a1 + 56) + 16);
 
-  return v4();
+  return v2();
 }
 
 - (void)_fetchPlayableOpenURLForMediaIdentifier:(id)identifier type:(int64_t)type completion:(id)completion
@@ -357,43 +358,44 @@ uint64_t __72__TVRCUpNextController__fetchUpNextInfosWithPaginationToken_complet
 
 void __80__TVRCUpNextController__fetchPlayableOpenURLForMediaIdentifier_type_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
     {
-      v8 = _TVRCRapportLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _TVRCRapportLog(WeakRetained);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __80__TVRCUpNextController__fetchPlayableOpenURLForMediaIdentifier_type_completion___block_invoke_cold_1(a1);
+        __80__TVRCUpNextController__fetchPlayableOpenURLForMediaIdentifier_type_completion___block_invoke_cold_1();
       }
     }
 
     else
     {
-      v26 = 0u;
       v27 = 0u;
-      v24 = 0u;
+      v28 = 0u;
       v25 = 0u;
+      v26 = 0u;
       v13 = [v5 playables];
-      v14 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v25;
+        v16 = *v26;
 LABEL_10:
         v17 = 0;
         while (1)
         {
-          if (*v25 != v16)
+          if (*v26 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v24 + 1) + 8 * v17);
+          v18 = *(*(&v25 + 1) + 8 * v17);
           if ([v18 isEntitled] & 1) != 0 || (objc_msgSend(v18, "isEntitledAnywhere"))
           {
             break;
@@ -401,7 +403,7 @@ LABEL_10:
 
           if (v15 == ++v17)
           {
-            v15 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
             if (v15)
             {
               goto LABEL_10;
@@ -411,48 +413,46 @@ LABEL_10:
           }
         }
 
-        v8 = v18;
+        v9 = v18;
 
-        if (!v8)
+        if (!v9)
         {
           goto LABEL_20;
         }
 
-        v9 = [v8 playPunchoutURL];
+        v10 = [v9 playPunchoutURL];
         goto LABEL_6;
       }
 
 LABEL_17:
 
 LABEL_20:
-      v8 = _TVRCRapportLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = _TVRCRapportLog(v19);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = *(a1 + 32);
-        v20 = [v5 playables];
+        v20 = *(a1 + 32);
+        v21 = [v5 playables];
         *buf = 138543618;
-        v29 = v19;
-        v30 = 2112;
-        v31 = v20;
-        _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, "Failed to find an entitled playable to play %{public}@ - playables=%@", buf, 0x16u);
+        v30 = v20;
+        v31 = 2112;
+        v32 = v21;
+        _os_log_impl(&dword_26CF7F000, v9, OS_LOG_TYPE_DEFAULT, "Failed to find an entitled playable to play %{public}@ - playables=%@", buf, 0x16u);
       }
     }
 
-    v9 = 0;
+    v10 = 0;
 LABEL_6:
 
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __80__TVRCUpNextController__fetchPlayableOpenURLForMediaIdentifier_type_completion___block_invoke_14;
-    v21[3] = &unk_279D82408;
-    v10 = *(a1 + 40);
-    v22 = v9;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __80__TVRCUpNextController__fetchPlayableOpenURLForMediaIdentifier_type_completion___block_invoke_14;
+    v22[3] = &unk_279D82408;
+    v11 = *(a1 + 40);
     v23 = v10;
-    v11 = v9;
-    dispatch_async(MEMORY[0x277D85CD0], v21);
+    v24 = v11;
+    v12 = v10;
+    dispatch_async(MEMORY[0x277D85CD0], v22);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_openURLString:(id)string completion:(id)completion
@@ -476,102 +476,95 @@ LABEL_6:
 
 - (void)_openURL:(id)l completion:(id)completion
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   lCopy = l;
   completionCopy = completion;
   v7 = objc_alloc_init(MEMORY[0x277CC1F00]);
   v8 = *MEMORY[0x277D0AC30];
-  v17[0] = *MEMORY[0x277D0AC58];
-  v17[1] = v8;
-  v18[0] = MEMORY[0x277CBEC38];
-  v18[1] = &unk_287E66C78;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v16[0] = *MEMORY[0x277D0AC58];
+  v16[1] = v8;
+  v17[0] = MEMORY[0x277CBEC38];
+  v17[1] = &unk_287E66C78;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   [v7 setFrontBoardOptions:v9];
 
   defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __44__TVRCUpNextController__openURL_completion___block_invoke;
-  v14[3] = &unk_279D82520;
-  v15 = lCopy;
-  v16 = completionCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __44__TVRCUpNextController__openURL_completion___block_invoke;
+  v13[3] = &unk_279D82520;
+  v14 = lCopy;
+  v15 = completionCopy;
   v11 = completionCopy;
   v12 = lCopy;
-  [defaultWorkspace openURL:v12 configuration:v7 completionHandler:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [defaultWorkspace openURL:v12 configuration:v7 completionHandler:v13];
 }
 
 void __44__TVRCUpNextController__openURL_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _TVRCRapportLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _TVRCRapportLog(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __44__TVRCUpNextController__openURL_completion___block_invoke_cold_1(a1);
+      __44__TVRCUpNextController__openURL_completion___block_invoke_cold_1();
     }
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __44__TVRCUpNextController__openURL_completion___block_invoke_22;
-  v8[3] = &unk_279D82408;
-  v6 = *(a1 + 40);
-  v9 = v4;
-  v10 = v6;
-  v7 = v4;
-  dispatch_async(MEMORY[0x277D85CD0], v8);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __44__TVRCUpNextController__openURL_completion___block_invoke_22;
+  v9[3] = &unk_279D82408;
+  v7 = *(a1 + 40);
+  v10 = v5;
+  v11 = v7;
+  v8 = v5;
+  dispatch_async(MEMORY[0x277D85CD0], v9);
 }
 
-void __68__TVRCUpNextController_markAsWatchedWithMediaIdentifier_completion___block_invoke_cold_1(uint64_t a1)
+void __68__TVRCUpNextController_markAsWatchedWithMediaIdentifier_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_26CF7F000, v1, v2, "Error marking %{public}@ as watched: %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_26CF7F000, v0, v1, "Error marking %{public}@ as watched: %{public}@");
 }
 
-void __62__TVRCUpNextController_addItemWithMediaIdentifier_completion___block_invoke_cold_1(uint64_t a1)
+void __62__TVRCUpNextController_addItemWithMediaIdentifier_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_26CF7F000, v1, v2, "Error adding to upNext %{public}@: %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_26CF7F000, v0, v1, "Error adding to upNext %{public}@: %{public}@");
 }
 
-void __65__TVRCUpNextController_removeItemWithMediaIdentifier_completion___block_invoke_cold_1(uint64_t a1)
+void __65__TVRCUpNextController_removeItemWithMediaIdentifier_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_26CF7F000, v1, v2, "Error removing %{public}@ from UpNext: %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_26CF7F000, v0, v1, "Error removing %{public}@ from UpNext: %{public}@");
 }
 
 void __72__TVRCUpNextController__fetchUpNextInfosWithPaginationToken_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_26CF7F000, a2, OS_LOG_TYPE_ERROR, "Error fetching up next infos: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_26CF7F000, a2, OS_LOG_TYPE_ERROR, "Error fetching up next infos: %{public}@", &v2, 0xCu);
 }
 
-void __80__TVRCUpNextController__fetchPlayableOpenURLForMediaIdentifier_type_completion___block_invoke_cold_1(uint64_t a1)
+void __80__TVRCUpNextController__fetchPlayableOpenURLForMediaIdentifier_type_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_26CF7F000, v1, v2, "Error requesting playables to play %{public}@: %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_26CF7F000, v0, v1, "Error requesting playables to play %{public}@: %{public}@");
 }
 
-void __44__TVRCUpNextController__openURL_completion___block_invoke_cold_1(uint64_t a1)
+void __44__TVRCUpNextController__openURL_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_26CF7F000, v1, v2, "Error attempting to openURL %@: %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_26CF7F000, v0, v1, "Error attempting to openURL %@: %{public}@");
 }
 
 @end

@@ -3,6 +3,7 @@
 - (BRServerMetrics)initWithServerMetrics:(id)metrics;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)initFromResultSet:(id)set pos:(int)pos;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -81,6 +82,39 @@
   }
 
   return v5;
+}
+
+- (id)initFromResultSet:(id)set pos:(int)pos
+{
+  v4 = *&pos;
+  setCopy = set;
+  v19.receiver = self;
+  v19.super_class = BRServerMetrics;
+  v7 = [(BRServerMetrics *)&v19 init];
+  if (v7)
+  {
+    v8 = [setCopy numberAtIndex:v4];
+    quotaUsed = v7->_quotaUsed;
+    v7->_quotaUsed = v8;
+
+    v10 = [setCopy numberAtIndex:(v4 + 1)];
+    recursiveChildCount = v7->_recursiveChildCount;
+    v7->_recursiveChildCount = v10;
+
+    v12 = [setCopy numberAtIndex:(v4 + 2)];
+    sharedByMeRecursiveCount = v7->_sharedByMeRecursiveCount;
+    v7->_sharedByMeRecursiveCount = v12;
+
+    v14 = [setCopy numberAtIndex:(v4 + 3)];
+    sharedAliasRecursiveCount = v7->_sharedAliasRecursiveCount;
+    v7->_sharedAliasRecursiveCount = v14;
+
+    v16 = [setCopy numberAtIndex:(v4 + 4)];
+    childCount = v7->_childCount;
+    v7->_childCount = v16;
+  }
+
+  return v7;
 }
 
 - (BRServerMetrics)initWithCoder:(id)coder

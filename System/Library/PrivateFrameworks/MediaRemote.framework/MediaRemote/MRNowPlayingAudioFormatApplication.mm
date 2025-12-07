@@ -37,11 +37,11 @@
     {
       v5 = equalCopy;
       bundleID = [(MRNowPlayingAudioFormatApplication *)v5 bundleID];
-      v7 = [bundleID isEqualToString:self->_bundleID];
+      isEqualToString = objc_msgSend_isEqualToString_(bundleID);
 
       displayName = [(MRNowPlayingAudioFormatApplication *)v5 displayName];
 
-      v9 = v7 & [displayName isEqualToString:self->_displayName];
+      v9 = isEqualToString & objc_msgSend_isEqualToString_(displayName);
     }
 
     else

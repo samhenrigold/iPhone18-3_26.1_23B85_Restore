@@ -133,46 +133,46 @@ LABEL_13:
 
 - (BOOL)_parseTXTRecord:(id)record
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   recordCopy = record;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 1;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
   v28 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 1;
   v24 = 0;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __45__MGRemoteQueryClientTarget__parseTXTRecord___block_invoke;
-  v20[3] = &unk_27989F348;
-  v20[4] = &v25;
-  v20[5] = &v29;
-  [(MGRemoteQueryClientTarget *)self _parseTXTRecord:recordCopy forVersion:0x2869A5AA8 result:v20];
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   v19[0] = MEMORY[0x277D85DD0];
   v19[1] = 3221225472;
-  v19[2] = __45__MGRemoteQueryClientTarget__parseTXTRecord___block_invoke_2;
+  v19[2] = __45__MGRemoteQueryClientTarget__parseTXTRecord___block_invoke;
   v19[3] = &unk_27989F348;
-  v19[4] = &v21;
-  v19[5] = &v29;
-  [(MGRemoteQueryClientTarget *)self _parseTXTRecord:recordCopy forVersion:0x2869A5A88 result:v19];
-  if (*(v30 + 24) != 1)
+  v19[4] = &v24;
+  v19[5] = &v28;
+  [(MGRemoteQueryClientTarget *)self _parseTXTRecord:recordCopy forVersion:0x2869A5AA8 result:v19];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __45__MGRemoteQueryClientTarget__parseTXTRecord___block_invoke_2;
+  v18[3] = &unk_27989F348;
+  v18[4] = &v20;
+  v18[5] = &v28;
+  [(MGRemoteQueryClientTarget *)self _parseTXTRecord:recordCopy forVersion:0x2869A5A88 result:v18];
+  if (*(v29 + 24) != 1)
   {
     goto LABEL_11;
   }
 
-  v5 = v22[3];
+  v5 = v21[3];
   if (v5 <= 1)
   {
     v5 = 1;
   }
 
-  if (v5 <= (v26[3] != 0))
+  if (v5 <= (v25[3] != 0))
   {
     self->_protocolVersion = 1;
     v6 = MGLogForCategory(6);
@@ -180,52 +180,52 @@ LABEL_13:
     {
       endpoint = [(MGRemoteQueryClientTarget *)self endpoint];
       protocolVersion = self->_protocolVersion;
-      v12 = v22[3];
-      v13 = v26[3];
+      v12 = v21[3];
+      v13 = v25[3];
       *buf = 134219522;
       selfCopy2 = self;
-      v35 = 2112;
-      v36 = endpoint;
-      v37 = 2048;
-      v38 = protocolVersion;
-      v39 = 2048;
-      v40 = v12;
-      v41 = 2048;
-      v42 = v13;
-      v43 = 2048;
-      v44 = 1;
-      v45 = 2048;
-      v46 = 1;
+      v34 = 2112;
+      v35 = endpoint;
+      v36 = 2048;
+      v37 = protocolVersion;
+      v38 = 2048;
+      v39 = v12;
+      v40 = 2048;
+      v41 = v13;
+      v42 = 2048;
+      v43 = 1;
+      v44 = 2048;
+      v45 = 1;
       _os_log_impl(&dword_25863A000, v6, OS_LOG_TYPE_DEFAULT, "%p target %@ compatible version using %lu, peer(%lu->%lu) me(%lu->%lu)", buf, 0x48u);
     }
   }
 
   else
   {
-    *(v30 + 24) = 0;
+    *(v29 + 24) = 0;
     v6 = MGLogForCategory(6);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       endpoint2 = [(MGRemoteQueryClientTarget *)self endpoint];
-      v8 = v22[3];
-      v9 = v26[3];
+      v8 = v21[3];
+      v9 = v25[3];
       *buf = 134219266;
       selfCopy2 = self;
-      v35 = 2112;
-      v36 = endpoint2;
-      v37 = 2048;
-      v38 = v8;
-      v39 = 2048;
-      v40 = v9;
-      v41 = 2048;
-      v42 = 1;
-      v43 = 2048;
-      v44 = 1;
+      v34 = 2112;
+      v35 = endpoint2;
+      v36 = 2048;
+      v37 = v8;
+      v38 = 2048;
+      v39 = v9;
+      v40 = 2048;
+      v41 = 1;
+      v42 = 2048;
+      v43 = 1;
       _os_log_error_impl(&dword_25863A000, v6, OS_LOG_TYPE_ERROR, "%p target %@ incompatible version, peer(%lu->%lu) me(%lu->%lu)", buf, 0x3Eu);
     }
   }
 
-  if (v30[3])
+  if (v29[3])
   {
     uTF8String = [@"h" UTF8String];
     access_value[0] = MEMORY[0x277D85DD0];
@@ -234,7 +234,7 @@ LABEL_13:
     access_value[3] = &unk_27989F370;
     access_value[4] = self;
     nw_txt_record_access_key(recordCopy, uTF8String, access_value);
-    v15 = *(v30 + 24);
+    v15 = *(v29 + 24);
   }
 
   else
@@ -243,11 +243,10 @@ LABEL_11:
     v15 = 0;
   }
 
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v28, 8);
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 

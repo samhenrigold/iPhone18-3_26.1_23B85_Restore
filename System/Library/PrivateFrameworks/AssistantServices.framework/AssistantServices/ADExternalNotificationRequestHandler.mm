@@ -92,7 +92,7 @@
     if (platform == 2 && [(ADExternalNotificationRequestHandler *)self _currentState]== 2)
     {
       userInfo = [changeCopy userInfo];
-      v9 = [userInfo objectForKey:AVSystemController_VoicePromptStyleDidChangeNotificationParameter];
+      v9 = objc_msgSend_objectForKey_(userInfo);
 
       if (v9 && ([v9 isEqualToString:AVSystemController_VoicePromptStyle_Normal] & 1) == 0)
       {

@@ -13,13 +13,13 @@
 
 - (unint64_t)estimateMessagesInChat:(id)chat
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   v6 = chatCopy;
   if (chatCopy)
   {
+    v15 = 0;
     v16 = 0;
-    v17 = 0;
   }
 
   else
@@ -27,15 +27,15 @@
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"SGChatLengthEstimator.m" lineNumber:147 description:{@"Invalid parameter not satisfying: %@", @"domainIdentifier"}];
 
+    v15 = 0;
     v16 = 0;
-    v17 = 0;
     chatCopy = 0;
   }
 
-  SGMurmurhashString(chatCopy, 3203338804, &v16);
+  SGMurmurhashString(chatCopy, 3203338804, &v15);
   pthread_mutex_lock(&sharedInstanceLock);
   v7 = -1;
-  v8 = &v16;
+  v8 = &v15;
   v9 = 1;
   do
   {
@@ -51,25 +51,24 @@
     }
 
     v9 = 0;
-    v8 = (&v16 + 4);
+    v8 = (&v15 + 4);
   }
 
   while ((v10 & 1) != 0);
   pthread_mutex_unlock(&sharedInstanceLock);
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)recordMessageInChat:(id)chat
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   v6 = chatCopy;
   if (chatCopy)
   {
+    v19 = 0;
     v20 = 0;
-    v21 = 0;
   }
 
   else
@@ -77,12 +76,12 @@
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"SGChatLengthEstimator.m" lineNumber:128 description:{@"Invalid parameter not satisfying: %@", @"domainIdentifier"}];
 
+    v19 = 0;
     v20 = 0;
-    v21 = 0;
     chatCopy = 0;
   }
 
-  SGMurmurhashString(chatCopy, 3203338804, &v20);
+  SGMurmurhashString(chatCopy, 3203338804, &v19);
   pthread_mutex_lock(&sharedInstanceLock);
   countPtr = self->_countPtr;
   v8 = *countPtr + 1;
@@ -99,7 +98,7 @@
     bzero(self->_countPtr, 0x4000uLL);
   }
 
-  v10 = &v20;
+  v10 = &v19;
   v11 = 1;
   do
   {
@@ -123,13 +122,11 @@
     }
 
     v11 = 0;
-    v10 = (&v20 + 4);
+    v10 = (&v19 + 4);
   }
 
   while ((v12 & 1) != 0);
   pthread_mutex_unlock(&sharedInstanceLock);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)count
@@ -180,11 +177,11 @@
 
 - (SGChatLengthEstimator)initWithPath:(id)path
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v21.receiver = self;
-  v21.super_class = SGChatLengthEstimator;
-  v5 = [(SGChatLengthEstimator *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = SGChatLengthEstimator;
+  v5 = [(SGChatLengthEstimator *)&v20 init];
   if (!v5)
   {
     goto LABEL_5;
@@ -201,15 +198,15 @@
     v11 = sgLogHandle();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v15 = __error();
-      v16 = strerror(*v15);
-      v17 = *__error();
+      v14 = __error();
+      v15 = strerror(*v14);
+      v16 = *__error();
       *buf = 138412802;
-      v23 = pathCopy;
-      v24 = 2080;
-      v25 = v16;
-      v26 = 1024;
-      v27 = v17;
+      v22 = pathCopy;
+      v23 = 2080;
+      v24 = v15;
+      v25 = 1024;
+      v26 = v16;
       _os_log_error_impl(&dword_231E60000, v11, OS_LOG_TYPE_ERROR, "Could not open chat length estimator at %@: %s (errno %i)", buf, 0x1Cu);
     }
 
@@ -233,15 +230,15 @@ LABEL_5:
     v12 = sgLogHandle();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v18 = __error();
-      v19 = strerror(*v18);
-      v20 = *__error();
+      v17 = __error();
+      v18 = strerror(*v17);
+      v19 = *__error();
       *buf = 138412802;
-      v23 = pathCopy;
-      v24 = 2080;
-      v25 = v19;
-      v26 = 1024;
-      v27 = v20;
+      v22 = pathCopy;
+      v23 = 2080;
+      v24 = v18;
+      v25 = 1024;
+      v26 = v19;
       _os_log_error_impl(&dword_231E60000, v12, OS_LOG_TYPE_ERROR, "Could not mmap chat length estimator file at %@: %s (errno %i)", buf, 0x1Cu);
     }
 
@@ -252,7 +249,6 @@ LABEL_5:
 
 LABEL_12:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

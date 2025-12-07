@@ -23,7 +23,7 @@
 {
   replyCopy = reply;
   reasonCopy = reason;
-  v8 = LA_LOG_0();
+  v8 = LA_LOG_0(reasonCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -55,7 +55,7 @@
 void __58__LAAssertionsProxy_takeTouchIdAssertionWithReason_reply___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LA_LOG_0();
+  v4 = LA_LOG_0(v3);
   v5 = v4;
   if (v3)
   {
@@ -78,7 +78,7 @@ void __58__LAAssertionsProxy_takeTouchIdAssertionWithReason_reply___block_invoke
 {
   replyCopy = reply;
   reasonCopy = reason;
-  v8 = LA_LOG_0();
+  v8 = LA_LOG_0(reasonCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -110,7 +110,7 @@ void __58__LAAssertionsProxy_takeTouchIdAssertionWithReason_reply___block_invoke
 void __58__LAAssertionsProxy_dropTouchIdAssertionWithReason_reply___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LA_LOG_0();
+  v4 = LA_LOG_0(v3);
   v5 = v4;
   if (v3)
   {
@@ -139,7 +139,8 @@ void __58__LAAssertionsProxy_dropTouchIdAssertionWithReason_reply___block_invoke
   }
 
   v5 = handlerCopy;
-  if ([(LAAssertionsProxy *)self isConnected])
+  isConnected = [(LAAssertionsProxy *)self isConnected];
+  if (isConnected)
   {
     connection = self->_connection;
     v13[0] = MEMORY[0x1E69E9820];
@@ -147,37 +148,35 @@ void __58__LAAssertionsProxy_dropTouchIdAssertionWithReason_reply___block_invoke
     v13[2] = __56__LAAssertionsProxy__remoteObjectProxyWithErrorHandler___block_invoke;
     v13[3] = &unk_1E86B5D08;
     v14 = v5;
-    v7 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v13];
-    v8 = v14;
+    v8 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v13];
+    v9 = v14;
   }
 
   else
   {
-    v9 = LA_LOG_0();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = LA_LOG_0(isConnected);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [LAAssertionsProxy _remoteObjectProxyWithErrorHandler:v9];
+      [LAAssertionsProxy _remoteObjectProxyWithErrorHandler:v10];
     }
 
     v15 = *MEMORY[0x1E696A278];
     v16[0] = @"Cannot perform operation while disconnected.";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-    v10 = [LAErrorHelper errorWithCode:-1000 userInfo:v8];
-    (v5)[2](v5, v10);
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v11 = [LAErrorHelper errorWithCode:-1000 userInfo:v9];
+    (v5)[2](v5, v11);
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v8;
 }
 
 void __56__LAAssertionsProxy__remoteObjectProxyWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = LA_LOG_0();
+  v4 = LA_LOG_0(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __56__LAAssertionsProxy__remoteObjectProxyWithErrorHandler___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
@@ -185,15 +184,13 @@ void __56__LAAssertionsProxy__remoteObjectProxyWithErrorHandler___block_invoke(u
 
   v11 = *(a1 + 32);
   v12 = *MEMORY[0x1E696AA08];
-  v16[0] = *MEMORY[0x1E696A278];
-  v16[1] = v12;
-  v17[0] = @"Could not obtain remote Assertions proxy.";
-  v17[1] = v3;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[0] = *MEMORY[0x1E696A278];
+  v15[1] = v12;
+  v16[0] = @"Could not obtain remote Assertions proxy.";
+  v16[1] = v3;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
   v14 = [LAErrorHelper errorWithCode:-1000 userInfo:v13];
   (*(v11 + 16))(v11, v14);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setConnection:(id)connection
@@ -222,45 +219,45 @@ void __56__LAAssertionsProxy__remoteObjectProxyWithErrorHandler___block_invoke(u
   self->_connection = connectionCopy;
 }
 
-void __35__LAAssertionsProxy_setConnection___block_invoke()
+void __35__LAAssertionsProxy_setConnection___block_invoke(uint64_t a1)
 {
-  v0 = LA_LOG_0();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = LA_LOG_0(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1DF403000, v0, OS_LOG_TYPE_DEFAULT, "Assertions XPC connection was interrupted.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1DF403000, v1, OS_LOG_TYPE_DEFAULT, "Assertions XPC connection was interrupted.", v2, 2u);
   }
 }
 
-void __35__LAAssertionsProxy_setConnection___block_invoke_59()
+void __35__LAAssertionsProxy_setConnection___block_invoke_59(uint64_t a1)
 {
-  v0 = LA_LOG_0();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = LA_LOG_0(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1DF403000, v0, OS_LOG_TYPE_DEFAULT, "Assertions XPC connection was invalidated.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1DF403000, v1, OS_LOG_TYPE_DEFAULT, "Assertions XPC connection was invalidated.", v2, 2u);
   }
 }
 
 void __58__LAAssertionsProxy_takeTouchIdAssertionWithReason_reply___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1DF403000, a2, a3, "Failed to acquire TouchID assertion: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1DF403000, a2, a3, "Failed to acquire TouchID assertion: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __58__LAAssertionsProxy_dropTouchIdAssertionWithReason_reply___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1DF403000, a2, a3, "Failed to remove TouchID assertion: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1DF403000, a2, a3, "Failed to remove TouchID assertion: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __56__LAAssertionsProxy__remoteObjectProxyWithErrorHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1DF403000, a2, a3, "Could not obtain remote Assertions proxy: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1DF403000, a2, a3, "Could not obtain remote Assertions proxy: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -470,11 +470,11 @@ LABEL_41:
   return WeakRetained;
 }
 
-- (uint64_t)displayInScene:.cold.1()
+- (void)displayInScene:.cold.1()
 {
-  dlerror();
-  abort_report_np();
-  return __getSKSpriteNodeClass_block_invoke_cold_1();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  __getSKSpriteNodeClass_block_invoke_cold_1();
 }
 
 @end

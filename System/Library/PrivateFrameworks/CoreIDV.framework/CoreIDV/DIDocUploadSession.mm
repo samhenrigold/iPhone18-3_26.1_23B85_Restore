@@ -8,7 +8,7 @@
 
 - (DIDocUploadSession)init
 {
-  v3 = DIV_LOG_CLIENT();
+  v3 = DIV_LOG_CLIENT(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(DIDocUploadSession *)v3 init:v4];
@@ -28,7 +28,7 @@
   completionCopy = completion;
   settingsCopy = settings;
   dataCopy = data;
-  v11 = DIV_LOG_CLIENT();
+  v11 = DIV_LOG_CLIENT(dataCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [(DIDocUploadSession *)v11 uploadDocData:v12 uploadSettings:v13 completion:v14, v15, v16, v17, v18];
@@ -40,7 +40,7 @@
 
 - (void)cancelUploads
 {
-  v3 = DIV_LOG_CLIENT();
+  v3 = DIV_LOG_CLIENT(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(DIDocUploadSession *)v3 cancelUploads:v4];

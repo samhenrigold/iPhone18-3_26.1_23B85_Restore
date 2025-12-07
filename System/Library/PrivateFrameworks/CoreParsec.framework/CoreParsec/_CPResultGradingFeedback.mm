@@ -101,7 +101,6 @@ LABEL_15:
   toCopy = to;
   if ([(_CPResultGradingFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -115,18 +114,16 @@ LABEL_15:
 
   if ([(_CPResultGradingFeedback *)self grade])
   {
-    grade = self->_grade;
     PBDataWriterWriteInt32Field();
   }
 
   textFeedback = [(_CPResultGradingFeedback *)self textFeedback];
 
-  v9 = toCopy;
+  v7 = toCopy;
   if (textFeedback)
   {
-    textFeedback = self->_textFeedback;
     PBDataWriterWriteStringField();
-    v9 = toCopy;
+    v7 = toCopy;
   }
 }
 

@@ -244,7 +244,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  if (self->_touchForceProvider == object && [path isEqualToString:@"active"])
+  if (self->_touchForceProvider == object && objc_msgSend_isEqualToString_(path, a2, @"active"))
   {
 
     [(_UIPreviewInteractionClassicImpl *)self _updateForCurrentTouchForceProvider];

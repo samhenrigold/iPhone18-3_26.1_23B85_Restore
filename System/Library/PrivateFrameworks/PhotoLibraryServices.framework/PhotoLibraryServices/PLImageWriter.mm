@@ -128,15 +128,15 @@
 
           v26 = *(*(&v53 + 1) + 8 * i);
           pathExtension = [v26 pathExtension];
-          if ([pathExtension isEqualToString:@"irs"])
+          if (objc_msgSend_isEqualToString_(pathExtension))
           {
             goto LABEL_18;
           }
 
           pathExtension2 = [v26 pathExtension];
-          v29 = [pathExtension2 isEqualToString:@"avalanche"];
+          isEqualToString = objc_msgSend_isEqualToString_(pathExtension2);
 
-          if (v29)
+          if (isEqualToString)
           {
             continue;
           }
@@ -287,7 +287,7 @@ LABEL_27:
 
 - (void)saveAssetJob:(id)job imageSurface:(id)surface previewImageSurface:(id)imageSurface completionHandler:(id)handler
 {
-  v80[1] = *MEMORY[0x1E69E9840];
+  v79[1] = *MEMORY[0x1E69E9840];
   jobCopy = job;
   surfaceCopy = surface;
   imageSurfaceCopy = imageSurface;
@@ -317,9 +317,9 @@ LABEL_27:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           *buf = 138543618;
-          v70 = v20;
-          v71 = 2114;
-          v72 = uUIDString;
+          v69 = v20;
+          v70 = 2114;
+          v71 = uUIDString;
           _os_log_impl(&dword_19BF1F000, v22, OS_LOG_TYPE_INFO, "Job %{public}@ missing required assetUUID, assigning %{public}@ ", buf, 0x16u);
         }
       }
@@ -331,9 +331,9 @@ LABEL_27:
     }
 
     v29 = [jobCopy objectForKey:*MEMORY[0x1E69C03D0]];
-    v60 = v29;
-    v55 = uUIDString;
-    if ([v20 isEqualToString:*MEMORY[0x1E69C0458]])
+    v59 = v29;
+    v54 = uUIDString;
+    if (objc_msgSend_isEqualToString_(v20))
     {
       v30 = *MEMORY[0x1E69C04C8];
       v31 = [jobCopy objectForKey:*MEMORY[0x1E69C04C8]];
@@ -341,20 +341,20 @@ LABEL_27:
       {
         if (![v29 length])
         {
-          v35 = [MEMORY[0x1E69BF178] defaultFileExtensionForAssetType:0];
-          v36 = v29;
-          v37 = v35;
+          v34 = [MEMORY[0x1E69BF178] defaultFileExtensionForAssetType:0];
+          v35 = v29;
+          v36 = v34;
 
-          v60 = v37;
+          v59 = v36;
         }
 
-        v38 = [jobCopy objectForKey:*MEMORY[0x1E69C0388]];
+        v37 = [jobCopy objectForKey:*MEMORY[0x1E69C0388]];
 
-        if (!v38)
+        if (!v37)
         {
-          v39 = [(PLImageWriter *)self cameraAssetPathForNewAssetWithExtension:v60 assetUUID:uUIDString];
+          v38 = [(PLImageWriter *)self cameraAssetPathForNewAssetWithExtension:v59 assetUUID:uUIDString];
 
-          v31 = v39;
+          v31 = v38;
         }
 
         if (v31)
@@ -374,10 +374,9 @@ LABEL_27:
       goto LABEL_18;
     }
 
-    v33 = *MEMORY[0x1E69C0478];
-    if (([v20 isEqualToString:*MEMORY[0x1E69C0478]] & 1) == 0 && (objc_msgSend(v20, "isEqualToString:", *MEMORY[0x1E69C0470]) & 1) == 0 && !objc_msgSend(v20, "isEqualToString:", *MEMORY[0x1E69C0488]))
+    if ((objc_msgSend_isEqualToString_(v20) & 1) == 0 && (objc_msgSend_isEqualToString_(v20) & 1) == 0 && !objc_msgSend_isEqualToString_(v20))
     {
-      if ([v20 isEqualToString:*MEMORY[0x1E69C0480]])
+      if (objc_msgSend_isEqualToString_(v20))
       {
         v31 = [(PLImageWriter *)self cameraAssetPathForNewAssetWithExtension:@"MOV" assetUUID:uUIDString];
         [jobCopy setObject:v31 forKey:*MEMORY[0x1E69C0588]];
@@ -395,81 +394,81 @@ LABEL_18:
 LABEL_51:
         if (imageSurfaceCopy)
         {
-          if ([v20 isEqualToString:*MEMORY[0x1E69C0480]])
+          if (objc_msgSend_isEqualToString_(v20))
           {
-            v44 = PLCreateCGImageFromIOSurface();
-            if (v44)
+            v43 = PLCreateCGImageFromIOSurface();
+            if (v43)
             {
-              v45 = v44;
-              [jobCopy setObject:v44 forKey:*MEMORY[0x1E69C0598]];
-              CFRelease(v45);
+              v44 = v43;
+              [jobCopy setObject:v43 forKey:*MEMORY[0x1E69C0598]];
+              CFRelease(v44);
             }
           }
 
-          v46 = PLCreateImageFromPreviewImageSurface();
-          if (v46)
+          v45 = PLCreateImageFromPreviewImageSurface();
+          if (v45)
           {
-            v47 = v46;
-            [jobCopy setObject:v46 forKey:*MEMORY[0x1E69C0548]];
-            CFRelease(v47);
+            v46 = v45;
+            [jobCopy setObject:v45 forKey:*MEMORY[0x1E69C0548]];
+            CFRelease(v46);
           }
         }
 
-        v58 = surfaceCopy;
-        v59 = imageSurfaceCopy;
+        v57 = surfaceCopy;
+        v58 = imageSurfaceCopy;
         aBlock[0] = MEMORY[0x1E69E9820];
         aBlock[1] = 3221225472;
         aBlock[2] = __81__PLImageWriter_saveAssetJob_imageSurface_previewImageSurface_completionHandler___block_invoke;
         aBlock[3] = &unk_1E7565D08;
-        v68 = a2;
-        v48 = v20;
-        v63 = v48;
-        v28 = v55;
-        v64 = v28;
-        v65 = v32;
-        v49 = v31;
-        v66 = v49;
-        v67 = handlerCopy;
-        v50 = _Block_copy(aBlock);
-        v51 = PLAssetImportGetLog();
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+        v67 = a2;
+        v47 = v20;
+        v62 = v47;
+        v28 = v54;
+        v63 = v28;
+        v64 = v32;
+        v48 = v31;
+        v65 = v48;
+        v66 = handlerCopy;
+        v49 = _Block_copy(aBlock);
+        v50 = PLAssetImportGetLog();
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
-          v52 = NSStringFromSelector(a2);
+          v51 = NSStringFromSelector(a2);
           *buf = 138544386;
-          v70 = v52;
-          v71 = 2114;
-          v72 = v48;
-          v73 = 2114;
-          v74 = v28;
-          v75 = 2114;
-          v76 = v32;
-          v77 = 2112;
-          v78 = v49;
-          _os_log_impl(&dword_19BF1F000, v51, OS_LOG_TYPE_DEFAULT, "[%{public}@] enqueing job %{public}@ assetUUID %{public}@ with %{public}@ destination path %@", buf, 0x34u);
+          v69 = v51;
+          v70 = 2114;
+          v71 = v47;
+          v72 = 2114;
+          v73 = v28;
+          v74 = 2114;
+          v75 = v32;
+          v76 = 2112;
+          v77 = v48;
+          _os_log_impl(&dword_19BF1F000, v50, OS_LOG_TYPE_DEFAULT, "[%{public}@] enqueing job %{public}@ assetUUID %{public}@ with %{public}@ destination path %@", buf, 0x34u);
         }
 
-        v53 = [v50 copy];
-        v54 = _Block_copy(v53);
-        [jobCopy setObject:v54 forKey:@"completionBlock"];
+        v52 = [v49 copy];
+        v53 = _Block_copy(v52);
+        [jobCopy setObject:v53 forKey:@"completionBlock"];
 
         [(PLImageWriter *)self enqueueJob:jobCopy];
-        surfaceCopy = v58;
-        imageSurfaceCopy = v59;
+        surfaceCopy = v57;
+        imageSurfaceCopy = v58;
         goto LABEL_60;
       }
 
 LABEL_48:
-      v42 = [jobCopy objectForKey:*MEMORY[0x1E69C02D0]];
-      if (v42)
+      v41 = [jobCopy objectForKey:*MEMORY[0x1E69C02D0]];
+      if (v41)
       {
-        v43 = [objc_alloc(MEMORY[0x1E69BF250]) initWithIOSurface:surfaceCopy length:{objc_msgSend(v42, "unsignedIntegerValue")}];
-        [jobCopy setObject:v43 forKey:*MEMORY[0x1E69C03F8]];
+        v42 = [objc_alloc(MEMORY[0x1E69BF250]) initWithIOSurface:surfaceCopy length:{objc_msgSend(v41, "unsignedIntegerValue")}];
+        [jobCopy setObject:v42 forKey:*MEMORY[0x1E69C03F8]];
       }
 
       goto LABEL_51;
     }
 
-    v34 = *MEMORY[0x1E69C0588];
+    v33 = *MEMORY[0x1E69C0588];
     v31 = [jobCopy objectForKey:*MEMORY[0x1E69C0588]];
     if ([v31 length])
     {
@@ -482,39 +481,39 @@ LABEL_48:
       goto LABEL_48;
     }
 
-    if (![v60 length])
+    if (![v29 length])
     {
-      v56 = [MEMORY[0x1E69BF178] defaultFileExtensionForAssetType:2];
+      v55 = [MEMORY[0x1E69BF178] defaultFileExtensionForAssetType:2];
 
-      v60 = v56;
+      v59 = v55;
     }
 
-    if (([v20 isEqualToString:v33] & 1) != 0 || objc_msgSend(v20, "isEqualToString:", *MEMORY[0x1E69C0470]))
+    if ((objc_msgSend_isEqualToString_(v20) & 1) != 0 || objc_msgSend_isEqualToString_(v20))
     {
-      v40 = [jobCopy objectForKey:*MEMORY[0x1E69C05A0]];
-      [jobCopy setObject:v40 forKey:*MEMORY[0x1E69C0590]];
+      v39 = [jobCopy objectForKey:*MEMORY[0x1E69C05A0]];
+      [jobCopy setObject:v39 forKey:*MEMORY[0x1E69C0590]];
 
-      v41 = [jobCopy objectForKey:*MEMORY[0x1E69C04E0]];
-      if (v41)
+      v40 = [jobCopy objectForKey:*MEMORY[0x1E69C04E0]];
+      if (v40)
       {
-        [jobCopy removeObjectForKey:v34];
-        v57 = 0;
+        [jobCopy removeObjectForKey:v33];
+        v56 = 0;
       }
 
       else
       {
-        v57 = [(PLImageWriter *)self cameraAssetPathForNewAssetWithExtension:@"MOV" assetUUID:uUIDString];
+        v56 = [(PLImageWriter *)self cameraAssetPathForNewAssetWithExtension:@"MOV" assetUUID:uUIDString];
       }
     }
 
     else
     {
-      if (![v20 isEqualToString:*MEMORY[0x1E69C0488]])
+      if (!objc_msgSend_isEqualToString_(v20))
       {
 LABEL_45:
         if (v31)
         {
-          [jobCopy setObject:v31 forKey:v34];
+          [jobCopy setObject:v31 forKey:v33];
         }
 
         v32 = @"generated video";
@@ -526,13 +525,13 @@ LABEL_45:
         goto LABEL_48;
       }
 
-      v57 = [(PLImageWriter *)self cameraAssetPathForNewAssetWithExtension:v60 assetUUID:uUIDString];
+      v56 = [(PLImageWriter *)self cameraAssetPathForNewAssetWithExtension:v59 assetUUID:uUIDString];
 
-      v41 = [MEMORY[0x1E69BF178] uniqueIncomingPathForAssetWithUUID:uUIDString andExtension:v60 isPhotoStream:0];
-      [jobCopy setObject:v41 forKey:*MEMORY[0x1E69C0590]];
+      v40 = [MEMORY[0x1E69BF178] uniqueIncomingPathForAssetWithUUID:uUIDString andExtension:v59 isPhotoStream:0];
+      [jobCopy setObject:v40 forKey:*MEMORY[0x1E69C0590]];
     }
 
-    v31 = v57;
+    v31 = v56;
     goto LABEL_45;
   }
 
@@ -541,17 +540,17 @@ LABEL_45:
   {
     v24 = NSStringFromSelector(a2);
     *buf = 138543618;
-    v70 = v24;
-    v71 = 2112;
-    v72 = jobCopy;
+    v69 = v24;
+    v70 = 2112;
+    v71 = jobCopy;
     _os_log_impl(&dword_19BF1F000, v23, OS_LOG_TYPE_ERROR, "[%{public}@] job queue full, failed to enqueue job %@", buf, 0x16u);
   }
 
   v25 = MEMORY[0x1E696ABC0];
   v26 = *MEMORY[0x1E69BFF48];
-  v79 = *MEMORY[0x1E696A578];
-  v80[0] = @"Failed to enqueue imagewriter job; job queue is full";
-  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v80 forKeys:&v79 count:1];
+  v78 = *MEMORY[0x1E696A578];
+  v79[0] = @"Failed to enqueue imagewriter job; job queue is full";
+  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v79 forKeys:&v78 count:1];
   v28 = [v25 errorWithDomain:v26 code:41001 userInfo:v27];
 
   if (handlerCopy)
@@ -704,7 +703,7 @@ LABEL_27:
           v30 = v29;
           if (connectionCopy)
           {
-            [v28 auditToken];
+            objc_msgSend_auditToken(v28);
           }
 
           else
@@ -784,13 +783,13 @@ LABEL_30:
     _os_log_impl(&dword_19BF1F000, v16, OS_LOG_TYPE_DEBUG, "Processing job with type %@", buf, 0xCu);
   }
 
-  if ([v12 isEqualToString:*MEMORY[0x1E69C0458]])
+  if (objc_msgSend_isEqualToString_(v12))
   {
     currentHandler = [(PLImageWriter *)self _newShortLivedLibraryWithName:"[PLImageWriter _processJob:]"];
     [(PLImageWriter *)self _processImageJob:v10 inLibrary:currentHandler completion:v13];
   }
 
-  else if ([v12 isEqualToString:*MEMORY[0x1E69C0430]])
+  else if (objc_msgSend_isEqualToString_(v12))
   {
     currentHandler = [(PLImageWriter *)self _newShortLivedLibraryWithName:"[PLImageWriter _processJob:] (BatchImage)"];
     [(PLImageWriter *)self _processBatchImageJob:v10 inLibrary:currentHandler completion:v13];
@@ -798,37 +797,37 @@ LABEL_30:
 
   else
   {
-    if ([v12 isEqualToString:*MEMORY[0x1E69C0420]])
+    if (objc_msgSend_isEqualToString_(v12))
     {
       [(PLImageWriter *)self _processAvalancheJob:v10 completion:v13];
       goto LABEL_11;
     }
 
-    if ([v12 isEqualToString:*MEMORY[0x1E69C0428]])
+    if (objc_msgSend_isEqualToString_(v12))
     {
       [(PLImageWriter *)self _processAvalanchesValidationJob:v10 completion:v13];
       goto LABEL_11;
     }
 
-    if (([v12 isEqualToString:*MEMORY[0x1E69C0478]] & 1) != 0 || (objc_msgSend(v12, "isEqualToString:", *MEMORY[0x1E69C0490]) & 1) != 0 || (objc_msgSend(v12, "isEqualToString:", *MEMORY[0x1E69C0470]) & 1) != 0 || objc_msgSend(v12, "isEqualToString:", *MEMORY[0x1E69C0480]))
+    if ((objc_msgSend_isEqualToString_(v12) & 1) != 0 || (objc_msgSend_isEqualToString_(v12) & 1) != 0 || (objc_msgSend_isEqualToString_(v12) & 1) != 0 || objc_msgSend_isEqualToString_(v12))
     {
       [(PLImageWriter *)self _processVideoJob:v10 completion:v13];
       goto LABEL_11;
     }
 
-    if ([v12 isEqualToString:*MEMORY[0x1E69C0488]])
+    if (objc_msgSend_isEqualToString_(v12))
     {
       [(PLImageWriter *)self _processVideoSaveJob:v10 completion:v13];
       goto LABEL_11;
     }
 
-    if ([v12 isEqualToString:*MEMORY[0x1E69C0468]])
+    if (objc_msgSend_isEqualToString_(v12))
     {
       [(PLImageWriter *)self _processSyncedVideoSaveJob:v10 completion:v13];
       goto LABEL_11;
     }
 
-    if ([v12 isEqualToString:*MEMORY[0x1E69C0448]])
+    if (objc_msgSend_isEqualToString_(v12))
     {
       currentHandler = [PLAssetTransactionReason transactionReason:@"[_processJob][_processDeletePhotoStreamDataJob]Deleting PhotoStream data."];
       [(PLImageWriter *)self _processDeletePhotoStreamDataJob:v10 withReason:currentHandler completion:v13];
@@ -836,37 +835,37 @@ LABEL_30:
 
     else
     {
-      if ([v12 isEqualToString:*MEMORY[0x1E69C0450]])
+      if (objc_msgSend_isEqualToString_(v12))
       {
         [(PLImageWriter *)self _enablePhotoStreamJob:v10 completion:v13];
         goto LABEL_11;
       }
 
-      if ([v12 isEqualToString:*MEMORY[0x1E69C0460]])
+      if (objc_msgSend_isEqualToString_(v12))
       {
         [(PLImageWriter *)self _processSyncClientSaveJobsJob:v10 completion:v13];
         goto LABEL_11;
       }
 
-      if ([v12 isEqualToString:*MEMORY[0x1E69C0418]])
+      if (objc_msgSend_isEqualToString_(v12))
       {
         [(PLImageWriter *)self _processAutodeleteEmptyAlbumJob:v10 completion:v13];
         goto LABEL_11;
       }
 
-      if ([v12 isEqualToString:*MEMORY[0x1E69C0438]])
+      if (objc_msgSend_isEqualToString_(v12))
       {
         [(PLImageWriter *)self _processCrashRecoveryJob:v10 completion:v13];
         goto LABEL_11;
       }
 
-      if ([v12 isEqualToString:*MEMORY[0x1E69C0440]])
+      if (objc_msgSend_isEqualToString_(v12))
       {
         [(PLImageWriter *)self _processDaemonJob:v10 completion:v13];
         goto LABEL_11;
       }
 
-      if ([v12 isEqualToString:*MEMORY[0x1E69C0498]])
+      if (objc_msgSend_isEqualToString_(v12))
       {
         [(PLImageWriter *)self _processXPCDaemonJob:v10 completion:v13];
         goto LABEL_11;
@@ -1145,10 +1144,10 @@ LABEL_24:
 
   v42 = v16;
   v17 = [jobCopy objectForKey:*MEMORY[0x1E69C0410]];
-  v18 = [v17 isEqualToString:*MEMORY[0x1E69C0470]];
+  isEqualToString = objc_msgSend_isEqualToString_(v17);
   v47 = v17;
   v19 = MEMORY[0x1E69C0390];
-  if (v18)
+  if (isEqualToString)
   {
     v20 = [jobCopy objectForKey:*MEMORY[0x1E69C0390]];
     if ([v20 length])
@@ -1230,7 +1229,7 @@ LABEL_24:
   v84 = __Block_byref_object_copy__5211;
   v85 = __Block_byref_object_dispose__5212;
   v86 = [jobCopy objectForKey:*v19];
-  v27 = [v47 isEqualToString:*MEMORY[0x1E69C0480]];
+  v27 = objc_msgSend_isEqualToString_(v47);
   v28 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.mobileslideshow"];
   if ([v28 BOOLForKey:@"PLImageWriterStashCameraJob"])
   {
@@ -1327,7 +1326,7 @@ void __45__PLImageWriter__processVideoJob_completion___block_invoke(void *a1)
 
 void __45__PLImageWriter__processVideoJob_completion___block_invoke_2(uint64_t a1)
 {
-  v203[1] = *MEMORY[0x1E69E9840];
+  v201[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C03B8]];
   v3 = *MEMORY[0x1E69C04B0];
   v4 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C04B0]];
@@ -1335,9 +1334,9 @@ void __45__PLImageWriter__processVideoJob_completion___block_invoke_2(uint64_t a
   if (([v5 intValue] == 6 || objc_msgSend(v5, "intValue") == 9) && objc_msgSend(*(a1 + 40), "length"))
   {
     v6 = *(a1 + 40);
-    v202 = *MEMORY[0x1E69BF4B8];
-    v203[0] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v203 forKeys:&v202 count:1];
+    v200 = *MEMORY[0x1E69BF4B8];
+    v201[0] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v201 forKeys:&v200 count:1];
     PLSendCoreAnalyticEvent();
   }
 
@@ -1354,147 +1353,146 @@ void __45__PLImageWriter__processVideoJob_completion___block_invoke_2(uint64_t a
     }
   }
 
-  if (![*(a1 + 56) isEqualToString:*MEMORY[0x1E69C0470]])
+  if (!objc_msgSend_isEqualToString_(*(a1 + 56)))
   {
 LABEL_16:
-    v14 = *MEMORY[0x1E69C0490];
-    if ([*(a1 + 56) isEqualToString:*MEMORY[0x1E69C0490]])
+    if (objc_msgSend_isEqualToString_(*(a1 + 56)))
     {
-      v15 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0310]];
-      v184 = [*(a1 + 48) photoFromAssetURL:v15];
-      v16 = [v184 pathForVideoFile];
-      v17 = *(*(a1 + 128) + 8);
-      v18 = *(v17 + 40);
-      *(v17 + 40) = v16;
+      v14 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0310]];
+      v182 = [*(a1 + 48) photoFromAssetURL:v14];
+      v15 = [v182 pathForVideoFile];
+      v16 = *(*(a1 + 128) + 8);
+      v17 = *(v16 + 40);
+      *(v16 + 40) = v15;
     }
 
     else
     {
-      v184 = 0;
+      v182 = 0;
     }
 
-    v19 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0500]];
-    v188 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C04E0]];
-    v183 = v4;
-    v185 = v19;
-    if (*(*(*(a1 + 128) + 8) + 40) || ![*(a1 + 56) isEqualToString:*MEMORY[0x1E69C0478]])
+    v18 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0500]];
+    v186 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C04E0]];
+    v181 = v4;
+    v183 = v18;
+    if (*(*(*(a1 + 128) + 8) + 40) || !objc_msgSend_isEqualToString_(*(a1 + 56)))
     {
-      v173 = 0;
-      v182 = 0;
       v171 = 0;
-      v20 = 0;
+      v180 = 0;
+      v169 = 0;
+      v19 = 0;
       goto LABEL_29;
     }
 
-    if (v188)
+    if (v186)
     {
-      v20 = [PLManagedAsset assetWithUUID:v188 inLibrary:*(a1 + 48)];
-      v21 = PLAssetImportGetLog();
-      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
-      if (v20)
+      v19 = [PLManagedAsset assetWithUUID:v186 inLibrary:*(a1 + 48)];
+      v20 = PLAssetImportGetLog();
+      v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+      if (v19)
       {
-        if (v22)
+        if (v21)
         {
-          v23 = *(a1 + 72);
-          v24 = [v20 objectID];
+          v22 = *(a1 + 72);
+          v23 = [v19 objectID];
           LODWORD(buf.value) = 138543874;
-          *(&buf.value + 4) = v23;
+          *(&buf.value + 4) = v22;
           LOWORD(buf.flags) = 2114;
-          *(&buf.flags + 2) = v24;
+          *(&buf.flags + 2) = v23;
           HIWORD(buf.epoch) = 2114;
-          v199 = v188;
-          _os_log_impl(&dword_19BF1F000, v21, OS_LOG_TYPE_DEFAULT, "photoIris video job %{public}@ found asset %{public}@ with uuid %{public}@", &buf, 0x20u);
+          v197 = v186;
+          _os_log_impl(&dword_19BF1F000, v20, OS_LOG_TYPE_DEFAULT, "photoIris video job %{public}@ found asset %{public}@ with uuid %{public}@", &buf, 0x20u);
         }
 
-        v25 = [v20 mediaGroupUUID];
-        v182 = v25;
-        if (v19 && v25)
+        v24 = [v19 mediaGroupUUID];
+        v180 = v24;
+        if (v18 && v24)
         {
-          v173 = 0;
-          v171 = [(__CFString *)v19 isEqualToString:v25]^ 1;
+          v171 = 0;
+          v169 = objc_msgSend_isEqualToString_(v18) ^ 1;
         }
 
         else
         {
-          v171 = 0;
-          v173 = v25 == 0;
+          v169 = 0;
+          v171 = v24 == 0;
         }
 
 LABEL_192:
-        v149 = [*(a1 + 80) BOOLForKey:@"PLFrameDropRecoveryEnableOnOlderDevices"];
-        if (v149)
+        v147 = [*(a1 + 80) BOOLForKey:@"PLFrameDropRecoveryEnableOnOlderDevices"];
+        if (v147)
         {
-          v150 = PLAssetImportGetLog();
-          if (os_log_type_enabled(v150, OS_LOG_TYPE_DEFAULT))
+          v148 = PLAssetImportGetLog();
+          if (os_log_type_enabled(v148, OS_LOG_TYPE_DEFAULT))
           {
             LOWORD(buf.value) = 0;
-            _os_log_impl(&dword_19BF1F000, v150, OS_LOG_TYPE_DEFAULT, "[FDR] Sending live photo down frame drop recovery path because PLFrameDropRecoveryEnableOnOlderDevicesUserDefaultsKey default is set", &buf, 2u);
+            _os_log_impl(&dword_19BF1F000, v148, OS_LOG_TYPE_DEFAULT, "[FDR] Sending live photo down frame drop recovery path because PLFrameDropRecoveryEnableOnOlderDevicesUserDefaultsKey default is set", &buf, 2u);
           }
         }
 
-        if (([v20 hasAdjustments]& 1) != 0 || (v149 | PLPlatformIsFrameDropRecoverySupported()) != 1)
+        if (([v19 hasAdjustments]& 1) != 0 || (v147 | PLPlatformIsFrameDropRecoverySupported()) != 1)
         {
-          v156 = [v20 pathForVideoComplementFile];
-          v157 = *(*(a1 + 128) + 8);
-          v154 = *(v157 + 40);
-          *(v157 + 40) = v156;
+          v154 = [v19 pathForVideoComplementFile];
+          v155 = *(*(a1 + 128) + 8);
+          v152 = *(v155 + 40);
+          *(v155 + 40) = v154;
         }
 
         else
         {
-          v151 = [v20 pathForDeferredVideoComplementFile];
-          v152 = *(*(a1 + 128) + 8);
-          v153 = *(v152 + 40);
-          *(v152 + 40) = v151;
+          v149 = [v19 pathForDeferredVideoComplementFile];
+          v150 = *(*(a1 + 128) + 8);
+          v151 = *(v150 + 40);
+          *(v150 + 40) = v149;
 
-          [v20 setVideoDeferredProcessingNeeded:1];
-          [PLImageWriter _signalBackgroundProcessingNeededForAsset:v20 reason:@"frame drop recovery"];
-          v154 = PLAssetImportGetLog();
-          if (os_log_type_enabled(v154, OS_LOG_TYPE_DEFAULT))
+          [v19 setVideoDeferredProcessingNeeded:1];
+          [PLImageWriter _signalBackgroundProcessingNeededForAsset:v19 reason:@"frame drop recovery"];
+          v152 = PLAssetImportGetLog();
+          if (os_log_type_enabled(v152, OS_LOG_TYPE_DEFAULT))
           {
-            v155 = *(*(*(a1 + 128) + 8) + 40);
+            v153 = *(*(*(a1 + 128) + 8) + 40);
             LODWORD(buf.value) = 138412290;
-            *(&buf.value + 4) = v155;
-            _os_log_impl(&dword_19BF1F000, v154, OS_LOG_TYPE_DEFAULT, "[FDR] Marking video complement for frame drop recovery, assigning path %@", &buf, 0xCu);
+            *(&buf.value + 4) = v153;
+            _os_log_impl(&dword_19BF1F000, v152, OS_LOG_TYPE_DEFAULT, "[FDR] Marking video complement for frame drop recovery, assigning path %@", &buf, 0xCu);
           }
         }
 
         if (*(*(*(a1 + 128) + 8) + 40))
         {
-          v158 = PLAssetImportGetLog();
-          if (os_log_type_enabled(v158, OS_LOG_TYPE_DEFAULT))
+          v156 = PLAssetImportGetLog();
+          if (os_log_type_enabled(v156, OS_LOG_TYPE_DEFAULT))
           {
-            v159 = *(a1 + 72);
-            v160 = *(*(*(a1 + 128) + 8) + 40);
+            v157 = *(a1 + 72);
+            v158 = *(*(*(a1 + 128) + 8) + 40);
             LODWORD(buf.value) = 138543618;
-            *(&buf.value + 4) = v159;
+            *(&buf.value + 4) = v157;
             LOWORD(buf.flags) = 2114;
-            *(&buf.flags + 2) = v160;
-            _os_log_impl(&dword_19BF1F000, v158, OS_LOG_TYPE_DEFAULT, "photoIris video job %{public}@ -> destination %{public}@", &buf, 0x16u);
+            *(&buf.flags + 2) = v158;
+            _os_log_impl(&dword_19BF1F000, v156, OS_LOG_TYPE_DEFAULT, "photoIris video job %{public}@ -> destination %{public}@", &buf, 0x16u);
           }
         }
 
         else
         {
-          v161 = [*(a1 + 64) cameraAssetPathForNewAssetWithExtension:@"MOV" assetUUID:*(*(*(a1 + 120) + 8) + 40)];
-          v162 = *(*(a1 + 128) + 8);
-          v163 = *(v162 + 40);
-          *(v162 + 40) = v161;
+          v159 = [*(a1 + 64) cameraAssetPathForNewAssetWithExtension:@"MOV" assetUUID:*(*(*(a1 + 120) + 8) + 40)];
+          v160 = *(*(a1 + 128) + 8);
+          v161 = *(v160 + 40);
+          *(v160 + 40) = v159;
 
-          v164 = PLAssetImportGetLog();
-          if (os_log_type_enabled(v164, OS_LOG_TYPE_DEFAULT))
+          v162 = PLAssetImportGetLog();
+          if (os_log_type_enabled(v162, OS_LOG_TYPE_DEFAULT))
           {
-            v165 = *(a1 + 72);
-            v166 = *(*(*(a1 + 128) + 8) + 40);
+            v163 = *(a1 + 72);
+            v164 = *(*(*(a1 + 128) + 8) + 40);
             LODWORD(buf.value) = 138543618;
-            *(&buf.value + 4) = v165;
+            *(&buf.value + 4) = v163;
             LOWORD(buf.flags) = 2114;
-            *(&buf.flags + 2) = v166;
-            _os_log_impl(&dword_19BF1F000, v164, OS_LOG_TYPE_DEFAULT, "photoIris video job %{public}@ aborting, will import video at %{public}@", &buf, 0x16u);
+            *(&buf.flags + 2) = v164;
+            _os_log_impl(&dword_19BF1F000, v162, OS_LOG_TYPE_DEFAULT, "photoIris video job %{public}@ aborting, will import video at %{public}@", &buf, 0x16u);
           }
 
-          v158 = v20;
-          v20 = 0;
+          v156 = v19;
+          v19 = 0;
         }
 
         [*(a1 + 32) setObject:*(*(*(a1 + 128) + 8) + 40) forKeyedSubscript:*MEMORY[0x1E69C0588]];
@@ -1502,25 +1500,25 @@ LABEL_192:
 LABEL_29:
         if ((*(*(*(a1 + 136) + 8) + 24) & 1) == 0)
         {
-          v37 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0590]];
-          v38 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0588]];
-          v39 = *(a1 + 64);
-          v40 = *(*(a1 + 144) + 8);
-          v197 = 0;
-          v41 = [v39 _transferVideoFromIncomingPath:v37 toDestinationPath:v38 shouldRemoveIncoming:v40 + 24 error:&v197];
-          v42 = v197;
-          *(*(*(a1 + 136) + 8) + 24) = v41;
-          v43 = *(*(*(a1 + 136) + 8) + 24);
+          v36 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0590]];
+          v37 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0588]];
+          v38 = *(a1 + 64);
+          v39 = *(*(a1 + 144) + 8);
+          v195 = 0;
+          v40 = [v38 _transferVideoFromIncomingPath:v36 toDestinationPath:v37 shouldRemoveIncoming:v39 + 24 error:&v195];
+          v41 = v195;
+          *(*(*(a1 + 136) + 8) + 24) = v40;
+          v42 = *(*(*(a1 + 136) + 8) + 24);
 
-          if ((v43 & 1) == 0)
+          if ((v42 & 1) == 0)
           {
-            if (v42)
+            if (v41)
             {
               v9 = 0;
-              v4 = v183;
-              v19 = v185;
+              v4 = v181;
+              v18 = v183;
 LABEL_183:
-              v147 = v182;
+              v145 = v180;
 LABEL_184:
 
               goto LABEL_185;
@@ -1528,127 +1526,125 @@ LABEL_184:
           }
         }
 
-        v26 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C03D8]];
-        v27 = v26;
-        if (v20 && v26)
+        v25 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C03D8]];
+        v26 = v25;
+        if (v19 && v25)
         {
-          v28 = [v20 pathForFullsizeRenderVideoFile];
-          v29 = *(a1 + 64);
-          v30 = *(*(a1 + 152) + 8);
-          v196 = 0;
-          v31 = [v29 _transferVideoFromIncomingPath:v27 toDestinationPath:v28 shouldRemoveIncoming:v30 + 24 error:&v196];
-          v32 = v196;
-          if (v31)
+          v27 = [v19 pathForFullsizeRenderVideoFile];
+          v28 = *(a1 + 64);
+          v29 = *(*(a1 + 152) + 8);
+          v194 = 0;
+          v30 = [v28 _transferVideoFromIncomingPath:v26 toDestinationPath:v27 shouldRemoveIncoming:v29 + 24 error:&v194];
+          v31 = v194;
+          if (v30)
           {
-            [v20 setVideoCpVisibilityState:[v20 videoCpVisibilityState]| 8];
+            [v19 setVideoCpVisibilityState:[v19 videoCpVisibilityState]| 8];
           }
         }
 
-        v181 = v5;
-        v187 = [MEMORY[0x1E695DFF8] fileURLWithPath:*(*(*(a1 + 128) + 8) + 40) isDirectory:0];
+        v179 = v5;
+        v185 = [MEMORY[0x1E695DFF8] fileURLWithPath:*(*(*(a1 + 128) + 8) + 40) isDirectory:0];
         if ((*(a1 + 176) & 1) == 0)
         {
-          [MEMORY[0x1E69870D8] consolidateMovieFragmentsInFile:v187 error:0];
+          [MEMORY[0x1E69870D8] consolidateMovieFragmentsInFile:v185 error:0];
         }
 
-        v178 = v27;
-        v33 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0398]];
-        v34 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C04A0]];
+        v176 = v26;
+        v32 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0398]];
+        v33 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C04A0]];
         if ([*(a1 + 32) objectForKey:*MEMORY[0x1E69C0598]])
         {
-          v35 = DCIM_newPLImageWithCGImage();
-          v19 = v185;
-          if (v35)
+          v34 = DCIM_newPLImageWithCGImage();
+          v18 = v183;
+          if (v34)
           {
-            v180 = v35;
-            v36 = PLCreateImageWithFormatFromImage();
+            v178 = v34;
+            v35 = PLCreateImageWithFormatFromImage();
 LABEL_40:
-            v179 = v36;
+            v177 = v35;
             goto LABEL_46;
           }
         }
 
         else
         {
-          v19 = v185;
-          if (!v20)
+          v18 = v183;
+          if (!v19)
           {
             if (*(a1 + 88))
             {
-              v180 = DCIM_newPLImageWithContentsOfFile();
-              v36 = DCIM_newPLImageWithContentsOfFile();
+              v178 = DCIM_newPLImageWithContentsOfFile();
+              v35 = DCIM_newPLImageWithContentsOfFile();
             }
 
             else
             {
-              v117 = *(*(*(a1 + 128) + 8) + 40);
-              v194 = 0;
-              v195 = 0;
-              PLPreviewImageAndDurationForVideoAtPathWithPreferredTime(0, v117, &v195, &v194, 0);
-              v180 = v195;
-              v36 = v194;
+              v115 = *(*(*(a1 + 128) + 8) + 40);
+              v192 = 0;
+              v193 = 0;
+              PLPreviewImageAndDurationForVideoAtPathWithPreferredTime(0, v115, &v193, &v192, 0);
+              v178 = v193;
+              v35 = v192;
             }
 
             goto LABEL_40;
           }
         }
 
-        v179 = 0;
-        v180 = 0;
+        v177 = 0;
+        v178 = 0;
 LABEL_46:
-        v177 = v33;
-        if (v33)
+        v175 = v32;
+        if (v32)
         {
-          if (!v34)
+          if (!v33)
           {
-            v34 = v33;
+            v33 = v32;
           }
 
           if ((*(a1 + 176) & 1) == 0)
           {
-            v44 = v14;
-            v45 = v3;
-            v46 = v2;
-            v47 = objc_alloc(MEMORY[0x1E695DF20]);
-            v48 = v34;
-            v49 = [v47 initWithObjectsAndKeys:{v33, *MEMORY[0x1E696A308], v34, *MEMORY[0x1E696A350], 0}];
-            v50 = [MEMORY[0x1E696AC08] defaultManager];
-            v51 = *(*(*(a1 + 128) + 8) + 40);
-            v193 = 0;
-            v52 = [v50 setAttributes:v49 ofItemAtPath:v51 error:&v193];
-            v53 = v193;
+            v43 = v3;
+            v44 = v2;
+            v45 = objc_alloc(MEMORY[0x1E695DF20]);
+            v46 = v33;
+            v47 = [v45 initWithObjectsAndKeys:{v32, *MEMORY[0x1E696A308], v33, *MEMORY[0x1E696A350], 0}];
+            v48 = [MEMORY[0x1E696AC08] defaultManager];
+            v49 = *(*(*(a1 + 128) + 8) + 40);
+            v191 = 0;
+            v50 = [v48 setAttributes:v47 ofItemAtPath:v49 error:&v191];
+            v51 = v191;
 
-            if ((v52 & 1) == 0)
+            if ((v50 & 1) == 0)
             {
-              v54 = PLAssetImportGetLog();
-              if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+              v52 = PLAssetImportGetLog();
+              if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
               {
-                v55 = *(*(*(a1 + 128) + 8) + 40);
+                v53 = *(*(*(a1 + 128) + 8) + 40);
                 LODWORD(buf.value) = 138543874;
-                *(&buf.value + 4) = v49;
+                *(&buf.value + 4) = v47;
                 LOWORD(buf.flags) = 2112;
-                *(&buf.flags + 2) = v55;
+                *(&buf.flags + 2) = v53;
                 HIWORD(buf.epoch) = 2112;
-                v199 = v53;
-                _os_log_impl(&dword_19BF1F000, v54, OS_LOG_TYPE_ERROR, "Failed to write file attributes %{public}@ on %@: %@", &buf, 0x20u);
+                v197 = v51;
+                _os_log_impl(&dword_19BF1F000, v52, OS_LOG_TYPE_ERROR, "Failed to write file attributes %{public}@ on %@: %@", &buf, 0x20u);
               }
             }
 
-            v19 = v185;
-            v34 = v48;
-            v2 = v46;
-            v3 = v45;
-            v14 = v44;
+            v18 = v183;
+            v33 = v46;
+            v2 = v44;
+            v3 = v43;
           }
         }
 
-        v176 = v34;
-        v56 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0558]];
-        v175 = v56;
-        if (v56)
+        v174 = v33;
+        v54 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0558]];
+        v173 = v54;
+        if (v54)
         {
-          v57 = [v56 integerValue];
-          if (v20)
+          v55 = [v54 integerValue];
+          if (v19)
           {
             goto LABEL_57;
           }
@@ -1656,216 +1652,215 @@ LABEL_46:
 
         else
         {
-          v57 = [MEMORY[0x1E69BF328] defaultSavedAssetTypeForUnspecifiedImageWriterJobs];
-          if (v20)
+          v55 = [MEMORY[0x1E69BF328] defaultSavedAssetTypeForUnspecifiedImageWriterJobs];
+          if (v19)
           {
 LABEL_57:
-            v58 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0508]];
-            v59 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0510]];
-            memset(&v192, 0, sizeof(v192));
-            if (v58)
+            v56 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0508]];
+            v57 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0510]];
+            memset(&v190, 0, sizeof(v190));
+            if (v56)
             {
-              CMTimeMakeFromDictionary(&v192, v58);
+              CMTimeMakeFromDictionary(&v190, v56);
             }
 
             else
             {
-              v192 = **&MEMORY[0x1E6960C70];
+              v190 = **&MEMORY[0x1E6960C70];
             }
 
-            v5 = v181;
-            memset(&v191, 0, sizeof(v191));
-            if (v59)
+            memset(&v189, 0, sizeof(v189));
+            if (v57)
             {
-              CMTimeMakeFromDictionary(&v191, v59);
+              CMTimeMakeFromDictionary(&v189, v57);
             }
 
             else
             {
-              v191 = **&MEMORY[0x1E6960C70];
+              v189 = **&MEMORY[0x1E6960C70];
             }
 
-            buf = v191;
-            v190 = v192;
-            v63 = [v20 becomePhotoIrisWithMediaGroupUUID:v19 mainFileMetadata:0 videoURL:v187 videoDuration:&buf stillDisplayTime:&v190 options:0];
-            if (v63)
+            buf = v189;
+            v188 = v190;
+            v61 = [v19 becomePhotoIrisWithMediaGroupUUID:v18 mainFileMetadata:0 videoURL:v185 videoDuration:&buf stillDisplayTime:&v188 options:0];
+            if (v61)
             {
-              v64 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C04E8]];
-              v65 = [v64 BOOLValue];
+              v62 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C04E8]];
+              v63 = [v62 BOOLValue];
 
-              if (v65)
+              if (v63)
               {
-                v66 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C04F8]];
-                [v20 updatePhotoIrisVisibilityStateWithVitalityScore:v66];
+                v64 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C04F8]];
+                [v19 updatePhotoIrisVisibilityStateWithVitalityScore:v64];
               }
 
-              v67 = v192.flags & 0x1D;
-              v68 = v191.flags & 0x1D;
-              v70 = v67 != 1 || v68 != 1;
-              v71 = v171;
-              if ((v70 | v171 | v173))
+              v65 = v190.flags & 0x1D;
+              v66 = v189.flags & 0x1D;
+              v68 = v65 != 1 || v66 != 1;
+              v69 = v169;
+              if ((v68 | v169 | v171))
               {
-                v72 = PLAssetImportGetLog();
-                if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+                v70 = PLAssetImportGetLog();
+                if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
                 {
-                  v169 = v2;
-                  if (v67 == 1)
+                  v167 = v2;
+                  if (v65 == 1)
                   {
-                    v73 = @"N";
+                    v71 = @"N";
                   }
 
                   else
                   {
-                    v73 = @"Y";
+                    v71 = @"Y";
                   }
 
-                  if (v68 == 1)
+                  if (v66 == 1)
                   {
-                    v74 = @"N";
+                    v72 = @"N";
                   }
 
                   else
                   {
-                    v74 = @"Y";
+                    v72 = @"Y";
+                  }
+
+                  if (v169)
+                  {
+                    v73 = v72;
+                    v74 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Y (existing %@, incoming %@)", v180, v18];
+                    v72 = v73;
+                    v75 = v74;
+                  }
+
+                  else
+                  {
+                    v75 = @"N";
                   }
 
                   if (v171)
                   {
-                    v75 = v74;
-                    v76 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Y (existing %@, incoming %@)", v182, v19];
-                    v74 = v75;
-                    v77 = v76;
+                    v116 = @"Y";
                   }
 
                   else
                   {
-                    v77 = @"N";
-                  }
-
-                  if (v173)
-                  {
-                    v118 = @"Y";
-                  }
-
-                  else
-                  {
-                    v118 = @"N";
+                    v116 = @"N";
                   }
 
                   LODWORD(buf.value) = 138413058;
-                  *(&buf.value + 4) = v73;
+                  *(&buf.value + 4) = v71;
                   LOWORD(buf.flags) = 2112;
-                  *(&buf.flags + 2) = v74;
+                  *(&buf.flags + 2) = v72;
                   HIWORD(buf.epoch) = 2112;
-                  v199 = v77;
-                  v200 = 2112;
-                  v201 = v118;
-                  _os_log_impl(&dword_19BF1F000, v72, OS_LOG_TYPE_ERROR, "Invalid live photo metadata, non-numeric still display time: %@, video duration: %@, pairing identifier mismatch: %@, pairing identifier potentially missing in image: %@", &buf, 0x2Au);
-                  v71 = v171;
-                  if (v171)
+                  v197 = v75;
+                  v198 = 2112;
+                  v199 = v116;
+                  _os_log_impl(&dword_19BF1F000, v70, OS_LOG_TYPE_ERROR, "Invalid live photo metadata, non-numeric still display time: %@, video duration: %@, pairing identifier mismatch: %@, pairing identifier potentially missing in image: %@", &buf, 0x2Au);
+                  v69 = v169;
+                  if (v169)
                   {
                   }
 
-                  v2 = v169;
-                  v5 = v181;
+                  v2 = v167;
+                  v5 = v179;
                 }
 
                 if (MEMORY[0x19EAEE230]())
                 {
-                  v119 = [MEMORY[0x1E696AD60] stringWithFormat:@"Captured live photo with invalid video metadata:"];
-                  v120 = v119;
-                  if (v67 != 1)
+                  v117 = [MEMORY[0x1E696AD60] stringWithFormat:@"Captured live photo with invalid video metadata:"];
+                  v118 = v117;
+                  if (v65 != 1)
                   {
-                    [v119 appendString:@"\n  Still display time is non-numeric"];
+                    [v117 appendString:@"\n  Still display time is non-numeric"];
                   }
 
-                  if (v68 != 1)
+                  if (v66 != 1)
                   {
-                    [v120 appendString:@"\n  Video duration is non-numeric"];
+                    [v118 appendString:@"\n  Video duration is non-numeric"];
                   }
 
-                  if (v71)
+                  if (v69)
                   {
-                    [v120 appendFormat:@"\n  Pairing identifier does not match, existing identifier %@ does not match incoming identifier %@", v182, v19];
+                    [v118 appendFormat:@"\n  Pairing identifier does not match, existing identifier %@ does not match incoming identifier %@", v180, v18];
                   }
 
-                  if (v173)
+                  if (v171)
                   {
-                    [v120 appendFormat:@"\n  No pairing identifier found for existing asset, image metadata is potentially missing pairing identifier (incoming pairing identifier: %@)", v19];
+                    [v118 appendFormat:@"\n  No pairing identifier found for existing asset, image metadata is potentially missing pairing identifier (incoming pairing identifier: %@)", v18];
                   }
 
-                  [PLDiagnostics fileRadarUserNotificationWithHeader:@"Photos Live Photo Capture Issue Detected!" message:@"Please file a Radar for critical live photo capture issue." radarTitle:@"TTR Photos: captured live photo with invalid video metadata" radarDescription:v120];
+                  [PLDiagnostics fileRadarUserNotificationWithHeader:@"Photos Live Photo Capture Issue Detected!" message:@"Please file a Radar for critical live photo capture issue." radarTitle:@"TTR Photos: captured live photo with invalid video metadata" radarDescription:v118];
                 }
 
-                [PLAutoBugCapture captureImageWriterInvalidLivePhotoMetadataWithStillDisplayTimeNotNumeric:v67 != 1 videoDurationIsNotNumeric:v68 != 1 photoIrisMediaGroupUUIDDoesNotMatch:v71 existingPhotoIrisMediaGroupUUIDIsMissing:v173 completion:&__block_literal_global_418];
+                [PLAutoBugCapture captureImageWriterInvalidLivePhotoMetadataWithStillDisplayTimeNotNumeric:v65 != 1 videoDurationIsNotNumeric:v66 != 1 photoIrisMediaGroupUUIDDoesNotMatch:v69 existingPhotoIrisMediaGroupUUIDIsMissing:v171 completion:&__block_literal_global_418];
               }
 
-              if ([v20 hasAdjustments])
+              if ([v19 hasAdjustments])
               {
-                if (![v20 deferredProcessingNeeded])
+                if (![v19 deferredProcessingNeeded])
                 {
-                  [v20 setDeferredProcessingNeeded:2];
-                  [PLImageWriter _signalBackgroundProcessingNeededForAsset:v20 reason:@"pairing succeeded and asset has adjustments"];
+                  [v19 setDeferredProcessingNeeded:2];
+                  [PLImageWriter _signalBackgroundProcessingNeededForAsset:v19 reason:@"pairing succeeded and asset has adjustments"];
                 }
 
-                if (([v20 videoCpVisibilityState]& 1) == 0)
+                if (([v19 videoCpVisibilityState]& 1) == 0)
                 {
-                  [v20 setVideoCpVisibilityState:[v20 videoCpVisibilityState]| 8];
+                  [v19 setVideoCpVisibilityState:[v19 videoCpVisibilityState]| 8];
                 }
 
-                v121 = [v20 pathForFullsizeRenderImageFile];
-                v122 = [PLResourceInstaller onDemand_installAdjustedFullSizeRenderResourceAtFilePath:v121 forAsset:v20];
+                v119 = [v19 pathForFullsizeRenderImageFile];
+                v120 = [PLResourceInstaller onDemand_installAdjustedFullSizeRenderResourceAtFilePath:v119 forAsset:v19];
 
-                v123 = [PLResourceInstaller onDemand_installAdjustedDeferredFullSizeVideoComplementResourceForAsset:v20];
+                v121 = [PLResourceInstaller onDemand_installAdjustedDeferredFullSizeVideoComplementResourceForAsset:v19];
               }
             }
 
-            if (!v188)
+            if (!v186)
             {
               goto LABEL_164;
             }
 
-            v124 = [*(a1 + 72) stringByDeletingLastPathComponent];
-            v125 = _photoIrisIndicatorFilePathForPhoto(v124, v188);
-            v126 = PLAssetImportGetLog();
-            v127 = os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT);
-            if (v63)
+            v122 = [*(a1 + 72) stringByDeletingLastPathComponent];
+            v123 = _photoIrisIndicatorFilePathForPhoto(v122, v186);
+            v124 = PLAssetImportGetLog();
+            v125 = os_log_type_enabled(v124, OS_LOG_TYPE_DEFAULT);
+            if (v61)
             {
-              if (v127)
+              if (v125)
               {
-                v128 = [v187 path];
-                v129 = [v20 mainFileURL];
-                [v129 path];
-                v131 = v130 = v2;
+                v126 = [v185 path];
+                v127 = [v19 mainFileURL];
+                [v127 path];
+                v129 = v128 = v2;
                 LODWORD(buf.value) = 138543618;
-                *(&buf.value + 4) = v128;
+                *(&buf.value + 4) = v126;
                 LOWORD(buf.flags) = 2114;
-                *(&buf.flags + 2) = v131;
-                v132 = "photoIris video job successfully paired %{public}@ with %{public}@";
+                *(&buf.flags + 2) = v129;
+                v130 = "photoIris video job successfully paired %{public}@ with %{public}@";
 LABEL_162:
-                _os_log_impl(&dword_19BF1F000, v126, OS_LOG_TYPE_DEFAULT, v132, &buf, 0x16u);
+                _os_log_impl(&dword_19BF1F000, v124, OS_LOG_TYPE_DEFAULT, v130, &buf, 0x16u);
 
-                v2 = v130;
-                v19 = v185;
+                v2 = v128;
+                v18 = v183;
               }
             }
 
-            else if (v127)
+            else if (v125)
             {
-              v128 = [v187 path];
-              v129 = [v20 mainFileURL];
-              [v129 path];
-              v131 = v130 = v2;
+              v126 = [v185 path];
+              v127 = [v19 mainFileURL];
+              [v127 path];
+              v129 = v128 = v2;
               LODWORD(buf.value) = 138543618;
-              *(&buf.value + 4) = v128;
+              *(&buf.value + 4) = v126;
               LOWORD(buf.flags) = 2114;
-              *(&buf.flags + 2) = v131;
-              v132 = "photoIris video job failed to pair %{public}@ with %{public}@";
+              *(&buf.flags + 2) = v129;
+              v130 = "photoIris video job failed to pair %{public}@ with %{public}@";
               goto LABEL_162;
             }
 
-            [PLImageWriter photoIrisPairingDidSucceed:v63 fileIndicatorPath:v125 photoAsset:v20 photoLibrary:*(a1 + 48)];
-            v5 = v181;
+            [PLImageWriter photoIrisPairingDidSucceed:v61 fileIndicatorPath:v123 photoAsset:v19 photoLibrary:*(a1 + 48)];
+            v5 = v179;
 LABEL_164:
             v9 = 0;
 LABEL_165:
@@ -1874,268 +1869,268 @@ LABEL_165:
               [v9 setNeedsMomentUpdate:1];
             }
 
-            v133 = [*(a1 + 48) assetURLForPhoto:v9];
-            if (v133)
+            v131 = [*(a1 + 48) assetURLForPhoto:v9];
+            if (v131)
             {
-              [*(a1 + 32) setObject:v133 forKey:*MEMORY[0x1E69C0310]];
+              [*(a1 + 32) setObject:v131 forKey:*MEMORY[0x1E69C0310]];
             }
 
             if (v9)
             {
               [*(a1 + 32) setObject:v9 forKey:@"PLImageWriterTransientAsset"];
-              v134 = *(a1 + 112);
-              if (v134)
+              v132 = *(a1 + 112);
+              if (v132)
               {
-                [v134 applyCameraMetadataToAsset:v9];
+                [v132 applyCameraMetadataToAsset:v9];
               }
             }
 
             else
             {
-              v135 = v63 ^ 1;
-              if (!v20)
+              v133 = v61 ^ 1;
+              if (!v19)
               {
-                v135 = 1;
+                v133 = 1;
               }
 
-              if ((v135 & 1) == 0)
+              if ((v133 & 1) == 0)
               {
-                [*(a1 + 32) setObject:v20 forKey:@"PLImageWriterTransientAsset"];
+                [*(a1 + 32) setObject:v19 forKey:@"PLImageWriterTransientAsset"];
               }
             }
 
-            v136 = [*(a1 + 32) objectForKey:@"job.private.ClientInLimitedLibraryMode"];
-            v137 = [v136 BOOLValue];
+            v134 = [*(a1 + 32) objectForKey:@"job.private.ClientInLimitedLibraryMode"];
+            v135 = [v134 BOOLValue];
 
-            v138 = [*(a1 + 32) objectForKey:@"job.private.LimitedLibraryClientFetchFilterIdentifier"];
-            v139 = *(*(a1 + 160) + 8);
-            v140 = *(v139 + 40);
-            *(v139 + 40) = v138;
+            v136 = [*(a1 + 32) objectForKey:@"job.private.LimitedLibraryClientFetchFilterIdentifier"];
+            v137 = *(*(a1 + 160) + 8);
+            v138 = *(v137 + 40);
+            *(v137 + 40) = v136;
 
-            if (v137 && [*(*(*(a1 + 160) + 8) + 40) length] && (objc_msgSend(v5, "intValue") == 6 || objc_msgSend(v5, "intValue") == 9))
+            if (v135 && [*(*(*(a1 + 160) + 8) + 40) length] && (objc_msgSend(v5, "intValue") == 6 || objc_msgSend(v5, "intValue") == 9))
             {
-              v141 = [*(a1 + 32) objectForKey:@"job.private.LimitedLibraryClientAuthorization"];
-              v142 = *(a1 + 64);
-              v143 = [v9 uuid];
-              v144 = [v142 _processLimitedLibraryAdditionIfNeededWithAssetUUID:v143 clientBundleIdentifier:*(a1 + 40) clientAuthorization:v141 library:*(a1 + 48)];
-              v145 = *(*(a1 + 168) + 8);
-              v146 = *(v145 + 40);
-              *(v145 + 40) = v144;
+              v139 = [*(a1 + 32) objectForKey:@"job.private.LimitedLibraryClientAuthorization"];
+              v140 = *(a1 + 64);
+              v141 = [v9 uuid];
+              v142 = [v140 _processLimitedLibraryAdditionIfNeededWithAssetUUID:v141 clientBundleIdentifier:*(a1 + 40) clientAuthorization:v139 library:*(a1 + 48)];
+              v143 = *(*(a1 + 168) + 8);
+              v144 = *(v143 + 40);
+              *(v143 + 40) = v142;
             }
 
-            v4 = v183;
+            v4 = v181;
             goto LABEL_183;
           }
         }
 
-        if ([*(a1 + 56) isEqualToString:v14])
+        if (objc_msgSend_isEqualToString_(*(a1 + 56)))
         {
-          v60 = MEMORY[0x1E695DFF8];
-          v61 = [v184 pathForVideoFile];
-          v62 = [v60 fileURLWithPath:v61 isDirectory:0];
+          v58 = MEMORY[0x1E695DFF8];
+          v59 = [v182 pathForVideoFile];
+          v60 = [v58 fileURLWithPath:v59 isDirectory:0];
 
-          [v184 setVideoInfoFromFileAtURL:v62 mainFileMetadata:0 fullSizeRenderURL:0 overwriteOriginalProperties:0];
-          [v184 generateAndUpdateThumbnailsWithPreviewImage:v180 thumbnailImage:v179 fromImageSource:0 imageData:0 forceSRGBConversion:0];
-          v9 = v184;
+          [v182 setVideoInfoFromFileAtURL:v60 mainFileMetadata:0 fullSizeRenderURL:0 overwriteOriginalProperties:0];
+          [v182 generateAndUpdateThumbnailsWithPreviewImage:v178 thumbnailImage:v177 fromImageSource:0 imageData:0 forceSRGBConversion:0];
+          v9 = v182;
 
-          LOBYTE(v63) = 0;
+          LOBYTE(v61) = 0;
         }
 
         else
         {
-          v78 = objc_alloc_init(MEMORY[0x1E695DF90]);
-          v79 = v78;
-          v80 = *(a1 + 40);
+          v76 = objc_alloc_init(MEMORY[0x1E695DF90]);
+          v77 = v76;
+          v78 = *(a1 + 40);
+          if (v78)
+          {
+            [v76 setObject:v78 forKey:*MEMORY[0x1E69C0320]];
+          }
+
+          v79 = *(a1 + 96);
+          if (v79)
+          {
+            [v77 setObject:v79 forKey:*MEMORY[0x1E69C0318]];
+          }
+
+          if (v181)
+          {
+            [v77 setObject:v181 forKey:v3];
+          }
+
+          v80 = *(a1 + 104);
           if (v80)
           {
-            [v78 setObject:v80 forKey:*MEMORY[0x1E69C0320]];
+            [v77 setObject:v80 forKey:*MEMORY[0x1E69C0370]];
           }
 
-          v81 = *(a1 + 96);
-          if (v81)
-          {
-            [v79 setObject:v81 forKey:*MEMORY[0x1E69C0318]];
-          }
+          v81 = [MEMORY[0x1E695DFF8] fileURLWithPath:*(*(*(a1 + 128) + 8) + 40) isDirectory:0];
+          v82 = objc_alloc(MEMORY[0x1E69C0718]);
+          v83 = [*(a1 + 48) libraryBundle];
+          v84 = [v83 timeZoneLookup];
+          v85 = [v82 initWithAVURL:v81 options:12 timeZoneLookup:v84];
 
-          if (v183)
+          LOBYTE(v166) = 0;
+          LOBYTE(v165) = *(a1 + 176);
+          v170 = v81;
+          v184 = v85;
+          v86 = [*(a1 + 48) addDCIMEntryAtFileURL:v81 mainFileMetadata:v85 previewImage:v178 thumbnailImage:v177 savedAssetType:v55 replacementUUID:v2 publicGlobalUUID:0 extendedInfo:v77 withUUID:*(*(*(a1 + 120) + 8) + 40) isPlaceholder:v165 placeholderFileURL:0 forFinalCameraImage:v166];
+          v9 = v86;
+          if (v175)
           {
-            [v79 setObject:v183 forKey:v3];
-          }
-
-          v82 = *(a1 + 104);
-          if (v82)
-          {
-            [v79 setObject:v82 forKey:*MEMORY[0x1E69C0370]];
-          }
-
-          v83 = [MEMORY[0x1E695DFF8] fileURLWithPath:*(*(*(a1 + 128) + 8) + 40) isDirectory:0];
-          v84 = objc_alloc(MEMORY[0x1E69C0718]);
-          v85 = [*(a1 + 48) libraryBundle];
-          v86 = [v85 timeZoneLookup];
-          v87 = [v84 initWithAVURL:v83 options:12 timeZoneLookup:v86];
-
-          LOBYTE(v168) = 0;
-          LOBYTE(v167) = *(a1 + 176);
-          v172 = v83;
-          v186 = v87;
-          v88 = [*(a1 + 48) addDCIMEntryAtFileURL:v83 mainFileMetadata:v87 previewImage:v180 thumbnailImage:v179 savedAssetType:v57 replacementUUID:v2 publicGlobalUUID:0 extendedInfo:v79 withUUID:*(*(*(a1 + 120) + 8) + 40) isPlaceholder:v167 placeholderFileURL:0 forFinalCameraImage:v168];
-          v9 = v88;
-          if (v177)
-          {
-            v89 = [v88 dateCreated];
-            IsApproximatelyEqual = PLDateIsApproximatelyEqual(v177, v89, 0.001);
+            v87 = [v86 dateCreated];
+            IsApproximatelyEqual = PLDateIsApproximatelyEqual(v175, v87, 0.001);
 
             if (!IsApproximatelyEqual)
             {
               [v9 didSetCustomDateCreated];
-              [v9 setDateCreated:v177];
+              [v9 setDateCreated:v175];
             }
           }
 
           if (*(a1 + 176) == 1)
           {
-            v91 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x1E69C0538]];
-            v92 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x1E69C0530]];
-            v93 = v92;
-            if (v91 && v92)
+            v89 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x1E69C0538]];
+            v90 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x1E69C0530]];
+            v91 = v90;
+            if (v89 && v90)
             {
-              [v9 setWidth:{objc_msgSend(v91, "longLongValue")}];
-              [v9 setHeight:{objc_msgSend(v93, "longLongValue")}];
+              [v9 setWidth:{objc_msgSend(v89, "longLongValue")}];
+              [v9 setHeight:{objc_msgSend(v91, "longLongValue")}];
             }
           }
 
-          if (v19)
+          if (v18)
           {
-            [v9 setMediaGroupUUID:v19];
+            [v9 setMediaGroupUUID:v18];
           }
 
-          v174 = v79;
-          v94 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0308]];
-          v63 = v94;
-          if (v94)
+          v172 = v77;
+          v92 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0308]];
+          v61 = v92;
+          if (v92)
           {
-            [v9 updateAssetKindAndPlaybackStyleIfNeededWithKind:{objc_msgSend(v94, "intValue")}];
+            [v9 updateAssetKindAndPlaybackStyleIfNeededWithKind:{objc_msgSend(v92, "intValue")}];
           }
 
-          v170 = v2;
-          v95 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0300]];
-          v96 = v95;
-          if (v95)
+          v168 = v2;
+          v93 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0300]];
+          v94 = v93;
+          if (v93)
           {
-            [v9 setKindSubtype:{objc_msgSend(v95, "intValue")}];
+            [v9 setKindSubtype:{objc_msgSend(v93, "intValue")}];
           }
 
-          v97 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0578]];
-          v98 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0350]];
-          v99 = *MEMORY[0x1E695F060];
-          v100 = *(MEMORY[0x1E695F060] + 8);
-          if (v98)
+          v95 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0578]];
+          v96 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0350]];
+          v97 = *MEMORY[0x1E695F060];
+          v98 = *(MEMORY[0x1E695F060] + 8);
+          if (v96)
           {
-            v101 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x1E69C03F0]];
-            v102 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x1E69C03E0]];
-            v103 = v102;
-            if (v101 && v102)
+            v99 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x1E69C03F0]];
+            v100 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x1E69C03E0]];
+            v101 = v100;
+            if (v99 && v100)
             {
+              [v99 floatValue];
+              v97 = v102;
               [v101 floatValue];
-              v99 = v104;
-              [v103 floatValue];
-              v100 = v105;
+              v98 = v103;
             }
           }
 
-          [objc_opt_class() setAdjustmentsForNewVideo:v9 mainFileMetadata:v186 withAdjustmentsDictionary:v97 cameraAdjustments:v98 renderedContentPath:v178 renderedPosterFramePreviewPath:*(a1 + 88) finalAssetSize:{v99, v100}];
+          [objc_opt_class() setAdjustmentsForNewVideo:v9 mainFileMetadata:v184 withAdjustmentsDictionary:v95 cameraAdjustments:v96 renderedContentPath:v176 renderedPosterFramePreviewPath:*(a1 + 88) finalAssetSize:{v97, v98}];
           if (v9)
           {
-            v189 = 0;
-            v106 = [PLResourceInstaller installInternalResourcesForExistingAsset:v9 assumeNoExistingResources:0 referencedResourceURLs:0 error:&v189];
-            v107 = v189;
-            if (!v106)
+            v187 = 0;
+            v104 = [PLResourceInstaller installInternalResourcesForExistingAsset:v9 assumeNoExistingResources:0 referencedResourceURLs:0 error:&v187];
+            v105 = v187;
+            if (!v104)
             {
-              v108 = PLAssetImportGetLog();
-              if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
+              v106 = PLAssetImportGetLog();
+              if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
               {
                 LODWORD(buf.value) = 138412546;
                 *(&buf.value + 4) = v9;
                 LOWORD(buf.flags) = 2114;
-                *(&buf.flags + 2) = v107;
-                _os_log_impl(&dword_19BF1F000, v108, OS_LOG_TYPE_ERROR, "Failed to install resources for asset: %@, reason: %{public}@", &buf, 0x16u);
+                *(&buf.flags + 2) = v105;
+                _os_log_impl(&dword_19BF1F000, v106, OS_LOG_TYPE_ERROR, "Failed to install resources for asset: %@, reason: %{public}@", &buf, 0x16u);
               }
             }
           }
 
-          LOBYTE(v63) = 0;
-          v2 = v170;
+          LOBYTE(v61) = 0;
+          v2 = v168;
         }
 
-        v5 = v181;
+        v5 = v179;
         goto LABEL_165;
       }
 
-      if (v22)
+      if (v21)
       {
-        v109 = *(a1 + 72);
+        v107 = *(a1 + 72);
         LODWORD(buf.value) = 138543618;
-        *(&buf.value + 4) = v109;
+        *(&buf.value + 4) = v107;
         LOWORD(buf.flags) = 2114;
-        *(&buf.flags + 2) = v188;
-        _os_log_impl(&dword_19BF1F000, v21, OS_LOG_TYPE_DEFAULT, "photoIris video job %{public}@ did not find asset with uuid %{public}@", &buf, 0x16u);
+        *(&buf.flags + 2) = v186;
+        _os_log_impl(&dword_19BF1F000, v20, OS_LOG_TYPE_DEFAULT, "photoIris video job %{public}@ did not find asset with uuid %{public}@", &buf, 0x16u);
       }
     }
 
-    if (v19)
+    if (v18)
     {
-      v110 = [*(a1 + 48) managedObjectContext];
-      v111 = [PLManagedAsset imageAssetsForMediaGroupUUID:v19 moc:v110];
-      v20 = [v111 firstObject];
+      v108 = [*(a1 + 48) managedObjectContext];
+      v109 = [PLManagedAsset imageAssetsForMediaGroupUUID:v18 moc:v108];
+      v19 = [v109 firstObject];
 
-      v112 = PLAssetImportGetLog();
-      v113 = os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT);
-      if (v20)
+      v110 = PLAssetImportGetLog();
+      v111 = os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT);
+      if (v19)
       {
-        if (v113)
+        if (v111)
         {
-          v114 = *(a1 + 72);
-          v115 = [v20 objectID];
-          v116 = [v20 uuid];
+          v112 = *(a1 + 72);
+          v113 = [v19 objectID];
+          v114 = [v19 uuid];
           LODWORD(buf.value) = 138544130;
-          *(&buf.value + 4) = v114;
+          *(&buf.value + 4) = v112;
           LOWORD(buf.flags) = 2114;
-          *(&buf.flags + 2) = v115;
+          *(&buf.flags + 2) = v113;
           HIWORD(buf.epoch) = 2114;
-          v199 = v116;
-          v200 = 2114;
-          v201 = v185;
-          _os_log_impl(&dword_19BF1F000, v112, OS_LOG_TYPE_DEFAULT, "photoIris video job %{public}@ found asset %{public}@/%{public}@ with media group UUID %{public}@", &buf, 0x2Au);
+          v197 = v114;
+          v198 = 2114;
+          v199 = v183;
+          _os_log_impl(&dword_19BF1F000, v110, OS_LOG_TYPE_DEFAULT, "photoIris video job %{public}@ found asset %{public}@/%{public}@ with media group UUID %{public}@", &buf, 0x2Au);
         }
 
-        v173 = 0;
-        v182 = 0;
         v171 = 0;
+        v180 = 0;
+        v169 = 0;
         goto LABEL_192;
       }
 
-      if (v113)
+      if (v111)
       {
-        v148 = *(a1 + 72);
+        v146 = *(a1 + 72);
         LODWORD(buf.value) = 138543618;
-        *(&buf.value + 4) = v148;
+        *(&buf.value + 4) = v146;
         LOWORD(buf.flags) = 2114;
-        *(&buf.flags + 2) = v19;
-        _os_log_impl(&dword_19BF1F000, v112, OS_LOG_TYPE_DEFAULT, "photoIris video job %{public}@ did not find asset with media group UUID %{public}@", &buf, 0x16u);
+        *(&buf.flags + 2) = v18;
+        _os_log_impl(&dword_19BF1F000, v110, OS_LOG_TYPE_DEFAULT, "photoIris video job %{public}@ did not find asset with media group UUID %{public}@", &buf, 0x16u);
       }
     }
 
-    v20 = 0;
-    if ([*(a1 + 64) _retryPairedVideoJob:*(a1 + 32) pairingType:@"live-photo" pairingIdentifier:v188 retryMax:22])
+    v19 = 0;
+    if ([*(a1 + 64) _retryPairedVideoJob:*(a1 + 32) pairingType:@"live-photo" pairingIdentifier:v186 retryMax:22])
     {
-      v147 = 0;
+      v145 = 0;
       v9 = 0;
       goto LABEL_184;
     }
 
-    v173 = 0;
     v171 = 0;
-    v182 = 0;
+    v169 = 0;
+    v180 = 0;
     goto LABEL_192;
   }
 
@@ -2492,7 +2487,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  if (([pathCopy isEqualToString:destinationPathCopy]& 1) != 0)
+  if (objc_msgSend_isEqualToString_(pathCopy))
   {
     v13 = 0;
     v14 = 0;
@@ -2705,7 +2700,7 @@ LABEL_7:
 
 - (void)_processCrashRecoveryJob:(id)job completion:(id)completion
 {
-  v183 = *MEMORY[0x1E69E9840];
+  v178 = *MEMORY[0x1E69E9840];
   jobCopy = job;
   completionCopy = completion;
   selfCopy = self;
@@ -2747,21 +2742,21 @@ LABEL_11:
             v19 = [jobCopy objectForKeyedSubscript:*MEMORY[0x1E69C0408]];
             v20 = [v16 componentsJoinedByString:{@", "}];
             *buf = 138543618;
-            v176 = v19;
-            v177 = 2114;
-            v178 = v20;
+            v171 = v19;
+            v172 = 2114;
+            v173 = v20;
             _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEFAULT, "##### RECOVER: delaying crash recovery job (%{public}@) because: %{public}@", buf, 0x16u);
           }
 
           v21 = [jobCopy mutableCopy];
           dispatch_time(0, 3000000000);
-          v166 = MEMORY[0x1E69E9820];
-          v167 = 3221225472;
-          v168 = __53__PLImageWriter__processCrashRecoveryJob_completion___block_invoke;
-          v169 = &unk_1E75782F8;
-          v172 = a2;
-          v170 = v21;
-          v171 = selfCopy;
+          v161 = MEMORY[0x1E69E9820];
+          v162 = 3221225472;
+          v163 = __53__PLImageWriter__processCrashRecoveryJob_completion___block_invoke;
+          v164 = &unk_1E75782F8;
+          v167 = a2;
+          v165 = v21;
+          v166 = selfCopy;
           v22 = v21;
           pl_dispatch_after();
           completionCopy[2]();
@@ -2814,13 +2809,13 @@ LABEL_10:
     v24 = [jobCopy objectForKeyedSubscript:*MEMORY[0x1E69C0408]];
     v25 = [jobCopy objectForKeyedSubscript:@"CrashRecoveryJobCreationDateKey"];
     *buf = 138544130;
-    v176 = v24;
-    v177 = 2114;
-    v178 = v25;
-    v179 = 2114;
-    v180 = incomingDirectoryPath;
-    v181 = 2114;
-    v182 = v14;
+    v171 = v24;
+    v172 = 2114;
+    v173 = v25;
+    v174 = 2114;
+    v175 = incomingDirectoryPath;
+    v176 = 2114;
+    v177 = v14;
     _os_log_impl(&dword_19BF1F000, v23, OS_LOG_TYPE_DEFAULT, "##### RECOVER: Initiating recovery job (#%{public}@) of incoming files (requested at %{public}@) from %{public}@: %{public}@", buf, 0x2Au);
   }
 
@@ -2840,21 +2835,16 @@ LABEL_10:
   array10 = [MEMORY[0x1E695DF70] array];
   array11 = [MEMORY[0x1E695DF70] array];
   v103 = [pathManager privateDirectoryWithSubType:8 createIfNeeded:1 error:0];
-  v164 = 0u;
-  v165 = 0u;
-  v162 = 0u;
-  v163 = 0u;
+  v159 = 0u;
+  v160 = 0u;
+  v157 = 0u;
+  v158 = 0u;
   obj = v14;
-  v27 = [obj countByEnumeratingWithState:&v162 objects:v174 count:16];
+  v27 = [obj countByEnumeratingWithState:&v157 objects:v169 count:16];
   if (v27)
   {
-    v136 = *v163;
-    v132 = *MEMORY[0x1E69C00D0];
-    v127 = *MEMORY[0x1E69C00E0];
-    v125 = *MEMORY[0x1E69C00C8];
-    v120 = *MEMORY[0x1E69C00B8];
-    v118 = *MEMORY[0x1E69C00B0];
-    v115 = *MEMORY[0x1E69C00C0];
+    v131 = *v158;
+    v122 = *MEMORY[0x1E69C00C8];
     v93 = *MEMORY[0x1E69BFE68];
     v92 = *MEMORY[0x1E69BFDB0];
     v91 = *MEMORY[0x1E69BFDC8];
@@ -2863,17 +2853,17 @@ LABEL_10:
       v28 = 0;
       do
       {
-        if (*v163 != v136)
+        if (*v158 != v131)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = *(*(&v162 + 1) + 8 * v28);
+        v29 = *(*(&v157 + 1) + 8 * v28);
         v30 = objc_autoreleasePoolPush();
         v31 = [incomingDirectoryPath stringByAppendingPathComponent:v29];
         pathExtension = [v29 pathExtension];
-        v161 = 0;
-        if ([defaultManager fileExistsAtPath:v31 isDirectory:&v161] && (v161 & 1) == 0)
+        v156 = 0;
+        if ([defaultManager fileExistsAtPath:v31 isDirectory:&v156] && (v156 & 1) == 0)
         {
           if ([PLPhotoLibrary isVideoFileExtension:pathExtension])
           {
@@ -2889,8 +2879,8 @@ LABEL_10:
           stringByDeletingPathExtension = [v29 stringByDeletingPathExtension];
           pathExtension2 = [stringByDeletingPathExtension pathExtension];
 
-          v37 = [pathExtension2 isEqualToString:v132];
-          if (v37)
+          isEqualToString = objc_msgSend_isEqualToString_(pathExtension2);
+          if (isEqualToString)
           {
             v38 = [objc_opt_class() _assetUUIDFromIncomingFilename:v29];
             if ([objc_opt_class() _hasPrimaryAssetAndAdjustmentsFilesWithType:0 inIncomingFilenames:obj forAssetUUID:v38])
@@ -2901,13 +2891,13 @@ LABEL_10:
           }
 
           v39 = array6;
-          if (pairingIdentifier || (v40 = [pathExtension isEqualToString:@"irs"], v39 = array7, (v40 & 1) != 0) || (v41 = objc_msgSend(pathExtension, "isEqualToString:", v127), v39 = array11, (v41 & 1) != 0) || (v42 = objc_msgSend(pathExtension, "isEqualToString:", v125), v39 = array3, (v42 & 1) != 0) || (v43 = objc_msgSend(pathExtension, "isEqualToString:", v120), v39 = array8, (v43 & 1) != 0) || (v44 = objc_msgSend(pathExtension, "isEqualToString:", v118), v39 = array5, (v44 & 1) != 0) || (v45 = objc_msgSend(pathExtension, "isEqualToString:", v115), v39 = array10, v45))
+          if (pairingIdentifier || (v40 = objc_msgSend_isEqualToString_(pathExtension), v39 = array7, (v40 & 1) != 0) || (v41 = objc_msgSend_isEqualToString_(pathExtension), v39 = array11, (v41 & 1) != 0) || (v42 = objc_msgSend_isEqualToString_(pathExtension), v39 = array3, (v42 & 1) != 0) || (v43 = objc_msgSend_isEqualToString_(pathExtension), v39 = array8, (v43 & 1) != 0) || (v44 = objc_msgSend_isEqualToString_(pathExtension), v39 = array5, (v44 & 1) != 0) || (v45 = objc_msgSend_isEqualToString_(pathExtension), v39 = array10, v45))
           {
             [v39 addObject:v31];
             goto LABEL_49;
           }
 
-          if ([pathExtension isEqualToString:@"plist"])
+          if (objc_msgSend_isEqualToString_(pathExtension))
           {
             goto LABEL_49;
           }
@@ -2933,7 +2923,7 @@ LABEL_10:
 
             else
             {
-              if (v37)
+              if (isEqualToString)
               {
                 uUID = [MEMORY[0x1E696AFB0] UUID];
                 uUIDString = [uUID UUIDString];
@@ -2954,9 +2944,9 @@ LABEL_10:
             if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543618;
-              v176 = v101;
-              v177 = 2114;
-              v178 = v29;
+              v171 = v101;
+              v172 = 2114;
+              v173 = v29;
               _os_log_impl(&dword_19BF1F000, v48, OS_LOG_TYPE_DEFAULT, "##### RECOVER: assetUUID %{public}@ (%{public}@)", buf, 0x16u);
             }
 
@@ -2965,7 +2955,7 @@ LABEL_10:
             if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v176 = v106;
+              v171 = v106;
               _os_log_impl(&dword_19BF1F000, v49, OS_LOG_TYPE_DEFAULT, "##### RECOVER: destinationPath EA %{public}@", buf, 0xCu);
             }
 
@@ -2997,7 +2987,7 @@ LABEL_10:
                 if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543362;
-                  v176 = path;
+                  v171 = path;
                   _os_log_impl(&dword_19BF1F000, v54, OS_LOG_TYPE_DEFAULT, "##### RECOVER: assigning deferred path %{public}@", buf, 0xCu);
                 }
 
@@ -3011,9 +3001,9 @@ LABEL_10:
                 v55 = 1;
               }
 
-              v160 = -1;
-              [v94 getInt32:&v160 forKey:v91];
-              if ((v55 & [objc_opt_class() semanticEnhanceSceneIsValid:v160]) == 1)
+              v155 = -1;
+              [v94 getInt32:&v155 forKey:v91];
+              if ((v55 & [objc_opt_class() semanticEnhanceSceneIsValid:v155]) == 1)
               {
                 v84 = [MEMORY[0x1E695DFF8] fileURLWithPath:v89 isDirectory:0];
                 v56 = [PLImageWriter semanticEnhancePreviewDestinationURLForPrimaryAssetURL:v84];
@@ -3023,7 +3013,7 @@ LABEL_10:
                 if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543362;
-                  v176 = path2;
+                  v171 = path2;
                   _os_log_impl(&dword_19BF1F000, v57, OS_LOG_TYPE_DEFAULT, "##### RECOVER: assigning SemDev deferred path %{public}@", buf, 0xCu);
                 }
               }
@@ -3051,9 +3041,9 @@ LABEL_85:
               if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543618;
-                v176 = v31;
-                v177 = 2114;
-                v178 = v50;
+                v171 = v31;
+                v172 = 2114;
+                v173 = v50;
                 _os_log_impl(&dword_19BF1F000, v58, OS_LOG_TYPE_DEFAULT, "##### RECOVER: source %{public}@ -> destination %{public}@", buf, 0x16u);
               }
 
@@ -3063,7 +3053,7 @@ LABEL_85:
               {
 LABEL_94:
                 stringByDeletingPathExtension2 = [v31 stringByDeletingPathExtension];
-                v97 = [stringByDeletingPathExtension2 stringByAppendingPathExtension:v125];
+                v97 = [stringByDeletingPathExtension2 stringByAppendingPathExtension:v122];
 
                 if ([defaultManager fileExistsAtPath:v97])
                 {
@@ -3075,9 +3065,9 @@ LABEL_94:
                     v63 = MEMORY[0x1E69BF238];
                     v85 = [MEMORY[0x1E695DFF8] fileURLWithPath:v97 isDirectory:0];
                     v64 = [MEMORY[0x1E695DFF8] fileURLWithPath:v88 isDirectory:0];
-                    v158 = 0;
-                    LOBYTE(v63) = [v63 copyItemAtURL:v85 toURL:v64 error:&v158];
-                    v82 = v158;
+                    v153 = 0;
+                    LOBYTE(v63) = [v63 copyItemAtURL:v85 toURL:v64 error:&v153];
+                    v82 = v153;
 
                     if ((v63 & 1) == 0 && ([defaultManager fileExistsAtPath:v88] & 1) == 0)
                     {
@@ -3086,11 +3076,11 @@ LABEL_94:
                       {
                         localizedDescription = [v82 localizedDescription];
                         *buf = 138543874;
-                        v176 = v97;
-                        v177 = 2114;
-                        v178 = v88;
-                        v179 = 2114;
-                        v180 = localizedDescription;
+                        v171 = v97;
+                        v172 = 2114;
+                        v173 = v88;
+                        v174 = 2114;
+                        v175 = localizedDescription;
                         _os_log_impl(&dword_19BF1F000, v65, OS_LOG_TYPE_ERROR, "Failed to copy %{public}@ to %{public}@: %{public}@", buf, 0x20u);
                       }
                     }
@@ -3105,18 +3095,18 @@ LABEL_94:
 
               else
               {
-                v159 = 0;
-                v59 = [MEMORY[0x1E69BF238] copyItemAtURL:v104 toURL:v99 error:&v159];
-                v97 = v159;
+                v154 = 0;
+                v59 = [MEMORY[0x1E69BF238] copyItemAtURL:v104 toURL:v99 error:&v154];
+                v97 = v154;
                 if (v59)
                 {
                   v60 = PLAssetImportGetLog();
                   if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138543618;
-                    v176 = v31;
-                    v177 = 2114;
-                    v178 = v50;
+                    v171 = v31;
+                    v172 = 2114;
+                    v173 = v50;
                     _os_log_impl(&dword_19BF1F000, v60, OS_LOG_TYPE_DEBUG, "##### RECOVER: copied %{public}@ to %{public}@", buf, 0x16u);
                   }
 
@@ -3127,11 +3117,11 @@ LABEL_94:
                 if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138543874;
-                  v176 = v31;
-                  v177 = 2114;
-                  v178 = v50;
-                  v179 = 2114;
-                  v180 = v97;
+                  v171 = v31;
+                  v172 = 2114;
+                  v173 = v50;
+                  v174 = 2114;
+                  v175 = v97;
                   _os_log_impl(&dword_19BF1F000, v67, OS_LOG_TYPE_ERROR, "Failed to copy %{public}@ to %{public}@: %{public}@", buf, 0x20u);
                 }
               }
@@ -3145,7 +3135,7 @@ LABEL_94:
               if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v176 = v29;
+                v171 = v29;
                 _os_log_impl(&dword_19BF1F000, v68, OS_LOG_TYPE_DEFAULT, "##### RECOVER: skipping %{public}@, missing destinationPath", buf, 0xCu);
               }
             }
@@ -3157,7 +3147,7 @@ LABEL_94:
             if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v176 = v31;
+              v171 = v31;
               _os_log_impl(&dword_19BF1F000, v38, OS_LOG_TYPE_DEFAULT, "##### RECOVER: Ignoring malformed incoming filename with path %{public}@", buf, 0xCu);
             }
           }
@@ -3172,7 +3162,7 @@ LABEL_49:
         if (os_log_type_enabled(pairingIdentifier, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v176 = v31;
+          v171 = v31;
           _os_log_impl(&dword_19BF1F000, pairingIdentifier, OS_LOG_TYPE_DEFAULT, "##### RECOVER: Skipping missing file %{public}@", buf, 0xCu);
         }
 
@@ -3183,37 +3173,37 @@ LABEL_50:
       }
 
       while (v27 != v28);
-      v69 = [obj countByEnumeratingWithState:&v162 objects:v174 count:16];
+      v69 = [obj countByEnumeratingWithState:&v157 objects:v169 count:16];
       v27 = v69;
     }
 
     while (v69);
   }
 
-  v133 = [array2 count];
-  if (v133)
+  v128 = objc_msgSend_count(array2);
+  if (v128)
   {
     [(PLImageWriter *)selfCopy _incrementJobCount:jobCopy];
     v70 = objc_loadWeakRetained(&selfCopy->_libraryServicesManager);
     modelMigrator = [v70 modelMigrator];
-    v144[0] = MEMORY[0x1E69E9820];
-    v144[1] = 3221225472;
-    v144[2] = __53__PLImageWriter__processCrashRecoveryJob_completion___block_invoke_362;
-    v144[3] = &unk_1E7565C70;
-    v145 = dictionary;
-    v146 = defaultManager;
-    v147 = selfCopy;
-    v148 = array4;
-    v149 = array5;
-    v150 = array7;
-    v151 = array6;
-    v152 = array8;
-    v153 = array9;
-    v154 = array11;
-    v155 = array10;
-    v157 = completionCopy;
-    v156 = jobCopy;
-    [modelMigrator importAfterCrash:array2 completionBlock:v144];
+    v139[0] = MEMORY[0x1E69E9820];
+    v139[1] = 3221225472;
+    v139[2] = __53__PLImageWriter__processCrashRecoveryJob_completion___block_invoke_362;
+    v139[3] = &unk_1E7565C70;
+    v140 = dictionary;
+    v141 = defaultManager;
+    v142 = selfCopy;
+    v143 = array4;
+    v144 = array5;
+    v145 = array7;
+    v146 = array6;
+    v147 = array8;
+    v148 = array9;
+    v149 = array11;
+    v150 = array10;
+    v152 = completionCopy;
+    v151 = jobCopy;
+    [modelMigrator importAfterCrash:array2 completionBlock:v139];
   }
 
   else
@@ -3225,28 +3215,28 @@ LABEL_50:
     [(PLImageWriter *)selfCopy _handleCameraMetadataCrashRecovery:array10];
   }
 
-  v142 = 0u;
-  v143 = 0u;
-  v140 = 0u;
-  v141 = 0u;
+  v137 = 0u;
+  v138 = 0u;
+  v135 = 0u;
+  v136 = 0u;
   v72 = array3;
-  v73 = [v72 countByEnumeratingWithState:&v140 objects:v173 count:16];
+  v73 = [v72 countByEnumeratingWithState:&v135 objects:v168 count:16];
   if (v73)
   {
-    v74 = *v141;
+    v74 = *v136;
     do
     {
       for (i = 0; i != v73; ++i)
       {
-        if (*v141 != v74)
+        if (*v136 != v74)
         {
           objc_enumerationMutation(v72);
         }
 
-        v76 = *(*(&v140 + 1) + 8 * i);
-        v139 = 0;
-        v77 = [defaultManager removeItemAtPath:v76 error:&v139];
-        v78 = v139;
+        v76 = *(*(&v135 + 1) + 8 * i);
+        v134 = 0;
+        v77 = [defaultManager removeItemAtPath:v76 error:&v134];
+        v78 = v134;
         if ((v77 & 1) == 0)
         {
           v79 = PLAssetImportGetLog();
@@ -3254,21 +3244,21 @@ LABEL_50:
           {
             localizedDescription2 = [v78 localizedDescription];
             *buf = 138543618;
-            v176 = v76;
-            v177 = 2114;
-            v178 = localizedDescription2;
+            v171 = v76;
+            v172 = 2114;
+            v173 = localizedDescription2;
             _os_log_impl(&dword_19BF1F000, v79, OS_LOG_TYPE_ERROR, "Failed to unlink file at path %{public}@: %{public}@", buf, 0x16u);
           }
         }
       }
 
-      v73 = [v72 countByEnumeratingWithState:&v140 objects:v173 count:16];
+      v73 = [v72 countByEnumeratingWithState:&v135 objects:v168 count:16];
     }
 
     while (v73);
   }
 
-  if (!v133)
+  if (!v128)
   {
     completionCopy[2]();
   }
@@ -3481,7 +3471,7 @@ void __53__PLImageWriter__processCrashRecoveryJob_completion___block_invoke_363(
 - (void)_handlePhotoIrisCrashRecoveryForPhotoIndicatorFiles:(id)files
 {
   filesCopy = files;
-  if ([filesCopy count])
+  if (objc_msgSend_count(filesCopy))
   {
     v5 = [(PLImageWriter *)self _newShortLivedLibraryWithName:"[PLImageWriter _handlePhotoIrisCrashRecoveryForPhotoIndicatorFiles:]"];
     v7[0] = MEMORY[0x1E69E9820];
@@ -3841,7 +3831,7 @@ LABEL_10:
 - (void)_handlePhotoIrisCrashRecoveryForVideos:(id)videos
 {
   videosCopy = videos;
-  if ([videosCopy count])
+  if (objc_msgSend_count(videosCopy))
   {
     array = [MEMORY[0x1E695DF70] array];
     v7 = [(PLImageWriter *)self _newShortLivedLibraryWithName:"[PLImageWriter _handlePhotoIrisCrashRecoveryForVideos:]"];
@@ -3857,7 +3847,7 @@ LABEL_10:
     v9 = array;
     v18 = v9;
     [v8 performBlockAndWait:v14];
-    if ([v9 count])
+    if (objc_msgSend_count(v9))
     {
       v10[0] = MEMORY[0x1E69E9820];
       v10[1] = 3221225472;
@@ -3909,9 +3899,9 @@ void __56__PLImageWriter__handlePhotoIrisCrashRecoveryForVideos___block_invoke(u
         v39 = v5;
         if (v5)
         {
-          [v5 videoDuration];
+          objc_msgSend_videoDuration(v5);
           v7 = CMTimeCopyAsDictionary(&time, v2);
-          [v5 imageDisplayTime];
+          objc_msgSend_imageDisplayTime(v5);
         }
 
         else
@@ -4079,7 +4069,7 @@ void __56__PLImageWriter__handlePhotoIrisCrashRecoveryForVideos___block_invoke_3
 - (void)_handleCameraMetadataCrashRecovery:(id)recovery
 {
   recoveryCopy = recovery;
-  if ([recoveryCopy count])
+  if (objc_msgSend_count(recoveryCopy))
   {
     v5 = [(PLImageWriter *)self _newShortLivedLibraryWithName:"[PLImageWriter _handleCameraMetadataCrashRecovery:]"];
     v7[0] = MEMORY[0x1E69E9820];
@@ -4201,7 +4191,7 @@ void __52__PLImageWriter__handleCameraMetadataCrashRecovery___block_invoke(uint6
 - (void)_handleAvalancheCrashRecovery:(id)recovery
 {
   recoveryCopy = recovery;
-  if ([recoveryCopy count])
+  if (objc_msgSend_count(recoveryCopy))
   {
     v5 = [(PLImageWriter *)self _newShortLivedLibraryWithName:"[PLImageWriter _handleAvalancheCrashRecovery:]"];
     v7[0] = MEMORY[0x1E69E9820];
@@ -4256,7 +4246,7 @@ void __47__PLImageWriter__handleAvalancheCrashRecovery___block_invoke(uint64_t a
             v13 = v4;
             v14 = v1;
             v16 = v15 = v5;
-            v17 = [v16 count];
+            v17 = objc_msgSend_count(v16);
             *buf = 138412546;
             v25 = v10;
             v26 = 2048;
@@ -4323,7 +4313,7 @@ void __47__PLImageWriter__handleAvalancheCrashRecovery___block_invoke(uint64_t a
   v19 = PLSyncGetLog();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = [v18 count];
+    v20 = objc_msgSend_count(v18);
     *buf = 67109120;
     LODWORD(v36) = v20;
     _os_log_impl(&dword_19BF1F000, v19, OS_LOG_TYPE_DEFAULT, "Processing %d sync save jobs", buf, 8u);
@@ -4756,7 +4746,7 @@ LABEL_33:
   }
 }
 
-uint64_t __65__PLImageWriter_cleanupFilesInLibrary_afteriTunesSyncBeforeDate___block_invoke(uint64_t a1)
+void *__65__PLImageWriter_cleanupFilesInLibrary_afteriTunesSyncBeforeDate___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) countForFetchRequest:*(a1 + 40) error:0];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -5313,10 +5303,10 @@ LABEL_76:
           memset(buf, 0, sizeof(buf));
           if (v126)
           {
-            [v126 imageDisplayTime];
+            objc_msgSend_imageDisplayTime(v126);
             v247 = 0uLL;
             v248 = 0;
-            [v126 originalVideoDuration];
+            objc_msgSend_originalVideoDuration(v126);
           }
 
           else
@@ -5349,9 +5339,9 @@ LABEL_76:
           }
 
           pathForVideoComplementFile = [v35 pathForVideoComplementFile];
-          v152 = [path9 isEqualToString:pathForVideoComplementFile];
+          isEqualToString = objc_msgSend_isEqualToString_(path9);
 
-          if ((v152 & 1) == 0)
+          if ((isEqualToString & 1) == 0)
           {
             v153 = PLSyncGetLog();
             if (os_log_type_enabled(v153, OS_LOG_TYPE_DEBUG))
@@ -5537,7 +5527,7 @@ LABEL_153:
       [v161 setObject:modificationDate3 forKey:*MEMORY[0x1E695DA98]];
     }
 
-    if ([v161 count])
+    if (objc_msgSend_count(v161))
     {
       mainFileURL = [v35 mainFileURL];
       [mainFileURL setResourceValues:v161 error:0];
@@ -5613,7 +5603,7 @@ LABEL_153:
     v238 = v185;
     [jobCopy processFacesWithBlock:v237];
     facesInfo = [jobCopy facesInfo];
-    v187 = [facesInfo count];
+    v187 = objc_msgSend_count(facesInfo);
 
     if (v187)
     {
@@ -5844,13 +5834,13 @@ void __53__PLImageWriter_processSyncSaveJob_library_albumMap___block_invoke(uint
   [(PLImageWriter *)self _processDeletePhotoStreamDataJob:dictionary withReason:v10 completion:v12];
 }
 
-uint64_t __50__PLImageWriter__enablePhotoStreamJob_completion___block_invoke(uint64_t a1)
+uint64_t __50__PLImageWriter__enablePhotoStreamJob_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PLMyPhotoStreamGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PLMyPhotoStreamGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "ignoring request to enable Photo Stream since no stream ID was found", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "ignoring request to enable Photo Stream since no stream ID was found", v5, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();
@@ -5933,7 +5923,7 @@ void __60__PLImageWriter__processAutodeleteEmptyAlbumJob_completion___block_invo
     if (([v5 isDeleted] & 1) == 0)
     {
       v6 = [v5 assets];
-      v7 = [v6 count];
+      v7 = objc_msgSend_count(v6);
 
       if (!v7)
       {
@@ -5981,7 +5971,7 @@ uint64_t __60__PLImageWriter__processAutodeleteEmptyAlbumJob_completion___block_
 void __60__PLImageWriter__processAvalanchesValidationJob_completion___block_invoke(id *a1)
 {
   v17 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(a1[4], "count")}];
+  v2 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:objc_msgSend_count(a1[4])];
   [a1[5] setObject:v2 forKeyedSubscript:@"avalancheStackAssetMap"];
   v14 = 0u;
   v15 = 0u;
@@ -6007,7 +5997,7 @@ void __60__PLImageWriter__processAvalanchesValidationJob_completion___block_invo
         v9 = [a1[6] managedObjectContext];
         v10 = [PLAvalanche assetsWithAvalancheUUID:v8 sourceType:1 inManagedObjectContext:v9];
 
-        if ([v10 count] >= 2 && !+[PLAvalanche isValidBurstWithAssets:](PLAvalanche, "isValidBurstWithAssets:", v10))
+        if (objc_msgSend_count(v10) >= 2 && ![PLAvalanche isValidBurstWithAssets:v10])
         {
           v11 = [PLAvalanche revalidateAvalancheAssets:v10 inLibrary:a1[6] deleteNonPicks:0 allowDissolve:1];
           [v2 setObject:v11 forKeyedSubscript:v8];
@@ -6046,7 +6036,7 @@ void __60__PLImageWriter__processAvalanchesValidationJob_completion___block_invo
       }
     }
 
-    if ([v10 count] && objc_msgSend(v11, "count") && v12)
+    if (objc_msgSend_count(v10) && objc_msgSend_count(v11) && v12)
     {
       [(PLImageWriter *)self _incrementJobCount:jobCopy];
       v15 = [(PLImageWriter *)self _newShortLivedLibraryWithName:"[PLImageWriter _processAvalancheJob:completion:]"];
@@ -6071,7 +6061,7 @@ void __60__PLImageWriter__processAvalanchesValidationJob_completion___block_invo
 
 void __49__PLImageWriter__processAvalancheJob_completion___block_invoke(uint64_t a1)
 {
-  if ([*(a1 + 32) count] >= 2)
+  if (objc_msgSend_count(*(a1 + 32)) >= 2)
   {
     v2 = *(a1 + 40);
     v3 = [*(a1 + 48) managedObjectContext];
@@ -6117,7 +6107,7 @@ void __49__PLImageWriter__processAvalancheJob_completion___block_invoke(uint64_t
       v46 = completionCopy;
       v47 = jobCopy;
       v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v16 = [v12 count];
+      v16 = objc_msgSend_count(v12);
       if (v16)
       {
         v17 = v16;
@@ -6375,7 +6365,7 @@ void __60__PLImageWriter__processBatchImageJob_inLibrary_completion___block_invo
   {
     if (authorizationCopy)
     {
-      [authorizationCopy clientAuditToken];
+      objc_msgSend_clientAuditToken(authorizationCopy);
     }
 
     else
@@ -6523,9 +6513,9 @@ LABEL_20:
   if (pathExtension)
   {
     pathExtension2 = [v22 pathExtension];
-    v24 = [pathExtension2 isEqualToString:pathExtension];
+    isEqualToString = objc_msgSend_isEqualToString_(pathExtension2);
 
-    if ((v24 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       uRLByDeletingPathExtension = [v21 URLByDeletingPathExtension];
       v26 = [uRLByDeletingPathExtension URLByAppendingPathExtension:pathExtension];
@@ -8144,10 +8134,10 @@ LABEL_30:
   if ([extensionCopy length])
   {
     pathExtension = [v10 pathExtension];
-    v13 = [pathExtension isEqualToString:extensionCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(pathExtension);
 
     v11 = v10;
-    if ((v13 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       stringByDeletingPathExtension = [v10 stringByDeletingPathExtension];
       uppercaseString = [extensionCopy uppercaseString];
@@ -8368,7 +8358,7 @@ uint64_t __32__PLImageWriter_delayJob_delay___block_invoke(uint64_t a1)
     dispatch_once(&enqueueJob__onceToken, &__block_literal_global_5498);
   }
 
-  if (enqueueJob__debugVideoJobDelay && ([jobCopy objectForKeyedSubscript:v8], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "isEqualToString:", *MEMORY[0x1E69C0478]), v11, v12))
+  if (enqueueJob__debugVideoJobDelay && ([jobCopy objectForKeyedSubscript:v8], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend_isEqualToString_(v11), v11, v12))
   {
     v13 = PLAssetImportGetLog();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
@@ -8383,7 +8373,7 @@ uint64_t __32__PLImageWriter_delayJob_delay___block_invoke(uint64_t a1)
 
   else
   {
-    if (!enqueueJob__debugImageJobDelay || ([jobCopy objectForKeyedSubscript:v8], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "isEqualToString:", *MEMORY[0x1E69C0458]), v15, !v16))
+    if (!enqueueJob__debugImageJobDelay || ([jobCopy objectForKeyedSubscript:v8], v15 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v15), v15, !isEqualToString))
     {
       jobQueue = self->_jobQueue;
       v20[0] = MEMORY[0x1E69E9820];
@@ -8602,7 +8592,7 @@ void __28__PLImageWriter_enqueueJob___block_invoke()
 - (BOOL)_isHighPriorityJob:(id)job
 {
   v3 = [job objectForKey:*MEMORY[0x1E69C0410]];
-  v4 = ([v3 isEqualToString:*MEMORY[0x1E69C0458]] & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", *MEMORY[0x1E69C0430]) & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", *MEMORY[0x1E69C0420]) & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", *MEMORY[0x1E69C0428]) & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", *MEMORY[0x1E69C0478]) & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", *MEMORY[0x1E69C0490]) & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", *MEMORY[0x1E69C0488]) & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", *MEMORY[0x1E69C0480]) & 1) != 0 || objc_msgSend(v3, "isEqualToString:", *MEMORY[0x1E69C0470]);
+  v4 = (objc_msgSend_isEqualToString_(v3) & 1) != 0 || (objc_msgSend_isEqualToString_(v3) & 1) != 0 || (objc_msgSend_isEqualToString_(v3) & 1) != 0 || (objc_msgSend_isEqualToString_(v3) & 1) != 0 || (objc_msgSend_isEqualToString_(v3) & 1) != 0 || (objc_msgSend_isEqualToString_(v3) & 1) != 0 || (objc_msgSend_isEqualToString_(v3) & 1) != 0 || (objc_msgSend_isEqualToString_(v3) & 1) != 0 || objc_msgSend_isEqualToString_(v3);
 
   return v4;
 }
@@ -8787,7 +8777,7 @@ LABEL_32:
 
 + (BOOL)_hasPrimaryAssetAndAdjustmentsFilesWithType:(signed __int16)type inIncomingFilenames:(id)filenames forAssetUUID:(id)d
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   filenamesCopy = filenames;
   dCopy = d;
   if (!dCopy)
@@ -8796,12 +8786,12 @@ LABEL_32:
     goto LABEL_29;
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   obj = filenamesCopy;
-  v9 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v9 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (!v9)
   {
     v23 = 0;
@@ -8812,22 +8802,21 @@ LABEL_32:
   v25 = filenamesCopy;
   v11 = 0;
   v12 = 0;
-  v13 = *v29;
-  v26 = *MEMORY[0x1E69C00B8];
+  v13 = *v28;
 LABEL_4:
   v14 = 0;
   while (1)
   {
-    if (*v29 != v13)
+    if (*v28 != v13)
     {
       objc_enumerationMutation(obj);
     }
 
-    v15 = *(*(&v28 + 1) + 8 * v14);
+    v15 = *(*(&v27 + 1) + 8 * v14);
     v16 = [self _assetUUIDFromIncomingFilename:v15];
-    v17 = [v16 isEqualToString:dCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(v16);
 
-    if (v17)
+    if (isEqualToString)
     {
       break;
     }
@@ -8841,7 +8830,7 @@ LABEL_13:
 LABEL_15:
     if (v10 == ++v14)
     {
-      v22 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v22 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       v10 = v22;
       if (!v22)
       {
@@ -8861,7 +8850,7 @@ LABEL_15:
   else
   {
     pathExtension = [v15 pathExtension];
-    v18 = [pathExtension isEqualToString:v26];
+    v18 = objc_msgSend_isEqualToString_(pathExtension);
   }
 
   if ((v12 | v18))
@@ -8905,7 +8894,7 @@ LABEL_29:
 + (id)_assetUUIDFromIncomingFilename:(id)filename
 {
   v3 = [filename componentsSeparatedByString:*MEMORY[0x1E69C00D8]];
-  if ([v3 count] == 2)
+  if (objc_msgSend_count(v3) == 2)
   {
     v4 = [v3 objectAtIndex:1];
     v5 = [v4 componentsSeparatedByString:@"."];
@@ -9179,7 +9168,7 @@ LABEL_20:
   orientation = [photoCopy orientation];
   if (photoCopy)
   {
-    [photoCopy photoIrisVideoDuration];
+    objc_msgSend_photoIrisVideoDuration(photoCopy);
   }
 
   else
@@ -9419,7 +9408,7 @@ LABEL_16:
     {
       depthAdjustmentController = [v23 depthAdjustmentController];
       depthInfo = [depthAdjustmentController depthInfo];
-      v31 = [depthInfo count];
+      v31 = objc_msgSend_count(depthInfo);
 
       if (v31)
       {
@@ -9435,7 +9424,7 @@ LABEL_16:
 
     portraitAdjustmentController = [v23 portraitAdjustmentController];
     portraitInfo = [portraitAdjustmentController portraitInfo];
-    v35 = [portraitInfo count];
+    v35 = objc_msgSend_count(portraitInfo);
 
     if (!v35)
     {
@@ -9633,7 +9622,7 @@ void __129__PLImageWriter__assetAdjustmentsFromCameraAdjustments_cameraMetadata_
   memset(&v10, 0, sizeof(v10));
   if (v5)
   {
-    [v5 slowMotionTimeRange];
+    objc_msgSend_slowMotionTimeRange(v5);
   }
 
   *&v8.start.value = *&v10.start.value;
@@ -9751,7 +9740,7 @@ void __129__PLImageWriter__assetAdjustmentsFromCameraAdjustments_cameraMetadata_
 void __100__PLImageWriter_assetAdjustmentsFromCameraFilters_portraitMetadata_exportProperties_cameraMetadata___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 name];
-  if ([v3 isEqualToString:@"CIDepthEffect"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     [*(a1 + 32) setDepthEnabled:1];
   }
@@ -9981,7 +9970,7 @@ LABEL_10:
 + (BOOL)_requiresIndicatorFileForJobType:(id)type
 {
   typeCopy = type;
-  v4 = ([typeCopy isEqualToString:*MEMORY[0x1E69C0440]] & 1) == 0 && (objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x1E69C0498]) & 1) == 0 && (objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x1E69C0450]) & 1) == 0 && (objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x1E69C0418]) & 1) == 0 && !objc_msgSend(typeCopy, "isEqualToString:", *MEMORY[0x1E69C0448]);
+  v4 = (objc_msgSend_isEqualToString_(typeCopy) & 1) == 0 && (objc_msgSend_isEqualToString_(typeCopy) & 1) == 0 && (objc_msgSend_isEqualToString_(typeCopy) & 1) == 0 && (objc_msgSend_isEqualToString_(typeCopy) & 1) == 0 && !objc_msgSend_isEqualToString_(typeCopy);
 
   return v4;
 }

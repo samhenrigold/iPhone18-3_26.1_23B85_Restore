@@ -4,8 +4,8 @@
 - (BOOL)fetchLocationEntriesForTray:(BOOL)tray currentLocation:(id)location queue:(id)queue handler:(id)handler;
 - (BOOL)futureTripsWithHandler:(id)handler;
 - (MapsSuggestionsPortrait)initWithPortraitConnector:(id)connector networkRequester:(id)requester contacts:(id)contacts;
+- (NSObject)_appConnectionEntryFromLocation:(uint64_t)location;
 - (NSString)uniqueName;
-- (id)_appConnectionEntryFromLocation:(uint64_t)location;
 - (id)_entryFromLocationValue:(uint64_t)value;
 - (id)fetchNamedEntitiesFromDate:(id)date;
 - (id)initFromResourceDepot:(id)depot;
@@ -380,7 +380,7 @@ LABEL_12:
 
 void __85__MapsSuggestionsPortrait_fetchLocationEntriesForTray_currentLocation_queue_handler___block_invoke_243(uint64_t a1, void *a2)
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -396,8 +396,8 @@ void __85__MapsSuggestionsPortrait_fetchLocationEntriesForTray_currentLocation_q
     *&buf[4] = v6;
     *&buf[8] = 2112;
     *&buf[10] = v8;
-    v68 = 2112;
-    v69 = v10;
+    v70 = 2112;
+    v71 = v10;
     _os_log_impl(&dword_1C5126000, v4, OS_LOG_TYPE_DEBUG, "%d. %@, Category: %@", buf, 0x1Cu);
   }
 
@@ -410,9 +410,9 @@ void __85__MapsSuggestionsPortrait_fetchLocationEntriesForTray_currentLocation_q
     v20 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      v53 = [v13 name];
+      v55 = [v13 name];
       *buf = 138412290;
-      *&buf[4] = v53;
+      *&buf[4] = v55;
       _os_log_impl(&dword_1C5126000, v20, OS_LOG_TYPE_DEBUG, "%@ did not have placemark location. Dropping it.", buf, 0xCu);
     }
 
@@ -435,7 +435,7 @@ LABEL_20:
     goto LABEL_24;
   }
 
-  v59 = a1;
+  v61 = a1;
   v16 = [MapsSuggestionsEntry alloc];
   v17 = [v13 name];
   v18 = [(MapsSuggestionsEntry *)v16 initWithType:17 title:v17];
@@ -449,91 +449,92 @@ LABEL_20:
   v24 = [v23 countryCode];
   v25 = [v21 initWithCNPostalAddress:v22 language:v20 country:v24 phoneticLocale:v20];
 
-  v58 = v25;
+  v60 = v25;
   v26 = [v25 shortAddress];
-  if (v26 && MapsSuggestionsLoggingIsVerbose())
+  v28 = v26;
+  if (v26 && MapsSuggestionsLoggingIsVerbose(v26, v27))
   {
-    v27 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v29 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      *&buf[4] = v26;
-      _os_log_impl(&dword_1C5126000, v27, OS_LOG_TYPE_DEBUG, "Converted Address: %@", buf, 0xCu);
+      *&buf[4] = v28;
+      _os_log_impl(&dword_1C5126000, v29, OS_LOG_TYPE_DEBUG, "Converted Address: %@", buf, 0xCu);
     }
   }
 
-  v57 = v26;
-  [(MapsSuggestionsEntry *)v18 setString:v26 forKey:@"MapsSuggestionsDestinationAddressKey"];
-  v28 = [v13 name];
-  [(MapsSuggestionsEntry *)v18 setString:v28 forKey:@"MapsSuggestionsSearchStringKey"];
+  v59 = v28;
+  [(MapsSuggestionsEntry *)v18 setString:v28 forKey:@"MapsSuggestionsDestinationAddressKey"];
+  v30 = [v13 name];
+  [(MapsSuggestionsEntry *)v18 setString:v30 forKey:@"MapsSuggestionsSearchStringKey"];
 
-  v29 = [v13 _geoMapItem];
+  v31 = [v13 _geoMapItem];
 
-  if (v29)
+  if (v31)
   {
-    v30 = [v13 _geoMapItem];
-    v31 = MapsSuggestionsMapItemConvertIfNeeded(v30);
-    [(MapsSuggestionsEntry *)v18 setGeoMapItem:v31];
+    v32 = [v13 _geoMapItem];
+    v33 = MapsSuggestionsMapItemConvertIfNeeded(v32);
+    [(MapsSuggestionsEntry *)v18 setGeoMapItem:v33];
 
     [(MapsSuggestionsEntry *)v18 setNumber:&unk_1F4470F30 forKey:@"MapsSuggestionsGEOMapItemOriginKey"];
   }
 
-  v32 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v33 = [(MapsSuggestionsEntry *)v18 title];
-  v34 = [v32 initWithFormat:@"Portrait %@", v33];
-  [(MapsSuggestionsEntry *)v18 setString:v34 forKey:@"MapsSuggestionsPortraitPK"];
+  v34 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v35 = [(MapsSuggestionsEntry *)v18 title];
+  v36 = [v34 initWithFormat:@"Portrait %@", v35];
+  [(MapsSuggestionsEntry *)v18 setString:v36 forKey:@"MapsSuggestionsPortraitPK"];
 
   [(MapsSuggestionsEntry *)v18 setString:@"MapsSuggestionsPortraitPK" forKey:@"MapsSuggestionsPrimaryKey"];
   GEOConfigGetDouble();
-  v36 = MapsSuggestionsNowWithOffset(v35);
-  [(MapsSuggestionsEntry *)v18 setExpires:v36];
+  v38 = MapsSuggestionsNowWithOffset(v37);
+  [(MapsSuggestionsEntry *)v18 setExpires:v38];
 
   GEOConfigGetDouble();
-  v38 = v37;
+  v40 = v39;
   [v11 score];
-  [(MapsSuggestionsEntry *)v18 setWeight:v38 * v39];
+  [(MapsSuggestionsEntry *)v18 setWeight:v40 * v41];
   if (MapsSuggestionsIsValidLocation(v14))
   {
-    v40 = MEMORY[0x1E696AD98];
-    [v14 coordinate];
-    v41 = [v40 numberWithDouble:?];
-    [(MapsSuggestionsEntry *)v18 setNumber:v41 forKey:@"MapsSuggestionsLatitudeKey"];
-
     v42 = MEMORY[0x1E696AD98];
     [v14 coordinate];
-    v44 = [v42 numberWithDouble:v43];
-    [(MapsSuggestionsEntry *)v18 setNumber:v44 forKey:@"MapsSuggestionsLongitudeKey"];
+    v43 = [v42 numberWithDouble:?];
+    [(MapsSuggestionsEntry *)v18 setNumber:v43 forKey:@"MapsSuggestionsLatitudeKey"];
+
+    v44 = MEMORY[0x1E696AD98];
+    [v14 coordinate];
+    v46 = [v44 numberWithDouble:v45];
+    [(MapsSuggestionsEntry *)v18 setNumber:v46 forKey:@"MapsSuggestionsLongitudeKey"];
   }
 
-  v45 = [v12 mostRelevantRecord];
-  v46 = [v45 source];
-  v47 = [v46 bundleId];
+  v47 = [v12 mostRelevantRecord];
+  v48 = [v47 source];
+  v49 = [v48 bundleId];
 
-  if (v47)
+  if (v49)
   {
-    [(MapsSuggestionsEntry *)v18 setString:v47 forKey:@"MapsSuggestionsOriginBundleIDKey"];
-    v48 = MEMORY[0x1E69635F8];
-    v49 = v47;
-    v50 = [v48 alloc];
+    [(MapsSuggestionsEntry *)v18 setString:v49 forKey:@"MapsSuggestionsOriginBundleIDKey"];
+    v50 = MEMORY[0x1E69635F8];
+    v51 = v49;
+    v52 = [v50 alloc];
     *buf = 0;
-    v51 = [v50 initWithBundleIdentifier:v49 allowPlaceholder:0 error:buf];
+    v53 = [v52 initWithBundleIdentifier:v51 allowPlaceholder:0 error:buf];
 
-    v52 = [v51 localizedName];
+    v54 = [v53 localizedName];
 
-    [(MapsSuggestionsEntry *)v18 setString:v52 forKey:@"MapsSuggestionsOriginatingAppName"];
+    [(MapsSuggestionsEntry *)v18 setString:v54 forKey:@"MapsSuggestionsOriginatingAppName"];
   }
 
   else
   {
-    v52 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+    v54 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5126000, v52, OS_LOG_TYPE_ERROR, "nil originatingBundleID", buf, 2u);
+      _os_log_impl(&dword_1C5126000, v54, OS_LOG_TYPE_ERROR, "nil originatingBundleID", buf, 2u);
     }
   }
 
-  a1 = v59;
+  a1 = v61;
 LABEL_24:
 
   if (v18)
@@ -549,37 +550,37 @@ LABEL_24:
       if (WeakRetained)
       {
         dispatch_group_enter(*(a1 + 40));
-        v55 = WeakRetained[2];
-        v60[0] = MEMORY[0x1E69E9820];
-        v60[1] = 3221225472;
-        v60[2] = __85__MapsSuggestionsPortrait_fetchLocationEntriesForTray_currentLocation_queue_handler___block_invoke_244;
-        v60[3] = &unk_1E81F6570;
-        v61 = *(a1 + 40);
-        v62 = v18;
-        v63 = v11;
-        v64 = *(a1 + 48);
-        v66 = *(a1 + 72);
-        v65 = *(a1 + 32);
-        if ((GEOMapItemsFromMapsSuggestionsEntry(v62, v55, 1, v60) & 1) == 0)
+        v57 = WeakRetained[2];
+        v62[0] = MEMORY[0x1E69E9820];
+        v62[1] = 3221225472;
+        v62[2] = __85__MapsSuggestionsPortrait_fetchLocationEntriesForTray_currentLocation_queue_handler___block_invoke_244;
+        v62[3] = &unk_1E81F6570;
+        v63 = *(a1 + 40);
+        v64 = v18;
+        v65 = v11;
+        v66 = *(a1 + 48);
+        v68 = *(a1 + 72);
+        v67 = *(a1 + 32);
+        if ((GEOMapItemsFromMapsSuggestionsEntry(v64, v57, 1, v62) & 1) == 0)
         {
           dispatch_group_leave(*(a1 + 40));
         }
 
-        v56 = v61;
+        v58 = v63;
       }
 
       else
       {
-        v56 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+        v58 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
         {
           *buf = 136446722;
           *&buf[4] = "MapsSuggestionsPortrait.m";
           *&buf[12] = 1026;
           *&buf[14] = 167;
-          v68 = 2082;
-          v69 = "[MapsSuggestionsPortrait fetchLocationEntriesForTray:currentLocation:queue:handler:]_block_invoke";
-          _os_log_impl(&dword_1C5126000, v56, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", buf, 0x1Cu);
+          v70 = 2082;
+          v71 = "[MapsSuggestionsPortrait fetchLocationEntriesForTray:currentLocation:queue:handler:]_block_invoke";
+          _os_log_impl(&dword_1C5126000, v58, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", buf, 0x1Cu);
         }
       }
     }
@@ -588,7 +589,7 @@ LABEL_24:
 
 void __85__MapsSuggestionsPortrait_fetchLocationEntriesForTray_currentLocation_queue_handler___block_invoke_244(uint64_t a1, void *a2, void *a3)
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -603,7 +604,7 @@ LABEL_5:
 
     v8 = [v6 localizedDescription];
     *buf = 138412290;
-    v82 = v8;
+    v86 = v8;
     v9 = "Error while creating mapItem from MSgEntry: %@";
     v10 = v7;
     v11 = OS_LOG_TYPE_ERROR;
@@ -613,89 +614,90 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v60 = a1;
+  v64 = a1;
   v12 = *(a1 + 48);
   v13 = *(a1 + 56);
   v14 = v5;
-  v61 = v12;
+  v65 = v12;
   v15 = v13;
   v16 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v82 = "MapsSuggestionsMapItem *_relevantGEOMapItem(NSArray<MapsSuggestionsMapItem *> *__strong, PPScoredLocation *__strong, CLLocation *__strong)";
+    v86 = "MapsSuggestionsMapItem *_relevantGEOMapItem(NSArray<MapsSuggestionsMapItem *> *__strong, PPScoredLocation *__strong, CLLocation *__strong)";
     _os_log_impl(&dword_1C5126000, v16, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
   }
 
-  v17 = [v61 location];
-  v69 = 0u;
-  v70 = 0u;
-  v71 = 0u;
-  v72 = 0u;
+  v17 = [v65 location];
+  v73 = 0u;
+  v74 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   obj = v14;
-  v18 = [obj countByEnumeratingWithState:&v69 objects:buf count:16];
+  v18 = [obj countByEnumeratingWithState:&v73 objects:buf count:16];
   if (!v18)
   {
-    v47 = v17;
+    v51 = v17;
 
     v6 = 0;
-    a1 = v60;
+    a1 = v64;
     goto LABEL_46;
   }
 
-  v19 = v18;
-  v59 = v5;
-  v67 = 0;
-  v66 = 0;
-  v65 = 0;
-  v20 = *v70;
-  v64 = v15;
-  v63 = v17;
-  v62 = *v70;
+  v20 = v18;
+  v63 = v5;
+  v71 = 0;
+  v70 = 0;
+  v69 = 0;
+  v21 = *v74;
+  v68 = v15;
+  v67 = v17;
+  v66 = *v74;
   while (2)
   {
-    for (i = 0; i != v19; ++i)
+    v22 = 0;
+    do
     {
-      if (*v70 != v20)
+      if (*v74 != v21)
       {
         objc_enumerationMutation(obj);
       }
 
-      v22 = *(*(&v69 + 1) + 8 * i);
-      if (MapsSuggestionsLoggingIsVerbose())
+      v23 = *(*(&v73 + 1) + 8 * v22);
+      if (MapsSuggestionsLoggingIsVerbose(v18, v19))
       {
-        v23 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v24 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
-          v24 = [v22 name];
-          *v73 = 138412290;
-          v74 = v24;
-          _os_log_impl(&dword_1C5126000, v23, OS_LOG_TYPE_DEBUG, "Processing mapItem: %@", v73, 0xCu);
+          v25 = [v23 name];
+          *v77 = 138412290;
+          v78 = v25;
+          _os_log_impl(&dword_1C5126000, v24, OS_LOG_TYPE_DEBUG, "Processing mapItem: %@", v77, 0xCu);
         }
       }
 
       if (v15)
       {
-        v25 = objc_alloc(MEMORY[0x1E6985C40]);
-        [v22 coordinate];
-        v27 = v26;
-        [v22 coordinate];
-        v28 = [v25 initWithLatitude:v27 longitude:?];
+        v26 = objc_alloc(MEMORY[0x1E6985C40]);
+        [v23 coordinate];
+        v28 = v27;
+        [v23 coordinate];
+        v29 = [v26 initWithLatitude:v28 longitude:?];
         GEOConfigGetDouble();
-        v30 = v29;
-        [v15 distanceFromLocation:v28];
-        if (v30 < v31)
+        v31 = v30;
+        [v15 distanceFromLocation:v29];
+        if (v31 < v32)
         {
-          v32 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+          v33 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
           {
-            v33 = [v22 name];
-            *v73 = 138412290;
-            v74 = v33;
-            v34 = v32;
-            v35 = "Retrieved GEOMapItem (%@) is not within PortraitMaxValidDistance. Moving on to the next GEOMapItem";
+            v34 = [v23 name];
+            *v77 = 138412290;
+            v78 = v34;
+            v35 = v33;
+            v36 = "Retrieved GEOMapItem (%@) is not within PortraitMaxValidDistance. Moving on to the next GEOMapItem";
 LABEL_24:
-            _os_log_impl(&dword_1C5126000, v34, OS_LOG_TYPE_DEBUG, v35, v73, 0xCu);
+            _os_log_impl(&dword_1C5126000, v35, OS_LOG_TYPE_DEBUG, v36, v77, 0xCu);
 
             goto LABEL_25;
           }
@@ -704,18 +706,18 @@ LABEL_24:
         }
 
         GEOConfigGetDouble();
-        v37 = v36;
-        [v15 distanceFromLocation:v28];
-        if (v37 > v38)
+        v38 = v37;
+        [v15 distanceFromLocation:v29];
+        if (v38 > v39)
         {
-          v32 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+          v33 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
           {
-            v33 = [v22 name];
-            *v73 = 138412290;
-            v74 = v33;
-            v34 = v32;
-            v35 = "Retrieved GEOMapItem (%@) is within PortraitMinValidDistance. Moving on to the next GEOMapItem";
+            v34 = [v23 name];
+            *v77 = 138412290;
+            v78 = v34;
+            v35 = v33;
+            v36 = "Retrieved GEOMapItem (%@) is within PortraitMinValidDistance. Moving on to the next GEOMapItem";
             goto LABEL_24;
           }
 
@@ -725,68 +727,70 @@ LABEL_25:
         }
       }
 
-      if (GEOConfigGetBOOL())
+      BOOL = GEOConfigGetBOOL();
+      if (BOOL)
       {
-        v47 = v17;
-        v5 = v59;
+        v51 = v17;
+        v5 = v63;
         v6 = 0;
-        a1 = v60;
-        if (MapsSuggestionsLoggingIsVerbose())
+        a1 = v64;
+        if (MapsSuggestionsLoggingIsVerbose(BOOL, v41))
         {
-          v50 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+          v54 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
           {
-            *v73 = 0;
-            _os_log_impl(&dword_1C5126000, v50, OS_LOG_TYPE_DEBUG, "MapsSuggestionsDisableGEOMapItemCategoryChecker turned on. Skipping matching on geoMapItem.", v73, 2u);
+            *v77 = 0;
+            _os_log_impl(&dword_1C5126000, v54, OS_LOG_TYPE_DEBUG, "MapsSuggestionsDisableGEOMapItemCategoryChecker turned on. Skipping matching on geoMapItem.", v77, 2u);
           }
         }
 
-        v49 = v22;
+        v53 = v23;
         goto LABEL_65;
       }
 
-      v39 = [v22 _placeType];
-      if (MapsSuggestionsLoggingIsVerbose())
+      v42 = [v23 _placeType];
+      v43 = v42;
+      if (MapsSuggestionsLoggingIsVerbose(v42, v44))
       {
-        v40 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+        v45 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
         {
-          v41 = [v17 placemark];
-          v42 = [v41 name];
-          v43 = NSStringFromPPLocationCategory([v17 category]);
-          NSStringFromGEOMapItemPlaceType(v39);
-          v45 = v44 = v19;
-          *v73 = 138413058;
-          v74 = v42;
-          v75 = 2112;
-          v76 = v43;
-          v77 = 1024;
-          v78 = v65;
+          v46 = [v17 placemark];
+          v47 = [v46 name];
+          v48 = NSStringFromPPLocationCategory([v17 category]);
+          NSStringFromGEOMapItemPlaceType(v43);
+          v50 = v49 = v20;
+          *v77 = 138413058;
+          v78 = v47;
           v79 = 2112;
-          v80 = v45;
-          _os_log_impl(&dword_1C5126000, v40, OS_LOG_TYPE_DEBUG, "Name: %@; Portrait Category: %@; %d GEOMapItem Category: %@", v73, 0x26u);
+          v80 = v48;
+          v81 = 1024;
+          v82 = v69;
+          v83 = 2112;
+          v84 = v50;
+          _os_log_impl(&dword_1C5126000, v45, OS_LOG_TYPE_DEBUG, "Name: %@; Portrait Category: %@; %d GEOMapItem Category: %@", v77, 0x26u);
 
-          v20 = v62;
-          v15 = v64;
+          v21 = v66;
+          v15 = v68;
 
-          v19 = v44;
-          v17 = v63;
-          ++v65;
+          v20 = v49;
+          v17 = v67;
+          ++v69;
         }
       }
 
-      v46 = [v17 category];
-      if ((v46 - 1) < 2)
+      v18 = [v17 category];
+      if ((v18 - 1) < 2)
       {
-        if (v39 != 10)
+        if (v43 != 10)
         {
-          continue;
+          goto LABEL_41;
         }
 
-        if (v66)
+        if (v70)
         {
-          v53 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
+          v57 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_62;
           }
@@ -797,70 +801,75 @@ LABEL_25:
 
       else
       {
-        if ((v46 - 3) >= 2)
+        if ((v18 - 3) >= 2)
         {
-          v47 = v17;
-          if (!v46)
+          v51 = v17;
+          if (!v18)
           {
             goto LABEL_64;
           }
 
-          v51 = GEOFindOrCreateLog();
-          v5 = v59;
+          v55 = GEOFindOrCreateLog();
+          v5 = v63;
           v6 = 0;
-          a1 = v60;
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+          a1 = v64;
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
           {
-            v52 = [v47 category];
-            *v73 = 67109120;
-            LODWORD(v74) = v52;
-            _os_log_impl(&dword_1C5126000, v51, OS_LOG_TYPE_ERROR, "Location Category %d not in our switch!", v73, 8u);
+            v56 = [v51 category];
+            *v77 = 67109120;
+            LODWORD(v78) = v56;
+            _os_log_impl(&dword_1C5126000, v55, OS_LOG_TYPE_ERROR, "Location Category %d not in our switch!", v77, 8u);
           }
 
-          v49 = 0;
+          v53 = 0;
 LABEL_65:
 
           goto LABEL_66;
         }
 
-        if ((v39 & 0xFFFFFFFD) != 8)
+        if ((v43 & 0xFFFFFFFD) != 8)
         {
-          continue;
+          goto LABEL_41;
         }
 
-        if (v66)
+        if (v70)
         {
-          v53 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
+          v57 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
           {
 LABEL_62:
-            v55 = [v17 placemark];
-            v56 = [v55 name];
-            *v73 = 138412290;
-            v74 = v56;
-            _os_log_impl(&dword_1C5126000, v53, OS_LOG_TYPE_DEBUG, "Dropping Portrait Entry %@. More than 1 matching GEOMapItem's found", v73, 0xCu);
+            v59 = [v17 placemark];
+            v60 = [v59 name];
+            *v77 = 138412290;
+            v78 = v60;
+            _os_log_impl(&dword_1C5126000, v57, OS_LOG_TYPE_DEBUG, "Dropping Portrait Entry %@. More than 1 matching GEOMapItem's found", v77, 0xCu);
           }
 
 LABEL_63:
-          v47 = v17;
+          v51 = v17;
 
 LABEL_64:
-          v49 = 0;
-          v5 = v59;
+          v53 = 0;
+          v5 = v63;
           v6 = 0;
-          a1 = v60;
+          a1 = v64;
           goto LABEL_65;
         }
       }
 
-      v28 = v67;
-      v66 = 1;
-      v67 = v22;
+      v29 = v71;
+      v70 = 1;
+      v71 = v23;
 LABEL_40:
+
+LABEL_41:
+      ++v22;
     }
 
-    v19 = [obj countByEnumeratingWithState:&v69 objects:buf count:16];
-    if (v19)
+    while (v20 != v22);
+    v18 = [obj countByEnumeratingWithState:&v73 objects:buf count:16];
+    v20 = v18;
+    if (v18)
     {
       continue;
     }
@@ -868,31 +877,31 @@ LABEL_40:
     break;
   }
 
-  v47 = v17;
+  v51 = v17;
 
-  v5 = v59;
+  v5 = v63;
   v6 = 0;
-  a1 = v60;
-  if (!v67)
+  a1 = v64;
+  if (!v71)
   {
 LABEL_46:
-    v48 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+    v52 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
     {
-      *v73 = 0;
-      _os_log_impl(&dword_1C5126000, v48, OS_LOG_TYPE_DEBUG, "No matching category mapItem found", v73, 2u);
+      *v77 = 0;
+      _os_log_impl(&dword_1C5126000, v52, OS_LOG_TYPE_DEBUG, "No matching category mapItem found", v77, 2u);
     }
 
-    v67 = 0;
+    v71 = 0;
   }
 
-  v49 = [v67 copy];
+  v53 = [v71 copy];
 LABEL_66:
 
-  [*(a1 + 40) setGeoMapItem:v49];
-  v57 = [*(a1 + 40) geoMapItem];
+  [*(a1 + 40) setGeoMapItem:v53];
+  v61 = [*(a1 + 40) geoMapItem];
 
-  if (!v57)
+  if (!v61)
   {
     v7 = GEOFindOrCreateLog();
     if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -902,7 +911,7 @@ LABEL_66:
 
     v8 = [*(a1 + 40) title];
     *buf = 138412290;
-    v82 = v8;
+    v86 = v8;
     v9 = "nil mapItem. Dropping entry %@";
     v10 = v7;
     v11 = OS_LOG_TYPE_DEBUG;
@@ -911,15 +920,15 @@ LABEL_66:
 
   if (*(a1 + 72))
   {
-    v58 = @"mapstray";
+    v62 = @"mapstray";
   }
 
   else
   {
-    v58 = @"mapspoi";
+    v62 = @"mapspoi";
   }
 
-  [*(a1 + 40) setString:v58 forKey:{@"MapsSuggestionsPortraitClientIdentifier", v59}];
+  [*(a1 + 40) setString:v62 forKey:{@"MapsSuggestionsPortraitClientIdentifier", v63}];
   [*(a1 + 64) addObject:*(a1 + 40)];
 LABEL_71:
   dispatch_group_leave(*(a1 + 32));
@@ -1079,7 +1088,7 @@ LABEL_28:
     {
     }
 
-    v28 = [(MapsSuggestionsTrip *)v21 startDate];
+    v28 = [(MapsSuggestionsTrip *)v21 startDate:*v30];
     v29 = MapsSuggestionsIsInTheFuture(v28);
 
     if (v29)
@@ -2078,7 +2087,7 @@ LABEL_43:
 
 - (id)fetchNamedEntitiesFromDate:(id)date
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v4 = [(MapsSuggestionsPortraitConnector *)self->_connector namedEntityQuery:0x7FFFFFFFFFFFFFFFLL fromDate:date consumerType:3];
   v5 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -2097,9 +2106,9 @@ LABEL_43:
   }
 
   connector = self->_connector;
-  v48 = 0;
-  v10 = [(MapsSuggestionsPortraitConnector *)connector rankedNamedEntitiesWihQuery:v4 error:&v48];
-  v11 = v48;
+  v52 = 0;
+  v10 = [(MapsSuggestionsPortraitConnector *)connector rankedNamedEntitiesWihQuery:v4 error:&v52];
+  v11 = v52;
   mEMORY[0x1E69A22C8]2 = [MEMORY[0x1E69A22C8] sharedManager];
   v13 = [mEMORY[0x1E69A22C8]2 isEnabledForSubTestWithName:@"MSGPPTTest_Insights_ACRanking_PortraitCall"];
 
@@ -2120,7 +2129,7 @@ LABEL_11:
     }
 
     *buf = 138412290;
-    v50 = v11;
+    v54 = v11;
     v16 = "Iterator over EntityRecords for Siri Portrait returned error:%@";
     v17 = v15;
     v18 = OS_LOG_TYPE_ERROR;
@@ -2130,7 +2139,8 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  if (![v10 count])
+  v21 = [v10 count];
+  if (!v21)
   {
     v15 = GEOFindOrCreateLog();
     if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
@@ -2146,91 +2156,91 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v42 = v4;
-  if (MapsSuggestionsLoggingIsVerbose())
+  v46 = v4;
+  if (MapsSuggestionsLoggingIsVerbose(v21, v22))
   {
-    v21 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v23 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5126000, v21, OS_LOG_TYPE_DEBUG, "Received portrait named entities are:", buf, 2u);
+      _os_log_impl(&dword_1C5126000, v23, OS_LOG_TYPE_DEBUG, "Received portrait named entities are:", buf, 2u);
     }
   }
 
   v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v10, "count")}];
-  v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v41 = v10;
+  v48 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v45 = v10;
   obj = v10;
-  v22 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
-  if (v22)
+  v24 = [obj countByEnumeratingWithState:&v48 objects:v57 count:16];
+  if (v24)
   {
-    v23 = v22;
-    v24 = *v45;
+    v25 = v24;
+    v26 = *v49;
     do
     {
-      for (i = 0; i != v23; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v45 != v24)
+        if (*v49 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v44 + 1) + 8 * i);
-        item = [v26 item];
+        v28 = *(*(&v48 + 1) + 8 * i);
+        item = [v28 item];
         mostRelevantRecord = [item mostRelevantRecord];
         source = [mostRelevantRecord source];
         date = [source date];
 
-        if (MapsSuggestionsLoggingIsVerbose())
+        if (MapsSuggestionsLoggingIsVerbose(v33, v34))
         {
-          v31 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+          v35 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
           {
-            item2 = [v26 item];
+            item2 = [v28 item];
             name = [item2 name];
             *buf = 138412546;
-            v50 = name;
-            v51 = 2112;
-            v52 = date;
-            _os_log_impl(&dword_1C5126000, v31, OS_LOG_TYPE_DEBUG, "Name & Date: %@ %@", buf, 0x16u);
+            v54 = name;
+            v55 = 2112;
+            v56 = date;
+            _os_log_impl(&dword_1C5126000, v35, OS_LOG_TYPE_DEBUG, "Name & Date: %@ %@", buf, 0x16u);
           }
         }
 
-        v34 = [MapsSuggestionsPortraitData alloc];
-        item3 = [v26 item];
+        v38 = [MapsSuggestionsPortraitData alloc];
+        item3 = [v28 item];
         name2 = [item3 name];
-        v37 = [(MapsSuggestionsPortraitData *)v34 initWithName:name2 lastInteractionTime:date];
+        v41 = [(MapsSuggestionsPortraitData *)v38 initWithName:name2 lastInteractionTime:date];
 
-        [v15 addObject:v37];
+        [v15 addObject:v41];
       }
 
-      v23 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+      v25 = [obj countByEnumeratingWithState:&v48 objects:v57 count:16];
     }
 
-    while (v23);
+    while (v25);
   }
 
-  v38 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+  v42 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
   {
-    v39 = [v15 count];
+    v43 = [v15 count];
     *buf = 67109120;
-    LODWORD(v50) = v39;
-    _os_log_impl(&dword_1C5126000, v38, OS_LOG_TYPE_DEBUG, "We got %u items from Portrait", buf, 8u);
+    LODWORD(v54) = v43;
+    _os_log_impl(&dword_1C5126000, v42, OS_LOG_TYPE_DEBUG, "We got %u items from Portrait", buf, 8u);
   }
 
   v20 = [v15 copy];
-  v10 = v41;
-  v4 = v42;
+  v10 = v45;
+  v4 = v46;
 LABEL_31:
 
   return v20;
 }
 
-- (id)_appConnectionEntryFromLocation:(uint64_t)location
+- (NSObject)_appConnectionEntryFromLocation:(uint64_t)location
 {
   v161 = *MEMORY[0x1E69E9840];
   v3 = a2;

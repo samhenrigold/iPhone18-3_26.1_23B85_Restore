@@ -3,7 +3,7 @@
 
 @implementation AXSAlwaysShowVolumeControlEnabled
 
-uint64_t ___AXSAlwaysShowVolumeControlEnabled_block_invoke()
+void *___AXSAlwaysShowVolumeControlEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

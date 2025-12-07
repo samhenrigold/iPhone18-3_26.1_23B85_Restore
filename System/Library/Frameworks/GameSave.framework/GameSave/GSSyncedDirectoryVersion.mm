@@ -48,75 +48,71 @@
 - (NSDate)modifiedDate
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v15 - v5;
-  v7 = type metadata accessor for Date();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = *(&self->super.isa + OBJC_IVAR___GSSyncedDirectoryVersion_version);
-  if (v12)
+  v5 = &v13 - v4;
+  v6 = type metadata accessor for Date();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *(&self->super.isa + OBJC_IVAR___GSSyncedDirectoryVersion_version);
+  if (v10)
   {
-    (*(v8 + 16))(v6, v12 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v7);
-    (*(v8 + 56))(v6, 0, 1, v7);
-    (*(v8 + 32))(v11, v6, v7);
+    (*(v7 + 16))(v5, v10 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v6);
+    (*(v7 + 56))(v5, 0, 1, v6);
+    (*(v7 + 32))(v9, v5, v6);
   }
 
   else
   {
-    (*(v8 + 56))(v6, 1, 1, v7);
+    (*(v7 + 56))(v5, 1, 1, v6);
     Date.init()();
-    if ((*(v8 + 48))(v6, 1, v7) != 1)
+    if ((*(v7 + 48))(v5, 1, v6) != 1)
     {
-      outlined destroy of URL?(v6, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      outlined destroy of URL?(v5, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     }
   }
 
-  v13.super.isa = Date._bridgeToObjectiveC()().super.isa;
-  (*(v8 + 8))(v11, v7);
+  v11.super.isa = Date._bridgeToObjectiveC()().super.isa;
+  (*(v7 + 8))(v9, v6);
 
-  return v13.super.isa;
+  return v11.super.isa;
 }
 
 - (NSURL)url
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v18 - v5;
-  v7 = type metadata accessor for URL();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v16 - v4;
+  v6 = type metadata accessor for URL();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (*(&self->super.isa + OBJC_IVAR___GSSyncedDirectoryVersion_version))
   {
     selfCopy = self;
     GameSaveSyncedDirectory.Version.url.getter();
 
-    (*(v8 + 56))(v6, 0, 1, v7);
-    (*(v8 + 32))(v11, v6, v7);
+    (*(v7 + 56))(v5, 0, 1, v6);
+    (*(v7 + 32))(v9, v5, v6);
   }
 
   else
   {
-    (*(v8 + 56))(v6, 1, 1, v7);
+    (*(v7 + 56))(v5, 1, 1, v6);
     selfCopy2 = self;
     URL.init(fileURLWithPath:)();
 
-    if ((*(v8 + 48))(v6, 1, v7) != 1)
+    if ((*(v7 + 48))(v5, 1, v6) != 1)
     {
-      outlined destroy of URL?(v6, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+      outlined destroy of URL?(v5, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
     }
   }
 
-  URL._bridgeToObjectiveC()(v13);
-  v16 = v15;
-  (*(v8 + 8))(v11, v7);
+  URL._bridgeToObjectiveC()(v11);
+  v14 = v13;
+  (*(v7 + 8))(v9, v6);
 
-  return v16;
+  return v14;
 }
 
 - (GSSyncedDirectoryVersion)initWithVersion:(id)version

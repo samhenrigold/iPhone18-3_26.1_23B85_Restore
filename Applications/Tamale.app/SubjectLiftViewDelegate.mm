@@ -7,52 +7,51 @@
 
 - (CGRect)contentsRectForImageAnalysisInteraction:(id)interaction
 {
-  sub_100005650(self + OBJC_IVAR____TtC6Tamale23SubjectLiftViewDelegate_frame, v16);
+  sub_100005650(self + OBJC_IVAR____TtC6Tamale23SubjectLiftViewDelegate_frame, v15);
   v5 = *&self->frame[OBJC_IVAR____TtC6Tamale23SubjectLiftViewDelegate_boundingBoxInImageCoordinates + 8];
-  v19[0] = *(&self->super.isa + OBJC_IVAR____TtC6Tamale23SubjectLiftViewDelegate_boundingBoxInImageCoordinates);
-  v19[1] = v5;
-  v20 = self->frame[OBJC_IVAR____TtC6Tamale23SubjectLiftViewDelegate_boundingBoxInImageCoordinates + 24];
+  v20[0] = *(&self->super.isa + OBJC_IVAR____TtC6Tamale23SubjectLiftViewDelegate_boundingBoxInImageCoordinates);
+  v20[1] = v5;
+  v21 = self->frame[OBJC_IVAR____TtC6Tamale23SubjectLiftViewDelegate_boundingBoxInImageCoordinates + 24];
   interactionCopy = interaction;
   selfCopy = self;
-  sub_10005C9A0(interactionCopy, v16, v19, v17);
-  v8 = *v17;
-  v9 = *&v17[1];
-  v10 = *&v17[2];
-  v11 = *&v17[3];
+  sub_10005C9A0(interactionCopy, v15, v20, &v16);
+  v8 = v16;
+  v9 = v17;
+  v10 = v18;
 
-  sub_1000056C0(v16);
-  v12 = 1.0;
-  v13 = 0.0;
-  if (v18)
+  sub_1000056C0(v15);
+  v11 = 1.0;
+  v12 = 0.0;
+  if (v19)
   {
-    v14 = 0.0;
+    v13 = 0.0;
   }
 
   else
   {
-    v14 = v8;
+    v13 = v8.n128_f64[0];
   }
 
-  if (v18)
+  if (v19)
   {
-    v15 = 1.0;
+    v14 = 1.0;
   }
 
   else
   {
-    v13 = v9;
-    v15 = v10;
+    v12 = v8.n128_f64[1];
+    v14 = v9;
   }
 
-  if ((v18 & 1) == 0)
+  if ((v19 & 1) == 0)
   {
-    v12 = v11;
+    v11 = v10;
   }
 
-  result.size.height = v12;
-  result.size.width = v15;
-  result.origin.y = v13;
-  result.origin.x = v14;
+  result.size.height = v11;
+  result.size.width = v14;
+  result.origin.y = v12;
+  result.origin.x = v13;
   return result;
 }
 

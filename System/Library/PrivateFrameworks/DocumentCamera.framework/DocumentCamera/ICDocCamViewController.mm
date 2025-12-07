@@ -3518,7 +3518,7 @@ LABEL_25:
   return +[ICDocCamViewController isLiquidGlassEnabledForCapture]::liquidGlassEnabled;
 }
 
-uint64_t __56__ICDocCamViewController_isLiquidGlassEnabledForCapture__block_invoke()
+uint64_t __56__ICDocCamViewController_isLiquidGlassEnabledForCapture__block_invoke(void *a1, const char *a2)
 {
   result = _UISolariumEnabled();
   if (result)
@@ -12575,7 +12575,7 @@ void __73__ICDocCamViewController_speakScannedDocumentForAccessibilityIfNecessar
     hasCandidateRectanglesForAX = [(ICDocCamViewController *)self hasCandidateRectanglesForAX];
     if (accessibilityCopy)
     {
-      if ((hasCandidateRectanglesForAX & 1) == 0)
+      if (!hasCandidateRectanglesForAX)
       {
         [(ICDocCamViewController *)self setHasCandidateRectanglesForAX:1];
         [(ICDocCamViewController *)self setAxConsecutiveRecognizerStateCount:1];
@@ -12586,26 +12586,26 @@ void __73__ICDocCamViewController_speakScannedDocumentForAccessibilityIfNecessar
         goto LABEL_17;
       }
 
-      v10 = 0;
-      v11 = &v10;
-      v12 = 0x2020000000;
+      v11 = 0;
+      v12 = &v11;
+      v13 = 0x2020000000;
       v6 = getkAXAnnouncementEnteredValidStateSoundSymbolLoc(void)::ptr;
-      v13 = getkAXAnnouncementEnteredValidStateSoundSymbolLoc(void)::ptr;
+      v14 = getkAXAnnouncementEnteredValidStateSoundSymbolLoc(void)::ptr;
       if (!getkAXAnnouncementEnteredValidStateSoundSymbolLoc(void)::ptr)
       {
         v7 = AXRuntimeLibrary();
-        v11[3] = dlsym(v7, "kAXAnnouncementEnteredValidStateSound");
-        getkAXAnnouncementEnteredValidStateSoundSymbolLoc(void)::ptr = v11[3];
-        v6 = v11[3];
+        v12[3] = dlsym(v7, "kAXAnnouncementEnteredValidStateSound");
+        getkAXAnnouncementEnteredValidStateSoundSymbolLoc(void)::ptr = v12[3];
+        v6 = v12[3];
       }
 
-      _Block_object_dispose(&v10, 8);
+      _Block_object_dispose(&v11, 8);
       if (v6)
       {
         goto LABEL_16;
       }
 
-      hasCandidateRectanglesForAX = [ICRemoteDocCamViewController viewDidLoad];
+      [ICRemoteDocCamViewController viewDidLoad];
     }
 
     if (hasCandidateRectanglesForAX)
@@ -12619,25 +12619,26 @@ void __73__ICDocCamViewController_speakScannedDocumentForAccessibilityIfNecessar
       goto LABEL_17;
     }
 
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x2020000000;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x2020000000;
     v6 = getkAXAnnouncementExitedValidStateSoundSymbolLoc(void)::ptr;
-    v13 = getkAXAnnouncementExitedValidStateSoundSymbolLoc(void)::ptr;
+    v14 = getkAXAnnouncementExitedValidStateSoundSymbolLoc(void)::ptr;
     if (!getkAXAnnouncementExitedValidStateSoundSymbolLoc(void)::ptr)
     {
       v8 = AXRuntimeLibrary();
-      v11[3] = dlsym(v8, "kAXAnnouncementExitedValidStateSound");
-      getkAXAnnouncementExitedValidStateSoundSymbolLoc(void)::ptr = v11[3];
-      v6 = v11[3];
+      v12[3] = dlsym(v8, "kAXAnnouncementExitedValidStateSound");
+      getkAXAnnouncementExitedValidStateSoundSymbolLoc(void)::ptr = v12[3];
+      v6 = v12[3];
     }
 
-    _Block_object_dispose(&v10, 8);
+    _Block_object_dispose(&v11, 8);
     if (!v6)
     {
-      viewDidLoad = [ICRemoteDocCamViewController viewDidLoad];
-      _Block_object_dispose(&v10, 8);
-      _Unwind_Resume(viewDidLoad);
+      [ICRemoteDocCamViewController viewDidLoad];
+      v10 = v9;
+      _Block_object_dispose(&v11, 8);
+      _Unwind_Resume(v10);
     }
 
 LABEL_16:

@@ -62,7 +62,7 @@
 {
   viewCopy = view;
   selfCopy = self;
-  v6 = sub_21CB138C0();
+  v6 = sub_21CB138C0(selfCopy);
 
   return v6;
 }
@@ -80,15 +80,15 @@
 {
   v6 = sub_21CB80FC4();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = (&v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
   sub_21CB80F94();
   viewCopy = view;
   selfCopy = self;
-  v13 = PMCredentialPickerViewController.tableView(_:cellForRowAt:)(viewCopy);
+  PMCredentialPickerViewController.tableView(_:cellForRowAt:)(viewCopy, v9);
+  v13 = v12;
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
   return v13;
 }
@@ -97,21 +97,20 @@
 {
   v5 = sub_21CB81024();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = 0;
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = 0;
   if (section == 1)
   {
     sub_21CB81014();
     sub_21CB81004();
-    (*(v6 + 8))(v9, v5);
-    v11 = sub_21CB85584();
+    (*(v6 + 8))(v8, v5);
+    v10 = sub_21CB85584();
 
-    v10 = v11;
+    v9 = v10;
   }
 
-  return v10;
+  return v9;
 }
 
 - (int64_t)numberOfTableRows
@@ -120,11 +119,6 @@
   v4 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC17PasswordManagerUI32PMCredentialPickerViewController_loginChoicesToShow);
   if (v4 >> 62)
   {
-    if (v4 < 0)
-    {
-      v6 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC17PasswordManagerUI32PMCredentialPickerViewController_loginChoicesToShow);
-    }
-
     if (sub_21CB85FA4() >= 2)
     {
       goto LABEL_3;
@@ -135,51 +129,45 @@
   {
 LABEL_3:
     selfCopy = self;
-    goto LABEL_8;
+    goto LABEL_6;
   }
 
   selfCopy2 = self;
   if ((sub_21CB81704() & 1) == 0)
   {
-    v9 = 0;
-    goto LABEL_11;
+    v8 = 0;
+    goto LABEL_9;
   }
 
-LABEL_8:
-  v8 = *(&self->super.super.super.super.super.isa + v3);
-  if (v8 >> 62)
+LABEL_6:
+  v7 = *(&self->super.super.super.super.super.isa + v3);
+  if (v7 >> 62)
   {
-    if (v8 < 0)
-    {
-      v11 = *(&self->super.super.super.super.super.isa + v3);
-    }
-
-    v9 = sub_21CB85FA4();
+    v8 = sub_21CB85FA4();
   }
 
   else
   {
-    v9 = *((v8 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v8 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-LABEL_11:
+LABEL_9:
 
-  return v9;
+  return v8;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   v6 = sub_21CB80FC4();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21CB80F94();
   viewCopy = view;
   selfCopy = self;
   PMCredentialPickerViewController.tableView(_:didSelectRowAt:)(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)confirmButtonSubPaneDidEnterProcessingState:(id)state withAuthenticatedContext:(id)context
@@ -344,14 +332,13 @@ LABEL_7:
 {
   v4 = sub_21CB807E4();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21CB807B4();
   selfCopy = self;
   sub_21CB10350();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 @end

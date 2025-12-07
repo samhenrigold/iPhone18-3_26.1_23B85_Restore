@@ -114,7 +114,7 @@
 
 - (id)copyDictionary
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v4 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInteger:{-[NSPConnectionInfo pathType](self, "pathType")}];
   [v3 setObject:v4 forKeyedSubscript:@"pathType"];
@@ -171,30 +171,30 @@
   if (v20)
   {
     selfCopy = self;
-    v59 = v3;
+    v58 = v3;
     tCPInfo2 = [(NSPConnectionInfo *)self TCPInfo];
     v22 = [tCPInfo2 mutableCopy];
 
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     v23 = v22;
-    v24 = [v23 countByEnumeratingWithState:&v60 objects:v64 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v59 objects:v63 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v61;
+      v26 = *v60;
       do
       {
         for (i = 0; i != v25; ++i)
         {
-          if (*v61 != v26)
+          if (*v60 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          v28 = *(*(&v60 + 1) + 8 * i);
+          v28 = *(*(&v59 + 1) + 8 * i);
           v29 = [v23 objectForKeyedSubscript:v28];
           if ([v29 length] == 424)
           {
@@ -223,15 +223,15 @@
           }
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v60 objects:v64 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v59 objects:v63 count:16];
       }
 
       while (v25);
     }
 
     v39 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v23];
-    v3 = v59;
-    [v59 setObject:v39 forKeyedSubscript:@"TCPInfo"];
+    v3 = v58;
+    [v58 setObject:v39 forKeyedSubscript:@"TCPInfo"];
 
     self = selfCopy;
   }
@@ -282,7 +282,6 @@
 
   v55 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v3];
 
-  v56 = *MEMORY[0x1E69E9840];
   return v55;
 }
 

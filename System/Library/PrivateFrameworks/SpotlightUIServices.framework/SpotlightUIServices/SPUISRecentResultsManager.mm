@@ -75,15 +75,15 @@ void __36__SPUISRecentResultsManager_preheat__block_invoke_2()
         }
 
         completion = [resultCopy completion];
-        title6 = completion;
+        v32 = completion;
         if (completion)
         {
           text4 = completion;
           goto LABEL_54;
         }
 
-        title = [resultCopy title];
-        text = [title text];
+        v55 = objc_msgSend_title(resultCopy);
+        text = [v55 text];
 
         goto LABEL_55;
       case 2u:
@@ -175,8 +175,8 @@ void __36__SPUISRecentResultsManager_preheat__block_invoke_2()
 
         else
         {
-          title2 = [text title];
-          text2 = [title2 text];
+          v25 = objc_msgSend_title(text);
+          text2 = [v25 text];
         }
 
         if ([(__CFString *)text2 length])
@@ -197,8 +197,8 @@ void __36__SPUISRecentResultsManager_preheat__block_invoke_2()
         text2 = [text completion];
         if (!text2)
         {
-          title3 = [text title];
-          text3 = [title3 text];
+          v21 = objc_msgSend_title(text);
+          text3 = [v21 text];
 
           if (text3)
           {
@@ -272,8 +272,8 @@ LABEL_37:
 
         else
         {
-          title4 = [text title];
-          text2 = [title4 text];
+          v52 = objc_msgSend_title(text);
+          text2 = [v52 text];
         }
 
         contactIdentifier = [text contactIdentifier];
@@ -303,8 +303,8 @@ LABEL_49:
 
         else
         {
-          title5 = [text title];
-          text2 = [title5 text];
+          v44 = objc_msgSend_title(text);
+          text2 = [v44 text];
         }
 
         if (![(__CFString *)text2 length])
@@ -333,8 +333,8 @@ LABEL_28:
 
         else
         {
-          title6 = [resultCopy title];
-          text4 = [title6 text];
+          v32 = objc_msgSend_title(resultCopy);
+          text4 = [v32 text];
 LABEL_54:
           text = text4;
 LABEL_55:
@@ -377,8 +377,8 @@ LABEL_55:
 
         else
         {
-          title = [(__CFString *)completion5 title];
-          text = [title text];
+          v48 = objc_msgSend_title(completion5);
+          text = [v48 text];
         }
 
         if (![(__CFString *)text length])
@@ -414,8 +414,8 @@ LABEL_67:
 
           else
           {
-            title2 = [(__CFString *)completion5 title];
-            text = [title2 text];
+            v54 = objc_msgSend_title(completion5);
+            text = [v54 text];
           }
 
           contactIdentifier = [(__CFString *)completion5 contactIdentifier];
@@ -455,8 +455,8 @@ LABEL_67:
 
           else
           {
-            title3 = [(__CFString *)completion5 title];
-            text = [title3 text];
+            v58 = objc_msgSend_title(completion5);
+            text = [v58 text];
           }
 
           contactIdentifier = [(__CFString *)completion5 contactIdentifier];
@@ -509,8 +509,8 @@ LABEL_29:
       text = [(__CFString *)completion5 completion];
       if (!text)
       {
-        title4 = [(__CFString *)completion5 title];
-        text2 = [title4 text];
+        v27 = objc_msgSend_title(completion5);
+        text2 = [v27 text];
 
         if (text2)
         {
@@ -538,8 +538,8 @@ LABEL_27:
 
     else
     {
-      title5 = [(__CFString *)completion5 title];
-      text = [title5 text];
+      v39 = objc_msgSend_title(completion5);
+      text = [v39 text];
     }
 
     if ([(__CFString *)text length])
@@ -576,8 +576,8 @@ LABEL_46:
     completion5 = [v7 completion];
     if (!completion5)
     {
-      title6 = [resultCopy title];
-      text3 = [title6 text];
+      v44 = objc_msgSend_title(resultCopy);
+      text3 = [v44 text];
 
       if (text3)
       {
@@ -624,7 +624,7 @@ LABEL_13:
     resultBundleId2 = [resultCopy resultBundleId];
     completion5 = [resultBundleId2 componentsSeparatedByString:@":"];
 
-    if ([(__CFString *)completion5 count]!= 2)
+    if (objc_msgSend_count(completion5) != 2)
     {
       goto LABEL_68;
     }
@@ -690,7 +690,7 @@ LABEL_71:
 
 + (id)updateResult:(id)result topic:(id)topic queryContext:(id)context
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   topicCopy = topic;
   contextCopy = context;
@@ -723,15 +723,15 @@ LABEL_71:
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v74 = 0x3032000000;
-    v75 = __Block_byref_object_copy__1;
-    v76 = __Block_byref_object_dispose__1;
-    v77 = 0;
+    v73 = 0x3032000000;
+    v74 = __Block_byref_object_copy__1;
+    v75 = __Block_byref_object_dispose__1;
+    v76 = 0;
     resultBundleId2 = [resultCopy resultBundleId];
     v23 = [resultBundleId2 componentsSeparatedByString:@":"];
     v24 = [v23 mutableCopy];
 
-    if ([v24 count] >= 2)
+    if (objc_msgSend_count(v24) >= 2)
     {
       firstObject = [v24 firstObject];
       [v24 removeObjectAtIndex:0];
@@ -739,31 +739,31 @@ LABEL_71:
       if ((SSScreenTimeStatusForBundleIDWithCompletionHandler() & 1) == 0 && (SSHiddenStatusForBundleIDWithCompletionHandler() & 1) == 0)
       {
         identifier = [resultCopy identifier];
-        v58 = +[SPUISResultBuilder fetchAttributes];
-        v61 = contextCopy;
+        v57 = +[SPUISResultBuilder fetchAttributes];
+        v60 = contextCopy;
         v28 = dispatch_group_create();
         dispatch_group_enter(v28);
         defaultSearchableIndex = [MEMORY[0x277CC34A8] defaultSearchableIndex];
-        v72 = identifier;
-        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v72 count:1];
-        v62[0] = MEMORY[0x277D85DD0];
-        v62[1] = 3221225472;
-        v62[2] = __61__SPUISRecentResultsManager_updateResult_topic_queryContext___block_invoke;
-        v62[3] = &unk_279D0C138;
-        v57 = identifier;
-        v63 = v57;
-        v64 = v26;
-        v65 = firstObject;
-        v66 = v58;
-        v67 = resultCopy;
+        v71 = identifier;
+        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v71 count:1];
+        v61[0] = MEMORY[0x277D85DD0];
+        v61[1] = 3221225472;
+        v61[2] = __61__SPUISRecentResultsManager_updateResult_topic_queryContext___block_invoke;
+        v61[3] = &unk_279D0C138;
+        v56 = identifier;
+        v62 = v56;
+        v63 = v26;
+        v64 = firstObject;
+        v65 = v57;
+        v66 = resultCopy;
         p_buf = &buf;
-        v68 = v61;
+        v67 = v60;
         v30 = v28;
-        v69 = v30;
-        v59 = v66;
-        [defaultSearchableIndex slowFetchAttributes:v66 protectionClass:v65 bundleID:v64 identifiers:v29 completionHandler:v62];
+        v68 = v30;
+        v58 = v65;
+        [defaultSearchableIndex slowFetchAttributes:v65 protectionClass:v64 bundleID:v63 identifiers:v29 completionHandler:v61];
 
-        contextCopy = v61;
+        contextCopy = v60;
         v31 = v30;
 
         v32 = dispatch_time(0, 750000000);
@@ -771,8 +771,8 @@ LABEL_71:
         v34 = SPUISRecentsLog();
         if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
         {
-          v35 = [MEMORY[0x277CCABB0] numberWithLong:{v33, v57}];
-          [SPUISRecentResultsManager updateResult:v35 topic:v71 queryContext:v34];
+          v35 = [MEMORY[0x277CCABB0] numberWithLong:{v33, v56}];
+          [SPUISRecentResultsManager updateResult:v35 topic:v70 queryContext:v34];
         }
       }
     }
@@ -852,30 +852,29 @@ LABEL_31:
     goto LABEL_27;
   }
 
-  v54 = SPUISRecentsLog();
-  if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+  v53 = SPUISRecentsLog();
+  if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf) = 0;
-    _os_log_impl(&dword_26B882000, v54, OS_LOG_TYPE_DEFAULT, "fallback result from topic", &buf, 2u);
+    _os_log_impl(&dword_26B882000, v53, OS_LOG_TYPE_DEFAULT, "fallback result from topic", &buf, 2u);
   }
 
-  v55 = [MEMORY[0x277D65788] resultFromTopic:topicCopy];
-  if (!v55)
+  v54 = [MEMORY[0x277D65788] resultFromTopic:topicCopy];
+  if (!v54)
   {
     goto LABEL_30;
   }
 
-  v56 = SPUISRecentsLog();
-  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+  v55 = SPUISRecentsLog();
+  if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf) = 0;
-    _os_log_impl(&dword_26B882000, v56, OS_LOG_TYPE_DEFAULT, "successfully created fallback search result", &buf, 2u);
+    _os_log_impl(&dword_26B882000, v55, OS_LOG_TYPE_DEFAULT, "successfully created fallback search result", &buf, 2u);
   }
 
-  buildResult = [SPUISSuggestionResultBuilder buildResultWithResult:v55 queryContext:contextCopy];
+  buildResult = [SPUISSuggestionResultBuilder buildResultWithResult:v54 queryContext:contextCopy];
 
 LABEL_32:
-  v52 = *MEMORY[0x277D85DE8];
 
   return buildResult;
 }
@@ -957,9 +956,9 @@ void __61__SPUISRecentResultsManager_updateResult_topic_queryContext___block_inv
 
 + (void)updateResult:(uint64_t)a3 topic:(uint64_t)a4 queryContext:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_26B882000, a2, a3, "updateResult withTopic: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_26B882000, a2, a3, "updateResult withTopic: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)updateResult:(void *)a1 topic:(uint8_t *)buf queryContext:(os_log_t)log .cold.3(void *a1, uint8_t *buf, os_log_t log)
@@ -971,17 +970,16 @@ void __61__SPUISRecentResultsManager_updateResult_topic_queryContext___block_inv
 
 void __61__SPUISRecentResultsManager_updateResult_topic_queryContext___block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_26B882000, a2, a3, "got csResult: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_26B882000, a2, a3, "got csResult: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __61__SPUISRecentResultsManager_updateResult_topic_queryContext___block_invoke_cold_3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 56));
-  OUTLINED_FUNCTION_0_1(&dword_26B882000, a2, a3, "fetchAttributes was not an array: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 56);
+  OUTLINED_FUNCTION_0_1(&dword_26B882000, a2, a3, "fetchAttributes was not an array: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

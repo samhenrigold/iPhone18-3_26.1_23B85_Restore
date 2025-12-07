@@ -79,24 +79,24 @@
 
 - (WFConfiguredStaccatoIntentAction)initWithCoder:(id)coder
 {
-  v24[3] = *MEMORY[0x1E69E9840];
+  v23[3] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
-  v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"previewIcon"];
+  v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"previewIcon"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"intent"];
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"appShortcutIdentifier"];
   v8 = MEMORY[0x1E695DFD8];
-  v24[0] = objc_opt_class();
-  v24[1] = objc_opt_class();
-  v24[2] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:3];
+  v23[0] = objc_opt_class();
+  v23[1] = objc_opt_class();
+  v23[2] = objc_opt_class();
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:3];
   v10 = [v8 setWithArray:v9];
   v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"templateParameterValues"];
 
   v12 = MEMORY[0x1E695DFD8];
-  v23[0] = objc_opt_class();
-  v23[1] = objc_opt_class();
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+  v22[0] = objc_opt_class();
+  v22[1] = objc_opt_class();
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
   v14 = [v12 setWithArray:v13];
   v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"contextualParameters"];
 
@@ -106,17 +106,16 @@
   selfCopy = 0;
   if (v6 && v5)
   {
-    v19 = v22;
-    self = [(WFConfiguredStaccatoIntentAction *)self initWithIntent:v6 named:v5 previewIcon:v22 appShortcutIdentifier:v7 templateParameterValues:v11 contextualParameters:v15 shortcutsMetadata:v16 colorScheme:v17];
+    v19 = v21;
+    self = [(WFConfiguredStaccatoIntentAction *)self initWithIntent:v6 named:v5 previewIcon:v21 appShortcutIdentifier:v7 templateParameterValues:v11 contextualParameters:v15 shortcutsMetadata:v16 colorScheme:v17];
     selfCopy = self;
   }
 
   else
   {
-    v19 = v22;
+    v19 = v21;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

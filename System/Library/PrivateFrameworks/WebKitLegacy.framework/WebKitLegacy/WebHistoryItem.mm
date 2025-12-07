@@ -260,7 +260,7 @@ LABEL_9:
           v19 = vtable[-1].u32[1];
           if (6 * v18.i32[1] < v19 && v19 >= 9)
           {
-            WTF::HashTable<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>>,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WebHistoryItem *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(v19 >> 1);
+            WTF::HashTable<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>>,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WebHistoryItem *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(v19 >> 1, 0);
           }
         }
       }
@@ -356,7 +356,7 @@ LABEL_11:
   v13 = qword_1ED6A6220;
   if (!qword_1ED6A6220)
   {
-    WTF::HashTable<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>>,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WebHistoryItem *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(8u);
+    WTF::HashTable<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>>,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WebHistoryItem *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(8u, 0);
     v13 = qword_1ED6A6220;
     if (!qword_1ED6A6220)
     {
@@ -416,6 +416,7 @@ LABEL_16:
       else
       {
         *v23 = v10;
+        v16 = v23;
         v23[1] = v5;
         v27 = qword_1ED6A6220;
         if (qword_1ED6A6220)
@@ -451,7 +452,7 @@ LABEL_28:
         {
           v32 = 8;
 LABEL_35:
-          WTF::HashTable<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>>,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WebHistoryItem *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(v32);
+          WTF::HashTable<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>>,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WebHistoryItem *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(v32, v16);
           return v5;
         }
 
@@ -895,7 +896,7 @@ LABEL_11:
   v12 = qword_1ED6A6220;
   if (!qword_1ED6A6220)
   {
-    WTF::HashTable<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>>,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WebHistoryItem *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(8u);
+    WTF::HashTable<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>>,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WebHistoryItem *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(8u, 0);
     v12 = qword_1ED6A6220;
     if (!qword_1ED6A6220)
     {
@@ -955,6 +956,7 @@ LABEL_16:
       else
       {
         *v22 = v9;
+        v15 = v22;
         v22[1] = v4;
         v26 = qword_1ED6A6220;
         if (qword_1ED6A6220)
@@ -990,7 +992,7 @@ LABEL_28:
         {
           v31 = 8;
 LABEL_39:
-          WTF::HashTable<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>>,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WebHistoryItem *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(v31);
+          WTF::HashTable<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>>,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WebHistoryItem *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(v31, v15);
           return v4;
         }
 

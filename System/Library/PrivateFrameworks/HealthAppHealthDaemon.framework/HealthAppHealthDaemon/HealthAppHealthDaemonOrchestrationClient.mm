@@ -14,7 +14,6 @@
   }
 
   *(swift_allocObject() + 16) = v8;
-  v9 = *(&self->super.isa + OBJC_IVAR____TtC21HealthAppHealthDaemon40HealthAppHealthDaemonOrchestrationClient_connection);
   selfCopy = self;
   sub_2293C00E0();
 }

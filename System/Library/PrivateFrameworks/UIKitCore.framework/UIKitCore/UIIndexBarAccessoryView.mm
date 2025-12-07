@@ -281,7 +281,7 @@ LABEL_3:
 - (BOOL)_shouldAnimatePropertyWithKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"contents"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v5 = 0;
   }

@@ -482,6 +482,7 @@ uint64_t __77__HKSPSleepScheduleOccurrence_overrideAppliesToOccurrence_gregorian
 
 - (id)wakeUpDateForDate:(id)date searchBackwards:(BOOL)backwards gregorianCalendar:(id)calendar
 {
+  backwardsCopy = backwards;
   dateCopy = date;
   calendarCopy = calendar;
   v20 = 0;
@@ -489,7 +490,7 @@ uint64_t __77__HKSPSleepScheduleOccurrence_overrideAppliesToOccurrence_gregorian
   v22 = 0x3032000000;
   v23 = __Block_byref_object_copy__1;
   v24 = __Block_byref_object_dispose__1;
-  if (backwards)
+  if (backwardsCopy)
   {
     [MEMORY[0x277CBEAA8] distantPast];
   }
@@ -507,11 +508,11 @@ uint64_t __77__HKSPSleepScheduleOccurrence_overrideAppliesToOccurrence_gregorian
   v15[4] = self;
   v11 = dateCopy;
   v16 = v11;
-  backwardsCopy = backwards;
+  v19 = backwardsCopy;
   v12 = calendarCopy;
   v17 = v12;
   v18 = &v20;
-  HKSPWeekdaysEnumerateDays(weekdays, v15, backwards);
+  HKSPWeekdaysEnumerateDays(weekdays, v15, backwardsCopy);
   v13 = v21[5];
 
   _Block_object_dispose(&v20, 8);
@@ -552,7 +553,7 @@ void __83__HKSPSleepScheduleOccurrence_wakeUpDateForDate_searchBackwards_gregori
 
 - (BOOL)isValidOccurrence
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   wakeUpComponents = [(HKSPSleepScheduleOccurrence *)self wakeUpComponents];
   if (!wakeUpComponents || (v4 = wakeUpComponents, [(HKSPSleepScheduleOccurrence *)self bedtimeComponents], v5 = objc_claimAutoreleasedReturnValue(), v5, v4, !v5))
   {
@@ -562,9 +563,9 @@ void __83__HKSPSleepScheduleOccurrence_wakeUpDateForDate_searchBackwards_gregori
       goto LABEL_17;
     }
 
-    v24 = 138543362;
-    v25 = objc_opt_class();
-    v18 = v25;
+    v23 = 138543362;
+    v24 = objc_opt_class();
+    v18 = v24;
     v19 = "[%{public}@] nil date components found";
     goto LABEL_25;
   }
@@ -588,9 +589,9 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v24 = 138543362;
-    v25 = objc_opt_class();
-    v18 = v25;
+    v23 = 138543362;
+    v24 = objc_opt_class();
+    v18 = v24;
     v19 = "[%{public}@] invalid date components found";
     goto LABEL_25;
   }
@@ -619,12 +620,12 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v24 = 138543362;
-    v25 = objc_opt_class();
-    v18 = v25;
+    v23 = 138543362;
+    v24 = objc_opt_class();
+    v18 = v24;
     v19 = "[%{public}@] invalid components for repeating occurrence";
 LABEL_25:
-    _os_log_error_impl(&dword_269A84000, hk_gregorianCalendar, OS_LOG_TYPE_ERROR, v19, &v24, 0xCu);
+    _os_log_error_impl(&dword_269A84000, hk_gregorianCalendar, OS_LOG_TYPE_ERROR, v19, &v23, 0xCu);
 
     goto LABEL_17;
   }
@@ -632,8 +633,7 @@ LABEL_25:
 LABEL_8:
   if (![(HKSPSleepScheduleOccurrence *)self isSingleDayOverride])
   {
-    v20 = 1;
-    goto LABEL_19;
+    return 1;
   }
 
   hk_gregorianCalendar = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
@@ -653,18 +653,16 @@ LABEL_8:
   v17 = HKSPLogForCategory(5uLL);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v24 = 138543362;
-    v25 = objc_opt_class();
-    v23 = v25;
-    _os_log_error_impl(&dword_269A84000, v17, OS_LOG_TYPE_ERROR, "[%{public}@] bedtime is after wakeup", &v24, 0xCu);
+    v23 = 138543362;
+    v24 = objc_opt_class();
+    v22 = v24;
+    _os_log_error_impl(&dword_269A84000, v17, OS_LOG_TYPE_ERROR, "[%{public}@] bedtime is after wakeup", &v23, 0xCu);
   }
 
 LABEL_17:
   v20 = 0;
 LABEL_18:
 
-LABEL_19:
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

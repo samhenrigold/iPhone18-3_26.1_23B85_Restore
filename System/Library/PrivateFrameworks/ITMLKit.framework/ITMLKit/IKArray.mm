@@ -306,7 +306,7 @@ LABEL_8:
 
 - (id)toNSArray
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   arrayStore = [(IKArray *)self arrayStore];
   if (arrayStore)
   {
@@ -320,11 +320,11 @@ LABEL_8:
   v7 = obj0;
   if (arrayStore2)
   {
-    v15[0] = obj0;
+    v14[0] = obj0;
     obj1 = [(IKArray *)self obj1];
-    v15[1] = obj1;
+    v14[1] = obj1;
     v9 = MEMORY[0x277CBEA60];
-    v10 = v15;
+    v10 = v14;
     v11 = 2;
   }
 
@@ -337,18 +337,16 @@ LABEL_8:
     }
 
     obj1 = [(IKArray *)self obj0];
-    v14 = obj1;
+    v13 = obj1;
     v9 = MEMORY[0x277CBEA60];
-    v10 = &v14;
+    v10 = &v13;
     v11 = 1;
   }
 
-  v5 = [v9 arrayWithObjects:v10 count:{v11, v14}];
+  v5 = [v9 arrayWithObjects:v10 count:{v11, v13}];
 
 LABEL_8:
 LABEL_9:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

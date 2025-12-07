@@ -37,19 +37,17 @@
   return v3;
 }
 
-void __54__GKTTRMultiplayerParticipant_secureCodedPropertyKeys__block_invoke()
+void __54__GKTTRMultiplayerParticipant_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v0 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0, @"playerID"}];
-  v5[1] = @"pushToken";
-  v6[0] = v0;
-  v1 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0}];
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = secureCodedPropertyKeys_sSecureCodedKeys_280;
-  secureCodedPropertyKeys_sSecureCodedKeys_280 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0, @"playerID"}];
+  v6[1] = @"pushToken";
+  v7[0] = v2;
+  v3 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0}];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v5 = secureCodedPropertyKeys_sSecureCodedKeys_280;
+  secureCodedPropertyKeys_sSecureCodedKeys_280 = v4;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -94,7 +92,7 @@ void __54__GKTTRMultiplayerParticipant_secureCodedPropertyKeys__block_invoke()
 
 - (id)serverRepresentation
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   playerID = [(GKTTRMultiplayerParticipant *)self playerID];
   if (!playerID || (v4 = playerID, [(GKTTRMultiplayerParticipant *)self pushToken], v5 = objc_claimAutoreleasedReturnValue(), v5, v4, !v5))
   {
@@ -108,15 +106,13 @@ void __54__GKTTRMultiplayerParticipant_secureCodedPropertyKeys__block_invoke()
     [MEMORY[0x277CBEAD8] raise:@"GameKit Exception" format:{@"%@", v11}];
   }
 
-  v17[0] = @"id";
+  v16[0] = @"id";
   playerID2 = [(GKTTRMultiplayerParticipant *)self playerID];
-  v17[1] = @"push-token";
-  v18[0] = playerID2;
+  v16[1] = @"push-token";
+  v17[0] = playerID2;
   pushToken = [(GKTTRMultiplayerParticipant *)self pushToken];
-  v18[1] = pushToken;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v17[1] = pushToken;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
   return v14;
 }

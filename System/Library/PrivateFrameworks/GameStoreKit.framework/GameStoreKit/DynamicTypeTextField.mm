@@ -13,7 +13,7 @@
 - (UIFont)font
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for DynamicTypeTextField();
+  v4.super_class = type metadata accessor for DynamicTypeTextField(0);
   font = [(DynamicTypeTextField *)&v4 font];
 
   return font;
@@ -21,10 +21,10 @@
 
 - (void)setFont:(id)font
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F222038);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F222038, &unk_24F9689B0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v12 - v6;
-  v8 = type metadata accessor for DynamicTypeTextField();
+  v8 = type metadata accessor for DynamicTypeTextField(0);
   v12.receiver = self;
   v12.super_class = v8;
   fontCopy = font;
@@ -38,7 +38,7 @@
 - (int64_t)textAlignment
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for DynamicTypeTextField();
+  v3.super_class = type metadata accessor for DynamicTypeTextField(0);
   return [(DynamicTypeTextField *)&v3 textAlignment];
 }
 
@@ -52,7 +52,7 @@
   selfCopy = self;
   sub_24E934BF0(&v9);
   v8.receiver = selfCopy;
-  v8.super_class = type metadata accessor for DynamicTypeTextField();
+  v8.super_class = type metadata accessor for DynamicTypeTextField(0);
   [(DynamicTypeTextField *)&v8 setTextAlignment:alignment];
 }
 
@@ -74,7 +74,7 @@
   (*(*(v9 - 8) + 56))(self + v8, 1, 1, v9);
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC12GameStoreKit20DynamicTypeTextField_directionalTextAlignment) = 0;
   v11.receiver = self;
-  v11.super_class = type metadata accessor for DynamicTypeTextField();
+  v11.super_class = type metadata accessor for DynamicTypeTextField(0);
   return [(DynamicTypeTextField *)&v11 initWithFrame:x, y, width, height];
 }
 
@@ -85,7 +85,7 @@
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC12GameStoreKit20DynamicTypeTextField_directionalTextAlignment) = 0;
   v10.receiver = self;
-  v10.super_class = type metadata accessor for DynamicTypeTextField();
+  v10.super_class = type metadata accessor for DynamicTypeTextField(0);
   coderCopy = coder;
   v8 = [(DynamicTypeTextField *)&v10 initWithCoder:coderCopy];
 

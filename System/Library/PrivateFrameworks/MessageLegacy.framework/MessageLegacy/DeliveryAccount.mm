@@ -15,11 +15,13 @@
 - (BOOL)shouldUseAuthentication;
 - (id)identifier;
 - (id)newDeliveryWithHeaders:(id)headers HTML:(id)l plainTextAlternative:(id)alternative other:(id)other charsets:(id)charsets;
+- (id)newDeliveryWithHeaders:(id)headers mixedContent:(id)content textPartsAreHTML:(BOOL)l;
 - (id)newDeliveryWithMessage:(id)message;
 - (unint64_t)maximumMessageBytes;
 - (void)_setAccountProperties:(id)properties;
 - (void)_updateAccountDescriptionWithUsername:(id)username hostname:(id)hostname;
 - (void)setMaximumMessageBytes:(unint64_t)bytes;
+- (void)setShouldUseAuthentication:(BOOL)authentication;
 - (void)setUsername:(id)username;
 @end
 
@@ -48,28 +50,28 @@
 
 + (id)existingAccountForUniqueID:(id)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   +[DeliveryAccount mf_lock];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = _deliveryAccounts;
-  v5 = [_deliveryAccounts countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [_deliveryAccounts countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v13 != v7)
+      if (*v12 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v12 + 1) + 8 * v8);
+      v9 = *(*(&v11 + 1) + 8 * v8);
       if ([objc_msgSend(v9 "uniqueId")])
       {
         break;
@@ -77,7 +79,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -95,7 +97,6 @@ LABEL_9:
   }
 
   +[DeliveryAccount mf_unlock];
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -145,27 +146,27 @@ LABEL_9:
 
 + (id)accountWithUniqueId:(id)id
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   deliveryAccounts = [self deliveryAccounts];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [deliveryAccounts countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [deliveryAccounts countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v13 != v7)
+      if (*v12 != v7)
       {
         objc_enumerationMutation(deliveryAccounts);
       }
 
-      v9 = *(*(&v12 + 1) + 8 * v8);
+      v9 = *(*(&v11 + 1) + 8 * v8);
       if ([id isEqualToString:{objc_msgSend(v9, "uniqueId")}])
       {
         break;
@@ -173,7 +174,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [deliveryAccounts countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [deliveryAccounts countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -190,34 +191,32 @@ LABEL_9:
     v9 = 0;
   }
 
-  result = v9;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v9;
 }
 
 + (id)accountWithIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   deliveryAccounts = [self deliveryAccounts];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [deliveryAccounts countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [deliveryAccounts countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v13 != v7)
+      if (*v12 != v7)
       {
         objc_enumerationMutation(deliveryAccounts);
       }
 
-      v9 = *(*(&v12 + 1) + 8 * v8);
+      v9 = *(*(&v11 + 1) + 8 * v8);
       if ([objc_msgSend(v9 "identifier")])
       {
         break;
@@ -225,7 +224,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [deliveryAccounts countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [deliveryAccounts countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -242,35 +241,33 @@ LABEL_9:
     v9 = 0;
   }
 
-  result = v9;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v9;
 }
 
 + (id)existingAccountWithIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   +[DeliveryAccount mf_lock];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = _deliveryAccounts;
-  v5 = [_deliveryAccounts countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [_deliveryAccounts countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v13 != v7)
+      if (*v12 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v12 + 1) + 8 * v8);
+      v9 = *(*(&v11 + 1) + 8 * v8);
       if ([objc_msgSend(v9 "identifier")])
       {
         break;
@@ -278,7 +275,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -296,7 +293,6 @@ LABEL_9:
   }
 
   +[DeliveryAccount mf_unlock];
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -329,6 +325,13 @@ LABEL_9:
   v4 = [objc_alloc(-[DeliveryAccount deliveryClass](self "deliveryClass"))];
   [v4 setAccount:self];
   return v4;
+}
+
+- (id)newDeliveryWithHeaders:(id)headers mixedContent:(id)content textPartsAreHTML:(BOOL)l
+{
+  v6 = [objc_alloc(-[DeliveryAccount deliveryClass](self "deliveryClass"))];
+  [v6 setAccount:self];
+  return v6;
 }
 
 - (id)newDeliveryWithHeaders:(id)headers HTML:(id)l plainTextAlternative:(id)alternative other:(id)other charsets:(id)charsets
@@ -365,6 +368,13 @@ LABEL_9:
   {
     return 0;
   }
+}
+
+- (void)setShouldUseAuthentication:(BOOL)authentication
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:authentication];
+
+  [(MFAccount *)self setAccountProperty:v4 forKey:@"ShouldUseAuthentication"];
 }
 
 - (void)setUsername:(id)username
@@ -408,39 +418,38 @@ LABEL_9:
 
 - (BOOL)hasNoReferences
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   identifier = [(DeliveryAccount *)self identifier];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = +[MailAccount mailAccounts];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        if ([objc_msgSend(objc_msgSend(*(*(&v10 + 1) + 8 * v7) "deliveryAccount")])
+        if ([objc_msgSend(objc_msgSend(*(*(&v9 + 1) + 8 * v7) "deliveryAccount")])
         {
-          result = 0;
-          goto LABEL_11;
+          return 0;
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -450,10 +459,7 @@ LABEL_9:
     }
   }
 
-  result = 1;
-LABEL_11:
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (BOOL)hasEnoughInformationForEasySetup

@@ -69,9 +69,9 @@ LABEL_79:
           goto LABEL_77;
         }
 
-        v20 = [v13 isEqualToString:v17];
+        isEqualToString = objc_msgSend_isEqualToString_(v13);
 
-        if (!v20)
+        if (!isEqualToString)
         {
           LOBYTE(v11) = 0;
 LABEL_78:
@@ -99,7 +99,7 @@ LABEL_78:
           goto LABEL_76;
         }
 
-        v11 = [v19 isEqualToString:v23];
+        v11 = objc_msgSend_isEqualToString_(v19);
 
         if (!v11)
         {
@@ -207,7 +207,7 @@ LABEL_41:
                 v18 = v80;
                 if (v42)
                 {
-                  v45 = [v75 isEqualToString:v42];
+                  v45 = objc_msgSend_isEqualToString_(v75);
 
                   if (!v45)
                   {
@@ -282,7 +282,7 @@ LABEL_67:
                             goto LABEL_68;
                           }
 
-                          v67 = [v71 isEqualToString:v55];
+                          v67 = objc_msgSend_isEqualToString_(v71);
 
                           if (!v67)
                           {
@@ -445,34 +445,32 @@ LABEL_80:
 
 + (NSDictionary)properties
 {
-  v14[8] = *MEMORY[0x1E69E9840];
-  v13[0] = @"name";
+  v13[8] = *MEMORY[0x1E69E9840];
+  v12[0] = @"name";
   v2 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v14[0] = v2;
-  v13[1] = @"description";
+  v13[0] = v2;
+  v12[1] = @"description";
   v3 = [WFCloudKitItemProperty objectPropertyWithName:@"collectionDescription"];
-  v14[1] = v3;
-  v13[2] = @"shortcuts";
+  v13[1] = v3;
+  v12[2] = @"shortcuts";
   v4 = [WFCloudKitItemProperty itemPropertyWithName:@"workflows" itemClass:objc_opt_class()];
-  v14[2] = v4;
-  v13[3] = @"minVersion";
+  v13[2] = v4;
+  v12[3] = @"minVersion";
   v5 = [WFCloudKitItemProperty scalarPropertyWithName:"scalarPropertyWithName:nilValue:" nilValue:?];
-  v14[3] = v5;
-  v13[4] = @"language";
+  v13[3] = v5;
+  v12[4] = @"language";
   v6 = [WFCloudKitItemProperty objectPropertyWithName:"objectPropertyWithName:ignoredByDefault:encrypted:" ignoredByDefault:? encrypted:?];
-  v14[4] = v6;
-  v13[5] = @"base";
+  v13[4] = v6;
+  v12[5] = @"base";
   v7 = [WFCloudKitItemProperty itemReferencePropertyWithName:@"base" itemClass:objc_opt_class()];
-  v14[5] = v7;
-  v13[6] = @"persistentIdentifier";
+  v13[5] = v7;
+  v12[6] = @"persistentIdentifier";
   v8 = [WFCloudKitItemProperty objectPropertyWithName:"objectPropertyWithName:ignoredByDefault:encrypted:" ignoredByDefault:? encrypted:?];
-  v14[6] = v8;
-  v13[7] = @"supportedIdioms";
+  v13[6] = v8;
+  v12[7] = @"supportedIdioms";
   v9 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v14[7] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:8];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v13[7] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:8];
 
   return v10;
 }

@@ -22,17 +22,8 @@ uint64_t __VTParavirtualizationGuestSupportSetUpWithHandlers_block_invoke(const 
   qword_280B134D8 = _Block_copy(a1[6]);
   v2 = IOServiceMatching("AppleVideoToolboxParavirtualizationDriver");
   MatchingService = IOServiceGetMatchingService(*MEMORY[0x277CD2898], v2);
-  if (!MatchingService)
+  if (!MatchingService || (v4 = MatchingService, IOServiceOpen(MatchingService, *MEMORY[0x277D85F48], 0, &_MergedGlobals), IOObjectRelease(v4), !_MergedGlobals) || (dword_280B134BC = IODataQueueAllocateNotificationPort()) == 0 || (v5 = dispatch_queue_create("com.apple.videotoolbox.paravirtualization.host-to-guest", 0), (sVTParavirtualizationHostToGuestNotificationDispatchQueue = v5) == 0) || (v6 = dispatch_source_create(MEMORY[0x277D85D08], dword_280B134BC, 0, v5), (sVTParavirtualizationHostToGuestNotificationDispatchSource = v6) == 0))
   {
-    goto LABEL_9;
-  }
-
-  v4 = MatchingService;
-  IOServiceOpen(MatchingService, *MEMORY[0x277D85F48], 0, &_MergedGlobals);
-  IOObjectRelease(v4);
-  if (!_MergedGlobals || (dword_280B134BC = IODataQueueAllocateNotificationPort()) == 0 || (v5 = dispatch_queue_create("com.apple.videotoolbox.paravirtualization.host-to-guest", 0), (sVTParavirtualizationHostToGuestNotificationDispatchQueue = v5) == 0) || (v6 = dispatch_source_create(MEMORY[0x277D85D08], dword_280B134BC, 0, v5), (sVTParavirtualizationHostToGuestNotificationDispatchSource = v6) == 0))
-  {
-LABEL_9:
     result = 4294948206;
 LABEL_10:
     VTParavirtualizationGuestSupportSetUpWithHandlers_sStatus = result;
@@ -102,7 +93,7 @@ uint64_t vtParavirtualizationGuestSupportUpdateBuffersForSize(uint64_t a1)
   input[0] = a1;
   output[0] = 0;
   output[1] = 0;
-  v5 = 0;
+  v4 = 0;
   outputCnt = 3;
   result = IOConnectCallScalarMethod(_MergedGlobals, 0, input, 1u, output, &outputCnt);
   if (!result)
@@ -111,16 +102,15 @@ uint64_t vtParavirtualizationGuestSupportUpdateBuffersForSize(uint64_t a1)
     {
       result = 0;
       xmmword_280B134E0 = *output;
-      qword_280B134F0 = v5;
+      qword_280B134F0 = v4;
     }
 
     else
     {
-      result = 4294948206;
+      return 4294948206;
     }
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -152,9 +142,9 @@ uint64_t VTParavirtualizationGuestSupportDeregisterGuestUUID(const void *a1)
 
 uint64_t VTParavirtualizationGuestSupportSendRawMessageToHost(uint64_t a1, uint64_t a2, IOSurfaceRef *a3, unint64_t a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   *input = 0u;
   output = 0;
   outputCnt = 1;
@@ -252,6 +242,5 @@ LABEL_24:
 
 LABEL_20:
   os_unfair_lock_unlock(&unk_280B134C0);
-  v18 = *MEMORY[0x277D85DE8];
   return v8;
 }

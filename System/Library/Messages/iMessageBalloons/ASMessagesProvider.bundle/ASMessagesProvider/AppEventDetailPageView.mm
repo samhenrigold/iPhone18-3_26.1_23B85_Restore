@@ -22,7 +22,7 @@
 {
   buttonCopy = button;
   selfCopy = self;
-  sub_6DB2CC(buttonCopy);
+  sub_6DB2CC(buttonCopy, v5);
 }
 
 - (void)videoTapGestureRecognized:(id)recognized
@@ -33,7 +33,7 @@
   swift_unknownObjectRelease();
   sub_6DB5FC();
 
-  sub_BEB8(&v5);
+  sub_BEB8(v5);
 }
 
 - (void)notifyMeButtonTapped:(id)tapped
@@ -56,16 +56,17 @@
   v5 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider22AppEventDetailPageView_lockupTapGestureActionBlock);
   if (v5)
   {
+    v6 = *&selfCopy->cardScrollView[OBJC_IVAR____TtC18ASMessagesProvider22AppEventDetailPageView_lockupTapGestureActionBlock];
 
-    v5(v6);
-    sub_F704(v5);
+    v5(v7);
+    sub_F704(v5, v6);
 
-    sub_BEB8(v6);
+    sub_BEB8(v7);
   }
 
   else
   {
-    sub_BEB8(v6);
+    sub_BEB8(v7);
   }
 }
 

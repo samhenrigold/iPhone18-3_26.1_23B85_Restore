@@ -125,7 +125,7 @@ uint64_t __61__ABVCardActivityAlertSerialization_dictionaryWithType_info___block
   return dictionary;
 }
 
-uint64_t __56__ABVCardActivityAlertSerialization_infoFromDictionary___block_invoke(uint64_t a1, __CFString *a2, uint64_t a3)
+void *__56__ABVCardActivityAlertSerialization_infoFromDictionary___block_invoke(uint64_t a1, __CFString *a2, uint64_t a3)
 {
   v4 = a2;
   result = [(__CFString *)a2 caseInsensitiveCompare:@"type"];

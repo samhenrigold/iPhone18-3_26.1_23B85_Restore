@@ -68,42 +68,40 @@
 
 - (void)_setRedModeTriggered:(BOOL)triggered
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_redModeTriggered != triggered)
   {
     self->_redModeTriggered = triggered;
+    v9 = 0u;
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
     v4 = self->_observers;
-    v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         v8 = 0;
         do
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(*(&v10 + 1) + 8 * v8++) redModeTriggerManager:self didUpdateRedModeTriggeredState:{self->_redModeTriggered, v10}];
+          [*(*(&v9 + 1) + 8 * v8++) redModeTriggerManager:self didUpdateRedModeTriggeredState:{self->_redModeTriggered, v9}];
         }
 
         while (v6 != v8);
-        v6 = [(NSHashTable *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [(NSHashTable *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)settings:(id)settings changedValueForKey:(id)key
@@ -144,20 +142,19 @@ LABEL_7:
 
 - (void)_updateTriggerState
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   isTriggered = [(AMAmbientIlluminationTrigger *)self->_ambientIlluminationTrigger isTriggered];
-  v4 = AMLogRedMode();
+  v4 = AMLogRedMode(isTriggered);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109376;
-    v6[1] = isTriggered;
-    v7 = 1024;
-    v8 = isTriggered;
-    _os_log_impl(&dword_23EE48000, v4, OS_LOG_TYPE_DEFAULT, "Red mode should trigger: %{BOOL}u [ isDarkEnvironment : %{BOOL}u ]", v6, 0xEu);
+    v5[0] = 67109376;
+    v5[1] = isTriggered;
+    v6 = 1024;
+    v7 = isTriggered;
+    _os_log_impl(&dword_23EE48000, v4, OS_LOG_TYPE_DEFAULT, "Red mode should trigger: %{BOOL}u [ isDarkEnvironment : %{BOOL}u ]", v5, 0xEu);
   }
 
   [(AMRedModeTriggerManager *)self _setRedModeTriggered:isTriggered];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getNewAmbientIlluminationTrigger

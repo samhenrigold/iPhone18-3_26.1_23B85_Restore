@@ -769,7 +769,7 @@ LABEL_13:
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26, v27);
   }
 
-  v385 = objc_msgSend_direction(selfCopy->_grid, v8, v10, v11, v12);
+  v385 = objc_msgSend_direction(selfCopy->_grid, v10, v11, v12);
   v32 = objc_msgSend_chartType(v9, v28, v29, v30, v31);
   v38 = objc_msgSend_scatterChart(TSCHChartType, v33, v34, v35, v36);
   if (v32 == v38)
@@ -1725,9 +1725,9 @@ LABEL_11:
 
   if ((objc_msgSend_p_disableCachingMediatorData(self, v6, v7, v8, v9) & 1) == 0)
   {
-    v38 = objc_msgSend_chartInfo(self, v25, v26, v27, v28);
-    v33 = objc_msgSend_mediator(v38, v29, v30, v31, v32);
-    self->_cachedChartMediatorGridDirection = objc_msgSend_direction(v33, v34, v35, v36, v37);
+    v37 = objc_msgSend_chartInfo(self, v25, v26, v27, v28);
+    v33 = objc_msgSend_mediator(v37, v29, v30, v31, v32);
+    self->_cachedChartMediatorGridDirection = objc_msgSend_direction(v33, v34, v35, v36);
   }
 }
 
@@ -2519,7 +2519,7 @@ LABEL_9:
 
 - (unint64_t)numberOfGridValues
 {
-  v7 = objc_msgSend_direction(self->_grid, a2, v2, v3, v4);
+  v7 = objc_msgSend_direction(self->_grid, v2, v3, v4, a2);
   grid = self->_grid;
   if (v7 == 2)
   {
@@ -2663,7 +2663,7 @@ LABEL_9:
 
 - (id)nameForSeries:(unint64_t)series
 {
-  v9 = objc_msgSend_direction(self->_grid, a2, v3, v4, v5);
+  v9 = objc_msgSend_direction(self->_grid, v3, v4, v5, a2);
   grid = self->_grid;
   if (v9 == 1)
   {
@@ -2683,16 +2683,16 @@ LABEL_9:
 {
   grid = self->_grid;
   nameCopy = name;
-  v12 = objc_msgSend_direction(grid, v7, v8, v9, v10);
-  v16 = self->_grid;
-  if (v12 == 1)
+  v11 = objc_msgSend_direction(grid, v7, v8, v9);
+  v15 = self->_grid;
+  if (v11 == 1)
   {
-    objc_msgSend_setNameForRow_toName_(v16, v11, v13, v14, v15, series, nameCopy);
+    objc_msgSend_setNameForRow_toName_(v15, v10, v12, v13, v14, series, nameCopy);
   }
 
   else
   {
-    objc_msgSend_setNameForColumn_toName_(v16, v11, v13, v14, v15, series, nameCopy);
+    objc_msgSend_setNameForColumn_toName_(v15, v10, v12, v13, v14, series, nameCopy);
   }
 }
 
@@ -2761,7 +2761,7 @@ LABEL_9:
 
 - (id)nameForMultiDataSetCategory:(unint64_t)category
 {
-  v9 = objc_msgSend_direction(self->_grid, a2, v3, v4, v5);
+  v9 = objc_msgSend_direction(self->_grid, v3, v4, v5, a2);
   grid = self->_grid;
   if (v9 == 2)
   {
@@ -2788,16 +2788,16 @@ LABEL_9:
 {
   grid = self->_grid;
   nameCopy = name;
-  v12 = objc_msgSend_direction(grid, v7, v8, v9, v10);
-  v16 = self->_grid;
-  if (v12 == 2)
+  v11 = objc_msgSend_direction(grid, v7, v8, v9);
+  v15 = self->_grid;
+  if (v11 == 2)
   {
-    objc_msgSend_setNameForRow_toName_(v16, v11, v13, v14, v15, category, nameCopy);
+    objc_msgSend_setNameForRow_toName_(v15, v10, v12, v13, v14, category, nameCopy);
   }
 
   else
   {
-    objc_msgSend_setNameForColumn_toName_(v16, v11, v13, v14, v15, category, nameCopy);
+    objc_msgSend_setNameForColumn_toName_(v15, v10, v12, v13, v14, category, nameCopy);
   }
 }
 

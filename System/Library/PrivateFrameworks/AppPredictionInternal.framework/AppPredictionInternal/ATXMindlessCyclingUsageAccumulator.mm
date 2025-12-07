@@ -73,7 +73,7 @@
   v10 = *(v19[0] + 40);
   if (v10)
   {
-    p_super = __atxlog_handle_usage_insights();
+    p_super = __atxlog_handle_usage_insights(v9);
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
       [(ATXMindlessCyclingUsageAccumulator *)v19 accumulateMindlessCyclingEvents];
@@ -98,7 +98,7 @@ uint64_t __69__ATXMindlessCyclingUsageAccumulator_accumulateMindlessCyclingEvent
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 void __69__ATXMindlessCyclingUsageAccumulator_accumulateMindlessCyclingEvents__block_invoke_2(uint64_t a1, void *a2)
@@ -127,35 +127,35 @@ void __69__ATXMindlessCyclingUsageAccumulator_accumulateMindlessCyclingEvents__b
 
 - (void)recordAppLaunchEndEvent:(id)event
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = [(NSMutableArray *)self->_appInFocusStartingEvents copy];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v39;
-    v35 = v6;
-    v36 = *v39;
+    v9 = *v38;
+    v34 = v6;
+    v35 = *v38;
     selfCopy = self;
-    v34 = eventCopy;
+    v33 = eventCopy;
     do
     {
       v10 = 0;
-      v37 = v8;
+      v36 = v8;
       do
       {
-        if (*v39 != v9)
+        if (*v38 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v38 + 1) + 8 * v10);
+        v11 = *(*(&v37 + 1) + 8 * v10);
         bundleID = [eventCopy bundleID];
         bundleID2 = [v11 bundleID];
         v14 = [bundleID isEqualToString:bundleID2];
@@ -211,29 +211,27 @@ void __69__ATXMindlessCyclingUsageAccumulator_accumulateMindlessCyclingEvents__b
                 objc_storeStrong(&selfCopy->_stagedEventToAdd, v29);
               }
 
-              eventCopy = v34;
+              eventCopy = v33;
             }
 
             [(NSMutableArray *)self->_appInFocusStartingEvents removeObject:v11];
 
-            v6 = v35;
+            v6 = v34;
           }
 
-          v9 = v36;
-          v8 = v37;
+          v9 = v35;
+          v8 = v36;
         }
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
     while (v8);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)eventWithBundleID:(id)d launchReason:(id)reason startTime:(id)time endTime:(id)endTime duration:(double)duration
@@ -255,14 +253,13 @@ void __69__ATXMindlessCyclingUsageAccumulator_accumulateMindlessCyclingEvents__b
 
 - (void)accumulateMindlessCyclingEvents
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(*self + 40);
-  v4 = 136315394;
-  v5 = "[ATXMindlessCyclingUsageAccumulator accumulateMindlessCyclingEvents]";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: Error with reading app launch stream: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "[ATXMindlessCyclingUsageAccumulator accumulateMindlessCyclingEvents]";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: Error with reading app launch stream: %@", &v3, 0x16u);
 }
 
 @end

@@ -92,31 +92,31 @@ LABEL_11:
 
 - (id)loadStore:(id)store error:(id *)error
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   storeCopy = store;
   v7 = [(RCPersistentContainer *)self storeDescriptionWithURL:storeCopy];
-  v24[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   persistentContainer = [(RCPersistentContainer *)self persistentContainer];
   [persistentContainer setPersistentStoreDescriptions:v8];
 
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__5;
-  v22 = __Block_byref_object_dispose__5;
-  v23 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__5;
+  v21 = __Block_byref_object_dispose__5;
+  v22 = 0;
   persistentContainer2 = [(RCPersistentContainer *)self persistentContainer];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __41__RCPersistentContainer_loadStore_error___block_invoke;
-  v17[3] = &unk_279E44678;
-  v17[4] = &v18;
-  [persistentContainer2 loadPersistentStoresWithCompletionHandler:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __41__RCPersistentContainer_loadStore_error___block_invoke;
+  v16[3] = &unk_279E44678;
+  v16[4] = &v17;
+  [persistentContainer2 loadPersistentStoresWithCompletionHandler:v16];
 
   if (error)
   {
-    *error = v19[5];
+    *error = v18[5];
   }
 
   persistentContainer3 = [(RCPersistentContainer *)self persistentContainer];
@@ -124,8 +124,7 @@ LABEL_11:
   v13 = [v7 URL];
   v14 = [persistentStoreCoordinator persistentStoreForURL:v13];
 
-  _Block_object_dispose(&v18, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
 
   return v14;
 }
@@ -249,13 +248,12 @@ uint64_t __57__RCPersistentContainer__configureContext_isViewContext___block_inv
 
 - (void)initWithURL:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[RCPersistentContainer initWithURL:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_fault_impl(&dword_272442000, a2, OS_LOG_TYPE_FAULT, "%s -- Failed to load persistent store, error = %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[RCPersistentContainer initWithURL:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_fault_impl(&dword_272442000, a2, OS_LOG_TYPE_FAULT, "%s -- Failed to load persistent store, error = %@", &v2, 0x16u);
 }
 
 @end

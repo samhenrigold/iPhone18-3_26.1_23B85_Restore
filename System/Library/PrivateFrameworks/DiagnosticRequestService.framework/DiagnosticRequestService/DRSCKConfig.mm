@@ -81,36 +81,34 @@ void __28__DRSCKConfig_defaultConfig__block_invoke()
   v1 = defaultConfig_defaultConfig;
   defaultConfig_defaultConfig = v0;
 
-  v2 = DPLogHandle_CKConfig();
-  if (os_signpost_enabled(v2))
+  v3 = DPLogHandle_CKConfig(v2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = +[DRSSystemProfile sharedInstance];
-    if ([v3 isInternal])
+    v4 = +[DRSSystemProfile sharedInstance];
+    if ([v4 isInternal])
     {
-      v4 = "Internal";
+      v5 = "Internal";
     }
 
     else
     {
-      v4 = "Customer";
+      v5 = "Customer";
     }
 
-    v5 = [defaultConfig_defaultConfig debugDescription];
-    v6 = v5;
-    v7 = @"Unknown";
-    if (v5)
+    v6 = [defaultConfig_defaultConfig debugDescription];
+    v7 = v6;
+    v8 = @"Unknown";
+    if (v6)
     {
-      v7 = v5;
+      v8 = v6;
     }
 
     v9 = 136315394;
-    v10 = v4;
+    v10 = v5;
     v11 = 2114;
-    v12 = v7;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "DefaultConfigInitialized", "Default config (%s): %{public}@", &v9, 0x16u);
+    v12 = v8;
+    _os_signpost_emit_with_name_impl(&dword_232906000, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "DefaultConfigInitialized", "Default config (%s): %{public}@", &v9, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (DRSCKConfig)initWithContainerEnvironment:(unsigned __int8)environment rapidEnvironment:(unsigned __int8)rapidEnvironment overridesDefault:(BOOL)default

@@ -51,7 +51,7 @@
 - (id)getDataDictFromPayload:(id)payload error:(id *)error
 {
   v6 = [payload objectForKey:@"data"];
-  v7 = sub_100063A54();
+  v7 = sub_100063A54(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     getName = [(MSDServerRequest *)self getName];

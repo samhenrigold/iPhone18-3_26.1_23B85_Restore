@@ -220,7 +220,7 @@ LABEL_16:
 - (id)valueForMetricsField:(id)field
 {
   fieldCopy = field;
-  if ([fieldCopy isEqualToString:*MEMORY[0x277D6A490]])
+  if (objc_msgSend_isEqualToString_(fieldCopy))
   {
     item = self->_item;
     if (item)
@@ -236,7 +236,7 @@ LABEL_16:
     goto LABEL_8;
   }
 
-  if (([fieldCopy isEqualToString:*MEMORY[0x277D6A4A0]] & 1) != 0 || objc_msgSend(fieldCopy, "isEqualToString:", *MEMORY[0x277D6A4A8]))
+  if ((objc_msgSend_isEqualToString_(fieldCopy) & 1) != 0 || objc_msgSend_isEqualToString_(fieldCopy))
   {
     title = [(SKUILink *)self title];
 LABEL_8:
@@ -261,6 +261,24 @@ LABEL_9:
     objc_storeStrong(p_item, item);
     itemCopy = v8;
   }
+}
+
+- (void)initWithLinkDictionary:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUILink initWithLinkDictionary:]";
+}
+
+- (void)initWithComponentContext:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUILink initWithComponentContext:]";
+}
+
+- (void)initWithURL:(uint64_t)a3 title:(uint64_t)a4 targetString:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUILink initWithURL:title:targetString:]";
 }
 
 @end

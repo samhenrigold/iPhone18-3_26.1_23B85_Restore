@@ -40,13 +40,13 @@
 
       if (v16)
       {
-        v21 = PLMigrationGetLog();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v22 = PLMigrationGetLog();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = v31[3];
+          v23 = v31[3];
           *buf = 134217984;
-          *&buf[4] = v22;
-          _os_log_impl(&dword_19BF1F000, v21, OS_LOG_TYPE_DEFAULT, "Updated %td assets", buf, 0xCu);
+          *&buf[4] = v23;
+          _os_log_impl(&dword_19BF1F000, v22, OS_LOG_TYPE_DEFAULT, "Updated %td assets", buf, 0xCu);
         }
       }
 
@@ -85,31 +85,39 @@
         *buf = 0u;
         v37 = 0u;
         v17 = PLMigrationGetLog();
-        os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
-        v18 = v31[3];
-        v34 = 134217984;
-        v35 = v18;
-        LODWORD(v27) = 12;
-        v19 = _os_log_send_and_compose_impl();
-
-        v20 = [(PLModelMigrationActionCore *)self logger:&v34];
-        [v20 logWithMessage:v19 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{1888, 0}];
-
-        if (v19 != buf)
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          free(v19);
+          v18 = 3;
+        }
+
+        else
+        {
+          v18 = 2;
+        }
+
+        v19 = v31[3];
+        v34 = 134217984;
+        v35 = v19;
+        v20 = _os_log_send_and_compose_impl(v18, 0, buf, 512, &dword_19BF1F000, v17, 0, "Updated %td assets", &v34);
+
+        logger2 = [(PLModelMigrationActionCore *)self logger];
+        [logger2 logWithMessage:v20 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{1888, 0}];
+
+        if (v20 != buf)
+        {
+          free(v20);
         }
       }
     }
   }
 
   [(PLModelMigrationActionCore *)self finalizeProgress];
-  v23 = v12;
-  v24 = v23;
+  v24 = v12;
+  v25 = v24;
   if (v11 != 1 && error)
   {
-    v25 = v23;
-    *error = v24;
+    v26 = v24;
+    *error = v25;
   }
 
   _Block_object_dispose(&v30, 8);

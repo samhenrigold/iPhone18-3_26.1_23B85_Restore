@@ -30,24 +30,23 @@
 - (NSURL)fallbackURL
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CC06D70, &qword_2186B92A0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  sub_2186A8A5C(v6);
+  sub_2186A8A5C(v5);
 
-  v8 = sub_2186B6FAC();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_2186B6FAC();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_2186B6F8C();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_2186B6F8C();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (NSNumber)maxPlayers
@@ -81,11 +80,10 @@
 
 - (NSDictionary)defaultProperties
 {
-  v2 = *(self + OBJC_IVAR___GKGameActivityDefinition_defaultProperties);
 
-  v3 = sub_2186B79AC();
+  v2 = sub_2186B79AC();
 
-  return v3;
+  return v2;
 }
 
 - (BOOL)supportsUnlimitedPlayers
@@ -102,45 +100,43 @@
   selfCopy = self;
   v21 = sub_2186B6FAC();
   v22 = *(v21 - 8);
-  v23 = *(v22 + 64);
   MEMORY[0x28223BE20](v21);
-  v71 = v59 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CC06D70, &qword_2186B92A0);
-  v26 = *(*(v25 - 8) + 64);
-  MEMORY[0x28223BE20](v25 - 8);
-  v28 = v59 - v27;
-  v29 = sub_2186B7A0C();
-  v69 = v30;
-  v70 = v29;
+  v69 = v57 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CC06D70, &qword_2186B92A0);
+  MEMORY[0x28223BE20](v24 - 8);
+  v26 = v57 - v25;
+  v27 = sub_2186B7A0C();
+  v67 = v28;
+  v68 = v27;
   if (groupIdentifier)
   {
-    v31 = sub_2186B7A0C();
-    v67 = v32;
-    v68 = v31;
+    v29 = sub_2186B7A0C();
+    v65 = v30;
+    v66 = v29;
   }
 
   else
   {
-    v67 = 0;
-    v68 = 0;
+    v65 = 0;
+    v66 = 0;
   }
 
   iDsCopy = iDs;
-  v59[1] = ds;
-  v33 = sub_2186B7A0C();
-  v65 = v34;
-  v66 = v33;
+  v57[1] = ds;
+  v31 = sub_2186B7A0C();
+  v63 = v32;
+  v64 = v31;
   if (details)
   {
-    v35 = sub_2186B7A0C();
-    v63 = v36;
-    v64 = v35;
+    v33 = sub_2186B7A0C();
+    v61 = v34;
+    v62 = v33;
   }
 
   else
   {
-    v63 = 0;
-    v64 = 0;
+    v61 = 0;
+    v62 = 0;
   }
 
   stateCopy = state;
@@ -149,39 +145,39 @@
   if (l)
   {
     sub_2186B6F9C();
-    v37 = *(v22 + 56);
+    v35 = *(v22 + 56);
     playersCopy = players;
     minPlayersCopy = minPlayers;
-    v40 = rLCopy;
+    v38 = rLCopy;
     languageCopy = language;
     uRLCopy = uRL;
-    v37(v28, 0, 1, v21);
+    v35(v26, 0, 1, v21);
   }
 
   else
   {
-    (*(v22 + 56))(v28, 1, 1, v21);
+    (*(v22 + 56))(v26, 1, 1, v21);
     playersCopy2 = players;
     minPlayersCopy2 = minPlayers;
-    v45 = rLCopy;
+    v43 = rLCopy;
     languageCopy2 = language;
     uRLCopy2 = uRL;
   }
 
-  v48 = sub_2186B79BC();
-  v49 = sub_2186B7AAC();
-  v50 = sub_2186B7AAC();
-  v51 = sub_2186B7A0C();
-  v53 = v52;
+  v46 = sub_2186B79BC();
+  v47 = sub_2186B7AAC();
+  v48 = sub_2186B7AAC();
+  v49 = sub_2186B7A0C();
+  v51 = v50;
 
-  v54 = v71;
+  v52 = v69;
   sub_2186B6F9C();
 
-  v58 = v50;
-  v55 = rLCopy;
-  v56 = sub_2186AE444(v70, v69, v68, v67, v66, v65, v64, v63, codeCopy, v28, players, minPlayers, v48, rLCopy, stateCopy, styleCopy, v49, v58, v51, v53, v54);
+  v56 = v48;
+  v53 = rLCopy;
+  v54 = sub_2186AE444(v68, v67, v66, v65, v64, v63, v62, v61, codeCopy, v26, players, minPlayers, v46, rLCopy, stateCopy, styleCopy, v47, v56, v49, v51, v52);
 
-  return v56;
+  return v54;
 }
 
 - (GKGameActivityDefinition)init

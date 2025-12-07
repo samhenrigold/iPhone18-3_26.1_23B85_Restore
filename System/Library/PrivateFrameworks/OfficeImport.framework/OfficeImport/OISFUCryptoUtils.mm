@@ -73,7 +73,7 @@
 + (id)generatePassphraseVerifierForKey:(id)key verifierVersion:(unsigned __int16)version
 {
   versionCopy = version;
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if ([key keyType])
   {
     v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[OISFUCryptoUtils generatePassphraseVerifierForKey:verifierVersion:]"];
@@ -85,12 +85,12 @@
   else
   {
     data = [MEMORY[0x277CBEB28] data];
-    v26 = 0;
+    v27 = 0;
     v9 = [[OISFUMemoryOutputStream alloc] initWithData:data];
-    v25 = versionCopy;
-    v24 = 1;
+    v26 = versionCopy;
+    v25 = 1;
+    [(OISFUMemoryOutputStream *)v9 writeBuffer:&v26 size:2];
     [(OISFUMemoryOutputStream *)v9 writeBuffer:&v25 size:2];
-    [(OISFUMemoryOutputStream *)v9 writeBuffer:&v24 size:2];
     iterationCount = [key iterationCount];
     [(OISFUMemoryOutputStream *)v9 writeBuffer:&iterationCount size:4];
     if (versionCopy >= 2)
@@ -99,41 +99,42 @@
     }
 
     v10 = [self ivLengthForKey:key];
-    MEMORY[0x28223BE20]();
-    v12 = &c - v11;
-    [self generateRandomDataInBuffer:&c - v11 length:v10];
-    [(OISFUMemoryOutputStream *)v9 writeBuffer:v12 size:v10];
-    v13 = [[OISFUCryptor alloc] initWithKey:key operation:0 iv:v12 ivLength:v10 usePKCS7Padding:versionCopy == 1];
+    v11 = v10;
+    MEMORY[0x28223BE20](v10);
+    v13 = &c - v12;
+    [self generateRandomDataInBuffer:&c - v12 length:v11];
+    [(OISFUMemoryOutputStream *)v9 writeBuffer:v13 size:v11];
+    v14 = [[OISFUCryptor alloc] initWithKey:key operation:0 iv:v13 ivLength:v11 usePKCS7Padding:versionCopy == 1];
     [self generateRandomDataInBuffer:data length:32];
-    if (![(OISFUCryptor *)v13 cryptDataFromBuffer:data length:32 toStream:v9 finished:0 error:&v26])
+    if (![(OISFUCryptor *)v14 cryptDataFromBuffer:data length:32 toStream:v9 finished:0 error:&v27])
     {
 
-      v14 = MEMORY[0x277CBEAD8];
-      v15 = *MEMORY[0x277CBE648];
-      localizedDescription = [v26 localizedDescription];
-      [v14 raise:v15 format:{@"SFUCryptor failed. %@: %@", localizedDescription, objc_msgSend(v26, "localizedFailureReason")}];
+      v15 = MEMORY[0x277CBEAD8];
+      v16 = *MEMORY[0x277CBE648];
+      localizedDescription = [v27 localizedDescription];
+      [v15 raise:v16 format:{@"SFUCryptor failed. %@: %@", localizedDescription, objc_msgSend(v27, "localizedFailureReason")}];
       v9 = 0;
-      v13 = 0;
+      v14 = 0;
     }
 
     if (CC_SHA256_Init(&c) && CC_SHA256_Update(&c, data, 0x20u) && CC_SHA256_Final(md, &c))
     {
-      if (![(OISFUCryptor *)v13 cryptDataFromBuffer:md length:32 toStream:v9 finished:1 error:&v26])
+      if (![(OISFUCryptor *)v14 cryptDataFromBuffer:md length:32 toStream:v9 finished:1 error:&v27])
       {
 
-        v17 = MEMORY[0x277CBEAD8];
-        v18 = *MEMORY[0x277CBE648];
-        localizedDescription2 = [v26 localizedDescription];
-        [v17 raise:v18 format:{@"SFUCryptor failed. %@: %@", localizedDescription2, objc_msgSend(v26, "localizedFailureReason")}];
-        v13 = 0;
+        v18 = MEMORY[0x277CBEAD8];
+        v19 = *MEMORY[0x277CBE648];
+        localizedDescription2 = [v27 localizedDescription];
+        [v18 raise:v19 format:{@"SFUCryptor failed. %@: %@", localizedDescription2, objc_msgSend(v27, "localizedFailureReason")}];
+        v14 = 0;
         v9 = 0;
       }
     }
 
     else
     {
-      v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[OISFUCryptoUtils generatePassphraseVerifierForKey:verifierVersion:]"];
-      +[OITSUAssertionHandler handleFailureInFunction:file:lineNumber:isFatal:description:](OITSUAssertionHandler, "handleFailureInFunction:file:lineNumber:isFatal:description:", v20, [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/OfficeImport/OfficeParser/shared/utility/sf/SFUCryptoUtils.mm"], 156, 0, "CC_SHA256 failed");
+      v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[OISFUCryptoUtils generatePassphraseVerifierForKey:verifierVersion:]"];
+      +[OITSUAssertionHandler handleFailureInFunction:file:lineNumber:isFatal:description:](OITSUAssertionHandler, "handleFailureInFunction:file:lineNumber:isFatal:description:", v21, [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/OfficeImport/OfficeParser/shared/utility/sf/SFUCryptoUtils.mm"], 156, 0, "CC_SHA256 failed");
       +[OITSUAssertionHandler logBacktraceThrottled];
       data = 0;
     }

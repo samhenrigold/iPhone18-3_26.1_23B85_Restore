@@ -184,7 +184,7 @@ LABEL_23:
   return v21;
 }
 
-uint64_t __74__PFVideoExportRangeCoordinator_waitForAvailabilityOfRange_timeout_error___block_invoke(uint64_t a1)
+void *__74__PFVideoExportRangeCoordinator_waitForAvailabilityOfRange_timeout_error___block_invoke(uint64_t a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   v2 = NSIntersectionRange(*(a1 + 56), *(*(a1 + 32) + 32));
@@ -231,7 +231,7 @@ uint64_t __74__PFVideoExportRangeCoordinator_waitForAvailabilityOfRange_timeout_
   return result;
 }
 
-uint64_t __74__PFVideoExportRangeCoordinator_waitForAvailabilityOfRange_timeout_error___block_invoke_235(uint64_t a1)
+void *__74__PFVideoExportRangeCoordinator_waitForAvailabilityOfRange_timeout_error___block_invoke_235(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) containsObject:*(*(*(a1 + 40) + 8) + 40)];
   if (result)

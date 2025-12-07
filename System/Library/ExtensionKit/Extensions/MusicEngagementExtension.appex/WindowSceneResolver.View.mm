@@ -21,7 +21,7 @@
   v5 = v7.receiver;
   [(WindowSceneResolver.View *)&v7 willMoveToWindow:windowCopy];
   windowScene = [windowCopy windowScene];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVySo13UIWindowSceneCSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVySo13UIWindowSceneCSgGMd, &_s7SwiftUI7BindingVySo13UIWindowSceneCSgGMR);
   Binding.wrappedValue.setter();
 }
 

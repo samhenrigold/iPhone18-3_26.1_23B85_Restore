@@ -51,41 +51,38 @@ LABEL_8:
 
 - (void)writeTo:(id)to
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
+  v10 = 0u;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
   v5 = self->_values;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addValues:(id)values
@@ -108,50 +105,48 @@ LABEL_8:
 
 - (void)setValues:(id)values
 {
-  v4 = [values mutableCopy];
-  values = self->_values;
-  self->_values = v4;
+  self->_values = [values mutableCopy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (_CPListValue)initWithFacade:(id)facade
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_CPListValue *)self init];
   if (v5)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v6 = facadeCopy;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         v10 = 0;
         do
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * v10);
+          v11 = *(*(&v16 + 1) + 8 * v10);
           v12 = [_CPValue alloc];
-          v13 = [(_CPValue *)v12 initWithFacade:v11, v17];
+          v13 = [(_CPValue *)v12 initWithFacade:v11, v16];
           [(_CPListValue *)v5 addValues:v13];
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
@@ -160,7 +155,6 @@ LABEL_8:
     v14 = v5;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

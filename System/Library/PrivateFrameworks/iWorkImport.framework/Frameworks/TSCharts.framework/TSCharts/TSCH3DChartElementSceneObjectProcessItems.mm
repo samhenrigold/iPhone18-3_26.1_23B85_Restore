@@ -85,7 +85,7 @@
         v15 = *(*(&v27 + 1) + 8 * i);
         if (v15)
         {
-          objc_msgSend_index(v15, v8, v10, v11, v12);
+          objc_msgSend_index(v15, v10, v11, v12);
         }
 
         else

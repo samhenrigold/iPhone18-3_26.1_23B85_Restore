@@ -63,7 +63,7 @@ id __62__CalEntitlementsVerifier_currentProcessGetStringEntitlement___block_invo
 
 id __70__CalEntitlementsVerifier_currentProcessGetArrayOfStringsEntitlement___block_invoke(int a1, void *cf)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (!cf)
   {
 LABEL_15:
@@ -77,8 +77,8 @@ LABEL_15:
     v13 = CFGetTypeID(cf);
     if (v13 == CFStringGetTypeID())
     {
-      v20 = cf;
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+      v19 = cf;
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
       goto LABEL_16;
     }
 
@@ -87,34 +87,34 @@ LABEL_15:
 
   v4 = cf;
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v4, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v5 addObject:{v11, v16}];
+          [v5 addObject:{v11, v15}];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v8);
@@ -122,7 +122,6 @@ LABEL_15:
 
   v12 = [v5 copy];
 LABEL_16:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -283,14 +282,13 @@ LABEL_16:
 
 + (void)_currentProcessValueForEntitlement:(os_log_t)log loadBlock:.cold.1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a2;
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_1B990D000, log, OS_LOG_TYPE_ERROR, "An error occurred while checking to see if the current process has entitlement %@. %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_1B990D000, log, OS_LOG_TYPE_ERROR, "An error occurred while checking to see if the current process has entitlement %@. %@", &v4, 0x16u);
 }
 
 @end

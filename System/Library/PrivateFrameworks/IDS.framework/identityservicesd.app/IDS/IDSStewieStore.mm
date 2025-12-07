@@ -54,7 +54,7 @@
 {
   persisterCopy = persister;
   v5 = [IDSPersistentMap alloc];
-  v6 = sub_100698878();
+  v6 = sub_100698878(IDSStewieStore);
   v7 = [(IDSPersistentMap *)v5 initWithIdentifier:@"com.apple.identityservicesd.stewie.store.v2" versionNumber:1 decodableClasses:v6 persister:persisterCopy migrationBlock:0 allowBackup:0];
 
   v8 = sub_10092E1D0(&self->super.isa, v7);
@@ -160,7 +160,7 @@ LABEL_4:
 
   if (v3)
   {
-    [v3 doubleValue];
+    objc_msgSend_doubleValue(v3);
     v4 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
   }
 
@@ -179,7 +179,7 @@ LABEL_4:
 
   if (v3)
   {
-    [v3 doubleValue];
+    objc_msgSend_doubleValue(v3);
     v4 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
   }
 
@@ -198,7 +198,7 @@ LABEL_4:
 
   if (v3)
   {
-    [v3 doubleValue];
+    objc_msgSend_doubleValue(v3);
     v4 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
   }
 

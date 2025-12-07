@@ -60,7 +60,7 @@
     {
       v8 = objc_opt_class();
       NSStringFromClass(v8);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInstanceNormalization.mm", 0x415, @"[%@ gradientForGamma] Gradient state does not contain a buffer for gamma gradient values.", v9, v10, v11, v12);
       self = selfCopy;
     }
   }
@@ -90,7 +90,7 @@
     {
       v8 = objc_opt_class();
       NSStringFromClass(v8);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInstanceNormalization.mm", 0x41C, @"[%@ gradientForBeta] Gradient state does not contain a buffer for beta gradient values.", v9, v10, v11, v12);
       self = selfCopy;
     }
   }

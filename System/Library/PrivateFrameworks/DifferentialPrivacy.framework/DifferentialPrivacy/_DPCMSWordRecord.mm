@@ -1,10 +1,32 @@
 @interface _DPCMSWordRecord
 - (BOOL)copyFromManagedObject:(id)object;
 - (BOOL)copyToManagedObject:(id)object;
+- (_DPCMSWordRecord)initWithKey:(id)key plainSequence:(id)sequence sequence:(id)a5 sequenceHashIndex:(unsigned __int16)index plainFragment:(id)fragment fragment:(id)a8 fragmentHashIndex:(unsigned __int16)hashIndex fragmentPosition:(unsigned __int16)self0 creationDate:(double)self1 submitted:(BOOL)self2 objectId:(id)self3;
 - (id)description;
 @end
 
 @implementation _DPCMSWordRecord
+
+- (_DPCMSWordRecord)initWithKey:(id)key plainSequence:(id)sequence sequence:(id)a5 sequenceHashIndex:(unsigned __int16)index plainFragment:(id)fragment fragment:(id)a8 fragmentHashIndex:(unsigned __int16)hashIndex fragmentPosition:(unsigned __int16)self0 creationDate:(double)self1 submitted:(BOOL)self2 objectId:(id)self3
+{
+  indexCopy = index;
+  v20 = a8;
+  v25.receiver = self;
+  v25.super_class = _DPCMSWordRecord;
+  v21 = [(_DPCMSSequenceRecord *)&v25 initWithKey:key plainSequence:sequence sequence:a5 sequenceHashIndex:indexCopy creationDate:submitted submitted:id objectId:date];
+  v22 = v21;
+  if (v21)
+  {
+    plainFragment = v21->_plainFragment;
+    v21->_plainFragment = 0;
+
+    v22->_fragmentHashIndex = hashIndex;
+    v22->_fragmentPosition = position;
+    objc_storeStrong(&v22->_fragment, a8);
+  }
+
+  return v22;
+}
 
 - (id)description
 {

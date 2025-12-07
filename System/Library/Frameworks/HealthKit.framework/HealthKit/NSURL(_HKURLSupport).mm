@@ -95,38 +95,38 @@
     v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
   }
 
-  v21 = 0;
-  v11 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v21];
-  v12 = v21;
-  v13 = v12;
+  v22 = 0;
+  v11 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v22];
+  v12 = v22;
+  v14 = v12;
   if (v11)
   {
-    v14 = [v11 base64EncodedStringWithOptions:0];
+    v15 = [v11 base64EncodedStringWithOptions:0];
     uRLQueryAllowedCharacterSet = [MEMORY[0x1E696AB08] URLQueryAllowedCharacterSet];
-    v16 = [v14 stringByAddingPercentEncodingWithAllowedCharacters:uRLQueryAllowedCharacterSet];
+    v17 = [v15 stringByAddingPercentEncodingWithAllowedCharacters:uRLQueryAllowedCharacterSet];
 
-    v17 = [objc_alloc(MEMORY[0x1E696AF60]) initWithName:@"pi" value:v16];
-    [v10 addObject:v17];
+    v18 = [objc_alloc(MEMORY[0x1E696AF60]) initWithName:@"pi" value:v17];
+    [v10 addObject:v18];
     [v8 setQueryItems:v10];
-    v18 = [v8 URL];
+    v19 = [v8 URL];
   }
 
   else
   {
     if (v12)
     {
-      _HKInitializeLogging();
-      v19 = HKLogDefault;
+      _HKInitializeLogging(v12, v13);
+      v20 = HKLogDefault;
       if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
       {
-        [NSURL(_HKURLSupport) _hk_appendQueryParameterToURL:v13 forHKProfileIdentifier:v19];
+        [NSURL(_HKURLSupport) _hk_appendQueryParameterToURL:v14 forHKProfileIdentifier:v20];
       }
     }
 
-    v18 = 0;
+    v19 = 0;
   }
 
-  return v18;
+  return v19;
 }
 
 - (id)_hk_extractEncodedHKProfileIdentifier
@@ -141,22 +141,22 @@
     v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:stringByRemovingPercentEncoding options:0];
     if (v6)
     {
-      v13 = 0;
-      v7 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v13];
-      v8 = v13;
-      v9 = v8;
+      v14 = 0;
+      v7 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v14];
+      v8 = v14;
+      v10 = v8;
       if (v7)
       {
-        v10 = v7;
+        v11 = v7;
       }
 
       else if (v8)
       {
-        _HKInitializeLogging();
-        v11 = HKLogDefault;
+        _HKInitializeLogging(v8, v9);
+        v12 = HKLogDefault;
         if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
         {
-          [(NSURL(_HKURLSupport) *)v9 _hk_extractEncodedHKProfileIdentifier];
+          [(NSURL(_HKURLSupport) *)v10 _hk_extractEncodedHKProfileIdentifier];
         }
       }
     }
@@ -177,20 +177,18 @@
 
 + (void)_hk_appendQueryParameterToURL:()_HKURLSupport forHKProfileIdentifier:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Error decoding profile information from URL: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Error decoding profile information from URL: %{public}@", &v2, 0xCu);
 }
 
 - (void)_hk_extractEncodedHKProfileIdentifier
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Error decodeding profile information from URL: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Error decodeding profile information from URL: %{public}@", &v2, 0xCu);
 }
 
 @end

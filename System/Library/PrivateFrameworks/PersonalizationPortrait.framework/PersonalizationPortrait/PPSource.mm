@@ -503,7 +503,7 @@ LABEL_46:
 
 - (PPSource)initWithBundleId:(id)id groupId:(id)groupId documentId:(id)documentId date:(id)date
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   idCopy = id;
   groupIdCopy = groupId;
   documentIdCopy = documentId;
@@ -553,17 +553,17 @@ LABEL_4:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v36 = idCopy;
+      v35 = idCopy;
       _os_log_fault_impl(&dword_1A7FD3000, v16, OS_LOG_TYPE_FAULT, "Constructing PPSource with Inf date associated with bundleId: %@", buf, 0xCu);
     }
   }
 
-  v34.receiver = self;
-  v34.super_class = PPSource;
-  v17 = [(PPSource *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = PPSource;
+  v17 = [(PPSource *)&v33 init];
   if (v17)
   {
-    v33 = documentIdCopy;
+    v32 = documentIdCopy;
     dateCopy2 = date;
     v19 = groupIdCopy;
     v20 = PPGetStringInternPool();
@@ -587,11 +587,10 @@ LABEL_4:
     objc_storeStrong(&v17->_documentId, documentId);
     objc_storeStrong(&v17->_date, dateCopy2);
 
-    documentIdCopy = v33;
+    documentIdCopy = v32;
     idCopy = v21;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

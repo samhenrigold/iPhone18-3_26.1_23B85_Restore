@@ -13,12 +13,13 @@
     JreThrowNullPointerException();
   }
 
+  v6 = *&a5;
   if ([(JavaUtilMap *)v5 containsKeyWithId:JavaLangInteger_valueOfWithInt_(a5)])
   {
     v8 = self->val$qidToRankedCategoryIds_;
     v9 = self->val$qid_;
 
-    sub_1000C0C88(v8, v9, a5);
+    sub_1000C0C88(v8, v9, v6);
   }
 }
 

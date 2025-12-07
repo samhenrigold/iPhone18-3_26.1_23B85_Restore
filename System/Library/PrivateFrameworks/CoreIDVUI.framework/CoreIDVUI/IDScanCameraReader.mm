@@ -26,7 +26,7 @@
 
 - (void)cameraReader:(id)reader didRecognizeObjects:(id)objects
 {
-  sub_24579D5E0(0, &qword_27EE295A0);
+  sub_24579D5E0(0, &qword_27EE295A0, 0x277D00F60);
   v6 = sub_245910C44();
   readerCopy = reader;
   selfCopy = self;
@@ -52,7 +52,7 @@
 
   if (v9)
   {
-    sub_24579D5E0(0, &qword_27EE28CD0);
+    sub_24579D5E0(0, &qword_27EE28CD0, 0x277CCAE60);
     v10 = sub_245910C34();
   }
 

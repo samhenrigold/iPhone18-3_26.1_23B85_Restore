@@ -14,7 +14,7 @@
   v4 = *&count;
   specCopy = spec;
   v7 = [self alloc];
-  inited = objc_msgSend_initObjectWithCellSpec_refCount_(v7, v8, specCopy, v4, v9);
+  inited = objc_msgSend_initObjectWithCellSpec_refCount_(v7, v8, specCopy, v4);
 
   return inited;
 }
@@ -39,68 +39,68 @@
 {
   unarchiverCopy = unarchiver;
   completionCopy = completion;
-  objc_msgSend_sharedLoadFromArchive_(self, v10, archive, v11, v12);
+  objc_msgSend_sharedLoadFromArchive_(self, v10, archive, v11);
   if ((*(archive + 16) & 4) != 0)
   {
-    v17 = [TSCEFormulaObject alloc];
-    v18 = *(archive + 5);
-    hasPreUFFVersion = objc_msgSend_hasPreUFFVersion(unarchiverCopy, v19, v20, v21, v22);
-    if (v18)
+    v15 = [TSCEFormulaObject alloc];
+    v16 = *(archive + 5);
+    hasPreUFFVersion = objc_msgSend_hasPreUFFVersion(unarchiverCopy, v17, v18, v19);
+    if (v16)
     {
-      isPreUFF = objc_msgSend_initWithArchive_isPreUFF_(v17, v23, v18, hasPreUFFVersion, v25);
+      isPreUFF = objc_msgSend_initWithArchive_isPreUFF_(v15, v20, v16, hasPreUFFVersion);
     }
 
     else
     {
-      isPreUFF = objc_msgSend_initWithArchive_isPreUFF_(v17, v23, TSCE::_FormulaArchive_default_instance_, hasPreUFFVersion, v25);
+      isPreUFF = objc_msgSend_initWithArchive_isPreUFF_(v15, v20, TSCE::_FormulaArchive_default_instance_, hasPreUFFVersion);
     }
 
-    v31 = isPreUFF;
+    v26 = isPreUFF;
     if (!isPreUFF)
     {
-      v32 = MEMORY[0x277D81150];
-      v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "[TSTTableDataCellSpec loadFromArchive:unarchiver:completion:]", v29, v30);
-      v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableDataObject.mm", v35, v36);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v32, v38, v33, v37, 502, 0, "Shouldn't find unsupported formulas in documents. This document is corrupted.");
+      v27 = MEMORY[0x277D81150];
+      v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "[TSTTableDataCellSpec loadFromArchive:unarchiver:completion:]", v25);
+      v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableDataObject.mm", v30);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v27, v32, v28, v31, 502, 0, "Shouldn't find unsupported formulas in documents. This document is corrupted.");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v39, v40, v41, v42);
-      __C();
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v34, v35);
+      __C(1uLL);
     }
 
-    v51[0] = 0;
-    v51[1] = v51;
-    v51[2] = 0x3032000000;
-    v51[3] = sub_2215BF70C;
-    v51[4] = sub_2215BF71C;
-    v52 = objc_msgSend_context(unarchiverCopy, v27, v28, v29, v30);
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = sub_2215BF724;
-    v47[3] = &unk_278467478;
-    v50 = v51;
-    v47[4] = self;
-    v43 = v31;
-    v48 = v43;
-    v49 = completionCopy;
-    objc_msgSend_addFinalizeHandler_(unarchiverCopy, v44, v47, v45, v46);
+    v43[0] = 0;
+    v43[1] = v43;
+    v43[2] = 0x3032000000;
+    v43[3] = sub_2215BF70C;
+    v43[4] = sub_2215BF71C;
+    v44 = objc_msgSend_context(unarchiverCopy, v23, v24, v25);
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = sub_2215BF724;
+    v39[3] = &unk_278467478;
+    v42 = v43;
+    v39[4] = self;
+    v36 = v26;
+    v40 = v36;
+    v41 = completionCopy;
+    objc_msgSend_addFinalizeHandler_(unarchiverCopy, v37, v39, v38);
 
-    _Block_object_dispose(v51, 8);
+    _Block_object_dispose(v43, 8);
   }
 
   else
   {
     if (*(archive + 11))
     {
-      objc_msgSend_instanceWithArchive_unarchiver_(TSTCellSpec, v13, *(archive + 11), unarchiverCopy, v14);
+      objc_msgSend_instanceWithArchive_unarchiver_(TSTCellSpec, v12, *(archive + 11), unarchiverCopy);
     }
 
     else
     {
-      objc_msgSend_instanceWithArchive_unarchiver_(TSTCellSpec, v13, &TST::_CellSpecArchive_default_instance_, unarchiverCopy, v14);
+      objc_msgSend_instanceWithArchive_unarchiver_(TSTCellSpec, v12, TST::_CellSpecArchive_default_instance_, unarchiverCopy);
     }
-    v15 = ;
+    v13 = ;
     payload = self->super._payload;
-    self->super._payload = v15;
+    self->super._payload = v13;
 
     (*(completionCopy + 2))(completionCopy, self);
   }
@@ -109,102 +109,102 @@
 - (void)encodeToArchive:(void *)archive archiver:(id)archiver
 {
   archiverCopy = archiver;
-  v33.receiver = self;
-  v33.super_class = TSTTableDataCellSpec;
-  [(TSTTableDataObject *)&v33 encodeToArchive:archive archiver:archiverCopy];
-  v11 = objc_msgSend_cellSpec(self, v7, v8, v9, v10);
-  v16 = objc_msgSend_asFormulaSpec(v11, v12, v13, v14, v15);
-  v21 = v16;
-  if (v16)
+  v28.receiver = self;
+  v28.super_class = TSTTableDataCellSpec;
+  [(TSTTableDataObject *)&v28 encodeToArchive:archive archiver:archiverCopy];
+  v10 = objc_msgSend_cellSpec(self, v7, v8, v9);
+  v14 = objc_msgSend_asFormulaSpec(v10, v11, v12, v13);
+  v18 = v14;
+  if (v14)
   {
-    v24 = objc_msgSend_formulaObject(v16, v17, v18, v19, v20);
+    v20 = objc_msgSend_formulaObject(v14, v15, v16, v17);
     *(archive + 4) |= 4u;
-    v25 = *(archive + 5);
-    if (!v25)
+    v21 = *(archive + 5);
+    if (!v21)
     {
-      v26 = *(archive + 1);
-      if (v26)
+      v22 = *(archive + 1);
+      if (v22)
       {
-        v26 = *(v26 & 0xFFFFFFFFFFFFFFFELL);
+        v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v25 = google::protobuf::Arena::CreateMaybeMessage<TSCE::FormulaArchive>(v26);
-      *(archive + 5) = v25;
+      v21 = google::protobuf::Arena::CreateMaybeMessage<TSCE::FormulaArchive>(v22);
+      *(archive + 5) = v21;
     }
 
-    v27 = objc_msgSend_encodeToArchive_archiver_(v24, v22, v25, archiverCopy, v23);
+    v23 = objc_msgSend_encodeToArchive_archiver_(v20, v19, v21, archiverCopy);
 
-    if ((v27 & 6) != 0)
+    if ((v23 & 6) != 0)
     {
-      objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v28, 0x300020000000ALL, @"TSTCategorizedTables", v30);
+      objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v24, 0x300020000000ALL, @"TSTCategorizedTables");
     }
 
-    if ((v27 & 0x21) != 0)
+    if ((v23 & 0x21) != 0)
     {
-      objc_msgSend_requiresDocumentVersion_(archiverCopy, v28, 0xE000400000001, v29, v30);
+      objc_msgSend_requiresDocumentVersion_(archiverCopy, v24, 0xE000400000001, v25);
     }
   }
 
   else
   {
     *(archive + 4) |= 0x100u;
-    v31 = *(archive + 11);
-    if (!v31)
+    v26 = *(archive + 11);
+    if (!v26)
     {
-      v32 = *(archive + 1);
-      if (v32)
+      v27 = *(archive + 1);
+      if (v27)
       {
-        v32 = *(v32 & 0xFFFFFFFFFFFFFFFELL);
+        v27 = *(v27 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v31 = google::protobuf::Arena::CreateMaybeMessage<TST::CellSpecArchive>(v32);
-      *(archive + 11) = v31;
+      v26 = google::protobuf::Arena::CreateMaybeMessage<TST::CellSpecArchive>(v27);
+      *(archive + 11) = v26;
     }
 
-    objc_msgSend_saveToArchive_archiver_(v11, v17, v31, archiverCopy, v20);
+    objc_msgSend_saveToArchive_archiver_(v10, v15, v26, archiverCopy);
   }
 }
 
 - (unint64_t)estimateByteSize
 {
-  v5 = objc_msgSend_cellSpec(self, a2, v2, v3, v4);
-  v10 = objc_msgSend_interactionType(v5, v6, v7, v8, v9);
-  if (v10 == 7)
+  v4 = objc_msgSend_cellSpec(self, a2, v2, v3);
+  v8 = objc_msgSend_interactionType(v4, v5, v6, v7);
+  if (v8 == 7)
   {
-    v23 = 20;
+    v18 = 20;
   }
 
-  else if (v10 == 1)
+  else if (v8 == 1)
   {
-    TSCE::FormulaArchive::FormulaArchive(v27, 0);
-    v15 = objc_msgSend_asFormulaSpec(v5, v11, v12, v13, v14);
-    v20 = objc_msgSend_formulaObject(v15, v16, v17, v18, v19);
-    objc_msgSend_encodeToArchive_archiver_(v20, v21, v27, 0, v22);
+    TSCE::FormulaArchive::FormulaArchive(v21, 0);
+    v12 = objc_msgSend_asFormulaSpec(v4, v9, v10, v11);
+    v16 = objc_msgSend_formulaObject(v12, v13, v14, v15);
+    objc_msgSend_encodeToArchive_archiver_(v16, v17, v21, 0);
 
-    v23 = TSCE::FormulaArchive::ByteSizeLong(v27) + 12;
-    TSCE::FormulaArchive::~FormulaArchive(v27);
+    v18 = TSCE::FormulaArchive::ByteSizeLong(v21) + 12;
+    TSCE::FormulaArchive::~FormulaArchive(v21);
   }
 
   else
   {
-    TST::CellSpecArchive::CellSpecArchive(v27, 0);
-    objc_msgSend_saveToArchive_archiver_(v5, v24, v27, 0, v25);
-    v23 = TST::CellSpecArchive::ByteSizeLong(v27) + 8;
-    TST::CellSpecArchive::~CellSpecArchive(v27);
+    TST::CellSpecArchive::CellSpecArchive(v21, 0);
+    objc_msgSend_saveToArchive_archiver_(v4, v19, v21, 0);
+    v18 = TST::CellSpecArchive::ByteSizeLong(v21) + 8;
+    TST::CellSpecArchive::~CellSpecArchive(v21);
   }
 
-  return v23;
+  return v18;
 }
 
 - (id)description
 {
-  v5 = MEMORY[0x277CCACA8];
+  v4 = MEMORY[0x277CCACA8];
   refCount = self->super._refCount;
-  v7 = objc_msgSend_cellSpec(self, a2, v2, v3, v4);
-  v12 = objc_msgSend_description(v7, v8, v9, v10, v11);
-  v16 = objc_msgSend_stringWithFormat_(v5, v13, @"refCount: %d   _cellSpec: %@", v14, v15, refCount, v12);
+  v6 = objc_msgSend_cellSpec(self, a2, v2, v3);
+  v10 = objc_msgSend_description(v6, v7, v8, v9);
+  v13 = objc_msgSend_stringWithFormat_(v4, v11, @"refCount: %d   _cellSpec: %@", v12, refCount, v10);
 
-  return v16;
+  return v13;
 }
 
 @end

@@ -1,7 +1,9 @@
 @interface SUSoftwareUpdateAssetMatcher
 + (id)matcherForCurrentDeviceWithInfo:(id)info;
++ (id)matcherForCurrentDeviceWithInterestedStates:(int)states;
 - (BOOL)_isDeviceEligibleForUpdate:(id)update;
 - (BOOL)_isPossibleSoftwareUpdate:(id)update;
+- (SUSoftwareUpdateAssetMatcher)initWithVersion:(id)version build:(id)build productType:(id)type releaseType:(id)releaseType interestedStates:(int)states matcherInfo:(id)info;
 - (id)_copyMatchingAssetsAfterSortingAndFiltering:(id)filtering;
 - (id)_createCleanOSVersionString:(id)string;
 - (id)_createSortedAndFilteredAssetResults:(id)results usingFirstKey:(id)key secondKey:(id)secondKey;
@@ -14,11 +16,37 @@
 
 @implementation SUSoftwareUpdateAssetMatcher
 
++ (id)matcherForCurrentDeviceWithInterestedStates:(int)states
+{
+  v3 = [[SUSoftwareUpdateAssetMatcher alloc] initWithVersion:+[SUUtility currentProductVersion](SUUtility build:"currentProductVersion") productType:+[SUUtility currentProductBuild](SUUtility releaseType:"currentProductBuild") interestedStates:+[SUUtility currentProductType](SUUtility matcherInfo:"currentProductType"), +[SUUtility currentReleaseType], *&states, 0];
+
+  return v3;
+}
+
 + (id)matcherForCurrentDeviceWithInfo:(id)info
 {
   info = [[SUSoftwareUpdateAssetMatcher alloc] initWithVersion:+[SUUtility currentProductVersion](SUUtility build:"currentProductVersion") productType:+[SUUtility currentProductBuild](SUUtility releaseType:"currentProductBuild") interestedStates:+[SUUtility currentProductType](SUUtility matcherInfo:"currentProductType"), +[SUUtility currentReleaseType], 0, info];
 
   return info;
+}
+
+- (SUSoftwareUpdateAssetMatcher)initWithVersion:(id)version build:(id)build productType:(id)type releaseType:(id)releaseType interestedStates:(int)states matcherInfo:(id)info
+{
+  v15.receiver = self;
+  v15.super_class = SUSoftwareUpdateAssetMatcher;
+  v13 = [(SUAssetStateMatcher *)&v15 initWithType:@"com.apple.MobileAsset.SoftwareUpdate" interestedStates:*&states];
+  if (v13)
+  {
+    v13->_fromVersion = version;
+    v13->_fromBuild = build;
+    v13->_fromProductType = type;
+    v13->_fromReleaseType = releaseType;
+    v13->_checkTatsu = 1;
+    v13->_preferences = +[SUPreferences sharedInstance];
+    v13->_matcherInfo = info;
+  }
+
+  return v13;
 }
 
 - (void)dealloc
@@ -30,7 +58,7 @@
 
 - (id)_findMatchFromCandidates:(id)candidates error:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v7 = [candidates count];
   if (v7)
@@ -77,30 +105,30 @@
   if (v20 != 1)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v24 = [v19 countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v24 = [v19 countByEnumeratingWithState:&v37 objects:v41 count:16];
     if (v24)
     {
       v32 = v24;
-      v33 = *v39;
+      v33 = *v38;
       do
       {
         v34 = 0;
         do
         {
-          if (*v39 != v33)
+          if (*v38 != v33)
           {
             objc_enumerationMutation(v19);
           }
 
-          [array addObject:{objc_msgSend(*(*(&v38 + 1) + 8 * v34++), "attributes")}];
+          [array addObject:{objc_msgSend(*(*(&v37 + 1) + 8 * v34++), "attributes")}];
         }
 
         while (v32 != v34);
-        v32 = [v19 countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v32 = [v19 countByEnumeratingWithState:&v37 objects:v41 count:16];
       }
 
       while (v32);
@@ -116,7 +144,6 @@ LABEL_23:
   v22 = [v19 objectAtIndex:0];
 LABEL_24:
 
-  v35 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -344,9 +371,9 @@ LABEL_11:
 
 - (id)_filterPatchesIfNecessary:(id)necessary
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v20 = +[SUState currentState];
-  v19 = [necessary mutableCopy];
+  v25 = *MEMORY[0x277D85DE8];
+  v19 = +[SUState currentState];
+  v18 = [necessary mutableCopy];
   if (!-[SUPreferences disableFullReplacementFallback](+[SUPreferences sharedInstance](SUPreferences, "sharedInstance"), "disableFullReplacementFallback") && [necessary count])
   {
     v4 = 0;
@@ -355,26 +382,26 @@ LABEL_11:
       v5 = [necessary objectAtIndex:v4];
       v6 = [objc_msgSend(v5 "attributes")];
       v7 = [objc_msgSend(v5 "attributes")];
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
-      failedPatchDescriptors = [v20 failedPatchDescriptors];
-      v9 = [failedPatchDescriptors countByEnumeratingWithState:&v21 objects:v25 count:16];
+      failedPatchDescriptors = [v19 failedPatchDescriptors];
+      v9 = [failedPatchDescriptors countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v22;
+        v11 = *v21;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v22 != v11)
+            if (*v21 != v11)
             {
               objc_enumerationMutation(failedPatchDescriptors);
             }
 
-            v13 = *(*(&v21 + 1) + 8 * i);
+            v13 = *(*(&v20 + 1) + 8 * i);
             productBuildVersion = [v13 productBuildVersion];
             if (productBuildVersion)
             {
@@ -388,12 +415,12 @@ LABEL_11:
 
             if (v15 && v7 != 0)
             {
-              [v19 removeObject:v13];
+              [v18 removeObject:v13];
               goto LABEL_19;
             }
           }
 
-          v10 = [failedPatchDescriptors countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v10 = [failedPatchDescriptors countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v10);
@@ -406,8 +433,7 @@ LABEL_19:
     while ([necessary count] > v4);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v19;
+  return v18;
 }
 
 - (BOOL)_isDeviceEligibleForUpdate:(id)update
@@ -429,24 +455,23 @@ LABEL_19:
     if (Mutable)
     {
       MEMORY[0x26D668090](Mutable, *MEMORY[0x277D82520], 1);
-      v17 = *MEMORY[0x277D82510];
       CFBooleanGetValue(v14);
       AMAuthInstallSupportDictionarySetBoolean();
       CFDictionarySetValue(v16, *MEMORY[0x277D82508], v3);
       CFDictionarySetValue(v16, *MEMORY[0x277D82500], v4);
       CFDictionarySetValue(v16, *MEMORY[0x277D824F8], v5);
-      v18 = AMAuthInstallCreate();
-      v19 = AMAuthInstallApSetParameters();
-      if (v19)
+      v17 = AMAuthInstallCreate();
+      v18 = AMAuthInstallApSetParameters();
+      if (v18)
       {
-        SULogInfo(@"Could not set AP fusings: %d", v20, v21, v22, v23, v24, v25, v26, v19);
+        SULogInfo(@"Could not set AP fusings: %d", v19, v20, v21, v22, v23, v24, v25, v18);
 LABEL_26:
-        v28 = 0;
+        v27 = 0;
 LABEL_27:
         CFRelease(v3);
-        v27 = v28;
-        v29 = v18;
-        v30 = v16;
+        v26 = v27;
+        v28 = v17;
+        v29 = v16;
         if (!v4)
         {
           goto LABEL_13;
@@ -455,38 +480,38 @@ LABEL_27:
         goto LABEL_12;
       }
 
-      v32 = AMAuthInstallRequestAbbreviatedSendSync();
-      if (v32)
+      v31 = AMAuthInstallRequestAbbreviatedSendSync();
+      if (v31)
       {
-        SULogInfo(@"Personalization request failed: %d", v33, v34, v35, v36, v37, v38, v39, v32);
+        SULogInfo(@"Personalization request failed: %d", v32, v33, v34, v35, v36, v37, v38, v31);
         goto LABEL_26;
       }
 
       if (!CFDictionaryContainsKey(0, @"@ServerVersion") || CFDictionaryGetCount(0) >= 2)
       {
-        SULogInfo(@"Response from tatsu contains more than 1 key. Please file a bug.", v40, v41, v42, v43, v44, v45, v46, v54);
-        SULogInfo(@"Tatsu response: %@", v47, v48, v49, v50, v51, v52, v53, 0);
+        SULogInfo(@"Response from tatsu contains more than 1 key. Please file a bug.", v39, v40, v41, v42, v43, v44, v45, v53);
+        SULogInfo(@"Tatsu response: %@", v46, v47, v48, v49, v50, v51, v52, 0);
       }
 
-      SULogDebug(@"Tatsu response: %@", v40, v41, v42, v43, v44, v45, v46, 0);
+      SULogDebug(@"Tatsu response: %@", v39, v40, v41, v42, v43, v44, v45, 0);
     }
 
     else
     {
-      v18 = 0;
+      v17 = 0;
     }
 
-    v28 = 1;
+    v27 = 1;
     goto LABEL_27;
   }
 
-  SULogInfo(@"Could not gather necessary information for personalization request", v7, v8, v9, v10, v11, v12, v13, v54);
-  v28 = 0;
-  v18 = 0;
-  v16 = 0;
+  SULogInfo(@"Could not gather necessary information for personalization request", v7, v8, v9, v10, v11, v12, v13, v53);
   v27 = 0;
+  v17 = 0;
+  v16 = 0;
+  v26 = 0;
+  v28 = 0;
   v29 = 0;
-  v30 = 0;
   if (v3)
   {
     goto LABEL_27;
@@ -509,17 +534,17 @@ LABEL_13:
     CFRelease(v14);
   }
 
+  if (v28)
+  {
+    CFRelease(v28);
+  }
+
   if (v29)
   {
     CFRelease(v29);
   }
 
-  if (v30)
-  {
-    CFRelease(v30);
-  }
-
-  return v27;
+  return v26;
 }
 
 - (BOOL)_isPossibleSoftwareUpdate:(id)update

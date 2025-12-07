@@ -1,6 +1,7 @@
 @interface SUCorePolicySuspend
 - (BOOL)isEqual:(id)equal;
 - (SUCorePolicySuspend)initWithCoder:(id)coder;
+- (SUCorePolicySuspend)initWithSkipPhaseSet:(BOOL)set;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)summary;
@@ -10,9 +11,23 @@
 
 @implementation SUCorePolicySuspend
 
+- (SUCorePolicySuspend)initWithSkipPhaseSet:(BOOL)set
+{
+  setCopy = set;
+  v7.receiver = self;
+  v7.super_class = SUCorePolicySuspend;
+  v4 = [(SUCorePolicySuspend *)&v7 init];
+  v5 = v4;
+  if (v4)
+  {
+    [(SUCorePolicySuspend *)v4 backToDefaultsWithSkipPhaseSet:setCopy];
+  }
+
+  return v5;
+}
+
 - (void)backToDefaultsWithSkipPhaseSet:(BOOL)set
 {
-  additionalOptions = self->_additionalOptions;
   self->_specifiedFields = 0;
   self->_additionalOptions = 0;
   self->_skipPhase = set;

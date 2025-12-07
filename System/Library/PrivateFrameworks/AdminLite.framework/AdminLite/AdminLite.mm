@@ -1,8 +1,9 @@
-uint64_t AdminLiteNVRAMSet(const char *a1, const char *a2, int a3)
+uint64_t AdminLiteNVRAMSet(const char *a1, const char *a2, uint64_t a3)
 {
   v3 = 1;
   if (a1 && a2)
   {
+    v5 = a3;
     sp = 0;
     v7 = bootstrap_look_up(*MEMORY[0x277D85F18], "com.apple.AdminLite", &sp);
     if (v7)
@@ -16,7 +17,7 @@ uint64_t AdminLiteNVRAMSet(const char *a1, const char *a2, int a3)
     else
     {
       v14 = 0;
-      v10 = nvram_set(sp, a1, a2, a3, &v14);
+      v10 = nvram_set(sp, a1, a2, v5, &v14);
       mach_port_deallocate(*MEMORY[0x277D85F48], sp);
       if (v10)
       {
@@ -38,27 +39,27 @@ uint64_t AdminLiteNVRAMSet(const char *a1, const char *a2, int a3)
 
 uint64_t nvram_set(mach_port_t a1, const char *a2, const char *a3, int a4, _DWORD *a5)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v25 = 0u;
-  memset(v26, 0, 464);
-  *reply_port = 0u;
+  v26 = *MEMORY[0x277D85DE8];
   v24 = 0u;
-  *(&v24 + 1) = *MEMORY[0x277D85EF8];
+  memset(v25, 0, 464);
+  *reply_port = 0u;
+  v23 = 0u;
+  *(&v23 + 1) = *MEMORY[0x277D85EF8];
   if (MEMORY[0x28223BE50])
   {
-    v9 = mig_strncpy_zerofill(&v25 + 8, a2, 1024);
+    v9 = mig_strncpy_zerofill(&v24 + 8, a2, 1024);
   }
 
   else
   {
-    v9 = mig_strncpy(&v25 + 8, a2, 1024);
+    v9 = mig_strncpy(&v24 + 8, a2, 1024);
   }
 
-  LODWORD(v25) = 0;
-  DWORD1(v25) = v9;
+  LODWORD(v24) = 0;
+  DWORD1(v24) = v9;
   v10 = (v9 + 3) & 0xFFFFFFFC;
   v11 = &reply_port[-256] + v10;
-  v12 = v26 + v10;
+  v12 = v25 + v10;
   if (MEMORY[0x28223BE50])
   {
     v13 = mig_strncpy_zerofill(v12, a3, 1024);
@@ -78,7 +79,7 @@ uint64_t nvram_set(mach_port_t a1, const char *a2, const char *a3, int a4, _DWOR
   reply_port[2] = a1;
   reply_port[3] = v16;
   reply_port[0] = 5395;
-  *&v24 = 0x303900000000;
+  *&v23 = 0x303900000000;
   if (MEMORY[0x28223BE58])
   {
     voucher_mach_msg_set(reply_port);
@@ -97,15 +98,15 @@ uint64_t nvram_set(mach_port_t a1, const char *a2, const char *a3, int a4, _DWOR
     if (v18)
     {
       mig_dealloc_reply_port(reply_port[3]);
-      goto LABEL_31;
+      return v19;
     }
 
-    if (DWORD1(v24) == 71)
+    if (DWORD1(v23) == 71)
     {
       v19 = 4294966988;
     }
 
-    else if (DWORD1(v24) == 12445)
+    else if (DWORD1(v23) == 12445)
     {
       if ((reply_port[0] & 0x80000000) == 0)
       {
@@ -113,11 +114,11 @@ uint64_t nvram_set(mach_port_t a1, const char *a2, const char *a3, int a4, _DWOR
         {
           if (!reply_port[2])
           {
-            v19 = v25;
-            if (!v25)
+            v19 = v24;
+            if (!v24)
             {
-              *a5 = DWORD1(v25);
-              goto LABEL_31;
+              *a5 = DWORD1(v24);
+              return v19;
             }
 
             goto LABEL_30;
@@ -133,7 +134,7 @@ uint64_t nvram_set(mach_port_t a1, const char *a2, const char *a3, int a4, _DWOR
 
           else
           {
-            v20 = v25 == 0;
+            v20 = v24 == 0;
           }
 
           if (v20)
@@ -143,7 +144,7 @@ uint64_t nvram_set(mach_port_t a1, const char *a2, const char *a3, int a4, _DWOR
 
           else
           {
-            v19 = v25;
+            v19 = v24;
           }
 
           goto LABEL_30;
@@ -160,11 +161,9 @@ uint64_t nvram_set(mach_port_t a1, const char *a2, const char *a3, int a4, _DWOR
 
 LABEL_30:
     mach_msg_destroy(reply_port);
-    goto LABEL_31;
+    return v19;
   }
 
   mig_put_reply_port(reply_port[3]);
-LABEL_31:
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }

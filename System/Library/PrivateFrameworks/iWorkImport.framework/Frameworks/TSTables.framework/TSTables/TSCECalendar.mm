@@ -33,26 +33,26 @@
 - (TSCECalendar)init
 {
   v3 = TSUGetGMTTimeZone();
-  v6 = objc_msgSend_initWithCalendarIdentifier_timeZone_(self, v4, *MEMORY[0x277CBE5C0], v3, v5);
+  v5 = objc_msgSend_initWithCalendarIdentifier_timeZone_(self, v4, *MEMORY[0x277CBE5C0], v3);
 
-  return v6;
+  return v5;
 }
 
 - (TSCECalendar)initWithCalendarIdentifier:(id)identifier timeZone:(id)zone
 {
   identifierCopy = identifier;
   zoneCopy = zone;
-  v19.receiver = self;
-  v19.super_class = TSCECalendar;
-  v8 = [(TSCECalendar *)&v19 init];
+  v17.receiver = self;
+  v17.super_class = TSCECalendar;
+  v8 = [(TSCECalendar *)&v17 init];
   if (v8)
   {
     v9 = objc_alloc(MEMORY[0x277CBEA80]);
-    v13 = objc_msgSend_initWithCalendarIdentifier_(v9, v10, identifierCopy, v11, v12);
+    v12 = objc_msgSend_initWithCalendarIdentifier_(v9, v10, identifierCopy, v11);
     calendar = v8->_calendar;
-    v8->_calendar = v13;
+    v8->_calendar = v12;
 
-    objc_msgSend_setTimeZone_(v8->_calendar, v15, zoneCopy, v16, v17);
+    objc_msgSend_setTimeZone_(v8->_calendar, v14, zoneCopy, v15);
   }
 
   return v8;
@@ -67,10 +67,10 @@
     objc_sync_enter(v3);
     if (!qword_27CFB5648)
     {
-      v8 = objc_msgSend_gregorianCalendar(TSCECalendar, v4, v5, v6, v7);
-      v10 = objc_msgSend_dateWithYear_month_day_(v8, v9, 1904, 1, 1);
-      v11 = qword_27CFB5648;
-      qword_27CFB5648 = v10;
+      v7 = objc_msgSend_gregorianCalendar(TSCECalendar, v4, v5, v6);
+      v9 = objc_msgSend_dateWithYear_month_day_(v7, v8, 1904, 1, 1);
+      v10 = qword_27CFB5648;
+      qword_27CFB5648 = v9;
     }
 
     objc_sync_exit(v3);
@@ -83,16 +83,16 @@
 
 - (id)dateFromComponents:(id)components
 {
-  v5 = objc_msgSend_dateFromComponents_(self->_calendar, a2, components, v3, v4);
+  v4 = objc_msgSend_dateFromComponents_(self->_calendar, a2, components, v3);
 
-  return v5;
+  return v4;
 }
 
 - (id)components:(unint64_t)components fromDate:(id)date
 {
-  v5 = objc_msgSend_components_fromDate_(self->_calendar, a2, components, date, v4);
+  v4 = objc_msgSend_components_fromDate_(self->_calendar, a2, components, date);
 
-  return v5;
+  return v4;
 }
 
 - (id)dateByAddingComponents:(id)components toDate:(id)date options:(unint64_t)options
@@ -111,121 +111,121 @@
 
 - (void)extractComponentsFromDate:(id)date year:(int64_t *)year month:(int64_t *)month day:(int64_t *)day hour:(int64_t *)hour minute:(int64_t *)minute second:(int64_t *)second
 {
-  v18 = objc_autoreleasePoolPush();
-  v19 = 12;
+  v17 = objc_autoreleasePoolPush();
+  v18 = 12;
   if (!month)
   {
-    v19 = 4;
+    v18 = 4;
   }
 
   if (day)
   {
-    v19 |= 0x10uLL;
+    v18 |= 0x10uLL;
   }
 
   if (hour | minute)
   {
-    v19 |= 0x60uLL;
+    v18 |= 0x60uLL;
   }
 
   if (second)
   {
-    objc_msgSend_components_fromDate_(self, v16, v19 | 0x80, date, v17);
+    objc_msgSend_components_fromDate_(self, v16, v18 | 0x80, date);
   }
 
   else
   {
-    objc_msgSend_components_fromDate_(self, v16, v19, date, v17);
+    objc_msgSend_components_fromDate_(self, v16, v18, date);
   }
-  v20 = ;
-  v25 = v20;
+  v19 = ;
+  v23 = v19;
   if (year)
   {
-    *year = objc_msgSend_year(v20, v21, v22, v23, v24);
+    *year = objc_msgSend_year(v19, v20, v21, v22);
   }
 
   if (month)
   {
-    *month = objc_msgSend_month(v25, v21, v22, v23, v24);
+    *month = objc_msgSend_month(v23, v20, v21, v22);
   }
 
   if (day)
   {
-    *day = objc_msgSend_day(v25, v21, v22, v23, v24);
+    *day = objc_msgSend_day(v23, v20, v21, v22);
   }
 
   if (hour)
   {
-    *hour = objc_msgSend_hour(v25, v21, v22, v23, v24);
+    *hour = objc_msgSend_hour(v23, v20, v21, v22);
   }
 
   if (minute)
   {
-    *minute = objc_msgSend_minute(v25, v21, v22, v23, v24);
+    *minute = objc_msgSend_minute(v23, v20, v21, v22);
   }
 
   if (second)
   {
-    *second = objc_msgSend_second(v25, v21, v22, v23, v24);
+    *second = objc_msgSend_second(v23, v20, v21, v22);
   }
 
-  objc_autoreleasePoolPop(v18);
+  objc_autoreleasePoolPop(v17);
 }
 
 - (int64_t)extractYear:(id)year
 {
-  v4 = objc_msgSend_components_fromDate_(self, a2, 4, year, v3);
-  v9 = objc_msgSend_year(v4, v5, v6, v7, v8);
+  v3 = objc_msgSend_components_fromDate_(self, a2, 4, year);
+  v7 = objc_msgSend_year(v3, v4, v5, v6);
 
-  return v9;
+  return v7;
 }
 
 - (int64_t)extractMonth:(id)month
 {
-  v4 = objc_msgSend_components_fromDate_(self, a2, 8, month, v3);
-  v9 = objc_msgSend_month(v4, v5, v6, v7, v8);
+  v3 = objc_msgSend_components_fromDate_(self, a2, 8, month);
+  v7 = objc_msgSend_month(v3, v4, v5, v6);
 
-  return v9;
+  return v7;
 }
 
 - (int64_t)extractDay:(id)day
 {
-  v4 = objc_msgSend_components_fromDate_(self, a2, 16, day, v3);
-  v9 = objc_msgSend_day(v4, v5, v6, v7, v8);
+  v3 = objc_msgSend_components_fromDate_(self, a2, 16, day);
+  v7 = objc_msgSend_day(v3, v4, v5, v6);
 
-  return v9;
+  return v7;
 }
 
 - (int64_t)extractHour:(id)hour
 {
-  v4 = objc_msgSend_components_fromDate_(self, a2, 32, hour, v3);
-  v9 = objc_msgSend_hour(v4, v5, v6, v7, v8);
+  v3 = objc_msgSend_components_fromDate_(self, a2, 32, hour);
+  v7 = objc_msgSend_hour(v3, v4, v5, v6);
 
-  return v9;
+  return v7;
 }
 
 - (int64_t)extractMinute:(id)minute
 {
-  v4 = objc_msgSend_components_fromDate_(self, a2, 64, minute, v3);
-  v9 = objc_msgSend_minute(v4, v5, v6, v7, v8);
+  v3 = objc_msgSend_components_fromDate_(self, a2, 64, minute);
+  v7 = objc_msgSend_minute(v3, v4, v5, v6);
 
-  return v9;
+  return v7;
 }
 
 - (int64_t)extractSecond:(id)second
 {
-  v4 = objc_msgSend_components_fromDate_(self, a2, 128, second, v3);
-  v9 = objc_msgSend_second(v4, v5, v6, v7, v8);
+  v3 = objc_msgSend_components_fromDate_(self, a2, 128, second);
+  v7 = objc_msgSend_second(v3, v4, v5, v6);
 
-  return v9;
+  return v7;
 }
 
 - (int64_t)extractWeekday:(id)weekday
 {
-  v4 = objc_msgSend_components_fromDate_(self, a2, 512, weekday, v3);
-  v9 = objc_msgSend_weekday(v4, v5, v6, v7, v8);
+  v3 = objc_msgSend_components_fromDate_(self, a2, 512, weekday);
+  v7 = objc_msgSend_weekday(v3, v4, v5, v6);
 
-  return v9;
+  return v7;
 }
 
 - (id)clearOffTime:(id)time
@@ -243,52 +243,52 @@
 + (int64_t)isoWeekNumberForDate:(id)date
 {
   dateCopy = date;
-  v8 = objc_msgSend_ISO8601Calendar(TSCECalendar, v4, v5, v6, v7);
-  v11 = objc_msgSend_components_fromDate_(v8, v9, 0x2000, dateCopy, v10);
-  v16 = objc_msgSend_weekOfYear(v11, v12, v13, v14, v15);
+  v7 = objc_msgSend_ISO8601Calendar(TSCECalendar, v4, v5, v6);
+  v9 = objc_msgSend_components_fromDate_(v7, v8, 0x2000, dateCopy);
+  v13 = objc_msgSend_weekOfYear(v9, v10, v11, v12);
 
-  return v16;
+  return v13;
 }
 
 - (id)dateWithYear:(int64_t)year month:(int64_t)month day:(int64_t)day
 {
   v9 = objc_alloc_init(MEMORY[0x277CBEAB8]);
-  objc_msgSend_setYear_(v9, v10, year, v11, v12);
-  objc_msgSend_setMonth_(v9, v13, month, v14, v15);
-  objc_msgSend_setDay_(v9, v16, day, v17, v18);
-  v22 = objc_msgSend_dateFromComponents_(self, v19, v9, v20, v21);
+  objc_msgSend_setYear_(v9, v10, year, v11);
+  objc_msgSend_setMonth_(v9, v12, month, v13);
+  objc_msgSend_setDay_(v9, v14, day, v15);
+  v18 = objc_msgSend_dateFromComponents_(self, v16, v9, v17);
 
-  return v22;
+  return v18;
 }
 
 - (id)dateWithYear:(int64_t)year month:(int64_t)month day:(int64_t)day hour:(int64_t)hour minute:(int64_t)minute second:(int64_t)second
 {
   v15 = objc_alloc_init(MEMORY[0x277CBEAB8]);
-  objc_msgSend_setYear_(v15, v16, year, v17, v18);
-  objc_msgSend_setMonth_(v15, v19, month, v20, v21);
-  objc_msgSend_setDay_(v15, v22, day, v23, v24);
-  objc_msgSend_setHour_(v15, v25, hour, v26, v27);
-  objc_msgSend_setMinute_(v15, v28, minute, v29, v30);
-  objc_msgSend_setSecond_(v15, v31, second, v32, v33);
-  v37 = objc_msgSend_dateFromComponents_(self, v34, v15, v35, v36);
+  objc_msgSend_setYear_(v15, v16, year, v17);
+  objc_msgSend_setMonth_(v15, v18, month, v19);
+  objc_msgSend_setDay_(v15, v20, day, v21);
+  objc_msgSend_setHour_(v15, v22, hour, v23);
+  objc_msgSend_setMinute_(v15, v24, minute, v25);
+  objc_msgSend_setSecond_(v15, v26, second, v27);
+  v30 = objc_msgSend_dateFromComponents_(self, v28, v15, v29);
 
-  return v37;
+  return v30;
 }
 
 - (id)dateWithIdenticalComponentsInGMTForDate:(id)date
 {
   dateCopy = date;
-  v19 = 0;
-  v17 = 0;
   v18 = 0;
-  v15 = 0;
   v16 = 0;
+  v17 = 0;
   v14 = 0;
-  objc_msgSend_extractComponentsFromDate_year_month_day_hour_minute_second_(self, v5, dateCopy, &v19, &v18, &v17, &v16, &v15, &v14);
-  v10 = objc_msgSend_gregorianGMTCalendar(TSCECalendar, v6, v7, v8, v9);
-  v12 = objc_msgSend_dateWithYear_month_day_hour_minute_second_(v10, v11, v19, v18, v17, v16, v15, v14);
+  v15 = 0;
+  v13 = 0;
+  objc_msgSend_extractComponentsFromDate_year_month_day_hour_minute_second_(self, v5, dateCopy, &v18, &v17, &v16, &v15, &v14, &v13);
+  v9 = objc_msgSend_gregorianGMTCalendar(TSCECalendar, v6, v7, v8);
+  v11 = objc_msgSend_dateWithYear_month_day_hour_minute_second_(v9, v10, v18, v17, v16, v15, v14, v13);
 
-  return v12;
+  return v11;
 }
 
 - (double)dayCountFromStartDate:(id)date endDate:(id)endDate basis:(int64_t)basis outError:(id *)error
@@ -297,127 +297,127 @@
   endDateCopy = endDate;
   if (!error)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSCECalendar dayCountFromStartDate:endDate:basis:outError:]", v12, v13);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCECalendar.mm", v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v21, v16, v20, 207, 0, "Need non-nil outError for this API");
+    v14 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSCECalendar dayCountFromStartDate:endDate:basis:outError:]", v12);
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCECalendar.mm", v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v19, v15, v18, 207, 0, "Need non-nil outError for this API");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22);
   }
 
-  v58 = 0;
-  v59 = 0;
-  v56 = 0;
-  v57 = 0;
-  v55 = 0;
-  objc_msgSend_extractComponentsFromDate_year_month_day_(self, v11, dateCopy, &v59, &v58, &v57, 0);
-  objc_msgSend_extractComponentsFromDate_year_month_day_(self, v26, endDateCopy, &v56, &v55, &v54);
+  v52 = 0;
+  v53 = 0;
+  v50 = 0;
+  v51 = 0;
+  v49 = 0;
+  objc_msgSend_extractComponentsFromDate_year_month_day_(self, v11, dateCopy, &v53, &v52, &v51, 0);
+  objc_msgSend_extractComponentsFromDate_year_month_day_(self, v23, endDateCopy, &v50, &v49, &v48);
   if ((basis - 1) >= 3)
   {
     if (basis)
     {
       if (basis == 4)
       {
-        v37 = v57;
-        v38 = 30;
-        if (v57 == 31)
+        v32 = v51;
+        v33 = 30;
+        if (v51 == 31)
         {
-          v37 = 30;
+          v32 = 30;
         }
 
-        if (v54 != 31)
+        if (v48 != 31)
         {
-          v38 = v54;
+          v33 = v48;
         }
 
-        v36 = (v55 - v58) * 30.0 + (v56 - v59) * 360.0 + v38 - v37;
+        v31 = (v49 - v52) * 30.0 + (v50 - v53) * 360.0 + v33 - v32;
       }
 
       else
       {
-        *error = objc_msgSend_numberError(TSCEError, v27, v28, v29, v30);
-        v36 = 0.0;
+        *error = objc_msgSend_numberError(TSCEError, v24, v25, v26);
+        v31 = 0.0;
       }
     }
 
     else
     {
-      isLeapYear = objc_msgSend_isLeapYear_(TSCECalendar, v27, v59, v29, v30);
-      v43 = objc_msgSend_isLeapYear_(TSCECalendar, v40, v56, v41, v42);
-      if (v58 == 2)
+      isLeapYear = objc_msgSend_isLeapYear_(TSCECalendar, v24, v53, v26);
+      v37 = objc_msgSend_isLeapYear_(TSCECalendar, v35, v50, v36);
+      if (v52 == 2)
       {
-        v44 = v57 == 28;
+        v38 = v51 == 28;
         if (isLeapYear)
         {
-          v44 = v57 == 29;
+          v38 = v51 == 29;
         }
       }
 
       else
       {
-        v44 = 0;
+        v38 = 0;
       }
 
-      if (v55 == 2)
+      if (v49 == 2)
       {
-        v45 = v54;
-        v46 = 28;
-        if (v43)
+        v39 = v48;
+        v40 = 28;
+        if (v37)
         {
-          v46 = 29;
+          v40 = 29;
         }
 
-        v52 = v54 == v46;
-        v47 = v57;
-        v48 = !v44;
-        if (!v52)
+        v46 = v48 == v40;
+        v41 = v51;
+        v42 = !v38;
+        if (!v46)
         {
-          v48 = 1;
+          v42 = 1;
         }
 
-        if (v48)
+        if (v42)
         {
-          v49 = v54;
+          v43 = v48;
         }
 
         else
         {
-          v49 = 30;
-          v54 = 30;
+          v43 = 30;
+          v48 = 30;
         }
       }
 
       else
       {
-        v47 = v57;
-        v49 = v54;
-        v45 = v54;
+        v41 = v51;
+        v43 = v48;
+        v39 = v48;
       }
 
-      v50 = v47;
-      if (v47 == 31 || v44)
+      v44 = v41;
+      if (v41 == 31 || v38)
       {
-        v50 = 30.0;
+        v44 = 30.0;
       }
 
-      v51 = v49;
-      v52 = (v47 & 0xFFFFFFFFFFFFFFFELL) == 0x1E && v45 == 31;
-      if (v52)
+      v45 = v43;
+      v46 = (v41 & 0xFFFFFFFFFFFFFFFELL) == 0x1E && v39 == 31;
+      if (v46)
       {
-        v51 = 30.0;
+        v45 = 30.0;
       }
 
-      v36 = (v55 - v58) * 30.0 + (v56 - v59) * 360.0 + v51 - v50;
+      v31 = (v49 - v52) * 30.0 + (v50 - v53) * 360.0 + v45 - v44;
     }
   }
 
   else
   {
-    v31 = objc_msgSend_components_fromDate_toDate_options_(self, v27, 16, dateCopy, endDateCopy, 0);
-    v36 = objc_msgSend_day(v31, v32, v33, v34, v35);
+    v27 = objc_msgSend_components_fromDate_toDate_options_(self, v24, 16, dateCopy, endDateCopy, 0);
+    v31 = objc_msgSend_day(v27, v28, v29, v30);
   }
 
-  return v36;
+  return v31;
 }
 
 - (double)numDaysInYearWithStartDate:(id)date endDate:(id)endDate basis:(int64_t)basis outError:(id *)error
@@ -426,23 +426,23 @@
   endDateCopy = endDate;
   if (!error)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSCECalendar numDaysInYearWithStartDate:endDate:basis:outError:]", v12, v13);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCECalendar.mm", v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v21, v16, v20, 328, 0, "Need non-nil outError for this API");
+    v14 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSCECalendar numDaysInYearWithStartDate:endDate:basis:outError:]", v12);
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCECalendar.mm", v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v19, v15, v18, 328, 0, "Need non-nil outError for this API");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22);
   }
 
-  if (objc_msgSend_compare_(dateCopy, v11, endDateCopy, v12, v13) == 1)
+  if (objc_msgSend_compare_(dateCopy, v11, endDateCopy, v12) == 1)
   {
 LABEL_4:
-    *error = objc_msgSend_numberError(TSCEError, v26, v27, v28, v29);
-    v30 = 0.0;
+    *error = objc_msgSend_numberError(TSCEError, v23, v24, v25);
+    v26 = 0.0;
     goto LABEL_5;
   }
 
-  v30 = 360.0;
+  v26 = 360.0;
   if (basis <= 1)
   {
     if (!basis)
@@ -455,84 +455,84 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    v32 = objc_msgSend_components_fromDate_toDate_options_(self, v26, 28, dateCopy, endDateCopy, 0);
-    v37 = objc_msgSend_year(v32, v33, v34, v35, v36);
-    v42 = objc_msgSend_month(v32, v38, v39, v40, v41);
-    if (objc_msgSend_day(v32, v43, v44, v45, v46))
+    v28 = objc_msgSend_components_fromDate_toDate_options_(self, v23, 28, dateCopy, endDateCopy, 0);
+    v32 = objc_msgSend_year(v28, v29, v30, v31);
+    v36 = objc_msgSend_month(v28, v33, v34, v35);
+    if (objc_msgSend_day(v28, v37, v38, v39))
     {
-      v50 = 0;
+      v42 = 0;
     }
 
     else
     {
-      v50 = v42 == 0;
+      v42 = v36 == 0;
     }
 
-    v51 = v50 && v37 == 1;
-    if (v51 || !v37)
+    v43 = v42 && v32 == 1;
+    if (v43 || !v32)
     {
-      Year = objc_msgSend_extractYear_(self, v47, dateCopy, v48, v49);
-      v68 = objc_msgSend_extractYear_(self, v65, endDateCopy, v66, v67);
-      isLeapYear = objc_msgSend_isLeapYear_(TSCECalendar, v69, Year, v70, v71);
-      v76 = objc_msgSend_isLeapYear_(TSCECalendar, v73, v68, v74, v75);
-      if (isLeapYear & v76)
+      Year = objc_msgSend_extractYear_(self, v40, dateCopy, v41);
+      v57 = objc_msgSend_extractYear_(self, v55, endDateCopy, v56);
+      isLeapYear = objc_msgSend_isLeapYear_(TSCECalendar, v58, Year, v59);
+      v63 = objc_msgSend_isLeapYear_(TSCECalendar, v61, v57, v62);
+      if (isLeapYear & v63)
       {
-        v30 = 366.0;
+        v26 = 366.0;
       }
 
-      else if ((isLeapYear | v76))
+      else if ((isLeapYear | v63))
       {
-        if ((isLeapYear ^ 1 | v76))
+        if ((isLeapYear ^ 1 | v63))
         {
-          v78 = objc_msgSend_dateWithYear_month_day_(self, v77, v68, 2, 29);
-          v82 = objc_msgSend_compare_(endDateCopy, v79, v78, v80, v81) == -1;
+          v65 = objc_msgSend_dateWithYear_month_day_(self, v64, v57, 2, 29);
+          v68 = objc_msgSend_compare_(endDateCopy, v66, v65, v67) == -1;
         }
 
         else
         {
-          v78 = objc_msgSend_dateWithYear_month_day_(self, v77, Year, 2, 29);
-          v82 = objc_msgSend_compare_(dateCopy, v83, v78, v84, v85) == 1;
+          v65 = objc_msgSend_dateWithYear_month_day_(self, v64, Year, 2, 29);
+          v68 = objc_msgSend_compare_(dateCopy, v69, v65, v70) == 1;
         }
 
-        v86 = v82;
-        v30 = dbl_2217E1F30[v86];
+        v71 = v68;
+        v26 = dbl_2217E1F30[v71];
       }
 
       else
       {
-        v30 = 365.0;
+        v26 = 365.0;
       }
     }
 
     else
     {
-      v52 = objc_msgSend_extractYear_(self, v47, dateCopy, v48, v49);
-      v56 = objc_msgSend_extractYear_(self, v53, endDateCopy, v54, v55);
-      v60 = 0.0;
-      v61 = v56 - v52;
-      if (v56 >= v52)
+      v44 = objc_msgSend_extractYear_(self, v40, dateCopy, v41);
+      v47 = objc_msgSend_extractYear_(self, v45, endDateCopy, v46);
+      v50 = 0.0;
+      v51 = v47 - v44;
+      if (v47 >= v44)
       {
-        v62 = v56 + 1;
+        v52 = v47 + 1;
         do
         {
-          if (objc_msgSend_isLeapYear_(TSCECalendar, v57, v52, v58, v59))
+          if (objc_msgSend_isLeapYear_(TSCECalendar, v48, v44, v49))
           {
-            v63 = 366.0;
+            v53 = 366.0;
           }
 
           else
           {
-            v63 = 365.0;
+            v53 = 365.0;
           }
 
-          v60 = v60 + v63;
-          ++v52;
+          v50 = v50 + v53;
+          ++v44;
         }
 
-        while (v62 != v52);
+        while (v52 != v44);
       }
 
-      v30 = v60 / (v61 + 1);
+      v26 = v50 / (v51 + 1);
     }
   }
 
@@ -540,7 +540,7 @@ LABEL_4:
   {
     if (basis == 3)
     {
-      v30 = 365.0;
+      v26 = 365.0;
       goto LABEL_5;
     }
 
@@ -549,171 +549,171 @@ LABEL_4:
 
 LABEL_5:
 
-  return v30;
+  return v26;
 }
 
 - (int64_t)weekNumberForDate:(id)date withType:(int)type
 {
-  v51 = 0;
-  v52 = 0;
-  v50 = 0;
-  objc_msgSend_extractComponentsFromDate_year_month_day_(self, a2, date, &v52, &v51, &v50);
-  isLeapYear = objc_msgSend_isLeapYear_(TSCECalendar, v6, v52, v7, v8);
-  if (v51 > 6)
+  v44 = 0;
+  v45 = 0;
+  v43 = 0;
+  objc_msgSend_extractComponentsFromDate_year_month_day_(self, a2, date, &v45, &v44, &v43);
+  isLeapYear = objc_msgSend_isLeapYear_(TSCECalendar, v6, v45, v7);
+  if (v44 > 6)
   {
-    if (v51 <= 9)
+    if (v44 <= 9)
     {
-      if (v51 == 7)
+      if (v44 == 7)
       {
-        v13 = v50;
-        v14 = isLeapYear == 0;
-        v15 = 181;
+        v11 = v43;
+        v12 = isLeapYear == 0;
+        v13 = 181;
       }
 
       else
       {
-        v13 = v50;
-        v14 = isLeapYear == 0;
-        if (v51 == 8)
+        v11 = v43;
+        v12 = isLeapYear == 0;
+        if (v44 == 8)
         {
-          v15 = 212;
+          v13 = 212;
         }
 
         else
         {
-          v15 = 243;
+          v13 = 243;
         }
       }
 
       goto LABEL_26;
     }
 
-    switch(v51)
+    switch(v44)
     {
       case 10:
-        v13 = v50;
-        v14 = isLeapYear == 0;
-        v15 = 273;
+        v11 = v43;
+        v12 = isLeapYear == 0;
+        v13 = 273;
         goto LABEL_26;
       case 11:
-        v13 = v50;
-        v14 = isLeapYear == 0;
-        v15 = 304;
+        v11 = v43;
+        v12 = isLeapYear == 0;
+        v13 = 304;
         goto LABEL_26;
       case 12:
-        v13 = v50;
-        v14 = isLeapYear == 0;
-        v15 = 334;
+        v11 = v43;
+        v12 = isLeapYear == 0;
+        v13 = 334;
         goto LABEL_26;
     }
 
 LABEL_40:
-    v39 = MEMORY[0x277D81150];
-    v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSCECalendar weekNumberForDate:withType:]", v11, v12);
-    v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCECalendar.mm", v42, v43);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v39, v45, v40, v44, 457, 0, "Incorrect month number in function WEEKNUM");
+    v34 = MEMORY[0x277D81150];
+    v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSCECalendar weekNumberForDate:withType:]", v10);
+    v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCECalendar.mm", v37);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v34, v39, v35, v38, 457, 0, "Incorrect month number in function WEEKNUM");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v46, v47, v48, v49);
-    v16 = 0;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v40, v41, v42);
+    v14 = 0;
     goto LABEL_29;
   }
 
-  if (v51 > 3)
+  if (v44 > 3)
   {
-    if (v51 == 4)
+    if (v44 == 4)
     {
-      v13 = v50;
-      v14 = isLeapYear == 0;
-      v15 = 90;
+      v11 = v43;
+      v12 = isLeapYear == 0;
+      v13 = 90;
     }
 
     else
     {
-      v13 = v50;
-      v14 = isLeapYear == 0;
-      if (v51 == 5)
+      v11 = v43;
+      v12 = isLeapYear == 0;
+      if (v44 == 5)
       {
-        v15 = 120;
+        v13 = 120;
       }
 
       else
       {
-        v15 = 151;
+        v13 = 151;
       }
     }
 
     goto LABEL_26;
   }
 
-  if (v51 == 1)
+  if (v44 == 1)
   {
-    v16 = v50;
+    v14 = v43;
     goto LABEL_29;
   }
 
-  if (v51 == 2)
+  if (v44 == 2)
   {
-    v16 = v50 + 31;
+    v14 = v43 + 31;
     goto LABEL_29;
   }
 
-  if (v51 != 3)
+  if (v44 != 3)
   {
     goto LABEL_40;
   }
 
-  v13 = v50;
-  v14 = isLeapYear == 0;
-  v15 = 59;
+  v11 = v43;
+  v12 = isLeapYear == 0;
+  v13 = 59;
 LABEL_26:
-  if (!v14)
+  if (!v12)
   {
-    ++v15;
+    ++v13;
   }
 
-  v16 = v15 + v13;
+  v14 = v13 + v11;
 LABEL_29:
-  v20 = objc_msgSend_dateWithYear_month_day_(self, v10, v52, 1, 1);
+  v17 = objc_msgSend_dateWithYear_month_day_(self, v9, v45, 1, 1);
   if (type == 2)
   {
-    Weekday = objc_msgSend_extractWeekday_(self, v17, v20, v18, v19);
-    v21 = Weekday - 9;
+    Weekday = objc_msgSend_extractWeekday_(self, v15, v17, v16);
+    v18 = Weekday - 9;
     if (Weekday == 1)
     {
-      v21 = -1;
+      v18 = -1;
     }
   }
 
   else if (type == 1)
   {
-    v21 = objc_msgSend_extractWeekday_(self, v17, v20, v18, v19) - 8;
+    v18 = objc_msgSend_extractWeekday_(self, v15, v17, v16) - 8;
   }
 
   else
   {
-    v23 = MEMORY[0x277D81150];
-    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSCECalendar weekNumberForDate:withType:]", v18, v19);
-    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCECalendar.mm", v26, v27);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v29, v24, v28, 472, 0, "Incorrect type number in function WEEKNUM.");
+    v20 = MEMORY[0x277D81150];
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSCECalendar weekNumberForDate:withType:]", v16);
+    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCECalendar.mm", v23);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v25, v21, v24, 472, 0, "Incorrect type number in function WEEKNUM.");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31, v32, v33);
-    v21 = 0;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28);
+    v18 = 0;
   }
 
-  v34 = v21 + v16;
-  v35 = v34 < 1;
-  v36 = v34 - 1;
-  if (v35)
+  v29 = v18 + v14;
+  v30 = v29 < 1;
+  v31 = v29 - 1;
+  if (v30)
   {
-    v37 = 1;
+    v32 = 1;
   }
 
   else
   {
-    v37 = (v36 / 7 + 2);
+    v32 = (v31 / 7 + 2);
   }
 
-  return v37;
+  return v32;
 }
 
 + (id)dateWithSerialNumber:(double)number dateMode:(int)mode
@@ -733,26 +733,26 @@ LABEL_29:
   }
 
   v9 = objc_alloc_init(MEMORY[0x277CBEAB8]);
-  objc_msgSend_setDay_(v9, v10, v6, v11, v12);
-  objc_msgSend_setMonth_(v9, v13, v7, v14, v15);
-  objc_msgSend_setYear_(v9, v16, v8, v17, v18);
-  v19 = objc_alloc(MEMORY[0x277CBEA80]);
-  v23 = objc_msgSend_initWithCalendarIdentifier_(v19, v20, *MEMORY[0x277CBE5C0], v21, v22);
-  v27 = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0], v24, @"UTC", v25, v26);
-  objc_msgSend_setTimeZone_(v23, v28, v27, v29, v30);
+  objc_msgSend_setDay_(v9, v10, v6, v11);
+  objc_msgSend_setMonth_(v9, v12, v7, v13);
+  objc_msgSend_setYear_(v9, v14, v8, v15);
+  v16 = objc_alloc(MEMORY[0x277CBEA80]);
+  v19 = objc_msgSend_initWithCalendarIdentifier_(v16, v17, *MEMORY[0x277CBE5C0], v18);
+  v22 = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0], v20, @"UTC", v21);
+  objc_msgSend_setTimeZone_(v19, v23, v22, v24);
 
-  v34 = objc_msgSend_dateFromComponents_(v23, v31, v9, v32, v33);
-  v35 = objc_alloc(MEMORY[0x277CBEAA8]);
-  v39 = mode != 1 || number <= 60.0;
+  v27 = objc_msgSend_dateFromComponents_(v19, v25, v9, v26);
+  v28 = objc_alloc(MEMORY[0x277CBEAA8]);
+  v31 = mode != 1 || number <= 60.0;
   numberCopy = number + -1.0;
-  if (v39)
+  if (v31)
   {
     numberCopy = number;
   }
 
-  v41 = objc_msgSend_initWithTimeInterval_sinceDate_(v35, v36, v34, v37, v38, numberCopy * 86400.0);
+  v33 = objc_msgSend_initWithTimeInterval_sinceDate_(v28, v29, v27, v30, numberCopy * 86400.0);
 
-  return v41;
+  return v33;
 }
 
 + (id)gregorianGMTCalendar
@@ -766,11 +766,11 @@ LABEL_29:
     {
       v4 = [TSCECalendar alloc];
       v5 = TSUGetGMTTimeZone();
-      v8 = objc_msgSend_initWithCalendarIdentifier_timeZone_(v4, v6, *MEMORY[0x277CBE5C0], v5, v7);
+      v7 = objc_msgSend_initWithCalendarIdentifier_timeZone_(v4, v6, *MEMORY[0x277CBE5C0], v5);
 
       __dmb(0xBu);
-      v9 = qword_27CFB5650;
-      qword_27CFB5650 = v8;
+      v8 = qword_27CFB5650;
+      qword_27CFB5650 = v7;
     }
 
     objc_sync_exit(v3);
@@ -792,11 +792,11 @@ LABEL_29:
     {
       v4 = [TSCECalendar alloc];
       v5 = TSUGetGMTTimeZone();
-      v8 = objc_msgSend_initWithCalendarIdentifier_timeZone_(v4, v6, *MEMORY[0x277CBE5D0], v5, v7);
+      v7 = objc_msgSend_initWithCalendarIdentifier_timeZone_(v4, v6, *MEMORY[0x277CBE5D0], v5);
 
       __dmb(0xBu);
-      v9 = qword_27CFB5658;
-      qword_27CFB5658 = v8;
+      v8 = qword_27CFB5658;
+      qword_27CFB5658 = v7;
     }
 
     objc_sync_exit(v3);

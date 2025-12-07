@@ -1,9 +1,15 @@
 @interface CPAccNavParamKey
++ (id)paramKey:(unsigned __int16)key;
 - (BOOL)hasCharacteristics;
 - (CPAccNavParam)param;
 - (CPAccNavParamKey)init;
 - (id)copySettingAccNavType:(int64_t)type;
 - (id)copySettingDimension:(id)dimension;
+- (id)copySettingEnumType:(unsigned __int8)type;
+- (id)copySettingHasVariants:(BOOL)variants;
+- (id)copySettingIsBoolValue:(BOOL)value;
+- (id)copySettingIsIntegerValue:(BOOL)value;
+- (id)copySettingIsTimeIntervalValue:(BOOL)value;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)unsetValue;
@@ -16,6 +22,15 @@
   WeakRetained = objc_loadWeakRetained(&self->_param);
 
   return WeakRetained;
+}
+
++ (id)paramKey:(unsigned __int16)key
+{
+  keyCopy = key;
+  v4 = objc_opt_new();
+  [v4 setKey:keyCopy];
+
+  return v4;
 }
 
 - (CPAccNavParamKey)init
@@ -123,6 +138,50 @@
   return v3;
 }
 
+- (id)copySettingIsBoolValue:(BOOL)value
+{
+  valueCopy = value;
+  v4 = [(CPAccNavParamKey *)self copy];
+  [v4 setIsBoolValue:valueCopy];
+  characteristics = [v4 characteristics];
+  v6 = characteristics;
+  if (valueCopy)
+  {
+    [characteristics setByAddingObject:@"isBool"];
+  }
+
+  else
+  {
+    [characteristics cp_setByRemovingObject:@"isBool"];
+  }
+  v7 = ;
+  [v4 setCharacteristics:v7];
+
+  return v4;
+}
+
+- (id)copySettingEnumType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v4 = [(CPAccNavParamKey *)self copy];
+  [v4 setEnumType:typeCopy];
+  characteristics = [v4 characteristics];
+  v6 = characteristics;
+  if (typeCopy)
+  {
+    [characteristics setByAddingObject:@"enumType"];
+  }
+
+  else
+  {
+    [characteristics cp_setByRemovingObject:@"enumType"];
+  }
+  v7 = ;
+  [v4 setCharacteristics:v7];
+
+  return v4;
+}
+
 - (id)copySettingDimension:(id)dimension
 {
   dimensionCopy = dimension;
@@ -144,6 +203,72 @@
   [v5 setCharacteristics:v8];
 
   return v5;
+}
+
+- (id)copySettingIsIntegerValue:(BOOL)value
+{
+  valueCopy = value;
+  v4 = [(CPAccNavParamKey *)self copy];
+  [v4 setIsIntegerValue:valueCopy];
+  characteristics = [v4 characteristics];
+  v6 = characteristics;
+  if (valueCopy)
+  {
+    [characteristics setByAddingObject:@"integerValue"];
+  }
+
+  else
+  {
+    [characteristics cp_setByRemovingObject:@"integerValue"];
+  }
+  v7 = ;
+  [v4 setCharacteristics:v7];
+
+  return v4;
+}
+
+- (id)copySettingIsTimeIntervalValue:(BOOL)value
+{
+  valueCopy = value;
+  v4 = [(CPAccNavParamKey *)self copy];
+  [v4 setIsTimeIntervalValue:valueCopy];
+  characteristics = [v4 characteristics];
+  v6 = characteristics;
+  if (valueCopy)
+  {
+    [characteristics setByAddingObject:@"timeInterval"];
+  }
+
+  else
+  {
+    [characteristics cp_setByRemovingObject:@"timeInterval"];
+  }
+  v7 = ;
+  [v4 setCharacteristics:v7];
+
+  return v4;
+}
+
+- (id)copySettingHasVariants:(BOOL)variants
+{
+  variantsCopy = variants;
+  v4 = [(CPAccNavParamKey *)self copy];
+  [v4 setHasVariants:variantsCopy];
+  characteristics = [v4 characteristics];
+  v6 = characteristics;
+  if (variantsCopy)
+  {
+    [characteristics setByAddingObject:@"hasVariants"];
+  }
+
+  else
+  {
+    [characteristics cp_setByRemovingObject:@"hasVariants"];
+  }
+  v7 = ;
+  [v4 setCharacteristics:v7];
+
+  return v4;
 }
 
 @end

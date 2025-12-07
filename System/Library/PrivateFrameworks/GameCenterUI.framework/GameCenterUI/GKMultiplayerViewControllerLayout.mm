@@ -76,7 +76,7 @@
   v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_24E343498();
   selfCopy = self;
-  v9 = sub_24E074CD8();
+  v9 = sub_24E074CD8(v7);
 
   (*(v5 + 8))(v7, v4);
 

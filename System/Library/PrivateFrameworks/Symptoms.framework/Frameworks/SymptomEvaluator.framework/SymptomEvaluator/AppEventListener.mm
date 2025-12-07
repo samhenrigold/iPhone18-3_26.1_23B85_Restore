@@ -64,28 +64,26 @@ void __48__AppEventListener__applicationStateMonitorInit__block_invoke_3(uint64_
 
 void __48__AppEventListener__applicationStateMonitorInit__block_invoke(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277D46FB0] descriptor];
   [v4 setValues:1];
   [v4 setEndowmentNamespaces:&unk_2847EEB20];
   [v3 setStateDescriptor:v4];
   [v3 setEvents:1];
-  v10[0] = [MEMORY[0x277D46FA0] performSelector:NSSelectorFromString(&cfstr_Predicateforsy.isa)];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = [MEMORY[0x277D46FA0] performSelector:NSSelectorFromString(&cfstr_Predicateforsy.isa)];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   [v3 setPredicates:v5];
 
   objc_initWeak(&location, *(a1 + 32));
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __48__AppEventListener__applicationStateMonitorInit__block_invoke_2;
-  v7[3] = &unk_27898B7A0;
-  objc_copyWeak(&v8, &location);
-  [v3 setUpdateHandler:v7];
-  objc_destroyWeak(&v8);
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __48__AppEventListener__applicationStateMonitorInit__block_invoke_2;
+  v6[3] = &unk_27898B7A0;
+  objc_copyWeak(&v7, &location);
+  [v3 setUpdateHandler:v6];
+  objc_destroyWeak(&v7);
   objc_destroyWeak(&location);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

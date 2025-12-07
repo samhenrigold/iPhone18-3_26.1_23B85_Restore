@@ -38,9 +38,9 @@
   return machineID;
 }
 
-uint64_t __36__DMCAuthKitUtilities_midWithError___block_invoke()
+uint64_t __36__DMCAuthKitUtilities_midWithError___block_invoke(uint64_t a1)
 {
-  midWithError__anisetteProvisioningController = objc_alloc_init(DMCAKAnisetteProvisioningControllerClass());
+  midWithError__anisetteProvisioningController = objc_alloc_init(DMCAKAnisetteProvisioningControllerClass(a1));
 
   return MEMORY[0x1EEE66BB8]();
 }

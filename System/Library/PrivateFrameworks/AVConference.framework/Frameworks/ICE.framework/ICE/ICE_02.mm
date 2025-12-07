@@ -1,6 +1,6 @@
-uint64_t ProcessBindingResponse(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
+uint64_t ProcessBindingResponse(uint64_t a1, uint64_t a2, __int128 *a3, double a4)
 {
-  v147 = *MEMORY[0x277D85DE8];
+  v149 = *MEMORY[0x277D85DE8];
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
   __dst[23] = v8;
@@ -28,33 +28,33 @@ uint64_t ProcessBindingResponse(uint64_t a1, uint64_t a2, uint64_t a3, double a4
   __dst[1] = v8;
   __dst[2] = v8;
   __dst[0] = v8;
-  v145 = -1431655766;
+  v147 = -1431655766;
+  v145 = v8;
+  v146 = v8;
   v143 = v8;
   v144 = v8;
   v141 = v8;
   v142 = v8;
-  v139 = v8;
+  *&v139[16] = v8;
   v140 = v8;
-  *&v137[16] = v8;
-  v138 = v8;
-  *v137 = v8;
-  *&v136[16] = 0xAAAAAAAAAAAAAAAALL;
-  v135 = v8;
-  *v136 = v8;
+  *v139 = v8;
+  *&v138[16] = 0xAAAAAAAAAAAAAAAALL;
+  v137 = v8;
+  *v138 = v8;
+  *(v134 + 14) = 0xAAAAAAAAAAAAAAAALL;
+  v133[1] = v8;
+  v134[0] = v8;
+  v133[0] = v8;
   *(v132 + 14) = 0xAAAAAAAAAAAAAAAALL;
   v131[1] = v8;
   v132[0] = v8;
+  v130[3] = v8;
   v131[0] = v8;
-  *(v130 + 14) = 0xAAAAAAAAAAAAAAAALL;
-  v129[1] = v8;
+  v130[1] = v8;
+  v130[2] = v8;
   v130[0] = v8;
-  v128[3] = v8;
-  v129[0] = v8;
-  v128[1] = v8;
-  v128[2] = v8;
-  v128[0] = v8;
-  memset(v127, 170, sizeof(v127));
-  memset(v126, 170, 25);
+  memset(v129, 170, sizeof(v129));
+  memset(v128, 170, 25);
   STUNAttr = GetSTUNAttr(a2, 6);
   if (!STUNAttr)
   {
@@ -68,7 +68,7 @@ uint64_t ProcessBindingResponse(uint64_t a1, uint64_t a2, uint64_t a3, double a4
       }
     }
 
-    goto LABEL_108;
+    return v26;
   }
 
   v10 = STUNAttr;
@@ -79,21 +79,21 @@ uint64_t ProcessBindingResponse(uint64_t a1, uint64_t a2, uint64_t a3, double a4
     v13 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      TransID = MakeTransID(v126, (a2 + 12));
-      v15 = IPPORTToStringWithSize(v129, a3, 0x36uLL);
-      v16 = ICEUNToString(v128, *(v10 + 2));
+      TransID = MakeTransID(v128, (a2 + 12));
+      v15 = IPPORTToStringWithSize(v131, a3, 0x36uLL);
+      v16 = ICEUNToString(v130, *(v10 + 2));
       *buf = 136316418;
       *&buf[4] = v12;
       *&buf[12] = 2080;
       *&buf[14] = "ProcessBindingResponse";
-      v118 = 1024;
-      v119 = 1676;
-      v120 = 2080;
-      v121 = TransID;
+      v120 = 1024;
+      v121 = 1676;
       v122 = 2080;
-      v123 = v15;
+      v123 = TransID;
       v124 = 2080;
-      v125 = v16;
+      v125 = v15;
+      v126 = 2080;
+      v127 = v16;
       _os_log_impl(&dword_23D497000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** BINDING_RESPONSE [%s] from [%s] USERNAME[%s]", buf, 0x3Au);
     }
   }
@@ -111,14 +111,14 @@ uint64_t ProcessBindingResponse(uint64_t a1, uint64_t a2, uint64_t a3, double a4
       }
     }
 
-    goto LABEL_108;
+    return v26;
   }
 
   v18 = *(v17 + 6);
   v19 = *(v17 + 14);
-  *&v134[16] = *(v17 + 22);
-  v133 = v18;
-  *v134 = v19;
+  *&v136[16] = *(v17 + 22);
+  v135 = v18;
+  *v136 = v19;
   v20 = GetSTUNAttr(a2, 32769);
   if (!v20)
   {
@@ -132,7 +132,7 @@ uint64_t ProcessBindingResponse(uint64_t a1, uint64_t a2, uint64_t a3, double a4
       }
     }
 
-    goto LABEL_108;
+    return v26;
   }
 
   v21 = *(v20 + 2);
@@ -146,10 +146,10 @@ uint64_t ProcessBindingResponse(uint64_t a1, uint64_t a2, uint64_t a3, double a4
       *&buf[4] = v22;
       *&buf[12] = 2080;
       *&buf[14] = "ProcessBindingResponse";
-      v118 = 1024;
-      v119 = 1696;
       v120 = 1024;
-      LODWORD(v121) = v21;
+      v121 = 1696;
+      v122 = 1024;
+      LODWORD(v123) = v21;
       _os_log_impl(&dword_23D497000, v23, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d \tRemote added DRIVED-REMOTE candidate, create DERIVED-LOCAL candidate (proto=%d).", buf, 0x22u);
     }
   }
@@ -181,10 +181,10 @@ uint64_t ProcessBindingResponse(uint64_t a1, uint64_t a2, uint64_t a3, double a4
         *&buf[4] = v28;
         *&buf[12] = 2080;
         *&buf[14] = "ProcessBindingResponse";
-        v118 = 1024;
-        v119 = 1710;
         v120 = 1024;
-        LODWORD(v121) = v30;
+        v121 = 1710;
+        v122 = 1024;
+        LODWORD(v123) = v30;
         _os_log_impl(&dword_23D497000, v29, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Remote cellular technology:[%d]", buf, 0x22u);
       }
     }
@@ -195,38 +195,38 @@ uint64_t ProcessBindingResponse(uint64_t a1, uint64_t a2, uint64_t a3, double a4
   {
     if (VRTraceGetErrorLogLevelForModule() >= 5)
     {
-      v48 = VRTraceErrorLogLevelToCSTR();
-      v49 = *MEMORY[0x277CE5818];
+      v53 = VRTraceErrorLogLevelToCSTR();
+      v54 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        *&buf[4] = v48;
+        *&buf[4] = v53;
         *&buf[12] = 2080;
         *&buf[14] = "ProcessBindingResponse";
-        v118 = 1024;
-        v119 = 1715;
         v120 = 1024;
-        LODWORD(v121) = 1715;
-        _os_log_impl(&dword_23D497000, v49, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Candidate pair not found.", buf, 0x22u);
+        v121 = 1715;
+        v122 = 1024;
+        LODWORD(v123) = 1715;
+        _os_log_impl(&dword_23D497000, v54, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Candidate pair not found.", buf, 0x22u);
       }
     }
 
-    goto LABEL_107;
+    return 0;
   }
 
   v32 = MatchCP;
   v33 = *(a1 + 184) + 400 * MatchCP;
   v34 = *a3;
-  v35 = *(a3 + 16);
-  *(v33 + 344) = *(a3 + 32);
+  v35 = a3[1];
+  *(v33 + 344) = *(a3 + 4);
   *(v33 + 312) = v34;
   *(v33 + 328) = v35;
   v36 = *(a1 + 184) + 400 * MatchCP;
   memcpy(__dst, v36, sizeof(__dst));
   v37 = *(v36 + 40);
-  v135 = *(v36 + 24);
-  *v136 = v37;
-  *&v136[16] = *(v36 + 56);
+  v137 = *(v36 + 24);
+  *v138 = v37;
+  *&v138[16] = *(v36 + 56);
   if (v25 >= 0x6A && (v38 = GetSTUNAttr(a2, 32772)) != 0)
   {
     v39 = *(v38 + 2);
@@ -243,106 +243,106 @@ uint64_t ProcessBindingResponse(uint64_t a1, uint64_t a2, uint64_t a3, double a4
         }
       }
 
-      goto LABEL_108;
+      return v26;
     }
 
-    v115 = v25 - 106;
-    v41 = *(v40 + 2);
-    v42 = MicroToMiddle32_zero_wide;
+    v117 = v25 - 106;
+    v42 = *(v40 + 2);
+    v43 = MicroToMiddle32_zero_wide;
     if (!MicroToMiddle32_zero_wide)
     {
       memset(buf, 170, 16);
-      v116.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-      *&v116.tv_usec = 0xAAAAAAAAAAAAAAAALL;
-      v43 = micro();
-      gettimeofday(buf, 0);
-      v44 = micro();
-      gettimeofday(&v116, 0);
-      if (micro() - v44 < v44 - v43)
+      v118.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+      *&v118.tv_usec = 0xAAAAAAAAAAAAAAAALL;
+      v44 = micro(v40, v41);
+      v45 = gettimeofday(buf, 0);
+      v47 = micro(v45, v46);
+      v48 = gettimeofday(&v118, 0);
+      if (micro(v48, v49) - v47 < v47 - v44)
       {
-        *buf = v116;
-        v43 = v44;
+        *buf = v118;
+        v44 = v47;
       }
 
-      v42 = vcvtd_n_u64_f64(*buf + *&buf[8] * 0.000001 + 2208988800.0 - v43, 0x20uLL);
-      MicroToMiddle32_zero_wide = v42;
+      v43 = vcvtd_n_u64_f64(*buf + *&buf[8] * 0.000001 + 2208988800.0 - v44, 0x20uLL);
+      MicroToMiddle32_zero_wide = v43;
     }
 
-    v114 = ((v42 + a4 * 4294967300.0) >> 16) - (v41 + v39);
-    *(*(a1 + 184) + 400 * v32 + 352) = v114;
+    v116 = ((v43 + a4 * 4294967300.0) >> 16) - (v42 + v39);
+    *(*(a1 + 184) + 400 * v32 + 352) = v116;
   }
 
   else
   {
-    v114 = 0;
-    v115 = v25 - 106;
+    v116 = 0;
+    v117 = v25 - 106;
   }
 
-  v46 = DWORD1(__dst[0]) == 5 && DWORD2(__dst[9]) == 5;
-  if ((v133 & 1) == (v135 & 1))
+  v51 = DWORD1(__dst[0]) == 5 && DWORD2(__dst[9]) == 5;
+  if ((v135 & 1) == (v137 & 1))
   {
-    if (v133)
+    if (v135)
     {
-      if (*&v134[4] == *&v136[4] && *&v134[12] == *&v136[12])
+      if (*&v136[4] == *&v138[4] && *&v136[12] == *&v138[12])
       {
         goto LABEL_46;
       }
     }
 
-    else if (*&v134[4] == *&v136[4])
+    else if (*&v136[4] == *&v138[4])
     {
 LABEL_46:
-      v47 = *&v134[20] != *&v136[20] && v25 >= 0x6A;
+      v52 = *&v136[20] != *&v138[20] && v25 >= 0x6A;
       goto LABEL_57;
     }
   }
 
-  v47 = v25 >= 0x6A;
+  v52 = v25 >= 0x6A;
 LABEL_57:
-  v51 = !v47;
-  if (((v51 | v46) & 1) == 0)
+  v56 = !v52;
+  if (((v56 | v51) & 1) == 0)
   {
     goto LABEL_99;
   }
 
-  v52 = *(a1 + 184);
-  if (*(a1 + 840) == 1 && (v53 = v52 + 400 * v32, *(v53 + 356)))
+  v57 = *(a1 + 184);
+  if (*(a1 + 840) == 1 && (v58 = v57 + 400 * v32, *(v58 + 356)))
   {
-    v54 = (v53 + 296);
-    v55 = 7;
+    v59 = (v58 + 296);
+    v60 = 7;
   }
 
   else
   {
-    v54 = (v52 + 400 * v32 + 296);
-    v55 = 4;
+    v59 = (v57 + 400 * v32 + 296);
+    v60 = 4;
   }
 
-  UpdateICEState(v54, v55);
-  v56 = *(a1 + 184) + 400 * v32;
-  if (*(v56 + 296) == 6)
+  UpdateICEState(v59, v60);
+  v61 = *(a1 + 184) + 400 * v32;
+  if (*(v61 + 296) == 6)
   {
     if (*(a1 + 840) != 2)
     {
       goto LABEL_95;
     }
 
-    if (*(v56 + 356) && *(a1 + 856) == 554869826 && *(a2 + 8) == 554869826 && *(a1 + 860) == *(a2 + 12) && *(a1 + 868) == *(a2 + 20))
+    if (*(v61 + 356) && *(a1 + 856) == 554869826 && *(a2 + 8) == 554869826 && *(a1 + 860) == *(a2 + 12) && *(a1 + 868) == *(a2 + 20))
     {
-      UpdateICEState((v56 + 296), 6);
+      UpdateICEState((v61 + 296), 6);
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v58 = VRTraceErrorLogLevelToCSTR();
-        v59 = *MEMORY[0x277CE5818];
+        v63 = VRTraceErrorLogLevelToCSTR();
+        v64 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          *&buf[4] = v58;
+          *&buf[4] = v63;
           *&buf[12] = 2080;
           *&buf[14] = "ProcessBindingResponse";
-          v118 = 1024;
-          v119 = 1764;
-          _os_log_impl(&dword_23D497000, v59, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Nomination accepted by controlled agent.", buf, 0x1Cu);
+          v120 = 1024;
+          v121 = 1764;
+          _os_log_impl(&dword_23D497000, v64, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Nomination accepted by controlled agent.", buf, 0x1Cu);
         }
       }
     }
@@ -350,60 +350,59 @@ LABEL_57:
 
   if (*(a1 + 840) == 2)
   {
-    v60 = GetSTUNAttr(a2, 32777);
-    if (v60)
+    v65 = GetSTUNAttr(a2, 32777);
+    if (v65)
     {
-      v61 = v60;
+      v66 = v65;
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v113 = VRTraceErrorLogLevelToCSTR();
-        v62 = *MEMORY[0x277CE5818];
+        v115 = VRTraceErrorLogLevelToCSTR();
+        v67 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
-          v63 = *(v61 + 4);
+          v68 = *(v66 + 4);
           *buf = 136315906;
-          *&buf[4] = v113;
+          *&buf[4] = v115;
           *&buf[12] = 2080;
           *&buf[14] = "ProcessBindingResponse";
-          v118 = 1024;
-          v119 = 1770;
           v120 = 1024;
-          LODWORD(v121) = v63;
-          _os_log_impl(&dword_23D497000, v62, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Binding response has remote connection blob (%d).", buf, 0x22u);
+          v121 = 1770;
+          v122 = 1024;
+          LODWORD(v123) = v68;
+          _os_log_impl(&dword_23D497000, v67, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Binding response has remote connection blob (%d).", buf, 0x22u);
         }
       }
 
-      ICEProcessRemoteInterfaceChange(*a1, *(a1 + 148), *(v61 + 3), *(v61 + 4), v61[4], 0);
+      ICEProcessRemoteInterfaceChange(*a1, *(a1 + 148), *(v66 + 3), *(v66 + 4), v66[4], 0);
     }
 
     pthread_mutex_lock((a1 + 16));
     if (*(a1 + 896))
     {
-      v64 = GetSTUNAttr(a2, 32778);
-      if (v64)
+      v69 = GetSTUNAttr(a2, 32778);
+      if (v69)
       {
-        v65 = v64;
+        v70 = v69;
         if (VRTraceGetErrorLogLevelForModule() >= 7)
         {
-          v66 = VRTraceErrorLogLevelToCSTR();
-          v67 = *MEMORY[0x277CE5818];
+          v71 = VRTraceErrorLogLevelToCSTR();
+          v72 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
           {
-            v68 = *(v65 + 2);
+            v73 = *(v70 + 2);
             *buf = 136315906;
-            *&buf[4] = v66;
+            *&buf[4] = v71;
             *&buf[12] = 2080;
             *&buf[14] = "ProcessBindingResponse";
-            v118 = 1024;
-            v119 = 1782;
             v120 = 1024;
-            LODWORD(v121) = v68;
-            _os_log_impl(&dword_23D497000, v67, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Binding response has SKEMessage of length %d", buf, 0x22u);
+            v121 = 1782;
+            v122 = 1024;
+            LODWORD(v123) = v73;
+            _os_log_impl(&dword_23D497000, v72, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Binding response has SKEMessage of length %d", buf, 0x22u);
           }
         }
 
-        v69 = CFDataCreateWithBytesNoCopy(0, *(v65 + 2), *(v65 + 2), *MEMORY[0x277CBED00]);
-        v70 = *(a1 + 896);
+        v74 = CFDataCreateWithBytesNoCopy(0, *(v70 + 2), *(v70 + 2), *MEMORY[0x277CBED00]);
         if (SKEState_SetBlob())
         {
           if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -416,7 +415,7 @@ LABEL_57:
           }
         }
 
-        CFRelease(v69);
+        CFRelease(v74);
       }
     }
 
@@ -424,34 +423,34 @@ LABEL_57:
   }
 
 LABEL_95:
-  v71 = v115 < 3 || v46;
-  if (v71)
+  v75 = v117 < 3 || v51;
+  if (v75)
   {
-    goto LABEL_107;
+    return 0;
   }
 
 LABEL_99:
-  GetICECandidate(v137, 6, SDWORD2(__dst[0]), v21, &v133, SWORD2(__dst[1]), &__dst[4], __dst[4]);
-  v72 = *(a1 + 168);
-  v73 = *(a1 + 192);
-  v74 = *(a1 + 192);
-  if (!IsNewCandidate(v72, v74, v137))
+  GetICECandidate(v139, 6, SDWORD2(__dst[0]), v21, &v135, SWORD2(__dst[1]), &__dst[4], __dst[4]);
+  v76 = *(a1 + 168);
+  v77 = *(a1 + 192);
+  v78 = *(a1 + 192);
+  if (!IsNewCandidate(v76, v78, v139))
   {
-    v89 = 0;
+    v93 = 0;
     if ((v21 & 0x100) == 0 || v25 < 0x6D)
     {
       goto LABEL_105;
     }
 
-    *&v137[12] = HIDWORD(__dst[0]);
-    *&v137[16] = __dst[10];
-    if (v73 >= 1)
+    *&v139[12] = HIDWORD(__dst[0]);
+    *&v139[16] = __dst[10];
+    if (v77 >= 1)
     {
-      v95 = v72 + 12;
-      while (*&v137[12] != *v95)
+      v98 = v76 + 12;
+      while (*&v139[12] != *v98)
       {
-        v95 = (v95 + 148);
-        if (!--v73)
+        v98 = (v98 + 148);
+        if (!--v77)
         {
           goto LABEL_115;
         }
@@ -461,173 +460,164 @@ LABEL_99:
     }
 
 LABEL_115:
-    v96 = malloc_type_realloc(v72, 148 * (v74 + 1), 0x1000040C185D105uLL);
-    *(a1 + 168) = v96;
-    if (v96)
+    v99 = malloc_type_realloc(v76, 148 * (v78 + 1), 0x1000040C185D105uLL);
+    *(a1 + 168) = v99;
+    if (v99)
     {
-      v97 = &v96[148 * *(a1 + 192)];
-      v98 = *&v137[16];
-      *v97 = *v137;
-      *(v97 + 1) = v98;
-      v99 = v138;
-      v100 = v139;
-      v101 = v141;
-      *(v97 + 4) = v140;
-      *(v97 + 5) = v101;
-      *(v97 + 2) = v99;
-      *(v97 + 3) = v100;
-      v102 = v142;
-      v103 = v143;
-      v104 = v144;
-      *(v97 + 36) = v145;
-      *(v97 + 7) = v103;
-      *(v97 + 8) = v104;
-      *(v97 + 6) = v102;
+      v100 = &v99[148 * *(a1 + 192)];
+      v101 = *&v139[16];
+      *v100 = *v139;
+      *(v100 + 1) = v101;
+      v102 = v140;
+      v103 = v141;
+      v104 = v143;
+      *(v100 + 4) = v142;
+      *(v100 + 5) = v104;
+      *(v100 + 2) = v102;
+      *(v100 + 3) = v103;
+      v105 = v144;
+      v106 = v145;
+      v107 = v146;
+      *(v100 + 36) = v147;
+      *(v100 + 7) = v106;
+      *(v100 + 8) = v107;
+      *(v100 + 6) = v105;
       ++*(a1 + 192);
       ++*(a1 + 204);
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v105 = VRTraceErrorLogLevelToCSTR();
-        v106 = *MEMORY[0x277CE5818];
+        v108 = VRTraceErrorLogLevelToCSTR();
+        v109 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
-          v107 = IPPORTToStringWithSize(v131, &v133, 0x36uLL);
-          v108 = CANIDToString(v127, v97 + 3);
-          v109 = *(a1 + 204);
+          v110 = IPPORTToStringWithSize(v133, &v135, 0x36uLL);
+          v111 = CANIDToString(v129, v100 + 3);
+          v112 = *(a1 + 204);
           *buf = 136316418;
-          *&buf[4] = v105;
+          *&buf[4] = v108;
           *&buf[12] = 2080;
           *&buf[14] = "ProcessBindingResponse";
-          v118 = 1024;
-          v119 = 1847;
-          v120 = 2080;
-          v121 = v107;
+          v120 = 1024;
+          v121 = 1847;
           v122 = 2080;
-          v123 = v108;
-          v124 = 1024;
-          LODWORD(v125) = v109;
-          _os_log_impl(&dword_23D497000, v106, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d \tadd DERIVED-LOCAL candidate[%s] ID[%s], iLCVersion[%d] with duplicate IPPort.", buf, 0x36u);
+          v123 = v110;
+          v124 = 2080;
+          v125 = v111;
+          v126 = 1024;
+          LODWORD(v127) = v112;
+          _os_log_impl(&dword_23D497000, v109, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d \tadd DERIVED-LOCAL candidate[%s] ID[%s], iLCVersion[%d] with duplicate IPPort.", buf, 0x36u);
         }
       }
 
-      v89 = 1;
+      v93 = 1;
       goto LABEL_105;
     }
 
-LABEL_124:
-    v26 = *__error() | 0xC0150000;
-    goto LABEL_108;
+    return *__error() | 0xC0150000;
   }
 
-  v75 = malloc_type_realloc(v72, 148 * v74 + 148, 0x1000040C185D105uLL);
-  *(a1 + 168) = v75;
-  if (!v75)
+  v79 = malloc_type_realloc(v76, 148 * v78 + 148, 0x1000040C185D105uLL);
+  *(a1 + 168) = v79;
+  if (!v79)
   {
-    goto LABEL_124;
+    return *__error() | 0xC0150000;
   }
 
-  *&v137[12] = HIDWORD(__dst[0]);
-  *&v137[16] = __dst[10];
-  v76 = &v75[148 * *(a1 + 192)];
-  v77 = v142;
-  v78 = v143;
-  v79 = v144;
-  *(v76 + 36) = v145;
-  *(v76 + 7) = v78;
-  *(v76 + 8) = v79;
-  *(v76 + 6) = v77;
-  v80 = v138;
-  v81 = v139;
-  v82 = v141;
-  *(v76 + 4) = v140;
-  *(v76 + 5) = v82;
-  *(v76 + 2) = v80;
-  *(v76 + 3) = v81;
-  v83 = *&v137[16];
-  *v76 = *v137;
-  *(v76 + 1) = v83;
+  *&v139[12] = HIDWORD(__dst[0]);
+  *&v139[16] = __dst[10];
+  v80 = &v79[148 * *(a1 + 192)];
+  v81 = v144;
+  v82 = v145;
+  v83 = v146;
+  *(v80 + 36) = v147;
+  *(v80 + 7) = v82;
+  *(v80 + 8) = v83;
+  *(v80 + 6) = v81;
+  v84 = v140;
+  v85 = v141;
+  v86 = v143;
+  *(v80 + 4) = v142;
+  *(v80 + 5) = v86;
+  *(v80 + 2) = v84;
+  *(v80 + 3) = v85;
+  v87 = *&v139[16];
+  *v80 = *v139;
+  *(v80 + 1) = v87;
   ++*(a1 + 192);
   ++*(a1 + 204);
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v84 = VRTraceErrorLogLevelToCSTR();
-    v85 = *MEMORY[0x277CE5818];
+    v88 = VRTraceErrorLogLevelToCSTR();
+    v89 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v86 = IPPORTToStringWithSize(v131, &v133, 0x36uLL);
-      v87 = CANIDToString(v127, v76 + 3);
-      v88 = *(a1 + 204);
+      v90 = IPPORTToStringWithSize(v133, &v135, 0x36uLL);
+      v91 = CANIDToString(v129, v80 + 3);
+      v92 = *(a1 + 204);
       *buf = 136316418;
-      *&buf[4] = v84;
+      *&buf[4] = v88;
       *&buf[12] = 2080;
       *&buf[14] = "ProcessBindingResponse";
-      v118 = 1024;
-      v119 = 1824;
-      v120 = 2080;
-      v121 = v86;
+      v120 = 1024;
+      v121 = 1824;
       v122 = 2080;
-      v123 = v87;
-      v124 = 1024;
-      LODWORD(v125) = v88;
-      _os_log_impl(&dword_23D497000, v85, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d \tadd DERIVED-LOCAL candidate[%s] ID[%s], iLCVersion[%d].", buf, 0x36u);
+      v123 = v90;
+      v124 = 2080;
+      v125 = v91;
+      v126 = 1024;
+      LODWORD(v127) = v92;
+      _os_log_impl(&dword_23D497000, v89, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d \tadd DERIVED-LOCAL candidate[%s] ID[%s], iLCVersion[%d].", buf, 0x36u);
     }
   }
 
 LABEL_104:
-  v89 = 0;
+  v93 = 0;
 LABEL_105:
-  v90 = *(a1 + 184);
-  v91 = *(a1 + 200);
-  v92 = IsNewCandidatePair(v90, v91, v137, &__dst[9] + 4);
-  if ((v89 & 1) == 0 && !v92)
+  v94 = *(a1 + 184);
+  v95 = *(a1 + 200);
+  v96 = IsNewCandidatePair(v94, v95, v139, &__dst[9] + 4);
+  if ((v93 & 1) == 0 && !v96)
   {
-LABEL_107:
-    v26 = 0;
-    goto LABEL_108;
+    return 0;
   }
 
-  v110 = malloc_type_realloc(v90, 400 * v91 + 400, 0x10200402E010713uLL);
-  *(a1 + 184) = v110;
-  if (v110)
+  v113 = malloc_type_realloc(v94, 400 * v95 + 400, 0x10200402E010713uLL);
+  *(a1 + 184) = v113;
+  if (!v113)
   {
-    v111 = v110 + 400 * *(a1 + 200);
-    *buf = 0;
-    v26 = PairUpCandidate(v137, 1, &__dst[9] + 4, 1, v111, 3, buf, __dst[23]);
-    if ((v26 & 0x80000000) != 0)
-    {
-      if (VRTraceGetErrorLogLevelForModule() >= 3)
-      {
-        VRTraceErrorLogLevelToCSTR();
-        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
-        {
-          ProcessBindingResponse_cold_4();
-        }
-      }
-    }
+    return 2148859907;
+  }
 
-    else if (*buf == 1)
+  v114 = v113 + 400 * *(a1 + 200);
+  *buf = 0;
+  v26 = PairUpCandidate(v139, 1, (&__dst[9] + 4), 1, v114, 3, buf, __dst[23]);
+  if ((v26 & 0x80000000) != 0)
+  {
+    if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      *(v111 + 352) = v114;
-      ++*(a1 + 200);
-    }
-
-    else if (VRTraceGetErrorLogLevelForModule() >= 3)
-    {
-      v112 = VRTraceErrorLogLevelToCSTR();
+      VRTraceErrorLogLevelToCSTR();
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
-        ProcessBindingResponse_cold_3(v112, buf);
+        ProcessBindingResponse_cold_4();
       }
     }
   }
 
-  else
+  else if (*buf == 1)
   {
-    v26 = 2148859907;
+    *(v114 + 352) = v116;
+    ++*(a1 + 200);
   }
 
-LABEL_108:
-  v93 = *MEMORY[0x277D85DE8];
+  else if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
+    {
+      ProcessBindingResponse_cold_3();
+    }
+  }
+
   return v26;
 }
 
@@ -871,20 +861,20 @@ void FreeEQ(pthread_mutex_t *a1)
 
 uint64_t MakeAllocateRequest(_DWORD *a1, int a2, int a3, uint64_t a4, const char *a5, const void *a6)
 {
-  v33[1] = *MEMORY[0x277D85DE8];
-  v33[0] = 0xAAAAAAAAAAAAAAAALL;
+  v32[1] = *MEMORY[0x277D85DE8];
+  v32[0] = 0xAAAAAAAAAAAAAAAALL;
   *&v12 = 0xAAAAAAAAAAAAAAAALL;
   *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v30 = v12;
   v31 = v12;
-  v32 = v12;
-  v30 = -1431655766;
-  v28 = 0;
-  v29 = 0xAAAAAAAAAAAAAAAALL;
+  v29 = -1431655766;
+  v27 = 0;
+  v28 = 0xAAAAAAAAAAAAAAAALL;
   bzero(a1, 0x480uLL);
   *a1 = 196608;
   *(a1 + 3) = 1;
   a1[2] = 554869826;
-  RelayTransIDFromDict = GetRelayTransIDFromDict(a6, &v29);
+  RelayTransIDFromDict = GetRelayTransIDFromDict(a6, &v28);
   if ((RelayTransIDFromDict & 0x80000000) != 0)
   {
     v14 = 0;
@@ -892,7 +882,7 @@ uint64_t MakeAllocateRequest(_DWORD *a1, int a2, int a3, uint64_t a4, const char
 
   else
   {
-    v14 = &v29;
+    v14 = &v28;
   }
 
   STUNGetTransID((a1 + 3), 3u, v14);
@@ -934,25 +924,25 @@ uint64_t MakeAllocateRequest(_DWORD *a1, int a2, int a3, uint64_t a4, const char
     a1[8] = 262169;
     a1[10] = 285212672;
     a1[22] = 524322;
-    if ((GetReservationTokenFromDict(a6, &v28) & 0x80000000) != 0)
+    if ((GetReservationTokenFromDict(a6, &v27) & 0x80000000) != 0)
     {
       v15 = 1;
-      v28 = 1;
+      v27 = 1;
     }
 
     else
     {
-      v15 = v28;
+      v15 = v27;
     }
 
     *(a1 + 12) = v15;
     a1[36] = 2883606;
     *(a1 + 152) = 1;
-    RelayTransIDFromDict = GetIPPortFromDict(a6, @"GKSRelayPeerRelayIP", @"GKSRelayPeerRelayPort", &v31);
+    RelayTransIDFromDict = GetIPPortFromDict(a6, @"GKSRelayPeerRelayIP", @"GKSRelayPeerRelayPort", &v30);
     if ((RelayTransIDFromDict & 0x80000000) == 0)
     {
-      v22 = v33 + 2;
-      v23 = bswap32(DWORD1(v32));
+      v22 = v32 + 2;
+      v23 = bswap32(DWORD1(v31));
 LABEL_16:
       a1[44] = v23;
       *(a1 + 96) = *v22;
@@ -991,32 +981,31 @@ LABEL_16:
 
 LABEL_19:
   a1[7] = v21;
-  v26 = *MEMORY[0x277D85DE8];
   return RelayTransIDFromDict;
 }
 
 uint64_t MakeChannelBindRequest(_DWORD *a1, int a2, uint64_t a3, const void *a4)
 {
-  v36[3] = *MEMORY[0x277D85DE8];
-  memset(v36, 170, 20);
+  v35[3] = *MEMORY[0x277D85DE8];
+  memset(v35, 170, 20);
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v33 = v8;
   v34 = v8;
-  v35 = v8;
   bzero(a1, 0x480uLL);
   *a1 = 589824;
   *(a1 + 3) = 1;
   a1[2] = 554869826;
-  if ((GetRelayTransIDFromDict(a4, &v36[1]) & 0x80000000) != 0)
+  if ((GetRelayTransIDFromDict(a4, &v35[1]) & 0x80000000) != 0)
   {
-    v9 = (a1 + 3);
+    v9 = a1 + 3;
     v10 = 0;
   }
 
   else
   {
-    v9 = (a1 + 3);
-    v10 = &v36[1];
+    v9 = a1 + 3;
+    v10 = &v35[1];
   }
 
   STUNGetTransID(v9, 9u, v10);
@@ -1024,36 +1013,36 @@ uint64_t MakeChannelBindRequest(_DWORD *a1, int a2, uint64_t a3, const void *a4)
   a1[10] = a2 << 16;
   a1[22] = 2883602;
   *(a1 + 96) = 1;
-  IPPortFromDict = GetIPPortFromDict(a4, @"GKSRelayPeerRelayNatIP", @"GKSRelayPeerRelayNatPort", &v34);
+  IPPortFromDict = GetIPPortFromDict(a4, @"GKSRelayPeerRelayNatIP", @"GKSRelayPeerRelayNatPort", &v33);
   if ((IPPortFromDict & 0x80000000) == 0)
   {
-    DWORD1(v35) = bswap32(DWORD1(v35));
-    *&v33[14] = 0xAAAAAAAAAAAAAAAALL;
+    DWORD1(v34) = bswap32(DWORD1(v34));
+    *&v32[14] = 0xAAAAAAAAAAAAAAAALL;
     *&v12 = 0xAAAAAAAAAAAAAAAALL;
     *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v32 = v12;
-    *v33 = v12;
     v31 = v12;
+    *v32 = v12;
+    v30 = v12;
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
       v13 = VRTraceErrorLogLevelToCSTR();
       v14 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 136315906;
-        v24 = v13;
-        v25 = 2080;
-        v26 = "MakeChannelBindRequest";
-        v27 = 1024;
-        v28 = 160;
-        v29 = 2080;
-        v30 = IPPORTToStringWithSize(&v31, &v34, 0x36uLL);
-        _os_log_impl(&dword_23D497000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Dictionary Peer [%s]", &v23, 0x26u);
+        v22 = 136315906;
+        v23 = v13;
+        v24 = 2080;
+        v25 = "MakeChannelBindRequest";
+        v26 = 1024;
+        v27 = 160;
+        v28 = 2080;
+        v29 = IPPORTToStringWithSize(&v30, &v33, 0x36uLL);
+        _os_log_impl(&dword_23D497000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Dictionary Peer [%s]", &v22, 0x26u);
       }
     }
 
-    a1[30] = DWORD1(v35);
-    v15 = WORD2(v36[0]);
+    a1[30] = DWORD1(v34);
+    v15 = WORD2(v35[0]);
 LABEL_14:
     *(a1 + 68) = v15;
     v19 = 0;
@@ -1065,27 +1054,27 @@ LABEL_14:
 
   if (a3)
   {
-    *&v33[14] = 0xAAAAAAAAAAAAAAAALL;
+    *&v32[14] = 0xAAAAAAAAAAAAAAAALL;
     *&v16 = 0xAAAAAAAAAAAAAAAALL;
     *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v32 = v16;
-    *v33 = v16;
     v31 = v16;
+    *v32 = v16;
+    v30 = v16;
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
       v17 = VRTraceErrorLogLevelToCSTR();
       v18 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 136315906;
-        v24 = v17;
-        v25 = 2080;
-        v26 = "MakeChannelBindRequest";
-        v27 = 1024;
-        v28 = 166;
-        v29 = 2080;
-        v30 = IPPORTToStringWithSize(&v31, a3, 0x36uLL);
-        _os_log_impl(&dword_23D497000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Parameter Peer [%s]", &v23, 0x26u);
+        v22 = 136315906;
+        v23 = v17;
+        v24 = 2080;
+        v25 = "MakeChannelBindRequest";
+        v26 = 1024;
+        v27 = 166;
+        v28 = 2080;
+        v29 = IPPORTToStringWithSize(&v30, a3, 0x36uLL);
+        _os_log_impl(&dword_23D497000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Parameter Peer [%s]", &v22, 0x26u);
       }
     }
 
@@ -1107,7 +1096,6 @@ LABEL_14:
   v20 = 1;
 LABEL_15:
   a1[7] = v20;
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -1126,835 +1114,834 @@ uint64_t MakeRefreshRequest(_DWORD *a1, int a2)
 uint64_t RelayRefreshProc(uint64_t a1)
 {
   v1 = MEMORY[0x28223BE20](a1);
-  v141[145] = *MEMORY[0x277D85DE8];
-  v118 = 0;
-  bzero(v122, 0x5C0uLL);
+  v140[145] = *MEMORY[0x277D85DE8];
+  v117 = 0;
   bzero(v121, 0x5C0uLL);
   bzero(v120, 0x5C0uLL);
-  v2 = micro();
-  v116 = 0;
+  bzero(v119, 0x5C0uLL);
+  v4 = micro(v2, v3);
+  v115 = 0;
   pthread_setname_np("com.apple.avconference.relay.refreshproc");
   if (!v1)
   {
-    result = 0;
-    goto LABEL_141;
+    return 0;
   }
 
-  v3 = v1[1];
-  v4 = CheckInHandleDebug();
-  if (!v4)
+  v5 = CheckInHandleDebug();
+  if (!v5)
   {
-    result = -2146107390;
-    goto LABEL_141;
+    return -2146107390;
   }
 
-  v5 = v4;
-  v128 = 0xAAAAAAAAAAAAAAAALL;
-  *&v6 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v126 = v6;
-  v127 = v6;
-  v123 = v6;
-  v124 = v6;
-  v125 = 0xAAAAAAAAAAAAAAAALL;
-  v117 = -1;
+  v6 = v5;
+  v127 = 0xAAAAAAAAAAAAAAAALL;
+  *&v7 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v125 = v7;
+  v126 = v7;
+  v122 = v7;
+  v123 = v7;
+  v124 = 0xAAAAAAAAAAAAAAAALL;
+  v116 = -1;
   ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
-  v8 = MEMORY[0x277CE5818];
+  v10 = MEMORY[0x277CE5818];
   if (ErrorLogLevelForModule >= 7)
   {
-    v9 = VRTraceErrorLogLevelToCSTR();
-    v10 = *v8;
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = VRTraceErrorLogLevelToCSTR();
+    v12 = *v10;
+    ErrorLogLevelForModule = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    if (ErrorLogLevelForModule)
     {
-      v11 = *(v1 + 66);
-      v12 = *(v1 + 9);
-      v13 = *(v1 + 312);
-      LODWORD(v141[0]) = 136316418;
-      *(v141 + 4) = v9;
-      WORD2(v141[1]) = 2080;
-      *(&v141[1] + 6) = "RelayRefreshProc";
-      HIWORD(v141[2]) = 1024;
-      LODWORD(v141[3]) = 365;
-      WORD2(v141[3]) = 1024;
-      *(&v141[3] + 6) = v11;
-      WORD1(v141[4]) = 1024;
-      HIDWORD(v141[4]) = v12;
-      LOWORD(v141[5]) = 1024;
-      *(&v141[5] + 2) = v13;
-      _os_log_impl(&dword_23D497000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RelayRefreshProc thread with pRB(%04X) started, call(%d), refresh(%04X).", v141, 0x2Eu);
+      v13 = *(v1 + 66);
+      v14 = *(v1 + 9);
+      v15 = *(v1 + 312);
+      LODWORD(v140[0]) = 136316418;
+      *(v140 + 4) = v11;
+      WORD2(v140[1]) = 2080;
+      *(&v140[1] + 6) = "RelayRefreshProc";
+      HIWORD(v140[2]) = 1024;
+      LODWORD(v140[3]) = 365;
+      WORD2(v140[3]) = 1024;
+      *(&v140[3] + 6) = v13;
+      WORD1(v140[4]) = 1024;
+      HIDWORD(v140[4]) = v14;
+      LOWORD(v140[5]) = 1024;
+      *(&v140[5] + 2) = v15;
+      _os_log_impl(&dword_23D497000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RelayRefreshProc thread with pRB(%04X) started, call(%d), refresh(%04X).", v140, 0x2Eu);
     }
   }
 
-  v14 = 0;
-  v15 = 0;
-  v16 = (v1[39] & 1) == 0;
-  v17 = ((*(v1 + 78) >> 1) & 1) == 0;
-  v18 = (v1 + 33);
-  v19 = 0.0;
-  v20 = 1472;
+  v16 = 0;
+  v17 = 0;
+  v18 = (v1[39] & 1) == 0;
+  v19 = ((*(v1 + 78) >> 1) & 1) == 0;
+  v20 = (v1 + 33);
   v21 = 0.0;
   v22 = 1472;
+  v23 = 0.0;
+  v24 = 1472;
 LABEL_7:
-  v24 = v16 && v17;
-  v112 = v24;
+  v26 = v18 && v19;
+  v111 = v26;
   while (1)
   {
-    v25 = micro();
-    if (*(v5 + 448) || !*(v1 + 16))
+    v27 = micro(ErrorLogLevelForModule, v9);
+    if (*(v6 + 448) || !*(v1 + 16))
     {
       goto LABEL_132;
     }
 
-    v26 = v25;
-    pthread_mutex_lock((v5 + 568));
-    v27 = *(v5 + 632);
-    if (!v27)
+    v28 = v27;
+    pthread_mutex_lock((v6 + 568));
+    v29 = *(v6 + 632);
+    if (!v29)
     {
 LABEL_121:
-      pthread_mutex_unlock((v5 + 568));
+      pthread_mutex_unlock((v6 + 568));
       if (VRTraceGetErrorLogLevelForModule() < 7)
       {
         goto LABEL_132;
       }
 
-      v79 = VRTraceErrorLogLevelToCSTR();
-      v80 = MEMORY[0x277CE5818];
-      v81 = *MEMORY[0x277CE5818];
+      v80 = VRTraceErrorLogLevelToCSTR();
+      v81 = MEMORY[0x277CE5818];
+      v82 = *MEMORY[0x277CE5818];
       if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_133;
       }
 
-      LODWORD(v141[0]) = 136315650;
-      *(v141 + 4) = v79;
-      WORD2(v141[1]) = 2080;
-      *(&v141[1] + 6) = "RelayRefreshProc";
-      HIWORD(v141[2]) = 1024;
-      LODWORD(v141[3]) = 396;
-      v82 = " [%s] %s:%d RelayRefreshProc: Already discarded";
-      v83 = v141;
+      LODWORD(v140[0]) = 136315650;
+      *(v140 + 4) = v80;
+      WORD2(v140[1]) = 2080;
+      *(&v140[1] + 6) = "RelayRefreshProc";
+      HIWORD(v140[2]) = 1024;
+      LODWORD(v140[3]) = 396;
+      v83 = " [%s] %s:%d RelayRefreshProc: Already discarded";
+      v84 = v140;
 LABEL_124:
-      _os_log_impl(&dword_23D497000, v81, OS_LOG_TYPE_DEFAULT, v82, v83, 0x1Cu);
+      _os_log_impl(&dword_23D497000, v82, OS_LOG_TYPE_DEFAULT, v83, v84, 0x1Cu);
       goto LABEL_133;
     }
 
-    while (*(v27 + 36) != *(v1 + 9) || *(v27 + 264) != *v18)
+    while (*(v29 + 36) != *(v1 + 9) || *(v29 + 264) != *v20)
     {
-      v27 = *(v27 + 328);
-      if (!v27)
+      v29 = *(v29 + 328);
+      if (!v29)
       {
         goto LABEL_121;
       }
     }
 
-    pthread_mutex_unlock((v5 + 568));
-    if (v112)
+    pthread_mutex_unlock((v6 + 568));
+    if (v111)
     {
-      *(v1 + 31) = v26;
+      *(v1 + 31) = v28;
       goto LABEL_132;
     }
 
-    if (!v16 && v21 < v26)
+    if (!v18 && v23 < v28)
     {
-      v131 = v20;
-      v28 = v20;
-      if (v20 != 1472)
+      v130 = v22;
+      v30 = v22;
+      if (v22 != 1472)
       {
 LABEL_31:
-        v34 = (v1[40])(*v1, *(v1 + 9), v122, v28, v1 + 124, v1 + 164, 0, 0);
-        if ((v34 & 0x80000000) == 0)
+        v36 = (v1[40])(*v1, *(v1 + 9), v121, v30, v1 + 124, v1 + 164, 0, 0);
+        if ((v36 & 0x80000000) == 0)
         {
-          *&v130[46] = 0xAAAAAAAAAAAAAAAALL;
-          *&v35 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v35 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          *&v130[16] = v35;
-          *&v130[32] = v35;
-          *v130 = v35;
+          *&v129[46] = 0xAAAAAAAAAAAAAAAALL;
+          *&v37 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v37 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          *&v129[16] = v37;
+          *&v129[32] = v37;
+          *v129 = v37;
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
-            v36 = VRTraceErrorLogLevelToCSTR();
-            v37 = *MEMORY[0x277CE5818];
+            v38 = VRTraceErrorLogLevelToCSTR();
+            v39 = *MEMORY[0x277CE5818];
             if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
             {
-              v38 = IPPORTToStringWithSize(v130, v1 + 164, 0x36uLL);
-              LODWORD(v141[0]) = 136315906;
-              *(v141 + 4) = v36;
-              WORD2(v141[1]) = 2080;
-              *(&v141[1] + 6) = "RefreshAllocation";
-              HIWORD(v141[2]) = 1024;
-              LODWORD(v141[3]) = 263;
-              WORD2(v141[3]) = 2080;
-              *(&v141[3] + 6) = v38;
-              _os_log_impl(&dword_23D497000, v37, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Send REFRESH_REQUEST to [%s].", v141, 0x26u);
+              v40 = IPPORTToStringWithSize(v129, v1 + 164, 0x36uLL);
+              LODWORD(v140[0]) = 136315906;
+              *(v140 + 4) = v38;
+              WORD2(v140[1]) = 2080;
+              *(&v140[1] + 6) = "RefreshAllocation";
+              HIWORD(v140[2]) = 1024;
+              LODWORD(v140[3]) = 263;
+              WORD2(v140[3]) = 2080;
+              *(&v140[3] + 6) = v40;
+              _os_log_impl(&dword_23D497000, v39, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Send REFRESH_REQUEST to [%s].", v140, 0x26u);
             }
           }
 
           goto LABEL_48;
         }
 
-        v39 = v34;
+        v41 = v36;
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v107 = VRTraceErrorLogLevelToCSTR();
-          v40 = *MEMORY[0x277CE5818];
+          v106 = VRTraceErrorLogLevelToCSTR();
+          v42 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
           {
-            LODWORD(v141[0]) = 136316162;
-            *(v141 + 4) = v107;
-            WORD2(v141[1]) = 2080;
-            *(&v141[1] + 6) = "RefreshAllocation";
-            HIWORD(v141[2]) = 1024;
-            LODWORD(v141[3]) = 257;
-            WORD2(v141[3]) = 1024;
-            *(&v141[3] + 6) = 257;
-            WORD1(v141[4]) = 1024;
-            HIDWORD(v141[4]) = v39;
-            _os_log_error_impl(&dword_23D497000, v40, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: UDPSENDCALLBACK failed (%08X)", v141, 0x28u);
+            LODWORD(v140[0]) = 136316162;
+            *(v140 + 4) = v106;
+            WORD2(v140[1]) = 2080;
+            *(&v140[1] + 6) = "RefreshAllocation";
+            HIWORD(v140[2]) = 1024;
+            LODWORD(v140[3]) = 257;
+            WORD2(v140[3]) = 1024;
+            *(&v140[3] + 6) = 257;
+            WORD1(v140[4]) = 1024;
+            HIDWORD(v140[4]) = v41;
+            _os_log_error_impl(&dword_23D497000, v42, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: UDPSENDCALLBACK failed (%08X)", v140, 0x28u);
           }
         }
 
 LABEL_47:
-        if (v39 != -1072037876)
+        if (v41 != -1072037876)
         {
           if (VRTraceGetErrorLogLevelForModule() >= 3)
           {
-            v108 = VRTraceErrorLogLevelToCSTR();
-            v49 = *MEMORY[0x277CE5818];
+            v107 = VRTraceErrorLogLevelToCSTR();
+            v51 = *MEMORY[0x277CE5818];
             if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
             {
-              LODWORD(v141[0]) = 136316162;
-              *(v141 + 4) = v108;
-              WORD2(v141[1]) = 2080;
-              *(&v141[1] + 6) = "RelayRefreshProc";
-              HIWORD(v141[2]) = 1024;
-              LODWORD(v141[3]) = 408;
-              WORD2(v141[3]) = 1024;
-              *(&v141[3] + 6) = 408;
-              WORD1(v141[4]) = 1024;
-              HIDWORD(v141[4]) = v39;
-              _os_log_error_impl(&dword_23D497000, v49, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: RefreshAllocation failed (%08X)", v141, 0x28u);
+              LODWORD(v140[0]) = 136316162;
+              *(v140 + 4) = v107;
+              WORD2(v140[1]) = 2080;
+              *(&v140[1] + 6) = "RelayRefreshProc";
+              HIWORD(v140[2]) = 1024;
+              LODWORD(v140[3]) = 408;
+              WORD2(v140[3]) = 1024;
+              *(&v140[3] + 6) = 408;
+              WORD1(v140[4]) = 1024;
+              HIDWORD(v140[4]) = v41;
+              _os_log_error_impl(&dword_23D497000, v51, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: RefreshAllocation failed (%08X)", v140, 0x28u);
             }
           }
 
-          v14 = 1;
+          v16 = 1;
           goto LABEL_53;
         }
 
 LABEL_48:
-        v14 = 8;
+        v16 = 8;
 LABEL_53:
-        RecordRelayDetailedCode(v5, *(v1 + 9), v14);
-        v21 = v26 + 0.5;
+        RecordRelayDetailedCode(v6, *(v1 + 9), v16);
+        v23 = v28 + 0.5;
         goto LABEL_54;
       }
 
-      bzero(v141, 0x480uLL);
-      v29 = *(v1 + 16);
-      if (v29 == 1)
+      bzero(v140, 0x480uLL);
+      v31 = *(v1 + 16);
+      if (v31 == 1)
       {
-        WORD1(v141[0]) = 4;
-        HIWORD(v141[0]) = 1;
-        LODWORD(v141[1]) = 554869826;
-        STUNGetTransID(&v141[1] + 4, 4u, 0);
-        LODWORD(v141[5]) = 60;
-        *(&v141[3] + 4) = 0x4000D00000001;
+        WORD1(v140[0]) = 4;
+        HIWORD(v140[0]) = 1;
+        LODWORD(v140[1]) = 554869826;
+        STUNGetTransID(&v140[1] + 4, 4u, 0);
+        LODWORD(v140[5]) = 60;
+        *(&v140[3] + 4) = 0x4000D00000001;
       }
 
       else
       {
-        Request = MakeAllocateRequest(v141, v29, 60, v1 + 164, v1 + 57, 0);
+        Request = MakeAllocateRequest(v140, v31, 60, v1 + 164, v1 + 57, 0);
         if (Request < 0)
         {
-          v39 = Request;
-          FreeSTUNMessage(v141);
+          v41 = Request;
+          FreeSTUNMessage(v140);
           if (VRTraceGetErrorLogLevelForModule() < 3)
           {
             goto LABEL_46;
           }
 
-          v47 = VRTraceErrorLogLevelToCSTR();
-          v48 = *MEMORY[0x277CE5818];
+          v49 = VRTraceErrorLogLevelToCSTR();
+          v50 = *MEMORY[0x277CE5818];
           if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
           {
             goto LABEL_46;
           }
 
-          *v129 = 136316162;
-          *&v129[4] = v47;
-          *&v129[12] = 2080;
-          *&v129[14] = "RefreshAllocation";
-          *&v129[22] = 1024;
-          *&v129[24] = 230;
-          *&v129[28] = 1024;
-          *&v129[30] = 230;
-          *&v129[34] = 1024;
-          *&v129[36] = v39;
-          v43 = v48;
-          v44 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: MakeAllocateRequest failed (%08X)";
+          *v128 = 136316162;
+          *&v128[4] = v49;
+          *&v128[12] = 2080;
+          *&v128[14] = "RefreshAllocation";
+          *&v128[22] = 1024;
+          *&v128[24] = 230;
+          *&v128[28] = 1024;
+          *&v128[30] = 230;
+          *&v128[34] = 1024;
+          *&v128[36] = v41;
+          v45 = v50;
+          v46 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: MakeAllocateRequest failed (%08X)";
           goto LABEL_92;
         }
       }
 
-      v32 = STUNEncodeMessage(v141, v122, &v131, 0, v30);
-      if (v32 < 0)
+      v34 = STUNEncodeMessage(v140, v121, &v130, 0, v32);
+      if (v34 < 0)
       {
-        v39 = v32;
-        FreeSTUNMessage(v141);
+        v41 = v34;
+        FreeSTUNMessage(v140);
         if (VRTraceGetErrorLogLevelForModule() < 3)
         {
           goto LABEL_46;
         }
 
-        v41 = VRTraceErrorLogLevelToCSTR();
-        v42 = *MEMORY[0x277CE5818];
+        v43 = VRTraceErrorLogLevelToCSTR();
+        v44 = *MEMORY[0x277CE5818];
         if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
         {
           goto LABEL_46;
         }
 
-        *v129 = 136316162;
-        *&v129[4] = v41;
-        *&v129[12] = 2080;
-        *&v129[14] = "RefreshAllocation";
-        *&v129[22] = 1024;
-        *&v129[24] = 238;
-        *&v129[28] = 1024;
-        *&v129[30] = 238;
-        *&v129[34] = 1024;
-        *&v129[36] = v39;
-        v43 = v42;
-        v44 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: STUNEncodeMessage failed (%08X)";
+        *v128 = 136316162;
+        *&v128[4] = v43;
+        *&v128[12] = 2080;
+        *&v128[14] = "RefreshAllocation";
+        *&v128[22] = 1024;
+        *&v128[24] = 238;
+        *&v128[28] = 1024;
+        *&v128[30] = 238;
+        *&v128[34] = 1024;
+        *&v128[36] = v41;
+        v45 = v44;
+        v46 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: STUNEncodeMessage failed (%08X)";
       }
 
       else
       {
-        v33 = SaveSTUNRequest(&v118, v122, v131, v1 + 124, (v1 + 164), 1);
-        if ((v33 & 0x80000000) == 0)
+        v35 = SaveSTUNRequest(&v117, v121, v130, v1 + 124, (v1 + 164), 1);
+        if ((v35 & 0x80000000) == 0)
         {
-          v20 = v131;
-          FreeSTUNMessage(v141);
-          v28 = v131;
+          v22 = v130;
+          FreeSTUNMessage(v140);
+          v30 = v130;
           goto LABEL_31;
         }
 
-        v39 = v33;
-        FreeSTUNMessage(v141);
-        if (VRTraceGetErrorLogLevelForModule() < 3 || (v45 = VRTraceErrorLogLevelToCSTR(), v46 = *MEMORY[0x277CE5818], !os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR)))
+        v41 = v35;
+        FreeSTUNMessage(v140);
+        if (VRTraceGetErrorLogLevelForModule() < 3 || (v47 = VRTraceErrorLogLevelToCSTR(), v48 = *MEMORY[0x277CE5818], !os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR)))
         {
 LABEL_46:
-          v20 = 1472;
+          v22 = 1472;
           goto LABEL_47;
         }
 
-        *v129 = 136316162;
-        *&v129[4] = v45;
-        *&v129[12] = 2080;
-        *&v129[14] = "RefreshAllocation";
-        *&v129[22] = 1024;
-        *&v129[24] = 246;
-        *&v129[28] = 1024;
-        *&v129[30] = 246;
-        *&v129[34] = 1024;
-        *&v129[36] = v39;
-        v43 = v46;
-        v44 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: SaveSTUNRequest failed (%08X)";
+        *v128 = 136316162;
+        *&v128[4] = v47;
+        *&v128[12] = 2080;
+        *&v128[14] = "RefreshAllocation";
+        *&v128[22] = 1024;
+        *&v128[24] = 246;
+        *&v128[28] = 1024;
+        *&v128[30] = 246;
+        *&v128[34] = 1024;
+        *&v128[36] = v41;
+        v45 = v48;
+        v46 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: SaveSTUNRequest failed (%08X)";
       }
 
 LABEL_92:
-      _os_log_error_impl(&dword_23D497000, v43, OS_LOG_TYPE_ERROR, v44, v129, 0x28u);
+      _os_log_error_impl(&dword_23D497000, v45, OS_LOG_TYPE_ERROR, v46, v128, 0x28u);
       goto LABEL_46;
     }
 
 LABEL_54:
-    if (!v17 && v19 < v26)
+    if (!v19 && v21 < v28)
     {
-      v50 = v1[32];
-      v119 = v22;
-      v51 = v22;
-      if (v22 != 1472)
+      v52 = v1[32];
+      v118 = v24;
+      v53 = v24;
+      if (v24 != 1472)
       {
 LABEL_61:
-        v56 = (v1[40])(*v1, *(v1 + 9), v121, v51, v1 + 124, v1 + 164, 0, 0);
-        if ((v56 & 0x80000000) == 0)
+        v58 = (v1[40])(*v1, *(v1 + 9), v120, v53, v1 + 124, v1 + 164, 0, 0);
+        if ((v58 & 0x80000000) == 0)
         {
-          *&v130[46] = 0xAAAAAAAAAAAAAAAALL;
-          *&v57 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v57 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          *&v130[16] = v57;
-          *&v130[32] = v57;
-          *v130 = v57;
-          *v129 = v57;
-          *&v129[16] = v57;
-          *&v129[32] = v57;
           *&v129[46] = 0xAAAAAAAAAAAAAAAALL;
+          *&v59 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v59 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          *&v129[16] = v59;
+          *&v129[32] = v59;
+          *v129 = v59;
+          *v128 = v59;
+          *&v128[16] = v59;
+          *&v128[32] = v59;
+          *&v128[46] = 0xAAAAAAAAAAAAAAAALL;
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
-            v58 = VRTraceErrorLogLevelToCSTR();
-            v59 = *MEMORY[0x277CE5818];
+            v60 = VRTraceErrorLogLevelToCSTR();
+            v61 = *MEMORY[0x277CE5818];
             if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
             {
-              v109 = IPPORTToStringWithSize(v129, (v1 + 34), 0x36uLL);
-              v60 = IPPORTToStringWithSize(v130, v1 + 164, 0x36uLL);
-              LODWORD(v141[0]) = 136316162;
-              *(v141 + 4) = v58;
-              WORD2(v141[1]) = 2080;
-              *(&v141[1] + 6) = "RefreshChannelBind";
-              HIWORD(v141[2]) = 1024;
-              LODWORD(v141[3]) = 316;
-              WORD2(v141[3]) = 2080;
-              *(&v141[3] + 6) = v109;
-              HIWORD(v141[4]) = 2080;
-              v141[5] = v60;
-              _os_log_impl(&dword_23D497000, v59, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Send CHANNELBIND_REQUEST [%s] to [%s].", v141, 0x30u);
+              v108 = IPPORTToStringWithSize(v128, (v1 + 34), 0x36uLL);
+              v62 = IPPORTToStringWithSize(v129, v1 + 164, 0x36uLL);
+              LODWORD(v140[0]) = 136316162;
+              *(v140 + 4) = v60;
+              WORD2(v140[1]) = 2080;
+              *(&v140[1] + 6) = "RefreshChannelBind";
+              HIWORD(v140[2]) = 1024;
+              LODWORD(v140[3]) = 316;
+              WORD2(v140[3]) = 2080;
+              *(&v140[3] + 6) = v108;
+              HIWORD(v140[4]) = 2080;
+              v140[5] = v62;
+              _os_log_impl(&dword_23D497000, v61, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Send CHANNELBIND_REQUEST [%s] to [%s].", v140, 0x30u);
             }
           }
 
           goto LABEL_80;
         }
 
-        v61 = v56;
+        v63 = v58;
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v110 = VRTraceErrorLogLevelToCSTR();
-          v62 = *MEMORY[0x277CE5818];
+          v109 = VRTraceErrorLogLevelToCSTR();
+          v64 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
           {
-            LODWORD(v141[0]) = 136316162;
-            *(v141 + 4) = v110;
-            WORD2(v141[1]) = 2080;
-            *(&v141[1] + 6) = "RefreshChannelBind";
-            HIWORD(v141[2]) = 1024;
-            LODWORD(v141[3]) = 306;
-            WORD2(v141[3]) = 1024;
-            *(&v141[3] + 6) = 306;
-            WORD1(v141[4]) = 1024;
-            HIDWORD(v141[4]) = v61;
-            _os_log_error_impl(&dword_23D497000, v62, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: UDPSENDCALLBACK failed (%08X)", v141, 0x28u);
+            LODWORD(v140[0]) = 136316162;
+            *(v140 + 4) = v109;
+            WORD2(v140[1]) = 2080;
+            *(&v140[1] + 6) = "RefreshChannelBind";
+            HIWORD(v140[2]) = 1024;
+            LODWORD(v140[3]) = 306;
+            WORD2(v140[3]) = 1024;
+            *(&v140[3] + 6) = 306;
+            WORD1(v140[4]) = 1024;
+            HIDWORD(v140[4]) = v63;
+            _os_log_error_impl(&dword_23D497000, v64, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: UDPSENDCALLBACK failed (%08X)", v140, 0x28u);
           }
         }
 
 LABEL_79:
-        if (v61 != -1072037876)
+        if (v63 != -1072037876)
         {
           if (VRTraceGetErrorLogLevelForModule() >= 3)
           {
-            v111 = VRTraceErrorLogLevelToCSTR();
-            v71 = *MEMORY[0x277CE5818];
+            v110 = VRTraceErrorLogLevelToCSTR();
+            v73 = *MEMORY[0x277CE5818];
             if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
             {
-              LODWORD(v141[0]) = 136316162;
-              *(v141 + 4) = v111;
-              WORD2(v141[1]) = 2080;
-              *(&v141[1] + 6) = "RelayRefreshProc";
-              HIWORD(v141[2]) = 1024;
-              LODWORD(v141[3]) = 422;
-              WORD2(v141[3]) = 1024;
-              *(&v141[3] + 6) = 422;
-              WORD1(v141[4]) = 1024;
-              HIDWORD(v141[4]) = v61;
-              _os_log_error_impl(&dword_23D497000, v71, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: RefreshChannelBind failed (%08X)", v141, 0x28u);
+              LODWORD(v140[0]) = 136316162;
+              *(v140 + 4) = v110;
+              WORD2(v140[1]) = 2080;
+              *(&v140[1] + 6) = "RelayRefreshProc";
+              HIWORD(v140[2]) = 1024;
+              LODWORD(v140[3]) = 422;
+              WORD2(v140[3]) = 1024;
+              *(&v140[3] + 6) = 422;
+              WORD1(v140[4]) = 1024;
+              HIDWORD(v140[4]) = v63;
+              _os_log_error_impl(&dword_23D497000, v73, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: RefreshChannelBind failed (%08X)", v140, 0x28u);
             }
           }
 
-          v14 = 2;
+          v16 = 2;
           goto LABEL_85;
         }
 
 LABEL_80:
-        v14 = 9;
+        v16 = 9;
 LABEL_85:
-        RecordRelayDetailedCode(v5, *(v1 + 9), v14);
-        v19 = v26 + 0.5;
+        RecordRelayDetailedCode(v6, *(v1 + 9), v16);
+        v21 = v28 + 0.5;
         goto LABEL_86;
       }
 
-      bzero(v141, 0x480uLL);
-      ChannelBindRequest = MakeChannelBindRequest(v141, *v18, (v1 + 34), v50);
+      bzero(v140, 0x480uLL);
+      ChannelBindRequest = MakeChannelBindRequest(v140, *v20, (v1 + 34), v52);
       if (ChannelBindRequest < 0)
       {
-        v61 = ChannelBindRequest;
+        v63 = ChannelBindRequest;
         if (VRTraceGetErrorLogLevelForModule() < 3)
         {
           goto LABEL_78;
         }
 
-        v63 = VRTraceErrorLogLevelToCSTR();
-        v64 = *MEMORY[0x277CE5818];
+        v65 = VRTraceErrorLogLevelToCSTR();
+        v66 = *MEMORY[0x277CE5818];
         if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
         {
           goto LABEL_78;
         }
 
-        v131 = 136316162;
-        v132 = v63;
-        v133 = 2080;
-        v134 = "RefreshChannelBind";
-        v135 = 1024;
-        v136 = 281;
-        v137 = 1024;
-        v138 = 281;
-        v139 = 1024;
-        v140 = v61;
-        v65 = v64;
-        v66 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: MakeChannelBindRequest failed (%08X)";
+        v130 = 136316162;
+        v131 = v65;
+        v132 = 2080;
+        v133 = "RefreshChannelBind";
+        v134 = 1024;
+        v135 = 281;
+        v136 = 1024;
+        v137 = 281;
+        v138 = 1024;
+        v139 = v63;
+        v67 = v66;
+        v68 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: MakeChannelBindRequest failed (%08X)";
       }
 
       else
       {
-        v54 = STUNEncodeMessage(v141, v121, &v119, v50, v53);
-        if (v54 < 0)
+        v56 = STUNEncodeMessage(v140, v120, &v118, v52, v55);
+        if (v56 < 0)
         {
-          v61 = v54;
-          FreeSTUNMessage(v141);
+          v63 = v56;
+          FreeSTUNMessage(v140);
           if (VRTraceGetErrorLogLevelForModule() < 3)
           {
             goto LABEL_78;
           }
 
-          v67 = VRTraceErrorLogLevelToCSTR();
-          v68 = *MEMORY[0x277CE5818];
+          v69 = VRTraceErrorLogLevelToCSTR();
+          v70 = *MEMORY[0x277CE5818];
           if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
           {
             goto LABEL_78;
           }
 
-          v131 = 136316162;
-          v132 = v67;
-          v133 = 2080;
-          v134 = "RefreshChannelBind";
-          v135 = 1024;
-          v136 = 288;
-          v137 = 1024;
-          v138 = 288;
-          v139 = 1024;
-          v140 = v61;
-          v65 = v68;
-          v66 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: STUNEncodeMessage failed (%08X)";
+          v130 = 136316162;
+          v131 = v69;
+          v132 = 2080;
+          v133 = "RefreshChannelBind";
+          v134 = 1024;
+          v135 = 288;
+          v136 = 1024;
+          v137 = 288;
+          v138 = 1024;
+          v139 = v63;
+          v67 = v70;
+          v68 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: STUNEncodeMessage failed (%08X)";
         }
 
         else
         {
-          v55 = SaveSTUNRequest(&v118, v121, v119, v1 + 124, (v1 + 164), 1);
-          if ((v55 & 0x80000000) == 0)
+          v57 = SaveSTUNRequest(&v117, v120, v118, v1 + 124, (v1 + 164), 1);
+          if ((v57 & 0x80000000) == 0)
           {
-            v22 = v119;
-            FreeSTUNMessage(v141);
-            v51 = v119;
+            v24 = v118;
+            FreeSTUNMessage(v140);
+            v53 = v118;
             goto LABEL_61;
           }
 
-          v61 = v55;
-          if (VRTraceGetErrorLogLevelForModule() < 3 || (v69 = VRTraceErrorLogLevelToCSTR(), v70 = *MEMORY[0x277CE5818], !os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR)))
+          v63 = v57;
+          if (VRTraceGetErrorLogLevelForModule() < 3 || (v71 = VRTraceErrorLogLevelToCSTR(), v72 = *MEMORY[0x277CE5818], !os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR)))
           {
 LABEL_78:
-            v22 = 1472;
+            v24 = 1472;
             goto LABEL_79;
           }
 
-          v131 = 136316162;
-          v132 = v69;
-          v133 = 2080;
-          v134 = "RefreshChannelBind";
-          v135 = 1024;
-          v136 = 295;
-          v137 = 1024;
-          v138 = 295;
-          v139 = 1024;
-          v140 = v61;
-          v65 = v70;
-          v66 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: SaveSTUNRequest failed (%08X)";
+          v130 = 136316162;
+          v131 = v71;
+          v132 = 2080;
+          v133 = "RefreshChannelBind";
+          v134 = 1024;
+          v135 = 295;
+          v136 = 1024;
+          v137 = 295;
+          v138 = 1024;
+          v139 = v63;
+          v67 = v72;
+          v68 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: SaveSTUNRequest failed (%08X)";
         }
       }
 
-      _os_log_error_impl(&dword_23D497000, v65, OS_LOG_TYPE_ERROR, v66, &v131, 0x28u);
+      _os_log_error_impl(&dword_23D497000, v67, OS_LOG_TYPE_ERROR, v68, &v130, 0x28u);
       goto LABEL_78;
     }
 
 LABEL_86:
-    v128 = 0;
+    v127 = 0;
+    v125 = 0u;
     v126 = 0u;
-    v127 = 0u;
+    v122 = 0u;
     v123 = 0u;
-    v124 = 0u;
-    v125 = 0;
-    v72 = ICERecvUDPPacketWithTimeout(v5, v118, *(v1 + 9), v120, &v116, &v126, &v123, &v117, 500);
-    if ((v72 & 0x80000000) == 0)
+    v124 = 0;
+    ErrorLogLevelForModule = ICERecvUDPPacketWithTimeout(v6, v117, *(v1 + 9), v119, &v115, &v125, &v122, &v116, 500);
+    if ((ErrorLogLevelForModule & 0x80000000) == 0)
     {
-      memset(v141, 170, 0x480uLL);
-      v15 = ParseSTUNMessage(v120, v116, v141);
-      if ((v15 & 0x80000000) == 0)
+      memset(v140, 170, 0x480uLL);
+      v17 = ParseSTUNMessage(v119, v115, v140);
+      if ((v17 & 0x80000000) == 0)
       {
-        if (LOWORD(v141[0]) != 272)
+        if (LOWORD(v140[0]) != 272)
         {
-          if (LOWORD(v141[0]) == 256)
+          if (LOWORD(v140[0]) == 256)
           {
-            if (WORD1(v141[0]) == 9)
+            if (WORD1(v140[0]) == 9)
             {
-              if (v14 == 5)
+              if (v16 == 5)
               {
-                v14 = 7;
+                v16 = 7;
               }
 
               else
               {
-                v14 = 6;
+                v16 = 6;
               }
 
-              RecordRelayDetailedCode(v5, *(v1 + 9), v14);
+              RecordRelayDetailedCode(v6, *(v1 + 9), v16);
               if (VRTraceGetErrorLogLevelForModule() >= 7)
               {
-                v115 = VRTraceErrorLogLevelToCSTR();
-                v76 = *MEMORY[0x277CE5818];
+                v114 = VRTraceErrorLogLevelToCSTR();
+                v77 = *MEMORY[0x277CE5818];
                 if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
                 {
-                  v77 = *v18;
-                  *v130 = 136315906;
-                  *&v130[4] = v115;
-                  *&v130[12] = 2080;
-                  *&v130[14] = "RelayRefreshProc";
-                  *&v130[22] = 1024;
-                  *&v130[24] = 491;
-                  *&v130[28] = 1024;
-                  *&v130[30] = v77;
-                  _os_log_impl(&dword_23D497000, v76, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Received CHANNELBIND_RESPONSE for %04X, channelbind refresh done!\n", v130, 0x22u);
+                  v78 = *v20;
+                  *v129 = 136315906;
+                  *&v129[4] = v114;
+                  *&v129[12] = 2080;
+                  *&v129[14] = "RelayRefreshProc";
+                  *&v129[22] = 1024;
+                  *&v129[24] = 491;
+                  *&v129[28] = 1024;
+                  *&v129[30] = v78;
+                  _os_log_impl(&dword_23D497000, v77, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Received CHANNELBIND_RESPONSE for %04X, channelbind refresh done!\n", v129, 0x22u);
                 }
               }
 
-              v17 = 1;
+              v19 = 1;
             }
 
-            else if (WORD1(v141[0]) == 4)
+            else if (WORD1(v140[0]) == 4)
             {
               if (VRTraceGetErrorLogLevelForModule() >= 7)
               {
-                v113 = VRTraceErrorLogLevelToCSTR();
-                v73 = *MEMORY[0x277CE5818];
+                v112 = VRTraceErrorLogLevelToCSTR();
+                v74 = *MEMORY[0x277CE5818];
                 if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
                 {
-                  v74 = *v18;
-                  *v130 = 136315906;
-                  *&v130[4] = v113;
-                  *&v130[12] = 2080;
-                  *&v130[14] = "RelayRefreshProc";
-                  *&v130[22] = 1024;
-                  *&v130[24] = 473;
-                  *&v130[28] = 1024;
-                  *&v130[30] = v74;
-                  _os_log_impl(&dword_23D497000, v73, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Received REFRESH_RESPONSE for %04X, allocation refresh done!\n", v130, 0x22u);
+                  v75 = *v20;
+                  *v129 = 136315906;
+                  *&v129[4] = v112;
+                  *&v129[12] = 2080;
+                  *&v129[14] = "RelayRefreshProc";
+                  *&v129[22] = 1024;
+                  *&v129[24] = 473;
+                  *&v129[28] = 1024;
+                  *&v129[30] = v75;
+                  _os_log_impl(&dword_23D497000, v74, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Received REFRESH_RESPONSE for %04X, allocation refresh done!\n", v129, 0x22u);
                 }
               }
 
-              if (v14 == 6)
+              if (v16 == 6)
               {
-                v14 = 7;
+                v16 = 7;
               }
 
               else
               {
-                v14 = 5;
+                v16 = 5;
               }
 
-              RecordRelayDetailedCode(v5, *(v1 + 9), v14);
-              v16 = 1;
+              RecordRelayDetailedCode(v6, *(v1 + 9), v16);
+              v18 = 1;
             }
           }
 
           goto LABEL_119;
         }
 
-        if (WORD1(v141[0]) == 9)
+        if (WORD1(v140[0]) == 9)
         {
           if (VRTraceGetErrorLogLevelForModule() >= 3)
           {
-            v100 = VRTraceErrorLogLevelToCSTR();
-            v101 = *MEMORY[0x277CE5818];
+            v99 = VRTraceErrorLogLevelToCSTR();
+            v100 = *MEMORY[0x277CE5818];
             if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
             {
-              v106 = *v18;
-              *v130 = 136316162;
-              *&v130[4] = v100;
-              *&v130[12] = 2080;
-              *&v130[14] = "RelayRefreshProc";
-              *&v130[22] = 1024;
-              *&v130[24] = 514;
-              *&v130[28] = 1024;
-              *&v130[30] = 514;
-              *&v130[34] = 1024;
-              *&v130[36] = v106;
-              _os_log_error_impl(&dword_23D497000, v101, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: Received CHANNEL_BIND_ERROR_RESPONSE! Tear down channel#[%04X]", v130, 0x28u);
+              v105 = *v20;
+              *v129 = 136316162;
+              *&v129[4] = v99;
+              *&v129[12] = 2080;
+              *&v129[14] = "RelayRefreshProc";
+              *&v129[22] = 1024;
+              *&v129[24] = 514;
+              *&v129[28] = 1024;
+              *&v129[30] = 514;
+              *&v129[34] = 1024;
+              *&v129[36] = v105;
+              _os_log_error_impl(&dword_23D497000, v100, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: Received CHANNEL_BIND_ERROR_RESPONSE! Tear down channel#[%04X]", v129, 0x28u);
             }
           }
 
-          v98 = 12;
-          v99 = 11;
+          v97 = 12;
+          v98 = 11;
         }
 
         else
         {
-          if (WORD1(v141[0]) != 4)
+          if (WORD1(v140[0]) != 4)
           {
 LABEL_119:
-            FreeSTUNMessage(v141);
+            FreeSTUNMessage(v140);
             goto LABEL_7;
           }
 
-          v95 = VRTraceGetErrorLogLevelForModule();
-          if (v95 >= 3)
+          v94 = VRTraceGetErrorLogLevelForModule();
+          if (v94 >= 3)
           {
-            v96 = VRTraceErrorLogLevelToCSTR();
-            v97 = *MEMORY[0x277CE5818];
+            v95 = VRTraceErrorLogLevelToCSTR();
+            v96 = *MEMORY[0x277CE5818];
             if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
             {
-              v105 = *v18;
-              *v130 = 136316162;
-              *&v130[4] = v96;
-              *&v130[12] = 2080;
-              *&v130[14] = "RelayRefreshProc";
-              *&v130[22] = 1024;
-              *&v130[24] = 502;
-              *&v130[28] = 1024;
-              *&v130[30] = 502;
-              *&v130[34] = 1024;
-              *&v130[36] = v105;
-              _os_log_error_impl(&dword_23D497000, v97, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: Received REFRESH_ERROR_RESPONSE! Tear down channel#[%04X]", v130, 0x28u);
+              v104 = *v20;
+              *v129 = 136316162;
+              *&v129[4] = v95;
+              *&v129[12] = 2080;
+              *&v129[14] = "RelayRefreshProc";
+              *&v129[22] = 1024;
+              *&v129[24] = 502;
+              *&v129[28] = 1024;
+              *&v129[30] = 502;
+              *&v129[34] = 1024;
+              *&v129[36] = v104;
+              _os_log_error_impl(&dword_23D497000, v96, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: Received REFRESH_ERROR_RESPONSE! Tear down channel#[%04X]", v129, 0x28u);
             }
           }
 
-          v98 = 11;
-          v99 = 12;
+          v97 = 11;
+          v98 = 12;
         }
 
-        if (v14 == v99)
+        if (v16 == v98)
         {
-          v102 = 13;
+          v101 = 13;
         }
 
         else
         {
-          v102 = v98;
+          v101 = v97;
         }
 
-        RecordRelayDetailedCode(v5, *(v1 + 9), v102);
-        DiscardOneRelayBindingWithChannelNumber(v5, *(v1 + 9), *(v1 + 66));
-        FreeSTUNMessage(v141);
-        v103 = VRTraceGetErrorLogLevelForModule();
-        v80 = MEMORY[0x277CE5818];
-        if (v103 <= 6)
+        RecordRelayDetailedCode(v6, *(v1 + 9), v101);
+        DiscardOneRelayBindingWithChannelNumber(v6, *(v1 + 9), *(v1 + 66));
+        FreeSTUNMessage(v140);
+        v102 = VRTraceGetErrorLogLevelForModule();
+        v81 = MEMORY[0x277CE5818];
+        if (v102 <= 6)
         {
           goto LABEL_133;
         }
 
-        v104 = VRTraceErrorLogLevelToCSTR();
-        v81 = *v80;
-        if (!os_log_type_enabled(*v80, OS_LOG_TYPE_DEFAULT))
+        v103 = VRTraceErrorLogLevelToCSTR();
+        v82 = *v81;
+        if (!os_log_type_enabled(*v81, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_133;
         }
 
-        *v130 = 136315650;
-        *&v130[4] = v104;
-        *&v130[12] = 2080;
-        *&v130[14] = "RelayRefreshProc";
-        *&v130[22] = 1024;
-        *&v130[24] = 536;
-        v82 = " [%s] %s:%d RelayRefreshProc ended with error response from the relay server";
-        v83 = v130;
+        *v129 = 136315650;
+        *&v129[4] = v103;
+        *&v129[12] = 2080;
+        *&v129[14] = "RelayRefreshProc";
+        *&v129[22] = 1024;
+        *&v129[24] = 536;
+        v83 = " [%s] %s:%d RelayRefreshProc ended with error response from the relay server";
+        v84 = v129;
         goto LABEL_124;
       }
 
-      v14 = 4;
-      RecordRelayDetailedCode(v5, *(v1 + 9), 4);
-      if (VRTraceGetErrorLogLevelForModule() >= 3)
+      v16 = 4;
+      RecordRelayDetailedCode(v6, *(v1 + 9), 4);
+      ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+      if (ErrorLogLevelForModule >= 3)
       {
-        v114 = VRTraceErrorLogLevelToCSTR();
-        v75 = *MEMORY[0x277CE5818];
-        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
+        v113 = VRTraceErrorLogLevelToCSTR();
+        v76 = *MEMORY[0x277CE5818];
+        ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR);
+        if (ErrorLogLevelForModule)
         {
-          *v130 = 136315906;
-          *&v130[4] = v114;
-          *&v130[12] = 2080;
-          *&v130[14] = "RelayRefreshProc";
-          *&v130[22] = 1024;
-          *&v130[24] = 463;
-          *&v130[28] = 1024;
-          *&v130[30] = 463;
-          _os_log_error_impl(&dword_23D497000, v75, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: RelayRefreshProc: Parse STUN message error", v130, 0x22u);
+          *v129 = 136315906;
+          *&v129[4] = v113;
+          *&v129[12] = 2080;
+          *&v129[14] = "RelayRefreshProc";
+          *&v129[22] = 1024;
+          *&v129[24] = 463;
+          *&v129[28] = 1024;
+          *&v129[30] = 463;
+          _os_log_error_impl(&dword_23D497000, v76, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: RelayRefreshProc: Parse STUN message error", v129, 0x22u);
         }
 
-        v14 = 4;
+        v16 = 4;
       }
 
       goto LABEL_7;
     }
 
-    v15 = v72;
-    if (v72 > 0x1Eu || ((1 << v72) & 0x40801000) == 0)
+    v17 = ErrorLogLevelForModule;
+    if (ErrorLogLevelForModule > 0x1Eu || ((1 << ErrorLogLevelForModule) & 0x40801000) == 0)
     {
       break;
     }
 
-    if ((v26 - v2) >= 10)
+    if ((v28 - v4) >= 10)
     {
-      RecordRelayDetailedCode(v5, *(v1 + 9), 10);
-      v84 = VRTraceGetErrorLogLevelForModule();
-      v80 = MEMORY[0x277CE5818];
-      if (v84 >= 3)
+      RecordRelayDetailedCode(v6, *(v1 + 9), 10);
+      v85 = VRTraceGetErrorLogLevelForModule();
+      v81 = MEMORY[0x277CE5818];
+      if (v85 >= 3)
       {
-        v85 = VRTraceErrorLogLevelToCSTR();
-        v86 = *v80;
-        if (os_log_type_enabled(*v80, OS_LOG_TYPE_ERROR))
+        v86 = VRTraceErrorLogLevelToCSTR();
+        v87 = *v81;
+        if (os_log_type_enabled(*v81, OS_LOG_TYPE_ERROR))
         {
-          RelayRefreshProc_cold_1(v85, v1 + 66, v86);
+          RelayRefreshProc_cold_1(v86, (v1 + 33), v87);
         }
       }
 
-      ICERemoveOneRelayBeat(v5, v1);
-      v15 = -2146107369;
+      ICERemoveOneRelayBeat(v6, v1);
+      v17 = -2146107369;
       goto LABEL_133;
     }
   }
 
-  RecordRelayDetailedCode(v5, *(v1 + 9), 14);
+  RecordRelayDetailedCode(v6, *(v1 + 9), 14);
 LABEL_132:
-  v80 = MEMORY[0x277CE5818];
+  v81 = MEMORY[0x277CE5818];
 LABEL_133:
-  v87 = v118;
-  if (v118)
+  v88 = v117;
+  if (v117)
   {
     do
     {
-      v88 = v87[198];
-      free(v87);
-      v118 = v88;
-      v87 = v88;
+      v89 = v88[198];
+      free(v88);
+      v117 = v89;
+      v88 = v89;
     }
 
-    while (v88);
+    while (v89);
   }
 
-  v118 = 0;
+  v117 = 0;
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v89 = VRTraceErrorLogLevelToCSTR();
-    v90 = *v80;
-    if (os_log_type_enabled(*v80, OS_LOG_TYPE_DEFAULT))
+    v90 = VRTraceErrorLogLevelToCSTR();
+    v91 = *v81;
+    if (os_log_type_enabled(*v81, OS_LOG_TYPE_DEFAULT))
     {
-      v91 = *v18;
-      LODWORD(v141[0]) = 136316162;
-      *(v141 + 4) = v89;
-      WORD2(v141[1]) = 2080;
-      *(&v141[1] + 6) = "RelayRefreshProc";
-      HIWORD(v141[2]) = 1024;
-      LODWORD(v141[3]) = 549;
-      WORD2(v141[3]) = 1024;
-      *(&v141[3] + 6) = v91;
-      WORD1(v141[4]) = 1024;
-      HIDWORD(v141[4]) = v15;
-      _os_log_impl(&dword_23D497000, v90, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RelayRefreshProc thread with pRB(%04X) ended(%08X).", v141, 0x28u);
+      v92 = *v20;
+      LODWORD(v140[0]) = 136316162;
+      *(v140 + 4) = v90;
+      WORD2(v140[1]) = 2080;
+      *(&v140[1] + 6) = "RelayRefreshProc";
+      HIWORD(v140[2]) = 1024;
+      LODWORD(v140[3]) = 549;
+      WORD2(v140[3]) = 1024;
+      *(&v140[3] + 6) = v92;
+      WORD1(v140[4]) = 1024;
+      HIDWORD(v140[4]) = v17;
+      _os_log_impl(&dword_23D497000, v91, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RelayRefreshProc thread with pRB(%04X) ended(%08X).", v140, 0x28u);
     }
   }
 
-  v92 = v1[1];
   CheckOutHandleDebug();
   v93 = v1[32];
   if (v93)
@@ -1963,10 +1950,7 @@ LABEL_133:
   }
 
   free(v1);
-  result = v15;
-LABEL_141:
-  v94 = *MEMORY[0x277D85DE8];
-  return result;
+  return v17;
 }
 
 uint64_t RecordRelayDetailedCode(uint64_t a1, int a2, int a3)
@@ -1995,57 +1979,57 @@ LABEL_6:
 uint64_t RelayDiscardProc(uint64_t a1)
 {
   v1 = MEMORY[0x28223BE20](a1);
-  v76 = *MEMORY[0x277D85DE8];
-  v57 = 0;
-  bzero(v60, 0x5C0uLL);
-  bzero(v59, 0x5C0uLL);
-  v2 = micro();
+  v83 = *MEMORY[0x277D85DE8];
+  v64 = 0;
+  bzero(v67, 0x5C0uLL);
+  bzero(v66, 0x5C0uLL);
+  v4 = micro(v2, v3);
   pthread_setname_np("com.apple.avconference.relay.discardproc");
-  v3 = *(v1 + 1);
-  v4 = CheckInHandleDebug();
-  if (!v4)
+  v5 = CheckInHandleDebug();
+  if (!v5)
   {
-    result = -2146107390;
-    goto LABEL_19;
+    return -2146107390;
   }
 
-  v5 = v4;
-  v66 = 0xAAAAAAAAAAAAAAAALL;
-  *&v6 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v64 = v6;
-  v65 = v6;
-  v61 = v6;
-  v62 = v6;
-  v63 = 0xAAAAAAAAAAAAAAAALL;
-  v56 = -1;
-  v55 = -1431655766;
-  if (VRTraceGetErrorLogLevelForModule() >= 7)
+  v6 = v5;
+  v73 = 0xAAAAAAAAAAAAAAAALL;
+  *&v7 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v71 = v7;
+  v72 = v7;
+  v68 = v7;
+  v69 = v7;
+  v70 = 0xAAAAAAAAAAAAAAAALL;
+  v63 = -1;
+  v62 = -1431655766;
+  ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+  if (ErrorLogLevelForModule >= 7)
   {
-    v7 = VRTraceErrorLogLevelToCSTR();
-    v8 = *MEMORY[0x277CE5818];
-    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+    v10 = VRTraceErrorLogLevelToCSTR();
+    v11 = *MEMORY[0x277CE5818];
+    ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT);
+    if (ErrorLogLevelForModule)
     {
-      v9 = *(v1 + 3);
+      v12 = *(v1 + 3);
       *buf = 136315906;
-      *&buf[4] = v7;
+      *&buf[4] = v10;
       *&buf[12] = 2080;
       *&buf[14] = "RelayDiscardProc";
       *&buf[22] = 1024;
       *&buf[24] = 638;
       *&buf[28] = 2048;
-      *&buf[30] = v9;
-      _os_log_impl(&dword_23D497000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RelayDiscardProc thread(%p) started.", buf, 0x26u);
+      *&buf[30] = v12;
+      _os_log_impl(&dword_23D497000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RelayDiscardProc thread(%p) started.", buf, 0x26u);
     }
   }
 
-  v10 = micro();
-  if (!*(v5 + 448))
+  v13 = micro(ErrorLogLevelForModule, v9);
+  if (!*(v6 + 448))
   {
-    v23 = v10;
-    v11 = 0;
-    v24 = 0.0;
-    v25 = 1472;
+    v25 = v13;
+    v14 = 0;
+    v26 = 0.0;
+    v27 = 1472;
     while (1)
     {
       if (*(v1 + 16) != 1)
@@ -2053,30 +2037,30 @@ uint64_t RelayDiscardProc(uint64_t a1)
         goto LABEL_7;
       }
 
-      if (v24 < v23)
+      if (v26 < v25)
       {
         break;
       }
 
-LABEL_45:
-      v66 = 0;
-      v64 = 0u;
-      v65 = 0u;
-      v61 = 0u;
-      v62 = 0u;
-      v63 = 0;
-      v46 = ICERecvUDPPacketWithTimeout(v5, v57, v1[9], v59, &v55, &v64, &v61, &v56, ((v24 - v23) * 1000.0));
-      if (v46 < 0)
+LABEL_44:
+      v73 = 0;
+      v71 = 0u;
+      v72 = 0u;
+      v68 = 0u;
+      v69 = 0u;
+      v70 = 0;
+      v48 = ICERecvUDPPacketWithTimeout(v6, v64, v1[9], v66, &v62, &v71, &v68, &v63, ((v26 - v25) * 1000.0));
+      if ((v48 & 0x80000000) != 0)
       {
-        v11 = v46;
-        if (v46 > 0x1Eu || ((1 << v46) & 0x40801000) == 0)
+        v14 = v48;
+        if (v48 > 0x1Eu || ((1 << v48) & 0x40801000) == 0)
         {
           goto LABEL_7;
         }
 
-        if ((micro() - v2) >= 10)
+        if ((micro(v48, v49) - v4) >= 10)
         {
-          v11 = -2146107369;
+          v14 = -2146107369;
           if (VRTraceGetErrorLogLevelForModule() >= 3)
           {
             VRTraceErrorLogLevelToCSTR();
@@ -2093,26 +2077,27 @@ LABEL_45:
       else
       {
         memset(buf, 170, 0x480uLL);
-        v11 = ParseSTUNMessage(v59, v55, buf);
-        if ((v11 & 0x80000000) == 0)
+        v50 = ParseSTUNMessage(v66, v62, buf);
+        v14 = v50;
+        if ((v50 & 0x80000000) == 0)
         {
           if (*buf == 272)
           {
             if (*&buf[2] == 4 && VRTraceGetErrorLogLevelForModule() >= 3)
             {
-              v53 = VRTraceErrorLogLevelToCSTR();
-              v54 = *MEMORY[0x277CE5818];
+              v58 = VRTraceErrorLogLevelToCSTR();
+              v59 = *MEMORY[0x277CE5818];
               if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
               {
-                *v67 = 136315906;
-                v68 = v53;
-                v69 = 2080;
-                v70 = "RelayDiscardProc";
-                v71 = 1024;
-                v72 = 710;
-                v73 = 1024;
-                *v74 = 710;
-                _os_log_error_impl(&dword_23D497000, v54, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: Received REFRESH_ERROR_RESPONSE!", v67, 0x22u);
+                *v74 = 136315906;
+                v75 = v58;
+                v76 = 2080;
+                v77 = "RelayDiscardProc";
+                v78 = 1024;
+                v79 = 710;
+                v80 = 1024;
+                *v81 = 710;
+                _os_log_error_impl(&dword_23D497000, v59, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: Received REFRESH_ERROR_RESPONSE!", v74, 0x22u);
               }
             }
           }
@@ -2126,52 +2111,52 @@ LABEL_45:
               {
                 if (VRTraceGetErrorLogLevelForModule() >= 7)
                 {
-                  v48 = VRTraceErrorLogLevelToCSTR();
-                  v49 = *MEMORY[0x277CE5818];
+                  v53 = VRTraceErrorLogLevelToCSTR();
+                  v54 = *MEMORY[0x277CE5818];
                   if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
                   {
-                    *v67 = 136315650;
-                    v68 = v48;
-                    v69 = 2080;
-                    v70 = "RelayDiscardProc";
-                    v71 = 1024;
-                    v72 = 697;
-                    _os_log_impl(&dword_23D497000, v49, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Received REFRESH_RESPONSE, allocation discarded!\n", v67, 0x1Cu);
+                    *v74 = 136315650;
+                    v75 = v53;
+                    v76 = 2080;
+                    v77 = "RelayDiscardProc";
+                    v78 = 1024;
+                    v79 = 697;
+                    _os_log_impl(&dword_23D497000, v54, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Received REFRESH_RESPONSE, allocation discarded!\n", v74, 0x1Cu);
                   }
                 }
 
-                v50 = 0;
-LABEL_67:
+                v55 = 0;
+LABEL_66:
                 FreeSTUNMessage(buf);
-                v52 = micro();
-                if ((v50 & 1) == 0)
+                v57 = micro(v60, v61);
+                if ((v55 & 1) == 0)
                 {
                   goto LABEL_7;
                 }
 
-                goto LABEL_68;
+                goto LABEL_67;
               }
             }
           }
 
-          v50 = 1;
-          goto LABEL_67;
+          v55 = 1;
+          goto LABEL_66;
         }
       }
 
-      v52 = micro();
-LABEL_68:
-      v23 = v52;
-      if (*(v5 + 448))
+      v57 = micro(v50, v51);
+LABEL_67:
+      v25 = v57;
+      if (*(v6 + 448))
       {
         goto LABEL_7;
       }
     }
 
-    v58 = v25;
-    if (v25 != 1472)
+    v65 = v27;
+    if (v27 != 1472)
     {
-      goto LABEL_27;
+      goto LABEL_26;
     }
 
     bzero(buf, 0x480uLL);
@@ -2181,93 +2166,93 @@ LABEL_68:
     STUNGetTransID(&buf[12], 4u, 0);
     *&buf[40] = 0;
     *&buf[28] = 0x4000D00000001;
-    v27 = STUNEncodeMessage(buf, v60, &v58, 0, v26);
-    if (v27 < 0)
+    v29 = STUNEncodeMessage(buf, v67, &v65, 0, v28);
+    if (v29 < 0)
     {
-      v35 = v27;
+      v37 = v29;
       FreeSTUNMessage(buf);
       if (VRTraceGetErrorLogLevelForModule() < 3)
       {
-        goto LABEL_40;
+        goto LABEL_39;
       }
 
-      v36 = VRTraceErrorLogLevelToCSTR();
-      v37 = *MEMORY[0x277CE5818];
+      v38 = VRTraceErrorLogLevelToCSTR();
+      v39 = *MEMORY[0x277CE5818];
       if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_40;
+        goto LABEL_39;
       }
 
-      *v67 = 136316162;
-      v68 = v36;
-      v69 = 2080;
-      v70 = "DiscardAllocation";
-      v71 = 1024;
-      v72 = 583;
-      v73 = 1024;
-      *v74 = 583;
-      *&v74[4] = 1024;
-      *&v74[6] = v35;
-      v38 = v37;
-      v39 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: STUNEncodeMessage failed (%08X)";
+      *v74 = 136316162;
+      v75 = v38;
+      v76 = 2080;
+      v77 = "DiscardAllocation";
+      v78 = 1024;
+      v79 = 583;
+      v80 = 1024;
+      *v81 = 583;
+      *&v81[4] = 1024;
+      *&v81[6] = v37;
+      v40 = v39;
+      v41 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: STUNEncodeMessage failed (%08X)";
     }
 
     else
     {
-      v28 = SaveSTUNRequest(&v57, v60, v58, (v1 + 31), (v1 + 41), 1);
-      if ((v28 & 0x80000000) == 0)
+      v30 = SaveSTUNRequest(&v64, v67, v65, (v1 + 31), (v1 + 41), 1);
+      if ((v30 & 0x80000000) == 0)
       {
-        v25 = v58;
+        v27 = v65;
         FreeSTUNMessage(buf);
-LABEL_27:
-        v29 = *(v1 + 40);
-        if (!v29)
+LABEL_26:
+        v31 = *(v1 + 40);
+        if (!v31)
         {
-LABEL_44:
-          v24 = v23 + 1.0;
-          goto LABEL_45;
-        }
-
-        v30 = v29(*v1, v1[9], v60, v58, v1 + 31, v1 + 41, 0, 0);
-        if ((v30 & 0x80000000) == 0)
-        {
-          *&buf[46] = 0xAAAAAAAAAAAAAAAALL;
-          *&v31 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v31 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          *&buf[16] = v31;
-          *&buf[32] = v31;
-          *buf = v31;
-          if (VRTraceGetErrorLogLevelForModule() >= 7)
-          {
-            v32 = VRTraceErrorLogLevelToCSTR();
-            v33 = *MEMORY[0x277CE5818];
-            if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
-            {
-              v34 = IPPORTToStringWithSize(buf, (v1 + 41), 0x36uLL);
-              *v67 = 136315906;
-              v68 = v32;
-              v69 = 2080;
-              v70 = "DiscardAllocation";
-              v71 = 1024;
-              v72 = 607;
-              v73 = 2080;
-              *v74 = v34;
-              _os_log_impl(&dword_23D497000, v33, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Send REFRESH_REQUEST with LT 0 to [%s].", v67, 0x26u);
-            }
-          }
-
+LABEL_43:
+          v26 = v25 + 1.0;
           goto LABEL_44;
         }
 
-        v35 = v30;
+        v32 = v31(*v1, v1[9], v67, v65, v1 + 31, v1 + 41, 0, 0);
+        if ((v32 & 0x80000000) == 0)
+        {
+          *&buf[46] = 0xAAAAAAAAAAAAAAAALL;
+          *&v33 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v33 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          *&buf[16] = v33;
+          *&buf[32] = v33;
+          *buf = v33;
+          if (VRTraceGetErrorLogLevelForModule() >= 7)
+          {
+            v34 = VRTraceErrorLogLevelToCSTR();
+            v35 = *MEMORY[0x277CE5818];
+            if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+            {
+              v36 = IPPORTToStringWithSize(buf, (v1 + 41), 0x36uLL);
+              *v74 = 136315906;
+              v75 = v34;
+              v76 = 2080;
+              v77 = "DiscardAllocation";
+              v78 = 1024;
+              v79 = 607;
+              v80 = 2080;
+              *v81 = v36;
+              _os_log_impl(&dword_23D497000, v35, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Send REFRESH_REQUEST with LT 0 to [%s].", v74, 0x26u);
+            }
+          }
+
+          goto LABEL_43;
+        }
+
+        v37 = v32;
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v40 = VRTraceErrorLogLevelToCSTR();
-          v41 = *MEMORY[0x277CE5818];
+          v42 = VRTraceErrorLogLevelToCSTR();
+          v43 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
           {
             *buf = 136316162;
-            *&buf[4] = v40;
+            *&buf[4] = v42;
             *&buf[12] = 2080;
             *&buf[14] = "DiscardAllocation";
             *&buf[22] = 1024;
@@ -2275,20 +2260,20 @@ LABEL_44:
             *&buf[28] = 1024;
             *&buf[30] = 601;
             *&buf[34] = 1024;
-            *&buf[36] = v35;
-            _os_log_error_impl(&dword_23D497000, v41, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: UDPSENDCALLBACK failed (%08X)", buf, 0x28u);
+            *&buf[36] = v37;
+            _os_log_error_impl(&dword_23D497000, v43, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: UDPSENDCALLBACK failed (%08X)", buf, 0x28u);
           }
         }
 
-LABEL_41:
+LABEL_40:
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v44 = VRTraceErrorLogLevelToCSTR();
-          v45 = *MEMORY[0x277CE5818];
+          v46 = VRTraceErrorLogLevelToCSTR();
+          v47 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
           {
             *buf = 136316162;
-            *&buf[4] = v44;
+            *&buf[4] = v46;
             *&buf[12] = 2080;
             *&buf[14] = "RelayDiscardProc";
             *&buf[22] = 1024;
@@ -2296,114 +2281,111 @@ LABEL_41:
             *&buf[28] = 1024;
             *&buf[30] = 656;
             *&buf[34] = 1024;
-            *&buf[36] = v35;
-            _os_log_error_impl(&dword_23D497000, v45, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: DiscardAllocation failed (%08X)", buf, 0x28u);
+            *&buf[36] = v37;
+            _os_log_error_impl(&dword_23D497000, v47, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: DiscardAllocation failed (%08X)", buf, 0x28u);
           }
         }
 
-        goto LABEL_44;
+        goto LABEL_43;
       }
 
-      v35 = v28;
-      if (VRTraceGetErrorLogLevelForModule() < 3 || (v42 = VRTraceErrorLogLevelToCSTR(), v43 = *MEMORY[0x277CE5818], !os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR)))
+      v37 = v30;
+      if (VRTraceGetErrorLogLevelForModule() < 3 || (v44 = VRTraceErrorLogLevelToCSTR(), v45 = *MEMORY[0x277CE5818], !os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR)))
       {
-LABEL_40:
-        v25 = 1472;
-        goto LABEL_41;
+LABEL_39:
+        v27 = 1472;
+        goto LABEL_40;
       }
 
-      *v67 = 136316162;
-      v68 = v42;
-      v69 = 2080;
-      v70 = "DiscardAllocation";
-      v71 = 1024;
-      v72 = 590;
-      v73 = 1024;
-      *v74 = 590;
-      *&v74[4] = 1024;
-      *&v74[6] = v35;
-      v38 = v43;
-      v39 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: SaveSTUNRequest failed (%08X)";
+      *v74 = 136316162;
+      v75 = v44;
+      v76 = 2080;
+      v77 = "DiscardAllocation";
+      v78 = 1024;
+      v79 = 590;
+      v80 = 1024;
+      *v81 = 590;
+      *&v81[4] = 1024;
+      *&v81[6] = v37;
+      v40 = v45;
+      v41 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: SaveSTUNRequest failed (%08X)";
     }
 
-    _os_log_error_impl(&dword_23D497000, v38, OS_LOG_TYPE_ERROR, v39, v67, 0x28u);
-    goto LABEL_40;
+    _os_log_error_impl(&dword_23D497000, v40, OS_LOG_TYPE_ERROR, v41, v74, 0x28u);
+    goto LABEL_39;
   }
 
-  v11 = 0;
+  v14 = 0;
 LABEL_7:
-  v12 = v57;
-  if (v57)
+  v15 = v64;
+  if (v64)
   {
     do
     {
-      v13 = v12[198];
-      free(v12);
-      v57 = v13;
-      v12 = v13;
+      v16 = v15[198];
+      free(v15);
+      v64 = v16;
+      v15 = v16;
     }
 
-    while (v13);
+    while (v16);
   }
 
-  v57 = 0;
+  v64 = 0;
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v14 = VRTraceErrorLogLevelToCSTR();
-    v15 = *MEMORY[0x277CE5818];
+    v17 = VRTraceErrorLogLevelToCSTR();
+    v18 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v16 = v1[66];
+      v19 = v1[66];
       *buf = 136315906;
-      *&buf[4] = v14;
+      *&buf[4] = v17;
       *&buf[12] = 2080;
       *&buf[14] = "RelayDiscardProc";
       *&buf[22] = 1024;
       *&buf[24] = 732;
       *&buf[28] = 1024;
-      *&buf[30] = v16;
-      _os_log_impl(&dword_23D497000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Relay channel [%04X] torn down", buf, 0x22u);
+      *&buf[30] = v19;
+      _os_log_impl(&dword_23D497000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Relay channel [%04X] torn down", buf, 0x22u);
     }
   }
 
-  v17 = *(v1 + 32);
-  if (v17)
+  v20 = *(v1 + 32);
+  if (v20)
   {
-    CFRelease(v17);
+    CFRelease(v20);
   }
 
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v18 = VRTraceErrorLogLevelToCSTR();
-    v19 = *MEMORY[0x277CE5818];
+    v21 = VRTraceErrorLogLevelToCSTR();
+    v22 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v20 = *(v1 + 3);
+      v23 = *(v1 + 3);
       *buf = 136316162;
-      *&buf[4] = v18;
+      *&buf[4] = v21;
       *&buf[12] = 2080;
       *&buf[14] = "RelayDiscardProc";
       *&buf[22] = 1024;
       *&buf[24] = 736;
       *&buf[28] = 2048;
-      *&buf[30] = v20;
+      *&buf[30] = v23;
       *&buf[38] = 1024;
-      *&buf[40] = v11;
-      _os_log_impl(&dword_23D497000, v19, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RelayDiscardProc thread(%p) ended(%08X).", buf, 0x2Cu);
+      *&buf[40] = v14;
+      _os_log_impl(&dword_23D497000, v22, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RelayDiscardProc thread(%p) ended(%08X).", buf, 0x2Cu);
     }
   }
 
   free(v1);
   CheckOutHandleDebug();
-  result = v11;
-LABEL_19:
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  return v14;
 }
 
 uint64_t ProcessAllocateResponse(uint64_t a1, int a2, _DWORD *a3, uint64_t a4, uint64_t a5, __CFDictionary *a6, int a7)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   *(a4 + 32) = 0;
   *a4 = 0u;
   *(a4 + 16) = 0u;
@@ -2429,12 +2411,12 @@ uint64_t ProcessAllocateResponse(uint64_t a1, int a2, _DWORD *a3, uint64_t a4, u
       *(a4 + 32) = *(v16 + 22);
       *a4 = v17;
       *(a4 + 16) = v18;
-      *&v43[14] = 0xAAAAAAAAAAAAAAAALL;
+      *&v42[14] = 0xAAAAAAAAAAAAAAAALL;
       *&v17 = 0xAAAAAAAAAAAAAAAALL;
       *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v42[1] = v17;
-      *v43 = v17;
-      v42[0] = v17;
+      v41[1] = v17;
+      *v42 = v17;
+      v41[0] = v17;
       valuePtr = *(a4 + 36);
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
@@ -2443,20 +2425,20 @@ uint64_t ProcessAllocateResponse(uint64_t a1, int a2, _DWORD *a3, uint64_t a4, u
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
-          v35 = v19;
-          v36 = 2080;
-          v37 = "ProcessAllocateResponse";
-          v38 = 1024;
-          v39 = 779;
-          v40 = 2080;
-          v41 = IPPORTToStringWithSize(v42, a4, 0x36uLL);
+          v34 = v19;
+          v35 = 2080;
+          v36 = "ProcessAllocateResponse";
+          v37 = 1024;
+          v38 = 779;
+          v39 = 2080;
+          v40 = IPPORTToStringWithSize(v41, a4, 0x36uLL);
           _os_log_impl(&dword_23D497000, v20, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ProcessAllocateResponse: external addr [%s]", buf, 0x26u);
         }
       }
 
       if (!a7)
       {
-        goto LABEL_18;
+        return v15;
       }
 
       v21 = CFDataCreate(0, (a4 + 20), 4);
@@ -2486,7 +2468,7 @@ uint64_t ProcessAllocateResponse(uint64_t a1, int a2, _DWORD *a3, uint64_t a4, u
           CFRelease(v27);
         }
 
-        goto LABEL_18;
+        return v15;
       }
 
       if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -2498,7 +2480,7 @@ uint64_t ProcessAllocateResponse(uint64_t a1, int a2, _DWORD *a3, uint64_t a4, u
         }
       }
 
-      v13 = 0;
+      return 0;
     }
   }
 
@@ -2512,12 +2494,10 @@ uint64_t ProcessAllocateResponse(uint64_t a1, int a2, _DWORD *a3, uint64_t a4, u
       *(a4 + 32) = *(v28 + 22);
       *a4 = v29;
       *(a4 + 16) = v30;
-LABEL_18:
-      v13 = v15;
+      return v15;
     }
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -2542,7 +2522,7 @@ uint64_t ProcessSendResponse(uint64_t a1)
 
 uint64_t ProcessSetActiveDstResponse(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = 2148859938;
   if (GetSTUNAttr(a1, 15) && GetSTUNAttr(a1, 8))
   {
@@ -2552,43 +2532,41 @@ uint64_t ProcessSetActiveDstResponse(uint64_t a1)
       v4 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        v7 = 136315650;
-        v8 = v3;
-        v9 = 2080;
-        v10 = "ProcessSetActiveDstResponse";
-        v11 = 1024;
-        v12 = 861;
-        _os_log_impl(&dword_23D497000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** SET_ACTIVE_DESTINATION_RESPONSE", &v7, 0x1Cu);
+        v6 = 136315650;
+        v7 = v3;
+        v8 = 2080;
+        v9 = "ProcessSetActiveDstResponse";
+        v10 = 1024;
+        v11 = 861;
+        _os_log_impl(&dword_23D497000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** SET_ACTIVE_DESTINATION_RESPONSE", &v6, 0x1Cu);
       }
     }
 
-    v2 = 0;
+    return 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 uint64_t ProcessCreatePermissionResponse()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v0 = VRTraceErrorLogLevelToCSTR();
     v1 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 136315650;
-      v5 = v0;
-      v6 = 2080;
-      v7 = "ProcessCreatePermissionResponse";
-      v8 = 1024;
-      v9 = 868;
-      _os_log_impl(&dword_23D497000, v1, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** CREATE_PERMISSION_RESPONSE", &v4, 0x1Cu);
+      v3 = 136315650;
+      v4 = v0;
+      v5 = 2080;
+      v6 = "ProcessCreatePermissionResponse";
+      v7 = 1024;
+      v8 = 868;
+      _os_log_impl(&dword_23D497000, v1, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** CREATE_PERMISSION_RESPONSE", &v3, 0x1Cu);
     }
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2609,150 +2587,137 @@ uint64_t ProcessAllocateErrorResponse(uint64_t a1, _WORD *a2)
 
 uint64_t ProcessErrorResponse(uint64_t a1, _WORD *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   STUNAttr = GetSTUNAttr(a1, 9);
-  if (STUNAttr)
+  if (!STUNAttr)
   {
-    v4 = STUNAttr;
-    v5 = *(STUNAttr + 9) + 100 * *(STUNAttr + 8);
-    if (VRTraceGetErrorLogLevelForModule() >= 5)
+    return 2148859938;
+  }
+
+  v4 = STUNAttr;
+  v5 = *(STUNAttr + 9) + 100 * *(STUNAttr + 8);
+  if (VRTraceGetErrorLogLevelForModule() >= 5)
+  {
+    v6 = VRTraceErrorLogLevelToCSTR();
+    v7 = *MEMORY[0x277CE5818];
+    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = VRTraceErrorLogLevelToCSTR();
-      v7 = *MEMORY[0x277CE5818];
-      if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+      v8 = " - may happen during relay teardown";
+      v9 = *(v4 + 2);
+      if (v5 != 437)
       {
-        v8 = " - may happen during relay teardown";
-        v9 = *(v4 + 2);
-        if (v5 != 437)
-        {
-          v8 = &unk_23D4C9CFB;
-        }
-
-        v12 = 136316674;
-        v13 = v6;
-        v14 = 2080;
-        v15 = "ProcessErrorResponse";
-        v16 = 1024;
-        v17 = 889;
-        v18 = 1024;
-        v19 = 889;
-        v20 = 1024;
-        v21 = v5;
-        v22 = 2080;
-        v23 = v9;
-        v24 = 2080;
-        v25 = v8;
-        _os_log_impl(&dword_23D497000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: Error (%d): %s%s", &v12, 0x3Cu);
+        v8 = &unk_23D4C9CFB;
       }
+
+      v11 = 136316674;
+      v12 = v6;
+      v13 = 2080;
+      v14 = "ProcessErrorResponse";
+      v15 = 1024;
+      v16 = 889;
+      v17 = 1024;
+      v18 = 889;
+      v19 = 1024;
+      v20 = v5;
+      v21 = 2080;
+      v22 = v9;
+      v23 = 2080;
+      v24 = v8;
+      _os_log_impl(&dword_23D497000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: Error (%d): %s%s", &v11, 0x3Cu);
     }
-
-    result = 0;
-    *a2 = v5;
   }
 
-  else
-  {
-    result = 2148859938;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
+  result = 0;
+  *a2 = v5;
   return result;
 }
 
 uint64_t ProcessSendErrorResponse(uint64_t a1, _WORD *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v4 = VRTraceErrorLogLevelToCSTR();
     v5 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "ProcessSendErrorResponse";
-      v12 = 1024;
-      v13 = 907;
-      _os_log_impl(&dword_23D497000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** SET_SEND_ERROR_RESPONSE", &v8, 0x1Cu);
+      v7 = 136315650;
+      v8 = v4;
+      v9 = 2080;
+      v10 = "ProcessSendErrorResponse";
+      v11 = 1024;
+      v12 = 907;
+      _os_log_impl(&dword_23D497000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** SET_SEND_ERROR_RESPONSE", &v7, 0x1Cu);
     }
   }
 
-  result = ProcessErrorResponse(a1, a2);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return ProcessErrorResponse(a1, a2);
 }
 
 uint64_t ProcessSetActiveDstErrorResponse(uint64_t a1, _WORD *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v4 = VRTraceErrorLogLevelToCSTR();
     v5 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "ProcessSetActiveDstErrorResponse";
-      v12 = 1024;
-      v13 = 913;
-      _os_log_impl(&dword_23D497000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** SET_ACTIVE_DESTINATION_ERROR_RESPONSE", &v8, 0x1Cu);
+      v7 = 136315650;
+      v8 = v4;
+      v9 = 2080;
+      v10 = "ProcessSetActiveDstErrorResponse";
+      v11 = 1024;
+      v12 = 913;
+      _os_log_impl(&dword_23D497000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** SET_ACTIVE_DESTINATION_ERROR_RESPONSE", &v7, 0x1Cu);
     }
   }
 
-  result = ProcessErrorResponse(a1, a2);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return ProcessErrorResponse(a1, a2);
 }
 
 uint64_t ProcessPermissionErrorResponse(uint64_t a1, _WORD *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v4 = VRTraceErrorLogLevelToCSTR();
     v5 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "ProcessPermissionErrorResponse";
-      v12 = 1024;
-      v13 = 919;
-      _os_log_impl(&dword_23D497000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** CREATE_PERMISSION_ERROR_RESPONSE", &v8, 0x1Cu);
+      v7 = 136315650;
+      v8 = v4;
+      v9 = 2080;
+      v10 = "ProcessPermissionErrorResponse";
+      v11 = 1024;
+      v12 = 919;
+      _os_log_impl(&dword_23D497000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** CREATE_PERMISSION_ERROR_RESPONSE", &v7, 0x1Cu);
     }
   }
 
-  result = ProcessErrorResponse(a1, a2);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return ProcessErrorResponse(a1, a2);
 }
 
 uint64_t ProcessChannelBindErrorResponse(uint64_t a1, _WORD *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v4 = VRTraceErrorLogLevelToCSTR();
     v5 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "ProcessChannelBindErrorResponse";
-      v12 = 1024;
-      v13 = 925;
-      _os_log_impl(&dword_23D497000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** CHANNEL_BIND_ERROR_RESPONSE", &v8, 0x1Cu);
+      v7 = 136315650;
+      v8 = v4;
+      v9 = 2080;
+      v10 = "ProcessChannelBindErrorResponse";
+      v11 = 1024;
+      v12 = 925;
+      _os_log_impl(&dword_23D497000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** CHANNEL_BIND_ERROR_RESPONSE", &v7, 0x1Cu);
     }
   }
 
-  result = ProcessErrorResponse(a1, a2);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return ProcessErrorResponse(a1, a2);
 }
 
 uint64_t EncodeChannelDataMessage(unsigned int a1, const void *a2, unsigned int *a3, int a4, _WORD *a5)
@@ -2779,7 +2744,7 @@ uint64_t EncodeChannelDataMessage(unsigned int a1, const void *a2, unsigned int 
   return result;
 }
 
-double machTimeScale()
+double machTimeScale(uint64_t a1, uint64_t a2)
 {
   if ((_MergedGlobals & 1) == 0)
   {
@@ -2859,7 +2824,7 @@ uint64_t GetIPPortFromDict(const void *a1, const void *a2, const void *a3, uint6
 
 uint64_t STUNEncodeAttrAddress(_WORD *a1, unint64_t a2, unsigned int a3, unsigned __int8 *a4, unint64_t *a5)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (*a4 == 1)
   {
     v6 = 12;
@@ -2879,23 +2844,23 @@ uint64_t STUNEncodeAttrAddress(_WORD *a1, unint64_t a2, unsigned int a3, unsigne
       v10 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
-        v17 = 136316418;
-        v18 = v9;
-        v19 = 2080;
-        v20 = "STUNEncodeAttrAddress";
-        v21 = 1024;
-        v22 = 45;
-        v23 = 1024;
-        v24 = a3;
-        v25 = 2048;
-        v26 = a2;
-        v27 = 2048;
-        v28 = v6;
-        _os_log_error_impl(&dword_23D497000, v10, OS_LOG_TYPE_ERROR, " [%s] %s:%d Buffer is too short. type=%d, bufferLength=%zu requiredLength=%zu", &v17, 0x36u);
+        v16 = 136316418;
+        v17 = v9;
+        v18 = 2080;
+        v19 = "STUNEncodeAttrAddress";
+        v20 = 1024;
+        v21 = 45;
+        v22 = 1024;
+        v23 = a3;
+        v24 = 2048;
+        v25 = a2;
+        v26 = 2048;
+        v27 = v6;
+        _os_log_error_impl(&dword_23D497000, v10, OS_LOG_TYPE_ERROR, " [%s] %s:%d Buffer is too short. type=%d, bufferLength=%zu requiredLength=%zu", &v16, 0x36u);
       }
     }
 
-    goto LABEL_18;
+    return v8;
   }
 
   *a1 = __rev16(a3);
@@ -2931,14 +2896,12 @@ LABEL_12:
 
   v8 = 0;
   *a5 = v6;
-LABEL_18:
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 uint64_t STUNEncodeAttrMI(_WORD *a1, unint64_t a2, unsigned int *a3, void *__src, unint64_t *a5)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = 2148794376;
   v6 = *a3 + (-*a3 & 3) + 4;
   if (v6 <= a2)
@@ -2954,7 +2917,7 @@ uint64_t STUNEncodeAttrMI(_WORD *a1, unint64_t a2, unsigned int *a3, void *__src
 
     else
     {
-      v5 = 2148794369;
+      return 2148794369;
     }
   }
 
@@ -2964,27 +2927,26 @@ uint64_t STUNEncodeAttrMI(_WORD *a1, unint64_t a2, unsigned int *a3, void *__src
     v9 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
     {
-      v13 = 136316162;
-      v14 = v8;
-      v15 = 2080;
-      v16 = "STUNEncodeAttrMI";
-      v17 = 1024;
-      v18 = 215;
-      v19 = 2048;
-      v20 = a2;
-      v21 = 2048;
-      v22 = v6;
-      _os_log_error_impl(&dword_23D497000, v9, OS_LOG_TYPE_ERROR, " [%s] %s:%d Buffer is too short. bufferLength=%zu requiredLength=%zu", &v13, 0x30u);
+      v12 = 136316162;
+      v13 = v8;
+      v14 = 2080;
+      v15 = "STUNEncodeAttrMI";
+      v16 = 1024;
+      v17 = 215;
+      v18 = 2048;
+      v19 = a2;
+      v20 = 2048;
+      v21 = v6;
+      _os_log_error_impl(&dword_23D497000, v9, OS_LOG_TYPE_ERROR, " [%s] %s:%d Buffer is too short. bufferLength=%zu requiredLength=%zu", &v12, 0x30u);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t STUNEncodeAttrU32(uint64_t a1, unint64_t a2, unsigned int a3, unsigned int a4, void *a5)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (a2 > 7)
   {
     v7 = 0;
@@ -3003,30 +2965,29 @@ uint64_t STUNEncodeAttrU32(uint64_t a1, unint64_t a2, unsigned int a3, unsigned 
       v9 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
-        v12 = 136316418;
-        v13 = v8;
-        v14 = 2080;
-        v15 = "STUNEncodeAttrU32";
-        v16 = 1024;
-        v17 = 302;
-        v18 = 1024;
-        v19 = a3;
-        v20 = 2048;
-        v21 = a2;
-        v22 = 2048;
-        v23 = 8;
-        _os_log_error_impl(&dword_23D497000, v9, OS_LOG_TYPE_ERROR, " [%s] %s:%d Buffer is too short. type=%d, bufferLength=%zu requiredLength=%zu", &v12, 0x36u);
+        v11 = 136316418;
+        v12 = v8;
+        v13 = 2080;
+        v14 = "STUNEncodeAttrU32";
+        v15 = 1024;
+        v16 = 302;
+        v17 = 1024;
+        v18 = a3;
+        v19 = 2048;
+        v20 = a2;
+        v21 = 2048;
+        v22 = 8;
+        _os_log_error_impl(&dword_23D497000, v9, OS_LOG_TYPE_ERROR, " [%s] %s:%d Buffer is too short. type=%d, bufferLength=%zu requiredLength=%zu", &v11, 0x36u);
       }
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t STUNEncodeAttr(_WORD *a1, unint64_t a2, unsigned int a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (a2 > 3)
   {
     v6 = 0;
@@ -3044,30 +3005,29 @@ uint64_t STUNEncodeAttr(_WORD *a1, unint64_t a2, unsigned int a3, void *a4)
       v8 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
-        v11 = 136316418;
-        v12 = v7;
-        v13 = 2080;
-        v14 = "STUNEncodeAttr";
-        v15 = 1024;
-        v16 = 330;
-        v17 = 1024;
-        v18 = a3;
-        v19 = 2048;
-        v20 = a2;
-        v21 = 2048;
-        v22 = 4;
-        _os_log_error_impl(&dword_23D497000, v8, OS_LOG_TYPE_ERROR, " [%s] %s:%d Buffer is too short. type=%d, bufferLength=%zu requiredLength=%zu", &v11, 0x36u);
+        v10 = 136316418;
+        v11 = v7;
+        v12 = 2080;
+        v13 = "STUNEncodeAttr";
+        v14 = 1024;
+        v15 = 330;
+        v16 = 1024;
+        v17 = a3;
+        v18 = 2048;
+        v19 = a2;
+        v20 = 2048;
+        v21 = 4;
+        _os_log_error_impl(&dword_23D497000, v8, OS_LOG_TYPE_ERROR, " [%s] %s:%d Buffer is too short. type=%d, bufferLength=%zu requiredLength=%zu", &v10, 0x36u);
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t STUNEncodeAttrU64(uint64_t a1, unint64_t a2, unsigned int a3, uint64_t a4, void *a5)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (a2 > 0xB)
   {
     v7 = 0;
@@ -3086,30 +3046,29 @@ uint64_t STUNEncodeAttrU64(uint64_t a1, unint64_t a2, unsigned int a3, uint64_t 
       v9 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
-        v12 = 136316418;
-        v13 = v8;
-        v14 = 2080;
-        v15 = "STUNEncodeAttrU64";
-        v16 = 1024;
-        v17 = 316;
-        v18 = 1024;
-        v19 = a3;
-        v20 = 2048;
-        v21 = a2;
-        v22 = 2048;
-        v23 = 12;
-        _os_log_error_impl(&dword_23D497000, v9, OS_LOG_TYPE_ERROR, " [%s] %s:%d Buffer is too short. type=%d, bufferLength=%zu requiredLength=%zu", &v12, 0x36u);
+        v11 = 136316418;
+        v12 = v8;
+        v13 = 2080;
+        v14 = "STUNEncodeAttrU64";
+        v15 = 1024;
+        v16 = 316;
+        v17 = 1024;
+        v18 = a3;
+        v19 = 2048;
+        v20 = a2;
+        v21 = 2048;
+        v22 = 12;
+        _os_log_error_impl(&dword_23D497000, v9, OS_LOG_TYPE_ERROR, " [%s] %s:%d Buffer is too short. type=%d, bufferLength=%zu requiredLength=%zu", &v11, 0x36u);
       }
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t STUNEncodeAttrXORAddress(_WORD *a1, unint64_t a2, unsigned int a3, unsigned __int8 *a4, uint64_t a5, unint64_t *a6)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (*a4 == 1)
   {
     v7 = 12;
@@ -3129,23 +3088,23 @@ uint64_t STUNEncodeAttrXORAddress(_WORD *a1, unint64_t a2, unsigned int a3, unsi
       v11 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
-        v20 = 136316418;
-        v21 = v10;
-        v22 = 2080;
-        v23 = "STUNEncodeAttrXORAddress";
-        v24 = 1024;
-        v25 = 72;
-        v26 = 1024;
-        v27 = a3;
-        v28 = 2048;
-        v29 = a2;
-        v30 = 2048;
-        v31 = v7;
-        _os_log_error_impl(&dword_23D497000, v11, OS_LOG_TYPE_ERROR, " [%s] %s:%d Buffer is too short. type=%d, bufferLength=%zu requiredLength=%zu", &v20, 0x36u);
+        v19 = 136316418;
+        v20 = v10;
+        v21 = 2080;
+        v22 = "STUNEncodeAttrXORAddress";
+        v23 = 1024;
+        v24 = 72;
+        v25 = 1024;
+        v26 = a3;
+        v27 = 2048;
+        v28 = a2;
+        v29 = 2048;
+        v30 = v7;
+        _os_log_error_impl(&dword_23D497000, v11, OS_LOG_TYPE_ERROR, " [%s] %s:%d Buffer is too short. type=%d, bufferLength=%zu requiredLength=%zu", &v19, 0x36u);
       }
     }
 
-    goto LABEL_20;
+    return v9;
   }
 
   *a1 = __rev16(a3);
@@ -3185,8 +3144,6 @@ LABEL_12:
 
   v9 = 0;
   *a6 = v7;
-LABEL_20:
-  v18 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -3233,15 +3190,15 @@ uint64_t STUNGetTransID(uint64_t a1, unsigned int a2, uint64_t *a3)
   return result;
 }
 
-void FreeSTUNMessage(uint64_t a1)
+void FreeSTUNMessage(uint64_t result)
 {
-  if (a1 && *(a1 + 28) >= 1)
+  if (result && *(result + 28) >= 1)
   {
     v2 = 0;
-    v3 = (a1 + 32);
+    v3 = (result + 32);
     do
     {
-      v4 = a1 + 32 + 56 * v2;
+      v4 = result + 32 + 56 * v2;
       v5 = *v3;
       if (v5 > 0x12)
       {
@@ -3328,7 +3285,7 @@ LABEL_24:
       v3 += 28;
     }
 
-    while (v2 < *(a1 + 28));
+    while (v2 < *(result + 28));
   }
 }
 
@@ -3370,7 +3327,7 @@ _BYTE *MakeTransID(_BYTE *a1, unsigned __int8 *a2)
   return a1;
 }
 
-uint64_t ParseSTUNXORAddr(uint64_t a1, unint64_t a2, int a3, uint64_t a4, uint64_t a5)
+uint64_t ParseSTUNXORAddr(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v5 = a1 + a3;
   if (v5 > a2)
@@ -3444,31 +3401,31 @@ uint64_t ParseSTUNXORAddr(uint64_t a1, unint64_t a2, int a3, uint64_t a4, uint64
 
 uint64_t ParseSTUNMessage(unsigned __int16 *a1, uint64_t a2, char *a3)
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   if (a2 <= 0)
   {
     ParseSTUNMessage_cold_9();
-    goto LABEL_96;
+    return *buf;
   }
 
   if (!a1)
   {
     ParseSTUNMessage_cold_8(buf);
-    goto LABEL_96;
+    return *buf;
   }
 
   v5 = a3;
   if (!a3)
   {
     ParseSTUNMessage_cold_7(buf);
-    goto LABEL_96;
+    return *buf;
   }
 
   bzero(a3, 0x480uLL);
   if (a2 == 1)
   {
     ParseSTUNMessage_cold_6(buf);
-    goto LABEL_96;
+    return *buf;
   }
 
   v6 = bswap32(*a1);
@@ -3481,29 +3438,29 @@ uint64_t ParseSTUNMessage(unsigned __int16 *a1, uint64_t a2, char *a3)
     v13 = 2148859925;
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
-      goto LABEL_89;
+      return v13;
     }
 
     v14 = VRTraceErrorLogLevelToCSTR();
     v15 = *MEMORY[0x277CE5818];
     if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_89;
+      return v13;
     }
 
     v16 = *v8;
     *buf = 136316418;
-    v68 = v14;
-    v69 = 2080;
-    v70 = "ParseSTUNMessage";
-    v71 = 1024;
-    v72 = 286;
-    v73 = 1024;
-    v74 = 286;
-    v75 = 1024;
-    v76 = v16;
-    v77 = 1024;
-    v78 = a2;
+    v67 = v14;
+    v68 = 2080;
+    v69 = "ParseSTUNMessage";
+    v70 = 1024;
+    v71 = 286;
+    v72 = 1024;
+    v73 = 286;
+    v74 = 1024;
+    v75 = v16;
+    v76 = 1024;
+    v77 = a2;
     v17 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/STUNParser.c:%d: Unknow METHOD (0x%04X %dB)";
     goto LABEL_13;
   }
@@ -3511,7 +3468,7 @@ uint64_t ParseSTUNMessage(unsigned __int16 *a1, uint64_t a2, char *a3)
   if (a2 <= 3)
   {
     ParseSTUNMessage_cold_5();
-    goto LABEL_96;
+    return *buf;
   }
 
   v9 = bswap32(a1[1]) >> 16;
@@ -3519,10 +3476,10 @@ uint64_t ParseSTUNMessage(unsigned __int16 *a1, uint64_t a2, char *a3)
   if (a2 <= 0x13)
   {
     ParseSTUNMessage_cold_4();
-    goto LABEL_96;
+    return *buf;
   }
 
-  v10 = a1 + a2;
+  v10 = (a1 + a2);
   *(v5 + 8) = *(a1 + 2);
   v11 = a1 + 10;
   if (*(v5 + 2) == 1118048801)
@@ -3540,8 +3497,8 @@ uint64_t ParseSTUNMessage(unsigned __int16 *a1, uint64_t a2, char *a3)
   v20 = v11 + v9;
   if (v20 > v10)
   {
-    ParseSTUNMessage_cold_3(v5 + 2, a2, buf);
-    goto LABEL_96;
+    ParseSTUNMessage_cold_3((v5 + 4), a2, buf);
+    return *buf;
   }
 
   if (v20 < v10 && VRTraceGetErrorLogLevelForModule() >= 5)
@@ -3551,11 +3508,11 @@ uint64_t ParseSTUNMessage(unsigned __int16 *a1, uint64_t a2, char *a3)
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v68 = v21;
-      v69 = 2080;
-      v70 = "ParseSTUNMessage";
-      v71 = 1024;
-      v72 = 309;
+      v67 = v21;
+      v68 = 2080;
+      v69 = "ParseSTUNMessage";
+      v70 = 1024;
+      v71 = 309;
       _os_log_impl(&dword_23D497000, v22, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Additional bytes after end of message", buf, 0x1Cu);
     }
   }
@@ -3566,59 +3523,55 @@ uint64_t ParseSTUNMessage(unsigned __int16 *a1, uint64_t a2, char *a3)
 LABEL_88:
     v13 = 0;
     *(v5 + 7) = v23;
-    goto LABEL_89;
+    return v13;
   }
 
-  v64 = (v5 + 2);
-  v65 = a2;
+  v63 = (v5 + 2);
+  v64 = a2;
   v23 = 0;
-  v66 = v5;
+  v65 = v5;
   v24 = v5 + 32;
   while (1)
   {
-    if ((v11 + 1) > v10)
+    if (v11 + 1 > v10)
     {
       ParseSTUNMessage_cold_2();
-LABEL_96:
-      v13 = *buf;
-      goto LABEL_89;
+      return *buf;
     }
 
     v25 = v23;
     v26 = &v24[56 * v23];
     v27 = v11 + 2;
     *v26 = bswap32(*v11) >> 16;
-    if ((v11 + 2) > v10)
+    if (v11 + 2 > v10)
     {
       if (VRTraceGetErrorLogLevelForModule() < 3)
       {
-LABEL_103:
-        v13 = 2148794376;
-        goto LABEL_89;
+        return 2148794376;
       }
 
-      v56 = VRTraceErrorLogLevelToCSTR();
+      v55 = VRTraceErrorLogLevelToCSTR();
       v15 = *MEMORY[0x277CE5818];
       v13 = 2148794376;
       if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_89;
+        return v13;
       }
 
-      v57 = *v64;
-      v58 = *v26;
+      v56 = *v63;
+      v57 = *v26;
       *buf = 136316418;
-      v68 = v56;
-      v69 = 2080;
-      v70 = "ParseSTUNMessage";
-      v71 = 1024;
-      v72 = 322;
-      v73 = 1024;
-      v74 = v57;
-      v75 = 1024;
-      v76 = v58;
-      v77 = 1024;
-      v78 = v65;
+      v67 = v55;
+      v68 = 2080;
+      v69 = "ParseSTUNMessage";
+      v70 = 1024;
+      v71 = 322;
+      v72 = 1024;
+      v73 = v56;
+      v74 = 1024;
+      v75 = v57;
+      v76 = 1024;
+      v77 = v64;
       v17 = " [%s] %s:%d Unable to read attribute length (method=0x%04X attribute=0x%04X len=%d)";
 LABEL_13:
       v18 = v15;
@@ -3647,15 +3600,15 @@ LABEL_13:
       {
         v33 = *v26;
         *buf = 136316162;
-        v68 = v31;
-        v69 = 2080;
-        v70 = "ParseSTUNMessage";
-        v71 = 1024;
-        v72 = 336;
-        v73 = 1024;
-        v74 = v30;
-        v75 = 1024;
-        v76 = v33;
+        v67 = v31;
+        v68 = 2080;
+        v69 = "ParseSTUNMessage";
+        v70 = 1024;
+        v71 = 336;
+        v72 = 1024;
+        v73 = v30;
+        v74 = 1024;
+        v75 = v33;
         _os_log_impl(&dword_23D497000, v32, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %d byte padding added for attrib %04X", buf, 0x28u);
       }
     }
@@ -3747,7 +3700,7 @@ LABEL_13:
         case 0x12:
         case 0x16:
         case 0x20:
-          v36 = ParseSTUNXORAddr((v11 + 2), v10, v34, (v26 + 8), (v66 + 8));
+          v36 = ParseSTUNXORAddr((v11 + 2), v10, v34, (v26 + 8), (v65 + 8));
           goto LABEL_52;
         case 0x22:
           goto LABEL_62;
@@ -3842,15 +3795,15 @@ LABEL_80:
         {
           v48 = *v26;
           *buf = 136316162;
-          v68 = v46;
-          v69 = 2080;
-          v70 = "ParseSTUNMessage";
-          v71 = 1024;
-          v72 = 506;
-          v73 = 1024;
-          v74 = 506;
-          v75 = 1024;
-          v76 = v48;
+          v67 = v46;
+          v68 = 2080;
+          v69 = "ParseSTUNMessage";
+          v70 = 1024;
+          v71 = 506;
+          v72 = 1024;
+          v73 = 506;
+          v74 = 1024;
+          v75 = v48;
           _os_log_impl(&dword_23D497000, v47, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/STUNParser.c:%d: \tUNKNOWN-ATTR(%04X)", buf, 0x28u);
         }
       }
@@ -3887,29 +3840,29 @@ LABEL_91:
 LABEL_92:
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v53 = VRTraceErrorLogLevelToCSTR();
-        v54 = *MEMORY[0x277CE5818];
+        v52 = VRTraceErrorLogLevelToCSTR();
+        v53 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
         {
-          v55 = *v26;
+          v54 = *v26;
           *buf = 136316162;
-          v68 = v53;
-          v69 = 2080;
-          v70 = "ParseSTUNMessage";
-          v71 = 1024;
-          v72 = 510;
-          v73 = 1024;
-          v74 = v55;
-          v75 = 1024;
-          v76 = v13;
+          v67 = v52;
+          v68 = 2080;
+          v69 = "ParseSTUNMessage";
+          v70 = 1024;
+          v71 = 510;
+          v72 = 1024;
+          v73 = v54;
+          v74 = 1024;
+          v75 = v13;
           v17 = " [%s] %s:%d Invalid attribute. Type=%d error=%X";
-          v18 = v54;
+          v18 = v53;
           v19 = 40;
           goto LABEL_14;
         }
       }
 
-      goto LABEL_89;
+      return v13;
     }
 
 LABEL_53:
@@ -3919,12 +3872,12 @@ LABEL_53:
     {
       if (v25 < 0x13)
       {
-        v5 = v66;
+        v5 = v65;
       }
 
       else
       {
-        v5 = v66;
+        v5 = v65;
         if (VRTraceGetErrorLogLevelForModule() >= 5)
         {
           v49 = VRTraceErrorLogLevelToCSTR();
@@ -3932,13 +3885,13 @@ LABEL_53:
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315906;
-            v68 = v49;
-            v69 = 2080;
-            v70 = "ParseSTUNMessage";
-            v71 = 1024;
-            v72 = 517;
-            v73 = 1024;
-            v74 = 20;
+            v67 = v49;
+            v68 = 2080;
+            v69 = "ParseSTUNMessage";
+            v70 = 1024;
+            v71 = 517;
+            v72 = 1024;
+            v73 = 20;
             _os_log_impl(&dword_23D497000, v50, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d \tAttribute count reached MAX_STUNATTR(%d)", buf, 0x22u);
           }
         }
@@ -3950,44 +3903,42 @@ LABEL_53:
 
   if (VRTraceGetErrorLogLevelForModule() < 3)
   {
-    goto LABEL_103;
+    return 2148794376;
   }
 
-  v59 = VRTraceErrorLogLevelToCSTR();
-  v60 = *MEMORY[0x277CE5818];
+  v58 = VRTraceErrorLogLevelToCSTR();
+  v59 = *MEMORY[0x277CE5818];
   v13 = 2148794376;
   if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
   {
-    v61 = *(v26 + 1);
-    v62 = *v64;
-    v63 = *v26;
+    v60 = *(v26 + 1);
+    v61 = *v63;
+    v62 = *v26;
     *buf = 136316674;
-    v68 = v59;
-    v69 = 2080;
-    v70 = "ParseSTUNMessage";
-    v71 = 1024;
-    v72 = 339;
-    v73 = 1024;
-    v74 = v61;
-    v75 = 1024;
-    v76 = v62;
-    v77 = 1024;
-    v78 = v63;
-    v79 = 1024;
-    v80 = v65;
+    v67 = v58;
+    v68 = 2080;
+    v69 = "ParseSTUNMessage";
+    v70 = 1024;
+    v71 = 339;
+    v72 = 1024;
+    v73 = v60;
+    v74 = 1024;
+    v75 = v61;
+    v76 = 1024;
+    v77 = v62;
+    v78 = 1024;
+    v79 = v64;
     v17 = " [%s] %s:%d Attribute (len=%d) doesn't fit in packet (method=0x%04X attribute=0x%04X len=%d)";
-    v18 = v60;
+    v18 = v59;
     v19 = 52;
 LABEL_14:
     _os_log_error_impl(&dword_23D497000, v18, OS_LOG_TYPE_ERROR, v17, buf, v19);
   }
 
-LABEL_89:
-  v51 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
-uint64_t ParseSTUNAddr(uint64_t a1, unint64_t a2, unsigned int a3, uint64_t a4)
+uint64_t ParseSTUNAddr(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = a1 + a3;
   if (v4 > a2)
@@ -4072,17 +4023,17 @@ uint64_t ParseBinaryData(const void *a1, unint64_t a2, unsigned int a3, uint64_t
   return v4;
 }
 
-uint64_t ParseErrorCode(_BYTE *a1, unint64_t a2, int a3, uint64_t a4)
+uint64_t ParseErrorCode(_BYTE *a1, unint64_t a2, unsigned int a3, uint64_t a4)
 {
   result = 2148794376;
-  v6 = (a3 - 4);
+  v6 = a3 - 4;
   if (a3 >= 4 && &a1[a3] <= a2)
   {
     *a4 = a1[2];
     *(a4 + 1) = a1[3];
     if (a3 >= 5)
     {
-      v8 = malloc_type_malloc((a3 - 3), 0x100004077774924uLL);
+      v8 = malloc_type_malloc(a3 - 3, 0x100004077774924uLL);
       *(a4 + 8) = v8;
       if (!v8)
       {
@@ -4100,15 +4051,15 @@ uint64_t ParseErrorCode(_BYTE *a1, unint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t ParseSTUNU32(unsigned int *a1, unint64_t a2, unsigned int a3, _DWORD *a4)
+uint64_t ParseSTUNU32(unsigned int *a1, unsigned int *a2, uint64_t a3, _DWORD *a4)
 {
-  v4 = a1 + a3;
+  v4 = (a1 + a3);
   if (v4 >= a2)
   {
     v4 = a2;
   }
 
-  if ((a1 + 1) > v4)
+  if (a1 + 1 > v4)
   {
     ParseSTUNU32_cold_1();
     return v7;
@@ -4123,7 +4074,7 @@ uint64_t ParseSTUNU32(unsigned int *a1, unint64_t a2, unsigned int a3, _DWORD *a
   return result;
 }
 
-uint64_t ParseSTUNU64(void *a1, unint64_t a2, unsigned int a3, void *a4)
+uint64_t ParseSTUNU64(void *a1, char *a2, uint64_t a3, void *a4)
 {
   v4 = a1 + a3;
   if (v4 >= a2)
@@ -4131,7 +4082,7 @@ uint64_t ParseSTUNU64(void *a1, unint64_t a2, unsigned int a3, void *a4)
     v4 = a2;
   }
 
-  if ((a1 + 1) > v4)
+  if (a1 + 1 > v4)
   {
     ParseSTUNU64_cold_1();
     return v7;
@@ -4173,15 +4124,15 @@ BOOL OUTLINED_FUNCTION_9_1()
 
 uint64_t MakeIPPORTWithHostnameIPv4Only(uint64_t a1, const char *a2, int a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  memset(v12, 170, 6);
-  v10 = 0xAAAAAAAAAAAAAAAALL;
-  memset(&v11.ai_socktype, 0, 40);
-  *&v11.ai_flags = 0x200000100;
-  v11.ai_socktype = 2;
-  __sprintf_chk(v12, 0, 6uLL, "%u", a3);
-  v5 = getaddrinfo(a2, v12, &v11, &v10);
-  if (v5 || !v10)
+  v26 = *MEMORY[0x277D85DE8];
+  memset(v11, 170, 6);
+  v9 = 0xAAAAAAAAAAAAAAAALL;
+  memset(&v10.ai_socktype, 0, 40);
+  *&v10.ai_flags = 0x200000100;
+  v10.ai_socktype = 2;
+  __sprintf_chk(v11, 0, 6uLL, "%u", a3);
+  v5 = getaddrinfo(a2, v11, &v10, &v9);
+  if (v5 || !v9)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
@@ -4190,47 +4141,46 @@ uint64_t MakeIPPORTWithHostnameIPv4Only(uint64_t a1, const char *a2, int a3)
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
         *buf = 136316674;
-        v14 = v6;
-        v15 = 2080;
-        v16 = "MakeIPPORTWithHostnameIPv4Only";
-        v17 = 1024;
-        v18 = 94;
-        v19 = 1024;
-        v20 = 94;
-        v21 = 2080;
-        v22 = a2;
-        v23 = 2080;
-        v24 = v12;
-        v25 = 1024;
-        v26 = v5;
+        v13 = v6;
+        v14 = 2080;
+        v15 = "MakeIPPORTWithHostnameIPv4Only";
+        v16 = 1024;
+        v17 = 94;
+        v18 = 1024;
+        v19 = 94;
+        v20 = 2080;
+        v21 = a2;
+        v22 = 2080;
+        v23 = v11;
+        v24 = 1024;
+        v25 = v5;
         _os_log_error_impl(&dword_23D497000, v7, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/IPAddr.c:%d: getaddrinfo(%s,%s) failed(%d)", buf, 0x3Cu);
       }
     }
 
-    a1 = 0;
+    return 0;
   }
 
   else
   {
-    SAToIPPORTWithInterfaceIndexToNameCallback(v10->ai_addr, a1, DefaultInterfaceIndexToNameCallback, 0);
-    freeaddrinfo(v10);
+    SAToIPPORTWithInterfaceIndexToNameCallback(v9->ai_addr, a1, DefaultInterfaceIndexToNameCallback, 0);
+    freeaddrinfo(v9);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
 uint64_t MakeIPPORT(uint64_t a1, const char *a2, int a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  memset(v12, 170, 6);
-  v10 = 0xAAAAAAAAAAAAAAAALL;
-  memset(&v11.ai_socktype, 0, 40);
-  *&v11.ai_flags = 1028;
-  v11.ai_socktype = 2;
-  __sprintf_chk(v12, 0, 6uLL, "%u", a3);
-  v5 = getaddrinfo(a2, v12, &v11, &v10);
-  if (v5 || !v10)
+  v26 = *MEMORY[0x277D85DE8];
+  memset(v11, 170, 6);
+  v9 = 0xAAAAAAAAAAAAAAAALL;
+  memset(&v10.ai_socktype, 0, 40);
+  *&v10.ai_flags = 1028;
+  v10.ai_socktype = 2;
+  __sprintf_chk(v11, 0, 6uLL, "%u", a3);
+  v5 = getaddrinfo(a2, v11, &v10, &v9);
+  if (v5 || !v9)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
@@ -4239,89 +4189,85 @@ uint64_t MakeIPPORT(uint64_t a1, const char *a2, int a3)
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
         *buf = 136316674;
-        v14 = v6;
-        v15 = 2080;
-        v16 = "MakeIPPORTGeneric";
-        v17 = 1024;
-        v18 = 69;
-        v19 = 1024;
-        v20 = 69;
-        v21 = 2080;
-        v22 = a2;
-        v23 = 2080;
-        v24 = v12;
-        v25 = 1024;
-        v26 = v5;
+        v13 = v6;
+        v14 = 2080;
+        v15 = "MakeIPPORTGeneric";
+        v16 = 1024;
+        v17 = 69;
+        v18 = 1024;
+        v19 = 69;
+        v20 = 2080;
+        v21 = a2;
+        v22 = 2080;
+        v23 = v11;
+        v24 = 1024;
+        v25 = v5;
         _os_log_error_impl(&dword_23D497000, v7, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/IPAddr.c:%d: getaddrinfo(%s,%s) failed(%d)", buf, 0x3Cu);
       }
     }
 
-    a1 = 0;
+    return 0;
   }
 
   else
   {
-    SAToIPPORTWithInterfaceIndexToNameCallback(v10->ai_addr, a1, DefaultInterfaceIndexToNameCallback, 0);
-    freeaddrinfo(v10);
+    SAToIPPORTWithInterfaceIndexToNameCallback(v9->ai_addr, a1, DefaultInterfaceIndexToNameCallback, 0);
+    freeaddrinfo(v9);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
 uint64_t InterpretAddressX(const char *a1, uint64_t a2, int a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v6 = inet_addr(a1);
   if (v6 != -1)
   {
-    goto LABEL_4;
+    return bswap32(v6);
   }
 
   v7 = gethostbyname(a1);
   if (v7)
   {
     v6 = **v7->h_addr_list;
-LABEL_4:
-    v8 = *MEMORY[0x277D85DE8];
     return bswap32(v6);
   }
 
   if (VRTraceGetErrorLogLevelForModule() >= 5)
   {
-    v10 = VRTraceErrorLogLevelToCSTR();
-    v11 = *MEMORY[0x277CE5818];
+    v9 = VRTraceErrorLogLevelToCSTR();
+    v10 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136316674;
-      v14 = v10;
-      v15 = 2080;
-      v16 = "InterpretAddressX";
+      v11 = 136316674;
+      v12 = v9;
+      v13 = 2080;
+      v14 = "InterpretAddressX";
+      v15 = 1024;
+      v16 = 120;
       v17 = 1024;
       v18 = 120;
-      v19 = 1024;
-      v20 = 120;
-      v21 = 2080;
-      v22 = a2;
-      v23 = 1024;
-      v24 = a3;
-      v25 = 2080;
-      v26 = a1;
-      _os_log_impl(&dword_23D497000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/IPAddr.c:%d: %s:%d: Cannot resolve address [%s]", &v13, 0x3Cu);
+      v19 = 2080;
+      v20 = a2;
+      v21 = 1024;
+      v22 = a3;
+      v23 = 2080;
+      v24 = a1;
+      _os_log_impl(&dword_23D497000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/IPAddr.c:%d: %s:%d: Cannot resolve address [%s]", &v11, 0x3Cu);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 char *IPPORTToStringWithSize(char *a1, uint64_t a2, size_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v10 = v6;
   v11 = v6;
-  v12 = v6;
   *__dst = v6;
   if (*a2)
   {
@@ -4335,17 +4281,16 @@ char *IPPORTToStringWithSize(char *a1, uint64_t a2, size_t a3)
 
   IPToString(__dst, a2);
   snprintf(a1, a3, v7, __dst, *(a2 + 36));
-  v8 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
 char *IPToString(char *__dst, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ((*a2 & 1) == 0)
   {
     sprintf(__dst, "%u.%u.%u.%u", HIBYTE(*(a2 + 20)), BYTE2(*(a2 + 20)), BYTE1(*(a2 + 20)), *(a2 + 20));
-    goto LABEL_19;
+    return __dst;
   }
 
   v4 = 0;
@@ -4402,72 +4347,68 @@ LABEL_15:
     v11 = (a2 + 4);
     if (v12)
     {
-      memset(v15, 170, 17);
-      __sprintf_chk(v15, 0, 0x11uLL, "%%%s", v11);
-      strlcat(__dst, v15, 0x30uLL);
+      memset(v14, 170, 17);
+      __sprintf_chk(v14, 0, 0x11uLL, "%%%s", v11);
+      strlcat(__dst, v14, 0x30uLL);
     }
   }
 
-LABEL_19:
-  v13 = *MEMORY[0x277D85DE8];
   return __dst;
 }
 
-uint64_t GetLocalIFFunctionalTypeForBoundSocket(int a1)
+uint64_t GetLocalIFFunctionalTypeForBoundSocket(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = 0u;
   v5 = 0u;
-  v6 = 0u;
-  memset(v4, 170, sizeof(v4));
+  memset(v3, 170, sizeof(v3));
   result = GetLocalIFIndexForBoundSocket(a1);
   if (result)
   {
-    if_indextoname(result, v4);
+    if_indextoname(result, v3);
     __strlcpy_chk();
-    if (ioctl(a1, 0xC02069ADuLL, &v5) == -1)
+    if (ioctl(v1, 0xC02069ADuLL, &v4) != -1)
     {
-      if (VRTraceGetErrorLogLevelForModule() >= 3)
-      {
-        VRTraceErrorLogLevelToCSTR();
-        result = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR);
-        if (!result)
-        {
-          goto LABEL_8;
-        }
-
-        GetLocalIFFunctionalTypeForBoundSocket_cold_1();
-      }
-
-      result = 0;
-      goto LABEL_8;
+      return v5;
     }
 
-    result = v6;
+    if (VRTraceGetErrorLogLevelForModule() >= 3)
+    {
+      VRTraceErrorLogLevelToCSTR();
+      result = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR);
+      if (!result)
+      {
+        return result;
+      }
+
+      GetLocalIFFunctionalTypeForBoundSocket_cold_1();
+    }
+
+    return 0;
   }
 
-LABEL_8:
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t GetLocalIFIndexForBoundSocket(int a1)
+uint64_t GetLocalIFIndexForBoundSocket(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   *&v1.sa_len = 0xAAAAAAAAAAAAAAAALL;
   *&v1.sa_data[6] = 0xAAAAAAAAAAAAAAAALL;
-  v20 = v1;
-  v21 = v1;
-  v18 = v1;
   v19 = v1;
-  v16 = v1;
+  v20 = v1;
   v17 = v1;
-  v14 = v1;
+  v18 = v1;
   v15 = v1;
-  *&v13[16] = 0xAAAAAAAAAAAAAAAALL;
-  v12 = v1;
-  *v13 = v1;
-  v9 = 128;
-  if (getsockname(a1, &v14, &v9))
+  v16 = v1;
+  v13 = v1;
+  v14 = v1;
+  *&v12[16] = 0xAAAAAAAAAAAAAAAALL;
+  v11 = v1;
+  *v12 = v1;
+  v8 = 128;
+  if (getsockname(a1, &v13, &v8))
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
@@ -4478,14 +4419,12 @@ uint64_t GetLocalIFIndexForBoundSocket(int a1)
       }
     }
 
-LABEL_5:
-    v2 = 0;
-    goto LABEL_22;
+    return 0;
   }
 
-  SAToIPPORTWithInterfaceIndexToNameCallback(&v14, &v12, DefaultInterfaceIndexToNameCallback, 0);
-  v8 = 0xAAAAAAAAAAAAAAAALL;
-  if (getifaddrs(&v8) == -1)
+  SAToIPPORTWithInterfaceIndexToNameCallback(&v13, &v11, DefaultInterfaceIndexToNameCallback, 0);
+  v7 = 0xAAAAAAAAAAAAAAAALL;
+  if (getifaddrs(&v7) == -1)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
@@ -4496,11 +4435,11 @@ LABEL_5:
       }
     }
 
-    goto LABEL_5;
+    return 0;
   }
 
-  v3 = v8;
-  if (!v8)
+  v3 = v7;
+  if (!v7)
   {
 LABEL_17:
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -4518,23 +4457,23 @@ LABEL_17:
 
   while (1)
   {
-    *&v11[16] = 0xAAAAAAAAAAAAAAAALL;
+    *&v10[16] = 0xAAAAAAAAAAAAAAAALL;
     *&v4 = 0xAAAAAAAAAAAAAAAALL;
     *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v10 = v4;
-    *v11 = v4;
-    SAToIPPORTWithInterfaceIndexToNameCallback(v3->ifa_addr, &v10, DefaultInterfaceIndexToNameCallback, 0);
-    if ((v12.sa_len & 1) != (v10 & 1))
+    v9 = v4;
+    *v10 = v4;
+    SAToIPPORTWithInterfaceIndexToNameCallback(v3->ifa_addr, &v9, DefaultInterfaceIndexToNameCallback, 0);
+    if ((v11.sa_len & 1) != (v9 & 1))
     {
       goto LABEL_16;
     }
 
-    if (v12.sa_len)
+    if (v11.sa_len)
     {
       break;
     }
 
-    if (*&v13[4] == *&v11[4])
+    if (*&v12[4] == *&v10[4])
     {
       goto LABEL_26;
     }
@@ -4547,7 +4486,7 @@ LABEL_16:
     }
   }
 
-  if (*&v13[4] != *&v11[4] || *&v13[12] != *&v11[12])
+  if (*&v12[4] != *&v10[4] || *&v12[12] != *&v10[12])
   {
     goto LABEL_16;
   }
@@ -4560,13 +4499,11 @@ LABEL_26:
   }
 
 LABEL_21:
-  MEMORY[0x23EEE25D0](v8);
-LABEL_22:
-  v6 = *MEMORY[0x277D85DE8];
+  MEMORY[0x23EEE25D0](v7);
   return v2;
 }
 
-uint64_t GetLocalIFNameForBoundSocket(int a1, char *a2)
+uint64_t GetLocalIFNameForBoundSocket(uint64_t a1, char *a2)
 {
   if (!a2)
   {
@@ -4584,13 +4521,11 @@ uint64_t GetLocalIFNameForBoundSocket(int a1, char *a2)
 
 uint64_t GetLocalInterfaceListWithOptionsAndCellInterfaceName(void *a1, int a2, char *a3)
 {
-  v196 = *MEMORY[0x277D85DE8];
-  v176 = 0;
+  v193 = *MEMORY[0x277D85DE8];
+  v173 = 0;
   if (!a1)
   {
-LABEL_108:
-    v60 = 0;
-    goto LABEL_109;
+    return 0;
   }
 
   v5 = a1;
@@ -4659,8 +4594,8 @@ LABEL_108:
     }
   }
 
-  v175 = 0;
-  if (VCCTServiceMonitor_GetDataIndicatorStatus(&v175) || (v175 - 1) > 1)
+  v172 = 0;
+  if (VCCTServiceMonitor_GetDataIndicatorStatus(&v172) || v172 - 1 > 1)
   {
     v17 = 0;
   }
@@ -4707,7 +4642,7 @@ LABEL_108:
     v17 = 1;
   }
 
-  if (getifaddrs(&v176))
+  if (getifaddrs(&v173))
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
@@ -4718,10 +4653,10 @@ LABEL_108:
       }
     }
 
-    goto LABEL_108;
+    return 0;
   }
 
-  v18 = &v176;
+  v18 = &v173;
   v19 = -40;
   v20 = 1;
   do
@@ -4734,18 +4669,18 @@ LABEL_108:
   while (v18);
   if (!v20)
   {
-    if (v176)
+    if (v173)
     {
-      MEMORY[0x23EEE25D0](v176, v19);
+      MEMORY[0x23EEE25D0](v173, v19);
     }
 
-    goto LABEL_108;
+    return 0;
   }
 
-  v170 = malloc_type_calloc(1uLL, v19, 0x100004053E81896uLL);
-  if (!v170)
+  v167 = malloc_type_calloc(1uLL, v19, 0x100004053E81896uLL);
+  if (!v167)
   {
-    if (v176)
+    if (v173)
     {
       MEMORY[0x23EEE25D0]();
     }
@@ -4759,18 +4694,18 @@ LABEL_108:
       }
     }
 
-    goto LABEL_108;
+    return 0;
   }
 
-  v171 = socket(2, 2, 0);
-  v172 = socket(30, 2, 0);
+  v168 = socket(2, 2, 0);
+  v169 = socket(30, 2, 0);
   *&localAddress.sa_len = 0xAAAAAAAAAAAAAAAALL;
   *&remoteAddress.sa_len = 0;
-  *v178 = xmmword_23D4C9CB0;
-  *&v178[16] = 1;
+  *v175 = xmmword_23D4C9CB0;
+  *&v175[16] = 1;
   __s = a3;
-  v167 = v17;
-  if ((reliableSysctl(v178, &localAddress, &remoteAddress.sa_len) & 0x80000000) != 0)
+  v164 = v17;
+  if ((reliableSysctl(v175, &localAddress, &remoteAddress.sa_len) & 0x80000000) != 0)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
@@ -4780,14 +4715,14 @@ LABEL_108:
         GetLocalInterfaceListWithOptionsAndCellInterfaceName_cold_4();
       }
 
-      v174 = 0;
-      v173 = 0;
+      v171 = 0;
+      v170 = 0;
       goto LABEL_127;
     }
 
 LABEL_119:
-    v174 = 0;
-    v173 = 0;
+    v171 = 0;
+    v170 = 0;
     goto LABEL_127;
   }
 
@@ -4824,7 +4759,7 @@ LABEL_118:
     goto LABEL_118;
   }
 
-  v174 = v24;
+  v171 = v24;
   v25 = v5;
   v26 = nwi_state_copy();
   v27 = if_nametoindex("pdp_ip0");
@@ -4832,7 +4767,7 @@ LABEL_118:
   if (*&localAddress.sa_len < v23)
   {
     v29 = v27;
-    v173 = 0;
+    v170 = 0;
     v30 = MEMORY[0x277D85EE8];
     while (1)
     {
@@ -4869,7 +4804,7 @@ LABEL_118:
               }
 
 LABEL_78:
-              if (v173 < 1)
+              if (v170 < 1)
               {
                 LODWORD(v49) = 0;
               }
@@ -4878,20 +4813,20 @@ LABEL_78:
               {
                 v49 = 0;
                 v50 = v28[2];
-                while (v174[v49] != v50)
+                while (v171[v49] != v50)
                 {
-                  if (v173 == ++v49)
+                  if (v170 == ++v49)
                   {
                     goto LABEL_86;
                   }
                 }
               }
 
-              if (v49 == v173)
+              if (v49 == v170)
               {
                 v50 = v28[2];
 LABEL_86:
-                v174[v173++] = v50;
+                v171[v170++] = v50;
               }
 
               goto LABEL_87;
@@ -4900,7 +4835,7 @@ LABEL_86:
 
           if ((a2 & 8) != 0)
           {
-            if (IsAWDLInterface(v28[2], v172))
+            if (IsAWDLInterface(v28[2], v169))
             {
               if (VRTraceGetErrorLogLevelForModule() >= 7)
               {
@@ -4993,7 +4928,7 @@ LABEL_77:
 
         if ((a2 & 8) != 0)
         {
-          if (IsAWDLInterface(v28[2], v171))
+          if (IsAWDLInterface(v28[2], v168))
           {
             if (VRTraceGetErrorLogLevelForModule() >= 7)
             {
@@ -5086,23 +5021,23 @@ LABEL_87:
     }
   }
 
-  v173 = 0;
+  v170 = 0;
 LABEL_121:
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v63 = VRTraceErrorLogLevelToCSTR();
-    v64 = *MEMORY[0x277CE5818];
+    v62 = VRTraceErrorLogLevelToCSTR();
+    v63 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      *&buf[4] = v63;
+      *&buf[4] = v62;
       *&buf[12] = 2080;
       *&buf[14] = "GetReachableInterfaceListWithOptions";
       *&buf[22] = 1024;
       *&buf[24] = 508;
       *&buf[28] = 1024;
-      *&buf[30] = v173;
-      _os_log_impl(&dword_23D497000, v64, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d found %d reachable interface(s).", buf, 0x22u);
+      *&buf[30] = v170;
+      _os_log_impl(&dword_23D497000, v63, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d found %d reachable interface(s).", buf, 0x22u);
     }
   }
 
@@ -5116,50 +5051,50 @@ LABEL_121:
 LABEL_127:
   *&localAddress.sa_len = 0xAAAAAAAAAAAAAAAALL;
   *&remoteAddress.sa_len = 0;
-  *v178 = xmmword_23D4C9CB0;
-  *&v178[16] = 3;
-  if ((reliableSysctl(v178, &localAddress, &remoteAddress.sa_len) & 0x80000000) != 0)
+  *v175 = xmmword_23D4C9CB0;
+  *&v175[16] = 3;
+  if ((reliableSysctl(v175, &localAddress, &remoteAddress.sa_len) & 0x80000000) != 0)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
       VRTraceErrorLogLevelToCSTR();
-      v77 = v170;
+      v76 = v167;
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
         GetLocalInterfaceListWithOptionsAndCellInterfaceName_cold_6();
       }
 
-      v78 = 0;
-      v169 = 0;
+      v77 = 0;
+      v166 = 0;
       goto LABEL_165;
     }
 
 LABEL_159:
-    v78 = 0;
-    v169 = 0;
-    v77 = v170;
+    v77 = 0;
+    v166 = 0;
+    v76 = v167;
     goto LABEL_165;
   }
 
-  v65 = *&localAddress.sa_len;
+  v64 = *&localAddress.sa_len;
   if (*&remoteAddress.sa_len < 1)
   {
 LABEL_158:
-    free(v65);
+    free(v64);
     goto LABEL_159;
   }
 
-  v66 = 0;
-  v67 = *&localAddress.sa_len + *&remoteAddress.sa_len;
+  v65 = 0;
+  v66 = *&localAddress.sa_len + *&remoteAddress.sa_len;
   do
   {
-    v65 = (v65 + *v65);
-    v66 += 4;
+    v64 = (v64 + *v64);
+    v65 += 4;
   }
 
-  while (v65 < v67);
-  v68 = malloc_type_malloc(v66, 0x100004052888210uLL);
-  if (!v68)
+  while (v64 < v66);
+  v67 = malloc_type_malloc(v65, 0x100004052888210uLL);
+  if (!v67)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
@@ -5170,157 +5105,157 @@ LABEL_158:
       }
     }
 
-    v65 = *&localAddress.sa_len;
+    v64 = *&localAddress.sa_len;
     goto LABEL_158;
   }
 
-  v69 = *&localAddress.sa_len;
-  v70 = v68;
-  if (*&localAddress.sa_len >= v67)
+  v68 = *&localAddress.sa_len;
+  v69 = v67;
+  if (*&localAddress.sa_len >= v66)
   {
-    v169 = 0;
+    v166 = 0;
   }
 
   else
   {
-    v169 = 0;
+    v166 = 0;
     do
     {
-      if (*(v69 + 3) == 14 && *(v69 + 116) == 255)
+      if (*(v68 + 3) == 14 && *(v68 + 116) == 255)
       {
-        if (v169 < 1)
+        if (v166 < 1)
         {
-          LODWORD(v71) = 0;
+          LODWORD(v70) = 0;
         }
 
         else
         {
-          v71 = 0;
-          v72 = v69[57];
-          while (v68[v71] != v72)
+          v70 = 0;
+          v71 = v68[57];
+          while (v67[v70] != v71)
           {
-            if (v169 == ++v71)
+            if (v166 == ++v70)
             {
-              v73 = v169;
+              v72 = v166;
               goto LABEL_144;
             }
           }
         }
 
-        if (v71 == v169)
+        if (v70 == v166)
         {
-          v73 = v169;
-          v72 = v69[57];
+          v72 = v166;
+          v71 = v68[57];
 LABEL_144:
-          v68[v73] = v72;
+          v67[v72] = v71;
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
-            v74 = VRTraceErrorLogLevelToCSTR();
-            v75 = *MEMORY[0x277CE5818];
+            v73 = VRTraceErrorLogLevelToCSTR();
+            v74 = *MEMORY[0x277CE5818];
             if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
             {
-              v76 = v69[57];
+              v75 = v68[57];
               *buf = 136316162;
-              *&buf[4] = v74;
+              *&buf[4] = v73;
               *&buf[12] = 2080;
               *&buf[14] = "GetCellularInterfaceList";
               *&buf[22] = 1024;
               *&buf[24] = 568;
               *&buf[28] = 1024;
-              *&buf[30] = v76;
+              *&buf[30] = v75;
               *&buf[34] = 2080;
-              *&buf[36] = v69 + 60;
-              _os_log_impl(&dword_23D497000, v75, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Added cellular interface index: %u name: %s\n", buf, 0x2Cu);
+              *&buf[36] = v68 + 60;
+              _os_log_impl(&dword_23D497000, v74, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Added cellular interface index: %u name: %s\n", buf, 0x2Cu);
             }
           }
 
-          ++v169;
-          v68 = v70;
+          ++v166;
+          v67 = v69;
         }
       }
 
-      v69 = (v69 + *v69);
+      v68 = (v68 + *v68);
     }
 
-    while (v69 < v67);
+    while (v68 < v66);
   }
 
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v79 = VRTraceErrorLogLevelToCSTR();
-    v80 = *MEMORY[0x277CE5818];
+    v78 = VRTraceErrorLogLevelToCSTR();
+    v79 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      *&buf[4] = v79;
+      *&buf[4] = v78;
       *&buf[12] = 2080;
       *&buf[14] = "GetCellularInterfaceList";
       *&buf[22] = 1024;
       *&buf[24] = 576;
       *&buf[28] = 1024;
-      *&buf[30] = v169;
-      _os_log_impl(&dword_23D497000, v80, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GetCellularInterfaceList: found %d cellular interface(s).", buf, 0x22u);
+      *&buf[30] = v166;
+      _os_log_impl(&dword_23D497000, v79, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GetCellularInterfaceList: found %d cellular interface(s).", buf, 0x22u);
     }
   }
 
   free(*&localAddress.sa_len);
-  v77 = v170;
-  v78 = v70;
+  v76 = v167;
+  v77 = v69;
 LABEL_165:
-  v81 = v176;
-  v168 = v78;
+  v80 = v173;
+  v165 = v77;
   v60 = 0;
-  if (v176)
+  if (v173)
   {
-    v164 = v77 - 40;
-    v165 = *MEMORY[0x277CBED10];
+    v161 = v76 - 40;
+    v162 = *MEMORY[0x277CBED10];
     while (1)
     {
-      v82 = if_nametoindex(v81->ifa_name);
-      if (!v82)
+      v81 = if_nametoindex(v80->ifa_name);
+      if (!v81)
       {
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v101 = VRTraceErrorLogLevelToCSTR();
-          v102 = *MEMORY[0x277CE5818];
+          v100 = VRTraceErrorLogLevelToCSTR();
+          v101 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
           {
-            ifa_name = v81->ifa_name;
+            ifa_name = v80->ifa_name;
             *buf = 136315906;
-            *&buf[4] = v101;
+            *&buf[4] = v100;
             *&buf[12] = 2080;
             *&buf[14] = "GetLocalInterfaceListWithOptionsAndCellInterfaceName";
             *&buf[22] = 1024;
             *&buf[24] = 760;
             *&buf[28] = 2080;
             *&buf[30] = ifa_name;
-            _os_log_error_impl(&dword_23D497000, v102, OS_LOG_TYPE_ERROR, " [%s] %s:%d if_name:%s not found", buf, 0x26u);
+            _os_log_error_impl(&dword_23D497000, v101, OS_LOG_TYPE_ERROR, " [%s] %s:%d if_name:%s not found", buf, 0x26u);
           }
         }
 
         goto LABEL_312;
       }
 
-      v83 = v82;
-      v84 = &v77[40 * v60];
-      SAToIPPORTWithInterfaceIndexToNameCallback(v81->ifa_addr, v84, DefaultInterfaceIndexToNameCallback, 0);
-      v85 = 0;
-      *(v84 + 36) = 0;
-      *v84 |= 8u;
-      v86 = v81->ifa_name;
-      if (*v86 == 108)
+      v82 = v81;
+      v83 = &v76[40 * v60];
+      SAToIPPORTWithInterfaceIndexToNameCallback(v80->ifa_addr, v83, DefaultInterfaceIndexToNameCallback, 0);
+      v84 = 0;
+      *(v83 + 36) = 0;
+      *v83 |= 8u;
+      v85 = v80->ifa_name;
+      if (*v85 == 108)
       {
-        v85 = v86[1] == 111;
+        v84 = v85[1] == 111;
       }
 
-      sa_family = v81->ifa_addr->sa_family;
-      v89 = sa_family != 30 && sa_family != 2 || v173 < 1;
-      v90 = v174;
-      v91 = v173;
-      if (v89)
+      sa_family = v80->ifa_addr->sa_family;
+      v88 = sa_family != 30 && sa_family != 2 || v170 < 1;
+      v89 = v171;
+      v90 = v170;
+      if (v88)
       {
 LABEL_179:
-        if (!v85)
+        if (!v84)
         {
           goto LABEL_312;
         }
@@ -5330,13 +5265,13 @@ LABEL_179:
       {
         while (1)
         {
-          v92 = *v90++;
-          if (v92 == v83)
+          v91 = *v89++;
+          if (v91 == v82)
           {
             break;
           }
 
-          if (!--v91)
+          if (!--v90)
           {
             goto LABEL_179;
           }
@@ -5345,65 +5280,65 @@ LABEL_179:
 
       if (sa_family == 2)
       {
-        v93 = v171;
+        v92 = v168;
       }
 
       else
       {
-        v93 = v172;
+        v92 = v169;
       }
 
-      if (IsAWDLInterface(v83, v93))
+      if (IsAWDLInterface(v82, v92))
       {
-        *v84 |= 0x100u;
+        *v83 |= 0x100u;
       }
 
-      if (IsBluetoothInterface(v83) && (*v84 & 1) != 0)
+      if (IsBluetoothInterface(v82) && (*v83 & 1) != 0)
       {
-        *v84 |= 0x200u;
+        *v83 |= 0x200u;
       }
 
-      v94 = v81->ifa_name;
-      if (!v94)
-      {
-        goto LABEL_208;
-      }
-
-      v95 = v81->ifa_addr->sa_family;
-      if (v95 != 30 && v95 != 2)
+      v93 = v80->ifa_name;
+      if (!v93)
       {
         goto LABEL_208;
       }
 
-      v97 = if_nametoindex(v81->ifa_name);
-      if (!v97)
+      v94 = v80->ifa_addr->sa_family;
+      if (v94 != 30 && v94 != 2)
+      {
+        goto LABEL_208;
+      }
+
+      v96 = if_nametoindex(v80->ifa_name);
+      if (!v96)
       {
         break;
       }
 
-      v99 = v169;
-      v98 = v168;
-      if (v169 < 1)
+      v98 = v166;
+      v97 = v165;
+      if (v166 < 1)
       {
         goto LABEL_208;
       }
 
       while (1)
       {
-        v100 = *v98++;
-        if (v100 == v97)
+        v99 = *v97++;
+        if (v99 == v96)
         {
           break;
         }
 
-        if (!--v99)
+        if (!--v98)
         {
           goto LABEL_208;
         }
       }
 
-      v107 = v81->ifa_name;
-      if (!v107)
+      v106 = v80->ifa_name;
+      if (!v106)
       {
 LABEL_214:
         if (VRTraceGetErrorLogLevelForModule() < 7)
@@ -5411,65 +5346,65 @@ LABEL_214:
           goto LABEL_312;
         }
 
-        v109 = VRTraceErrorLogLevelToCSTR();
-        v110 = *MEMORY[0x277CE5818];
+        v108 = VRTraceErrorLogLevelToCSTR();
+        v109 = *MEMORY[0x277CE5818];
         if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_312;
         }
 
-        v111 = v81->ifa_name;
+        v110 = v80->ifa_name;
         *buf = 136315906;
-        *&buf[4] = v109;
+        *&buf[4] = v108;
         *&buf[12] = 2080;
         *&buf[14] = "GetLocalInterfaceListWithOptionsAndCellInterfaceName";
         *&buf[22] = 1024;
         *&buf[24] = 799;
         *&buf[28] = 2080;
-        *&buf[30] = v111;
-        v112 = v110;
-        v113 = " [%s] %s:%d Cellular interface [%s] doesn't support data, skip.";
-        v114 = 38;
+        *&buf[30] = v110;
+        v111 = v109;
+        v112 = " [%s] %s:%d Cellular interface [%s] doesn't support data, skip.";
+        v113 = 38;
 LABEL_261:
-        _os_log_impl(&dword_23D497000, v112, OS_LOG_TYPE_DEFAULT, v113, buf, v114);
+        _os_log_impl(&dword_23D497000, v111, OS_LOG_TYPE_DEFAULT, v112, buf, v113);
         goto LABEL_312;
       }
 
       if (!__s)
       {
-        v106 = 1;
+        v105 = 1;
         goto LABEL_206;
       }
 
-      v108 = strlen(__s);
-      v77 = v170;
-      if (strncmp(v107, __s, v108))
+      v107 = strlen(__s);
+      v76 = v167;
+      if (strncmp(v106, __s, v107))
       {
         goto LABEL_214;
       }
 
-      v106 = 1;
-      if (!v85)
+      v105 = 1;
+      if (!v84)
       {
 LABEL_219:
         if ((a2 & 2) != 0)
         {
-          v115 = v106;
+          v114 = v105;
         }
 
         else
         {
-          v115 = 1;
+          v114 = 1;
         }
 
-        if ((a2 & v106 & 1) != 0 || !v115)
+        if ((a2 & v105 & 1) != 0 || !v114)
         {
           goto LABEL_312;
         }
 
-        if (v106)
+        if (v105)
         {
-          *v84 |= 4u;
+          *v83 |= 4u;
         }
 
         goto LABEL_226;
@@ -5482,8 +5417,8 @@ LABEL_209:
       }
 
 LABEL_226:
-      v116 = v81->ifa_addr->sa_family;
-      if (v116 == 30)
+      v115 = v80->ifa_addr->sa_family;
+      if (v115 == 30)
       {
         if (_os_feature_enabled_impl() && (a2 & 0x10) != 0)
         {
@@ -5492,88 +5427,88 @@ LABEL_226:
             goto LABEL_312;
           }
 
-          v128 = VRTraceErrorLogLevelToCSTR();
-          v129 = *MEMORY[0x277CE5818];
+          v126 = VRTraceErrorLogLevelToCSTR();
+          v127 = *MEMORY[0x277CE5818];
           if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_312;
           }
 
           *buf = 136315650;
-          *&buf[4] = v128;
+          *&buf[4] = v126;
           *&buf[12] = 2080;
           *&buf[14] = "GetLocalInterfaceListWithOptionsAndCellInterfaceName";
           *&buf[22] = 1024;
           *&buf[24] = 866;
-          v112 = v129;
-          v113 = " [%s] %s:%d IFLIST_EXCLUDE_IPV6 is set, skipping one IPV6 interface";
-          v114 = 28;
+          v111 = v127;
+          v112 = " [%s] %s:%d IFLIST_EXCLUDE_IPV6 is set, skipping one IPV6 interface";
+          v113 = 28;
           goto LABEL_261;
         }
 
         if ((a2 & 8) == 0)
         {
-          ifa_addr = v81->ifa_addr;
+          ifa_addr = v80->ifa_addr;
           if (ifa_addr->sa_data[6] == 254 && (ifa_addr->sa_data[7] & 0xC0) == 0x80)
           {
             goto LABEL_312;
           }
         }
 
-        v192 = 0u;
-        v193 = 0u;
-        v190 = 0u;
-        v191 = 0u;
-        v188 = 0u;
         v189 = 0u;
-        v186 = 0u;
+        v190 = 0u;
         v187 = 0u;
-        v184 = 0u;
+        v188 = 0u;
         v185 = 0u;
-        v182 = 0u;
+        v186 = 0u;
         v183 = 0u;
+        v184 = 0u;
         v181 = 0u;
+        v182 = 0u;
+        v179 = 0u;
+        v180 = 0u;
+        v178 = 0u;
         memset(buf, 0, sizeof(buf));
-        v131 = v81->ifa_addr;
-        v132 = *v131;
-        *&buf[28] = *&v131->sa_data[10];
-        *&buf[16] = v132;
+        v129 = v80->ifa_addr;
+        v130 = *v129;
+        *&buf[28] = *&v129->sa_data[10];
+        *&buf[16] = v130;
         if (GetLocalInterfaceListWithOptionsAndCellInterfaceName_dontForceRFC3041AddrIfAvailable == -1)
         {
           GetLocalInterfaceListWithOptionsAndCellInterfaceName_dontForceRFC3041AddrIfAvailable = CFPreferencesGetAppBooleanValue(@"dontForceRFC3041AddrIfAvailable", @"com.apple.VideoConference", 0);
         }
 
-        v133 = v60;
-        strncpy(buf, v81->ifa_name, 0x10uLL);
-        if (ioctl(v172, 0xC1206949uLL, buf) == -1)
+        v131 = v60;
+        strncpy(buf, v80->ifa_name, 0x10uLL);
+        if (ioctl(v169, 0xC1206949uLL, buf) == -1)
         {
           if (VRTraceGetErrorLogLevelForModule() >= 3)
           {
-            v140 = VRTraceErrorLogLevelToCSTR();
-            v141 = *MEMORY[0x277CE5818];
+            v138 = VRTraceErrorLogLevelToCSTR();
+            v139 = *MEMORY[0x277CE5818];
             if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
             {
-              v155 = v81->ifa_name;
-              v156 = __error();
-              v157 = strerror(*v156);
-              *v178 = 136316162;
-              *&v178[4] = v140;
-              *&v178[12] = 2080;
-              *&v178[14] = "GetLocalInterfaceListWithOptionsAndCellInterfaceName";
-              *&v178[22] = 1024;
-              *&v178[24] = 892;
-              *&v178[28] = 2080;
-              *&v178[30] = v155;
-              *&v178[38] = 2080;
-              *&v178[40] = v157;
-              _os_log_error_impl(&dword_23D497000, v141, OS_LOG_TYPE_ERROR, " [%s] %s:%d ioctl(SIOCGIFAFLAG_IN6) failed for %s: %s", v178, 0x30u);
+              v152 = v80->ifa_name;
+              v153 = __error();
+              v154 = strerror(*v153);
+              *v175 = 136316162;
+              *&v175[4] = v138;
+              *&v175[12] = 2080;
+              *&v175[14] = "GetLocalInterfaceListWithOptionsAndCellInterfaceName";
+              *&v175[22] = 1024;
+              *&v175[24] = 892;
+              *&v175[28] = 2080;
+              *&v175[30] = v152;
+              *&v175[38] = 2080;
+              *&v175[40] = v154;
+              _os_log_error_impl(&dword_23D497000, v139, OS_LOG_TYPE_ERROR, " [%s] %s:%d ioctl(SIOCGIFAFLAG_IN6) failed for %s: %s", v175, 0x30u);
             }
           }
         }
 
         else
         {
-          v134 = buf[16];
+          v132 = buf[16];
           if ((buf[16] & 6) != 0)
           {
             goto LABEL_311;
@@ -5581,225 +5516,223 @@ LABEL_226:
 
           if ((buf[16] & 0x80) != 0)
           {
-            *v84 |= 0x10u;
-            v134 = buf[16];
+            *v83 |= 0x10u;
+            v132 = buf[16];
           }
 
-          if ((v134 & 0x10) != 0)
+          if ((v132 & 0x10) != 0)
           {
-            *v84 |= 0x40u;
+            *v83 |= 0x40u;
           }
 
           if (!GetLocalInterfaceListWithOptionsAndCellInterfaceName_dontForceRFC3041AddrIfAvailable && v60)
           {
-            v135 = 1 - v60;
-            v136 = &v164[40 * v60];
-            v137 = v60 - 1;
+            v133 = 1 - v60;
+            v134 = &v161[40 * v60];
+            v135 = v60 - 1;
             do
             {
-              if (!strcmp(v81->ifa_name, v136 + 4) && (*v136 & 1) != 0)
+              if (!strcmp(v80->ifa_name, v134 + 4) && (*v134 & 1) != 0)
               {
-                v138 = &v170[40 * v60];
-                v139 = *v138 & 0x50;
-                if (v139 == 16)
+                v136 = &v167[40 * v60];
+                v137 = *v136 & 0x50;
+                if (v137 == 16)
                 {
-                  if ((*v136 & 0x50) != 0x10)
+                  if ((*v134 & 0x50) != 0x10)
                   {
                     if (VRTraceGetErrorLogLevelForModule() > 6)
                     {
-                      v161 = VRTraceErrorLogLevelToCSTR();
-                      v162 = *MEMORY[0x277CE5818];
+                      v158 = VRTraceErrorLogLevelToCSTR();
+                      v159 = *MEMORY[0x277CE5818];
                       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
                       {
-                        *v178 = 136315906;
-                        *&v178[4] = v161;
-                        *&v178[12] = 2080;
-                        *&v178[14] = "GetLocalInterfaceListWithOptionsAndCellInterfaceName";
-                        *&v178[22] = 1024;
-                        *&v178[24] = 950;
-                        *&v178[28] = 1024;
-                        *&v178[30] = v137;
-                        _os_log_impl(&dword_23D497000, v162, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ┗━▶ Pruning interface %d in favor of rfc3041-compliant interface.", v178, 0x22u);
+                        *v175 = 136315906;
+                        *&v175[4] = v158;
+                        *&v175[12] = 2080;
+                        *&v175[14] = "GetLocalInterfaceListWithOptionsAndCellInterfaceName";
+                        *&v175[22] = 1024;
+                        *&v175[24] = 950;
+                        *&v175[28] = 1024;
+                        *&v175[30] = v135;
+                        _os_log_impl(&dword_23D497000, v159, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ┗━▶ Pruning interface %d in favor of rfc3041-compliant interface.", v175, 0x22u);
                       }
                     }
 
-                    memmove(v136, v136 + 40, 40 * (v60 + v135));
-                    *v138 = 0u;
-                    *(v138 + 1) = 0u;
+                    memmove(v134, v134 + 40, 40 * (v60 + v133));
+                    *v136 = 0u;
+                    *(v136 + 1) = 0u;
                     v60 = (v60 - 1);
-                    *(v138 + 4) = 0;
+                    *(v136 + 4) = 0;
                   }
                 }
 
-                else if ((*v136 & 0x10) != 0 || v139 == 80)
+                else if ((*v134 & 0x10) != 0 || v137 == 80)
                 {
                   goto LABEL_311;
                 }
               }
 
-              ++v135;
-              v136 -= 40;
-              --v137;
-              --v133;
+              ++v133;
+              v134 -= 40;
+              --v135;
+              --v131;
             }
 
-            while (v133);
-            LODWORD(v133) = v60;
+            while (v131);
+            LODWORD(v131) = v60;
           }
         }
 
-        v142 = &v170[40 * v133];
-        v77 = v170;
-        v143 = v81->ifa_name;
+        v140 = &v167[40 * v131];
+        v76 = v167;
         __strlcpy_chk();
-        if ((v81->ifa_flags & 0x10) != 0)
+        if ((v80->ifa_flags & 0x10) != 0)
         {
-          *v142 |= 2u;
+          *v140 |= 2u;
         }
 
-        if (v167 && (*v142 & 4) != 0)
+        if (v164 && (*v140 & 4) != 0)
         {
-          *v142 |= 0x20u;
+          *v140 |= 0x20u;
         }
       }
 
       else
       {
-        if (v116 != 2)
+        if (v115 != 2)
         {
           goto LABEL_297;
         }
 
-        if ((v81->ifa_flags & 0x10) == 0)
+        if ((v80->ifa_flags & 0x10) == 0)
         {
-          LOBYTE(v106) = 1;
+          LOBYTE(v105) = 1;
         }
 
-        if ((v106 & 1) == 0)
+        if ((v105 & 1) == 0)
         {
           *&localAddress.sa_len = 0xAAAAAAAAAAAAAAAALL;
           *&localAddress.sa_data[6] = 0xAAAAAAAAAAAAAAAALL;
-          if ((*v84 & 1) == 0)
+          if ((*v83 & 1) == 0)
           {
             *&localAddress.sa_data[6] = 0;
             *&localAddress.sa_len = 528;
-            *&localAddress.sa_data[2] = bswap32(*(v84 + 20));
-            *localAddress.sa_data = bswap32(*(v84 + 36)) >> 16;
+            *&localAddress.sa_data[2] = bswap32(*(v83 + 20));
+            *localAddress.sa_data = bswap32(*(v83 + 36)) >> 16;
           }
 
-          *&v117 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v117 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          *&buf[16] = v117;
-          *&buf[32] = v117;
-          *buf = v117;
+          *&v116 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v116 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          *&buf[16] = v116;
+          *&buf[32] = v116;
+          *buf = v116;
           *&remoteAddress.sa_len = 528;
           *&remoteAddress.sa_data[6] = 0;
-          v118 = SCNetworkReachabilityCreateWithAddressPair(0, &localAddress, &remoteAddress);
+          v117 = SCNetworkReachabilityCreateWithAddressPair(0, &localAddress, &remoteAddress);
           flags = -1431655766;
-          if (SCNetworkReachabilityGetFlags(v118, &flags) && (flags & 0x40000) != 0)
+          if (SCNetworkReachabilityGetFlags(v117, &flags) && (flags & 0x40000) != 0)
           {
             if (VRTraceGetErrorLogLevelForModule() < 7)
             {
-              v119 = 1;
+              v118 = 1;
             }
 
             else
             {
-              v153 = VRTraceErrorLogLevelToCSTR();
-              v154 = *MEMORY[0x277CE5818];
+              v150 = VRTraceErrorLogLevelToCSTR();
+              v151 = *MEMORY[0x277CE5818];
               if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
               {
-                IPToString(buf, v84);
-                *v178 = 136315906;
-                *&v178[4] = v153;
-                *&v178[12] = 2080;
-                *&v178[14] = "IsPPPOver3G";
-                *&v178[22] = 1024;
-                *&v178[24] = 658;
-                *&v178[28] = 2080;
-                *&v178[30] = buf;
-                _os_log_impl(&dword_23D497000, v154, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d PPP address [%s] is over cellular network", v178, 0x26u);
+                IPToString(buf, v83);
+                *v175 = 136315906;
+                *&v175[4] = v150;
+                *&v175[12] = 2080;
+                *&v175[14] = "IsPPPOver3G";
+                *&v175[22] = 1024;
+                *&v175[24] = 658;
+                *&v175[28] = 2080;
+                *&v175[30] = buf;
+                _os_log_impl(&dword_23D497000, v151, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d PPP address [%s] is over cellular network", v175, 0x26u);
               }
 
-              v119 = 1;
+              v118 = 1;
             }
           }
 
           else
           {
-            v119 = 0;
+            v118 = 0;
           }
 
-          CFRelease(v118);
+          CFRelease(v117);
           if ((a2 & 2) != 0)
           {
-            v120 = v119;
+            v119 = v118;
           }
 
           else
           {
-            v120 = 1;
+            v119 = 1;
           }
 
-          if ((a2 & v119 & 1) != 0 || !v120)
+          if ((a2 & v118 & 1) != 0 || !v119)
           {
             goto LABEL_311;
           }
 
-          v121 = *v84;
-          if (v119)
+          v120 = *v83;
+          if (v118)
           {
-            v121 = *v84 | 4;
+            v120 = *v83 | 4;
           }
 
-          *v84 = v121 | 2;
-          v122 = GetLocalInterfaceListWithOptionsAndCellInterfaceName_s_iAllowVPN;
+          *v83 = v120 | 2;
+          v121 = GetLocalInterfaceListWithOptionsAndCellInterfaceName_s_iAllowVPN;
           if (GetLocalInterfaceListWithOptionsAndCellInterfaceName_s_iAllowVPN == -1)
           {
             GetLocalInterfaceListWithOptionsAndCellInterfaceName_s_iAllowVPN = 1;
-            v123 = CFPreferencesCopyAppValue(@"allowVPN", @"com.apple.VideoConference");
-            if (v123)
+            v122 = CFPreferencesCopyAppValue(@"allowVPN", @"com.apple.VideoConference");
+            if (v122)
             {
-              v124 = v123;
-              if (CFEqual(v123, v165))
+              v123 = v122;
+              if (CFEqual(v122, v162))
               {
                 if (VRTraceGetErrorLogLevelForModule() >= 7)
                 {
-                  v125 = VRTraceErrorLogLevelToCSTR();
-                  v126 = *MEMORY[0x277CE5818];
+                  v124 = VRTraceErrorLogLevelToCSTR();
+                  v125 = *MEMORY[0x277CE5818];
                   if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136315650;
-                    *&buf[4] = v125;
+                    *&buf[4] = v124;
                     *&buf[12] = 2080;
                     *&buf[14] = "GetLocalInterfaceListWithOptionsAndCellInterfaceName";
                     *&buf[22] = 1024;
                     *&buf[24] = 844;
-                    _os_log_impl(&dword_23D497000, v126, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Found allowVPN NO. Exclusing PPP interfaces", buf, 0x1Cu);
+                    _os_log_impl(&dword_23D497000, v125, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Found allowVPN NO. Exclusing PPP interfaces", buf, 0x1Cu);
                   }
                 }
 
                 GetLocalInterfaceListWithOptionsAndCellInterfaceName_s_iAllowVPN = 0;
               }
 
-              CFRelease(v124);
+              CFRelease(v123);
             }
 
-            v122 = GetLocalInterfaceListWithOptionsAndCellInterfaceName_s_iAllowVPN;
+            v121 = GetLocalInterfaceListWithOptionsAndCellInterfaceName_s_iAllowVPN;
           }
 
-          v77 = v170;
-          if (!v122)
+          v76 = v167;
+          if (!v121)
           {
             goto LABEL_312;
           }
         }
 
-        v127 = v81->ifa_name;
         __strlcpy_chk();
-        if (v167 && (*v84 & 4) != 0)
+        if (v164 && (*v83 & 4) != 0)
         {
-          *v84 |= 0x20u;
+          *v83 |= 0x20u;
         }
       }
 
@@ -5807,53 +5740,53 @@ LABEL_226:
 LABEL_297:
       if (v60)
       {
-        v144 = &v77[40 * v60 - 40];
-        if (*(v144 + 4))
+        v141 = &v76[40 * v60 - 40];
+        if (*(v141 + 4))
         {
-          *&v145 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v145 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          *&v178[32] = v145;
-          v179 = v145;
-          *v178 = v145;
-          *&v178[16] = v145;
+          *&v142 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v142 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          *&v175[32] = v142;
+          v176 = v142;
+          *v175 = v142;
+          *&v175[16] = v142;
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
-            v146 = VRTraceErrorLogLevelToCSTR();
-            v147 = *MEMORY[0x277CE5818];
+            v143 = VRTraceErrorLogLevelToCSTR();
+            v144 = *MEMORY[0x277CE5818];
             if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
             {
-              v163 = v5;
-              if (*v144)
+              v160 = v5;
+              if (*v141)
               {
-                v148 = 54;
+                v145 = 54;
               }
 
               else
               {
-                v148 = 52;
+                v145 = 52;
               }
 
-              IPToString(v178, v144);
-              v149 = *v144;
-              v150 = " DEPRECATED";
-              if ((*v144 & 0x40) == 0)
+              IPToString(v175, v141);
+              v146 = *v141;
+              v147 = " DEPRECATED";
+              if ((*v141 & 0x40) == 0)
               {
-                v150 = &unk_23D4C9CFB;
+                v147 = &unk_23D4C9CFB;
               }
 
               *buf = 136317442;
-              v151 = " TEMPORARY";
-              if ((v149 & 0x10) == 0)
+              v148 = " TEMPORARY";
+              if ((v146 & 0x10) == 0)
               {
-                v151 = &unk_23D4C9CFB;
+                v148 = &unk_23D4C9CFB;
               }
 
-              v37 = (v149 & 0x20) == 0;
-              *&buf[4] = v146;
-              v152 = " 2G";
+              v37 = (v146 & 0x20) == 0;
+              *&buf[4] = v143;
+              v149 = " 2G";
               if (v37)
               {
-                v152 = &unk_23D4C9CFB;
+                v149 = &unk_23D4C9CFB;
               }
 
               *&buf[12] = 2080;
@@ -5863,30 +5796,30 @@ LABEL_297:
               *&buf[28] = 1024;
               *&buf[30] = v60 - 1;
               *&buf[34] = 1024;
-              *&buf[36] = v148;
-              v5 = v163;
+              *&buf[36] = v145;
+              v5 = v160;
               *&buf[40] = 2080;
-              *&buf[42] = v144 + 4;
+              *&buf[42] = v141 + 4;
               *&buf[50] = 2080;
-              *&buf[52] = v178;
+              *&buf[52] = v175;
               *&buf[60] = 2080;
-              *&buf[62] = v150;
+              *&buf[62] = v147;
               *&buf[70] = 2080;
-              *&buf[72] = v151;
-              LOWORD(v181) = 2080;
-              *(&v181 + 2) = v152;
-              _os_log_impl(&dword_23D497000, v147, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %d: v%c interface %s %s%s%s%s", buf, 0x5Au);
+              *&buf[72] = v148;
+              LOWORD(v178) = 2080;
+              *(&v178 + 2) = v149;
+              _os_log_impl(&dword_23D497000, v144, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %d: v%c interface %s %s%s%s%s", buf, 0x5Au);
             }
           }
         }
 
 LABEL_311:
-        v77 = v170;
+        v76 = v167;
       }
 
 LABEL_312:
-      v81 = v81->ifa_next;
-      if (!v81)
+      v80 = v80->ifa_next;
+      if (!v80)
       {
         goto LABEL_319;
       }
@@ -5894,12 +5827,12 @@ LABEL_312:
 
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v104 = VRTraceErrorLogLevelToCSTR();
-      v105 = *MEMORY[0x277CE5818];
+      v103 = VRTraceErrorLogLevelToCSTR();
+      v104 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        *&buf[4] = v104;
+        *&buf[4] = v103;
         *&buf[12] = 2080;
         *&buf[14] = "IsPDPInterface";
         *&buf[22] = 1024;
@@ -5907,14 +5840,14 @@ LABEL_312:
         *&buf[28] = 1024;
         *&buf[30] = 612;
         *&buf[34] = 2080;
-        *&buf[36] = v94;
-        _os_log_error_impl(&dword_23D497000, v105, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/IPAddr.c:%d: if_name:%s not found", buf, 0x2Cu);
+        *&buf[36] = v93;
+        _os_log_error_impl(&dword_23D497000, v104, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/IPAddr.c:%d: if_name:%s not found", buf, 0x2Cu);
       }
 
-      v106 = 0;
+      v105 = 0;
 LABEL_206:
-      v77 = v170;
-      if (!v85)
+      v76 = v167;
+      if (!v84)
       {
         goto LABEL_219;
       }
@@ -5923,8 +5856,8 @@ LABEL_206:
     }
 
 LABEL_208:
-    v106 = 0;
-    if (!v85)
+    v105 = 0;
+    if (!v84)
     {
       goto LABEL_219;
     }
@@ -5933,114 +5866,105 @@ LABEL_208:
   }
 
 LABEL_319:
-  if (v172 >= 3)
+  if (v169 >= 3)
   {
-    close(v172);
+    close(v169);
   }
 
-  if (v171 != -1)
+  if (v168 != -1)
   {
-    close(v171);
+    close(v168);
   }
 
-  if (v176)
+  if (v173)
   {
     MEMORY[0x23EEE25D0]();
   }
 
-  if (v174)
+  if (v171)
   {
-    free(v174);
+    free(v171);
   }
 
-  if (v168)
+  if (v165)
   {
-    free(v168);
+    free(v165);
   }
 
-  *v5 = v77;
+  *v5 = v76;
   if (VRTraceGetErrorLogLevelForModule() >= 8)
   {
-    v158 = VRTraceErrorLogLevelToCSTR();
-    v159 = *MEMORY[0x277CE5818];
-    v160 = *MEMORY[0x277CE5818];
+    v155 = VRTraceErrorLogLevelToCSTR();
+    v156 = *MEMORY[0x277CE5818];
+    v157 = *MEMORY[0x277CE5818];
     if (*MEMORY[0x277CE5808] == 1)
     {
-      if (os_log_type_enabled(v160, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        *&buf[4] = v158;
+        *&buf[4] = v155;
         *&buf[12] = 2080;
         *&buf[14] = "GetLocalInterfaceListWithOptionsAndCellInterfaceName";
         *&buf[22] = 1024;
         *&buf[24] = 1012;
         *&buf[28] = 1024;
         *&buf[30] = v60;
-        _os_log_impl(&dword_23D497000, v159, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Interfaces count=%d.", buf, 0x22u);
+        _os_log_impl(&dword_23D497000, v156, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Interfaces count=%d.", buf, 0x22u);
       }
     }
 
-    else if (os_log_type_enabled(v160, OS_LOG_TYPE_DEBUG))
+    else if (os_log_type_enabled(v157, OS_LOG_TYPE_DEBUG))
     {
       GetLocalInterfaceListWithOptionsAndCellInterfaceName_cold_7();
     }
   }
 
-LABEL_109:
-  v61 = *MEMORY[0x277D85DE8];
   return v60;
 }
 
-uint64_t IsAWDLInterface(unsigned int a1, int a2)
+BOOL IsAWDLInterface(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v5 = 0u;
   v6 = 0u;
-  v7 = 0u;
-  memset(v5, 170, sizeof(v5));
-  if_indextoname(a1, v5);
+  memset(v4, 170, sizeof(v4));
+  if_indextoname(a1, v4);
   __strlcpy_chk();
-  if (!ioctl(a2, 0xC020698EuLL, &v6))
+  if (!ioctl(a2, 0xC020698EuLL, &v5))
   {
-    result = (v7 >> 20) & 1;
-    goto LABEL_7;
+    return (v6 >> 20) & 1;
   }
 
-  if (VRTraceGetErrorLogLevelForModule() < 3)
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    goto LABEL_5;
-  }
+    VRTraceErrorLogLevelToCSTR();
+    result = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
 
-  VRTraceErrorLogLevelToCSTR();
-  result = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR);
-  if (result)
-  {
     IsAWDLInterface_cold_1();
-LABEL_5:
-    result = 0;
   }
 
-LABEL_7:
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t IsBluetoothInterface(unsigned int a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   memset(cStr, 170, sizeof(cStr));
   if (!if_indextoname(a1, cStr))
   {
-    IsBluetoothInterface_cold_3(&v8);
-LABEL_8:
-    v5 = v8;
-    goto LABEL_5;
+    IsBluetoothInterface_cold_3(&v7);
+    return v7;
   }
 
   v1 = CFStringCreateWithCString(0, cStr, 0x8000100u);
   if (!v1)
   {
-    IsBluetoothInterface_cold_2(&v8);
-    goto LABEL_8;
+    IsBluetoothInterface_cold_2(&v7);
+    return v7;
   }
 
   v2 = v1;
@@ -6056,11 +5980,9 @@ LABEL_8:
   else
   {
     IsBluetoothInterface_cold_1(v2);
-    v5 = 0;
+    return 0;
   }
 
-LABEL_5:
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -6265,83 +6187,84 @@ uint64_t ntohIPPORT(uint64_t result)
 
 uint64_t GetLocalIFIndexForDstIPPort(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  if ((*a1 & 1) != 0 && *(a1 + 20) == 254 && ((v2 = *(a1 + 21), (v2 & 0xC0) == 0x80) || v2 >= 0xC0) && *(a1 + 22))
+  v9 = *MEMORY[0x277D85DE8];
+  if ((*a1 & 1) != 0 && *(a1 + 20) == 254)
   {
-    LocalIFIndexForDstIPPortFromBuffer = __rev16(*(a1 + 22));
+    v2 = *(a1 + 21);
+    if ((v2 & 0xC0) == 0x80 || v2 >= 0xC0)
+    {
+      if (*(a1 + 22))
+      {
+        return __rev16(*(a1 + 22));
+      }
+    }
+  }
+
+  v5 = 0xAAAAAAAAAAAAAAAALL;
+  v6 = 0xAAAAAAAAAAAAAAAALL;
+  v7 = xmmword_23D4C9CB0;
+  v8 = 1;
+  if ((reliableSysctl(&v7, &v5, &v6) & 0x80000000) != 0)
+  {
+    if (VRTraceGetErrorLogLevelForModule() >= 3)
+    {
+      VRTraceErrorLogLevelToCSTR();
+      if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
+      {
+        GetLocalIFIndexForDstIPPort_cold_1();
+      }
+    }
+
+    return 0;
   }
 
   else
   {
-    v6 = 0xAAAAAAAAAAAAAAAALL;
-    v7 = 0xAAAAAAAAAAAAAAAALL;
-    v8 = xmmword_23D4C9CB0;
-    v9 = 1;
-    if ((reliableSysctl(&v8, &v6, &v7) & 0x80000000) != 0)
-    {
-      if (VRTraceGetErrorLogLevelForModule() >= 3)
-      {
-        VRTraceErrorLogLevelToCSTR();
-        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
-        {
-          GetLocalIFIndexForDstIPPort_cold_1();
-        }
-      }
-
-      LocalIFIndexForDstIPPortFromBuffer = 0;
-    }
-
-    else
-    {
-      LocalIFIndexForDstIPPortFromBuffer = GetLocalIFIndexForDstIPPortFromBuffer(a1, v6, v7);
-      free(v6);
-    }
+    LocalIFIndexForDstIPPortFromBuffer = GetLocalIFIndexForDstIPPortFromBuffer(a1, v5, v6);
+    free(v5);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return LocalIFIndexForDstIPPortFromBuffer;
 }
 
 uint64_t reliableSysctl(int *a1, void *a2, size_t *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v18 = 0;
+  v26 = *MEMORY[0x277D85DE8];
+  v17 = 0;
   if (!a1)
   {
     reliableSysctl_cold_6(buf);
-LABEL_24:
-    v11 = *buf;
-    goto LABEL_22;
+    return *buf;
   }
 
   if (!a2)
   {
     reliableSysctl_cold_5(buf);
-    goto LABEL_24;
+    return *buf;
   }
 
   if (!a3)
   {
     reliableSysctl_cold_4(buf);
-    goto LABEL_24;
+    return *buf;
   }
 
-  v6 = sysctl(a1, 6u, 0, &v18, 0, 0);
+  v6 = sysctl(a1, 6u, 0, &v17, 0, 0);
   if (!v6)
   {
     v7 = MEMORY[0x277CE5818];
     while (1)
     {
-      v18 += v18 >> 2;
-      v8 = malloc_type_malloc(v18, 0x100004077774924uLL);
+      v17 += v17 >> 2;
+      v8 = malloc_type_malloc(v17, 0x100004077774924uLL);
       if (!v8)
       {
-        reliableSysctl_cold_3(&v18, buf);
-        goto LABEL_24;
+        reliableSysctl_cold_3(&v17, buf);
+        return *buf;
       }
 
       v9 = v8;
-      v10 = sysctl(a1, 6u, v8, &v18, 0, 0);
+      v10 = sysctl(a1, 6u, v8, &v17, 0, 0);
       if (v10)
       {
         v11 = v10;
@@ -6360,7 +6283,7 @@ LABEL_24:
         }
 
         free(v9);
-        v18 = 0;
+        v17 = 0;
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
           v12 = VRTraceErrorLogLevelToCSTR();
@@ -6368,13 +6291,13 @@ LABEL_24:
           if (os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315906;
-            v20 = v12;
-            v21 = 2080;
-            v22 = "reliableSysctl";
-            v23 = 1024;
-            v24 = 361;
-            v25 = 1024;
-            v26 = 361;
+            v19 = v12;
+            v20 = 2080;
+            v21 = "reliableSysctl";
+            v22 = 1024;
+            v23 = 361;
+            v24 = 1024;
+            v25 = 361;
             _os_log_error_impl(&dword_23D497000, v13, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/IPAddr.c:%d: buffer size has changed, trying again", buf, 0x22u);
           }
         }
@@ -6382,16 +6305,16 @@ LABEL_24:
         v9 = 0;
       }
 
-      v14 = v18;
-      if (v18)
+      v14 = v17;
+      if (v17)
       {
         v11 = 0;
         *a2 = v9;
         *a3 = v14;
-        goto LABEL_22;
+        return v11;
       }
 
-      v15 = sysctl(a1, 6u, 0, &v18, 0, 0);
+      v15 = sysctl(a1, 6u, 0, &v17, 0, 0);
       if (v15)
       {
         v11 = v15;
@@ -6418,56 +6341,54 @@ LABEL_21:
     free(v9);
   }
 
-LABEL_22:
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t GetLocalIFIndexForDstIPPortFromBuffer(_BYTE *a1, unsigned __int8 *a2, uint64_t a3)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v62 = v3;
-  v63 = v3;
+  v59 = v3;
   v60 = v3;
-  v61 = v3;
+  v57 = v3;
+  v58 = v3;
   if (a3 < 1)
   {
-    HIDWORD(v58) = 0;
-    goto LABEL_125;
+    HIDWORD(v55) = 0;
+    return HIDWORD(v55);
   }
 
   v4 = a2;
-  v57 = 0;
-  v58 = 0;
+  v54 = 0;
+  v55 = 0;
   v5 = &a2[a3];
   v6 = a1 + 20;
   v7 = MEMORY[0x277D85DF8];
   while (2)
   {
     v8 = v4 + 92;
-    if ((v4 + 92) > v5)
+    if (v4 + 92 > v5)
     {
       if (VRTraceGetErrorLogLevelForModule() < 3)
       {
-        goto LABEL_125;
+        return HIDWORD(v55);
       }
 
-      v46 = VRTraceErrorLogLevelToCSTR();
-      v42 = *MEMORY[0x277CE5818];
+      v43 = VRTraceErrorLogLevelToCSTR();
+      v40 = *MEMORY[0x277CE5818];
       if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_125;
+        return HIDWORD(v55);
       }
 
       *buf = 136315650;
-      *&buf[4] = v46;
+      *&buf[4] = v43;
       *&buf[12] = 2080;
       *&buf[14] = "GetLocalIFIndexForDstIPPortFromBuffer";
       *&buf[22] = 1024;
       *&buf[24] = 1388;
-      v43 = " [%s] %s:%d Unable to read message header";
+      v41 = " [%s] %s:%d Unable to read message header";
       goto LABEL_135;
     }
 
@@ -6477,31 +6398,31 @@ uint64_t GetLocalIFIndexForDstIPPortFromBuffer(_BYTE *a1, unsigned __int8 *a2, u
     {
       if (VRTraceGetErrorLogLevelForModule() < 3)
       {
-        goto LABEL_125;
+        return HIDWORD(v55);
       }
 
-      v47 = VRTraceErrorLogLevelToCSTR();
-      v48 = *MEMORY[0x277CE5818];
+      v44 = VRTraceErrorLogLevelToCSTR();
+      v45 = *MEMORY[0x277CE5818];
       if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_125;
+        return HIDWORD(v55);
       }
 
-      v49 = *v9;
+      v46 = *v9;
       *buf = 136315906;
-      *&buf[4] = v47;
+      *&buf[4] = v44;
       *&buf[12] = 2080;
       *&buf[14] = "GetLocalIFIndexForDstIPPortFromBuffer";
       *&buf[22] = 1024;
       *&buf[24] = 1389;
       *&buf[28] = 1024;
-      *&buf[30] = v49;
-      v43 = " [%s] %s:%d Message length too small: %d";
-      v50 = v48;
-      v51 = 34;
+      *&buf[30] = v46;
+      v41 = " [%s] %s:%d Message length too small: %d";
+      v47 = v45;
+      v48 = 34;
 LABEL_136:
-      _os_log_error_impl(&dword_23D497000, v50, OS_LOG_TYPE_ERROR, v43, buf, v51);
-      goto LABEL_125;
+      _os_log_error_impl(&dword_23D497000, v47, OS_LOG_TYPE_ERROR, v41, buf, v48);
+      return HIDWORD(v55);
     }
 
     v4 += v10;
@@ -6509,26 +6430,26 @@ LABEL_136:
     {
       if (VRTraceGetErrorLogLevelForModule() < 3)
       {
-        goto LABEL_125;
+        return HIDWORD(v55);
       }
 
-      v52 = VRTraceErrorLogLevelToCSTR();
-      v42 = *MEMORY[0x277CE5818];
+      v49 = VRTraceErrorLogLevelToCSTR();
+      v40 = *MEMORY[0x277CE5818];
       if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_125;
+        return HIDWORD(v55);
       }
 
       *buf = 136315650;
-      *&buf[4] = v52;
+      *&buf[4] = v49;
       *&buf[12] = 2080;
       *&buf[14] = "GetLocalIFIndexForDstIPPortFromBuffer";
       *&buf[22] = 1024;
       *&buf[24] = 1392;
-      v43 = " [%s] %s:%d Message is too short";
+      v41 = " [%s] %s:%d Message is too short";
 LABEL_135:
-      v50 = v42;
-      v51 = 28;
+      v47 = v40;
+      v48 = 28;
       goto LABEL_136;
     }
 
@@ -6537,7 +6458,7 @@ LABEL_135:
     v13 = *(v9 + 3);
     while (((v13 >> v11) & 1) == 0)
     {
-      *(&v60 + v11) = 0;
+      *(&v57 + v11) = 0;
 LABEL_18:
       v12 = v11++ > 6;
       if (v11 == 8)
@@ -6576,22 +6497,22 @@ LABEL_25:
 LABEL_121:
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v41 = VRTraceErrorLogLevelToCSTR();
-        v42 = *MEMORY[0x277CE5818];
+        v39 = VRTraceErrorLogLevelToCSTR();
+        v40 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          *&buf[4] = v41;
+          *&buf[4] = v39;
           *&buf[12] = 2080;
           *&buf[14] = "GetLocalIFIndexForDstIPPortFromBuffer";
           *&buf[22] = 1024;
           *&buf[24] = 1398;
-          v43 = " [%s] %s:%d Failed to parse addresses";
+          v41 = " [%s] %s:%d Failed to parse addresses";
           goto LABEL_135;
         }
       }
 
-      goto LABEL_125;
+      return HIDWORD(v55);
     }
 
     v14 = *v8;
@@ -6614,7 +6535,7 @@ LABEL_121:
     if (&v8[v14] <= v4)
     {
 LABEL_17:
-      *(&v60 + v11) = v8;
+      *(&v57 + v11) = v8;
       v8 += v14;
       goto LABEL_18;
     }
@@ -6632,18 +6553,18 @@ LABEL_23:
       goto LABEL_25;
     }
 
-    v40 = *v8;
+    v38 = *v8;
     if (*v8)
     {
-      if ((v40 & 3) != 0)
+      if ((v38 & 3) != 0)
       {
-        v40 = (v40 | 3) + 1;
+        v38 = (v38 | 3) + 1;
       }
     }
 
     else
     {
-      v40 = 4;
+      v38 = 4;
     }
 
     *buf = 136316162;
@@ -6653,7 +6574,7 @@ LABEL_23:
     *&buf[22] = 1024;
     *&buf[24] = 1219;
     *&buf[28] = 1024;
-    *&buf[30] = v40;
+    *&buf[30] = v38;
     *&buf[34] = 1024;
     *&buf[36] = v4 - v8;
     v17 = v21;
@@ -6667,7 +6588,7 @@ LABEL_120:
     }
 
 LABEL_26:
-    if ((v9[8] & 1) == 0 || (v22 = v60) == 0)
+    if ((v9[8] & 1) == 0 || (v22 = v57) == 0)
     {
 LABEL_113:
       if (v4 < v5)
@@ -6675,13 +6596,13 @@ LABEL_113:
         continue;
       }
 
-      goto LABEL_125;
+      return HIDWORD(v55);
     }
 
     break;
   }
 
-  v23 = *(v60 + 1);
+  v23 = *(v57 + 1);
   if (*a1)
   {
     if (v23 != 30)
@@ -6695,41 +6616,41 @@ LABEL_113:
     goto LABEL_113;
   }
 
-  if (v60 + 16 > v4)
+  if (v57 + 16 > v4)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v53 = VRTraceErrorLogLevelToCSTR();
-      v42 = *MEMORY[0x277CE5818];
+      v50 = VRTraceErrorLogLevelToCSTR();
+      v40 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        *&buf[4] = v53;
+        *&buf[4] = v50;
         *&buf[12] = 2080;
         *&buf[14] = "GetLocalIFIndexForDstIPPortFromBuffer";
         *&buf[22] = 1024;
         *&buf[24] = 1408;
-        v43 = " [%s] %s:%d IP address extends past the end of the message";
+        v41 = " [%s] %s:%d IP address extends past the end of the message";
         goto LABEL_135;
       }
     }
   }
 
-  else if (*v60 <= 0xFu)
+  else if (*v57 <= 0xFu)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v54 = VRTraceErrorLogLevelToCSTR();
-      v42 = *MEMORY[0x277CE5818];
+      v51 = VRTraceErrorLogLevelToCSTR();
+      v40 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        *&buf[4] = v54;
+        *&buf[4] = v51;
         *&buf[12] = 2080;
         *&buf[14] = "GetLocalIFIndexForDstIPPortFromBuffer";
         *&buf[22] = 1024;
         *&buf[24] = 1409;
-        v43 = " [%s] %s:%d IP address struct is larger than it's stored length";
+        v41 = " [%s] %s:%d IP address struct is larger than it's stored length";
         goto LABEL_135;
       }
     }
@@ -7041,18 +6962,18 @@ LABEL_55:
 
     fputc(10, *v7);
     fprintf(*v7, "addrs = %d\n", *(v9 + 3));
-    v25 = *(&v60 + 1);
-    if (*(&v60 + 1))
+    v25 = *(&v57 + 1);
+    if (*(&v57 + 1))
     {
       *&v26 = 0xAAAAAAAAAAAAAAAALL;
       *(&v26 + 1) = 0xAAAAAAAAAAAAAAAALL;
       *&buf[16] = v26;
       *&buf[32] = v26;
       *buf = v26;
-      v64[0] = v26;
-      v64[1] = v26;
-      v65 = 0xAAAAAAAAAAAAAAAALL;
-      SAToIPPORTWithInterfaceIndexToNameCallback(*(&v60 + 1), v64, DefaultInterfaceIndexToNameCallback, 0);
+      v61[0] = v26;
+      v61[1] = v26;
+      v62 = 0xAAAAAAAAAAAAAAAALL;
+      SAToIPPORTWithInterfaceIndexToNameCallback(*(&v57 + 1), v61, DefaultInterfaceIndexToNameCallback, 0);
       if (*(v25 + 1) == 18)
       {
         fprintf(*v7, "GATEWAY(%d) = LLADDR\n");
@@ -7061,7 +6982,7 @@ LABEL_55:
       else
       {
         v27 = *v7;
-        IPToString(buf, v64);
+        IPToString(buf, v61);
         fprintf(v27, "GATEWAY(%d) = %s\n");
       }
     }
@@ -7071,23 +6992,22 @@ LABEL_55:
     {
       if (v28 == 2)
       {
-        if (v61)
+        if (v58)
         {
-          v29 = *v61;
           *buf = 0;
           __memcpy_chk();
-          v30 = bswap32(*buf);
+          v29 = bswap32(*buf);
         }
 
         else
         {
-          v30 = -1;
+          v29 = -1;
         }
 
-        if ((*v6 & v30) == bswap32(*(v22 + 1)) && v30 >= v58)
+        if ((*v6 & v29) == bswap32(*(v22 + 1)) && v29 >= v55)
         {
-          LODWORD(v58) = v30;
-          HIDWORD(v58) = *(v9 + 2);
+          LODWORD(v55) = v29;
+          HIDWORD(v55) = *(v9 + 2);
         }
       }
 
@@ -7098,17 +7018,17 @@ LABEL_55:
     {
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v55 = VRTraceErrorLogLevelToCSTR();
-        v42 = *MEMORY[0x277CE5818];
+        v52 = VRTraceErrorLogLevelToCSTR();
+        v40 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          *&buf[4] = v55;
+          *&buf[4] = v52;
           *&buf[12] = 2080;
           *&buf[14] = "GetLocalIFIndexForDstIPPortFromBuffer";
           *&buf[22] = 1024;
           *&buf[24] = 1441;
-          v43 = " [%s] %s:%d IPv6 address extends past the end of the message";
+          v41 = " [%s] %s:%d IPv6 address extends past the end of the message";
           goto LABEL_135;
         }
       }
@@ -7120,8 +7040,8 @@ LABEL_55:
       {
         if (v22[8] == 254)
         {
-          v31 = v22[9];
-          if ((v31 & 0xC0) == 0x80 || v31 >= 0xC0)
+          v30 = v22[9];
+          if ((v30 & 0xC0) == 0x80 || v30 >= 0xC0)
           {
             *(v22 + 6) = bswap32(*(v22 + 5)) >> 16;
             *(v22 + 5) = 0;
@@ -7129,9 +7049,8 @@ LABEL_55:
         }
 
         memset(buf, 170, 16);
-        if (v61)
+        if (v58)
         {
-          v32 = *v61;
           *buf = 0;
           *&buf[8] = 0;
           __memcpy_chk();
@@ -7143,46 +7062,46 @@ LABEL_55:
           *&buf[8] = -1;
         }
 
-        v33 = 0;
-        while ((buf[v33] & *(v6 + v33)) == v22[v33 + 8])
+        v31 = 0;
+        while ((buf[v31] & *(v6 + v31)) == v22[v31 + 8])
         {
-          if (++v33 == 16)
+          if (++v31 == 16)
           {
-            v34 = 0;
-            v35 = buf;
+            v32 = 0;
+            v33 = buf;
             while (1)
             {
-              v37 = *v35++;
-              v36 = v37;
-              if (v37 != 255)
+              v35 = *v33++;
+              v34 = v35;
+              if (v35 != 255)
               {
                 break;
               }
 
-              v34 += 8;
-              if (v34 == 128)
+              v32 += 8;
+              if (v32 == 128)
               {
                 goto LABEL_111;
               }
             }
 
-            v38 = v34 + 8;
-            v39 = 7;
-            while (((v36 >> v39) & 1) != 0)
+            v36 = v32 + 8;
+            v37 = 7;
+            while (((v34 >> v37) & 1) != 0)
             {
-              LODWORD(v34) = v34 + 1;
-              if (--v39 == -1)
+              LODWORD(v32) = v32 + 1;
+              if (--v37 == -1)
               {
-                LODWORD(v34) = v38;
+                LODWORD(v32) = v36;
                 break;
               }
             }
 
 LABEL_111:
-            if (v34 >= v57)
+            if (v32 >= v54)
             {
-              HIDWORD(v58) = *(v9 + 2);
-              v57 = v34;
+              HIDWORD(v55) = *(v9 + 2);
+              v54 = v32;
             }
 
             goto LABEL_113;
@@ -7194,26 +7113,24 @@ LABEL_111:
 
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v56 = VRTraceErrorLogLevelToCSTR();
-        v42 = *MEMORY[0x277CE5818];
+        v53 = VRTraceErrorLogLevelToCSTR();
+        v40 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          *&buf[4] = v56;
+          *&buf[4] = v53;
           *&buf[12] = 2080;
           *&buf[14] = "GetLocalIFIndexForDstIPPortFromBuffer";
           *&buf[22] = 1024;
           *&buf[24] = 1442;
-          v43 = " [%s] %s:%d IPv6 struct is larger than it's stored length";
+          v41 = " [%s] %s:%d IPv6 struct is larger than it's stored length";
           goto LABEL_135;
         }
       }
     }
   }
 
-LABEL_125:
-  v44 = *MEMORY[0x277D85DE8];
-  return HIDWORD(v58);
+  return HIDWORD(v55);
 }
 
 uint64_t GetConnectionTypeFromCellTech(int a1)
@@ -7300,7 +7217,6 @@ uint64_t FillSockAddrStorage(uint64_t result, unsigned int *a2, unsigned int a3,
     *(result + 2) = __rev16(a3);
     if (a5)
     {
-      v7 = bswap32(*a2);
       return nw_nat64_synthesize_v6();
     }
 
@@ -7399,7 +7315,7 @@ uint64_t IsInterfaceRoutable(int a1, uint64_t a2, uint64_t a3)
   return v6;
 }
 
-uint64_t VCCTServiceMonitor_GetIsInHomeCountry(_BYTE *a1)
+uint64_t VCCTServiceMonitor_GetIsInHomeCountry(unsigned __int8 *a1)
 {
   if (a1)
   {
@@ -7448,7 +7364,7 @@ uint64_t VCCTServiceMonitor_GetIsInHomeCountry(_BYTE *a1)
   return v5;
 }
 
-uint64_t VCCTServiceMonitor_GetDataIndicatorStatus(_DWORD *a1)
+uint64_t VCCTServiceMonitor_GetDataIndicatorStatus(unsigned int *a1)
 {
   if (a1)
   {
@@ -7497,7 +7413,7 @@ uint64_t VCCTServiceMonitor_GetDataIndicatorStatus(_DWORD *a1)
   return v5;
 }
 
-uint64_t VCCTServiceMonitor_GetDataIndicatorStatusOverride(_DWORD *a1)
+uint64_t VCCTServiceMonitor_GetDataIndicatorStatusOverride(unsigned int *a1)
 {
   if (a1)
   {
@@ -7546,7 +7462,7 @@ uint64_t VCCTServiceMonitor_GetDataIndicatorStatusOverride(_DWORD *a1)
   return v5;
 }
 
-uint64_t VCCTServiceMonitor_GetRadioAccessTechnology(_DWORD *a1)
+uint64_t VCCTServiceMonitor_GetRadioAccessTechnology(unsigned int *a1)
 {
   if (a1)
   {
@@ -7632,7 +7548,7 @@ uint64_t VCCTServiceMonitor_CopyConnectionStatusInterfaceName(void *a1)
   return result;
 }
 
-uint64_t VCCTServiceMonitor_GetSignalStrength(_DWORD *a1, _DWORD *a2, _DWORD *a3)
+uint64_t VCCTServiceMonitor_GetSignalStrength(_DWORD *a1, _DWORD *a2, unsigned int *a3)
 {
   if (!a1)
   {
@@ -7686,10 +7602,11 @@ uint64_t VCCTServiceMonitor_GetSignalStrength(_DWORD *a1, _DWORD *a2, _DWORD *a3
   return result;
 }
 
-void OUTLINED_FUNCTION_3_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
 void OUTLINED_FUNCTION_6_4(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -7701,1662 +7618,1340 @@ void OUTLINED_FUNCTION_6_4(void *a1, uint64_t a2, os_log_t log, const char *a4, 
 
 void CompressCandidateList_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v4 = "CompressCandidateList";
-  v5 = 1024;
-  v6 = 290;
-  v7 = 1024;
-  v8 = v0;
-  _os_log_error_impl(&dword_23D497000, v1, OS_LOG_TYPE_ERROR, " [%s] %s:%d malloc (%d) bytes failed", v3, 0x22u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = "CompressCandidateList";
+  v4 = 1024;
+  v5 = 290;
+  v6 = 1024;
+  v7 = v0;
+  _os_log_error_impl(&dword_23D497000, v1, OS_LOG_TYPE_ERROR, " [%s] %s:%d malloc (%d) bytes failed", v2, 0x22u);
 }
 
 void UncompressCandidateList_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v4 = "UncompressCandidateList";
-  v5 = 1024;
-  v6 = 337;
-  v7 = 1024;
-  v8 = 337;
-  v9 = 1024;
-  v10 = v0;
-  _os_log_error_impl(&dword_23D497000, v1, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Candidate.c:%d: malloc(%d) failed", v3, 0x28u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = "UncompressCandidateList";
+  v4 = 1024;
+  v5 = 337;
+  v6 = 1024;
+  v7 = 337;
+  v8 = 1024;
+  v9 = v0;
+  _os_log_error_impl(&dword_23D497000, v1, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Candidate.c:%d: malloc(%d) failed", v2, 0x28u);
 }
 
 void ICECompressCandidates_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICECompressCandidates_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICECompressCandidates_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICECompressCandidates_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEGetCandidatesForPeer_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: malloc failed.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: malloc failed.", v2, v3, v4, v5);
 }
 
 void ICEGetCandidates_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEGetCandidates_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: PE candidate collection failed due to termination of existing ICE check!\n", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: PE candidate collection failed due to termination of existing ICE check!\n", v2, v3, v4, v5);
 }
 
 void ICEGetCandidates_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: PE candidate collection timed out\n", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: PE candidate collection timed out\n", v2, v3, v4, v5);
 }
 
 void ICEGetCandidates_cold_4()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: PE candidate collection failed", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: PE candidate collection failed", v2, v3, v4, v5);
 }
 
 void ICEGetCandidates_cold_5()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: PE candidate collection failed due totermination of existing ICE check!\n", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: PE candidate collection failed due totermination of existing ICE check!\n", v2, v3, v4, v5);
 }
 
 void ICEGetCandidates_cold_6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEGetCandidates_cold_7()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: Relay Allocate request failed.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: Relay Allocate request failed.", v2, v3, v4, v5);
 }
 
 void ICEGetCandidates_cold_8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEGetCandidates_cold_9()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEGetCandidates_cold_10()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEGetCandidates_cold_11()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEGetCandidates_cold_12()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICECompressCandidates failed", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICECompressCandidates failed", v2, v3, v4, v5);
 }
 
 void ICEGetCandidates_cold_13()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEGetCandidates_cold_14()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEGetCandidates_cold_15()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEGetCandidates_cold_16()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: No candidate is collected!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: No candidate is collected!", v2, v3, v4, v5);
 }
 
-void ICERetainICEList_cold_1(uint64_t a1, uint64_t a2)
+void ICERetainICEList_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 148);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x28u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
 }
 
 void ICEGetNewCandidates_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: malloc failed.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: malloc failed.", v2, v3, v4, v5);
 }
 
 void AddOneICEList_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AddOneICEList_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AddOneICEList_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void ICEReleaseAndFreeICEList_cold_1(uint64_t a1, uint64_t a2)
+void ICEReleaseAndFreeICEList_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 148);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x28u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
 }
 
 void ICEUpdateNAT64FlagForInterface_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEUpdateNAT64FlagForInterface: failed due to invalid handle.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEUpdateNAT64FlagForInterface: failed due to invalid handle.", v2, v3, v4, v5);
 }
 
 void ICEAddOneInterfaceWithPriorityHints_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEAddOneInterfaceWithPriorityHints_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEAddOneInterface failed due to invalid handle.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEAddOneInterface failed due to invalid handle.", v2, v3, v4, v5);
 }
 
 void ICERemoveOneInterface_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICERemoveOneInterface failed due to invalid handle.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICERemoveOneInterface failed due to invalid handle.", v2, v3, v4, v5);
 }
 
 void ICECreateHandleWithCallback_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICECreateHandle:pthread_mutexattr_init failed...", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICECreateHandle:pthread_mutexattr_init failed...", v2, v3, v4, v5);
 }
 
 void ICECreateHandleWithCallback_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICECreateHandleWithCallback_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEStartConnectivityCheckN_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: UpdateRBRefreshTypeAndDictionary: Can't get transactionID", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: UpdateRBRefreshTypeAndDictionary: Can't get transactionID", v2, v3, v4, v5);
 }
 
 void ICEStartConnectivityCheckN_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void ICEStartConnectivityCheckN_cold_3(uint64_t a1, unsigned int *a2)
+void ICEStartConnectivityCheckN_cold_3()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x28u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
 }
 
 void ICEStartConnectivityCheckN_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEStartConnectivityCheckN_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEStartConnectivityCheckN_cold_6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEStartConnectivityCheckN_cold_7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEStartConnectivityCheckN_cold_8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEStartConnectivityCheckN_cold_9()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEStartConnectivityCheckN_cold_10()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEStartConnectivityCheckN_cold_11()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEStartConnectivityCheckN_cold_12()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEStartConnectivityCheckN_cold_13()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEProcessRemoteInterfaceChange_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEProcessRemoteInterfaceChange_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEGetRemoteCIDForDstIPPort_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEGetRemoteCIDForDstIPPort found no match.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ICEGetNextBestCandidate_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEGetRemoteCIDForDstIPPort found no match.", v2, v3, v4, v5);
 }
 
 void ICEAddRemovedLocalIPPort_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: realloc failed.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: realloc failed.", v2, v3, v4, v5);
 }
 
 void ICEAddRemovedRemoteIPPort_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: realloc failed.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: realloc failed.", v2, v3, v4, v5);
 }
 
 void ICEAddRemovedRemoteIPPort_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEDiscardResult_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEDiscardResult failed due to invalid handle.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEDiscardResult failed due to invalid handle.", v2, v3, v4, v5);
 }
 
 void ICECloseHandle_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICECloseHandle failed due to invalid handle.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICECloseHandle failed due to invalid handle.", v2, v3, v4, v5);
 }
 
 void DiscardOneRelayBindingWithChannelNumber_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEStopConnectivityCheck_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICESetSKEState_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEGetExtIPPorts_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEGetExtIPPorts timed out...", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEGetExtIPPorts timed out...", v2, v3, v4, v5);
 }
 
 void ICEGetExtIPPorts_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEGetExtIPPorts_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEGetExtIPPorts_cold_4()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEGetExtIPPorts failed due to invalid handle.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEGetExtIPPorts failed due to invalid handle.", v2, v3, v4, v5);
 }
 
-void ICEGetExtIPIndex_cold_1(uint64_t a1, unsigned int *a2)
+void ICEGetExtIPIndex_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x28u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
 }
 
 void ICESetForceRelay_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEUpdateRole_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEUpdateRole_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEUpdateRole failed due to invalid handle.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEUpdateRole failed due to invalid handle.", v2, v3, v4, v5);
 }
 
 void ICEUpdateServingNetworkInfo_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEUpdateServingNetworkInfo_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEUpdateRole failed due to invalid handle.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEUpdateRole failed due to invalid handle.", v2, v3, v4, v5);
 }
 
 void ICEUpdateCellTech_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEUpdateCellTech_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEUpdateCellTech failed due to invalid handle.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEUpdateCellTech failed due to invalid handle.", v2, v3, v4, v5);
 }
 
 void ICEGetCellTech_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEGetCellTech_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEGetRemoteCellTech failed due to invalid handle.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEGetRemoteCellTech failed due to invalid handle.", v2, v3, v4, v5);
 }
 
 void ICEGetConnErrorCode_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ICEGetConnErrorCode_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEUpdateRole failed due to invalid handle.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEUpdateRole failed due to invalid handle.", v2, v3, v4, v5);
 }
 
 void ICEDisableCandidatePairFilter_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEDisableCandidatePairFilter failed due to invalid handle.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEDisableCandidatePairFilter failed due to invalid handle.", v2, v3, v4, v5);
 }
 
 void ICEInterfaceNeedsUpdateExternalMapping_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEInterfaceNeedsUpdateExternalMapping failed due to invalid handle", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEInterfaceNeedsUpdateExternalMapping failed due to invalid handle", v2, v3, v4, v5);
 }
 
 void ICEInterfaceNeedsUpdateExternalMapping_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEInterfaceNeedsUpdateExternalMapping failed due to invalid pointer", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICE.c:%d: ICEInterfaceNeedsUpdateExternalMapping failed due to invalid pointer", v2, v3, v4, v5);
 }
 
 void MatchCandidatePairWithIDs_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void SaveSTUNRequest_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_12_0(&dword_23D497000, v0, v1, " [%s] %s:%d calloc(%d) failed", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_12_0(&dword_23D497000, v0, v1, " [%s] %s:%d calloc(%d) failed", v2, v3, v4, v5);
 }
 
 void SaveSTUNRequest_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void ProcessEvent_cold_1(uint64_t a1, unsigned __int16 *a2)
+void ProcessEvent_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_10_0();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x28u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
 }
 
 void ProcessEvent_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ProcessEvent_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_10_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ProcessEvent_cold_4()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_10();
-  _os_log_debug_impl(&dword_23D497000, v0, OS_LOG_TYPE_DEBUG, " [%s] %s:%d EncodeChannelDataMessage returns error (%08X)", v2, 0x22u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_23D497000, v0, OS_LOG_TYPE_DEBUG, " [%s] %s:%d EncodeChannelDataMessage returns error (%08X)", v1, 0x22u);
 }
 
-void ProcessEvent_cold_5(uint64_t a1, unsigned __int16 *a2)
+void ProcessEvent_cold_5()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_10_0();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x28u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
 }
 
 void ProcessEvent_cold_6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ProcessEvent_cold_7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ProcessEvent_cold_8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void InsertEvent_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ConnectivityCheckProc_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ConnectivityCheckProc_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_12_0(&dword_23D497000, v0, v1, " [%s] %s:%d malloc failed(%08X)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_12_0(&dword_23D497000, v0, v1, " [%s] %s:%d malloc failed(%08X)", v2, v3, v4, v5);
 }
 
 void ConnectivityCheckProc_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ConnectivityCheckProc_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ConnectivityCheckProc_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ConnectivityCheckProc_cold_6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ConnectivityCheckProc_cold_7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void AddRelayCandidatePair_cold_1(uint64_t a1, unsigned int *a2)
+void AddRelayCandidatePair_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x22u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
 void AddRelayCandidatePair_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ProcessNewCandidates_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AddConnectivityCheckResult_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AddConnectivityCheckResult_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_12_0(&dword_23D497000, v0, v1, " [%s] %s:%d calloc(%d) failed", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_12_0(&dword_23D497000, v0, v1, " [%s] %s:%d calloc(%d) failed", v2, v3, v4, v5);
 }
 
 void AddConnectivityCheckResult_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ProcessMessageType_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ProcessMessageType failed due to invalid parameter.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ProcessMessageType failed due to invalid parameter.", v2, v3, v4, v5);
 }
 
 void ProcessCollectionResponse_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ProcessAllocateResponse failed", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ProcessAllocateResponse failed", v2, v3, v4, v5);
 }
 
 void ProcessCollectionResponse_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ParseSTUNMessage failed (%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ParseSTUNMessage failed (%08X)", v2, v3, v4, v5, v6);
 }
 
 void ProcessCollectionResponse_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ProcessSNATMAPResponse failed (%08X)\n", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ProcessSNATMAPResponse failed (%08X)\n", v2, v3, v4, v5, v6);
 }
 
 void ProcessCollectionResponse_cold_4()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Unable to read message type. Packet is too short:%d", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Unable to read message type. Packet is too short:%d", v2, v3, v4, v5, v6);
 }
 
 void SendRelayChannelBindRequest_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: SaveSTUNRequest failed (%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: SaveSTUNRequest failed (%08X)", v2, v3, v4, v5, v6);
 }
 
 void SendRelayChannelBindRequest_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: \tUDPSENDCALLBACK failed(%08X).", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: \tUDPSENDCALLBACK failed(%08X).", v2, v3, v4, v5, v6);
 }
 
 void SendRelayChannelBindRequest_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: STUNEncodeMessage failed (%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: STUNEncodeMessage failed (%08X)", v2, v3, v4, v5, v6);
 }
 
 void SendRelayChannelBindRequest_cold_4()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: MakeChannelBindRequest failed (%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: MakeChannelBindRequest failed (%08X)", v2, v3, v4, v5, v6);
 }
 
 void MakeBindingRequest_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ICECompressCandidates failed (%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ICECompressCandidates failed (%08X)", v2, v3, v4, v5, v6);
 }
 
 void MakeBindingRequest_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: malloc failed", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: malloc failed", v2, v3, v4, v5);
 }
 
 void DelayedICEUpdateAfterNominationResponse_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Failed while allocating a copy of candidate pair...", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Failed while allocating a copy of candidate pair...", v2, v3, v4, v5);
 }
 
 void ProcessBindingRequest_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ICE_ROLE_CONTORLLED CONFLICT!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ICE_ROLE_CONTORLLED CONFLICT!", v2, v3, v4, v5);
 }
 
 void ProcessBindingRequest_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ICE_ROLE_CONTORLLING CONFLICT!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ICE_ROLE_CONTORLLING CONFLICT!", v2, v3, v4, v5);
 }
 
 void ProcessBindingRequest_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: SKEState_SetBlob(1) failed with error %d", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: SKEState_SetBlob(1) failed with error %d", v2, v3, v4, v5, v6);
 }
 
 void ProcessBindingRequest_cold_4()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: SKEState_CopyBlobSync(1) failed with error %d", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: SKEState_CopyBlobSync(1) failed with error %d", v2, v3, v4, v5, v6);
 }
 
 void ProcessBindingRequest_cold_5(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v4 = 136316162;
-  v5 = a1;
-  v6 = 2080;
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = 136316162;
+  v4 = a1;
+  v5 = 2080;
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_10_0();
-  v7 = v1;
-  v8 = "HRESULT ProcessBindingRequest(PICEINFO, PICELIST, PSTUNMSG, PIPPORT, double)";
-  _os_log_error_impl(&dword_23D497000, v2, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: %s: Callee - SKEOptimization enabled but pSKEState = NULL. Call is disconnecting", &v4, 0x2Cu);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = v1;
+  v7 = "HRESULT ProcessBindingRequest(PICEINFO, PICELIST, PSTUNMSG, PIPPORT, double)";
+  _os_log_error_impl(&dword_23D497000, v2, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: %s: Callee - SKEOptimization enabled but pSKEState = NULL. Call is disconnecting", &v3, 0x2Cu);
 }
 
-void ProcessBindingRequest_cold_6(uint64_t a1, unsigned int *a2)
+void ProcessBindingRequest_cold_6()
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_10_0();
-  HIWORD(v11) = v3;
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v4, v5, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: PairUpCandidate returned invalid pair (%d)", v7, v8, v9, v10, v11);
-  v6 = *MEMORY[0x277D85DE8];
+  HIWORD(v7) = v0;
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v1, v2, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: PairUpCandidate returned invalid pair (%d)", v3, v4, v5, v6, v7);
 }
 
 void ProcessBindingRequest_cold_7()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: \tUDPSENDCALLBACK failed (%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: \tUDPSENDCALLBACK failed (%08X)", v2, v3, v4, v5, v6);
 }
 
 void ProcessBindingRequest_cold_8()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: STUNEncodeMessage failed (%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: STUNEncodeMessage failed (%08X)", v2, v3, v4, v5, v6);
 }
 
 void ProcessBindingRequest_cold_9()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: MakeBindingResponse failed(%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: MakeBindingResponse failed(%08X)", v2, v3, v4, v5, v6);
 }
 
 void ProcessBindingRequest_cold_10()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: InsertEvent failed (%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: InsertEvent failed (%08X)", v2, v3, v4, v5, v6);
 }
 
 void ProcessBindingRequest_cold_11()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: PairUpCandidate failed (%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: PairUpCandidate failed (%08X)", v2, v3, v4, v5, v6);
 }
 
 void ProcessBindingRequest_cold_12()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: \tUDPSENDCALLBACK failed (%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: \tUDPSENDCALLBACK failed (%08X)", v2, v3, v4, v5, v6);
 }
 
 void ProcessBindingRequest_cold_13()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: STUNEncodeMessage failed (%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: STUNEncodeMessage failed (%08X)", v2, v3, v4, v5, v6);
 }
 
 void ProcessBindingRequest_cold_14()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: MakeBindingResponse failed(%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: MakeBindingResponse failed(%08X)", v2, v3, v4, v5, v6);
 }
 
 void ProcessBindingRequest_cold_15()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: \tUDPSENDCALLBACK failed (%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: \tUDPSENDCALLBACK failed (%08X)", v2, v3, v4, v5, v6);
 }
 
 void ProcessBindingRequest_cold_16()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: \tError encoding the channel data message.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: \tError encoding the channel data message.", v2, v3, v4, v5);
 }
 
 void ProcessBindingRequest_cold_17()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: STUNEncodeMessage failed (%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: STUNEncodeMessage failed (%08X)", v2, v3, v4, v5, v6);
 }
 
 void ProcessBindingRequest_cold_18()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: MakeBindingResponse failed (%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: MakeBindingResponse failed (%08X)", v2, v3, v4, v5, v6);
 }
 
 void ProcessBindingRequest_cold_19()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Invalid PROTO-TYPE in BINDING_REQUEST.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Invalid PROTO-TYPE in BINDING_REQUEST.", v2, v3, v4, v5);
 }
 
 void ProcessBindingRequest_cold_20()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Invalid USENAME in BINDING_REQUEST.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Invalid USENAME in BINDING_REQUEST.", v2, v3, v4, v5);
 }
 
 void MakeBindingResponse_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ICECompressCandidates failed (%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ICECompressCandidates failed (%08X)", v2, v3, v4, v5, v6);
 }
 
 void MakeBindingResponse_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: malloc failed.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: malloc failed.", v2, v3, v4, v5);
 }
 
 void MakeBindingResponse_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Invalid USERNAME in BINDING-REQUEST.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Invalid USERNAME in BINDING-REQUEST.", v2, v3, v4, v5);
 }
 
 void ProcessConnCheckMessage_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ParseSTUNMessage failed (%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: ParseSTUNMessage failed (%08X)", v2, v3, v4, v5, v6);
 }
 
 void ProcessBindingResponse_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: missing attribute NTP_DELAY", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: missing attribute NTP_DELAY", v2, v3, v4, v5);
 }
 
 void ProcessBindingResponse_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: SKEState_SetBlob(1) failed with error %d", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: SKEState_SetBlob(1) failed with error %d", v2, v3, v4, v5, v6);
 }
 
-void ProcessBindingResponse_cold_3(uint64_t a1, unsigned int *a2)
+void ProcessBindingResponse_cold_3()
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_10_0();
-  HIWORD(v11) = v3;
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v4, v5, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: PairUpCandidate returned invalid pair (%d)", v7, v8, v9, v10, v11);
-  v6 = *MEMORY[0x277D85DE8];
+  HIWORD(v7) = v0;
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v1, v2, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: PairUpCandidate returned invalid pair (%d)", v3, v4, v5, v6, v7);
 }
 
 void ProcessBindingResponse_cold_4()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: PairUpCandidate failed (%08X)", v3, v4, v5, v6, v7);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: PairUpCandidate failed (%08X)", v2, v3, v4, v5, v6);
 }
 
 void ProcessBindingResponse_cold_5()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Invalid PROTO-TYPE in BINDING_RESPONSE.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Invalid PROTO-TYPE in BINDING_RESPONSE.", v2, v3, v4, v5);
 }
 
 void ProcessBindingResponse_cold_6()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Invalid MAPPED-ADDRESS in BINDING_RESPONSE.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Invalid MAPPED-ADDRESS in BINDING_RESPONSE.", v2, v3, v4, v5);
 }
 
 void ProcessBindingResponse_cold_7()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Invalid USENAME in BINDING_RESPONSE.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/ICEMessage.c:%d: Invalid USENAME in BINDING_RESPONSE.", v2, v3, v4, v5);
 }
 
 void EQInit_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "EQInit";
-  v4 = 1024;
-  v5 = 9;
-  v6 = 1024;
-  v7 = 9;
-  _os_log_error_impl(&dword_23D497000, v0, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/peq.c:%d: fail to initialize event queue.", v2, 0x22u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "EQInit";
+  v3 = 1024;
+  v4 = 9;
+  v5 = 1024;
+  v6 = 9;
+  _os_log_error_impl(&dword_23D497000, v0, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/peq.c:%d: fail to initialize event queue.", v1, 0x22u);
 }
 
 void EQPush_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "EQPush";
-  v4 = 1024;
-  v5 = 23;
-  v6 = 1024;
-  v7 = 23;
-  _os_log_error_impl(&dword_23D497000, v0, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/peq.c:%d: event is empty!", v2, 0x22u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "EQPush";
+  v3 = 1024;
+  v4 = 23;
+  v5 = 1024;
+  v6 = 23;
+  _os_log_error_impl(&dword_23D497000, v0, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/peq.c:%d: event is empty!", v1, 0x22u);
 }
 
 void MakeAllocateRequest_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  HIWORD(v8) = v0;
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v1, v2, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: MakeAllocateRequest: get server addr failed (%08X)", v4, v5, v6, v7, v8);
-  v3 = *MEMORY[0x277D85DE8];
+  HIWORD(v7) = v0;
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v1, v2, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: MakeAllocateRequest: get server addr failed (%08X)", v3, v4, v5, v6, v7);
 }
 
 void MakeChannelBindRequest_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  HIWORD(v8) = v0;
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, v1, v2, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: MakeChannelBindRequest: get peer addr failed (%08X)", v4, v5, v6, v7, v8);
-  v3 = *MEMORY[0x277D85DE8];
+  HIWORD(v7) = v0;
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, v1, v2, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: MakeChannelBindRequest: get peer addr failed (%08X)", v3, v4, v5, v6, v7);
 }
 
-void RelayRefreshProc_cold_1(uint64_t a1, unsigned int *a2, NSObject *a3)
+void RelayRefreshProc_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = *a2;
-  *v5 = 136316162;
-  *&v5[4] = a1;
-  *&v5[12] = 2080;
-  *&v5[14] = "RelayRefreshProc";
-  OUTLINED_FUNCTION_4_0(&dword_23D497000, a2, a3, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: RelayRefreshProc timed out...tear down channel#[%04X]", *v5, *&v5[8], "RelayRefreshProc" >> 16, 445, 0x4000000);
-  v4 = *MEMORY[0x277D85DE8];
+  *v3 = 136316162;
+  *&v3[4] = a1;
+  *&v3[12] = 2080;
+  *&v3[14] = "RelayRefreshProc";
+  OUTLINED_FUNCTION_4_0(&dword_23D497000, a2, a3, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: RelayRefreshProc timed out...tear down channel#[%04X]", *v3, *&v3[8], "RelayRefreshProc" >> 16, 445, 0x4000000);
 }
 
 void RelayDiscardProc_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: RelayDiscardProc timed out.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: RelayDiscardProc timed out.", v2, v3, v4, v5);
 }
 
 void ProcessAllocateResponse_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: No MESSAGE_INTEGRITY in allocate response!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: No MESSAGE_INTEGRITY in allocate response!", v2, v3, v4, v5);
 }
 
 void ProcessAllocateErrorResponse_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: Allocation Mismatch, server is not ready?", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_23D497000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/Relay.c:%d: Allocation Mismatch, server is not ready?", v2, v3, v4, v5);
 }
 
 double machTimeScale_cold_1()
@@ -9374,12 +8969,11 @@ double machTimeScale_cold_1()
 
 uint64_t STUNEncodeMessage(unsigned __int16 *a1, uint64_t a2, int *a3, const void *a4, __n128 a5)
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   result = 2148794376;
   if (!a2)
   {
-    result = 2148794369;
-    goto LABEL_88;
+    return 2148794369;
   }
 
   v8 = *a3;
@@ -9410,14 +9004,14 @@ LABEL_87:
       result = 0;
       *(a2 + 2) = bswap32(v12 - a2 - 20) >> 16;
       *a3 = v12 - a2;
-      goto LABEL_88;
+      return result;
     }
 
-    HIDWORD(v95) = v10;
+    HIDWORD(v90) = v10;
     v13 = 0;
     v14 = v8 - 20;
     a5.n128_u64[0] = 136316162;
-    v96 = a5;
+    v91 = a5;
     while (1)
     {
       v15 = &a1[28 * v13 + 16];
@@ -9426,38 +9020,38 @@ LABEL_87:
       switch(*v15)
       {
         case 1u:
-          v46 = OUTLINED_FUNCTION_3_0();
-          v50 = 1;
+          v44 = OUTLINED_FUNCTION_3_0();
+          v48 = 1;
           goto LABEL_47;
         case 2u:
-          v46 = OUTLINED_FUNCTION_3_0();
-          v50 = 2;
+          v44 = OUTLINED_FUNCTION_3_0();
+          v48 = 2;
           goto LABEL_47;
         case 3u:
           if (v14 <= 7)
           {
             if (VRTraceGetErrorLogLevelForModule() < 3)
             {
-              goto LABEL_117;
+              return 2148794376;
             }
 
-            v87 = VRTraceErrorLogLevelToCSTR();
-            v78 = *MEMORY[0x277CE5818];
+            v82 = VRTraceErrorLogLevelToCSTR();
+            v73 = *MEMORY[0x277CE5818];
             if (!OUTLINED_FUNCTION_8_1())
             {
-              goto LABEL_117;
+              return 2148794376;
             }
 
-            v101 = v87;
-            v102 = 2080;
-            *buf = v96;
+            v96 = v82;
+            v97 = 2080;
+            *buf = v91;
             OUTLINED_FUNCTION_4_1();
-            v103 = 106;
-            v104 = 2048;
-            *v105 = v14;
-            *&v105[8] = 2048;
-            *&v105[10] = 8;
-            v88 = " [%s] %s:%d Buffer is too short. bufferLength=%zu requiredLength=%zu";
+            v98 = 106;
+            v99 = 2048;
+            *v100 = v14;
+            *&v100[8] = 2048;
+            *&v100[10] = 8;
+            v83 = " [%s] %s:%d Buffer is too short. bufferLength=%zu requiredLength=%zu";
             goto LABEL_113;
           }
 
@@ -9469,80 +9063,80 @@ LABEL_9:
           v14 -= v17;
           goto LABEL_82;
         case 4u:
-          v46 = OUTLINED_FUNCTION_3_0();
-          v50 = 4;
+          v44 = OUTLINED_FUNCTION_3_0();
+          v48 = 4;
           goto LABEL_47;
         case 5u:
-          v46 = OUTLINED_FUNCTION_3_0();
-          v50 = 5;
+          v44 = OUTLINED_FUNCTION_3_0();
+          v48 = 5;
           goto LABEL_47;
         case 6u:
           OUTLINED_FUNCTION_7_0();
-          if (!v41 & v40)
+          if (!v39 & v38)
           {
             if (VRTraceGetErrorLogLevelForModule() >= 3)
             {
               VRTraceErrorLogLevelToCSTR();
-              v78 = *MEMORY[0x277CE5818];
-              v79 = OUTLINED_FUNCTION_8_1();
-              if (v79)
+              v73 = *MEMORY[0x277CE5818];
+              v74 = OUTLINED_FUNCTION_8_1();
+              if (v74)
               {
                 goto LABEL_112;
               }
             }
 
-            goto LABEL_117;
+            return 2148794376;
           }
 
-          v42 = 1536;
+          v40 = 1536;
           goto LABEL_24;
         case 7u:
           OUTLINED_FUNCTION_7_0();
-          if (!v41 & v40)
+          if (!v39 & v38)
           {
             if (VRTraceGetErrorLogLevelForModule() >= 3)
             {
               VRTraceErrorLogLevelToCSTR();
-              v78 = *MEMORY[0x277CE5818];
-              v79 = OUTLINED_FUNCTION_8_1();
-              if (v79)
+              v73 = *MEMORY[0x277CE5818];
+              v74 = OUTLINED_FUNCTION_8_1();
+              if (v74)
               {
                 goto LABEL_112;
               }
             }
 
-            goto LABEL_117;
+            return 2148794376;
           }
 
-          v42 = 1792;
+          v40 = 1792;
           goto LABEL_24;
         case 8u:
-          qmemcpy(v106, "ABCDEFGHIJABCDEFGHIJ", 20);
+          qmemcpy(v101, "ABCDEFGHIJABCDEFGHIJ", 20);
           if (a4)
           {
-            MessageIntegrityFromDict = GetMessageIntegrityFromDict(a4, v106);
+            MessageIntegrityFromDict = GetMessageIntegrityFromDict(a4, v101);
             if (MessageIntegrityFromDict < 0)
             {
-              v52 = MessageIntegrityFromDict;
+              v50 = MessageIntegrityFromDict;
               if (VRTraceGetErrorLogLevelForModule() >= 3)
               {
                 VRTraceErrorLogLevelToCSTR();
-                v53 = *MEMORY[0x277CE5818];
-                v54 = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR);
-                if (v54)
+                v51 = *MEMORY[0x277CE5818];
+                v52 = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR);
+                if (v52)
                 {
-                  OUTLINED_FUNCTION_2_0(v54, v55, v56, v57, v58, v59, v60, v61, v94, v95, v96);
+                  OUTLINED_FUNCTION_2_0(v52, v53, v54, v55, v56, v57, v58, v59, v89, v90, v91);
                   OUTLINED_FUNCTION_4_1();
                   OUTLINED_FUNCTION_9_0();
-                  *&v105[6] = v52;
-                  _os_log_error_impl(&dword_23D497000, v53, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/STUNEncoder.c:%d: GetMessageIntegrityFromDict failed (%08X)\n", buf, 0x28u);
+                  *&v100[6] = v50;
+                  _os_log_error_impl(&dword_23D497000, v51, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/STUNEncoder.c:%d: GetMessageIntegrityFromDict failed (%08X)\n", buf, 0x28u);
                 }
               }
             }
           }
 
-          v62 = OUTLINED_FUNCTION_3_0();
-          result = STUNEncodeAttrMI(v62, v63, v64, v65, v66);
+          v60 = OUTLINED_FUNCTION_3_0();
+          result = STUNEncodeAttrMI(v60, v61, v62, v63, v64);
           goto LABEL_44;
         case 9u:
           v5 = *(v15 + 3) + 8;
@@ -9551,15 +9145,15 @@ LABEL_9:
             if (VRTraceGetErrorLogLevelForModule() >= 3)
             {
               VRTraceErrorLogLevelToCSTR();
-              v78 = *MEMORY[0x277CE5818];
-              v79 = OUTLINED_FUNCTION_8_1();
-              if (v79)
+              v73 = *MEMORY[0x277CE5818];
+              v74 = OUTLINED_FUNCTION_8_1();
+              if (v74)
               {
                 goto LABEL_112;
               }
             }
 
-            goto LABEL_117;
+            return 2148794376;
           }
 
           *v12 = 2304;
@@ -9567,9 +9161,9 @@ LABEL_9:
           *(v12 + 4) = 0;
           *(v12 + 6) = *(v15 + 8);
           *(v12 + 7) = *(v15 + 9);
-          v43 = *(v15 + 2);
-          v44 = *(v15 + 3);
-          v45 = (v12 + 8);
+          v41 = *(v15 + 2);
+          v42 = *(v15 + 3);
+          v43 = (v12 + 8);
           goto LABEL_32;
         case 0xAu:
           v5 = 2 * (*(v15 + 2) / 2) + 4;
@@ -9578,29 +9172,29 @@ LABEL_9:
             if (VRTraceGetErrorLogLevelForModule() >= 3)
             {
               VRTraceErrorLogLevelToCSTR();
-              v78 = *MEMORY[0x277CE5818];
-              v79 = OUTLINED_FUNCTION_8_1();
-              if (v79)
+              v73 = *MEMORY[0x277CE5818];
+              v74 = OUTLINED_FUNCTION_8_1();
+              if (v74)
               {
                 goto LABEL_112;
               }
             }
 
-            goto LABEL_117;
+            return 2148794376;
           }
 
           *v12 = 2560;
           OUTLINED_FUNCTION_6_1(v15[4]);
           if (*(v15 + 2) >= 2)
           {
-            v67 = 0;
+            v65 = 0;
             do
             {
-              *(v12 + 4 + 2 * v67) = bswap32(*(*(v15 + 2) + 2 * v67)) >> 16;
-              ++v67;
+              *(v12 + 4 + 2 * v65) = bswap32(*(*(v15 + 2) + 2 * v65)) >> 16;
+              ++v65;
             }
 
-            while (v67 < *(v15 + 2) / 2);
+            while (v65 < *(v15 + 2) / 2);
           }
 
           goto LABEL_79;
@@ -9636,48 +9230,48 @@ LABEL_9:
           v22 = 16;
           goto LABEL_77;
         case 0x11u:
-          v46 = OUTLINED_FUNCTION_3_0();
-          v50 = 17;
+          v44 = OUTLINED_FUNCTION_3_0();
+          v48 = 17;
 LABEL_47:
-          result = STUNEncodeAttrAddress(v46, v47, v50, v48, v49);
+          result = STUNEncodeAttrAddress(v44, v45, v48, v46, v47);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_88;
+            return result;
           }
 
           goto LABEL_78;
         case 0x12u:
-          v68 = OUTLINED_FUNCTION_5_1();
-          v73 = 18;
+          v66 = OUTLINED_FUNCTION_5_1();
+          v71 = 18;
           goto LABEL_62;
         case 0x13u:
           OUTLINED_FUNCTION_7_0();
-          if (!v41 & v40)
+          if (!v39 & v38)
           {
             if (VRTraceGetErrorLogLevelForModule() >= 3)
             {
               VRTraceErrorLogLevelToCSTR();
-              v78 = *MEMORY[0x277CE5818];
-              v79 = OUTLINED_FUNCTION_8_1();
-              if (v79)
+              v73 = *MEMORY[0x277CE5818];
+              v74 = OUTLINED_FUNCTION_8_1();
+              if (v74)
               {
                 goto LABEL_112;
               }
             }
 
-            goto LABEL_117;
+            return 2148794376;
           }
 
-          v42 = 4864;
+          v40 = 4864;
           goto LABEL_24;
         case 0x16u:
-          v68 = OUTLINED_FUNCTION_5_1();
-          v73 = 22;
+          v66 = OUTLINED_FUNCTION_5_1();
+          v71 = 22;
 LABEL_62:
-          result = STUNEncodeAttrXORAddress(v68, v69, v73, v70, v71, v72);
+          result = STUNEncodeAttrXORAddress(v66, v67, v71, v68, v69, v70);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_88;
+            return result;
           }
 
           goto LABEL_78;
@@ -9690,13 +9284,12 @@ LABEL_62:
           v22 = 25;
           goto LABEL_77;
         case 0x1Au:
-          v36 = OUTLINED_FUNCTION_5_1();
-          v39 = 26;
+          v34 = OUTLINED_FUNCTION_5_1();
+          v37 = 26;
           goto LABEL_70;
         case 0x22u:
-          v74 = *(v15 + 1);
-          v24 = OUTLINED_FUNCTION_3_0();
-          v28 = 34;
+          v23 = OUTLINED_FUNCTION_3_0();
+          v27 = 34;
           goto LABEL_85;
         case 0x24u:
           v18 = OUTLINED_FUNCTION_1_0();
@@ -9708,15 +9301,15 @@ LABEL_77:
             goto LABEL_78;
           }
 
-          goto LABEL_88;
+          return result;
         case 0x25u:
-          v36 = OUTLINED_FUNCTION_5_1();
-          v39 = 37;
+          v34 = OUTLINED_FUNCTION_5_1();
+          v37 = 37;
 LABEL_70:
-          result = STUNEncodeAttr(v36, v37, v39, v38);
+          result = STUNEncodeAttr(v34, v35, v37, v36);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_88;
+            return result;
           }
 
           goto LABEL_78;
@@ -9742,8 +9335,8 @@ LABEL_70:
               v22 = 32773;
               goto LABEL_77;
             case 0x8006u:
-              v36 = OUTLINED_FUNCTION_5_1();
-              v39 = 32774;
+              v34 = OUTLINED_FUNCTION_5_1();
+              v37 = 32774;
               goto LABEL_70;
             case 0x8007u:
               v18 = OUTLINED_FUNCTION_1_0();
@@ -9754,82 +9347,79 @@ LABEL_70:
               v22 = 32776;
               goto LABEL_77;
             case 0x8009u:
-              v75 = *(v15 + 4);
-              v5 = v75 + 6;
-              if (v75 + 6 > v14)
+              v72 = *(v15 + 4);
+              v5 = v72 + 6;
+              if (v72 + 6 > v14)
               {
                 if (VRTraceGetErrorLogLevelForModule() >= 3)
                 {
                   VRTraceErrorLogLevelToCSTR();
-                  v78 = *MEMORY[0x277CE5818];
-                  v79 = OUTLINED_FUNCTION_8_1();
-                  if (v79)
+                  v73 = *MEMORY[0x277CE5818];
+                  v74 = OUTLINED_FUNCTION_8_1();
+                  if (v74)
                   {
                     goto LABEL_112;
                   }
                 }
 
-LABEL_117:
-                result = 2148794376;
-                goto LABEL_88;
+                return 2148794376;
               }
 
               *v12 = 2432;
-              OUTLINED_FUNCTION_6_1(v75 + 2);
+              OUTLINED_FUNCTION_6_1(v72 + 2);
               *(v12 + 4) = bswap32(v15[4]) >> 16;
-              v43 = *(v15 + 3);
-              v44 = *(v15 + 4);
-              v45 = (v12 + 6);
+              v41 = *(v15 + 3);
+              v42 = *(v15 + 4);
+              v43 = (v12 + 6);
               goto LABEL_32;
             case 0x800Au:
               OUTLINED_FUNCTION_7_0();
-              if (!v41 & v40)
+              if (!v39 & v38)
               {
                 if (VRTraceGetErrorLogLevelForModule() < 3)
                 {
-                  goto LABEL_117;
+                  return 2148794376;
                 }
 
                 VRTraceErrorLogLevelToCSTR();
-                v78 = *MEMORY[0x277CE5818];
-                v79 = OUTLINED_FUNCTION_8_1();
-                if (!v79)
+                v73 = *MEMORY[0x277CE5818];
+                v74 = OUTLINED_FUNCTION_8_1();
+                if (!v74)
                 {
-                  goto LABEL_117;
+                  return 2148794376;
                 }
 
 LABEL_112:
-                OUTLINED_FUNCTION_2_0(v79, v80, v81, v82, v83, v84, v85, v86, v94, v95, v96);
+                OUTLINED_FUNCTION_2_0(v74, v75, v76, v77, v78, v79, v80, v81, v89, v90, v91);
                 OUTLINED_FUNCTION_4_1();
                 OUTLINED_FUNCTION_0_1();
-                v88 = " [%s] %s:%d Buffer is too short. bufferLength=%zu requiredLength=%zu";
+                v83 = " [%s] %s:%d Buffer is too short. bufferLength=%zu requiredLength=%zu";
 LABEL_113:
-                v89 = v78;
-                v90 = 48;
+                v84 = v73;
+                v85 = 48;
                 goto LABEL_114;
               }
 
-              v42 = 2688;
+              v40 = 2688;
 LABEL_24:
-              *v12 = v42;
+              *v12 = v40;
               OUTLINED_FUNCTION_6_1(v15[4]);
-              v43 = *(v15 + 2);
-              v44 = *(v15 + 2);
-              v45 = (v12 + 4);
+              v41 = *(v15 + 2);
+              v42 = *(v15 + 2);
+              v43 = (v12 + 4);
 LABEL_32:
-              memcpy(v45, v43, v44);
+              memcpy(v43, v41, v42);
               goto LABEL_79;
             default:
               if (v16 == 32809)
               {
-                v76 = *(v15 + 1);
-                v24 = OUTLINED_FUNCTION_3_0();
-                v28 = 32809;
+                v23 = OUTLINED_FUNCTION_3_0();
+                v27 = 32809;
 LABEL_85:
-                result = STUNEncodeAttrU64(v24, v25, v28, v26, v27);
+                result = STUNEncodeAttrU64(v23, v24, v27, v25, v26);
                 if ((result & 0x80000000) != 0)
                 {
-                  goto LABEL_88;
+                  return result;
                 }
 
                 goto LABEL_78;
@@ -9837,36 +9427,34 @@ LABEL_85:
 
               if (v16 == 32810)
               {
-                v23 = *(v15 + 1);
-                v24 = OUTLINED_FUNCTION_3_0();
-                v28 = 32810;
+                v23 = OUTLINED_FUNCTION_3_0();
+                v27 = 32810;
                 goto LABEL_85;
               }
 
 LABEL_15:
               if (VRTraceGetErrorLogLevelForModule() >= 5)
               {
-                v29 = VRTraceErrorLogLevelToCSTR();
-                v30 = *MEMORY[0x277CE5818];
+                v28 = VRTraceErrorLogLevelToCSTR();
+                v29 = *MEMORY[0x277CE5818];
                 if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
                 {
-                  *buf = v96;
-                  v101 = v29;
-                  v102 = 2080;
+                  *buf = v91;
+                  v96 = v28;
+                  v97 = 2080;
                   OUTLINED_FUNCTION_4_1();
                   OUTLINED_FUNCTION_9_0();
-                  *&v105[6] = v16;
-                  _os_log_impl(&dword_23D497000, v30, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/STUNEncoder.c:%d: Attrib %d not encoded correctly", buf, 0x28u);
+                  *&v100[6] = v16;
+                  _os_log_impl(&dword_23D497000, v29, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ICE.subproj/Sources/STUNEncoder.c:%d: Attrib %d not encoded correctly", buf, 0x28u);
                 }
               }
 
-              v31 = *v15;
-              v32 = OUTLINED_FUNCTION_3_0();
-              result = STUNEncodeAttrAddress(v32, v33, v34, v15 + 8, v35);
+              v30 = OUTLINED_FUNCTION_3_0();
+              result = STUNEncodeAttrAddress(v30, v31, v32, v15 + 8, v33);
 LABEL_44:
               if ((result & 0x80000000) != 0)
               {
-                goto LABEL_88;
+                return result;
               }
 
 LABEL_78:
@@ -9881,33 +9469,33 @@ LABEL_79:
                 {
                   if (VRTraceGetErrorLogLevelForModule() < 3)
                   {
-                    goto LABEL_117;
+                    return 2148794376;
                   }
 
-                  v91 = VRTraceErrorLogLevelToCSTR();
-                  v92 = *MEMORY[0x277CE5818];
+                  v86 = VRTraceErrorLogLevelToCSTR();
+                  v87 = *MEMORY[0x277CE5818];
                   if (!OUTLINED_FUNCTION_8_1())
                   {
-                    goto LABEL_117;
+                    return 2148794376;
                   }
 
                   *buf = 136316418;
-                  v101 = v91;
-                  v102 = 2080;
+                  v96 = v86;
+                  v97 = 2080;
                   OUTLINED_FUNCTION_4_1();
-                  v103 = 559;
-                  v104 = v93;
-                  *v105 = HIDWORD(v95);
-                  *&v105[4] = 2048;
-                  *&v105[6] = v5;
-                  *&v105[14] = 2048;
-                  *&v105[16] = v14;
-                  v88 = " [%s] %s:%d Failed to add padding. type=%d, padding=%zu remainingLength=%zu";
-                  v89 = v92;
-                  v90 = 54;
+                  v98 = 559;
+                  v99 = v88;
+                  *v100 = HIDWORD(v90);
+                  *&v100[4] = 2048;
+                  *&v100[6] = v5;
+                  *&v100[14] = 2048;
+                  *&v100[16] = v14;
+                  v83 = " [%s] %s:%d Failed to add padding. type=%d, padding=%zu remainingLength=%zu";
+                  v84 = v87;
+                  v85 = 54;
 LABEL_114:
-                  _os_log_error_impl(&dword_23D497000, v89, OS_LOG_TYPE_ERROR, v88, buf, v90);
-                  goto LABEL_117;
+                  _os_log_error_impl(&dword_23D497000, v84, OS_LOG_TYPE_ERROR, v83, buf, v85);
+                  return 2148794376;
                 }
 
                 v12 += v5;
@@ -9928,7 +9516,251 @@ LABEL_82:
     }
   }
 
-LABEL_88:
-  v77 = *MEMORY[0x277D85DE8];
   return result;
+}
+
+void ParseSTUNXORAddr_cold_1()
+{
+  OUTLINED_FUNCTION_13_0();
+  OUTLINED_FUNCTION_7_1();
+  OUTLINED_FUNCTION_3_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_9_1())
+    {
+      OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_3();
+      OUTLINED_FUNCTION_4_2();
+      OUTLINED_FUNCTION_2_1();
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+    }
+  }
+
+  OUTLINED_FUNCTION_6_2();
+  OUTLINED_FUNCTION_12_1();
+}
+
+void ParseSTUNXORAddr_cold_2()
+{
+  OUTLINED_FUNCTION_13_0();
+  OUTLINED_FUNCTION_7_1();
+  OUTLINED_FUNCTION_3_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_9_1())
+    {
+      OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_3();
+      OUTLINED_FUNCTION_4_2();
+      OUTLINED_FUNCTION_2_1();
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+    }
+  }
+
+  OUTLINED_FUNCTION_6_2();
+  OUTLINED_FUNCTION_12_1();
+}
+
+void ParseSTUNXORAddr_cold_3()
+{
+  OUTLINED_FUNCTION_13_0();
+  OUTLINED_FUNCTION_7_1();
+  OUTLINED_FUNCTION_3_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_9_1())
+    {
+      OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_3();
+      OUTLINED_FUNCTION_4_2();
+      OUTLINED_FUNCTION_2_1();
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+    }
+  }
+
+  OUTLINED_FUNCTION_6_2();
+  OUTLINED_FUNCTION_12_1();
+}
+
+void ParseSTUNXORAddr_cold_4()
+{
+  OUTLINED_FUNCTION_13_0();
+  OUTLINED_FUNCTION_7_1();
+  OUTLINED_FUNCTION_3_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_9_1())
+    {
+      OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_3();
+      OUTLINED_FUNCTION_4_2();
+      OUTLINED_FUNCTION_2_1();
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+    }
+  }
+
+  OUTLINED_FUNCTION_6_2();
+  OUTLINED_FUNCTION_12_1();
+}
+
+void ParseSTUNMessage_cold_1()
+{
+  OUTLINED_FUNCTION_13_0();
+  OUTLINED_FUNCTION_7_1();
+  OUTLINED_FUNCTION_3_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_9_1())
+    {
+      OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_3();
+      OUTLINED_FUNCTION_4_2();
+      OUTLINED_FUNCTION_2_1();
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
+    }
+  }
+
+  OUTLINED_FUNCTION_6_2();
+  OUTLINED_FUNCTION_12_1();
+}
+
+void ParseSTUNMessage_cold_2()
+{
+  OUTLINED_FUNCTION_13_0();
+  v1 = v0;
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_9_1())
+    {
+      OUTLINED_FUNCTION_14();
+      OUTLINED_FUNCTION_2_1();
+      _os_log_error_impl(v2, v3, v4, v5, v6, 0x28u);
+    }
+  }
+
+  *v1 = -2146172920;
+  OUTLINED_FUNCTION_12_1();
+}
+
+void ParseSTUNMessage_cold_3(uint64_t a1, uint64_t a2, _DWORD *a3)
+{
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_9_1())
+    {
+      OUTLINED_FUNCTION_14();
+      OUTLINED_FUNCTION_2_1();
+      _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Eu);
+    }
+  }
+
+  *a3 = -2146172920;
+}
+
+void ParseSTUNMessage_cold_4()
+{
+  OUTLINED_FUNCTION_13_0();
+  OUTLINED_FUNCTION_7_1();
+  OUTLINED_FUNCTION_3_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_9_1())
+    {
+      OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_3();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2_1();
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
+    }
+  }
+
+  OUTLINED_FUNCTION_6_2();
+  OUTLINED_FUNCTION_12_1();
+}
+
+void ParseSTUNMessage_cold_5()
+{
+  OUTLINED_FUNCTION_13_0();
+  OUTLINED_FUNCTION_7_1();
+  OUTLINED_FUNCTION_3_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_9_1())
+    {
+      OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_3();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2_1();
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
+    }
+  }
+
+  OUTLINED_FUNCTION_6_2();
+  OUTLINED_FUNCTION_12_1();
+}
+
+void ParseSTUNMessage_cold_6(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_11_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
+    {
+      OUTLINED_FUNCTION_8_2();
+      OUTLINED_FUNCTION_3();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_10_1();
+      _os_log_error_impl(v3, v4, v5, v6, v7, 0x28u);
+    }
+  }
+
+  *a1 = v1;
+}
+
+void ParseSTUNMessage_cold_7(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_11_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
+    {
+      OUTLINED_FUNCTION_8_2();
+      OUTLINED_FUNCTION_3();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_10_1();
+      _os_log_error_impl(v3, v4, v5, v6, v7, 0x22u);
+    }
+  }
+
+  *a1 = v1;
+}
+
+void ParseSTUNMessage_cold_8(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_11_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
+    {
+      OUTLINED_FUNCTION_8_2();
+      OUTLINED_FUNCTION_3();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_10_1();
+      _os_log_error_impl(v3, v4, v5, v6, v7, 0x22u);
+    }
+  }
+
+  *a1 = v1;
 }

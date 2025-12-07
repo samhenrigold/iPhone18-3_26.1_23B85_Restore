@@ -380,7 +380,7 @@ LABEL_10:
   lCopy = l;
   if (!lCopy)
   {
-    v7 = PUILogCommon();
+    v7 = PUILogCommon(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [PUITextLayoutConfiguration vibrancyConfigurationWithExtensionBundleURL:v7 luminanceReduced:?];
@@ -488,7 +488,7 @@ LABEL_10:
   return maximumVerticalTextCharacters_maximumVerticalTextCharacters;
 }
 
-uint64_t __59__PUITextLayoutConfiguration_maximumVerticalTextCharacters__block_invoke()
+void *__59__PUITextLayoutConfiguration_maximumVerticalTextCharacters__block_invoke()
 {
   result = [getPRIncomingCallMetricsProviderClass() maxVerticalTextLength];
   maximumVerticalTextCharacters_maximumVerticalTextCharacters = result;
@@ -646,21 +646,22 @@ uint64_t __59__PUITextLayoutConfiguration_maximumVerticalTextCharacters__block_i
   v6 = objc_opt_self();
   v7 = objc_opt_class();
   v8 = [v5 setWithObjects:{v6, v7, objc_opt_class(), 0}];
-  v38 = [coderCopy decodeObjectOfClasses:v8 forKey:@"fontConfiguration"];
+  v39 = [coderCopy decodeObjectOfClasses:v8 forKey:@"fontConfiguration"];
 
   v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"style"];
-  v37 = v9;
+  v38 = v9;
   if (v9)
   {
-    v39 = 0;
-    defaultStyle = [PUIStyleSerialization styleForData:v9 error:&v39];
-    v11 = v39;
+    v40 = 0;
+    defaultStyle = [PUIStyleSerialization styleForData:v9 error:&v40];
+    v11 = v40;
+    v12 = v11;
     if (!defaultStyle)
     {
-      v12 = PUILogCommon();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = PUILogCommon(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [(PUITextLayoutConfiguration *)v11 initWithCoder:v12];
+        [(PUITextLayoutConfiguration *)v12 initWithCoder:v13];
       }
 
       defaultStyle = [objc_opt_class() defaultStyle];
@@ -671,34 +672,34 @@ uint64_t __59__PUITextLayoutConfiguration_maximumVerticalTextCharacters__block_i
 
   else
   {
-    v13 = objc_opt_self();
-    v14 = [coderCopy decodeObjectOfClass:v13 forKey:@"styleColor"];
+    v14 = objc_opt_self();
+    v15 = [coderCopy decodeObjectOfClass:v14 forKey:@"styleColor"];
 
-    if (!v14)
+    if (!v15)
     {
-      v15 = objc_opt_self();
-      v16 = [coderCopy decodeObjectOfClass:v15 forKey:@"styleColor"];
+      v16 = objc_opt_self();
+      v17 = [coderCopy decodeObjectOfClass:v16 forKey:@"styleColor"];
 
-      if (v16)
+      if (v17)
       {
-        v14 = [[PUIStyleColor alloc] initWithColor:v16];
+        v15 = [[PUIStyleColor alloc] initWithColor:v17];
       }
 
       else
       {
-        v14 = 0;
+        v15 = 0;
       }
     }
 
-    contentStyle = [(PUIStyleColor *)v14 contentStyle];
+    contentStyle = [(PUIStyleColor *)v15 contentStyle];
   }
 
-  v17 = objc_opt_self();
-  v18 = [coderCopy decodeObjectOfClass:v17 forKey:@"textAlignment"];
+  v18 = objc_opt_self();
+  v19 = [coderCopy decodeObjectOfClass:v18 forKey:@"textAlignment"];
 
-  if (v18)
+  if (v19)
   {
-    unsignedIntegerValue = [v18 unsignedIntegerValue];
+    unsignedIntegerValue = [v19 unsignedIntegerValue];
   }
 
   else
@@ -706,12 +707,12 @@ uint64_t __59__PUITextLayoutConfiguration_maximumVerticalTextCharacters__block_i
     unsignedIntegerValue = 0;
   }
 
-  v19 = objc_opt_self();
-  v20 = [coderCopy decodeObjectOfClass:v19 forKey:@"preferredLayout"];
+  v20 = objc_opt_self();
+  v21 = [coderCopy decodeObjectOfClass:v20 forKey:@"preferredLayout"];
 
-  if (v20)
+  if (v21)
   {
-    unsignedIntegerValue2 = [v20 unsignedIntegerValue];
+    unsignedIntegerValue2 = [v21 unsignedIntegerValue];
   }
 
   else
@@ -719,28 +720,28 @@ uint64_t __59__PUITextLayoutConfiguration_maximumVerticalTextCharacters__block_i
     unsignedIntegerValue2 = 0;
   }
 
-  v21 = objc_opt_self();
-  v22 = [coderCopy decodeObjectOfClass:v21 forKey:@"numberingSystemType"];
+  v22 = objc_opt_self();
+  v23 = [coderCopy decodeObjectOfClass:v22 forKey:@"numberingSystemType"];
 
-  v23 = [coderCopy decodeBoolForKey:@"userConfigured"];
-  v24 = objc_opt_self();
-  v25 = [coderCopy decodeObjectOfClass:v24 forKey:@"contentsLuminence"];
+  v24 = [coderCopy decodeBoolForKey:@"userConfigured"];
+  v25 = objc_opt_self();
+  v26 = [coderCopy decodeObjectOfClass:v25 forKey:@"contentsLuminence"];
 
   [objc_opt_class() defaultContentsLuminance];
-  if (v25)
+  if (v26)
   {
-    [v25 doubleValue];
+    [v26 doubleValue];
   }
 
-  v27 = v26;
-  v28 = [coderCopy decodeBoolForKey:@"alternateDateEnabled"];
-  v29 = objc_opt_self();
-  v30 = [coderCopy decodeObjectOfClass:v29 forKey:@"groupName"];
+  v28 = v27;
+  v29 = [coderCopy decodeBoolForKey:@"alternateDateEnabled"];
+  v30 = objc_opt_self();
+  v31 = [coderCopy decodeObjectOfClass:v30 forKey:@"groupName"];
 
-  LOBYTE(v33) = v28;
-  v31 = [(PUITextLayoutConfiguration *)self initWithFontConfiguration:v38 preferredAlignment:unsignedIntegerValue preferredLayout:unsignedIntegerValue2 style:contentStyle numberingSystemType:v22 userConfigured:v23 contentsLuminance:v27 alternateDateEnabled:v33 groupName:v30];
+  LOBYTE(v34) = v29;
+  v32 = [(PUITextLayoutConfiguration *)self initWithFontConfiguration:v39 preferredAlignment:unsignedIntegerValue preferredLayout:unsignedIntegerValue2 style:contentStyle numberingSystemType:v23 userConfigured:v24 contentsLuminance:v28 alternateDateEnabled:v34 groupName:v31];
 
-  return v31;
+  return v32;
 }
 
 - (void)encodeWithBSXPCCoder:(id)coder
@@ -799,7 +800,7 @@ uint64_t __59__PUITextLayoutConfiguration_maximumVerticalTextCharacters__block_i
     else
     {
       v13 = v8;
-      v14 = PUILogCommon();
+      v14 = PUILogCommon(v8);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [(PUITextLayoutConfiguration *)v13 initWithCoder:v14];

@@ -144,11 +144,11 @@ void __61__CKTranscriptBackgroundChannelController_initWithDirectory___block_inv
   return v2;
 }
 
-void __86__CKTranscriptBackgroundChannelController_sharedTranscriptBackgroundChannelController__block_invoke()
+void __86__CKTranscriptBackgroundChannelController_sharedTranscriptBackgroundChannelController__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_new();
-  v1 = sharedTranscriptBackgroundChannelController_sharedInstance;
-  sharedTranscriptBackgroundChannelController_sharedInstance = v0;
+  v1 = objc_opt_new();
+  v2 = sharedTranscriptBackgroundChannelController_sharedInstance;
+  sharedTranscriptBackgroundChannelController_sharedInstance = v1;
 }
 
 + (id)_sWorkQueue

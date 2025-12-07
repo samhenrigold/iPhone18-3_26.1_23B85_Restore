@@ -1,793 +1,4 @@
-void sub_29754FCB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, xpc_object_t object)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(exception_object);
-  }
-
-  __clang_call_terminate(exception_object);
-}
-
-void dispatch::async<void ctu::SharedSynchronizable<antenna::Service::Internal>::execute_wrapped<antenna::Service::Internal::setAudioState(xpc::dict)::$_0>(antenna::Service::Internal::setAudioState(xpc::dict)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<antenna::Service::Internal::setAudioState(xpc::dict)::$_0,dispatch_queue_s *::default_delete<antenna::Service::Internal::setAudioState(xpc::dict)::$_0>>)::{lambda(void *)#1}::__invoke(xpc_object_t **a1)
-{
-  v1 = *a1;
-  v82 = *a1;
-  v2 = **a1;
-  if (!*(v2 + 60))
-  {
-    xdict = 0xAAAAAAAAAAAAAAAALL;
-    v3 = *MEMORY[0x29EDBE6B0];
-    object = v1 + 1;
-    v84 = v3;
-    xpc::dict::object_proxy::operator xpc::dict(&object, &xdict);
-    value = xpc_dictionary_get_value(xdict, *MEMORY[0x29EDBEED0]);
-    object = value;
-    if (value)
-    {
-      xpc_retain(value);
-    }
-
-    else
-    {
-      object = xpc_null_create();
-    }
-
-    v5 = xpc::dyn_cast_or_default(&object, 0);
-    v7 = v2 + 25;
-    v6 = v2[25];
-    v8 = v2 + 25;
-    v9 = v2 + 25;
-    if (v6)
-    {
-      while (1)
-      {
-        while (1)
-        {
-          v9 = v6;
-          v10 = *(v6 + 28);
-          if (v10 < 1)
-          {
-            break;
-          }
-
-          v6 = *v9;
-          v8 = v9;
-          if (!*v9)
-          {
-            goto LABEL_12;
-          }
-        }
-
-        if ((v10 & 0x80000000) == 0)
-        {
-          break;
-        }
-
-        v6 = v9[1];
-        if (!v6)
-        {
-          v8 = v9 + 1;
-          goto LABEL_12;
-        }
-      }
-
-      v11 = v9;
-    }
-
-    else
-    {
-LABEL_12:
-      v11 = operator new(0x28uLL);
-      v11[7] = 0;
-      *(v11 + 32) = 0;
-      *v11 = 0;
-      *(v11 + 1) = 0;
-      *(v11 + 2) = v9;
-      *v8 = v11;
-      v12 = *v2[24];
-      if (v12)
-      {
-        v2[24] = v12;
-      }
-
-      std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v2[25], v11);
-      ++v2[26];
-    }
-
-    *(v11 + 32) = v5;
-    xpc_release(object);
-    v13 = xpc_dictionary_get_value(xdict, *MEMORY[0x29EDBEAF0]);
-    object = v13;
-    if (v13)
-    {
-      xpc_retain(v13);
-    }
-
-    else
-    {
-      object = xpc_null_create();
-    }
-
-    v14 = xpc::dyn_cast_or_default(&object, 0);
-    v15 = *v7;
-    v16 = v2 + 25;
-    v17 = v2 + 25;
-    if (*v7)
-    {
-      while (1)
-      {
-        while (1)
-        {
-          v17 = v15;
-          v18 = *(v15 + 28);
-          if (v18 < 2)
-          {
-            break;
-          }
-
-          v15 = *v17;
-          v16 = v17;
-          if (!*v17)
-          {
-            goto LABEL_25;
-          }
-        }
-
-        if (v18 == 1)
-        {
-          break;
-        }
-
-        v15 = v17[1];
-        if (!v15)
-        {
-          v16 = v17 + 1;
-          goto LABEL_25;
-        }
-      }
-
-      v19 = v17;
-    }
-
-    else
-    {
-LABEL_25:
-      v19 = operator new(0x28uLL);
-      v19[7] = 1;
-      *(v19 + 32) = 0;
-      *v19 = 0;
-      *(v19 + 1) = 0;
-      *(v19 + 2) = v17;
-      *v16 = v19;
-      v20 = *v2[24];
-      if (v20)
-      {
-        v2[24] = v20;
-      }
-
-      std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v2[25], v19);
-      ++v2[26];
-    }
-
-    *(v19 + 32) = v14;
-    xpc_release(object);
-    v21 = xpc_dictionary_get_value(xdict, *MEMORY[0x29EDBED70]);
-    object = v21;
-    if (v21)
-    {
-      xpc_retain(v21);
-    }
-
-    else
-    {
-      object = xpc_null_create();
-    }
-
-    v22 = xpc::dyn_cast_or_default(&object, 0);
-    v23 = *v7;
-    v24 = v2 + 25;
-    v25 = v2 + 25;
-    if (*v7)
-    {
-      while (1)
-      {
-        while (1)
-        {
-          v25 = v23;
-          v26 = *(v23 + 28);
-          if (v26 < 4)
-          {
-            break;
-          }
-
-          v23 = *v25;
-          v24 = v25;
-          if (!*v25)
-          {
-            goto LABEL_39;
-          }
-        }
-
-        if (v26 == 3)
-        {
-          break;
-        }
-
-        v23 = v25[1];
-        if (!v23)
-        {
-          v24 = v25 + 1;
-          goto LABEL_39;
-        }
-      }
-
-      v27 = v25;
-    }
-
-    else
-    {
-LABEL_39:
-      v27 = operator new(0x28uLL);
-      v27[7] = 3;
-      *(v27 + 32) = 0;
-      *v27 = 0;
-      *(v27 + 1) = 0;
-      *(v27 + 2) = v25;
-      *v24 = v27;
-      v28 = *v2[24];
-      if (v28)
-      {
-        v2[24] = v28;
-      }
-
-      std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v2[25], v27);
-      ++v2[26];
-    }
-
-    *(v27 + 32) = v22;
-    xpc_release(object);
-    v29 = *v7;
-    v30 = v2 + 25;
-    v31 = v2 + 25;
-    if (*v7)
-    {
-      while (1)
-      {
-        while (1)
-        {
-          v31 = v29;
-          v32 = *(v29 + 7);
-          if (v32 < 1)
-          {
-            break;
-          }
-
-          v29 = *v31;
-          v30 = v31;
-          if (!*v31)
-          {
-            goto LABEL_50;
-          }
-        }
-
-        if ((v32 & 0x80000000) == 0)
-        {
-          break;
-        }
-
-        v29 = v31[1];
-        if (!v29)
-        {
-          v30 = v31 + 1;
-          goto LABEL_50;
-        }
-      }
-
-      v35 = *(v31 + 32);
-      v37 = v2 + 28;
-      v36 = v2[28];
-      v38 = v2 + 28;
-      v39 = v2 + 28;
-      if (v36)
-      {
-        goto LABEL_58;
-      }
-    }
-
-    else
-    {
-LABEL_50:
-      v33 = operator new(0x28uLL);
-      v33[7] = 0;
-      *(v33 + 32) = 0;
-      *v33 = 0;
-      *(v33 + 1) = 0;
-      *(v33 + 2) = v31;
-      *v30 = v33;
-      v34 = *v2[24];
-      if (v34)
-      {
-        v2[24] = v34;
-      }
-
-      std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v2[25], v33);
-      ++v2[26];
-      v35 = *(v33 + 32);
-      v37 = v2 + 28;
-      v36 = v2[28];
-      v38 = v2 + 28;
-      v39 = v2 + 28;
-      if (v36)
-      {
-        while (1)
-        {
-LABEL_58:
-          while (1)
-          {
-            v39 = v36;
-            v40 = *(v36 + 7);
-            if (v40 < 1)
-            {
-              break;
-            }
-
-            v36 = *v39;
-            v38 = v39;
-            if (!*v39)
-            {
-              goto LABEL_62;
-            }
-          }
-
-          if ((v40 & 0x80000000) == 0)
-          {
-            break;
-          }
-
-          v36 = v39[1];
-          if (!v36)
-          {
-            v38 = v39 + 1;
-            goto LABEL_62;
-          }
-        }
-
-        *(v39 + 32) = v35;
-        v43 = *v7;
-        v44 = v2 + 25;
-        v45 = v2 + 25;
-        if (*v7)
-        {
-          goto LABEL_69;
-        }
-
-        goto LABEL_73;
-      }
-    }
-
-LABEL_62:
-    v41 = operator new(0x28uLL);
-    v41[7] = 0;
-    *(v41 + 32) = 0;
-    *v41 = 0;
-    *(v41 + 1) = 0;
-    *(v41 + 2) = v39;
-    *v38 = v41;
-    v42 = *v2[27];
-    if (v42)
-    {
-      v2[27] = v42;
-    }
-
-    std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v2[28], v41);
-    ++v2[29];
-    *(v41 + 32) = v35;
-    v43 = *v7;
-    v44 = v2 + 25;
-    v45 = v2 + 25;
-    if (*v7)
-    {
-      while (1)
-      {
-LABEL_69:
-        while (1)
-        {
-          v45 = v43;
-          v46 = *(v43 + 7);
-          if (v46 < 2)
-          {
-            break;
-          }
-
-          v43 = *v45;
-          v44 = v45;
-          if (!*v45)
-          {
-            goto LABEL_73;
-          }
-        }
-
-        if (v46 == 1)
-        {
-          break;
-        }
-
-        v43 = v45[1];
-        if (!v43)
-        {
-          v44 = v45 + 1;
-          goto LABEL_73;
-        }
-      }
-
-      v49 = *(v45 + 32);
-      v50 = *v37;
-      v51 = v37;
-      v52 = v37;
-      if (*v37)
-      {
-        goto LABEL_80;
-      }
-
-      goto LABEL_84;
-    }
-
-LABEL_73:
-    v47 = operator new(0x28uLL);
-    v47[7] = 1;
-    *(v47 + 32) = 0;
-    *v47 = 0;
-    *(v47 + 1) = 0;
-    *(v47 + 2) = v45;
-    *v44 = v47;
-    v48 = *v2[24];
-    if (v48)
-    {
-      v2[24] = v48;
-    }
-
-    std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v2[25], v47);
-    ++v2[26];
-    v49 = *(v47 + 32);
-    v50 = *v37;
-    v51 = v37;
-    v52 = v37;
-    if (*v37)
-    {
-      while (1)
-      {
-LABEL_80:
-        while (1)
-        {
-          v52 = v50;
-          v53 = *(v50 + 28);
-          if (v53 < 2)
-          {
-            break;
-          }
-
-          v50 = *v52;
-          v51 = v52;
-          if (!*v52)
-          {
-            goto LABEL_84;
-          }
-        }
-
-        if (v53 == 1)
-        {
-          break;
-        }
-
-        v50 = v52[1];
-        if (!v50)
-        {
-          v51 = v52 + 1;
-          goto LABEL_84;
-        }
-      }
-
-      *(v52 + 32) = v49;
-      v56 = *v7;
-      v57 = v2 + 25;
-      if (*v7)
-      {
-        goto LABEL_91;
-      }
-
-      goto LABEL_95;
-    }
-
-LABEL_84:
-    v54 = operator new(0x28uLL);
-    v54[7] = 1;
-    *(v54 + 32) = 0;
-    *v54 = 0;
-    *(v54 + 1) = 0;
-    *(v54 + 2) = v52;
-    *v51 = v54;
-    v55 = *v2[27];
-    if (v55)
-    {
-      v2[27] = v55;
-    }
-
-    std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v2[28], v54);
-    ++v2[29];
-    *(v54 + 32) = v49;
-    v56 = *v7;
-    v57 = v2 + 25;
-    if (*v7)
-    {
-      while (1)
-      {
-LABEL_91:
-        while (1)
-        {
-          v57 = v56;
-          v58 = *(v56 + 7);
-          if (v58 < 4)
-          {
-            break;
-          }
-
-          v56 = *v57;
-          v7 = v57;
-          if (!*v57)
-          {
-            goto LABEL_95;
-          }
-        }
-
-        if (v58 == 3)
-        {
-          break;
-        }
-
-        v56 = v57[1];
-        if (!v56)
-        {
-          v7 = v57 + 1;
-          goto LABEL_95;
-        }
-      }
-
-      v61 = *(v57 + 32);
-      v62 = *v37;
-      v63 = v37;
-      if (*v37)
-      {
-        goto LABEL_102;
-      }
-
-      goto LABEL_106;
-    }
-
-LABEL_95:
-    v59 = operator new(0x28uLL);
-    v59[7] = 3;
-    *(v59 + 32) = 0;
-    *v59 = 0;
-    *(v59 + 1) = 0;
-    *(v59 + 2) = v57;
-    *v7 = v59;
-    v60 = *v2[24];
-    if (v60)
-    {
-      v2[24] = v60;
-    }
-
-    std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v2[25], v59);
-    ++v2[26];
-    v61 = *(v59 + 32);
-    v62 = *v37;
-    v63 = v37;
-    if (*v37)
-    {
-      while (1)
-      {
-LABEL_102:
-        while (1)
-        {
-          v63 = v62;
-          v64 = *(v62 + 28);
-          if (v64 < 4)
-          {
-            break;
-          }
-
-          v62 = *v63;
-          v37 = v63;
-          if (!*v63)
-          {
-            goto LABEL_106;
-          }
-        }
-
-        if (v64 == 3)
-        {
-          break;
-        }
-
-        v62 = v63[1];
-        if (!v62)
-        {
-          v37 = v63 + 1;
-          goto LABEL_106;
-        }
-      }
-
-      v65 = v63;
-      goto LABEL_110;
-    }
-
-LABEL_106:
-    v65 = operator new(0x28uLL);
-    v65[7] = 3;
-    *(v65 + 32) = 0;
-    *v65 = 0;
-    *(v65 + 1) = 0;
-    *(v65 + 2) = v63;
-    *v37 = v65;
-    v66 = *v2[27];
-    if (v66)
-    {
-      v2[27] = v66;
-    }
-
-    std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v2[28], v65);
-    ++v2[29];
-LABEL_110:
-    *(v65 + 32) = v61;
-    xpc_release(xdict);
-  }
-
-  v68 = v2 + 25;
-  v67 = v2[25];
-  if (v67)
-  {
-    while (1)
-    {
-      while (1)
-      {
-        v69 = v67;
-        v70 = *(v67 + 28);
-        if (v70 < 3)
-        {
-          break;
-        }
-
-        v67 = *v69;
-        v68 = v69;
-        if (!*v69)
-        {
-          goto LABEL_118;
-        }
-      }
-
-      if (v70 == 2)
-      {
-        break;
-      }
-
-      v67 = v69[1];
-      if (!v67)
-      {
-        v68 = v69 + 1;
-        goto LABEL_118;
-      }
-    }
-
-    v71 = v69;
-  }
-
-  else
-  {
-    v69 = v2 + 25;
-LABEL_118:
-    v71 = operator new(0x28uLL);
-    v71[7] = 2;
-    *(v71 + 32) = 0;
-    *v71 = 0;
-    *(v71 + 1) = 0;
-    *(v71 + 2) = v69;
-    *v68 = v71;
-    v72 = *v2[24];
-    if (v72)
-    {
-      v2[24] = v72;
-    }
-
-    std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v2[25], v71);
-    ++v2[26];
-  }
-
-  *(v71 + 32) = 0;
-  pthread_mutex_lock(&ctu::Singleton<Capabilities,Capabilities,ctu::PthreadMutexGuardPolicy<Capabilities>>::sInstance);
-  v73 = unk_2A18CAF68;
-  if (!unk_2A18CAF68)
-  {
-    v74 = operator new(1uLL);
-    v75 = operator new(0x20uLL);
-    *v75 = &unk_2A1E4FD98;
-    v75[1] = 0;
-    v75[2] = 0;
-    v75[3] = v74;
-    v76 = off_2A18CAF70;
-    unk_2A18CAF68 = v74;
-    off_2A18CAF70 = v75;
-    if (v76 && !atomic_fetch_add(&v76->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v76->__on_zero_shared)(v76);
-      std::__shared_weak_count::__release_weak(v76);
-    }
-
-    v73 = unk_2A18CAF68;
-  }
-
-  v77 = off_2A18CAF70;
-  object = v73;
-  v84 = off_2A18CAF70;
-  if (off_2A18CAF70)
-  {
-    atomic_fetch_add_explicit(off_2A18CAF70 + 1, 1uLL, memory_order_relaxed);
-  }
-
-  pthread_mutex_unlock(&ctu::Singleton<Capabilities,Capabilities,ctu::PthreadMutexGuardPolicy<Capabilities>>::sInstance);
-  if (Capabilities::isCMHandDetectionSupported(v73))
-  {
-    v78 = *(v2 + 128);
-    if (!v77 || atomic_fetch_add(&v77->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      if (!v78)
-      {
-        goto LABEL_138;
-      }
-
-      goto LABEL_133;
-    }
-
-    (v77->__on_zero_shared)(v77);
-    std::__shared_weak_count::__release_weak(v77);
-    if (v78)
-    {
-LABEL_133:
-      antenna::Service::Internal::processHandDetection_sync(v2);
-    }
-  }
-
-  else if (v77 && !atomic_fetch_add(&v77->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v77->__on_zero_shared)(v77);
-    std::__shared_weak_count::__release_weak(v77);
-  }
-
-LABEL_138:
-  if (v82)
-  {
-    xpc_release(v82[1]);
-    operator delete(v82);
-  }
-
-  v79 = a1;
-  if (a1)
-  {
-    v80 = a1[2];
-    if (v80)
-    {
-      if (!atomic_fetch_add(&v80->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v80->__on_zero_shared)(v80);
-        std::__shared_weak_count::__release_weak(v80);
-        v79 = a1;
-      }
-    }
-
-    operator delete(v79);
-  }
-}
-
-void sub_297550744(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, xpc_object_t *a11, xpc_object_t a12, uint64_t a13, xpc_object_t object)
+void sub_297550744(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, xpc_object_t *a11, xpc_object_t a14, uint64_t a15, xpc_object_t object)
 {
   xpc_release(object);
   std::unique_ptr<antenna::Service::Internal::setAudioState(xpc::dict)::$_0,std::default_delete<antenna::Service::Internal::setAudioState(xpc::dict)::$_0>>::~unique_ptr[abi:ne200100](&a11);
@@ -812,15 +23,15 @@ xpc_object_t **std::unique_ptr<antenna::Service::Internal::setAudioState(xpc::di
 
 void dispatch::async<void ctu::SharedSynchronizable<antenna::Service::Internal>::execute_wrapped<antenna::Service::Internal::handDetectCallback(CMHandDetectionDelegate::CMHandDetectionResult)::$_0>(antenna::Service::Internal::handDetectCallback(CMHandDetectionDelegate::CMHandDetectionResult)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<antenna::Service::Internal::handDetectCallback(CMHandDetectionDelegate::CMHandDetectionResult)::$_0,dispatch_queue_s *::default_delete<antenna::Service::Internal::handDetectCallback(CMHandDetectionDelegate::CMHandDetectionResult)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v2 = *a1;
   v3 = **a1;
   v4 = *(v3 + 32);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(v2 + 2);
+    v6 = *(v2 + 2);
     *buf = 67109120;
-    v9 = v7;
+    v8 = v6;
     _os_log_debug_impl(&dword_297476000, v4, OS_LOG_TYPE_DEBUG, "#D Hand Detection State: %d", buf, 8u);
   }
 
@@ -835,7 +46,6 @@ void dispatch::async<void ctu::SharedSynchronizable<antenna::Service::Internal>:
   }
 
   operator delete(a1);
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2975509B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10)
@@ -847,21 +57,21 @@ void sub_2975509B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void dispatch::async<void ctu::SharedSynchronizable<antenna::Service::Internal>::execute_wrapped<antenna::Service::Internal::antennaSetProperty(xpc::dict const&)::$_0>(antenna::Service::Internal::antennaSetProperty(xpc::dict const&)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<antenna::Service::Internal::antennaSetProperty(xpc::dict const&)::$_0,dispatch_queue_s *::default_delete<antenna::Service::Internal::antennaSetProperty(xpc::dict const&)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
-  v125 = *MEMORY[0x29EDCA608];
+  v122 = *MEMORY[0x29EDCA608];
   v1 = *a1;
-  v117 = *a1;
+  v114 = *a1;
   v2 = **a1;
   v3 = *(v2 + 32);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    xpc::object::to_string(v124, (v1 + 1));
-    v4 = (v124[23] & 0x80u) == 0 ? v124 : *v124;
+    xpc::object::to_string(v121, (v1 + 1));
+    v4 = (v121[23] & 0x80u) == 0 ? v121 : *v121;
     LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
     *(buf.__r_.__value_.__r.__words + 4) = v4;
     _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#I Set Property: %s", &buf, 0xCu);
-    if (v124[23] < 0)
+    if (v121[23] < 0)
     {
-      operator delete(*v124);
+      operator delete(*v121);
     }
   }
 
@@ -869,7 +79,7 @@ void dispatch::async<void ctu::SharedSynchronizable<antenna::Service::Internal>:
   v6 = v1[1];
   v5 = (v1 + 1);
   value = xpc_dictionary_get_value(v6, *MEMORY[0x29EDBED18]);
-  *v124 = value;
+  *v121 = value;
   if (value)
   {
     xpc_retain(value);
@@ -877,11 +87,11 @@ void dispatch::async<void ctu::SharedSynchronizable<antenna::Service::Internal>:
 
   else
   {
-    *v124 = xpc_null_create();
+    *v121 = xpc_null_create();
   }
 
-  xpc::dyn_cast_or_default(&buf, v124, "", v8);
-  xpc_release(*v124);
+  xpc::dyn_cast_or_default(&buf, v121, "", v8);
+  xpc_release(*v121);
   v9 = strlen(*MEMORY[0x29EDBEFD0]);
   v10 = v9;
   v11 = SHIBYTE(buf.__r_.__value_.__r.__words[2]);
@@ -970,7 +180,7 @@ LABEL_36:
         if (xpc_dictionary_get_value(*v5, *MEMORY[0x29EDBEA98]))
         {
           v24 = xpc_dictionary_get_value(*v5, v23);
-          *v124 = v24;
+          *v121 = v24;
           if (v24)
           {
             xpc_retain(v24);
@@ -978,11 +188,11 @@ LABEL_36:
 
           else
           {
-            *v124 = xpc_null_create();
+            *v121 = xpc_null_create();
           }
 
-          antenna::Service::Internal::setTxPowerCappingIPhoneOverrideFreeSpace_sync(v2, v124);
-          xpc_release(*v124);
+          antenna::Service::Internal::setTxPowerCappingIPhoneOverrideFreeSpace_sync(v2, v121);
+          xpc_release(*v121);
           goto LABEL_206;
         }
 
@@ -992,7 +202,7 @@ LABEL_36:
           goto LABEL_206;
         }
 
-        *v124 = 0;
+        *v121 = 0;
         v31 = "Cannot find command data!";
         goto LABEL_112;
       }
@@ -1049,9 +259,9 @@ LABEL_54:
           v33 = *MEMORY[0x29EDBEA98];
           if (xpc_dictionary_get_value(*v5, *MEMORY[0x29EDBEA98]))
           {
-            *v124 = v5;
-            *&v124[8] = v33;
-            xpc::dict::object_proxy::operator xpc::dict(v124, object);
+            *v121 = v5;
+            *&v121[8] = v33;
+            xpc::dict::object_proxy::operator xpc::dict(v121, object);
             antenna::Service::Internal::setTxPowerAudioMode_sync(v2, object);
             xpc_release(object[0]);
             goto LABEL_206;
@@ -1060,7 +270,7 @@ LABEL_54:
           v30 = *(v2 + 32);
           if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
-            *v124 = 0;
+            *v121 = 0;
             v31 = "Cannot find command data!";
             goto LABEL_112;
           }
@@ -1120,9 +330,9 @@ LABEL_73:
             v40 = *MEMORY[0x29EDBEA98];
             if (xpc_dictionary_get_value(*v5, *MEMORY[0x29EDBEA98]))
             {
-              *v124 = v5;
-              *&v124[8] = v40;
-              xpc::dict::object_proxy::operator xpc::dict(v124, object);
+              *v121 = v5;
+              *&v121[8] = v40;
+              xpc::dict::object_proxy::operator xpc::dict(v121, object);
               antenna::Service::Internal::setTxPowerAudioAlert_sync(v2, object);
               xpc_release(object[0]);
               goto LABEL_206;
@@ -1131,7 +341,7 @@ LABEL_73:
             v30 = *(v2 + 32);
             if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
-              *v124 = 0;
+              *v121 = 0;
               v31 = "Cannot find command data!";
               goto LABEL_112;
             }
@@ -1191,9 +401,9 @@ LABEL_90:
               v47 = *MEMORY[0x29EDBEA98];
               if (xpc_dictionary_get_value(*v5, *MEMORY[0x29EDBEA98]))
               {
-                *v124 = v5;
-                *&v124[8] = v47;
-                xpc::dict::object_proxy::operator xpc::dict(v124, object);
+                *v121 = v5;
+                *&v121[8] = v47;
+                xpc::dict::object_proxy::operator xpc::dict(v121, object);
                 antenna::Service::Internal::setTxPowerMotionMode_sync(v2, object);
                 xpc_release(object[0]);
                 goto LABEL_206;
@@ -1202,7 +412,7 @@ LABEL_90:
               v30 = *(v2 + 32);
               if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
               {
-                *v124 = 0;
+                *v121 = 0;
                 v31 = "Cannot find command data!";
                 goto LABEL_112;
               }
@@ -1234,9 +444,9 @@ LABEL_100:
                 {
                   object[0] = 0xAAAAAAAAAAAAAAAALL;
                   v53 = *MEMORY[0x29EDBEA98];
-                  *v124 = v5;
-                  *&v124[8] = v53;
-                  xpc::dict::object_proxy::operator xpc::dict(v124, object);
+                  *v121 = v5;
+                  *&v121[8] = v53;
+                  xpc::dict::object_proxy::operator xpc::dict(v121, object);
                   v54 = xpc_dictionary_get_value(*v5, *MEMORY[0x29EDBE720]);
                   p_xdict = v54;
                   if (v54)
@@ -1250,16 +460,16 @@ LABEL_100:
                   }
 
                   v68 = *MEMORY[0x29EDBF878];
-                  xpc::dyn_cast_or_default(v124, &p_xdict, *MEMORY[0x29EDBF878], v55);
+                  xpc::dyn_cast_or_default(v121, &p_xdict, *MEMORY[0x29EDBF878], v55);
                   if (*(v2 + 327) < 0)
                   {
                     operator delete(*(v2 + 304));
                   }
 
-                  *(v2 + 304) = *v124;
-                  *(v2 + 320) = *&v124[16];
-                  v124[23] = 0;
-                  v124[0] = 0;
+                  *(v2 + 304) = *v121;
+                  *(v2 + 320) = *&v121[16];
+                  v121[23] = 0;
+                  v121[0] = 0;
                   xpc_release(p_xdict);
                   v69 = xpc_dictionary_get_value(*v5, *MEMORY[0x29EDBE960]);
                   p_xdict = v69;
@@ -1273,17 +483,17 @@ LABEL_100:
                     p_xdict = xpc_null_create();
                   }
 
-                  xpc::dyn_cast_or_default(v124, &p_xdict, v68, v70);
+                  xpc::dyn_cast_or_default(v121, &p_xdict, v68, v70);
                   v71 = (v2 + 328);
                   if (*(v2 + 351) < 0)
                   {
                     operator delete(*v71);
                   }
 
-                  *v71 = *v124;
-                  *(v2 + 344) = *&v124[16];
-                  v124[23] = 0;
-                  v124[0] = 0;
+                  *v71 = *v121;
+                  *(v2 + 344) = *&v121[16];
+                  v121[23] = 0;
+                  v121[0] = 0;
                   xpc_release(p_xdict);
                   antenna::Service::Internal::sendAccessoryStatus_sync(v2);
                   xpc_release(object[0]);
@@ -1312,7 +522,7 @@ LABEL_116:
                     if (!memcmp(v58, *MEMORY[0x29EDBF2F0], v62) && v59 == v57)
                     {
                       v63 = xpc_dictionary_get_value(*v5, *MEMORY[0x29EDBEA98]);
-                      *v124 = v63;
+                      *v121 = v63;
                       if (v63)
                       {
                         xpc_retain(v63);
@@ -1320,11 +530,11 @@ LABEL_116:
 
                       else
                       {
-                        *v124 = xpc_null_create();
+                        *v121 = xpc_null_create();
                       }
 
-                      xpc::dyn_cast_or_default(v124, 0);
-                      xpc_release(*v124);
+                      xpc::dyn_cast_or_default(v121, 0);
+                      xpc_release(*v121);
                       if (!*(v2 + 528))
                       {
                         antenna::Service::Internal::configTxPower_sync(v2, 2u);
@@ -1359,17 +569,17 @@ LABEL_137:
                             v73 = *(v2 + 32);
                             if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
                             {
-                              *v124 = 0;
-                              _os_log_impl(&dword_297476000, v73, OS_LOG_TYPE_DEFAULT, "#I Ignore to set CLTM/PPM since overriding is being used.", v124, 2u);
+                              *v121 = 0;
+                              _os_log_impl(&dword_297476000, v73, OS_LOG_TYPE_DEFAULT, "#I Ignore to set CLTM/PPM since overriding is being used.", v121, 2u);
                             }
                           }
 
                           else
                           {
                             v77 = *MEMORY[0x29EDBEA98];
-                            *v124 = v5;
-                            *&v124[8] = v77;
-                            xpc::dict::object_proxy::operator xpc::dict(v124, object);
+                            *v121 = v5;
+                            *&v121[8] = v77;
+                            xpc::dict::object_proxy::operator xpc::dict(v121, object);
                             antenna::Service::Internal::setMaxPower_sync(v2, object);
                             xpc_release(object[0]);
                           }
@@ -1408,13 +618,13 @@ LABEL_154:
                             memset(object, 170, 24);
                             v79 = *MEMORY[0x29EDBEA98];
                             p_xdict = v5;
-                            v120 = v79;
+                            v117 = v79;
                             xpc::dict::object_proxy::operator xpc::object(&p_xdict, &xdict);
-                            memset(v124, 0, sizeof(v124));
+                            memset(v121, 0, sizeof(v121));
                             xpc::dyn_cast_or_default();
-                            if (v124[23] < 0)
+                            if (v121[23] < 0)
                             {
-                              operator delete(*v124);
+                              operator delete(*v121);
                             }
 
                             xpc_release(xdict);
@@ -1450,36 +660,36 @@ LABEL_154:
                                 {
                                   xdict = 0xAAAAAAAAAAAAAAAALL;
                                   v84 = *MEMORY[0x29EDBEA98];
-                                  *v124 = v5;
-                                  *&v124[8] = v84;
-                                  xpc::dict::object_proxy::operator xpc::dict(v124, &xdict);
-                                  memset(v124, 170, sizeof(v124));
-                                  std::string::basic_string[abi:ne200100]<0>(v124, "");
+                                  *v121 = v5;
+                                  *&v121[8] = v84;
+                                  xpc::dict::object_proxy::operator xpc::dict(v121, &xdict);
+                                  memset(v121, 170, sizeof(v121));
+                                  std::string::basic_string[abi:ne200100]<0>(v121, "");
                                   v85 = *MEMORY[0x29EDBF1D8];
                                   if (xpc_dictionary_get_value(xdict, *MEMORY[0x29EDBF1D8]))
                                   {
                                     p_xdict = &xdict;
-                                    v120 = v85;
-                                    xpc::dict::object_proxy::operator xpc::object(&p_xdict, &v118);
-                                    xpc::dyn_cast_or_default(object, &v118, "", v86);
-                                    if (v124[23] < 0)
+                                    v117 = v85;
+                                    xpc::dict::object_proxy::operator xpc::object(&p_xdict, &v115);
+                                    xpc::dyn_cast_or_default(object, &v115, "", v86);
+                                    if (v121[23] < 0)
                                     {
-                                      operator delete(*v124);
+                                      operator delete(*v121);
                                     }
 
-                                    *v124 = *object;
-                                    *&v124[16] = object[2];
+                                    *v121 = *object;
+                                    *&v121[16] = object[2];
                                     HIBYTE(object[2]) = 0;
                                     LOBYTE(object[0]) = 0;
-                                    xpc_release(v118);
-                                    if ((v124[23] & 0x80u) == 0)
+                                    xpc_release(v115);
+                                    if ((v121[23] & 0x80u) == 0)
                                     {
-                                      v87 = v124;
+                                      v87 = v121;
                                     }
 
                                     else
                                     {
-                                      v87 = *v124;
+                                      v87 = *v121;
                                     }
 
                                     v88 = strlen(*MEMORY[0x29EDBE4E8]);
@@ -1487,9 +697,9 @@ LABEL_154:
                                   }
 
                                   antenna::Service::Internal::setMaxPower_sync(v2, &xdict);
-                                  if (v124[23] < 0)
+                                  if (v121[23] < 0)
                                   {
-                                    operator delete(*v124);
+                                    operator delete(*v121);
                                   }
 
                                   xpc_release(xdict);
@@ -1505,17 +715,17 @@ LABEL_154:
                                 object[1] = v93;
                                 xpc::dict::object_proxy::operator xpc::object(object, &p_xdict);
                                 v94 = *MEMORY[0x29EDBF878];
-                                xpc::dyn_cast_or_default(v124, &p_xdict, *MEMORY[0x29EDBF878], v95);
+                                xpc::dyn_cast_or_default(v121, &p_xdict, *MEMORY[0x29EDBF878], v95);
                                 v96 = (v2 + 504);
                                 if (*(v2 + 527) < 0)
                                 {
                                   operator delete(*v96);
                                 }
 
-                                *v96 = *v124;
-                                *(v2 + 520) = *&v124[16];
-                                v124[23] = 0;
-                                v124[0] = 0;
+                                *v96 = *v121;
+                                *(v2 + 520) = *&v121[16];
+                                v121[23] = 0;
+                                v121[0] = 0;
                                 xpc_release(p_xdict);
                                 if (*(v2 + 527) < 0)
                                 {
@@ -1523,96 +733,94 @@ LABEL_154:
                                 }
 
                                 v97 = strlen(v94);
-                                v98 = strncasecmp(v96, v94, v97);
-                                if (v98)
+                                if (!strncasecmp(v96, v94, v97))
                                 {
-                                  v99 = *MEMORY[0x29EDBF820];
-                                  *v124 = v5;
-                                  *&v124[8] = v99;
-                                  xpc::dict::object_proxy::operator xpc::object(v124, object);
-                                  v100 = xpc::dyn_cast_or_default(object, 0);
-                                  *std::map<unsigned int,unsigned int>::operator[]((v2 + 480), 1u) = v100;
-                                  xpc_release(object[0]);
-                                  v101 = *MEMORY[0x29EDBF7D8];
-                                  *v124 = v5;
-                                  *&v124[8] = v101;
-                                  xpc::dict::object_proxy::operator xpc::object(v124, object);
-                                  v102 = xpc::dyn_cast_or_default(object, 0);
-                                  *std::map<unsigned int,unsigned int>::operator[]((v2 + 480), 2u) = v102;
-                                  xpc_release(object[0]);
-                                  v103 = *MEMORY[0x29EDBF610];
-                                  *v124 = v5;
-                                  *&v124[8] = v103;
-                                  xpc::dict::object_proxy::operator xpc::object(v124, object);
-                                  v104 = xpc::dyn_cast_or_default(object, 0);
-                                  *std::map<unsigned int,unsigned int>::operator[]((v2 + 480), 3u) = v104;
-                                  xpc_release(object[0]);
-                                  v105 = *MEMORY[0x29EDBF608];
-                                  *v124 = v5;
-                                  *&v124[8] = v105;
-                                  xpc::dict::object_proxy::operator xpc::object(v124, object);
-                                  v106 = xpc::dyn_cast_or_default(object, 0);
-                                  *std::map<unsigned int,unsigned int>::operator[]((v2 + 480), 4u) = v106;
-                                  xpc_release(object[0]);
+                                  config::hw::deviceMaterial();
+                                  if ((v2 + 480) != v121)
+                                  {
+                                    std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned int,unsigned int>,std::__tree_node<std::__value_type<unsigned int,unsigned int>,void *> *,long>>((v2 + 480), *v121, &v121[8]);
+                                  }
+
+                                  std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>>,void *>>>>::destroy(*&v121[8]);
                                 }
 
                                 else
                                 {
-                                  config::hw::deviceMaterial(v98);
-                                  if ((v2 + 480) != v124)
-                                  {
-                                    std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned int,unsigned int>,std::__tree_node<std::__value_type<unsigned int,unsigned int>,void *> *,long>>((v2 + 480), *v124, &v124[8]);
-                                  }
-
-                                  std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>>,void *>>>>::destroy(*&v124[8]);
+                                  v98 = *MEMORY[0x29EDBF820];
+                                  *v121 = v5;
+                                  *&v121[8] = v98;
+                                  xpc::dict::object_proxy::operator xpc::object(v121, object);
+                                  v99 = xpc::dyn_cast_or_default(object, 0);
+                                  *std::map<unsigned int,unsigned int>::operator[]((v2 + 480), 1u) = v99;
+                                  xpc_release(object[0]);
+                                  v100 = *MEMORY[0x29EDBF7D8];
+                                  *v121 = v5;
+                                  *&v121[8] = v100;
+                                  xpc::dict::object_proxy::operator xpc::object(v121, object);
+                                  v101 = xpc::dyn_cast_or_default(object, 0);
+                                  *std::map<unsigned int,unsigned int>::operator[]((v2 + 480), 2u) = v101;
+                                  xpc_release(object[0]);
+                                  v102 = *MEMORY[0x29EDBF610];
+                                  *v121 = v5;
+                                  *&v121[8] = v102;
+                                  xpc::dict::object_proxy::operator xpc::object(v121, object);
+                                  v103 = xpc::dyn_cast_or_default(object, 0);
+                                  *std::map<unsigned int,unsigned int>::operator[]((v2 + 480), 3u) = v103;
+                                  xpc_release(object[0]);
+                                  v104 = *MEMORY[0x29EDBF608];
+                                  *v121 = v5;
+                                  *&v121[8] = v104;
+                                  xpc::dict::object_proxy::operator xpc::object(v121, object);
+                                  v105 = xpc::dyn_cast_or_default(object, 0);
+                                  *std::map<unsigned int,unsigned int>::operator[]((v2 + 480), 4u) = v105;
+                                  xpc_release(object[0]);
                                 }
 
                                 antenna::Service::Internal::sendDeviceMaterial_sync(v2);
                                 goto LABEL_206;
                               }
 
-                              v107 = *(v2 + 32);
-                              if (!os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
+                              v106 = *(v2 + 32);
+                              if (!os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
                               {
                                 goto LABEL_206;
                               }
 
-                              v108 = &buf;
+                              v107 = &buf;
                               if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                               {
-                                v108 = buf.__r_.__value_.__r.__words[0];
+                                v107 = buf.__r_.__value_.__r.__words[0];
                               }
 
-                              *v124 = 136315138;
-                              *&v124[4] = v108;
+                              *v121 = 136315138;
+                              *&v121[4] = v107;
                               v31 = "%s is not supported in this device";
-                              v60 = v107;
+                              v60 = v106;
                               v61 = 12;
 LABEL_113:
-                              _os_log_error_impl(&dword_297476000, v60, OS_LOG_TYPE_ERROR, v31, v124, v61);
+                              _os_log_error_impl(&dword_297476000, v60, OS_LOG_TYPE_ERROR, v31, v121, v61);
                               goto LABEL_206;
                             }
 
                             v91 = *MEMORY[0x29EDBEA98];
                             if (xpc_dictionary_get_value(*v5, *MEMORY[0x29EDBEA98]))
                             {
-                              *v124 = v5;
-                              *&v124[8] = v91;
-                              xpc::dict::object_proxy::operator xpc::object(v124, object);
+                              *v121 = v5;
+                              *&v121[8] = v91;
+                              xpc::dict::object_proxy::operator xpc::object(v121, object);
                               *(v2 + 472) = xpc::dyn_cast_or_default(object, 0);
                               xpc_release(object[0]);
                               v92 = *(v2 + 32);
                               if (os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG))
                               {
-                                v114 = *(v2 + 472);
                                 ctu::iokit::asString();
-                                v115 = (v124[23] & 0x80u) == 0 ? v124 : *v124;
+                                v112 = (v121[23] & 0x80u) == 0 ? v121 : *v121;
                                 LODWORD(object[0]) = 136315138;
-                                *(object + 4) = v115;
+                                *(object + 4) = v112;
                                 _os_log_debug_impl(&dword_297476000, v92, OS_LOG_TYPE_DEBUG, "#D Power source overriding as %s", object, 0xCu);
-                                if (v124[23] < 0)
+                                if (v121[23] < 0)
                                 {
-                                  operator delete(*v124);
+                                  operator delete(*v121);
                                 }
                               }
 
@@ -1626,7 +834,7 @@ LABEL_113:
                               goto LABEL_206;
                             }
 
-                            *v124 = 0;
+                            *v121 = 0;
                             v31 = "Cannot find the command data!";
 LABEL_112:
                             v60 = v30;
@@ -1643,7 +851,7 @@ LABEL_112:
                               goto LABEL_206;
                             }
 
-                            *v124 = 0;
+                            *v121 = 0;
                             v31 = "Cannot find the command data!";
                             goto LABEL_112;
                           }
@@ -1651,11 +859,11 @@ LABEL_112:
                           object[0] = v5;
                           object[1] = v89;
                           xpc::dict::object_proxy::operator xpc::object(object, &p_xdict);
-                          xpc::dyn_cast_or_default(v124, &p_xdict, "", v90);
-                          antenna::Service::Internal::setTxPowerMotionHandDetection_sync(v2, v124);
-                          if (v124[23] < 0)
+                          xpc::dyn_cast_or_default(v121, &p_xdict, "", v90);
+                          antenna::Service::Internal::setTxPowerMotionHandDetection_sync(v2, v121);
+                          if (v121[23] < 0)
                           {
-                            operator delete(*v124);
+                            operator delete(*v121);
                           }
 
                           xpc_release(p_xdict);
@@ -1713,9 +921,9 @@ LABEL_112:
   v21 = *MEMORY[0x29EDBEA98];
   if (xpc_dictionary_get_value(*v5, *MEMORY[0x29EDBEA98]))
   {
-    *v124 = v5;
-    *&v124[8] = v21;
-    xpc::dict::object_proxy::operator xpc::dict(v124, object);
+    *v121 = v5;
+    *&v121[8] = v21;
+    xpc::dict::object_proxy::operator xpc::dict(v121, object);
     antenna::Service::Internal::setTxPowerCappingIPhoneMode_sync(v2, object);
     xpc_release(object[0]);
     goto LABEL_206;
@@ -1724,7 +932,7 @@ LABEL_112:
   v30 = *(v2 + 32);
   if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
-    *v124 = 0;
+    *v121 = 0;
     v31 = "Cannot find command data!";
     goto LABEL_112;
   }
@@ -1732,54 +940,55 @@ LABEL_112:
 LABEL_206:
   if ((SHIBYTE(buf.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    v109 = v117;
-    if (!v117)
+    v108 = v114;
+    if (!v114)
     {
       goto LABEL_208;
     }
 
 LABEL_211:
-    xpc_release(v109[1]);
-    operator delete(v109);
-    v110 = a1;
+    xpc_release(v108[1]);
+    operator delete(v108);
+    v109 = a1;
     if (!a1)
     {
-      goto LABEL_216;
+      return;
     }
 
     goto LABEL_212;
   }
 
   operator delete(buf.__r_.__value_.__l.__data_);
-  v109 = v117;
-  if (v117)
+  v108 = v114;
+  if (v114)
   {
     goto LABEL_211;
   }
 
 LABEL_208:
-  v110 = a1;
+  v109 = a1;
   if (!a1)
   {
-    goto LABEL_216;
+    return;
   }
 
 LABEL_212:
-  v111 = v110[2];
-  if (v111 && !atomic_fetch_add(&v111->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v110 = v109[2];
+  if (v110)
   {
-    v112 = v110;
-    (v111->__on_zero_shared)(v111);
-    std::__shared_weak_count::__release_weak(v111);
-    v110 = v112;
+    if (!atomic_fetch_add(&v110->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      v111 = v109;
+      (v110->__on_zero_shared)(v110);
+      std::__shared_weak_count::__release_weak(v110);
+      v109 = v111;
+    }
   }
 
-  operator delete(v110);
-LABEL_216:
-  v113 = *MEMORY[0x29EDCA608];
+  operator delete(v109);
 }
 
-void sub_297551988(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t *a10, xpc_object_t a11, xpc_object_t a12, uint64_t a13, xpc_object_t a14, xpc_object_t object, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+void sub_297551988(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, xpc_object_t a11, xpc_object_t a12, uint64_t a13, xpc_object_t a14, xpc_object_t object, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
 {
   std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>>,void *>>>>::destroy(*(v24 - 72));
   if (a24 < 0)
@@ -1809,7 +1018,7 @@ xpc_object_t **std::unique_ptr<antenna::Service::Internal::antennaSetProperty(xp
 
 void antenna::Service::Internal::antennaGetProperty(xpc::dict const&)::$_0::operator()(uint64_t a1)
 {
-  v156 = *MEMORY[0x29EDCA608];
+  v155 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 16);
   memset(&__s1, 170, sizeof(__s1));
   v3 = a1 + 8;
@@ -1887,18 +1096,18 @@ LABEL_9:
     v22 = *MEMORY[0x29EDBEA98];
     buf.__r_.__value_.__r.__words[0] = v3;
     buf.__r_.__value_.__l.__size_ = v22;
-    v151 = *a1;
-    v152 = v22;
-    xpc::dict::object_proxy::operator=(&v151, &buf, &v153);
-    xpc_release(v153);
-    v153 = 0;
-    antenna::Service::Internal::copyTxPowerCappingIPhoneMode_sync(v2, &v150);
-    xpc_dictionary_set_value(**a1, *MEMORY[0x29EDBEBA8], v150);
-    v23 = v150;
-    v150 = xpc_null_create();
+    v150 = *a1;
+    v151 = v22;
+    xpc::dict::object_proxy::operator=(&v150, &buf, &v152);
+    xpc_release(v152);
+    v152 = 0;
+    antenna::Service::Internal::copyTxPowerCappingIPhoneMode_sync(v2, &v149);
+    xpc_dictionary_set_value(**a1, *MEMORY[0x29EDBEBA8], v149);
+    v23 = v149;
+    v149 = xpc_null_create();
     xpc_release(v23);
-    xpc_release(v150);
-    v150 = 0;
+    xpc_release(v149);
+    v149 = 0;
     goto LABEL_136;
   }
 
@@ -2063,18 +1272,18 @@ LABEL_54:
     v37 = *MEMORY[0x29EDBEA98];
     buf.__r_.__value_.__r.__words[0] = v3;
     buf.__r_.__value_.__l.__size_ = v37;
-    v151 = *a1;
-    v152 = v37;
-    xpc::dict::object_proxy::operator=(&v151, &buf, &v149);
-    xpc_release(v149);
-    v149 = 0;
-    antenna::Service::Internal::copyTxPowerAudioMode_sync(v2, &v148);
-    xpc_dictionary_set_value(**a1, *MEMORY[0x29EDBEBA8], v148);
-    v38 = v148;
-    v148 = xpc_null_create();
-    xpc_release(v38);
+    v150 = *a1;
+    v151 = v37;
+    xpc::dict::object_proxy::operator=(&v150, &buf, &v148);
     xpc_release(v148);
     v148 = 0;
+    antenna::Service::Internal::copyTxPowerAudioMode_sync(v2, &v147);
+    xpc_dictionary_set_value(**a1, *MEMORY[0x29EDBEBA8], v147);
+    v38 = v147;
+    v147 = xpc_null_create();
+    xpc_release(v38);
+    xpc_release(v147);
+    v147 = 0;
     goto LABEL_136;
   }
 
@@ -2156,18 +1365,18 @@ LABEL_73:
     v48 = *MEMORY[0x29EDBEA98];
     buf.__r_.__value_.__r.__words[0] = v3;
     buf.__r_.__value_.__l.__size_ = v48;
-    v151 = *a1;
-    v152 = v48;
-    xpc::dict::object_proxy::operator=(&v151, &buf, &v147);
-    xpc_release(v147);
-    v147 = 0;
-    antenna::Service::Internal::copyTxPowerAudioAlert_sync(v2, &v146);
-    xpc_dictionary_set_value(**a1, *MEMORY[0x29EDBEBA8], v146);
-    v49 = v146;
-    v146 = xpc_null_create();
-    xpc_release(v49);
+    v150 = *a1;
+    v151 = v48;
+    xpc::dict::object_proxy::operator=(&v150, &buf, &v146);
     xpc_release(v146);
     v146 = 0;
+    antenna::Service::Internal::copyTxPowerAudioAlert_sync(v2, &v145);
+    xpc_dictionary_set_value(**a1, *MEMORY[0x29EDBEBA8], v145);
+    v49 = v145;
+    v145 = xpc_null_create();
+    xpc_release(v49);
+    xpc_release(v145);
+    v145 = 0;
     goto LABEL_136;
   }
 
@@ -2251,11 +1460,11 @@ LABEL_92:
       v59 = *MEMORY[0x29EDBEA98];
       buf.__r_.__value_.__r.__words[0] = v3;
       buf.__r_.__value_.__l.__size_ = v59;
-      v151 = *a1;
-      v152 = v59;
-      xpc::dict::object_proxy::operator=(&v151, &buf, &v145);
-      xpc_release(v145);
-      v145 = 0;
+      v150 = *a1;
+      v151 = v59;
+      xpc::dict::object_proxy::operator=(&v150, &buf, &v144);
+      xpc_release(v144);
+      v144 = 0;
       antenna::Service::Internal::copyTxPowerMotionMode_sync(v2, &value);
       xpc_dictionary_set_value(**a1, *MEMORY[0x29EDBEBA8], value);
       v60 = value;
@@ -2417,46 +1626,46 @@ LABEL_219:
 LABEL_141:
   if (v82 >= v80)
   {
-    v85 = v80;
+    v84 = v80;
   }
 
   else
   {
-    v85 = v82;
+    v84 = v82;
   }
 
-  if (!memcmp(v81, *MEMORY[0x29EDBEBF8], v85) && v82 == v80)
+  if (!memcmp(v81, *MEMORY[0x29EDBEBF8], v84) && v82 == v80)
   {
-    v86 = MEMORY[0x29EDBEA78];
+    v85 = MEMORY[0x29EDBEA78];
     if (!*(v2 + 396))
     {
-      v86 = MEMORY[0x29EDBEB50];
+      v85 = MEMORY[0x29EDBEB50];
     }
 
-    v142 = xpc_string_create(*v86);
-    if (!v142)
+    v141 = xpc_string_create(*v85);
+    if (!v141)
     {
-      v142 = xpc_null_create();
+      v141 = xpc_null_create();
     }
 
-    v87 = *MEMORY[0x29EDBEA98];
+    v86 = *MEMORY[0x29EDBEA98];
     buf.__r_.__value_.__r.__words[0] = *a1;
-    buf.__r_.__value_.__l.__size_ = v87;
-    xpc::dict::object_proxy::operator=(&buf, &v142, &object);
+    buf.__r_.__value_.__l.__size_ = v86;
+    xpc::dict::object_proxy::operator=(&buf, &v141, &object);
     xpc_release(object);
     object = 0;
-    xpc_release(v142);
-    v142 = 0;
+    xpc_release(v141);
+    v141 = 0;
     goto LABEL_136;
   }
 
-  v88 = strlen(*MEMORY[0x29EDBF5D0]);
-  v89 = v88;
+  v87 = strlen(*MEMORY[0x29EDBF5D0]);
+  v88 = v87;
   if ((v9 & 0x80000000) == 0)
   {
-    if (v88 != -1)
+    if (v87 != -1)
     {
-      v90 = &__s1;
+      v89 = &__s1;
       goto LABEL_156;
     }
 
@@ -2464,65 +1673,65 @@ LABEL_220:
     std::string::__throw_out_of_range[abi:ne200100]();
   }
 
-  if (v88 == -1)
+  if (v87 == -1)
   {
     goto LABEL_220;
   }
 
   v9 = __s1.__r_.__value_.__l.__size_;
-  v90 = __s1.__r_.__value_.__r.__words[0];
+  v89 = __s1.__r_.__value_.__r.__words[0];
 LABEL_156:
-  if (v9 >= v89)
+  if (v9 >= v88)
   {
-    v91 = v89;
+    v90 = v88;
   }
 
   else
   {
-    v91 = v9;
+    v90 = v9;
   }
 
-  if (!memcmp(v90, *MEMORY[0x29EDBF5D0], v91) && v9 == v89)
+  if (!memcmp(v89, *MEMORY[0x29EDBF5D0], v90) && v9 == v88)
   {
-    v92 = (v2 + 440);
+    v91 = (v2 + 440);
     if (*(v2 + 463) < 0)
     {
-      v92 = *v92;
+      v91 = *v91;
     }
 
-    v140 = xpc_string_create(v92);
-    if (!v140)
+    v139 = xpc_string_create(v91);
+    if (!v139)
     {
-      v140 = xpc_null_create();
+      v139 = xpc_null_create();
     }
 
-    v93 = *MEMORY[0x29EDBEBA8];
+    v92 = *MEMORY[0x29EDBEBA8];
     buf.__r_.__value_.__r.__words[0] = *a1;
-    buf.__r_.__value_.__l.__size_ = v93;
-    xpc::dict::object_proxy::operator=(&buf, &v140, &v141);
-    xpc_release(v141);
-    v141 = 0;
+    buf.__r_.__value_.__l.__size_ = v92;
+    xpc::dict::object_proxy::operator=(&buf, &v139, &v140);
     xpc_release(v140);
     v140 = 0;
+    xpc_release(v139);
+    v139 = 0;
     goto LABEL_136;
   }
 
   if (!std::string::compare(&__s1, *MEMORY[0x29EDBF4C0]))
   {
-    v138 = xpc_int64_create(*(v2 + 472));
-    if (!v138)
+    v137 = xpc_int64_create(*(v2 + 472));
+    if (!v137)
     {
-      v138 = xpc_null_create();
+      v137 = xpc_null_create();
     }
 
-    v96 = *MEMORY[0x29EDBEBA8];
+    v95 = *MEMORY[0x29EDBEBA8];
     buf.__r_.__value_.__r.__words[0] = *a1;
-    buf.__r_.__value_.__l.__size_ = v96;
-    xpc::dict::object_proxy::operator=(&buf, &v138, &v139);
-    xpc_release(v139);
-    v139 = 0;
+    buf.__r_.__value_.__l.__size_ = v95;
+    xpc::dict::object_proxy::operator=(&buf, &v137, &v138);
     xpc_release(v138);
     v138 = 0;
+    xpc_release(v137);
+    v137 = 0;
   }
 
   else
@@ -2534,220 +1743,220 @@ LABEL_156:
         goto LABEL_136;
       }
 
-      v151 = 0xAAAAAAAAAAAAAAAALL;
-      v94 = xpc_dictionary_create(0, 0, 0);
-      v95 = v94;
-      if (v94)
+      v150 = 0xAAAAAAAAAAAAAAAALL;
+      v93 = xpc_dictionary_create(0, 0, 0);
+      v94 = v93;
+      if (v93)
       {
-        v151 = v94;
+        v150 = v93;
       }
 
       else
       {
-        v95 = xpc_null_create();
-        v151 = v95;
-        if (!v95)
+        v94 = xpc_null_create();
+        v150 = v94;
+        if (!v94)
         {
-          v111 = xpc_null_create();
-          v95 = 0;
+          v110 = xpc_null_create();
+          v94 = 0;
           goto LABEL_200;
         }
       }
 
-      if (MEMORY[0x29C272BA0](v95) == MEMORY[0x29EDCAA00])
+      if (MEMORY[0x29C272BA0](v94) == MEMORY[0x29EDCAA00])
       {
-        xpc_retain(v95);
+        xpc_retain(v94);
 LABEL_201:
-        xpc_release(v95);
-        v112 = MEMORY[0x29EDBE4E8];
+        xpc_release(v94);
+        v111 = MEMORY[0x29EDBE4E8];
         if (!*(v2 + 388))
         {
-          v112 = MEMORY[0x29EDBF878];
+          v111 = MEMORY[0x29EDBF878];
         }
 
-        v126 = xpc_string_create(*v112);
-        if (!v126)
+        v125 = xpc_string_create(*v111);
+        if (!v125)
         {
-          v126 = xpc_null_create();
+          v125 = xpc_null_create();
         }
 
-        v113 = *MEMORY[0x29EDBF1D8];
-        buf.__r_.__value_.__r.__words[0] = &v151;
-        buf.__r_.__value_.__l.__size_ = v113;
-        xpc::dict::object_proxy::operator=(&buf, &v126, &v127);
-        xpc_release(v127);
-        v127 = 0;
+        v112 = *MEMORY[0x29EDBF1D8];
+        buf.__r_.__value_.__r.__words[0] = &v150;
+        buf.__r_.__value_.__l.__size_ = v112;
+        xpc::dict::object_proxy::operator=(&buf, &v125, &v126);
         xpc_release(v126);
         v126 = 0;
-        v124 = xpc_int64_create(*(v2 + 376));
-        if (!v124)
-        {
-          v124 = xpc_null_create();
-        }
-
-        v114 = *MEMORY[0x29EDBE8B8];
-        buf.__r_.__value_.__r.__words[0] = &v151;
-        buf.__r_.__value_.__l.__size_ = v114;
-        xpc::dict::object_proxy::operator=(&buf, &v124, &v125);
         xpc_release(v125);
         v125 = 0;
+        v123 = xpc_int64_create(*(v2 + 376));
+        if (!v123)
+        {
+          v123 = xpc_null_create();
+        }
+
+        v113 = *MEMORY[0x29EDBE8B8];
+        buf.__r_.__value_.__r.__words[0] = &v150;
+        buf.__r_.__value_.__l.__size_ = v113;
+        xpc::dict::object_proxy::operator=(&buf, &v123, &v124);
         xpc_release(v124);
         v124 = 0;
-        v122 = xpc_int64_create(*(v2 + 380));
-        if (!v122)
-        {
-          v122 = xpc_null_create();
-        }
-
-        v115 = *MEMORY[0x29EDBEA90];
-        buf.__r_.__value_.__r.__words[0] = &v151;
-        buf.__r_.__value_.__l.__size_ = v115;
-        xpc::dict::object_proxy::operator=(&buf, &v122, &v123);
         xpc_release(v123);
         v123 = 0;
-        xpc_release(v122);
-        v122 = 0;
-        v120 = xpc_int64_create(*(v2 + 384));
-        if (!v120)
+        v121 = xpc_int64_create(*(v2 + 380));
+        if (!v121)
         {
-          v120 = xpc_null_create();
+          v121 = xpc_null_create();
         }
 
-        v116 = *MEMORY[0x29EDBE698];
-        buf.__r_.__value_.__r.__words[0] = &v151;
-        buf.__r_.__value_.__l.__size_ = v116;
-        xpc::dict::object_proxy::operator=(&buf, &v120, &v121);
+        v114 = *MEMORY[0x29EDBEA90];
+        buf.__r_.__value_.__r.__words[0] = &v150;
+        buf.__r_.__value_.__l.__size_ = v114;
+        xpc::dict::object_proxy::operator=(&buf, &v121, &v122);
+        xpc_release(v122);
+        v122 = 0;
         xpc_release(v121);
         v121 = 0;
+        v119 = xpc_int64_create(*(v2 + 384));
+        if (!v119)
+        {
+          v119 = xpc_null_create();
+        }
+
+        v115 = *MEMORY[0x29EDBE698];
+        buf.__r_.__value_.__r.__words[0] = &v150;
+        buf.__r_.__value_.__l.__size_ = v115;
+        xpc::dict::object_proxy::operator=(&buf, &v119, &v120);
         xpc_release(v120);
         v120 = 0;
-        xpc::dict::dict(&v118, &v151);
-        v117 = *MEMORY[0x29EDBEBA8];
-        buf.__r_.__value_.__r.__words[0] = *a1;
-        buf.__r_.__value_.__l.__size_ = v117;
-        xpc::dict::object_proxy::operator=(&buf, &v118, &v119);
         xpc_release(v119);
         v119 = 0;
+        xpc::dict::dict(&v117, &v150);
+        v116 = *MEMORY[0x29EDBEBA8];
+        buf.__r_.__value_.__r.__words[0] = *a1;
+        buf.__r_.__value_.__l.__size_ = v116;
+        xpc::dict::object_proxy::operator=(&buf, &v117, &v118);
         xpc_release(v118);
         v118 = 0;
-        xpc_release(v151);
+        xpc_release(v117);
+        v117 = 0;
+        xpc_release(v150);
         goto LABEL_136;
       }
 
-      v111 = xpc_null_create();
+      v110 = xpc_null_create();
 LABEL_200:
-      v151 = v111;
+      v150 = v110;
       goto LABEL_201;
     }
 
     if (*(v2 + 85) == 1)
     {
+      v96 = (v2 + 504);
       v97 = (v2 + 504);
-      v98 = (v2 + 504);
       if (*(v2 + 527) < 0)
       {
-        v98 = *v97;
+        v97 = *v96;
       }
 
-      v136 = xpc_string_create(v98);
-      if (!v136)
+      v135 = xpc_string_create(v97);
+      if (!v135)
       {
-        v136 = xpc_null_create();
+        v135 = xpc_null_create();
       }
 
-      v99 = *MEMORY[0x29EDBEBA8];
+      v98 = *MEMORY[0x29EDBEBA8];
       buf.__r_.__value_.__r.__words[0] = *a1;
-      buf.__r_.__value_.__l.__size_ = v99;
-      xpc::dict::object_proxy::operator=(&buf, &v136, &v137);
-      xpc_release(v137);
-      v137 = 0;
+      buf.__r_.__value_.__l.__size_ = v98;
+      xpc::dict::object_proxy::operator=(&buf, &v135, &v136);
       xpc_release(v136);
       v136 = 0;
+      xpc_release(v135);
+      v135 = 0;
       if (*(v2 + 527) < 0)
       {
-        v97 = *v97;
+        v96 = *v96;
       }
 
-      v100 = strlen(*MEMORY[0x29EDBEFE0]);
-      if (!strncasecmp(v97, *MEMORY[0x29EDBEFE0], v100))
+      v99 = strlen(*MEMORY[0x29EDBEFE0]);
+      if (!strncasecmp(v96, *MEMORY[0x29EDBEFE0], v99))
       {
-        v101 = std::map<unsigned int,unsigned int>::operator[]((v2 + 480), 1u);
-        v134 = xpc_int64_create(*v101);
-        if (!v134)
+        v100 = std::map<unsigned int,unsigned int>::operator[]((v2 + 480), 1u);
+        v133 = xpc_int64_create(*v100);
+        if (!v133)
         {
-          v134 = xpc_null_create();
+          v133 = xpc_null_create();
         }
 
-        v102 = *MEMORY[0x29EDBF820];
+        v101 = *MEMORY[0x29EDBF820];
         buf.__r_.__value_.__r.__words[0] = *a1;
-        buf.__r_.__value_.__l.__size_ = v102;
-        xpc::dict::object_proxy::operator=(&buf, &v134, &v135);
-        xpc_release(v135);
-        v135 = 0;
+        buf.__r_.__value_.__l.__size_ = v101;
+        xpc::dict::object_proxy::operator=(&buf, &v133, &v134);
         xpc_release(v134);
         v134 = 0;
-        v103 = std::map<unsigned int,unsigned int>::operator[]((v2 + 480), 2u);
-        v132 = xpc_int64_create(*v103);
-        if (!v132)
-        {
-          v132 = xpc_null_create();
-        }
-
-        v104 = *MEMORY[0x29EDBF7D8];
-        buf.__r_.__value_.__r.__words[0] = *a1;
-        buf.__r_.__value_.__l.__size_ = v104;
-        xpc::dict::object_proxy::operator=(&buf, &v132, &v133);
         xpc_release(v133);
         v133 = 0;
+        v102 = std::map<unsigned int,unsigned int>::operator[]((v2 + 480), 2u);
+        v131 = xpc_int64_create(*v102);
+        if (!v131)
+        {
+          v131 = xpc_null_create();
+        }
+
+        v103 = *MEMORY[0x29EDBF7D8];
+        buf.__r_.__value_.__r.__words[0] = *a1;
+        buf.__r_.__value_.__l.__size_ = v103;
+        xpc::dict::object_proxy::operator=(&buf, &v131, &v132);
         xpc_release(v132);
         v132 = 0;
-        v105 = std::map<unsigned int,unsigned int>::operator[]((v2 + 480), 3u);
-        v130 = xpc_int64_create(*v105);
-        if (!v130)
-        {
-          v130 = xpc_null_create();
-        }
-
-        v106 = *MEMORY[0x29EDBF610];
-        buf.__r_.__value_.__r.__words[0] = *a1;
-        buf.__r_.__value_.__l.__size_ = v106;
-        xpc::dict::object_proxy::operator=(&buf, &v130, &v131);
         xpc_release(v131);
         v131 = 0;
-        xpc_release(v130);
-        v130 = 0;
-        v107 = std::map<unsigned int,unsigned int>::operator[]((v2 + 480), 4u);
-        v128 = xpc_int64_create(*v107);
-        if (!v128)
+        v104 = std::map<unsigned int,unsigned int>::operator[]((v2 + 480), 3u);
+        v129 = xpc_int64_create(*v104);
+        if (!v129)
         {
-          v128 = xpc_null_create();
+          v129 = xpc_null_create();
         }
 
-        v108 = *MEMORY[0x29EDBF608];
+        v105 = *MEMORY[0x29EDBF610];
         buf.__r_.__value_.__r.__words[0] = *a1;
-        buf.__r_.__value_.__l.__size_ = v108;
-        xpc::dict::object_proxy::operator=(&buf, &v128, &v129);
+        buf.__r_.__value_.__l.__size_ = v105;
+        xpc::dict::object_proxy::operator=(&buf, &v129, &v130);
+        xpc_release(v130);
+        v130 = 0;
         xpc_release(v129);
         v129 = 0;
+        v106 = std::map<unsigned int,unsigned int>::operator[]((v2 + 480), 4u);
+        v127 = xpc_int64_create(*v106);
+        if (!v127)
+        {
+          v127 = xpc_null_create();
+        }
+
+        v107 = *MEMORY[0x29EDBF608];
+        buf.__r_.__value_.__r.__words[0] = *a1;
+        buf.__r_.__value_.__l.__size_ = v107;
+        xpc::dict::object_proxy::operator=(&buf, &v127, &v128);
         xpc_release(v128);
         v128 = 0;
+        xpc_release(v127);
+        v127 = 0;
       }
     }
 
     else
     {
-      v109 = *(v2 + 32);
-      if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
+      v108 = *(v2 + 32);
+      if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
       {
-        v110 = &__s1;
+        v109 = &__s1;
         if ((__s1.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v110 = __s1.__r_.__value_.__r.__words[0];
+          v109 = __s1.__r_.__value_.__r.__words[0];
         }
 
         LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
-        *(buf.__r_.__value_.__r.__words + 4) = v110;
-        _os_log_error_impl(&dword_297476000, v109, OS_LOG_TYPE_ERROR, "%s is not supported in this device", &buf, 0xCu);
+        *(buf.__r_.__value_.__r.__words + 4) = v109;
+        _os_log_error_impl(&dword_297476000, v108, OS_LOG_TYPE_ERROR, "%s is not supported in this device", &buf, 0xCu);
       }
     }
   }
@@ -2757,8 +1966,6 @@ LABEL_136:
   {
     operator delete(__s1.__r_.__value_.__l.__data_);
   }
-
-  v84 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297552C70(_Unwind_Exception *exception_object, int a2)
@@ -3254,35 +2461,31 @@ void sub_2975539CC(_Unwind_Exception *a1)
 
 void FSModuleICE::checkAndExecPendingResponses_sync(FSModuleICE *this)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   v2 = *(this + 13);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  if (!os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(this + 247);
-    v5 = *(this + 246);
-    v7[0] = 67109376;
-    v7[1] = v4;
-    v8 = 1024;
-    v9 = v5;
-    _os_log_impl(&dword_297476000, v2, OS_LOG_TYPE_DEFAULT, "#I Checking response fSyncsCompleted=%u fSyncsRequested=%u", v7, 0xEu);
     if (*(this + 247) < *(this + 246))
     {
-      goto LABEL_3;
+      return;
     }
 
-LABEL_6:
+LABEL_5:
     FSModuleICE::execPendingResponses_sync(this, 1);
-    v6 = *MEMORY[0x29EDCA608];
     return;
   }
 
+  v3 = *(this + 247);
+  v4 = *(this + 246);
+  v5[0] = 67109376;
+  v5[1] = v3;
+  v6 = 1024;
+  v7 = v4;
+  _os_log_impl(&dword_297476000, v2, OS_LOG_TYPE_DEFAULT, "#I Checking response fSyncsCompleted=%u fSyncsRequested=%u", v5, 0xEu);
   if (*(this + 247) >= *(this + 246))
   {
-    goto LABEL_6;
+    goto LABEL_5;
   }
-
-LABEL_3:
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 void FSModuleICE::execPendingResponses_sync(FSModuleICE *this, char a2)
@@ -3418,10 +2621,10 @@ LABEL_24:
 
 _WORD *FSModuleICE::getBootstrapStages@<X0>(void *a1@<X8>)
 {
-  v3 = operator new(2uLL);
-  *a1 = v3;
-  *v3 = 256;
-  result = v3 + 1;
+  v2 = operator new(2uLL);
+  *a1 = v2;
+  *v2 = 256;
+  result = v2 + 1;
   a1[1] = result;
   a1[2] = result;
   return result;
@@ -3429,10 +2632,10 @@ _WORD *FSModuleICE::getBootstrapStages@<X0>(void *a1@<X8>)
 
 _BYTE *FSModuleICE::getShutdownStages@<X0>(void *a1@<X8>)
 {
-  v3 = operator new(1uLL);
-  *a1 = v3;
-  *v3 = 3;
-  result = v3 + 1;
+  v2 = operator new(1uLL);
+  *a1 = v2;
+  *v2 = 3;
+  result = v2 + 1;
   a1[1] = result;
   a1[2] = result;
   return result;
@@ -3599,13 +2802,13 @@ LABEL_150:
     }
 
     p_dst = operator new(v11);
-    v89 = v9;
-    v90 = v11 | 0x8000000000000000;
-    __dst = p_dst;
+    *(&__dst + 1) = v9;
+    v89 = v11 | 0x8000000000000000;
+    *&__dst = p_dst;
     goto LABEL_14;
   }
 
-  HIBYTE(v90) = v8;
+  HIBYTE(v89) = v8;
   p_dst = &__dst;
   if (v8)
   {
@@ -3630,7 +2833,7 @@ LABEL_14:
     _Block_release(v12);
   }
 
-  if (SHIBYTE(v90) < 0)
+  if (SHIBYTE(v89) < 0)
   {
     operator delete(__dst);
   }
@@ -3656,13 +2859,13 @@ LABEL_14:
     }
 
     v16 = operator new(v17);
-    v89 = v15;
-    v90 = v17 | 0x8000000000000000;
-    __dst = v16;
+    *(&__dst + 1) = v15;
+    v89 = v17 | 0x8000000000000000;
+    *&__dst = v16;
     goto LABEL_27;
   }
 
-  HIBYTE(v90) = v14;
+  HIBYTE(v89) = v14;
   v16 = &__dst;
   if (v14)
   {
@@ -3687,7 +2890,7 @@ LABEL_27:
     _Block_release(v18);
   }
 
-  if (SHIBYTE(v90) < 0)
+  if (SHIBYTE(v89) < 0)
   {
     operator delete(__dst);
   }
@@ -3713,13 +2916,13 @@ LABEL_27:
     }
 
     v22 = operator new(v23);
-    v89 = v21;
-    v90 = v23 | 0x8000000000000000;
-    __dst = v22;
+    *(&__dst + 1) = v21;
+    v89 = v23 | 0x8000000000000000;
+    *&__dst = v22;
     goto LABEL_40;
   }
 
-  HIBYTE(v90) = v20;
+  HIBYTE(v89) = v20;
   v22 = &__dst;
   if (v20)
   {
@@ -3744,7 +2947,7 @@ LABEL_40:
     _Block_release(v24);
   }
 
-  if (SHIBYTE(v90) < 0)
+  if (SHIBYTE(v89) < 0)
   {
     operator delete(__dst);
   }
@@ -3770,13 +2973,13 @@ LABEL_40:
     }
 
     v28 = operator new(v29);
-    v89 = v27;
-    v90 = v29 | 0x8000000000000000;
-    __dst = v28;
+    *(&__dst + 1) = v27;
+    v89 = v29 | 0x8000000000000000;
+    *&__dst = v28;
     goto LABEL_53;
   }
 
-  HIBYTE(v90) = v26;
+  HIBYTE(v89) = v26;
   v28 = &__dst;
   if (v26)
   {
@@ -3801,7 +3004,7 @@ LABEL_53:
     _Block_release(v30);
   }
 
-  if (SHIBYTE(v90) < 0)
+  if (SHIBYTE(v89) < 0)
   {
     operator delete(__dst);
   }
@@ -3827,13 +3030,13 @@ LABEL_53:
     }
 
     v34 = operator new(v35);
-    v89 = v33;
-    v90 = v35 | 0x8000000000000000;
-    __dst = v34;
+    *(&__dst + 1) = v33;
+    v89 = v35 | 0x8000000000000000;
+    *&__dst = v34;
     goto LABEL_66;
   }
 
-  HIBYTE(v90) = v32;
+  HIBYTE(v89) = v32;
   v34 = &__dst;
   if (v32)
   {
@@ -3858,13 +3061,13 @@ LABEL_66:
     _Block_release(v36);
   }
 
-  if (SHIBYTE(v90) < 0)
+  if (SHIBYTE(v89) < 0)
   {
     operator delete(__dst);
   }
 
-  __dst = 0xAAAAAAAAAAAAAAAALL;
-  v89 = 0xAAAAAAAAAAAAAAAALL;
+  *&__dst = 0xAAAAAAAAAAAAAAAALL;
+  *(&__dst + 1) = 0xAAAAAAAAAAAAAAAALL;
   v71[0] = MEMORY[0x29EDCA5F8];
   v71[1] = 1174405120;
   v71[2] = ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_48;
@@ -3880,8 +3083,8 @@ LABEL_66:
     dispatch_retain(*(this + 11));
   }
 
-  __dst = v37;
-  v89 = v38;
+  *&__dst = v37;
+  *(&__dst + 1) = v38;
   v69 = 0xAAAAAAAAAAAAAAAALL;
   v70 = 0xAAAAAAAAAAAAAAAALL;
   v67[0] = MEMORY[0x29EDCA5F8];
@@ -4152,7 +3355,7 @@ LABEL_104:
   std::__shared_weak_count::__release_weak(v6);
 }
 
-void sub_297554BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, std::__shared_weak_count *a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, std::__shared_weak_count *a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, std::__shared_weak_count *a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, std::__shared_weak_count *a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, std::__shared_weak_count *a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_297554BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, std::__shared_weak_count *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, std::__shared_weak_count *a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, std::__shared_weak_count *a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, std::__shared_weak_count *a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, std::__shared_weak_count *a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   dispatch::callback<void({block_pointer})(void)>::~callback(&a11);
   dispatch::callback<void({block_pointer})(void)>::~callback(&a26);
@@ -4160,12 +3363,12 @@ void sub_297554BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   {
     std::__shared_weak_count::__release_weak(a25);
     dispatch::callback<void({block_pointer})(dispatch::group_session)>::~callback(&a35);
-    v70 = a34;
+    v68 = a34;
     if (!a34)
     {
 LABEL_3:
       dispatch::callback<void({block_pointer})(BOOL,unsigned long long,unsigned long long)>::~callback(&a44);
-      v71 = a43;
+      v69 = a43;
       if (!a43)
       {
         goto LABEL_4;
@@ -4178,21 +3381,21 @@ LABEL_3:
   else
   {
     dispatch::callback<void({block_pointer})(dispatch::group_session)>::~callback(&a35);
-    v70 = a34;
+    v68 = a34;
     if (!a34)
     {
       goto LABEL_3;
     }
   }
 
-  std::__shared_weak_count::__release_weak(v70);
+  std::__shared_weak_count::__release_weak(v68);
   dispatch::callback<void({block_pointer})(BOOL,unsigned long long,unsigned long long)>::~callback(&a44);
-  v71 = a43;
+  v69 = a43;
   if (!a43)
   {
 LABEL_4:
-    dispatch::callback<void({block_pointer})>::~callback(v68 - 128);
-    v72 = a52;
+    dispatch::callback<void({block_pointer})>::~callback(v66 - 128);
+    v70 = a52;
     if (!a52)
     {
       goto LABEL_5;
@@ -4202,19 +3405,19 @@ LABEL_4:
   }
 
 LABEL_9:
-  std::__shared_weak_count::__release_weak(v71);
-  dispatch::callback<void({block_pointer})>::~callback(v68 - 128);
-  v72 = a52;
+  std::__shared_weak_count::__release_weak(v69);
+  dispatch::callback<void({block_pointer})>::~callback(v66 - 128);
+  v70 = a52;
   if (!a52)
   {
 LABEL_5:
-    v73 = a59;
+    v71 = a59;
     if (!a59)
     {
 LABEL_12:
-      if (a67)
+      if (a65)
       {
-        std::__shared_weak_count::__release_weak(a67);
+        std::__shared_weak_count::__release_weak(a65);
       }
 
       if (STACK[0x210])
@@ -4222,30 +3425,30 @@ LABEL_12:
         std::__shared_weak_count::__release_weak(STACK[0x210]);
       }
 
-      v74 = *(v68 - 208);
-      if (v74)
+      v72 = *(v66 - 208);
+      if (v72)
       {
-        std::__shared_weak_count::__release_weak(v74);
+        std::__shared_weak_count::__release_weak(v72);
       }
 
-      v75 = *(v68 - 144);
-      if (v75)
+      v73 = *(v66 - 144);
+      if (v73)
       {
-        std::__shared_weak_count::__release_weak(v75);
+        std::__shared_weak_count::__release_weak(v73);
       }
 
-      std::__shared_weak_count::__release_weak(v67);
+      std::__shared_weak_count::__release_weak(v65);
       _Unwind_Resume(a1);
     }
 
 LABEL_11:
-    std::__shared_weak_count::__release_weak(v73);
+    std::__shared_weak_count::__release_weak(v71);
     goto LABEL_12;
   }
 
 LABEL_10:
-  std::__shared_weak_count::__release_weak(v72);
-  v73 = a59;
+  std::__shared_weak_count::__release_weak(v70);
+  v71 = a59;
   if (!a59)
   {
     goto LABEL_12;
@@ -4321,7 +3524,7 @@ LABEL_9:
 
 void ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_2(uint64_t a1)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 32);
   v3 = *(v2 + 104);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -4358,7 +3561,7 @@ void ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_2(uint64_t 
     (*(v7 + 16))(v7, 3760250887, buf);
     xpc_release(*buf);
     xpc_release(v8);
-    goto LABEL_11;
+    return;
   }
 
   value = xpc_dictionary_get_value(*(a1 + 40), *MEMORY[0x29EDBF2A8]);
@@ -4373,25 +3576,25 @@ void ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_2(uint64_t 
     *buf = xpc_null_create();
   }
 
-  v11 = xpc::dyn_cast_or_default(buf, 0);
+  v10 = xpc::dyn_cast_or_default(buf, 0);
   xpc_release(*buf);
-  v12 = *(v2 + 104);
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-  if (!v11)
+  v11 = *(v2 + 104);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  if (!v10)
   {
-    if (v13)
+    if (v12)
     {
       *buf = 0;
-      _os_log_impl(&dword_297476000, v12, OS_LOG_TYPE_DEFAULT, "#I Responding immediately before fs-sync is complete", buf, 2u);
+      _os_log_impl(&dword_297476000, v11, OS_LOG_TYPE_DEFAULT, "#I Responding immediately before fs-sync is complete", buf, 2u);
     }
 
     goto LABEL_33;
   }
 
-  if (v13)
+  if (v12)
   {
     *buf = 0;
-    _os_log_impl(&dword_297476000, v12, OS_LOG_TYPE_DEFAULT, "#I Holding response till fs-sync is complete", buf, 2u);
+    _os_log_impl(&dword_297476000, v11, OS_LOG_TYPE_DEFAULT, "#I Holding response till fs-sync is complete", buf, 2u);
   }
 
   memset(buf, 170, 16);
@@ -4399,31 +3602,31 @@ void ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_2(uint64_t 
   aBlock[1] = 1174405120;
   aBlock[2] = ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_7;
   aBlock[3] = &__block_descriptor_tmp_9_6;
-  v14 = *(a1 + 48);
-  if (v14)
+  v13 = *(a1 + 48);
+  if (v13)
   {
-    v14 = _Block_copy(v14);
+    v13 = _Block_copy(v13);
   }
 
-  v28 = v14;
-  v15 = _Block_copy(aBlock);
-  v16 = *(v2 + 88);
-  if (v16)
+  v27 = v13;
+  v14 = _Block_copy(aBlock);
+  v15 = *(v2 + 88);
+  if (v15)
   {
     dispatch_retain(*(v2 + 88));
   }
 
-  *buf = v15;
-  *&buf[8] = v16;
-  v17 = operator new(0x20uLL);
-  *v17 = 0;
-  v17[1] = 0;
-  if (!v15)
+  *buf = v14;
+  *&buf[8] = v15;
+  v16 = operator new(0x20uLL);
+  *v16 = 0;
+  v16[1] = 0;
+  if (!v14)
   {
-    v18 = v2 + 1016;
-    v17[2] = 0;
-    v17[3] = v16;
-    if (!v16)
+    v17 = v2 + 1016;
+    v16[2] = 0;
+    v16[3] = v15;
+    if (!v15)
     {
       goto LABEL_25;
     }
@@ -4431,43 +3634,43 @@ void ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_2(uint64_t 
     goto LABEL_24;
   }
 
-  v18 = v2 + 1016;
-  v17[2] = _Block_copy(v15);
-  v17[3] = v16;
-  if (v16)
+  v17 = v2 + 1016;
+  v16[2] = _Block_copy(v14);
+  v16[3] = v15;
+  if (v15)
   {
 LABEL_24:
-    dispatch_retain(v16);
+    dispatch_retain(v15);
   }
 
 LABEL_25:
-  v17[1] = v18;
-  v19 = *(v2 + 1016);
-  *v17 = v19;
-  *(v19 + 8) = v17;
-  *(v2 + 1016) = v17;
+  v16[1] = v17;
+  v18 = *(v2 + 1016);
+  *v16 = v18;
+  *(v18 + 8) = v16;
+  *(v2 + 1016) = v16;
   ++*(v2 + 1032);
-  if (v16)
-  {
-    dispatch_release(v16);
-  }
-
   if (v15)
   {
-    _Block_release(v15);
+    dispatch_release(v15);
   }
 
-  if (v28)
+  if (v14)
   {
-    _Block_release(v28);
+    _Block_release(v14);
+  }
+
+  if (v27)
+  {
+    _Block_release(v27);
   }
 
 LABEL_33:
-  v20 = xpc_dictionary_get_value(*(a1 + 40), *MEMORY[0x29EDBEF38]);
-  *buf = v20;
-  if (v20)
+  v19 = xpc_dictionary_get_value(*(a1 + 40), *MEMORY[0x29EDBEF38]);
+  *buf = v19;
+  if (v19)
   {
-    xpc_retain(v20);
+    xpc_retain(v19);
   }
 
   else
@@ -4475,42 +3678,39 @@ LABEL_33:
     *buf = xpc_null_create();
   }
 
-  v21 = xpc::dyn_cast_or_default(buf, 0);
+  v20 = xpc::dyn_cast_or_default(buf, 0);
   xpc_release(*buf);
-  if (v21)
+  if (v20)
   {
-    v22 = 3;
+    v21 = 3;
   }
 
   else
   {
-    v22 = 1;
+    v21 = 1;
   }
 
   if (*(v2 + 1080))
   {
-    v23 = *(v2 + 1080);
+    v22 = *(v2 + 1080);
   }
 
   else
   {
-    v23 = v22;
+    v22 = v21;
   }
 
-  FSModuleICE::requestFSSync_sync(v2, v23, v21);
-  if ((v11 & 1) == 0)
+  FSModuleICE::requestFSSync_sync(v2, v22, v20);
+  if ((v10 & 1) == 0)
   {
-    v24 = xpc_null_create();
-    v25 = *(a1 + 48);
-    *buf = v24;
-    v26 = xpc_null_create();
-    (*(v25 + 16))(v25, 0, buf);
+    v23 = xpc_null_create();
+    v24 = *(a1 + 48);
+    *buf = v23;
+    v25 = xpc_null_create();
+    (*(v24 + 16))(v24, 0, buf);
     xpc_release(*buf);
-    xpc_release(v26);
+    xpc_release(v25);
   }
-
-LABEL_11:
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297555378(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *aBlock, xpc_object_t object)
@@ -5184,7 +4384,7 @@ LABEL_9:
 
 void ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_19(uint64_t a1, xpc_object_t *a2, uint64_t *a3)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   v5 = *(a1 + 32);
   memset(__s1, 170, sizeof(__s1));
   value = xpc_dictionary_get_value(*a2, *MEMORY[0x29EDBEED8]);
@@ -5200,8 +4400,8 @@ void ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_19(uint64_t
   }
 
   __p = 0;
+  v26 = 0;
   v27 = 0;
-  v28 = 0;
   xpc::dyn_cast_or_default();
   xpc_release(*buf);
   v7 = *(a1 + 48);
@@ -5211,7 +4411,7 @@ void ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_19(uint64_t
   }
 
   v8 = std::__shared_weak_count::lock(v7);
-  v27 = v8;
+  v26 = v8;
   if (!v8)
   {
     goto LABEL_37;
@@ -5219,166 +4419,165 @@ void ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_19(uint64_t
 
   v9 = v8;
   __p = *(a1 + 40);
-  if (__p)
+  if (!__p)
   {
-    v10 = *MEMORY[0x29EDBE950];
-    v11 = strlen(*MEMORY[0x29EDBE950]);
-    v12 = SHIBYTE(__s1[2]);
-    if ((SHIBYTE(__s1[2]) & 0x8000000000000000) != 0)
+    goto LABEL_36;
+  }
+
+  v10 = *MEMORY[0x29EDBE950];
+  v11 = strlen(*MEMORY[0x29EDBE950]);
+  v12 = SHIBYTE(__s1[2]);
+  if ((SHIBYTE(__s1[2]) & 0x8000000000000000) != 0)
+  {
+    if (v11 != __s1[1])
     {
-      if (v11 != __s1[1])
+      v13 = *(v5 + 104);
+      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v13 = *(v5 + 104);
-        if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_25;
-        }
-
-        goto LABEL_23;
+        goto LABEL_25;
       }
 
-      if (v11 == -1)
-      {
-        std::string::__throw_out_of_range[abi:ne200100]();
-      }
-
-      if (memcmp(__s1[0], v10, v11))
-      {
-        goto LABEL_10;
-      }
+      goto LABEL_23;
     }
 
-    else
+    if (v11 == -1)
     {
-      if (v11 != SHIBYTE(__s1[2]))
-      {
-        v13 = *(v5 + 104);
-        if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_25;
-        }
+      std::string::__throw_out_of_range[abi:ne200100]();
+    }
 
-        goto LABEL_21;
+    if (memcmp(__s1[0], v10, v11))
+    {
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+    if (v11 != SHIBYTE(__s1[2]))
+    {
+      v13 = *(v5 + 104);
+      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_25;
       }
 
-      if (memcmp(__s1, v10, v11))
-      {
-LABEL_10:
-        v13 = *(v5 + 104);
-        if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_25;
-        }
+      goto LABEL_21;
+    }
 
-        if (v12 < 0)
-        {
+    if (memcmp(__s1, v10, v11))
+    {
+LABEL_10:
+      v13 = *(v5 + 104);
+      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_25;
+      }
+
+      if (v12 < 0)
+      {
 LABEL_23:
-          v15 = __s1[0];
-          goto LABEL_24;
-        }
+        v15 = __s1[0];
+        goto LABEL_24;
+      }
 
 LABEL_21:
-        v15 = __s1;
+      v15 = __s1;
 LABEL_24:
-        *buf = 136315138;
-        *&buf[4] = v15;
-        _os_log_error_impl(&dword_297476000, v13, OS_LOG_TYPE_ERROR, "Command [%s] not supported", buf, 0xCu);
+      *buf = 136315138;
+      *&buf[4] = v15;
+      _os_log_error_impl(&dword_297476000, v13, OS_LOG_TYPE_ERROR, "Command [%s] not supported", buf, 0xCu);
 LABEL_25:
-        *buf = 0xAAAAAAAAAAAAAAAALL;
-        v16 = xpc_dictionary_create(0, 0, 0);
-        v17 = v16;
-        if (v16)
-        {
-          *buf = v16;
-        }
+      *buf = 0xAAAAAAAAAAAAAAAALL;
+      v16 = xpc_dictionary_create(0, 0, 0);
+      v17 = v16;
+      if (v16)
+      {
+        *buf = v16;
+      }
 
-        else
+      else
+      {
+        v17 = xpc_null_create();
+        *buf = v17;
+        if (!v17)
         {
-          v17 = xpc_null_create();
-          *buf = v17;
-          if (!v17)
-          {
-            v18 = xpc_null_create();
-            v17 = 0;
-            goto LABEL_32;
-          }
+          v18 = xpc_null_create();
+          v17 = 0;
+          goto LABEL_32;
         }
+      }
 
-        if (MEMORY[0x29C272BA0](v17) == MEMORY[0x29EDCAA00])
-        {
-          xpc_retain(v17);
-          goto LABEL_33;
-        }
+      if (MEMORY[0x29C272BA0](v17) == MEMORY[0x29EDCAA00])
+      {
+        xpc_retain(v17);
+        goto LABEL_33;
+      }
 
-        v18 = xpc_null_create();
+      v18 = xpc_null_create();
 LABEL_32:
-        *buf = v18;
+      *buf = v18;
 LABEL_33:
-        xpc_release(v17);
-        v19 = xpc_string_create("Command not supported");
-        if (!v19)
-        {
-          v19 = xpc_null_create();
-        }
+      xpc_release(v17);
+      v19 = xpc_string_create("Command not supported");
+      if (!v19)
+      {
+        v19 = xpc_null_create();
+      }
 
-        xpc_dictionary_set_value(*buf, *MEMORY[0x29EDBE648], v19);
-        v20 = xpc_null_create();
-        xpc_release(v19);
-        xpc_release(v20);
-        v22 = -534716414;
-        dispatch::block<void({block_pointer})(int,xpc::dict)>::operator()<int,xpc::dict&>(a3, &v22, buf);
-        xpc_release(*buf);
-        v9 = v27;
-        if (!v27)
-        {
-          goto LABEL_37;
-        }
-
+      xpc_dictionary_set_value(*buf, *MEMORY[0x29EDBE648], v19);
+      v20 = xpc_null_create();
+      xpc_release(v19);
+      xpc_release(v20);
+      v21 = -534716414;
+      dispatch::block<void({block_pointer})(int,xpc::dict)>::operator()<int,xpc::dict&>(a3, &v21, buf);
+      xpc_release(*buf);
+      v9 = v26;
+      if (v26)
+      {
         goto LABEL_36;
       }
-    }
 
-    v23[0] = MEMORY[0x29EDCA5F8];
-    v23[1] = 1174405120;
-    v23[2] = ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_2_20;
-    v23[3] = &__block_descriptor_tmp_23_2;
-    v23[4] = v5;
-    v14 = *a3;
-    if (*a3)
-    {
-      v14 = _Block_copy(v14);
-    }
+LABEL_37:
+      if ((SHIBYTE(__s1[2]) & 0x80000000) == 0)
+      {
+        return;
+      }
 
-    aBlock = v14;
-    ctu::SharedSynchronizable<FSModuleICE>::execute_wrapped((v5 + 72), v23);
-    if (aBlock)
-    {
-      _Block_release(aBlock);
+      goto LABEL_38;
     }
+  }
+
+  v22[0] = MEMORY[0x29EDCA5F8];
+  v22[1] = 1174405120;
+  v22[2] = ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_2_20;
+  v22[3] = &__block_descriptor_tmp_23_2;
+  v22[4] = v5;
+  v14 = *a3;
+  if (*a3)
+  {
+    v14 = _Block_copy(v14);
+  }
+
+  aBlock = v14;
+  ctu::SharedSynchronizable<FSModuleICE>::execute_wrapped((v5 + 72), v22);
+  if (aBlock)
+  {
+    _Block_release(aBlock);
   }
 
 LABEL_36:
-  if (!atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v9->__on_zero_shared)(v9);
-    std::__shared_weak_count::__release_weak(v9);
-    if ((SHIBYTE(__s1[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_39;
-    }
-
-    goto LABEL_38;
+    goto LABEL_37;
   }
 
-LABEL_37:
+  (v9->__on_zero_shared)(v9);
+  std::__shared_weak_count::__release_weak(v9);
   if (SHIBYTE(__s1[2]) < 0)
   {
 LABEL_38:
     operator delete(__s1[0]);
   }
-
-LABEL_39:
-  v21 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297556478(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
@@ -5521,17 +4720,18 @@ LABEL_32:
   xpc_release(v16);
 }
 
-void sub_297556820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+void sub_297556820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(&a9);
-  operator delete(v13);
-  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](&a13);
+  operator delete(v12);
+  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t FSModuleICE::eraseRemoteFileSystem_sync(dispatch_object_t *this)
+uint64_t FSModuleICE::eraseRemoteFileSystem_sync(NSObject **this)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   FSModuleICE::handleBasebandReset_sync(this);
   memset(__dst, 170, sizeof(__dst));
   v2 = MEMORY[0x29C26FAA0]();
@@ -5583,34 +4783,34 @@ LABEL_9:
       }
 
       *buf = 136315138;
-      v15 = v9;
+      v14 = v9;
       _os_log_impl(&dword_297476000, v8, OS_LOG_TYPE_DEFAULT, "#I removed contents of %s", buf, 0xCu);
       if (SHIBYTE(__dst[2]) < 0)
       {
         goto LABEL_18;
       }
 
-      goto LABEL_19;
+      return v7;
     }
   }
 
   else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v12 = __dst;
+    v11 = __dst;
     if (SHIBYTE(__dst[2]) < 0)
     {
-      v12 = __dst[0];
+      v11 = __dst[0];
     }
 
     *buf = 136315138;
-    v15 = v12;
+    v14 = v11;
     _os_log_error_impl(&dword_297476000, v8, OS_LOG_TYPE_ERROR, "failed removing %s", buf, 0xCu);
     if (SHIBYTE(__dst[2]) < 0)
     {
       goto LABEL_18;
     }
 
-    goto LABEL_19;
+    return v7;
   }
 
   if (SHIBYTE(__dst[2]) < 0)
@@ -5619,8 +4819,6 @@ LABEL_18:
     operator delete(__dst[0]);
   }
 
-LABEL_19:
-  v10 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
@@ -5743,7 +4941,7 @@ void ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_36(void *a1
 
 void ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_2_37(uint64_t a1)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 32);
   v3 = *(v2 + 104);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -5764,7 +4962,7 @@ void ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_2_37(uint64
     v4 = _Block_copy(v4);
   }
 
-  v15 = v4;
+  v14 = v4;
   v5 = _Block_copy(aBlock);
   v6 = *(v2 + 88);
   if (v6)
@@ -5809,13 +5007,13 @@ LABEL_10:
   v10 = *(v2 + 104);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = *(v2 + 988);
-    v13 = *(v2 + 984);
-    *v17 = 67109376;
-    v18 = v12;
-    v19 = 1024;
-    v20 = v13;
-    _os_log_impl(&dword_297476000, v10, OS_LOG_TYPE_DEFAULT, "#I Checking response fSyncsCompleted=%u fSyncsRequested=%u", v17, 0xEu);
+    v11 = *(v2 + 988);
+    v12 = *(v2 + 984);
+    *v16 = 67109376;
+    v17 = v11;
+    v18 = 1024;
+    v19 = v12;
+    _os_log_impl(&dword_297476000, v10, OS_LOG_TYPE_DEFAULT, "#I Checking response fSyncsCompleted=%u fSyncsRequested=%u", v16, 0xEu);
     if (*(v2 + 988) < *(v2 + 984))
     {
 LABEL_12:
@@ -5846,12 +5044,10 @@ LABEL_14:
     _Block_release(v5);
   }
 
-  if (v15)
+  if (v14)
   {
-    _Block_release(v15);
+    _Block_release(v14);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297557068(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *aBlock, char a15)
@@ -5894,7 +5090,7 @@ void sub_297557134(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_48(void *a1, int a2)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   v3 = a1[6];
   if (v3)
   {
@@ -5903,41 +5099,40 @@ void ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_48(void *a1
     if (v6)
     {
       v7 = v6;
-      if (a1[5])
+      if (!a1[5])
       {
-        *(v5 + 1040) = a2;
-        v8 = *(v5 + 104);
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 67109120;
-          v12 = a2;
-          _os_log_impl(&dword_297476000, v8, OS_LOG_TYPE_DEFAULT, "#I ice::Client provided ARI context id: 0x%08x", buf, 8u);
-          v8 = *(v5 + 104);
-        }
-
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_297476000, v8, OS_LOG_TYPE_DEFAULT, "#I Initializing BBU FS Server...", buf, 2u);
-        }
-
-        if ((FSModuleICE::initBBUServer_sync(v5) & 1) == 0)
-        {
-          v9 = *(v5 + 104);
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 0;
-            _os_log_error_impl(&dword_297476000, v9, OS_LOG_TYPE_ERROR, "failed FS Sync setup", buf, 2u);
-            if (atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-            {
-              goto LABEL_12;
-            }
-
-            goto LABEL_11;
-          }
-        }
+        goto LABEL_17;
       }
 
+      *(v5 + 1040) = a2;
+      v8 = *(v5 + 104);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 67109120;
+        v11 = a2;
+        _os_log_impl(&dword_297476000, v8, OS_LOG_TYPE_DEFAULT, "#I ice::Client provided ARI context id: 0x%08x", buf, 8u);
+        v8 = *(v5 + 104);
+      }
+
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_297476000, v8, OS_LOG_TYPE_DEFAULT, "#I Initializing BBU FS Server...", buf, 2u);
+      }
+
+      if ((FSModuleICE::initBBUServer_sync(v5) & 1) != 0 || (v9 = *(v5 + 104), !os_log_type_enabled(v9, OS_LOG_TYPE_ERROR)))
+      {
+LABEL_17:
+        if (atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          return;
+        }
+
+        goto LABEL_11;
+      }
+
+      *buf = 0;
+      _os_log_error_impl(&dword_297476000, v9, OS_LOG_TYPE_ERROR, "failed FS Sync setup", buf, 2u);
       if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
 LABEL_11:
@@ -5946,14 +5141,11 @@ LABEL_11:
       }
     }
   }
-
-LABEL_12:
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t FSModuleICE::initBBUServer_sync(FSModuleICE *this)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v2 = MEMORY[0x29C26FAA0]();
   if (v2)
   {
@@ -5962,119 +5154,115 @@ uint64_t FSModuleICE::initBBUServer_sync(FSModuleICE *this)
     {
       if (FSModuleICE::initKTLOptions_sync(this))
       {
-        memcpy(v18, this + 520, 0x170uLL);
+        memcpy(v16, this + 520, 0x170uLL);
         v4 = BBUFSServerCreate();
         if (v4)
         {
           shouldForceSyncFileSystem = capabilities::abs::shouldForceSyncFileSystem(v4);
-          v6 = *(this + 260);
           if (BBUFSServerSetConfig())
           {
-            v7 = BBUFSServerSetConfig();
+            v6 = BBUFSServerSetConfig();
           }
 
           else
           {
-            v7 = 0;
+            v6 = 0;
           }
 
-          v12 = *(this + 13);
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v11 = *(this + 13);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
-            v13 = "false";
-            v14 = *(this + 260);
+            v12 = "false";
+            v13 = *(this + 260);
             if (shouldForceSyncFileSystem)
             {
-              v13 = "true";
+              v12 = "true";
             }
 
-            v18[0] = 67109378;
-            v18[1] = v14;
-            LOWORD(v18[2]) = 2080;
-            *(&v18[2] + 2) = v13;
-            _os_log_impl(&dword_297476000, v12, OS_LOG_TYPE_DEFAULT, "#I BBUFSConfig: ARI context: 0x%x ForcedSync: %s", v18, 0x12u);
+            v16[0] = 67109378;
+            v16[1] = v13;
+            LOWORD(v16[2]) = 2080;
+            *(&v16[2] + 2) = v12;
+            _os_log_impl(&dword_297476000, v11, OS_LOG_TYPE_DEFAULT, "#I BBUFSConfig: ARI context: 0x%x ForcedSync: %s", v16, 0x12u);
           }
 
-          if (v7)
+          if (v6)
           {
-            v9 = 1;
+            v8 = 1;
             *(this + 920) = 1;
-            v15 = *(this + 13);
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            v14 = *(this + 13);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
-              LOWORD(v18[0]) = 0;
-              _os_log_impl(&dword_297476000, v15, OS_LOG_TYPE_DEFAULT, "#I BBU+KTL are ready for FS Sync", v18, 2u);
+              LOWORD(v16[0]) = 0;
+              _os_log_impl(&dword_297476000, v14, OS_LOG_TYPE_DEFAULT, "#I BBU+KTL are ready for FS Sync", v16, 2u);
             }
 
             goto LABEL_28;
           }
 
-          v10 = *(this + 13);
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v9 = *(this + 13);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
           {
-            LOWORD(v18[0]) = 0;
-            v11 = "Failed to set BBUFS server config";
+            LOWORD(v16[0]) = 0;
+            v10 = "Failed to set BBUFS server config";
             goto LABEL_26;
           }
 
 LABEL_27:
-          v9 = 0;
+          v8 = 0;
 LABEL_28:
           free(v3);
-          goto LABEL_29;
+          return v8;
         }
 
-        v10 = *(this + 13);
-        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v9 = *(this + 13);
+        if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_27;
         }
 
-        LOWORD(v18[0]) = 0;
-        v11 = "failed creating file server";
+        LOWORD(v16[0]) = 0;
+        v10 = "failed creating file server";
       }
 
       else
       {
-        v10 = *(this + 13);
-        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v9 = *(this + 13);
+        if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_27;
         }
 
-        LOWORD(v18[0]) = 0;
-        v11 = "failed to create KTL options";
+        LOWORD(v16[0]) = 0;
+        v10 = "failed to create KTL options";
       }
     }
 
     else
     {
-      v10 = *(this + 13);
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v9 = *(this + 13);
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_27;
       }
 
-      LOWORD(v18[0]) = 0;
-      v11 = "failed preparing fs sync parameters";
+      LOWORD(v16[0]) = 0;
+      v10 = "failed preparing fs sync parameters";
     }
 
 LABEL_26:
-    _os_log_error_impl(&dword_297476000, v10, OS_LOG_TYPE_ERROR, v11, v18, 2u);
+    _os_log_error_impl(&dword_297476000, v9, OS_LOG_TYPE_ERROR, v10, v16, 2u);
     goto LABEL_27;
   }
 
-  v8 = *(this + 13);
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v7 = *(this + 13);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v18[0]) = 0;
-    _os_log_error_impl(&dword_297476000, v8, OS_LOG_TYPE_ERROR, "failed copying default destination", v18, 2u);
+    LOWORD(v16[0]) = 0;
+    _os_log_error_impl(&dword_297476000, v7, OS_LOG_TYPE_ERROR, "failed copying default destination", v16, 2u);
   }
 
-  v9 = 0;
-LABEL_29:
-  v16 = *MEMORY[0x29EDCA608];
-  return v9;
+  return 0;
 }
 
 void ___ZN11FSModuleICE28registerCommandHandlers_syncEv_block_invoke_53(void *a1, int a2)
@@ -6473,7 +5661,7 @@ uint64_t dispatch::callback<void({block_pointer})(void)>::~callback(uint64_t a1)
 
 void FSModuleICE::registerEventHandlers_sync(FSModuleICE *this)
 {
-  v47 = *MEMORY[0x29EDCA608];
+  v46 = *MEMORY[0x29EDCA608];
   v2 = *(this + 13);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -6586,9 +5774,9 @@ LABEL_25:
       *&buf[12] = 2080;
       *&buf[14] = "fHSFilerRT != nullptr";
       *&buf[22] = 2080;
-      v44 = "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices_Manager/AppleBasebandManager/BasebandManager/Server/RFS/FSModuleICE.cpp";
-      v45 = 1024;
-      v46 = 348;
+      v43 = "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices_Manager/AppleBasebandManager/BasebandManager/Server/RFS/FSModuleICE.cpp";
+      v44 = 1024;
+      v45 = 348;
       _os_log_fault_impl(&dword_297476000, v6, OS_LOG_TYPE_FAULT, "%s (%s): File: %s Line: %d", buf, 0x26u);
       __break(1u);
       goto LABEL_25;
@@ -6638,11 +5826,11 @@ LABEL_35:
   v20[1] = this;
   v20[2] = v4;
   v20[3] = v6;
-  v42 = v20;
-  Service::registerEventHandler(this, buf, v41);
-  if (v42 == v41)
+  v41 = v20;
+  Service::registerEventHandler(this, buf, v40);
+  if (v41 == v40)
   {
-    (*(*v42 + 32))(v42);
+    (*(*v41 + 32))(v41);
     if ((buf[23] & 0x80000000) == 0)
     {
       goto LABEL_40;
@@ -6651,9 +5839,9 @@ LABEL_35:
     goto LABEL_69;
   }
 
-  if (v42)
+  if (v41)
   {
-    (*(*v42 + 40))();
+    (*(*v41 + 40))();
   }
 
   if ((buf[23] & 0x80000000) != 0)
@@ -6705,11 +5893,11 @@ LABEL_48:
   v26[1] = this;
   v26[2] = v4;
   v26[3] = v6;
-  v40 = v26;
-  Service::registerEventHandler(this, buf, v39);
-  if (v40 == v39)
+  v39 = v26;
+  Service::registerEventHandler(this, buf, v38);
+  if (v39 == v38)
   {
-    (*(*v40 + 32))(v40);
+    (*(*v39 + 32))(v39);
     if ((buf[23] & 0x80000000) == 0)
     {
       goto LABEL_53;
@@ -6718,9 +5906,9 @@ LABEL_48:
     goto LABEL_71;
   }
 
-  if (v40)
+  if (v39)
   {
-    (*(*v40 + 40))();
+    (*(*v39 + 40))();
   }
 
   if ((buf[23] & 0x80000000) != 0)
@@ -6772,11 +5960,11 @@ LABEL_61:
   v32[1] = this;
   v32[2] = v4;
   v32[3] = v6;
-  v38 = v32;
-  Service::registerEventHandler(this, buf, v37);
-  if (v38 == v37)
+  v37 = v32;
+  Service::registerEventHandler(this, buf, v36);
+  if (v37 == v36)
   {
-    (*(*v38 + 32))(v38);
+    (*(*v37 + 32))(v37);
     if ((buf[23] & 0x80000000) == 0)
     {
       goto LABEL_66;
@@ -6792,9 +5980,9 @@ LABEL_73:
     goto LABEL_74;
   }
 
-  if (v38)
+  if (v37)
   {
-    (*(*v38 + 40))();
+    (*(*v37 + 40))();
   }
 
   if ((buf[23] & 0x80000000) != 0)
@@ -6809,30 +5997,29 @@ LABEL_66:
   }
 
 LABEL_74:
-  v34[0] = MEMORY[0x29EDCA5F8];
-  v34[1] = 1174405120;
-  v34[2] = ___ZN11FSModuleICE26registerEventHandlers_syncEv_block_invoke;
-  v34[3] = &__block_descriptor_tmp_74_1;
-  v34[4] = this;
-  v34[5] = v4;
-  v35 = v6;
+  v33[0] = MEMORY[0x29EDCA5F8];
+  v33[1] = 1174405120;
+  v33[2] = ___ZN11FSModuleICE26registerEventHandlers_syncEv_block_invoke;
+  v33[3] = &__block_descriptor_tmp_74_1;
+  v33[4] = this;
+  v33[5] = v4;
+  v34 = v6;
   atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  aBlock = _Block_copy(v34);
+  aBlock = _Block_copy(v33);
   HSFilerRT::registerBasebandResetDelegate();
   if (aBlock)
   {
     _Block_release(aBlock);
   }
 
-  if (v35)
+  if (v34)
   {
-    std::__shared_weak_count::__release_weak(v35);
+    std::__shared_weak_count::__release_weak(v34);
   }
 
 LABEL_78:
   Service::eventsOn(this);
   std::__shared_weak_count::__release_weak(v6);
-  v33 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2975586A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, void *aBlock, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
@@ -6930,9 +6117,9 @@ LABEL_11:
   }
 }
 
-void sub_29755896C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29755896C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7024,7 +6211,7 @@ uint64_t FSModuleICE::requestFSSync_sync(unsigned int,BOOL)::$_0::~$_0(uint64_t 
 
 void FSModuleICE::restartSyncTimer_sync(FSModuleICE *this)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v2 = *(this + 116);
   if (v2)
   {
@@ -7038,7 +6225,7 @@ void FSModuleICE::restartSyncTimer_sync(FSModuleICE *this)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v18 = v3;
+    v17 = v3;
     _os_log_impl(&dword_297476000, v4, OS_LOG_TYPE_DEFAULT, "#I Automatic sync interval set to %llu seconds", buf, 0xCu);
   }
 
@@ -7071,19 +6258,17 @@ void FSModuleICE::restartSyncTimer_sync(FSModuleICE *this)
     handler[3] = &__block_descriptor_tmp_77;
     handler[4] = this;
     handler[5] = v9;
-    v16 = v11;
+    v15 = v11;
     atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
     dispatch_source_set_event_handler(v13, handler);
     dispatch_activate(*(this + 116));
-    if (v16)
+    if (v15)
     {
-      std::__shared_weak_count::__release_weak(v16);
+      std::__shared_weak_count::__release_weak(v15);
     }
 
     std::__shared_weak_count::__release_weak(v11);
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 void FSModuleICE::cancelSyncTimer_sync(FSModuleICE *this)
@@ -7150,16 +6335,16 @@ LABEL_12:
   }
 }
 
-void sub_297558F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_297558F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void FSModuleICE::singleFlushOperation_sync(FSModuleICE *this, int a2)
+void FSModuleICE::singleFlushOperation_sync(FSModuleICE *this, unsigned int a2)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v4 = *(this + 13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -7215,11 +6400,11 @@ LABEL_43:
 LABEL_10:
   v7 = 0;
 LABEL_11:
+  v20 = 0xAAAAAAAAAAAAAAAALL;
   v21 = 0xAAAAAAAAAAAAAAAALL;
-  v22 = 0xAAAAAAAAAAAAAAAALL;
-  (*(*this + 88))(&v21, this);
-  v10 = v21;
-  if (!v21)
+  (*(*this + 88))(&v20, this);
+  v10 = v20;
+  if (!v20)
   {
     goto LABEL_20;
   }
@@ -7336,17 +6521,18 @@ LABEL_22:
     }
   }
 
-  v18 = v22;
-  if (v22 && !atomic_fetch_add((v22 + 8), 0xFFFFFFFFFFFFFFFFLL))
+  v18 = v21;
+  if (v21)
   {
-    (v18->__on_zero_shared)(v18);
-    std::__shared_weak_count::__release_weak(v18);
+    if (!atomic_fetch_add((v21 + 8), 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v18->__on_zero_shared)(v18);
+      std::__shared_weak_count::__release_weak(v18);
+    }
   }
-
-  v19 = *MEMORY[0x29EDCA608];
 }
 
-void sub_297559428(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_297559428(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a23 < 0)
   {
@@ -7777,26 +6963,24 @@ void sub_297559E58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t FSModuleICE::initKTLOptions_sync(FSModuleICE *this)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   *(this + 77) = this + 888;
   v2 = capabilities::abs::fileSystemFlushTimeout(this);
   v3 = *(this + 13);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
-    v9 = v2;
-    _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#I NVMTimeout = %lld sec", &v8, 0xCu);
+    v6 = 134217984;
+    v7 = v2;
+    _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#I NVMTimeout = %lld sec", &v6, 0xCu);
   }
 
-  v4 = *(this + 260);
-  v5 = KTLInitOptions();
+  v4 = KTLInitOptions();
   result = 0;
-  if (v5)
+  if (v4)
   {
-    result = KTLOpenChannel();
+    return KTLOpenChannel();
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -8775,7 +7959,7 @@ LABEL_85:
   operator delete(a1);
 }
 
-void sub_29755B41C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, char a30)
+void sub_29755B41C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, char a30)
 {
   if (a22 < 0)
   {
@@ -8787,7 +7971,7 @@ void sub_29755B41C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a23);
   }
 
-  MEMORY[0x29C270ED0](&a30);
+  MEMORY[0x29C270ED0](&a30, a2, a3, a4, a5, a6, a7, a8);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef((v30 - 80));
   std::unique_ptr<FSModuleICE::registerEventHandlers_sync(void)::$_0::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1},std::default_delete<FSModuleICE::registerEventHandlers_sync(void)::$_0::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&a10);
   _ZNSt3__110unique_ptrIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb_E3__1EEvOT_EUlvE_NS_14default_deleteISB_EEED1B8ne200100Ev(&a9);
@@ -9230,7 +8414,7 @@ uint64_t std::__function::__func<FSModuleICE::registerEventHandlers_sync(void)::
 
 void dispatch::async<void ctu::SharedSynchronizable<FSModuleICE>::execute_wrapped<FSModuleICE::registerEventHandlers_sync(void)::$_2::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1}>(FSModuleICE::registerEventHandlers_sync(void)::$_2::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<FSModuleICE::registerEventHandlers_sync(void)::$_2::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1},dispatch_queue_s *::default_delete<FSModuleICE::registerEventHandlers_sync(void)::$_2::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v2 = *a1;
   v3 = **a1;
   v4 = *(v3 + 104);
@@ -9238,7 +8422,7 @@ void dispatch::async<void ctu::SharedSynchronizable<FSModuleICE>::execute_wrappe
   {
     v6 = *(v3 + 984);
     *buf = 67109120;
-    v13 = v6;
+    v12 = v6;
     _os_log_impl(&dword_297476000, v4, OS_LOG_TYPE_DEFAULT, "#I syncs requested: %u", buf, 8u);
     v4 = *(v3 + 104);
     if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -9261,7 +8445,7 @@ LABEL_3:
 
   v7 = *(v3 + 988);
   *buf = 67109120;
-  v13 = v7;
+  v12 = v7;
   _os_log_impl(&dword_297476000, v4, OS_LOG_TYPE_DEFAULT, "#I syncs completed: %u", buf, 8u);
   v5 = *(v3 + 1064);
   if (v5)
@@ -9291,7 +8475,6 @@ LABEL_8:
   }
 
   operator delete(a1);
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29755C01C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10)
@@ -9301,24 +8484,24 @@ void sub_29755C01C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI11FSModuleICEE15execute_wrappedIZZNS3_26registerEventHandlers_syncEvEUb_E3__5EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(uint64_t a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI11FSModuleICEE15execute_wrappedIZZNS3_26registerEventHandlers_syncEvEUb_E3__5EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(std::__shared_weak_count **a1)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v35 = *MEMORY[0x29EDCA608];
   v1 = *a1;
   __p = *a1;
-  v2 = **a1;
-  v3 = *(v2 + 104);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v2 = (*a1)->__vftable;
+  get_deleter = v2[2].__get_deleter;
+  if (os_log_type_enabled(get_deleter, OS_LOG_TYPE_ERROR))
   {
-    v28 = v1 + 1;
-    if (*(v1 + 31) < 0)
+    p_shared_owners = &v1->__shared_owners_;
+    if (SHIBYTE(v1[1].__vftable) < 0)
     {
-      v28 = *v28;
+      p_shared_owners = *p_shared_owners;
     }
 
     *buf = 136315138;
-    *&buf[4] = v28;
-    _os_log_error_impl(&dword_297476000, v3, OS_LOG_TYPE_ERROR, "HSFiler requesting modem hard reset due to: %s", buf, 0xCu);
+    *&buf[4] = p_shared_owners;
+    _os_log_error_impl(&dword_297476000, get_deleter, OS_LOG_TYPE_ERROR, "HSFiler requesting modem hard reset due to: %s", buf, 0xCu);
   }
 
   v4 = xpc_dictionary_create(0, 0, 0);
@@ -9364,19 +8547,19 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI11FSModuleICEE15execute_w
   xpc_release(v8);
   xpc_release(v9);
   memset(buf, 170, sizeof(buf));
-  v10 = *(v1 + 31);
+  v10 = SHIBYTE(v1[1].__vftable);
   if (v10 >= 0)
   {
-    v11 = *(v1 + 31);
+    shared_weak_owners = HIBYTE(v1[1].__vftable);
   }
 
   else
   {
-    v11 = v1[2];
+    shared_weak_owners = v1->__shared_weak_owners_;
   }
 
-  v12 = v11 + 10;
-  if (v11 + 10 > 0x7FFFFFFFFFFFFFF7)
+  v12 = shared_weak_owners + 10;
+  if (shared_weak_owners + 10 > 0x7FFFFFFFFFFFFFF7)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
@@ -9386,10 +8569,10 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI11FSModuleICEE15execute_w
     buf[11] = 0;
     *&buf[12] = 0;
     *&buf[16] = 0;
-    buf[23] = v11 + 10;
+    buf[23] = shared_weak_owners + 10;
     strcpy(buf, "HSFiler - ");
     v15 = &buf[10];
-    if (!v11)
+    if (!shared_weak_owners)
     {
       goto LABEL_26;
     }
@@ -9408,7 +8591,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI11FSModuleICEE15execute_w
     }
 
     v14 = operator new(v13);
-    *&buf[8] = v11 + 10;
+    *&buf[8] = shared_weak_owners + 10;
     *&buf[16] = v13 | 0x8000000000000000;
     *buf = v14;
     *(v14 + 4) = 8237;
@@ -9418,17 +8601,17 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI11FSModuleICEE15execute_w
 
   if (v10 >= 0)
   {
-    v16 = v1 + 1;
+    shared_owners = &v1->__shared_owners_;
   }
 
   else
   {
-    v16 = v1[1];
+    shared_owners = v1->__shared_owners_;
   }
 
-  memmove(v15, v16, v11);
+  memmove(v15, shared_owners, shared_weak_owners);
 LABEL_26:
-  v15[v11] = 0;
+  v15[shared_weak_owners] = 0;
   if ((buf[23] & 0x80u) == 0)
   {
     v17 = buf;
@@ -9471,7 +8654,7 @@ LABEL_26:
 
     v23 = operator new(v24);
     __dst[1] = v22;
-    v34 = v24 | 0x8000000000000000;
+    v33 = v24 | 0x8000000000000000;
     __dst[0] = v23;
 LABEL_40:
     memmove(v23, v20, v22);
@@ -9485,7 +8668,7 @@ LABEL_40:
     goto LABEL_41;
   }
 
-  HIBYTE(v34) = v21;
+  HIBYTE(v33) = v21;
   v23 = __dst;
   if (v21)
   {
@@ -9504,11 +8687,11 @@ LABEL_35:
 LABEL_41:
   object = xpc_null_create();
 LABEL_42:
-  v31 = 0;
-  Service::runCommand(v2, __dst, &object, &v31);
+  v30 = 0;
+  Service::runCommand(v2, __dst, &object, &v30);
   xpc_release(object);
   object = 0;
-  if (SHIBYTE(v34) < 0)
+  if (SHIBYTE(v33) < 0)
   {
     operator delete(__dst[0]);
     if ((buf[23] & 0x80000000) == 0)
@@ -9538,18 +8721,19 @@ LABEL_44:
   v25 = a1;
   if (a1)
   {
-    v26 = *(a1 + 16);
-    if (v26 && !atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v26 = a1[2];
+    if (v26)
     {
-      (v26->__on_zero_shared)(v26);
-      std::__shared_weak_count::__release_weak(v26);
-      v25 = a1;
+      if (!atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v26->__on_zero_shared)(v26);
+        std::__shared_weak_count::__release_weak(v26);
+        v25 = a1;
+      }
     }
 
     operator delete(v25);
   }
-
-  v27 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29755C4BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, xpc_object_t object, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
@@ -9614,7 +8798,7 @@ void dispatch::async<void ctu::SharedSynchronizable<FSModuleICE>::execute_wrappe
   operator delete(v7);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<FSModuleICE>::execute_wrapped<FSModuleICE::wake(dispatch::group_session)::$_0>(FSModuleICE::wake(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<FSModuleICE::wake(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<FSModuleICE::wake(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<FSModuleICE>::execute_wrapped<FSModuleICE::wake(dispatch::group_session)::$_0>(FSModuleICE::wake(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<FSModuleICE::wake(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<FSModuleICE::wake(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(FSModuleICE ***a1)
 {
   v2 = *a1;
   v3 = **a1;
@@ -9632,7 +8816,7 @@ void dispatch::async<void ctu::SharedSynchronizable<FSModuleICE>::execute_wrappe
   }
 
   operator delete(v2);
-  v6 = *(a1 + 2);
+  v6 = a1[2];
   if (v6 && !atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v6->__on_zero_shared)(v6);
@@ -9701,14 +8885,14 @@ void dispatch::detail::group_notify<FSModuleICE::requestFSSync_sync(unsigned int
   operator delete(__p);
 }
 
-void ___ZZN11FSModuleICE18requestFSSync_syncEjbENK3__0clEv_block_invoke(uint64_t a1)
+void ___ZZN11FSModuleICE18requestFSSync_syncEjbENK3__0clEv_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  *(v2 + 1080) = *(a1 + 40);
-  *(v2 + 1088) = TelephonyUtilGetSystemTime();
-  v3 = *(a1 + 44);
+  v3 = *(a1 + 32);
+  *(v3 + 1080) = *(a1 + 40);
+  *(v3 + 1088) = TelephonyUtilGetSystemTime();
+  v4 = *(a1 + 44);
 
-  FSModuleICE::singleFlushOperation_sync(v2, v3);
+  FSModuleICE::singleFlushOperation_sync(v3, v4);
 }
 
 uint64_t __cxx_global_var_init_82()
@@ -9749,7 +8933,7 @@ uint64_t __cxx_global_var_init_85()
 
 void metric::sendCoreAnalyticsEvent(const void **a1, void **a2, int a3)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   v3 = *(a1 + 23);
   if (v3 >= 0)
   {
@@ -9769,10 +8953,10 @@ void metric::sendCoreAnalyticsEvent(const void **a1, void **a2, int a3)
 
   if (v5 < 0x17)
   {
-    v23 = 779710063;
-    HIBYTE(v23) = v4 + 20;
+    v21 = 779710063;
+    HIBYTE(v21) = v4 + 20;
     *__p = *"com.apple.Telephony.";
-    v11 = &v23 + 4;
+    v11 = &v21 + 4;
     if (!v4)
     {
       goto LABEL_15;
@@ -9793,25 +8977,24 @@ void metric::sendCoreAnalyticsEvent(const void **a1, void **a2, int a3)
 
     v10 = operator new(v9);
     __p[1] = (v4 + 20);
-    v23 = v9 | 0x8000000000000000;
+    v21 = v9 | 0x8000000000000000;
     __p[0] = v10;
     *(v10 + 4) = 779710063;
     *v10 = *"com.apple.Telephony.";
     v11 = v10 + 20;
   }
 
-  v12 = *a1;
   if (v3 >= 0)
   {
-    v13 = a1;
+    v12 = a1;
   }
 
   else
   {
-    v13 = *a1;
+    v12 = *a1;
   }
 
-  memmove(v11, v13, v4);
+  memmove(v11, v12, v4);
 LABEL_15:
   v11[v4] = 0;
   {
@@ -9821,7 +9004,7 @@ LABEL_15:
 
   if (GetOsLogContext(void)::onceToken == -1)
   {
-    v14 = qword_2A18CB080;
+    v13 = qword_2A18CB080;
     if (!os_log_type_enabled(qword_2A18CB080, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_21;
@@ -9831,36 +9014,36 @@ LABEL_15:
   else
   {
     dispatch_once(&GetOsLogContext(void)::onceToken, &__block_literal_global_12);
-    v14 = qword_2A18CB080;
+    v13 = qword_2A18CB080;
     if (!os_log_type_enabled(qword_2A18CB080, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_21;
     }
   }
 
-  v15 = __p;
-  if (v23 < 0)
+  v14 = __p;
+  if (v21 < 0)
   {
-    v15 = __p[0];
+    v14 = __p[0];
   }
 
   *buf = 136315394;
-  v25 = v15;
-  v26 = 1024;
-  v27 = a3;
-  _os_log_impl(&dword_297476000, v14, OS_LOG_TYPE_DEFAULT, "Sending CoreAnalytics event: %s (repeated integer type: %d)", buf, 0x12u);
+  v23 = v14;
+  v24 = 1024;
+  v25 = a3;
+  _os_log_impl(&dword_297476000, v13, OS_LOG_TYPE_DEFAULT, "Sending CoreAnalytics event: %s (repeated integer type: %d)", buf, 0x12u);
 LABEL_21:
   if (a3)
   {
-    v20[1] = MEMORY[0x29EDCA5F8];
-    v20[2] = 1174405120;
-    v20[3] = ___ZN6metric22sendCoreAnalyticsEventENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN3xpc4dictEb_block_invoke;
-    v20[4] = &__block_descriptor_tmp_32;
-    v16 = *a2;
-    object = v16;
-    if (v16)
+    v18[1] = MEMORY[0x29EDCA5F8];
+    v18[2] = 1174405120;
+    v18[3] = ___ZN6metric22sendCoreAnalyticsEventENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN3xpc4dictEb_block_invoke;
+    v18[4] = &__block_descriptor_tmp_32;
+    v15 = *a2;
+    object = v15;
+    if (v15)
     {
-      xpc_retain(v16);
+      xpc_retain(v15);
     }
 
     else
@@ -9875,28 +9058,890 @@ LABEL_21:
 
   else
   {
-    v17 = *a2;
-    v20[0] = v17;
-    if (v17)
+    v16 = *a2;
+    v18[0] = v16;
+    if (v16)
     {
-      xpc_retain(v17);
+      xpc_retain(v16);
     }
 
     else
     {
-      v20[0] = xpc_null_create();
+      v18[0] = xpc_null_create();
     }
 
-    p_object = v20;
+    p_object = v18;
     analytics_send_event_lazy();
-    xpc_release(v20[0]);
+    xpc_release(v18[0]);
   }
 
   *p_object = 0;
-  if (SHIBYTE(v23) < 0)
+  if (SHIBYTE(v21) < 0)
   {
     operator delete(__p[0]);
   }
+}
 
-  v19 = *MEMORY[0x29EDCA608];
+void sub_29755CD4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, xpc_object_t object, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, xpc_object_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(exception_object);
+  }
+
+  __clang_call_terminate(exception_object);
+}
+
+xpc_object_t ___ZN6metric22sendCoreAnalyticsEventENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN3xpc4dictEb_block_invoke(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  if (v1)
+  {
+    xpc_retain(*(a1 + 32));
+  }
+
+  else
+  {
+    v1 = xpc_null_create();
+  }
+
+  v2 = xpc_null_create();
+  xpc_release(v2);
+  return v1;
+}
+
+xpc_object_t __copy_helper_block_e8_32c15_ZTSN3xpc4dictE(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a2 + 32);
+  *(a1 + 32) = v3;
+  if (v3)
+  {
+    return xpc_retain(v3);
+  }
+
+  result = xpc_null_create();
+  *(a1 + 32) = result;
+  return result;
+}
+
+xpc_object_t ___ZN6metric22sendCoreAnalyticsEventENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN3xpc4dictEb_block_invoke_2(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  if (v1)
+  {
+    xpc_retain(*(a1 + 32));
+  }
+
+  else
+  {
+    v1 = xpc_null_create();
+  }
+
+  v2 = xpc_null_create();
+  xpc_release(v2);
+  return v1;
+}
+
+uint64_t abb::router::MipcTransport::MipcTransport(uint64_t result)
+{
+  *(result + 8) = 0;
+  *(result + 16) = 0;
+  *result = &unk_2A1E47AE0;
+  *(result + 136) = 0;
+  *(result + 144) = 0;
+  *(result + 152) = 256;
+  return result;
+}
+
+{
+  *(result + 8) = 0;
+  *(result + 16) = 0;
+  *result = &unk_2A1E47AE0;
+  *(result + 136) = 0;
+  *(result + 144) = 0;
+  *(result + 152) = 256;
+  return result;
+}
+
+uint64_t abb::router::MipcTransport::open(uint64_t a1, uint64_t a2, NSObject **a3)
+{
+  v29[3] = *MEMORY[0x29EDCA608];
+  v4 = *(a2 + 24);
+  if (!v4 || !*a3)
+  {
+    return 0;
+  }
+
+  if (v4 == a2)
+  {
+    *(&v25 + 1) = &v24;
+    (*(*v4 + 24))(v4, &v24);
+  }
+
+  else
+  {
+    *(&v25 + 1) = (*(*v4 + 16))(v4);
+  }
+
+  v7 = (a1 + 112);
+  if ((a1 + 112) == &v24)
+  {
+    goto LABEL_16;
+  }
+
+  v8 = *(&v25 + 1);
+  v9 = *(a1 + 136);
+  if (*(&v25 + 1) != &v24)
+  {
+    if (v9 != v7)
+    {
+      *(&v25 + 1) = *(a1 + 136);
+      *(a1 + 136) = v8;
+      v10 = v9;
+      if (v9 == &v24)
+      {
+        goto LABEL_42;
+      }
+
+      goto LABEL_17;
+    }
+
+    (*(*v9 + 24))(*(a1 + 136), &v24);
+    (*(**(a1 + 136) + 32))(*(a1 + 136));
+    *(a1 + 136) = *(&v25 + 1);
+    *(&v25 + 1) = &v24;
+LABEL_16:
+    v10 = *(&v25 + 1);
+    if (*(&v25 + 1) == &v24)
+    {
+      goto LABEL_42;
+    }
+
+    goto LABEL_17;
+  }
+
+  if (v9 == v7)
+  {
+    memset(v29, 170, 24);
+    (*(**(&v25 + 1) + 24))();
+    (*(**(&v25 + 1) + 32))(*(&v25 + 1));
+    *(&v25 + 1) = 0;
+    (*(**(a1 + 136) + 24))(*(a1 + 136), &v24);
+    (*(**(a1 + 136) + 32))(*(a1 + 136));
+    *(a1 + 136) = 0;
+    *(&v25 + 1) = &v24;
+    (*(v29[0] + 24))(v29, a1 + 112);
+    (*(v29[0] + 32))(v29);
+    *(a1 + 136) = v7;
+    v10 = *(&v25 + 1);
+    if (*(&v25 + 1) == &v24)
+    {
+      goto LABEL_42;
+    }
+  }
+
+  else
+  {
+    (*(**(&v25 + 1) + 24))();
+    (*(**(&v25 + 1) + 32))(*(&v25 + 1));
+    *(&v25 + 1) = *(a1 + 136);
+    v11 = *(&v25 + 1);
+    *(a1 + 136) = v7;
+    v10 = v11;
+    if (v11 == &v24)
+    {
+LABEL_42:
+      (*(*v10 + 32))(v10);
+      v12 = *a3;
+      if (!v12)
+      {
+        goto LABEL_21;
+      }
+
+      goto LABEL_20;
+    }
+  }
+
+LABEL_17:
+  if (v10)
+  {
+    (*(*v10 + 40))(v10);
+  }
+
+  v12 = *a3;
+  if (!v12)
+  {
+    goto LABEL_21;
+  }
+
+LABEL_20:
+  dispatch_retain(v12);
+LABEL_21:
+  v13 = *(a1 + 144);
+  *(a1 + 144) = v12;
+  if (v13)
+  {
+    dispatch_release(v13);
+  }
+
+  v28 = 0xAAAAAAAAAAAAAAAALL;
+  *&v14 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v27[0] = v14;
+  v27[1] = v14;
+  v26 = v14;
+  v24 = v14;
+  v25 = v14;
+  inited = TelephonyBasebandPCITransportInitParameters();
+  *(&v24 + 1) = *(a1 + 144);
+  *(v27 + 8) = 0u;
+  *(&v26 + 4) = 0xF0000000003FLL;
+  if (*(a1 + 153))
+  {
+    v16 = 31;
+  }
+
+  else
+  {
+    v16 = 30;
+  }
+
+  LODWORD(v24) = v16;
+  *(&v25 + 1) = 0x200001B58;
+  LODWORD(v28) = 25;
+  LODWORD(v26) = v26 | 5;
+  v18 = *(a1 + 8);
+  v17 = *(a1 + 16);
+  if (v17)
+  {
+    atomic_fetch_add_explicit(&v17->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v22[0] = MEMORY[0x29EDCA5F8];
+  v22[1] = 1174405120;
+  v22[2] = ___ZN3abb6router13MipcTransport4openENSt3__18functionIFvPKhmEEEN8dispatch5queueE_block_invoke;
+  v22[3] = &__block_descriptor_tmp_33;
+  v22[4] = v18;
+  v23 = v17;
+  if (v17)
+  {
+    atomic_fetch_add_explicit(&v17->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  *&v25 = v22;
+  if (capabilities::pci::supportsRxIOPool(inited))
+  {
+    LODWORD(v26) = v26 | 8;
+    HIDWORD(v26) = 2 * DWORD1(v26);
+  }
+
+  v20[0] = MEMORY[0x29EDCA5F8];
+  v20[1] = 1174405120;
+  v20[2] = ___ZN3abb6router13MipcTransport4openENSt3__18functionIFvPKhmEEEN8dispatch5queueE_block_invoke_1;
+  v20[3] = &__block_descriptor_tmp_3_2;
+  v20[4] = a1;
+  v20[5] = v18;
+  v21 = v17;
+  if (v17)
+  {
+    atomic_fetch_add_explicit(&v17->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  *(a1 + 24) = 0u;
+  *&v27[0] = v20;
+  *(a1 + 40) = 0u;
+  *(a1 + 56) = 0u;
+  *(a1 + 72) = 0u;
+  *(a1 + 88) = 0u;
+  *(a1 + 104) = 0;
+  v6 = TelephonyBasebandPCITransportCreate();
+  *(a1 + 152) = v6;
+  if (v21)
+  {
+    std::__shared_weak_count::__release_weak(v21);
+  }
+
+  if (v23)
+  {
+    std::__shared_weak_count::__release_weak(v23);
+  }
+
+  if (v17)
+  {
+    std::__shared_weak_count::__release_weak(v17);
+  }
+
+  return v6;
+}
+
+void sub_29755D4BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void ___ZN3abb6router13MipcTransport4openENSt3__18functionIFvPKhmEEEN8dispatch5queueE_block_invoke(uint64_t a1)
+{
+  v1 = *(a1 + 40);
+  if (v1)
+  {
+    v2 = std::__shared_weak_count::lock(v1);
+    if (v2)
+    {
+      if (!atomic_fetch_add(&v2->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        v3 = v2;
+        (v2->__on_zero_shared)();
+
+        std::__shared_weak_count::__release_weak(v3);
+      }
+    }
+  }
+}
+
+uint64_t __copy_helper_block_e8_32c46_ZTSNSt3__18weak_ptrIN3abb6router9TransportEEE(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 40);
+  *(result + 32) = *(a2 + 32);
+  *(result + 40) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 16), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void __destroy_helper_block_e8_32c46_ZTSNSt3__18weak_ptrIN3abb6router9TransportEEE(uint64_t a1)
+{
+  v1 = *(a1 + 40);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_weak(v1);
+  }
+}
+
+void ___ZN3abb6router13MipcTransport4openENSt3__18functionIFvPKhmEEEN8dispatch5queueE_block_invoke_1(std::__shared_weak_count *a1, int a2, void *a3, unsigned int a4)
+{
+  if (a3)
+  {
+    shared_owners = a1[1].__shared_owners_;
+    if (a1[2].__vftable)
+    {
+      v6 = a1;
+      a1 = std::__shared_weak_count::lock(a1[2].__vftable);
+      v9 = a1;
+      if (a1 && !a2 && v6[1].__shared_weak_owners_)
+      {
+        v12 = a4;
+        v13 = a3;
+        v10 = *(shared_owners + 136);
+        if (!v10)
+        {
+          std::__throw_bad_function_call[abi:ne200100]();
+        }
+
+        v11 = (*(*v10 + 48))(v10, &v13, &v12);
+        if ((capabilities::pci::supportsRxIOPool(v11) & 1) == 0)
+        {
+          free(a3);
+        }
+
+LABEL_13:
+        if (!atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v9->__on_zero_shared)(v9);
+          std::__shared_weak_count::__release_weak(v9);
+        }
+
+        return;
+      }
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    if ((capabilities::pci::supportsRxIOPool(a1) & 1) == 0)
+    {
+      free(a3);
+    }
+
+    if (v9)
+    {
+      goto LABEL_13;
+    }
+  }
+}
+
+uint64_t __copy_helper_block_e8_40c46_ZTSNSt3__18weak_ptrIN3abb6router9TransportEEE(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 48);
+  *(result + 40) = *(a2 + 40);
+  *(result + 48) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 16), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void __destroy_helper_block_e8_40c46_ZTSNSt3__18weak_ptrIN3abb6router9TransportEEE(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_weak(v1);
+  }
+}
+
+uint64_t abb::router::MipcTransport::close(abb::router::MipcTransport *this)
+{
+  v2 = *(this + 10);
+  if (v2 && v2(this + 24))
+  {
+    v3 = *(this + 5);
+    if (v3)
+    {
+      v3(this + 24);
+    }
+
+    TelephonyUtilTransportFree();
+  }
+
+  *(this + 13) = 0;
+  *(this + 88) = 0u;
+  *(this + 72) = 0u;
+  *(this + 56) = 0u;
+  *(this + 40) = 0u;
+  *(this + 24) = 0u;
+  *(this + 152) = 0;
+  return 1;
+}
+
+uint64_t abb::router::MipcTransport::write(abb::router::MipcTransport *this, const unsigned __int8 *a2, uint64_t a3, unint64_t *a4)
+{
+  result = 0;
+  if (a2 && a3)
+  {
+    if (*(this + 152) != 1)
+    {
+      return 0;
+    }
+
+    v6 = *(this + 10);
+    if (!v6)
+    {
+      return 0;
+    }
+
+    result = v6(this + 24);
+    if (!result)
+    {
+      return result;
+    }
+
+    v11 = 0;
+    v10 = *(this + 3);
+    if (!v10)
+    {
+      return 0;
+    }
+
+    result = v10(this + 24, a2, a3, &v11, 1, 10000, 0);
+    if (a4)
+    {
+      if (result)
+      {
+        *a4 = v11;
+        return 1;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t abb::router::MipcTransport::isReady(abb::router::MipcTransport *this)
+{
+  if (*(this + 152) == 1 && (v1 = *(this + 10)) != 0)
+  {
+    return v1(this + 24);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void abb::router::MipcTransport::~MipcTransport(abb::router::MipcTransport *this)
+{
+  *this = &unk_2A1E47AE0;
+  v2 = *(this + 18);
+  if (v2)
+  {
+    dispatch_release(v2);
+  }
+
+  v3 = *(this + 17);
+  if (v3 == (this + 112))
+  {
+    (*(*v3 + 32))(v3);
+    v4 = *(this + 2);
+    if (!v4)
+    {
+      return;
+    }
+
+    goto LABEL_7;
+  }
+
+  if (v3)
+  {
+    (*(*v3 + 40))(v3);
+  }
+
+  v4 = *(this + 2);
+  if (v4)
+  {
+LABEL_7:
+    std::__shared_weak_count::__release_weak(v4);
+  }
+}
+
+{
+  *this = &unk_2A1E47AE0;
+  v2 = *(this + 18);
+  if (v2)
+  {
+    dispatch_release(v2);
+  }
+
+  v3 = *(this + 17);
+  if (v3 == (this + 112))
+  {
+    (*(*v3 + 32))(v3);
+    v4 = *(this + 2);
+    if (v4)
+    {
+LABEL_7:
+      std::__shared_weak_count::__release_weak(v4);
+    }
+  }
+
+  else
+  {
+    if (v3)
+    {
+      (*(*v3 + 40))(v3);
+    }
+
+    v4 = *(this + 2);
+    if (v4)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  operator delete(this);
+}
+
+void *AnalyticsHelper::create@<X0>(void *a1@<X8>)
+{
+  *a1 = 0xAAAAAAAAAAAAAAAALL;
+  a1[1] = 0xAAAAAAAAAAAAAAAALL;
+  v2 = operator new(0x40uLL);
+  ctu::OsLogContext::OsLogContext(v4, "com.apple.telephony.abm", "stats.analytics");
+  ctu::SharedLoggable<AnalyticsHelper,ctu::OsLogLogger>::SharedLoggable<ctu::OsLogContext>(v2, "stats.analytics", 21, v4);
+  ctu::OsLogContext::~OsLogContext(v4);
+  v2[7] = 0;
+  v2[6] = 0;
+  v2[5] = v2 + 6;
+  *a1 = 0xAAAAAAAAAAAAAAAALL;
+  a1[1] = 0xAAAAAAAAAAAAAAAALL;
+  return std::shared_ptr<AnalyticsHelper>::shared_ptr[abi:ne200100]<AnalyticsHelper,std::shared_ptr<AnalyticsHelper> ctu::SharedSynchronizable<AnalyticsHelper>::make_shared_ptr<AnalyticsHelper>(AnalyticsHelper*)::{lambda(AnalyticsHelper*)#1},0>(a1, v2);
+}
+
+void sub_29755DAD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  ctu::OsLogContext::~OsLogContext(&a9);
+  operator delete(v9);
+  _Unwind_Resume(a1);
+}
+
+void AnalyticsHelper::AnalyticsHelper(AnalyticsHelper *this)
+{
+  ctu::OsLogContext::OsLogContext(v2, "com.apple.telephony.abm", "stats.analytics");
+  ctu::SharedLoggable<AnalyticsHelper,ctu::OsLogLogger>::SharedLoggable<ctu::OsLogContext>(this, "stats.analytics", 21, v2);
+  ctu::OsLogContext::~OsLogContext(v2);
+  *(this + 7) = 0;
+  *(this + 6) = 0;
+  *(this + 5) = this + 48;
+}
+
+{
+  ctu::OsLogContext::OsLogContext(v2, "com.apple.telephony.abm", "stats.analytics");
+  ctu::SharedLoggable<AnalyticsHelper,ctu::OsLogLogger>::SharedLoggable<ctu::OsLogContext>(this, "stats.analytics", 21, v2);
+  ctu::OsLogContext::~OsLogContext(v2);
+  *(this + 7) = 0;
+  *(this + 6) = 0;
+  *(this + 5) = this + 48;
+}
+
+void *ctu::SharedLoggable<AnalyticsHelper,ctu::OsLogLogger>::SharedLoggable<ctu::OsLogContext>(void *a1, const char *a2, uint64_t a3, const ctu::OsLogContext *a4)
+{
+  object = 0;
+  ctu::SharedSynchronizable<AnalyticsHelper>::SharedSynchronizable(a1, a2, a3, &object);
+  if (object)
+  {
+    dispatch_release(object);
+  }
+
+  ctu::OsLogLogger::OsLogLogger();
+  MEMORY[0x29C270D50](a1 + 4, &object);
+  MEMORY[0x29C270D60](&object);
+  return a1;
+}
+
+void AnalyticsHelper::~AnalyticsHelper(char **this)
+{
+  std::__tree<std::__value_type<std::string,std::map<std::string,xpc::dict>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,xpc::dict>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,xpc::dict>>>>::destroy(this[6]);
+  MEMORY[0x29C270D60](this + 4);
+  v2 = this[3];
+  if (v2)
+  {
+    dispatch_release(v2);
+  }
+
+  v3 = this[2];
+  if (v3)
+  {
+    dispatch_release(v3);
+  }
+
+  v4 = this[1];
+  if (v4)
+  {
+    std::__shared_weak_count::__release_weak(v4);
+  }
+}
+
+{
+  std::__tree<std::__value_type<std::string,std::map<std::string,xpc::dict>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,xpc::dict>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,xpc::dict>>>>::destroy(this[6]);
+  MEMORY[0x29C270D60](this + 4);
+  v2 = this[3];
+  if (v2)
+  {
+    dispatch_release(v2);
+  }
+
+  v3 = this[2];
+  if (v3)
+  {
+    dispatch_release(v3);
+  }
+
+  v4 = this[1];
+  if (v4)
+  {
+    std::__shared_weak_count::__release_weak(v4);
+  }
+}
+
+void AnalyticsHelper::describeAnalyticsCache(AnalyticsHelper *this@<X0>, uint64_t a2@<X8>)
+{
+  *(a2 + 272) = 0xAAAAAAAAAAAAAAAALL;
+  *&v3 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *(a2 + 240) = v3;
+  *(a2 + 256) = v3;
+  *(a2 + 208) = v3;
+  *(a2 + 224) = v3;
+  *(a2 + 176) = v3;
+  *(a2 + 192) = v3;
+  *(a2 + 144) = v3;
+  *(a2 + 160) = v3;
+  *(a2 + 112) = v3;
+  *(a2 + 128) = v3;
+  *(a2 + 80) = v3;
+  *(a2 + 96) = v3;
+  *(a2 + 48) = v3;
+  *(a2 + 64) = v3;
+  *(a2 + 32) = v3;
+  *a2 = v3;
+  *(a2 + 16) = v3;
+  v4 = (a2 + 16);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](a2);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "** analyticsData **\n", 20);
+  v5 = *(this + 5);
+  v29 = this + 48;
+  if (v5 != (this + 48))
+  {
+    while (1)
+    {
+      v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "[", 1);
+      v7 = (v5 + 4);
+      if (*(v5 + 55) < 0)
+      {
+        v7 = *v7;
+      }
+
+      v8 = strlen(v7);
+      v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v7, v8);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "] = \n", 5);
+      v10 = v5[7];
+      if (v10 != v5 + 8)
+      {
+        break;
+      }
+
+LABEL_7:
+      v11 = v5[1];
+      if (v11)
+      {
+        do
+        {
+          v12 = v11;
+          v11 = *v11;
+        }
+
+        while (v11);
+      }
+
+      else
+      {
+        do
+        {
+          v12 = v5[2];
+          v28 = *v12 == v5;
+          v5 = v12;
+        }
+
+        while (!v28);
+      }
+
+      v5 = v12;
+      if (v12 == v29)
+      {
+        return;
+      }
+    }
+
+    while (1)
+    {
+      v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "<<<", 3);
+      v14 = (v10 + 4);
+      if (*(v10 + 55) < 0)
+      {
+        v14 = *v14;
+      }
+
+      v15 = strlen(v14);
+      v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, v14, v15);
+      v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, ">>> = ", 6);
+      v18 = MEMORY[0x29C272AD0](v10[7]);
+      memset(__dst, 170, sizeof(__dst));
+      v19 = strlen(v18);
+      if (v19 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        std::string::__throw_length_error[abi:ne200100]();
+      }
+
+      v20 = v19;
+      if (v19 >= 0x17)
+      {
+        break;
+      }
+
+      HIBYTE(__dst[2]) = v19;
+      v21 = __dst;
+      if (v19)
+      {
+        goto LABEL_21;
+      }
+
+LABEL_22:
+      v20[v21] = 0;
+      free(v18);
+      if (SHIBYTE(__dst[2]) >= 0)
+      {
+        v23 = __dst;
+      }
+
+      else
+      {
+        v23 = __dst[0];
+      }
+
+      v24 = strlen(v23);
+      v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, v23, v24);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, "\n", 1);
+      if (SHIBYTE(__dst[2]) < 0)
+      {
+        operator delete(__dst[0]);
+        v26 = v10[1];
+        if (v26)
+        {
+          do
+          {
+LABEL_29:
+            v27 = v26;
+            v26 = *v26;
+          }
+
+          while (v26);
+          goto LABEL_10;
+        }
+      }
+
+      else
+      {
+        v26 = v10[1];
+        if (v26)
+        {
+          goto LABEL_29;
+        }
+      }
+
+      do
+      {
+        v27 = v10[2];
+        v28 = *v27 == v10;
+        v10 = v27;
+      }
+
+      while (!v28);
+LABEL_10:
+      v10 = v27;
+      if (v27 == v5 + 8)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    if ((v19 | 7) == 0x17)
+    {
+      v22 = 25;
+    }
+
+    else
+    {
+      v22 = (v19 | 7) + 1;
+    }
+
+    v21 = operator new(v22);
+    __dst[1] = v20;
+    __dst[2] = (v22 | 0x8000000000000000);
+    __dst[0] = v21;
+LABEL_21:
+    memcpy(v21, v18, v20);
+    goto LABEL_22;
+  }
 }

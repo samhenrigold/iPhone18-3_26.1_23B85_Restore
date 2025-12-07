@@ -15,15 +15,14 @@
 
 - (ATXNotificationEventProvider)initWithEventType:(int64_t)type contactStore:(id)store
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CCABB0];
   storeCopy = store;
   v8 = [v6 numberWithInteger:type];
-  v13[0] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v10 = [(ATXNotificationEventProvider *)self initWithEventTypes:v9 contactStore:storeCopy];
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -71,50 +70,51 @@ uint64_t __59__ATXNotificationEventProvider_biomePublisherWithBookmark___block_i
   {
     v5 = [v3 eventBody];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v6 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = __atxlog_handle_notification_management(isKindOfClass);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __59__ATXNotificationEventProvider_biomePublisherWithBookmark___block_invoke_cold_1();
+        __59__ATXNotificationEventProvider_biomePublisherWithBookmark___block_invoke_cold_1(v5);
       }
 
-      v7 = MEMORY[0x277CBEAD8];
-      v8 = *MEMORY[0x277CBE658];
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      [v7 raise:v8 format:{@"Encountered event in ATXNotificationEventProvider that was of unknown class. Expected ATXUserNotificationLoggingEvent. Received: %@", v10}];
+      v8 = MEMORY[0x277CBEAD8];
+      v9 = *MEMORY[0x277CBE658];
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      [v8 raise:v9 format:{@"Encountered event in ATXNotificationEventProvider that was of unknown class. Expected ATXUserNotificationLoggingEvent. Received: %@", v11}];
     }
 
     v21 = 0u;
     v22 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v11 = *(*(a1 + 32) + 8);
-    v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
-    if (v12)
+    v12 = *(*(a1 + 32) + 8);
+    v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v13)
     {
-      v13 = *v20;
+      v14 = *v20;
       while (2)
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v20 != v13)
+          if (*v20 != v14)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          v15 = *(*(&v19 + 1) + 8 * i);
-          v16 = [v5 eventType];
-          if (v16 == [v15 integerValue])
+          v16 = *(*(&v19 + 1) + 8 * i);
+          v17 = [v5 eventType];
+          if (v17 == [v16 integerValue])
           {
-            v12 = 1;
+            v13 = 1;
             goto LABEL_16;
           }
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
-        if (v12)
+        v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        if (v13)
         {
           continue;
         }
@@ -128,11 +128,10 @@ LABEL_16:
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v13;
 }
 
 - (id)eventsFromPublisher
@@ -235,15 +234,15 @@ void __51__ATXNotificationEventProvider_eventsFromPublisher__block_invoke_2(uint
 
             if (threadID)
             {
-              v24 = [(ATXStableContactRepresentationProviderProtocol *)self->_stableContactRepresentationProvider stableContactRepresentationForCnContactId:threadID rawIdentifier:firstObject];
-              stableContactIdentifier = [v24 stableContactIdentifier];
+              v25 = [(ATXStableContactRepresentationProviderProtocol *)self->_stableContactRepresentationProvider stableContactRepresentationForCnContactId:threadID rawIdentifier:firstObject];
+              stableContactIdentifier = [v25 stableContactIdentifier];
               v18 = [objc_alloc(MEMORY[0x277CEB420]) initWithDisplayName:0 rawIdentifier:firstObject cnContactId:threadID stableContactIdentifier:stableContactIdentifier];
             }
 
             else
             {
-              v26 = __atxlog_handle_notification_management();
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+              v27 = __atxlog_handle_notification_management(v24);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
               {
                 [ATXNotificationEventProvider aggregationEventsFromEvent:eventBody];
               }
@@ -259,41 +258,41 @@ void __51__ATXNotificationEventProvider_eventsFromPublisher__block_invoke_2(uint
         }
 
         v19 = objc_opt_new();
-        v27 = [objc_alloc(MEMORY[0x277CEB720]) initWithAppEntity:v10 contactEntity:0];
+        v28 = [objc_alloc(MEMORY[0x277CEB720]) initWithAppEntity:v10 contactEntity:0];
         notification6 = [eventBody notification];
         [notification6 timestamp];
-        [v27 setReceiveTimestamp:?];
+        [v28 setReceiveTimestamp:?];
 
-        if (v27)
+        if (v28)
         {
-          v29 = [[ATXModeEvent alloc] initWithStartDate:v7 endDate:v7 entity:v27];
-          [v19 addObject:v29];
+          v30 = [[ATXModeEvent alloc] initWithStartDate:v7 endDate:v7 entity:v28];
+          [v19 addObject:v30];
         }
 
         if (v18)
         {
-          v30 = [objc_alloc(MEMORY[0x277CEB720]) initWithAppEntity:v10 contactEntity:v18];
+          v31 = [objc_alloc(MEMORY[0x277CEB720]) initWithAppEntity:v10 contactEntity:v18];
 
           notification7 = [eventBody notification];
           [notification7 timestamp];
-          [v30 setReceiveTimestamp:?];
+          [v31 setReceiveTimestamp:?];
 
-          if (v30)
+          if (v31)
           {
-            v32 = [[ATXModeEvent alloc] initWithStartDate:v7 endDate:v7 entity:v30];
-            [v19 addObject:v32];
+            v33 = [[ATXModeEvent alloc] initWithStartDate:v7 endDate:v7 entity:v31];
+            [v19 addObject:v33];
           }
 
-          v27 = [objc_alloc(MEMORY[0x277CEB720]) initWithAppEntity:0 contactEntity:v18];
+          v28 = [objc_alloc(MEMORY[0x277CEB720]) initWithAppEntity:0 contactEntity:v18];
 
           notification8 = [eventBody notification];
           [notification8 timestamp];
-          [v27 setReceiveTimestamp:?];
+          [v28 setReceiveTimestamp:?];
 
-          if (v27)
+          if (v28)
           {
-            v34 = [[ATXModeEvent alloc] initWithStartDate:v7 endDate:v7 entity:v27];
-            [v19 addObject:v34];
+            v35 = [[ATXModeEvent alloc] initWithStartDate:v7 endDate:v7 entity:v28];
+            [v19 addObject:v35];
           }
         }
       }
@@ -360,21 +359,22 @@ void __51__ATXNotificationEventProvider_eventsFromPublisher__block_invoke_2(uint
     v16 = [dictCopy objectForKeyedSubscript:entity3];
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       secondsToEngagement = [v16 secondsToEngagement];
-      v18 = MEMORY[0x277CCABB0];
+      v19 = MEMORY[0x277CCABB0];
       [(ATXNotificationEventProvider *)self secondsSinceReceiptForModeEvent:v10];
-      v19 = [v18 numberWithDouble:?];
-      [secondsToEngagement addObject:v19];
+      v20 = [v19 numberWithDouble:?];
+      [secondsToEngagement addObject:v20];
     }
 
     else
     {
-      v20 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      v21 = __atxlog_handle_notification_management(isKindOfClass);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
       {
-        [ATXNotificationEventProvider updateEntitySpecificFeaturesDict:v16 aggregationEvent:v20 isLocalToMode:?];
+        [ATXNotificationEventProvider updateEntitySpecificFeaturesDict:v16 aggregationEvent:v21 isLocalToMode:?];
       }
     }
   }
@@ -423,35 +423,31 @@ void __43__ATXNotificationEventProvider_description__block_invoke(uint64_t a1, v
   [*(a1 + 32) appendString:v5];
 }
 
-void __59__ATXNotificationEventProvider_biomePublisherWithBookmark___block_invoke_cold_1()
+void __59__ATXNotificationEventProvider_biomePublisherWithBookmark___block_invoke_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "Encountered event in ATXNotificationEventProvider that was of unknown class. Expected ATXUserNotificationLoggingEvent. Received: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v3, v4, "Encountered event in ATXNotificationEventProvider that was of unknown class. Expected ATXUserNotificationLoggingEvent. Received: %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)aggregationEventsFromEvent:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 notification];
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "Notification didn't have a contactId, although it was a message and wasn't a group message. Notification: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v2, v3, "Notification didn't have a contactId, although it was a message and wasn't a group message. Notification: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)updateEntitySpecificFeaturesDict:(uint64_t)a1 aggregationEvent:(NSObject *)a2 isLocalToMode:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Encountered an event of unknown type. Expected ATXNotificationEntityFeatures, received: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Encountered an event of unknown type. Expected ATXNotificationEntityFeatures, received: %@", &v5, 0xCu);
 }
 
 @end

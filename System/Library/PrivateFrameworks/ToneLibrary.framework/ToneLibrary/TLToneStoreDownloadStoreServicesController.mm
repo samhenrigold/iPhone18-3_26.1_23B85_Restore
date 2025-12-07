@@ -48,7 +48,7 @@
     v124 = 0;
     v125 = &v124;
     v126 = 0x2050000000;
-    v14 = getSSDownloadManagerOptionsClass_softClass;
+    v15 = getSSDownloadManagerOptionsClass_softClass;
     v127 = getSSDownloadManagerOptionsClass_softClass;
     if (!getSSDownloadManagerOptionsClass_softClass)
     {
@@ -57,24 +57,24 @@
       v121 = __getSSDownloadManagerOptionsClass_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      __getSSDownloadManagerOptionsClass_block_invoke(&v119);
-      v14 = v125[3];
+      __getSSDownloadManagerOptionsClass_block_invoke(&v119, v14);
+      v15 = v125[3];
     }
 
-    v15 = v14;
+    v16 = v15;
     _Block_object_dispose(&v124, 8);
-    v115 = objc_alloc_init(v14);
-    v16 = getSSDownloadKindRingtone();
-    v132[0] = v16;
-    v17 = getSSDownloadKindTone();
-    v132[1] = v17;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v132 count:2];
-    [v115 setDownloadKinds:v18];
+    v115 = objc_alloc_init(v15);
+    v17 = getSSDownloadKindRingtone();
+    v132[0] = v17;
+    v18 = getSSDownloadKindTone();
+    v132[1] = v18;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v132 count:2];
+    [v115 setDownloadKinds:v19];
 
     v124 = 0;
     v125 = &v124;
     v126 = 0x2020000000;
-    v19 = getSSDownloadExternalPropertyBytesDownloadedSymbolLoc_ptr;
+    v20 = getSSDownloadExternalPropertyBytesDownloadedSymbolLoc_ptr;
     v127 = getSSDownloadExternalPropertyBytesDownloadedSymbolLoc_ptr;
     if (!getSSDownloadExternalPropertyBytesDownloadedSymbolLoc_ptr)
     {
@@ -83,25 +83,25 @@
       v121 = __getSSDownloadExternalPropertyBytesDownloadedSymbolLoc_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      v20 = StoreServicesLibrary();
-      v21 = dlsym(v20, "SSDownloadExternalPropertyBytesDownloaded");
-      *(v123[1] + 24) = v21;
+      v21 = StoreServicesLibrary();
+      v22 = dlsym(v21, "SSDownloadExternalPropertyBytesDownloaded");
+      *(v123[1] + 24) = v22;
       getSSDownloadExternalPropertyBytesDownloadedSymbolLoc_ptr = *(v123[1] + 24);
-      v19 = v125[3];
+      v20 = v125[3];
     }
 
     _Block_object_dispose(&v124, 8);
-    if (!v19)
+    if (!v20)
     {
       goto LABEL_61;
     }
 
-    v22 = *v19;
-    v130[0] = v22;
+    v23 = *v20;
+    v130[0] = v23;
     v124 = 0;
     v125 = &v124;
     v126 = 0x2020000000;
-    v23 = getSSDownloadExternalPropertyPercentCompleteSymbolLoc_ptr;
+    v24 = getSSDownloadExternalPropertyPercentCompleteSymbolLoc_ptr;
     v127 = getSSDownloadExternalPropertyPercentCompleteSymbolLoc_ptr;
     if (!getSSDownloadExternalPropertyPercentCompleteSymbolLoc_ptr)
     {
@@ -110,25 +110,25 @@
       v121 = __getSSDownloadExternalPropertyPercentCompleteSymbolLoc_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      v24 = StoreServicesLibrary();
-      v25 = dlsym(v24, "SSDownloadExternalPropertyPercentComplete");
-      *(v123[1] + 24) = v25;
+      v25 = StoreServicesLibrary();
+      v26 = dlsym(v25, "SSDownloadExternalPropertyPercentComplete");
+      *(v123[1] + 24) = v26;
       getSSDownloadExternalPropertyPercentCompleteSymbolLoc_ptr = *(v123[1] + 24);
-      v23 = v125[3];
+      v24 = v125[3];
     }
 
     _Block_object_dispose(&v124, 8);
-    if (!v23)
+    if (!v24)
     {
       goto LABEL_61;
     }
 
-    v26 = *v23;
-    v130[1] = v26;
+    v27 = *v24;
+    v130[1] = v27;
     v124 = 0;
     v125 = &v124;
     v126 = 0x2020000000;
-    v27 = getSSDownloadExternalPropertyPolicySizeLimitSymbolLoc_ptr;
+    v28 = getSSDownloadExternalPropertyPolicySizeLimitSymbolLoc_ptr;
     v127 = getSSDownloadExternalPropertyPolicySizeLimitSymbolLoc_ptr;
     if (!getSSDownloadExternalPropertyPolicySizeLimitSymbolLoc_ptr)
     {
@@ -137,25 +137,25 @@
       v121 = __getSSDownloadExternalPropertyPolicySizeLimitSymbolLoc_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      v28 = StoreServicesLibrary();
-      v29 = dlsym(v28, "SSDownloadExternalPropertyPolicySizeLimit");
-      *(v123[1] + 24) = v29;
+      v29 = StoreServicesLibrary();
+      v30 = dlsym(v29, "SSDownloadExternalPropertyPolicySizeLimit");
+      *(v123[1] + 24) = v30;
       getSSDownloadExternalPropertyPolicySizeLimitSymbolLoc_ptr = *(v123[1] + 24);
-      v27 = v125[3];
+      v28 = v125[3];
     }
 
     _Block_object_dispose(&v124, 8);
-    if (!v27)
+    if (!v28)
     {
       goto LABEL_61;
     }
 
-    v30 = *v27;
-    v130[2] = v30;
+    v31 = *v28;
+    v130[2] = v31;
     v124 = 0;
     v125 = &v124;
     v126 = 0x2020000000;
-    v31 = getSSDownloadExternalPropertyRentalInformationSymbolLoc_ptr;
+    v32 = getSSDownloadExternalPropertyRentalInformationSymbolLoc_ptr;
     v127 = getSSDownloadExternalPropertyRentalInformationSymbolLoc_ptr;
     if (!getSSDownloadExternalPropertyRentalInformationSymbolLoc_ptr)
     {
@@ -164,29 +164,29 @@
       v121 = __getSSDownloadExternalPropertyRentalInformationSymbolLoc_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      v32 = StoreServicesLibrary();
-      v33 = dlsym(v32, "SSDownloadExternalPropertyRentalInformation");
-      *(v123[1] + 24) = v33;
+      v33 = StoreServicesLibrary();
+      v34 = dlsym(v33, "SSDownloadExternalPropertyRentalInformation");
+      *(v123[1] + 24) = v34;
       getSSDownloadExternalPropertyRentalInformationSymbolLoc_ptr = *(v123[1] + 24);
-      v31 = v125[3];
+      v32 = v125[3];
     }
 
     _Block_object_dispose(&v124, 8);
-    if (!v31)
+    if (!v32)
     {
       goto LABEL_61;
     }
 
-    v131 = *v31;
-    v34 = MEMORY[0x1E695DEC8];
-    v35 = v131;
-    v36 = [v34 arrayWithObjects:v130 count:4];
+    v131 = *v32;
+    v35 = MEMORY[0x1E695DEC8];
+    v36 = v131;
+    v37 = [v35 arrayWithObjects:v130 count:4];
 
-    [v115 setPrefetchedDownloadExternalProperties:v36];
+    [v115 setPrefetchedDownloadExternalProperties:v37];
     v124 = 0;
     v125 = &v124;
     v126 = 0x2020000000;
-    v37 = getSSDownloadPropertyClientBundleIdentifierSymbolLoc_ptr;
+    v38 = getSSDownloadPropertyClientBundleIdentifierSymbolLoc_ptr;
     v127 = getSSDownloadPropertyClientBundleIdentifierSymbolLoc_ptr;
     if (!getSSDownloadPropertyClientBundleIdentifierSymbolLoc_ptr)
     {
@@ -195,27 +195,27 @@
       v121 = __getSSDownloadPropertyClientBundleIdentifierSymbolLoc_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      v38 = StoreServicesLibrary();
-      v39 = dlsym(v38, "SSDownloadPropertyClientBundleIdentifier");
-      *(v123[1] + 24) = v39;
+      v39 = StoreServicesLibrary();
+      v40 = dlsym(v39, "SSDownloadPropertyClientBundleIdentifier");
+      *(v123[1] + 24) = v40;
       getSSDownloadPropertyClientBundleIdentifierSymbolLoc_ptr = *(v123[1] + 24);
-      v37 = v125[3];
+      v38 = v125[3];
     }
 
     _Block_object_dispose(&v124, 8);
-    if (!v37)
+    if (!v38)
     {
       goto LABEL_61;
     }
 
     p_isa = &v2->super.isa;
-    v40 = *v37;
+    v41 = *v38;
     v124 = 0;
     v125 = &v124;
     v126 = 0x2020000000;
-    v41 = getSSDownloadPropertyDownloadPhaseSymbolLoc_ptr;
+    v42 = getSSDownloadPropertyDownloadPhaseSymbolLoc_ptr;
     v127 = getSSDownloadPropertyDownloadPhaseSymbolLoc_ptr;
-    v128[0] = v40;
+    v128[0] = v41;
     if (!getSSDownloadPropertyDownloadPhaseSymbolLoc_ptr)
     {
       v119 = MEMORY[0x1E69E9820];
@@ -223,25 +223,25 @@
       v121 = __getSSDownloadPropertyDownloadPhaseSymbolLoc_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      v42 = StoreServicesLibrary();
-      v43 = dlsym(v42, "SSDownloadPropertyDownloadPhase");
-      *(v123[1] + 24) = v43;
+      v43 = StoreServicesLibrary();
+      v44 = dlsym(v43, "SSDownloadPropertyDownloadPhase");
+      *(v123[1] + 24) = v44;
       getSSDownloadPropertyDownloadPhaseSymbolLoc_ptr = *(v123[1] + 24);
-      v41 = v125[3];
+      v42 = v125[3];
     }
 
     _Block_object_dispose(&v124, 8);
-    if (!v41)
+    if (!v42)
     {
       goto LABEL_61;
     }
 
-    v44 = *v41;
-    v128[1] = v44;
+    v45 = *v42;
+    v128[1] = v45;
     v124 = 0;
     v125 = &v124;
     v126 = 0x2020000000;
-    v45 = getSSDownloadPropertyEncodedErrorDataSymbolLoc_ptr;
+    v46 = getSSDownloadPropertyEncodedErrorDataSymbolLoc_ptr;
     v127 = getSSDownloadPropertyEncodedErrorDataSymbolLoc_ptr;
     if (!getSSDownloadPropertyEncodedErrorDataSymbolLoc_ptr)
     {
@@ -250,25 +250,25 @@
       v121 = __getSSDownloadPropertyEncodedErrorDataSymbolLoc_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      v46 = StoreServicesLibrary();
-      v47 = dlsym(v46, "SSDownloadPropertyEncodedErrorData");
-      *(v123[1] + 24) = v47;
+      v47 = StoreServicesLibrary();
+      v48 = dlsym(v47, "SSDownloadPropertyEncodedErrorData");
+      *(v123[1] + 24) = v48;
       getSSDownloadPropertyEncodedErrorDataSymbolLoc_ptr = *(v123[1] + 24);
-      v45 = v125[3];
+      v46 = v125[3];
     }
 
     _Block_object_dispose(&v124, 8);
-    if (!v45)
+    if (!v46)
     {
       goto LABEL_61;
     }
 
-    v48 = *v45;
-    v128[2] = v48;
+    v49 = *v46;
+    v128[2] = v49;
     v124 = 0;
     v125 = &v124;
     v126 = 0x2020000000;
-    v49 = getSSDownloadPropertyIsRestoreSymbolLoc_ptr;
+    v50 = getSSDownloadPropertyIsRestoreSymbolLoc_ptr;
     v127 = getSSDownloadPropertyIsRestoreSymbolLoc_ptr;
     if (!getSSDownloadPropertyIsRestoreSymbolLoc_ptr)
     {
@@ -277,25 +277,25 @@
       v121 = __getSSDownloadPropertyIsRestoreSymbolLoc_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      v50 = StoreServicesLibrary();
-      v51 = dlsym(v50, "SSDownloadPropertyIsRestore");
-      *(v123[1] + 24) = v51;
+      v51 = StoreServicesLibrary();
+      v52 = dlsym(v51, "SSDownloadPropertyIsRestore");
+      *(v123[1] + 24) = v52;
       getSSDownloadPropertyIsRestoreSymbolLoc_ptr = *(v123[1] + 24);
-      v49 = v125[3];
+      v50 = v125[3];
     }
 
     _Block_object_dispose(&v124, 8);
-    if (!v49)
+    if (!v50)
     {
       goto LABEL_61;
     }
 
-    v52 = *v49;
-    v128[3] = v52;
+    v53 = *v50;
+    v128[3] = v53;
     v124 = 0;
     v125 = &v124;
     v126 = 0x2020000000;
-    v53 = getSSDownloadPropertyKindSymbolLoc_ptr;
+    v54 = getSSDownloadPropertyKindSymbolLoc_ptr;
     v127 = getSSDownloadPropertyKindSymbolLoc_ptr;
     if (!getSSDownloadPropertyKindSymbolLoc_ptr)
     {
@@ -304,25 +304,25 @@
       v121 = __getSSDownloadPropertyKindSymbolLoc_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      v54 = StoreServicesLibrary();
-      v55 = dlsym(v54, "SSDownloadPropertyKind");
-      *(v123[1] + 24) = v55;
+      v55 = StoreServicesLibrary();
+      v56 = dlsym(v55, "SSDownloadPropertyKind");
+      *(v123[1] + 24) = v56;
       getSSDownloadPropertyKindSymbolLoc_ptr = *(v123[1] + 24);
-      v53 = v125[3];
+      v54 = v125[3];
     }
 
     _Block_object_dispose(&v124, 8);
-    if (!v53)
+    if (!v54)
     {
       goto LABEL_61;
     }
 
-    v113 = *v53;
+    v113 = *v54;
     v128[4] = v113;
     v124 = 0;
     v125 = &v124;
     v126 = 0x2020000000;
-    v56 = getSSDownloadPropertyReasonSymbolLoc_ptr;
+    v57 = getSSDownloadPropertyReasonSymbolLoc_ptr;
     v127 = getSSDownloadPropertyReasonSymbolLoc_ptr;
     if (!getSSDownloadPropertyReasonSymbolLoc_ptr)
     {
@@ -331,25 +331,25 @@
       v121 = __getSSDownloadPropertyReasonSymbolLoc_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      v57 = StoreServicesLibrary();
-      v58 = dlsym(v57, "SSDownloadPropertyReason");
-      *(v123[1] + 24) = v58;
+      v58 = StoreServicesLibrary();
+      v59 = dlsym(v58, "SSDownloadPropertyReason");
+      *(v123[1] + 24) = v59;
       getSSDownloadPropertyReasonSymbolLoc_ptr = *(v123[1] + 24);
-      v56 = v125[3];
+      v57 = v125[3];
     }
 
     _Block_object_dispose(&v124, 8);
-    if (!v56)
+    if (!v57)
     {
       goto LABEL_61;
     }
 
-    v112 = *v56;
+    v112 = *v57;
     v128[5] = v112;
     v124 = 0;
     v125 = &v124;
     v126 = 0x2020000000;
-    v59 = getSSDownloadPropertyStoreItemIdentifierSymbolLoc_ptr;
+    v60 = getSSDownloadPropertyStoreItemIdentifierSymbolLoc_ptr;
     v127 = getSSDownloadPropertyStoreItemIdentifierSymbolLoc_ptr;
     if (!getSSDownloadPropertyStoreItemIdentifierSymbolLoc_ptr)
     {
@@ -358,25 +358,25 @@
       v121 = __getSSDownloadPropertyStoreItemIdentifierSymbolLoc_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      v60 = StoreServicesLibrary();
-      v61 = dlsym(v60, "SSDownloadPropertyStoreItemIdentifier");
-      *(v123[1] + 24) = v61;
+      v61 = StoreServicesLibrary();
+      v62 = dlsym(v61, "SSDownloadPropertyStoreItemIdentifier");
+      *(v123[1] + 24) = v62;
       getSSDownloadPropertyStoreItemIdentifierSymbolLoc_ptr = *(v123[1] + 24);
-      v59 = v125[3];
+      v60 = v125[3];
     }
 
     _Block_object_dispose(&v124, 8);
-    if (!v59)
+    if (!v60)
     {
       goto LABEL_61;
     }
 
-    v111 = *v59;
+    v111 = *v60;
     v128[6] = v111;
     v124 = 0;
     v125 = &v124;
     v126 = 0x2020000000;
-    v62 = getSSDownloadPropertyTitleSymbolLoc_ptr;
+    v63 = getSSDownloadPropertyTitleSymbolLoc_ptr;
     v127 = getSSDownloadPropertyTitleSymbolLoc_ptr;
     if (!getSSDownloadPropertyTitleSymbolLoc_ptr)
     {
@@ -385,25 +385,25 @@
       v121 = __getSSDownloadPropertyTitleSymbolLoc_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      v63 = StoreServicesLibrary();
-      v64 = dlsym(v63, "SSDownloadPropertyTitle");
-      *(v123[1] + 24) = v64;
+      v64 = StoreServicesLibrary();
+      v65 = dlsym(v64, "SSDownloadPropertyTitle");
+      *(v123[1] + 24) = v65;
       getSSDownloadPropertyTitleSymbolLoc_ptr = *(v123[1] + 24);
-      v62 = v125[3];
+      v63 = v125[3];
     }
 
     _Block_object_dispose(&v124, 8);
-    if (!v62)
+    if (!v63)
     {
       goto LABEL_61;
     }
 
-    v110 = *v62;
+    v110 = *v63;
     v128[7] = v110;
     v124 = 0;
     v125 = &v124;
     v126 = 0x2020000000;
-    v65 = getSSDownloadPropertyHandlerIDSymbolLoc_ptr;
+    v66 = getSSDownloadPropertyHandlerIDSymbolLoc_ptr;
     v127 = getSSDownloadPropertyHandlerIDSymbolLoc_ptr;
     if (!getSSDownloadPropertyHandlerIDSymbolLoc_ptr)
     {
@@ -412,25 +412,25 @@
       v121 = __getSSDownloadPropertyHandlerIDSymbolLoc_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      v66 = StoreServicesLibrary();
-      v67 = dlsym(v66, "SSDownloadPropertyHandlerID");
-      *(v123[1] + 24) = v67;
+      v67 = StoreServicesLibrary();
+      v68 = dlsym(v67, "SSDownloadPropertyHandlerID");
+      *(v123[1] + 24) = v68;
       getSSDownloadPropertyHandlerIDSymbolLoc_ptr = *(v123[1] + 24);
-      v65 = v125[3];
+      v66 = v125[3];
     }
 
     _Block_object_dispose(&v124, 8);
-    if (!v65)
+    if (!v66)
     {
       goto LABEL_61;
     }
 
-    v68 = *v65;
-    v128[8] = v68;
+    v69 = *v66;
+    v128[8] = v69;
     v124 = 0;
     v125 = &v124;
     v126 = 0x2020000000;
-    v69 = getSSDownloadPropertyCollectionNameSymbolLoc_ptr;
+    v70 = getSSDownloadPropertyCollectionNameSymbolLoc_ptr;
     v127 = getSSDownloadPropertyCollectionNameSymbolLoc_ptr;
     if (!getSSDownloadPropertyCollectionNameSymbolLoc_ptr)
     {
@@ -439,25 +439,25 @@
       v121 = __getSSDownloadPropertyCollectionNameSymbolLoc_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      v70 = StoreServicesLibrary();
-      v71 = dlsym(v70, "SSDownloadPropertyCollectionName");
-      *(v123[1] + 24) = v71;
+      v71 = StoreServicesLibrary();
+      v72 = dlsym(v71, "SSDownloadPropertyCollectionName");
+      *(v123[1] + 24) = v72;
       getSSDownloadPropertyCollectionNameSymbolLoc_ptr = *(v123[1] + 24);
-      v69 = v125[3];
+      v70 = v125[3];
     }
 
     _Block_object_dispose(&v124, 8);
-    if (!v69)
+    if (!v70)
     {
       goto LABEL_61;
     }
 
-    v72 = *v69;
-    v128[9] = v72;
+    v73 = *v70;
+    v128[9] = v73;
     v124 = 0;
     v125 = &v124;
     v126 = 0x2020000000;
-    v73 = getSSDownloadPropertyArtistNameSymbolLoc_ptr;
+    v74 = getSSDownloadPropertyArtistNameSymbolLoc_ptr;
     v127 = getSSDownloadPropertyArtistNameSymbolLoc_ptr;
     if (!getSSDownloadPropertyArtistNameSymbolLoc_ptr)
     {
@@ -466,25 +466,25 @@
       v121 = __getSSDownloadPropertyArtistNameSymbolLoc_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      v74 = StoreServicesLibrary();
-      v75 = dlsym(v74, "SSDownloadPropertyArtistName");
-      *(v123[1] + 24) = v75;
+      v75 = StoreServicesLibrary();
+      v76 = dlsym(v75, "SSDownloadPropertyArtistName");
+      *(v123[1] + 24) = v76;
       getSSDownloadPropertyArtistNameSymbolLoc_ptr = *(v123[1] + 24);
-      v73 = v125[3];
+      v74 = v125[3];
     }
 
     _Block_object_dispose(&v124, 8);
-    if (!v73)
+    if (!v74)
     {
       goto LABEL_61;
     }
 
-    v76 = *v73;
-    v128[10] = v76;
+    v77 = *v74;
+    v128[10] = v77;
     v124 = 0;
     v125 = &v124;
     v126 = 0x2020000000;
-    v77 = getSSDownloadPropertyGenreSymbolLoc_ptr;
+    v78 = getSSDownloadPropertyGenreSymbolLoc_ptr;
     v127 = getSSDownloadPropertyGenreSymbolLoc_ptr;
     if (!getSSDownloadPropertyGenreSymbolLoc_ptr)
     {
@@ -493,26 +493,26 @@
       v121 = __getSSDownloadPropertyGenreSymbolLoc_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      v78 = StoreServicesLibrary();
-      v79 = dlsym(v78, "SSDownloadPropertyGenre");
-      *(v123[1] + 24) = v79;
+      v79 = StoreServicesLibrary();
+      v80 = dlsym(v79, "SSDownloadPropertyGenre");
+      *(v123[1] + 24) = v80;
       getSSDownloadPropertyGenreSymbolLoc_ptr = *(v123[1] + 24);
-      v77 = v125[3];
+      v78 = v125[3];
     }
 
-    v109 = v40;
+    v109 = v41;
     _Block_object_dispose(&v124, 8);
-    if (!v77)
+    if (!v78)
     {
       goto LABEL_61;
     }
 
-    v80 = *v77;
-    v128[11] = v80;
+    v81 = *v78;
+    v128[11] = v81;
     v124 = 0;
     v125 = &v124;
     v126 = 0x2020000000;
-    v81 = getSSDownloadPropertyDurationInMillisecondsSymbolLoc_ptr;
+    v82 = getSSDownloadPropertyDurationInMillisecondsSymbolLoc_ptr;
     v127 = getSSDownloadPropertyDurationInMillisecondsSymbolLoc_ptr;
     if (!getSSDownloadPropertyDurationInMillisecondsSymbolLoc_ptr)
     {
@@ -521,33 +521,33 @@
       v121 = __getSSDownloadPropertyDurationInMillisecondsSymbolLoc_block_invoke;
       v122 = &unk_1E8578D30;
       v123 = &v124;
-      v82 = StoreServicesLibrary();
-      v83 = dlsym(v82, "SSDownloadPropertyDurationInMilliseconds");
-      *(v123[1] + 24) = v83;
+      v83 = StoreServicesLibrary();
+      v84 = dlsym(v83, "SSDownloadPropertyDurationInMilliseconds");
+      *(v123[1] + 24) = v84;
       getSSDownloadPropertyDurationInMillisecondsSymbolLoc_ptr = *(v123[1] + 24);
-      v81 = v125[3];
+      v82 = v125[3];
     }
 
     _Block_object_dispose(&v124, 8);
-    if (!v81)
+    if (!v82)
     {
 LABEL_61:
       __73__TLToneManager__ensureTCCAccessPreflightAndCheckForFileExistenceAtPath___block_invoke_cold_2();
       __break(1u);
     }
 
-    v129 = *v81;
-    v84 = MEMORY[0x1E695DEC8];
-    v85 = v129;
-    [v84 arrayWithObjects:v128 count:13];
-    v86 = v2 = p_isa;
+    v129 = *v82;
+    v85 = MEMORY[0x1E695DEC8];
+    v86 = v129;
+    [v85 arrayWithObjects:v128 count:13];
+    v87 = v2 = p_isa;
 
-    [v115 setPrefetchedDownloadProperties:v86];
+    [v115 setPrefetchedDownloadProperties:v87];
     [v115 setShouldFilterExternalOriginatedDownloads:0];
     v124 = 0;
     v125 = &v124;
     v126 = 0x2050000000;
-    v87 = getSSDownloadManagerClass_softClass;
+    v88 = getSSDownloadManagerClass_softClass;
     v127 = getSSDownloadManagerClass_softClass;
     if (!getSSDownloadManagerClass_softClass)
     {
@@ -557,20 +557,20 @@ LABEL_61:
       v122 = &unk_1E8578D30;
       v123 = &v124;
       __getSSDownloadManagerClass_block_invoke(&v119);
-      v87 = v125[3];
+      v88 = v125[3];
     }
 
-    v88 = v87;
+    v89 = v88;
     _Block_object_dispose(&v124, 8);
-    v89 = [[v87 alloc] initWithManagerOptions:v115];
-    v90 = p_isa[6];
-    p_isa[6] = v89;
+    v90 = [[v88 alloc] initWithManagerOptions:v115];
+    v91 = p_isa[6];
+    p_isa[6] = v90;
 
     [p_isa[6] addObserver:p_isa];
     v124 = 0;
     v125 = &v124;
     v126 = 0x2050000000;
-    v91 = getSSPurchaseManagerClass_softClass;
+    v92 = getSSPurchaseManagerClass_softClass;
     v127 = getSSPurchaseManagerClass_softClass;
     if (!getSSPurchaseManagerClass_softClass)
     {
@@ -580,40 +580,39 @@ LABEL_61:
       v122 = &unk_1E8578D30;
       v123 = &v124;
       __getSSPurchaseManagerClass_block_invoke(&v119);
-      v91 = v125[3];
+      v92 = v125[3];
     }
 
-    v92 = v91;
+    v93 = v92;
     _Block_object_dispose(&v124, 8);
-    v93 = [v91 alloc];
-    v94 = MEMORY[0x1E696AEC0];
+    v94 = [v92 alloc];
+    v95 = MEMORY[0x1E696AEC0];
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
     bundleIdentifier2 = [mainBundle bundleIdentifier];
-    v97 = objc_opt_class();
-    v98 = NSStringFromClass(v97);
-    v99 = [v94 stringWithFormat:@"%@.%@", bundleIdentifier2, v98];
-    v100 = [v93 initWithManagerIdentifier:v99];
-    v101 = p_isa[7];
-    p_isa[7] = v100;
+    v98 = objc_opt_class();
+    v99 = NSStringFromClass(v98);
+    v100 = [v95 stringWithFormat:@"%@.%@", bundleIdentifier2, v99];
+    v101 = [v94 initWithManagerIdentifier:v100];
+    v102 = p_isa[7];
+    p_isa[7] = v101;
 
     [p_isa[7] setDelegate:p_isa];
     v116[0] = MEMORY[0x1E69E9820];
     v116[1] = 3221225472;
     v116[2] = __50__TLToneStoreDownloadStoreServicesController_init__block_invoke;
     v116[3] = &unk_1E85789A0;
-    v102 = p_isa;
-    v117 = v102;
-    [v102 _performBlockOnAccessQueue:v116];
+    v103 = p_isa;
+    v117 = v103;
+    [v103 _performBlockOnAccessQueue:v116];
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    v104 = getSSAccountStoreChangedNotification();
+    v105 = getSSAccountStoreChangedNotification();
     defaultStore = [getSSAccountStoreClass() defaultStore];
-    [defaultCenter addObserver:v102 selector:sel__handleAccountStoreDidChangeNotification_ name:v104 object:defaultStore];
+    [defaultCenter addObserver:v103 selector:sel__handleAccountStoreDidChangeNotification_ name:v105 object:defaultStore];
 
-    v106 = +[TLToneManager sharedToneManager];
-    [defaultCenter addObserver:v102 selector:sel__handleToneManagerContentsDidChangeNotification_ name:@"_TLToneManagerContentsChangedNotification" object:v106];
+    v107 = +[TLToneManager sharedToneManager];
+    [defaultCenter addObserver:v103 selector:sel__handleToneManagerContentsDidChangeNotification_ name:@"_TLToneManagerContentsChangedNotification" object:v107];
   }
 
-  v107 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -674,10 +673,7 @@ uint64_t __50__TLToneStoreDownloadStoreServicesController_init__block_invoke(uin
 
 uint64_t __62__TLToneStoreDownloadStoreServicesController_storeAccountName__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 32) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 32) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -746,26 +742,26 @@ LABEL_10:
   [(TLToneStoreDownloadStoreServicesController *)self _performBlockOnAccessQueue:v6];
 }
 
-uint64_t __58__TLToneStoreDownloadStoreServicesController_addObserver___block_invoke(uint64_t result)
+void *__58__TLToneStoreDownloadStoreServicesController_addObserver___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
-    result = [*(*(result + 40) + 24) containsObject:?];
+    result = [*(result[5] + 24) containsObject:?];
     if ((result & 1) == 0)
     {
-      v2 = *(*(v1 + 40) + 24);
+      v2 = *(v1[5] + 24);
       if (!v2)
       {
         v3 = [MEMORY[0x1E696AC70] weakObjectsHashTable];
-        v4 = *(v1 + 40);
+        v4 = v1[5];
         v5 = *(v4 + 24);
         *(v4 + 24) = v3;
 
-        v2 = *(*(v1 + 40) + 24);
+        v2 = *(v1[5] + 24);
       }
 
-      v6 = *(v1 + 32);
+      v6 = v1[4];
 
       return [v2 addObject:v6];
     }
@@ -787,16 +783,16 @@ uint64_t __58__TLToneStoreDownloadStoreServicesController_addObserver___block_in
   [(TLToneStoreDownloadStoreServicesController *)self _performBlockOnAccessQueue:v6];
 }
 
-uint64_t __61__TLToneStoreDownloadStoreServicesController_removeObserver___block_invoke(uint64_t result)
+void *__61__TLToneStoreDownloadStoreServicesController_removeObserver___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
-    result = [*(*(result + 40) + 24) containsObject:?];
+    result = [*(result[5] + 24) containsObject:?];
     if (result)
     {
-      v2 = *(v1 + 32);
-      v3 = *(*(v1 + 40) + 24);
+      v2 = v1[4];
+      v3 = *(v1[5] + 24);
 
       return [v3 removeObject:v2];
     }
@@ -824,44 +820,42 @@ uint64_t __61__TLToneStoreDownloadStoreServicesController_removeObserver___block
 
 void __88__TLToneStoreDownloadStoreServicesController__notifyObserversOfUpdatedStoreAccountName___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          [v7 storeAccountNameDidChange:{*(a1 + 40), v9}];
+          [v7 storeAccountNameDidChange:{*(a1 + 40), v8}];
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyObserversOfCheckingForDownloadsFinishedWithoutNeedToIssueAnyDownload
@@ -880,44 +874,42 @@ void __88__TLToneStoreDownloadStoreServicesController__notifyObserversOfUpdatedS
 
 void __121__TLToneStoreDownloadStoreServicesController__notifyObserversOfCheckingForDownloadsFinishedWithoutNeedToIssueAnyDownload__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v9;
+    v4 = *v8;
     do
     {
       v5 = 0;
       do
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v8 + 1) + 8 * v5);
+        v6 = *(*(&v7 + 1) + 8 * v5);
         if (objc_opt_respondsToSelector())
         {
-          [v6 didFinishCheckingForAvailableToneStoreDownloads:{0, v8}];
+          [v6 didFinishCheckingForAvailableToneStoreDownloads:{0, v7}];
         }
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v3);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyObserversOfStartedToneStoreDownloads:(id)downloads progressedToneStoreDownload:(id)download finishedToneStoreDownloads:(id)storeDownloads
@@ -953,34 +945,33 @@ void __121__TLToneStoreDownloadStoreServicesController__notifyObserversOfCheckin
 
 void __145__TLToneStoreDownloadStoreServicesController__notifyObserversOfStartedToneStoreDownloads_progressedToneStoreDownload_finishedToneStoreDownloads___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (*(a1 + 64) == 1)
         {
-          v8 = *(*(&v10 + 1) + 8 * v6);
           if (objc_opt_respondsToSelector())
           {
-            [v7 didFinishCheckingForAvailableToneStoreDownloads:{1, v10}];
+            [v7 didFinishCheckingForAvailableToneStoreDownloads:{1, v8}];
           }
 
           if (objc_opt_respondsToSelector())
@@ -1003,13 +994,11 @@ void __145__TLToneStoreDownloadStoreServicesController__notifyObserversOfStarted
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)openAlertToneStore
@@ -1138,105 +1127,105 @@ void __78__TLToneStoreDownloadStoreServicesController__openToneStoreWithStoreIte
 
 - (void)redownloadAllTones
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2050000000;
+  v39 = *MEMORY[0x1E69E9840];
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2050000000;
   v3 = getSSTonePurchaseClass_softClass;
-  v34 = getSSTonePurchaseClass_softClass;
+  v35 = getSSTonePurchaseClass_softClass;
   if (!getSSTonePurchaseClass_softClass)
   {
-    v26 = MEMORY[0x1E69E9820];
-    v27 = 3221225472;
-    v28 = __getSSTonePurchaseClass_block_invoke;
-    v29 = &unk_1E8578D30;
-    v30 = &v31;
-    __getSSTonePurchaseClass_block_invoke(&v26);
-    v3 = v32[3];
+    v27 = MEMORY[0x1E69E9820];
+    v28 = 3221225472;
+    v29 = __getSSTonePurchaseClass_block_invoke;
+    v30 = &unk_1E8578D30;
+    v31 = &v32;
+    __getSSTonePurchaseClass_block_invoke(&v27);
+    v3 = v33[3];
   }
 
   v4 = v3;
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v32, 8);
   v5 = objc_alloc_init(v3);
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
   v6 = getSSItemToneStyleRingtoneSymbolLoc_ptr;
-  v34 = getSSItemToneStyleRingtoneSymbolLoc_ptr;
+  v35 = getSSItemToneStyleRingtoneSymbolLoc_ptr;
   if (!getSSItemToneStyleRingtoneSymbolLoc_ptr)
   {
-    v26 = MEMORY[0x1E69E9820];
-    v27 = 3221225472;
-    v28 = __getSSItemToneStyleRingtoneSymbolLoc_block_invoke;
-    v29 = &unk_1E8578D30;
-    v30 = &v31;
+    v27 = MEMORY[0x1E69E9820];
+    v28 = 3221225472;
+    v29 = __getSSItemToneStyleRingtoneSymbolLoc_block_invoke;
+    v30 = &unk_1E8578D30;
+    v31 = &v32;
     v7 = StoreServicesLibrary();
     v8 = dlsym(v7, "SSItemToneStyleRingtone");
-    *(v30[1] + 24) = v8;
-    getSSItemToneStyleRingtoneSymbolLoc_ptr = *(v30[1] + 24);
-    v6 = v32[3];
+    *(v31[1] + 24) = v8;
+    getSSItemToneStyleRingtoneSymbolLoc_ptr = *(v31[1] + 24);
+    v6 = v33[3];
   }
 
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v32, 8);
   if (!v6)
   {
     goto LABEL_17;
   }
 
   v9 = *v6;
-  v36 = v9;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
+  v37 = v9;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
   v10 = getSSItemToneStyleTextToneSymbolLoc_ptr;
-  v34 = getSSItemToneStyleTextToneSymbolLoc_ptr;
+  v35 = getSSItemToneStyleTextToneSymbolLoc_ptr;
   if (!getSSItemToneStyleTextToneSymbolLoc_ptr)
   {
-    v26 = MEMORY[0x1E69E9820];
-    v27 = 3221225472;
-    v28 = __getSSItemToneStyleTextToneSymbolLoc_block_invoke;
-    v29 = &unk_1E8578D30;
-    v30 = &v31;
+    v27 = MEMORY[0x1E69E9820];
+    v28 = 3221225472;
+    v29 = __getSSItemToneStyleTextToneSymbolLoc_block_invoke;
+    v30 = &unk_1E8578D30;
+    v31 = &v32;
     v11 = StoreServicesLibrary();
     v12 = dlsym(v11, "SSItemToneStyleTextTone");
-    *(v30[1] + 24) = v12;
-    getSSItemToneStyleTextToneSymbolLoc_ptr = *(v30[1] + 24);
-    v10 = v32[3];
+    *(v31[1] + 24) = v12;
+    getSSItemToneStyleTextToneSymbolLoc_ptr = *(v31[1] + 24);
+    v10 = v33[3];
   }
 
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v32, 8);
   if (!v10)
   {
     goto LABEL_17;
   }
 
-  v37 = *v10;
+  v38 = *v10;
   v13 = MEMORY[0x1E695DEC8];
-  v14 = v37;
-  v15 = [v13 arrayWithObjects:&v36 count:2];
+  v14 = v38;
+  v15 = [v13 arrayWithObjects:&v37 count:2];
   [v5 setAllowedToneStyles:v15];
 
   [v5 setCreatesDownloads:0];
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
   v16 = getSSDownloadPropertyIsRedownloadSymbolLoc_ptr;
-  v34 = getSSDownloadPropertyIsRedownloadSymbolLoc_ptr;
+  v35 = getSSDownloadPropertyIsRedownloadSymbolLoc_ptr;
   if (!getSSDownloadPropertyIsRedownloadSymbolLoc_ptr)
   {
-    v26 = MEMORY[0x1E69E9820];
-    v27 = 3221225472;
-    v28 = __getSSDownloadPropertyIsRedownloadSymbolLoc_block_invoke;
-    v29 = &unk_1E8578D30;
-    v30 = &v31;
+    v27 = MEMORY[0x1E69E9820];
+    v28 = 3221225472;
+    v29 = __getSSDownloadPropertyIsRedownloadSymbolLoc_block_invoke;
+    v30 = &unk_1E8578D30;
+    v31 = &v32;
     v17 = StoreServicesLibrary();
     v18 = dlsym(v17, "SSDownloadPropertyIsRedownload");
-    *(v30[1] + 24) = v18;
-    getSSDownloadPropertyIsRedownloadSymbolLoc_ptr = *(v30[1] + 24);
-    v16 = v32[3];
+    *(v31[1] + 24) = v18;
+    getSSDownloadPropertyIsRedownloadSymbolLoc_ptr = *(v31[1] + 24);
+    v16 = v33[3];
   }
 
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v32, 8);
   if (!v16)
   {
 LABEL_17:
@@ -1245,57 +1234,55 @@ LABEL_17:
   }
 
   [v5 setValue:MEMORY[0x1E695E118] forDownloadProperty:*v16];
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2050000000;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2050000000;
   v19 = getSSMutableURLRequestPropertiesClass_softClass;
-  v34 = getSSMutableURLRequestPropertiesClass_softClass;
+  v35 = getSSMutableURLRequestPropertiesClass_softClass;
   if (!getSSMutableURLRequestPropertiesClass_softClass)
   {
-    v26 = MEMORY[0x1E69E9820];
-    v27 = 3221225472;
-    v28 = __getSSMutableURLRequestPropertiesClass_block_invoke;
-    v29 = &unk_1E8578D30;
-    v30 = &v31;
-    __getSSMutableURLRequestPropertiesClass_block_invoke(&v26);
-    v19 = v32[3];
+    v27 = MEMORY[0x1E69E9820];
+    v28 = 3221225472;
+    v29 = __getSSMutableURLRequestPropertiesClass_block_invoke;
+    v30 = &unk_1E8578D30;
+    v31 = &v32;
+    __getSSMutableURLRequestPropertiesClass_block_invoke(&v27);
+    v19 = v33[3];
   }
 
   v20 = v19;
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v32, 8);
   v21 = [[v19 alloc] initWithURLRequest:0];
   [v21 setURLBagKey:@"redownloadAllTones"];
-  [v5 setRequestProperties:v21];
-  v22 = TLLogToneManagement();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v22 = [v5 setRequestProperties:v21];
+  v24 = TLLogToneManagement(v22, v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v26) = 0;
-    _os_log_impl(&dword_1D9356000, v22, OS_LOG_TYPE_DEFAULT, "Issuing store purchase for tones.", &v26, 2u);
+    LOWORD(v27) = 0;
+    _os_log_impl(&dword_1D9356000, v24, OS_LOG_TYPE_DEFAULT, "Issuing store purchase for tones.", &v27, 2u);
   }
 
   storePurchaseManager = self->_storePurchaseManager;
-  v35 = v5;
-  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
-  [(SSPurchaseManager *)storePurchaseManager addPurchases:v24 withCompletionBlock:&__block_literal_global_39];
-
-  v25 = *MEMORY[0x1E69E9840];
+  v36 = v5;
+  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
+  [(SSPurchaseManager *)storePurchaseManager addPurchases:v26 withCompletionBlock:&__block_literal_global_39];
 }
 
 void __64__TLToneStoreDownloadStoreServicesController_redownloadAllTones__block_invoke(uint64_t a1, int a2, void *a3)
 {
   v4 = a3;
-  v5 = TLLogToneManagement();
-  v6 = v5;
+  v6 = TLLogToneManagement(v4, v5);
+  v7 = v6;
   if (a2)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1D9356000, v6, OS_LOG_TYPE_DEFAULT, "Store purchase did complete successfully for tones.", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_1D9356000, v7, OS_LOG_TYPE_DEFAULT, "Store purchase did complete successfully for tones.", v8, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     __64__TLToneStoreDownloadStoreServicesController_redownloadAllTones__block_invoke_cold_1(v4);
   }
@@ -1316,55 +1303,55 @@ void __64__TLToneStoreDownloadStoreServicesController_redownloadAllTones__block_
 
 void __86__TLToneStoreDownloadStoreServicesController_downloadManager_downloadStatesDidChange___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v27 = a1;
+  v41 = *MEMORY[0x1E69E9840];
+  v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v26 = a1;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v28 objects:v41 count:16];
+  v2 = [obj countByEnumeratingWithState:&v27 objects:v40 count:16];
   if (v2)
   {
-    v3 = *v29;
-    v24 = &v34;
+    v3 = *v28;
+    v23 = &v33;
     do
     {
       v4 = 0;
       do
       {
-        if (*v29 != v3)
+        if (*v28 != v3)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v28 + 1) + 8 * v4);
-        v6 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v5, "persistentIdentifier", v24)}];
-        v7 = [*(*(v27 + 40) + 40) objectForKey:v6];
+        v5 = *(*(&v27 + 1) + 8 * v4);
+        v6 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v5, "persistentIdentifier", v23)}];
+        v7 = [*(*(v26 + 40) + 40) objectForKey:v6];
         if (v7)
         {
           v8 = [v5 downloadPhaseIdentifier];
-          v37 = 0;
-          v38 = &v37;
-          v39 = 0x2020000000;
+          v36 = 0;
+          v37 = &v36;
+          v38 = 0x2020000000;
           v9 = getSSDownloadPhaseFinishedSymbolLoc_ptr;
-          v40 = getSSDownloadPhaseFinishedSymbolLoc_ptr;
+          v39 = getSSDownloadPhaseFinishedSymbolLoc_ptr;
           if (!getSSDownloadPhaseFinishedSymbolLoc_ptr)
           {
-            v32 = MEMORY[0x1E69E9820];
-            v33 = 3221225472;
-            v34 = __getSSDownloadPhaseFinishedSymbolLoc_block_invoke;
-            v35 = &unk_1E8578D30;
-            v36 = &v37;
+            v31 = MEMORY[0x1E69E9820];
+            v32 = 3221225472;
+            v33 = __getSSDownloadPhaseFinishedSymbolLoc_block_invoke;
+            v34 = &unk_1E8578D30;
+            v35 = &v36;
             v10 = StoreServicesLibrary();
             v11 = dlsym(v10, "SSDownloadPhaseFinished");
-            *(v36[1] + 24) = v11;
-            getSSDownloadPhaseFinishedSymbolLoc_ptr = *(v36[1] + 24);
-            v9 = v38[3];
+            *(v35[1] + 24) = v11;
+            getSSDownloadPhaseFinishedSymbolLoc_ptr = *(v35[1] + 24);
+            v9 = v37[3];
           }
 
-          _Block_object_dispose(&v37, 8);
+          _Block_object_dispose(&v36, 8);
           if (!v9)
           {
 LABEL_29:
@@ -1380,26 +1367,26 @@ LABEL_16:
 
           else
           {
-            v37 = 0;
-            v38 = &v37;
-            v39 = 0x2020000000;
+            v36 = 0;
+            v37 = &v36;
+            v38 = 0x2020000000;
             v13 = getSSDownloadPhaseFailedSymbolLoc_ptr;
-            v40 = getSSDownloadPhaseFailedSymbolLoc_ptr;
+            v39 = getSSDownloadPhaseFailedSymbolLoc_ptr;
             if (!getSSDownloadPhaseFailedSymbolLoc_ptr)
             {
-              v32 = MEMORY[0x1E69E9820];
-              v33 = 3221225472;
-              v34 = __getSSDownloadPhaseFailedSymbolLoc_block_invoke;
-              v35 = &unk_1E8578D30;
-              v36 = &v37;
+              v31 = MEMORY[0x1E69E9820];
+              v32 = 3221225472;
+              v33 = __getSSDownloadPhaseFailedSymbolLoc_block_invoke;
+              v34 = &unk_1E8578D30;
+              v35 = &v36;
               v14 = StoreServicesLibrary();
               v15 = dlsym(v14, "SSDownloadPhaseFailed");
-              *(v36[1] + 24) = v15;
-              getSSDownloadPhaseFailedSymbolLoc_ptr = *(v36[1] + 24);
-              v13 = v38[3];
+              *(v35[1] + 24) = v15;
+              getSSDownloadPhaseFailedSymbolLoc_ptr = *(v35[1] + 24);
+              v13 = v37[3];
             }
 
-            _Block_object_dispose(&v37, 8);
+            _Block_object_dispose(&v36, 8);
             if (!v13)
             {
               goto LABEL_29;
@@ -1412,26 +1399,26 @@ LABEL_16:
               goto LABEL_16;
             }
 
-            v37 = 0;
-            v38 = &v37;
-            v39 = 0x2020000000;
+            v36 = 0;
+            v37 = &v36;
+            v38 = 0x2020000000;
             v18 = getSSDownloadPhaseCanceledSymbolLoc_ptr;
-            v40 = getSSDownloadPhaseCanceledSymbolLoc_ptr;
+            v39 = getSSDownloadPhaseCanceledSymbolLoc_ptr;
             if (!getSSDownloadPhaseCanceledSymbolLoc_ptr)
             {
-              v32 = MEMORY[0x1E69E9820];
-              v33 = 3221225472;
-              v34 = __getSSDownloadPhaseCanceledSymbolLoc_block_invoke;
-              v35 = &unk_1E8578D30;
-              v36 = &v37;
+              v31 = MEMORY[0x1E69E9820];
+              v32 = 3221225472;
+              v33 = __getSSDownloadPhaseCanceledSymbolLoc_block_invoke;
+              v34 = &unk_1E8578D30;
+              v35 = &v36;
               v19 = StoreServicesLibrary();
               v20 = dlsym(v19, "SSDownloadPhaseCanceled");
-              *(v36[1] + 24) = v20;
-              getSSDownloadPhaseCanceledSymbolLoc_ptr = *(v36[1] + 24);
-              v18 = v38[3];
+              *(v35[1] + 24) = v20;
+              getSSDownloadPhaseCanceledSymbolLoc_ptr = *(v35[1] + 24);
+              v18 = v37[3];
             }
 
-            _Block_object_dispose(&v37, 8);
+            _Block_object_dispose(&v36, 8);
             if (!v18)
             {
               goto LABEL_29;
@@ -1445,7 +1432,7 @@ LABEL_16:
 LABEL_19:
               *&v17 = v17;
               [v7 _setDownloadProgress:v17];
-              [v26 addObject:v7];
+              [v25 addObject:v7];
 
               goto LABEL_20;
             }
@@ -1466,171 +1453,171 @@ LABEL_20:
       }
 
       while (v2 != v4);
-      v22 = [obj countByEnumeratingWithState:&v28 objects:v41 count:16];
+      v22 = [obj countByEnumeratingWithState:&v27 objects:v40 count:16];
       v2 = v22;
     }
 
     while (v22);
   }
 
-  [*(v27 + 40) _notifyObserversOfStartedToneStoreDownloads:0 progressedToneStoreDownload:v26 finishedToneStoreDownloads:0];
-  v23 = *MEMORY[0x1E69E9840];
+  [*(v26 + 40) _notifyObserversOfStartedToneStoreDownloads:0 progressedToneStoreDownload:v25 finishedToneStoreDownloads:0];
 }
 
 - (void)purchaseManager:(id)manager didFinishPurchasesWithResponses:(id)responses
 {
-  v93 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   responsesCopy = responses;
-  v56 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v55 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v61 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v79 = 0u;
-  v80 = 0u;
-  v81 = 0u;
-  v82 = 0u;
+  v64 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v63 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v69 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v87 = 0u;
+  v88 = 0u;
+  v89 = 0u;
+  v90 = 0u;
   obj = responsesCopy;
-  v53 = [obj countByEnumeratingWithState:&v79 objects:v89 count:16];
-  if (v53)
+  v6 = [obj countByEnumeratingWithState:&v87 objects:v97 count:16];
+  v61 = v6;
+  if (v6)
   {
-    v52 = *v80;
+    v60 = *v88;
     do
     {
-      v6 = 0;
+      v8 = 0;
       do
       {
-        if (*v80 != v52)
+        if (*v88 != v60)
         {
-          v7 = v6;
+          v9 = v8;
           objc_enumerationMutation(obj);
-          v6 = v7;
+          v8 = v9;
         }
 
-        v54 = v6;
-        v8 = *(*(&v79 + 1) + 8 * v6);
-        v9 = TLLogToneManagement();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v62 = v8;
+        v10 = *(*(&v87 + 1) + 8 * v8);
+        v11 = TLLogToneManagement(v6, v7);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          uRLResponse = [v8 URLResponse];
+          uRLResponse = [v10 URLResponse];
           storeCorrelationID = [uRLResponse storeCorrelationID];
           *buf = 138543362;
           *&buf[4] = storeCorrelationID;
-          _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "Did finish store purchase with correlation key: %{public}@.", buf, 0xCu);
+          _os_log_impl(&dword_1D9356000, v11, OS_LOG_TYPE_DEFAULT, "Did finish store purchase with correlation key: %{public}@.", buf, 0xCu);
         }
 
-        v64 = +[TLToneManager sharedToneManager];
-        _installedTones = [v64 _installedTones];
-        downloadsMetadata = [v8 downloadsMetadata];
-        v77 = 0u;
-        v78 = 0u;
-        v75 = 0u;
-        v76 = 0u;
-        v58 = downloadsMetadata;
-        v60 = [v58 countByEnumeratingWithState:&v75 objects:v88 count:16];
-        if (v60)
+        v72 = +[TLToneManager sharedToneManager];
+        _installedTones = [v72 _installedTones];
+        downloadsMetadata = [v10 downloadsMetadata];
+        v85 = 0u;
+        v86 = 0u;
+        v83 = 0u;
+        v84 = 0u;
+        v66 = downloadsMetadata;
+        v68 = [v66 countByEnumeratingWithState:&v83 objects:v96 count:16];
+        if (v68)
         {
-          v59 = *v76;
+          v67 = *v84;
           while (2)
           {
-            v13 = 0;
+            v15 = 0;
             do
             {
-              if (*v76 != v59)
+              if (*v84 != v67)
               {
-                v14 = v13;
-                objc_enumerationMutation(v58);
-                v13 = v14;
+                v16 = v15;
+                objc_enumerationMutation(v66);
+                v15 = v16;
               }
 
-              v62 = v13;
-              v15 = *(*(&v75 + 1) + 8 * v13);
-              kind = [v15 kind];
-              v16 = getSSDownloadKindRingtone();
-              if ([kind isEqualToString:v16])
+              v70 = v15;
+              v17 = *(*(&v83 + 1) + 8 * v15);
+              kind = [v17 kind];
+              v18 = getSSDownloadKindRingtone();
+              if ([kind isEqualToString:v18])
               {
               }
 
               else
               {
-                v17 = getSSDownloadKindTone();
-                v18 = [kind isEqualToString:v17];
+                v19 = getSSDownloadKindTone();
+                v20 = [kind isEqualToString:v19];
 
-                if ((v18 & 1) == 0)
+                if ((v20 & 1) == 0)
                 {
-                  v19 = getSSDownloadKindRingtone();
+                  v21 = getSSDownloadKindRingtone();
 
-                  v20 = [v15 copy];
-                  [v20 setKind:v19];
-                  kind = v19;
-                  v15 = v20;
+                  v22 = [v17 copy];
+                  [v22 setKind:v21];
+                  kind = v21;
+                  v17 = v22;
                 }
               }
 
-              v21 = objc_alloc_init(TLToneStoreDownload);
-              title = [v15 title];
-              [(TLToneStoreDownload *)v21 _setName:title];
+              v23 = objc_alloc_init(TLToneStoreDownload);
+              title = [v17 title];
+              [(TLToneStoreDownload *)v23 _setName:title];
 
-              collectionName = [v15 collectionName];
-              [(TLToneStoreDownload *)v21 _setAlbumTitle:collectionName];
+              collectionName = [v17 collectionName];
+              [(TLToneStoreDownload *)v23 _setAlbumTitle:collectionName];
 
-              artistName = [v15 artistName];
-              [(TLToneStoreDownload *)v21 _setArtistName:artistName];
+              artistName = [v17 artistName];
+              [(TLToneStoreDownload *)v23 _setArtistName:artistName];
 
-              durationInMilliseconds = [v15 durationInMilliseconds];
-              v26 = objc_opt_respondsToSelector();
+              durationInMilliseconds = [v17 durationInMilliseconds];
+              v28 = objc_opt_respondsToSelector();
               unsignedIntegerValue = 0.0;
-              if (v26)
+              if (v28)
               {
                 unsignedIntegerValue = [durationInMilliseconds unsignedIntegerValue];
               }
 
-              [(TLToneStoreDownload *)v21 _setDuration:unsignedIntegerValue / 1000.0, managerCopy];
+              [(TLToneStoreDownload *)v23 _setDuration:unsignedIntegerValue / 1000.0, managerCopy];
 
-              genre = [v15 genre];
-              [(TLToneStoreDownload *)v21 _setGenreName:genre];
+              genre = [v17 genre];
+              [(TLToneStoreDownload *)v23 _setGenreName:genre];
 
-              -[TLToneStoreDownload _setStoreItemIdentifier:](v21, "_setStoreItemIdentifier:", [v15 itemIdentifier]);
-              v29 = getSSDownloadKindTone();
-              -[TLToneStoreDownload _setRingtone:](v21, "_setRingtone:", [kind isEqualToString:v29] ^ 1);
+              -[TLToneStoreDownload _setStoreItemIdentifier:](v23, "_setStoreItemIdentifier:", [v17 itemIdentifier]);
+              v31 = getSSDownloadKindTone();
+              -[TLToneStoreDownload _setRingtone:](v23, "_setRingtone:", [kind isEqualToString:v31] ^ 1);
 
-              v30 = [v61 indexOfObject:v21];
-              if (v30 == 0x7FFFFFFFFFFFFFFFLL)
+              v32 = [v69 indexOfObject:v23];
+              if (v32 == 0x7FFFFFFFFFFFFFFFLL)
               {
-                v31 = [[TLITunesTone alloc] initWithToneStoreDownload:v21];
-                v73 = 0u;
-                v74 = 0u;
-                v71 = 0u;
-                v72 = 0u;
-                v32 = _installedTones;
-                v33 = [v32 countByEnumeratingWithState:&v71 objects:v87 count:16];
-                if (v33)
+                v33 = [[TLITunesTone alloc] initWithToneStoreDownload:v23];
+                v81 = 0u;
+                v82 = 0u;
+                v79 = 0u;
+                v80 = 0u;
+                v34 = _installedTones;
+                v35 = [v34 countByEnumeratingWithState:&v79 objects:v95 count:16];
+                if (v35)
                 {
-                  v9 = *v72;
+                  v11 = *v80;
                   while (2)
                   {
-                    for (i = 0; i != v33; ++i)
+                    for (i = 0; i != v35; ++i)
                     {
-                      if (*v72 != v9)
+                      if (*v80 != v11)
                       {
-                        objc_enumerationMutation(v32);
+                        objc_enumerationMutation(v34);
                       }
 
-                      v35 = *(*(&v71 + 1) + 8 * i);
-                      if ([(TLITunesTone *)v31 isDuplicateOfTone:v35])
+                      v37 = *(*(&v79 + 1) + 8 * i);
+                      if ([(TLITunesTone *)v33 isDuplicateOfTone:v37])
                       {
-                        identifier = [v35 identifier];
-                        v37 = [v64 toneWithIdentifierIsValid:identifier];
+                        identifier = [v37 identifier];
+                        v39 = [v72 toneWithIdentifierIsValid:identifier];
 
-                        if (v37)
+                        if (v39)
                         {
-                          v44 = TLLogToneManagement();
-                          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+                          v51 = TLLogToneManagement(v40, v41);
+                          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
                           {
                             *buf = 138543618;
-                            *&buf[4] = v15;
+                            *&buf[4] = v17;
                             *&buf[12] = 2114;
-                            *&buf[14] = v35;
-                            _os_log_impl(&dword_1D9356000, v44, OS_LOG_TYPE_DEFAULT, "Store download metadata %{public}@ of tone was found to be a duplicate of the following existing tone: %{public}@. This tone will not be re-downloaded.", buf, 0x16u);
+                            *&buf[14] = v37;
+                            _os_log_impl(&dword_1D9356000, v51, OS_LOG_TYPE_DEFAULT, "Store download metadata %{public}@ of tone was found to be a duplicate of the following existing tone: %{public}@. This tone will not be re-downloaded.", buf, 0x16u);
                           }
 
                           goto LABEL_42;
@@ -1638,8 +1625,8 @@ LABEL_20:
                       }
                     }
 
-                    v33 = [v32 countByEnumeratingWithState:&v71 objects:v87 count:16];
-                    if (v33)
+                    v35 = [v34 countByEnumeratingWithState:&v79 objects:v95 count:16];
+                    if (v35)
                     {
                       continue;
                     }
@@ -1648,92 +1635,92 @@ LABEL_20:
                   }
                 }
 
-                [v61 addObject:v21];
-                v83 = 0;
-                v84 = &v83;
-                v85 = 0x2050000000;
-                v38 = getSSDownloadClass_softClass;
-                v86 = getSSDownloadClass_softClass;
+                [v69 addObject:v23];
+                v91 = 0;
+                v92 = &v91;
+                v93 = 0x2050000000;
+                v42 = getSSDownloadClass_softClass;
+                v94 = getSSDownloadClass_softClass;
                 if (!getSSDownloadClass_softClass)
                 {
                   *buf = MEMORY[0x1E69E9820];
                   *&buf[8] = 3221225472;
                   *&buf[16] = __getSSDownloadClass_block_invoke;
-                  v91 = &unk_1E8578D30;
-                  v92 = &v83;
+                  v99 = &unk_1E8578D30;
+                  v100 = &v91;
                   __getSSDownloadClass_block_invoke(buf);
-                  v38 = v84[3];
+                  v42 = v92[3];
                 }
 
-                v39 = v38;
-                _Block_object_dispose(&v83, 8);
-                v31 = [[v38 alloc] initWithDownloadMetadata:v15];
-                v83 = 0;
-                v84 = &v83;
-                v85 = 0x2020000000;
-                v40 = getSSDownloadPropertyIsStoreDownloadSymbolLoc_ptr;
-                v86 = getSSDownloadPropertyIsStoreDownloadSymbolLoc_ptr;
+                v43 = v42;
+                _Block_object_dispose(&v91, 8);
+                v33 = [[v42 alloc] initWithDownloadMetadata:v17];
+                v91 = 0;
+                v92 = &v91;
+                v93 = 0x2020000000;
+                v44 = getSSDownloadPropertyIsStoreDownloadSymbolLoc_ptr;
+                v94 = getSSDownloadPropertyIsStoreDownloadSymbolLoc_ptr;
                 if (!getSSDownloadPropertyIsStoreDownloadSymbolLoc_ptr)
                 {
                   *buf = MEMORY[0x1E69E9820];
                   *&buf[8] = 3221225472;
                   *&buf[16] = __getSSDownloadPropertyIsStoreDownloadSymbolLoc_block_invoke;
-                  v91 = &unk_1E8578D30;
-                  v92 = &v83;
-                  v41 = StoreServicesLibrary();
-                  v42 = dlsym(v41, "SSDownloadPropertyIsStoreDownload");
-                  *(v92[1] + 24) = v42;
-                  getSSDownloadPropertyIsStoreDownloadSymbolLoc_ptr = *(v92[1] + 24);
-                  v40 = v84[3];
+                  v99 = &unk_1E8578D30;
+                  v100 = &v91;
+                  v45 = StoreServicesLibrary();
+                  v46 = dlsym(v45, "SSDownloadPropertyIsStoreDownload");
+                  *(v100[1] + 24) = v46;
+                  getSSDownloadPropertyIsStoreDownloadSymbolLoc_ptr = *(v100[1] + 24);
+                  v44 = v92[3];
                 }
 
-                _Block_object_dispose(&v83, 8);
-                if (!v40)
+                _Block_object_dispose(&v91, 8);
+                if (!v44)
                 {
-                  v46 = __73__TLToneManager__ensureTCCAccessPreflightAndCheckForFileExistenceAtPath___block_invoke_cold_2();
+                  v55 = __73__TLToneManager__ensureTCCAccessPreflightAndCheckForFileExistenceAtPath___block_invoke_cold_2();
                   __break(1u);
                   goto LABEL_51;
                 }
 
-                [(TLITunesTone *)v31 setValue:MEMORY[0x1E695E118] forProperty:*v40];
-                [v56 addObject:v31];
-                v32 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[TLITunesTone persistentIdentifier](v31, "persistentIdentifier")}];
-                [v55 setObject:v21 forKey:v32];
-                v43 = TLLogToneManagement();
-                if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+                [(TLITunesTone *)v33 setValue:MEMORY[0x1E695E118] forProperty:*v44];
+                [v64 addObject:v33];
+                v34 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[TLITunesTone persistentIdentifier](v33, "persistentIdentifier")}];
+                v47 = [v63 setObject:v23 forKey:v34];
+                v49 = TLLogToneManagement(v47, v48);
+                if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543874;
-                  *&buf[4] = v21;
+                  *&buf[4] = v23;
                   *&buf[12] = 2114;
-                  *&buf[14] = v31;
+                  *&buf[14] = v33;
                   *&buf[22] = 2114;
-                  v91 = v15;
-                  _os_log_impl(&dword_1D9356000, v43, OS_LOG_TYPE_DEFAULT, "Issuing store download for %{public}@: %{public}@ (based on %{public}@).", buf, 0x20u);
+                  v99 = v17;
+                  _os_log_impl(&dword_1D9356000, v49, OS_LOG_TYPE_DEFAULT, "Issuing store download for %{public}@: %{public}@ (based on %{public}@).", buf, 0x20u);
                 }
               }
 
               else
               {
-                v31 = [v61 objectAtIndex:v30];
-                v32 = TLLogToneManagement();
-                if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+                v33 = [v69 objectAtIndex:v32];
+                v34 = TLLogToneManagement(v33, v50);
+                if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543618;
-                  *&buf[4] = v15;
+                  *&buf[4] = v17;
                   *&buf[12] = 2114;
-                  *&buf[14] = v31;
-                  _os_log_impl(&dword_1D9356000, v32, OS_LOG_TYPE_DEFAULT, "Store download metadata %{public}@ of tone was found to be a duplicate of the following upcoming tone download: %{public}@. This tone will not be re-downloaded.", buf, 0x16u);
+                  *&buf[14] = v33;
+                  _os_log_impl(&dword_1D9356000, v34, OS_LOG_TYPE_DEFAULT, "Store download metadata %{public}@ of tone was found to be a duplicate of the following upcoming tone download: %{public}@. This tone will not be re-downloaded.", buf, 0x16u);
                 }
               }
 
 LABEL_42:
 
-              v13 = v62 + 1;
+              v15 = v70 + 1;
             }
 
-            while (v62 + 1 != v60);
-            v60 = [v58 countByEnumeratingWithState:&v75 objects:v88 count:16];
-            if (v60)
+            while (v70 + 1 != v68);
+            v68 = [v66 countByEnumeratingWithState:&v83 objects:v96 count:16];
+            if (v68)
             {
               continue;
             }
@@ -1742,62 +1729,61 @@ LABEL_42:
           }
         }
 
-        v6 = v54 + 1;
+        v8 = v62 + 1;
       }
 
-      while (v54 + 1 != v53);
-      v53 = [obj countByEnumeratingWithState:&v79 objects:v89 count:16];
+      while (v62 + 1 != v61);
+      v6 = [obj countByEnumeratingWithState:&v87 objects:v97 count:16];
+      v61 = v6;
     }
 
-    while (v53);
+    while (v6);
   }
 
-  v45 = [v56 count];
-  v68[0] = MEMORY[0x1E69E9820];
-  v68[1] = 3221225472;
-  v68[2] = __94__TLToneStoreDownloadStoreServicesController_purchaseManager_didFinishPurchasesWithResponses___block_invoke;
-  v68[3] = &unk_1E8578FC0;
-  v70 = v45;
-  v68[4] = self;
-  v40 = v55;
-  v69 = v40;
-  [(TLToneStoreDownloadStoreServicesController *)self _performBlockOnAccessQueue:v68];
-  v9 = TLLogToneManagement();
-  v46 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-  if (v45)
+  v52 = [v64 count];
+  v76[0] = MEMORY[0x1E69E9820];
+  v76[1] = 3221225472;
+  v76[2] = __94__TLToneStoreDownloadStoreServicesController_purchaseManager_didFinishPurchasesWithResponses___block_invoke;
+  v76[3] = &unk_1E8578FC0;
+  v78 = v52;
+  v76[4] = self;
+  v44 = v63;
+  v77 = v44;
+  v53 = [(TLToneStoreDownloadStoreServicesController *)self _performBlockOnAccessQueue:v76];
+  v11 = TLLogToneManagement(v53, v54);
+  v55 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  if (v52)
   {
-    if (v46)
+    if (v55)
     {
       *buf = 134217984;
-      *&buf[4] = v45;
-      _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "Adding %lu tone store downloads.", buf, 0xCu);
+      *&buf[4] = v52;
+      _os_log_impl(&dword_1D9356000, v11, OS_LOG_TYPE_DEFAULT, "Adding %lu tone store downloads.", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
     storeDownloadManager = self->_storeDownloadManager;
-    v65[0] = MEMORY[0x1E69E9820];
-    v65[1] = 3221225472;
-    v65[2] = __94__TLToneStoreDownloadStoreServicesController_purchaseManager_didFinishPurchasesWithResponses___block_invoke_44;
-    v65[3] = &unk_1E8578FE8;
-    objc_copyWeak(&v67, buf);
-    v66 = v61;
-    [(SSDownloadManager *)storeDownloadManager addDownloads:v56 completionBlock:v65];
+    v73[0] = MEMORY[0x1E69E9820];
+    v73[1] = 3221225472;
+    v73[2] = __94__TLToneStoreDownloadStoreServicesController_purchaseManager_didFinishPurchasesWithResponses___block_invoke_44;
+    v73[3] = &unk_1E8578FE8;
+    objc_copyWeak(&v75, buf);
+    v74 = v69;
+    [(SSDownloadManager *)storeDownloadManager addDownloads:v64 completionBlock:v73];
 
-    objc_destroyWeak(&v67);
+    objc_destroyWeak(&v75);
     objc_destroyWeak(buf);
   }
 
   else
   {
 LABEL_51:
-    if (v46)
+    if (v55)
     {
       *buf = 0;
-      _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "No previously purchased tone needs to be redownloaded. We're done here.", buf, 2u);
+      _os_log_impl(&dword_1D9356000, v11, OS_LOG_TYPE_DEFAULT, "No previously purchased tone needs to be redownloaded. We're done here.", buf, 2u);
     }
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __94__TLToneStoreDownloadStoreServicesController_purchaseManager_didFinishPurchasesWithResponses___block_invoke(uint64_t a1)
@@ -1817,40 +1803,41 @@ void __94__TLToneStoreDownloadStoreServicesController_purchaseManager_didFinishP
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v6 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = TLLogToneManagement();
-    v6 = v5;
+    v7 = TLLogToneManagement(WeakRetained, v5);
+    v8 = v7;
     if (v3)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __94__TLToneStoreDownloadStoreServicesController_purchaseManager_didFinishPurchasesWithResponses___block_invoke_44_cold_1(v3);
       }
 
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __94__TLToneStoreDownloadStoreServicesController_purchaseManager_didFinishPurchasesWithResponses___block_invoke_45;
-      v10[3] = &unk_1E85789A0;
-      v10[4] = WeakRetained;
-      [WeakRetained _performBlockOnAccessQueue:v10];
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __94__TLToneStoreDownloadStoreServicesController_purchaseManager_didFinishPurchasesWithResponses___block_invoke_45;
+      v12[3] = &unk_1E85789A0;
+      v12[4] = v6;
+      [v6 _performBlockOnAccessQueue:v12];
     }
 
     else
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1D9356000, v6, OS_LOG_TYPE_DEFAULT, "Successfully added store downloads for tones.", buf, 2u);
+        _os_log_impl(&dword_1D9356000, v8, OS_LOG_TYPE_DEFAULT, "Successfully added store downloads for tones.", buf, 2u);
       }
 
-      v7[0] = MEMORY[0x1E69E9820];
-      v7[1] = 3221225472;
-      v7[2] = __94__TLToneStoreDownloadStoreServicesController_purchaseManager_didFinishPurchasesWithResponses___block_invoke_46;
-      v7[3] = &unk_1E8578900;
-      v7[4] = WeakRetained;
-      v8 = *(a1 + 32);
-      [WeakRetained _performBlockOnAccessQueue:v7];
+      v9[0] = MEMORY[0x1E69E9820];
+      v9[1] = 3221225472;
+      v9[2] = __94__TLToneStoreDownloadStoreServicesController_purchaseManager_didFinishPurchasesWithResponses___block_invoke_46;
+      v9[3] = &unk_1E8578900;
+      v9[4] = v6;
+      v10 = *(a1 + 32);
+      [v6 _performBlockOnAccessQueue:v9];
     }
   }
 }
@@ -1893,30 +1880,30 @@ void __94__TLToneStoreDownloadStoreServicesController__handleToneManagerContents
 
 void __94__TLToneStoreDownloadStoreServicesController__handleToneManagerContentsDidChangeNotification___block_invoke_2(id *a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [[TLITunesTone alloc] initWithToneStoreDownload:v6];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = a1[4];
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
+        v13 = *(*(&v15 + 1) + 8 * i);
         v14 = [v13 identifier];
         if ([v13 isDuplicateOfTone:v7] && objc_msgSend(a1[5], "toneWithIdentifierIsValid:", v14))
         {
@@ -1926,13 +1913,11 @@ void __94__TLToneStoreDownloadStoreServicesController__handleToneManagerContents
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_performBlockOnAccessQueue:(id)queue
@@ -1946,11 +1931,10 @@ void __94__TLToneStoreDownloadStoreServicesController__handleToneManagerContents
 
 - (void)_assertRunningOnAccessQueue
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   accessQueue = self->_accessQueue;
   if (accessQueue)
   {
-    v4 = *MEMORY[0x1E69E9840];
 
     dispatch_assert_queue_V2(accessQueue);
   }
@@ -1958,67 +1942,64 @@ void __94__TLToneStoreDownloadStoreServicesController__handleToneManagerContents
   else
   {
     label = dispatch_queue_get_label(0);
-    if (strcmp(label, [(NSString *)self->_accessQueueLabel UTF8String]))
+    v5 = strcmp(label, [(NSString *)self->_accessQueueLabel UTF8String]);
+    if (v5)
     {
-      v6 = TLLogGeneral();
-      v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+      v7 = TLLogGeneral(v5, v6);
+      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
 
-      if (v7)
+      if (v8)
       {
-        v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Tones/ToneStoreDownloads/Embedded/TLToneStoreDownloadStoreServicesController.m"];
-        v9 = TLLogGeneral();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Tones/ToneStoreDownloads/Embedded/TLToneStoreDownloadStoreServicesController.m"];
+        v13 = TLLogGeneral(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          lastPathComponent = [v8 lastPathComponent];
+          lastPathComponent = [v11 lastPathComponent];
           callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-          v14 = 136381443;
-          v15 = "[TLToneStoreDownloadStoreServicesController _assertRunningOnAccessQueue]";
-          v16 = 2113;
-          v17 = lastPathComponent;
-          v18 = 2049;
-          v19 = 455;
-          v20 = 2113;
-          v21 = callStackSymbols;
-          _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v14, 0x2Au);
+          v19 = 136381443;
+          v20 = "[TLToneStoreDownloadStoreServicesController _assertRunningOnAccessQueue]";
+          v21 = 2113;
+          v22 = lastPathComponent;
+          v23 = 2049;
+          v24 = 455;
+          v25 = 2113;
+          v26 = callStackSymbols;
+          _os_log_impl(&dword_1D9356000, v13, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v19, 0x2Au);
         }
       }
 
       else
       {
-        v8 = TLLogGeneral();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v11 = TLLogGeneral(v9, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          [(TLToneStoreDownloadStoreServicesController *)v8 _assertRunningOnAccessQueue];
+          [(TLToneStoreDownloadStoreServicesController *)v11 _assertRunningOnAccessQueue];
         }
       }
 
-      v12 = TLLogGeneral();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v18 = TLLogGeneral(v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        [(TLToneStoreDownloadStoreServicesController *)v12 _assertRunningOnAccessQueue];
+        [(TLToneStoreDownloadStoreServicesController *)v18 _assertRunningOnAccessQueue];
       }
     }
-
-    v13 = *MEMORY[0x1E69E9840];
   }
 }
 
 void __64__TLToneStoreDownloadStoreServicesController_redownloadAllTones__block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 tl_nonRedundantDescription];
-  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Failed to add store purchase for tones with error: %{public}@.", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Failed to add store purchase for tones with error: %{public}@.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __94__TLToneStoreDownloadStoreServicesController_purchaseManager_didFinishPurchasesWithResponses___block_invoke_44_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 tl_nonRedundantDescription];
-  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Failed to add store downloads for tones with error: %{public}@.", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_1D9356000, v2, v3, "Failed to add store downloads for tones with error: %{public}@.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

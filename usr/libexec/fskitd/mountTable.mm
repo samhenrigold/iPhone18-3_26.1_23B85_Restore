@@ -1,5 +1,6 @@
 @interface mountTable
 - (id)list:(BOOL)list;
+- (id)lookup:(unsigned int)lookup;
 - (id)lookupByPath:(id)path;
 - (id)lookupName:(id)name provider:(id)provider;
 - (id)preflightMountWithName:(id)name displayName:(id)displayName storageName:(id)storageName provider:(id)provider path:(id)path error:(id *)error;
@@ -77,6 +78,47 @@ LABEL_7:
   sharedCopy[2](sharedCopy);
 
   pthread_rwlock_unlock(&self->opLock);
+}
+
+- (id)lookup:(unsigned int)lookup
+{
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = sub_10003A7E8;
+  v19 = sub_10003A7F8;
+  v20 = 0;
+  [NSNumber numberWithUnsignedInt:*&lookup];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10003FDB4;
+  v12[3] = &unk_100060B48;
+  v14 = &v15;
+  v4 = v12[4] = self;
+  v13 = v4;
+  [(mountTable *)self performShared:v12];
+  v5 = v16[5];
+  if (!v5)
+  {
+    v6 = livefs_std_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "retrying lookup", v11, 2u);
+    }
+
+    v7 = [(NSMutableDictionary *)self->mntTable objectForKey:v4];
+    v8 = v16[5];
+    v16[5] = v7;
+
+    v5 = v16[5];
+  }
+
+  v9 = v5;
+
+  _Block_object_dispose(&v15, 8);
+
+  return v9;
 }
 
 - (id)lookupByPath:(id)path

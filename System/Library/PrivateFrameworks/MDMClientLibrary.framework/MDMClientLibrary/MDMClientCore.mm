@@ -16,6 +16,7 @@
 - (void)depPushTokenWithCompletion:(id)completion;
 - (void)disablePushWakeWithCompletion:(id)completion;
 - (void)enablePushWakeWithCompletion:(id)completion;
+- (void)evaluateMigrationStatusWithPollFromServer:(BOOL)server completionHandler:(id)handler;
 - (void)generateAndSyncBootstrapTokenWithDevicePasscode:(id)passcode completionHandler:(id)handler;
 - (void)generateAndSyncBootstrapTokenWithDevicePasscodeContext:(id)context completionHandler:(id)handler;
 - (void)generateBootstrapTokenWithDevicePasscode:(id)passcode completionHandler:(id)handler;
@@ -23,15 +24,20 @@
 - (void)getAssertionDescriptionsWithCompletion:(id)completion;
 - (void)getOrgTokenForMAIDWithCompletionHandler:(id)handler;
 - (void)getWatchPairingTokenForPhoneID:(id)d watchID:(id)iD securityToken:(id)token completionHandler:(id)handler;
+- (void)migrateMDMWithContext:(int)context completion:(id)completion;
 - (void)monitorDEPPushTokenIfNeededWithCompletion:(id)completion;
 - (void)monitorDEPPushTokenWithCompletion:(id)completion;
 - (void)nagWithID:(id)d clientID:(id)iD schedule:(id)schedule title:(id)title message:(id)message notificationTitle:(id)notificationTitle notificationMessage:(id)notificationMessage actionTitle:(id)self0 actionURL:(id)self1 dismissTitle:(id)self2 dismissURL:(id)self3 deadlineURL:(id)self4 completion:(id)self5;
 - (void)notifyNewConfiguration;
 - (void)preserveAppsWithCompletion:(id)completion;
+- (void)processDeviceRequest:(id)request encodeResponse:(BOOL)response completion:(id)completion;
+- (void)processUserRequest:(id)request encodeResponse:(BOOL)response completion:(id)completion;
 - (void)reauthenticationComplete;
 - (void)removeUnusedPreservedAppsWithCompletion:(id)completion;
+- (void)requestDeviceObliterationWithPreserveDataPlan:(BOOL)plan disallowProximitySetup:(BOOL)setup completionHandler:(id)handler;
 - (void)requestInstallOfAppsInRestoreWithCompletion:(id)completion;
 - (void)requestRRTSCheckInAndValidationWithCompletionHandler:(id)handler;
+- (void)requestReturnToServiceObliterationWithPreserveDataPlan:(BOOL)plan disallowProximitySetup:(BOOL)setup mdmProfileData:(id)data wifiProfileData:(id)profileData revertToSnapshotName:(id)name bootstrapToken:(id)token completionHandler:(id)handler;
 - (void)retryNotNowResponse;
 - (void)scheduleTokenUpdate;
 - (void)scheduleTokenUpdateIfNecessary;
@@ -100,21 +106,19 @@
 
 void __56__MDMClientCore_getAssertionDescriptionsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(DMCLogObjects() + 8);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = v4;
     v6 = [v3 DMCVerboseDescription];
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Failed to get assertion descriptions. Error: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Failed to get assertion descriptions. Error: %{public}@", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyNewConfiguration
@@ -126,7 +130,7 @@ void __56__MDMClientCore_getAssertionDescriptionsWithCompletion___block_invoke(u
 
 void __39__MDMClientCore_notifyNewConfiguration__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
@@ -135,13 +139,11 @@ void __39__MDMClientCore_notifyNewConfiguration__block_invoke(uint64_t a1, void 
     {
       v4 = v3;
       v5 = [v2 DMCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error in notifyNewConfiguration XPC reply. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error in notifyNewConfiguration XPC reply. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleTokenUpdate
@@ -153,7 +155,7 @@ void __39__MDMClientCore_notifyNewConfiguration__block_invoke(uint64_t a1, void 
 
 void __36__MDMClientCore_scheduleTokenUpdate__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
@@ -162,13 +164,11 @@ void __36__MDMClientCore_scheduleTokenUpdate__block_invoke(uint64_t a1, void *a2
     {
       v4 = v3;
       v5 = [v2 DMCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error in scheduleTokenUpdate XPC reply. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error in scheduleTokenUpdate XPC reply. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleTokenUpdateIfNecessary
@@ -180,7 +180,7 @@ void __36__MDMClientCore_scheduleTokenUpdate__block_invoke(uint64_t a1, void *a2
 
 void __47__MDMClientCore_scheduleTokenUpdateIfNecessary__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
@@ -189,13 +189,11 @@ void __47__MDMClientCore_scheduleTokenUpdateIfNecessary__block_invoke(uint64_t a
     {
       v4 = v3;
       v5 = [v2 DMCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error in scheduleTokenUpdate XPC reply. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error in scheduleTokenUpdate XPC reply. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retryNotNowResponse
@@ -207,7 +205,7 @@ void __47__MDMClientCore_scheduleTokenUpdateIfNecessary__block_invoke(uint64_t a
 
 void __36__MDMClientCore_retryNotNowResponse__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
@@ -216,13 +214,11 @@ void __36__MDMClientCore_retryNotNowResponse__block_invoke(uint64_t a1, void *a2
     {
       v4 = v3;
       v5 = [v2 DMCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error in retryNotNowResponse XPC reply. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error in retryNotNowResponse XPC reply. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)simulatePush
@@ -234,7 +230,7 @@ void __36__MDMClientCore_retryNotNowResponse__block_invoke(uint64_t a1, void *a2
 
 void __29__MDMClientCore_simulatePush__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
@@ -243,13 +239,11 @@ void __29__MDMClientCore_simulatePush__block_invoke(uint64_t a1, void *a2)
     {
       v4 = v3;
       v5 = [v2 DMCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error in simulatePush XPC reply. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error in simulatePush XPC reply. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)simulatePushWithCompletion:(id)completion
@@ -269,7 +263,7 @@ void __29__MDMClientCore_simulatePush__block_invoke(uint64_t a1, void *a2)
 
 void __44__MDMClientCore_simulatePushWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -278,9 +272,9 @@ void __44__MDMClientCore_simulatePushWithCompletion___block_invoke(uint64_t a1, 
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error in simulatePushWithCompletion XPC reply. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error in simulatePushWithCompletion XPC reply. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -289,8 +283,6 @@ void __44__MDMClientCore_simulatePushWithCompletion___block_invoke(uint64_t a1, 
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)simulatePushIfNetworkTetheredWithCompletion:(id)completion
@@ -310,7 +302,7 @@ void __44__MDMClientCore_simulatePushWithCompletion___block_invoke(uint64_t a1, 
 
 void __61__MDMClientCore_simulatePushIfNetworkTetheredWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -319,9 +311,9 @@ void __61__MDMClientCore_simulatePushIfNetworkTetheredWithCompletion___block_inv
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error in simulatePushIfNetworkTethered XPC reply. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error in simulatePushIfNetworkTethered XPC reply. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -330,8 +322,6 @@ void __61__MDMClientCore_simulatePushIfNetworkTetheredWithCompletion___block_inv
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)pushToken
@@ -359,7 +349,7 @@ void __61__MDMClientCore_simulatePushIfNetworkTetheredWithCompletion___block_inv
 
 void __26__MDMClientCore_pushToken__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
@@ -368,18 +358,16 @@ void __26__MDMClientCore_pushToken__block_invoke(uint64_t a1, void *a2)
     {
       v4 = v3;
       v5 = [v2 DMCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error getting user push token from mdmuserd. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error getting user push token from mdmuserd. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __26__MDMClientCore_pushToken__block_invoke_14(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -389,17 +377,15 @@ void __26__MDMClientCore_pushToken__block_invoke_14(uint64_t a1, void *a2, void 
     {
       v8 = v7;
       v9 = [v6 DMCVerboseDescription];
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_22E997000, v8, OS_LOG_TYPE_ERROR, "Error getting user push token from mdmuserd. Error: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_22E997000, v8, OS_LOG_TYPE_ERROR, "Error getting user push token from mdmuserd. Error: %{public}@", &v12, 0xCu);
     }
   }
 
   v10 = *(*(a1 + 32) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v5;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)touchWithCompletion:(id)completion
@@ -424,7 +410,7 @@ void __26__MDMClientCore_pushToken__block_invoke_14(uint64_t a1, void *a2, void 
 
 void __37__MDMClientCore_touchWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -433,20 +419,18 @@ void __37__MDMClientCore_touchWithCompletion___block_invoke(uint64_t a1, void *a
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error reaching out to mdm daemon: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error reaching out to mdm daemon: %{public}@", &v7, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __37__MDMClientCore_touchWithCompletion___block_invoke_16(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(DMCLogObjects() + 8);
   if (v3)
@@ -455,21 +439,19 @@ void __37__MDMClientCore_touchWithCompletion___block_invoke_16(uint64_t a1, void
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error touching mdm daemon: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error touching mdm daemon: %{public}@", &v7, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v8) = 0;
-    _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_DEBUG, "TouchWithCompletion completed!", &v8, 2u);
+    LOWORD(v7) = 0;
+    _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_DEBUG, "TouchWithCompletion completed!", &v7, 2u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reauthenticationComplete
@@ -481,7 +463,7 @@ void __37__MDMClientCore_touchWithCompletion___block_invoke_16(uint64_t a1, void
 
 void __41__MDMClientCore_reauthenticationComplete__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
@@ -490,13 +472,11 @@ void __41__MDMClientCore_reauthenticationComplete__block_invoke(uint64_t a1, voi
     {
       v4 = v3;
       v5 = [v2 DMCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error in reauthenticationComplete XPC reply. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error in reauthenticationComplete XPC reply. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nagWithID:(id)d clientID:(id)iD schedule:(id)schedule title:(id)title message:(id)message notificationTitle:(id)notificationTitle notificationMessage:(id)notificationMessage actionTitle:(id)self0 actionURL:(id)self1 dismissTitle:(id)self2 dismissURL:(id)self3 deadlineURL:(id)self4 completion:(id)self5
@@ -528,7 +508,7 @@ void __41__MDMClientCore_reauthenticationComplete__block_invoke(uint64_t a1, voi
 
 void __166__MDMClientCore_nagWithID_clientID_schedule_title_message_notificationTitle_notificationMessage_actionTitle_actionURL_dismissTitle_dismissURL_deadlineURL_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -537,9 +517,9 @@ void __166__MDMClientCore_nagWithID_clientID_schedule_title_message_notification
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "MDMClientCore XPC failed to nag with error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "MDMClientCore XPC failed to nag with error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -548,8 +528,6 @@ void __166__MDMClientCore_nagWithID_clientID_schedule_title_message_notification
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_debug_nagForMigrationWithCompletion:(id)completion
@@ -569,7 +547,7 @@ void __166__MDMClientCore_nagWithID_clientID_schedule_title_message_notification
 
 void __54__MDMClientCore__debug_nagForMigrationWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -578,9 +556,9 @@ void __54__MDMClientCore__debug_nagForMigrationWithCompletion___block_invoke(uin
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error in _debug_nagForMigrationWithCompletion XPC reply. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error in _debug_nagForMigrationWithCompletion XPC reply. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -589,8 +567,6 @@ void __54__MDMClientCore__debug_nagForMigrationWithCompletion___block_invoke(uin
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_debug_stopNaggingForMigration
@@ -602,7 +578,7 @@ void __54__MDMClientCore__debug_nagForMigrationWithCompletion___block_invoke(uin
 
 void __47__MDMClientCore__debug_stopNaggingForMigration__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
@@ -611,13 +587,11 @@ void __47__MDMClientCore__debug_stopNaggingForMigration__block_invoke(uint64_t a
     {
       v4 = v3;
       v5 = [v2 DMCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error in _debug_stopNaggingForMigration XPC reply. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error in _debug_stopNaggingForMigration XPC reply. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)blockMDMCommandsWithCompletion:(id)completion
@@ -637,7 +611,7 @@ void __47__MDMClientCore__debug_stopNaggingForMigration__block_invoke(uint64_t a
 
 void __48__MDMClientCore_blockMDMCommandsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -646,9 +620,9 @@ void __48__MDMClientCore_blockMDMCommandsWithCompletion___block_invoke(uint64_t 
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -657,8 +631,6 @@ void __48__MDMClientCore_blockMDMCommandsWithCompletion___block_invoke(uint64_t 
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unblockMDMCommandsWithCompletion:(id)completion
@@ -678,7 +650,7 @@ void __48__MDMClientCore_blockMDMCommandsWithCompletion___block_invoke(uint64_t 
 
 void __50__MDMClientCore_unblockMDMCommandsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -687,9 +659,9 @@ void __50__MDMClientCore_unblockMDMCommandsWithCompletion___block_invoke(uint64_
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -698,8 +670,6 @@ void __50__MDMClientCore_unblockMDMCommandsWithCompletion___block_invoke(uint64_
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enablePushWakeWithCompletion:(id)completion
@@ -719,7 +689,7 @@ void __50__MDMClientCore_unblockMDMCommandsWithCompletion___block_invoke(uint64_
 
 void __46__MDMClientCore_enablePushWakeWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -728,9 +698,9 @@ void __46__MDMClientCore_enablePushWakeWithCompletion___block_invoke(uint64_t a1
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -739,8 +709,6 @@ void __46__MDMClientCore_enablePushWakeWithCompletion___block_invoke(uint64_t a1
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disablePushWakeWithCompletion:(id)completion
@@ -760,7 +728,7 @@ void __46__MDMClientCore_enablePushWakeWithCompletion___block_invoke(uint64_t a1
 
 void __47__MDMClientCore_disablePushWakeWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -769,9 +737,9 @@ void __47__MDMClientCore_disablePushWakeWithCompletion___block_invoke(uint64_t a
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -780,8 +748,6 @@ void __47__MDMClientCore_disablePushWakeWithCompletion___block_invoke(uint64_t a
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMDMAuthenticationRequestWithCompletionHandler:(id)handler
@@ -801,7 +767,7 @@ void __47__MDMClientCore_disablePushWakeWithCompletion___block_invoke(uint64_t a
 
 void __67__MDMClientCore_sendMDMAuthenticationRequestWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -810,9 +776,9 @@ void __67__MDMClientCore_sendMDMAuthenticationRequestWithCompletionHandler___blo
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -821,8 +787,6 @@ void __67__MDMClientCore_sendMDMAuthenticationRequestWithCompletionHandler___blo
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMDMCheckOutRequestWithCompletionHandler:(id)handler
@@ -842,7 +806,7 @@ void __67__MDMClientCore_sendMDMAuthenticationRequestWithCompletionHandler___blo
 
 void __61__MDMClientCore_sendMDMCheckOutRequestWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -851,9 +815,9 @@ void __61__MDMClientCore_sendMDMCheckOutRequestWithCompletionHandler___block_inv
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -862,13 +826,27 @@ void __61__MDMClientCore_sendMDMCheckOutRequestWithCompletionHandler___block_inv
   {
     (*(v7 + 16))(v7, v3);
   }
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)migrateMDMWithContext:(int)context completion:(id)completion
+{
+  v4 = *&context;
+  completionCopy = completion;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __50__MDMClientCore_migrateMDMWithContext_completion___block_invoke;
+  v11[3] = &unk_278856D88;
+  v12 = completionCopy;
+  v7 = completionCopy;
+  v8 = MEMORY[0x2318F0080](v11);
+  xpcConnection = [(MDMClientCore *)self xpcConnection];
+  v10 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v8];
+  [v10 migrateMDMWithContext:v4 completion:v8];
 }
 
 void __50__MDMClientCore_migrateMDMWithContext_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -877,9 +855,9 @@ void __50__MDMClientCore_migrateMDMWithContext_completion___block_invoke(uint64_
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error in migrateMDMWithContext XPC reply. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error in migrateMDMWithContext XPC reply. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -888,8 +866,6 @@ void __50__MDMClientCore_migrateMDMWithContext_completion___block_invoke(uint64_
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)preserveAppsWithCompletion:(id)completion
@@ -909,7 +885,7 @@ void __50__MDMClientCore_migrateMDMWithContext_completion___block_invoke(uint64_
 
 void __44__MDMClientCore_preserveAppsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -918,9 +894,9 @@ void __44__MDMClientCore_preserveAppsWithCompletion___block_invoke(uint64_t a1, 
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error in preserveApps XPC reply. Error: %{public}@. Not attempting a retry.", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error in preserveApps XPC reply. Error: %{public}@. Not attempting a retry.", &v8, 0xCu);
     }
   }
 
@@ -929,8 +905,6 @@ void __44__MDMClientCore_preserveAppsWithCompletion___block_invoke(uint64_t a1, 
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeUnusedPreservedAppsWithCompletion:(id)completion
@@ -950,7 +924,7 @@ void __44__MDMClientCore_preserveAppsWithCompletion___block_invoke(uint64_t a1, 
 
 void __57__MDMClientCore_removeUnusedPreservedAppsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -959,9 +933,9 @@ void __57__MDMClientCore_removeUnusedPreservedAppsWithCompletion___block_invoke(
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error in removeUnusedPreservedAppsWithCompletion XPC reply. Error: %{public}@. Not attempting a retry.", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error in removeUnusedPreservedAppsWithCompletion XPC reply. Error: %{public}@. Not attempting a retry.", &v8, 0xCu);
     }
   }
 
@@ -970,8 +944,6 @@ void __57__MDMClientCore_removeUnusedPreservedAppsWithCompletion___block_invoke(
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uprootMDM
@@ -994,7 +966,7 @@ void __57__MDMClientCore_removeUnusedPreservedAppsWithCompletion___block_invoke(
 
 void __26__MDMClientCore_uprootMDM__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
@@ -1003,18 +975,16 @@ void __26__MDMClientCore_uprootMDM__block_invoke(uint64_t a1, void *a2)
     {
       v4 = v3;
       v5 = [v2 DMCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error in uprootMDM XPC reply. Error: %{public}@. Not attempting a retry.", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Error in uprootMDM XPC reply. Error: %{public}@. Not attempting a retry.", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __26__MDMClientCore_uprootMDM__block_invoke_23(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1024,17 +994,15 @@ void __26__MDMClientCore_uprootMDM__block_invoke_23(uint64_t a1, void *a2)
     {
       v6 = v5;
       v7 = [v3 DMCVerboseDescription];
-      v11 = 138543362;
-      v12 = v7;
-      _os_log_impl(&dword_22E997000, v6, OS_LOG_TYPE_ERROR, "Error in uprootMDM XPC reply. Error: %{public}@. Retrying exactly once...", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v7;
+      _os_log_impl(&dword_22E997000, v6, OS_LOG_TYPE_ERROR, "Error in uprootMDM XPC reply. Error: %{public}@. Retrying exactly once...", &v10, 0xCu);
     }
 
     v8 = [WeakRetained xpcConnection];
     v9 = [v8 remoteObjectProxyWithErrorHandler:*(a1 + 32)];
     [v9 uprootMDMWithCompletion:*(a1 + 32)];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestInstallOfAppsInRestoreWithCompletion:(id)completion
@@ -1061,7 +1029,7 @@ void __26__MDMClientCore_uprootMDM__block_invoke_23(uint64_t a1, void *a2)
 
 void __61__MDMClientCore_requestInstallOfAppsInRestoreWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1070,9 +1038,9 @@ void __61__MDMClientCore_requestInstallOfAppsInRestoreWithCompletion___block_inv
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error in restoreApps XPC reply. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error in restoreApps XPC reply. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1081,8 +1049,6 @@ void __61__MDMClientCore_requestInstallOfAppsInRestoreWithCompletion___block_inv
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)blockAppInstallsWithCompletion:(id)completion
@@ -1109,7 +1075,7 @@ void __61__MDMClientCore_requestInstallOfAppsInRestoreWithCompletion___block_inv
 
 void __48__MDMClientCore_blockAppInstallsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1118,9 +1084,9 @@ void __48__MDMClientCore_blockAppInstallsWithCompletion___block_invoke(uint64_t 
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "block app installs, client block, error in XPC reply: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "block app installs, client block, error in XPC reply: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1129,8 +1095,6 @@ void __48__MDMClientCore_blockAppInstallsWithCompletion___block_invoke(uint64_t 
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unblockAppInstallsWithCompletion:(id)completion
@@ -1157,7 +1121,7 @@ void __48__MDMClientCore_blockAppInstallsWithCompletion___block_invoke(uint64_t 
 
 void __50__MDMClientCore_unblockAppInstallsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1166,9 +1130,9 @@ void __50__MDMClientCore_unblockAppInstallsWithCompletion___block_invoke(uint64_
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "block app installs, client unblock, error in XPC reply: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "block app installs, client unblock, error in XPC reply: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1177,13 +1141,28 @@ void __50__MDMClientCore_unblockAppInstallsWithCompletion___block_invoke(uint64_
   {
     (*(v7 + 16))(v7, v3);
   }
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)processDeviceRequest:(id)request encodeResponse:(BOOL)response completion:(id)completion
+{
+  responseCopy = response;
+  completionCopy = completion;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __64__MDMClientCore_processDeviceRequest_encodeResponse_completion___block_invoke;
+  v14[3] = &unk_278856D88;
+  v15 = completionCopy;
+  v9 = completionCopy;
+  requestCopy = request;
+  v11 = MEMORY[0x2318F0080](v14);
+  xpcConnection = [(MDMClientCore *)self xpcConnection];
+  v13 = [xpcConnection remoteObjectProxyWithErrorHandler:v11];
+  [v13 processDeviceRequest:requestCopy encodeResponse:responseCopy completion:v9];
 }
 
 void __64__MDMClientCore_processDeviceRequest_encodeResponse_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1192,9 +1171,9 @@ void __64__MDMClientCore_processDeviceRequest_encodeResponse_completion___block_
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Failed to process device request. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Failed to process device request. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1203,8 +1182,6 @@ void __64__MDMClientCore_processDeviceRequest_encodeResponse_completion___block_
   {
     (*(v7 + 16))(v7, v3, 0, 0);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)depPushTokenWithCompletion:(id)completion
@@ -1224,7 +1201,7 @@ void __64__MDMClientCore_processDeviceRequest_encodeResponse_completion___block_
 
 void __44__MDMClientCore_depPushTokenWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1233,9 +1210,9 @@ void __44__MDMClientCore_depPushTokenWithCompletion___block_invoke(uint64_t a1, 
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1244,8 +1221,6 @@ void __44__MDMClientCore_depPushTokenWithCompletion___block_invoke(uint64_t a1, 
   {
     (*(v7 + 16))(v7, 0, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncDEPPushTokenWithDelay:(double)delay completion:(id)completion
@@ -1265,7 +1240,7 @@ void __44__MDMClientCore_depPushTokenWithCompletion___block_invoke(uint64_t a1, 
 
 void __54__MDMClientCore_syncDEPPushTokenWithDelay_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1274,9 +1249,9 @@ void __54__MDMClientCore_syncDEPPushTokenWithDelay_completion___block_invoke(uin
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1285,8 +1260,6 @@ void __54__MDMClientCore_syncDEPPushTokenWithDelay_completion___block_invoke(uin
   {
     (*(v7 + 16))(v7, 0, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)monitorDEPPushTokenIfNeededWithCompletion:(id)completion
@@ -1306,7 +1279,7 @@ void __54__MDMClientCore_syncDEPPushTokenWithDelay_completion___block_invoke(uin
 
 void __59__MDMClientCore_monitorDEPPushTokenIfNeededWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1315,9 +1288,9 @@ void __59__MDMClientCore_monitorDEPPushTokenIfNeededWithCompletion___block_invok
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1326,8 +1299,6 @@ void __59__MDMClientCore_monitorDEPPushTokenIfNeededWithCompletion___block_invok
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)monitorDEPPushTokenWithCompletion:(id)completion
@@ -1347,7 +1318,7 @@ void __59__MDMClientCore_monitorDEPPushTokenIfNeededWithCompletion___block_invok
 
 void __51__MDMClientCore_monitorDEPPushTokenWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1356,9 +1327,9 @@ void __51__MDMClientCore_monitorDEPPushTokenWithCompletion___block_invoke(uint64
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1367,8 +1338,6 @@ void __51__MDMClientCore_monitorDEPPushTokenWithCompletion___block_invoke(uint64
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)simulateDEPPushWithCompletion:(id)completion
@@ -1388,7 +1357,7 @@ void __51__MDMClientCore_monitorDEPPushTokenWithCompletion___block_invoke(uint64
 
 void __47__MDMClientCore_simulateDEPPushWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1397,9 +1366,9 @@ void __47__MDMClientCore_simulateDEPPushWithCompletion___block_invoke(uint64_t a
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1408,13 +1377,28 @@ void __47__MDMClientCore_simulateDEPPushWithCompletion___block_invoke(uint64_t a
   {
     (*(v7 + 16))(v7, v3);
   }
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)requestDeviceObliterationWithPreserveDataPlan:(BOOL)plan disallowProximitySetup:(BOOL)setup completionHandler:(id)handler
+{
+  setupCopy = setup;
+  planCopy = plan;
+  handlerCopy = handler;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __104__MDMClientCore_requestDeviceObliterationWithPreserveDataPlan_disallowProximitySetup_completionHandler___block_invoke;
+  v13[3] = &unk_278856D88;
+  v14 = handlerCopy;
+  v9 = handlerCopy;
+  v10 = MEMORY[0x2318F0080](v13);
+  xpcConnection = [(MDMClientCore *)self xpcConnection];
+  v12 = [xpcConnection remoteObjectProxyWithErrorHandler:v10];
+  [v12 requestDeviceObliterationWithPreserveDataPlan:planCopy disallowProximitySetup:setupCopy completionHandler:v9];
 }
 
 void __104__MDMClientCore_requestDeviceObliterationWithPreserveDataPlan_disallowProximitySetup_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1423,9 +1407,9 @@ void __104__MDMClientCore_requestDeviceObliterationWithPreserveDataPlan_disallow
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1434,13 +1418,32 @@ void __104__MDMClientCore_requestDeviceObliterationWithPreserveDataPlan_disallow
   {
     (*(v7 + 16))(v7, v3);
   }
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)requestReturnToServiceObliterationWithPreserveDataPlan:(BOOL)plan disallowProximitySetup:(BOOL)setup mdmProfileData:(id)data wifiProfileData:(id)profileData revertToSnapshotName:(id)name bootstrapToken:(id)token completionHandler:(id)handler
+{
+  setupCopy = setup;
+  planCopy = plan;
+  handlerCopy = handler;
+  v25 = MEMORY[0x277D85DD0];
+  v26 = 3221225472;
+  v27 = __180__MDMClientCore_requestReturnToServiceObliterationWithPreserveDataPlan_disallowProximitySetup_mdmProfileData_wifiProfileData_revertToSnapshotName_bootstrapToken_completionHandler___block_invoke;
+  v28 = &unk_278856D88;
+  v29 = handlerCopy;
+  v17 = handlerCopy;
+  tokenCopy = token;
+  nameCopy = name;
+  profileDataCopy = profileData;
+  dataCopy = data;
+  v22 = MEMORY[0x2318F0080](&v25);
+  xpcConnection = [(MDMClientCore *)self xpcConnection];
+  v24 = [xpcConnection remoteObjectProxyWithErrorHandler:v22];
+  [v24 requestReturnToServiceObliterationWithPreserveDataPlan:planCopy disallowProximitySetup:setupCopy mdmProfileData:dataCopy wifiProfileData:profileDataCopy revertToSnapshotName:nameCopy bootstrapToken:tokenCopy completionHandler:{v17, v25, v26, v27, v28}];
 }
 
 void __180__MDMClientCore_requestReturnToServiceObliterationWithPreserveDataPlan_disallowProximitySetup_mdmProfileData_wifiProfileData_revertToSnapshotName_bootstrapToken_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1449,9 +1452,9 @@ void __180__MDMClientCore_requestReturnToServiceObliterationWithPreserveDataPlan
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1460,13 +1463,27 @@ void __180__MDMClientCore_requestReturnToServiceObliterationWithPreserveDataPlan
   {
     (*(v7 + 16))(v7, v3);
   }
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)evaluateMigrationStatusWithPollFromServer:(BOOL)server completionHandler:(id)handler
+{
+  serverCopy = server;
+  handlerCopy = handler;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __77__MDMClientCore_evaluateMigrationStatusWithPollFromServer_completionHandler___block_invoke;
+  v11[3] = &unk_278856D88;
+  v12 = handlerCopy;
+  v7 = handlerCopy;
+  v8 = MEMORY[0x2318F0080](v11);
+  xpcConnection = [(MDMClientCore *)self xpcConnection];
+  v10 = [xpcConnection remoteObjectProxyWithErrorHandler:v8];
+  [v10 evaluateMigrationStatusWithPollFromServer:serverCopy completionHandler:v7];
 }
 
 void __77__MDMClientCore_evaluateMigrationStatusWithPollFromServer_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1475,9 +1492,9 @@ void __77__MDMClientCore_evaluateMigrationStatusWithPollFromServer_completionHan
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1486,8 +1503,6 @@ void __77__MDMClientCore_evaluateMigrationStatusWithPollFromServer_completionHan
   {
     (*(v7 + 16))(v7, 0, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getWatchPairingTokenForPhoneID:(id)d watchID:(id)iD securityToken:(id)token completionHandler:(id)handler
@@ -1510,7 +1525,7 @@ void __77__MDMClientCore_evaluateMigrationStatusWithPollFromServer_completionHan
 
 void __88__MDMClientCore_getWatchPairingTokenForPhoneID_watchID_securityToken_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1519,9 +1534,9 @@ void __88__MDMClientCore_getWatchPairingTokenForPhoneID_watchID_securityToken_co
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1530,8 +1545,6 @@ void __88__MDMClientCore_getWatchPairingTokenForPhoneID_watchID_securityToken_co
   {
     (*(v7 + 16))(v7, 0, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getOrgTokenForMAIDWithCompletionHandler:(id)handler
@@ -1551,7 +1564,7 @@ void __88__MDMClientCore_getWatchPairingTokenForPhoneID_watchID_securityToken_co
 
 void __57__MDMClientCore_getOrgTokenForMAIDWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1560,9 +1573,9 @@ void __57__MDMClientCore_getOrgTokenForMAIDWithCompletionHandler___block_invoke(
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1571,13 +1584,28 @@ void __57__MDMClientCore_getOrgTokenForMAIDWithCompletionHandler___block_invoke(
   {
     (*(v7 + 16))(v7, 0, v3);
   }
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)processUserRequest:(id)request encodeResponse:(BOOL)response completion:(id)completion
+{
+  responseCopy = response;
+  completionCopy = completion;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __62__MDMClientCore_processUserRequest_encodeResponse_completion___block_invoke;
+  v14[3] = &unk_278856D88;
+  v15 = completionCopy;
+  v9 = completionCopy;
+  requestCopy = request;
+  v11 = MEMORY[0x2318F0080](v14);
+  xpcConnection = [(MDMClientCore *)self xpcConnection];
+  v13 = [xpcConnection remoteObjectProxyWithErrorHandler:v11];
+  [v13 processUserRequest:requestCopy encodeResponse:responseCopy completion:v9];
 }
 
 void __62__MDMClientCore_processUserRequest_encodeResponse_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1586,9 +1614,9 @@ void __62__MDMClientCore_processUserRequest_encodeResponse_completion___block_in
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Failed to process user request. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Failed to process user request. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1597,8 +1625,6 @@ void __62__MDMClientCore_processUserRequest_encodeResponse_completion___block_in
   {
     (*(v7 + 16))(v7, v3, 0, 0);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAwaitingUserConfigured
@@ -1623,7 +1649,7 @@ void __62__MDMClientCore_processUserRequest_encodeResponse_completion___block_in
 
 void __41__MDMClientCore_isAwaitingUserConfigured__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
@@ -1632,18 +1658,16 @@ void __41__MDMClientCore_isAwaitingUserConfigured__block_invoke(uint64_t a1, voi
     {
       v4 = v3;
       v5 = [v2 DMCVerboseDescription];
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Failed to start query for isAwaitingUserConfigured. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "Failed to start query for isAwaitingUserConfigured. Error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __41__MDMClientCore_isAwaitingUserConfigured__block_invoke_26(uint64_t a1, char a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
@@ -1652,9 +1676,9 @@ void __41__MDMClientCore_isAwaitingUserConfigured__block_invoke_26(uint64_t a1, 
     {
       v7 = v6;
       v8 = [v5 DMCVerboseDescription];
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_22E997000, v7, OS_LOG_TYPE_ERROR, "Failed to query isAwaitingUserConfigured. Error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_22E997000, v7, OS_LOG_TYPE_ERROR, "Failed to query isAwaitingUserConfigured. Error: %{public}@", &v9, 0xCu);
     }
   }
 
@@ -1662,8 +1686,6 @@ void __41__MDMClientCore_isAwaitingUserConfigured__block_invoke_26(uint64_t a1, 
   {
     *(*(*(a1 + 32) + 8) + 24) = a2;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestRRTSCheckInAndValidationWithCompletionHandler:(id)handler
@@ -1683,7 +1705,7 @@ void __41__MDMClientCore_isAwaitingUserConfigured__block_invoke_26(uint64_t a1, 
 
 void __70__MDMClientCore_requestRRTSCheckInAndValidationWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1692,9 +1714,9 @@ void __70__MDMClientCore_requestRRTSCheckInAndValidationWithCompletionHandler___
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1703,8 +1725,6 @@ void __70__MDMClientCore_requestRRTSCheckInAndValidationWithCompletionHandler___
   {
     (*(v7 + 16))(v7, 0, 0, 0, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateBootstrapTokenWithDevicePasscode:(id)passcode completionHandler:(id)handler
@@ -1725,7 +1745,7 @@ void __70__MDMClientCore_requestRRTSCheckInAndValidationWithCompletionHandler___
 
 void __76__MDMClientCore_generateBootstrapTokenWithDevicePasscode_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1734,9 +1754,9 @@ void __76__MDMClientCore_generateBootstrapTokenWithDevicePasscode_completionHand
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1745,8 +1765,6 @@ void __76__MDMClientCore_generateBootstrapTokenWithDevicePasscode_completionHand
   {
     (*(v7 + 16))(v7, 0, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateBootstrapTokenWithDevicePasscodeContext:(id)context completionHandler:(id)handler
@@ -1767,7 +1785,7 @@ void __76__MDMClientCore_generateBootstrapTokenWithDevicePasscode_completionHand
 
 void __83__MDMClientCore_generateBootstrapTokenWithDevicePasscodeContext_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1776,9 +1794,9 @@ void __83__MDMClientCore_generateBootstrapTokenWithDevicePasscodeContext_complet
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1787,8 +1805,6 @@ void __83__MDMClientCore_generateBootstrapTokenWithDevicePasscodeContext_complet
   {
     (*(v7 + 16))(v7, 0, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncBootstrapTokenToMDMWithToken:(id)token completionHandler:(id)handler
@@ -1809,7 +1825,7 @@ void __83__MDMClientCore_generateBootstrapTokenWithDevicePasscodeContext_complet
 
 void __68__MDMClientCore_syncBootstrapTokenToMDMWithToken_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1818,9 +1834,9 @@ void __68__MDMClientCore_syncBootstrapTokenToMDMWithToken_completionHandler___bl
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1829,8 +1845,6 @@ void __68__MDMClientCore_syncBootstrapTokenToMDMWithToken_completionHandler___bl
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteBootstrapTokenWithToken:(id)token devicePasscode:(id)passcode completionHandler:(id)handler
@@ -1852,7 +1866,7 @@ void __68__MDMClientCore_syncBootstrapTokenToMDMWithToken_completionHandler___bl
 
 void __80__MDMClientCore_deleteBootstrapTokenWithToken_devicePasscode_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1861,9 +1875,9 @@ void __80__MDMClientCore_deleteBootstrapTokenWithToken_devicePasscode_completion
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1872,8 +1886,6 @@ void __80__MDMClientCore_deleteBootstrapTokenWithToken_devicePasscode_completion
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteBootstrapTokenWithToken:(id)token devicePasscodeContext:(id)context completionHandler:(id)handler
@@ -1895,7 +1907,7 @@ void __80__MDMClientCore_deleteBootstrapTokenWithToken_devicePasscode_completion
 
 void __87__MDMClientCore_deleteBootstrapTokenWithToken_devicePasscodeContext_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1904,9 +1916,9 @@ void __87__MDMClientCore_deleteBootstrapTokenWithToken_devicePasscodeContext_com
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1915,8 +1927,6 @@ void __87__MDMClientCore_deleteBootstrapTokenWithToken_devicePasscodeContext_com
   {
     (*(v7 + 16))(v7, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateAndSyncBootstrapTokenWithDevicePasscode:(id)passcode completionHandler:(id)handler
@@ -1937,7 +1947,7 @@ void __87__MDMClientCore_deleteBootstrapTokenWithToken_devicePasscodeContext_com
 
 void __83__MDMClientCore_generateAndSyncBootstrapTokenWithDevicePasscode_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1946,9 +1956,9 @@ void __83__MDMClientCore_generateAndSyncBootstrapTokenWithDevicePasscode_complet
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1957,8 +1967,6 @@ void __83__MDMClientCore_generateAndSyncBootstrapTokenWithDevicePasscode_complet
   {
     (*(v7 + 16))(v7, 0, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateAndSyncBootstrapTokenWithDevicePasscodeContext:(id)context completionHandler:(id)handler
@@ -1979,7 +1987,7 @@ void __83__MDMClientCore_generateAndSyncBootstrapTokenWithDevicePasscode_complet
 
 void __90__MDMClientCore_generateAndSyncBootstrapTokenWithDevicePasscodeContext_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1988,9 +1996,9 @@ void __90__MDMClientCore_generateAndSyncBootstrapTokenWithDevicePasscodeContext_
     {
       v5 = v4;
       v6 = [v3 DMCVerboseDescription];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Error connecting to remote. Error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -1999,8 +2007,6 @@ void __90__MDMClientCore_generateAndSyncBootstrapTokenWithDevicePasscodeContext_
   {
     (*(v7 + 16))(v7, 0, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (NSXPCConnection)xpcConnection

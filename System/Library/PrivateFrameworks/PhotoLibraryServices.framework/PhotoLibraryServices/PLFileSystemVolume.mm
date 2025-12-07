@@ -222,9 +222,9 @@
   v9.super_class = &OBJC_METACLASS___PLFileSystemVolume;
   keyCopy = key;
   v4 = objc_msgSendSuper2(&v9, sel_keyPathsForValuesAffectingValueForKey_, keyCopy);
-  v5 = [keyCopy isEqualToString:{@"isOffline", v9.receiver, v9.super_class}];
+  isEqualToString = objc_msgSend_isEqualToString_(keyCopy, v9.receiver, v9.super_class);
 
-  if (v5)
+  if (isEqualToString)
   {
     v6 = [MEMORY[0x1E695DFD8] setWithObject:@"url"];
     v7 = [v4 setByAddingObjectsFromSet:v6];

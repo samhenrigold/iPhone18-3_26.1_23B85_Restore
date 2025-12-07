@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone device:(id)device;
 - (void)encodeToCommandBuffer:(id)buffer sourceArrays:(id)arrays destinationArrays:(id)destinationArrays;
 - (void)encodeToCommandEncoder:(id)encoder commandBuffer:(id)buffer sourceArrays:(id)arrays destinationArrays:(id)destinationArrays;
+- (void)encodeToCommandEncoder:(id)encoder commandBuffer:(id)buffer sourceArrays:(id)arrays destinationArrays:(id)destinationArrays activeDestinationMask:(unsigned int)mask;
 - (void)encodeToMPSCommandEncoder:(id)encoder commandBuffer:(id)buffer sourceArrays:(id)arrays destinationArrays:(id)destinationArrays activeDestinationMask:(unsigned int)mask;
 @end
 
@@ -73,6 +74,24 @@
 
   v13 = v12;
   [(MPSNDArrayMultiaryMultiDestinationKernel *)self encodeToMPSCommandEncoder:v12 commandBuffer:buffer sourceArrays:arrays destinationArrays:destinationArrays];
+}
+
+- (void)encodeToCommandEncoder:(id)encoder commandBuffer:(id)buffer sourceArrays:(id)arrays destinationArrays:(id)destinationArrays activeDestinationMask:(unsigned int)mask
+{
+  v7 = *&mask;
+  v13 = objc_alloc(MEMORY[0x277CD7210]);
+  if (encoder)
+  {
+    v14 = [v13 initWithComputeCommandEncoder:encoder];
+  }
+
+  else
+  {
+    v14 = [v13 initWithCommandBuffer:buffer withDispatchType:0];
+  }
+
+  v15 = v14;
+  [(MPSNDArrayMultiaryMultiDestinationKernel *)self encodeToMPSCommandEncoder:encoder commandBuffer:buffer sourceArrays:arrays destinationArrays:destinationArrays activeDestinationMask:v7];
 }
 
 - (void)encodeToMPSCommandEncoder:(id)encoder commandBuffer:(id)buffer sourceArrays:(id)arrays destinationArrays:(id)destinationArrays activeDestinationMask:(unsigned int)mask

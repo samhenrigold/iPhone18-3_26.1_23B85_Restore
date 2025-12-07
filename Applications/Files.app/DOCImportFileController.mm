@@ -31,7 +31,7 @@
 {
   cancelCopy = cancel;
   selfCopy = self;
-  sub_1000704EC();
+  sub_1000704EC(selfCopy);
 }
 
 @end

@@ -77,7 +77,7 @@
   v7[4] = ObjectType;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_269C71EBC(sub_269D87AB8, v7);
+  sub_269C71EBC(sub_269D87AB8, v7, "SleepHealthUI/QuickScheduleManagementViewController.swift", 57, 2u, 415);
   swift_unknownObjectRelease();
 }
 

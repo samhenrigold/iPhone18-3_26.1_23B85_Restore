@@ -3,6 +3,8 @@
 - (ASCredentialRequestButtonContinue)initWithFrame:(CGRect)frame;
 - (id)_backgroundColorForCurrentControlState;
 - (void)_commonInit;
+- (void)setEnabled:(BOOL)enabled;
+- (void)setHighlighted:(BOOL)highlighted;
 @end
 
 @implementation ASCredentialRequestButtonContinue
@@ -39,7 +41,7 @@
 
 - (void)_commonInit
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   v3 = +[ASViewServiceInterfaceUtilities continueButtonBackgroundColor];
   [(ASCredentialRequestButtonContinue *)self setBackgroundColor:v3];
 
@@ -66,35 +68,51 @@
   centerYAnchor = [titleLabel2 centerYAnchor];
   centerYAnchor2 = [(ASCredentialRequestButtonContinue *)self centerYAnchor];
   v12 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v31[0] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
-  v26 = [v13 mutableCopy];
+  v30[0] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+  v25 = [v13 mutableCopy];
 
   titleLabel3 = [(ASCredentialRequestButton *)self titleLabel];
   centerXAnchor = [titleLabel3 centerXAnchor];
   centerXAnchor2 = [(ASCredentialRequestButtonContinue *)self centerXAnchor];
-  v25 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v30[0] = v25;
+  v24 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v29[0] = v24;
   titleLabel4 = [(ASCredentialRequestButton *)self titleLabel];
   leadingAnchor = [titleLabel4 leadingAnchor];
   leadingAnchor2 = [(ASCredentialRequestButtonContinue *)self leadingAnchor];
   +[ASViewServiceInterfaceUtilities continueButtonTitleMargin];
   v15 = [leadingAnchor constraintGreaterThanOrEqualToAnchor:leadingAnchor2 constant:?];
-  v30[1] = v15;
+  v29[1] = v15;
   trailingAnchor = [(ASCredentialRequestButtonContinue *)self trailingAnchor];
   titleLabel5 = [(ASCredentialRequestButton *)self titleLabel];
   trailingAnchor2 = [titleLabel5 trailingAnchor];
   +[ASViewServiceInterfaceUtilities continueButtonTitleMargin];
   v19 = [trailingAnchor constraintGreaterThanOrEqualToAnchor:trailingAnchor2 constant:?];
-  v30[2] = v19;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:3];
-  [v26 addObjectsFromArray:v20];
+  v29[2] = v19;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
+  [v25 addObjectsFromArray:v20];
 
-  [MEMORY[0x1E696ACD8] activateConstraints:v26];
+  [MEMORY[0x1E696ACD8] activateConstraints:v25];
   automaticStyle = [MEMORY[0x1E69DCAB0] automaticStyle];
   [(ASCredentialRequestButtonContinue *)self setHoverStyle:automaticStyle];
+}
 
-  v22 = *MEMORY[0x1E69E9840];
+- (void)setHighlighted:(BOOL)highlighted
+{
+  v5.receiver = self;
+  v5.super_class = ASCredentialRequestButtonContinue;
+  [(ASCredentialRequestButtonContinue *)&v5 setHighlighted:highlighted];
+  _backgroundColorForCurrentControlState = [(ASCredentialRequestButtonContinue *)self _backgroundColorForCurrentControlState];
+  [(ASCredentialRequestButtonContinue *)self setBackgroundColor:_backgroundColorForCurrentControlState];
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  v5.receiver = self;
+  v5.super_class = ASCredentialRequestButtonContinue;
+  [(ASCredentialRequestButtonContinue *)&v5 setEnabled:enabled];
+  _backgroundColorForCurrentControlState = [(ASCredentialRequestButtonContinue *)self _backgroundColorForCurrentControlState];
+  [(ASCredentialRequestButtonContinue *)self setBackgroundColor:_backgroundColorForCurrentControlState];
 }
 
 - (id)_backgroundColorForCurrentControlState

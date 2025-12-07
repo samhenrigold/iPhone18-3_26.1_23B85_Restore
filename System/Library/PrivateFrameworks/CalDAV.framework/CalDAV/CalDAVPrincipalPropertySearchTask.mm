@@ -90,7 +90,7 @@
 
 void __48__CalDAVPrincipalPropertySearchTask_searchItems__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) serverSupportSet];
   v5 = [v4 supportsWellKnownType:a2];
 
@@ -112,29 +112,29 @@ void __48__CalDAVPrincipalPropertySearchTask_searchItems__block_invoke(uint64_t 
       v7 = v6;
     }
 
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     obj = [*(a1 + 32) searchStrings];
-    v8 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         v12 = 0;
         v13 = v10;
         do
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v17 + 1) + 8 * v12);
+          v14 = *(*(&v16 + 1) + 8 * v12);
           v10 = [CalDAVPrincipalSearchSupport propertySearchItemForWellKnownType:a2];
 
           [v10 setMatchTypeAttribute:v7];
@@ -145,14 +145,12 @@ void __48__CalDAVPrincipalPropertySearchTask_searchItems__block_invoke(uint64_t 
         }
 
         while (v9 != v12);
-        v9 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

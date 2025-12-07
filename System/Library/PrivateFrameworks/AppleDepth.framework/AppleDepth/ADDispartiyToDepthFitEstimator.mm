@@ -1,8 +1,8 @@
 @interface ADDispartiyToDepthFitEstimator
+- (ADDisparityToDepthFitResult)estimateWithDisparity:(__n128)disparity calibration:(__n128)calibration pose:(__n128)pose disparityTimestamp:(double)timestamp;
 - (ADDispartiyToDepthFitEstimator)init;
 - (ADDispartiyToDepthFitEstimator)initWithParameters:(id)parameters;
 - (id).cxx_construct;
-- (id)estimateWithDisparity:(__n128)disparity calibration:(__n128)calibration pose:(__n128)pose disparityTimestamp:(double)timestamp;
 - (id)estimateWithDisparityFile:(id)file disparityWidth:(unsigned int)width disparityHeight:(unsigned int)height calibration:(id)calibration poseArray:(id)array disparityTimestamp:(double)timestamp;
 - (id)queryIntermediateResults;
 - (void)updateWorldPoints:(ADDisparityToDepthFitWorldPoint *)points pointCount:(unsigned int)count pointsTimestamp:(double)timestamp;
@@ -119,7 +119,7 @@
   [(ADDispartiyToDepthFitEstimator *)self updateWorldPoints:0 pointCount:0 pointsTimestamp:timestamp];
 }
 
-- (id)estimateWithDisparity:(__n128)disparity calibration:(__n128)calibration pose:(__n128)pose disparityTimestamp:(double)timestamp
+- (ADDisparityToDepthFitResult)estimateWithDisparity:(__n128)disparity calibration:(__n128)calibration pose:(__n128)pose disparityTimestamp:(double)timestamp
 {
   v75[4] = *MEMORY[0x277D85DE8];
   v12 = a9;

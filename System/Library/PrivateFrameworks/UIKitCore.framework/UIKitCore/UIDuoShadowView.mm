@@ -22,7 +22,7 @@ uint64_t __39___UIDuoShadowView_setSecondaryShadow___block_invoke(uint64_t a1)
   v9 = v8;
   if (v8)
   {
-    [v8 cornerRadii];
+    objc_msgSend_cornerRadii(v8);
   }
 
   else

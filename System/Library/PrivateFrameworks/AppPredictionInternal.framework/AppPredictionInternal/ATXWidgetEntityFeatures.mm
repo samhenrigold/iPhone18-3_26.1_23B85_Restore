@@ -53,15 +53,14 @@
 
 - (id)jsonRepresentation
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *&self->_parentAppScore;
-  v6[0] = @"parentAppScore";
-  v6[1] = @"parentAppGlobalPrior";
-  v7 = v2;
-  v6[2] = @"widgetGlobalPrior";
+  v5[0] = @"parentAppScore";
+  v5[1] = @"parentAppGlobalPrior";
+  v6 = v2;
+  v5[2] = @"widgetGlobalPrior";
   widgetGlobalPrior = self->_widgetGlobalPrior;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v7 forKeys:v6 count:3];
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v6 forKeys:v5 count:3];
 
   return v3;
 }

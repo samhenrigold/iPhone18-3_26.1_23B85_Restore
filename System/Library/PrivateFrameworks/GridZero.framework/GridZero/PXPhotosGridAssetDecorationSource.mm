@@ -366,10 +366,10 @@ LABEL_3:
           *(&v37 + 1) = section;
           *&v38 = v36;
           *(&v38 + 1) = 0x7FFFFFFFFFFFFFFFLL;
-          [v22 indexPathAfterRevertingChanges:changeDetails2 fromIndexPath:&v37 hasIncrementalChanges:0 objectChanged:0];
+          objc_msgSend_indexPathAfterRevertingChanges_fromIndexPath_hasIncrementalChanges_objectChanged_(v22);
 
           v13 = v10;
-          if (v39 != *MEMORY[0x277D3CF78])
+          if (*MEMORY[0x277D3CF78])
           {
             v13 = v10;
             if (v40 != 0x7FFFFFFFFFFFFFFFLL)
@@ -592,39 +592,18 @@ LABEL_3:
   v13 = v12;
   selfCopy = self;
   assetCopy = asset;
-  v41 = v13;
+  v36 = v13;
   layoutCopy = layout;
   v14 = _Block_copy(aBlock);
-  wantsFileSizeBadge = [(PXPhotosGridAssetDecorationSource *)self wantsFileSizeBadge];
-  durationAlwaysHidden = [(PXPhotosGridAssetDecorationSource *)self durationAlwaysHidden];
-  enableSpatialBadges = [(PXPhotosGridAssetDecorationSource *)self enableSpatialBadges];
-  v31 = 0u;
-  v39 = 0u;
+  [(PXPhotosGridAssetDecorationSource *)self wantsFileSizeBadge];
+  [(PXPhotosGridAssetDecorationSource *)self durationAlwaysHidden];
+  [(PXPhotosGridAssetDecorationSource *)self enableSpatialBadges];
+  v26 = 0u;
+  v34 = 0u;
   badgeManager = self->_badgeManager;
   if (badgeManager)
   {
-    v19 = 2;
-    if (!wantsFileSizeBadge)
-    {
-      v19 = 0;
-    }
-
-    if (durationAlwaysHidden)
-    {
-      v19 |= 4uLL;
-    }
-
-    if (enableSpatialBadges)
-    {
-      v20 = v19 | 8;
-    }
-
-    else
-    {
-      v20 = v19;
-    }
-
-    [(PXAssetBadgeManager *)badgeManager badgeInfoForAsset:indexCopy inCollection:0 options:v20, 0];
+    objc_msgSend_badgeInfoForAsset_inCollection_options_(badgeManager, 0);
   }
 
   assetUUIDsInCloud = self->_assetUUIDsInCloud;
@@ -633,17 +612,17 @@ LABEL_3:
 
   if (assetUUIDsInCloud)
   {
-    v32 |= 0x20uLL;
+    v27 |= 0x20uLL;
   }
 
-  if ([(PXPhotosGridAssetDecorationSource *)self shouldShowSavedToLibraryBadgeForAsset:indexCopy inLayout:v13, v32])
+  if ([(PXPhotosGridAssetDecorationSource *)self shouldShowSavedToLibraryBadgeForAsset:indexCopy inLayout:v13, v27])
   {
-    v33 |= 0x200000000uLL;
+    v28 |= 0x200000000uLL;
   }
 
-  if (-[PXPhotosGridAssetDecorationSource wantsSharedLibraryDecorations](self, "wantsSharedLibraryDecorations", v33) && (-[PXPhotosGridAssetDecorationSource isInSelectMode](self, "isInSelectMode") && !PFIsPhotosPicker() || -[PXPhotosGridAssetDecorationSource isSharedLibraryBadgeEnabled](self, "isSharedLibraryBadgeEnabled")) && [indexCopy isInSharedLibrary])
+  if (-[PXPhotosGridAssetDecorationSource wantsSharedLibraryDecorations](self, "wantsSharedLibraryDecorations", v28) && (-[PXPhotosGridAssetDecorationSource isInSelectMode](self, "isInSelectMode") && !PFIsPhotosPicker() || -[PXPhotosGridAssetDecorationSource isSharedLibraryBadgeEnabled](self, "isSharedLibraryBadgeEnabled")) && [indexCopy isInSharedLibrary])
   {
-    v34 |= 0x2000000000uLL;
+    v29 |= 0x2000000000uLL;
   }
 
   if ((objc_opt_respondsToSelector() & 1) != 0 && [(PXPhotosGridAssetDecorationSource *)self wantsSensitiveWarningDecorations])
@@ -652,59 +631,59 @@ LABEL_3:
     {
       if (![indexCopy needsSensitivityProtection])
       {
-        goto LABEL_27;
+        goto LABEL_20;
       }
 
-      v23 = v34 | 0x20;
+      v18 = v29 | 0x20;
     }
 
     else
     {
-      v23 = v34 | 0x20000000000000;
+      v18 = v29 | 0x20000000000000;
     }
 
-    v34 = v23;
+    v29 = v18;
   }
 
-LABEL_27:
+LABEL_20:
   if ([(PXPhotosGridAssetDecorationSource *)self wantsAssetIndexBadge])
   {
-    v24 = v14[2](v14);
-    v25 = v35 | 0x200000000000;
-    *&v39 = v24 + 1;
+    v19 = v14[2](v14);
+    v20 = v30 | 0x200000000000;
+    *&v34 = v19 + 1;
   }
 
   else
   {
-    v25 = v35;
+    v20 = v30;
   }
 
-  v36 = v25 & ~self->_forbiddenBadges;
+  v31 = v20 & ~self->_forbiddenBadges;
   if (self->_forceBadgesOnAllAssets)
   {
-    v30 = 0.0;
+    v25 = 0.0;
     if (0.0 < 1.0)
     {
-      v30 = 1.0;
+      v25 = 1.0;
     }
 
-    *(&v31 + 1) = v30;
+    *(&v26 + 1) = v25;
   }
 
   else if ([(PXPhotosGridAssetDecorationSource *)self durationAlwaysHidden])
   {
-    *(&v31 + 1) = 0;
+    *(&v26 + 1) = 0;
   }
 
   if ([(PXPhotosGridAssetDecorationSource *)self enableDebugBadgeColors])
   {
-    v37 |= 0x60000000uLL;
+    v32 |= 0x60000000uLL;
   }
 
   if ([(NSIndexSet *)self->_itemsWithCoveredBottomTrailingCorner count]&& [(NSIndexSet *)self->_itemsWithCoveredBottomTrailingCorner containsIndex:v14[2](v14)])
   {
-    *&v31 = v31 & 0xFFFFFFFFFFFFFFDDLL;
-    *(&v31 + 1) = 0;
+    *&v26 = v26 & 0xFFFFFFFFFFFFFFDDLL;
+    *(&v26 + 1) = 0;
   }
 
   badgesModifier = [(PXPhotosGridAssetDecorationSource *)self badgesModifier];
@@ -712,17 +691,17 @@ LABEL_27:
   if (badgesModifier)
   {
     badgesModifier2 = [(PXPhotosGridAssetDecorationSource *)self badgesModifier];
-    v28 = (badgesModifier2)[2](badgesModifier2, indexCopy, v38);
+    v23 = (badgesModifier2)[2](badgesModifier2, indexCopy, v33);
   }
 
   else
   {
-    v28 = v38;
+    v23 = v33;
   }
 
-  retstr->var0 = v28;
-  retstr->var1 = *(&v31 + 1);
-  *&retstr->var2 = v39;
+  retstr->var0 = v23;
+  retstr->var1 = *(&v26 + 1);
+  *&retstr->var2 = v34;
 
   return result;
 }
@@ -987,50 +966,49 @@ uint64_t __88__PXPhotosGridAssetDecorationSource_assetDecorationInfoForAsset_atS
 
 - (void)_updateDragDecoration
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   draggedAssetReferences = [(PXPhotosGridAssetDecorationSource *)self draggedAssetReferences];
   v4 = objc_alloc_init(MEMORY[0x277CCAB58]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = draggedAssetReferences;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     v9 = *MEMORY[0x277D3CF78];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
-        *(&v15 + 1) = 0;
+        *(&v14 + 1) = 0;
         dataSource = [(PXPhotosGridAssetDecorationSource *)self dataSource];
-        v13 = dataSource;
+        v12 = dataSource;
         if (dataSource)
         {
-          [dataSource indexPathForAssetReference:v11];
+          objc_msgSend_indexPathForAssetReference_(dataSource);
         }
 
         else
         {
-          v15 = 0u;
+          v14 = 0u;
         }
 
-        if (v15 != v9 && *(&v15 + 1) == [(PXPhotosGridAssetDecorationSource *)self section])
+        if (v14 != v9 && *(&v14 + 1) == [(PXPhotosGridAssetDecorationSource *)self section])
         {
           [v4 addIndex:0];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:{16, 0.0}];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:{16, 0.0}];
     }
 
     while (v7);
@@ -1038,15 +1016,15 @@ uint64_t __88__PXPhotosGridAssetDecorationSource_assetDecorationInfoForAsset_atS
 
   if ([v4 count])
   {
-    v14 = v4;
+    v13 = v4;
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  objc_storeStrong(&self->_draggedItems, v14);
+  objc_storeStrong(&self->_draggedItems, v13);
 }
 
 - (void)_invalidateDragDecoration
@@ -1340,11 +1318,11 @@ uint64_t __88__PXPhotosGridAssetDecorationSource_assetDecorationInfoForAsset_atS
       v10 = decoratedItemsLayout;
       if (snapshotCopy)
       {
-        [(PXSelectionSnapshot *)snapshotCopy pendingIndexPath];
+        objc_msgSend_pendingIndexPath(snapshotCopy);
         [v10 setItem:0x7FFFFFFFFFFFFFFFLL forStylableType:0 animated:1];
         v12 = 0u;
         v13 = 0u;
-        [(PXSelectionSnapshot *)snapshotCopy cursorIndexPath];
+        objc_msgSend_cursorIndexPath(snapshotCopy);
       }
 
       else
@@ -1359,7 +1337,7 @@ uint64_t __88__PXPhotosGridAssetDecorationSource_assetDecorationInfoForAsset_atS
 
     if (snapshotCopy)
     {
-      [(PXSelectionSnapshot *)snapshotCopy pressedIndexPath];
+      objc_msgSend_pressedIndexPath(snapshotCopy);
     }
 
     decoratedItemsLayout2 = [(PXPhotosGridAssetDecorationSource *)self decoratedItemsLayout];

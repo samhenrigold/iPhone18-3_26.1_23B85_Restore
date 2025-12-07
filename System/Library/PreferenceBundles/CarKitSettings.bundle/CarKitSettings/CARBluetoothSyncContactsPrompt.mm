@@ -1,4 +1,5 @@
 @interface CARBluetoothSyncContactsPrompt
+- (void)_handleContactsApprovalCompleted:(BOOL)completed;
 - (void)presentSyncContactsAlertFromViewController:(id)controller;
 @end
 
@@ -34,6 +35,18 @@
   [v8 addAction:v14];
 
   [controllerCopy presentViewController:v8 animated:1 completion:0];
+}
+
+- (void)_handleContactsApprovalCompleted:(BOOL)completed
+{
+  completedCopy = completed;
+  contactsApprovalCompletion = [(CARBluetoothSyncContactsPrompt *)self contactsApprovalCompletion];
+  if (contactsApprovalCompletion)
+  {
+    v5 = contactsApprovalCompletion;
+    contactsApprovalCompletion[2](contactsApprovalCompletion, completedCopy);
+    contactsApprovalCompletion = v5;
+  }
 }
 
 @end

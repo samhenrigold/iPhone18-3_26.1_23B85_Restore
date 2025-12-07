@@ -338,23 +338,7 @@
 - (BOOL)shouldProcessPayload:(id)payload error:(id *)error
 {
   payloadCopy = payload;
-  if (![payloadCopy hasStatus])
-  {
-    goto LABEL_9;
-  }
-
-  status = [payloadCopy status];
-  v8 = -[PDASMPayloadOperation shouldProcessPayloadWithStatusCode:](self, "shouldProcessPayloadWithStatusCode:", [status code]);
-
-  if (v8)
-  {
-    goto LABEL_9;
-  }
-
-  status2 = [payloadCopy status];
-  v10 = sub_1001055FC(status2, 0);
-
-  if (v10)
+  if ([payloadCopy hasStatus] && (objc_msgSend(payloadCopy, "status"), v7 = objc_claimAutoreleasedReturnValue(), v8 = -[PDASMPayloadOperation shouldProcessPayloadWithStatusCode:](self, "shouldProcessPayloadWithStatusCode:", objc_msgSend(v7, "code")), v7, (v8 & 1) == 0) && (objc_msgSend(payloadCopy, "status"), v9 = objc_claimAutoreleasedReturnValue(), sub_1001055FC(v9, 0), v10 = objc_claimAutoreleasedReturnValue(), v9, v10))
   {
     if (error)
     {
@@ -395,7 +379,6 @@
 
   else
   {
-LABEL_9:
     v17 = 1;
   }
 
@@ -1255,7 +1238,7 @@ LABEL_23:
     {
       case 1:
 LABEL_40:
-        v37 = 1;
+        v36 = 1;
         goto LABEL_41;
       case 4:
         v9 = objc_opt_class();
@@ -1267,7 +1250,7 @@ LABEL_40:
         personId = [person personId];
         v14 = [(PDASMPayloadOperation *)self deletePersonWithObjectID:personId];
 LABEL_30:
-        v37 = v14;
+        v36 = v14;
 LABEL_36:
 
         goto LABEL_41;
@@ -1278,25 +1261,25 @@ LABEL_26:
     logSubsystem = [(PDOperation *)self logSubsystem];
     if (os_log_type_enabled(logSubsystem, OS_LOG_TYPE_DEFAULT))
     {
-      v39 = objc_opt_class();
+      v38 = objc_opt_class();
       operationID = [(PDURLRequestOperation *)self operationID];
       type2 = [payloadCopy type];
       if (type2 >= 0xE)
       {
-        v42 = [NSString stringWithFormat:@"(unknown: %i)", type2];
+        v41 = [NSString stringWithFormat:@"(unknown: %i)", type2];
       }
 
       else
       {
-        v42 = *(&off_100203FA8 + type2);
+        v41 = *(&off_100203FA8 + type2);
       }
 
       *buf = 138543874;
-      v54 = v39;
-      v55 = 2114;
-      v56 = operationID;
-      v57 = 2114;
-      v58 = v42;
+      v53 = v38;
+      v54 = 2114;
+      v55 = operationID;
+      v56 = 2114;
+      v57 = v41;
       _os_log_impl(&_mh_execute_header, logSubsystem, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ Unexpected payload type: %{public}@;", buf, 0x20u);
     }
 
@@ -1320,78 +1303,77 @@ LABEL_26:
 
       if (locationsCount)
       {
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
         v50 = 0u;
-        v47 = payloadCopy;
+        v51 = 0u;
+        v48 = 0u;
+        v49 = 0u;
+        v46 = payloadCopy;
         organization2 = [payloadCopy organization];
         locations = [organization2 locations];
 
-        v19 = [locations countByEnumeratingWithState:&v49 objects:v59 count:16];
+        v19 = [locations countByEnumeratingWithState:&v48 objects:v58 count:16];
         if (v19)
         {
           v20 = v19;
-          v21 = *v50;
+          v21 = *v49;
           v22 = &CLSLogAsset_ptr;
           do
           {
             for (i = 0; i != v20; i = i + 1)
             {
-              if (*v50 != v21)
+              if (*v49 != v21)
               {
                 objc_enumerationMutation(locations);
               }
 
-              v24 = *(*(&v49 + 1) + 8 * i);
-              v25 = v22[96];
-              v26 = objc_opt_class();
+              v24 = *(*(&v48 + 1) + 8 * i);
+              v25 = objc_opt_class();
               locationId2 = [v24 locationId];
-              LOBYTE(v26) = [(PDASMPayloadOperation *)self _deleteEntity:v26 identity:locationId2];
+              LOBYTE(v25) = [(PDASMPayloadOperation *)self _deleteEntity:v25 identity:locationId2];
 
-              if ((v26 & 1) == 0)
+              if ((v25 & 1) == 0)
               {
                 CLSInitLog();
                 logSubsystem2 = [(PDOperation *)self logSubsystem];
                 if (os_log_type_enabled(logSubsystem2, OS_LOG_TYPE_DEFAULT))
                 {
-                  v29 = objc_opt_class();
-                  v48 = v29;
+                  v28 = objc_opt_class();
+                  v47 = v28;
                   [(PDURLRequestOperation *)self operationID];
-                  v30 = v21;
+                  v29 = v21;
                   selfCopy = self;
-                  v32 = v22;
-                  v34 = v33 = locations;
+                  v31 = v22;
+                  v33 = v32 = locations;
                   *buf = 138543874;
-                  v54 = v29;
-                  v55 = 2114;
-                  v56 = v34;
-                  v57 = 2114;
-                  v58 = v24;
+                  v53 = v28;
+                  v54 = 2114;
+                  v55 = v33;
+                  v56 = 2114;
+                  v57 = v24;
                   _os_log_impl(&_mh_execute_header, logSubsystem2, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ Failed to delete location %{public}@.", buf, 0x20u);
 
-                  locations = v33;
-                  v22 = v32;
+                  locations = v32;
+                  v22 = v31;
                   self = selfCopy;
-                  v21 = v30;
+                  v21 = v29;
                 }
               }
             }
 
-            v20 = [locations countByEnumeratingWithState:&v49 objects:v59 count:16];
+            v20 = [locations countByEnumeratingWithState:&v48 objects:v58 count:16];
           }
 
           while (v20);
         }
 
-        payloadCopy = v47;
+        payloadCopy = v46;
       }
 
-      v35 = objc_opt_class();
+      v34 = objc_opt_class();
       person = [payloadCopy organization];
       personId = [person organizationId];
       classMember2 = sub_100084470(personId);
-      v37 = [(PDASMPayloadOperation *)self _deleteEntity:v35 identity:classMember2];
+      v36 = [(PDASMPayloadOperation *)self _deleteEntity:v34 identity:classMember2];
       goto LABEL_35;
     }
 
@@ -1416,7 +1398,7 @@ LABEL_26:
     classMember2 = [payloadCopy classMember];
     personIds = [classMember2 personIds];
     stringListValues = [personIds stringListValues];
-    v37 = [(PDASMPayloadOperation *)self deleteClassMemberWithClassID:personId personIDs:stringListValues];
+    v36 = [(PDASMPayloadOperation *)self deleteClassMemberWithClassID:personId personIDs:stringListValues];
 
 LABEL_35:
     goto LABEL_36;
@@ -1426,11 +1408,11 @@ LABEL_35:
   location = [payloadCopy classMember];
   locationId = [location classMemberId];
 LABEL_33:
-  v43 = locationId;
-  v37 = [(PDASMPayloadOperation *)self _deleteEntity:v9 identity:locationId];
+  v42 = locationId;
+  v36 = [(PDASMPayloadOperation *)self _deleteEntity:v9 identity:locationId];
 
 LABEL_41:
-  return v37;
+  return v36;
 }
 
 - (BOOL)deletePersonWithObjectID:(id)d
@@ -1537,7 +1519,7 @@ LABEL_41:
   if (personsCopy && [v9 count])
   {
     v17 = [PDDatabase whereSQLForArray:v9 prefix:@"objectID in "];
-    if (([v8 deleteAll:objc_opt_class() where:v17 bindings:v9] & 1) == 0)
+    if (([(NSMutableArray *)v8 deleteAll:objc_opt_class() where:v17 bindings:v9]& 1) == 0)
     {
       CLSInitLog();
       v18 = CLSLogDatabase;
@@ -1558,7 +1540,7 @@ LABEL_41:
   v22 = objc_opt_class();
   v30 = dCopy;
   v23 = [NSArray arrayWithObjects:&v30 count:1];
-  v24 = [v8 deleteAllWithoutTracking:v22 where:@"classID = ?" bindings:v23];
+  v24 = [(NSMutableArray *)v8 deleteAllWithoutTracking:v22 where:@"classID = ?" bindings:v23];
 
   if ((v24 & 1) == 0)
   {

@@ -346,7 +346,7 @@
       v60 = model12;
       if (model12)
       {
-        [model12 appliedTransform];
+        objc_msgSend_appliedTransform(model12);
       }
 
       else
@@ -391,7 +391,7 @@
         v65 = model13;
         if (model13)
         {
-          [model13 appliedTransform];
+          objc_msgSend_appliedTransform(model13);
         }
 
         else
@@ -570,28 +570,12 @@ LABEL_3:
       }
 
       v13 = *(*(&v21 + 1) + 8 * v12);
-      if ([modelCopy isObjectManipulationActive])
+      if (([modelCopy isObjectManipulationActive] & 1) != 0 || (objc_msgSend(v13, "imageComponent"), (v14 = objc_claimAutoreleasedReturnValue()) != 0) && (v15 = v14, objc_msgSend(v13, "imageComponent"), v16 = capacity, v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "hidesImage"), v17, capacity = v16, v15, (v18 & 1) == 0))
       {
-        goto LABEL_17;
-      }
-
-      imageComponent = [v13 imageComponent];
-      if (imageComponent)
-      {
-        v15 = imageComponent;
-        [v13 imageComponent];
-        v17 = v16 = capacity;
-        hidesImage = [v17 hidesImage];
-
-        capacity = v16;
-        if ((hidesImage & 1) == 0)
+        [v6 insertObject:v13 atIndex:0];
+        if ([v6 count] >= capacity)
         {
-LABEL_17:
-          [v6 insertObject:v13 atIndex:0];
-          if ([v6 count] >= capacity)
-          {
-            break;
-          }
+          break;
         }
       }
 
@@ -914,7 +898,7 @@ LABEL_29:
   v42 = v23;
   if (v40)
   {
-    [v40 transform];
+    objc_msgSend_transform(v40);
   }
 
   else

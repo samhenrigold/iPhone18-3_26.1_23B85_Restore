@@ -15,6 +15,7 @@
 - (void)_sendDefaultMessage;
 - (void)_sendEscapeOfferSelectedEvent:(id)event;
 - (void)_sendRecoveryContactSendMessageLandingEvent:(id)event;
+- (void)_sendTelemetryEventWithSuccess:(id)success didSucceed:(BOOL)succeed error:(id)error;
 - (void)_showActivitySpinnerInNavigationBar;
 - (void)_showDefaultMessageView;
 - (void)_showInvitationSent;
@@ -30,7 +31,7 @@
   modelCopy = model;
   controllerCopy = controller;
   contextCopy = context;
-  v16 = _AAUILogSystem();
+  v16 = _AAUILogSystem(contextCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     sub_3322C(v16);
@@ -141,16 +142,16 @@
 
   [v3 addObject:kAccountAccessEditInvite];
   [v3 addObject:kAccountAccessSend];
-  [(AAUIInviteMessageFlowController *)self _sendRecoveryContactSendMessageLandingEvent:v3];
+  v14 = [(AAUIInviteMessageFlowController *)self _sendRecoveryContactSendMessageLandingEvent:v3];
   navigationController = self->_navigationController;
-  v15 = _AAUILogSystem();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+  v16 = _AAUILogSystem(v14);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
   if (navigationController)
   {
-    if (v16)
+    if (v17)
     {
-      *v19 = 0;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "iMessage invitation flow by pushing to existing navigation controller", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "iMessage invitation flow by pushing to existing navigation controller", v20, 2u);
     }
 
     [(UINavigationController *)self->_navigationController pushViewController:self->_defaultMessageController animated:1];
@@ -158,21 +159,21 @@
 
   else
   {
-    if (v16)
+    if (v17)
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "iMessage invitation flow by creating new navigation controller", buf, 2u);
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "iMessage invitation flow by creating new navigation controller", buf, 2u);
     }
 
-    v17 = [[UINavigationController alloc] initWithRootViewController:self->_defaultMessageController];
-    v18 = self->_navigationController;
-    self->_navigationController = v17;
+    v18 = [[UINavigationController alloc] initWithRootViewController:self->_defaultMessageController];
+    v19 = self->_navigationController;
+    self->_navigationController = v18;
   }
 }
 
 - (void)_showMessagesComposeController
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -191,7 +192,7 @@
 
 - (void)_showInvitationSent
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -199,7 +200,7 @@
   }
 
   uiVersion = [(AAUIInviteMessageFlowController *)self uiVersion];
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(uiVersion);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (uiVersion == 1)
   {
@@ -318,9 +319,25 @@
   }
 }
 
+- (void)_sendTelemetryEventWithSuccess:(id)success didSucceed:(BOOL)succeed error:(id)error
+{
+  if (success)
+  {
+    succeedCopy = succeed;
+    errorCopy = error;
+    successCopy = success;
+    v9 = [NSNumber numberWithBool:succeedCopy];
+    [successCopy setObject:v9 forKeyedSubscript:kAAFDidSucceed];
+
+    [successCopy populateUnderlyingErrorsStartingWithRootError:errorCopy];
+    v10 = +[AAAnalyticsRTCReporter reporter];
+    [v10 sendEvent:successCopy];
+  }
+}
+
 - (void)_cancelMessageInvitationFlow
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -352,7 +369,7 @@
 
 - (void)_finishMessageInvitationFlow
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -386,7 +403,7 @@
 
 - (void)_messageSentSecondaryActionTapped
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -405,7 +422,7 @@
 
 - (void)_sendDefaultMessage
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -538,10 +555,10 @@ LABEL_7:
 
   if (v12)
   {
-    v13 = kAAAnalyticsEventRecoveryContactInviteSent;
+    v14 = kAAAnalyticsEventRecoveryContactInviteSent;
     aida_alternateDSID = [v12 aida_alternateDSID];
     telemetryFlowID = [(AAUIInviteMessageFlowController *)self telemetryFlowID];
-    v16 = [AAFAnalyticsEvent analyticsEventWithName:v13 altDSID:aida_alternateDSID flowID:telemetryFlowID];
+    v17 = [AAFAnalyticsEvent analyticsEventWithName:v14 altDSID:aida_alternateDSID flowID:telemetryFlowID];
 
     if (status)
     {
@@ -549,18 +566,18 @@ LABEL_7:
     }
 
 LABEL_6:
-    v17 = _AAUILogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = _AAUILogSystem(v13);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "User cancelled", v21, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "User cancelled", v22, 2u);
     }
 
-    v18 = -1;
+    v19 = -1;
     goto LABEL_12;
   }
 
-  v16 = 0;
+  v17 = 0;
   if (!status)
   {
     goto LABEL_6;
@@ -569,16 +586,16 @@ LABEL_6:
 LABEL_3:
   if (status != 1)
   {
-    v19 = _AAUILogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = _AAUILogSystem(v13);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      sub_333B0(v19);
+      sub_333B0(v20);
     }
 
-    v18 = 0;
+    v19 = 0;
 LABEL_12:
-    v20 = [NSError aa_errorWithCode:v18];
-    [(AAUIInviteMessageFlowController *)self _sendTelemetryEventWithSuccess:v16 didSucceed:0 error:v20];
+    v21 = [NSError aa_errorWithCode:v19];
+    [(AAUIInviteMessageFlowController *)self _sendTelemetryEventWithSuccess:v17 didSucceed:0 error:v21];
 
     goto LABEL_13;
   }

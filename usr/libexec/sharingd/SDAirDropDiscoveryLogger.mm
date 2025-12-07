@@ -136,7 +136,7 @@
     v7 = -1;
   }
 
-  v54 = v7;
+  v53 = v7;
 
   v8 = [metricsCopy objectForKeyedSubscript:@"foundBonjour"];
   bOOLValueSafe = [v8 BOOLValueSafe];
@@ -167,20 +167,20 @@
     v21 = [[NSArray alloc] initWithObjects:{node, 0}];
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   obj = v21;
-  v55 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
-  if (v55)
+  v54 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
+  if (v54)
   {
-    v49 = metricsCopy;
+    v48 = metricsCopy;
     v22 = 0;
     v23 = 0;
-    v53 = *v61;
-    v52 = kSFNodeKindBonjour;
-    v51 = kSFNodeKindRapport;
+    v52 = *v60;
+    v51 = kSFNodeKindBonjour;
+    v50 = kSFNodeKindRapport;
     v24 = bOOLValueSafe2;
     do
     {
@@ -189,59 +189,58 @@
       v27 = v23;
       do
       {
-        v58 = v26;
-        if (*v61 != v53)
+        v57 = v26;
+        if (*v60 != v52)
         {
           objc_enumerationMutation(obj);
         }
 
-        if (*(*(&v60 + 1) + 8 * v25))
+        if (*(*(&v59 + 1) + 8 * v25))
         {
-          v28 = *(*(&v60 + 1) + 8 * v25);
-          v57 = v24;
-          v29 = bOOLValueSafe3;
-          v30 = bOOLValueSafe4;
-          v31 = bOOLValueSafe5;
-          v32 = bOOLValueSafe6;
-          v33 = bOOLValueSafe7;
-          v34 = sub_100090360();
-          v35 = SFNodeCopyContactIdentifier();
-          v36 = SFNodeCopyUserName();
-          v37 = 2;
-          if (!v36)
+          v56 = v24;
+          v28 = bOOLValueSafe3;
+          v29 = bOOLValueSafe4;
+          v30 = bOOLValueSafe5;
+          v31 = bOOLValueSafe6;
+          v32 = bOOLValueSafe7;
+          v33 = sub_100090360(*(*(&v59 + 1) + 8 * v25));
+          v34 = SFNodeCopyContactIdentifier();
+          v35 = SFNodeCopyUserName();
+          v36 = 2;
+          if (!v35)
           {
-            v37 = 3;
+            v36 = 3;
           }
 
-          if (v35)
+          if (v34)
           {
-            v37 = 1;
+            v36 = 1;
           }
 
-          v38 = (v34 & 1) == 0;
-          LOBYTE(bOOLValueSafe7) = v33;
-          LOBYTE(bOOLValueSafe6) = v32;
-          LOBYTE(bOOLValueSafe5) = v31;
-          LOBYTE(bOOLValueSafe4) = v30;
-          LOBYTE(bOOLValueSafe3) = v29;
-          v24 = v57;
-          if (!v38)
+          v37 = (v33 & 1) == 0;
+          LOBYTE(bOOLValueSafe7) = v32;
+          LOBYTE(bOOLValueSafe6) = v31;
+          LOBYTE(bOOLValueSafe5) = v30;
+          LOBYTE(bOOLValueSafe4) = v29;
+          LOBYTE(bOOLValueSafe3) = v28;
+          v24 = v56;
+          if (!v37)
           {
-            v37 = 0;
+            v36 = 0;
           }
 
-          v54 = v37;
+          v53 = v36;
         }
 
         else
         {
-          v54 = -1;
+          v53 = -1;
         }
 
         v23 = SFNodeCopyKinds();
 
-        bOOLValueSafe |= [v23 containsObject:v52];
-        v24 |= [v23 containsObject:v51];
+        bOOLValueSafe |= [v23 containsObject:v51];
+        v24 |= [v23 containsObject:v50];
         v22 = SFNodeCopyRapportFlags();
 
         unsignedIntegerValue = [v22 unsignedIntegerValue];
@@ -255,39 +254,39 @@
         v27 = v23;
       }
 
-      while (v55 != v25);
-      v55 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
+      while (v54 != v25);
+      v54 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
     }
 
-    while (v55);
+    while (v54);
     LOBYTE(bOOLValueSafe2) = v24;
 
-    metricsCopy = v49;
+    metricsCopy = v48;
   }
 
-  v40 = [NSNumber numberWithInteger:v54];
-  [metricsCopy setObject:v40 forKeyedSubscript:@"contactLevel"];
+  v39 = [NSNumber numberWithInteger:v53];
+  [metricsCopy setObject:v39 forKeyedSubscript:@"contactLevel"];
 
-  v41 = [NSNumber numberWithBool:bOOLValueSafe & 1];
-  [metricsCopy setObject:v41 forKeyedSubscript:@"foundBonjour"];
+  v40 = [NSNumber numberWithBool:bOOLValueSafe & 1];
+  [metricsCopy setObject:v40 forKeyedSubscript:@"foundBonjour"];
 
-  v42 = [NSNumber numberWithBool:bOOLValueSafe2 & 1];
-  [metricsCopy setObject:v42 forKeyedSubscript:@"foundRapport"];
+  v41 = [NSNumber numberWithBool:bOOLValueSafe2 & 1];
+  [metricsCopy setObject:v41 forKeyedSubscript:@"foundRapport"];
 
-  v43 = [NSNumber numberWithBool:bOOLValueSafe3];
-  [metricsCopy setObject:v43 forKeyedSubscript:@"rpFlagMyiCloud"];
+  v42 = [NSNumber numberWithBool:bOOLValueSafe3];
+  [metricsCopy setObject:v42 forKeyedSubscript:@"rpFlagMyiCloud"];
 
-  v44 = [NSNumber numberWithBool:bOOLValueSafe4];
-  [metricsCopy setObject:v44 forKeyedSubscript:@"rpFlagFriend"];
+  v43 = [NSNumber numberWithBool:bOOLValueSafe4];
+  [metricsCopy setObject:v43 forKeyedSubscript:@"rpFlagFriend"];
 
-  v45 = [NSNumber numberWithBool:bOOLValueSafe5];
-  [metricsCopy setObject:v45 forKeyedSubscript:@"rpFlagFamily"];
+  v44 = [NSNumber numberWithBool:bOOLValueSafe5];
+  [metricsCopy setObject:v44 forKeyedSubscript:@"rpFlagFamily"];
 
-  v46 = [NSNumber numberWithBool:bOOLValueSafe6];
-  [metricsCopy setObject:v46 forKeyedSubscript:@"rpFlagSharedHome"];
+  v45 = [NSNumber numberWithBool:bOOLValueSafe6];
+  [metricsCopy setObject:v45 forKeyedSubscript:@"rpFlagSharedHome"];
 
-  v47 = [NSNumber numberWithBool:bOOLValueSafe7];
-  [metricsCopy setObject:v47 forKeyedSubscript:@"rpFlagStranger"];
+  v46 = [NSNumber numberWithBool:bOOLValueSafe7];
+  [metricsCopy setObject:v46 forKeyedSubscript:@"rpFlagStranger"];
 
   return metricsCopy;
 }

@@ -135,19 +135,19 @@ uint64_t __50__ASDRepairService_refreshKeybagWithReplyHandler___block_invoke_2(u
 
 - (void)repairAppWithOptions:(id)options replyHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   v8 = handlerCopy;
   if (self)
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __63__ASDRepairService__callRepairServiceWithOptions_replyHandler___block_invoke;
-    v14[3] = &unk_1E7CDB730;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __63__ASDRepairService__callRepairServiceWithOptions_replyHandler___block_invoke;
+    v13[3] = &unk_1E7CDB730;
     v9 = handlerCopy;
-    v15 = v9;
-    v10 = [(ASDRepairService *)self _asynchronousRemoteObjectProxyWithErrorHandler:v14];
+    v14 = v9;
+    v10 = [(ASDRepairService *)self _asynchronousRemoteObjectProxyWithErrorHandler:v13];
     if (v10)
     {
       v11 = ASDLogHandleForCategory(13);
@@ -161,14 +161,12 @@ uint64_t __50__ASDRepairService_refreshKeybagWithReplyHandler___block_invoke_2(u
 
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v17 = __63__ASDRepairService__callRepairServiceWithOptions_replyHandler___block_invoke_12;
-      v18 = &unk_1E7CDDC10;
-      v19 = v9;
+      v16 = __63__ASDRepairService__callRepairServiceWithOptions_replyHandler___block_invoke_12;
+      v17 = &unk_1E7CDDC10;
+      v18 = v9;
       [v10 repairAppWithOptions:optionsCopy replyHandler:&buf];
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isCoastGuardUnrepairableAppWithItemID:(unint64_t)d externalVersionID:(unint64_t)iD
@@ -181,14 +179,14 @@ uint64_t __50__ASDRepairService_refreshKeybagWithReplyHandler___block_invoke_2(u
 
 void __63__ASDRepairService__callRepairServiceWithOptions_replyHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
-    v8 = v3;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "(RepairService) Repair service call failed with error: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "(RepairService) Repair service call failed with error: %{public}@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -196,13 +194,11 @@ void __63__ASDRepairService__callRepairServiceWithOptions_replyHandler___block_i
   {
     (*(v5 + 16))(v5, 0, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __63__ASDRepairService__callRepairServiceWithOptions_replyHandler___block_invoke_12(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = ASDLogHandleForCategory(13);
@@ -211,16 +207,16 @@ void __63__ASDRepairService__callRepairServiceWithOptions_replyHandler___block_i
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_1B8220000, v10, OS_LOG_TYPE_DEFAULT, "(RepairService) Repair service call completed sucessfully", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1B8220000, v10, OS_LOG_TYPE_DEFAULT, "(RepairService) Repair service call completed sucessfully", &v12, 2u);
     }
   }
 
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v13 = 138543362;
-    v14 = v8;
-    _os_log_error_impl(&dword_1B8220000, v10, OS_LOG_TYPE_ERROR, "(RepairService) Repair service call returned error: %{public}@", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v8;
+    _os_log_error_impl(&dword_1B8220000, v10, OS_LOG_TYPE_ERROR, "(RepairService) Repair service call returned error: %{public}@", &v12, 0xCu);
   }
 
   v11 = *(a1 + 32);
@@ -228,8 +224,6 @@ void __63__ASDRepairService__callRepairServiceWithOptions_replyHandler___block_i
   {
     (*(v11 + 16))(v11, a2, v7, v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

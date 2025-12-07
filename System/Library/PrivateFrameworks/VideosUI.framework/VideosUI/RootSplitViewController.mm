@@ -36,9 +36,11 @@
 
 - (void)messageViewController:(id)controller didUpdateSize:(CGSize)size
 {
+  height = size.height;
+  width = size.width;
   controllerCopy = controller;
   selfCopy = self;
-  sub_1E3F80A30();
+  sub_1E3F80A30(width, height);
 }
 
 - (void)messageViewController:(id)controller didFailWithError:(id)error
@@ -116,7 +118,7 @@
 - (void)preloadImageViewModelsFromBarItems:(id)items completion:(id)completion
 {
   v5 = _Block_copy(completion);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF2C8C0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF2C8C0, &unk_1E42A1250);
   OUTLINED_FUNCTION_19_3();
   sub_1E42062B4();
   OUTLINED_FUNCTION_4_0();
@@ -127,7 +129,7 @@
 
 - (void)updateWithBarItems:(id)items setSelectedIdentifierFromDefaults:(BOOL)defaults appContext:(id)context
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF2C8C0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF2C8C0, &unk_1E42A1250);
   sub_1E42062B4();
   contextCopy = context;
   selfCopy = self;
@@ -136,7 +138,7 @@
 
 - (void)setSelectedIndexForIdentifier:(id)identifier withDeeplinkURL:(id)l
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF363C0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF363C0, &unk_1E42A9420);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v13 - v8;
   if (!identifier)
@@ -168,7 +170,7 @@ LABEL_6:
   OUTLINED_FUNCTION_74();
   sub_1E4085894();
 
-  sub_1E325F748(v9, &unk_1ECF363C0);
+  sub_1E325F748(v9, &unk_1ECF363C0, &unk_1E42A9420);
 }
 
 - (BOOL)controllerExistsForIdentifier:(id)identifier
@@ -187,10 +189,10 @@ LABEL_6:
   sub_1E4205F14();
   OUTLINED_FUNCTION_145();
   selfCopy = self;
-  OUTLINED_FUNCTION_57();
-  v5 = sub_1E4085AFC();
+  v5 = OUTLINED_FUNCTION_57();
+  v7 = sub_1E4085AFC(v5, v6);
 
-  return v5;
+  return v7;
 }
 
 - (BOOL)isTabbarMode

@@ -10,10 +10,9 @@
 {
   version = self->_version;
   v4 = sub_10000A080(self->_ephemeralKey);
-  proprietaryElements = self->_proprietaryElements;
-  v6 = [NSString stringWithFormat:@"<Version=%@, COSEKey=%@, CipherSuites=%@, OriginInfos=%@ Capabilities=%@ Proprietary=%@, DeviceRetrievalMethods=%@>", version, v4, self->_cipherList, self->_originInfos, self->_capabilities, proprietaryElements, self->_deviceRetrievalMethods];
+  v5 = [NSString stringWithFormat:@"<Version=%@, COSEKey=%@, CipherSuites=%@, OriginInfos=%@ Capabilities=%@ Proprietary=%@, DeviceRetrievalMethods=%@>", version, v4, self->_cipherList, self->_originInfos, self->_capabilities, self->_proprietaryElements, self->_deviceRetrievalMethods];
 
-  return v6;
+  return v5;
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -92,20 +92,20 @@
   v13 = +[UIDevice currentDevice];
   userInterfaceIdiom = [v13 userInterfaceIdiom];
 
-  v15 = CallDirectoryLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = CallDirectoryLog(v15, v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 134219008;
-    v18 = v4;
-    v19 = 2048;
-    v20 = v7;
+    v19 = 134219008;
+    v20 = v4;
     v21 = 2048;
-    v22 = v10;
+    v22 = v7;
     v23 = 2048;
-    v24 = v12;
-    v25 = 1024;
-    v26 = userInterfaceIdiom == &dword_0 + 1;
-    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "shouldShow extensions=%ld service providers=%ld business calling specifiers=%ld liveLookupExtensionsCount=%ld deviceIsPad==%d", &v17, 0x30u);
+    v24 = v10;
+    v25 = 2048;
+    v26 = v12;
+    v27 = 1024;
+    v28 = userInterfaceIdiom == &dword_0 + 1;
+    _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "shouldShow extensions=%ld service providers=%ld business calling specifiers=%ld liveLookupExtensionsCount=%ld deviceIsPad==%d", &v19, 0x30u);
   }
 
   return userInterfaceIdiom == &dword_0 + 1 || (v4 | v7 | v10 | v12) == 0;
@@ -132,7 +132,7 @@
 
 - (void)extensionsChangedForCallDirectoryExtensionManager:(id)manager
 {
-  v4 = CallDirectoryLog();
+  v4 = CallDirectoryLog(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -144,7 +144,7 @@
 
 - (void)didChangeServiceProvidersForCallBlockingServiceProviderController:(id)controller
 {
-  v4 = CallDirectoryLog();
+  v4 = CallDirectoryLog(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

@@ -30,43 +30,42 @@
 
 - (id)lt_filterUsingBlock:()LTArrayExtensions
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   array = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   selfCopy = self;
-  v7 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         if (v4[2](v4, v11))
         {
-          [array addObject:{v11, v15}];
+          [array addObject:{v11, v14}];
         }
       }
 
-      v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [array copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -158,7 +157,7 @@
 
 + (__CFString)lt_stringArrayDebugDescription:()LTArrayExtensions
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = v3;
   if (v3)
@@ -166,29 +165,29 @@
     if ([v3 count])
     {
       v5 = [MEMORY[0x277CCAB68] stringWithString:@"@["];
+      v13 = 0u;
       v14 = 0u;
       v15 = 0u;
       v16 = 0u;
-      v17 = 0u;
       v6 = v4;
-      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v15;
+        v9 = *v14;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v15 != v9)
+            if (*v14 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            [v5 appendFormat:@"\n\t%@, ", *(*(&v14 + 1) + 8 * i)];
+            [v5 appendFormat:@"\n\t%@, ", *(*(&v13 + 1) + 8 * i)];
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v8);
@@ -208,8 +207,6 @@
   {
     v11 = @"nil";
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

@@ -124,7 +124,7 @@
 
 - (id)upgradePageForError:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (errorCopy)
   {
@@ -137,9 +137,9 @@
       v8 = _ICQGetLogSystem();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138412290;
-        v12 = errorCopy;
-        _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "missing page spec for error: %@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = errorCopy;
+        _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "missing page spec for error: %@", &v10, 0xCu);
       }
     }
   }
@@ -148,8 +148,6 @@
   {
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -202,7 +200,7 @@ LABEL_10:
 
 + (id)sanitizedUpgradeFlowServerDict:(id)dict
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   v4 = objc_opt_new();
   v5 = _ICQDictionaryForOneOfKeys(dictCopy, &unk_2884452F8);
@@ -223,8 +221,8 @@ LABEL_10:
 
   v7 = _ICQDictionaryForKey(dictCopy, @"postUpgradeInfo");
   v8 = _ICQDictionaryForKey(dictCopy, @"successInfo");
-  v41 = v5;
-  v42 = v8;
+  v40 = v5;
+  v41 = v8;
   if (!v7)
   {
     v19 = v8;
@@ -259,7 +257,7 @@ LABEL_21:
     }
 
     v22 = _ICQDictionaryForKey(dictCopy, @"network");
-    v38 = v22;
+    v37 = v22;
     if (v22)
     {
       [v4 setObject:v22 forKey:{@"UpgradeFailureNetwork", v22}];
@@ -291,28 +289,28 @@ LABEL_21:
       }
     }
 
-    v40 = v20;
+    v39 = v20;
     v26 = v7;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v27 = dictCopy;
-    v28 = [v27 countByEnumeratingWithState:&v43 objects:v52 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v42 objects:v51 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v44;
+      v30 = *v43;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v44 != v30)
+          if (*v43 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          v32 = *(*(&v43 + 1) + 8 * i);
+          v32 = *(*(&v42 + 1) + 8 * i);
           if ([v32 integerValue])
           {
             v33 = _ICQDictionaryForKey(v27, v32);
@@ -320,41 +318,41 @@ LABEL_21:
           }
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v43 objects:v52 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v42 objects:v51 count:16];
       }
 
       while (v29);
     }
 
     v7 = v26;
-    v19 = v42;
-    v34 = v40;
+    v19 = v41;
+    v34 = v39;
 LABEL_49:
 
     goto LABEL_50;
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
-  v39 = v7;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v38 = v7;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v47 objects:v53 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v46 objects:v52 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v48;
+    v12 = *v47;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v48 != v12)
+        if (*v47 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v47 + 1) + 8 * j);
+        v14 = *(*(&v46 + 1) + 8 * j);
         v15 = _ICQDictionaryForKey(v9, v14);
         if ([(__CFString *)v14 isEqualToString:@"200"])
         {
@@ -373,15 +371,15 @@ LABEL_49:
         [v16 setObject:v17 forKey:v18];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v47 objects:v53 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v46 objects:v52 count:16];
     }
 
     while (v11);
   }
 
-  v7 = v39;
-  v19 = v42;
-  if (v42)
+  v7 = v38;
+  v19 = v41;
+  if (v41)
   {
     goto LABEL_21;
   }
@@ -389,52 +387,50 @@ LABEL_49:
 LABEL_50:
   v35 = [v4 copy];
 
-  v36 = *MEMORY[0x277D85DE8];
-
   return v35;
 }
 
 - (_ICQUpgradeFlowSpecification)initWithServerDictionary:(id)dictionary
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   _ICQServerDictToOfferTypeAndLevel(dictionaryCopy, &self->_offerType, 0);
-  v5 = [dictionaryCopy objectForKeyedSubscript:@"needsWifi"];
+  v5 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   self->_needsWiFi = _ICQBooleanForServerObjectDefault(v5, 0);
 
-  v6 = [dictionaryCopy objectForKeyedSubscript:@"offerInfo"];
+  v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   if (!v6)
   {
     v6 = dictionaryCopy;
   }
 
-  v24 = dictionaryCopy;
+  v23 = dictionaryCopy;
   v7 = [_ICQUpgradeFlowSpecification sanitizedUpgradeFlowServerDict:v6];
 
   array = [MEMORY[0x277CBEB18] array];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = v7;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v27;
+    v12 = *v26;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * i);
+        v14 = *(*(&v25 + 1) + 8 * i);
         v15 = [_ICQUpgradeOfferPageSpecification alloc];
-        v16 = [v9 objectForKeyedSubscript:v14];
+        v16 = objc_msgSend_objectForKeyedSubscript_(v9);
         v17 = [(_ICQUpgradeOfferPageSpecification *)v15 initWithServerDictionary:v16 pageIdentifier:v14];
 
         if ([v14 isEqualToString:@"UpgradeOffer"])
@@ -448,23 +444,22 @@ LABEL_50:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v11);
   }
 
   v18 = [array copy];
-  v25.receiver = self;
-  v25.super_class = _ICQUpgradeFlowSpecification;
-  v19 = [(_ICQFlowSpecification *)&v25 initWithPages:v18];
+  v24.receiver = self;
+  v24.super_class = _ICQUpgradeFlowSpecification;
+  v19 = [(_ICQFlowSpecification *)&v24 initWithPages:v18];
   v20 = v19;
   if (v19)
   {
     objc_storeStrong(&v19->_serverDict, obj);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

@@ -171,13 +171,13 @@ void __57__VSWebAuthenticationAppDocumentController__sendMessage___block_invoke(
   v4 = [v5 evaluateScript:v3];
 }
 
-void __57__VSWebAuthenticationAppDocumentController__sendMessage___block_invoke_2()
+void __57__VSWebAuthenticationAppDocumentController__sendMessage___block_invoke_2(uint64_t a1)
 {
-  v0 = VSDefaultLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = VSDefaultLogObject();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_270DD4000, v0, OS_LOG_TYPE_DEFAULT, "Did finish message event.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_270DD4000, v1, OS_LOG_TYPE_DEFAULT, "Did finish message event.", v2, 2u);
   }
 }
 
@@ -199,7 +199,7 @@ void __57__VSWebAuthenticationAppDocumentController__sendMessage___block_invoke_
 
 - (void)didAddMessagesToMessageQueue:(id)queue
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   v5 = VSDefaultLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -227,7 +227,7 @@ void __57__VSWebAuthenticationAppDocumentController__sendMessage___block_invoke_
   messagePort = [templateElement3 messagePort];
   appContext = [messagePort appContext];
   v15 = objc_alloc(MEMORY[0x277CCACE0]);
-  v34 = appContext;
+  v33 = appContext;
   v16 = [appContext app];
   appJSURL = [v16 appJSURL];
   v18 = [v15 initWithURL:appJSURL resolvingAgainstBaseURL:1];
@@ -238,41 +238,41 @@ void __57__VSWebAuthenticationAppDocumentController__sendMessage___block_invoke_
   host = [v18 host];
   [(VSScriptSecurityOrigin *)v6 setHost:host];
 
-  v33 = v18;
+  v32 = v18;
   port = [v18 port];
   -[VSScriptSecurityOrigin setPort:](v6, "setPort:", [port integerValue]);
 
-  v37 = queueCopy;
+  v36 = queueCopy;
   removeAllMessages = [queueCopy removeAllMessages];
   v23 = VSDefaultLogObject();
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     v24 = [removeAllMessages count];
     *buf = 134217984;
-    v43 = v24;
+    v42 = v24;
     _os_log_impl(&dword_270DD4000, v23, OS_LOG_TYPE_DEFAULT, "Will process %lld messages", buf, 0xCu);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v25 = removeAllMessages;
-  v26 = [v25 countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v39;
+    v28 = *v38;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v39 != v28)
+        if (*v38 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = *(*(&v38 + 1) + 8 * i);
+        v30 = *(*(&v37 + 1) + 8 * i);
         if (VSShouldSendScriptMessageToContextWithOrigin(v30, v6))
         {
           [(VSWebAuthenticationAppDocumentController *)self _sendMessage:v30];
@@ -284,21 +284,19 @@ void __57__VSWebAuthenticationAppDocumentController__sendMessage___block_invoke_
           if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v43 = v30;
-            v44 = 2112;
-            v45 = v6;
+            v42 = v30;
+            v43 = 2112;
+            v44 = v6;
             _os_log_error_impl(&dword_270DD4000, v31, OS_LOG_TYPE_ERROR, "Discarding message %@ to origin %@", buf, 0x16u);
           }
         }
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
     while (v27);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startObservingViewModel:(id)model

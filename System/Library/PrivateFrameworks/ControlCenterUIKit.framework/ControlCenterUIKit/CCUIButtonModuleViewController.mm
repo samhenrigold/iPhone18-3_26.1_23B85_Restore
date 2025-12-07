@@ -226,23 +226,24 @@
 
 - (void)viewWillLayoutSubviews
 {
-  v7.receiver = self;
-  v7.super_class = CCUIButtonModuleViewController;
-  [(CCUIButtonModuleViewController *)&v7 viewWillLayoutSubviews];
+  v9.receiver = self;
+  v9.super_class = CCUIButtonModuleViewController;
+  [(CCUIButtonModuleViewController *)&v9 viewWillLayoutSubviews];
   isExpanded = [(CCUIButtonModuleViewController *)self isExpanded];
   if (isExpanded)
   {
-    if (objc_opt_respondsToSelector())
+    v4 = objc_opt_respondsToSelector();
+    if (v4)
     {
       [(CCUIButtonModuleViewController *)self preferredExpandedContinuousCornerRadius];
     }
 
     else
     {
-      v4 = CCUIExpandedModuleContinuousCornerRadius();
+      v6 = CCUIExpandedModuleContinuousCornerRadius(v4, v5);
     }
 
-    [(CCUIButtonModuleViewController *)self _applyContinuousCornerRadius:v4];
+    [(CCUIButtonModuleViewController *)self _applyContinuousCornerRadius:v6];
   }
 
   else if (![(CCUIButtonModuleViewController *)self isResizing])

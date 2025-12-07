@@ -122,7 +122,7 @@ void __61__NTKCompanionFaceRenderer_requestSnapshotOfFace_completion___block_inv
 void __40__NTKCompanionFaceRenderer__storagePath__block_invoke()
 {
   v3 = [MEMORY[0x277CCAA00] defaultManager];
-  v0 = NTKCacheDirectory();
+  v0 = NTKCacheDirectory(v3);
   v1 = [v0 stringByAppendingPathComponent:@"SnapshotImages"];
   v2 = _storagePath___storagePath;
   _storagePath___storagePath = v1;

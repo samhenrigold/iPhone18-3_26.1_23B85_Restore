@@ -51,11 +51,9 @@
 uint64_t __26__SWURLSchemeTask_request__block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 16) request];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2);
 }
 
 - (void)didReceiveResponse:(id)response

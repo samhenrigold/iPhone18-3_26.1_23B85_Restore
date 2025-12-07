@@ -29,11 +29,10 @@ uint64_t __30__AlphonsoDecoder_getInstance__block_invoke()
 
 - (id)GetAppletProperties:(id)properties withPackage:(id)package withModule:(id)module withTransceiver:(id)transceiver withError:(id *)error
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v10 = @"Supported";
-  v11[0] = MEMORY[0x277CBEC38];
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:{1, transceiver, error}];
-  v8 = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
+  v9 = @"Supported";
+  v10[0] = MEMORY[0x277CBEC38];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:{1, transceiver, error}];
 
   return v7;
 }
@@ -85,12 +84,12 @@ uint64_t __30__AlphonsoDecoder_getInstance__block_invoke()
 
 - (id)processEndOfTransaction:(id)transaction withApplet:(id)applet withPackage:(id)package withModule:(id)module withError:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
-  v8 = ATLLogObject();
+  v24[1] = *MEMORY[0x277D85DE8];
+  v8 = ATLLogObject(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    *v22 = 0;
-    _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "AlphonsoDecoder doesn't expect processEndOfTransaction", v22, 2u);
+    *v20 = 0;
+    _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "AlphonsoDecoder doesn't expect processEndOfTransaction", v20, 2u);
   }
 
   v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"AlphonsoDecoder doesn't expect processEndOfTransaction"];
@@ -99,35 +98,33 @@ uint64_t __30__AlphonsoDecoder_getInstance__block_invoke()
   {
     v11 = *error;
     v12 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA450];
     if (*error)
     {
-      v14 = *MEMORY[0x277CCA7E8];
-      v23[0] = *MEMORY[0x277CCA450];
-      v23[1] = v14;
-      v24[0] = v9;
-      v24[1] = v11;
-      v15 = MEMORY[0x277CBEAC0];
-      v16 = v24;
-      v17 = v23;
-      v18 = 2;
+      v13 = *MEMORY[0x277CCA7E8];
+      v21[0] = *MEMORY[0x277CCA450];
+      v21[1] = v13;
+      v22[0] = v9;
+      v22[1] = v11;
+      v14 = MEMORY[0x277CBEAC0];
+      v15 = v22;
+      v16 = v21;
+      v17 = 2;
     }
 
     else
     {
-      v25 = *MEMORY[0x277CCA450];
-      v26[0] = v9;
-      v15 = MEMORY[0x277CBEAC0];
-      v16 = v26;
-      v17 = &v25;
-      v18 = 1;
+      v23 = *MEMORY[0x277CCA450];
+      v24[0] = v9;
+      v14 = MEMORY[0x277CBEAC0];
+      v15 = v24;
+      v16 = &v23;
+      v17 = 1;
     }
 
-    v19 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:v18];
-    *error = [v12 errorWithDomain:@"ATL" code:7 userInfo:v19];
+    v18 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
+    *error = [v12 errorWithDomain:@"ATL" code:7 userInfo:v18];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

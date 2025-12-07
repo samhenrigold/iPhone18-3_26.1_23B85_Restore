@@ -74,12 +74,12 @@
 
 - (BOOL)_parseFromTLVData
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CFEC08] wrappertlv:1 name:@"kMediaContainerConfigurationContainerType"];
   v4 = [MEMORY[0x277CFEB38] wrappertlv:2 name:@"MediaContainerConfigurationContainerParameters"];
-  v17[0] = v3;
-  v17[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[0] = v3;
+  v16[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   v6 = [(HAPTLVBase *)self _parse:v5];
   if (v6)
   {
@@ -96,7 +96,6 @@
     self->_parameters = v13;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

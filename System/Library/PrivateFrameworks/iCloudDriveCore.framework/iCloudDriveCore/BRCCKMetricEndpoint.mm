@@ -66,11 +66,9 @@
 
 - (void)submitEventMetric:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

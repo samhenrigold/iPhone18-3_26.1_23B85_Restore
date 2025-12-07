@@ -37,9 +37,9 @@
 {
   feedbackCopy = feedback;
   objectSnappedFeedback = [(_UIDragSnappingFeedbackGeneratorConfiguration *)self objectSnappedFeedback];
-  v10 = [feedbackCopy isEqual:objectSnappedFeedback];
+  isEqual = objc_msgSend_isEqual_(feedbackCopy);
 
-  if (v10)
+  if (isEqual)
   {
     hidObjectSnappedFeedbackPatternName = [(_UIDragSnappingFeedbackGeneratorConfiguration *)self hidObjectSnappedFeedbackPatternName];
     v12 = [_UIFeedbackBackBoardHIDPattern feedbackPatternWithName:hidObjectSnappedFeedbackPatternName deviceType:device senderID:d];

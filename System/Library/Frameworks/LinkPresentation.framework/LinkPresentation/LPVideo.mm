@@ -236,20 +236,21 @@
   coderCopy = coder;
   if ([(LPVideo *)self needsAsynchronousLoad])
   {
-    if ([coderCopy _lp_coderType] != 1)
+    _lp_coderType = [coderCopy _lp_coderType];
+    if (_lp_coderType != 1)
     {
-      v5 = LPLogChannelSerialization();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = LPLogChannelSerialization(_lp_coderType, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1AE886000, v5, OS_LOG_TYPE_DEFAULT, "Trying to encode an LPVideo with an unloaded item provider.", buf, 2u);
+        _os_log_impl(&dword_1AE886000, v7, OS_LOG_TYPE_DEFAULT, "Trying to encode an LPVideo with an unloaded item provider.", buf, 2u);
       }
     }
   }
 
-  v9.receiver = self;
-  v9.super_class = LPVideo;
-  [(LPVisualMedia *)&v9 encodeWithCoder:coderCopy];
+  v11.receiver = self;
+  v11.super_class = LPVideo;
+  [(LPVisualMedia *)&v11 encodeWithCoder:coderCopy];
   [coderCopy _lp_encodeURLIfNotNilOrLocalFile:self->_streamingURL forKey:@"streamingURL"];
   [coderCopy _lp_encodeURLIfNotNilOrLocalFile:self->_youTubeURL forKey:@"youTubeURL"];
   properties = [(LPVisualMedia *)self properties];
@@ -491,7 +492,7 @@ void __47__LPVideo__intrinsicSizeWithCompletionHandler___block_invoke(uint64_t a
             v18 = v12;
             if (v6)
             {
-              [v6 preferredTransform];
+              objc_msgSend_preferredTransform(v6);
               v14 = v21;
               v15 = v22;
             }

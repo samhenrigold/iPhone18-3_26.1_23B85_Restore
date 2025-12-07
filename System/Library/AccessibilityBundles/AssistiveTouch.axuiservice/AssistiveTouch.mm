@@ -17,7 +17,6 @@ uint64_t sub_203C(uint64_t a1)
   v4 = [v2 showAlertWithText:v3 subtitleText:0 iconImage:0 type:0 forService:*(a1 + 32)];
   [*(a1 + 32) setLastShownAlertIdentifier:v4];
 
-  v6 = *(a1 + 32);
   return AXPerformBlockOnMainThreadAfterDelay();
 }
 

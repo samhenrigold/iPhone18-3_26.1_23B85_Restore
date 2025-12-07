@@ -127,7 +127,7 @@
 - (void)connectionWasInterrupted:(id)interrupted
 {
   interruptedCopy = interrupted;
-  v5 = _FALogSystem();
+  v5 = _FALogSystem(interruptedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -159,7 +159,7 @@
 - (void)connectionWasInvalidated:(id)invalidated
 {
   invalidatedCopy = invalidated;
-  v5 = _FALogSystem();
+  v5 = _FALogSystem(invalidatedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;

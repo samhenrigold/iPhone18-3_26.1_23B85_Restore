@@ -170,7 +170,6 @@ LABEL_10:
 {
   if ((*&self->_has & 0x10) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -182,7 +181,6 @@ LABEL_10:
   has = self->_has;
   if (has)
   {
-    isToDefaultPairedDevice = self->_isToDefaultPairedDevice;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -202,7 +200,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  openError = self->_openError;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -217,12 +214,10 @@ LABEL_8:
   }
 
 LABEL_18:
-  socketError = self->_socketError;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_9:
-    priority = self->_priority;
     PBDataWriterWriteUint64Field();
   }
 
@@ -383,7 +378,6 @@ LABEL_8:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 72);
     if ((has & 0x10) != 0)
     {
       if ((*(equal + 72) & 0x10) == 0 || self->_timestamp != *(equal + 5))
@@ -411,7 +405,6 @@ LABEL_34:
       has = self->_has;
     }
 
-    v9 = *(equal + 72);
     if (has)
     {
       if ((*(equal + 72) & 1) == 0 || self->_isToDefaultPairedDevice != *(equal + 1))

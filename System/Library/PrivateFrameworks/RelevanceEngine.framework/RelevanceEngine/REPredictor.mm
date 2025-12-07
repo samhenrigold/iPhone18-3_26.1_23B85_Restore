@@ -5,6 +5,7 @@
 - (NSCountedSet)outstandingActivities;
 - (id)_init;
 - (void)_performUpdate;
+- (void)_setRunning:(BOOL)running;
 - (void)beginActivity:(id)activity;
 - (void)beginUpdates;
 - (void)dealloc;
@@ -32,50 +33,48 @@
 
 void __34__REPredictor_availablePredictors__block_invoke()
 {
-  v3[9] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v3[5] = objc_opt_class();
-  v3[6] = objc_opt_class();
-  v3[7] = objc_opt_class();
-  v3[8] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:9];
+  v2[9] = *MEMORY[0x277D85DE8];
+  v2[0] = objc_opt_class();
+  v2[1] = objc_opt_class();
+  v2[2] = objc_opt_class();
+  v2[3] = objc_opt_class();
+  v2[4] = objc_opt_class();
+  v2[5] = objc_opt_class();
+  v2[6] = objc_opt_class();
+  v2[7] = objc_opt_class();
+  v2[8] = objc_opt_class();
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:9];
   v1 = availablePredictors_PredictorClasses;
   availablePredictors_PredictorClasses = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)systemPredictorsSupportingFeatureSet:(id)set relevanceEngine:(id)engine
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   setCopy = set;
   engineCopy = engine;
   v7 = objc_alloc_init(REMutableFeatureSet);
   array = [MEMORY[0x277CBEB18] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   availablePredictors = [self availablePredictors];
-  v10 = [availablePredictors countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [availablePredictors countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(availablePredictors);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v21 + 1) + 8 * i);
         supportedFeatures = [v14 supportedFeatures];
         v16 = [supportedFeatures mutableCopy];
 
@@ -88,14 +87,13 @@ void __34__REPredictor_availablePredictors__block_invoke()
         }
       }
 
-      v11 = [availablePredictors countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [availablePredictors countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
   }
 
   v18 = [[REPredictorManager alloc] initWithPredictors:array featureSet:v7 relevanceEngine:engineCopy];
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -273,6 +271,23 @@ void __30__REPredictor_updateObservers__block_invoke(uint64_t a1, void *a2)
   }
 }
 
+- (void)_setRunning:(BOOL)running
+{
+  runningCopy = running;
+  if ([(REPredictor *)self _isRunning]!= running)
+  {
+    [(REPredictor *)self _setIsRunning:runningCopy];
+    queue = self->_queue;
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __27__REPredictor__setRunning___block_invoke;
+    v6[3] = &unk_2785FA448;
+    v7 = runningCopy;
+    v6[4] = self;
+    dispatch_async(queue, v6);
+  }
+}
+
 uint64_t __27__REPredictor__setRunning___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 40);
@@ -290,76 +305,74 @@ uint64_t __27__REPredictor__setRunning___block_invoke(uint64_t a1)
 
 - (void)enumerateInflectionFeatureValues:(id)values
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   if (valuesCopy)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     engines = [(REPredictor *)self engines];
-    v6 = [engines countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [engines countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(engines);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v15 + 1) + 8 * i);
           inflectionFeatureValues = [v10 inflectionFeatureValues];
-          v14[0] = MEMORY[0x277D85DD0];
-          v14[1] = 3221225472;
-          v14[2] = __48__REPredictor_enumerateInflectionFeatureValues___block_invoke;
-          v14[3] = &unk_2785FC1F0;
+          v13[0] = MEMORY[0x277D85DD0];
+          v13[1] = 3221225472;
+          v13[2] = __48__REPredictor_enumerateInflectionFeatureValues___block_invoke;
+          v13[3] = &unk_2785FC1F0;
           v12 = valuesCopy;
-          v14[4] = v10;
-          v15 = v12;
-          [inflectionFeatureValues enumerateKeysAndObjectsUsingBlock:v14];
+          v13[4] = v10;
+          v14 = v12;
+          [inflectionFeatureValues enumerateKeysAndObjectsUsingBlock:v13];
         }
 
-        v7 = [engines countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [engines countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __48__REPredictor_enumerateInflectionFeatureValues___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * v10);
+        v11 = *(*(&v14 + 1) + 8 * v10);
         v12 = [MEMORY[0x277CBEB68] null];
         v13 = [v12 isEqual:v11];
 
@@ -369,20 +382,17 @@ void __48__REPredictor_enumerateInflectionFeatureValues___block_invoke(uint64_t 
           v11 = 0;
         }
 
-        v14 = *(a1 + 32);
         (*(*(a1 + 40) + 16))();
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (id)supportedFeatures

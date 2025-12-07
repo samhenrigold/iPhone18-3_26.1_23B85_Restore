@@ -1046,20 +1046,7 @@ LABEL_102:
     isExercising6 = [generatorState8 isExercising];
 
     v250 = v635;
-    if (!isExercising6)
-    {
-      goto LABEL_112;
-    }
-
-    demoDataGenerator34 = [v60 demoDataGenerator];
-    generatorState9 = [demoDataGenerator34 generatorState];
-    workoutConfiguration2 = [generatorState9 workoutConfiguration];
-    [workoutConfiguration2 distanceCyclingRateInMiles];
-    v255 = v254;
-
-    [v634 stepsSampleFrequencyDuringExercise];
-    v257 = v255 * v256;
-    if (v257 > 0.00000011920929)
+    if (isExercising6 && ([v60 demoDataGenerator], v251 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v251, "generatorState"), v252 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v252, "workoutConfiguration"), v253 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v253, "distanceCyclingRateInMiles"), v255 = v254, v253, v252, v251, objc_msgSend(v634, "stepsSampleFrequencyDuringExercise"), v257 = v255 * v256, v257 > 0.00000011920929))
     {
       v258 = MEMORY[0x277CCD7E8];
       mileUnit = [MEMORY[0x277CCDAB0] mileUnit];
@@ -1068,7 +1055,6 @@ LABEL_102:
 
     else
     {
-LABEL_112:
       v260 = 0;
     }
   }
@@ -1091,10 +1077,10 @@ LABEL_112:
     v612 = 0;
   }
 
-  demoDataGenerator35 = [v60 demoDataGenerator];
-  generatorState10 = [demoDataGenerator35 generatorState];
-  workoutConfiguration3 = [generatorState10 workoutConfiguration];
-  [workoutConfiguration3 distanceCrossCountrySkiingRateInMeters];
+  demoDataGenerator34 = [v60 demoDataGenerator];
+  generatorState9 = [demoDataGenerator34 generatorState];
+  workoutConfiguration2 = [generatorState9 workoutConfiguration];
+  [workoutConfiguration2 distanceCrossCountrySkiingRateInMeters];
   v266 = v265;
 
   v267 = [(HDDemoDataActivitySampleGenerator *)v60 _computeDistanceWithDistanceRate:v634 DemoPerson:v266];
@@ -1111,10 +1097,10 @@ LABEL_112:
     v611 = 0;
   }
 
-  demoDataGenerator36 = [(HDDemoDataBaseSampleGenerator *)selfCopy demoDataGenerator];
-  generatorState11 = [demoDataGenerator36 generatorState];
-  workoutConfiguration4 = [generatorState11 workoutConfiguration];
-  [workoutConfiguration4 distanceRowingRateInMeters];
+  demoDataGenerator35 = [(HDDemoDataBaseSampleGenerator *)selfCopy demoDataGenerator];
+  generatorState10 = [demoDataGenerator35 generatorState];
+  workoutConfiguration3 = [generatorState10 workoutConfiguration];
+  [workoutConfiguration3 distanceRowingRateInMeters];
   v273 = v272;
 
   v274 = [(HDDemoDataActivitySampleGenerator *)selfCopy _computeDistanceWithDistanceRate:v634 DemoPerson:v273];
@@ -1130,10 +1116,10 @@ LABEL_112:
     v610 = 0;
   }
 
-  demoDataGenerator37 = [(HDDemoDataBaseSampleGenerator *)selfCopy demoDataGenerator];
-  generatorState12 = [demoDataGenerator37 generatorState];
-  workoutConfiguration5 = [generatorState12 workoutConfiguration];
-  [workoutConfiguration5 distanceSkatingSportsRateInMeters];
+  demoDataGenerator36 = [(HDDemoDataBaseSampleGenerator *)selfCopy demoDataGenerator];
+  generatorState11 = [demoDataGenerator36 generatorState];
+  workoutConfiguration4 = [generatorState11 workoutConfiguration];
+  [workoutConfiguration4 distanceSkatingSportsRateInMeters];
   v280 = v279;
 
   v281 = [(HDDemoDataActivitySampleGenerator *)selfCopy _computeDistanceWithDistanceRate:v634 DemoPerson:v280];
@@ -1150,10 +1136,10 @@ LABEL_112:
   }
 
   v616 = v246;
-  demoDataGenerator38 = [(HDDemoDataBaseSampleGenerator *)selfCopy demoDataGenerator];
-  generatorState13 = [demoDataGenerator38 generatorState];
-  workoutConfiguration6 = [generatorState13 workoutConfiguration];
-  [workoutConfiguration6 distancePaddleSportsRateInMeters];
+  demoDataGenerator37 = [(HDDemoDataBaseSampleGenerator *)selfCopy demoDataGenerator];
+  generatorState12 = [demoDataGenerator37 generatorState];
+  workoutConfiguration5 = [generatorState12 workoutConfiguration];
+  [workoutConfiguration5 distancePaddleSportsRateInMeters];
   v287 = v286;
 
   v288 = [(HDDemoDataActivitySampleGenerator *)selfCopy _computeDistanceWithDistanceRate:v634 DemoPerson:v287];
@@ -1170,10 +1156,10 @@ LABEL_112:
     v608 = 0;
   }
 
-  demoDataGenerator39 = [(HDDemoDataBaseSampleGenerator *)selfCopy demoDataGenerator];
-  generatorState14 = [demoDataGenerator39 generatorState];
-  workoutConfiguration7 = [generatorState14 workoutConfiguration];
-  [workoutConfiguration7 distanceDownhillSnowSportsRateInMeters];
+  demoDataGenerator38 = [(HDDemoDataBaseSampleGenerator *)selfCopy demoDataGenerator];
+  generatorState13 = [demoDataGenerator38 generatorState];
+  workoutConfiguration6 = [generatorState13 workoutConfiguration];
+  [workoutConfiguration6 distanceDownhillSnowSportsRateInMeters];
   v294 = v293;
 
   v295 = v634;
@@ -1191,9 +1177,9 @@ LABEL_112:
   }
 
   v298 = selfCopy;
-  demoDataGenerator40 = [(HDDemoDataBaseSampleGenerator *)selfCopy demoDataGenerator];
-  generatorState15 = [demoDataGenerator40 generatorState];
-  isRunning2 = [generatorState15 isRunning];
+  demoDataGenerator39 = [(HDDemoDataBaseSampleGenerator *)selfCopy demoDataGenerator];
+  generatorState14 = [demoDataGenerator39 generatorState];
+  isRunning2 = [generatorState14 isRunning];
 
   v302 = v635;
   v303 = 0x277CCD000uLL;
@@ -1262,9 +1248,9 @@ LABEL_112:
     selfCopy->_nextRunningGroundContactTimeSampleTime = v355;
   }
 
-  demoDataGenerator41 = [v298 demoDataGenerator];
-  generatorState16 = [demoDataGenerator41 generatorState];
-  isCycling = [generatorState16 isCycling];
+  demoDataGenerator40 = [v298 demoDataGenerator];
+  generatorState15 = [demoDataGenerator40 generatorState];
+  isCycling = [generatorState15 isCycling];
 
   if (v298 && isCycling)
   {
@@ -1316,9 +1302,9 @@ LABEL_112:
     selfCopy->_nextCyclingSpeedSampleTime = v397;
   }
 
-  demoDataGenerator42 = [v298 demoDataGenerator];
-  generatorState17 = [demoDataGenerator42 generatorState];
-  isUnderwaterDiving = [generatorState17 isUnderwaterDiving];
+  demoDataGenerator41 = [v298 demoDataGenerator];
+  generatorState16 = [demoDataGenerator41 generatorState];
+  isUnderwaterDiving = [generatorState16 isUnderwaterDiving];
 
   if (v298 && isUnderwaterDiving)
   {
@@ -1340,9 +1326,9 @@ LABEL_112:
     selfCopy->_nextWaterTemperatureSampleTime = v413;
   }
 
-  demoDataGenerator43 = [v298 demoDataGenerator];
-  generatorState18 = [demoDataGenerator43 generatorState];
-  isCrossCountrySkiing = [generatorState18 isCrossCountrySkiing];
+  demoDataGenerator42 = [v298 demoDataGenerator];
+  generatorState17 = [demoDataGenerator42 generatorState];
+  isCrossCountrySkiing = [generatorState17 isCrossCountrySkiing];
 
   if (v298 && isCrossCountrySkiing)
   {
@@ -1364,9 +1350,9 @@ LABEL_112:
     selfCopy->_nextCrossCountrySkiingSpeedSampleTime = v429;
   }
 
-  demoDataGenerator44 = [v298 demoDataGenerator];
-  generatorState19 = [demoDataGenerator44 generatorState];
-  isRowing = [generatorState19 isRowing];
+  demoDataGenerator43 = [v298 demoDataGenerator];
+  generatorState18 = [demoDataGenerator43 generatorState];
+  isRowing = [generatorState18 isRowing];
 
   if (v298 && isRowing)
   {
@@ -1388,9 +1374,9 @@ LABEL_112:
     selfCopy->_nextRowingSpeedSampleTime = v445;
   }
 
-  demoDataGenerator45 = [v298 demoDataGenerator];
-  generatorState20 = [demoDataGenerator45 generatorState];
-  isPaddleSports = [generatorState20 isPaddleSports];
+  demoDataGenerator44 = [v298 demoDataGenerator];
+  generatorState19 = [demoDataGenerator44 generatorState];
+  isPaddleSports = [generatorState19 isPaddleSports];
 
   if (isPaddleSports)
   {
@@ -1437,8 +1423,8 @@ LABEL_153:
     }
   }
 
-  demoDataGenerator46 = [v298 demoDataGenerator];
-  sleepSampleGenerator10 = [demoDataGenerator46 sleepSampleGenerator];
+  demoDataGenerator45 = [v298 demoDataGenerator];
+  sleepSampleGenerator10 = [demoDataGenerator45 sleepSampleGenerator];
   v466 = [sleepSampleGenerator10 isDemoPersonAwake:v295 atTime:toTime];
 
   if (!v466 || *(v298 + 216) > toTime)
@@ -1446,18 +1432,18 @@ LABEL_153:
     goto LABEL_152;
   }
 
-  demoDataGenerator47 = [v298 demoDataGenerator];
-  firstSampleDayOfYear = [demoDataGenerator47 firstSampleDayOfYear];
+  demoDataGenerator46 = [v298 demoDataGenerator];
+  firstSampleDayOfYear = [demoDataGenerator46 firstSampleDayOfYear];
 
   if (toTime > *(v298 + 224))
   {
     v520 = ((((firstSampleDayOfYear + toTime) % 365) / 91.0) + 5);
-    demoDataGenerator48 = [v298 demoDataGenerator];
-    statisticsSampleGenerator11 = [demoDataGenerator48 statisticsSampleGenerator];
+    demoDataGenerator47 = [v298 demoDataGenerator];
+    statisticsSampleGenerator11 = [demoDataGenerator47 statisticsSampleGenerator];
     [statisticsSampleGenerator11 pseudoRandomDoubleFromTime:toTime];
     v524 = v520 + v523 * 2.0;
-    demoDataGenerator49 = [v298 demoDataGenerator];
-    statisticsSampleGenerator12 = [demoDataGenerator49 statisticsSampleGenerator];
+    demoDataGenerator48 = [v298 demoDataGenerator];
+    statisticsSampleGenerator12 = [demoDataGenerator48 statisticsSampleGenerator];
     [statisticsSampleGenerator12 computeNoiseFromTime:toTime + 1.0 stdDev:2.5];
     v528 = v524 + v527 + *(v298 + 240) / 7.0;
 
@@ -1474,8 +1460,8 @@ LABEL_153:
 
   [v295 uvIndexSampleFrequency];
   v531 = v530;
-  demoDataGenerator50 = [v298 demoDataGenerator];
-  statisticsSampleGenerator13 = [demoDataGenerator50 statisticsSampleGenerator];
+  demoDataGenerator49 = [v298 demoDataGenerator];
+  statisticsSampleGenerator13 = [demoDataGenerator49 statisticsSampleGenerator];
   [statisticsSampleGenerator13 computeNoiseFromTime:toTime stdDev:0.00833333333];
   *(v298 + 216) = v531 + v534 + *(v298 + 216);
 
@@ -1515,9 +1501,9 @@ LABEL_153:
   }
 
   v585 = *(v298 + 232);
-  demoDataGenerator51 = [v298 demoDataGenerator];
-  generatorState21 = [demoDataGenerator51 generatorState];
-  isExercising7 = [generatorState21 isExercising];
+  demoDataGenerator50 = [v298 demoDataGenerator];
+  generatorState20 = [demoDataGenerator50 generatorState];
+  isExercising7 = [generatorState20 isExercising];
 
   if ((isExercising7 & 1) == 0)
   {
@@ -1532,8 +1518,8 @@ LABEL_153:
       goto LABEL_207;
     }
 
-    demoDataGenerator52 = [v298 demoDataGenerator];
-    statisticsSampleGenerator14 = [demoDataGenerator52 statisticsSampleGenerator];
+    demoDataGenerator51 = [v298 demoDataGenerator];
+    statisticsSampleGenerator14 = [demoDataGenerator51 statisticsSampleGenerator];
     [statisticsSampleGenerator14 pseudoRandomDoubleFromTime:toTime];
     v593 = v592;
 
@@ -1852,7 +1838,7 @@ LABEL_10:
 
 - (void)_updateWorkoutStateWithActiveEnergyBurned:(uint64_t)burned distanceWalking:(void *)walking distanceCycling:(void *)cycling distanceCrossCountrySkiing:(void *)skiing distanceRowing:(void *)rowing distanceSkatingSports:(void *)sports distancePaddleSports:(void *)paddleSports distanceDownhillSnowSports:(void *)snowSports currentTime:(void *)time date:(void *)burned0 objectCollection:(void *)burned1 demoPerson:(void *)burned2
 {
-  v226 = *MEMORY[0x277D85DE8];
+  v223 = *MEMORY[0x277D85DE8];
   walkingCopy = walking;
   cyclingCopy = cycling;
   skiingCopy = skiing;
@@ -1867,7 +1853,7 @@ LABEL_10:
   personCopy = person;
   if (!burned)
   {
-    goto LABEL_175;
+    goto LABEL_173;
   }
 
   v21 = *(burned + 264);
@@ -1929,348 +1915,342 @@ LABEL_10:
   {
     if (!v21)
     {
-      goto LABEL_175;
-    }
-
-    burnedCopy2 = burned;
-    v90 = *(burned + 264);
-    if (v90)
-    {
-      v91 = *(v90 + 32);
-    }
-
-    if (!_HKWorkoutActivityTypeIsValid())
-    {
       goto LABEL_173;
     }
 
-    v92 = *(burned + 264);
-    if (!v92)
+    burnedCopy2 = burned;
+    if (!_HKWorkoutActivityTypeIsValid())
     {
-      goto LABEL_106;
+      goto LABEL_171;
     }
 
-    v93 = v92[4];
-    if (v93 > 45)
+    v90 = *(burned + 264);
+    if (!v90)
     {
-      if (v93 > 60)
+      goto LABEL_104;
+    }
+
+    v91 = v90[4];
+    if (v91 > 45)
+    {
+      if (v91 > 60)
       {
-        if (v93 <= 76)
+        if (v91 <= 76)
         {
-          if (v93 != 61 && v93 != 63 && v93 != 67)
+          if (v91 != 61 && v91 != 63 && v91 != 67)
           {
-            goto LABEL_106;
+            goto LABEL_104;
           }
 
-LABEL_87:
+LABEL_85:
           [(HDDemoDataActivitySampleGenerator *)burned _generateHIITWorkoutDataWithObjectCollection:collectionCopy demoPerson:personCopy];
-          goto LABEL_106;
+          goto LABEL_104;
         }
 
-        if (v93 == 77)
+        if (v91 == 77)
         {
-          v94 = &unk_283CAEC08;
-          v95 = &unk_283CAEC20;
+          v92 = &unk_283CAEC08;
+          v93 = &unk_283CAEC20;
         }
 
         else
         {
-          if (v93 != 80)
+          if (v91 != 80)
           {
-            if (v93 == 84)
+            if (v91 == 84)
             {
               [(HDDemoDataActivitySampleGenerator *)burned _generateUnderwaterDivingWorkoutDataWithObjectCollection:collectionCopy demoPerson:personCopy];
             }
 
-            goto LABEL_106;
+            goto LABEL_104;
           }
 
-          v94 = &unk_283CAEBD8;
-          v95 = &unk_283CAEBF0;
+          v92 = &unk_283CAEBD8;
+          v93 = &unk_283CAEBF0;
         }
 
-LABEL_105:
-        [HDDemoDataActivitySampleGenerator _generateWorkoutDataWithHeartRates:v94 recoveryHeartRates:v95 objectCollection:collectionCopy demoPerson:v92 workoutState:?];
-        goto LABEL_106;
+LABEL_103:
+        [HDDemoDataActivitySampleGenerator _generateWorkoutDataWithHeartRates:v92 recoveryHeartRates:v93 objectCollection:collectionCopy demoPerson:v90 workoutState:?];
+        goto LABEL_104;
       }
 
-      if (v93 <= 56)
+      if (v91 <= 56)
       {
-        if (v93 == 46)
+        if (v91 == 46)
         {
           [(HDDemoDataActivitySampleGenerator *)burned _generateSwimmingWorkoutDataWithObjectCollection:collectionCopy demoPerson:personCopy];
-          goto LABEL_106;
+          goto LABEL_104;
         }
 
-        if (v93 != 52)
+        if (v91 != 52)
         {
-          goto LABEL_106;
+          goto LABEL_104;
         }
 
-        v94 = &unk_283CAEB48;
-        v95 = &unk_283CAEB60;
-        goto LABEL_105;
+        v92 = &unk_283CAEB48;
+        v93 = &unk_283CAEB60;
+        goto LABEL_103;
       }
 
-      if (v93 != 57)
+      if (v91 != 57)
       {
-        if (v93 != 59 && v93 != 60)
+        if (v91 != 59 && v91 != 60)
         {
-          goto LABEL_106;
+          goto LABEL_104;
         }
 
-LABEL_97:
+LABEL_95:
         [(HDDemoDataActivitySampleGenerator *)burned _generateEllipticalWorkoutDataWithObjectCollection:collectionCopy demoPerson:personCopy];
-        goto LABEL_106;
+        goto LABEL_104;
       }
 
-      goto LABEL_101;
+      goto LABEL_99;
     }
 
-    if (v93 <= 30)
+    if (v91 <= 30)
     {
-      if (v93 <= 19)
+      if (v91 <= 19)
       {
-        if (v93 == 13)
+        if (v91 == 13)
         {
           [(HDDemoDataActivitySampleGenerator *)burned _generateCyclingFTPSamplesForDemoPerson:personCopy sampleDate:dateCopy objectCollection:collectionCopy];
-          goto LABEL_106;
+          goto LABEL_104;
         }
 
-        if (v93 != 16)
+        if (v91 != 16)
         {
-          goto LABEL_106;
+          goto LABEL_104;
         }
 
-        goto LABEL_97;
+        goto LABEL_95;
       }
 
-      if (v93 == 20)
+      if (v91 == 20)
       {
-        goto LABEL_87;
+        goto LABEL_85;
       }
 
-      if (v93 != 21)
+      if (v91 != 21)
       {
-        if (v93 != 24)
+        if (v91 != 24)
         {
-          goto LABEL_106;
+          goto LABEL_104;
         }
 
-        v94 = &unk_283CAEB78;
-        v95 = &unk_283CAEB90;
-        goto LABEL_105;
+        v92 = &unk_283CAEB78;
+        v93 = &unk_283CAEB90;
+        goto LABEL_103;
       }
 
-LABEL_101:
-      v94 = &unk_283CAEBA8;
-      v95 = &unk_283CAEBC0;
-      goto LABEL_105;
+LABEL_99:
+      v92 = &unk_283CAEBA8;
+      v93 = &unk_283CAEBC0;
+      goto LABEL_103;
     }
 
-    if (v93 <= 36)
+    if (v91 <= 36)
     {
-      if (v93 == 31)
+      if (v91 == 31)
       {
-        goto LABEL_101;
+        goto LABEL_99;
       }
 
-      if (v93 != 35)
+      if (v91 != 35)
       {
-        goto LABEL_106;
+        goto LABEL_104;
       }
     }
 
-    else if (v93 != 37)
+    else if (v91 != 37)
     {
-      if (v93 == 39 || v93 == 41)
+      if (v91 == 39 || v91 == 41)
       {
-        goto LABEL_87;
+        goto LABEL_85;
       }
 
-LABEL_106:
-      v96 = *(burned + 264);
+LABEL_104:
+      v94 = *(burned + 264);
       profile = [burnedCopy profile];
-      v98 = burnedCopy[4];
-      v202 = dateCopy;
-      v201 = profile;
-      v198 = v98;
-      if (!v96)
+      v96 = burnedCopy[4];
+      v199 = dateCopy;
+      v198 = profile;
+      v195 = v96;
+      if (!v94)
       {
-        v167 = 0;
-        goto LABEL_162;
+        v165 = 0;
+        goto LABEL_160;
       }
 
-      v99 = MEMORY[0x277CCD7E8];
+      v97 = MEMORY[0x277CCD7E8];
       kilocalorieUnit = [MEMORY[0x277CCDAB0] kilocalorieUnit];
-      v199 = [v99 quantityWithUnit:kilocalorieUnit doubleValue:*(v96 + 64)];
+      v196 = [v97 quantityWithUnit:kilocalorieUnit doubleValue:*(v94 + 64)];
 
-      v101 = *(v96 + 32);
-      if (v101 > 45)
+      v99 = *(v94 + 32);
+      if (v99 > 45)
       {
-        if (v101 > 60)
+        if (v99 > 60)
         {
-          if (v101 == 61 || v101 == 67)
+          if (v99 == 61 || v99 == 67)
           {
-            v106 = MEMORY[0x277CCD7E8];
+            v104 = MEMORY[0x277CCD7E8];
             meterUnit = [MEMORY[0x277CCDAB0] meterUnit];
-            v200 = [v106 quantityWithUnit:meterUnit doubleValue:*(v96 + 128)];
-            goto LABEL_126;
+            v197 = [v104 quantityWithUnit:meterUnit doubleValue:*(v94 + 128)];
+            goto LABEL_124;
           }
         }
 
         else
         {
-          if (v101 == 46)
+          if (v99 == 46)
           {
-            v108 = MEMORY[0x277CCD7E8];
+            v106 = MEMORY[0x277CCD7E8];
             meterUnit = [MEMORY[0x277CCDAB0] yardUnit];
-            v200 = [v108 quantityWithUnit:meterUnit doubleValue:*(v96 + 88)];
-            goto LABEL_126;
+            v197 = [v106 quantityWithUnit:meterUnit doubleValue:*(v94 + 88)];
+            goto LABEL_124;
           }
 
-          if (v101 == 60)
+          if (v99 == 60)
           {
-            v104 = MEMORY[0x277CCD7E8];
+            v102 = MEMORY[0x277CCD7E8];
             meterUnit = [MEMORY[0x277CCDAB0] meterUnit];
-            v200 = [v104 quantityWithUnit:meterUnit doubleValue:*(v96 + 96)];
-            goto LABEL_126;
+            v197 = [v102 quantityWithUnit:meterUnit doubleValue:*(v94 + 96)];
+            goto LABEL_124;
           }
         }
       }
 
-      else if (v101 > 34)
+      else if (v99 > 34)
       {
-        if (v101 == 35)
+        if (v99 == 35)
         {
-          v109 = MEMORY[0x277CCD7E8];
+          v107 = MEMORY[0x277CCD7E8];
           meterUnit = [MEMORY[0x277CCDAB0] meterUnit];
-          v200 = [v109 quantityWithUnit:meterUnit doubleValue:*(v96 + 104)];
-          goto LABEL_126;
+          v197 = [v107 quantityWithUnit:meterUnit doubleValue:*(v94 + 104)];
+          goto LABEL_124;
         }
 
-        if (v101 == 39)
+        if (v99 == 39)
         {
-          v105 = MEMORY[0x277CCD7E8];
+          v103 = MEMORY[0x277CCD7E8];
           meterUnit = [MEMORY[0x277CCDAB0] meterUnit];
-          v200 = [v105 quantityWithUnit:meterUnit doubleValue:*(v96 + 112)];
-          goto LABEL_126;
+          v197 = [v103 quantityWithUnit:meterUnit doubleValue:*(v94 + 112)];
+          goto LABEL_124;
         }
       }
 
       else
       {
-        if (v101 == 13)
+        if (v99 == 13)
         {
-          v107 = MEMORY[0x277CCD7E8];
+          v105 = MEMORY[0x277CCD7E8];
           meterUnit = [MEMORY[0x277CCDAB0] meterUnit];
-          v200 = [v107 quantityWithUnit:meterUnit doubleValue:*(v96 + 80)];
-          goto LABEL_126;
+          v197 = [v105 quantityWithUnit:meterUnit doubleValue:*(v94 + 80)];
+          goto LABEL_124;
         }
 
-        if (v101 == 31)
+        if (v99 == 31)
         {
-          v102 = MEMORY[0x277CCD7E8];
+          v100 = MEMORY[0x277CCD7E8];
           meterUnit = [MEMORY[0x277CCDAB0] meterUnit];
-          v200 = [v102 quantityWithUnit:meterUnit doubleValue:*(v96 + 120)];
-          goto LABEL_126;
+          v197 = [v100 quantityWithUnit:meterUnit doubleValue:*(v94 + 120)];
+          goto LABEL_124;
         }
       }
 
-      v110 = MEMORY[0x277CCD7E8];
+      v108 = MEMORY[0x277CCD7E8];
       meterUnit = [MEMORY[0x277CCDAB0] meterUnit];
-      v200 = [v110 quantityWithUnit:meterUnit doubleValue:*(v96 + 72)];
-LABEL_126:
+      v197 = [v108 quantityWithUnit:meterUnit doubleValue:*(v94 + 72)];
+LABEL_124:
 
-      v203 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v111 = arc4random_uniform(0xAu);
-      v112 = arc4random_uniform(0x1Eu);
-      v113 = arc4random_uniform(5u);
-      v114 = MEMORY[0x277CCD7E8];
+      v200 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v109 = arc4random_uniform(0xAu);
+      v110 = arc4random_uniform(0x1Eu);
+      v111 = arc4random_uniform(5u);
+      v112 = MEMORY[0x277CCD7E8];
       degreeFahrenheitUnit = [MEMORY[0x277CCDAB0] degreeFahrenheitUnit];
-      v116 = [v114 quantityWithUnit:degreeFahrenheitUnit doubleValue:(v111 + 55)];
-      [v203 setObject:v116 forKeyedSubscript:*MEMORY[0x277CCC560]];
+      v114 = [v112 quantityWithUnit:degreeFahrenheitUnit doubleValue:(v109 + 55)];
+      [v200 setObject:v114 forKeyedSubscript:*MEMORY[0x277CCC560]];
 
-      v117 = MEMORY[0x277CCD7E8];
+      v115 = MEMORY[0x277CCD7E8];
       percentUnit = [MEMORY[0x277CCDAB0] percentUnit];
-      v119 = [v117 quantityWithUnit:percentUnit doubleValue:(v112 + 20)];
-      [v203 setObject:v119 forKeyedSubscript:*MEMORY[0x277CCC558]];
+      v117 = [v115 quantityWithUnit:percentUnit doubleValue:(v110 + 20)];
+      [v200 setObject:v117 forKeyedSubscript:*MEMORY[0x277CCC558]];
 
-      v120 = [MEMORY[0x277CCABB0] numberWithInteger:v113 + 1];
-      [v203 setObject:v120 forKeyedSubscript:*MEMORY[0x277CCC550]];
+      v118 = [MEMORY[0x277CCABB0] numberWithInteger:v111 + 1];
+      [v200 setObject:v118 forKeyedSubscript:*MEMORY[0x277CCC550]];
 
-      v121 = *(v96 + 32);
-      switch(v121)
+      v119 = *(v94 + 32);
+      switch(v119)
       {
         case '%':
-          v134 = MEMORY[0x277CCD7E8];
-          v135 = [MEMORY[0x277CCDAB0] unitFromString:@"count/min"];
-          v136 = [v134 quantityWithUnit:v135 doubleValue:173.0];
-          [v203 setObject:v136 forKeyedSubscript:*MEMORY[0x277CCE168]];
+          v132 = MEMORY[0x277CCD7E8];
+          v133 = [MEMORY[0x277CCDAB0] unitFromString:@"count/min"];
+          v134 = [v132 quantityWithUnit:v133 doubleValue:173.0];
+          [v200 setObject:v134 forKeyedSubscript:*MEMORY[0x277CCE168]];
 
           currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
           date = [MEMORY[0x277CBEAA8] date];
-          v139 = [currentCalendar dateByAddingUnit:8 value:-1 toDate:date options:0];
+          v137 = [currentCalendar dateByAddingUnit:8 value:-1 toDate:date options:0];
 
-          v140 = *(v96 + 56);
-          v141 = [v140 hk_isAfterDate:v139];
+          v138 = *(v94 + 56);
+          v139 = [v138 hk_isAfterDate:v137];
 
-          if (v141)
+          if (v139)
           {
-            v142 = MEMORY[0x277CCD7E8];
+            v140 = MEMORY[0x277CCD7E8];
             inchUnit = [MEMORY[0x277CCDAB0] inchUnit];
-            v144 = [v142 quantityWithUnit:inchUnit doubleValue:1236.0];
+            v142 = [v140 quantityWithUnit:inchUnit doubleValue:1236.0];
 
-            [v203 setObject:v144 forKeyedSubscript:*MEMORY[0x277CCC488]];
+            [v200 setObject:v142 forKeyedSubscript:*MEMORY[0x277CCC488]];
           }
 
-          v121 = *(v96 + 32);
+          v119 = *(v94 + 32);
           break;
         case '.':
-          v122 = *(v96 + 24);
+          v120 = *(v94 + 24);
+          v211 = 0u;
+          v212 = 0u;
+          v213 = 0u;
           v214 = 0u;
-          v215 = 0u;
-          v216 = 0u;
-          v217 = 0u;
-          v123 = v122;
-          v124 = [v123 countByEnumeratingWithState:&v214 objects:&buf count:16];
-          if (v124)
+          v121 = v120;
+          v122 = [v121 countByEnumeratingWithState:&v211 objects:&buf count:16];
+          if (v122)
           {
-            v195 = v20;
-            v125 = 0;
-            v126 = *v215;
+            v192 = v20;
+            v123 = 0;
+            v124 = *v212;
             do
             {
-              for (i = 0; i != v124; ++i)
+              for (i = 0; i != v122; ++i)
               {
-                if (*v215 != v126)
+                if (*v212 != v124)
                 {
-                  objc_enumerationMutation(v123);
+                  objc_enumerationMutation(v121);
                 }
 
-                if ([*(*(&v214 + 1) + 8 * i) type] == 3)
+                if ([*(*(&v211 + 1) + 8 * i) type] == 3)
                 {
-                  ++v125;
+                  ++v123;
                 }
               }
 
-              v124 = [v123 countByEnumeratingWithState:&v214 objects:&buf count:16];
+              v122 = [v121 countByEnumeratingWithState:&v211 objects:&buf count:16];
             }
 
-            while (v124);
+            while (v122);
 
-            v20 = v195;
-            if (v125 >= 1)
+            v20 = v192;
+            if (v123 >= 1)
             {
               yardUnit = [MEMORY[0x277CCDAB0] yardUnit];
-              [v200 doubleValueForUnit:yardUnit];
-              v130 = v129;
+              [v197 doubleValueForUnit:yardUnit];
+              v128 = v127;
 
-              v131 = MEMORY[0x277CCD7E8];
+              v129 = MEMORY[0x277CCD7E8];
               yardUnit2 = [MEMORY[0x277CCDAB0] yardUnit];
-              v133 = [v131 quantityWithUnit:yardUnit2 doubleValue:(v130 / v125)];
+              v131 = [v129 quantityWithUnit:yardUnit2 doubleValue:(v128 / v123)];
 
-              [v203 setObject:v133 forKeyedSubscript:*MEMORY[0x277CCC4D0]];
+              [v200 setObject:v131 forKeyedSubscript:*MEMORY[0x277CCC4D0]];
             }
           }
 
@@ -2278,169 +2258,169 @@ LABEL_126:
           {
           }
 
-          [v203 setObject:&unk_283CB1FB0 forKeyedSubscript:*MEMORY[0x277CCC510]];
-          v175 = [MEMORY[0x277CCABB0] numberWithInteger:*(v96 + 144)];
-          [v203 setObject:v175 forKeyedSubscript:*MEMORY[0x277CCC518]];
+          [v200 setObject:&unk_283CB1FB0 forKeyedSubscript:*MEMORY[0x277CCC510]];
+          v173 = [MEMORY[0x277CCABB0] numberWithInteger:*(v94 + 144)];
+          [v200 setObject:v173 forKeyedSubscript:*MEMORY[0x277CCC518]];
 
-          [v203 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277CCC4C0]];
-          v176 = MEMORY[0x277CCD7E8];
+          [v200 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277CCC4C0]];
+          v174 = MEMORY[0x277CCD7E8];
           countUnit = [MEMORY[0x277CCDAB0] countUnit];
-          v170 = [v176 quantityWithUnit:countUnit doubleValue:*(v96 + 136)];
+          v168 = [v174 quantityWithUnit:countUnit doubleValue:*(v94 + 136)];
 
-          v178 = MEMORY[0x277CCDBE8];
-          v179 = *(v96 + 32);
-          v180 = *(v96 + 56);
-          v173 = [v178 _workoutWithActivityType:v179 startDate:v180 endDate:v202 workoutEvents:*(v96 + 24) workoutActivities:0 duration:v199 totalActiveEnergyBurned:0.0 totalBasalEnergyBurned:0 totalDistance:v200 totalSwimmingStrokeCount:v170 totalFlightsClimbed:0 goalType:0 goal:0 device:0 metadata:v203];
+          v176 = MEMORY[0x277CCDBE8];
+          v177 = *(v94 + 32);
+          v178 = *(v94 + 56);
+          v171 = [v176 _workoutWithActivityType:v177 startDate:v178 endDate:v199 workoutEvents:*(v94 + 24) workoutActivities:0 duration:v196 totalActiveEnergyBurned:0.0 totalBasalEnergyBurned:0 totalDistance:v197 totalSwimmingStrokeCount:v168 totalFlightsClimbed:0 goalType:0 goal:0 device:0 metadata:v200];
 
+LABEL_158:
+          v165 = v171;
+LABEL_159:
+          v181 = *(v94 + 48);
+          [v165 _setGoal:v181];
+
+          [v165 _setGoalType:*(v94 + 40)];
 LABEL_160:
-          v167 = v173;
-LABEL_161:
-          v183 = *(v96 + 48);
-          [v167 _setGoal:v183];
 
-          [v167 _setGoalType:*(v96 + 40)];
-LABEL_162:
-
-          if (v167)
+          if (v165)
           {
-            [collectionCopy addObjectFromWatch:v167];
-            v184 = burnedCopy[33];
-            if (v184)
+            [collectionCopy addObjectFromWatch:v165];
+            v182 = burnedCopy[33];
+            if (v182)
             {
-              v184 = v184[1];
+              v182 = v182[1];
             }
 
-            v185 = v184;
-            uUID = [v167 UUID];
-            [collectionCopy setAssociatedObjectUUIDs:v185 forObjectUUID:uUID];
+            v183 = v182;
+            uUID = [v165 UUID];
+            [collectionCopy setAssociatedObjectUUIDs:v183 forObjectUUID:uUID];
 
-            [v167 workoutActivityType];
+            [v165 workoutActivityType];
             if (HKCoreMotionSupportsEstimatedWorkoutEffortForActivityType())
             {
-              [(HDDemoDataActivitySampleGenerator *)burnedCopy _generateWorkoutEffortWithObjectCollection:collectionCopy forWorkout:v167 dataType:*MEMORY[0x277CCCB68]];
+              [(HDDemoDataActivitySampleGenerator *)burnedCopy _generateWorkoutEffortWithObjectCollection:collectionCopy forWorkout:v165 dataType:*MEMORY[0x277CCCB68]];
             }
 
-            v187 = burnedCopy[33];
-            if (v187 && v187[4] == 84 || ([(HDDemoDataActivitySampleGenerator *)burnedCopy _generateWorkoutEffortWithObjectCollection:collectionCopy forWorkout:v167 dataType:*MEMORY[0x277CCCCD8]], (v187 = burnedCopy[33]) != 0))
+            v185 = burnedCopy[33];
+            if (v185 && v185[4] == 84 || ([(HDDemoDataActivitySampleGenerator *)burnedCopy _generateWorkoutEffortWithObjectCollection:collectionCopy forWorkout:v165 dataType:*MEMORY[0x277CCCCD8]], (v185 = burnedCopy[33]) != 0))
             {
-              v187 = v187[2];
+              v185 = v185[2];
             }
 
-            v188 = v187;
-            uUID2 = [v167 UUID];
-            [collectionCopy setLooseAssociatedObjectUUIDs:v188 forObjectUUID:uUID2];
+            v186 = v185;
+            uUID2 = [v165 UUID];
+            [collectionCopy setLooseAssociatedObjectUUIDs:v186 forObjectUUID:uUID2];
           }
 
           burnedCopy2 = burnedCopy;
-LABEL_173:
-          v190 = burnedCopy2[32];
-          burnedCopy2[32] = 0;
+LABEL_171:
+          v188 = *(burnedCopy2 + 256);
+          *(burnedCopy2 + 256) = 0;
 
-          uUID10 = burnedCopy2[33];
-          burnedCopy2[33] = 0;
-LABEL_174:
+          uUID10 = *(burnedCopy2 + 264);
+          *(burnedCopy2 + 264) = 0;
+LABEL_172:
 
-          goto LABEL_175;
+          goto LABEL_173;
         case 'C':
         case '=':
-          v145 = objc_alloc(MEMORY[0x277CCA970]);
-          v146 = *(v96 + 56);
-          v147 = [v145 initWithStartDate:v146 endDate:v202];
+          v143 = objc_alloc(MEMORY[0x277CCA970]);
+          v144 = *(v94 + 56);
+          v145 = [v143 initWithStartDate:v144 endDate:v199];
 
-          v148 = objc_alloc_init(MEMORY[0x277CBEB38]);
-          v149 = MEMORY[0x277CCD7E8];
-          v150 = [MEMORY[0x277CCDAB0] unitFromString:@"mi/hr"];
-          v151 = [v149 quantityWithUnit:v150 doubleValue:7.7];
-          [v148 setObject:v151 forKeyedSubscript:*MEMORY[0x277CCC470]];
+          v146 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          v147 = MEMORY[0x277CCD7E8];
+          v148 = [MEMORY[0x277CCDAB0] unitFromString:@"mi/hr"];
+          v149 = [v147 quantityWithUnit:v148 doubleValue:7.7];
+          [v146 setObject:v149 forKeyedSubscript:*MEMORY[0x277CCC470]];
 
-          v152 = MEMORY[0x277CCD7E8];
-          v153 = [MEMORY[0x277CCDAB0] unitFromString:@"mi/hr"];
-          v154 = [v152 quantityWithUnit:v153 doubleValue:12.0];
-          [v148 setObject:v154 forKeyedSubscript:*MEMORY[0x277CCC4E8]];
+          v150 = MEMORY[0x277CCD7E8];
+          v151 = [MEMORY[0x277CCDAB0] unitFromString:@"mi/hr"];
+          v152 = [v150 quantityWithUnit:v151 doubleValue:12.0];
+          [v146 setObject:v152 forKeyedSubscript:*MEMORY[0x277CCC4E8]];
 
-          v155 = MEMORY[0x277CCD7E8];
+          v153 = MEMORY[0x277CCD7E8];
           percentUnit2 = [MEMORY[0x277CCDAB0] percentUnit];
-          v157 = [v155 quantityWithUnit:percentUnit2 doubleValue:15.0];
-          [v148 setObject:v157 forKeyedSubscript:*MEMORY[0x277CCC430]];
+          v155 = [v153 quantityWithUnit:percentUnit2 doubleValue:15.0];
+          [v146 setObject:v155 forKeyedSubscript:*MEMORY[0x277CCC430]];
 
-          v158 = MEMORY[0x277CCD7E8];
+          v156 = MEMORY[0x277CCD7E8];
           meterUnit2 = [MEMORY[0x277CCDAB0] meterUnit];
-          v160 = [v158 quantityWithUnit:meterUnit2 doubleValue:472.1];
-          [v148 setObject:v160 forKeyedSubscript:*MEMORY[0x277CCC490]];
+          v158 = [v156 quantityWithUnit:meterUnit2 doubleValue:472.1];
+          [v146 setObject:v158 forKeyedSubscript:*MEMORY[0x277CCC490]];
 
-          v161 = MEMORY[0x277CCD7E8];
+          v159 = MEMORY[0x277CCD7E8];
           meterUnit3 = [MEMORY[0x277CCDAB0] meterUnit];
-          v163 = [v161 quantityWithUnit:meterUnit3 doubleValue:5.0];
-          [v148 setObject:v163 forKeyedSubscript:*MEMORY[0x277CCC488]];
+          v161 = [v159 quantityWithUnit:meterUnit3 doubleValue:5.0];
+          [v146 setObject:v161 forKeyedSubscript:*MEMORY[0x277CCC488]];
 
-          v164 = [MEMORY[0x277CCDC68] workoutEventWithType:7 dateInterval:v147 metadata:v148];
-          [*(v96 + 24) addObject:v164];
+          v162 = [MEMORY[0x277CCDC68] workoutEventWithType:7 dateInterval:v145 metadata:v146];
+          [*(v94 + 24) addObject:v162];
 
-          v121 = *(v96 + 32);
+          v119 = *(v94 + 32);
           break;
         default:
-          v141 = 0;
+          v139 = 0;
           break;
       }
 
-      v165 = MEMORY[0x277CCDBE8];
-      v166 = *(v96 + 56);
-      v167 = [v165 _workoutWithActivityType:v121 startDate:v166 endDate:v202 workoutEvents:*(v96 + 24) totalEnergyBurned:v199 totalDistance:v200 device:0 metadata:v203];
+      v163 = MEMORY[0x277CCDBE8];
+      v164 = *(v94 + 56);
+      v165 = [v163 _workoutWithActivityType:v119 startDate:v164 endDate:v199 workoutEvents:*(v94 + 24) totalEnergyBurned:v196 totalDistance:v197 device:0 metadata:v200];
 
-      if (!v141)
+      if (!v139)
       {
-        goto LABEL_161;
+        goto LABEL_159;
       }
 
-      v168 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v169 = [v168 pathForResource:@"GoldenGateLocationSeriesTrimmed" ofType:@"json"];
+      v166 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v167 = [v166 pathForResource:@"GoldenGateLocationSeriesTrimmed" ofType:@"json"];
 
-      v170 = v169;
-      v171 = v201;
-      v172 = v198;
-      v173 = v167;
-      v197 = v172;
-      if (v171)
+      v168 = v167;
+      v169 = v198;
+      v170 = v195;
+      v171 = v165;
+      v194 = v170;
+      if (v169)
       {
-        if (v172)
+        if (v170)
         {
-LABEL_149:
-          v174 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v170];
-          if (v174)
+LABEL_147:
+          v172 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v168];
+          if (v172)
           {
-            v218[0] = 0;
-            v196 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v174 options:4 error:v218];
-            v194 = v218[0];
-            if (v196)
+            v215[0] = 0;
+            v193 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v172 options:4 error:v215];
+            v191 = v215[0];
+            if (v193)
             {
-              *&v214 = 0;
-              *(&v214 + 1) = &v214;
-              *&v215 = 0x3032000000;
-              *(&v215 + 1) = __Block_byref_object_copy__78;
-              *&v216 = __Block_byref_object_dispose__78;
-              *(&v216 + 1) = [v173 startDate];
+              *&v211 = 0;
+              *(&v211 + 1) = &v211;
+              *&v212 = 0x3032000000;
+              *(&v212 + 1) = __Block_byref_object_copy__78;
+              *&v213 = __Block_byref_object_dispose__78;
+              *(&v213 + 1) = [v171 startDate];
               *&buf = MEMORY[0x277D85DD0];
               *(&buf + 1) = 3221225472;
-              v220 = __90___HDDemoDataActivityWorkoutState_addWorkoutRouteFromFilePath_profile_provenance_workout___block_invoke;
-              v221 = &unk_27861EE10;
-              v225 = &v214;
-              v222 = v171;
-              v223 = v197;
-              v224 = v96;
-              [v196 enumerateObjectsUsingBlock:&buf];
+              v217 = __90___HDDemoDataActivityWorkoutState_addWorkoutRouteFromFilePath_profile_provenance_workout___block_invoke;
+              v218 = &unk_27861EE10;
+              v222 = &v211;
+              v219 = v169;
+              v220 = v194;
+              v221 = v94;
+              [v193 enumerateObjectsUsingBlock:&buf];
 
-              _Block_object_dispose(&v214, 8);
+              _Block_object_dispose(&v211, 8);
             }
 
             else
             {
               _HKInitializeLogging();
-              v182 = *MEMORY[0x277CCC2B8];
+              v180 = *MEMORY[0x277CCC2B8];
               if (os_log_type_enabled(*MEMORY[0x277CCC2B8], OS_LOG_TYPE_DEFAULT))
               {
                 LODWORD(buf) = 138543362;
-                *(&buf + 4) = v170;
-                _os_log_impl(&dword_228986000, v182, OS_LOG_TYPE_DEFAULT, "Could not serialize from JSON data at file path: %{public}@", &buf, 0xCu);
+                *(&buf + 4) = v168;
+                _os_log_impl(&dword_228986000, v180, OS_LOG_TYPE_DEFAULT, "Could not serialize from JSON data at file path: %{public}@", &buf, 0xCu);
               }
             }
           }
@@ -2448,38 +2428,38 @@ LABEL_149:
           else
           {
             _HKInitializeLogging();
-            v181 = *MEMORY[0x277CCC2B8];
+            v179 = *MEMORY[0x277CCC2B8];
             if (os_log_type_enabled(*MEMORY[0x277CCC2B8], OS_LOG_TYPE_DEFAULT))
             {
               LODWORD(buf) = 138543362;
-              *(&buf + 4) = v170;
-              _os_log_impl(&dword_228986000, v181, OS_LOG_TYPE_DEFAULT, "Could not get data from file path: %{public}@", &buf, 0xCu);
+              *(&buf + 4) = v168;
+              _os_log_impl(&dword_228986000, v179, OS_LOG_TYPE_DEFAULT, "Could not get data from file path: %{public}@", &buf, 0xCu);
             }
           }
 
-          goto LABEL_160;
+          goto LABEL_158;
         }
       }
 
       else
       {
         currentHandler = [MEMORY[0x277CCA890] currentHandler];
-        [currentHandler handleFailureInMethod:sel_addWorkoutRouteFromFilePath_profile_provenance_workout_ object:v96 file:@"HDDemoDataActivitySampleGenerator.m" lineNumber:2696 description:{@"Invalid parameter not satisfying: %@", @"profile != nil"}];
+        [currentHandler handleFailureInMethod:sel_addWorkoutRouteFromFilePath_profile_provenance_workout_ object:v94 file:@"HDDemoDataActivitySampleGenerator.m" lineNumber:2696 description:{@"Invalid parameter not satisfying: %@", @"profile != nil"}];
 
-        if (v197)
+        if (v194)
         {
-          goto LABEL_149;
+          goto LABEL_147;
         }
       }
 
       currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-      [currentHandler2 handleFailureInMethod:sel_addWorkoutRouteFromFilePath_profile_provenance_workout_ object:v96 file:@"HDDemoDataActivitySampleGenerator.m" lineNumber:2697 description:{@"Invalid parameter not satisfying: %@", @"provenance != nil"}];
+      [currentHandler2 handleFailureInMethod:sel_addWorkoutRouteFromFilePath_profile_provenance_workout_ object:v94 file:@"HDDemoDataActivitySampleGenerator.m" lineNumber:2697 description:{@"Invalid parameter not satisfying: %@", @"provenance != nil"}];
 
-      goto LABEL_149;
+      goto LABEL_147;
     }
 
-    [HDDemoDataActivitySampleGenerator _generateRunningWorkoutDataWithObjectCollection:collectionCopy demoPerson:personCopy workoutState:v92];
-    goto LABEL_106;
+    [HDDemoDataActivitySampleGenerator _generateRunningWorkoutDataWithObjectCollection:collectionCopy demoPerson:personCopy workoutState:v90];
+    goto LABEL_104;
   }
 
   burnedCopy10 = burned;
@@ -2648,324 +2628,321 @@ LABEL_149:
       [*(v87 + 8) hk_appendBytesWithUUID:uUID10];
     }
 
-    goto LABEL_174;
+    goto LABEL_172;
   }
 
-LABEL_175:
-
-  v191 = *MEMORY[0x277D85DE8];
+LABEL_173:
 }
 
 - (void)_generateHIITWorkoutDataWithObjectCollection:(void *)collection demoPerson:
 {
-  v10[300] = *MEMORY[0x277D85DE8];
+  v9[300] = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
-  v7 = a2;
-  v10[0] = &unk_283CB0EB8;
-  v10[1] = &unk_283CB0ED0;
-  v10[2] = &unk_283CB0EE8;
-  v10[3] = &unk_283CB0F00;
-  v10[4] = &unk_283CB0F18;
-  v10[5] = &unk_283CB0F30;
-  v10[6] = &unk_283CB0F48;
-  v10[7] = &unk_283CB0F18;
-  v10[8] = &unk_283CB0F30;
-  v10[9] = &unk_283CB0F60;
-  v10[10] = &unk_283CB0F78;
-  v10[11] = &unk_283CB0F78;
-  v10[12] = &unk_283CB0F90;
-  v10[13] = &unk_283CB0FA8;
-  v10[14] = &unk_283CB0FC0;
-  v10[15] = &unk_283CB0FD8;
-  v10[16] = &unk_283CB0FC0;
-  v10[17] = &unk_283CB0FF0;
-  v10[18] = &unk_283CB1008;
-  v10[19] = &unk_283CB1020;
-  v10[20] = &unk_283CB1038;
-  v10[21] = &unk_283CB1050;
-  v10[22] = &unk_283CB1068;
-  v10[23] = &unk_283CB1068;
-  v10[24] = &unk_283CB1080;
-  v10[25] = &unk_283CB1098;
-  v10[26] = &unk_283CB10B0;
-  v10[27] = &unk_283CB10C8;
-  v10[28] = &unk_283CB10E0;
-  v10[29] = &unk_283CB10F8;
-  v10[30] = &unk_283CB1110;
-  v10[31] = &unk_283CB1128;
-  v10[32] = &unk_283CB1140;
-  v10[33] = &unk_283CB1158;
-  v10[34] = &unk_283CB10B0;
-  v10[35] = &unk_283CB10E0;
-  v10[36] = &unk_283CB1170;
-  v10[37] = &unk_283CB1080;
-  v10[38] = &unk_283CB10F8;
-  v10[39] = &unk_283CB1188;
-  v10[40] = &unk_283CB11A0;
-  v10[41] = &unk_283CB11B8;
-  v10[42] = &unk_283CB10F8;
-  v10[43] = &unk_283CB11D0;
-  v10[44] = &unk_283CB11E8;
-  v10[45] = &unk_283CB11A0;
-  v10[46] = &unk_283CB1188;
-  v10[47] = &unk_283CB1200;
-  v10[48] = &unk_283CB1218;
-  v10[49] = &unk_283CB1230;
-  v10[50] = &unk_283CB1050;
-  v10[51] = &unk_283CB1068;
-  v10[52] = &unk_283CB0F90;
-  v10[53] = &unk_283CB1248;
-  v10[54] = &unk_283CB1260;
-  v10[55] = &unk_283CB1278;
-  v10[56] = &unk_283CB1290;
-  v10[57] = &unk_283CB1260;
-  v10[58] = &unk_283CB12A8;
-  v10[59] = &unk_283CB12C0;
-  v10[60] = &unk_283CB1260;
-  v10[61] = &unk_283CB1278;
-  v10[62] = &unk_283CB12A8;
-  v10[63] = &unk_283CB12D8;
-  v10[64] = &unk_283CB0F78;
-  v10[65] = &unk_283CB12F0;
-  v10[66] = &unk_283CB1308;
-  v10[67] = &unk_283CB1320;
-  v10[68] = &unk_283CB1338;
-  v10[69] = &unk_283CB12A8;
-  v10[70] = &unk_283CB1350;
-  v10[71] = &unk_283CB1110;
-  v10[72] = &unk_283CB11D0;
-  v10[73] = &unk_283CB1200;
-  v10[74] = &unk_283CB1368;
-  v10[75] = &unk_283CB1230;
-  v10[76] = &unk_283CB1218;
-  v10[77] = &unk_283CB1200;
-  v10[78] = &unk_283CB1188;
-  v10[79] = &unk_283CB1380;
-  v10[80] = &unk_283CB1230;
-  v10[81] = &unk_283CB1200;
-  v10[82] = &unk_283CB1368;
-  v10[83] = &unk_283CB1398;
-  v10[84] = &unk_283CB13B0;
-  v10[85] = &unk_283CB1188;
-  v10[134] = &unk_283CB1260;
-  v10[86] = &unk_283CB13C8;
-  v10[87] = &unk_283CB13B0;
-  v10[88] = &unk_283CB1230;
-  v10[142] = &unk_283CB12D8;
-  v10[89] = &unk_283CB13E0;
-  v10[90] = &unk_283CB1110;
-  v10[171] = &unk_283CB1158;
-  v10[173] = &unk_283CB1578;
-  v10[175] = &unk_283CB15A8;
-  v10[176] = &unk_283CB15C0;
-  v10[91] = &unk_283CB1290;
-  v10[92] = &unk_283CB13F8;
-  v10[135] = &unk_283CB0FA8;
-  v10[177] = &unk_283CB0FA8;
-  v10[178] = &unk_283CB1248;
-  v10[179] = &unk_283CB15D8;
-  v10[93] = &unk_283CB1410;
-  v10[94] = &unk_283CB1428;
-  v10[193] = &unk_283CB11B8;
-  v10[95] = &unk_283CB1440;
-  v10[96] = &unk_283CB1458;
-  v10[97] = &unk_283CB1350;
-  v10[98] = &unk_283CB1470;
-  v10[99] = &unk_283CB12C0;
-  v10[100] = &unk_283CB1350;
-  v10[101] = &unk_283CB1488;
-  v10[102] = &unk_283CB14A0;
-  v10[103] = &unk_283CB14B8;
-  v10[104] = &unk_283CB11D0;
-  v10[105] = &unk_283CB11E8;
-  v10[106] = &unk_283CB13C8;
-  v10[107] = &unk_283CB14D0;
-  v10[108] = &unk_283CB1368;
-  v10[109] = &unk_283CB13C8;
-  v10[110] = &unk_283CB13B0;
-  v10[111] = &unk_283CB1380;
-  v10[112] = &unk_283CB1200;
-  v10[113] = &unk_283CB1110;
-  v10[114] = &unk_283CB13B0;
-  v10[115] = &unk_283CB13C8;
-  v10[116] = &unk_283CB1230;
-  v10[117] = &unk_283CB1398;
-  v10[118] = &unk_283CB14E8;
-  v10[119] = &unk_283CB1500;
-  v10[120] = &unk_283CB1518;
-  v10[121] = &unk_283CB13E0;
-  v10[122] = &unk_283CB13B0;
-  v10[123] = &unk_283CB13C8;
-  v10[124] = &unk_283CB14D0;
-  v10[125] = &unk_283CB1218;
-  v10[126] = &unk_283CB1380;
-  v10[127] = &unk_283CB13C8;
-  v10[128] = &unk_283CB1368;
-  v10[129] = &unk_283CB1200;
-  v10[130] = &unk_283CB1110;
-  v10[131] = &unk_283CB1170;
-  v10[132] = &unk_283CB1038;
-  v10[133] = &unk_283CB1530;
-  v10[136] = &unk_283CB1458;
-  v10[137] = &unk_283CB1548;
-  v10[138] = &unk_283CB1350;
-  v10[139] = &unk_283CB12C0;
-  v10[140] = &unk_283CB1428;
-  v10[141] = &unk_283CB1350;
-  v10[143] = &unk_283CB1428;
-  v10[144] = &unk_283CB1458;
-  v10[145] = &unk_283CB1458;
-  v10[146] = &unk_283CB1488;
-  v10[147] = &unk_283CB1560;
-  v10[148] = &unk_283CB1350;
-  v10[149] = &unk_283CB12C0;
-  v10[150] = &unk_283CB1350;
-  v10[151] = &unk_283CB1110;
-  v10[152] = &unk_283CB11D0;
-  v10[153] = &unk_283CB1200;
-  v10[154] = &unk_283CB1368;
-  v10[155] = &unk_283CB1230;
-  v10[156] = &unk_283CB1218;
-  v10[157] = &unk_283CB1200;
-  v10[158] = &unk_283CB1188;
-  v10[159] = &unk_283CB1380;
-  v10[160] = &unk_283CB1230;
-  v10[161] = &unk_283CB1200;
-  v10[162] = &unk_283CB1368;
-  v10[163] = &unk_283CB1398;
-  v10[164] = &unk_283CB13B0;
-  v10[165] = &unk_283CB1188;
-  v10[166] = &unk_283CB13C8;
-  v10[167] = &unk_283CB13B0;
-  v10[168] = &unk_283CB1230;
-  v10[169] = &unk_283CB13E0;
-  v10[170] = &unk_283CB1110;
-  v10[172] = &unk_283CB10C8;
-  v10[174] = &unk_283CB1590;
-  v10[180] = &unk_283CB1350;
-  v10[181] = &unk_283CB1488;
-  v10[182] = &unk_283CB14A0;
-  v10[183] = &unk_283CB14B8;
-  v10[184] = &unk_283CB11D0;
-  v10[185] = &unk_283CB11E8;
-  v10[186] = &unk_283CB13C8;
-  v10[187] = &unk_283CB14D0;
-  v10[188] = &unk_283CB1368;
-  v10[189] = &unk_283CB13C8;
-  v10[190] = &unk_283CB1218;
-  v10[191] = &unk_283CB1230;
-  v10[192] = &unk_283CB13B0;
-  v10[194] = &unk_283CB1380;
-  v10[195] = &unk_283CB1230;
-  v10[196] = &unk_283CB13B0;
-  v10[197] = &unk_283CB14E8;
-  v10[198] = &unk_283CB1518;
+  v6 = a2;
+  v9[0] = &unk_283CB0EB8;
+  v9[1] = &unk_283CB0ED0;
+  v9[2] = &unk_283CB0EE8;
+  v9[3] = &unk_283CB0F00;
+  v9[4] = &unk_283CB0F18;
+  v9[5] = &unk_283CB0F30;
+  v9[6] = &unk_283CB0F48;
+  v9[7] = &unk_283CB0F18;
+  v9[8] = &unk_283CB0F30;
+  v9[9] = &unk_283CB0F60;
+  v9[10] = &unk_283CB0F78;
+  v9[11] = &unk_283CB0F78;
+  v9[12] = &unk_283CB0F90;
+  v9[13] = &unk_283CB0FA8;
+  v9[14] = &unk_283CB0FC0;
+  v9[15] = &unk_283CB0FD8;
+  v9[16] = &unk_283CB0FC0;
+  v9[17] = &unk_283CB0FF0;
+  v9[18] = &unk_283CB1008;
+  v9[19] = &unk_283CB1020;
+  v9[20] = &unk_283CB1038;
+  v9[21] = &unk_283CB1050;
+  v9[22] = &unk_283CB1068;
+  v9[23] = &unk_283CB1068;
+  v9[24] = &unk_283CB1080;
+  v9[25] = &unk_283CB1098;
+  v9[26] = &unk_283CB10B0;
+  v9[27] = &unk_283CB10C8;
+  v9[28] = &unk_283CB10E0;
+  v9[29] = &unk_283CB10F8;
+  v9[30] = &unk_283CB1110;
+  v9[31] = &unk_283CB1128;
+  v9[32] = &unk_283CB1140;
+  v9[33] = &unk_283CB1158;
+  v9[34] = &unk_283CB10B0;
+  v9[35] = &unk_283CB10E0;
+  v9[36] = &unk_283CB1170;
+  v9[37] = &unk_283CB1080;
+  v9[38] = &unk_283CB10F8;
+  v9[39] = &unk_283CB1188;
+  v9[40] = &unk_283CB11A0;
+  v9[41] = &unk_283CB11B8;
+  v9[42] = &unk_283CB10F8;
+  v9[43] = &unk_283CB11D0;
+  v9[44] = &unk_283CB11E8;
+  v9[45] = &unk_283CB11A0;
+  v9[46] = &unk_283CB1188;
+  v9[47] = &unk_283CB1200;
+  v9[48] = &unk_283CB1218;
+  v9[49] = &unk_283CB1230;
+  v9[50] = &unk_283CB1050;
+  v9[51] = &unk_283CB1068;
+  v9[52] = &unk_283CB0F90;
+  v9[53] = &unk_283CB1248;
+  v9[54] = &unk_283CB1260;
+  v9[55] = &unk_283CB1278;
+  v9[56] = &unk_283CB1290;
+  v9[57] = &unk_283CB1260;
+  v9[58] = &unk_283CB12A8;
+  v9[59] = &unk_283CB12C0;
+  v9[60] = &unk_283CB1260;
+  v9[61] = &unk_283CB1278;
+  v9[62] = &unk_283CB12A8;
+  v9[63] = &unk_283CB12D8;
+  v9[64] = &unk_283CB0F78;
+  v9[65] = &unk_283CB12F0;
+  v9[66] = &unk_283CB1308;
+  v9[67] = &unk_283CB1320;
+  v9[68] = &unk_283CB1338;
+  v9[69] = &unk_283CB12A8;
+  v9[70] = &unk_283CB1350;
+  v9[71] = &unk_283CB1110;
+  v9[72] = &unk_283CB11D0;
+  v9[73] = &unk_283CB1200;
+  v9[74] = &unk_283CB1368;
+  v9[75] = &unk_283CB1230;
+  v9[76] = &unk_283CB1218;
+  v9[77] = &unk_283CB1200;
+  v9[78] = &unk_283CB1188;
+  v9[79] = &unk_283CB1380;
+  v9[80] = &unk_283CB1230;
+  v9[81] = &unk_283CB1200;
+  v9[82] = &unk_283CB1368;
+  v9[83] = &unk_283CB1398;
+  v9[84] = &unk_283CB13B0;
+  v9[85] = &unk_283CB1188;
+  v9[134] = &unk_283CB1260;
+  v9[86] = &unk_283CB13C8;
+  v9[87] = &unk_283CB13B0;
+  v9[88] = &unk_283CB1230;
+  v9[142] = &unk_283CB12D8;
+  v9[89] = &unk_283CB13E0;
+  v9[90] = &unk_283CB1110;
+  v9[171] = &unk_283CB1158;
+  v9[173] = &unk_283CB1578;
+  v9[175] = &unk_283CB15A8;
+  v9[176] = &unk_283CB15C0;
+  v9[91] = &unk_283CB1290;
+  v9[92] = &unk_283CB13F8;
+  v9[135] = &unk_283CB0FA8;
+  v9[177] = &unk_283CB0FA8;
+  v9[178] = &unk_283CB1248;
+  v9[179] = &unk_283CB15D8;
+  v9[93] = &unk_283CB1410;
+  v9[94] = &unk_283CB1428;
+  v9[193] = &unk_283CB11B8;
+  v9[95] = &unk_283CB1440;
+  v9[96] = &unk_283CB1458;
+  v9[97] = &unk_283CB1350;
+  v9[98] = &unk_283CB1470;
+  v9[99] = &unk_283CB12C0;
+  v9[100] = &unk_283CB1350;
+  v9[101] = &unk_283CB1488;
+  v9[102] = &unk_283CB14A0;
+  v9[103] = &unk_283CB14B8;
+  v9[104] = &unk_283CB11D0;
+  v9[105] = &unk_283CB11E8;
+  v9[106] = &unk_283CB13C8;
+  v9[107] = &unk_283CB14D0;
+  v9[108] = &unk_283CB1368;
+  v9[109] = &unk_283CB13C8;
+  v9[110] = &unk_283CB13B0;
+  v9[111] = &unk_283CB1380;
+  v9[112] = &unk_283CB1200;
+  v9[113] = &unk_283CB1110;
+  v9[114] = &unk_283CB13B0;
+  v9[115] = &unk_283CB13C8;
+  v9[116] = &unk_283CB1230;
+  v9[117] = &unk_283CB1398;
+  v9[118] = &unk_283CB14E8;
+  v9[119] = &unk_283CB1500;
+  v9[120] = &unk_283CB1518;
+  v9[121] = &unk_283CB13E0;
+  v9[122] = &unk_283CB13B0;
+  v9[123] = &unk_283CB13C8;
+  v9[124] = &unk_283CB14D0;
+  v9[125] = &unk_283CB1218;
+  v9[126] = &unk_283CB1380;
+  v9[127] = &unk_283CB13C8;
+  v9[128] = &unk_283CB1368;
+  v9[129] = &unk_283CB1200;
+  v9[130] = &unk_283CB1110;
+  v9[131] = &unk_283CB1170;
+  v9[132] = &unk_283CB1038;
+  v9[133] = &unk_283CB1530;
+  v9[136] = &unk_283CB1458;
+  v9[137] = &unk_283CB1548;
+  v9[138] = &unk_283CB1350;
+  v9[139] = &unk_283CB12C0;
+  v9[140] = &unk_283CB1428;
+  v9[141] = &unk_283CB1350;
+  v9[143] = &unk_283CB1428;
+  v9[144] = &unk_283CB1458;
+  v9[145] = &unk_283CB1458;
+  v9[146] = &unk_283CB1488;
+  v9[147] = &unk_283CB1560;
+  v9[148] = &unk_283CB1350;
+  v9[149] = &unk_283CB12C0;
+  v9[150] = &unk_283CB1350;
+  v9[151] = &unk_283CB1110;
+  v9[152] = &unk_283CB11D0;
+  v9[153] = &unk_283CB1200;
+  v9[154] = &unk_283CB1368;
+  v9[155] = &unk_283CB1230;
+  v9[156] = &unk_283CB1218;
+  v9[157] = &unk_283CB1200;
+  v9[158] = &unk_283CB1188;
+  v9[159] = &unk_283CB1380;
+  v9[160] = &unk_283CB1230;
+  v9[161] = &unk_283CB1200;
+  v9[162] = &unk_283CB1368;
+  v9[163] = &unk_283CB1398;
+  v9[164] = &unk_283CB13B0;
+  v9[165] = &unk_283CB1188;
+  v9[166] = &unk_283CB13C8;
+  v9[167] = &unk_283CB13B0;
+  v9[168] = &unk_283CB1230;
+  v9[169] = &unk_283CB13E0;
+  v9[170] = &unk_283CB1110;
+  v9[172] = &unk_283CB10C8;
+  v9[174] = &unk_283CB1590;
+  v9[180] = &unk_283CB1350;
+  v9[181] = &unk_283CB1488;
+  v9[182] = &unk_283CB14A0;
+  v9[183] = &unk_283CB14B8;
+  v9[184] = &unk_283CB11D0;
+  v9[185] = &unk_283CB11E8;
+  v9[186] = &unk_283CB13C8;
+  v9[187] = &unk_283CB14D0;
+  v9[188] = &unk_283CB1368;
+  v9[189] = &unk_283CB13C8;
+  v9[190] = &unk_283CB1218;
+  v9[191] = &unk_283CB1230;
+  v9[192] = &unk_283CB13B0;
+  v9[194] = &unk_283CB1380;
+  v9[195] = &unk_283CB1230;
+  v9[196] = &unk_283CB13B0;
+  v9[197] = &unk_283CB14E8;
+  v9[198] = &unk_283CB1518;
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:arc4random_uniform(0x14u) + 187];
-  v10[211] = &unk_283CB1170;
-  v10[213] = &unk_283CB14A0;
-  v10[215] = &unk_283CB0F90;
-  v10[216] = &unk_283CB1488;
-  v10[219] = &unk_283CB1290;
-  v10[222] = &unk_283CB1470;
-  v10[226] = &unk_283CB1560;
-  v10[252] = &unk_283CB14B8;
-  v10[258] = &unk_283CB1278;
-  v10[263] = &unk_283CB0FD8;
-  v10[264] = &unk_283CB1098;
-  v10[277] = &unk_283CB1398;
-  v10[278] = &unk_283CB14E8;
-  v10[199] = v4;
-  v10[200] = &unk_283CB1518;
-  v10[201] = &unk_283CB13E0;
-  v10[202] = &unk_283CB13B0;
-  v10[203] = &unk_283CB13C8;
-  v10[204] = &unk_283CB1368;
-  v10[205] = &unk_283CB13B0;
-  v10[206] = &unk_283CB1200;
-  v10[207] = &unk_283CB13C8;
-  v10[208] = &unk_283CB13C8;
-  v10[209] = &unk_283CB1188;
-  v10[210] = &unk_283CB11D0;
-  v10[212] = &unk_283CB1068;
-  v10[214] = &unk_283CB12C0;
-  v10[217] = &unk_283CB1440;
-  v10[218] = &unk_283CB1350;
-  v10[220] = &unk_283CB1440;
-  v10[221] = &unk_283CB1428;
-  v10[223] = &unk_283CB1440;
-  v10[224] = &unk_283CB1458;
-  v10[225] = &unk_283CB1350;
-  v10[227] = &unk_283CB1458;
-  v10[228] = &unk_283CB1350;
-  v10[229] = &unk_283CB12C0;
-  v10[230] = &unk_283CB1350;
-  v10[231] = &unk_283CB1110;
-  v10[232] = &unk_283CB11D0;
-  v10[233] = &unk_283CB1200;
-  v10[234] = &unk_283CB1368;
-  v10[235] = &unk_283CB1230;
-  v10[236] = &unk_283CB1218;
-  v10[237] = &unk_283CB1200;
-  v10[238] = &unk_283CB1188;
-  v10[239] = &unk_283CB1380;
-  v10[240] = &unk_283CB13B0;
-  v10[241] = &unk_283CB1380;
-  v10[242] = &unk_283CB14D0;
-  v10[243] = &unk_283CB13E0;
-  v10[244] = &unk_283CB1218;
-  v10[245] = &unk_283CB1200;
-  v10[246] = &unk_283CB13B0;
-  v10[247] = &unk_283CB13B0;
-  v10[248] = &unk_283CB1200;
-  v10[249] = &unk_283CB13E0;
-  v10[250] = &unk_283CB11D0;
-  v10[251] = &unk_283CB15F0;
-  v10[253] = &unk_283CB1530;
-  v10[254] = &unk_283CB1458;
-  v10[255] = &unk_283CB1608;
-  v10[256] = &unk_283CB1440;
-  v10[257] = &unk_283CB1428;
-  v10[259] = &unk_283CB12C0;
-  v10[260] = &unk_283CB1428;
-  v10[261] = &unk_283CB1548;
-  v10[262] = &unk_283CB1530;
-  v10[265] = &unk_283CB11E8;
-  v10[266] = &unk_283CB13C8;
-  v10[267] = &unk_283CB14D0;
-  v10[268] = &unk_283CB1368;
-  v10[269] = &unk_283CB13C8;
-  v10[270] = &unk_283CB13B0;
-  v10[271] = &unk_283CB1380;
-  v10[272] = &unk_283CB1200;
-  v10[273] = &unk_283CB1110;
-  v10[274] = &unk_283CB13B0;
-  v10[275] = &unk_283CB13C8;
-  v10[276] = &unk_283CB1230;
-  v10[279] = &unk_283CB1500;
-  v10[280] = &unk_283CB1518;
-  v10[281] = &unk_283CB13E0;
-  v10[282] = &unk_283CB13B0;
-  v10[283] = &unk_283CB1200;
-  v10[284] = &unk_283CB11E8;
-  v10[285] = &unk_283CB1110;
-  v10[286] = &unk_283CB1068;
-  v10[287] = &unk_283CB1080;
-  v10[288] = &unk_283CB10E0;
-  v10[289] = &unk_283CB10C8;
-  v10[290] = &unk_283CB1110;
-  v10[291] = &unk_283CB1038;
-  v10[292] = &unk_283CB1590;
-  v10[293] = &unk_283CB13F8;
-  v10[294] = &unk_283CB1410;
-  v10[295] = &unk_283CB1350;
-  v10[296] = &unk_283CB1458;
-  v10[297] = &unk_283CB1548;
-  v10[298] = &unk_283CB1350;
-  v10[299] = &unk_283CB12C0;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:300];
+  v9[211] = &unk_283CB1170;
+  v9[213] = &unk_283CB14A0;
+  v9[215] = &unk_283CB0F90;
+  v9[216] = &unk_283CB1488;
+  v9[219] = &unk_283CB1290;
+  v9[222] = &unk_283CB1470;
+  v9[226] = &unk_283CB1560;
+  v9[252] = &unk_283CB14B8;
+  v9[258] = &unk_283CB1278;
+  v9[263] = &unk_283CB0FD8;
+  v9[264] = &unk_283CB1098;
+  v9[277] = &unk_283CB1398;
+  v9[278] = &unk_283CB14E8;
+  v9[199] = v4;
+  v9[200] = &unk_283CB1518;
+  v9[201] = &unk_283CB13E0;
+  v9[202] = &unk_283CB13B0;
+  v9[203] = &unk_283CB13C8;
+  v9[204] = &unk_283CB1368;
+  v9[205] = &unk_283CB13B0;
+  v9[206] = &unk_283CB1200;
+  v9[207] = &unk_283CB13C8;
+  v9[208] = &unk_283CB13C8;
+  v9[209] = &unk_283CB1188;
+  v9[210] = &unk_283CB11D0;
+  v9[212] = &unk_283CB1068;
+  v9[214] = &unk_283CB12C0;
+  v9[217] = &unk_283CB1440;
+  v9[218] = &unk_283CB1350;
+  v9[220] = &unk_283CB1440;
+  v9[221] = &unk_283CB1428;
+  v9[223] = &unk_283CB1440;
+  v9[224] = &unk_283CB1458;
+  v9[225] = &unk_283CB1350;
+  v9[227] = &unk_283CB1458;
+  v9[228] = &unk_283CB1350;
+  v9[229] = &unk_283CB12C0;
+  v9[230] = &unk_283CB1350;
+  v9[231] = &unk_283CB1110;
+  v9[232] = &unk_283CB11D0;
+  v9[233] = &unk_283CB1200;
+  v9[234] = &unk_283CB1368;
+  v9[235] = &unk_283CB1230;
+  v9[236] = &unk_283CB1218;
+  v9[237] = &unk_283CB1200;
+  v9[238] = &unk_283CB1188;
+  v9[239] = &unk_283CB1380;
+  v9[240] = &unk_283CB13B0;
+  v9[241] = &unk_283CB1380;
+  v9[242] = &unk_283CB14D0;
+  v9[243] = &unk_283CB13E0;
+  v9[244] = &unk_283CB1218;
+  v9[245] = &unk_283CB1200;
+  v9[246] = &unk_283CB13B0;
+  v9[247] = &unk_283CB13B0;
+  v9[248] = &unk_283CB1200;
+  v9[249] = &unk_283CB13E0;
+  v9[250] = &unk_283CB11D0;
+  v9[251] = &unk_283CB15F0;
+  v9[253] = &unk_283CB1530;
+  v9[254] = &unk_283CB1458;
+  v9[255] = &unk_283CB1608;
+  v9[256] = &unk_283CB1440;
+  v9[257] = &unk_283CB1428;
+  v9[259] = &unk_283CB12C0;
+  v9[260] = &unk_283CB1428;
+  v9[261] = &unk_283CB1548;
+  v9[262] = &unk_283CB1530;
+  v9[265] = &unk_283CB11E8;
+  v9[266] = &unk_283CB13C8;
+  v9[267] = &unk_283CB14D0;
+  v9[268] = &unk_283CB1368;
+  v9[269] = &unk_283CB13C8;
+  v9[270] = &unk_283CB13B0;
+  v9[271] = &unk_283CB1380;
+  v9[272] = &unk_283CB1200;
+  v9[273] = &unk_283CB1110;
+  v9[274] = &unk_283CB13B0;
+  v9[275] = &unk_283CB13C8;
+  v9[276] = &unk_283CB1230;
+  v9[279] = &unk_283CB1500;
+  v9[280] = &unk_283CB1518;
+  v9[281] = &unk_283CB13E0;
+  v9[282] = &unk_283CB13B0;
+  v9[283] = &unk_283CB1200;
+  v9[284] = &unk_283CB11E8;
+  v9[285] = &unk_283CB1110;
+  v9[286] = &unk_283CB1068;
+  v9[287] = &unk_283CB1080;
+  v9[288] = &unk_283CB10E0;
+  v9[289] = &unk_283CB10C8;
+  v9[290] = &unk_283CB1110;
+  v9[291] = &unk_283CB1038;
+  v9[292] = &unk_283CB1590;
+  v9[293] = &unk_283CB13F8;
+  v9[294] = &unk_283CB1410;
+  v9[295] = &unk_283CB1350;
+  v9[296] = &unk_283CB1458;
+  v9[297] = &unk_283CB1548;
+  v9[298] = &unk_283CB1350;
+  v9[299] = &unk_283CB12C0;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:300];
 
-  [HDDemoDataActivitySampleGenerator _generateWorkoutDataWithHeartRates:v5 recoveryHeartRates:&unk_283CAEAD0 objectCollection:v7 demoPerson:*(self + 264) workoutState:?];
-  v6 = *MEMORY[0x277D85DE8];
+  [HDDemoDataActivitySampleGenerator _generateWorkoutDataWithHeartRates:v5 recoveryHeartRates:&unk_283CAEAD0 objectCollection:v6 demoPerson:*(self + 264) workoutState:?];
 }
 
 - (void)_generateSwimmingWorkoutDataWithObjectCollection:(void *)collection demoPerson:
@@ -3018,1022 +2995,1018 @@ LABEL_175:
 
 - (void)_generateEllipticalWorkoutDataWithObjectCollection:(void *)collection demoPerson:
 {
-  v10[300] = *MEMORY[0x277D85DE8];
+  v9[300] = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
-  v7 = a2;
-  v10[0] = &unk_283CB1770;
-  v10[1] = &unk_283CB1788;
-  v10[2] = &unk_283CB0F30;
-  v10[3] = &unk_283CB0F48;
-  v10[4] = &unk_283CB1770;
-  v10[5] = &unk_283CB1668;
-  v10[6] = &unk_283CB0F30;
-  v10[7] = &unk_283CB1770;
-  v10[8] = &unk_283CB1818;
-  v10[9] = &unk_283CB1770;
-  v10[10] = &unk_283CB0F60;
-  v10[11] = &unk_283CB1818;
-  v10[12] = &unk_283CB1650;
-  v10[13] = &unk_283CB1788;
-  v10[14] = &unk_283CB1770;
-  v10[15] = &unk_283CB1650;
-  v10[16] = &unk_283CB1668;
-  v10[17] = &unk_283CB1818;
-  v10[18] = &unk_283CB1770;
-  v10[19] = &unk_283CB1818;
-  v10[20] = &unk_283CB1680;
-  v10[21] = &unk_283CB0F60;
-  v10[22] = &unk_283CB1308;
-  v10[23] = &unk_283CB17E8;
-  v10[24] = &unk_283CB1668;
-  v10[25] = &unk_283CB1800;
-  v10[26] = &unk_283CB1308;
-  v10[27] = &unk_283CB1638;
-  v10[28] = &unk_283CB0F78;
-  v10[29] = &unk_283CB0F78;
-  v10[30] = &unk_283CB1650;
-  v10[31] = &unk_283CB1620;
-  v10[32] = &unk_283CB12D8;
-  v10[33] = &unk_283CB1338;
-  v10[34] = &unk_283CB12D8;
-  v10[35] = &unk_283CB1440;
-  v10[36] = &unk_283CB1470;
-  v10[37] = &unk_283CB1458;
-  v10[38] = &unk_283CB1488;
-  v10[39] = &unk_283CB1608;
-  v10[40] = &unk_283CB1458;
-  v10[41] = &unk_283CB1458;
-  v10[42] = &unk_283CB1488;
-  v10[43] = &unk_283CB1530;
-  v10[44] = &unk_283CB0FA8;
-  v10[45] = &unk_283CB0F90;
-  v10[46] = &unk_283CB0FA8;
-  v10[47] = &unk_283CB13F8;
-  v10[48] = &unk_283CB14B8;
-  v10[49] = &unk_283CB15A8;
-  v10[50] = &unk_283CB0FC0;
-  v10[51] = &unk_283CB14B8;
-  v10[52] = &unk_283CB0FC0;
-  v10[53] = &unk_283CB0FD8;
-  v10[54] = &unk_283CB14B8;
-  v10[55] = &unk_283CB1068;
-  v10[56] = &unk_283CB0FF0;
-  v10[57] = &unk_283CB17D0;
-  v10[58] = &unk_283CB10C8;
-  v10[59] = &unk_283CB1050;
-  v10[60] = &unk_283CB17D0;
-  v10[61] = &unk_283CB17D0;
-  v10[62] = &unk_283CB1050;
-  v10[63] = &unk_283CB1008;
-  v10[64] = &unk_283CB1098;
-  v10[65] = &unk_283CB0FF0;
-  v10[66] = &unk_283CB1050;
-  v10[67] = &unk_283CB1050;
-  v10[68] = &unk_283CB10C8;
-  v10[69] = &unk_283CB1020;
-  v10[70] = &unk_283CB1080;
-  v10[71] = &unk_283CB1068;
-  v10[72] = &unk_283CB1080;
-  v10[73] = &unk_283CB1068;
-  v10[74] = &unk_283CB10C8;
-  v10[75] = &unk_283CB10B0;
-  v10[76] = &unk_283CB10C8;
-  v10[77] = &unk_283CB1050;
-  v10[78] = &unk_283CB10B0;
-  v10[79] = &unk_283CB10B0;
-  v10[80] = &unk_283CB1158;
-  v10[81] = &unk_283CB1050;
-  v10[82] = &unk_283CB1050;
-  v10[83] = &unk_283CB10B0;
-  v10[84] = &unk_283CB10B0;
-  v10[85] = &unk_283CB1080;
-  v10[86] = &unk_283CB11B8;
-  v10[87] = &unk_283CB10B0;
-  v10[88] = &unk_283CB1128;
-  v10[89] = &unk_283CB11B8;
-  v10[90] = &unk_283CB1080;
-  v10[91] = &unk_283CB1080;
-  v10[92] = &unk_283CB11B8;
-  v10[93] = &unk_283CB10B0;
-  v10[94] = &unk_283CB1128;
-  v10[95] = &unk_283CB1170;
-  v10[96] = &unk_283CB10E0;
-  v10[97] = &unk_283CB1080;
-  v10[98] = &unk_283CB1158;
-  v10[99] = &unk_283CB10B0;
-  v10[100] = &unk_283CB1128;
-  v10[101] = &unk_283CB1170;
-  v10[102] = &unk_283CB1170;
-  v10[103] = &unk_283CB1170;
-  v10[104] = &unk_283CB10B0;
-  v10[105] = &unk_283CB10E0;
-  v10[106] = &unk_283CB1110;
-  v10[107] = &unk_283CB10F8;
-  v10[108] = &unk_283CB11D0;
-  v10[109] = &unk_283CB10E0;
-  v10[110] = &unk_283CB1128;
-  v10[111] = &unk_283CB1110;
-  v10[112] = &unk_283CB1170;
-  v10[113] = &unk_283CB11B8;
-  v10[114] = &unk_283CB11D0;
-  v10[115] = &unk_283CB1128;
-  v10[116] = &unk_283CB1128;
-  v10[117] = &unk_283CB1140;
-  v10[118] = &unk_283CB1158;
-  v10[119] = &unk_283CB1140;
-  v10[120] = &unk_283CB11B8;
-  v10[121] = &unk_283CB11E8;
-  v10[122] = &unk_283CB1110;
-  v10[123] = &unk_283CB11D0;
-  v10[124] = &unk_283CB11E8;
-  v10[125] = &unk_283CB1188;
-  v10[126] = &unk_283CB1140;
-  v10[127] = &unk_283CB17A0;
-  v10[128] = &unk_283CB11D0;
-  v10[129] = &unk_283CB11A0;
-  v10[130] = &unk_283CB17A0;
-  v10[131] = &unk_283CB11D0;
-  v10[132] = &unk_283CB11E8;
-  v10[133] = &unk_283CB1128;
-  v10[134] = &unk_283CB1188;
-  v10[135] = &unk_283CB11D0;
-  v10[136] = &unk_283CB17A0;
-  v10[137] = &unk_283CB17A0;
-  v10[138] = &unk_283CB1170;
-  v10[139] = &unk_283CB11A0;
-  v10[140] = &unk_283CB11A0;
-  v10[141] = &unk_283CB1170;
-  v10[142] = &unk_283CB11E8;
-  v10[143] = &unk_283CB11D0;
-  v10[144] = &unk_283CB17A0;
-  v10[145] = &unk_283CB1110;
-  v10[146] = &unk_283CB11A0;
-  v10[147] = &unk_283CB1188;
-  v10[148] = &unk_283CB11D0;
-  v10[149] = &unk_283CB1170;
-  v10[150] = &unk_283CB1200;
-  v10[151] = &unk_283CB1140;
-  v10[152] = &unk_283CB1110;
-  v10[153] = &unk_283CB11A0;
-  v10[154] = &unk_283CB1200;
-  v10[155] = &unk_283CB11A0;
-  v10[156] = &unk_283CB11D0;
-  v10[157] = &unk_283CB11E8;
-  v10[158] = &unk_283CB1188;
-  v10[159] = &unk_283CB1188;
-  v10[160] = &unk_283CB17A0;
-  v10[161] = &unk_283CB1218;
-  v10[162] = &unk_283CB1200;
-  v10[163] = &unk_283CB1218;
-  v10[164] = &unk_283CB11A0;
-  v10[165] = &unk_283CB17A0;
-  v10[166] = &unk_283CB17A0;
-  v10[167] = &unk_283CB1200;
-  v10[168] = &unk_283CB1380;
-  v10[169] = &unk_283CB11A0;
-  v10[170] = &unk_283CB1380;
-  v10[171] = &unk_283CB1230;
-  v10[172] = &unk_283CB11A0;
-  v10[173] = &unk_283CB11E8;
-  v10[174] = &unk_283CB1230;
-  v10[175] = &unk_283CB1188;
-  v10[176] = &unk_283CB11E8;
-  v10[177] = &unk_283CB11A0;
-  v10[178] = &unk_283CB1218;
-  v10[179] = &unk_283CB17A0;
-  v10[180] = &unk_283CB17A0;
-  v10[181] = &unk_283CB11A0;
-  v10[182] = &unk_283CB11E8;
-  v10[183] = &unk_283CB17A0;
-  v10[184] = &unk_283CB17A0;
-  v10[185] = &unk_283CB1380;
-  v10[186] = &unk_283CB1380;
-  v10[187] = &unk_283CB1380;
-  v10[188] = &unk_283CB17A0;
-  v10[189] = &unk_283CB11A0;
-  v10[190] = &unk_283CB11E8;
-  v10[191] = &unk_283CB1200;
-  v10[192] = &unk_283CB1218;
-  v10[193] = &unk_283CB11A0;
-  v10[194] = &unk_283CB1218;
-  v10[195] = &unk_283CB11A0;
-  v10[196] = &unk_283CB14D0;
-  v10[197] = &unk_283CB13C8;
-  v10[198] = &unk_283CB1188;
-  v10[199] = &unk_283CB14D0;
-  v10[200] = &unk_283CB1218;
-  v10[201] = &unk_283CB14D0;
-  v10[202] = &unk_283CB13B0;
-  v10[203] = &unk_283CB13C8;
-  v10[204] = &unk_283CB1368;
-  v10[205] = &unk_283CB1200;
-  v10[206] = &unk_283CB1218;
-  v10[207] = &unk_283CB1218;
-  v10[208] = &unk_283CB1368;
-  v10[209] = &unk_283CB1398;
-  v10[210] = &unk_283CB14D0;
-  v10[211] = &unk_283CB13B0;
-  v10[212] = &unk_283CB1368;
-  v10[213] = &unk_283CB1230;
-  v10[214] = &unk_283CB13B0;
-  v10[215] = &unk_283CB1200;
-  v10[216] = &unk_283CB1368;
-  v10[217] = &unk_283CB1200;
-  v10[218] = &unk_283CB13C8;
-  v10[219] = &unk_283CB1380;
-  v10[220] = &unk_283CB1218;
-  v10[221] = &unk_283CB1200;
-  v10[222] = &unk_283CB1368;
-  v10[223] = &unk_283CB1368;
-  v10[224] = &unk_283CB1230;
-  v10[225] = &unk_283CB1368;
-  v10[226] = &unk_283CB1398;
-  v10[227] = &unk_283CB13B0;
-  v10[228] = &unk_283CB1230;
-  v10[229] = &unk_283CB13C8;
-  v10[230] = &unk_283CB1218;
-  v10[231] = &unk_283CB1380;
-  v10[232] = &unk_283CB1398;
-  v10[233] = &unk_283CB1230;
-  v10[234] = &unk_283CB1200;
-  v10[235] = &unk_283CB14D0;
-  v10[236] = &unk_283CB14D0;
-  v10[237] = &unk_283CB1368;
-  v10[238] = &unk_283CB1200;
-  v10[239] = &unk_283CB13C8;
-  v10[240] = &unk_283CB1218;
-  v10[241] = &unk_283CB1398;
-  v10[242] = &unk_283CB14D0;
-  v10[243] = &unk_283CB13B0;
-  v10[244] = &unk_283CB14D0;
-  v10[245] = &unk_283CB13B0;
-  v10[246] = &unk_283CB13B0;
-  v10[247] = &unk_283CB13C8;
-  v10[248] = &unk_283CB13B0;
-  v10[249] = &unk_283CB1398;
-  v10[250] = &unk_283CB1200;
-  v10[251] = &unk_283CB13C8;
-  v10[252] = &unk_283CB13B0;
-  v10[253] = &unk_283CB1200;
-  v10[254] = &unk_283CB13C8;
-  v10[255] = &unk_283CB1368;
-  v10[256] = &unk_283CB1218;
-  v10[257] = &unk_283CB1218;
-  v10[258] = &unk_283CB1200;
-  v10[259] = &unk_283CB1230;
-  v10[260] = &unk_283CB1230;
-  v10[261] = &unk_283CB1380;
-  v10[262] = &unk_283CB1218;
-  v10[263] = &unk_283CB1230;
-  v10[264] = &unk_283CB13B0;
-  v10[265] = &unk_283CB13C8;
-  v10[266] = &unk_283CB1218;
-  v10[267] = &unk_283CB1368;
-  v10[268] = &unk_283CB1230;
-  v10[269] = &unk_283CB1380;
-  v10[270] = &unk_283CB1218;
-  v10[271] = &unk_283CB14D0;
-  v10[272] = &unk_283CB1398;
-  v10[273] = &unk_283CB1230;
-  v10[274] = &unk_283CB13B0;
-  v10[275] = &unk_283CB13C8;
-  v10[276] = &unk_283CB1368;
-  v10[277] = &unk_283CB1230;
-  v10[278] = &unk_283CB1218;
+  v6 = a2;
+  v9[0] = &unk_283CB1770;
+  v9[1] = &unk_283CB1788;
+  v9[2] = &unk_283CB0F30;
+  v9[3] = &unk_283CB0F48;
+  v9[4] = &unk_283CB1770;
+  v9[5] = &unk_283CB1668;
+  v9[6] = &unk_283CB0F30;
+  v9[7] = &unk_283CB1770;
+  v9[8] = &unk_283CB1818;
+  v9[9] = &unk_283CB1770;
+  v9[10] = &unk_283CB0F60;
+  v9[11] = &unk_283CB1818;
+  v9[12] = &unk_283CB1650;
+  v9[13] = &unk_283CB1788;
+  v9[14] = &unk_283CB1770;
+  v9[15] = &unk_283CB1650;
+  v9[16] = &unk_283CB1668;
+  v9[17] = &unk_283CB1818;
+  v9[18] = &unk_283CB1770;
+  v9[19] = &unk_283CB1818;
+  v9[20] = &unk_283CB1680;
+  v9[21] = &unk_283CB0F60;
+  v9[22] = &unk_283CB1308;
+  v9[23] = &unk_283CB17E8;
+  v9[24] = &unk_283CB1668;
+  v9[25] = &unk_283CB1800;
+  v9[26] = &unk_283CB1308;
+  v9[27] = &unk_283CB1638;
+  v9[28] = &unk_283CB0F78;
+  v9[29] = &unk_283CB0F78;
+  v9[30] = &unk_283CB1650;
+  v9[31] = &unk_283CB1620;
+  v9[32] = &unk_283CB12D8;
+  v9[33] = &unk_283CB1338;
+  v9[34] = &unk_283CB12D8;
+  v9[35] = &unk_283CB1440;
+  v9[36] = &unk_283CB1470;
+  v9[37] = &unk_283CB1458;
+  v9[38] = &unk_283CB1488;
+  v9[39] = &unk_283CB1608;
+  v9[40] = &unk_283CB1458;
+  v9[41] = &unk_283CB1458;
+  v9[42] = &unk_283CB1488;
+  v9[43] = &unk_283CB1530;
+  v9[44] = &unk_283CB0FA8;
+  v9[45] = &unk_283CB0F90;
+  v9[46] = &unk_283CB0FA8;
+  v9[47] = &unk_283CB13F8;
+  v9[48] = &unk_283CB14B8;
+  v9[49] = &unk_283CB15A8;
+  v9[50] = &unk_283CB0FC0;
+  v9[51] = &unk_283CB14B8;
+  v9[52] = &unk_283CB0FC0;
+  v9[53] = &unk_283CB0FD8;
+  v9[54] = &unk_283CB14B8;
+  v9[55] = &unk_283CB1068;
+  v9[56] = &unk_283CB0FF0;
+  v9[57] = &unk_283CB17D0;
+  v9[58] = &unk_283CB10C8;
+  v9[59] = &unk_283CB1050;
+  v9[60] = &unk_283CB17D0;
+  v9[61] = &unk_283CB17D0;
+  v9[62] = &unk_283CB1050;
+  v9[63] = &unk_283CB1008;
+  v9[64] = &unk_283CB1098;
+  v9[65] = &unk_283CB0FF0;
+  v9[66] = &unk_283CB1050;
+  v9[67] = &unk_283CB1050;
+  v9[68] = &unk_283CB10C8;
+  v9[69] = &unk_283CB1020;
+  v9[70] = &unk_283CB1080;
+  v9[71] = &unk_283CB1068;
+  v9[72] = &unk_283CB1080;
+  v9[73] = &unk_283CB1068;
+  v9[74] = &unk_283CB10C8;
+  v9[75] = &unk_283CB10B0;
+  v9[76] = &unk_283CB10C8;
+  v9[77] = &unk_283CB1050;
+  v9[78] = &unk_283CB10B0;
+  v9[79] = &unk_283CB10B0;
+  v9[80] = &unk_283CB1158;
+  v9[81] = &unk_283CB1050;
+  v9[82] = &unk_283CB1050;
+  v9[83] = &unk_283CB10B0;
+  v9[84] = &unk_283CB10B0;
+  v9[85] = &unk_283CB1080;
+  v9[86] = &unk_283CB11B8;
+  v9[87] = &unk_283CB10B0;
+  v9[88] = &unk_283CB1128;
+  v9[89] = &unk_283CB11B8;
+  v9[90] = &unk_283CB1080;
+  v9[91] = &unk_283CB1080;
+  v9[92] = &unk_283CB11B8;
+  v9[93] = &unk_283CB10B0;
+  v9[94] = &unk_283CB1128;
+  v9[95] = &unk_283CB1170;
+  v9[96] = &unk_283CB10E0;
+  v9[97] = &unk_283CB1080;
+  v9[98] = &unk_283CB1158;
+  v9[99] = &unk_283CB10B0;
+  v9[100] = &unk_283CB1128;
+  v9[101] = &unk_283CB1170;
+  v9[102] = &unk_283CB1170;
+  v9[103] = &unk_283CB1170;
+  v9[104] = &unk_283CB10B0;
+  v9[105] = &unk_283CB10E0;
+  v9[106] = &unk_283CB1110;
+  v9[107] = &unk_283CB10F8;
+  v9[108] = &unk_283CB11D0;
+  v9[109] = &unk_283CB10E0;
+  v9[110] = &unk_283CB1128;
+  v9[111] = &unk_283CB1110;
+  v9[112] = &unk_283CB1170;
+  v9[113] = &unk_283CB11B8;
+  v9[114] = &unk_283CB11D0;
+  v9[115] = &unk_283CB1128;
+  v9[116] = &unk_283CB1128;
+  v9[117] = &unk_283CB1140;
+  v9[118] = &unk_283CB1158;
+  v9[119] = &unk_283CB1140;
+  v9[120] = &unk_283CB11B8;
+  v9[121] = &unk_283CB11E8;
+  v9[122] = &unk_283CB1110;
+  v9[123] = &unk_283CB11D0;
+  v9[124] = &unk_283CB11E8;
+  v9[125] = &unk_283CB1188;
+  v9[126] = &unk_283CB1140;
+  v9[127] = &unk_283CB17A0;
+  v9[128] = &unk_283CB11D0;
+  v9[129] = &unk_283CB11A0;
+  v9[130] = &unk_283CB17A0;
+  v9[131] = &unk_283CB11D0;
+  v9[132] = &unk_283CB11E8;
+  v9[133] = &unk_283CB1128;
+  v9[134] = &unk_283CB1188;
+  v9[135] = &unk_283CB11D0;
+  v9[136] = &unk_283CB17A0;
+  v9[137] = &unk_283CB17A0;
+  v9[138] = &unk_283CB1170;
+  v9[139] = &unk_283CB11A0;
+  v9[140] = &unk_283CB11A0;
+  v9[141] = &unk_283CB1170;
+  v9[142] = &unk_283CB11E8;
+  v9[143] = &unk_283CB11D0;
+  v9[144] = &unk_283CB17A0;
+  v9[145] = &unk_283CB1110;
+  v9[146] = &unk_283CB11A0;
+  v9[147] = &unk_283CB1188;
+  v9[148] = &unk_283CB11D0;
+  v9[149] = &unk_283CB1170;
+  v9[150] = &unk_283CB1200;
+  v9[151] = &unk_283CB1140;
+  v9[152] = &unk_283CB1110;
+  v9[153] = &unk_283CB11A0;
+  v9[154] = &unk_283CB1200;
+  v9[155] = &unk_283CB11A0;
+  v9[156] = &unk_283CB11D0;
+  v9[157] = &unk_283CB11E8;
+  v9[158] = &unk_283CB1188;
+  v9[159] = &unk_283CB1188;
+  v9[160] = &unk_283CB17A0;
+  v9[161] = &unk_283CB1218;
+  v9[162] = &unk_283CB1200;
+  v9[163] = &unk_283CB1218;
+  v9[164] = &unk_283CB11A0;
+  v9[165] = &unk_283CB17A0;
+  v9[166] = &unk_283CB17A0;
+  v9[167] = &unk_283CB1200;
+  v9[168] = &unk_283CB1380;
+  v9[169] = &unk_283CB11A0;
+  v9[170] = &unk_283CB1380;
+  v9[171] = &unk_283CB1230;
+  v9[172] = &unk_283CB11A0;
+  v9[173] = &unk_283CB11E8;
+  v9[174] = &unk_283CB1230;
+  v9[175] = &unk_283CB1188;
+  v9[176] = &unk_283CB11E8;
+  v9[177] = &unk_283CB11A0;
+  v9[178] = &unk_283CB1218;
+  v9[179] = &unk_283CB17A0;
+  v9[180] = &unk_283CB17A0;
+  v9[181] = &unk_283CB11A0;
+  v9[182] = &unk_283CB11E8;
+  v9[183] = &unk_283CB17A0;
+  v9[184] = &unk_283CB17A0;
+  v9[185] = &unk_283CB1380;
+  v9[186] = &unk_283CB1380;
+  v9[187] = &unk_283CB1380;
+  v9[188] = &unk_283CB17A0;
+  v9[189] = &unk_283CB11A0;
+  v9[190] = &unk_283CB11E8;
+  v9[191] = &unk_283CB1200;
+  v9[192] = &unk_283CB1218;
+  v9[193] = &unk_283CB11A0;
+  v9[194] = &unk_283CB1218;
+  v9[195] = &unk_283CB11A0;
+  v9[196] = &unk_283CB14D0;
+  v9[197] = &unk_283CB13C8;
+  v9[198] = &unk_283CB1188;
+  v9[199] = &unk_283CB14D0;
+  v9[200] = &unk_283CB1218;
+  v9[201] = &unk_283CB14D0;
+  v9[202] = &unk_283CB13B0;
+  v9[203] = &unk_283CB13C8;
+  v9[204] = &unk_283CB1368;
+  v9[205] = &unk_283CB1200;
+  v9[206] = &unk_283CB1218;
+  v9[207] = &unk_283CB1218;
+  v9[208] = &unk_283CB1368;
+  v9[209] = &unk_283CB1398;
+  v9[210] = &unk_283CB14D0;
+  v9[211] = &unk_283CB13B0;
+  v9[212] = &unk_283CB1368;
+  v9[213] = &unk_283CB1230;
+  v9[214] = &unk_283CB13B0;
+  v9[215] = &unk_283CB1200;
+  v9[216] = &unk_283CB1368;
+  v9[217] = &unk_283CB1200;
+  v9[218] = &unk_283CB13C8;
+  v9[219] = &unk_283CB1380;
+  v9[220] = &unk_283CB1218;
+  v9[221] = &unk_283CB1200;
+  v9[222] = &unk_283CB1368;
+  v9[223] = &unk_283CB1368;
+  v9[224] = &unk_283CB1230;
+  v9[225] = &unk_283CB1368;
+  v9[226] = &unk_283CB1398;
+  v9[227] = &unk_283CB13B0;
+  v9[228] = &unk_283CB1230;
+  v9[229] = &unk_283CB13C8;
+  v9[230] = &unk_283CB1218;
+  v9[231] = &unk_283CB1380;
+  v9[232] = &unk_283CB1398;
+  v9[233] = &unk_283CB1230;
+  v9[234] = &unk_283CB1200;
+  v9[235] = &unk_283CB14D0;
+  v9[236] = &unk_283CB14D0;
+  v9[237] = &unk_283CB1368;
+  v9[238] = &unk_283CB1200;
+  v9[239] = &unk_283CB13C8;
+  v9[240] = &unk_283CB1218;
+  v9[241] = &unk_283CB1398;
+  v9[242] = &unk_283CB14D0;
+  v9[243] = &unk_283CB13B0;
+  v9[244] = &unk_283CB14D0;
+  v9[245] = &unk_283CB13B0;
+  v9[246] = &unk_283CB13B0;
+  v9[247] = &unk_283CB13C8;
+  v9[248] = &unk_283CB13B0;
+  v9[249] = &unk_283CB1398;
+  v9[250] = &unk_283CB1200;
+  v9[251] = &unk_283CB13C8;
+  v9[252] = &unk_283CB13B0;
+  v9[253] = &unk_283CB1200;
+  v9[254] = &unk_283CB13C8;
+  v9[255] = &unk_283CB1368;
+  v9[256] = &unk_283CB1218;
+  v9[257] = &unk_283CB1218;
+  v9[258] = &unk_283CB1200;
+  v9[259] = &unk_283CB1230;
+  v9[260] = &unk_283CB1230;
+  v9[261] = &unk_283CB1380;
+  v9[262] = &unk_283CB1218;
+  v9[263] = &unk_283CB1230;
+  v9[264] = &unk_283CB13B0;
+  v9[265] = &unk_283CB13C8;
+  v9[266] = &unk_283CB1218;
+  v9[267] = &unk_283CB1368;
+  v9[268] = &unk_283CB1230;
+  v9[269] = &unk_283CB1380;
+  v9[270] = &unk_283CB1218;
+  v9[271] = &unk_283CB14D0;
+  v9[272] = &unk_283CB1398;
+  v9[273] = &unk_283CB1230;
+  v9[274] = &unk_283CB13B0;
+  v9[275] = &unk_283CB13C8;
+  v9[276] = &unk_283CB1368;
+  v9[277] = &unk_283CB1230;
+  v9[278] = &unk_283CB1218;
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:arc4random_uniform(0xAu) + 177];
-  v10[279] = v4;
-  v10[280] = &unk_283CB1398;
-  v10[281] = &unk_283CB13C8;
-  v10[282] = &unk_283CB1398;
-  v10[283] = &unk_283CB1200;
-  v10[284] = &unk_283CB1230;
-  v10[285] = &unk_283CB1398;
-  v10[286] = &unk_283CB13C8;
-  v10[287] = &unk_283CB14D0;
-  v10[288] = &unk_283CB1230;
-  v10[289] = &unk_283CB13B0;
-  v10[290] = &unk_283CB13C8;
-  v10[291] = &unk_283CB1218;
-  v10[292] = &unk_283CB1200;
-  v10[293] = &unk_283CB1230;
-  v10[294] = &unk_283CB1140;
-  v10[295] = &unk_283CB1140;
-  v10[296] = &unk_283CB11A0;
-  v10[297] = &unk_283CB1140;
-  v10[298] = &unk_283CB1170;
-  v10[299] = &unk_283CB1170;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:300];
+  v9[279] = v4;
+  v9[280] = &unk_283CB1398;
+  v9[281] = &unk_283CB13C8;
+  v9[282] = &unk_283CB1398;
+  v9[283] = &unk_283CB1200;
+  v9[284] = &unk_283CB1230;
+  v9[285] = &unk_283CB1398;
+  v9[286] = &unk_283CB13C8;
+  v9[287] = &unk_283CB14D0;
+  v9[288] = &unk_283CB1230;
+  v9[289] = &unk_283CB13B0;
+  v9[290] = &unk_283CB13C8;
+  v9[291] = &unk_283CB1218;
+  v9[292] = &unk_283CB1200;
+  v9[293] = &unk_283CB1230;
+  v9[294] = &unk_283CB1140;
+  v9[295] = &unk_283CB1140;
+  v9[296] = &unk_283CB11A0;
+  v9[297] = &unk_283CB1140;
+  v9[298] = &unk_283CB1170;
+  v9[299] = &unk_283CB1170;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:300];
 
-  [HDDemoDataActivitySampleGenerator _generateWorkoutDataWithHeartRates:v5 recoveryHeartRates:&unk_283CAEB18 objectCollection:v7 demoPerson:*(self + 264) workoutState:?];
-  v6 = *MEMORY[0x277D85DE8];
+  [HDDemoDataActivitySampleGenerator _generateWorkoutDataWithHeartRates:v5 recoveryHeartRates:&unk_283CAEB18 objectCollection:v6 demoPerson:*(self + 264) workoutState:?];
 }
 
 - (void)_generateRunningWorkoutDataWithObjectCollection:(void *)collection demoPerson:(void *)person workoutState:(void *)state
 {
-  v11[540] = *MEMORY[0x277D85DE8];
+  v10[540] = *MEMORY[0x277D85DE8];
   stateCopy = state;
   personCopy = person;
   collectionCopy = collection;
-  v11[0] = &unk_283CB1650;
-  v11[1] = &unk_283CB0F60;
-  v11[2] = &unk_283CB1770;
-  v11[3] = &unk_283CB1650;
-  v11[4] = &unk_283CB17E8;
-  v11[5] = &unk_283CB1800;
-  v11[6] = &unk_283CB1338;
-  v11[7] = &unk_283CB1620;
-  v11[8] = &unk_283CB12D8;
-  v11[9] = &unk_283CB1308;
-  v11[10] = &unk_283CB12A8;
-  v11[11] = &unk_283CB12C0;
-  v11[12] = &unk_283CB12A8;
-  v11[13] = &unk_283CB1440;
-  v11[14] = &unk_283CB12C0;
-  v11[15] = &unk_283CB1560;
-  v11[16] = &unk_283CB1290;
-  v11[17] = &unk_283CB1560;
-  v11[18] = &unk_283CB14A0;
-  v11[19] = &unk_283CB1530;
-  v11[20] = &unk_283CB14A0;
-  v11[21] = &unk_283CB1290;
-  v11[22] = &unk_283CB15C0;
-  v11[23] = &unk_283CB14A0;
-  v11[24] = &unk_283CB0FA8;
-  v11[25] = &unk_283CB1560;
-  v11[26] = &unk_283CB1248;
-  v11[27] = &unk_283CB1290;
-  v11[28] = &unk_283CB1248;
-  v11[29] = &unk_283CB15D8;
-  v11[30] = &unk_283CB1290;
-  v11[31] = &unk_283CB14A0;
-  v11[32] = &unk_283CB1530;
-  v11[33] = &unk_283CB14A0;
-  v11[34] = &unk_283CB1578;
-  v11[35] = &unk_283CB0FA8;
-  v11[36] = &unk_283CB1578;
-  v11[37] = &unk_283CB0F90;
-  v11[38] = &unk_283CB0F90;
-  v11[39] = &unk_283CB14B8;
-  v11[40] = &unk_283CB1008;
-  v11[41] = &unk_283CB15A8;
-  v11[42] = &unk_283CB0FD8;
-  v11[43] = &unk_283CB1020;
-  v11[44] = &unk_283CB0FC0;
-  v11[45] = &unk_283CB0FF0;
-  v11[46] = &unk_283CB1008;
-  v11[47] = &unk_283CB15A8;
-  v11[48] = &unk_283CB1008;
-  v11[49] = &unk_283CB0FC0;
-  v11[50] = &unk_283CB1050;
-  v11[51] = &unk_283CB10C8;
-  v11[52] = &unk_283CB1008;
-  v11[53] = &unk_283CB0FC0;
-  v11[54] = &unk_283CB1098;
-  v11[55] = &unk_283CB1068;
-  v11[56] = &unk_283CB1098;
-  v11[57] = &unk_283CB1080;
-  v11[58] = &unk_283CB1170;
-  v11[59] = &unk_283CB10B0;
-  v11[60] = &unk_283CB11D0;
-  v11[61] = &unk_283CB1128;
-  v11[62] = &unk_283CB10E0;
-  v11[63] = &unk_283CB1170;
-  v11[64] = &unk_283CB11B8;
-  v11[65] = &unk_283CB11B8;
-  v11[66] = &unk_283CB1170;
-  v11[67] = &unk_283CB11B8;
-  v11[68] = &unk_283CB1098;
-  v11[69] = &unk_283CB11D0;
-  v11[70] = &unk_283CB10E0;
-  v11[71] = &unk_283CB1038;
-  v11[72] = &unk_283CB1128;
-  v11[73] = &unk_283CB1098;
-  v11[74] = &unk_283CB10E0;
-  v11[75] = &unk_283CB1140;
-  v11[76] = &unk_283CB1050;
-  v11[77] = &unk_283CB11D0;
-  v11[78] = &unk_283CB11E8;
-  v11[79] = &unk_283CB1110;
-  v11[80] = &unk_283CB1170;
-  v11[81] = &unk_283CB1140;
-  v11[82] = &unk_283CB11B8;
-  v11[83] = &unk_283CB11D0;
-  v11[84] = &unk_283CB11B8;
-  v11[85] = &unk_283CB10E0;
-  v11[86] = &unk_283CB1170;
-  v11[87] = &unk_283CB11E8;
-  v11[88] = &unk_283CB11D0;
-  v11[89] = &unk_283CB1140;
-  v11[90] = &unk_283CB11A0;
-  v11[91] = &unk_283CB10F8;
-  v11[92] = &unk_283CB1110;
-  v11[93] = &unk_283CB11E8;
-  v11[94] = &unk_283CB17A0;
-  v11[95] = &unk_283CB1188;
-  v11[96] = &unk_283CB11B8;
-  v11[97] = &unk_283CB1140;
-  v11[98] = &unk_283CB1110;
-  v11[99] = &unk_283CB1140;
-  v11[100] = &unk_283CB1380;
-  v11[101] = &unk_283CB11E8;
-  v11[102] = &unk_283CB1188;
-  v11[103] = &unk_283CB1380;
-  v11[104] = &unk_283CB1380;
-  v11[105] = &unk_283CB17A0;
-  v11[106] = &unk_283CB11D0;
-  v11[107] = &unk_283CB1230;
-  v11[108] = &unk_283CB17A0;
-  v11[109] = &unk_283CB11D0;
-  v11[110] = &unk_283CB1380;
-  v11[111] = &unk_283CB1380;
-  v11[112] = &unk_283CB13B0;
-  v11[113] = &unk_283CB1230;
-  v11[114] = &unk_283CB14D0;
-  v11[115] = &unk_283CB1380;
-  v11[116] = &unk_283CB1188;
-  v11[117] = &unk_283CB11E8;
-  v11[118] = &unk_283CB14D0;
-  v11[119] = &unk_283CB17A0;
-  v11[120] = &unk_283CB17A0;
-  v11[121] = &unk_283CB14D0;
-  v11[122] = &unk_283CB1380;
-  v11[123] = &unk_283CB14D0;
-  v11[124] = &unk_283CB17A0;
-  v11[125] = &unk_283CB11E8;
-  v11[126] = &unk_283CB14D0;
-  v11[127] = &unk_283CB1380;
-  v11[128] = &unk_283CB1218;
-  v11[129] = &unk_283CB13B0;
-  v11[130] = &unk_283CB1380;
-  v11[131] = &unk_283CB11E8;
-  v11[132] = &unk_283CB1188;
-  v11[133] = &unk_283CB1380;
-  v11[134] = &unk_283CB1380;
-  v11[135] = &unk_283CB17A0;
-  v11[136] = &unk_283CB11D0;
-  v11[137] = &unk_283CB1230;
-  v11[138] = &unk_283CB17A0;
-  v11[139] = &unk_283CB11D0;
-  v11[140] = &unk_283CB1380;
-  v11[141] = &unk_283CB1380;
-  v11[142] = &unk_283CB13B0;
-  v11[143] = &unk_283CB1230;
-  v11[144] = &unk_283CB14D0;
-  v11[145] = &unk_283CB1380;
-  v11[146] = &unk_283CB1188;
-  v11[147] = &unk_283CB11E8;
-  v11[148] = &unk_283CB14D0;
-  v11[149] = &unk_283CB17A0;
-  v11[150] = &unk_283CB17A0;
-  v11[151] = &unk_283CB14D0;
-  v11[152] = &unk_283CB1380;
-  v11[153] = &unk_283CB14D0;
-  v11[154] = &unk_283CB17A0;
-  v11[155] = &unk_283CB11E8;
-  v11[156] = &unk_283CB14D0;
-  v11[157] = &unk_283CB1380;
-  v11[158] = &unk_283CB1218;
-  v11[159] = &unk_283CB13B0;
-  v11[160] = &unk_283CB1230;
-  v11[161] = &unk_283CB13B0;
-  v11[162] = &unk_283CB1200;
-  v11[163] = &unk_283CB1380;
-  v11[164] = &unk_283CB11E8;
-  v11[165] = &unk_283CB1230;
-  v11[166] = &unk_283CB17A0;
-  v11[167] = &unk_283CB1140;
-  v11[168] = &unk_283CB1110;
-  v11[169] = &unk_283CB1128;
-  v11[170] = &unk_283CB17A0;
-  v11[171] = &unk_283CB14D0;
-  v11[172] = &unk_283CB1380;
-  v11[173] = &unk_283CB14D0;
-  v11[174] = &unk_283CB17A0;
-  v11[175] = &unk_283CB11E8;
-  v11[176] = &unk_283CB14D0;
-  v11[177] = &unk_283CB1380;
-  v11[178] = &unk_283CB1218;
-  v11[179] = &unk_283CB13B0;
-  v11[180] = &unk_283CB1200;
-  v11[181] = &unk_283CB1140;
-  v11[182] = &unk_283CB11B8;
-  v11[183] = &unk_283CB1170;
-  v11[184] = &unk_283CB1200;
-  v11[185] = &unk_283CB1110;
-  v11[186] = &unk_283CB11B8;
-  v11[187] = &unk_283CB1128;
-  v11[188] = &unk_283CB1188;
-  v11[189] = &unk_283CB1140;
-  v11[190] = &unk_283CB1128;
-  v11[191] = &unk_283CB1380;
-  v11[192] = &unk_283CB17A0;
-  v11[193] = &unk_283CB17A0;
-  v11[194] = &unk_283CB11A0;
-  v11[195] = &unk_283CB13C8;
-  v11[196] = &unk_283CB13B0;
-  v11[197] = &unk_283CB1380;
-  v11[198] = &unk_283CB1200;
-  v11[199] = &unk_283CB1188;
-  v11[200] = &unk_283CB1218;
-  v11[201] = &unk_283CB1398;
-  v11[202] = &unk_283CB17A0;
-  v11[203] = &unk_283CB14D0;
-  v11[204] = &unk_283CB11A0;
-  v11[205] = &unk_283CB13B0;
-  v11[206] = &unk_283CB14D0;
-  v11[207] = &unk_283CB1218;
-  v11[208] = &unk_283CB1230;
-  v11[209] = &unk_283CB1230;
-  v11[210] = &unk_283CB13B0;
-  v11[211] = &unk_283CB1398;
-  v11[212] = &unk_283CB1200;
-  v11[213] = &unk_283CB14D0;
-  v11[214] = &unk_283CB1230;
-  v11[215] = &unk_283CB1398;
-  v11[216] = &unk_283CB1230;
-  v11[217] = &unk_283CB1218;
-  v11[218] = &unk_283CB17A0;
-  v11[219] = &unk_283CB13C8;
-  v11[220] = &unk_283CB11E8;
-  v11[221] = &unk_283CB1368;
-  v11[222] = &unk_283CB11E8;
-  v11[223] = &unk_283CB1368;
-  v11[224] = &unk_283CB13B0;
-  v11[225] = &unk_283CB11E8;
-  v11[226] = &unk_283CB1380;
-  v11[227] = &unk_283CB13C8;
-  v11[228] = &unk_283CB1398;
-  v11[229] = &unk_283CB13C8;
-  v11[230] = &unk_283CB17A0;
-  v11[231] = &unk_283CB1380;
-  v11[232] = &unk_283CB1200;
-  v11[233] = &unk_283CB11E8;
-  v11[234] = &unk_283CB13C8;
-  v11[235] = &unk_283CB1188;
-  v11[236] = &unk_283CB13B0;
-  v11[237] = &unk_283CB1188;
-  v11[238] = &unk_283CB13C8;
-  v11[239] = &unk_283CB1398;
-  v11[240] = &unk_283CB1128;
-  v11[241] = &unk_283CB1380;
-  v11[242] = &unk_283CB17A0;
-  v11[243] = &unk_283CB17A0;
-  v11[244] = &unk_283CB11A0;
-  v11[245] = &unk_283CB13C8;
-  v11[246] = &unk_283CB13B0;
-  v11[247] = &unk_283CB1380;
-  v11[248] = &unk_283CB1200;
-  v11[249] = &unk_283CB1188;
-  v11[250] = &unk_283CB1230;
-  v11[251] = &unk_283CB13B0;
-  v11[252] = &unk_283CB1200;
-  v11[253] = &unk_283CB1380;
-  v11[254] = &unk_283CB11E8;
-  v11[255] = &unk_283CB1230;
-  v11[256] = &unk_283CB17A0;
-  v11[257] = &unk_283CB1140;
-  v11[258] = &unk_283CB1110;
-  v11[259] = &unk_283CB1128;
-  v11[260] = &unk_283CB1218;
-  v11[261] = &unk_283CB1398;
-  v11[262] = &unk_283CB17A0;
-  v11[263] = &unk_283CB14D0;
-  v11[264] = &unk_283CB11A0;
-  v11[265] = &unk_283CB13B0;
-  v11[266] = &unk_283CB14D0;
-  v11[267] = &unk_283CB1218;
-  v11[268] = &unk_283CB1230;
-  v11[269] = &unk_283CB1230;
-  v11[270] = &unk_283CB13B0;
-  v11[271] = &unk_283CB1398;
-  v11[272] = &unk_283CB1200;
-  v11[273] = &unk_283CB14D0;
-  v11[274] = &unk_283CB1230;
-  v11[275] = &unk_283CB1398;
-  v11[276] = &unk_283CB1230;
-  v11[277] = &unk_283CB1218;
-  v11[278] = &unk_283CB17A0;
-  v11[279] = &unk_283CB13C8;
-  v11[280] = &unk_283CB1230;
-  v11[281] = &unk_283CB13B0;
-  v11[282] = &unk_283CB1200;
-  v11[283] = &unk_283CB1380;
-  v11[284] = &unk_283CB11E8;
-  v11[285] = &unk_283CB1230;
-  v11[286] = &unk_283CB17A0;
-  v11[287] = &unk_283CB1140;
-  v11[288] = &unk_283CB1110;
-  v11[289] = &unk_283CB1128;
-  v11[290] = &unk_283CB1200;
-  v11[291] = &unk_283CB1140;
-  v11[292] = &unk_283CB11B8;
-  v11[293] = &unk_283CB1170;
-  v11[294] = &unk_283CB1200;
-  v11[295] = &unk_283CB1110;
-  v11[296] = &unk_283CB11B8;
-  v11[297] = &unk_283CB1128;
-  v11[298] = &unk_283CB1188;
-  v11[299] = &unk_283CB1140;
-  v11[300] = &unk_283CB1128;
-  v11[301] = &unk_283CB1380;
-  v11[302] = &unk_283CB17A0;
-  v11[303] = &unk_283CB17A0;
-  v11[304] = &unk_283CB11A0;
-  v11[305] = &unk_283CB13C8;
-  v11[306] = &unk_283CB13B0;
-  v11[307] = &unk_283CB1380;
-  v11[308] = &unk_283CB1200;
-  v11[309] = &unk_283CB1188;
-  v11[310] = &unk_283CB1200;
-  v11[311] = &unk_283CB1140;
-  v11[312] = &unk_283CB11B8;
-  v11[313] = &unk_283CB1170;
-  v11[314] = &unk_283CB1200;
-  v11[315] = &unk_283CB1110;
-  v11[316] = &unk_283CB11B8;
-  v11[317] = &unk_283CB1128;
-  v11[318] = &unk_283CB1188;
-  v11[319] = &unk_283CB1140;
-  v11[320] = &unk_283CB1128;
-  v11[321] = &unk_283CB1380;
-  v11[322] = &unk_283CB17A0;
-  v11[323] = &unk_283CB17A0;
-  v11[324] = &unk_283CB11A0;
-  v11[325] = &unk_283CB13C8;
-  v11[326] = &unk_283CB13B0;
-  v11[327] = &unk_283CB1380;
-  v11[328] = &unk_283CB1200;
-  v11[329] = &unk_283CB1188;
-  v11[330] = &unk_283CB1218;
-  v11[331] = &unk_283CB1398;
-  v11[332] = &unk_283CB17A0;
-  v11[333] = &unk_283CB14D0;
-  v11[334] = &unk_283CB11A0;
-  v11[335] = &unk_283CB13B0;
-  v11[336] = &unk_283CB14D0;
-  v11[337] = &unk_283CB1218;
-  v11[338] = &unk_283CB1230;
-  v11[339] = &unk_283CB1230;
-  v11[340] = &unk_283CB13B0;
-  v11[341] = &unk_283CB1398;
-  v11[342] = &unk_283CB1200;
-  v11[343] = &unk_283CB14D0;
-  v11[344] = &unk_283CB1230;
-  v11[345] = &unk_283CB1398;
-  v11[346] = &unk_283CB1230;
-  v11[347] = &unk_283CB1218;
-  v11[348] = &unk_283CB17A0;
-  v11[349] = &unk_283CB13C8;
-  v11[350] = &unk_283CB1218;
-  v11[351] = &unk_283CB1398;
-  v11[352] = &unk_283CB17A0;
-  v11[353] = &unk_283CB14D0;
-  v11[354] = &unk_283CB11A0;
-  v11[355] = &unk_283CB13B0;
-  v11[356] = &unk_283CB14D0;
-  v11[357] = &unk_283CB1218;
-  v11[358] = &unk_283CB1230;
-  v11[359] = &unk_283CB1230;
-  v11[360] = &unk_283CB13B0;
-  v11[361] = &unk_283CB1398;
-  v11[362] = &unk_283CB1200;
-  v11[363] = &unk_283CB14D0;
-  v11[364] = &unk_283CB1230;
-  v11[365] = &unk_283CB1398;
-  v11[366] = &unk_283CB1230;
-  v11[367] = &unk_283CB1218;
-  v11[368] = &unk_283CB17A0;
-  v11[369] = &unk_283CB13C8;
-  v11[370] = &unk_283CB1230;
-  v11[371] = &unk_283CB13B0;
-  v11[372] = &unk_283CB1200;
-  v11[373] = &unk_283CB1380;
-  v11[374] = &unk_283CB11E8;
-  v11[375] = &unk_283CB1230;
-  v11[376] = &unk_283CB17A0;
-  v11[377] = &unk_283CB1140;
-  v11[378] = &unk_283CB1110;
-  v11[379] = &unk_283CB1128;
-  v11[380] = &unk_283CB1200;
-  v11[381] = &unk_283CB1140;
-  v11[382] = &unk_283CB11B8;
-  v11[383] = &unk_283CB1170;
-  v11[384] = &unk_283CB1200;
-  v11[385] = &unk_283CB1110;
-  v11[386] = &unk_283CB11B8;
-  v11[387] = &unk_283CB1128;
-  v11[388] = &unk_283CB1188;
-  v11[389] = &unk_283CB1140;
-  v11[390] = &unk_283CB1128;
-  v11[391] = &unk_283CB1380;
-  v11[392] = &unk_283CB17A0;
-  v11[393] = &unk_283CB17A0;
-  v11[394] = &unk_283CB11A0;
-  v11[395] = &unk_283CB13C8;
-  v11[396] = &unk_283CB13B0;
-  v11[397] = &unk_283CB1380;
-  v11[398] = &unk_283CB1200;
-  v11[399] = &unk_283CB1188;
-  v11[400] = &unk_283CB1218;
-  v11[401] = &unk_283CB1398;
-  v11[402] = &unk_283CB17A0;
-  v11[403] = &unk_283CB14D0;
-  v11[404] = &unk_283CB11A0;
-  v11[405] = &unk_283CB13B0;
-  v11[406] = &unk_283CB14D0;
-  v11[407] = &unk_283CB1218;
-  v11[408] = &unk_283CB1230;
-  v11[409] = &unk_283CB1230;
-  v11[410] = &unk_283CB13B0;
-  v11[411] = &unk_283CB1398;
-  v11[412] = &unk_283CB1200;
-  v11[413] = &unk_283CB14D0;
-  v11[414] = &unk_283CB1230;
-  v11[415] = &unk_283CB1398;
-  v11[416] = &unk_283CB1230;
-  v11[417] = &unk_283CB1218;
-  v11[418] = &unk_283CB17A0;
-  v11[419] = &unk_283CB13C8;
-  v11[420] = &unk_283CB11E8;
-  v11[421] = &unk_283CB1368;
-  v11[422] = &unk_283CB11E8;
-  v11[423] = &unk_283CB1368;
-  v11[424] = &unk_283CB13B0;
-  v11[425] = &unk_283CB11E8;
-  v11[426] = &unk_283CB1380;
-  v11[427] = &unk_283CB13C8;
-  v11[428] = &unk_283CB1398;
-  v11[429] = &unk_283CB13C8;
-  v11[430] = &unk_283CB17A0;
-  v11[431] = &unk_283CB1380;
-  v11[432] = &unk_283CB1200;
-  v11[433] = &unk_283CB11E8;
-  v11[434] = &unk_283CB13C8;
-  v11[435] = &unk_283CB1188;
-  v11[436] = &unk_283CB13B0;
-  v11[437] = &unk_283CB1188;
-  v11[438] = &unk_283CB13C8;
-  v11[439] = &unk_283CB1398;
-  v11[440] = &unk_283CB1380;
-  v11[441] = &unk_283CB11E8;
-  v11[442] = &unk_283CB1380;
-  v11[443] = &unk_283CB1200;
-  v11[444] = &unk_283CB1188;
-  v11[445] = &unk_283CB17A0;
-  v11[446] = &unk_283CB13C8;
-  v11[447] = &unk_283CB1368;
-  v11[448] = &unk_283CB1380;
-  v11[449] = &unk_283CB1380;
-  v11[450] = &unk_283CB1380;
-  v11[451] = &unk_283CB13C8;
-  v11[452] = &unk_283CB14D0;
-  v11[453] = &unk_283CB1200;
-  v11[454] = &unk_283CB1200;
-  v11[455] = &unk_283CB13C8;
-  v11[456] = &unk_283CB1368;
-  v11[457] = &unk_283CB1200;
-  v11[458] = &unk_283CB1218;
-  v11[459] = &unk_283CB13C8;
-  v11[460] = &unk_283CB13B0;
-  v11[461] = &unk_283CB13B0;
-  v11[462] = &unk_283CB1218;
-  v11[463] = &unk_283CB14E8;
-  v11[464] = &unk_283CB11A0;
-  v11[465] = &unk_283CB1368;
-  v11[466] = &unk_283CB1380;
-  v11[467] = &unk_283CB13C8;
-  v11[468] = &unk_283CB13C8;
-  v11[469] = &unk_283CB13B0;
-  v11[470] = &unk_283CB18A8;
-  v11[471] = &unk_283CB14E8;
-  v11[472] = &unk_283CB14D0;
-  v11[473] = &unk_283CB13B0;
-  v11[474] = &unk_283CB1500;
-  v11[475] = &unk_283CB18C0;
-  v11[476] = &unk_283CB14D0;
-  v11[477] = &unk_283CB13C8;
-  v11[478] = &unk_283CB1398;
-  v11[479] = &unk_283CB1518;
-  v11[480] = &unk_283CB1398;
-  v11[481] = &unk_283CB13C8;
-  v11[482] = &unk_283CB13E0;
-  v11[483] = &unk_283CB1518;
-  v11[484] = &unk_283CB14E8;
-  v11[485] = &unk_283CB1368;
-  v11[486] = &unk_283CB1218;
-  v11[487] = &unk_283CB1218;
-  v11[488] = &unk_283CB1398;
-  v11[489] = &unk_283CB13B0;
-  v11[490] = &unk_283CB1500;
-  v11[491] = &unk_283CB13C8;
-  v11[492] = &unk_283CB18A8;
-  v11[493] = &unk_283CB13C8;
-  v11[494] = &unk_283CB18C0;
-  v11[495] = &unk_283CB13B0;
-  v11[496] = &unk_283CB1500;
-  v11[497] = &unk_283CB1500;
-  v11[498] = &unk_283CB1230;
-  v11[499] = &unk_283CB1518;
-  v11[500] = &unk_283CB1218;
-  v11[501] = &unk_283CB1230;
-  v11[502] = &unk_283CB13C8;
-  v11[503] = &unk_283CB1218;
-  v11[504] = &unk_283CB1368;
-  v11[505] = &unk_283CB1518;
-  v11[506] = &unk_283CB1218;
-  v11[507] = &unk_283CB13E0;
-  v11[508] = &unk_283CB1218;
+  v10[0] = &unk_283CB1650;
+  v10[1] = &unk_283CB0F60;
+  v10[2] = &unk_283CB1770;
+  v10[3] = &unk_283CB1650;
+  v10[4] = &unk_283CB17E8;
+  v10[5] = &unk_283CB1800;
+  v10[6] = &unk_283CB1338;
+  v10[7] = &unk_283CB1620;
+  v10[8] = &unk_283CB12D8;
+  v10[9] = &unk_283CB1308;
+  v10[10] = &unk_283CB12A8;
+  v10[11] = &unk_283CB12C0;
+  v10[12] = &unk_283CB12A8;
+  v10[13] = &unk_283CB1440;
+  v10[14] = &unk_283CB12C0;
+  v10[15] = &unk_283CB1560;
+  v10[16] = &unk_283CB1290;
+  v10[17] = &unk_283CB1560;
+  v10[18] = &unk_283CB14A0;
+  v10[19] = &unk_283CB1530;
+  v10[20] = &unk_283CB14A0;
+  v10[21] = &unk_283CB1290;
+  v10[22] = &unk_283CB15C0;
+  v10[23] = &unk_283CB14A0;
+  v10[24] = &unk_283CB0FA8;
+  v10[25] = &unk_283CB1560;
+  v10[26] = &unk_283CB1248;
+  v10[27] = &unk_283CB1290;
+  v10[28] = &unk_283CB1248;
+  v10[29] = &unk_283CB15D8;
+  v10[30] = &unk_283CB1290;
+  v10[31] = &unk_283CB14A0;
+  v10[32] = &unk_283CB1530;
+  v10[33] = &unk_283CB14A0;
+  v10[34] = &unk_283CB1578;
+  v10[35] = &unk_283CB0FA8;
+  v10[36] = &unk_283CB1578;
+  v10[37] = &unk_283CB0F90;
+  v10[38] = &unk_283CB0F90;
+  v10[39] = &unk_283CB14B8;
+  v10[40] = &unk_283CB1008;
+  v10[41] = &unk_283CB15A8;
+  v10[42] = &unk_283CB0FD8;
+  v10[43] = &unk_283CB1020;
+  v10[44] = &unk_283CB0FC0;
+  v10[45] = &unk_283CB0FF0;
+  v10[46] = &unk_283CB1008;
+  v10[47] = &unk_283CB15A8;
+  v10[48] = &unk_283CB1008;
+  v10[49] = &unk_283CB0FC0;
+  v10[50] = &unk_283CB1050;
+  v10[51] = &unk_283CB10C8;
+  v10[52] = &unk_283CB1008;
+  v10[53] = &unk_283CB0FC0;
+  v10[54] = &unk_283CB1098;
+  v10[55] = &unk_283CB1068;
+  v10[56] = &unk_283CB1098;
+  v10[57] = &unk_283CB1080;
+  v10[58] = &unk_283CB1170;
+  v10[59] = &unk_283CB10B0;
+  v10[60] = &unk_283CB11D0;
+  v10[61] = &unk_283CB1128;
+  v10[62] = &unk_283CB10E0;
+  v10[63] = &unk_283CB1170;
+  v10[64] = &unk_283CB11B8;
+  v10[65] = &unk_283CB11B8;
+  v10[66] = &unk_283CB1170;
+  v10[67] = &unk_283CB11B8;
+  v10[68] = &unk_283CB1098;
+  v10[69] = &unk_283CB11D0;
+  v10[70] = &unk_283CB10E0;
+  v10[71] = &unk_283CB1038;
+  v10[72] = &unk_283CB1128;
+  v10[73] = &unk_283CB1098;
+  v10[74] = &unk_283CB10E0;
+  v10[75] = &unk_283CB1140;
+  v10[76] = &unk_283CB1050;
+  v10[77] = &unk_283CB11D0;
+  v10[78] = &unk_283CB11E8;
+  v10[79] = &unk_283CB1110;
+  v10[80] = &unk_283CB1170;
+  v10[81] = &unk_283CB1140;
+  v10[82] = &unk_283CB11B8;
+  v10[83] = &unk_283CB11D0;
+  v10[84] = &unk_283CB11B8;
+  v10[85] = &unk_283CB10E0;
+  v10[86] = &unk_283CB1170;
+  v10[87] = &unk_283CB11E8;
+  v10[88] = &unk_283CB11D0;
+  v10[89] = &unk_283CB1140;
+  v10[90] = &unk_283CB11A0;
+  v10[91] = &unk_283CB10F8;
+  v10[92] = &unk_283CB1110;
+  v10[93] = &unk_283CB11E8;
+  v10[94] = &unk_283CB17A0;
+  v10[95] = &unk_283CB1188;
+  v10[96] = &unk_283CB11B8;
+  v10[97] = &unk_283CB1140;
+  v10[98] = &unk_283CB1110;
+  v10[99] = &unk_283CB1140;
+  v10[100] = &unk_283CB1380;
+  v10[101] = &unk_283CB11E8;
+  v10[102] = &unk_283CB1188;
+  v10[103] = &unk_283CB1380;
+  v10[104] = &unk_283CB1380;
+  v10[105] = &unk_283CB17A0;
+  v10[106] = &unk_283CB11D0;
+  v10[107] = &unk_283CB1230;
+  v10[108] = &unk_283CB17A0;
+  v10[109] = &unk_283CB11D0;
+  v10[110] = &unk_283CB1380;
+  v10[111] = &unk_283CB1380;
+  v10[112] = &unk_283CB13B0;
+  v10[113] = &unk_283CB1230;
+  v10[114] = &unk_283CB14D0;
+  v10[115] = &unk_283CB1380;
+  v10[116] = &unk_283CB1188;
+  v10[117] = &unk_283CB11E8;
+  v10[118] = &unk_283CB14D0;
+  v10[119] = &unk_283CB17A0;
+  v10[120] = &unk_283CB17A0;
+  v10[121] = &unk_283CB14D0;
+  v10[122] = &unk_283CB1380;
+  v10[123] = &unk_283CB14D0;
+  v10[124] = &unk_283CB17A0;
+  v10[125] = &unk_283CB11E8;
+  v10[126] = &unk_283CB14D0;
+  v10[127] = &unk_283CB1380;
+  v10[128] = &unk_283CB1218;
+  v10[129] = &unk_283CB13B0;
+  v10[130] = &unk_283CB1380;
+  v10[131] = &unk_283CB11E8;
+  v10[132] = &unk_283CB1188;
+  v10[133] = &unk_283CB1380;
+  v10[134] = &unk_283CB1380;
+  v10[135] = &unk_283CB17A0;
+  v10[136] = &unk_283CB11D0;
+  v10[137] = &unk_283CB1230;
+  v10[138] = &unk_283CB17A0;
+  v10[139] = &unk_283CB11D0;
+  v10[140] = &unk_283CB1380;
+  v10[141] = &unk_283CB1380;
+  v10[142] = &unk_283CB13B0;
+  v10[143] = &unk_283CB1230;
+  v10[144] = &unk_283CB14D0;
+  v10[145] = &unk_283CB1380;
+  v10[146] = &unk_283CB1188;
+  v10[147] = &unk_283CB11E8;
+  v10[148] = &unk_283CB14D0;
+  v10[149] = &unk_283CB17A0;
+  v10[150] = &unk_283CB17A0;
+  v10[151] = &unk_283CB14D0;
+  v10[152] = &unk_283CB1380;
+  v10[153] = &unk_283CB14D0;
+  v10[154] = &unk_283CB17A0;
+  v10[155] = &unk_283CB11E8;
+  v10[156] = &unk_283CB14D0;
+  v10[157] = &unk_283CB1380;
+  v10[158] = &unk_283CB1218;
+  v10[159] = &unk_283CB13B0;
+  v10[160] = &unk_283CB1230;
+  v10[161] = &unk_283CB13B0;
+  v10[162] = &unk_283CB1200;
+  v10[163] = &unk_283CB1380;
+  v10[164] = &unk_283CB11E8;
+  v10[165] = &unk_283CB1230;
+  v10[166] = &unk_283CB17A0;
+  v10[167] = &unk_283CB1140;
+  v10[168] = &unk_283CB1110;
+  v10[169] = &unk_283CB1128;
+  v10[170] = &unk_283CB17A0;
+  v10[171] = &unk_283CB14D0;
+  v10[172] = &unk_283CB1380;
+  v10[173] = &unk_283CB14D0;
+  v10[174] = &unk_283CB17A0;
+  v10[175] = &unk_283CB11E8;
+  v10[176] = &unk_283CB14D0;
+  v10[177] = &unk_283CB1380;
+  v10[178] = &unk_283CB1218;
+  v10[179] = &unk_283CB13B0;
+  v10[180] = &unk_283CB1200;
+  v10[181] = &unk_283CB1140;
+  v10[182] = &unk_283CB11B8;
+  v10[183] = &unk_283CB1170;
+  v10[184] = &unk_283CB1200;
+  v10[185] = &unk_283CB1110;
+  v10[186] = &unk_283CB11B8;
+  v10[187] = &unk_283CB1128;
+  v10[188] = &unk_283CB1188;
+  v10[189] = &unk_283CB1140;
+  v10[190] = &unk_283CB1128;
+  v10[191] = &unk_283CB1380;
+  v10[192] = &unk_283CB17A0;
+  v10[193] = &unk_283CB17A0;
+  v10[194] = &unk_283CB11A0;
+  v10[195] = &unk_283CB13C8;
+  v10[196] = &unk_283CB13B0;
+  v10[197] = &unk_283CB1380;
+  v10[198] = &unk_283CB1200;
+  v10[199] = &unk_283CB1188;
+  v10[200] = &unk_283CB1218;
+  v10[201] = &unk_283CB1398;
+  v10[202] = &unk_283CB17A0;
+  v10[203] = &unk_283CB14D0;
+  v10[204] = &unk_283CB11A0;
+  v10[205] = &unk_283CB13B0;
+  v10[206] = &unk_283CB14D0;
+  v10[207] = &unk_283CB1218;
+  v10[208] = &unk_283CB1230;
+  v10[209] = &unk_283CB1230;
+  v10[210] = &unk_283CB13B0;
+  v10[211] = &unk_283CB1398;
+  v10[212] = &unk_283CB1200;
+  v10[213] = &unk_283CB14D0;
+  v10[214] = &unk_283CB1230;
+  v10[215] = &unk_283CB1398;
+  v10[216] = &unk_283CB1230;
+  v10[217] = &unk_283CB1218;
+  v10[218] = &unk_283CB17A0;
+  v10[219] = &unk_283CB13C8;
+  v10[220] = &unk_283CB11E8;
+  v10[221] = &unk_283CB1368;
+  v10[222] = &unk_283CB11E8;
+  v10[223] = &unk_283CB1368;
+  v10[224] = &unk_283CB13B0;
+  v10[225] = &unk_283CB11E8;
+  v10[226] = &unk_283CB1380;
+  v10[227] = &unk_283CB13C8;
+  v10[228] = &unk_283CB1398;
+  v10[229] = &unk_283CB13C8;
+  v10[230] = &unk_283CB17A0;
+  v10[231] = &unk_283CB1380;
+  v10[232] = &unk_283CB1200;
+  v10[233] = &unk_283CB11E8;
+  v10[234] = &unk_283CB13C8;
+  v10[235] = &unk_283CB1188;
+  v10[236] = &unk_283CB13B0;
+  v10[237] = &unk_283CB1188;
+  v10[238] = &unk_283CB13C8;
+  v10[239] = &unk_283CB1398;
+  v10[240] = &unk_283CB1128;
+  v10[241] = &unk_283CB1380;
+  v10[242] = &unk_283CB17A0;
+  v10[243] = &unk_283CB17A0;
+  v10[244] = &unk_283CB11A0;
+  v10[245] = &unk_283CB13C8;
+  v10[246] = &unk_283CB13B0;
+  v10[247] = &unk_283CB1380;
+  v10[248] = &unk_283CB1200;
+  v10[249] = &unk_283CB1188;
+  v10[250] = &unk_283CB1230;
+  v10[251] = &unk_283CB13B0;
+  v10[252] = &unk_283CB1200;
+  v10[253] = &unk_283CB1380;
+  v10[254] = &unk_283CB11E8;
+  v10[255] = &unk_283CB1230;
+  v10[256] = &unk_283CB17A0;
+  v10[257] = &unk_283CB1140;
+  v10[258] = &unk_283CB1110;
+  v10[259] = &unk_283CB1128;
+  v10[260] = &unk_283CB1218;
+  v10[261] = &unk_283CB1398;
+  v10[262] = &unk_283CB17A0;
+  v10[263] = &unk_283CB14D0;
+  v10[264] = &unk_283CB11A0;
+  v10[265] = &unk_283CB13B0;
+  v10[266] = &unk_283CB14D0;
+  v10[267] = &unk_283CB1218;
+  v10[268] = &unk_283CB1230;
+  v10[269] = &unk_283CB1230;
+  v10[270] = &unk_283CB13B0;
+  v10[271] = &unk_283CB1398;
+  v10[272] = &unk_283CB1200;
+  v10[273] = &unk_283CB14D0;
+  v10[274] = &unk_283CB1230;
+  v10[275] = &unk_283CB1398;
+  v10[276] = &unk_283CB1230;
+  v10[277] = &unk_283CB1218;
+  v10[278] = &unk_283CB17A0;
+  v10[279] = &unk_283CB13C8;
+  v10[280] = &unk_283CB1230;
+  v10[281] = &unk_283CB13B0;
+  v10[282] = &unk_283CB1200;
+  v10[283] = &unk_283CB1380;
+  v10[284] = &unk_283CB11E8;
+  v10[285] = &unk_283CB1230;
+  v10[286] = &unk_283CB17A0;
+  v10[287] = &unk_283CB1140;
+  v10[288] = &unk_283CB1110;
+  v10[289] = &unk_283CB1128;
+  v10[290] = &unk_283CB1200;
+  v10[291] = &unk_283CB1140;
+  v10[292] = &unk_283CB11B8;
+  v10[293] = &unk_283CB1170;
+  v10[294] = &unk_283CB1200;
+  v10[295] = &unk_283CB1110;
+  v10[296] = &unk_283CB11B8;
+  v10[297] = &unk_283CB1128;
+  v10[298] = &unk_283CB1188;
+  v10[299] = &unk_283CB1140;
+  v10[300] = &unk_283CB1128;
+  v10[301] = &unk_283CB1380;
+  v10[302] = &unk_283CB17A0;
+  v10[303] = &unk_283CB17A0;
+  v10[304] = &unk_283CB11A0;
+  v10[305] = &unk_283CB13C8;
+  v10[306] = &unk_283CB13B0;
+  v10[307] = &unk_283CB1380;
+  v10[308] = &unk_283CB1200;
+  v10[309] = &unk_283CB1188;
+  v10[310] = &unk_283CB1200;
+  v10[311] = &unk_283CB1140;
+  v10[312] = &unk_283CB11B8;
+  v10[313] = &unk_283CB1170;
+  v10[314] = &unk_283CB1200;
+  v10[315] = &unk_283CB1110;
+  v10[316] = &unk_283CB11B8;
+  v10[317] = &unk_283CB1128;
+  v10[318] = &unk_283CB1188;
+  v10[319] = &unk_283CB1140;
+  v10[320] = &unk_283CB1128;
+  v10[321] = &unk_283CB1380;
+  v10[322] = &unk_283CB17A0;
+  v10[323] = &unk_283CB17A0;
+  v10[324] = &unk_283CB11A0;
+  v10[325] = &unk_283CB13C8;
+  v10[326] = &unk_283CB13B0;
+  v10[327] = &unk_283CB1380;
+  v10[328] = &unk_283CB1200;
+  v10[329] = &unk_283CB1188;
+  v10[330] = &unk_283CB1218;
+  v10[331] = &unk_283CB1398;
+  v10[332] = &unk_283CB17A0;
+  v10[333] = &unk_283CB14D0;
+  v10[334] = &unk_283CB11A0;
+  v10[335] = &unk_283CB13B0;
+  v10[336] = &unk_283CB14D0;
+  v10[337] = &unk_283CB1218;
+  v10[338] = &unk_283CB1230;
+  v10[339] = &unk_283CB1230;
+  v10[340] = &unk_283CB13B0;
+  v10[341] = &unk_283CB1398;
+  v10[342] = &unk_283CB1200;
+  v10[343] = &unk_283CB14D0;
+  v10[344] = &unk_283CB1230;
+  v10[345] = &unk_283CB1398;
+  v10[346] = &unk_283CB1230;
+  v10[347] = &unk_283CB1218;
+  v10[348] = &unk_283CB17A0;
+  v10[349] = &unk_283CB13C8;
+  v10[350] = &unk_283CB1218;
+  v10[351] = &unk_283CB1398;
+  v10[352] = &unk_283CB17A0;
+  v10[353] = &unk_283CB14D0;
+  v10[354] = &unk_283CB11A0;
+  v10[355] = &unk_283CB13B0;
+  v10[356] = &unk_283CB14D0;
+  v10[357] = &unk_283CB1218;
+  v10[358] = &unk_283CB1230;
+  v10[359] = &unk_283CB1230;
+  v10[360] = &unk_283CB13B0;
+  v10[361] = &unk_283CB1398;
+  v10[362] = &unk_283CB1200;
+  v10[363] = &unk_283CB14D0;
+  v10[364] = &unk_283CB1230;
+  v10[365] = &unk_283CB1398;
+  v10[366] = &unk_283CB1230;
+  v10[367] = &unk_283CB1218;
+  v10[368] = &unk_283CB17A0;
+  v10[369] = &unk_283CB13C8;
+  v10[370] = &unk_283CB1230;
+  v10[371] = &unk_283CB13B0;
+  v10[372] = &unk_283CB1200;
+  v10[373] = &unk_283CB1380;
+  v10[374] = &unk_283CB11E8;
+  v10[375] = &unk_283CB1230;
+  v10[376] = &unk_283CB17A0;
+  v10[377] = &unk_283CB1140;
+  v10[378] = &unk_283CB1110;
+  v10[379] = &unk_283CB1128;
+  v10[380] = &unk_283CB1200;
+  v10[381] = &unk_283CB1140;
+  v10[382] = &unk_283CB11B8;
+  v10[383] = &unk_283CB1170;
+  v10[384] = &unk_283CB1200;
+  v10[385] = &unk_283CB1110;
+  v10[386] = &unk_283CB11B8;
+  v10[387] = &unk_283CB1128;
+  v10[388] = &unk_283CB1188;
+  v10[389] = &unk_283CB1140;
+  v10[390] = &unk_283CB1128;
+  v10[391] = &unk_283CB1380;
+  v10[392] = &unk_283CB17A0;
+  v10[393] = &unk_283CB17A0;
+  v10[394] = &unk_283CB11A0;
+  v10[395] = &unk_283CB13C8;
+  v10[396] = &unk_283CB13B0;
+  v10[397] = &unk_283CB1380;
+  v10[398] = &unk_283CB1200;
+  v10[399] = &unk_283CB1188;
+  v10[400] = &unk_283CB1218;
+  v10[401] = &unk_283CB1398;
+  v10[402] = &unk_283CB17A0;
+  v10[403] = &unk_283CB14D0;
+  v10[404] = &unk_283CB11A0;
+  v10[405] = &unk_283CB13B0;
+  v10[406] = &unk_283CB14D0;
+  v10[407] = &unk_283CB1218;
+  v10[408] = &unk_283CB1230;
+  v10[409] = &unk_283CB1230;
+  v10[410] = &unk_283CB13B0;
+  v10[411] = &unk_283CB1398;
+  v10[412] = &unk_283CB1200;
+  v10[413] = &unk_283CB14D0;
+  v10[414] = &unk_283CB1230;
+  v10[415] = &unk_283CB1398;
+  v10[416] = &unk_283CB1230;
+  v10[417] = &unk_283CB1218;
+  v10[418] = &unk_283CB17A0;
+  v10[419] = &unk_283CB13C8;
+  v10[420] = &unk_283CB11E8;
+  v10[421] = &unk_283CB1368;
+  v10[422] = &unk_283CB11E8;
+  v10[423] = &unk_283CB1368;
+  v10[424] = &unk_283CB13B0;
+  v10[425] = &unk_283CB11E8;
+  v10[426] = &unk_283CB1380;
+  v10[427] = &unk_283CB13C8;
+  v10[428] = &unk_283CB1398;
+  v10[429] = &unk_283CB13C8;
+  v10[430] = &unk_283CB17A0;
+  v10[431] = &unk_283CB1380;
+  v10[432] = &unk_283CB1200;
+  v10[433] = &unk_283CB11E8;
+  v10[434] = &unk_283CB13C8;
+  v10[435] = &unk_283CB1188;
+  v10[436] = &unk_283CB13B0;
+  v10[437] = &unk_283CB1188;
+  v10[438] = &unk_283CB13C8;
+  v10[439] = &unk_283CB1398;
+  v10[440] = &unk_283CB1380;
+  v10[441] = &unk_283CB11E8;
+  v10[442] = &unk_283CB1380;
+  v10[443] = &unk_283CB1200;
+  v10[444] = &unk_283CB1188;
+  v10[445] = &unk_283CB17A0;
+  v10[446] = &unk_283CB13C8;
+  v10[447] = &unk_283CB1368;
+  v10[448] = &unk_283CB1380;
+  v10[449] = &unk_283CB1380;
+  v10[450] = &unk_283CB1380;
+  v10[451] = &unk_283CB13C8;
+  v10[452] = &unk_283CB14D0;
+  v10[453] = &unk_283CB1200;
+  v10[454] = &unk_283CB1200;
+  v10[455] = &unk_283CB13C8;
+  v10[456] = &unk_283CB1368;
+  v10[457] = &unk_283CB1200;
+  v10[458] = &unk_283CB1218;
+  v10[459] = &unk_283CB13C8;
+  v10[460] = &unk_283CB13B0;
+  v10[461] = &unk_283CB13B0;
+  v10[462] = &unk_283CB1218;
+  v10[463] = &unk_283CB14E8;
+  v10[464] = &unk_283CB11A0;
+  v10[465] = &unk_283CB1368;
+  v10[466] = &unk_283CB1380;
+  v10[467] = &unk_283CB13C8;
+  v10[468] = &unk_283CB13C8;
+  v10[469] = &unk_283CB13B0;
+  v10[470] = &unk_283CB18A8;
+  v10[471] = &unk_283CB14E8;
+  v10[472] = &unk_283CB14D0;
+  v10[473] = &unk_283CB13B0;
+  v10[474] = &unk_283CB1500;
+  v10[475] = &unk_283CB18C0;
+  v10[476] = &unk_283CB14D0;
+  v10[477] = &unk_283CB13C8;
+  v10[478] = &unk_283CB1398;
+  v10[479] = &unk_283CB1518;
+  v10[480] = &unk_283CB1398;
+  v10[481] = &unk_283CB13C8;
+  v10[482] = &unk_283CB13E0;
+  v10[483] = &unk_283CB1518;
+  v10[484] = &unk_283CB14E8;
+  v10[485] = &unk_283CB1368;
+  v10[486] = &unk_283CB1218;
+  v10[487] = &unk_283CB1218;
+  v10[488] = &unk_283CB1398;
+  v10[489] = &unk_283CB13B0;
+  v10[490] = &unk_283CB1500;
+  v10[491] = &unk_283CB13C8;
+  v10[492] = &unk_283CB18A8;
+  v10[493] = &unk_283CB13C8;
+  v10[494] = &unk_283CB18C0;
+  v10[495] = &unk_283CB13B0;
+  v10[496] = &unk_283CB1500;
+  v10[497] = &unk_283CB1500;
+  v10[498] = &unk_283CB1230;
+  v10[499] = &unk_283CB1518;
+  v10[500] = &unk_283CB1218;
+  v10[501] = &unk_283CB1230;
+  v10[502] = &unk_283CB13C8;
+  v10[503] = &unk_283CB1218;
+  v10[504] = &unk_283CB1368;
+  v10[505] = &unk_283CB1518;
+  v10[506] = &unk_283CB1218;
+  v10[507] = &unk_283CB13E0;
+  v10[508] = &unk_283CB1218;
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:arc4random_uniform(0xAu) + 187];
-  v11[509] = v5;
-  v11[510] = &unk_283CB14E8;
-  v11[511] = &unk_283CB1230;
-  v11[512] = &unk_283CB1518;
-  v11[513] = &unk_283CB1398;
-  v11[514] = &unk_283CB1218;
-  v11[515] = &unk_283CB1218;
-  v11[516] = &unk_283CB13B0;
-  v11[517] = &unk_283CB1218;
-  v11[518] = &unk_283CB1218;
-  v11[519] = &unk_283CB17A0;
-  v11[520] = &unk_283CB1188;
-  v11[521] = &unk_283CB17A0;
-  v11[522] = &unk_283CB1188;
-  v11[523] = &unk_283CB13B0;
-  v11[524] = &unk_283CB1170;
-  v11[525] = &unk_283CB11E8;
-  v11[526] = &unk_283CB1140;
-  v11[527] = &unk_283CB1200;
-  v11[528] = &unk_283CB17A0;
-  v11[529] = &unk_283CB11D0;
-  v11[530] = &unk_283CB11A0;
-  v11[531] = &unk_283CB11D0;
-  v11[532] = &unk_283CB11D0;
-  v11[533] = &unk_283CB11E8;
-  v11[534] = &unk_283CB1200;
-  v11[535] = &unk_283CB11D0;
-  v11[536] = &unk_283CB1158;
-  v11[537] = &unk_283CB1140;
-  v11[538] = &unk_283CB1158;
-  v11[539] = &unk_283CB10E0;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:540];
+  v10[509] = v5;
+  v10[510] = &unk_283CB14E8;
+  v10[511] = &unk_283CB1230;
+  v10[512] = &unk_283CB1518;
+  v10[513] = &unk_283CB1398;
+  v10[514] = &unk_283CB1218;
+  v10[515] = &unk_283CB1218;
+  v10[516] = &unk_283CB13B0;
+  v10[517] = &unk_283CB1218;
+  v10[518] = &unk_283CB1218;
+  v10[519] = &unk_283CB17A0;
+  v10[520] = &unk_283CB1188;
+  v10[521] = &unk_283CB17A0;
+  v10[522] = &unk_283CB1188;
+  v10[523] = &unk_283CB13B0;
+  v10[524] = &unk_283CB1170;
+  v10[525] = &unk_283CB11E8;
+  v10[526] = &unk_283CB1140;
+  v10[527] = &unk_283CB1200;
+  v10[528] = &unk_283CB17A0;
+  v10[529] = &unk_283CB11D0;
+  v10[530] = &unk_283CB11A0;
+  v10[531] = &unk_283CB11D0;
+  v10[532] = &unk_283CB11D0;
+  v10[533] = &unk_283CB11E8;
+  v10[534] = &unk_283CB1200;
+  v10[535] = &unk_283CB11D0;
+  v10[536] = &unk_283CB1158;
+  v10[537] = &unk_283CB1140;
+  v10[538] = &unk_283CB1158;
+  v10[539] = &unk_283CB10E0;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:540];
 
   [HDDemoDataActivitySampleGenerator _generateWorkoutDataWithHeartRates:v6 recoveryHeartRates:&unk_283CAEB30 objectCollection:collectionCopy demoPerson:stateCopy workoutState:?];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_generateUnderwaterDivingWorkoutDataWithObjectCollection:(void *)collection demoPerson:
 {
-  v29[120] = *MEMORY[0x277D85DE8];
+  v28[120] = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
-  v20 = a2;
-  v29[0] = &unk_283CB1B78;
-  v29[1] = &unk_283CB1B90;
-  v29[2] = &unk_283CB1BA8;
-  v29[3] = &unk_283CB1BC0;
-  v29[4] = &unk_283CB1BD8;
-  v29[5] = &unk_283CB1BF0;
-  v29[6] = &unk_283CB1C08;
-  v29[7] = &unk_283CB1C20;
-  v29[8] = &unk_283CB1C20;
-  v29[9] = &unk_283CB1C38;
-  v29[10] = &unk_283CB1C50;
-  v29[11] = &unk_283CB1C68;
-  v29[12] = &unk_283CB1C68;
-  v29[13] = &unk_283CB1C80;
-  v29[14] = &unk_283CB1C98;
-  v29[15] = &unk_283CB1CB0;
-  v29[16] = &unk_283CB1CC8;
-  v29[17] = &unk_283CB1CE0;
-  v29[18] = &unk_283CB1AE8;
-  v29[19] = &unk_283CB1AA0;
-  v29[20] = &unk_283CB1A88;
-  v29[21] = &unk_283CB19E0;
-  v29[22] = &unk_283CB1A28;
-  v29[23] = &unk_283CB1920;
-  v29[24] = &unk_283CB1B00;
-  v29[25] = &unk_283CB19F8;
-  v29[26] = &unk_283CB1908;
-  v29[27] = &unk_283CB1950;
-  v29[28] = &unk_283CB1848;
-  v29[29] = &unk_283CB1740;
-  v29[32] = &unk_283CB16B0;
-  v29[33] = &unk_283CB16E0;
-  v29[34] = &unk_283CB16C8;
-  v29[35] = &unk_283CB1890;
-  v29[30] = &unk_283CB16F8;
-  v29[31] = &unk_283CB16C8;
-  v29[36] = &unk_283CB1860;
-  v29[37] = &unk_283CB16C8;
-  v29[38] = &unk_283CB16C8;
+  v19 = a2;
+  v28[0] = &unk_283CB1B78;
+  v28[1] = &unk_283CB1B90;
+  v28[2] = &unk_283CB1BA8;
+  v28[3] = &unk_283CB1BC0;
+  v28[4] = &unk_283CB1BD8;
+  v28[5] = &unk_283CB1BF0;
+  v28[6] = &unk_283CB1C08;
+  v28[7] = &unk_283CB1C20;
+  v28[8] = &unk_283CB1C20;
+  v28[9] = &unk_283CB1C38;
+  v28[10] = &unk_283CB1C50;
+  v28[11] = &unk_283CB1C68;
+  v28[12] = &unk_283CB1C68;
+  v28[13] = &unk_283CB1C80;
+  v28[14] = &unk_283CB1C98;
+  v28[15] = &unk_283CB1CB0;
+  v28[16] = &unk_283CB1CC8;
+  v28[17] = &unk_283CB1CE0;
+  v28[18] = &unk_283CB1AE8;
+  v28[19] = &unk_283CB1AA0;
+  v28[20] = &unk_283CB1A88;
+  v28[21] = &unk_283CB19E0;
+  v28[22] = &unk_283CB1A28;
+  v28[23] = &unk_283CB1920;
+  v28[24] = &unk_283CB1B00;
+  v28[25] = &unk_283CB19F8;
+  v28[26] = &unk_283CB1908;
+  v28[27] = &unk_283CB1950;
+  v28[28] = &unk_283CB1848;
+  v28[29] = &unk_283CB1740;
+  v28[32] = &unk_283CB16B0;
+  v28[33] = &unk_283CB16E0;
+  v28[34] = &unk_283CB16C8;
+  v28[35] = &unk_283CB1890;
+  v28[30] = &unk_283CB16F8;
+  v28[31] = &unk_283CB16C8;
+  v28[36] = &unk_283CB1860;
+  v28[37] = &unk_283CB16C8;
+  v28[38] = &unk_283CB16C8;
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:arc4random_uniform(0xAu) + 90];
-  v29[39] = v4;
-  v29[40] = &unk_283CB16C8;
-  v29[41] = &unk_283CB1830;
-  v29[42] = &unk_283CB0EB8;
-  v29[43] = &unk_283CB1740;
-  v29[44] = &unk_283CB1980;
-  v29[45] = &unk_283CB1740;
-  v29[46] = &unk_283CB18D8;
-  v29[47] = &unk_283CB1908;
-  v29[48] = &unk_283CB19F8;
-  v29[49] = &unk_283CB1CF8;
-  v29[50] = &unk_283CB1A28;
-  v29[51] = &unk_283CB1A88;
-  v29[52] = &unk_283CB1AA0;
-  v29[53] = &unk_283CB1AE8;
-  v29[54] = &unk_283CB1AD0;
-  v29[55] = &unk_283CB1CE0;
-  v29[56] = &unk_283CB1AA0;
-  v29[57] = &unk_283CB1AD0;
-  v29[58] = &unk_283CB1D10;
-  v29[59] = &unk_283CB1AE8;
-  v29[60] = &unk_283CB1CC8;
-  v29[61] = &unk_283CB1D28;
-  v29[62] = &unk_283CB1D40;
-  v29[63] = &unk_283CB1D58;
-  v29[64] = &unk_283CB1D70;
-  v29[65] = &unk_283CB1D88;
-  v29[66] = &unk_283CB1C98;
-  v29[67] = &unk_283CB1DA0;
-  v29[68] = &unk_283CB1C80;
-  v29[69] = &unk_283CB1DB8;
-  v29[70] = &unk_283CB1DD0;
-  v29[71] = &unk_283CB1DA0;
-  v29[72] = &unk_283CB1DE8;
-  v29[73] = &unk_283CB1C98;
-  v29[74] = &unk_283CB1C98;
-  v29[75] = &unk_283CB1E00;
-  v29[76] = &unk_283CB1E00;
-  v29[77] = &unk_283CB1CB0;
-  v29[78] = &unk_283CB1E18;
-  v29[79] = &unk_283CB1D88;
-  v29[80] = &unk_283CB1CB0;
-  v29[81] = &unk_283CB1CB0;
-  v29[82] = &unk_283CB1CB0;
-  v29[83] = &unk_283CB1E30;
-  v29[84] = &unk_283CB1D70;
-  v29[85] = &unk_283CB1D70;
-  v29[86] = &unk_283CB1E48;
-  v29[87] = &unk_283CB1D58;
-  v29[88] = &unk_283CB1D58;
-  v29[89] = &unk_283CB1CB0;
-  v29[90] = &unk_283CB1D88;
-  v29[91] = &unk_283CB1DE8;
-  v29[92] = &unk_283CB1E00;
-  v29[93] = &unk_283CB1C98;
-  v29[94] = &unk_283CB1C98;
-  v29[95] = &unk_283CB1DA0;
-  v29[96] = &unk_283CB1DB8;
-  v29[97] = &unk_283CB1E60;
-  v29[98] = &unk_283CB1C80;
-  v29[99] = &unk_283CB1E78;
-  v29[100] = &unk_283CB1E90;
-  v29[101] = &unk_283CB1C68;
-  v29[102] = &unk_283CB1C68;
-  v29[103] = &unk_283CB1EA8;
-  v29[104] = &unk_283CB1EC0;
-  v29[105] = &unk_283CB1ED8;
-  v29[106] = &unk_283CB1C20;
-  v29[107] = &unk_283CB1EF0;
-  v29[108] = &unk_283CB1EF0;
-  v29[109] = &unk_283CB1EF0;
-  v29[110] = &unk_283CB1EF0;
-  v29[111] = &unk_283CB1EF0;
-  v29[112] = &unk_283CB1EF0;
-  v29[113] = &unk_283CB1EF0;
-  v29[114] = &unk_283CB1BC0;
-  v29[115] = &unk_283CB1F08;
-  v29[116] = &unk_283CB1F20;
-  v29[117] = &unk_283CB1F38;
-  v29[118] = &unk_283CB1F38;
-  v29[119] = &unk_283CB1B78;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:120];
+  v28[39] = v4;
+  v28[40] = &unk_283CB16C8;
+  v28[41] = &unk_283CB1830;
+  v28[42] = &unk_283CB0EB8;
+  v28[43] = &unk_283CB1740;
+  v28[44] = &unk_283CB1980;
+  v28[45] = &unk_283CB1740;
+  v28[46] = &unk_283CB18D8;
+  v28[47] = &unk_283CB1908;
+  v28[48] = &unk_283CB19F8;
+  v28[49] = &unk_283CB1CF8;
+  v28[50] = &unk_283CB1A28;
+  v28[51] = &unk_283CB1A88;
+  v28[52] = &unk_283CB1AA0;
+  v28[53] = &unk_283CB1AE8;
+  v28[54] = &unk_283CB1AD0;
+  v28[55] = &unk_283CB1CE0;
+  v28[56] = &unk_283CB1AA0;
+  v28[57] = &unk_283CB1AD0;
+  v28[58] = &unk_283CB1D10;
+  v28[59] = &unk_283CB1AE8;
+  v28[60] = &unk_283CB1CC8;
+  v28[61] = &unk_283CB1D28;
+  v28[62] = &unk_283CB1D40;
+  v28[63] = &unk_283CB1D58;
+  v28[64] = &unk_283CB1D70;
+  v28[65] = &unk_283CB1D88;
+  v28[66] = &unk_283CB1C98;
+  v28[67] = &unk_283CB1DA0;
+  v28[68] = &unk_283CB1C80;
+  v28[69] = &unk_283CB1DB8;
+  v28[70] = &unk_283CB1DD0;
+  v28[71] = &unk_283CB1DA0;
+  v28[72] = &unk_283CB1DE8;
+  v28[73] = &unk_283CB1C98;
+  v28[74] = &unk_283CB1C98;
+  v28[75] = &unk_283CB1E00;
+  v28[76] = &unk_283CB1E00;
+  v28[77] = &unk_283CB1CB0;
+  v28[78] = &unk_283CB1E18;
+  v28[79] = &unk_283CB1D88;
+  v28[80] = &unk_283CB1CB0;
+  v28[81] = &unk_283CB1CB0;
+  v28[82] = &unk_283CB1CB0;
+  v28[83] = &unk_283CB1E30;
+  v28[84] = &unk_283CB1D70;
+  v28[85] = &unk_283CB1D70;
+  v28[86] = &unk_283CB1E48;
+  v28[87] = &unk_283CB1D58;
+  v28[88] = &unk_283CB1D58;
+  v28[89] = &unk_283CB1CB0;
+  v28[90] = &unk_283CB1D88;
+  v28[91] = &unk_283CB1DE8;
+  v28[92] = &unk_283CB1E00;
+  v28[93] = &unk_283CB1C98;
+  v28[94] = &unk_283CB1C98;
+  v28[95] = &unk_283CB1DA0;
+  v28[96] = &unk_283CB1DB8;
+  v28[97] = &unk_283CB1E60;
+  v28[98] = &unk_283CB1C80;
+  v28[99] = &unk_283CB1E78;
+  v28[100] = &unk_283CB1E90;
+  v28[101] = &unk_283CB1C68;
+  v28[102] = &unk_283CB1C68;
+  v28[103] = &unk_283CB1EA8;
+  v28[104] = &unk_283CB1EC0;
+  v28[105] = &unk_283CB1ED8;
+  v28[106] = &unk_283CB1C20;
+  v28[107] = &unk_283CB1EF0;
+  v28[108] = &unk_283CB1EF0;
+  v28[109] = &unk_283CB1EF0;
+  v28[110] = &unk_283CB1EF0;
+  v28[111] = &unk_283CB1EF0;
+  v28[112] = &unk_283CB1EF0;
+  v28[113] = &unk_283CB1EF0;
+  v28[114] = &unk_283CB1BC0;
+  v28[115] = &unk_283CB1F08;
+  v28[116] = &unk_283CB1F20;
+  v28[117] = &unk_283CB1F38;
+  v28[118] = &unk_283CB1F38;
+  v28[119] = &unk_283CB1B78;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:120];
 
   v6 = *MEMORY[0x277CCCC90];
   footUnit = [MEMORY[0x277CCDAB0] footUnit];
   v8 = *(self + 264);
   v9 = footUnit;
-  v10 = v20;
+  v10 = v19;
   v11 = v8;
   v12 = MEMORY[0x277CCD830];
   v13 = v5;
   v14 = [v12 quantityTypeForIdentifier:v6];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __145__HDDemoDataActivitySampleGenerator__generateWorkoutDataForTypeIdentifier_unit_samples_objectCollection_demoPerson_sampleFrequency_workoutState___block_invoke;
-  v23[3] = &unk_27861EDC0;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __145__HDDemoDataActivitySampleGenerator__generateWorkoutDataForTypeIdentifier_unit_samples_objectCollection_demoPerson_sampleFrequency_workoutState___block_invoke;
+  v22[3] = &unk_27861EDC0;
   v15 = v11;
-  v24 = v15;
-  v28 = 0x403E000000000000;
+  v23 = v15;
+  v27 = 0x403E000000000000;
   v16 = v9;
-  v25 = v16;
-  v26 = v14;
+  v24 = v16;
+  v25 = v14;
   v17 = v10;
-  v27 = v17;
+  v26 = v17;
   v18 = v14;
-  [v13 enumerateObjectsUsingBlock:v23];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [v13 enumerateObjectsUsingBlock:v22];
 }
 
 - (void)_generateCyclingFTPSamplesForDemoPerson:(void *)person sampleDate:(void *)date objectCollection:
@@ -4107,7 +4080,7 @@ LABEL_175:
 
 - (void)_generateWorkoutDataWithHeartRates:(void *)rates recoveryHeartRates:(void *)heartRates objectCollection:demoPerson:workoutState:
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   ratesCopy = rates;
   heartRatesCopy = heartRates;
   v9 = MEMORY[0x277CCDAB0];
@@ -4115,52 +4088,50 @@ LABEL_175:
   selfCopy = self;
   _countPerMinuteUnit = [v9 _countPerMinuteUnit];
   v13 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCB90]];
-  v38 = *MEMORY[0x277CCE030];
-  v39[0] = &unk_283CB1F50;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __132__HDDemoDataActivitySampleGenerator__generateWorkoutDataWithHeartRates_recoveryHeartRates_objectCollection_demoPerson_workoutState___block_invoke;
-  v32[3] = &unk_27861ED98;
+  v37 = *MEMORY[0x277CCE030];
+  v38[0] = &unk_283CB1F50;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __132__HDDemoDataActivitySampleGenerator__generateWorkoutDataWithHeartRates_recoveryHeartRates_objectCollection_demoPerson_workoutState___block_invoke;
+  v31[3] = &unk_27861ED98;
   v15 = heartRatesCopy;
-  v33 = v15;
+  v32 = v15;
   v16 = _countPerMinuteUnit;
-  v34 = v16;
+  v33 = v16;
   v17 = v13;
-  v35 = v17;
-  v36 = v14;
+  v34 = v17;
+  v35 = v14;
   v18 = ratesCopy;
-  v37 = v18;
+  v36 = v18;
   v19 = v14;
-  [selfCopy enumerateObjectsUsingBlock:v32];
+  [selfCopy enumerateObjectsUsingBlock:v31];
   v20 = [selfCopy count];
 
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __132__HDDemoDataActivitySampleGenerator__generateWorkoutDataWithHeartRates_recoveryHeartRates_objectCollection_demoPerson_workoutState___block_invoke_2;
-  v26[3] = &unk_27861EDC0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __132__HDDemoDataActivitySampleGenerator__generateWorkoutDataWithHeartRates_recoveryHeartRates_objectCollection_demoPerson_workoutState___block_invoke_2;
+  v25[3] = &unk_27861EDC0;
   v21 = v15;
-  v27 = v21;
-  v28 = v16;
-  v31 = v20 / 0xA;
-  v29 = v17;
+  v26 = v21;
+  v27 = v16;
+  v30 = v20 / 0xA;
+  v28 = v17;
   v22 = v18;
-  v30 = v22;
+  v29 = v22;
   v23 = v17;
   v24 = v16;
-  [v10 enumerateObjectsUsingBlock:v26];
-
-  v25 = *MEMORY[0x277D85DE8];
+  [v10 enumerateObjectsUsingBlock:v25];
 }
 
 - (void)_generateSwimmingSegmentDataWithStartDate:(uint64_t)date segmentTime:(uint64_t)time segmentDistance:(void *)distance numLaps:(void *)laps strokeStyle:(double)style objectCollection:(double)collection demoPerson:
 {
-  v71[1] = *MEMORY[0x277D85DE8];
+  v70[1] = *MEMORY[0x277D85DE8];
   v13 = a2;
   distanceCopy = distance;
   lapsCopy = laps;
   v15 = [v13 dateByAddingTimeInterval:style];
-  v64 = v13;
+  v63 = v13;
   v16 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v13 endDate:v15];
   v17 = [MEMORY[0x277CCDC68] workoutEventWithType:7 dateInterval:v16 metadata:0];
   v18 = *(self + 264);
@@ -4177,7 +4148,7 @@ LABEL_175:
   v23 = v22;
   v24 = lapsCopy;
   yardUnit2 = [MEMORY[0x277CCDAB0] yardUnit];
-  v65 = v23;
+  v64 = v23;
   [v23 doubleValueForUnit:yardUnit2];
   v27 = v26;
 
@@ -4197,19 +4168,19 @@ LABEL_175:
     v34 = [v32 quantityWithUnit:countUnit doubleValue:v31];
   }
 
-  v63 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCCB38]];
-  v62 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCCC78]];
-  v70 = *MEMORY[0x277CCC518];
+  v62 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCCB38]];
+  v61 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCCC78]];
+  v69 = *MEMORY[0x277CCC518];
   v35 = [MEMORY[0x277CCABB0] numberWithInteger:time];
-  v71[0] = v35;
-  v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:&v70 count:1];
+  v70[0] = v35;
+  v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:&v69 count:1];
 
   if (date >= 1)
   {
-    v58 = v24;
-    v59 = v17;
-    v60 = v16;
-    v61 = v15;
+    v57 = v24;
+    v58 = v17;
+    v59 = v16;
+    v60 = v15;
     v36 = 0;
     v37 = 0;
     v38 = 0;
@@ -4219,13 +4190,13 @@ LABEL_175:
     {
       v41 = v38;
       v42 = v37;
-      v37 = [v64 dateByAddingTimeInterval:{v39 * v36, v58, v59, v60, v61}];
+      v37 = [v63 dateByAddingTimeInterval:{v39 * v36, v57, v58, v59, v60}];
 
-      v38 = [v64 dateByAddingTimeInterval:v39 * ++v36];
+      v38 = [v63 dateByAddingTimeInterval:v39 * ++v36];
 
       v43 = MEMORY[0x277CCDC68];
       v44 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v38 duration:0.0];
-      v45 = [v43 workoutEventWithType:3 dateInterval:v44 metadata:v68];
+      v45 = [v43 workoutEventWithType:3 dateInterval:v44 metadata:v67];
 
       v46 = *(self + *(v40 + 3192));
       if (v46)
@@ -4233,7 +4204,7 @@ LABEL_175:
         [*(v46 + 24) addObject:v45];
       }
 
-      v47 = [MEMORY[0x277CCD800] quantitySampleWithType:v63 quantity:v65 startDate:v37 endDate:v38];
+      v47 = [MEMORY[0x277CCD800] quantitySampleWithType:v62 quantity:v64 startDate:v37 endDate:v38];
       v48 = *(self + *(v40 + 3192));
       if (v48)
       {
@@ -4250,7 +4221,7 @@ LABEL_175:
 
       if (v34)
       {
-        v51 = [MEMORY[0x277CCD800] quantitySampleWithType:v62 quantity:v34 startDate:v37 endDate:v38 metadata:v68];
+        v51 = [MEMORY[0x277CCD800] quantitySampleWithType:v61 quantity:v34 startDate:v37 endDate:v38 metadata:v67];
         v52 = *(self + *(v40 + 3192));
         countUnit2 = [MEMORY[0x277CCDAB0] countUnit];
         [v34 doubleValueForUnit:countUnit2];
@@ -4273,13 +4244,11 @@ LABEL_175:
 
     while (date != v36);
 
-    v16 = v60;
-    v15 = v61;
-    v24 = v58;
-    v17 = v59;
+    v16 = v59;
+    v15 = v60;
+    v24 = v57;
+    v17 = v58;
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 void __132__HDDemoDataActivitySampleGenerator__generateWorkoutDataWithHeartRates_recoveryHeartRates_objectCollection_demoPerson_workoutState___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -4316,7 +4285,7 @@ void __132__HDDemoDataActivitySampleGenerator__generateWorkoutDataWithHeartRates
 
 void __132__HDDemoDataActivitySampleGenerator__generateWorkoutDataWithHeartRates_recoveryHeartRates_objectCollection_demoPerson_workoutState___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   if (v4)
   {
@@ -4339,13 +4308,12 @@ void __132__HDDemoDataActivitySampleGenerator__generateWorkoutDataWithHeartRates
   v13 = [v9 quantityWithUnit:v10 doubleValue:v12];
   v14 = MEMORY[0x277CCD800];
   v15 = *(a1 + 48);
-  v19 = *MEMORY[0x277CCE030];
-  v20[0] = &unk_283CB1F68;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v18 = *MEMORY[0x277CCE030];
+  v19[0] = &unk_283CB1F68;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
   v17 = [v14 quantitySampleWithType:v15 quantity:v13 startDate:v8 endDate:v8 metadata:v16];
 
   [*(a1 + 56) addObjectFromWatch:v17];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __145__HDDemoDataActivitySampleGenerator__generateWorkoutDataForTypeIdentifier_unit_samples_objectCollection_demoPerson_sampleFrequency_workoutState___block_invoke(uint64_t a1, void *a2, unint64_t a3)

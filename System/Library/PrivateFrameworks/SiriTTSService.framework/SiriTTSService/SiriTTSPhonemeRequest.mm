@@ -8,7 +8,7 @@
 
 - (SiriTTSSynthesisVoice)voice
 {
-  v2 = sub_1B1B11568();
+  v2 = sub_1B1B11568(self);
 
   return v2;
 }
@@ -17,7 +17,7 @@
 {
   voiceCopy = voice;
   selfCopy = self;
-  sub_1B1B11608();
+  sub_1B1B11608(voiceCopy);
 }
 
 - (void)encodeWithCoder:(id)coder

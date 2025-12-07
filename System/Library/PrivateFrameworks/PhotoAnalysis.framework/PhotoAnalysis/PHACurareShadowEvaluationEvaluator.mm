@@ -41,7 +41,7 @@
 - (int)accuracyForProbability:(id *)probability isPositiveData:(BOOL)data atIndex:(int)index andOperatingPoint:(float)point
 {
   dataCopy = data;
-  [(PHACurareShadowEvaluationEvaluator *)self getEspressoBufferShapeWithBuffer:?];
+  objc_msgSend_getEspressoBufferShapeWithBuffer_(self, a2);
   v10 = *__p;
   if (*__p)
   {

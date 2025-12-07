@@ -166,7 +166,7 @@ void sub_25D29A13C(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void PptBinaryReader::start(PptBinaryReader *this, const void **a2, unsigned int a3)
+void PptBinaryReader::start(PptBinaryReader *this, const void **a2, uint64_t a3)
 {
   v6 = (this + 40);
   (*(*this + 24))(this);
@@ -266,48 +266,48 @@ uint64_t *PptBinaryReader::initSkipConditions(PptBinaryReader *this)
   *(v1 - 1) = v1;
   v4 = 6002;
   v5 = &v4;
-  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4) + 8) = 0;
+  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4, &std::piecewise_construct, &v5) + 8) = 0;
   v4 = 4085;
   v5 = &v4;
-  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4) + 8) = 0;
+  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4, &std::piecewise_construct, &v5) + 8) = 0;
   v4 = 1000;
   v5 = &v4;
-  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4) + 8) = 1;
+  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4, &std::piecewise_construct, &v5) + 8) = 1;
   v4 = 1006;
   v5 = &v4;
-  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4) + 8) = 1;
+  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4, &std::piecewise_construct, &v5) + 8) = 1;
   v4 = 1016;
   v5 = &v4;
-  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4) + 8) = 1;
+  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4, &std::piecewise_construct, &v5) + 8) = 1;
   v4 = 1008;
   v5 = &v4;
-  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4) + 8) = 1;
+  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4, &std::piecewise_construct, &v5) + 8) = 1;
   v4 = 4041;
   v5 = &v4;
-  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4) + 8) = 1;
+  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4, &std::piecewise_construct, &v5) + 8) = 1;
   v4 = 4011;
   v5 = &v4;
-  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4) + 8) = 0;
+  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4, &std::piecewise_construct, &v5) + 8) = 0;
   v4 = 6003;
   v5 = &v4;
-  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4) + 8) = 0;
+  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4, &std::piecewise_construct, &v5) + 8) = 0;
   v4 = 6010;
   v5 = &v4;
-  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4) + 8) = 0;
+  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4, &std::piecewise_construct, &v5) + 8) = 0;
   v4 = 6024;
   v5 = &v4;
-  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4) + 8) = 0;
+  *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4, &std::piecewise_construct, &v5) + 8) = 0;
   v4 = 6025;
   v5 = &v4;
-  result = std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4);
+  result = std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v4, &std::piecewise_construct, &v5);
   *(result + 8) = 0;
   return result;
 }
 
-uint64_t SsrwOORootStorage::openInBuf(SsrwOORootStorage *this, const void **a2, unsigned int a3)
+uint64_t SsrwOORootStorage::openInBuf(char **this, const void **a2, uint64_t a3)
 {
   LODWORD(result) = openStructuredStorageInBuf(a2, a3, 0, this + 10);
-  if (result || (result = getStorageFromRoot(*(this + 10), this), result))
+  if (result || (result = getStorageFromRoot(this[10], this), result))
   {
     v5 = result;
     exception = __cxa_allocate_exception(4uLL);
@@ -317,7 +317,7 @@ uint64_t SsrwOORootStorage::openInBuf(SsrwOORootStorage *this, const void **a2, 
   return result;
 }
 
-uint64_t openStructuredStorageInBuf(void *a1, unsigned int a2, int a3, uint64_t *a4)
+uint64_t openStructuredStorageInBuf(void *a1, uint64_t a2, uint64_t a3, char **a4)
 {
   if (!a1)
   {
@@ -327,6 +327,7 @@ uint64_t openStructuredStorageInBuf(void *a1, unsigned int a2, int a3, uint64_t 
   v5 = 6;
   if (a4 && *a1)
   {
+    v6 = a3;
     if ((a3 & 0xFFFFFFFD) != 0)
     {
       return 2;
@@ -338,7 +339,7 @@ uint64_t openStructuredStorageInBuf(void *a1, unsigned int a2, int a3, uint64_t 
       if (v8)
       {
         v9 = v8;
-        v5 = openStructuredStorageInternal(v8, a4, 1, a3);
+        v5 = openStructuredStorageInternal(v8, a4, 1, v6);
         if (v5)
         {
           SsrwFclose(v9);
@@ -379,9 +380,9 @@ _DWORD *SsrwOpenMemForReading(uint64_t a1, unsigned int a2)
   return result;
 }
 
-uint64_t openStructuredStorageInternal(uint64_t a1, uint64_t *a2, char a3, int a4)
+uint64_t openStructuredStorageInternal(uint64_t a1, char **a2, char a3, int a4)
 {
-  v32 = 0;
+  v35 = 0;
   v8 = malloc_type_malloc(0x70uLL, 0x10300407518E08AuLL);
   if (!v8)
   {
@@ -396,7 +397,7 @@ uint64_t openStructuredStorageInternal(uint64_t a1, uint64_t *a2, char a3, int a
   v8[1] = 0u;
   v8[2] = 0u;
   *v8 = 0u;
-  rootStorageInit(v8, a4, 0x200u);
+  rootStorageInit(v8, a4, 512);
   if (!v10)
   {
     *v9 = a1;
@@ -406,17 +407,17 @@ uint64_t openStructuredStorageInternal(uint64_t a1, uint64_t *a2, char a3, int a
       goto LABEL_5;
     }
 
-    v13 = 1 << headerGetSectorShift(*(v9 + 16));
-    tocSetSectorSize(*(v9 + 40), v13);
-    v14 = malloc_type_malloc(v13, 0x100004077774924uLL);
-    *(v9 + 80) = v14;
-    if (!v14)
+    v14 = 1 << headerGetSectorShift(*(v9 + 16));
+    tocSetSectorSize(*(v9 + 40), v14);
+    v15 = malloc_type_malloc(v14, 0x100004077774924uLL);
+    *(v9 + 80) = v15;
+    if (!v15)
     {
       goto LABEL_15;
     }
 
-    bzero(v14, v13);
-    Fat = fatConstruct(v9, (v9 + 24), v13);
+    bzero(v15, v14);
+    Fat = fatConstruct(v9, (v9 + 24), v14);
     if (Fat)
     {
       goto LABEL_5;
@@ -428,90 +429,90 @@ uint64_t openStructuredStorageInternal(uint64_t a1, uint64_t *a2, char a3, int a
       goto LABEL_15;
     }
 
-    v16 = malloc_type_malloc(4 * FatSize, 0x100004052888210uLL);
-    if (!v16)
+    v18 = malloc_type_malloc(4 * FatSize, 0x100004052888210uLL);
+    if (!v18)
     {
       goto LABEL_15;
     }
 
-    v17 = v16;
-    v18 = headerGetFatSize(*(v9 + 16));
-    bzero(v17, 4 * v18);
+    v19 = v18;
+    v20 = headerGetFatSize(*(v9 + 16));
+    bzero(v19, 4 * v20);
     XFatSize = headerGetXFatSize(*(v9 + 16));
     if (XFatSize)
     {
-      v20 = smalloc_typed(XFatSize, 4uLL, 0x100004052888210uLL);
-      if (!v20)
+      v22 = smalloc_typed(XFatSize, 4uLL, 0x100004052888210uLL);
+      if (!v22)
       {
-        free(v17);
+        free(v19);
 LABEL_15:
         *v9 = 0;
-        closeStg(v9);
+        closeStg(v9, v16);
         return 5;
       }
     }
 
     else
     {
-      v20 = 0;
+      v22 = 0;
     }
 
-    v22 = headerReadFatSectors(*v9, *(v9 + 16), v17, &v32);
-    if (v22)
+    v24 = headerReadFatSectors(*v9, *(v9 + 16), v19, &v35);
+    if (v24)
     {
-      ChainLastSector = v22;
-      if (v20)
+      ChainLastSector = v24;
+      if (v22)
       {
-        free(v20);
+        free(v22);
       }
 
-      free(v17);
+      free(v19);
       goto LABEL_6;
     }
 
-    v23 = headerGetFatSize(*(v9 + 16));
-    if (v23 >= 0x6E)
+    v25 = headerGetFatSize(*(v9 + 16));
+    if (v25 >= 0x6E)
     {
-      FatSectorsFromXFat = readFatSectorsFromXFat(v9, v17, v20);
+      FatSectorsFromXFat = readFatSectorsFromXFat(v9, v19, v22);
       if (FatSectorsFromXFat)
       {
         ChainLastSector = FatSectorsFromXFat;
         *v9 = 0;
-        if (v20)
+        if (v22)
         {
-          free(v20);
+          free(v22);
         }
 
-        free(v17);
+        free(v19);
         goto LABEL_7;
       }
     }
 
-    fatSetFatSectors(*(v9 + 24), v17, v23);
-    *(v9 + 96) = v20;
+    fatSetFatSectors(*(v9 + 24), v19, v25);
+    *(v9 + 96) = v22;
     Fat = fatReadFat(*(v9 + 24));
     if (!Fat)
     {
       if (headerGetSmallFatSize(*(v9 + 16)))
       {
-        v25 = initializeSmallFat(v9);
+        v27 = initializeSmallFat(v9);
       }
 
       else
       {
         SmallSectorShift = headerGetSmallSectorShift(*(v9 + 16));
-        v25 = fatConstruct(v9, (v9 + 32), 1 << SmallSectorShift);
+        v27 = fatConstruct(v9, (v9 + 32), 1 << SmallSectorShift);
       }
 
-      ChainLastSector = v25;
-      if (v25)
+      ChainLastSector = v27;
+      if (v27)
       {
         goto LABEL_6;
       }
 
-      v27 = *(v9 + 24);
+      v29 = *(v9 + 24);
       DirectoryStartSector = headerGetDirectoryStartSector(*(v9 + 16));
-      Fat = fatGetChain(v27, DirectoryStartSector, (v9 + 72), (v9 + 64));
+      Fat = fatGetChain(v29, DirectoryStartSector, (v9 + 72), (v9 + 64));
       if (!Fat)
       {
         Fat = tocRead(*(v9 + 40), v9);
@@ -524,13 +525,13 @@ LABEL_15:
             if (!EntryAtIndex)
             {
               *v9 = 0;
-              closeStg(v9);
+              closeStg(v9, v32);
               return 11;
             }
 
-            v30 = *(v9 + 24);
+            v33 = *(v9 + 24);
             StartSector = directoryGetStartSector(EntryAtIndex);
-            ChainLastSector = fatGetChainLastSector(v30, StartSector, (v9 + 92));
+            ChainLastSector = fatGetChainLastSector(v33, StartSector, (v9 + 92));
             if (!ChainLastSector)
             {
               *(v9 + 8) = a3;
@@ -553,23 +554,24 @@ LABEL_6:
 
   ChainLastSector = v10;
 LABEL_7:
-  closeStg(v9);
+  closeStg(v9, v11);
   return ChainLastSector;
 }
 
-double rootStorageInit(uint64_t a1, int a2, unsigned int a3)
+double rootStorageInit(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   *a1 = 0;
   *(a1 + 8) = 0;
   if (!headerInit((a1 + 16)))
   {
     v7 = *(a1 + 16);
-    v8 = SsrwUINTLog2(a3);
+    v8 = SsrwUINTLog2(v3);
     headerSetSectorShift(v7, v8);
     SectorShift = headerGetSectorShift(*(a1 + 16));
     if (!tocConstruct(1 << SectorShift, (a1 + 40)))
     {
-      tocSetSectorSize(*(a1 + 40), a3);
+      tocSetSectorSize(*(a1 + 40), v3);
       *(a1 + 56) = a2;
       *(a1 + 96) = 0;
       *(a1 + 104) = a2 == 1;
@@ -1741,7 +1743,7 @@ uint64_t directoryNormalize(uint64_t a1, _DWORD *a2)
   v6 = a2[25];
   if (v6 != -1)
   {
-    result = directoryNormalize(a1, a1 + 168 * v6);
+    result = directoryNormalize(a1, (a1 + 168 * v6));
     if (result)
     {
       return result;
@@ -1753,7 +1755,7 @@ uint64_t directoryNormalize(uint64_t a1, _DWORD *a2)
   v7 = a2[23];
   if (v7 != -1)
   {
-    result = directoryNormalize(a1, a1 + 168 * v7);
+    result = directoryNormalize(a1, (a1 + 168 * v7));
     if (result)
     {
       return result;
@@ -1765,7 +1767,7 @@ uint64_t directoryNormalize(uint64_t a1, _DWORD *a2)
   v8 = a2[24];
   if (v8 != -1)
   {
-    result = directoryNormalize(a1, a1 + 168 * v8);
+    result = directoryNormalize(a1, (a1 + 168 * v8));
     if (result)
     {
       return result;
@@ -1779,7 +1781,7 @@ uint64_t directoryNormalize(uint64_t a1, _DWORD *a2)
   return result;
 }
 
-uint64_t storageConstructRoot(uint64_t a1, void *a2)
+uint64_t storageConstructRoot(uint64_t a1, uint64_t *a2)
 {
   TOC = rootStorageGetTOC(a1);
   EntryAtIndex = tocGetEntryAtIndex(TOC, 0);
@@ -2065,13 +2067,13 @@ BOOL SsrwOOStorage::hasChild(SsrwOOStorage *this, const unsigned __int16 *a2)
   return v5;
 }
 
-size_t getChildrenInfo(uint64_t a1, void ***a2, _DWORD *a3)
+uint64_t getChildrenInfo(uint64_t *a1, void ***a2, _DWORD *a3)
 {
   result = 6;
   if (a1 && a2 && a3)
   {
     TOC = rootStorageGetTOC(*a1);
-    EntryAtIndex = tocGetEntryAtIndex(TOC, *(a1 + 8));
+    EntryAtIndex = tocGetEntryAtIndex(TOC, *(a1 + 2));
     if (!EntryAtIndex)
     {
       return 6;
@@ -2115,13 +2117,13 @@ size_t getChildrenInfo(uint64_t a1, void ***a2, _DWORD *a3)
   return result;
 }
 
-size_t tocCountEntryChildren(uint64_t a1, uint64_t a2)
+uint64_t tocCountEntryChildren(uint64_t *a1, uint64_t a2)
 {
   result = directoryGetFirstChild(*a1, a2);
   if (result)
   {
     v4 = *a1;
-    v5 = *(a1 + 8);
+    v5 = *(a1 + 2);
 
     return directoryCountChildren(result, 0, v4, v5);
   }
@@ -2143,7 +2145,7 @@ uint64_t directoryGetFirstChild(uint64_t a1, uint64_t a2)
   }
 }
 
-size_t directoryCountChildren(uint64_t a1, int a2, uint64_t a3, size_t count)
+uint64_t directoryCountChildren(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t count)
 {
   v11 = *MEMORY[0x277D85DE8];
   if ((count & 0x80000000) != 0)
@@ -2154,10 +2156,11 @@ size_t directoryCountChildren(uint64_t a1, int a2, uint64_t a3, size_t count)
   v4 = count;
   if (count)
   {
+    v6 = a2;
     if (count > 0x3FF)
     {
       v8 = malloc_type_calloc(count, 1uLL, 0x100004077774924uLL);
-      v4 = directoryCountChildrenAndCheck(a1, a2, a3, v4, v8);
+      v4 = directoryCountChildrenAndCheck(a1, v6, a3, v4, v8);
       if (v8 != v10)
       {
         free(v8);
@@ -2167,7 +2170,7 @@ size_t directoryCountChildren(uint64_t a1, int a2, uint64_t a3, size_t count)
     else
     {
       bzero(v10, 0x400uLL);
-      return directoryCountChildrenAndCheck(a1, a2, a3, v4, v10);
+      return directoryCountChildrenAndCheck(a1, v6, a3, v4, v10);
     }
   }
 
@@ -2419,11 +2422,11 @@ void SsrwOOStorage::openStream(SsrwOOStorage *this, const unsigned __int16 *a2)
   *exception = v3;
 }
 
-void sub_25D29D0A0(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
+void sub_25D29D0A0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a3);
-  v5 = v3;
-  MEMORY[0x25F897000](v5, 0x10A1C4083891BCBLL);
+  va_start(va, a4);
+  v6 = v4;
+  MEMORY[0x25F897000](v6, 0x10A1C4083891BCBLL);
   if (a2 == 1)
   {
     __cxa_begin_catch(a1);
@@ -2470,7 +2473,7 @@ _DWORD *ChCHAR2ToWchar(_DWORD *result, _WORD *a2)
   return result;
 }
 
-uint64_t openStream(uint64_t a1, const unsigned __int16 *a2, uint64_t *a3)
+uint64_t openStream(uint64_t *a1, const unsigned __int16 *a2, uint64_t *a3)
 {
   if (!a1)
   {
@@ -2485,27 +2488,27 @@ uint64_t openStream(uint64_t a1, const unsigned __int16 *a2, uint64_t *a3)
     {
       if (a3 && *a2)
       {
-        if ((*(a1 + 32) | 2) == 2)
+        if ((*(a1 + 8) | 2) == 2)
         {
           v13 = 0;
           TOC = rootStorageGetTOC(v6);
-          EntryAtIndex = tocGetEntryAtIndex(TOC, *(a1 + 8));
+          EntryAtIndex = tocGetEntryAtIndex(TOC, *(a1 + 2));
           if (EntryAtIndex)
           {
             ChildEntry = tocFindChildEntry(TOC, EntryAtIndex, a2, &v13);
             if (!ChildEntry)
             {
-              ChildEntry = streamConstruct(*a1, a1, v13, *(a1 + 32), a3);
+              ChildEntry = streamConstruct(*a1, a1, v13, *(a1 + 8), a3);
               if (!ChildEntry)
               {
-                if ((*(a1 + 32) - 1) <= 1 && (v12 = streamUpgradeMiniToRegular(*a3), v12))
+                if ((*(a1 + 8) - 1) <= 1 && (v12 = streamUpgradeMiniToRegular(*a3), v12))
                 {
                   v4 = v12;
                 }
 
                 else
                 {
-                  v4 = openListAppend(*(a1 + 24), 2, *a3);
+                  v4 = openListAppend(a1[3], 2, *a3);
                   if (!v4)
                   {
                     return v4;
@@ -2661,7 +2664,7 @@ uint64_t compareNames(const unsigned __int16 *a1, const unsigned __int16 *a2)
   }
 }
 
-uint64_t streamConstruct(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+uint64_t streamConstruct(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   Header = rootStorageGetHeader(a1);
   TOC = rootStorageGetTOC(a1);
@@ -2707,7 +2710,7 @@ uint64_t streamConstruct(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
     *(v19 + 32) = 0;
     if (headerGetSmallStreamCutoff(a1) != 1 && headerGetSmallStreamCutoff(a1) != 2)
     {
-      *(v14 + 32) = 0;
+      *(v14 + 4) = 0;
 LABEL_15:
       if ((a4 & 0xFFFFFFFD) != 0)
       {
@@ -2738,15 +2741,15 @@ LABEL_15:
         *(*v15 + 16) = *(*v15 + 20);
       }
 
-      if (!streamShouldBeMini(v14) || *(*v15 + 24) || *(*v15 + 36) != 1 || (v26 = tocGetEntryAtIndex(TOC, 0), Chain = streamConstruct(a1, a2, v26, a4, *v15 + 24), !Chain))
+      if (!streamShouldBeMini(v14) || *(*v15 + 24) || *(*v15 + 36) != 1 || (v26 = tocGetEntryAtIndex(TOC, 0), Chain = streamConstruct(a1, a2, v26, a4, (*v15 + 24)), !Chain))
       {
 LABEL_16:
-        *(v14 + 24) = 0;
-        *(v14 + 40) = 0xFFFFFFFF00000000;
-        *(v14 + 48) = a4;
+        *(v14 + 3) = 0;
+        *(v14 + 5) = 0xFFFFFFFF00000000;
+        *(v14 + 12) = a4;
         v22 = rootStorageGetTOC(*v14);
-        EntryAtIndex = tocGetEntryAtIndex(v22, *(v14 + 8));
-        StreamSharedBlock = directoryFillStgInfo(EntryAtIndex, (v14 + 64));
+        EntryAtIndex = tocGetEntryAtIndex(v22, *(v14 + 2));
+        StreamSharedBlock = directoryFillStgInfo(EntryAtIndex, v14 + 8);
         if (!StreamSharedBlock)
         {
           *v29 = v14;
@@ -2765,7 +2768,7 @@ LABEL_17:
     }
 
     v21 = malloc_type_malloc(1 << SectorShift, 0x100004077774924uLL);
-    *(v14 + 32) = v21;
+    *(v14 + 4) = v21;
     if (v21)
     {
       bzero(v21, 1 << SectorShift);
@@ -2854,9 +2857,9 @@ uint64_t streamConstructSharedBlock(void *a1)
   return result;
 }
 
-uint64_t streamShouldBeMini(uint64_t a1)
+uint64_t streamShouldBeMini(uint64_t *a1)
 {
-  v1 = *(a1 + 56);
+  v1 = a1[7];
   if (*(v1 + 32))
   {
     return *(v1 + 33);
@@ -2865,9 +2868,9 @@ uint64_t streamShouldBeMini(uint64_t a1)
   Header = rootStorageGetHeader(*a1);
   SmallStreamCutoff = headerGetSmallStreamCutoff(Header);
   TOC = rootStorageGetTOC(*a1);
-  EntryAtIndex = tocGetEntryAtIndex(TOC, *(a1 + 8));
+  EntryAtIndex = tocGetEntryAtIndex(TOC, *(a1 + 2));
   *(v1 + 32) = 1;
-  result = **(a1 + 56) < SmallStreamCutoff && directoryGetType(EntryAtIndex) != 5;
+  result = *a1[7] < SmallStreamCutoff && directoryGetType(EntryAtIndex) != 5;
   *(v1 + 33) = result;
   return result;
 }
@@ -3086,10 +3089,10 @@ uint64_t streamSeek64(uint64_t a1, uint64_t a2, int a3)
   return result;
 }
 
-uint64_t SsrwOOStgStream::readUInt16(SsrwOOStgStream *this)
+uint64_t SsrwOOStgStream::readUInt16(uint64_t **this)
 {
   v5 = 0;
-  v1 = readUInt16(*(this + 24), &v5);
+  v1 = readUInt16(this[24], &v5);
   if (v1)
   {
     v3 = v1;
@@ -3100,7 +3103,7 @@ uint64_t SsrwOOStgStream::readUInt16(SsrwOOStgStream *this)
   return v5;
 }
 
-uint64_t readUInt16(uint64_t a1, _WORD *a2)
+uint64_t readUInt16(uint64_t *a1, _WORD *a2)
 {
   v6 = 2;
   v2 = 6;
@@ -3113,7 +3116,7 @@ uint64_t readUInt16(uint64_t a1, _WORD *a2)
   return v2;
 }
 
-uint64_t streamRead(uint64_t a1, uint64_t a2, unsigned int *a3)
+uint64_t streamRead(uint64_t *a1, uint64_t a2, unsigned int *a3)
 {
   v31 = 0;
   if (!a1)
@@ -3129,11 +3132,11 @@ uint64_t streamRead(uint64_t a1, uint64_t a2, unsigned int *a3)
       v7 = *a1;
       if (v7)
       {
-        if ((*(a1 + 48) | 2) == 2)
+        if ((*(a1 + 12) | 2) == 2)
         {
           if (*a3)
           {
-            if (*(a1 + 24) >= **(a1 + 56))
+            if (a1[3] >= *a1[7])
             {
               *a3 = 0;
               return 15;
@@ -3144,7 +3147,7 @@ uint64_t streamRead(uint64_t a1, uint64_t a2, unsigned int *a3)
               Header = rootStorageGetHeader(v7);
               SectorShift = headerGetSectorShift(Header);
               SmallSectorShift = headerGetSmallSectorShift(Header);
-              v11 = *(a1 + 56);
+              v11 = a1[7];
               v12 = v11[3];
               if (v12)
               {
@@ -3157,7 +3160,7 @@ uint64_t streamRead(uint64_t a1, uint64_t a2, unsigned int *a3)
 
                 Sector = v14;
                 bzero(v14, v13);
-                v11 = *(a1 + 56);
+                v11 = a1[7];
               }
 
               else
@@ -3169,7 +3172,7 @@ uint64_t streamRead(uint64_t a1, uint64_t a2, unsigned int *a3)
               v30 = v12;
               v17 = *a3;
               v18 = *v11;
-              v19 = *(a1 + 24);
+              v19 = a1[3];
               v20 = v18 - v19;
               if (v20 <= v17)
               {
@@ -3184,7 +3187,7 @@ uint64_t streamRead(uint64_t a1, uint64_t a2, unsigned int *a3)
                 v23 = (v19 / v13);
                 while (1)
                 {
-                  v24 = *(a1 + 56);
+                  v24 = a1[7];
                   if (v23 >= *(v24 + 16))
                   {
                     break;
@@ -3195,7 +3198,7 @@ uint64_t streamRead(uint64_t a1, uint64_t a2, unsigned int *a3)
                   if (v26)
                   {
                     v27 = streamSeek64(v26, v13 * v25, 0);
-                    if (v27 || (v31 = v13, v27 = streamRead(*(*(a1 + 56) + 24), Sector, &v31), v27))
+                    if (v27 || (v31 = v13, v27 = streamRead(*(a1[7] + 24), Sector, &v31), v27))
                     {
                       Status = v27;
                       goto LABEL_34;
@@ -3252,7 +3255,7 @@ LABEL_34:
 
 LABEL_37:
                 *a3 = v21;
-                *(a1 + 24) += v21;
+                a1[3] += v21;
               }
             }
           }
@@ -3269,10 +3272,10 @@ LABEL_37:
   return Status;
 }
 
-uint64_t SsrwOOStgStream::readSInt32(SsrwOOStgStream *this)
+uint64_t SsrwOOStgStream::readSInt32(uint64_t **this)
 {
   v5 = 0;
-  v1 = readSInt32(*(this + 24), &v5);
+  v1 = readSInt32(this[24], &v5);
   if (v1)
   {
     v3 = v1;
@@ -3283,7 +3286,7 @@ uint64_t SsrwOOStgStream::readSInt32(SsrwOOStgStream *this)
   return v5;
 }
 
-uint64_t readSInt32(uint64_t a1, _DWORD *a2)
+uint64_t readSInt32(uint64_t *a1, _DWORD *a2)
 {
   v6 = 4;
   v2 = 6;
@@ -3358,7 +3361,7 @@ void PptParserVisitor::visit(PptParserVisitor *this, PptCurrentUserAtom *a2)
                 PptSkipVisitor::skipKnownBytes(*(this + 3), a2, 2u);
                 if ((*(**(this + 1) + 40))(*(this + 1)) == v4 + 20)
                 {
-                  operator new[](*(a2 + 30) + 1);
+                  operator new[](*(a2 + 30) + 1, 0x1000C8077774924);
                 }
               }
             }
@@ -3398,10 +3401,10 @@ uint64_t streamGetPos(uint64_t a1, _DWORD *a2)
   return result;
 }
 
-uint64_t SsrwOOStgStream::readUInt32(SsrwOOStgStream *this)
+uint64_t SsrwOOStgStream::readUInt32(uint64_t **this)
 {
   v5 = 0;
-  v1 = readSInt32(*(this + 24), &v5);
+  v1 = readSInt32(this[24], &v5);
   if (v1)
   {
     v3 = v1;
@@ -3412,10 +3415,10 @@ uint64_t SsrwOOStgStream::readUInt32(SsrwOOStgStream *this)
   return v5;
 }
 
-uint64_t SsrwOOStgStream::readSInt16(SsrwOOStgStream *this)
+uint64_t SsrwOOStgStream::readSInt16(uint64_t **this)
 {
   v5 = 0;
-  v1 = readSInt16(*(this + 24), &v5);
+  v1 = readSInt16(this[24], &v5);
   if (v1)
   {
     v3 = v1;
@@ -3426,7 +3429,7 @@ uint64_t SsrwOOStgStream::readSInt16(SsrwOOStgStream *this)
   return v5;
 }
 
-uint64_t readSInt16(uint64_t a1, _WORD *a2)
+uint64_t readSInt16(uint64_t *a1, _WORD *a2)
 {
   v6 = 2;
   v2 = 6;
@@ -3439,11 +3442,11 @@ uint64_t readSInt16(uint64_t a1, _WORD *a2)
   return v2;
 }
 
-uint64_t SsrwOOStgStream::readByte(SsrwOOStgStream *this)
+uint64_t SsrwOOStgStream::readByte(uint64_t **this)
 {
   v6 = 1;
   v5 = 0;
-  v1 = streamRead(*(this + 24), &v5, &v6);
+  v1 = streamRead(this[24], &v5, &v6);
   if (v1)
   {
     v3 = v1;
@@ -3481,14 +3484,14 @@ _BYTE *PptSkipVisitor::skipKnownBytes(_BYTE *this, const EshRecord *a2, unsigned
         }
 
         v4[21] = v7;
-        operator new[](v3);
+        operator new[](v3, 0x1000C8077774924);
       }
 
       exception = __cxa_allocate_exception(4uLL);
       *exception = 4003;
     }
 
-    operator new[](a3);
+    operator new[](a3, 0x1000C8077774924);
   }
 
   return this;
@@ -3520,9 +3523,9 @@ uint64_t streamGetBytesAvailableToRead(uint64_t a1, _DWORD *a2)
   return result;
 }
 
-uint64_t SsrwOOStgStream::readBytes(SsrwOOStgStream *this, uint64_t a2, unsigned int *a3)
+uint64_t SsrwOOStgStream::readBytes(uint64_t **this, uint64_t a2, unsigned int *a3)
 {
-  result = streamRead(*(this + 24), a2, a3);
+  result = streamRead(this[24], a2, a3);
   if (result)
   {
     v4 = result;
@@ -3543,13 +3546,13 @@ void PptCurrentUserAtom::setSingleByteUserName(PptCurrentUserAtom *this, const c
 
   *(this + 9) = 0;
   v5 = strlen(__s);
-  operator new[]((v5 + 1));
+  operator new[]((v5 + 1), 0x1000C8077774924);
 }
 
-uint64_t SsrwOOStgStream::readChar16(SsrwOOStgStream *this)
+uint64_t SsrwOOStgStream::readChar16(uint64_t **this)
 {
   v5 = 0;
-  v1 = readUInt16(*(this + 24), &v5);
+  v1 = readUInt16(this[24], &v5);
   if (v1)
   {
     v3 = v1;
@@ -3582,7 +3585,7 @@ LABEL_6:
     if (!HIDWORD(v2))
     {
       this->var3 = v2;
-      operator new[](2 * v2);
+      operator new[](2 * v2, 0x1000C80BDFB0063);
     }
 
     goto LABEL_6;
@@ -3630,7 +3633,7 @@ void PptCurrentUserAtom::setDoubleByteUserName(PptCurrentUserAtom *this, const u
 
   *(this + 10) = 0;
   v5 = _ChWcslen(a2);
-  operator new[]((2 * v5 + 4) & 0x1FFFFFFFELL);
+  operator new[]((2 * v5 + 4) & 0x1FFFFFFFELL, 0x1000C80BDFB0063);
 }
 
 _WORD *_ChWcscpy(_WORD *result, const unsigned __int16 *a2)
@@ -3832,7 +3835,7 @@ uint64_t SsrwOOStgStream::close(SsrwOOStgStream *this, char a2)
   return result;
 }
 
-uint64_t closeStream(uint64_t *a1)
+uint64_t closeStream(void **a1)
 {
   if (!a1)
   {
@@ -3848,17 +3851,17 @@ uint64_t closeStream(uint64_t *a1)
   if ((*(v2 + 48) - 1) <= 1)
   {
     streamFlushToDisk(v2);
-    streamResize(*a1, *(*a1 + 24));
+    streamResize(*a1, *(*a1 + 3));
     v2 = *a1;
   }
 
   TOC = rootStorageGetTOC(*v2);
-  EntryAtIndex = tocGetEntryAtIndex(TOC, *(*a1 + 8));
+  EntryAtIndex = tocGetEntryAtIndex(TOC, *(*a1 + 2));
   v5 = *a1;
-  if ((*(*a1 + 48) - 1) <= 1)
+  if ((*(*a1 + 12) - 1) <= 1)
   {
     v6 = EntryAtIndex;
-    v7 = directorySetSize(EntryAtIndex, **(v5 + 56));
+    v7 = directorySetSize(EntryAtIndex, **(v5 + 7));
     if (v7)
     {
       goto LABEL_9;
@@ -3877,12 +3880,12 @@ uint64_t closeStream(uint64_t *a1)
     }
 
     v9 = *a1;
-    *(*(*a1 + 56) + 32) = 0;
+    *(*(*a1 + 7) + 32) = 0;
     ShouldBeMini = streamShouldBeMini(v9);
     v5 = *a1;
     if (ShouldBeMini)
     {
-      if (*(*(v5 + 56) + 36) == 1)
+      if (*(*(v5 + 7) + 36) == 1)
       {
         v7 = convertToSmallStream(*a1);
         if (v7)
@@ -3899,7 +3902,7 @@ LABEL_16:
     }
   }
 
-  v8 = storageRemoveOpenChild(*(v5 + 16), 2, v5);
+  v8 = storageRemoveOpenChild(*(v5 + 2), 2, v5);
   if (!v8)
   {
     goto LABEL_16;
@@ -3908,7 +3911,7 @@ LABEL_16:
   return v8;
 }
 
-uint64_t storageRemoveOpenChild(uint64_t a1, int a2, uint64_t a3)
+uint64_t storageRemoveOpenChild(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = -1;
   result = openListFindItem(*(a1 + 24), &v5, a2, a3);
@@ -4000,7 +4003,7 @@ uint64_t streamDestroy(void **a1)
   v1 = *a1;
   if (*a1)
   {
-    if (*(v1 + 7))
+    if (*(v1 + 56))
     {
       TOC = rootStorageGetTOC(*v1);
       EntryAtIndex = tocGetEntryAtIndex(TOC, *(*a1 + 2));
@@ -4008,14 +4011,14 @@ uint64_t streamDestroy(void **a1)
       v1 = *a1;
     }
 
-    v5 = *(v1 + 4);
+    v5 = *(v1 + 32);
     if (v5)
     {
       free(v5);
       v1 = *a1;
     }
 
-    freeInfo(v1 + 8, 1u);
+    freeInfo((v1 + 64), 1u);
     free(*a1);
     *a1 = 0;
   }
@@ -4064,7 +4067,7 @@ uint64_t directoryReleaseStreamSharedBlock(uint64_t a1)
   return result;
 }
 
-uint64_t streamDestroySharedBlock(void **a1)
+uint64_t streamDestroySharedBlock(uint64_t *a1)
 {
   v1 = *a1;
   if (!*a1)
@@ -4072,15 +4075,15 @@ uint64_t streamDestroySharedBlock(void **a1)
     return 6;
   }
 
-  v3 = v1[1];
+  v3 = *(v1 + 8);
   if (v3)
   {
     free(v3);
   }
 
-  if (v1[3])
+  if (*(v1 + 24))
   {
-    streamDestroy(v1 + 3);
+    streamDestroy((v1 + 24));
   }
 
   free(v1);
@@ -4103,7 +4106,7 @@ void SsrwOOStgStream::~SsrwOOStgStream(SsrwOOStgStream *this)
     SsrwOOStgStream::close(this, 1);
   }
 
-  TSURectWithOriginAndSize(this + 8);
+  TSURectWithOriginAndSize();
 }
 
 void PptCurrentUserAtom::~PptCurrentUserAtom(PptCurrentUserAtom *this)
@@ -4320,9 +4323,8 @@ uint64_t PptParserVisitor::visit(PptParserVisitor *this, PptPersistPtrIncrAtom *
 
 uint64_t *PptPersistPtrIncrAtom::addReference(PptPersistPtrIncrAtom *this, unsigned int a2, unsigned int a3)
 {
-  v6[0] = a2;
-  v6[1] = a3;
-  result = std::__tree<ChPair<unsigned int,unsigned int>,PptPersistPtrIncrAtom::RefLess<ChPair<unsigned int,unsigned int>>,std::allocator<ChPair<unsigned int,unsigned int>>>::__emplace_unique_key_args<ChPair<unsigned int,unsigned int>,ChPair<unsigned int,unsigned int> const&>(this + 72, v6);
+  v6 = __PAIR64__(a3, a2);
+  result = std::__tree<ChPair<unsigned int,unsigned int>,PptPersistPtrIncrAtom::RefLess<ChPair<unsigned int,unsigned int>>,std::allocator<ChPair<unsigned int,unsigned int>>>::__emplace_unique_key_args<ChPair<unsigned int,unsigned int>,ChPair<unsigned int,unsigned int> const&>(this + 72, &v6, &v6);
   if (*(this + 24) < a2)
   {
     *(this + 24) = a2;
@@ -4335,15 +4337,15 @@ void *ChAutoPtr<SsrwOOStgInfo>::~ChAutoPtr(void *a1)
 {
   if (*a1)
   {
-    v2 = TSURectWithOriginAndSize();
-    MEMORY[0x25F897000](v2, 0x1020C40285AA8CALL);
+    TSURectWithOriginAndSize();
+    MEMORY[0x25F897000]();
   }
 
   *a1 = 0;
   return a1;
 }
 
-uint64_t PptBinaryReader::readEncryptionInfo(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4)
+uint64_t PptBinaryReader::readEncryptionInfo(uint64_t a1, void *a2, _DWORD *a3, _DWORD *a4)
 {
   if (*(*(a1 + 192) + 92))
   {
@@ -4513,7 +4515,7 @@ uint64_t EshAtom::versionForAtomType(EshAtom *this)
   }
 }
 
-uint64_t PptEshObjectFactory::createObject(PptEshObjectFactory *this, int a2, int a3)
+PptEshClientTextBox *PptEshObjectFactory::createObject(PptEshObjectFactory *this, int a2, unsigned __int8 a3)
 {
   if (a2 > 61452)
   {
@@ -4544,7 +4546,7 @@ uint64_t PptEshObjectFactory::createObject(PptEshObjectFactory *this, int a2, in
   return EshObjectFactory::createObject(this, a2, a3);
 }
 
-uint64_t EshObjectFactory::createObject(EshObjectFactory *this, int a2, int a3)
+EshRoot *EshObjectFactory::createObject(EshObjectFactory *this, int a2, unsigned __int8 a3)
 {
   if (a2 == 1)
   {
@@ -4732,8 +4734,9 @@ LABEL_50:
   EshHeader::makeDefault(v12);
 }
 
-void EshRoot::setNumChildren(EshRoot *this, unsigned int a2)
+void EshRoot::setNumChildren(EshRoot *this, uint64_t a2)
 {
+  v2 = a2;
   v3 = (this + 16);
   v4 = (*(this + 3) - *(this + 2)) >> 3;
   if (v4 < a2)
@@ -4763,7 +4766,7 @@ void EshRoot::setNumChildren(EshRoot *this, unsigned int a2)
     while (v5);
   }
 
-  std::vector<EshHeader *,ChAllocator<EshHeader *>>::resize(v3, a2);
+  std::vector<EshHeader *,ChAllocator<EshHeader *>>::resize(v3, v2);
 }
 
 BOOL PptBinaryReader::checkStarted(PptBinaryReader *this)
@@ -4865,14 +4868,14 @@ LABEL_6:
 
   v8 = a2->var3;
   v9 = &v8;
-  if (!*(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 240, &v8) + 8))
+  if (!*(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 240, &v8, &std::piecewise_construct, &v9) + 8))
   {
     return 1;
   }
 
   v8 = a2->var3;
   v9 = &v8;
-  if (*(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 240, &v8) + 8) != 1)
+  if (*(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 240, &v8, &std::piecewise_construct, &v9) + 8) != 1)
   {
     return 0;
   }
@@ -4912,7 +4915,7 @@ LABEL_5:
   }
 
   v6 = &v5;
-  return *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 56, &v5) + 8);
+  return *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 56, &v5, &std::piecewise_construct, &v6) + 8);
 }
 
 uint64_t PptBinaryReader::goToNextHeader(PptBinaryReader *this, char a2)
@@ -5040,13 +5043,13 @@ uint64_t PptPersistDir::getNextOffset(PptPersistDir *this, int a2)
       {
         v14 = v6;
         v15 = &v14;
-        if (*(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 32, &v14) + 8) > a2)
+        if (*(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 32, &v14, &std::piecewise_construct, &v15) + 8) > a2)
         {
-          if (v5 == -1 || (v14 = v6, v15 = &v14, *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 32, &v14) + 8) < v5))
+          if (v5 == -1 || (v14 = v6, v15 = &v14, *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 32, &v14, &std::piecewise_construct, &v15) + 8) < v5))
           {
             v14 = v6;
             v15 = &v14;
-            v5 = *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 32, &v14) + 8);
+            v5 = *(std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 32, &v14, &std::piecewise_construct, &v15) + 8);
           }
         }
       }
@@ -5057,7 +5060,7 @@ uint64_t PptPersistDir::getNextOffset(PptPersistDir *this, int a2)
   return v5;
 }
 
-uint64_t EshRoot::getChildHeader(EshRoot *this, unsigned int a2)
+uint64_t EshRoot::getChildHeader(EshRoot *this, uint64_t a2)
 {
   v2 = *(this + 2);
   if (((*(this + 3) - v2) >> 3) <= a2)
@@ -5068,7 +5071,7 @@ uint64_t EshRoot::getChildHeader(EshRoot *this, unsigned int a2)
   return *(v2 + 8 * a2);
 }
 
-uint64_t EshRoot::getChildType(EshRoot *this, unsigned int a2)
+uint64_t EshRoot::getChildType(EshRoot *this, uint64_t a2)
 {
   v2 = *(this + 2);
   if (((*(this + 3) - v2) >> 3) <= a2)
@@ -5079,7 +5082,7 @@ uint64_t EshRoot::getChildType(EshRoot *this, unsigned int a2)
   return *(*(v2 + 8 * a2) + 10);
 }
 
-uint64_t EshRoot::getChildVersion(EshRoot *this, unsigned int a2)
+uint64_t EshRoot::getChildVersion(EshRoot *this, uint64_t a2)
 {
   v2 = *(this + 2);
   if (((*(this + 3) - v2) >> 3) <= a2)
@@ -5908,47 +5911,47 @@ void PptParserVisitor::visit(PptParserVisitor *this, EshContainer *a2)
   (*(**(this + 1) + 16))(*(this + 1), (*(a2 + 4) + 8), 0);
   PptSkipVisitor::beginRead(*(this + 3));
   (*(**(this + 1) + 40))(*(this + 1));
-  EshHeader::operator=(&v4, a2 + 12);
-  EshContainer::removeChildren(a2);
+  EshHeader::operator=(&v5, a2 + 12);
+  EshContainer::removeChildren(a2, v4);
   operator new();
 }
 
-uint64_t EshContainer::removeChildren(uint64_t this)
+uint64_t EshContainer::removeChildren(uint64_t this, uint64_t a2)
 {
-  v1 = this;
-  v2 = *(this + 32);
-  v3 = *(this + 40);
-  if (((v3 - v2) & 0x7FFFFFFF8) != 0)
+  v2 = this;
+  v3 = *(this + 32);
+  v4 = *(this + 40);
+  if (((v4 - v3) & 0x7FFFFFFF8) != 0)
   {
-    v4 = 0;
+    v5 = 0;
     do
     {
-      this = *(v2 + 8 * v4);
+      this = *(v3 + 8 * v5);
       if (this)
       {
         this = MEMORY[0x25F897000](this, 0x1000C408B6DE1C6);
-        v2 = *(v1 + 32);
-        v3 = *(v1 + 40);
+        v3 = *(v2 + 32);
+        v4 = *(v2 + 40);
       }
 
-      if (v4 >= ((v3 - v2) >> 3))
+      if (v5 >= ((v4 - v3) >> 3))
       {
         std::vector<TSU::UUIDData<TSP::UUIDData>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      *(v2 + 8 * v4++) = 0;
-      v2 = *(v1 + 32);
-      v3 = *(v1 + 40);
+      *(v3 + 8 * v5++) = 0;
+      v3 = *(v2 + 32);
+      v4 = *(v2 + 40);
     }
 
-    while (v4 < ((v3 - v2) >> 3));
+    while (v5 < ((v4 - v3) >> 3));
   }
 
-  *(v1 + 40) = v2;
+  *(v2 + 40) = v3;
   return this;
 }
 
-uint64_t EshContainer::getChildHeader(EshContainer *this, unsigned int a2)
+uint64_t EshContainer::getChildHeader(EshContainer *this, uint64_t a2)
 {
   v2 = *(this + 4);
   if (((*(this + 5) - v2) >> 3) <= a2)
@@ -6035,9 +6038,9 @@ void PptBinaryReader::readAtom(PptBinaryReader *this, EshObject *a2)
   }
 }
 
-void sub_25D2A6640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25D2A6640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   EshParserVisitor::~EshParserVisitor(va);
   _Unwind_Resume(a1);
 }
@@ -6202,7 +6205,7 @@ uint64_t SsrwOOStgStream::readString16(uint64_t this, int *a2, unsigned __int16 
   return this;
 }
 
-uint64_t readString16(uint64_t a1, int *a2, _WORD *a3)
+uint64_t readString16(uint64_t *a1, int *a2, _WORD *a3)
 {
   result = 6;
   if (a1)
@@ -6317,9 +6320,9 @@ uint64_t PptParserVisitor::visit(PptParserVisitor *this, PptTextDefaultParagraph
 {
   (*(**(this + 1) + 16))(*(this + 1), (*(a2 + 4) + 8), 0);
   PptSkipVisitor::beginRead(*(this + 3));
-  EshRecord::getEndOffset(a2);
+  EndOffset = EshRecord::getEndOffset(a2);
   PptSkipVisitor::skipKnownBytes(*(this + 3), a2, 2u);
-  PptParserVisitor::parseParaProperty(this, (a2 + 48));
+  PptParserVisitor::parseParaProperty(this, (a2 + 48), EndOffset);
   PptParserVisitor::endRead(this, a2);
   return 1;
 }
@@ -6650,7 +6653,7 @@ void sub_25D2A8380(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t EshObjectFactory::createRecord(EshObjectFactory *this, int a2, int a3)
+EshContainer *EshObjectFactory::createRecord(EshObjectFactory *this, unsigned __int16 a2, int a3)
 {
   if (a3 == 15)
   {
@@ -6683,27 +6686,27 @@ void EshBinaryReader::findObjectHeader(EshBinaryReader *this, EshHeader *a2, int
 
 void EshBinaryReader::readObject(EshBinaryReader *this, EshContainer *a2)
 {
-  v3 = this + 40;
+  v3 = (this + 40);
   v4 = (*(*this + 96))(this);
   EshRecord::setHeader(a2, v4);
-  EshContainer::removeChildren(a2);
+  EshContainer::removeChildren(a2, v5);
   ChStack<EshHeader>::push(v3, a2 + 12);
   operator new();
 }
 
-void ChStack<EshHeader>::push(uint64_t a1, uint64_t a2)
+void ChStack<EshHeader>::push(uint64_t *a1, uint64_t a2)
 {
-  v3 = *(a1 + 16);
-  v4 = *(a1 + 20);
+  v3 = *(a1 + 4);
+  v4 = *(a1 + 5);
   if (v3 + 1 > v4)
   {
-    v5 = *(a1 + 24) + v4;
-    *(a1 + 20) = v5;
-    operator new[](16 * v5 + 16);
+    v5 = *(a1 + 6) + v4;
+    *(a1 + 5) = v5;
+    operator new[](16 * v5 + 16, 0x1000C808B6DE1C6);
   }
 
   EshHeader::operator=(*a1 + 16 * v3, a2);
-  ++*(a1 + 16);
+  ++*(a1 + 4);
 }
 
 uint64_t ChStack<EshHeader>::top(uint64_t a1)
@@ -6746,7 +6749,7 @@ LABEL_11:
   }
 
 LABEL_13:
-  ChStack<EshHeader>::push(this + 40, a2);
+  ChStack<EshHeader>::push(this + 5, a2);
   v8 = a2->var1 + 8;
   *(this + 18) = v8;
 LABEL_14:
@@ -6790,7 +6793,7 @@ LABEL_21:
   }
 }
 
-uint64_t EshObjectFactory::createAtom(EshObjectFactory *this, int a2, int a3)
+EshDgg *EshObjectFactory::createAtom(EshObjectFactory *this, int a2, int a3)
 {
   if (a3 == 15)
   {
@@ -7043,7 +7046,7 @@ uint64_t EshParserVisitor::visit(EshParserVisitor *this, unint64_t **a2)
       else
       {
         *v12 = v11;
-        v13 = (v12 + 1);
+        v13 = v12 + 1;
       }
 
       a2[7] = v13;
@@ -7255,7 +7258,7 @@ OcBinaryData *OcBinaryData::setDataInfo(OcBinaryData *this, SsrwOOStream *a2, un
   return this;
 }
 
-uint64_t EshObjectFactory::createSemanticObject(EshObjectFactory *this, int a2)
+EshShapeDefaults *EshObjectFactory::createSemanticObject(EshObjectFactory *this, int a2)
 {
   if (a2 <= 5)
   {
@@ -7518,7 +7521,7 @@ void EshParserVisitor::visit(EshParserVisitor *this, EshOpt *a2)
 
 void sub_25D2AB758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
-  (*(*v13 + 8))(v13);
+  (*(*v13 + 8))(v13, a2, a3, a4, a5, a6, a7, a8);
   MEMORY[0x25F897000](v12, 0x1000C408B6DE1C6);
   (*(*a12 + 8))(a12);
   _Unwind_Resume(a1);
@@ -7627,11 +7630,11 @@ EshColor *EshColor::schemeIndex(EshColor *this, uint64_t a2, EshColor *a3)
   return this;
 }
 
-__n128 EshOpt::setProperty(uint64_t a1, unsigned int a2, uint64_t a3, __n128 *a4)
+__n128 EshOpt::setProperty(uint64_t a1, int a2, uint64_t a3, __n128 *a4)
 {
   v7 = a2;
   v8 = &v7;
-  v5 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v7);
+  v5 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v7, &std::piecewise_construct, &v8);
   result = *a4;
   *(v5 + 5) = *a4;
   return result;
@@ -7765,47 +7768,47 @@ uint64_t EshColor::property(uint64_t result, uint64_t a2, char a3, char a4, int 
   return result;
 }
 
-void EshRoot::~EshRoot(EshRoot *this)
+void EshRoot::~EshRoot(EshRoot *this, uint64_t a2)
 {
-  EshRoot::~EshRoot(this);
+  EshRoot::~EshRoot(this, a2);
 
   JUMPOUT(0x25F897000);
 }
 
 {
   *this = &unk_286EC7478;
-  v4 = this + 16;
-  v2 = *(this + 2);
-  v3 = *(v4 + 1);
-  if (((v3 - v2) & 0x7FFFFFFF8) != 0)
+  v5 = this + 16;
+  v3 = *(this + 2);
+  v4 = *(v5 + 1);
+  if (((v4 - v3) & 0x7FFFFFFF8) != 0)
   {
-    v5 = 0;
+    v6 = 0;
     do
     {
-      if (v2[v5])
+      if (v3[v6])
       {
-        MEMORY[0x25F897000](v2[v5], 0x1000C408B6DE1C6);
-        v2 = *(this + 2);
-        v3 = *(this + 3);
+        MEMORY[0x25F897000](v3[v6], 0x1000C408B6DE1C6);
+        v3 = *(this + 2);
+        v4 = *(this + 3);
       }
 
-      if (v5 >= ((v3 - v2) >> 3))
+      if (v6 >= ((v4 - v3) >> 3))
       {
         std::vector<TSU::UUIDData<TSP::UUIDData>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v2[v5++] = 0;
-      v2 = *(this + 2);
-      v3 = *(this + 3);
+      v3[v6++] = 0;
+      v3 = *(this + 2);
+      v4 = *(this + 3);
     }
 
-    while (v5 < ((v3 - v2) >> 3));
+    while (v6 < ((v4 - v3) >> 3));
   }
 
-  *(this + 3) = v2;
-  if (v2)
+  *(this + 3) = v3;
+  if (v3)
   {
-    operator delete(v2);
+    operator delete(v3);
   }
 }
 
@@ -8131,7 +8134,7 @@ uint64_t PptParserVisitor::visit(PptParserVisitor *this, PptTextBytesAtom *a2)
   DataLength = EshRecord::getDataLength(a2);
   if (DataLength)
   {
-    operator new[]((DataLength + 1));
+    operator new[]((DataLength + 1), 0x1000C8077774924);
   }
 
   PptParserVisitor::endRead(this, a2);
@@ -8410,14 +8413,14 @@ void EshParserVisitor::visit(EshParserVisitor *this, EshContainer *a2)
   v4 = *(this + 3);
   Offset = EshRecord::getOffset(a2);
   (*(*v4 + 16))(v4, (Offset + 8), 0);
-  EshContainer::removeChildren(a2);
+  EshContainer::removeChildren(a2, v6);
   (*(**(this + 3) + 40))(*(this + 3));
   EshRecord::getDataLength(a2);
-  EshContainer::removeChildren(a2);
+  EshContainer::removeChildren(a2, v7);
   operator new();
 }
 
-uint64_t EshContainer::getHeaderOfType(EshContainer *this, int a2, unsigned __int16 a3)
+uint64_t EshContainer::getHeaderOfType(EshContainer *this, unsigned __int16 a2, unsigned __int16 a3)
 {
   IndexOfChild = EshContainer::getIndexOfChild(this, a2, a3);
   if (IndexOfChild == -1)
@@ -8586,21 +8589,21 @@ uint64_t EshParserVisitor::visit(EshParserVisitor *a1, EshRecord *this)
   return 1;
 }
 
-void EshContainer::~EshContainer(EshContainer *this)
+void EshContainer::~EshContainer(EshContainer *this, uint64_t a2)
 {
-  EshContainer::~EshContainer(this);
+  EshContainer::~EshContainer(this, a2);
 
   JUMPOUT(0x25F897000);
 }
 
 {
   *this = &unk_286EC5C98;
-  EshContainer::removeChildren(this);
-  v2 = *(this + 4);
-  if (v2)
+  EshContainer::removeChildren(this, a2);
+  v3 = *(this + 4);
+  if (v3)
   {
-    *(this + 5) = v2;
-    operator delete(v2);
+    *(this + 5) = v3;
+    operator delete(v3);
   }
 }
 
@@ -9119,7 +9122,7 @@ LABEL_5:
 
   v10 = a2;
   v11 = &v10;
-  v8 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10)[5];
+  v8 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10, &std::piecewise_construct, &v11)[5];
   if (v8)
   {
     (*(*v8 + 8))(v8);
@@ -9128,7 +9131,7 @@ LABEL_5:
 LABEL_9:
   v10 = a2;
   v11 = &v10;
-  result = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10);
+  result = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10, &std::piecewise_construct, &v11);
   result[5] = a3;
   result[6] = 0;
   return result;
@@ -9799,23 +9802,4 @@ void OcSummary::OcSummary(OcSummary *this)
   *(this + 97) = 0;
   *(this + 680) = 0u;
   *(this + 696) = 0u;
-}
-
-void sub_25D2B2FA8(_Unwind_Exception *a1)
-{
-  OcText::~OcText((v1 + 632));
-  OcText::~OcText((v1 + 584));
-  OcText::~OcText((v1 + 536));
-  OcText::~OcText((v1 + 488));
-  OcText::~OcText((v1 + 440));
-  OcText::~OcText((v1 + 392));
-  OcText::~OcText((v1 + 344));
-  OcText::~OcText((v1 + 296));
-  OcText::~OcText((v1 + 248));
-  OcText::~OcText((v1 + 200));
-  OcText::~OcText((v1 + 152));
-  OcText::~OcText((v1 + 104));
-  OcText::~OcText(v2);
-  OcText::~OcText((v1 + 8));
-  _Unwind_Resume(a1);
 }

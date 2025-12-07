@@ -1384,7 +1384,7 @@ double CMMsl::RunningCentripetalAccelSignals::RunningCentripetalAccelSignals(uin
   return result;
 }
 
-CMMsl *CMMsl::RunningCentripetalAccelSignals::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::RunningCentripetalAccelSignals::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -3066,7 +3066,7 @@ double CMMsl::RunningFormMetrics::RunningFormMetrics(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::RunningFormMetrics::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::RunningFormMetrics::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -6147,7 +6147,7 @@ double CMMsl::RunningPower::RunningPower(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::RunningPower::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::RunningPower::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9014,7 +9014,7 @@ double CMMsl::RunningSpeedKFResult::RunningSpeedKFResult(uint64_t a1, uint64_t a
   return result;
 }
 
-CMMsl *CMMsl::RunningSpeedKFResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::RunningSpeedKFResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

@@ -23,37 +23,35 @@
 
 void __38__HMDAirPlayAccessoryModel_properties__block_invoke(uint64_t a1)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CBEB38];
-  v15.receiver = *(a1 + 32);
-  v15.super_class = &OBJC_METACLASS___HMDAirPlayAccessoryModel;
-  v2 = objc_msgSendSuper2(&v15, sel_properties);
+  v14.receiver = *(a1 + 32);
+  v14.super_class = &OBJC_METACLASS___HMDAirPlayAccessoryModel;
+  v2 = objc_msgSendSuper2(&v14, sel_properties);
   v3 = [v1 dictionaryWithDictionary:v2];
   v4 = properties__properties_136098;
   properties__properties_136098 = v3;
 
   v5 = properties__properties_136098;
-  v20 = @"pairingIdentity";
+  v19 = @"pairingIdentity";
   v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v21[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v20[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   [v5 addEntriesFromDictionary:v7];
 
   v8 = properties__properties_136098;
-  v18 = @"password";
+  v17 = @"password";
   v9 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v19 = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+  v18 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
   [v8 addEntriesFromDictionary:v10];
 
   v11 = properties__properties_136098;
-  v16 = @"minimumUserPriviledge";
+  v15 = @"minimumUserPriviledge";
   v12 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v17 = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+  v16 = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
   [v11 addEntriesFromDictionary:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

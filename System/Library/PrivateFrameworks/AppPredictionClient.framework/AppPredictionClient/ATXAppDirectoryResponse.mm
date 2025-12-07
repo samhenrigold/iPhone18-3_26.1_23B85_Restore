@@ -68,7 +68,7 @@ uint64_t __46__ATXAppDirectoryResponse__minuteZeroResponse__block_invoke(uint64_
   {
     v6 = ATXBundleIdForRemoteBundleId();
     v7 = CFPreferencesCopyValue(@"SBSearchSuggestAppDisabled", @"com.apple.spotlightui", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
-    appsCopy = [v7 containsObject:v6] ^ 1;
+    appsCopy = objc_msgSend_containsObject_(v7) ^ 1;
   }
 
   return appsCopy;
@@ -78,15 +78,15 @@ uint64_t __46__ATXAppDirectoryResponse__minuteZeroResponse__block_invoke(uint64_
 {
   appsCopy = apps;
   errorCopy3 = error;
-  v75 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   layoutCopy = layout;
   recentAppsCopy = recentApps;
   hiddenAppsCopy = hiddenApps;
   screenCopy = screen;
   errorCopy2 = error;
-  v71.receiver = self;
-  v71.super_class = ATXAppDirectoryResponse;
-  v20 = [(ATXAppDirectoryResponse *)&v71 init];
+  v73.receiver = self;
+  v73.super_class = ATXAppDirectoryResponse;
+  v20 = [(ATXAppDirectoryResponse *)&v73 init];
   v21 = v20;
   if (!v20)
   {
@@ -94,8 +94,8 @@ uint64_t __46__ATXAppDirectoryResponse__minuteZeroResponse__block_invoke(uint64_
   }
 
   objc_storeStrong(&v20->_suggestionLayout, layout);
-  v62 = [recentAppsCopy _pas_mappedArrayWithTransform:&__block_literal_global_13];
-  appIdentitiesFromBundleIDs = [v62 appIdentitiesFromBundleIDs];
+  v64 = [recentAppsCopy _pas_mappedArrayWithTransform:&__block_literal_global_13];
+  appIdentitiesFromBundleIDs = [v64 appIdentitiesFromBundleIDs];
   recentAppIdentities = v21->_recentAppIdentities;
   v21->_recentAppIdentities = appIdentitiesFromBundleIDs;
 
@@ -105,7 +105,7 @@ uint64_t __46__ATXAppDirectoryResponse__minuteZeroResponse__block_invoke(uint64_
   hiddenAppsCategory = v21->_hiddenAppsCategory;
   v21->_hiddenAppsCategory = v26;
 
-  v65 = objc_opt_new();
+  v67 = objc_opt_new();
   v28 = CFPreferencesCopyAppValue(@"SuggestionsAppLibraryEnabled", @"com.apple.suggestions");
   if (v28)
   {
@@ -120,36 +120,36 @@ uint64_t __46__ATXAppDirectoryResponse__minuteZeroResponse__block_invoke(uint64_
     }
   }
 
-  v57 = errorCopy2;
-  v58 = screenCopy;
-  v59 = hiddenAppsCopy;
-  v60 = recentAppsCopy;
-  v64 = objc_opt_new();
+  v59 = errorCopy2;
+  v60 = screenCopy;
+  v61 = hiddenAppsCopy;
+  v62 = recentAppsCopy;
+  v66 = objc_opt_new();
   context = objc_autoreleasePoolPush();
-  v67 = 0u;
-  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
-  v61 = layoutCopy;
+  v71 = 0u;
+  v72 = 0u;
+  v63 = layoutCopy;
   allSuggestionsInLayout = [layoutCopy allSuggestionsInLayout];
-  v32 = [allSuggestionsInLayout countByEnumeratingWithState:&v67 objects:v74 count:16];
+  v32 = [allSuggestionsInLayout countByEnumeratingWithState:&v69 objects:v76 count:16];
   if (!v32)
   {
     goto LABEL_18;
   }
 
   v33 = v32;
-  v34 = *v68;
+  v34 = *v70;
   do
   {
     for (i = 0; i != v33; ++i)
     {
-      if (*v68 != v34)
+      if (*v70 != v34)
       {
         objc_enumerationMutation(allSuggestionsInLayout);
       }
 
-      v36 = *(*(&v67 + 1) + 8 * i);
+      v36 = *(*(&v69 + 1) + 8 * i);
       executableSpecification = [v36 executableSpecification];
       if ([executableSpecification executableType] == 1)
       {
@@ -165,8 +165,8 @@ uint64_t __46__ATXAppDirectoryResponse__minuteZeroResponse__block_invoke(uint64_
 
           if ([objc_opt_class() _canUseSuggestedApp:executableObject2 includeRemoteApps:appsCopy])
           {
-            [(NSArray *)v64 addObject:executableObject2];
-            [v65 setObject:v36 forKey:executableObject2];
+            [(NSArray *)v66 addObject:executableObject2];
+            [v67 setObject:v36 forKey:executableObject2];
           }
 
           goto LABEL_16;
@@ -177,18 +177,18 @@ uint64_t __46__ATXAppDirectoryResponse__minuteZeroResponse__block_invoke(uint64_
       {
       }
 
-      executableObject2 = __atxlog_handle_app_library();
+      executableObject2 = __atxlog_handle_app_library(v41);
       if (os_log_type_enabled(executableObject2, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v73 = v36;
+        v75 = v36;
         _os_log_fault_impl(&dword_1BF549000, executableObject2, OS_LOG_TYPE_FAULT, "ATXAppDirectoryResponse received suggestion that was not of type app: %@", buf, 0xCu);
       }
 
 LABEL_16:
     }
 
-    v33 = [allSuggestionsInLayout countByEnumeratingWithState:&v67 objects:v74 count:16];
+    v33 = [allSuggestionsInLayout countByEnumeratingWithState:&v69 objects:v76 count:16];
   }
 
   while (v33);
@@ -196,37 +196,37 @@ LABEL_18:
 
   objc_autoreleasePoolPop(context);
   recentAppsVisible = [(ATXAppDirectoryResponse *)v21 recentAppsVisible];
-  predictedAppIdentities = v64;
-  [(NSArray *)v64 removeObjectsInArray:recentAppsVisible];
+  predictedAppIdentities = v66;
+  [(NSArray *)v66 removeObjectsInArray:recentAppsVisible];
 
-  screenCopy = v58;
-  [(NSArray *)v64 removeObjectsInArray:v58];
-  v45 = [(NSArray *)v64 count];
-  if (v45 >= predict)
+  screenCopy = v60;
+  [(NSArray *)v66 removeObjectsInArray:v60];
+  v46 = [(NSArray *)v66 count];
+  if (v46 >= predict)
   {
     predictCopy = predict;
   }
 
   else
   {
-    predictCopy = v45;
+    predictCopy = v46;
   }
 
-  predictCopy = [(NSArray *)v64 subarrayWithRange:0, predictCopy];
+  predictCopy = [(NSArray *)v66 subarrayWithRange:0, predictCopy];
   appIdentitiesFromBundleIDs3 = [predictCopy appIdentitiesFromBundleIDs];
-  v49 = v21->_predictedAppIdentities;
+  v50 = v21->_predictedAppIdentities;
   v21->_predictedAppIdentities = appIdentitiesFromBundleIDs3;
 
-  recentAppsCopy = v60;
-  layoutCopy = v61;
-  hiddenAppsCopy = v59;
+  recentAppsCopy = v62;
+  layoutCopy = v63;
+  hiddenAppsCopy = v61;
   errorCopy3 = error;
-  errorCopy2 = v57;
+  errorCopy2 = v59;
 LABEL_23:
 
-  v50 = [v65 copy];
+  v51 = [v67 copy];
   bundleIdToSuggestionMapping = v21->_bundleIdToSuggestionMapping;
-  v21->_bundleIdToSuggestionMapping = v50;
+  v21->_bundleIdToSuggestionMapping = v51;
 
   if (errorCopy2)
   {
@@ -236,13 +236,13 @@ LABEL_23:
   p_error = &v21->_error;
   if (v21->_error)
   {
-    v53 = __atxlog_handle_app_library();
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+    v55 = __atxlog_handle_app_library(v53);
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
-      [ATXAppDirectoryResponse initWithSuggestionLayout:v53 includeRemoteApps:? recentApps:? hiddenApps:? otherAppsOnScreen:? numAppsToPredict:? error:?];
+      [ATXAppDirectoryResponse initWithSuggestionLayout:v55 includeRemoteApps:? recentApps:? hiddenApps:? otherAppsOnScreen:? numAppsToPredict:? error:?];
     }
 
-    v54 = *p_error;
+    v56 = *p_error;
     *p_error = 0;
   }
 

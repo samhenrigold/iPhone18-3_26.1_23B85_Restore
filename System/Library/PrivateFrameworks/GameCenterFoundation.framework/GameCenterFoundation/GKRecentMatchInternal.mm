@@ -18,20 +18,18 @@
   return v3;
 }
 
-void __48__GKRecentMatchInternal_secureCodedPropertyKeys__block_invoke()
+void __48__GKRecentMatchInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[3] = *MEMORY[0x277D85DE8];
-  v3[0] = @"player";
-  v4[0] = objc_opt_class();
-  v3[1] = @"game";
-  v4[1] = objc_opt_class();
-  v3[2] = @"date";
-  v4[2] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:3];
-  v1 = secureCodedPropertyKeys_sSecureCodedKeys_314;
-  secureCodedPropertyKeys_sSecureCodedKeys_314 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"player";
+  v5[0] = objc_opt_class();
+  v4[1] = @"game";
+  v5[1] = objc_opt_class();
+  v4[2] = @"date";
+  v5[2] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:3];
+  v3 = secureCodedPropertyKeys_sSecureCodedKeys_314;
+  secureCodedPropertyKeys_sSecureCodedKeys_314 = v2;
 }
 
 - (BOOL)isEqual:(id)equal

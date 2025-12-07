@@ -26,7 +26,7 @@
 
   else
   {
-    v6 = sub_100208FBC();
+    v6 = sub_100208FBC(ODRDatabaseStore);
     v8[0] = _NSConcreteStackBlock;
     v8[1] = 3221225472;
     v8[2] = sub_100362CE0;

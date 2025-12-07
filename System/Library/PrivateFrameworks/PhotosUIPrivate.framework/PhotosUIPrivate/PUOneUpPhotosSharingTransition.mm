@@ -113,7 +113,7 @@ void __58__PUOneUpPhotosSharingTransition_animateDismissTransition__block_invoke
 
   [v12 setAlpha:0.0];
   v13 = MEMORY[0x1E69DD250];
-  [*(a1 + 32) duration];
+  objc_msgSend_duration(*(a1 + 32));
   v15 = v14 * 0.5;
   v38[0] = MEMORY[0x1E69E9820];
   v38[1] = 3221225472;
@@ -122,9 +122,9 @@ void __58__PUOneUpPhotosSharingTransition_animateDismissTransition__block_invoke
   v39 = *(a1 + 72);
   [v13 animateWithDuration:v38 animations:v15];
   v16 = MEMORY[0x1E69DD250];
-  [*(a1 + 32) duration];
+  objc_msgSend_duration(*(a1 + 32));
   v18 = v17 * 0.5;
-  [*(a1 + 32) duration];
+  objc_msgSend_duration(*(a1 + 32));
   v20 = v19 * 0.5;
   v36[0] = MEMORY[0x1E69E9820];
   v36[1] = 3221225472;
@@ -135,7 +135,7 @@ void __58__PUOneUpPhotosSharingTransition_animateDismissTransition__block_invoke
   [v16 animateWithDuration:0 delay:v36 options:0 animations:v18 completion:v20];
   v22 = *(a1 + 80);
   v23 = *(a1 + 32);
-  [v23 duration];
+  objc_msgSend_duration(v23);
   v25 = v24;
   v29[0] = MEMORY[0x1E69E9820];
   v29[1] = 3221225472;
@@ -336,7 +336,7 @@ void __58__PUOneUpPhotosSharingTransition_animatePresentTransition__block_invoke
   v25 = v24;
   v27 = v26;
   v29 = v28;
-  [*(a1 + 56) duration];
+  objc_msgSend_duration(*(a1 + 56));
   v31 = v30 * 0.5;
   v32 = MEMORY[0x1E69DD250];
   v69[0] = MEMORY[0x1E69E9820];
@@ -348,9 +348,9 @@ void __58__PUOneUpPhotosSharingTransition_animatePresentTransition__block_invoke
   [v32 animateWithDuration:v69 animations:v31];
   [*(a1 + 88) _setToolbarHidden:1 edge:15 duration:v31];
   v33 = MEMORY[0x1E69DD250];
-  [*(a1 + 56) duration];
+  objc_msgSend_duration(*(a1 + 56));
   v35 = v34 * 0.5;
-  [*(a1 + 56) duration];
+  objc_msgSend_duration(*(a1 + 56));
   v37 = v36 * 0.5;
   v67[0] = MEMORY[0x1E69E9820];
   v67[1] = 3221225472;
@@ -359,7 +359,7 @@ void __58__PUOneUpPhotosSharingTransition_animatePresentTransition__block_invoke
   v68 = *(a1 + 64);
   [v33 animateWithDuration:0 delay:v67 options:0 animations:v35 completion:v37];
   v38 = MEMORY[0x1E69DD250];
-  [*(a1 + 56) duration];
+  objc_msgSend_duration(*(a1 + 56));
   v40 = v39;
   v58[0] = MEMORY[0x1E69E9820];
   v58[1] = 3221225472;

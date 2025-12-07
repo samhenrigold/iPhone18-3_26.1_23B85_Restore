@@ -9,6 +9,7 @@
 - (int64_t)editingStyleForRowAtIndex:(int64_t)index;
 - (void)didCommitEditingStyle:(int64_t)style forRowAtIndex:(int64_t)index;
 - (void)medicalIDEditorCellDidChangeValue:(id)value;
+- (void)timeZoneDidChange:(id)change;
 @end
 
 @implementation HKEmergencyCardBirthdateTableItem
@@ -32,6 +33,13 @@
   v3 = [v2 localizedStringForKey:@"birthdate" value:&stru_1F42FFBE0 table:@"HealthUI-Localizable"];
 
   return v3;
+}
+
+- (void)timeZoneDidChange:(id)change
+{
+  gregorianCalendar = self->_gregorianCalendar;
+  self->_gregorianCalendar = 0;
+  MEMORY[0x1EEE66BB8](self, gregorianCalendar);
 }
 
 - (id)_createEditableCell

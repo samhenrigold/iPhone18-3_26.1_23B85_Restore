@@ -95,19 +95,20 @@
     }
 
     CopyIncludingMetadata = BWCMSampleBufferCreateCopyIncludingMetadata(frame, &self->_frames[v8]);
+    v6 = CopyIncludingMetadata;
     if (CopyIncludingMetadata)
     {
-      [BWStillImageTimeMachine insertFrame:];
+      [BWStillImageTimeMachine insertFrame:?];
     }
   }
 
   else
   {
-    CopyIncludingMetadata = 0;
+    v6 = 0;
   }
 
   FigSimpleMutexUnlock();
-  return CopyIncludingMetadata;
+  return v6;
 }
 
 - (opaqueCMSampleBuffer)copyBestFrame
@@ -337,18 +338,12 @@ LABEL_47:
   FigSimpleMutexUnlock();
 }
 
-- (uint64_t)insertFrame:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
 - (uint64_t)copyBestFrame
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1_6();
-  result = FigDebugAssert3();
+  v5 = 0;
+  result = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, vars0, vars8);
   *a2 = *self;
   return result;
 }

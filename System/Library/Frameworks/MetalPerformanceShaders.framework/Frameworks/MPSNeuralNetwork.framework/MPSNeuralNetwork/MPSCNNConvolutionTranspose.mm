@@ -68,7 +68,7 @@
     v11 = v26;
     if (v27)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x12D, @"kernel width must be > 0", v15, v16, v17, v18);
       v11 = v26;
     }
   }
@@ -80,7 +80,7 @@
     v11 = v28;
     if (v29)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x12E, @"kernel height must be > 0", v15, v16, v17, v18);
       v11 = v28;
     }
   }
@@ -92,7 +92,7 @@
     v11 = v30;
     if (v31)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x12F, @"number of input feature channels must be > 0", v15, v16, v17, v18);
       v11 = v30;
     }
   }
@@ -104,7 +104,7 @@
     v11 = v32;
     if (v33)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x130, @"number of output feature channels must be > 0", v15, v16, v17, v18);
       v11 = v32;
     }
   }
@@ -116,7 +116,7 @@
     v11 = v34;
     if (v35)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x131, @"strideX must be > 0", v15, v16, v17, v18);
       v11 = v34;
     }
   }
@@ -128,7 +128,7 @@
     v11 = v36;
     if (v37)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x132, @"strideY must be > 0", v15, v16, v17, v18);
       v11 = v36;
     }
   }
@@ -140,7 +140,7 @@
     v11 = v38;
     if (v39)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x133, @"number of groups must be > 0", v15, v16, v17, v18);
       v11 = v38;
     }
   }
@@ -181,7 +181,7 @@
     self = selfCopy;
     if (v20)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x15C, @"Filter weights pointer should be non-null", weights, terms, flags, connected);
       descriptor = descriptorCopy;
       self = selfCopy;
     }
@@ -197,7 +197,7 @@
     self = selfCopy2;
     if (v24)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x15D, @"kernel width must be > 0", weights, terms, flags, connected);
       descriptor = descriptorCopy2;
       self = selfCopy2;
     }
@@ -213,7 +213,7 @@
     self = selfCopy3;
     if (v28)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x15E, @"kernel height must be > 0", weights, terms, flags, connected);
       descriptor = descriptorCopy3;
       self = selfCopy3;
     }
@@ -229,7 +229,7 @@
     self = selfCopy4;
     if (v32)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x15F, @"number of input feature channels must be > 0", weights, terms, flags, connected);
       descriptor = descriptorCopy4;
       self = selfCopy4;
     }
@@ -245,7 +245,7 @@
     self = selfCopy5;
     if (v36)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x160, @"number of output feature channels must be > 0", weights, terms, flags, connected);
       descriptor = descriptorCopy5;
       self = selfCopy5;
     }
@@ -261,7 +261,7 @@
     self = selfCopy6;
     if (v40)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x161, @"strideX must be > 0", weights, terms, flags, connected);
       descriptor = descriptorCopy6;
       self = selfCopy6;
     }
@@ -277,7 +277,7 @@
     self = selfCopy7;
     if (v44)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x162, @"strideY must be > 0", weights, terms, flags, connected);
       descriptor = descriptorCopy7;
       self = selfCopy7;
     }
@@ -293,7 +293,7 @@
     self = selfCopy8;
     if (v48)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x163, @"number of groups must be > 0", weights, terms, flags, connected);
       descriptor = descriptorCopy8;
       self = selfCopy8;
     }
@@ -594,7 +594,7 @@
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x323, @"Please use encodeToCommandBuffer:sourceImage:convolutionGradientState:destinationState:destinationStateIsTemporary:\n", v6, v7, v8, v9);
   }
 
   return 0;
@@ -604,7 +604,7 @@
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x32C, @"Please use encodeBatchToCommandBuffer:sourceImages:convolutionGradientStates:destinationStates:destinationStateIsTemporary:\n", v6, v7, v8, v9);
   }
 
   return 0;
@@ -977,7 +977,7 @@ LABEL_13:
 
   else
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolutionTranspose.mm", 0x436, @"Error: [MPSCNNConvolution reloadWeightsAndBiasesWithDataSource:] does not support changing the data source.\nIt has been deprecated. Please use -reloadWeightsAndBiasesFromDataSource instead.\n", v20, v21, v22, v23);
     selfCopy2 = self;
   }
 

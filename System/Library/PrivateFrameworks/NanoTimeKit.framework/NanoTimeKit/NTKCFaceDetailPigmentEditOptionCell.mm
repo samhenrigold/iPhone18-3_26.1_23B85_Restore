@@ -281,7 +281,7 @@ void __84__NTKCFaceDetailPigmentEditOptionCell__configurationFromCollection_sele
   }
 }
 
-uint64_t __84__NTKCFaceDetailPigmentEditOptionCell__configurationFromCollection_selectedOptions___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__84__NTKCFaceDetailPigmentEditOptionCell__configurationFromCollection_selectedOptions___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isAddable];
   if (result)

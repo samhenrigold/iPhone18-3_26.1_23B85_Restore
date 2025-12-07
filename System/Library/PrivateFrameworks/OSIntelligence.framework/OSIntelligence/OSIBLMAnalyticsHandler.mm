@@ -26,21 +26,19 @@ void __31___OSIBLMAnalyticsHandler_init__block_invoke(uint64_t a1, void *a2)
 
 void __31___OSIBLMAnalyticsHandler_init__block_invoke_2(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) log];
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 138412290;
-    v4 = @"com.apple.osintelligence.iblm.dailyAnalytics";
-    _os_log_impl(&dword_25D171000, v1, OS_LOG_TYPE_DEFAULT, "Expiration for %@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = @"com.apple.osintelligence.iblm.dailyAnalytics";
+    _os_log_impl(&dword_25D171000, v1, OS_LOG_TYPE_DEFAULT, "Expiration for %@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __60___OSIBLMAnalyticsHandler_sendDataToPPS_subsystem_category___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) ppsIDForSubsystem:*(a1 + 40) category:*(a1 + 48)];
   if (*(a1 + 56))
   {
@@ -52,12 +50,11 @@ void __60___OSIBLMAnalyticsHandler_sendDataToPPS_subsystem_category___block_invo
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         v6 = *(a1 + 56);
-        v10 = 138412290;
-        v11 = v6;
-        _os_log_impl(&dword_25D171000, v5, OS_LOG_TYPE_DEFAULT, "Reporting %@ to PPS", &v10, 0xCu);
+        v8 = 138412290;
+        v9 = v6;
+        _os_log_impl(&dword_25D171000, v5, OS_LOG_TYPE_DEFAULT, "Reporting %@ to PPS", &v8, 0xCu);
       }
 
-      v7 = *(a1 + 56);
       PPSSendTelemetry();
     }
 
@@ -72,14 +69,12 @@ void __60___OSIBLMAnalyticsHandler_sendDataToPPS_subsystem_category___block_invo
 
   else
   {
-    v8 = [*(a1 + 32) log];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = [*(a1 + 32) log];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __60___OSIBLMAnalyticsHandler_sendDataToPPS_subsystem_category___block_invoke_cold_2();
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __54___OSIBLMAnalyticsHandler_historicalDrainDataForDate___block_invoke(uint64_t a1, void *a2)
@@ -348,13 +343,10 @@ LABEL_11:
 
 void __54___OSIBLMAnalyticsHandler_historicalDrainDataForDate___block_invoke_cold_1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   v2 = [v1 description];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_1(&dword_25D171000, v3, v4, "Error getting biome battery events - %@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_25D171000, v3, v4, "Error getting biome battery events - %@", v5, v6, v7, v8);
 }
 
 @end

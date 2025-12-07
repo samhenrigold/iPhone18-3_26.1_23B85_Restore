@@ -42,7 +42,7 @@
 
 - (id)idsIdentifiersForService:(id)service
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v5 = MEMORY[0x277CBEB58];
   users = [(ANMessengerDestination *)self users];
@@ -50,26 +50,26 @@
   accessories = [(ANMessengerDestination *)self accessories];
   v9 = [v5 setWithCapacity:{objc_msgSend(accessories, "count") + v7}];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   users2 = [(ANMessengerDestination *)self users];
-  v11 = [users2 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v11 = [users2 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v36;
+    v13 = *v35;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v36 != v13)
+        if (*v35 != v13)
         {
           objc_enumerationMutation(users2);
         }
 
-        v15 = *(*(&v35 + 1) + 8 * i);
+        v15 = *(*(&v34 + 1) + 8 * i);
         userIDSURI = [v15 userIDSURI];
 
         if (userIDSURI)
@@ -80,32 +80,32 @@
         }
       }
 
-      v12 = [users2 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v12 = [users2 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v12);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   accessories2 = [(ANMessengerDestination *)self accessories];
-  v20 = [accessories2 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v20 = [accessories2 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v32;
+    v22 = *v31;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v32 != v22)
+        if (*v31 != v22)
         {
           objc_enumerationMutation(accessories2);
         }
 
-        device = [*(*(&v31 + 1) + 8 * j) device];
+        device = [*(*(&v30 + 1) + 8 * j) device];
         v25 = [device IDSDestinationForIDSService:serviceCopy];
         destinationURIs = [v25 destinationURIs];
         anyObject = [destinationURIs anyObject];
@@ -116,7 +116,7 @@
         }
       }
 
-      v21 = [accessories2 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v21 = [accessories2 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v21);
@@ -124,14 +124,12 @@
 
   allObjects = [v9 allObjects];
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return allObjects;
 }
 
 - (id)participantsWithService:(id)service
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v4 = MEMORY[0x277CBEB18];
   users = [(ANMessengerDestination *)self users];
@@ -141,56 +139,56 @@
   devices = [(ANMessengerDestination *)self devices];
   v10 = [v4 arrayWithCapacity:{v8 + objc_msgSend(devices, "count")}];
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   selfCopy = self;
   users2 = [(ANMessengerDestination *)self users];
-  v12 = [users2 countByEnumeratingWithState:&v46 objects:v52 count:16];
+  v12 = [users2 countByEnumeratingWithState:&v45 objects:v51 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v47;
+    v14 = *v46;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v47 != v14)
+        if (*v46 != v14)
         {
           objc_enumerationMutation(users2);
         }
 
-        v16 = [objc_alloc(MEMORY[0x277CEABB0]) initWithUser:*(*(&v46 + 1) + 8 * i)];
+        v16 = [objc_alloc(MEMORY[0x277CEABB0]) initWithUser:*(*(&v45 + 1) + 8 * i)];
         [v10 addObject:v16];
       }
 
-      v13 = [users2 countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v13 = [users2 countByEnumeratingWithState:&v45 objects:v51 count:16];
     }
 
     while (v13);
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   obj = [(ANMessengerDestination *)selfCopy accessories];
-  v17 = [obj countByEnumeratingWithState:&v42 objects:v51 count:16];
+  v17 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v43;
+    v19 = *v42;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v43 != v19)
+        if (*v42 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v42 + 1) + 8 * j);
+        v21 = *(*(&v41 + 1) + 8 * j);
         v22 = [objc_alloc(MEMORY[0x277CEABB0]) initWithAccessory:v21];
         device = [v21 device];
         v24 = [device IDSDestinationForIDSService:serviceCopy];
@@ -205,49 +203,47 @@
         [v10 addObject:v22];
       }
 
-      v18 = [obj countByEnumeratingWithState:&v42 objects:v51 count:16];
+      v18 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
     }
 
     while (v18);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   devices2 = [(ANMessengerDestination *)selfCopy devices];
-  v28 = [devices2 countByEnumeratingWithState:&v38 objects:v50 count:16];
+  v28 = [devices2 countByEnumeratingWithState:&v37 objects:v49 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v39;
+    v30 = *v38;
     do
     {
       for (k = 0; k != v29; ++k)
       {
-        if (*v39 != v30)
+        if (*v38 != v30)
         {
           objc_enumerationMutation(devices2);
         }
 
-        v32 = [objc_alloc(MEMORY[0x277CEABB0]) initWithDevice:*(*(&v38 + 1) + 8 * k)];
+        v32 = [objc_alloc(MEMORY[0x277CEABB0]) initWithDevice:*(*(&v37 + 1) + 8 * k)];
         [v10 addObject:v32];
       }
 
-      v29 = [devices2 countByEnumeratingWithState:&v38 objects:v50 count:16];
+      v29 = [devices2 countByEnumeratingWithState:&v37 objects:v49 count:16];
     }
 
     while (v29);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (BOOL)addDeviceWithID:(id)d rapportConnection:(id)connection
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   connectionCopy = connection;
   mEMORY[0x277CEAB80] = [MEMORY[0x277CEAB80] sharedInstance];
@@ -255,28 +251,28 @@
 
   if (v9)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     devices = [connectionCopy devices];
     activeDevicesSupportingAnnounce = [devices activeDevicesSupportingAnnounce];
 
-    v12 = [activeDevicesSupportingAnnounce countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v12 = [activeDevicesSupportingAnnounce countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v25;
+      v14 = *v24;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v25 != v14)
+          if (*v24 != v14)
           {
             objc_enumerationMutation(activeDevicesSupportingAnnounce);
           }
 
-          v16 = *(*(&v24 + 1) + 8 * i);
+          v16 = *(*(&v23 + 1) + 8 * i);
           idsDeviceIdentifier = [v16 idsDeviceIdentifier];
           v18 = [idsDeviceIdentifier isEqualToString:dCopy];
 
@@ -293,7 +289,7 @@
           }
         }
 
-        v13 = [activeDevicesSupportingAnnounce countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v13 = [activeDevicesSupportingAnnounce countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v13)
         {
           continue;
@@ -312,7 +308,6 @@ LABEL_13:
     v19 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -370,34 +365,34 @@ LABEL_13:
 
 - (void)removeUser:(id)user
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   userCopy = user;
   if (userCopy)
   {
     users = [(ANMessengerDestination *)self users];
     v6 = [users mutableCopy];
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __37__ANMessengerDestination_removeUser___block_invoke;
-    v14[3] = &unk_278C871C8;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __37__ANMessengerDestination_removeUser___block_invoke;
+    v13[3] = &unk_278C871C8;
     v7 = userCopy;
-    v15 = v7;
-    v8 = [v6 indexOfObjectPassingTest:v14];
+    v14 = v7;
+    v8 = [v6 indexOfObjectPassingTest:v13];
     if (v8 != 0x7FFFFFFFFFFFFFFFLL)
     {
       v9 = v8;
-      v10 = ANLogHandleMessengerDestination();
+      v10 = ANLogHandleMessengerDestination(v8);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         userID = [v7 userID];
         uniqueIdentifier = [v7 uniqueIdentifier];
         *buf = 138412802;
-        v17 = &stru_2851BDB18;
-        v18 = 2112;
-        v19 = userID;
-        v20 = 2112;
-        v21 = uniqueIdentifier;
+        v16 = &stru_2851BDB18;
+        v17 = 2112;
+        v18 = userID;
+        v19 = 2112;
+        v20 = uniqueIdentifier;
         _os_log_impl(&dword_23F525000, v10, OS_LOG_TYPE_DEFAULT, "%@Removed User from Destination: %@, %@", buf, 0x20u);
       }
 
@@ -405,8 +400,6 @@ LABEL_13:
       [(ANMessengerDestination *)self setUsers:v6];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __37__ANMessengerDestination_removeUser___block_invoke(uint64_t a1, void *a2)
@@ -420,34 +413,34 @@ uint64_t __37__ANMessengerDestination_removeUser___block_invoke(uint64_t a1, voi
 
 - (void)removeDeviceWithID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (dCopy)
   {
     devices = [(ANMessengerDestination *)self devices];
     v6 = [devices mutableCopy];
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __45__ANMessengerDestination_removeDeviceWithID___block_invoke;
-    v14[3] = &unk_278C871C8;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __45__ANMessengerDestination_removeDeviceWithID___block_invoke;
+    v13[3] = &unk_278C871C8;
     v7 = dCopy;
-    v15 = v7;
-    v8 = [v6 indexOfObjectPassingTest:v14];
+    v14 = v7;
+    v8 = [v6 indexOfObjectPassingTest:v13];
     if (v8 != 0x7FFFFFFFFFFFFFFFLL)
     {
       v9 = v8;
       v10 = [v6 objectAtIndex:v8];
-      v11 = ANLogHandleMessengerDestination();
+      v11 = ANLogHandleMessengerDestination(v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         name = [v10 name];
         *buf = 138412802;
-        v17 = &stru_2851BDB18;
-        v18 = 2112;
-        v19 = name;
-        v20 = 2112;
-        v21 = v7;
+        v16 = &stru_2851BDB18;
+        v17 = 2112;
+        v18 = name;
+        v19 = 2112;
+        v20 = v7;
         _os_log_impl(&dword_23F525000, v11, OS_LOG_TYPE_DEFAULT, "%@Removed Device ID from Destination: %@, %@", buf, 0x20u);
       }
 
@@ -455,8 +448,6 @@ uint64_t __37__ANMessengerDestination_removeUser___block_invoke(uint64_t a1, voi
       [(ANMessengerDestination *)self setDevices:v6];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__ANMessengerDestination_removeDeviceWithID___block_invoke(uint64_t a1, void *a2)
@@ -469,7 +460,7 @@ uint64_t __45__ANMessengerDestination_removeDeviceWithID___block_invoke(uint64_t
 
 - (void)removeUser:(id)user rapportConnection:(id)connection
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   userCopy = user;
   connectionCopy = connection;
   [(ANMessengerDestination *)self removeUser:userCopy];
@@ -477,45 +468,43 @@ uint64_t __45__ANMessengerDestination_removeDeviceWithID___block_invoke(uint64_t
   activePersonalDevicesSupportingAnnounce = [devices activePersonalDevicesSupportingAnnounce];
   v10 = [activePersonalDevicesSupportingAnnounce personalDevicesForUser:userCopy];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       v15 = 0;
       do
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        idsDeviceIdentifier = [*(*(&v18 + 1) + 8 * v15) idsDeviceIdentifier];
+        idsDeviceIdentifier = [*(*(&v17 + 1) + 8 * v15) idsDeviceIdentifier];
         [(ANMessengerDestination *)self removeDeviceWithID:idsDeviceIdentifier];
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (id)relayDestinationForHome:(id)home rooms:(id)rooms rapportConnection:(id)connection error:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   roomsCopy = rooms;
   connectionCopy = connection;
@@ -552,43 +541,43 @@ uint64_t __45__ANMessengerDestination_removeDeviceWithID___block_invoke(uint64_t
 
   if (v21)
   {
-    v38 = roomsCopy;
+    v37 = roomsCopy;
     v22 = [ANMessengerDestination _destinationForAppleAccessories:v19 home:homeCopy rooms:roomsCopy rapportConnection:connectionCopy];
     devices = [v22 devices];
-    v24 = ANLogHandleMessengerDestination();
+    v24 = ANLogHandleMessengerDestination(devices);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v43 = &stru_2851BDB18;
-      v44 = 2048;
-      v45 = [devices count];
+      v42 = &stru_2851BDB18;
+      v43 = 2048;
+      v44 = [devices count];
       _os_log_impl(&dword_23F525000, v24, OS_LOG_TYPE_DEFAULT, "%@Checking (%lu) nearby Accessories for Relay Viability", buf, 0x16u);
     }
 
     if ([devices count])
     {
       firstObject = [devices firstObject];
-      v26 = ANLogHandleMessengerDestination();
+      v26 = ANLogHandleMessengerDestination(firstObject);
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v43 = &stru_2851BDB18;
-        v44 = 2112;
-        v45 = firstObject;
+        v42 = &stru_2851BDB18;
+        v43 = 2112;
+        v44 = firstObject;
         _os_log_impl(&dword_23F525000, v26, OS_LOG_TYPE_DEFAULT, "%@Relaying Announcement through Nearby Accessory (%@)", buf, 0x16u);
       }
 
       v27 = objc_opt_new();
       [v27 setHome:homeCopy];
-      v41 = firstObject;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
+      v40 = firstObject;
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
       [v27 setDevices:v28];
 
-      roomsCopy = v38;
+      roomsCopy = v37;
       goto LABEL_28;
     }
 
-    roomsCopy = v38;
+    roomsCopy = v37;
   }
 
   if (![homeCopy hmu_isRemoteAccessAllowedForCurrentUser])
@@ -610,14 +599,14 @@ LABEL_27:
   }
 
   v29 = [ANMessengerDestination _bestRemoteRelayAccessoryFromAccessories:v19 inHome:homeCopy];
-  v30 = ANLogHandleMessengerDestination();
+  v30 = ANLogHandleMessengerDestination(v29);
   v31 = v30;
   if (!v29)
   {
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v43 = &stru_2851BDB18;
+      v42 = &stru_2851BDB18;
       _os_log_impl(&dword_23F525000, v31, OS_LOG_TYPE_ERROR, "%@Failed to find Accessory for remote relay", buf, 0xCu);
     }
 
@@ -635,20 +624,19 @@ LABEL_27:
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v43 = &stru_2851BDB18;
-    v44 = 2112;
-    v45 = v29;
+    v42 = &stru_2851BDB18;
+    v43 = 2112;
+    v44 = v29;
     _os_log_impl(&dword_23F525000, v31, OS_LOG_TYPE_DEFAULT, "%@Relaying Announcement through Accessory %@", buf, 0x16u);
   }
 
   v27 = objc_opt_new();
   [v27 setHome:homeCopy];
-  v40 = v29;
-  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+  v39 = v29;
+  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
   [v27 setAccessories:v32];
 
 LABEL_28:
-  v36 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -757,27 +745,28 @@ uint64_t __80__ANMessengerDestination_relayDestinationForHome_rooms_rapportConne
   accessoriesCopy = accessories;
   connectionCopy = connection;
   v10 = [connectionCopy activateLinkWithOptions:2];
+  v11 = v10;
   if (v10)
   {
-    v11 = ANLogHandleMessengerDestination();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = ANLogHandleMessengerDestination(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
       v35 = &stru_2851BDB18;
       v36 = 2112;
-      v37 = v10;
-      _os_log_impl(&dword_23F525000, v11, OS_LOG_TYPE_ERROR, "%@Activate Rapport link failed with error: %@", buf, 0x16u);
+      v37 = v11;
+      _os_log_impl(&dword_23F525000, v12, OS_LOG_TYPE_ERROR, "%@Activate Rapport link failed with error: %@", buf, 0x16u);
     }
   }
 
   devices = [connectionCopy devices];
   activeAccessoryDevicesSupportingAnnounce = [devices activeAccessoryDevicesSupportingAnnounce];
 
-  v14 = objc_opt_new();
+  v15 = objc_opt_new();
   mEMORY[0x277CEAB80] = [MEMORY[0x277CEAB80] sharedInstance];
-  v16 = [mEMORY[0x277CEAB80] BOOLForDefault:*MEMORY[0x277CEA980]];
+  v17 = [mEMORY[0x277CEAB80] BOOLForDefault:*MEMORY[0x277CEA980]];
 
-  if (v16)
+  if (v17)
   {
     selfCopy = self;
     v28 = accessoriesCopy;
@@ -785,72 +774,70 @@ uint64_t __80__ANMessengerDestination_relayDestinationForHome_rooms_rapportConne
     v32 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v17 = accessoriesCopy;
-    v18 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
-    if (v18)
+    v18 = accessoriesCopy;
+    v19 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    if (v19)
     {
-      v19 = v18;
-      v20 = *v30;
+      v20 = v19;
+      v21 = *v30;
       do
       {
-        for (i = 0; i != v19; ++i)
+        for (i = 0; i != v20; ++i)
         {
-          if (*v30 != v20)
+          if (*v30 != v21)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v18);
           }
 
           uniqueIdentifier = [*(*(&v29 + 1) + 8 * i) uniqueIdentifier];
-          v23 = [activeAccessoryDevicesSupportingAnnounce objectForKey:uniqueIdentifier];
+          v24 = [activeAccessoryDevicesSupportingAnnounce objectForKey:uniqueIdentifier];
 
-          if (v23)
+          if (v24)
           {
-            [v14 addObject:v23];
+            [v15 addObject:v24];
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
-      while (v19);
+      while (v20);
     }
 
     accessoriesCopy = v28;
   }
 
-  v24 = objc_opt_new();
-  [v24 setDevices:v14];
+  v25 = objc_opt_new();
+  [v25 setDevices:v15];
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v25;
 }
 
 + (id)_bestRemoteRelayAccessoryFromAccessories:(id)accessories inHome:(id)home
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   homeCopy = home;
-  v7 = ANLogHandleMessengerDestination();
+  v7 = ANLogHandleMessengerDestination(homeCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v54 = &stru_2851BDB18;
-    v55 = 2048;
-    v56 = [accessoriesCopy count];
+    v55 = &stru_2851BDB18;
+    v56 = 2048;
+    v57 = [accessoriesCopy count];
     _os_log_impl(&dword_23F525000, v7, OS_LOG_TYPE_DEFAULT, "%@Checking (%lu) remote Accessories for Relay Viability", buf, 0x16u);
   }
 
   if ([accessoriesCopy count] == 1)
   {
-    v8 = ANLogHandleMessengerDestination();
+    v8 = ANLogHandleMessengerDestination(1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       firstObject = [accessoriesCopy firstObject];
       *buf = 138412546;
-      v54 = &stru_2851BDB18;
-      v55 = 2112;
-      v56 = firstObject;
+      v55 = &stru_2851BDB18;
+      v56 = 2112;
+      v57 = firstObject;
       _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "%@Selected Single Accessory: %@", buf, 0x16u);
     }
 
@@ -858,29 +845,30 @@ uint64_t __80__ANMessengerDestination_relayDestinationForHome_rooms_rapportConne
     goto LABEL_30;
   }
 
-  v42 = accessoriesCopy;
-  v43 = homeCopy;
-  v51 = 0u;
+  v43 = accessoriesCopy;
+  v44 = homeCopy;
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
+  v51 = 0u;
   obj = accessoriesCopy;
-  v11 = [obj countByEnumeratingWithState:&v49 objects:v63 count:16];
+  v11 = [obj countByEnumeratingWithState:&v50 objects:v64 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v50;
+    v13 = *v51;
     while (2)
     {
-      for (i = 0; i != v12; ++i)
+      v14 = 0;
+      do
       {
-        if (*v50 != v13)
+        if (*v51 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v49 + 1) + 8 * i);
-        v16 = ANLogHandleMessengerDestination();
+        v15 = *(*(&v50 + 1) + 8 * v14);
+        v16 = ANLogHandleMessengerDestination(v11);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           name = [v15 name];
@@ -889,15 +877,15 @@ uint64_t __80__ANMessengerDestination_relayDestinationForHome_rooms_rapportConne
           isControllable = [settings isControllable];
           supportsAnnounce = [v15 supportsAnnounce];
           *buf = 138413314;
-          v54 = &stru_2851BDB18;
-          v55 = 2112;
-          v56 = name;
-          v57 = 2112;
-          v58 = uniqueIdentifier;
-          v59 = 1024;
-          v60 = isControllable;
-          v61 = 1024;
-          v62 = supportsAnnounce;
+          v55 = &stru_2851BDB18;
+          v56 = 2112;
+          v57 = name;
+          v58 = 2112;
+          v59 = uniqueIdentifier;
+          v60 = 1024;
+          v61 = isControllable;
+          v62 = 1024;
+          v63 = supportsAnnounce;
           _os_log_impl(&dword_23F525000, v16, OS_LOG_TYPE_DEFAULT, "%@Checking if Accessory can Relay: %@, HomeKitID: %@, Controllable: %d, Announce Supported: %d", buf, 0x2Cu);
         }
 
@@ -906,23 +894,27 @@ uint64_t __80__ANMessengerDestination_relayDestinationForHome_rooms_rapportConne
 
         if (isControllable2)
         {
-          v37 = ANLogHandleMessengerDestination();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+          v38 = ANLogHandleMessengerDestination(v11);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v54 = &stru_2851BDB18;
-            v55 = 2112;
-            v56 = v15;
-            _os_log_impl(&dword_23F525000, v37, OS_LOG_TYPE_DEFAULT, "%@Found controllable accessory: %@", buf, 0x16u);
+            v55 = &stru_2851BDB18;
+            v56 = 2112;
+            v57 = v15;
+            _os_log_impl(&dword_23F525000, v38, OS_LOG_TYPE_DEFAULT, "%@Found controllable accessory: %@", buf, 0x16u);
           }
 
           firstObject2 = v15;
           goto LABEL_29;
         }
+
+        ++v14;
       }
 
-      v12 = [obj countByEnumeratingWithState:&v49 objects:v63 count:16];
-      if (v12)
+      while (v12 != v14);
+      v11 = [obj countByEnumeratingWithState:&v50 objects:v64 count:16];
+      v12 = v11;
+      if (v11)
       {
         continue;
       }
@@ -936,72 +928,73 @@ uint64_t __80__ANMessengerDestination_relayDestinationForHome_rooms_rapportConne
 
   if (v25)
   {
-    v26 = ANLogHandleMessengerDestination();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v27 = ANLogHandleMessengerDestination(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v54 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v26, OS_LOG_TYPE_DEFAULT, "%@Checking Residents for Relay", buf, 0xCu);
+      v55 = &stru_2851BDB18;
+      _os_log_impl(&dword_23F525000, v27, OS_LOG_TYPE_DEFAULT, "%@Checking Residents for Relay", buf, 0xCu);
     }
 
-    residentDevices = [v43 residentDevices];
-    v28 = [residentDevices na_filter:&__block_literal_global_17];
+    residentDevices = [v44 residentDevices];
+    v29 = [residentDevices na_filter:&__block_literal_global_17];
 
-    v29 = MEMORY[0x277CD1650];
-    accessories = [v43 accessories];
-    v31 = [v29 appleAnnounceHostAccessoriesFromAccessories:accessories];
+    v30 = MEMORY[0x277CD1650];
+    accessories = [v44 accessories];
+    v32 = [v30 appleAnnounceHostAccessoriesFromAccessories:accessories];
 
-    v32 = [v28 na_firstObjectPassingTest:&__block_literal_global_19];
-    v33 = v32;
-    if (v32)
+    v33 = [v29 na_firstObjectPassingTest:&__block_literal_global_19];
+    v34 = v33;
+    if (v33)
     {
-      v47[0] = MEMORY[0x277D85DD0];
-      v47[1] = 3221225472;
-      v47[2] = __74__ANMessengerDestination__bestRemoteRelayAccessoryFromAccessories_inHome___block_invoke_3;
-      v47[3] = &unk_278C87230;
-      v48 = v32;
-      v34 = [v31 na_firstObjectPassingTest:v47];
-      if (v34)
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = __74__ANMessengerDestination__bestRemoteRelayAccessoryFromAccessories_inHome___block_invoke_3;
+      v48[3] = &unk_278C87230;
+      v49 = v33;
+      v35 = [v32 na_firstObjectPassingTest:v48];
+      if (v35)
       {
-        firstObject2 = v34;
-        v35 = ANLogHandleMessengerDestination();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        firstObject2 = v35;
+        v36 = ANLogHandleMessengerDestination(v35);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v54 = &stru_2851BDB18;
-          v55 = 2112;
-          v56 = firstObject2;
-          _os_log_impl(&dword_23F525000, v35, OS_LOG_TYPE_DEFAULT, "%@Selected Primary Resident in Target List: %@", buf, 0x16u);
+          v55 = &stru_2851BDB18;
+          v56 = 2112;
+          v57 = firstObject2;
+          _os_log_impl(&dword_23F525000, v36, OS_LOG_TYPE_DEFAULT, "%@Selected Primary Resident in Target List: %@", buf, 0x16u);
         }
 
-        v36 = v48;
-        homeCopy = v43;
+        v37 = v49;
+        homeCopy = v44;
 LABEL_39:
 
-        accessoriesCopy = v42;
+        accessoriesCopy = v43;
         goto LABEL_30;
       }
     }
 
-    v40 = [v28 na_map:{&__block_literal_global_24, v42}];
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __74__ANMessengerDestination__bestRemoteRelayAccessoryFromAccessories_inHome___block_invoke_2_25;
-    v45[3] = &unk_278C87230;
-    v46 = v40;
-    v36 = v40;
-    firstObject2 = [v31 na_firstObjectPassingTest:v45];
-    homeCopy = v43;
-    if (firstObject2)
+    v40 = [v29 na_map:{&__block_literal_global_24, v43}];
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __74__ANMessengerDestination__bestRemoteRelayAccessoryFromAccessories_inHome___block_invoke_2_25;
+    v46[3] = &unk_278C87230;
+    v47 = v40;
+    v37 = v40;
+    v41 = [v32 na_firstObjectPassingTest:v46];
+    firstObject2 = v41;
+    homeCopy = v44;
+    if (v41)
     {
-      v41 = ANLogHandleMessengerDestination();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+      v42 = ANLogHandleMessengerDestination(v41);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v54 = &stru_2851BDB18;
-        v55 = 2112;
-        v56 = firstObject2;
-        _os_log_impl(&dword_23F525000, v41, OS_LOG_TYPE_DEFAULT, "%@Selected any Announce-capable Accessory: %@", buf, 0x16u);
+        v55 = &stru_2851BDB18;
+        v56 = 2112;
+        v57 = firstObject2;
+        _os_log_impl(&dword_23F525000, v42, OS_LOG_TYPE_DEFAULT, "%@Selected any Announce-capable Accessory: %@", buf, 0x16u);
       }
     }
 
@@ -1010,11 +1003,9 @@ LABEL_39:
 
   firstObject2 = 0;
 LABEL_29:
-  accessoriesCopy = v42;
-  homeCopy = v43;
+  accessoriesCopy = v43;
+  homeCopy = v44;
 LABEL_30:
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return firstObject2;
 }

@@ -230,7 +230,7 @@ id __120__SBSystemShellExternalDisplaySceneManager_initWithReference_sceneIdenti
   v12 = [(SBSystemShellExternalDisplaySceneManager *)self existingSceneHandleForScene:_sceneCopy];
   settings = [_sceneCopy settings];
   externalForegroundApplicationSceneHandles = [(SBSystemShellExternalDisplaySceneManager *)self externalForegroundApplicationSceneHandles];
-  v15 = [externalForegroundApplicationSceneHandles containsObject:v12];
+  v15 = objc_msgSend_containsObject_(externalForegroundApplicationSceneHandles);
 
   if (v12 && v15)
   {
@@ -248,7 +248,7 @@ id __120__SBSystemShellExternalDisplaySceneManager_initWithReference_sceneIdenti
   {
     v21 = isForeground2;
     externalApplicationSceneHandles = [(SBSystemShellExternalDisplaySceneManager *)self externalApplicationSceneHandles];
-    v23 = [externalApplicationSceneHandles containsObject:v12];
+    v23 = objc_msgSend_containsObject_(externalApplicationSceneHandles);
 
     if (!(v21 & 1 | ((isForeground & 1) == 0)) && v23 && ([v12 shouldAlwaysDisplayLiveContent] & 1) == 0)
     {
@@ -374,7 +374,7 @@ id __120__SBSystemShellExternalDisplaySceneManager_initWithReference_sceneIdenti
     }
 
     appsRegisteredForVolumeEvents = [SBApp appsRegisteredForVolumeEvents];
-    v10 = [appsRegisteredForVolumeEvents containsObject:v7];
+    v10 = objc_msgSend_containsObject_(appsRegisteredForVolumeEvents);
 
     if (v10)
     {
@@ -382,7 +382,7 @@ id __120__SBSystemShellExternalDisplaySceneManager_initWithReference_sceneIdenti
     }
 
     appsRegisteredForLockButtonEvents = [SBApp appsRegisteredForLockButtonEvents];
-    v12 = [appsRegisteredForLockButtonEvents containsObject:v7];
+    v12 = objc_msgSend_containsObject_(appsRegisteredForLockButtonEvents);
 
     if (v12)
     {
@@ -726,7 +726,7 @@ void __80__SBSystemShellExternalDisplaySceneManager__appSceneClientSettingsDiffI
   if (v4)
   {
     externalForegroundApplicationSceneHandles = [(SBSystemShellExternalDisplaySceneManager *)self externalForegroundApplicationSceneHandles];
-    v6 = [externalForegroundApplicationSceneHandles containsObject:v4];
+    v6 = objc_msgSend_containsObject_(externalForegroundApplicationSceneHandles);
   }
 
   else

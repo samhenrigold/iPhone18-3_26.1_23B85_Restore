@@ -72,7 +72,7 @@
   dispatch_sync(cancelQueue, block);
 }
 
-uint64_t __34__VCPMADVIUserFeedbackTask_cancel__block_invoke(uint64_t a1)
+void *__34__VCPMADVIUserFeedbackTask_cancel__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 56) cancel];
   atomic_store(1u, (*(a1 + 32) + 48));
@@ -130,7 +130,7 @@ uint64_t __34__VCPMADVIUserFeedbackTask_cancel__block_invoke(uint64_t a1)
 
 void __31__VCPMADVIUserFeedbackTask_run__block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v2 = atomic_load((*(a1 + 32) + 48));
   if (v2)
   {
@@ -148,24 +148,24 @@ void __31__VCPMADVIUserFeedbackTask_run__block_invoke(uint64_t a1)
     v4 = objc_alloc(MEMORY[0x1E69E0460]);
     [*(*(a1 + 32) + 16) resolution];
     v5 = [v4 initWithImageLoader:v3 imageSize:?];
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x3032000000;
-    v36 = __Block_byref_object_copy__63;
-    v37 = __Block_byref_object_dispose__63;
-    v38 = objc_alloc_init(VCPTimeMeasurement);
-    [v34[5] start];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __31__VCPMADVIUserFeedbackTask_run__block_invoke_345;
-    v29[3] = &unk_1E8351488;
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x3032000000;
+    v38 = __Block_byref_object_copy__63;
+    v39 = __Block_byref_object_dispose__63;
+    v40 = objc_alloc_init(VCPTimeMeasurement);
+    objc_msgSend_start(v36[5]);
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __31__VCPMADVIUserFeedbackTask_run__block_invoke_345;
+    v31[3] = &unk_1E8351488;
     v6 = *(a1 + 40);
     v7 = *(a1 + 32);
-    v31 = &v33;
-    v29[4] = v7;
-    v32 = *(a1 + 56);
-    v30 = v6;
-    v8 = _Block_copy(v29);
+    v33 = &v35;
+    v31[4] = v7;
+    v34 = *(a1 + 56);
+    v32 = v6;
+    v8 = _Block_copy(v31);
     dispatch_group_enter(*(a1 + 40));
     v9 = objc_alloc(MEMORY[0x1E69E04C0]);
     v10 = [*(*(a1 + 32) + 8) userFeedbackPayload];
@@ -173,36 +173,36 @@ void __31__VCPMADVIUserFeedbackTask_run__block_invoke(uint64_t a1)
     v12 = [*(*(a1 + 32) + 8) reportIdentifier];
     v13 = [v9 initWithImage:v5 userFeedbackPayload:v10 sfReportData:v11 reportIdentifier:v12];
 
-    v14 = VCPSignPostLog();
-    v15 = os_signpost_id_generate(v14);
+    v15 = VCPSignPostLog(v14);
+    v16 = os_signpost_id_generate(v15);
 
-    v16 = VCPSignPostLog();
-    v17 = v16;
-    if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+    v18 = VCPSignPostLog(v17);
+    v19 = v18;
+    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
-      v18 = *(*(a1 + 32) + 24);
+      v20 = *(*(a1 + 32) + 24);
       *buf = 138412290;
-      v41 = v18;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v15, "VIService_UserFeedback", "%@", buf, 0xCu);
+      v43 = v20;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v16, "VIService_UserFeedback", "%@", buf, 0xCu);
     }
 
-    v19 = [*(a1 + 48) service];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __31__VCPMADVIUserFeedbackTask_run__block_invoke_350;
-    v25[3] = &unk_1E83514B0;
-    v20 = *(a1 + 32);
-    v27 = v15;
-    v28 = 0;
-    v25[4] = v20;
-    v21 = v8;
-    v26 = v21;
-    v22 = [v19 submitUserFeedback:v13 completion:v25];
-    v23 = *(a1 + 32);
-    v24 = *(v23 + 56);
-    *(v23 + 56) = v22;
+    v21 = [*(a1 + 48) service];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __31__VCPMADVIUserFeedbackTask_run__block_invoke_350;
+    v27[3] = &unk_1E83514B0;
+    v22 = *(a1 + 32);
+    v29 = v16;
+    v30 = 0;
+    v27[4] = v22;
+    v23 = v8;
+    v28 = v23;
+    v24 = [v21 submitUserFeedback:v13 completion:v27];
+    v25 = *(a1 + 32);
+    v26 = *(v25 + 56);
+    *(v25 + 56) = v24;
 
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v35, 8);
   }
 }
 
@@ -270,23 +270,23 @@ void __31__VCPMADVIUserFeedbackTask_run__block_invoke_345(uint64_t a1, void *a2)
 
 void __31__VCPMADVIUserFeedbackTask_run__block_invoke_350(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = VCPSignPostLog();
+  v4 = VCPSignPostLog(v3);
   v5 = v4;
   v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     v7 = *(a1[4] + 24);
-    v8 = 138412290;
-    v9 = v7;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v5, OS_SIGNPOST_INTERVAL_END, v6, "VIService_UserFeedback", "%@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = v7;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v5, OS_SIGNPOST_INTERVAL_END, v6, "VIService_UserFeedback", "%@", &v9, 0xCu);
   }
 
   if (a1[7])
   {
-    mach_absolute_time();
-    VCPPerformance_LogMeasurement();
+    v8 = mach_absolute_time();
+    VCPPerformance_LogMeasurement("VIService_UserFeedback", v8 - a1[7]);
   }
 
   (*(a1[5] + 16))();

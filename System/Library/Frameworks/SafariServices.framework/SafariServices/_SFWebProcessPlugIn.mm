@@ -12,9 +12,9 @@
 - (void)webProcessPlugIn:(id)in initializeWithObject:(id)object
 {
   inCopy = in;
-  v20.receiver = self;
-  v20.super_class = _SFWebProcessPlugIn;
-  [(WBSWebProcessPlugIn *)&v20 webProcessPlugIn:inCopy initializeWithObject:object];
+  v21.receiver = self;
+  v21.super_class = _SFWebProcessPlugIn;
+  [(WBSWebProcessPlugIn *)&v21 webProcessPlugIn:inCopy initializeWithObject:object];
   parameters = [inCopy parameters];
   v8 = [parameters valueForKey:@"JavaScriptConsoleOutputURLBookmarkData"];
 
@@ -22,14 +22,14 @@
   if (objc_opt_isKindOfClass())
   {
     v9 = [MEMORY[0x1E695DFF8] URLByResolvingBookmarkData:v8 options:0 relativeToURL:0 bookmarkDataIsStale:0 error:0];
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __61___SFWebProcessPlugIn_webProcessPlugIn_initializeWithObject___block_invoke;
-    v17 = &unk_1E848F9B0;
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = __61___SFWebProcessPlugIn_webProcessPlugIn_initializeWithObject___block_invoke;
+    v18 = &unk_1E848F9B0;
     selfCopy = self;
     v10 = v9;
-    v19 = v10;
-    [v10 safari_accessingSecurityScopedResource:&v14];
+    v20 = v10;
+    [v10 safari_accessingSecurityScopedResource:&v15];
     javaScriptConsoleOutputFile = self->_javaScriptConsoleOutputFile;
     if (javaScriptConsoleOutputFile)
     {
@@ -38,10 +38,10 @@
 
     else
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXExtensions();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = WBS_LOG_CHANNEL_PREFIXExtensions(0, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [_SFWebProcessPlugIn webProcessPlugIn:v10 initializeWithObject:v12];
+        [_SFWebProcessPlugIn webProcessPlugIn:v10 initializeWithObject:v13];
       }
     }
   }

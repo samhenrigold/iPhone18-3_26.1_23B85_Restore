@@ -1,196 +1,6 @@
-uint64_t ashp::acipc::acipc_driver::will_set_transport(ashp::acipc::acipc_driver *this, uint64_t a2, uint64_t a3, const char *a4)
+void ashp::acipc::acipc_driver::handle_exit_reset(os_unfair_lock *this)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v5 = *(this + 24);
-  v6 = *(this + 715);
-  if (v6)
-  {
-    v7 = *ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v6, a2, a3, a4);
-    if (v7)
-    {
-      CStringPtr = CFStringGetCStringPtr(v7, 0x8000100u);
-      if (CStringPtr)
-      {
-        v9 = CStringPtr;
-      }
-
-      else
-      {
-        v9 = "???";
-      }
-    }
-
-    else
-    {
-      v9 = "(nil)";
-    }
-  }
-
-  else
-  {
-    v9 = "<nil>";
-  }
-
-  v10 = *(this + 716);
-  if (v10)
-  {
-    v10 = *ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v10, a2, a3, a4);
-    if (v10)
-    {
-      v10 = CFStringGetCStringPtr(v10, 0x8000100u);
-      if (v10)
-      {
-        v11 = v10;
-      }
-
-      else
-      {
-        v11 = "???";
-      }
-    }
-
-    else
-    {
-      v11 = "(nil)";
-    }
-  }
-
-  else
-  {
-    v11 = "<nil>";
-  }
-
-  log_level = ashp::detail::logging::get_log_level(v10);
-  if (log_level >= 4)
-  {
-    log_level = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-    if (log_level)
-    {
-      *buf = 136447490;
-      v20 = "acipc_driver.cpp";
-      v21 = 1024;
-      v22 = 221;
-      v23 = 2082;
-      v24 = "will_set_transport";
-      v25 = 1024;
-      *v26 = v5;
-      *&v26[4] = 2080;
-      *&v26[6] = v9;
-      v27 = 2080;
-      v28 = v11;
-      _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] reset=%u, boot_state=%s, ipc_state=%s", buf, 0x36u);
-    }
-  }
-
-  if (ashp::detail::logging::get_log_level(log_level))
-  {
-    if (airship_platform_get_global_logger::once != -1)
-    {
-      dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
-    }
-
-    ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] reset=%u, boot_state=%s, ipc_state=%s", "acipc_driver.cpp", 221, "will_set_transport", v5, v9, v11);
-  }
-
-  os_unfair_lock_assert_owner(this + 2);
-  if (*(this + 24))
-  {
-    goto LABEL_23;
-  }
-
-  exec_stage_register = ashp::acipc::acipc_driver::read_exec_stage_register(this);
-  v15 = ashp::acipc::acipc_driver::exec_stage_would_cause_ipc_teardown(this, exec_stage_register);
-  if (v15)
-  {
-    ashp::acipc::acipc_driver::teardown_current_ipc_stage(this);
-    *(this + 714) = 0;
-    ashp::driver::update_exec_stage(this, 0xFFFFFFFF);
-  }
-
-  if (*(this + 715))
-  {
-    v16 = "boot";
-  }
-
-  else
-  {
-    if (!*(this + 716))
-    {
-LABEL_23:
-      result = 0;
-      goto LABEL_38;
-    }
-
-    v16 = "main";
-  }
-
-  v17 = ashp::detail::logging::get_log_level(v15);
-  if (v17 >= 1)
-  {
-    v17 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-    if (v17)
-    {
-      *buf = 136446978;
-      v20 = "acipc_driver.cpp";
-      v21 = 1024;
-      v22 = 236;
-      v23 = 2082;
-      v24 = "will_set_transport";
-      v25 = 2080;
-      *v26 = v16;
-      _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] cannot set transport, %s ipc stage is not null", buf, 0x26u);
-    }
-  }
-
-  if (ashp::detail::logging::get_log_level(v17))
-  {
-    if (airship_platform_get_global_logger::once != -1)
-    {
-      dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
-    }
-
-    ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] cannot set transport, %s ipc stage is not null", "acipc_driver.cpp", 236, "will_set_transport", v16);
-  }
-
-  ashp::acipc::acipc_driver::update_ipc_driver_debug_state(this);
-  result = 3758097112;
-LABEL_38:
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *ashp::acipc::acipc_driver::exec_stage_would_cause_ipc_teardown(const os_unfair_lock *this, int a2)
-{
-  os_unfair_lock_assert_owner(this + 2);
-  v4 = *&this[1428]._os_unfair_lock_opaque;
-  if (!v4 || *(v4 + 8) == a2)
-  {
-    return 0;
-  }
-
-  result = ashp::acipc::acipc_driver::find_exec_stage_with_value(this, a2);
-  if (result)
-  {
-    v9 = *ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(result, v6, v7, v8);
-    current_ipc_stage_name = ashp::acipc::acipc_driver::get_current_ipc_stage_name(this);
-    v11 = (v9 | current_ipc_stage_name) == 0;
-    if (v9)
-    {
-      if (current_ipc_stage_name)
-      {
-        v11 = CFStringCompare(v9, current_ipc_stage_name, 0) == kCFCompareEqualTo;
-      }
-    }
-
-    return !v11;
-  }
-
-  return result;
-}
-
-void ashp::acipc::acipc_driver::handle_exit_reset(const os_unfair_lock *this)
-{
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(this + 2);
   log_level = ashp::detail::logging::get_log_level(v2);
   if (log_level >= 3)
@@ -199,11 +9,11 @@ void ashp::acipc::acipc_driver::handle_exit_reset(const os_unfair_lock *this)
     if (log_level)
     {
       *buf = 136446722;
-      v6 = "acipc_driver.cpp";
-      v7 = 1024;
-      v8 = 212;
-      v9 = 2082;
-      v10 = "handle_exit_reset";
+      v5 = "acipc_driver.cpp";
+      v6 = 1024;
+      v7 = 212;
+      v8 = 2082;
+      v9 = "handle_exit_reset";
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] probing exec stage register", buf, 0x1Cu);
     }
   }
@@ -219,12 +29,11 @@ void ashp::acipc::acipc_driver::handle_exit_reset(const os_unfair_lock *this)
   }
 
   ashp::acipc::acipc_driver::probe_exec_stage_register_if_ready(this);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-void ashp::acipc::acipc_driver::handle_enter_reset(os_unfair_lock_s *this)
+void ashp::acipc::acipc_driver::handle_enter_reset(os_unfair_lock *this)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(this + 2);
   log_level = ashp::detail::logging::get_log_level(v2);
   if (log_level >= 4)
@@ -233,11 +42,11 @@ void ashp::acipc::acipc_driver::handle_enter_reset(os_unfair_lock_s *this)
     if (log_level)
     {
       *buf = 136446722;
-      v6 = "acipc_driver.cpp";
-      v7 = 1024;
-      v8 = 202;
-      v9 = 2082;
-      v10 = "handle_enter_reset";
+      v5 = "acipc_driver.cpp";
+      v6 = 1024;
+      v7 = 202;
+      v8 = 2082;
+      v9 = "handle_enter_reset";
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] tearing down current ipc stage", buf, 0x1Cu);
     }
   }
@@ -255,48 +64,47 @@ void ashp::acipc::acipc_driver::handle_enter_reset(os_unfair_lock_s *this)
   ashp::acipc::acipc_driver::teardown_current_ipc_stage(this);
   *&this[1428]._os_unfair_lock_opaque = 0;
   ashp::driver::update_exec_stage(this, 0xFFFFFFFF);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ashp::acipc::acipc_driver::handle_activate(const os_unfair_lock *this)
 {
   v2 = this;
-  v344 = *MEMORY[0x277D85DE8];
+  v342 = *MEMORY[0x277D85DE8];
   theString = 0;
-  v256 = 0;
+  v255 = 0;
   os_unfair_lock_assert_owner(this + 2);
   v4 = (v2 + 16);
   v5 = *(v2 + 16);
   if (v5)
   {
     p_theString = &theString;
-    v259[0] = 0;
-    v6 = v259;
-    memset(&v259[8], 0, 32);
-    v257[0] = &p_theString;
-    v257[1] = v259;
-    v258 = 1;
-    *(&v322 + 1) = 0;
-    v323 = 0;
-    v326 = 0;
-    v329 = 0;
-    LOBYTE(v330) = 0;
-    HIDWORD(v330) = 0;
-    LOBYTE(v331) = 0;
+    LOBYTE(v258[0]) = 0;
+    v6 = v258;
+    memset(&v258[1], 0, 32);
+    v256[0] = &p_theString;
+    v256[1] = v258;
+    v257 = 1;
+    *(&v320 + 1) = 0;
+    v321 = 0;
+    v324 = 0;
+    v327 = 0;
+    LOBYTE(v328) = 0;
+    HIDWORD(v328) = 0;
+    LOBYTE(v329) = 0;
+    v332 = 0;
+    v333 = 0;
     v334 = 0;
-    v335 = 0;
-    v336 = 0;
-    v7 = &v337;
+    v7 = &v335;
     memset(buf, 0, sizeof(buf));
+    memset(v317, 0, sizeof(v317));
+    v318 = 0u;
     memset(v319, 0, sizeof(v319));
-    v320 = 0u;
-    memset(v321, 0, sizeof(v321));
-    memset(v342, 0, sizeof(v342));
-    v341 = 0u;
-    v339 = 0u;
     memset(v340, 0, sizeof(v340));
-    memset(v338, 0, sizeof(v338));
+    v339 = 0u;
     v337 = 0u;
+    memset(v338, 0, sizeof(v338));
+    memset(v336, 0, sizeof(v336));
+    v335 = 0u;
     v8 = CFGetTypeID(v5);
     if (v8 != CFDictionaryGetTypeID())
     {
@@ -305,24 +113,24 @@ uint64_t ashp::acipc::acipc_driver::handle_activate(const os_unfair_lock *this)
 
     if (!v5)
     {
-      set_error(v259, "unexpected object type", 0, v9, v10);
-      goto LABEL_12;
-    }
-
-    v275 = 0;
-    if (!parse_field<&(parse_symbol(ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>(buf, v5, @"protocol", v259) || !parse_field<&(parse_symbol(ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>(&buf[8], v5, @"vendor", v259) || !parse_field<&(parse_symbol(ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>(&buf[16], v5, @"chipset", v259))
-    {
+      set_error(v258, "unexpected object type", 0, v9, v10);
       goto LABEL_12;
     }
 
     v274 = 0;
+    if (!parse_field<&(parse_symbol(ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>(buf, v5, @"protocol", v258) || !parse_field<&(parse_symbol(ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>(&buf[8], v5, @"vendor", v258) || !parse_field<&(parse_symbol(ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>(&buf[16], v5, @"chipset", v258))
+    {
+      goto LABEL_12;
+    }
+
+    v273 = 0;
     value = ashp::boxed::dictionary::get_value(v5, @"role", v12, v13);
     if (!value)
     {
       goto LABEL_68;
     }
 
-    if (parse_symbol(&buf[24], value, v259, v17, v18))
+    if (parse_symbol(&buf[24], value, v258, v17, v18))
     {
       v1 = 1;
       v22 = 1;
@@ -330,71 +138,71 @@ uint64_t ashp::acipc::acipc_driver::handle_activate(const os_unfair_lock *this)
 
     else
     {
-      set_error_location(v259, @"role", v20, v21);
+      set_error_location(v258, @"role", v20, v21);
       v22 = 0;
       v1 = 1;
     }
 
     while (1)
     {
-      ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v274, v19, v20, v21);
+      ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v273, v19, v20, v21);
       if ((v22 & 1) == 0)
       {
         goto LABEL_12;
       }
 
-      v272[0] = 0;
-      v272[1] = 0;
-      v273 = 0;
-      v80 = ashp::boxed::dictionary::get_value(v5, @"interrupts", v12, v13);
-      v84 = v80;
+      v271[0] = 0;
+      v271[1] = 0;
+      v272 = 0;
+      v79 = ashp::boxed::dictionary::get_value(v5, @"interrupts", v12, v13);
+      v83 = v79;
       v47 = &buf[32];
-      if (v80)
+      if (v79)
       {
-        v278 = &buf[32];
-        v277 = v259;
+        v277 = &buf[32];
+        v276 = v258;
         if (*&buf[32])
         {
-          ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "configurator.cpp", 0x15B, "parse_dict", v83);
+          ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "configurator.cpp", 0x15B, "parse_dict", v82);
           _os_crash();
           __break(1u);
 LABEL_126:
           v2 = "BUG in Airship: ";
-          ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "dynamic_array.hpp", 0xC2, "operator=", v83);
+          ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "dynamic_array.hpp", 0xC2, "operator=", v82);
           _os_crash();
           __break(1u);
 LABEL_127:
-          set_error(v259, "missing object", "driver_ioservice_params", v175, v176);
+          set_error(v258, "missing object", "driver_ioservice_params", v174, v175);
           goto LABEL_12;
         }
 
-        v1 = CFGetTypeID(v80);
+        v1 = CFGetTypeID(v79);
         if (v1 != CFDictionaryGetTypeID())
         {
-          v84 = 0;
+          v83 = 0;
         }
 
-        if (!v84)
+        if (!v83)
         {
-          set_error(v259, "unexpected object type", 0, v87, v88);
+          set_error(v258, "unexpected object type", 0, v86, v87);
 LABEL_83:
-          set_error_location(v259, @"interrupts", v94, v95);
-          ashp::detail::dynamic_array::storage<ashp::acipc::config::interrupt_spec>::~storage(v272, v106, v107, v108, v109);
+          set_error_location(v258, @"interrupts", v93, v94);
+          ashp::detail::dynamic_array::storage<ashp::acipc::config::interrupt_spec>::~storage(v271, v105, v106, v107, v108);
           goto LABEL_12;
         }
 
-        v276 = 0;
-        v89 = ashp::boxed::dictionary::count(v84, v85, v86, v87);
-        if (*&buf[40] < v89)
+        v275 = 0;
+        v88 = ashp::boxed::dictionary::count(v83, v84, v85, v86);
+        if (*&buf[40] < v88)
         {
-          ashp::detail::dynamic_array::storage<ashp::acipc::config::interrupt_spec>::set_capacity(&buf[32], v89, v90, v91, v92);
+          ashp::detail::dynamic_array::storage<ashp::acipc::config::interrupt_spec>::set_capacity(&buf[32], v88, v89, v90, v91);
         }
 
-        *&context = &v276;
-        *(&context + 1) = &v277;
-        *&v280 = &v278;
-        CFDictionaryApplyFunction(v84, iterate_dict<BOOL parse_dict<&(ashp::acipc::config::interrupt_spec::parse(ashp::acipc::config::interrupt_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::interrupt_spec>(ashp::dynamic_array<ashp::acipc::config::interrupt_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)::{lambda(ashp::boxed::object,ashp::boxed::object)#1},0>(ashp::boxed::dictionary,BOOL parse_dict<&(ashp::acipc::config::interrupt_spec::parse(ashp::acipc::config::interrupt_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::interrupt_spec>(ashp::dynamic_array<ashp::acipc::config::interrupt_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)::{lambda(ashp::boxed::object,ashp::boxed::object)#1})::{lambda(void const*,void const*,void *)#1}::__invoke, &context);
-        if (v276 == 1)
+        *&context = &v275;
+        *(&context + 1) = &v276;
+        *&v279[0] = &v277;
+        CFDictionaryApplyFunction(v83, iterate_dict<BOOL parse_dict<&(ashp::acipc::config::interrupt_spec::parse(ashp::acipc::config::interrupt_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::interrupt_spec>(ashp::dynamic_array<ashp::acipc::config::interrupt_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)::{lambda(ashp::boxed::object,ashp::boxed::object)#1},0>(ashp::boxed::dictionary,BOOL parse_dict<&(ashp::acipc::config::interrupt_spec::parse(ashp::acipc::config::interrupt_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::interrupt_spec>(ashp::dynamic_array<ashp::acipc::config::interrupt_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)::{lambda(ashp::boxed::object,ashp::boxed::object)#1})::{lambda(void const*,void const*,void *)#1}::__invoke, &context);
+        if (v275 == 1)
         {
           goto LABEL_83;
         }
@@ -402,171 +210,171 @@ LABEL_83:
 
       else
       {
-        v97 = v272[0];
-        if (v272[0] <= *&buf[40])
+        v96 = v271[0];
+        if (v271[0] <= *&buf[40])
         {
 LABEL_85:
-          v253 = v47;
-          v110 = *&buf[32];
-          if (v97 < *&buf[32])
+          v252 = v47;
+          v109 = *&buf[32];
+          if (v96 < *&buf[32])
           {
-            v110 = v97;
+            v109 = v96;
           }
 
-          v254 = v110;
-          if (v319[0])
+          v253 = v109;
+          if (v317[0])
           {
-            if (!v273 && v110)
+            if (!v272 && v109)
             {
               goto LABEL_126;
             }
 
-            if (v110)
+            if (v109)
             {
-              v111 = 0;
-              v112 = v110;
+              v110 = 0;
+              v111 = v109;
               do
               {
-                v113 = v273;
-                v114 = v319[0];
-                ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&context, *(v273 + v111), v81, v82);
-                v115 = *(v114 + v111);
-                *(v114 + v111) = context;
-                *&context = v115;
-                ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&context, v116, v117, v118);
-                ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v278, *(v113 + v111 + 8), v119, v120);
-                v121 = v114 + v111;
-                v122 = *(v121 + 8);
-                *(v121 + 8) = v278;
-                v278 = v122;
-                ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v278, v123, v124, v125);
-                *(v121 + 16) = *(v113 + v111 + 16);
-                v111 += 24;
-                --v112;
+                v112 = v272;
+                v113 = v317[0];
+                ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&context, *(v272 + v110), v80, v81);
+                v114 = *(v113 + v110);
+                *(v113 + v110) = context;
+                *&context = v114;
+                ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&context, v115, v116, v117);
+                ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v277, *(v112 + v110 + 8), v118, v119);
+                v120 = v113 + v110;
+                v121 = *(v120 + 8);
+                *(v120 + 8) = v277;
+                v277 = v121;
+                ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v277, v122, v123, v124);
+                *(v120 + 16) = *(v112 + v110 + 16);
+                v110 += 24;
+                --v111;
               }
 
-              while (v112);
+              while (v111);
             }
           }
 
-          else if (v110)
+          else if (v109)
           {
             goto LABEL_126;
           }
 
-          ashp::detail::dynamic_array::storage<ashp::acipc::config::interrupt_spec>::reduce_size(v253, v254, v81, v82, v83);
-          ashp::detail::dynamic_array::storage<ashp::acipc::config::interrupt_spec>::append(v253, v273 + 24 * v254, v272[0] - v254, v126, v127);
+          ashp::detail::dynamic_array::storage<ashp::acipc::config::interrupt_spec>::reduce_size(v252, v253, v80, v81, v82);
+          ashp::detail::dynamic_array::storage<ashp::acipc::config::interrupt_spec>::append(v252, v272 + 24 * v253, v271[0] - v253, v125, v126);
         }
 
         else
         {
           *&context = 0;
-          ashp::detail::dynamic_array::buffer<ashp::acipc::config::interrupt_spec>::buffer(&context + 1, v272[0], v81, v82);
-          ashp::detail::dynamic_array::storage<ashp::acipc::config::interrupt_spec>::append(&context, v273, v272[0], v98, v99);
-          v100 = *&buf[32];
+          ashp::detail::dynamic_array::buffer<ashp::acipc::config::interrupt_spec>::buffer(&context + 1, v271[0], v80, v81);
+          ashp::detail::dynamic_array::storage<ashp::acipc::config::interrupt_spec>::append(&context, v272, v271[0], v97, v98);
+          v99 = *&buf[32];
           *&buf[32] = context;
-          context = v100;
-          v101 = v319[0];
-          v319[0] = v280;
-          *&v280 = v101;
-          ashp::detail::dynamic_array::storage<ashp::acipc::config::interrupt_spec>::~storage(&context, v102, v103, v104, v105);
+          context = v99;
+          v100 = v317[0];
+          v317[0] = *&v279[0];
+          *&v279[0] = v100;
+          ashp::detail::dynamic_array::storage<ashp::acipc::config::interrupt_spec>::~storage(&context, v101, v102, v103, v104);
         }
 
-        v275 = v1;
+        v274 = v1;
       }
 
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::interrupt_spec>::~storage(v272, v93, v94, v95, v96);
-      memset(v271, 0, sizeof(v271));
-      v128 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::doorbell_spec::parse(ashp::acipc::config::doorbell_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::doorbell_spec>(ashp::dynamic_array<ashp::acipc::config::doorbell_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::doorbell_spec>>(&v319[1], v271, v5, v259, &v275);
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::doorbell_spec>::~storage(v271, v129, v130, v131, v132);
-      if ((v128 & 1) == 0)
-      {
-        goto LABEL_12;
-      }
-
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::interrupt_spec>::~storage(v271, v92, v93, v94, v95);
       memset(v270, 0, sizeof(v270));
-      v133 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::exec_stage_spec::parse(ashp::acipc::config::exec_stage_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::exec_stage_spec>(ashp::dynamic_array<ashp::acipc::config::exec_stage_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::exec_stage_spec>>(&v320, v270, v5, v259, &v275);
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::exec_stage_spec>::~storage(v270, v134, v135, v136, v137);
-      if ((v133 & 1) == 0)
+      v127 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::doorbell_spec::parse(ashp::acipc::config::doorbell_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::doorbell_spec>(ashp::dynamic_array<ashp::acipc::config::doorbell_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::doorbell_spec>>(&v317[1], v270, v5, v258, &v274);
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::doorbell_spec>::~storage(v270, v128, v129, v130, v131);
+      if ((v127 & 1) == 0)
       {
         goto LABEL_12;
       }
 
       memset(v269, 0, sizeof(v269));
-      v138 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::resource_spec::parse(ashp::acipc::config::resource_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::resource_spec>(ashp::dynamic_array<ashp::acipc::config::resource_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::resource_spec>>(&v321[1], v269, v5, v259, &v275);
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::resource_spec>::~storage(v269, v139, v140, v141, v142);
-      if ((v138 & 1) == 0)
+      v132 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::exec_stage_spec::parse(ashp::acipc::config::exec_stage_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::exec_stage_spec>(ashp::dynamic_array<ashp::acipc::config::exec_stage_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::exec_stage_spec>>(&v318, v269, v5, v258, &v274);
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::exec_stage_spec>::~storage(v269, v133, v134, v135, v136);
+      if ((v132 & 1) == 0)
       {
         goto LABEL_12;
       }
 
-      if (!parse_field<&(ashp::acipc::config::limit_spec::parse(ashp::acipc::config::limit_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::limit_spec>(&v322, v5, v259, v13))
+      memset(v268, 0, sizeof(v268));
+      v137 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::resource_spec::parse(ashp::acipc::config::resource_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::resource_spec>(ashp::dynamic_array<ashp::acipc::config::resource_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::resource_spec>>(&v319[1], v268, v5, v258, &v274);
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::resource_spec>::~storage(v268, v138, v139, v140, v141);
+      if ((v137 & 1) == 0)
       {
         goto LABEL_12;
       }
 
-      LOBYTE(v280) = 0;
-      v268 = 0;
-      if ((parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::errata_spec::parse(ashp::acipc::config::errata_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::errata_spec>(ashp::optional<ashp::acipc::config::errata_spec,ashp::optional_traits<ashp::acipc::config::errata_spec,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::errata_spec,void>>(&context, &v267, v5, v259, &v275) & 1) == 0)
+      if (!parse_field<&(ashp::acipc::config::limit_spec::parse(ashp::acipc::config::limit_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::limit_spec>(&v320, v5, v258, v13))
       {
         goto LABEL_12;
       }
 
-      v143 = v280 ? context : -1;
-      v144 = v280 ? WORD4(context) : 0;
-      *(&v322 + 1) = v143;
-      v323 = v144;
+      LOBYTE(v279[0]) = 0;
+      v267 = 0;
+      if ((parse_field_with_default<&(BOOL parse_optional<&(ashp::acipc::config::errata_spec::parse(ashp::acipc::config::errata_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::errata_spec>(ashp::optional<ashp::acipc::config::errata_spec,ashp::optional_traits<ashp::acipc::config::errata_spec,void>::default_sentinel> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::optional<ashp::acipc::config::errata_spec,void>>(&context, &v266, v5, v258, &v274) & 1) == 0)
+      {
+        goto LABEL_12;
+      }
+
+      v142 = LOBYTE(v279[0]) ? context : -1;
+      v143 = LOBYTE(v279[0]) ? WORD4(context) : 0;
+      *(&v320 + 1) = v142;
+      v321 = v143;
       v1 = buf;
-      if (!parse_field<&(ashp::acipc::config::device_info_spec::parse(ashp::acipc::config::device_info_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::device_info_spec>(&v324, v5, v259, v13))
-      {
-        goto LABEL_12;
-      }
-
-      memset(v266, 0, sizeof(v266));
-      v7 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::boot_ipc_stage_spec::parse(ashp::acipc::config::boot_ipc_stage_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::boot_ipc_stage_spec>(ashp::dynamic_array<ashp::acipc::config::boot_ipc_stage_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::boot_ipc_stage_spec>>(v7, v266, v5, v259, &v275);
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::boot_ipc_stage_spec>::~storage(v266, v145, v146, v147, v148);
-      if ((v7 & 1) == 0)
+      if (!parse_field<&(ashp::acipc::config::device_info_spec::parse(ashp::acipc::config::device_info_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::device_info_spec>(&v322, v5, v258, v13))
       {
         goto LABEL_12;
       }
 
       memset(v265, 0, sizeof(v265));
-      v7 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::main_ipc_stage_spec::parse(ashp::acipc::config::main_ipc_stage_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::main_ipc_stage_spec>(ashp::dynamic_array<ashp::acipc::config::main_ipc_stage_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::main_ipc_stage_spec>>(&v338[1], v265, v5, v259, &v275);
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::main_ipc_stage_spec>::~storage(v265, v149, v150, v151, v152);
+      v7 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::boot_ipc_stage_spec::parse(ashp::acipc::config::boot_ipc_stage_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::boot_ipc_stage_spec>(ashp::dynamic_array<ashp::acipc::config::boot_ipc_stage_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::boot_ipc_stage_spec>>(v7, v265, v5, v258, &v274);
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::boot_ipc_stage_spec>::~storage(v265, v144, v145, v146, v147);
       if ((v7 & 1) == 0)
       {
         goto LABEL_12;
       }
 
-      v7 = &v339;
       memset(v264, 0, sizeof(v264));
-      v153 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::transfer_ring_spec::parse(ashp::acipc::config::transfer_ring_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::transfer_ring_spec>(ashp::dynamic_array<ashp::acipc::config::transfer_ring_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::transfer_ring_spec>>(&v339, v264, v5, v259, &v275);
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::transfer_ring_spec>::~storage(v264, v154, v155, v156, v157);
-      if ((v153 & 1) == 0)
+      v7 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::main_ipc_stage_spec::parse(ashp::acipc::config::main_ipc_stage_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::main_ipc_stage_spec>(ashp::dynamic_array<ashp::acipc::config::main_ipc_stage_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::main_ipc_stage_spec>>(&v336[1], v264, v5, v258, &v274);
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::main_ipc_stage_spec>::~storage(v264, v148, v149, v150, v151);
+      if ((v7 & 1) == 0)
       {
         goto LABEL_12;
       }
 
+      v7 = &v337;
       memset(v263, 0, sizeof(v263));
-      v158 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::completion_ring_spec::parse(ashp::acipc::config::completion_ring_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::completion_ring_spec>(ashp::dynamic_array<ashp::acipc::config::completion_ring_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::completion_ring_spec>>(&v340[1], v263, v5, v259, &v275);
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::completion_ring_spec>::~storage(v263, v159, v160, v161, v162);
-      if ((v158 & 1) == 0)
+      v152 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::transfer_ring_spec::parse(ashp::acipc::config::transfer_ring_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::transfer_ring_spec>(ashp::dynamic_array<ashp::acipc::config::transfer_ring_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::transfer_ring_spec>>(&v337, v263, v5, v258, &v274);
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::transfer_ring_spec>::~storage(v263, v153, v154, v155, v156);
+      if ((v152 & 1) == 0)
       {
         goto LABEL_12;
       }
 
       memset(v262, 0, sizeof(v262));
-      v163 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::completion_group_spec::parse(ashp::acipc::config::completion_group_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::completion_group_spec>(ashp::dynamic_array<ashp::acipc::config::completion_group_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::completion_group_spec>>(&v341, v262, v5, v259, &v275);
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::completion_group_spec>::~storage(v262, v164, v165, v166, v167);
-      if ((v163 & 1) == 0)
+      v157 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::completion_ring_spec::parse(ashp::acipc::config::completion_ring_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::completion_ring_spec>(ashp::dynamic_array<ashp::acipc::config::completion_ring_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::completion_ring_spec>>(&v338[1], v262, v5, v258, &v274);
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::completion_ring_spec>::~storage(v262, v158, v159, v160, v161);
+      if ((v157 & 1) == 0)
       {
         goto LABEL_12;
       }
 
       memset(v261, 0, sizeof(v261));
-      v168 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::memory_region_spec::parse(ashp::acipc::config::memory_region_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::memory_region_spec>(ashp::dynamic_array<ashp::acipc::config::memory_region_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::memory_region_spec>>(&v342[1], v261, v5, v259, &v275);
-      ashp::detail::dynamic_array::storage<ashp::acipc::config::memory_region_spec>::~storage(v261, v169, v170, v171, v172);
-      if ((v168 & 1) == 0)
+      v162 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::completion_group_spec::parse(ashp::acipc::config::completion_group_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::completion_group_spec>(ashp::dynamic_array<ashp::acipc::config::completion_group_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::completion_group_spec>>(&v339, v261, v5, v258, &v274);
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::completion_group_spec>::~storage(v261, v163, v164, v165, v166);
+      if ((v162 & 1) == 0)
+      {
+        goto LABEL_12;
+      }
+
+      memset(v260, 0, sizeof(v260));
+      v167 = parse_field_with_default<&(BOOL parse_dict<&(ashp::acipc::config::memory_region_spec::parse(ashp::acipc::config::memory_region_spec*,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::acipc::config::memory_region_spec>(ashp::dynamic_array<ashp::acipc::config::memory_region_spec> *,ashp::boxed::object,ashp::acipc::config::error_context *)),ashp::dynamic_array<ashp::acipc::config::memory_region_spec>>(&v340[1], v260, v5, v258, &v274);
+      ashp::detail::dynamic_array::storage<ashp::acipc::config::memory_region_spec>::~storage(v260, v168, v169, v170, v171);
+      if ((v167 & 1) == 0)
       {
         goto LABEL_12;
       }
@@ -576,333 +384,333 @@ LABEL_85:
         goto LABEL_127;
       }
 
-      v177 = ashp::boxed::dictionary::count(v5, v173, v174, v175);
-      if (v275 + v177 != 18)
+      v176 = ashp::boxed::dictionary::count(v5, v172, v173, v174);
+      if (v274 + v176 != 18)
       {
-        set_error(v259, "unknown keys present", 0, v180, v181);
+        set_error(v258, "unknown keys present", 0, v179, v180);
         goto LABEL_12;
       }
 
-      if (!*buf || (ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v178, v179, v180), !*buf) || CFStringCompare(*buf, @"acipc", 0))
+      if (!*buf || (ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(buf, v177, v178, v179), !*buf) || CFStringCompare(*buf, @"acipc", 0))
       {
-        set_error(v259, "invalid value", 0, v180, v181);
-        v184 = "protocol";
+        set_error(v258, "invalid value", 0, v179, v180);
+        v183 = "protocol";
         goto LABEL_121;
       }
 
       if (*&buf[32])
       {
-        v188 = v319[0];
-        v189 = 24 * *&buf[32];
-        while (ashp::acipc::config::interrupt_spec::validate(v188, buf, v259, v180, v181))
+        v187 = v317[0];
+        v188 = 24 * *&buf[32];
+        while (ashp::acipc::config::interrupt_spec::validate(v187, buf, v258, v179, v180))
         {
-          v188 += 3;
-          v189 -= 24;
-          if (!v189)
+          v187 += 3;
+          v188 -= 24;
+          if (!v188)
           {
             goto LABEL_133;
           }
         }
 
-        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v188, v190, v191, v180);
-        set_error_location(v259, *v188, v232, v233);
-        v184 = "interrupts";
+        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v187, v189, v190, v179);
+        set_error_location(v258, *v187, v231, v232);
+        v183 = "interrupts";
 LABEL_121:
-        set_error_location(v259, v184, v182, v183);
+        set_error_location(v258, v183, v181, v182);
 LABEL_12:
-        v317 = 0;
+        v315 = 0;
         goto LABEL_13;
       }
 
 LABEL_133:
-      if (v319[1])
+      if (v317[1])
       {
-        v192 = v319[3];
-        v193 = 96 * v319[1];
-        while (ashp::acipc::config::doorbell_spec::validate(v192, buf, v259, v180, v181))
+        v191 = v317[3];
+        v192 = 96 * v317[1];
+        while (ashp::acipc::config::doorbell_spec::validate(v191, buf, v258, v179, v180))
         {
-          v192 += 12;
-          v193 -= 96;
-          if (!v193)
+          v191 += 12;
+          v192 -= 96;
+          if (!v192)
           {
             goto LABEL_137;
           }
         }
 
-        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v192, v194, v195, v180);
-        set_error_location(v259, *v192, v234, v235);
-        v184 = "doorbells";
+        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v191, v193, v194, v179);
+        set_error_location(v258, *v191, v233, v234);
+        v183 = "doorbells";
         goto LABEL_121;
       }
 
 LABEL_137:
-      if (v320)
+      if (v318)
       {
-        v196 = v321[0];
-        v197 = 24 * v320;
-        while (ashp::acipc::config::exec_stage_spec::validate(v196, buf, v259, v180, v181))
+        v195 = v319[0];
+        v196 = 24 * v318;
+        while (ashp::acipc::config::exec_stage_spec::validate(v195, buf, v258, v179, v180))
         {
-          v196 += 3;
-          v197 -= 24;
-          if (!v197)
+          v195 += 3;
+          v196 -= 24;
+          if (!v196)
           {
             goto LABEL_141;
           }
         }
 
-        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v196, v198, v199, v180);
-        set_error_location(v259, *v196, v236, v237);
-        v184 = "exec_stages";
+        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v195, v197, v198, v179);
+        set_error_location(v258, *v195, v235, v236);
+        v183 = "exec_stages";
         goto LABEL_121;
       }
 
 LABEL_141:
-      if (v321[1])
+      if (v319[1])
       {
-        v200 = v321[3];
-        v201 = 16 * v321[1];
-        while (ashp::acipc::config::resource_spec::validate(v200, buf, v259, v180, v181))
+        v199 = v319[3];
+        v200 = 16 * v319[1];
+        while (ashp::acipc::config::resource_spec::validate(v199, buf, v258, v179, v180))
         {
-          v200 += 2;
-          v201 -= 16;
-          if (!v201)
+          v199 += 2;
+          v200 -= 16;
+          if (!v200)
           {
             goto LABEL_145;
           }
         }
 
-        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v200, v202, v203, v180);
-        set_error_location(v259, *v200, v238, v239);
-        v184 = "resources";
+        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v199, v201, v202, v179);
+        set_error_location(v258, *v199, v237, v238);
+        v183 = "resources";
         goto LABEL_121;
       }
 
 LABEL_145:
-      if (!ashp::acipc::config::device_info_spec::validate(&v324, buf, v259, v180, v181))
+      if (!ashp::acipc::config::device_info_spec::validate(&v322, buf, v258, v179, v180))
       {
-        v184 = "device_info";
+        v183 = "device_info";
         goto LABEL_121;
       }
 
-      if (v337)
+      if (v335)
       {
-        v205 = v338[0];
-        v206 = 184 * v337;
-        while (ashp::acipc::config::boot_ipc_stage_spec::validate(v205, buf, v259, v183, v204))
+        v204 = v336[0];
+        v205 = 184 * v335;
+        while (ashp::acipc::config::boot_ipc_stage_spec::validate(v204, buf, v258, v182, v203))
         {
-          v205 += 23;
-          v206 -= 184;
-          if (!v206)
+          v204 += 23;
+          v205 -= 184;
+          if (!v205)
           {
             goto LABEL_150;
           }
         }
 
-        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v205, v207, v182, v183);
-        set_error_location(v259, *v205, v240, v241);
-        v184 = "boot_ipc_stages";
+        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v204, v206, v181, v182);
+        set_error_location(v258, *v204, v239, v240);
+        v183 = "boot_ipc_stages";
         goto LABEL_121;
       }
 
 LABEL_150:
-      if (v338[1])
+      if (v336[1])
       {
-        v208 = v338[3];
-        v209 = 304 * v338[1];
-        while (ashp::acipc::config::main_ipc_stage_spec::validate(v208, buf, v259, v183, v204))
+        v207 = v336[3];
+        v208 = 304 * v336[1];
+        while (ashp::acipc::config::main_ipc_stage_spec::validate(v207, buf, v258, v182, v203))
         {
-          v208 += 38;
-          v209 -= 304;
-          if (!v209)
+          v207 += 38;
+          v208 -= 304;
+          if (!v208)
           {
             goto LABEL_154;
           }
         }
 
-        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v208, v210, v182, v183);
-        set_error_location(v259, *v208, v242, v243);
-        v184 = "main_ipc_stages";
+        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v207, v209, v181, v182);
+        set_error_location(v258, *v207, v241, v242);
+        v183 = "main_ipc_stages";
         goto LABEL_121;
       }
 
 LABEL_154:
-      if (v339)
+      if (v337)
       {
-        v211 = v340[0];
-        v212 = 368 * v339;
-        while (ashp::acipc::config::transfer_ring_spec::validate(v211, buf, v259, v183))
+        v210 = v338[0];
+        v211 = 368 * v337;
+        while (ashp::acipc::config::transfer_ring_spec::validate(v210, buf, v258, v182))
         {
-          v211 += 46;
-          v212 -= 368;
-          if (!v212)
+          v210 += 46;
+          v211 -= 368;
+          if (!v211)
           {
             goto LABEL_158;
           }
         }
 
-        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v211, v213, v182, v183);
-        set_error_location(v259, *v211, v244, v245);
-        v184 = "transfer_rings";
+        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v210, v212, v181, v182);
+        set_error_location(v258, *v210, v243, v244);
+        v183 = "transfer_rings";
         goto LABEL_121;
       }
 
 LABEL_158:
-      if (v340[1])
+      if (v338[1])
       {
-        v214 = v340[3];
-        v215 = 272 * v340[1];
-        while (ashp::acipc::config::completion_ring_spec::validate(v214, buf, v259, v183))
+        v213 = v338[3];
+        v214 = 272 * v338[1];
+        while (ashp::acipc::config::completion_ring_spec::validate(v213, buf, v258, v182))
         {
-          v214 += 34;
-          v215 -= 272;
-          if (!v215)
+          v213 += 34;
+          v214 -= 272;
+          if (!v214)
           {
             goto LABEL_162;
           }
         }
 
-        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v214, v216, v182, v183);
-        set_error_location(v259, *v214, v246, v247);
-        v184 = "completion_rings";
+        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v213, v215, v181, v182);
+        set_error_location(v258, *v213, v245, v246);
+        v183 = "completion_rings";
         goto LABEL_121;
       }
 
 LABEL_162:
-      if (v341)
+      if (v339)
       {
-        v217 = v342[0];
-        v218 = 40 * v341;
-        while (ashp::acipc::config::completion_group_spec::validate(v217, buf, v259, v183, v204))
+        v216 = v340[0];
+        v217 = 40 * v339;
+        while (ashp::acipc::config::completion_group_spec::validate(v216, buf, v258, v182, v203))
         {
-          v217 += 5;
-          v218 -= 40;
-          if (!v218)
+          v216 += 5;
+          v217 -= 40;
+          if (!v217)
           {
             goto LABEL_166;
           }
         }
 
-        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v217, v219, v182, v183);
-        set_error_location(v259, *v217, v248, v249);
-        v184 = "completion_groups";
+        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v216, v218, v181, v182);
+        set_error_location(v258, *v216, v247, v248);
+        v183 = "completion_groups";
         goto LABEL_121;
       }
 
 LABEL_166:
-      if (v342[1])
+      if (v340[1])
       {
-        v220 = v342[3];
-        v221 = 72 * v342[1];
-        while ((ashp::acipc::config::memory_region_spec::validate(v220, buf, v259, v183, v204) & 1) != 0)
+        v219 = v340[3];
+        v220 = 72 * v340[1];
+        while ((ashp::acipc::config::memory_region_spec::validate(v219, buf, v258, v182, v203) & 1) != 0)
         {
-          v220 += 9;
-          v221 -= 72;
-          if (!v221)
+          v219 += 9;
+          v220 -= 72;
+          if (!v220)
           {
             goto LABEL_170;
           }
         }
 
-        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v220, v222, v182, v183);
-        set_error_location(v259, *v220, v250, v251);
-        v184 = "memory_regions";
+        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v219, v221, v181, v182);
+        set_error_location(v258, *v219, v249, v250);
+        v183 = "memory_regions";
         goto LABEL_121;
       }
 
 LABEL_170:
-      v223 = *buf;
-      v224 = *&buf[16];
+      v222 = *buf;
+      v223 = *&buf[16];
       memset(buf, 0, sizeof(buf));
-      context = v223;
-      v280 = v224;
-      v281 = *&buf[32];
-      v283 = *&v319[1];
-      v282 = v319[0];
-      v284 = v319[3];
+      context = v222;
+      v279[0] = v223;
+      v279[1] = *&buf[32];
+      v281 = *&v317[1];
+      v280 = v317[0];
+      v282 = v317[3];
+      memset(v317, 0, sizeof(v317));
+      v283 = v318;
+      v318 = 0u;
+      v285 = *&v319[1];
+      v284 = v319[0];
+      v286 = v319[3];
       memset(v319, 0, sizeof(v319));
-      v285 = v320;
-      v320 = 0u;
-      v287 = *&v321[1];
-      v286 = v321[0];
-      v288 = v321[3];
-      memset(v321, 0, sizeof(v321));
-      v290 = v323;
-      v289 = v322;
-      v293 = 0;
-      if (v326 == 1)
+      v288 = v321;
+      v287 = v320;
+      v291 = 0;
+      if (v324 == 1)
       {
-        v291 = v324;
+        v289 = v322;
+        v290 = v323;
+        v291 = 1;
+        v324 = 0;
+      }
+
+      v294 = 0;
+      if (v327 == 1)
+      {
         v292 = v325;
-        v293 = 1;
-        v326 = 0;
+        v293 = v326;
+        v294 = 1;
+        v327 = 0;
       }
 
-      v296 = 0;
-      if (v329 == 1)
+      v295 = v328;
+      v296 = v329;
+      v299 = 0;
+      if (v332 == 1)
       {
-        v294 = v327;
-        v295 = v328;
-        v296 = 1;
-        v329 = 0;
+        v297 = v330;
+        v298 = v331;
+        v299 = 1;
+        v332 = 0;
       }
 
-      v297 = v330;
-      v298 = v331;
-      v301 = 0;
-      if (v334 == 1)
-      {
-        v299 = v332;
-        v300 = v333;
-        v301 = 1;
-        v334 = 0;
-      }
-
+      v300 = v333;
+      v301 = v334;
       v302 = v335;
-      v303 = v336;
-      v304 = v337;
+      v335 = 0u;
+      v224 = v336[0];
+      v333 = 0;
+      memset(v336, 0, sizeof(v336));
+      v304 = *&v336[1];
+      v303 = v224;
+      v305 = v336[3];
+      v306 = v337;
       v337 = 0u;
       v225 = v338[0];
-      v335 = 0;
       memset(v338, 0, sizeof(v338));
-      v306 = *&v338[1];
-      v305 = v225;
-      v307 = v338[3];
-      v308 = v339;
+      v308 = *&v338[1];
+      v307 = v225;
+      v309 = v338[3];
+      v310 = v339;
       v339 = 0u;
       v226 = v340[0];
       memset(v340, 0, sizeof(v340));
-      v310 = *&v340[1];
-      v309 = v226;
-      v311 = v340[3];
-      v312 = v341;
-      v341 = 0u;
-      v227 = v342[0];
-      memset(v342, 0, sizeof(v342));
-      v314 = *&v342[1];
-      v313 = v227;
-      v315 = v342[3];
-      v317 = 0;
-      ashp::unsafe_storage<ashp::acipc::config::acipc_config>::storage::emplace<ashp::acipc::config::acipc_config>(&v316, &context, v182, v183, v204);
-      ashp::acipc::config::acipc_config::~acipc_config(&context, v228, v229, v230, v231);
+      v312 = *&v340[1];
+      v311 = v226;
+      v313 = v340[3];
+      v315 = 0;
+      ashp::unsafe_storage<ashp::acipc::config::acipc_config>::storage::emplace<ashp::acipc::config::acipc_config>(&v314, &context, v181, v182, v203);
+      ashp::acipc::config::acipc_config::~acipc_config(&context, v227, v228, v229, v230);
 LABEL_13:
       ashp::acipc::config::acipc_config::~acipc_config(buf, v11, v12, v13, v14);
-      ashp::deferred_action<ashp::acipc::config::acipc_config::parse(ashp::boxed::object,ashp::acipc::config::acipc_config::error_detail *)::$_0>::~deferred_action(v257, v23, v24, v25);
-      ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::string,ashp::cf::refcount_policy>>::~storage(&v259[16], v26, v27, v28);
+      ashp::deferred_action<ashp::acipc::config::acipc_config::parse(ashp::boxed::object,ashp::acipc::config::acipc_config::error_detail *)::$_0>::~deferred_action(v256, v23, v24, v25);
+      ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::string,ashp::cf::refcount_policy>>::~storage(&v258[2], v26, v27, v28);
       ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(v6 + 1, v29, v30, v31);
-      v343 = 0;
-      if (v317 == 1)
+      v341 = 0;
+      if (v315 == 1)
       {
-        ashp::unsafe_storage<ashp::acipc::config::acipc_config>::storage::emplace<ashp::acipc::config::acipc_config>(buf, &v316, v33, v34, v35);
-        if (v317 == 1)
+        ashp::unsafe_storage<ashp::acipc::config::acipc_config>::storage::emplace<ashp::acipc::config::acipc_config>(buf, &v314, v33, v34, v35);
+        if (v315 == 1)
         {
-          v317 = 0;
-          ashp::acipc::config::acipc_config::~acipc_config(&v316, v32, v33, v34, v35);
+          v315 = 0;
+          ashp::acipc::config::acipc_config::~acipc_config(&v314, v32, v33, v34, v35);
         }
       }
 
       if (v4[4184] == 1)
       {
-        if (v343)
+        if (v341)
         {
           ashp::acipc::config::acipc_config::acipc_config(&context, (v2 + 3824));
           ashp::acipc::config::acipc_config::operator=((v2 + 3824), buf, v36, v37);
@@ -925,12 +733,12 @@ LABEL_13:
         goto LABEL_24;
       }
 
-      if (v343)
+      if (v341)
       {
         ashp::unsafe_storage<ashp::acipc::config::acipc_config>::storage::emplace<ashp::acipc::config::acipc_config>((v2 + 3824), buf, v33, v34, v35);
-        if (v343 == 1)
+        if (v341 == 1)
         {
-          v343 = 0;
+          v341 = 0;
           p_context = buf;
 LABEL_24:
           ashp::acipc::config::acipc_config::~acipc_config(p_context, v32, v33, v34, v35);
@@ -938,16 +746,16 @@ LABEL_24:
       }
 
 LABEL_25:
-      if (v343 == 1)
+      if (v341 == 1)
       {
-        v343 = 0;
+        v341 = 0;
         ashp::acipc::config::acipc_config::~acipc_config(buf, v32, v33, v34, v35);
       }
 
-      if (v317 == 1)
+      if (v315 == 1)
       {
-        v317 = 0;
-        ashp::acipc::config::acipc_config::~acipc_config(&v316, v32, v33, v34, v35);
+        v315 = 0;
+        ashp::acipc::config::acipc_config::~acipc_config(&v314, v32, v33, v34, v35);
       }
 
       ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(v4, v32, v33, v34);
@@ -982,13 +790,13 @@ LABEL_25:
           v61 = "unknown";
         }
 
-        if (v256)
+        if (v255)
         {
-          ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v256, v42, v43, v44);
-          CStringPtr = v256;
-          if (v256)
+          ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v255, v42, v43, v44);
+          CStringPtr = v255;
+          if (v255)
           {
-            CStringPtr = CFStringGetCStringPtr(v256, 0x8000100u);
+            CStringPtr = CFStringGetCStringPtr(v255, 0x8000100u);
             if (CStringPtr)
             {
               v62 = CStringPtr;
@@ -1059,7 +867,7 @@ LABEL_25:
         v46 = 0;
       }
 
-      v6 = v4 + 4080;
+      v6 = (v4 + 4080);
       v4[6156] = v46;
       v47 = 6072;
       os_unfair_lock_lock((v2 + 6072));
@@ -1154,44 +962,44 @@ LABEL_25:
 
       __break(1u);
       ashp::detail::control_flow::log_guard_else_failure("driver_resource.cpp", 0x4D, "add", v49);
-      ashp::detail::base::log_pre_crash_message("BUG in Airship: attempted to add duplicate resource", "driver_resource.cpp", 0x4D, "add", v72);
+      ashp::detail::base::log_pre_crash_message("BUG in Airship: attempted to add duplicate resource", "driver_resource.cpp", 0x4D, "add", v71);
       _os_crash();
       __break(1u);
       v5 = "ensure_free_space";
-      ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x2DA, "ensure_free_space", v73);
+      ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x2DA, "ensure_free_space", v72);
       v7 = "ALLOCATION FAILURE (or BUG) in Airship";
-      ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v74);
+      ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v73);
       _os_crash();
       __break(1u);
       v4 = "BUG in Airship: ";
-      ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "dynamic_array.hpp", 0x128, "emplace_back", v75);
+      ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "dynamic_array.hpp", 0x128, "emplace_back", v74);
       _os_crash();
       __break(1u);
 LABEL_68:
-      ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&context, v274, v16, v17);
-      v76 = *&buf[24];
+      ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&context, v273, v16, v17);
+      v75 = *&buf[24];
       *&buf[24] = context;
-      *&context = v76;
-      ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&context, v77, v78, v79);
+      *&context = v75;
+      ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&context, v76, v77, v78);
       v22 = 1;
-      v275 = 1;
+      v274 = 1;
       v1 = 2;
     }
   }
 
   v2 = "optional.hpp";
   ashp::detail::control_flow::log_guard_else_failure("optional.hpp", 0x7D, "value", v3);
-  ashp::detail::base::log_pre_crash_message("BUG in Airship: bad optional access", "optional.hpp", 0x7D, "value", v185);
+  ashp::detail::base::log_pre_crash_message("BUG in Airship: bad optional access", "optional.hpp", 0x7D, "value", v184);
   _os_crash();
   __break(1u);
-  ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "doorbell_coordinator.cpp", 0x32, "doorbell_coordinator", v186);
+  ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "doorbell_coordinator.cpp", 0x32, "doorbell_coordinator", v185);
   _os_crash();
   __break(1u);
 LABEL_123:
   v61 = "dynamic_array.hpp";
   v62 = "buffer";
   ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x5E, "buffer", v49);
-  ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v187);
+  ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v186);
   _os_crash();
   __break(1u);
 LABEL_124:
@@ -1199,13 +1007,12 @@ LABEL_124:
 LABEL_65:
   ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] invalid configuration: %s at %s", "acipc_driver.cpp", 117, "handle_activate", v61, v62);
 LABEL_66:
-  ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v256, v64, v65, v66);
+  ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v255, v64, v65, v66);
   ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&theString, v67, v68, v69);
-  v70 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-void sub_23ECDD008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, os_unfair_lock_t lock, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, char a31)
+void sub_23ECDD008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, os_unfair_lock_t lock, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
 {
   ashp::acipc::config::acipc_config::~acipc_config(&STACK[0x510], a2, a3, a4, a5);
   ashp::deferred_action<ashp::acipc::config::acipc_config::parse(ashp::boxed::object,ashp::acipc::config::acipc_config::error_detail *)::$_0>::~deferred_action(&a28, v32, v33, v34);
@@ -1283,12 +1090,12 @@ uint64_t ashp::optional<ashp::acipc::acipc_driver::peripheral_info_filter_cache,
 
 void ashp::acipc::acipc_driver::handle_activate(void)::$_7::__invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock((a1 + 8));
   if (*(a1 + 5728))
   {
     *buf = 4;
-    LOBYTE(v17) = 1;
+    LOBYTE(v16) = 1;
     if (ashp::operator==<int,0>(a1 + 5736, buf, v3, v4))
     {
       os_unfair_lock_lock((a1 + 6152));
@@ -1337,11 +1144,11 @@ void ashp::acipc::acipc_driver::handle_activate(void)::$_7::__invoke(uint64_t a1
       if (log_level)
       {
         *buf = 136446722;
-        v17 = "acipc_driver.cpp";
-        v18 = 1024;
-        v19 = 1057;
-        v20 = 2082;
-        v21 = "peripheral_info_interrupt_occurred";
+        v16 = "acipc_driver.cpp";
+        v17 = 1024;
+        v18 = 1057;
+        v19 = 2082;
+        v20 = "peripheral_info_interrupt_occurred";
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] not ready for peripheral info interrupt", buf, 0x1Cu);
       }
     }
@@ -1358,22 +1165,21 @@ void ashp::acipc::acipc_driver::handle_activate(void)::$_7::__invoke(uint64_t a1
   }
 
   os_unfair_lock_unlock((a1 + 8));
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void ashp::acipc::acipc_driver::handle_activate(void)::$_6::__invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock((a1 + 8));
   if (*(a1 + 5728) && *(a1 + 232))
   {
     *buf = 4;
-    LOBYTE(v20) = 1;
+    LOBYTE(v19) = 1;
     if ((ashp::operator==<int,0>(a1 + 5736, buf, v3, v4) & 1) == 0)
     {
-      v17 = 5;
-      v18 = 1;
-      if ((ashp::operator==<int,0>(a1 + 5736, &v17, v5, v6) & 1) == 0)
+      v16 = 5;
+      v17 = 1;
+      if ((ashp::operator==<int,0>(a1 + 5736, &v16, v5, v6) & 1) == 0)
       {
         ipc_status_register = ashp::acipc::acipc_driver::read_ipc_status_register(a1);
         v11 = *(a1 + 5756);
@@ -1392,13 +1198,13 @@ void ashp::acipc::acipc_driver::handle_activate(void)::$_6::__invoke(uint64_t a1
           {
             v14 = *(a1 + 5752);
             *buf = 136446978;
-            v20 = "acipc_driver.cpp";
-            v21 = 1024;
-            v22 = 1034;
-            v23 = 2082;
-            v24 = "ipc_status_interrupt_occurred";
-            v25 = 1024;
-            v26 = v14;
+            v19 = "acipc_driver.cpp";
+            v20 = 1024;
+            v21 = 1034;
+            v22 = 2082;
+            v23 = "ipc_status_interrupt_occurred";
+            v24 = 1024;
+            v25 = v14;
             _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] new ipc status=%u", buf, 0x22u);
           }
         }
@@ -1427,11 +1233,11 @@ void ashp::acipc::acipc_driver::handle_activate(void)::$_6::__invoke(uint64_t a1
       if (v15)
       {
         *buf = 136446722;
-        v20 = "acipc_driver.cpp";
-        v21 = 1024;
-        v22 = 1028;
-        v23 = 2082;
-        v24 = "ipc_status_interrupt_occurred";
+        v19 = "acipc_driver.cpp";
+        v20 = 1024;
+        v21 = 1028;
+        v22 = 2082;
+        v23 = "ipc_status_interrupt_occurred";
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] not ready for ipc status interrupt", buf, 0x1Cu);
       }
     }
@@ -1448,7 +1254,6 @@ void ashp::acipc::acipc_driver::handle_activate(void)::$_6::__invoke(uint64_t a1
   }
 
   os_unfair_lock_unlock((a1 + 8));
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void ___ZN4ashp5acipc12acipc_driver15setup_interruptEPNS1_17interrupt_contextEP16dispatch_queue_sPFvPS1_EPFbS6_E_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
@@ -1484,7 +1289,7 @@ LABEL_5:
 
 void ashp::acipc::acipc_driver::handle_activate(void)::$_5::__invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock((a1 + 8));
   if ((*(a1 + 24) & 1) != 0 || !*(a1 + 232))
   {
@@ -1495,11 +1300,11 @@ void ashp::acipc::acipc_driver::handle_activate(void)::$_5::__invoke(uint64_t a1
       if (log_level)
       {
         *buf = 136446722;
-        v10 = "acipc_driver.cpp";
-        v11 = 1024;
-        v12 = 1014;
-        v13 = 2082;
-        v14 = "exec_stage_interrupt_occurred";
+        v9 = "acipc_driver.cpp";
+        v10 = 1024;
+        v11 = 1014;
+        v12 = 2082;
+        v13 = "exec_stage_interrupt_occurred";
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] not ready for exec stage interrupt", buf, 0x1Cu);
       }
     }
@@ -1518,7 +1323,7 @@ void ashp::acipc::acipc_driver::handle_activate(void)::$_5::__invoke(uint64_t a1
   else
   {
     *buf = 4;
-    LOBYTE(v10) = 1;
+    LOBYTE(v9) = 1;
     if ((ashp::operator==<int,0>(a1 + 5736, buf, v3, v4) & 1) == 0)
     {
       exec_stage_register = ashp::acipc::acipc_driver::read_exec_stage_register(a1);
@@ -1529,13 +1334,13 @@ void ashp::acipc::acipc_driver::handle_activate(void)::$_5::__invoke(uint64_t a1
         if (v6)
         {
           *buf = 136446978;
-          v10 = "acipc_driver.cpp";
-          v11 = 1024;
-          v12 = 1020;
-          v13 = 2082;
-          v14 = "exec_stage_interrupt_occurred";
-          v15 = 1024;
-          v16 = exec_stage_register;
+          v9 = "acipc_driver.cpp";
+          v10 = 1024;
+          v11 = 1020;
+          v12 = 2082;
+          v13 = "exec_stage_interrupt_occurred";
+          v14 = 1024;
+          v15 = exec_stage_register;
           _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] exec stage interrupt occurred: value %u", buf, 0x22u);
         }
       }
@@ -1555,7 +1360,6 @@ void ashp::acipc::acipc_driver::handle_activate(void)::$_5::__invoke(uint64_t a1
   }
 
   os_unfair_lock_unlock((a1 + 8));
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void ___ZN4ashp5acipc12acipc_driver11setup_timerEP16dispatch_queue_sPFvPS1_E_block_invoke(uint64_t a1)
@@ -1606,7 +1410,7 @@ void ashp::timer::~timer(ashp::timer *this, uint64_t a2, uint64_t a3, const char
 
 void ashp::acipc::acipc_driver::handle_activate(void)::$_4::__invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock((a1 + 8));
   if (*(a1 + 6128) == 1)
   {
@@ -1621,11 +1425,11 @@ void ashp::acipc::acipc_driver::handle_activate(void)::$_4::__invoke(uint64_t a1
         if (log_level)
         {
           *buf = 136446722;
-          v10 = "acipc_driver.cpp";
-          v11 = 1024;
-          v12 = 1373;
-          v13 = 2082;
-          v14 = "ipc_handshake_timeout_occurred";
+          v9 = "acipc_driver.cpp";
+          v10 = 1024;
+          v11 = 1373;
+          v12 = 2082;
+          v13 = "ipc_handshake_timeout_occurred";
           _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] IPC handshake timer expired", buf, 0x1Cu);
         }
       }
@@ -1645,7 +1449,6 @@ void ashp::acipc::acipc_driver::handle_activate(void)::$_4::__invoke(uint64_t a1
   }
 
   os_unfair_lock_unlock((a1 + 8));
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void ___ZN4ashp5acipc12acipc_driver14setup_notifierEP16dispatch_queue_sPFvPS1_E_block_invoke(uint64_t a1)
@@ -1666,7 +1469,7 @@ void ___ZN4ashp5acipc12acipc_driver14setup_notifierEP16dispatch_queue_sPFvPS1_E_
   v5 = *(a1 + 32);
   if (v5)
   {
-    ashp::async_notifier::~async_notifier((v5 + 16), a2, a3, a4);
+    ashp::async_notifier::~async_notifier(v5 + 4, a2, a3, a4);
   }
 
   else
@@ -1687,7 +1490,7 @@ void ashp::acipc::acipc_driver::handle_activate(void)::$_3::__invoke(const os_un
   os_unfair_lock_unlock(&a1[2]);
 }
 
-uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t a2, uint64_t a3, const char *a4)
+uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t *a2, uint64_t a3, const char *a4)
 {
   v6 = *a2;
   *a2 = 0;
@@ -1695,28 +1498,28 @@ uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t a2
   *a1 = v6;
   v117 = v7;
   ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v117, a2, a3, a4);
-  v8 = *(a2 + 8);
-  *(a2 + 8) = 0;
+  v8 = a2[1];
+  a2[1] = 0;
   v9 = a1[1];
   a1[1] = v8;
   v116 = v9;
   ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v116, v10, v11, v12);
-  v13 = *(a2 + 16);
-  *(a2 + 16) = 0;
+  v13 = a2[2];
+  a2[2] = 0;
   v14 = a1[2];
   a1[2] = v13;
   v115 = v14;
   ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v115, v15, v16, v17);
-  v18 = *(a2 + 24);
-  *(a2 + 24) = 0;
+  v18 = a2[3];
+  a2[3] = 0;
   v19 = a1[3];
   a1[3] = v18;
   v114 = v19;
   ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v114, v20, v21, v22);
-  v23 = *(a2 + 48);
-  *(a2 + 48) = 0;
-  v24 = *(a2 + 32);
-  *(a2 + 32) = 0u;
+  v23 = a2[6];
+  a2[6] = 0;
+  v24 = *(a2 + 2);
+  *(a2 + 2) = 0u;
   v25 = *(a1 + 2);
   *(a1 + 2) = v24;
   v118 = v25;
@@ -1724,10 +1527,10 @@ uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t a2
   a1[6] = v23;
   v119 = v26;
   ashp::detail::dynamic_array::storage<ashp::acipc::config::interrupt_spec>::~storage(&v118, v27, v28, v29, v30);
-  v31 = *(a2 + 72);
-  *(a2 + 72) = 0;
-  v32 = *(a2 + 56);
-  *(a2 + 56) = 0u;
+  v31 = a2[9];
+  a2[9] = 0;
+  v32 = *(a2 + 7);
+  *(a2 + 7) = 0u;
   v33 = *(a1 + 7);
   *(a1 + 7) = v32;
   v118 = v33;
@@ -1735,10 +1538,10 @@ uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t a2
   a1[9] = v31;
   v119 = v34;
   ashp::detail::dynamic_array::storage<ashp::acipc::config::doorbell_spec>::~storage(&v118, v35, v36, v37, v38);
-  v39 = *(a2 + 96);
-  *(a2 + 96) = 0;
-  v40 = *(a2 + 80);
-  *(a2 + 80) = 0u;
+  v39 = a2[12];
+  a2[12] = 0;
+  v40 = *(a2 + 5);
+  *(a2 + 5) = 0u;
   v41 = *(a1 + 5);
   *(a1 + 5) = v40;
   v118 = v41;
@@ -1746,10 +1549,10 @@ uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t a2
   a1[12] = v39;
   v119 = v42;
   ashp::detail::dynamic_array::storage<ashp::acipc::config::exec_stage_spec>::~storage(&v118, v43, v44, v45, v46);
-  v47 = *(a2 + 120);
-  *(a2 + 120) = 0;
-  v48 = *(a2 + 104);
-  *(a2 + 104) = 0u;
+  v47 = a2[15];
+  a2[15] = 0;
+  v48 = *(a2 + 13);
+  *(a2 + 13) = 0u;
   v49 = *(a1 + 13);
   *(a1 + 13) = v48;
   v118 = v49;
@@ -1757,13 +1560,13 @@ uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t a2
   a1[15] = v47;
   v119 = v50;
   ashp::detail::dynamic_array::storage<ashp::acipc::config::resource_spec>::~storage(&v118, v51, v52, v53, v54);
-  v58 = *(a2 + 128);
-  *(a1 + 72) = *(a2 + 144);
+  v58 = *(a2 + 8);
+  *(a1 + 72) = *(a2 + 72);
   *(a1 + 8) = v58;
   if (*(a2 + 164) == 1)
   {
     *(a2 + 164) = 0;
-    v59 = *(a2 + 152);
+    v59 = a2[19];
     if (*(a1 + 164))
     {
       *(a1 + 160) = *(a2 + 160);
@@ -1772,7 +1575,7 @@ uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t a2
 
     else
     {
-      *(a1 + 40) = *(a2 + 160);
+      *(a1 + 40) = *(a2 + 40);
       a1[19] = v59;
       *(a1 + 164) = 1;
     }
@@ -1786,7 +1589,7 @@ uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t a2
   if (*(a2 + 180) == 1)
   {
     *(a2 + 180) = 0;
-    v60 = *(a2 + 168);
+    v60 = a2[21];
     if (*(a1 + 180))
     {
       *(a1 + 176) = *(a2 + 176);
@@ -1795,7 +1598,7 @@ uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t a2
 
     else
     {
-      *(a1 + 44) = *(a2 + 176);
+      *(a1 + 44) = *(a2 + 44);
       a1[21] = v60;
       *(a1 + 180) = 1;
     }
@@ -1806,7 +1609,7 @@ uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t a2
     *(a1 + 180) = 0;
   }
 
-  v61 = *(a2 + 184);
+  v61 = a2[23];
   *(a1 + 192) = *(a2 + 192);
   a1[23] = v61;
   if (*(a2 + 208) == 1)
@@ -1821,7 +1624,7 @@ uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t a2
 
     else
     {
-      *(a1 + 51) = *(a2 + 204);
+      *(a1 + 51) = *(a2 + 51);
       *(a1 + 196) = v62;
       *(a1 + 208) = 1;
     }
@@ -1832,17 +1635,17 @@ uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t a2
     *(a1 + 208) = 0;
   }
 
-  v63 = *(a2 + 216);
-  *(a2 + 216) = 0;
+  v63 = a2[27];
+  a2[27] = 0;
   v64 = a1[27];
   a1[27] = v63;
   *&v118 = v64;
   ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v118, v55, v56, v57);
-  *(a1 + 56) = *(a2 + 224);
-  v65 = *(a2 + 248);
-  *(a2 + 248) = 0;
-  v66 = *(a2 + 232);
-  *(a2 + 232) = 0u;
+  *(a1 + 56) = *(a2 + 56);
+  v65 = a2[31];
+  a2[31] = 0;
+  v66 = *(a2 + 29);
+  *(a2 + 29) = 0u;
   v67 = *(a1 + 29);
   *(a1 + 29) = v66;
   v118 = v67;
@@ -1850,10 +1653,10 @@ uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t a2
   a1[31] = v65;
   v119 = v68;
   ashp::detail::dynamic_array::storage<ashp::acipc::config::boot_ipc_stage_spec>::~storage(&v118, v69, v70, v71, v72);
-  v73 = *(a2 + 272);
-  *(a2 + 272) = 0;
-  v74 = *(a2 + 256);
-  *(a2 + 256) = 0u;
+  v73 = a2[34];
+  a2[34] = 0;
+  v74 = *(a2 + 16);
+  *(a2 + 16) = 0u;
   v75 = *(a1 + 16);
   *(a1 + 16) = v74;
   v118 = v75;
@@ -1861,10 +1664,10 @@ uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t a2
   a1[34] = v73;
   v119 = v76;
   ashp::detail::dynamic_array::storage<ashp::acipc::config::main_ipc_stage_spec>::~storage(&v118, v77, v78, v79, v80);
-  v81 = *(a2 + 296);
-  *(a2 + 296) = 0;
-  v82 = *(a2 + 280);
-  *(a2 + 280) = 0u;
+  v81 = a2[37];
+  a2[37] = 0;
+  v82 = *(a2 + 35);
+  *(a2 + 35) = 0u;
   v83 = *(a1 + 35);
   *(a1 + 35) = v82;
   v118 = v83;
@@ -1872,10 +1675,10 @@ uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t a2
   a1[37] = v81;
   v119 = v84;
   ashp::detail::dynamic_array::storage<ashp::acipc::config::transfer_ring_spec>::~storage(&v118, v85, v86, v87, v88);
-  v89 = *(a2 + 320);
-  *(a2 + 320) = 0;
-  v90 = *(a2 + 304);
-  *(a2 + 304) = 0u;
+  v89 = a2[40];
+  a2[40] = 0;
+  v90 = *(a2 + 19);
+  *(a2 + 19) = 0u;
   v91 = *(a1 + 19);
   *(a1 + 19) = v90;
   v118 = v91;
@@ -1883,10 +1686,10 @@ uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t a2
   a1[40] = v89;
   v119 = v92;
   ashp::detail::dynamic_array::storage<ashp::acipc::config::completion_ring_spec>::~storage(&v118, v93, v94, v95, v96);
-  v97 = *(a2 + 344);
-  *(a2 + 344) = 0;
-  v98 = *(a2 + 328);
-  *(a2 + 328) = 0u;
+  v97 = a2[43];
+  a2[43] = 0;
+  v98 = *(a2 + 41);
+  *(a2 + 41) = 0u;
   v99 = *(a1 + 41);
   *(a1 + 41) = v98;
   v118 = v99;
@@ -1894,10 +1697,10 @@ uint64_t *ashp::acipc::config::acipc_config::operator=(uint64_t *a1, uint64_t a2
   a1[43] = v97;
   v119 = v100;
   ashp::detail::dynamic_array::storage<ashp::acipc::config::completion_group_spec>::~storage(&v118, v101, v102, v103, v104);
-  v105 = *(a2 + 368);
-  *(a2 + 368) = 0;
-  v106 = *(a2 + 352);
-  *(a2 + 352) = 0u;
+  v105 = a2[46];
+  a2[46] = 0;
+  v106 = *(a2 + 22);
+  *(a2 + 22) = 0u;
   v107 = *(a1 + 22);
   *(a1 + 22) = v106;
   v118 = v107;
@@ -1916,19 +1719,19 @@ CFTypeRef ashp::acipc::acipc_driver::get_reaper_queue_role@<X0>(uint64_t a1@<X1>
   return CFRetain(@"main");
 }
 
-void ashp::acipc::acipc_driver::handle_terminate(ashp::acipc::acipc_driver *this)
+void ashp::acipc::acipc_driver::handle_terminate(os_unfair_lock_s *this)
 {
   os_unfair_lock_assert_owner(this + 2);
   ashp::acipc::acipc_driver::teardown_current_ipc_stage(this);
-  *(this + 714) = 0;
+  *&this[1428]._os_unfair_lock_opaque = 0;
   ashp::driver::update_exec_stage(this, 0xFFFFFFFF);
   os_unfair_lock_unlock(this + 2);
-  ashp::acipc::acipc_driver::teardown_notifier(this, *(this + 722));
-  *(this + 722) = 0;
-  ashp::acipc::acipc_driver::teardown_interrupt(this, this + 5632, v2, v3, v4);
-  ashp::acipc::acipc_driver::teardown_interrupt(this, this + 5784, v5, v6, v7);
-  ashp::acipc::acipc_driver::teardown_interrupt(this, this + 5864, v8, v9, v10);
-  v14 = *(this + 767);
+  ashp::acipc::acipc_driver::teardown_notifier(this, *&this[1444]._os_unfair_lock_opaque);
+  *&this[1444]._os_unfair_lock_opaque = 0;
+  ashp::acipc::acipc_driver::teardown_interrupt(this, &this[1408], v2, v3, v4);
+  ashp::acipc::acipc_driver::teardown_interrupt(this, &this[1446], v5, v6, v7);
+  ashp::acipc::acipc_driver::teardown_interrupt(this, &this[1466], v8, v9, v10);
+  v14 = *&this[1534]._os_unfair_lock_opaque;
   if (v14)
   {
     os_unfair_lock_assert_not_owner(this + 2);
@@ -1938,21 +1741,21 @@ void ashp::acipc::acipc_driver::handle_terminate(ashp::acipc::acipc_driver *this
     ashp::timer::cancel((v14 + 16), v15, v16, v17);
   }
 
-  *(this + 767) = 0;
-  if (*(this + 12) == 1)
+  *&this[1534]._os_unfair_lock_opaque = 0;
+  if (LOBYTE(this[3]._os_unfair_lock_opaque) == 1)
   {
-    ashp::optional<ashp::mock_hidable<ashp::reaper>,void>::value(this + 424, v11, v12, v13);
+    ashp::optional<ashp::mock_hidable<ashp::reaper>,void>::value(&this[106], v11, v12, v13);
     ashp::reaper::run(this + 106);
   }
 
   os_unfair_lock_lock(this + 2);
 }
 
-void ashp::acipc::acipc_driver::teardown_notifier(const os_unfair_lock *a1, uint64_t a2)
+void ashp::acipc::acipc_driver::teardown_notifier(const os_unfair_lock *result, uint64_t a2)
 {
   if (a2)
   {
-    os_unfair_lock_assert_not_owner(a1 + 2);
+    os_unfair_lock_assert_not_owner(result + 2);
     os_unfair_lock_lock(a2);
     *(a2 + 8) = 0;
     os_unfair_lock_unlock(a2);
@@ -1961,13 +1764,13 @@ void ashp::acipc::acipc_driver::teardown_notifier(const os_unfair_lock *a1, uint
   }
 }
 
-void ashp::acipc::acipc_driver::teardown_interrupt(const os_unfair_lock *a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
+void ashp::acipc::acipc_driver::teardown_interrupt(const os_unfair_lock *result, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
 {
   if (*(a2 + 56) == 1)
   {
     *(a2 + 56) = 0;
     ashp::interrupt::~interrupt(a2, a2, a3, a4, a5);
-    ashp::acipc::acipc_driver::teardown_notifier(a1, *(a2 + 64));
+    ashp::acipc::acipc_driver::teardown_notifier(result, *(a2 + 64));
     *(a2 + 64) = 0;
   }
 }
@@ -2134,7 +1937,7 @@ LABEL_51:
   goto LABEL_47;
 }
 
-uint64_t ashp::direct_client_object::direct_client_object(uint64_t *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5)
+uint64_t *ashp::direct_client_object::direct_client_object(uint64_t *a1, uint64_t a2, uint64_t a3, const char *a4, const void *a5)
 {
   *a1 = a2;
   a1[1] = 0;
@@ -2227,7 +2030,7 @@ void ashp::direct_client_object_manager::~direct_client_object_manager(ashp::dir
 
 void ashp::direct_client_object_manager::dump_list(os_unfair_lock_t lock, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (lock)
   {
     os_unfair_lock_lock(lock);
@@ -2268,13 +2071,13 @@ LABEL_9:
     if (log_level)
     {
       *buf = 136446978;
-      v22 = "direct_client_object.cpp";
-      v23 = 1024;
-      v24 = 54;
-      v25 = 2082;
-      v26 = "dump_list";
-      v27 = 1024;
-      v28 = v8;
+      v21 = "direct_client_object.cpp";
+      v22 = 1024;
+      v23 = 54;
+      v24 = 2082;
+      v25 = "dump_list";
+      v26 = 1024;
+      v27 = v8;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] num of objects pending deletion %u", buf, 0x22u);
     }
   }
@@ -2341,17 +2144,17 @@ LABEL_15:
         v18 = *(v13 + 32);
         v19 = *(v13 + 40);
         *buf = 136447490;
-        v22 = "direct_client_object.cpp";
-        v23 = 1024;
-        v24 = 34;
-        v25 = 2082;
-        v26 = "dump_object_info";
-        v27 = 1024;
-        v28 = v18;
-        v29 = 2048;
-        v30 = v19;
-        v31 = 2080;
-        v32 = v16;
+        v21 = "direct_client_object.cpp";
+        v22 = 1024;
+        v23 = 34;
+        v24 = 2082;
+        v25 = "dump_object_info";
+        v26 = 1024;
+        v27 = v18;
+        v28 = 2048;
+        v29 = v19;
+        v30 = 2080;
+        v31 = v16;
         _os_log_impl(&dword_23EC8B000, v14, OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] type=%u, debug meta-data=0x%llx, name=%s", buf, 0x36u);
       }
     }
@@ -2375,8 +2178,6 @@ LABEL_15:
 LABEL_33:
     os_unfair_lock_unlock(lock);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23ECDF588(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, os_unfair_lock_t lock)
@@ -2391,19 +2192,19 @@ void sub_23ECDF588(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ashp::debug::timer::debug_context::record_event(uint64_t a1, char a2, uint64_t a3, uint64_t a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  *&v17 = mach_continuous_time();
-  *(&v17 + 1) = a3;
-  *v18 = a4;
-  v18[24] = a2;
-  strncpy(&v18[8], a1, 0x10uLL);
+  v18 = *MEMORY[0x277D85DE8];
+  *&v16 = mach_continuous_time();
+  *(&v16 + 1) = a3;
+  *v17 = a4;
+  v17[24] = a2;
+  strncpy(&v17[8], a1, 0x10uLL);
   os_unfair_lock_lock((a1 + 16));
   if (*(a1 + 20))
   {
     v10 = ashp::dynamic_array<ashp::debug::timer::timer_debug_info>::operator[]((a1 + 40), *(a1 + 24), v8, v9);
-    v11 = *v18;
-    *(v10 + 25) = *&v18[9];
-    *v10 = v17;
+    v11 = *v17;
+    *(v10 + 25) = *&v17[9];
+    *v10 = v16;
     v10[1] = v11;
     v12 = *(a1 + 24);
     v13 = __CFADD__(v12, 1);
@@ -2422,7 +2223,6 @@ void ashp::debug::timer::debug_context::record_event(uint64_t a1, char a2, uint6
   }
 
   os_unfair_lock_unlock((a1 + 16));
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ashp::dynamic_array<ashp::debug::timer::timer_debug_info>::operator[](unint64_t *a1, unint64_t a2, uint64_t a3, const char *a4)
@@ -2439,7 +2239,7 @@ uint64_t ashp::dynamic_array<ashp::debug::timer::timer_debug_info>::operator[](u
   return result;
 }
 
-void ashp::timer::set_queue(os_unfair_lock_t lock, dispatch_queue_s *a2, uint64_t a3, const char *a4)
+void ashp::timer::set_queue(os_unfair_lock_t lock, NSObject *a2, uint64_t a3, const char *a4)
 {
   if (lock)
   {
@@ -2465,7 +2265,7 @@ void ashp::timer::set_queue(os_unfair_lock_t lock, dispatch_queue_s *a2, uint64_
   }
 }
 
-void ashp::timer::set_event_handler(os_unfair_lock_t lock, uint64_t a2, uint64_t a3, const char *a4)
+void ashp::timer::set_event_handler(os_unfair_lock_t lock, void *a2, uint64_t a3, const char *a4)
 {
   if (lock)
   {
@@ -2491,7 +2291,7 @@ void ashp::timer::set_event_handler(os_unfair_lock_t lock, uint64_t a2, uint64_t
   }
 }
 
-const void **ashp::refcounted_ptr<void({block_pointer})(void),ashp::default_refcount_policy<void({block_pointer})(void),void>::policy>::refcounted_ptr(const void **a1, uint64_t a2, uint64_t a3, const char *a4)
+void **ashp::refcounted_ptr<void({block_pointer})(void),ashp::default_refcount_policy<void({block_pointer})(void),void>::policy>::refcounted_ptr(void **a1, void *a2, uint64_t a3, const char *a4)
 {
   *a1 = a2;
   if (a2)
@@ -2503,7 +2303,7 @@ const void **ashp::refcounted_ptr<void({block_pointer})(void),ashp::default_refc
   return a1;
 }
 
-void ashp::timer::set_cancel_handler(os_unfair_lock_t lock, uint64_t a2, uint64_t a3, const char *a4)
+void ashp::timer::set_cancel_handler(os_unfair_lock_t lock, void *a2, uint64_t a3, const char *a4)
 {
   if (lock)
   {
@@ -2529,7 +2329,7 @@ void ashp::timer::set_cancel_handler(os_unfair_lock_t lock, uint64_t a2, uint64_
   }
 }
 
-uint64_t ashp::timer::activate(os_unfair_lock_t lock, uint64_t a2, uint64_t a3, const char *a4)
+void ashp::timer::activate(os_unfair_lock_t lock, uint64_t a2, uint64_t a3, const char *a4)
 {
   if (lock)
   {
@@ -2570,8 +2370,8 @@ LABEL_10:
   v5 = dispatch_source_create(MEMORY[0x277D85D38], 2uLL, 0, *&lock[2]._os_unfair_lock_opaque);
   v6 = *&lock[4]._os_unfair_lock_opaque;
   *&lock[4]._os_unfair_lock_opaque = v5;
-  v13 = v6;
-  ashp::refcounted_ptr<dispatch_source_s *,ashp::dispatch::refcount_policy>::reset(&v13);
+  v12 = v6;
+  ashp::refcounted_ptr<dispatch_source_s *,ashp::dispatch::refcount_policy>::reset(&v12);
   if (*&lock[4]._os_unfair_lock_opaque)
   {
     operator new();
@@ -2580,9 +2380,8 @@ LABEL_10:
 LABEL_11:
   ashp::detail::control_flow::log_guard_else_failure("timer.cpp", 0x8C, "activate", v7);
   ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "timer.cpp", 0x8C, "activate", v11);
-  result = _os_crash();
+  _os_crash();
   __break(1u);
-  return result;
 }
 
 void *___ZN4ashp5timer8activateEv_block_invoke(uint64_t a1)
@@ -2755,7 +2554,7 @@ void ashp::timer::stop(os_unfair_lock_t lock, uint64_t a2, uint64_t a3, const ch
   }
 }
 
-uint64_t ashp::driver_debug_object<ashp::debug::timer::timer_debug_info>::get_debug_object_alloc_size(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
+unint64_t ashp::driver_debug_object<ashp::debug::timer::timer_debug_info>::get_debug_object_alloc_size(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
   if (!*(a1 + 4))
   {
@@ -2772,7 +2571,7 @@ uint64_t ashp::driver_debug_object<ashp::debug::timer::timer_debug_info>::get_de
   return result;
 }
 
-void *ashp::async_accelerator::acquire(unint64_t this, dispatch_queue_s *a2, uint64_t a3, const char *a4, const char *a5)
+void *ashp::async_accelerator::acquire(uint64_t this, dispatch_queue_s *a2, uint64_t a3, const char *a4, const char *a5)
 {
   if (ashp::async_accelerator::get_registry(void)::once != -1)
   {
@@ -3157,7 +2956,7 @@ void airship_accelerated_async(os_unfair_lock_s *a1, void *aBlock)
   ashp::async_accelerator::async_f(a1, v3, ashp::async_accelerator::async(void({block_pointer})(void))::$_0::__invoke, v4);
 }
 
-uint64_t airship_async_flusher_create(unint64_t a1, dispatch_queue_s *a2, uint64_t a3, const char *a4, const char *a5)
+os_unfair_lock_s *airship_async_flusher_create(uint64_t a1, dispatch_queue_s *a2, uint64_t a3, const char *a4, const char *a5)
 {
   v5 = ashp::async_accelerator::acquire(a1, a2, a3, a4, a5);
   v6 = v5;
@@ -3468,7 +3267,7 @@ void ashp::dynamic_array<ashp::refcounted_ptr<ashp::monitor *,ashp::detail::refc
   if (*a1 == -1)
   {
     ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x2DA, "ensure_free_space", a4);
-    ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v17);
+    ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x2DA, "ensure_free_space", v16);
     _os_crash();
     __break(1u);
     goto LABEL_24;
@@ -3487,7 +3286,6 @@ void ashp::dynamic_array<ashp::refcounted_ptr<ashp::monitor *,ashp::detail::refc
       v8 = a1[1];
     }
 
-    v9 = (*a1 - 8) < 0;
     if (v5 >= 9)
     {
       do
@@ -3512,41 +3310,41 @@ void ashp::dynamic_array<ashp::refcounted_ptr<ashp::monitor *,ashp::detail::refc
       {
         if (!(v8 >> 61))
         {
-          v10 = malloc_type_aligned_alloc(8uLL, 8 * v8, 0x2004093837F09uLL);
-          if (v10)
+          v9 = malloc_type_aligned_alloc(8uLL, 8 * v8, 0x2004093837F09uLL);
+          if (v9)
           {
-            v12 = *a1;
+            v11 = *a1;
             if (*a1)
             {
-              v13 = 0;
+              v12 = 0;
               do
               {
-                v14 = a1[2];
-                v15 = *(v14 + v13);
-                *(v14 + v13) = 0;
-                *&v10[v13] = v15;
-                v13 += 8;
-                --v12;
+                v13 = a1[2];
+                v14 = *(v13 + v12);
+                *(v13 + v12) = 0;
+                *&v9[v12] = v14;
+                v12 += 8;
+                --v11;
               }
 
-              while (v12);
+              while (v11);
             }
 
-            v16 = a1[2];
+            v15 = a1[2];
             a1[1] = v8;
-            a1[2] = v10;
-            if (v16)
+            a1[2] = v9;
+            if (v15)
             {
 
-              free(v16);
+              free(v15);
             }
 
             return;
           }
 
 LABEL_26:
-          ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x5E, "buffer", v11);
-          ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v19);
+          ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x5E, "buffer", v10);
+          ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x5E, "buffer", v18);
           _os_crash();
           __break(1u);
           return;
@@ -3554,7 +3352,7 @@ LABEL_26:
 
 LABEL_25:
         ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x56, "buffer", a4);
-        ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x56, "buffer", v18);
+        ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "dynamic_array.hpp", 0x56, "buffer", v17);
         _os_crash();
         __break(1u);
         goto LABEL_26;
@@ -3569,7 +3367,7 @@ LABEL_24:
   }
 }
 
-uint64_t *ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::monitor *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::driver_object,ashp::polymorphic_deleter<ashp::driver_object>>>>>::emplace_back<ashp::refcounted_ptr<ashp::monitor *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::driver_object,ashp::polymorphic_deleter<ashp::driver_object>>>> const&>(uint64_t *result, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
+atomic_ullong *ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::monitor *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::driver_object,ashp::polymorphic_deleter<ashp::driver_object>>>>>::emplace_back<ashp::refcounted_ptr<ashp::monitor *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::driver_object,ashp::polymorphic_deleter<ashp::driver_object>>>> const&>(atomic_ullong *result, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
 {
   v5 = *result;
   if (*result >= result[1])
@@ -3714,9 +3512,9 @@ uint64_t ashp::acipc::ring_controller::write_tail_index(ashp::acipc::ring_contro
   return result;
 }
 
-void ashp::acipc::ring_controller::register_index_signal(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
+void ashp::acipc::ring_controller::register_index_signal(uint64_t a1, uint64_t a2, char *a3, const char *a4, const char *a5)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   if (*(a1 + 96) == 1)
   {
     goto LABEL_19;
@@ -3736,7 +3534,7 @@ LABEL_21:
     v8 = "register_handler";
     ashp::detail::control_flow::log_guard_else_failure("index_array_signaler.cpp", 0x3C, "register_handler", v14);
     v15 = "BUG in Airship: vector value out of range";
-    ashp::detail::base::log_pre_crash_message("BUG in Airship: vector value out of range", "index_array_signaler.cpp", 0x3C, "register_handler", v45);
+    ashp::detail::base::log_pre_crash_message("BUG in Airship: vector value out of range", "index_array_signaler.cpp", 0x3C, "register_handler", v44);
     _os_crash();
     __break(1u);
     goto LABEL_22;
@@ -3745,16 +3543,16 @@ LABEL_21:
   LODWORD(v7) = a4;
   v8 = a3;
   ashp::optional<ashp::acipc::tr_ring,void>::value(a1 + 24, a2, a3, a4);
-  v9 = *(v5 + 5);
-  ashp::optional<ashp::acipc::tr_ring,void>::value((v5 + 24), v10, v11, v12);
-  v15 = *(v5 + 24);
-  v6 = *(v5 + 13);
+  v9 = *(v5 + 40);
+  ashp::optional<ashp::acipc::tr_ring,void>::value(v5 + 24, v10, v11, v12);
+  v15 = *(v5 + 48);
+  v6 = *(v5 + 104);
   if (v9)
   {
     os_unfair_lock_lock(v9);
   }
 
-  v5 = v9 + 8;
+  v5 = (v9 + 8);
   if (*(v9 + 1) <= v15)
   {
     goto LABEL_21;
@@ -3763,7 +3561,7 @@ LABEL_21:
   if (!v8 || !v6)
   {
     ashp::detail::control_flow::log_guard_else_failure("index_array_signaler.cpp", 0x3D, "register_handler", v14);
-    ashp::detail::base::log_pre_crash_message("BUG in Airship: cannot accept null parameters", "index_array_signaler.cpp", 0x3D, "register_handler", v44);
+    ashp::detail::base::log_pre_crash_message("BUG in Airship: cannot accept null parameters", "index_array_signaler.cpp", 0x3D, "register_handler", v43);
     _os_crash();
     __break(1u);
 LABEL_19:
@@ -3795,12 +3593,12 @@ LABEL_22:
       *&buf[14] = 63;
       *&buf[18] = 2082;
       *&buf[20] = "register_handler";
-      v48 = 2048;
-      v49 = v9;
-      v50 = 2048;
-      v51 = v6;
-      v52 = 1024;
-      v53 = v15;
+      v47 = 2048;
+      v48 = v9;
+      v49 = 2048;
+      v50 = v6;
+      v51 = 1024;
+      v52 = v15;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] 0x%llx registering handler for 0x%llx at vector %hu", buf, 0x36u);
     }
   }
@@ -3832,8 +3630,8 @@ LABEL_15:
     *&buf[8] = 0;
     v24 = *(v8 + 1);
     *(v8 + 1) = v23;
-    v46 = v24;
-    ashp::refcounted_ptr<void({block_pointer})(void),ashp::default_refcount_policy<void({block_pointer})(void),void>::policy>::reset(&v46, v25, v26, v27);
+    v45 = v24;
+    ashp::refcounted_ptr<void({block_pointer})(void),ashp::default_refcount_policy<void({block_pointer})(void),void>::policy>::reset(&v45, v25, v26, v27);
     v28 = *&buf[16];
     *(v8 + 12) = *&buf[24];
     *(v8 + 2) = v28;
@@ -3873,15 +3671,14 @@ LABEL_25:
   ashp::optional<ashp::interrupt_manager,void>::value(&v39[158], v40, v41, v42);
   ashp::interrupt_manager::set_handler_mask(v39 + 158, (v9 + 48), v38);
   os_unfair_lock_unlock(v9);
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void ashp::acipc::ring_controller::deregister_index_signal(ashp::acipc::ring_controller *this, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   if (*(this + 96) != 1)
   {
-    goto LABEL_19;
+    return;
   }
 
   *(this + 96) = 0;
@@ -3909,7 +3706,7 @@ void ashp::acipc::ring_controller::deregister_index_signal(ashp::acipc::ring_con
   if (!v13 || (v16 = v14, *v14 != v13))
   {
     ashp::detail::control_flow::log_guard_else_failure("index_array_signaler.cpp", 0x52, "deregister_handler", v15);
-    ashp::detail::base::log_pre_crash_message("BUG in Airship: registered owner does not match", "index_array_signaler.cpp", 0x52, "deregister_handler", v41);
+    ashp::detail::base::log_pre_crash_message("BUG in Airship: registered owner does not match", "index_array_signaler.cpp", 0x52, "deregister_handler", v40);
     _os_crash();
     __break(1u);
 LABEL_21:
@@ -3921,7 +3718,7 @@ LABEL_22:
     v12 = "deregister_handler";
     ashp::detail::control_flow::log_guard_else_failure("index_array_signaler.cpp", 0x50, "deregister_handler", v11);
     v13 = "BUG in Airship: vector value out of range";
-    ashp::detail::base::log_pre_crash_message("BUG in Airship: vector value out of range", "index_array_signaler.cpp", 0x50, "deregister_handler", v42);
+    ashp::detail::base::log_pre_crash_message("BUG in Airship: vector value out of range", "index_array_signaler.cpp", 0x50, "deregister_handler", v41);
     _os_crash();
     __break(1u);
     goto LABEL_23;
@@ -3939,12 +3736,12 @@ LABEL_22:
       *&buf[14] = 83;
       *&buf[18] = 2082;
       *&buf[20] = "deregister_handler";
-      v45 = 2048;
-      v46 = v6;
-      v47 = 2048;
-      v48 = v13;
-      v49 = 1024;
-      v50 = v12;
+      v44 = 2048;
+      v45 = v6;
+      v46 = 2048;
+      v47 = v13;
+      v48 = 1024;
+      v49 = v12;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] 0x%llx deregistering handler for 0x%llx at vector %hu", buf, 0x36u);
     }
   }
@@ -4011,16 +3808,14 @@ LABEL_25:
   *&buf[8] = 0;
   v32 = *(v16 + 1);
   *(v16 + 1) = 0;
-  v43 = v32;
-  ashp::refcounted_ptr<void({block_pointer})(void),ashp::default_refcount_policy<void({block_pointer})(void),void>::policy>::reset(&v43, v33, v34, v35);
+  v42 = v32;
+  ashp::refcounted_ptr<void({block_pointer})(void),ashp::default_refcount_policy<void({block_pointer})(void),void>::policy>::reset(&v42, v33, v34, v35);
   v36 = *&buf[16];
   *(v16 + 12) = *&buf[24];
   *(v16 + 2) = v36;
   ashp::refcounted_ptr<void({block_pointer})(void),ashp::default_refcount_policy<void({block_pointer})(void),void>::policy>::reset(&buf[8], v37, v38, v39);
   os_unfair_lock_unlock(v6 + 1);
   os_unfair_lock_unlock(v6);
-LABEL_19:
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void ashp::acipc::ring_controller::arm_index_signal(ashp::acipc::ring_controller *this, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
@@ -4315,9 +4110,9 @@ void ashp::acipc::memregion_manager::~memregion_manager(ashp::acipc::memregion_m
 void ashp::acipc::memregion_manager::recompute_region_availability(const os_unfair_lock *this, ashp::acipc::detail::memregion_manager::region_context *a2)
 {
   v3 = this;
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(this);
-  if (v3[16])
+  if (v3[4]._os_unfair_lock_opaque)
   {
     v5 = 1;
   }
@@ -4336,15 +4131,15 @@ void ashp::acipc::memregion_manager::recompute_region_availability(const os_unfa
     {
       v7 = *(a2 + 48);
       *buf = 136447234;
-      v45 = "memregion_manager.cpp";
-      v47 = 108;
-      v48 = 2082;
-      v46 = 1024;
-      v49 = "recompute_region_availability";
-      v50 = 1024;
-      *v51 = v7;
-      *&v51[4] = 1024;
-      *&v51[6] = v5;
+      v44 = "memregion_manager.cpp";
+      v46 = 108;
+      v47 = 2082;
+      v45 = 1024;
+      v48 = "recompute_region_availability";
+      v49 = 1024;
+      *v50 = v7;
+      *&v50[4] = 1024;
+      *&v50[6] = v5;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] region id %hu exec stage mismatch %u", buf, 0x28u);
     }
   }
@@ -4367,7 +4162,7 @@ LABEL_63:
   }
 
   os_unfair_lock_assert_owner(v3);
-  v12 = *(v3 + 4);
+  v12 = *&v3[8]._os_unfair_lock_opaque;
   if (!v12)
   {
     goto LABEL_49;
@@ -4440,17 +4235,17 @@ LABEL_63:
         {
           v37 = *(a2 + 48);
           *buf = 136447490;
-          v45 = "memregion_manager.cpp";
-          v46 = 1024;
-          v47 = 254;
-          v48 = 2082;
-          v49 = "does_region_conflict_with_any_mapped_region";
-          v50 = 2080;
-          *v51 = v27;
-          *&v51[8] = 1024;
-          v52 = v37;
-          v53 = 2080;
-          v54 = v35;
+          v44 = "memregion_manager.cpp";
+          v45 = 1024;
+          v46 = 254;
+          v47 = 2082;
+          v48 = "does_region_conflict_with_any_mapped_region";
+          v49 = 2080;
+          *v50 = v27;
+          *&v50[8] = 1024;
+          v51 = v37;
+          v52 = 2080;
+          v53 = v35;
           _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] region %s (id=%hu) cannot be used due to id conflict with name %s", buf, 0x36u);
         }
       }
@@ -4508,17 +4303,17 @@ LABEL_17:
       v29 = *(a2 + 48);
       v30 = *(v12 + 96);
       *buf = 136447490;
-      v45 = "memregion_manager.cpp";
-      v46 = 1024;
-      v47 = 248;
-      v48 = 2082;
-      v49 = "does_region_conflict_with_any_mapped_region";
-      v50 = 2080;
-      *v51 = v18;
-      *&v51[8] = 1024;
-      v52 = v29;
-      v53 = 1024;
-      LODWORD(v54) = v30;
+      v44 = "memregion_manager.cpp";
+      v45 = 1024;
+      v46 = 248;
+      v47 = 2082;
+      v48 = "does_region_conflict_with_any_mapped_region";
+      v49 = 2080;
+      *v50 = v18;
+      *&v50[8] = 1024;
+      v51 = v29;
+      v52 = 1024;
+      LODWORD(v53) = v30;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] region %s (id=%hu) cannot be used due to name conflict with id %hu", buf, 0x32u);
     }
   }
@@ -4545,15 +4340,15 @@ LABEL_49:
     {
       v39 = *(a2 + 48);
       *buf = 136447234;
-      v45 = "memregion_manager.cpp";
-      v47 = 113;
-      v48 = 2082;
-      v46 = 1024;
-      v49 = "recompute_region_availability";
-      v50 = 1024;
-      *v51 = v39;
-      *&v51[4] = 1024;
-      *&v51[6] = v12;
+      v44 = "memregion_manager.cpp";
+      v46 = 113;
+      v47 = 2082;
+      v45 = 1024;
+      v48 = "recompute_region_availability";
+      v49 = 1024;
+      *v50 = v39;
+      *&v50[4] = 1024;
+      *&v50[6] = v12;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] region id %hu conflict %u", buf, 0x28u);
     }
   }
@@ -4596,13 +4391,12 @@ LABEL_60:
   v42 = ashp::acipc::memregion_controller::compute_state(a2);
   ashp::acipc::memregion_controller::update_state_monitor_target(a2, v42);
   os_unfair_lock_unlock(a2 + 4);
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void ashp::acipc::memregion_manager::stop_region(const os_unfair_lock *a1, uint64_t *a2, int a3)
 {
   LODWORD(v4) = a3;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(a1);
   if ((*(a2 + 37) & 1) == 0)
   {
@@ -4663,15 +4457,15 @@ LABEL_20:
     {
       v13 = *(a2 + 40);
       *buf = 136447234;
-      v17 = "memregion_controller.cpp";
-      v18 = 1024;
-      v19 = 189;
-      v20 = 2082;
-      v21 = "stop";
-      v22 = 2080;
-      v23 = v3;
-      v24 = 1024;
-      v25 = v13;
+      v16 = "memregion_controller.cpp";
+      v17 = 1024;
+      v18 = 189;
+      v19 = 2082;
+      v20 = "stop";
+      v21 = 2080;
+      v22 = v3;
+      v23 = 1024;
+      v24 = v13;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] %s[%u] stopped", buf, 0x2Cu);
     }
   }
@@ -4699,7 +4493,6 @@ LABEL_15:
   }
 
   os_unfair_lock_unlock(a2 + 4);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 BOOL ashp::acipc::memregion_manager::is_region_supported_in_current_exec_stage(uint64_t a1, uint64_t a2)
@@ -4768,11 +4561,11 @@ void ashp::acipc::memregion_manager::recompute_unmapped_region_availability(cons
   }
 }
 
-void ashp::acipc::memregion_manager::request_region_unmap(const os_unfair_lock *a1, uint64_t a2, int a3)
+void ashp::acipc::memregion_manager::request_region_unmap(os_unfair_lock *a1, void *a2, int a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(a1);
-  v7 = *(a2 + 32);
+  v7 = *(a2 + 8);
   switch(v7)
   {
     case 1:
@@ -4785,15 +4578,15 @@ void ashp::acipc::memregion_manager::request_region_unmap(const os_unfair_lock *
           log_level = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
           if (log_level)
           {
-            v14 = *(a2 + 96);
+            v14 = *(a2 + 48);
             *buf = 136446978;
-            v17 = "memregion_manager.cpp";
-            v18 = 1024;
-            v19 = 195;
-            v20 = 2082;
-            v21 = "request_region_unmap";
-            v22 = 1024;
-            v23 = v14;
+            v16 = "memregion_manager.cpp";
+            v17 = 1024;
+            v18 = 195;
+            v19 = 2082;
+            v20 = "request_region_unmap";
+            v21 = 1024;
+            v22 = v14;
             _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] region id %hu deferring unmap message", buf, 0x22u);
           }
         }
@@ -4805,7 +4598,7 @@ void ashp::acipc::memregion_manager::request_region_unmap(const os_unfair_lock *
             dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
           }
 
-          ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] region id %hu deferring unmap message", "memregion_manager.cpp", 195, "request_region_unmap", *(a2 + 96));
+          ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] region id %hu deferring unmap message", "memregion_manager.cpp", 195, "request_region_unmap", *(a2 + 48));
         }
 
         ashp::acipc::memregion_manager::stop_region(a1, a2, a3);
@@ -4819,15 +4612,15 @@ void ashp::acipc::memregion_manager::request_region_unmap(const os_unfair_lock *
         v11 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
         if (v11)
         {
-          v12 = *(a2 + 96);
+          v12 = *(a2 + 48);
           *buf = 136446978;
-          v17 = "memregion_manager.cpp";
-          v18 = 1024;
-          v19 = 199;
-          v20 = 2082;
-          v21 = "request_region_unmap";
-          v22 = 1024;
-          v23 = v12;
+          v16 = "memregion_manager.cpp";
+          v17 = 1024;
+          v18 = 199;
+          v19 = 2082;
+          v20 = "request_region_unmap";
+          v21 = 1024;
+          v22 = v12;
           _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] region id %hu is in limbo, attempting to unmap", buf, 0x22u);
         }
       }
@@ -4839,12 +4632,12 @@ void ashp::acipc::memregion_manager::request_region_unmap(const os_unfair_lock *
           dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
         }
 
-        ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] region id %hu is in limbo, attempting to unmap", "memregion_manager.cpp", 199, "request_region_unmap", *(a2 + 96));
+        ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] region id %hu is in limbo, attempting to unmap", "memregion_manager.cpp", 199, "request_region_unmap", *(a2 + 48));
       }
 
       if (a3 == 1)
       {
-        *(a2 + 32) = 3;
+        *(a2 + 8) = 3;
         ashp::acipc::memregion_controller::set_device_region_status(*a2, 3);
 LABEL_20:
         ashp::acipc::memregion_manager::send_memory_unmap_message(a1, a2);
@@ -4853,7 +4646,7 @@ LABEL_20:
       break;
     case 2:
       ashp::acipc::memregion_manager::stop_region(a1, a2, a3);
-      *(a2 + 32) = 3;
+      *(a2 + 8) = 3;
       ashp::acipc::memregion_controller::set_device_region_status(*a2, 3);
       v9 = ashp::detail::logging::get_log_level(v8);
       if (v9 >= 4)
@@ -4861,15 +4654,15 @@ LABEL_20:
         v9 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
         if (v9)
         {
-          v10 = *(a2 + 96);
+          v10 = *(a2 + 48);
           *buf = 136446978;
-          v17 = "memregion_manager.cpp";
-          v18 = 1024;
-          v19 = 189;
-          v20 = 2082;
-          v21 = "request_region_unmap";
-          v22 = 1024;
-          v23 = v10;
+          v16 = "memregion_manager.cpp";
+          v17 = 1024;
+          v18 = 189;
+          v19 = 2082;
+          v20 = "request_region_unmap";
+          v21 = 1024;
+          v22 = v10;
           _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] region id %hu sending unmap message", buf, 0x22u);
         }
       }
@@ -4881,13 +4674,13 @@ LABEL_20:
           dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
         }
 
-        ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] region id %hu sending unmap message", "memregion_manager.cpp", 189, "request_region_unmap", *(a2 + 96));
+        ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] region id %hu sending unmap message", "memregion_manager.cpp", 189, "request_region_unmap", *(a2 + 48));
       }
 
       goto LABEL_20;
+    default:
+      return;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void ashp::acipc::memregion_manager::send_memory_unmap_message(const os_unfair_lock *this, ashp::acipc::detail::memregion_manager::region_context *a2)
@@ -4918,7 +4711,7 @@ void ashp::acipc::memregion_manager::send_memory_unmap_message(const os_unfair_l
 void ashp::acipc::memregion_manager::memory_unmap_message_completed(os_unfair_lock_t lock, const char *a2, int a3, uint64_t a4, const char *a5)
 {
   v7 = lock;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (lock)
   {
     os_unfair_lock_lock(lock);
@@ -4948,13 +4741,13 @@ LABEL_9:
           {
             v9 = *(a2 + 48);
             *buf = 136446978;
-            v14 = "memregion_manager.cpp";
-            v15 = 1024;
-            v16 = 388;
-            v17 = 2082;
-            v18 = "memory_unmap_message_completed";
-            v19 = 1024;
-            v20 = v9;
+            v13 = "memregion_manager.cpp";
+            v14 = 1024;
+            v15 = 388;
+            v16 = 2082;
+            v17 = "memory_unmap_message_completed";
+            v18 = 1024;
+            v19 = v9;
             _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] message failed, setting state for region id %hu", buf, 0x22u);
           }
         }
@@ -4999,13 +4792,13 @@ LABEL_26:
         {
           v11 = *(a2 + 48);
           *buf = 136446978;
-          v14 = "memregion_manager.cpp";
-          v15 = 1024;
-          v16 = 382;
-          v17 = 2082;
-          v18 = "memory_unmap_message_completed";
-          v19 = 1024;
-          v20 = v11;
+          v13 = "memregion_manager.cpp";
+          v14 = 1024;
+          v15 = 382;
+          v16 = 2082;
+          v17 = "memory_unmap_message_completed";
+          v18 = 1024;
+          v19 = v11;
           _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] message success, setting state for region id %hu", buf, 0x22u);
         }
       }
@@ -5028,13 +4821,12 @@ LABEL_26:
 
 LABEL_24:
   os_unfair_lock_unlock(v7);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void ashp::acipc::memregion_manager::memory_map_message_completed(os_unfair_lock_t lock, char *a2, int a3, uint64_t a4, const char *a5)
 {
   v7 = lock;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (lock)
   {
     os_unfair_lock_lock(lock);
@@ -5074,13 +4866,13 @@ void ashp::acipc::memregion_manager::memory_map_message_completed(os_unfair_lock
         {
           v9 = *(a2 + 48);
           *buf = 136446978;
-          v14 = "memregion_manager.cpp";
-          v15 = 1024;
-          v16 = 354;
-          v17 = 2082;
-          v18 = "memory_map_message_completed";
-          v19 = 1024;
-          v20 = v9;
+          v13 = "memregion_manager.cpp";
+          v14 = 1024;
+          v15 = 354;
+          v16 = 2082;
+          v17 = "memory_map_message_completed";
+          v18 = 1024;
+          v19 = v9;
           _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] message failed, setting state for region id %hu", buf, 0x22u);
         }
       }
@@ -5120,13 +4912,13 @@ LABEL_30:
       {
         v11 = *(a2 + 48);
         *buf = 136446978;
-        v14 = "memregion_manager.cpp";
-        v15 = 1024;
-        v16 = 339;
-        v17 = 2082;
-        v18 = "memory_map_message_completed";
-        v19 = 1024;
-        v20 = v11;
+        v13 = "memregion_manager.cpp";
+        v14 = 1024;
+        v15 = 339;
+        v16 = 2082;
+        v17 = "memory_map_message_completed";
+        v18 = 1024;
+        v19 = v11;
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] message success, setting state for region id %hu", buf, 0x22u);
       }
     }
@@ -5158,19 +4950,18 @@ LABEL_30:
 
 LABEL_28:
   os_unfair_lock_unlock(v7);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-void ashp::acipc::memregion_manager::unmap_region(os_unfair_lock_t lock, ashp::acipc::memregion_controller **a2, uint64_t a3, uint64_t a4, const char *a5)
+void ashp::acipc::memregion_manager::unmap_region(os_unfair_lock_t lock, ashp::acipc::memregion_controller *a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   if (lock)
   {
     os_unfair_lock_lock(lock);
   }
 
-  if (a2[35] == a2)
+  if (*(a2 + 35) == a2)
   {
-    ashp::acipc::memregion_manager::request_region_unmap(lock, (a2 + 35), 1);
+    ashp::acipc::memregion_manager::request_region_unmap(lock, a2 + 35, 1);
     if (lock)
     {
 
@@ -5198,20 +4989,17 @@ void sub_23ECE3D20(_Unwind_Exception *exception_object)
 
 uint64_t ashp::get_proxima_platform(ashp *this)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  *buf = 0;
+  buf[5] = *MEMORY[0x277D85DE8];
+  buf[0] = 0;
   if (os_parse_boot_arg_int())
   {
-    v1 = *buf;
+    return buf[0];
   }
 
   else
   {
-    v1 = 0;
+    return 0;
   }
-
-  v2 = *MEMORY[0x277D85DE8];
-  return v1;
 }
 
 ashp::driver_object *ashp::driver_object::driver_object(ashp::driver_object *this, os_unfair_lock_s *a2, uint64_t a3, const char *a4, const char *a5)
@@ -5527,7 +5315,7 @@ void sub_23ECE4648(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t airship_acipc_set_mcr_event_handler(uint64_t a1, int a2, uint64_t a3)
+uint64_t airship_acipc_set_mcr_event_handler(uint64_t a1, int a2, void *a3)
 {
   os_unfair_lock_lock((a1 + 8));
   if ((*(a1 + 13) & 1) == 0)
@@ -5717,21 +5505,19 @@ void sub_23ECE49F4(_Unwind_Exception *a1)
 void ashp::detail::base::log_pre_crash_message(ashp::detail::base *this, const char *a2, const char *a3, uint64_t a4, const char *a5)
 {
   v6 = a3;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136446978;
-    v11 = a2;
-    v12 = 1024;
-    v13 = v6;
-    v14 = 2082;
-    v15 = a4;
-    v16 = 2082;
-    v17 = this;
-    _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] %{public}s", &v10, 0x26u);
+    v9 = 136446978;
+    v10 = a2;
+    v11 = 1024;
+    v12 = v6;
+    v13 = 2082;
+    v14 = a4;
+    v15 = 2082;
+    v16 = this;
+    _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] %{public}s", &v9, 0x26u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void ashp::copy_and_zerofill(ashp *this, void *a2, void *__src, const void *a4, const char *a5)
@@ -5823,7 +5609,7 @@ ashp::acipc::detail::completion_mirror::buffer_array *ashp::acipc::detail::compl
   return result;
 }
 
-uint64_t ashp::dynamic_array<unsigned char>::dynamic_array<int,0>(unint64_t *a1, unint64_t a2, _BYTE *a3)
+unint64_t *ashp::dynamic_array<unsigned char>::dynamic_array<int,0>(unint64_t *a1, unint64_t a2, _BYTE *a3)
 {
   *a1 = 0;
   a1[1] = a2;
@@ -5977,9 +5763,9 @@ LABEL_15:
   }
 }
 
-void ashp::acipc::completion_mirror::append_element(os_unfair_lock_t lock, uint64_t a2, const void *a3, const char *a4)
+void ashp::acipc::completion_mirror::append_element(os_unfair_lock_t lock, __int128 *a2, const void *a3, const char *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (lock)
   {
     os_unfair_lock_lock(lock);
@@ -5993,7 +5779,7 @@ void ashp::acipc::completion_mirror::append_element(os_unfair_lock_t lock, uint6
   {
     os_unfair_lock_opaque_high = "dynamic_array.hpp";
     ashp::detail::control_flow::log_guard_else_failure("dynamic_array.hpp", 0x19C, "operator[]", v10);
-    ashp::detail::base::log_pre_crash_message("BUG in Airship: bad array access", "dynamic_array.hpp", 0x19C, "operator[]", v15);
+    ashp::detail::base::log_pre_crash_message("BUG in Airship: bad array access", "dynamic_array.hpp", 0x19C, "operator[]", v14);
     _os_crash();
     __break(1u);
     goto LABEL_12;
@@ -6001,7 +5787,7 @@ void ashp::acipc::completion_mirror::append_element(os_unfair_lock_t lock, uint6
 
   v11 = *&lock[16]._os_unfair_lock_opaque + 20 * os_unfair_lock_opaque_high;
   v12 = *a2;
-  *(v11 + 16) = *(a2 + 16);
+  *(v11 + 16) = *(a2 + 4);
   *v11 = v12;
   log_level = ashp::detail::logging::get_log_level(v9);
   if (log_level >= 4)
@@ -6010,13 +5796,13 @@ void ashp::acipc::completion_mirror::append_element(os_unfair_lock_t lock, uint6
     if (log_level)
     {
       *buf = 136446978;
-      v17 = "completion_mirror.cpp";
-      v18 = 1024;
-      v19 = 84;
-      v20 = 2082;
-      v21 = "append_element";
-      v22 = 1024;
-      v23 = os_unfair_lock_opaque_high;
+      v16 = "completion_mirror.cpp";
+      v17 = 1024;
+      v18 = 84;
+      v19 = 2082;
+      v20 = "append_element";
+      v21 = 1024;
+      v22 = os_unfair_lock_opaque_high;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] new item at index %hu", buf, 0x22u);
     }
   }
@@ -6037,7 +5823,6 @@ LABEL_12:
 
 LABEL_10:
   os_unfair_lock_unlock(lock);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 unsigned __int16 *ashp::ring_index_pair<unsigned short>::advance_tail_index(unsigned __int16 *result, unsigned int a2, uint64_t a3, const char *a4)
@@ -6202,7 +5987,7 @@ LABEL_15:
       {
         if (*(v12 + 168) != 1)
         {
-          ashp::unsafe_storage<ashp::interrupt>::storage::emplace<ashp::driver *&>(v12 + 112, (v12 + 24), v13, v14, v15);
+          ashp::unsafe_storage<ashp::interrupt>::storage::emplace<ashp::driver *&>((v12 + 112), (v12 + 24), v13, v14, v15);
           ashp::optional<ashp::interrupt,void>::value(v12 + 112, v16, v17, v18);
           v38[0] = MEMORY[0x277D85DD0];
           v38[1] = 0x40000000;
@@ -6275,7 +6060,7 @@ uint64_t ashp::direct_interrupt::get_device_vector(os_unfair_lock_s *this)
   return os_unfair_lock_opaque;
 }
 
-void ashp::direct_interrupt::set_cancel_handler(uint64_t a1, uint64_t a2)
+void ashp::direct_interrupt::set_cancel_handler(uint64_t a1, void *a2)
 {
   os_unfair_lock_lock((a1 + 64));
   if (*(a1 + 80) == 1)
@@ -6295,7 +6080,7 @@ void ashp::direct_interrupt::set_cancel_handler(uint64_t a1, uint64_t a2)
   }
 }
 
-void ashp::direct_interrupt::set_event_handler(uint64_t a1, uint64_t a2)
+void ashp::direct_interrupt::set_event_handler(uint64_t a1, void *a2)
 {
   os_unfair_lock_lock((a1 + 64));
   if (*(a1 + 80) == 1)
@@ -6315,7 +6100,7 @@ void ashp::direct_interrupt::set_event_handler(uint64_t a1, uint64_t a2)
   }
 }
 
-void ashp::direct_interrupt::set_queue(os_unfair_lock_s *this, dispatch_queue_s *a2)
+void ashp::direct_interrupt::set_queue(os_unfair_lock_s *this, NSObject *a2)
 {
   os_unfair_lock_lock(this + 16);
   if (LOBYTE(this[20]._os_unfair_lock_opaque) == 1)
@@ -6343,7 +6128,7 @@ void ashp::direct_interrupt::destroy(ashp::direct_interrupt *this, uint64_t a2, 
     v6 = (this + 72);
     ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(this + 9, a2, a3, a4);
     ashp::driver_object::terminate(*v6);
-    ashp::async_notifier::~async_notifier((this + 88), v7, v8, v9);
+    ashp::async_notifier::~async_notifier(this + 22, v7, v8, v9);
     ashp::refcounted_ptr<ashp::client_interrupt *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::driver_object,ashp::polymorphic_deleter<ashp::driver_object>>>>::reset(v6, v10, v11, v12);
     ashp::direct_client_object::~direct_client_object(this + 1, v13, v14, v15, v16);
   }
@@ -6360,7 +6145,7 @@ void ashp::direct_interrupt::destroy(ashp::direct_interrupt *this, uint64_t a2, 
 
 uint64_t ashp::acipc::direct_memregion::reset(os_unfair_lock_s *this)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(this + 16);
   ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&this[18]._os_unfair_lock_opaque, v2, v3, v4);
   v5 = *&this[18]._os_unfair_lock_opaque;
@@ -6417,15 +6202,15 @@ uint64_t ashp::acipc::direct_memregion::reset(os_unfair_lock_s *this)
         {
           v15 = *(v5 + 160);
           *buf = 136447234;
-          v19 = "memregion_controller.cpp";
-          v20 = 1024;
-          v21 = 172;
-          v22 = 2082;
-          v23 = "reset";
-          v24 = 2080;
-          v25 = v13;
-          v26 = 1024;
-          v27 = v15;
+          v18 = "memregion_controller.cpp";
+          v19 = 1024;
+          v20 = 172;
+          v21 = 2082;
+          v22 = "reset";
+          v23 = 2080;
+          v24 = v13;
+          v25 = 1024;
+          v26 = v15;
           _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] %s[%u] reset", buf, 0x2Cu);
         }
       }
@@ -6456,7 +6241,6 @@ LABEL_19:
   os_unfair_lock_unlock((v5 + 16));
   os_unfair_lock_unlock((v5 + 144));
   os_unfair_lock_unlock(this + 16);
-  v16 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -6470,7 +6254,7 @@ void sub_23ECE5E8C(_Unwind_Exception *a1)
 
 uint64_t ashp::acipc::direct_memregion::unmap(os_unfair_lock_s *this)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(this + 16);
   ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&this[18]._os_unfair_lock_opaque, v2, v3, v4);
   v5 = *&this[18]._os_unfair_lock_opaque;
@@ -6537,15 +6321,15 @@ LABEL_19:
       {
         v15 = *(v5 + 160);
         *buf = 136447234;
-        v26 = "memregion_controller.cpp";
-        v27 = 1024;
-        v28 = 151;
-        v29 = 2082;
-        v30 = "unmap";
-        v31 = 2080;
-        v32 = v13;
-        v33 = 1024;
-        v34 = v15;
+        v25 = "memregion_controller.cpp";
+        v26 = 1024;
+        v27 = 151;
+        v28 = 2082;
+        v29 = "unmap";
+        v30 = 2080;
+        v31 = v13;
+        v32 = 1024;
+        v33 = v15;
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] unmapping memory region for %s[%u]", buf, 0x2Cu);
       }
     }
@@ -6577,7 +6361,6 @@ LABEL_20:
   os_unfair_lock_unlock((v5 + 16));
   os_unfair_lock_unlock((v5 + 144));
   os_unfair_lock_unlock(this + 16);
-  v23 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -6591,7 +6374,7 @@ void sub_23ECE6144(_Unwind_Exception *a1)
 
 uint64_t ashp::acipc::direct_memregion::map(os_unfair_lock_s *this)
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(this + 16);
   ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&this[18]._os_unfair_lock_opaque, v2, v3, v4);
   v5 = *&this[18]._os_unfair_lock_opaque;
@@ -6648,15 +6431,15 @@ LABEL_65:
       {
         v38 = *(v5 + 160);
         *buf = 136447234;
-        *&v71 = "memregion_controller.cpp";
-        WORD4(v71) = 1024;
-        *(&v71 + 10) = 103;
-        HIWORD(v71) = 2082;
-        v72 = "map";
-        v73 = 2080;
-        *v74 = v21;
-        *&v74[8] = 1024;
-        *&v74[10] = v38;
+        *&v70 = "memregion_controller.cpp";
+        WORD4(v70) = 1024;
+        *(&v70 + 10) = 103;
+        HIWORD(v70) = 2082;
+        v71 = "map";
+        v72 = 2080;
+        *v73 = v21;
+        *&v73[8] = 1024;
+        *&v73[10] = v38;
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] %s[%u] unavailable", buf, 0x2Cu);
       }
     }
@@ -6729,7 +6512,7 @@ LABEL_68:
       if (*v22)
       {
         ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value((v5 + 216), v16, v17, v18);
-        v68 = ashp::boxed::data::length(*v22, v33, v34, v35);
+        v67 = ashp::boxed::data::length(*v22, v33, v34, v35);
         goto LABEL_27;
       }
     }
@@ -6739,13 +6522,13 @@ LABEL_68:
       v32 = 0;
     }
 
-    v68 = 0;
+    v67 = 0;
   }
 
   else
   {
     v32 = 0;
-    v68 = 0;
+    v67 = 0;
     v26 = *(v5 + 212);
     v27 = *(v5 + 196);
     v28 = *(v5 + 194);
@@ -6781,17 +6564,17 @@ LABEL_27:
     {
       v42 = *(v5 + 160);
       *buf = 136447490;
-      *&v71 = "memregion_controller.cpp";
-      WORD4(v71) = 1024;
-      *(&v71 + 10) = 121;
-      HIWORD(v71) = 2082;
-      v72 = "map";
-      v73 = 1024;
-      *v74 = v26;
-      *&v74[4] = 2080;
-      *&v74[6] = v40;
-      v75 = 1024;
-      v76 = v42;
+      *&v70 = "memregion_controller.cpp";
+      WORD4(v70) = 1024;
+      *(&v70 + 10) = 121;
+      HIWORD(v70) = 2082;
+      v71 = "map";
+      v72 = 1024;
+      *v73 = v26;
+      *&v73[4] = 2080;
+      *&v73[6] = v40;
+      v74 = 1024;
+      v75 = v42;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] mapping region of size %u for %s[%u]", buf, 0x32u);
     }
   }
@@ -6830,16 +6613,16 @@ LABEL_69:
 
   if (!*(v5 + 320))
   {
-    if (v68 >= 0xFFFFFFE8)
+    if (v67 >= 0xFFFFFFE8)
     {
-      v67 = 158;
+      v66 = 158;
     }
 
     else
     {
       v54 = *(v45 + 4888);
       ashp::optional<ashp::acipc::messenger,void>::value(&v54[1236], v49, v50, v51);
-      if (v68 + 24 <= ashp::acipc::messenger::get_max_message_length(v54 + 1236))
+      if (v67 + 24 <= ashp::acipc::messenger::get_max_message_length(v54 + 1236))
       {
         *(v5 + 317) = 1;
         *(v5 + 312) = 1;
@@ -6852,13 +6635,13 @@ LABEL_69:
           {
             v57 = *(v5 + 376);
             *buf = 136446978;
-            *&v71 = "memregion_manager.cpp";
-            WORD4(v71) = 1024;
-            *(&v71 + 10) = 164;
-            HIWORD(v71) = 2082;
-            v72 = "map_region";
-            v73 = 1024;
-            *v74 = v57;
+            *&v70 = "memregion_manager.cpp";
+            WORD4(v70) = 1024;
+            *(&v70 + 10) = 164;
+            HIWORD(v70) = 2082;
+            v71 = "map_region";
+            v72 = 1024;
+            *v73 = v57;
             _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] region id %hu sending memory map message", buf, 0x22u);
           }
         }
@@ -6887,13 +6670,13 @@ LABEL_69:
           {
             strcpy(buf, "\b");
             *&buf[2] = *(v5 + 376);
-            LODWORD(v71) = v26;
-            *(&v71 + 4) = v44;
-            HIDWORD(v71) = v27;
-            LODWORD(v72) = v43;
+            LODWORD(v70) = v26;
+            *(&v70 + 4) = v44;
+            HIDWORD(v70) = v27;
+            LODWORD(v71) = v43;
             v62 = *(v45 + 4888);
             ashp::optional<ashp::acipc::messenger,void>::value(v62 + 4944, v58, v59, v60);
-            ashp::acipc::messenger::send_message(v62 + 4944, buf, 24, v32, v68, v45 + 4880, v5 + 280, ashp::acipc::memregion_manager::memory_map_message_completed);
+            ashp::acipc::messenger::send_message(v62 + 4944, buf, 24, v32, v67, v45 + 4880, v5 + 280, ashp::acipc::memregion_manager::memory_map_message_completed);
             ashp::acipc::memregion_manager::recompute_unmapped_region_availability((v45 + 4880));
             v7 = 0;
             v53 = 1;
@@ -6914,10 +6697,10 @@ LABEL_77:
         goto LABEL_77;
       }
 
-      v67 = 160;
+      v66 = 160;
     }
 
-    ashp::detail::control_flow::log_guard_else_failure("memregion_manager.cpp", v67, "map_region", v51);
+    ashp::detail::control_flow::log_guard_else_failure("memregion_manager.cpp", v66, "map_region", v51);
     v53 = 0;
     v7 = 3758097090;
     goto LABEL_56;
@@ -6936,11 +6719,11 @@ LABEL_56:
       if (v64)
       {
         *buf = 136446722;
-        *&v71 = "memregion_controller.cpp";
-        WORD4(v71) = 1024;
-        *(&v71 + 10) = 127;
-        HIWORD(v71) = 2082;
-        v72 = "map";
+        *&v70 = "memregion_controller.cpp";
+        WORD4(v70) = 1024;
+        *(&v70 + 10) = 127;
+        HIWORD(v70) = 2082;
+        v71 = "map";
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] map successful", buf, 0x1Cu);
       }
     }
@@ -6964,7 +6747,6 @@ LABEL_63:
   os_unfair_lock_unlock((v5 + 16));
   os_unfair_lock_unlock((v5 + 144));
   os_unfair_lock_unlock(this + 16);
-  v65 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -6987,47 +6769,46 @@ uint64_t ashp::acipc::direct_memregion::create_state_monitor(os_unfair_lock_s *t
   {
     v7 = *(v5 + 24);
     os_unfair_lock_assert_owner((v5 + 16));
-    ashp::monitor::create(&v20, v7, (v5 + 232));
+    ashp::monitor::create(&v19, v7, (v5 + 232));
   }
 
   ashp::detail::control_flow::log_guard_else_failure("memregion_controller.cpp", 0x5B, "create_state_monitor", v6);
-  v20 = 0;
+  v19 = 0;
   os_unfair_lock_unlock((v5 + 16));
-  v21 = 0;
-  v10 = ashp::operator==<int,0>(&v20, &v21, v8, v9);
-  ashp::refcounted_ptr<ashp::monitor *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::driver_object,ashp::polymorphic_deleter<ashp::driver_object>>>>::reset(&v21, v11, v12, v13);
+  v20 = 0;
+  v10 = ashp::operator==<int,0>(&v19, &v20, v8, v9);
+  ashp::refcounted_ptr<ashp::monitor *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::driver_object,ashp::polymorphic_deleter<ashp::driver_object>>>>::reset(&v20, v11, v12, v13);
   if (!v10)
   {
-    v17 = *&this[2]._os_unfair_lock_opaque;
-    v19 = v20;
-    v20 = 0;
+    v18 = v19;
+    v19 = 0;
     operator new();
   }
 
-  ashp::refcounted_ptr<ashp::monitor *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::driver_object,ashp::polymorphic_deleter<ashp::driver_object>>>>::reset(&v20, v14, v15, v16);
+  ashp::refcounted_ptr<ashp::monitor *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::driver_object,ashp::polymorphic_deleter<ashp::driver_object>>>>::reset(&v19, v14, v15, v16);
   os_unfair_lock_unlock(this + 16);
   return 0;
 }
 
-void sub_23ECE6CB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, ...)
+void sub_23ECE6CB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v14 = va_arg(va1, void);
+  va_start(va2, a6);
+  va_start(va1, a6);
+  va_start(va, a6);
+  v15 = va_arg(va1, void);
   va_copy(va2, va1);
-  v16 = va_arg(va2, void);
+  v17 = va_arg(va2, void);
   ashp::refcounted_ptr<ashp::monitor *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::driver_object,ashp::polymorphic_deleter<ashp::driver_object>>>>::reset(va2, a2, a3, a4);
-  MEMORY[0x23EF204E0](v6, 0x10E1C40A7CABF83);
-  ashp::refcounted_ptr<ashp::monitor *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::driver_object,ashp::polymorphic_deleter<ashp::driver_object>>>>::reset(va, v8, v9, v10);
-  ashp::refcounted_ptr<ashp::monitor *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::driver_object,ashp::polymorphic_deleter<ashp::driver_object>>>>::reset(va1, v11, v12, v13);
-  os_unfair_lock_unlock(v5 + 16);
+  MEMORY[0x23EF204E0](v7, 0x10E1C40A7CABF83);
+  ashp::refcounted_ptr<ashp::monitor *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::driver_object,ashp::polymorphic_deleter<ashp::driver_object>>>>::reset(va, v9, v10, v11);
+  ashp::refcounted_ptr<ashp::monitor *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::driver_object,ashp::polymorphic_deleter<ashp::driver_object>>>>::reset(va1, v12, v13, v14);
+  os_unfair_lock_unlock(v6 + 16);
   _Unwind_Resume(a1);
 }
 
 uint64_t ashp::acipc::direct_memregion::get_state(os_unfair_lock_s *this, char *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(this + 16);
   ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&this[18]._os_unfair_lock_opaque, v5, v6, v7);
   v8 = *&this[18]._os_unfair_lock_opaque;
@@ -7073,7 +6854,7 @@ LABEL_29:
     v15 = "value";
     ashp::detail::control_flow::log_guard_else_failure("optional.hpp", 0xF7, "value", v14);
     v17 = "BUG in Airship: bad optional access";
-    ashp::detail::base::log_pre_crash_message("BUG in Airship: bad optional access", "optional.hpp", 0xF7, "value", v23);
+    ashp::detail::base::log_pre_crash_message("BUG in Airship: bad optional access", "optional.hpp", 0xF7, "value", v22);
     _os_crash();
     __break(1u);
 LABEL_30:
@@ -7119,19 +6900,19 @@ LABEL_13:
     {
       v20 = *(v8 + 160);
       *buf = 136447746;
-      v25 = "memregion_controller.cpp";
-      v26 = 1024;
-      v27 = 362;
-      v28 = 2082;
-      v29 = "compute_state_detail";
-      v30 = 2080;
-      v31 = v2;
-      v32 = 1024;
-      v33 = v20;
-      v34 = 1024;
-      v35 = v15;
-      v36 = 1024;
-      v37 = v17;
+      v24 = "memregion_controller.cpp";
+      v25 = 1024;
+      v26 = 362;
+      v27 = 2082;
+      v28 = "compute_state_detail";
+      v29 = 2080;
+      v30 = v2;
+      v31 = 1024;
+      v32 = v20;
+      v33 = 1024;
+      v34 = v15;
+      v35 = 1024;
+      v36 = v17;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] %s[%u] state %u, detail 0x%u", buf, 0x38u);
     }
   }
@@ -7158,32 +6939,31 @@ LABEL_24:
 LABEL_27:
   os_unfair_lock_unlock((v8 + 16));
   os_unfair_lock_unlock(this + 16);
-  v21 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
-uint64_t ashp::acipc::direct_memregion::activate(ashp::acipc::direct_memregion *this)
+uint64_t ashp::acipc::direct_memregion::activate(os_unfair_lock_s *this)
 {
-  v124 = *MEMORY[0x277D85DE8];
+  v123 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(this + 16);
-  if (*(this + 104) == 1)
+  if (LOBYTE(this[26]._os_unfair_lock_opaque) == 1)
   {
     v5 = "activate";
     ashp::detail::control_flow::log_guard_else_failure("direct_memregion.cpp", 0x3D, "activate", v4);
     v6 = "BUG in client of Airship: attempted to activate already-active memregion";
-    ashp::detail::base::log_pre_crash_message("BUG in client of Airship: attempted to activate already-active memregion", "direct_memregion.cpp", 0x3D, "activate", v101);
+    ashp::detail::base::log_pre_crash_message("BUG in client of Airship: attempted to activate already-active memregion", "direct_memregion.cpp", 0x3D, "activate", v100);
     _os_crash();
     __break(1u);
     goto LABEL_48;
   }
 
-  ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(this + 9, v2, v3, v4);
-  v5 = *(this + 9);
-  v6 = &v109;
-  ashp::refcounted_ptr<ashp::devmem_mapping *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::devmem_mapping,ashp::typed_deleter<ashp::devmem_mapping>>>>::refcounted_ptr(&v109, *(this + 10), v7, v8);
-  v9 = *(this + 12);
-  v110 = *(this + 11);
-  ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v111, v9, v10, v11);
+  ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&this[18]._os_unfair_lock_opaque, v2, v3, v4);
+  v5 = *&this[18]._os_unfair_lock_opaque;
+  v6 = &v108;
+  ashp::refcounted_ptr<ashp::devmem_mapping *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::devmem_mapping,ashp::typed_deleter<ashp::devmem_mapping>>>>::refcounted_ptr(&v108, *&this[20]._os_unfair_lock_opaque, v7, v8);
+  v9 = *&this[24]._os_unfair_lock_opaque;
+  v109 = *&this[22]._os_unfair_lock_opaque;
+  ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v110, v9, v10, v11);
   os_unfair_lock_lock((v5 + 16));
   if (*(v5 + 224) == 1)
   {
@@ -7194,15 +6974,15 @@ LABEL_48:
     __break(1u);
 LABEL_49:
     ashp::detail::control_flow::log_guard_else_failure("memregion_controller.cpp", 0x2C, "set_client_overrides", v18);
-    ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value((v5 + 152), v102, v103, v104);
-    v105 = *(v5 + 152);
-    if (v105)
+    ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value((v5 + 152), v101, v102, v103);
+    v104 = *(v5 + 152);
+    if (v104)
     {
-      CStringPtr = CFStringGetCStringPtr(v105, 0x8000100u);
-      v107 = "???";
+      CStringPtr = CFStringGetCStringPtr(v104, 0x8000100u);
+      v106 = "???";
       if (CStringPtr)
       {
-        v107 = CStringPtr;
+        v106 = CStringPtr;
       }
 
       goto LABEL_55;
@@ -7211,7 +6991,7 @@ LABEL_49:
     goto LABEL_54;
   }
 
-  LOBYTE(v19) = ashp::acipc::memregion_controller::validate_client_overrides(&v109, v12, v13, v14);
+  LOBYTE(v19) = ashp::acipc::memregion_controller::validate_client_overrides(&v108, v12, v13, v14);
   if ((v19 & 1) == 0)
   {
     goto LABEL_49;
@@ -7247,14 +7027,14 @@ LABEL_49:
       v23 = *(v5 + 160);
       *buf = 136447234;
       *&buf[4] = "memregion_controller.cpp";
-      v115 = 1024;
-      v116 = 45;
-      v117 = 2082;
-      *v118 = "set_client_overrides";
-      *&v118[8] = 2080;
-      *&v118[10] = v21;
-      *&v118[18] = 1024;
-      LODWORD(v119) = v23;
+      v114 = 1024;
+      v115 = 45;
+      v116 = 2082;
+      *v117 = "set_client_overrides";
+      *&v117[8] = 2080;
+      *&v117[10] = v21;
+      *&v117[18] = 1024;
+      LODWORD(v118) = v23;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] setting client overrides for %s[%u]", buf, 0x2Cu);
     }
   }
@@ -7269,46 +7049,46 @@ LABEL_49:
     ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] setting client overrides for %s[%u]", "memregion_controller.cpp", 45, "set_client_overrides", v21, *(v5 + 160));
   }
 
-  v27 = v109;
-  v109 = 0;
+  v27 = v108;
+  v108 = 0;
   v28 = *(v5 + 200);
   *(v5 + 200) = v27;
   *buf = v28;
   ashp::refcounted_ptr<ashp::devmem_mapping *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::devmem_mapping,ashp::typed_deleter<ashp::devmem_mapping>>>>::reset(buf, v24, v25, v26);
-  v29 = v111;
-  v111 = 0;
+  v29 = v110;
+  v110 = 0;
   v30 = *(v5 + 216);
-  *(v5 + 208) = v110;
+  *(v5 + 208) = v109;
   *(v5 + 216) = v29;
-  *v121 = v30;
-  ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(v121, v31, v32, v33);
+  *v120 = v30;
+  ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(v120, v31, v32, v33);
   while (1)
   {
     os_unfair_lock_unlock((v5 + 16));
     ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(v6 + 2, v34, v35, v36);
-    ashp::refcounted_ptr<ashp::devmem_mapping *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::devmem_mapping,ashp::typed_deleter<ashp::devmem_mapping>>>>::reset(&v109, v37, v38, v39);
+    ashp::refcounted_ptr<ashp::devmem_mapping *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::devmem_mapping,ashp::typed_deleter<ashp::devmem_mapping>>>>::reset(&v108, v37, v38, v39);
     v5 = 3758097090;
     if ((v19 & 1) == 0)
     {
       break;
     }
 
-    ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(this + 9, v40, v41, v42);
-    v6 = *(this + 9);
+    ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&this[18]._os_unfair_lock_opaque, v40, v41, v42);
+    v6 = *&this[18]._os_unfair_lock_opaque;
     os_unfair_lock_lock(v6 + 36);
     os_unfair_lock_lock(v6 + 4);
-    if (*(v6 + 224) != 1)
+    if (v6[224] != 1)
     {
-      if ((v6[4] & 1) == 0)
+      if ((v6[32] & 1) == 0)
       {
-        if (!v6[25])
+        if (!*(v6 + 25))
         {
           ashp::detail::control_flow::log_guard_else_failure("memregion_controller.cpp", 0x3A, "activate", v45);
           v47 = 0;
           goto LABEL_44;
         }
 
-        if ((ashp::acipc::memregion_controller::validate_client_overrides((v6 + 25), v43, v44, v45) & 1) == 0)
+        if ((ashp::acipc::memregion_controller::validate_client_overrides((v6 + 200), v43, v44, v45) & 1) == 0)
         {
           ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "memregion_controller.cpp", 0x3B, "activate", v51);
           _os_crash();
@@ -7317,7 +7097,7 @@ LABEL_49:
         }
 
         ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v6 + 19, v48, v49, v50);
-        v52 = v6[19];
+        v52 = *(v6 + 19);
         if (v52)
         {
           v52 = CFStringGetCStringPtr(v52, 0x8000100u);
@@ -7346,14 +7126,14 @@ LABEL_49:
             v55 = *(v6 + 40);
             *buf = 136447234;
             *&buf[4] = "memregion_controller.cpp";
-            v115 = 1024;
-            v116 = 60;
-            v117 = 2082;
-            *v118 = "activate";
-            *&v118[8] = 2080;
-            *&v118[10] = v53;
-            *&v118[18] = 1024;
-            LODWORD(v119) = v55;
+            v114 = 1024;
+            v115 = 60;
+            v116 = 2082;
+            *v117 = "activate";
+            *&v117[8] = 2080;
+            *&v117[10] = v53;
+            *&v117[18] = 1024;
+            LODWORD(v118) = v55;
             _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] activating %s[%u]", buf, 0x2Cu);
           }
         }
@@ -7376,21 +7156,21 @@ LABEL_49:
 LABEL_34:
           *(v6 + 224) = 1;
           os_unfair_lock_unlock(v6 + 4);
-          v5 = v6[3];
+          v5 = *(v6 + 3);
           ashp::optional<ashp::interrupt,void>::value(v5 + 4880, v58, v59, v60);
-          ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v112, v6[19], v61, v62);
-          v113 = *(v6 + 40);
-          BYTE2(v116) = 0;
+          ashp::refcounted_ptr<ashp::boxed::data,ashp::cf::refcount_policy>::refcounted_ptr(&v111, *(v6 + 19), v61, v62);
+          v112 = *(v6 + 40);
+          BYTE2(v115) = 0;
           ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(buf, v63, v64, v65);
-          v66 = v112;
-          v112 = 0;
+          v66 = v111;
+          v111 = 0;
           *buf = v66;
-          *&buf[8] = v113;
-          BYTE2(v116) = 1;
-          ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::storage(&v118[4], (v6 + 21), v67, v68);
-          v120 = *(v6 + 96);
+          *&buf[8] = v112;
+          BYTE2(v115) = 1;
+          ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::storage(&v117[4], v6 + 21, v67, v68);
+          v119 = *(v6 + 96);
           os_unfair_lock_lock((v5 + 4880));
-          if (v6[35])
+          if (*(v6 + 35))
           {
 LABEL_58:
             ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "memregion_manager.cpp", 0x7D, "add_region", v71);
@@ -7400,41 +7180,42 @@ LABEL_58:
 
           else
           {
-            v6[35] = v6;
+            *(v6 + 35) = v6;
             *(v6 + 78) = 0;
             *(v6 + 158) = 0;
             *(v6 + 80) = 0;
-            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v121, buf, v69, v70);
-            ashp::swap((v6 + 41), v121, v72, v73);
-            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v121, v74, v75, v76);
-            v77 = v119;
-            v78 = *&v118[4];
-            *&v118[4] = 0uLL;
-            v119 = 0;
+            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::storage(v120, buf, v69, v70);
+            ashp::swap(v6 + 41, v120, v72, v73);
+            ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(v120, v74, v75, v76);
+            v77 = v118;
+            v78 = *&v117[4];
+            *&v117[4] = 0;
+            *&v117[12] = 0;
+            v118 = 0;
             v79 = *(v6 + 22);
             *(v6 + 22) = v78;
-            *v121 = v79;
-            v80 = v6[46];
-            v6[46] = v77;
-            *&v121[16] = v80;
-            ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(v121, v81, v82, v83, v84);
-            *(v6 + 188) = v120;
-            ashp::acipc::memregion_manager::recompute_region_availability((v5 + 4880), (v6 + 35));
+            *v120 = v79;
+            v80 = *(v6 + 46);
+            *(v6 + 46) = v77;
+            *&v120[16] = v80;
+            ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(v120, v81, v82, v83, v84);
+            *(v6 + 188) = v119;
+            ashp::acipc::memregion_manager::recompute_region_availability((v5 + 4880), (v6 + 280));
             v86 = ashp::detail::logging::get_log_level(v85);
             if (v86 >= 4)
             {
               v86 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
               if (v86)
               {
-                *v121 = 136446978;
-                *&v121[4] = "memregion_manager.cpp";
-                *&v121[12] = 1024;
-                *&v121[14] = 133;
-                *&v121[18] = 2082;
-                *&v121[20] = "add_region";
-                v122 = 1024;
-                v123 = v120;
-                _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] region id %hu adding memregion_controller", v121, 0x22u);
+                *v120 = 136446978;
+                *&v120[4] = "memregion_manager.cpp";
+                *&v120[12] = 1024;
+                *&v120[14] = 133;
+                *&v120[18] = 2082;
+                *&v120[20] = "add_region";
+                v121 = 1024;
+                v122 = v119;
+                _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] region id %hu adding memregion_controller", v120, 0x22u);
               }
             }
 
@@ -7445,21 +7226,21 @@ LABEL_58:
                 dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
               }
 
-              ashp_log_helper::log(*(v57 + 2648), "[%s:%d:%s] region id %hu adding memregion_controller", "memregion_manager.cpp", 133, "add_region", v120);
+              ashp_log_helper::log(*(v57 + 2648), "[%s:%d:%s] region id %hu adding memregion_controller", "memregion_manager.cpp", 133, "add_region", v119);
             }
 
-            if (!v6[38])
+            if (!*(v6 + 38))
             {
               v88 = *(v5 + 4920);
-              v6[36] = *v88;
-              v6[37] = v88;
-              *v88 = (v6 + 35);
-              *(v5 + 4920) = v6 + 36;
-              v6[38] = v5 + 4912;
+              *(v6 + 36) = *v88;
+              *(v6 + 37) = v88;
+              *v88 = v6 + 280;
+              *(v5 + 4920) = v6 + 288;
+              *(v6 + 38) = v5 + 4912;
               os_unfair_lock_unlock((v5 + 4880));
-              ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(&v118[4], v89, v90, v91, v92);
+              ashp::detail::dynamic_array::storage<ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>>::~storage(&v117[4], v89, v90, v91, v92);
               ashp::unsafe_storage<ashp::acipc::config::named_target_spec>::storage::reset(buf, v93, v94, v95);
-              ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v112, v96, v97, v98);
+              ashp::refcounted_ptr<ashp::boxed::symbol,ashp::cf::refcount_policy>::reset(&v111, v96, v97, v98);
               os_unfair_lock_lock(v6 + 4);
               v5 = 0;
               v47 = 1;
@@ -7471,7 +7252,7 @@ LABEL_58:
           v57 = v5;
           ashp::detail::control_flow::log_guard_else_failure("intrusive_list.hpp", 0xBA, "insert_before", v87);
           v56 = v6;
-          ashp::detail::base::log_pre_crash_message("BUG in Airship: attempted to insert element already in list", "intrusive_list.hpp", 0xBA, "insert_before", v108);
+          ashp::detail::base::log_pre_crash_message("BUG in Airship: attempted to insert element already in list", "intrusive_list.hpp", 0xBA, "insert_before", v107);
           _os_crash();
           __break(1u);
 LABEL_60:
@@ -7487,7 +7268,7 @@ LABEL_44:
       if (v47)
       {
         v5 = 0;
-        *(this + 104) = 1;
+        LOBYTE(this[26]._os_unfair_lock_opaque) = 1;
       }
 
       break;
@@ -7498,27 +7279,26 @@ LABEL_44:
     _os_crash();
     __break(1u);
 LABEL_54:
-    v107 = "(nil)";
+    v106 = "(nil)";
 LABEL_55:
-    *buf = v107;
+    *buf = v106;
     ashp::acipc::memregion_controller::set_client_overrides(ashp::acipc::memregion_controller::client_overrides)::$_0::operator()<char const*,unsigned int>(buf, (v5 + 160));
   }
 
   os_unfair_lock_unlock(this + 16);
-  v99 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-void sub_23ECE78BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_23ECE78BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
-  os_unfair_lock_unlock(v7 + 4);
-  ashp::acipc::memregion_controller::client_overrides::~client_overrides(va, v9, v10, v11);
-  os_unfair_lock_unlock(v6 + 16);
+  va_start(va, a11);
+  os_unfair_lock_unlock(v12 + 4);
+  ashp::acipc::memregion_controller::client_overrides::~client_overrides(va, v14, v15, v16);
+  os_unfair_lock_unlock(v11 + 16);
   _Unwind_Resume(a1);
 }
 
-uint64_t *ashp::refcounted_ptr<ashp::devmem_mapping *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::devmem_mapping,ashp::typed_deleter<ashp::devmem_mapping>>>>::refcounted_ptr(uint64_t *a1, uint64_t a2, uint64_t a3, const char *a4)
+atomic_ullong **ashp::refcounted_ptr<ashp::devmem_mapping *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::devmem_mapping,ashp::typed_deleter<ashp::devmem_mapping>>>>::refcounted_ptr(atomic_ullong **a1, atomic_ullong *a2, uint64_t a3, const char *a4)
 {
   *a1 = a2;
   if (a2)
@@ -7655,7 +7435,7 @@ void ashp::acipc::direct_memregion::destroy(ashp::acipc::direct_memregion *this,
 
 void ___ZN4ashp5acipc9messengerC2EPNS0_12acipc_driverEP16dispatch_queue_s_block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   os_unfair_lock_lock(v2);
   v3 = *(a1 + 32);
@@ -7672,11 +7452,11 @@ void ___ZN4ashp5acipc9messengerC2EPNS0_12acipc_driverEP16dispatch_queue_s_block_
         if (log_level)
         {
           *buf = 136446722;
-          v11 = "messenger.cpp";
-          v12 = 1024;
-          v13 = 308;
-          v14 = 2082;
-          v15 = "check_async";
+          v10 = "messenger.cpp";
+          v11 = 1024;
+          v12 = 308;
+          v13 = 2082;
+          v14 = "check_async";
           _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] processing completions", buf, 0x1Cu);
         }
       }
@@ -7700,11 +7480,11 @@ void ___ZN4ashp5acipc9messengerC2EPNS0_12acipc_driverEP16dispatch_queue_s_block_
         if (v8)
         {
           *buf = 136446722;
-          v11 = "messenger.cpp";
-          v12 = 1024;
-          v13 = 311;
-          v14 = 2082;
-          v15 = "check_async";
+          v10 = "messenger.cpp";
+          v11 = 1024;
+          v12 = 311;
+          v13 = 2082;
+          v14 = "check_async";
           _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] sending any overflow messages", buf, 0x1Cu);
         }
       }
@@ -7725,8 +7505,6 @@ void ___ZN4ashp5acipc9messengerC2EPNS0_12acipc_driverEP16dispatch_queue_s_block_
 
     os_unfair_lock_unlock(v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   os_unfair_lock_unlock(v2);
 }
@@ -7793,7 +7571,7 @@ LABEL_5:
   }
 }
 
-uint64_t ashp::detail::intrusive_list::intrusive_list_impl<ashp::acipc::messenger::overflow_record,ashp::intrusive_list_link<ashp::acipc::messenger::overflow_record>,&ashp::acipc::messenger::overflow_record::link>::~intrusive_list_impl(void **a1, uint64_t a2, uint64_t a3, const char *a4)
+uint64_t ashp::detail::intrusive_list::intrusive_list_impl<ashp::acipc::messenger::overflow_record,ashp::intrusive_list_link<ashp::acipc::messenger::overflow_record>,&ashp::acipc::messenger::overflow_record::link>::~intrusive_list_impl(void *a1, uint64_t a2, uint64_t a3, const char *a4)
 {
   for (i = *a1; *a1; i = *a1)
   {
@@ -7819,16 +7597,16 @@ uint64_t ashp::intrusive_list_link<ashp::acipc::messenger::overflow_record>::~in
 uint64_t ashp::acipc::messenger::process_completions(const os_unfair_lock *this)
 {
   v1 = this;
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(this);
-  v91 = (v1 + 200);
-  if (!*(v1 + 25))
+  v90 = v1 + 50;
+  if (!*&v1[50]._os_unfair_lock_opaque)
   {
     goto LABEL_120;
   }
 
-  v4 = (v1 + 208);
-  if (*(v1 + 26))
+  v4 = &v1[52];
+  if (*&v1[52]._os_unfair_lock_opaque)
   {
     log_level = ashp::detail::logging::get_log_level(v2);
     if (log_level >= 4)
@@ -7837,11 +7615,11 @@ uint64_t ashp::acipc::messenger::process_completions(const os_unfair_lock *this)
       if (log_level)
       {
         *buf = 136446722;
-        v95 = "messenger.cpp";
-        v96 = 1024;
-        v97 = 323;
-        v98 = 2082;
-        v99 = "process_completions";
+        v94 = "messenger.cpp";
+        v95 = 1024;
+        v96 = 323;
+        v97 = 2082;
+        v98 = "process_completions";
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] syncing mcr head index update", buf, 0x1Cu);
       }
     }
@@ -7875,14 +7653,14 @@ LABEL_9:
             goto LABEL_118;
           }
 
-          if (*buf == 1 && (v95 & 8) != 0)
+          if (*buf == 1 && (v94 & 8) != 0)
           {
-            v19 = *(v1 + 30);
+            v19 = *&v1[60]._os_unfair_lock_opaque;
             if (v19)
             {
-              v20 = BYTE1(v95);
+              v20 = BYTE1(v94);
               v21 = 16 * v19;
-              v22 = (*(v1 + 32) + 8);
+              v22 = (*&v1[64]._os_unfair_lock_opaque + 8);
               do
               {
                 if (*(v22 - 8) == v20)
@@ -7892,7 +7670,7 @@ LABEL_9:
                     break;
                   }
 
-                  v23 = *(v1 + 33);
+                  v23 = *&v1[66]._os_unfair_lock_opaque;
                   if (v23 >> 32)
                   {
                     ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "messenger.cpp", 0x152, "process_completions", v18);
@@ -7905,14 +7683,14 @@ LABEL_111:
                     goto LABEL_112;
                   }
 
-                  v24 = *(v1 + 36);
+                  v24 = *&v1[72]._os_unfair_lock_opaque;
                   if (v24 >> 32)
                   {
                     goto LABEL_111;
                   }
 
                   ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v4, v12, v13, v14);
-                  v25 = ashp::acipc::cr_controller::get_mirror_element(*(v1 + 26), i, 0, *(v1 + 35), v23, *(v1 + 38), v24);
+                  v25 = ashp::acipc::cr_controller::get_mirror_element(*&v1[52]._os_unfair_lock_opaque, i, 0, *&v1[70]._os_unfair_lock_opaque, v23, *&v1[76]._os_unfair_lock_opaque, v24);
                   if (!ashp::detail::control_flow::check_err_with_debug(v25, "messenger.cpp", 0x157, "process_completions", v26))
                   {
                     goto LABEL_113;
@@ -7923,7 +7701,7 @@ LABEL_111:
                     goto LABEL_115;
                   }
 
-                  (*(*v22 + 16))(*v22, &v95, *(v1 + 35), v23, *(v1 + 38), v24);
+                  (*(*v22 + 16))(*v22, &v94, *&v1[70]._os_unfair_lock_opaque, v23, *&v1[76]._os_unfair_lock_opaque, v24);
                 }
 
                 v22 += 2;
@@ -7968,11 +7746,11 @@ LABEL_124:
     if (v32)
     {
       *buf = 136446722;
-      v95 = "messenger.cpp";
-      v96 = 1024;
-      v97 = 350;
-      v98 = 2082;
-      v99 = "process_completions";
+      v94 = "messenger.cpp";
+      v95 = 1024;
+      v96 = 350;
+      v97 = 2082;
+      v98 = "process_completions";
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] syncing mtr tail index update and fetching completions", buf, 0x1Cu);
     }
   }
@@ -7991,14 +7769,14 @@ LABEL_124:
   {
     ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] syncing mtr tail index update and fetching completions", "messenger.cpp", 350, "process_completions");
 LABEL_34:
-    ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v91, v33, v34, v35);
-    ashp::acipc::tr_controller::sync(*v91, 6);
-    ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v91, v36, v37, v38);
-    result = ashp::acipc::tr_controller::get_completed_transfer_count(*v91);
-    v90 = result;
+    ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v90, v33, v34, v35);
+    ashp::acipc::tr_controller::sync(*&v90->_os_unfair_lock_opaque, 6);
+    ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v90, v36, v37, v38);
+    result = ashp::acipc::tr_controller::get_completed_transfer_count(*&v90->_os_unfair_lock_opaque);
+    v89 = result;
     if (!result)
     {
-      break;
+      return result;
     }
 
     v40 = ashp::detail::logging::get_log_level(result);
@@ -8008,13 +7786,13 @@ LABEL_34:
       if (v40)
       {
         *buf = 136446978;
-        v95 = "messenger.cpp";
-        v96 = 1024;
-        v97 = 354;
-        v98 = 2082;
-        v99 = "process_completions";
-        v100 = 1024;
-        v101 = v90;
+        v94 = "messenger.cpp";
+        v95 = 1024;
+        v96 = 354;
+        v97 = 2082;
+        v98 = "process_completions";
+        v99 = 1024;
+        v100 = v89;
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] completion count %hu", buf, 0x22u);
       }
     }
@@ -8026,29 +7804,29 @@ LABEL_34:
         dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
       }
 
-      ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] completion count %hu", "messenger.cpp", 354, "process_completions", v90);
+      ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] completion count %hu", "messenger.cpp", 354, "process_completions", v89);
     }
 
-    ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v91, v41, v42, v43);
-    *buf = ashp::acipc::tr_controller::get_first_completed_tag(*(v1 + 25));
+    ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v90, v41, v42, v43);
+    *buf = ashp::acipc::tr_controller::get_first_completed_tag(*&v1[50]._os_unfair_lock_opaque);
     v47 = ashp::optional<unsigned short,ashp::optional_sentinel<65535,false>>::value(buf, v44, v45, v46);
     LODWORD(v4) = 0;
     v48 = MEMORY[0x277D86220];
     v49 = *buf;
     while (1)
     {
-      v50 = v49;
-      if ((v1[232] & 1) == 0)
+      os_unfair_lock_opaque_high = v49;
+      if ((v1[58]._os_unfair_lock_opaque & 1) == 0)
       {
         os_unfair_lock_lock(v1 + 1);
         os_unfair_lock_assert_owner(v1 + 1);
-        if (v1[232] == 1)
+        if (LOBYTE(v1[58]._os_unfair_lock_opaque) == 1)
         {
           goto LABEL_119;
         }
 
-        v50 = *(v1 + 119);
-        ashp::ring_index_pair<unsigned short>::advance_tail_index(v1 + 117, 1u, v51, v52);
+        os_unfair_lock_opaque_high = HIWORD(v1[59]._os_unfair_lock_opaque);
+        ashp::ring_index_pair<unsigned short>::advance_tail_index(&v1[58]._os_unfair_lock_opaque + 1, 1u, v51, v52);
         os_unfair_lock_unlock(v1 + 1);
       }
 
@@ -8059,13 +7837,13 @@ LABEL_34:
         if (v54)
         {
           *buf = 136446978;
-          v95 = "messenger.cpp";
-          v96 = 1024;
-          v97 = 368;
-          v98 = 2082;
-          v99 = "process_completions";
-          v100 = 1024;
-          v101 = v50;
+          v94 = "messenger.cpp";
+          v95 = 1024;
+          v96 = 368;
+          v97 = 2082;
+          v98 = "process_completions";
+          v99 = 1024;
+          v100 = os_unfair_lock_opaque_high;
           _os_log_impl(&dword_23EC8B000, v48, OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] index %hu", buf, 0x22u);
         }
       }
@@ -8077,15 +7855,15 @@ LABEL_34:
           dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
         }
 
-        ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] index %hu", "messenger.cpp", 368, "process_completions", v50);
+        ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] index %hu", "messenger.cpp", 368, "process_completions", os_unfair_lock_opaque_high);
       }
 
-      if (*(v1 + 52) <= v50)
+      if (LOWORD(v1[26]._os_unfair_lock_opaque) <= os_unfair_lock_opaque_high)
       {
         break;
       }
 
-      v58 = ashp::dynamic_array<ashp::acipc::messenger::message>::operator[](v1 + 18, v50, v55, v56);
+      v58 = ashp::dynamic_array<ashp::acipc::messenger::message>::operator[](&v1[36]._os_unfair_lock_opaque, os_unfair_lock_opaque_high, v55, v56);
       v60 = v58;
       if ((*v58 & 1) == 0)
       {
@@ -8104,13 +7882,13 @@ LABEL_34:
         if (v61)
         {
           *buf = 136446978;
-          v95 = "messenger.cpp";
-          v96 = 1024;
-          v97 = 375;
-          v98 = 2082;
-          v99 = "process_completions";
-          v100 = 1024;
-          v101 = v49;
+          v94 = "messenger.cpp";
+          v95 = 1024;
+          v96 = 375;
+          v97 = 2082;
+          v98 = "process_completions";
+          v99 = 1024;
+          v100 = v49;
           _os_log_impl(&dword_23EC8B000, v48, OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] getting transfer completion for tag %hu", buf, 0x22u);
         }
       }
@@ -8125,17 +7903,17 @@ LABEL_34:
         ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] getting transfer completion for tag %hu", "messenger.cpp", 375, "process_completions", v49);
       }
 
-      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v91, v62, v63, v64);
-      transfer_completion = ashp::acipc::tr_controller::get_transfer_completion(*v91, v49, v92, 0, 0, 0, 0);
+      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v90, v62, v63, v64);
+      transfer_completion = ashp::acipc::tr_controller::get_transfer_completion(*&v90->_os_unfair_lock_opaque, v49, v91, 0, 0, 0, 0);
       v47 = ashp::detail::control_flow::check_err_with_debug(transfer_completion, "messenger.cpp", 0x178, "process_completions", v66);
       if ((v47 & 1) == 0)
       {
         goto LABEL_117;
       }
 
-      if ((v92[0] - 1) >= 3)
+      if ((v91[0] - 1) >= 3)
       {
-        if (v92[0] == 4)
+        if (v91[0] == 4)
         {
           v71 = ashp::detail::logging::get_log_level(v47);
           if (v71 >= 4)
@@ -8144,11 +7922,11 @@ LABEL_34:
             if (v71)
             {
               *buf = 136446722;
-              v95 = "messenger.cpp";
-              v96 = 1024;
-              v97 = 391;
-              v98 = 2082;
-              v99 = "process_completions";
+              v94 = "messenger.cpp";
+              v95 = 1024;
+              v96 = 391;
+              v97 = 2082;
+              v98 = "process_completions";
               _os_log_impl(&dword_23EC8B000, v48, OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] message canceled", buf, 0x1Cu);
             }
           }
@@ -8169,7 +7947,7 @@ LABEL_34:
 
         else
         {
-          if (!v92[0])
+          if (!v91[0])
           {
             v70 = ashp::detail::logging::get_log_level(v47);
             if (v70 >= 4)
@@ -8178,11 +7956,11 @@ LABEL_34:
               if (v70)
               {
                 *buf = 136446722;
-                v95 = "messenger.cpp";
-                v96 = 1024;
-                v97 = 381;
-                v98 = 2082;
-                v99 = "process_completions";
+                v94 = "messenger.cpp";
+                v95 = 1024;
+                v96 = 381;
+                v97 = 2082;
+                v98 = "process_completions";
                 _os_log_impl(&dword_23EC8B000, v48, OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] message success", buf, 0x1Cu);
               }
             }
@@ -8212,11 +7990,11 @@ LABEL_34:
           if (v68)
           {
             *buf = 136446722;
-            v95 = "messenger.cpp";
-            v96 = 1024;
-            v97 = 387;
-            v98 = 2082;
-            v99 = "process_completions";
+            v94 = "messenger.cpp";
+            v95 = 1024;
+            v96 = 387;
+            v97 = 2082;
+            v98 = "process_completions";
             _os_log_impl(&dword_23EC8B000, v48, OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] message failure", buf, 0x1Cu);
           }
         }
@@ -8244,11 +8022,11 @@ LABEL_34:
           if (v72)
           {
             *buf = 136446722;
-            v95 = "messenger.cpp";
-            v96 = 1024;
-            v97 = 397;
-            v98 = 2082;
-            v99 = "process_completions";
+            v94 = "messenger.cpp";
+            v95 = 1024;
+            v96 = 397;
+            v97 = 2082;
+            v98 = "process_completions";
             _os_log_impl(&dword_23EC8B000, v48, OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] invoking action", buf, 0x1Cu);
           }
         }
@@ -8272,8 +8050,8 @@ LABEL_34:
       *(v60 + 1) = 0;
       v4 = (v4 + 1);
       v60[16] = -1;
-      v49 = v93;
-      if (v90 <= v4)
+      v49 = v92;
+      if (v89 <= v4)
       {
         v73 = ashp::detail::logging::get_log_level(v47);
         if (v73 >= 4)
@@ -8282,11 +8060,11 @@ LABEL_34:
           if (v73)
           {
             *buf = 136446722;
-            v95 = "messenger.cpp";
-            v96 = 1024;
-            v97 = 404;
-            v98 = 2082;
-            v99 = "process_completions";
+            v94 = "messenger.cpp";
+            v95 = 1024;
+            v96 = 404;
+            v97 = 2082;
+            v98 = "process_completions";
             _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] consuming transfers", buf, 0x1Cu);
           }
         }
@@ -8301,20 +8079,20 @@ LABEL_34:
           ashp_log_helper::log(airship_global_logger, "[%s:%d:%s] consuming transfers", "messenger.cpp", 404, "process_completions");
         }
 
-        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v91, v74, v75, v76);
-        v1 = *v91;
-        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v91, v77, v78, v79);
-        first_completed_tag = ashp::acipc::tr_controller::get_first_completed_tag(*v91);
+        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v90, v74, v75, v76);
+        v1 = *&v90->_os_unfair_lock_opaque;
+        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v90, v77, v78, v79);
+        first_completed_tag = ashp::acipc::tr_controller::get_first_completed_tag(*&v90->_os_unfair_lock_opaque);
         *buf = first_completed_tag;
         ashp::optional<unsigned short,ashp::optional_sentinel<65535,false>>::value(buf, v81, v82, v83);
-        v84 = ashp::acipc::tr_controller::consume_transfers(v1, first_completed_tag, v90);
+        v84 = ashp::acipc::tr_controller::consume_transfers(v1, first_completed_tag, v89);
         result = ashp::detail::control_flow::check_err_with_debug(v84, "messenger.cpp", 0x195, "process_completions", v85);
         if ((result & 1) == 0)
         {
           goto LABEL_123;
         }
 
-        goto LABEL_109;
+        return result;
       }
     }
 
@@ -8333,7 +8111,7 @@ LABEL_114:
 LABEL_115:
     v1 = "value";
     ashp::detail::control_flow::log_guard_else_failure("optional.hpp", 0x7D, "value", v27);
-    ashp::detail::base::log_pre_crash_message("BUG in Airship: bad optional access", "optional.hpp", 0x7D, "value", v88);
+    ashp::detail::base::log_pre_crash_message("BUG in Airship: bad optional access", "optional.hpp", 0x7D, "value", v87);
     _os_crash();
     __break(1u);
 LABEL_116:
@@ -8359,19 +8137,15 @@ LABEL_120:
 LABEL_121:
     dispatch_once(&airship_platform_get_global_logger::once, &__block_literal_global_388);
   }
-
-LABEL_109:
-  v87 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void ashp::acipc::messenger::send_overflow_messages(const os_unfair_lock *this)
 {
   v2 = this;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(this);
   os_unfair_lock_assert_owner(v2 + 1);
-  if (v2[192] == 1)
+  if (LOBYTE(v2[48]._os_unfair_lock_opaque) == 1)
   {
     v2 = "BUG in Airship: ";
     ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "messenger.cpp", 0x1BA, "send_overflow_messages", v6);
@@ -8380,8 +8154,8 @@ void ashp::acipc::messenger::send_overflow_messages(const os_unfair_lock *this)
     goto LABEL_16;
   }
 
-  ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v2 + 25, v3, v4, v5);
-  free_space = ashp::acipc::tr_controller::get_free_space(*(v2 + 25));
+  ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v2[50]._os_unfair_lock_opaque, v3, v4, v5);
+  free_space = ashp::acipc::tr_controller::get_free_space(*&v2[50]._os_unfair_lock_opaque);
   v1 = free_space;
   log_level = ashp::detail::logging::get_log_level(free_space);
   if (log_level >= 4)
@@ -8390,11 +8164,11 @@ void ashp::acipc::messenger::send_overflow_messages(const os_unfair_lock *this)
     if (log_level)
     {
       *buf = 136446722;
-      v20 = "messenger.cpp";
-      v21 = 1024;
-      v22 = 444;
-      v23 = 2082;
-      v24 = "send_overflow_messages";
+      v19 = "messenger.cpp";
+      v20 = 1024;
+      v21 = 444;
+      v22 = 2082;
+      v23 = "send_overflow_messages";
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] sending overflow messages", buf, 0x1Cu);
     }
   }
@@ -8414,13 +8188,13 @@ LABEL_16:
   }
 
 LABEL_8:
-  v12 = (v2 + 168);
-  v13 = *(v2 + 21);
+  v12 = v2 + 42;
+  v13 = *&v2[42]._os_unfair_lock_opaque;
   if (v13 && v1)
   {
     do
     {
-      ashp::detail::intrusive_list::intrusive_list_impl<ashp::driver_object,ashp::intrusive_list_link<ashp::driver_object>,&ashp::driver_object::_manager_link>::remove((v2 + 168), v13, v10, v11);
+      ashp::detail::intrusive_list::intrusive_list_impl<ashp::driver_object,ashp::intrusive_list_link<ashp::driver_object>,&ashp::driver_object::_manager_link>::remove(&v2[42], v13, v10, v11);
       ashp::acipc::messenger::enqueue_message_in_mtr(v2, *(v13 + 32), *(v13 + 24), 0, 0, *v13, *(v13 + 8), *(v13 + 16));
       ashp::intrusive_list_link<ashp::acipc::messenger::overflow_record>::~intrusive_list_link(v13 + 40, v14, v15, v16);
       v17 = *(v13 + 32);
@@ -8432,8 +8206,8 @@ LABEL_8:
       }
 
       MEMORY[0x23EF204E0](v13, 0x10A0C40D2B1F201);
-      v13 = *v12;
-      if (!*v12)
+      v13 = *&v12->_os_unfair_lock_opaque;
+      if (!*&v12->_os_unfair_lock_opaque)
       {
         break;
       }
@@ -8444,16 +8218,15 @@ LABEL_8:
     while (v1);
   }
 
-  ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v2 + 25, v9, v10, v11);
-  ashp::acipc::tr_controller::sync(*(v2 + 25), 1);
-  v18 = *MEMORY[0x277D85DE8];
+  ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&v2[50]._os_unfair_lock_opaque, v9, v10, v11);
+  ashp::acipc::tr_controller::sync(*&v2[50]._os_unfair_lock_opaque, 1);
 }
 
 BOOL ashp::acipc::messenger::enqueue_message_in_mtr(const os_unfair_lock *a1, const void *a2, unsigned int a3, const void *a4, int a5, unint64_t a6, unint64_t a7, unint64_t a8)
 {
   LODWORD(v12) = a5;
   v15 = a1;
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(a1 + 1);
   ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v15 + 25, v16, v17, v18);
   *buf = ashp::acipc::tr_controller::get_first_free_tag(*(v15 + 25));
@@ -8507,15 +8280,15 @@ LABEL_50:
     {
       v36 = *(v15 + 27);
       *buf = 136447234;
-      v84 = "messenger.cpp";
-      v86 = 268;
-      v87 = 2082;
-      v85 = 1024;
-      v88 = "enqueue_message_in_mtr";
-      v89 = 1024;
-      v90 = v26;
-      v91 = 1024;
-      v92 = v36;
+      v83 = "messenger.cpp";
+      v85 = 268;
+      v86 = 2082;
+      v84 = 1024;
+      v87 = "enqueue_message_in_mtr";
+      v88 = 1024;
+      v89 = v26;
+      v90 = 1024;
+      v91 = v36;
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] index %hu, message length %u", buf, 0x28u);
     }
   }
@@ -8558,15 +8331,15 @@ LABEL_52:
       if (v39)
       {
         *buf = 136447234;
-        v84 = "messenger.cpp";
-        v86 = 271;
-        v87 = 2082;
-        v85 = 1024;
-        v88 = "enqueue_message_in_mtr";
-        v89 = 1024;
-        v90 = a3;
-        v91 = 1024;
-        v92 = v12;
+        v83 = "messenger.cpp";
+        v85 = 271;
+        v86 = 2082;
+        v84 = 1024;
+        v87 = "enqueue_message_in_mtr";
+        v88 = 1024;
+        v89 = a3;
+        v90 = 1024;
+        v91 = v12;
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] payload length %u, appendix length %u", buf, 0x28u);
       }
     }
@@ -8620,11 +8393,11 @@ LABEL_56:
       if (v42)
       {
         *buf = 136446722;
-        v84 = "messenger.cpp";
-        v85 = 1024;
-        v86 = 277;
-        v87 = 2082;
-        v88 = "enqueue_message_in_mtr";
+        v83 = "messenger.cpp";
+        v84 = 1024;
+        v85 = 277;
+        v86 = 2082;
+        v87 = "enqueue_message_in_mtr";
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] copying message payload", buf, 0x1Cu);
       }
     }
@@ -8654,11 +8427,11 @@ LABEL_58:
       if (v47)
       {
         *buf = 136446722;
-        v84 = "messenger.cpp";
-        v85 = 1024;
-        v86 = 283;
-        v87 = 2082;
-        v88 = "enqueue_message_in_mtr";
+        v83 = "messenger.cpp";
+        v84 = 1024;
+        v85 = 283;
+        v86 = 2082;
+        v87 = "enqueue_message_in_mtr";
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] copying appendix", buf, 0x1Cu);
       }
     }
@@ -8690,11 +8463,11 @@ LABEL_58:
     if (v52)
     {
       *buf = 136446722;
-      v84 = "messenger.cpp";
-      v85 = 1024;
-      v86 = 288;
-      v87 = 2082;
-      v88 = "enqueue_message_in_mtr";
+      v83 = "messenger.cpp";
+      v84 = 1024;
+      v85 = 288;
+      v86 = 2082;
+      v87 = "enqueue_message_in_mtr";
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] enqueuing message in mtr", buf, 0x1Cu);
     }
   }
@@ -8711,31 +8484,30 @@ LABEL_58:
 
   ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(v15 + 25, v53, v54, v55);
   v12 = *(v15 + 25);
-  v73[0] = v25;
+  v72[0] = v25;
+  v73 = 0;
+  ashp::refcounted_ptr<ashp::devmem_mapping *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::devmem_mapping,ashp::typed_deleter<ashp::devmem_mapping>>>>::refcounted_ptr(&v71, *(v15 + 17), v56, v57);
+  v26 = v72;
   v74 = 0;
-  ashp::refcounted_ptr<ashp::devmem_mapping *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::devmem_mapping,ashp::typed_deleter<ashp::devmem_mapping>>>>::refcounted_ptr(&v72, *(v15 + 17), v56, v57);
-  v26 = v73;
-  v75 = 0;
-  v58 = v72;
-  v72 = 0;
-  v76 = v58;
-  v77 = a8;
-  v78 = v8;
+  v58 = v71;
+  v71 = 0;
+  v75 = v58;
+  v76 = a8;
+  v77 = v8;
+  v78 = 0;
   v79 = 0;
   v80 = 0;
   v81 = 0;
-  v82 = 0;
-  v59 = ashp::acipc::tr_controller::enqueue_transfer(v12, v73);
-  ashp::device_accessible_memory::release_obj(&v75, v60, v61, v62, v63);
-  v76 = 0;
-  ashp::refcounted_ptr<ashp::devmem_mapping *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::devmem_mapping,ashp::typed_deleter<ashp::devmem_mapping>>>>::reset(&v72, v64, v65, v66);
+  v59 = ashp::acipc::tr_controller::enqueue_transfer(v12, v72);
+  ashp::device_accessible_memory::release_obj(&v74, v60, v61, v62, v63);
+  v75 = 0;
+  ashp::refcounted_ptr<ashp::devmem_mapping *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::devmem_mapping,ashp::typed_deleter<ashp::devmem_mapping>>>>::reset(&v71, v64, v65, v66);
   result = ashp::detail::control_flow::check_err_with_debug(v59, "messenger.cpp", 0x12C, "enqueue_message_in_mtr", v67);
   if (!result)
   {
     goto LABEL_55;
   }
 
-  v70 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8784,7 +8556,7 @@ void ashp::acipc::messenger::~messenger(ashp::acipc::messenger *this, uint64_t a
     ashp::detail::dynamic_array::storage<ashp::acipc::detail::driver_debug::acipc_transfer_size_info>::~storage(this + 18);
     ashp::refcounted_ptr<ashp::devmem_mapping *,ashp::detail::refcount_mixin::refcount_policy<ashp::refcount_mixin<ashp::devmem_mapping,ashp::typed_deleter<ashp::devmem_mapping>>>>::reset(this + 17, v28, v29, v30);
     ashp::buffer_mapping::~buffer_mapping(this + 14, v31, v32, v33);
-    ashp::async_notifier::~async_notifier((this + 32), v34, v35, v36);
+    ashp::async_notifier::~async_notifier(this + 8, v34, v35, v36);
     ashp::refcounted_ptr<dispatch_queue_s *,ashp::dispatch::refcount_policy>::reset(this + 2, v37, v38, v39);
   }
 
@@ -8856,7 +8628,7 @@ void ashp::acipc::messenger::send_message(uint64_t a1, const void *a2, int a3, c
 {
   LODWORD(v11) = a5;
   LODWORD(v13) = a3;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock((a1 + 4));
   if (*(a1 + 193) == 1)
   {
@@ -8864,7 +8636,7 @@ void ashp::acipc::messenger::send_message(uint64_t a1, const void *a2, int a3, c
     v11 = "send_message";
     ashp::detail::control_flow::log_guard_else_failure("messenger.cpp", 0xED, "send_message", v18);
     a4 = "BUG in Airship: attempted message send in reset";
-    ashp::detail::base::log_pre_crash_message("BUG in Airship: attempted message send in reset", "messenger.cpp", 0xED, "send_message", v29);
+    ashp::detail::base::log_pre_crash_message("BUG in Airship: attempted message send in reset", "messenger.cpp", 0xED, "send_message", v28);
     _os_crash();
     __break(1u);
     goto LABEL_27;
@@ -8882,11 +8654,11 @@ void ashp::acipc::messenger::send_message(uint64_t a1, const void *a2, int a3, c
       if (log_level)
       {
         *buf = 136446722;
-        v34 = "messenger.cpp";
-        v35 = 1024;
-        v36 = 246;
-        v37 = 2082;
-        v38 = "send_message";
+        v33 = "messenger.cpp";
+        v34 = 1024;
+        v35 = 246;
+        v36 = 2082;
+        v37 = "send_message";
         _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] deferring message send", buf, 0x1Cu);
       }
     }
@@ -8922,11 +8694,11 @@ LABEL_16:
           if (v27)
           {
             *buf = 136446722;
-            v34 = "messenger.cpp";
-            v35 = 1024;
-            v36 = 416;
-            v37 = 2082;
-            v38 = "save_overflow_message";
+            v33 = "messenger.cpp";
+            v34 = 1024;
+            v35 = 416;
+            v36 = 2082;
+            v37 = "save_overflow_message";
             _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] saving overflow message", buf, 0x1Cu);
           }
         }
@@ -8948,12 +8720,12 @@ LABEL_16:
       _os_crash();
       __break(1u);
       v11 = "create";
-      ashp::detail::control_flow::log_guard_else_failure("typed_allocators.cpp", 0x19, "create", v30);
-      ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "typed_allocators.cpp", 0x19, "create", v31);
+      ashp::detail::control_flow::log_guard_else_failure("typed_allocators.cpp", 0x19, "create", v29);
+      ashp::detail::base::log_pre_crash_message("ALLOCATION FAILURE (or BUG) in Airship", "typed_allocators.cpp", 0x19, "create", v30);
       _os_crash();
       __break(1u);
       v13 = "BUG in Airship: ";
-      ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "messenger.cpp", 0x1B1, "save_overflow_message", v32);
+      ashp::detail::base::log_pre_crash_message("BUG in Airship: ", "messenger.cpp", 0x1B1, "save_overflow_message", v31);
       _os_crash();
       __break(1u);
 LABEL_30:
@@ -8967,11 +8739,11 @@ LABEL_30:
     if (log_level)
     {
       *buf = 136446722;
-      v34 = "messenger.cpp";
-      v35 = 1024;
-      v36 = 240;
-      v37 = 2082;
-      v38 = "send_message";
+      v33 = "messenger.cpp";
+      v34 = 1024;
+      v35 = 240;
+      v36 = 2082;
+      v37 = "send_message";
       _os_log_impl(&dword_23EC8B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Airship [%{public}s:%d:%{public}s] sending message now", buf, 0x1Cu);
     }
   }
@@ -8995,7 +8767,6 @@ LABEL_9:
   ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value((a1 + 200), v22, v23, v24);
   ashp::acipc::tr_controller::sync(*(a1 + 200), 1);
   os_unfair_lock_unlock((a1 + 4));
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void ashp::monitor::handle_terminate(os_unfair_lock_s *this)
@@ -9477,7 +9248,7 @@ LABEL_16:
   return *v10;
 }
 
-uint64_t ashp::owning_wrapper<ashp::driver_resource *,(decltype(nullptr))0,ashp::typed_deleter<ashp::driver_resource>>::~owning_wrapper(void *a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
+void *ashp::owning_wrapper<ashp::driver_resource *,(decltype(nullptr))0,ashp::typed_deleter<ashp::driver_resource>>::~owning_wrapper(void *a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
 {
   v6 = *a1;
   if (!*a1)
@@ -9502,7 +9273,7 @@ uint64_t ashp::owning_wrapper<ashp::driver_resource *,(decltype(nullptr))0,ashp:
   return result;
 }
 
-uint64_t ashp::driver_resource_manager::get(os_unfair_lock_s *a1, uint64_t a2, uint64_t a3, const char *a4)
+uint64_t ashp::driver_resource_manager::get(os_unfair_lock_s *a1, const void *a2, uint64_t a3, const char *a4)
 {
   if (a2)
   {
@@ -9676,7 +9447,7 @@ const char *airship_daleipc_get_ipc_error_description(int a1)
   return "channel-sync-failure";
 }
 
-void ashp::async_notifier::set_queue(os_unfair_lock_t lock, dispatch_queue_s *a2, uint64_t a3, const char *a4)
+void ashp::async_notifier::set_queue(os_unfair_lock_t lock, NSObject *a2, uint64_t a3, const char *a4)
 {
   if (lock)
   {
@@ -9702,7 +9473,7 @@ void ashp::async_notifier::set_queue(os_unfair_lock_t lock, dispatch_queue_s *a2
   }
 }
 
-void ashp::async_notifier::set_event_handler(os_unfair_lock_t lock, uint64_t a2, uint64_t a3, const char *a4)
+void ashp::async_notifier::set_event_handler(os_unfair_lock_t lock, void *a2, uint64_t a3, const char *a4)
 {
   if (lock)
   {
@@ -9728,7 +9499,7 @@ void ashp::async_notifier::set_event_handler(os_unfair_lock_t lock, uint64_t a2,
   }
 }
 
-void ashp::async_notifier::set_cancel_handler(os_unfair_lock_t lock, uint64_t a2, uint64_t a3, const char *a4)
+void ashp::async_notifier::set_cancel_handler(os_unfair_lock_t lock, void *a2, uint64_t a3, const char *a4)
 {
   if (lock)
   {
@@ -9833,4 +9604,183 @@ LABEL_17:
   ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&lock[4]._os_unfair_lock_opaque, v8, v9, v10);
   dispatch_activate(*&lock[4]._os_unfair_lock_opaque);
   os_unfair_lock_unlock(lock);
+}
+
+void ashp::async_notifier::cancel(os_unfair_lock_t lock, uint64_t a2, uint64_t a3, const char *a4)
+{
+  if (lock)
+  {
+    os_unfair_lock_lock(lock);
+  }
+
+  if ((lock[10]._os_unfair_lock_opaque & 0x100) == 0)
+  {
+    BYTE1(lock[10]._os_unfair_lock_opaque) = 1;
+    if (LOBYTE(lock[10]._os_unfair_lock_opaque) == 1)
+    {
+      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&lock[4]._os_unfair_lock_opaque, a2, a3, a4);
+      dispatch_source_cancel(*&lock[4]._os_unfair_lock_opaque);
+      if (BYTE2(lock[10]._os_unfair_lock_opaque) == 1)
+      {
+        ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&lock[4]._os_unfair_lock_opaque, v5, v6, v7);
+        dispatch_resume(*&lock[4]._os_unfair_lock_opaque);
+      }
+    }
+  }
+
+  os_unfair_lock_unlock(lock);
+}
+
+void ashp::async_notifier::suspend(os_unfair_lock_t lock, uint64_t a2, uint64_t a3, const char *a4)
+{
+  if (lock)
+  {
+    os_unfair_lock_lock(lock);
+  }
+
+  if ((lock[10]._os_unfair_lock_opaque & 0x10000) == 0 && (lock[10]._os_unfair_lock_opaque & 0x100) == 0)
+  {
+    BYTE2(lock[10]._os_unfair_lock_opaque) = 1;
+    if (LOBYTE(lock[10]._os_unfair_lock_opaque) == 1)
+    {
+      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&lock[4]._os_unfair_lock_opaque, a2, a3, a4);
+      dispatch_suspend(*&lock[4]._os_unfair_lock_opaque);
+      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&lock[4]._os_unfair_lock_opaque, v5, v6, v7);
+      dispatch_source_merge_data(*&lock[4]._os_unfair_lock_opaque, 0);
+    }
+  }
+
+  os_unfair_lock_unlock(lock);
+}
+
+void ashp::async_notifier::resume(os_unfair_lock_t lock, uint64_t a2, uint64_t a3, const char *a4)
+{
+  if (lock)
+  {
+    os_unfair_lock_lock(lock);
+  }
+
+  if (BYTE2(lock[10]._os_unfair_lock_opaque) == 1 && (lock[10]._os_unfair_lock_opaque & 0x100) == 0)
+  {
+    BYTE2(lock[10]._os_unfair_lock_opaque) = 0;
+    if (LOBYTE(lock[10]._os_unfair_lock_opaque) == 1)
+    {
+      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&lock[4]._os_unfair_lock_opaque, a2, a3, a4);
+      dispatch_resume(*&lock[4]._os_unfair_lock_opaque);
+    }
+  }
+
+  os_unfair_lock_unlock(lock);
+}
+
+void ashp::async_notifier::trigger(os_unfair_lock_t lock, uint64_t a2, uint64_t a3, const char *a4)
+{
+  if (lock)
+  {
+    os_unfair_lock_lock(lock);
+  }
+
+  if (lock[10]._os_unfair_lock_opaque)
+  {
+    if ((lock[10]._os_unfair_lock_opaque & 0x100) == 0 && (lock[10]._os_unfair_lock_opaque & 0x10000) == 0 && *&lock[6]._os_unfair_lock_opaque)
+    {
+      ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(&lock[4]._os_unfair_lock_opaque, a2, a3, a4);
+      dispatch_source_merge_data(*&lock[4]._os_unfair_lock_opaque, 1uLL);
+    }
+
+    os_unfair_lock_unlock(lock);
+  }
+
+  else
+  {
+    ashp::detail::control_flow::log_guard_else_failure("async_notifier.cpp", 0x156, "trigger", a4);
+    ashp::detail::base::log_pre_crash_message("BUG in Airship: attempted to use inactive object", "async_notifier.cpp", 0x156, "trigger", v5);
+    _os_crash();
+    __break(1u);
+  }
+}
+
+uint64_t ashp::direct_buffer::get_paddr(ashp::direct_buffer *this, uint64_t a2, uint64_t a3, const char *a4)
+{
+  ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(this + 8, a2, a3, a4);
+  v5 = *(this + 8);
+
+  return ashp::devmem_mapping::get_paddr(v5);
+}
+
+uint64_t ashp::direct_buffer::map(ashp::direct_buffer *this, uint64_t a2, uint64_t a3, const char *a4)
+{
+  v5 = 3758097084;
+  ashp::optional<ashp::boxed::data,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value(this + 8, a2, a3, a4);
+  v6 = *(this + 8);
+  v7 = *(v6 + 16);
+  ashp::optional<ashp::mock_hidable<ashp::devmem_mapping_manager>,void>::value(v7 + 584, v8, v9, v10);
+  os_unfair_lock_lock((v7 + 584));
+  v13 = *(v7 + 592);
+  if (!v13)
+  {
+    v5 = 3758097112;
+    goto LABEL_10;
+  }
+
+  v14 = *(v6 + 32);
+  if (v14)
+  {
+    if (ashp::device_transport::is_memory_mapping_active(*(v7 + 592), v14))
+    {
+      v5 = 0;
+      goto LABEL_10;
+    }
+
+    v13 = *(v7 + 592);
+  }
+
+  ashp::optional<ashp::memory_descriptor,ashp::optional_sentinel<(decltype(nullptr))0,true>>::value((v6 + 24), v14, v11, v12);
+  ashp::device_transport::create_memory_mapping(&v18, v13, *(v6 + 24));
+  if (v18)
+  {
+    os_unfair_lock_lock((v6 + 8));
+    v16 = *(v6 + 32);
+    *(v6 + 32) = v18;
+    v18 = 0;
+    v19 = v16;
+    ashp::owning_wrapper<ashp::device_transport::memory_mapping *,(decltype(nullptr))0,ashp::polymorphic_deleter<ashp::device_transport::memory_mapping>>::~owning_wrapper(&v19);
+    os_unfair_lock_unlock((v6 + 8));
+    v5 = 0;
+  }
+
+  else
+  {
+    ashp::detail::control_flow::log_guard_else_failure("device_memory.cpp", 0x7C, "refresh_mapping", v15);
+  }
+
+  ashp::owning_wrapper<ashp::device_transport::memory_mapping *,(decltype(nullptr))0,ashp::polymorphic_deleter<ashp::device_transport::memory_mapping>>::~owning_wrapper(&v18);
+LABEL_10:
+  os_unfair_lock_unlock((v7 + 584));
+  return v5;
+}
+
+uint64_t ashp::direct_buffer::write(ashp::direct_buffer *this, const void *a2, unsigned int a3, const char *__len)
+{
+  v4 = *(this + 13);
+  if (!v4)
+  {
+    return 3758097118;
+  }
+
+  if (__CFADD__(a3, __len) || a3 + __len > *(this + 28))
+  {
+    ashp::detail::control_flow::log_guard_else_failure("direct_buffer.cpp", 0x39, "write", __len);
+    ashp::detail::base::log_pre_crash_message("BUG in client of Airship: out of bounds access to buffer", "direct_buffer.cpp", 0x39, "write", v6);
+    result = _os_crash();
+    __break(1u);
+  }
+
+  else
+  {
+    memmove((v4 + a3), a2, __len);
+    return 0;
+  }
+
+  return result;
 }

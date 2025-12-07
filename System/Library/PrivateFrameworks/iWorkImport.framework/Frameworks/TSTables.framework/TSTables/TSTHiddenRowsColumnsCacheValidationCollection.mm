@@ -6,29 +6,29 @@
 
 - (TSTHiddenRowsColumnsCacheValidationCollection)init
 {
-  v28.receiver = self;
-  v28.super_class = TSTHiddenRowsColumnsCacheValidationCollection;
-  v6 = [(TSTHiddenRowsColumnsCacheValidationCollection *)&v28 init];
-  if (v6)
+  v24.receiver = self;
+  v24.super_class = TSTHiddenRowsColumnsCacheValidationCollection;
+  v5 = [(TSTHiddenRowsColumnsCacheValidationCollection *)&v24 init];
+  if (v5)
   {
-    v7 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v2, v3, v4, v5);
-    visible = v6->_visible;
-    v6->_visible = v7;
+    v6 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v2, v3, v4);
+    visible = v5->_visible;
+    v5->_visible = v6;
 
-    v13 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v9, v10, v11, v12);
-    hidden = v6->_hidden;
-    v6->_hidden = v13;
+    v11 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v8, v9, v10);
+    hidden = v5->_hidden;
+    v5->_hidden = v11;
 
-    v19 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v15, v16, v17, v18);
-    userVisible = v6->_userVisible;
-    v6->_userVisible = v19;
+    v16 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v13, v14, v15);
+    userVisible = v5->_userVisible;
+    v5->_userVisible = v16;
 
-    v25 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v21, v22, v23, v24);
-    userHidden = v6->_userHidden;
-    v6->_userHidden = v25;
+    v21 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v18, v19, v20);
+    userHidden = v5->_userHidden;
+    v5->_userHidden = v21;
   }
 
-  return v6;
+  return v5;
 }
 
 @end

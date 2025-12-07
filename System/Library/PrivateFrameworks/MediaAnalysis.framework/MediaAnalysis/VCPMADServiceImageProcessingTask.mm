@@ -56,18 +56,18 @@
 
 - (BOOL)run:(id *)p_isa
 {
-  v58[1] = *MEMORY[0x1E69E9840];
-  v5 = VCPSignPostLog();
+  v60[1] = *MEMORY[0x1E69E9840];
+  v5 = VCPSignPostLog(self);
   spid = os_signpost_id_generate(v5);
 
-  v6 = VCPSignPostLog();
-  v7 = v6;
-  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v7 = VCPSignPostLog(v6);
+  v8 = v7;
+  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     signpostPayload = self->_signpostPayload;
     *buf = 138412290;
-    v49 = signpostPayload;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPMADServiceImageProcessingTask_Run", "%@", buf, 0xCu);
+    v51 = signpostPayload;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPMADServiceImageProcessingTask_Run", "%@", buf, 0xCu);
   }
 
   [(VCPMADServiceImageAsset *)self->_asset setSignpostPayload:self->_signpostPayload];
@@ -80,23 +80,23 @@
   dispatch_sync(cancelQueue, block);
   if (![(VCPMABaseTask *)self isCanceled])
   {
+    v47 = 0u;
+    v48 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
     completionHandler = self->_subtasks;
-    v15 = [(NSMutableArray *)completionHandler countByEnumeratingWithState:&v43 objects:v56 count:16];
-    if (!v15)
+    v16 = [(NSMutableArray *)completionHandler countByEnumeratingWithState:&v45 objects:v58 count:16];
+    if (!v16)
     {
 LABEL_37:
 
-      v37 = VCPSignPostLog();
-      p_isa = &v37->isa;
-      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
+      v39 = VCPSignPostLog(v38);
+      p_isa = &v39->isa;
+      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
       {
-        v38 = self->_signpostPayload;
+        v40 = self->_signpostPayload;
         *buf = 138412290;
-        v49 = v38;
+        v51 = v40;
         _os_signpost_emit_with_name_impl(&dword_1C9B70000, p_isa, OS_SIGNPOST_INTERVAL_END, spid, "VCPMADServiceImageProcessingTask_Run", "%@", buf, 0xCu);
       }
 
@@ -108,68 +108,68 @@ LABEL_41:
       return p_isa;
     }
 
-    v16 = *v44;
-    v41 = *MEMORY[0x1E696A768];
-    v42 = *MEMORY[0x1E696A578];
+    v17 = *v46;
+    v43 = *MEMORY[0x1E696A768];
+    v44 = *MEMORY[0x1E696A578];
 LABEL_13:
-    v17 = 0;
+    v18 = 0;
     while (1)
     {
-      if (*v44 != v16)
+      if (*v46 != v17)
       {
         objc_enumerationMutation(completionHandler);
       }
 
-      v18 = *(*(&v43 + 1) + 8 * v17);
-      v19 = objc_autoreleasePoolPush();
+      v19 = *(*(&v45 + 1) + 8 * v18);
+      v20 = objc_autoreleasePoolPush();
       if ([(VCPMABaseTask *)self isCanceled])
       {
         if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
         {
-          v20 = objc_opt_class();
+          v21 = objc_opt_class();
           *buf = 138412290;
-          v49 = v20;
-          v21 = v20;
+          v51 = v21;
+          v22 = v21;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Request subtask %@ canceled", buf, 0xCu);
         }
 
         if (p_isa)
         {
-          v22 = MEMORY[0x1E696ABC0];
-          v54 = v42;
-          v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request was canceled"];
-          v55 = v23;
-          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
-          v25 = [v22 errorWithDomain:v41 code:-128 userInfo:v24];
-          v26 = *p_isa;
-          *p_isa = v25;
+          v23 = MEMORY[0x1E696ABC0];
+          v56 = v44;
+          v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request was canceled"];
+          v57 = v24;
+          v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+          v26 = [v23 errorWithDomain:v43 code:-128 userInfo:v25];
+          v27 = *p_isa;
+          *p_isa = v26;
         }
       }
 
       else
       {
-        v27 = [v18 run];
-        v28 = v27;
-        if (!v27)
+        v28 = [v19 run];
+        v29 = v28;
+        if (!v28)
         {
           goto LABEL_33;
         }
 
-        if (v27 != -128)
+        if (v28 != -128)
         {
           if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
           {
-            v35 = objc_opt_class();
-            v36 = NSStringFromClass(v35);
+            v36 = objc_opt_class();
+            v37 = NSStringFromClass(v36);
             *buf = 138412546;
-            v49 = v36;
-            v50 = 1024;
-            v51 = v28;
+            v51 = v37;
+            v52 = 1024;
+            v53 = v29;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%@ returned unexpected status (%d)", buf, 0x12u);
           }
 
 LABEL_33:
-          v34 = 1;
+          v35 = 1;
           goto LABEL_34;
         }
 
@@ -181,29 +181,29 @@ LABEL_33:
 
         if (p_isa)
         {
-          v29 = MEMORY[0x1E696ABC0];
-          v52 = v42;
-          v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request was canceled"];
-          v53 = v30;
-          v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-          v32 = [v29 errorWithDomain:v41 code:-128 userInfo:v31];
-          v33 = *p_isa;
-          *p_isa = v32;
+          v30 = MEMORY[0x1E696ABC0];
+          v54 = v44;
+          v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request was canceled"];
+          v55 = v31;
+          v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+          v33 = [v30 errorWithDomain:v43 code:-128 userInfo:v32];
+          v34 = *p_isa;
+          *p_isa = v33;
         }
       }
 
-      v34 = 0;
+      v35 = 0;
 LABEL_34:
-      objc_autoreleasePoolPop(v19);
-      if (!v34)
+      objc_autoreleasePoolPop(v20);
+      if (!v35)
       {
         goto LABEL_10;
       }
 
-      if (v15 == ++v17)
+      if (v16 == ++v18)
       {
-        v15 = [(NSMutableArray *)completionHandler countByEnumeratingWithState:&v43 objects:v56 count:16];
-        if (!v15)
+        v16 = [(NSMutableArray *)completionHandler countByEnumeratingWithState:&v45 objects:v58 count:16];
+        if (!v16)
         {
           goto LABEL_37;
         }
@@ -221,14 +221,14 @@ LABEL_34:
 
   if (p_isa)
   {
-    v10 = MEMORY[0x1E696ABC0];
-    v57 = *MEMORY[0x1E696A578];
+    v11 = MEMORY[0x1E696ABC0];
+    v59 = *MEMORY[0x1E696A578];
     completionHandler = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request was canceled"];
-    v58[0] = completionHandler;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:&v57 count:1];
-    v13 = [v10 errorWithDomain:*MEMORY[0x1E696A768] code:-128 userInfo:v12];
-    v14 = *p_isa;
-    *p_isa = v13;
+    v60[0] = completionHandler;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:&v59 count:1];
+    v14 = [v11 errorWithDomain:*MEMORY[0x1E696A768] code:-128 userInfo:v13];
+    v15 = *p_isa;
+    *p_isa = v14;
 
 LABEL_10:
     LOBYTE(p_isa) = 0;

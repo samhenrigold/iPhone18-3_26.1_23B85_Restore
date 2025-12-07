@@ -34,7 +34,7 @@
 - (void)twoWaySyncSettingDidUpdate:(id)update
 {
   type metadata accessor for LiveActivitiesAutoLaunchModel();
-  sub_12718(&qword_262A0, v4, type metadata accessor for LiveActivitiesAutoLaunchModel);
+  sub_12718(&qword_262A0, v4, type metadata accessor for LiveActivitiesAutoLaunchModel, &unk_18708);
   selfCopy = self;
   sub_1628C();
   sub_1629C();

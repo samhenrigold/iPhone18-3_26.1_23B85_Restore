@@ -7,7 +7,7 @@
 
 + (id)synonymsByIndexCategoryMaskForGraph:(id)graph
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v4 = objc_opt_new();
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -16,65 +16,65 @@
   v8 = [v7 localizedStringForKey:@"PGHighlightTripSearchableText" value:@"PGHighlightTripSearchableText" table:@"Localizable"];
   [v5 setObject:v6 forKeyedSubscript:v8];
 
-  v43 = v5;
+  v42 = v5;
   [v4 setObject:v5 forKeyedSubscript:&unk_284484380];
   v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v60[0] = MEMORY[0x277D85DD0];
-  v60[1] = 3221225472;
-  v60[2] = __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___block_invoke;
-  v60[3] = &unk_2788877E0;
+  v59[0] = MEMORY[0x277D85DD0];
+  v59[1] = 3221225472;
+  v59[2] = __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___block_invoke;
+  v59[3] = &unk_2788877E0;
   v10 = v9;
-  v61 = v10;
-  [graphCopy enumerateNodesWithLabel:0 domain:700 usingBlock:v60];
-  v42 = v10;
+  v60 = v10;
+  [graphCopy enumerateNodesWithLabel:0 domain:700 usingBlock:v59];
+  v41 = v10;
   [v4 setObject:v10 forKeyedSubscript:&unk_284484398];
   v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___block_invoke_245;
-  v58[3] = &unk_278888D30;
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___block_invoke_245;
+  v57[3] = &unk_278888D30;
   v12 = v11;
-  v59 = v12;
-  [graphCopy enumerateNodesWithLabel:@"Season" domain:400 usingBlock:v58];
-  v41 = v12;
+  v58 = v12;
+  [graphCopy enumerateNodesWithLabel:@"Season" domain:400 usingBlock:v57];
+  v40 = v12;
   [v4 setObject:v12 forKeyedSubscript:&unk_2844843B0];
   v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = 3221225472;
-  v56[2] = __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___block_invoke_249;
-  v56[3] = &unk_278888D00;
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___block_invoke_249;
+  v55[3] = &unk_278888D00;
   v14 = v13;
-  v57 = v14;
-  [graphCopy enumerateNodesWithLabel:@"Holiday" domain:401 usingBlock:v56];
-  v40 = v14;
+  v56 = v14;
+  [graphCopy enumerateNodesWithLabel:@"Holiday" domain:401 usingBlock:v55];
+  v39 = v14;
   [v4 setObject:v14 forKeyedSubscript:&unk_2844843C8];
   v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___block_invoke_253;
-  v54[3] = &unk_2788875F8;
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___block_invoke_253;
+  v53[3] = &unk_2788875F8;
   v16 = v15;
-  v55 = v16;
-  [graphCopy enumerateNodesWithLabel:0 domain:502 usingBlock:v54];
-  v39 = v16;
+  v54 = v16;
+  [graphCopy enumerateNodesWithLabel:0 domain:502 usingBlock:v53];
+  v38 = v16;
   [v4 setObject:v16 forKeyedSubscript:&unk_2844843E0];
   v17 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___block_invoke_257;
-  v52[3] = &unk_2788875D0;
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___block_invoke_257;
+  v51[3] = &unk_2788875D0;
   v18 = v17;
-  v53 = v18;
-  [graphCopy enumerateNodesWithLabel:0 domain:501 usingBlock:v52];
+  v52 = v18;
+  [graphCopy enumerateNodesWithLabel:0 domain:501 usingBlock:v51];
   [v4 setObject:v18 forKeyedSubscript:&unk_2844843F8];
   v19 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___block_invoke_261;
-  v50[3] = &unk_278887118;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___block_invoke_261;
+  v49[3] = &unk_278887118;
   v20 = v19;
-  v51 = v20;
-  [graphCopy enumerateNodesWithLabel:0 domain:901 usingBlock:v50];
+  v50 = v20;
+  [graphCopy enumerateNodesWithLabel:0 domain:901 usingBlock:v49];
   [v4 setObject:v20 forKeyedSubscript:&unk_284484410];
   v21 = objc_alloc_init(MEMORY[0x277CBEB38]);
   +[PGUserDefaults relationshipTagMinConfidenceThreshold];
@@ -85,7 +85,7 @@
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v63 = v23;
+    v62 = v23;
     _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "Using PGUserDefaults.relationshipTagMinConfidenceThreshold value %f", buf, 0xCu);
   }
 
@@ -96,29 +96,28 @@
 
   v30 = objc_alloc_init(MEMORY[0x277CBEB38]);
   targets = [transposed targets];
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___block_invoke_270;
-  v48[3] = &unk_278887140;
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___block_invoke_270;
+  v47[3] = &unk_278887140;
   v32 = v30;
-  v49 = v32;
-  [targets enumerateNodesUsingBlock:v48];
+  v48 = v32;
+  [targets enumerateNodesUsingBlock:v47];
 
   sources = [transposed sources];
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___block_invoke_2;
-  v44[3] = &unk_278887190;
-  v45 = transposed;
-  v46 = v32;
-  v47 = v21;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___block_invoke_2;
+  v43[3] = &unk_278887190;
+  v44 = transposed;
+  v45 = v32;
+  v46 = v21;
   v34 = v21;
   v35 = v32;
   v36 = transposed;
-  [sources enumerateUUIDsUsingBlock:v44];
+  [sources enumerateUUIDsUsingBlock:v43];
 
   [v4 setObject:v34 forKeyedSubscript:&unk_284484428];
-  v37 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -225,7 +224,7 @@ void __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___blo
 
 + (id)localizedSynonymsForLocalizationKey:(id)key
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [key stringByAppendingString:@"Synonyms"];
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v5 = [v4 localizedStringForKey:v3 value:v3 table:@"Localizable"];
@@ -237,9 +236,9 @@ void __67__PGGraphSynonymSupportHelper_synonymsByIndexCategoryMaskForGraph___blo
 
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v3;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Missing localization for synonyms key %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v3;
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Missing localization for synonyms key %@", &v10, 0xCu);
     }
 
     goto LABEL_7;
@@ -254,8 +253,6 @@ LABEL_7:
 
   v8 = [v5 componentsSeparatedByString:@"|"];
 LABEL_8:
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

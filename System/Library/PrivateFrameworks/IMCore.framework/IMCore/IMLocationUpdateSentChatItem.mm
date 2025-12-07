@@ -8,29 +8,29 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  v7 = objc_msgSend__item(self, v5, v6);
-  v9 = objc_msgSend__initWithItem_(v4, v8, v7);
+  _item = [(IMChatItem *)self _item];
+  v6 = [v4 _initWithItem:_item];
 
-  return v9;
+  return v6;
 }
 
 - (id)_initWithItem:(id)item chatIdentifier:(id)identifier
 {
   itemCopy = item;
   identifierCopy = identifier;
-  v15.receiver = self;
-  v15.super_class = IMLocationUpdateSentChatItem;
-  v10 = [(IMChatItem *)&v15 _initWithItem:itemCopy];
-  if (v10)
+  v12.receiver = self;
+  v12.super_class = IMLocationUpdateSentChatItem;
+  v8 = [(IMChatItem *)&v12 _initWithItem:itemCopy];
+  if (v8)
   {
-    v11 = objc_msgSend_guid(itemCopy, v8, v9);
-    v12 = sub_1A83AC604();
+    guid = [itemCopy guid];
+    v10 = sub_1A83AC604();
 
-    objc_msgSend__setGUID_(v10, v13, v12);
-    objc_storeStrong(v10 + 7, identifier);
+    [v8 _setGUID:v10];
+    objc_storeStrong(v8 + 7, identifier);
   }
 
-  return v10;
+  return v8;
 }
 
 @end

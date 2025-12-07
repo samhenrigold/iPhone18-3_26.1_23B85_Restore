@@ -59,7 +59,7 @@
   return v2;
 }
 
-uint64_t __46__MOSuggestionsUIServerManager_sharedInstance__block_invoke()
+uint64_t __46__MOSuggestionsUIServerManager_sharedInstance__block_invoke(uint64_t a1)
 {
   sharedInstance_shared = objc_opt_new();
 

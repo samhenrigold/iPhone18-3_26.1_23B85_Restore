@@ -227,24 +227,24 @@ const char *sar::toString(int a1)
 
 void *AppleSARHelper::create_default_global@<X0>(void *a1@<X8>)
 {
-  v3 = operator new(0x30uLL);
-  *v3 = 0u;
-  v3[1] = 0u;
-  *(v3 + 28) = 0u;
-  AppleSARHelper::init(v3);
-  *a1 = v3;
+  v2 = operator new(0x30uLL);
+  *v2 = 0u;
+  v2[1] = 0u;
+  *(v2 + 28) = 0u;
+  AppleSARHelper::init(v2);
+  *a1 = v2;
   result = operator new(0x20uLL);
   *result = &unk_2852CB5A0;
   result[1] = 0;
   result[2] = 0;
-  result[3] = v3;
+  result[3] = v2;
   a1[1] = result;
   return result;
 }
 
-void sub_240F0EC50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240F0EC50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<AppleSARHelper>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -273,7 +273,7 @@ void AppleSARHelper::AppleSARHelper(AppleSARHelper *this)
 
 void AppleSARHelper::init(io_connect_t *this)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CD2898];
   v3 = IOServiceMatching("AppleSARService");
   MatchingService = IOServiceGetMatchingService(v2, v3);
@@ -292,7 +292,7 @@ void AppleSARHelper::init(io_connect_t *this)
       v9 = qword_2810D7650;
       if (!os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_28;
+        return;
       }
     }
 
@@ -302,11 +302,11 @@ void AppleSARHelper::init(io_connect_t *this)
       v9 = qword_2810D7650;
       if (!os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_28;
+        return;
       }
     }
 
-    LOWORD(v17) = 0;
+    LOWORD(v16) = 0;
     v10 = "Failed to create the service!";
     goto LABEL_16;
   }
@@ -330,7 +330,7 @@ void AppleSARHelper::init(io_connect_t *this)
         v14 = qword_2810D7650;
         if (!os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_28;
+          return;
         }
       }
 
@@ -340,14 +340,14 @@ void AppleSARHelper::init(io_connect_t *this)
         v14 = qword_2810D7650;
         if (!os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_28;
+          return;
         }
       }
 
-      v17 = 136315138;
-      v18 = "AppleSARSPMI";
-      _os_log_error_impl(&dword_240F0E000, v14, OS_LOG_TYPE_ERROR, "Failed to create notification queue for %s", &v17, 0xCu);
-      goto LABEL_28;
+      v16 = 136315138;
+      v17 = "AppleSARSPMI";
+      _os_log_error_impl(&dword_240F0E000, v14, OS_LOG_TYPE_ERROR, "Failed to create notification queue for %s", &v16, 0xCu);
+      return;
     }
 
     v12 = v11;
@@ -358,7 +358,7 @@ void AppleSARHelper::init(io_connect_t *this)
       IONotificationPortSetDispatchQueue(v13, v12);
 LABEL_27:
       dispatch_release(v12);
-      goto LABEL_28;
+      return;
     }
 
     if ((atomic_load_explicit(&qword_2810D7640, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2810D7640))
@@ -387,9 +387,9 @@ LABEL_27:
       }
     }
 
-    v17 = 136315138;
-    v18 = "AppleSARSPMI";
-    _os_log_error_impl(&dword_240F0E000, v15, OS_LOG_TYPE_ERROR, "Failed to creat IO notification port for %s", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = "AppleSARSPMI";
+    _os_log_error_impl(&dword_240F0E000, v15, OS_LOG_TYPE_ERROR, "Failed to creat IO notification port for %s", &v16, 0xCu);
     goto LABEL_27;
   }
 
@@ -408,69 +408,70 @@ LABEL_27:
     {
       goto LABEL_6;
     }
-  }
 
-  else
-  {
-    dispatch_once(&_MergedGlobals, &__block_literal_global);
-    v7 = qword_2810D7650;
-    if (!os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR))
+LABEL_30:
+    v16 = 67109120;
+    LODWORD(v17) = v6;
+    _os_log_error_impl(&dword_240F0E000, v7, OS_LOG_TYPE_ERROR, "Failed to get the connection (ret = %d)", &v16, 8u);
+    v8 = *this;
+    if (!*this)
     {
-LABEL_6:
-      v8 = *this;
-      if (!*this)
-      {
-        goto LABEL_28;
-      }
-
-      goto LABEL_7;
+      return;
     }
+
+    goto LABEL_7;
   }
 
-  v17 = 67109120;
-  LODWORD(v18) = v6;
-  _os_log_error_impl(&dword_240F0E000, v7, OS_LOG_TYPE_ERROR, "Failed to get the connection (ret = %d)", &v17, 8u);
+  dispatch_once(&_MergedGlobals, &__block_literal_global);
+  v7 = qword_2810D7650;
+  if (os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR))
+  {
+    goto LABEL_30;
+  }
+
+LABEL_6:
   v8 = *this;
   if (!*this)
   {
-    goto LABEL_28;
+    return;
   }
 
 LABEL_7:
   if (IOObjectRelease(v8))
   {
-    if ((atomic_load_explicit(&qword_2810D7640, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2810D7640))
+    if ((atomic_load_explicit(&qword_2810D7640, memory_order_acquire) & 1) == 0)
     {
-      qword_2810D7648 = 0;
-      qword_2810D7650 = 0;
-      __cxa_guard_release(&qword_2810D7640);
+      if (__cxa_guard_acquire(&qword_2810D7640))
+      {
+        qword_2810D7648 = 0;
+        qword_2810D7650 = 0;
+        __cxa_guard_release(&qword_2810D7640);
+      }
     }
 
-    if (_MergedGlobals != -1)
+    if (_MergedGlobals == -1)
+    {
+      v9 = qword_2810D7650;
+      if (os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR))
+      {
+LABEL_11:
+        LOWORD(v16) = 0;
+        v10 = "Failed to release the service!";
+LABEL_16:
+        _os_log_error_impl(&dword_240F0E000, v9, OS_LOG_TYPE_ERROR, v10, &v16, 2u);
+      }
+    }
+
+    else
     {
       dispatch_once(&_MergedGlobals, &__block_literal_global);
       v9 = qword_2810D7650;
-      if (!os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_28;
+        goto LABEL_11;
       }
-
-      goto LABEL_11;
-    }
-
-    v9 = qword_2810D7650;
-    if (os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR))
-    {
-LABEL_11:
-      LOWORD(v17) = 0;
-      v10 = "Failed to release the service!";
-LABEL_16:
-      _os_log_error_impl(&dword_240F0E000, v9, OS_LOG_TYPE_ERROR, v10, &v17, 2u);
     }
   }
-
-LABEL_28:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void AppleSARHelper::~AppleSARHelper(AppleSARHelper *this)
@@ -603,8 +604,8 @@ LABEL_14:
 
 BOOL AppleSARHelper::getSPMIEventTrackingArray(uint64_t a1, void *outputStruct, size_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13 = a3;
+  v15 = *MEMORY[0x277D85DE8];
+  v12 = a3;
   v3 = *(a1 + 4);
   if (!v3)
   {
@@ -621,7 +622,7 @@ BOOL AppleSARHelper::getSPMIEventTrackingArray(uint64_t a1, void *outputStruct, 
       result = os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR);
       if (!result)
       {
-        goto LABEL_13;
+        return result;
       }
     }
 
@@ -632,7 +633,7 @@ BOOL AppleSARHelper::getSPMIEventTrackingArray(uint64_t a1, void *outputStruct, 
       result = os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR);
       if (!result)
       {
-        goto LABEL_13;
+        return result;
       }
     }
 
@@ -643,57 +644,58 @@ BOOL AppleSARHelper::getSPMIEventTrackingArray(uint64_t a1, void *outputStruct, 
     goto LABEL_11;
   }
 
-  v4 = IOConnectCallMethod(v3, 0xCu, 0, 0, 0, 0, 0, 0, outputStruct, &v13);
+  v4 = IOConnectCallMethod(v3, 0xCu, 0, 0, 0, 0, 0, 0, outputStruct, &v12);
   if (!v4)
   {
-    result = 1;
-    goto LABEL_13;
+    return 1;
   }
 
   v5 = v4;
-  if ((atomic_load_explicit(&qword_2810D7640, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2810D7640))
+  if ((atomic_load_explicit(&qword_2810D7640, memory_order_acquire) & 1) == 0)
   {
-    qword_2810D7648 = 0;
-    qword_2810D7650 = 0;
-    __cxa_guard_release(&qword_2810D7640);
+    if (__cxa_guard_acquire(&qword_2810D7640))
+    {
+      qword_2810D7648 = 0;
+      qword_2810D7650 = 0;
+      __cxa_guard_release(&qword_2810D7640);
+    }
   }
 
-  if (_MergedGlobals != -1)
+  if (_MergedGlobals == -1)
+  {
+    v6 = qword_2810D7650;
+    result = os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR);
+    if (result)
+    {
+LABEL_6:
+      *buf = 67109120;
+      v14 = v5;
+      v8 = "Failed to get SPMI tracking list (ret = %d)";
+      v9 = v6;
+      v10 = 8;
+LABEL_11:
+      _os_log_error_impl(&dword_240F0E000, v9, OS_LOG_TYPE_ERROR, v8, buf, v10);
+      return 0;
+    }
+  }
+
+  else
   {
     dispatch_once(&_MergedGlobals, &__block_literal_global);
     v6 = qword_2810D7650;
     result = os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR);
-    if (!result)
+    if (result)
     {
-      goto LABEL_13;
+      goto LABEL_6;
     }
-
-    goto LABEL_6;
   }
 
-  v6 = qword_2810D7650;
-  result = os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR);
-  if (result)
-  {
-LABEL_6:
-    *buf = 67109120;
-    v15 = v5;
-    v8 = "Failed to get SPMI tracking list (ret = %d)";
-    v9 = v6;
-    v10 = 8;
-LABEL_11:
-    _os_log_error_impl(&dword_240F0E000, v9, OS_LOG_TYPE_ERROR, v8, buf, v10);
-    result = 0;
-  }
-
-LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 BOOL AppleSARHelper::callUserClientMethod(AppleSARHelper *this, uint32_t a2, const unint64_t *a3, uint32_t a4, const void *a5, size_t a6, unint64_t *a7, unsigned int *a8, void *outputStruct, unint64_t a10)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v10 = *(this + 1);
   if (!v10)
   {
@@ -710,7 +712,7 @@ BOOL AppleSARHelper::callUserClientMethod(AppleSARHelper *this, uint32_t a2, con
       result = os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR);
       if (!result)
       {
-        goto LABEL_13;
+        return result;
       }
     }
 
@@ -721,7 +723,7 @@ BOOL AppleSARHelper::callUserClientMethod(AppleSARHelper *this, uint32_t a2, con
       result = os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR);
       if (!result)
       {
-        goto LABEL_13;
+        return result;
       }
     }
 
@@ -735,58 +737,59 @@ BOOL AppleSARHelper::callUserClientMethod(AppleSARHelper *this, uint32_t a2, con
   v12 = IOConnectCallMethod(v10, a2, a3, a4, a5, a6, a7, a8, outputStruct, &a10);
   if (!v12)
   {
-    result = 1;
-    goto LABEL_13;
+    return 1;
   }
 
   v13 = v12;
-  if ((atomic_load_explicit(&qword_2810D7640, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2810D7640))
+  if ((atomic_load_explicit(&qword_2810D7640, memory_order_acquire) & 1) == 0)
   {
-    qword_2810D7648 = 0;
-    qword_2810D7650 = 0;
-    __cxa_guard_release(&qword_2810D7640);
+    if (__cxa_guard_acquire(&qword_2810D7640))
+    {
+      qword_2810D7648 = 0;
+      qword_2810D7650 = 0;
+      __cxa_guard_release(&qword_2810D7640);
+    }
   }
 
-  if (_MergedGlobals != -1)
+  if (_MergedGlobals == -1)
+  {
+    v14 = qword_2810D7650;
+    result = os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR);
+    if (result)
+    {
+LABEL_6:
+      *buf = 67109632;
+      v21 = a2;
+      v22 = 1024;
+      v23 = a2;
+      v24 = 1024;
+      v25 = v13;
+      v16 = "Failed to run the command for selector %d (0x%x) (ret = %d)";
+      v17 = v14;
+      v18 = 20;
+LABEL_11:
+      _os_log_error_impl(&dword_240F0E000, v17, OS_LOG_TYPE_ERROR, v16, buf, v18);
+      return 0;
+    }
+  }
+
+  else
   {
     dispatch_once(&_MergedGlobals, &__block_literal_global);
     v14 = qword_2810D7650;
     result = os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR);
-    if (!result)
+    if (result)
     {
-      goto LABEL_13;
+      goto LABEL_6;
     }
-
-    goto LABEL_6;
   }
 
-  v14 = qword_2810D7650;
-  result = os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR);
-  if (result)
-  {
-LABEL_6:
-    *buf = 67109632;
-    v22 = a2;
-    v23 = 1024;
-    v24 = a2;
-    v25 = 1024;
-    v26 = v13;
-    v16 = "Failed to run the command for selector %d (0x%x) (ret = %d)";
-    v17 = v14;
-    v18 = 20;
-LABEL_11:
-    _os_log_error_impl(&dword_240F0E000, v17, OS_LOG_TYPE_ERROR, v16, buf, v18);
-    result = 0;
-  }
-
-LABEL_13:
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 BOOL AppleSARHelper::registerSARServiceCallback(uint64_t a1, uint64_t a2)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 4);
   if (!v2)
   {
@@ -802,9 +805,7 @@ BOOL AppleSARHelper::registerSARServiceCallback(uint64_t a1, uint64_t a2)
       v11 = qword_2810D7650;
       if (!os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR))
       {
-LABEL_10:
-        v8 = 0;
-        goto LABEL_60;
+        return 0;
       }
     }
 
@@ -814,23 +815,23 @@ LABEL_10:
       v11 = qword_2810D7650;
       if (!os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_10;
+        return 0;
       }
     }
 
     LOWORD(reference[0]) = 0;
     _os_log_error_impl(&dword_240F0E000, v11, OS_LOG_TYPE_ERROR, "Connection has not been established yet!", reference, 2u);
-    goto LABEL_10;
+    return 0;
   }
 
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v58 = 0xAAAAAAAAAAAAAAAALL;
+  v57 = 0xAAAAAAAAAAAAAAAALL;
   reference[0] = 0xAAAAAAAAAAAAAAAALL;
+  v58 = v5;
   v59 = v5;
-  v60 = v5;
   reference[1] = AppleSARHelper::callback;
-  v57 = a1;
+  v56 = a1;
   MachPort = IONotificationPortGetMachPort(*(a1 + 32));
   v7 = IOConnectCallAsyncScalarMethod(v2, 0x20u, MachPort, reference, 3u, 0, 0, 0, 0);
   v8 = v7 == 0;
@@ -857,7 +858,7 @@ LABEL_10:
       v16 = v13 + 2;
 LABEL_59:
       *(a1 + 16) = v16;
-      goto LABEL_60;
+      return v8;
     }
 
     v17 = *(a1 + 8);
@@ -1045,7 +1046,7 @@ LABEL_73:
     v10 = qword_2810D7650;
     if (!os_log_type_enabled(qword_2810D7650, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_60;
+      return v8;
     }
 
     goto LABEL_6;
@@ -1056,12 +1057,10 @@ LABEL_73:
   {
 LABEL_6:
     *buf = 67109120;
-    v55 = v9;
+    v54 = v9;
     _os_log_error_impl(&dword_240F0E000, v10, OS_LOG_TYPE_ERROR, "Failed to setup callback (ret = %d)", buf, 8u);
   }
 
-LABEL_60:
-  v52 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1237,7 +1236,7 @@ LABEL_35:
   }
 }
 
-void **std::vector<dispatch::callback<void({block_pointer})(sar::AppleSARMessageType,void *)>>::~vector[abi:ne200100](void **a1)
+char **std::vector<dispatch::callback<void({block_pointer})(sar::AppleSARMessageType,void *)>>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)

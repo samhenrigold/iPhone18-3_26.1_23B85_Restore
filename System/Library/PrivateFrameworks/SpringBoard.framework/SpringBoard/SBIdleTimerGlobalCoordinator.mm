@@ -1026,80 +1026,80 @@ void __74__SBIdleTimerGlobalCoordinator__registerClientDisableAssertionsTestReci
   *(v3 + 40) = v2;
 }
 
-void __74__SBIdleTimerGlobalCoordinator__registerClientDisableAssertionsTestRecipe__block_invoke_2(uint64_t a1)
+void __74__SBIdleTimerGlobalCoordinator__registerClientDisableAssertionsTestRecipe__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   BSDispatchQueueAssertMain();
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"ClientIdleTimerTestRecipe:%ld", objc_msgSend(*(*(*(a1 + 40) + 8) + 40), "count") + 1];
-  v3 = [MEMORY[0x277D1B260] sharedInstance];
-  v7 = 0;
-  v4 = [v3 newAssertionToDisableIdleTimerForReason:v2 error:&v7];
-  v5 = v7;
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"ClientIdleTimerTestRecipe:%ld", objc_msgSend(*(*(*(a1 + 40) + 8) + 40), "count") + 1];
+  v4 = [MEMORY[0x277D1B260] sharedInstance];
+  v8 = 0;
+  v5 = [v4 newAssertionToDisableIdleTimerForReason:v3 error:&v8];
+  v6 = v8;
 
-  if (v4)
+  if (v5)
   {
-    [*(*(*(a1 + 40) + 8) + 40) addObject:v4];
+    [*(*(*(a1 + 40) + 8) + 40) addObject:v5];
   }
 
   else
   {
-    v6 = SBLogIdleTimer();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SBLogIdleTimer();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __74__SBIdleTimerGlobalCoordinator__registerClientDisableAssertionsTestRecipe__block_invoke_2_cold_1(a1, v5, v6);
+      __74__SBIdleTimerGlobalCoordinator__registerClientDisableAssertionsTestRecipe__block_invoke_2_cold_1(a1, v6, v7);
     }
   }
 }
 
-void __74__SBIdleTimerGlobalCoordinator__registerClientDisableAssertionsTestRecipe__block_invoke_110(uint64_t a1)
+void __74__SBIdleTimerGlobalCoordinator__registerClientDisableAssertionsTestRecipe__block_invoke_110(uint64_t a1, uint64_t a2)
 {
   BSDispatchQueueAssertMain();
-  v2 = [*(*(*(a1 + 32) + 8) + 40) lastObject];
-  if (v2)
-  {
-    v3 = v2;
-    [*(*(*(a1 + 32) + 8) + 40) removeLastObject];
-    [v3 invalidate];
-    v2 = v3;
-  }
-}
-
-void __74__SBIdleTimerGlobalCoordinator__registerClientDisableAssertionsTestRecipe__block_invoke_2_111(uint64_t a1)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  BSDispatchQueueAssertMain();
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
-  v10 = 0u;
-  v2 = *(*(*(a1 + 32) + 8) + 40);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [*(*(*(a1 + 32) + 8) + 40) lastObject];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    [*(*(*(a1 + 32) + 8) + 40) removeLastObject];
+    [v4 invalidate];
+    v3 = v4;
+  }
+}
+
+void __74__SBIdleTimerGlobalCoordinator__registerClientDisableAssertionsTestRecipe__block_invoke_2_111(uint64_t a1, uint64_t a2)
+{
+  v15 = *MEMORY[0x277D85DE8];
+  BSDispatchQueueAssertMain();
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v3 = *(*(*(a1 + 32) + 8) + 40);
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v11;
     do
     {
-      v6 = 0;
+      v7 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v11 != v6)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v6++) invalidate];
+        [*(*(&v10 + 1) + 8 * v7++) invalidate];
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      while (v5 != v7);
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v4);
+    while (v5);
   }
 
-  v7 = *(*(a1 + 32) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = 0;
+  v8 = *(*(a1 + 32) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = 0;
 }
 
 - (void)_registerInternalDisableAssertionsTestRecipe
@@ -1146,66 +1146,66 @@ void __76__SBIdleTimerGlobalCoordinator__registerInternalDisableAssertionsTestRe
   *(v3 + 40) = v2;
 }
 
-void __76__SBIdleTimerGlobalCoordinator__registerInternalDisableAssertionsTestRecipe__block_invoke_2(uint64_t a1)
+void __76__SBIdleTimerGlobalCoordinator__registerInternalDisableAssertionsTestRecipe__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   BSDispatchQueueAssertMain();
-  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"InternalIdleTimerTestRecipe:%ld", objc_msgSend(*(*(*(a1 + 32) + 8) + 40), "count") + 1];
-  v2 = +[SBIdleTimerGlobalCoordinator sharedInstance];
-  v3 = [v2 acquireIdleTimerDisableAssertionForReason:v4];
+  v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"InternalIdleTimerTestRecipe:%ld", objc_msgSend(*(*(*(a1 + 32) + 8) + 40), "count") + 1];
+  v3 = +[SBIdleTimerGlobalCoordinator sharedInstance];
+  v4 = [v3 acquireIdleTimerDisableAssertionForReason:v5];
 
-  [*(*(*(a1 + 32) + 8) + 40) addObject:v3];
+  [*(*(*(a1 + 32) + 8) + 40) addObject:v4];
 }
 
-void __76__SBIdleTimerGlobalCoordinator__registerInternalDisableAssertionsTestRecipe__block_invoke_3(uint64_t a1)
+void __76__SBIdleTimerGlobalCoordinator__registerInternalDisableAssertionsTestRecipe__block_invoke_3(uint64_t a1, uint64_t a2)
 {
   BSDispatchQueueAssertMain();
-  v2 = [*(*(*(a1 + 32) + 8) + 40) lastObject];
-  if (v2)
-  {
-    v3 = v2;
-    [*(*(*(a1 + 32) + 8) + 40) removeLastObject];
-    [v3 invalidate];
-    v2 = v3;
-  }
-}
-
-void __76__SBIdleTimerGlobalCoordinator__registerInternalDisableAssertionsTestRecipe__block_invoke_4(uint64_t a1)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  BSDispatchQueueAssertMain();
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
-  v10 = 0u;
-  v2 = *(*(*(a1 + 32) + 8) + 40);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [*(*(*(a1 + 32) + 8) + 40) lastObject];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    [*(*(*(a1 + 32) + 8) + 40) removeLastObject];
+    [v4 invalidate];
+    v3 = v4;
+  }
+}
+
+void __76__SBIdleTimerGlobalCoordinator__registerInternalDisableAssertionsTestRecipe__block_invoke_4(uint64_t a1, uint64_t a2)
+{
+  v15 = *MEMORY[0x277D85DE8];
+  BSDispatchQueueAssertMain();
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v3 = *(*(*(a1 + 32) + 8) + 40);
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v11;
     do
     {
-      v6 = 0;
+      v7 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v11 != v6)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v6++) invalidate];
+        [*(*(&v10 + 1) + 8 * v7++) invalidate];
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      while (v5 != v7);
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v4);
+    while (v5);
   }
 
-  v7 = *(*(a1 + 32) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = 0;
+  v8 = *(*(a1 + 32) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = 0;
 }
 
 - (void)resetIdleTimerForReason:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

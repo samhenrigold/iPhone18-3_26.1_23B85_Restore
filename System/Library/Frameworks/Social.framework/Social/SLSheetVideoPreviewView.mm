@@ -160,7 +160,7 @@
     {
       v11 = v4 / 3600;
       v12 = MEMORY[0x1E696AEC0];
-      v8 = SLSocialFrameworkBundle();
+      v8 = SLSocialFrameworkBundle(self);
       v9 = [v8 localizedStringForKey:@"SHEET_PREVIEW_VIDEO_DURATION_LONG" value:&stru_1F41EC300 table:@"Localizable"];
       [v12 stringWithFormat:v9, v11, v5, v6];
     }
@@ -168,7 +168,7 @@
     else
     {
       v7 = MEMORY[0x1E696AEC0];
-      v8 = SLSocialFrameworkBundle();
+      v8 = SLSocialFrameworkBundle(self);
       v9 = [v8 localizedStringForKey:@"SHEET_PREVIEW_VIDEO_DURATION_SHORT" value:&stru_1F41EC300 table:@"Localizable"];
       [v7 stringWithFormat:v9, v5, v6, v13];
     }

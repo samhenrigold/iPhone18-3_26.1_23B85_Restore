@@ -2,7 +2,6 @@
 + (id)addressHandlerWithPrincipalClass:(Class)class;
 - (CRAddressHandler)initWithAddressHandler:(id)handler;
 - (CRAddressHandler)initWithPrincipalClass:(Class)class;
-- (id)description;
 - (void)dealloc;
 @end
 
@@ -55,13 +54,6 @@
   v3.receiver = self;
   v3.super_class = CRAddressHandler;
   [(CRAddressHandler *)&v3 dealloc];
-}
-
-- (id)description
-{
-  v3 = objc_opt_class();
-  handler = self->_handler;
-  return +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"<%@:%p; %@ kinds={%@}>", v3, self, objc_opt_class(), [objc_msgSend(-[CRAddressHandler supportedAddressKinds](self "supportedAddressKinds")]);
 }
 
 @end

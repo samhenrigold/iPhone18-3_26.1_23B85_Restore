@@ -36,13 +36,13 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLDelayedFiledSystemDeletions.m" lineNumber:353 description:@"deleteAllRemainingFilesAndThumbnails must only be called by assetsd"];
   }
 
-  if ([(NSMutableArray *)self->_deletionInfos count])
+  if (objc_msgSend_count(self->_deletionInfos))
   {
     v20 = [MEMORY[0x1E69BF360] transaction:"-[PLDelayedFiledSystemDeletions deleteAllRemainingFilesAndThumbnailsWithPhotoLibrary:]"];
     v6 = PLBackendGetLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [(NSMutableArray *)self->_deletionInfos count];
+      v7 = objc_msgSend_count(self->_deletionInfos);
       *buf = 67109120;
       LODWORD(v33) = v7;
       _os_log_impl(&dword_19BF1F000, v6, OS_LOG_TYPE_DEFAULT, "Processing %d asset file system deletions", buf, 8u);
@@ -176,56 +176,55 @@ LABEL_11:
 
 void __86__PLDelayedFiledSystemDeletions_deleteAllRemainingFilesAndThumbnailsWithPhotoLibrary___block_invoke_2(uint64_t a1)
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AC08] defaultManager];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   v37 = a1;
   obj = *(*(a1 + 32) + 8);
-  v40 = [obj countByEnumeratingWithState:&v51 objects:v60 count:16];
+  v40 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
   if (v40)
   {
-    v39 = *v52;
-    v43 = *MEMORY[0x1E696AA08];
-    v42 = *MEMORY[0x1E696A798];
+    v39 = *v51;
+    v42 = *MEMORY[0x1E696AA08];
     do
     {
       v3 = 0;
       do
       {
-        if (*v52 != v39)
+        if (*v51 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
         v41 = v3;
-        v4 = *(*(&v51 + 1) + 8 * v3);
+        v4 = *(*(&v50 + 1) + 8 * v3);
+        v46 = 0u;
         v47 = 0u;
         v48 = 0u;
         v49 = 0u;
-        v50 = 0u;
-        v44 = [v4 fileURLs];
-        v5 = [v44 countByEnumeratingWithState:&v47 objects:v59 count:16];
+        v43 = [v4 fileURLs];
+        v5 = [v43 countByEnumeratingWithState:&v46 objects:v58 count:16];
         if (v5)
         {
           v6 = v5;
-          v7 = *v48;
+          v7 = *v47;
           do
           {
             v8 = 0;
             do
             {
-              if (*v48 != v7)
+              if (*v47 != v7)
               {
-                objc_enumerationMutation(v44);
+                objc_enumerationMutation(v43);
               }
 
-              v9 = *(*(&v47 + 1) + 8 * v8);
-              v46 = 0;
-              v10 = [v2 removeItemAtURL:v9 error:&v46];
-              v11 = v46;
+              v9 = *(*(&v46 + 1) + 8 * v8);
+              v45 = 0;
+              v10 = [v2 removeItemAtURL:v9 error:&v45];
+              v11 = v45;
               v12 = v11;
               if (v10)
               {
@@ -234,7 +233,7 @@ void __86__PLDelayedFiledSystemDeletions_deleteAllRemainingFilesAndThumbnailsWit
                 {
                   v14 = [v9 path];
                   *buf = 138412290;
-                  v56 = v14;
+                  v55 = v14;
                   _os_log_impl(&dword_19BF1F000, v13, OS_LOG_TYPE_DEBUG, "Deleted %@", buf, 0xCu);
                 }
 
@@ -244,14 +243,14 @@ LABEL_24:
               }
 
               v15 = [v11 userInfo];
-              v13 = [v15 objectForKey:v43];
+              v13 = [v15 objectForKey:v42];
 
               if ([v13 code]== 2)
               {
                 v16 = [v13 domain];
-                v17 = [v16 isEqualToString:v42];
+                isEqualToString = objc_msgSend_isEqualToString_(v16);
 
-                if (v17)
+                if (isEqualToString)
                 {
                   goto LABEL_24;
                 }
@@ -262,9 +261,9 @@ LABEL_24:
               {
                 v19 = [v9 path];
                 *buf = 138412546;
-                v56 = v19;
-                v57 = 2112;
-                v58 = v12;
+                v55 = v19;
+                v56 = 2112;
+                v57 = v12;
                 _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_ERROR, "Unable to unlink %@: %@", buf, 0x16u);
               }
 
@@ -284,15 +283,15 @@ LABEL_24:
                 v24 = __error();
                 v25 = strerror(*v24);
                 *buf = 138412546;
-                v56 = v23;
-                v57 = 2082;
-                v58 = v25;
+                v55 = v23;
+                v56 = 2082;
+                v57 = v25;
                 _os_log_impl(&dword_19BF1F000, v22, OS_LOG_TYPE_DEFAULT, "Retrying after clearing IMMUTABLE flag from %@ after failing to unlink file (%{public}s).", buf, 0x16u);
               }
 
-              v45 = v12;
-              v26 = [v2 removeItemAtURL:v9 error:&v45];
-              v27 = v45;
+              v44 = v12;
+              v26 = [v2 removeItemAtURL:v9 error:&v44];
+              v27 = v44;
 
               v28 = PLBackendGetLog();
               v29 = v28;
@@ -302,7 +301,7 @@ LABEL_24:
                 {
                   v30 = [v9 path];
                   *buf = 138412290;
-                  v56 = v30;
+                  v55 = v30;
                   v31 = v29;
                   v32 = OS_LOG_TYPE_DEFAULT;
                   v33 = "Successfully unlinked %@ after clearing IMMUTABLE flag";
@@ -316,9 +315,9 @@ LABEL_29:
               {
                 v30 = [v9 path];
                 *buf = 138412546;
-                v56 = v30;
-                v57 = 2112;
-                v58 = v27;
+                v55 = v30;
+                v56 = 2112;
+                v57 = v27;
                 v31 = v29;
                 v32 = OS_LOG_TYPE_ERROR;
                 v33 = "Unable to unlink %@: after clearing IMMUTABLE flag (%@)";
@@ -331,7 +330,7 @@ LABEL_25:
             }
 
             while (v6 != v8);
-            v35 = [v44 countByEnumeratingWithState:&v47 objects:v59 count:16];
+            v35 = [v43 countByEnumeratingWithState:&v46 objects:v58 count:16];
             v6 = v35;
           }
 
@@ -342,7 +341,7 @@ LABEL_25:
       }
 
       while (v41 + 1 != v40);
-      v40 = [obj countByEnumeratingWithState:&v51 objects:v60 count:16];
+      v40 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
     }
 
     while (v40);
@@ -421,9 +420,9 @@ LABEL_25:
   [dictionary enumerateKeysAndObjectsUsingBlock:v105];
   v76 = v19;
   v75 = dictionary;
-  if ([v19 count])
+  if (objc_msgSend_count(v19))
   {
-    v20 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v19, "count")}];
+    v20 = [MEMORY[0x1E695DFA8] setWithCapacity:objc_msgSend_count(v19)];
     v101 = 0u;
     v102 = 0u;
     v103 = 0u;
@@ -679,7 +678,7 @@ void __73__PLDelayedFiledSystemDeletions_appendToXPCMessage_managedObjectContext
 
   [v11 setPredicate:v9];
   v10 = [*(a1 + 32) executeFetchRequest:v11 error:0];
-  if ([v10 count])
+  if (objc_msgSend_count(v10))
   {
     [*(a1 + 40) addObjectsFromArray:v10];
   }
@@ -946,9 +945,9 @@ uint64_t __72__PLDelayedFiledSystemDeletions_appendDescriptionForEvent_toCompone
   }
 
   v9 = [(__CFURL *)v8 pathComponents];
-  if ([v9 count] >= 3)
+  if (objc_msgSend_count(v9) >= 3)
   {
-    v10 = [v9 subarrayWithRange:{objc_msgSend(v9, "count") - 2, 2}];
+    v10 = [v9 subarrayWithRange:{objc_msgSend_count(v9) - 2, 2}];
 
     v9 = v10;
   }

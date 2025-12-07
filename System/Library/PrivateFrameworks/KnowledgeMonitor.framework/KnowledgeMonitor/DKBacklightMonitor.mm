@@ -36,7 +36,7 @@ void __41___DKBacklightMonitor_obtainCurrentValue__block_invoke(uint64_t a1)
 
 void __28___DKBacklightMonitor_start__block_invoke(uint64_t a1, int a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -59,9 +59,9 @@ void __28___DKBacklightMonitor_start__block_invoke(uint64_t a1, int a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v30 = @"com.apple.iokit.hid.displayStatus";
-        v31 = 2048;
-        v32 = state64;
+        v29 = @"com.apple.iokit.hid.displayStatus";
+        v30 = 2048;
+        v31 = state64;
         _os_log_impl(&dword_22595A000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ %llu", buf, 0x16u);
       }
 
@@ -85,8 +85,6 @@ void __28___DKBacklightMonitor_start__block_invoke(uint64_t a1, int a2)
       __28___DKBacklightMonitor_start__block_invoke_cold_2(v16, v17, v18, v19, v20, v21, v22, v23);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __65___DKBacklightMonitor_donateRetroactiveShutdownBacklightOffEvent__block_invoke(uint64_t a1)
@@ -132,7 +130,7 @@ uint64_t __41___DKBacklightMonitor_lastBacklightEvent__block_invoke_2(uint64_t a
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 @end

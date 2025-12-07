@@ -2,7 +2,7 @@
 + (id)sharedInstance;
 - (__GCHIDEventUIKitClient)init;
 - (id)_initWithApplication:(id *)application;
-- (id)registerEventHandler:(uint64_t)handler;
+- (os_unfair_lock_s)registerEventHandler:(os_unfair_lock_s *)handler;
 - (void)dealloc;
 @end
 
@@ -104,7 +104,7 @@
   return application;
 }
 
-- (id)registerEventHandler:(uint64_t)handler
+- (os_unfair_lock_s)registerEventHandler:(os_unfair_lock_s *)handler
 {
   v3 = a2;
   v4 = v3;
@@ -112,14 +112,14 @@
   {
     v5 = [v3 copy];
 
-    os_unfair_lock_lock((handler + 16));
-    v6 = *(handler + 24);
+    os_unfair_lock_lock(handler + 4);
+    v6 = *&handler[6]._os_unfair_lock_opaque;
     v7 = MEMORY[0x20F32E600](v5);
     v8 = [v6 arrayByAddingObject:v7];
-    v9 = *(handler + 24);
-    *(handler + 24) = v8;
+    v9 = *&handler[6]._os_unfair_lock_opaque;
+    *&handler[6]._os_unfair_lock_opaque = v8;
 
-    os_unfair_lock_unlock((handler + 16));
+    os_unfair_lock_unlock(handler + 4);
     v10 = objc_alloc(MEMORY[0x277D0C8F8]);
     OUTLINED_FUNCTION_0_0();
     v12[1] = 3221225472;

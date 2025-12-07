@@ -1720,7 +1720,7 @@ void __62__PXPhotosAssetsFetcher_clearFetchResultsForAssetCollections___block_in
   {
     curationKind = [configurationCopy curationKind];
     curationLength = [configurationCopy curationLength];
-    options = [configurationCopy options];
+    v15 = objc_msgSend_options(configurationCopy);
     [configurationCopy sortDescriptors];
     v17 = v16 = containerCopy;
     reverseSortOrder = [configurationCopy reverseSortOrder];
@@ -1732,7 +1732,7 @@ void __62__PXPhotosAssetsFetcher_clearFetchResultsForAssetCollections___block_in
     v21 = selfCopy;
     v8 = v17;
     containerCopy = v16;
-    v13 = [(PXPhotosAssetsFetcher *)v21 _existingAssetsInContainer:v16 curationKind:curationKind curationLength:curationLength options:options sortDescriptors:v8 reverseSortOrder:reverseSortOrder filterPredicate:filterPredicate fetchPropertySets:fetchPropertySets libraryFilter:libraryFilter includeOthersInSocialGroupAssets:v31];
+    v13 = [(PXPhotosAssetsFetcher *)v21 _existingAssetsInContainer:v16 curationKind:curationKind curationLength:curationLength options:v15 sortDescriptors:v8 reverseSortOrder:reverseSortOrder filterPredicate:filterPredicate fetchPropertySets:fetchPropertySets libraryFilter:libraryFilter includeOthersInSocialGroupAssets:v31];
     goto LABEL_6;
   }
 
@@ -1744,13 +1744,13 @@ void __62__PXPhotosAssetsFetcher_clearFetchResultsForAssetCollections___block_in
     curationType = [configurationCopy curationType];
     curationKind3 = [configurationCopy curationKind];
     curationLength2 = [configurationCopy curationLength];
-    options2 = [configurationCopy options];
+    v22 = objc_msgSend_options(configurationCopy);
     fetchPropertySets = [configurationCopy sortDescriptors];
     reverseSortOrder2 = [configurationCopy reverseSortOrder];
     filterPredicate2 = [configurationCopy filterPredicate];
     fetchPropertySets2 = [configurationCopy fetchPropertySets];
     LOBYTE(v30) = reverseSortOrder2;
-    self = -[PXPhotosAssetsFetcher _existingCuratedAssetsFetchResultForAssetCollection:referencePersons:curationType:curationKind:curationLength:options:sortDescriptors:reverseSortOrder:filterPredicate:fetchPropertySets:libraryFilter:](self, "_existingCuratedAssetsFetchResultForAssetCollection:referencePersons:curationType:curationKind:curationLength:options:sortDescriptors:reverseSortOrder:filterPredicate:fetchPropertySets:libraryFilter:", v8, filterPredicate, curationType, curationKind3, curationLength2, options2, fetchPropertySets, v30, filterPredicate2, fetchPropertySets2, [configurationCopy libraryFilter]);
+    self = -[PXPhotosAssetsFetcher _existingCuratedAssetsFetchResultForAssetCollection:referencePersons:curationType:curationKind:curationLength:options:sortDescriptors:reverseSortOrder:filterPredicate:fetchPropertySets:libraryFilter:](self, "_existingCuratedAssetsFetchResultForAssetCollection:referencePersons:curationType:curationKind:curationLength:options:sortDescriptors:reverseSortOrder:filterPredicate:fetchPropertySets:libraryFilter:", v8, filterPredicate, curationType, curationKind3, curationLength2, v22, fetchPropertySets, v30, filterPredicate2, fetchPropertySets2, [configurationCopy libraryFilter]);
 
 LABEL_10:
     goto LABEL_11;
@@ -1761,7 +1761,7 @@ LABEL_10:
     v10 = [configurationCopy curationKind] == 5;
     filterPredicate = [configurationCopy referenceAsset];
     fetchPropertySets = [configurationCopy referencePersons];
-    v13 = -[PXPhotosAssetsFetcher _existingKeyAssetsFetchResultForAssetCollection:referenceAsset:referencePersons:curated:options:libraryFilter:](self, "_existingKeyAssetsFetchResultForAssetCollection:referenceAsset:referencePersons:curated:options:libraryFilter:", v8, filterPredicate, fetchPropertySets, v10, [configurationCopy options], objc_msgSend(configurationCopy, "libraryFilter"));
+    v13 = -[PXPhotosAssetsFetcher _existingKeyAssetsFetchResultForAssetCollection:referenceAsset:referencePersons:curated:options:libraryFilter:](self, "_existingKeyAssetsFetchResultForAssetCollection:referenceAsset:referencePersons:curated:options:libraryFilter:", v8, filterPredicate, fetchPropertySets, v10, objc_msgSend_options(configurationCopy), [configurationCopy libraryFilter]);
 LABEL_6:
     self = v13;
 LABEL_11:
@@ -1777,14 +1777,14 @@ LABEL_11:
     includeSharedCollectionAssets = [configurationCopy includeSharedCollectionAssets];
     includeAllBurstAssets = [configurationCopy includeAllBurstAssets];
     fetchLimit = [configurationCopy fetchLimit];
-    options3 = [configurationCopy options];
+    v32 = objc_msgSend_options(configurationCopy);
     filterPredicate2 = [configurationCopy sortDescriptors];
     reverseSortOrder3 = [configurationCopy reverseSortOrder];
     hideHiddenAssets = [configurationCopy hideHiddenAssets];
     fetchPropertySets3 = [configurationCopy fetchPropertySets];
     BYTE1(v31) = hideHiddenAssets;
     LOBYTE(v31) = reverseSortOrder3;
-    self = -[PXPhotosAssetsFetcher _existingFetchResultForAssetCollection:withFilterPredicate:inclusionPredicate:includeUnsavedSyndicatedAssets:includeSharedCollectionAssets:includeAllBurstAssets:fetchLimit:options:sortDescriptors:reverseSortOrder:hideHiddenAssets:fetchPropertySets:libraryFilter:](self, "_existingFetchResultForAssetCollection:withFilterPredicate:inclusionPredicate:includeUnsavedSyndicatedAssets:includeSharedCollectionAssets:includeAllBurstAssets:fetchLimit:options:sortDescriptors:reverseSortOrder:hideHiddenAssets:fetchPropertySets:libraryFilter:", v8, filterPredicate, fetchPropertySets, includeUnsavedSyndicatedAssets, includeSharedCollectionAssets, includeAllBurstAssets, fetchLimit, options3, filterPredicate2, v31, fetchPropertySets3, [configurationCopy libraryFilter]);
+    self = -[PXPhotosAssetsFetcher _existingFetchResultForAssetCollection:withFilterPredicate:inclusionPredicate:includeUnsavedSyndicatedAssets:includeSharedCollectionAssets:includeAllBurstAssets:fetchLimit:options:sortDescriptors:reverseSortOrder:hideHiddenAssets:fetchPropertySets:libraryFilter:](self, "_existingFetchResultForAssetCollection:withFilterPredicate:inclusionPredicate:includeUnsavedSyndicatedAssets:includeSharedCollectionAssets:includeAllBurstAssets:fetchLimit:options:sortDescriptors:reverseSortOrder:hideHiddenAssets:fetchPropertySets:libraryFilter:", v8, filterPredicate, fetchPropertySets, includeUnsavedSyndicatedAssets, includeSharedCollectionAssets, includeAllBurstAssets, fetchLimit, v32, filterPredicate2, v31, fetchPropertySets3, [configurationCopy libraryFilter]);
 
     goto LABEL_10;
   }
@@ -1804,7 +1804,7 @@ LABEL_12:
   {
     curationKind = [v8 curationKind];
     curationLength = [v8 curationLength];
-    options = [v8 options];
+    v22 = objc_msgSend_options(v8);
     sortDescriptors = [v8 sortDescriptors];
     reverseSortOrder = [v8 reverseSortOrder];
     filterPredicate = [v8 filterPredicate];
@@ -1814,7 +1814,7 @@ LABEL_12:
     LOBYTE(v44) = [v8 includeOthersInSocialGroupAssets];
     v43 = libraryFilter;
     containerCopy = v27;
-    v4 = [(PXPhotosAssetsFetcher *)self _fetchAssetsInContainer:v27 curationKind:curationKind curationLength:curationLength options:options sortDescriptors:sortDescriptors reverseSortOrder:reverseSortOrder filterPredicate:filterPredicate fetchPropertySets:fetchPropertySets libraryFilter:v43 includeOthersInSocialGroupAssets:v44];
+    v4 = [(PXPhotosAssetsFetcher *)self _fetchAssetsInContainer:v27 curationKind:curationKind curationLength:curationLength options:v22 sortDescriptors:sortDescriptors reverseSortOrder:reverseSortOrder filterPredicate:filterPredicate fetchPropertySets:fetchPropertySets libraryFilter:v43 includeOthersInSocialGroupAssets:v44];
 
     goto LABEL_17;
   }
@@ -1833,7 +1833,7 @@ LABEL_12:
         includeSharedCollectionAssets = [v8 includeSharedCollectionAssets];
         includeAllBurstAssets = [v8 includeAllBurstAssets];
         fetchLimit = [v8 fetchLimit];
-        options2 = [v8 options];
+        v32 = objc_msgSend_options(v8);
         sortDescriptors2 = [v8 sortDescriptors];
         v34 = containerCopy;
         reverseSortOrder2 = [v8 reverseSortOrder];
@@ -1846,7 +1846,7 @@ LABEL_12:
         v9 = v36;
         LOBYTE(v44) = reverseSortOrder2;
         containerCopy = v34;
-        v4 = [(PXPhotosAssetsFetcher *)self _fetchAssetsInAssetCollection:v36 withFilterPredicate:filterPredicate2 inclusionPredicate:inclusionPredicate includeUnsavedSyndicatedAssets:includeUnsavedSyndicatedAssets includeSharedCollectionAssets:includeSharedCollectionAssets includeAllBurstAssets:includeAllBurstAssets fetchLimit:fetchLimit options:options2 sortDescriptors:sortDescriptors2 reverseSortOrder:v44 hideHiddenAssets:fetchPropertySets2 fetchPropertySets:libraryFilter2 libraryFilter:v46 includeOthersInSocialGroupAssets:?];
+        v4 = [(PXPhotosAssetsFetcher *)self _fetchAssetsInAssetCollection:v36 withFilterPredicate:filterPredicate2 inclusionPredicate:inclusionPredicate includeUnsavedSyndicatedAssets:includeUnsavedSyndicatedAssets includeSharedCollectionAssets:includeSharedCollectionAssets includeAllBurstAssets:includeAllBurstAssets fetchLimit:fetchLimit options:v32 sortDescriptors:sortDescriptors2 reverseSortOrder:v44 hideHiddenAssets:fetchPropertySets2 fetchPropertySets:libraryFilter2 libraryFilter:v46 includeOthersInSocialGroupAssets:?];
       }
     }
 
@@ -1858,7 +1858,7 @@ LABEL_12:
       curationKind3 = [v8 curationKind];
       curationLength2 = [v8 curationLength];
       v12 = containerCopy;
-      options3 = [v8 options];
+      v13 = objc_msgSend_options(v8);
       sortDescriptors3 = [v8 sortDescriptors];
       reverseSortOrder3 = [v8 reverseSortOrder];
       [v8 filterPredicate];
@@ -1867,7 +1867,7 @@ LABEL_12:
       libraryFilter3 = [v8 libraryFilter];
       LOBYTE(v45) = [v8 includeOthersInSocialGroupAssets];
       LOBYTE(v42) = reverseSortOrder3;
-      v20 = options3;
+      v20 = v13;
       containerCopy = v12;
       v4 = [(PXPhotosAssetsFetcher *)v16 _fetchCuratedAssetsInAssetCollection:v55 referencePersons:v11 curationType:curationType curationKind:curationKind3 curationLength:curationLength2 options:v20 sortDescriptors:sortDescriptors3 reverseSortOrder:v42 filterPredicate:v17 fetchPropertySets:fetchPropertySets3 libraryFilter:libraryFilter3 includeOthersInSocialGroupAssets:v45];
 
@@ -1889,7 +1889,7 @@ LABEL_12:
       referenceAsset = [v8 referenceAsset];
       [v8 referencePersons];
       v31 = v30 = self;
-      v4 = -[PXPhotosAssetsFetcher _fetchCuratedKeyAssetsInAssetCollection:referenceAsset:referencePersons:options:libraryFilter:](v30, "_fetchCuratedKeyAssetsInAssetCollection:referenceAsset:referencePersons:options:libraryFilter:", v9, referenceAsset, v31, [v8 options], objc_msgSend(v8, "libraryFilter"));
+      v4 = -[PXPhotosAssetsFetcher _fetchCuratedKeyAssetsInAssetCollection:referenceAsset:referencePersons:options:libraryFilter:](v30, "_fetchCuratedKeyAssetsInAssetCollection:referenceAsset:referencePersons:options:libraryFilter:", v9, referenceAsset, v31, objc_msgSend_options(v8), [v8 libraryFilter]);
 
       goto LABEL_16;
     }
@@ -1903,7 +1903,7 @@ LABEL_12:
     }
 
 LABEL_15:
-    v4 = -[PXPhotosAssetsFetcher _fetchKeyAssetsInAssetCollection:options:libraryFilter:](self, "_fetchKeyAssetsInAssetCollection:options:libraryFilter:", v9, [v8 options], objc_msgSend(v8, "libraryFilter"));
+    v4 = -[PXPhotosAssetsFetcher _fetchKeyAssetsInAssetCollection:options:libraryFilter:](self, "_fetchKeyAssetsInAssetCollection:options:libraryFilter:", v9, objc_msgSend_options(v8), [v8 libraryFilter]);
   }
 
 LABEL_16:

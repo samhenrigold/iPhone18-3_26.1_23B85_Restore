@@ -72,21 +72,21 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  v30 = *MEMORY[0x277D85DE8];
-  unsignedShortValue = 0;
+  v29 = *MEMORY[0x277D85DE8];
+  LOWORD(v21) = 0;
+  v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v21[0] = 0;
-  v21[1] = 0;
-  v20 = v21;
+  v20[0] = 0;
+  v20[1] = 0;
+  v19 = v20;
   ccdid = [(MTRTLSCertificateManagementClusterProvisionClientCertificateParams *)self ccdid];
-  unsignedShortValue = [ccdid unsignedShortValue];
+  LOWORD(v21) = [ccdid unsignedShortValue];
 
   clientCertificate = [(MTRTLSCertificateManagementClusterProvisionClientCertificateParams *)self clientCertificate];
   v7 = clientCertificate;
   sub_238DB6950(buf, [clientCertificate bytes], objc_msgSend(clientCertificate, "length"));
 
-  v23 = *buf;
+  v22 = *buf;
   intermediateCertificates = [(MTRTLSCertificateManagementClusterProvisionClientCertificateParams *)self intermediateCertificates];
   v9 = [intermediateCertificates count] == 0;
 
@@ -95,36 +95,36 @@
     operator new();
   }
 
-  v24 = 0uLL;
-  sub_2393D9C18(0x62FuLL, 0, &v19);
-  if (v19)
+  v23 = 0uLL;
+  sub_2393D9C18(0x62FuLL, 0, &v18);
+  if (v18)
   {
     sub_2393C7B90(buf);
+    v26 = 0;
     v27 = 0;
+    v25 = &unk_284BB83A8;
     v28 = 0;
-    v26 = &unk_284BB83A8;
-    v29 = 0;
-    sub_238EA16C4(&v26, &v19, 0);
-    sub_2393C7BF0(buf, &v26, 0xFFFFFFFF);
-    v10 = sub_238F2E498(&unsignedShortValue, buf, 0x100uLL);
+    sub_238EA16C4(&v25, &v18, 0);
+    sub_2393C7BF0(buf, &v25, 0xFFFFFFFF);
+    v10 = sub_238F2E498(&v21, buf, 0x100uLL);
     v12 = v10;
-    if (v10 || (v10 = sub_238DD2EFC(buf, &v19), v12 = v10, v10))
+    if (v10 || (v10 = sub_238DD2EFC(buf, &v18), v12 = v10, v10))
     {
       v13 = v11;
     }
 
     else
     {
-      sub_238DD2F90(reader, &v19);
+      sub_238DD2F90(reader, &v18);
       v10 = sub_2393C7114(reader, 21, 256);
-      v13 = v18;
+      v13 = v17;
       v12 = v10;
     }
 
     v14 = v10 & 0xFFFFFFFF00000000;
-    v26 = &unk_284BB83A8;
-    sub_238EA1758(&v28);
+    v25 = &unk_284BB83A8;
     sub_238EA1758(&v27);
+    sub_238EA1758(&v26);
   }
 
   else
@@ -134,14 +134,13 @@
     v12 = 11;
   }
 
-  sub_238EA1758(&v19);
-  sub_238EA1790(&v20);
-  v15 = *MEMORY[0x277D85DE8];
-  v16 = v14 | v12;
-  v17 = v13;
-  result.mFile = v17;
-  result.mError = v16;
-  result.mLine = HIDWORD(v16);
+  sub_238EA1758(&v18);
+  sub_238EA1790(&v19);
+  v15 = v14 | v12;
+  v16 = v13;
+  result.mFile = v16;
+  result.mError = v15;
+  result.mLine = HIDWORD(v15);
   return result;
 }
 

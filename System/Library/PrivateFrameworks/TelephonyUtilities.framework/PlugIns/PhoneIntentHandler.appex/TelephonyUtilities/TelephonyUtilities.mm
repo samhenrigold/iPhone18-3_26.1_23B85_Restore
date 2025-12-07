@@ -45,18 +45,18 @@ id sub_100004A6C(uint64_t a1, void *a2)
     v8 = 0;
   }
 
-  v9 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = IntentHandlerDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = @"NO";
+    v11 = @"NO";
     if (v8)
     {
-      v10 = @"YES";
+      v11 = @"YES";
     }
 
-    v12 = 138412290;
-    v13 = v10;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "SimpleConversationFilter: matchesCallGroup=%@", &v12, 0xCu);
+    v13 = 138412290;
+    v14 = v11;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "SimpleConversationFilter: matchesCallGroup=%@", &v13, 0xCu);
   }
 
   return v8;
@@ -68,42 +68,44 @@ BOOL sub_100004C5C(uint64_t a1, void *a2)
   v4 = [v3 count];
   v5 = *(a1 + 32);
 
-  v6 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = IntentHandlerDefaultLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = @"NO";
+    v8 = @"NO";
     if (v4 == v5)
     {
-      v7 = @"YES";
+      v8 = @"YES";
     }
 
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "SimpleConversationFilter: matchesParticipantCount=%@", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "SimpleConversationFilter: matchesParticipantCount=%@", &v10, 0xCu);
   }
 
   return v4 == v5;
 }
 
-void sub_100007FDC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100007FDC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t sub_100008D3C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (([v3 isDeleted] & 1) != 0 || objc_msgSend(v3, "isTrashed"))
+  v4 = [v3 isDeleted];
+  if ((v4 & 1) != 0 || (v4 = [v3 isTrashed], v4))
   {
-    v4 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = IntentHandlerDefaultLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v34 = v3;
-      v5 = "Rejecting voicemail because it is deleted or trashed: %@";
+      v36 = v3;
+      v6 = "Rejecting voicemail because it is deleted or trashed: %@";
 LABEL_5:
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, v5, buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v6, buf, 0xCu);
     }
   }
 
@@ -114,18 +116,18 @@ LABEL_5:
 LABEL_23:
       if (*(a1 + 48))
       {
-        v19 = IntentHandlerDefaultLog();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v21 = IntentHandlerDefaultLog(v4);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v34 = v3;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Rejecting voicemail because voicemail.date is before requested startDate: %@", buf, 0xCu);
+          v36 = v3;
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Rejecting voicemail because voicemail.date is before requested startDate: %@", buf, 0xCu);
         }
 
-        v20 = [v3 date];
-        v21 = [v20 compare:*(a1 + 48)];
+        v22 = [v3 date];
+        v23 = [v22 compare:*(a1 + 48)];
 
-        if (v21 == -1)
+        if (v23 == -1)
         {
           goto LABEL_7;
         }
@@ -133,93 +135,92 @@ LABEL_23:
 
       if (*(a1 + 56))
       {
-        v22 = IntentHandlerDefaultLog();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v24 = IntentHandlerDefaultLog(v4);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v34 = v3;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Rejecting voicemail because voicemail.date is after requested endDate: %@", buf, 0xCu);
+          v36 = v3;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Rejecting voicemail because voicemail.date is after requested endDate: %@", buf, 0xCu);
         }
 
-        v23 = [v3 date];
-        v24 = [v23 compare:*(a1 + 56)];
+        v25 = [v3 date];
+        v26 = [v25 compare:*(a1 + 56)];
 
-        if (v24 == 1)
+        if (v26 == 1)
         {
           goto LABEL_7;
         }
       }
 
-      v25 = *(a1 + 64);
-      if (v25)
+      v27 = *(a1 + 64);
+      if (v27)
       {
-        v26 = [v25 BOOLValue];
-        v27 = [v3 isUnread];
-        if (v26)
+        v28 = [v27 BOOLValue];
+        v29 = [v3 isUnread];
+        if (v28)
         {
-          if ((v27 & 1) == 0)
+          if ((v29 & 1) == 0)
           {
-            v4 = IntentHandlerDefaultLog();
-            if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+            v5 = IntentHandlerDefaultLog(v29);
+            if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_6;
             }
 
             *buf = 138412290;
-            v34 = v3;
-            v5 = "Rejecting voicemail because only unread voicemails were requested, but this one is marked as read: %@";
+            v36 = v3;
+            v6 = "Rejecting voicemail because only unread voicemails were requested, but this one is marked as read: %@";
             goto LABEL_5;
           }
         }
 
-        else if (v27)
+        else if (v29)
         {
-          v4 = IntentHandlerDefaultLog();
-          if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+          v5 = IntentHandlerDefaultLog(v29);
+          if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_6;
           }
 
           *buf = 138412290;
-          v34 = v3;
-          v5 = "Rejecting voicemail because only read voicemails were requested, but this one is marked as unread: %@";
+          v36 = v3;
+          v6 = "Rejecting voicemail because only read voicemails were requested, but this one is marked as unread: %@";
           goto LABEL_5;
         }
       }
 
-      v6 = 1;
+      v7 = 1;
       goto LABEL_8;
     }
 
-    v8 = [v3 senderDestinationID];
-    v9 = [v8 length];
+    v9 = [v3 senderDestinationID];
+    v10 = [v9 length];
 
-    if (v9)
+    if (v10)
     {
-      v10 = [TUHandle alloc];
-      v11 = [v3 senderDestinationID];
-      v4 = [v10 initWithType:2 value:v11];
+      v12 = [TUHandle alloc];
+      v13 = [v3 senderDestinationID];
+      v5 = [v12 initWithType:2 value:v13];
 
+      v32 = 0u;
+      v33 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v28 = 0u;
-      v29 = 0u;
-      v12 = *(a1 + 40);
-      v13 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
-      if (v13)
+      v14 = *(a1 + 40);
+      v15 = [v14 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      if (v15)
       {
-        v14 = v13;
-        v15 = *v29;
+        v16 = v15;
+        v17 = *v31;
         while (2)
         {
-          for (i = 0; i != v14; i = i + 1)
+          for (i = 0; i != v16; ++i)
           {
-            if (*v29 != v15)
+            if (*v31 != v17)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v14);
             }
 
-            v17 = *(*(&v28 + 1) + 8 * i);
             if (TUHandlesAreCanonicallyEqual())
             {
 
@@ -227,8 +228,8 @@ LABEL_23:
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
-          if (v14)
+          v16 = [v14 countByEnumeratingWithState:&v30 objects:v34 count:16];
+          if (v16)
           {
             continue;
           }
@@ -237,23 +238,23 @@ LABEL_23:
         }
       }
 
-      v18 = IntentHandlerDefaultLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = IntentHandlerDefaultLog(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v34 = v3;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Rejecting voicemail because senderDestinationID does not match requested recipient: %@", buf, 0xCu);
+        v36 = v3;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Rejecting voicemail because senderDestinationID does not match requested recipient: %@", buf, 0xCu);
       }
 
       goto LABEL_6;
     }
 
-    v4 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = IntentHandlerDefaultLog(v11);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v34 = v3;
-      v5 = "Rejecting voicemail because a recipient was specified, but this voicemail has no senderDestinationID: %@";
+      v36 = v3;
+      v6 = "Rejecting voicemail because a recipient was specified, but this voicemail has no senderDestinationID: %@";
       goto LABEL_5;
     }
   }
@@ -261,66 +262,67 @@ LABEL_23:
 LABEL_6:
 
 LABEL_7:
-  v6 = 0;
+  v7 = 0;
 LABEL_8:
 
-  return v6;
+  return v7;
 }
 
 void sub_10000915C(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = IntentHandlerDefaultLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_10002F4A0(v6, v7, v8, v9, v10, v11, v12, v13);
+      sub_10002F4A0(v7, v8, v9, v10, v11, v12, v13, v14);
     }
 
-    v14 = &__NSArray0__struct;
-    v15 = 3;
+    v15 = &__NSArray0__struct;
+    v16 = 3;
   }
 
   else
   {
     if ([v5 count] <= *(a1 + 48))
     {
-      v7 = v5;
+      v8 = v5;
     }
 
     else
     {
-      v7 = [v5 subarrayWithRange:0];
-      v16 = IntentHandlerDefaultLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v8 = [v5 subarrayWithRange:0];
+      v17 = IntentHandlerDefaultLog(v8);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = *(a1 + 48);
-        v20 = 134218242;
-        v21 = v17;
-        v22 = 2112;
-        v23 = v7;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Truncated matching voicemails to %ld objects: %@", &v20, 0x16u);
+        v18 = *(a1 + 48);
+        v21 = 134218242;
+        v22 = v18;
+        v23 = 2112;
+        v24 = v8;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Truncated matching voicemails to %ld objects: %@", &v21, 0x16u);
       }
     }
 
-    v14 = [*(a1 + 32) callRecordsForVoicemails:v7];
-    v18 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v15 = [*(a1 + 32) callRecordsForVoicemails:v8];
+    v19 = IntentHandlerDefaultLog(v15);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412546;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v14;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Voicemails (%@) -> callRecords (%@)", &v20, 0x16u);
+      v21 = 138412546;
+      v22 = v5;
+      v23 = 2112;
+      v24 = v15;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Voicemails (%@) -> callRecords (%@)", &v21, 0x16u);
     }
 
-    v15 = 7;
+    v16 = 7;
   }
 
-  v19 = [[INSearchCallHistoryIntentResponse alloc] initWithCode:v15 userActivity:0];
-  [v19 setCallRecords:v14];
+  v20 = [[INSearchCallHistoryIntentResponse alloc] initWithCode:v16 userActivity:0];
+  [v20 setCallRecords:v15];
   (*(*(a1 + 40) + 16))();
 }
 
@@ -361,70 +363,71 @@ void sub_10000AA40(uint64_t a1, void *a2, void *a3)
   {
     if (v6)
     {
-      v14 = IntentHandlerDefaultLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = IntentHandlerDefaultLog(v6);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_10002F664();
       }
     }
 
-    v9 = IntentHandlerDefaultLog();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = IntentHandlerDefaultLog(v6);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       goto LABEL_12;
     }
 
     *buf = 136315138;
-    v20 = "[PlayVoicemailIntentHandler handlePlayVoicemail:completion:]_block_invoke";
-    v11 = "%s [WARN] Voicemail with the given identifier was not found";
-    v12 = v9;
-    v13 = 12;
+    v21 = "[PlayVoicemailIntentHandler handlePlayVoicemail:completion:]_block_invoke";
+    v12 = "%s [WARN] Voicemail with the given identifier was not found";
+    v13 = v10;
+    v14 = 12;
     goto LABEL_11;
   }
 
   v8 = [*(a1 + 32) isRestrictedMessage:v5];
-  v9 = IntentHandlerDefaultLog();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
-  if (v8)
+  v9 = v8;
+  v10 = IntentHandlerDefaultLog(v8);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+  if (v9)
   {
-    if (!v10)
+    if (!v11)
     {
 LABEL_12:
 
-      v15 = [[INPlayVoicemailIntentResponse alloc] initWithCode:4 userActivity:0];
+      v16 = [[INPlayVoicemailIntentResponse alloc] initWithCode:4 userActivity:0];
       (*(*(a1 + 40) + 16))();
       goto LABEL_16;
     }
 
     *buf = 136315394;
-    v20 = "[PlayVoicemailIntentHandler handlePlayVoicemail:completion:]_block_invoke";
-    v21 = 2112;
-    v22 = v5;
-    v11 = "%s [WARN] Screen time restricted playback of voicemail: %@";
-    v12 = v9;
-    v13 = 22;
+    v21 = "[PlayVoicemailIntentHandler handlePlayVoicemail:completion:]_block_invoke";
+    v22 = 2112;
+    v23 = v5;
+    v12 = "%s [WARN] Screen time restricted playback of voicemail: %@";
+    v13 = v10;
+    v14 = 22;
 LABEL_11:
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, v11, buf, v13);
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, v12, buf, v14);
     goto LABEL_12;
   }
 
-  if (v10)
+  if (v11)
   {
     *buf = 136315394;
-    v20 = "[PlayVoicemailIntentHandler handlePlayVoicemail:completion:]_block_invoke";
-    v21 = 2112;
-    v22 = v5;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%s Found voicemail with the given identifier (%@). Returning success", buf, 0x16u);
+    v21 = "[PlayVoicemailIntentHandler handlePlayVoicemail:completion:]_block_invoke";
+    v22 = 2112;
+    v23 = v5;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s Found voicemail with the given identifier (%@). Returning success", buf, 0x16u);
   }
 
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_10000ACAC;
-  v17[3] = &unk_10004CD70;
-  v16 = *(a1 + 32);
-  v18 = *(a1 + 40);
-  [v16 _playVoicemail:v5 completion:v17];
-  v15 = v18;
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_10000ACAC;
+  v18[3] = &unk_10004CD70;
+  v17 = *(a1 + 32);
+  v19 = *(a1 + 40);
+  [v17 _playVoicemail:v5 completion:v18];
+  v16 = v19;
 LABEL_16:
 }
 
@@ -442,7 +445,7 @@ void sub_10000ACAC(uint64_t a1, int a2)
   }
 
   v6 = [v4 initWithCode:v5 userActivity:0];
-  v7 = IntentHandlerDefaultLog();
+  v7 = IntentHandlerDefaultLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = 136315394;
@@ -455,10 +458,11 @@ void sub_10000ACAC(uint64_t a1, int a2)
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_10000AEFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_10000AEFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -474,7 +478,7 @@ void sub_10000AF24(uint64_t a1)
 void sub_10000B14C(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = IntentHandlerDefaultLog();
+  v4 = IntentHandlerDefaultLog(v3);
   v5 = v4;
   if (v3)
   {
@@ -502,7 +506,7 @@ void sub_10000B14C(void *a1, void *a2)
 void sub_10000B5E8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = IntentHandlerDefaultLog();
+  v4 = IntentHandlerDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = 136315394;
@@ -517,15 +521,15 @@ void sub_10000B5E8(uint64_t a1, void *a2)
 
 void sub_10000B6C8(uint64_t a1)
 {
-  v2 = IntentHandlerDefaultLog();
+  v2 = IntentHandlerDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v20 = 136315394;
-    v21 = "[AddCallParticipantIntentHandler handleAddCallParticipant:completion:]_block_invoke";
-    v22 = 2112;
-    v23 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "%s Handling INAddCallParticipantIntent: %@", &v20, 0x16u);
+    v21 = 136315394;
+    v22 = "[AddCallParticipantIntentHandler handleAddCallParticipant:completion:]_block_invoke";
+    v23 = 2112;
+    v24 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "%s Handling INAddCallParticipantIntent: %@", &v21, 0x16u);
   }
 
   v4 = [*(a1 + 32) participants];
@@ -537,50 +541,50 @@ void sub_10000B6C8(uint64_t a1)
   v8 = [*(a1 + 40) callCenter];
   v9 = [v8 activeConversationForCall:v7];
 
-  v10 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = IntentHandlerDefaultLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v20 = 136315906;
-    v21 = "[AddCallParticipantIntentHandler handleAddCallParticipant:completion:]_block_invoke";
-    v22 = 2112;
-    v23 = v5;
-    v24 = 2112;
-    v25 = v7;
-    v26 = 2112;
-    v27 = v9;
-    _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "%s Adding %@ to call=%@, conversation=%@", &v20, 0x2Au);
+    v21 = 136315906;
+    v22 = "[AddCallParticipantIntentHandler handleAddCallParticipant:completion:]_block_invoke";
+    v23 = 2112;
+    v24 = v5;
+    v25 = 2112;
+    v26 = v7;
+    v27 = 2112;
+    v28 = v9;
+    _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "%s Adding %@ to call=%@, conversation=%@", &v21, 0x2Au);
   }
 
-  if (v7 && ([v5 personHandle], v11 = objc_claimAutoreleasedReturnValue(), v11, v11) && v9)
+  if (v7 && ([v5 personHandle], v12 = objc_claimAutoreleasedReturnValue(), v12, v12) && v9)
   {
-    v12 = [v5 personHandle];
-    v13 = [*(a1 + 40) dataSource];
-    v14 = [v13 isoCountryCodes];
-    v15 = [v14 firstObject];
-    v16 = [v12 tu_normalizedHandleForISOCountryCode:v15];
+    v13 = [v5 personHandle];
+    v14 = [*(a1 + 40) dataSource];
+    v15 = [v14 isoCountryCodes];
+    v16 = [v15 firstObject];
+    v17 = [v13 tu_normalizedHandleForISOCountryCode:v16];
 
-    v17 = [[TUConversationMember alloc] initWithHandle:v16];
-    v18 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v18 = [[TUConversationMember alloc] initWithHandle:v17];
+    v19 = IntentHandlerDefaultLog(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       sub_10002F764();
     }
 
-    v19 = [*(a1 + 40) _checkRestrictionsForCall:v7 conversation:v9 personToAdd:v5 asMember:v17];
-    if (v19)
+    v20 = [*(a1 + 40) _checkRestrictionsForCall:v7 conversation:v9 personToAdd:v5 asMember:v18];
+    if (v20)
     {
       (*(*(a1 + 48) + 16))();
     }
 
     else
     {
-      [*(a1 + 40) _addCallParticipant:v5 asConversationMember:v17 toConversation:v9 completion:*(a1 + 48)];
+      [*(a1 + 40) _addCallParticipant:v5 asConversationMember:v18 toConversation:v9 completion:*(a1 + 48)];
     }
   }
 
   else
   {
-    v16 = [[INAddCallParticipantIntentResponse alloc] initWithCode:4 userActivity:0];
+    v17 = [[INAddCallParticipantIntentResponse alloc] initWithCode:4 userActivity:0];
     (*(*(a1 + 48) + 16))();
   }
 }
@@ -603,22 +607,22 @@ void sub_10000BEF4(uint64_t a1, void *a2, void *a3)
 
   if (v7)
   {
-    v8 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = IntentHandlerDefaultLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_10002F954(v5, v8);
+      sub_10002F954(v5, v9);
     }
 
-    v9 = [INCallInvite alloc];
-    v17 = *(a1 + 32);
-    v10 = [NSArray arrayWithObjects:&v17 count:1];
-    v11 = [v5 URL];
-    v12 = [v9 initWithParticipants:v10 inviteType:3 callURL:v11];
+    v10 = [INCallInvite alloc];
+    v18 = *(a1 + 32);
+    v11 = [NSArray arrayWithObjects:&v18 count:1];
+    v12 = [v5 URL];
+    v13 = [v10 initWithParticipants:v11 inviteType:3 callURL:v12];
 
-    v13 = [[INAddCallParticipantIntentResponse alloc] initWithCode:3 userActivity:0];
-    v16 = v12;
-    v14 = [NSArray arrayWithObjects:&v16 count:1];
-    [v13 setInvites:v14];
+    v14 = [[INAddCallParticipantIntentResponse alloc] initWithCode:3 userActivity:0];
+    v17 = v13;
+    v15 = [NSArray arrayWithObjects:&v17 count:1];
+    [v14 setInvites:v15];
 
     (*(*(a1 + 40) + 16))();
   }
@@ -627,14 +631,14 @@ void sub_10000BEF4(uint64_t a1, void *a2, void *a3)
   {
     if (v6)
     {
-      v15 = IntentHandlerDefaultLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = IntentHandlerDefaultLog(v8);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_10002F9F4();
       }
     }
 
-    v12 = [[INAddCallParticipantIntentResponse alloc] initWithCode:13 userActivity:0];
+    v13 = [[INAddCallParticipantIntentResponse alloc] initWithCode:13 userActivity:0];
     (*(*(a1 + 40) + 16))();
   }
 }
@@ -656,11 +660,11 @@ void sub_10000CA7C(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x20u);
 }
 
-void sub_10000D3CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000D3CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  objc_sync_exit(v7);
+  objc_sync_exit(v13);
   _Unwind_Resume(a1);
 }
 
@@ -679,7 +683,7 @@ void sub_10000D3EC(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 void sub_10000D5EC(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = IntentHandlerDefaultLog();
+  v4 = IntentHandlerDefaultLog(v3);
   v5 = v4;
   if (v3)
   {
@@ -696,13 +700,13 @@ void sub_10000D5EC(uint64_t a1, void *a2)
   }
 
   dispatch_group_leave(*(*(a1 + 32) + 16));
-  v6 = IntentHandlerDefaultLog();
-  v7 = v6;
-  v8 = *(a1 + 40);
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v7 = IntentHandlerDefaultLog(v6);
+  v8 = v7;
+  v9 = *(a1 + 40);
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    *v9 = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_INTERVAL_END, v8, "HangUpIntentHandlerRegisterForProvider", "", v9, 2u);
+    *v10 = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_INTERVAL_END, v9, "HangUpIntentHandlerRegisterForProvider", "", v10, 2u);
   }
 }
 
@@ -716,132 +720,132 @@ void sub_10000DE98(uint64_t a1)
     v4 = v3;
 
 LABEL_4:
-    v6 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = IntentHandlerDefaultLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [v4 handle];
+      v8 = [v4 handle];
       *buf = 138412290;
-      v59 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "An incoming call exists with handle %@", buf, 0xCu);
+      v63 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "An incoming call exists with handle %@", buf, 0xCu);
     }
 
-    v8 = [[INIdentifyIncomingCallerIntentResponse alloc] initWithCode:3 userActivity:0];
-    [v8 setStatusCode:2];
-    v9 = [v4 handle];
-    v10 = [v9 value];
-    v11 = [v10 length];
+    v9 = [[INIdentifyIncomingCallerIntentResponse alloc] initWithCode:3 userActivity:0];
+    [v9 setStatusCode:2];
+    v10 = [v4 handle];
+    v11 = [v10 value];
+    v12 = [v11 length];
 
-    v53 = v8;
-    if (v11)
+    v57 = v9;
+    if (v12)
     {
-      v12 = [v4 handle];
-      v13 = [*(v1 + 32) dataSource];
-      v14 = [v13 contactsDataSource];
+      v14 = [v4 handle];
       v15 = [*(v1 + 32) dataSource];
-      v16 = [v15 coreTelephonyDataSource];
-      v17 = [v16 allRelevantISOCountryCodes];
-      v18 = [INPerson tu_personMatchingHandle:v12 contactsDataSource:v14 isoCountryCodes:v17];
+      v16 = [v15 contactsDataSource];
+      v17 = [*(v1 + 32) dataSource];
+      v18 = [v17 coreTelephonyDataSource];
+      v19 = [v18 allRelevantISOCountryCodes];
+      v20 = [INPerson tu_personMatchingHandle:v14 contactsDataSource:v16 isoCountryCodes:v19];
 
-      v19 = IntentHandlerDefaultLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v22 = IntentHandlerDefaultLog(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v59 = v18;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Incoming call is from person: %@", buf, 0xCu);
+        v63 = v20;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Incoming call is from person: %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v19 = IntentHandlerDefaultLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v22 = IntentHandlerDefaultLog(v13);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Incoming caller is a private number", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Incoming caller is a private number", buf, 2u);
       }
 
-      v18 = 0;
+      v20 = 0;
     }
 
-    v54 = v1;
-    v20 = *(v1 + 32);
-    v21 = [v4 provider];
-    v51 = [v20 preferredCallProviderFor:v21];
+    v58 = v1;
+    v23 = *(v1 + 32);
+    v24 = [v4 provider];
+    v55 = [v23 preferredCallProviderFor:v24];
 
-    v22 = objc_alloc_init(NSMutableArray);
-    v23 = v22;
-    if (v18)
+    v25 = objc_alloc_init(NSMutableArray);
+    v26 = v25;
+    if (v20)
     {
-      [v22 addObject:v18];
+      [v25 addObject:v20];
     }
 
-    v50 = [INCallRecord alloc];
-    v24 = [v4 callUUID];
-    v25 = [v4 dateCreated];
-    v52 = v18;
+    v54 = [INCallRecord alloc];
+    v27 = [v4 callUUID];
+    v28 = [v4 dateCreated];
+    v56 = v20;
     if ([v4 isVideo])
     {
-      v26 = 2;
+      v29 = 2;
     }
 
     else
     {
-      v26 = 1;
+      v29 = 1;
     }
 
-    v27 = [v4 provider];
-    v28 = [v27 identifier];
-    v29 = [v4 provider];
-    v30 = [v29 bundleIdentifier];
-    v31 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v4 isBlocked]);
-    v32 = [v50 initWithIdentifier:v24 dateCreated:v25 callRecordType:6 callCapability:v26 callDuration:0 unseen:&__kCFBooleanTrue preferredCallProvider:v51 participants:v23 numberOfCalls:&off_10004EB58 providerId:v28 providerBundleId:v30 isCallerIdBlocked:v31];
+    v30 = [v4 provider];
+    v31 = [v30 identifier];
+    v32 = [v4 provider];
+    v33 = [v32 bundleIdentifier];
+    v34 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v4 isBlocked]);
+    v35 = [v54 initWithIdentifier:v27 dateCreated:v28 callRecordType:6 callCapability:v29 callDuration:0 unseen:&__kCFBooleanTrue preferredCallProvider:v55 participants:v26 numberOfCalls:&off_10004EB58 providerId:v31 providerBundleId:v33 isCallerIdBlocked:v34];
 
-    v33 = v23;
-    v57 = v32;
-    v34 = [NSArray arrayWithObjects:&v57 count:1];
-    v35 = v53;
-    [v53 setCallRecords:v34];
+    v36 = v26;
+    v61 = v35;
+    v37 = [NSArray arrayWithObjects:&v61 count:1];
+    v38 = v57;
+    [v57 setCallRecords:v37];
 
-    v36 = v52;
-    v1 = v54;
+    v39 = v56;
+    v1 = v58;
     goto LABEL_18;
   }
 
-  v5 = [*(v1 + 32) callCenter];
-  v4 = [v5 incomingVideoCall];
+  v6 = [*(v1 + 32) callCenter];
+  v4 = [v6 incomingVideoCall];
 
   if (v4)
   {
     goto LABEL_4;
   }
 
-  v37 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+  v40 = IntentHandlerDefaultLog(v5);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "No incoming call exists. Looking up last missed call...", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "No incoming call exists. Looking up last missed call...", buf, 2u);
   }
 
-  v35 = [[INIdentifyIncomingCallerIntentResponse alloc] initWithCode:3 userActivity:0];
-  [v35 setStatusCode:1];
-  v38 = +[CallHistoryDataSourcePredicate predicateForJustMissedCalls];
-  v39 = [*(v1 + 32) dataSource];
-  v40 = [v39 callHistoryDataSource];
-  v36 = v38;
-  v41 = [v40 callsWithPredicate:v38 limit:1 offset:0 batchSize:1];
-  v42 = [v41 firstObject];
+  v38 = [[INIdentifyIncomingCallerIntentResponse alloc] initWithCode:3 userActivity:0];
+  [v38 setStatusCode:1];
+  v41 = +[CallHistoryDataSourcePredicate predicateForJustMissedCalls];
+  v42 = [*(v1 + 32) dataSource];
+  v43 = [v42 callHistoryDataSource];
+  v39 = v41;
+  v44 = [v43 callsWithPredicate:v41 limit:1 offset:0 batchSize:1];
+  v45 = [v44 firstObject];
 
-  v55 = v42;
-  if (v42)
+  v59 = v45;
+  if (v45)
   {
-    v43 = +[CallRecordConverter sharedInstance];
-    v56 = v42;
-    v44 = [NSArray arrayWithObjects:&v56 count:1];
-    v45 = [*(v1 + 32) dataSource];
-    v46 = [v45 contactsDataSource];
-    v47 = [*(v1 + 32) dataSource];
-    v48 = [v47 providerManager];
-    v4 = [v43 callRecordsForRecentCalls:v44 withContactsDataSource:v46 withCallProviderManager:v48];
+    v47 = +[CallRecordConverter sharedInstance];
+    v60 = v45;
+    v48 = [NSArray arrayWithObjects:&v60 count:1];
+    v49 = [*(v1 + 32) dataSource];
+    v50 = [v49 contactsDataSource];
+    v51 = [*(v1 + 32) dataSource];
+    v52 = [v51 providerManager];
+    v4 = [v47 callRecordsForRecentCalls:v48 withContactsDataSource:v50 withCallProviderManager:v52];
   }
 
   else
@@ -849,16 +853,16 @@ LABEL_4:
     v4 = 0;
   }
 
-  v49 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+  v53 = IntentHandlerDefaultLog(v46);
+  if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v59 = v4;
-    _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Last missed call is: %@", buf, 0xCu);
+    v63 = v4;
+    _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "Last missed call is: %@", buf, 0xCu);
   }
 
-  [v35 setCallRecords:v4];
-  v33 = v55;
+  [v38 setCallRecords:v4];
+  v36 = v59;
 LABEL_18:
 
   (*(*(v1 + 40) + 16))();
@@ -877,7 +881,7 @@ void sub_100010228(uint64_t a1, void *a2, void *a3)
 void sub_10001506C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = IntentHandlerDefaultLog();
+  v4 = IntentHandlerDefaultLog(v3);
   v5 = v4;
   v6 = *(a1 + 40);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -927,9 +931,9 @@ BOOL sub_10001D260(id a1, INPerson *a2, NSDictionary *a3)
   return v4;
 }
 
-void sub_10001F9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10001F9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -941,9 +945,9 @@ void sub_10001F9F0(uint64_t a1)
   *(*(*(a1 + 48) + 8) + 24) = [v2 callFilterStatusForDialRequest:*(a1 + 40)];
 }
 
-void sub_10001FBB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10001FBB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -965,9 +969,9 @@ void sub_10001FBE4(uint64_t a1)
   *(v4 + 40) = v3;
 }
 
-void sub_10001FDF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001FDF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -989,9 +993,9 @@ void sub_10001FE18(uint64_t a1)
   }
 }
 
-void sub_100020034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100020034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1011,9 +1015,9 @@ void sub_100020138(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = [v3 count] != 0;
 }
 
-void sub_100020900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100020900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1025,27 +1029,30 @@ void sub_10002092C(uint64_t a1, void *a2)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_100020A74(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100020A74(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_100020A9C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100020A9C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void sub_100020AB8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100020AB8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_100021934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100021934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1059,50 +1066,50 @@ uint64_t sub_100021958(uint64_t result, uint64_t a2)
 
 void sub_100021970(uint64_t a1)
 {
-  v2 = IntentHandlerDefaultLog();
+  v2 = IntentHandlerDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v22 = v3;
+    v23 = v3;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Searching for conversationId: %@ among active conversations.", buf, 0xCu);
   }
 
-  v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
+  v18 = 0u;
   v4 = [*(a1 + 40) callCenter];
   v5 = [v4 conversationManager];
   v6 = [v5 activeConversations];
 
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v18;
     while (2)
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v17 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = [v11 UUID];
         v13 = [v12 UUIDString];
         v14 = [v13 isEqualToString:*(a1 + 32)];
 
         if (v14)
         {
-          v15 = IntentHandlerDefaultLog();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v16 = IntentHandlerDefaultLog(v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v22 = v11;
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Found matching conversation %@", buf, 0xCu);
+            v23 = v11;
+            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Found matching conversation %@", buf, 0xCu);
           }
 
           objc_storeStrong((*(*(a1 + 48) + 8) + 40), v11);
@@ -1110,7 +1117,7 @@ void sub_100021970(uint64_t a1)
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         continue;
@@ -1123,99 +1130,101 @@ void sub_100021970(uint64_t a1)
 LABEL_15:
 }
 
-void sub_100022094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100022094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_1000220C0(uint64_t a1)
 {
-  v2 = IntentHandlerDefaultLog();
+  v1 = a1;
+  v2 = IntentHandlerDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Searching among active conversations for a matching call.", buf, 2u);
   }
 
-  v3 = [*(a1 + 32) groupConversationFilter];
-  v4 = [*(a1 + 40) contactsDataSource];
+  v3 = [*(v1 + 32) groupConversationFilter];
+  v4 = [*(v1 + 40) contactsDataSource];
   v5 = [ConversationFilterFactory makeFilterForINCallGroupConversationFilter:v3 contactsDataSource:v4];
 
-  v43 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v6 = [*(a1 + 40) callCenter];
+  v45 = 0u;
+  v6 = [*(v1 + 40) callCenter];
   v7 = [v6 conversationManager];
   v8 = [v7 activeConversations];
 
-  v9 = [v8 countByEnumeratingWithState:&v41 objects:v49 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v44 objects:v52 count:16];
   if (v9)
   {
     v10 = v9;
-    v38 = a1;
+    v41 = v1;
     v11 = 0;
-    v12 = *v42;
-    v39 = v5;
+    v12 = *v45;
+    v42 = v5;
     while (2)
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v42 != v12)
+        if (*v45 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v41 + 1) + 8 * i);
+        v14 = *(*(&v44 + 1) + 8 * i);
         v15 = [v5 matches:v14];
-        v16 = IntentHandlerDefaultLog();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v16 = v15;
+        v17 = IntentHandlerDefaultLog(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = v12;
-          v18 = v8;
-          if (v15)
+          v18 = v12;
+          v19 = v8;
+          if (v16)
           {
-            v19 = @"YES";
+            v20 = @"YES";
           }
 
           else
           {
-            v19 = @"NO";
+            v20 = @"NO";
           }
 
           [v14 UUID];
-          v20 = v40 = v11;
-          v21 = [v20 UUIDString];
+          v21 = v43 = v11;
+          v22 = [v21 UUIDString];
           *buf = 138412546;
-          v46 = v19;
-          v8 = v18;
-          v12 = v17;
-          v47 = 2112;
-          v48 = v21;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "doesConversationMatch = %@ for TUConversation: %@", buf, 0x16u);
+          v49 = v20;
+          v8 = v19;
+          v12 = v18;
+          v50 = 2112;
+          v51 = v22;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "doesConversationMatch = %@ for TUConversation: %@", buf, 0x16u);
 
-          v5 = v39;
-          v11 = v40;
+          v5 = v42;
+          v11 = v43;
         }
 
-        if (v15)
+        if (v16)
         {
           if (v11)
           {
 
-            v31 = IntentHandlerDefaultLog();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            v34 = IntentHandlerDefaultLog(v33);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Found more than one matching conversation.", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Found more than one matching conversation.", buf, 2u);
             }
 
-            v32 = +[INCallGroupConversationResolutionResult unsupported];
-            v33 = *(*(v38 + 48) + 8);
-            v34 = *(v33 + 40);
-            *(v33 + 40) = v32;
+            v35 = +[INCallGroupConversationResolutionResult unsupported];
+            v36 = *(*(v41 + 48) + 8);
+            v37 = *(v36 + 40);
+            *(v36 + 40) = v35;
 
             goto LABEL_29;
           }
@@ -1224,7 +1233,7 @@ void sub_1000220C0(uint64_t a1)
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v44 objects:v52 count:16];
       if (v10)
       {
         continue;
@@ -1233,28 +1242,28 @@ void sub_1000220C0(uint64_t a1)
       break;
     }
 
-    a1 = v38;
+    v1 = v41;
     if (v11)
     {
-      v22 = v5;
-      v23 = IntentHandlerDefaultLog();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v24 = v5;
+      v25 = IntentHandlerDefaultLog(v23);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Found one matching conversation.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Found one matching conversation.", buf, 2u);
       }
 
-      v24 = [INCallGroupConversation alloc];
-      v25 = [v11 UUID];
-      v26 = [v25 UUIDString];
-      v27 = [v24 initWithConversationId:v26 caller:0 otherParticipants:0 callGroup:0];
+      v26 = [INCallGroupConversation alloc];
+      v27 = [v11 UUID];
+      v28 = [v27 UUIDString];
+      v29 = [v26 initWithConversationId:v28 caller:0 otherParticipants:0 callGroup:0];
 
-      v28 = [INCallGroupConversationResolutionResult successWithResolvedCallGroupConversation:v27];
-      v29 = *(*(v38 + 48) + 8);
-      v30 = *(v29 + 40);
-      *(v29 + 40) = v28;
+      v30 = [INCallGroupConversationResolutionResult successWithResolvedCallGroupConversation:v29];
+      v31 = *(*(v41 + 48) + 8);
+      v32 = *(v31 + 40);
+      *(v31 + 40) = v30;
 
-      v5 = v22;
+      v5 = v24;
       goto LABEL_29;
     }
   }
@@ -1263,17 +1272,17 @@ void sub_1000220C0(uint64_t a1)
   {
   }
 
-  v35 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v38 = IntentHandlerDefaultLog(v23);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Found no matching conversations.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Found no matching conversations.", buf, 2u);
   }
 
-  v36 = +[INCallGroupConversationResolutionResult unsupported];
-  v37 = *(*(a1 + 48) + 8);
-  v11 = *(v37 + 40);
-  *(v37 + 40) = v36;
+  v39 = +[INCallGroupConversationResolutionResult unsupported];
+  v40 = *(*(v1 + 48) + 8);
+  v11 = *(v40 + 40);
+  *(v40 + 40) = v39;
 LABEL_29:
 }
 
@@ -1282,30 +1291,30 @@ void sub_100022C34(uint64_t a1)
   v2 = [*(a1 + 32) callCenter];
   v3 = [v2 hasCurrentCalls];
 
-  v4 = IntentHandlerDefaultLog();
-  v5 = v4;
+  v5 = IntentHandlerDefaultLog(v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Call exists, proceeding to handle HangUp intent.", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Call exists, proceeding to handle HangUp intent.", v9, 2u);
     }
 
-    v6 = 1;
+    v7 = 1;
   }
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_100030990(v5);
+      sub_100030990(v6);
     }
 
-    v6 = 6;
+    v7 = 6;
   }
 
-  v7 = [[INHangUpCallIntentResponse alloc] initWithCode:v6 userActivity:0];
+  v8 = [[INHangUpCallIntentResponse alloc] initWithCode:v7 userActivity:0];
   (*(*(a1 + 40) + 16))();
 }
 
@@ -1318,85 +1327,86 @@ void sub_100022E78(uint64_t a1)
     v4 = v3;
 
 LABEL_4:
-    v6 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = IntentHandlerDefaultLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = v4;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "An incoming call exists: %@", &v18, 0xCu);
+      v21 = 138412290;
+      v22 = v4;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "An incoming call exists: %@", &v21, 0xCu);
     }
 
-    v7 = [v4 isEligibleForScreening];
-    v8 = IntentHandlerDefaultLog();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-    if (v7)
+    v8 = [v4 isEligibleForScreening];
+    v9 = v8;
+    v10 = IntentHandlerDefaultLog(v8);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    if (v9)
     {
-      if (v9)
+      if (v11)
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Sending call to automatic screening", &v18, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Sending call to automatic screening", &v21, 2u);
       }
 
-      v10 = [[TUAnswerRequest alloc] initWithCall:v4];
-      [v10 setSendToScreening:1];
-      v11 = [*(a1 + 32) callCenter];
-      [v11 answerWithRequest:v10];
+      v12 = [[TUAnswerRequest alloc] initWithCall:v4];
+      [v12 setSendToScreening:1];
+      v13 = [*(a1 + 32) callCenter];
+      [v13 answerWithRequest:v12];
     }
 
     else
     {
-      if (v9)
+      if (v11)
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Declining it and returning success", &v18, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Declining it and returning success", &v21, 2u);
       }
 
-      v10 = [*(a1 + 32) callCenter];
-      [v10 disconnectCall:v4 withReason:2];
+      v12 = [*(a1 + 32) callCenter];
+      [v12 disconnectCall:v4 withReason:2];
     }
 
-    v12 = [[INHangUpCallIntentResponse alloc] initWithCode:3 userActivity:0];
-    [v12 setHungUpCallType:6];
+    v14 = [[INHangUpCallIntentResponse alloc] initWithCode:3 userActivity:0];
+    [v14 setHungUpCallType:6];
     goto LABEL_14;
   }
 
-  v5 = [*(a1 + 32) callCenter];
-  v4 = [v5 incomingVideoCall];
+  v6 = [*(a1 + 32) callCenter];
+  v4 = [v6 incomingVideoCall];
 
   if (v4)
   {
     goto LABEL_4;
   }
 
-  v13 = [*(a1 + 32) callCenter];
-  v14 = [v13 hasCurrentCalls];
+  v15 = [*(a1 + 32) callCenter];
+  v16 = [v15 hasCurrentCalls];
 
-  v15 = IntentHandlerDefaultLog();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-  if (v14)
+  v18 = IntentHandlerDefaultLog(v17);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+  if (v16)
   {
-    if (v16)
+    if (v19)
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "At least one call exists. Hanging up and returning success", &v18, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "At least one call exists. Hanging up and returning success", &v21, 2u);
     }
 
-    v17 = [*(a1 + 32) callCenter];
-    [v17 disconnectCurrentCall];
+    v20 = [*(a1 + 32) callCenter];
+    [v20 disconnectCurrentCall];
 
-    v12 = [[INHangUpCallIntentResponse alloc] initWithCode:3 userActivity:0];
-    [v12 setHungUpCallType:7];
+    v14 = [[INHangUpCallIntentResponse alloc] initWithCode:3 userActivity:0];
+    [v14 setHungUpCallType:7];
   }
 
   else
   {
-    if (v16)
+    if (v19)
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "No calls exist. Since call was hung up between confirm and handle, return success.", &v18, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "No calls exist. Since call was hung up between confirm and handle, return success.", &v21, 2u);
     }
 
-    v12 = [[INHangUpCallIntentResponse alloc] initWithCode:3 userActivity:0];
+    v14 = [[INHangUpCallIntentResponse alloc] initWithCode:3 userActivity:0];
   }
 
   v4 = 0;
@@ -1406,15 +1416,14 @@ LABEL_14:
 
 uint64_t sub_1000236EC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_100057A58 = objc_alloc_init(objc_opt_class());
 
   return _objc_release_x1();
 }
 
-void sub_100023D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100023D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1430,7 +1439,7 @@ void sub_100023DBC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = IntentHandlerDefaultLog();
+  v7 = IntentHandlerDefaultLog(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
@@ -1480,22 +1489,22 @@ void sub_100024314(uint64_t a1)
 
     if (!v4)
     {
-      v15 = +[CallHistoryDataSourcePredicate predicateForJustMissedCalls];
-      v24 = [*(a1 + 32) dataSource];
-      v25 = [v24 callHistoryDataSource];
-      v26 = [v25 callsWithPredicate:v15 limit:1 offset:0 batchSize:1];
-      v27 = [v26 firstObject];
+      v17 = +[CallHistoryDataSourcePredicate predicateForJustMissedCalls];
+      v26 = [*(a1 + 32) dataSource];
+      v27 = [v26 callHistoryDataSource];
+      v28 = [v27 callsWithPredicate:v17 limit:1 offset:0 batchSize:1];
+      v29 = [v28 firstObject];
 
-      if (v27)
+      if (v29)
       {
-        v28 = +[CallRecordConverter sharedInstance];
-        v44 = v27;
-        v29 = [NSArray arrayWithObjects:&v44 count:1];
-        v30 = [*(a1 + 32) dataSource];
-        v31 = [v30 contactsDataSource];
-        v32 = [*(a1 + 32) dataSource];
-        v33 = [v32 providerManager];
-        v4 = [v28 callRecordsForRecentCalls:v29 withContactsDataSource:v31 withCallProviderManager:v33];
+        v31 = +[CallRecordConverter sharedInstance];
+        v49 = v29;
+        v32 = [NSArray arrayWithObjects:&v49 count:1];
+        v33 = [*(a1 + 32) dataSource];
+        v34 = [v33 contactsDataSource];
+        v35 = [*(a1 + 32) dataSource];
+        v36 = [v35 providerManager];
+        v4 = [v31 callRecordsForRecentCalls:v32 withContactsDataSource:v34 withCallProviderManager:v36];
       }
 
       else
@@ -1503,17 +1512,17 @@ void sub_100024314(uint64_t a1)
         v4 = 0;
       }
 
-      v43 = IntentHandlerDefaultLog();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      v48 = IntentHandlerDefaultLog(v30);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v46 = v4;
-        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "No incoming call exists. Returning no incoming call. Recent Missed Calls: %@", buf, 0xCu);
+        v51 = v4;
+        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "No incoming call exists. Returning no incoming call. Recent Missed Calls: %@", buf, 0xCu);
       }
 
-      v13 = [[INAnswerCallIntentResponse alloc] initWithCode:4 userActivity:0];
-      [v13 setStatusCode:1];
-      [v13 setCallRecords:v4];
+      v15 = [[INAnswerCallIntentResponse alloc] initWithCode:4 userActivity:0];
+      [v15 setStatusCode:1];
+      [v15 setCallRecords:v4];
 
       goto LABEL_38;
     }
@@ -1525,36 +1534,36 @@ void sub_100024314(uint64_t a1)
   {
 
 LABEL_12:
-    v14 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = IntentHandlerDefaultLog(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "An incoming call exists. Answering it and returning success", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "An incoming call exists. Answering it and returning success", buf, 2u);
     }
 
-    v15 = [[TUAnswerRequest alloc] initWithCall:v4];
+    v17 = [[TUAnswerRequest alloc] initWithCall:v4];
     if ([*v6 _idiom] == 4)
     {
-      [v15 setBehavior:4];
-      v16 = [*v6 _originatingDeviceIDSIdentifier];
-      if ([v16 length])
+      [v17 setBehavior:4];
+      v18 = [*v6 _originatingDeviceIDSIdentifier];
+      if ([v18 length])
       {
-        v17 = [*v6 _isOwnedByCurrentUser];
-        v18 = [v17 BOOLValue];
+        v19 = [*v6 _isOwnedByCurrentUser];
+        v20 = [v19 BOOLValue];
 
-        if (v18)
+        if (v20)
         {
-          v19 = [*v6 _originatingDeviceIDSIdentifier];
-          v20 = IntentHandlerDefaultLog();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v21 = [*v6 _originatingDeviceIDSIdentifier];
+          v22 = IntentHandlerDefaultLog(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v46 = v19;
-            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Setting endpointIDSDestination: %@", buf, 0xCu);
+            v51 = v21;
+            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Setting endpointIDSDestination: %@", buf, 0xCu);
           }
 
-          v21 = [IDSDestination destinationWithURI:v19];
-          [v15 setEndpointIDSDestination:v21];
+          v23 = [IDSDestination destinationWithURI:v21];
+          [v17 setEndpointIDSDestination:v23];
           goto LABEL_35;
         }
       }
@@ -1563,45 +1572,45 @@ LABEL_12:
       {
       }
 
-      v34 = [*v6 _originatingDeviceRapportMediaSystemIdentifier];
-      v35 = [v34 length];
+      v37 = [*v6 _originatingDeviceRapportMediaSystemIdentifier];
+      v38 = [v37 length];
 
-      if (v35)
+      if (v38)
       {
-        v36 = [*v6 _originatingDeviceRapportMediaSystemIdentifier];
-        [v15 setEndpointRapportMediaSystemIdentifier:v36];
+        v39 = [*v6 _originatingDeviceRapportMediaSystemIdentifier];
+        [v17 setEndpointRapportMediaSystemIdentifier:v39];
 
-        v37 = IntentHandlerDefaultLog();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v41 = IntentHandlerDefaultLog(v40);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
-          v38 = [v15 endpointRapportMediaSystemIdentifier];
+          v42 = [v17 endpointRapportMediaSystemIdentifier];
           *buf = 138412290;
-          v46 = v38;
-          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Intent contains an originatingDeviceRapportMediaSystemIdentifier: %@", buf, 0xCu);
+          v51 = v42;
+          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Intent contains an originatingDeviceRapportMediaSystemIdentifier: %@", buf, 0xCu);
         }
       }
 
-      v39 = [*v6 _originatingDeviceRapportEffectiveIdentifier];
-      v40 = [v39 length];
+      v43 = [*v6 _originatingDeviceRapportEffectiveIdentifier];
+      v44 = [v43 length];
 
-      if (!v40)
+      if (!v44)
       {
         goto LABEL_37;
       }
 
-      v41 = [*v6 _originatingDeviceRapportEffectiveIdentifier];
-      [v15 setEndpointRapportEffectiveIdentifier:v41];
+      v45 = [*v6 _originatingDeviceRapportEffectiveIdentifier];
+      [v17 setEndpointRapportEffectiveIdentifier:v45];
 
-      v19 = IntentHandlerDefaultLog();
-      if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v21 = IntentHandlerDefaultLog(v46);
+      if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_36;
       }
 
-      v21 = [v15 endpointRapportEffectiveIdentifier];
+      v23 = [v17 endpointRapportEffectiveIdentifier];
       *buf = 138412290;
-      v46 = v21;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Intent contains an originatingDeviceRapportEffectiveIdentifier: %@", buf, 0xCu);
+      v51 = v23;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Intent contains an originatingDeviceRapportEffectiveIdentifier: %@", buf, 0xCu);
 LABEL_35:
 
 LABEL_36:
@@ -1610,29 +1619,29 @@ LABEL_36:
 
     if ([*v6 audioRoute] == 1)
     {
-      v22 = &TUCallSourceIdentifierSpeakerRoute;
+      v24 = &TUCallSourceIdentifierSpeakerRoute;
     }
 
     else
     {
-      v23 = [*v6 audioRoute];
-      if (v23 != _INCallAudioRouteHeySiriAudioRoute)
+      v25 = [*v6 audioRoute];
+      if (v25 != _INCallAudioRouteHeySiriAudioRoute)
       {
 LABEL_37:
-        v42 = [*(a1 + 32) callCenter];
-        [v42 answerWithRequest:v15];
+        v47 = [*(a1 + 32) callCenter];
+        [v47 answerWithRequest:v17];
 
-        v13 = [[INAnswerCallIntentResponse alloc] initWithCode:4 userActivity:0];
-        [v13 setStatusCode:2];
+        v15 = [[INAnswerCallIntentResponse alloc] initWithCode:4 userActivity:0];
+        [v15 setStatusCode:2];
 LABEL_38:
 
         goto LABEL_39;
       }
 
-      v22 = &TUCallSourceIdentifierHeySiri;
+      v24 = &TUCallSourceIdentifierHeySiri;
     }
 
-    [v15 setSourceIdentifier:*v22];
+    [v17 setSourceIdentifier:*v24];
     goto LABEL_37;
   }
 
@@ -1645,34 +1654,34 @@ LABEL_38:
     goto LABEL_12;
   }
 
-  v11 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = IntentHandlerDefaultLog(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    sub_100030A4C(v11);
+    sub_100030A4C(v12);
   }
 
-  v12 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v14 = IntentHandlerDefaultLog(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    sub_100030A90((a1 + 40), v4, v12);
+    sub_100030A90((a1 + 40), v4, v14);
   }
 
-  v13 = [[INAnswerCallIntentResponse alloc] initWithCode:5 userActivity:0];
+  v15 = [[INAnswerCallIntentResponse alloc] initWithCode:5 userActivity:0];
 LABEL_39:
 
   (*(*(a1 + 48) + 16))();
 }
 
-id IntentHandlerDefaultLog()
+id IntentHandlerDefaultLog(uint64_t a1)
 {
   if (qword_100057A70 != -1)
   {
     sub_100030B58();
   }
 
-  v1 = qword_100057A68;
+  v2 = qword_100057A68;
 
-  return v1;
+  return v2;
 }
 
 void sub_100024B9C(id a1)
@@ -1699,14 +1708,11 @@ uint64_t sub_1000263F0()
 
 uint64_t *sub_100026468(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -1744,25 +1750,23 @@ uint64_t sub_100026708(const void *a1, const void *a2, uint64_t a3)
   return sub_100029F10(a3, v6);
 }
 
-uint64_t sub_1000267F0()
+uint64_t sub_1000267F0(uint64_t a1)
 {
-  v2 = v0;
-  v4 = *v1;
-  v3 = *v1;
-  v5 = *(*v1 + 40);
-  v6 = *v1;
+  v3 = v1;
+  v5 = *v2;
+  v4 = *v2;
+  v6 = *v2;
 
-  v7 = *(v3 + 24);
-  v8 = *(v3 + 16);
+  v7 = *(v4 + 24);
   _Block_release(v7);
 
   _Block_release(v7);
-  if (v2)
+  if (v3)
   {
     isa = sub_100030D78();
 
-    v10 = isa;
-    v11 = 0;
+    v9 = isa;
+    v10 = 0;
   }
 
   else
@@ -1770,17 +1774,17 @@ uint64_t sub_1000267F0()
     sub_100029394(&qword_100057A10, &unk_100039060);
     isa = sub_100031038().super.isa;
 
-    v11 = isa;
-    v10 = 0;
+    v10 = isa;
+    v9 = 0;
   }
 
-  v12 = *(v4 + 32);
-  (v12)[2](v12, v11, v10);
+  v11 = *(v5 + 32);
+  (v11)[2](v11, v10, v9);
 
-  _Block_release(v12);
-  v13 = *(v6 + 8);
+  _Block_release(v11);
+  v12 = *(v6 + 8);
 
-  return v13();
+  return v12();
 }
 
 uint64_t sub_1000269B4(uint64_t a1, uint64_t a2)
@@ -1788,13 +1792,11 @@ uint64_t sub_1000269B4(uint64_t a1, uint64_t a2)
   v3[5] = a2;
   v3[6] = v2;
   v3[4] = a1;
-  v4 = *(*(sub_100029394(&qword_1000579F0, &qword_100038F20) - 8) + 64) + 15;
+  sub_100029394(&qword_1000579F0, &qword_100038F20);
   v3[7] = swift_task_alloc();
-  v5 = sub_100030E08();
-  v3[8] = v5;
-  v6 = *(v5 - 8);
-  v3[9] = v6;
-  v7 = *(v6 + 64) + 15;
+  v4 = sub_100030E08();
+  v3[8] = v4;
+  v3[9] = *(v4 - 8);
   v3[10] = swift_task_alloc();
 
   return _swift_task_switch(sub_100026AB0, 0, 0);
@@ -1802,12 +1804,10 @@ uint64_t sub_1000269B4(uint64_t a1, uint64_t a2)
 
 uint64_t sub_100026AB0()
 {
-  v29 = v0;
+  v20 = v0;
   v1 = v0[8];
   v2 = v0[9];
   v3 = v0[7];
-  v4 = v0[4];
-  v5 = v0[5];
   sub_100030DE8();
   if ((*(v2 + 48))(v3, 1, v1) == 1)
   {
@@ -1817,93 +1817,77 @@ uint64_t sub_100026AB0()
       swift_once();
     }
 
-    v6 = v0[5];
-    v7 = sub_100030F48();
-    sub_1000264CC(v7, qword_100057A90);
+    v4 = sub_100030F48();
+    sub_1000264CC(v4, qword_100057A90);
 
-    v8 = sub_100030F28();
-    v9 = sub_100031088();
+    v5 = sub_100030F28();
+    v6 = sub_100031088();
 
-    if (os_log_type_enabled(v8, v9))
+    if (os_log_type_enabled(v5, v6))
     {
-      v11 = v0[4];
-      v10 = v0[5];
-      v12 = swift_slowAlloc();
-      v13 = swift_slowAlloc();
-      v28 = v13;
-      *v12 = 136315138;
-      *(v12 + 4) = sub_10002DA30(v11, v10, &v28);
-      _os_log_impl(&_mh_execute_header, v8, v9, "Expected UUID vmIdentifier: %s", v12, 0xCu);
-      sub_1000295CC(v13);
+      v8 = v0[4];
+      v7 = v0[5];
+      v9 = swift_slowAlloc();
+      v10 = swift_slowAlloc();
+      v19 = v10;
+      *v9 = 136315138;
+      *(v9 + 4) = sub_10002DA30(v8, v7, &v19);
+      _os_log_impl(&_mh_execute_header, v5, v6, "Expected UUID vmIdentifier: %s", v9, 0xCu);
+      sub_1000295CC(v10);
     }
 
-    v14 = v0[10];
-    v15 = v0[7];
+    v11 = v0[1];
 
-    v16 = v0[1];
-
-    return v16(0);
+    return v11(0);
   }
 
   else
   {
-    v19 = v0[9];
-    v18 = v0[10];
-    v20 = v0[8];
-    v21 = v0[6];
-    (*(v19 + 32))(v18, v0[7], v20);
-    v22 = *(v21 + 16);
+    v14 = v0[9];
+    v13 = v0[10];
+    v15 = v0[8];
+    (*(v14 + 32))(v13, v0[7], v15);
     sub_100029394(&qword_100057978, &qword_100038F60);
-    v23 = *(v19 + 72);
-    v24 = (*(v19 + 80) + 32) & ~*(v19 + 80);
-    v25 = swift_allocObject();
-    v0[11] = v25;
-    *(v25 + 16) = xmmword_100038E70;
-    (*(v19 + 16))(v25 + v24, v18, v20);
-    v26 = async function pointer to MessageStoreController.getMessages(recordUUIDs:)[1];
-    v27 = swift_task_alloc();
-    v0[12] = v27;
-    *v27 = v0;
-    v27[1] = sub_100026DA4;
+    v16 = (*(v14 + 80) + 32) & ~*(v14 + 80);
+    v17 = swift_allocObject();
+    v0[11] = v17;
+    *(v17 + 16) = xmmword_100038E70;
+    (*(v14 + 16))(v17 + v16, v13, v15);
+    v18 = swift_task_alloc();
+    v0[12] = v18;
+    *v18 = v0;
+    v18[1] = sub_100026DA4;
 
-    return MessageStoreController.getMessages(recordUUIDs:)(v25);
+    return MessageStoreController.getMessages(recordUUIDs:)(v17);
   }
 }
 
 uint64_t sub_100026DA4(uint64_t a1)
 {
   v3 = *v2;
-  v4 = *(*v2 + 96);
-  v8 = *v2;
-  v3[13] = a1;
-  v3[14] = v1;
+  *(v3 + 104) = a1;
+  *(v3 + 112) = v1;
 
   if (v1)
   {
-    v5 = sub_10002715C;
+    v4 = sub_10002715C;
   }
 
   else
   {
-    v6 = v3[11];
 
-    v5 = sub_100026EC0;
+    v4 = sub_100026EC0;
   }
 
-  return _swift_task_switch(v5, 0, 0);
+  return _swift_task_switch(v4, 0, 0);
 }
 
 uint64_t sub_100026EC0()
 {
-  v30 = v0;
+  v23 = v0;
   super_class = v0[6].super_class;
   if (super_class >> 62)
   {
-    if (super_class < 0)
-    {
-      v9 = v0[6].super_class;
-    }
-
     if (sub_100031148())
     {
       goto LABEL_3;
@@ -1915,9 +1899,7 @@ uint64_t sub_100026EC0()
 LABEL_3:
     if ((super_class & 0xC000000000000001) != 0)
     {
-      v27 = v0[6].super_class;
       v2 = sub_1000310C8();
-      v28 = v0[6].super_class;
       goto LABEL_6;
     }
 
@@ -1936,121 +1918,108 @@ LABEL_6:
       v0[1].super_class = v6;
       v8 = objc_msgSendSuper2(v0 + 1, "init");
       (*(v4 + 1))(receiver, v5);
-      goto LABEL_14;
+      goto LABEL_12;
     }
 
     __break(1u);
-    goto LABEL_19;
+    goto LABEL_17;
   }
-
-  v10 = v0[6].super_class;
 
   if (qword_100057780 != -1)
   {
-LABEL_19:
+LABEL_17:
     swift_once();
   }
 
-  v11 = v0[2].super_class;
-  v12 = sub_100030F48();
-  sub_1000264CC(v12, qword_100057A90);
+  v9 = sub_100030F48();
+  sub_1000264CC(v9, qword_100057A90);
 
-  v13 = sub_100030F28();
-  v14 = sub_100031088();
+  v10 = sub_100030F28();
+  v11 = sub_100031088();
 
-  v15 = os_log_type_enabled(v13, v14);
-  v17 = v0[4].super_class;
-  v16 = v0[5].receiver;
-  v18 = v0[4].receiver;
-  if (v15)
+  v12 = os_log_type_enabled(v10, v11);
+  v14 = v0[4].super_class;
+  v13 = v0[5].receiver;
+  v15 = v0[4].receiver;
+  if (v12)
   {
-    v20 = v0[2].receiver;
-    v19 = v0[2].super_class;
-    v21 = swift_slowAlloc();
-    v22 = swift_slowAlloc();
-    v29 = v22;
-    *v21 = 136315138;
-    *(v21 + 4) = sub_10002DA30(v20, v19, &v29);
-    _os_log_impl(&_mh_execute_header, v13, v14, "Coudln't find voicemail for: %s", v21, 0xCu);
-    sub_1000295CC(v22);
+    v17 = v0[2].receiver;
+    v16 = v0[2].super_class;
+    v18 = swift_slowAlloc();
+    v19 = swift_slowAlloc();
+    v22 = v19;
+    *v18 = 136315138;
+    *(v18 + 4) = sub_10002DA30(v17, v16, &v22);
+    _os_log_impl(&_mh_execute_header, v10, v11, "Coudln't find voicemail for: %s", v18, 0xCu);
+    sub_1000295CC(v19);
   }
 
-  (*(v17 + 1))(v16, v18);
+  (*(v14 + 1))(v13, v15);
   v8 = 0;
-LABEL_14:
-  v23 = v0[5].receiver;
-  v24 = v0[3].super_class;
+LABEL_12:
 
-  v25 = v0->super_class;
+  v20 = v0->super_class;
 
-  return v25(v8);
+  return v20(v8);
 }
 
 uint64_t sub_10002715C()
 {
-  v26 = v0;
-  v1 = v0[11];
+  v19 = v0;
 
   if (qword_100057780 != -1)
   {
     swift_once();
   }
 
-  v2 = v0[14];
-  v3 = v0[5];
-  v4 = sub_100030F48();
-  sub_1000264CC(v4, qword_100057A90);
+  v1 = sub_100030F48();
+  sub_1000264CC(v1, qword_100057A90);
 
   swift_errorRetain();
-  v5 = sub_100030F28();
-  v6 = sub_100031088();
+  v2 = sub_100030F28();
+  v3 = sub_100031088();
 
-  v7 = os_log_type_enabled(v5, v6);
-  v8 = v0[14];
-  v10 = v0[9];
-  v9 = v0[10];
-  v11 = v0[8];
-  if (v7)
+  v4 = os_log_type_enabled(v2, v3);
+  v6 = v0[9];
+  v5 = v0[10];
+  v7 = v0[8];
+  if (v4)
   {
-    v24 = v0[10];
-    v12 = v0[4];
-    v13 = v0[5];
-    v23 = v0[8];
-    v14 = swift_slowAlloc();
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v25 = v16;
-    *v14 = 136315394;
-    *(v14 + 4) = sub_10002DA30(v12, v13, &v25);
-    *(v14 + 12) = 2112;
+    v17 = v0[10];
+    v8 = v0[4];
+    v9 = v0[5];
+    v16 = v0[8];
+    v10 = swift_slowAlloc();
+    v11 = swift_slowAlloc();
+    v12 = swift_slowAlloc();
+    v18 = v12;
+    *v10 = 136315394;
+    *(v10 + 4) = sub_10002DA30(v8, v9, &v18);
+    *(v10 + 12) = 2112;
     swift_errorRetain();
-    v17 = _swift_stdlib_bridgeErrorToNSError();
-    *(v14 + 14) = v17;
-    *v15 = v17;
-    _os_log_impl(&_mh_execute_header, v5, v6, "Error fetching voicemail for: %s, error: %@", v14, 0x16u);
-    sub_100029AE8(v15, &qword_100057970, &qword_100038F58);
+    v13 = _swift_stdlib_bridgeErrorToNSError();
+    *(v10 + 14) = v13;
+    *v11 = v13;
+    _os_log_impl(&_mh_execute_header, v2, v3, "Error fetching voicemail for: %s, error: %@", v10, 0x16u);
+    sub_100029AE8(v11, &qword_100057970, &qword_100038F58);
 
-    sub_1000295CC(v16);
+    sub_1000295CC(v12);
 
-    (*(v10 + 8))(v24, v23);
+    (*(v6 + 8))(v17, v16);
   }
 
   else
   {
-    v18 = v0[14];
 
-    (*(v10 + 8))(v9, v11);
+    (*(v6 + 8))(v5, v7);
   }
 
-  v19 = v0[10];
-  v20 = v0[7];
+  v14 = v0[1];
 
-  v21 = v0[1];
-
-  return v21(0);
+  return v14(0);
 }
 
-uint64_t sub_100027550(int a1, void *aBlock, uint64_t a3)
+uint64_t sub_100027550(uint64_t a1, void *aBlock, uint64_t a3)
 {
   v3[2] = a3;
   v3[3] = _Block_copy(aBlock);
@@ -2070,45 +2039,42 @@ uint64_t sub_100027624(uint64_t a1)
 {
   v3 = v1;
   v5 = *v2;
-  v6 = *(*v2 + 40);
-  v7 = *(*v2 + 32);
-  v8 = *(*v2 + 16);
-  v9 = *v2;
+  v6 = *v2;
 
-  v10 = *(v5 + 24);
+  v7 = *(v5 + 24);
   if (v3)
   {
-    v11 = sub_100030D78();
+    v8 = sub_100030D78();
 
-    (v10)[2](v10, 0, v11);
+    (v7)[2](v7, 0, v8);
 
-    _Block_release(v10);
+    _Block_release(v7);
   }
 
   else
   {
-    v10[2](*(v5 + 24), a1, 0);
-    _Block_release(v10);
+    v7[2](*(v5 + 24), a1, 0);
+    _Block_release(v7);
     swift_unknownObjectRelease();
   }
 
-  v12 = *(v9 + 8);
+  v9 = *(v6 + 8);
 
-  return v12();
+  return v9();
 }
 
 void sub_1000277E8(void *a1)
 {
-  v2 = (*(*(sub_100029394(&qword_100057960, &qword_100038F18) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (__chkstk_darwin)();
+  v2 = sub_100029394(&qword_100057960, &qword_100038F18);
+  __chkstk_darwin(v2 - 8);
   v4 = v31 - v3;
-  v5 = (*(*(sub_100029394(&qword_1000579F0, &qword_100038F20) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (__chkstk_darwin)();
+  v5 = sub_100029394(&qword_1000579F0, &qword_100038F20);
+  __chkstk_darwin(v5 - 8);
   v7 = v31 - v6;
   v8 = sub_100030E08();
   v9 = *(v8 - 8);
   v10 = *(v9 + 64);
-  v11 = (__chkstk_darwin)();
+  v11 = __chkstk_darwin(v8);
   v12 = v31 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v11);
   v14 = v31 - v13;
@@ -2175,16 +2141,14 @@ uint64_t sub_100027C4C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   v5[2] = a4;
   v5[3] = a5;
-  v6 = *(*(sub_100029394(&qword_100057940, &qword_100038F08) - 8) + 64) + 15;
+  sub_100029394(&qword_100057940, &qword_100038F08);
   v5[4] = swift_task_alloc();
-  v7 = *(*(sub_100029394(&qword_1000579F0, &qword_100038F20) - 8) + 64) + 15;
+  sub_100029394(&qword_1000579F0, &qword_100038F20);
   v5[5] = swift_task_alloc();
   v5[6] = swift_task_alloc();
-  v8 = sub_100030E08();
-  v5[7] = v8;
-  v9 = *(v8 - 8);
-  v5[8] = v9;
-  v10 = *(v9 + 64) + 15;
+  v6 = sub_100030E08();
+  v5[7] = v6;
+  v5[8] = *(v6 - 8);
   v5[9] = swift_task_alloc();
 
   return _swift_task_switch(sub_100027D88, 0, 0);
@@ -2199,33 +2163,30 @@ uint64_t sub_100027D88()
   v6 = v0[4];
   v5 = v0[5];
   v7 = v0[3];
-  v8 = *(v0[2] + 16);
   sub_100029394(&qword_100057968, &qword_100038F50);
-  v9 = swift_allocObject();
-  v0[10] = v9;
-  *(v9 + 16) = xmmword_100038E80;
+  v8 = swift_allocObject();
+  v0[10] = v8;
+  *(v8 + 16) = xmmword_100038E80;
   (*(v2 + 16))(v1, v7, v4);
-  v10 = *(v2 + 56);
-  v10(v3, 1, 1, v4);
-  v10(v5, 1, 1, v4);
-  v11 = sub_100030DA8();
-  (*(*(v11 - 8) + 56))(v6, 1, 1, v11);
-  v12 = objc_allocWithZone(sub_100030EA8());
-  *(v9 + 32) = sub_100030E98();
-  v13 = async function pointer to MessageStoreController.updateMessages(_:)[1];
-  v14 = swift_task_alloc();
-  v0[11] = v14;
-  *v14 = v0;
-  v14[1] = sub_100027F94;
+  v9 = *(v2 + 56);
+  v9(v3, 1, 1, v4);
+  v9(v5, 1, 1, v4);
+  v10 = sub_100030DA8();
+  (*(*(v10 - 8) + 56))(v6, 1, 1, v10);
+  v11 = objc_allocWithZone(sub_100030EA8());
+  *(v8 + 32) = sub_100030E98();
+  v12 = swift_task_alloc();
+  v0[11] = v12;
+  *v12 = v0;
+  v12[1] = sub_100027F94;
 
-  return MessageStoreController.updateMessages(_:)(v9);
+  return MessageStoreController.updateMessages(_:)(v8);
 }
 
 uint64_t sub_100027F94()
 {
-  v2 = *(*v1 + 88);
-  v3 = *v1;
-  v3[12] = v0;
+  v2 = *v1;
+  *(v2 + 96) = v0;
 
   if (v0)
   {
@@ -2235,54 +2196,44 @@ uint64_t sub_100027F94()
 
   else
   {
-    v4 = v3[10];
 
-    v5 = v3[9];
-    v7 = v3[5];
-    v6 = v3[6];
-    v8 = v3[4];
+    v3 = *(v2 + 8);
 
-    v9 = v3[1];
-
-    return v9();
+    return v3();
   }
 }
 
 uint64_t sub_100028104()
 {
-  v18 = v0;
-  v1 = v0[10];
+  v10 = v0;
 
   if (qword_100057780 != -1)
   {
     swift_once();
   }
 
-  v2 = v0[12];
-  v3 = sub_100030F48();
-  sub_1000264CC(v3, qword_100057A90);
+  v1 = sub_100030F48();
+  sub_1000264CC(v1, qword_100057A90);
   swift_errorRetain();
-  v4 = sub_100030F28();
-  v5 = sub_100031088();
+  v2 = sub_100030F28();
+  v3 = sub_100031088();
 
-  v6 = os_log_type_enabled(v4, v5);
-  v7 = v0[12];
-  if (v6)
+  if (os_log_type_enabled(v2, v3))
   {
-    v8 = swift_slowAlloc();
+    v4 = swift_slowAlloc();
+    v5 = swift_slowAlloc();
     v9 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    *v8 = 136315650;
-    *(v8 + 4) = sub_10002DA30(0xD00000000000005BLL, 0x800000010003A350, &v17);
-    *(v8 + 12) = 2080;
-    *(v8 + 14) = sub_10002DA30(0x646165526B72616DLL, 0xEC000000293A5F28, &v17);
-    *(v8 + 22) = 2112;
+    *v4 = 136315650;
+    *(v4 + 4) = sub_10002DA30(0xD00000000000005BLL, 0x800000010003A350, &v9);
+    *(v4 + 12) = 2080;
+    *(v4 + 14) = sub_10002DA30(0x646165526B72616DLL, 0xEC000000293A5F28, &v9);
+    *(v4 + 22) = 2112;
     swift_errorRetain();
-    v10 = _swift_stdlib_bridgeErrorToNSError();
-    *(v8 + 24) = v10;
-    *v9 = v10;
-    _os_log_impl(&_mh_execute_header, v4, v5, "%s:%s %@", v8, 0x20u);
-    sub_100029AE8(v9, &qword_100057970, &qword_100038F58);
+    v6 = _swift_stdlib_bridgeErrorToNSError();
+    *(v4 + 24) = v6;
+    *v5 = v6;
+    _os_log_impl(&_mh_execute_header, v2, v3, "%s:%s %@", v4, 0x20u);
+    sub_100029AE8(v5, &qword_100057970, &qword_100038F58);
 
     swift_arrayDestroy();
   }
@@ -2291,22 +2242,17 @@ uint64_t sub_100028104()
   {
   }
 
-  v11 = v0[9];
-  v12 = v0[5];
-  v13 = v0[6];
-  v14 = v0[4];
+  v7 = *(v0 + 8);
 
-  v15 = v0[1];
-
-  return v15();
+  return v7();
 }
 
 uint64_t sub_100028378(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = (*(*(sub_100029394(&qword_100057960, &qword_100038F18) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v11 = v26 - v10;
-  sub_1000297DC(a3, v26 - v10);
+  v9 = sub_100029394(&qword_100057960, &qword_100038F18);
+  __chkstk_darwin(v9 - 8);
+  v11 = v25 - v10;
+  sub_1000297DC(a3, v25 - v10);
   v12 = sub_100031078();
   v13 = *(v12 - 8);
   v14 = (*(v13 + 48))(v11, 1, v12);
@@ -2322,53 +2268,52 @@ uint64_t sub_100028378(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     (*(v13 + 8))(v11, v12);
   }
 
-  v16 = *(a5 + 16);
-  v15 = *(a5 + 24);
+  v15 = *(a5 + 16);
   swift_unknownObjectRetain();
 
-  if (v16)
+  if (v15)
   {
     swift_getObjectType();
-    v17 = sub_100031058();
-    v19 = v18;
+    v16 = sub_100031058();
+    v18 = v17;
     swift_unknownObjectRelease();
     if (a2)
     {
 LABEL_6:
-      v20 = sub_100030F88() + 32;
-      v21 = swift_allocObject();
-      *(v21 + 16) = a4;
-      *(v21 + 24) = a5;
+      v19 = sub_100030F88() + 32;
+      v20 = swift_allocObject();
+      *(v20 + 16) = a4;
+      *(v20 + 24) = a5;
 
-      if (v19 | v17)
+      if (v18 | v16)
       {
-        v27[0] = 0;
-        v27[1] = 0;
-        v22 = v27;
-        v27[2] = v17;
-        v27[3] = v19;
+        v26[0] = 0;
+        v26[1] = 0;
+        v21 = v26;
+        v26[2] = v16;
+        v26[3] = v18;
       }
 
       else
       {
-        v22 = 0;
+        v21 = 0;
       }
 
-      v26[1] = 7;
-      v26[2] = v22;
-      v26[3] = v20;
-      v24 = swift_task_create();
+      v25[1] = 7;
+      v25[2] = v21;
+      v25[3] = v19;
+      v23 = swift_task_create();
 
       sub_100029AE8(a3, &qword_100057960, &qword_100038F18);
 
-      return v24;
+      return v23;
     }
   }
 
   else
   {
-    v17 = 0;
-    v19 = 0;
+    v16 = 0;
+    v18 = 0;
     if (a2)
     {
       goto LABEL_6;
@@ -2376,15 +2321,15 @@ LABEL_6:
   }
 
   sub_100029AE8(a3, &qword_100057960, &qword_100038F18);
-  v23 = swift_allocObject();
-  *(v23 + 16) = a4;
-  *(v23 + 24) = a5;
-  if (v19 | v17)
+  v22 = swift_allocObject();
+  *(v22 + 16) = a4;
+  *(v22 + 24) = a5;
+  if (v18 | v16)
   {
-    v27[4] = 0;
-    v27[5] = 0;
-    v27[6] = v17;
-    v27[7] = v19;
+    v26[4] = 0;
+    v26[5] = 0;
+    v26[6] = v16;
+    v26[7] = v18;
   }
 
   return swift_task_create();
@@ -2392,55 +2337,50 @@ LABEL_6:
 
 uint64_t sub_1000286C0()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocClassInstance(v0, 24, 7);
 }
 
-BOOL sub_100028A00(char *a1)
+BOOL sub_100028A00(void *a1)
 {
-  v1 = *&a1[OBJC_IVAR____TtC18PhoneIntentHandler23VoicemailMessageWrapper_wrapped];
-  v2 = a1;
+  v1 = a1;
   sub_100030E48();
+  v2 = sub_100030F08();
   v3 = sub_100030F08();
-  LOWORD(v1) = sub_100030F08();
 
-  return v3 == v1;
+  return v2 == v3;
 }
 
 uint64_t sub_100028B98@<X0>(uint64_t a1@<X8>)
 {
-  v3 = sub_100030DA8();
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin(v3);
-  v7 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_100029394(&qword_100057940, &qword_100038F08);
-  v9 = *(*(v8 - 8) + 64);
-  __chkstk_darwin(v8 - 8);
-  v11 = &v17 - v10;
-  v12 = *(v1 + OBJC_IVAR____TtC18PhoneIntentHandler23VoicemailMessageWrapper_wrapped);
-  v13 = sub_100030E18();
-  v14 = sub_100030F18();
+  v2 = sub_100030DA8();
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v5 = &v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_100029394(&qword_100057940, &qword_100038F08);
+  __chkstk_darwin(v6 - 8);
+  v8 = &v13 - v7;
+  v9 = sub_100030E18();
+  v10 = sub_100030F18();
 
-  if (v14)
+  if (v10)
   {
     sub_100030D98();
 
-    v15 = *(v4 + 32);
-    v15(v11, v7, v3);
-    (*(v4 + 56))(v11, 0, 1, v3);
-    return (v15)(a1, v11, v3);
+    v11 = *(v3 + 32);
+    v11(v8, v5, v2);
+    (*(v3 + 56))(v8, 0, 1, v2);
+    return (v11)(a1, v8, v2);
   }
 
   else
   {
-    (*(v4 + 56))(v11, 1, 1, v3);
+    (*(v3 + 56))(v8, 1, 1, v2);
     sub_100030E58();
-    result = (*(v4 + 48))(v11, 1, v3);
+    result = (*(v3 + 48))(v8, 1, v2);
     if (result != 1)
     {
-      return sub_100029AE8(v11, &qword_100057940, &qword_100038F08);
+      return sub_100029AE8(v8, &qword_100057940, &qword_100038F08);
     }
   }
 
@@ -2449,132 +2389,128 @@ uint64_t sub_100028B98@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_100028E04()
 {
-  v1 = sub_100030DA8();
-  v2 = *(v1 - 8);
-  v39 = v1;
-  v40 = v2;
-  v3 = *(v2 + 64);
-  __chkstk_darwin(v1);
-  v38 = &v36 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v37 = sub_100030DD8();
-  v5 = *(v37 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v37);
-  v8 = &v36 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_100030E08();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = &v36 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v43[0] = 0;
-  v43[1] = 0xE000000000000000;
+  v0 = sub_100030DA8();
+  v1 = *(v0 - 8);
+  v34 = v0;
+  v35 = v1;
+  __chkstk_darwin(v0);
+  v33 = &v31 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v32 = sub_100030DD8();
+  v3 = *(v32 - 8);
+  __chkstk_darwin(v32);
+  v5 = &v31 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_100030E08();
+  v7 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v9 = &v31 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v38[0] = 0;
+  v38[1] = 0xE000000000000000;
   sub_1000310B8(16);
 
-  strcpy(v43, "vmIdentifier=");
-  HIWORD(v43[1]) = -4864;
-  v14 = *(v0 + OBJC_IVAR____TtC18PhoneIntentHandler23VoicemailMessageWrapper_wrapped);
+  strcpy(v38, "vmIdentifier=");
+  HIWORD(v38[1]) = -4864;
   sub_100030E28();
-  v15 = sub_100030DF8();
-  v17 = v16;
-  (*(v10 + 8))(v13, v9);
-  v44._countAndFlagsBits = v15;
-  v44._object = v17;
+  v10 = sub_100030DF8();
+  v12 = v11;
+  (*(v7 + 8))(v9, v6);
+  v39._countAndFlagsBits = v10;
+  v39._object = v12;
+  sub_100030FA8(v39);
+
+  v40._countAndFlagsBits = 32;
+  v40._object = 0xE100000000000000;
+  sub_100030FA8(v40);
+  v41._countAndFlagsBits = v38[0];
+  v13 = v38[1];
+  v38[0] = 0xD000000000000018;
+  v38[1] = 0x800000010003A310;
+  v41._object = v13;
+  sub_100030FA8(v41);
+
+  v14 = v38[0];
+  v15 = v38[1];
+  v38[0] = 0x3D65746164;
+  v38[1] = 0xE500000000000000;
+  sub_100030E38();
+  sub_10002A5F0(&qword_100057948, &type metadata accessor for Date, &protocol conformance descriptor for Date);
+  v16 = v32;
+  v42._countAndFlagsBits = sub_100031158();
+  sub_100030FA8(v42);
+
+  (*(v3 + 8))(v5, v16);
+  v43._countAndFlagsBits = 32;
+  v43._object = 0xE100000000000000;
+  sub_100030FA8(v43);
+  v17 = v38[0];
+  v18 = v38[1];
+  v38[0] = v14;
+  v38[1] = v15;
+
+  v44._countAndFlagsBits = v17;
+  v44._object = v18;
   sub_100030FA8(v44);
 
-  v45._countAndFlagsBits = 32;
-  v45._object = 0xE100000000000000;
-  sub_100030FA8(v45);
-  v46._countAndFlagsBits = v43[0];
-  v18 = v43[1];
-  v43[0] = 0xD000000000000018;
-  v43[1] = 0x800000010003A310;
-  v46._object = v18;
-  sub_100030FA8(v46);
-
-  v19 = v43[0];
-  v20 = v43[1];
-  v43[0] = 0x3D65746164;
-  v43[1] = 0xE500000000000000;
-  sub_100030E38();
-  sub_10002A5F0(&qword_100057948, &type metadata accessor for Date);
-  v21 = v37;
-  v47._countAndFlagsBits = sub_100031158();
-  sub_100030FA8(v47);
-
-  (*(v5 + 8))(v8, v21);
-  v48._countAndFlagsBits = 32;
-  v48._object = 0xE100000000000000;
-  sub_100030FA8(v48);
-  v22 = v43[0];
-  v23 = v43[1];
-  v43[0] = v19;
-  v43[1] = v20;
-
-  v49._countAndFlagsBits = v22;
-  v49._object = v23;
-  sub_100030FA8(v49);
-
-  v24 = v43[0];
-  v25 = v43[1];
-  v43[0] = 0;
-  v43[1] = 0xE000000000000000;
+  v19 = v38[0];
+  v20 = v38[1];
+  v38[0] = 0;
+  v38[1] = 0xE000000000000000;
   sub_1000310B8(23);
 
-  v43[0] = 0xD000000000000014;
-  v43[1] = 0x800000010003A330;
-  v41 = sub_100030E68();
-  v42 = v26;
+  v38[0] = 0xD000000000000014;
+  v38[1] = 0x800000010003A330;
+  v36 = sub_100030E68();
+  v37 = v21;
   sub_100029394(&qword_100057950, &qword_100038F10);
-  v50._countAndFlagsBits = sub_100030F78();
+  v45._countAndFlagsBits = sub_100030F78();
+  sub_100030FA8(v45);
+
+  v46._countAndFlagsBits = 32;
+  v46._object = 0xE100000000000000;
+  sub_100030FA8(v46);
+  v22 = v38[0];
+  v23 = v38[1];
+  v38[0] = v19;
+  v38[1] = v20;
+
+  v47._countAndFlagsBits = v22;
+  v47._object = v23;
+  sub_100030FA8(v47);
+
+  v25 = v38[0];
+  v24 = v38[1];
+  strcpy(v38, "dataURL=");
+  BYTE1(v38[1]) = 0;
+  WORD1(v38[1]) = 0;
+  HIDWORD(v38[1]) = -402653184;
+  v26 = v33;
+  sub_100028B98(v33);
+  sub_10002A5F0(&qword_100057958, &type metadata accessor for URL, &protocol conformance descriptor for URL);
+  v27 = v34;
+  v48._countAndFlagsBits = sub_100031158();
+  sub_100030FA8(v48);
+
+  (*(v35 + 8))(v26, v27);
+  v28 = v38[0];
+  v29 = v38[1];
+  v38[0] = v25;
+  v38[1] = v24;
+
+  v49._countAndFlagsBits = v28;
+  v49._object = v29;
+  sub_100030FA8(v49);
+
+  v50._countAndFlagsBits = 41;
+  v50._object = 0xE100000000000000;
   sub_100030FA8(v50);
 
-  v51._countAndFlagsBits = 32;
-  v51._object = 0xE100000000000000;
-  sub_100030FA8(v51);
-  v27 = v43[0];
-  v28 = v43[1];
-  v43[0] = v24;
-  v43[1] = v25;
-
-  v52._countAndFlagsBits = v27;
-  v52._object = v28;
-  sub_100030FA8(v52);
-
-  v30 = v43[0];
-  v29 = v43[1];
-  strcpy(v43, "dataURL=");
-  BYTE1(v43[1]) = 0;
-  WORD1(v43[1]) = 0;
-  HIDWORD(v43[1]) = -402653184;
-  v31 = v38;
-  sub_100028B98(v38);
-  sub_10002A5F0(&qword_100057958, &type metadata accessor for URL);
-  v32 = v39;
-  v53._countAndFlagsBits = sub_100031158();
-  sub_100030FA8(v53);
-
-  (*(v40 + 8))(v31, v32);
-  v33 = v43[0];
-  v34 = v43[1];
-  v43[0] = v30;
-  v43[1] = v29;
-
-  v54._countAndFlagsBits = v33;
-  v54._object = v34;
-  sub_100030FA8(v54);
-
-  v55._countAndFlagsBits = 41;
-  v55._object = 0xE100000000000000;
-  sub_100030FA8(v55);
-
-  return v43[0];
+  return v38[0];
 }
 
-id sub_10002932C()
+id sub_10002932C(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for VoicemailMessageWrapper();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for VoicemailMessageWrapper();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 uint64_t sub_100029394(uint64_t *a1, uint64_t *a2)
@@ -2582,7 +2518,6 @@ uint64_t sub_100029394(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -2592,35 +2527,35 @@ uint64_t sub_100029394(uint64_t *a1, uint64_t *a2)
 
 uint64_t sub_1000293DC(uint64_t a1, int *a2)
 {
-  v7 = (a2 + *a2);
-  v4 = a2[1];
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = sub_1000294D4;
+  v6 = (a2 + *a2);
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = sub_1000294D4;
 
-  return v7(a1);
+  return v6(a1);
 }
 
 uint64_t sub_1000294D4()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
-uint64_t sub_1000295CC(uint64_t *a1)
+uint64_t sub_1000295CC(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_100029618()
@@ -2630,9 +2565,7 @@ uint64_t sub_100029618()
   v3 = *(v2 + 80);
   v4 = (v3 + 40) & ~v3;
   v5 = *(v2 + 64);
-  v6 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v7 = *(v0 + 32);
 
   (*(v2 + 8))(v0 + v4, v1);
 
@@ -2663,43 +2596,39 @@ uint64_t sub_1000297DC(uint64_t a1, uint64_t a2)
 
 uint64_t sub_10002984C()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
 uint64_t sub_100029884(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_10002A6D8;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_10002A6D8;
 
-  return sub_1000293DC(a1, v5);
+  return sub_1000293DC(a1, v4);
 }
 
 uint64_t sub_10002993C(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_1000299F4;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_1000299F4;
 
-  return sub_1000293DC(a1, v5);
+  return sub_1000293DC(a1, v4);
 }
 
 uint64_t sub_1000299F4()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_100029AE8(uint64_t a1, uint64_t *a2, uint64_t *a3)
@@ -2712,7 +2641,6 @@ uint64_t sub_100029AE8(uint64_t a1, uint64_t *a2, uint64_t *a3)
 uint64_t sub_100029B48()
 {
   _Block_release(*(v0 + 24));
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
@@ -2734,35 +2662,32 @@ uint64_t sub_100029C48()
 {
   v2 = v0[2];
   v3 = v0[3];
-  v5 = v0[4];
-  v4 = v0[5];
-  v6 = swift_task_alloc();
-  *(v1 + 16) = v6;
-  *v6 = v1;
-  v6[1] = sub_10002A6D8;
+  v4 = v0[4];
+  v5 = swift_task_alloc();
+  *(v1 + 16) = v5;
+  *v5 = v1;
+  v5[1] = sub_10002A6D8;
 
-  return sub_10002D5A4(v2, v3, v5);
+  return sub_10002D5A4(v2, v3, v4);
 }
 
 uint64_t sub_100029D08(uint64_t a1)
 {
   v4 = v1[2];
   v5 = v1[3];
-  v7 = v1[4];
-  v6 = v1[5];
-  v8 = swift_task_alloc();
-  *(v2 + 16) = v8;
-  *v8 = v2;
-  v8[1] = sub_10002A6D8;
+  v6 = v1[4];
+  v7 = swift_task_alloc();
+  *(v2 + 16) = v7;
+  *v7 = v2;
+  v7[1] = sub_10002A6D8;
 
-  return sub_10002D68C(a1, v4, v5, v7);
+  return sub_10002D68C(a1, v4, v5, v6);
 }
 
 uint64_t sub_100029DD4()
 {
   _Block_release(*(v0 + 16));
   _Block_release(*(v0 + 24));
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
@@ -2782,9 +2707,7 @@ uint64_t sub_100029E1C()
 
 uint64_t sub_100029ED0()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 40);
 
   return _swift_deallocObject(v0, 48, 7);
 }
@@ -2795,9 +2718,7 @@ uint64_t sub_100029F10(uint64_t a1, uint64_t a2)
   v2[6] = a2;
   v3 = sub_100029394(&qword_100057980, &qword_100038FC0);
   v2[7] = v3;
-  v4 = *(v3 - 8);
-  v2[8] = v4;
-  v5 = *(v4 + 64) + 15;
+  v2[8] = *(v3 - 8);
   v2[9] = swift_task_alloc();
 
   return _swift_task_switch(sub_100029FDC, 0, 0);
@@ -2805,12 +2726,10 @@ uint64_t sub_100029F10(uint64_t a1, uint64_t a2)
 
 uint64_t sub_100029FDC()
 {
-  v1 = *(*(v0 + 40) + 16);
-  v2 = async function pointer to MessageStoreController.getMessages(providers:types:)[1];
-  v3 = swift_task_alloc();
-  *(v0 + 80) = v3;
-  *v3 = v0;
-  v3[1] = sub_10002A088;
+  v1 = swift_task_alloc();
+  *(v0 + 80) = v1;
+  *v1 = v0;
+  v1[1] = sub_10002A088;
 
   return MessageStoreController.getMessages(providers:types:)(&off_10004D2A8, &off_10004D2D0);
 }
@@ -2818,17 +2737,14 @@ uint64_t sub_100029FDC()
 uint64_t sub_10002A088(uint64_t a1)
 {
   v3 = *v2;
-  v4 = *(*v2 + 80);
-  v5 = *v2;
   *(*v2 + 88) = a1;
 
   if (v1)
   {
-    v6 = *(v3 + 72);
 
-    v7 = *(v5 + 8);
+    v4 = *(v3 + 8);
 
-    return v7();
+    return v4();
   }
 
   else
@@ -2855,12 +2771,11 @@ LABEL_29:
   if (!v2)
   {
 LABEL_12:
-    v13 = *(v0 + 88);
 
     if (_swiftEmptyArrayStorage >> 62)
     {
-      v14 = sub_100031148();
-      if (v14)
+      v11 = sub_100031148();
+      if (v11)
       {
         goto LABEL_14;
       }
@@ -2868,25 +2783,25 @@ LABEL_12:
 
     else
     {
-      v14 = *((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10);
-      if (v14)
+      v11 = *((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10);
+      if (v11)
       {
 LABEL_14:
         v1 = 0;
-        v24 = v0;
+        v20 = v0;
         v0 = *(v0 + 48) + 16;
         while (1)
         {
           if ((_swiftEmptyArrayStorage & 0xC000000000000001) != 0)
           {
-            v15 = sub_1000310C8();
-            v16 = (v1 + 1);
+            v12 = sub_1000310C8();
+            v13 = (v1 + 1);
             if (__OFADD__(v1, 1))
             {
 LABEL_24:
               __break(1u);
 LABEL_25:
-              v0 = v24;
+              v0 = v20;
               break;
             }
           }
@@ -2901,19 +2816,18 @@ LABEL_27:
               goto LABEL_28;
             }
 
-            v15 = _swiftEmptyArrayStorage[v1 + 4];
+            v12 = _swiftEmptyArrayStorage[v1 + 4];
             swift_unknownObjectRetain();
-            v16 = (v1 + 1);
+            v13 = (v1 + 1);
             if (__OFADD__(v1, 1))
             {
               goto LABEL_24;
             }
           }
 
-          if ((*v0)(*(v24 + 48), v15))
+          if ((*v0)(*(v20 + 48), v12))
           {
             sub_1000310E8();
-            v17 = _swiftEmptyArrayStorage[2];
             sub_100031118();
             sub_100031128();
             sub_1000310F8();
@@ -2925,7 +2839,7 @@ LABEL_27:
           }
 
           ++v1;
-          if (v16 == v14)
+          if (v13 == v11)
           {
             goto LABEL_25;
           }
@@ -2933,23 +2847,23 @@ LABEL_27:
       }
     }
 
-    v19 = *(v0 + 64);
-    v18 = *(v0 + 72);
-    v20 = *(v0 + 56);
+    v15 = *(v0 + 64);
+    v14 = *(v0 + 72);
+    v16 = *(v0 + 56);
 
     *(v0 + 32) = _swiftEmptyArrayStorage;
     swift_getKeyPath();
-    sub_10002A5F0(&qword_100057988, &type metadata accessor for Date);
+    sub_10002A5F0(&qword_100057988, &type metadata accessor for Date, &protocol conformance descriptor for Date);
     sub_100030D68();
     sub_100029394(&qword_100057990, &qword_100038FF0);
-    sub_10002A680(&qword_100057998, &qword_100057990, &qword_100038FF0);
-    sub_10002A680(&unk_1000579A0, &qword_100057980, &qword_100038FC0);
-    v21 = sub_100031028();
-    (*(v19 + 8))(v18, v20);
+    sub_10002A680(&qword_100057998, &qword_100057990, &qword_100038FF0, &protocol conformance descriptor for [A]);
+    sub_10002A680(&unk_1000579A0, &qword_100057980, &qword_100038FC0, &protocol conformance descriptor for KeyPathComparator<A>);
+    v17 = sub_100031028();
+    (*(v15 + 8))(v14, v16);
 
-    v22 = *(v0 + 8);
+    v18 = *(v0 + 8);
 
-    return v22(v21);
+    return v18(v17);
   }
 
   result = sub_100031108();
@@ -2957,14 +2871,13 @@ LABEL_27:
   {
     v4 = 0;
     v5 = v1 & 0xC000000000000001;
-    v23 = v1 & 0xFFFFFFFFFFFFFF8;
+    v19 = v1 & 0xFFFFFFFFFFFFFF8;
     v6 = *(v0 + 88) + 32;
     while (1)
     {
       if (v5)
       {
-        v7 = *(v0 + 88);
-        v8 = sub_1000310C8();
+        v7 = sub_1000310C8();
       }
 
       else
@@ -2974,26 +2887,25 @@ LABEL_27:
           goto LABEL_27;
         }
 
-        if (v4 >= *(v23 + 16))
+        if (v4 >= *(v19 + 16))
         {
 LABEL_28:
           __break(1u);
           goto LABEL_29;
         }
 
-        v8 = *(v6 + 8 * v4);
+        v7 = *(v6 + 8 * v4);
       }
 
-      v9 = v8;
+      v8 = v7;
       ++v4;
-      v10 = type metadata accessor for VoicemailMessageWrapper();
-      v11 = objc_allocWithZone(v10);
-      *&v11[OBJC_IVAR____TtC18PhoneIntentHandler23VoicemailMessageWrapper_wrapped] = v9;
-      *(v0 + 16) = v11;
-      *(v0 + 24) = v10;
+      v9 = type metadata accessor for VoicemailMessageWrapper();
+      v10 = objc_allocWithZone(v9);
+      *&v10[OBJC_IVAR____TtC18PhoneIntentHandler23VoicemailMessageWrapper_wrapped] = v8;
+      *(v0 + 16) = v10;
+      *(v0 + 24) = v9;
       v1 = objc_msgSendSuper2((v0 + 16), "init");
       sub_1000310E8();
-      v12 = _swiftEmptyArrayStorage[2];
       sub_100031118();
       sub_100031128();
       sub_1000310F8();
@@ -3008,7 +2920,7 @@ LABEL_28:
   return result;
 }
 
-uint64_t sub_10002A5F0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10002A5F0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3026,7 +2938,6 @@ uint64_t sub_10002A638(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -3034,7 +2945,7 @@ uint64_t sub_10002A638(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_10002A680(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_10002A680(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -3109,19 +3020,18 @@ uint64_t sub_10002A93C()
   v1[13] = &unk_10004D4D8;
   v10 = _Block_copy(v3);
   v1[23] = v10;
-  v11 = v1[15];
   swift_unknownObjectRetain();
 
   v1[2] = v1;
   v1[7] = v1 + 18;
   v1[3] = sub_10002AB08;
-  v12 = swift_continuation_init();
+  v11 = swift_continuation_init();
   v1[17] = sub_100029394(&qword_100057A08, &qword_100039058);
   v1[10] = _NSConcreteStackBlock;
   v1[11] = 1107296256;
   v1[12] = sub_10002AD68;
   v1[13] = &unk_10004D500;
-  v1[14] = v12;
+  v1[14] = v11;
   [v9 fetchVoicemailsMatching:v10 completion:v3];
 
   return _swift_continuation_await(v2);
@@ -3129,52 +3039,46 @@ uint64_t sub_10002A93C()
 
 uint64_t sub_10002AB08()
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 192) = v2;
-  if (v2)
+  v1 = *(*v0 + 48);
+  *(*v0 + 192) = v1;
+  if (v1)
   {
-    v3 = sub_10002AC8C;
+    v2 = sub_10002AC8C;
   }
 
   else
   {
-    v3 = sub_10002AC18;
+    v2 = sub_10002AC18;
   }
 
-  return _swift_task_switch(v3, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 uint64_t sub_10002AC18()
 {
-  v1 = v0[22];
-  v2 = v0[23];
-  v3 = v0[18];
+  v1 = v0[23];
+  v2 = v0[18];
   swift_unknownObjectRelease();
-  _Block_release(v2);
-  v4 = v0[1];
+  _Block_release(v1);
+  v3 = v0[1];
 
-  return v4(v3);
+  return v3(v2);
 }
 
 uint64_t sub_10002AC8C()
 {
-  v1 = v0[23];
-  v2 = v0[24];
-  v3 = v0[22];
+  v1 = *(v0 + 184);
   swift_willThrow();
   swift_unknownObjectRelease();
   _Block_release(v1);
-  v4 = v0[1];
-  v5 = v0[24];
+  v2 = *(v0 + 8);
 
-  return v4();
+  return v2();
 }
 
-uint64_t sub_10002AD0C(uint64_t a1)
+uint64_t sub_10002AD0C(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
 
   v3 = swift_unknownObjectRetain();
   LOBYTE(v2) = v2(v3);
@@ -3222,21 +3126,19 @@ uint64_t sub_10002AFE4(const void *a1, const void *a2, void *a3)
   return sub_10002A918(sub_10002C71C, v7);
 }
 
-uint64_t sub_10002B0DC()
+uint64_t sub_10002B0DC(uint64_t a1)
 {
-  v2 = v0;
-  v3 = *v1;
-  v4 = *(*v1 + 40);
-  v5 = *(*v1 + 32);
-  v6 = *(*v1 + 16);
-  v7 = *v1;
+  v3 = v1;
+  v4 = *v2;
+  v5 = *(*v2 + 16);
+  v6 = *v2;
 
-  if (v2)
+  if (v3)
   {
-    v8 = sub_100030D78();
+    v7 = sub_100030D78();
 
-    v9 = v8;
-    v10 = 0;
+    v8 = v7;
+    v9 = 0;
   }
 
   else
@@ -3244,18 +3146,18 @@ uint64_t sub_10002B0DC()
     sub_100029394(&qword_100057A10, &unk_100039060);
     isa = sub_100031038().super.isa;
 
-    v10 = isa;
-    v9 = 0;
-    v8 = isa;
+    v9 = isa;
+    v8 = 0;
+    v7 = isa;
   }
 
-  v12 = *(v3 + 24);
-  (v12)[2](v12, v10, v9);
+  v11 = *(v4 + 24);
+  (v11)[2](v11, v9, v8);
 
-  _Block_release(v12);
-  v13 = *(v7 + 8);
+  _Block_release(v11);
+  v12 = *(v6 + 8);
 
-  return v13();
+  return v12();
 }
 
 uint64_t sub_10002B298(uint64_t a1, uint64_t a2)
@@ -3263,7 +3165,7 @@ uint64_t sub_10002B298(uint64_t a1, uint64_t a2)
   v3[37] = a2;
   v3[38] = v2;
   v3[36] = a1;
-  v4 = *(*(sub_100029394(&qword_1000579F0, &qword_100038F20) - 8) + 64) + 15;
+  sub_100029394(&qword_1000579F0, &qword_100038F20);
   v3[39] = swift_task_alloc();
 
   return _swift_task_switch(sub_10002B338, 0, 0);
@@ -3271,63 +3173,58 @@ uint64_t sub_10002B298(uint64_t a1, uint64_t a2)
 
 uint64_t sub_10002B338()
 {
-  v68 = v0;
+  v58 = v0;
   v1 = v0[39];
-  v2 = v0[36];
-  v3 = v0[37];
   sub_100030DE8();
-  v4 = sub_100030E08();
-  v5 = (*(*(v4 - 8) + 48))(v1, 1, v4);
-  v6 = sub_10002C3B0(v1);
-  if (v5 != 1)
+  v2 = sub_100030E08();
+  v3 = (*(*(v2 - 8) + 48))(v1, 1, v2);
+  v4 = sub_10002C3B0(v1);
+  if (v3 != 1)
   {
-    v19 = v0 + 26;
-    v20 = (v0 + 10);
-    v21 = v0[37];
-    v22 = v0[36];
-    v23 = *(v0[38] + OBJC_IVAR___IntentHandlerMessageStore_messageStore);
-    v24 = sub_100030F58();
-    v0[40] = v24;
+    v17 = v0 + 26;
+    v18 = (v0 + 10);
+    v19 = *(v0[38] + OBJC_IVAR___IntentHandlerMessageStore_messageStore);
+    v20 = sub_100030F58();
+    v0[40] = v20;
     v0[10] = v0;
     v0[15] = v0 + 35;
     v0[11] = sub_10002B954;
-    v25 = swift_continuation_init();
+    v21 = swift_continuation_init();
     v0[33] = sub_100029394(&qword_1000579F8, &qword_100039048);
     v0[26] = _NSConcreteStackBlock;
     v0[27] = 1107296256;
     v0[28] = sub_10002BD4C;
     v0[29] = &unk_10004D4B0;
-    v0[30] = v25;
+    v0[30] = v21;
     goto LABEL_75;
   }
 
-  v7 = v0[36];
-  v8 = v0[37];
-  v9 = HIBYTE(v8) & 0xF;
-  v10 = v7 & 0xFFFFFFFFFFFFLL;
-  if ((v8 & 0x2000000000000000) != 0)
+  v5 = v0[36];
+  v6 = v0[37];
+  v7 = HIBYTE(v6) & 0xF;
+  v8 = v5 & 0xFFFFFFFFFFFFLL;
+  if ((v6 & 0x2000000000000000) != 0)
   {
-    v11 = HIBYTE(v8) & 0xF;
+    v9 = HIBYTE(v6) & 0xF;
   }
 
   else
   {
-    v11 = v7 & 0xFFFFFFFFFFFFLL;
+    v9 = v5 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v11)
+  if (!v9)
   {
     goto LABEL_66;
   }
 
-  if ((v8 & 0x1000000000000000) != 0)
+  if ((v6 & 0x1000000000000000) != 0)
   {
-    v57 = v0[37];
 
-    sub_10002E2E8(v7, v8, 10);
-    v59 = v58;
+    sub_10002E2E8(v5, v6, 10);
+    v53 = v52;
 
-    if (v59)
+    if (v53)
     {
       goto LABEL_66;
     }
@@ -3335,42 +3232,42 @@ uint64_t sub_10002B338()
     goto LABEL_74;
   }
 
-  if ((v8 & 0x2000000000000000) != 0)
+  if ((v6 & 0x2000000000000000) != 0)
   {
-    v66 = v0[36];
-    v67 = v8 & 0xFFFFFFFFFFFFFFLL;
-    if (v7 == 43)
+    v56 = v0[36];
+    v57 = v6 & 0xFFFFFFFFFFFFFFLL;
+    if (v5 == 43)
     {
-      if (v9)
+      if (v7)
       {
-        if (--v9)
+        if (--v7)
         {
-          v36 = 0;
-          v37 = &v66 + 1;
+          v32 = 0;
+          v33 = &v56 + 1;
           while (1)
           {
-            v38 = *v37 - 48;
-            if (v38 > 9)
+            v34 = *v33 - 48;
+            if (v34 > 9)
             {
               break;
             }
 
-            v39 = (v36 * 10) >> 64;
-            v40 = 10 * v36;
-            if (v39 != v40 >> 63)
+            v35 = (v32 * 10) >> 64;
+            v36 = 10 * v32;
+            if (v35 != v36 >> 63)
             {
               break;
             }
 
-            v18 = __OFADD__(v40, v38);
-            v36 = v40 + v38;
-            if (v18)
+            v16 = __OFADD__(v36, v34);
+            v32 = v36 + v34;
+            if (v16)
             {
               break;
             }
 
-            ++v37;
-            if (!--v9)
+            ++v33;
+            if (!--v7)
             {
               goto LABEL_65;
             }
@@ -3382,39 +3279,39 @@ uint64_t sub_10002B338()
 
 LABEL_82:
       __break(1u);
-      return _swift_continuation_await(v6);
+      return _swift_continuation_await(v4);
     }
 
-    if (v7 != 45)
+    if (v5 != 45)
     {
-      if (v9)
+      if (v7)
       {
-        v45 = 0;
-        v46 = &v66;
+        v41 = 0;
+        v42 = &v56;
         while (1)
         {
-          v47 = *v46 - 48;
-          if (v47 > 9)
+          v43 = *v42 - 48;
+          if (v43 > 9)
           {
             break;
           }
 
-          v48 = (v45 * 10) >> 64;
-          v49 = 10 * v45;
-          if (v48 != v49 >> 63)
+          v44 = (v41 * 10) >> 64;
+          v45 = 10 * v41;
+          if (v44 != v45 >> 63)
           {
             break;
           }
 
-          v18 = __OFADD__(v49, v47);
-          v45 = v49 + v47;
-          if (v18)
+          v16 = __OFADD__(v45, v43);
+          v41 = v45 + v43;
+          if (v16)
           {
             break;
           }
 
-          ++v46;
-          if (!--v9)
+          ++v42;
+          if (!--v7)
           {
             goto LABEL_65;
           }
@@ -3424,36 +3321,36 @@ LABEL_82:
       goto LABEL_64;
     }
 
-    if (v9)
+    if (v7)
     {
-      if (--v9)
+      if (--v7)
       {
-        v26 = 0;
-        v27 = &v66 + 1;
+        v22 = 0;
+        v23 = &v56 + 1;
         while (1)
         {
-          v28 = *v27 - 48;
-          if (v28 > 9)
+          v24 = *v23 - 48;
+          if (v24 > 9)
           {
             break;
           }
 
-          v29 = (v26 * 10) >> 64;
-          v30 = 10 * v26;
-          if (v29 != v30 >> 63)
+          v25 = (v22 * 10) >> 64;
+          v26 = 10 * v22;
+          if (v25 != v26 >> 63)
           {
             break;
           }
 
-          v18 = __OFSUB__(v30, v28);
-          v26 = v30 - v28;
-          if (v18)
+          v16 = __OFSUB__(v26, v24);
+          v22 = v26 - v24;
+          if (v16)
           {
             break;
           }
 
-          ++v27;
-          if (!--v9)
+          ++v23;
+          if (!--v7)
           {
             goto LABEL_65;
           }
@@ -3466,54 +3363,52 @@ LABEL_82:
     goto LABEL_80;
   }
 
-  if ((v7 & 0x1000000000000000) != 0)
+  if ((v5 & 0x1000000000000000) != 0)
   {
-    v6 = ((v8 & 0xFFFFFFFFFFFFFFFLL) + 32);
+    v4 = ((v6 & 0xFFFFFFFFFFFFFFFLL) + 32);
   }
 
   else
   {
-    v63 = v0[36];
-    v64 = v0[37];
-    v6 = sub_1000310D8();
+    v4 = sub_1000310D8();
   }
 
-  v12 = *v6;
-  if (v12 == 43)
+  v10 = *v4;
+  if (v10 == 43)
   {
-    v9 = v10 - 1;
-    if (v10 >= 1)
+    v7 = v8 - 1;
+    if (v8 >= 1)
     {
-      if (v10 != 1)
+      if (v8 != 1)
       {
-        if (v6)
+        if (v4)
         {
-          v31 = 0;
-          v32 = v6 + 1;
+          v27 = 0;
+          v28 = v4 + 1;
           while (1)
           {
-            v33 = *v32 - 48;
-            if (v33 > 9)
+            v29 = *v28 - 48;
+            if (v29 > 9)
             {
               goto LABEL_64;
             }
 
-            v34 = (v31 * 10) >> 64;
-            v35 = 10 * v31;
-            if (v34 != v35 >> 63)
+            v30 = (v27 * 10) >> 64;
+            v31 = 10 * v27;
+            if (v30 != v31 >> 63)
             {
               goto LABEL_64;
             }
 
-            v18 = __OFADD__(v35, v33);
-            v31 = v35 + v33;
-            if (v18)
+            v16 = __OFADD__(v31, v29);
+            v27 = v31 + v29;
+            if (v16)
             {
               goto LABEL_64;
             }
 
-            ++v32;
-            if (!--v9)
+            ++v28;
+            if (!--v7)
             {
               goto LABEL_65;
             }
@@ -3529,41 +3424,41 @@ LABEL_82:
     goto LABEL_81;
   }
 
-  if (v12 == 45)
+  if (v10 == 45)
   {
-    v9 = v10 - 1;
-    if (v10 >= 1)
+    v7 = v8 - 1;
+    if (v8 >= 1)
     {
-      if (v10 != 1)
+      if (v8 != 1)
       {
-        if (v6)
+        if (v4)
         {
-          v13 = 0;
-          v14 = v6 + 1;
+          v11 = 0;
+          v12 = v4 + 1;
           while (1)
           {
-            v15 = *v14 - 48;
-            if (v15 > 9)
+            v13 = *v12 - 48;
+            if (v13 > 9)
             {
               goto LABEL_64;
             }
 
-            v16 = (v13 * 10) >> 64;
-            v17 = 10 * v13;
-            if (v16 != v17 >> 63)
+            v14 = (v11 * 10) >> 64;
+            v15 = 10 * v11;
+            if (v14 != v15 >> 63)
             {
               goto LABEL_64;
             }
 
-            v18 = __OFSUB__(v17, v15);
-            v13 = v17 - v15;
-            if (v18)
+            v16 = __OFSUB__(v15, v13);
+            v11 = v15 - v13;
+            if (v16)
             {
               goto LABEL_64;
             }
 
-            ++v14;
-            if (!--v9)
+            ++v12;
+            if (!--v7)
             {
               goto LABEL_65;
             }
@@ -3571,7 +3466,7 @@ LABEL_82:
         }
 
 LABEL_56:
-        LOBYTE(v9) = 0;
+        LOBYTE(v7) = 0;
         goto LABEL_65;
       }
 
@@ -3586,35 +3481,35 @@ LABEL_81:
     goto LABEL_82;
   }
 
-  if (v10)
+  if (v8)
   {
-    if (v6)
+    if (v4)
     {
-      v41 = 0;
+      v37 = 0;
       while (1)
       {
-        v42 = *v6 - 48;
-        if (v42 > 9)
+        v38 = *v4 - 48;
+        if (v38 > 9)
         {
           goto LABEL_64;
         }
 
-        v43 = (v41 * 10) >> 64;
-        v44 = 10 * v41;
-        if (v43 != v44 >> 63)
+        v39 = (v37 * 10) >> 64;
+        v40 = 10 * v37;
+        if (v39 != v40 >> 63)
         {
           goto LABEL_64;
         }
 
-        v18 = __OFADD__(v44, v42);
-        v41 = v44 + v42;
-        if (v18)
+        v16 = __OFADD__(v40, v38);
+        v37 = v40 + v38;
+        if (v16)
         {
           goto LABEL_64;
         }
 
-        ++v6;
-        if (!--v10)
+        ++v4;
+        if (!--v8)
         {
           goto LABEL_56;
         }
@@ -3625,34 +3520,32 @@ LABEL_81:
   }
 
 LABEL_64:
-  LOBYTE(v9) = 1;
+  LOBYTE(v7) = 1;
 LABEL_65:
-  LOBYTE(v65) = v9;
-  if ((v9 & 1) == 0)
+  LOBYTE(v55) = v7;
+  if ((v7 & 1) == 0)
   {
 LABEL_74:
-    v20 = (v0 + 2);
-    v19 = v0 + 18;
-    v60 = v0[37];
-    v61 = v0[36];
-    v23 = *(v0[38] + OBJC_IVAR___IntentHandlerMessageStore_vmManager);
-    v24 = sub_100030F58();
-    v0[42] = v24;
+    v18 = (v0 + 2);
+    v17 = v0 + 18;
+    v19 = *(v0[38] + OBJC_IVAR___IntentHandlerMessageStore_vmManager);
+    v20 = sub_100030F58();
+    v0[42] = v20;
     v0[2] = v0;
     v0[7] = v0 + 34;
     v0[3] = sub_10002BAD8;
-    v62 = swift_continuation_init();
+    v54 = swift_continuation_init();
     v0[25] = sub_100029394(&qword_1000579F8, &qword_100039048);
     v0[18] = _NSConcreteStackBlock;
     v0[19] = 1107296256;
     v0[20] = sub_10002BD4C;
     v0[21] = &unk_10004D488;
-    v0[22] = v62;
+    v0[22] = v54;
 LABEL_75:
-    [v23 fetchVoicemailWithIdentifier:v24 completion:{v19, v65, v66, v67}];
-    v6 = v20;
+    [v19 fetchVoicemailWithIdentifier:v20 completion:{v17, v55, v56, v57}];
+    v4 = v18;
 
-    return _swift_continuation_await(v6);
+    return _swift_continuation_await(v4);
   }
 
 LABEL_66:
@@ -3661,108 +3554,92 @@ LABEL_66:
     swift_once();
   }
 
-  v50 = sub_100030F48();
-  sub_1000264CC(v50, qword_100057A90);
-  v51 = sub_100030F28();
-  v52 = sub_100031088();
-  if (os_log_type_enabled(v51, v52))
+  v46 = sub_100030F48();
+  sub_1000264CC(v46, qword_100057A90);
+  v47 = sub_100030F28();
+  v48 = sub_100031088();
+  if (os_log_type_enabled(v47, v48))
   {
-    v53 = swift_slowAlloc();
-    *v53 = 0;
-    _os_log_impl(&_mh_execute_header, v51, v52, "Unrecognized identifier, returning nil", v53, 2u);
+    v49 = swift_slowAlloc();
+    *v49 = 0;
+    _os_log_impl(&_mh_execute_header, v47, v48, "Unrecognized identifier, returning nil", v49, 2u);
   }
 
-  v54 = v0[39];
+  v50 = v0[1];
 
-  v55 = v0[1];
-
-  return v55(0);
+  return v50(0);
 }
 
 uint64_t sub_10002B954()
 {
-  v1 = *v0;
-  v2 = *(*v0 + 112);
-  *(*v0 + 328) = v2;
-  if (v2)
+  v1 = *(*v0 + 112);
+  *(*v0 + 328) = v1;
+  if (v1)
   {
-    v3 = sub_10002BC5C;
+    v2 = sub_10002BC5C;
   }
 
   else
   {
-    v3 = sub_10002BA64;
+    v2 = sub_10002BA64;
   }
 
-  return _swift_task_switch(v3, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 uint64_t sub_10002BA64()
 {
   v1 = *(v0 + 280);
 
-  v2 = *(v0 + 312);
+  v2 = *(v0 + 8);
 
-  v3 = *(v0 + 8);
-
-  return v3(v1);
+  return v2(v1);
 }
 
 uint64_t sub_10002BAD8()
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 344) = v2;
-  if (v2)
+  v1 = *(*v0 + 48);
+  *(*v0 + 344) = v1;
+  if (v1)
   {
-    v3 = sub_10002BCD4;
+    v2 = sub_10002BCD4;
   }
 
   else
   {
-    v3 = sub_10002BBE8;
+    v2 = sub_10002BBE8;
   }
 
-  return _swift_task_switch(v3, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 uint64_t sub_10002BBE8()
 {
   v1 = *(v0 + 272);
 
-  v2 = *(v0 + 312);
+  v2 = *(v0 + 8);
 
-  v3 = *(v0 + 8);
-
-  return v3(v1);
+  return v2(v1);
 }
 
 uint64_t sub_10002BC5C()
 {
-  v1 = v0[40];
-  v2 = v0[41];
+  v1 = *(v0 + 320);
   swift_willThrow();
 
-  v3 = v0[41];
-  v4 = v0[39];
+  v2 = *(v0 + 8);
 
-  v5 = v0[1];
-
-  return v5();
+  return v2();
 }
 
 uint64_t sub_10002BCD4()
 {
-  v1 = v0[42];
-  v2 = v0[43];
+  v1 = *(v0 + 336);
   swift_willThrow();
 
-  v3 = v0[43];
-  v4 = v0[39];
+  v2 = *(v0 + 8);
 
-  v5 = v0[1];
-
-  return v5();
+  return v2();
 }
 
 uint64_t sub_10002BD4C(uint64_t a1, uint64_t a2, void *a3)
@@ -3787,7 +3664,7 @@ uint64_t sub_10002BD4C(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-uint64_t sub_10002BFA8(int a1, void *aBlock, void *a3)
+uint64_t sub_10002BFA8(uint64_t a1, void *aBlock, void *a3)
 {
   v3[2] = a3;
   v3[3] = _Block_copy(aBlock);
@@ -3807,31 +3684,29 @@ uint64_t sub_10002C07C(uint64_t a1)
 {
   v3 = v1;
   v5 = *v2;
-  v6 = *(*v2 + 40);
-  v7 = *(*v2 + 32);
-  v8 = *(*v2 + 16);
-  v9 = *v2;
+  v6 = *(*v2 + 16);
+  v7 = *v2;
 
-  v10 = *(v5 + 24);
+  v8 = *(v5 + 24);
   if (v3)
   {
-    v11 = sub_100030D78();
+    v9 = sub_100030D78();
 
-    (v10)[2](v10, 0, v11);
+    (v8)[2](v8, 0, v9);
 
-    _Block_release(v10);
+    _Block_release(v8);
   }
 
   else
   {
-    v10[2](*(v5 + 24), a1, 0);
-    _Block_release(v10);
+    v8[2](*(v5 + 24), a1, 0);
+    _Block_release(v8);
     swift_unknownObjectRelease();
   }
 
-  v12 = *(v9 + 8);
+  v10 = *(v7 + 8);
 
-  return v12();
+  return v10();
 }
 
 id sub_10002C2FC()
@@ -3923,13 +3798,12 @@ uint64_t sub_10002C6E4()
 
 uint64_t sub_10002C7C4(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  LOBYTE(v4) = v4();
+  v4 = a2;
+  LOBYTE(v3) = v3();
 
-  return v4 & 1;
+  return v3 & 1;
 }
 
 uint64_t sub_10002C81C(unint64_t a1)
@@ -3976,14 +3850,13 @@ uint64_t sub_10002CAD4()
   v0[4] = sub_10002C7C4;
   v0[5] = &unk_10004D7A8;
   v4 = _Block_copy(v0 + 2);
-  v5 = v0[7];
 
-  v6 = [v3 voicemailsPassingTest:v4];
+  v5 = [v3 voicemailsPassingTest:v4];
   _Block_release(v4);
   sub_10002EF2C();
-  v7 = sub_100031048();
+  v6 = sub_100031048();
 
-  sub_10002C81C(v7);
+  sub_10002C81C(v6);
 
   sub_100029394(&qword_100057A10, &unk_100039060);
   isa = sub_100031038().super.isa;
@@ -3991,9 +3864,9 @@ uint64_t sub_10002CAD4()
   (v2)[2](v2, isa, 0);
 
   _Block_release(v2);
-  v9 = v0[1];
+  v8 = v0[1];
 
-  return v9();
+  return v8();
 }
 
 uint64_t sub_10002CC6C(uint64_t a1, uint64_t a2)
@@ -4006,7 +3879,7 @@ uint64_t sub_10002CC6C(uint64_t a1, uint64_t a2)
 
 void sub_10002CC90()
 {
-  v41 = v0;
+  v38 = v0;
   v1 = *(v0 + 16);
   v2 = *(v0 + 24);
   v3 = HIBYTE(v2) & 0xF;
@@ -4028,24 +3901,23 @@ void sub_10002CC90()
 
   if ((v2 & 0x1000000000000000) != 0)
   {
-    v31 = *(v0 + 24);
 
-    v32 = sub_10002E2E8(v1, v2, 10);
-    v34 = v33;
+    v31 = sub_10002E2E8(v1, v2, 10);
+    v33 = v32;
 
-    if (v34)
+    if (v33)
     {
       goto LABEL_63;
     }
 
-    v8 = v32;
+    v8 = v31;
     goto LABEL_70;
   }
 
   if ((v2 & 0x2000000000000000) != 0)
   {
-    v39 = *(v0 + 16);
-    v40 = v2 & 0xFFFFFFFFFFFFFFLL;
+    v36 = *(v0 + 16);
+    v37 = v2 & 0xFFFFFFFFFFFFFFLL;
     if (v1 == 43)
     {
       if (v3)
@@ -4053,7 +3925,7 @@ void sub_10002CC90()
         if (--v3)
         {
           v8 = 0;
-          v18 = &v39 + 1;
+          v18 = &v36 + 1;
           while (1)
           {
             v19 = *v18 - 48;
@@ -4095,7 +3967,7 @@ LABEL_78:
       if (v3)
       {
         v8 = 0;
-        v23 = &v39;
+        v23 = &v36;
         while (1)
         {
           v24 = *v23 - 48;
@@ -4132,7 +4004,7 @@ LABEL_78:
       if (--v3)
       {
         v8 = 0;
-        v12 = &v39 + 1;
+        v12 = &v36 + 1;
         while (1)
         {
           v13 = *v12 - 48;
@@ -4174,8 +4046,6 @@ LABEL_78:
 
   else
   {
-    v36 = *(v0 + 16);
-    v37 = *(v0 + 24);
     v6 = sub_1000310D8();
   }
 
@@ -4323,7 +4193,7 @@ LABEL_61:
   v8 = 0;
   LOBYTE(v3) = 1;
 LABEL_62:
-  LOBYTE(v38) = v3;
+  LOBYTE(v35) = v3;
   if (v3)
   {
 LABEL_63:
@@ -4348,14 +4218,14 @@ LABEL_63:
   }
 
 LABEL_70:
-  v30 = [*(v0 + 32) voicemailWithIdentifier:{v8, v38, v39, v40}];
+  v30 = [*(v0 + 32) voicemailWithIdentifier:{v8, v35, v36, v37}];
 LABEL_71:
-  v35 = *(v0 + 8);
+  v34 = *(v0 + 8);
 
-  v35(v30);
+  v34(v30);
 }
 
-uint64_t sub_10002D214(int a1, void *aBlock, void *a3)
+uint64_t sub_10002D214(uint64_t a1, void *aBlock, void *a3)
 {
   v3[2] = a3;
   v3[3] = _Block_copy(aBlock);
@@ -4371,15 +4241,15 @@ uint64_t sub_10002D214(int a1, void *aBlock, void *a3)
   return sub_10002CC6C(v5, v7);
 }
 
-void sub_10002D2E8()
+void sub_10002D2E8(uint64_t a1)
 {
   objc_opt_self();
-  v1 = swift_dynamicCastObjCClass();
-  if (v1)
+  v2 = swift_dynamicCastObjCClass();
+  if (v2)
   {
-    v2 = v1;
+    v3 = v2;
     swift_unknownObjectRetain();
-    oslog = [v0 markVoicemailAsRead:v2];
+    oslog = [v1 markVoicemailAsRead:v3];
     swift_unknownObjectRelease();
   }
 
@@ -4390,59 +4260,57 @@ void sub_10002D2E8()
       swift_once();
     }
 
-    v3 = sub_100030F48();
-    sub_1000264CC(v3, qword_100057A90);
+    v4 = sub_100030F48();
+    sub_1000264CC(v4, qword_100057A90);
     swift_unknownObjectRetain();
     oslog = sub_100030F28();
-    v4 = sub_100031088();
+    v5 = sub_100031088();
     swift_unknownObjectRelease();
-    if (os_log_type_enabled(oslog, v4))
+    if (os_log_type_enabled(oslog, v5))
     {
-      v5 = swift_slowAlloc();
       v6 = swift_slowAlloc();
-      v11 = v6;
-      *v5 = 136315138;
+      v7 = swift_slowAlloc();
+      v12 = v7;
+      *v6 = 136315138;
       swift_getObjectType();
-      v7 = sub_100031178();
-      v9 = sub_10002DA30(v7, v8, &v11);
+      v8 = sub_100031178();
+      v10 = sub_10002DA30(v8, v9, &v12);
 
-      *(v5 + 4) = v9;
-      _os_log_impl(&_mh_execute_header, oslog, v4, "Received %s but feature flag is off", v5, 0xCu);
-      sub_1000295CC(v6);
+      *(v6 + 4) = v10;
+      _os_log_impl(&_mh_execute_header, oslog, v5, "Received %s but feature flag is off", v6, 0xCu);
+      sub_1000295CC(v7);
     }
   }
 }
 
 uint64_t sub_10002D5A4(uint64_t a1, uint64_t a2, int *a3)
 {
-  v7 = (a3 + *a3);
-  v4 = a3[1];
-  v5 = swift_task_alloc();
-  *(v3 + 16) = v5;
-  *v5 = v3;
-  v5[1] = sub_10002A6D8;
+  v6 = (a3 + *a3);
+  v4 = swift_task_alloc();
+  *(v3 + 16) = v4;
+  *v4 = v3;
+  v4[1] = sub_10002A6D8;
 
-  return v7();
+  return v6();
 }
 
 uint64_t sub_10002D68C(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
 {
-  v8 = (a4 + *a4);
-  v5 = a4[1];
-  v6 = swift_task_alloc();
-  *(v4 + 16) = v6;
-  *v6 = v4;
-  v6[1] = sub_1000299F4;
+  v7 = (a4 + *a4);
+  v5 = swift_task_alloc();
+  *(v4 + 16) = v5;
+  *v5 = v4;
+  v5[1] = sub_1000299F4;
 
-  return v8();
+  return v7();
 }
 
 uint64_t sub_10002D774(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = (*(*(sub_100029394(&qword_100057960, &qword_100038F18) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v11 = v24 - v10;
-  sub_1000297DC(a3, v24 - v10);
+  v9 = sub_100029394(&qword_100057960, &qword_100038F18);
+  __chkstk_darwin(v9 - 8);
+  v11 = v23 - v10;
+  sub_1000297DC(a3, v23 - v10);
   v12 = sub_100031078();
   v13 = *(v12 - 8);
   if ((*(v13 + 48))(v11, 1, v12) == 1)
@@ -4454,8 +4322,8 @@ uint64_t sub_10002D774(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     }
 
 LABEL_7:
-    v15 = 0;
-    v17 = 0;
+    v14 = 0;
+    v16 = 0;
     if (a2)
     {
       goto LABEL_4;
@@ -4472,61 +4340,60 @@ LABEL_7:
   }
 
 LABEL_3:
-  v14 = *(a5 + 24);
   swift_getObjectType();
   swift_unknownObjectRetain();
-  v15 = sub_100031058();
-  v17 = v16;
+  v14 = sub_100031058();
+  v16 = v15;
   swift_unknownObjectRelease();
   if (a2)
   {
 LABEL_4:
-    v18 = sub_100030F88() + 32;
-    v19 = swift_allocObject();
-    *(v19 + 16) = a4;
-    *(v19 + 24) = a5;
+    v17 = sub_100030F88() + 32;
+    v18 = swift_allocObject();
+    *(v18 + 16) = a4;
+    *(v18 + 24) = a5;
 
-    if (v17 | v15)
+    if (v16 | v14)
     {
-      v25[0] = 0;
-      v25[1] = 0;
-      v20 = v25;
-      v25[2] = v15;
-      v25[3] = v17;
+      v24[0] = 0;
+      v24[1] = 0;
+      v19 = v24;
+      v24[2] = v14;
+      v24[3] = v16;
     }
 
     else
     {
-      v20 = 0;
+      v19 = 0;
     }
 
-    v24[1] = 7;
-    v24[2] = v20;
-    v24[3] = v18;
-    v22 = swift_task_create();
+    v23[1] = 7;
+    v23[2] = v19;
+    v23[3] = v17;
+    v21 = swift_task_create();
 
     sub_10002E0D8(a3);
 
-    return v22;
+    return v21;
   }
 
 LABEL_8:
   sub_10002E0D8(a3);
-  v21 = swift_allocObject();
-  *(v21 + 16) = a4;
-  *(v21 + 24) = a5;
-  if (v17 | v15)
+  v20 = swift_allocObject();
+  *(v20 + 16) = a4;
+  *(v20 + 24) = a5;
+  if (v16 | v14)
   {
-    v25[4] = 0;
-    v25[5] = 0;
-    v25[6] = v15;
-    v25[7] = v17;
+    v24[4] = 0;
+    v24[5] = 0;
+    v24[6] = v14;
+    v24[7] = v16;
   }
 
   return swift_task_create();
 }
 
-uint64_t sub_10002DA30(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_10002DA30(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_10002DAFC(v11, 0, 0, 1, a1, a2);
@@ -4624,16 +4491,14 @@ LABEL_8:
   }
 }
 
-char *sub_10002DC08(uint64_t a1, unint64_t a2)
+void *sub_10002DC08(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_10002DC54(a1, a2);
+  v3 = sub_10002DC54(a1, a2);
   sub_10002DD84(&off_10004D2F8);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
-char *sub_10002DC54(uint64_t a1, unint64_t a2)
+void *sub_10002DC54(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -4653,7 +4518,7 @@ char *sub_10002DC54(uint64_t a1, unint64_t a2)
 
   if (!v5)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   v6 = sub_10002DE70(v5, 0);
@@ -4662,7 +4527,7 @@ char *sub_10002DC54(uint64_t a1, unint64_t a2)
   {
     v15[0] = a1;
     v15[1] = a2 & 0xFFFFFFFFFFFFFFLL;
-    memcpy(v6 + 32, v15, HIBYTE(a2) & 0xF);
+    memcpy(v6 + 4, v15, HIBYTE(a2) & 0xF);
     return v7;
   }
 
@@ -4679,7 +4544,7 @@ char *sub_10002DC54(uint64_t a1, unint64_t a2)
   if (v4 >= v9)
   {
 LABEL_9:
-    memcpy(v7 + 32, v8, v9);
+    memcpy(v7 + 4, v8, v9);
     if (v9 != v4)
     {
       while (1)
@@ -4689,7 +4554,7 @@ LABEL_13:
         v10 = sub_100030FB8();
         if (!v10)
         {
-          return &_swiftEmptyArrayStorage;
+          return _swiftEmptyArrayStorage;
         }
 
         v11 = v10;
@@ -4730,7 +4595,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -4744,15 +4608,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_10002DEE4(result, v12, 1, v3);
+  result = sub_10002DEE4(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -4767,15 +4631,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -4784,12 +4648,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -4812,7 +4676,7 @@ void *sub_10002DE70(uint64_t a1, uint64_t a2)
 
   if (!v2)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   sub_100029394(&qword_100057A18, &qword_1000390A8);
@@ -4874,7 +4738,7 @@ char *sub_10002DEE4(char *result, int64_t a2, char a3, char *a4)
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v12 = v10 + 32;
@@ -4926,33 +4790,30 @@ uint64_t sub_10002E0D8(uint64_t a1)
 
 uint64_t sub_10002E140()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
 uint64_t sub_10002E178(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_10002A6D8;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_10002A6D8;
 
-  return sub_1000293DC(a1, v5);
+  return sub_1000293DC(a1, v4);
 }
 
 uint64_t sub_10002E230(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_1000299F4;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_1000299F4;
 
-  return sub_1000293DC(a1, v5);
+  return sub_1000293DC(a1, v4);
 }
 
 unsigned __int8 *sub_10002E2E8(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -4964,7 +4825,7 @@ unsigned __int8 *sub_10002E2E8(uint64_t a1, uint64_t a2, uint64_t a3)
   v6 = result;
   if ((v5 & 0x1000000000000000) != 0)
   {
-    v6 = sub_10002E874();
+    v6 = sub_10002E874(result, v5);
     v35 = v34;
 
     v5 = v35;
@@ -5465,22 +5326,35 @@ LABEL_132:
   return result;
 }
 
-uint64_t sub_10002E874()
+uint64_t sub_10002E874(uint64_t a1, unint64_t a2)
 {
-  v0 = sub_100031018();
-  v4 = sub_10002E8F4(v0, v1, v2, v3);
+  v2 = sub_100031018();
+  v6 = sub_10002E8F4(v2, v3, v4, v5);
 
-  return v4;
+  return v6;
 }
 
 uint64_t sub_10002E8F4(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
-  if ((a4 & 0x1000000000000000) == 0)
+  if ((a4 & 0x1000000000000000) != 0)
+  {
+    v9 = sub_100031098();
+    if (!v9 || (v10 = v9, v11 = sub_10002DE70(v9, 0), v12 = sub_10002EA4C(v14, (v11 + 4), v10, a1, a2, a3, a4), , , v12 == v10))
+    {
+      v13 = sub_100030F98();
+
+      return v13;
+    }
+
+    __break(1u);
+  }
+
+  else
   {
     if ((a4 & 0x2000000000000000) != 0)
     {
-      v15[0] = a3;
-      v15[1] = a4 & 0xFFFFFFFFFFFFFFLL;
+      v14[0] = a3;
+      v14[1] = a4 & 0xFFFFFFFFFFFFFFLL;
       return sub_100030F98();
     }
 
@@ -5488,32 +5362,8 @@ uint64_t sub_10002E8F4(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
     {
       goto LABEL_4;
     }
-
-    goto LABEL_11;
   }
 
-  v9 = sub_100031098();
-  if (!v9)
-  {
-    v11 = _swiftEmptyArrayStorage;
-    goto LABEL_13;
-  }
-
-  v10 = v9;
-  v11 = sub_10002DE70(v9, 0);
-  v12 = sub_10002EA4C(v15, (v11 + 4), v10, a1, a2, a3, a4);
-
-  if (v12 == v10)
-  {
-LABEL_13:
-    v13 = v11[2];
-    v14 = sub_100030F98();
-
-    return v14;
-  }
-
-  __break(1u);
-LABEL_11:
   sub_1000310D8();
 LABEL_4:
 
@@ -5682,7 +5532,7 @@ LABEL_38:
   return result;
 }
 
-uint64_t sub_10002EC6C(unsigned __int16 a1, uint64_t a2, uint64_t a3)
+unint64_t sub_10002EC6C(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1;
   v4 = a1 >> 14;
@@ -5740,14 +5590,13 @@ uint64_t sub_10002EDE8(uint64_t a1)
 {
   v4 = v1[2];
   v5 = v1[3];
-  v7 = v1[4];
-  v6 = v1[5];
-  v8 = swift_task_alloc();
-  *(v2 + 16) = v8;
-  *v8 = v2;
-  v8[1] = sub_1000299F4;
+  v6 = v1[4];
+  v7 = swift_task_alloc();
+  *(v2 + 16) = v7;
+  *v7 = v2;
+  v7[1] = sub_1000299F4;
 
-  return sub_10002D68C(a1, v4, v5, v7);
+  return sub_10002D68C(a1, v4, v5, v6);
 }
 
 uint64_t sub_10002EEB4()
@@ -5838,6 +5687,20 @@ void sub_10002F284(uint64_t a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "Found ISO Country Code override: %@", &v2, 0xCu);
 }
 
+void sub_10002F2FC(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100007FDC(&_mh_execute_header, a2, a3, "Error performing contact search: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10002F368(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100007FDC(&_mh_execute_header, a2, a3, "Could not construct contact search predicate from handle: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10002F3D4(uint64_t a1, uint64_t a2, os_log_t log)
 {
   v3 = 138412546;
@@ -5845,6 +5708,27 @@ void sub_10002F3D4(uint64_t a1, uint64_t a2, os_log_t log)
   v5 = 2112;
   v6 = a2;
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Error when fetching application record for appId: %@, error: %@", &v3, 0x16u);
+}
+
+void sub_10002F4A0(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100007FDC(&_mh_execute_header, a2, a3, "Error fetching voicemails: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10002F50C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  sub_100007FDC(&_mh_execute_header, a2, a3, "Unhandled call record type options: %ld", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10002F578(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  sub_100007FDC(&_mh_execute_header, a2, a3, "Unhandled call capability: %ld", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10002F5E4()

@@ -71,14 +71,14 @@
 
 - (int)computeMaxCGTemp
 {
-  if (qword_1000AB8E4 <= SHIDWORD(qword_1000AB8E4))
+  if (SHIDWORD(qword_1000AB8E0) <= dword_1000AB8E8)
   {
-    return HIDWORD(qword_1000AB8E4);
+    return dword_1000AB8E8;
   }
 
   else
   {
-    return qword_1000AB8E4;
+    return HIDWORD(qword_1000AB8E0);
   }
 }
 

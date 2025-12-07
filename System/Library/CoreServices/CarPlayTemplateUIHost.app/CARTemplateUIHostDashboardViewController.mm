@@ -2,6 +2,7 @@
 - (void)_button1Triggered;
 - (void)_button2Triggered;
 - (void)_button3Triggered;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -176,6 +177,34 @@
   v101[7] = v45;
   v46 = [NSArray arrayWithObjects:v101 count:8];
   [NSLayoutConstraint activateConstraints:v46];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v11.receiver = self;
+  v11.super_class = CARTemplateUIHostDashboardViewController;
+  [(CARTemplateUIHostDashboardViewController *)&v11 viewDidAppear:appear];
+  objc_opt_class();
+  view = [(CARTemplateUIHostDashboardViewController *)self view];
+  window = [view window];
+  if (window && (objc_opt_isKindOfClass() & 1) != 0)
+  {
+    v6 = window;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  button1 = [(CARTemplateUIHostDashboardViewController *)self button1];
+  v12[0] = button1;
+  button2 = [(CARTemplateUIHostDashboardViewController *)self button2];
+  v12[1] = button2;
+  button3 = [(CARTemplateUIHostDashboardViewController *)self button3];
+  v12[2] = button3;
+  v10 = [NSArray arrayWithObjects:v12 count:3];
+  [v6 setFocusableViews:v10];
 }
 
 - (void)_button1Triggered

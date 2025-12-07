@@ -44,7 +44,7 @@
 
 - (void)commonInitWithName:(id)name
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   objc_storeStrong(&self->_name, name);
   nameCopy = name;
   *&self->_flags = xmmword_231C225C0;
@@ -84,9 +84,9 @@
   trackingAttributes = self->_trackingAttributes;
   self->_trackingAttributes = v15;
 
-  v24 = *&self->_versionAttributeKey;
-  v25 = self->_errorAttributeKey;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:3];
+  v23 = *&self->_versionAttributeKey;
+  v24 = self->_errorAttributeKey;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:3];
   donationAttributes = self->_donationAttributes;
   self->_donationAttributes = v18;
 
@@ -102,8 +102,6 @@
   [(NSMutableSet *)self->_fetchAttributes addObject:self->_journalAttributeKey];
   [(NSMutableSet *)self->_fetchAttributes addObject:self->_errorAttributeKey];
   [(NSMutableSet *)self->_fetchAttributes addObjectsFromArray:self->_donationAttributes];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_versionQuery
@@ -640,17 +638,8 @@ LABEL_14:
 
   versionAttributeKey = [(SKGProcessorTask *)self versionAttributeKey];
 
-  if (!versionAttributeKey)
+  if (!versionAttributeKey || (-[SKGProcessorTask versionAttributeKey](self, "versionAttributeKey"), v15 = objc_claimAutoreleasedReturnValue(), [recordCopy queryRecordNumberValueForKey:v15], v16 = objc_claimAutoreleasedReturnValue(), v15, !v16) || (-[SKGProcessorTask versionValue](self, "versionValue"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v16, "isEqualToNumber:", v17), v17, v16, (v18 & 1) == 0))
   {
-    goto LABEL_15;
-  }
-
-  versionAttributeKey2 = [(SKGProcessorTask *)self versionAttributeKey];
-  v16 = [recordCopy queryRecordNumberValueForKey:versionAttributeKey2];
-
-  if (!v16 || (-[SKGProcessorTask versionValue](self, "versionValue"), v17 = objc_claimAutoreleasedReturnValue(), v18 = [v16 isEqualToNumber:v17], v17, v16, (v18 & 1) == 0))
-  {
-LABEL_15:
     v19 = 1;
     goto LABEL_14;
   }

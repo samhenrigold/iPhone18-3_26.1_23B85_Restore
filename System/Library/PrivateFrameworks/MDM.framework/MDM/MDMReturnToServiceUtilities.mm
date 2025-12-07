@@ -13,45 +13,140 @@
 + (id)_eraseDeviceProvisionallyEnrolledError;
 + (id)_triggerRRTSServeraRejectError;
 + (void)performRRTSCheckInAndValidationWithCompletionHandler:(id)handler;
++ (void)triggerReturnToServiceObliterationWithPreserveDataPlan:(BOOL)plan disallowProximitySetup:(BOOL)setup mdmProfileData:(id)data wifiProfileData:(id)profileData bootstrapToken:(id)token preObliterationAction:(id)action completionHandler:(id)handler;
++ (void)triggerReturnToServiceObliterationWithPreserveDataPlan:(BOOL)plan disallowProximitySetup:(BOOL)setup mdmProfileData:(id)data wifiProfileData:(id)profileData revertToSnapshotName:(id)name bootstrapToken:(id)token preObliterationAction:(id)action completionHandler:(id)self0;
 @end
 
 @implementation MDMReturnToServiceUtilities
 
++ (void)triggerReturnToServiceObliterationWithPreserveDataPlan:(BOOL)plan disallowProximitySetup:(BOOL)setup mdmProfileData:(id)data wifiProfileData:(id)profileData bootstrapToken:(id)token preObliterationAction:(id)action completionHandler:(id)handler
+{
+  if (token)
+  {
+    v10 = *MEMORY[0x277D035E0];
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  [self triggerReturnToServiceObliterationWithPreserveDataPlan:plan disallowProximitySetup:setup mdmProfileData:data wifiProfileData:profileData revertToSnapshotName:v10 bootstrapToken:token preObliterationAction:action completionHandler:handler];
+}
+
++ (void)triggerReturnToServiceObliterationWithPreserveDataPlan:(BOOL)plan disallowProximitySetup:(BOOL)setup mdmProfileData:(id)data wifiProfileData:(id)profileData revertToSnapshotName:(id)name bootstrapToken:(id)token preObliterationAction:(id)action completionHandler:(id)self0
+{
+  setupCopy = setup;
+  planCopy = plan;
+  v46 = *MEMORY[0x277D85DE8];
+  dataCopy = data;
+  profileDataCopy = profileData;
+  nameCopy = name;
+  tokenCopy = token;
+  actionCopy = action;
+  handlerCopy = handler;
+  v43 = 0;
+  v41 = profileDataCopy;
+  LOBYTE(self) = [self validateReturnToServiceRequestWithMDMProfileData:dataCopy wifiProfileData:profileDataCopy revertToSnapshotName:nameCopy bootstrapToken:tokenCopy error:&v43];
+  v22 = v43;
+  if (self)
+  {
+    v40 = dataCopy;
+    date = [MEMORY[0x277CBEAA8] date];
+    isoLocalTimeZoneDateFormatter = [MEMORY[0x277D034E0] isoLocalTimeZoneDateFormatter];
+    v37 = date;
+    v39 = [isoLocalTimeZoneDateFormatter stringFromDate:date];
+
+    v25 = objc_opt_new();
+    v36 = planCopy;
+    v26 = [MEMORY[0x277CCABB0] numberWithBool:planCopy];
+    [v25 setObject:v26 forKeyedSubscript:@"PreserveDataPlan"];
+
+    v27 = [MEMORY[0x277CCABB0] numberWithBool:setupCopy];
+    [v25 setObject:v27 forKeyedSubscript:@"DisallowProximitySetup"];
+
+    if (nameCopy)
+    {
+      v28 = nameCopy;
+    }
+
+    else
+    {
+      v28 = @"<None>";
+    }
+
+    [v25 setObject:v28 forKeyedSubscript:@"RevertToSnapshotName"];
+    v38 = actionCopy;
+    if (tokenCopy)
+    {
+      v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"<Data: %ld bytes>", objc_msgSend(tokenCopy, "length")];
+      [v25 setObject:v29 forKeyedSubscript:@"BootstrapToken"];
+    }
+
+    else
+    {
+      [v25 setObject:@"<None>" forKeyedSubscript:@"BootstrapToken"];
+    }
+
+    [v25 setObject:v39 forKeyedSubscript:@"RTS Timestamp (Localized)"];
+    [v25 setObject:v37 forKeyedSubscript:@"RTS Timestamp"];
+    v31 = MEMORY[0x277D031C0];
+    v32 = [v25 copy];
+    v42 = v22;
+    v33 = [v31 preseveReturnToServiceDataWithMDMProfileData:v40 wifiProfileData:v41 additionalDetails:v32 error:&v42];
+    v30 = v42;
+
+    if (v30)
+    {
+      v34 = *DMCLogObjects();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543362;
+        v45 = v30;
+        _os_log_impl(&dword_2561F5000, v34, OS_LOG_TYPE_ERROR, "Failed to preserve data with error: %{public}@", buf, 0xCu);
+      }
+
+      [v33 clear];
+      handlerCopy[2](handlerCopy, 0, v30);
+      actionCopy = v38;
+    }
+
+    else
+    {
+      generateExclusionPaths = [v33 generateExclusionPaths];
+      actionCopy = v38;
+      [MDMObliterationUtilities obliterateDeviceWithPreserveDataPlan:v36 disallowProximitySetup:setupCopy returnToServiceEnabled:1 exclusionPaths:generateExclusionPaths revertToSnapshotName:nameCopy bootstrapToken:tokenCopy preObliterationAction:v38 completionHander:handlerCopy];
+    }
+
+    dataCopy = v40;
+  }
+
+  else
+  {
+    handlerCopy[2](handlerCopy, 0, v22);
+    v30 = v22;
+  }
+}
+
 + (BOOL)validateReturnToServiceRequestWithMDMProfileData:(id)data wifiProfileData:(id)profileData revertToSnapshotName:(id)name bootstrapToken:(id)token error:(id *)error
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   profileDataCopy = profileData;
   tokenCopy = token;
   mEMORY[0x277D24640] = [MEMORY[0x277D24640] sharedConfiguration];
   mEMORY[0x277D24648] = [MEMORY[0x277D24648] sharedConfiguration];
-  v61 = mEMORY[0x277D24640];
+  v60 = mEMORY[0x277D24640];
   enrollmentServerInfo = [mEMORY[0x277D24640] enrollmentServerInfo];
-  if (!enrollmentServerInfo)
+  if (!enrollmentServerInfo || (v16 = enrollmentServerInfo, [MEMORY[0x277CB8F48] defaultStore], v17 = error, v18 = dataCopy, v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "dmc_visibleRemoteManagementAccounts"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "count"), v20, v19, dataCopy = v18, error = v17, v16, !v21))
   {
-    goto LABEL_8;
-  }
-
-  v16 = enrollmentServerInfo;
-  [MEMORY[0x277CB8F48] defaultStore];
-  errorCopy = error;
-  v19 = v18 = dataCopy;
-  dmc_visibleRemoteManagementAccounts = [v19 dmc_visibleRemoteManagementAccounts];
-  v21 = [dmc_visibleRemoteManagementAccounts count];
-
-  dataCopy = v18;
-  error = errorCopy;
-
-  if (!v21)
-  {
-LABEL_8:
     v28 = mEMORY[0x277D24648];
     personaID = [mEMORY[0x277D24648] personaID];
 
     if (personaID)
     {
       v30 = *DMCLogObjects();
-      v24 = v61;
+      v24 = v60;
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
@@ -67,9 +162,9 @@ LABEL_13:
         if (_eraseDeviceNotSupporttedError)
         {
           v32 = _eraseDeviceNotSupporttedError;
-          errorCopy2 = error;
+          errorCopy = error;
           LOBYTE(error) = 0;
-          *errorCopy2 = _eraseDeviceContainsMDMPayloadError;
+          *errorCopy = _eraseDeviceContainsMDMPayloadError;
         }
 
         else
@@ -84,8 +179,8 @@ LABEL_13:
       goto LABEL_39;
     }
 
-    v24 = v61;
-    if (([v61 isSupervised] & 1) == 0 && +[MDMFindMyUtilities isActivationLockOn](MDMFindMyUtilities, "isActivationLockOn"))
+    v24 = v60;
+    if (([v60 isSupervised] & 1) == 0 && +[MDMFindMyUtilities isActivationLockOn](MDMFindMyUtilities, "isActivationLockOn"))
     {
       v34 = *DMCLogObjects();
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
@@ -113,11 +208,11 @@ LABEL_39:
     {
       if (!name)
       {
-        v45 = *DMCLogObjects();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        v44 = *DMCLogObjects();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_2561F5000, v45, OS_LOG_TYPE_ERROR, "Failed to trigger rapid return to service since snapshot name is nil", buf, 2u);
+          _os_log_impl(&dword_2561F5000, v44, OS_LOG_TYPE_ERROR, "Failed to trigger rapid return to service since snapshot name is nil", buf, 2u);
         }
 
         if (!error)
@@ -129,27 +224,27 @@ LABEL_39:
         goto LABEL_80;
       }
 
-      v64 = 0;
-      v37 = [MDMBootstrapTokenUtilities validateBootstrapToken:tokenCopy error:&v64];
-      v38 = v64;
+      v63 = 0;
+      v37 = [MDMBootstrapTokenUtilities validateBootstrapToken:tokenCopy error:&v63];
+      v38 = v63;
       _eraseDeviceContainsMDMPayloadError = v38;
       if (!v37)
       {
-        errorCopy3 = error;
-        v48 = *DMCLogObjects();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        errorCopy2 = error;
+        v47 = *DMCLogObjects();
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v66 = _eraseDeviceContainsMDMPayloadError;
-          _os_log_impl(&dword_2561F5000, v48, OS_LOG_TYPE_ERROR, "Bootstrap token is not valid with error: %{public}@", buf, 0xCu);
+          v65 = _eraseDeviceContainsMDMPayloadError;
+          _os_log_impl(&dword_2561F5000, v47, OS_LOG_TYPE_ERROR, "Bootstrap token is not valid with error: %{public}@", buf, 0xCu);
         }
 
         LOBYTE(error) = 0;
-        if (errorCopy3 && _eraseDeviceContainsMDMPayloadError)
+        if (errorCopy2 && _eraseDeviceContainsMDMPayloadError)
         {
-          v49 = _eraseDeviceContainsMDMPayloadError;
+          v48 = _eraseDeviceContainsMDMPayloadError;
           LOBYTE(error) = 0;
-          *errorCopy3 = _eraseDeviceContainsMDMPayloadError;
+          *errorCopy2 = _eraseDeviceContainsMDMPayloadError;
         }
 
         goto LABEL_45;
@@ -158,9 +253,9 @@ LABEL_39:
 
     if (v23)
     {
-      v63 = 0;
-      v39 = [MEMORY[0x277D26290] profileWithData:v23 outError:&v63];
-      _eraseDeviceContainsMDMPayloadError = v63;
+      v62 = 0;
+      v39 = [MEMORY[0x277D26290] profileWithData:v23 outError:&v62];
+      _eraseDeviceContainsMDMPayloadError = v62;
       if (_eraseDeviceContainsMDMPayloadError || [v39 containsPayloadOfClass:objc_opt_class()])
       {
         v40 = dataCopy;
@@ -168,7 +263,7 @@ LABEL_39:
         if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v66 = _eraseDeviceContainsMDMPayloadError;
+          v65 = _eraseDeviceContainsMDMPayloadError;
           _os_log_impl(&dword_2561F5000, v41, OS_LOG_TYPE_ERROR, "Invalid WiFi profile: %{public}@", buf, 0xCu);
         }
 
@@ -192,14 +287,14 @@ LABEL_39:
         goto LABEL_35;
       }
 
-      v24 = v61;
+      v24 = v60;
     }
 
     if (dataCopy)
     {
-      v62 = 0;
-      v39 = [MEMORY[0x277D26290] profileWithData:dataCopy outError:&v62];
-      _eraseDeviceContainsMDMPayloadError = v62;
+      v61 = 0;
+      v39 = [MEMORY[0x277D26290] profileWithData:dataCopy outError:&v61];
+      _eraseDeviceContainsMDMPayloadError = v61;
       if (!_eraseDeviceContainsMDMPayloadError)
       {
         if ([v39 containsPayloadOfClass:objc_opt_class()])
@@ -212,23 +307,23 @@ LABEL_39:
         _eraseDeviceContainsMDMPayloadError = [self _eraseDeviceMissingMDMProfileError];
       }
 
-      v55 = dataCopy;
-      v56 = *DMCLogObjects();
-      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+      v54 = dataCopy;
+      v55 = *DMCLogObjects();
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v66 = _eraseDeviceContainsMDMPayloadError;
-        _os_log_impl(&dword_2561F5000, v56, OS_LOG_TYPE_ERROR, "Invalid MDM profile: %{public}@", buf, 0xCu);
+        v65 = _eraseDeviceContainsMDMPayloadError;
+        _os_log_impl(&dword_2561F5000, v55, OS_LOG_TYPE_ERROR, "Invalid MDM profile: %{public}@", buf, 0xCu);
       }
 
-      dataCopy = v55;
+      dataCopy = v54;
       if (!error)
       {
 LABEL_37:
 
         LOBYTE(error) = 0;
 LABEL_38:
-        v24 = v61;
+        v24 = v60;
 LABEL_45:
 
         goto LABEL_46;
@@ -253,44 +348,44 @@ LABEL_35:
       if ([v24 isTeslaEnrolled])
       {
         details = [v24 details];
-        v51 = [details objectForKeyedSubscript:*MEMORY[0x277D03048]];
+        v50 = [details objectForKeyedSubscript:*MEMORY[0x277D03048]];
 
-        if (!v51)
+        if (!v50)
         {
           LOBYTE(error) = 1;
           v28 = mEMORY[0x277D24648];
           goto LABEL_46;
         }
 
-        v52 = *DMCLogObjects();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+        v51 = *DMCLogObjects();
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_2561F5000, v52, OS_LOG_TYPE_ERROR, "MDM profile is required for cloud configuration with ConfigurationWebURL.", buf, 2u);
+          _os_log_impl(&dword_2561F5000, v51, OS_LOG_TYPE_ERROR, "MDM profile is required for cloud configuration with ConfigurationWebURL.", buf, 2u);
         }
 
         v28 = mEMORY[0x277D24648];
         goto LABEL_78;
       }
 
-      v53 = *DMCLogObjects();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+      v52 = *DMCLogObjects();
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v54 = "MDM profile is required for non-ADE enrolled supervised device.";
+        v53 = "MDM profile is required for non-ADE enrolled supervised device.";
         goto LABEL_77;
       }
     }
 
     else
     {
-      v53 = *DMCLogObjects();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+      v52 = *DMCLogObjects();
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v54 = "MDM profile is required for unsupervised device.";
+        v53 = "MDM profile is required for unsupervised device.";
 LABEL_77:
-        _os_log_impl(&dword_2561F5000, v53, OS_LOG_TYPE_ERROR, v54, buf, 2u);
+        _os_log_impl(&dword_2561F5000, v52, OS_LOG_TYPE_ERROR, v53, buf, 2u);
       }
     }
 
@@ -305,10 +400,10 @@ LABEL_80:
     _eraseDeviceContainsMDMPayloadError = _eraseDeviceMissingSnapshotError;
     if (_eraseDeviceMissingSnapshotError)
     {
-      v57 = _eraseDeviceMissingSnapshotError;
-      errorCopy4 = error;
+      v56 = _eraseDeviceMissingSnapshotError;
+      errorCopy3 = error;
       LOBYTE(error) = 0;
-      *errorCopy4 = _eraseDeviceContainsMDMPayloadError;
+      *errorCopy3 = _eraseDeviceContainsMDMPayloadError;
     }
 
     else
@@ -327,8 +422,8 @@ LABEL_80:
   }
 
   v23 = profileDataCopy;
-  v24 = v61;
-  if (errorCopy)
+  v24 = v60;
+  if (v17)
   {
     _eraseDeviceNotSupporttedError2 = [self _eraseDeviceNotSupporttedError];
     _eraseDeviceContainsMDMPayloadError = _eraseDeviceNotSupporttedError2;
@@ -336,7 +431,7 @@ LABEL_80:
     {
       v27 = _eraseDeviceNotSupporttedError2;
       LOBYTE(error) = 0;
-      *errorCopy = _eraseDeviceContainsMDMPayloadError;
+      *v17 = _eraseDeviceContainsMDMPayloadError;
     }
 
     else
@@ -353,7 +448,6 @@ LABEL_80:
   v28 = mEMORY[0x277D24648];
 LABEL_46:
 
-  v43 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -391,7 +485,7 @@ LABEL_46:
 
 void __84__MDMReturnToServiceUtilities_performRRTSCheckInAndValidationWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = *MEMORY[0x277D245B0];
@@ -403,9 +497,9 @@ void __84__MDMReturnToServiceUtilities_performRRTSCheckInAndValidationWithComple
     v11 = [v6 objectForKeyedSubscript:*MEMORY[0x277D245A8]];
     if (v11)
     {
-      v42 = 0;
-      v12 = [MEMORY[0x277CCAC58] DMCSafePropertyListWithData:v11 options:0 format:0 error:&v42];
-      v13 = v42;
+      v41 = 0;
+      v12 = [MEMORY[0x277CCAC58] DMCSafePropertyListWithData:v11 options:0 format:0 error:&v41];
+      v13 = v41;
       if (v13)
       {
         v14 = v13;
@@ -413,7 +507,7 @@ void __84__MDMReturnToServiceUtilities_performRRTSCheckInAndValidationWithComple
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v44 = v14;
+          v43 = v14;
           _os_log_impl(&dword_2561F5000, v15, OS_LOG_TYPE_ERROR, "Failed to create response dictionary: %{public}@", buf, 0xCu);
         }
 
@@ -430,9 +524,9 @@ LABEL_23:
     }
 
     v19 = [v12 objectForKeyedSubscript:@"ReturnToService"];
-    v41 = 0;
-    v20 = [(RMModelPayloadBase *)MDMRequestEraseDeviceCommand_ReturnToService load:v19 serializationType:0 error:&v41];
-    v14 = v41;
+    v40 = 0;
+    v20 = [(RMModelPayloadBase *)MDMRequestEraseDeviceCommand_ReturnToService load:v19 serializationType:0 error:&v40];
+    v14 = v40;
 
     if (v14)
     {
@@ -440,7 +534,7 @@ LABEL_23:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v44 = v14;
+        v43 = v14;
         _os_log_impl(&dword_2561F5000, v21, OS_LOG_TYPE_ERROR, "Failed to de-serialise the response of RRTS CheckIn command: %{public}@", buf, 0xCu);
       }
 
@@ -454,37 +548,37 @@ LABEL_23:
 
       if (v23)
       {
-        v38 = *(a1 + 40);
+        v37 = *(a1 + 40);
         v24 = [v20 commandMDMProfileData];
         v25 = [v20 commandWiFiProfileData];
-        v37 = [v20 commandBootstrapToken];
+        v36 = [v20 commandBootstrapToken];
         v26 = *MEMORY[0x277D035E0];
-        if (!v37)
+        if (!v36)
         {
           v26 = 0;
         }
 
         v27 = [v20 commandBootstrapToken];
-        v40 = v7;
-        LODWORD(v36) = [v38 validateReturnToServiceRequestWithMDMProfileData:v24 wifiProfileData:v25 revertToSnapshotName:v36 bootstrapToken:v27 error:&v40];
-        v39 = v40;
+        v39 = v7;
+        LODWORD(v35) = [v37 validateReturnToServiceRequestWithMDMProfileData:v24 wifiProfileData:v25 revertToSnapshotName:v35 bootstrapToken:v27 error:&v39];
+        v38 = v39;
 
         v28 = *(a1 + 32);
-        if (v36)
+        if (v35)
         {
           v29 = [v20 commandMDMProfileData];
           v30 = [v20 commandWiFiProfileData];
           v31 = [v20 commandBootstrapToken];
           (*(v28 + 16))(v28, 1, v29, v30, v31, 0);
 
-          v7 = v39;
+          v7 = v38;
         }
 
         else
         {
           v34 = *(v28 + 16);
-          v7 = v39;
-          v34(*(a1 + 32), 0, 0, 0, 0, v39);
+          v7 = v38;
+          v34(*(a1 + 32), 0, 0, 0, 0, v38);
         }
       }
 
@@ -505,16 +599,14 @@ LABEL_23:
     v17 = v16;
     v18 = [v6 objectForKeyedSubscript:v8];
     *buf = 134218242;
-    v44 = [v18 integerValue];
-    v45 = 2114;
-    v46 = v7;
+    v43 = [v18 integerValue];
+    v44 = 2114;
+    v45 = v7;
     _os_log_impl(&dword_2561F5000, v17, OS_LOG_TYPE_ERROR, "MDMReturnToServiceUtilities: ReturnToService request failed with Non 200 response from the server. Response code: %ld Error: %{public}@", buf, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
 LABEL_24:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_eraseDeviceActivationLockIsOnError

@@ -58,7 +58,7 @@ LABEL_5:
   }
 
   parentUuids = [(HMDBackingStoreCacheFetchRecords *)self parentUuids];
-  v21 = [parentUuids copy];
+  v21 = objc_msgSend_copy(parentUuids);
   v22 = MEMORY[0x277CBEBF8];
   while (1)
   {
@@ -85,7 +85,7 @@ LABEL_5:
     v21 = v22;
     if (v26)
     {
-      v21 = [v6 copy];
+      v21 = objc_msgSend_copy(v6);
       parentUuids = store;
     }
   }

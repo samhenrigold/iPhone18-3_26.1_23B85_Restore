@@ -18,7 +18,7 @@
   *(&self->super.isa + OBJC_IVAR___FAResendChildTransferRequestOperation_networkService) = service;
   *(&self->super.isa + OBJC_IVAR___FAResendChildTransferRequestOperation_isResend) = resend;
   v19.receiver = self;
-  v19.super_class = type metadata accessor for FAResendChildTransferRequestOperation();
+  v19.super_class = type metadata accessor for FAResendChildTransferRequestOperation(v12, v14);
   serviceCopy = service;
   signerCopy = signer;
   slamSignerCopy = slamSigner;
@@ -28,53 +28,51 @@
 - (void)resendChildTransferWithCompletionHandler:(id)handler
 {
   v5 = sub_100022F18(&qword_1000B82B8, &qword_10008C6C0);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8, v7);
-  v9 = &v16 - v8;
-  v10 = _Block_copy(handler);
-  v11 = swift_allocObject();
-  *(v11 + 16) = v10;
-  *(v11 + 24) = self;
-  v12 = type metadata accessor for TaskPriority();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  __chkstk_darwin(v5 - 8, v6);
+  v8 = &v15 - v7;
+  v9 = _Block_copy(handler);
+  v10 = swift_allocObject();
+  *(v10 + 16) = v9;
+  *(v10 + 24) = self;
+  v11 = type metadata accessor for TaskPriority();
+  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &unk_10008C808;
+  v12[5] = v10;
   v13 = swift_allocObject();
   v13[2] = 0;
   v13[3] = 0;
-  v13[4] = &unk_10008C808;
-  v13[5] = v11;
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = &unk_10008C810;
-  v14[5] = v13;
+  v13[4] = &unk_10008C810;
+  v13[5] = v12;
   selfCopy = self;
-  sub_100071FE8(0, 0, v9, &unk_10008C818, v14);
+  sub_100071FE8(0, 0, v8, &unk_10008C818, v13);
 }
 
 - (void)cancelChildTransferWithCompletionHandler:(id)handler
 {
   v5 = sub_100022F18(&qword_1000B82B8, &qword_10008C6C0);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8, v7);
-  v9 = &v16 - v8;
-  v10 = _Block_copy(handler);
-  v11 = swift_allocObject();
-  *(v11 + 16) = v10;
-  *(v11 + 24) = self;
-  v12 = type metadata accessor for TaskPriority();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  __chkstk_darwin(v5 - 8, v6);
+  v8 = &v15 - v7;
+  v9 = _Block_copy(handler);
+  v10 = swift_allocObject();
+  *(v10 + 16) = v9;
+  *(v10 + 24) = self;
+  v11 = type metadata accessor for TaskPriority();
+  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &unk_10008C7E8;
+  v12[5] = v10;
   v13 = swift_allocObject();
   v13[2] = 0;
   v13[3] = 0;
-  v13[4] = &unk_10008C7E8;
-  v13[5] = v11;
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = &unk_10008C7F0;
-  v14[5] = v13;
+  v13[4] = &unk_10008C7F0;
+  v13[5] = v12;
   selfCopy = self;
-  sub_100071FE8(0, 0, v9, &unk_10008C6E0, v14);
+  sub_100071FE8(0, 0, v8, &unk_10008C6E0, v13);
 }
 
 - (FAResendChildTransferRequestOperation)init

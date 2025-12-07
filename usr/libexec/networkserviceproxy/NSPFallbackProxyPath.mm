@@ -87,7 +87,7 @@
     [(NSPFallbackProxyPath *)self setupSingleHopProxyRegistrations];
     singleHopRegistration = [(NSPProxyPath *)self singleHopRegistration];
     ingressProxy2 = [(NSPProxyPath *)self ingressProxy];
-    v59 = ingressProxy2;
+    v58 = ingressProxy2;
     if (ingressProxy2)
     {
       v6 = *(ingressProxy2 + 24);
@@ -98,10 +98,10 @@
       v6 = 0;
     }
 
-    v58 = v6;
-    tcpProxyFqdn = [v58 tcpProxyFqdn];
+    v57 = v6;
+    tcpProxyFqdn = [v57 tcpProxyFqdn];
     ingressProxy3 = [(NSPProxyPath *)self ingressProxy];
-    v57 = ingressProxy3;
+    v56 = ingressProxy3;
     if (ingressProxy3)
     {
       v9 = *(ingressProxy3 + 24);
@@ -112,10 +112,10 @@
       v9 = 0;
     }
 
-    v56 = v9;
-    proxyKeyInfos = [v56 proxyKeyInfos];
+    v55 = v9;
+    proxyKeyInfos = [v55 proxyKeyInfos];
     ingressProxy4 = [(NSPProxyPath *)self ingressProxy];
-    v54 = ingressProxy4;
+    v53 = ingressProxy4;
     if (ingressProxy4)
     {
       v12 = *(ingressProxy4 + 24);
@@ -126,10 +126,10 @@
       v12 = 0;
     }
 
-    v53 = v12;
-    proxyVersion = [v53 proxyVersion];
+    v52 = v12;
+    proxyVersion = [v52 proxyVersion];
     ingressProxy5 = [(NSPProxyPath *)self ingressProxy];
-    v52 = ingressProxy5;
+    v51 = ingressProxy5;
     if (ingressProxy5)
     {
       v15 = *(ingressProxy5 + 24);
@@ -140,10 +140,10 @@
       v15 = 0;
     }
 
-    v51 = v15;
-    supportsResumption = [v51 supportsResumption];
+    v50 = v15;
+    supportsResumption = [v50 supportsResumption];
     ingressProxy6 = [(NSPProxyPath *)self ingressProxy];
-    v50 = ingressProxy6;
+    v49 = ingressProxy6;
     if (ingressProxy6)
     {
       v17 = *(ingressProxy6 + 24);
@@ -154,10 +154,10 @@
       v17 = 0;
     }
 
-    v49 = v17;
-    usesX25519 = [v49 usesX25519];
+    v48 = v17;
+    usesX25519 = [v48 usesX25519];
     ingressProxy7 = [(NSPProxyPath *)self ingressProxy];
-    v48 = ingressProxy7;
+    v47 = ingressProxy7;
     if (ingressProxy7)
     {
       v19 = *(ingressProxy7 + 24);
@@ -168,15 +168,15 @@
       v19 = 0;
     }
 
-    v46 = v19;
-    usesPQTLS = [v46 usesPQTLS];
+    v45 = v19;
+    usesPQTLS = [v45 usesPQTLS];
     ingressProxy8 = [(NSPProxyPath *)self ingressProxy];
-    v43 = sub_100004F70(ingressProxy8);
-    v55 = proxyKeyInfos;
-    if (v43)
+    v42 = sub_100004F70(ingressProxy8);
+    v54 = proxyKeyInfos;
+    if (v42)
     {
       ingressProxy9 = [(NSPProxyPath *)self ingressProxy];
-      v40 = ingressProxy9;
+      v39 = ingressProxy9;
       if (ingressProxy9)
       {
         v21 = *(ingressProxy9 + 48);
@@ -195,7 +195,7 @@
       v22 = 0;
     }
 
-    v41 = v22;
+    v40 = v22;
     v23 = tcpProxyFqdn;
     ingressProxy10 = [(NSPProxyPath *)self ingressProxy];
     v25 = ingressProxy10;
@@ -213,11 +213,9 @@
     tokenChallenge = [v27 tokenChallenge];
     allowFailOpen = [(NSPProxyPath *)self allowFailOpen];
     configEpoch = [(NSPProxyPath *)self configEpoch];
-    BYTE1(v39) = allowFailOpen;
-    LOBYTE(v39) = tokenChallenge != 0;
-    sub_10004571C(singleHopRegistration, v23, v55, proxyVersion, supportsResumption, usesX25519, usesPQTLS, v41, v39, configEpoch);
+    sub_10004571C(singleHopRegistration, v23, v54, proxyVersion, supportsResumption, usesX25519, usesPQTLS, v40, tokenChallenge != 0, allowFailOpen, configEpoch);
 
-    if (v43)
+    if (v42)
     {
     }
 
@@ -263,7 +261,7 @@
     if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v62 = "[NSPFallbackProxyPath resetSingleHopProxyAgent]";
+      v61 = "[NSPFallbackProxyPath resetSingleHopProxyAgent]";
       _os_log_fault_impl(&_mh_execute_header, v38, OS_LOG_TYPE_FAULT, "%s called with null self.ingressProxy", buf, 0xCu);
     }
   }
@@ -284,7 +282,7 @@ LABEL_61:
     }
 
     *buf = 136315138;
-    v132 = "[NSPFallbackProxyPath resetMultiHopProxyAgent]";
+    v131 = "[NSPFallbackProxyPath resetMultiHopProxyAgent]";
     v68 = "%s called with null self.ingressProxy";
 LABEL_64:
     _os_log_fault_impl(&_mh_execute_header, v67, OS_LOG_TYPE_FAULT, v68, buf, 0xCu);
@@ -302,7 +300,7 @@ LABEL_64:
     }
 
     *buf = 136315138;
-    v132 = "[NSPFallbackProxyPath resetMultiHopProxyAgent]";
+    v131 = "[NSPFallbackProxyPath resetMultiHopProxyAgent]";
     v68 = "%s called with null self.egressProxy";
     goto LABEL_64;
   }
@@ -310,7 +308,7 @@ LABEL_64:
   [(NSPFallbackProxyPath *)self setupMultiHopProxyRegistrations];
   multiHopRegistration = [(NSPProxyPath *)self multiHopRegistration];
   ingressProxy2 = [(NSPProxyPath *)self ingressProxy];
-  v125 = ingressProxy2;
+  v124 = ingressProxy2;
   if (ingressProxy2)
   {
     v7 = *(ingressProxy2 + 24);
@@ -321,10 +319,10 @@ LABEL_64:
     v7 = 0;
   }
 
-  v124 = v7;
-  tcpProxyFqdn = [v124 tcpProxyFqdn];
+  v123 = v7;
+  tcpProxyFqdn = [v123 tcpProxyFqdn];
   egressProxy2 = [(NSPProxyPath *)self egressProxy];
-  v123 = egressProxy2;
+  v122 = egressProxy2;
   if (egressProxy2)
   {
     v10 = *(egressProxy2 + 24);
@@ -335,10 +333,10 @@ LABEL_64:
     v10 = 0;
   }
 
-  v122 = v10;
-  tcpProxyFqdn2 = [v122 tcpProxyFqdn];
+  v121 = v10;
+  tcpProxyFqdn2 = [v121 tcpProxyFqdn];
   ingressProxy3 = [(NSPProxyPath *)self ingressProxy];
-  v120 = ingressProxy3;
+  v119 = ingressProxy3;
   if (ingressProxy3)
   {
     v13 = *(ingressProxy3 + 24);
@@ -349,10 +347,10 @@ LABEL_64:
     v13 = 0;
   }
 
-  v119 = v13;
-  proxyKeyInfos = [v119 proxyKeyInfos];
+  v118 = v13;
+  proxyKeyInfos = [v118 proxyKeyInfos];
   egressProxy3 = [(NSPProxyPath *)self egressProxy];
-  v117 = egressProxy3;
+  v116 = egressProxy3;
   if (egressProxy3)
   {
     v16 = *(egressProxy3 + 24);
@@ -363,10 +361,10 @@ LABEL_64:
     v16 = 0;
   }
 
-  v116 = v16;
-  proxyKeyInfos2 = [v116 proxyKeyInfos];
+  v115 = v16;
+  proxyKeyInfos2 = [v115 proxyKeyInfos];
   ingressProxy4 = [(NSPProxyPath *)self ingressProxy];
-  v114 = ingressProxy4;
+  v113 = ingressProxy4;
   if (ingressProxy4)
   {
     v19 = *(ingressProxy4 + 24);
@@ -377,10 +375,10 @@ LABEL_64:
     v19 = 0;
   }
 
-  v113 = v19;
-  proxyVersion = [v113 proxyVersion];
+  v112 = v19;
+  proxyVersion = [v112 proxyVersion];
   egressProxy4 = [(NSPProxyPath *)self egressProxy];
-  v111 = egressProxy4;
+  v110 = egressProxy4;
   if (egressProxy4)
   {
     v22 = *(egressProxy4 + 24);
@@ -391,10 +389,10 @@ LABEL_64:
     v22 = 0;
   }
 
-  v110 = v22;
-  proxyVersion2 = [v110 proxyVersion];
+  v109 = v22;
+  proxyVersion2 = [v109 proxyVersion];
   ingressProxy5 = [(NSPProxyPath *)self ingressProxy];
-  v109 = ingressProxy5;
+  v108 = ingressProxy5;
   if (ingressProxy5)
   {
     v24 = *(ingressProxy5 + 24);
@@ -405,10 +403,10 @@ LABEL_64:
     v24 = 0;
   }
 
-  v108 = v24;
-  allowedNextHops = [v108 allowedNextHops];
+  v107 = v24;
+  allowedNextHops = [v107 allowedNextHops];
   egressProxy5 = [(NSPProxyPath *)self egressProxy];
-  v107 = egressProxy5;
+  v106 = egressProxy5;
   if (egressProxy5)
   {
     v26 = *(egressProxy5 + 24);
@@ -419,10 +417,10 @@ LABEL_64:
     v26 = 0;
   }
 
-  v106 = v26;
-  allowedNextHops2 = [v106 allowedNextHops];
+  v105 = v26;
+  allowedNextHops2 = [v105 allowedNextHops];
   ingressProxy6 = [(NSPProxyPath *)self ingressProxy];
-  v105 = ingressProxy6;
+  v104 = ingressProxy6;
   if (ingressProxy6)
   {
     v28 = *(ingressProxy6 + 24);
@@ -433,10 +431,10 @@ LABEL_64:
     v28 = 0;
   }
 
-  v104 = v28;
-  supportsResumption = [v104 supportsResumption];
+  v103 = v28;
+  supportsResumption = [v103 supportsResumption];
   egressProxy6 = [(NSPProxyPath *)self egressProxy];
-  v103 = egressProxy6;
+  v102 = egressProxy6;
   if (egressProxy6)
   {
     v30 = *(egressProxy6 + 24);
@@ -447,10 +445,10 @@ LABEL_64:
     v30 = 0;
   }
 
-  v102 = v30;
-  supportsResumption2 = [v102 supportsResumption];
+  v101 = v30;
+  supportsResumption2 = [v101 supportsResumption];
   ingressProxy7 = [(NSPProxyPath *)self ingressProxy];
-  v101 = ingressProxy7;
+  v100 = ingressProxy7;
   if (ingressProxy7)
   {
     v32 = *(ingressProxy7 + 24);
@@ -461,10 +459,10 @@ LABEL_64:
     v32 = 0;
   }
 
-  v100 = v32;
-  usesX25519 = [v100 usesX25519];
+  v99 = v32;
+  usesX25519 = [v99 usesX25519];
   egressProxy7 = [(NSPProxyPath *)self egressProxy];
-  v99 = egressProxy7;
+  v98 = egressProxy7;
   if (egressProxy7)
   {
     v34 = *(egressProxy7 + 24);
@@ -475,10 +473,10 @@ LABEL_64:
     v34 = 0;
   }
 
-  v98 = v34;
-  usesX255192 = [v98 usesX25519];
+  v97 = v34;
+  usesX255192 = [v97 usesX25519];
   ingressProxy8 = [(NSPProxyPath *)self ingressProxy];
-  v97 = ingressProxy8;
+  v96 = ingressProxy8;
   if (ingressProxy8)
   {
     v36 = *(ingressProxy8 + 24);
@@ -489,10 +487,10 @@ LABEL_64:
     v36 = 0;
   }
 
-  v96 = v36;
-  usesPQTLS = [v96 usesPQTLS];
+  v95 = v36;
+  usesPQTLS = [v95 usesPQTLS];
   egressProxy8 = [(NSPProxyPath *)self egressProxy];
-  v94 = egressProxy8;
+  v93 = egressProxy8;
   if (egressProxy8)
   {
     v38 = *(egressProxy8 + 24);
@@ -503,14 +501,14 @@ LABEL_64:
     v38 = 0;
   }
 
-  v93 = v38;
-  usesPQTLS2 = [v93 usesPQTLS];
+  v92 = v38;
+  usesPQTLS2 = [v92 usesPQTLS];
   ingressProxy9 = [(NSPProxyPath *)self ingressProxy];
-  v89 = sub_100004F70(ingressProxy9);
-  if (v89)
+  v88 = sub_100004F70(ingressProxy9);
+  if (v88)
   {
     ingressProxy10 = [(NSPProxyPath *)self ingressProxy];
-    v71 = ingressProxy10;
+    v70 = ingressProxy10;
     if (ingressProxy10)
     {
       v40 = *(ingressProxy10 + 48);
@@ -521,20 +519,20 @@ LABEL_64:
       v40 = 0;
     }
 
-    v126 = v40;
+    v125 = v40;
   }
 
   else
   {
-    v126 = 0;
+    v125 = 0;
   }
 
   egressProxy9 = [(NSPProxyPath *)self egressProxy];
-  v85 = sub_100004F70(egressProxy9);
-  if (v85)
+  v84 = sub_100004F70(egressProxy9);
+  if (v84)
   {
     egressProxy10 = [(NSPProxyPath *)self egressProxy];
-    v70 = egressProxy10;
+    v69 = egressProxy10;
     if (egressProxy10)
     {
       v42 = *(egressProxy10 + 48);
@@ -554,7 +552,7 @@ LABEL_64:
   }
 
   ingressProxy11 = [(NSPProxyPath *)self ingressProxy];
-  v82 = ingressProxy11;
+  v81 = ingressProxy11;
   if (ingressProxy11)
   {
     v45 = *(ingressProxy11 + 24);
@@ -565,12 +563,12 @@ LABEL_64:
     v45 = 0;
   }
 
-  v81 = v45;
-  tokenChallenge = [v81 tokenChallenge];
+  v80 = v45;
+  tokenChallenge = [v80 tokenChallenge];
   egressProxy11 = [(NSPProxyPath *)self egressProxy];
-  v118 = proxyKeyInfos;
-  v83 = v43;
-  v80 = egressProxy11;
+  v117 = proxyKeyInfos;
+  v82 = v43;
+  v79 = egressProxy11;
   if (egressProxy11)
   {
     v48 = *(egressProxy11 + 24);
@@ -581,10 +579,10 @@ LABEL_64:
     v48 = 0;
   }
 
-  v112 = proxyVersion;
-  v121 = tcpProxyFqdn2;
-  v79 = v48;
-  tokenChallenge2 = [v79 tokenChallenge];
+  v111 = proxyVersion;
+  v120 = tcpProxyFqdn2;
+  v78 = v48;
+  tokenChallenge2 = [v78 tokenChallenge];
   allowFailOpen = [(NSPProxyPath *)self allowFailOpen];
   geohashSharingEnabled = [(NSPProxyPath *)self geohashSharingEnabled];
   delegate = [(NSPProxyPath *)self delegate];
@@ -593,7 +591,7 @@ LABEL_64:
   dnsFilteringHintEnabled = [delegate2 dnsFilteringHintEnabled];
   ingressProxy12 = [(NSPProxyPath *)self ingressProxy];
   v52 = ingressProxy12;
-  v115 = proxyKeyInfos2;
+  v114 = proxyKeyInfos2;
   v53 = tcpProxyFqdn;
   if (ingressProxy12)
   {
@@ -607,20 +605,18 @@ LABEL_64:
 
   v55 = tokenChallenge2 != 0;
   v56 = tokenChallenge != 0;
-  v75 = tokenChallenge;
+  v74 = tokenChallenge;
   v57 = v54;
   fallbackSupportsUDPProxying = [v57 fallbackSupportsUDPProxying];
   [(NSPProxyPath *)self configEpoch];
-  v59 = v72 = tokenChallenge2;
-  HIBYTE(v69) = v55;
-  LOBYTE(v69) = v56;
-  sub_100044C74(multiHopRegistration, v53, v121, v118, v115, v112, proxyVersion2, allowedNextHops, allowedNextHops2, supportsResumption, supportsResumption2, usesX25519, usesX255192, usesPQTLS, usesPQTLS2, v126, v83, v69, allowFailOpen, geohashSharingEnabled, geohashOverride, dnsFilteringHintEnabled, fallbackSupportsUDPProxying, v59);
+  v59 = v71 = tokenChallenge2;
+  sub_100044C74(multiHopRegistration, v53, v120, v117, v114, v111, proxyVersion2, allowedNextHops, allowedNextHops2, supportsResumption, supportsResumption2, usesX25519, usesX255192, usesPQTLS, usesPQTLS2, v125, v82, v56, v55, allowFailOpen, geohashSharingEnabled, geohashOverride, dnsFilteringHintEnabled, fallbackSupportsUDPProxying, v59);
 
-  if (v85)
+  if (v84)
   {
   }
 
-  if (v89)
+  if (v88)
   {
   }
 

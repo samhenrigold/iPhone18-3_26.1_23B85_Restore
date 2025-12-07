@@ -18,8 +18,8 @@
 
 - (NSDictionary)buttonIdentifiers
 {
-  sub_1D47A42A4(0, &qword_1EC7DF018);
-  sub_1D47A42A4(0, &qword_1EC7DF020);
+  sub_1D47A42A4(0, &qword_1EC7DF018, 0x1E69DC708);
+  sub_1D47A42A4(0, &qword_1EC7DF020, 0x1E69DC738);
   sub_1D47A95F4();
 
   v2 = sub_1D47BF250();
@@ -29,8 +29,8 @@
 
 - (void)setButtonIdentifiers:(id)identifiers
 {
-  sub_1D47A42A4(0, &qword_1EC7DF018);
-  sub_1D47A42A4(0, &qword_1EC7DF020);
+  sub_1D47A42A4(0, &qword_1EC7DF018, 0x1E69DC708);
+  sub_1D47A42A4(0, &qword_1EC7DF020, 0x1E69DC738);
   sub_1D47A95F4();
   *(self + OBJC_IVAR___SFBarButtonGroupContainer_buttonIdentifiers) = sub_1D47BF260();
 }
@@ -95,7 +95,7 @@
   itemsCopy = items;
   if (items)
   {
-    sub_1D47A42A4(0, &qword_1EC7DF018);
+    sub_1D47A42A4(0, &qword_1EC7DF018, 0x1E69DC708);
     itemsCopy = sub_1D47BF2F0();
   }
 
@@ -133,7 +133,7 @@
   viewCopy = view;
   selfCopy = self;
   sub_1D47A7190(imageCopy, viewCopy, item, v15, v16, x, y, width, height);
-  sub_1D47A965C(v15);
+  sub_1D47A965C(v15, v16);
 }
 
 - (id)popoverSourceInfoForBarItem:(int64_t)item

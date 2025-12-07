@@ -129,7 +129,7 @@ void __205__ATXModeAnchorModelSuggestionServer_fetchCombinedSuggestionScoreForMo
 void __205__ATXModeAnchorModelSuggestionServer_fetchCombinedSuggestionScoreForModeWithUUID_modeType_origin_originBundleId_originAnchorType_confidenceScore_secondsSinceSuggested_serializedTriggers_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __205__ATXModeAnchorModelSuggestionServer_fetchCombinedSuggestionScoreForModeWithUUID_modeType_origin_originBundleId_originAnchorType_confidenceScore_secondsSinceSuggested_serializedTriggers_completionHandler___block_invoke_2_cold_1();
@@ -182,7 +182,7 @@ void __213__ATXModeAnchorModelSuggestionServer_fetchCombinedSuggestionScoreAndFl
 void __213__ATXModeAnchorModelSuggestionServer_fetchCombinedSuggestionScoreAndFlagsForModeWithUUID_modeType_origin_originBundleId_originAnchorType_confidenceScore_secondsSinceSuggested_serializedTriggers_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __213__ATXModeAnchorModelSuggestionServer_fetchCombinedSuggestionScoreAndFlagsForModeWithUUID_modeType_origin_originBundleId_originAnchorType_confidenceScore_secondsSinceSuggested_serializedTriggers_completionHandler___block_invoke_2_cold_1();
@@ -193,49 +193,49 @@ void __213__ATXModeAnchorModelSuggestionServer_fetchCombinedSuggestionScoreAndFl
 
 - (void)anchorModelDidProvideModeSuggestions:(id)suggestions
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
-  v5 = __atxlog_handle_modes();
+  v5 = __atxlog_handle_modes(suggestionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134349056;
-    v54 = [suggestionsCopy count];
+    v55 = [suggestionsCopy count];
     _os_log_impl(&dword_260C9F000, v5, OS_LOG_TYPE_DEFAULT, "ATXModeAnchorModelSuggestionServer: Received %{public}lu suggestions", buf, 0xCu);
   }
 
-  v51 = 0u;
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
+  v51 = 0u;
   v6 = suggestionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v49 objects:v59 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v50 objects:v60 count:16];
   if (!v7)
   {
-    v41 = 0;
-    v40 = 0;
+    v43 = 0;
+    v42 = 0;
     modeUUID5 = v6;
     goto LABEL_25;
   }
 
   v8 = v7;
+  v45 = 0;
   v44 = 0;
-  v43 = 0;
   v9 = 0;
-  v10 = *v50;
+  v10 = *v51;
   do
   {
     v11 = 0;
-    v45 = v8;
+    v46 = v8;
     do
     {
-      if (*v50 != v10)
+      if (*v51 != v10)
       {
         objc_enumerationMutation(v6);
       }
 
-      v12 = *(*(&v49 + 1) + 8 * v11);
+      v12 = *(*(&v50 + 1) + 8 * v11);
       context = objc_autoreleasePoolPush();
-      v13 = __atxlog_handle_modes();
+      v13 = __atxlog_handle_modes(context);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         modeUUID = [v12 modeUUID];
@@ -246,26 +246,26 @@ void __213__ATXModeAnchorModelSuggestionServer_fetchCombinedSuggestionScoreAndFl
         v19 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v12, "isStart")}];
         anchorType = [v12 anchorType];
         *buf = 138543874;
-        v54 = modeUUID;
-        v55 = 2114;
-        v56 = v19;
-        v57 = 2114;
-        v58 = anchorType;
+        v55 = modeUUID;
+        v56 = 2114;
+        v57 = v19;
+        v58 = 2114;
+        v59 = anchorType;
         _os_log_impl(&dword_260C9F000, v13, OS_LOG_TYPE_DEFAULT, "ATXModeAnchorModelSuggestionServer: Suggestion modeId: %{public}@, isStart: %{public}@, anchorType: %{public}@", buf, 0x20u);
 
         v6 = v18;
         self = selfCopy;
         v9 = v16;
         v10 = v15;
-        v8 = v45;
+        v8 = v46;
       }
 
-      v48 = 0;
+      v49 = 0;
       modeService = self->_modeService;
       modeUUID2 = [v12 modeUUID];
-      v47 = 0;
-      LOBYTE(modeService) = [(ATXConfiguredModeService *)modeService isActivityWithUUIDConfigured:modeUUID2 activityType:&v48 allowsSmartEntry:0 userModeName:&v47];
-      v23 = v47;
+      v48 = 0;
+      LOBYTE(modeService) = [(ATXConfiguredModeService *)modeService isActivityWithUUIDConfigured:modeUUID2 activityType:&v49 allowsSmartEntry:0 userModeName:&v48];
+      v23 = v48;
 
       if (modeService)
       {
@@ -274,23 +274,23 @@ void __213__ATXModeAnchorModelSuggestionServer_fetchCombinedSuggestionScoreAndFl
           goto LABEL_16;
         }
 
-        v24 = v12;
+        v25 = v12;
 
-        v43 = v48;
-        v25 = v44;
-        v44 = v23;
-        v9 = v24;
+        v44 = v49;
+        v26 = v45;
+        v45 = v23;
+        v9 = v25;
       }
 
       else
       {
-        v25 = __atxlog_handle_modes();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v26 = __atxlog_handle_modes(v24);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           modeUUID3 = [v12 modeUUID];
           *buf = 138543362;
-          v54 = modeUUID3;
-          _os_log_impl(&dword_260C9F000, v25, OS_LOG_TYPE_DEFAULT, "ATXModeAnchorModelSuggestionServer: Suggestion modeUUID: %{public}@ is not configured, skipping", buf, 0xCu);
+          v55 = modeUUID3;
+          _os_log_impl(&dword_260C9F000, v26, OS_LOG_TYPE_DEFAULT, "ATXModeAnchorModelSuggestionServer: Suggestion modeUUID: %{public}@ is not configured, skipping", buf, 0xCu);
         }
       }
 
@@ -300,58 +300,56 @@ LABEL_16:
     }
 
     while (v8 != v11);
-    v8 = [v6 countByEnumeratingWithState:&v49 objects:v59 count:16];
+    v8 = [v6 countByEnumeratingWithState:&v50 objects:v60 count:16];
   }
 
   while (v8);
 
   if (v9)
   {
-    v27 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v29 = __atxlog_handle_modes(v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       modeUUID4 = [v9 modeUUID];
-      v29 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v9, "isStart")}];
+      v31 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v9, "isStart")}];
       anchorType2 = [v9 anchorType];
       *buf = 138543874;
-      v54 = modeUUID4;
-      v55 = 2114;
-      v56 = v29;
-      v57 = 2114;
-      v58 = anchorType2;
-      _os_log_impl(&dword_260C9F000, v27, OS_LOG_TYPE_DEFAULT, "ATXModeAnchorModelSuggestionServer: Updated suggestion to modeUUID: %{public}@, isStart: %{public}@, anchorType: %{public}@", buf, 0x20u);
+      v55 = modeUUID4;
+      v56 = 2114;
+      v57 = v31;
+      v58 = 2114;
+      v59 = anchorType2;
+      _os_log_impl(&dword_260C9F000, v29, OS_LOG_TYPE_DEFAULT, "ATXModeAnchorModelSuggestionServer: Updated suggestion to modeUUID: %{public}@, isStart: %{public}@, anchorType: %{public}@", buf, 0x20u);
     }
 
     modeUUID5 = [v9 modeUUID];
-    v32 = ATXActivityTypeToBMUserFocusInferredModeType(v43);
+    v34 = ATXActivityTypeToBMUserFocusInferredModeType(v44);
     if (([v9 isStart] & 1) == 0)
     {
 
       modeUUID5 = 0;
-      v32 = 2;
+      v34 = 2;
     }
 
     delegate = [(ATXModeAnchorModelSuggestionServer *)self delegate];
     [v9 score];
-    v35 = v34;
+    v37 = v36;
     anchorType3 = [v9 anchorType];
     [v9 serializedTriggers];
-    v38 = v37 = v9;
+    v40 = v39 = v9;
     selfCopy2 = self;
-    v40 = v44;
-    [delegate clientModel:selfCopy2 didUpdatePredictionWithUUID:modeUUID5 userModeName:v44 modeType:v32 confidenceScore:11 modeOrigin:0 originBundleId:v35 originAnchorType:anchorType3 serializedTriggers:v38];
+    v42 = v45;
+    [delegate clientModel:selfCopy2 didUpdatePredictionWithUUID:modeUUID5 userModeName:v45 modeType:v34 confidenceScore:11 modeOrigin:0 originBundleId:v37 originAnchorType:anchorType3 serializedTriggers:v40];
 
-    v41 = v37;
+    v43 = v39;
 LABEL_25:
   }
 
   else
   {
-    v41 = 0;
-    v40 = v44;
+    v43 = 0;
+    v42 = v45;
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldUpdateHighestConfidenceSuggestion:(id)suggestion newSuggestion:(id)newSuggestion
@@ -379,10 +377,11 @@ LABEL_25:
   listenerCopy = listener;
   connectionCopy = connection;
   v8 = [connectionCopy valueForEntitlement:@"com.apple.proactive.ModeAnchorModelSuggestion.xpc"];
-  if (v8 && (objc_opt_respondsToSelector() & 1) != 0 && ([v8 BOOLValue] & 1) != 0)
+  v9 = v8;
+  if (v8 && (v8 = objc_opt_respondsToSelector(), (v8 & 1) != 0) && (v8 = [v9 BOOLValue], (v8 & 1) != 0))
   {
-    v9 = ATXModeAnchorModelSuggestionServerXPCInterface();
-    [connectionCopy setExportedInterface:v9];
+    v10 = ATXModeAnchorModelSuggestionServerXPCInterface();
+    [connectionCopy setExportedInterface:v10];
 
     [connectionCopy setExportedObject:self];
     [connectionCopy setInterruptionHandler:&__block_literal_global_21];
@@ -393,58 +392,56 @@ LABEL_25:
     v20[3] = &unk_279AB7B90;
     objc_copyWeak(&v21, &location);
     [connectionCopy setInvalidationHandler:v20];
-    v10 = ATXModeAnchorModelSuggestionClientXPCInterface();
-    [connectionCopy setRemoteObjectInterface:v10];
+    v11 = ATXModeAnchorModelSuggestionClientXPCInterface();
+    [connectionCopy setRemoteObjectInterface:v11];
 
     lock = self->_lock;
     v18[0] = MEMORY[0x277D85DD0];
     v18[1] = 3221225472;
     v18[2] = __73__ATXModeAnchorModelSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_2;
     v18[3] = &unk_279AB7BB8;
-    v12 = connectionCopy;
-    v19 = v12;
+    v13 = connectionCopy;
+    v19 = v13;
     [(_PASLock *)lock runWithLockAcquired:v18];
-    [v12 resume];
-    v13 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = __atxlog_handle_modes([v13 resume]);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v24 = v12;
-      _os_log_impl(&dword_260C9F000, v13, OS_LOG_TYPE_DEFAULT, "ATXModeAnchorModelSuggestionServer: accepts XPC connection: %{public}@", buf, 0xCu);
+      v24 = v13;
+      _os_log_impl(&dword_260C9F000, v14, OS_LOG_TYPE_DEFAULT, "ATXModeAnchorModelSuggestionServer: accepts XPC connection: %{public}@", buf, 0xCu);
     }
 
     objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
-    v14 = 1;
+    v15 = 1;
   }
 
   else
   {
-    v15 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = __atxlog_handle_modes(v8);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(ATXModeAnchorModelSuggestionServer *)connectionCopy listener:v15 shouldAcceptNewConnection:?];
+      [(ATXModeAnchorModelSuggestionServer *)connectionCopy listener:v16 shouldAcceptNewConnection:?];
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v15;
 }
 
-void __73__ATXModeAnchorModelSuggestionServer_listener_shouldAcceptNewConnection___block_invoke()
+void __73__ATXModeAnchorModelSuggestionServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_modes(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __73__ATXModeAnchorModelSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_cold_1(v0);
+    __73__ATXModeAnchorModelSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_cold_1(v1);
   }
 }
 
 void __73__ATXModeAnchorModelSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_22(uint64_t a1)
 {
-  v2 = __atxlog_handle_modes();
+  v2 = __atxlog_handle_modes(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v5[0] = 0;
@@ -474,31 +471,28 @@ void __73__ATXModeAnchorModelSuggestionServer_listener_shouldAcceptNewConnection
 
 void __205__ATXModeAnchorModelSuggestionServer_fetchCombinedSuggestionScoreForModeWithUUID_modeType_origin_originBundleId_originAnchorType_confidenceScore_secondsSinceSuggested_serializedTriggers_completionHandler___block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_260C9F000, v0, OS_LOG_TYPE_ERROR, "%s: error with xpc connection: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_260C9F000, v0, OS_LOG_TYPE_ERROR, "%s: error with xpc connection: %@", v1, 0x16u);
 }
 
 void __213__ATXModeAnchorModelSuggestionServer_fetchCombinedSuggestionScoreAndFlagsForModeWithUUID_modeType_origin_originBundleId_originAnchorType_confidenceScore_secondsSinceSuggested_serializedTriggers_completionHandler___block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_260C9F000, v0, OS_LOG_TYPE_ERROR, "%s: error with xpc connection: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_260C9F000, v0, OS_LOG_TYPE_ERROR, "%s: error with xpc connection: %@", v1, 0x16u);
 }
 
 - (void)listener:(os_log_t)log shouldAcceptNewConnection:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_260C9F000, log, OS_LOG_TYPE_ERROR, "ATXModeAnchorModelSuggestionServer: Rejecting connection %{public}@ without entitlement %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_260C9F000, log, OS_LOG_TYPE_ERROR, "ATXModeAnchorModelSuggestionServer: Rejecting connection %{public}@ without entitlement %{public}@", &v3, 0x16u);
 }
 
 @end

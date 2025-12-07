@@ -235,7 +235,7 @@ LABEL_17:
     if (!v17)
     {
       domain = [v18 domain];
-      if ([domain isEqualToString:v9] && objc_msgSend(v19, "code") == 260)
+      if (objc_msgSend_isEqualToString_(domain) && [v19 code] == 260)
       {
         v21 = v9;
         v22 = defaultManager;
@@ -808,7 +808,7 @@ uint64_t __46__PLServerPhotoLibraryBundle_closeWithReason___block_invoke(uint64_
   bundleCopy = bundle;
   v15 = [[PLInterLibraryTransfer alloc] initWithSourceBundle:selfCopy destinationBundle:bundleCopy options:optionsCopy];
 
-  v16 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:{objc_msgSend(personsCopy, "count")}];
+  v16 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:objc_msgSend_count(personsCopy)];
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __74__PLServerPhotoLibraryBundle_transferPersons_toBundle_options_completion___block_invoke;
@@ -862,7 +862,7 @@ uint64_t __46__PLServerPhotoLibraryBundle_closeWithReason___block_invoke(uint64_
 
       v31 = MEMORY[0x1E696AEC0];
       anyObject = [v17 anyObject];
-      v33 = [v31 stringWithFormat:@"InterLibraryTransfer %@ (%tu)", anyObject, objc_msgSend(v17, "count")];
+      v33 = [v31 stringWithFormat:@"InterLibraryTransfer %@ (%tu)", anyObject, objc_msgSend_count(v17)];
 
       uTF8String = [v33 UTF8String];
       v35 = qos_class_self();
@@ -978,7 +978,7 @@ LABEL_15:
   bundleCopy = bundle;
   v15 = [[PLInterLibraryTransfer alloc] initWithSourceBundle:selfCopy destinationBundle:bundleCopy options:optionsCopy];
 
-  v16 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:{objc_msgSend(assetsCopy, "count")}];
+  v16 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:objc_msgSend_count(assetsCopy)];
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __73__PLServerPhotoLibraryBundle_transferAssets_toBundle_options_completion___block_invoke;
@@ -1032,7 +1032,7 @@ LABEL_15:
 
       v31 = MEMORY[0x1E696AEC0];
       anyObject = [v17 anyObject];
-      v33 = [v31 stringWithFormat:@"InterLibraryTransfer %@ (%tu)", anyObject, objc_msgSend(v17, "count")];
+      v33 = [v31 stringWithFormat:@"InterLibraryTransfer %@ (%tu)", anyObject, objc_msgSend_count(v17)];
 
       uTF8String = [v33 UTF8String];
       v35 = qos_class_self();

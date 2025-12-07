@@ -3,7 +3,6 @@
 + (id)onDemandAllocatorWithDimensions:(id)dimensions dimensionAlignment:(int)alignment pixelFormat:(unsigned int)format name:(id)name memoryPool:(id)pool;
 - (BWOnDemandPixelBufferAllocator)initWithVideoFormat:(id)format name:(id)name memoryPool:(id)pool additionalPixelBufferAttributes:(id)attributes;
 - (__CVBuffer)newPixelBuffer;
-- (uint64_t)newPixelBuffer;
 - (void)_initWithVideoFormat:(uint64_t)format name:(void *)name memoryPool:(uint64_t)pool additionalPixelBufferAttributes:;
 - (void)dealloc;
 @end
@@ -34,7 +33,7 @@
 
     v14.receiver = selfCopy;
     v14.super_class = BWOnDemandPixelBufferAllocator;
-    selfCopy = objc_msgSendSuper2(&v14, sel_init);
+    selfCopy = objc_msgSendSuper2(&v14, sel_init, format);
     if (selfCopy)
     {
       selfCopy[1] = a2;
@@ -122,8 +121,8 @@
       {
         fig_log_get_emitter();
         OUTLINED_FUNCTION_1_6();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
 LABEL_16:
-        FigDebugAssert3();
         v11 = 0;
         return v11;
       }
@@ -148,6 +147,7 @@ LABEL_16:
 LABEL_15:
           fig_log_get_emitter();
           OUTLINED_FUNCTION_1_6();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
           goto LABEL_16;
         }
       }
@@ -155,13 +155,6 @@ LABEL_15:
   }
 
   return v11;
-}
-
-- (uint64_t)newPixelBuffer
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

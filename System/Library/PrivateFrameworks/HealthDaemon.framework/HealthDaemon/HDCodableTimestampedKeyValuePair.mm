@@ -123,19 +123,18 @@ LABEL_7:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -154,28 +153,26 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  numberIntValue = self->_numberIntValue;
   PBDataWriterWriteInt64Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_6:
-    numberDoubleValue = self->_numberDoubleValue;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_7:
   if (self->_stringValue)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_bytesValue)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -306,7 +303,6 @@ LABEL_5:
     }
   }
 
-  v6 = *(equalCopy + 56);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 56) & 4) == 0 || self->_timestamp != *(equalCopy + 3))
@@ -318,7 +314,7 @@ LABEL_5:
   else if ((*(equalCopy + 56) & 4) != 0)
   {
 LABEL_23:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_24;
   }
 
@@ -357,17 +353,17 @@ LABEL_23:
   bytesValue = self->_bytesValue;
   if (bytesValue | *(equalCopy + 4))
   {
-    v9 = [(NSData *)bytesValue isEqual:?];
+    v8 = [(NSData *)bytesValue isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_24:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash
@@ -555,7 +551,7 @@ LABEL_7:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = [valueCopy copy];
+    v4 = objc_msgSend_copy(valueCopy);
     [(HDCodableTimestampedKeyValuePair *)self setStringValue:v4];
 LABEL_9:
 
@@ -565,7 +561,7 @@ LABEL_9:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = [valueCopy copy];
+    v4 = objc_msgSend_copy(valueCopy);
     [(HDCodableTimestampedKeyValuePair *)self setBytesValue:v4];
     goto LABEL_9;
   }
@@ -618,7 +614,6 @@ LABEL_10:
 {
   if ((*&self->_has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     v3 = HDDecodeDateForValue();
   }
 

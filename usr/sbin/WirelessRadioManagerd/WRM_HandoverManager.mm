@@ -2,13 +2,25 @@
 + (id)WRM_HandoverManagerSingleton;
 + (id)allocWithZone:(_NSZone *)zone;
 - (BOOL)can4G5GMeetApplicationRequirementsAppTypeWiFiCallingCallIdle:(int)idle;
+- (BOOL)canCellularMeetApplicationRequirement:(unint64_t)requirement :(unint64_t)a4 :(BOOL)a5 :(int)a6 :(int)a7;
 - (BOOL)canCellularMeetApplicationRequirementsAppTypeData;
+- (BOOL)canCellularMeetApplicationRequirementsAppTypeThumper:(BOOL)thumper :(int)a4 :(int)a5;
+- (BOOL)canCellularMeetApplicationRequirementsAppTypeWiFiCalling:(BOOL)calling :(int)a4 :(int)a5;
 - (BOOL)canCellularMeetApplicationRequirementsAppTypeWiFiCallingCallActive:(int)active;
 - (BOOL)canCellularMeetApplicationRequirementsAppTypeWiFiCallingCallIdle:(int)idle;
+- (BOOL)canWiFiMeetActiveApplicationRequirements:(unint64_t)requirements :(unint64_t)a4 :(int)a5 :(int)a6;
+- (BOOL)canWiFiMeetIdleApplicationRequirements:(unint64_t)requirements :(unint64_t)a4 :(int)a5;
+- (BOOL)canWiFiRadioMeetActiveApplicationRequirements:(unint64_t)requirements :(unint64_t)a4 :(int)a5;
+- (BOOL)canWiFiRadioMeetIdleApplicationRequirements:(unint64_t)requirements :(unint64_t)a4 :(int)a5;
+- (BOOL)canWiFiTransportMeetActiveApplicationRequirements:(unint64_t)requirements :(unint64_t)a4 :(int)a5;
+- (BOOL)canWiFiTransportMeetIdleApplicationRequirements:(unint64_t)requirements :(unint64_t)a4 :(int)a5;
 - (BOOL)checkIFFr2SupportNotAvailable;
 - (BOOL)disableICEClient;
 - (BOOL)disableQMIClient;
 - (BOOL)doesIRATClientSubscriptionContextExist;
+- (BOOL)evaluateCellularLinkForWiFiCallingCellPreferredPolicy:(int)policy :(BOOL)a4;
+- (BOOL)evaluateCellularLinkForWiFiCallingIMSPreferredPolicy:(int)policy :(BOOL)a4;
+- (BOOL)evaluateCellularLinkForWiFiCallingWiFiPreferredPolicy:(int)policy :(BOOL)a4;
 - (BOOL)handoverEvaluationRequired;
 - (BOOL)isAppQualityGoodOnWiFi:(int)fi;
 - (BOOL)isCellularEntryCriteriaMetForIMSThumpCallCurrentLinkWiFi;
@@ -32,16 +44,23 @@
 - (BOOL)isSisSupportedOnICE;
 - (BOOL)isUplinkAudioQualityOfCurrentCallGood:(int)good;
 - (BOOL)isWiFiAppEntryCriteriaMet;
+- (BOOL)isWiFiArqQualityIndicatorGood:(unint64_t)good :(unint64_t)a4 :(int)a5 :(BOOL)a6;
+- (BOOL)isWiFiArqQualityIndicatorGoodControlFW:(unint64_t)w :(unint64_t)a4 :(int)a5 :(BOOL)a6;
 - (BOOL)isWiFiArqQualityIndicatorGoodUserData:(unint64_t)data :(unint64_t)a4 :(int)a5 :(BOOL)a6;
 - (BOOL)isWiFiBeaconLossQualityIndicatorGood:(unint64_t)good :(unint64_t)a4 :(int)a5;
 - (BOOL)isWiFiLinkEvaluationDesired;
 - (BOOL)isWiFiLoadQualityIndicatorGood:(unint64_t)good :(unint64_t)a4 :(BOOL)a5 :(int)a6;
+- (BOOL)isWiFiSymtompsIndicatorGoodEnoughForActiveApplication:(unint64_t)application :(int)a4;
+- (BOOL)isWiFiSymtompsIndicatorGoodEnoughForIdleApplication:(unint64_t)application :(int)a4;
 - (BOOL)isWiFiVoIPQualityGoodEnough;
 - (BOOL)needWiFiLQM;
 - (WRM_HandoverManager)init;
 - (id)getQmiClientForSim:(int64_t)sim;
 - (id)getiRATClientFromList:(int)list;
 - (int)convertToHOAlgorithmType:(unint64_t)type;
+- (int)evaluateLink:(unint64_t)link :(unint64_t)a4 :(BOOL)a5 :(int)a6 :(int)a7 :(int)a8;
+- (int)evaluateLinkNonWiFiPreferred:(unint64_t)preferred :(unint64_t)a4 :(BOOL)a5 :(int)a6 :(int)a7;
+- (int)evaluateLinkWiFiPreferred:(unint64_t)preferred :(unint64_t)a4 :(BOOL)a5 :(int)a6;
 - (int64_t)getRSSIHysteresis;
 - (int64_t)getSNRHysteresis;
 - (void)addiRatClient:(id)client;
@@ -51,7 +70,9 @@
 - (void)createQMIClient;
 - (void)createSymptomsService;
 - (void)dealloc;
+- (void)deleteiRATClient:(int)client;
 - (void)evalExitForceOutranking;
+- (void)evalFR2CoverageLikely:(BOOL)likely;
 - (void)evalSAStatusWiFiCallCallingPrefChanged;
 - (void)evaluateActiveCallQuality;
 - (void)evaluateHandover;
@@ -79,8 +100,15 @@
 - (void)initCallNotifications;
 - (void)initWiFiCellDataEval;
 - (void)lowPowerModePeriodicWakeUp;
+- (void)monitorNetworkSymptoms:(int)symptoms;
+- (void)notifyAVStatus:(unsigned __int8)status :(unsigned __int16)a4;
+- (void)notifyBBUsingMappedSlotInfo:(BOOL)info onSlot:(int64_t)slot;
+- (void)notifyBBVoIPState:(unsigned __int8)state :(unsigned __int8)a4 :(unsigned __int8)a5 :(unsigned __int8)a6 :(id)a7;
+- (void)notifyDuplicationState:(unsigned __int8)state;
+- (void)notifyEHBState:(unsigned __int8)state;
 - (void)notifyRecommendations;
 - (void)notifyVoiceLqmUpdate:(int)update onSimSlot:(int64_t)slot;
+- (void)postBBNotification:(unsigned __int8)notification :(unsigned __int8)a4;
 - (void)postLinkPreference:(unint64_t)preference;
 - (void)postWRMStateToBB;
 - (void)reEvaluateSAState;
@@ -94,11 +122,14 @@
 - (void)resetActiveCallEvaluationMetrics;
 - (void)resetActiveCallTimer;
 - (void)rxVoIPAppNotification:(BOOL)notification callType:(int)type;
+- (void)sendMessage:(int)message withMsg:(id)msg;
 - (void)setCarPlaySession:(BOOL)session;
 - (void)setIWLANServiceType:(int)type;
+- (void)setPingPongTimerMultipler:(unint64_t)multipler :(int)a4 :(unint64_t)a5;
 - (void)setiRATPolicy:(unint64_t)policy;
 - (void)showHOAlertUI:(BOOL)i;
 - (void)submitCallEndMetics;
+- (void)submitDataLinkPreferenceMetrics:(int)metrics;
 - (void)submitMetricsCBRSWithDataSimRecommendation:(BOOL)recommendation forSimSlot:(int64_t)slot;
 - (void)submitWiFiVersusCellAWDMetrics;
 - (void)switchPrivateNwDataSim:(int64_t)sim currentSlotQuality:(int)quality anyCallState:(int)state;
@@ -1555,6 +1586,121 @@ LABEL_14:
   dispatch_async(mQueue, block);
 }
 
+- (void)evalFR2CoverageLikely:(BOOL)likely
+{
+  likelyCopy = likely;
+  [WCM_Logging logLevel:24 message:@"evalFR2CoverageLikely:FR2 capable device:%d, FR2 coverage:%d", byte_1002B7650, likely];
+  if (byte_1002B7650 == 1 && byte_1002B7B5C != likelyCopy)
+  {
+    byte_1002B7B5C = likelyCopy;
+
+    [(WRM_HandoverManager *)self notifyRecommendations];
+  }
+}
+
+- (BOOL)canCellularMeetApplicationRequirement:(unint64_t)requirement :(unint64_t)a4 :(BOOL)a5 :(int)a6 :(int)a7
+{
+  if (a4)
+  {
+    v8 = *&a7;
+    v9 = *&a6;
+    v10 = a5;
+    getIWLANServiceType = [(WRM_HandoverManager *)self getIWLANServiceType];
+    if (getIWLANServiceType)
+    {
+      if (getIWLANServiceType != 1)
+      {
+        if (getIWLANServiceType == 2)
+        {
+          [(WRM_HandoverManager *)self canCellularMeetApplicationRequirementsAppTypeThumper:v10];
+        }
+
+        goto LABEL_7;
+      }
+    }
+
+    else
+    {
+      v12 = [(WRM_HandoverManager *)self canCellularMeetApplicationRequirementsAppTypeWiFiCalling:v10];
+      if (!v12)
+      {
+        return v12;
+      }
+    }
+
+LABEL_9:
+    [(WRM_HandoverManager *)self updateHandoverReasonCode:512];
+    LOBYTE(v12) = 1;
+    return v12;
+  }
+
+  if ([(WRM_HandoverManager *)self canCellularMeetApplicationRequirementsAppTypeData:requirement])
+  {
+    goto LABEL_9;
+  }
+
+LABEL_7:
+  LOBYTE(v12) = 0;
+  return v12;
+}
+
+- (BOOL)canCellularMeetApplicationRequirementsAppTypeThumper:(BOOL)thumper :(int)a4 :(int)a5
+{
+  v7 = [(WRM_HandoverManager *)self getCTService:thumper];
+  cellularDataEnabled = [v7 cellularDataEnabled];
+  dataAttachedWithCellularNetwork = [v7 dataAttachedWithCellularNetwork];
+  getServingCellType = [v7 getServingCellType];
+  if ((a4 - 1) > 1)
+  {
+    if (![(WRM_HandoverManager *)self isCellularExitCriteriaMetForIMSThumpCallCurrentLinkCellular]&& ((dataAttachedWithCellularNetwork ^ 1) & 1) == 0 && ((cellularDataEnabled ^ 1) & 1) == 0)
+    {
+      v11 = @"isCellularExitCriteriaMetForIMSThCallCurrentLinkCellular false";
+      goto LABEL_8;
+    }
+
+    v13 = @"isCellularExitCriteriaMetForIMSThCallCurrentLinkCellular true";
+LABEL_11:
+    [WCM_Logging logLevel:24 message:v13];
+    v12 = 0;
+    goto LABEL_12;
+  }
+
+  if (([(WRM_HandoverManager *)self isCellularEntryCriteriaMetForIMSThumpCallCurrentLinkWiFi]& dataAttachedWithCellularNetwork & cellularDataEnabled) != 1)
+  {
+    v13 = @"isCellularEntryCriteriaMetForIMSThCallCurrentLinkWiFi false";
+    goto LABEL_11;
+  }
+
+  v11 = @"isCellularEntryCriteriaMetForIMSThVoIPCallCurrentLinkWiFi true";
+LABEL_8:
+  [WCM_Logging logLevel:24 message:v11];
+  v12 = 1;
+LABEL_12:
+  v14 = getServingCellType - 1;
+  if (getServingCellType - 1 < 0xA && ((0x2FFu >> v14) & 1) != 0)
+  {
+    v15 = off_10023E828[v14];
+  }
+
+  else
+  {
+    v15 = "UNKNOWN_RADIO!!!";
+    if (getServingCellType == 9)
+    {
+      v15 = "N_RADIO";
+    }
+  }
+
+  [WCM_Logging logLevel:24 message:@"Cell Link Eval Status: %d, Attach Status: %d Serving Cell Type: %s, Cellular Data Enabled: %d", v12, self->deviceAttachedWithCellularNetwork, v15, cellularDataEnabled];
+  if ((dataAttachedWithCellularNetwork & cellularDataEnabled & 1) == 0)
+  {
+    [WCM_Logging logLevel:24 message:@"canCellularMeetApplicationRequirementsAppTypeThumper false because cellular not ready"];
+    [(WRM_HandoverManager *)self updateHandoverReasonCode:0x20000];
+  }
+
+  return v12;
+}
+
 - (BOOL)isCellularEntryCriteriaMetForIMSThumpCallCurrentLinkWiFi
 {
   getSCService = [(WRM_HandoverManager *)self getSCService];
@@ -1641,6 +1787,114 @@ LABEL_21:
   }
 
   return 1;
+}
+
+- (BOOL)canCellularMeetApplicationRequirementsAppTypeWiFiCalling:(BOOL)calling :(int)a4 :(int)a5
+{
+  v5 = *&a5;
+  v6 = *&a4;
+  callingCopy = calling;
+  getCTService = [(WRM_HandoverManager *)self getCTService];
+  self->deviceRegisteredWithCellularNetwork = [getCTService registeredWithCellularNetwork];
+  dataAttachedWithCellularNetwork = [getCTService dataAttachedWithCellularNetwork];
+  isIMSPreferenceEnabled = [getCTService isIMSPreferenceEnabled];
+  [WCM_Logging logLevel:24 message:@"canCellularMeetApplicationRequirementsAppTypeWiFiCalling, algorithm: %d, reg status:%d, attach status:%d, IMS preference: %d", v5, self->deviceRegisteredWithCellularNetwork, dataAttachedWithCellularNetwork, isIMSPreferenceEnabled];
+  if (v5 == 2)
+  {
+    v12 = [(WRM_HandoverManager *)self evaluateCellularLinkForWiFiCallingCellPreferredPolicy:v6];
+  }
+
+  else if (v5 == 1)
+  {
+    v12 = [(WRM_HandoverManager *)self evaluateCellularLinkForWiFiCallingIMSPreferredPolicy:v6];
+  }
+
+  else
+  {
+    v12 = [(WRM_HandoverManager *)self evaluateCellularLinkForWiFiCallingWiFiPreferredPolicy:v6];
+  }
+
+  v13 = v12;
+  if (!self->deviceRegisteredWithCellularNetwork && (dataAttachedWithCellularNetwork & isIMSPreferenceEnabled & 1) == 0)
+  {
+    [WCM_Logging logLevel:24 message:@"canCellularMeetApplicationRequirementsAppTypeWiFiCalling:device not registered or attached with cellular network with IMS preference"];
+    v13 = 0;
+  }
+
+  [WCM_Logging logLevel:24 message:@"canCellularMeetApplicationRequirementsAppTypeWiFiCalling:CellualrEval Status:%d", v13];
+  return v13;
+}
+
+- (BOOL)evaluateCellularLinkForWiFiCallingWiFiPreferredPolicy:(int)policy :(BOOL)a4
+{
+  v4 = a4;
+  v5 = *&policy;
+  getCTService = [(WRM_HandoverManager *)self getCTService];
+  getServingCellType = [getCTService getServingCellType];
+  isVoLTESupported = [getCTService isVoLTESupported];
+  getCurrentSignalBars = [getCTService getCurrentSignalBars];
+  getLteVoiceLQM = [getCTService getLteVoiceLQM];
+  if (v5 == 1 && v4)
+  {
+    v11 = ((getServingCellType & 0xFFFFFFF7) == 1) & isVoLTESupported;
+  }
+
+  else
+  {
+    v13 = getCurrentSignalBars != 1 && getLteVoiceLQM != 10;
+    if (!v4)
+    {
+      v13 = 1;
+    }
+
+    if (v5)
+    {
+      v11 = 1;
+    }
+
+    else
+    {
+      v11 = v13;
+    }
+  }
+
+  v14 = getServingCellType != 10;
+  v15 = v14 & v11;
+  [WCM_Logging logLevel:24 message:@"evaluateCellularLinkForWiFiCallingWiFiPreferredPolicy servingCellType:%d, VoLTE status:%d, call status:%d, evalStatus:%d, connected link: %d", getServingCellType, isVoLTESupported, v4, v14 & v11, v5];
+  return v15;
+}
+
+- (BOOL)evaluateCellularLinkForWiFiCallingCellPreferredPolicy:(int)policy :(BOOL)a4
+{
+  if (a4)
+  {
+    return [(WRM_HandoverManager *)self canCellularMeetApplicationRequirementsAppTypeWiFiCallingCallActive:*&policy];
+  }
+
+  else
+  {
+    return [(WRM_HandoverManager *)self canCellularMeetApplicationRequirementsAppTypeWiFiCallingCallIdle:*&policy];
+  }
+}
+
+- (BOOL)evaluateCellularLinkForWiFiCallingIMSPreferredPolicy:(int)policy :(BOOL)a4
+{
+  v4 = a4;
+  v5 = *&policy;
+  v7 = [-[WRM_HandoverManager getCTService](self "getCTService")];
+  if (v4)
+  {
+
+    return [(WRM_HandoverManager *)self canCellularMeetApplicationRequirementsAppTypeWiFiCallingCallActive:v5];
+  }
+
+  else
+  {
+    v8 = v7;
+    v9 = [(WRM_HandoverManager *)self can4G5GMeetApplicationRequirementsAppTypeWiFiCallingCallIdle:v5]& v7;
+    [WCM_Logging logLevel:24 message:@"evaluateCellularLinkForWiFiCallingIMSPreferredPolicy:CellualrEval Status:%d, VoLTE enabled:%d", v9, v8];
+    return v9;
+  }
 }
 
 - (BOOL)can4G5GMeetApplicationRequirementsAppTypeWiFiCallingCallIdle:(int)idle
@@ -2515,6 +2769,452 @@ LABEL_18:
   return getIWLANServiceType;
 }
 
+- (BOOL)isWiFiArqQualityIndicatorGoodControlFW:(unint64_t)w :(unint64_t)a4 :(int)a5 :(BOOL)a6
+{
+  v8 = [(WRM_HandoverManager *)self getIWLANServiceType:w];
+  if (v8 != 1)
+  {
+    wifiService = [(WCM_WiFiController *)self->mWiFi wifiService];
+    getiRATConfigController = [(WRM_HandoverManager *)self getiRATConfigController];
+    [(WCM_WiFiService *)wifiService getFwTxPer];
+    v12 = (v11 * 100.0);
+    isFwTxPerValid = [(WCM_WiFiService *)wifiService isFwTxPerValid];
+    [(WCM_WiFiService *)wifiService getCumulativeFwTxPer];
+    v15 = (v14 * 100.0);
+    isCumulativeFwTxPerValid = [(WCM_WiFiService *)wifiService isCumulativeFwTxPerValid];
+    [WCM_Logging logLevel:24 message:@"Actual FW TxPER %lld, CumFwTxPer %lld, FWTxPER valid: %d ", v12, v15, isFwTxPerValid];
+    if (isFwTxPerValid)
+    {
+      v17 = v12;
+    }
+
+    else
+    {
+      v17 = 0;
+    }
+
+    if (isCumulativeFwTxPerValid)
+    {
+      v18 = v15;
+    }
+
+    else
+    {
+      v18 = 0;
+    }
+
+    [WCM_Logging logLevel:24 message:@"Effective FW TxPER %lld, CumFwTxPer %lld", v17, v18, v18];
+    if (isFwTxPerValid)
+    {
+      +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 24, @"FW TX PER THREASHOLD: %lld", [getiRATConfigController minIdleWiFiFwTxPktLossRateTh1]);
+      if (a5)
+      {
+        if (a5 == 1 && [getiRATConfigController minIdleWiFiFwTxPktLossRateTh1] < v12)
+        {
+          +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 24, @"iRAT detected WiFi bad because of WiFi_Metrics: FW TX PER THREASHOLD: %lld", [getiRATConfigController minIdleWiFiFwTxPktLossRateTh1]);
+LABEL_14:
+          [(WRM_HandoverManager *)self updateHandoverReasonCode:16];
+          LOBYTE(v8) = 0;
+          return v8;
+        }
+      }
+
+      else if ([getiRATConfigController minIdleWiFiFwTxPktLossRateTh1] < v12)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    LOBYTE(v8) = 1;
+  }
+
+  return v8;
+}
+
+- (BOOL)isWiFiArqQualityIndicatorGood:(unint64_t)good :(unint64_t)a4 :(int)a5 :(BOOL)a6
+{
+  v6 = a6;
+  v7 = *&a5;
+  v11 = [WRM_HandoverManager isWiFiArqQualityIndicatorGoodUserData:"isWiFiArqQualityIndicatorGoodUserData::::"];
+  v12 = [(WRM_HandoverManager *)self isWiFiArqQualityIndicatorGoodControlFW:good];
+  LOBYTE(v6) = v12;
+  [WCM_Logging logLevel:24 message:@"isWiFiArqQualityIndicatorGood: %d, isWiFiArqQualityIndicatorGoodControlFW:%d", v11, v12];
+  return v11 && v6;
+}
+
+- (BOOL)canWiFiRadioMeetIdleApplicationRequirements:(unint64_t)requirements :(unint64_t)a4 :(int)a5
+{
+  v5 = *&a5;
+  getiRATConfigController = [(WRM_HandoverManager *)self getiRATConfigController];
+  wifiService = [(WCM_WiFiController *)self->mWiFi wifiService];
+  getRSSI = [(WCM_WiFiService *)wifiService getRSSI];
+  getSNR = [(WCM_WiFiService *)wifiService getSNR];
+  isWiFiNetworkCaptive = [(WCM_WiFiService *)wifiService isWiFiNetworkCaptive];
+  getRSSIHysteresis = [(WRM_HandoverManager *)self getRSSIHysteresis];
+  v13 = [(WRM_HandoverManager *)self isWiFiArqQualityIndicatorGood:requirements];
+  v14 = [(WRM_HandoverManager *)self isWiFiBeaconLossQualityIndicatorGood:requirements];
+  v15 = [(WRM_HandoverManager *)self isWiFiLoadQualityIndicatorGood:requirements];
+  [WCM_Logging logLevel:24 message:@"canWiFiRadioMeetIdleApplicationRequirements: RSSI = %lld, SNR=%lld, ARQ Quality=%d, Beacon Quality =%d, Load Quality =%d, WiFi Captive Status: %d, connected link type: %d", getRSSI, getSNR, v13, v14, v15, isWiFiNetworkCaptive, v5];
+  if (a4 - 1 >= 2)
+  {
+    if (!a4)
+    {
+      [WCM_Logging logLevel:24 message:@"canWiFiRadioMeetIdleApplicationRequirements: CT_DATA"];
+      v17 = byte_1002B7C01 ^ 1;
+      return v17 & 1;
+    }
+
+    v18 = @"canWiFiRadioMeetIdleApplicationRequirements: Application category not supported";
+    goto LABEL_19;
+  }
+
+  [WCM_Logging logLevel:24 message:@"canWiFiRadioMeetIdleApplicationRequirements: CT_VOICE"];
+  if (!v5)
+  {
+    [WCM_Logging logLevel:24 message:@"canWiFiRadioMeetIdleApplicationRequirements:connectedLinkType == WRM_CELLULAR"];
+    v19 = getRSSI >= ([getiRATConfigController minIdleWiFiRssiTh0] + getRSSIHysteresis) && v15;
+    v17 = v19 && v13 && v14;
+    return v17 & 1;
+  }
+
+  if (v5 != 1)
+  {
+    v18 = @"CT_VOICE: connectedLinkType == NO Context";
+LABEL_19:
+    [WCM_Logging logLevel:24 message:v18];
+LABEL_20:
+    v17 = 1;
+    return v17 & 1;
+  }
+
+  [WCM_Logging logLevel:24 message:@"canWiFiRadioMeetIdleApplicationRequirements:connectedLinkType == WRM_WIFI"];
+  v16 = getRSSI >= ([getiRATConfigController minIdleWiFiRssiTh1] + getRSSIHysteresis) && v15;
+  if (v16 && v14 && v13)
+  {
+    goto LABEL_20;
+  }
+
+  if (getRSSI < ([getiRATConfigController minIdleWiFiRssiTh1] + getRSSIHysteresis))
+  {
+    [(WRM_HandoverManager *)self updateHandoverReasonCode:8];
+  }
+
+  v17 = 0;
+  return v17 & 1;
+}
+
+- (BOOL)canWiFiTransportMeetIdleApplicationRequirements:(unint64_t)requirements :(unint64_t)a4 :(int)a5
+{
+  v5 = *&a5;
+  if (![-[WRM_HandoverManager getiRATConfigController](self getiRATConfigController])
+  {
+    return 1;
+  }
+
+  return [(WRM_HandoverManager *)self isWiFiSymtompsIndicatorGoodEnoughForIdleApplication:a4];
+}
+
+- (BOOL)canWiFiRadioMeetActiveApplicationRequirements:(unint64_t)requirements :(unint64_t)a4 :(int)a5
+{
+  v5 = *&a5;
+  getiRATConfigController = [(WRM_HandoverManager *)self getiRATConfigController];
+  wifiService = [(WCM_WiFiController *)self->mWiFi wifiService];
+  getRSSI = [(WCM_WiFiService *)wifiService getRSSI];
+  getSNR = [(WCM_WiFiService *)wifiService getSNR];
+  getPointOfInterest = [(WCM_WiFiService *)wifiService getPointOfInterest];
+  v26 = getiRATConfigController;
+  if (!_os_feature_enabled_impl())
+  {
+    selfCopy2 = self;
+    requirementsCopy2 = requirements;
+    v16 = a4;
+    v17 = v5;
+    goto LABEL_7;
+  }
+
+  if (v5 == 1 && getPointOfInterest - 1 <= 1 && getRSSI <= -71)
+  {
+    selfCopy2 = self;
+    requirementsCopy2 = requirements;
+    v16 = a4;
+    v17 = 1;
+LABEL_7:
+    v18 = [(WRM_HandoverManager *)selfCopy2 isWiFiArqQualityIndicatorGood:requirementsCopy2];
+    goto LABEL_9;
+  }
+
+  [WCM_Logging logLevel:24 message:@"canWiFiRadioMeetActiveApplicationRequirements:ignore instantaneous TX packet loss"];
+  v18 = 1;
+LABEL_9:
+  v19 = [(WRM_HandoverManager *)self isWiFiBeaconLossQualityIndicatorGood:requirements];
+  v20 = [(WRM_HandoverManager *)self isWiFiLoadQualityIndicatorGood:requirements];
+  [WCM_Logging logLevel:24 message:@"canWiFiRadioMeetActiveApplicationRequirements: RSSI = %lld, SNR=%lld, ARQ Quality=%d, Beacon Quality =%d, Load Quality =%d", getRSSI, getSNR, v18, v19, v20];
+  getRSSIHysteresis = [(WRM_HandoverManager *)self getRSSIHysteresis];
+  if (a4 - 1 >= 2)
+  {
+    if (a4)
+    {
+      v24 = @"Application category not supported";
+    }
+
+    else
+    {
+      v24 = @"canWiFiRadioMeetActiveApplicationRequirements: CT_DATA";
+    }
+
+    goto LABEL_24;
+  }
+
+  v22 = getRSSIHysteresis;
+  [WCM_Logging logLevel:24 message:@"canWiFiRadioMeetActiveApplicationRequirements: CT_VOICE"];
+  if (v5)
+  {
+    if (v5 == 1)
+    {
+      [WCM_Logging logLevel:24 message:@"canWiFiRadioMeetActiveApplicationRequirements:connectedLinkType == WRM_IWLAN_WIFI"];
+      +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 24, @"minActiveWiFiSnrTh1 = %lld, minActiveWiFiRssiTh1 =%lld", [v26 minActiveWiFiSnrTh1], objc_msgSend(v26, "minActiveWiFiRssiTh1"));
+      if (((getRSSI >= [v26 minActiveWiFiRssiTh1] + v22) & v18) == 0)
+      {
+        if (getRSSI < [v26 minActiveWiFiRssiTh1] + v22)
+        {
+          [(WRM_HandoverManager *)self updateHandoverReasonCode:8];
+        }
+
+        return 0;
+      }
+
+      return 1;
+    }
+
+    v24 = @"canWiFiRadioMeetActiveApplicationRequirements:connectedLinkType == No Context";
+LABEL_24:
+    [WCM_Logging logLevel:24 message:v24];
+    return 1;
+  }
+
+  [WCM_Logging logLevel:24 message:@"canWiFiRadioMeetActiveApplicationRequirements:connectedLinkType == WRM_IWLAN_CELLULAR"];
+  v25 = getRSSI >= [v26 minActiveWiFiRssiTh0] + v22 && v20;
+  return v25 & v18;
+}
+
+- (BOOL)isWiFiSymtompsIndicatorGoodEnoughForIdleApplication:(unint64_t)application :(int)a4
+{
+  if ([(WRM_SymptomsService *)self->mSymtomsService isBackhaulGood:application])
+  {
+    if (application - 1 >= 2)
+    {
+      if (!application)
+      {
+        v6 = [(WRM_SymptomsService *)self->mSymtomsService isConnectedLinkGood:0];
+        v9 = "CT_DATA";
+        goto LABEL_15;
+      }
+
+      v6 = 1;
+    }
+
+    else
+    {
+      v6 = [(WRM_SymptomsService *)self->mSymtomsService isConnectedLinkGood:0];
+    }
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (!application)
+  {
+    v7 = v6;
+    v8 = "CT_DATA";
+    goto LABEL_9;
+  }
+
+  if (application == 1)
+  {
+    v7 = v6;
+    v8 = "CT_VOICE";
+LABEL_9:
+    [WCM_Logging logLevel:24 message:@"{%s}isWiFiSymtompsIndicatorGoodEnoughForIdleApplication: return %d", v8, v7];
+    goto LABEL_16;
+  }
+
+  v9 = "UNKNOWN_APP!!!";
+  if (application == 2)
+  {
+    v9 = "CT_Th_Call";
+  }
+
+LABEL_15:
+  [WCM_Logging logLevel:24 message:@"{%s}isWiFiSymtompsIndicatorGoodEnoughForIdleApplication: return %d", v9, v6];
+LABEL_16:
+  if (v6)
+  {
+    return 1;
+  }
+
+  if ([(WRM_SymptomsService *)self->mSymtomsService dpdFailureDetected])
+  {
+    [(WRM_HandoverManager *)self updateHandoverReasonCode:1];
+  }
+
+  if ([(WRM_SymptomsService *)self->mSymtomsService sipTimeOutDetected])
+  {
+    [(WRM_HandoverManager *)self updateHandoverReasonCode:64];
+  }
+
+  [(WRM_HandoverManager *)self updateHandoverReasonCode:128];
+  return 0;
+}
+
+- (BOOL)isWiFiSymtompsIndicatorGoodEnoughForActiveApplication:(unint64_t)application :(int)a4
+{
+  v6 = [(WRM_SymptomsService *)self->mSymtomsService getNetworkScore:0, *&a4];
+  v7 = 0;
+  if ([(WRM_SymptomsService *)self->mSymtomsService isBackhaulGood])
+  {
+    v7 = 1;
+    if (application - 3 >= 0xFFFFFFFFFFFFFFFELL && (v6 & 0xFFFFFFFE) != 2)
+    {
+      v7 = [(WRM_SymptomsService *)self->mSymtomsService isConnectedLinkGood:1];
+    }
+  }
+
+  v8 = "CT_DATA";
+  v9 = "CT_VOICE";
+  v10 = "UNKNOWN_APP!!!";
+  if (application == 2)
+  {
+    v10 = "CT_Th_Call";
+  }
+
+  if (application != 1)
+  {
+    v9 = v10;
+  }
+
+  if (application)
+  {
+    v8 = v9;
+  }
+
+  [WCM_Logging logLevel:24 message:@"{%s}isWiFiSymtompsIndicatorGoodEnoughForActiveApplication: return %d", v8, v7];
+  if (!v7)
+  {
+    [(WRM_HandoverManager *)self updateHandoverReasonCode:128];
+    if ([(WRM_SymptomsService *)self->mSymtomsService dpdFailureDetected])
+    {
+      [(WRM_HandoverManager *)self updateHandoverReasonCode:1];
+    }
+
+    if ([(WRM_SymptomsService *)self->mSymtomsService sipTimeOutDetected])
+    {
+      [(WRM_HandoverManager *)self updateHandoverReasonCode:64];
+    }
+  }
+
+  return v7;
+}
+
+- (BOOL)canWiFiTransportMeetActiveApplicationRequirements:(unint64_t)requirements :(unint64_t)a4 :(int)a5
+{
+  v5 = *&a5;
+  getiRATConfigController = [(WRM_HandoverManager *)self getiRATConfigController];
+  if (a4 - 1 >= 2)
+  {
+    if (a4)
+    {
+      [WCM_Logging logLevel:24 message:@"Application category not supported"];
+      return 1;
+    }
+
+    if (![getiRATConfigController symtompsMetricsEnabled])
+    {
+      return 1;
+    }
+
+    selfCopy2 = self;
+    v12 = 0;
+  }
+
+  else
+  {
+    if (v5 == 1)
+    {
+      if ([getiRATConfigController rtpMetricsEnabled])
+      {
+
+        return [(WRM_HandoverManager *)self isWiFiVoIPQualityGoodEnough:v9];
+      }
+
+      return 1;
+    }
+
+    if (![getiRATConfigController symtompsMetricsEnabled])
+    {
+      return 1;
+    }
+
+    selfCopy2 = self;
+    v12 = a4;
+  }
+
+  return [(WRM_HandoverManager *)selfCopy2 isWiFiSymtompsIndicatorGoodEnoughForActiveApplication:v12];
+}
+
+- (BOOL)canWiFiMeetActiveApplicationRequirements:(unint64_t)requirements :(unint64_t)a4 :(int)a5 :(int)a6
+{
+  v7 = *&a5;
+  if ([WRM_HandoverManager canWiFiRadioMeetActiveApplicationRequirements:"canWiFiRadioMeetActiveApplicationRequirements:::"]&& [(WRM_HandoverManager *)self canWiFiTransportMeetActiveApplicationRequirements:requirements]&& [(WRM_HandoverManager *)self isMovingAverageAudioQualityOfCurrentCallGood:v7]&& [(WRM_HandoverManager *)self isUplinkAudioQualityOfCurrentCallGood:v7]&& [(WRM_HandoverManager *)self isIMSTransportQualityGood])
+  {
+    [(WRM_HandoverManager *)self updateHandoverReasonCode:0x10000];
+    return 1;
+  }
+
+  result = 0;
+  if (a4 == 1 && v7 == 1 && a6)
+  {
+    getCTService = [(WRM_HandoverManager *)self getCTService];
+    [getCTService getServingCellType];
+    if ([getCTService isVoLTESupported])
+    {
+      return 0;
+    }
+
+    [WCM_Logging logLevel:24 message:@"canWiFiMeetActiveApplicationRequirements: serving cell is not LTE/NR so supress bad WiFi evaluation, Volte Enabled %d", 0];
+    return 1;
+  }
+
+  return result;
+}
+
+- (BOOL)canWiFiMeetIdleApplicationRequirements:(unint64_t)requirements :(unint64_t)a4 :(int)a5
+{
+  v5 = *&a5;
+  if (!-[WRM_HandoverManager getIWLANServiceType](self, "getIWLANServiceType") && [-[WRM_HandoverManager getCTService](self "getCTService")] == 10)
+  {
+    v9 = 0x20000;
+LABEL_7:
+    [(WRM_HandoverManager *)self updateHandoverReasonCode:v9];
+    LOBYTE(v10) = 1;
+    return v10;
+  }
+
+  v10 = [(WRM_HandoverManager *)self canWiFiRadioMeetIdleApplicationRequirements:requirements];
+  if (v10)
+  {
+    v10 = [(WRM_HandoverManager *)self canWiFiTransportMeetIdleApplicationRequirements:requirements];
+    if (v10)
+    {
+      v9 = 0x10000;
+      goto LABEL_7;
+    }
+  }
+
+  return v10;
+}
+
 - (void)evaluateActiveCallQuality
 {
   [(NSDate *)self->mAudioEvaluationTimer timeIntervalSinceNow];
@@ -2979,6 +3679,45 @@ LABEL_31:
   }
 }
 
+- (void)monitorNetworkSymptoms:(int)symptoms
+{
+  v3 = *&symptoms;
+  if ([(WRM_iRATConfig *)self->miRATConfig symtompsMetricsEnabled]&& [(WRM_SymptomsService *)self->mSymtomsService updateAllNetworkSymptoms:v3])
+  {
+    v5 = [(WRM_SymptomsService *)self->mSymtomsService getNetworkScore:v3];
+    v6 = "WRM_NETWORK_TYPE_INVALID!!!";
+    if (v3 == 1)
+    {
+      v6 = "CELLULAR";
+    }
+
+    if (!v3)
+    {
+      v6 = "WIFI";
+    }
+
+    if (v5 + 1 >= 5)
+    {
+      if (v5 == -2)
+      {
+        v7 = "WRM_NETWORK_SCORE_ERROR         ";
+      }
+
+      else
+      {
+        v7 = "WRM_NETWORK_SCORE_INVALID_VALUE!!!";
+      }
+    }
+
+    else
+    {
+      v7 = (&off_10023E950)[v5 + 1];
+    }
+
+    [WCM_Logging logLevel:24 message:@"iRAT: check symtoms service done. %s score %s ", v6, v7];
+  }
+}
+
 - (void)handleMotionUpdate:(id)update
 {
   int64 = xpc_dictionary_get_int64(update, "kWRMM_MOTION_STATE");
@@ -3012,6 +3751,24 @@ LABEL_31:
   [(WRM_HandoverManager *)self existingContexts];
 
   objc_sync_exit(miRATClientContexts);
+}
+
+- (void)deleteiRATClient:(int)client
+{
+  v3 = *&client;
+  miRATClientContexts = self->miRATClientContexts;
+  objc_sync_enter(miRATClientContexts);
+  v6 = [(WRM_HandoverManager *)self getiRATClientFromList:v3];
+  if (v6)
+  {
+    [(WRM_HandoverManager *)self removeiRatClient:v6];
+  }
+
+  objc_sync_exit(miRATClientContexts);
+  mWiFi = self->mWiFi;
+  needWiFiLQM = [(WRM_HandoverManager *)self needWiFiLQM];
+
+  [(WCM_WiFiController *)mWiFi toggleWiFiLQMIfNeeded:needWiFiLQM];
 }
 
 - (id)getiRATClientFromList:(int)list
@@ -3277,6 +4034,58 @@ LABEL_9:
   v22.receiver = self;
   v22.super_class = WRM_HandoverManager;
   [(WRM_HandoverManager *)&v22 dealloc];
+}
+
+- (void)postBBNotification:(unsigned __int8)notification :(unsigned __int8)a4
+{
+  v4 = a4;
+  notificationCopy = notification;
+  if ([(WRM_HandoverManager *)self isQmiSdmSupported])
+  {
+    [WCM_Logging logLevel:24 message:@"postBBNotification calling notifyBBLockState : mQMINasClientPrimary: %x", self->mQMINasClientPrimary];
+    mQMINasClientPrimary = self->mQMINasClientPrimary;
+    v8 = notificationCopy;
+    v9 = v4;
+
+- (void)notifyEHBState:(unsigned __int8)state
+{
+  stateCopy = state;
+  if ([(WRM_HandoverManager *)self isQmiSdmSupported])
+  {
+    [WCM_Logging logLevel:24 message:@"postBBNotification calling notifyEHBState : mQMINasClientPrimary: %x", self->mQMINasClientPrimary];
+    mQMINasClientPrimary = self->mQMINasClientPrimary;
+
+    [(WRM_QMINasClient *)mQMINasClientPrimary notifyStreamingEBHState:stateCopy];
+  }
+
+  else if ([(WRM_HandoverManager *)self isIbiSdmSupported])
+  {
+    [WCM_Logging logLevel:24 message:@"postBBNotification calling notifyEHBState : mIBIClient: %x", self->mIBIClient];
+    mIBIClient = self->mIBIClient;
+
+    [(WRM_IceClientDriver *)mIBIClient notifyStreamingEBHState:1];
+  }
+}
+
+- (void)notifyAVStatus:(unsigned __int8)status :(unsigned __int16)a4
+{
+  v4 = a4;
+  statusCopy = status;
+  if ([(WRM_HandoverManager *)self isQmiSdmSupported])
+  {
+    [WCM_Logging logLevel:24 message:@"postBBNotification calling notifyAVStatus : mQMINasClientPrimary: %x", self->mQMINasClientPrimary];
+    mQMINasClientPrimary = self->mQMINasClientPrimary;
+
+    [(WRM_QMINasClient *)mQMINasClientPrimary notifyAVStatus:statusCopy];
+  }
+
+  else if ([(WRM_HandoverManager *)self isIbiSdmSupported])
+  {
+    [WCM_Logging logLevel:24 message:@"postBBNotification calling notifyAVStatus : mIBIClient: %x", self->mIBIClient];
+    mIBIClient = self->mIBIClient;
+
+    [(WRM_IceClientDriver *)mIBIClient notifyAVStatus:1];
+  }
 }
 
 - (BOOL)isDeviceConnectedOverNonLTERadio
@@ -3721,6 +4530,55 @@ LABEL_7:
   dispatch_async(mQueue, v4);
 }
 
+- (void)notifyBBUsingMappedSlotInfo:(BOOL)info onSlot:(int64_t)slot
+{
+  infoCopy = info;
+  isWiFiCallingSupportedSlot1 = [(WRM_CTService *)self->mCTService isWiFiCallingSupportedSlot1];
+  if ([(WRM_CTService *)self->mCTService isWiFiCallingSupportedSlot2])
+  {
+    v8 = 2;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  byte_1002B7A18 = v8 | isWiFiCallingSupportedSlot1;
+  if ([(WRM_HandoverManager *)self isQmiSdmSupported])
+  {
+    if (slot == 2)
+    {
+      mQMINasClientSecondary = self->mQMINasClientSecondary;
+      if (!mQMINasClientSecondary)
+      {
+        return;
+      }
+    }
+
+    else
+    {
+      if (slot != 1)
+      {
+        return;
+      }
+
+      mQMINasClientSecondary = self->mQMINasClientPrimary;
+    }
+
+    v11 = byte_1002B7A18;
+
+    [(WRM_QMINasClient *)mQMINasClientSecondary setBBSAState:infoCopy];
+  }
+
+  else if ([(WRM_HandoverManager *)self isIbiSdmSupported])
+  {
+    mIBIClient = self->mIBIClient;
+
+    [(WRM_IceClientDriver *)mIBIClient setBBSAState:slot];
+  }
+}
+
 - (void)triggerEnableSA:(BOOL)a
 {
   mQueue = self->mQueue;
@@ -3731,6 +4589,198 @@ LABEL_7:
   v4[4] = self;
   aCopy = a;
   dispatch_async(mQueue, v4);
+}
+
+- (int)evaluateLink:(unint64_t)link :(unint64_t)a4 :(BOOL)a5 :(int)a6 :(int)a7 :(int)a8
+{
+  v8 = *&a8;
+  mWiFi = self->mWiFi;
+  if (!mWiFi)
+  {
+    v17 = @"Evaluate link: WiFi not initialized.";
+LABEL_11:
+    [WCM_Logging logLevel:24 message:v17, a5, *&a6, *&a7];
+    goto LABEL_12;
+  }
+
+  v12 = *&a7;
+  v13 = *&a6;
+  v14 = a5;
+  wifiService = [(WCM_WiFiController *)mWiFi wifiService];
+  if (!wifiService)
+  {
+    v17 = @"Evaluate link: WiFi service not initialized.";
+    goto LABEL_11;
+  }
+
+  if (byte_1002B7CD0)
+  {
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_1000D343C;
+    block[3] = &unk_10023DB28;
+    block[4] = self;
+    dispatch_async(&_dispatch_main_q, block);
+LABEL_12:
+    [(WRM_HandoverManager *)self updateHandoverReasonCode:2];
+    v19 = 0;
+    goto LABEL_13;
+  }
+
+  if (![(WCM_WiFiService *)wifiService isWiFiPrimaryInterface])
+  {
+    byte_1002B7A19 = 0;
+    v17 = @"Evaluate link: WiFi link not primary yet. ";
+    goto LABEL_11;
+  }
+
+  [(WRM_HandoverManager *)self toggleSAState:1];
+  byte_1002B7A19 = 1;
+  if (v12)
+  {
+    [WCM_Logging logLevel:24 message:@"Evaluate link: Using Non-WIFI_Preferred algorithm. "];
+    v18 = [(WRM_HandoverManager *)self evaluateLinkNonWiFiPreferred:link];
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:24 message:@"Evaluate link: Using WiFi-Preferred algorithm. "];
+    v18 = [(WRM_HandoverManager *)self evaluateLinkWiFiPreferred:link];
+  }
+
+  v19 = v18;
+LABEL_13:
+  v20 = "CT_DATA";
+  v21 = "CT_VOICE";
+  v22 = "UNKNOWN_APP!!!";
+  if (a4 == 2)
+  {
+    v22 = "CT_Th_Call";
+  }
+
+  if (a4 != 1)
+  {
+    v21 = v22;
+  }
+
+  if (a4)
+  {
+    v20 = v21;
+  }
+
+  v23 = "WIFI";
+  if (!v19)
+  {
+    v23 = "CELLULAR";
+  }
+
+  [WCM_Logging logLevel:24 message:@"{%s}iRAT: Evaluate link preferred:slot:%d: %s", v20, v8, v23];
+  return v19;
+}
+
+- (int)evaluateLinkWiFiPreferred:(unint64_t)preferred :(unint64_t)a4 :(BOOL)a5 :(int)a6
+{
+  v6 = *&a6;
+  if (!a5)
+  {
+    if (a4 == 1 && (byte_1002B7BC8 & 1) != 0)
+    {
+      [(WRM_HandoverManager *)self updateHandoverReasonCode:256];
+      [(WRM_HandoverManager *)self updateHandoverReasonCode:16];
+      v11 = @"Evaluate link: Cellular: VoIP quality was not good.";
+      goto LABEL_8;
+    }
+
+    [WCM_Logging logLevel:24 message:@"Evaluate link: Call Idle."];
+    if (![(WRM_HandoverManager *)self canWiFiMeetIdleApplicationRequirements:preferred])
+    {
+      selfCopy2 = self;
+      preferredCopy2 = preferred;
+      v15 = a4;
+      v16 = 0;
+      return ![(WRM_HandoverManager *)selfCopy2 canCellularMeetApplicationRequirement:preferredCopy2];
+    }
+
+    return 1;
+  }
+
+  getCTService = [(WRM_HandoverManager *)self getCTService];
+  if (!v6 && [getCTService isSrvccHandoverInProgress])
+  {
+    v11 = @"evaluateLinkWiFiPreferred:: skip WiFi link evaluation, SRVCC handover is in progress";
+LABEL_8:
+    [WCM_Logging logLevel:24 message:v11];
+    return 0;
+  }
+
+  [WCM_Logging logLevel:24 message:@"Evaluate link: Call active."];
+  if ([(WRM_HandoverManager *)self canWiFiMeetActiveApplicationRequirements:preferred])
+  {
+    return 1;
+  }
+
+  selfCopy2 = self;
+  preferredCopy2 = preferred;
+  v15 = a4;
+  v16 = 1;
+  return ![(WRM_HandoverManager *)selfCopy2 canCellularMeetApplicationRequirement:preferredCopy2];
+}
+
+- (int)evaluateLinkNonWiFiPreferred:(unint64_t)preferred :(unint64_t)a4 :(BOOL)a5 :(int)a6 :(int)a7
+{
+  v7 = *&a7;
+  v8 = *&a6;
+  v9 = a5;
+  [WCM_Logging logLevel:24 message:@"Using evaluateLinkNonWiFiPreferred: algorithm type: %d", *&a7];
+  if ([(WRM_HandoverManager *)self canCellularMeetApplicationRequirement:preferred])
+  {
+    v13 = @"Cellular can meet application requirements";
+LABEL_10:
+    [WCM_Logging logLevel:24 message:v13];
+    return 0;
+  }
+
+  [WCM_Logging logLevel:24 message:@"Cellular can not meet application requirements"];
+  mWiFi = self->mWiFi;
+  if (!mWiFi)
+  {
+    [(WRM_HandoverManager *)self updateHandoverReasonCode:2];
+    v13 = @"Evaluate link: WiFi not initialized.";
+    goto LABEL_10;
+  }
+
+  wifiService = [(WCM_WiFiController *)mWiFi wifiService];
+  if (!wifiService)
+  {
+    [(WRM_HandoverManager *)self updateHandoverReasonCode:2];
+    v13 = @"Evaluate link: WiFi service not initialized.";
+    goto LABEL_10;
+  }
+
+  if ([(WCM_WiFiService *)wifiService isWiFiPrimaryInterface])
+  {
+    byte_1002B7A19 = 1;
+    [WCM_Logging logLevel:24 message:@"WiFi link is primary."];
+    if (v9)
+    {
+      return [(WRM_HandoverManager *)self canWiFiMeetActiveApplicationRequirements:preferred];
+    }
+
+    else
+    {
+      return [(WRM_HandoverManager *)self canWiFiMeetIdleApplicationRequirements:preferred];
+    }
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:24 message:@"WiFi link is not primary: recommend cellular"];
+    [(WRM_HandoverManager *)self updateHandoverReasonCode:2];
+    result = 0;
+    byte_1002B7A19 = 0;
+  }
+
+  return result;
 }
 
 - (void)switchPrivateNwDataSim:(int64_t)sim currentSlotQuality:(int)quality anyCallState:(int)state
@@ -4661,6 +5711,13 @@ LABEL_17:
   }
 }
 
+- (void)sendMessage:(int)message withMsg:(id)msg
+{
+  v5 = [+[WCM_Server singleton](WCM_Server "singleton")];
+
+  [v5 sendMessage:msg];
+}
+
 - (int)convertToHOAlgorithmType:(unint64_t)type
 {
   if (type == 3)
@@ -4707,6 +5764,13 @@ LABEL_17:
   byte_1002B7BC8 = 0;
 
   [WCM_Logging logLevel:24 message:@"resetActiveCallEvaluationMetrics: exit"];
+}
+
+- (void)setPingPongTimerMultipler:(unint64_t)multipler :(int)a4 :(unint64_t)a5
+{
+  v6 = [-[WRM_HandoverManager getiRATClientFromList:](self getiRATClientFromList:{*&a4), "getMobilityContextFromList:", a5}];
+
+  [v6 setPingPongAvoidanceTimerMultiplier:multipler];
 }
 
 - (void)resetActiveCallTimer
@@ -4820,6 +5884,23 @@ LABEL_12:
   }
 }
 
+- (void)submitDataLinkPreferenceMetrics:(int)metrics
+{
+  v3 = *&metrics;
+  if (self->mDataLinkPrefMetrics->metricsUpdate)
+  {
+    [WCM_Logging logLevel:24 message:@"submitDataLinkPreferenceMetrics::submitDataLinkPreferenceaMetrics"];
+    [-[WRM_MetricsService getAWDService](self->mMetrics "getAWDService")];
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:24 message:@"submitDataLinkPreferenceMetrics::feedAWDDataLinkPreferenceChange"];
+  }
+
+  [(WRM_HandoverManager *)self feedAWDDataLinkPreferenceChange:v3];
+}
+
 - (void)createSymptomsService
 {
   if (self->mSymtomsService)
@@ -4914,6 +5995,43 @@ LABEL_13:
   }
 
   [WCM_Logging logLevel:24 message:v7];
+}
+
+- (void)notifyBBVoIPState:(unsigned __int8)state :(unsigned __int8)a4 :(unsigned __int8)a5 :(unsigned __int8)a6 :(id)a7
+{
+  v8 = a6;
+  v9 = a5;
+  v10 = a4;
+  stateCopy = state;
+  if ([(WRM_HandoverManager *)self isQmiSdmSupported])
+  {
+    [(WRM_QMINasClient *)self->mQMINasClientPrimary notifyBBCallState:stateCopy];
+  }
+
+  else if ([(WRM_HandoverManager *)self isIbiSdmSupported])
+  {
+    [(WRM_IceClientDriver *)self->mIBIClient notifyBBCallState:1];
+  }
+
+  [(WRM_HandoverManager *)self updateAnyCallState:v10 providerIdentifier:a7];
+}
+
+- (void)notifyDuplicationState:(unsigned __int8)state
+{
+  stateCopy = state;
+  if ([(WRM_HandoverManager *)self isQmiSdmSupported])
+  {
+    mQMINasClientPrimary = self->mQMINasClientPrimary;
+
+    [(WRM_QMINasClient *)mQMINasClientPrimary notifyFTDupelicationState:stateCopy];
+  }
+
+  else if ([(WRM_HandoverManager *)self isIbiSdmSupported])
+  {
+    mIBIClient = self->mIBIClient;
+
+    [(WRM_IceClientDriver *)mIBIClient notifyFTDupelicationState:1];
+  }
 }
 
 - (void)postWRMStateToBB

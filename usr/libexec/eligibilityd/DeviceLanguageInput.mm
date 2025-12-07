@@ -99,42 +99,42 @@
     {
       if (v6)
       {
-        objc_opt_class();
-        if (sub_100027870(v6))
+        v7 = objc_opt_class();
+        if (sub_100027870(v6, v7))
         {
-          v7 = [[NSLocale alloc] initWithLocaleIdentifier:primaryLanguage];
-          v18 = 0u;
+          v8 = [[NSLocale alloc] initWithLocaleIdentifier:primaryLanguage];
           v19 = 0u;
           v20 = 0u;
           v21 = 0u;
+          v22 = 0u;
           v6 = v6;
-          v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
-          if (v8)
+          v9 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          if (v9)
           {
-            v9 = *v19;
+            v10 = *v20;
             while (2)
             {
-              for (i = 0; i != v8; i = i + 1)
+              for (i = 0; i != v9; i = i + 1)
               {
-                if (*v19 != v9)
+                if (*v20 != v10)
                 {
                   objc_enumerationMutation(v6);
                 }
 
-                v11 = *(*(&v18 + 1) + 8 * i);
-                v12 = [NSLocale alloc];
-                v13 = [v12 initWithLocaleIdentifier:{v11, v18}];
-                v14 = [v13 isEquivalentTo:v7];
+                v12 = *(*(&v19 + 1) + 8 * i);
+                v13 = [NSLocale alloc];
+                v14 = [v13 initWithLocaleIdentifier:{v12, v19}];
+                v15 = [v14 isEquivalentTo:v8];
 
-                if (v14)
+                if (v15)
                 {
-                  LOBYTE(v8) = 1;
+                  LOBYTE(v9) = 1;
                   goto LABEL_25;
                 }
               }
 
-              v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
-              if (v8)
+              v9 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+              if (v9)
               {
                 continue;
               }
@@ -148,15 +148,15 @@ LABEL_25:
 
         else
         {
-          v17 = sub_10001F638();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v18 = sub_10001F638();
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315138;
-            v24 = "[DeviceLanguageInput canFallbackTo:]";
-            _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%s: Languages contains non-String entries", buf, 0xCu);
+            v25 = "[DeviceLanguageInput canFallbackTo:]";
+            _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%s: Languages contains non-String entries", buf, 0xCu);
           }
 
-          LOBYTE(v8) = 0;
+          LOBYTE(v9) = 0;
         }
 
         goto LABEL_19;
@@ -167,27 +167,27 @@ LABEL_25:
     {
     }
 
-    v15 = sub_10001F638();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sub_10001F638();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v24 = "[DeviceLanguageInput canFallbackTo:]";
-      v25 = 2112;
-      v26 = v6;
-      _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%s: Unexpected type passed to selector: %@", buf, 0x16u);
+      v25 = "[DeviceLanguageInput canFallbackTo:]";
+      v26 = 2112;
+      v27 = v6;
+      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%s: Unexpected type passed to selector: %@", buf, 0x16u);
     }
 
-    LOBYTE(v8) = 0;
-    v6 = v15;
+    LOBYTE(v9) = 0;
+    v6 = v16;
 LABEL_19:
 
     goto LABEL_20;
   }
 
-  LOBYTE(v8) = 0;
+  LOBYTE(v9) = 0;
 LABEL_20:
 
-  return v8;
+  return v9;
 }
 
 - (NSString)primaryLanguage
@@ -226,8 +226,8 @@ LABEL_20:
 
   if (!v6)
   {
-    v8 = sub_10001F638();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_10001F638();
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
 LABEL_12:
 
@@ -235,26 +235,26 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    v11 = 136315138;
-    v12 = "[DeviceLanguageInput deviceLanguages]";
-    v9 = "%s: Failed to read device language preferences";
+    v12 = 136315138;
+    v13 = "[DeviceLanguageInput deviceLanguages]";
+    v10 = "%s: Failed to read device language preferences";
 LABEL_18:
-    _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, v9, &v11, 0xCu);
+    _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, v10, &v12, 0xCu);
     goto LABEL_12;
   }
 
-  objc_opt_class();
-  if ((sub_100027870(v6) & 1) == 0)
+  v8 = objc_opt_class();
+  if ((sub_100027870(v6, v8) & 1) == 0)
   {
-    v8 = sub_10001F638();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_10001F638();
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_12;
     }
 
-    v11 = 136315138;
-    v12 = "[DeviceLanguageInput deviceLanguages]";
-    v9 = "%s: Device language preference contains non-String entries";
+    v12 = 136315138;
+    v13 = "[DeviceLanguageInput deviceLanguages]";
+    v10 = "%s: Device language preference contains non-String entries";
     goto LABEL_18;
   }
 

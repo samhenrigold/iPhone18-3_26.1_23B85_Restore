@@ -13,13 +13,13 @@
 
 - (ACCiAP2ShimServerClient)initWithCapabilities:(unsigned int)capabilities auditToken:(id *)token xpcConnection:(id)connection eaProtocols:(id)protocols andBundleId:(id)id
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   protocolsCopy = protocols;
   idCopy = id;
-  v50.receiver = self;
-  v50.super_class = ACCiAP2ShimServerClient;
-  v16 = [(ACCiAP2ShimServerClient *)&v50 init];
+  v49.receiver = self;
+  v49.super_class = ACCiAP2ShimServerClient;
+  v16 = [(ACCiAP2ShimServerClient *)&v49 init];
   v17 = v16;
   if (v16)
   {
@@ -200,7 +200,7 @@
     handler[2] = __97__ACCiAP2ShimServerClient_initWithCapabilities_auditToken_xpcConnection_eaProtocols_andBundleId___block_invoke;
     handler[3] = &unk_278BF8188;
     v43 = v17;
-    v49 = v43;
+    v48 = v43;
     dispatch_source_set_event_handler(v42, handler);
     dispatch_source_set_timer(v17->_processAssertionTimer, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
     dispatch_resume(v17->_processAssertionTimer);
@@ -219,13 +219,12 @@
     v43->_supportsAccessibility = v45;
   }
 
-  v46 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 void __97__ACCiAP2ShimServerClient_initWithCapabilities_auditToken_xpcConnection_eaProtocols_andBundleId___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 72))
   {
@@ -259,11 +258,11 @@ void __97__ACCiAP2ShimServerClient_initWithCapabilities_auditToken_xpcConnection
     {
       v6 = *(*(a1 + 32) + 16);
       v7 = *(*(a1 + 32) + 20);
-      v9[0] = 67109376;
-      v9[1] = v7;
-      v10 = 1024;
-      v11 = v6;
-      _os_log_impl(&dword_23DC47000, v5, OS_LOG_TYPE_INFO, "[#ServerClient] releasing process assertion - clientID=%d pid=%d", v9, 0xEu);
+      v8[0] = 67109376;
+      v8[1] = v7;
+      v9 = 1024;
+      v10 = v6;
+      _os_log_impl(&dword_23DC47000, v5, OS_LOG_TYPE_INFO, "[#ServerClient] releasing process assertion - clientID=%d pid=%d", v8, 0xEu);
     }
 
     CFRelease(*(*(a1 + 32) + 72));
@@ -273,12 +272,11 @@ void __97__ACCiAP2ShimServerClient_initWithCapabilities_auditToken_xpcConnection
 
   dispatch_source_set_timer(*(v2 + 88), 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
   *(*(a1 + 32) + 80) = 0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v3 = gNumLogObjects < 1;
@@ -309,7 +307,7 @@ void __97__ACCiAP2ShimServerClient_initWithCapabilities_auditToken_xpcConnection
   {
     clientID = self->_clientID;
     *buf = 67109120;
-    v18 = clientID;
+    v17 = clientID;
     _os_log_impl(&dword_23DC47000, v5, OS_LOG_TYPE_INFO, "[#ServerClient] DEALLOC - clientID=%d", buf, 8u);
   }
 
@@ -342,10 +340,9 @@ void __97__ACCiAP2ShimServerClient_initWithCapabilities_auditToken_xpcConnection
   clientEAProtocols = self->_clientEAProtocols;
   self->_clientEAProtocols = 0;
 
-  v15.receiver = self;
-  v15.super_class = ACCiAP2ShimServerClient;
-  [(ACCiAP2ShimServerClient *)&v15 dealloc];
-  v14 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = ACCiAP2ShimServerClient;
+  [(ACCiAP2ShimServerClient *)&v14 dealloc];
 }
 
 void __34__ACCiAP2ShimServerClient_dealloc__block_invoke(uint64_t a1)
@@ -360,7 +357,7 @@ void __34__ACCiAP2ShimServerClient_dealloc__block_invoke(uint64_t a1)
 
 - (void)takeProcessAssertion:(id)assertion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   if (!self->_processAssertion)
   {
@@ -395,15 +392,13 @@ LABEL_7:
     {
       bundleId = self->_bundleId;
       processId = self->_processId;
-      v20 = 138412546;
-      v21 = bundleId;
-      v22 = 1024;
-      v23 = processId;
-      _os_log_impl(&dword_23DC47000, v10, OS_LOG_TYPE_INFO, "[#ServerClient] creating process assertion - appId=%@ pid=%d", &v20, 0x12u);
+      v17 = 138412546;
+      v18 = bundleId;
+      v19 = 1024;
+      v20 = processId;
+      _os_log_impl(&dword_23DC47000, v10, OS_LOG_TYPE_INFO, "[#ServerClient] creating process assertion - appId=%@ pid=%d", &v17, 0x12u);
     }
 
-    v13 = *MEMORY[0x277CBECE8];
-    v14 = self->_processId;
     self->_processAssertion = SBSProcessAssertionCreateForPID();
     self->_processAssertionStartTime = time(0);
     goto LABEL_35;
@@ -426,18 +421,18 @@ LABEL_7:
         }
 
         v5 = MEMORY[0x277D86220];
-        v16 = MEMORY[0x277D86220];
+        v14 = MEMORY[0x277D86220];
       }
 
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v17 = self->_bundleId;
-        v18 = self->_processId;
-        v20 = 138412546;
-        v21 = v17;
-        v22 = 1024;
-        v23 = v18;
-        _os_log_impl(&dword_23DC47000, v5, OS_LOG_TYPE_INFO, "[#ServerClient] renewing process assertion - appId=%@ pid=%d", &v20, 0x12u);
+        v15 = self->_bundleId;
+        v16 = self->_processId;
+        v17 = 138412546;
+        v18 = v15;
+        v19 = 1024;
+        v20 = v16;
+        _os_log_impl(&dword_23DC47000, v5, OS_LOG_TYPE_INFO, "[#ServerClient] renewing process assertion - appId=%@ pid=%d", &v17, 0x12u);
       }
 
       self->_processAssertionStartTime = 0;
@@ -464,23 +459,22 @@ LABEL_7:
       [ACCiAP2ShimServerUnregisteredClient takeProcessAssertion:];
     }
 
-    v15 = MEMORY[0x277D86220];
+    v13 = MEMORY[0x277D86220];
     v9 = MEMORY[0x277D86220];
   }
 
   else
   {
-    v15 = *gLogObjects;
+    v13 = *gLogObjects;
   }
 
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v20) = 0;
-    _os_log_impl(&dword_23DC47000, v15, OS_LOG_TYPE_INFO, "[#ServerClient] using ea process hysteresis", &v20, 2u);
+    LOWORD(v17) = 0;
+    _os_log_impl(&dword_23DC47000, v13, OS_LOG_TYPE_INFO, "[#ServerClient] using ea process hysteresis", &v17, 2u);
   }
 
 LABEL_35:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)releaseProcessAssertion
@@ -497,7 +491,7 @@ LABEL_35:
 
 - (BOOL)canSendConnectionEventForAccessory:(id)accessory
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   capabilities = [(ACCiAP2ShimServerClient *)self capabilities];
   capabilities2 = [(ACCiAP2ShimServerClient *)self capabilities];
@@ -505,20 +499,20 @@ LABEL_35:
   applicationState = [(ACCiAP2ShimServerClient *)self applicationState];
   applicationState2 = [(ACCiAP2ShimServerClient *)self applicationState];
   v9 = [accessoryCopy objectForKey:*MEMORY[0x277D18450]];
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v33 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
   if ([(NSArray *)self->_clientEAProtocols count])
   {
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __62__ACCiAP2ShimServerClient_canSendConnectionEventForAccessory___block_invoke;
-    v29[3] = &unk_278BF81D8;
-    v29[4] = self;
-    v29[5] = &v30;
-    [v9 enumerateKeysAndObjectsUsingBlock:v29];
-    if ((v31[3] & 1) == 0)
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __62__ACCiAP2ShimServerClient_canSendConnectionEventForAccessory___block_invoke;
+    v28[3] = &unk_278BF81D8;
+    v28[4] = self;
+    v28[5] = &v29;
+    [v9 enumerateKeysAndObjectsUsingBlock:v28];
+    if ((v30[3] & 1) == 0)
     {
       if (gLogObjects && gNumLogObjects >= 1)
       {
@@ -540,13 +534,13 @@ LABEL_35:
       {
         bundleId = self->_bundleId;
         *buf = 138412290;
-        v35 = bundleId;
+        v34 = bundleId;
         _os_log_impl(&dword_23DC47000, v10, OS_LOG_TYPE_DEFAULT, "[#ServerClient] No protocols found for client %@", buf, 0xCu);
       }
     }
   }
 
-  if ((v31[3] & 1) != 0 || self->_entitlementForAllAccessories)
+  if ((v30[3] & 1) != 0 || self->_entitlementForAllAccessories)
   {
     v13 = capabilities2 & 0x20;
     v14 = capabilities3 & 0x8000;
@@ -586,35 +580,35 @@ LABEL_35:
 
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v26 = v9;
-      v27 = accessoryCopy;
+      v25 = v9;
+      v26 = accessoryCopy;
       v20 = self->_bundleId;
       entitlementForAllAccessories = self->_entitlementForAllAccessories;
-      v22 = *(v31 + 24);
+      v22 = *(v30 + 24);
       applicationState3 = [(ACCiAP2ShimServerClient *)self applicationState];
       *buf = 138414594;
-      v35 = v20;
-      v36 = 1024;
-      v37 = v16 >> 4;
-      v38 = 1024;
-      v39 = v13 >> 5;
-      v40 = 1024;
-      v41 = applicationState == 4;
-      v42 = 1024;
-      v43 = applicationState2 > 4;
-      v44 = 1024;
-      v45 = v14 >> 15;
-      v46 = 1024;
-      v47 = entitlementForAllAccessories;
-      v48 = 1024;
-      v49 = v22;
-      v50 = 1024;
-      v51 = applicationState3;
-      v52 = 1024;
-      v53 = v15;
+      v34 = v20;
+      v35 = 1024;
+      v36 = v16 >> 4;
+      v37 = 1024;
+      v38 = v13 >> 5;
+      v39 = 1024;
+      v40 = applicationState == 4;
+      v41 = 1024;
+      v42 = applicationState2 > 4;
+      v43 = 1024;
+      v44 = v14 >> 15;
+      v45 = 1024;
+      v46 = entitlementForAllAccessories;
+      v47 = 1024;
+      v48 = v22;
+      v49 = 1024;
+      v50 = applicationState3;
+      v51 = 1024;
+      v52 = v15;
       _os_log_impl(&dword_23DC47000, v18, OS_LOG_TYPE_INFO, "[#ServerClient] bundleID %@ supportsEAWhenSuspended = %d, supportsEAInBackground = %d, clientAppStateInBackground = %d, clientAppStateInForeground = %d, clientLinksUIApplication = %d, _entitlementForAllAccessories = %d, anyProtocolFound = %d, self.applicationState = 0x%X, canSendConnectionEvent = %d", buf, 0x42u);
-      v9 = v26;
-      accessoryCopy = v27;
+      v9 = v25;
+      accessoryCopy = v26;
     }
   }
 
@@ -623,23 +617,22 @@ LABEL_35:
     LOBYTE(v15) = 0;
   }
 
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v29, 8);
 
-  v24 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 void __62__ACCiAP2ShimServerClient_canSendConnectionEventForAccessory___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = *(*(a1 + 32) + 56);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __62__ACCiAP2ShimServerClient_canSendConnectionEventForAccessory___block_invoke_2;
-  v11[3] = &unk_278BF81B0;
-  v12 = v6;
-  if ([v7 indexOfObjectPassingTest:v11] != 0x7FFFFFFFFFFFFFFFLL)
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __62__ACCiAP2ShimServerClient_canSendConnectionEventForAccessory___block_invoke_2;
+  v10[3] = &unk_278BF81B0;
+  v11 = v6;
+  if ([v7 indexOfObjectPassingTest:v10] != 0x7FFFFFFFFFFFFFFFLL)
   {
     if (gLogObjects && gNumLogObjects >= 1)
     {
@@ -660,21 +653,19 @@ void __62__ACCiAP2ShimServerClient_canSendConnectionEventForAccessory___block_in
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v14 = v6;
+      v13 = v6;
       _os_log_impl(&dword_23DC47000, v8, OS_LOG_TYPE_INFO, "[#ServerClient] protocol %@ found from accessory", buf, 0xCu);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
     *a4 = 1;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_applicationInfoForBundleIDSync:(id)sync
 {
   syncCopy = sync;
-  v4 = _getApplicationStateMonitor();
+  v4 = _getApplicationStateMonitor(syncCopy);
   v5 = [v4 applicationInfoForApplication:syncCopy];
 
   return v5;

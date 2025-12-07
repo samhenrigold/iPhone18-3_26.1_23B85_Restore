@@ -1,48 +1,21 @@
 @interface MCMXPCMessageUpdateInfo
-- (BOOL)fullReplace;
 - (MCMXPCMessageUpdateInfo)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error;
-- (NSDictionary)infoDict;
-- (NSSet)deleteKeys;
 @end
 
 @implementation MCMXPCMessageUpdateInfo
 
-- (BOOL)fullReplace
-{
-  result = self->_fullReplace;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSDictionary)infoDict
-{
-  result = self->_infoDict;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSSet)deleteKeys
-{
-  result = self->_deleteKeys;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (MCMXPCMessageUpdateInfo)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   objectCopy = object;
-  v35 = 1;
-  v34.receiver = self;
-  v34.super_class = MCMXPCMessageUpdateInfo;
-  v9 = [(MCMXPCMessageWithConcreteContainerBase *)&v34 initWithXPCObject:objectCopy context:context error:&v35];
+  v34 = 1;
+  v33.receiver = self;
+  v33.super_class = MCMXPCMessageUpdateInfo;
+  v9 = [(MCMXPCMessageWithConcreteContainerBase *)&v33 initWithXPCObject:objectCopy context:context error:&v34];
   v10 = v9;
   if (v9)
   {
-    v11 = [(MCMXPCMessageBase *)v9 nsObjectFromXPCObject:objectCopy key:"Value" error:&v35];
+    v11 = [(MCMXPCMessageBase *)v9 nsObjectFromXPCObject:objectCopy key:"Value" error:&v34];
     if (v11)
     {
       v12 = 1;
@@ -50,7 +23,7 @@
 
     else
     {
-      v12 = v35 == 1;
+      v12 = v34 == 1;
     }
 
     if (!v12)
@@ -87,26 +60,26 @@ LABEL_32:
         if (v11)
         {
           v18 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(v17, "count")}];
+          v36 = 0u;
           v37 = 0u;
           v38 = 0u;
           v39 = 0u;
-          v40 = 0u;
           obj = v17;
-          v19 = [obj countByEnumeratingWithState:&v37 objects:v36 count:16];
+          v19 = [obj countByEnumeratingWithState:&v36 objects:v35 count:16];
           if (v19)
           {
             v20 = v19;
-            v21 = *v38;
+            v21 = *v37;
             while (2)
             {
               for (i = 0; i != v20; ++i)
               {
-                if (*v38 != v21)
+                if (*v37 != v21)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v23 = *(*(&v37 + 1) + 8 * i);
+                v23 = *(*(&v36 + 1) + 8 * i);
                 objc_opt_class();
                 v24 = v23;
                 if (objc_opt_isKindOfClass())
@@ -121,7 +94,7 @@ LABEL_32:
 
                 if (!v25)
                 {
-                  v35 = 38;
+                  v34 = 38;
                   v26 = obj;
 
                   goto LABEL_31;
@@ -130,7 +103,7 @@ LABEL_32:
                 [v18 addObject:v24];
               }
 
-              v20 = [obj countByEnumeratingWithState:&v37 objects:v36 count:16];
+              v20 = [obj countByEnumeratingWithState:&v36 objects:v35 count:16];
               if (v20)
               {
                 continue;
@@ -156,22 +129,21 @@ LABEL_31:
       }
     }
 
-    v35 = 38;
+    v34 = 38;
     goto LABEL_32;
   }
 
 LABEL_33:
-  if (v35 != 1)
+  if (v34 != 1)
   {
     if (error)
     {
-      *error = v35;
+      *error = v34;
     }
 
     v10 = 0;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

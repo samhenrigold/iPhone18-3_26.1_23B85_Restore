@@ -151,17 +151,17 @@
       [objectCopy UTF8String];
       v12 = os_transaction_create();
 
-      v13 = sub_100004778();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100004778(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         openTransactions2 = [(CSDTransactionManager *)self openTransactions];
         *buf = 138412802;
-        v17 = objectCopy;
-        v18 = 2048;
-        v19 = [openTransactions2 count];
-        v20 = 2112;
-        v21 = v12;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Beginning transaction for %@. Transaction count is now %lu. Added transaction: %@", buf, 0x20u);
+        v18 = objectCopy;
+        v19 = 2048;
+        v20 = [openTransactions2 count];
+        v21 = 2112;
+        v22 = v12;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Beginning transaction for %@. Transaction count is now %lu. Added transaction: %@", buf, 0x20u);
       }
 
       openTransactions3 = [(CSDTransactionManager *)self openTransactions];
@@ -189,17 +189,17 @@
       openTransactions3 = [(CSDTransactionManager *)self openTransactions];
       [openTransactions3 removeObjectForKey:objectCopy];
 
-      v11 = sub_100004778();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100004778(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         openTransactions4 = [(CSDTransactionManager *)self openTransactions];
-        v13 = 138412802;
-        v14 = objectCopy;
-        v15 = 2048;
-        v16 = [openTransactions4 count];
-        v17 = 2112;
-        v18 = v9;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Ending transaction for %@. Transaction count is now %lu. Ended transaction: %@", &v13, 0x20u);
+        v14 = 138412802;
+        v15 = objectCopy;
+        v16 = 2048;
+        v17 = [openTransactions4 count];
+        v18 = 2112;
+        v19 = v9;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Ending transaction for %@. Transaction count is now %lu. Ended transaction: %@", &v14, 0x20u);
       }
     }
   }
@@ -248,9 +248,10 @@
   conversationManager = [v6 conversationManager];
   v8 = [conversationManager activeConversationWithUUID:conversationCopy];
 
-  if ([v8 isContinuitySession] && !objc_msgSend(v8, "avMode") && (v10 = objc_msgSend(v8, "state"), v8) && v10 == 3)
+  isContinuitySession = [v8 isContinuitySession];
+  if (isContinuitySession && (isContinuitySession = [v8 avMode]) == 0 && (isContinuitySession = objc_msgSend(v8, "state"), v8) && isContinuitySession == 3)
   {
-    v11 = sub_100004778();
+    v11 = sub_100004778(3);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138412290;
@@ -263,12 +264,12 @@
 
   else
   {
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004778(isContinuitySession);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138412290;
       v13 = conversationCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Ending transaction for conversation: %@", &v12, 0xCu);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Ending transaction for conversation: %@", &v12, 0xCu);
     }
 
     [(CSDTransactionManager *)self endTransactionIfNecessaryForObject:conversationCopy];

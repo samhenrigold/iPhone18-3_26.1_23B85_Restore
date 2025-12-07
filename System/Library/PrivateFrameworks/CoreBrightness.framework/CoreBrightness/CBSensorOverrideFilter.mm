@@ -109,7 +109,7 @@
       memset(__b, 0, 0x3CuLL);
       if (eventCopy)
       {
-        [eventCopy colorSample];
+        objc_msgSend_colorSample(eventCopy);
       }
 
       else
@@ -195,7 +195,6 @@
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return eventCopy;
 }
 

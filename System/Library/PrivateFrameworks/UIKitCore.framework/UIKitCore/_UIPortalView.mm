@@ -101,7 +101,7 @@
 - (void)setName:(id)name
 {
   nameCopy = name;
-  if (![(NSString *)self->_name isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->_name) & 1) == 0)
   {
     v4 = [nameCopy copy];
     name = self->_name;

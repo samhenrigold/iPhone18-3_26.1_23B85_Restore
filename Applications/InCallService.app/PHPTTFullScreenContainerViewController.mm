@@ -76,16 +76,20 @@
 - (void)callStateChangedNotification:(id)notification
 {
   object = [notification object];
-  if ([object isPTT] && objc_msgSend(object, "status") - 5 <= 1)
+  if ([object isPTT])
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    status = [object status];
+    if ((status - 5) <= 1)
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Releasing PTT dismissal assertion.", v6, 2u);
-    }
+      v6 = sub_100004F84(status);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        *v7 = 0;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Releasing PTT dismissal assertion.", v7, 2u);
+      }
 
-    [(PHPTTFullScreenContainerViewController *)self releaseDismissalAssertion];
+      [(PHPTTFullScreenContainerViewController *)self releaseDismissalAssertion];
+    }
   }
 }
 

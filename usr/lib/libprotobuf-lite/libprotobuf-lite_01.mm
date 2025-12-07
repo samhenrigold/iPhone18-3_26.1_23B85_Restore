@@ -1,10 +1,3 @@
-void sub_2334A4818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
-  _Unwind_Resume(a1);
-}
-
 uint64_t wireless_diagnostics::google::protobuf::MessageLite::SerializeToZeroCopyStream(wireless_diagnostics::google::protobuf::MessageLite *this, wireless_diagnostics::google::protobuf::io::ZeroCopyOutputStream *a2)
 {
   wireless_diagnostics::google::protobuf::io::CodedOutputStream::CodedOutputStream(v5, a2);
@@ -41,8 +34,7 @@ uint64_t wireless_diagnostics::google::protobuf::MessageLite::SerializePartialTo
 
 uint64_t wireless_diagnostics::google::protobuf::MessageLite::SerializeAsString@<X0>(wireless_diagnostics::google::protobuf::MessageLite *this@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   return wireless_diagnostics::google::protobuf::MessageLite::AppendPartialToString(this, a2);
 }
@@ -59,8 +51,7 @@ void sub_2334A4988(_Unwind_Exception *exception_object)
 
 uint64_t wireless_diagnostics::google::protobuf::MessageLite::SerializePartialAsString@<X0>(wireless_diagnostics::google::protobuf::MessageLite *this@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   return wireless_diagnostics::google::protobuf::MessageLite::AppendPartialToString(this, a2);
 }
@@ -107,9 +98,9 @@ BOOL wireless_diagnostics::google::protobuf::io::ArrayInputStream::Skip(wireless
   return result;
 }
 
-void sub_2334A4AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2334A4AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -153,9 +144,9 @@ void wireless_diagnostics::google::protobuf::io::ArrayOutputStream::BackUp(wirel
   *(this + 3) = (*(this + 6) - a2);
 }
 
-void sub_2334A4C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2334A4C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -293,9 +284,9 @@ void wireless_diagnostics::google::protobuf::io::StringOutputStream::BackUp(wire
   std::string::resize(v5, v6 - a2, 0);
 }
 
-void sub_2334A4F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2334A4F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -318,7 +309,7 @@ uint64_t wireless_diagnostics::google::protobuf::io::CopyingInputStream::Skip(wi
   v3 = v2;
   v4 = v1;
   v5 = 0;
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   do
   {
     v6 = v5;
@@ -330,12 +321,11 @@ uint64_t wireless_diagnostics::google::protobuf::io::CopyingInputStream::Skip(wi
     }
 
     v9 = v8 >= 4096 ? 4096 : v8;
-    v10 = (*(*v4 + 16))(v4, v13, v9);
+    v10 = (*(*v4 + 16))(v4, v12, v9);
     v5 = (v10 + v6);
   }
 
   while (v10 > 0);
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -383,9 +373,9 @@ uint64_t wireless_diagnostics::google::protobuf::io::CopyingInputStreamAdaptor::
   return result;
 }
 
-void sub_2334A5124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2334A5124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -422,9 +412,9 @@ BOOL wireless_diagnostics::google::protobuf::io::CopyingInputStreamAdaptor::Skip
   }
 }
 
-void sub_2334A5218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2334A5218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -552,7 +542,6 @@ uint64_t wireless_diagnostics::google::protobuf::io::CopyingOutputStreamAdaptor:
 {
   if (!*(this + 32))
   {
-    v1 = *(this + 40);
     operator new[]();
   }
 
@@ -593,9 +582,9 @@ void wireless_diagnostics::google::protobuf::io::CopyingOutputStreamAdaptor::Bac
   *(this + 11) = v5 - a2;
 }
 
-void sub_2334A565C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2334A565C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -615,7 +604,7 @@ uint64_t wireless_diagnostics::google::protobuf::io::CopyingOutputStreamAdaptor:
 
 std::string *wireless_diagnostics::google::protobuf::StringAppendV(std::string *a1, char *__format, va_list a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   result = vsnprintf(__str, 0x400uLL, __format, a3);
   if (result > 1023)
   {
@@ -624,18 +613,16 @@ std::string *wireless_diagnostics::google::protobuf::StringAppendV(std::string *
 
   if ((result & 0x80000000) == 0)
   {
-    result = std::string::append(a1, __str, result);
+    return std::string::append(a1, __str, result);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 std::string *wireless_diagnostics::google::protobuf::StringPrintf@<X0>(wireless_diagnostics::google::protobuf *this@<X0>, std::string *a2@<X8>, ...)
 {
   va_start(va, a2);
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   return wireless_diagnostics::google::protobuf::StringAppendV(a2, this, va);
 }
@@ -650,8 +637,9 @@ void sub_2334A5828(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t wireless_diagnostics::google::protobuf::SStringPrintf(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t wireless_diagnostics::google::protobuf::SStringPrintf(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   if (*(a1 + 23) < 0)
   {
     **a1 = 0;
@@ -664,47 +652,47 @@ uint64_t wireless_diagnostics::google::protobuf::SStringPrintf(uint64_t a1, char
     *(a1 + 23) = 0;
   }
 
-  wireless_diagnostics::google::protobuf::StringAppendV(a1, a2, &a9);
+  wireless_diagnostics::google::protobuf::StringAppendV(a1, a2, va);
   return a1;
 }
 
 std::string *wireless_diagnostics::google::protobuf::StringPrintfVector@<X0>(wireless_diagnostics::google::protobuf *this@<X0>, uint64_t **a2@<X1>, std::string *a3@<X8>)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = *a2;
   v6 = a2[1];
   v7 = 0xAAAAAAAAAAAAAAABLL * (v6 - *a2);
   if (v7 >= 0x21)
   {
-    wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage(&v20, 3, "/Library/Caches/com.apple.xbs/Sources/AWDMetrics_protobuf/google/protobuf/stubs/stringprintf.cc", 142);
-    v9 = wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<(&v20, "CHECK failed: (v.size()) <= (kStringPrintfVectorMaxArgs): ");
+    wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage(&v19, 3, "/Library/Caches/com.apple.xbs/Sources/AWDMetrics_protobuf/google/protobuf/stubs/stringprintf.cc", 142);
+    v9 = wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<(&v19, "CHECK failed: (v.size()) <= (kStringPrintfVectorMaxArgs): ");
     v10 = wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<(v9, "StringPrintfVector currently only supports up to ");
     v11 = wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<(v10, 32);
     v12 = wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<(v11, " arguments. ");
     v13 = wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<(v12, "Feel free to add support for more if you need it.");
-    wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=(&v19, v13);
-    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(&v20);
+    wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=(&v18, v13);
+    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(&v19);
     v5 = *a2;
     v6 = a2[1];
     v7 = 0xAAAAAAAAAAAAAAABLL * (v6 - *a2);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   if (v6 != v5)
   {
     if (v7 <= 1)
@@ -717,7 +705,7 @@ std::string *wireless_diagnostics::google::protobuf::StringPrintfVector@<X0>(wir
       v14 = v7;
     }
 
-    v15 = &v20;
+    v15 = &v19;
     do
     {
       v16 = v5;
@@ -726,9 +714,8 @@ std::string *wireless_diagnostics::google::protobuf::StringPrintfVector@<X0>(wir
         v16 = *v5;
       }
 
-      *v15 = v16;
-      v15 = (v15 + 8);
-      v5 += 3;
+      *v15++ = v16;
+      v5 += 24;
       --v14;
     }
 
@@ -737,12 +724,17 @@ std::string *wireless_diagnostics::google::protobuf::StringPrintfVector@<X0>(wir
 
   if ((v7 & 0xFFFFFFE0) == 0)
   {
-    memset_pattern16(&v20 + ((8 * v7) & 0xF8), &off_2789D8270, ((-8 - 8 * v7) & 0xF8) + 8);
+    memset_pattern16(&v19 + ((8 * v7) & 0xF8), &off_2789D8270, ((-8 - 8 * v7) & 0xF8) + 8);
   }
 
-  result = wireless_diagnostics::google::protobuf::StringPrintf(this, a3, v20, v21, v22, v23, v24, v25, v26, v27, v28, *(&v28 + 1), v29, *(&v29 + 1), v30, *(&v30 + 1), v31, *(&v31 + 1), v32, *(&v32 + 1), v33, *(&v33 + 1), v34, *(&v34 + 1), v35, *(&v35 + 1));
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return wireless_diagnostics::google::protobuf::StringPrintf(this, a3, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34);
+}
+
+void sub_2334A5AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
+{
+  va_start(va, a42);
+  wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
 }
 
 uint64_t wireless_diagnostics::google::protobuf::io::CodedInputStream::SetTotalBytesLimit(uint64_t this, int a2, int a3)
@@ -802,9 +794,9 @@ void wireless_diagnostics::google::protobuf::io::CodedInputStream::PrintTotalByt
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(&v6[0].__r_.__value_.__l.__data_);
 }
 
-void sub_2334A5BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2334A5BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -936,28 +928,28 @@ uint64_t wireless_diagnostics::google::protobuf::io::FileInputStream::CopyingFil
   return this;
 }
 
-BOOL wireless_diagnostics::google::protobuf::io::FileInputStream::CopyingFileInputStream::Close(wireless_diagnostics::google::protobuf::io::FileInputStream::CopyingFileInputStream *this)
+BOOL wireless_diagnostics::google::protobuf::io::FileInputStream::CopyingFileInputStream::Close(wireless_diagnostics::google::protobuf::io::FileInputStream::CopyingFileInputStream *this, int a2)
 {
   if (*(this + 13) == 1)
   {
-    wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage(v6, 3, "/Library/Caches/com.apple.xbs/Sources/AWDMetrics_protobuf/google/protobuf/io/zero_copy_stream_impl.cc", 124);
-    v2 = wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<(v6, "CHECK failed: !is_closed_: ");
-    wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=(&v5, v2);
-    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(&v6[0].__r_.__value_.__l.__data_);
+    wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage(v7, 3, "/Library/Caches/com.apple.xbs/Sources/AWDMetrics_protobuf/google/protobuf/io/zero_copy_stream_impl.cc", 124);
+    v3 = wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<(v7, "CHECK failed: !is_closed_: ");
+    wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=(&v6, v3);
+    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(&v7[0].__r_.__value_.__l.__data_);
   }
 
   *(this + 13) = 1;
-  if (v3)
+  if (v4)
   {
     *(this + 4) = *__error();
   }
 
-  return v3 == 0;
+  return v4 == 0;
 }
 
-void sub_2334A5E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2334A5E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -993,9 +985,9 @@ uint64_t wireless_diagnostics::google::protobuf::io::FileInputStream::CopyingFil
   return a2;
 }
 
-void sub_2334A5FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2334A5FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1071,9 +1063,9 @@ BOOL wireless_diagnostics::google::protobuf::io::FileOutputStream::CopyingFileOu
   return v3 == 0;
 }
 
-void sub_2334A6260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2334A6260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1153,9 +1145,9 @@ BOOL wireless_diagnostics::google::protobuf::io::FileOutputStream::CopyingFileOu
   return result;
 }
 
-void sub_2334A64B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2334A64B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1212,9 +1204,8 @@ void wireless_diagnostics::google::protobuf::io::IstreamInputStream::CopyingIstr
   JUMPOUT(0x23839FAC0);
 }
 
-uint64_t wireless_diagnostics::google::protobuf::io::IstreamInputStream::CopyingIstreamInputStream::Read(wireless_diagnostics::google::protobuf::io::IstreamInputStream::CopyingIstreamInputStream *this, void *a2)
+uint64_t wireless_diagnostics::google::protobuf::io::IstreamInputStream::CopyingIstreamInputStream::Read(wireless_diagnostics::google::protobuf::io::IstreamInputStream::CopyingIstreamInputStream *this, void *a2, int a3)
 {
-  v3 = *(this + 1);
   std::istream::read();
   v4 = *(this + 1);
   result = *(v4 + 8);
@@ -1295,13 +1286,6 @@ void wireless_diagnostics::google::protobuf::io::OstreamOutputStream::CopyingOst
   JUMPOUT(0x23839FAC0);
 }
 
-BOOL wireless_diagnostics::google::protobuf::io::OstreamOutputStream::CopyingOstreamOutputStream::Write(wireless_diagnostics::google::protobuf::io::OstreamOutputStream::CopyingOstreamOutputStream *this, const void *a2)
-{
-  v3 = *(this + 1);
-  std::ostream::write();
-  return *(*(this + 1) + *(**(this + 1) - 24) + 32) == 0;
-}
-
 uint64_t wireless_diagnostics::google::protobuf::io::ConcatenatingInputStream::ConcatenatingInputStream(uint64_t this, wireless_diagnostics::google::protobuf::io::ZeroCopyInputStream *const *a2, int a3)
 {
   *this = &unk_2848CFBE8;
@@ -1372,9 +1356,9 @@ void wireless_diagnostics::google::protobuf::io::ConcatenatingInputStream::BackU
   }
 }
 
-void sub_2334A6B5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2334A6B5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1538,33 +1522,33 @@ uint64_t wireless_diagnostics::google::protobuf::io::LimitingInputStream::ByteCo
   return result;
 }
 
-uint64_t wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipField(wireless_diagnostics::google::protobuf::internal::WireFormatLite *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
+uint64_t wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipField(wireless_diagnostics::google::protobuf::internal::WireFormatLite *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
 {
   result = 0;
-  v5 = a2 & 7;
-  if (v5 <= 1)
+  v4 = a2 & 7;
+  if (v4 <= 1)
   {
     if ((a2 & 7) != 0)
     {
-      if (v5 == 1)
+      if (v4 == 1)
       {
-        *v15 = 0;
-        return wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadLittleEndian64Fallback(this, v15);
+        *v14 = 0;
+        return wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadLittleEndian64Fallback(this, v14);
       }
     }
 
     else
     {
-      *v15 = 0;
-      v14 = *(this + 1);
-      if (v14 >= *(this + 2) || *v14 < 0)
+      *v14 = 0;
+      v13 = *(this + 1);
+      if (v13 >= *(this + 2) || *v13 < 0)
       {
-        return wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint64Fallback(this, v15);
+        return wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint64Fallback(this, v14);
       }
 
       else
       {
-        *(this + 1) = v14 + 1;
+        *(this + 1) = v13 + 1;
         return 1;
       }
     }
@@ -1572,72 +1556,72 @@ uint64_t wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipF
 
   else
   {
-    switch(v5)
+    switch(v4)
     {
       case 2u:
-        v15[0] = 0;
-        v6 = *(this + 1);
-        if (v6 >= *(this + 2) || (v7 = *v6, (v7 & 0x80000000) != 0))
+        v14[0] = 0;
+        v5 = *(this + 1);
+        if (v5 >= *(this + 2) || (v6 = *v5, (v6 & 0x80000000) != 0))
         {
-          result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, v15);
+          result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, v14);
           if (!result)
           {
             return result;
           }
 
-          v7 = v15[0];
+          v6 = v14[0];
         }
 
         else
         {
-          v15[0] = *v6;
-          *(this + 1) = v6 + 1;
+          v14[0] = *v5;
+          *(this + 1) = v5 + 1;
         }
 
-        return wireless_diagnostics::google::protobuf::io::CodedInputStream::Skip(this, v7);
+        return wireless_diagnostics::google::protobuf::io::CodedInputStream::Skip(this, v6);
       case 3u:
-        v8 = *(this + 14);
-        v9 = *(this + 15);
-        *(this + 14) = v8 + 1;
-        if (v8 >= v9)
+        v7 = *(this + 14);
+        v8 = *(this + 15);
+        *(this + 14) = v7 + 1;
+        if (v7 >= v8)
         {
           return 0;
         }
 
         else
         {
-          v10 = a2;
-          result = wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipMessage(this, a2, a3);
+          v9 = a2;
+          result = wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipMessage(this, a2);
           if (result)
           {
-            v11 = *(this + 14);
-            v12 = __OFSUB__(v11, 1);
-            v13 = v11 - 1;
-            if (v13 < 0 == v12)
+            v10 = *(this + 14);
+            v11 = __OFSUB__(v10, 1);
+            v12 = v10 - 1;
+            if (v12 < 0 == v11)
             {
-              *(this + 14) = v13;
+              *(this + 14) = v12;
             }
 
-            return *(this + 8) == (v10 & 0xFFFFFFF8 | 4);
+            return *(this + 8) == (v9 & 0xFFFFFFF8 | 4);
           }
         }
 
         break;
       case 5u:
-        v15[0] = 0;
-        return wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadLittleEndian32Fallback(this, v15);
+        v14[0] = 0;
+        return wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadLittleEndian32Fallback(this, v14);
     }
   }
 
   return result;
 }
 
-uint64_t wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipMessage(wireless_diagnostics::google::protobuf::internal::WireFormatLite *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
+uint64_t wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipMessage(wireless_diagnostics::google::protobuf::internal::WireFormatLite *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
 {
   do
   {
-    v4 = *(this + 1);
-    if (v4 >= *(this + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
+    v3 = *(this + 1);
+    if (v3 >= *(this + 2) || (TagFallback = *v3, (TagFallback & 0x80000000) != 0))
     {
       TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(this);
       *(this + 8) = TagFallback;
@@ -1646,27 +1630,27 @@ uint64_t wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipM
     else
     {
       *(this + 8) = TagFallback;
-      *(this + 1) = v4 + 1;
+      *(this + 1) = v3 + 1;
     }
 
     if (TagFallback)
     {
-      v6 = (TagFallback & 7) == 4;
+      v5 = (TagFallback & 7) == 4;
     }
 
     else
     {
-      v6 = 1;
+      v5 = 1;
     }
 
-    v7 = v6;
+    v6 = v5;
   }
 
-  while (!v6 && (wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipField(this, TagFallback, a3) & 1) != 0);
-  return v7;
+  while (!v5 && (wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipField(this, TagFallback) & 1) != 0);
+  return v6;
 }
 
-uint64_t wireless_diagnostics::google::protobuf::internal::WireFormatLite::ReadPackedEnumNoInline(wireless_diagnostics::google::protobuf::io::CodedInputStream *this, unsigned int (*a2)(uint64_t), uint64_t a3)
+uint64_t wireless_diagnostics::google::protobuf::internal::WireFormatLite::ReadPackedEnumNoInline(wireless_diagnostics::google::protobuf::io::CodedInputStream *this, unsigned int (*a2)(uint64_t), _DWORD *a3)
 {
   v14 = 0;
   v6 = *(this + 1);
@@ -1712,15 +1696,15 @@ uint64_t wireless_diagnostics::google::protobuf::internal::WireFormatLite::ReadP
 
       if (a2(v11))
       {
-        v12 = *(a3 + 8);
-        if (v12 == *(a3 + 12))
+        v12 = a3[2];
+        if (v12 == a3[3])
         {
           wireless_diagnostics::google::protobuf::RepeatedField<int>::Reserve(a3, v12 + 1);
-          v12 = *(a3 + 8);
+          v12 = a3[2];
         }
 
         v13 = *a3;
-        *(a3 + 8) = v12 + 1;
+        a3[2] = v12 + 1;
         *(v13 + 4 * v12) = v11;
       }
     }
@@ -1813,19 +1797,19 @@ uint64_t wireless_diagnostics::google::protobuf::internal::WireFormatLite::Write
   }
 }
 
-double wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Swap(uint64_t *a1, uint64_t *a2)
+double wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Swap(double *a1, double *a2)
 {
   if (a1 != a2)
   {
     v2 = *a1;
     v3 = *(a1 + 4);
     *a1 = *a2;
-    result = *(a2 + 1);
+    result = a2[1];
     *a2 = v2;
-    v5 = a1[1];
-    *(a1 + 1) = result;
+    v5 = *(a1 + 1);
+    a1[1] = result;
     *(a1 + 4) = *(a2 + 4);
-    a2[1] = v5;
+    *(a2 + 1) = v5;
     *(a2 + 4) = v3;
   }
 
@@ -1841,7 +1825,7 @@ void wireless_diagnostics::google::protobuf::internal::VerifyVersion(wireless_di
     v23 = 62;
     memset(&v24, 0, sizeof(v24));
     std::string::append(&v24, "This program requires version ");
-    wireless_diagnostics::google::protobuf::internal::VersionString(a2, &v18);
+    wireless_diagnostics::google::protobuf::internal::VersionString(&v18, a2);
     if ((v20 & 0x80u) == 0)
     {
       v7 = &v18;
@@ -1864,7 +1848,7 @@ void wireless_diagnostics::google::protobuf::internal::VerifyVersion(wireless_di
 
     std::string::append(&v24, v7, v8);
     std::string::append(&v24, " of the Protocol Buffer runtime library, but the installed version is ");
-    wireless_diagnostics::google::protobuf::internal::VersionString(0x1E9808, &__p);
+    wireless_diagnostics::google::protobuf::internal::VersionString(&__p, 0x1E9808);
     if ((v17 & 0x80u) == 0)
     {
       p_p = &__p;
@@ -1913,7 +1897,7 @@ void wireless_diagnostics::google::protobuf::internal::VerifyVersion(wireless_di
     v23 = 73;
     memset(&v24, 0, sizeof(v24));
     std::string::append(&v24, "This program was compiled against version ");
-    wireless_diagnostics::google::protobuf::internal::VersionString(this, &v18);
+    wireless_diagnostics::google::protobuf::internal::VersionString(&v18, this);
     if ((v20 & 0x80u) == 0)
     {
       v11 = &v18;
@@ -1936,7 +1920,7 @@ void wireless_diagnostics::google::protobuf::internal::VerifyVersion(wireless_di
 
     std::string::append(&v24, v11, v12);
     std::string::append(&v24, " of the Protocol Buffer runtime library, which is not compatible with the installed version (");
-    wireless_diagnostics::google::protobuf::internal::VersionString(0x1E9808, &__p);
+    wireless_diagnostics::google::protobuf::internal::VersionString(&__p, 0x1E9808);
     if ((v17 & 0x80u) == 0)
     {
       v13 = &__p;
@@ -2022,9 +2006,9 @@ std::string *wireless_diagnostics::google::protobuf::internal::LogMessage::opera
   return a1;
 }
 
-unint64_t wireless_diagnostics::google::protobuf::internal::VersionString@<X0>(wireless_diagnostics::google::protobuf::internal *this@<X0>, _BYTE *a2@<X8>)
+unint64_t wireless_diagnostics::google::protobuf::internal::VersionString@<X0>(uint64_t *__return_ptr a1@<X8>, wireless_diagnostics::google::protobuf::internal *this@<X0>)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   snprintf(__str, 0x80uLL, "%d.%d.%d", this / 1000000, this / 1000 % 1000, this % 1000);
   __str[127] = 0;
   result = strlen(__str);
@@ -2039,14 +2023,13 @@ unint64_t wireless_diagnostics::google::protobuf::internal::VersionString@<X0>(w
     operator new();
   }
 
-  a2[23] = result;
+  *(a1 + 23) = result;
   if (result)
   {
-    result = memcpy(a2, __str, result);
+    result = memcpy(a1, __str, result);
   }
 
-  a2[v4] = 0;
-  v5 = *MEMORY[0x277D85DE8];
+  *(a1 + v4) = 0;
   return result;
 }
 
@@ -2116,60 +2099,54 @@ atomic_ullong *wireless_diagnostics::google::protobuf::internal::InitLogSilencer
 
 std::string *wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<(std::string *a1, std::string::value_type a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   __s[0] = a2;
   __s[1] = 0;
   __s[127] = 0;
   std::string::append(a1 + 1, __s);
-  v3 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
 std::string *wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<(std::string *a1, int a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   snprintf(__str, 0x80uLL, "%d", a2);
   __str[127] = 0;
   std::string::append(a1 + 1, __str);
-  v3 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   snprintf(__str, 0x80uLL, "%u", a2);
   __str[127] = 0;
   std::string::append(a1 + 1, __str);
-  v3 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
 std::string *wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<(std::string *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   snprintf(__str, 0x80uLL, "%ld", a2);
   __str[127] = 0;
   std::string::append(a1 + 1, __str);
-  v3 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   snprintf(__str, 0x80uLL, "%lu", a2);
   __str[127] = 0;
   std::string::append(a1 + 1, __str);
-  v3 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
 std::string *wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<(std::string *a1, double a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   snprintf(__str, 0x80uLL, "%g", a2);
   __str[127] = 0;
   std::string::append(a1 + 1, __str);
-  v3 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -2204,7 +2181,7 @@ LABEL_6:
   }
 }
 
-uint64_t (*wireless_diagnostics::google::protobuf::SetLogHandler(uint64_t (*a1)()))()
+void (*wireless_diagnostics::google::protobuf::SetLogHandler(void (*a1)()))()
 {
   v1 = wireless_diagnostics::google::protobuf::internal::log_handler_;
   if (a1)

@@ -810,18 +810,21 @@ uint64_t __82__UIDocumentBrowserViewController__applyBrowserStateChange_serviceP
 {
   [*(a1 + 32) _sendBrowserChange:*(a1 + 40) serviceProxy:*(a1 + 48)];
   v2 = [*(a1 + 56) doc_detentForDocumentLandingMode:{objc_msgSend(*(a1 + 40), "documentLandingMode")}];
+  v3 = v2;
   if (v2)
   {
-    v5 = v2;
-    v3 = [*(a1 + 56) selectedDetentIdentifier];
+    v6 = v2;
+    v4 = [*(a1 + 56) selectedDetentIdentifier];
 
-    if (v3 != v5)
+    v3 = v6;
+    if (v4 != v6)
     {
-      [*(a1 + 56) setSelectedDetentIdentifier:v5];
+      v2 = [*(a1 + 56) setSelectedDetentIdentifier:v6];
+      v3 = v6;
     }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 - (void)_sendBrowserChange:(id)change serviceProxy:(id)proxy
@@ -1703,20 +1706,20 @@ void __81__UIDocumentBrowserViewController_revealDocumentAtURL_importIfNeeded_co
   DOCRunInMainThread();
 }
 
-void __81__UIDocumentBrowserViewController_revealDocumentAtURL_importIfNeeded_completion___block_invoke_5(void *a1)
+void __81__UIDocumentBrowserViewController_revealDocumentAtURL_importIfNeeded_completion___block_invoke_5(void *a1, uint64_t a2)
 {
-  v1 = *(a1[7] + 8);
-  if (*(v1 + 24) == 1)
+  v2 = *(a1[7] + 8);
+  if (*(v2 + 24) == 1)
   {
-    v2 = MEMORY[0x1E699A450];
-    v3 = *MEMORY[0x1E699A450];
+    v3 = MEMORY[0x1E699A450];
+    v4 = *MEMORY[0x1E699A450];
     if (!*MEMORY[0x1E699A450])
     {
       DOCInitLogging();
-      v3 = *v2;
+      v4 = *v3;
     }
 
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __81__UIDocumentBrowserViewController_revealDocumentAtURL_importIfNeeded_completion___block_invoke_5_cold_1();
     }
@@ -1724,15 +1727,15 @@ void __81__UIDocumentBrowserViewController_revealDocumentAtURL_importIfNeeded_co
 
   else
   {
-    *(v1 + 24) = 1;
+    *(v2 + 24) = 1;
     (*(a1[6] + 16))();
-    v5 = *(a1[8] + 8);
-    if (*(v5 + 24) == 1)
+    v6 = *(a1[8] + 8);
+    if (*(v6 + 24) == 1)
     {
-      *(v5 + 24) = 0;
-      v6 = a1[4];
+      *(v6 + 24) = 0;
+      v7 = a1[4];
 
-      [v6 stopAccessingSecurityScopedResource];
+      [v7 stopAccessingSecurityScopedResource];
     }
   }
 }
@@ -1825,7 +1828,7 @@ void __81__UIDocumentBrowserViewController_revealDocumentAtURL_importIfNeeded_co
   }
 }
 
-void __81__UIDocumentBrowserViewController_revealDocumentAtURL_importIfNeeded_completion___block_invoke_130(uint64_t a1, char a2)
+void __81__UIDocumentBrowserViewController_revealDocumentAtURL_importIfNeeded_completion___block_invoke_130(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -2039,29 +2042,29 @@ void __81__UIDocumentBrowserViewController_dismissAllPresentedViewControllers_co
   }
 }
 
-uint64_t __84__UIDocumentBrowserViewController__beginTransitionCoordinatorSessionForDocumentURL___block_invoke(uint64_t result)
+void *__84__UIDocumentBrowserViewController__beginTransitionCoordinatorSessionForDocumentURL___block_invoke(void *result, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 1024) == *(result + 40))
+  v8 = *MEMORY[0x1E69E9840];
+  if (*(result[4] + 1024) == result[5])
   {
-    v1 = result;
-    v2 = MEMORY[0x1E699A450];
-    v3 = *MEMORY[0x1E699A450];
+    v2 = result;
+    v3 = MEMORY[0x1E699A450];
+    v4 = *MEMORY[0x1E699A450];
     if (!*MEMORY[0x1E699A450])
     {
       DOCInitLogging();
-      v3 = *v2;
+      v4 = *v3;
     }
 
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v4 = *(v1 + 48);
-      v5 = 138412290;
-      v6 = v4;
-      _os_log_impl(&dword_1E57D8000, v3, OS_LOG_TYPE_INFO, "Timeout waiting for UIP transition to open document: %@", &v5, 0xCu);
+      v5 = v2[6];
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&dword_1E57D8000, v4, OS_LOG_TYPE_INFO, "Timeout waiting for UIP transition to open document: %@", &v6, 0xCu);
     }
 
-    return [*(v1 + 32) _endTransitionCoordinatorSession];
+    return [v2[4] _endTransitionCoordinatorSession];
   }
 
   return result;
@@ -2310,49 +2313,49 @@ void __92__UIDocumentBrowserViewController__importDocumentAtURL_neighbourURL_mod
   }
 }
 
-void __92__UIDocumentBrowserViewController__importDocumentAtURL_neighbourURL_mode_completionHandler___block_invoke_3(uint64_t a1)
+void __92__UIDocumentBrowserViewController__importDocumentAtURL_neighbourURL_mode_completionHandler___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32) || !*(a1 + 40))
   {
-    v2 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v2();
+    v3();
   }
 
   else
   {
-    v3 = MEMORY[0x1E699A450];
-    v4 = *MEMORY[0x1E699A450];
+    v4 = MEMORY[0x1E699A450];
+    v5 = *MEMORY[0x1E699A450];
     if (!*MEMORY[0x1E699A450])
     {
       DOCInitLogging();
-      v4 = *v3;
+      v5 = *v4;
     }
 
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E57D8000, v4, OS_LOG_TYPE_INFO, "prepareForMode: _importDocumentAtURL with usingBookmark == YES", buf, 2u);
+      _os_log_impl(&dword_1E57D8000, v5, OS_LOG_TYPE_INFO, "prepareForMode: _importDocumentAtURL with usingBookmark == YES", buf, 2u);
     }
 
     if (*(a1 + 56))
     {
-      v5 = 3;
+      v6 = 3;
     }
 
     else
     {
-      v5 = 2;
+      v6 = 2;
     }
 
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __92__UIDocumentBrowserViewController__importDocumentAtURL_neighbourURL_mode_completionHandler___block_invoke_142;
-    v7[3] = &unk_1E8782810;
-    v6 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    v8 = *(a1 + 40);
-    [v6 prepareForMode:v5 usingBookmark:1 completionBlock:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __92__UIDocumentBrowserViewController__importDocumentAtURL_neighbourURL_mode_completionHandler___block_invoke_142;
+    v8[3] = &unk_1E8782810;
+    v7 = *(a1 + 40);
+    v10 = *(a1 + 48);
+    v9 = *(a1 + 40);
+    [v7 prepareForMode:v6 usingBookmark:1 completionBlock:v8];
   }
 }
 
@@ -2374,17 +2377,17 @@ void __92__UIDocumentBrowserViewController__importDocumentAtURL_neighbourURL_mod
   }
 }
 
-uint64_t __92__UIDocumentBrowserViewController__importDocumentAtURL_neighbourURL_mode_completionHandler___block_invoke_2_143(uint64_t a1)
+void *__92__UIDocumentBrowserViewController__importDocumentAtURL_neighbourURL_mode_completionHandler___block_invoke_2_143(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1E699A450];
-  v3 = *MEMORY[0x1E699A450];
+  v3 = MEMORY[0x1E699A450];
+  v4 = *MEMORY[0x1E699A450];
   if (!*MEMORY[0x1E699A450])
   {
     DOCInitLogging();
-    v3 = *v2;
+    v4 = *v3;
   }
 
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __92__UIDocumentBrowserViewController__importDocumentAtURL_neighbourURL_mode_completionHandler___block_invoke_2_143_cold_1();
   }
@@ -2398,7 +2401,7 @@ uint64_t __92__UIDocumentBrowserViewController__importDocumentAtURL_neighbourURL
   return result;
 }
 
-uint64_t __92__UIDocumentBrowserViewController__importDocumentAtURL_neighbourURL_mode_completionHandler___block_invoke_144(uint64_t a1)
+void *__92__UIDocumentBrowserViewController__importDocumentAtURL_neighbourURL_mode_completionHandler___block_invoke_144(uint64_t a1)
 {
   result = (*(*(a1 + 40) + 16))();
   if (*(a1 + 48) == 1)
@@ -2411,7 +2414,7 @@ uint64_t __92__UIDocumentBrowserViewController__importDocumentAtURL_neighbourURL
   return result;
 }
 
-uint64_t __92__UIDocumentBrowserViewController__importDocumentAtURL_neighbourURL_mode_completionHandler___block_invoke_2_145(uint64_t a1)
+void *__92__UIDocumentBrowserViewController__importDocumentAtURL_neighbourURL_mode_completionHandler___block_invoke_2_145(uint64_t a1)
 {
   result = (*(*(a1 + 40) + 16))();
   if (*(a1 + 48) == 1)
@@ -2534,49 +2537,49 @@ void __86__UIDocumentBrowserViewController_viewWillTransitionToSize_withTransiti
   objc_destroyWeak(v11);
 }
 
-void __86__UIDocumentBrowserViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2_159(uint64_t a1)
+void __86__UIDocumentBrowserViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2_159(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v2 = MEMORY[0x1E699A450];
-  v3 = *MEMORY[0x1E699A450];
+  v21 = *MEMORY[0x1E69E9840];
+  v3 = MEMORY[0x1E699A450];
+  v4 = *MEMORY[0x1E699A450];
   if (!*MEMORY[0x1E699A450])
   {
     DOCInitLogging();
-    v3 = *v2;
+    v4 = *v3;
   }
 
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = v3;
-    v6 = [v4 popoverPresentationController];
-    [v6 sourceRect];
-    v7 = NSStringFromCGRect(v21);
-    v8 = NSStringFromCGRect(*(a1 + 48));
-    v14 = 138412802;
-    v15 = v4;
-    v16 = 2112;
-    v17 = v7;
-    v18 = 2112;
-    v19 = v8;
-    _os_log_impl(&dword_1E57D8000, v5, OS_LOG_TYPE_DEFAULT, "new popover location retrieved updating location on targetController %@ from: %@ to: %@", &v14, 0x20u);
+    v5 = *(a1 + 32);
+    v6 = v4;
+    v7 = [v5 popoverPresentationController];
+    [v7 sourceRect];
+    v8 = NSStringFromCGRect(v22);
+    v9 = NSStringFromCGRect(*(a1 + 48));
+    v15 = 138412802;
+    v16 = v5;
+    v17 = 2112;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v9;
+    _os_log_impl(&dword_1E57D8000, v6, OS_LOG_TYPE_DEFAULT, "new popover location retrieved updating location on targetController %@ from: %@ to: %@", &v15, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v10 = [*(a1 + 32) popoverPresentationController];
-    [v10 setSourceRect:{*(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72)}];
-    v11 = [v10 barButtonItem];
-    if (v11)
+    v11 = [*(a1 + 32) popoverPresentationController];
+    [v11 setSourceRect:{*(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72)}];
+    v12 = [v11 barButtonItem];
+    if (v12)
     {
     }
 
     else
     {
-      v12 = [v10 sourceView];
+      v13 = [v11 sourceView];
 
-      if (!v12)
+      if (!v13)
       {
 LABEL_10:
 
@@ -2584,8 +2587,8 @@ LABEL_10:
       }
     }
 
-    v13 = [*(a1 + 32) popoverPresentationController];
-    [v13 containerViewWillLayoutSubviews];
+    v14 = [*(a1 + 32) popoverPresentationController];
+    [v14 containerViewWillLayoutSubviews];
 
     goto LABEL_10;
   }
@@ -4991,34 +4994,34 @@ void __79__UIDocumentBrowserViewController__core_didRequestDocumentCreationWithH
   DOCRunInMainThread();
 }
 
-void __89__UIDocumentBrowserViewController__iOS_didImportDocumentAtURL_toDestinationItemBookmark___block_invoke(uint64_t a1)
+void __89__UIDocumentBrowserViewController__iOS_didImportDocumentAtURL_toDestinationItemBookmark___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1E699A448];
-  v3 = *MEMORY[0x1E699A448];
+  v3 = MEMORY[0x1E699A448];
+  v4 = *MEMORY[0x1E699A448];
   if (!*MEMORY[0x1E699A448])
   {
     DOCInitLogging();
-    v3 = *v2;
+    v4 = *v3;
   }
 
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1E57D8000, v3, OS_LOG_TYPE_INFO, "prepareForMode: _didImportDocumentAtURL with usingBookmark == YES", buf, 2u);
+    _os_log_impl(&dword_1E57D8000, v4, OS_LOG_TYPE_INFO, "prepareForMode: _didImportDocumentAtURL with usingBookmark == YES", buf, 2u);
   }
 
-  v4 = *(a1 + 32);
-  v5 = [*(a1 + 40) configuration];
-  v6 = [v5 interactionModeForPreparing];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __89__UIDocumentBrowserViewController__iOS_didImportDocumentAtURL_toDestinationItemBookmark___block_invoke_258;
-  v8[3] = &unk_1E8782A78;
-  v7 = *(a1 + 48);
-  v8[4] = *(a1 + 40);
-  v9 = v7;
-  v10 = *(a1 + 32);
-  [v4 prepareForMode:v6 usingBookmark:1 completionBlock:v8];
+  v5 = *(a1 + 32);
+  v6 = [*(a1 + 40) configuration];
+  v7 = [v6 interactionModeForPreparing];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __89__UIDocumentBrowserViewController__iOS_didImportDocumentAtURL_toDestinationItemBookmark___block_invoke_258;
+  v9[3] = &unk_1E8782A78;
+  v8 = *(a1 + 48);
+  v9[4] = *(a1 + 40);
+  v10 = v8;
+  v11 = *(a1 + 32);
+  [v5 prepareForMode:v7 usingBookmark:1 completionBlock:v9];
 }
 
 void __89__UIDocumentBrowserViewController__iOS_didImportDocumentAtURL_toDestinationItemBookmark___block_invoke_258(uint64_t a1, char a2)
@@ -5217,129 +5220,129 @@ void __72__UIDocumentBrowserViewController__updateRemoteBarButtonFrames_forUUID_
   DOCRunInMainThread();
 }
 
-void __79__UIDocumentBrowserViewController__didTriggerBarButtonWithUUID_overflowAction___block_invoke(uint64_t a1)
+void __79__UIDocumentBrowserViewController__didTriggerBarButtonWithUUID_overflowAction___block_invoke(uint64_t a1, uint64_t a2)
 {
-  *&v29[5] = *MEMORY[0x1E69E9840];
-  v2 = MEMORY[0x1E699A450];
-  v3 = *MEMORY[0x1E699A450];
+  *&v30[5] = *MEMORY[0x1E69E9840];
+  v3 = MEMORY[0x1E699A450];
+  v4 = *MEMORY[0x1E699A450];
   if (!*MEMORY[0x1E699A450])
   {
     DOCInitLogging();
-    v3 = *v2;
+    v4 = *v3;
   }
 
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v4 = *(a1 + 32);
-    v5 = v3;
-    v6 = [v4 UUIDString];
+    v5 = *(a1 + 32);
+    v6 = v4;
+    v7 = [v5 UUIDString];
     *buf = 138412290;
-    *v29 = v6;
-    _os_log_impl(&dword_1E57D8000, v5, OS_LOG_TYPE_INFO, "_didTriggerBarButtonWithUUID: %@", buf, 0xCu);
+    *v30 = v7;
+    _os_log_impl(&dword_1E57D8000, v6, OS_LOG_TYPE_INFO, "_didTriggerBarButtonWithUUID: %@", buf, 0xCu);
   }
 
-  v7 = (a1 + 32);
-  v8 = [*(a1 + 40) remoteBarButtonForUUID:*(a1 + 32)];
-  if (v8)
+  v8 = (a1 + 32);
+  v9 = [*(a1 + 40) remoteBarButtonForUUID:*(a1 + 32)];
+  if (v9)
   {
-    v9 = *v2;
-    if (!*v2)
+    v10 = *v3;
+    if (!*v3)
     {
       DOCInitLogging();
-      v9 = *v2;
+      v10 = *v3;
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v10 = *v7;
-      v11 = v9;
-      v12 = [v10 UUIDString];
+      v11 = *v8;
+      v12 = v10;
+      v13 = [v11 UUIDString];
       *buf = 138412290;
-      *v29 = v12;
-      _os_log_impl(&dword_1E57D8000, v11, OS_LOG_TYPE_INFO, "_didTriggerBarButtonWithUUID: %@ button found, perform action", buf, 0xCu);
+      *v30 = v13;
+      _os_log_impl(&dword_1E57D8000, v12, OS_LOG_TYPE_INFO, "_didTriggerBarButtonWithUUID: %@ button found, perform action", buf, 0xCu);
     }
 
     if (*(a1 + 48) == 1)
     {
-      [v8 performOverflowAction];
+      [v9 performOverflowAction];
     }
 
     else
     {
-      [v8 performPrimaryAction];
+      [v9 performPrimaryAction];
     }
   }
 
   else
   {
-    v13 = objc_opt_new();
-    [v13 addObjectsFromArray:*(*(a1 + 40) + 1088)];
-    [v13 addObjectsFromArray:*(*(a1 + 40) + 1096)];
-    v14 = *v2;
-    if (!*v2)
+    v14 = objc_opt_new();
+    [v14 addObjectsFromArray:*(*(a1 + 40) + 1088)];
+    [v14 addObjectsFromArray:*(*(a1 + 40) + 1096)];
+    v15 = *v3;
+    if (!*v3)
     {
       DOCInitLogging();
-      v14 = *v2;
-    }
-
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-    {
-      __79__UIDocumentBrowserViewController__didTriggerBarButtonWithUUID_overflowAction___block_invoke_cold_1(v7, v14);
-    }
-
-    v15 = *v2;
-    if (!*v2)
-    {
-      DOCInitLogging();
-      v15 = *v2;
+      v15 = *v3;
     }
 
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
+      __79__UIDocumentBrowserViewController__didTriggerBarButtonWithUUID_overflowAction___block_invoke_cold_1(v8, v15);
+    }
+
+    v16 = *v3;
+    if (!*v3)
+    {
+      DOCInitLogging();
+      v16 = *v3;
+    }
+
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
       __79__UIDocumentBrowserViewController__didTriggerBarButtonWithUUID_overflowAction___block_invoke_cold_2();
     }
 
-    v25 = 0u;
     v26 = 0u;
-    v23 = 0u;
+    v27 = 0u;
     v24 = 0u;
-    v16 = v13;
-    v17 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
-    if (v17)
+    v25 = 0u;
+    v17 = v14;
+    v18 = [v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    if (v18)
     {
-      v18 = v17;
-      v19 = *v24;
+      v19 = v18;
+      v20 = *v25;
       do
       {
-        v20 = 0;
+        v21 = 0;
         do
         {
-          if (*v24 != v19)
+          if (*v25 != v20)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v17);
           }
 
-          v21 = *(*(&v23 + 1) + 8 * v20);
-          v22 = *v2;
-          if (!*v2)
+          v22 = *(*(&v24 + 1) + 8 * v21);
+          v23 = *v3;
+          if (!*v3)
           {
             DOCInitLogging();
-            v22 = *v2;
+            v23 = *v3;
           }
 
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
-            __79__UIDocumentBrowserViewController__didTriggerBarButtonWithUUID_overflowAction___block_invoke_cold_3(buf, v22, v21, v29);
+            __79__UIDocumentBrowserViewController__didTriggerBarButtonWithUUID_overflowAction___block_invoke_cold_3(buf, v23, v22, v30);
           }
 
-          ++v20;
+          ++v21;
         }
 
-        while (v18 != v20);
-        v18 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        while (v19 != v21);
+        v19 = [v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
-      while (v18);
+      while (v19);
     }
   }
 }
@@ -5901,7 +5904,7 @@ void __79__UIDocumentBrowserViewController__didTriggerBarButtonWithUUID_overflow
   v3 = a2;
   v4 = [OUTLINED_FUNCTION_7() UUIDString];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_10(&dword_1E57D8000, v5, v6, "_didTriggerBarButtonWithUUID: Button not found to perform action. Requested UUID: %@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_10(&dword_1E57D8000, v5, v6, "_didTriggerBarButtonWithUUID: Button not found to perform action. Requested UUID: %@", v7, v8, v9, v10);
 }
 
 void __79__UIDocumentBrowserViewController__didTriggerBarButtonWithUUID_overflowAction___block_invoke_cold_2()
@@ -5926,7 +5929,7 @@ void __79__UIDocumentBrowserViewController__didTriggerBarButtonWithUUID_overflow
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_7() localizedDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_10(&dword_1E57D8000, v4, v5, "Error. Rename failed: %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_10(&dword_1E57D8000, v4, v5, "Error. Rename failed: %@", v6, v7, v8, v9);
 }
 
 - (void)renameDocumentAtURL:proposedName:completionHandler:.cold.1()

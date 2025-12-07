@@ -4,6 +4,7 @@
 - (const)blur_indices:(int)blur_indices n_blur_indices:(int *)n_blur_indices;
 - (int)_addHashKeyAtX:(unsigned int)x Y:(unsigned int)y key:(unint64_t)key;
 - (int)_computeBilateralSpace:(__CVBuffer *)space sigma_s:(unsigned int)sigma_s sigma_r_luma:(unsigned int)sigma_r_luma sigma_r_chroma:(unsigned int)sigma_r_chroma;
+- (int)create:(__CVBuffer *)create sigma_s:(int)sigma_s sigma_r_luma:(int)sigma_r_luma sigma_r_chroma:(int)sigma_r_chroma;
 - (void)blur:(const float *)blur pout:(float *)pout;
 - (void)blur_n:(float *)blur_n;
 - (void)blur_ones:(float *)blur_ones;
@@ -218,6 +219,51 @@ LABEL_13:
   sub_29571B534(self->_hash_map);
 }
 
+- (int)create:(__CVBuffer *)create sigma_s:(int)sigma_s sigma_r_luma:(int)sigma_r_luma sigma_r_chroma:(int)sigma_r_chroma
+{
+  if (sigma_s <= 0)
+  {
+    sub_2957339B8(&v16);
+    return v16;
+  }
+
+  v6 = *&sigma_r_luma;
+  if (sigma_r_luma <= 0)
+  {
+    sub_29573392C(&v16);
+    return v16;
+  }
+
+  v7 = *&sigma_r_chroma;
+  if (sigma_r_chroma <= 0)
+  {
+    sub_2957338A0(&v16);
+    return v16;
+  }
+
+  v8 = *&sigma_s;
+  objc_msgSend_clear(self, a2, create, *&sigma_s, *&sigma_r_luma, *&sigma_r_chroma);
+  result = objc_msgSend__computeBilateralSpace_sigma_s_sigma_r_luma_sigma_r_chroma_(self, v11, create, v8, v6, v7);
+  if (!result)
+  {
+    return result;
+  }
+
+  width = self->_width;
+  height = self->_height;
+  self->_hash_table_size = 0;
+  hash_matrix_data = self->_hash_matrix_data;
+  if (!hash_matrix_data)
+  {
+    sub_295733818(&v16);
+    return v16;
+  }
+
+  bzero(hash_matrix_data, 4 * height * width);
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294954514, "(Fig)", 164);
+}
+
 - (void)splat:(__CVBuffer *)splat pout:(float *)pout
 {
   if (splat)
@@ -338,7 +384,7 @@ LABEL_13:
           else
           {
 
-            FigSignalErrorAtGM();
+            FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294954516, "(Fig)", 212);
           }
         }
 
@@ -413,7 +459,7 @@ LABEL_13:
         else
         {
 
-          FigSignalErrorAtGM();
+          FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294954516, "(Fig)", 256);
         }
       }
 

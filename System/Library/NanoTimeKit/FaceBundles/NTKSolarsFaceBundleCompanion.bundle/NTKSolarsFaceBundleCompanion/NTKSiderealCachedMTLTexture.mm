@@ -193,7 +193,7 @@ LABEL_15:
     v9 = _NTKLoggingObjectForDomain();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_19D4C(&self->_cacheKey);
+      sub_19D4C();
     }
 
     goto LABEL_12;
@@ -202,7 +202,7 @@ LABEL_15:
   v10 = _NTKLoggingObjectForDomain();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    sub_19DB8(self);
+    sub_19DB8();
   }
 
   v11 = 0;
@@ -298,7 +298,7 @@ LABEL_15:
     v9 = _NTKLoggingObjectForDomain();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_19D4C(&self->_cacheKey);
+      sub_19D4C();
     }
 
     goto LABEL_12;
@@ -307,7 +307,7 @@ LABEL_15:
   v10 = _NTKLoggingObjectForDomain();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    sub_19DB8(self);
+    sub_19DB8();
   }
 
   v11 = 0;

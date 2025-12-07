@@ -14,467 +14,464 @@
 
 - (void)draw:(HUDMTLLayerState *)draw drawableState:(HUDMTLLayerDrawableState *)state fontSize:(int)size frame:(id)frame layout:(unint64_t)layout height:(float *)height qrCode:(id)code
 {
+  v11 = *&size;
   codeCopy = code;
-  v13 = HUDGetGlobalConfig();
-  GlobalOverlay = HUDMTLOverlayGetGlobalOverlay();
-  v15 = +[_CADeveloperHUDProperties instance];
-  v712 = 0;
-  HUDSystemStateGetSnapshot(&v712);
-  v711 = 0;
-  HUDUIFrameGetSizeInPoints(frame.var0, &v711 + 1, &v711);
-  *&v16 = HIDWORD(v711);
-  LODWORD(v17) = 1333788672;
-  LODWORD(v18) = HUDUIRectMake(0.0, 0.0, v16, v17).n128_u32[0];
-  v22 = 15.0;
+  v14 = HUDGetGlobalConfig(codeCopy, v13);
+  GlobalOverlay = HUDMTLOverlayGetGlobalOverlay(v14, v15);
+  v17 = +[_CADeveloperHUDProperties instance];
+  v731 = 0;
+  HUDSystemStateGetSnapshot(&v731, v18, v19, v20);
+  v730 = 0;
+  HUDUIFrameGetSizeInPoints(frame.var0, &v730 + 1, &v730);
+  HUDUIRectMake();
+  v25 = 15.0;
   if (layout == 16)
   {
-    v22 = 5.0;
+    v25 = 5.0;
   }
 
-  v685 = HUDUIInvalidString;
-  *&v686 = qword_784F8;
-  HUDUIFrameBeginWindow(frame.var0, &v685, -1291845632, 1, v18, v19, v20, v21, v22);
+  v704 = HUDUIInvalidString;
+  *&v705 = qword_784F8;
+  IsProcessTranslated = HUDUIFrameBeginWindow(frame.var0, &v704, 3003121664, 1, v21, v22, v23, v24, v25);
   if (layout)
   {
-    v23 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v24 = *&v23;
-    v26 = v25;
-    v28 = v27;
-    v29 = [v15 getMetric:@"com.apple.hud-stat.gpu-name"];
-    stringValue = [v29 stringValue];
-    v31 = stringValue;
-    v32 = @"Unknown";
+    v28 = HUDUIWindowBeginRow(frame.var0);
+    v29 = *&v28;
+    v31 = v30;
+    v33 = v32;
+    v34 = [v17 getMetric:@"com.apple.hud-stat.gpu-name"];
+    stringValue = [v34 stringValue];
+    v36 = stringValue;
+    v37 = @"Unknown";
     if (stringValue)
     {
-      v32 = stringValue;
+      v37 = stringValue;
     }
 
-    v33 = v32;
+    v38 = v37;
 
-    FontHeight = HUDUIOverlayGetFontHeight(GlobalOverlay, size);
-    HUDUIAllocString([(__CFString *)v33 UTF8String], GlobalOverlay, size, &v685);
-    *&v35 = FontHeight;
-    HUDUIWindowAddLabelInRect(frame.var0, &v685, -1, 0, 0, v24, v26, v28, v35);
+    FontHeight = HUDUIOverlayGetFontHeight(GlobalOverlay, v11);
+    HUDUIAllocString([(__CFString *)v38 UTF8String], GlobalOverlay, v11, &v704);
+    *&v40 = FontHeight;
+    HUDUIWindowAddLabelInRect(frame.var0, &v704, -1, 0, 0, v29, v31, v33, v40);
   }
 
-  if ((layout & 2) != 0 && MTLHudIsProcessTranslated())
+  if ((layout & 2) != 0)
   {
-    v36 = +[_CADeveloperHUDProperties instance];
-    graphicsAPI = [v36 graphicsAPI];
-
-    if (graphicsAPI > 2)
+    IsProcessTranslated = MTLHudIsProcessTranslated(IsProcessTranslated, v27);
+    if (IsProcessTranslated)
     {
-      v38 = 0;
-    }
+      v41 = +[_CADeveloperHUDProperties instance];
+      graphicsAPI = [v41 graphicsAPI];
 
-    else
-    {
-      v38 = (&off_69290)[graphicsAPI];
-    }
+      if (graphicsAPI > 2)
+      {
+        v43 = 0;
+      }
 
-    v39 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v40 = *&v39;
-    v42 = v41;
-    v44 = v43;
-    v46 = v45;
-    HUDUIAllocString("Rosetta x86_64", GlobalOverlay, size, &v685);
-    HUDUIAllocString(v38, GlobalOverlay, size, &v709);
-    LODWORD(v47) = v46;
-    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v40, v42, v44, v47);
+      else
+      {
+        v43 = (&off_69290)[graphicsAPI];
+      }
+
+      v44 = HUDUIWindowBeginRow(frame.var0);
+      v45 = *&v44;
+      v47 = v46;
+      v49 = v48;
+      v51 = v50;
+      HUDUIAllocString("Rosetta x86_64", GlobalOverlay, v11, &v704);
+      HUDUIAllocString(v43, GlobalOverlay, v11, &v728);
+      LODWORD(v52) = v51;
+      IsProcessTranslated = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v45, v47, v49, v52);
+    }
   }
 
-  v676 = v13;
+  v695 = v14;
   if ((layout & 4) != 0)
   {
-    v48 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v49 = *&v48;
-    v51 = v50;
-    v53 = v52;
-    v55 = v54;
+    v53 = HUDUIWindowBeginRow(frame.var0);
+    v54 = *&v53;
+    v56 = v55;
+    v58 = v57;
+    v60 = v59;
     if (draw->lastDrawableDetached)
     {
-      drawableHeight = state->drawableHeight;
-      HUDUITemporaryStringWithFormat(frame.var0, size, "%dx%d ", &v685, state->drawableWidth);
-      v56 = " Direct";
-      v57 = -12463527;
+      HUDUITemporaryStringWithFormat(frame.var0, v11, "%dx%d ", &v704, state->drawableWidth, state->drawableHeight);
+      v61 = " Direct";
+      v62 = -12463527;
     }
 
     else
     {
-      v58 = *(v13 + 33);
-      v664 = state->drawableHeight;
-      HUDUITemporaryStringWithFormat(frame.var0, size, "%dx%d ", &v685, state->drawableWidth);
-      if (v58)
+      v63 = *(v14 + 33);
+      HUDUITemporaryStringWithFormat(frame.var0, v11, "%dx%d ", &v704, state->drawableWidth, state->drawableHeight);
+      if (v63)
       {
-        v56 = " Direct";
+        v61 = " Direct";
       }
 
       else
       {
-        v56 = " Composited";
+        v61 = " Composited";
       }
 
-      if (v58)
+      if (v63)
       {
-        v57 = -12463527;
+        v62 = -12463527;
       }
 
       else
       {
-        v57 = -16080897;
+        v62 = -16080897;
       }
     }
 
-    HUDUIAllocString(v56, GlobalOverlay, size, &v709);
-    LODWORD(v59) = v55;
-    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, v57, v49, v51, v53, v59);
+    HUDUIAllocString(v61, GlobalOverlay, v11, &v728);
+    LODWORD(v64) = v60;
+    IsProcessTranslated = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, v62, v54, v56, v58, v64);
   }
 
   if ((layout & 0x400000) != 0)
   {
-    v60 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v61 = *&v60;
-    v63 = v62;
-    v65 = v64;
-    v67 = v66;
-    layerContentsScale = state->layerContentsScale;
-    HUDUIAllocStringWithFormat(GlobalOverlay, size, "%2.1fx ", &v685, SLOBYTE(layerContentsScale));
-    v68 = HUDMTLPixelFormatName(draw->pixelFormat);
-    HUDUIAllocStringWithFormat(GlobalOverlay, size, "%s", &v709, v68);
-    LODWORD(v69) = v67;
-    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v61, v63, v65, v69);
+    v65 = HUDUIWindowBeginRow(frame.var0);
+    v66 = *&v65;
+    v68 = v67;
+    v70 = v69;
+    v72 = v71;
+    HUDUIAllocStringWithFormat(GlobalOverlay, v11, "%2.1fx ", &v704, state->layerContentsScale);
+    v74 = HUDMTLPixelFormatName(draw->pixelFormat, v73);
+    HUDUIAllocStringWithFormat(GlobalOverlay, v11, "%s", &v728, v74);
+    LODWORD(v75) = v72;
+    IsProcessTranslated = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v66, v68, v70, v75);
   }
 
-  if ((layout & 8) != 0 && v712)
+  if ((layout & 8) != 0 && v731)
   {
-    v70 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v71 = *&v70;
-    v73 = v72;
-    v75 = v74;
-    v77 = v76;
-    v685 = 0uLL;
-    *&v686 = 0;
-    HUDUITemporaryFormattedBytes(frame.var0, size, "Metal: ", *v712, 0, &v685);
-    v710 = 0;
-    v709 = 0uLL;
-    HUDUITemporaryFormattedBytes(frame.var0, size, "App: ", v712[1], 0, &v709);
-    v707 = v685;
-    v708 = v686;
-    v705 = v709;
-    v706 = v710;
-    LODWORD(v78) = v77;
-    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v707, -1, &v705, -1, v71, v73, v75, v78);
-    v79 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v80 = *&v79;
-    v82 = v81;
-    v84 = v83;
-    v86 = v85;
-    HUDUIAllocString("Available Memory", GlobalOverlay, size, &v707);
-    HUDUITemporaryFormattedBytes(frame.var0, size, "", v712[2], 0, &v705);
-    LODWORD(v87) = v86;
-    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v707, -1, &v705, -1, v80, v82, v84, v87);
+    v76 = HUDUIWindowBeginRow(frame.var0);
+    v77 = *&v76;
+    v79 = v78;
+    v81 = v80;
+    v83 = v82;
+    v704 = 0uLL;
+    *&v705 = 0;
+    HUDUITemporaryFormattedBytes(frame.var0, v11, "Metal: ", *v731, 0, &v704);
+    v729 = 0;
+    v728 = 0uLL;
+    HUDUITemporaryFormattedBytes(frame.var0, v11, "App: ", v731[1], 0, &v728);
+    v726 = v704;
+    v727 = v705;
+    v724 = v728;
+    v725 = v729;
+    LODWORD(v84) = v83;
+    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v726, -1, &v724, -1, v77, v79, v81, v84);
+    v85 = HUDUIWindowBeginRow(frame.var0);
+    v86 = *&v85;
+    v88 = v87;
+    v90 = v89;
+    v92 = v91;
+    HUDUIAllocString("Available Memory", GlobalOverlay, v11, &v726);
+    HUDUITemporaryFormattedBytes(frame.var0, v11, "", v731[2], 0, &v724);
+    LODWORD(v93) = v92;
+    IsProcessTranslated = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v726, -1, &v724, -1, v86, v88, v90, v93);
   }
 
   if ((layout & 0x800000) != 0)
   {
-    v685 = HUDUIInvalidString;
-    *&v686 = qword_784F8;
+    v704 = HUDUIInvalidString;
+    *&v705 = qword_784F8;
     if (draw->screenFPS)
     {
-      HUDUIAllocStringWithFormat(GlobalOverlay, size, "%dHz", &v709, draw->screenFPS);
-      v685 = v709;
-      *&v686 = v710;
+      HUDUIAllocStringWithFormat(GlobalOverlay, v11, "%dHz", &v728, draw->screenFPS);
+      v704 = v728;
+      *&v705 = v729;
     }
 
     else
     {
-      HUDUIAllocString("--Hz", GlobalOverlay, size, &v685);
+      HUDUIAllocString("--Hz", GlobalOverlay, v11, &v704);
     }
 
-    v88 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v89 = *&v88;
-    v91 = v90;
-    v93 = v92;
-    v95 = v94;
-    HUDUIAllocString("Refresh Rate", GlobalOverlay, size, &v709);
-    v707 = v685;
-    v708 = v686;
-    LODWORD(v96) = v95;
-    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v709, -1, &v707, -1, v89, v91, v93, v96);
+    v94 = HUDUIWindowBeginRow(frame.var0);
+    v95 = *&v94;
+    v97 = v96;
+    v99 = v98;
+    v101 = v100;
+    HUDUIAllocString("Refresh Rate", GlobalOverlay, v11, &v728);
+    v726 = v704;
+    v727 = v705;
+    LODWORD(v102) = v101;
+    IsProcessTranslated = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v728, -1, &v726, -1, v95, v97, v99, v102);
   }
 
-  v97 = (&draw->presentTimeRecord.minFrame + 1);
+  v103 = (&draw->presentTimeRecord.minFrame + 1);
   if ((layout & 0x40000) != 0)
   {
-    v98 = [v15 getMetric:@"com.apple.hud-stat.thermal-state"];
-    if (v98)
+    v104 = [v17 getMetric:@"com.apple.hud-stat.thermal-state"];
+    if (v104)
     {
-      HUDUIWindowBeginRow(frame.var0, 9999.0);
-      v99 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-      v100 = *&v99;
-      v102 = v101;
-      v104 = v103;
-      v106 = v105;
-      stringValue2 = [v98 stringValue];
-      valueColor = [v98 valueColor];
-      LODWORD(v109) = v106;
-      HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, valueColor, v100, v102, v104, v109);
+      HUDUIWindowBeginRow(frame.var0);
+      v105 = HUDUIWindowBeginRow(frame.var0);
+      v106 = *&v105;
+      v108 = v107;
+      v110 = v109;
+      v112 = v111;
+      stringValue2 = [v104 stringValue];
+      valueColor = [v104 valueColor];
+      LODWORD(v115) = v112;
+      HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, valueColor, v106, v108, v110, v115);
     }
   }
 
-  v674 = v15;
+  v693 = v17;
   layoutCopy = layout;
   if ((layout & 0x1000000) != 0)
   {
-    if ((HUDMTLOverlayIsInGPTK() & 1) == 0)
+    IsProcessTranslated = HUDMTLOverlayIsInGPTK(IsProcessTranslated, v27);
+    if ((IsProcessTranslated & 1) == 0)
     {
-      v110 = MTLHUDGameModeEnabled();
-      v111 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-      v112 = *&v111;
-      v114 = v113;
-      v116 = v115;
-      v118 = v117;
-      HUDUIAllocString("Game Mode", GlobalOverlay, size, &v685);
-      v119 = "Off";
-      if (v110)
+      v116 = MTLHUDGameModeEnabled(IsProcessTranslated, v27);
+      v117 = HUDUIWindowBeginRow(frame.var0);
+      v118 = *&v117;
+      v120 = v119;
+      v122 = v121;
+      v124 = v123;
+      HUDUIAllocString("Game Mode", GlobalOverlay, v11, &v704);
+      v125 = "Off";
+      if (v116)
       {
-        v119 = "On";
-        v120 = -12463527;
+        v125 = "On";
+        v126 = -12463527;
       }
 
       else
       {
-        v120 = -16080897;
+        v126 = -16080897;
       }
 
-      HUDUIAllocStringWithFormat(GlobalOverlay, size, "%s", &v709, v119);
-      LODWORD(v121) = v118;
-      HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, v120, v112, v114, v116, v121);
+      HUDUIAllocStringWithFormat(GlobalOverlay, v11, "%s", &v728, v125);
+      LODWORD(v127) = v124;
+      IsProcessTranslated = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, v126, v118, v120, v122, v127);
     }
   }
 
   else if (layout == 16)
   {
-    v672 = 0;
+    v691 = 0;
 LABEL_60:
-    v167 = HUDUIOverlayGetFontHeight(GlobalOverlay, 1u);
-    v168 = HUDUIWindowBeginRow(frame.var0, v167);
-    v169 = *&v168;
-    v171 = v170;
-    v173 = v172;
-    v175 = v174 - (HUDUIOverlayGetFontHeight(GlobalOverlay, 1u) >> 1);
-    v656 = 1000000000.0 / *(&draw->presentTimeRecord.valuesMax + 4);
-    HUDUITemporaryStringWithFormat(frame.var0, 2u, "%.2f", &v685, SLOBYTE(v656));
-    LODWORD(v176) = v173;
-    HUDUIWindowAddLabelInRect(frame.var0, &v685, -1, 1, 1, v169, v175, v171, v176);
+    HUDUIOverlayGetFontHeight(GlobalOverlay, 1u);
+    v177 = HUDUIWindowBeginRow(frame.var0);
+    v178 = *&v177;
+    v180 = v179;
+    v182 = v181;
+    v184 = v183 - (HUDUIOverlayGetFontHeight(GlobalOverlay, 1u) >> 1);
+    HUDUITemporaryStringWithFormat(frame.var0, 2u, "%.2f", &v704, 1000000000.0 / *(&draw->presentTimeRecord.valuesMax + 4));
+    LODWORD(v185) = v182;
+    ValueRecord = HUDUIWindowAddLabelInRect(frame.var0, &v704, -1, 1, 1, v178, v184, v180, v185);
     goto LABEL_155;
   }
 
-  MetalWrapperType = MTLHudGetMetalWrapperType();
-  IsCaptureEnabled = MTLHudIsCaptureEnabled();
-  v124 = MetalWrapperType - 1;
-  if (MetalWrapperType - 1) <= 9 && ((0x21Fu >> v124))
+  MetalWrapperType = MTLHudGetMetalWrapperType(IsProcessTranslated, v27);
+  v129 = MetalWrapperType;
+  IsCaptureEnabled = MTLHudIsCaptureEnabled(MetalWrapperType, v130);
+  v132 = v129 - 1;
+  if (v129 - 1) <= 9 && ((0x21Fu >> v132))
   {
-    v125 = (&off_692A8)[v124];
-    v126 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v127 = *&v126;
-    v129 = v128;
-    v131 = v130;
-    v133 = v132;
-    HUDUIAllocStringWithFormat(GlobalOverlay, size, "%s Enabled", &v685, v125);
-    v709 = HUDUIInvalidString;
-    v710 = qword_784F8;
-    LODWORD(v134) = v133;
-    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -16080897, &v709, -1, v127, v129, v131, v134);
+    v133 = (&off_692A8)[v132];
+    v134 = HUDUIWindowBeginRow(frame.var0);
+    v135 = *&v134;
+    v137 = v136;
+    v139 = v138;
+    v141 = v140;
+    HUDUIAllocStringWithFormat(GlobalOverlay, v11, "%s Enabled", &v704, v133);
+    v728 = HUDUIInvalidString;
+    v729 = qword_784F8;
+    LODWORD(v142) = v141;
+    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -16080897, &v728, -1, v135, v137, v139, v142);
   }
 
   if (IsCaptureEnabled)
   {
-    v135 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v136 = *&v135;
-    v138 = v137;
-    v140 = v139;
-    v142 = v141;
-    HUDUIAllocStringWithFormat(GlobalOverlay, size, "GPU Frame Capture Enabled", &v685, v654);
-    v709 = HUDUIInvalidString;
-    v710 = qword_784F8;
-    LODWORD(v143) = v142;
-    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -16080897, &v709, -1, v136, v138, v140, v143);
+    v143 = HUDUIWindowBeginRow(frame.var0);
+    v144 = *&v143;
+    v146 = v145;
+    v148 = v147;
+    v150 = v149;
+    HUDUIAllocStringWithFormat(GlobalOverlay, v11, "GPU Frame Capture Enabled", &v704);
+    v728 = HUDUIInvalidString;
+    v729 = qword_784F8;
+    LODWORD(v151) = v150;
+    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -16080897, &v728, -1, v144, v146, v148, v151);
   }
 
-  v144 = +[NSProcessInfo processInfo];
-  isLowPowerModeEnabled = [v144 isLowPowerModeEnabled];
+  v152 = +[NSProcessInfo processInfo];
+  isLowPowerModeEnabled = [v152 isLowPowerModeEnabled];
 
   if (isLowPowerModeEnabled)
   {
-    v146 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v147 = *&v146;
-    v149 = v148;
-    v151 = v150;
-    v153 = v152;
-    HUDUIAllocStringWithFormat(GlobalOverlay, size, "Low Power Mode Enabled", &v685, v654);
-    v709 = HUDUIInvalidString;
-    v710 = qword_784F8;
-    LODWORD(v154) = v153;
-    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -16080897, &v709, -1, v147, v149, v151, v154);
+    v156 = HUDUIWindowBeginRow(frame.var0);
+    v157 = *&v156;
+    v159 = v158;
+    v161 = v160;
+    v163 = v162;
+    HUDUIAllocStringWithFormat(GlobalOverlay, v11, "Low Power Mode Enabled", &v704);
+    v728 = HUDUIInvalidString;
+    v729 = qword_784F8;
+    LODWORD(v164) = v163;
+    ValueRecord = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -16080897, &v728, -1, v157, v159, v161, v164);
   }
 
   if ((layout & 0x10) != 0)
   {
     if (layout == 16)
     {
-      v672 = 1;
+      v691 = 1;
       goto LABEL_60;
     }
 
     HUDUIWindowEmptyRow(frame.var0, 6.0);
     if ((layout & 0x1000) != 0)
     {
-      v177 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-      v178 = *&v177;
-      v180 = v179;
-      v182 = v181;
-      v184 = v183;
-      v185 = +[_CADeveloperHUDProperties instance];
-      frameMarker = [v185 frameMarker];
+      v186 = HUDUIWindowBeginRow(frame.var0);
+      v187 = *&v186;
+      v189 = v188;
+      v191 = v190;
+      v193 = v192;
+      v194 = +[_CADeveloperHUDProperties instance];
+      frameMarker = [v194 frameMarker];
 
       if ([frameMarker length])
       {
-        HUDUIAllocString("Frame", GlobalOverlay, size, &v685);
-        frameNumber = draw->frameNumber;
-        [frameMarker UTF8String];
-        HUDUITemporaryStringWithFormat(frame.var0, size, "%d | %s", &v709, frameNumber);
+        HUDUIAllocString("Frame", GlobalOverlay, v11, &v704);
+        HUDUITemporaryStringWithFormat(frame.var0, v11, "%d | %s", &v728, draw->frameNumber, [frameMarker UTF8String]);
       }
 
       else
       {
-        HUDUIAllocString("Frame", GlobalOverlay, size, &v685);
-        HUDUITemporaryStringWithFormat(frame.var0, size, "%d", &v709, draw->frameNumber);
+        HUDUIAllocString("Frame", GlobalOverlay, v11, &v704);
+        HUDUITemporaryStringWithFormat(frame.var0, v11, "%d", &v728, draw->frameNumber, v687);
       }
 
-      LODWORD(v188) = v184;
-      HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v178, v180, v182, v188);
+      LODWORD(v196) = v193;
+      HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v187, v189, v191, v196);
     }
 
-    v633 = *(v13 + 30);
-    v634 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v635 = *&v634;
-    v637 = v636;
-    v639 = v638;
-    v641 = v640;
-    HUDUIAllocString("FPS", GlobalOverlay, size, &v685);
-    if (v633 == 1)
+    v666 = *(v14 + 30);
+    v667 = HUDUIWindowBeginRow(frame.var0);
+    v668 = *&v667;
+    v670 = v669;
+    v672 = v671;
+    v674 = v673;
+    HUDUIAllocString("FPS", GlobalOverlay, v11, &v704);
+    if (v666 == 1)
     {
-      v642 = 1000000000.0 / *(&draw->presentTimeRecord.valuesMax + 4);
-      v643 = 1000000000.0 / *(&draw->presentTimeRecord.valuesMin + 4);
-      *&v643 = v643;
-      v644 = 1000000000.0 / *v97;
-      *&v644 = v644;
-      HUDUIWindowAddStats(frame.var0, size, &v685, v642, v643, v644, v635, v637, v639, v641, "", -1);
+      v675 = 1000000000.0 / *(&draw->presentTimeRecord.valuesMax + 4);
+      v676 = 1000000000.0 / *(&draw->presentTimeRecord.valuesMin + 4);
+      *&v676 = v676;
+      v677 = 1000000000.0 / *v103;
+      *&v677 = v677;
+      ValueRecord = HUDUIWindowAddStats(frame.var0, v11, &v704, v675, v676, v677, v668, v670, v672, v674, "", -1);
     }
 
     else
     {
-      v662 = 1000000000.0 / *(&draw->presentTimeRecord.valuesMax + 4);
-      HUDUITemporaryStringWithFormat(frame.var0, size, "%.2f", &v709, SLOBYTE(v662));
-      *&v645 = v641;
-      HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v635, v637, v639, v645);
+      HUDUITemporaryStringWithFormat(frame.var0, v11, "%.2f", &v728, 1000000000.0 / *(&draw->presentTimeRecord.valuesMax + 4));
+      *&v678 = v674;
+      ValueRecord = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v668, v670, v672, v678);
     }
   }
 
   if ((layout & 0x80000) != 0)
   {
-    v155 = HUDUIWindowBeginRow(frame.var0, 50.0);
-    v156 = *&v155;
-    v158 = v157;
-    v160 = v159;
-    v162 = v161;
-    v703 = 0u;
+    v165 = HUDUIWindowBeginRow(frame.var0);
+    v166 = *&v165;
+    v168 = v167;
+    v170 = v169;
+    v172 = v171;
+    v722 = 0u;
+    v723 = 0u;
+    v720 = 0u;
+    v721 = 0u;
+    v718 = 0u;
+    v719 = 0u;
+    v716 = 0u;
+    v717 = 0u;
+    v714 = 0u;
+    v715 = 0u;
+    v712 = 0u;
+    v713 = 0u;
+    v710 = 0u;
+    v711 = 0u;
+    v708 = 0u;
+    v709 = 0u;
+    v706 = 0u;
+    v707 = 0u;
     v704 = 0u;
-    v701 = 0u;
-    v702 = 0u;
-    v699 = 0u;
-    v700 = 0u;
-    v697 = 0u;
-    v698 = 0u;
-    v695 = 0u;
-    v696 = 0u;
-    v693 = 0u;
-    v694 = 0u;
-    v691 = 0u;
-    v692 = 0u;
-    v689 = 0u;
-    v690 = 0u;
-    v687 = 0u;
-    v688 = 0u;
-    v685 = 0u;
-    v686 = 0u;
-    HUDUILineChartInit(&v685);
+    v705 = 0u;
+    HUDUILineChartInit(&v704);
     minValueAllowed_high = HIDWORD(draw->fpsRecord.minValueAllowed);
-    if (!minValueAllowed_high || (v164 = __CFADD__(minValueAllowed_high, 1), v165 = (minValueAllowed_high + 1), v164))
+    if (!minValueAllowed_high || (v174 = __CFADD__(minValueAllowed_high, 1), v175 = (minValueAllowed_high + 1), v174))
     {
-      v166 = -2147483650.0;
+      v176 = -2147483650.0;
     }
 
     else
     {
-      v189 = 0;
+      v197 = 0;
       lastValue_low = LODWORD(draw->fpsRecord.lastValue);
-      v191 = 0x7FFFFFFF;
+      v199 = 0x7FFFFFFF;
       do
       {
-        if (*(&draw->fpsRecord.lastValue + v189) > lastValue_low || v191 == 0x7FFFFFFF)
+        if (*(&draw->fpsRecord.lastValue + v197) > lastValue_low || v199 == 0x7FFFFFFF)
         {
-          lastValue_low = *(&draw->fpsRecord.lastValue + v189);
-          v191 = v189;
+          lastValue_low = *(&draw->fpsRecord.lastValue + v197);
+          v199 = v197;
         }
 
-        ++v189;
+        ++v197;
       }
 
-      while (v165 != v189);
-      v166 = (v191 + 1);
+      while (v175 != v197);
+      v176 = (v199 + 1);
     }
 
-    v193 = v166 * *(&draw->fpsRecord.maxValueAllowed + 4);
-    HUDUILineChartSet(&v685, 0, &draw->presentToOnGlassRecord.valuesMinSinceBeginning, -354547, 1, 0, 3.0, v193, 0.05);
-    v194 = fmax(round(*(&draw->fpsRecord.minFrame + 1) / 30.0) * 30.0, 60.0) + 30.0;
-    v709 = HUDUIInvalidString;
-    v710 = qword_784F8;
-    LODWORD(v195) = v162;
-    HUDUIWindowAddLineChart(frame.var0, &v709, &v685, 0.0, v194, v156, v158, v160, v195, v196, v197, "fps", 0);
+    v201 = v176 * *(&draw->fpsRecord.maxValueAllowed + 4);
+    HUDUILineChartSet(&v704, 0, &draw->presentToOnGlassRecord.valuesMinSinceBeginning, -354547, 1, 0, 3.0, v201, 0.05);
+    v202 = fmax(round(*(&draw->fpsRecord.minFrame + 1) / 30.0) * 30.0, 60.0) + 30.0;
+    v728 = HUDUIInvalidString;
+    v729 = qword_784F8;
+    v203.n128_u32[0] = v172;
+    ValueRecord = HUDUIWindowAddLineChart(frame.var0, &v728, &v704, 0.0, v202, v166, v168, v170, v203, v204, v205, "fps", 0);
   }
 
   if ((layout & 0x20000) != 0)
   {
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(ValueRecord, v155);
     ValueRecord = HUDGPUTimeTrackerGetValueRecord(GlobalInstance, 4u);
     if (ValueRecord)
     {
-      v200 = (ValueRecord + 972);
-      v201 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-      v202 = *&v201;
-      v204 = v203;
-      v206 = v205;
-      v208 = v207;
-      if (*(v13 + 30) == 1)
+      v207 = (ValueRecord + 972);
+      v208 = HUDUIWindowBeginRow(frame.var0);
+      v209 = *&v208;
+      v211 = v210;
+      v213 = v212;
+      v215 = v214;
+      if (*(v14 + 30) == 1)
       {
-        HUDUIAllocString("GPU", GlobalOverlay, size, &v685);
-        v209 = v200[2] * 0.000001;
-        v210 = *v200 * 0.000001;
-        *&v210 = v210;
-        v211 = v200[1] * 0.000001;
-        *&v211 = v211;
-        HUDUIWindowAddStats(frame.var0, size, &v685, v209, v210, v211, v202, v204, v206, v208, "ms", -1);
+        HUDUIAllocString("GPU", GlobalOverlay, v11, &v704);
+        v216 = v207[2] * 0.000001;
+        v217 = *v207 * 0.000001;
+        *&v217 = v217;
+        v218 = v207[1] * 0.000001;
+        *&v218 = v218;
+        ValueRecord = HUDUIWindowAddStats(frame.var0, v11, &v704, v216, v217, v218, v209, v211, v213, v215, "ms", -1);
       }
 
       else
       {
-        HUDUIAllocString("GPU", GlobalOverlay, size, &v685);
-        v657 = v200[2] * 0.000001;
-        HUDUITemporaryStringWithFormat(frame.var0, size, "%.2fms", &v709, SLOBYTE(v657));
-        *&v212 = v208;
-        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v202, v204, v206, v212);
+        HUDUIAllocString("GPU", GlobalOverlay, v11, &v704);
+        HUDUITemporaryStringWithFormat(frame.var0, v11, "%.2fms", &v728, v207[2] * 0.000001);
+        *&v219 = v215;
+        ValueRecord = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v209, v211, v213, v219);
       }
     }
   }
@@ -490,146 +487,147 @@ LABEL_80:
     goto LABEL_86;
   }
 
-  v213 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-  v214 = *&v213;
-  v216 = v215;
-  v218 = v217;
-  v220 = v219;
-  if (*(v13 + 30) == 1)
+  v220 = HUDUIWindowBeginRow(frame.var0);
+  v221 = *&v220;
+  v223 = v222;
+  v225 = v224;
+  v227 = v226;
+  if (*(v14 + 30) == 1)
   {
-    HUDUIAllocString("Present Delay", GlobalOverlay, size, &v685);
-    v221 = *(&draw->presentToOnGlassRecord.valuesMin + 4) * 0.000001;
-    v222 = *&draw->presentToOnGlassRecord.maxFrame * 0.000001;
-    *&v222 = v222;
-    v223 = *(&draw->presentToOnGlassRecord.minFrame + 1) * 0.000001;
-    *&v223 = v223;
-    HUDUIWindowAddStats(frame.var0, size, &v685, v221, v222, v223, v214, v216, v218, v220, "ms", -1);
+    HUDUIAllocString("Present Delay", GlobalOverlay, v11, &v704);
+    v228 = *(&draw->presentToOnGlassRecord.valuesMin + 4) * 0.000001;
+    v229 = *&draw->presentToOnGlassRecord.maxFrame * 0.000001;
+    *&v229 = v229;
+    v230 = *(&draw->presentToOnGlassRecord.minFrame + 1) * 0.000001;
+    *&v230 = v230;
+    ValueRecord = HUDUIWindowAddStats(frame.var0, v11, &v704, v228, v229, v230, v221, v223, v225, v227, "ms", -1);
     goto LABEL_80;
   }
 
-  HUDUIAllocString("Present Delay", GlobalOverlay, size, &v685);
-  v658 = *(&draw->presentToOnGlassRecord.valuesMin + 4) * 0.000001;
-  HUDUITemporaryStringWithFormat(frame.var0, size, "%.2fms", &v709, SLOBYTE(v658));
-  *&v235 = v220;
-  HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v214, v216, v218, v235);
+  HUDUIAllocString("Present Delay", GlobalOverlay, v11, &v704);
+  HUDUITemporaryStringWithFormat(frame.var0, v11, "%.2fms", &v728, *(&draw->presentToOnGlassRecord.valuesMin + 4) * 0.000001);
+  *&v242 = v227;
+  ValueRecord = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v221, v223, v225, v242);
   if ((layout & 0x20) != 0)
   {
 LABEL_81:
-    v224 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v225 = *&v224;
-    v227 = v226;
-    v229 = v228;
-    v231 = v230;
-    if (*(v13 + 30) == 1)
+    v231 = HUDUIWindowBeginRow(frame.var0);
+    v232 = *&v231;
+    v234 = v233;
+    v236 = v235;
+    v238 = v237;
+    if (*(v14 + 30) == 1)
     {
-      HUDUIAllocString("Frame Interval", GlobalOverlay, size, &v685);
-      v232 = *(&draw->presentTimeRecord.valuesMax + 4) * 0.000001;
-      v233 = *v97 * 0.000001;
-      *&v233 = v233;
-      v234 = *(&draw->presentTimeRecord.valuesMin + 4) * 0.000001;
-      *&v234 = v234;
-      HUDUIWindowAddStats(frame.var0, size, &v685, v232, v233, v234, v225, v227, v229, v231, "ms", -1);
+      HUDUIAllocString("Frame Interval", GlobalOverlay, v11, &v704);
+      v239 = *(&draw->presentTimeRecord.valuesMax + 4) * 0.000001;
+      v240 = *v103 * 0.000001;
+      *&v240 = v240;
+      v241 = *(&draw->presentTimeRecord.valuesMin + 4) * 0.000001;
+      *&v241 = v241;
+      ValueRecord = HUDUIWindowAddStats(frame.var0, v11, &v704, v239, v240, v241, v232, v234, v236, v238, "ms", -1);
     }
 
     else
     {
-      HUDUIAllocString("Frame Interval", GlobalOverlay, size, &v685);
-      v659 = *(&draw->presentTimeRecord.valuesMax + 4) * 0.000001;
-      HUDUITemporaryStringWithFormat(frame.var0, size, "%.2fms", &v709, SLOBYTE(v659));
-      *&v236 = v231;
-      HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v225, v227, v229, v236);
+      HUDUIAllocString("Frame Interval", GlobalOverlay, v11, &v704);
+      HUDUITemporaryStringWithFormat(frame.var0, v11, "%.2fms", &v728, *(&draw->presentTimeRecord.valuesMax + 4) * 0.000001);
+      *&v243 = v238;
+      ValueRecord = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v232, v234, v236, v243);
     }
   }
 
 LABEL_86:
-  v673 = (&draw->presentTimeRecord.valuesMax + 4);
+  v692 = (&draw->presentTimeRecord.valuesMax + 4);
   if ((layout & 0x8000) != 0)
   {
-    v237 = HUDUIWindowBeginRow(frame.var0, 50.0);
-    v238 = *&v237;
-    v240 = v239;
-    v242 = v241;
-    v244 = v243;
-    v703 = 0u;
+    v244 = HUDUIWindowBeginRow(frame.var0);
+    v245 = *&v244;
+    v247 = v246;
+    v249 = v248;
+    v251 = v250;
+    v722 = 0u;
+    v723 = 0u;
+    v720 = 0u;
+    v721 = 0u;
+    v718 = 0u;
+    v719 = 0u;
+    v716 = 0u;
+    v717 = 0u;
+    v714 = 0u;
+    v715 = 0u;
+    v712 = 0u;
+    v713 = 0u;
+    v710 = 0u;
+    v711 = 0u;
+    v708 = 0u;
+    v709 = 0u;
+    v706 = 0u;
+    v707 = 0u;
     v704 = 0u;
-    v701 = 0u;
-    v702 = 0u;
-    v699 = 0u;
-    v700 = 0u;
-    v697 = 0u;
-    v698 = 0u;
-    v695 = 0u;
-    v696 = 0u;
-    v693 = 0u;
-    v694 = 0u;
-    v691 = 0u;
-    v692 = 0u;
-    v689 = 0u;
-    v690 = 0u;
-    v687 = 0u;
-    v688 = 0u;
-    v685 = 0u;
-    v686 = 0u;
-    HUDUILineChartInit(&v685);
+    v705 = 0u;
+    HUDUILineChartInit(&v704);
     bucketSize_high = HIDWORD(draw->presentTimeRecord.bucketSize);
-    if (!bucketSize_high || (v164 = __CFADD__(bucketSize_high, 1), v246 = (bucketSize_high + 1), v164))
+    if (!bucketSize_high || (v174 = __CFADD__(bucketSize_high, 1), v253 = (bucketSize_high + 1), v174))
     {
-      v247 = -2147483650.0;
+      v254 = -2147483650.0;
     }
 
     else
     {
-      v248 = 0;
+      v255 = 0;
       maxBucketIndex = draw->presentTimeRecord.maxBucketIndex;
-      v250 = 0x7FFFFFFF;
+      v257 = 0x7FFFFFFF;
       do
       {
-        if (*(&draw->presentTimeRecord.maxBucketIndex + v248) > maxBucketIndex || v250 == 0x7FFFFFFF)
+        if (*(&draw->presentTimeRecord.maxBucketIndex + v255) > maxBucketIndex || v257 == 0x7FFFFFFF)
         {
-          v250 = v248;
-          maxBucketIndex = *(&draw->presentTimeRecord.maxBucketIndex + v248);
+          v257 = v255;
+          maxBucketIndex = *(&draw->presentTimeRecord.maxBucketIndex + v255);
         }
 
-        ++v248;
+        ++v255;
       }
 
-      while (v246 != v248);
-      v247 = (v250 + 1);
+      while (v253 != v255);
+      v254 = (v257 + 1);
     }
 
-    v252 = v247 * *(&draw->presentTimeRecord.lastValue + 4);
-    HUDUILineChartSet(&v685, 0, &draw->presentTimeRecord, -354547, 0, 0, 3.0, v252, 0.05);
-    v253 = fmax(*v673 + 1000000.0, 40000000.0);
-    v709 = HUDUIInvalidString;
-    v710 = qword_784F8;
-    LODWORD(v254) = v244;
-    HUDUIWindowAddLineChart(frame.var0, &v709, &v685, 0.0, v253, v238, v240, v242, v254, v255, v256, "ms", 0);
+    v259 = v254 * *(&draw->presentTimeRecord.lastValue + 4);
+    HUDUILineChartSet(&v704, 0, &draw->presentTimeRecord, -354547, 0, 0, 3.0, v259, 0.05);
+    v260 = fmax(*v692 + 1000000.0, 40000000.0);
+    v728 = HUDUIInvalidString;
+    v729 = qword_784F8;
+    v261.n128_u32[0] = v251;
+    ValueRecord = HUDUIWindowAddLineChart(frame.var0, &v728, &v704, 0.0, v260, v245, v247, v249, v261, v262, v263, "ms", 0);
   }
 
   if ((layout & 0x40) != 0)
   {
     HUDUIWindowEmptyRow(frame.var0, 6.0);
-    v257 = HUDUIWindowBeginRow(frame.var0, 60.0);
-    v258 = *&v257;
-    v260 = v259;
-    v262 = v261.n128_f32[0];
-    v264 = v263;
-    *&v685 = &draw->presentTimeRecord.maxBucketIndex;
-    *(&v685 + 1) = "ms";
-    v265 = (HIDWORD(draw->presentTimeRecord.bucketSize) + 1);
-    *&v686 = 0;
-    *(&v686 + 1) = v265;
-    LODWORD(v687) = 0;
-    *&v257 = *(&draw->presentTimeRecord.lastValue + 4) * 0.000001;
-    DWORD1(v687) = LODWORD(v257);
-    HUDUIWindowAddHistogram(frame.var0, &v685, v258, v259, v261, v263, v266, v267);
+    v264 = HUDUIWindowBeginRow(frame.var0);
+    v265 = *&v264;
+    v267 = v266.n128_f32[0];
+    v269 = v268.n128_f32[0];
+    v271 = v270.n128_u32[0];
+    *&v704 = &draw->presentTimeRecord.maxBucketIndex;
+    *(&v704 + 1) = "ms";
+    v272 = (HIDWORD(draw->presentTimeRecord.bucketSize) + 1);
+    *&v705 = 0;
+    *(&v705 + 1) = v272;
+    LODWORD(v706) = 0;
+    v266.n128_u32[1] = 1051772663;
+    v273.n128_f64[0] = *(&draw->presentTimeRecord.lastValue + 4) * 0.000001;
+    v273.n128_f32[0] = v273.n128_f64[0];
+    DWORD1(v706) = v273.n128_u32[0];
+    v273.n128_f32[0] = v265;
+    ValueRecord = HUDUIWindowAddHistogram(frame.var0, v273, v266, v268, v270, &v704, v274, v275);
     if (draw->frameMisses)
     {
-      if (v262 > 120.0)
+      if (v269 > 120.0)
       {
-        HUDUITemporaryStringWithFormat(frame.var0, 0, "Missed %d", &v709, draw->frameMisses);
-        *&v268 = v264;
-        HUDUIWindowAddLabelInRect(frame.var0, &v709, -11969794, 2, 0, v258, v260, v262, v268);
+        HUDUITemporaryStringWithFormat(frame.var0, 0, "Missed %d", &v728, draw->frameMisses);
+        LODWORD(v276) = v271;
+        ValueRecord = HUDUIWindowAddLabelInRect(frame.var0, &v728, -11969794, 2, 0, v265, v267, v269, v276);
       }
     }
   }
@@ -639,237 +637,236 @@ LABEL_86:
     HUDUIWindowEmptyRow(frame.var0, 6.0);
     for (i = 0; i != 7; ++i)
     {
-      v270 = HUDGPUTimeTrackerGetGlobalInstance();
-      v271 = HUDGPUTimeTrackerGetValueRecord(v270, dword_54AB0[i]);
-      v272 = HUDGPUTimeTrackerGetGlobalInstance();
-      v273 = dword_54ACC[i];
-      v274 = HUDGPUTimeTrackerGetValueRecord(v272, v273);
-      if (v271)
+      v280 = HUDGPUTimeTrackerGetGlobalInstance(v277, v278);
+      v281 = HUDGPUTimeTrackerGetValueRecord(v280, dword_54AB0[i]);
+      v283 = HUDGPUTimeTrackerGetGlobalInstance(v281, v282);
+      v284 = dword_54ACC[i];
+      v277 = HUDGPUTimeTrackerGetValueRecord(v283, dword_54ACC[i]);
+      if (v281)
       {
-        v275 = v274;
-        v276 = (v271 + 988);
-        if (*v276 > 0.0 || *(v676 + 6) == 1)
+        v285 = v277;
+        v286 = (v281 + 988);
+        if (*v286 > 0.0 || *(v695 + 6) == 1)
         {
-          v277 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-          v278 = *&v277;
-          v280 = v279;
-          v282 = v281;
-          v284 = v283;
-          RecordName = HUDGPUTimeTrackerGetRecordName(v273);
-          HUDUIAllocString(RecordName, GlobalOverlay, size, &v685);
-          v665 = *(v275 + 988) * 0.000001;
-          HUDUITemporaryStringWithFormat(frame.var0, size, "%d |%5.2fms", &v709, vcvtpd_s64_f64(*v276));
-          LODWORD(v286) = v284;
-          HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v278, v280, v282, v286);
+          v287 = HUDUIWindowBeginRow(frame.var0);
+          v288 = *&v287;
+          v290 = v289;
+          v292 = v291;
+          v294 = v293;
+          RecordName = HUDGPUTimeTrackerGetRecordName(v284, v295);
+          HUDUIAllocString(RecordName, GlobalOverlay, v11, &v704);
+          LODWORD(v297) = vcvtpd_s64_f64(*v286);
+          HUDUITemporaryStringWithFormat(frame.var0, v11, "%d |%5.2fms", &v728, v297, *(v285 + 988) * 0.000001);
+          LODWORD(v298) = v294;
+          v277 = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v288, v290, v292, v298);
         }
       }
     }
 
-    v287 = HUDGPUTimeTrackerGetGlobalInstance();
-    v288 = HUDGPUTimeTrackerGetValueRecord(v287, 0x32u);
-    v13 = v676;
-    if (v288)
+    v299 = HUDGPUTimeTrackerGetGlobalInstance(v277, v278);
+    ValueRecord = HUDGPUTimeTrackerGetValueRecord(v299, 0x32u);
+    v14 = v695;
+    if (ValueRecord)
     {
-      v289 = (v288 + 988);
-      if (*(v288 + 988) > 0.0)
+      v300 = (ValueRecord + 988);
+      if (*(ValueRecord + 988) > 0.0)
       {
-        v290 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-        v291 = *&v290;
-        v293 = v292;
-        v295 = v294;
-        v297 = v296;
-        v298 = HUDGPUTimeTrackerGetRecordName(50);
-        HUDUIAllocString(v298, GlobalOverlay, size, &v685);
-        HUDUITemporaryFormattedBytes(frame.var0, size, "", *v289, 0, &v709);
-        LODWORD(v299) = v297;
-        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v291, v293, v295, v299);
+        v301 = HUDUIWindowBeginRow(frame.var0);
+        v302 = *&v301;
+        v304 = v303;
+        v306 = v305;
+        v308 = v307;
+        v310 = HUDGPUTimeTrackerGetRecordName(50, v309);
+        HUDUIAllocString(v310, GlobalOverlay, v11, &v704);
+        HUDUITemporaryFormattedBytes(frame.var0, v11, "", *v300, 0, &v728);
+        LODWORD(v311) = v308;
+        ValueRecord = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v302, v304, v306, v311);
       }
     }
   }
 
   if ((layout & 0x800) != 0)
   {
-    v300 = HUDGPUTimeTrackerGetGlobalInstance();
-    TotalCompilerStatistics = HUDGPUTimeTrackerGetTotalCompilerStatistics(v300);
+    v312 = HUDGPUTimeTrackerGetGlobalInstance(ValueRecord, v155);
+    TotalCompilerStatistics = HUDGPUTimeTrackerGetTotalCompilerStatistics(v312);
     if (TotalCompilerStatistics)
     {
-      v302 = TotalCompilerStatistics;
+      v315 = TotalCompilerStatistics;
       HUDUIWindowEmptyRow(frame.var0, 6.0);
-      v685 = HUDUIInvalidString;
-      *&v686 = qword_784F8;
-      if (*(v302 + 64) > 0x3B9AC9FFuLL)
+      v704 = HUDUIInvalidString;
+      *&v705 = qword_784F8;
+      v316 = v315[8];
+      v317 = v316;
+      if (v316 > 0x3B9AC9FF)
       {
-        HUDUITemporaryStringWithFormat(frame.var0, size, "%d | %6.2fs", &v709, *(v302 + 48) + *(v302 + 40));
-        v685 = v709;
-        *&v686 = v710;
+        HUDUITemporaryStringWithFormat(frame.var0, v11, "%d | %6.2fs", &v728, v315[6] + v315[5], v317 * 0.000000001);
+        v704 = v728;
+        *&v705 = v729;
       }
 
       else
       {
-        HUDUITemporaryStringWithFormat(frame.var0, size, "%d | %5.2fms", &v685, *(v302 + 48) + *(v302 + 40));
+        HUDUITemporaryStringWithFormat(frame.var0, v11, "%d | %5.2fms", &v704, v315[6] + v315[5], v317 * 0.000001);
       }
 
-      if (*(v302 + 24) || *(v302 + 32) || *(v13 + 6) == 1)
+      if (v315[3] || v315[4] || *(v14 + 6) == 1)
       {
-        v303 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-        v304 = *&v303;
-        v306 = v305;
-        v308 = v307;
-        v310 = v309;
-        HUDUIAllocString("Pipeline States", GlobalOverlay, size, &v709);
-        HUDUITemporaryStringWithFormat(frame.var0, size, "%d", &v707, *(v302 + 32) + *(v302 + 24));
-        LODWORD(v311) = v310;
-        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v709, -1, &v707, -1, v304, v306, v308, v311);
+        v318 = HUDUIWindowBeginRow(frame.var0);
+        v319 = *&v318;
+        v321 = v320;
+        v323 = v322;
+        v325 = v324;
+        HUDUIAllocString("Pipeline States", GlobalOverlay, v11, &v728);
+        HUDUITemporaryStringWithFormat(frame.var0, v11, "%d", &v726, v315[4] + v315[3]);
+        LODWORD(v326) = v325;
+        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v728, -1, &v726, -1, v319, v321, v323, v326);
       }
 
-      if (*(v302 + 56) || *(v13 + 6) == 1)
+      if (v315[7] || *(v14 + 6) == 1)
       {
-        v312 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-        v313 = *&v312;
-        v315 = v314;
-        v317 = v316;
-        v319 = v318;
-        HUDUIAllocString("Cached Shaders", GlobalOverlay, size, &v709);
-        HUDUITemporaryStringWithFormat(frame.var0, size, "%d", &v707, *(v302 + 56));
-        LODWORD(v320) = v319;
-        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v709, -1, &v707, -1, v313, v315, v317, v320);
+        v327 = HUDUIWindowBeginRow(frame.var0);
+        v328 = *&v327;
+        v330 = v329;
+        v332 = v331;
+        v334 = v333;
+        HUDUIAllocString("Cached Shaders", GlobalOverlay, v11, &v728);
+        HUDUITemporaryStringWithFormat(frame.var0, v11, "%d", &v726, v315[7]);
+        LODWORD(v335) = v334;
+        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v728, -1, &v726, -1, v328, v330, v332, v335);
       }
 
-      v321 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-      v322 = *&v321;
-      v324 = v323;
-      v326 = v325;
-      v328 = v327;
-      HUDUIAllocString("Compiled Shaders", GlobalOverlay, size, &v709);
-      v707 = v685;
-      v708 = v686;
-      LODWORD(v329) = v328;
-      HUDUIWindowAddLabelKeyValuePair(frame.var0, &v709, -1, &v707, -1, v322, v324, v326, v329);
-      if (*(v302 + 48))
+      v336 = HUDUIWindowBeginRow(frame.var0);
+      v337 = *&v336;
+      v339 = v338;
+      v341 = v340;
+      v343 = v342;
+      HUDUIAllocString("Compiled Shaders", GlobalOverlay, v11, &v728);
+      v726 = v704;
+      v727 = v705;
+      LODWORD(v344) = v343;
+      TotalCompilerStatistics = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v728, -1, &v726, -1, v337, v339, v341, v344);
+      if (v315[6])
       {
-        v330 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-        v331 = *&v330;
-        v333 = v332;
-        v335 = v334;
-        v337 = v336;
-        HUDUIAllocString("Async Compilations", GlobalOverlay, size, &v709);
-        HUDUITemporaryStringWithFormat(frame.var0, size, "%d", &v707, *(v302 + 48));
-        LODWORD(v338) = v337;
-        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v709, -1, &v707, -1, v331, v333, v335, v338);
+        v345 = HUDUIWindowBeginRow(frame.var0);
+        v346 = *&v345;
+        v348 = v347;
+        v350 = v349;
+        v352 = v351;
+        HUDUIAllocString("Async Compilations", GlobalOverlay, v11, &v728);
+        HUDUITemporaryStringWithFormat(frame.var0, v11, "%d", &v726, v315[6]);
+        LODWORD(v353) = v352;
+        TotalCompilerStatistics = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v728, -1, &v726, -1, v346, v348, v350, v353);
       }
     }
 
-    v339 = HUDGPUTimeTrackerGetGlobalInstance();
-    v340 = HUDGPUTimeTrackerGetValueRecord(v339, 0x25u);
-    if (v340)
+    v354 = HUDGPUTimeTrackerGetGlobalInstance(TotalCompilerStatistics, v314);
+    ValueRecord = HUDGPUTimeTrackerGetValueRecord(v354, 0x25u);
+    if (ValueRecord)
     {
-      v341 = v340;
-      v342 = HUDUIWindowBeginRow(frame.var0, 40.0);
-      v343 = *&v342;
-      v345 = v344;
-      v347 = v346;
-      v349 = v348;
-      v703 = 0u;
+      v355 = ValueRecord;
+      v356 = HUDUIWindowBeginRow(frame.var0);
+      v357 = *&v356;
+      v359 = v358;
+      v361 = v360;
+      v363 = v362;
+      v722 = 0u;
+      v723 = 0u;
+      v720 = 0u;
+      v721 = 0u;
+      v718 = 0u;
+      v719 = 0u;
+      v716 = 0u;
+      v717 = 0u;
+      v714 = 0u;
+      v715 = 0u;
+      v712 = 0u;
+      v713 = 0u;
+      v710 = 0u;
+      v711 = 0u;
+      v708 = 0u;
+      v709 = 0u;
+      v706 = 0u;
+      v707 = 0u;
       v704 = 0u;
-      v701 = 0u;
-      v702 = 0u;
-      v699 = 0u;
-      v700 = 0u;
-      v697 = 0u;
-      v698 = 0u;
-      v695 = 0u;
-      v696 = 0u;
-      v693 = 0u;
-      v694 = 0u;
-      v691 = 0u;
-      v692 = 0u;
-      v689 = 0u;
-      v690 = 0u;
-      v687 = 0u;
-      v688 = 0u;
-      v685 = 0u;
-      v686 = 0u;
-      HUDUILineChartInit(&v685);
-      HUDUILineChartSet(&v685, 0, v341, -11969794, 0, 0, 3.0, 9999.0, 1.0);
-      v350 = *(v341 + 980);
-      v709 = HUDUIInvalidString;
-      v710 = qword_784F8;
-      LODWORD(v351) = v349;
-      HUDUIWindowAddLineChart(frame.var0, &v709, &v685, 0.0, v350, v343, v345, v347, v351, v352, v353, "ms", 0xF4240uLL);
+      v705 = 0u;
+      HUDUILineChartInit(&v704);
+      HUDUILineChartSet(&v704, 0, v355, -11969794, 0, 0, 3.0, 9999.0, 1.0);
+      v364 = *(v355 + 980);
+      v728 = HUDUIInvalidString;
+      v729 = qword_784F8;
+      v365.n128_u32[0] = v363;
+      ValueRecord = HUDUIWindowAddLineChart(frame.var0, &v728, &v704, 0.0, v364, v357, v359, v361, v365, v366, v367, "ms", 0xF4240uLL);
     }
   }
 
-  if ((layout & 0x200) == 0 || *(v13 + 4) != 1)
+  if ((layout & 0x200) == 0 || *(v14 + 4) != 1)
   {
     goto LABEL_146;
   }
 
-  v354 = HUDGPUTimeTrackerGetGlobalInstance();
-  if ((HUDGPUTimeTrackerCanEnableGPUTimeSampling(v354) & 1) == 0)
+  v368 = HUDGPUTimeTrackerGetGlobalInstance(ValueRecord, v155);
+  if ((HUDGPUTimeTrackerCanEnableGPUTimeSampling(v368) & 1) == 0)
   {
-    v685 = 0uLL;
-    *&v686 = 0;
-    HUDUIWrappedTemporaryString("Encoder GPU Timeline unavailable", frame.var0, size, &v685, HIDWORD(v711), 100.0);
-    LODWORD(v707) = 0;
-    LODWORD(v705) = 0;
-    v709 = v685;
-    v710 = v686;
-    HUDUIWindowGetLabelSize(frame.var0, &v709, &v707, &v705);
-    v391 = HUDUIWindowBeginRow(frame.var0, *&v705);
-    v709 = v685;
-    v710 = v686;
-    HUDUIWindowAddLabelInRect(frame.var0, &v709, -16080897, 0, 0, *&v391, v392, v393, v394);
+    v704 = 0uLL;
+    *&v705 = 0;
+    HUDUIWrappedTemporaryString("Encoder GPU Timeline unavailable", frame.var0, v11, &v704, HIDWORD(v730), 100.0);
+    LODWORD(v726) = 0;
+    LODWORD(v724) = 0;
+    v728 = v704;
+    v729 = v705;
+    HUDUIWindowGetLabelSize(frame.var0, &v728, &v726, &v724);
+    v405 = HUDUIWindowBeginRow(frame.var0);
+    v728 = v704;
+    v729 = v705;
+    ValueRecord = HUDUIWindowAddLabelInRect(frame.var0, &v728, -16080897, 0, 0, *&v405, v406, v407, v408);
     goto LABEL_146;
   }
 
   HUDUIWindowEmptyRow(frame.var0, 6.0);
-  v355 = HUDGPUTimeTrackerGetGlobalInstance();
-  v356 = HUDGPUTimeTrackerGetValueRecord(v355, 0x2Cu);
-  if (v356)
+  v371 = HUDGPUTimeTrackerGetGlobalInstance(v369, v370);
+  v372 = HUDGPUTimeTrackerGetValueRecord(v371, 0x2Cu);
+  if (v372)
   {
-    v357 = v356;
-    v358 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v359 = *&v358;
-    v361 = v360;
-    v363 = v362;
-    v365 = v364;
-    HUDUIAllocString("Encoder GPU", GlobalOverlay, size, &v685);
-    v660 = *(v357 + 988) * 0.000001;
-    HUDUITemporaryStringWithFormat(frame.var0, size, "%.2fms", &v709, SLOBYTE(v660));
-    LODWORD(v366) = v365;
-    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v359, v361, v363, v366);
+    v374 = v372;
+    v375 = HUDUIWindowBeginRow(frame.var0);
+    v376 = *&v375;
+    v378 = v377;
+    v380 = v379;
+    v382 = v381;
+    HUDUIAllocString("Encoder GPU", GlobalOverlay, v11, &v704);
+    HUDUITemporaryStringWithFormat(frame.var0, v11, "%.2fms", &v728, *(v374 + 988) * 0.000001);
+    LODWORD(v383) = v382;
+    v372 = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v376, v378, v380, v383);
   }
 
   for (j = 0; j != 7; ++j)
   {
-    v368 = HUDGPUTimeTrackerGetGlobalInstance();
-    v369 = dword_54AE8[j];
-    v370 = HUDGPUTimeTrackerGetValueRecord(v368, v369);
-    if (v370)
+    v385 = HUDGPUTimeTrackerGetGlobalInstance(v372, v373);
+    v386 = dword_54AE8[j];
+    v372 = HUDGPUTimeTrackerGetValueRecord(v385, dword_54AE8[j]);
+    if (v372)
     {
-      v371 = (v370 + 988);
-      if (*(v370 + 988) > 0.0)
+      v387 = (v372 + 988);
+      if (*(v372 + 988) > 0.0)
       {
-        v372 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-        v373 = *&v372;
-        v375 = v374;
-        v377 = v376;
-        v379 = v378;
-        v380 = HUDGPUTimeTrackerGetRecordName(v369);
-        HUDUIAllocString(v380, GlobalOverlay, size, &v685);
-        v661 = *v371 * 0.000001;
-        v666 = *v371 / *v673 * 100.0;
-        HUDUITemporaryStringWithFormat(frame.var0, size, "%.2fms | %5.2f%%", &v709, SLOBYTE(v661));
-        LODWORD(v381) = v379;
-        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v373, v375, v377, v381);
+        v388 = HUDUIWindowBeginRow(frame.var0);
+        v389 = *&v388;
+        v391 = v390;
+        v393 = v392;
+        v395 = v394;
+        v397 = HUDGPUTimeTrackerGetRecordName(v386, v396);
+        HUDUIAllocString(v397, GlobalOverlay, v11, &v704);
+        HUDUITemporaryStringWithFormat(frame.var0, v11, "%.2fms | %5.2f%%", &v728, *v387 * 0.000001, *v387 / *v692 * 100.0);
+        LODWORD(v398) = v395;
+        v372 = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v389, v391, v393, v398);
       }
     }
   }
 
-  GlobalGPUTimeline = HUDMTLOverlayGetGlobalGPUTimeline();
-  Current = HUDGPUTimelineGetCurrent(GlobalGPUTimeline);
-  v13 = v676;
-  if (!Current || (p_os_unfair_lock_opaque = &Current->_os_unfair_lock_opaque, !*&Current[2]._os_unfair_lock_opaque))
+  GlobalGPUTimeline = HUDMTLOverlayGetGlobalGPUTimeline(v372, v373);
+  ValueRecord = HUDGPUTimelineGetCurrent(GlobalGPUTimeline);
+  v14 = v695;
+  if (!ValueRecord || (v400 = ValueRecord, !*(ValueRecord + 8)))
   {
 LABEL_146:
     if ((layout & 0x2000) == 0)
@@ -881,42 +878,41 @@ LABEL_146:
   }
 
   HUDUIWindowEmptyRow(frame.var0, 6.0);
-  HUDUIWindowBeginRow(frame.var0, *(v676 + 12) * p_os_unfair_lock_opaque[1]);
-  v386 = v385;
-  v387 = *(v676 + 29) / 100.0;
-  v388 = *(v676 + 11);
-  if (v388 <= 2)
+  HUDUIWindowBeginRow(frame.var0);
+  v401 = *(v695 + 29) / 100.0;
+  v402 = *(v695 + 11);
+  if (v402 <= 2)
   {
-    v388 = 2;
+    v402 = 2;
   }
 
-  v389 = v388 - 2;
-  if (p_os_unfair_lock_opaque[2] < 2uLL)
+  v403 = v402 - 2;
+  if (v400[2] < 2uLL)
   {
-    v390 = 16666666;
-  }
-
-  else
-  {
-    v390 = *(p_os_unfair_lock_opaque[3] + 8) - *p_os_unfair_lock_opaque[3];
-  }
-
-  if (v389 >= v387)
-  {
-    v646 = v387;
+    v404 = 16666666;
   }
 
   else
   {
-    v646 = v389;
+    v404 = *(v400[3] + 8) - *v400[3];
+  }
+
+  if (v403 >= v401)
+  {
+    v679 = v401;
+  }
+
+  else
+  {
+    v679 = v403;
   }
 
   HUDGPUTimelineGetCurrentTimeRange(GlobalGPUTimeline);
-  v648 = v647 - v390 * v646;
-  v649 = v647 - (v390 >> 1);
-  v650 = HUDUIWindowBeginRow(frame.var0, v386);
-  HUDUIWindowAddTimeline(frame.var0, v648, v649, p_os_unfair_lock_opaque, *&v650, v651, v652, v653);
-  v15 = v674;
+  v681 = v680 - v404 * v679;
+  v682 = v680 - (v404 >> 1);
+  v683.n128_f64[0] = HUDUIWindowBeginRow(frame.var0);
+  ValueRecord = HUDUIWindowAddTimeline(frame.var0, v681, v682, v400, v683, v684, v685, v686);
+  v17 = v693;
   if ((layout & 0x2000) == 0)
   {
     goto LABEL_148;
@@ -924,229 +920,231 @@ LABEL_146:
 
 LABEL_147:
   HUDUIWindowEmptyRow(frame.var0, 6.0);
-  v395 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-  v396 = *&v395;
-  v398 = v397;
-  v400 = v399;
-  v402 = v401;
-  HUDUIAllocString("Disk Bytes Read", GlobalOverlay, size, &v685);
-  HUDUITemporaryFormattedBytes(frame.var0, size, "", v712[5], 0, &v709);
-  LODWORD(v403) = v402;
-  HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v396, v398, v400, v403);
-  v404 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-  v405 = *&v404;
-  v407 = v406;
-  v409 = v408;
-  v411 = v410;
-  HUDUIAllocString("Disk Bytes Written", GlobalOverlay, size, &v685);
-  HUDUITemporaryFormattedBytes(frame.var0, size, "", v712[6], 0, &v709);
-  LODWORD(v412) = v411;
-  HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v405, v407, v409, v412);
-  v413 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-  v414 = *&v413;
+  v409 = HUDUIWindowBeginRow(frame.var0);
+  v410 = *&v409;
+  v412 = v411;
+  v414 = v413;
   v416 = v415;
-  v418 = v417;
-  v420 = v419;
-  HUDUIAllocString("Disk Logical Writes", GlobalOverlay, size, &v685);
-  HUDUITemporaryFormattedBytes(frame.var0, size, "", v712[7], 0, &v709);
-  LODWORD(v421) = v420;
-  HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v414, v416, v418, v421);
+  HUDUIAllocString("Disk Bytes Read", GlobalOverlay, v11, &v704);
+  HUDUITemporaryFormattedBytes(frame.var0, v11, "", v731[5], 0, &v728);
+  LODWORD(v417) = v416;
+  HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v410, v412, v414, v417);
+  v418 = HUDUIWindowBeginRow(frame.var0);
+  v419 = *&v418;
+  v421 = v420;
+  v423 = v422;
+  v425 = v424;
+  HUDUIAllocString("Disk Bytes Written", GlobalOverlay, v11, &v704);
+  HUDUITemporaryFormattedBytes(frame.var0, v11, "", v731[6], 0, &v728);
+  LODWORD(v426) = v425;
+  HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v419, v421, v423, v426);
+  v427 = HUDUIWindowBeginRow(frame.var0);
+  v428 = *&v427;
+  v430 = v429;
+  v432 = v431;
+  v434 = v433;
+  HUDUIAllocString("Disk Logical Writes", GlobalOverlay, v11, &v704);
+  HUDUITemporaryFormattedBytes(frame.var0, v11, "", v731[7], 0, &v728);
+  LODWORD(v435) = v434;
+  ValueRecord = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v428, v430, v432, v435);
 LABEL_148:
   if ((layout & 0x100000) != 0)
   {
-    v422 = HUDGPUTimeTrackerGetGlobalInstance();
-    if (HUDGPUTimeTrackerTopCommandBufferRecordsCount(v422))
+    v436 = HUDGPUTimeTrackerGetGlobalInstance(ValueRecord, v155);
+    ValueRecord = HUDGPUTimeTrackerTopCommandBufferRecordsCount(v436);
+    if (ValueRecord)
     {
       HUDUIWindowEmptyRow(frame.var0, 6.0);
-      v423 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-      v424 = *&v423;
-      v426 = v425;
-      v428 = v427;
-      v430 = v429;
-      HUDUIAllocString("Top Labeled Command Buffers", GlobalOverlay, size, &v685);
-      v709 = HUDUIInvalidString;
-      v710 = qword_784F8;
-      LODWORD(v431) = v430;
-      HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -4144960, &v709, -1, v424, v426, v428, v431);
-      *&v685 = 0;
-      *(&v685 + 1) = &v685;
-      v686 = 0x2020000000uLL;
-      v432 = HUDGPUTimeTrackerGetGlobalInstance();
-      v683[0] = _NSConcreteStackBlock;
-      v683[1] = 3221225472;
-      v683[2] = __82__HUDUserClientMainWindow_draw_drawableState_fontSize_frame_layout_height_qrCode___block_invoke;
-      v683[3] = &unk_691F8;
-      v683[4] = &v685;
-      v683[5] = frame.var0;
-      v683[6] = GlobalOverlay;
-      sizeCopy = size;
-      HUDGPUTimeTrackerEnumerateTopCommandBufferRecords(v432, v683);
-      _Block_object_dispose(&v685, 8);
+      v437 = HUDUIWindowBeginRow(frame.var0);
+      v438 = *&v437;
+      v440 = v439;
+      v442 = v441;
+      v444 = v443;
+      HUDUIAllocString("Top Labeled Command Buffers", GlobalOverlay, v11, &v704);
+      v728 = HUDUIInvalidString;
+      v729 = qword_784F8;
+      LODWORD(v445) = v444;
+      v446 = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -4144960, &v728, -1, v438, v440, v442, v445);
+      *&v704 = 0;
+      *(&v704 + 1) = &v704;
+      v705 = 0x2020000000uLL;
+      v448 = HUDGPUTimeTrackerGetGlobalInstance(v446, v447);
+      v702[0] = _NSConcreteStackBlock;
+      v702[1] = 3221225472;
+      v702[2] = __82__HUDUserClientMainWindow_draw_drawableState_fontSize_frame_layout_height_qrCode___block_invoke;
+      v702[3] = &unk_691F8;
+      v702[4] = &v704;
+      v702[5] = frame.var0;
+      v702[6] = GlobalOverlay;
+      v703 = v11;
+      HUDGPUTimeTrackerEnumerateTopCommandBufferRecords(v448, v702);
+      _Block_object_dispose(&v704, 8);
     }
   }
 
   if ((layout & 0x200000) != 0)
   {
-    v433 = HUDGPUTimeTrackerGetGlobalInstance();
-    if (HUDGPUTimeTrackerTopEncoderRecordsCount(v433))
+    v449 = HUDGPUTimeTrackerGetGlobalInstance(ValueRecord, v155);
+    ValueRecord = HUDGPUTimeTrackerTopEncoderRecordsCount(v449);
+    if (ValueRecord)
     {
       HUDUIWindowEmptyRow(frame.var0, 6.0);
-      v434 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-      v435 = *&v434;
-      v437 = v436;
-      v439 = v438;
-      v441 = v440;
-      HUDUIAllocString("Top Labeled Encoders", GlobalOverlay, size, &v685);
-      v709 = HUDUIInvalidString;
-      v710 = qword_784F8;
-      LODWORD(v442) = v441;
-      HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -4144960, &v709, -1, v435, v437, v439, v442);
-      *&v685 = 0;
-      *(&v685 + 1) = &v685;
-      v686 = 0x2020000000uLL;
-      v443 = HUDGPUTimeTrackerGetGlobalInstance();
-      v681[0] = _NSConcreteStackBlock;
-      v681[1] = 3221225472;
-      v681[2] = __82__HUDUserClientMainWindow_draw_drawableState_fontSize_frame_layout_height_qrCode___block_invoke_2;
-      v681[3] = &unk_69220;
-      v681[4] = &v685;
-      v681[5] = frame.var0;
-      sizeCopy2 = size;
-      v681[6] = GlobalOverlay;
-      v681[7] = v13;
-      HUDGPUTimeTrackerEnumerateTopEncoderRecords(v443, v681);
-      _Block_object_dispose(&v685, 8);
+      v450 = HUDUIWindowBeginRow(frame.var0);
+      v451 = *&v450;
+      v453 = v452;
+      v455 = v454;
+      v457 = v456;
+      HUDUIAllocString("Top Labeled Encoders", GlobalOverlay, v11, &v704);
+      v728 = HUDUIInvalidString;
+      v729 = qword_784F8;
+      LODWORD(v458) = v457;
+      v459 = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -4144960, &v728, -1, v451, v453, v455, v458);
+      *&v704 = 0;
+      *(&v704 + 1) = &v704;
+      v705 = 0x2020000000uLL;
+      v461 = HUDGPUTimeTrackerGetGlobalInstance(v459, v460);
+      v700[0] = _NSConcreteStackBlock;
+      v700[1] = 3221225472;
+      v700[2] = __82__HUDUserClientMainWindow_draw_drawableState_fontSize_frame_layout_height_qrCode___block_invoke_2;
+      v700[3] = &unk_69220;
+      v700[4] = &v704;
+      v700[5] = frame.var0;
+      v701 = v11;
+      v700[6] = GlobalOverlay;
+      v700[7] = v14;
+      HUDGPUTimeTrackerEnumerateTopEncoderRecords(v461, v700);
+      _Block_object_dispose(&v704, 8);
     }
   }
 
-  v672 = 1;
+  v691 = 1;
 LABEL_155:
-  if (!MTLHudIsInternalInstall())
+  IsInternalInstall = MTLHudIsInternalInstall(ValueRecord, v155);
+  if (!IsInternalInstall)
   {
     goto LABEL_171;
   }
 
-  v444 = +[HUDIOReport instance];
-  v445 = v444;
-  if ((layout & 0x400) != 0 && v444)
+  v464 = +[HUDIOReport instance];
+  v465 = v464;
+  if ((layout & 0x400) != 0 && v464)
   {
-    [v444 startSampling:(*(v13 + 13) * 1000000000.0)];
+    [v464 startSampling:(*(v14 + 13) * 1000000000.0)];
     goto LABEL_161;
   }
 
   if ((layout & 0x400) != 0)
   {
-    v13 = v676;
-    if (v444)
+    if (v464)
     {
 LABEL_161:
       HUDUIWindowEmptyRow(frame.var0, 6.0);
-      v446 = HUDUIWindowBeginRow(frame.var0, *(v13 + 13));
-      v447 = *&v446;
-      v449 = v448;
-      v451 = v450;
-      v453 = v452;
-      v703 = 0u;
+      v466 = HUDUIWindowBeginRow(frame.var0);
+      v467 = *&v466;
+      v469 = v468;
+      v471 = v470;
+      v473 = v472;
+      v722 = 0u;
+      v723 = 0u;
+      v720 = 0u;
+      v721 = 0u;
+      v718 = 0u;
+      v719 = 0u;
+      v716 = 0u;
+      v717 = 0u;
+      v714 = 0u;
+      v715 = 0u;
+      v712 = 0u;
+      v713 = 0u;
+      v710 = 0u;
+      v711 = 0u;
+      v708 = 0u;
+      v709 = 0u;
+      v706 = 0u;
+      v707 = 0u;
       v704 = 0u;
-      v701 = 0u;
-      v702 = 0u;
-      v699 = 0u;
-      v700 = 0u;
-      v697 = 0u;
-      v698 = 0u;
-      v695 = 0u;
-      v696 = 0u;
-      v693 = 0u;
-      v694 = 0u;
-      v691 = 0u;
-      v692 = 0u;
-      v689 = 0u;
-      v690 = 0u;
-      v687 = 0u;
-      v688 = 0u;
-      v685 = 0u;
-      v686 = 0u;
-      records = [v445 records];
-      HUDUILineChartSet(&v685, 0, records, -12463527, 0, "CPU", 3.0, 9999.0, 1.0);
-      HUDUILineChartSet(&v685, 1uLL, [v445 records] + 3384, -354547, 0, "GPU", 3.0, 9999.0, 1.0);
-      HUDUILineChartSet(&v685, 2uLL, [v445 records] + 5640, -16080897, 0, "ANE", 3.0, 9999.0, 1.0);
-      HUDUILineChartSet(&v685, 3uLL, [v445 records] + 4512, -894273, 0, "DRAM", 3.0, 9999.0, 1.0);
-      HUDUILineChartSet(&v685, 4uLL, [v445 records] + 6768, -9924948, 0, "Other", 3.0, 9999.0, 1.0);
-      v709 = HUDUIInvalidString;
-      v710 = qword_784F8;
-      LODWORD(v455) = v451;
-      HUDUIWindowAddStackedBarGraph(frame.var0, &v709, "W", &v685, v447, v449, v455, v453, v456);
-      if ([v445 numGPUPStateRecords])
+      v705 = 0u;
+      records = [v465 records];
+      HUDUILineChartSet(&v704, 0, records, -12463527, 0, "CPU", 3.0, 9999.0, 1.0);
+      HUDUILineChartSet(&v704, 1uLL, [v465 records] + 3384, -354547, 0, "GPU", 3.0, 9999.0, 1.0);
+      HUDUILineChartSet(&v704, 2uLL, [v465 records] + 5640, -16080897, 0, "ANE", 3.0, 9999.0, 1.0);
+      HUDUILineChartSet(&v704, 3uLL, [v465 records] + 4512, -894273, 0, "DRAM", 3.0, 9999.0, 1.0);
+      HUDUILineChartSet(&v704, 4uLL, [v465 records] + 6768, -9924948, 0, "Other", 3.0, 9999.0, 1.0);
+      v728 = HUDUIInvalidString;
+      v729 = qword_784F8;
+      LODWORD(v475) = v471;
+      HUDUIWindowAddStackedBarGraph(frame.var0, &v728, "W", &v704, v467, v469, v475, v473, v476);
+      if ([v465 numGPUPStateRecords])
       {
-        v457 = 0;
-        v458 = 988;
+        v477 = 0;
+        v478 = 988;
         do
         {
-          gpuPStateRecords = [v445 gpuPStateRecords];
+          gpuPStateRecords = [v465 gpuPStateRecords];
           if (gpuPStateRecords)
           {
-            v460 = gpuPStateRecords;
-            if (*&gpuPStateRecords[v458] >= 1.0)
+            v480 = gpuPStateRecords;
+            if (*&gpuPStateRecords[v478] >= 1.0)
             {
-              v461 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-              v462 = *&v461;
-              v464 = v463;
-              v466 = v465;
-              v468 = v467;
-              if (v457)
+              v481 = HUDUIWindowBeginRow(frame.var0);
+              v482 = *&v481;
+              v484 = v483;
+              v486 = v485;
+              v488 = v487;
+              if (v477)
               {
-                v469 = "GPU P%d";
+                v489 = "GPU P%d";
               }
 
               else
               {
-                v469 = "GPU Off";
+                v489 = "GPU Off";
               }
 
-              HUDUIAllocStringWithFormat(GlobalOverlay, size, v469, &v685, v457);
-              HUDUITemporaryStringWithFormat(frame.var0, size, "%.2f%%", &v709, *&v460[v458]);
-              LODWORD(v470) = v468;
-              HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v462, v464, v466, v470);
+              HUDUIAllocStringWithFormat(GlobalOverlay, v11, v489, &v704, v477);
+              HUDUITemporaryStringWithFormat(frame.var0, v11, "%.2f%%", &v728, *&v480[v478]);
+              LODWORD(v490) = v488;
+              HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v482, v484, v486, v490);
             }
           }
 
-          ++v457;
-          v458 += 1128;
+          ++v477;
+          v478 += 1128;
         }
 
-        while ([v445 numGPUPStateRecords] > v457);
+        while ([v465 numGPUPStateRecords] > v477);
       }
 
       goto LABEL_170;
     }
 
-    v685 = 0uLL;
-    *&v686 = 0;
-    HUDUIWrappedTemporaryString("Energy report unavailable due to insufficient permission", frame.var0, size, &v685, HIDWORD(v711), 100.0);
-    LODWORD(v707) = 0;
-    LODWORD(v705) = 0;
-    v709 = v685;
-    v710 = v686;
-    HUDUIWindowGetLabelSize(frame.var0, &v709, &v707, &v705);
-    v629 = HUDUIWindowBeginRow(frame.var0, *&v705);
-    v709 = v685;
-    v710 = v686;
-    HUDUIWindowAddLabelInRect(frame.var0, &v709, -16080897, 0, 0, *&v629, v630, v631, v632);
+    v704 = 0uLL;
+    *&v705 = 0;
+    HUDUIWrappedTemporaryString("Energy report unavailable due to insufficient permission", frame.var0, v11, &v704, HIDWORD(v730), 100.0);
+    LODWORD(v726) = 0;
+    LODWORD(v724) = 0;
+    v728 = v704;
+    v729 = v705;
+    HUDUIWindowGetLabelSize(frame.var0, &v728, &v726, &v724);
+    v662 = HUDUIWindowBeginRow(frame.var0);
+    v728 = v704;
+    v729 = v705;
+    HUDUIWindowAddLabelInRect(frame.var0, &v728, -16080897, 0, 0, *&v662, v663, v664, v665);
   }
 
 LABEL_170:
 
-  v15 = v674;
-  v13 = v676;
+  v17 = v693;
+  v14 = v695;
 LABEL_171:
   if (draw->isMainLayer)
   {
-    v471 = +[_CADeveloperHUDProperties instance];
-    mainWindow = [v471 mainWindow];
+    v491 = +[_CADeveloperHUDProperties instance];
+    mainWindow = [v491 mainWindow];
 
-    if (*(v13 + 9))
+    if (*(v14 + 9))
     {
-      v473 = 1;
+      v495 = 1;
       if ((layout & 0x80000000) == 0)
       {
         goto LABEL_177;
@@ -1155,7 +1153,7 @@ LABEL_171:
 
     else
     {
-      v473 = MTLHudIsInternalInstall() ^ 1;
+      v495 = MTLHudIsInternalInstall(v493, v494) ^ 1;
       if ((layout & 0x80000000) == 0)
       {
 LABEL_177:
@@ -1164,241 +1162,245 @@ LABEL_177:
       }
     }
 
-    v678[0] = _NSConcreteStackBlock;
-    v678[1] = 3221225472;
-    v678[2] = __82__HUDUserClientMainWindow_draw_drawableState_fontSize_frame_layout_height_qrCode___block_invoke_3;
-    v678[3] = &unk_69260;
-    v680 = v473;
-    v678[4] = self;
-    v678[5] = frame.var0;
-    v678[6] = v13;
-    v678[7] = GlobalOverlay;
-    sizeCopy3 = size;
-    v678[8] = draw;
-    [mainWindow requestMetrics:v678];
+    v697[0] = _NSConcreteStackBlock;
+    v697[1] = 3221225472;
+    v697[2] = __82__HUDUserClientMainWindow_draw_drawableState_fontSize_frame_layout_height_qrCode___block_invoke_3;
+    v697[3] = &unk_69260;
+    v699 = v495;
+    v697[4] = self;
+    v697[5] = frame.var0;
+    v697[6] = v14;
+    v697[7] = GlobalOverlay;
+    v698 = v11;
+    v697[8] = draw;
+    [mainWindow requestMetrics:v697];
     goto LABEL_177;
   }
 
 LABEL_178:
-  v474 = v672;
-  if ((v672 & *(v13 + 3)) == 1 && *(v13 + 7) == 1 && MTLHudIsInternalInstall())
+  v496 = v691;
+  if ((v691 & *(v14 + 3)) == 1 && *(v14 + 7) == 1)
   {
-    HUDUIWindowEmptyRow(frame.var0, 6.0);
-    v475 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v476 = *&v475;
-    v478 = v477;
-    v480 = v479;
-    v482 = v481;
-    HUDUIAllocString("Insights", GlobalOverlay, size, &v685);
-    v709 = HUDUIInvalidString;
-    v710 = qword_784F8;
-    LODWORD(v483) = v482;
-    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -4144960, &v709, -1, v476, v478, v480, v483);
-    for (k = 0; k != 4; ++k)
+    IsInternalInstall = MTLHudIsInternalInstall(IsInternalInstall, v463);
+    if (IsInternalInstall)
     {
-      v485 = HUDGPUTimeTrackerGetGlobalInstance();
-      v486 = dword_54B10[k];
-      v487 = HUDGPUTimeTrackerGetValueRecord(v485, v486);
-      if (v487)
+      HUDUIWindowEmptyRow(frame.var0, 6.0);
+      v497 = HUDUIWindowBeginRow(frame.var0);
+      v498 = *&v497;
+      v500 = v499;
+      v502 = v501;
+      v504 = v503;
+      HUDUIAllocString("Insights", GlobalOverlay, v11, &v704);
+      v728 = HUDUIInvalidString;
+      v729 = qword_784F8;
+      LODWORD(v505) = v504;
+      v506 = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -4144960, &v728, -1, v498, v500, v502, v505);
+      for (k = 0; k != 4; ++k)
       {
-        v488 = v487;
-        v489 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-        v490 = *&v489;
-        v492 = v491;
-        v494 = v493;
-        v496 = v495;
-        v497 = HUDGPUTimeTrackerGetRecordName(v486);
-        HUDUIAllocString(v497, GlobalOverlay, size, &v685);
-        HUDUITemporaryStringWithFormat(frame.var0, size, "%d", &v709, *(v488 + 1028));
-        LODWORD(v498) = v496;
-        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v490, v492, v494, v498);
-      }
-    }
-
-    v499 = +[_CADeveloperHUDProperties instance];
-    mainWindow2 = [v499 mainWindow];
-
-    v501 = 0;
-    v502 = 1;
-    do
-    {
-      v503 = v502;
-      v504 = [mainWindow2 getMetric:*(&draw_drawableState_fontSize_frame_layout_height_qrCode__gptkInsightMetrics + v501)];
-      if (v504)
-      {
-        v505 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-        v506 = *&v505;
-        v508 = v507;
-        v510 = v509;
-        v512 = v511;
-        displayName = [v504 displayName];
-        intValue = [v504 intValue];
-        HUDUITemporaryStringWithFormat(frame.var0, size, "%d", &v709, intValue);
-        LODWORD(v515) = v512;
-        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v506, v508, v510, v515);
+        v509 = HUDGPUTimeTrackerGetGlobalInstance(v506, v507);
+        v510 = dword_54B10[k];
+        v506 = HUDGPUTimeTrackerGetValueRecord(v509, dword_54B10[k]);
+        if (v506)
+        {
+          v511 = v506;
+          v512 = HUDUIWindowBeginRow(frame.var0);
+          v513 = *&v512;
+          v515 = v514;
+          v517 = v516;
+          v519 = v518;
+          v521 = HUDGPUTimeTrackerGetRecordName(v510, v520);
+          HUDUIAllocString(v521, GlobalOverlay, v11, &v704);
+          HUDUITemporaryStringWithFormat(frame.var0, v11, "%d", &v728, *(v511 + 1028));
+          LODWORD(v522) = v519;
+          v506 = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v513, v515, v517, v522);
+        }
       }
 
-      v502 = 0;
-      v501 = 1;
+      v523 = +[_CADeveloperHUDProperties instance];
+      mainWindow2 = [v523 mainWindow];
+
+      v525 = 0;
+      v526 = 1;
+      do
+      {
+        v527 = v526;
+        v528 = [mainWindow2 getMetric:*(&draw_drawableState_fontSize_frame_layout_height_qrCode__gptkInsightMetrics + v525)];
+        if (v528)
+        {
+          v529 = HUDUIWindowBeginRow(frame.var0);
+          v530 = *&v529;
+          v532 = v531;
+          v534 = v533;
+          v536 = v535;
+          displayName = [v528 displayName];
+          intValue = [v528 intValue];
+          HUDUITemporaryStringWithFormat(frame.var0, v11, "%d", &v728, intValue);
+          LODWORD(v539) = v536;
+          HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v530, v532, v534, v539);
+        }
+
+        v526 = 0;
+        v525 = 1;
+      }
+
+      while ((v527 & 1) != 0);
+
+      v17 = v693;
+      v496 = v691;
     }
-
-    while ((v503 & 1) != 0);
-
-    v15 = v674;
-    v474 = v672;
   }
 
-  if ((v474 & v13[5]) == 1 && MTLHudIsInternalInstall())
+  if ((v496 & v14[5]) == 1 && MTLHudIsInternalInstall(IsInternalInstall, v463))
   {
     HUDUIWindowEmptyRow(frame.var0, 6.0);
-    v516 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v517 = *&v516;
-    v519 = v518;
-    v521 = v520;
-    v523 = v522;
-    HUDUIAllocString("HUD", GlobalOverlay, size, &v685);
-    v709 = HUDUIInvalidString;
-    v710 = qword_784F8;
-    LODWORD(v524) = v523;
-    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -4144960, &v709, -1, v517, v519, v521, v524);
-    v525 = 0;
-    v526 = 1;
+    v540 = HUDUIWindowBeginRow(frame.var0);
+    v541 = *&v540;
+    v543 = v542;
+    v545 = v544;
+    v547 = v546;
+    HUDUIAllocString("HUD", GlobalOverlay, v11, &v704);
+    v728 = HUDUIInvalidString;
+    v729 = qword_784F8;
+    LODWORD(v548) = v547;
+    v549 = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -4144960, &v728, -1, v541, v543, v545, v548);
+    v551 = 0;
+    v552 = 1;
     do
     {
-      v527 = v526;
-      v528 = HUDGPUTimeTrackerGetGlobalInstance();
-      v529 = dword_54AA8[v525];
-      v530 = HUDGPUTimeTrackerGetValueRecord(v528, v529);
-      if (v530)
+      v553 = v552;
+      v554 = HUDGPUTimeTrackerGetGlobalInstance(v549, v550);
+      v555 = *(&unk_54AA8 + v551);
+      v549 = HUDGPUTimeTrackerGetValueRecord(v554, *(&unk_54AA8 + v551));
+      if (v549)
       {
-        v531 = v530;
-        v532 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-        v533 = *&v532;
-        v535 = v534;
-        v537 = v536;
-        v539 = v538;
-        v540 = HUDGPUTimeTrackerGetRecordName(v529);
-        HUDUIAllocString(v540, GlobalOverlay, size, &v685);
-        HUDUITemporaryFormattedTime(frame.var0, size, "", *(v531 + 988), 3, &v709);
-        LODWORD(v541) = v539;
-        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v533, v535, v537, v541);
+        v556 = v549;
+        v557 = HUDUIWindowBeginRow(frame.var0);
+        v558 = *&v557;
+        v560 = v559;
+        v562 = v561;
+        v564 = v563;
+        v566 = HUDGPUTimeTrackerGetRecordName(v555, v565);
+        HUDUIAllocString(v566, GlobalOverlay, v11, &v704);
+        HUDUITemporaryFormattedTime(frame.var0, v11, "", *(v556 + 988), 3, &v728);
+        LODWORD(v567) = v564;
+        v549 = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v558, v560, v562, v567);
       }
 
-      v526 = 0;
-      v525 = 1;
+      v552 = 0;
+      v551 = 1;
     }
 
-    while ((v527 & 1) != 0);
-    v542 = +[HUDMTLLayerTracking mainTracker];
-    view = [v542 view];
-    v544 = [view description];
+    while ((v553 & 1) != 0);
+    v568 = +[HUDMTLLayerTracking mainTracker];
+    view = [v568 view];
+    v570 = [view description];
 
-    if (v544)
+    if (v570)
     {
-      v545 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-      v546 = *&v545;
-      v548 = v547;
-      v550 = v549;
-      v552 = v551;
-      HUDUIAllocString("View", GlobalOverlay, size, &v685);
-      HUDUIAllocString([v544 UTF8String], GlobalOverlay, size, &v709);
-      LODWORD(v553) = v552;
-      HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v546, v548, v550, v553);
+      v571 = HUDUIWindowBeginRow(frame.var0);
+      v572 = *&v571;
+      v574 = v573;
+      v576 = v575;
+      v578 = v577;
+      HUDUIAllocString("View", GlobalOverlay, v11, &v704);
+      HUDUIAllocString([v570 UTF8String], GlobalOverlay, v11, &v728);
+      LODWORD(v579) = v578;
+      HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v572, v574, v576, v579);
     }
 
-    v554 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v555 = *&v554;
-    v557 = v556;
-    v559 = v558;
-    v561 = v560;
-    v562 = +[HUDMTLLayerTracking mainTracker];
-    [v562 safeAreaInsets];
-    v564 = v563;
+    v580 = HUDUIWindowBeginRow(frame.var0);
+    v581 = *&v580;
+    v583 = v582;
+    v585 = v584;
+    v587 = v586;
+    v588 = +[HUDMTLLayerTracking mainTracker];
+    [v588 safeAreaInsets];
+    v590 = v589;
+    v592 = v591;
 
-    HUDUIAllocString("Safe Inset XY", GlobalOverlay, size, &v685);
-    HUDUITemporaryStringWithFormat(frame.var0, size, "%dx%d", &v709, v564);
-    LODWORD(v565) = v561;
-    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v555, v557, v559, v565);
-    v566 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v567 = *&v566;
-    v569 = v568;
-    v571 = v570;
-    v573 = v572;
-    HUDUIAllocString("HUD WH", GlobalOverlay, size, &v685);
-    *&v564 = HIDWORD(v711);
-    LODWORD(v562) = (HUDUIFrameGetScale(frame.var0) * *&v564);
-    HUDUIFrameGetScale(frame.var0);
-    v668 = *(v13 + 11);
-    HUDUITemporaryStringWithFormat(frame.var0, size, "%dx%dx%.2f", &v709, v562);
-    LODWORD(v574) = v573;
-    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v567, v569, v571, v574);
-    v575 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-    v576 = *&v575;
-    v578 = v577;
-    v580 = v579;
-    v582 = v581;
-    HUDUIAllocString("Pixel Format", GlobalOverlay, size, &v685);
-    v583 = HUDMTLPixelFormatName(draw->pixelFormat);
-    wantsExtendedDynamicRangeContent = draw->wantsExtendedDynamicRangeContent;
-    HUDUITemporaryStringWithFormat(frame.var0, size, "%s:%d", &v709, v583);
-    LODWORD(v584) = v582;
-    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v576, v578, v580, v584);
-    v585 = HUDGetInternalPerfMetrics();
-    v15 = v674;
-    if (v585)
+    HUDUIAllocString("Safe Inset XY", GlobalOverlay, v11, &v704);
+    HUDUITemporaryStringWithFormat(frame.var0, v11, "%dx%d", &v728, v590, v592);
+    LODWORD(v593) = v587;
+    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v581, v583, v585, v593);
+    v594 = HUDUIWindowBeginRow(frame.var0);
+    v595 = *&v594;
+    v597 = v596;
+    v599 = v598;
+    v601 = v600;
+    HUDUIAllocString("HUD WH", GlobalOverlay, v11, &v704);
+    *&v590 = HIDWORD(v730);
+    v602 = (HUDUIFrameGetScale(frame.var0) * *&v590);
+    *&v590 = v730;
+    Scale = HUDUIFrameGetScale(frame.var0);
+    HUDUITemporaryStringWithFormat(frame.var0, v11, "%dx%dx%.2f", &v728, v602, (Scale * *&v590), *(v14 + 11));
+    LODWORD(v604) = v601;
+    HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v595, v597, v599, v604);
+    v605 = HUDUIWindowBeginRow(frame.var0);
+    v606 = *&v605;
+    v608 = v607;
+    v610 = v609;
+    v612 = v611;
+    HUDUIAllocString("Pixel Format", GlobalOverlay, v11, &v704);
+    v614 = HUDMTLPixelFormatName(draw->pixelFormat, v613);
+    HUDUITemporaryStringWithFormat(frame.var0, v11, "%s:%d", &v728, v614, draw->wantsExtendedDynamicRangeContent);
+    LODWORD(v615) = v612;
+    v616 = HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v606, v608, v610, v615);
+    v618 = HUDGetInternalPerfMetrics(v616, v617);
+    v17 = v693;
+    if (v618)
     {
-      v586 = v585;
-      v587 = (v585 + 988);
-      if (*(v585 + 2124) > 0.0001)
+      v619 = v618;
+      v620 = (v618 + 988);
+      if (*(v618 + 2124) > 0.0001)
       {
-        v588 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-        v589 = *&v588;
-        v591 = v590;
-        v593 = v592;
-        v595 = v594;
-        HUDUIAllocString("HUD Render CPU", GlobalOverlay, size, &v685);
-        HUDUITemporaryFormattedTime(frame.var0, size, "", v587[142], 3, &v709);
-        LODWORD(v596) = v595;
-        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v589, v591, v593, v596);
+        v621 = HUDUIWindowBeginRow(frame.var0);
+        v622 = *&v621;
+        v624 = v623;
+        v626 = v625;
+        v628 = v627;
+        HUDUIAllocString("HUD Render CPU", GlobalOverlay, v11, &v704);
+        HUDUITemporaryFormattedTime(frame.var0, v11, "", v620[142], 3, &v728);
+        LODWORD(v629) = v628;
+        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v622, v624, v626, v629);
       }
 
-      if (v587[284] > 0.0001)
+      if (v620[284] > 0.0001)
       {
-        v597 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-        v598 = *&v597;
-        v600 = v599;
-        v602 = v601;
-        v604 = v603;
-        HUDUIAllocString("HUD Tracker CPU", GlobalOverlay, size, &v685);
-        HUDUITemporaryFormattedTime(frame.var0, size, "", v587[284], 3, &v709);
-        LODWORD(v605) = v604;
-        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v598, v600, v602, v605);
+        v630 = HUDUIWindowBeginRow(frame.var0);
+        v631 = *&v630;
+        v633 = v632;
+        v635 = v634;
+        v637 = v636;
+        HUDUIAllocString("HUD Tracker CPU", GlobalOverlay, v11, &v704);
+        HUDUITemporaryFormattedTime(frame.var0, v11, "", v620[284], 3, &v728);
+        LODWORD(v638) = v637;
+        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v631, v633, v635, v638);
       }
 
-      if (*v587 > 0.0001)
+      if (*v620 > 0.0001)
       {
-        v606 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-        v607 = *&v606;
-        v609 = v608;
-        v611 = v610;
-        v613 = v612;
-        HUDUIAllocString("HUD Present CPU", GlobalOverlay, size, &v685);
-        HUDUITemporaryFormattedTime(frame.var0, size, "", *v587, 3, &v709);
-        LODWORD(v614) = v613;
-        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v607, v609, v611, v614);
+        v639 = HUDUIWindowBeginRow(frame.var0);
+        v640 = *&v639;
+        v642 = v641;
+        v644 = v643;
+        v646 = v645;
+        HUDUIAllocString("HUD Present CPU", GlobalOverlay, v11, &v704);
+        HUDUITemporaryFormattedTime(frame.var0, v11, "", *v620, 3, &v728);
+        LODWORD(v647) = v646;
+        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v640, v642, v644, v647);
       }
 
-      if (*(v586 + 5532) > 0.0001)
+      if (*(v619 + 5532) > 0.0001)
       {
-        v615 = HUDUIWindowBeginRow(frame.var0, 9999.0);
-        v616 = *&v615;
-        v618 = v617;
-        v620 = v619;
-        v622 = v621;
-        HUDUIAllocString("HUD Logging CPU", GlobalOverlay, size, &v685);
-        HUDUITemporaryFormattedTime(frame.var0, size, "", *(v586 + 5532), 3, &v709);
-        LODWORD(v623) = v622;
-        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v685, -1, &v709, -1, v616, v618, v620, v623);
+        v648 = HUDUIWindowBeginRow(frame.var0);
+        v649 = *&v648;
+        v651 = v650;
+        v653 = v652;
+        v655 = v654;
+        HUDUIAllocString("HUD Logging CPU", GlobalOverlay, v11, &v704);
+        HUDUITemporaryFormattedTime(frame.var0, v11, "", *(v619 + 5532), 3, &v728);
+        LODWORD(v656) = v655;
+        HUDUIWindowAddLabelKeyValuePair(frame.var0, &v704, -1, &v728, -1, v649, v651, v653, v656);
       }
     }
   }
@@ -1406,18 +1408,18 @@ LABEL_178:
   if ((layoutCopy & 0x4000) != 0)
   {
     HUDUIWindowEmptyRow(frame.var0, 6.0);
-    LODWORD(v685) = 0;
-    LODWORD(v709) = 0;
-    HUDUIFrameGetSizeInPoints(frame.var0, &v685, &v709);
-    v624 = v685 - 12;
-    if ((v685 - 12) >= 0x60)
+    LODWORD(v704) = 0;
+    LODWORD(v728) = 0;
+    HUDUIFrameGetSizeInPoints(frame.var0, &v704, &v728);
+    v657 = v704 - 12;
+    if ((v704 - 12) >= 0x60)
     {
-      v624 = 96;
+      v657 = 96;
     }
 
-    v625 = v624;
-    v626 = HUDUIWindowBeginRow(frame.var0, v624);
-    HUDUIWindowSetQRCode(frame.var0, codeCopy, *&v626, v627, v625, v628);
+    v658 = v657;
+    v659 = HUDUIWindowBeginRow(frame.var0);
+    HUDUIWindowSetQRCode(frame.var0, codeCopy, *&v659, v660, v658, v661);
   }
 
   HUDUIWindowEmptyRow(frame.var0, 6.0);
@@ -1440,7 +1442,7 @@ uint64_t __82__HUDUserClientMainWindow_draw_drawableState_fontSize_frame_layout_
     v12 = result;
     v13 = (a4 + 988);
     _HUDTopObjectTempLabel(a2);
-    v14 = HUDUIWindowBeginRow(*(v12 + 40), 9999.0);
+    v14 = HUDUIWindowBeginRow(*(v12 + 40));
     v15 = *&v14;
     v17 = v16;
     v19 = v18;
@@ -1449,13 +1451,13 @@ uint64_t __82__HUDUserClientMainWindow_draw_drawableState_fontSize_frame_layout_
     HUDUITemporaryFormattedTime(*(v12 + 40), *(v12 + 56), "", *v13, 0, &v33);
     LODWORD(v22) = v21;
     HUDUIWindowAddLabelKeyValuePair(*(v12 + 40), &v34, -1, &v33, -1, v15, v17, v19, v22);
-    v23 = HUDUIWindowBeginRow(*(v12 + 40), 9999.0);
+    v23 = HUDUIWindowBeginRow(*(v12 + 40));
     v24 = *&v23;
     v26 = v25;
     v28 = v27;
     v30 = v29;
     v31 = strlen(&_HUDTopObjectTempLabel_buf);
-    HUDUIAllocStringWithFormat(*(v12 + 48), *(v12 + 56), "%*s GPU", &v34, v31);
+    HUDUIAllocStringWithFormat(*(v12 + 48), *(v12 + 56), "%*s GPU", &v34, v31, "");
     HUDUITemporaryFormattedTime(*(v12 + 40), *(v12 + 56), "", v13[141], 0, &v33);
     LODWORD(v32) = v30;
     result = HUDUIWindowAddLabelKeyValuePair(*(v12 + 40), &v34, -1, &v33, -1, v24, v26, v28, v32);
@@ -1480,7 +1482,7 @@ uint64_t __82__HUDUserClientMainWindow_draw_drawableState_fontSize_frame_layout_
     v12 = result;
     v13 = (a4 + 988);
     _HUDTopObjectTempLabel(a2);
-    v14 = HUDUIWindowBeginRow(*(v12 + 40), 9999.0);
+    v14 = HUDUIWindowBeginRow(*(v12 + 40));
     v15 = *&v14;
     v17 = v16;
     v19 = v18;
@@ -1491,13 +1493,13 @@ uint64_t __82__HUDUserClientMainWindow_draw_drawableState_fontSize_frame_layout_
     result = HUDUIWindowAddLabelKeyValuePair(*(v12 + 40), &v34, -1, &v33, -1, v15, v17, v19, v22);
     if (*(*(v12 + 56) + 4) == 1)
     {
-      v23 = HUDUIWindowBeginRow(*(v12 + 40), 9999.0);
+      v23 = HUDUIWindowBeginRow(*(v12 + 40));
       v24 = *&v23;
       v26 = v25;
       v28 = v27;
       v30 = v29;
       v31 = strlen(&_HUDTopObjectTempLabel_buf);
-      HUDUIAllocStringWithFormat(*(v12 + 48), *(v12 + 64), "%*s GPU", &v34, v31);
+      HUDUIAllocStringWithFormat(*(v12 + 48), *(v12 + 64), "%*s GPU", &v34, v31, "");
       HUDUITemporaryFormattedTime(*(v12 + 40), *(v12 + 64), "", v13[141], 0, &v33);
       LODWORD(v32) = v30;
       result = HUDUIWindowAddLabelKeyValuePair(*(v12 + 40), &v34, -1, &v33, -1, v24, v26, v28, v32);
@@ -1515,8 +1517,8 @@ void __82__HUDUserClientMainWindow_draw_drawableState_fontSize_frame_layout_heig
   v4 = HUDCurrentTimeInNs();
   v5 = 0;
   v6 = &IOReportChannelGetChannelID_ptr;
-  v128 = v4;
-  v129 = v3;
+  v135 = v4;
+  v136 = v3;
   do
   {
     v7 = [v6[293] numberWithUnsignedInt:kHUDColorAttributeName_block_invoke_cats[v5]];
@@ -1530,15 +1532,15 @@ void __82__HUDUserClientMainWindow_draw_drawableState_fontSize_frame_layout_heig
       if (v10)
       {
         HUDUIWindowEmptyRow(*(a1 + 40), 6.0);
-        v11 = HUDUIWindowBeginRow(*(a1 + 40), 9999.0);
+        v11 = HUDUIWindowBeginRow(*(a1 + 40));
         v12 = *&v11;
         v14 = v13;
         v16 = v15;
         v18 = v17;
-        v130 = kHUDColorAttributeName_block_invoke_catNames[v5];
-        v131 = 0uLL;
-        v132 = 0;
-        memset(v139, 0, sizeof(v139));
+        v137 = kHUDColorAttributeName_block_invoke_catNames[v5];
+        v138 = 0uLL;
+        v139 = 0;
+        memset(v146, 0, sizeof(v146));
         v19 = [v8 metrics];
         v20 = [v19 count];
 
@@ -1566,7 +1568,7 @@ void __82__HUDUserClientMainWindow_draw_drawableState_fontSize_frame_layout_heig
 
                   if (([v24 timedOut] & 1) == 0)
                   {
-                    *(v139 + v21) = 1;
+                    *(v146 + v21) = 1;
                     ++v22;
                   }
                 }
@@ -1577,118 +1579,115 @@ void __82__HUDUserClientMainWindow_draw_drawableState_fontSize_frame_layout_heig
             v27 = [v8 metrics];
             v28 = [v27 count];
 
-            v29 = 64;
+            v31 = 64;
             if (v28 < 0x40)
             {
-              v29 = v28;
+              v31 = v28;
             }
           }
 
-          while (v29 > v21);
+          while (v31 > v21);
           if (v22)
           {
-            if (HUDMTLOverlayIsInGPTK() && !*(*(a1 + 32) + 56))
+            if (HUDMTLOverlayIsInGPTK(v29, v30) && !*(*(a1 + 32) + 56))
             {
-              v30 = [NSBundle bundleWithIdentifier:@"com.apple.D3DMetal"];
-              v31 = [v30 infoDictionary];
-              v32 = [v31 objectForKeyedSubscript:@"CFBundleVersion"];
-              v33 = *(a1 + 32);
-              v34 = *(v33 + 56);
-              *(v33 + 56) = v32;
+              v32 = [NSBundle bundleWithIdentifier:@"com.apple.D3DMetal"];
+              v33 = [v32 infoDictionary];
+              v34 = [v33 objectForKeyedSubscript:@"CFBundleVersion"];
+              v35 = *(a1 + 32);
+              v36 = *(v35 + 56);
+              *(v35 + 56) = v34;
             }
 
             if (v5 == 1 && *(*(a1 + 32) + 56))
             {
-              v35 = *(a1 + 72);
-              v36 = [(__CFString *)v130 UTF8String];
-              [*(*(a1 + 32) + 56) UTF8String];
-              HUDUIAllocStringWithFormat(*(a1 + 56), v35, "%s %s", &v131, v36);
+              HUDUIAllocStringWithFormat(*(a1 + 56), *(a1 + 72), "%s %s", &v138, -[__CFString UTF8String](v137, "UTF8String"), [*(*(a1 + 32) + 56) UTF8String]);
             }
 
             else
             {
-              HUDUIAllocString([(__CFString *)v130 UTF8String], *(a1 + 56), *(a1 + 72), &v137);
-              v131 = v137;
-              v132 = v138;
+              HUDUIAllocString([(__CFString *)v137 UTF8String], *(a1 + 56), *(a1 + 72), &v144);
+              v138 = v144;
+              v139 = v145;
             }
 
             v38 = *(a1 + 40);
-            v137 = v131;
-            v138 = v132;
-            v135 = HUDUIInvalidString;
-            v136 = qword_784F8;
+            v144 = v138;
+            v145 = v139;
+            v142 = HUDUIInvalidString;
+            v143 = qword_784F8;
             LODWORD(v37) = v18;
-            HUDUIWindowAddLabelKeyValuePair(v38, &v137, -4144960, &v135, -1, v12, v14, v16, v37);
+            HUDUIWindowAddLabelKeyValuePair(v38, &v144, -4144960, &v142, -1, v12, v14, v16, v37);
             v39 = [v8 metrics];
             v40 = [v39 count];
 
             if (v40)
             {
-              v41 = 0;
-              while (!*(v139 + v41))
+              v43 = 0;
+              while (!*(v146 + v43))
               {
 LABEL_66:
-                ++v41;
-                v101 = [v8 metrics];
-                v102 = [v101 count];
+                ++v43;
+                v106 = [v8 metrics];
+                v107 = [v106 count];
 
-                v103 = 64;
-                if (v102 < 0x40)
+                v108 = 64;
+                if (v107 < 0x40)
                 {
-                  v103 = v102;
+                  v108 = v107;
                 }
 
-                if (v103 <= v41)
+                if (v108 <= v43)
                 {
                   goto LABEL_69;
                 }
               }
 
-              v42 = [v8 metrics];
-              v43 = [v42 objectAtIndexedSubscript:v41];
+              v44 = [v8 metrics];
+              v45 = [v44 objectAtIndexedSubscript:v43];
 
-              v44 = *(a1 + 72);
-              v45 = *(a1 + 48);
-              v46 = *(a1 + 56);
-              v47 = *(a1 + 40);
-              v48 = v43;
-              if (!*([v48 descriptor] + 14) && !MTLHudIsInternalInstall())
+              v46 = *(a1 + 72);
+              v47 = *(a1 + 48);
+              v48 = *(a1 + 56);
+              v49 = *(a1 + 40);
+              v50 = v45;
+              v51 = [v50 descriptor];
+              if (!v51[14] && !MTLHudIsInternalInstall(v51, v52))
               {
                 goto LABEL_65;
               }
 
-              v137 = HUDUIInvalidString;
-              v138 = qword_784F8;
-              v49 = [v48 metricType];
-              if (v49 == 2)
+              v144 = HUDUIInvalidString;
+              v145 = qword_784F8;
+              v53 = [v50 metricType];
+              if (v53 == 2)
               {
-                v54 = [v48 stringValue];
-                HUDUITemporaryStringn(v47, v44, [v54 UTF8String], objc_msgSend(v54, "length"), &v137);
+                v58 = [v50 stringValue];
+                HUDUITemporaryStringn(v49, v46, [v58 UTF8String], objc_msgSend(v58, "length"), &v144);
 
                 goto LABEL_46;
               }
 
-              if (v49 != 1)
+              if (v53 != 1)
               {
-                if (v49)
+                if (v53)
                 {
                   goto LABEL_46;
                 }
 
-                if (*([v48 record] + 988) != 0.0 || *(v45 + 6) == 1)
+                if (*([v50 record] + 988) != 0.0 || *(v47 + 6) == 1)
                 {
-                  if ((*([v48 descriptor] + 48) & 4) != 0)
+                  if ((*([v50 descriptor] + 48) & 4) != 0)
                   {
-                    v51 = *([v48 record] + 988);
+                    v55 = *([v50 record] + 988);
                   }
 
                   else
                   {
-                    LOBYTE(v51) = [v48 intValue];
+                    v55 = [v50 intValue];
                   }
 
-                  [*(objc_msgSend(v48 "descriptor") + 2)];
-                  v50 = HUDUITemporaryStringWithFormat(v47, v44, "%d%s", &v137, v51);
+                  v54 = HUDUITemporaryStringWithFormat(v49, v46, "%d%s", &v144, v55, [*(objc_msgSend(v50 "descriptor") + 2)]);
                   goto LABEL_46;
                 }
 
@@ -1697,91 +1696,90 @@ LABEL_65:
                 goto LABEL_66;
               }
 
-              if (*([v48 record] + 988) == 0.0 && *(v45 + 6) != 1)
+              if (*([v50 record] + 988) == 0.0 && *(v47 + 6) != 1)
               {
                 goto LABEL_65;
               }
 
-              if ((*([v48 descriptor] + 48) & 4) != 0)
+              if ((*([v50 descriptor] + 48) & 4) != 0)
               {
-                v53 = *([v48 record] + 988);
+                v57 = *([v50 record] + 988);
               }
 
               else
               {
-                [v48 floatValue];
-                LOBYTE(v53) = v52;
+                [v50 floatValue];
+                v57 = v56;
               }
 
-              [*(objc_msgSend(v48 "descriptor") + 2)];
-              v50 = HUDUITemporaryStringWithFormat(v47, v44, "%.2f%s", &v137, v53);
+              v54 = HUDUITemporaryStringWithFormat(v49, v46, "%.2f%s", &v144, v57, [*(objc_msgSend(v50 "descriptor") + 2)]);
 LABEL_46:
-              v55 = *([v48 descriptor] + 14);
-              if (v55 > 2047)
+              v59 = *([v50 descriptor] + 14);
+              if (v59 > 2047)
               {
-                if (v55 != 2048)
+                if (v59 != 2048)
                 {
-                  if (v55 == 0x2000)
+                  if (v59 == 0x2000)
                   {
                     goto LABEL_57;
                   }
 
-                  if (v55 != 4096)
+                  if (v59 != 4096)
                   {
                     goto LABEL_65;
                   }
                 }
               }
 
-              else if ((v55 - 1) >= 2)
+              else if ((v59 - 1) >= 2)
               {
-                if (v55 != 3)
+                if (v59 != 3)
                 {
                   goto LABEL_65;
                 }
 
 LABEL_57:
-                if ([v48 metricType] && objc_msgSend(v48, "metricType") != 1)
+                if ([v50 metricType] && objc_msgSend(v50, "metricType") != 1)
                 {
-                  v90 = HUDUIWindowBeginRow(v47, 9999.0);
-                  v91 = *&v90;
-                  v93 = v92;
-                  v95 = v94;
-                  v97 = v96;
-                  v64 = [v48 displayName];
-                  v98 = *([v48 descriptor] + 6);
-                  v99 = *([v48 descriptor] + 7);
-                  v133 = v137;
-                  v134 = v138;
-                  LODWORD(v100) = v97;
-                  HUDUIWindowAddLabelKeyValuePair(v47, &v135, v98, &v133, v99, v91, v93, v95, v100);
+                  v95 = HUDUIWindowBeginRow(v49);
+                  v96 = *&v95;
+                  v98 = v97;
+                  v100 = v99;
+                  v102 = v101;
+                  v68 = [v50 displayName];
+                  v103 = *([v50 descriptor] + 6);
+                  v104 = *([v50 descriptor] + 7);
+                  v140 = v144;
+                  v141 = v145;
+                  LODWORD(v105) = v102;
+                  HUDUIWindowAddLabelKeyValuePair(v49, &v142, v103, &v140, v104, v96, v98, v100, v105);
                 }
 
                 else
                 {
-                  v75 = HUDUIWindowBeginRow(v47, 9999.0);
-                  v76 = *&v75;
-                  v78 = v77;
-                  v80 = v79;
-                  v82 = v81;
-                  v64 = [v48 displayName];
-                  if ((*([v48 descriptor] + 48) & 4) != 0)
+                  v80 = HUDUIWindowBeginRow(v49);
+                  v81 = *&v80;
+                  v83 = v82;
+                  v85 = v84;
+                  v87 = v86;
+                  v68 = [v50 displayName];
+                  if ((*([v50 descriptor] + 48) & 4) != 0)
                   {
-                    v83 = *([v48 record] + 988);
+                    v88 = *([v50 record] + 988);
                   }
 
                   else
                   {
-                    [v48 floatValue];
+                    [v50 floatValue];
                   }
 
-                  v84 = v83;
-                  [v48 minValueForLastSampleCountSamples];
-                  v86 = v85;
-                  [v48 maxValueForLastSampleCountSamples];
-                  *&v88 = v87;
-                  *&v89 = v86;
-                  HUDUIWindowAddStats(v47, v44, &v135, v84, v89, v88, v76, v78, v80, v82, "", -1);
+                  v89 = v88;
+                  [v50 minValueForLastSampleCountSamples];
+                  v91 = v90;
+                  [v50 maxValueForLastSampleCountSamples];
+                  *&v93 = v92;
+                  *&v94 = v91;
+                  HUDUIWindowAddStats(v49, v46, &v142, v89, v94, v93, v81, v83, v85, v87, "", -1);
                 }
 
 LABEL_64:
@@ -1789,24 +1787,26 @@ LABEL_64:
                 goto LABEL_65;
               }
 
-              v56 = HUDUIWindowBeginRow(v47, 9999.0);
-              v57 = *&v56;
-              v59 = v58;
-              v61 = v60;
+              v60 = HUDUIWindowBeginRow(v49);
+              v61 = *&v60;
               v63 = v62;
-              v64 = [v48 displayName];
-              v65 = *([v48 descriptor] + 6);
-              v66 = *([v48 descriptor] + 7);
-              v133 = v137;
-              v134 = v138;
-              LODWORD(v67) = v63;
-              HUDUIWindowAddLabelKeyValuePair(v47, &v135, v65, &v133, v66, v57, v59, v61, v67);
-              if (*([v48 descriptor] + 14) == 2 && (!objc_msgSend(v48, "metricType") || objc_msgSend(v48, "metricType") == 1))
+              v65 = v64;
+              v67 = v66;
+              v68 = [v50 displayName];
+              v69 = *([v50 descriptor] + 6);
+              v70 = *([v50 descriptor] + 7);
+              v140 = v144;
+              v141 = v145;
+              LODWORD(v71) = v67;
+              HUDUIWindowAddLabelKeyValuePair(v49, &v142, v69, &v140, v70, v61, v63, v65, v71);
+              if (*([v50 descriptor] + 14) == 2 && (!objc_msgSend(v50, "metricType") || objc_msgSend(v50, "metricType") == 1))
               {
-                v68 = [v48 record];
-                v69 = HUDUIWindowBeginRow(v47, *([v48 descriptor] + 16));
-                LODWORD(v70) = LODWORD(v69);
-                HUDUIWindowAddGraph(v47, v68, 0x78u, *(v68 + 240), -354547, 0, 0, 0.0, *(v68 + 980), 2.0, 9999.0, 1.0, v70, *(v68 + 980), v74, *&v70, v71, v72, v73);
+                v72 = [v50 record];
+                [v50 descriptor];
+                v73 = HUDUIWindowBeginRow(v49);
+                v74.n128_u32[0] = LODWORD(v73);
+                v75.n128_u64[0] = *(v72 + 980);
+                HUDUIWindowAddGraph(v49, v72, 120, *(v72 + 240), 4294612749, 0, 0, 0.0, v75.n128_f64[0], 2.0, 9999.0, 1.0, v74, v75, v79, v74.n128_f32[0], v76, v77, v78);
               }
 
               goto LABEL_64;
@@ -1815,40 +1815,40 @@ LABEL_64:
 LABEL_69:
             if (!v5 && *(*(a1 + 48) + 12) == 1)
             {
-              v104 = HUDUIWindowBeginRow(*(a1 + 40), 9999.0);
-              v105 = *&v104;
-              v107 = v106;
-              v109 = v108;
-              v111 = v110;
-              HUDUIAllocString("Render FPS", *(a1 + 56), *(a1 + 72), &v137);
-              v127 = 1000000000.0 / *(*(a1 + 64) + 5628);
-              HUDUITemporaryStringWithFormat(*(a1 + 40), *(a1 + 72), "%.2f", &v135, SLOBYTE(v127));
-              LODWORD(v112) = v111;
-              HUDUIWindowAddLabelKeyValuePair(*(a1 + 40), &v137, -1, &v135, -1, v105, v107, v109, v112);
+              v109 = HUDUIWindowBeginRow(*(a1 + 40));
+              v110 = *&v109;
+              v112 = v111;
+              v114 = v113;
+              v116 = v115;
+              HUDUIAllocString("Render FPS", *(a1 + 56), *(a1 + 72), &v144);
+              HUDUITemporaryStringWithFormat(*(a1 + 40), *(a1 + 72), "%.2f", &v142, 1000000000.0 / *(*(a1 + 64) + 5628));
+              LODWORD(v117) = v116;
+              v41 = HUDUIWindowAddLabelKeyValuePair(*(a1 + 40), &v144, -1, &v142, -1, v110, v112, v114, v117);
             }
 
-            v4 = v128;
-            v3 = v129;
-            if (MTLHudIsInternalInstall())
+            IsInternalInstall = MTLHudIsInternalInstall(v41, v42);
+            v4 = v135;
+            v3 = v136;
+            if (IsInternalInstall)
             {
               if (!v5 && (*(a1 + 76) & 1) == 0 && *(*(a1 + 48) + 11) == 1)
               {
-                GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+                GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(IsInternalInstall, v119);
                 ValueRecord = HUDGPUTimeTrackerGetValueRecord(GlobalInstance, 0x30u);
                 if (ValueRecord)
                 {
-                  v115 = ValueRecord;
-                  v116 = HUDUIWindowBeginRow(*(a1 + 40), 9999.0);
-                  v117 = *&v116;
-                  v119 = v118;
-                  v121 = v120;
-                  v123 = v122;
-                  v124 = *(a1 + 72);
-                  RecordName = HUDGPUTimeTrackerGetRecordName(48);
-                  HUDUIAllocStringWithFormat(*(a1 + 56), v124, "* %s", &v137, RecordName);
-                  HUDUITemporaryFormattedTime(*(a1 + 40), *(a1 + 72), "", *(v115 + 988), 3, &v135);
-                  LODWORD(v126) = v123;
-                  HUDUIWindowAddLabelKeyValuePair(*(a1 + 40), &v137, -1, &v135, -1, v117, v119, v121, v126);
+                  v122 = ValueRecord;
+                  v123 = HUDUIWindowBeginRow(*(a1 + 40));
+                  v124 = *&v123;
+                  v126 = v125;
+                  v128 = v127;
+                  v130 = v129;
+                  v131 = *(a1 + 72);
+                  RecordName = HUDGPUTimeTrackerGetRecordName(48, v132);
+                  HUDUIAllocStringWithFormat(*(a1 + 56), v131, "* %s", &v144, RecordName);
+                  HUDUITemporaryFormattedTime(*(a1 + 40), *(a1 + 72), "", *(v122 + 988), 3, &v142);
+                  LODWORD(v134) = v130;
+                  HUDUIWindowAddLabelKeyValuePair(*(a1 + 40), &v144, -1, &v142, -1, v124, v126, v128, v134);
                 }
               }
             }

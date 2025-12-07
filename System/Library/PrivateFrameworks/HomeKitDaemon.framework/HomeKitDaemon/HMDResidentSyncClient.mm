@@ -37,7 +37,7 @@
 
 void __48__HMDResidentSyncClient__handleHomeDataChanged___block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v2 = *(a1 + 32);
   if (WeakRetained)
@@ -95,9 +95,9 @@ void __48__HMDResidentSyncClient__handleHomeDataChanged___block_invoke(uint64_t 
         objc_autoreleasePoolPop(context);
         [v10[12] setLastSeenToken:v7];
         v15 = v10[4];
-        v40 = 0;
-        v16 = [v15 save:&v40];
-        v17 = v40;
+        v39 = 0;
+        v16 = [v15 save:&v39];
+        v17 = v39;
         if ((v16 & 1) == 0)
         {
           contexta = objc_autoreleasePoolPush();
@@ -105,9 +105,9 @@ void __48__HMDResidentSyncClient__handleHomeDataChanged___block_invoke(uint64_t 
           v19 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            v35 = HMFGetLogIdentifier();
+            v34 = HMFGetLogIdentifier();
             *buf = 138543618;
-            *&buf[4] = v35;
+            *&buf[4] = v34;
             *&buf[12] = 2114;
             *&buf[14] = v17;
             _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to save last seen change token, proceeding anyway: %{public}@", buf, 0x16u);
@@ -126,9 +126,9 @@ LABEL_13:
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __49__HMDResidentSyncClient___handleHomeDataChanged___block_invoke;
-        v42 = &unk_27867CF88;
-        v43 = WeakRetained;
-        v44 = v3;
+        v41 = &unk_27867CF88;
+        v42 = WeakRetained;
+        v43 = v3;
         v21 = [v20 then:buf];
 
 LABEL_24:
@@ -141,18 +141,18 @@ LABEL_25:
       {
         v30 = HMFGetLogIdentifier();
         HMDShortDescriptionForToken(v7);
-        v31 = v36 = v6;
-        v34 = [v10[12] lastSeenToken];
-        v32 = HMDShortDescriptionForToken(v34);
+        v31 = v35 = v6;
+        v33 = [v10[12] lastSeenToken];
+        v32 = HMDShortDescriptionForToken(v33);
         *buf = 138543874;
         *&buf[4] = v30;
         *&buf[12] = 2114;
         *&buf[14] = v31;
         *&buf[22] = 2114;
-        v42 = v32;
+        v41 = v32;
         _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Ignoring home data changed message, incoming change token %{public}@ is not ahead of last seen token %{public}@", buf, 0x20u);
 
-        v6 = v36;
+        v6 = v35;
       }
 
       objc_autoreleasePoolPop(context);
@@ -179,13 +179,11 @@ LABEL_25:
   }
 
 LABEL_26:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__HMDResidentSyncClient___handleHomeDataChanged___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 unsignedIntValue];
   if (v4)
@@ -199,11 +197,11 @@ uint64_t __49__HMDResidentSyncClient___handleHomeDataChanged___block_invoke(uint
       {
         v9 = HMFGetLogIdentifier();
         v10 = [*(a1 + 40) shortDescription];
-        v16 = 138543618;
-        v17 = v9;
-        v18 = 2114;
-        v19 = v10;
-        _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Resident Device Manager asked to ignore the home data changed message from: %{public}@", &v16, 0x16u);
+        v15 = 138543618;
+        v16 = v9;
+        v17 = 2114;
+        v18 = v10;
+        _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Resident Device Manager asked to ignore the home data changed message from: %{public}@", &v15, 0x16u);
       }
     }
 
@@ -222,9 +220,9 @@ LABEL_9:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = HMFGetLogIdentifier();
-        v16 = 138543362;
-        v17 = v8;
-        _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Primary resident is changing, will fetch once we're notified that it changed", &v16, 0xCu);
+        v15 = 138543362;
+        v16 = v8;
+        _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Primary resident is changing, will fetch once we're notified that it changed", &v15, 0xCu);
       }
     }
 
@@ -242,13 +240,12 @@ LABEL_9:
   v11 = 3;
 
 LABEL_12:
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (id)_performMaybeDelayedFetchWithReason:(uint64_t)reason
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!reason)
   {
@@ -275,7 +272,7 @@ LABEL_8:
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v8;
+      v31 = v8;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Eliding delayed home data fetch because there are requests in progress", buf, 0xCu);
     }
 
@@ -289,63 +286,62 @@ LABEL_8:
 
   if (*(reason + 112))
   {
-    v15 = objc_autoreleasePoolPush();
+    v14 = objc_autoreleasePoolPush();
     reasonCopy2 = reason;
-    v17 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v18 = HMFGetLogIdentifier();
+      v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v18;
-      v33 = 2114;
-      v34 = v3;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Waiting for existing delayed fetch (reason: %{public}@)", buf, 0x16u);
+      v31 = v17;
+      v32 = 2114;
+      v33 = v3;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Waiting for existing delayed fetch (reason: %{public}@)", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v15);
+    objc_autoreleasePoolPop(v14);
     v12 = reasonCopy2[14];
     goto LABEL_8;
   }
 
-  v19 = arc4random_uniform(0xAu) + 5;
-  v20 = objc_autoreleasePoolPush();
+  v18 = arc4random_uniform(0xAu) + 5;
+  v19 = objc_autoreleasePoolPush();
   reasonCopy3 = reason;
-  v22 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+  v21 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
-    v23 = HMFGetLogIdentifier();
+    v22 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v32 = v23;
-    v33 = 1024;
-    LODWORD(v34) = v19;
-    _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Delaying home data fetch for %u seconds", buf, 0x12u);
+    v31 = v22;
+    v32 = 1024;
+    LODWORD(v33) = v18;
+    _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Delaying home data fetch for %u seconds", buf, 0x12u);
   }
 
-  objc_autoreleasePoolPop(v20);
-  v24 = [MEMORY[0x277D0F7C0] futureWithPromise:reasonCopy3 + 15];
-  objc_storeStrong(reasonCopy3 + 14, v24);
-  v25 = reasonCopy3[9];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __61__HMDResidentSyncClient__performMaybeDelayedFetchWithReason___block_invoke;
-  v28[3] = &unk_27868A010;
-  v28[4] = reasonCopy3;
-  v26 = v24;
-  v29 = v26;
-  v30 = v3;
-  [v25 performWithDelay:v19 block:v28];
-  v27 = v30;
-  v11 = v26;
+  objc_autoreleasePoolPop(v19);
+  v23 = [MEMORY[0x277D0F7C0] futureWithPromise:reasonCopy3 + 15];
+  objc_storeStrong(reasonCopy3 + 14, v23);
+  v24 = reasonCopy3[9];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __61__HMDResidentSyncClient__performMaybeDelayedFetchWithReason___block_invoke;
+  v27[3] = &unk_27868A010;
+  v27[4] = reasonCopy3;
+  v25 = v23;
+  v28 = v25;
+  v29 = v3;
+  [v24 performWithDelay:v18 block:v27];
+  v26 = v29;
+  v11 = v25;
 
 LABEL_9:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)_performFetchWithReason:(uint64_t)reason
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (reason)
   {
@@ -355,8 +351,8 @@ LABEL_9:
       *(reason + 112) = 0;
     }
 
+    v41 = v3;
     v42 = v3;
-    v43 = v3;
     *(reason + 128) = 0;
     [*(reason + 104) suspend];
     anyObject = [*(reason + 88) anyObject];
@@ -403,7 +399,7 @@ LABEL_9:
           *&buf[12] = 2114;
           *&buf[14] = versionChecksum;
           *&buf[22] = 2114;
-          v49 = lastSyncChecksum2;
+          v48 = lastSyncChecksum2;
           _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Database checksums don't match, forcing a full sync: %{public}@ != %{public}@", buf, 0x20u);
         }
 
@@ -421,8 +417,8 @@ LABEL_9:
         lastSyncToken = 0;
       }
 
-      v40 = lastSyncToken;
-      v41 = [(HMDResidentSyncClient *)reason _syncDetailsWithChangeToken:lastSyncToken];
+      v39 = lastSyncToken;
+      v40 = [(HMDResidentSyncClient *)reason _syncDetailsWithChangeToken:lastSyncToken];
       v25 = objc_autoreleasePoolPush();
       reasonCopy3 = reason;
       v27 = HMFGetOSLogHandle();
@@ -432,39 +428,39 @@ LABEL_9:
         *buf = 138543618;
         *&buf[4] = v28;
         *&buf[12] = 2114;
-        *&buf[14] = v43;
+        *&buf[14] = v42;
         _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@Fetching home data with reason: %{public}@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v25);
       v29 = [[HMDRemoteHomeMessageDestination alloc] initWithTarget:reasonCopy3[2] homeUUID:reasonCopy3[2]];
-      v30 = [HMDRemoteMessage secureMessageWithName:@"HMDFetchHomeDataMessage" destination:v29 messagePayload:v41];
+      v30 = [HMDRemoteMessage secureMessageWithName:@"HMDFetchHomeDataMessage" destination:v29 messagePayload:v40];
       [reasonCopy3[11] addObject:v30];
       objc_initWeak(&location, reasonCopy3);
       v31 = [reasonCopy3[7] sendMessageExpectingResponse:v30];
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __55__HMDResidentSyncClient__reallyPerformFetchWithReason___block_invoke;
-      v49 = &unk_27867CFB0;
-      objc_copyWeak(v53, &location);
+      v48 = &unk_27867CFB0;
+      objc_copyWeak(v52, &location);
       v32 = v30;
-      v50 = v32;
+      v49 = v32;
       v33 = lastSeenToken;
-      v51 = v33;
+      v50 = v33;
       v11 = versionChecksum;
-      v52 = v11;
+      v51 = v11;
       v34 = [v31 then:buf];
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __55__HMDResidentSyncClient__reallyPerformFetchWithReason___block_invoke_2;
-      v44[3] = &unk_27867CFD8;
-      objc_copyWeak(&v46, &location);
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __55__HMDResidentSyncClient__reallyPerformFetchWithReason___block_invoke_2;
+      v43[3] = &unk_27867CFD8;
+      objc_copyWeak(&v45, &location);
       v35 = v32;
-      v45 = v35;
-      v12 = [v34 recover:v44];
+      v44 = v35;
+      v12 = [v34 recover:v43];
 
-      objc_destroyWeak(&v46);
-      objc_destroyWeak(v53);
+      objc_destroyWeak(&v45);
+      objc_destroyWeak(v52);
 
       objc_destroyWeak(&location);
     }
@@ -477,15 +473,13 @@ LABEL_9:
       *(reason + 120) = 0;
     }
 
-    v3 = v42;
+    v3 = v41;
   }
 
   else
   {
     v12 = 0;
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -507,16 +501,16 @@ void __61__HMDResidentSyncClient__performMaybeDelayedFetchWithReason___block_inv
 
 void __61__HMDResidentSyncClient__performMaybeDelayedFetchWithReason___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Jitter timer fired", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Jitter timer fired", &v12, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -534,15 +528,13 @@ void __61__HMDResidentSyncClient__performMaybeDelayedFetchWithReason___block_inv
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@The future changed, not fetching", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@The future changed, not fetching", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (_BYTE)_syncDetailsWithChangeToken:(_BYTE *)token
@@ -568,7 +560,7 @@ LABEL_4:
         [v5 setObject:v9 forKeyedSubscript:@"etag"];
 
 LABEL_7:
-        token = [v5 copy];
+        token = objc_msgSend_copy(v5);
 
         goto LABEL_8;
       }
@@ -659,7 +651,7 @@ uint64_t __55__HMDResidentSyncClient__reallyPerformFetchWithReason___block_invok
 
 uint64_t __55__HMDResidentSyncClient__reallyPerformFetchWithReason___block_invoke_2(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -684,13 +676,13 @@ uint64_t __55__HMDResidentSyncClient__reallyPerformFetchWithReason___block_invok
       {
         v11 = HMFGetLogIdentifier();
         v12 = v8[17];
-        v24 = 138543874;
-        v25 = v11;
-        v26 = 2048;
-        v27 = v12;
-        v28 = 2114;
-        v29 = v3;
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch home data %ld time(s) with error: %{public}@. Giving up.", &v24, 0x20u);
+        v23 = 138543874;
+        v24 = v11;
+        v25 = 2048;
+        v26 = v12;
+        v27 = 2114;
+        v28 = v3;
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch home data %ld time(s) with error: %{public}@. Giving up.", &v23, 0x20u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -701,18 +693,18 @@ uint64_t __55__HMDResidentSyncClient__reallyPerformFetchWithReason___block_invok
 
     if (v10)
     {
-      v21 = HMFGetLogIdentifier();
-      v22 = v8[17];
+      v20 = HMFGetLogIdentifier();
+      v21 = v8[17];
       [v8[13] timeInterval];
-      v24 = 138544130;
-      v25 = v21;
-      v26 = 2048;
-      v27 = v22;
-      v28 = 2114;
-      v29 = v3;
-      v30 = 2048;
-      v31 = v23;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch home data %ld time(s) with error: %{public}@ (will retry in %.0lf seconds)", &v24, 0x2Au);
+      v23 = 138544130;
+      v24 = v20;
+      v25 = 2048;
+      v26 = v21;
+      v27 = 2114;
+      v28 = v3;
+      v29 = 2048;
+      v30 = v22;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch home data %ld time(s) with error: %{public}@ (will retry in %.0lf seconds)", &v23, 0x2Au);
     }
   }
 
@@ -725,13 +717,13 @@ uint64_t __55__HMDResidentSyncClient__reallyPerformFetchWithReason___block_invok
     {
       v13 = HMFGetLogIdentifier();
       [v8[13] timeInterval];
-      v24 = 138543874;
-      v25 = v13;
-      v26 = 2048;
-      v27 = v14;
-      v28 = 2114;
-      v29 = v3;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch home data (will retry in %.0lf seconds): %{public}@", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v13;
+      v25 = 2048;
+      v26 = v14;
+      v27 = 2114;
+      v28 = v3;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch home data (will retry in %.0lf seconds): %{public}@", &v23, 0x20u);
     }
   }
 
@@ -755,13 +747,12 @@ LABEL_11:
   v18 = 2;
 LABEL_16:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (uint64_t)_applyAndSaveHomeDataChanges:(void *)changes forRequest:(void *)request previousLastSeenToken:(void *)token versionChecksum:(void *)checksum error:
 {
-  v206 = *MEMORY[0x277D85DE8];
+  v205 = *MEMORY[0x277D85DE8];
   v11 = a2;
   changesCopy = changes;
   requestCopy = request;
@@ -798,7 +789,7 @@ LABEL_16:
       v25 = changesCopy;
       v27 = v26 = tokenCopy;
       *buf = 138543362;
-      v193 = v27;
+      v192 = v27;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Invalid home data response, missing response type", buf, 0xCu);
 
       tokenCopy = v26;
@@ -821,7 +812,7 @@ LABEL_16:
     goto LABEL_127;
   }
 
-  v187 = [objc_alloc(MEMORY[0x277D0F880]) initWithName:@"com.apple.homed.resident-sync"];
+  v186 = [objc_alloc(MEMORY[0x277D0F880]) initWithName:@"com.apple.homed.resident-sync"];
   v18 = [v11 objectForKeyedSubscript:@"etag"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -838,16 +829,16 @@ LABEL_16:
 
   if (v20)
   {
-    v189 = [self decodeToken:v20 error:0];
+    v188 = [self decodeToken:v20 error:0];
   }
 
   else
   {
-    v189 = 0;
+    v188 = 0;
   }
 
   integerValue = [(__CFString *)v17 integerValue];
-  v188 = requestCopy;
+  v187 = requestCopy;
   if ((integerValue - 1) < 2)
   {
     v30 = changesCopy;
@@ -864,18 +855,18 @@ LABEL_16:
     }
 
     v33 = v32;
-    v186 = v31;
+    v185 = v31;
 
     if (v33)
     {
-      if (v189)
+      if (v188)
       {
         changesCopy = v30;
         goto LABEL_25;
       }
 
-      v179 = v17;
-      v184 = v11;
+      v178 = v17;
+      v183 = v11;
       v58 = 0;
       v59 = v20;
       v70 = objc_autoreleasePoolPush();
@@ -886,7 +877,7 @@ LABEL_16:
         HMFGetLogIdentifier();
         v74 = v73 = tokenCopy;
         *buf = 138543362;
-        v193 = v74;
+        v192 = v74;
         _os_log_impl(&dword_229538000, v72, OS_LOG_TYPE_ERROR, "%{public}@Invalid home data response, missing change token", buf, 0xCu);
 
         tokenCopy = v73;
@@ -902,9 +893,9 @@ LABEL_16:
 
     else
     {
-      v179 = v17;
-      v184 = v11;
-      v58 = v189;
+      v178 = v17;
+      v183 = v11;
+      v58 = v188;
       v59 = v20;
       v60 = objc_autoreleasePoolPush();
       selfCopy3 = self;
@@ -914,7 +905,7 @@ LABEL_16:
         HMFGetLogIdentifier();
         v64 = v63 = tokenCopy;
         *buf = 138543362;
-        v193 = v64;
+        v192 = v64;
         _os_log_impl(&dword_229538000, v62, OS_LOG_TYPE_ERROR, "%{public}@Invalid home data response, missing data payload", buf, 0xCu);
 
         tokenCopy = v63;
@@ -929,10 +920,10 @@ LABEL_16:
 LABEL_53:
         v20 = v59;
         v39 = v58;
-        v11 = v184;
-        v17 = v179;
+        v11 = v183;
+        v17 = v178;
 LABEL_125:
-        requestCopy = v188;
+        requestCopy = v187;
         goto LABEL_126;
       }
     }
@@ -954,9 +945,9 @@ LABEL_125:
       v55 = changesCopy;
       v57 = v56 = tokenCopy;
       *buf = 138543618;
-      v193 = v57;
-      v194 = 2114;
-      v195 = v17;
+      v192 = v57;
+      v193 = 2114;
+      v194 = v17;
       _os_log_impl(&dword_229538000, v54, OS_LOG_TYPE_ERROR, "%{public}@Invalid home data response, invalid response type: %{public}@", buf, 0x16u);
 
       tokenCopy = v56;
@@ -976,11 +967,11 @@ LABEL_125:
     }
 
     v20 = v51;
-    v39 = v189;
+    v39 = v188;
     goto LABEL_125;
   }
 
-  v186 = 0;
+  v185 = 0;
 LABEL_25:
   v34 = &OBJC_IVAR___HMDCameraMetricsLogEvent__accessory;
   if (self[12] || ([(HMDResidentSyncClient *)self _fetchOrCreateMetadataWithError:checksum]& 1) != 0)
@@ -990,7 +981,7 @@ LABEL_25:
     [v35 setQueryGenerationFromToken:currentQueryGenerationToken error:0];
 
     home = [self[12] home];
-    v183 = v20;
+    v182 = v20;
     if (!home)
     {
       v65 = objc_autoreleasePoolPush();
@@ -999,16 +990,16 @@ LABEL_25:
       if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v68 = v177 = tokenCopy;
+        v68 = v176 = tokenCopy;
         shortDescription = [changesCopy shortDescription];
         *buf = 138543618;
-        v193 = v68;
-        v194 = 2114;
-        v195 = shortDescription;
+        v192 = v68;
+        v193 = 2114;
+        v194 = shortDescription;
         _os_log_impl(&dword_229538000, v67, OS_LOG_TYPE_ERROR, "%{public}@Unable to apply home data for %{public}@, home has been removed", buf, 0x16u);
 
         v34 = &OBJC_IVAR___HMDCameraMetricsLogEvent__accessory;
-        tokenCopy = v177;
+        tokenCopy = v176;
       }
 
       objc_autoreleasePoolPop(v65);
@@ -1031,20 +1022,20 @@ LABEL_25:
     [self[12] setLastSyncTimestamp:v37];
 
     integerValue2 = [(__CFString *)v17 integerValue];
-    v39 = v189;
-    v175 = changesCopy;
-    v176 = tokenCopy;
+    v39 = v188;
+    v174 = changesCopy;
+    v175 = tokenCopy;
     context = integerValue2;
-    if (v189)
+    if (v188)
     {
       v40 = integerValue2 == 1;
       lastSyncToken = [self[12] lastSyncToken];
-      LOBYTE(v40) = [(HMDResidentSyncController *)self changeToken:v189 isAheadOf:lastSyncToken orEqual:v40];
+      LOBYTE(v40) = [(HMDResidentSyncController *)self changeToken:v188 isAheadOf:lastSyncToken orEqual:v40];
 
       if (v40)
       {
-        [self[12] setLastSyncToken:v189];
-        if (v186)
+        [self[12] setLastSyncToken:v188];
+        if (v185)
         {
           integerValue3 = [(__CFString *)v17 integerValue];
           v42 = objc_autoreleasePoolPush();
@@ -1052,10 +1043,10 @@ LABEL_25:
           v44 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
           {
-            v164 = v42;
+            v163 = v42;
             v45 = HMFGetLogIdentifier();
             shortDescription2 = [changesCopy shortDescription];
-            v47 = HMDShortDescriptionForToken(v189);
+            v47 = HMDShortDescriptionForToken(v188);
             v48 = v47;
             if (integerValue3 > 2)
             {
@@ -1068,22 +1059,22 @@ LABEL_25:
             }
 
             *buf = 138544130;
-            v193 = v45;
-            v194 = 2112;
-            v195 = shortDescription2;
-            v196 = 2114;
-            v197 = v47;
-            v198 = 2114;
-            v199 = v49;
+            v192 = v45;
+            v193 = 2112;
+            v194 = shortDescription2;
+            v195 = 2114;
+            v196 = v47;
+            v197 = 2114;
+            v198 = v49;
             _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_INFO, "%{public}@Applying home data changes for %@ with change token %{public}@, homeDataType: %{public}@", buf, 0x2Au);
 
-            v42 = v164;
+            v42 = v163;
           }
 
           objc_autoreleasePoolPop(v42);
-          v166 = v186;
-          v163 = v11;
-          v129 = [v163 objectForKeyedSubscript:@"kRemoteMessageTransportAttributionKey"];
+          v165 = v185;
+          v162 = v11;
+          v129 = [v162 objectForKeyedSubscript:@"kRemoteMessageTransportAttributionKey"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -1097,8 +1088,8 @@ LABEL_25:
 
           v131 = v130;
 
-          v185 = v11;
-          v168 = v131;
+          v184 = v11;
+          v167 = v131;
           if (v131)
           {
             integerValue4 = [(__CFString *)v131 integerValue];
@@ -1117,9 +1108,9 @@ LABEL_25:
                 v136 = HMFGetLogIdentifier();
                 v137 = @"Unknown";
                 *buf = 138543618;
-                v193 = v136;
-                v194 = 2114;
-                v195 = @"Unknown";
+                v192 = v136;
+                v193 = 2114;
+                v194 = @"Unknown";
                 _os_log_impl(&dword_229538000, v135, OS_LOG_TYPE_ERROR, "%{public}@Unexpected transport type: %{public}@, not generating log event", buf, 0x16u);
 
                 v34 = &OBJC_IVAR___HMDCameraMetricsLogEvent__accessory;
@@ -1143,9 +1134,9 @@ LABEL_108:
               {
                 v142 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v193 = v142;
-                v194 = 2112;
-                v195 = v168;
+                v192 = v142;
+                v193 = 2112;
+                v194 = v167;
                 _os_log_impl(&dword_229538000, v141, OS_LOG_TYPE_ERROR, "%{public}@Unknown transport type (%@). Log it anyway", buf, 0x16u);
               }
 
@@ -1164,8 +1155,8 @@ LABEL_108:
             logEventSubmitter = [selfCopy6 logEventSubmitter];
             v144 = [HMDResidentSyncClientHomeDataLogEvent alloc];
             v145 = selfCopy6[2];
-            v146 = v166;
-            v147 = [v166 length];
+            v146 = v165;
+            v147 = [v165 length];
             v148 = v145;
             v34 = &OBJC_IVAR___HMDCameraMetricsLogEvent__accessory;
             v149 = [(HMDResidentSyncClientHomeDataLogEvent *)v144 initWithHomeUUID:v148 encodedDataSize:v147 homeDataType:integerValue3 transportType:integerValue5];
@@ -1177,20 +1168,20 @@ LABEL_116:
             {
 
               v86 = 0;
-              tokenCopy = v176;
-              v20 = v183;
-              v39 = v189;
+              tokenCopy = v175;
+              v20 = v182;
+              v39 = v188;
 LABEL_64:
               lastSeenToken = [self[12] lastSeenToken];
               lastSyncToken2 = [self[12] lastSyncToken];
-              v172 = lastSeenToken;
-              v190 = lastSyncToken2;
+              v171 = lastSeenToken;
+              v189 = lastSyncToken2;
               if (v39 && [self changeToken:v39 isAheadOf:lastSeenToken])
               {
                 [self[12] setLastSeenToken:v39];
               }
 
-              else if (([self changeToken:lastSeenToken isAheadOf:v188] & 1) == 0 && objc_msgSend(self, "changeToken:isAheadOf:", lastSeenToken, lastSyncToken2))
+              else if (([self changeToken:lastSeenToken isAheadOf:v187] & 1) == 0 && objc_msgSend(self, "changeToken:isAheadOf:", lastSeenToken, lastSyncToken2))
               {
                 v89 = objc_autoreleasePoolPush();
                 selfCopy7 = self;
@@ -1198,29 +1189,29 @@ LABEL_64:
                 if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
                 {
                   v92 = HMFGetLogIdentifier();
-                  HMDShortDescriptionForToken(v172);
-                  v180 = v17;
+                  HMDShortDescriptionForToken(v171);
+                  v179 = v17;
                   v93 = v11;
                   v95 = v94 = v39;
-                  v96 = HMDShortDescriptionForToken(v190);
+                  v96 = HMDShortDescriptionForToken(v189);
                   *buf = 138543874;
-                  v193 = v92;
-                  v194 = 2114;
-                  v195 = v95;
-                  v196 = 2114;
-                  v197 = v96;
+                  v192 = v92;
+                  v193 = 2114;
+                  v194 = v95;
+                  v195 = 2114;
+                  v196 = v96;
                   _os_log_impl(&dword_229538000, v91, OS_LOG_TYPE_DEFAULT, "%{public}@Reverting last seen token %{public}@ to last sync token %{public}@ after successful fetch", buf, 0x20u);
 
                   v39 = v94;
                   v11 = v93;
-                  v17 = v180;
+                  v17 = v179;
 
-                  tokenCopy = v176;
+                  tokenCopy = v175;
                 }
 
                 objc_autoreleasePoolPop(v89);
-                [selfCopy7[12] setLastSeenToken:v190];
-                v20 = v183;
+                [selfCopy7[12] setLastSeenToken:v189];
+                v20 = v182;
               }
 
               if (tokenCopy)
@@ -1257,11 +1248,11 @@ LABEL_64:
                   v105 = v11;
                   v107 = v106 = v39;
                   *buf = 138543874;
-                  v193 = v103;
-                  v194 = 2114;
-                  v195 = v107;
-                  v196 = 2114;
-                  v197 = v102;
+                  v192 = v103;
+                  v193 = 2114;
+                  v194 = v107;
+                  v195 = 2114;
+                  v196 = v102;
                   _os_log_impl(&dword_229538000, v101, OS_LOG_TYPE_INFO, "%{public}@Updating the lastSyncChecksum from: %{public}@ to %{public}@", buf, 0x20u);
 
                   v39 = v106;
@@ -1273,22 +1264,22 @@ LABEL_64:
 
                 objc_autoreleasePoolPop(v99);
                 [selfCopy8[12] setLastSyncChecksum:tokenCopy];
-                v20 = v183;
+                v20 = v182;
               }
 
               insertedObjects = [self[4] insertedObjects];
-              v167 = [insertedObjects count];
+              v166 = [insertedObjects count];
 
               updatedObjects = [self[4] updatedObjects];
-              v165 = [updatedObjects count];
+              v164 = [updatedObjects count];
 
               deletedObjects = [self[4] deletedObjects];
               v111 = [deletedObjects count];
 
               v112 = self[4];
-              v191 = 0;
-              v28 = [v112 save:&v191];
-              v113 = v191;
+              v190 = 0;
+              v28 = [v112 save:&v190];
+              v113 = v190;
               contexta = objc_autoreleasePoolPush();
               selfCopy9 = self;
               v115 = HMFGetOSLogHandle();
@@ -1298,32 +1289,32 @@ LABEL_64:
                 if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
                 {
                   HMFGetLogIdentifier();
-                  v117 = v170 = v113;
-                  shortDescription3 = [v175 shortDescription];
+                  v117 = v169 = v113;
+                  shortDescription3 = [v174 shortDescription];
                   HMDShortDescriptionForToken(v39);
-                  v181 = v17;
+                  v180 = v17;
                   v119 = v11;
                   v121 = v120 = v39;
                   *buf = 138544642;
-                  v193 = v117;
-                  v194 = 2048;
-                  v195 = v167;
-                  v196 = 2048;
-                  v197 = v165;
-                  v198 = 2048;
-                  v199 = v111;
-                  v200 = 2112;
-                  v201 = shortDescription3;
-                  v202 = 2114;
-                  v203 = v121;
+                  v192 = v117;
+                  v193 = 2048;
+                  v194 = v166;
+                  v195 = 2048;
+                  v196 = v164;
+                  v197 = 2048;
+                  v198 = v111;
+                  v199 = 2112;
+                  v200 = shortDescription3;
+                  v201 = 2114;
+                  v202 = v121;
                   _os_log_impl(&dword_229538000, v116, OS_LOG_TYPE_DEFAULT, "%{public}@Database changes saved (%tu / %tu / %tu) for %@ with change token %{public}@", buf, 0x3Eu);
 
-                  v20 = v183;
+                  v20 = v182;
                   v39 = v120;
                   v11 = v119;
-                  v17 = v181;
+                  v17 = v180;
 
-                  v113 = v170;
+                  v113 = v169;
                 }
 
                 objc_autoreleasePoolPop(contexta);
@@ -1334,32 +1325,32 @@ LABEL_64:
                 if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
                 {
                   HMFGetLogIdentifier();
-                  v122 = v162 = v111;
-                  shortDescription4 = [v175 shortDescription];
+                  v122 = v161 = v111;
+                  shortDescription4 = [v174 shortDescription];
                   HMDShortDescriptionForToken(v39);
-                  v182 = v17;
+                  v181 = v17;
                   v124 = v11;
                   v126 = v125 = v39;
                   *buf = 138544898;
-                  v193 = v122;
-                  v194 = 2048;
-                  v195 = v167;
-                  v196 = 2048;
-                  v197 = v165;
-                  v198 = 2048;
-                  v199 = v162;
-                  v200 = 2112;
-                  v201 = shortDescription4;
-                  v202 = 2114;
-                  v203 = v126;
-                  v204 = 2114;
-                  v205 = v113;
+                  v192 = v122;
+                  v193 = 2048;
+                  v194 = v166;
+                  v195 = 2048;
+                  v196 = v164;
+                  v197 = 2048;
+                  v198 = v161;
+                  v199 = 2112;
+                  v200 = shortDescription4;
+                  v201 = 2114;
+                  v202 = v126;
+                  v203 = 2114;
+                  v204 = v113;
                   _os_log_impl(&dword_229538000, v116, OS_LOG_TYPE_ERROR, "%{public}@Failed to save database changes (%tu / %tu / %tu) for %@ with change token %{public}@: %{public}@", buf, 0x48u);
 
-                  v20 = v183;
+                  v20 = v182;
                   v39 = v125;
                   v11 = v124;
-                  v17 = v182;
+                  v17 = v181;
                 }
 
                 objc_autoreleasePoolPop(contexta);
@@ -1371,8 +1362,8 @@ LABEL_64:
                 [self[4] rollback];
               }
 
-              changesCopy = v175;
-              tokenCopy = v176;
+              changesCopy = v174;
+              tokenCopy = v175;
               v34 = &OBJC_IVAR___HMDCameraMetricsLogEvent__accessory;
 
               goto LABEL_124;
@@ -1389,9 +1380,9 @@ LABEL_64:
               [v151 error];
               v159 = v158 = changesCopy;
               *buf = 138543618;
-              v193 = v157;
-              v194 = 2114;
-              v195 = v159;
+              v192 = v157;
+              v193 = 2114;
+              v194 = v159;
               _os_log_impl(&dword_229538000, v156, OS_LOG_TYPE_ERROR, "%{public}@Failed to apply home data: %{public}@", buf, 0x16u);
 
               changesCopy = v158;
@@ -1399,7 +1390,7 @@ LABEL_64:
             }
 
             objc_autoreleasePoolPop(v154);
-            v11 = v185;
+            v11 = v184;
             if (checksumCopy2)
             {
               *checksumCopy2 = [v151 error];
@@ -1408,10 +1399,10 @@ LABEL_64:
             [self[4] rollback];
 
             v28 = 0;
-            tokenCopy = v176;
+            tokenCopy = v175;
 LABEL_123:
-            v20 = v183;
-            v39 = v189;
+            v20 = v182;
+            v39 = v188;
 LABEL_124:
 
             [self[4] refreshAllObjects];
@@ -1428,7 +1419,7 @@ LABEL_124:
           {
             v150 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v193 = v150;
+            v192 = v150;
             _os_log_impl(&dword_229538000, v135, OS_LOG_TYPE_ERROR, "%{public}@Unexpected HMDFetchHomeDataResponseType_NotModified, not generating log event", buf, 0xCu);
 
             v34 = &OBJC_IVAR___HMDCameraMetricsLogEvent__accessory;
@@ -1437,28 +1428,28 @@ LABEL_124:
 LABEL_115:
 
           objc_autoreleasePoolPop(v133);
-          v146 = v166;
+          v146 = v165;
           goto LABEL_116;
         }
 
         v75 = objc_autoreleasePoolPush();
         selfCopy12 = self;
         v77 = HMFGetOSLogHandle();
-        v39 = v189;
+        v39 = v188;
         if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
         {
           v78 = HMFGetLogIdentifier();
           shortDescription5 = [changesCopy shortDescription];
-          v128 = HMDShortDescriptionForToken(v189);
+          v128 = HMDShortDescriptionForToken(v188);
           *buf = 138543874;
-          v193 = v78;
-          v194 = 2112;
-          v195 = shortDescription5;
-          v196 = 2114;
-          v197 = v128;
+          v192 = v78;
+          v193 = 2112;
+          v194 = shortDescription5;
+          v195 = 2114;
+          v196 = v128;
           _os_log_impl(&dword_229538000, v77, OS_LOG_TYPE_INFO, "%{public}@Applying last sync token update only for %@ with change token %{public}@", buf, 0x20u);
 
-          v39 = v189;
+          v39 = v188;
           goto LABEL_62;
         }
 
@@ -1466,7 +1457,7 @@ LABEL_63:
 
         objc_autoreleasePoolPop(v75);
         v86 = 1;
-        v20 = v183;
+        v20 = v182;
         goto LABEL_64;
       }
 
@@ -1482,11 +1473,11 @@ LABEL_63:
       [changesCopy shortDescription];
       v79 = v17;
       v80 = v11;
-      v82 = v81 = v189;
+      v82 = v81 = v188;
       *buf = 138543618;
-      v193 = v78;
-      v194 = 2114;
-      v195 = v82;
+      v192 = v78;
+      v193 = 2114;
+      v194 = v82;
       v83 = "%{public}@Not persisting stale home data for %{public}@ (incoming change token is not ahead of last sync)";
       v84 = v77;
       v85 = OS_LOG_TYPE_DEFAULT;
@@ -1508,9 +1499,9 @@ LABEL_63:
       v80 = v11;
       v82 = v81 = 0;
       *buf = 138543618;
-      v193 = v78;
-      v194 = 2114;
-      v195 = v82;
+      v192 = v78;
+      v193 = 2114;
+      v194 = v82;
       v83 = "%{public}@Updating last sync timestamp only for %{public}@";
       v84 = v77;
       v85 = OS_LOG_TYPE_INFO;
@@ -1523,19 +1514,18 @@ LABEL_63:
     v17 = v79;
 LABEL_62:
 
-    tokenCopy = v176;
+    tokenCopy = v175;
     goto LABEL_63;
   }
 
   v28 = 0;
-  requestCopy = v188;
-  v39 = v189;
+  requestCopy = v187;
+  v39 = v188;
 LABEL_126:
 
 LABEL_127:
 LABEL_128:
 
-  v160 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -1608,15 +1598,15 @@ LABEL_13:
 
 - (uint64_t)_fetchOrCreateMetadataWithError:(uint64_t)result
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v3 = result;
     v4 = *(result + 16);
     v5 = *(result + 32);
-    v29 = 0;
-    v6 = [(_MKFModel *)_MKFHome modelWithModelID:v4 context:v5 error:&v29];
-    v7 = v29;
+    v28 = 0;
+    v6 = [(_MKFModel *)_MKFHome modelWithModelID:v4 context:v5 error:&v28];
+    v7 = v28;
     if (!v6)
     {
       v11 = objc_autoreleasePoolPush();
@@ -1626,9 +1616,9 @@ LABEL_13:
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v32 = v14;
-        v33 = 2114;
-        v34 = v7;
+        v31 = v14;
+        v32 = 2114;
+        v33 = v7;
         _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unable to find or create resident sync metadata, home not found: %{public}@", buf, 0x16u);
       }
 
@@ -1639,7 +1629,7 @@ LABEL_13:
         *a2 = v7;
       }
 
-      v30 = 0;
+      v29 = 0;
       goto LABEL_16;
     }
 
@@ -1659,7 +1649,7 @@ LABEL_13:
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v32 = v19;
+        v31 = v19;
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Creating initial resident sync metadata", buf, 0xCu);
       }
 
@@ -1667,26 +1657,26 @@ LABEL_13:
       v9 = [[MKFResidentSyncMetadata alloc] initWithContext:v3[4]];
       [(MKFResidentSyncMetadata *)v9 setHome:v6];
       v20 = v3[4];
-      v28 = v7;
-      v21 = [v20 save:&v28];
-      v10 = v28;
+      v27 = v7;
+      v21 = [v20 save:&v27];
+      v10 = v27;
 
       if ((v21 & 1) == 0)
       {
-        v24 = objc_autoreleasePoolPush();
-        v25 = v17;
-        v26 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v23 = objc_autoreleasePoolPush();
+        v24 = v17;
+        v25 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          v27 = HMFGetLogIdentifier();
+          v26 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v32 = v27;
-          v33 = 2114;
-          v34 = v10;
-          _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to save resident sync metadata: %{public}@", buf, 0x16u);
+          v31 = v26;
+          v32 = 2114;
+          v33 = v10;
+          _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to save resident sync metadata: %{public}@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v24);
+        objc_autoreleasePoolPop(v23);
         if (a2)
         {
           *a2 = HMDSanitizeCoreDataError(v10);
@@ -1705,15 +1695,14 @@ LABEL_13:
     objc_storeStrong(v3 + 12, v9);
     v22 = 1;
 LABEL_15:
-    v30 = v22;
+    v29 = v22;
 
     v7 = v10;
 LABEL_16:
 
-    result = v30;
+    return v29;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1796,7 +1785,7 @@ id *__38__HMDResidentSyncClient_timerDidFire___block_invoke(uint64_t a1)
 
 uint64_t __56__HMDResidentSyncClient_performResidentRequest_options___block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   if ([*(*(a1 + 32) + 64) isCurrentDevicePrimaryResident])
   {
     v2 = objc_autoreleasePoolPush();
@@ -1807,9 +1796,9 @@ uint64_t __56__HMDResidentSyncClient_performResidentRequest_options___block_invo
       v5 = HMFGetLogIdentifier();
       v6 = [*(a1 + 40) shortDescription];
       *buf = 138543618;
-      v46 = v5;
-      v47 = 2112;
-      v48 = v6;
+      v45 = v5;
+      v46 = 2112;
+      v47 = v6;
       _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_ERROR, "%{public}@Unable to dispatch resident request '%@': this device is the primary resident", buf, 0x16u);
     }
 
@@ -1857,11 +1846,11 @@ uint64_t __56__HMDResidentSyncClient_performResidentRequest_options___block_invo
     v17 = [*(a1 + 40) name];
     v18 = [*(a1 + 40) qualityOfService];
     v19 = *(a1 + 48);
-    v20 = [v10 copy];
+    v20 = objc_msgSend_copy(v10);
     v21 = [*(a1 + 40) headers];
     [*(a1 + 40) timeout];
-    LOBYTE(v39) = 1;
-    v23 = -[HMDRemoteMessage initWithName:qualityOfService:destination:payload:headers:type:timeout:secure:restriction:sendOptions:](v16, "initWithName:qualityOfService:destination:payload:headers:type:timeout:secure:restriction:sendOptions:", v17, v18, v19, v20, v21, 3, v22, v39, [*(a1 + 40) remoteRestriction], 0);
+    LOBYTE(v38) = 1;
+    v23 = -[HMDRemoteMessage initWithName:qualityOfService:destination:payload:headers:type:timeout:secure:restriction:sendOptions:](v16, "initWithName:qualityOfService:destination:payload:headers:type:timeout:secure:restriction:sendOptions:", v17, v18, v19, v20, v21, 3, v22, v38, [*(a1 + 40) remoteRestriction], 0);
 
     v24 = objc_autoreleasePoolPush();
     v25 = *(a1 + 32);
@@ -1872,35 +1861,35 @@ uint64_t __56__HMDResidentSyncClient_performResidentRequest_options___block_invo
       v28 = [*(a1 + 40) shortDescription];
       v29 = [(HMFObject *)v23 shortDescription];
       *buf = 138543874;
-      v46 = v27;
-      v47 = 2112;
-      v48 = v28;
-      v49 = 2112;
-      v50 = v29;
+      v45 = v27;
+      v46 = 2112;
+      v47 = v28;
+      v48 = 2112;
+      v49 = v29;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Dispatching resident request '%@' using remote message: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v24);
     [*(*(a1 + 32) + 88) addObject:v23];
     v30 = [*(*(a1 + 32) + 56) sendMessageExpectingResponse:v23];
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __56__HMDResidentSyncClient_performResidentRequest_options___block_invoke_234;
-    v42[3] = &unk_27867CF60;
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __56__HMDResidentSyncClient_performResidentRequest_options___block_invoke_234;
+    v41[3] = &unk_27867CF60;
     v31 = *(a1 + 40);
-    v42[4] = *(a1 + 32);
-    v43 = v31;
+    v41[4] = *(a1 + 32);
+    v42 = v31;
     v32 = v23;
-    v44 = v32;
-    v33 = [v30 then:v42];
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __56__HMDResidentSyncClient_performResidentRequest_options___block_invoke_239;
-    v40[3] = &unk_2786898D8;
-    v40[4] = *(a1 + 32);
+    v43 = v32;
+    v33 = [v30 then:v41];
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __56__HMDResidentSyncClient_performResidentRequest_options___block_invoke_239;
+    v39[3] = &unk_2786898D8;
+    v39[4] = *(a1 + 32);
     v34 = v32;
-    v41 = v34;
-    v35 = [v33 finally:v40];
+    v40 = v34;
+    v35 = [v33 finally:v39];
     if (!v35)
     {
       _HMFPreconditionFailure();
@@ -1911,13 +1900,12 @@ uint64_t __56__HMDResidentSyncClient_performResidentRequest_options___block_invo
     v9 = 3;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 uint64_t __56__HMDResidentSyncClient_performResidentRequest_options___block_invoke_234(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 hmf_dictionaryForKey:@"$HMDRS$"];
   if (!v4)
@@ -1930,11 +1918,11 @@ uint64_t __56__HMDResidentSyncClient_performResidentRequest_options___block_invo
       v14 = HMFGetLogIdentifier();
       v15 = [*(a1 + 40) shortDescription];
       *buf = 138543874;
-      v28 = v14;
-      v29 = 2112;
-      v30 = v15;
-      v31 = 2114;
-      v32 = @"$HMDRS$";
+      v27 = v14;
+      v28 = 2112;
+      v29 = v15;
+      v30 = 2114;
+      v31 = @"$HMDRS$";
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Resident response payload for '%@' is missing resident sync details key (%{public}@)", buf, 0x20u);
     }
 
@@ -1959,9 +1947,9 @@ LABEL_15:
 
   v5 = *(a1 + 32);
   v6 = *(a1 + 48);
-  v26 = 0;
-  v7 = [(HMDResidentSyncClient *)v5 _applyAndSaveHomeDataChanges:v4 forRequest:v6 previousLastSeenToken:0 versionChecksum:0 error:&v26];
-  v8 = v26;
+  v25 = 0;
+  v7 = [(HMDResidentSyncClient *)v5 _applyAndSaveHomeDataChanges:v4 forRequest:v6 previousLastSeenToken:0 versionChecksum:0 error:&v25];
+  v8 = v25;
   if ((v7 & 1) == 0)
   {
     v17 = objc_autoreleasePoolPush();
@@ -1972,9 +1960,9 @@ LABEL_15:
       v20 = HMFGetLogIdentifier();
       v21 = [*(a1 + 40) shortDescription];
       *buf = 138543618;
-      v28 = v20;
-      v29 = 2112;
-      v30 = v21;
+      v27 = v20;
+      v28 = 2112;
+      v29 = v21;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Resident response for '%@' was success but local database save failed, returning partial success error code", buf, 0x16u);
     }
 
@@ -1997,11 +1985,10 @@ LABEL_15:
 
   v9 = [v3 mutableCopy];
   [v9 removeObjectForKey:@"$HMDRS$"];
-  [v9 copy];
+  objc_msgSend_copy(v9);
   v10 = 1;
 LABEL_16:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -2014,7 +2001,7 @@ uint64_t __56__HMDResidentSyncClient_performResidentRequest_options___block_invo
 
 - (void)handlePrimaryResidentChanged:(id)changed
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   WeakRetained = objc_loadWeakRetained(&self->super._home);
   v6 = WeakRetained;
@@ -2047,14 +2034,14 @@ uint64_t __56__HMDResidentSyncClient_performResidentRequest_options___block_invo
   if ([v13 isCurrentDevice])
   {
     context = self->super._context;
-    v26 = MEMORY[0x277D85DD0];
-    v27 = 3221225472;
-    v28 = __54__HMDResidentSyncClient_handlePrimaryResidentChanged___block_invoke;
-    v29 = &unk_27868A728;
+    v25 = MEMORY[0x277D85DD0];
+    v26 = 3221225472;
+    v27 = __54__HMDResidentSyncClient_handlePrimaryResidentChanged___block_invoke;
+    v28 = &unk_27868A728;
     selfCopy = self;
-    v15 = &v26;
+    v15 = &v25;
 LABEL_12:
-    [(HMDManagedObjectContext *)context performBlock:v15, v21, v22, v23, v24, v25, v26, v27, v28, v29, selfCopy];
+    [(HMDManagedObjectContext *)context performBlock:v15, v20, v21, v22, v23, v24, v25, v26, v27, v28, selfCopy];
     goto LABEL_13;
   }
 
@@ -2067,24 +2054,22 @@ LABEL_12:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v19;
+      v31 = v19;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Primary resident changed, asking the new primary for an update", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v16);
     context = selfCopy2->super._context;
-    v21 = MEMORY[0x277D85DD0];
-    v22 = 3221225472;
-    v23 = __54__HMDResidentSyncClient_handlePrimaryResidentChanged___block_invoke_223;
-    v24 = &unk_27868A728;
-    v25 = selfCopy2;
-    v15 = &v21;
+    v20 = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = __54__HMDResidentSyncClient_handlePrimaryResidentChanged___block_invoke_223;
+    v23 = &unk_27868A728;
+    v24 = selfCopy2;
+    v15 = &v20;
     goto LABEL_12;
   }
 
 LABEL_13:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDResidentSyncClient_handlePrimaryResidentChanged___block_invoke(uint64_t a1)
@@ -2138,26 +2123,25 @@ void __54__HMDResidentSyncClient_handlePrimaryResidentChanged___block_invoke(uin
 
 - (id)start
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   context = self->super._context;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __30__HMDResidentSyncClient_start__block_invoke;
-  v12[3] = &unk_27868A700;
-  v12[4] = self;
-  v4 = [MEMORY[0x277D0F7C0] inContext:context perform:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __30__HMDResidentSyncClient_start__block_invoke;
+  v11[3] = &unk_27868A700;
+  v11[4] = self;
+  v4 = [MEMORY[0x277D0F7C0] inContext:context perform:v11];
   WeakRetained = objc_loadWeakRetained(&self->super._home);
   v6 = [HMDUserMessagePolicy userMessagePolicyWithHome:WeakRetained userPrivilege:3 remoteAccessRequired:0];
 
   dispatcher = self->_dispatcher;
-  v13[0] = v6;
+  v12[0] = v6;
   v8 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
-  v13[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   [(HMFMessageDispatcher *)dispatcher registerForMessage:@"HMDHomeDataChangedMessage" receiver:self policies:v9 selector:sel__handleHomeDataChanged_];
 
   [(NSNotificationCenter *)self->super._notificationCenter addObserver:self selector:sel_handlePrimaryResidentChanged_ name:@"HMDResidentDeviceManagerUpdatePrimaryResidentNotification" object:self->_residentDeviceManager];
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

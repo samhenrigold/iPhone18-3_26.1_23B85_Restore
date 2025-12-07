@@ -27,10 +27,10 @@
 
 - (CLFindMyAccessoryFirmwareVersion)initWithData:(id)data
 {
-  bytes = [data bytes];
-  v6 = [data length];
+  v6 = objc_msgSend_bytes(data, a2, data, v3);
+  v11 = objc_msgSend_length(data, v7, v8, v9);
 
-  return [(CLFindMyAccessoryFirmwareVersion *)self initWithBytes:bytes length:v6];
+  return objc_msgSend_initWithBytes_length_(self, v10, v6, v11);
 }
 
 - (void)dealloc
@@ -43,20 +43,21 @@
 
 - (id)description
 {
-  v3 = MEMORY[0x1E696AEC0];
-  vanBurenVersion = [(CLFindMyAccessoryFirmwareVersion *)self vanBurenVersion];
-  rtKitVersion = [(CLFindMyAccessoryFirmwareVersion *)self rtKitVersion];
-  roseAPVersion = [(CLFindMyAccessoryFirmwareVersion *)self roseAPVersion];
-  roseDSPVersion = [(CLFindMyAccessoryFirmwareVersion *)self roseDSPVersion];
-  calibrationDataVersion = [(CLFindMyAccessoryFirmwareVersion *)self calibrationDataVersion];
-  debugVariant = [(CLFindMyAccessoryFirmwareVersion *)self debugVariant];
-  v10 = "NO";
-  if (debugVariant)
+  v5 = MEMORY[0x1E696AEC0];
+  v6 = objc_msgSend_vanBurenVersion(self, a2, v2, v3);
+  v10 = objc_msgSend_rtKitVersion(self, v7, v8, v9);
+  v14 = objc_msgSend_roseAPVersion(self, v11, v12, v13);
+  v18 = objc_msgSend_roseDSPVersion(self, v15, v16, v17);
+  v22 = objc_msgSend_calibrationDataVersion(self, v19, v20, v21);
+  if (objc_msgSend_debugVariant(self, v23, v24, v25))
   {
-    v10 = "YES";
+    return objc_msgSend_stringWithFormat_(v5, v26, @"CLFindMyAccessoryFirmwareVersion <%p> VanBurenVersion: %@, RTKitVersion: %@, RoseAPVersion: %lu, RoseDSPVersion: %lu, CalibrationDataVersion: %lu, DebugVariant: %s", v27, self, v6, v10, v14, v18, v22, "YES");
   }
 
-  return [v3 stringWithFormat:@"CLFindMyAccessoryFirmwareVersion <%p> VanBurenVersion: %@, RTKitVersion: %@, RoseAPVersion: %lu, RoseDSPVersion: %lu, CalibrationDataVersion: %lu, DebugVariant: %s", self, vanBurenVersion, rtKitVersion, roseAPVersion, roseDSPVersion, calibrationDataVersion, v10];
+  else
+  {
+    return objc_msgSend_stringWithFormat_(v5, v26, @"CLFindMyAccessoryFirmwareVersion <%p> VanBurenVersion: %@, RTKitVersion: %@, RoseAPVersion: %lu, RoseDSPVersion: %lu, CalibrationDataVersion: %lu, DebugVariant: %s", v27, self, v6, v10, v14, v18, v22, "NO");
+  }
 }
 
 @end

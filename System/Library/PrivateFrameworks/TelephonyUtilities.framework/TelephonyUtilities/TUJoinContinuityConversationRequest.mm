@@ -1,4 +1,5 @@
 @interface TUJoinContinuityConversationRequest
++ (id)requestForJoinWithUUID:(id)d isAudioEnabled:(BOOL)enabled isVideoEnabled:(BOOL)videoEnabled;
 + (id)requestForStagingAreaWithUUID:(id)d;
 - (TUJoinContinuityConversationRequest)initWithCoder:(id)coder;
 - (TUJoinContinuityConversationRequest)initWithUUID:(id)d isAudioEnabled:(BOOL)enabled isVideoEnabled:(BOOL)videoEnabled wantsStagingArea:(BOOL)area;
@@ -14,6 +15,16 @@
   v4 = [[TUJoinContinuityConversationRequest alloc] initWithUUID:dCopy isAudioEnabled:1 isVideoEnabled:1 wantsStagingArea:1];
 
   return v4;
+}
+
++ (id)requestForJoinWithUUID:(id)d isAudioEnabled:(BOOL)enabled isVideoEnabled:(BOOL)videoEnabled
+{
+  videoEnabledCopy = videoEnabled;
+  enabledCopy = enabled;
+  dCopy = d;
+  v8 = [[TUJoinContinuityConversationRequest alloc] initWithUUID:dCopy isAudioEnabled:enabledCopy isVideoEnabled:videoEnabledCopy wantsStagingArea:0];
+
+  return v8;
 }
 
 - (TUJoinContinuityConversationRequest)initWithUUID:(id)d isAudioEnabled:(BOOL)enabled isVideoEnabled:(BOOL)videoEnabled wantsStagingArea:(BOOL)area

@@ -46,13 +46,13 @@
 
 - (BOOL)request:(unint64_t)request vendorFeatures:(id)features
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   if (self->_source && self->_sourceGroup)
   {
     v6 = [MEMORY[0x277CBEB18] arrayWithArray:self->_selects];
     requestCopy = request;
-    v47 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:&unk_285A37038];
+    v46 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:&unk_285A37038];
     name = [(GPURawCounterSource *)self->_source name];
     val = self;
     if ([name hasPrefix:@"RDE"])
@@ -63,25 +63,25 @@
       if (unsignedIntegerValue)
       {
         v10 = objc_opt_new();
-        v61 = 0u;
-        v62 = 0u;
-        v59 = 0u;
         v60 = 0u;
+        v61 = 0u;
+        v58 = 0u;
+        v59 = 0u;
         availableCounters = [(GPURawCounterSource *)self->_source availableCounters];
-        v12 = [availableCounters countByEnumeratingWithState:&v59 objects:v69 count:16];
+        v12 = [availableCounters countByEnumeratingWithState:&v58 objects:v68 count:16];
         if (v12)
         {
-          v13 = *v60;
+          v13 = *v59;
           do
           {
             for (i = 0; i != v12; ++i)
             {
-              if (*v60 != v13)
+              if (*v59 != v13)
               {
                 objc_enumerationMutation(availableCounters);
               }
 
-              v15 = *(*(&v59 + 1) + 8 * i);
+              v15 = *(*(&v58 + 1) + 8 * i);
               name2 = [v15 name];
               v17 = [name2 rangeOfString:@"GRC_SHADER_PROFILER_DATA_"] == 0;
 
@@ -92,7 +92,7 @@
               }
             }
 
-            v12 = [availableCounters countByEnumeratingWithState:&v59 objects:v69 count:16];
+            v12 = [availableCounters countByEnumeratingWithState:&v58 objects:v68 count:16];
           }
 
           while (v12);
@@ -100,29 +100,29 @@
 
         if ([v10 count])
         {
-          v57 = 0u;
-          v58 = 0u;
-          v55 = 0u;
           v56 = 0u;
+          v57 = 0u;
+          v54 = 0u;
+          v55 = 0u;
           v19 = v10;
-          v20 = [v19 countByEnumeratingWithState:&v55 objects:v68 count:16];
+          v20 = [v19 countByEnumeratingWithState:&v54 objects:v67 count:16];
           if (v20)
           {
-            v21 = *v56;
+            v21 = *v55;
             do
             {
               for (j = 0; j != v20; ++j)
               {
-                if (*v56 != v21)
+                if (*v55 != v21)
                 {
                   objc_enumerationMutation(v19);
                 }
 
-                v23 = [MEMORY[0x277D0AF28] selectWithName:*(*(&v55 + 1) + 8 * j) options:&unk_285A37060];
+                v23 = [MEMORY[0x277D0AF28] selectWithName:*(*(&v54 + 1) + 8 * j) options:&unk_285A37060];
                 [v6 addObject:v23];
               }
 
-              v20 = [v19 countByEnumeratingWithState:&v55 objects:v68 count:16];
+              v20 = [v19 countByEnumeratingWithState:&v54 objects:v67 count:16];
             }
 
             while (v20);
@@ -131,7 +131,7 @@
 
         else
         {
-          [v47 setObject:&unk_285A36C60 forKeyedSubscript:@"ShaderProfiler"];
+          [v46 setObject:&unk_285A36C60 forKeyedSubscript:@"ShaderProfiler"];
         }
 
         self = val;
@@ -142,37 +142,37 @@
     {
     }
 
-    [(GPURawCounterSource *)self->_source setOptions:v47];
+    [(GPURawCounterSource *)self->_source setOptions:v46];
     name4 = [(GPURawCounterSource *)self->_source name];
     v26 = [name4 containsString:@"BMPR"];
 
     if (v26)
     {
       v27 = MEMORY[0x277D0AF30];
-      v66 = @"Period";
+      v65 = @"Period";
       v28 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:(requestCopy / 125.0 * 3.0)];
-      v67 = v28;
-      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+      v66 = v28;
+      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
       [v27 selectWithName:@"TimerNClock" options:v29];
     }
 
     else
     {
       v30 = MEMORY[0x277D0AF30];
-      v64 = @"Period";
+      v63 = @"Period";
       v28 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestCopy];
-      v65 = v28;
-      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+      v64 = v28;
+      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
       [v30 selectWithName:@"TimerFixed" options:v29];
     }
     v31 = ;
 
     source = val->_source;
-    v63 = v31;
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
+    v62 = v31;
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
     LOBYTE(source) = [(GPURawCounterSource *)source requestTriggers:v33 firstErrorIndex:0];
 
-    if ((source & 1) != 0 && (v54 = 0, ([(GPURawCounterSource *)val->_source requestCounters:v6 firstErrorIndex:&v54]& 1) != 0) && [(GPURawCounterSource *)val->_source setEnabled:1])
+    if ((source & 1) != 0 && (v53 = 0, ([(GPURawCounterSource *)val->_source requestCounters:v6 firstErrorIndex:&v53]& 1) != 0) && [(GPURawCounterSource *)val->_source setEnabled:1])
     {
       sub_247FCBB10(&val->_counterBuffers.__begin_, [(GPURawCounterSource *)val->_source ringBufferNum]);
       v34 = objc_opt_new();
@@ -191,7 +191,7 @@
       }
 
       *&val->_tmpOutBuffer.__begin_ = *location;
-      val->_tmpOutBuffer.__cap_ = v53;
+      val->_tmpOutBuffer.__cap_ = v52;
       objc_initWeak(location, val);
       v37 = dispatch_queue_create("com.apple.gpu.rawcounters.pull", 0);
       pullQueue = val->_pullQueue;
@@ -209,9 +209,9 @@
       handler[1] = 3221225472;
       handler[2] = sub_247FCBBB8;
       handler[3] = &unk_278EF30D8;
-      objc_copyWeak(&v51, location);
+      objc_copyWeak(&v50, location);
       dispatch_source_set_event_handler(v43, handler);
-      objc_destroyWeak(&v51);
+      objc_destroyWeak(&v50);
       objc_destroyWeak(location);
       v24 = 1;
     }
@@ -227,7 +227,6 @@
     v24 = 0;
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

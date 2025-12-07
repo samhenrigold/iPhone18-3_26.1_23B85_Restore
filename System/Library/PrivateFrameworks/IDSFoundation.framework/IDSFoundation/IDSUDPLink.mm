@@ -125,12 +125,12 @@
 {
   socketCopy = socket;
   v4 = 0;
-  v80 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
   do
   {
-    v6 = &v70[v4];
+    v6 = &v68[v4];
     *(v6 + 6) = 0xAAAAAAAAAAAAAAAALL;
     *(v6 + 1) = v5;
     *(v6 + 2) = v5;
@@ -139,28 +139,30 @@
   }
 
   while (v4 != 560);
-  v7 = MEMORY[0x1EEE9AC00](self, a2);
-  v8 = v65;
-  v10 = MEMORY[0x1EEE9AC00](v7, v9);
+  MEMORY[0x1EEE9AC00](self);
+  v7 = v63;
+  MEMORY[0x1EEE9AC00](v8);
   for (i = 0; i != 20; i += 2)
   {
-    v13 = &v58[i + 2];
-    *v13 = 0xAAAAAAAAAAAAAAAALL;
-    v13[1] = 0xAAAAAAAAAAAAAAAALL;
+    v11 = &v56[i + 2];
+    *v11 = 0xAAAAAAAAAAAAAAAALL;
+    v11[1] = 0xAAAAAAAAAAAAAAAALL;
   }
 
-  MEMORY[0x1EEE9AC00](v10, v11);
-  v14 = v46;
-  memset(v65, 0, 80);
-  bzero(v70, 0x230uLL);
-  v15 = 0;
-  memset(v64, 0, sizeof(v64));
-  v63 = 0u;
-  v61 = 0u;
+  MEMORY[0x1EEE9AC00](v9);
+  v12 = v44;
+  memset(v63, 0, 80);
+  bzero(v68, 0x230uLL);
+  v13 = 0;
   memset(v62, 0, sizeof(v62));
-  memset(v60, 0, sizeof(v60));
+  v61 = 0u;
   v59 = 0u;
+  memset(v60, 0, sizeof(v60));
+  memset(v58, 0, sizeof(v58));
+  v57 = 0u;
+  memset(v44, 0, sizeof(v44));
   memset(v46, 0, sizeof(v46));
+  v47 = 0u;
   memset(v48, 0, sizeof(v48));
   v49 = 0u;
   memset(v50, 0, sizeof(v50));
@@ -168,50 +170,48 @@
   memset(v52, 0, sizeof(v52));
   v53 = 0u;
   memset(v54, 0, sizeof(v54));
+  v14 = &v69;
   v55 = 0u;
   memset(v56, 0, sizeof(v56));
-  v16 = &v71;
-  v57 = 0u;
-  memset(v58, 0, sizeof(v58));
-  v67 = v65;
-  v47 = 0u;
+  v65 = v63;
+  v45 = 0u;
   do
   {
-    v17 = _IDSLinkPacketBufferCreate();
-    *v8++ = v17;
-    v18 = &v58[v15 + 2];
-    v19 = v17[1];
-    *v18 = *v17;
-    v18[1] = v19;
-    *(v16 - 3) = (v17 + 23);
-    *(v16 - 4) = 128;
-    *(v16 - 1) = &v58[v15 + 2];
-    *v16 = 1;
-    v16[1] = v14;
-    *(v16 + 4) = 32;
-    v15 += 2;
-    v16 += 7;
-    v14 += 2;
+    v15 = _IDSLinkPacketBufferCreate();
+    *v7++ = v15;
+    v16 = &v56[v13 + 2];
+    v17 = v15[1];
+    *v16 = *v15;
+    v16[1] = v17;
+    *(v14 - 3) = (v15 + 23);
+    *(v14 - 4) = 128;
+    *(v14 - 1) = &v56[v13 + 2];
+    *v14 = 1;
+    v14[1] = v12;
+    *(v14 + 4) = 32;
+    v13 += 2;
+    v14 += 7;
+    v12 += 2;
   }
 
-  while (v15 != 20);
-  v66 = &v58[2];
-  v20 = recvmsg_x();
-  v21 = v67;
-  if (v20 < 0)
+  while (v13 != 20);
+  v64 = &v56[2];
+  v18 = recvmsg_x();
+  v19 = v65;
+  if (v18 < 0)
   {
 LABEL_35:
-    v38 = *__error();
+    v36 = *__error();
     if (*__error() != 35)
     {
-      v39 = +[IDSFoundationLog IDSUDPLink];
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v37 = +[IDSFoundationLog IDSUDPLink];
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         sub_1A7E1F96C();
       }
     }
 
-    if (v38 == 57)
+    if (v36 == 57)
     {
       if (!self->_hasFixedDestination)
       {
@@ -223,9 +223,9 @@ LABEL_35:
       }
     }
 
-    else if (v38 == 61 && !self->_hasFixedDestination)
+    else if (v36 == 61 && !self->_hasFixedDestination)
     {
-      v40 = self->_destinationAddress;
+      v38 = self->_destinationAddress;
       self->_destinationAddress = 0;
 
       self->_state = 1;
@@ -234,17 +234,17 @@ LABEL_35:
 
   else
   {
-    v22 = v20;
-    v69 = vdupq_n_s64(1uLL);
-    while (v22)
+    v20 = v18;
+    v67 = vdupq_n_s64(1uLL);
+    while (v20)
     {
-      for (j = 0; j != v22; ++j)
+      for (j = 0; j != v20; ++j)
       {
-        v24 = &v70[56 * j];
-        if (*(v24 + 10) < 0xCu || (v24[44] & 0x20) != 0)
+        v22 = &v68[56 * j];
+        if (*(v22 + 10) < 0xCu || (v22[44] & 0x20) != 0)
         {
-          v41 = [IDSFoundationLog IDSUDPLink:v46[0]];
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          v39 = [IDSFoundationLog IDSUDPLink:v44[0]];
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
             sub_1A7E1F8CC();
           }
@@ -252,109 +252,109 @@ LABEL_35:
           goto LABEL_46;
         }
 
-        v25 = *&v21[8 * j];
-        *(v25 + 16) = *(v24 + 6);
-        v26 = *(v24 + 4);
-        if (v26)
+        v23 = *&v19[8 * j];
+        *(v23 + 16) = *(v22 + 6);
+        v24 = *(v22 + 4);
+        if (v24)
         {
           do
           {
-            v27 = v26[1];
-            if (v27 == 41)
+            v25 = v24[1];
+            if (v25 == 41)
             {
-              if (v26[2] == 46)
+              if (v24[2] == 46)
               {
-                *(v25 + 56) = 7708;
-                *(v25 + 64) = *(v26 + 3);
-                v28 = v26 + 7;
+                *(v23 + 56) = 7708;
+                *(v23 + 64) = *(v24 + 3);
+                v26 = v24 + 7;
                 goto LABEL_20;
               }
             }
 
-            else if (!v27 && v26[2] == 26)
+            else if (!v25 && v24[2] == 26)
             {
-              v28 = v26 + 3;
-              *(v25 + 56) = 528;
-              *(v25 + 60) = v26[5];
+              v26 = v24 + 3;
+              *(v23 + 56) = 528;
+              *(v23 + 60) = v24[5];
 LABEL_20:
-              *(v25 + 48) = *v28;
-              if ([(IDSUDPLink *)self _isInterfaceIndexCellular:*&v46[0], *(&v46[0] + 1), *&v46[1], *(&v46[1] + 1), *&v46[2], *(&v46[2] + 1), v47, *(&v47 + 1), v48[0], v48[1], v48[2], v48[3], v49, *(&v49 + 1), v50[0], v50[1], v50[2], v50[3], v51, *(&v51 + 1), v52[0], v52[1], v52[2], v52[3], v53, *(&v53 + 1), v54[0], v54[1], v54[2], v54[3], v55, *(&v55 + 1), v56[0], v56[1], v56[2], v56[3], v57, *(&v57 + 1), v58[0], v58[1], v58[2], v58[3], v59, *(&v59 + 1), v60[0], v60[1], v60[2], v60[3], v61, *(&v61 + 1), v62[0], v62[1], v62[2], v62[3], v63, *(&v63 + 1), v64[0], v64[1], v64[2], v64[3]])
+              *(v23 + 48) = *v26;
+              if ([(IDSUDPLink *)self _isInterfaceIndexCellular:*&v44[0], *(&v44[0] + 1), *&v44[1], *(&v44[1] + 1), *&v44[2], *(&v44[2] + 1), v45, *(&v45 + 1), v46[0], v46[1], v46[2], v46[3], v47, *(&v47 + 1), v48[0], v48[1], v48[2], v48[3], v49, *(&v49 + 1), v50[0], v50[1], v50[2], v50[3], v51, *(&v51 + 1), v52[0], v52[1], v52[2], v52[3], v53, *(&v53 + 1), v54[0], v54[1], v54[2], v54[3], v55, *(&v55 + 1), v56[0], v56[1], v56[2], v56[3], v57, *(&v57 + 1), v58[0], v58[1], v58[2], v58[3], v59, *(&v59 + 1), v60[0], v60[1], v60[2], v60[3], v61, *(&v61 + 1), v62[0], v62[1], v62[2], v62[3]])
               {
-                v29 = 58;
+                v27 = 58;
               }
 
               else
               {
-                v29 = 56;
+                v27 = 56;
               }
 
-              *(v25 + 58) = bswap32(*(&self->super.isa + v29)) >> 16;
+              *(v23 + 58) = bswap32(*(&self->super.isa + v27)) >> 16;
             }
 
-            v26 = (v26 + ((*v26 + 3) & 0x1FFFFFFFCLL));
+            v24 = (v24 + ((*v24 + 3) & 0x1FFFFFFFCLL));
           }
 
-          while ((v26 + 3) <= *(v24 + 4) + *(v24 + 10));
+          while ((v24 + 3) <= *(v22 + 4) + *(v22 + 10));
         }
 
         if (self->_hasFixedDestination && self->_destinationAddressToDeviceIDMap)
         {
-          v30 = [IDSSockAddrWrapper wrapperWithSockAddr:v25 + 184];
-          v31 = [(NSDictionary *)self->_destinationAddressToDeviceIDMap objectForKey:v30];
-          if (!v31)
+          v28 = [IDSSockAddrWrapper wrapperWithSockAddr:v23 + 184];
+          v29 = [(NSDictionary *)self->_destinationAddressToDeviceIDMap objectForKey:v28];
+          if (!v29)
           {
-            v44 = +[IDSFoundationLog IDSUDPLink];
-            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+            v42 = +[IDSFoundationLog IDSUDPLink];
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
             {
               destinationAddressToDeviceIDMap = self->_destinationAddressToDeviceIDMap;
               *buf = 136315906;
-              v73 = "[IDSUDPLink _processIncomingPacketOnSocket:]";
-              v74 = 2112;
-              v75 = v30;
-              v76 = 1024;
-              v77 = socketCopy;
-              v78 = 2112;
-              v79 = destinationAddressToDeviceIDMap;
-              _os_log_error_impl(&dword_1A7AD9000, v44, OS_LOG_TYPE_ERROR, "%s found no matching deviceID for %@, socket %d, map = %@", buf, 0x26u);
+              v71 = "[IDSUDPLink _processIncomingPacketOnSocket:]";
+              v72 = 2112;
+              v73 = v28;
+              v74 = 1024;
+              v75 = socketCopy;
+              v76 = 2112;
+              v77 = destinationAddressToDeviceIDMap;
+              _os_log_error_impl(&dword_1A7AD9000, v42, OS_LOG_TYPE_ERROR, "%s found no matching deviceID for %@, socket %d, map = %@", buf, 0x26u);
             }
 
             goto LABEL_46;
           }
 
-          v32 = v31;
+          v30 = v29;
         }
 
         else
         {
-          v32 = self->_cbuuid;
+          v30 = self->_cbuuid;
         }
 
-        v33.i64[1] = v69.i64[1];
-        v33.i64[0] = *(v25 + 16);
-        *&self->_totalBytesReceived = vaddq_s64(*&self->_totalBytesReceived, v33);
+        v31.i64[1] = v67.i64[1];
+        v31.i64[0] = *(v23 + 16);
+        *&self->_totalBytesReceived = vaddq_s64(*&self->_totalBytesReceived, v31);
         WeakRetained = objc_loadWeakRetained(&self->_delegate);
-        [WeakRetained link:self didReceivePacket:v25 fromDeviceUniqueID:self->_deviceUniqueID cbuuid:v32];
+        [WeakRetained link:self didReceivePacket:v23 fromDeviceUniqueID:self->_deviceUniqueID cbuuid:v30];
       }
 
-      if (v22 != 10)
+      if (v20 != 10)
       {
         break;
       }
 
-      v35 = 0;
-      v36 = v66;
+      v33 = 0;
+      v34 = v64;
       do
       {
-        v37 = *&v21[v35];
-        IDSLinkPacketBufferResetBufferStart(v37, 15);
-        *v36 = *v37;
-        v36 += 2;
-        v35 += 8;
+        v35 = *&v19[v33];
+        IDSLinkPacketBufferResetBufferStart(v35, 15);
+        *v34 = *v35;
+        v34 += 2;
+        v33 += 8;
       }
 
-      while (v35 != 80);
-      v22 = recvmsg_x();
-      if (v22 < 0)
+      while (v33 != 80);
+      v20 = recvmsg_x();
+      if (v20 < 0)
       {
         goto LABEL_35;
       }
@@ -364,7 +364,7 @@ LABEL_20:
 LABEL_46:
   for (k = 0; k != 80; k += 8)
   {
-    _IDSLinkPacketBufferRelease("/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSUDPLink.m", 262, *&v21[k]);
+    _IDSLinkPacketBufferRelease("/Library/Caches/com.apple.xbs/Sources/IdentityServices/IDSFoundation/IDSUDPLink.m", 262, *&v19[k]);
   }
 }
 
@@ -627,7 +627,7 @@ LABEL_46:
     v49 = v17;
     v50 = v17;
     *&v48[16] = v17;
-    *&v25 = MEMORY[0x1EEE9AC00](self, a2);
+    *&v25 = MEMORY[0x1EEE9AC00](self);
     v47 = v25;
     *v48 = v25;
     *v46 = v25;
@@ -1029,7 +1029,7 @@ LABEL_28:
     if (!self->_skipTransportThread)
     {
       IDSTransportThreadRemoveSocket(socket);
-      socket = self->_socket;
+      LODWORD(socket) = self->_socket;
     }
 
     close(socket);
@@ -1042,7 +1042,7 @@ LABEL_28:
     if (!self->_skipTransportThread)
     {
       IDSTransportThreadRemoveSocket(cellularSocket);
-      cellularSocket = self->_cellularSocket;
+      LODWORD(cellularSocket) = self->_cellularSocket;
     }
 
     close(cellularSocket);

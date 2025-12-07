@@ -56,7 +56,7 @@
   resources = self->_resources;
   if (resources)
   {
-    return objc_msgSend_size(resources, a2, v3, v4, v5);
+    return objc_msgSend_size(resources, v3, v4, v5, a2);
   }
 
   else

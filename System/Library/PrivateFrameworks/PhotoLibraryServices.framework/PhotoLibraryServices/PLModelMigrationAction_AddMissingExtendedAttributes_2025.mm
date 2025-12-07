@@ -123,11 +123,10 @@
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v16 + 1) + 8 * i);
           codec = [extendedAttributes codec];
-          LODWORD(v14) = [codec isEqualToString:v14];
+          isEqualToString = objc_msgSend_isEqualToString_(codec);
 
-          if (v14)
+          if (isEqualToString)
           {
             [assetCopy updateVideoAttributesFromMetadata:metadataCopy overwriteOriginalProperties:0];
             goto LABEL_12;

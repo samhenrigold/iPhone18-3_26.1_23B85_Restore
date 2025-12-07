@@ -12,21 +12,29 @@
 
 - (id)description
 {
-  v3 = SFShouldLogSensitiveDescriptions();
-  v85[1] = 0;
-  identifier = self->_identifier;
-  NSAppendPrintF();
-  v4 = 0;
+  v3 = SFShouldLogSensitiveDescriptions(self, a2);
+  v127 = 0;
+  if (v3)
+  {
+    NSAppendPrintF(&v127, "SFDevice ID %@", self->_identifier);
+  }
+
+  else
+  {
+    NSAppendPrintF(&v127, "SFDevice ID %~@", self->_identifier);
+  }
+
+  v4 = v127;
   v5 = v4;
   idsIdentifier = self->_idsIdentifier;
   if (v3)
   {
     if (!idsIdentifier)
     {
-      goto LABEL_10;
+      goto LABEL_13;
     }
 
-    v85[0] = v4;
+    v126 = v4;
     if (self->_idsIdentifierConflict)
     {
       v7 = @" (conflict)";
@@ -37,32 +45,31 @@
       v7 = &stru_1F1D30528;
     }
 
-    identifier = idsIdentifier;
-    v79 = v7;
-    v8 = v85;
+    v8 = &v126;
+    NSAppendPrintF(&v126, ", IDS %.8@%@", idsIdentifier, v7);
   }
 
   else
   {
     if (!idsIdentifier)
     {
-      goto LABEL_10;
+      goto LABEL_13;
     }
 
-    v84 = v4;
-    identifier = idsIdentifier;
-    v8 = &v84;
+    v125 = v4;
+    v8 = &v125;
+    NSAppendPrintF(&v125, ", IDS %~@", idsIdentifier);
   }
 
-  NSAppendPrintF();
   v9 = *v8;
 
   v5 = v9;
-LABEL_10:
+LABEL_13:
   if (self->_isBLEDeviceReplaced)
   {
-    NSAppendPrintF();
-    v10 = v5;
+    v124 = v5;
+    NSAppendPrintF(&v124, ", BLEDevice (replaced)");
+    v10 = v124;
 
     v5 = v10;
   }
@@ -70,6 +77,7 @@ LABEL_10:
   deviceActionType = self->_deviceActionType;
   if (self->_deviceActionType)
   {
+    v123 = v5;
     if (deviceActionType > 0x66)
     {
       v12 = "?";
@@ -80,15 +88,15 @@ LABEL_10:
       v12 = off_1E788EE90[deviceActionType - 1];
     }
 
-    identifier = v12;
-    NSAppendPrintF();
-    v13 = v5;
+    NSAppendPrintF(&v123, ", %'s", v12);
+    v13 = v123;
 
     v5 = v13;
   }
 
-  if ([(SFBLEDevice *)self->_bleDevice rssi:identifier])
+  if ([(SFBLEDevice *)self->_bleDevice rssi])
   {
+    v122 = v5;
     rssi = [(SFBLEDevice *)self->_bleDevice rssi];
     rssiEstimate = [(SFBLEDevice *)self->_bleDevice rssiEstimate];
     if ([(SFBLEDevice *)self->_bleDevice insideBubble])
@@ -108,13 +116,13 @@ LABEL_10:
       {
         case 0:
           v18 = "U";
-          goto LABEL_38;
+          goto LABEL_41;
         case 10:
           v18 = "I";
-          goto LABEL_38;
+          goto LABEL_41;
         case 20:
           v18 = "N";
-          goto LABEL_38;
+          goto LABEL_41;
       }
     }
 
@@ -123,13 +131,13 @@ LABEL_10:
       if (distance == 50)
       {
         v18 = "H";
-        goto LABEL_38;
+        goto LABEL_41;
       }
 
       if (distance == 60)
       {
         v18 = "F";
-        goto LABEL_38;
+        goto LABEL_41;
       }
     }
 
@@ -138,439 +146,535 @@ LABEL_10:
       if (distance == 30)
       {
         v18 = "P";
-        goto LABEL_38;
+        goto LABEL_41;
       }
 
       if (distance == 40)
       {
         v18 = "R";
-LABEL_38:
-        v82 = v16;
-        v83 = v18;
-        name = rssi;
-        v80 = rssiEstimate;
-        NSAppendPrintF();
-        v19 = v5;
+LABEL_41:
+        NSAppendPrintF(&v122, ", RSSI %d (%d)%c%s", rssi, rssiEstimate, v16, v18);
+        v19 = v122;
 
         v5 = v19;
-        goto LABEL_39;
+        goto LABEL_42;
       }
     }
 
     v18 = "?";
-    goto LABEL_38;
+    goto LABEL_41;
   }
 
-LABEL_39:
-  if (self->_name)
+LABEL_42:
+  name = self->_name;
+  if (name)
   {
-    name = self->_name;
-    NSAppendPrintF();
-    v20 = v5;
+    v121 = v5;
+    if (v3)
+    {
+      NSAppendPrintF(&v121, ", Nm %'@", name);
+    }
 
-    v5 = v20;
-  }
+    else
+    {
+      NSAppendPrintF(&v121, ", Nm %~@", name);
+    }
 
-  if (self->_model)
-  {
-    name = self->_model;
-    NSAppendPrintF();
-    v21 = v5;
+    v21 = v121;
 
     v5 = v21;
   }
 
-  v22 = self->_accountAltDSID;
-  v23 = v22;
-  if (v22)
+  model = self->_model;
+  if (model)
   {
-    name = v22;
-    NSAppendPrintF();
-    v24 = v5;
+    v120 = v5;
+    if (v3)
+    {
+      NSAppendPrintF(&v120, ", Md %'@", model);
+    }
 
-    v5 = v24;
+    else
+    {
+      NSAppendPrintF(&v120, ", Md %~@", model);
+    }
+
+    v23 = v120;
+
+    v5 = v23;
   }
 
-  v25 = self->_accountID;
-  v26 = v25;
-  if (v25)
+  v24 = self->_accountAltDSID;
+  v25 = v24;
+  if (v24)
   {
-    name = v25;
-    NSAppendPrintF();
-    v27 = v5;
+    if (v3)
+    {
+      v26 = ", AltDSID %.8@";
+    }
+
+    else
+    {
+      v26 = ", AltDSID %~@";
+    }
+
+    v119 = v5;
+    NSAppendPrintF(&v119, v26, v24);
+    v27 = v119;
 
     v5 = v27;
+  }
+
+  v28 = self->_accountID;
+  v29 = v28;
+  if (v28)
+  {
+    if (v3)
+    {
+      v30 = ", AID '%@'";
+    }
+
+    else
+    {
+      v30 = ", AID '%~@'";
+    }
+
+    v118 = v5;
+    NSAppendPrintF(&v118, v30, v28);
+    v31 = v118;
+
+    v5 = v31;
   }
 
   deviceClassCode = self->_deviceClassCode;
   if (self->_deviceClassCode)
   {
+    v117 = v5;
     if (deviceClassCode > 8)
     {
-      v29 = "?";
+      v33 = "?";
     }
 
     else
     {
-      v29 = off_1E788F1C0[deviceClassCode - 1];
+      v33 = off_1E788F1C0[deviceClassCode - 1];
     }
 
-    name = v29;
-    NSAppendPrintF();
-    v30 = v5;
+    NSAppendPrintF(&v117, ", %s", v33);
+    v34 = v117;
 
-    v5 = v30;
+    v5 = v34;
   }
 
   deviceModelCode = self->_deviceModelCode;
   if (self->_deviceModelCode)
   {
-    if (self->_deviceModelCode > 4u)
+    v116 = v5;
+    if (deviceModelCode > 4)
     {
-      if (self->_deviceModelCode <= 6u)
+      if (deviceModelCode <= 6)
       {
         if (deviceModelCode == 5)
         {
-          v32 = "B520ish";
+          v36 = "B520ish";
         }
 
         else
         {
-          v32 = "B620ish";
+          v36 = "B620ish";
         }
 
-        goto LABEL_69;
+        goto LABEL_84;
       }
 
       if (deviceModelCode == 7)
       {
-        v32 = "J255ish";
-        goto LABEL_69;
+        v36 = "J255ish";
+        goto LABEL_84;
       }
     }
 
     else
     {
-      if (self->_deviceModelCode > 2u)
+      if (deviceModelCode > 2)
       {
         if (deviceModelCode == 3)
         {
-          v32 = "J3XXish";
+          v36 = "J3XXish";
         }
 
         else
         {
-          v32 = "N112ish";
+          v36 = "N112ish";
         }
 
-        goto LABEL_69;
+        goto LABEL_84;
       }
 
       if (deviceModelCode == 1)
       {
-        v32 = "D22ish";
-        goto LABEL_69;
+        v36 = "D22ish";
+        goto LABEL_84;
       }
 
       if (deviceModelCode == 2)
       {
-        v32 = "SEish";
-LABEL_69:
-        name = v32;
-        NSAppendPrintF();
-        v33 = v5;
+        v36 = "SEish";
+LABEL_84:
+        NSAppendPrintF(&v116, ", %s", v36);
+        v37 = v116;
 
-        v5 = v33;
-        goto LABEL_70;
+        v5 = v37;
+        goto LABEL_85;
       }
     }
 
-    v32 = "?";
-    goto LABEL_69;
+    v36 = "?";
+    goto LABEL_84;
   }
 
-LABEL_70:
-  if (self->_contactIdentifier)
+LABEL_85:
+  contactIdentifier = self->_contactIdentifier;
+  if (contactIdentifier)
   {
-    name = self->_contactIdentifier;
-    NSAppendPrintF();
-    v34 = v5;
+    v115 = v5;
+    if (v3)
+    {
+      NSAppendPrintF(&v115, ", CNID %@", contactIdentifier);
+    }
 
-    v5 = v34;
-  }
+    else
+    {
+      NSAppendPrintF(&v115, ", CNID %~@", contactIdentifier);
+    }
 
-  if (self->_autoUnlockEnabled)
-  {
-    NSAppendPrintF();
-    v35 = v5;
-
-    v5 = v35;
-  }
-
-  if (self->_autoUnlockWatch)
-  {
-    NSAppendPrintF();
-    v36 = v5;
-
-    v5 = v36;
-  }
-
-  if (self->_duetSync)
-  {
-    NSAppendPrintF();
-    v37 = v5;
-
-    v5 = v37;
-  }
-
-  if (self->_enhancedDiscovery)
-  {
-    NSAppendPrintF();
-    v38 = v5;
-
-    v5 = v38;
-  }
-
-  if (self->_hotspotInfo)
-  {
-    name = self->_hotspotInfo;
-    NSAppendPrintF();
-    v39 = v5;
+    v39 = v115;
 
     v5 = v39;
   }
 
-  if (self->_inDiscoverySession)
+  if (self->_autoUnlockEnabled)
   {
-    name = self->_inDiscoverySession;
-    NSAppendPrintF();
-    v40 = v5;
+    v114 = v5;
+    NSAppendPrintF(&v114, ", AutoUnlockEnabled");
+    v40 = v114;
 
     v5 = v40;
   }
 
-  v41 = self->_mediaRemoteID;
-  v42 = v41;
-  if (v41)
+  if (self->_autoUnlockWatch)
   {
-    name = v41;
-    NSAppendPrintF();
-    v43 = v5;
+    v113 = v5;
+    NSAppendPrintF(&v113, ", AutoUnlockWatch");
+    v41 = v113;
+
+    v5 = v41;
+  }
+
+  if (self->_duetSync)
+  {
+    v112 = v5;
+    NSAppendPrintF(&v112, ", DuetSync");
+    v42 = v112;
+
+    v5 = v42;
+  }
+
+  if (self->_enhancedDiscovery)
+  {
+    v111 = v5;
+    NSAppendPrintF(&v111, ", EnhancedDiscovery");
+    v43 = v111;
 
     v5 = v43;
   }
 
-  v44 = self->_mediaRouteID;
-  v45 = v44;
-  if (v44)
+  hotspotInfo = self->_hotspotInfo;
+  if (hotspotInfo)
   {
-    name = v44;
-    NSAppendPrintF();
-    v46 = v5;
+    v110 = v5;
+    NSAppendPrintF(&v110, ", Hotspot 0x%X", hotspotInfo);
+    v45 = v110;
 
-    v5 = v46;
+    v5 = v45;
   }
 
-  if (self->_needsAWDL)
+  inDiscoverySession = self->_inDiscoverySession;
+  if (inDiscoverySession)
   {
-    NSAppendPrintF();
-    v47 = v5;
+    v109 = v5;
+    NSAppendPrintF(&v109, ", InDiscoverySession", inDiscoverySession);
+    v47 = v109;
 
     v5 = v47;
   }
 
+  v48 = self->_mediaRemoteID;
+  v49 = v48;
+  if (v48)
+  {
+    if (v3)
+    {
+      v50 = ", MRI '%@'";
+    }
+
+    else
+    {
+      v50 = ", MRI '%~@'";
+    }
+
+    v108 = v5;
+    NSAppendPrintF(&v108, v50, v48);
+    v51 = v108;
+
+    v5 = v51;
+  }
+
+  v52 = self->_mediaRouteID;
+  v53 = v52;
+  if (v52)
+  {
+    if (v3)
+    {
+      v54 = ", MRtI '%@'";
+    }
+
+    else
+    {
+      v54 = ", MRtI '%~@'";
+    }
+
+    v107 = v5;
+    NSAppendPrintF(&v107, v54, v52);
+    v55 = v107;
+
+    v5 = v55;
+  }
+
+  if (self->_needsAWDL)
+  {
+    v106 = v5;
+    NSAppendPrintF(&v106, ", NeedsAWDL");
+    v56 = v106;
+
+    v5 = v56;
+  }
+
   if (self->_needsKeyboard)
   {
-    NSAppendPrintF();
-    v48 = v5;
+    v105 = v5;
+    NSAppendPrintF(&v105, ", NeedsKeyboard");
+    v57 = v105;
 
-    v5 = v48;
+    v5 = v57;
   }
 
   if (self->_needsSetup)
   {
-    NSAppendPrintF();
-    v49 = v5;
+    v104 = v5;
+    NSAppendPrintF(&v104, ", NeedsSetup");
+    v58 = v104;
 
-    v5 = v49;
+    v5 = v58;
   }
 
   if (self->_paired)
   {
-    NSAppendPrintF();
-    v50 = v5;
+    v103 = v5;
+    NSAppendPrintF(&v103, ", PairedBT");
+    v59 = v103;
 
-    v5 = v50;
+    v5 = v59;
   }
 
   systemPairState = self->_systemPairState;
   if (systemPairState)
   {
+    v102 = v5;
     switch(systemPairState)
     {
       case 0xAu:
-        v52 = "NotPaired";
+        v61 = "NotPaired";
         break;
       case 0x1Eu:
-        v52 = "Verified";
+        v61 = "Verified";
         break;
       case 0x14u:
-        v52 = "Conjectured";
+        v61 = "Conjectured";
         break;
       default:
-        v52 = "?";
+        v61 = "?";
         break;
     }
 
-    name = v52;
-    NSAppendPrintF();
-    v53 = v5;
+    NSAppendPrintF(&v102, ", PairedSys %s", v61);
+    v62 = v102;
 
-    v5 = v53;
+    v5 = v62;
   }
 
-  if (self->_rapportIdentifier)
+  rapportIdentifier = self->_rapportIdentifier;
+  if (rapportIdentifier)
   {
-    name = self->_rapportIdentifier;
-    NSAppendPrintF();
-    v54 = v5;
+    v101 = v5;
+    if (v3)
+    {
+      NSAppendPrintF(&v101, ", rapportID %@", rapportIdentifier);
+    }
 
-    v5 = v54;
+    else
+    {
+      NSAppendPrintF(&v101, ", rapportID %~@", rapportIdentifier);
+    }
+
+    v64 = v101;
+
+    v5 = v64;
   }
 
-  if (self->_requestSSID)
+  requestSSID = self->_requestSSID;
+  if (requestSSID)
   {
-    name = self->_requestSSID;
-    NSAppendPrintF();
-    v55 = v5;
+    v100 = v5;
+    NSAppendPrintF(&v100, ", SSID '%@'", requestSSID);
+    v66 = v100;
 
-    v5 = v55;
+    v5 = v66;
   }
 
   if (self->_watchLocked)
   {
-    NSAppendPrintF();
-    v56 = v5;
+    v99 = v5;
+    NSAppendPrintF(&v99, ", WatchLocked");
+    v67 = v99;
 
-    v5 = v56;
+    v5 = v67;
   }
 
   if (self->_wifiP2P)
   {
-    NSAppendPrintF();
-    v57 = v5;
+    v98 = v5;
+    NSAppendPrintF(&v98, ", WiFiP2P");
+    v68 = v98;
 
-    v5 = v57;
+    v5 = v68;
   }
 
-  if (self->_problemFlags)
+  problemFlags = self->_problemFlags;
+  if (problemFlags)
   {
-    name = self->_problemFlags;
-    v80 = &unk_1A998F488;
-    NSAppendPrintF();
-    v58 = v5;
+    v97 = v5;
+    NSAppendPrintF(&v97, ", PR %#ll{flags}", problemFlags, &unk_1A998F488);
+    v70 = v97;
 
-    v5 = v58;
+    v5 = v70;
   }
 
-  if (self->_deviceFlags)
+  deviceFlags = self->_deviceFlags;
+  if (deviceFlags)
   {
-    name = self->_deviceFlags;
-    v80 = &unk_1A998F5A0;
-    NSAppendPrintF();
-    v59 = v5;
+    v96 = v5;
+    NSAppendPrintF(&v96, ", DF %#{flags}", deviceFlags, &unk_1A998F5A0);
+    v72 = v96;
 
-    v5 = v59;
+    v5 = v72;
   }
 
+  osVersion = self->_osVersion;
   if (self->_osVersion)
   {
-    name = self->_osVersion;
-    NSAppendPrintF();
-    v60 = v5;
+    v95 = v5;
+    NSAppendPrintF(&v95, ", OV %d", osVersion);
+    v74 = v95;
 
-    v5 = v60;
+    v5 = v74;
   }
 
   audioRoutingScore = self->_audioRoutingScore;
   if (audioRoutingScore)
   {
+    v94 = v5;
     if (audioRoutingScore > 0xF)
     {
-      v62 = "?";
+      v76 = "?";
     }
 
     else
     {
-      v62 = off_1E788F200[audioRoutingScore - 1];
+      v76 = off_1E788F200[audioRoutingScore - 1];
     }
 
-    name = v62;
-    NSAppendPrintF();
-    v63 = v5;
+    NSAppendPrintF(&v94, ", ARS %s", v76);
+    v77 = v94;
 
-    v5 = v63;
+    v5 = v77;
   }
 
   deviceType = self->_deviceType;
   if (deviceType)
   {
-    v65 = "Generic";
+    v93 = v5;
+    v79 = "Generic";
     if (deviceType != 1)
     {
-      v65 = "?";
+      v79 = "?";
     }
 
     if (deviceType == 2)
     {
-      v66 = "VirtualMachine";
+      v80 = "VirtualMachine";
     }
 
     else
     {
-      v66 = v65;
+      v80 = v79;
     }
 
-    name = v66;
-    NSAppendPrintF();
-    v67 = v5;
+    NSAppendPrintF(&v93, ", DT %s", v80);
+    v81 = v93;
 
-    v5 = v67;
+    v5 = v81;
   }
 
-  v68 = [(SFBLEDevice *)self->_bleDevice decryptedActivityLevel:name];
-  if (v68)
+  decryptedActivityLevel = [(SFBLEDevice *)self->_bleDevice decryptedActivityLevel];
+  if (decryptedActivityLevel)
   {
-    if (v68 > 0xE)
+    v92 = v5;
+    if (decryptedActivityLevel > 0xE)
     {
-      v69 = "?";
+      v83 = "?";
     }
 
     else
     {
-      v69 = off_1E788F278[v68 - 1];
+      v83 = off_1E788F278[decryptedActivityLevel - 1];
     }
 
-    v78 = v69;
-    v81 = v68;
-    NSAppendPrintF();
-    v70 = v5;
+    NSAppendPrintF(&v92, ", AcLv %s (%d)", v83, decryptedActivityLevel);
+    v84 = v92;
 
-    v5 = v70;
+    v5 = v84;
   }
 
-  v71 = [(SFBLEDevice *)self->_bleDevice advertisementFields:v78];
+  advertisementFields = [(SFBLEDevice *)self->_bleDevice advertisementFields];
   Int64Ranged = CFDictionaryGetInt64Ranged();
 
   if (Int64Ranged)
   {
-    NSAppendPrintF();
-    v73 = v5;
+    v91 = v5;
+    v87 = "Usable";
+    if (Int64Ranged != 1)
+    {
+      v87 = "?";
+    }
 
-    v5 = v73;
+    NSAppendPrintF(&v91, ", CS %s (%d)", v87, Int64Ranged);
+    v88 = v91;
+
+    v5 = v88;
   }
 
-  v74 = v5;
+  v89 = v5;
 
   return v5;
 }

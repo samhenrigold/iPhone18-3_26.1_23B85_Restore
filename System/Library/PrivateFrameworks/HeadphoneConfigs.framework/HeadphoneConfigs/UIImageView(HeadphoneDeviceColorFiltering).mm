@@ -10,7 +10,7 @@
 {
   v59 = *MEMORY[0x277D85DE8];
   v10 = a3;
-  v11 = sharedBluetoothSettingsLogComponent();
+  v11 = sharedBluetoothSettingsLogComponent(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109632;
@@ -154,19 +154,17 @@ LABEL_25:
   layer = [self layer];
   [layer setFilters:v16];
 
-  v41 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+  v42 = sharedBluetoothSettingsLogComponent(v41);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_251143000, v41, OS_LOG_TYPE_DEFAULT, "Headphone Settings UI: Shader applied successfully", buf, 2u);
+    _os_log_impl(&dword_251143000, v42, OS_LOG_TYPE_DEFAULT, "Headphone Settings UI: Shader applied successfully", buf, 2u);
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_headphoneGetAssetsDictionary:()HeadphoneDeviceColorFiltering
 {
-  v4 = sharedBluetoothSettingsLogComponent();
+  v4 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v1316 = 0;
@@ -2969,16 +2967,15 @@ LABEL_11:
 
 + (uint64_t)_headphoneIsProductOfDifferentColors:()HeadphoneDeviceColorFiltering
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = sharedBluetoothSettingsLogComponent();
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = a3;
-    _os_log_impl(&dword_251143000, v4, OS_LOG_TYPE_DEFAULT, "isProductOfDifferentColors Battery Status: Input pid - %d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = a3;
+    _os_log_impl(&dword_251143000, v4, OS_LOG_TYPE_DEFAULT, "isProductOfDifferentColors Battery Status: Input pid - %d", v6, 8u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return ((a3 - 8195) < 0x2D) & (0x100C1498E7CDuLL >> (a3 - 3));
 }
 

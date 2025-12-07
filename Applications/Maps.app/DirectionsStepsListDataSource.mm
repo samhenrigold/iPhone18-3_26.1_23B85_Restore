@@ -233,7 +233,8 @@
 
   else
   {
-    [DirectionsStepTableViewCell cellMetricsForIdiom:[(DirectionsStepsListDataSource *)self _idiom]];
+    [(DirectionsStepsListDataSource *)self _idiom];
+    objc_msgSend_cellMetricsForIdiom_(DirectionsStepTableViewCell);
     v14 = v21;
   }
 
@@ -821,7 +822,7 @@ LABEL_10:
 
   if (v14)
   {
-    if (([(DirectionsStepsListDataSource *)self options]& 8) == 0)
+    if ((objc_msgSend_options(self) & 8) == 0)
     {
       goto LABEL_21;
     }
@@ -852,7 +853,7 @@ LABEL_23:
 
   if (objc_opt_respondsToSelector())
   {
-    v25 = !v14 || ([(DirectionsStepsListDataSource *)self options]& 8) == 0;
+    v25 = !v14 || (objc_msgSend_options(self) & 8) == 0;
     [cellCopy setAlignSeparatorWithLeadingText:v25];
   }
 
@@ -909,7 +910,7 @@ LABEL_8:
     {
       if (v5 == @"FooterView")
       {
-        if (([(DirectionsStepsListDataSource *)self options]& 8) != 0)
+        if ((objc_msgSend_options(self) & 8) != 0)
         {
           v8 = UITableViewAutomaticDimension;
         }
@@ -960,7 +961,8 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  [DirectionsStepTableViewCell cellMetricsForIdiom:[(DirectionsStepsListDataSource *)self _idiom]];
+  [(DirectionsStepsListDataSource *)self _idiom];
+  objc_msgSend_cellMetricsForIdiom_(DirectionsStepTableViewCell);
   v8 = v15;
 LABEL_21:
 
@@ -1110,12 +1112,12 @@ LABEL_10:
   v7 = [(DirectionsStepsListDataSource *)self _sectionAtIndex:section];
   if (v7 == 2)
   {
-    return ([(DirectionsStepsListDataSource *)self options]>> 3) & 1;
+    return (objc_msgSend_options(self) >> 3) & 1;
   }
 
   if (v7 != 1)
   {
-    if (!v7 && [(DirectionsStepsListDataSource *)self _idiom]== 5 && ([(DirectionsStepsListDataSource *)self options]& 4) != 0)
+    if (!v7 && [(DirectionsStepsListDataSource *)self _idiom]== 5 && (objc_msgSend_options(self) & 4) != 0)
     {
       route = [(DirectionsStepsListDataSource *)self route];
       elevationProfile = [route elevationProfile];
@@ -1415,7 +1417,7 @@ LABEL_7:
 
 - (void)_updateElevationHeaderView
 {
-  if (([(DirectionsStepsListDataSource *)self options]& 4) != 0)
+  if ((objc_msgSend_options(self, a2) & 4) != 0)
   {
     route = [(DirectionsStepsListDataSource *)self route];
     elevationProfile = [route elevationProfile];
@@ -1651,7 +1653,7 @@ LABEL_5:
     activeStepIndex = [(DirectionsStepsListNavigationProvider *)navigationProvider activeStepIndex];
     if (activeStepIndex != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v6 = &activeStepIndex[[(DirectionsStepsListDataSource *)self options]& 1];
+      v6 = &activeStepIndex[objc_msgSend_options(self) & 1];
       return &v6[[(DirectionsStepsListDataSource *)self]];
     }
   }
@@ -1765,7 +1767,7 @@ LABEL_10:
   if (route)
   {
     v4 = objc_alloc_init(NSMutableArray);
-    if (([(DirectionsStepsListDataSource *)self options]& 4) != 0)
+    if ((objc_msgSend_options(self) & 4) != 0)
     {
       elevationProfile = [route elevationProfile];
 
@@ -1811,7 +1813,7 @@ LABEL_10:
     }
 
     v15 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v7, "count")}];
-    if (([(DirectionsStepsListDataSource *)self options]& 1) != 0)
+    if (objc_msgSend_options(self))
     {
       [v15 addObject:@"OriginPinRow"];
     }
@@ -1820,7 +1822,7 @@ LABEL_10:
     v17 = [v7 subarrayWithRange:{_stepsSectionItemsExcludesFirstStep, objc_msgSend(v7, "count") - _stepsSectionItemsExcludesFirstStep}];
     [v15 addObjectsFromArray:v17];
 
-    if (([(DirectionsStepsListDataSource *)self options]& 2) != 0)
+    if ((objc_msgSend_options(self) & 2) != 0)
     {
       [v15 addObject:@"DestinationPinRow"];
     }
@@ -1830,7 +1832,7 @@ LABEL_10:
       [v4 addObject:&off_1016E7628];
     }
 
-    if (([(DirectionsStepsListDataSource *)self options]& 8) != 0)
+    if ((objc_msgSend_options(self) & 8) != 0)
     {
       [v4 addObject:&off_1016E7640];
     }

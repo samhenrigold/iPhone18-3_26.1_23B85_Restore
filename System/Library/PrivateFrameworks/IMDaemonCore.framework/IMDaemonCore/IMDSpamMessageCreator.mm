@@ -32,7 +32,7 @@
 
 - (id)_senderURIWithItem:(id)item chat:(id)chat
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   chatCopy = chat;
   sender = [itemCopy sender];
@@ -55,37 +55,37 @@
     v14 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v24 = 138412290;
-      v25 = _bestGuessURI;
-      _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Item sender = %@", &v24, 0xCu);
+      v23 = 138412290;
+      v24 = _bestGuessURI;
+      _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Item sender = %@", &v23, 0xCu);
     }
   }
 
   if ([itemCopy isFromMe] && !objc_msgSend(_bestGuessURI, "length"))
   {
     lastAddressedLocalHandle = [chatCopy lastAddressedLocalHandle];
-    v19 = lastAddressedLocalHandle;
-    v20 = &stru_283F23018;
+    v18 = lastAddressedLocalHandle;
+    v19 = &stru_283F23018;
     if (lastAddressedLocalHandle)
     {
-      v20 = lastAddressedLocalHandle;
+      v19 = lastAddressedLocalHandle;
     }
 
-    v21 = v20;
+    v20 = v19;
 
-    _stripFZIDPrefix2 = [(__CFString *)v21 _stripFZIDPrefix];
+    _stripFZIDPrefix2 = [(__CFString *)v20 _stripFZIDPrefix];
     _bestGuessURI2 = [_stripFZIDPrefix2 _bestGuessURI];
 
     if (IMOSLoggingEnabled())
     {
-      v23 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v22 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
-        v24 = 138412546;
-        v25 = _bestGuessURI2;
-        v26 = 2112;
-        v27 = v21;
-        _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Overriding sender URI to be %@ using Last addressed handle %@", &v24, 0x16u);
+        v23 = 138412546;
+        v24 = _bestGuessURI2;
+        v25 = 2112;
+        v26 = v20;
+        _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Overriding sender URI to be %@ using Last addressed handle %@", &v23, 0x16u);
       }
     }
   }
@@ -95,52 +95,50 @@
     _bestGuessURI2 = _bestGuessURI;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return _bestGuessURI2;
 }
 
 - (void)reportMessageDictionariesForMessages:(id)messages isAutoReport:(BOOL)report withChat:(id)chat conversationID:(id)d maxMessagesToReport:(unint64_t)toReport totalMessageCount:(unint64_t *)count notifyInternalSecurity:(BOOL)security isJunkReportedToCarrier:(BOOL)self0 reportReason:(unint64_t)self1
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   chatCopy = chat;
   dCopy = d;
+  v41 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v42 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v43 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v44 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v15 = qword_2814225C0;
   qword_2814225C0 = v14;
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v16 = messagesCopy;
-  v17 = [v16 countByEnumeratingWithState:&v53 objects:v57 count:16];
-  v49 = security || carrier;
+  v17 = [v16 countByEnumeratingWithState:&v52 objects:v56 count:16];
+  v48 = security || carrier;
   if (!v17)
   {
-    v46 = 0;
+    v45 = 0;
     goto LABEL_54;
   }
 
-  v46 = 0;
-  v18 = *v54;
+  v45 = 0;
+  v18 = *v53;
   do
   {
     for (i = 0; i != v17; ++i)
     {
-      if (*v54 != v18)
+      if (*v53 != v18)
       {
         objc_enumerationMutation(v16);
       }
 
-      v20 = *(*(&v53 + 1) + 8 * i);
+      v20 = *(*(&v52 + 1) + 8 * i);
       if (![v20 type] && (objc_msgSend(v20, "isTypingMessage") & 1) == 0 && (objc_msgSend(v20, "isSuggestedActionResponse") & 1) == 0 && (objc_msgSend(v20, "isRCSEncryptionTest") & 1) == 0)
       {
-        v49 = v49 && [(IMDSpamMessageCreator *)self _textMessageReportToIDSAllowedForMessageItem:v20 chat:chatCopy notifyInternalSecurity:security];
+        v48 = v48 && [(IMDSpamMessageCreator *)self _textMessageReportToIDSAllowedForMessageItem:v20 chat:chatCopy notifyInternalSecurity:security];
         v21 = [(IMDSpamMessageCreator *)self _receiverURIWithItem:v20 chat:chatCopy];
         if (!v21)
         {
@@ -199,14 +197,14 @@ LABEL_49:
               }
             }
 
-            v34 = [v43 objectForKeyedSubscript:v21];
+            v34 = [v42 objectForKeyedSubscript:v21];
             if (!v34)
             {
               v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
             }
 
             [v34 addObject:guid2];
-            [v43 setObject:v34 forKey:v21];
+            [v42 setObject:v34 forKey:v21];
             goto LABEL_36;
           }
 
@@ -222,14 +220,14 @@ LABEL_49:
               }
             }
 
-            v34 = [v42 objectForKeyedSubscript:v21];
+            v34 = [v41 objectForKeyedSubscript:v21];
             if (!v34)
             {
               v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
             }
 
             [v34 addObject:guid2];
-            [v42 setObject:v34 forKey:v21];
+            [v41 setObject:v34 forKey:v21];
 LABEL_36:
           }
 
@@ -245,17 +243,17 @@ LABEL_36:
               }
             }
 
-            v37 = [v44 objectForKeyedSubscript:@"spam-messages"];
+            v37 = [v43 objectForKeyedSubscript:@"spam-messages"];
             if (!v37)
             {
               v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
             }
 
             [v37 addObject:guid2];
-            [v44 setObject:v37 forKey:@"spam-messages"];
+            [v43 setObject:v37 forKey:@"spam-messages"];
           }
 
-          ++v46;
+          ++v45;
 LABEL_46:
         }
 
@@ -263,22 +261,22 @@ LABEL_46:
       }
     }
 
-    v17 = [v16 countByEnumeratingWithState:&v53 objects:v57 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v52 objects:v56 count:16];
   }
 
   while (v17);
 LABEL_54:
 
-  if ([v42 count])
+  if ([v41 count])
   {
-    [(IMDSpamMessageCreator *)self _reportToIDSiMessageSpam:v42 maxMessagesPerReport:toReport];
+    [(IMDSpamMessageCreator *)self _reportToIDSiMessageSpam:v41 maxMessagesPerReport:toReport];
   }
 
-  if (v49)
+  if (v48)
   {
-    if ([v43 count])
+    if ([v42 count])
     {
-      [(IMDSpamMessageCreator *)self _reportToIDSTextMessageSpam:v43];
+      [(IMDSpamMessageCreator *)self _reportToIDSTextMessageSpam:v42];
     }
   }
 
@@ -292,19 +290,17 @@ LABEL_54:
     }
   }
 
-  if ([v44 count])
+  if ([v43 count])
   {
-    [(IMDSpamMessageCreator *)self reportMessageDictionaryToApple:v44 forChat:chatCopy isJunk:1];
+    [(IMDSpamMessageCreator *)self reportMessageDictionaryToApple:v43 forChat:chatCopy isJunk:1];
   }
 
-  *count = v46;
-
-  v39 = *MEMORY[0x277D85DE8];
+  *count = v45;
 }
 
 - (id)_receiverURIWithItem:(id)item chat:(id)chat
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   chatCopy = chat;
   destinationCallerID = [itemCopy destinationCallerID];
@@ -323,7 +319,7 @@ LABEL_54:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v46 = lastAddressedLocalHandle;
+        v45 = lastAddressedLocalHandle;
         _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Falling back to lastAddressedLocalHandle: %@", buf, 0xCu);
       }
     }
@@ -345,7 +341,7 @@ LABEL_54:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v46 = loginID;
+        v45 = loginID;
         _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Falling back to chat's account's loginID: %@", buf, 0xCu);
       }
     }
@@ -354,51 +350,51 @@ LABEL_54:
   if (![loginID length])
   {
     v11 = objc_alloc(MEMORY[0x277D18778]);
-    v28 = [v11 initWithService:*MEMORY[0x277D186B0]];
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
+    v27 = [v11 initWithService:*MEMORY[0x277D186B0]];
     v40 = 0u;
-    obj = [v28 accounts];
-    v33 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
-    if (v33)
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    obj = [v27 accounts];
+    v32 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+    if (v32)
     {
-      v32 = *v40;
+      v31 = *v39;
       do
       {
         v12 = 0;
         do
         {
-          if (*v40 != v32)
+          if (*v39 != v31)
           {
             v13 = v12;
             objc_enumerationMutation(obj);
             v12 = v13;
           }
 
-          v34 = v12;
-          v14 = *(*(&v39 + 1) + 8 * v12);
+          v33 = v12;
+          v14 = *(*(&v38 + 1) + 8 * v12);
           if ([v14 canSend])
           {
-            v37 = 0u;
-            v38 = 0u;
-            v35 = 0u;
             v36 = 0u;
+            v37 = 0u;
+            v34 = 0u;
+            v35 = 0u;
             handles = [v14 handles];
-            v16 = [handles countByEnumeratingWithState:&v35 objects:v43 count:16];
+            v16 = [handles countByEnumeratingWithState:&v34 objects:v42 count:16];
             if (v16)
             {
-              v17 = *v36;
+              v17 = *v35;
               do
               {
                 for (i = 0; i != v16; ++i)
                 {
-                  if (*v36 != v17)
+                  if (*v35 != v17)
                   {
                     objc_enumerationMutation(handles);
                   }
 
-                  v19 = *(*(&v35 + 1) + 8 * i);
+                  v19 = *(*(&v34 + 1) + 8 * i);
                   if ([v19 isUserVisible] && objc_msgSend(v19, "validationStatus") == 3)
                   {
                     v20 = [v19 URI];
@@ -410,7 +406,7 @@ LABEL_54:
                       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
                       {
                         *buf = 138412290;
-                        v46 = unprefixedURI;
+                        v45 = unprefixedURI;
                         _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Falling back to IDSHandle: %@", buf, 0xCu);
                       }
                     }
@@ -419,21 +415,21 @@ LABEL_54:
                   }
                 }
 
-                v16 = [handles countByEnumeratingWithState:&v35 objects:v43 count:16];
+                v16 = [handles countByEnumeratingWithState:&v34 objects:v42 count:16];
               }
 
               while (v16);
             }
           }
 
-          v12 = v34 + 1;
+          v12 = v33 + 1;
         }
 
-        while (v34 + 1 != v33);
-        v33 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+        while (v33 + 1 != v32);
+        v32 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
       }
 
-      while (v33);
+      while (v32);
     }
   }
 
@@ -443,7 +439,7 @@ LABEL_54:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v46 = loginID;
+      v45 = loginID;
       _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Still couldn't fine a real receiver URI: %@", buf, 0xCu);
     }
   }
@@ -456,12 +452,10 @@ LABEL_54:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v46 = _stripFZIDPrefix;
+      v45 = _stripFZIDPrefix;
       _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, "Receiver URI: %@", buf, 0xCu);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return _stripFZIDPrefix;
 }
@@ -752,14 +746,14 @@ LABEL_54:
 
 - (id)surfURLForIMMessageItem:(id)item
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v4 = IMExtensionPayloadUnarchivingClasses();
   v5 = objc_alloc(MEMORY[0x277CCAAC8]);
   payloadData = [itemCopy payloadData];
-  v16 = 0;
-  v7 = [v5 initForReadingFromData:payloadData error:&v16];
-  v8 = v16;
+  v15 = 0;
+  v7 = [v5 initForReadingFromData:payloadData error:&v15];
+  v8 = v15;
 
   if (objc_opt_respondsToSelector())
   {
@@ -798,8 +792,6 @@ LABEL_54:
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -870,7 +862,7 @@ LABEL_11:
 - (BOOL)_textMessageReportToIDSAllowedForMessageItem:(id)item chat:(id)chat notifyInternalSecurity:(BOOL)security
 {
   securityCopy = security;
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   chatCopy = chat;
   mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
@@ -967,39 +959,39 @@ LABEL_38:
 
       if (v23)
       {
-        v34 = &unk_283F4ED98;
+        v33 = &unk_283F4ED98;
       }
 
       else
       {
-        v34 = &unk_283F4EDB0;
+        v33 = &unk_283F4EDB0;
       }
 
-      v35 = [MEMORY[0x277D1A8F8] carrierBundleValueForKeyHierarchy:v34 phoneNumber:v15 simID:v16];
-      if (!v35 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      v34 = [MEMORY[0x277D1A8F8] carrierBundleValueForKeyHierarchy:v33 phoneNumber:v15 simID:v16];
+      if (!v34 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
         if (IMOSLoggingEnabled())
         {
-          v36 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+          v35 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
           {
             *buf = 138413058;
-            v38 = v34;
-            v39 = 2112;
-            v40 = v35;
-            v41 = 2112;
-            v42 = v15;
-            v43 = 2112;
-            v44 = v16;
-            _os_log_impl(&dword_22B4CC000, v36, OS_LOG_TYPE_INFO, "Error getting Carrier Bundle dictionary. Key Hierarchy -> %@.\nCarrier Bundle object -> %@.\nPhone number -> %@.\nSIMID -> %@", buf, 0x2Au);
+            v37 = v33;
+            v38 = 2112;
+            v39 = v34;
+            v40 = 2112;
+            v41 = v15;
+            v42 = 2112;
+            v43 = v16;
+            _os_log_impl(&dword_22B4CC000, v35, OS_LOG_TYPE_INFO, "Error getting Carrier Bundle dictionary. Key Hierarchy -> %@.\nCarrier Bundle object -> %@.\nPhone number -> %@.\nSIMID -> %@", buf, 0x2Au);
           }
         }
 
         goto LABEL_10;
       }
 
-      [qword_2814225C0 setObject:v35 forKeyedSubscript:mEMORY[0x277D1A908]];
-      bOOLValue = [v35 BOOLValue];
+      [qword_2814225C0 setObject:v34 forKeyedSubscript:mEMORY[0x277D1A908]];
+      bOOLValue = [v34 BOOLValue];
     }
 
     else
@@ -1030,7 +1022,7 @@ LABEL_38:
         }
 
         *buf = 138412290;
-        v38 = v31;
+        v37 = v31;
         _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, "Report text message allowed to Apple - %@\n.", buf, 0xCu);
       }
     }
@@ -1042,7 +1034,6 @@ LABEL_2:
   LOBYTE(bOOLValue) = 1;
 LABEL_39:
 
-  v32 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
@@ -1075,7 +1066,7 @@ LABEL_39:
 
 - (void)reportNotJunkToTrustKitForMessageGUID:(id)d
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v4 = +[IMDMessageStore sharedInstance];
   v5 = [v4 chatForMessageGUID:dCopy];
@@ -1086,24 +1077,24 @@ LABEL_39:
     v7 = +[IMDMessageStore sharedInstance];
     chatIdentifier = [v5 chatIdentifier];
     v9 = chatIdentifier;
-    v29 = dCopy;
+    v28 = dCopy;
     if (style == 45)
     {
-      v41[0] = chatIdentifier;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
+      v40[0] = chatIdentifier;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
       serviceName = [v5 serviceName];
-      v40 = serviceName;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+      v39 = serviceName;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
       v13 = [v7 itemsWithHandles:v10 onServices:v12 limit:30];
     }
 
     else
     {
-      v39 = chatIdentifier;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
+      v38 = chatIdentifier;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
       serviceName = [v5 serviceName];
-      v38 = serviceName;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+      v37 = serviceName;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
       v13 = [v7 itemsWithRoomNames:v10 onServices:v12 limit:30];
     }
 
@@ -1111,30 +1102,30 @@ LABEL_39:
 
     stringGUID = [MEMORY[0x277CCACA8] stringGUID];
     v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     v14 = v15;
-    v17 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v17 = [v14 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v34;
+      v19 = *v33;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v34 != v19)
+          if (*v33 != v19)
           {
             objc_enumerationMutation(v14);
           }
 
-          v21 = *(*(&v33 + 1) + 8 * i);
+          v21 = *(*(&v32 + 1) + 8 * i);
           if (![v21 type] && (objc_msgSend(v21, "isFromMe") & 1) == 0 && (objc_msgSend(v21, "isTypingMessage") & 1) == 0 && (objc_msgSend(v21, "isSuggestedActionResponse") & 1) == 0 && (objc_msgSend(v21, "isRCSEncryptionTest") & 1) == 0)
           {
             v22 = [(IMDSpamMessageCreator *)self _receiverURIWithItem:v21 chat:v5];
-            v32 = [(IMDSpamMessageCreator *)self _senderURIWithItem:v21 chat:v5];
+            v31 = [(IMDSpamMessageCreator *)self _senderURIWithItem:v21 chat:v5];
             v23 = [IMDSpamMessageCreator _createJunkMessageDictionaryForItem:"_createJunkMessageDictionaryForItem:senderURI:chat:conversationID:receiverURI:notifyInternalSecurity:reportReason:" senderURI:v21 chat:0 conversationID:? receiverURI:? notifyInternalSecurity:? reportReason:?];
             v24 = [v16 objectForKeyedSubscript:@"not-spam-messages"];
             if (!v24)
@@ -1147,7 +1138,7 @@ LABEL_39:
           }
         }
 
-        v18 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v18 = [v14 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v18);
@@ -1159,16 +1150,16 @@ LABEL_39:
     if (v26)
     {
       [(IMDSpamMessageCreator *)self reportMessageDictionaryToApple:v16 forChat:v5 isJunk:0];
-      dCopy = v29;
+      dCopy = v28;
     }
 
     else
     {
       v27 = IMLogHandleForCategory();
-      dCopy = v29;
+      dCopy = v28;
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        sub_22B7D0098(v29, v27);
+        sub_22B7D0098(v28, v27);
       }
     }
   }
@@ -1181,22 +1172,20 @@ LABEL_39:
       sub_22B7D0110(dCopy, v14);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createJunkMessageDictionaryForItem:(id)item senderURI:(id)i chat:(id)chat conversationID:(id)d receiverURI:(id)rI notifyInternalSecurity:(BOOL)security reportReason:(unint64_t)reason
 {
   securityCopy = security;
   selfCopy = self;
-  v123 = *MEMORY[0x277D85DE8];
+  v122 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   iCopy = i;
   chatCopy = chat;
   dCopy = d;
   rICopy = rI;
-  v105 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v106 = itemCopy;
+  v104 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v105 = itemCopy;
   guid = [itemCopy guid];
   fileTransferGUIDs = [itemCopy fileTransferGUIDs];
   v17 = [fileTransferGUIDs count];
@@ -1210,7 +1199,7 @@ LABEL_3:
     goto LABEL_6;
   }
 
-  body = [v106 body];
+  body = [v105 body];
   v21 = [body length];
 
   if (!v21)
@@ -1219,16 +1208,16 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  body2 = [v106 body];
+  body2 = [v105 body];
   string = [body2 string];
 
   v19 = [string dataUsingEncoding:4];
   plainBody = string;
 LABEL_6:
-  v103 = [v19 length];
-  v100 = [MEMORY[0x277D18A10] sharedInstanceForBagType:0];
-  v24 = [v100 objectForKey:@"max-spam-message-size"];
-  v99 = v24;
+  v102 = [v19 length];
+  v99 = [MEMORY[0x277D18A10] sharedInstanceForBagType:0];
+  v24 = [v99 objectForKey:@"max-spam-message-size"];
+  v98 = v24;
   if (v24)
   {
     integerValue = [v24 integerValue];
@@ -1250,10 +1239,10 @@ LABEL_6:
   }
 
   v27 = +[IMDServiceController sharedController];
-  service = [v106 service];
-  v102 = [v27 serviceWithName:service];
+  service = [v105 service];
+  v101 = [v27 serviceWithName:service];
 
-  if (v103 > integerValue && [v102 supportsCapability:*MEMORY[0x277D1A530]])
+  if (v102 > integerValue && [v101 supportsCapability:*MEMORY[0x277D1A530]])
   {
     v29 = IMOSLoggingEnabled();
     if (v29)
@@ -1262,16 +1251,16 @@ LABEL_6:
       if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v122 = integerValue;
+        v121 = integerValue;
         _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, "truncating spam message length to max of %ld", buf, 0xCu);
       }
     }
 
     MEMORY[0x28223BE20](v29);
-    bzero(&v92 - ((integerValue + 15) & 0xFFFFFFFFFFFFFFF0), integerValue);
-    bzero(&v92 - ((integerValue + 15) & 0xFFFFFFFFFFFFFFF0), integerValue);
-    [v19 getBytes:&v92 - ((integerValue + 15) & 0xFFFFFFFFFFFFFFF0) length:integerValue - 1];
-    v31 = [MEMORY[0x277CBEA90] dataWithBytes:&v92 - ((integerValue + 15) & 0xFFFFFFFFFFFFFFF0) length:integerValue];
+    bzero(&v91 - ((integerValue + 15) & 0xFFFFFFFFFFFFFFF0), integerValue);
+    bzero(&v91 - ((integerValue + 15) & 0xFFFFFFFFFFFFFFF0), integerValue);
+    [v19 getBytes:&v91 - ((integerValue + 15) & 0xFFFFFFFFFFFFFFF0) length:integerValue - 1];
+    v31 = [MEMORY[0x277CBEA90] dataWithBytes:&v91 - ((integerValue + 15) & 0xFFFFFFFFFFFFFFF0) length:integerValue];
 
     v19 = v31;
   }
@@ -1280,105 +1269,105 @@ LABEL_6:
   if (v32)
   {
     v33 = v32;
-    CFDictionarySetValue(v105, @"sender-uri", v32);
+    CFDictionarySetValue(v104, @"sender-uri", v32);
     v32 = v33;
   }
 
-  v95 = v32;
+  v94 = v32;
 
   v34 = MEMORY[0x277CCABB0];
-  time = [v106 time];
+  time = [v105 time];
   [time timeIntervalSince1970];
   v36 = [v34 numberWithDouble:?];
 
   if (v36)
   {
-    CFDictionarySetValue(v105, @"time-of-message", v36);
+    CFDictionarySetValue(v104, @"time-of-message", v36);
   }
 
   v37 = [MEMORY[0x277CCABB0] numberWithBool:v17 != 0];
   if (v37)
   {
-    CFDictionarySetValue(v105, @"message-has-image", v37);
+    CFDictionarySetValue(v104, @"message-has-image", v37);
   }
 
   v38 = v19;
   if (v38)
   {
     v39 = v38;
-    CFDictionarySetValue(v105, @"message-text", v38);
+    CFDictionarySetValue(v104, @"message-text", v38);
     v38 = v39;
   }
 
-  v94 = v38;
+  v93 = v38;
 
-  v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v103];
+  v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v102];
   if (v40)
   {
-    CFDictionarySetValue(v105, @"message-length", v40);
+    CFDictionarySetValue(v104, @"message-length", v40);
   }
 
-  rcsAdvisedAction = [v106 rcsAdvisedAction];
+  rcsAdvisedAction = [v105 rcsAdvisedAction];
   if (rcsAdvisedAction)
   {
-    CFDictionarySetValue(v105, @"rcs-advised-action", rcsAdvisedAction);
+    CFDictionarySetValue(v104, @"rcs-advised-action", rcsAdvisedAction);
   }
 
-  spamModelVersion = [v106 spamModelVersion];
+  spamModelVersion = [v105 spamModelVersion];
   if (spamModelVersion)
   {
-    CFDictionarySetValue(v105, @"message-spam-model-version", spamModelVersion);
+    CFDictionarySetValue(v104, @"message-spam-model-version", spamModelVersion);
   }
 
-  v43 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v106, "isSpam")}];
+  v43 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v105, "isSpam")}];
   if (v43)
   {
-    CFDictionarySetValue(v105, @"message-spam-model-detected-spam", v43);
+    CFDictionarySetValue(v104, @"message-spam-model-detected-spam", v43);
   }
 
-  spamModelMetadata = [v106 spamModelMetadata];
+  spamModelMetadata = [v105 spamModelMetadata];
   if (spamModelMetadata)
   {
-    CFDictionarySetValue(v105, @"decision-info", spamModelMetadata);
+    CFDictionarySetValue(v104, @"decision-info", spamModelMetadata);
   }
 
   v45 = dCopy;
   if (v45)
   {
     v46 = v45;
-    CFDictionarySetValue(v105, @"conversation-id", v45);
+    CFDictionarySetValue(v104, @"conversation-id", v45);
     v45 = v46;
   }
 
-  v93 = v45;
+  v92 = v45;
 
-  v47 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v106, "wasEverTimeSensitive")}];
+  v47 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v105, "wasEverTimeSensitive")}];
   if (v47)
   {
-    CFDictionarySetValue(v105, @"time-sensitive", v47);
+    CFDictionarySetValue(v104, @"time-sensitive", v47);
   }
 
-  v108 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v119 = 0u;
+  v107 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v118 = 0u;
   v117 = 0u;
   v116 = 0u;
-  fileTransferGUIDs2 = [v106 fileTransferGUIDs];
-  v111 = [fileTransferGUIDs2 countByEnumeratingWithState:&v116 objects:v120 count:16];
-  if (v111)
+  v115 = 0u;
+  fileTransferGUIDs2 = [v105 fileTransferGUIDs];
+  v110 = [fileTransferGUIDs2 countByEnumeratingWithState:&v115 objects:v119 count:16];
+  if (v110)
   {
-    v109 = *v117;
+    v108 = *v116;
     do
     {
-      for (i = 0; i != v111; ++i)
+      for (i = 0; i != v110; ++i)
       {
-        if (*v117 != v109)
+        if (*v116 != v108)
         {
           objc_enumerationMutation(fileTransferGUIDs2);
         }
 
-        v49 = [(IMDSpamMessageCreator *)selfCopy transferForGuid:*(*(&v116 + 1) + 8 * i)];
-        v115 = v49;
+        v49 = [(IMDSpamMessageCreator *)selfCopy transferForGuid:*(*(&v115 + 1) + 8 * i)];
+        v114 = v49;
         if (v49)
         {
           userInfo = [v49 userInfo];
@@ -1387,8 +1376,8 @@ LABEL_6:
           v53 = [userInfo _stringForKey:@"mmcs-owner"];
           v54 = [userInfo _stringForKey:@"file-size"];
           v55 = [userInfo _stringForKey:@"decryption-key"];
-          type = [v115 type];
-          filename = [v115 filename];
+          type = [v114 type];
+          filename = [v114 filename];
           v58 = objc_alloc_init(MEMORY[0x277CBEB38]);
           v59 = v51;
           if (v59)
@@ -1398,7 +1387,7 @@ LABEL_6:
             v59 = v60;
           }
 
-          v114 = v59;
+          v113 = v59;
 
           v61 = v52;
           if (v61)
@@ -1408,7 +1397,7 @@ LABEL_6:
             v61 = v62;
           }
 
-          v113 = v61;
+          v112 = v61;
 
           v63 = v53;
           if (v63)
@@ -1418,7 +1407,7 @@ LABEL_6:
             v63 = v64;
           }
 
-          v112 = v63;
+          v111 = v63;
 
           v65 = v54;
           if (v65)
@@ -1448,7 +1437,7 @@ LABEL_6:
           if ([v69 length])
           {
             v70 = objc_alloc(MEMORY[0x277CBEA90]);
-            localPath = [v115 localPath];
+            localPath = [v114 localPath];
             v72 = [v70 initWithContentsOfFile:localPath];
 
             v73 = v72;
@@ -1458,7 +1447,7 @@ LABEL_6:
             }
           }
 
-          [v108 addObject:v58];
+          [v107 addObject:v58];
         }
 
         else if (IMOSLoggingEnabled())
@@ -1472,16 +1461,16 @@ LABEL_6:
         }
       }
 
-      v111 = [fileTransferGUIDs2 countByEnumeratingWithState:&v116 objects:v120 count:16];
+      v110 = [fileTransferGUIDs2 countByEnumeratingWithState:&v115 objects:v119 count:16];
     }
 
-    while (v111);
+    while (v110);
   }
 
-  v75 = v108;
+  v75 = v107;
   if (v75)
   {
-    CFDictionarySetValue(v105, @"message-attachment-info", v75);
+    CFDictionarySetValue(v104, @"message-attachment-info", v75);
   }
 
   v76 = MEMORY[0x277CCABB0];
@@ -1490,36 +1479,36 @@ LABEL_6:
 
   if (v78)
   {
-    CFDictionarySetValue(v105, @"conversation-group-size", v78);
+    CFDictionarySetValue(v104, @"conversation-group-size", v78);
   }
 
-  v79 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v106, "isFromMe")}];
+  v79 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v105, "isFromMe")}];
   if (v79)
   {
-    CFDictionarySetValue(v105, @"is-self", v79);
+    CFDictionarySetValue(v104, @"is-self", v79);
   }
 
-  service2 = [v106 service];
+  service2 = [v105 service];
   if (service2)
   {
-    CFDictionarySetValue(v105, @"message-service", service2);
+    CFDictionarySetValue(v104, @"message-service", service2);
   }
 
-  service3 = [v106 service];
+  service3 = [v105 service];
   v82 = [service3 isEqualToString:*MEMORY[0x277D1A608]];
 
   if (v82)
   {
-    v83 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v106, "encrypted")}];
+    v83 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v105, "encrypted")}];
     if (v83)
     {
-      CFDictionarySetValue(v105, @"message-encrypted", v83);
+      CFDictionarySetValue(v104, @"message-encrypted", v83);
     }
   }
 
   if (securityCopy)
   {
-    CFDictionarySetValue(v105, @"notify-security", &unk_283F4E498);
+    CFDictionarySetValue(v104, @"notify-security", &unk_283F4E498);
     if (IMOSLoggingEnabled())
     {
       v84 = OSLogHandleForIMFoundationCategory();
@@ -1534,7 +1523,7 @@ LABEL_6:
   v85 = rICopy;
   if (v85)
   {
-    CFDictionarySetValue(v105, @"recipient-uri", v85);
+    CFDictionarySetValue(v104, @"recipient-uri", v85);
   }
 
   else
@@ -1547,14 +1536,14 @@ LABEL_6:
     }
   }
 
-  if ([v102 supportsCapability:*MEMORY[0x277D1A5D8]])
+  if ([v101 supportsCapability:*MEMORY[0x277D1A5D8]])
   {
-    [(IMDSpamMessageCreator *)selfCopy addTextMessageJunkKeysToReportMessageDictionary:v105 forMessage:v106 chat:chatCopy];
+    [(IMDSpamMessageCreator *)selfCopy addTextMessageJunkKeysToReportMessageDictionary:v104 forMessage:v105 chat:chatCopy];
   }
 
   else
   {
-    [(IMDSpamMessageCreator *)selfCopy addiMessageJunkKeysToReportMessageDictionary:v105 forMessage:v106 withGUID:guid contentLength:v103 chat:chatCopy];
+    [(IMDSpamMessageCreator *)selfCopy addiMessageJunkKeysToReportMessageDictionary:v104 forMessage:v105 withGUID:guid contentLength:v102 chat:chatCopy];
     v88 = [chatCopy isBusinessChat] ^ 1;
     if (!reason)
     {
@@ -1563,14 +1552,13 @@ LABEL_6:
 
     if ((v88 & 1) == 0 && reason <= 6)
     {
-      CFDictionarySetValue(v105, @"report-spam-reason", off_278703290[reason - 1]);
+      CFDictionarySetValue(v104, @"report-spam-reason", off_278703290[reason - 1]);
     }
   }
 
-  v89 = v105;
+  v89 = v104;
 
-  v90 = *MEMORY[0x277D85DE8];
-  return v105;
+  return v104;
 }
 
 - (void)reportMessageDictionaryToApple:(id)apple forChat:(id)chat isJunk:(BOOL)junk
@@ -1579,6 +1567,8 @@ LABEL_6:
   chatCopy = chat;
   selfCopy = self;
   sub_22B789268(v8, chatCopy, junk);
+
+  v8, v11, v12, v13, v14, v15, v16, v17, v19, v20;
 }
 
 @end

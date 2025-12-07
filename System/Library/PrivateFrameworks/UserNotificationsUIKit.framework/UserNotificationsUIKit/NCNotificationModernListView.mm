@@ -34,10 +34,11 @@
 
 - (NCNotificationModernListView)initWithModelType:(Class)type purpose:(id)purpose purposeWithSensitiveTextHashed:(id)hashed
 {
-  swift_getObjCClassMetadata();
-  sub_21E92A458();
-  sub_21E92A458();
-  return NCNotificationModernListView.init(modelType:purpose:purposeWithSensitiveTextHashed:)();
+  ObjCClassMetadata = swift_getObjCClassMetadata();
+  v6 = sub_21E92A458();
+  v8 = v7;
+  v9 = sub_21E92A458();
+  return NCNotificationModernListView.init(modelType:purpose:purposeWithSensitiveTextHashed:)(ObjCClassMetadata, v6, v8, v9, v10);
 }
 
 - (NCNotificationModernListView)initWithModelType:(Class)type purpose:(id)purpose

@@ -2,6 +2,7 @@
 - (SGMailIntelligenceFollowUpWarning)initWithCoder:(id)coder;
 - (SGMailIntelligenceFollowUpWarning)initWithNSData:(id)data;
 - (SGMailIntelligenceFollowUpWarning)initWithNSDictionary:(id)dictionary;
+- (SGMailIntelligenceFollowUpWarning)initWithSnippet:(id)snippet core:(id)core signature:(id)signature detectedLanguage:(id)language isIncomingMessage:(BOOL)message score:(id)score startDate:(id)date startDateCore:(id)self0 endDate:(id)self1 endDateCore:(id)self2;
 - (SGMailIntelligenceFollowUpWarning)initWithString:(id)string;
 - (id)description;
 - (id)toLightJson;
@@ -18,10 +19,9 @@
   snippet = [(SGMailIntelligenceWarning *)self snippet];
   signature = [(SGMailIntelligenceWarning *)self signature];
   score = [(SGMailIntelligenceWarning *)self score];
-  startDate = self->_startDate;
-  v8 = [v3 initWithFormat:@"<SGMailIntelligenceFollowUpWarningtriggered on: %@ (with signature %@) score: %@ valid from %@ to %@>", snippet, signature, score, startDate, self->_endDate];
+  v7 = [v3 initWithFormat:@"<SGMailIntelligenceFollowUpWarningtriggered on: %@ (with signature %@) score: %@ valid from %@ to %@>", snippet, signature, score, self->_startDate, self->_endDate];
 
-  return v8;
+  return v7;
 }
 
 - (id)toLightJson
@@ -265,6 +265,28 @@ LABEL_8:
   [coderCopy encodeObject:self->_endDate forKey:@"endDate"];
   [coderCopy encodeObject:self->_endDateCore forKey:@"endDateCore"];
   [coderCopy encodeObject:self->_type forKey:@"type"];
+}
+
+- (SGMailIntelligenceFollowUpWarning)initWithSnippet:(id)snippet core:(id)core signature:(id)signature detectedLanguage:(id)language isIncomingMessage:(BOOL)message score:(id)score startDate:(id)date startDateCore:(id)self0 endDate:(id)self1 endDateCore:(id)self2
+{
+  messageCopy = message;
+  dateCopy = date;
+  dateCoreCopy = dateCore;
+  endDateCopy = endDate;
+  endDateCoreCopy = endDateCore;
+  v26.receiver = self;
+  v26.super_class = SGMailIntelligenceFollowUpWarning;
+  v18 = [(SGMailIntelligenceWarning *)&v26 initWithSnippet:snippet core:core signature:signature detectedLanguage:language isIncomingMessage:messageCopy score:score];
+  v19 = v18;
+  if (v18)
+  {
+    objc_storeStrong(&v18->_startDate, date);
+    objc_storeStrong(&v19->_startDateCore, dateCore);
+    objc_storeStrong(&v19->_endDate, endDate);
+    objc_storeStrong(&v19->_endDateCore, endDateCore);
+  }
+
+  return v19;
 }
 
 @end

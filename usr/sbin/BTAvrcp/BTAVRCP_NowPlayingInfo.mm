@@ -22,6 +22,7 @@
 - (unint64_t)trackId;
 - (void)_activeOriginDidChange:(void *)change;
 - (void)_appDidChange:(id)change;
+- (void)_appIsPlayingDidChange:(BOOL)change;
 - (void)_appIsPlayingDidChangeNotification:(id)notification;
 - (void)_infoDidChange:(id)change;
 - (void)_initializeState;
@@ -194,6 +195,19 @@
     delegate = [(BTAVRCP_NowPlayingInfo *)self delegate];
     [delegate playerDidChange:{-[BTAVRCP_NowPlayingInfo playerId](self, "playerId")}];
   }
+}
+
+- (void)_appIsPlayingDidChange:(BOOL)change
+{
+  changeCopy = change;
+  if (os_log_type_enabled(qword_10001EFD0, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10000ECAC();
+  }
+
+  [(BTAVRCP_NowPlayingInfo *)self setMrAppIsPlaying:changeCopy];
+  [(BTAVRCP_NowPlayingInfo *)self _playbackStateDidChange];
+  [(BTAVRCP_NowPlayingInfo *)self _trackDidChange];
 }
 
 - (void)_playbackQueueDidChange
@@ -626,33 +640,8 @@
   {
     v6 = [mrInfo objectForKeyedSubscript:kMRMediaRemoteNowPlayingInfoUniqueIdentifier];
 
-    if (v6)
+    if (v6 || (-[BTAVRCP_NowPlayingInfo mrInfo](self, "mrInfo"), v7 = objc_claimAutoreleasedReturnValue(), [v7 objectForKeyedSubscript:kMRMediaRemoteNowPlayingInfoiTunesStoreIdentifier], v6 = objc_claimAutoreleasedReturnValue(), v7, v6) || (-[BTAVRCP_NowPlayingInfo mrInfo](self, "mrInfo"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "objectForKeyedSubscript:", kMRMediaRemoteNowPlayingInfoExternalContentIdentifier), v6 = objc_claimAutoreleasedReturnValue(), v8, v6) || (-[BTAVRCP_NowPlayingInfo mrInfo](self, "mrInfo"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "objectForKeyedSubscript:", kMRMediaRemoteNowPlayingInfoiTunesStoreSubscriptionAdamIdentifier), v6 = objc_claimAutoreleasedReturnValue(), v9, v6) || (-[BTAVRCP_NowPlayingInfo mrInfo](self, "mrInfo"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "objectForKeyedSubscript:", kMRMediaRemoteNowPlayingInfoRadioStationIdentifier), v6 = objc_claimAutoreleasedReturnValue(), v10, v6))
     {
-      goto LABEL_7;
-    }
-
-    mrInfo2 = [(BTAVRCP_NowPlayingInfo *)self mrInfo];
-    v6 = [mrInfo2 objectForKeyedSubscript:kMRMediaRemoteNowPlayingInfoiTunesStoreIdentifier];
-
-    if (v6)
-    {
-      goto LABEL_7;
-    }
-
-    mrInfo3 = [(BTAVRCP_NowPlayingInfo *)self mrInfo];
-    v6 = [mrInfo3 objectForKeyedSubscript:kMRMediaRemoteNowPlayingInfoExternalContentIdentifier];
-
-    if (v6)
-    {
-      goto LABEL_7;
-    }
-
-    mrInfo4 = [(BTAVRCP_NowPlayingInfo *)self mrInfo];
-    v6 = [mrInfo4 objectForKeyedSubscript:kMRMediaRemoteNowPlayingInfoiTunesStoreSubscriptionAdamIdentifier];
-
-    if (v6 || (-[BTAVRCP_NowPlayingInfo mrInfo](self, "mrInfo"), v10 = objc_claimAutoreleasedReturnValue(), [v10 objectForKeyedSubscript:kMRMediaRemoteNowPlayingInfoRadioStationIdentifier], v6 = objc_claimAutoreleasedReturnValue(), v10, v6))
-    {
-LABEL_7:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {

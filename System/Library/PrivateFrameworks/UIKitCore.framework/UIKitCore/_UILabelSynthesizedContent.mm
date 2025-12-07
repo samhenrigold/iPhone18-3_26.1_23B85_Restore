@@ -233,7 +233,7 @@ LABEL_17:
   {
     if (equalCopy == self)
     {
-      LOBYTE(v12) = 1;
+      LOBYTE(isEqual) = 1;
       goto LABEL_22;
     }
 
@@ -253,7 +253,7 @@ LABEL_17:
 
         else
         {
-          LOBYTE(v12) = 0;
+          LOBYTE(isEqual) = 0;
           if (!v9 || !v10)
           {
             v15 = v10;
@@ -263,9 +263,9 @@ LABEL_21:
             goto LABEL_22;
           }
 
-          v12 = [(UIColor *)v9 isEqual:v10];
+          isEqual = objc_msgSend_isEqual_(v9);
 
-          if (!v12)
+          if (!isEqual)
           {
             goto LABEL_21;
           }
@@ -278,15 +278,15 @@ LABEL_21:
         v9 = v16;
         if (v15 == v16)
         {
-          LOBYTE(v12) = 1;
+          LOBYTE(isEqual) = 1;
         }
 
         else
         {
-          LOBYTE(v12) = 0;
+          LOBYTE(isEqual) = 0;
           if (v15 && v16)
           {
-            LOBYTE(v12) = [(_UILabelContent *)v15 isEqual:v16];
+            LOBYTE(isEqual) = objc_msgSend_isEqual_(v15);
           }
         }
 
@@ -295,10 +295,10 @@ LABEL_21:
     }
   }
 
-  LOBYTE(v12) = 0;
+  LOBYTE(isEqual) = 0;
 LABEL_22:
 
-  return v12;
+  return isEqual;
 }
 
 - (void)_disablingHyphenationIfURLsDetectedInAttributedString:(id)string

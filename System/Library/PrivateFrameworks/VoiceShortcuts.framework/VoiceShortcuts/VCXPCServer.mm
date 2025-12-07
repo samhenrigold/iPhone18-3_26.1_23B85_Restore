@@ -34,7 +34,7 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   v8 = getWFGeneralLogObject();
@@ -46,8 +46,8 @@
     *&buf[14] = self;
     *&buf[22] = 2114;
     *&buf[24] = listenerCopy;
-    v32 = 2114;
-    v33 = connectionCopy;
+    v31 = 2114;
+    v32 = connectionCopy;
     _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_DEBUG, "%s [%{public}@ listener:%{public}@]", buf, 0x2Au);
   }
 
@@ -116,18 +116,18 @@ LABEL_18:
   }
 
   objc_initWeak(&location, connectionCopy);
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __50__VCXPCServer_listener_shouldAcceptNewConnection___block_invoke;
-  v28[3] = &unk_278900170;
-  objc_copyWeak(&v29, &location);
-  [connectionCopy setInterruptionHandler:v28];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __50__VCXPCServer_listener_shouldAcceptNewConnection___block_invoke_188;
-  v26[3] = &unk_278900170;
-  objc_copyWeak(&v27, &location);
-  [connectionCopy setInvalidationHandler:v26];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __50__VCXPCServer_listener_shouldAcceptNewConnection___block_invoke;
+  v27[3] = &unk_278900170;
+  objc_copyWeak(&v28, &location);
+  [connectionCopy setInterruptionHandler:v27];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __50__VCXPCServer_listener_shouldAcceptNewConnection___block_invoke_188;
+  v25[3] = &unk_278900170;
+  objc_copyWeak(&v26, &location);
+  [connectionCopy setInvalidationHandler:v25];
   [connectionCopy setDelegate:self];
   xpcInterface = [(VCXPCServer *)self xpcInterface];
   [connectionCopy setExportedInterface:xpcInterface];
@@ -138,7 +138,7 @@ LABEL_18:
   runCoordinator = [(VCXPCServer *)self runCoordinator];
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -160,48 +160,43 @@ LABEL_18:
     _os_log_impl(&dword_23103C000, v23, OS_LOG_TYPE_DEBUG, "%s Resumed connection %{public}@", buf, 0x16u);
   }
 
-  objc_destroyWeak(&v27);
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(&location);
   v21 = 1;
 LABEL_23:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 void __50__VCXPCServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = getWFGeneralLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v4 = 136315394;
-    v5 = "[VCXPCServer listener:shouldAcceptNewConnection:]_block_invoke";
-    v6 = 2114;
-    v7 = WeakRetained;
-    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_INFO, "%s Connection %{public}@ was interrupted", &v4, 0x16u);
+    v3 = 136315394;
+    v4 = "[VCXPCServer listener:shouldAcceptNewConnection:]_block_invoke";
+    v5 = 2114;
+    v6 = WeakRetained;
+    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_INFO, "%s Connection %{public}@ was interrupted", &v3, 0x16u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __50__VCXPCServer_listener_shouldAcceptNewConnection___block_invoke_188(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = getWFGeneralLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v4 = 136315394;
-    v5 = "[VCXPCServer listener:shouldAcceptNewConnection:]_block_invoke";
-    v6 = 2114;
-    v7 = WeakRetained;
-    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_INFO, "%s Connection %{public}@ was invalidated", &v4, 0x16u);
+    v3 = 136315394;
+    v4 = "[VCXPCServer listener:shouldAcceptNewConnection:]_block_invoke";
+    v5 = 2114;
+    v6 = WeakRetained;
+    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_INFO, "%s Connection %{public}@ was invalidated", &v3, 0x16u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (NSXPCListenerEndpoint)endpoint

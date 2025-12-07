@@ -20,7 +20,7 @@
   return v3;
 }
 
-uint64_t __43__LKAttentionAwareIdleTimer_sharedInstance__block_invoke()
+uint64_t __43__LKAttentionAwareIdleTimer_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
   sharedInstance_sharedInstance = objc_opt_new();
 
@@ -67,7 +67,7 @@ uint64_t __43__LKAttentionAwareIdleTimer_sharedInstance__block_invoke()
 
 void __83__LKAttentionAwareIdleTimer_startMonitoringAttentionAwareIdleWithDelegate_timeout___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = [LKAttentionAwareIdleTimerClient alloc];
   v3 = *(a1 + 48);
   v4 = *(a1 + 32);
@@ -86,29 +86,29 @@ void __83__LKAttentionAwareIdleTimer_startMonitoringAttentionAwareIdleWithDelega
     [v11 setObject:v10 forKeyedSubscript:v12];
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v13 = [*(a1 + 40) timeoutDelegateMap];
   v14 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 48)];
   v15 = [v13 objectForKeyedSubscript:v14];
 
-  v16 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v27;
+    v18 = *v26;
     while (2)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v27 != v18)
+        if (*v26 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v26 + 1) + 8 * i);
+        v20 = *(*(&v25 + 1) + 8 * i);
         v21 = [v20 clientDelegate];
         v22 = *(a1 + 32);
 
@@ -119,7 +119,7 @@ void __83__LKAttentionAwareIdleTimer_startMonitoringAttentionAwareIdleWithDelega
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v17)
       {
         continue;
@@ -136,7 +136,6 @@ void __83__LKAttentionAwareIdleTimer_startMonitoringAttentionAwareIdleWithDelega
   [v24 addObject:v6];
 
 LABEL_13:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMonitoringAttentionAwareIdleWithDelegate:(id)delegate timeout:(double)timeout
@@ -156,36 +155,36 @@ LABEL_13:
 
 void __82__LKAttentionAwareIdleTimer_stopMonitoringAttentionAwareIdleWithDelegate_timeout___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) timeoutDelegateMap];
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 48)];
   v4 = [v2 objectForKeyedSubscript:v3];
 
   if (v4)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v5 = [*(a1 + 32) timeoutDelegateMap];
     v6 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 48)];
     v7 = [v5 objectForKeyedSubscript:v6];
 
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * i);
+          v12 = *(*(&v15 + 1) + 8 * i);
           v13 = [v12 clientDelegate];
           v14 = *(a1 + 40);
 
@@ -196,7 +195,7 @@ void __82__LKAttentionAwareIdleTimer_stopMonitoringAttentionAwareIdleWithDelegat
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v9)
         {
           continue;
@@ -208,8 +207,6 @@ void __82__LKAttentionAwareIdleTimer_stopMonitoringAttentionAwareIdleWithDelegat
 
 LABEL_12:
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (LKAttentionAwareIdleTimerDelegate)delegate

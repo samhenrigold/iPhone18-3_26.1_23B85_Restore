@@ -13,7 +13,7 @@
 
 - (void)_finishStreamTransport
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   _isComplete = [(HMDDataStreamTCPSetupOperation *)self _isComplete];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -24,9 +24,9 @@
     if (v7)
     {
       v8 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v8;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@[Start Stream] DataStream configuration valid; starting stream", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v8;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@[Start Stream] DataStream configuration valid; starting stream", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -43,26 +43,24 @@
       v12 = [(HMDDataStreamTCPSetupOperation *)selfCopy remoteTcpPort]!= 0;
       remoteNetAddress = [(HMDDataStreamTCPSetupOperation *)selfCopy remoteNetAddress];
       sessionEncryption2 = [(HMDDataStreamTCPSetupOperation *)selfCopy sessionEncryption];
-      v16 = 138544130;
-      v17 = v11;
-      v18 = 1024;
-      v19 = v12;
-      v20 = 1024;
-      v21 = remoteNetAddress != 0;
-      v22 = 1024;
-      v23 = sessionEncryption2 != 0;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@[Start Stream] Setup still in progress (hasPort=%d, hasHostname=%d, hasEnc=%d)", &v16, 0x1Eu);
+      v15 = 138544130;
+      v16 = v11;
+      v17 = 1024;
+      v18 = v12;
+      v19 = 1024;
+      v20 = remoteNetAddress != 0;
+      v21 = 1024;
+      v22 = sessionEncryption2 != 0;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@[Start Stream] Setup still in progress (hasPort=%d, hasHostname=%d, hasEnc=%d)", &v15, 0x1Eu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createTCPTransport
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   accessory = [(HMDDataStreamSetupOperation *)self accessory];
   siriEndpointProfile = [accessory siriEndpointProfile];
 
@@ -74,9 +72,9 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v8;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@[Start Stream] Accessory is a Siri endpoint, creating transport with elevated scheduling mode", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v8;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@[Start Stream] Accessory is a Siri endpoint, creating transport with elevated scheduling mode", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -100,8 +98,6 @@
 
   v17 = v14;
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
@@ -115,14 +111,14 @@
   {
     objc_initWeak(location, self);
     _fullKeySalt = [(HMDDataStreamTCPSetupOperation *)self _fullKeySalt];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __53__HMDDataStreamTCPSetupOperation__generateStreamKeys__block_invoke;
-    v12[3] = &unk_2797239B8;
-    objc_copyWeak(&v13, location);
-    [anyIPServer createKeysForDataStreamWithKeySalt:_fullKeySalt completionHandler:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __53__HMDDataStreamTCPSetupOperation__generateStreamKeys__block_invoke;
+    v11[3] = &unk_2797239B8;
+    objc_copyWeak(&v12, location);
+    [anyIPServer createKeysForDataStreamWithKeySalt:_fullKeySalt completionHandler:v11];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(location);
   }
 
@@ -143,13 +139,11 @@
     v10 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [(HMDDataStreamSetupOperation *)selfCopy postDidFailWithError:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HMDDataStreamTCPSetupOperation__generateStreamKeys__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -164,11 +158,11 @@ void __53__HMDDataStreamTCPSetupOperation__generateStreamKeys__block_invoke(uint
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v13 = HMFGetLogIdentifier();
-        v15 = 138543618;
-        v16 = v13;
-        v17 = 2112;
-        v18 = v6;
-        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to create secure session for the accessory (%@)", &v15, 0x16u);
+        v14 = 138543618;
+        v15 = v13;
+        v16 = 2112;
+        v17 = v6;
+        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to create secure session for the accessory (%@)", &v14, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -185,11 +179,11 @@ void __53__HMDDataStreamTCPSetupOperation__generateStreamKeys__block_invoke(uint
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         v12 = HMFGetLogIdentifier();
-        v15 = 138543618;
-        v16 = v12;
-        v17 = 2112;
-        v18 = v5;
-        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEBUG, "%{public}@[Start Stream] Key creation succeeded; will use session encryption %@", &v15, 0x16u);
+        v14 = 138543618;
+        v15 = v12;
+        v16 = 2112;
+        v17 = v5;
+        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEBUG, "%{public}@[Start Stream] Key creation succeeded; will use session encryption %@", &v14, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -198,13 +192,11 @@ void __53__HMDDataStreamTCPSetupOperation__generateStreamKeys__block_invoke(uint
       v6 = 0;
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processTransportSetupResponse:(id)response
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   accessoryKeySalt = [responseCopy accessoryKeySalt];
 
@@ -216,11 +208,11 @@ void __53__HMDDataStreamTCPSetupOperation__generateStreamKeys__block_invoke(uint
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      v23 = 138543362;
-      v24 = v19;
+      v22 = 138543362;
+      v23 = v19;
       v20 = "%{public}@[Start Stream] The setup transfer write reply did not contain key information";
 LABEL_10:
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, v20, &v23, 0xCu);
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, v20, &v22, 0xCu);
     }
 
 LABEL_11:
@@ -244,8 +236,8 @@ LABEL_11:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      v23 = 138543362;
-      v24 = v19;
+      v22 = 138543362;
+      v23 = v19;
       v20 = "%{public}@[Start Stream] The setup transfer write reply did not contain a TCP port";
       goto LABEL_10;
     }
@@ -258,11 +250,11 @@ LABEL_11:
     v12 = HMFGetLogIdentifier();
     parameters2 = [responseCopy parameters];
     tcpListeningPort2 = [parameters2 tcpListeningPort];
-    v23 = 138543618;
-    v24 = v12;
-    v25 = 2112;
-    v26 = tcpListeningPort2;
-    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEBUG, "%{public}@[Start Stream] The setup transfer succeeded; will use port %@", &v23, 0x16u);
+    v22 = 138543618;
+    v23 = v12;
+    v24 = 2112;
+    v25 = tcpListeningPort2;
+    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEBUG, "%{public}@[Start Stream] The setup transfer succeeded; will use port %@", &v22, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -276,13 +268,11 @@ LABEL_11:
 
   [(HMDDataStreamTCPSetupOperation *)selfCopy2 _generateStreamKeys];
 LABEL_12:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startSetup
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   accessory = [(HMDDataStreamSetupOperation *)self accessory];
   anyIPServer = [accessory anyIPServer];
 
@@ -296,7 +286,7 @@ LABEL_12:
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v9;
+      v33 = v9;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Creating new DataStream using TCP", buf, 0xCu);
     }
 
@@ -304,11 +294,11 @@ LABEL_12:
     controllerKeySalt = [(HMDDataStreamTCPSetupOperation *)selfCopy controllerKeySalt];
     v11 = [objc_alloc(MEMORY[0x277CFEB08]) initWithValue:0];
     v12 = [objc_alloc(MEMORY[0x277CFEB18]) initWithValue:0];
-    v27 = [objc_alloc(MEMORY[0x277CFEB20]) initWithCommand:v11 transportType:v12 controllerKeySalt:controllerKeySalt];
+    v26 = [objc_alloc(MEMORY[0x277CFEB20]) initWithCommand:v11 transportType:v12 controllerKeySalt:controllerKeySalt];
 
-    v31 = 0;
-    v13 = [v27 serializeWithError:&v31];
-    v14 = v31;
+    v30 = 0;
+    v13 = [v26 serializeWithError:&v30];
+    v14 = v30;
     if (v13)
     {
       transferManagementService = [(HMDDataStreamSetupOperation *)selfCopy transferManagementService];
@@ -317,19 +307,19 @@ LABEL_12:
       v17 = [HMDCharacteristicWriteRequest writeRequestWithCharacteristic:v16 value:v13 authorizationData:0 type:0];
       objc_initWeak(buf, selfCopy);
       accessory2 = [(HMDDataStreamSetupOperation *)selfCopy accessory];
-      v32 = v17;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+      v31 = v17;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
       queue = [(HMDDataStreamSetupOperation *)selfCopy queue];
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __44__HMDDataStreamTCPSetupOperation_startSetup__block_invoke;
-      v28[3] = &unk_2797353F8;
-      objc_copyWeak(&v30, buf);
-      v29 = anyIPServer;
-      [accessory2 writeCharacteristicValues:v19 source:1090 queue:queue completionHandler:v28];
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __44__HMDDataStreamTCPSetupOperation_startSetup__block_invoke;
+      v27[3] = &unk_2797353F8;
+      objc_copyWeak(&v29, buf);
+      v28 = anyIPServer;
+      [accessory2 writeCharacteristicValues:v19 source:1090 queue:queue completionHandler:v27];
 
       [(HMDDataStreamTCPSetupOperation *)selfCopy _finishStreamTransport];
-      objc_destroyWeak(&v30);
+      objc_destroyWeak(&v29);
       objc_destroyWeak(buf);
     }
 
@@ -342,9 +332,9 @@ LABEL_12:
       {
         v25 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v34 = v25;
-        v35 = 2112;
-        v36 = v14;
+        v33 = v25;
+        v34 = 2112;
+        v35 = v14;
         _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to create new DataStream; cannot serialize request (%@)", buf, 0x16u);
       }
 
@@ -359,7 +349,7 @@ LABEL_12:
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v21;
+      v33 = v21;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to create new DataStream; does not appear to be IP-connected", buf, 0xCu);
     }
 
@@ -367,13 +357,11 @@ LABEL_12:
     v14 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [(HMDDataStreamSetupOperation *)selfCopy postDidFailWithError:v14];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HMDDataStreamTCPSetupOperation_startSetup__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -396,9 +384,9 @@ void __44__HMDDataStreamTCPSetupOperation_startSetup__block_invoke(uint64_t a1, 
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = HMFGetLogIdentifier();
-        v14 = 138543362;
-        v15 = v10;
-        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to create new DataStream; invalid IP address", &v14, 0xCu);
+        v13 = 138543362;
+        v14 = v10;
+        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to create new DataStream; invalid IP address", &v13, 0xCu);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -407,8 +395,6 @@ void __44__HMDDataStreamTCPSetupOperation_startSetup__block_invoke(uint64_t a1, 
       [v8 postDidFailWithError:v12];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fullKeySalt
@@ -419,7 +405,7 @@ void __44__HMDDataStreamTCPSetupOperation_startSetup__block_invoke(uint64_t a1, 
   accessoryKeySalt = [(HMDDataStreamTCPSetupOperation *)self accessoryKeySalt];
   [v4 appendData:accessoryKeySalt];
 
-  v6 = [v4 copy];
+  v6 = objc_msgSend_copy(v4);
 
   return v6;
 }

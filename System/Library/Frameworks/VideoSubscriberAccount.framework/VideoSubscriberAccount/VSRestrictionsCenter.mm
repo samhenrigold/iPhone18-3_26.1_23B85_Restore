@@ -24,9 +24,11 @@
 
 uint64_t __49__VSRestrictionsCenter_defaultRestrictionsCenter__block_invoke()
 {
-  defaultRestrictionsCenter___vs_lazy_init_variable = objc_alloc_init(VSRestrictionsCenter);
+  v0 = objc_alloc_init(VSRestrictionsCenter);
+  v1 = defaultRestrictionsCenter___vs_lazy_init_variable;
+  defaultRestrictionsCenter___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (VSRestrictionsCenter)init

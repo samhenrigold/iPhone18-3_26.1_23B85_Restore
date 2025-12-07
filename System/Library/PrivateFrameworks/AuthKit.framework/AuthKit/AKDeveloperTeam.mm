@@ -76,55 +76,52 @@ void __40__AKDeveloperTeam_initWithResponseInfo___block_invoke(void *a1, void *a
 
 - (AKDeveloperTeam)initWithCoder:(id)coder
 {
-  v28 = &selfCopy;
+  v25 = &selfCopy;
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, coder);
   v3 = selfCopy;
   selfCopy = 0;
-  v29 = [(AKDeveloperTeam *)v3 init];
-  selfCopy = v29;
-  objc_storeStrong(&selfCopy, v29);
-  if (v29)
+  v26 = [(AKDeveloperTeam *)v3 init];
+  selfCopy = v26;
+  objc_storeStrong(&selfCopy, v26);
+  if (v26)
   {
-    v19 = location[0];
-    v22 = 0x1E696A000uLL;
+    v16 = location[0];
+    v19 = 0x1E696A000uLL;
     v4 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"uid"];
     userIdentifier = selfCopy->_userIdentifier;
     selfCopy->_userIdentifier = v4;
     MEMORY[0x1E69E5920](userIdentifier);
-    v20 = location[0];
-    v6 = *(v22 + 3776);
-    v7 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"team_id"];
+    v17 = location[0];
+    v6 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"team_id"];
     teamID = selfCopy->_teamID;
-    selfCopy->_teamID = v7;
+    selfCopy->_teamID = v6;
     MEMORY[0x1E69E5920](teamID);
-    v21 = location[0];
-    v9 = *(v22 + 3776);
-    v10 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"privateEmail"];
+    v18 = location[0];
+    v8 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"privateEmail"];
     privateEmail = selfCopy->_privateEmail;
-    selfCopy->_privateEmail = v10;
+    selfCopy->_privateEmail = v8;
     MEMORY[0x1E69E5920](privateEmail);
-    v26 = location[0];
-    v25 = MEMORY[0x1E695DFD8];
-    v24 = objc_opt_class();
-    v23 = objc_opt_class();
-    v12 = *(v22 + 3776);
-    v27 = [v25 setWithObjects:{v24, v23, objc_opt_class(), 0}];
-    v13 = [v26 decodeObjectOfClasses:? forKey:?];
+    v23 = location[0];
+    v22 = MEMORY[0x1E695DFD8];
+    v21 = objc_opt_class();
+    v20 = objc_opt_class();
+    v24 = [v22 setWithObjects:{v21, v20, objc_opt_class(), 0}];
+    v10 = [v23 decodeObjectOfClasses:? forKey:?];
     apps = selfCopy->_apps;
-    selfCopy->_apps = v13;
+    selfCopy->_apps = v10;
     MEMORY[0x1E69E5920](apps);
-    MEMORY[0x1E69E5920](v27);
+    MEMORY[0x1E69E5920](v24);
   }
 
-  v16 = &selfCopy;
-  v18 = MEMORY[0x1E69E5928](selfCopy);
+  v13 = &selfCopy;
+  v15 = MEMORY[0x1E69E5928](selfCopy);
   obj = 0;
   objc_storeStrong(location, 0);
-  objc_storeStrong(v16, obj);
-  return v18;
+  objc_storeStrong(v13, obj);
+  return v15;
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -22,7 +22,7 @@
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task willPerformHTTPRedirection:(NSHTTPURLResponse *)redirection newRequest:(NSURLRequest *)request completionHandler:(id)handler
 {
-  v13 = sub_1001F0C48(&unk_100780380);
+  v13 = sub_1001F0C48(&unk_100780380, &qword_10069E9E0);
   __chkstk_darwin(v13 - 8);
   v15 = &v26 - v14;
   v16 = _Block_copy(handler);

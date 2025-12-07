@@ -306,7 +306,7 @@
     result = [(THWFreeTransformableRepGestureTargetHandler *)[(THWViewportRep *)self freeTransformableHandler] ftc];
     if (result)
     {
-      result = [(CGAffineTransform *)result currentTransform];
+      result = objc_msgSend_currentTransform(result);
     }
 
     else
@@ -339,7 +339,7 @@
 {
   if ([(THWFreeTransformController *)[(THWFreeTransformableRepGestureTargetHandler *)[(THWViewportRep *)self freeTransformableHandler] ftc] isFreeTransformInProgress])
   {
-    [(THWFreeTransformController *)[(THWFreeTransformableRepGestureTargetHandler *)[(THWViewportRep *)self freeTransformableHandler] ftc] completionTargetRect];
+    objc_msgSend_completionTargetRect([(THWFreeTransformableRepGestureTargetHandler *)[(THWViewportRep *)self freeTransformableHandler] ftc]);
   }
 
   else
@@ -567,7 +567,7 @@ LABEL_5:
   v15 = [objc_msgSend(-[THWViewportRep layout](self "layout")];
   if (v15)
   {
-    [v15 transformBasedOnPoint:CGPointZero.x centeredAtPoint:{CGPointZero.y, CGPointZero.x, CGPointZero.y}];
+    objc_msgSend_transformBasedOnPoint_centeredAtPoint_(v15, CGPointZero.x, CGPointZero.y, CGPointZero.x, CGPointZero.y);
   }
 
   else

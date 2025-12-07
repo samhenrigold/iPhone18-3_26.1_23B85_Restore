@@ -23,7 +23,7 @@
 
 - (void)reset
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (__osLog)
   {
     v3 = __osLog;
@@ -37,9 +37,9 @@
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     eventName = self->_eventName;
-    v15 = 138412290;
-    v16 = eventName;
-    _os_log_impl(&dword_223E00000, v3, OS_LOG_TYPE_DEBUG, "BiometricKitCoreAnalyticsEvent(%@) reset event\n", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = eventName;
+    _os_log_impl(&dword_223E00000, v3, OS_LOG_TYPE_DEBUG, "BiometricKitCoreAnalyticsEvent(%@) reset event\n", &v14, 0xCu);
   }
 
   v5 = objc_opt_class();
@@ -69,22 +69,18 @@
 
   deviceEnclosureColor = self->_deviceEnclosureColor;
   self->_deviceEnclosureColor = v7;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateStatus
 {
-  isPasscodeSet = [(BiometricKitCoreAnalyticsEvent *)self isPasscodeSet];
-  passcodeSet = self->_passcodeSet;
-  self->_passcodeSet = isPasscodeSet;
+  self->_passcodeSet = [(BiometricKitCoreAnalyticsEvent *)self isPasscodeSet];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (id)isPasscodeSet
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D86220];
   if (__osLog)
   {
@@ -125,15 +121,15 @@
       goto LABEL_11;
     }
 
-    [(BiometricKitCoreAnalyticsEvent *)&v15 isPasscodeSet];
+    [(BiometricKitCoreAnalyticsEvent *)&v14 isPasscodeSet];
   }
 
   else
   {
-    [(BiometricKitCoreAnalyticsEvent *)&v15 isPasscodeSet];
+    [(BiometricKitCoreAnalyticsEvent *)&v14 isPasscodeSet];
   }
 
-  v9 = v15;
+  v9 = v14;
   v10 = *buf;
 LABEL_11:
   if (__osLog)
@@ -151,41 +147,40 @@ LABEL_11:
     v12 = self->_eventName;
     *buf = 138412546;
     *&buf[4] = v12;
-    v17 = 2112;
-    v18 = v10;
+    v16 = 2112;
+    v17 = v10;
     _os_log_impl(&dword_223E00000, v11, OS_LOG_TYPE_DEBUG, "BiometricKitCoreAnalyticsEvent(%@) isPasscodeSet: %@\n", buf, 0x16u);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)updateBoundedFieldValue
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v3 = self->_boundedFieldLimits;
-  v4 = [(NSDictionary *)v3 countByEnumeratingWithState:&v16 objects:v28 count:16];
+  v4 = [(NSDictionary *)v3 countByEnumeratingWithState:&v15 objects:v27 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v17;
+    v7 = *v16;
     *&v5 = 138413058;
-    v15 = v5;
+    v14 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
-        v10 = [(NSDictionary *)self->_boundedFieldLimits objectForKeyedSubscript:v9, v15, v16];
+        v9 = *(*(&v15 + 1) + 8 * i);
+        v10 = [(NSDictionary *)self->_boundedFieldLimits objectForKeyedSubscript:v9, v14, v15];
         v11 = [(BiometricKitCoreAnalyticsEvent *)self valueForKey:v9];
         if ([v11 compare:v10] == 1)
         {
@@ -202,14 +197,14 @@ LABEL_11:
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             eventName = self->_eventName;
-            *buf = v15;
-            v21 = eventName;
-            v22 = 2112;
-            v23 = v9;
-            v24 = 2112;
-            v25 = v11;
-            v26 = 2112;
-            v27 = v10;
+            *buf = v14;
+            v20 = eventName;
+            v21 = 2112;
+            v22 = v9;
+            v23 = 2112;
+            v24 = v11;
+            v25 = 2112;
+            v26 = v10;
             _os_log_impl(&dword_223E00000, v12, OS_LOG_TYPE_DEBUG, "BiometricKitCoreAnalyticsEvent(%@) updateBoundedFieldValue bound field:%@ value:%@ to:%@\n", buf, 0x2Au);
           }
 
@@ -217,13 +212,11 @@ LABEL_11:
         }
       }
 
-      v6 = [(NSDictionary *)v3 countByEnumeratingWithState:&v16 objects:v28 count:16];
+      v6 = [(NSDictionary *)v3 countByEnumeratingWithState:&v15 objects:v27 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BiometricKitCoreAnalyticsEvent)initWithName:(id)name
@@ -249,34 +242,34 @@ LABEL_11:
 
 - (BiometricKitCoreAnalyticsEvent)initWithName:(id)name dictionary:(id)dictionary
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   dictionaryCopy = dictionary;
   v8 = [(BiometricKitCoreAnalyticsEvent *)self initWithName:nameCopy];
   if (v8)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
-    v20 = dictionaryCopy;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v19 = dictionaryCopy;
     v9 = dictionaryCopy;
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v31 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v20 objects:v30 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v22;
+      v12 = *v21;
       v13 = MEMORY[0x277D86220];
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v15 = *(*(&v21 + 1) + 8 * i);
+          v15 = *(*(&v20 + 1) + 8 * i);
           v16 = [v9 objectForKey:v15];
           NSSelectorFromString(v15);
           if (objc_opt_respondsToSelector() & 1) != 0 && ((objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) && [(NSString *)v15 isEqualToString:@"previousEventDate"]))
@@ -299,26 +292,25 @@ LABEL_11:
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412802;
-              v26 = nameCopy;
-              v27 = 2112;
-              v28 = v9;
-              v29 = 2112;
-              v30 = v15;
+              v25 = nameCopy;
+              v26 = 2112;
+              v27 = v9;
+              v28 = 2112;
+              v29 = v15;
               _os_log_impl(&dword_223E00000, v17, OS_LOG_TYPE_ERROR, "BiometricKitCoreAnalyticsEvent initWithName: %@ dictionary:%@ - throwing away unsupported key: %@\n", buf, 0x20u);
             }
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v21 objects:v31 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v20 objects:v30 count:16];
       }
 
       while (v11);
     }
 
-    dictionaryCopy = v20;
+    dictionaryCopy = v19;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -334,34 +326,6 @@ LABEL_11:
 }
 
 - (id)valueForUndefinedKey:(id)key
-{
-  v13 = *MEMORY[0x277D85DE8];
-  keyCopy = key;
-  if (__osLog)
-  {
-    v5 = __osLog;
-  }
-
-  else
-  {
-    v5 = MEMORY[0x277D86220];
-  }
-
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-  {
-    eventName = self->_eventName;
-    v9 = 138412546;
-    v10 = eventName;
-    v11 = 2112;
-    v12 = keyCopy;
-    _os_log_impl(&dword_223E00000, v5, OS_LOG_TYPE_ERROR, "BiometricKitCoreAnalyticsEvent(%@) valueForUndefinedKey: %@\n", &v9, 0x16u);
-  }
-
-  v7 = *MEMORY[0x277D85DE8];
-  return 0;
-}
-
-- (void)setNilValueForKey:(id)key
 {
   v12 = *MEMORY[0x277D85DE8];
   keyCopy = key;
@@ -382,15 +346,40 @@ LABEL_11:
     v9 = eventName;
     v10 = 2112;
     v11 = keyCopy;
-    _os_log_impl(&dword_223E00000, v5, OS_LOG_TYPE_ERROR, "BiometricKitCoreAnalyticsEvent(%@) setNilValueForKey: %@\n", &v8, 0x16u);
+    _os_log_impl(&dword_223E00000, v5, OS_LOG_TYPE_ERROR, "BiometricKitCoreAnalyticsEvent(%@) valueForUndefinedKey: %@\n", &v8, 0x16u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  return 0;
+}
+
+- (void)setNilValueForKey:(id)key
+{
+  v11 = *MEMORY[0x277D85DE8];
+  keyCopy = key;
+  if (__osLog)
+  {
+    v5 = __osLog;
+  }
+
+  else
+  {
+    v5 = MEMORY[0x277D86220];
+  }
+
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  {
+    eventName = self->_eventName;
+    v7 = 138412546;
+    v8 = eventName;
+    v9 = 2112;
+    v10 = keyCopy;
+    _os_log_impl(&dword_223E00000, v5, OS_LOG_TYPE_ERROR, "BiometricKitCoreAnalyticsEvent(%@) setNilValueForKey: %@\n", &v7, 0x16u);
+  }
 }
 
 - (void)setValue:(id)value forUndefinedKey:(id)key
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   keyCopy = key;
   if (__osLog)
@@ -406,21 +395,19 @@ LABEL_11:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     eventName = self->_eventName;
-    v11 = 138412802;
-    v12 = eventName;
-    v13 = 2112;
-    v14 = valueCopy;
-    v15 = 2112;
-    v16 = keyCopy;
-    _os_log_impl(&dword_223E00000, v8, OS_LOG_TYPE_ERROR, "BiometricKitCoreAnalyticsEvent(%@) setValue: %@ forUndefinedKey: %@\n", &v11, 0x20u);
+    v10 = 138412802;
+    v11 = eventName;
+    v12 = 2112;
+    v13 = valueCopy;
+    v14 = 2112;
+    v15 = keyCopy;
+    _os_log_impl(&dword_223E00000, v8, OS_LOG_TYPE_ERROR, "BiometricKitCoreAnalyticsEvent(%@) setValue: %@ forUndefinedKey: %@\n", &v10, 0x20u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)postEventExtendedBy:(id)by
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   byCopy = by;
   v5 = MEMORY[0x277D86220];
   if (__osLog)
@@ -437,9 +424,9 @@ LABEL_11:
   {
     eventName = self->_eventName;
     *buf = 138412546;
-    v28 = eventName;
-    v29 = 2112;
-    v30 = byCopy;
+    v26 = eventName;
+    v27 = 2112;
+    v28 = byCopy;
     _os_log_impl(&dword_223E00000, v6, OS_LOG_TYPE_DEBUG, "BiometricKitCoreAnalyticsEvent(%@) postEventExtendedBy: %@\n", buf, 0x16u);
   }
 
@@ -466,37 +453,35 @@ LABEL_11:
     [v16 addEntriesFromDictionary:byCopy];
   }
 
-  v17 = self->_eventName;
-  v26 = MEMORY[0x277D85DD0];
-  v18 = v16;
-  v19 = AnalyticsSendEventLazy();
+  v24 = MEMORY[0x277D85DD0];
+  v17 = v16;
+  v18 = AnalyticsSendEventLazy();
   if (__osLog)
   {
-    v20 = __osLog;
+    v19 = __osLog;
   }
 
   else
   {
-    v20 = v5;
+    v19 = v5;
   }
 
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    v21 = self->_eventName;
+    v20 = self->_eventName;
     *buf = 138412546;
-    v28 = v21;
-    v29 = 1024;
-    LODWORD(v30) = v19;
-    _os_log_impl(&dword_223E00000, v20, OS_LOG_TYPE_DEBUG, "BiometricKitCoreAnalyticsEvent(%@) postEvent - AnalyticsSendEventLazy result: %d\n", buf, 0x12u);
+    v26 = v20;
+    v27 = 1024;
+    LODWORD(v28) = v18;
+    _os_log_impl(&dword_223E00000, v19, OS_LOG_TYPE_DEBUG, "BiometricKitCoreAnalyticsEvent(%@) postEvent - AnalyticsSendEventLazy result: %d\n", buf, 0x12u);
   }
 
-  v22 = [MEMORY[0x277CBEAA8] now];
-  v23 = self->_previousEventDate;
-  self->_previousEventDate = v22;
+  v21 = [MEMORY[0x277CBEAA8] now];
+  v22 = self->_previousEventDate;
+  self->_previousEventDate = v21;
 
   [(BiometricKitCoreAnalyticsEvent *)self reset];
-  v24 = *MEMORY[0x277D85DE8];
-  return v19;
+  return v18;
 }
 
 id __54__BiometricKitCoreAnalyticsEvent_postEventExtendedBy___block_invoke(uint64_t a1)
@@ -510,7 +495,7 @@ id __54__BiometricKitCoreAnalyticsEvent_postEventExtendedBy___block_invoke(uint6
 - (id)dictionaryRepresentationArchiving:(BOOL)archiving
 {
   archivingCopy = archiving;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D86220];
   if (__osLog)
   {
@@ -525,11 +510,11 @@ id __54__BiometricKitCoreAnalyticsEvent_postEventExtendedBy___block_invoke(uint6
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     eventName = self->_eventName;
-    v16 = 138412546;
-    v17 = eventName;
-    v18 = 1024;
-    v19 = archivingCopy;
-    _os_log_impl(&dword_223E00000, v6, OS_LOG_TYPE_DEBUG, "BiometricKitCoreAnalyticsEvent(%@) dictionaryRepresentation: %d\n", &v16, 0x12u);
+    v15 = 138412546;
+    v16 = eventName;
+    v17 = 1024;
+    v18 = archivingCopy;
+    _os_log_impl(&dword_223E00000, v6, OS_LOG_TYPE_DEBUG, "BiometricKitCoreAnalyticsEvent(%@) dictionaryRepresentation: %d\n", &v15, 0x12u);
   }
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -564,19 +549,17 @@ id __54__BiometricKitCoreAnalyticsEvent_postEventExtendedBy___block_invoke(uint6
     {
       v12 = self->_eventName;
       privateProperties = self->_privateProperties;
-      v16 = 138412802;
-      v17 = v12;
-      v18 = 1024;
-      v19 = 0;
-      v20 = 2112;
-      v21 = privateProperties;
-      _os_log_impl(&dword_223E00000, v11, OS_LOG_TYPE_DEBUG, "BiometricKitCoreAnalyticsEvent(%@) dictionaryRepresentation: %d _privateProperties: %@\n", &v16, 0x1Cu);
+      v15 = 138412802;
+      v16 = v12;
+      v17 = 1024;
+      v18 = 0;
+      v19 = 2112;
+      v20 = privateProperties;
+      _os_log_impl(&dword_223E00000, v11, OS_LOG_TYPE_DEBUG, "BiometricKitCoreAnalyticsEvent(%@) dictionaryRepresentation: %d _privateProperties: %@\n", &v15, 0x1Cu);
     }
 
     [dictionary removeObjectsForKeys:self->_privateProperties];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -652,7 +635,7 @@ LABEL_5:
 
 - (id)dictionaryRepresentationForClass:(Class)class
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   outCount = 0;
   v6 = class_copyPropertyList(class, &outCount);
@@ -674,30 +657,28 @@ LABEL_5:
 
     else if (OUTLINED_FUNCTION_5(__osLog))
     {
-      v16 = 136316162;
-      v17 = "propertyCount";
-      v18 = 2048;
-      v19 = 0;
-      v20 = 2080;
-      v21 = &unk_223E5FC53;
-      v22 = 2080;
-      v23 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/Analytics/BiometricKitCoreAnalyticsEvent.m";
-      v24 = 1024;
-      v25 = 156;
-      OUTLINED_FUNCTION_3_1(&dword_223E00000, v13, v14, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", &v16);
+      v15 = 136316162;
+      v16 = "propertyCount";
+      v17 = 2048;
+      v18 = 0;
+      v19 = 2080;
+      v20 = &unk_223E5FC53;
+      v21 = 2080;
+      v22 = "/Library/Caches/com.apple.xbs/Sources/BiometricSupport/BiometricSupport/Analytics/BiometricKitCoreAnalyticsEvent.m";
+      v23 = 1024;
+      v24 = 156;
+      OUTLINED_FUNCTION_3_1(&dword_223E00000, v12, v13, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", &v15);
     }
 
     free(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 - (void)incrementCountField:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (__osLog)
   {
     v0 = __osLog;
@@ -711,30 +692,27 @@ LABEL_5:
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0();
-    v3 = &unk_223E5FC53;
+    v2 = &unk_223E5FC53;
     OUTLINED_FUNCTION_1();
-    v4 = 259;
-    _os_log_impl(&dword_223E00000, v0, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, 0x30u);
+    v3 = 259;
+    _os_log_impl(&dword_223E00000, v0, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v1, 0x30u);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isPasscodeSet
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_5(__osLog))
   {
     OUTLINED_FUNCTION_0();
-    v8 = &unk_223E5FC53;
+    v7 = &unk_223E5FC53;
     OUTLINED_FUNCTION_1();
-    v9 = 318;
-    OUTLINED_FUNCTION_3_1(&dword_223E00000, v4, v5, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v7);
+    v8 = 318;
+    OUTLINED_FUNCTION_3_1(&dword_223E00000, v4, v5, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v6);
   }
 
   *a2 = 0;
   *self = 0;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

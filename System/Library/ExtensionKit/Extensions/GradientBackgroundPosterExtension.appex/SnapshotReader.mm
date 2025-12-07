@@ -30,7 +30,7 @@
   sub_100007314(v12);
 
   v10.receiver = v8;
-  v10.super_class = type metadata accessor for SnapshotReader();
+  v10.super_class = type metadata accessor for SnapshotReader(0);
   [(SnapshotReader *)&v10 dealloc];
 }
 

@@ -106,23 +106,23 @@
   if (!sanitizedFormattedString)
   {
     romanization = [v4 romanization];
-    v7 = romanization;
-    if (romanization && [romanization length])
+    v8 = romanization;
+    if (romanization && (romanization = [romanization length]) != 0)
     {
-      [self setRomanization:v7];
-      v8 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v9 = [self setRomanization:v8];
+      v11 = _LTOSLogTranslationEngine(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        [(_LTTranslationCandidate(Osprey) *)v8 updateWithMetaInfoData:self];
+        [(_LTTranslationCandidate(Osprey) *)v11 updateWithMetaInfoData:self];
       }
     }
 
     else
     {
-      v9 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v12 = _LTOSLogTranslationEngine(romanization, v7);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        [_LTDisambiguationNode(Daemon) _nodeWithText:v9 links:? numberOfSelectionSpans:? romanization:?];
+        [_LTDisambiguationNode(Daemon) _nodeWithText:v12 links:? numberOfSelectionSpans:? romanization:?];
       }
     }
   }
@@ -130,14 +130,12 @@
 
 - (void)updateWithMetaInfoData:()Osprey .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 romanization];
-  v6 = 138739971;
-  v7 = v4;
-  _os_log_debug_impl(&dword_232E53000, v3, OS_LOG_TYPE_DEBUG, "Setting romanization from meta_info_data: %{sensitive}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138739971;
+  v6 = v4;
+  _os_log_debug_impl(&dword_232E53000, v3, OS_LOG_TYPE_DEBUG, "Setting romanization from meta_info_data: %{sensitive}@", &v5, 0xCu);
 }
 
 @end

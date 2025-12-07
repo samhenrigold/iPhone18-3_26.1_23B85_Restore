@@ -1083,9 +1083,9 @@ LABEL_16:
         goto LABEL_17;
       }
 
-      v21 = [(__CFString *)v19 isEqualToString:@"provisioningSuccess"];
+      isEqualToString = objc_msgSend_isEqualToString_(v19);
 
-      if (!v21)
+      if (!isEqualToString)
       {
         goto LABEL_17;
       }

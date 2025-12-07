@@ -94,9 +94,9 @@
 
   dataArchiver = [(FMDDetachNotificationManager *)self dataArchiver];
   v7 = [NSSet setWithObjects:objc_opt_class(), 0];
-  v20 = 0;
-  v8 = [dataArchiver readArrayAndClasses:v7 error:&v20];
-  v9 = v20;
+  v22 = 0;
+  v8 = [dataArchiver readArrayAndClasses:v7 error:&v22];
+  v9 = v22;
 
   if (([v9 fm_isFileNotFoundError] & 1) != 0 || v8 && !v9)
   {
@@ -110,19 +110,19 @@
     notificationIdbyAccessoryIds = [firstObject notificationIdbyAccessoryIds];
     [(FMDDetachNotificationManager *)self setNotificationIdbyAccessoryIds:notificationIdbyAccessoryIds];
 
-    v14 = sub_10000BE38();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_10000BE38(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       notifWhenDetachedListVersion2 = [firstObject notifWhenDetachedListVersion];
       notifyWhenDetachedAccessoryIds2 = [firstObject notifyWhenDetachedAccessoryIds];
-      v17 = [notifyWhenDetachedAccessoryIds2 count];
+      v18 = [notifyWhenDetachedAccessoryIds2 count];
       *buf = 138412802;
-      v22 = firstObject;
-      v23 = 2112;
-      v24 = notifWhenDetachedListVersion2;
-      v25 = 2048;
-      v26 = v17;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Notification manager %@ loaded version = %@ accessories count = %lu", buf, 0x20u);
+      v24 = firstObject;
+      v25 = 2112;
+      v26 = notifWhenDetachedListVersion2;
+      v27 = 2048;
+      v28 = v18;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Notification manager %@ loaded version = %@ accessories count = %lu", buf, 0x20u);
     }
   }
 
@@ -130,13 +130,13 @@
   {
 
     [(FMDDetachNotificationManager *)self setNotifWhenDetachedListVersion:@"0"];
-    v18 = objc_alloc_init(NSSet);
-    [(FMDDetachNotificationManager *)self setNotifyWhenDetachedAccessoryIds:v18];
+    v19 = objc_alloc_init(NSSet);
+    [(FMDDetachNotificationManager *)self setNotifyWhenDetachedAccessoryIds:v19];
 
-    v19 = objc_alloc_init(NSDictionary);
-    [(FMDDetachNotificationManager *)self setNotificationIdbyAccessoryIds:v19];
+    v20 = objc_alloc_init(NSDictionary);
+    [(FMDDetachNotificationManager *)self setNotificationIdbyAccessoryIds:v20];
 
-    firstObject = sub_100002880();
+    firstObject = sub_100002880(v21);
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
     {
       sub_10022DFEC(v9, firstObject);
@@ -165,7 +165,7 @@
   v10 = v9;
   if (v9 && ([v9 timeStamp], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "timeIntervalSinceNow"), v13 = fabs(v12), v11, v13 <= 1.0))
   {
-    v17 = sub_100002880();
+    v17 = sub_100002880(v9);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -178,7 +178,7 @@
 
   else
   {
-    v14 = sub_100002880();
+    v14 = sub_100002880(v9);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -209,56 +209,55 @@
 
   else
   {
-    v8 = [FMPreferencesUtil stringForKey:@"notificationAccessoryId" inDomain:kFMDNotBackedUpPrefDomain];
-    v9 = [stringValue isEqualToString:v8];
+    v9 = [FMPreferencesUtil stringForKey:@"notificationAccessoryId" inDomain:kFMDNotBackedUpPrefDomain];
+    v10 = [stringValue isEqualToString:v9];
 
-    if (!v9)
+    if (!v10)
     {
       goto LABEL_9;
     }
   }
 
-  v10 = sub_100002880();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100002880(v8);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     name = [disconnectCopy name];
     *buf = 138412290;
-    v30 = name;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "FMDDetachNotificationManager: Accessory %@ disconnected postig notificaiton", buf, 0xCu);
+    v31 = name;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "FMDDetachNotificationManager: Accessory %@ disconnected postig notificaiton", buf, 0xCu);
   }
 
-  v12 = +[NSDate now];
-  v13 = [NSMutableDictionary alloc];
+  v13 = +[NSDate now];
+  v14 = [NSMutableDictionary alloc];
   notificationIdbyAccessoryIds = [(FMDDetachNotificationManager *)self notificationIdbyAccessoryIds];
-  v15 = [v13 initWithDictionary:notificationIdbyAccessoryIds];
+  v16 = [v14 initWithDictionary:notificationIdbyAccessoryIds];
 
-  v16 = +[NSUUID UUID];
-  uUIDString = [v16 UUIDString];
+  v17 = +[NSUUID UUID];
+  uUIDString = [v17 UUIDString];
 
-  [v15 setObject:uUIDString forKeyedSubscript:stringValue];
-  [(FMDDetachNotificationManager *)self setNotificationIdbyAccessoryIds:v15];
-  v18 = sub_100002880();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  [v16 setObject:uUIDString forKeyedSubscript:stringValue];
+  v19 = sub_100002880([(FMDDetachNotificationManager *)self setNotificationIdbyAccessoryIds:v16]);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v30 = v12;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "FMDDetachNotificationManager: Accessory disconnected %@", buf, 0xCu);
+    v31 = v13;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "FMDDetachNotificationManager: Accessory disconnected %@", buf, 0xCu);
   }
 
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_1001C7008;
-  v22[3] = &unk_1002D0FA0;
-  v23 = v12;
-  v24 = disconnectCopy;
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_1001C7008;
+  v23[3] = &unk_1002D0FA0;
+  v24 = v13;
+  v25 = disconnectCopy;
   selfCopy = self;
-  v26 = stringValue;
-  v27 = uUIDString;
-  v28 = v15;
-  v19 = v15;
-  v20 = uUIDString;
-  v21 = v12;
-  [(FMDDetachNotificationManager *)self getLocationFor:v24 withCompletion:v22];
+  v27 = stringValue;
+  v28 = uUIDString;
+  v29 = v16;
+  v20 = v16;
+  v21 = uUIDString;
+  v22 = v13;
+  [(FMDDetachNotificationManager *)self getLocationFor:v25 withCompletion:v23];
 
 LABEL_9:
 }
@@ -274,23 +273,23 @@ LABEL_9:
 
   if (v8)
   {
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100002880(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       name = [connectCopy name];
-      v15 = 138412290;
-      v16 = name;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FMDDetachNotificationManager: removing notificaiton for %@", &v15, 0xCu);
+      v16 = 138412290;
+      v17 = name;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "FMDDetachNotificationManager: removing notificaiton for %@", &v16, 0xCu);
     }
 
-    v11 = [NSMutableDictionary alloc];
+    v12 = [NSMutableDictionary alloc];
     notificationIdbyAccessoryIds2 = [(FMDDetachNotificationManager *)self notificationIdbyAccessoryIds];
-    v13 = [v11 initWithDictionary:notificationIdbyAccessoryIds2];
+    v14 = [v12 initWithDictionary:notificationIdbyAccessoryIds2];
 
-    [v13 setObject:0 forKeyedSubscript:stringValue];
-    [(FMDDetachNotificationManager *)self setNotificationIdbyAccessoryIds:v13];
-    v14 = +[FMDFMIPManager sharedInstance];
-    [v14 removeNotificationWithIdentifier:v8 completion:&stru_1002D0FC0];
+    [v14 setObject:0 forKeyedSubscript:stringValue];
+    [(FMDDetachNotificationManager *)self setNotificationIdbyAccessoryIds:v14];
+    v15 = +[FMDFMIPManager sharedInstance];
+    [v15 removeNotificationWithIdentifier:v8 completion:&stru_1002D0FC0];
   }
 }
 

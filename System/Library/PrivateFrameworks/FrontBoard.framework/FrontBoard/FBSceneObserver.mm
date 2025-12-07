@@ -5,6 +5,7 @@
 - (id)_initWithObserver:(id)observer;
 - (id)delegate;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
+- (id)initWithComponent:(void *)component extension:;
 - (id)observer;
 - (id)scene:(id)scene handleActions:(id)actions;
 - (id)scene:(id)scene handlePrivateActions:(id)actions;
@@ -12,13 +13,12 @@
 - (id)succinctDescriptionBuilder;
 - (uint64_t)component;
 - (uint64_t)delegateReceivesActions;
-- (uint64_t)initWithComponent:(void *)component extension:;
 - (uint64_t)observerHandlesActions;
 - (uint64_t)receiverImplementsWillUpdate;
 - (uint64_t)receiverWantsInactiveUpdates;
 - (void)componentWillInvalidate:(id)invalidate;
 - (void)configureInitialSettings:(id)settings;
-- (void)initWithObserver:(void *)observer;
+- (void)initWithObserver:(void *)result;
 - (void)invalidate;
 - (void)scene:(id)scene clientDidConnect:(id)connect;
 - (void)scene:(id)scene didApplyUpdateWithContext:(id)context;
@@ -800,14 +800,14 @@ id __50__FBSceneObserver_descriptionWithMultilinePrefix___block_invoke(uint64_t 
   return [*(a1 + 32) appendBool:*(*(a1 + 40) + 52) withName:@"RespondsToDidDeactivateWithError" ifEqualTo:1];
 }
 
-- (void)initWithObserver:(void *)observer
+- (void)initWithObserver:(void *)result
 {
-  if (observer)
+  if (result)
   {
-    return [observer _initWithObserver:a2];
+    return [result _initWithObserver:a2];
   }
 
-  return observer;
+  return result;
 }
 
 - (_BYTE)initWithDelegate:(_BYTE *)delegate
@@ -819,8 +819,8 @@ id __50__FBSceneObserver_descriptionWithMultilinePrefix___block_invoke(uint64_t 
     delegate = v4;
     if (v4)
     {
-      *(v4 + 32) = 1;
-      *(v4 + 49) = objc_opt_respondsToSelector() & 1;
+      v4[32] = 1;
+      v4[49] = objc_opt_respondsToSelector() & 1;
       delegate[50] = objc_opt_respondsToSelector() & 1;
       delegate[51] = objc_opt_respondsToSelector() & 1;
       delegate[52] = objc_opt_respondsToSelector() & 1;
@@ -831,7 +831,7 @@ id __50__FBSceneObserver_descriptionWithMultilinePrefix___block_invoke(uint64_t 
   return delegate;
 }
 
-- (uint64_t)initWithComponent:(void *)component extension:
+- (id)initWithComponent:(void *)component extension:
 {
   v6 = a2;
   if (self)
@@ -840,8 +840,8 @@ id __50__FBSceneObserver_descriptionWithMultilinePrefix___block_invoke(uint64_t 
     self = v7;
     if (v7)
     {
-      objc_storeStrong((v7 + 72), component);
-      objc_storeStrong((self + 64), a2);
+      objc_storeStrong(v7 + 9, component);
+      objc_storeStrong(self + 8, a2);
       *(self + 54) = objc_opt_respondsToSelector() & 1;
       *(self + 55) = objc_opt_respondsToSelector() & 1;
       *(self + 56) = objc_opt_respondsToSelector() & 1;

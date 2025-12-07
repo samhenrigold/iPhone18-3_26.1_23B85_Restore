@@ -559,43 +559,44 @@ LABEL_22:
   profileCopy = profile;
   preferences = [(VSDevice *)self preferences];
   [preferences setIgnoreSetTopBoxProfile:profileCopy];
-  v6 = [preferences ignoreSetTopBoxProfile] ^ profileCopy;
-  if (v6 == 1)
+  ignoreSetTopBoxProfile = [preferences ignoreSetTopBoxProfile];
+  v7 = ignoreSetTopBoxProfile ^ profileCopy;
+  if (ignoreSetTopBoxProfile != profileCopy)
   {
-    v7 = VSDefaultLogObject();
-    if (os_log_type_enabled(&v7->super, OS_LOG_TYPE_DEFAULT))
+    v8 = VSDefaultLogObject(ignoreSetTopBoxProfile);
+    if (os_log_type_enabled(&v8->super, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_23AB8E000, &v7->super, OS_LOG_TYPE_DEFAULT, "IgnoreSetTopBoxProfile default value does not match written value.", buf, 2u);
+      _os_log_impl(&dword_23AB8E000, &v8->super, OS_LOG_TYPE_DEFAULT, "IgnoreSetTopBoxProfile default value does not match written value.", buf, 2u);
     }
   }
 
   else
   {
-    v7 = objc_alloc_init(VSDeveloperServiceConnection);
-    v8 = [(VSDeveloperServiceConnection *)v7 serviceWithErrorHandler:&__block_literal_global_137];
-    objc_initWeak(buf, v8);
-    v11 = MEMORY[0x277D85DD0];
-    v12 = 3221225472;
-    v13 = __38__VSDevice_setIgnoreSetTopBoxProfile___block_invoke_138;
-    v14 = &unk_278B750E8;
-    objc_copyWeak(&v16, buf);
+    v8 = objc_alloc_init(VSDeveloperServiceConnection);
+    v9 = [(VSDeveloperServiceConnection *)v8 serviceWithErrorHandler:&__block_literal_global_137];
+    objc_initWeak(buf, v9);
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __38__VSDevice_setIgnoreSetTopBoxProfile___block_invoke_138;
+    v15 = &unk_278B750E8;
+    objc_copyWeak(&v17, buf);
     selfCopy = self;
-    [v8 fetchDeveloperSettingsWithCompletionHandler:&v11];
-    v9 = [(VSDevice *)self setTopBoxStateRemoteNotifier:v11];
-    [v9 postNotification];
+    [v9 fetchDeveloperSettingsWithCompletionHandler:&v12];
+    v10 = [(VSDevice *)self setTopBoxStateRemoteNotifier:v12];
+    [v10 postNotification];
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(buf);
   }
 
-  return v6 ^ 1;
+  return v7 ^ 1;
 }
 
 void __38__VSDevice_setIgnoreSetTopBoxProfile___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = VSErrorLogObject();
+  v3 = VSErrorLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __38__VSDevice_setIgnoreSetTopBoxProfile___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -648,7 +649,7 @@ uint64_t __38__VSDevice_setIgnoreSetTopBoxProfile___block_invoke_3(uint64_t a1, 
 
 uint64_t __38__VSDevice_setIgnoreSetTopBoxProfile___block_invoke_4(uint64_t a1)
 {
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -661,7 +662,7 @@ uint64_t __38__VSDevice_setIgnoreSetTopBoxProfile___block_invoke_4(uint64_t a1)
 void __38__VSDevice_setIgnoreSetTopBoxProfile___block_invoke_139(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = VSErrorLogObject();
+  v3 = VSErrorLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __38__VSDevice_setIgnoreSetTopBoxProfile___block_invoke_139_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -671,7 +672,7 @@ void __38__VSDevice_setIgnoreSetTopBoxProfile___block_invoke_139(uint64_t a1, vo
 void __38__VSDevice_setIgnoreSetTopBoxProfile___block_invoke_143(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = VSErrorLogObject();
+  v3 = VSErrorLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __38__VSDevice_setIgnoreSetTopBoxProfile___block_invoke_143_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -852,7 +853,7 @@ uint64_t __37__VSDevice__stringForKey_copyAnswer___block_invoke(void *a1)
 
 - (void)cloudConfigurationDidChange
 {
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -989,6 +990,27 @@ void __39__VSDevice_cloudConfigurationDidChange__block_invoke(uint64_t a1)
 
     [(VSDevice *)self cloudConfigurationDidChange];
   }
+}
+
+void __38__VSDevice_setIgnoreSetTopBoxProfile___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_23AB8E000, a2, a3, "Error with developer service connection: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __38__VSDevice_setIgnoreSetTopBoxProfile___block_invoke_139_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_23AB8E000, a2, a3, "Error updating developer settings after profile state change: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __38__VSDevice_setIgnoreSetTopBoxProfile___block_invoke_143_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_23AB8E000, a2, a3, "Error fetching developer settings to update profile state: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -6,164 +6,164 @@
 
 + (id)_sf_effectWithStyle:()SafariServicesExtras forBarTintStyle:
 {
-  if (a4 == 5)
+  if (a8 == 5)
   {
-    if (a3 > 3)
+    if (a7 > 3)
     {
-      if (a3 > 5)
+      if (a7 > 5)
       {
-        if (a3 != 7)
+        if (a7 != 7)
         {
-          if (a3 != 6)
+          if (a7 != 6)
           {
             goto LABEL_44;
           }
 
-          v6 = MEMORY[0x1E69DD248];
+          v10 = MEMORY[0x1E69DD248];
           goto LABEL_29;
         }
 
-        v6 = MEMORY[0x1E69DD248];
+        v10 = MEMORY[0x1E69DD248];
       }
 
       else
       {
-        v6 = MEMORY[0x1E69DD248];
+        v10 = MEMORY[0x1E69DD248];
       }
     }
 
     else
     {
-      if (a3 <= 1)
+      if (a7 <= 1)
       {
-        if (a3)
+        if (a7)
         {
-          if (a3 != 1)
+          if (a7 != 1)
           {
             goto LABEL_44;
           }
 
-          v6 = MEMORY[0x1E69DD248];
+          v10 = MEMORY[0x1E69DD248];
           goto LABEL_29;
         }
 
 LABEL_28:
-        v6 = MEMORY[0x1E69DD248];
+        v10 = MEMORY[0x1E69DD248];
 LABEL_29:
         CAColorMatrixMakeBrightness();
         goto LABEL_40;
       }
 
-      if (a3 == 2)
+      if (a7 == 2)
       {
         goto LABEL_28;
       }
 
-      v6 = MEMORY[0x1E69DD248];
+      v10 = MEMORY[0x1E69DD248];
     }
 
     CAColorMatrixMakeColorSourceOver();
     goto LABEL_40;
   }
 
-  v8 = _SFIsPrivateTintStyle(a4);
-  if ((a3 - 8) <= 0xFFFFFFFFFFFFFFF9 && v8)
+  v12 = _SFIsPrivateTintStyle(a8);
+  if ((a7 - 8) <= 0xFFFFFFFFFFFFFFF9 && v12)
   {
-    if (a3 != 1)
+    if (a7 != 1)
     {
-      if (a3)
+      if (a7)
       {
         goto LABEL_44;
       }
 
-      v9 = MEMORY[0x1E69DD248];
-      v24[0] = xmmword_18BC3E170;
-      v24[1] = xmmword_18BC3E180;
-      v24[2] = xmmword_18BC3E190;
-      v24[3] = xmmword_18BC3E1A0;
-      v24[4] = xmmword_18BC3E1B0;
-      v10 = 1.0;
+      v13 = MEMORY[0x1E69DD248];
+      v28[0] = xmmword_18BC3E170;
+      v28[1] = xmmword_18BC3E180;
+      v28[2] = xmmword_18BC3E190;
+      v28[3] = xmmword_18BC3E1A0;
+      v28[4] = xmmword_18BC3E1B0;
+      v14 = 1.0;
       goto LABEL_41;
     }
 
-    v6 = MEMORY[0x1E69DD248];
+    v10 = MEMORY[0x1E69DD248];
     CAColorMatrixMakeBrightness();
-    v19 = xmmword_18BC3E170;
-    v20 = xmmword_18BC3E180;
-    v21 = xmmword_18BC3E190;
-    v22 = xmmword_18BC3E1A0;
-    v23 = xmmword_18BC3E1B0;
+    v23 = xmmword_18BC3E170;
+    v24 = xmmword_18BC3E180;
+    v25 = xmmword_18BC3E190;
+    v26 = xmmword_18BC3E1A0;
+    v27 = xmmword_18BC3E1B0;
     CAColorMatrixConcat();
 LABEL_40:
-    v10 = 1.0;
-    v9 = v6;
+    v14 = 1.0;
+    v13 = v10;
 LABEL_41:
-    v4 = [v9 _vibrantEffectWithCAColorMatrix:v24 alpha:{v10, v19, v20, v21, v22, v23}];
+    v8 = [v13 _vibrantEffectWithCAColorMatrix:v28 alpha:{v14, v23, v24, v25, v26, v27}];
     goto LABEL_44;
   }
 
-  v11 = _SFIsDarkTintStyle(a4);
-  if (a3 == 2 && v11)
+  v15 = _SFIsDarkTintStyle(a8);
+  if (a7 == 2 && v15)
   {
-    v12 = _SFLightTintStyleForStyle(a4);
-    v13 = MEMORY[0x1E69DD248];
-    v14 = _SFBackdropEffectForBarTintStyle(v12);
+    v16 = _SFLightTintStyleForStyle(a8);
+    v17 = MEMORY[0x1E69DD248];
+    v18 = _SFBackdropEffectForBarTintStyle(v16);
   }
 
   else
   {
-    v13 = MEMORY[0x1E69DD248];
-    v14 = _SFBackdropEffectForBarTintStyle(a4);
-    v15 = 103;
-    if (a3 > 2)
+    v17 = MEMORY[0x1E69DD248];
+    v18 = _SFBackdropEffectForBarTintStyle(a8);
+    v19 = 103;
+    if (a7 > 2)
     {
-      v16 = 102;
-      v17 = 112;
-      if (a3 != 7)
+      v20 = 102;
+      v21 = 112;
+      if (a7 != 7)
       {
-        v17 = 103;
+        v21 = 103;
       }
 
-      if (a3 != 4)
+      if (a7 != 4)
       {
-        v16 = v17;
+        v20 = v21;
       }
 
-      if (a3 == 3)
+      if (a7 == 3)
       {
-        v15 = 101;
+        v19 = 101;
       }
 
       else
       {
-        v15 = v16;
+        v19 = v20;
       }
 
       goto LABEL_43;
     }
 
-    if (a3)
+    if (a7)
     {
-      if (a3 == 1)
+      if (a7 == 1)
       {
-        v15 = 111;
+        v19 = 111;
         goto LABEL_43;
       }
 
-      if (a3 != 2)
+      if (a7 != 2)
       {
         goto LABEL_43;
       }
     }
   }
 
-  v15 = 112;
+  v19 = 112;
 LABEL_43:
-  v4 = [v13 _effectForBlurEffect:v14 vibrancyStyle:v15];
+  v8 = [v17 _effectForBlurEffect:v18 vibrancyStyle:v19];
 
 LABEL_44:
 
-  return v4;
+  return v8;
 }
 
 @end

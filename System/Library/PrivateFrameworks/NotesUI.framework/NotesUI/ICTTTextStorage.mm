@@ -135,21 +135,21 @@
   [(NSMutableAttributedString *)v11 enumerateAttribute:v12 inRange:ic_range2 options:v14 usingBlock:0, v15];
 }
 
-uint64_t __50__ICTTTextStorage_resetHighlightsAttributedString__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+void *__50__ICTTTextStorage_resetHighlightsAttributedString__block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 112) addAttribute:*MEMORY[0x1E69B7960] value:a2 range:{a3, a4}];
+    return [*(result[4] + 112) addAttribute:*MEMORY[0x1E69B7960] value:a2 range:{a3, a4}];
   }
 
   return result;
 }
 
-uint64_t __50__ICTTTextStorage_resetHighlightsAttributedString__block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+void *__50__ICTTTextStorage_resetHighlightsAttributedString__block_invoke_2(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 112) addAttribute:*MEMORY[0x1E69B75D8] value:a2 range:{a3, a4}];
+    return [*(result[4] + 112) addAttribute:*MEMORY[0x1E69B75D8] value:a2 range:{a3, a4}];
   }
 
   return result;
@@ -695,7 +695,7 @@ LABEL_8:
   return v6;
 }
 
-uint64_t __55__ICTTTextStorage_UI__isEditingOrConvertingMarkedText___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__55__ICTTTextStorage_UI__isEditingOrConvertingMarkedText___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) textViewHasMarkedText:a2];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -739,13 +739,17 @@ uint64_t __55__ICTTTextStorage_UI__isEditingOrConvertingMarkedText___block_invok
 uint64_t __89__ICTTTextStorage_UI__isDeletingContentAttachmentWithReplacementRange_replacementLength___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   v7 = a2;
-  if (v7 && [ICTextAttachment textAttachmentIsContent:v7])
+  if (v7)
   {
-    *(*(*(a1 + 32) + 8) + 24) = 1;
-    *a5 = 1;
+    v7 = [ICTextAttachment textAttachmentIsContent:v7];
+    if (v7)
+    {
+      *(*(*(a1 + 32) + 8) + 24) = 1;
+      *a5 = 1;
+    }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v7);
 }
 
 - (BOOL)shouldBreakUndoCoalescingWithReplacementRange:(_NSRange)range replacementLength:(unint64_t)length
@@ -1225,12 +1229,12 @@ void __69__ICTTTextStorage_UI__replaceCharactersInRange_withAttributedString___b
 {
   v3 = a2;
   objc_opt_class();
-  v4 = [v3 objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+  v4 = objc_msgSend_objectForKeyedSubscript_(v3);
   v5 = ICDynamicCast();
   *(*(*(a1 + 32) + 8) + 24) |= v5 != 0;
 
   objc_opt_class();
-  v8 = [v3 objectForKeyedSubscript:*MEMORY[0x1E69B7630]];
+  v8 = objc_msgSend_objectForKeyedSubscript_(v3);
 
   v6 = ICDynamicCast();
   v7 = [v6 textLists];
@@ -1262,7 +1266,7 @@ void __69__ICTTTextStorage_UI__replaceCharactersInRange_withAttributedString___b
   {
     objc_opt_class();
     v11 = MEMORY[0x1E69B7600];
-    v12 = [v21 objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+    v12 = objc_msgSend_objectForKeyedSubscript_(v21);
     v13 = ICDynamicCast();
     v14 = [v13 mutableCopy];
     v15 = v14;
@@ -1290,21 +1294,21 @@ void __69__ICTTTextStorage_UI__replaceCharactersInRange_withAttributedString___b
   [*(a1 + 64) setAttributes:v20 range:{a3, a4}];
 }
 
-uint64_t __69__ICTTTextStorage_UI__replaceCharactersInRange_withAttributedString___block_invoke_4(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__69__ICTTTextStorage_UI__replaceCharactersInRange_withAttributedString___block_invoke_4(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(result + 32) addAttribute:*MEMORY[0x1E69B7960] value:a2 range:{a3, a4}];
+    return [result[4] addAttribute:*MEMORY[0x1E69B7960] value:a2 range:{a3, a4}];
   }
 
   return result;
 }
 
-uint64_t __69__ICTTTextStorage_UI__replaceCharactersInRange_withAttributedString___block_invoke_5(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__69__ICTTTextStorage_UI__replaceCharactersInRange_withAttributedString___block_invoke_5(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(result + 32) addAttribute:*MEMORY[0x1E69B75D8] value:a2 range:{a3, a4}];
+    return [result[4] addAttribute:*MEMORY[0x1E69B75D8] value:a2 range:{a3, a4}];
   }
 
   return result;
@@ -1440,9 +1444,10 @@ uint64_t __69__ICTTTextStorage_UI__replaceCharactersInRange_withAttributedString
 
 uint64_t __82__ICTTTextStorage_UI__bulletTextAttributesWithTextFont_paragraphStyle_zoomFactor___block_invoke()
 {
-  bulletTextAttributesWithTextFont_paragraphStyle_zoomFactor__cache = objc_alloc_init(MEMORY[0x1E69B7A48]);
+  v0 = objc_alloc_init(MEMORY[0x1E69B7A48]);
+  bulletTextAttributesWithTextFont_paragraphStyle_zoomFactor__cache = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 + (double)listItemGlyphPointSizeForUnorderedListStyle:(unsigned int)style zoomFactor:(double)factor
@@ -1554,7 +1559,7 @@ uint64_t __82__ICTTTextStorage_UI__bulletTextAttributesWithTextFont_paragraphSty
   attributesCopy = attributes;
   if ([(ICTTTextStorage *)self filterSubstringAttributes])
   {
-    v10 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB630]];
+    v10 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
     v11 = [(ICTTTextStorage *)self filteredAttributedSubstringFromRange:location insertListMarkers:length, v10 != *MEMORY[0x1E69DB658]];
     error = [v11 dataFromRange:0 documentAttributes:objc_msgSend(v11 error:{"length"), attributesCopy, error}];
   }
@@ -1837,7 +1842,7 @@ void __101__ICTTTextStorage_UI__fixAttachmentsForRenderingInAttributedString_for
 
         v16 = [filteredAttributedSubstring_fromRange_forPlainText_forStandardizedText_fixAttachments_insertListMarkers__NSTextListClass alloc];
         v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v14, "style")}];
-        v18 = [v76 objectForKeyedSubscript:v17];
+        v18 = objc_msgSend_objectForKeyedSubscript_(v76);
         v19 = [v16 initWithMarkerFormat:v18 options:0];
 
         if ([v14 startingItemNumber])
@@ -1856,7 +1861,7 @@ void __101__ICTTTextStorage_UI__fixAttachmentsForRenderingInAttributedString_for
 
       lastObject = [v11 lastObject];
       todo = [v14 todo];
-      if (todo && ([v14 todo], v69 = objc_claimAutoreleasedReturnValue(), v70 = v67, (objc_msgSend(v69, "done") & 1) != 0) || (objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", objc_msgSend(v14, "style")), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v76, "objectForKeyedSubscript:", v23), v70 = objc_claimAutoreleasedReturnValue(), v23, todo))
+      if (todo && ([v14 todo], v69 = objc_claimAutoreleasedReturnValue(), v70 = v67, (objc_msgSend(v69, "done") & 1) != 0) || (objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", objc_msgSend(v14, "style")), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectForKeyedSubscript_(v76), v70 = objc_claimAutoreleasedReturnValue(), v23, todo))
       {
       }
 
@@ -2010,11 +2015,11 @@ void __101__ICTTTextStorage_UI__fixAttachmentsForRenderingInAttributedString_for
   return v61;
 }
 
-uint64_t __127__ICTTTextStorage_UI__filteredAttributedSubstring_fromRange_forPlainText_forStandardizedText_fixAttachments_insertListMarkers___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+void *__127__ICTTTextStorage_UI__filteredAttributedSubstring_fromRange_forPlainText_forStandardizedText_fixAttachments_insertListMarkers___block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!a2)
   {
-    return [*(*(*(result + 32) + 8) + 40) removeAttribute:*MEMORY[0x1E69DB650] range:{a3, a4}];
+    return [*(*(result[4] + 8) + 40) removeAttribute:*MEMORY[0x1E69DB650] range:{a3, a4}];
   }
 
   return result;
@@ -2750,10 +2755,10 @@ void __50__ICTTTextStorage_executeDelayedFixupAfterEditing__block_invoke_2(uint6
           v14 = v25;
         }
 
-        v26 = [v15 objectForKeyedSubscript:*v18];
+        v26 = objc_msgSend_objectForKeyedSubscript_(v15);
         v27 = [v26 mutableCopy];
 
-        v28 = [v14 objectForKeyedSubscript:*v18];
+        v28 = objc_msgSend_objectForKeyedSubscript_(v14);
         v29 = [v28 mutableCopy];
 
         [v27 setNeedsParagraphCleanup:0];
@@ -2788,14 +2793,14 @@ void __50__ICTTTextStorage_executeDelayedFixupAfterEditing__block_invoke_2(uint6
         [v14 setObject:v40 forKeyedSubscript:*v18];
 
         v41 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
-        v42 = [v15 objectForKeyedSubscript:v17];
+        v42 = objc_msgSend_objectForKeyedSubscript_(v15);
 
         if (v42)
         {
           [v15 setObject:v41 forKeyedSubscript:v17];
         }
 
-        v43 = [v14 objectForKeyedSubscript:v17];
+        v43 = objc_msgSend_objectForKeyedSubscript_(v14);
 
         if (v43)
         {
@@ -3280,7 +3285,7 @@ uint64_t __78__ICTTTextStorage_correctParagraphStyleReuseForRange_withNewAttribu
     *a3 = 1;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v5);
 }
 
 - (void)addAttribute:(id)attribute value:(id)value range:(_NSRange)range
@@ -3406,22 +3411,22 @@ id __74__ICTTTextStorage_dd_makeLinksForResultsInAttributesOfType_context_range_
   [defaultCenter postNotificationName:@"ICTTTextStorageDidUpdateDataDetectionResultsNotification" object:self];
 }
 
-uint64_t __34__ICTTTextStorage_dd_resetResults__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+void *__34__ICTTTextStorage_dd_resetResults__block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
     v6 = result;
-    v7 = *(result + 32);
+    v7 = result[4];
     v8 = *MEMORY[0x1E69DB650];
     v9 = [MEMORY[0x1E69DC888] preferredDefaultFontColor];
     [v7 addAttribute:v8 value:v9 range:{a3, a4}];
 
-    v10 = *(v6 + 32);
+    v10 = v6[4];
     v11 = *MEMORY[0x1E69B7960];
     v12 = [MEMORY[0x1E69DC888] preferredDefaultFontColor];
     [v10 addAttribute:v11 value:v12 range:{a3, a4}];
 
-    v13 = *(v6 + 32);
+    v13 = v6[4];
     v14 = *MEMORY[0x1E69DB750];
 
     return [v13 removeAttribute:v14 range:{a3, a4}];
@@ -3523,11 +3528,11 @@ void __34__ICTTTextStorage_dd_resetResults__block_invoke_2(uint64_t a1, uint64_t
 
     [(NSMutableAttributedString *)self->_attributedString setAttributes:attributesCopy range:location, length];
     objc_opt_class();
-    v17 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB650]];
+    v17 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
     v18 = ICCheckedDynamicCast();
 
     objc_opt_class();
-    v19 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69B75D8]];
+    v19 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
     v20 = ICCheckedDynamicCast();
 
     highlightsAttributedString = self->_highlightsAttributedString;
@@ -3564,7 +3569,7 @@ void __39__ICTTTextStorage_setAttributes_range___block_invoke_2(uint64_t a1, voi
   v40 = a2;
   objc_opt_class();
   v7 = MEMORY[0x1E69B7960];
-  v8 = [v40 objectForKeyedSubscript:*MEMORY[0x1E69B7960]];
+  v8 = objc_msgSend_objectForKeyedSubscript_(v40);
   v9 = ICDynamicCast();
 
   v10 = *(a1 + 32);
@@ -3640,7 +3645,7 @@ LABEL_15:
 LABEL_20:
   objc_opt_class();
   v23 = MEMORY[0x1E69B75D8];
-  v24 = [v40 objectForKeyedSubscript:*MEMORY[0x1E69B75D8]];
+  v24 = objc_msgSend_objectForKeyedSubscript_(v40);
   v25 = ICCheckedDynamicCast();
 
   v26 = *(a1 + 48);

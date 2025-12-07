@@ -10,7 +10,7 @@
   v4 = 0uLL;
   if (self)
   {
-    [self transformStruct];
+    objc_msgSend_transformStruct(self, a2);
     v4 = 0uLL;
     v5 = 0uLL;
     v6 = 0uLL;
@@ -33,7 +33,7 @@
   v10 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    [self transformStruct];
+    objc_msgSend_transformStruct(self, a2, a3);
     v3 = v7;
     v4 = v8;
     v5 = v9;

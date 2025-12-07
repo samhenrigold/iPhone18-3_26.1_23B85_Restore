@@ -43,32 +43,32 @@
 
 - (void)_axApplyAssetToView
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v3 = [(PUImageTileViewControllerAccessibility *)self safeValueForKey:@"asset"];
   v4 = [(PUImageTileViewControllerAccessibility *)self safeValueForKey:@"view"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     subviews = [v4 subviews];
-    v6 = [subviews countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [subviews countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(subviews);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * i);
+          v10 = *(*(&v12 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -85,7 +85,7 @@
           goto LABEL_13;
         }
 
-        v7 = [subviews countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [subviews countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           continue;
@@ -108,8 +108,6 @@ LABEL_13:
   }
 
   [v4 setIsAccessibilityElement:v3 != 0];
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_accessibilityLoadAccessibilityInformation
@@ -147,7 +145,7 @@ LABEL_13:
 
 - (void)_axApplyCustomAction:(id)action
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   actionCopy = action;
   _axMainImageView = [(PUImageTileViewControllerAccessibility *)self _axMainImageView];
   accessibilityCustomActions = [_axMainImageView accessibilityCustomActions];
@@ -158,27 +156,27 @@ LABEL_13:
     v7 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     while (2)
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        name = [*(*(&v17 + 1) + 8 * v12) name];
+        name = [*(*(&v16 + 1) + 8 * v12) name];
         name2 = [actionCopy name];
         v15 = [name isEqualToString:name2];
 
@@ -192,7 +190,7 @@ LABEL_13:
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v10)
       {
         continue;
@@ -205,8 +203,6 @@ LABEL_13:
   [v8 addObject:actionCopy];
   [_axMainImageView setAccessibilityCustomActions:v8];
 LABEL_13:
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 - (id)_axImageView

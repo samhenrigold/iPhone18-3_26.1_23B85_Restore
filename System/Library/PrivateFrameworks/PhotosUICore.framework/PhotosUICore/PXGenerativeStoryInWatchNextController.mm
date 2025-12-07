@@ -56,11 +56,11 @@
 - (int64_t)index
 {
   sub_1A524CC54();
-  v6[2] = self;
+  v7[2] = self;
   selfCopy = self;
-  v4 = sub_1A3E9B270(sub_1A3E9DEF4, v6, "PhotosUICore/GenerativeStoryInWatchNextController.swift", 55);
+  v5 = sub_1A3E9B270(sub_1A3E9DEF4, v7, "PhotosUICore/GenerativeStoryInWatchNextController.swift", 55, 2, 59, v4);
 
-  return v4;
+  return v5;
 }
 
 - (BOOL)wantsMemoryCreationCard
@@ -112,8 +112,9 @@
 
 - (void)setMemoryCardVisible:(BOOL)visible animated:(BOOL)animated
 {
+  visibleCopy = visible;
   selfCopy = self;
-  sub_1A3E9C7C4(visible, animated);
+  sub_1A3E9C7C4(visibleCopy, animated);
 }
 
 - (PXGenerativeStoryInWatchNextController)init

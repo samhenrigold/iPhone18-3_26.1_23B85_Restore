@@ -49,16 +49,15 @@
 {
   v5 = type metadata accessor for URLRequest();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v12 = v11;
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v11 = v10;
   selfCopy = self;
-  sub_100037F60(v10, v12);
+  sub_100037F60(v9, v11);
 
   isa = URLRequest._bridgeToObjectiveC()().super.isa;
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 
   return isa;
 }

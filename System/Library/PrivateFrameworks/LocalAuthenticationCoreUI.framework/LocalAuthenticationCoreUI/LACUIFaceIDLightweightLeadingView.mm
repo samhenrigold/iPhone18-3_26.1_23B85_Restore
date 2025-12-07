@@ -35,31 +35,29 @@
 
 - (void)_setup
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   [(LACUIFaceIDLightweightLeadingView *)self addSubview:self->_faceIDSpinnerView];
   [(LACUIFaceIDSpinnerView *)self->_faceIDSpinnerView setTranslatesAutoresizingMaskIntoConstraints:0];
   [(LACUIFaceIDLightweightLeadingView *)self setState:self->_state animated:0 completion:0];
-  v14 = MEMORY[0x277CCAAD0];
+  v13 = MEMORY[0x277CCAAD0];
   leadingAnchor = [(LACUIFaceIDSpinnerView *)self->_faceIDSpinnerView leadingAnchor];
   leadingAnchor2 = [(LACUIFaceIDLightweightLeadingView *)self leadingAnchor];
-  v15 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v18[0] = v15;
+  v14 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v17[0] = v14;
   trailingAnchor = [(LACUIFaceIDSpinnerView *)self->_faceIDSpinnerView trailingAnchor];
   trailingAnchor2 = [(LACUIFaceIDLightweightLeadingView *)self trailingAnchor];
   v5 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v18[1] = v5;
+  v17[1] = v5;
   topAnchor = [(LACUIFaceIDSpinnerView *)self->_faceIDSpinnerView topAnchor];
   topAnchor2 = [(LACUIFaceIDLightweightLeadingView *)self topAnchor];
   v8 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v18[2] = v8;
+  v17[2] = v8;
   bottomAnchor = [(LACUIFaceIDSpinnerView *)self->_faceIDSpinnerView bottomAnchor];
   bottomAnchor2 = [(LACUIFaceIDLightweightLeadingView *)self bottomAnchor];
   v11 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v18[3] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
-  [v14 activateConstraints:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v17[3] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
+  [v13 activateConstraints:v12];
 }
 
 - (void)setState:(int64_t)state

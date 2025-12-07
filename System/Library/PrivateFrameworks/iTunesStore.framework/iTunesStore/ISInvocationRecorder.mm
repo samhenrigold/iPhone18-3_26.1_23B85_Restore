@@ -10,7 +10,7 @@
 
 - (ISInvocationRecorder)init
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISInvocation.m", 50, a2);
   v4.receiver = self;
   v4.super_class = ISInvocationRecorder;
   return [(ISInvocationRecorder *)&v4 init];

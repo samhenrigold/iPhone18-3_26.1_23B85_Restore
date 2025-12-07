@@ -55,7 +55,7 @@
 
 - (void)reloadWithCacheConfiguration:(id)configuration
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (!configuration)
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"Must provide a configuration"];
@@ -84,41 +84,46 @@ LABEL_9:
         shouldLog = [mEMORY[0x277D69B38] shouldLog];
         if ([mEMORY[0x277D69B38] shouldLogToDisk])
         {
-          v11 = shouldLog | 2;
+          LODWORD(v11) = shouldLog | 2;
         }
 
         else
         {
-          v11 = shouldLog;
+          LODWORD(v11) = shouldLog;
         }
 
-        if (!os_log_type_enabled([mEMORY[0x277D69B38] OSLogObject], OS_LOG_TYPE_INFO))
+        oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+        {
+          v11 = v11;
+        }
+
+        else
         {
           v11 &= 2u;
         }
 
         if (v11)
         {
-          v16 = 138413058;
-          v17 = objc_opt_class();
-          v18 = 2112;
-          v19 = persistentIdentifier;
-          v20 = 2048;
+          v15 = 138413058;
+          v16 = objc_opt_class();
+          v17 = 2112;
+          v18 = persistentIdentifier;
+          v19 = 2048;
           diskCapacity = [configuration diskCapacity];
-          v22 = 2048;
+          v21 = 2048;
           memoryCapacity = [configuration memoryCapacity];
-          LODWORD(v15) = 42;
-          v12 = _os_log_send_and_compose_impl();
-          if (v12)
+          v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_275BC3000, oSLogObject, 1, "%@: Reloaded cache (%@, disk: %lu, memory: %lu)", &v15, 42);
+          if (v13)
           {
-            v13 = v12;
-            [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:{4, &v16, v15}];
-            free(v13);
+            v14 = v13;
+            [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:4];
+            free(v14);
             SSFileLog();
           }
         }
 
-        goto LABEL_19;
+        return;
       }
     }
 
@@ -133,9 +138,6 @@ LABEL_9:
     _CFURLCacheLoadMemoryFromDiskNow();
     goto LABEL_9;
   }
-
-LABEL_19:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)purgeMemoryCache

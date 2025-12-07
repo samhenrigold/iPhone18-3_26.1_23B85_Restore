@@ -40,7 +40,7 @@
 
 - (void)_updateReachability
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69B6900] = [MEMORY[0x1E69B6900] sharedInstance];
   currentReachabilityStatus = [mEMORY[0x1E69B6900] currentReachabilityStatus];
 
@@ -67,20 +67,18 @@
   if (os_log_type_enabled(FCReachabilityLog, OS_LOG_TYPE_DEFAULT))
   {
     v8 = v7;
-    v10[0] = 67110144;
-    v10[1] = [(FCNetworkReachability *)self isNetworkReachable];
-    v11 = 1024;
+    v9[0] = 67110144;
+    v9[1] = [(FCNetworkReachability *)self isNetworkReachable];
+    v10 = 1024;
     isNetworkReachableViaWiFi = [(FCNetworkReachability *)self isNetworkReachableViaWiFi];
-    v13 = 1024;
+    v12 = 1024;
     isNetworkReachableViaCellular = [(FCNetworkReachability *)self isNetworkReachableViaCellular];
-    v15 = 1024;
+    v14 = 1024;
     isNetworkReachableViaOther2 = [(FCNetworkReachability *)self isNetworkReachableViaOther];
-    v17 = 1024;
+    v16 = 1024;
     isCloudKitAccessAllowed = [(FCNetworkReachability *)self isCloudKitAccessAllowed];
-    _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "Reachability Changed. Network Reachable: %d, via Wi-Fi: %d, via Cellular: %d, via Other: %d, CloudKit Access Allowed: %d", v10, 0x20u);
+    _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "Reachability Changed. Network Reachable: %d, via Wi-Fi: %d, via Cellular: %d, via Other: %d, CloudKit Access Allowed: %d", v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (id)sharedNetworkReachability
@@ -97,9 +95,11 @@
 
 uint64_t __50__FCNetworkReachability_sharedNetworkReachability__block_invoke()
 {
-  qword_1EDB279B8 = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = qword_1EDB279B8;
+  qword_1EDB279B8 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (int64_t)_cellularRadioAccessTechnology
@@ -153,23 +153,22 @@ uint64_t __50__FCNetworkReachability_sharedNetworkReachability__block_invoke()
 
 uint64_t __55__FCNetworkReachability__cellularRadioAccessTechnology__block_invoke_23(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCReachabilityLog;
   if (os_log_type_enabled(FCReachabilityLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v5;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "Could not query RAT: %@", &v6, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "Could not query RAT: %@", &v5, 0xCu);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (void)_accessRestrictionsChanged
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   isCloudKitAccessAllowed = [(FCNetworkReachability *)self isCloudKitAccessAllowed];
   if ([(FCNetworkReachability *)self accessRestrictedBecauseOfAppVersion]|| [(FCNetworkReachability *)self accessRestrictedBecauseOfCountry]|| [(FCNetworkReachability *)self accessRestrictedBecauseOfOSVersion])
   {
@@ -196,44 +195,42 @@ uint64_t __55__FCNetworkReachability__cellularRadioAccessTechnology__block_invok
     observers = [(FCNetworkReachability *)self observers];
     v8 = [observers copy];
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v17;
+      v12 = *v16;
       do
       {
         v13 = 0;
         do
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v16 + 1) + 8 * v13);
+          v14 = *(*(&v15 + 1) + 8 * v13);
           if (objc_opt_respondsToSelector())
           {
-            [v14 networkReachabilityDidChange:{self, v16}];
+            [v14 networkReachabilityDidChange:{self, v15}];
           }
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v11);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)offlineReason
@@ -301,7 +298,7 @@ uint64_t __55__FCNetworkReachability__cellularRadioAccessTechnology__block_invok
 
 - (void)_reachabilityChanged:(id)changed
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   isNetworkReachable = [(FCNetworkReachability *)self isNetworkReachable];
   isNetworkReachableViaWiFi = [(FCNetworkReachability *)self isNetworkReachableViaWiFi];
   isCloudKitAccessAllowed = [(FCNetworkReachability *)self isCloudKitAccessAllowed];
@@ -313,71 +310,71 @@ uint64_t __55__FCNetworkReachability__cellularRadioAccessTechnology__block_invok
 
   if (isNetworkReachable != [(FCNetworkReachability *)self isNetworkReachable]|| isCloudKitAccessAllowed != [(FCNetworkReachability *)self isCloudKitAccessAllowed]|| isNetworkUsageExpensive != [(FCNetworkReachability *)self isNetworkUsageExpensive]|| isLowDataModeEnabled != [(FCNetworkReachability *)self isLowDataModeEnabled])
   {
-    v30 = isNetworkReachableViaWiFi;
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
+    v29 = isNetworkReachableViaWiFi;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v39 objects:v45 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v38 objects:v44 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v40;
+      v14 = *v39;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v40 != v14)
+          if (*v39 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v39 + 1) + 8 * i);
+          v16 = *(*(&v38 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
             [v16 networkReachabilityDidChange:self];
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v39 objects:v45 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v38 objects:v44 count:16];
       }
 
       while (v13);
     }
 
-    isNetworkReachableViaWiFi = v30;
+    isNetworkReachableViaWiFi = v29;
   }
 
   if (isNetworkReachableViaWiFi != [(FCNetworkReachability *)self isNetworkReachableViaWiFi])
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v17 = v10;
-    v18 = [v17 countByEnumeratingWithState:&v35 objects:v44 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v34 objects:v43 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v36;
+      v20 = *v35;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v36 != v20)
+          if (*v35 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v35 + 1) + 8 * j);
+          v22 = *(*(&v34 + 1) + 8 * j);
           if (objc_opt_respondsToSelector())
           {
             [v22 wifiReachabilityDidChange:self];
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v35 objects:v44 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v34 objects:v43 count:16];
       }
 
       while (v19);
@@ -386,40 +383,38 @@ uint64_t __55__FCNetworkReachability__cellularRadioAccessTechnology__block_invok
 
   if (isNetworkReachable != [(FCNetworkReachability *)self isNetworkReachable])
   {
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v23 = v10;
-    v24 = [v23 countByEnumeratingWithState:&v31 objects:v43 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v30 objects:v42 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v32;
+      v26 = *v31;
       do
       {
         for (k = 0; k != v25; ++k)
         {
-          if (*v32 != v26)
+          if (*v31 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          v28 = *(*(&v31 + 1) + 8 * k);
+          v28 = *(*(&v30 + 1) + 8 * k);
           if (objc_opt_respondsToSelector())
           {
             [v28 networkReachabilityConnectivityDidChange:self];
           }
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v31 objects:v43 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v30 objects:v42 count:16];
       }
 
       while (v25);
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)reachabilityStatus
@@ -496,49 +491,46 @@ void __37__FCNetworkReachability_addObserver___block_invoke_2(uint64_t a1)
 
 void __40__FCNetworkReachability_removeObserver___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) observers];
   v3 = [v2 containsObject:*(a1 + 40)];
 
   if ((v3 & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%p is not an observer", *(a1 + 40)];
+    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%p is not an observer", *(a1 + 40)];
     *buf = 136315906;
-    v8 = "[FCNetworkReachability removeObserver:]_block_invoke_2";
-    v9 = 2080;
-    v10 = "FCNetworkReachability.m";
-    v11 = 1024;
-    v12 = 225;
-    v13 = 2114;
-    v14 = v6;
+    v7 = "[FCNetworkReachability removeObserver:]_block_invoke_2";
+    v8 = 2080;
+    v9 = "FCNetworkReachability.m";
+    v10 = 1024;
+    v11 = 225;
+    v12 = 2114;
+    v13 = v5;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v4 = [*(a1 + 32) observers];
   [v4 removeObject:*(a1 + 40)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __55__FCNetworkReachability__cellularRadioAccessTechnology__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCReachabilityLog;
   if (os_log_type_enabled(FCReachabilityLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v5;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "Could not get current data service descriptor: %@", &v6, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "Could not get current data service descriptor: %@", &v5, 0xCu);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (int64_t)_cellularRadioAccessTechnologyFromString:(id)string
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v4 = stringCopy;
   if (!stringCopy)
@@ -622,16 +614,16 @@ uint64_t __55__FCNetworkReachability__cellularRadioAccessTechnology__block_invok
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case not implemented"];
-      v9 = 136315906;
-      v10 = "[FCNetworkReachability _cellularRadioAccessTechnologyFromString:]";
-      v11 = 2080;
-      v12 = "FCNetworkReachability.m";
-      v13 = 1024;
-      v14 = 380;
-      v15 = 2114;
-      v16 = v8;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case not implemented"];
+      v8 = 136315906;
+      v9 = "[FCNetworkReachability _cellularRadioAccessTechnologyFromString:]";
+      v10 = 2080;
+      v11 = "FCNetworkReachability.m";
+      v12 = 1024;
+      v13 = 380;
+      v14 = 2114;
+      v15 = v7;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
     }
 
 LABEL_30:
@@ -642,7 +634,6 @@ LABEL_30:
   v5 = 1;
 LABEL_31:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

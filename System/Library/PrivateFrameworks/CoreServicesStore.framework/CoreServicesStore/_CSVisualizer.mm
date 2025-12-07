@@ -10,8 +10,13 @@
 - (_CSVisualizer)initWithStore:(__CSStore *)store useStandardTableFunctions:(BOOL)functions;
 - (id)breakDownUsage;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionOfUnit:(unsigned int)unit inTable:(unsigned int)table;
+- (id)functionsForTable:(unsigned int)table;
+- (id)functionsForTableNoCopy:(unsigned int)copy;
+- (id)summaryOfUnit:(unsigned int)unit inTable:(unsigned int)table;
 - (void)dealloc;
 - (void)enumerateReferencesToUnit:(unsigned int)unit inTable:(unsigned int)table block:(id)block;
+- (void)setFunctions:(id)functions forTable:(unsigned int)table;
 - (void)setStandardTableFunctions;
 @end
 
@@ -144,6 +149,74 @@
   return v22;
 }
 
+- (id)descriptionOfUnit:(unsigned int)unit inTable:(unsigned int)table
+{
+  v4 = 0;
+  if (unit)
+  {
+    v5 = *&table;
+    if (table)
+    {
+      v6 = *&unit;
+      v8 = objc_autoreleasePoolPush();
+      v9 = [(_CSVisualizer *)self functionsForTableNoCopy:v5];
+      getDescription = [v9 getDescription];
+
+      if (!getDescription || ((getDescription)[2](getDescription, self, v5, v6), v4 = objc_claimAutoreleasedReturnValue(), getDescription, !v4))
+      {
+        v4 = _CSStoreCopyDebugDescriptionOfUnit([(_CSVisualizer *)self store], v5, v6, 1);
+      }
+
+      objc_autoreleasePoolPop(v8);
+    }
+  }
+
+  return v4;
+}
+
+- (id)summaryOfUnit:(unsigned int)unit inTable:(unsigned int)table
+{
+  v4 = 0;
+  if (unit)
+  {
+    v5 = *&table;
+    if (table)
+    {
+      v6 = *&unit;
+      v8 = objc_autoreleasePoolPush();
+      v9 = [(_CSVisualizer *)self functionsForTableNoCopy:v5];
+      getSummary = [v9 getSummary];
+
+      if (!getSummary || ((getSummary)[2](getSummary, self, v5, v6), v4 = objc_claimAutoreleasedReturnValue(), getSummary, !v4))
+      {
+        if ([(_CSVisualizer *)self store])
+        {
+          v11 = -37516;
+        }
+
+        else
+        {
+          v11 = 0;
+        }
+
+        if (v11 == v5)
+        {
+          v4 = _CSStoreCopyTableName([(_CSVisualizer *)self store], v6);
+        }
+
+        else
+        {
+          v4 = 0;
+        }
+      }
+
+      objc_autoreleasePoolPop(v8);
+    }
+  }
+
+  return v4;
+}
+
 - (void)setStandardTableFunctions
 {
   store = [(_CSVisualizer *)self store];
@@ -204,6 +277,40 @@
   }
 }
 
+- (void)setFunctions:(id)functions forTable:(unsigned int)table
+{
+  v4 = *&table;
+  functionsCopy = functions;
+  [(NSRecursiveLock *)self->_lock lock];
+  v6 = [functionsCopy copy];
+  functions = self->_functions;
+  v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v4];
+  [(NSMutableDictionary *)functions setObject:v6 forKeyedSubscript:v8];
+
+  [(NSRecursiveLock *)self->_lock unlock];
+}
+
+- (id)functionsForTable:(unsigned int)table
+{
+  v3 = [(_CSVisualizer *)self functionsForTableNoCopy:*&table];
+  v4 = [v3 copy];
+
+  return v4;
+}
+
+- (id)functionsForTableNoCopy:(unsigned int)copy
+{
+  v3 = *&copy;
+  [(NSRecursiveLock *)self->_lock lock];
+  functions = self->_functions;
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+  v7 = [(NSMutableDictionary *)functions objectForKeyedSubscript:v6];
+
+  [(NSRecursiveLock *)self->_lock unlock];
+
+  return v7;
+}
+
 - (void)dealloc
 {
   CFRelease(self->_store);
@@ -244,22 +351,22 @@
 
 + (BOOL)getUnit:(unsigned int *)unit inTable:(unsigned int *)table fromURL:(id)l
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v8 = objc_autoreleasePoolPush();
   absoluteString = [lCopy absoluteString];
-  v10 = [absoluteString getCString:v28 maxLength:1024 encoding:4];
+  v10 = [absoluteString getCString:v27 maxLength:1024 encoding:4];
 
-  if (v10 && (v24 = 0, v20 = 0, sscanf(v28, "x-csstore-vis-unit:?t=%llu&u=%llu", &v24, &v20) == 2))
+  if (v10 && (v23 = 0, v19 = 0, sscanf(v27, "x-csstore-vis-unit:?t=%llu&u=%llu", &v23, &v19) == 2))
   {
     if (table)
     {
-      *table = v24;
+      *table = v23;
     }
 
     if (unit)
     {
-      *unit = v20;
+      *unit = v19;
     }
 
     v11 = 1;
@@ -271,28 +378,28 @@
     scheme = [v12 scheme];
     if (scheme && ([v12 scheme], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "caseInsensitiveCompare:", @"x-csstore-vis-unit") == 0, v14, scheme, v15))
     {
-      v24 = 0;
-      v25 = &v24;
-      v26 = 0x2020000000;
-      v27 = 0;
-      v20 = 0;
-      v21 = &v20;
-      v22 = 0x2020000000;
       v23 = 0;
+      v24 = &v23;
+      v25 = 0x2020000000;
+      v26 = 0;
+      v19 = 0;
+      v20 = &v19;
+      v21 = 0x2020000000;
+      v22 = 0;
       queryItems = [v12 queryItems];
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __41___CSVisualizer_getUnit_inTable_fromURL___block_invoke;
-      v19[3] = &unk_1E7ED3B38;
-      v19[4] = &v24;
-      v19[5] = &v20;
-      v19[6] = table;
-      v19[7] = unit;
-      [queryItems enumerateObjectsUsingBlock:v19];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __41___CSVisualizer_getUnit_inTable_fromURL___block_invoke;
+      v18[3] = &unk_1E7ED3B38;
+      v18[4] = &v23;
+      v18[5] = &v19;
+      v18[6] = table;
+      v18[7] = unit;
+      [queryItems enumerateObjectsUsingBlock:v18];
 
-      if (*(v25 + 24) == 1)
+      if (*(v24 + 24) == 1)
       {
-        v11 = *(v21 + 24);
+        v11 = *(v20 + 24);
       }
 
       else
@@ -300,8 +407,8 @@
         v11 = 0;
       }
 
-      _Block_object_dispose(&v20, 8);
-      _Block_object_dispose(&v24, 8);
+      _Block_object_dispose(&v19, 8);
+      _Block_object_dispose(&v23, 8);
     }
 
     else
@@ -312,7 +419,6 @@
 
   objc_autoreleasePoolPop(v8);
 
-  v17 = *MEMORY[0x1E69E9840];
   return v11 & 1;
 }
 
@@ -435,24 +541,22 @@
   }
 
   memset(&buffer[v19], 68, table->var0.var2 - 72);
-  v23 = tableCopy[19];
-  if (v23 != -1)
+  var5 = tableCopy->var5;
+  if (var5 != -1)
   {
     v24 = *(*store + 8);
     v25 = *(v24 + 12);
-    if (v25 > v23)
+    if (v25 > var5)
     {
-      v26 = (v24 + v23);
-      tableCopy[19];
-      v27 = v24 + v23 < v24;
-      tableCopy[19];
-      v28 = v23 + 1 > v25 || v23 == -1;
+      v26 = (v24 + var5);
+      v27 = v24 + var5 < v24;
+      v28 = var5 + 1 > v25 || var5 == -1;
       if (v27 || v28)
       {
-        v23 = 0xFFFFFFFFLL;
+        var5 = 0xFFFFFFFFLL;
       }
 
-      *&bufferCopy[v23] = 134744072;
+      *&bufferCopy[var5] = 134744072;
       v95[0] = MEMORY[0x1E69E9820];
       v95[1] = 3221225472;
       v96 = ___ZN8CSStore27HashMapIjjNS_20_IdentifierFunctionsELy1EE14WriteBreakdownERKNS_5StoreEPKS2_hPh_block_invoke;

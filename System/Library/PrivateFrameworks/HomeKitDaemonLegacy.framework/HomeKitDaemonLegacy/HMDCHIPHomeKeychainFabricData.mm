@@ -22,7 +22,7 @@
 
 - (id)rcacFromFabricData:(id)data
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   rootCert = [dataCopy rootCert];
 
@@ -56,11 +56,11 @@
         v20 = HMFGetLogIdentifier();
         rootCert4 = [dataCopy rootCert];
         shortDescription = [rootCert4 shortDescription];
-        v25 = 138543618;
-        v26 = v20;
-        v27 = 2112;
-        v28 = shortDescription;
-        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Corrupt fabricData rootCert %@", &v25, 0x16u);
+        v24 = 138543618;
+        v25 = v20;
+        v26 = 2112;
+        v27 = shortDescription;
+        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Corrupt fabricData rootCert %@", &v24, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -76,37 +76,35 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v25 = 138543618;
-      v26 = v16;
-      v27 = 2112;
-      v28 = dataCopy;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@fabricData didn't contain rootCert to extract RCAC from: %@", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = v16;
+      v26 = 2112;
+      v27 = dataCopy;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@fabricData didn't contain rootCert to extract RCAC from: %@", &v24, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
     rootCACertificateID = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return rootCACertificateID;
 }
 
 - (id)unarchiveKeyItemValue:(id)value
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v5 = MEMORY[0x277CCAAC8];
   v6 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
   v7 = MEMORY[0x277CBEB98];
-  v23[0] = objc_opt_class();
-  v23[1] = objc_opt_class();
-  v23[2] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
+  v22[0] = objc_opt_class();
+  v22[1] = objc_opt_class();
+  v22[2] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
   v9 = [v7 setWithArray:v8];
-  v18 = 0;
-  v10 = [v5 unarchivedDictionaryWithKeysOfClasses:v6 objectsOfClasses:v9 fromData:valueCopy error:&v18];
-  v11 = v18;
+  v17 = 0;
+  v10 = [v5 unarchivedDictionaryWithKeysOfClasses:v6 objectsOfClasses:v9 fromData:valueCopy error:&v17];
+  v11 = v17;
 
   if (!v10)
   {
@@ -117,28 +115,26 @@
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v20 = v15;
-      v21 = 2112;
-      v22 = v11;
+      v19 = v15;
+      v20 = 2112;
+      v21 = v11;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive item value: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (NSArray)fabricDataItems
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   systemKeychainStore = [(HMDCHIPHomeKeychainFabricData *)self systemKeychainStore];
   v4 = [MEMORY[0x277CCABB0] numberWithInt:{-[HMDCHIPHomeKeychainFabricData signedOut](self, "signedOut") ^ 1}];
-  v19 = 0;
-  v5 = [systemKeychainStore allKeychainItemsForType:&unk_286628798 identifier:0 syncable:v4 error:&v19];
-  v6 = v19;
+  v18 = 0;
+  v5 = [systemKeychainStore allKeychainItemsForType:&unk_286628798 identifier:0 syncable:v4 error:&v18];
+  v6 = v18;
 
   if (v6)
   {
@@ -149,7 +145,7 @@
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v21 = v10;
+      v20 = v10;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Failed to get keychain items", buf, 0xCu);
     }
 
@@ -159,24 +155,22 @@
 
   else
   {
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __48__HMDCHIPHomeKeychainFabricData_fabricDataItems__block_invoke;
-    v18[3] = &unk_27972A888;
-    v18[4] = self;
-    v12 = [v5 na_map:v18];
     v17[0] = MEMORY[0x277D85DD0];
     v17[1] = 3221225472;
-    v17[2] = __48__HMDCHIPHomeKeychainFabricData_fabricDataItems__block_invoke_2;
-    v17[3] = &unk_279733028;
+    v17[2] = __48__HMDCHIPHomeKeychainFabricData_fabricDataItems__block_invoke;
+    v17[3] = &unk_27972A888;
     v17[4] = self;
-    v13 = [v12 na_filter:v17];
+    v12 = [v5 na_map:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __48__HMDCHIPHomeKeychainFabricData_fabricDataItems__block_invoke_2;
+    v16[3] = &unk_279733028;
+    v16[4] = self;
+    v13 = [v12 na_filter:v16];
 
     v14 = [v13 na_map:&__block_literal_global_99089];
     array = [v14 na_filter:&__block_literal_global_114_99090];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -243,7 +237,7 @@ HMDCHIPHomeKeychainFabricDataItem *__48__HMDCHIPHomeKeychainFabricData_fabricDat
 
 - (BOOL)storeFabricData:(id)data dataVersion:(id)version creationTime:(id)time
 {
-  v80[9] = *MEMORY[0x277D85DE8];
+  v79[9] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   versionCopy = version;
   timeCopy = time;
@@ -260,43 +254,43 @@ HMDCHIPHomeKeychainFabricDataItem *__48__HMDCHIPHomeKeychainFabricData_fabricDat
 
       if (v17)
       {
-        v79[0] = @"homeUUID";
+        v78[0] = @"homeUUID";
         homeUUID = [(HMDCHIPHomeKeychainFabricData *)self homeUUID];
         uUIDString = [homeUUID UUIDString];
-        v80[0] = uUIDString;
-        v79[1] = @"iCloudID";
+        v79[0] = uUIDString;
+        v78[1] = @"iCloudID";
         iCloudIdentifier = [(HMDCHIPHomeKeychainFabricData *)self iCloudIdentifier];
-        v80[1] = iCloudIdentifier;
-        v80[2] = v15;
-        v71 = v17;
-        v72 = v15;
-        v79[2] = @"rootKey";
-        v79[3] = @"opKey";
-        v80[3] = v17;
-        v79[4] = @"fabricID";
+        v79[1] = iCloudIdentifier;
+        v79[2] = v15;
+        v70 = v17;
+        v71 = v15;
+        v78[2] = @"rootKey";
+        v78[3] = @"opKey";
+        v79[3] = v17;
+        v78[4] = @"fabricID";
         fabricID = [dataCopy fabricID];
-        v80[4] = fabricID;
-        v79[5] = @"residentNodeID";
+        v79[4] = fabricID;
+        v78[5] = @"residentNodeID";
         residentNodeID = [dataCopy residentNodeID];
-        v80[5] = residentNodeID;
-        v79[6] = @"ipk";
+        v79[5] = residentNodeID;
+        v78[6] = @"ipk";
         v23 = [dataCopy ipk];
-        v80[6] = v23;
-        v80[7] = versionCopy;
-        v70 = versionCopy;
-        v79[7] = @"version";
-        v79[8] = @"createTime";
-        v80[8] = timeCopy;
-        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:9];
+        v79[6] = v23;
+        v79[7] = versionCopy;
+        v69 = versionCopy;
+        v78[7] = @"version";
+        v78[8] = @"createTime";
+        v79[8] = timeCopy;
+        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:v78 count:9];
 
         v25 = [(HMDCHIPHomeKeychainFabricData *)self rcacFromFabricData:dataCopy];
-        v69 = v25;
+        v68 = v25;
         if (v25)
         {
           v26 = v25;
           v27 = [v24 mutableCopy];
           [v27 setObject:v26 forKeyedSubscript:@"rcac"];
-          v28 = [v27 copy];
+          v28 = objc_msgSend_copy(v27);
         }
 
         else
@@ -304,13 +298,13 @@ HMDCHIPHomeKeychainFabricDataItem *__48__HMDCHIPHomeKeychainFabricData_fabricDat
           v28 = v24;
         }
 
-        v74 = 0;
-        v42 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v28 requiringSecureCoding:1 error:&v74];
-        v43 = v74;
-        v68 = v42;
+        v73 = 0;
+        v42 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v28 requiringSecureCoding:1 error:&v73];
+        v43 = v73;
+        v67 = v42;
         if (v42)
         {
-          v67 = v28;
+          v66 = v28;
           v44 = objc_alloc_init(MEMORY[0x277CFEBC8]);
           [v44 setValueData:v42];
           [v44 setSyncable:{-[HMDCHIPHomeKeychainFabricData signedOut](self, "signedOut") ^ 1}];
@@ -328,9 +322,9 @@ HMDCHIPHomeKeychainFabricDataItem *__48__HMDCHIPHomeKeychainFabricData_fabricDat
           [v44 setViewHint:v49];
 
           systemKeychainStore = [(HMDCHIPHomeKeychainFabricData *)self systemKeychainStore];
-          v73 = v43;
-          [systemKeychainStore updateKeychainItem:v44 createIfNeeded:1 error:&v73];
-          v51 = v73;
+          v72 = v43;
+          [systemKeychainStore updateKeychainItem:v44 createIfNeeded:1 error:&v72];
+          v51 = v72;
 
           v33 = v51 == 0;
           v52 = objc_autoreleasePoolPush();
@@ -344,9 +338,9 @@ HMDCHIPHomeKeychainFabricDataItem *__48__HMDCHIPHomeKeychainFabricData_fabricDat
               HMFGetLogIdentifier();
               v57 = v56 = v52;
               *buf = 138543618;
-              v76 = v57;
-              v77 = 2112;
-              v78 = v51;
+              v75 = v57;
+              v76 = 2112;
+              v77 = v51;
               _os_log_impl(&dword_2531F8000, v55, OS_LOG_TYPE_ERROR, "%{public}@Failed to store fabric data: %@", buf, 0x16u);
 
               v52 = v56;
@@ -357,19 +351,19 @@ HMDCHIPHomeKeychainFabricDataItem *__48__HMDCHIPHomeKeychainFabricData_fabricDat
           {
             v62 = HMFGetLogIdentifier();
             [v44 account];
-            v63 = v66 = v52;
+            v63 = v65 = v52;
             *buf = 138543618;
-            v76 = v62;
-            v77 = 2112;
-            v78 = v63;
+            v75 = v62;
+            v76 = 2112;
+            v77 = v63;
             _os_log_impl(&dword_2531F8000, v55, OS_LOG_TYPE_INFO, "%{public}@Stored fabric data as %@", buf, 0x16u);
 
-            v52 = v66;
+            v52 = v65;
           }
 
           objc_autoreleasePoolPop(v52);
-          v15 = v72;
-          v28 = v67;
+          v15 = v71;
+          v28 = v66;
         }
 
         else
@@ -381,21 +375,21 @@ HMDCHIPHomeKeychainFabricDataItem *__48__HMDCHIPHomeKeychainFabricData_fabricDat
           {
             v61 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v76 = v61;
-            v77 = 2112;
-            v78 = v43;
+            v75 = v61;
+            v76 = 2112;
+            v77 = v43;
             _os_log_impl(&dword_2531F8000, v60, OS_LOG_TYPE_ERROR, "%{public}@Failed to serialize fabric data to store: %@", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v58);
           v33 = 0;
           v51 = v43;
-          v15 = v72;
+          v15 = v71;
         }
 
-        versionCopy = v70;
+        versionCopy = v69;
 
-        v17 = v71;
+        v17 = v70;
       }
 
       else
@@ -407,7 +401,7 @@ HMDCHIPHomeKeychainFabricDataItem *__48__HMDCHIPHomeKeychainFabricData_fabricDat
         {
           v41 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v76 = v41;
+          v75 = v41;
           _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_ERROR, "%{public}@Cannot store fabric data with a bad resident operational key", buf, 0xCu);
         }
 
@@ -425,7 +419,7 @@ HMDCHIPHomeKeychainFabricDataItem *__48__HMDCHIPHomeKeychainFabricData_fabricDat
       {
         v37 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v76 = v37;
+        v75 = v37;
         _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_ERROR, "%{public}@Cannot store fabric data with a bad root private key", buf, 0xCu);
       }
 
@@ -443,7 +437,7 @@ HMDCHIPHomeKeychainFabricDataItem *__48__HMDCHIPHomeKeychainFabricData_fabricDat
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v76 = v32;
+      v75 = v32;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Cannot store fabric data without key pairs", buf, 0xCu);
     }
 
@@ -451,7 +445,6 @@ HMDCHIPHomeKeychainFabricDataItem *__48__HMDCHIPHomeKeychainFabricData_fabricDat
     v33 = 0;
   }
 
-  v64 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
@@ -501,12 +494,11 @@ HMDCHIPHomeKeychainFabricDataItem *__48__HMDCHIPHomeKeychainFabricData_fabricDat
 
 uint64_t __44__HMDCHIPHomeKeychainFabricData_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v20_99123;
-  logCategory__hmf_once_v20_99123 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v20_99123;
+  logCategory__hmf_once_v20_99123 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

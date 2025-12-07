@@ -1,9 +1,13 @@
 @interface SGM2ContactRejected
 - (BOOL)isEqual:(id)equal;
 - (NSString)key;
+- (id)appAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)extractedAsString:(int)string;
+- (id)typeAsString:(int)string;
+- (id)uiTypeAsString:(int)string;
 - (int)StringAsApp:(id)app;
 - (int)StringAsExtracted:(id)extracted;
 - (int)StringAsType:(id)type;
@@ -249,7 +253,7 @@ LABEL_7:
     }
 
 LABEL_36:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_37;
   }
 
@@ -258,7 +262,6 @@ LABEL_36:
     goto LABEL_36;
   }
 
-  v6 = *(equalCopy + 40);
   if (self->_selfId)
   {
     if ((*(equalCopy + 40) & 1) == 0)
@@ -299,7 +302,7 @@ LABEL_16:
     goto LABEL_36;
   }
 
-  v7 = (*(equalCopy + 44) & 0x10) == 0;
+  v6 = (*(equalCopy + 44) & 0x10) == 0;
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 44) & 0x10) == 0 || self->_uiType != *(equalCopy + 9))
@@ -307,12 +310,12 @@ LABEL_16:
       goto LABEL_36;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_37:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -495,19 +498,18 @@ LABEL_10:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    app = self->_app;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -526,9 +528,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  extracted = self->_extracted;
   PBDataWriterWriteInt32Field();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -542,9 +543,8 @@ LABEL_6:
   }
 
 LABEL_15:
-  selfId = self->_selfId;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -558,9 +558,8 @@ LABEL_7:
   }
 
 LABEL_16:
-  extractionModelVersion = self->_extractionModelVersion;
   PBDataWriterWriteUint32Field();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -574,15 +573,13 @@ LABEL_8:
   }
 
 LABEL_17:
-  type = self->_type;
   PBDataWriterWriteInt32Field();
-  toCopy = v12;
+  toCopy = v6;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_9:
-    uiType = self->_uiType;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
 LABEL_10:
@@ -752,6 +749,21 @@ LABEL_28:
   return v4;
 }
 
+- (id)uiTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFCF60[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasUiType:(BOOL)type
 {
   if (type)
@@ -811,6 +823,21 @@ LABEL_28:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFCF38[string];
   }
 
   return v4;
@@ -905,6 +932,21 @@ LABEL_28:
   return v4;
 }
 
+- (id)extractedAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFCF18[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasExtracted:(BOOL)extracted
 {
   if (extracted)
@@ -954,6 +996,21 @@ LABEL_28:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)appAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFCF00[string];
   }
 
   return v4;

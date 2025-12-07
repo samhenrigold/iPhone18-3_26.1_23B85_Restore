@@ -436,82 +436,10 @@ id __130__DNDSMutableModeAssertionStore_DNDSModernAssertionSync__downgradeAssert
 
 id __75__DNDSMutableModeAssertionStore_DateOperations__sanitizeDatesForThreshold___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [v3 startDate];
-  v6 = [v4 compare:v5];
-
-  if (v6 == -1)
-  {
-    v7 = DNDSLogAssertionStore;
-    if (os_log_type_enabled(DNDSLogAssertionStore, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = *(a1 + 32);
-      v17 = 138543618;
-      v18 = v8;
-      v19 = 2114;
-      v20 = v3;
-      _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Will sanitize assertion date: date=%{public}@ assertion=%{public}@", &v17, 0x16u);
-    }
-
-    v9 = objc_alloc(MEMORY[0x277D05938]);
-    v10 = [v3 UUID];
-    v11 = *(a1 + 32);
-    v12 = [v3 details];
-    v13 = [v3 source];
-    v14 = [v9 initWithUUID:v10 startDate:v11 details:v12 source:v13];
-
-    v3 = v14;
-  }
-
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v3;
-}
-
-id __75__DNDSMutableModeAssertionStore_DateOperations__sanitizeDatesForThreshold___block_invoke_2(uint64_t a1, void *a2)
-{
-  v21 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [v3 invalidationDate];
-  v6 = [v4 compare:v5];
-
-  if (v6 == -1)
-  {
-    v7 = DNDSLogAssertionStore;
-    if (os_log_type_enabled(DNDSLogAssertionStore, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = *(a1 + 32);
-      v17 = 138543618;
-      v18 = v8;
-      v19 = 2114;
-      v20 = v3;
-      _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Will sanitize invalidation date: date=%{public}@ invalidation=%{public}@", &v17, 0x16u);
-    }
-
-    v9 = objc_alloc(MEMORY[0x277D05968]);
-    v10 = [v3 assertion];
-    v11 = *(a1 + 32);
-    v12 = [v3 details];
-    v13 = [v3 source];
-    v14 = [v9 initWithAssertion:v10 invalidationDate:v11 details:v12 source:v13 reason:objc_msgSend(v3 reasonOverride:{"reason"), objc_msgSend(v3, "reasonOverride")}];
-
-    v3 = v14;
-  }
-
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v3;
-}
-
-id __75__DNDSMutableModeAssertionStore_DateOperations__sanitizeDatesForThreshold___block_invoke_5(uint64_t a1, void *a2)
-{
   v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
-  v5 = [v3 requestDate];
+  v5 = [v3 startDate];
   v6 = [v4 compare:v5];
 
   if (v6 == -1)
@@ -524,7 +452,75 @@ id __75__DNDSMutableModeAssertionStore_DateOperations__sanitizeDatesForThreshold
       v17 = v8;
       v18 = 2114;
       v19 = v3;
-      _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Will sanitize invalidation request date: date=%{public}@ invalidationRequest=%{public}@", &v16, 0x16u);
+      _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Will sanitize assertion date: date=%{public}@ assertion=%{public}@", &v16, 0x16u);
+    }
+
+    v9 = objc_alloc(MEMORY[0x277D05938]);
+    v10 = [v3 UUID];
+    v11 = *(a1 + 32);
+    v12 = [v3 details];
+    v13 = [v3 source];
+    v14 = [v9 initWithUUID:v10 startDate:v11 details:v12 source:v13];
+
+    v3 = v14;
+  }
+
+  return v3;
+}
+
+id __75__DNDSMutableModeAssertionStore_DateOperations__sanitizeDatesForThreshold___block_invoke_2(uint64_t a1, void *a2)
+{
+  v20 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = *(a1 + 32);
+  v5 = [v3 invalidationDate];
+  v6 = [v4 compare:v5];
+
+  if (v6 == -1)
+  {
+    v7 = DNDSLogAssertionStore;
+    if (os_log_type_enabled(DNDSLogAssertionStore, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = *(a1 + 32);
+      v16 = 138543618;
+      v17 = v8;
+      v18 = 2114;
+      v19 = v3;
+      _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Will sanitize invalidation date: date=%{public}@ invalidation=%{public}@", &v16, 0x16u);
+    }
+
+    v9 = objc_alloc(MEMORY[0x277D05968]);
+    v10 = [v3 assertion];
+    v11 = *(a1 + 32);
+    v12 = [v3 details];
+    v13 = [v3 source];
+    v14 = [v9 initWithAssertion:v10 invalidationDate:v11 details:v12 source:v13 reason:objc_msgSend(v3 reasonOverride:{"reason"), objc_msgSend(v3, "reasonOverride")}];
+
+    v3 = v14;
+  }
+
+  return v3;
+}
+
+id __75__DNDSMutableModeAssertionStore_DateOperations__sanitizeDatesForThreshold___block_invoke_5(uint64_t a1, void *a2)
+{
+  v19 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = *(a1 + 32);
+  v5 = [v3 requestDate];
+  v6 = [v4 compare:v5];
+
+  if (v6 == -1)
+  {
+    v7 = DNDSLogAssertionStore;
+    if (os_log_type_enabled(DNDSLogAssertionStore, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = *(a1 + 32);
+      v15 = 138543618;
+      v16 = v8;
+      v17 = 2114;
+      v18 = v3;
+      _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Will sanitize invalidation request date: date=%{public}@ invalidationRequest=%{public}@", &v15, 0x16u);
     }
 
     v9 = [v3 predicate];
@@ -535,8 +531,6 @@ id __75__DNDSMutableModeAssertionStore_DateOperations__sanitizeDatesForThreshold
 
     v3 = v13;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

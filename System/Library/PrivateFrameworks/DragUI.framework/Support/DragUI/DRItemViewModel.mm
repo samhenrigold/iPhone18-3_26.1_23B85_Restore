@@ -15,9 +15,9 @@
 
 - (DRItemViewModel)initWithIndex:(unint64_t)index
 {
-  v15.receiver = self;
-  v15.super_class = DRItemViewModel;
-  v4 = [(DRItemViewModel *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = DRItemViewModel;
+  v4 = [(DRItemViewModel *)&v16 init];
   v5 = v4;
   if (v4)
   {
@@ -33,25 +33,26 @@
       v6 = 6.0;
       if (byte_100063568 == 1)
       {
-        v6 = sub_10000EFFC();
+        v6 = sub_10000EFFC(v4);
       }
 
-      v7 = arc4random_uniform(0x64u) / 50.0 + -1.0;
+      v7 = arc4random_uniform(0x64u);
+      v8 = v7 / 50.0 + -1.0;
       if (qword_100063560 != -1)
       {
         sub_10002FEEC();
       }
 
-      v8 = v6 * v7;
-      v9 = 6.0;
+      v9 = v6 * v8;
+      v10 = 6.0;
       if (byte_100063568 == 1)
       {
-        v9 = sub_10000EFFC();
+        v10 = sub_10000EFFC(v7);
       }
 
-      v10 = arc4random_uniform(0x64u);
-      v5->_stackOffset.x = v8;
-      v5->_stackOffset.y = v9 * (v10 / 50.0 + -1.0);
+      v11 = arc4random_uniform(0x64u);
+      v5->_stackOffset.x = v9;
+      v5->_stackOffset.y = v10 * (v11 / 50.0 + -1.0);
       if (qword_100063560 != -1)
       {
         sub_10002FF14();
@@ -59,20 +60,20 @@
 
       if (byte_100063568 == 1)
       {
-        v11 = sub_10000F1A0();
+        v12 = sub_10000F1A0(v11);
       }
 
       else
       {
-        v11 = 0.07;
+        v12 = 0.07;
       }
 
-      v5->_stackRotation = v11 * (arc4random_uniform(0x64u) / 50.0 + -1.0);
+      v5->_stackRotation = v12 * (arc4random_uniform(0x64u) / 50.0 + -1.0);
     }
 
-    v12 = +[NSMapTable weakToStrongObjectsMapTable];
+    v13 = +[NSMapTable weakToStrongObjectsMapTable];
     clientItemViewModels = v5->_clientItemViewModels;
-    v5->_clientItemViewModels = v12;
+    v5->_clientItemViewModels = v13;
   }
 
   return v5;

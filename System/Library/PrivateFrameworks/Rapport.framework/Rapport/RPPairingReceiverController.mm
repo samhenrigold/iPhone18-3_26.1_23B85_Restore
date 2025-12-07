@@ -77,7 +77,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1B6F13D8C(v7);
+  sub_1B6F13D8C(v7, v8);
 }
 
 - (BOOL)pairingValueUIVisible

@@ -1,70 +1,8 @@
-void *__libunwind_Registers_arm64_jumpto(void *result, int a2)
+uint64_t __libunwind_Registers_arm64_jumpto(uint64_t result, int a2)
 {
   if (!a2)
   {
-    v2 = result[2];
-    v3 = result[3];
-    v4 = result[4];
-    v5 = result[5];
-    v6 = result[6];
-    v7 = result[7];
-    v8 = result[8];
-    v9 = result[9];
-    v10 = result[10];
-    v11 = result[11];
-    v12 = result[12];
-    v13 = result[13];
-    v14 = result[14];
-    v15 = result[15];
-    v16 = result[18];
-    v17 = result[19];
-    v18 = result[20];
-    v19 = result[21];
-    v20 = result[22];
-    v21 = result[23];
-    v22 = result[24];
-    v23 = result[25];
-    v24 = result[26];
-    v25 = result[27];
-    v26 = result[28];
-    v27 = result[29];
-    v28 = result[34];
-    v29 = result[35];
-    v30 = result[36];
-    v31 = result[37];
-    v32 = result[38];
-    v33 = result[39];
-    v34 = result[40];
-    v35 = result[41];
-    v36 = result[42];
-    v37 = result[43];
-    v38 = result[44];
-    v39 = result[45];
-    v40 = result[46];
-    v41 = result[47];
-    v42 = result[48];
-    v43 = result[49];
-    v44 = result[50];
-    v45 = result[51];
-    v46 = result[52];
-    v47 = result[53];
-    v48 = result[54];
-    v49 = result[55];
-    v50 = result[56];
-    v51 = result[57];
-    v52 = result[58];
-    v53 = result[59];
-    v54 = result[60];
-    v55 = result[61];
-    v56 = result[62];
-    v57 = result[63];
-    v58 = result[64];
-    v59 = result[65];
-    v60 = result[31];
-    v61 = result[32];
-    v63 = result;
-    result = *result;
-    v62 = v63[1];
+    return *result;
   }
 
   return result;
@@ -173,7 +111,6 @@ int unw_init_local(unw_cursor_t *a1, unw_context_t *a2)
   *&a1->data[66] = v13;
   *&a1->data[60] = v15;
   *&a1->data[62] = v14;
-  v16 = a1->data[33];
   a1->data[34] = a1->data[34];
   *&a1->data[68] = 0u;
   *&a1->data[70] = 0u;
@@ -187,32 +124,43 @@ int unw_init_local(unw_cursor_t *a1, unw_context_t *a2)
 uint64_t libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::setInfoBasedOnIPRegister(uint64_t a1, unsigned int a2)
 {
   result = (*(*a1 + 24))(a1, 0xFFFFFFFFLL);
-  v5 = *(a1 + 264);
   if (!result)
   {
     goto LABEL_147;
   }
 
-  v6 = result - a2 + *(a1 + 617);
-  v87 = 0;
+  v5 = result - a2 + *(a1 + 617);
+  v86 = 0;
+  v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
   if (_dyld_find_unwind_sections())
   {
-    if (v75)
+    if (v74)
     {
-      v7 = v75;
+      v6 = v74;
     }
 
     else
     {
-      v7 = 0;
+      v6 = 0;
     }
 
-    *&v85 = v7;
-    if (v76)
+    *&v84 = v6;
+    if (v75)
     {
-      v9 = v76;
+      v8 = v75;
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    *(&v84 + 1) = v8;
+    *&v85 = v76;
+    if (v77)
+    {
+      v9 = v77;
     }
 
     else
@@ -221,19 +169,7 @@ uint64_t libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registe
     }
 
     *(&v85 + 1) = v9;
-    *&v86 = v77;
-    if (v78)
-    {
-      v10 = v78;
-    }
-
-    else
-    {
-      v10 = 0;
-    }
-
-    *(&v86 + 1) = v10;
-    v11 = v79;
+    v10 = v78;
   }
 
   else
@@ -253,20 +189,20 @@ LABEL_138:
           goto LABEL_147;
         }
 
-        if (*(i + 1) <= v6 && *(i + 2) > v6)
+        if (*(i + 1) <= v5 && *(i + 2) > v5)
         {
           break;
         }
       }
 
-      v72 = *(i + 3);
+      v71 = *(i + 3);
       result = pthread_rwlock_unlock(&libunwind::DwarfFDECache<libunwind::LocalAddressSpace>::_lock);
-      if (!v72)
+      if (!v71)
       {
         goto LABEL_147;
       }
 
-      result = libunwind::CFI_Parser<libunwind::LocalAddressSpace>::decodeFDE(v72, &v80, &v75, 0, v73, v74);
+      result = libunwind::CFI_Parser<libunwind::LocalAddressSpace>::decodeFDE(v71, &v79, &v74, 0, v72, v73);
       if (result)
       {
         goto LABEL_147;
@@ -281,30 +217,42 @@ LABEL_138:
       return result;
     }
 
-    v8 = 0;
-    while (!(*(&libunwind::dynamicUnwindSectionsFinders + v8))(v6, &v80))
+    v7 = 0;
+    while (!(*(&libunwind::dynamicUnwindSectionsFinders + v7))(v5, &v79))
     {
-      if (++v8 == libunwind::numDynamicUnwindSectionsFinders)
+      if (++v7 == libunwind::numDynamicUnwindSectionsFinders)
       {
         goto LABEL_9;
       }
     }
 
     pthread_rwlock_unlock(&libunwind::findDynamicUnwindSectionsLock);
-    if (v80)
+    if (v79)
     {
-      v7 = v80;
+      v6 = v79;
     }
 
     else
     {
-      v7 = 0;
+      v6 = 0;
     }
 
-    *&v85 = v7;
-    if (v81)
+    *&v84 = v6;
+    if (v80)
     {
-      v9 = v81;
+      v8 = v80;
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    *(&v84 + 1) = v8;
+    *&v85 = v81;
+    if (v82)
+    {
+      v9 = v82;
     }
 
     else
@@ -313,201 +261,189 @@ LABEL_138:
     }
 
     *(&v85 + 1) = v9;
-    *&v86 = v82;
-    if (v83)
-    {
-      v10 = v83;
-    }
-
-    else
-    {
-      v10 = 0;
-    }
-
-    *(&v86 + 1) = v10;
-    v11 = v84;
+    v10 = v83;
   }
 
-  v87 = v11;
-  if (!v10 || *v10 != 1)
+  v86 = v10;
+  if (!v9 || *v9 != 1)
   {
     goto LABEL_136;
   }
 
-  if (v7)
+  if (v6)
   {
-    v12 = v7;
+    v11 = v6;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  v13 = v6 - v12;
-  v14 = v10[6];
-  v15 = v10 + v10[5];
-  if (!v14)
+  v12 = v5 - v11;
+  v13 = v9[6];
+  v14 = v9 + v9[5];
+  if (!v13)
   {
-    v18 = 0;
+    v17 = 0;
     goto LABEL_43;
   }
 
-  v16 = 0;
-  v17 = v14 - 1;
+  v15 = 0;
+  v16 = v13 - 1;
   while (1)
   {
-    v18 = (v16 + v14) >> 1;
-    if (v13 < *&v15[12 * v18])
+    v17 = (v15 + v13) >> 1;
+    if (v12 < *&v14[12 * v17])
     {
-      v14 = (v16 + v14) >> 1;
+      v13 = (v15 + v13) >> 1;
       goto LABEL_36;
     }
 
-    if (v18 == v17)
+    if (v17 == v16)
     {
       break;
     }
 
-    v16 = v18 + 1;
-    if (v13 < *&v15[12 * v18 + 12])
+    v15 = v17 + 1;
+    if (v12 < *&v14[12 * v17 + 12])
     {
       goto LABEL_43;
     }
 
 LABEL_36:
-    v18 = v16;
-    if (v16 >= v14)
+    v17 = v15;
+    if (v15 >= v13)
     {
       goto LABEL_43;
     }
   }
 
-  v18 = v17;
+  v17 = v16;
 LABEL_43:
-  v19 = 12 * v18;
-  v20 = &v15[v19];
-  v21 = 12 * (v18 + 1);
-  v22 = *&v15[v21];
-  v23 = v10 + *&v15[v19 + 4];
-  v24 = v15 + 8;
-  v25 = *&v15[v19 + 8];
-  v26 = *&v24[v21];
-  if (*v23 == 3)
+  v18 = 12 * v17;
+  v19 = &v14[v18];
+  v20 = 12 * (v17 + 1);
+  v21 = *&v14[v20];
+  v22 = v9 + *&v14[v18 + 4];
+  v23 = v14 + 8;
+  v24 = *&v14[v18 + 8];
+  v25 = *&v23[v20];
+  if (*v22 == 3)
   {
-    result = *v20;
-    v33 = &v23[*(v23 + 2)];
-    v34 = *(v23 + 3);
-    v35 = v34 - 1;
-    if (*(v23 + 3))
+    result = *v19;
+    v32 = &v22[*(v22 + 2)];
+    v33 = *(v22 + 3);
+    v34 = v33 - 1;
+    if (*(v22 + 3))
     {
-      v36 = 0;
-      v37 = v13 - result;
+      v35 = 0;
+      v36 = v12 - result;
       while (1)
       {
-        v38 = (v36 + v34) >> 1;
-        if ((*&v33[4 * v38] & 0xFFFFFFu) > v37)
+        v37 = (v35 + v33) >> 1;
+        if ((*&v32[4 * v37] & 0xFFFFFFu) > v36)
         {
-          v34 = (v36 + v34) >> 1;
+          v33 = (v35 + v33) >> 1;
         }
 
         else
         {
-          if (v38 == v35)
+          if (v37 == v34)
           {
-            v38 = v35;
+            v37 = v34;
             goto LABEL_68;
           }
 
-          v36 = v38 + 1;
-          if ((*&v33[4 * v38 + 4] & 0xFFFFFFu) > v37)
+          v35 = v37 + 1;
+          if ((*&v32[4 * v37 + 4] & 0xFFFFFFu) > v36)
           {
             goto LABEL_68;
           }
         }
 
-        v38 = v36;
-        if (v36 >= v34)
+        v37 = v35;
+        if (v35 >= v33)
         {
           goto LABEL_68;
         }
       }
     }
 
-    v38 = 0;
+    v37 = 0;
 LABEL_68:
-    v39 = *&v33[4 * v38];
-    v40 = (v39 & 0xFFFFFF) + result;
-    if (v7)
+    v38 = *&v32[4 * v37];
+    v39 = (v38 & 0xFFFFFF) + result;
+    if (v6)
     {
-      v41 = v7;
-      v40 += v7;
-      v42 = v7;
+      v40 = v6;
+      v39 += v6;
+      v41 = v6;
     }
 
     else
     {
+      v40 = 0;
       v41 = 0;
-      v42 = 0;
     }
 
-    if (v38 < v35)
+    if (v37 < v34)
     {
-      LODWORD(v22) = (*&v33[4 * v38 + 4] & 0xFFFFFF) + result;
-      v42 = v41;
+      LODWORD(v21) = (*&v32[4 * v37 + 4] & 0xFFFFFF) + result;
+      v41 = v40;
     }
 
-    v22 = v42 + v22;
-    if (v40 > v6 || v22 < v6)
+    v21 = v41 + v21;
+    if (v39 > v5 || v21 < v5)
     {
       goto LABEL_136;
     }
 
-    v44 = v39 >> 24;
-    v45 = v10[2];
-    if (v45 <= HIBYTE(*&v33[4 * v38]))
+    v43 = v38 >> 24;
+    v44 = v9[2];
+    if (v44 <= HIBYTE(*&v32[4 * v37]))
     {
-      v47 = 4 * (v44 - v45);
-      v46 = &v23[*(v23 + 4)];
+      v46 = 4 * (v43 - v44);
+      v45 = &v22[*(v22 + 4)];
     }
 
     else
     {
-      v46 = v10[1];
-      v47 = &v10[v44];
+      v45 = v9[1];
+      v46 = &v9[v43];
     }
 
-    v48 = *&v46[v47];
+    v47 = *&v45[v46];
     goto LABEL_93;
   }
 
-  if (*v23 != 2)
+  if (*v22 != 2)
   {
     goto LABEL_136;
   }
 
-  result = &v23[*(v23 + 2)];
-  v27 = *(v23 + 3);
-  if (!*(v23 + 3))
+  result = &v22[*(v22 + 2)];
+  v26 = *(v22 + 3);
+  if (!*(v22 + 3))
   {
-    v22 = 0;
-    v29 = 0;
+    v21 = 0;
+    v28 = 0;
     goto LABEL_85;
   }
 
-  v28 = 0;
-  v29 = v27 - 1;
+  v27 = 0;
+  v28 = v26 - 1;
   while (2)
   {
-    v30 = (v28 + v27) >> 1;
-    if (v13 < *(8 * v30 + result))
+    v29 = (v27 + v26) >> 1;
+    if (v12 < *(8 * v29 + result))
     {
-      v27 = (v28 + v27) >> 1;
+      v26 = (v27 + v26) >> 1;
 LABEL_48:
-      if (v28 >= v27)
+      if (v27 >= v26)
       {
-        v22 = 0;
-        v29 = v28;
+        v21 = 0;
+        v28 = v27;
         goto LABEL_85;
       }
 
@@ -517,58 +453,58 @@ LABEL_48:
     break;
   }
 
-  if (v30 != v29)
+  if (v29 != v28)
   {
-    v28 = v30 + 1;
-    v31 = *(8 * (v30 + 1) + result);
-    if (v13 < v31)
+    v27 = v29 + 1;
+    v30 = *(8 * (v29 + 1) + result);
+    if (v12 < v30)
     {
-      if (v7)
+      if (v6)
       {
-        v32 = v7;
+        v31 = v6;
       }
 
       else
       {
-        v32 = 0;
+        v31 = 0;
       }
 
-      v22 = v32 + v31;
-      v29 = v30;
+      v21 = v31 + v30;
+      v28 = v29;
       goto LABEL_85;
     }
 
     goto LABEL_48;
   }
 
-  if (v7)
+  if (v6)
   {
-    v22 += v7;
+    v21 += v6;
   }
 
 LABEL_85:
-  v49 = *(result + 8 * v29);
-  v48 = *(result + 8 * v29 + 4);
-  if (v7)
+  v48 = *(result + 8 * v28);
+  v47 = *(result + 8 * v28 + 4);
+  if (v6)
   {
-    v50 = v7;
+    v49 = v6;
   }
 
   else
   {
-    v50 = 0;
+    v49 = 0;
   }
 
-  v40 = v50 + v49;
-  if (v40 > v6 || v22 < v6)
+  v39 = v49 + v48;
+  if (v39 > v5 || v21 < v5)
   {
 LABEL_136:
-    if (!v9)
+    if (!v8)
     {
       goto LABEL_138;
     }
 
-    result = libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getInfoFromDwarfSection(a1, v6, &v85, 0);
+    result = libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getInfoFromDwarfSection(a1, v5, &v84, 0);
     if ((result & 1) == 0)
     {
       goto LABEL_138;
@@ -578,80 +514,11 @@ LABEL_136:
   }
 
 LABEL_93:
-  if ((v48 & 0x40000000) != 0)
+  if ((v47 & 0x40000000) != 0)
   {
-    if (v7)
+    if (v6)
     {
-      v57 = v7;
-    }
-
-    else
-    {
-      v57 = 0;
-    }
-
-    v59 = v26 - v25;
-    if ((v26 - v25) < 8)
-    {
-      goto LABEL_136;
-    }
-
-    v60 = 0;
-    v61 = v10 + v25;
-    v62 = v40 - v57;
-    v63 = v59 >> 3;
-    while (1)
-    {
-      result = (v60 + v63) >> 1;
-      v64 = *&v61[8 * result];
-      if (v64 == v62)
-      {
-        break;
-      }
-
-      if (v64 < v62)
-      {
-        v60 = result + 1;
-      }
-
-      else
-      {
-        v63 = result;
-      }
-
-      if (v60 >= v63)
-      {
-        goto LABEL_136;
-      }
-    }
-
-    v65 = *&v61[8 * result + 4];
-    v66 = v7 ? v7 : 0;
-    v52 = v66 + v65;
-    if (!v52)
-    {
-      goto LABEL_136;
-    }
-  }
-
-  else
-  {
-    v52 = 0;
-  }
-
-  v53 = (v48 >> 28) & 3;
-  if (v53)
-  {
-    v54 = v53 - 1;
-    if (v54 >= v10[4])
-    {
-      goto LABEL_136;
-    }
-
-    v55 = *(&v10[v54] + v10[3]);
-    if (v7)
-    {
-      v56 = v7;
+      v56 = v6;
     }
 
     else
@@ -659,18 +526,98 @@ LABEL_93:
       v56 = 0;
     }
 
-    result = a1 + 568;
-    v58 = *(v56 + v55);
+    v58 = v25 - v24;
+    if ((v25 - v24) < 8)
+    {
+      goto LABEL_136;
+    }
+
+    v59 = 0;
+    v60 = v9 + v24;
+    v61 = v39 - v56;
+    v62 = v58 >> 3;
+    while (1)
+    {
+      result = (v59 + v62) >> 1;
+      v63 = *&v60[8 * result];
+      if (v63 == v61)
+      {
+        break;
+      }
+
+      if (v63 < v61)
+      {
+        v59 = result + 1;
+      }
+
+      else
+      {
+        v62 = result;
+      }
+
+      if (v59 >= v62)
+      {
+        goto LABEL_136;
+      }
+    }
+
+    v64 = *&v60[8 * result + 4];
+    v65 = v6 ? v6 : 0;
+    v51 = v65 + v64;
+    if (!v51)
+    {
+      goto LABEL_136;
+    }
   }
 
   else
   {
-    v58 = 0;
+    v51 = 0;
   }
 
-  if (v40)
+  v52 = (v47 >> 28) & 3;
+  if (v52)
   {
-    v67 = v40;
+    v53 = v52 - 1;
+    if (v53 >= v9[4])
+    {
+      goto LABEL_136;
+    }
+
+    v54 = *(&v9[v53] + v9[3]);
+    if (v6)
+    {
+      v55 = v6;
+    }
+
+    else
+    {
+      v55 = 0;
+    }
+
+    result = a1 + 568;
+    v57 = *(v55 + v54);
+  }
+
+  else
+  {
+    v57 = 0;
+  }
+
+  if (v39)
+  {
+    v66 = v39;
+  }
+
+  else
+  {
+    v66 = 0;
+  }
+
+  *(a1 + 544) = v66;
+  if (v21)
+  {
+    v67 = v21;
   }
 
   else
@@ -678,10 +625,10 @@ LABEL_93:
     v67 = 0;
   }
 
-  *(a1 + 544) = v67;
-  if (v22)
+  *(a1 + 552) = v67;
+  if (v51)
   {
-    v68 = v22;
+    v68 = v51;
   }
 
   else
@@ -689,28 +636,17 @@ LABEL_93:
     v68 = 0;
   }
 
-  *(a1 + 552) = v68;
-  if (v52)
-  {
-    v69 = v52;
-  }
-
-  else
-  {
-    v69 = 0;
-  }
-
-  *(a1 + 560) = v69;
-  *(a1 + 568) = v58;
+  *(a1 + 560) = v68;
+  *(a1 + 568) = v57;
   *(a1 + 576) = 0u;
-  *(a1 + 592) = v48;
+  *(a1 + 592) = v47;
   *(a1 + 600) = 0;
   *(a1 + 596) = 0;
-  v70 = (a1 + 608);
-  if (v7)
+  v69 = (a1 + 608);
+  if (v6)
   {
-    *v70 = v7;
-    if ((*(v7 + 8) & 0xFFFFFF) != 2)
+    *v69 = v6;
+    if ((*(v6 + 8) & 0xFFFFFF) != 2)
     {
       *(a1 + 584) = 1;
     }
@@ -718,21 +654,21 @@ LABEL_93:
 
   else
   {
-    *v70 = 0;
+    *v69 = 0;
   }
 
-  if (v9 && (v48 & 0xF000000) == 0x3000000)
+  if (v8 && (v47 & 0xF000000) == 0x3000000)
   {
-    result = libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getInfoFromDwarfSection(a1, v6, &v85, v48 & 0xFFFFFF);
+    result = libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getInfoFromDwarfSection(a1, v5, &v84, v47 & 0xFFFFFF);
     if (result)
     {
       return result;
     }
 
-    v48 = *(a1 + 592);
+    v47 = *(a1 + 592);
   }
 
-  if (!v48)
+  if (!v47)
   {
 LABEL_147:
     *(a1 + 616) = 1;
@@ -781,34 +717,33 @@ LABEL_7:
 
   v10 = 0;
 LABEL_10:
-  if (libunwind::CFI_Parser<libunwind::LocalAddressSpace>::findFDE(a2, v8, v9, (v10 + a4), v24, v23))
+  if (libunwind::CFI_Parser<libunwind::LocalAddressSpace>::findFDE(a2, v8, v9, (v10 + a4), v23, v22))
   {
 LABEL_32:
     v18 = 1;
-    v19 = *a3;
 LABEL_39:
     result = libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getInfoFromFdeCie();
     if (result)
     {
-      v21 = v18 ^ 1;
+      v20 = v18 ^ 1;
       if (a4)
       {
-        v21 = 1;
+        v20 = 1;
       }
 
-      if ((v21 & 1) == 0)
+      if ((v20 & 1) == 0)
       {
         if (*a3)
         {
-          v22 = *a3;
+          v21 = *a3;
         }
 
         else
         {
-          v22 = 0;
+          v21 = 0;
         }
 
-        libunwind::DwarfFDECache<libunwind::LocalAddressSpace>::add(v22, v24[3], v24[4], v24[0]);
+        libunwind::DwarfFDECache<libunwind::LocalAddressSpace>::add(v21, v23[3], v23[4], v23[0]);
       }
 
       return 1;
@@ -848,11 +783,10 @@ LABEL_11:
   if (v13)
   {
     v14 = a3[1] ? a3[1] : 0;
-    v20 = a3[2] ? a3[2] : 0;
-    if (libunwind::CFI_Parser<libunwind::LocalAddressSpace>::findFDE(a2, v14, v20, v13, v24, v23))
+    v19 = a3[2] ? a3[2] : 0;
+    if (libunwind::CFI_Parser<libunwind::LocalAddressSpace>::findFDE(a2, v14, v19, v13, v23, v22))
     {
       v18 = 0;
-      *a3;
       goto LABEL_39;
     }
   }
@@ -878,7 +812,7 @@ LABEL_25:
     v16 = 0;
   }
 
-  result = libunwind::CFI_Parser<libunwind::LocalAddressSpace>::findFDE(a2, v15, v16, 0, v24, v23);
+  result = libunwind::CFI_Parser<libunwind::LocalAddressSpace>::findFDE(a2, v15, v16, 0, v23, v22);
   if (result)
   {
     goto LABEL_32;
@@ -991,7 +925,6 @@ uint64_t libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registe
     *(v7 + 576) = v11;
     *(v7 + 584) = 0;
     *(v7 + 592) = 50331648;
-    *v6;
     *(v7 + 600) = *v6;
     *(v7 + 596) = v6[1];
     v9 = (v7 + 608);
@@ -1020,26 +953,26 @@ uint64_t libunwind::CFI_Parser<libunwind::LocalAddressSpace>::parseFDEInstructio
   v6 = v5;
   v7 = 0;
   v8 = 0;
-  v113[6] = *MEMORY[0x277D85DE8];
+  v112[6] = *MEMORY[0x277D85DE8];
   v9 = v5[1] + *v5;
-  v113[0] = v5[2];
-  v113[1] = v9;
+  v112[0] = v5[2];
+  v112[1] = v9;
   v10 = v0[1] + *v0;
   v11 = v0[2];
   v13 = v12 - v0[3];
-  v113[2] = -1;
-  v113[3] = v11;
+  v112[2] = -1;
+  v112[3] = v11;
   v14 = v3 + 24;
-  v109 = &v110;
-  v113[4] = v10;
-  v113[5] = v13;
-  v107 = &v111;
-  v108 = (v3 + 568);
+  v108 = &v109;
+  v112[4] = v10;
+  v112[5] = v13;
+  v106 = &v110;
+  v107 = (v3 + 568);
   while (1)
   {
-    v15 = v113[v7];
-    v16 = v113[v7 + 1];
-    v17 = v113[v7 + 2];
+    v15 = v112[v7];
+    v16 = v112[v7 + 1];
+    v17 = v112[v7 + 2];
     if (v15 < v16 && v17 != 0)
     {
       break;
@@ -1049,8 +982,7 @@ LABEL_2:
     v7 += 3;
     if (v7 == 6)
     {
-      result = 1;
-      goto LABEL_145;
+      return 1;
     }
   }
 
@@ -1059,29 +991,29 @@ LABEL_2:
   {
     v22 = (v15 + 1);
     v21 = *v15;
-    v112 = (v15 + 1);
+    v111 = (v15 + 1);
     switch(v21)
     {
       case 0u:
         goto LABEL_9;
       case 1u:
-        EncodedP = libunwind::LocalAddressSpace::getEncodedP(&v112, v16, *(v6 + 24), 0, v1, v2);
+        EncodedP = libunwind::LocalAddressSpace::getEncodedP(&v111, v16, *(v6 + 24), 0, v1, v2);
         goto LABEL_9;
       case 2u:
         EncodedP += *(v6 + 10) * *(v15 + 1);
-        v112 = (v15 + 2);
+        v111 = (v15 + 2);
         goto LABEL_9;
       case 3u:
         EncodedP += *(v6 + 10) * *(v15 + 1);
-        v112 = (v15 + 3);
+        v111 = (v15 + 3);
         goto LABEL_9;
       case 4u:
         EncodedP += (*(v6 + 10) * *(v15 + 1));
-        v112 = (v15 + 5);
+        v111 = (v15 + 5);
         goto LABEL_9;
       case 5u:
-        ULEB128 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
-        v69 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        ULEB128 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
+        v69 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         if (ULEB128 >= 0x120)
         {
           v101 = *MEMORY[0x277D85DF8];
@@ -1094,7 +1026,7 @@ LABEL_2:
         v52 = v14 + 16 * ULEB128;
         if ((*(v52 + 4) & 1) == 0)
         {
-          *&v109[2 * ULEB128] = *v52;
+          *&v108[2 * ULEB128] = *v52;
 LABEL_120:
           *(v52 + 4) = 1;
         }
@@ -1105,13 +1037,13 @@ LABEL_122:
         v99 = 2;
         goto LABEL_123;
       case 6u:
-        v71 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v71 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         if (v71 < 0x120)
         {
           v72 = v14 + 16 * v71;
           if (*(v72 + 4) == 1)
           {
-            v73 = *&v109[2 * v71];
+            v73 = *&v108[2 * v71];
 LABEL_88:
             *v72 = v73;
           }
@@ -1123,7 +1055,7 @@ LABEL_88:
         v102 = "libunwind: malformed DW_CFA_restore_extended DWARF unwind, reg too big\n";
         goto LABEL_131;
       case 7u:
-        v74 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v74 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         if (v74 >= 0x120)
         {
           v101 = *MEMORY[0x277D85DF8];
@@ -1134,14 +1066,14 @@ LABEL_88:
         v75 = v14 + 16 * v74;
         if ((*(v75 + 4) & 1) == 0)
         {
-          *&v109[2 * v74] = *v75;
+          *&v108[2 * v74] = *v75;
           *(v75 + 4) = 1;
         }
 
         *v75 = 1;
         goto LABEL_9;
       case 8u:
-        v81 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v81 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         if (v81 >= 0x120)
         {
           v101 = *MEMORY[0x277D85DF8];
@@ -1153,15 +1085,15 @@ LABEL_88:
         v82 = v14 + 16 * v81;
         if ((*(v82 + 4) & 1) == 0)
         {
-          *&v109[2 * v81] = *v82;
+          *&v108[2 * v81] = *v82;
           *(v82 + 4) = 1;
         }
 
         *v82 = 0;
         goto LABEL_9;
       case 9u:
-        v76 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
-        v77 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v76 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
+        v77 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         if (v76 >= 0x120)
         {
           v101 = *MEMORY[0x277D85DF8];
@@ -1175,15 +1107,15 @@ LABEL_88:
           v78 = v14 + 16 * v76;
           if ((*(v78 + 4) & 1) == 0)
           {
-            *&v109[2 * v76] = *v78;
+            *&v108[2 * v76] = *v78;
             *(v78 + 4) = 1;
           }
 
           *v78 = 5;
           *(v78 + 8) = v77;
 LABEL_9:
-          v15 = v112;
-          if (v112 >= v16 || EncodedP >= v17)
+          v15 = v111;
+          if (v111 >= v16 || EncodedP >= v17)
           {
             goto LABEL_2;
           }
@@ -1199,29 +1131,25 @@ LABEL_142:
         fwrite(v102, v103, 1uLL, v101);
 LABEL_143:
         fflush(*MEMORY[0x277D85DF8]);
-LABEL_144:
-        result = 0;
-LABEL_145:
-        v104 = *MEMORY[0x277D85DE8];
-        return result;
+        return 0;
       case 0xAu:
         MEMORY[0x28223BE20]();
-        *(&v106 - 580) = v8;
-        memcpy(&v106 - 579, v4, 0x1218uLL);
-        v8 = &v106 - 580;
+        *(&v105 - 580) = v8;
+        memcpy(&v105 - 579, v4, 0x1218uLL);
+        v8 = &v105 - 580;
         goto LABEL_9;
       case 0xBu:
         if (!v8)
         {
-          goto LABEL_144;
+          return 0;
         }
 
         memcpy(v4, v8 + 1, 0x1218uLL);
         v8 = *v8;
         goto LABEL_9;
       case 0xCu:
-        v58 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
-        v59 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v58 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
+        v59 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         if (v58 >= 0x120)
         {
           v101 = *MEMORY[0x277D85DF8];
@@ -1234,7 +1162,7 @@ LABEL_145:
         v4[1] = v59;
         goto LABEL_9;
       case 0xDu:
-        v47 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v47 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         if (v47 >= 0x120)
         {
           v101 = *MEMORY[0x277D85DF8];
@@ -1247,14 +1175,14 @@ LABEL_131:
         *v4 = v47;
         goto LABEL_9;
       case 0xEu:
-        v4[1] = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v4[1] = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         goto LABEL_9;
       case 0xFu:
         *v4 = 0;
         *(v4 + 1) = v22;
         goto LABEL_111;
       case 0x10u:
-        v94 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v94 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         if (v94 >= 0x120)
         {
           v101 = *MEMORY[0x277D85DF8];
@@ -1266,21 +1194,21 @@ LABEL_131:
         v55 = v14 + 16 * v94;
         if ((*(v55 + 4) & 1) == 0)
         {
-          *&v109[2 * v94] = *v55;
+          *&v108[2 * v94] = *v55;
           *(v55 + 4) = 1;
         }
 
-        v56 = v112;
+        v56 = v111;
         v57 = 6;
 LABEL_110:
         *v55 = v57;
         *(v55 + 8) = v56;
 LABEL_111:
-        v95 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
-        v112 = (v112 + v95);
+        v95 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
+        v111 = (v111 + v95);
         goto LABEL_9;
       case 0x11u:
-        v83 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v83 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         if (v83 >= 0x120)
         {
           v101 = *MEMORY[0x277D85DF8];
@@ -1290,13 +1218,13 @@ LABEL_111:
         }
 
         v84 = 0;
-        v85 = v112;
+        v85 = v111;
         v86 = -7;
         do
         {
           if (v85 == v16)
           {
-            goto LABEL_146;
+            goto LABEL_145;
           }
 
           v87 = v86;
@@ -1316,12 +1244,12 @@ LABEL_111:
           v92 = 0;
         }
 
-        v112 = v85;
+        v111 = v85;
         v93 = *(v6 + 11);
         v44 = v14 + 16 * v83;
         if ((*(v44 + 4) & 1) == 0)
         {
-          *&v109[2 * v83] = *v44;
+          *&v108[2 * v83] = *v44;
           *(v44 + 4) = 1;
         }
 
@@ -1332,15 +1260,15 @@ LABEL_105:
         *(v44 + 8) = v45;
         goto LABEL_9;
       case 0x12u:
-        v23 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v23 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         v24 = 0;
-        v25 = v112;
+        v25 = v111;
         v26 = -7;
         do
         {
           if (v25 == v16)
           {
-            goto LABEL_146;
+            goto LABEL_145;
           }
 
           v27 = v26;
@@ -1352,7 +1280,7 @@ LABEL_105:
         }
 
         while ((v29 & 0x80) != 0);
-        v112 = v25;
+        v111 = v25;
         if (v23 >= 0x120)
         {
           v101 = *MEMORY[0x277D85DF8];
@@ -1379,7 +1307,7 @@ LABEL_105:
         {
           if (v22 == v16)
           {
-            goto LABEL_146;
+            goto LABEL_145;
           }
 
           v62 = v61;
@@ -1399,23 +1327,23 @@ LABEL_105:
           LODWORD(v67) = 0;
         }
 
-        v112 = v22;
+        v111 = v22;
         v4[1] = *(v6 + 11) * (v60 | v67);
         goto LABEL_9;
       case 0x14u:
-        v96 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v96 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         if (v96 >= 0x120)
         {
           fprintf(*MEMORY[0x277D85DF8], "libunwind: malformed DW_CFA_val_offset DWARF unwind, reg (%llu) out of range\n\n", v96);
           goto LABEL_143;
         }
 
-        v97 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v97 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         v98 = *(v6 + 11);
         v52 = v14 + 16 * v96;
         if ((*(v52 + 4) & 1) == 0)
         {
-          *&v109[2 * v96] = *v52;
+          *&v108[2 * v96] = *v52;
           *(v52 + 4) = 1;
         }
 
@@ -1426,7 +1354,7 @@ LABEL_123:
         *(v52 + 8) = v53;
         goto LABEL_9;
       case 0x15u:
-        v33 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v33 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         if (v33 >= 0x120)
         {
           v101 = *MEMORY[0x277D85DF8];
@@ -1436,16 +1364,16 @@ LABEL_123:
         }
 
         v34 = 0;
-        v35 = v112;
+        v35 = v111;
         v36 = -7;
         do
         {
           if (v35 == v16)
           {
-LABEL_146:
-            v105 = MEMORY[0x277D85DF8];
+LABEL_145:
+            v104 = MEMORY[0x277D85DF8];
             fprintf(*MEMORY[0x277D85DF8], "libunwind: %s - %s\n", "getSLEB128", "truncated sleb128 expression");
-            fflush(*v105);
+            fflush(*v104);
             abort();
           }
 
@@ -1466,12 +1394,12 @@ LABEL_146:
           v42 = 0;
         }
 
-        v112 = v35;
+        v111 = v35;
         v43 = *(v6 + 11);
         v44 = v14 + 16 * v33;
         if ((*(v44 + 4) & 1) == 0)
         {
-          *&v109[2 * v33] = *v44;
+          *&v108[2 * v33] = *v44;
           *(v44 + 4) = 1;
         }
 
@@ -1479,7 +1407,7 @@ LABEL_146:
         v46 = 4;
         goto LABEL_105;
       case 0x16u:
-        v54 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v54 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         if (v54 >= 0x120)
         {
           v101 = *MEMORY[0x277D85DF8];
@@ -1491,27 +1419,27 @@ LABEL_146:
         v55 = v14 + 16 * v54;
         if ((*(v55 + 4) & 1) == 0)
         {
-          *&v109[2 * v54] = *v55;
+          *&v108[2 * v54] = *v55;
           *(v55 + 4) = 1;
         }
 
-        v56 = v112;
+        v56 = v111;
         v57 = 7;
         goto LABEL_110;
       case 0x2Du:
         if ((v4[143] & 1) == 0)
         {
-          *v107 = *v108;
+          *v106 = *v107;
           *(v4 + 572) = 1;
         }
 
         *(v4 + 72) ^= 1uLL;
         goto LABEL_9;
       case 0x2Eu:
-        v4[4] = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v4[4] = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         goto LABEL_9;
       case 0x2Fu:
-        v48 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v48 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         if (v48 >= 0x120)
         {
           v101 = *MEMORY[0x277D85DF8];
@@ -1521,12 +1449,12 @@ LABEL_146:
         }
 
         v49 = v48;
-        v50 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v50 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         v51 = *(v6 + 11);
         v52 = v14 + 16 * v49;
         if ((*(v52 + 4) & 1) == 0)
         {
-          *&v109[2 * v49] = *v52;
+          *&v108[2 * v49] = *v52;
           *(v52 + 4) = 1;
         }
 
@@ -1539,7 +1467,7 @@ LABEL_146:
         {
           if (v80 != 1)
           {
-            goto LABEL_144;
+            return 0;
           }
 
           EncodedP += (*(v6 + 10) * v79);
@@ -1554,11 +1482,11 @@ LABEL_146:
             goto LABEL_9;
           }
 
-          v73 = *&v109[2 * v79];
+          v73 = *&v108[2 * v79];
           goto LABEL_88;
         }
 
-        v69 = libunwind::LocalAddressSpace::getULEB128(&v112, v16);
+        v69 = libunwind::LocalAddressSpace::getULEB128(&v111, v16);
         v70 = *(v6 + 11);
         v52 = v14 + 16 * v79;
         if (*(v52 + 4))
@@ -1566,13 +1494,13 @@ LABEL_146:
           goto LABEL_121;
         }
 
-        *&v109[2 * v79] = *v52;
+        *&v108[2 * v79] = *v52;
         goto LABEL_120;
     }
   }
 }
 
-uint64_t libunwind::LocalAddressSpace::getEncodedP(unint64_t **this, unint64_t *a2, unsigned int a3, uint64_t *a4, unint64_t a5, unint64_t *a6)
+uint64_t libunwind::LocalAddressSpace::getEncodedP(unint64_t **this, unint64_t *a2, unint64_t a3, uint64_t *a4, unint64_t a5, unint64_t *a6)
 {
   v6 = *this;
   v7 = a3 & 0xF;
@@ -1586,7 +1514,7 @@ uint64_t libunwind::LocalAddressSpace::getEncodedP(unint64_t **this, unint64_t *
         v9 = a4;
         v10 = a3;
         ULEB128 = libunwind::LocalAddressSpace::getULEB128(this, a2);
-        a3 = v10;
+        LODWORD(a3) = v10;
         a4 = v9;
         v12 = ULEB128;
         goto LABEL_29;
@@ -1643,7 +1571,7 @@ LABEL_49:
     }
 
 LABEL_24:
-    v13 = (v6 + 8);
+    v13 = v6 + 1;
     v12 = *v6;
     goto LABEL_28;
   }
@@ -2188,8 +2116,8 @@ uint64_t libunwind::CFI_Parser<libunwind::LocalAddressSpace>::findFDE(unint64_t 
         v23 = libunwind::LocalAddressSpace::getEncodedP(&v34, v6, a6[24] & 0xF, 0, v21, v22);
         if (EncodedP < a1)
         {
-          v24 = v23 + EncodedP;
-          if (v23 + EncodedP >= a1)
+          v24 = (EncodedP + v23);
+          if (EncodedP + v23 >= a1)
           {
             a5[5] = 0;
             if (a6[49])
@@ -2315,29 +2243,27 @@ const char *libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Regi
   }
 }
 
-uint64_t libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getFunctionName(void *a1, char *a2, size_t a3, void *a4)
+uint64_t libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getFunctionName(uint64_t a1, char *a2, size_t a3, void *a4)
 {
-  v8 = (*(*a1 + 24))(a1, 0xFFFFFFFFLL);
-  v9 = a1[33];
-  v10 = v8;
-  if (dladdr(v8, &v14))
+  v7 = (*(*a1 + 24))(a1, 0xFFFFFFFFLL);
+  if (dladdr(v7, &v11))
   {
-    v11 = v14.dli_sname == 0;
+    v8 = v11.dli_sname == 0;
   }
 
   else
   {
-    v11 = 1;
+    v8 = 1;
   }
 
-  v12 = !v11;
-  if (!v11)
+  v9 = !v8;
+  if (!v8)
   {
-    strlcpy(a2, v14.dli_sname, a3);
-    *a4 = v10 - v14.dli_saddr;
+    strlcpy(a2, v11.dli_sname, a3);
+    *a4 = v7 - v11.dli_saddr;
   }
 
-  return v12;
+  return v9;
 }
 
 uint64_t libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getInfo(uint64_t result, uint64_t a2)
@@ -2353,58 +2279,16 @@ uint64_t libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registe
 
   else
   {
-    v2 = *(result + 544);
-    if (v2)
-    {
-      v3 = *(result + 544);
-    }
-
-    *a2 = v2;
-    v4 = *(result + 552);
-    if (v4)
-    {
-      v5 = *(result + 552);
-    }
-
-    *(a2 + 8) = v4;
-    v6 = *(result + 560);
-    if (v6)
-    {
-      v7 = *(result + 560);
-    }
-
-    *(a2 + 16) = v6;
-    v8 = *(result + 568);
-    if (v8)
-    {
-      v9 = *(result + 568);
-    }
-
-    v10 = *(result + 576);
-    *(a2 + 24) = v8;
-    *(a2 + 32) = v10;
-    v11 = *(result + 584);
-    if (v11)
-    {
-      v12 = *(result + 584);
-    }
-
-    *(a2 + 40) = v11;
+    *a2 = *(result + 544);
+    *(a2 + 8) = *(result + 552);
+    *(a2 + 16) = *(result + 560);
+    v2 = *(result + 576);
+    *(a2 + 24) = *(result + 568);
+    *(a2 + 32) = v2;
+    *(a2 + 40) = *(result + 584);
     *(a2 + 48) = *(result + 592);
-    v13 = *(result + 600);
-    if (v13)
-    {
-      v14 = *(result + 600);
-    }
-
-    *(a2 + 56) = v13;
-    v15 = *(result + 608);
-    if (v15)
-    {
-      v16 = *(result + 608);
-    }
-
-    *(a2 + 64) = v15;
+    *(a2 + 56) = *(result + 600);
+    *(a2 + 64) = *(result + 608);
   }
 
   return result;
@@ -2423,35 +2307,34 @@ uint64_t libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registe
   v4 = v3 & 0xF000000;
   if ((v3 & 0xF000000) != 0x3000000)
   {
-    v12 = *(v0 + 584);
-    if (v12)
+    v11 = *(v0 + 584);
+    if (v11)
     {
-      v13 = *(v0 + 584);
-      v14 = v12 == 1;
+      v12 = v11 == 1;
     }
 
     else
     {
-      v14 = 0;
+      v12 = 0;
     }
 
     if (v4 != 0x2000000)
     {
       if (v4 != 0x4000000)
       {
-        v71 = MEMORY[0x277D85DF8];
-        v72 = *MEMORY[0x277D85DF8];
-        v73 = "invalid compact unwind encoding";
-        v74 = "stepWithCompactEncoding";
-        goto LABEL_148;
+        v61 = MEMORY[0x277D85DF8];
+        v62 = *MEMORY[0x277D85DF8];
+        v63 = "invalid compact unwind encoding";
+        v64 = "stepWithCompactEncoding";
+        goto LABEL_147;
       }
 
-      v18 = *(v0 + 248);
+      v16 = *(v0 + 248);
       if (v3)
       {
-        *(v0 + 168) = *(v18 - 8);
-        *(v0 + 176) = *(v18 - 16);
-        v19 = (v18 - 24);
+        *(v0 + 168) = *(v16 - 8);
+        *(v0 + 176) = *(v16 - 16);
+        v17 = (v16 - 24);
         if ((v3 & 2) == 0)
         {
           goto LABEL_49;
@@ -2460,15 +2343,15 @@ uint64_t libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registe
 
       else
       {
-        v19 = (v18 - 8);
+        v17 = (v16 - 8);
         if ((v3 & 2) == 0)
         {
 LABEL_49:
           if ((v3 & 4) != 0)
           {
-            *(v0 + 200) = *v19;
-            *(v0 + 208) = *(v19 - 1);
-            v19 -= 2;
+            *(v0 + 200) = *v17;
+            *(v0 + 208) = *(v17 - 1);
+            v17 -= 2;
             if ((v3 & 8) == 0)
             {
 LABEL_51:
@@ -2477,7 +2360,7 @@ LABEL_51:
                 goto LABEL_52;
               }
 
-              goto LABEL_67;
+              goto LABEL_66;
             }
           }
 
@@ -2486,9 +2369,9 @@ LABEL_51:
             goto LABEL_51;
           }
 
-          *(v0 + 216) = *v19;
-          *(v0 + 224) = *(v19 - 1);
-          v19 -= 2;
+          *(v0 + 216) = *v17;
+          *(v0 + 224) = *(v17 - 1);
+          v17 -= 2;
           if ((v3 & 0x10) == 0)
           {
 LABEL_52:
@@ -2497,13 +2380,13 @@ LABEL_52:
               goto LABEL_53;
             }
 
-            goto LABEL_68;
+            goto LABEL_67;
           }
 
-LABEL_67:
-          *(v0 + 232) = *v19;
-          *(v0 + 240) = *(v19 - 1);
-          v19 -= 2;
+LABEL_66:
+          *(v0 + 232) = *v17;
+          *(v0 + 240) = *(v17 - 1);
+          v17 -= 2;
           if ((v3 & 0x100) == 0)
           {
 LABEL_53:
@@ -2512,13 +2395,13 @@ LABEL_53:
               goto LABEL_54;
             }
 
-            goto LABEL_69;
+            goto LABEL_68;
           }
 
-LABEL_68:
-          *(v0 + 352) = *v19;
-          *(v0 + 360) = *(v19 - 1);
-          v19 -= 2;
+LABEL_67:
+          *(v0 + 352) = *v17;
+          *(v0 + 360) = *(v17 - 1);
+          v17 -= 2;
           if ((v3 & 0x200) == 0)
           {
 LABEL_54:
@@ -2527,13 +2410,13 @@ LABEL_54:
               goto LABEL_55;
             }
 
-            goto LABEL_70;
+            goto LABEL_69;
           }
 
-LABEL_69:
-          *(v0 + 368) = *v19;
-          *(v0 + 376) = *(v19 - 1);
-          v19 -= 2;
+LABEL_68:
+          *(v0 + 368) = *v17;
+          *(v0 + 376) = *(v17 - 1);
+          v17 -= 2;
           if ((v3 & 0x400) == 0)
           {
 LABEL_55:
@@ -2545,64 +2428,56 @@ LABEL_55:
             goto LABEL_56;
           }
 
-LABEL_70:
-          *(v0 + 384) = *v19;
-          *(v0 + 392) = *(v19 - 1);
-          v19 -= 2;
+LABEL_69:
+          *(v0 + 384) = *v17;
+          *(v0 + 392) = *(v17 - 1);
+          v17 -= 2;
           if ((v3 & 0x800) == 0)
           {
 LABEL_57:
-            *(v0 + 264) = (v18 & 0xFFFFFFFFFFFFFFLL) + 16;
-            *(v0 + 248) = *(v18 & 0xFFFFFFFFFFFFFFLL);
-            v21 = *((v18 & 0xFFFFFFFFFFFFFFLL) + 8);
-            if (!v14 || __unw_is_pointer_auth_enabled())
+            *(v0 + 264) = (v16 & 0xFFFFFFFFFFFFFFLL) + 16;
+            *(v0 + 248) = *(v16 & 0xFFFFFFFFFFFFFFLL);
+            v19 = *((v16 & 0xFFFFFFFFFFFFFFLL) + 8);
+            if (!v12 || __unw_is_pointer_auth_enabled() || !__unw_is_pointer_auth_enabled())
             {
+LABEL_60:
+              *(v2 + 272) = v19;
               goto LABEL_61;
             }
 
-            v23 = *(v2 + 264);
-            if (!__unw_is_pointer_auth_enabled())
-            {
-LABEL_60:
-              v24 = *(v2 + 264);
-LABEL_61:
-              *(v2 + 272) = v21;
-              goto LABEL_62;
-            }
-
-            v96[0] = -1;
+            v86[0] = -1;
+LABEL_145:
+            v86[0] = -1;
 LABEL_146:
-            v96[0] = -1;
+            v61 = MEMORY[0x277D85DF8];
+            v62 = *MEMORY[0x277D85DF8];
+            v63 = "Inconsistent invalid authentication state";
+            v64 = "normalizeNewLinkRegister";
 LABEL_147:
-            v71 = MEMORY[0x277D85DF8];
-            v72 = *MEMORY[0x277D85DF8];
-            v73 = "Inconsistent invalid authentication state";
-            v74 = "normalizeNewLinkRegister";
-LABEL_148:
-            fprintf(v72, "libunwind: %s - %s\n", v74, v73);
-            fflush(*v71);
+            fprintf(v62, "libunwind: %s - %s\n", v64, v63);
+            fflush(*v61);
             abort();
           }
 
 LABEL_56:
-          *(v0 + 400) = *v19;
-          *(v0 + 408) = *(v19 - 1);
+          *(v0 + 400) = *v17;
+          *(v0 + 408) = *(v17 - 1);
           goto LABEL_57;
         }
       }
 
-      *(v0 + 184) = *v19;
-      *(v0 + 192) = *(v19 - 1);
-      v19 -= 2;
+      *(v0 + 184) = *v17;
+      *(v0 + 192) = *(v17 - 1);
+      v17 -= 2;
       goto LABEL_49;
     }
 
-    v20 = (*(v0 + 264) + ((v3 >> 8) & 0xFFF0));
+    v18 = (*(v0 + 264) + ((v3 >> 8) & 0xFFF0));
     if (v3)
     {
-      *(v0 + 168) = *v20;
-      *(v0 + 176) = *(v20 - 1);
-      v20 -= 2;
+      *(v0 + 168) = *v18;
+      *(v0 + 176) = *(v18 - 1);
+      v18 -= 2;
       if ((v3 & 2) == 0)
       {
 LABEL_26:
@@ -2620,9 +2495,9 @@ LABEL_26:
       goto LABEL_26;
     }
 
-    *(v0 + 184) = *v20;
-    *(v0 + 192) = *(v20 - 1);
-    v20 -= 2;
+    *(v0 + 184) = *v18;
+    *(v0 + 192) = *(v18 - 1);
+    v18 -= 2;
     if ((v3 & 4) == 0)
     {
 LABEL_27:
@@ -2635,9 +2510,9 @@ LABEL_27:
     }
 
 LABEL_40:
-    *(v0 + 200) = *v20;
-    *(v0 + 208) = *(v20 - 1);
-    v20 -= 2;
+    *(v0 + 200) = *v18;
+    *(v0 + 208) = *(v18 - 1);
+    v18 -= 2;
     if ((v3 & 8) == 0)
     {
 LABEL_28:
@@ -2650,9 +2525,9 @@ LABEL_28:
     }
 
 LABEL_41:
-    *(v0 + 216) = *v20;
-    *(v0 + 224) = *(v20 - 1);
-    v20 -= 2;
+    *(v0 + 216) = *v18;
+    *(v0 + 224) = *(v18 - 1);
+    v18 -= 2;
     if ((v3 & 0x10) == 0)
     {
 LABEL_29:
@@ -2665,9 +2540,9 @@ LABEL_29:
     }
 
 LABEL_42:
-    *(v0 + 232) = *v20;
-    *(v0 + 240) = *(v20 - 1);
-    v20 -= 2;
+    *(v0 + 232) = *v18;
+    *(v0 + 240) = *(v18 - 1);
+    v18 -= 2;
     if ((v3 & 0x100) == 0)
     {
 LABEL_30:
@@ -2680,9 +2555,9 @@ LABEL_30:
     }
 
 LABEL_43:
-    *(v0 + 352) = *v20;
-    *(v0 + 360) = *(v20 - 1);
-    v20 -= 2;
+    *(v0 + 352) = *v18;
+    *(v0 + 360) = *(v18 - 1);
+    v18 -= 2;
     if ((v3 & 0x200) == 0)
     {
 LABEL_31:
@@ -2695,9 +2570,9 @@ LABEL_31:
     }
 
 LABEL_44:
-    *(v0 + 368) = *v20;
-    *(v0 + 376) = *(v20 - 1);
-    v20 -= 2;
+    *(v0 + 368) = *v18;
+    *(v0 + 376) = *(v18 - 1);
+    v18 -= 2;
     if ((v3 & 0x400) == 0)
     {
 LABEL_32:
@@ -2710,158 +2585,150 @@ LABEL_32:
     }
 
 LABEL_45:
-    *(v0 + 384) = *v20;
-    *(v0 + 392) = *(v20 - 1);
-    v20 -= 2;
+    *(v0 + 384) = *v18;
+    *(v0 + 392) = *(v18 - 1);
+    v18 -= 2;
     if ((v3 & 0x800) == 0)
     {
 LABEL_34:
-      v21 = *(v0 + 256);
-      *(v0 + 264) = v20;
-      if (!v14 || __unw_is_pointer_auth_enabled())
-      {
-        goto LABEL_61;
-      }
-
-      v22 = *(v2 + 264);
-      if (!__unw_is_pointer_auth_enabled())
+      v19 = *(v0 + 256);
+      *(v0 + 264) = v18;
+      if (!v12 || __unw_is_pointer_auth_enabled() || !__unw_is_pointer_auth_enabled())
       {
         goto LABEL_60;
       }
 
-      v96[0] = -1;
-      goto LABEL_146;
+      v86[0] = -1;
+      goto LABEL_145;
     }
 
 LABEL_33:
-    *(v0 + 400) = *v20;
-    *(v0 + 408) = *(v20 - 1);
-    v20 -= 2;
+    *(v0 + 400) = *v18;
+    *(v0 + 408) = *(v18 - 1);
+    v18 -= 2;
     goto LABEL_34;
   }
 
   v5 = v1;
   (*(*v0 + 24))(v0, 0xFFFFFFFFLL);
-  v8 = *(v2 + 264);
   if (!*(v2 + 600))
   {
-    v9 = 0;
-    v10 = *(v2 + 584);
-    if (v10)
+    v8 = 0;
+    v9 = *(v2 + 584);
+    if (v9)
     {
       goto LABEL_5;
     }
 
 LABEL_9:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_10;
   }
 
-  v9 = *(v2 + 600);
-  v10 = *(v2 + 584);
-  if (!v10)
+  v8 = *(v2 + 600);
+  v9 = *(v2 + 584);
+  if (!v9)
   {
     goto LABEL_9;
   }
 
 LABEL_5:
-  v11 = v10 == 1;
+  v10 = v9 == 1;
 LABEL_10:
-  if (libunwind::CFI_Parser<libunwind::LocalAddressSpace>::decodeFDE(v9, v103, v100, 0, v6, v7))
+  if (libunwind::CFI_Parser<libunwind::LocalAddressSpace>::decodeFDE(v8, v93, v90, 0, v6, v7))
   {
     return 4294960750;
   }
 
-  bzero(v96, 0x1218uLL);
+  bzero(v86, 0x1218uLL);
   if ((libunwind::CFI_Parser<libunwind::LocalAddressSpace>::parseFDEInstructions() & 1) == 0)
   {
     return 4294960750;
   }
 
-  v15 = v2 + 16;
-  if (SLODWORD(v96[0]) > 29)
+  v13 = v2 + 16;
+  if (SLODWORD(v86[0]) > 29)
   {
-    v16 = v5;
-    if (SLODWORD(v96[0]) > 31)
+    v14 = v5;
+    if (SLODWORD(v86[0]) > 31)
     {
-      if (LODWORD(v96[0]) == 34)
+      if (LODWORD(v86[0]) == 34)
       {
-        v25 = *(v2 + 280);
-        goto LABEL_86;
+        v20 = *(v2 + 280);
+        goto LABEL_85;
       }
 
-      if (LODWORD(v96[0]) != 32)
+      if (LODWORD(v86[0]) != 32)
       {
-LABEL_84:
-        if (LODWORD(v96[0]) > 0x1C)
+LABEL_83:
+        if (LODWORD(v86[0]) > 0x1C)
         {
-LABEL_144:
-          v71 = MEMORY[0x277D85DF8];
-          v72 = *MEMORY[0x277D85DF8];
-          v73 = "unsupported arm64 register";
-          v74 = "getRegister";
-          goto LABEL_148;
+LABEL_143:
+          v61 = MEMORY[0x277D85DF8];
+          v62 = *MEMORY[0x277D85DF8];
+          v63 = "unsupported arm64 register";
+          v64 = "getRegister";
+          goto LABEL_147;
         }
 
-        v25 = *(v15 + 8 * LODWORD(v96[0]));
-        goto LABEL_86;
+        v20 = *(v13 + 8 * LODWORD(v86[0]));
+        goto LABEL_85;
       }
 
-      goto LABEL_80;
+      goto LABEL_79;
     }
 
-    if (LODWORD(v96[0]) == 30)
+    if (LODWORD(v86[0]) == 30)
     {
-      v25 = *(v2 + 256);
-      goto LABEL_86;
+      v20 = *(v2 + 256);
+      goto LABEL_85;
     }
 
-    goto LABEL_74;
+    goto LABEL_73;
   }
 
-  v16 = v5;
-  if ((v96[0] & 0x80000000) != 0)
+  v14 = v5;
+  if ((v86[0] & 0x80000000) != 0)
   {
-    if (LODWORD(v96[0]) != -2)
+    if (LODWORD(v86[0]) != -2)
     {
-      if (LODWORD(v96[0]) != -1)
+      if (LODWORD(v86[0]) != -1)
       {
-        goto LABEL_84;
+        goto LABEL_83;
       }
 
-LABEL_80:
-      v26 = *(v2 + 264);
-      v25 = *(v2 + 272);
-      goto LABEL_86;
+LABEL_79:
+      v20 = *(v2 + 272);
+      goto LABEL_85;
     }
 
-LABEL_74:
-    v25 = *(v2 + 264);
+LABEL_73:
+    v20 = *(v2 + 264);
+    goto LABEL_85;
+  }
+
+  if (!LODWORD(v86[0]))
+  {
+    v21 = libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::evaluateExpression(v86[1], (v2 + 16), 0);
+    v14 = v5;
+    v22 = v21;
     goto LABEL_86;
   }
 
-  if (!LODWORD(v96[0]))
+  if (LODWORD(v86[0]) != 29)
   {
-    v27 = libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::evaluateExpression(v96[1], (v2 + 16), 0);
-    v16 = v5;
-    v28 = v27;
-    goto LABEL_87;
+    goto LABEL_83;
   }
 
-  if (LODWORD(v96[0]) != 29)
-  {
-    goto LABEL_84;
-  }
-
-  v25 = *(v2 + 248);
+  v20 = *(v2 + 248);
+LABEL_85:
+  v22 = v20 + SHIDWORD(v86[0]);
 LABEL_86:
-  v28 = (v25 + SHIDWORD(v96[0]));
-LABEL_87:
-  if (v16)
+  if (v14)
   {
-    if (v102 == 1)
+    if (v92 == 1)
     {
-      for (_X8 = *(v2 + 264) & 0xFFFFFFFFFFFFFFF0; _X8 < v28; _X8 += 16)
+      for (_X8 = *(v2 + 264) & 0xFFFFFFFFFFFFFFF0; _X8 < v22; _X8 += 16)
       {
         __asm { STG             X8, [X8] }
       }
@@ -2870,254 +2737,250 @@ LABEL_87:
 
   memcpy(__dst, (v2 + 16), sizeof(__dst));
   SavedRegister = 0;
-  v35 = 0;
-  v36 = *(v2 + 496);
-  v92 = *(v2 + 480);
-  v93 = v36;
-  v37 = *(v2 + 528);
-  v94 = *(v2 + 512);
-  v95 = v37;
-  v38 = *(v2 + 432);
-  v88 = *(v2 + 416);
-  v89 = v38;
-  v39 = *(v2 + 464);
-  v90 = *(v2 + 448);
-  v91 = v39;
-  v40 = *(v2 + 368);
-  v84 = *(v2 + 352);
-  v85 = v40;
-  v41 = *(v2 + 400);
-  v86 = *(v2 + 384);
-  v87 = v41;
-  v42 = *(v2 + 304);
-  v80 = *(v2 + 288);
-  v81 = v42;
-  v43 = *(v2 + 336);
-  v82 = *(v2 + 320);
-  v83 = v43;
-  v44 = *(v2 + 264);
+  v29 = 0;
+  v30 = *(v2 + 496);
+  v82 = *(v2 + 480);
+  v83 = v30;
+  v31 = *(v2 + 528);
+  v84 = *(v2 + 512);
+  v85 = v31;
+  v32 = *(v2 + 432);
+  v78 = *(v2 + 416);
+  v79 = v32;
+  v33 = *(v2 + 464);
+  v80 = *(v2 + 448);
+  v81 = v33;
+  v34 = *(v2 + 368);
+  v74 = *(v2 + 352);
+  v75 = v34;
+  v35 = *(v2 + 400);
+  v76 = *(v2 + 384);
+  v77 = v35;
+  v36 = *(v2 + 304);
+  v70 = *(v2 + 288);
+  v71 = v36;
+  v37 = *(v2 + 336);
+  v72 = *(v2 + 320);
+  v73 = v37;
   __dst[32] = *(v2 + 272);
-  v45 = &v97;
+  v38 = &v87;
   __dst[29] = *(v2 + 248);
-  __dst[31] = v28;
+  __dst[31] = v22;
   do
   {
-    v46 = *(v45 - 2);
-    if (!v46)
+    v39 = *(v38 - 2);
+    if (!v39)
     {
-      if (v35 != v101)
+      if (v29 != v91)
       {
-        goto LABEL_93;
+        goto LABEL_92;
       }
 
-      if (v101 <= 0x1Eu)
+      if (v91 <= 0x1Eu)
       {
-        if (v101 == 29)
+        if (v91 == 29)
         {
           SavedRegister = *(v2 + 248);
-          goto LABEL_128;
+          goto LABEL_127;
         }
 
-        if (v101 == 30)
+        if (v91 == 30)
         {
           SavedRegister = *(v2 + 256);
-          goto LABEL_128;
+          goto LABEL_127;
         }
       }
 
       else
       {
-        switch(v101)
+        switch(v91)
         {
           case 0x1Fu:
             SavedRegister = *(v2 + 264);
-            goto LABEL_128;
+            goto LABEL_127;
           case 0x22u:
             SavedRegister = *(v2 + 280);
-            goto LABEL_128;
+            goto LABEL_127;
           case 0x20u:
-            v48 = *(v2 + 264);
             SavedRegister = *(v2 + 272);
-LABEL_128:
-            v78 = SavedRegister;
-            goto LABEL_93;
+LABEL_127:
+            v68 = SavedRegister;
+            goto LABEL_92;
         }
       }
 
-      if (v101 > 0x1Cu)
+      if (v91 > 0x1Cu)
       {
-        goto LABEL_144;
+        goto LABEL_143;
       }
 
-      SavedRegister = *(v15 + 8 * v35);
-      goto LABEL_128;
+      SavedRegister = *(v13 + 8 * v29);
+      goto LABEL_127;
     }
 
-    if ((v35 & 0x60) == 0x40)
+    if ((v29 & 0x60) == 0x40)
     {
-      if (v46 == 1)
+      if (v39 == 1)
       {
-        v49 = 0;
+        v41 = 0;
       }
 
       else
       {
-        if (v46 == 6)
+        if (v39 == 6)
         {
-          v47 = libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::evaluateExpression(*v45, (v2 + 16), v28);
+          v40 = libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::evaluateExpression(*v38, (v2 + 16), v22);
         }
 
         else
         {
-          if (v46 != 2)
+          if (v39 != 2)
           {
-            v71 = MEMORY[0x277D85DF8];
-            v72 = *MEMORY[0x277D85DF8];
-            v73 = "unsupported restore location for float register";
-            v74 = "getSavedFloatRegister";
-            goto LABEL_148;
+            v61 = MEMORY[0x277D85DF8];
+            v62 = *MEMORY[0x277D85DF8];
+            v63 = "unsupported restore location for float register";
+            v64 = "getSavedFloatRegister";
+            goto LABEL_147;
           }
 
-          v47 = (v28 + *v45);
+          v40 = (*v38 + v22);
         }
 
-        v49 = *v47;
+        v41 = *v40;
       }
 
-      *(v77 + v35 + 1) = v49;
+      *(v67 + v29 + 1) = v41;
     }
 
-    else if (v35 == v101)
+    else if (v29 == v91)
     {
-      SavedRegister = libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getSavedRegister((v2 + 16), v28, v46, *v45);
-      v78 = SavedRegister;
+      SavedRegister = libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getSavedRegister((v2 + 16), v22, v39, *v38);
+      v68 = SavedRegister;
     }
 
-    else if (v35 == 34)
+    else if (v29 == 34)
     {
-      __dst[33] = libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getSavedRegister((v2 + 16), v28, v46, *v45);
+      __dst[33] = libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getSavedRegister((v2 + 16), v22, v39, *v38);
     }
 
     else
     {
-      if (v35 > 0x20)
+      if (v29 > 0x20)
       {
         return 4294960754;
       }
 
-      v50 = libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getSavedRegister((v2 + 16), v28, v46, *v45);
-      if (v35 > 30)
+      v42 = libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getSavedRegister((v2 + 16), v22, v39, *v38);
+      if (v29 > 30)
       {
-        if (v35 == 31)
+        if (v29 == 31)
         {
-          __dst[31] = v50;
+          __dst[31] = v42;
         }
 
         else
         {
-          __dst[32] = v50;
+          __dst[32] = v42;
         }
       }
 
-      else if (v35 == 29)
+      else if (v29 == 29)
       {
-        __dst[29] = v50;
+        __dst[29] = v42;
       }
 
-      else if (v35 == 30)
+      else if (v29 == 30)
       {
-        __dst[30] = v50;
+        __dst[30] = v42;
       }
 
       else
       {
-        __dst[v35] = v50;
+        __dst[v29] = v42;
       }
     }
 
-LABEL_93:
-    ++v35;
-    v45 += 2;
+LABEL_92:
+    ++v29;
+    v38 += 2;
   }
 
-  while (v35 != 96);
-  *(v2 + 617) = v100[48];
-  memcpy(v75, (v2 + 16), sizeof(v75));
-  v51 = *(v2 + 496);
-  v77[11] = *(v2 + 480);
-  v77[12] = v51;
-  v52 = *(v2 + 528);
-  v77[13] = *(v2 + 512);
-  v77[14] = v52;
-  v53 = *(v2 + 432);
-  v77[7] = *(v2 + 416);
-  v77[8] = v53;
-  v54 = *(v2 + 464);
-  v77[9] = *(v2 + 448);
-  v77[10] = v54;
-  v55 = *(v2 + 368);
-  v77[3] = *(v2 + 352);
-  v77[4] = v55;
-  v56 = *(v2 + 400);
-  v77[5] = *(v2 + 384);
-  v77[6] = v56;
-  v57 = *(v2 + 304);
-  v76 = *(v2 + 288);
-  v77[0] = v57;
-  v58 = *(v2 + 336);
-  v77[1] = *(v2 + 320);
-  v77[2] = v58;
-  v59 = *(v2 + 264);
-  v60 = *(v2 + 248);
-  v75[32] = *(v2 + 272);
-  v75[29] = v60;
-  v61 = v99;
-  if (v98)
+  while (v29 != 96);
+  *(v2 + 617) = v90[48];
+  memcpy(v65, (v2 + 16), sizeof(v65));
+  v43 = *(v2 + 496);
+  v67[11] = *(v2 + 480);
+  v67[12] = v43;
+  v44 = *(v2 + 528);
+  v67[13] = *(v2 + 512);
+  v67[14] = v44;
+  v45 = *(v2 + 432);
+  v67[7] = *(v2 + 416);
+  v67[8] = v45;
+  v46 = *(v2 + 464);
+  v67[9] = *(v2 + 448);
+  v67[10] = v46;
+  v47 = *(v2 + 368);
+  v67[3] = *(v2 + 352);
+  v67[4] = v47;
+  v48 = *(v2 + 400);
+  v67[5] = *(v2 + 384);
+  v67[6] = v48;
+  v49 = *(v2 + 304);
+  v66 = *(v2 + 288);
+  v67[0] = v49;
+  v50 = *(v2 + 336);
+  v67[1] = *(v2 + 320);
+  v67[2] = v50;
+  v51 = *(v2 + 248);
+  v65[32] = *(v2 + 272);
+  v65[29] = v51;
+  v52 = v89;
+  if (v88)
   {
-    v61 = libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getSavedRegister(v75, v28, v98, v99);
+    v52 = libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getSavedRegister(v65, v22, v88, v89);
   }
 
-  if ((v61 & 1) != 0 && SavedRegister)
+  if ((v52 & 1) != 0 && SavedRegister)
   {
     return 4294960746;
   }
 
-  if (v11 && !__unw_is_pointer_auth_enabled() && __unw_is_pointer_auth_enabled())
+  if (v10 && !__unw_is_pointer_auth_enabled() && __unw_is_pointer_auth_enabled())
   {
-    v78 = -1;
-    goto LABEL_147;
+    v68 = -1;
+    goto LABEL_146;
   }
 
   __dst[32] = SavedRegister;
   memcpy((v2 + 16), __dst, 0x110uLL);
-  v62 = v93;
-  *(v2 + 480) = v92;
-  *(v2 + 496) = v62;
-  v63 = v95;
-  *(v2 + 512) = v94;
-  *(v2 + 528) = v63;
-  v64 = v89;
-  *(v2 + 416) = v88;
-  *(v2 + 432) = v64;
-  v65 = v91;
-  *(v2 + 448) = v90;
-  *(v2 + 464) = v65;
-  v66 = v85;
-  *(v2 + 352) = v84;
-  *(v2 + 368) = v66;
-  v67 = v87;
-  *(v2 + 384) = v86;
-  *(v2 + 400) = v67;
-  v68 = v81;
-  *(v2 + 288) = v80;
-  *(v2 + 304) = v68;
-  v69 = v83;
-  *(v2 + 320) = v82;
-  *(v2 + 336) = v69;
-  v70 = *(v2 + 264);
+  v53 = v83;
+  *(v2 + 480) = v82;
+  *(v2 + 496) = v53;
+  v54 = v85;
+  *(v2 + 512) = v84;
+  *(v2 + 528) = v54;
+  v55 = v79;
+  *(v2 + 416) = v78;
+  *(v2 + 432) = v55;
+  v56 = v81;
+  *(v2 + 448) = v80;
+  *(v2 + 464) = v56;
+  v57 = v75;
+  *(v2 + 352) = v74;
+  *(v2 + 368) = v57;
+  v58 = v77;
+  *(v2 + 384) = v76;
+  *(v2 + 400) = v58;
+  v59 = v71;
+  *(v2 + 288) = v70;
+  *(v2 + 304) = v59;
+  v60 = v73;
+  *(v2 + 320) = v72;
+  *(v2 + 336) = v60;
   *(v2 + 272) = SavedRegister;
   *(v2 + 248) = __dst[29];
-LABEL_62:
+LABEL_61:
   (*(*v2 + 104))(v2, 1);
   result = 1;
   if (*(v2 + 616))
@@ -3175,17 +3038,17 @@ uint64_t __unw_is_pointer_auth_enabled()
   return 1;
 }
 
-uint64_t *libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::evaluateExpression(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::evaluateExpression(unint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  v100[99] = *MEMORY[0x277D85DE8];
-  v99 = a1;
-  ULEB128 = libunwind::LocalAddressSpace::getULEB128(&v99, (a1 + 20));
-  v6 = v99;
-  v7 = (v99 + ULEB128);
-  v100[0] = a3;
-  if (v99 < (v99 + ULEB128))
+  v96[99] = *MEMORY[0x277D85DE8];
+  v95 = a1;
+  ULEB128 = libunwind::LocalAddressSpace::getULEB128(&v95, (a1 + 20));
+  v6 = v95;
+  v7 = (v95 + ULEB128);
+  v96[0] = a3;
+  if (v95 < (v95 + ULEB128))
   {
-    v8 = v100;
+    v8 = v96;
     v9 = a2 + 30;
     v10 = a2 + 29;
     v11 = a2 + 31;
@@ -3193,53 +3056,53 @@ uint64_t *libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::R
     {
       v13 = (v6 + 1);
       v14 = *v6;
-      v99 = (v6 + 1);
+      v95 = (v6 + 1);
       switch(v14)
       {
         case 3:
         case 14:
         case 15:
-          v28 = *(v6 + 1);
-          v29 = (v6 + 9);
+          v27 = *(v6 + 1);
+          v28 = (v6 + 9);
           goto LABEL_83;
         case 6:
-          v42 = **v8;
+          v41 = **v8;
           goto LABEL_106;
         case 8:
-          v28 = *(v6 + 1);
+          v27 = *(v6 + 1);
           goto LABEL_79;
         case 9:
-          v28 = *(v6 + 1);
+          v27 = *(v6 + 1);
 LABEL_79:
-          v29 = (v6 + 2);
+          v28 = (v6 + 2);
           goto LABEL_83;
         case 10:
-          v28 = *(v6 + 1);
+          v27 = *(v6 + 1);
           goto LABEL_82;
         case 11:
-          v28 = *(v6 + 1);
+          v27 = *(v6 + 1);
 LABEL_82:
-          v29 = (v6 + 3);
+          v28 = (v6 + 3);
           goto LABEL_83;
         case 12:
-          v28 = *(v6 + 1);
-          v29 = (v6 + 5);
+          v27 = *(v6 + 1);
+          v28 = (v6 + 5);
           goto LABEL_83;
         case 13:
-          v28 = *(v6 + 1);
-          v29 = (v6 + 5);
+          v27 = *(v6 + 1);
+          v28 = (v6 + 5);
 LABEL_83:
-          v99 = v29;
-          v8[1] = v28;
+          v95 = v28;
+          v8[1] = v27;
           ++v8;
           goto LABEL_5;
         case 16:
-          v8[1] = libunwind::LocalAddressSpace::getULEB128(&v99, v7);
+          v8[1] = libunwind::LocalAddressSpace::getULEB128(&v95, v7);
           ++v8;
           goto LABEL_5;
         case 17:
-          v54 = 0;
-          v55 = -7;
+          v53 = 0;
+          v54 = -7;
           do
           {
             if (v13 == v7)
@@ -3247,25 +3110,25 @@ LABEL_83:
               goto LABEL_143;
             }
 
-            v56 = v55;
-            v55 += 7;
-            v58 = *v13;
+            v55 = v54;
+            v54 += 7;
+            v57 = *v13;
             v13 = (v13 + 1);
-            v57 = v58;
-            v54 |= (v58 & 0x7F) << v55;
+            v56 = v57;
+            v53 |= (v57 & 0x7F) << v54;
           }
 
-          while ((v58 & 0x80) != 0);
-          v59 = v56 + 14;
-          v60 = v55 < 0x39 && v57 > 0x3F;
-          v61 = -1 << v59;
-          if (!v60)
+          while ((v57 & 0x80) != 0);
+          v58 = v55 + 14;
+          v59 = v54 < 0x39 && v56 > 0x3F;
+          v60 = -1 << v58;
+          if (!v59)
           {
-            v61 = 0;
+            v60 = 0;
           }
 
-          v12 = v54 | v61;
-          v99 = v13;
+          v12 = v53 | v60;
+          v95 = v13;
           goto LABEL_4;
         case 18:
           v12 = *v8;
@@ -3277,17 +3140,17 @@ LABEL_83:
           v12 = *(v8 - 1);
           goto LABEL_4;
         case 21:
-          v71 = *(v6 + 1);
-          v99 = (v6 + 2);
-          v15 = &v8[-v71];
+          v70 = *(v6 + 1);
+          v95 = (v6 + 2);
+          v15 = &v8[-v70];
           goto LABEL_11;
         case 22:
           *(v8 - 1) = vextq_s8(*(v8 - 1), *(v8 - 1), 8uLL);
           goto LABEL_5;
         case 23:
-          v68 = *v8;
+          v67 = *v8;
           *(v8 - 1) = *(v8 - 1);
-          *(v8 - 2) = v68;
+          *(v8 - 2) = v67;
           goto LABEL_5;
         case 24:
           *(v8 - 1) = **v8;
@@ -3299,114 +3162,114 @@ LABEL_83:
             goto LABEL_5;
           }
 
-          v42 = -*v8;
+          v41 = -*v8;
           goto LABEL_106;
         case 26:
-          v62 = *v8;
-          v63 = *--v8;
-          v42 = v63 & v62;
+          v61 = *v8;
+          v62 = *--v8;
+          v41 = v62 & v61;
           goto LABEL_106;
         case 27:
-          v69 = *v8;
-          v70 = *--v8;
-          v42 = v70 / v69;
+          v68 = *v8;
+          v69 = *--v8;
+          v41 = v69 / v68;
           goto LABEL_106;
         case 28:
-          v84 = *v8;
-          v85 = *--v8;
-          v42 = v85 - v84;
+          v83 = *v8;
+          v84 = *--v8;
+          v41 = v84 - v83;
           goto LABEL_106;
         case 29:
-          v45 = *v8;
-          v46 = *--v8;
-          v42 = v46 % v45;
+          v44 = *v8;
+          v45 = *--v8;
+          v41 = v45 % v44;
           goto LABEL_106;
         case 30:
-          v82 = *v8;
-          v83 = *--v8;
-          v42 = v83 * v82;
+          v81 = *v8;
+          v82 = *--v8;
+          v41 = v82 * v81;
           goto LABEL_106;
         case 31:
-          v42 = -*v8;
+          v41 = -*v8;
           goto LABEL_106;
         case 32:
-          v42 = ~*v8;
+          v41 = ~*v8;
           goto LABEL_106;
         case 33:
-          v86 = *v8;
-          v87 = *--v8;
-          v42 = v87 | v86;
+          v85 = *v8;
+          v86 = *--v8;
+          v41 = v86 | v85;
           goto LABEL_106;
         case 34:
-          v76 = *v8;
-          v77 = *--v8;
-          v42 = v76 + v77;
+          v75 = *v8;
+          v76 = *--v8;
+          v41 = v75 + v76;
           goto LABEL_106;
         case 35:
-          v42 = *v8 + libunwind::LocalAddressSpace::getULEB128(&v99, v7);
+          v41 = *v8 + libunwind::LocalAddressSpace::getULEB128(&v95, v7);
           goto LABEL_106;
         case 36:
-          v72 = *v8;
-          v73 = *--v8;
-          v42 = v73 << v72;
+          v71 = *v8;
+          v72 = *--v8;
+          v41 = v72 << v71;
           goto LABEL_106;
         case 37:
-          v74 = *v8;
-          v75 = *--v8;
-          v42 = v75 >> v74;
+          v73 = *v8;
+          v74 = *--v8;
+          v41 = v74 >> v73;
           goto LABEL_106;
         case 38:
-          v80 = *v8;
-          v81 = *--v8;
-          v42 = v81 >> v80;
+          v79 = *v8;
+          v80 = *--v8;
+          v41 = v80 >> v79;
           goto LABEL_106;
         case 39:
-          v66 = *v8;
-          v67 = *--v8;
-          v42 = v67 ^ v66;
+          v65 = *v8;
+          v66 = *--v8;
+          v41 = v66 ^ v65;
           goto LABEL_106;
         case 40:
-          v49 = *(v6 + 1);
-          v50 = (v6 + 3);
-          v99 = v50;
+          v48 = *(v6 + 1);
+          v49 = (v6 + 3);
+          v95 = v49;
           if (*v8--)
           {
-            v99 = (v50 + v49);
+            v95 = (v49 + v48);
           }
 
           goto LABEL_5;
         case 41:
-          v47 = *v8;
-          v48 = *--v8;
-          v42 = v48 == v47;
+          v46 = *v8;
+          v47 = *--v8;
+          v41 = v47 == v46;
           goto LABEL_106;
         case 42:
-          v52 = *v8;
-          v53 = *--v8;
-          v42 = v53 >= v52;
+          v51 = *v8;
+          v52 = *--v8;
+          v41 = v52 >= v51;
           goto LABEL_106;
         case 43:
-          v64 = *v8;
-          v65 = *--v8;
-          v42 = v65 > v64;
+          v63 = *v8;
+          v64 = *--v8;
+          v41 = v64 > v63;
           goto LABEL_106;
         case 44:
-          v43 = *v8;
-          v44 = *--v8;
-          v42 = v44 <= v43;
+          v42 = *v8;
+          v43 = *--v8;
+          v41 = v43 <= v42;
           goto LABEL_106;
         case 45:
-          v40 = *v8;
-          v41 = *--v8;
-          v42 = v41 < v40;
+          v39 = *v8;
+          v40 = *--v8;
+          v41 = v40 < v39;
           goto LABEL_106;
         case 46:
-          v88 = *v8;
-          v89 = *--v8;
-          v42 = v89 != v88;
+          v87 = *v8;
+          v88 = *--v8;
+          v41 = v88 != v87;
           goto LABEL_106;
         case 47:
-          v99 = (v6 + *(v6 + 1) + 3);
+          v95 = (v6 + *(v6 + 1) + 3);
           goto LABEL_5;
         case 48:
         case 49:
@@ -3474,16 +3337,16 @@ LABEL_83:
         case 109:
         case 110:
         case 111:
-          v15 = (a2 + 31);
+          v15 = a2 + 31;
           if (v14 != 111)
           {
-            v15 = (a2 + 30);
+            v15 = a2 + 30;
             if (v14 != 110)
             {
               v15 = &a2[v14 - 80];
               if (v14 == 109)
               {
-                v15 = (a2 + 29);
+                v15 = a2 + 29;
               }
             }
           }
@@ -3550,7 +3413,7 @@ LABEL_11:
             v24 = 0;
           }
 
-          v99 = v13;
+          v95 = v13;
           if (v14 <= 141)
           {
             switch(v14)
@@ -3590,7 +3453,6 @@ LABEL_31:
             {
 LABEL_30:
               v25 = a2[32];
-              v26 = *v11;
               goto LABEL_36;
             }
           }
@@ -3602,13 +3464,13 @@ LABEL_30:
 
           v25 = a2[v17];
 LABEL_36:
-          v27 = v16 | v24;
+          v26 = v16 | v24;
           goto LABEL_37;
         case 144:
-          v90 = libunwind::LocalAddressSpace::getULEB128(&v99, v7);
-          if (v90 <= 29)
+          v89 = libunwind::LocalAddressSpace::getULEB128(&v95, v7);
+          if (v89 <= 29)
           {
-            switch(v90)
+            switch(v89)
             {
               case -2:
                 goto LABEL_129;
@@ -3623,9 +3485,9 @@ LABEL_36:
 
           else
           {
-            if (v90 <= 31)
+            if (v89 <= 31)
             {
-              if (v90 == 30)
+              if (v89 == 30)
               {
                 v8[1] = *v9;
                 ++v8;
@@ -3638,123 +3500,121 @@ LABEL_129:
               goto LABEL_5;
             }
 
-            if (v90 == 34)
+            if (v89 == 34)
             {
               v8[1] = a2[33];
               ++v8;
               goto LABEL_5;
             }
 
-            if (v90 == 32)
+            if (v89 == 32)
             {
 LABEL_125:
-              v91 = *v11;
               v8[1] = a2[32];
               ++v8;
               goto LABEL_5;
             }
           }
 
-          if (v90 <= 0x1C)
+          if (v89 <= 0x1C)
           {
-            v8[1] = a2[v90 & 0x1F];
+            v8[1] = a2[v89 & 0x1F];
             ++v8;
             goto LABEL_5;
           }
 
           goto LABEL_145;
         case 145:
-          v95 = MEMORY[0x277D85DF8];
-          v96 = *MEMORY[0x277D85DF8];
-          v97 = "DW_OP_fbreg not implemented";
+          v91 = MEMORY[0x277D85DF8];
+          v92 = *MEMORY[0x277D85DF8];
+          v93 = "DW_OP_fbreg not implemented";
           goto LABEL_149;
         case 146:
-          v30 = libunwind::LocalAddressSpace::getULEB128(&v99, v7);
-          v31 = 0;
-          v32 = v99;
-          v33 = -7;
+          v29 = libunwind::LocalAddressSpace::getULEB128(&v95, v7);
+          v30 = 0;
+          v31 = v95;
+          v32 = -7;
           do
           {
-            if (v32 == v7)
+            if (v31 == v7)
             {
 LABEL_143:
-              v95 = MEMORY[0x277D85DF8];
-              v96 = *MEMORY[0x277D85DF8];
-              v97 = "truncated sleb128 expression";
-              v98 = "getSLEB128";
+              v91 = MEMORY[0x277D85DF8];
+              v92 = *MEMORY[0x277D85DF8];
+              v93 = "truncated sleb128 expression";
+              v94 = "getSLEB128";
               goto LABEL_144;
             }
 
-            v34 = v33;
-            v33 += 7;
-            v36 = *v32;
-            v32 = (v32 + 1);
-            v35 = v36;
-            v31 |= (v36 & 0x7F) << v33;
+            v33 = v32;
+            v32 += 7;
+            v35 = *v31;
+            v31 = (v31 + 1);
+            v34 = v35;
+            v30 |= (v35 & 0x7F) << v32;
           }
 
-          while ((v36 & 0x80) != 0);
-          v37 = v34 + 14;
-          v38 = v33 < 0x39 && v35 > 0x3F;
-          v39 = -1 << v37;
-          if (!v38)
+          while ((v35 & 0x80) != 0);
+          v36 = v33 + 14;
+          v37 = v32 < 0x39 && v34 > 0x3F;
+          v38 = -1 << v36;
+          if (!v37)
           {
-            v39 = 0;
+            v38 = 0;
           }
 
-          v99 = v32;
-          if (v30 <= 29)
+          v95 = v31;
+          if (v29 <= 29)
           {
-            if (v30 == -2)
+            if (v29 == -2)
             {
               goto LABEL_132;
             }
 
-            if (v30 != -1)
+            if (v29 != -1)
             {
-              if (v30 == 29)
+              if (v29 == 29)
               {
                 v25 = *v10;
-                v27 = v31 | v39;
+                v26 = v30 | v38;
                 goto LABEL_37;
               }
 
 LABEL_137:
-              if (v30 <= 0x1C)
+              if (v29 <= 0x1C)
               {
-                v25 = a2[v30 & 0x1F];
-                v27 = v31 | v39;
+                v25 = a2[v29 & 0x1F];
+                v26 = v30 | v38;
                 goto LABEL_37;
               }
 
 LABEL_145:
-              v95 = MEMORY[0x277D85DF8];
-              v96 = *MEMORY[0x277D85DF8];
-              v97 = "unsupported arm64 register";
-              v98 = "getRegister";
+              v91 = MEMORY[0x277D85DF8];
+              v92 = *MEMORY[0x277D85DF8];
+              v93 = "unsupported arm64 register";
+              v94 = "getRegister";
 LABEL_144:
-              fprintf(v96, "libunwind: %s - %s\n", v98, v97);
-              fflush(*v95);
+              fprintf(v92, "libunwind: %s - %s\n", v94, v93);
+              fflush(*v91);
               abort();
             }
 
 LABEL_128:
             v25 = a2[32];
-            v92 = *v11;
-            v27 = v31 | v39;
+            v26 = v30 | v38;
             goto LABEL_37;
           }
 
-          if (v30 > 31)
+          if (v29 > 31)
           {
-            if (v30 == 34)
+            if (v29 == 34)
             {
               v25 = a2[33];
-              v27 = v31 | v39;
+              v26 = v30 | v38;
               goto LABEL_37;
             }
 
-            if (v30 != 32)
+            if (v29 != 32)
             {
               goto LABEL_137;
             }
@@ -3762,96 +3622,92 @@ LABEL_128:
             goto LABEL_128;
           }
 
-          if (v30 == 30)
+          if (v29 == 30)
           {
             v25 = *v9;
-            v27 = v31 | v39;
+            v26 = v30 | v38;
           }
 
           else
           {
 LABEL_132:
             v25 = *v11;
-            v27 = v31 | v39;
+            v26 = v30 | v38;
           }
 
 LABEL_37:
-          v12 = v25 + v27;
+          v12 = v25 + v26;
 LABEL_4:
           v8[1] = v12;
           ++v8;
 LABEL_5:
-          v6 = v99;
-          if (v99 >= v7)
+          v6 = v95;
+          if (v95 >= v7)
           {
-            a3 = *v8;
-            break;
+            return *v8;
           }
 
           continue;
         case 147:
-          v95 = MEMORY[0x277D85DF8];
-          v96 = *MEMORY[0x277D85DF8];
-          v97 = "DW_OP_piece not implemented";
+          v91 = MEMORY[0x277D85DF8];
+          v92 = *MEMORY[0x277D85DF8];
+          v93 = "DW_OP_piece not implemented";
           goto LABEL_149;
         case 148:
-          v78 = *v8;
-          v99 = (v6 + 2);
-          v79 = *(v6 + 1);
-          if (v79 > 3)
+          v77 = *v8;
+          v95 = (v6 + 2);
+          v78 = *(v6 + 1);
+          if (v78 > 3)
           {
-            if (v79 == 4)
+            if (v78 == 4)
             {
-              v42 = *v78;
+              v41 = *v77;
               goto LABEL_106;
             }
 
-            if (v79 == 8)
+            if (v78 == 8)
             {
-              v42 = *v78;
+              v41 = *v77;
               goto LABEL_106;
             }
           }
 
           else
           {
-            if (v79 == 1)
+            if (v78 == 1)
             {
-              v42 = *v78;
+              v41 = *v77;
               goto LABEL_106;
             }
 
-            if (v79 == 2)
+            if (v78 == 2)
             {
-              v42 = *v78;
+              v41 = *v77;
 LABEL_106:
-              *v8 = v42;
+              *v8 = v41;
               goto LABEL_5;
             }
           }
 
-          v95 = MEMORY[0x277D85DF8];
-          v96 = *MEMORY[0x277D85DF8];
-          v97 = "DW_OP_deref_size with bad size";
+          v91 = MEMORY[0x277D85DF8];
+          v92 = *MEMORY[0x277D85DF8];
+          v93 = "DW_OP_deref_size with bad size";
 LABEL_149:
-          v98 = "evaluateExpression";
+          v94 = "evaluateExpression";
           goto LABEL_144;
         default:
-          v95 = MEMORY[0x277D85DF8];
-          v96 = *MEMORY[0x277D85DF8];
-          v97 = "DWARF opcode not implemented";
+          v91 = MEMORY[0x277D85DF8];
+          v92 = *MEMORY[0x277D85DF8];
+          v93 = "DWARF opcode not implemented";
           goto LABEL_149;
       }
-
-      break;
     }
   }
 
-  v93 = *MEMORY[0x277D85DE8];
   return a3;
 }
 
-uint64_t *libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getSavedRegister(uint64_t *a1, uint64_t *a2, int a3, unint64_t *a4)
+uint64_t libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getSavedRegister(uint64_t *a1, uint64_t a2, int a3, unint64_t *a4)
 {
   if (a3 <= 4)
   {
@@ -3859,7 +3715,7 @@ uint64_t *libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::R
     {
       if (a3 == 2 || a3 == 3)
       {
-        return *(a2 + a4);
+        return *(a4 + a2);
       }
 
       goto LABEL_30;
@@ -3877,7 +3733,7 @@ uint64_t *libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::R
         case 0xFFFFFFFE:
           return a1[31];
         case 0xFFFFFFFF:
-          goto LABEL_24;
+          return a1[32];
         case 0x1D:
           return a1[29];
       }
@@ -3902,21 +3758,19 @@ uint64_t *libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::R
 
       if (a4 == 32)
       {
-LABEL_24:
-        v5 = a1[31];
         return a1[32];
       }
     }
 
     if (a4 > 0x1C)
     {
-      v6 = MEMORY[0x277D85DF8];
-      v7 = *MEMORY[0x277D85DF8];
-      v8 = "unsupported arm64 register";
-      v9 = "getRegister";
+      v5 = MEMORY[0x277D85DF8];
+      v6 = *MEMORY[0x277D85DF8];
+      v7 = "unsupported arm64 register";
+      v8 = "getRegister";
 LABEL_31:
-      fprintf(v7, "libunwind: %s - %s\n", v9, v8);
-      fflush(*v6);
+      fprintf(v6, "libunwind: %s - %s\n", v8, v7);
+      fflush(*v5);
       abort();
     }
 
@@ -3931,29 +3785,29 @@ LABEL_31:
   if (a3 != 7)
   {
 LABEL_30:
-    v6 = MEMORY[0x277D85DF8];
-    v7 = *MEMORY[0x277D85DF8];
-    v8 = "unsupported restore location for register";
-    v9 = "getSavedRegister";
+    v5 = MEMORY[0x277D85DF8];
+    v6 = *MEMORY[0x277D85DF8];
+    v7 = "unsupported restore location for register";
+    v8 = "getSavedRegister";
     goto LABEL_31;
   }
 
   return libunwind::DwarfInstructions<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::evaluateExpression(a4, a1, a2);
 }
 
-void *libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::setReg(void *result, int a2, uint64_t a3)
+void *libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::setReg(void *result, unsigned int a2, uint64_t a3)
 {
   if (a2 <= 29)
   {
     switch(a2)
     {
-      case -2:
+      case 0xFFFFFFFE:
 LABEL_12:
         result[33] = a3;
         return result;
-      case -1:
+      case 0xFFFFFFFF:
         goto LABEL_11;
-      case 29:
+      case 0x1Du:
         result[31] = a3;
         return result;
     }
@@ -3972,7 +3826,6 @@ LABEL_12:
     if (a2 == 32)
     {
 LABEL_11:
-      v3 = result[33];
       result[34] = a3;
       return result;
     }
@@ -3980,9 +3833,9 @@ LABEL_11:
 LABEL_13:
     if (a2 > 0x1C)
     {
-      v4 = MEMORY[0x277D85DF8];
+      v3 = MEMORY[0x277D85DF8];
       fprintf(*MEMORY[0x277D85DF8], "libunwind: %s - %s\n", "setRegister", "unsupported arm64 register");
-      fflush(*v4);
+      fflush(*v3);
       abort();
     }
 
@@ -3999,17 +3852,17 @@ LABEL_13:
   return result;
 }
 
-uint64_t libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getReg(void *a1, int a2)
+uint64_t libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::getReg(void *a1, unsigned int a2)
 {
   if (a2 <= 29)
   {
     switch(a2)
     {
-      case -2:
+      case 0xFFFFFFFE:
         return a1[33];
-      case -1:
-        goto LABEL_11;
-      case 29:
+      case 0xFFFFFFFF:
+        return a1[34];
+      case 0x1Du:
         return a1[31];
     }
 
@@ -4025,17 +3878,15 @@ uint64_t libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registe
 
     if (a2 == 32)
     {
-LABEL_11:
-      v3 = a1[33];
       return a1[34];
     }
 
 LABEL_13:
     if (a2 > 0x1C)
     {
-      v4 = MEMORY[0x277D85DF8];
+      v3 = MEMORY[0x277D85DF8];
       fprintf(*MEMORY[0x277D85DF8], "libunwind: %s - %s\n", "getRegister", "unsupported arm64 register");
-      fflush(*v4);
+      fflush(*v3);
       abort();
     }
 
@@ -4050,7 +3901,7 @@ LABEL_13:
   return a1[32];
 }
 
-uint64_t libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::validReg(uint64_t a1, unsigned int a2)
+BOOL libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::validReg(uint64_t a1, unsigned int a2)
 {
   v2 = a2 == 34 || a2 - 64 < 0xFFFFFFE1;
   if (a2 > 0x5F)
@@ -4059,6 +3910,98 @@ uint64_t libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registe
   }
 
   return a2 > 0xFFFFFFFD || v2;
+}
+
+int unw_get_reg(unw_cursor_t *a1, unw_regnum_t a2, unw_word_t *a3)
+{
+  v4 = *&a2;
+  if (!(*(a1->data[0] + 16))(a1))
+  {
+    return -6542;
+  }
+
+  v6 = (*(a1->data[0] + 24))(a1, v4);
+  result = 0;
+  *a3 = v6;
+  return result;
+}
+
+int unw_set_reg(unw_cursor_t *a1, unw_regnum_t a2, unw_word_t a3)
+{
+  v4 = *&a2;
+  v11 = a3;
+  if (!(*(a1->data[0] + 16))(a1))
+  {
+    return -6542;
+  }
+
+  if (v4 == -1)
+  {
+    (*(a1->data[0] + 72))(a1, v9);
+    v7 = (*(a1->data[0] + 24))(a1, 4294967294);
+    (*(a1->data[0] + 24))(a1, 0xFFFFFFFFLL);
+    if (v10)
+    {
+      (*(a1->data[0] + 32))(a1, 4294967294, v10 + v7);
+      if (!__unw_is_pointer_auth_enabled())
+      {
+        v11 = a3;
+        if (__unw_is_pointer_auth_enabled())
+        {
+          v11 = -1;
+          goto LABEL_14;
+        }
+      }
+    }
+
+    else if (!__unw_is_pointer_auth_enabled())
+    {
+      v11 = a3;
+      if (__unw_is_pointer_auth_enabled())
+      {
+        v11 = -1;
+LABEL_14:
+        v11 = -1;
+        v8 = MEMORY[0x277D85DF8];
+        fprintf(*MEMORY[0x277D85DF8], "libunwind: %s - %s\n", "__unw_set_reg", "Inconsistent invalid authentication state");
+        fflush(*v8);
+        abort();
+      }
+    }
+
+    (*(a1->data[0] + 32))(a1, 0xFFFFFFFFLL, v11);
+    (*(a1->data[0] + 104))(a1, 0);
+    return 0;
+  }
+
+  (*(a1->data[0] + 32))(a1, v4, a3);
+  return 0;
+}
+
+int unw_get_fpreg(unw_cursor_t *a1, unw_regnum_t a2, unw_fpreg_t *a3)
+{
+  v4 = *&a2;
+  if (!(*(a1->data[0] + 40))(a1))
+  {
+    return -6542;
+  }
+
+  v6 = (*(a1->data[0] + 48))(a1, v4);
+  result = 0;
+  *a3 = v6;
+  return result;
+}
+
+int unw_set_fpreg(unw_cursor_t *a1, unw_regnum_t a2, unw_fpreg_t a3)
+{
+  v4 = *&a2;
+  if (!(*(a1->data[0] + 40))(a1))
+  {
+    return -6542;
+  }
+
+  (*(a1->data[0] + 56))(a1, v4, a3);
+  return 0;
 }
 
 int unw_get_proc_info(unw_cursor_t *a1, unw_proc_info_t *a2)
@@ -4098,12 +4041,12 @@ int unw_get_proc_name(unw_cursor_t *a1, char *a2, size_t a3, unw_word_t *a4)
 uint64_t unw_iterate_dwarf_unwind_cache(void (*a1)(uint64_t, uint64_t, uint64_t, uint64_t))
 {
   pthread_rwlock_wrlock(&libunwind::DwarfFDECache<libunwind::LocalAddressSpace>::_lock);
-  for (i = libunwind::DwarfFDECache<libunwind::LocalAddressSpace>::_buffer[0]; i < libunwind::DwarfFDECache<libunwind::LocalAddressSpace>::_bufferUsed; i += 2)
+  for (i = libunwind::DwarfFDECache<libunwind::LocalAddressSpace>::_buffer[0]; i < libunwind::DwarfFDECache<libunwind::LocalAddressSpace>::_bufferUsed; i += 4)
   {
-    v3 = *(i + 2);
-    v4 = *(i + 3);
+    v3 = i[2];
+    v4 = i[3];
     v6 = *i;
-    v5 = *(i + 1);
+    v5 = i[1];
     a1(v5, v3, v4, v6);
   }
 
@@ -4487,7 +4430,6 @@ uint64_t unwind_phase2(void *__src, unw_cursor_t *a2, void *a3)
   *&a2->data[66] = v15;
   *&a2->data[60] = v17;
   *&a2->data[62] = v16;
-  v18 = a2->data[33];
   a2->data[34] = a2->data[34];
   *&a2->data[68] = 0u;
   *&a2->data[70] = 0u;
@@ -4497,50 +4439,50 @@ uint64_t unwind_phase2(void *__src, unw_cursor_t *a2, void *a3)
   libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::setInfoBasedOnIPRegister(a2, 0);
   for (i = 2; ; ++i)
   {
-    v20 = (*(a2->data[0] + 64))(a2, 1);
-    if (!v20)
+    v19 = (*(a2->data[0] + 64))(a2, 1);
+    if (!v19)
     {
       return 5;
     }
 
-    if (v20 < 0)
+    if (v19 < 0)
     {
       break;
     }
 
-    v30 = 0;
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
+    v29 = 0;
     v27 = 0u;
-    v21 = 0;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v20 = 0;
     if ((*(a2->data[0] + 16))(a2, 4294967294))
     {
-      v21 = (*(a2->data[0] + 24))(a2, 4294967294);
+      v20 = (*(a2->data[0] + 24))(a2, 4294967294);
     }
 
-    (*(a2->data[0] + 72))(a2, &v26);
-    if (!*(&v26 + 1))
+    (*(a2->data[0] + 72))(a2, &v25);
+    if (!*(&v25 + 1))
     {
       break;
     }
 
-    if (*(&v27 + 1))
+    if (*(&v26 + 1))
     {
-      if (v21 == a3[3])
+      if (v20 == a3[3])
       {
-        v22 = 6;
+        v21 = 6;
       }
 
       else
       {
-        v22 = 2;
+        v21 = 2;
       }
 
-      v23 = (*(&v27 + 1))(1, v22, *a3, a3, a2);
-      if (v23 != 8)
+      v22 = (*(&v26 + 1))(1, v21, *a3, a3, a2);
+      if (v22 != 8)
       {
-        if (v23 == 7)
+        if (v22 == 7)
         {
           unw_resume_with_frames_walked(a2);
         }
@@ -4548,11 +4490,11 @@ uint64_t unwind_phase2(void *__src, unw_cursor_t *a2, void *a3)
         return 2;
       }
 
-      if (v21 == a3[3])
+      if (v20 == a3[3])
       {
-        v24 = MEMORY[0x277D85DF8];
+        v23 = MEMORY[0x277D85DF8];
         fprintf(*MEMORY[0x277D85DF8], "libunwind: %s - %s\n", "unwind_phase2", "during phase1 personality function said it would stop here, but now in phase2 it did not stop here");
-        fflush(*v24);
+        fflush(*v23);
         abort();
       }
     }
@@ -4616,7 +4558,6 @@ uint64_t unwind_phase2_forced(void *__src, unw_cursor_t *a2, void *a3, uint64_t 
   *&a2->data[66] = v19;
   *&a2->data[60] = v21;
   *&a2->data[62] = v20;
-  v22 = a2->data[33];
   a2->data[34] = a2->data[34];
   *&a2->data[68] = 0u;
   *&a2->data[70] = 0u;
@@ -4624,16 +4565,16 @@ uint64_t unwind_phase2_forced(void *__src, unw_cursor_t *a2, void *a3, uint64_t 
   *&a2->data[74] = 0u;
   *(&a2->data[75] + 2) = 0u;
   libunwind::UnwindCursor<libunwind::LocalAddressSpace,libunwind::Registers_arm64>::setInfoBasedOnIPRegister(a2, 0);
-  v23 = 2;
+  v22 = 2;
   while ((*(a2->data[0] + 64))(a2, 1) >= 1)
   {
-    v29 = 0;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
+    v28 = 0;
     v26 = 0u;
-    result = (*(a2->data[0] + 72))(a2, &v25);
-    if (!*(&v25 + 1))
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    result = (*(a2->data[0] + 72))(a2, &v24);
+    if (!*(&v24 + 1))
     {
       return result;
     }
@@ -4644,9 +4585,9 @@ uint64_t unwind_phase2_forced(void *__src, unw_cursor_t *a2, void *a3, uint64_t 
       return result;
     }
 
-    if (*(&v26 + 1))
+    if (*(&v25 + 1))
     {
-      result = (*(&v26 + 1))(1, 10, *a3, a3, a2);
+      result = (*(&v25 + 1))(1, 10, *a3, a3, a2);
       if (result != 8)
       {
         if (result != 7)
@@ -4658,7 +4599,7 @@ uint64_t unwind_phase2_forced(void *__src, unw_cursor_t *a2, void *a3, uint64_t 
       }
     }
 
-    ++v23;
+    ++v22;
   }
 
   return a4(1, 26, *a3, a3, a2, a5);
@@ -4717,6 +4658,19 @@ void _Unwind_DeleteException(_Unwind_Exception *exception_object)
   {
     (exception_cleanup)(1, exception_object);
   }
+}
+
+uintptr_t _Unwind_GetGR(_Unwind_Context *context, int index)
+{
+  v2 = *&index;
+  if (!(*(*context + 16))(context))
+  {
+    return 0;
+  }
+
+  v4 = *(*context + 24);
+
+  return v4(context, v2);
 }
 
 uintptr_t _Unwind_GetIP(_Unwind_Context *context)

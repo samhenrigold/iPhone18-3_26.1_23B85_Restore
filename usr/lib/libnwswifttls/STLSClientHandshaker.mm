@@ -27,15 +27,15 @@
     request = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
-  _s15SwiftTLSLibrary23PAKEClientConfigurationVSgWOi0_(v30);
-  v32[4] = v30[4];
-  v32[5] = v30[5];
-  v33[0] = v31[0];
-  *(v33 + 9) = *(v31 + 9);
-  v32[0] = v30[0];
-  v32[1] = v30[1];
-  v32[2] = v30[2];
-  v32[3] = v30[3];
+  _s15SwiftTLSLibrary23PAKEClientConfigurationVSgWOi0_(v27);
+  v29[4] = v27[4];
+  v29[5] = v27[5];
+  v30[0] = v28[0];
+  *(v30 + 9) = *(v28 + 9);
+  v29[0] = v27[0];
+  v29[1] = v27[1];
+  v29[2] = v27[2];
+  v29[3] = v27[3];
   objc_allocWithZone(ObjectType);
   initCopy = init;
   nameCopy = name;
@@ -43,12 +43,10 @@
   alpnCopy = alpn;
   stateCopy = state;
   keyCopy = key;
-  v26 = STLSClientHandshaker.init(_:serverName:quicTransportParameters:alpn:sessionState:ticketRequest:keyExchangeGroup:externalPreSharedKey:rawEPSKsEnabled:enableEarlyData:pakeClientConfiguration:)(init, name, parameters, alpn, state, request, group, key, enabled, data, v32);
+  v25 = STLSClientHandshaker.init(_:serverName:quicTransportParameters:alpn:sessionState:ticketRequest:keyExchangeGroup:externalPreSharedKey:rawEPSKsEnabled:enableEarlyData:pakeClientConfiguration:)(init, name, parameters, alpn, state, request, group, key, enabled, data, v29);
   swift_getObjectType();
-  v27 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x30);
-  v28 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x34);
   swift_deallocPartialClassInstance();
-  return v26;
+  return v25;
 }
 
 - (int64_t)getEncryptionLevelWithWrite:(BOOL)write
@@ -96,24 +94,23 @@
 {
   v3 = type metadata accessor for HandshakeStateMachine(0);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = OBJC_IVAR____TtC10nwswifttls20STLSClientHandshaker_stateMachine;
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = OBJC_IVAR____TtC10nwswifttls20STLSClientHandshaker_stateMachine;
   swift_beginAccess();
-  if ((*(v4 + 48))(self + v8, 1, v3))
+  if ((*(v4 + 48))(self + v7, 1, v3))
   {
-    v9 = 0;
+    v8 = 0;
   }
 
   else
   {
-    outlined init with copy of HandshakeStateMachine(self + v8, v7, type metadata accessor for HandshakeStateMachine);
-    v9 = HandshakeStateMachine.earlyDataAccepted.getter();
-    outlined destroy of ExportedAuthenticator(v7, type metadata accessor for HandshakeStateMachine);
+    outlined init with copy of HandshakeStateMachine(self + v7, v6, type metadata accessor for HandshakeStateMachine);
+    v8 = HandshakeStateMachine.earlyDataAccepted.getter();
+    outlined destroy of ExportedAuthenticator(v6, type metadata accessor for HandshakeStateMachine);
   }
 
-  return v9 & 1;
+  return v8 & 1;
 }
 
 - (int)getErrorCode
@@ -190,14 +187,13 @@
 - (id)getNegotiatedGroup
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SwiftTLSLibrary21HandshakeStateMachineVSgMd, &_s15SwiftTLSLibrary21HandshakeStateMachineVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v17 - v5;
-  v7 = OBJC_IVAR____TtC10nwswifttls20STLSClientHandshaker_stateMachine;
+  v5 = &v16 - v4;
+  v6 = OBJC_IVAR____TtC10nwswifttls20STLSClientHandshaker_stateMachine;
   swift_beginAccess();
-  outlined init with copy of Any?(self + v7, v6, &_s15SwiftTLSLibrary21HandshakeStateMachineVSgMd, &_s15SwiftTLSLibrary21HandshakeStateMachineVSgMR);
-  v8 = type metadata accessor for HandshakeStateMachine(0);
-  result = (*(*(v8 - 8) + 48))(v6, 1, v8);
+  outlined init with copy of Any?(self + v6, v5, &_s15SwiftTLSLibrary21HandshakeStateMachineVSgMd, &_s15SwiftTLSLibrary21HandshakeStateMachineVSgMR);
+  v7 = type metadata accessor for HandshakeStateMachine(0);
+  result = (*(*(v7 - 8) + 48))(v5, 1, v7);
   if (result == 1)
   {
     __break(1u);
@@ -206,33 +202,33 @@
   else
   {
     selfCopy = self;
-    v11 = HandshakeStateMachine.negotiatedGroup.getter();
-    v13 = v12;
-    outlined destroy of ExportedAuthenticator(v6, type metadata accessor for HandshakeStateMachine);
+    v10 = HandshakeStateMachine.negotiatedGroup.getter();
+    v12 = v11;
+    outlined destroy of ExportedAuthenticator(v5, type metadata accessor for HandshakeStateMachine);
 
-    if (v13)
+    if (v12)
     {
-      v14 = v11;
+      v13 = v10;
     }
 
     else
     {
-      v14 = 0;
+      v13 = 0;
     }
 
-    if (v13)
+    if (v12)
     {
-      v15 = v13;
+      v14 = v12;
     }
 
     else
     {
-      v15 = 0xE000000000000000;
+      v14 = 0xE000000000000000;
     }
 
-    v16 = MEMORY[0x1B274D5C0](v14, v15);
+    v15 = MEMORY[0x1B274D5C0](v13, v14);
 
-    return v16;
+    return v15;
   }
 
   return result;

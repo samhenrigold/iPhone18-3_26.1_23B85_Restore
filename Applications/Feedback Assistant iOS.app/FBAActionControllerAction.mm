@@ -12,21 +12,18 @@
 
 - (NSString)title
 {
-  v2 = *(self + OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_title);
-  v3 = *(self + OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_title + 8);
 
-  v4 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v2;
 }
 
 - (void)setTitle:(id)title
 {
   v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = (self + OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_title);
-  v6 = *(self + OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_title + 8);
   *v5 = v4;
-  v5[1] = v7;
+  v5[1] = v6;
 }
 
 - (void)setImage:(id)image
@@ -56,7 +53,6 @@
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
   v6 = (self + OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_actionHandler);
-  v7 = *(self + OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_actionHandler + 8);
   *v6 = sub_10006C004;
   v6[1] = v5;
 }
@@ -78,10 +74,10 @@
   v14 = (self + OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_actionHandler);
   *v14 = sub_10006C004;
   v14[1] = v11;
-  v17.receiver = self;
-  v17.super_class = type metadata accessor for FBAActionControllerAction();
+  v18.receiver = self;
+  v18.super_class = type metadata accessor for FBAActionControllerAction(v11, v15);
   imageCopy = image;
-  return [(FBAActionControllerAction *)&v17 init];
+  return [(FBAActionControllerAction *)&v18 init];
 }
 
 - (_TtC18Feedback_Assistant25FBAActionControllerAction)init

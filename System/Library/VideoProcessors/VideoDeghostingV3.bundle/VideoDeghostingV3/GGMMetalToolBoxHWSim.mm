@@ -1,9 +1,12 @@
 @interface GGMMetalToolBoxHWSim
 - (GGMMetalToolBoxHWSim)initWithMetalContext:(id)context tuningParamDict:(id)dict;
 - (__CVBuffer)convertInputYUVToRGB:(__CVBuffer *)b;
+- (__CVBuffer)resizeImage:(__CVBuffer *)image withFactor:(float)factor waitForComplete:(BOOL)complete;
 - (int)_compileHWSimShaders;
-- (void)backWarpYUV:(double)v warped:(double)warped withHomography:(uint64_t)homography waitForComplete:(__CVBuffer *)complete;
+- (void)YCbCrToRGB:(__CVBuffer *)b outputImage:(__CVBuffer *)image waitForComplete:(BOOL)complete;
+- (void)backWarpYUV:(double)v warped:(double)warped withHomography:(uint64_t)homography waitForComplete:(uint64_t)complete;
 - (void)convertRGBToYuv:(__CVBuffer *)yuv outputBuf:(__CVBuffer *)buf;
+- (void)convertYUV2Gray:(__CVBuffer *)gray gray:(__CVBuffer *)a4 waitForComplete:(BOOL)complete;
 - (void)dealloc;
 - (void)encodeBackWarpYUVToCommandBuffer:(__n128)buffer reference:(__n128)reference ToOutput:(uint64_t)output withHomography:(void *)homography;
 - (void)encodeCopyYUV:(id)v input:(id)input output:(id)output;
@@ -271,6 +274,46 @@
   return PixelBuffer;
 }
 
+- (void)YCbCrToRGB:(__CVBuffer *)b outputImage:(__CVBuffer *)image waitForComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
+  metalContext = [(GGMMetalToolBox *)self metalContext];
+  v10 = createSingleTextureFromYuvBuffer(b, metalContext, 0, 0);
+
+  metalContext2 = [(GGMMetalToolBox *)self metalContext];
+  v12 = createTextureFromCVPixelBuffer(image, metalContext2, 0);
+
+  [(GGMMetalToolBoxHWSim *)self encodeYCbCrToRGBToCommandBuffer:commandBuffer inputTexture:v10 toOutTexture:v12];
+  [commandBuffer setLabel:@"ideoDeghostingV3MetalToolBoxHWSim_YUV2RGB"];
+  [(GGMMetalToolBoxHWSim *)self commitCmdBuffer:commandBuffer waitForComplete:completeCopy];
+}
+
+- (__CVBuffer)resizeImage:(__CVBuffer *)image withFactor:(float)factor waitForComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  v9 = [[MPSImageBilinearScale alloc] initWithDevice:self->_device];
+  v19[0] = factor;
+  v19[1] = factor;
+  v19[2] = 0.0;
+  v19[3] = 0.0;
+  [v9 setScaleTransform:v19];
+  v10 = (CVPixelBufferGetWidth(image) * factor);
+  Height = CVPixelBufferGetHeight(image);
+  PixelBufferFromInputWithDifferentRes = createPixelBufferFromInputWithDifferentRes(image, v10, (Height * factor));
+  metalContext = [(GGMMetalToolBox *)self metalContext];
+  v14 = createTextureFromCVPixelBuffer(image, metalContext, 0);
+
+  metalContext2 = [(GGMMetalToolBox *)self metalContext];
+  v16 = createTextureFromCVPixelBuffer(PixelBufferFromInputWithDifferentRes, metalContext2, 0);
+
+  commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
+  [v9 encodeToCommandBuffer:commandBuffer sourceTexture:v14 destinationTexture:v16];
+  [(GGMMetalToolBoxHWSim *)self commitCmdBuffer:commandBuffer waitForComplete:completeCopy];
+
+  return PixelBufferFromInputWithDifferentRes;
+}
+
 - (void)convertRGBToYuv:(__CVBuffer *)yuv outputBuf:(__CVBuffer *)buf
 {
   commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
@@ -281,14 +324,14 @@
   v10 = createTextureFromCVPixelBuffer(buf, metalContext2, 0);
 
   metalContext3 = [(GGMMetalToolBox *)self metalContext];
-  v12 = createTextureFromCVPixelBuffer(buf, metalContext3, 1u);
+  v12 = createTextureFromCVPixelBuffer(buf, metalContext3, 1);
 
   [(GGMMetalToolBoxHWSim *)self encodeloadRGBAsYuvToCommandBuffer:commandBuffer inputBuf:v8 toOutLuma:v10 toOutCbCr:v12];
   [commandBuffer setLabel:@"VideoDeghostingV3MetalToolBoxHWSim_RGB2YUV"];
   [(GGMMetalToolBoxHWSim *)self commitCmdBuffer:commandBuffer waitForComplete:0];
 }
 
-- (void)backWarpYUV:(double)v warped:(double)warped withHomography:(uint64_t)homography waitForComplete:(__CVBuffer *)complete
+- (void)backWarpYUV:(double)v warped:(double)warped withHomography:(uint64_t)homography waitForComplete:(uint64_t)complete
 {
   commandBuffer = [self[89] commandBuffer];
   metalContext = [self metalContext];
@@ -302,6 +345,20 @@
   [self commitCmdBuffer:commandBuffer waitForComplete:a8];
 }
 
+- (void)convertYUV2Gray:(__CVBuffer *)gray gray:(__CVBuffer *)a4 waitForComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
+  metalContext = [(GGMMetalToolBox *)self metalContext];
+  v10 = createTextureFromCVPixelBuffer(a4, metalContext, 0);
+
+  metalContext2 = [(GGMMetalToolBox *)self metalContext];
+  v12 = createSingleTextureFromYuvBuffer(gray, metalContext2, 0, 0);
+
+  [(GGMMetalToolBoxHWSim *)self encodeYUV2GrayToCommandBuffer:commandBuffer InputYUV:v12 ToOutput:v10];
+  [(GGMMetalToolBoxHWSim *)self commitCmdBuffer:commandBuffer waitForComplete:completeCopy];
+}
+
 - (GGMMetalToolBoxHWSim)initWithMetalContext:(id)context tuningParamDict:(id)dict
 {
   contextCopy = context;
@@ -309,15 +366,15 @@
   if (!contextCopy)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, v15.receiver, v15.super_class, v16, v17, v18, v19);
 LABEL_7:
     selfCopy = 0;
     goto LABEL_5;
   }
 
-  v14.receiver = self;
-  v14.super_class = GGMMetalToolBoxHWSim;
-  self = [(GGMMetalToolBox *)&v14 initWithMetalContext:contextCopy tuningParamDict:dictCopy];
+  v15.receiver = self;
+  v15.super_class = GGMMetalToolBoxHWSim;
+  self = [(GGMMetalToolBox *)&v15 initWithMetalContext:contextCopy tuningParamDict:dictCopy];
   if (!self)
   {
     goto LABEL_7;

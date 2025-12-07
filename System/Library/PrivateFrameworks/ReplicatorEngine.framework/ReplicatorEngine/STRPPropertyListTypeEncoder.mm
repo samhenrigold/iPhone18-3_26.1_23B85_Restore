@@ -1,11 +1,14 @@
 @interface STRPPropertyListTypeEncoder
 - (STRPPropertyListTypeEncoder)init;
 - (id)_encodeRawObject:(id)object;
+- (void)encodeBool:(BOOL)bool forKey:(id)key;
 - (void)encodeBytes:(const char *)bytes length:(unint64_t)length forKey:(id)key;
 - (void)encodeConditionalObject:(id)object forKey:(id)key;
 - (void)encodeDouble:(double)double forKey:(id)key;
 - (void)encodeFloat:(float)float forKey:(id)key;
+- (void)encodeInt32:(int)int32 forKey:(id)key;
 - (void)encodeInt64:(int64_t)int64 forKey:(id)key;
+- (void)encodeInt:(int)int forKey:(id)key;
 - (void)encodeObject:(id)object forKey:(id)key;
 @end
 
@@ -32,18 +35,19 @@
   keyCopy = key;
   if (objectCopy)
   {
-    if ([objectCopy conformsToProtocol:&unk_1F5A28760])
+    v8 = [objectCopy conformsToProtocol:&unk_1F5A28760];
+    if (v8)
     {
-      v8 = [(STRPPropertyListTypeEncoder *)self _encodeRawObject:objectCopy];
-      [(NSMutableDictionary *)self->_storage setObject:v8 forKey:keyCopy];
+      v9 = [(STRPPropertyListTypeEncoder *)self _encodeRawObject:objectCopy];
+      [(NSMutableDictionary *)self->_storage setObject:v9 forKey:keyCopy];
     }
 
     else
     {
-      v9 = STRPLogCoding();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v10 = STRPLogCoding(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        [STRPPropertyListTypeEncoder encodeObject:keyCopy forKey:v9];
+        [STRPPropertyListTypeEncoder encodeObject:keyCopy forKey:v10];
       }
     }
   }
@@ -52,11 +56,41 @@
 - (void)encodeConditionalObject:(id)object forKey:(id)key
 {
   keyCopy = key;
-  v5 = STRPLogCoding();
+  v5 = STRPLogCoding(keyCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     [STRPPropertyListTypeEncoder encodeConditionalObject:keyCopy forKey:v5];
   }
+}
+
+- (void)encodeBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  storage = self->_storage;
+  v6 = MEMORY[0x1E696AD98];
+  keyCopy = key;
+  v8 = [v6 numberWithBool:boolCopy];
+  [(NSMutableDictionary *)storage setObject:v8 forKey:keyCopy];
+}
+
+- (void)encodeInt:(int)int forKey:(id)key
+{
+  v4 = *&int;
+  storage = self->_storage;
+  v6 = MEMORY[0x1E696AD98];
+  keyCopy = key;
+  v8 = [v6 numberWithInt:v4];
+  [(NSMutableDictionary *)storage setObject:v8 forKey:keyCopy];
+}
+
+- (void)encodeInt32:(int)int32 forKey:(id)key
+{
+  v4 = *&int32;
+  storage = self->_storage;
+  v6 = MEMORY[0x1E696AD98];
+  keyCopy = key;
+  v8 = [v6 numberWithInt:v4];
+  [(NSMutableDictionary *)storage setObject:v8 forKey:keyCopy];
 }
 
 - (void)encodeInt64:(int64_t)int64 forKey:(id)key
@@ -183,20 +217,18 @@ void __48__STRPPropertyListTypeEncoder__encodeRawObject___block_invoke(uint64_t 
 
 - (void)encodeObject:(uint64_t)a1 forKey:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1DEE0F000, a2, OS_LOG_TYPE_FAULT, "Must conform to secure coding. key='%{public}@'", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1DEE0F000, a2, OS_LOG_TYPE_FAULT, "Must conform to secure coding. key='%{public}@'", &v2, 0xCu);
 }
 
 - (void)encodeConditionalObject:(uint64_t)a1 forKey:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1DEE0F000, a2, OS_LOG_TYPE_FAULT, "-encodeConditionalObject: is not supported. key='%{public}@'", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1DEE0F000, a2, OS_LOG_TYPE_FAULT, "-encodeConditionalObject: is not supported. key='%{public}@'", &v2, 0xCu);
 }
 
 @end

@@ -26,7 +26,7 @@
     v10 = *&selfCopy->_anon_0[OBJC_IVAR____TtCV21TranslationAPISupport20AppExtensionHostView15HostCoordinator_remoteConnectionDidChange];
 
     v9(0);
-    sub_26F370E9C(v9);
+    sub_26F370E9C(v9, v10);
   }
 }
 

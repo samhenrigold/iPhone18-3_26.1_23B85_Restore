@@ -263,15 +263,15 @@ LABEL_9:
     copyXPCDictionary = [(CMIOExtensionPropertyAttributes *)attributes copyXPCDictionary];
     if (copyXPCDictionary)
     {
-      v6 = copyXPCDictionary;
+      v7 = copyXPCDictionary;
       xpc_dictionary_set_value(v3, "attributes", copyXPCDictionary);
-      xpc_release(v6);
+      xpc_release(v7);
     }
 
     else
     {
-      v7 = CMIOLog();
-      if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = CMIOLog(0, v6);
+      if (v8 && os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [CMIOExtensionPropertyState copyXPCDictionary];
       }
@@ -288,12 +288,13 @@ LABEL_9:
         value = self->_value;
         if (value)
         {
-          if (cmio_XPCMessageSetCFDictionary(v3, "value", value))
+          v28 = cmio_XPCMessageSetCFDictionary(v3, "value", value);
+          if (v28)
           {
-            v21 = CMIOLog();
-            if (v21)
+            v30 = CMIOLog(v28, v29);
+            if (v30)
             {
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyState copyXPCDictionary];
               }
@@ -304,17 +305,17 @@ LABEL_9:
         return v3;
       }
 
-      v24 = self->_value;
-      if (!v24)
+      v35 = self->_value;
+      if (!v35)
       {
         return v3;
       }
 
-      copyXPCDictionary2 = [v24 copyXPCDictionary];
+      copyXPCDictionary2 = [v35 copyXPCDictionary];
       if (!copyXPCDictionary2)
       {
-        v26 = CMIOLog();
-        if (v26 && os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v38 = CMIOLog(0, v37);
+        if (v38 && os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           [CMIOExtensionPropertyState copyXPCDictionary];
         }
@@ -327,17 +328,18 @@ LABEL_9:
     {
       if (objectType == 7)
       {
-        v27 = self->_value;
-        if (v27)
+        v39 = self->_value;
+        if (v39)
         {
-          if ([v27 count])
+          if ([v39 count])
           {
-            if (cmio_XPCMessageSetCFArray(v3, "value", v27))
+            v40 = cmio_XPCMessageSetCFArray(v3, "value", v39);
+            if (v40)
             {
-              v28 = CMIOLog();
-              if (v28)
+              v42 = CMIOLog(v40, v41);
+              if (v42)
               {
-                if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+                if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
                 {
                   [CMIOExtensionPropertyState copyXPCDictionary];
                 }
@@ -356,8 +358,8 @@ LABEL_9:
           goto LABEL_58;
         }
 
-        v11 = self->_value;
-        if (!v11)
+        v14 = self->_value;
+        if (!v14)
         {
           return v3;
         }
@@ -365,8 +367,8 @@ LABEL_9:
         empty = xpc_dictionary_create_empty();
         if (!empty)
         {
-          v31 = CMIOLog();
-          if (v31 && os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v46 = CMIOLog(0, v16);
+          if (v46 && os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
             [CMIOExtensionPropertyState copyXPCDictionary];
           }
@@ -374,12 +376,12 @@ LABEL_9:
           return v3;
         }
 
-        v13 = empty;
-        IOSurface = CVPixelBufferGetIOSurface(v11);
+        v17 = empty;
+        IOSurface = CVPixelBufferGetIOSurface(v14);
         if (!IOSurface)
         {
-          v33 = CMIOLog();
-          if (v33 && os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v48 = CMIOLog(0, v19);
+          if (v48 && os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
           {
             [CMIOExtensionPropertyState copyXPCDictionary];
           }
@@ -388,34 +390,34 @@ LABEL_9:
         }
 
         XPCObject = IOSurfaceCreateXPCObject(IOSurface);
-        xpc_dictionary_set_value(v13, "surface", XPCObject);
+        xpc_dictionary_set_value(v17, "surface", XPCObject);
         xpc_release(XPCObject);
-        v16 = CMCopyDictionaryOfAttachments(*MEMORY[0x277CBECE8], v11, 1u);
-        if (v16)
+        v21 = CMCopyDictionaryOfAttachments(*MEMORY[0x277CBECE8], v14, 1u);
+        if (v21)
         {
-          v17 = v16;
-          cmio_XPCMessageSetCFDictionary(v13, "attachments", v16);
-          CFRelease(v17);
+          v22 = v21;
+          cmio_XPCMessageSetCFDictionary(v17, "attachments", v21);
+          CFRelease(v22);
         }
 
 LABEL_56:
-        xpc_dictionary_set_value(v3, "value", v13);
+        xpc_dictionary_set_value(v3, "value", v17);
 LABEL_57:
-        xpc_release(v13);
+        xpc_release(v17);
         return v3;
       }
 
-      v29 = self->_value;
-      if (!v29)
+      v43 = self->_value;
+      if (!v43)
       {
         return v3;
       }
 
-      copyXPCDictionary2 = [v29 copyXPCDictionary];
+      copyXPCDictionary2 = [v43 copyXPCDictionary];
       if (!copyXPCDictionary2)
       {
-        v32 = CMIOLog();
-        if (v32 && os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v47 = CMIOLog(0, v44);
+        if (v47 && os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
           [CMIOExtensionPropertyState copyXPCDictionary];
         }
@@ -424,7 +426,7 @@ LABEL_57:
       }
     }
 
-    v13 = copyXPCDictionary2;
+    v17 = copyXPCDictionary2;
     goto LABEL_56;
   }
 
@@ -437,15 +439,16 @@ LABEL_57:
 
     if (objectType == 2)
     {
-      v9 = self->_value;
-      if (v9)
+      v10 = self->_value;
+      if (v10)
       {
-        if (cmio_XPCMessageSetCFData(v3, "value", v9))
+        v11 = cmio_XPCMessageSetCFData(v3, "value", v10);
+        if (v11)
         {
-          v10 = CMIOLog();
-          if (v10)
+          v13 = CMIOLog(v11, v12);
+          if (v13)
           {
-            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
               [CMIOExtensionPropertyState copyXPCDictionary];
             }
@@ -463,15 +466,16 @@ LABEL_58:
 
   if (objectType == 3)
   {
-    v22 = self->_value;
-    if (v22)
+    v31 = self->_value;
+    if (v31)
     {
-      if (cmio_XPCMessageSetCFNumber(v3, "value", v22))
+      v32 = cmio_XPCMessageSetCFNumber(v3, "value", v31);
+      if (v32)
       {
-        v23 = CMIOLog();
-        if (v23)
+        v34 = CMIOLog(v32, v33);
+        if (v34)
         {
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             [CMIOExtensionPropertyState copyXPCDictionary];
           }
@@ -482,15 +486,16 @@ LABEL_58:
 
   else
   {
-    v18 = self->_value;
-    if (v18)
+    v23 = self->_value;
+    if (v23)
     {
-      if (cmio_XPCMessageSetCFString(v3, "value", v18))
+      v24 = cmio_XPCMessageSetCFString(v3, "value", v23);
+      if (v24)
       {
-        v19 = CMIOLog();
-        if (v19)
+        v26 = CMIOLog(v24, v25);
+        if (v26)
         {
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             [CMIOExtensionPropertyState copyXPCDictionary];
           }
@@ -506,7 +511,7 @@ LABEL_58:
 {
   if (dictionary)
   {
-    v33 = 0;
+    v51 = 0;
     uint64 = xpc_dictionary_get_uint64(dictionary, "type");
     dictionary = xpc_dictionary_get_dictionary(dictionary, "attributes");
     if (dictionary)
@@ -514,11 +519,11 @@ LABEL_58:
       dictionary = [[CMIOExtensionPropertyAttributes alloc] initWithXPCDictionary:dictionary];
       if (!dictionary)
       {
-        v7 = CMIOLog();
-        dictionary = v7;
-        if (v7)
+        v8 = CMIOLog(0, v7);
+        dictionary = v8;
+        if (v8)
         {
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
             [CMIOExtensionPropertyState initWithXPCDictionary:];
           }
@@ -534,12 +539,13 @@ LABEL_58:
       {
         if (uint64 == 6)
         {
-          if (cmio_XPCMessageCopyCFDictionary(dictionary, "value", &v33))
+          v34 = cmio_XPCMessageCopyCFDictionary(dictionary, "value", &v51);
+          if (v34)
           {
-            v21 = CMIOLog();
-            if (v21)
+            v36 = CMIOLog(v34, v35);
+            if (v36)
             {
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyState initWithXPCDictionary:];
               }
@@ -547,14 +553,18 @@ LABEL_58:
           }
         }
 
-        else if (cmio_XPCMessageCopyCFArray(dictionary, "value", &v33))
+        else
         {
-          v10 = CMIOLog();
-          if (v10)
+          v13 = cmio_XPCMessageCopyCFArray(dictionary, "value", &v51);
+          if (v13)
           {
-            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+            v15 = CMIOLog(v13, v14);
+            if (v15)
             {
-              [CMIOExtensionPropertyState initWithXPCDictionary:];
+              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+              {
+                [CMIOExtensionPropertyState initWithXPCDictionary:];
+              }
             }
           }
         }
@@ -569,26 +579,27 @@ LABEL_58:
           value = xpc_dictionary_get_value(dictionary, "value");
           if (value)
           {
-            v15 = value;
-            v16 = xpc_dictionary_get_value(value, "surface");
-            if (v16)
+            v22 = value;
+            v23 = xpc_dictionary_get_value(value, "surface");
+            if (v23)
             {
-              v17 = IOSurfaceLookupFromXPCObject(v16);
-              if (v17)
+              v25 = IOSurfaceLookupFromXPCObject(v23);
+              if (v25)
               {
-                v18 = v17;
+                v27 = v25;
                 pixelBufferOut = 0;
-                v19 = CVPixelBufferCreateWithIOSurface(*MEMORY[0x277CBECE8], v17, 0, &pixelBufferOut);
-                CFRelease(v18);
-                if (v19 || !pixelBufferOut)
+                v28 = CVPixelBufferCreateWithIOSurface(*MEMORY[0x277CBECE8], v25, 0, &pixelBufferOut);
+                CFRelease(v27);
+                v30 = pixelBufferOut;
+                if (v28 || !pixelBufferOut)
                 {
                   if (pixelBufferOut)
                   {
                     CFRelease(pixelBufferOut);
                   }
 
-                  v30 = CMIOLog();
-                  if (v30 && os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+                  v48 = CMIOLog(v30, v29);
+                  if (v48 && os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
                   {
                     [CMIOExtensionPropertyState initWithXPCDictionary:];
                   }
@@ -596,9 +607,9 @@ LABEL_58:
 
                 else
                 {
-                  v33 = pixelBufferOut;
+                  v51 = pixelBufferOut;
                   theAttachments = 0;
-                  cmio_XPCMessageCopyCFDictionary(v15, "attachments", &theAttachments);
+                  cmio_XPCMessageCopyCFDictionary(v22, "attachments", &theAttachments);
                   if (theAttachments)
                   {
                     CMSetAttachments(pixelBufferOut, theAttachments, 1u);
@@ -609,8 +620,8 @@ LABEL_58:
 
               else
               {
-                v29 = CMIOLog();
-                if (v29 && os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+                v47 = CMIOLog(0, v26);
+                if (v47 && os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
                 {
                   [CMIOExtensionPropertyState initWithXPCDictionary:];
                 }
@@ -619,8 +630,8 @@ LABEL_58:
 
             else
             {
-              v28 = CMIOLog();
-              if (v28 && os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+              v46 = CMIOLog(0, v24);
+              if (v46 && os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyState initWithXPCDictionary:];
               }
@@ -629,8 +640,8 @@ LABEL_58:
 
           else
           {
-            v27 = CMIOLog();
-            if (v27 && os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+            v45 = CMIOLog(0, v21);
+            if (v45 && os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
             {
               [CMIOExtensionPropertyState initWithXPCDictionary:];
             }
@@ -640,11 +651,11 @@ LABEL_58:
         goto LABEL_50;
       }
 
-      v23 = xpc_dictionary_get_value(dictionary, "value");
-      if (!v23)
+      v40 = xpc_dictionary_get_value(dictionary, "value");
+      if (!v40)
       {
-        v25 = CMIOLog();
-        if (v25 && os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v43 = CMIOLog(0, v41);
+        if (v43 && os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
           [CMIOExtensionPropertyState initWithXPCDictionary:];
         }
@@ -652,8 +663,8 @@ LABEL_58:
         goto LABEL_50;
       }
 
-      v12 = v23;
-      v13 = CMIOExtensionStreamCustomClockConfiguration;
+      v18 = v40;
+      v19 = CMIOExtensionStreamCustomClockConfiguration;
     }
 
     else
@@ -662,12 +673,13 @@ LABEL_58:
       {
         if (uint64 == 2)
         {
-          if (cmio_XPCMessageCopyCFData(dictionary, "value", &v33))
+          v31 = cmio_XPCMessageCopyCFData(dictionary, "value", &v51);
+          if (v31)
           {
-            v20 = CMIOLog();
-            if (v20)
+            v33 = CMIOLog(v31, v32);
+            if (v33)
             {
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyState initWithXPCDictionary:];
               }
@@ -677,12 +689,13 @@ LABEL_58:
 
         else if (uint64 == 3)
         {
-          if (cmio_XPCMessageCopyCFNumber(dictionary, "value", &v33))
+          v9 = cmio_XPCMessageCopyCFNumber(dictionary, "value", &v51);
+          if (v9)
           {
-            v8 = CMIOLog();
-            if (v8)
+            v11 = CMIOLog(v9, v10);
+            if (v11)
             {
-              if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
               {
                 [CMIOExtensionPropertyState initWithXPCDictionary:];
               }
@@ -695,12 +708,13 @@ LABEL_58:
 
       if (uint64 == 4)
       {
-        if (cmio_XPCMessageCopyCFString(dictionary, "value", &v33))
+        v37 = cmio_XPCMessageCopyCFString(dictionary, "value", &v51);
+        if (v37)
         {
-          v22 = CMIOLog();
-          if (v22)
+          v39 = CMIOLog(v37, v38);
+          if (v39)
           {
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
             {
               [CMIOExtensionPropertyState initWithXPCDictionary:];
             }
@@ -710,11 +724,11 @@ LABEL_58:
         goto LABEL_50;
       }
 
-      v11 = xpc_dictionary_get_value(dictionary, "value");
-      if (!v11)
+      v16 = xpc_dictionary_get_value(dictionary, "value");
+      if (!v16)
       {
-        v26 = CMIOLog();
-        if (v26 && os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v44 = CMIOLog(0, v17);
+        if (v44 && os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
           [CMIOExtensionPropertyState initWithXPCDictionary:];
         }
@@ -722,15 +736,15 @@ LABEL_58:
         goto LABEL_50;
       }
 
-      v12 = v11;
-      v13 = CMIOExtensionStreamFormat;
+      v18 = v16;
+      v19 = CMIOExtensionStreamFormat;
     }
 
-    v33 = [[v13 alloc] initWithXPCDictionary:v12];
+    v51 = [[v19 alloc] initWithXPCDictionary:v18];
 LABEL_50:
-    v9 = [(CMIOExtensionPropertyState *)self initWithValue:v33 attributes:dictionary];
+    v12 = [(CMIOExtensionPropertyState *)self initWithValue:v51 attributes:dictionary];
 
-    return v9;
+    return v12;
   }
 
   [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"nil xpc dictionary"];
@@ -754,16 +768,16 @@ void __66__CMIOExtensionPropertyState_copyXPCDictionaryFromPropertyStates___bloc
   v5 = [a3 copyXPCDictionary];
   if (v5)
   {
-    v6 = v5;
+    v7 = v5;
     xpc_dictionary_set_value(*(a1 + 32), [a2 UTF8String], v5);
 
-    xpc_release(v6);
+    xpc_release(v7);
   }
 
   else
   {
-    v7 = CMIOLog();
-    if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = CMIOLog(0, v6);
+    if (v8 && os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __66__CMIOExtensionPropertyState_copyXPCDictionaryFromPropertyStates___block_invoke_cold_1();
     }
@@ -787,21 +801,21 @@ void __66__CMIOExtensionPropertyState_copyXPCDictionaryFromPropertyValues___bloc
   v5 = [[CMIOExtensionPropertyState alloc] initWithValue:a3];
   if (v5)
   {
-    v6 = v5;
-    v7 = [(CMIOExtensionPropertyState *)v5 copyXPCDictionary];
-    if (v7)
+    v7 = v5;
+    v8 = [(CMIOExtensionPropertyState *)v5 copyXPCDictionary];
+    if (v8)
     {
-      v8 = v7;
-      xpc_dictionary_set_value(*(a1 + 32), [a2 UTF8String], v7);
-      xpc_release(v8);
+      v10 = v8;
+      xpc_dictionary_set_value(*(a1 + 32), [a2 UTF8String], v8);
+      xpc_release(v10);
     }
 
     else
     {
-      v10 = CMIOLog();
-      if (v10)
+      v12 = CMIOLog(0, v9);
+      if (v12)
       {
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           __66__CMIOExtensionPropertyState_copyXPCDictionaryFromPropertyValues___block_invoke_cold_1();
         }
@@ -811,8 +825,8 @@ void __66__CMIOExtensionPropertyState_copyXPCDictionaryFromPropertyValues___bloc
 
   else
   {
-    v9 = CMIOLog();
-    if (v9 && os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = CMIOLog(0, v6);
+    if (v11 && os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __66__CMIOExtensionPropertyState_copyXPCDictionaryFromPropertyValues___block_invoke_cold_2();
     }
@@ -846,14 +860,14 @@ uint64_t __66__CMIOExtensionPropertyState_copyPropertyStatesFromXPCDictionary___
   v5 = [[CMIOExtensionPropertyState alloc] initWithXPCDictionary:a3];
   if (v5)
   {
-    v6 = v5;
+    v7 = v5;
     [*(a1 + 32) setObject:v5 forKey:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", a2)}];
   }
 
   else
   {
-    v7 = CMIOLog();
-    if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = CMIOLog(0, v6);
+    if (v8 && os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __66__CMIOExtensionPropertyState_copyPropertyStatesFromXPCDictionary___block_invoke_cold_1();
     }
@@ -865,208 +879,174 @@ uint64_t __66__CMIOExtensionPropertyState_copyPropertyStatesFromXPCDictionary___
 - (void)copyXPCDictionary
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.2()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.3()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.5()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.6()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.7()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.9()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.10()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.11()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithXPCDictionary:.cold.12()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __66__CMIOExtensionPropertyState_copyXPCDictionaryFromPropertyStates___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __66__CMIOExtensionPropertyState_copyXPCDictionaryFromPropertyValues___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __66__CMIOExtensionPropertyState_copyXPCDictionaryFromPropertyValues___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __66__CMIOExtensionPropertyState_copyPropertyStatesFromXPCDictionary___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProperties.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

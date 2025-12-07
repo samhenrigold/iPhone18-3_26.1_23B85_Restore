@@ -2805,7 +2805,7 @@ LABEL_18:
   v16 = 0;
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
   }
 
   else
@@ -3171,7 +3171,7 @@ LABEL_3:
         {
           if (v23)
           {
-            [v23 transformToConvertNaturalToLayerRelative];
+            objc_msgSend_transformToConvertNaturalToLayerRelative(v23);
           }
 
           else
@@ -5292,50 +5292,50 @@ LABEL_21:
   }
 
   v24 = sub_10011F334(v9, v11, v13);
-  v26 = sub_10011F340(v24, v25, 0.5);
-  v28 = v27;
+  v27 = sub_10011F340(v24, v25, 0.5);
+  v29 = v28;
   if (vabdd_f64(v9, v13) >= 40.0)
   {
     if (v9 >= v13)
     {
-      v29 = v9;
+      v30 = v9;
     }
 
     else
     {
-      v29 = v13;
+      v30 = v13;
     }
 
     if (v9 >= v13)
     {
-      v30 = v11;
+      v31 = v11;
     }
 
     else
     {
-      v30 = v15;
+      v31 = v15;
     }
 
     if (v9 >= v13)
     {
-      v31 = v13;
+      v32 = v13;
     }
 
     else
     {
-      v31 = v9;
+      v32 = v9;
     }
 
-    v32 = sub_10011F31C(v29, v30, v31);
-    v34 = sub_1001208D0(v32, v33);
-    v35 = sub_100120F98(v34 + -1.57079633);
-    v37 = sub_10011F340(v35, v36, 120.0);
-    v26 = sub_10011F334(v26, v28, v37);
-    v28 = v38;
+    v33 = sub_10011F31C(v30, v31, v32);
+    v35 = sub_1001208D0(v33, v34);
+    v36 = sub_100120F98(v35 + -1.57079633);
+    v38 = sub_10011F340(v36, v37, 120.0);
+    v27 = sub_10011F334(v27, v29, v38);
+    v29 = v39;
   }
 
-  self->mLastZoomHUDLocation.x = sub_100122154(v26, v28);
-  self->mLastZoomHUDLocation.y = v39;
+  self->mLastZoomHUDLocation.x = sub_100122154(v26, v27, v29);
+  self->mLastZoomHUDLocation.y = v40;
 }
 
 - (void)canvasZoomTracker:(id)tracker willUpdateViewScaleFeedbackWithScale:(double)scale

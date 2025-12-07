@@ -49,7 +49,7 @@
 
 - (void)grabContextIfAppropriate:(id)appropriate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   appropriateCopy = appropriate;
   context = [appropriateCopy context];
   serverStorageFetchContext = [context serverStorageFetchContext];
@@ -74,22 +74,20 @@
       {
         context2 = [appropriateCopy context];
         batchIdentifier = [context2 batchIdentifier];
-        v14 = 138412290;
-        v15 = batchIdentifier;
-        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Batch %@, started tracing context with serverStorageFetchContext", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = batchIdentifier;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Batch %@, started tracing context with serverStorageFetchContext", &v13, 0xCu);
       }
     }
 
     context3 = [appropriateCopy context];
     [(IMBatchSetTrackingContext *)self setContextWithSSM:context3];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)noteNewIncomingBatchMessage:(id)message
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   [(IMBatchSetTrackingContext *)self grabContextIfAppropriate:messageCopy];
   trackingContexts = [(IMBatchSetTrackingContext *)self trackingContexts];
@@ -106,9 +104,9 @@
       {
         context2 = [messageCopy context];
         batchIdentifier2 = [context2 batchIdentifier];
-        v18 = 138412290;
-        v19 = batchIdentifier2;
-        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Batch identifier %@ seen more than once, is tracking compromised?", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = batchIdentifier2;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Batch identifier %@ seen more than once, is tracking compromised?", &v17, 0xCu);
       }
 
 LABEL_9:
@@ -130,21 +128,19 @@ LABEL_9:
       {
         context4 = [messageCopy context];
         batchIdentifier4 = [context4 batchIdentifier];
-        v18 = 138412290;
-        v19 = batchIdentifier4;
-        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Started tracking batch identifier %@", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = batchIdentifier4;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Started tracking batch identifier %@", &v17, 0xCu);
       }
 
       goto LABEL_9;
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)noteItemProcessed:(id)processed
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   processedCopy = processed;
   v5 = [processedCopy objectForKey:*MEMORY[0x277D19F40]];
   v6 = [processedCopy objectForKey:*MEMORY[0x277D19F48]];
@@ -193,8 +189,8 @@ LABEL_9:
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v22 = v5;
-          v23 = 2048;
+          v21 = v5;
+          v22 = 2048;
           totalMessagesExpected = [v10 totalMessagesExpected];
           _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Completed processing of batch %@ with %lld messages, removing tracker", buf, 0x16u);
         }
@@ -207,9 +203,9 @@ LABEL_9:
       batchNumber = [v10 batchNumber];
       longLongValue = [batchNumber longLongValue];
       totalExpectedBatches = [(IMBatchSetTrackingContext *)self totalExpectedBatches];
-      v20 = 0;
-      [batchTracker trackPacket:longLongValue packetsExpected:objc_msgSend(totalExpectedBatches error:{"longLongValue"), &v20}];
-      v17 = v20;
+      v19 = 0;
+      [batchTracker trackPacket:longLongValue packetsExpected:objc_msgSend(totalExpectedBatches error:{"longLongValue"), &v19}];
+      v17 = v19;
 
       if (v17)
       {
@@ -223,8 +219,6 @@ LABEL_9:
 LABEL_20:
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isComplete
@@ -256,7 +250,7 @@ LABEL_20:
 
 - (void)submitStorageProcessingComplete
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   service = [(IMBatchSetTrackingContext *)self service];
   if (service && ([(IMBatchSetTrackingContext *)self contextWithSSM], v4 = objc_claimAutoreleasedReturnValue(), v4, service, v4))
   {
@@ -268,11 +262,11 @@ LABEL_20:
         contextWithSSM = [(IMBatchSetTrackingContext *)self contextWithSSM];
         contextWithSSM2 = [(IMBatchSetTrackingContext *)self contextWithSSM];
         batchIdentifier = [contextWithSSM2 batchIdentifier];
-        v14 = 134218242;
-        v15 = contextWithSSM;
-        v16 = 2112;
-        v17 = batchIdentifier;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Sending batch complete for %p: batchID %@", &v14, 0x16u);
+        v13 = 134218242;
+        v14 = contextWithSSM;
+        v15 = 2112;
+        v16 = batchIdentifier;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Sending batch complete for %p: batchID %@", &v13, 0x16u);
       }
     }
 
@@ -293,8 +287,6 @@ LABEL_20:
       sub_22B7D0EE4(self, v11);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

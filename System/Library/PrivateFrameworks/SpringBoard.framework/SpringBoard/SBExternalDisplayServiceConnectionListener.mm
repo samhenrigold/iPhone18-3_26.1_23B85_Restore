@@ -210,7 +210,7 @@ void __89___SBExternalDisplayServiceConnectionListener_listener_didReceiveConnec
   v1 = [v0 remoteProcess];
   [v1 pid];
   OUTLINED_FUNCTION_2_8();
-  OUTLINED_FUNCTION_3_8(&dword_21ED4E000, v2, v3, "SBExternalDisplayService: connection <%p> pid: %i was interrupted", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_8(&dword_21ED4E000, v2, v3, "SBExternalDisplayService: connection <%p> pid: %i was interrupted", v4, v5, v6, v7);
 }
 
 void __89___SBExternalDisplayServiceConnectionListener_listener_didReceiveConnection_withContext___block_invoke_65_cold_1()
@@ -219,7 +219,7 @@ void __89___SBExternalDisplayServiceConnectionListener_listener_didReceiveConnec
   v1 = [v0 remoteProcess];
   [v1 pid];
   OUTLINED_FUNCTION_2_8();
-  OUTLINED_FUNCTION_3_8(&dword_21ED4E000, v2, v3, "SBExternalDisplayService: connection <%p> pid: %i was invalidated", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_8(&dword_21ED4E000, v2, v3, "SBExternalDisplayService: connection <%p> pid: %i was invalidated", v4, v5, v6, v7);
 }
 
 @end

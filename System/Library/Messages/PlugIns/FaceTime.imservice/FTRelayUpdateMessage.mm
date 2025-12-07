@@ -23,36 +23,36 @@
 
 - (id)requiredKeys
 {
-  v48.receiver = self;
-  v48.super_class = FTRelayUpdateMessage;
-  requiredKeys = [(FTFaceTimeMessage *)&v48 requiredKeys];
-  v7 = objc_msgSend_mutableCopy(requiredKeys, v3, v4, v5, v6);
-  objc_msgSend_addObject_(v7, v8, @"self-push-token", v9, v10);
-  objc_msgSend_addObject_(v7, v11, @"peer-id", v12, v13);
-  objc_msgSend_addObject_(v7, v14, @"peer-push-token", v15, v16);
-  objc_msgSend_addObject_(v7, v17, @"relay-type", v18, v19);
-  objc_msgSend_addObject_(v7, v20, @"relay-connection-id", v21, v22);
-  objc_msgSend_addObject_(v7, v23, @"relay-transaction-id-alloc", v24, v25);
-  objc_msgSend_addObject_(v7, v26, @"relay-token-alloc-res", v27, v28);
-  objc_msgSend_addObject_(v7, v29, @"self-relay-ip", v30, v31);
-  objc_msgSend_addObject_(v7, v32, @"self-relay-port", v33, v34);
-  objc_msgSend_addObject_(v7, v35, @"self-relay-nat-ip", v36, v37);
-  objc_msgSend_addObject_(v7, v38, @"self-relay-nat-port", v39, v40);
-  objc_msgSend_addObject_(v7, v41, @"peer-relay-ip", v42, v43);
-  objc_msgSend_addObject_(v7, v44, @"peer-relay-port", v45, v46);
-  return v7;
+  v62.receiver = self;
+  v62.super_class = FTRelayUpdateMessage;
+  requiredKeys = [(FTFaceTimeMessage *)&v62 requiredKeys];
+  v8 = objc_msgSend_mutableCopy(requiredKeys, v3, v4, v5, v7, v6);
+  objc_msgSend_addObject_(v8, v9, @"self-push-token", v10, v12, v11);
+  objc_msgSend_addObject_(v8, v13, @"peer-id", v14, v16, v15);
+  objc_msgSend_addObject_(v8, v17, @"peer-push-token", v18, v20, v19);
+  objc_msgSend_addObject_(v8, v21, @"relay-type", v22, v24, v23);
+  objc_msgSend_addObject_(v8, v25, @"relay-connection-id", v26, v28, v27);
+  objc_msgSend_addObject_(v8, v29, @"relay-transaction-id-alloc", v30, v32, v31);
+  objc_msgSend_addObject_(v8, v33, @"relay-token-alloc-res", v34, v36, v35);
+  objc_msgSend_addObject_(v8, v37, @"self-relay-ip", v38, v40, v39);
+  objc_msgSend_addObject_(v8, v41, @"self-relay-port", v42, v44, v43);
+  objc_msgSend_addObject_(v8, v45, @"self-relay-nat-ip", v46, v48, v47);
+  objc_msgSend_addObject_(v8, v49, @"self-relay-nat-port", v50, v52, v51);
+  objc_msgSend_addObject_(v8, v53, @"peer-relay-ip", v54, v56, v55);
+  objc_msgSend_addObject_(v8, v57, @"peer-relay-port", v58, v60, v59);
+  return v8;
 }
 
 - (id)messageBody
 {
-  v125.receiver = self;
-  v125.super_class = FTRelayUpdateMessage;
-  messageBody = [(FTFaceTimeMessage *)&v125 messageBody];
-  v8 = objc_msgSend_mutableCopy(messageBody, v4, v5, v6, v7);
-  v13 = objc_msgSend_selfPushToken(self, v9, v10, v11, v12);
-  if (v13)
+  v149.receiver = self;
+  v149.super_class = FTRelayUpdateMessage;
+  messageBody = [(FTFaceTimeMessage *)&v149 messageBody];
+  v9 = objc_msgSend_mutableCopy(messageBody, v4, v5, v6, v8, v7);
+  v15 = objc_msgSend_selfPushToken(self, v10, v11, v12, v14, v13);
+  if (v15)
   {
-    CFDictionarySetValue(v8, @"self-push-token", v13);
+    CFDictionarySetValue(v9, @"self-push-token", v15);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -60,10 +60,10 @@
     sub_23BCBF934();
   }
 
-  v18 = objc_msgSend_peerID(self, v14, v15, v16, v17);
-  if (v18)
+  v21 = objc_msgSend_peerID(self, v16, v17, v18, v20, v19);
+  if (v21)
   {
-    CFDictionarySetValue(v8, @"peer-id", v18);
+    CFDictionarySetValue(v9, @"peer-id", v21);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -71,10 +71,10 @@
     sub_23BCBFB54();
   }
 
-  v23 = objc_msgSend_peerPushToken(self, v19, v20, v21, v22);
-  if (v23)
+  v27 = objc_msgSend_peerPushToken(self, v22, v23, v24, v26, v25);
+  if (v27)
   {
-    CFDictionarySetValue(v8, @"peer-push-token", v23);
+    CFDictionarySetValue(v9, @"peer-push-token", v27);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -82,13 +82,13 @@
     sub_23BCBFBDC();
   }
 
-  v28 = MEMORY[0x277CCABB0];
-  v29 = objc_msgSend_relayType(self, v24, v25, v26, v27);
-  v34 = objc_msgSend_intValue(v29, v30, v31, v32, v33);
-  v38 = objc_msgSend_numberWithInt_(v28, v35, v34, v36, v37);
-  if (v38)
+  v33 = MEMORY[0x277CCABB0];
+  v34 = objc_msgSend_relayType(self, v28, v29, v30, v32, v31);
+  v40 = objc_msgSend_intValue(v34, v35, v36, v37, v39, v38);
+  v45 = objc_msgSend_numberWithInt_(v33, v41, v40, v42, v44, v43);
+  if (v45)
   {
-    CFDictionarySetValue(v8, @"relay-type", v38);
+    CFDictionarySetValue(v9, @"relay-type", v45);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -96,10 +96,10 @@
     sub_23BCC0044();
   }
 
-  v43 = objc_msgSend_relayConnectionID(self, v39, v40, v41, v42);
-  if (v43)
+  v51 = objc_msgSend_relayConnectionID(self, v46, v47, v48, v50, v49);
+  if (v51)
   {
-    CFDictionarySetValue(v8, @"relay-connection-id", v43);
+    CFDictionarySetValue(v9, @"relay-connection-id", v51);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -107,10 +107,10 @@
     sub_23BCC00CC();
   }
 
-  v48 = objc_msgSend_relayTransactionIDAlloc(self, v44, v45, v46, v47);
-  if (v48)
+  v57 = objc_msgSend_relayTransactionIDAlloc(self, v52, v53, v54, v56, v55);
+  if (v57)
   {
-    CFDictionarySetValue(v8, @"relay-transaction-id-alloc", v48);
+    CFDictionarySetValue(v9, @"relay-transaction-id-alloc", v57);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -118,10 +118,10 @@
     sub_23BCC0374();
   }
 
-  v53 = objc_msgSend_relayTokenAllocRes(self, v49, v50, v51, v52);
-  if (v53)
+  v63 = objc_msgSend_relayTokenAllocRes(self, v58, v59, v60, v62, v61);
+  if (v63)
   {
-    CFDictionarySetValue(v8, @"relay-token-alloc-res", v53);
+    CFDictionarySetValue(v9, @"relay-token-alloc-res", v63);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -129,10 +129,10 @@
     sub_23BCC03FC();
   }
 
-  v58 = objc_msgSend_selfRelayIP(self, v54, v55, v56, v57);
-  if (v58)
+  v69 = objc_msgSend_selfRelayIP(self, v64, v65, v66, v68, v67);
+  if (v69)
   {
-    CFDictionarySetValue(v8, @"self-relay-ip", v58);
+    CFDictionarySetValue(v9, @"self-relay-ip", v69);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -140,13 +140,13 @@
     sub_23BCC0154();
   }
 
-  v63 = MEMORY[0x277CCABB0];
-  v64 = objc_msgSend_selfRelayPort(self, v59, v60, v61, v62);
-  v69 = objc_msgSend_intValue(v64, v65, v66, v67, v68);
-  v73 = objc_msgSend_numberWithInt_(v63, v70, v69, v71, v72);
-  if (v73)
+  v75 = MEMORY[0x277CCABB0];
+  v76 = objc_msgSend_selfRelayPort(self, v70, v71, v72, v74, v73);
+  v82 = objc_msgSend_intValue(v76, v77, v78, v79, v81, v80);
+  v87 = objc_msgSend_numberWithInt_(v75, v83, v82, v84, v86, v85);
+  if (v87)
   {
-    CFDictionarySetValue(v8, @"self-relay-port", v73);
+    CFDictionarySetValue(v9, @"self-relay-port", v87);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -154,10 +154,10 @@
     sub_23BCC01DC();
   }
 
-  v78 = objc_msgSend_selfRelayNATIP(self, v74, v75, v76, v77);
-  if (v78)
+  v93 = objc_msgSend_selfRelayNATIP(self, v88, v89, v90, v92, v91);
+  if (v93)
   {
-    CFDictionarySetValue(v8, @"self-relay-nat-ip", v78);
+    CFDictionarySetValue(v9, @"self-relay-nat-ip", v93);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -165,13 +165,13 @@
     sub_23BCC0484();
   }
 
-  v83 = MEMORY[0x277CCABB0];
-  v84 = objc_msgSend_selfRelayNATPort(self, v79, v80, v81, v82);
-  v89 = objc_msgSend_intValue(v84, v85, v86, v87, v88);
-  v93 = objc_msgSend_numberWithInt_(v83, v90, v89, v91, v92);
-  if (v93)
+  v99 = MEMORY[0x277CCABB0];
+  v100 = objc_msgSend_selfRelayNATPort(self, v94, v95, v96, v98, v97);
+  v106 = objc_msgSend_intValue(v100, v101, v102, v103, v105, v104);
+  v111 = objc_msgSend_numberWithInt_(v99, v107, v106, v108, v110, v109);
+  if (v111)
   {
-    CFDictionarySetValue(v8, @"self-relay-nat-port", v93);
+    CFDictionarySetValue(v9, @"self-relay-nat-port", v111);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -179,10 +179,10 @@
     sub_23BCC050C();
   }
 
-  v98 = objc_msgSend_peerRelayIP(self, v94, v95, v96, v97);
-  if (v98)
+  v117 = objc_msgSend_peerRelayIP(self, v112, v113, v114, v116, v115);
+  if (v117)
   {
-    CFDictionarySetValue(v8, @"peer-relay-ip", v98);
+    CFDictionarySetValue(v9, @"peer-relay-ip", v117);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -190,13 +190,13 @@
     sub_23BCC0264();
   }
 
-  v103 = MEMORY[0x277CCABB0];
-  v104 = objc_msgSend_peerRelayPort(self, v99, v100, v101, v102);
-  v109 = objc_msgSend_intValue(v104, v105, v106, v107, v108);
-  v113 = objc_msgSend_numberWithInt_(v103, v110, v109, v111, v112);
-  if (v113)
+  v123 = MEMORY[0x277CCABB0];
+  v124 = objc_msgSend_peerRelayPort(self, v118, v119, v120, v122, v121);
+  v130 = objc_msgSend_intValue(v124, v125, v126, v127, v129, v128);
+  v135 = objc_msgSend_numberWithInt_(v123, v131, v130, v132, v134, v133);
+  if (v135)
   {
-    CFDictionarySetValue(v8, @"peer-relay-port", v113);
+    CFDictionarySetValue(v9, @"peer-relay-port", v135);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -204,19 +204,19 @@
     sub_23BCC02EC();
   }
 
-  v118 = objc_msgSend_selfRelayBlob(self, v114, v115, v116, v117);
-  if (v118)
+  v141 = objc_msgSend_selfRelayBlob(self, v136, v137, v138, v140, v139);
+  if (v141)
   {
-    CFDictionarySetValue(v8, @"self-relay-blob", v118);
+    CFDictionarySetValue(v9, @"self-relay-blob", v141);
   }
 
-  v123 = objc_msgSend_relayCandidateID(self, v119, v120, v121, v122);
-  if (v123)
+  v147 = objc_msgSend_relayCandidateID(self, v142, v143, v144, v146, v145);
+  if (v147)
   {
-    CFDictionarySetValue(v8, @"relay-candidate-id", v123);
+    CFDictionarySetValue(v9, @"relay-candidate-id", v147);
   }
 
-  return v8;
+  return v9;
 }
 
 @end

@@ -14,31 +14,31 @@
 
 - (id)specifiers
 {
-  v19 = *MEMORY[0x29EDCA608];
-  v17.receiver = self;
-  v17.super_class = KeyboardControllerAccessibility;
-  [(KeyboardControllerAccessibility *)&v17 specifiers];
+  v18 = *MEMORY[0x29EDCA608];
+  v16.receiver = self;
+  v16.super_class = KeyboardControllerAccessibility;
+  [(KeyboardControllerAccessibility *)&v16 specifiers];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v2 = v16 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v2 = v15 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     v6 = *MEMORY[0x29EDC6320];
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
-        v9 = [v8 propertyForKey:{v6, v13}];
+        v8 = *(*(&v12 + 1) + 8 * i);
+        v9 = [v8 propertyForKey:{v6, v12}];
         v10 = [v9 isEqualToString:@"KeyboardPeriodShortcut"];
 
         if (v10)
@@ -48,7 +48,7 @@
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v17 count:16];
       if (v4)
       {
         continue;
@@ -59,8 +59,6 @@
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x29EDCA608];
 
   return v2;
 }

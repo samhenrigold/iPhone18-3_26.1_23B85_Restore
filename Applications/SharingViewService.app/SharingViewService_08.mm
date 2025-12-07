@@ -45,9 +45,9 @@ LABEL_6:
 void sub_1000BD3A0(char a1)
 {
   v2 = v1;
-  v45.receiver = v2;
-  v45.super_class = type metadata accessor for AirTagSetupMainViewController();
-  objc_msgSendSuper2(&v45, "viewDidAppear:", a1 & 1);
+  v46.receiver = v2;
+  v46.super_class = type metadata accessor for AirTagSetupMainViewController(0);
+  objc_msgSendSuper2(&v46, "viewDidAppear:", a1 & 1);
   if (qword_1001B9490 != -1)
   {
     swift_once();
@@ -76,9 +76,9 @@ void sub_1000BD3A0(char a1)
     swift_unknownObjectRelease();
   }
 
-  sub_1000122EC(0, &qword_1001BCE90);
+  sub_1000122EC(0, &qword_1001BCE90, OS_dispatch_queue_ptr);
   v9 = static OS_dispatch_queue.main.getter();
-  sub_100005DCC(&unk_1001BBCD0);
+  sub_100005DCC(&unk_1001BBCD0, &unk_10016E860);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10016CCE0;
   *(inited + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -87,7 +87,7 @@ void sub_1000BD3A0(char a1)
   *(inited + 48) = 1;
   sub_100004F48(inited);
   swift_setDeallocating();
-  sub_10001259C(inited + 32, &qword_1001B95D0);
+  sub_10001259C(inited + 32, &qword_1001B95D0, &qword_10016C030);
   v12 = objc_allocWithZone(CBCentralManager);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
@@ -104,7 +104,7 @@ void sub_1000BD3A0(char a1)
     goto LABEL_15;
   }
 
-  sub_1000122EC(0, &qword_1001BBAF8);
+  sub_1000122EC(0, &qword_1001BBAF8, CBUUID_ptr);
   v18 = Array._bridgeToObjectiveC()().super.isa;
   sub_100004F48(_swiftEmptyArrayStorage);
   v19 = Dictionary._bridgeToObjectiveC()().super.isa;
@@ -138,66 +138,69 @@ LABEL_16:
     swift_unknownObjectWeakInit();
     v25 = &v23[OBJC_IVAR____TtC18SharingViewService25AirTagStartViewController_invalidateBubbleMonitor];
     v26 = *&v23[OBJC_IVAR____TtC18SharingViewService25AirTagStartViewController_invalidateBubbleMonitor];
+    v27 = *&v23[OBJC_IVAR____TtC18SharingViewService25AirTagStartViewController_invalidateBubbleMonitor + 8];
     *v25 = sub_1000E47A8;
     v25[1] = v24;
 
-    sub_100012050(v26);
+    sub_100012050(v26, v27);
 
-    v27 = *&v2[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_startVC];
+    v28 = *&v2[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_startVC];
     *&v2[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_startVC] = v23;
-    v28 = v23;
+    v29 = v23;
   }
 
   else
   {
-    v29 = type metadata accessor for AirTagRestrictedViewController();
-    v30 = objc_allocWithZone(v29);
+    v30 = type metadata accessor for AirTagRestrictedViewController();
+    v31 = objc_allocWithZone(v30);
     swift_unknownObjectWeakInit();
     swift_unknownObjectWeakAssign();
-    v44.receiver = v30;
-    v44.super_class = v29;
-    v28 = objc_msgSendSuper2(&v44, "initWithContentView:", 0);
+    v45.receiver = v31;
+    v45.super_class = v30;
+    v29 = objc_msgSendSuper2(&v45, "initWithContentView:", 0);
   }
 
-  v31 = objc_allocWithZone(type metadata accessor for AirTagCustomNameViewController());
-  v32 = v2;
-  v33 = sub_100073668(v32);
-  v34 = *&v32[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_namingVC];
-  *&v32[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_namingVC] = v33;
+  v32 = objc_allocWithZone(type metadata accessor for AirTagCustomNameViewController());
+  v33 = v2;
+  v34 = sub_100073668(v33);
+  v35 = *&v33[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_namingVC];
+  *&v33[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_namingVC] = v34;
 
-  v35 = objc_allocWithZone(type metadata accessor for AirTagLinkingViewController());
-  v36 = v32;
-  v37 = sub_10007E3D0(v36);
-  v38 = *&v36[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_linkingVC];
-  *&v36[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_linkingVC] = v37;
+  v36 = objc_allocWithZone(type metadata accessor for AirTagLinkingViewController());
+  v37 = v33;
+  v38 = sub_10007E3D0(v37);
+  v39 = *&v37[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_linkingVC];
+  *&v37[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_linkingVC] = v38;
 
-  v39 = [objc_allocWithZone(type metadata accessor for AirTagLoadingViewController()) init];
+  v40 = [objc_allocWithZone(type metadata accessor for AirTagLoadingViewController()) init];
   swift_unknownObjectWeakAssign();
-  v40 = *&v36[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_loadingVC];
-  *&v36[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_loadingVC] = v39;
+  v41 = *&v37[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_loadingVC];
+  *&v37[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_loadingVC] = v40;
 
-  v41 = [v36 presentProxCardFlowWithDelegate:v36 initialViewController:v28];
-  v42 = *&v36[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_vcNav];
-  *&v36[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_vcNav] = v41;
+  v42 = [v37 presentProxCardFlowWithDelegate:v37 initialViewController:v29];
+  v43 = *&v37[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_vcNav];
+  *&v37[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_vcNav] = v42;
 
-  sub_1000BD9C0(v43);
+  sub_1000BD9C0(v44);
   swift_unknownObjectRelease();
 }
 
-void sub_1000BD94C()
+double sub_1000BD94C(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = *(Strong + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_bubbleMonitor);
-    v2 = Strong;
+    v3 = *(Strong + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_bubbleMonitor);
+    v4 = Strong;
 
-    if (v1)
+    if (v3)
     {
       sub_10001C248();
     }
   }
+
+  return result;
 }
 
 void sub_1000BD9C0(uint64_t a1)
@@ -287,9 +290,9 @@ void sub_1000BDE8C(char a1)
     _os_log_impl(&_mh_execute_header, v5, v6, "Main viewDidDisappear", v7, 2u);
   }
 
-  v41.receiver = v2;
-  v41.super_class = type metadata accessor for AirTagSetupMainViewController();
-  objc_msgSendSuper2(&v41, "viewDidDisappear:", a1 & 1);
+  v42.receiver = v2;
+  v42.super_class = type metadata accessor for AirTagSetupMainViewController(0);
+  objc_msgSendSuper2(&v42, "viewDidDisappear:", a1 & 1);
   sub_1000BE2C0(0);
   v8 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_startVC;
   v9 = *&v2[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_startVC];
@@ -399,49 +402,50 @@ void sub_1000BDE8C(char a1)
     goto LABEL_31;
   }
 
-  v31 = OBJC_IVAR____TtC18SharingViewService27B389NFCStatusViewController_uiStartTicks;
-  v32 = *&v29[OBJC_IVAR____TtC18SharingViewService27B389NFCStatusViewController_uiStartTicks];
-  sub_100024138(*&v29[OBJC_IVAR____TtC18SharingViewService27B389NFCStatusViewController_responseHandler]);
-  if (v32)
+  v31 = *&v29[OBJC_IVAR____TtC18SharingViewService27B389NFCStatusViewController_responseHandler + 8];
+  v32 = OBJC_IVAR____TtC18SharingViewService27B389NFCStatusViewController_uiStartTicks;
+  v33 = *&v29[OBJC_IVAR____TtC18SharingViewService27B389NFCStatusViewController_uiStartTicks];
+  sub_100024138(*&v29[OBJC_IVAR____TtC18SharingViewService27B389NFCStatusViewController_responseHandler], v31);
+  if (v33)
   {
-    v33 = v29;
-    v34 = UpTicks()();
-    v35 = *&v29[v31];
-    v36 = v34 >= v35;
-    v37 = v34 - v35;
-    if (!v36)
+    v34 = v29;
+    v35 = UpTicks()();
+    v36 = *&v29[v32];
+    v37 = v35 >= v36;
+    v38 = v35 - v36;
+    if (!v37)
     {
       __break(1u);
       return;
     }
 
-    v38 = UpTicksToSecondsF(_:)(v37);
+    v39 = UpTicksToSecondsF(_:)(v38);
   }
 
   else
   {
-    v38 = 0.0;
+    v39 = 0.0;
   }
 
-  v30(0, 1, v38);
-  sub_100012050(v30);
+  v30(0, 1, v39);
+  sub_100012050(v30, v31);
   v29 = *&v2[v28];
   if (v29)
   {
 LABEL_31:
     [v29 setMainController:0];
-    v39 = *&v2[v28];
+    v40 = *&v2[v28];
   }
 
   else
   {
 LABEL_32:
-    v39 = 0;
+    v40 = 0;
   }
 
   *&v2[v28] = 0;
 
-  v40 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_timeout;
+  v41 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_timeout;
   if (*&v2[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_timeout])
   {
     swift_getObjectType();
@@ -449,7 +453,7 @@ LABEL_32:
     OS_dispatch_source.cancel()();
   }
 
-  *&v2[v40] = 0;
+  *&v2[v41] = 0;
 
   sub_1000C237C();
 }
@@ -458,7 +462,7 @@ void sub_1000BE2C0(char a1)
 {
   v2 = v1;
   aBlock = 0x3A73736563637573;
-  v57 = 0xE900000000000020;
+  v59 = 0xE900000000000020;
   v3 = (a1 & 1) == 0;
   if (a1)
   {
@@ -484,25 +488,25 @@ void sub_1000BE2C0(char a1)
   String.append(_:)(*&v4);
 
   v8 = aBlock;
-  v7 = v57;
+  v7 = v59;
   swift_beginAccess();
-  sub_1000D99FC(&v62, 0xD000000000000019, 0x8000000100147780);
+  sub_1000D99FC(&v64, 0xD000000000000019, 0x8000000100147780);
   swift_endAccess();
 
   aBlock = 0xD000000000000070;
-  v57 = 0x800000010014C1F0;
-  v62 = 1479;
+  v59 = 0x800000010014C1F0;
+  v64 = 1479;
   v9._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v9);
 
   v10 = String.hashValue.getter();
 
   swift_beginAccess();
-  v11 = sub_1000D991C(&v62, v10);
+  v11 = sub_1000D991C(&v64, v10);
   swift_endAccess();
   if (v11)
   {
-    sub_1000D530C(0xD000000000000019, 0x8000000100147780, v8, v7, "%s - started... %s");
+    sub_1000D530C(0xD000000000000019, 0x8000000100147780, v8, v7, "%s - started... %s", v51, v52);
   }
 
   sub_1000C3C6C(0);
@@ -523,19 +527,19 @@ LABEL_47:
       return;
     }
 
-    v53 = *(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_periph);
+    v55 = *(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_periph);
     v14 = v12;
     v15 = [v13 sharedPairingAgent];
-    v62 = v15;
-    sub_100005DCC(&qword_1001BBB18);
+    v64 = v15;
+    sub_100005DCC(&qword_1001BBB18, &unk_10016E730);
     Optional.unwrap(_:file:line:)();
 
     v16 = aBlock;
     v17 = v14;
     p_cache = SVSBaseMainController.cache;
-    v52 = [aBlock isPeerPaired:v17];
-    v54 = aBlock;
-    if (v52)
+    v54 = [aBlock isPeerPaired:v17];
+    v56 = aBlock;
+    if (v54)
     {
       v19 = 0x64656C696166;
       if (a1)
@@ -543,7 +547,7 @@ LABEL_47:
         v19 = 0x6564656563637573;
       }
 
-      v51 = v19;
+      v53 = v19;
       if (a1)
       {
         v20 = 0xE900000000000064;
@@ -568,10 +572,11 @@ LABEL_47:
       if (os_log_type_enabled(v22, v23))
       {
         v24 = swift_slowAlloc();
+        v52 = "ensureMultiCompleted()";
         v25 = swift_slowAlloc();
         aBlock = v25;
         *v24 = 136315138;
-        v26 = sub_10002065C(v51, v20, &aBlock);
+        v26 = sub_10002065C(v53, v20, &aBlock);
 
         *(v24 + 4) = v26;
         p_cache = (SVSBaseMainController + 16);
@@ -583,8 +588,8 @@ LABEL_47:
       {
       }
 
-      v16 = v54;
-      [v54 unpairPeer:v17];
+      v16 = v56;
+      [v56 unpairPeer:v17];
     }
 
     if (p_cache[146] != -1)
@@ -604,15 +609,15 @@ LABEL_47:
       v32 = swift_slowAlloc();
       *v31 = 138412546;
       *(v31 + 4) = v28;
-      *v32 = v53;
+      *v32 = v55;
       *(v31 + 12) = 1024;
-      *(v31 + 14) = v52;
+      *(v31 + 14) = v54;
       v33 = v28;
       _os_log_impl(&_mh_execute_header, v29, v30, "%@. BT-paired already? %{BOOL}d", v31, 0x12u);
-      sub_10001259C(v32, &unk_1001BBA60);
+      sub_10001259C(v32, &unk_1001BBA60, &qword_10016D230);
 
       v28 = v29;
-      v29 = v54;
+      v29 = v56;
       v16 = v33;
     }
   }
@@ -623,12 +628,12 @@ LABEL_47:
     if (v34)
     {
       v35 = *(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_spManager);
-      v60 = sub_1000D54B0;
-      v61 = 0;
+      v62 = sub_1000D54B0;
+      v63 = 0;
       aBlock = _NSConcreteStackBlock;
-      v57 = 1107296256;
-      v58 = sub_1000E4BD0;
-      v59 = &unk_100194158;
+      v59 = 1107296256;
+      v60 = sub_1000E4BD0;
+      v61 = &unk_100194158;
       v36 = _Block_copy(&aBlock);
       v37 = v34;
       [v35 invalidatePairingSession:v37 completion:v36];
@@ -674,12 +679,12 @@ LABEL_36:
       v44 = [objc_allocWithZone(SFClient) init];
       v45 = swift_allocObject();
       *(v45 + 16) = v44;
-      v60 = sub_10005F820;
-      v61 = v45;
+      v62 = sub_10005F820;
+      v63 = v45;
       aBlock = _NSConcreteStackBlock;
-      v57 = 1107296256;
-      v58 = sub_1000E4BD0;
-      v59 = &unk_100194130;
+      v59 = 1107296256;
+      v60 = sub_1000E4BD0;
+      v61 = &unk_100194130;
       v46 = _Block_copy(&aBlock);
       v47 = v44;
 
@@ -695,19 +700,19 @@ LABEL_36:
   swift_endAccess();
 
   aBlock = 0xD000000000000070;
-  v57 = 0x800000010014C1F0;
-  v62 = 1523;
+  v59 = 0x800000010014C1F0;
+  v64 = 1523;
   v48._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v48);
 
   v49 = String.hashValue.getter();
 
   swift_beginAccess();
-  v50 = sub_1000D991C(&v62, v49);
+  v50 = sub_1000D991C(&v64, v49);
   swift_endAccess();
   if (v50)
   {
-    sub_1000D530C(0xD000000000000019, 0x8000000100147780, 0, 0xE000000000000000, "%s - done. %s");
+    sub_1000D530C(0xD000000000000019, 0x8000000100147780, 0, 0xE000000000000000, "%s - done. %s", v51, v52);
   }
 }
 
@@ -718,7 +723,7 @@ uint64_t sub_1000BEC2C()
   v1[7] = v2;
   v1[8] = *(v2 - 8);
   v1[9] = swift_task_alloc();
-  sub_100005DCC(&qword_1001BE238);
+  sub_100005DCC(&qword_1001BE238, &qword_100170A28);
   v1[10] = swift_task_alloc();
   v3 = type metadata accessor for AirTagHardwareModel();
   v1[11] = v3;
@@ -729,7 +734,7 @@ uint64_t sub_1000BEC2C()
   v1[15] = *(v4 - 8);
   v1[16] = swift_task_alloc();
   v1[17] = swift_task_alloc();
-  sub_100005DCC(&unk_1001BE180);
+  sub_100005DCC(&unk_1001BE180, &unk_10016EA10);
   v1[18] = swift_task_alloc();
   v1[19] = swift_task_alloc();
   v5 = type metadata accessor for AirTagPairing2.Configuration.Color();
@@ -754,7 +759,7 @@ uint64_t sub_1000BEEC8()
   swift_beginAccess();
   v25 = v3;
   v26 = v2;
-  sub_100005EB8(v2 + v3, v1, &unk_1001BE180);
+  sub_100005EB8(v2 + v3, v1, &unk_1001BE180, &unk_10016EA10);
   v4 = type metadata accessor for B389PresentationConfig(0);
   v24 = *(*(v4 - 8) + 48);
   if (v24(v1, 1, v4) == 1)
@@ -786,7 +791,7 @@ LABEL_11:
   (*(v10 + 104))(v11, enum case for AirTagHardwareModel.original(_:), v12);
   (*(v8 + 16))(v6, v5, v7);
   AirTagPairing2.Configuration.init(hardwareModel:color:timeout:)();
-  sub_100005EB8(v26 + v25, v23, &unk_1001BE180);
+  sub_100005EB8(v26 + v25, v23, &unk_1001BE180, &unk_10016EA10);
   if (v24(v23, 1, v4) == 1)
   {
     goto LABEL_11;
@@ -936,7 +941,7 @@ uint64_t sub_1000BF778(uint64_t a1, uint64_t a2, uint64_t a3)
   v4 = v3;
   v98 = a2;
   v99 = a3;
-  v6 = sub_100005DCC(&unk_1001BBB80);
+  v6 = sub_100005DCC(&unk_1001BBB80, &qword_10016E770);
   __chkstk_darwin(v6 - 8);
   v97 = &v93 - v7;
   v102 = type metadata accessor for B389PresentationConfig.Mode(0);
@@ -944,7 +949,7 @@ uint64_t sub_1000BF778(uint64_t a1, uint64_t a2, uint64_t a3)
   v10 = &v93 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v8);
   v12 = &v93 - v11;
-  v13 = sub_100005DCC(&unk_1001BE180);
+  v13 = sub_100005DCC(&unk_1001BE180, &unk_10016EA10);
   __chkstk_darwin(v13 - 8);
   v15 = &v93 - v14;
   v100 = type metadata accessor for B389PresentationConfig(0);
@@ -954,7 +959,7 @@ uint64_t sub_1000BF778(uint64_t a1, uint64_t a2, uint64_t a3)
   __chkstk_darwin(v17);
   v21 = &v93 - v20;
   v111 = a1;
-  sub_100005DCC(&qword_1001BBC50);
+  sub_100005DCC(&qword_1001BBC50, &qword_10016E848);
   Optional.unwrap(_:file:line:)();
   v101 = aBlock;
   v22 = [aBlock userInfo];
@@ -970,7 +975,7 @@ uint64_t sub_1000BF778(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v111 = v24;
-  sub_100005DCC(&qword_1001BBC58);
+  sub_100005DCC(&qword_1001BBC58, &qword_10016E850);
   Optional.unwrap(_:file:line:)();
 
   v25 = aBlock;
@@ -1005,7 +1010,7 @@ uint64_t sub_1000BF778(uint64_t a1, uint64_t a2, uint64_t a3)
 
   v111 = v30;
   v112 = v31;
-  sub_100005DCC(&unk_1001BE190);
+  sub_100005DCC(&unk_1001BE190, &qword_10016E6E8);
   Optional.unwrap(_:file:line:)();
   sub_100025404(v111, v112);
   v33 = aBlock;
@@ -1013,7 +1018,7 @@ uint64_t sub_1000BF778(uint64_t a1, uint64_t a2, uint64_t a3)
   type metadata accessor for PropertyListDecoder();
   swift_allocObject();
   PropertyListDecoder.init()();
-  sub_10005F638(&qword_1001BBC60, type metadata accessor for B389PresentationConfig);
+  sub_10005F638(&qword_1001BBC60, type metadata accessor for B389PresentationConfig, &unk_10016D89C);
   v34 = v100;
   v95 = v32;
   dispatch thunk of PropertyListDecoder.decode<A>(_:from:)();
@@ -1032,7 +1037,7 @@ uint64_t sub_1000BF778(uint64_t a1, uint64_t a2, uint64_t a3)
     v38 = v93;
     if (EnumCaseMultiPayload == 1)
     {
-      v39 = v12[*(sub_100005DCC(&unk_1001BA6E0) + 48)];
+      v39 = v12[*(sub_100005DCC(&unk_1001BA6E0, &unk_10016D920) + 48)];
       v40 = type metadata accessor for UUID();
       (*(*(v40 - 8) + 8))(v12, v40);
     }
@@ -1159,7 +1164,7 @@ uint64_t sub_1000BF778(uint64_t a1, uint64_t a2, uint64_t a3)
     *&v4[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_xpcAgent] = v72;
     v74 = v72;
 
-    sub_1000122EC(0, &qword_1001BCE90);
+    sub_1000122EC(0, &qword_1001BCE90, OS_dispatch_queue_ptr);
     v75 = static OS_dispatch_queue.main.getter();
     [v74 setDispatchQueue:v75];
 
@@ -1216,7 +1221,7 @@ uint64_t sub_1000BF778(uint64_t a1, uint64_t a2, uint64_t a3)
   v87 = v4;
   v89 = v98;
   v88 = v99;
-  sub_100024138(v98);
+  sub_100024138(v98, v99);
   v90 = static MainActor.shared.getter();
   v91 = swift_allocObject();
   v91[2] = v90;
@@ -1480,7 +1485,7 @@ void sub_1000C11D8(uint64_t a1, uint64_t a2, uint64_t a3)
   [v6 setFrontBoardOptions:isa];
 
   v16 = [objc_opt_self() defaultWorkspace];
-  sub_100005DCC(&qword_1001BBC18);
+  sub_100005DCC(&qword_1001BBC18, &qword_10016E818);
   Optional.unwrap(_:file:line:)();
 
   v8 = aBlock[0];
@@ -1497,7 +1502,7 @@ void sub_1000C11D8(uint64_t a1, uint64_t a2, uint64_t a3)
   aBlock[3] = &unk_1001943D8;
   v13 = _Block_copy(aBlock);
   v14 = v6;
-  sub_100024138(a2);
+  sub_100024138(a2, a3);
 
   [v8 openURL:v11 configuration:v14 completionHandler:v13];
   _Block_release(v13);
@@ -1584,16 +1589,16 @@ void sub_1000C1640(char a1)
   }
 }
 
-uint64_t sub_1000C1744(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_1000C1744(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v46 = a1;
-  v9 = sub_100005DCC(&qword_1001BA7B0);
-  v44 = *(v9 - 8);
-  v10 = *(v44 + 64);
+  v45 = a1;
+  v9 = sub_100005DCC(&qword_1001BA7B0, &qword_10016D9A0);
+  v43 = *(v9 - 8);
+  v10 = *(v43 + 64);
   v11 = __chkstk_darwin(v9 - 8);
-  v12 = &v40 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v39 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v11);
-  v14 = &v40 - v13;
+  v14 = &v39 - v13;
   if (qword_1001B9490 != -1)
   {
     swift_once();
@@ -1601,22 +1606,22 @@ uint64_t sub_1000C1744(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
 
   v15 = type metadata accessor for Logger();
   sub_10000D298(v15, qword_1001BE0E0);
-  sub_100024138(a3);
+  sub_100024138(a3, a4);
   v16 = Logger.logObject.getter();
   v17 = static os_log_type_t.default.getter();
-  sub_100012050(a3);
+  sub_100012050(a3, a4);
   if (os_log_type_enabled(v16, v17))
   {
-    v41 = v17;
-    v42 = a2;
-    v43 = &v40 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v40 = v17;
+    v41 = a2;
+    v42 = &v39 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
     v18 = swift_slowAlloc();
-    v40 = swift_slowAlloc();
-    v49 = v40;
+    v39 = swift_slowAlloc();
+    v48 = v39;
     *v18 = 134218498;
     *(v18 + 4) = a5;
     *(v18 + 12) = 1024;
-    *(v18 + 14) = v46;
+    *(v18 + 14) = v45;
     *(v18 + 18) = 2080;
     if (a3)
     {
@@ -1632,23 +1637,23 @@ uint64_t sub_1000C1744(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
       v19 = 0;
     }
 
-    v47 = v20;
-    v48 = v19;
-    sub_100024138(a3);
-    sub_100005DCC(&qword_1001BBC08);
+    v46 = v20;
+    v47 = v19;
+    sub_100024138(a3, a4);
+    sub_100005DCC(&qword_1001BBC08, &qword_10016E808);
     v21 = Optional.debugDescription.getter();
     v22 = a4;
     v24 = v23;
-    sub_100012050(v20);
-    v25 = sub_10002065C(v21, v24, &v49);
+    sub_100012050(v20, v19);
+    v25 = sub_10002065C(v21, v24, &v48);
     a4 = v22;
 
     *(v18 + 20) = v25;
-    _os_log_impl(&_mh_execute_header, v16, v41, "dismissCompletion from %ld. inActionType: %d, completion: %s", v18, 0x1Cu);
-    sub_1000083B0(v40);
+    _os_log_impl(&_mh_execute_header, v16, v40, "dismissCompletion from %ld. inActionType: %d, completion: %s", v18, 0x1Cu);
+    sub_1000083B0(v39);
 
-    a2 = v42;
-    v12 = v43;
+    a2 = v41;
+    v12 = v42;
   }
 
   else
@@ -1656,28 +1661,28 @@ uint64_t sub_1000C1744(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
   }
 
   v26 = swift_allocObject();
-  v27 = v45;
+  v27 = v44;
   swift_unknownObjectWeakInit();
-  sub_100005EB8(a2, v14, &qword_1001BA7B0);
-  sub_100005EB8(v14, v12, &qword_1001BA7B0);
-  v28 = (*(v44 + 80) + 48) & ~*(v44 + 80);
+  sub_100005EB8(a2, v14, &qword_1001BA7B0, &qword_10016D9A0);
+  sub_100005EB8(v14, v12, &qword_1001BA7B0, &qword_10016D9A0);
+  v28 = (*(v43 + 80) + 48) & ~*(v43 + 80);
   v29 = swift_allocObject();
   *(v29 + 16) = v26;
-  *(v29 + 24) = v46;
+  *(v29 + 24) = v45;
   *(v29 + 32) = a3;
   *(v29 + 40) = a4;
-  sub_100066AC8(v14, v29 + v28, &qword_1001BA7B0);
+  sub_100066AC8(v14, v29 + v28, &qword_1001BA7B0, &qword_10016D9A0);
   v30 = *(v27 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_vcNav);
   if (v30)
   {
-    sub_100024138(a3);
+    sub_100024138(a3, a4);
 
     v31 = [v30 topViewController];
-    v49 = v31;
-    sub_100005DCC(&qword_1001BBC00);
+    v48 = v31;
+    sub_100005DCC(&qword_1001BBC00, &qword_10016E800);
     Optional.unwrap(_:file:line:)();
 
-    v32 = v47;
+    v32 = v46;
     objc_opt_self();
     v33 = swift_dynamicCastObjCClass();
     if (v33)
@@ -1689,7 +1694,7 @@ uint64_t sub_1000C1744(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
       LODWORD(v37) = [v36 swipeDismissible];
 
       a4 = v35;
-      if (!v46)
+      if (!v45)
       {
         goto LABEL_18;
       }
@@ -1701,7 +1706,7 @@ uint64_t sub_1000C1744(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
       v38 = swift_dynamicCastObjCClass();
       if (!v38)
       {
-        if (v46)
+        if (v45)
         {
           goto LABEL_16;
         }
@@ -1710,7 +1715,7 @@ uint64_t sub_1000C1744(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
       }
 
       v37 = (([v38 dismissalType] >> 1) & 1);
-      if (!v46)
+      if (!v45)
       {
         goto LABEL_18;
       }
@@ -1720,25 +1725,27 @@ uint64_t sub_1000C1744(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
     {
 LABEL_16:
 
-      sub_10001259C(v12, &qword_1001BA7B0);
+      sub_10001259C(v12, &qword_1001BA7B0, &qword_10016D9A0);
       sub_1000DDEA4(v32, sub_1000E4118, v29);
+
+      return;
     }
 
 LABEL_18:
-    sub_1000C1CD0(v26, v46, a3, a4, v12);
+    sub_1000C1CD0(v26, v45, a3, a4, v12);
 
-    return sub_10001259C(v12, &qword_1001BA7B0);
+    sub_10001259C(v12, &qword_1001BA7B0, &qword_10016D9A0);
+    return;
   }
 
-  sub_100024138(a3);
-  result = sub_10001259C(v12, &qword_1001BA7B0);
+  sub_100024138(a3, a4);
+  sub_10001259C(v12, &qword_1001BA7B0, &qword_10016D9A0);
   __break(1u);
-  return result;
 }
 
 void sub_1000C1CD0(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = sub_100005DCC(&qword_1001BA7B0);
+  v9 = sub_100005DCC(&qword_1001BA7B0, &qword_10016D9A0);
   v10 = *(v9 - 8);
   v11 = *(v10 + 64);
   __chkstk_darwin(v9 - 8);
@@ -1766,14 +1773,14 @@ void sub_1000C1CD0(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
     }
 
     sub_1000BE2C0(0);
-    sub_100005EB8(a5, v13, &qword_1001BA7B0);
+    sub_100005EB8(a5, v13, &qword_1001BA7B0, &qword_10016D9A0);
     v20 = (*(v10 + 80) + 32) & ~*(v10 + 80);
     v21 = (v11 + v20 + 7) & 0xFFFFFFFFFFFFFFF8;
     v22 = swift_allocObject();
     v23 = v26;
     *(v22 + 16) = a3;
     *(v22 + 24) = v23;
-    sub_100066AC8(v13, v22 + v20, &qword_1001BA7B0);
+    sub_100066AC8(v13, v22 + v20, &qword_1001BA7B0, &qword_10016D9A0);
     *(v22 + v21) = v15;
     aBlock[4] = sub_1000E42E4;
     aBlock[5] = v22;
@@ -1782,7 +1789,7 @@ void sub_1000C1CD0(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
     aBlock[2] = sub_10001C544;
     aBlock[3] = &unk_100194338;
     v24 = _Block_copy(aBlock);
-    sub_100024138(a3);
+    sub_100024138(a3, v23);
     v25 = v15;
 
     [v25 dismissViewControllerAnimated:a2 != 19 completion:v24];
@@ -1794,75 +1801,75 @@ uint64_t sub_1000C1FB0(void (*a1)(uint64_t), uint64_t a2, uint64_t a3, uint64_t 
 {
   v7 = type metadata accessor for URL();
   v8 = *(v7 - 8);
-  (__chkstk_darwin)();
-  v32 = v31 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_100005DCC(&qword_1001BA7B0);
-  v10 = (__chkstk_darwin)();
-  v12 = v31 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __chkstk_darwin(v10);
-  v15 = v31 - v14;
+  __chkstk_darwin(v7);
+  v33 = v32 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = sub_100005DCC(&qword_1001BA7B0, &qword_10016D9A0);
+  v11 = __chkstk_darwin(v10 - 8);
+  v13 = v32 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = __chkstk_darwin(v11);
+  v16 = v32 - v15;
   if (a1)
   {
-    a1(v13);
+    a1(v14);
   }
 
-  v33 = a3;
-  sub_100005EB8(a3, v15, &qword_1001BA7B0);
-  v16 = *(v8 + 48);
-  v17 = v16(v15, 1, v7);
-  sub_10001259C(v15, &qword_1001BA7B0);
-  if (v17 == 1)
+  v34 = a3;
+  sub_100005EB8(a3, v16, &qword_1001BA7B0, &qword_10016D9A0);
+  v17 = *(v8 + 48);
+  v18 = v17(v16, 1, v7);
+  sub_10001259C(v16, &qword_1001BA7B0, &qword_10016D9A0);
+  if (v18 == 1)
   {
-    v18 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v19 = sub_1000DE458();
+    v20 = sub_1000DE458();
     if (qword_1001B9490 != -1)
     {
       swift_once();
     }
 
-    v20 = type metadata accessor for Logger();
-    sub_10000D298(v20, qword_1001BE0E0);
-    v18 = v19;
-    v21 = Logger.logObject.getter();
-    v22 = static os_log_type_t.default.getter();
+    v21 = type metadata accessor for Logger();
+    sub_10000D298(v21, qword_1001BE0E0);
+    v19 = v20;
+    v22 = Logger.logObject.getter();
+    v23 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v21, v22))
+    if (os_log_type_enabled(v22, v23))
     {
-      v23 = swift_slowAlloc();
       v24 = swift_slowAlloc();
-      v31[1] = a4;
-      v25 = v24;
-      *v23 = 138412290;
-      *(v23 + 4) = v18;
-      *v24 = v18;
-      v26 = v18;
-      _os_log_impl(&_mh_execute_header, v21, v22, "Took assertion: %@", v23, 0xCu);
-      sub_10001259C(v25, &unk_1001BBA60);
+      v25 = swift_slowAlloc();
+      v32[1] = a4;
+      v26 = v25;
+      *v24 = 138412290;
+      *(v24 + 4) = v19;
+      *v25 = v19;
+      v27 = v19;
+      _os_log_impl(&_mh_execute_header, v22, v23, "Took assertion: %@", v24, 0xCu);
+      sub_10001259C(v26, &unk_1001BBA60, &qword_10016D230);
     }
   }
 
   sub_1000C237C();
-  sub_100005EB8(v33, v12, &qword_1001BA7B0);
-  if (v16(v12, 1, v7) == 1)
+  sub_100005EB8(v34, v13, &qword_1001BA7B0, &qword_10016D9A0);
+  if (v17(v13, 1, v7) == 1)
   {
 
-    return sub_10001259C(v12, &qword_1001BA7B0);
+    return sub_10001259C(v13, &qword_1001BA7B0, &qword_10016D9A0);
   }
 
   else
   {
-    v28 = v32;
-    (*(v8 + 32))(v32, v12, v7);
-    v29 = swift_allocObject();
-    *(v29 + 16) = v18;
-    v30 = v18;
-    sub_1000C11D8(v28, sub_100066FB4, v29);
+    v29 = v33;
+    (*(v8 + 32))(v33, v13, v7);
+    v30 = swift_allocObject();
+    *(v30 + 16) = v19;
+    v31 = v19;
+    sub_1000C11D8(v29, sub_100066FB4, v30);
 
-    return (*(v8 + 8))(v28, v7);
+    return (*(v8 + 8))(v29, v7);
   }
 }
 
@@ -1892,7 +1899,7 @@ void sub_1000C2434(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t
   v43[1] = a6;
   v44 = a7;
   v47 = a1;
-  v48 = sub_100005DCC(&qword_1001BBB68);
+  v48 = sub_100005DCC(&qword_1001BBB68, &unk_10016E760);
   v46 = *(v48 - 8);
   v45 = *(v46 + 64);
   __chkstk_darwin(v48);
@@ -1904,7 +1911,7 @@ void sub_1000C2434(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t
   v16 = sub_1001279D0(v13, v14, v15);
 
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_100005DCC(&unk_1001BBB70);
+  sub_100005DCC(&unk_1001BBB70, &unk_10016E0B0);
   v17 = swift_allocObject();
   *(v17 + 16) = xmmword_10016CCE0;
   *(v17 + 56) = &type metadata for String;
@@ -1998,13 +2005,13 @@ void sub_1000C2434(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t
   [v49 presentViewController:v26 animated:1 completion:0];
 }
 
-uint64_t sub_1000C2A28(uint64_t a1, uint64_t a2)
+double sub_1000C2A28(uint64_t a1, uint64_t a2)
 {
-  v3 = sub_100005DCC(&qword_1001BBB68);
+  v3 = sub_100005DCC(&qword_1001BBB68, &unk_10016E760);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v15 - v5;
-  v7 = sub_100005DCC(&unk_1001BBB80);
+  v7 = sub_100005DCC(&unk_1001BBB80, &qword_10016E770);
   __chkstk_darwin(v7 - 8);
   v9 = &v15 - v8;
   v10 = type metadata accessor for TaskPriority();
@@ -2018,6 +2025,8 @@ uint64_t sub_1000C2A28(uint64_t a1, uint64_t a2)
   *(v13 + 24) = &protocol witness table for MainActor;
   (*(v4 + 32))(v13 + v12, v6, v3);
   sub_1000BB214(0, 0, v9, &unk_100170AA0, v13);
+
+  return result;
 }
 
 uint64_t sub_1000C2C20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2027,7 +2036,7 @@ uint64_t sub_1000C2C20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v4[7] = v5;
   v4[8] = *(v5 - 8);
   v4[9] = swift_task_alloc();
-  sub_100005DCC(&unk_1001BE270);
+  sub_100005DCC(&unk_1001BE270, &qword_10016E788);
   v4[10] = swift_task_alloc();
   v6 = type metadata accessor for ClientOrigin();
   v4[11] = v6;
@@ -2108,7 +2117,7 @@ uint64_t sub_1000C3144()
   {
     v7 = v0[10];
 
-    sub_10001259C(v7, &unk_1001BE270);
+    sub_10001259C(v7, &unk_1001BE270, &qword_10016E788);
     if (qword_1001B9490 != -1)
     {
       swift_once();
@@ -2125,7 +2134,7 @@ uint64_t sub_1000C3144()
       _os_log_impl(&_mh_execute_header, v9, v10, "Me device switch failed, no this device", v11, 2u);
     }
 
-    sub_100005DCC(&qword_1001BBB68);
+    sub_100005DCC(&qword_1001BBB68, &unk_10016E760);
     CheckedContinuation.resume(returning:)();
 
     v12 = v0[1];
@@ -2191,7 +2200,7 @@ uint64_t sub_1000C351C()
     _os_log_impl(&_mh_execute_header, v2, v3, "Me device switch succeeded", v4, 2u);
   }
 
-  sub_100005DCC(&qword_1001BBB68);
+  sub_100005DCC(&qword_1001BBB68, &unk_10016E760);
   CheckedContinuation.resume(returning:)();
 
   v5 = *(v0 + 8);
@@ -2229,7 +2238,7 @@ uint64_t sub_1000C3688()
     sub_1000083B0(v5);
   }
 
-  sub_100005DCC(&qword_1001BBB68);
+  sub_100005DCC(&qword_1001BBB68, &unk_10016E760);
   CheckedContinuation.resume(returning:)();
 
   v9 = *(v0 + 8);
@@ -2267,7 +2276,7 @@ uint64_t sub_1000C388C()
     sub_1000083B0(v5);
   }
 
-  sub_100005DCC(&qword_1001BBB68);
+  sub_100005DCC(&qword_1001BBB68, &unk_10016E760);
   CheckedContinuation.resume(returning:)();
 
   v9 = *(v0 + 8);
@@ -2285,25 +2294,25 @@ void sub_1000C3A98(char a1, uint64_t a2, uint64_t a3)
     {
       if (a2)
       {
-        v11[4] = a2;
-        v11[5] = a3;
-        v11[0] = _NSConcreteStackBlock;
-        v11[1] = 1107296256;
-        v11[2] = sub_10001C544;
-        v11[3] = &unk_100194428;
-        v8 = _Block_copy(v11);
-        v9 = v5;
-        sub_100024138(a2);
+        v12[4] = a2;
+        v12[5] = a3;
+        v12[0] = _NSConcreteStackBlock;
+        v12[1] = 1107296256;
+        v12[2] = sub_10001C544;
+        v12[3] = &unk_100194428;
+        v9 = _Block_copy(v12);
+        v10 = v5;
+        sub_100024138(a2, a3);
       }
 
       else
       {
-        v10 = v5;
-        v8 = 0;
+        v11 = v5;
+        v9 = 0;
       }
 
-      [v5 dismissViewControllerAnimated:a1 & 1 completion:v8];
-      _Block_release(v8);
+      [v5 dismissViewControllerAnimated:a1 & 1 completion:v9];
+      _Block_release(v9);
 
       *(v3 + v4) = 1;
     }
@@ -2333,7 +2342,7 @@ void sub_1000C3C6C(char a1)
   v14[1] = v13;
   if (*(&v13 + 1))
   {
-    sub_100005DCC(&unk_1001BC0B0);
+    sub_100005DCC(&unk_1001BC0B0, &unk_10016EAD0);
     if (swift_dynamicCast())
     {
       if (qword_1001B9490 != -1)
@@ -2362,7 +2371,7 @@ void sub_1000C3C6C(char a1)
 
   else
   {
-    sub_10001259C(v14, &qword_1001BBB40);
+    sub_10001259C(v14, &qword_1001BBB40, &qword_10016E740);
   }
 
   if (qword_1001B9490 != -1)
@@ -2387,7 +2396,7 @@ LABEL_16:
 id sub_1000C3F10(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = v3;
-  sub_100005DCC(&unk_1001BE250);
+  sub_100005DCC(&unk_1001BE250, &unk_100170A30);
   v7 = swift_allocObject();
   v8 = v7;
   *(v7 + 16) = 0xD00000000000001DLL;
@@ -2520,7 +2529,7 @@ id sub_1000C3F10(uint64_t a1, uint64_t a2, void *a3)
   *&v4[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_mapViewController] = 0;
   v36 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_fbOtions;
   v37 = sub_100005B44(&off_10018F260);
-  sub_100005DCC(&unk_1001BBC30);
+  sub_100005DCC(&unk_1001BBC30, &qword_10016E838);
   swift_arrayDestroy();
   *&v4[v36] = v37;
   if (a2)
@@ -2534,7 +2543,7 @@ id sub_1000C3F10(uint64_t a1, uint64_t a2, void *a3)
   }
 
   v41.receiver = v4;
-  v41.super_class = type metadata accessor for AirTagSetupMainViewController();
+  v41.super_class = type metadata accessor for AirTagSetupMainViewController(0);
   v39 = objc_msgSendSuper2(&v41, "initWithNibName:bundle:", v38, a3);
 
   return v39;
@@ -2543,7 +2552,7 @@ id sub_1000C3F10(uint64_t a1, uint64_t a2, void *a3)
 id sub_1000C4604(void *a1)
 {
   v2 = v1;
-  sub_100005DCC(&unk_1001BE250);
+  sub_100005DCC(&unk_1001BE250, &unk_100170A30);
   v4 = swift_allocObject();
   v5 = v4;
   *(v4 + 16) = 0xD00000000000001DLL;
@@ -2676,11 +2685,11 @@ id sub_1000C4604(void *a1)
   *&v2[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_mapViewController] = 0;
   v33 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_fbOtions;
   v34 = sub_100005B44(&off_10018F2B0);
-  sub_100005DCC(&unk_1001BBC30);
+  sub_100005DCC(&unk_1001BBC30, &qword_10016E838);
   swift_arrayDestroy();
   *&v2[v33] = v34;
   v37.receiver = v2;
-  v37.super_class = type metadata accessor for AirTagSetupMainViewController();
+  v37.super_class = type metadata accessor for AirTagSetupMainViewController(0);
   v35 = objc_msgSendSuper2(&v37, "initWithCoder:", a1);
 
   if (v35)
@@ -2693,11 +2702,11 @@ id sub_1000C4604(void *a1)
 id sub_1000C4C94()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for AirTagSetupMainViewController();
+  v2.super_class = type metadata accessor for AirTagSetupMainViewController(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for AirTagSetupMainViewController()
+uint64_t type metadata accessor for AirTagSetupMainViewController(uint64_t a1)
 {
   result = qword_1001BE158;
   if (!qword_1001BE158)
@@ -2708,20 +2717,20 @@ uint64_t type metadata accessor for AirTagSetupMainViewController()
   return result;
 }
 
-void sub_1000C50B0()
+void sub_1000C50B0(uint64_t a1)
 {
   sub_1000C52E8(319, &qword_1001BB128, type metadata accessor for B389PresentationConfig);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1000C52E8(319, &qword_1001BB130, &type metadata accessor for UUID);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_updateClassMetadata2();
     }
   }
 }
 
-void sub_1000C52E8(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1000C52E8(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -2737,37 +2746,37 @@ void sub_1000C52E8(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
 void sub_1000C533C()
 {
   v2 = v0;
-  v3 = sub_100005DCC(&qword_1001BA7B0);
+  v3 = sub_100005DCC(&qword_1001BA7B0, &qword_10016D9A0);
   __chkstk_darwin(v3);
-  v5 = &v118 - v4;
-  v129 = type metadata accessor for URL();
-  v128 = *(v129 - 8);
-  __chkstk_darwin(v129);
-  v133 = &v118 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v120 - v4;
+  v131 = type metadata accessor for URL();
+  v130 = *(v131 - 8);
+  __chkstk_darwin(v131);
+  v135 = &v120 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = "ensureUserConsented()";
   v8 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_inFlightOperations;
   swift_beginAccess();
-  v130 = v8;
-  sub_1000D99FC(&v136, 0xD00000000000001CLL, 0x8000000100147830);
+  v132 = v8;
+  sub_1000D99FC(&v138, 0xD00000000000001CLL, 0x8000000100147830);
   swift_endAccess();
 
   v9 = *(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_om);
   *&aBlock = 0xD000000000000070;
   *(&aBlock + 1) = 0x800000010014C1F0;
-  v131 = 0x800000010014C1F0;
-  *&v136 = 709;
+  v133 = 0x800000010014C1F0;
+  *&v138 = 709;
   v10._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v10);
 
   v11 = String.hashValue.getter();
 
   swift_beginAccess();
-  v132 = v9;
-  LOBYTE(v8) = sub_1000D991C(&v136, v11);
+  v134 = v9;
+  LOBYTE(v8) = sub_1000D991C(&v138, v11);
   swift_endAccess();
   if (v8)
   {
-    sub_1000D530C(0xD00000000000001CLL, 0x8000000100147830, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD00000000000001CLL, 0x8000000100147830, 0, 0xE000000000000000, "%s - started... %s", v120, v121);
   }
 
   if (*(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_requestedPairingData))
@@ -2775,18 +2784,18 @@ void sub_1000C533C()
     goto LABEL_4;
   }
 
-  v127 = "ensureUserConsented()";
-  v124 = v1;
+  v129 = "ensureUserConsented()";
+  v126 = v1;
   *(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_requestedPairingData) = 1;
   v15 = *(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_spManager);
   v16 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v140 = sub_1000E3F4C;
-  v141 = v16;
+  v142 = sub_1000E3F4C;
+  v143 = v16;
   *&aBlock = _NSConcreteStackBlock;
   *(&aBlock + 1) = 1107296256;
-  *&v139 = sub_1000BB514;
-  *(&v139 + 1) = &unk_100194180;
+  *&v141 = sub_1000BB514;
+  *(&v141 + 1) = &unk_100194180;
   v17 = _Block_copy(&aBlock);
 
   [v15 initiatePairingSessionWithCompletion:v17];
@@ -2794,12 +2803,12 @@ void sub_1000C533C()
   v18 = *(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_beaconManager);
   v19 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v140 = sub_1000E3F54;
-  v141 = v19;
+  v142 = sub_1000E3F54;
+  v143 = v19;
   *&aBlock = _NSConcreteStackBlock;
   *(&aBlock + 1) = 1107296256;
-  *&v139 = sub_1000BB5A0;
-  *(&v139 + 1) = &unk_1001941A8;
+  *&v141 = sub_1000BB5A0;
+  *(&v141 + 1) = &unk_1001941A8;
   v20 = _Block_copy(&aBlock);
 
   [v18 roleCategoriesWithCompletion:v20];
@@ -2809,15 +2818,15 @@ void sub_1000C533C()
   if (!v22)
   {
     URL.init(string:)();
-    v32 = v133;
+    v32 = v135;
     Optional.unwrap(_:file:line:)();
-    sub_10001259C(v5, &qword_1001BA7B0);
-    v33 = v128;
-    v34 = v129;
-    v128[2](v5, v32, v129);
+    sub_10001259C(v5, &qword_1001BA7B0, &qword_10016D9A0);
+    v33 = v130;
+    v34 = v131;
+    v130[2](v5, v32, v131);
     (v33[7])(v5, 0, 1, v34);
     sub_1000C73A4(0, 0, 0, 0, 0, 0, 0, 0, v5);
-    sub_10001259C(v5, &qword_1001BA7B0);
+    sub_10001259C(v5, &qword_1001BA7B0, &qword_10016D9A0);
     if (qword_1001B9490 != -1)
     {
       swift_once();
@@ -2839,17 +2848,17 @@ void sub_1000C533C()
     *v39 = 3;
     swift_willThrow();
 
-    (v33[1])(v133, v34);
+    (v33[1])(v135, v34);
     return;
   }
 
   v23 = v22;
-  v129 = v2;
+  v131 = v2;
   v24 = objc_allocWithZone(AAUIProfilePictureStore);
-  v128 = v21;
-  v126 = [v24 initWithAppleAccount:v23 grandSlamAccount:0 accountStore:v21];
-  v25 = [v126 profilePictureForAccountOwner];
-  v133 = v23;
+  v130 = v21;
+  v128 = [v24 initWithAppleAccount:v23 grandSlamAccount:0 accountStore:v21];
+  v25 = [v128 profilePictureForAccountOwner];
+  v135 = v23;
   v26 = [v23 username];
   if (v26)
   {
@@ -2864,24 +2873,26 @@ void sub_1000C533C()
     v30 = 0;
   }
 
-  v40 = (v129 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_appleIDInfo);
+  v40 = (v131 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_appleIDInfo);
   swift_beginAccess();
   v41 = *v40;
   v42 = v40[1];
-  v43 = v40[2];
+  v44 = v40[2];
+  v43 = v40[3];
+  v45 = v40[4];
   *v40 = v28;
   v40[1] = v30;
   v40[3] = 0;
   v40[4] = 0;
   v40[2] = v25;
-  v125 = v25;
-  sub_100016CBC(v41, v42, v43);
-  v44 = [objc_opt_self() sharedInstance];
-  v45 = String._bridgeToObjectiveC()();
-  v46 = v133;
-  v47 = [v133 accountPropertyForKey:v45];
+  v127 = v25;
+  sub_100016CBC(v41, v42, v44, v43, v45);
+  v46 = [objc_opt_self() sharedInstance];
+  v47 = String._bridgeToObjectiveC()();
+  v48 = v135;
+  v49 = [v135 accountPropertyForKey:v47];
 
-  if (v47)
+  if (v49)
   {
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
@@ -2889,17 +2900,17 @@ void sub_1000C533C()
 
   else
   {
-    v136 = 0u;
-    v137 = 0u;
+    v138 = 0u;
+    v139 = 0u;
   }
 
-  v48 = v128;
-  v7 = v127;
-  aBlock = v136;
-  v139 = v137;
-  if (!*(&v137 + 1))
+  v50 = v130;
+  v7 = v129;
+  aBlock = v138;
+  v141 = v139;
+  if (!*(&v139 + 1))
   {
-    sub_10001259C(&aBlock, &qword_1001BBB40);
+    sub_10001259C(&aBlock, &qword_1001BBB40, &qword_10016E740);
     goto LABEL_27;
   }
 
@@ -2908,75 +2919,75 @@ void sub_1000C533C()
 LABEL_27:
     sub_10005F408();
     swift_allocError();
-    *v54 = 3;
+    *v56 = 3;
     swift_willThrow();
 
     return;
   }
 
-  v49 = String._bridgeToObjectiveC()();
+  v51 = String._bridgeToObjectiveC()();
 
-  v50 = [v44 authKitAccountWithAltDSID:v49];
+  v52 = [v46 authKitAccountWithAltDSID:v51];
 
-  if (v50)
+  if (v52)
   {
-    v51 = [v44 additionalInfoForAccount:v50];
-    if (v51)
+    v53 = [v46 additionalInfoForAccount:v52];
+    if (v53)
     {
-      v52 = v51;
-      v53 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+      v54 = v53;
+      v55 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
     }
 
     else
     {
-      v53 = 0;
+      v55 = 0;
     }
 
-    v123 = v50;
-    LODWORD(v122) = [v44 phoneAsAppleIDForAccount:v50];
+    v125 = v52;
+    LODWORD(v124) = [v46 phoneAsAppleIDForAccount:v52];
     if (qword_1001B9490 != -1)
     {
       swift_once();
     }
 
-    v60 = type metadata accessor for Logger();
-    v61 = sub_10000D298(v60, qword_1001BE0E0);
+    v62 = type metadata accessor for Logger();
+    v63 = sub_10000D298(v62, qword_1001BE0E0);
 
-    v62 = Logger.logObject.getter();
-    v63 = static os_log_type_t.default.getter();
+    v64 = Logger.logObject.getter();
+    v65 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v62, v63))
+    if (os_log_type_enabled(v64, v65))
     {
-      v64 = v61;
-      v65 = v44;
-      v66 = swift_slowAlloc();
-      v67 = swift_slowAlloc();
-      *&aBlock = v67;
-      *v66 = 136315394;
-      if (v53)
+      v66 = v63;
+      v67 = v46;
+      v68 = swift_slowAlloc();
+      v69 = swift_slowAlloc();
+      *&aBlock = v69;
+      *v68 = 136315394;
+      if (v55)
       {
-        v68 = Dictionary.description.getter();
-        v70 = v69;
+        v70 = Dictionary.description.getter();
+        v72 = v71;
       }
 
       else
       {
-        v70 = 0x80000001001478A0;
-        v68 = 0xD000000000000026;
+        v72 = 0x80000001001478A0;
+        v70 = 0xD000000000000026;
       }
 
-      v71 = sub_10002065C(v68, v70, &aBlock);
+      v73 = sub_10002065C(v70, v72, &aBlock);
 
-      *(v66 + 4) = v71;
-      *(v66 + 12) = 1024;
-      *(v66 + 14) = v122;
-      _os_log_impl(&_mh_execute_header, v62, v63, "Additional account info: %s, MAKO: %{BOOL}d", v66, 0x12u);
-      sub_1000083B0(v67);
+      *(v68 + 4) = v73;
+      *(v68 + 12) = 1024;
+      *(v68 + 14) = v124;
+      _os_log_impl(&_mh_execute_header, v64, v65, "Additional account info: %s, MAKO: %{BOOL}d", v68, 0x12u);
+      sub_1000083B0(v69);
 
-      v48 = v128;
-      v44 = v65;
-      v61 = v64;
-      if (!v53)
+      v50 = v130;
+      v46 = v67;
+      v63 = v66;
+      if (!v55)
       {
         goto LABEL_49;
       }
@@ -2985,33 +2996,33 @@ LABEL_27:
     else
     {
 
-      if (!v53)
+      if (!v55)
       {
         goto LABEL_49;
       }
     }
 
-    if (!*(v53 + 16))
+    if (!*(v55 + 16))
     {
       goto LABEL_49;
     }
 
-    v72 = sub_100032CC0(0x6D754E656E6F6870, 0xEC00000073726562);
-    if ((v73 & 1) == 0)
+    v74 = sub_100032CC0(0x6D754E656E6F6870, 0xEC00000073726562);
+    if ((v75 & 1) == 0)
     {
       goto LABEL_48;
     }
 
-    sub_10000BFEC(*(v53 + 56) + 32 * v72, &aBlock);
+    sub_10000BFEC(*(v55 + 56) + 32 * v74, &aBlock);
 
-    sub_1000122EC(0, &qword_1001BBB48);
+    sub_1000122EC(0, &qword_1001BBB48, NSArray_ptr);
     if ((swift_dynamicCast() & 1) == 0)
     {
       goto LABEL_49;
     }
 
-    v74 = v136;
-    if ([v136 firstObject])
+    v76 = v138;
+    if ([v138 firstObject])
     {
       _bridgeAnyObjectToAny(_:)();
       swift_unknownObjectRelease();
@@ -3019,27 +3030,27 @@ LABEL_27:
 
     else
     {
-      v136 = 0u;
-      v137 = 0u;
+      v138 = 0u;
+      v139 = 0u;
     }
 
-    aBlock = v136;
-    v139 = v137;
-    if (*(&v137 + 1))
+    aBlock = v138;
+    v141 = v139;
+    if (*(&v139 + 1))
     {
-      sub_1000122EC(0, &qword_1001BBB50);
+      sub_1000122EC(0, &qword_1001BBB50, NSDictionary_ptr);
       if ((swift_dynamicCast() & 1) == 0)
       {
 
         goto LABEL_49;
       }
 
-      v102 = v134;
-      *&v136 = 0x6D754E656E6F6870;
-      *(&v136 + 1) = 0xEB00000000726562;
-      v103 = [v134 __swift_objectForKeyedSubscript:_bridgeAnythingNonVerbatimToObjectiveC<A>(_:)()];
+      v104 = v136;
+      *&v138 = 0x6D754E656E6F6870;
+      *(&v138 + 1) = 0xEB00000000726562;
+      v105 = [v136 __swift_objectForKeyedSubscript:_bridgeAnythingNonVerbatimToObjectiveC<A>(_:)()];
       swift_unknownObjectRelease();
-      if (v103)
+      if (v105)
       {
         _bridgeAnyObjectToAny(_:)();
         swift_unknownObjectRelease();
@@ -3047,57 +3058,57 @@ LABEL_27:
 
       else
       {
-        v136 = 0u;
-        v137 = 0u;
+        v138 = 0u;
+        v139 = 0u;
       }
 
-      aBlock = v136;
-      v139 = v137;
-      if (*(&v137 + 1))
+      aBlock = v138;
+      v141 = v139;
+      if (*(&v139 + 1))
       {
         if (swift_dynamicCast())
         {
-          v104 = v135;
-          if ((v122 & 1) == 0)
+          v106 = v137;
+          if ((v124 & 1) == 0)
           {
-            v122 = v102;
-            v128 = v74;
-            v105 = v134;
+            v124 = v104;
+            v130 = v76;
+            v107 = v136;
 
-            v106 = v104;
-            v107 = Logger.logObject.getter();
-            v108 = static os_log_type_t.default.getter();
+            v108 = v106;
+            v109 = Logger.logObject.getter();
+            v110 = static os_log_type_t.default.getter();
 
-            v109 = os_log_type_enabled(v107, v108);
-            v56 = v123;
-            v121 = v106;
-            v120 = v105;
-            if (v109)
+            v111 = os_log_type_enabled(v109, v110);
+            v58 = v125;
+            v123 = v108;
+            v122 = v107;
+            if (v111)
             {
-              v110 = swift_slowAlloc();
-              v119 = v107;
-              v111 = v105;
-              v112 = v110;
-              v113 = swift_slowAlloc();
-              *&aBlock = v113;
-              *v112 = 136315138;
-              *(v112 + 4) = sub_10002065C(v111, v106, &aBlock);
-              v107 = v119;
-              _os_log_impl(&_mh_execute_header, v119, v108, "Phone number: %s", v112, 0xCu);
-              sub_1000083B0(v113);
+              v112 = swift_slowAlloc();
+              v121 = v109;
+              v113 = v107;
+              v114 = v112;
+              v115 = swift_slowAlloc();
+              *&aBlock = v115;
+              *v114 = 136315138;
+              *(v114 + 4) = sub_10002065C(v113, v108, &aBlock);
+              v109 = v121;
+              _os_log_impl(&_mh_execute_header, v121, v110, "Phone number: %s", v114, 0xCu);
+              sub_1000083B0(v115);
             }
 
-            v2 = v129;
-            v115 = sub_1000BCBF0();
-            v116 = v128;
-            if (v114[1] != 1)
+            v2 = v131;
+            v117 = sub_1000BCBF0(&aBlock);
+            v118 = v130;
+            if (v116[1] != 1)
             {
-              v117 = v121;
-              v114[3] = v120;
-              v114[4] = v117;
+              v119 = v123;
+              v116[3] = v122;
+              v116[4] = v119;
             }
 
-            (v115)(&aBlock, 0);
+            (v117)(&aBlock, 0);
 
             goto LABEL_55;
           }
@@ -3109,88 +3120,88 @@ LABEL_48:
 
 LABEL_49:
 
-        v75 = Logger.logObject.getter();
-        v76 = static os_log_type_t.error.getter();
+        v77 = Logger.logObject.getter();
+        v78 = static os_log_type_t.error.getter();
 
-        if (os_log_type_enabled(v75, v76))
+        if (os_log_type_enabled(v77, v78))
         {
-          v122 = v61;
-          v77 = v44;
-          v78 = swift_slowAlloc();
-          v79 = swift_slowAlloc();
-          *&aBlock = v79;
-          *v78 = 136315138;
-          if (v53)
+          v124 = v63;
+          v79 = v46;
+          v80 = swift_slowAlloc();
+          v81 = swift_slowAlloc();
+          *&aBlock = v81;
+          *v80 = 136315138;
+          if (v55)
           {
-            v80 = Dictionary.description.getter();
-            v82 = v81;
+            v82 = Dictionary.description.getter();
+            v84 = v83;
           }
 
           else
           {
-            v82 = 0x80000001001478A0;
-            v80 = 0xD000000000000026;
+            v84 = 0x80000001001478A0;
+            v82 = 0xD000000000000026;
           }
 
-          v2 = v129;
-          v83 = sub_10002065C(v80, v82, &aBlock);
+          v2 = v131;
+          v85 = sub_10002065C(v82, v84, &aBlock);
 
-          *(v78 + 4) = v83;
-          _os_log_impl(&_mh_execute_header, v75, v76, "Failed to decode phone number from: %s", v78, 0xCu);
-          sub_1000083B0(v79);
+          *(v80 + 4) = v85;
+          _os_log_impl(&_mh_execute_header, v77, v78, "Failed to decode phone number from: %s", v80, 0xCu);
+          sub_1000083B0(v81);
 
-          v48 = v128;
-          v44 = v77;
-          v56 = v123;
+          v50 = v130;
+          v46 = v79;
+          v58 = v125;
         }
 
         else
         {
 
-          v2 = v129;
-          v56 = v123;
+          v2 = v131;
+          v58 = v125;
         }
 
 LABEL_55:
-        v84 = [v44 securityLevelForAccount:v56];
-        v85 = Logger.logObject.getter();
-        v86 = static os_log_type_t.default.getter();
-        if (os_log_type_enabled(v85, v86))
+        v86 = [v46 securityLevelForAccount:v58];
+        v87 = Logger.logObject.getter();
+        v88 = static os_log_type_t.default.getter();
+        if (os_log_type_enabled(v87, v88))
         {
-          v87 = swift_slowAlloc();
-          *v87 = 134217984;
-          *(v87 + 4) = v84;
-          _os_log_impl(&_mh_execute_header, v85, v86, "securityLevel: %lu", v87, 0xCu);
+          v89 = swift_slowAlloc();
+          *v89 = 134217984;
+          *(v89 + 4) = v86;
+          _os_log_impl(&_mh_execute_header, v87, v88, "securityLevel: %lu", v89, 0xCu);
         }
 
-        if (v84 != 4)
+        if (v86 != 4)
         {
           sub_1000C775C();
-          v96 = Logger.logObject.getter();
-          v97 = static os_log_type_t.error.getter();
-          v98 = os_log_type_enabled(v96, v97);
-          v99 = v133;
-          if (v98)
+          v98 = Logger.logObject.getter();
+          v99 = static os_log_type_t.error.getter();
+          v100 = os_log_type_enabled(v98, v99);
+          v101 = v135;
+          if (v100)
           {
-            v100 = swift_slowAlloc();
-            *v100 = 0;
-            _os_log_impl(&_mh_execute_header, v96, v97, "No HSA2.", v100, 2u);
+            v102 = swift_slowAlloc();
+            *v102 = 0;
+            _os_log_impl(&_mh_execute_header, v98, v99, "No HSA2.", v102, 2u);
           }
 
           sub_10005F408();
           swift_allocError();
-          *v101 = 3;
+          *v103 = 3;
           swift_willThrow();
 
           return;
         }
 
-        v7 = v127;
+        v7 = v129;
         goto LABEL_59;
       }
     }
 
-    sub_10001259C(&aBlock, &qword_1001BBB40);
+    sub_10001259C(&aBlock, &qword_1001BBB40, &qword_10016E740);
     goto LABEL_49;
   }
 
@@ -3199,26 +3210,26 @@ LABEL_55:
     swift_once();
   }
 
-  v55 = type metadata accessor for Logger();
-  sub_10000D298(v55, qword_1001BE0E0);
-  v56 = Logger.logObject.getter();
-  v57 = static os_log_type_t.default.getter();
-  v58 = os_log_type_enabled(v56, v57);
-  v2 = v129;
-  if (v58)
+  v57 = type metadata accessor for Logger();
+  sub_10000D298(v57, qword_1001BE0E0);
+  v58 = Logger.logObject.getter();
+  v59 = static os_log_type_t.default.getter();
+  v60 = os_log_type_enabled(v58, v59);
+  v2 = v131;
+  if (v60)
   {
-    v59 = swift_slowAlloc();
-    *v59 = 0;
-    _os_log_impl(&_mh_execute_header, v56, v57, "No AppleID account", v59, 2u);
+    v61 = swift_slowAlloc();
+    *v61 = 0;
+    _os_log_impl(&_mh_execute_header, v58, v59, "No AppleID account", v61, 2u);
   }
 
 LABEL_59:
 
-  v88 = [objc_allocWithZone(CDPStateController) init];
+  v90 = [objc_allocWithZone(CDPStateController) init];
   *&aBlock = 0;
-  if ([v88 isManateeAvailable:&aBlock])
+  if ([v90 isManateeAvailable:&aBlock])
   {
-    v89 = aBlock;
+    v91 = aBlock;
 
 LABEL_4:
     if (*(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_session) && *(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_roleCategories))
@@ -3228,19 +3239,19 @@ LABEL_4:
       swift_endAccess();
 
       *&aBlock = 0xD000000000000070;
-      *(&aBlock + 1) = v131;
-      *&v136 = 806;
+      *(&aBlock + 1) = v133;
+      *&v138 = 806;
       v12._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       String.append(_:)(v12);
 
       v13 = String.hashValue.getter();
 
       swift_beginAccess();
-      v14 = sub_1000D991C(&v136, v13);
+      v14 = sub_1000D991C(&v138, v13);
       swift_endAccess();
       if (v14)
       {
-        sub_1000D530C(0xD00000000000001CLL, v7 | 0x8000000000000000, 0, 0xE000000000000000, "%s - done. %s");
+        sub_1000D530C(0xD00000000000001CLL, v7 | 0x8000000000000000, 0, 0xE000000000000000, "%s - done. %s", v120, v121);
       }
     }
 
@@ -3255,7 +3266,7 @@ LABEL_4:
     return;
   }
 
-  v90 = aBlock;
+  v92 = aBlock;
   _convertNSErrorToError(_:)();
 
   swift_willThrow();
@@ -3265,75 +3276,75 @@ LABEL_4:
     swift_once();
   }
 
-  v91 = type metadata accessor for Logger();
-  sub_10000D298(v91, qword_1001BE0E0);
-  v92 = Logger.logObject.getter();
-  v93 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v92, v93))
+  v93 = type metadata accessor for Logger();
+  sub_10000D298(v93, qword_1001BE0E0);
+  v94 = Logger.logObject.getter();
+  v95 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v94, v95))
   {
-    v94 = swift_slowAlloc();
-    *v94 = 0;
-    _os_log_impl(&_mh_execute_header, v92, v93, "No manatee.", v94, 2u);
+    v96 = swift_slowAlloc();
+    *v96 = 0;
+    _os_log_impl(&_mh_execute_header, v94, v95, "No manatee.", v96, 2u);
   }
 
   sub_10005F408();
   swift_allocError();
-  *v95 = 3;
+  *v97 = 3;
   swift_willThrow();
 }
 
-uint64_t sub_1000C68B0(void *a1, uint64_t a2)
+void *sub_1000C68B0(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = type metadata accessor for DispatchWorkItemFlags();
-  v22 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for DispatchQoS();
-  v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
-  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for DispatchWorkItemFlags();
+  v23 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v7 = &v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for DispatchQoS();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v12 = result;
-    sub_1000122EC(0, &qword_1001BCE90);
-    v21 = static OS_dispatch_queue.main.getter();
-    v13 = swift_allocObject();
-    v13[2] = a1;
-    v13[3] = a2;
-    v13[4] = v12;
+    v13 = result;
+    sub_1000122EC(0, &qword_1001BCE90, OS_dispatch_queue_ptr);
+    v22 = static OS_dispatch_queue.main.getter();
+    v14 = swift_allocObject();
+    v14[2] = a1;
+    v14[3] = a2;
+    v14[4] = v13;
     aBlock[4] = sub_1000E3FC4;
-    aBlock[5] = v13;
+    aBlock[5] = v14;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = sub_10001C544;
     aBlock[3] = &unk_100194248;
-    v14 = _Block_copy(aBlock);
-    v15 = a1;
+    v15 = _Block_copy(aBlock);
+    v16 = a1;
     swift_errorRetain();
-    v20 = v12;
+    v21 = v13;
 
     static DispatchQoS.unspecified.getter();
     aBlock[0] = _swiftEmptyArrayStorage;
-    sub_10005F638(&qword_1001BA7C0, &type metadata accessor for DispatchWorkItemFlags);
-    sub_100005DCC(&unk_1001BBA90);
-    v16 = v22;
-    v19 = v7;
-    sub_100025698(&qword_1001BA7D0, &unk_1001BBA90);
+    sub_10005F638(&qword_1001BA7C0, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    sub_100005DCC(&unk_1001BBA90, &unk_10016D130);
+    v17 = v23;
+    v20 = v8;
+    sub_100025698(&qword_1001BA7D0, &unk_1001BBA90, &unk_10016D130, &protocol conformance descriptor for [A]);
     dispatch thunk of SetAlgebra.init<A>(_:)();
-    v17 = v21;
+    v18 = v22;
     OS_dispatch_queue.async(group:qos:flags:execute:)();
-    _Block_release(v14);
+    _Block_release(v15);
 
-    (*(v16 + 8))(v6, v4);
-    return (*(v8 + 8))(v10, v19);
+    (*(v17 + 8))(v7, v5);
+    return (*(v9 + 8))(v11, v20);
   }
 
   return result;
 }
 
-uint64_t sub_1000C6BF0(void *a1, uint64_t a2, uint64_t a3)
+void sub_1000C6BF0(void *a1, uint64_t a2, uint64_t a3)
 {
   if (qword_1001B9490 != -1)
   {
@@ -3352,10 +3363,10 @@ uint64_t sub_1000C6BF0(void *a1, uint64_t a2, uint64_t a3)
     v10 = swift_slowAlloc();
     v11 = swift_slowAlloc();
     v12 = swift_slowAlloc();
-    v23 = v12;
+    v22 = v12;
     *v10 = 138412546;
     *(v10 + 4) = v7;
-    v22 = v11;
+    v21 = v11;
     *v11 = a1;
     *(v10 + 12) = 2080;
     if (a2)
@@ -3373,11 +3384,11 @@ uint64_t sub_1000C6BF0(void *a1, uint64_t a2, uint64_t a3)
       v14 = 0xD000000000000015;
     }
 
-    v18 = sub_10002065C(v14, v16, &v23);
+    v18 = sub_10002065C(v14, v16, &v22);
 
     *(v10 + 14) = v18;
     _os_log_impl(&_mh_execute_header, v8, v9, "Got pairing session: %@, error: %s", v10, 0x16u);
-    sub_10001259C(v22, &unk_1001BBA60);
+    sub_10001259C(v21, &unk_1001BBA60, &qword_10016D230);
 
     sub_1000083B0(v12);
   }
@@ -3389,59 +3400,59 @@ uint64_t sub_1000C6BF0(void *a1, uint64_t a2, uint64_t a3)
   swift_errorRetain();
   *(a3 + v19) = a1;
 
-  return sub_1000BD9C0(v7);
+  sub_1000BD9C0(v7);
 }
 
-uint64_t sub_1000C6E64(uint64_t a1)
+void *sub_1000C6E64(uint64_t a1, uint64_t a2)
 {
-  v2 = type metadata accessor for DispatchWorkItemFlags();
-  v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
-  v5 = &v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for DispatchQoS();
-  v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for DispatchWorkItemFlags();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for DispatchQoS();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v11 = result;
-    sub_1000122EC(0, &qword_1001BCE90);
-    v18 = static OS_dispatch_queue.main.getter();
-    v12 = swift_allocObject();
-    *(v12 + 16) = a1;
-    *(v12 + 24) = v11;
+    v12 = result;
+    sub_1000122EC(0, &qword_1001BCE90, OS_dispatch_queue_ptr);
+    v19 = static OS_dispatch_queue.main.getter();
+    v13 = swift_allocObject();
+    *(v13 + 16) = a1;
+    *(v13 + 24) = v12;
     aBlock[4] = sub_1000E3F74;
-    aBlock[5] = v12;
+    aBlock[5] = v13;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = sub_10001C544;
     aBlock[3] = &unk_1001941F8;
-    v13 = _Block_copy(aBlock);
-    v17 = v6;
-    v14 = v13;
+    v14 = _Block_copy(aBlock);
+    v18 = v7;
+    v15 = v14;
 
-    v16 = v11;
+    v17 = v12;
 
     static DispatchQoS.unspecified.getter();
     aBlock[0] = _swiftEmptyArrayStorage;
-    sub_10005F638(&qword_1001BA7C0, &type metadata accessor for DispatchWorkItemFlags);
-    sub_100005DCC(&unk_1001BBA90);
-    sub_100025698(&qword_1001BA7D0, &unk_1001BBA90);
+    sub_10005F638(&qword_1001BA7C0, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    sub_100005DCC(&unk_1001BBA90, &unk_10016D130);
+    sub_100025698(&qword_1001BA7D0, &unk_1001BBA90, &unk_10016D130, &protocol conformance descriptor for [A]);
     dispatch thunk of SetAlgebra.init<A>(_:)();
-    v15 = v18;
+    v16 = v19;
     OS_dispatch_queue.async(group:qos:flags:execute:)();
-    _Block_release(v14);
+    _Block_release(v15);
 
-    (*(v3 + 8))(v5, v2);
-    return (*(v7 + 8))(v9, v17);
+    (*(v4 + 8))(v6, v3);
+    return (*(v8 + 8))(v10, v18);
   }
 
   return result;
 }
 
-uint64_t sub_1000C7194(uint64_t a1, uint64_t a2)
+void sub_1000C7194(uint64_t a1, uint64_t a2)
 {
   if (qword_1001B9490 != -1)
   {
@@ -3458,11 +3469,11 @@ uint64_t sub_1000C7194(uint64_t a1, uint64_t a2)
   {
     v7 = swift_slowAlloc();
     v8 = swift_slowAlloc();
-    v18 = v8;
+    v17 = v8;
     *v7 = 136315138;
-    sub_1000122EC(0, &qword_1001BBB58);
+    sub_1000122EC(0, &qword_1001BBB58, SPBeaconRoleCategory_ptr);
     v9 = Array.description.getter();
-    v11 = sub_10002065C(v9, v10, &v18);
+    v11 = sub_10002065C(v9, v10, &v17);
 
     *(v7 + 4) = v11;
     _os_log_impl(&_mh_execute_header, v5, v6, "roleCategories: %s", v7, 0xCu);
@@ -3486,7 +3497,7 @@ uint64_t sub_1000C7194(uint64_t a1, uint64_t a2)
   {
   }
 
-  return sub_1000BD9C0(v16);
+  sub_1000BD9C0(v16);
 }
 
 void sub_1000C73A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -3496,7 +3507,7 @@ void sub_1000C73A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v12 = *(v9 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_appleIDVC);
   if (!v12)
   {
-    v15 = [objc_allocWithZone(type metadata accessor for AirTagAppleIDViewController()) init];
+    v15 = [objc_allocWithZone(type metadata accessor for AirTagAppleIDViewController(0)) init];
     swift_unknownObjectWeakAssign();
     v16 = *(v9 + v11);
     *(v10 + v11) = v15;
@@ -3613,7 +3624,7 @@ LABEL_29:
 
   v43 = v12;
   v44 = v42;
-  v45 = sub_1000D5D10();
+  v45 = sub_1000D5D10(v43);
 
   v46 = *(v10 + v41);
   if (!v45)
@@ -3699,7 +3710,7 @@ void sub_1000C78CC()
   v92 = v1;
   __chkstk_darwin(v1);
   v84 = &v84 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = sub_100005DCC(&unk_1001BBAA0);
+  v3 = sub_100005DCC(&unk_1001BBAA0, &qword_10016CD60);
   __chkstk_darwin(v3 - 8);
   v86 = &v84 - v4;
   v87 = type metadata accessor for UUID();
@@ -3711,7 +3722,7 @@ void sub_1000C78CC()
   v9 = &v84 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v7);
   v11 = &v84 - v10;
-  v12 = sub_100005DCC(&unk_1001BE180);
+  v12 = sub_100005DCC(&unk_1001BE180, &unk_10016EA10);
   v13 = __chkstk_darwin(v12 - 8);
   v85 = &v84 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = __chkstk_darwin(v13);
@@ -3725,7 +3736,7 @@ void sub_1000C78CC()
   v21 = v0 + v20;
   v23 = v91;
   v22 = v92;
-  sub_100005EB8(v21, v19, &unk_1001BE180);
+  sub_100005EB8(v21, v19, &unk_1001BE180, &unk_10016EA10);
   v24 = *(v23 + 48);
   if (v24(v19, 1, v22) == 1)
   {
@@ -3747,7 +3758,7 @@ LABEL_53:
   sub_10005F788(v11, type metadata accessor for B389PresentationConfig.Mode);
   sub_10005F788(v19, type metadata accessor for B389PresentationConfig);
   v25 = v96;
-  sub_100005EB8(&v90[v96], v17, &unk_1001BE180);
+  sub_100005EB8(&v90[v96], v17, &unk_1001BE180, &unk_10016EA10);
   if (v24(v17, 1, v22) == 1)
   {
     goto LABEL_52;
@@ -3774,7 +3785,7 @@ LABEL_53:
   {
     v30 = v27;
     v31 = v22;
-    sub_10001259C(v30, &unk_1001BBAA0);
+    sub_10001259C(v30, &unk_1001BBAA0, &qword_10016CD60);
     sub_10005F788(v17, type metadata accessor for B389PresentationConfig);
     if (qword_1001B9490 != -1)
     {
@@ -3796,10 +3807,10 @@ LABEL_53:
       *v37 = 136315138;
       v39 = &v90[v35];
       v40 = v85;
-      sub_100005EB8(v39, v85, &unk_1001BE180);
+      sub_100005EB8(v39, v85, &unk_1001BE180, &unk_10016EA10);
       if (v24(v40, 1, v31))
       {
-        sub_10001259C(v40, &unk_1001BE180);
+        sub_10001259C(v40, &unk_1001BE180, &unk_10016EA10);
         v41 = 0x8000000100145470;
         v42 = 0xD000000000000015;
       }
@@ -3808,7 +3819,7 @@ LABEL_53:
       {
         v73 = v84;
         sub_100025418(v40, v84, type metadata accessor for B389PresentationConfig);
-        sub_10001259C(v40, &unk_1001BE180);
+        sub_10001259C(v40, &unk_1001BE180, &unk_10016EA10);
         v74 = sub_10001CBC8();
         v41 = v75;
         sub_10005F788(v73, type metadata accessor for B389PresentationConfig);
@@ -3846,7 +3857,7 @@ LABEL_53:
   swift_endAccess();
   if (v46)
   {
-    sub_1000D530C(0xD000000000000012, 0x80000001001476D0, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD000000000000012, 0x80000001001476D0, 0, 0xE000000000000000, "%s - started... %s", v84, v85);
   }
 
   v47 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_central;
@@ -3882,7 +3893,7 @@ LABEL_20:
     v51 = *&v48[v47];
     if (v51)
     {
-      sub_100005DCC(&qword_1001BBB08);
+      sub_100005DCC(&qword_1001BBB08, &qword_10016E728);
       v52 = (*(v29 + 80) + 32) & ~*(v29 + 80);
       v53 = swift_allocObject();
       *(v53 + 16) = xmmword_10016CCE0;
@@ -3892,7 +3903,7 @@ LABEL_20:
 
       v56 = [v54 retrievePeripheralsWithIdentifiers:isa];
 
-      sub_1000122EC(0, &qword_1001BBB10);
+      sub_1000122EC(0, &qword_1001BBB10, CBPeripheral_ptr);
       v57 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
       if (v57 >> 62)
@@ -3933,7 +3944,7 @@ LABEL_40:
         swift_endAccess();
         if (v82)
         {
-          sub_1000D530C(0xD000000000000012, v43 | 0x8000000000000000, 0, 0xE000000000000000, "%s - started... %s");
+          sub_1000D530C(0xD000000000000012, v43 | 0x8000000000000000, 0, 0xE000000000000000, "%s - started... %s", v84, v85);
         }
 
 LABEL_46:
@@ -3975,7 +3986,7 @@ LABEL_32:
             *(v70 + 14) = v29;
             v72 = v67;
             _os_log_impl(&_mh_execute_header, v68, v69, "%@. BT-paired already? %{BOOL}d", v70, 0x12u);
-            sub_10001259C(v71, &unk_1001BBA60);
+            sub_10001259C(v71, &unk_1001BBA60, &qword_10016D230);
             v28 = v87;
           }
 
@@ -4004,7 +4015,7 @@ LABEL_32:
       {
         v65 = [v64 sharedPairingAgent];
         v95 = v65;
-        sub_100005DCC(&qword_1001BBB18);
+        sub_100005DCC(&qword_1001BBB18, &unk_10016E730);
         Optional.unwrap(_:file:line:)();
 
         v57 = v93;
@@ -4053,7 +4064,7 @@ LABEL_41:
   swift_endAccess();
   if (v79)
   {
-    sub_1000D530C(0xD000000000000012, v43 | 0x8000000000000000, 0, 0xE000000000000000, "%s - done. %s");
+    sub_1000D530C(0xD000000000000012, v43 | 0x8000000000000000, 0, 0xE000000000000000, "%s - done. %s", v84, v85);
   }
 
   (*(v29 + 8))(v88, v28);
@@ -4066,16 +4077,16 @@ void sub_1000C8758()
   v3 = v0[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_connectionState];
   if (v3 == 4)
   {
-    v30 = 0xD000000000000070;
-    v31 = 0x800000010014C1F0;
-    v29 = 856;
+    v31 = 0xD000000000000070;
+    v32 = 0x800000010014C1F0;
+    v30 = 856;
     v16._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v16);
 
     v17 = String.hashValue.getter();
 
     swift_beginAccess();
-    v18 = sub_1000D991C(&v29, v17);
+    v18 = sub_1000D991C(&v30, v17);
     swift_endAccess();
     if (v18)
     {
@@ -4090,23 +4101,23 @@ void sub_1000C8758()
       if (!v0[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_connectionState])
       {
         swift_beginAccess();
-        sub_1000D99FC(&v29, 0xD000000000000011, 0x80000001001476B0);
+        sub_1000D99FC(&v30, 0xD000000000000011, 0x80000001001476B0);
         swift_endAccess();
 
-        v30 = 0xD000000000000070;
-        v31 = 0x800000010014C1F0;
-        v29 = 846;
+        v31 = 0xD000000000000070;
+        v32 = 0x800000010014C1F0;
+        v30 = 846;
         v4._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         String.append(_:)(v4);
 
         v5 = String.hashValue.getter();
 
         swift_beginAccess();
-        v6 = sub_1000D991C(&v29, v5);
+        v6 = sub_1000D991C(&v30, v5);
         swift_endAccess();
         if (v6)
         {
-          sub_1000D530C(0xD000000000000011, 0x80000001001476B0, 0, 0xE000000000000000, "%s - started... %s");
+          sub_1000D530C(0xD000000000000011, 0x80000001001476B0, 0, 0xE000000000000000, "%s - started... %s", v29, v30);
         }
 
         v7 = *&v1[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_central];
@@ -4166,7 +4177,7 @@ LABEL_18:
         *(v23 + 4) = v27;
         *v24 = v27;
         _os_log_impl(&_mh_execute_header, v21, v22, "Default connectionState throw %@...", v23, 0xCu);
-        sub_10001259C(v24, &unk_1001BBA60);
+        sub_10001259C(v24, &unk_1001BBA60, &qword_10016D230);
       }
 
       v12 = v1[v2];
@@ -4177,20 +4188,20 @@ LABEL_18:
     sub_1000DC818(0xD000000000000011, 0x80000001001476B0);
     swift_endAccess();
 
-    v30 = 0xD000000000000070;
-    v31 = 0x800000010014C1F0;
-    v29 = 852;
+    v31 = 0xD000000000000070;
+    v32 = 0x800000010014C1F0;
+    v30 = 852;
     v13._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v13);
 
     v14 = String.hashValue.getter();
 
     swift_beginAccess();
-    v15 = sub_1000D991C(&v29, v14);
+    v15 = sub_1000D991C(&v30, v14);
     swift_endAccess();
     if (v15)
     {
-      sub_1000D530C(0xD000000000000011, 0x80000001001476B0, 0, 0xE000000000000000, "%s - done. %s");
+      sub_1000D530C(0xD000000000000011, 0x80000001001476B0, 0, 0xE000000000000000, "%s - done. %s", v29, v30);
     }
   }
 }
@@ -4199,21 +4210,21 @@ void sub_1000C8CC0()
 {
   v1 = v0;
   swift_beginAccess();
-  sub_1000D99FC(&v13, 0xD000000000000015, 0x8000000100147810);
+  sub_1000D99FC(&v14, 0xD000000000000015, 0x8000000100147810);
   swift_endAccess();
 
-  v13 = 867;
+  v14 = 867;
   v2._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v2);
 
   v3 = String.hashValue.getter();
 
   swift_beginAccess();
-  v4 = sub_1000D991C(&v13, v3);
+  v4 = sub_1000D991C(&v14, v3);
   swift_endAccess();
   if (v4)
   {
-    sub_1000D530C(0xD000000000000015, 0x8000000100147810, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD000000000000015, 0x8000000100147810, 0, 0xE000000000000000, "%s - started... %s", v13, 0xD000000000000070);
   }
 
   if (*(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_didTapStart) == 1)
@@ -4222,18 +4233,18 @@ void sub_1000C8CC0()
     sub_1000DC818(0xD000000000000015, 0x8000000100147810);
     swift_endAccess();
 
-    v13 = 873;
+    v14 = 873;
     v5._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v5);
 
     v6 = String.hashValue.getter();
 
     swift_beginAccess();
-    v7 = sub_1000D991C(&v13, v6);
+    v7 = sub_1000D991C(&v14, v6);
     swift_endAccess();
     if (v7)
     {
-      sub_1000D530C(0xD000000000000015, 0x8000000100147810, 0, 0xE000000000000000, "%s - done. %s");
+      sub_1000D530C(0xD000000000000015, 0x8000000100147810, 0, 0xE000000000000000, "%s - done. %s", v13, 0xD000000000000070);
     }
   }
 
@@ -4266,21 +4277,21 @@ void sub_1000C9010()
 {
   v1 = v0;
   swift_beginAccess();
-  sub_1000D99FC(&v13, 0xD000000000000012, 0x80000001001474E0);
+  sub_1000D99FC(&v14, 0xD000000000000012, 0x80000001001474E0);
   swift_endAccess();
 
-  v13 = 878;
+  v14 = 878;
   v2._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v2);
 
   v3 = String.hashValue.getter();
 
   swift_beginAccess();
-  v4 = sub_1000D991C(&v13, v3);
+  v4 = sub_1000D991C(&v14, v3);
   swift_endAccess();
   if (v4)
   {
-    sub_1000D530C(0xD000000000000012, 0x80000001001474E0, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD000000000000012, 0x80000001001474E0, 0, 0xE000000000000000, "%s - started... %s", v13, 0xD000000000000070);
   }
 
   if (*(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_didAgreeToLinking) == 1)
@@ -4289,18 +4300,18 @@ void sub_1000C9010()
     sub_1000DC818(0xD000000000000012, 0x80000001001474E0);
     swift_endAccess();
 
-    v13 = 884;
+    v14 = 884;
     v5._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v5);
 
     v6 = String.hashValue.getter();
 
     swift_beginAccess();
-    v7 = sub_1000D991C(&v13, v6);
+    v7 = sub_1000D991C(&v14, v6);
     swift_endAccess();
     if (v7)
     {
-      sub_1000D530C(0xD000000000000012, 0x80000001001474E0, 0, 0xE000000000000000, "%s - done. %s");
+      sub_1000D530C(0xD000000000000012, 0x80000001001474E0, 0, 0xE000000000000000, "%s - done. %s", v13, 0xD000000000000070);
     }
   }
 
@@ -4336,7 +4347,7 @@ void sub_1000C9360()
   v148 = *(v146 - 8);
   __chkstk_darwin(v146);
   v144 = &v136 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = sub_100005DCC(&qword_1001BA7B0);
+  v3 = sub_100005DCC(&qword_1001BA7B0, &qword_10016D9A0);
   v4 = __chkstk_darwin(v3 - 8);
   v143 = &v136 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = __chkstk_darwin(v4);
@@ -4362,7 +4373,7 @@ void sub_1000C9360()
   swift_endAccess();
   if (v14)
   {
-    sub_1000D530C(0xD000000000000020, 0x8000000100147710, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD000000000000020, 0x8000000100147710, 0, 0xE000000000000000, "%s - started... %s", v136, v137);
   }
 
   v15 = *(v0 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_followupController);
@@ -4384,7 +4395,7 @@ void sub_1000C9360()
 
     v19 = v17;
     v140 = v16;
-    sub_1000122EC(0, &qword_1001BBB20);
+    sub_1000122EC(0, &qword_1001BBB20, FLFollowUpItem_ptr);
     v20 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
     v21 = v18;
 
@@ -4540,7 +4551,7 @@ LABEL_77:
                 {
                   v65 = v64;
 
-                  sub_1000122EC(0, &qword_1001BBB28);
+                  sub_1000122EC(0, &qword_1001BBB28, FLFollowUpAction_ptr);
                   v66 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
                   v67 = v141;
@@ -4652,7 +4663,7 @@ LABEL_77:
 
                       *(v88 + 24) = v100;
                       _os_log_impl(&_mh_execute_header, v85, v86, "accountFollowup: %@, title: %s, label: %s", v88, 0x20u);
-                      sub_10001259C(v149, &unk_1001BBA60);
+                      sub_10001259C(v149, &unk_1001BBA60, &qword_10016D230);
 
                       swift_arrayDestroy();
 
@@ -4690,12 +4701,12 @@ LABEL_77:
                       URL.init(string:)();
                       if ((*(v102 + 48))(v110, 1, v109) != 1)
                       {
-                        sub_10001259C(v110, &qword_1001BA7B0);
+                        sub_10001259C(v110, &qword_1001BA7B0, &qword_10016D9A0);
                       }
                     }
 
                     v111 = v147;
-                    sub_100005EB8(v68, v147, &qword_1001BA7B0);
+                    sub_100005EB8(v68, v147, &qword_1001BA7B0, &qword_10016D9A0);
                     v112 = Logger.logObject.getter();
                     v113 = static os_log_type_t.default.getter();
                     if (os_log_type_enabled(v112, v113))
@@ -4707,7 +4718,7 @@ LABEL_77:
                       *v115 = 136315138;
                       v117 = v114;
                       v118 = v143;
-                      sub_100005EB8(v117, v143, &qword_1001BA7B0);
+                      sub_100005EB8(v117, v143, &qword_1001BA7B0, &qword_10016D9A0);
                       v119 = v148;
                       if ((*(v148 + 48))(v118, 1, v109) == 1)
                       {
@@ -4720,14 +4731,14 @@ LABEL_77:
                         v123 = v118;
                         v124 = v144;
                         (*(v119 + 32))(v144, v123, v109);
-                        sub_10005F638(&unk_1001BBB30, &type metadata accessor for URL);
+                        sub_10005F638(&unk_1001BBB30, &type metadata accessor for URL, &protocol conformance descriptor for URL);
                         v121 = dispatch thunk of CustomStringConvertible.description.getter();
                         v125 = v109;
                         v120 = v126;
                         (*(v119 + 8))(v124, v125);
                       }
 
-                      sub_10001259C(v147, &qword_1001BA7B0);
+                      sub_10001259C(v147, &qword_1001BA7B0, &qword_10016D9A0);
                       v127 = sub_10002065C(v121, v120, &v156);
 
                       *(v115 + 4) = v127;
@@ -4740,7 +4751,7 @@ LABEL_77:
                     else
                     {
 
-                      sub_10001259C(v111, &qword_1001BA7B0);
+                      sub_10001259C(v111, &qword_1001BA7B0, &qword_10016D9A0);
                     }
 
                     v128 = String._bridgeToObjectiveC()();
@@ -4757,7 +4768,7 @@ LABEL_77:
                     swift_willThrow();
                     v134 = v152;
 
-                    sub_10001259C(v68, &qword_1001BA7B0);
+                    sub_10001259C(v68, &qword_1001BA7B0, &qword_10016D9A0);
                   }
 
                   else
@@ -4776,7 +4787,7 @@ LABEL_77:
                       *v81 = v77;
                       v82 = v77;
                       _os_log_impl(&_mh_execute_header, v78, v79, "account followup %@ has no actions", v80, 0xCu);
-                      sub_10001259C(v81, &unk_1001BBA60);
+                      sub_10001259C(v81, &unk_1001BBA60, &qword_10016D230);
 
                       v77 = v82;
                     }
@@ -4836,7 +4847,7 @@ LABEL_12:
   swift_endAccess();
   if (v61)
   {
-    sub_1000D530C(0xD000000000000020, 0x8000000100147710, 0, 0xE000000000000000, "%s - done. %s");
+    sub_1000D530C(0xD000000000000020, 0x8000000100147710, 0, 0xE000000000000000, "%s - done. %s", v136, v137);
   }
 }
 
@@ -4847,16 +4858,16 @@ void sub_1000CA48C()
   v3 = *(v0 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_pairState);
   if (*(v0 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_pairState + 8) != 1)
   {
-    v51 = 0xD000000000000070;
-    v52 = 0x800000010014C1F0;
-    v50 = 948;
+    v52 = 0xD000000000000070;
+    v53 = 0x800000010014C1F0;
+    v51 = 948;
     v7._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v7);
 
     v8 = String.hashValue.getter();
 
     swift_beginAccess();
-    v9 = sub_1000D991C(&v50, v8);
+    v9 = sub_1000D991C(&v51, v8);
     swift_endAccess();
     if (v9)
     {
@@ -4916,16 +4927,16 @@ LABEL_44:
     {
       if (v3 == 1)
       {
-        v51 = 0xD000000000000070;
-        v52 = 0x800000010014C1F0;
-        v50 = 944;
+        v52 = 0xD000000000000070;
+        v53 = 0x800000010014C1F0;
+        v51 = 944;
         v4._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         String.append(_:)(v4);
 
         v5 = String.hashValue.getter();
 
         swift_beginAccess();
-        v6 = sub_1000D991C(&v50, v5);
+        v6 = sub_1000D991C(&v51, v5);
         swift_endAccess();
         if (v6)
         {
@@ -4935,16 +4946,16 @@ LABEL_44:
 
       else
       {
-        v51 = 0xD000000000000070;
-        v52 = 0x800000010014C1F0;
-        v50 = 954;
+        v52 = 0xD000000000000070;
+        v53 = 0x800000010014C1F0;
+        v51 = 954;
         v44._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         String.append(_:)(v44);
 
         v45 = String.hashValue.getter();
 
         swift_beginAccess();
-        v46 = sub_1000D991C(&v50, v45);
+        v46 = sub_1000D991C(&v51, v45);
         swift_endAccess();
         if (v46)
         {
@@ -4956,23 +4967,23 @@ LABEL_44:
     }
 
     swift_beginAccess();
-    sub_1000D99FC(&v50, 0x6150657275736E65, 0xEE00292864657269);
+    sub_1000D99FC(&v51, 0x6150657275736E65, 0xEE00292864657269);
     swift_endAccess();
 
-    v51 = 0xD000000000000070;
-    v52 = 0x800000010014C1F0;
-    v50 = 938;
+    v52 = 0xD000000000000070;
+    v53 = 0x800000010014C1F0;
+    v51 = 938;
     v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v23);
 
     v24 = String.hashValue.getter();
 
     swift_beginAccess();
-    v25 = sub_1000D991C(&v50, v24);
+    v25 = sub_1000D991C(&v51, v24);
     swift_endAccess();
     if (v25)
     {
-      sub_1000D530C(0x6150657275736E65, 0xEE00292864657269, 0, 0xE000000000000000, "%s - started... %s");
+      sub_1000D530C(0x6150657275736E65, 0xEE00292864657269, 0, 0xE000000000000000, "%s - started... %s", v50, v51);
     }
 
     v26 = *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_central);
@@ -5002,16 +5013,16 @@ LABEL_44:
 
   if (v3 == 3)
   {
-    v51 = 0xD000000000000070;
-    v52 = 0x800000010014C1F0;
-    v50 = 958;
+    v52 = 0xD000000000000070;
+    v53 = 0x800000010014C1F0;
+    v51 = 958;
     v29._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v29);
 
     v30 = String.hashValue.getter();
 
     swift_beginAccess();
-    v31 = sub_1000D991C(&v50, v30);
+    v31 = sub_1000D991C(&v51, v30);
     swift_endAccess();
     if (v31)
     {
@@ -5048,7 +5059,7 @@ LABEL_47:
       return;
     }
 
-    sub_100005DCC(&qword_1001BBB00);
+    sub_100005DCC(&qword_1001BBB00, &unk_10016CF10);
     v38 = swift_allocObject();
     *(v38 + 16) = xmmword_10016D240;
     v39 = qword_1001B9250;
@@ -5060,7 +5071,7 @@ LABEL_47:
 
     v41 = qword_1001C3828;
     *(v38 + 32) = qword_1001C3828;
-    sub_1000122EC(0, &qword_1001BBAF8);
+    sub_1000122EC(0, &qword_1001BBAF8, CBUUID_ptr);
     v42 = v41;
     v43 = Array._bridgeToObjectiveC()().super.isa;
 
@@ -5072,16 +5083,16 @@ LABEL_47:
 
   else if (v3 == 4)
   {
-    v51 = 0xD000000000000070;
-    v52 = 0x800000010014C1F0;
-    v50 = 965;
+    v52 = 0xD000000000000070;
+    v53 = 0x800000010014C1F0;
+    v51 = 965;
     v17._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v17);
 
     v18 = String.hashValue.getter();
 
     swift_beginAccess();
-    v19 = sub_1000D991C(&v50, v18);
+    v19 = sub_1000D991C(&v51, v18);
     swift_endAccess();
     if (v19)
     {
@@ -5092,35 +5103,35 @@ LABEL_47:
     sub_1000DC818(0x6150657275736E65, 0xEE00292864657269);
     swift_endAccess();
 
-    v51 = 0xD000000000000070;
-    v52 = 0x800000010014C1F0;
-    v50 = 966;
+    v52 = 0xD000000000000070;
+    v53 = 0x800000010014C1F0;
+    v51 = 966;
     v20._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v20);
 
     v21 = String.hashValue.getter();
 
     swift_beginAccess();
-    v22 = sub_1000D991C(&v50, v21);
+    v22 = sub_1000D991C(&v51, v21);
     swift_endAccess();
     if (v22)
     {
-      sub_1000D530C(0x6150657275736E65, 0xEE00292864657269, 0, 0xE000000000000000, "%s - done. %s");
+      sub_1000D530C(0x6150657275736E65, 0xEE00292864657269, 0, 0xE000000000000000, "%s - done. %s", v50, v51);
     }
   }
 
   else
   {
-    v51 = 0xD000000000000070;
-    v52 = 0x800000010014C1F0;
-    v50 = 969;
+    v52 = 0xD000000000000070;
+    v53 = 0x800000010014C1F0;
+    v51 = 969;
     v47._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v47);
 
     v48 = String.hashValue.getter();
 
     swift_beginAccess();
-    v49 = sub_1000D991C(&v50, v48);
+    v49 = sub_1000D991C(&v51, v48);
     swift_endAccess();
     if (v49)
     {
@@ -5133,21 +5144,21 @@ void sub_1000CAE30()
 {
   v1 = v0;
   swift_beginAccess();
-  sub_1000D99FC(&v9, 0xD000000000000014, 0x8000000100147500);
+  sub_1000D99FC(&v10, 0xD000000000000014, 0x8000000100147500);
   swift_endAccess();
 
-  v9 = 975;
+  v10 = 975;
   v2._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v2);
 
   v3 = String.hashValue.getter();
 
   swift_beginAccess();
-  v4 = sub_1000D991C(&v9, v3);
+  v4 = sub_1000D991C(&v10, v3);
   swift_endAccess();
   if (v4)
   {
-    sub_1000D530C(0xD000000000000014, 0x8000000100147500, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD000000000000014, 0x8000000100147500, 0, 0xE000000000000000, "%s - started... %s", v9, 0xD000000000000070);
   }
 
   if (*(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_selectedRoleIndex + 8))
@@ -5164,18 +5175,18 @@ void sub_1000CAE30()
     sub_1000DC818(0xD000000000000014, 0x8000000100147500);
     swift_endAccess();
 
-    v9 = 978;
+    v10 = 978;
     v6._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v6);
 
     v7 = String.hashValue.getter();
 
     swift_beginAccess();
-    v8 = sub_1000D991C(&v9, v7);
+    v8 = sub_1000D991C(&v10, v7);
     swift_endAccess();
     if (v8)
     {
-      sub_1000D530C(0xD000000000000014, 0x8000000100147500, 0, 0xE000000000000000, "%s - done. %s");
+      sub_1000D530C(0xD000000000000014, 0x8000000100147500, 0, 0xE000000000000000, "%s - done. %s", v9, 0xD000000000000070);
     }
   }
 }
@@ -5183,7 +5194,7 @@ void sub_1000CAE30()
 void sub_1000CB0CC()
 {
   v2 = v0;
-  v3 = sub_100005DCC(&unk_1001BE180);
+  v3 = sub_100005DCC(&unk_1001BE180, &unk_10016EA10);
   v4 = __chkstk_darwin(v3 - 8);
   v117 = &v95 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v4);
@@ -5216,7 +5227,7 @@ void sub_1000CB0CC()
   swift_endAccess();
   if (v11)
   {
-    sub_1000D530C(0xD000000000000017, 0x8000000100146F50, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD000000000000017, 0x8000000100146F50, 0, 0xE000000000000000, "%s - started... %s", v95, v96);
   }
 
   v15 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_findMyFinalizeState;
@@ -5237,7 +5248,7 @@ LABEL_47:
 
   v126[0] = sub_1000BCF94();
   v126[1] = v19;
-  sub_100005DCC(&unk_1001BBA70);
+  sub_100005DCC(&unk_1001BBA70, &unk_10016CDB0);
   Optional.unwrap(_:file:line:)();
 
   v103 = aBlock;
@@ -5293,7 +5304,7 @@ LABEL_47:
 
   v124 = v31;
   v125 = v32;
-  v108 = sub_100005DCC(&unk_1001BE190);
+  v108 = sub_100005DCC(&unk_1001BE190, &qword_10016E6E8);
   Optional.unwrap(_:file:line:)();
   sub_100025404(v124, v125);
   v33 = aBlock;
@@ -5441,7 +5452,7 @@ LABEL_51:
   swift_unknownObjectWeakInit();
   v62 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_presentationConfig;
   swift_beginAccess();
-  sub_100005EB8(v2 + v62, v56, &unk_1001BE180);
+  sub_100005EB8(v2 + v62, v56, &unk_1001BE180, &unk_10016EA10);
   v63 = type metadata accessor for B389PresentationConfig(0);
   v64 = *(*(v63 - 8) + 48);
   if (v64(v56, 1, v63) == 1)
@@ -5467,13 +5478,13 @@ LABEL_51:
   v67 = v66;
   v68 = v2 + v62;
   v69 = v117;
-  sub_100005EB8(v68, v117, &unk_1001BE180);
+  sub_100005EB8(v68, v117, &unk_1001BE180, &unk_10016EA10);
   if (v64(v69, 1, v63) == 1)
   {
     goto LABEL_54;
   }
 
-  v96 = *(v69 + *(v63 + 32));
+  HIDWORD(v96) = *(v69 + *(v63 + 32));
   sub_100005E64(v112, v57);
   sub_100005E64(v109, v108);
   sub_100005E64(v111, v110);
@@ -5497,7 +5508,7 @@ LABEL_51:
   v75 = v109;
   v76 = v108;
   v77 = Data._bridgeToObjectiveC()().super.isa;
-  LOBYTE(v94) = v96;
+  LOBYTE(v94) = BYTE4(v96);
   v78 = v70;
   v79 = v103;
   v80 = v95;
@@ -5521,7 +5532,7 @@ LABEL_51:
     *v85 = v81;
     v86 = v81;
     _os_log_impl(&_mh_execute_header, v82, v83, "Calling finalizePairing with config: %@", v84, 0xCu);
-    sub_10001259C(v85, &unk_1001BBA60);
+    sub_10001259C(v85, &unk_1001BBA60, &qword_10016D230);
   }
 
   v87 = v97;
@@ -5574,14 +5585,14 @@ LABEL_5:
   swift_endAccess();
   if (v18)
   {
-    sub_1000D530C(0xD000000000000017, v10 | 0x8000000000000000, 0, 0xE000000000000000, "%s - done. %s");
+    sub_1000D530C(0xD000000000000017, v10 | 0x8000000000000000, 0, 0xE000000000000000, "%s - done. %s", v95, v96);
   }
 }
 
-uint64_t sub_1000CBEF8(uint64_t a1, void *a2, uint64_t a3)
+uint64_t sub_1000CBEF8(void *a1, void *a2, uint64_t a3)
 {
   v66 = a3;
-  v61 = sub_100005DCC(&unk_1001BBAA0);
+  v61 = sub_100005DCC(&unk_1001BBAA0, &qword_10016CD60);
   __chkstk_darwin(v61);
   v6 = &v57 - v5;
   v7 = type metadata accessor for UUID();
@@ -5649,7 +5660,7 @@ uint64_t sub_1000CBEF8(uint64_t a1, void *a2, uint64_t a3)
 
     *(v21 + 14) = v28;
     _os_log_impl(&_mh_execute_header, v19, v14, "finalizePairing: session: %@, error: %s", v21, 0x16u);
-    sub_10001259C(v22, &unk_1001BBA60);
+    sub_10001259C(v22, &unk_1001BBA60, &qword_10016D230);
 
     sub_1000083B0(v57);
 
@@ -5682,7 +5693,7 @@ uint64_t sub_1000CBEF8(uint64_t a1, void *a2, uint64_t a3)
 
     v67 = v29;
     v32 = v60;
-    sub_100005DCC(&unk_1001BE1A0);
+    sub_100005DCC(&unk_1001BE1A0, &unk_10016E6F0);
     Optional.unwrap(_:file:line:)();
     v33 = v68;
     v65 = v16;
@@ -5698,7 +5709,7 @@ uint64_t sub_1000CBEF8(uint64_t a1, void *a2, uint64_t a3)
       *(v36 + 4) = v38;
       *v37 = v38;
       _os_log_impl(&_mh_execute_header, v34, v35, "session pairingLocation: %@", v36, 0xCu);
-      sub_10001259C(v37, &unk_1001BBA60);
+      sub_10001259C(v37, &unk_1001BBA60, &qword_10016D230);
     }
 
     v39 = [v33 beaconId];
@@ -5721,7 +5732,7 @@ uint64_t sub_1000CBEF8(uint64_t a1, void *a2, uint64_t a3)
     (*(v8 + 56))(v41, v43, 1, v40);
     v44 = v63;
     Optional.unwrap(_:file:line:)();
-    sub_10001259C(v41, &unk_1001BBAA0);
+    sub_10001259C(v41, &unk_1001BBAA0, &qword_10016CD60);
     (*(v8 + 16))(v11, v44, v40);
     v45 = Logger.logObject.getter();
     v46 = static os_log_type_t.default.getter();
@@ -5731,7 +5742,7 @@ uint64_t sub_1000CBEF8(uint64_t a1, void *a2, uint64_t a3)
       v48 = swift_slowAlloc();
       v68 = v48;
       *v47 = 136315138;
-      sub_10005F638(&qword_1001BBAB0, &type metadata accessor for UUID);
+      sub_10005F638(&qword_1001BBAB0, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
       v49 = dispatch thunk of CustomStringConvertible.description.getter();
       v51 = v50;
       v52 = v11;
@@ -5760,11 +5771,11 @@ uint64_t sub_1000CBEF8(uint64_t a1, void *a2, uint64_t a3)
   }
 }
 
-void sub_1000CC65C(uint64_t a1)
+void sub_1000CC65C(void *a1)
 {
   v18 = a1;
   swift_errorRetain();
-  sub_100005DCC(&qword_1001BBA48);
+  sub_100005DCC(&qword_1001BBA48, qword_10016FA40);
   type metadata accessor for SPPairingSessionError(0);
   if (swift_dynamicCast())
   {
@@ -5815,23 +5826,23 @@ void sub_1000CC8F0()
 {
   v1 = v0;
   swift_beginAccess();
-  sub_1000D99FC(&v58, 0xD000000000000015, 0x8000000100146F10);
+  sub_1000D99FC(&v59, 0xD000000000000015, 0x8000000100146F10);
   swift_endAccess();
 
   aBlock = 0xD000000000000070;
-  v53 = 0x800000010014C1F0;
-  v58 = 1067;
+  v54 = 0x800000010014C1F0;
+  v59 = 1067;
   v2._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v2);
 
   v3 = String.hashValue.getter();
 
   swift_beginAccess();
-  v4 = sub_1000D991C(&v58, v3);
+  v4 = sub_1000D991C(&v59, v3);
   swift_endAccess();
   if (v4)
   {
-    sub_1000D530C(0xD000000000000015, 0x8000000100146F10, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD000000000000015, 0x8000000100146F10, 0, 0xE000000000000000, "%s - started... %s", v50, v51);
   }
 
   v5 = *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_session);
@@ -5903,7 +5914,7 @@ void sub_1000CC8F0()
       }
 
       v26 = v25;
-      v51 = v6;
+      v52 = v6;
       if (qword_1001B9490 != -1)
       {
         swift_once();
@@ -5924,7 +5935,7 @@ void sub_1000CC8F0()
         *v32 = v26;
         v33 = v28;
         _os_log_impl(&_mh_execute_header, v29, v30, "session pairingLocation: %@", v31, 0xCu);
-        sub_10001259C(v32, &unk_1001BBA60);
+        sub_10001259C(v32, &unk_1001BBA60, &qword_10016D230);
       }
 
       *(v1 + v23) = 1;
@@ -5936,16 +5947,16 @@ void sub_1000CC8F0()
       v39 = swift_allocObject();
       *(v39 + 16) = v38;
       *(v39 + 24) = v28;
-      v50 = *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_locationShifter);
+      v51 = *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_locationShifter);
       v40 = swift_allocObject();
       *(v40 + 16) = sub_1000E3D70;
       *(v40 + 24) = v39;
-      v56 = sub_10005F4EC;
-      v57 = v40;
+      v57 = sub_10005F4EC;
+      v58 = v40;
       aBlock = _NSConcreteStackBlock;
-      v53 = 1107296256;
-      v54 = sub_1000BB624;
-      v55 = &unk_100193FA0;
+      v54 = 1107296256;
+      v55 = sub_1000BB624;
+      v56 = &unk_100193FA0;
       v41 = _Block_copy(&aBlock);
       v42 = v28;
 
@@ -5954,22 +5965,22 @@ void sub_1000CC8F0()
       *(v43 + 3) = v39;
       v43[4] = v35;
       v43[5] = v37;
-      v56 = sub_10005F564;
-      v57 = v43;
+      v57 = sub_10005F564;
+      v58 = v43;
       aBlock = _NSConcreteStackBlock;
-      v53 = 1107296256;
-      v54 = sub_1000E4BD0;
-      v55 = &unk_100193FF0;
+      v54 = 1107296256;
+      v55 = sub_1000E4BD0;
+      v56 = &unk_100193FF0;
       v44 = _Block_copy(&aBlock);
 
-      sub_1000122EC(0, &qword_1001BCE90);
+      sub_1000122EC(0, &qword_1001BCE90, OS_dispatch_queue_ptr);
       v45 = static OS_dispatch_queue.main.getter();
-      [v50 shiftCoordinate:v41 accuracy:0 withCompletionHandler:v44 mustGoToNetworkCallback:v45 errorHandler:v35 callbackQueue:{v37, 0.0}];
+      [v51 shiftCoordinate:v41 accuracy:0 withCompletionHandler:v44 mustGoToNetworkCallback:v45 errorHandler:v35 callbackQueue:{v37, 0.0}];
 
       _Block_release(v44);
       _Block_release(v41);
 
-      v6 = v51;
+      v6 = v52;
       v24 = *(v1 + v23);
     }
 
@@ -5980,19 +5991,19 @@ void sub_1000CC8F0()
       swift_endAccess();
 
       aBlock = 0xD000000000000070;
-      v53 = 0x800000010014C1F0;
-      v58 = 1122;
+      v54 = 0x800000010014C1F0;
+      v59 = 1122;
       v46._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       String.append(_:)(v46);
 
       v47 = String.hashValue.getter();
 
       swift_beginAccess();
-      v48 = sub_1000D991C(&v58, v47);
+      v48 = sub_1000D991C(&v59, v47);
       swift_endAccess();
       if (v48)
       {
-        sub_1000D530C(0xD000000000000015, 0x8000000100146F10, 0, 0xE000000000000000, "%s - done. %s");
+        sub_1000D530C(0xD000000000000015, 0x8000000100146F10, 0, 0xE000000000000000, "%s - done. %s", v50, v51);
       }
     }
 
@@ -6025,15 +6036,15 @@ void sub_1000CC8F0()
   }
 }
 
-void sub_1000CD15C(CLLocationDegrees a1, CLLocationDegrees a2, uint64_t a3, void *a4)
+void sub_1000CD15C(uint64_t a1, void *a2, CLLocationDegrees a3, CLLocationDegrees a4)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
     v8 = Strong;
-    v34.latitude = a1;
-    v34.longitude = a2;
+    v34.latitude = a3;
+    v34.longitude = a4;
     v35 = MKCoordinateRegionMakeWithDistance(v34, 600.0, 400.0);
     latitude = v35.center.latitude;
     longitude = v35.center.longitude;
@@ -6054,10 +6065,10 @@ void sub_1000CD15C(CLLocationDegrees a1, CLLocationDegrees a2, uint64_t a3, void
       v20[1] = longitude;
       v20[2] = latitudeDelta;
       v20[3] = longitudeDelta;
-      *&v18[OBJC_IVAR____TtC18SharingViewService17B389MapAnnotation_pairingLocation] = a4;
+      *&v18[OBJC_IVAR____TtC18SharingViewService17B389MapAnnotation_pairingLocation] = a2;
       v33.receiver = v18;
       v33.super_class = v17;
-      v21 = a4;
+      v21 = a2;
       v22 = objc_msgSendSuper2(&v33, "init");
       v23 = type metadata accessor for B389MapViewController();
       v24 = objc_allocWithZone(v23);
@@ -6088,73 +6099,74 @@ void sub_1000CD15C(CLLocationDegrees a1, CLLocationDegrees a2, uint64_t a3, void
 
 void sub_1000CD340()
 {
-  v1 = v0;
+  v2 = v0;
   swift_beginAccess();
-  sub_1000D99FC(v19, 0xD00000000000001DLL, 0x8000000100147690);
+  sub_1000D99FC(v21, 0xD00000000000001DLL, 0x8000000100147690);
   swift_endAccess();
 
-  v19[3] = 0x800000010014C1F0;
-  v19[0] = 1127;
-  v2._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
-  String.append(_:)(v2);
+  v21[3] = 0x800000010014C1F0;
+  v21[0] = 1127;
+  v3._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
+  String.append(_:)(v3);
 
-  v3 = String.hashValue.getter();
+  v4 = String.hashValue.getter();
 
   swift_beginAccess();
-  v4 = sub_1000D991C(v19, v3);
+  v5 = sub_1000D991C(v21, v4);
   swift_endAccess();
-  if (v4)
+  if (v5)
   {
-    sub_1000D530C(0xD00000000000001DLL, 0x8000000100147690, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD00000000000001DLL, 0x8000000100147690, 0, 0xE000000000000000, "%s - started... %s", v20, 0xD000000000000070);
   }
 
-  v5 = *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_discoveredMainService);
-  if (!v5)
+  v6 = *(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_discoveredMainService);
+  if (!v6)
   {
     sub_10005F408();
     swift_allocError();
-    *v7 = 1;
+    *v8 = 1;
     swift_willThrow();
     return;
   }
 
-  if (*(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_startedCharacteristicDiscovery))
+  if (*(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_startedCharacteristicDiscovery))
   {
-    v6 = v5;
+    v7 = v6;
   }
 
   else
   {
-    *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_startedCharacteristicDiscovery) = 1;
-    v8 = *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_periph);
-    if (!v8)
+    v20 = v1;
+    *(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_startedCharacteristicDiscovery) = 1;
+    v9 = *(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_periph);
+    if (!v9)
     {
       __break(1u);
       return;
     }
 
-    v9 = v5;
-    v10 = v8;
+    v10 = v6;
+    v11 = v9;
     sub_100007350();
-    sub_1000122EC(0, &qword_1001BBAF8);
+    sub_1000122EC(0, &qword_1001BBAF8, CBUUID_ptr);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
-    [v10 discoverCharacteristics:isa forService:v9];
+    [v11 discoverCharacteristics:isa forService:v10];
 
     if (qword_1001B9490 != -1)
     {
       swift_once();
     }
 
-    v12 = type metadata accessor for Logger();
-    sub_10000D298(v12, qword_1001BE0E0);
-    v13 = Logger.logObject.getter();
-    v14 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v13, v14))
+    v13 = type metadata accessor for Logger();
+    sub_10000D298(v13, qword_1001BE0E0);
+    v14 = Logger.logObject.getter();
+    v15 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v14, v15))
     {
-      v15 = swift_slowAlloc();
-      *v15 = 0;
-      _os_log_impl(&_mh_execute_header, v13, v14, "ensureMainServiceDiscovered", v15, 2u);
+      v16 = swift_slowAlloc();
+      *v16 = 0;
+      _os_log_impl(&_mh_execute_header, v14, v15, "ensureMainServiceDiscovered", v16, 2u);
     }
   }
 
@@ -6162,18 +6174,18 @@ void sub_1000CD340()
   sub_1000DC818(0xD00000000000001DLL, 0x8000000100147690);
   swift_endAccess();
 
-  v19[0] = 1135;
-  v16._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
-  String.append(_:)(v16);
+  v21[0] = 1135;
+  v17._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
+  String.append(_:)(v17);
 
-  v17 = String.hashValue.getter();
+  v18 = String.hashValue.getter();
 
   swift_beginAccess();
-  v18 = sub_1000D991C(v19, v17);
+  v19 = sub_1000D991C(v21, v18);
   swift_endAccess();
-  if (v18)
+  if (v19)
   {
-    sub_1000D530C(0xD00000000000001DLL, 0x8000000100147690, 0, 0xE000000000000000, "%s - done. %s");
+    sub_1000D530C(0xD00000000000001DLL, 0x8000000100147690, 0, 0xE000000000000000, "%s - done. %s", v20, 0xD000000000000070);
   }
 }
 
@@ -6181,21 +6193,21 @@ void sub_1000CD744()
 {
   v1 = v0;
   swift_beginAccess();
-  sub_1000D99FC(&v10, 0xD000000000000024, 0x8000000100147660);
+  sub_1000D99FC(&v11, 0xD000000000000024, 0x8000000100147660);
   swift_endAccess();
 
-  v10 = 1140;
+  v11 = 1140;
   v2._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v2);
 
   v3 = String.hashValue.getter();
 
   swift_beginAccess();
-  v4 = sub_1000D991C(&v10, v3);
+  v4 = sub_1000D991C(&v11, v3);
   swift_endAccess();
   if (v4)
   {
-    sub_1000D530C(0xD000000000000024, 0x8000000100147660, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD000000000000024, 0x8000000100147660, 0, 0xE000000000000000, "%s - started... %s", v10, 0xD000000000000070);
   }
 
   v5 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_remainingCharacteristicsToDiscover;
@@ -6216,18 +6228,18 @@ void sub_1000CD744()
     sub_1000DC818(0xD000000000000024, 0x8000000100147660);
     swift_endAccess();
 
-    v10 = 1146;
+    v11 = 1146;
     v7._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v7);
 
     v8 = String.hashValue.getter();
 
     swift_beginAccess();
-    v9 = sub_1000D991C(&v10, v8);
+    v9 = sub_1000D991C(&v11, v8);
     swift_endAccess();
     if (v9)
     {
-      sub_1000D530C(0xD000000000000024, 0x8000000100147660, 0, 0xE000000000000000, "%s - done. %s");
+      sub_1000D530C(0xD000000000000024, 0x8000000100147660, 0, 0xE000000000000000, "%s - done. %s", v10, 0xD000000000000070);
     }
   }
 }
@@ -6236,37 +6248,37 @@ void sub_1000CDA08()
 {
   v1 = v0;
   swift_beginAccess();
-  sub_1000D99FC(&v58, 0xD000000000000014, 0x80000001001475F0);
+  sub_1000D99FC(&v59, 0xD000000000000014, 0x80000001001475F0);
   swift_endAccess();
 
-  v59 = 0xD000000000000070;
-  v60 = 0x800000010014C1F0;
-  v58 = 1151;
+  v60 = 0xD000000000000070;
+  v61 = 0x800000010014C1F0;
+  v59 = 1151;
   v2._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v2);
 
   v3 = String.hashValue.getter();
 
   swift_beginAccess();
-  v4 = sub_1000D991C(&v58, v3);
+  v4 = sub_1000D991C(&v59, v3);
   swift_endAccess();
   if (v4)
   {
-    sub_1000D530C(0xD000000000000014, 0x80000001001475F0, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD000000000000014, 0x80000001001475F0, 0, 0xE000000000000000, "%s - started... %s", v53, v54);
   }
 
-  v58 = *(v0 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_session);
-  v5 = v58;
-  sub_100005DCC(&unk_1001BE1A0);
+  v59 = *(v0 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_session);
+  v5 = v59;
+  sub_100005DCC(&unk_1001BE1A0, &unk_10016E6F0);
   Optional.unwrap(_:file:line:)();
 
-  v6 = v59;
-  v7 = [v59 nonce];
+  v6 = v60;
+  v7 = [v60 nonce];
 
-  v57 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v58 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v9 = v8;
 
-  v56 = v9;
+  v57 = v9;
   v10 = v9 >> 62;
   if ((v9 >> 62) <= 1)
   {
@@ -6286,16 +6298,16 @@ LABEL_49:
     return;
   }
 
-  v13 = *(v57 + 16);
-  v12 = *(v57 + 24);
+  v13 = *(v58 + 16);
+  v12 = *(v58 + 24);
   v14 = __OFSUB__(v12, v13);
   v11 = v12 - v13;
   if (v14)
   {
     __break(1u);
 LABEL_10:
-    LODWORD(v11) = HIDWORD(v57) - v57;
-    if (__OFSUB__(HIDWORD(v57), v57))
+    LODWORD(v11) = HIDWORD(v58) - v58;
+    if (__OFSUB__(HIDWORD(v58), v58))
     {
       __break(1u);
       goto LABEL_46;
@@ -6334,10 +6346,10 @@ LABEL_12:
     v19 = 0;
   }
 
-  sub_100005DCC(&unk_1001BE1B0);
+  sub_100005DCC(&unk_1001BE1B0, &qword_10016E710);
   Optional.unwrap(_:file:line:)();
 
-  v55 = v58;
+  v56 = v59;
   v21 = *(v1 + v15);
   if (*(v21 + 16))
   {
@@ -6362,7 +6374,7 @@ LABEL_12:
 
   Optional.unwrap(_:file:line:)();
 
-  v26 = v58;
+  v26 = v59;
   v27 = *(v1 + v15);
   if (*(v27 + 16))
   {
@@ -6387,7 +6399,7 @@ LABEL_12:
 
   Optional.unwrap(_:file:line:)();
 
-  v32 = v58;
+  v32 = v59;
   v33 = (v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_writeManager);
   swift_beginAccess();
   if (!*(v33[1] + 16) || (, sub_100032DCC(v32), v35 = v34, , (v35 & 1) == 0))
@@ -6396,11 +6408,11 @@ LABEL_12:
     v37 = *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_periph);
     if (v37)
     {
-      [v37 setNotifyValue:1 forCharacteristic:v55];
+      [v37 setNotifyValue:1 forCharacteristic:v56];
       v38 = *(v1 + v36);
       if (v38)
       {
-        v54 = v26;
+        v55 = v26;
         [v38 setNotifyValue:1 forCharacteristic:v26];
         v39 = *(v1 + v36);
         if (v39)
@@ -6411,23 +6423,23 @@ LABEL_12:
           if (!v40 || (sub_100032DCC(v32), (v42 & 1) == 0))
           {
             v43 = v41;
-            sub_100005E64(v57, v56);
+            sub_100005E64(v58, v57);
             v44 = v32;
-            sub_100005E64(v57, v56);
-            v53 = v43;
+            sub_100005E64(v58, v57);
+            v54 = v43;
             isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-            v61 = v33[1];
+            v62 = v33[1];
             v33[1] = 0x8000000000000000;
-            sub_1000350F0(v57, v56, v39, v44, isUniquelyReferenced_nonNull_native);
+            sub_1000350F0(v58, v57, v39, v44, isUniquelyReferenced_nonNull_native);
 
-            v33[1] = v61;
+            v33[1] = v62;
             sub_10001ACB0(v44);
 
-            sub_1000083FC(v57, v56);
+            sub_1000083FC(v58, v57);
           }
 
           swift_endAccess();
-          v26 = v54;
+          v26 = v55;
           goto LABEL_40;
         }
 
@@ -6458,21 +6470,21 @@ LABEL_40:
     sub_1000DC818(0xD000000000000014, 0x80000001001475F0);
     swift_endAccess();
 
-    v61 = 1169;
+    v62 = 1169;
     v49._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v49);
 
     v50 = String.hashValue.getter();
 
     swift_beginAccess();
-    v51 = sub_1000D991C(&v61, v50);
+    v51 = sub_1000D991C(&v62, v50);
     swift_endAccess();
     if (v51)
     {
-      sub_1000D530C(0xD000000000000014, 0x80000001001475F0, 0, 0xE000000000000000, "%s - done. %s");
+      sub_1000D530C(0xD000000000000014, 0x80000001001475F0, 0, 0xE000000000000000, "%s - done. %s", v53, v54);
     }
 
-    sub_1000083FC(v57, v56);
+    sub_1000083FC(v58, v57);
   }
 
   else
@@ -6482,7 +6494,7 @@ LABEL_40:
     *v52 = 1;
     swift_willThrow();
 
-    sub_1000083FC(v57, v56);
+    sub_1000083FC(v58, v57);
   }
 }
 
@@ -6490,23 +6502,23 @@ void sub_1000CE170()
 {
   v1 = v0;
   swift_beginAccess();
-  sub_1000D99FC(v50, 0xD00000000000001FLL, 0x8000000100147570);
+  sub_1000D99FC(v52, 0xD00000000000001FLL, 0x8000000100147570);
   swift_endAccess();
 
-  v50[3] = 0xD000000000000070;
-  v50[4] = 0x800000010014C1F0;
-  v50[0] = 1174;
+  v52[3] = 0xD000000000000070;
+  v52[4] = 0x800000010014C1F0;
+  v52[0] = 1174;
   v2._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v2);
 
   v3 = String.hashValue.getter();
 
   swift_beginAccess();
-  v4 = sub_1000D991C(v50, v3);
+  v4 = sub_1000D991C(v52, v3);
   swift_endAccess();
   if (v4)
   {
-    sub_1000D530C(0xD00000000000001FLL, 0x8000000100147570, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD00000000000001FLL, 0x8000000100147570, 0, 0xE000000000000000, "%s - started... %s", v49, v50);
   }
 
   v5 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_readValues;
@@ -6564,8 +6576,8 @@ void sub_1000CE170()
       v17 = 0;
     }
 
-    v51 = v17;
-    sub_100005DCC(&unk_1001BE1B0);
+    v53 = v17;
+    sub_100005DCC(&unk_1001BE1B0, &qword_10016E710);
     Optional.unwrap(_:file:line:)();
 
     v20 = *(v1 + v13);
@@ -6590,7 +6602,7 @@ void sub_1000CE170()
       v23 = 0;
     }
 
-    v51 = v23;
+    v53 = v23;
     Optional.unwrap(_:file:line:)();
 
     v25 = *(v1 + v13);
@@ -6615,9 +6627,10 @@ void sub_1000CE170()
       v28 = 0;
     }
 
-    v51 = v28;
+    v53 = v28;
     Optional.unwrap(_:file:line:)();
 
+    v50 = v51;
     v30 = *(v1 + v13);
     if (*(v30 + 16))
     {
@@ -6640,7 +6653,7 @@ void sub_1000CE170()
       v33 = 0;
     }
 
-    v51 = v33;
+    v53 = v33;
     Optional.unwrap(_:file:line:)();
 
     v35 = *(v1 + v13);
@@ -6665,30 +6678,30 @@ void sub_1000CE170()
       v38 = 0;
     }
 
-    v51 = v38;
+    v53 = v38;
     Optional.unwrap(_:file:line:)();
 
     v40 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_periph;
     v41 = *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_periph);
     if (v41)
     {
-      [v41 readValueForCharacteristic:v49];
+      [v41 readValueForCharacteristic:v51];
       v42 = *(v1 + v40);
       if (v42)
       {
-        [v42 readValueForCharacteristic:v49];
+        [v42 readValueForCharacteristic:v51];
         v43 = *(v1 + v40);
         if (v43)
         {
-          [v43 readValueForCharacteristic:v49];
+          [v43 readValueForCharacteristic:v51];
           v44 = *(v1 + v40);
           if (v44)
           {
-            [v44 readValueForCharacteristic:v49];
+            [v44 readValueForCharacteristic:v51];
             v45 = *(v1 + v40);
             if (v45)
             {
-              [v45 readValueForCharacteristic:v49];
+              [v45 readValueForCharacteristic:v51];
 
               goto LABEL_48;
             }
@@ -6723,18 +6736,18 @@ LABEL_48:
   sub_1000DC818(0xD00000000000001FLL, 0x8000000100147570);
   swift_endAccess();
 
-  v51 = 1193;
+  v53 = 1193;
   v46._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v46);
 
   v47 = String.hashValue.getter();
 
   swift_beginAccess();
-  v48 = sub_1000D991C(&v51, v47);
+  v48 = sub_1000D991C(&v53, v47);
   swift_endAccess();
   if (v48)
   {
-    sub_1000D530C(0xD00000000000001FLL, 0x8000000100147570, 0, 0xE000000000000000, "%s - done. %s");
+    sub_1000D530C(0xD00000000000001FLL, 0x8000000100147570, 0, 0xE000000000000000, "%s - done. %s", v49, v50);
   }
 }
 
@@ -6764,7 +6777,7 @@ uint64_t sub_1000CE8BC()
   swift_endAccess();
   if (v7)
   {
-    sub_1000D530C(0xD000000000000017, 0x8000000100147520, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD000000000000017, 0x8000000100147520, 0, 0xE000000000000000, "%s - started... %s", v71, v72);
   }
 
   v87 = "ensureRoleSelected()";
@@ -6941,7 +6954,7 @@ LABEL_33:
     v76 = v48;
     v91 = v47;
     v92 = v48;
-    sub_100005DCC(&unk_1001BBA70);
+    sub_100005DCC(&unk_1001BBA70, &unk_10016CDB0);
     Optional.unwrap(_:file:line:)();
 
     v49 = v90;
@@ -7046,7 +7059,7 @@ LABEL_43:
   swift_endAccess();
   if (v70)
   {
-    sub_1000D530C(0xD000000000000017, v67 | 0x8000000000000000, 0, 0xE000000000000000, "%s - done. %s");
+    sub_1000D530C(0xD000000000000017, v67 | 0x8000000000000000, 0, 0xE000000000000000, "%s - done. %s", v71, v72);
   }
 
   sub_1000083FC(v66, v79);
@@ -7121,7 +7134,7 @@ void sub_1000CF26C(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4)
 uint64_t sub_1000CF5D0()
 {
   v1 = v0;
-  v2 = sub_100005DCC(&unk_1001BE180);
+  v2 = sub_100005DCC(&unk_1001BE180, &unk_10016EA10);
   __chkstk_darwin(v2 - 8);
   v82 = (&v70 - v3);
   v4 = type metadata accessor for String.Encoding();
@@ -7148,7 +7161,7 @@ uint64_t sub_1000CF5D0()
   swift_endAccess();
   if (v5)
   {
-    sub_1000D530C(0xD000000000000017, 0x8000000100147410, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD000000000000017, 0x8000000100147410, 0, 0xE000000000000000, "%s - started... %s", v70, v71);
   }
 
   v86 = "Expect userMessage encodes";
@@ -7166,15 +7179,15 @@ uint64_t sub_1000CF5D0()
   v98 = *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_payloadValue + 64);
   v94 = v104[0];
   v95 = v9;
-  sub_100005EB8(v104, &v99, &qword_1001BBAF0);
-  sub_100005DCC(&qword_1001BBAF0);
+  sub_100005EB8(v104, &v99, &qword_1001BBAF0, &qword_100170A00);
+  sub_100005DCC(&qword_1001BBAF0, &qword_100170A00);
   Optional.unwrap(_:file:line:)();
   v108[2] = v96;
   v108[3] = v97;
   v108[4] = v98;
   v108[0] = v94;
   v108[1] = v95;
-  sub_10001259C(v108, &qword_1001BBAF0);
+  sub_10001259C(v108, &qword_1001BBAF0, &qword_100170A00);
   v110 = v101;
   v111 = v102;
   v112 = v103;
@@ -7210,7 +7223,7 @@ uint64_t sub_1000CF5D0()
 
   v92 = v18;
   v93 = v19;
-  sub_100005DCC(&unk_1001BE190);
+  sub_100005DCC(&unk_1001BE190, &qword_10016E6E8);
   Optional.unwrap(_:file:line:)();
   sub_100025404(v92, v93);
   v88 = *(&v99 + 1);
@@ -7244,7 +7257,7 @@ uint64_t sub_1000CF5D0()
   v90 = v24;
   v91 = v26;
   __chkstk_darwin(v27);
-  sub_100005DCC(&unk_1001BBA70);
+  sub_100005DCC(&unk_1001BBA70, &unk_10016CDB0);
   Optional.unwrap(_:file:line:)();
 
   v29 = *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_session);
@@ -7324,7 +7337,7 @@ LABEL_28:
   v45 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_presentationConfig;
   swift_beginAccess();
   v46 = v82;
-  sub_100005EB8(v1 + v45, v82, &unk_1001BE180);
+  sub_100005EB8(v1 + v45, v82, &unk_1001BE180, &unk_10016EA10);
   v47 = type metadata accessor for B389PresentationConfig(0);
   result = (*(*(v47 - 8) + 48))(v46, 1, v47);
   if (result == 1)
@@ -7391,7 +7404,7 @@ LABEL_18:
     swift_endAccess();
     if (v63)
     {
-      sub_1000D530C(0xD000000000000017, v60 | 0x8000000000000000, 0, 0xE000000000000000, "%s - done. %s");
+      sub_1000D530C(0xD000000000000017, v60 | 0x8000000000000000, 0, 0xE000000000000000, "%s - done. %s", v70, v71);
     }
   }
 
@@ -7435,7 +7448,7 @@ uint64_t sub_1000CFFFC(uint64_t a1)
   return v10;
 }
 
-uint64_t sub_1000D0198(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *sub_1000D0198(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v24 = a6;
   v9 = type metadata accessor for DispatchWorkItemFlags();
@@ -7451,7 +7464,7 @@ uint64_t sub_1000D0198(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   if (result)
   {
     v16 = result;
-    sub_1000122EC(0, &qword_1001BCE90);
+    sub_1000122EC(0, &qword_1001BCE90, OS_dispatch_queue_ptr);
     v23 = static OS_dispatch_queue.main.getter();
     v17 = swift_allocObject();
     v17[2] = a2;
@@ -7470,9 +7483,9 @@ uint64_t sub_1000D0198(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
 
     static DispatchQoS.unspecified.getter();
     aBlock[0] = _swiftEmptyArrayStorage;
-    sub_10005F638(&qword_1001BA7C0, &type metadata accessor for DispatchWorkItemFlags);
-    sub_100005DCC(&unk_1001BBA90);
-    sub_100025698(&qword_1001BA7D0, &unk_1001BBA90);
+    sub_10005F638(&qword_1001BA7C0, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    sub_100005DCC(&unk_1001BBA90, &unk_10016D130);
+    sub_100025698(&qword_1001BA7D0, &unk_1001BBA90, &unk_10016D130, &protocol conformance descriptor for [A]);
     dispatch thunk of SetAlgebra.init<A>(_:)();
     v21 = v23;
     OS_dispatch_queue.async(group:qos:flags:execute:)();
@@ -7485,7 +7498,7 @@ uint64_t sub_1000D0198(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   return result;
 }
 
-uint64_t sub_1000D04C4(uint64_t a1, void *a2, uint64_t a3)
+void sub_1000D04C4(void *a1, void *a2, uint64_t a3)
 {
   if (a1)
   {
@@ -7511,14 +7524,14 @@ uint64_t sub_1000D04C4(uint64_t a1, void *a2, uint64_t a3)
 
   if (os_log_type_enabled(v10, v7))
   {
-    v44 = a3;
+    v43 = a3;
     v11 = swift_slowAlloc();
     v12 = swift_slowAlloc();
     v13 = swift_slowAlloc();
-    v46 = v13;
+    v45 = v13;
     *v11 = 138412546;
     *(v11 + 4) = v9;
-    v43 = v12;
+    v42 = v12;
     *v12 = a2;
     *(v11 + 12) = 2080;
     if (a1)
@@ -7532,19 +7545,19 @@ uint64_t sub_1000D04C4(uint64_t a1, void *a2, uint64_t a3)
     else
     {
       v17 = 0x8000000100145470;
-      v33 = v9;
+      v32 = v9;
       v15 = 0xD000000000000015;
     }
 
-    v34 = sub_10002065C(v15, v17, &v46);
+    v33 = sub_10002065C(v15, v17, &v45);
 
-    *(v11 + 14) = v34;
+    *(v11 + 14) = v33;
     _os_log_impl(&_mh_execute_header, v10, v7, "verifyPairing %@ completion, error: %s", v11, 0x16u);
-    sub_10001259C(v43, &unk_1001BBA60);
+    sub_10001259C(v42, &unk_1001BBA60, &qword_10016D230);
 
     sub_1000083B0(v13);
 
-    a3 = v44;
+    a3 = v43;
     if (!a1)
     {
       goto LABEL_18;
@@ -7557,40 +7570,41 @@ uint64_t sub_1000D04C4(uint64_t a1, void *a2, uint64_t a3)
     if (!a1)
     {
 LABEL_18:
-      v35 = v9;
-      v36 = Logger.logObject.getter();
-      v37 = static os_log_type_t.default.getter();
+      v34 = v9;
+      v35 = Logger.logObject.getter();
+      v36 = static os_log_type_t.default.getter();
 
-      if (os_log_type_enabled(v36, v37))
+      if (os_log_type_enabled(v35, v36))
       {
-        v38 = swift_slowAlloc();
-        v39 = a2;
-        v40 = swift_slowAlloc();
-        *v38 = 138412290;
-        *(v38 + 4) = v35;
-        *v40 = v39;
-        v41 = v35;
-        _os_log_impl(&_mh_execute_header, v36, v37, "verifyPairing %@ success", v38, 0xCu);
-        sub_10001259C(v40, &unk_1001BBA60);
-        a2 = v39;
+        v37 = swift_slowAlloc();
+        v38 = a2;
+        v39 = swift_slowAlloc();
+        *v37 = 138412290;
+        *(v37 + 4) = v34;
+        *v39 = v38;
+        v40 = v34;
+        _os_log_impl(&_mh_execute_header, v35, v36, "verifyPairing %@ success", v37, 0xCu);
+        sub_10001259C(v39, &unk_1001BBA60, &qword_10016D230);
+        a2 = v38;
       }
 
-      v42 = *(a3 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_session);
+      v41 = *(a3 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_session);
       *(a3 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_session) = a2;
 
       *(a3 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_sessionVerified) = 1;
-      return sub_1000BD9C0(v35);
+      sub_1000BD9C0(v34);
+      return;
     }
   }
 
-  v46 = a1;
+  v45 = a1;
   swift_errorRetain();
   swift_errorRetain();
-  sub_100005DCC(&qword_1001BBA48);
+  sub_100005DCC(&qword_1001BBA48, qword_10016FA40);
   type metadata accessor for SPPairingSessionError(0);
   if (swift_dynamicCast())
   {
-    sub_1000D0F94(v45);
+    sub_1000D0F94(v44);
   }
 
   else
@@ -7603,11 +7617,11 @@ LABEL_18:
     {
       v20 = swift_slowAlloc();
       v21 = swift_slowAlloc();
-      v46 = v21;
+      v45 = v21;
       *v20 = 136315138;
       swift_getErrorValue();
       v22 = Error.localizedDescription.getter();
-      v24 = sub_10002065C(v22, v23, &v46);
+      v24 = sub_10002065C(v22, v23, &v45);
 
       *(v20 + 4) = v24;
       _os_log_impl(&_mh_execute_header, v18, v19, "verifyPairing error %s failed decode as NSError", v20, 0xCu);
@@ -7713,7 +7727,7 @@ void sub_1000D0A60(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, NSObject
 
     v34 = &v32[OBJC_IVAR____TtC18SharingViewService25AirTagErrorViewController_message];
     *v34 = a1;
-    v34[1] = a2;
+    *(v34 + 1) = a2;
 
     v35 = *&v15[v28];
     if (v35)
@@ -7790,12 +7804,12 @@ LABEL_28:
 
 void sub_1000D0F94(uint64_t a1)
 {
-  v2 = sub_100005DCC(&qword_1001BA7B0);
+  v2 = sub_100005DCC(&qword_1001BA7B0, &qword_10016D9A0);
   __chkstk_darwin(v2 - 8);
   v4 = &v80 - v3;
   v83 = a1;
   type metadata accessor for SPPairingSessionError(0);
-  sub_10005F638(&qword_1001BBAC0, type metadata accessor for SPPairingSessionError);
+  sub_10005F638(&qword_1001BBAC0, type metadata accessor for SPPairingSessionError, &unk_10016C7B8);
   _BridgedStoredNSError.code.getter();
   if (v82 < 14)
   {
@@ -7939,7 +7953,7 @@ LABEL_19:
       URL.init(string:)();
       sub_1000C73A4(v65, v67, v72, v74, v77, v79, 0xD000000000000010, 0x8000000100147060, v4);
 
-      sub_10001259C(v4, &qword_1001BA7B0);
+      sub_10001259C(v4, &qword_1001BA7B0, &qword_10016D9A0);
       return;
     }
 
@@ -7983,29 +7997,29 @@ void sub_1000D1C0C()
 {
   v2 = v0;
   v3 = type metadata accessor for String.Encoding();
-  v41 = *(v3 - 8);
+  v42 = *(v3 - 8);
   __chkstk_darwin(v3);
-  v5 = v40 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v40 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
-  v49 = "Expect discovered c3_t4_s4 char";
-  sub_1000D99FC(v48, 0xD00000000000001ALL, 0x80000001001473D0);
+  v50 = "Expect discovered c3_t4_s4 char";
+  sub_1000D99FC(v49, 0xD00000000000001ALL, 0x80000001001473D0);
   swift_endAccess();
 
-  v48[3] = 0xD000000000000070;
-  v48[4] = 0x800000010014C1F0;
-  v43 = 0x800000010014C1F0;
-  v48[0] = 1289;
+  v49[3] = 0xD000000000000070;
+  v49[4] = 0x800000010014C1F0;
+  v44 = 0x800000010014C1F0;
+  v49[0] = 1289;
   v6._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v6);
 
   v7 = String.hashValue.getter();
 
   swift_beginAccess();
-  v8 = sub_1000D991C(v48, v7);
+  v8 = sub_1000D991C(v49, v7);
   swift_endAccess();
   if (v8)
   {
-    sub_1000D530C(0xD00000000000001ALL, v49 | 0x8000000000000000, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD00000000000001ALL, v50 | 0x8000000000000000, 0, 0xE000000000000000, "%s - started... %s", v40, v41);
   }
 
   v9 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_discoveredChars;
@@ -8021,16 +8035,16 @@ void sub_1000D1C0C()
   {
 
 LABEL_11:
-    v48[0] = 0xD000000000000070;
-    v48[1] = v43;
-    v44 = 1293;
+    v49[0] = 0xD000000000000070;
+    v49[1] = v44;
+    v45 = 1293;
     v19._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v19);
 
     v20 = String.hashValue.getter();
 
     swift_beginAccess();
-    v21 = sub_1000D991C(&v44, v20);
+    v21 = sub_1000D991C(&v45, v20);
     swift_endAccess();
     if (v21)
     {
@@ -8038,18 +8052,18 @@ LABEL_11:
     }
 
     swift_beginAccess();
-    sub_1000DC818(0xD00000000000001ALL, v49 | 0x8000000000000000);
+    sub_1000DC818(0xD00000000000001ALL, v50 | 0x8000000000000000);
     swift_endAccess();
 
     return;
   }
 
-  v40[1] = v1;
-  v42 = *(*(v10 + 56) + 8 * v11);
+  v41 = v1;
+  v43 = *(*(v10 + 56) + 8 * v11);
 
   v13 = (v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_writeManager);
   swift_beginAccess();
-  if (!*(v13[1] + 16) || (, sub_100032DCC(v42), v15 = v14, , (v15 & 1) == 0))
+  if (!*(v13[1] + 16) || (, sub_100032DCC(v43), v15 = v14, , (v15 & 1) == 0))
   {
     v16 = *(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_session);
     if (v16)
@@ -8065,12 +8079,12 @@ LABEL_11:
     static String.Encoding.utf8.getter();
     v22 = String.data(using:allowLossyConversion:)();
     v24 = v23;
-    v41[1](v5, v3);
-    v46 = v22;
-    v47 = v24;
-    sub_100005DCC(&unk_1001BE190);
+    v42[1](v5, v3);
+    v47 = v22;
+    v48 = v24;
+    sub_100005DCC(&unk_1001BE190, &qword_10016E6E8);
     Optional.unwrap(_:file:line:)();
-    sub_100025404(v46, v47);
+    sub_100025404(v47, v48);
     v25 = *(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_periph);
     if (!v25)
     {
@@ -8078,24 +8092,24 @@ LABEL_11:
       return;
     }
 
-    v26 = v44;
-    v27 = v45;
-    v41 = v25;
+    v26 = v45;
+    v27 = v46;
+    v42 = v25;
 
     swift_beginAccess();
-    if (!*(v13[1] + 16) || (sub_100032DCC(v42), (v28 & 1) == 0))
+    if (!*(v13[1] + 16) || (sub_100032DCC(v43), (v28 & 1) == 0))
     {
-      v29 = v42;
-      v30 = v41;
+      v29 = v43;
+      v30 = v42;
       sub_100005E64(v26, v27);
       sub_100005E64(v26, v27);
-      v40[0] = v30;
+      v40 = v30;
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v46 = v13[1];
+      v47 = v13[1];
       v13[1] = 0x8000000000000000;
       sub_1000350F0(v26, v27, v25, v29, isUniquelyReferenced_nonNull_native);
 
-      v13[1] = v46;
+      v13[1] = v47;
       sub_10001ACB0(v29);
 
       sub_1000083FC(v26, v27);
@@ -8108,29 +8122,29 @@ LABEL_11:
   v33 = *v13;
   v32 = v13[1];
 
-  v34 = sub_10001AED8(v42, v33, v32);
+  v34 = sub_10001AED8(v43, v33, v32);
 
   if (v34)
   {
     swift_beginAccess();
-    v35 = v49;
-    sub_1000DC818(0xD00000000000001ALL, v49 | 0x8000000000000000);
+    v35 = v50;
+    sub_1000DC818(0xD00000000000001ALL, v50 | 0x8000000000000000);
     swift_endAccess();
 
-    v44 = 0xD000000000000070;
-    v45 = v43;
-    v46 = 1309;
+    v45 = 0xD000000000000070;
+    v46 = v44;
+    v47 = 1309;
     v36._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v36);
 
     v37 = String.hashValue.getter();
 
     swift_beginAccess();
-    v38 = sub_1000D991C(&v46, v37);
+    v38 = sub_1000D991C(&v47, v37);
     swift_endAccess();
     if (v38)
     {
-      sub_1000D530C(0xD00000000000001ALL, v35 | 0x8000000000000000, 0, 0xE000000000000000, "%s - done. %s");
+      sub_1000D530C(0xD00000000000001ALL, v35 | 0x8000000000000000, 0, 0xE000000000000000, "%s - done. %s", v40, v41);
     }
   }
 
@@ -8165,42 +8179,42 @@ void sub_1000D22EC(const char *a1)
 void sub_1000D23DC()
 {
   v1 = v0;
-  v149 = type metadata accessor for String.Encoding();
-  v2 = *(v149 - 8);
-  __chkstk_darwin(v149);
-  v4 = v132 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v150 = type metadata accessor for String.Encoding();
+  v2 = *(v150 - 8);
+  __chkstk_darwin(v150);
+  v4 = &v132 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v5 = "Expect discovered baaCert char";
   v6 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_inFlightOperations;
   swift_beginAccess();
-  v136 = v6;
-  sub_1000D99FC(&v155, 0xD00000000000001BLL, 0x80000001001472C0);
+  v137 = v6;
+  sub_1000D99FC(&v156, 0xD00000000000001BLL, 0x80000001001472C0);
   swift_endAccess();
 
   v7 = *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_om);
-  v157 = 0xD000000000000070;
-  v158 = 0x800000010014C1F0;
-  v137 = 0x800000010014C1F0;
-  v155 = 1314;
+  v158 = 0xD000000000000070;
+  v159 = 0x800000010014C1F0;
+  v138 = 0x800000010014C1F0;
+  v156 = 1314;
   v8._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v8);
 
   v9 = String.hashValue.getter();
 
   swift_beginAccess();
-  v138 = v7;
-  LOBYTE(v6) = sub_1000D991C(&v155, v9);
+  v139 = v7;
+  LOBYTE(v6) = sub_1000D991C(&v156, v9);
   swift_endAccess();
   if (v6)
   {
-    sub_1000D530C(0xD00000000000001BLL, 0x80000001001472C0, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD00000000000001BLL, 0x80000001001472C0, 0, 0xE000000000000000, "%s - started... %s", v132, v133);
   }
 
-  v155 = *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_session);
-  v10 = v155;
-  sub_100005DCC(&unk_1001BE1A0);
+  v156 = *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_session);
+  v10 = v156;
+  sub_100005DCC(&unk_1001BE1A0, &unk_10016E6F0);
   Optional.unwrap(_:file:line:)();
 
-  v11 = v157;
+  v11 = v158;
   v12 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_discoveredChars;
   swift_beginAccess();
   v13 = *(v1 + v12);
@@ -8225,11 +8239,11 @@ void sub_1000D23DC()
     v16 = 0;
   }
 
-  v151 = v16;
-  sub_100005DCC(&unk_1001BE1B0);
+  v152 = v16;
+  sub_100005DCC(&unk_1001BE1B0, &qword_10016E710);
   Optional.unwrap(_:file:line:)();
 
-  v146 = v155;
+  v147 = v156;
   v18 = *(v1 + v12);
   if (*(v18 + 16))
   {
@@ -8252,10 +8266,10 @@ void sub_1000D23DC()
     v21 = 0;
   }
 
-  v151 = v21;
+  v152 = v21;
   Optional.unwrap(_:file:line:)();
 
-  v150 = v155;
+  v151 = v156;
   v23 = *(v1 + v12);
   if (*(v23 + 16))
   {
@@ -8278,10 +8292,10 @@ void sub_1000D23DC()
     v26 = 0;
   }
 
-  v151 = v26;
+  v152 = v26;
   Optional.unwrap(_:file:line:)();
 
-  v148 = v155;
+  v149 = v156;
   v28 = *(v1 + v12);
   if (*(v28 + 16))
   {
@@ -8304,10 +8318,10 @@ void sub_1000D23DC()
     v31 = 0;
   }
 
-  v151 = v31;
+  v152 = v31;
   Optional.unwrap(_:file:line:)();
 
-  v147 = v155;
+  v148 = v156;
   v33 = *(v1 + v12);
   if (*(v33 + 16))
   {
@@ -8330,10 +8344,10 @@ void sub_1000D23DC()
     v36 = 0;
   }
 
-  v151 = v36;
+  v152 = v36;
   Optional.unwrap(_:file:line:)();
 
-  v38 = v155;
+  v38 = v156;
   v39 = [v11 collaborativeKeyC2];
   if (v39)
   {
@@ -8348,13 +8362,13 @@ void sub_1000D23DC()
     v43 = 0xF000000000000000;
   }
 
-  v151 = v41;
-  v152 = v43;
-  sub_100005DCC(&unk_1001BE190);
+  v152 = v41;
+  v153 = v43;
+  sub_100005DCC(&unk_1001BE190, &qword_10016E6E8);
   Optional.unwrap(_:file:line:)();
-  sub_100025404(v151, v152);
-  v142 = v156;
-  v143 = v155;
+  sub_100025404(v152, v153);
+  v143 = v157;
+  v144 = v156;
   v44 = [v11 serverSeed];
   if (v44)
   {
@@ -8369,12 +8383,12 @@ void sub_1000D23DC()
     v48 = 0xF000000000000000;
   }
 
-  v151 = v46;
-  v152 = v48;
+  v152 = v46;
+  v153 = v48;
   Optional.unwrap(_:file:line:)();
-  sub_100025404(v151, v152);
-  v144 = v156;
-  v145 = v155;
+  sub_100025404(v152, v153);
+  v145 = v157;
+  v146 = v156;
   v49 = [v11 serverSignature];
   if (v49)
   {
@@ -8389,14 +8403,14 @@ void sub_1000D23DC()
     v53 = 0xF000000000000000;
   }
 
-  v151 = v51;
-  v152 = v53;
+  v152 = v51;
+  v153 = v53;
   Optional.unwrap(_:file:line:)();
-  sub_100025404(v151, v152);
-  v141 = v155;
-  v140 = v156;
+  sub_100025404(v152, v153);
+  v142 = v156;
+  v141 = v157;
   v54 = [v11 maskedAppleID];
-  v135 = v11;
+  v136 = v11;
   if (v54)
   {
     v55 = v54;
@@ -8410,12 +8424,12 @@ void sub_1000D23DC()
     v58 = 0;
   }
 
-  v151 = v56;
-  v152 = v58;
-  sub_100005DCC(&unk_1001BBA70);
+  v152 = v56;
+  v153 = v58;
+  sub_100005DCC(&unk_1001BBA70, &unk_10016CDB0);
   Optional.unwrap(_:file:line:)();
 
-  v59 = v156;
+  v59 = v157;
   v60 = v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_writeManager;
   swift_beginAccess();
   if (!*(*(v60 + 8) + 16))
@@ -8424,13 +8438,13 @@ LABEL_49:
     static String.Encoding.utf8.getter();
     v62 = String.data(using:allowLossyConversion:)();
     v64 = v63;
-    (*(v2 + 8))(v4, v149);
-    v153 = v62;
-    v154 = v64;
+    (*(v2 + 8))(v4, v150);
+    v154 = v62;
+    v155 = v64;
     Optional.unwrap(_:file:line:)();
-    sub_100025404(v153, v154);
-    v66 = v151;
-    v65 = v152;
+    sub_100025404(v154, v155);
+    v66 = v152;
+    v65 = v153;
     if (qword_1001B9490 != -1)
     {
       swift_once();
@@ -8443,15 +8457,15 @@ LABEL_49:
     v69 = static os_log_type_t.default.getter();
     sub_1000083FC(v66, v65);
     v70 = os_log_type_enabled(v68, v69);
-    v149 = v65;
-    v134 = "Expect discovered baaCert char";
-    v133 = v38;
-    v132[1] = v59;
+    v150 = v65;
+    v135 = "Expect discovered baaCert char";
+    v134 = v38;
+    v133 = v59;
     if (v70)
     {
       v71 = swift_slowAlloc();
       v72 = swift_slowAlloc();
-      v151 = v72;
+      v152 = v72;
       *v71 = 136315138;
       isa = Data._bridgeToObjectiveC()().super.isa;
       v74 = SFHexStringForData();
@@ -8468,13 +8482,13 @@ LABEL_49:
         v75 = 0xD000000000000015;
       }
 
-      v78 = sub_10002065C(v75, v77, &v151);
+      v78 = sub_10002065C(v75, v77, &v152);
 
       *(v71 + 4) = v78;
       _os_log_impl(&_mh_execute_header, v68, v69, "writingAppleID: %s", v71, 0xCu);
       sub_1000083B0(v72);
 
-      v65 = v149;
+      v65 = v150;
     }
 
     else
@@ -8522,33 +8536,33 @@ LABEL_67:
       v85 = *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_periph);
       if (v85)
       {
-        [v85 setNotifyValue:1 forCharacteristic:v146];
+        [v85 setNotifyValue:1 forCharacteristic:v147];
         v86 = *(v1 + v84);
         if (v86)
         {
           swift_beginAccess();
           v87 = *(*(v60 + 8) + 16);
           v88 = v86;
-          v139 = v66;
-          if (!v87 || (sub_100032DCC(v150), (v89 & 1) == 0))
+          v140 = v66;
+          if (!v87 || (sub_100032DCC(v151), (v89 & 1) == 0))
           {
             v90 = v88;
-            v92 = v144;
-            v91 = v145;
-            sub_100005E64(v145, v144);
-            v93 = v150;
+            v92 = v145;
+            v91 = v146;
+            sub_100005E64(v146, v145);
+            v93 = v151;
             sub_100005E64(v91, v92);
             v94 = v90;
             isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-            v153 = *(v60 + 8);
+            v154 = *(v60 + 8);
             *(v60 + 8) = 0x8000000000000000;
             sub_1000350F0(v91, v92, v86, v93, isUniquelyReferenced_nonNull_native);
 
-            *(v60 + 8) = v153;
+            *(v60 + 8) = v154;
             sub_10001ACB0(v93);
 
             v96 = v92;
-            v66 = v139;
+            v66 = v140;
             sub_1000083FC(v91, v96);
           }
 
@@ -8559,25 +8573,25 @@ LABEL_67:
             swift_beginAccess();
             v98 = *(*(v60 + 8) + 16);
             v99 = v97;
-            if (!v98 || (sub_100032DCC(v148), (v100 & 1) == 0))
+            if (!v98 || (sub_100032DCC(v149), (v100 & 1) == 0))
             {
               v101 = v99;
-              v103 = v142;
-              v102 = v143;
-              sub_100005E64(v143, v142);
-              v104 = v148;
+              v103 = v143;
+              v102 = v144;
+              sub_100005E64(v144, v143);
+              v104 = v149;
               sub_100005E64(v102, v103);
               v105 = v101;
               v106 = swift_isUniquelyReferenced_nonNull_native();
-              v153 = *(v60 + 8);
+              v154 = *(v60 + 8);
               *(v60 + 8) = 0x8000000000000000;
               sub_1000350F0(v102, v103, v97, v104, v106);
 
-              *(v60 + 8) = v153;
+              *(v60 + 8) = v154;
               sub_10001ACB0(v104);
 
               v107 = v103;
-              v66 = v139;
+              v66 = v140;
               sub_1000083FC(v102, v107);
             }
 
@@ -8588,25 +8602,25 @@ LABEL_67:
               swift_beginAccess();
               v109 = *(*(v60 + 8) + 16);
               v110 = v108;
-              if (!v109 || (sub_100032DCC(v147), (v111 & 1) == 0))
+              if (!v109 || (sub_100032DCC(v148), (v111 & 1) == 0))
               {
                 v112 = v110;
-                v113 = v141;
-                v114 = v140;
-                sub_100005E64(v141, v140);
-                v115 = v147;
+                v113 = v142;
+                v114 = v141;
+                sub_100005E64(v142, v141);
+                v115 = v148;
                 sub_100005E64(v113, v114);
                 v116 = v112;
                 v117 = swift_isUniquelyReferenced_nonNull_native();
-                v153 = *(v60 + 8);
+                v154 = *(v60 + 8);
                 *(v60 + 8) = 0x8000000000000000;
                 sub_1000350F0(v113, v114, v108, v115, v117);
 
-                *(v60 + 8) = v153;
+                *(v60 + 8) = v154;
                 sub_10001ACB0(v115);
 
                 v118 = v114;
-                v66 = v139;
+                v66 = v140;
                 sub_1000083FC(v113, v118);
               }
 
@@ -8617,23 +8631,23 @@ LABEL_67:
                 v120 = v119;
 
                 swift_beginAccess();
-                v38 = v133;
-                v121 = v149;
-                if (!*(*(v60 + 8) + 16) || (sub_100032DCC(v133), (v122 & 1) == 0))
+                v38 = v134;
+                v121 = v150;
+                if (!*(*(v60 + 8) + 16) || (sub_100032DCC(v134), (v122 & 1) == 0))
                 {
                   sub_100005E64(v66, v121);
                   v123 = v120;
                   v124 = v38;
-                  sub_100005E64(v66, v149);
+                  sub_100005E64(v66, v150);
                   v125 = v123;
                   v126 = swift_isUniquelyReferenced_nonNull_native();
-                  v153 = *(v60 + 8);
+                  v154 = *(v60 + 8);
                   *(v60 + 8) = 0x8000000000000000;
-                  sub_1000350F0(v66, v149, v119, v124, v126);
+                  sub_1000350F0(v66, v150, v119, v124, v126);
 
-                  *(v60 + 8) = v153;
+                  *(v60 + 8) = v154;
                   v127 = v124;
-                  v121 = v149;
+                  v121 = v150;
                   sub_10001ACB0(v127);
 
                   sub_1000083FC(v66, v121);
@@ -8641,7 +8655,7 @@ LABEL_67:
 
                 swift_endAccess();
                 sub_1000083FC(v66, v121);
-                v5 = v134;
+                v5 = v135;
                 goto LABEL_85;
               }
 
@@ -8676,7 +8690,7 @@ LABEL_89:
     goto LABEL_90;
   }
 
-  sub_100032DCC(v150);
+  sub_100032DCC(v151);
   if ((v61 & 1) == 0)
   {
 
@@ -8688,54 +8702,54 @@ LABEL_85:
   sub_1000DC818(0xD00000000000001BLL, v5 | 0x8000000000000000);
   swift_endAccess();
 
-  v151 = 0xD000000000000070;
-  v152 = v137;
-  v153 = 1348;
+  v152 = 0xD000000000000070;
+  v153 = v138;
+  v154 = 1348;
   v128._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v128);
 
   v129 = String.hashValue.getter();
 
   swift_beginAccess();
-  v130 = sub_1000D991C(&v153, v129);
+  v130 = sub_1000D991C(&v154, v129);
   swift_endAccess();
-  v131 = v135;
+  v131 = v136;
   if (v130)
   {
-    sub_1000D530C(0xD00000000000001BLL, v5 | 0x8000000000000000, 0, 0xE000000000000000, "%s - done. %s");
+    sub_1000D530C(0xD00000000000001BLL, v5 | 0x8000000000000000, 0, 0xE000000000000000, "%s - done. %s", v132, v133);
   }
 
-  sub_1000083FC(v141, v140);
-  sub_1000083FC(v145, v144);
-  sub_1000083FC(v143, v142);
+  sub_1000083FC(v142, v141);
+  sub_1000083FC(v146, v145);
+  sub_1000083FC(v144, v143);
 }
 
 void sub_1000D33D0()
 {
   v1 = v0;
   swift_beginAccess();
-  sub_1000D99FC(&v68, 0xD000000000000014, 0x8000000100147260);
+  sub_1000D99FC(&v70, 0xD000000000000014, 0x8000000100147260);
   swift_endAccess();
 
-  v61 = 0xD000000000000070;
-  v62 = 0x800000010014C1F0;
-  v68 = 1353;
+  v63 = 0xD000000000000070;
+  v64 = 0x800000010014C1F0;
+  v70 = 1353;
   v2._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v2);
 
   v3 = String.hashValue.getter();
 
   swift_beginAccess();
-  v4 = sub_1000D991C(&v68, v3);
+  v4 = sub_1000D991C(&v70, v3);
   swift_endAccess();
   if (v4)
   {
-    sub_1000D530C(0xD000000000000014, 0x8000000100147260, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD000000000000014, 0x8000000100147260, 0, 0xE000000000000000, "%s - started... %s", v58, v59);
   }
 
   v5 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_discoveredChars;
   swift_beginAccess();
-  v6 = *(v0 + v5);
+  v6 = *&v0[v5];
   if (*(v6 + 16))
   {
 
@@ -8757,17 +8771,17 @@ void sub_1000D33D0()
     v9 = 0;
   }
 
-  v67 = v9;
-  sub_100005DCC(&unk_1001BE1B0);
+  v69 = v9;
+  sub_100005DCC(&unk_1001BE1B0, &qword_10016E710);
   Optional.unwrap(_:file:line:)();
 
-  v11 = v61;
-  v12 = (v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_writeManager);
+  v11 = v63;
+  v12 = &v1[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_writeManager];
   swift_beginAccess();
   if (*(v12[1] + 16))
   {
 
-    sub_100032DCC(v61);
+    sub_100032DCC(v63);
     v14 = v13;
 
     if (v14)
@@ -8776,14 +8790,14 @@ void sub_1000D33D0()
     }
   }
 
-  v59 = v61;
-  v61 = *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_session);
-  v15 = v61;
-  sub_100005DCC(&unk_1001BE1A0);
+  v61 = v63;
+  v63 = *&v1[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_session];
+  v15 = v63;
+  sub_100005DCC(&unk_1001BE1A0, &unk_10016E6F0);
   Optional.unwrap(_:file:line:)();
 
-  v16 = v69;
-  v17 = [v69 baaLeaftCert];
+  v16 = v71;
+  v17 = [v71 baaLeaftCert];
 
   if (v17)
   {
@@ -8797,15 +8811,15 @@ void sub_1000D33D0()
     v20 = 0xF000000000000000;
   }
 
-  v65 = v18;
-  v66 = v20;
-  sub_100005DCC(&unk_1001BE190);
+  v67 = v18;
+  v68 = v20;
+  sub_100005DCC(&unk_1001BE190, &qword_10016E6E8);
   Optional.unwrap(_:file:line:)();
   sub_100025404(v18, v20);
-  v60 = v61;
-  v58 = v62;
-  v21 = v62 >> 62;
-  if ((v62 >> 62) > 1)
+  v62 = v63;
+  v60 = v64;
+  v21 = v64 >> 62;
+  if ((v64 >> 62) > 1)
   {
     LOWORD(v22) = 0;
     if (v21 != 2)
@@ -8813,8 +8827,8 @@ void sub_1000D33D0()
       goto LABEL_23;
     }
 
-    v24 = *(v61 + 2);
-    v23 = *(v61 + 3);
+    v24 = *(v63 + 2);
+    v23 = *(v63 + 3);
     v25 = __OFSUB__(v23, v24);
     v22 = v23 - v24;
     if (v25)
@@ -8834,8 +8848,8 @@ LABEL_40:
 
   if (v21)
   {
-    LODWORD(v22) = HIDWORD(v61) - v61;
-    if (__OFSUB__(HIDWORD(v61), v61))
+    LODWORD(v22) = HIDWORD(v63) - v63;
+    if (__OFSUB__(HIDWORD(v63), v63))
     {
 LABEL_41:
       __break(1u);
@@ -8853,15 +8867,15 @@ LABEL_20:
     goto LABEL_24;
   }
 
-  LOWORD(v22) = BYTE6(v62);
+  LOWORD(v22) = BYTE6(v64);
 LABEL_23:
   v26 = 0;
 LABEL_24:
-  LOWORD(v61) = v22;
-  BYTE2(v61) = v26;
-  sub_100005DCC(&unk_1001BE1D0);
+  LOWORD(v63) = v22;
+  BYTE2(v63) = v26;
+  sub_100005DCC(&unk_1001BE1D0, &qword_10016E720);
   Optional.unwrap(_:file:line:)();
-  v27 = v65;
+  v27 = v67;
   if (qword_1001B9490 != -1)
   {
     swift_once();
@@ -8888,22 +8902,23 @@ LABEL_24:
 
   v35 = sub_1000DDA74(v34);
   v37 = v36;
-  v65 = v35;
-  v66 = v36;
-  v63 = &type metadata for Data;
-  v64 = &protocol witness table for Data;
-  v61 = v60;
-  v62 = v58;
-  v38 = sub_10000836C(&v61, &type metadata for Data);
+  v67 = v35;
+  v68 = v36;
+  v65 = &type metadata for Data;
+  v66 = &protocol witness table for Data;
+  v63 = v62;
+  v64 = v60;
+  v38 = sub_10000836C(&v63, &type metadata for Data);
   v39 = v1;
   v40 = *v38;
   v41 = v38[1];
   sub_100005E64(v35, v37);
-  sub_100005E64(v60, v58);
-  sub_1000DD46C(v40, v41);
+  sub_100005E64(v62, v60);
+  sub_1000DD46C(v40, v41, &v67);
   sub_1000083FC(v35, v37);
-  sub_1000083B0(&v61);
-  v42 = *(v39 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_periph);
+  sub_1000083B0(&v63);
+  v59 = v39;
+  v42 = *&v39[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_periph];
   if (!v42)
   {
 LABEL_42:
@@ -8911,24 +8926,24 @@ LABEL_42:
     return;
   }
 
-  v43 = v65;
-  v44 = v66;
+  v43 = v67;
+  v44 = v68;
   v45 = v42;
 
   swift_beginAccess();
-  if (!*(v12[1] + 16) || (sub_100032DCC(v59), (v46 & 1) == 0))
+  if (!*(v12[1] + 16) || (sub_100032DCC(v61), (v46 & 1) == 0))
   {
     v47 = v45;
     sub_100005E64(v43, v44);
-    v48 = v59;
+    v48 = v61;
     sub_100005E64(v43, v44);
     v49 = v47;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v65 = v12[1];
+    v67 = v12[1];
     v12[1] = 0x8000000000000000;
     sub_1000350F0(v43, v44, v42, v48, isUniquelyReferenced_nonNull_native);
 
-    v12[1] = v65;
+    v12[1] = v67;
     sub_10001ACB0(v48);
 
     sub_1000083FC(v43, v44);
@@ -8936,8 +8951,8 @@ LABEL_42:
 
   swift_endAccess();
   sub_1000083FC(v43, v44);
-  sub_1000083FC(v60, v58);
-  v11 = v59;
+  sub_1000083FC(v62, v60);
+  v11 = v61;
 LABEL_34:
   v52 = *v12;
   v51 = v12[1];
@@ -8950,20 +8965,20 @@ LABEL_34:
     sub_1000DC818(0xD000000000000014, 0x8000000100147260);
     swift_endAccess();
 
-    v61 = 0xD000000000000070;
-    v62 = 0x800000010014C1F0;
-    v65 = 1372;
+    v63 = 0xD000000000000070;
+    v64 = 0x800000010014C1F0;
+    v67 = 1372;
     v54._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v54);
 
     v55 = String.hashValue.getter();
 
     swift_beginAccess();
-    v56 = sub_1000D991C(&v65, v55);
+    v56 = sub_1000D991C(&v67, v55);
     swift_endAccess();
     if (v56)
     {
-      sub_1000D530C(0xD000000000000014, 0x8000000100147260, 0, 0xE000000000000000, "%s - done. %s");
+      sub_1000D530C(0xD000000000000014, 0x8000000100147260, 0, 0xE000000000000000, "%s - done. %s", v58, v59);
     }
   }
 
@@ -8982,38 +8997,38 @@ void sub_1000D3C20()
   v2 = type metadata accessor for Calendar();
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
-  v5 = v78 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v78 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = type metadata accessor for Date();
-  v81 = *(v6 - 8);
-  v82 = v6;
+  v82 = *(v6 - 8);
+  v83 = v6;
   v7 = __chkstk_darwin(v6);
-  v85 = v78 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v86 = &v78 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v7);
-  v84 = v78 - v9;
+  v85 = &v78 - v9;
   v10 = "Expect discovered c3 char";
   v11 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_inFlightOperations;
   swift_beginAccess();
-  v78[1] = v11;
-  sub_1000D99FC(v88, 0xD000000000000014, 0x8000000100147200);
+  v79 = v11;
+  sub_1000D99FC(v89, 0xD000000000000014, 0x8000000100147200);
   swift_endAccess();
 
   v12 = *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_om);
-  v88[3] = 0xD000000000000070;
-  v88[4] = 0x800000010014C1F0;
-  v79 = 0x800000010014C1F0;
-  v88[0] = 1390;
+  v89[3] = 0xD000000000000070;
+  v89[4] = 0x800000010014C1F0;
+  v80 = 0x800000010014C1F0;
+  v89[0] = 1390;
   v13._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v13);
 
   v14 = String.hashValue.getter();
 
   swift_beginAccess();
-  v80 = v12;
-  LOBYTE(v11) = sub_1000D991C(v88, v14);
+  v81 = v12;
+  LOBYTE(v11) = sub_1000D991C(v89, v14);
   swift_endAccess();
   if (v11)
   {
-    sub_1000D530C(0xD000000000000014, 0x8000000100147200, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD000000000000014, 0x8000000100147200, 0, 0xE000000000000000, "%s - started... %s", v78, v79);
   }
 
   v15 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_discoveredChars;
@@ -9040,12 +9055,12 @@ void sub_1000D3C20()
     v19 = 0;
   }
 
-  v87[0] = v19;
-  sub_100005DCC(&unk_1001BE1B0);
+  v88[0] = v19;
+  sub_100005DCC(&unk_1001BE1B0, &qword_10016E710);
   Optional.unwrap(_:file:line:)();
 
-  v21 = v88[0];
-  v83 = v1;
+  v21 = v89[0];
+  v84 = v1;
   v22 = (v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_writeManager);
   swift_beginAccess();
   if (*(v22[1] + 16))
@@ -9119,24 +9134,24 @@ LABEL_37:
     LODWORD(v34) = 0;
   }
 
-  LODWORD(v87[0]) = v34;
-  BYTE4(v87[0]) = v37;
-  sub_100005DCC(&unk_1001BBAE0);
+  LODWORD(v88[0]) = v34;
+  BYTE4(v88[0]) = v37;
+  sub_100005DCC(&unk_1001BBAE0, &qword_10016E718);
   Optional.unwrap(_:file:line:)();
-  v40 = sub_1000BA17C(v89, 4uLL, v38, v39);
+  v40 = sub_1000BA17C(v90, 4uLL, v38, v39);
   v41 = Logger.logObject.getter();
   v42 = static os_log_type_t.default.getter();
   v43 = os_log_type_enabled(v41, v42);
-  v78[0] = "Expect discovered c3 char";
+  v78 = "Expect discovered c3 char";
   if (v43)
   {
     v44 = swift_slowAlloc();
     v45 = swift_slowAlloc();
-    v87[0] = v45;
+    v88[0] = v45;
     *v44 = 136315138;
     v46 = Array.description.getter();
     v48 = v21;
-    v49 = sub_10002065C(v46, v47, v87);
+    v49 = sub_10002065C(v46, v47, v88);
 
     *(v44 + 4) = v49;
     v21 = v48;
@@ -9149,7 +9164,7 @@ LABEL_37:
     goto LABEL_37;
   }
 
-  v50 = *(v83 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_periph);
+  v50 = *(v84 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_periph);
   if (!v50)
   {
 LABEL_38:
@@ -9182,22 +9197,22 @@ LABEL_38:
     sub_100005E64(v60, v62);
     v65 = v63;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v89 = v22[1];
+    v90 = v22[1];
     v22[1] = 0x8000000000000000;
     sub_1000350F0(v60, v62, v50, v64, isUniquelyReferenced_nonNull_native);
 
-    v22[1] = v89;
+    v22[1] = v90;
     sub_10001ACB0(v64);
 
     sub_1000083FC(v60, v62);
   }
 
   swift_endAccess();
-  v67 = v82;
-  v68 = *(v81 + 8);
-  v68(v85, v82);
-  v68(v84, v67);
-  v10 = v78[0];
+  v67 = v83;
+  v68 = *(v82 + 8);
+  v68(v86, v83);
+  v68(v85, v67);
+  v10 = v78;
 LABEL_29:
   v70 = *v22;
   v69 = v22[1];
@@ -9210,20 +9225,20 @@ LABEL_29:
     sub_1000DC818(0xD000000000000014, v10 | 0x8000000000000000);
     swift_endAccess();
 
-    v87[0] = 0xD000000000000070;
-    v87[1] = v79;
-    v89 = 1410;
+    v88[0] = 0xD000000000000070;
+    v88[1] = v80;
+    v90 = 1410;
     v72._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v72);
 
     v73 = String.hashValue.getter();
 
     swift_beginAccess();
-    v74 = sub_1000D991C(&v89, v73);
+    v74 = sub_1000D991C(&v90, v73);
     swift_endAccess();
     if (v74)
     {
-      sub_1000D530C(0xD000000000000014, v10 | 0x8000000000000000, 0, 0xE000000000000000, "%s - done. %s");
+      sub_1000D530C(0xD000000000000014, v10 | 0x8000000000000000, 0, 0xE000000000000000, "%s - done. %s", v78, v79);
     }
   }
 
@@ -9232,7 +9247,7 @@ LABEL_29:
     sub_10005F408();
     v75 = swift_allocError();
     *v76 = 1;
-    v86 = v75;
+    v87 = v75;
     swift_willThrow();
   }
 }
@@ -9241,23 +9256,23 @@ void sub_1000D4568()
 {
   v1 = v0;
   swift_beginAccess();
-  sub_1000D99FC(v27, 0xD00000000000001DLL, 0x80000001001471A0);
+  sub_1000D99FC(v29, 0xD00000000000001DLL, 0x80000001001471A0);
   swift_endAccess();
 
-  v27[3] = 0xD000000000000070;
-  v27[4] = 0x800000010014C1F0;
-  v27[0] = 1415;
+  v29[3] = 0xD000000000000070;
+  v29[4] = 0x800000010014C1F0;
+  v29[0] = 1415;
   v2._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v2);
 
   v3 = String.hashValue.getter();
 
   swift_beginAccess();
-  v4 = sub_1000D991C(v27, v3);
+  v4 = sub_1000D991C(v29, v3);
   swift_endAccess();
   if (v4)
   {
-    sub_1000D530C(0xD00000000000001DLL, 0x80000001001471A0, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD00000000000001DLL, 0x80000001001471A0, 0, 0xE000000000000000, "%s - started... %s", v26, v27);
   }
 
   v5 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_readValues;
@@ -9277,6 +9292,7 @@ void sub_1000D4568()
     v8 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_discoveredChars;
     swift_beginAccess();
     v9 = *(v1 + v8);
+    v27 = 0x800000010014C1F0;
     if (*(v9 + 16))
     {
 
@@ -9298,8 +9314,8 @@ void sub_1000D4568()
       v12 = 0;
     }
 
-    v28 = v12;
-    sub_100005DCC(&unk_1001BE1B0);
+    v30 = v12;
+    sub_100005DCC(&unk_1001BE1B0, &qword_10016E710);
     Optional.unwrap(_:file:line:)();
 
     v15 = *(v1 + v8);
@@ -9324,18 +9340,18 @@ void sub_1000D4568()
       v18 = 0;
     }
 
-    v28 = v18;
+    v30 = v18;
     Optional.unwrap(_:file:line:)();
 
     v20 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_periph;
     v21 = *(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_periph);
     if (v21)
     {
-      [v21 readValueForCharacteristic:v26];
+      [v21 readValueForCharacteristic:v28];
       v22 = *(v1 + v20);
       if (v22)
       {
-        [v22 readValueForCharacteristic:v26];
+        [v22 readValueForCharacteristic:v28];
 
         goto LABEL_23;
       }
@@ -9355,18 +9371,18 @@ LABEL_23:
   sub_1000DC818(0xD00000000000001DLL, 0x80000001001471A0);
   swift_endAccess();
 
-  v28 = 1426;
+  v30 = 1426;
   v23._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v23);
 
   v24 = String.hashValue.getter();
 
   swift_beginAccess();
-  v25 = sub_1000D991C(&v28, v24);
+  v25 = sub_1000D991C(&v30, v24);
   swift_endAccess();
   if (v25)
   {
-    sub_1000D530C(0xD00000000000001DLL, 0x80000001001471A0, 0, 0xE000000000000000, "%s - done. %s");
+    sub_1000D530C(0xD00000000000001DLL, 0x80000001001471A0, 0, 0xE000000000000000, "%s - done. %s", v26, v27);
   }
 }
 
@@ -9374,23 +9390,23 @@ void sub_1000D49F0()
 {
   v1 = v0;
   swift_beginAccess();
-  sub_1000D99FC(v14, 0xD000000000000016, 0x8000000100147180);
+  sub_1000D99FC(&v14, 0xD000000000000016, 0x8000000100147180);
   swift_endAccess();
 
-  v14[3] = 0xD000000000000070;
-  v14[4] = 0x800000010014C1F0;
-  v14[0] = 1431;
+  v16 = 0xD000000000000070;
+  v17 = 0x800000010014C1F0;
+  v14 = 1431;
   v2._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v2);
 
   v3 = String.hashValue.getter();
 
   swift_beginAccess();
-  v4 = sub_1000D991C(v14, v3);
+  v4 = sub_1000D991C(&v14, v3);
   swift_endAccess();
   if (v4)
   {
-    sub_1000D530C(0xD000000000000016, 0x8000000100147180, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD000000000000016, 0x8000000100147180, 0, 0xE000000000000000, "%s - started... %s", v14, v15);
   }
 
   v5 = OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_readValues;
@@ -9401,20 +9417,20 @@ void sub_1000D49F0()
     sub_1000DC818(0xD000000000000016, 0x8000000100147180);
     swift_endAccess();
 
-    v14[0] = 0xD000000000000070;
-    v14[1] = 0x800000010014C1F0;
-    v15 = 1436;
+    v14 = 0xD000000000000070;
+    v15 = 0x800000010014C1F0;
+    v18 = 1436;
     v10._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v10);
 
     v11 = String.hashValue.getter();
 
     swift_beginAccess();
-    v12 = sub_1000D991C(&v15, v11);
+    v12 = sub_1000D991C(&v18, v11);
     swift_endAccess();
     if (v12)
     {
-      sub_1000D530C(0xD000000000000016, 0x8000000100147180, 0, 0xE000000000000000, "%s - done. %s");
+      sub_1000D530C(0xD000000000000016, 0x8000000100147180, 0, 0xE000000000000000, "%s - done. %s", v14, v15);
     }
   }
 
@@ -9430,8 +9446,8 @@ void sub_1000D49F0()
 void sub_1000D4CF4(char a1)
 {
   v2 = v1;
-  v45 = 0x3A73736563637573;
-  v46 = 0xE900000000000020;
+  v47 = 0x3A73736563637573;
+  v48 = 0xE900000000000020;
   v3 = (a1 & 1) == 0;
   if (a1)
   {
@@ -9456,26 +9472,26 @@ void sub_1000D4CF4(char a1)
   v6 = v5;
   String.append(_:)(*&v4);
 
-  v8 = v45;
-  v7 = v46;
+  v8 = v47;
+  v7 = v48;
   swift_beginAccess();
-  sub_1000D99FC(v44, 0xD00000000000001ELL, 0x80000001001477A0);
+  sub_1000D99FC(v46, 0xD00000000000001ELL, 0x80000001001477A0);
   swift_endAccess();
 
-  v45 = 0xD000000000000070;
-  v46 = 0x800000010014C1F0;
-  v44[0] = 1441;
+  v47 = 0xD000000000000070;
+  v48 = 0x800000010014C1F0;
+  v46[0] = 1441;
   v9._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v9);
 
   v10 = String.hashValue.getter();
 
   swift_beginAccess();
-  v11 = sub_1000D991C(v44, v10);
+  v11 = sub_1000D991C(v46, v10);
   swift_endAccess();
   if (v11)
   {
-    sub_1000D530C(0xD00000000000001ELL, 0x80000001001477A0, v8, v7, "%s - started... %s");
+    sub_1000D530C(0xD00000000000001ELL, 0x80000001001477A0, v8, v7, "%s - started... %s", v41, v42);
   }
 
   if (*(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_pairState + 8) == 1 && *(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_pairState) == 4)
@@ -9504,21 +9520,21 @@ void sub_1000D4CF4(char a1)
       v16 = 0;
     }
 
-    v47 = v16;
-    sub_100005DCC(&unk_1001BE1B0);
+    v49 = v16;
+    sub_100005DCC(&unk_1001BE1B0, &qword_10016E710);
     Optional.unwrap(_:file:line:)();
 
     v22 = *(v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_periph);
     if (v22)
     {
-      v41 = v44[0];
+      v43 = v46[0];
       v23 = (v2 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_writeManager);
       swift_beginAccess();
       v24 = *(v23[1] + 16);
       v25 = v22;
-      if (!v24 || (sub_100032DCC(v41), (v26 & 1) == 0))
+      if (!v24 || (sub_100032DCC(v43), (v26 & 1) == 0))
       {
-        sub_100005DCC(&qword_1001BA7E8);
+        sub_100005DCC(&qword_1001BA7E8, &qword_10016D9C0);
         v27 = swift_allocObject();
         *(v27 + 16) = xmmword_10016CCE0;
         *(v27 + 32) = a1 & 1;
@@ -9526,15 +9542,15 @@ void sub_1000D4CF4(char a1)
         v30 = v29;
 
         v31 = v25;
-        v32 = v41;
+        v32 = v43;
         sub_100005E64(v28, v30);
-        v43 = v31;
+        v45 = v31;
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v47 = v23[1];
+        v49 = v23[1];
         v23[1] = 0x8000000000000000;
         sub_1000350F0(v28, v30, v22, v32, isUniquelyReferenced_nonNull_native);
 
-        v23[1] = v47;
+        v23[1] = v49;
         sub_10001ACB0(v32);
 
         sub_1000083FC(v28, v30);
@@ -9544,7 +9560,7 @@ void sub_1000D4CF4(char a1)
       v35 = *v23;
       v34 = v23[1];
 
-      v36 = sub_10001AED8(v41, v35, v34);
+      v36 = sub_10001AED8(v43, v35, v34);
 
       if (v36)
       {
@@ -9552,20 +9568,20 @@ void sub_1000D4CF4(char a1)
         sub_1000DC818(0xD00000000000001ELL, 0x80000001001477A0);
         swift_endAccess();
 
-        v44[0] = 0xD000000000000070;
-        v44[1] = 0x800000010014C1F0;
-        v47 = 1456;
+        v46[0] = 0xD000000000000070;
+        v46[1] = 0x800000010014C1F0;
+        v49 = 1456;
         v37._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
         String.append(_:)(v37);
 
         v38 = String.hashValue.getter();
 
         swift_beginAccess();
-        v39 = sub_1000D991C(&v47, v38);
+        v39 = sub_1000D991C(&v49, v38);
         swift_endAccess();
         if (v39)
         {
-          sub_1000D530C(0xD00000000000001ELL, 0x80000001001477A0, 0, 0xE000000000000000, "%s - done. %s");
+          sub_1000D530C(0xD00000000000001ELL, 0x80000001001477A0, 0, 0xE000000000000000, "%s - done. %s", "ensureCleanedUp(success:)", v43);
         }
       }
 
@@ -9604,7 +9620,7 @@ void sub_1000D4CF4(char a1)
   }
 }
 
-void sub_1000D530C(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, const char *a5)
+void sub_1000D530C(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, const char *a5, ...)
 {
   if (qword_1001B9490 != -1)
   {
@@ -9729,21 +9745,21 @@ void sub_1000D5834()
 {
   v1 = v0;
   swift_beginAccess();
-  sub_1000D99FC(&v9, 0xD000000000000016, 0x8000000100147760);
+  sub_1000D99FC(&v10, 0xD000000000000016, 0x8000000100147760);
   swift_endAccess();
 
-  v9 = 1536;
+  v10 = 1536;
   v2._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v2);
 
   v3 = String.hashValue.getter();
 
   swift_beginAccess();
-  v4 = sub_1000D991C(&v9, v3);
+  v4 = sub_1000D991C(&v10, v3);
   swift_endAccess();
   if (v4)
   {
-    sub_1000D530C(0xD000000000000016, 0x8000000100147760, 0, 0xE000000000000000, "%s - started... %s");
+    sub_1000D530C(0xD000000000000016, 0x8000000100147760, 0, 0xE000000000000000, "%s - started... %s", v9, 0xD000000000000070);
   }
 
   if (*(v1 + OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_needsMulti))
@@ -9760,18 +9776,18 @@ void sub_1000D5834()
     sub_1000DC818(0xD000000000000016, 0x8000000100147760);
     swift_endAccess();
 
-    v9 = 1538;
+    v10 = 1538;
     v6._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
     String.append(_:)(v6);
 
     v7 = String.hashValue.getter();
 
     swift_beginAccess();
-    v8 = sub_1000D991C(&v9, v7);
+    v8 = sub_1000D991C(&v10, v7);
     swift_endAccess();
     if (v8)
     {
-      sub_1000D530C(0xD000000000000016, 0x8000000100147760, 0, 0xE000000000000000, "%s - done. %s");
+      sub_1000D530C(0xD000000000000016, 0x8000000100147760, 0, 0xE000000000000000, "%s - done. %s", v9, 0xD000000000000070);
     }
   }
 }

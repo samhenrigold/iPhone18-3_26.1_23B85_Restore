@@ -373,7 +373,7 @@ id __68__DNDSUntilExitRegionStore_newWithDictionaryRepresentation_context___bloc
 
 - (id)dictionaryRepresentationWithContext:(id)context
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v5 = [(NSArray *)self->_activeLifetimeAssertionUUIDs bs_mapNoNulls:&__block_literal_global_393];
   currentRegion = self->_currentRegion;
@@ -384,18 +384,18 @@ id __68__DNDSUntilExitRegionStore_newWithDictionaryRepresentation_context___bloc
     v9 = v8;
     v11 = v10;
     [(CLRegion *)self->_currentRegion radius];
-    v19[0] = identifier;
-    v18[0] = @"regionIdentifier";
-    v18[1] = @"regionRadius";
+    v18[0] = identifier;
+    v17[0] = @"regionIdentifier";
+    v17[1] = @"regionRadius";
     v12 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-    v19[1] = v12;
-    v18[2] = @"regionCenterLatitude";
+    v18[1] = v12;
+    v17[2] = @"regionCenterLatitude";
     v13 = [MEMORY[0x277CCABB0] numberWithDouble:v9];
-    v19[2] = v13;
-    v18[3] = @"regionCenterLongitude";
+    v18[2] = v13;
+    v17[3] = @"regionCenterLongitude";
     v14 = [MEMORY[0x277CCABB0] numberWithDouble:v11];
-    v19[3] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
+    v18[3] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
   }
 
   else
@@ -406,8 +406,6 @@ id __68__DNDSUntilExitRegionStore_newWithDictionaryRepresentation_context___bloc
   [dictionary setObject:v5 forKeyedSubscript:@"activeLifetimeAssertionUUIDs"];
   [dictionary setObject:v15 forKeyedSubscript:@"currentRegion"];
   [dictionary setObject:self->_regionEntered forKeyedSubscript:@"regionEntered"];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

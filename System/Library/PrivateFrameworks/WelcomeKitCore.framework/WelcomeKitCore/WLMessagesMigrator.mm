@@ -99,30 +99,30 @@
 
 - (void)performPreImportPhaseForSummary:(id)summary data:(id)data
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   summaryCopy = summary;
   dataCopy = data;
   _WLLog();
   v8 = [(WLMessagesMigrator *)self sqlController:self];
-  v39 = dataCopy;
+  v38 = dataCopy;
   v9 = [WLMessage mimeHeadersFromMimeData:dataCopy sqlController:v8];
 
   _WLLog();
-  v37 = [WLMessage dateFromMimeHeaders:v9, self, v9];
+  v36 = [WLMessage dateFromMimeHeaders:v9, self, v9];
   [summaryCopy setModifiedDate:?];
   sqlController = [(WLMessagesMigrator *)self sqlController];
-  v40 = summaryCopy;
+  v39 = summaryCopy;
   [sqlController updateModifiedDateForSummary:summaryCopy];
 
   v11 = [WLMessage senderFromMimeHeaders:v9];
   _WLLog();
-  v38 = v9;
+  v37 = v9;
   v12 = [WLMessage recipientsFromMimeHeaders:v9, self, v11];
   selfCopy3 = self;
-  v32 = v12;
+  v31 = v12;
   _WLLog();
   v13 = MEMORY[0x277CBEBF8];
-  v35 = v12;
+  v34 = v12;
   if (v12)
   {
     v13 = v12;
@@ -130,38 +130,38 @@
 
   v14 = v13;
   v15 = v14;
-  v36 = v11;
+  v35 = v11;
   if (v11)
   {
-    v16 = [v14 arrayByAddingObject:{v11, self, v32}];
+    v16 = [v14 arrayByAddingObject:{v11, self, v31}];
 
     v15 = v16;
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v17 = v15;
-  v18 = [v17 countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v42;
+    v20 = *v41;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v42 != v20)
+        if (*v41 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v41 + 1) + 8 * i);
-        v23 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v22, "isPhoneNumber", selfCopy3, v32)}];
-        v34 = [v22 icc];
+        v22 = *(*(&v40 + 1) + 8 * i);
+        v23 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v22, "isPhoneNumber", selfCopy3, v31)}];
+        v33 = [v22 icc];
         selfCopy3 = self;
-        v32 = v22;
+        v31 = v22;
         _WLLog();
 
         if ([v22 isPhoneNumber])
@@ -173,7 +173,7 @@
           {
             v26 = [v22 icc];
             [v22 ccAcNumber];
-            v33 = v32 = v26;
+            v32 = v31 = v26;
             selfCopy3 = self;
             _WLLog();
 
@@ -185,19 +185,18 @@
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v19);
   }
 
   _WLLog();
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (id)importWillBegin
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_featurePayload);
   [WeakRetained setSize:0];
 
@@ -214,13 +213,11 @@
     _WLLog();
     v8 = MEMORY[0x277CCA9B8];
     v9 = *MEMORY[0x277D7B8F8];
-    v14 = *MEMORY[0x277CCA450];
-    v15[0] = @"Messages migrator couldn't open messages database";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:{1, selfCopy}];
+    v13 = *MEMORY[0x277CCA450];
+    v14[0] = @"Messages migrator couldn't open messages database";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:{1, selfCopy}];
     v7 = [v8 errorWithDomain:v9 code:1 userInfo:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -243,7 +240,7 @@
 
 - (void)importRecordData:(id)data summary:(id)summary account:(id)account completion:(id)completion
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   summaryCopy = summary;
   accountCopy = account;
@@ -279,9 +276,9 @@
     {
       v20 = MEMORY[0x277CCA9B8];
       v21 = *MEMORY[0x277D7B8F8];
-      v25 = *MEMORY[0x277CCA450];
-      v26[0] = @"Message import failed";
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      v24 = *MEMORY[0x277CCA450];
+      v25[0] = @"Message import failed";
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
       v23 = [v20 errorWithDomain:v21 code:1 userInfo:v22];
       completionCopy[2](completionCopy, 0, v23);
 
@@ -293,8 +290,6 @@ LABEL_4:
   }
 
 LABEL_8:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_databaseFilename
@@ -420,7 +415,7 @@ LABEL_7:
 
 - (BOOL)_insertMessage:(id)message
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   _beginTransaction = [(WLMessagesMigrator *)self _beginTransaction];
   if (_beginTransaction)
@@ -440,7 +435,7 @@ LABEL_7:
   }
 
   selfCopy = self;
-  v65 = messageCopy;
+  v64 = messageCopy;
   _WLLog();
   v8 = 0;
   v7 = _beginTransaction;
@@ -468,13 +463,13 @@ LABEL_8:
   }
 
   selfCopy2 = self;
-  v82 = v7;
-  v80 = _beginTransaction;
-  v75 = v9;
+  v81 = v7;
+  v79 = _beginTransaction;
+  v74 = v9;
   if ([messageCopy isGroupMessage])
   {
     v13 = [(WLMessagesMigrator *)self _sortedHandleIDs:v6];
-    v98 = 0;
+    v97 = 0;
     threadID = [messageCopy threadID];
     v15 = [threadID length];
 
@@ -485,44 +480,44 @@ LABEL_8:
       threadID2 = [messageCopy threadID];
       v19 = [v17 groupMessageInfoMatchingSourceThreadID:threadID2];
 
-      v98 = v19 != 0;
+      v97 = v19 != 0;
     }
 
     else
     {
-      v19 = [sqlController groupMessageInfoMatchingSortedHandleIDs:v13 handleIDsAreComplete:v9 didMatchExactly:&v98];
+      v19 = [sqlController groupMessageInfoMatchingSortedHandleIDs:v13 handleIDsAreComplete:v9 didMatchExactly:&v97];
     }
 
-    v81 = v13;
+    v80 = v13;
     if (v19)
     {
       roomName = [v19 roomName];
       groupID = [v19 groupID];
-      v87 = v98;
+      v86 = v97;
       obja = [messageCopy threadID];
-      v77 = v6;
+      v76 = v6;
       v22 = [v13 componentsJoinedByString:{@", "}];
       v23 = [MEMORY[0x277CCABB0] numberWithBool:v9];
       sortedHandleIDs = [v19 sortedHandleIDs];
       v25 = [sortedHandleIDs componentsJoinedByString:{@", "}];
       v26 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v19, "handleIDsAreComplete")}];
-      [MEMORY[0x277CCABB0] numberWithBool:v98];
-      v74 = v73 = v26;
-      v71 = groupID;
-      v72 = v25;
-      v79 = groupID;
-      v83 = roomName;
-      v69 = v23;
-      v70 = roomName;
-      v66 = obja;
-      v67 = v22;
+      [MEMORY[0x277CCABB0] numberWithBool:v97];
+      v73 = v72 = v26;
+      v70 = groupID;
+      v71 = v25;
+      v78 = groupID;
+      v82 = roomName;
+      v68 = v23;
+      v69 = roomName;
+      v65 = obja;
+      v66 = v22;
       selfCopy3 = selfCopy2;
       _WLLog();
 
-      v6 = v77;
+      v6 = v76;
       self = selfCopy2;
 
-      v27 = !v87;
+      v27 = !v86;
     }
 
     else
@@ -532,54 +527,54 @@ LABEL_8:
       threadID3 = [messageCopy threadID];
       v31 = [v13 componentsJoinedByString:{@", "}];
       [MEMORY[0x277CCABB0] numberWithBool:v9];
-      v79 = wl_uniqueIdentifier;
-      v70 = generatedRoomNameForGroupChat;
-      v71 = wl_uniqueIdentifier;
-      v83 = generatedRoomNameForGroupChat;
-      v69 = v67 = v31;
+      v78 = wl_uniqueIdentifier;
+      v69 = generatedRoomNameForGroupChat;
+      v70 = wl_uniqueIdentifier;
+      v82 = generatedRoomNameForGroupChat;
+      v68 = v66 = v31;
       selfCopy3 = self;
-      v66 = threadID3;
+      v65 = threadID3;
       _WLLog();
 
       v27 = 1;
     }
 
-    v76 = v27;
+    v75 = v27;
   }
 
   else
   {
-    v83 = 0;
-    v79 = 0;
-    v76 = 0;
-    v81 = 0;
+    v82 = 0;
+    v78 = 0;
+    v75 = 0;
+    v80 = 0;
   }
 
-  v96 = 0u;
-  v97 = 0u;
-  v94 = 0u;
   v95 = 0u;
+  v96 = 0u;
+  v93 = 0u;
+  v94 = 0u;
   attachments = [messageCopy attachments];
-  v33 = [attachments countByEnumeratingWithState:&v94 objects:v100 count:16];
+  v33 = [attachments countByEnumeratingWithState:&v93 objects:v99 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v95;
+    v35 = *v94;
     do
     {
       for (i = 0; i != v34; ++i)
       {
-        if (*v95 != v35)
+        if (*v94 != v35)
         {
           objc_enumerationMutation(attachments);
         }
 
-        v37 = *(*(&v94 + 1) + 8 * i);
+        v37 = *(*(&v93 + 1) + 8 * i);
         wl_uniqueIdentifier2 = [MEMORY[0x277CCACA8] wl_uniqueIdentifier];
         [v37 setGuid:wl_uniqueIdentifier2];
       }
 
-      v34 = [attachments countByEnumeratingWithState:&v94 objects:v100 count:16];
+      v34 = [attachments countByEnumeratingWithState:&v93 objects:v99 count:16];
     }
 
     while (v34);
@@ -587,43 +582,43 @@ LABEL_8:
 
   subject = [messageCopy subject];
   [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(messageCopy, "isGroupMessage")}];
-  v68 = v10 = v83;
+  v67 = v10 = v82;
   _WLLog();
 
-  v88 = [(WLMessagesMigrator *)self _insertMessageRowWithMessage:messageCopy handleIDs:v6 groupRoomName:v83, self, subject, v68, v83];
-  if (v88 < 0)
+  v87 = [(WLMessagesMigrator *)self _insertMessageRowWithMessage:messageCopy handleIDs:v6 groupRoomName:v82, self, subject, v67, v82];
+  if (v87 < 0)
   {
     _WLLog();
 LABEL_54:
-    v7 = v82;
-    v12 = v81;
-    _beginTransaction = v80;
-    v11 = v79;
+    v7 = v81;
+    v12 = v80;
+    _beginTransaction = v79;
+    v11 = v78;
   }
 
   else
   {
-    v92 = 0u;
-    v93 = 0u;
-    v90 = 0u;
     v91 = 0u;
+    v92 = 0u;
+    v89 = 0u;
+    v90 = 0u;
     obj = [messageCopy attachments];
-    v40 = [obj countByEnumeratingWithState:&v90 objects:v99 count:16];
+    v40 = [obj countByEnumeratingWithState:&v89 objects:v98 count:16];
     if (v40)
     {
       v41 = v40;
-      v86 = *v91;
-      v78 = v6;
+      v85 = *v90;
+      v77 = v6;
       while (2)
       {
         for (j = 0; j != v41; ++j)
         {
-          if (*v91 != v86)
+          if (*v90 != v85)
           {
             objc_enumerationMutation(obj);
           }
 
-          v43 = *(*(&v90 + 1) + 8 * j);
+          v43 = *(*(&v89 + 1) + 8 * j);
           guid = [v43 guid];
           fileName = [v43 fileName];
           mimeType = [v43 mimeType];
@@ -636,15 +631,15 @@ LABEL_54:
             _WLLog();
 LABEL_53:
 
-            v6 = v78;
-            v10 = v83;
+            v6 = v77;
+            v10 = v82;
             goto LABEL_54;
           }
 
           v49 = objc_alloc_init(MEMORY[0x277CCAA00]);
           stringByDeletingLastPathComponent = [v48 stringByDeletingLastPathComponent];
           self = selfCopy2;
-          if (([v49 makeDirectoriesInPath:stringByDeletingLastPathComponent mode:448] & 1) == 0 || (objc_msgSend(v43, "data"), v51 = objc_claimAutoreleasedReturnValue(), v52 = objc_msgSend(v51, "writeToFile:atomically:", v48, 1), v51, (v52 & 1) == 0) || (v53 = -[WLMessagesMigrator _insertRowWithAttachment:filePath:forMessage:](selfCopy2, "_insertRowWithAttachment:filePath:forMessage:", v43, v48, messageCopy), v53 < 0) || !-[WLMessagesMigrator _insertMessageAttachmentJoinRowWithMessageID:attachmentID:](selfCopy2, "_insertMessageAttachmentJoinRowWithMessageID:attachmentID:", v88, v53))
+          if (([v49 makeDirectoriesInPath:stringByDeletingLastPathComponent mode:448] & 1) == 0 || (objc_msgSend(v43, "data"), v51 = objc_claimAutoreleasedReturnValue(), v52 = objc_msgSend(v51, "writeToFile:atomically:", v48, 1), v51, (v52 & 1) == 0) || (v53 = -[WLMessagesMigrator _insertRowWithAttachment:filePath:forMessage:](selfCopy2, "_insertRowWithAttachment:filePath:forMessage:", v43, v48, messageCopy), v53 < 0) || !-[WLMessagesMigrator _insertMessageAttachmentJoinRowWithMessageID:attachmentID:](selfCopy2, "_insertMessageAttachmentJoinRowWithMessageID:attachmentID:", v87, v53))
           {
             _WLLog();
 
@@ -652,9 +647,9 @@ LABEL_53:
           }
         }
 
-        v41 = [obj countByEnumeratingWithState:&v90 objects:v99 count:16];
-        v6 = v78;
-        v10 = v83;
+        v41 = [obj countByEnumeratingWithState:&v89 objects:v98 count:16];
+        v6 = v77;
+        v10 = v82;
         if (v41)
         {
           continue;
@@ -664,26 +659,26 @@ LABEL_53:
       }
     }
 
-    v11 = v79;
-    v54 = [(WLMessagesMigrator *)self _chatIDForHandleIDs:v6 groupRoomName:v10 groupID:v79 message:messageCopy];
+    v11 = v78;
+    v54 = [(WLMessagesMigrator *)self _chatIDForHandleIDs:v6 groupRoomName:v10 groupID:v78 message:messageCopy];
     if (v54 < 0)
     {
       _WLLog();
-      v7 = v82;
-      v12 = v81;
-      _beginTransaction = v80;
+      v7 = v81;
+      v12 = v80;
+      _beginTransaction = v79;
     }
 
     else
     {
-      v7 = v82;
-      v12 = v81;
-      _beginTransaction = v80;
-      if ([(WLMessagesMigrator *)self _insertChatMessageJoinRowWithChatID:v54 messageID:v88 date:[(WLMessagesMigrator *)self _messageDateWithMessage:messageCopy]])
+      v7 = v81;
+      v12 = v80;
+      _beginTransaction = v79;
+      if ([(WLMessagesMigrator *)self _insertChatMessageJoinRowWithChatID:v54 messageID:v87 date:[(WLMessagesMigrator *)self _messageDateWithMessage:messageCopy]])
       {
         if ([(WLMessagesMigrator *)self _commitTransaction])
         {
-          if (v76)
+          if (v75)
           {
             threadID4 = [messageCopy threadID];
             v56 = [threadID4 length];
@@ -693,12 +688,12 @@ LABEL_53:
             if (v56)
             {
               threadID5 = [messageCopy threadID];
-              [v58 insertGroupMessageInfoWithSourceThreadID:threadID5 roomName:v10 groupID:v79];
+              [v58 insertGroupMessageInfoWithSourceThreadID:threadID5 roomName:v10 groupID:v78];
             }
 
             else
             {
-              [sqlController2 insertGroupMessageInfoWithSortedHandleIDs:v81 handleIDsAreComplete:v75 roomName:v10 groupID:v79];
+              [sqlController2 insertGroupMessageInfoWithSortedHandleIDs:v80 handleIDsAreComplete:v74 roomName:v10 groupID:v78];
             }
           }
         }
@@ -709,7 +704,7 @@ LABEL_53:
         }
 
         v60 = 1;
-        if (v82)
+        if (v81)
         {
           goto LABEL_59;
         }
@@ -737,7 +732,6 @@ LABEL_59:
 
 LABEL_60:
 
-  v61 = *MEMORY[0x277D85DE8];
   return v60;
 }
 
@@ -914,7 +908,7 @@ LABEL_60:
 
 - (id)_handleIDsForMessage:(id)message
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = [(WLMessagesMigrator *)self _uniqueHandleStringsWithMessage:messageCopy];
   if (![v5 count])
@@ -924,30 +918,30 @@ LABEL_60:
   }
 
   v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v5, "count")}];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v7 = v5;
   v8 = v6;
-  v26 = [v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
-  if (!v26)
+  v25 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (!v25)
   {
     goto LABEL_27;
   }
 
-  v24 = v5;
-  v25 = *v30;
+  v23 = v5;
+  v24 = *v29;
   while (2)
   {
-    for (i = 0; i != v26; ++i)
+    for (i = 0; i != v25; ++i)
     {
-      if (*v30 != v25)
+      if (*v29 != v24)
       {
         objc_enumerationMutation(v7);
       }
 
-      v10 = *(*(&v29 + 1) + 8 * i);
+      v10 = *(*(&v28 + 1) + 8 * i);
       ppStmt = 0;
       if (sqlite3_prepare(self->_database, "SELECT ROWID FROM handle WHERE id=? LIMIT 1", -1, &ppStmt, 0))
       {
@@ -972,10 +966,10 @@ LABEL_60:
 
       if (sqlite3_errcode(self->_database) != 101 && sqlite3_errcode(self->_database) >= 1)
       {
-        v22 = sqlite3_errcode(self->_database);
-        v23 = sqlite3_errmsg(self->_database);
+        v21 = sqlite3_errcode(self->_database);
+        v22 = sqlite3_errmsg(self->_database);
         selfCopy = self;
-        v21 = "SELECT ROWID FROM handle WHERE id=? LIMIT 1";
+        v20 = "SELECT ROWID FROM handle WHERE id=? LIMIT 1";
         _WLLog();
       }
 
@@ -1021,12 +1015,12 @@ LABEL_8:
       }
 
 LABEL_19:
-      v16 = [MEMORY[0x277CCABB0] numberWithLongLong:{insert_rowid, selfCopy, v21, v22, v23}];
+      v16 = [MEMORY[0x277CCABB0] numberWithLongLong:{insert_rowid, selfCopy, v20, v21, v22}];
       [v6 addObject:v16];
     }
 
-    v26 = [v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
-    if (v26)
+    v25 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    if (v25)
     {
       continue;
     }
@@ -1036,20 +1030,18 @@ LABEL_19:
 
   v8 = v6;
 LABEL_26:
-  v5 = v24;
+  v5 = v23;
 LABEL_27:
 
   v17 = v8;
 LABEL_28:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 - (id)_uniqueHandleStringsWithMessage:(id)message
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = objc_alloc_init(MEMORY[0x277CBEB40]);
   if ([messageCopy isGroupMessage])
@@ -1076,26 +1068,26 @@ LABEL_28:
       }
     }
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     recipients = [messageCopy recipients];
-    v13 = [recipients countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v13 = [recipients countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v25;
+      v15 = *v24;
 LABEL_8:
       v16 = 0;
       while (1)
       {
-        if (*v25 != v15)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(recipients);
         }
 
-        v17 = *(*(&v24 + 1) + 8 * v16);
+        v17 = *(*(&v23 + 1) + 8 * v16);
         address3 = [v17 address];
         v19 = [address3 length];
 
@@ -1109,7 +1101,7 @@ LABEL_8:
 
         if (v14 == ++v16)
         {
-          v14 = [recipients countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v14 = [recipients countByEnumeratingWithState:&v23 objects:v27 count:16];
           if (v14)
           {
             goto LABEL_8;
@@ -1140,8 +1132,6 @@ LABEL_19:
   array = 0;
 LABEL_20:
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
@@ -1163,7 +1153,7 @@ LABEL_20:
 
 - (int64_t)_chatIDForHandleIDs:(id)ds groupRoomName:(id)name groupID:(id)d message:(id)message
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   nameCopy = name;
   dCopy = d;
@@ -1214,10 +1204,10 @@ LABEL_20:
 
   if (sqlite3_errcode(self->_database) != 101 && sqlite3_errcode(self->_database) >= 1)
   {
-    v57 = sqlite3_errcode(self->_database);
-    v59 = sqlite3_errmsg(self->_database);
+    v56 = sqlite3_errcode(self->_database);
+    v58 = sqlite3_errmsg(self->_database);
     selfCopy = self;
-    v55 = v14;
+    v54 = v14;
     _WLLog();
   }
 
@@ -1253,8 +1243,8 @@ LABEL_5:
       v28 = [(WLMessagesMigrator *)self _chatAccountIDWithMessage:messageCopy];
       sqlite3_bind_text(v27, 4, [v28 UTF8String], -1, 0);
 
-      v64 = [(WLMessagesMigrator *)self _chatPropertiesDataWithMessage:messageCopy];
-      sqlite3_bind_blob(pStmt, 5, [v64 bytes], objc_msgSend(v64, "length"), 0);
+      v63 = [(WLMessagesMigrator *)self _chatPropertiesDataWithMessage:messageCopy];
+      sqlite3_bind_blob(pStmt, 5, [v63 bytes], objc_msgSend(v63, "length"), 0);
       isGroupMessage2 = [messageCopy isGroupMessage];
       v30 = pStmt;
       if (isGroupMessage2)
@@ -1269,7 +1259,7 @@ LABEL_5:
       }
 
       v32 = pStmt;
-      v33 = [(WLMessagesMigrator *)self _chatServiceWithMessage:messageCopy, selfCopy, v55, v57, v59];
+      v33 = [(WLMessagesMigrator *)self _chatServiceWithMessage:messageCopy, selfCopy, v54, v56, v58];
       sqlite3_bind_text(v32, 7, [v33 UTF8String], -1, 0);
 
       if ([messageCopy isGroupMessage])
@@ -1314,38 +1304,38 @@ LABEL_5:
 
       else
       {
-        v56 = sqlite3_errcode(self->_database);
-        v58 = sqlite3_errmsg(self->_database);
+        v55 = sqlite3_errcode(self->_database);
+        v57 = sqlite3_errmsg(self->_database);
         selfCopy2 = self;
         _WLLog();
         insert_rowid = -1;
       }
 
       sqlite3_finalize(pStmt);
+      v68 = 0u;
       v69 = 0u;
       v70 = 0u;
       v71 = 0u;
-      v72 = 0u;
       v43 = dsCopy;
-      v44 = [v43 countByEnumeratingWithState:&v69 objects:v76 count:16];
+      v44 = [v43 countByEnumeratingWithState:&v68 objects:v75 count:16];
       if (v44)
       {
         v45 = v44;
-        v60 = v26;
-        v62 = nameCopy;
+        v59 = v26;
+        v61 = nameCopy;
         v46 = dCopy;
         v47 = dsCopy;
-        v48 = *v70;
+        v48 = *v69;
         while (2)
         {
           for (i = 0; i != v45; ++i)
           {
-            if (*v70 != v48)
+            if (*v69 != v48)
             {
               objc_enumerationMutation(v43);
             }
 
-            v50 = *(*(&v69 + 1) + 8 * i);
+            v50 = *(*(&v68 + 1) + 8 * i);
             if (!-[WLMessagesMigrator _insertChatHandleJoinRowWithChatID:handleID:duplicateMightExist:](self, "_insertChatHandleJoinRowWithChatID:handleID:duplicateMightExist:", insert_rowid, [v50 longLongValue], 0))
             {
               [v50 longLongValue];
@@ -1355,7 +1345,7 @@ LABEL_5:
             }
           }
 
-          v45 = [v43 countByEnumeratingWithState:&v69 objects:v76 count:16];
+          v45 = [v43 countByEnumeratingWithState:&v68 objects:v75 count:16];
           if (v45)
           {
             continue;
@@ -1367,37 +1357,37 @@ LABEL_5:
 LABEL_53:
         dsCopy = v47;
         dCopy = v46;
-        nameCopy = v62;
-        v26 = v60;
+        nameCopy = v61;
+        v26 = v59;
       }
     }
   }
 
   else if ([messageCopy isGroupMessage])
   {
-    v67 = 0u;
-    v68 = 0u;
-    v65 = 0u;
     v66 = 0u;
+    v67 = 0u;
+    v64 = 0u;
+    v65 = 0u;
     v19 = dsCopy;
-    v20 = [v19 countByEnumeratingWithState:&v65 objects:v75 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v64 objects:v74 count:16];
     if (v20)
     {
       v21 = v20;
-      v61 = nameCopy;
-      v63 = dCopy;
+      v60 = nameCopy;
+      v62 = dCopy;
       v22 = dsCopy;
-      v23 = *v66;
+      v23 = *v65;
       while (2)
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v66 != v23)
+          if (*v65 != v23)
           {
             objc_enumerationMutation(v19);
           }
 
-          v25 = *(*(&v65 + 1) + 8 * j);
+          v25 = *(*(&v64 + 1) + 8 * j);
           if (!-[WLMessagesMigrator _insertChatHandleJoinRowWithChatID:handleID:duplicateMightExist:](self, "_insertChatHandleJoinRowWithChatID:handleID:duplicateMightExist:", insert_rowid, [v25 longLongValue], 1))
           {
             [v25 longLongValue];
@@ -1407,7 +1397,7 @@ LABEL_53:
           }
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v65 objects:v75 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v64 objects:v74 count:16];
         if (v21)
         {
           continue;
@@ -1418,12 +1408,11 @@ LABEL_53:
 
 LABEL_56:
       dsCopy = v22;
-      nameCopy = v61;
-      dCopy = v63;
+      nameCopy = v60;
+      dCopy = v62;
     }
   }
 
-  v51 = *MEMORY[0x277D85DE8];
   return insert_rowid;
 }
 
@@ -1565,7 +1554,7 @@ LABEL_15:
 
 - (id)_messageAttributedBodyDataWithMessage:(id)message
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v4 = objc_alloc(MEMORY[0x277CCA898]);
   messageText = [messageCopy messageText];
@@ -1580,30 +1569,30 @@ LABEL_15:
     attachments2 = [messageCopy attachments];
     v11 = [v9 initWithCapacity:{objc_msgSend(attachments2, "count")}];
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     attachments3 = [messageCopy attachments];
-    v13 = [attachments3 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v13 = [attachments3 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v24;
+      v15 = *v23;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v24 != v15)
+          if (*v23 != v15)
           {
             objc_enumerationMutation(attachments3);
           }
 
-          guid = [*(*(&v23 + 1) + 8 * i) guid];
+          guid = [*(*(&v22 + 1) + 8 * i) guid];
           [v11 addObject:guid];
         }
 
-        v14 = [attachments3 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v14 = [attachments3 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v14);
@@ -1614,10 +1603,8 @@ LABEL_15:
   }
 
   v19 = [MEMORY[0x277CCA880] archivedDataWithRootObject:v6];
-  v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v6, "length")}];
+  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v6, "length")}];
   _WLLog();
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

@@ -27,8 +27,7 @@ void __56__SCSharingReminderDeliveryTask_nonRepeatingTaskHandler__block_invoke(u
   v10[2] = __56__SCSharingReminderDeliveryTask_nonRepeatingTaskHandler__block_invoke_2;
   v10[3] = &unk_279B398A0;
   v10[4] = &v11;
-  [v2 setExpirationHandler:v10];
-  v3 = SCLogger();
+  v3 = SCLogger([v2 setExpirationHandler:v10]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -42,13 +41,14 @@ void __56__SCSharingReminderDeliveryTask_nonRepeatingTaskHandler__block_invoke(u
     v9 = 0;
     v4 = [v2 setTaskExpiredWithRetryAfter:&v9 error:300.0];
     v5 = v9;
+    v6 = v5;
     if ((v4 & 1) == 0)
     {
-      v6 = SCLogger();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+      v7 = SCLogger(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
-        v7 = [v2 identifier];
-        __56__SCSharingReminderDeliveryTask_nonRepeatingTaskHandler__block_invoke_cold_1(v7, v5, buf, v6);
+        v8 = [v2 identifier];
+        __56__SCSharingReminderDeliveryTask_nonRepeatingTaskHandler__block_invoke_cold_1(v8, v6, buf, v7);
       }
 
       [v2 setTaskCompleted];
@@ -61,8 +61,6 @@ void __56__SCSharingReminderDeliveryTask_nonRepeatingTaskHandler__block_invoke(u
   }
 
   _Block_object_dispose(&v11, 8);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __56__SCSharingReminderDeliveryTask_nonRepeatingTaskHandler__block_invoke_cold_1(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)

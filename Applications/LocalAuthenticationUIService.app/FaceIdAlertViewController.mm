@@ -35,7 +35,7 @@
   }
 }
 
-id __38__FaceIdAlertViewController_setGlyph___block_invoke(uint64_t a1)
+UIViewController *__38__FaceIdAlertViewController_setGlyph___block_invoke(uint64_t a1)
 {
   v2 = objc_opt_new();
   v3 = objc_opt_new();

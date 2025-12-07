@@ -59,7 +59,7 @@
 
 - (id)dictionaryRepresentation
 {
-  sub_1A870CCE0(&qword_1EB303718);
+  sub_1A870CCE0(&qword_1EB303718, &unk_1A88EA7C0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1A88E14F0;
   *(inited + 32) = sub_1A88C82E8();
@@ -68,7 +68,7 @@
   urlToTransferGuids = [(IMUrlToTransferMap *)selfCopy urlToTransferGuids];
   v7 = sub_1A88C81A8();
 
-  *(inited + 72) = sub_1A870CCE0(&qword_1EB303B88);
+  *(inited + 72) = sub_1A870CCE0(&qword_1EB303B88, &qword_1A88ED0C0);
   *(inited + 48) = v7;
   sub_1A8738AAC(inited);
   swift_setDeallocating();
@@ -81,7 +81,7 @@
 
 - (id)relayDictionaryRepresentation
 {
-  sub_1A870CCE0(&qword_1EB303718);
+  sub_1A870CCE0(&qword_1EB303718, &unk_1A88EA7C0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1A88E14F0;
   *(inited + 32) = 0xD000000000000012;
@@ -90,7 +90,7 @@
   urlToTransferGuids = [(IMUrlToTransferMap *)selfCopy urlToTransferGuids];
   v6 = sub_1A88C81A8();
 
-  *(inited + 72) = sub_1A870CCE0(&qword_1EB303B88);
+  *(inited + 72) = sub_1A870CCE0(&qword_1EB303B88, &qword_1A88ED0C0);
   *(inited + 48) = v6;
   sub_1A8738AAC(inited);
   swift_setDeallocating();

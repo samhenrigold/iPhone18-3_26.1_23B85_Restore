@@ -181,13 +181,13 @@ LABEL_10:
 
 - (IMDService)initWithBundle:(id)bundle
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   bundleCopy = bundle;
   if (bundleCopy)
   {
-    v15.receiver = self;
-    v15.super_class = IMDService;
-    v6 = [(IMDService *)&v15 init];
+    v14.receiver = self;
+    v14.super_class = IMDService;
+    v6 = [(IMDService *)&v14 init];
     v7 = v6;
     if (v6)
     {
@@ -202,7 +202,7 @@ LABEL_10:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v17 = bundleCopy;
+          v16 = bundleCopy;
           _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Loading internal party service with bundle: %@", buf, 0xCu);
         }
       }
@@ -222,7 +222,6 @@ LABEL_10:
     selfCopy = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -238,7 +237,7 @@ LABEL_10:
 
 - (void)loadServiceBundle
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   registration = [MEMORY[0x277D19298] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEBUG))
   {
@@ -265,27 +264,27 @@ LABEL_10:
     else
     {
       v9 = *p_bundle;
-      v23 = 0;
-      v10 = [v9 loadAndReturnError:&v23];
-      v7 = v23;
+      v22 = 0;
+      v10 = [v9 loadAndReturnError:&v22];
+      v7 = v22;
       v8 = v10 ^ 1;
     }
 
     registration3 = [MEMORY[0x277D19298] registration];
     if (os_log_type_enabled(registration3, OS_LOG_TYPE_DEBUG))
     {
-      v22 = @"YES";
+      v21 = @"YES";
       *buf = 138412802;
       selfCopy = self;
-      v26 = 2112;
+      v25 = 2112;
       if (v8)
       {
-        v22 = @"NO";
+        v21 = @"NO";
       }
 
-      v27 = v22;
-      v28 = 2112;
-      v29 = v7;
+      v26 = v21;
+      v27 = 2112;
+      v28 = v7;
       _os_log_debug_impl(&dword_22B4CC000, registration3, OS_LOG_TYPE_DEBUG, "%@: Load success: %@    (Error: %@)", buf, 0x20u);
     }
 
@@ -329,8 +328,6 @@ LABEL_10:
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reallyUnloadServiceBundle
@@ -384,7 +381,7 @@ LABEL_10:
 
 - (unsigned)idSensitivity
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (!self->_idSensitivity)
   {
     serviceProperties = [(IMDService *)self serviceProperties];
@@ -394,31 +391,31 @@ LABEL_10:
     if ([(IMDService *)self handleIDInsensitivityIsCarrierBased])
     {
       iMPhoneNumbersEnabledForMultipleSubscriptionDevice = [MEMORY[0x277D1A8F8] IMPhoneNumbersEnabledForMultipleSubscriptionDevice];
+      v13 = 0u;
       v14 = 0u;
       v15 = 0u;
       v16 = 0u;
-      v17 = 0u;
-      v6 = [iMPhoneNumbersEnabledForMultipleSubscriptionDevice countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [iMPhoneNumbersEnabledForMultipleSubscriptionDevice countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (!v6)
       {
         goto LABEL_14;
       }
 
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       v9 = 1;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(iMPhoneNumbersEnabledForMultipleSubscriptionDevice);
           }
 
           if (v9)
           {
-            v9 = [MEMORY[0x277D1A8F8] SMSAllowCaseSensitiveSenderIDForPhoneNumber:*(*(&v14 + 1) + 8 * i)];
+            v9 = [MEMORY[0x277D1A8F8] SMSAllowCaseSensitiveSenderIDForPhoneNumber:*(*(&v13 + 1) + 8 * i)];
           }
 
           else
@@ -427,7 +424,7 @@ LABEL_10:
           }
         }
 
-        v7 = [iMPhoneNumbersEnabledForMultipleSubscriptionDevice countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [iMPhoneNumbersEnabledForMultipleSubscriptionDevice countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
@@ -446,9 +443,7 @@ LABEL_14:
     }
   }
 
-  result = self->_idSensitivity;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return self->_idSensitivity;
 }
 
 - (unint64_t)caseInsensitivityByHandleType
@@ -698,40 +693,40 @@ LABEL_6:
 
 - (void)saveSettings
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277D82BB8] cancelPreviousPerformRequestsWithTarget:self selector:sel_saveSettings object:0];
   if (!self->_blockPrefWriting)
   {
     context = objc_autoreleasePoolPush();
-    v51 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v47 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v50 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v46 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v59 = 0u;
     v60 = 0u;
     v61 = 0u;
     v62 = 0u;
-    v63 = 0u;
     v3 = +[IMDAccountController sharedAccountController];
     selfCopy = self;
     v4 = [v3 accountsForService:self];
 
     obj = v4;
-    v5 = [v4 countByEnumeratingWithState:&v60 objects:v65 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v59 objects:v64 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v61;
-      v50 = *v61;
+      v7 = *v60;
+      v49 = *v60;
       do
       {
         v8 = 0;
-        v52 = v6;
+        v51 = v6;
         do
         {
-          if (*v61 != v7)
+          if (*v60 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v60 + 1) + 8 * v8);
+          v9 = *(*(&v59 + 1) + 8 * v8);
           isManaged = [v9 isManaged];
           accountDefaults = [v9 accountDefaults];
           v12 = [accountDefaults mutableCopy];
@@ -739,26 +734,26 @@ LABEL_6:
           accountID = [v9 accountID];
           if ((isManaged & 1) == 0 && v12)
           {
-            v58 = 0u;
-            v59 = 0u;
-            v56 = 0u;
             v57 = 0u;
+            v58 = 0u;
+            v55 = 0u;
+            v56 = 0u;
             allKeys = [v12 allKeys];
-            v15 = [allKeys countByEnumeratingWithState:&v56 objects:v64 count:16];
+            v15 = [allKeys countByEnumeratingWithState:&v55 objects:v63 count:16];
             if (v15)
             {
               v16 = v15;
-              v17 = *v57;
+              v17 = *v56;
               do
               {
                 for (i = 0; i != v16; ++i)
                 {
-                  if (*v57 != v17)
+                  if (*v56 != v17)
                   {
                     objc_enumerationMutation(allKeys);
                   }
 
-                  v19 = *(*(&v56 + 1) + 8 * i);
+                  v19 = *(*(&v55 + 1) + 8 * i);
                   v20 = [v12 objectForKey:v19];
                   if ([v20 isNull] & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) && !objc_msgSend(v20, "length"))
                   {
@@ -766,22 +761,22 @@ LABEL_6:
                   }
                 }
 
-                v16 = [allKeys countByEnumeratingWithState:&v56 objects:v64 count:16];
+                v16 = [allKeys countByEnumeratingWithState:&v55 objects:v63 count:16];
               }
 
               while (v16);
             }
 
-            [v51 setObject:v12 forKey:accountID];
-            v7 = v50;
-            v6 = v52;
+            [v50 setObject:v12 forKey:accountID];
+            v7 = v49;
+            v6 = v51;
           }
 
           ++v8;
         }
 
         while (v8 != v6);
-        v6 = [obj countByEnumeratingWithState:&v60 objects:v65 count:16];
+        v6 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
       }
 
       while (v6);
@@ -806,7 +801,7 @@ LABEL_6:
 
     if (![(IMDService *)selfCopy isIDSBased])
     {
-      [v24 setObject:v51 forKey:*MEMORY[0x277D193D0]];
+      [v24 setObject:v50 forKey:*MEMORY[0x277D193D0]];
     }
 
     v26 = +[IMDAccountController sharedAccountController];
@@ -826,7 +821,7 @@ LABEL_6:
       [v30 addObjectsFromArray:v29];
     }
 
-    v53 = v27;
+    v52 = v27;
     obja = v22;
     v31 = [v30 arrayByApplyingSelector:sel_accountID];
     [v24 setObject:v31 forKey:*MEMORY[0x277D19418]];
@@ -843,7 +838,7 @@ LABEL_6:
       v38 = *MEMORY[0x277CBF030];
       v39 = *MEMORY[0x277CBF010];
       v40 = *MEMORY[0x277CBF030];
-      v41 = v47;
+      v41 = v46;
       if (intValue)
       {
 LABEL_37:
@@ -860,7 +855,7 @@ LABEL_37:
 
         [(IMDService *)selfCopy purgeMemoryCaches];
         objc_autoreleasePoolPop(context);
-        goto LABEL_38;
+        return;
       }
     }
 
@@ -869,15 +864,12 @@ LABEL_37:
       v37 = *MEMORY[0x277CBF040];
       v38 = *MEMORY[0x277CBF030];
       v39 = *MEMORY[0x277CBF010];
-      v41 = v47;
+      v41 = v46;
     }
 
     v40 = v39;
     goto LABEL_37;
   }
-
-LABEL_38:
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (id)newAccountWithAccountDefaults:(id)defaults accountID:(id)d
@@ -1198,31 +1190,31 @@ LABEL_38:
 
 - (NSArray)replicationServices
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   serviceProperties = [(IMDService *)self serviceProperties];
   v3 = [serviceProperties objectForKeyedSubscript:*MEMORY[0x277D1A688]];
 
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = +[IMDServiceController sharedController];
         v12 = [v11 serviceWithName:v10];
 
@@ -1232,13 +1224,11 @@ LABEL_38:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

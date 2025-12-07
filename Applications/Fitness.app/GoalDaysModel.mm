@@ -36,13 +36,13 @@
   v5 = sub_1004F980C();
   swift_beginAccess();
   v10 = v5;
-  sub_100140278(&qword_1008E26D8);
+  sub_100140278(&qword_1008E26D8, &qword_1006DF678);
   Published.init(initialValue:)();
   swift_endAccess();
   goalType = [scheduleCopy goalType];
   *(&self->super.isa + OBJC_IVAR____TtC10FitnessApp13GoalDaysModel_goalType) = goalType;
   v9.receiver = self;
-  v9.super_class = type metadata accessor for GoalDaysModel();
+  v9.super_class = type metadata accessor for GoalDaysModel(0);
   v7 = [(GoalDaysModel *)&v9 init];
 
   return v7;

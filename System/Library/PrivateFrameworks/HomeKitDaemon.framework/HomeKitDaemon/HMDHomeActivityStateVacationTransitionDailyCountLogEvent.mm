@@ -8,19 +8,17 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"detectorInitiatedCount";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"detectorInitiatedCount";
   detectorInitiatedCount = [(HMDHomeActivityStateVacationTransitionDailyCountLogEvent *)self detectorInitiatedCount];
-  v10[0] = detectorInitiatedCount;
-  v9[1] = @"timerFiredCount";
+  v9[0] = detectorInitiatedCount;
+  v8[1] = @"timerFiredCount";
   timerFiredCount = [(HMDHomeActivityStateVacationTransitionDailyCountLogEvent *)self timerFiredCount];
-  v10[1] = timerFiredCount;
-  v9[2] = @"totalCount";
+  v9[1] = timerFiredCount;
+  v8[2] = @"totalCount";
   totalCount = [(HMDHomeActivityStateVacationTransitionDailyCountLogEvent *)self totalCount];
-  v10[2] = totalCount;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = totalCount;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }

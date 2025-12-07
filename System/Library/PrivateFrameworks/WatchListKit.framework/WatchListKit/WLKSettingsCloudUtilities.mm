@@ -35,9 +35,11 @@
 
 uint64_t __35__WLKSettingsCloudUtilities__queue__block_invoke()
 {
-  _queue___queue = dispatch_queue_create("com.apple.WatchListKit.WLKSettingsCloudUtilities", 0);
+  v0 = dispatch_queue_create("com.apple.WatchListKit.WLKSettingsCloudUtilities", 0);
+  v1 = _queue___queue;
+  _queue___queue = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (void)updateCloudStoreWithCompletion:(id)completion
@@ -93,7 +95,7 @@ void __60__WLKSettingsCloudUtilities_updateCloudStoreWithCompletion___block_invo
   [self _cloudSyncEnabledWithCompletion:v14];
 }
 
-uint64_t __94__WLKSettingsCloudUtilities_updateCloudStoreAppSettings_deleteHistory_removeEntry_completion___block_invoke(uint64_t a1, uint64_t a2)
+void *__94__WLKSettingsCloudUtilities_updateCloudStoreAppSettings_deleteHistory_removeEntry_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 48) _shouldContinueWithCloudSyncResult:a2 onDisabledHandler:*(a1 + 40)];
   if (result)
@@ -149,14 +151,12 @@ void __82__WLKSettingsCloudUtilities_updateCloudStoreAccountLevelSetting_value_c
 
 void __82__WLKSettingsCloudUtilities_updateCloudStoreAccountLevelSetting_value_completion___block_invoke_2(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v5 = *(a1 + 32);
-  v6[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v4 = *(a1 + 32);
+  v5[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   [*(a1 + 56) _postChangeDictionaryToCloud:v3 completion:*(a1 + 48)];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (void)resetAccountWithCompletion:(id)completion
@@ -172,7 +172,7 @@ void __82__WLKSettingsCloudUtilities_updateCloudStoreAccountLevelSetting_value_c
   [self _cloudSyncEnabledWithCompletion:v6];
 }
 
-uint64_t __56__WLKSettingsCloudUtilities_resetAccountWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
+void *__56__WLKSettingsCloudUtilities_resetAccountWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 40) _shouldContinueWithCloudSyncResult:a2 onDisabledHandler:*(a1 + 32)];
   if (result)
@@ -189,7 +189,7 @@ uint64_t __56__WLKSettingsCloudUtilities_resetAccountWithCompletion___block_invo
 + (void)updateLocalStoreWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = WLKStartupSignpostLogObject();
+  v5 = WLKStartupSignpostLogObject(completionCopy);
   if (os_signpost_enabled(v5))
   {
     *buf = 0;
@@ -208,7 +208,7 @@ uint64_t __56__WLKSettingsCloudUtilities_resetAccountWithCompletion___block_invo
 
 void __60__WLKSettingsCloudUtilities_updateLocalStoreWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = WLKStartupSignpostLogObject();
+  v4 = WLKStartupSignpostLogObject(a1);
   if (os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -297,7 +297,7 @@ void __66__WLKSettingsCloudUtilities_synchronizeSettingsFromCloudIfNeeded___bloc
 + (void)synchronizeSettingsFromCloudIfNeededWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = WLKStartupSignpostLogObject();
+  v5 = WLKStartupSignpostLogObject(completionCopy);
   if (os_signpost_enabled(v5))
   {
     *buf = 0;
@@ -314,9 +314,9 @@ void __66__WLKSettingsCloudUtilities_synchronizeSettingsFromCloudIfNeeded___bloc
   [self _cloudSyncEnabledWithCompletion:v7];
 }
 
-uint64_t __80__WLKSettingsCloudUtilities_synchronizeSettingsFromCloudIfNeededWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
+void *__80__WLKSettingsCloudUtilities_synchronizeSettingsFromCloudIfNeededWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = WLKStartupSignpostLogObject();
+  v4 = WLKStartupSignpostLogObject(a1);
   if (os_signpost_enabled(v4))
   {
     *v6 = 0;
@@ -371,11 +371,11 @@ void __98__WLKSettingsCloudUtilities__runUpdateCloudStoreAppSettings_deleteHisto
 
     v10 = v3;
     v11 = @"watchListSettingsEntries";
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
-    v12[0] = v4;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+    v12[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
-    [*(a1 + 48) _postChangeDictionaryToCloud:v5 completion:*(a1 + 40)];
+    [*(a1 + 48) _postChangeDictionaryToCloud:v6 completion:*(a1 + 40)];
 LABEL_11:
 
     goto LABEL_12;
@@ -383,22 +383,20 @@ LABEL_11:
 
   if (*(a1 + 40))
   {
-    v6 = WLKSystemLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = WLKSystemLogObject(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 0;
-      _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - Warning: app dictionary is nil.", v9, 2u);
+      _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - Warning: app dictionary is nil.", v9, 2u);
     }
 
-    v7 = *(a1 + 40);
-    v5 = WLKError(200, 0, @"app dictionary is nil");
-    (*(v7 + 16))(v7, 0, v5);
+    v8 = *(a1 + 40);
+    v6 = WLKError(200, 0, @"app dictionary is nil");
+    (*(v8 + 16))(v8, 0, v6);
     goto LABEL_11;
   }
 
 LABEL_12:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_runResetAccountWithCompletion:(id)completion
@@ -417,25 +415,24 @@ LABEL_12:
 
 void __60__WLKSettingsCloudUtilities__runResetAccountWithCompletion___block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8 = @"doResetAccount";
-  v9[0] = MEMORY[0x277CBEC38];
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7 = @"doResetAccount";
+  v8[0] = MEMORY[0x277CBEC38];
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v3 = *(a1 + 40);
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __60__WLKSettingsCloudUtilities__runResetAccountWithCompletion___block_invoke_2;
-  v5[3] = &unk_279E5F8E0;
-  v7 = v3;
-  v6 = *(a1 + 32);
-  [v3 _postChangeDictionaryToCloud:v2 completion:v5];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __60__WLKSettingsCloudUtilities__runResetAccountWithCompletion___block_invoke_2;
+  v4[3] = &unk_279E5F8E0;
+  v6 = v3;
+  v5 = *(a1 + 32);
+  [v3 _postChangeDictionaryToCloud:v2 completion:v4];
 }
 
 void __60__WLKSettingsCloudUtilities__runResetAccountWithCompletion___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
     [*(a1 + 40) deleteAllHistoryWithCompletion:*(a1 + 32)];
@@ -443,16 +440,16 @@ void __60__WLKSettingsCloudUtilities__runResetAccountWithCompletion___block_invo
 
   else
   {
-    v6 = WLKSystemLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = WLKSystemLogObject(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __60__WLKSettingsCloudUtilities__runResetAccountWithCompletion___block_invoke_2_cold_1();
     }
 
-    v7 = *(a1 + 32);
-    if (v7)
+    v8 = *(a1 + 32);
+    if (v8)
     {
-      (*(v7 + 16))(v7, 0, v5);
+      (*(v8 + 16))(v8, 0, v6);
     }
   }
 }
@@ -473,7 +470,7 @@ void __60__WLKSettingsCloudUtilities__runResetAccountWithCompletion___block_invo
 
 void __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = WLKStartupSignpostLogObject();
+  v2 = WLKStartupSignpostLogObject(a1);
   if (os_signpost_enabled(v2))
   {
     LOWORD(buf[0]) = 0;
@@ -484,51 +481,52 @@ void __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWit
   v4 = [v3 ams_DSID];
   v5 = [v4 stringValue];
 
-  v6 = WLKStartupSignpostLogObject();
-  if (os_signpost_enabled(v6))
+  v7 = WLKStartupSignpostLogObject(v6);
+  if (os_signpost_enabled(v7))
   {
     LOWORD(buf[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v6, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync.ActiveAccount", &unk_272A8884E, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v7, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync.ActiveAccount", &unk_272A8884E, buf, 2u);
   }
 
-  if ([v5 length])
+  v8 = [v5 length];
+  if (v8)
   {
-    v7 = WLKStartupSignpostLogObject();
-    if (os_signpost_enabled(v7))
+    v9 = WLKStartupSignpostLogObject(v8);
+    if (os_signpost_enabled(v9))
     {
       LOWORD(buf[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_272A0F000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync.SettingsStoreRefresh", &unk_272A8884E, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_272A0F000, v9, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync.SettingsStoreRefresh", &unk_272A8884E, buf, 2u);
     }
 
-    v8 = +[WLKSettingsStore sharedSettings];
+    v10 = +[WLKSettingsStore sharedSettings];
     objc_initWeak(buf, *(a1 + 40));
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWithCompletion___block_invoke_66;
-    v12[3] = &unk_279E5F908;
-    objc_copyWeak(&v15, buf);
-    v14 = *(a1 + 32);
-    v9 = v8;
-    v13 = v9;
-    [v9 refreshWithCompletion:v12];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWithCompletion___block_invoke_66;
+    v14[3] = &unk_279E5F908;
+    objc_copyWeak(&v17, buf);
+    v16 = *(a1 + 32);
+    v11 = v10;
+    v15 = v11;
+    [v11 refreshWithCompletion:v14];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(buf);
     goto LABEL_13;
   }
 
-  v10 = WLKSystemLogObject();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = WLKSystemLogObject(0);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_272A0F000, v10, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - cannot synchronize from cloud. Not signed in..", buf, 2u);
+    _os_log_impl(&dword_272A0F000, v12, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - cannot synchronize from cloud. Not signed in..", buf, 2u);
   }
 
-  v11 = *(a1 + 32);
-  if (v11)
+  v13 = *(a1 + 32);
+  if (v13)
   {
-    v9 = WLKError(200, 0, @"Cannot synchronize from cloud. Not signed in...");
-    (*(v11 + 16))(v11, 0, v9);
+    v11 = WLKError(200, 0, @"Cannot synchronize from cloud. Not signed in...");
+    (*(v13 + 16))(v13, 0, v11);
 LABEL_13:
   }
 }
@@ -559,7 +557,7 @@ void __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWit
 
 void __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v2 = WLKStartupSignpostLogObject();
+  v2 = WLKStartupSignpostLogObject(a1);
   if (os_signpost_enabled(v2))
   {
     *buf = 0;
@@ -597,74 +595,72 @@ void __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWit
   }
 
 LABEL_6:
-  v9 = WLKStartupSignpostLogObject();
+  v9 = WLKStartupSignpostLogObject(v3);
   if (os_signpost_enabled(v9))
   {
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_272A0F000, v9, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync.CloudSync", &unk_272A8884E, buf, 2u);
   }
 
-  v10 = WLKSystemLogObject();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = WLKSystemLogObject(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_272A0F000, v10, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - Requesting settings sync", buf, 2u);
+    _os_log_impl(&dword_272A0F000, v11, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - Requesting settings sync", buf, 2u);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWithCompletion___block_invoke_73;
-  v12[3] = &unk_279E5EA68;
-  v11 = *(a1 + 32);
-  v13 = *(a1 + 40);
-  [v11 synchronize:1 completion:v12];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWithCompletion___block_invoke_73;
+  v13[3] = &unk_279E5EA68;
+  v12 = *(a1 + 32);
+  v14 = *(a1 + 40);
+  [v12 synchronize:1 completion:v13];
 
 LABEL_12:
 }
 
-void __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWithCompletion___block_invoke_70()
+void __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWithCompletion___block_invoke_70(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v0 = WLKStartupSignpostLogObject();
-  if (os_signpost_enabled(v0))
+  v17 = *MEMORY[0x277D85DE8];
+  v1 = WLKStartupSignpostLogObject(a1);
+  if (os_signpost_enabled(v1))
   {
-    LOWORD(v13) = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v0, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync.BagMaxLocalAge", &unk_272A8884E, &v13, 2u);
+    LOWORD(v15) = 0;
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v1, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync.BagMaxLocalAge", &unk_272A8884E, &v15, 2u);
   }
 
-  v1 = [MEMORY[0x277D6C480] app];
-  v2 = [v1 cachedIntegerForKey:kBagKeyUVSearchMaxLocalSettingsAgeSeconds];
+  v2 = [MEMORY[0x277D6C480] app];
+  v3 = [v2 cachedIntegerForKey:kBagKeyUVSearchMaxLocalSettingsAgeSeconds];
 
-  if (v2)
+  if (v3)
   {
-    WLKSettingsStoreURLBagKeyAPIMaxSettingsAge_block_invoke_maxAge = [v2 unsignedIntegerValue];
-    v3 = WLKSystemLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    WLKSettingsStoreURLBagKeyAPIMaxSettingsAge_block_invoke_maxAge = [v3 unsignedIntegerValue];
+    v5 = WLKSystemLogObject(WLKSettingsStoreURLBagKeyAPIMaxSettingsAge_block_invoke_maxAge);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134217984;
-      v14 = WLKSettingsStoreURLBagKeyAPIMaxSettingsAge_block_invoke_maxAge;
-      _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - SettingStore maxAge=%lu", &v13, 0xCu);
+      v15 = 134217984;
+      v16 = WLKSettingsStoreURLBagKeyAPIMaxSettingsAge_block_invoke_maxAge;
+      _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - SettingStore maxAge=%lu", &v15, 0xCu);
     }
   }
 
   else
   {
     WLKSettingsStoreURLBagKeyAPIMaxSettingsAge_block_invoke_maxAge = 604800;
-    v3 = WLKSystemLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WLKSystemLogObject(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWithCompletion___block_invoke_70_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+      __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWithCompletion___block_invoke_70_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  v11 = WLKStartupSignpostLogObject();
-  if (os_signpost_enabled(v11))
+  v14 = WLKStartupSignpostLogObject(v13);
+  if (os_signpost_enabled(v14))
   {
-    LOWORD(v13) = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync.BagMaxLocalAge", &unk_272A8884E, &v13, 2u);
+    LOWORD(v15) = 0;
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v14, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync.BagMaxLocalAge", &unk_272A8884E, &v15, 2u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWithCompletion___block_invoke_73(uint64_t a1, int a2, void *a3)
@@ -674,7 +670,8 @@ void __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWit
   v6 = v5;
   if (v5)
   {
-    v7 = [v5 description];
+    v5 = [(__CFString *)v5 description];
+    v7 = v5;
   }
 
   else
@@ -682,7 +679,7 @@ void __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWit
     v7 = &stru_288206BC0;
   }
 
-  v8 = WLKSystemLogObject();
+  v8 = WLKSystemLogObject(v5);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = @"NO";
@@ -698,50 +695,49 @@ void __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWit
     _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - settings sync from cloud success: %@ %@", &v12, 0x16u);
   }
 
-  v10 = WLKStartupSignpostLogObject();
-  if (os_signpost_enabled(v10))
+  v11 = WLKStartupSignpostLogObject(v10);
+  if (os_signpost_enabled(v11))
   {
     LOWORD(v12) = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v10, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync.CloudSync", &unk_272A8884E, &v12, 2u);
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync.CloudSync", &unk_272A8884E, &v12, 2u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_syncDictionaryForLocalStore
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   array = [MEMORY[0x277CBEB18] array];
   v5 = +[WLKSettingsStore sharedSettings];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   watchListApps = [v5 watchListApps];
-  v7 = [watchListApps countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [watchListApps countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(watchListApps);
         }
 
-        v11 = [self _syncDictionaryForAppSettings:*(*(&v17 + 1) + 8 * i)];
+        v11 = [self _syncDictionaryForAppSettings:*(*(&v16 + 1) + 8 * i)];
         if (v11)
         {
           [array addObject:v11];
         }
       }
 
-      v8 = [watchListApps countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [watchListApps countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
@@ -760,8 +756,6 @@ void __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWit
 
   v14 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v5, "migratediOS")}];
   [dictionary setObject:v14 forKeyedSubscript:@"isIOSMigrated"];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -815,67 +809,68 @@ LABEL_11:
   v5 = activeAccount;
   if (activeAccount && ([activeAccount ams_DSID], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "stringValue"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "length"), v7, v6, v8))
   {
-    if (WLKShouldRunInProcess())
+    v9 = WLKShouldRunInProcess();
+    if (v9)
     {
-      v9 = WLKSystemLogObject();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = WLKSystemLogObject(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_272A0F000, v9, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - Fetching settings in WLKProcess", buf, 2u);
+        _os_log_impl(&dword_272A0F000, v10, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - Fetching settings in WLKProcess", buf, 2u);
       }
 
-      v10 = objc_alloc_init(WLKSettingsRequestOperation);
-      objc_initWeak(buf, v10);
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke;
-      v21[3] = &unk_279E5E660;
-      objc_copyWeak(&v23, buf);
-      v22 = dictionaryCopy;
-      [(WLKSettingsRequestOperation *)v10 setCompletionBlock:v21];
+      v11 = objc_alloc_init(WLKSettingsRequestOperation);
+      objc_initWeak(buf, v11);
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke;
+      v24[3] = &unk_279E5E660;
+      objc_copyWeak(&v26, buf);
+      v25 = dictionaryCopy;
+      [(WLKSettingsRequestOperation *)v11 setCompletionBlock:v24];
       wlkDefaultConcurrentQueue = [MEMORY[0x277CCABD8] wlkDefaultConcurrentQueue];
-      [wlkDefaultConcurrentQueue addOperation:v10];
+      [wlkDefaultConcurrentQueue addOperation:v11];
 
-      objc_destroyWeak(&v23);
+      objc_destroyWeak(&v26);
       objc_destroyWeak(buf);
       goto LABEL_9;
     }
 
     _connection = [objc_opt_class() _connection];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke_95;
-    v19[3] = &unk_279E5EB38;
-    v13 = dictionaryCopy;
-    v20 = v13;
-    v14 = [_connection remoteObjectProxyWithErrorHandler:v19];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke_95;
+    v22[3] = &unk_279E5EB38;
+    v14 = dictionaryCopy;
+    v23 = v14;
+    v15 = [_connection remoteObjectProxyWithErrorHandler:v22];
 
-    v15 = WLKStartupSignpostLogObject();
-    if (os_signpost_enabled(v15))
+    v17 = WLKStartupSignpostLogObject(v16);
+    if (os_signpost_enabled(v17))
     {
       LOWORD(buf[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_272A0F000, v15, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync.CloudSync.NetworkRequest", &unk_272A8884E, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_272A0F000, v17, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync.CloudSync.NetworkRequest", &unk_272A8884E, buf, 2u);
     }
 
-    v16 = WLKSystemLogObject();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v19 = WLKSystemLogObject(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_272A0F000, v16, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - calling out to daemon to fetch settings", buf, 2u);
+      _os_log_impl(&dword_272A0F000, v19, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - calling out to daemon to fetch settings", buf, 2u);
     }
 
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke_97;
-    v17[3] = &unk_279E5F890;
-    v18 = v13;
-    [v14 fetchSettings:v17];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke_97;
+    v20[3] = &unk_279E5F890;
+    v21 = v14;
+    [v15 fetchSettings:v20];
   }
 
   else if (dictionaryCopy)
   {
-    v10 = WLKError(700, 0, @"Login required for this operation");
-    (*(dictionaryCopy + 2))(dictionaryCopy, 0, v10);
+    v11 = WLKError(700, 0, @"Login required for this operation");
+    (*(dictionaryCopy + 2))(dictionaryCopy, 0, v11);
 LABEL_9:
   }
 }
@@ -889,141 +884,139 @@ void __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke(uint64_
 
   if (v3)
   {
-    v4 = WLKSystemLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = WLKSystemLogObject(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke_cold_1(WeakRetained, v4);
+      __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke_cold_1(WeakRetained, v5);
     }
 
-    v5 = *(v1 + 32);
-    v6 = [WeakRetained error];
-    (*(v5 + 16))(v5, 0, v6);
+    v6 = *(v1 + 32);
+    v7 = [WeakRetained error];
+    (*(v6 + 16))(v6, 0, v7);
   }
 
   else
   {
-    v6 = [WeakRetained response];
-    if (v6)
+    v7 = [WeakRetained response];
+    if (v7)
     {
       v36 = v1;
       v37 = WeakRetained;
-      v7 = +[WLKSettingsStore sharedSettings];
-      [v7 beginIgnoringChanges];
-      v8 = [MEMORY[0x277CBEB58] set];
+      v8 = +[WLKSettingsStore sharedSettings];
+      [v8 beginIgnoringChanges];
+      v9 = [MEMORY[0x277CBEB58] set];
       v44 = 0u;
       v45 = 0u;
       v46 = 0u;
       v47 = 0u;
-      v35 = v6;
-      obj = [v6 objectForKeyedSubscript:@"watchListSettingsEntries"];
-      v9 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
-      if (v9)
+      v35 = v7;
+      obj = [v7 objectForKeyedSubscript:@"watchListSettingsEntries"];
+      v10 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+      if (v10)
       {
-        v10 = v9;
-        v11 = *v45;
+        v11 = v10;
+        v12 = *v45;
         do
         {
-          for (i = 0; i != v10; ++i)
+          for (i = 0; i != v11; ++i)
           {
-            if (*v45 != v11)
+            if (*v45 != v12)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = *(*(&v44 + 1) + 8 * i);
-            v14 = [v13 objectForKeyedSubscript:@"enabled"];
-            v15 = [v14 BOOLValue];
+            v14 = *(*(&v44 + 1) + 8 * i);
+            v15 = [v14 objectForKeyedSubscript:@"enabled"];
+            v16 = [v15 BOOLValue];
 
-            v16 = [v13 objectForKeyedSubscript:@"searchBrandId"];
-            if (v15)
+            v17 = [v14 objectForKeyedSubscript:@"searchBrandId"];
+            if (v16)
             {
-              v17 = 1;
+              v18 = 1;
             }
 
             else
             {
-              v17 = 2;
+              v18 = 2;
             }
 
-            v18 = [v13 objectForKeyedSubscript:@"externalAccountId"];
-            [v7 setStatus:v17 forChannelID:v16 externalID:v18];
-            v19 = [v16 stringByAppendingFormat:@":%@", v18];
-            [v8 addObject:v19];
+            v19 = [v14 objectForKeyedSubscript:@"externalAccountId"];
+            [v8 setStatus:v18 forChannelID:v17 externalID:v19];
+            v20 = [v17 stringByAppendingFormat:@":%@", v19];
+            [v9 addObject:v20];
           }
 
-          v10 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+          v11 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
         }
 
-        while (v10);
+        while (v11);
       }
 
-      v20 = [v7 watchListApps];
-      v21 = [v20 copy];
+      v21 = [v8 watchListApps];
+      v22 = [v21 copy];
 
       v42 = 0u;
       v43 = 0u;
       v40 = 0u;
       v41 = 0u;
-      obja = v21;
-      v22 = [obja countByEnumeratingWithState:&v40 objects:v48 count:16];
-      if (v22)
+      obja = v22;
+      v23 = [obja countByEnumeratingWithState:&v40 objects:v48 count:16];
+      if (v23)
       {
-        v23 = v22;
-        v24 = *v41;
+        v24 = v23;
+        v25 = *v41;
         do
         {
-          for (j = 0; j != v23; ++j)
+          for (j = 0; j != v24; ++j)
           {
-            if (*v41 != v24)
+            if (*v41 != v25)
             {
               objc_enumerationMutation(obja);
             }
 
-            v26 = *(*(&v40 + 1) + 8 * j);
-            v27 = [v26 channelID];
-            v28 = [v26 externalID];
-            v29 = [v27 stringByAppendingFormat:@":%@", v28];
+            v27 = *(*(&v40 + 1) + 8 * j);
+            v28 = [v27 channelID];
+            v29 = [v27 externalID];
+            v30 = [v28 stringByAppendingFormat:@":%@", v29];
 
-            if (([v8 containsObject:v29] & 1) == 0)
+            if (([v9 containsObject:v30] & 1) == 0)
             {
-              [v7 _removeWatchListApp:v26];
+              [v8 _removeWatchListApp:v27];
             }
           }
 
-          v23 = [obja countByEnumeratingWithState:&v40 objects:v48 count:16];
+          v24 = [obja countByEnumeratingWithState:&v40 objects:v48 count:16];
         }
 
-        while (v23);
+        while (v24);
       }
 
-      v6 = v35;
-      v30 = [v35 objectForKeyedSubscript:@"isOptedIn"];
-      [v7 setOptedIn:{objc_msgSend(v30, "BOOLValue")}];
+      v7 = v35;
+      v31 = [v35 objectForKeyedSubscript:@"isOptedIn"];
+      [v8 setOptedIn:{objc_msgSend(v31, "BOOLValue")}];
 
-      v31 = [v35 objectForKeyedSubscript:@"isTvOSMigrated"];
-      [v7 setMigratedtvOS:{objc_msgSend(v31, "BOOLValue")}];
+      v32 = [v35 objectForKeyedSubscript:@"isTvOSMigrated"];
+      [v8 setMigratedtvOS:{objc_msgSend(v32, "BOOLValue")}];
 
-      v32 = [v35 objectForKeyedSubscript:@"isIOSMigrated"];
-      [v7 setMigratediOS:{objc_msgSend(v32, "BOOLValue")}];
+      v33 = [v35 objectForKeyedSubscript:@"isIOSMigrated"];
+      [v8 setMigratediOS:{objc_msgSend(v33, "BOOLValue")}];
 
-      v33 = [MEMORY[0x277CBEAA8] date];
-      [v7 setLastSyncDate:v33];
+      v34 = [MEMORY[0x277CBEAA8] date];
+      [v8 setLastSyncDate:v34];
 
-      [v7 endIgnoringChanges];
+      [v8 endIgnoringChanges];
       v1 = v36;
       WeakRetained = v37;
     }
 
-    (*(*(v1 + 32) + 16))(*(v1 + 32), v6, 0);
+    (*(*(v1 + 32) + 16))(*(v1 + 32), v7, 0);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke_95(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WLKSystemLogObject();
+  v4 = WLKSystemLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke_95_cold_1();
@@ -1040,7 +1033,7 @@ void __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke_97(uint
 {
   v5 = a2;
   v6 = a3;
-  v7 = WLKStartupSignpostLogObject();
+  v7 = WLKStartupSignpostLogObject(v6);
   if (os_signpost_enabled(v7))
   {
     *buf = 0;
@@ -1063,25 +1056,25 @@ void __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke_97(uint
 
 uint64_t __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke_98(void *a1)
 {
-  v2 = WLKStartupSignpostLogObject();
+  v2 = WLKStartupSignpostLogObject(a1);
   if (os_signpost_enabled(v2))
   {
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_272A0F000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync.CloudSync.NetworkRequest.Refresh", &unk_272A8884E, buf, 2u);
   }
 
-  v3 = WLKSystemLogObject();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = WLKSystemLogObject(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - WLKSettingsCloudUtilities - daemon callback for fetch settings", v7, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - WLKSettingsCloudUtilities - daemon callback for fetch settings", v9, 2u);
   }
 
-  v4 = WLKStartupSignpostLogObject();
-  if (os_signpost_enabled(v4))
+  v6 = WLKStartupSignpostLogObject(v5);
+  if (os_signpost_enabled(v6))
   {
-    *v6 = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v4, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync.CloudSync.NetworkRequest", &unk_272A8884E, v6, 2u);
+    *v8 = 0;
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v6, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync.CloudSync.NetworkRequest", &unk_272A8884E, v8, 2u);
   }
 
   result = a1[6];
@@ -1117,44 +1110,44 @@ uint64_t __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke_98(
 
       v16 = [[WLKSettingsModificationRequestOperation alloc] initWithModifications:cloudCopy];
       objc_initWeak(location, v16);
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __69__WLKSettingsCloudUtilities__postChangeDictionaryToCloud_completion___block_invoke;
-      v26[3] = &unk_279E5E660;
-      objc_copyWeak(&v28, location);
-      v27 = completionCopy;
-      [(WLKSettingsModificationRequestOperation *)v16 setCompletionBlock:v26];
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __69__WLKSettingsCloudUtilities__postChangeDictionaryToCloud_completion___block_invoke;
+      v27[3] = &unk_279E5E660;
+      objc_copyWeak(&v29, location);
+      v28 = completionCopy;
+      [(WLKSettingsModificationRequestOperation *)v16 setCompletionBlock:v27];
       wlkDefaultQueue = [MEMORY[0x277CCABD8] wlkDefaultQueue];
       [wlkDefaultQueue addOperation:v16];
 
-      objc_destroyWeak(&v28);
+      objc_destroyWeak(&v29);
       objc_destroyWeak(location);
 
       goto LABEL_9;
     }
 
     _connection = [objc_opt_class() _connection];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __69__WLKSettingsCloudUtilities__postChangeDictionaryToCloud_completion___block_invoke_2;
-    v24[3] = &unk_279E5EB38;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __69__WLKSettingsCloudUtilities__postChangeDictionaryToCloud_completion___block_invoke_2;
+    v25[3] = &unk_279E5EB38;
     v19 = completionCopy;
-    v25 = v19;
-    v20 = [_connection remoteObjectProxyWithErrorHandler:v24];
+    v26 = v19;
+    v20 = [_connection remoteObjectProxyWithErrorHandler:v25];
 
-    v21 = WLKSystemLogObject();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = WLKSystemLogObject(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(location[0]) = 0;
-      _os_log_impl(&dword_272A0F000, v21, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - calling out to daemon to post settings", location, 2u);
+      _os_log_impl(&dword_272A0F000, v22, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - calling out to daemon to post settings", location, 2u);
     }
 
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __69__WLKSettingsCloudUtilities__postChangeDictionaryToCloud_completion___block_invoke_101;
-    v22[3] = &unk_279E5EA68;
-    v23 = v19;
-    [v20 postSettings:cloudCopy replyHandler:v22];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __69__WLKSettingsCloudUtilities__postChangeDictionaryToCloud_completion___block_invoke_101;
+    v23[3] = &unk_279E5EA68;
+    v24 = v19;
+    [v20 postSettings:cloudCopy replyHandler:v23];
   }
 
   else if (completionCopy)
@@ -1172,35 +1165,35 @@ void __69__WLKSettingsCloudUtilities__postChangeDictionaryToCloud_completion___b
   v3 = [WeakRetained error];
   v4 = [v3 copy];
 
-  v5 = WLKSystemLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = WLKSystemLogObject(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = @"NO";
+    v7 = @"NO";
     if (!v4)
     {
-      v6 = @"YES";
+      v7 = @"YES";
     }
 
     *buf = 138412290;
-    v16 = v6;
-    _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - Updated cloud settings success: %@", buf, 0xCu);
+    v16 = v7;
+    _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - Updated cloud settings success: %@", buf, 0xCu);
   }
 
   if (*(a1 + 32))
   {
     if (!v4)
     {
-      v7 = [MEMORY[0x277CBEAA8] date];
-      v8 = WLKSystemLogObject();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v8 = [MEMORY[0x277CBEAA8] date];
+      v9 = WLKSystemLogObject(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v16 = v7;
-        _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - Updating lastSyncToCloud date %@", buf, 0xCu);
+        v16 = v8;
+        _os_log_impl(&dword_272A0F000, v9, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - Updating lastSyncToCloud date %@", buf, 0xCu);
       }
 
-      v9 = +[WLKSettingsStore sharedSettings];
-      [v9 setLastSyncToCloudDate:v7];
+      v10 = +[WLKSettingsStore sharedSettings];
+      [v10 setLastSyncToCloudDate:v8];
     }
 
     block[0] = MEMORY[0x277D85DD0];
@@ -1212,14 +1205,12 @@ void __69__WLKSettingsCloudUtilities__postChangeDictionaryToCloud_completion___b
     v12 = v4;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __69__WLKSettingsCloudUtilities__postChangeDictionaryToCloud_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WLKSystemLogObject();
+  v4 = WLKSystemLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke_95_cold_1();
@@ -1235,7 +1226,7 @@ void __69__WLKSettingsCloudUtilities__postChangeDictionaryToCloud_completion___b
 void __69__WLKSettingsCloudUtilities__postChangeDictionaryToCloud_completion___block_invoke_101(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = WLKSystemLogObject();
+  v6 = WLKSystemLogObject(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -1276,13 +1267,13 @@ void __69__WLKSettingsCloudUtilities__postChangeDictionaryToCloud_completion___b
   return v3;
 }
 
-void __40__WLKSettingsCloudUtilities__connection__block_invoke()
+void __40__WLKSettingsCloudUtilities__connection__block_invoke(uint64_t a1)
 {
-  v0 = WLKSystemLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = WLKSystemLogObject(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_272A0F000, v0, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - Connection interrupted.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_272A0F000, v1, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - Connection interrupted.", v2, 2u);
   }
 }
 
@@ -1292,16 +1283,16 @@ void __40__WLKSettingsCloudUtilities__connection__block_invoke_108()
   dispatch_async(v0, &__block_literal_global_113);
 }
 
-void __40__WLKSettingsCloudUtilities__connection__block_invoke_2()
+void __40__WLKSettingsCloudUtilities__connection__block_invoke_2(uint64_t a1)
 {
-  v0 = WLKSystemLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = WLKSystemLogObject(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_272A0F000, v0, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - Connection invalidated.", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_272A0F000, v1, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - Connection invalidated.", v3, 2u);
   }
 
-  v1 = _connection___connection;
+  v2 = _connection___connection;
   _connection___connection = 0;
 }
 
@@ -1310,7 +1301,7 @@ void __40__WLKSettingsCloudUtilities__connection__block_invoke_2()
   if (handler && !result)
   {
     handlerCopy = handler;
-    v6 = WLKSystemLogObject();
+    v6 = WLKSystemLogObject(handlerCopy);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 0;
@@ -1348,58 +1339,39 @@ void __61__WLKSettingsCloudUtilities__cloudSyncEnabledWithCompletion___block_inv
 
   if (v3)
   {
-    v6 = v5 == 0;
+    v7 = v5 == 0;
   }
 
   else
   {
-    v6 = 1;
+    v7 = 1;
   }
 
-  v7 = !v6;
-  v8 = WLKSystemLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = !v7;
+  v9 = WLKSystemLogObject(v6);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10[0] = 67109120;
-    v10[1] = v7;
-    _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - Completed isCloudSyncEnabled fetch with enabled status=%d", v10, 8u);
+    v10[1] = v8;
+    _os_log_impl(&dword_272A0F000, v9, OS_LOG_TYPE_DEFAULT, "WLKSettingsCloudUtilities - Completed isCloudSyncEnabled fetch with enabled status=%d", v10, 8u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void __60__WLKSettingsCloudUtilities__runResetAccountWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_272A0F000, v0, v1, "WLKSettingsCloudUtilities - resetAccount failed, not attempting play history deletion. error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __84__WLKSettingsCloudUtilities__runSynchronizeSettingsFromCloudIfNeededWithCompletion___block_invoke_70_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_272A0F000, a1, a3, "WLKSettingsCloudUtilities - SettingStore maxAge configuration is nil, use default value=%lu", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = WLKSettingsStoreURLBagKeyAPIMaxSettingsAge_block_invoke_maxAge;
+  OUTLINED_FUNCTION_0(&dword_272A0F000, a1, a3, "WLKSettingsCloudUtilities - SettingStore maxAge configuration is nil, use default value=%lu", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_272A0F000, a2, OS_LOG_TYPE_ERROR, "WLKSettingsCloudUtilities - Failed to fetch settings with error: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __50__WLKSettingsCloudUtilities__fetchSyncDictionary___block_invoke_95_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_272A0F000, v0, v1, "WLKSettingsCloudUtilities - Unable to communicate with the remote object proxy (%@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_272A0F000, a2, OS_LOG_TYPE_ERROR, "WLKSettingsCloudUtilities - Failed to fetch settings with error: %@", v4, 0xCu);
 }
 
 @end

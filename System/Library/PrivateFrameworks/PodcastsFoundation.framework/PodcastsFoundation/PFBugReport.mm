@@ -17,7 +17,6 @@
 
 - (NSString)systemString
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___PFBugReport_system);
   PodcastsSystem.rawValue.getter();
   v2 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
 

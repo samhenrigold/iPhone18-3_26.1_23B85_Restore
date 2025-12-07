@@ -17,12 +17,12 @@
 
 - (SKDPipeline)initWithDescriptor:(id)descriptor processors:(id)processors
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   processorsCopy = processors;
-  v17.receiver = self;
-  v17.super_class = SKDPipeline;
-  v9 = [(SKDPipeline *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = SKDPipeline;
+  v9 = [(SKDPipeline *)&v16 init];
   v10 = v9;
   if (v9)
   {
@@ -39,84 +39,56 @@
       {
         v14 = [(SKDPipeline *)v10 description];
         *buf = 138412290;
-        v19 = v14;
+        v18 = v14;
         _os_log_impl(&dword_231B25000, v13, OS_LOG_TYPE_INFO, "### <%@>", buf, 0xCu);
       }
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)supportsRecord:(id)record bundleID:(id)d
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   dCopy = d;
   descriptor = [(SKDPipeline *)self descriptor];
   requiredBundles = [descriptor requiredBundles];
 
-  if (requiredBundles)
+  if (requiredBundles && (!dCopy || (-[SKDPipeline descriptor](self, "descriptor"), v10 = objc_claimAutoreleasedReturnValue(), [v10 requiredBundles], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "containsObject:", dCopy), v11, v10, !v12)) || (-[SKDPipeline descriptor](self, "descriptor"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "excludedBundles"), v14 = objc_claimAutoreleasedReturnValue(), v14, v13, dCopy) && v14 && (-[SKDPipeline descriptor](self, "descriptor"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "excludedBundles"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "containsObject:", dCopy), v16, v15, (v17 & 1) != 0))
   {
-    if (!dCopy)
-    {
-      goto LABEL_7;
-    }
-
-    descriptor2 = [(SKDPipeline *)self descriptor];
-    requiredBundles2 = [descriptor2 requiredBundles];
-    v12 = [requiredBundles2 containsObject:dCopy];
-
-    if (!v12)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  descriptor3 = [(SKDPipeline *)self descriptor];
-  excludedBundles = [descriptor3 excludedBundles];
-
-  if (!dCopy)
-  {
-    goto LABEL_8;
-  }
-
-  if (excludedBundles && (-[SKDPipeline descriptor](self, "descriptor"), v15 = objc_claimAutoreleasedReturnValue(), [v15 excludedBundles], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "containsObject:", dCopy), v16, v15, (v17 & 1) != 0))
-  {
-LABEL_7:
     LOBYTE(v18) = 0;
   }
 
   else
   {
-LABEL_8:
-    descriptor4 = [(SKDPipeline *)self descriptor];
-    requiredAttributes = [descriptor4 requiredAttributes];
+    descriptor2 = [(SKDPipeline *)self descriptor];
+    requiredAttributes = [descriptor2 requiredAttributes];
 
     if (requiredAttributes)
     {
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
       v29 = 0u;
-      descriptor5 = [(SKDPipeline *)self descriptor];
-      requiredAttributes2 = [descriptor5 requiredAttributes];
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      descriptor3 = [(SKDPipeline *)self descriptor];
+      requiredAttributes2 = [descriptor3 requiredAttributes];
 
-      v18 = [requiredAttributes2 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v18 = [requiredAttributes2 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v18)
       {
-        v23 = *v29;
+        v23 = *v28;
         while (2)
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v29 != v23)
+            if (*v28 != v23)
             {
               objc_enumerationMutation(requiredAttributes2);
             }
 
-            v25 = [recordCopy objectForKeyedSubscript:*(*(&v28 + 1) + 8 * i)];
+            v25 = [recordCopy objectForKeyedSubscript:*(*(&v27 + 1) + 8 * i)];
 
             if (v25)
             {
@@ -125,7 +97,7 @@ LABEL_8:
             }
           }
 
-          v18 = [requiredAttributes2 countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v18 = [requiredAttributes2 countByEnumeratingWithState:&v27 objects:v31 count:16];
           if (v18)
           {
             continue;
@@ -144,13 +116,12 @@ LABEL_19:
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (NSArray)fetchAttributes
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
   descriptor = [(SKDPipeline *)self descriptor];
   enabled = [descriptor enabled];
@@ -177,26 +148,26 @@ LABEL_19:
       [v3 addObjectsFromArray:excludedAttributes2];
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     processors = [(SKDPipeline *)self processors];
-    v15 = [processors countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v15 = [processors countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v32;
+      v17 = *v31;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v32 != v17)
+          if (*v31 != v17)
           {
             objc_enumerationMutation(processors);
           }
 
-          v19 = *(*(&v31 + 1) + 8 * i);
+          v19 = *(*(&v30 + 1) + 8 * i);
           if ([v19 enabled])
           {
             requiredAttributes3 = [v19 requiredAttributes];
@@ -225,7 +196,7 @@ LABEL_19:
           }
         }
 
-        v16 = [processors countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v16 = [processors countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v16);
@@ -240,35 +211,33 @@ LABEL_19:
 
   allObjects = [v3 allObjects];
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return allObjects;
 }
 
 - (NSArray)processedAttributes
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   processors = [(SKDPipeline *)self processors];
-  v5 = [processors countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [processors countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(processors);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         if ([v9 enabled])
         {
           processedAttributes = [v9 processedAttributes];
@@ -285,15 +254,13 @@ LABEL_19:
         [v3 addObject:needsProcessingAttribute];
       }
 
-      v6 = [processors countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [processors countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
   }
 
   allObjects = [v3 allObjects];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }

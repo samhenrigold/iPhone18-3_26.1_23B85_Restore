@@ -4,10 +4,49 @@
 - (NEURLFilterConfiguration)initWithCoder:(id)coder;
 - (NEURLFilterConfiguration)initWithPIRServer:(id)server pirPrivacyPassIssuerURL:(id)l pirAuthenticationToken:(id)token controlProviderBundleIdentifier:(id)identifier;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation NEURLFilterConfiguration
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  [v7 appendPrettyBOOL:-[NEURLFilterConfiguration isEnabled](self withName:"isEnabled") andIndent:@"Enabled" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEURLFilterConfiguration shouldFailClosed](self withName:"shouldFailClosed") andIndent:@"FailClosed" options:{v5, options}];
+  appBundleIdentifier = [(NEURLFilterConfiguration *)self appBundleIdentifier];
+  [v7 appendPrettyObject:appBundleIdentifier withName:@"AppBundleIdentifier" andIndent:v5 options:options];
+
+  controlProviderBundleIdentifier = [(NEURLFilterConfiguration *)self controlProviderBundleIdentifier];
+  [v7 appendPrettyObject:controlProviderBundleIdentifier withName:@"ControlProviderBundleIdentifier" andIndent:v5 options:options];
+
+  controlProviderDesignatedRequirement = [(NEURLFilterConfiguration *)self controlProviderDesignatedRequirement];
+  [v7 appendPrettyObject:controlProviderDesignatedRequirement withName:@"ControlProviderDesignatedRequirement" andIndent:v5 options:options];
+
+  [(NEURLFilterConfiguration *)self prefilterFetchInterval];
+  [v7 appendPrettyInt:v11 withName:@"PrefilterFetchFrequency" andIndent:v5 options:options];
+  pirServerURL = [(NEURLFilterConfiguration *)self pirServerURL];
+  [v7 appendPrettyObject:pirServerURL withName:@"pirServerURL" andIndent:v5 options:options];
+
+  pirPrivacyPassIssuerURL = [(NEURLFilterConfiguration *)self pirPrivacyPassIssuerURL];
+  [v7 appendPrettyObject:pirPrivacyPassIssuerURL withName:@"pirPrivacyPassIssuerURL" andIndent:v5 options:options];
+
+  pirAuthenticationToken = [(NEURLFilterConfiguration *)self pirAuthenticationToken];
+  [v7 appendPrettyObject:pirAuthenticationToken withName:@"AuthenticationToken" andIndent:v5 options:options];
+
+  pirGroupName = [(NEURLFilterConfiguration *)self pirGroupName];
+  [v7 appendPrettyObject:pirGroupName withName:@"pirGroupName" andIndent:v5 options:options];
+
+  pirUseCase = [(NEURLFilterConfiguration *)self pirUseCase];
+  [v7 appendPrettyObject:pirUseCase withName:@"pirUseCaseName" andIndent:v5 options:options];
+
+  [v7 appendPrettyBOOL:-[NEURLFilterConfiguration pirPrivacyProxyFailOpen](self withName:"pirPrivacyProxyFailOpen") andIndent:@"pirPrivacyProxyFailOpen" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEURLFilterConfiguration pirSkipRegistration](self withName:"pirSkipRegistration") andIndent:@"pirSkipRegistration" options:{v5, options}];
+
+  return v7;
+}
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {
@@ -37,39 +76,17 @@
   }
 
   pirServerURL = [(NEURLFilterConfiguration *)self pirServerURL];
-  if (!pirServerURL)
+  if (!pirServerURL || (v12 = pirServerURL, -[NEURLFilterConfiguration pirServerURL](self, "pirServerURL"), v13 = objc_claimAutoreleasedReturnValue(), [v13 absoluteString], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "length"), v14, v13, v12, !v15))
   {
-    goto LABEL_9;
-  }
-
-  v12 = pirServerURL;
-  pirServerURL2 = [(NEURLFilterConfiguration *)self pirServerURL];
-  absoluteString = [pirServerURL2 absoluteString];
-  v15 = [absoluteString length];
-
-  if (!v15)
-  {
-LABEL_9:
     [NEConfiguration addError:errorsCopy toList:?];
     v7 = 0;
   }
 
   pirPrivacyPassIssuerURL = [(NEURLFilterConfiguration *)self pirPrivacyPassIssuerURL];
-  if (!pirPrivacyPassIssuerURL)
+  if (!pirPrivacyPassIssuerURL || (v17 = pirPrivacyPassIssuerURL, -[NEURLFilterConfiguration pirPrivacyPassIssuerURL](self, "pirPrivacyPassIssuerURL"), v18 = objc_claimAutoreleasedReturnValue(), [v18 absoluteString], v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "length"), v19, v18, v17, !v20))
   {
-    goto LABEL_12;
-  }
-
-  v17 = pirPrivacyPassIssuerURL;
-  pirPrivacyPassIssuerURL2 = [(NEURLFilterConfiguration *)self pirPrivacyPassIssuerURL];
-  absoluteString2 = [pirPrivacyPassIssuerURL2 absoluteString];
-  v20 = [absoluteString2 length];
-
-  if (!v20)
-  {
-LABEL_12:
-    pirServerURL3 = [(NEURLFilterConfiguration *)self pirServerURL];
-    [(NEURLFilterConfiguration *)self setPirPrivacyPassIssuerURL:pirServerURL3];
+    pirServerURL2 = [(NEURLFilterConfiguration *)self pirServerURL];
+    [(NEURLFilterConfiguration *)self setPirPrivacyPassIssuerURL:pirServerURL2];
   }
 
   pirAuthenticationToken = [(NEURLFilterConfiguration *)self pirAuthenticationToken];

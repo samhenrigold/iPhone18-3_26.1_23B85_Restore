@@ -33,10 +33,10 @@ uint64_t __32__FCRestrictions_sharedInstance__block_invoke()
 
 - (FCRestrictions)init
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = FCRestrictions;
-  v2 = [(FCRestrictions *)&v9 init];
+  v17 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = FCRestrictions;
+  v2 = [(FCRestrictions *)&v8 init];
   if (v2)
   {
     v2->_testing = NSClassFromString(&cfstr_Xctest.isa) != 0;
@@ -46,22 +46,21 @@ uint64_t __32__FCRestrictions_sharedInstance__block_invoke()
     v5 = [FCRestrictions integerRepresentationOfShortVersionString:v4];
     if (v5 <= 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Build version string is missing or not valid (current value: %@)", v4];
+      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Build version string is missing or not valid (current value: %@)", v4];
       *buf = 136315906;
-      v11 = "[FCRestrictions init]";
-      v12 = 2080;
-      v13 = "FCRestrictions.m";
-      v14 = 1024;
-      v15 = 49;
-      v16 = 2114;
-      v17 = v8;
+      v10 = "[FCRestrictions init]";
+      v11 = 2080;
+      v12 = "FCRestrictions.m";
+      v13 = 1024;
+      v14 = 49;
+      v15 = 2114;
+      v16 = v7;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
     v2->_buildVersionNumber = v5;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

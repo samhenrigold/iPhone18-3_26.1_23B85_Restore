@@ -97,15 +97,15 @@ LABEL_30:
     }
 
     v35 = v27->_modelEspresso;
-    if (v35 && ([(VCPCNNModelEspresso *)v35 inputBlob], (v36 = v27->_modelEspresso) != 0))
+    if (v35 && (objc_msgSend_inputBlob(v35), (v36 = v27->_modelEspresso) != 0))
     {
       v37 = v52;
-      [(VCPCNNModelEspresso *)v36 inputBlob];
+      objc_msgSend_inputBlob(v36);
       v38 = v27->_modelEspresso;
       v39 = v48 * v37;
       if (v38)
       {
-        [(VCPCNNModelEspresso *)v38 inputBlob];
+        objc_msgSend_inputBlob(v38);
         v40 = v47;
 LABEL_24:
         v41 = v39 * v40;
@@ -170,7 +170,7 @@ LABEL_31:
   modelEspresso = self->_modelEspresso;
   if (modelEspresso)
   {
-    [(VCPCNNModelEspresso *)modelEspresso inputBlob:*&buffer];
+    objc_msgSend_inputBlob(modelEspresso, a2, *&buffer, *&width);
     v12 = v18;
   }
 
@@ -183,7 +183,7 @@ LABEL_31:
   v13 = self->_modelEspresso;
   if (v13)
   {
-    [(VCPCNNModelEspresso *)v13 inputBlob];
+    objc_msgSend_inputBlob(v13);
     v14 = v17;
   }
 
@@ -205,158 +205,159 @@ LABEL_31:
 
 - (int)generateHandKeypoints:(CGPoint *)keypoints keypointConfidence:(float *)confidence offset:(float)offset handHoldsObjectConfidence:(float *)objectConfidence
 {
-  v40 = *MEMORY[0x1E69E9840];
-  v10 = VCPSignPostLog();
+  v42 = *MEMORY[0x1E69E9840];
+  v10 = VCPSignPostLog(self);
   v11 = os_signpost_id_generate(v10);
 
-  v12 = VCPSignPostLog();
-  v13 = v12;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v13 = VCPSignPostLog(v12);
+  v14 = v13;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     LOWORD(buf[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "inferenceHandKeypointCallFromSPI", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "inferenceHandKeypointCallFromSPI", "", buf, 2u);
   }
 
-  result = [(VCPCNNModelEspresso *)self->_modelEspresso espressoForward:self->_inputData];
-  if (result)
+  v15 = [(VCPCNNModelEspresso *)self->_modelEspresso espressoForward:self->_inputData];
+  if (v15)
   {
-    return result;
+    return v15;
   }
 
-  v15 = VCPSignPostLog();
-  v16 = v15;
-  if (v11 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v15))
+  v16 = VCPSignPostLog(v15);
+  v17 = v16;
+  if (v11 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v16))
   {
     LOWORD(buf[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_END, v11, "inferenceHandKeypointCallFromSPI", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_END, v11, "inferenceHandKeypointCallFromSPI", "", buf, 2u);
   }
 
   modelEspresso = self->_modelEspresso;
   if (modelEspresso)
   {
-    [(VCPCNNModelEspresso *)modelEspresso inputBlob];
-    v19 = self->_modelEspresso;
-    v20 = v38;
-    if (v19)
+    objc_msgSend_inputBlob(modelEspresso);
+    v20 = self->_modelEspresso;
+    v21 = v40;
+    if (v20)
     {
-      [(VCPCNNModelEspresso *)v19 inputBlob];
-      v21 = v37;
+      objc_msgSend_inputBlob(v20);
+      v22 = v39;
     }
 
     else
     {
-      v21 = 0;
+      v22 = 0;
     }
   }
 
   else
   {
+    v22 = 0;
     v21 = 0;
-    v20 = 0;
   }
 
   if (self->_enableHandObject)
   {
-    [(VCPCNNModelEspresso *)self->_modelEspresso outputBlobs];
-    v22 = *(*&buf[0] + 96);
+    objc_msgSend_outputBlobs(self->_modelEspresso);
+    v23 = *(*&buf[0] + 96);
     *(&buf[0] + 1) = *&buf[0];
     operator delete(*&buf[0]);
-    [(VCPCNNModelEspresso *)self->_modelEspresso outputBlobs];
-    v23 = *(*&buf[0] + 88);
+    objc_msgSend_outputBlobs(self->_modelEspresso);
+    v24 = *(*&buf[0] + 88);
     *(&buf[0] + 1) = *&buf[0];
     operator delete(*&buf[0]);
-    [(VCPCNNModelEspresso *)self->_modelEspresso outputBlobs];
-    v24 = *(*&buf[0] + 80);
+    objc_msgSend_outputBlobs(self->_modelEspresso);
+    v25 = *(*&buf[0] + 80);
     *(&buf[0] + 1) = *&buf[0];
     operator delete(*&buf[0]);
-    [(VCPCNNModelEspresso *)self->_modelEspresso outputBlobs];
+    objc_msgSend_outputBlobs(self->_modelEspresso);
     confidenceCopy6 = confidence;
     keypointsCopy5 = keypoints;
-    v27 = **&buf[0];
+    v28 = **&buf[0];
     *(&buf[0] + 1) = *&buf[0];
     operator delete(*&buf[0]);
     goto LABEL_24;
   }
 
-  v28 = self->_modelEspresso;
-  if (!v28)
+  v29 = self->_modelEspresso;
+  if (!v29)
   {
     confidenceCopy6 = confidence;
-    v22 = 0;
+    v23 = 0;
 LABEL_22:
     keypointsCopy5 = keypoints;
-    v23 = 0;
-LABEL_23:
-    v27 = 0;
     v24 = 0;
+LABEL_23:
+    v28 = 0;
+    v25 = 0;
     goto LABEL_24;
   }
 
-  [(VCPCNNModelEspresso *)v28 outputBlob];
-  v29 = self->_modelEspresso;
-  v22 = v39;
-  if (!v29)
+  objc_msgSend_outputBlob(v29);
+  v30 = self->_modelEspresso;
+  v23 = v41;
+  if (!v30)
   {
     confidenceCopy6 = confidence;
     goto LABEL_22;
   }
 
-  [(VCPCNNModelEspresso *)v29 outputBlob];
-  v23 = v38;
-  v30 = self->_modelEspresso;
-  if (!v30)
+  objc_msgSend_outputBlob(v30);
+  v24 = v40;
+  v31 = self->_modelEspresso;
+  if (!v31)
   {
     confidenceCopy6 = confidence;
     keypointsCopy5 = keypoints;
     goto LABEL_23;
   }
 
-  [(VCPCNNModelEspresso *)v30 outputBlob];
-  v31 = self->_modelEspresso;
-  v24 = v37;
-  if (v31)
+  objc_msgSend_outputBlob(v31);
+  v32 = self->_modelEspresso;
+  v25 = v39;
+  if (v32)
   {
-    [(VCPCNNModelEspresso *)v31 outputBlob];
+    objc_msgSend_outputBlob(v32);
     confidenceCopy6 = confidence;
     keypointsCopy5 = keypoints;
-    v27 = *&buf[0];
+    v28 = *&buf[0];
   }
 
   else
   {
     confidenceCopy6 = confidence;
     keypointsCopy5 = keypoints;
-    v27 = 0;
+    v28 = 0;
   }
 
 LABEL_24:
-  *&v17 = offset;
-  result = [(VCPCNNHandKeypointsDetector *)self cvtHeatmaps2Keypoints:v27 outHeight:v23 outWidth:v24 inHeight:v20 inWidth:v21 outChannel:v22 keypoints:v17 keypointConfidence:keypointsCopy5 offset:confidenceCopy6];
-  if (!result && objectConfidence && self->_enableHandObject)
+  *&v18 = offset;
+  LODWORD(v15) = [(VCPCNNHandKeypointsDetector *)self cvtHeatmaps2Keypoints:v28 outHeight:v24 outWidth:v25 inHeight:v21 inWidth:v22 outChannel:v23 keypoints:v18 keypointConfidence:keypointsCopy5 offset:confidenceCopy6];
+  if (!v15 && objectConfidence && self->_enableHandObject)
   {
-    [(VCPCNNModelEspresso *)self->_modelEspresso outputBlobs];
-    v32 = **(*&buf[0] + 168);
+    objc_msgSend_outputBlobs(self->_modelEspresso);
+    v33 = **(*&buf[0] + 168);
     *(&buf[0] + 1) = *&buf[0];
     operator delete(*&buf[0]);
-    v33 = expf(v32);
-    *objectConfidence = v33 / (v33 + 1.0);
-    if (MediaAnalysisLogLevel() < 7)
+    v34 = expf(v33);
+    *objectConfidence = v34 / (v34 + 1.0);
+    if (MediaAnalysisLogLevel() >= 7)
     {
-      return 0;
+      LODWORD(v15) = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG);
+      if (!v15)
+      {
+        return v15;
+      }
+
+      v35 = *objectConfidence;
+      LODWORD(buf[0]) = 134217984;
+      *(buf + 4) = v35;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "VCPCNNHandKeypointsDetectorEspresso - handHoldsObjectConfidence = %f", buf, 0xCu);
     }
 
-    result = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG);
-    if (result)
-    {
-      v34 = *objectConfidence;
-      LODWORD(buf[0]) = 134217984;
-      *(buf + 4) = v34;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "VCPCNNHandKeypointsDetectorEspresso - handHoldsObjectConfidence = %f", buf, 0xCu);
-      return 0;
-    }
+    LODWORD(v15) = 0;
   }
 
-  return result;
+  return v15;
 }
 
 @end

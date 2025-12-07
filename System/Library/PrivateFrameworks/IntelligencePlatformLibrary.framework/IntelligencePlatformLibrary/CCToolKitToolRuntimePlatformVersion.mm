@@ -386,7 +386,6 @@ LABEL_76:
         NSStringFromClass(v56);
         errorCopy = error;
         v59 = v58 = dataCopy;
-        v60 = *&v7[*v10];
         v11 = CCSkipFieldErrorForMessage();
 
         dataCopy = v58;
@@ -413,22 +412,21 @@ LABEL_77:
 LABEL_82:
   if (!*&v7[*v10])
   {
-    v64 = 1;
+    v62 = 1;
     goto LABEL_86;
   }
 
 LABEL_83:
-  v61 = objc_opt_class();
-  v11 = NSStringFromClass(v61);
-  v62 = *&v7[*v10];
-  v63 = CCInvalidBufferErrorForMessage();
+  v60 = objc_opt_class();
+  v11 = NSStringFromClass(v60);
+  v61 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_84:
-  v64 = 0;
+  v62 = 0;
 LABEL_86:
 
-  return v64;
+  return v62;
 }
 
 - (CCToolKitToolRuntimePlatformVersion)initWithMajor:(id)major minor:(id)minor patch:(id)patch isWildcard:(id)wildcard error:(id *)error
@@ -438,12 +436,11 @@ LABEL_86:
   patchCopy = patch;
   wildcardCopy = wildcard;
   v16 = objc_opt_new();
-  v17 = 0x1E696A000uLL;
   if (majorCopy)
   {
     objc_opt_class();
     IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
-    v19 = 0;
+    v18 = 0;
     if (!IsInstanceOfExpectedClass)
     {
       goto LABEL_8;
@@ -454,14 +451,14 @@ LABEL_86:
     if (!minorCopy)
     {
 LABEL_4:
-      v20 = v19;
+      v19 = v18;
       if (patchCopy)
       {
         goto LABEL_5;
       }
 
 LABEL_12:
-      v19 = v20;
+      v18 = v19;
       if (!wildcardCopy)
       {
 LABEL_15:
@@ -478,7 +475,7 @@ LABEL_15:
 
   else
   {
-    v19 = 0;
+    v18 = 0;
     if (!minorCopy)
     {
       goto LABEL_4;
@@ -486,17 +483,16 @@ LABEL_15:
   }
 
   objc_opt_class();
-  v23 = CCValidateIsInstanceOfExpectedClass();
-  v20 = v19;
+  v22 = CCValidateIsInstanceOfExpectedClass();
+  v19 = v18;
 
-  if (!v23)
+  if (!v22)
   {
     goto LABEL_16;
   }
 
   [minorCopy intValue];
   CCPBDataWriterWriteInt32Field();
-  v17 = 0x1E696A000uLL;
   if (!patchCopy)
   {
     goto LABEL_12;
@@ -504,38 +500,36 @@ LABEL_15:
 
 LABEL_5:
   objc_opt_class();
-  v21 = CCValidateIsInstanceOfExpectedClass();
-  v19 = v20;
+  v20 = CCValidateIsInstanceOfExpectedClass();
+  v18 = v19;
 
-  if (v21)
+  if (v20)
   {
     [patchCopy intValue];
     CCPBDataWriterWriteInt32Field();
-    v17 = 0x1E696A000;
     if (!wildcardCopy)
     {
       goto LABEL_15;
     }
 
 LABEL_13:
-    v24 = *(v17 + 3480);
     objc_opt_class();
-    v28 = v19;
-    v25 = CCValidateIsInstanceOfExpectedClass();
-    v20 = v19;
+    v26 = v18;
+    v23 = CCValidateIsInstanceOfExpectedClass();
+    v19 = v18;
 
-    if (v25)
+    if (v23)
     {
       [wildcardCopy BOOLValue];
       CCPBDataWriterWriteBOOLField();
-      v19 = v20;
+      v18 = v19;
       goto LABEL_15;
     }
 
 LABEL_16:
     CCSetError();
     selfCopy = 0;
-    v19 = v20;
+    v18 = v19;
     goto LABEL_17;
   }
 

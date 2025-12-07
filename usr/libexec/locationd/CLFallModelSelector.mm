@@ -214,10 +214,10 @@
   v68 = [(NSMutableDictionary *)self->fSelectionFeatures objectForKey:@"Pal"];
   v69 = [(NSMutableDictionary *)self->fSelectionFeatures objectForKey:@"Vo2max"];
   v70 = [(NSMutableDictionary *)self->fSelectionFeatures objectForKey:@"MetMinPercentile"];
-  v180 = [(NSMutableDictionary *)self->fSelectionFeatures objectForKey:@"MetMinCount"];
+  v186 = [(NSMutableDictionary *)self->fSelectionFeatures objectForKey:@"MetMinCount"];
   v71 = [(NSMutableDictionary *)self->fSelectionFeatures objectForKey:@"Workout"];
   v72 = [(NSMutableDictionary *)self->fSelectionFeatures objectForKey:@"HKWorkout"];
-  v181 = [(NSMutableDictionary *)self->fSelectionFeatures objectForKey:@"BackgroundAWDLoggingEnabled"];
+  v187 = [(NSMutableDictionary *)self->fSelectionFeatures objectForKey:@"BackgroundAWDLoggingEnabled"];
   if (v64)
   {
     [v64 floatValue];
@@ -228,7 +228,7 @@
     *&v73 = NAN;
   }
 
-  v193 = *&v73;
+  v199 = *&v73;
   intValue = [v65 intValue];
   if (v66)
   {
@@ -240,7 +240,7 @@
     *&v74 = NAN;
   }
 
-  v191 = *&v74;
+  v197 = *&v74;
   if (v67)
   {
     [v67 floatValue];
@@ -251,7 +251,7 @@
     *&v75 = NAN;
   }
 
-  v190 = *&v75;
+  v196 = *&v75;
   if (v68)
   {
     [v68 floatValue];
@@ -262,7 +262,7 @@
     *&v76 = NAN;
   }
 
-  v189 = *&v76;
+  v195 = *&v76;
   if (v69)
   {
     [v69 floatValue];
@@ -273,7 +273,7 @@
     *&v77 = NAN;
   }
 
-  v188 = *&v77;
+  v194 = *&v77;
   if (v70)
   {
     [v70 doubleValue];
@@ -284,8 +284,8 @@
     *&v78 = NAN;
   }
 
-  v187 = *&v78;
-  if (v180)
+  v193 = *&v78;
+  if (v186)
   {
     integerValue = [v70 integerValue];
   }
@@ -295,7 +295,7 @@
     integerValue = 0;
   }
 
-  v186 = integerValue;
+  v192 = integerValue;
   if (v71)
   {
     integerValue2 = [v71 integerValue];
@@ -306,7 +306,7 @@
     integerValue2 = 0;
   }
 
-  v185 = integerValue2;
+  v191 = integerValue2;
   if (v72)
   {
     integerValue3 = [v72 integerValue];
@@ -317,10 +317,10 @@
     integerValue3 = 0;
   }
 
-  v184 = integerValue3;
-  if (v181)
+  v190 = integerValue3;
+  if (v187)
   {
-    bOOLValue = [v181 BOOLValue];
+    bOOLValue = [v187 BOOLValue];
   }
 
   else
@@ -328,17 +328,17 @@
     bOOLValue = 0;
   }
 
-  sub_10051515C("BehaviorOverrideAge", &v193);
+  sub_10051515C("BehaviorOverrideAge", &v199);
   sub_1005152A0("BehaviorOverrideGender", &intValue);
-  sub_10051515C("BehaviorOverrideHeight", &v191);
-  sub_10051515C("BehaviorOverrideWeight", &v190);
-  sub_10051515C("BehaviorOverridePal", &v189);
-  sub_10051515C("BehaviorOverrideVO2Max", &v188);
+  sub_10051515C("BehaviorOverrideHeight", &v197);
+  sub_10051515C("BehaviorOverrideWeight", &v196);
+  sub_10051515C("BehaviorOverridePal", &v195);
+  sub_10051515C("BehaviorOverrideVO2Max", &v194);
   sub_10001CAF4(buf);
-  v83 = sub_1000B9370(*buf, "BehaviorOverrideMetMinPercentile", &v187);
-  if (*v195)
+  v83 = sub_1000B9370(*buf, "BehaviorOverrideMetMinPercentile", &v193);
+  if (*v201)
   {
-    sub_100008080(*v195);
+    sub_100008080(*v201);
   }
 
   if (v83)
@@ -353,19 +353,19 @@
     {
       *buf = 68289538;
       *&buf[4] = 0;
-      *v195 = 2082;
-      *&v195[2] = "";
-      v196 = 2082;
-      v197 = COERCE_DOUBLE("BehaviorOverrideMetMinPercentile");
-      v198 = 1026;
-      *v199 = v187;
+      *v201 = 2082;
+      *&v201[2] = "";
+      v202 = 2082;
+      v203 = COERCE_DOUBLE("BehaviorOverrideMetMinPercentile");
+      v204 = 1026;
+      *v205 = v193;
       _os_log_impl(dword_100000000, v84, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Overriding behavior feature, key:%{public, location:escape_only}s, value:%{public}d}", buf, 0x22u);
     }
   }
 
-  sub_1005153E0("BehaviorOverrideMetMinCount", &v186);
-  sub_1005153E0("BehaviorOverrideWorkout", &v185);
-  sub_1005153E0("BehaviorOverrideHKWorkout", &v184);
+  sub_1005153E0("BehaviorOverrideMetMinCount", &v192);
+  sub_1005153E0("BehaviorOverrideWorkout", &v191);
+  sub_1005153E0("BehaviorOverrideHKWorkout", &v190);
   if (qword_1025D4330 != -1)
   {
     sub_1018B1424();
@@ -376,36 +376,36 @@
   {
     *buf = 68291587;
     *&buf[4] = 0;
-    *v195 = 2082;
-    *&v195[2] = "";
-    v196 = 2049;
-    v197 = v193;
-    v198 = 1025;
-    *v199 = intValue;
-    *&v199[4] = 2049;
-    *&v199[6] = v191;
-    *&v199[14] = 2049;
-    *&v199[16] = v190;
-    *&v199[24] = 2049;
-    *&v199[26] = v189;
-    *&v199[34] = 2049;
-    *&v199[36] = v188;
-    *&v199[44] = 2049;
-    *&v199[46] = v187;
-    *&v199[54] = 2049;
-    *&v199[56] = v186;
-    *v200 = 2049;
-    *&v200[2] = v185;
-    *v201 = 2049;
-    *&v201[2] = v184;
+    *v201 = 2082;
+    *&v201[2] = "";
+    v202 = 2049;
+    v203 = v199;
+    v204 = 1025;
+    *v205 = intValue;
+    *&v205[4] = 2049;
+    *&v205[6] = v197;
+    *&v205[14] = 2049;
+    *&v205[16] = v196;
+    *&v205[24] = 2049;
+    *&v205[26] = v195;
+    *&v205[34] = 2049;
+    *&v205[36] = v194;
+    *&v205[44] = 2049;
+    *&v205[46] = v193;
+    *&v205[54] = 2049;
+    *&v205[56] = v192;
+    *v206 = 2049;
+    *&v206[2] = v191;
+    *v207 = 2049;
+    *&v207[2] = v190;
     _os_log_impl(dword_100000000, v85, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Selecting models, age:%{private}f, gender:%{private}d, height:%{private}f, weight:%{private}f, pal:%{private}f, vo2max:%{private}f, metminpercentile:%{private}f, metminCount:%{private}ld, workout:%{private}ld, hkWorkout:%{private}ld}", buf, 0x72u);
   }
 
   v86 = &self->fOtherFallModel.fLikelihoodRatioInfo[2];
   *&self->fOtherFallModel.fLikelihoodRatioInfo[4].binSize = 0x41A0000041033333;
   self->fOtherFallModel.fLikelihoodRatioInfo[5].firstBinEdge = 8.0;
-  v87 = v193;
-  if ((LODWORD(v193) & 0x7FFFFFFFu) > 0x7F7FFFFF || v193 < 65.0)
+  v87 = v199;
+  if ((LODWORD(v199) & 0x7FFFFFFFu) > 0x7F7FFFFF || v199 < 65.0)
   {
     *&v86->firstBinEdge = xmmword_101C7CFD0;
     self->fOtherFallModel.fLikelihoodRatioInfo[3].binSize = 4.5;
@@ -423,89 +423,91 @@
     }
 
     v90 = qword_1025D4338;
-    if (os_log_type_enabled(qword_1025D4338, OS_LOG_TYPE_DEBUG))
+    v91 = os_log_type_enabled(qword_1025D4338, OS_LOG_TYPE_DEBUG);
+    if (v91)
     {
       firstBinEdge = self->fOtherFallModel.fLikelihoodRatioInfo[2].firstBinEdge;
       binSize = self->fOtherFallModel.fLikelihoodRatioInfo[5].binSize;
-      v93 = *&self->fOtherFallModel.fLikelihoodRatioInfo[5].binNum;
-      v94 = self->fOtherFallModel.fLikelihoodRatioInfo[6].firstBinEdge;
-      v95 = self->fOtherFallModel.fLikelihoodRatioInfo[7].firstBinEdge;
+      v95 = *&self->fOtherFallModel.fLikelihoodRatioInfo[5].binNum;
+      v96 = self->fOtherFallModel.fLikelihoodRatioInfo[6].firstBinEdge;
+      v97 = self->fOtherFallModel.fLikelihoodRatioInfo[7].firstBinEdge;
       fImpactMaxAccelNormAlertThreshold = self->fThresholds.fImpactMaxAccelNormAlertThreshold;
       fImpactMaxAccelNormLoggingStatsThreshold = self->fThresholds.fImpactMaxAccelNormLoggingStatsThreshold;
       fImpactMaxAccelNormLoggingHeartRateThreshold = self->fThresholds.fImpactMaxAccelNormLoggingHeartRateThreshold;
       fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold_low = LOBYTE(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
-      v100 = BYTE1(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
-      v101 = BYTE2(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
+      v102 = BYTE1(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
+      v103 = BYTE2(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
       *buf = 68292355;
       *&buf[4] = 0;
-      *v195 = 2082;
-      *&v195[2] = "";
-      v196 = 2050;
-      v197 = firstBinEdge;
-      v198 = 2049;
-      *v199 = v193;
-      *&v199[8] = 1025;
-      *&v199[10] = binSize;
-      *&v199[14] = 1025;
-      *&v199[16] = v93;
-      *&v199[20] = 2049;
-      *&v199[22] = v187;
-      *&v199[30] = 2049;
-      *&v199[32] = v94;
-      *&v199[40] = 2049;
-      *&v199[42] = v95;
-      *&v199[50] = 1025;
-      *&v199[52] = fImpactMaxAccelNormAlertThreshold;
-      *&v199[56] = 1025;
-      *&v199[58] = fImpactMaxAccelNormLoggingStatsThreshold;
-      *&v199[62] = 1025;
-      *v200 = fImpactMaxAccelNormLoggingHeartRateThreshold;
-      *&v200[4] = 1025;
-      *&v200[6] = fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold_low;
-      *v201 = 1025;
-      *&v201[2] = v100;
-      *&v201[6] = 1025;
-      *&v201[8] = v101;
+      *v201 = 2082;
+      *&v201[2] = "";
+      v202 = 2050;
+      v203 = firstBinEdge;
+      v204 = 2049;
+      *v205 = v199;
+      *&v205[8] = 1025;
+      *&v205[10] = binSize;
+      *&v205[14] = 1025;
+      *&v205[16] = v95;
+      *&v205[20] = 2049;
+      *&v205[22] = v193;
+      *&v205[30] = 2049;
+      *&v205[32] = v96;
+      *&v205[40] = 2049;
+      *&v205[42] = v97;
+      *&v205[50] = 1025;
+      *&v205[52] = fImpactMaxAccelNormAlertThreshold;
+      *&v205[56] = 1025;
+      *&v205[58] = fImpactMaxAccelNormLoggingStatsThreshold;
+      *&v205[62] = 1025;
+      *v206 = fImpactMaxAccelNormLoggingHeartRateThreshold;
+      *&v206[4] = 1025;
+      *&v206[6] = fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold_low;
+      *v207 = 1025;
+      *&v207[2] = v102;
+      *&v207[6] = 1025;
+      *&v207[8] = v103;
       _os_log_impl(dword_100000000, v90, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Model Selector - Picked thresholds based on features, impactMaxAccelNormAlertThreshold:%{public}f, age:%{private}f, totalLongLieThreshold:%{private}d, consecutiveLongLieThreshold:%{private}d, metminpercentile:%{private}f, alertGatingMotionThreshold:%{private}f, cyclingImpactMaxAbsYThreshold:%{private}f, otherWorkoutQuiescenceThresholdLow:%{private}d, otherWorkoutQuiescenceThresholdHigh:%{private}d, otherWorkoutConsecutiveLongLieThreshold:%{private}d, otherWorkoutShouldCancelAlertOnStepsThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnStandThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnActiveThreshold:%{private}hhd}", buf, 0x74u);
     }
 
     if (bOOLValue)
     {
       *buf = -1;
-      v102 = sub_1000206B4();
-      sub_1000052CC(v102, @"FallRandomBucket", buf);
-      v103 = *buf;
+      v104 = sub_1000206B4(v91, v92);
+      sub_1000052CC(v104, @"FallRandomBucket", buf);
+      v105 = *buf;
       if (*buf >= 6u)
       {
-        v103 = arc4random_uniform(6u);
-        *buf = v103;
-        v104 = sub_1000206B4();
-        sub_1000F2D48(v104, @"FallRandomBucket", buf);
-        v105 = sub_1000206B4();
-        (*(*v105 + 944))(v105);
+        v106 = arc4random_uniform(6u);
+        v105 = v106;
+        *buf = v106;
+        v108 = sub_1000206B4(v106, v107);
+        v109 = sub_1000F2D48(v108, @"FallRandomBucket", buf);
+        v111 = sub_1000206B4(v109, v110);
+        (*(*v111 + 944))(v111);
       }
 
-      LODWORD(v86->firstBinEdge) = dword_101D06E4C[v103];
+      LODWORD(v86->firstBinEdge) = dword_101D06E4C[v105];
       if (qword_1025D4330 != -1)
       {
         sub_1018B1424();
       }
 
-      v106 = qword_1025D4338;
+      v112 = qword_1025D4338;
       if (os_log_type_enabled(qword_1025D4338, OS_LOG_TYPE_DEBUG))
       {
-        v107 = v86->firstBinEdge;
+        v113 = v86->firstBinEdge;
         *buf = 68289795;
         *&buf[4] = 0;
-        *v195 = 2082;
-        *&v195[2] = "";
-        v196 = 2050;
-        v197 = v107;
-        v198 = 2049;
-        *v199 = v193;
-        *&v199[8] = 2049;
-        *&v199[10] = v187;
-        _os_log_impl(dword_100000000, v106, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Model Selector - Revised thresholds based on background analytics requirements, impactMaxAccelNormAlertThreshold:%{public}f, age:%{private}f, metminpercentile:%{private}f}", buf, 0x30u);
+        *v201 = 2082;
+        *&v201[2] = "";
+        v202 = 2050;
+        v203 = v113;
+        v204 = 2049;
+        *v205 = v199;
+        *&v205[8] = 2049;
+        *&v205[10] = v193;
+        _os_log_impl(dword_100000000, v112, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Model Selector - Revised thresholds based on background analytics requirements, impactMaxAccelNormAlertThreshold:%{public}f, age:%{private}f, metminpercentile:%{private}f}", buf, 0x30u);
       }
     }
   }
@@ -519,7 +521,7 @@
     self->fOtherFallModel.fLikelihoodRatioInfo[6].firstBinEdge = 0.05;
     self->fOtherFallModel.fLikelihoodRatioInfo[7].firstBinEdge = 10.0;
     v88 = 0x600000006;
-    if (((v184 - 3) > 0x3E || ((1 << (v184 - 3)) & 0x402931C2835080BFLL) == 0) && v184 != 1)
+    if (((v190 - 3) > 0x3E || ((1 << (v190 - 3)) & 0x402931C2835080BFLL) == 0) && v190 != 1)
     {
       v88 = 0x300000002;
     }
@@ -528,29 +530,29 @@
     LODWORD(self->fThresholds.fImpactMaxAccelNormLoggingHeartRateThreshold) = 10;
     LOWORD(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold) = 0;
     BYTE2(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold) = 0;
-    if ((*&v187 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+    if ((*&v193 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
     {
-      v108 = v187;
-      if (v108 >= 2.4)
+      v114 = v193;
+      if (v114 >= 2.4)
       {
-        if (v108 <= 5.1)
+        if (v114 <= 5.1)
         {
-          v109 = 0;
+          v115 = 0;
           v89 = -1;
-          v110 = NAN;
+          v116 = NAN;
           do
           {
-            v111 = vabds_f32(v108, dword_101D0658C[v109]);
-            if (v111 < v110 || (LODWORD(v110) & 0x7FFFFFFFu) > 0x7F7FFFFF)
+            v117 = vabds_f32(v114, dword_101D0658C[v115]);
+            if (v117 < v116 || (LODWORD(v116) & 0x7FFFFFFFu) > 0x7F7FFFFF)
             {
-              v89 = v109;
-              v110 = v111;
+              v89 = v115;
+              v116 = v117;
             }
 
-            ++v109;
+            ++v115;
           }
 
-          while (v109 != 28);
+          while (v115 != 28);
         }
 
         else
@@ -572,125 +574,125 @@
 
     if (v87 < 68.0)
     {
-      v114 = 0;
+      v120 = 0;
       goto LABEL_88;
     }
 
     if (v87 > 86.0)
     {
-      v114 = 18;
+      v120 = 18;
       goto LABEL_88;
     }
 
-    v115 = 0;
-    v114 = -1;
-    v116 = NAN;
+    v121 = 0;
+    v120 = -1;
+    v122 = NAN;
     do
     {
-      v117 = vabds_f32(v87, dword_101D06540[v115]);
-      if (v117 < v116 || (LODWORD(v116) & 0x7FFFFFFFu) > 0x7F7FFFFF)
+      v123 = vabds_f32(v87, dword_101D06540[v121]);
+      if (v123 < v122 || (LODWORD(v122) & 0x7FFFFFFFu) > 0x7F7FFFFF)
       {
-        v114 = v115;
-        v116 = v117;
+        v120 = v121;
+        v122 = v123;
       }
 
-      ++v115;
+      ++v121;
     }
 
-    while (v115 != 19);
-    if ((v114 & 0x80000000) == 0)
+    while (v121 != 19);
+    if ((v120 & 0x80000000) == 0)
     {
 LABEL_88:
-      v120 = *(&unk_101D065FC + v114 + 266);
+      v126 = *(&unk_101D065FC + v120 + 266);
       if (v89 < 0)
       {
-        v86->firstBinEdge = v120;
+        v86->firstBinEdge = v126;
         if (qword_1025D4330 != -1)
         {
           sub_1018B1424();
         }
 
-        v125 = qword_1025D4338;
+        v131 = qword_1025D4338;
         if (!os_log_type_enabled(qword_1025D4338, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_103;
         }
 
-        v127 = self->fOtherFallModel.fLikelihoodRatioInfo[2].firstBinEdge;
-        v128 = self->fOtherFallModel.fLikelihoodRatioInfo[5].binSize;
-        v129 = *&self->fOtherFallModel.fLikelihoodRatioInfo[5].binNum;
-        v130 = self->fOtherFallModel.fLikelihoodRatioInfo[6].firstBinEdge;
-        v131 = self->fOtherFallModel.fLikelihoodRatioInfo[7].firstBinEdge;
-        v132 = self->fThresholds.fImpactMaxAccelNormAlertThreshold;
-        v133 = self->fThresholds.fImpactMaxAccelNormLoggingStatsThreshold;
-        v134 = self->fThresholds.fImpactMaxAccelNormLoggingHeartRateThreshold;
-        v135 = LOBYTE(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
-        v136 = BYTE1(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
-        v137 = BYTE2(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
+        v133 = self->fOtherFallModel.fLikelihoodRatioInfo[2].firstBinEdge;
+        v134 = self->fOtherFallModel.fLikelihoodRatioInfo[5].binSize;
+        v135 = *&self->fOtherFallModel.fLikelihoodRatioInfo[5].binNum;
+        v136 = self->fOtherFallModel.fLikelihoodRatioInfo[6].firstBinEdge;
+        v137 = self->fOtherFallModel.fLikelihoodRatioInfo[7].firstBinEdge;
+        v138 = self->fThresholds.fImpactMaxAccelNormAlertThreshold;
+        v139 = self->fThresholds.fImpactMaxAccelNormLoggingStatsThreshold;
+        v140 = self->fThresholds.fImpactMaxAccelNormLoggingHeartRateThreshold;
+        v141 = LOBYTE(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
+        v142 = BYTE1(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
+        v143 = BYTE2(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
         *buf = 68292355;
         *&buf[4] = 0;
-        *v195 = 2082;
-        *&v195[2] = "";
-        v196 = 2050;
-        v197 = v127;
-        v198 = 1025;
-        *v199 = v128;
-        *&v199[4] = 1025;
-        *&v199[6] = v129;
-        *&v199[10] = 2049;
-        *&v199[12] = v193;
-        *&v199[20] = 2049;
-        *&v199[22] = v187;
-        *&v199[30] = 2049;
-        *&v199[32] = v130;
-        *&v199[40] = 2049;
-        *&v199[42] = v131;
-        *&v199[50] = 1025;
-        *&v199[52] = v132;
-        *&v199[56] = 1025;
-        *&v199[58] = v133;
-        *&v199[62] = 1025;
-        *v200 = v134;
-        *&v200[4] = 1025;
-        *&v200[6] = v135;
-        *v201 = 1025;
-        *&v201[2] = v136;
-        *&v201[6] = 1025;
-        *&v201[8] = v137;
-        v138 = "{msg%{public}.0s:Model Selector - Picked thresholds based on age only, impactMaxAccelNormAlertThreshold:%{public}f, totalLongLieThreshold:%{private}d, consecutiveLongLieThreshold:%{private}d, age:%{private}f, metminpercentile:%{private}f, alertGatingMotionThreshold:%{private}f, cyclingImpactMaxAbsYThreshold:%{private}f, otherWorkoutQuiescenceThresholdLow:%{private}d, otherWorkoutQuiescenceThresholdHigh:%{private}d, otherWorkoutConsecutiveLongLieThreshold:%{private}d, otherWorkoutShouldCancelAlertOnStepsThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnStandThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnActiveThreshold:%{private}hhd}";
-        v139 = v125;
-        v140 = 116;
+        *v201 = 2082;
+        *&v201[2] = "";
+        v202 = 2050;
+        v203 = v133;
+        v204 = 1025;
+        *v205 = v134;
+        *&v205[4] = 1025;
+        *&v205[6] = v135;
+        *&v205[10] = 2049;
+        *&v205[12] = v199;
+        *&v205[20] = 2049;
+        *&v205[22] = v193;
+        *&v205[30] = 2049;
+        *&v205[32] = v136;
+        *&v205[40] = 2049;
+        *&v205[42] = v137;
+        *&v205[50] = 1025;
+        *&v205[52] = v138;
+        *&v205[56] = 1025;
+        *&v205[58] = v139;
+        *&v205[62] = 1025;
+        *v206 = v140;
+        *&v206[4] = 1025;
+        *&v206[6] = v141;
+        *v207 = 1025;
+        *&v207[2] = v142;
+        *&v207[6] = 1025;
+        *&v207[8] = v143;
+        v144 = "{msg%{public}.0s:Model Selector - Picked thresholds based on age only, impactMaxAccelNormAlertThreshold:%{public}f, totalLongLieThreshold:%{private}d, consecutiveLongLieThreshold:%{private}d, age:%{private}f, metminpercentile:%{private}f, alertGatingMotionThreshold:%{private}f, cyclingImpactMaxAbsYThreshold:%{private}f, otherWorkoutQuiescenceThresholdLow:%{private}d, otherWorkoutQuiescenceThresholdHigh:%{private}d, otherWorkoutConsecutiveLongLieThreshold:%{private}d, otherWorkoutShouldCancelAlertOnStepsThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnStandThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnActiveThreshold:%{private}hhd}";
+        v145 = v131;
+        v146 = 116;
       }
 
       else
       {
-        v182 = 14;
-        v183 = 7;
-        sub_1005152A0("BehaviorOverrideThresholdConvergenceMinimumDayCount", &v183);
-        sub_1005152A0("BehaviorOverrideThresholdConvergenceMaximumDayCount", &v182);
-        v121 = 48 * v183;
-        v122 = 48 * v182;
-        v123 = (v186 - 48 * v183) / (48 * v182 - 48 * v183);
-        if (v123 >= 0.0)
+        v188 = 14;
+        v189 = 7;
+        sub_1005152A0("BehaviorOverrideThresholdConvergenceMinimumDayCount", &v189);
+        sub_1005152A0("BehaviorOverrideThresholdConvergenceMaximumDayCount", &v188);
+        v127 = 48 * v189;
+        v128 = 48 * v188;
+        v129 = (v192 - 48 * v189) / (48 * v188 - 48 * v189);
+        if (v129 >= 0.0)
         {
-          v141 = *(&unk_101D065FC + 19 * v89 + v114);
-          if (v123 >= 1.0)
+          v147 = *(&unk_101D065FC + 19 * v89 + v120);
+          if (v129 >= 1.0)
           {
-            v86->firstBinEdge = v141;
-            v124 = 1.0;
+            v86->firstBinEdge = v147;
+            v130 = 1.0;
           }
 
           else
           {
-            v86->firstBinEdge = (v120 * (1.0 - v123)) + (v123 * v141);
-            v124 = v123;
+            v86->firstBinEdge = (v126 * (1.0 - v129)) + (v129 * v147);
+            v130 = v129;
           }
         }
 
         else
         {
-          v86->firstBinEdge = v120;
-          v124 = 0.0;
+          v86->firstBinEdge = v126;
+          v130 = 0.0;
         }
 
         if (qword_1025D4330 != -1)
@@ -698,77 +700,77 @@ LABEL_88:
           sub_1018B1424();
         }
 
-        v142 = qword_1025D4338;
+        v148 = qword_1025D4338;
         if (!os_log_type_enabled(qword_1025D4338, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_103;
         }
 
-        v143 = self->fOtherFallModel.fLikelihoodRatioInfo[2].firstBinEdge;
-        v144 = self->fOtherFallModel.fLikelihoodRatioInfo[5].binSize;
-        v145 = *&self->fOtherFallModel.fLikelihoodRatioInfo[5].binNum;
-        v146 = self->fOtherFallModel.fLikelihoodRatioInfo[6].firstBinEdge;
-        v147 = self->fOtherFallModel.fLikelihoodRatioInfo[7].firstBinEdge;
-        v148 = self->fThresholds.fImpactMaxAccelNormAlertThreshold;
-        v149 = self->fThresholds.fImpactMaxAccelNormLoggingStatsThreshold;
-        v150 = self->fThresholds.fImpactMaxAccelNormLoggingHeartRateThreshold;
-        v151 = LOBYTE(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
-        v152 = BYTE1(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
-        v153 = BYTE2(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
+        v149 = self->fOtherFallModel.fLikelihoodRatioInfo[2].firstBinEdge;
+        v150 = self->fOtherFallModel.fLikelihoodRatioInfo[5].binSize;
+        v151 = *&self->fOtherFallModel.fLikelihoodRatioInfo[5].binNum;
+        v152 = self->fOtherFallModel.fLikelihoodRatioInfo[6].firstBinEdge;
+        v153 = self->fOtherFallModel.fLikelihoodRatioInfo[7].firstBinEdge;
+        v154 = self->fThresholds.fImpactMaxAccelNormAlertThreshold;
+        v155 = self->fThresholds.fImpactMaxAccelNormLoggingStatsThreshold;
+        v156 = self->fThresholds.fImpactMaxAccelNormLoggingHeartRateThreshold;
+        v157 = LOBYTE(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
+        v158 = BYTE1(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
+        v159 = BYTE2(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
         *buf = 68293379;
         *&buf[4] = 0;
-        *v195 = 2082;
-        *&v195[2] = "";
-        v196 = 2050;
-        v197 = v143;
-        v198 = 1025;
-        *v199 = v144;
-        *&v199[4] = 1025;
-        *&v199[6] = v145;
-        *&v199[10] = 1026;
-        *&v199[12] = v121;
-        *&v199[16] = 1026;
-        *&v199[18] = v122;
-        *&v199[22] = 2050;
-        *&v199[24] = v186;
-        *&v199[32] = 2050;
-        *&v199[34] = v124;
-        *&v199[42] = 2049;
-        *&v199[44] = v193;
-        *&v199[52] = 2049;
-        *&v199[54] = v187;
-        *&v199[62] = 2049;
-        *v200 = v146;
-        *&v200[8] = 2049;
-        *v201 = v147;
-        *&v201[8] = 1025;
-        *&v201[10] = v148;
-        v202 = 1025;
+        *v201 = 2082;
+        *&v201[2] = "";
+        v202 = 2050;
         v203 = v149;
         v204 = 1025;
-        v205 = v150;
-        v206 = 1025;
-        v207 = v151;
+        *v205 = v150;
+        *&v205[4] = 1025;
+        *&v205[6] = v151;
+        *&v205[10] = 1026;
+        *&v205[12] = v127;
+        *&v205[16] = 1026;
+        *&v205[18] = v128;
+        *&v205[22] = 2050;
+        *&v205[24] = v192;
+        *&v205[32] = 2050;
+        *&v205[34] = v130;
+        *&v205[42] = 2049;
+        *&v205[44] = v199;
+        *&v205[52] = 2049;
+        *&v205[54] = v193;
+        *&v205[62] = 2049;
+        *v206 = v152;
+        *&v206[8] = 2049;
+        *v207 = v153;
+        *&v207[8] = 1025;
+        *&v207[10] = v154;
         v208 = 1025;
-        v209 = v152;
+        v209 = v155;
         v210 = 1025;
-        v211 = v153;
-        v138 = "{msg%{public}.0s:Model Selector - Picked thresholds based on features, impactMaxAccelNormAlertThreshold:%{public}f, totalLongLieThreshold:%{private}d, consecutiveLongLieThreshold:%{private}d, minMetminCount:%{public}d, maxMetminCount:%{public}d, metminCount:%{public}ld, alpha:%{public}f, age:%{private}f, metminpercentile:%{private}f, alertGatingMotionThreshold:%{private}f, cyclingImpactMaxAbsYThreshold:%{private}f, otherWorkoutQuiescenceThresholdLow:%{private}d, otherWorkoutQuiescenceThresholdHigh:%{private}d, otherWorkoutConsecutiveLongLieThreshold:%{private}d, otherWorkoutShouldCancelAlertOnStepsThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnStandThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnActiveThreshold:%{private}hhd}";
-        v139 = v142;
-        v140 = 148;
+        v211 = v156;
+        v212 = 1025;
+        v213 = v157;
+        v214 = 1025;
+        v215 = v158;
+        v216 = 1025;
+        v217 = v159;
+        v144 = "{msg%{public}.0s:Model Selector - Picked thresholds based on features, impactMaxAccelNormAlertThreshold:%{public}f, totalLongLieThreshold:%{private}d, consecutiveLongLieThreshold:%{private}d, minMetminCount:%{public}d, maxMetminCount:%{public}d, metminCount:%{public}ld, alpha:%{public}f, age:%{private}f, metminpercentile:%{private}f, alertGatingMotionThreshold:%{private}f, cyclingImpactMaxAbsYThreshold:%{private}f, otherWorkoutQuiescenceThresholdLow:%{private}d, otherWorkoutQuiescenceThresholdHigh:%{private}d, otherWorkoutConsecutiveLongLieThreshold:%{private}d, otherWorkoutShouldCancelAlertOnStepsThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnStandThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnActiveThreshold:%{private}hhd}";
+        v145 = v148;
+        v146 = 148;
       }
 
-      _os_log_impl(dword_100000000, v139, OS_LOG_TYPE_DEFAULT, v138, buf, v140);
+      _os_log_impl(dword_100000000, v145, OS_LOG_TYPE_DEFAULT, v144, buf, v146);
 LABEL_103:
-      v126.i32[0] = LODWORD(self->fOtherFallModel.fLikelihoodRatioInfo[2].firstBinEdge);
-      v154 = vdup_lane_s32(v126, 0);
-      *&self->fOtherFallModel.fLikelihoodRatioInfo[2].binSize = vbsl_s8(vcgt_f32(v154, *&self->fOtherFallModel.fLikelihoodRatioInfo[2].binSize), *&self->fOtherFallModel.fLikelihoodRatioInfo[2].binSize, v154);
-      if (self->fOtherFallModel.fLikelihoodRatioInfo[3].firstBinEdge < *v126.i32)
+      v132.i32[0] = LODWORD(self->fOtherFallModel.fLikelihoodRatioInfo[2].firstBinEdge);
+      v160 = vdup_lane_s32(v132, 0);
+      *&self->fOtherFallModel.fLikelihoodRatioInfo[2].binSize = vbsl_s8(vcgt_f32(v160, *&self->fOtherFallModel.fLikelihoodRatioInfo[2].binSize), *&self->fOtherFallModel.fLikelihoodRatioInfo[2].binSize, v160);
+      if (self->fOtherFallModel.fLikelihoodRatioInfo[3].firstBinEdge < *v132.i32)
       {
-        v126.i32[0] = LODWORD(self->fOtherFallModel.fLikelihoodRatioInfo[3].firstBinEdge);
+        v132.i32[0] = LODWORD(self->fOtherFallModel.fLikelihoodRatioInfo[3].firstBinEdge);
       }
 
-      LODWORD(self->fOtherFallModel.fLikelihoodRatioInfo[3].firstBinEdge) = v126.i32[0];
+      LODWORD(self->fOtherFallModel.fLikelihoodRatioInfo[3].firstBinEdge) = v132.i32[0];
       return 1;
     }
 
@@ -777,102 +779,102 @@ LABEL_103:
       sub_1018B1424();
     }
 
-    v156 = qword_1025D4338;
+    v162 = qword_1025D4338;
     if (os_log_type_enabled(qword_1025D4338, OS_LOG_TYPE_FAULT))
     {
-      v157 = self->fOtherFallModel.fLikelihoodRatioInfo[2].firstBinEdge;
-      v158 = self->fOtherFallModel.fLikelihoodRatioInfo[5].binSize;
-      v159 = *&self->fOtherFallModel.fLikelihoodRatioInfo[5].binNum;
-      v160 = self->fOtherFallModel.fLikelihoodRatioInfo[6].firstBinEdge;
-      v161 = self->fOtherFallModel.fLikelihoodRatioInfo[7].firstBinEdge;
-      v162 = self->fThresholds.fImpactMaxAccelNormAlertThreshold;
-      v163 = self->fThresholds.fImpactMaxAccelNormLoggingStatsThreshold;
-      v164 = self->fThresholds.fImpactMaxAccelNormLoggingHeartRateThreshold;
-      v165 = LOBYTE(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
-      v166 = BYTE1(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
-      v167 = BYTE2(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
+      v163 = self->fOtherFallModel.fLikelihoodRatioInfo[2].firstBinEdge;
+      v164 = self->fOtherFallModel.fLikelihoodRatioInfo[5].binSize;
+      v165 = *&self->fOtherFallModel.fLikelihoodRatioInfo[5].binNum;
+      v166 = self->fOtherFallModel.fLikelihoodRatioInfo[6].firstBinEdge;
+      v167 = self->fOtherFallModel.fLikelihoodRatioInfo[7].firstBinEdge;
+      v168 = self->fThresholds.fImpactMaxAccelNormAlertThreshold;
+      v169 = self->fThresholds.fImpactMaxAccelNormLoggingStatsThreshold;
+      v170 = self->fThresholds.fImpactMaxAccelNormLoggingHeartRateThreshold;
+      v171 = LOBYTE(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
+      v172 = BYTE1(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
+      v173 = BYTE2(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
       *buf = 68292355;
       *&buf[4] = 0;
-      *v195 = 2082;
-      *&v195[2] = "";
-      v196 = 2050;
-      v197 = v157;
-      v198 = 1025;
-      *v199 = v158;
-      *&v199[4] = 1025;
-      *&v199[6] = v159;
-      *&v199[10] = 2049;
-      *&v199[12] = v193;
-      *&v199[20] = 2049;
-      *&v199[22] = v187;
-      *&v199[30] = 2049;
-      *&v199[32] = v160;
-      *&v199[40] = 2049;
-      *&v199[42] = v161;
-      *&v199[50] = 1025;
-      *&v199[52] = v162;
-      *&v199[56] = 1025;
-      *&v199[58] = v163;
-      *&v199[62] = 1025;
-      *v200 = v164;
-      *&v200[4] = 1025;
-      *&v200[6] = v165;
-      *v201 = 1025;
-      *&v201[2] = v166;
-      *&v201[6] = 1025;
-      *&v201[8] = v167;
-      _os_log_impl(dword_100000000, v156, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Model Selector - Could not pick thresholds based on available features - Falling back to defaults, impactMaxAccelNormAlertThreshold:%{public}f, totalLongLieThreshold:%{private}d, consecutiveLongLieThreshold:%{private}d, age:%{private}f, metminpercentile:%{private}f, alertGatingMotionThreshold:%{private}f, cyclingImpactMaxAbsYThreshold:%{private}f, otherWorkoutQuiescenceThresholdLow:%{private}d, otherWorkoutQuiescenceThresholdHigh:%{private}d, otherWorkoutConsecutiveLongLieThreshold:%{private}d, otherWorkoutShouldCancelAlertOnStepsThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnStandThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnActiveThreshold:%{private}hhd}", buf, 0x74u);
+      *v201 = 2082;
+      *&v201[2] = "";
+      v202 = 2050;
+      v203 = v163;
+      v204 = 1025;
+      *v205 = v164;
+      *&v205[4] = 1025;
+      *&v205[6] = v165;
+      *&v205[10] = 2049;
+      *&v205[12] = v199;
+      *&v205[20] = 2049;
+      *&v205[22] = v193;
+      *&v205[30] = 2049;
+      *&v205[32] = v166;
+      *&v205[40] = 2049;
+      *&v205[42] = v167;
+      *&v205[50] = 1025;
+      *&v205[52] = v168;
+      *&v205[56] = 1025;
+      *&v205[58] = v169;
+      *&v205[62] = 1025;
+      *v206 = v170;
+      *&v206[4] = 1025;
+      *&v206[6] = v171;
+      *v207 = 1025;
+      *&v207[2] = v172;
+      *&v207[6] = 1025;
+      *&v207[8] = v173;
+      _os_log_impl(dword_100000000, v162, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Model Selector - Could not pick thresholds based on available features - Falling back to defaults, impactMaxAccelNormAlertThreshold:%{public}f, totalLongLieThreshold:%{private}d, consecutiveLongLieThreshold:%{private}d, age:%{private}f, metminpercentile:%{private}f, alertGatingMotionThreshold:%{private}f, cyclingImpactMaxAbsYThreshold:%{private}f, otherWorkoutQuiescenceThresholdLow:%{private}d, otherWorkoutQuiescenceThresholdHigh:%{private}d, otherWorkoutConsecutiveLongLieThreshold:%{private}d, otherWorkoutShouldCancelAlertOnStepsThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnStandThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnActiveThreshold:%{private}hhd}", buf, 0x74u);
       if (qword_1025D4330 != -1)
       {
         sub_1018B1424();
       }
     }
 
-    v168 = qword_1025D4338;
+    v174 = qword_1025D4338;
     if (os_signpost_enabled(qword_1025D4338))
     {
-      v169 = self->fOtherFallModel.fLikelihoodRatioInfo[2].firstBinEdge;
-      v170 = self->fOtherFallModel.fLikelihoodRatioInfo[5].binSize;
-      v171 = *&self->fOtherFallModel.fLikelihoodRatioInfo[5].binNum;
-      v172 = self->fOtherFallModel.fLikelihoodRatioInfo[6].firstBinEdge;
-      v173 = self->fOtherFallModel.fLikelihoodRatioInfo[7].firstBinEdge;
-      v174 = self->fThresholds.fImpactMaxAccelNormAlertThreshold;
-      v175 = self->fThresholds.fImpactMaxAccelNormLoggingStatsThreshold;
-      v176 = self->fThresholds.fImpactMaxAccelNormLoggingHeartRateThreshold;
-      v177 = LOBYTE(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
-      v178 = BYTE1(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
-      v179 = BYTE2(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
+      v175 = self->fOtherFallModel.fLikelihoodRatioInfo[2].firstBinEdge;
+      v176 = self->fOtherFallModel.fLikelihoodRatioInfo[5].binSize;
+      v177 = *&self->fOtherFallModel.fLikelihoodRatioInfo[5].binNum;
+      v178 = self->fOtherFallModel.fLikelihoodRatioInfo[6].firstBinEdge;
+      v179 = self->fOtherFallModel.fLikelihoodRatioInfo[7].firstBinEdge;
+      v180 = self->fThresholds.fImpactMaxAccelNormAlertThreshold;
+      v181 = self->fThresholds.fImpactMaxAccelNormLoggingStatsThreshold;
+      v182 = self->fThresholds.fImpactMaxAccelNormLoggingHeartRateThreshold;
+      v183 = LOBYTE(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
+      v184 = BYTE1(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
+      v185 = BYTE2(self->fThresholds.fImpactMaxAccelNormLoggingHighResolutionSensorDataThreshold);
       *buf = 68292355;
       *&buf[4] = 0;
-      *v195 = 2082;
-      *&v195[2] = "";
-      v196 = 2050;
-      v197 = v169;
-      v198 = 1025;
-      *v199 = v170;
-      *&v199[4] = 1025;
-      *&v199[6] = v171;
-      *&v199[10] = 2049;
-      *&v199[12] = v193;
-      *&v199[20] = 2049;
-      *&v199[22] = v187;
-      *&v199[30] = 2049;
-      *&v199[32] = v172;
-      *&v199[40] = 2049;
-      *&v199[42] = v173;
-      *&v199[50] = 1025;
-      *&v199[52] = v174;
-      *&v199[56] = 1025;
-      *&v199[58] = v175;
-      *&v199[62] = 1025;
-      *v200 = v176;
-      *&v200[4] = 1025;
-      *&v200[6] = v177;
-      *v201 = 1025;
-      *&v201[2] = v178;
-      *&v201[6] = 1025;
-      *&v201[8] = v179;
-      _os_signpost_emit_with_name_impl(dword_100000000, v168, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Model Selector - Could not pick thresholds based on available features - Falling back to defaults", "{msg%{public}.0s:Model Selector - Could not pick thresholds based on available features - Falling back to defaults, impactMaxAccelNormAlertThreshold:%{public}f, totalLongLieThreshold:%{private}d, consecutiveLongLieThreshold:%{private}d, age:%{private}f, metminpercentile:%{private}f, alertGatingMotionThreshold:%{private}f, cyclingImpactMaxAbsYThreshold:%{private}f, otherWorkoutQuiescenceThresholdLow:%{private}d, otherWorkoutQuiescenceThresholdHigh:%{private}d, otherWorkoutConsecutiveLongLieThreshold:%{private}d, otherWorkoutShouldCancelAlertOnStepsThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnStandThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnActiveThreshold:%{private}hhd}", buf, 0x74u);
+      *v201 = 2082;
+      *&v201[2] = "";
+      v202 = 2050;
+      v203 = v175;
+      v204 = 1025;
+      *v205 = v176;
+      *&v205[4] = 1025;
+      *&v205[6] = v177;
+      *&v205[10] = 2049;
+      *&v205[12] = v199;
+      *&v205[20] = 2049;
+      *&v205[22] = v193;
+      *&v205[30] = 2049;
+      *&v205[32] = v178;
+      *&v205[40] = 2049;
+      *&v205[42] = v179;
+      *&v205[50] = 1025;
+      *&v205[52] = v180;
+      *&v205[56] = 1025;
+      *&v205[58] = v181;
+      *&v205[62] = 1025;
+      *v206 = v182;
+      *&v206[4] = 1025;
+      *&v206[6] = v183;
+      *v207 = 1025;
+      *&v207[2] = v184;
+      *&v207[6] = 1025;
+      *&v207[8] = v185;
+      _os_signpost_emit_with_name_impl(dword_100000000, v174, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Model Selector - Could not pick thresholds based on available features - Falling back to defaults", "{msg%{public}.0s:Model Selector - Could not pick thresholds based on available features - Falling back to defaults, impactMaxAccelNormAlertThreshold:%{public}f, totalLongLieThreshold:%{private}d, consecutiveLongLieThreshold:%{private}d, age:%{private}f, metminpercentile:%{private}f, alertGatingMotionThreshold:%{private}f, cyclingImpactMaxAbsYThreshold:%{private}f, otherWorkoutQuiescenceThresholdLow:%{private}d, otherWorkoutQuiescenceThresholdHigh:%{private}d, otherWorkoutConsecutiveLongLieThreshold:%{private}d, otherWorkoutShouldCancelAlertOnStepsThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnStandThreshold:%{private}hhd, otherWorkoutShouldCancelAlertOnActiveThreshold:%{private}hhd}", buf, 0x74u);
     }
   }
 

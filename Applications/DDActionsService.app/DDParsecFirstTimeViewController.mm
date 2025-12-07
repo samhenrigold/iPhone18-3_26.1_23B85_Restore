@@ -1,6 +1,7 @@
 @interface DDParsecFirstTimeViewController
 - (DDParsecFirstTimeViewController)initWithNibName:(id)name bundle:(id)bundle bag:(id)bag sceneAwareVariant:(BOOL)variant solarium:(BOOL)solarium;
 - (void)updateForCurrentTraitCollection;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -82,6 +83,14 @@
   }
 
   return v14;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = DDParsecFirstTimeViewController;
+  [(DDParsecFirstTimeViewController *)&v4 viewWillAppear:appear];
+  [(DDParsecFirstTimeViewController *)self updateForCurrentTraitCollection];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator

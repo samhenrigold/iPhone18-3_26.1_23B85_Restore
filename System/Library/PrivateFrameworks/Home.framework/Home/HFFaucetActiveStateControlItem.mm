@@ -11,7 +11,7 @@
 
 - (HFFaucetActiveStateControlItem)initWithValueSource:(id)source valveControlMode:(unint64_t)mode displayResults:(id)results
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   sourceCopy = source;
   primaryServiceDescriptor = [sourceCopy primaryServiceDescriptor];
@@ -20,24 +20,23 @@
   requiredCharacteristicTypes = [(objc_class *)v11 requiredCharacteristicTypes];
   optionalCharacteristicTypes = [(objc_class *)v11 optionalCharacteristicTypes];
   v14 = [HFControlItemCharacteristicOptions alloc];
-  v22[0] = &unk_282524810;
-  v22[1] = &unk_282524828;
-  v23[0] = requiredCharacteristicTypes;
-  v23[1] = optionalCharacteristicTypes;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v21[0] = &unk_282524810;
+  v21[1] = &unk_282524828;
+  v22[0] = requiredCharacteristicTypes;
+  v22[1] = optionalCharacteristicTypes;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
   v16 = [(HFControlItemCharacteristicOptions *)v14 initWithCharacteristicTypesByUsage:v15];
 
   v17 = [MEMORY[0x277CBEB98] set];
-  v21.receiver = self;
-  v21.super_class = HFFaucetActiveStateControlItem;
-  v18 = [(HFPowerStateControlItem *)&v21 initWithValueSource:sourceCopy auxiliaryTargetValueTuples:v17 additionalCharacteristicOptions:v16 displayResults:resultsCopy];
+  v20.receiver = self;
+  v20.super_class = HFFaucetActiveStateControlItem;
+  v18 = [(HFPowerStateControlItem *)&v20 initWithValueSource:sourceCopy auxiliaryTargetValueTuples:v17 additionalCharacteristicOptions:v16 displayResults:resultsCopy];
 
   if (v18)
   {
     v18->_valveControlMode = mode;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -90,23 +89,21 @@
 
 id __82__HFFaucetActiveStateControlItem_servicePredicateForCharacteristicType_withUsage___block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = [HFServiceTreeTypePredicate predicateWithServiceType:*MEMORY[0x277CD0E60]];
   if ([*(a1 + 32) valveControlMode] == 1)
   {
-    v8[0] = v2;
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v2;
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v4 = [HFServiceTreeTypePredicate predicateWithServiceType:*MEMORY[0x277CD0F38]];
-    v7[0] = v2;
-    v7[1] = v4;
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+    v6[0] = v2;
+    v6[1] = v4;
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

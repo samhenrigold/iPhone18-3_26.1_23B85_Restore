@@ -1,239 +1,3 @@
-uint64_t std::__shared_ptr_pointer<MIL::IRParameter  *>::__get_deleter(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__shared_ptr_pointer<MIL::IRParameter  *>::__on_zero_shared(uint64_t a1)
-{
-  result = *(a1 + 24);
-  if (result)
-  {
-    return (*(*result + 8))();
-  }
-
-  return result;
-}
-
-void std::__shared_ptr_pointer<MIL::IRParameter  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
-{
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1C6908B60);
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>>>::__node_insert_unique(uint64_t a1, uint64_t a2)
-{
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2 + 16);
-  *(a2 + 8) = v4;
-  v5 = *(a1 + 8);
-  if (v5)
-  {
-    v6 = v4;
-    v7 = vcnt_s8(v5);
-    v7.i16[0] = vaddlv_u8(v7);
-    v8 = v7.u32[0];
-    if (v7.u32[0] > 1uLL)
-    {
-      v9 = v4;
-      if (v5 <= v4)
-      {
-        v9 = v4 % v5;
-      }
-    }
-
-    else
-    {
-      v9 = (v5 - 1) & v4;
-    }
-
-    v10 = *(*a1 + 8 * v9);
-    if (v10)
-    {
-      for (i = *v10; i; i = *i)
-      {
-        v12 = i[1];
-        if (v12 == v6)
-        {
-          if (std::equal_to<std::string>::operator()[abi:ne200100](a1, i + 2, (a2 + 16)))
-          {
-            return 0;
-          }
-        }
-
-        else
-        {
-          if (v8 > 1)
-          {
-            if (v12 >= v5)
-            {
-              v12 %= v5;
-            }
-          }
-
-          else
-          {
-            v12 &= v5 - 1;
-          }
-
-          if (v12 != v9)
-          {
-            break;
-          }
-        }
-      }
-    }
-  }
-
-  v13 = (*(a1 + 24) + 1);
-  v14 = *(a1 + 32);
-  if (!v5 || (v14 * v5) < v13)
-  {
-    v18 = 1;
-    if (v5 >= 3)
-    {
-      v18 = (v5 & (v5 - 1)) != 0;
-    }
-
-    v19 = v18 | (2 * v5);
-    v20 = vcvtps_u32_f32(v13 / v14);
-    if (v19 <= v20)
-    {
-      prime = v20;
-    }
-
-    else
-    {
-      prime = v19;
-    }
-
-    if (prime == 1)
-    {
-      prime = 2;
-    }
-
-    else if ((prime & (prime - 1)) != 0)
-    {
-      prime = std::__next_prime(prime);
-    }
-
-    v25 = *(a1 + 8);
-    if (prime <= *&v25)
-    {
-      if (prime >= *&v25)
-      {
-        goto LABEL_19;
-      }
-
-      v26 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
-      if (*&v25 < 3uLL || (v27 = vcnt_s8(v25), v27.i16[0] = vaddlv_u8(v27), v27.u32[0] > 1uLL))
-      {
-        v26 = std::__next_prime(v26);
-      }
-
-      else
-      {
-        v28 = 1 << -__clz(v26 - 1);
-        if (v26 >= 2)
-        {
-          v26 = v28;
-        }
-      }
-
-      if (prime <= v26)
-      {
-        prime = v26;
-      }
-
-      if (prime >= *&v25)
-      {
-        goto LABEL_19;
-      }
-
-      if (!prime)
-      {
-        v30 = *a1;
-        *a1 = 0;
-        if (v30)
-        {
-          operator delete(v30);
-        }
-
-        *(a1 + 8) = 0;
-        goto LABEL_19;
-      }
-    }
-
-    if (!(prime >> 61))
-    {
-      operator new();
-    }
-
-    std::__throw_bad_array_new_length[abi:ne200100]();
-  }
-
-LABEL_19:
-  v15 = *(a1 + 8);
-  v16 = *(a2 + 8);
-  v17 = vcnt_s8(v15);
-  v17.i16[0] = vaddlv_u8(v17);
-  if (v17.u32[0] > 1uLL)
-  {
-    if (v16 >= *&v15)
-    {
-      v16 %= *&v15;
-    }
-  }
-
-  else
-  {
-    v16 &= *&v15 - 1;
-  }
-
-  v22 = *a1;
-  v23 = *(*a1 + 8 * v16);
-  if (v23)
-  {
-    *a2 = *v23;
-LABEL_49:
-    *v23 = a2;
-    goto LABEL_50;
-  }
-
-  *a2 = *(a1 + 16);
-  *(a1 + 16) = a2;
-  v22[v16] = a1 + 16;
-  if (*a2)
-  {
-    v24 = *(*a2 + 8);
-    if (v17.u32[0] > 1uLL)
-    {
-      if (v24 >= *&v15)
-      {
-        v24 %= *&v15;
-      }
-    }
-
-    else
-    {
-      v24 &= *&v15 - 1;
-    }
-
-    v23 = (*a1 + 8 * v24);
-    goto LABEL_49;
-  }
-
-LABEL_50:
-  ++*(a1 + 24);
-  return 1;
-}
-
 uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
 {
   v2 = *a1;
@@ -310,15 +74,15 @@ void CoreML::MIL::Opsets::CoreML9Opset::~CoreML9Opset(CoreML::MIL::Opsets::CoreM
   JUMPOUT(0x1C6908B60);
 }
 
-void CoreML::MIL::Opsets::RegisterCoreMLOpsets()
+void CoreML::MIL::Opsets::RegisterCoreMLOpsets(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
-  v1 = 7;
+  v3 = *MEMORY[0x1E69E9840];
+  v2 = 7;
   strcpy(&__p, "CoreML5");
   operator new();
 }
 
-void sub_1C1C12A58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, void *__p, uint64_t a53, int a54, __int16 a55, char a56, char a57)
+void sub_1C1C12A58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, void *__p, uint64_t a53, int a54, __int16 a55, char a56, char a57)
 {
   if (*(v60 - 185) < 0)
   {
@@ -430,9 +194,9 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
   }
 }
 
-void sub_1C1C13444(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C1C13444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -565,35 +329,35 @@ uint64_t std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std:
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::string const&,std::string&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::string const&,std::string&>(void *a1, const void **a2, uint64_t a3, uint64_t a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -601,59 +365,59 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
-void sub_1C1C13C24(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C1C13C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (*(v2 + 39) < 0)
+  va_start(va, a3);
+  if (*(v3 + 39) < 0)
   {
-    operator delete(*(v2 + 16));
+    operator delete(*(v3 + 16));
   }
 
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string<std::string_view,0>(_BYTE *__dst, void *__src, size_t __len)
+void *std::string::basic_string<std::string_view,0>(void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -665,13 +429,13 @@ _BYTE *std::string::basic_string<std::string_view,0>(_BYTE *__dst, void *__src, 
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, __src, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   return __dst;
 }
 
@@ -710,11 +474,11 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std
   return a1;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::__node_insert_unique(uint64_t a1, uint64_t a2)
+uint64_t std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::__node_insert_unique(float *a1, uint64_t a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2 + 16);
   *(a2 + 8) = v4;
-  v5 = *(a1 + 8);
+  v5 = *(a1 + 1);
   if (v5)
   {
     v6 = v4;
@@ -773,8 +537,8 @@ uint64_t std::__hash_table<std::__hash_value_type<std::string,std::function<std:
     }
   }
 
-  v13 = (*(a1 + 24) + 1);
-  v14 = *(a1 + 32);
+  v13 = (*(a1 + 3) + 1);
+  v14 = a1[8];
   if (!v5 || (v14 * v5) < v13)
   {
     v15 = 1;
@@ -798,7 +562,7 @@ uint64_t std::__hash_table<std::__hash_value_type<std::string,std::function<std:
     std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::__rehash<true>(a1, v18);
   }
 
-  v19 = *(a1 + 8);
+  v19 = *(a1 + 2);
   v20 = *(a2 + 8);
   v21 = vcnt_s8(v19);
   v21.i16[0] = vaddlv_u8(v21);
@@ -825,9 +589,9 @@ LABEL_37:
     goto LABEL_38;
   }
 
-  *a2 = *(a1 + 16);
-  *(a1 + 16) = a2;
-  *(v22 + 8 * v20) = a1 + 16;
+  *a2 = *(a1 + 2);
+  *(a1 + 2) = a2;
+  *(v22 + 8 * v20) = a1 + 4;
   if (*a2)
   {
     v24 = *(*a2 + 8);
@@ -849,39 +613,39 @@ LABEL_37:
   }
 
 LABEL_38:
-  ++*(a1 + 24);
+  ++*(a1 + 3);
   return 1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::__emplace_unique_key_args<std::string,std::string const&,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::__emplace_unique_key_args<std::string,std::string const&,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>(void *a1, const void **a2, uint64_t a3, uint64_t a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -889,49 +653,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
-void sub_1C1C142A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C1C142A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1017,11 +781,11 @@ uint64_t std::__function::__func<CoreML::MIL::Opsets::CoreML9Opset::GetOperatorC
   }
 }
 
-void std::__function::__func<CoreML::MIL::Opsets::CoreML9Opset::GetOperatorConstructors(MIL::MILContext &)::$_0,std::allocator<CoreML::MIL::Opsets::CoreML9Opset::GetOperatorConstructors(MIL::MILContext &)::$_0>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
+void std::__function::__func<CoreML::MIL::Opsets::CoreML9Opset::GetOperatorConstructors(MIL::MILContext &)::$_0,std::allocator<CoreML::MIL::Opsets::CoreML9Opset::GetOperatorConstructors(MIL::MILContext &)::$_0>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v1 = *(a1 + 8);
-  std::string::basic_string[abi:ne200100]<0>(&__p, "classify");
-  CoreML::MIL::Operators::CoreML::Classify::Make();
+  v3 = *(a1 + 8);
+  std::string::basic_string[abi:ne200100]<0>(__p, "classify");
+  CoreML::MIL::Operators::CoreML::Classify::Make(a2, v3, __p);
 }
 
 void sub_1C1C14568(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1054,11 +818,11 @@ uint64_t std::__function::__func<CoreML::MIL::Opsets::CoreML8Opset::GetOperatorC
   }
 }
 
-void std::__function::__func<CoreML::MIL::Opsets::CoreML8Opset::GetOperatorConstructors(MIL::MILContext &)::$_0,std::allocator<CoreML::MIL::Opsets::CoreML8Opset::GetOperatorConstructors(MIL::MILContext &)::$_0>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
+void std::__function::__func<CoreML::MIL::Opsets::CoreML8Opset::GetOperatorConstructors(MIL::MILContext &)::$_0,std::allocator<CoreML::MIL::Opsets::CoreML8Opset::GetOperatorConstructors(MIL::MILContext &)::$_0>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v1 = *(a1 + 8);
-  std::string::basic_string[abi:ne200100]<0>(&__p, "classify");
-  CoreML::MIL::Operators::CoreML::Classify::Make();
+  v3 = *(a1 + 8);
+  std::string::basic_string[abi:ne200100]<0>(__p, "classify");
+  CoreML::MIL::Operators::CoreML::Classify::Make(a2, v3, __p);
 }
 
 void sub_1C1C146D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1091,11 +855,11 @@ uint64_t std::__function::__func<CoreML::MIL::Opsets::CoreML7Opset::GetOperatorC
   }
 }
 
-void std::__function::__func<CoreML::MIL::Opsets::CoreML7Opset::GetOperatorConstructors(MIL::MILContext &)::$_0,std::allocator<CoreML::MIL::Opsets::CoreML7Opset::GetOperatorConstructors(MIL::MILContext &)::$_0>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
+void std::__function::__func<CoreML::MIL::Opsets::CoreML7Opset::GetOperatorConstructors(MIL::MILContext &)::$_0,std::allocator<CoreML::MIL::Opsets::CoreML7Opset::GetOperatorConstructors(MIL::MILContext &)::$_0>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v1 = *(a1 + 8);
-  std::string::basic_string[abi:ne200100]<0>(&__p, "classify");
-  CoreML::MIL::Operators::CoreML::Classify::Make();
+  v3 = *(a1 + 8);
+  std::string::basic_string[abi:ne200100]<0>(__p, "classify");
+  CoreML::MIL::Operators::CoreML::Classify::Make(a2, v3, __p);
 }
 
 void sub_1C1C14838(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1128,11 +892,11 @@ uint64_t std::__function::__func<CoreML::MIL::Opsets::CoreML6_trainOpset::GetOpe
   }
 }
 
-void std::__function::__func<CoreML::MIL::Opsets::CoreML6_trainOpset::GetOperatorConstructors(MIL::MILContext &)::$_0,std::allocator<CoreML::MIL::Opsets::CoreML6_trainOpset::GetOperatorConstructors(MIL::MILContext &)::$_0>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
+void std::__function::__func<CoreML::MIL::Opsets::CoreML6_trainOpset::GetOperatorConstructors(MIL::MILContext &)::$_0,std::allocator<CoreML::MIL::Opsets::CoreML6_trainOpset::GetOperatorConstructors(MIL::MILContext &)::$_0>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v1 = *(a1 + 8);
-  std::string::basic_string[abi:ne200100]<0>(&__p, "classify");
-  CoreML::MIL::Operators::CoreML::Classify::Make();
+  v3 = *(a1 + 8);
+  std::string::basic_string[abi:ne200100]<0>(__p, "classify");
+  CoreML::MIL::Operators::CoreML::Classify::Make(a2, v3, __p);
 }
 
 void sub_1C1C149A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1165,11 +929,11 @@ uint64_t std::__function::__func<CoreML::MIL::Opsets::CoreML6Opset::GetOperatorC
   }
 }
 
-void std::__function::__func<CoreML::MIL::Opsets::CoreML6Opset::GetOperatorConstructors(MIL::MILContext &)::$_0,std::allocator<CoreML::MIL::Opsets::CoreML6Opset::GetOperatorConstructors(MIL::MILContext &)::$_0>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
+void std::__function::__func<CoreML::MIL::Opsets::CoreML6Opset::GetOperatorConstructors(MIL::MILContext &)::$_0,std::allocator<CoreML::MIL::Opsets::CoreML6Opset::GetOperatorConstructors(MIL::MILContext &)::$_0>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v1 = *(a1 + 8);
-  std::string::basic_string[abi:ne200100]<0>(&__p, "classify");
-  CoreML::MIL::Operators::CoreML::Classify::Make();
+  v3 = *(a1 + 8);
+  std::string::basic_string[abi:ne200100]<0>(__p, "classify");
+  CoreML::MIL::Operators::CoreML::Classify::Make(a2, v3, __p);
 }
 
 void sub_1C1C14B08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1215,11 +979,11 @@ uint64_t std::__function::__func<CoreML::MIL::Opsets::CoreML5Opset::GetOperatorC
   }
 }
 
-void std::__function::__func<CoreML::MIL::Opsets::CoreML5Opset::GetOperatorConstructors(MIL::MILContext &)::$_0,std::allocator<CoreML::MIL::Opsets::CoreML5Opset::GetOperatorConstructors(MIL::MILContext &)::$_0>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
+void std::__function::__func<CoreML::MIL::Opsets::CoreML5Opset::GetOperatorConstructors(MIL::MILContext &)::$_0,std::allocator<CoreML::MIL::Opsets::CoreML5Opset::GetOperatorConstructors(MIL::MILContext &)::$_0>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v1 = *(a1 + 8);
-  std::string::basic_string[abi:ne200100]<0>(&__p, "classify");
-  CoreML::MIL::Operators::CoreML::Classify::Make();
+  v3 = *(a1 + 8);
+  std::string::basic_string[abi:ne200100]<0>(__p, "classify");
+  CoreML::MIL::Operators::CoreML::Classify::Make(a2, v3, __p);
 }
 
 void sub_1C1C14CB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1242,59 +1006,59 @@ uint64_t std::__function::__func<CoreML::MIL::Opsets::CoreML5Opset::GetOperatorC
 
 void CoreML::MIL::Operators::CoreML::CustomValidators::ValidateClassify(CoreML::MIL::Operators::CoreML::CustomValidators *this@<X0>, MIL::ValidationResult *a2@<X8>)
 {
-  std::string::basic_string[abi:ne200100]<0>(v60, "probabilities");
+  std::string::basic_string[abi:ne200100]<0>(v59, "probabilities");
   ParameterType = MIL::IROperation::GetParameterType();
-  v6 = MIL::IRValueType::AsTensorType(ParameterType);
-  if (v61 < 0)
+  v5 = MIL::IRValueType::AsTensorType(ParameterType);
+  if (v60 < 0)
   {
-    operator delete(v60[0]);
+    operator delete(v59[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v60, "classes");
+  std::string::basic_string[abi:ne200100]<0>(v59, "classes");
   ParameterValue = MIL::IROperation::GetParameterValue();
-  if (v61 < 0)
+  if (v60 < 0)
   {
-    operator delete(v60[0]);
+    operator delete(v59[0]);
   }
 
-  v8 = (*(*ParameterValue + 32))(ParameterValue);
-  v9 = MIL::IRValueType::AsListType(v8);
-  v10 = (*(*v9 + 64))(v9);
-  v11 = (*(*v6 + 96))(v6);
-  v12 = *v11;
-  v13 = v11[1];
-  if (*v11 != v13)
+  v7 = (*(*ParameterValue + 32))(ParameterValue);
+  v8 = MIL::IRValueType::AsListType(v7);
+  v9 = (*(*v8 + 64))(v8);
+  v10 = (*(*v5 + 96))(v5);
+  v11 = *v10;
+  v12 = v10[1];
+  if (*v10 != v12)
   {
-    v14 = 0;
+    v13 = 0;
     while (1)
     {
-      v15 = (*(**v12 + 16))();
-      if (!v15)
+      v14 = (*(**v11 + 16))();
+      if (!v14)
       {
         break;
       }
 
-      v16 = (*(*v15 + 48))(v15);
-      if (((v16 != 1) & v14) == 1)
+      v15 = (*(*v14 + 48))(v14);
+      if (((v15 != 1) & v13) == 1)
       {
         LocationPtr = MIL::IRObject::GetLocationPtr(this);
-        v43 = LocationPtr[1];
-        v58 = *LocationPtr;
-        v59 = v43;
-        if (v43)
+        v42 = LocationPtr[1];
+        v57 = *LocationPtr;
+        v58 = v42;
+        if (v42)
         {
-          atomic_fetch_add_explicit(&v43->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v42->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(v56, "Classifier probabilities can have a maximum of one dimension that is not rank 1.");
-        MEMORY[0x1C69083E0](a2, &v58, 304, v56);
-        if (v57 < 0)
+        std::string::basic_string[abi:ne200100]<0>(v55, "Classifier probabilities can have a maximum of one dimension that is not rank 1.");
+        MEMORY[0x1C69083E0](a2, &v57, 304, v55);
+        if (v56 < 0)
         {
-          operator delete(v56[0]);
+          operator delete(v55[0]);
         }
 
-        v35 = v59;
-        if (!v59)
+        v34 = v58;
+        if (!v58)
         {
           return;
         }
@@ -1302,32 +1066,32 @@ void CoreML::MIL::Operators::CoreML::CustomValidators::ValidateClassify(CoreML::
         goto LABEL_54;
       }
 
-      v14 |= v16 != 1;
-      v12 += 8;
-      if (v12 == v13)
+      v13 |= v15 != 1;
+      v11 += 8;
+      if (v11 == v12)
       {
         goto LABEL_10;
       }
     }
 
-    v40 = MIL::IRObject::GetLocationPtr(this);
-    v41 = v40[1];
-    v54 = *v40;
-    v55 = v41;
-    if (v41)
+    v39 = MIL::IRObject::GetLocationPtr(this);
+    v40 = v39[1];
+    v53 = *v39;
+    v54 = v40;
+    if (v40)
     {
-      atomic_fetch_add_explicit(&v41->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v40->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v52, "Classifier probabilities must have a fully known shape.");
-    MEMORY[0x1C69083E0](a2, &v54, 304, v52);
-    if (v53 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v51, "Classifier probabilities must have a fully known shape.");
+    MEMORY[0x1C69083E0](a2, &v53, 304, v51);
+    if (v52 < 0)
     {
-      operator delete(v52[0]);
+      operator delete(v51[0]);
     }
 
-    v35 = v55;
-    if (v55)
+    v34 = v54;
+    if (v54)
     {
       goto LABEL_54;
     }
@@ -1336,58 +1100,58 @@ void CoreML::MIL::Operators::CoreML::CustomValidators::ValidateClassify(CoreML::
   }
 
 LABEL_10:
-  v17 = (*(*v9 + 16))(v9);
-  if ((*(*v6 + 16))(v6) != v17)
+  v16 = (*(*v8 + 16))(v8);
+  if ((*(*v5 + 16))(v5) != v16)
   {
-    v36 = MIL::IRObject::GetLocationPtr(this);
-    v37 = v36[1];
-    v50 = *v36;
-    v51 = v37;
-    if (v37)
+    v35 = MIL::IRObject::GetLocationPtr(this);
+    v36 = v35[1];
+    v49 = *v35;
+    v50 = v36;
+    if (v36)
     {
-      atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     std::string::basic_string[abi:ne200100]<0>(__p, "Arguments not of the same length in classify operation");
-    MEMORY[0x1C69083E0](a2, &v50, 304, __p);
-    if (v49 < 0)
+    MEMORY[0x1C69083E0](a2, &v49, 304, __p);
+    if (v48 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v35 = v51;
-    if (!v51)
+    v34 = v50;
+    if (!v50)
     {
       return;
     }
 
 LABEL_54:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v35);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v34);
     return;
   }
 
   OutputType = MIL::IROperation::GetOutputType(this);
-  v19 = MIL::IRValueType::AsTensorType(OutputType);
-  if (!MIL::IRTensorValueType::IsScalar(v19) || (v20 = (*(*v19 + 88))(v19), v21 = MIL::IRValueType::AsTensorType(v10), v20 != (*(*v21 + 88))(v21)))
+  v18 = MIL::IRValueType::AsTensorType(OutputType);
+  if (!MIL::IRTensorValueType::IsScalar(v18) || (v19 = (*(*v18 + 88))(v18), v20 = MIL::IRValueType::AsTensorType(v9), v19 != (*(*v20 + 88))(v20)))
   {
-    v38 = MIL::IRObject::GetLocationPtr(this);
-    v39 = v38[1];
-    v46 = *v38;
-    v47 = v39;
-    if (v39)
+    v37 = MIL::IRObject::GetLocationPtr(this);
+    v38 = v37[1];
+    v45 = *v37;
+    v46 = v38;
+    if (v38)
     {
-      atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v44, "Incorrect type for class prediction output of classify operation");
-    MEMORY[0x1C69083E0](a2, &v46, 313, v44);
-    if (v45 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v43, "Incorrect type for class prediction output of classify operation");
+    MEMORY[0x1C69083E0](a2, &v45, 313, v43);
+    if (v44 < 0)
     {
-      operator delete(v44[0]);
+      operator delete(v43[0]);
     }
 
-    v35 = v47;
-    if (!v47)
+    v34 = v46;
+    if (!v46)
     {
       return;
     }
@@ -1400,28 +1164,28 @@ LABEL_54:
     goto LABEL_58;
   }
 
-  v22 = (*(*this + 176))(this);
-  if (v22[1] - *v22 <= 0x10uLL)
+  v21 = (*(*this + 176))(this);
+  if (v21[1] - *v21 <= 0x10uLL)
   {
     std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__throw_out_of_range[abi:ne200100]();
   }
 
-  Type = MIL::IRNamedValueType::GetType(*(*v22 + 16));
-  v24 = (*(*Type + 48))(Type);
-  if (v24)
+  Type = MIL::IRNamedValueType::GetType(*(*v21 + 16));
+  v23 = (*(*Type + 48))(Type);
+  if (v23)
   {
-    v25 = v24;
-    v26 = (*(*v24 + 64))(v24);
-    v27 = (*(*v26 + 24))(v26);
-    v28 = (*(*v25 + 72))(v25);
-    v29 = (*(*v28 + 24))(v28);
-    if (v27)
+    v24 = v23;
+    v25 = (*(*v23 + 64))(v23);
+    v26 = (*(*v25 + 24))(v25);
+    v27 = (*(*v24 + 72))(v24);
+    v28 = (*(*v27 + 24))(v27);
+    if (v26)
     {
-      v30 = v29;
-      if (MIL::IRTensorValueType::IsScalar(v27) && v30 != 0)
+      v29 = v28;
+      if (MIL::IRTensorValueType::IsScalar(v26) && v29 != 0)
       {
-        v32 = MIL::IRTensorValueType::IsScalar(v30) && v27 == v10;
-        if (v32 && ((*(*v30 + 88))(v30) == 6 || (*(*v30 + 88))(v30) == 5))
+        v31 = MIL::IRTensorValueType::IsScalar(v29) && v26 == v9;
+        if (v31 && ((*(*v29 + 88))(v29) == 6 || (*(*v29 + 88))(v29) == 5))
         {
 LABEL_58:
           MIL::ValidationResult::ValidationResult(a2);
@@ -1431,24 +1195,24 @@ LABEL_58:
     }
   }
 
-  v33 = MIL::IRObject::GetLocationPtr(this);
-  v34 = v33[1];
-  v62 = *v33;
-  v63 = v34;
-  if (v34)
+  v32 = MIL::IRObject::GetLocationPtr(this);
+  v33 = v32[1];
+  v61 = *v32;
+  v62 = v33;
+  if (v33)
   {
-    atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v33->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v60, "Incorrect type for probabilities output of classify operation");
-  MEMORY[0x1C69083E0](a2, &v62, 313, v60);
-  if (v61 < 0)
+  std::string::basic_string[abi:ne200100]<0>(v59, "Incorrect type for probabilities output of classify operation");
+  MEMORY[0x1C69083E0](a2, &v61, 313, v59);
+  if (v60 < 0)
   {
-    operator delete(v60[0]);
+    operator delete(v59[0]);
   }
 
-  v35 = v63;
-  if (v63)
+  v34 = v62;
+  if (v62)
   {
     goto LABEL_54;
   }
@@ -1468,13 +1232,6 @@ void sub_1C1C153B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
-}
-
-void CoreML::MIL::CoreMLUtil::MakeContext(CoreML::MIL::CoreMLUtil *this@<X0>, uint64_t *a2@<X8>)
-{
-  MIL::Opsets::Common::CreateMILContext(this);
-  v3 = *a2;
-  CoreML::MIL::Opsets::RegisterCoreMLOpsets();
 }
 
 void sub_1C1C154E8(_Unwind_Exception *exception_object)
@@ -1541,7 +1298,7 @@ void std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](void *
   }
 }
 
-unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliased(google::protobuf::io::EpsCopyOutputStream *a1, unsigned int a2, uint64_t a3, unsigned __int8 *a4)
+char *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliased(google::protobuf::io::EpsCopyOutputStream *a1, unsigned int a2, uint64_t a3, unsigned __int8 *a4)
 {
   v4 = *(a3 + 23);
   if (v4 < 0)
@@ -1594,7 +1351,7 @@ LABEL_12:
   }
 }
 
-unsigned __int8 *CoreML::Specification::ModelDescription::_InternalSerialize(void (***this)(CoreML::Specification::ModelDescription *__hidden this), unsigned __int8 *__dst, google::protobuf::io::EpsCopyOutputStream *a3)
+char *CoreML::Specification::ModelDescription::_InternalSerialize(void (***this)(CoreML::Specification::ModelDescription *__hidden this), unsigned __int8 *__dst, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v6 = *(this + 6);
   if (v6)
@@ -2229,7 +1986,7 @@ LABEL_48:
   return v30;
 }
 
-uint64_t google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::ModelDescription>(atomic_ullong *a1)
+atomic_ullong google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::ModelDescription>(atomic_ullong *a1)
 {
   if (!a1)
   {
@@ -2437,14 +2194,14 @@ void CoreML::Specification::ModelDescription::MergeFrom(CoreML::Specification::M
   }
 }
 
-void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::FeatureDescription>::TypeHandler>(atomic_ullong **a1, CoreML::Specification::FeatureDescription **a2, void (****a3)(CoreML::Specification::FeatureDescription *__hidden this), int a4, int a5)
+void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::FeatureDescription>::TypeHandler>(atomic_ullong **result, CoreML::Specification::FeatureDescription **a2, void (****a3)(CoreML::Specification::FeatureDescription *__hidden this), int a4, int a5)
 {
   LODWORD(v5) = a4;
   v7 = a2;
   v8 = a4 - a5;
   if (a4 > a5)
   {
-    v9 = *a1;
+    v9 = *result;
     v10 = &a2[a5];
     do
     {
@@ -2471,14 +2228,14 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google
   }
 }
 
-void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::FunctionDescription>::TypeHandler>(atomic_ullong **a1, CoreML::Specification::FunctionDescription **a2, CoreML::Specification::FunctionDescription **a3, int a4, int a5)
+void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::FunctionDescription>::TypeHandler>(atomic_ullong **result, CoreML::Specification::FunctionDescription **a2, CoreML::Specification::FunctionDescription **a3, int a4, int a5)
 {
   LODWORD(v5) = a4;
   v7 = a2;
   v8 = a4 - a5;
   if (a4 > a5)
   {
-    v9 = *a1;
+    v9 = *result;
     v10 = &a2[a5];
     do
     {
@@ -2647,7 +2404,7 @@ LABEL_9:
       v9 = MEMORY[0x1E69E5470];
       while (1)
       {
-        google::protobuf::Map<std::string,std::string>::InnerMap::FindHelper<std::string>(v6, &v8->__r_.__value_.__l.__data_, 0, &v24);
+        google::protobuf::Map<std::string,std::string>::InnerMap::FindHelper<std::string>(v6, v8, 0, &v24);
         v10 = v24;
         if (!v24)
         {
@@ -2666,7 +2423,7 @@ LABEL_26:
 
       if (google::protobuf::Map<std::string,std::string>::InnerMap::ResizeIfLoadIsOutOfRange(v6, *v6 + 1))
       {
-        google::protobuf::Map<std::string,std::string>::InnerMap::FindHelper<std::string>(v6, &v8->__r_.__value_.__l.__data_, 0, &v21);
+        google::protobuf::Map<std::string,std::string>::InnerMap::FindHelper<std::string>(v6, v8, 0, &v21);
         v24 = v21;
         v11 = v23;
         v25 = v22;
@@ -3077,14 +2834,14 @@ LABEL_16:
   return 0;
 }
 
-uint64_t *std::__tree<std::__value_type<std::reference_wrapper<std::string const>,void *>,std::__map_value_compare<std::reference_wrapper<std::string const>,std::__value_type<std::reference_wrapper<std::string const>,void *>,google::protobuf::internal::TransparentSupport<std::string>::less,true>,google::protobuf::internal::MapAllocator<std::__value_type<std::reference_wrapper<std::string const>,void *>>>::__emplace_unique_key_args<std::reference_wrapper<std::string const>,std::pair<std::reference_wrapper<std::string const> const,void *>>(uint64_t **a1, const void ***a2, _OWORD *a3)
+uint64_t *std::__tree<std::__value_type<std::reference_wrapper<std::string const>,void *>,std::__map_value_compare<std::reference_wrapper<std::string const>,std::__value_type<std::reference_wrapper<std::string const>,void *>,google::protobuf::internal::TransparentSupport<std::string>::less,true>,google::protobuf::internal::MapAllocator<std::__value_type<std::reference_wrapper<std::string const>,void *>>>::__emplace_unique_key_args<std::reference_wrapper<std::string const>,std::pair<std::reference_wrapper<std::string const> const,void *>>(uint64_t a1, const void ***a2, _OWORD *a3)
 {
   v5 = std::__tree<std::__value_type<std::reference_wrapper<std::string const>,void *>,std::__map_value_compare<std::reference_wrapper<std::string const>,std::__value_type<std::reference_wrapper<std::string const>,void *>,google::protobuf::internal::TransparentSupport<std::string>::less,true>,google::protobuf::internal::MapAllocator<std::__value_type<std::reference_wrapper<std::string const>,void *>>>::__find_equal<std::reference_wrapper<std::string const>>(a1, &v9, a2);
   v6 = *v5;
   if (!*v5)
   {
     v7 = v5;
-    v6 = google::protobuf::internal::MapAllocator<std::__tree_node<std::__value_type<std::reference_wrapper<std::string const>,void *>,void *>>::allocate(a1 + 2, 1uLL);
+    v6 = google::protobuf::internal::MapAllocator<std::__tree_node<std::__value_type<std::reference_wrapper<std::string const>,void *>,void *>>::allocate((a1 + 16), 1uLL);
     *(v6 + 2) = *a3;
     std::__tree<std::__value_type<std::reference_wrapper<std::string const>,void *>,std::__map_value_compare<std::reference_wrapper<std::string const>,std::__value_type<std::reference_wrapper<std::string const>,void *>,google::protobuf::internal::TransparentSupport<std::string>::less,true>,google::protobuf::internal::MapAllocator<std::__value_type<std::reference_wrapper<std::string const>,void *>>>::__insert_node_at(a1, v9, v7, v6);
   }
@@ -3092,9 +2849,9 @@ uint64_t *std::__tree<std::__value_type<std::reference_wrapper<std::string const
   return v6;
 }
 
-uint64_t std::__tree<std::__value_type<std::reference_wrapper<std::string const>,void *>,std::__map_value_compare<std::reference_wrapper<std::string const>,std::__value_type<std::reference_wrapper<std::string const>,void *>,google::protobuf::internal::TransparentSupport<std::string>::less,true>,google::protobuf::internal::MapAllocator<std::__value_type<std::reference_wrapper<std::string const>,void *>>>::__find_equal<std::reference_wrapper<std::string const>>(uint64_t a1, uint64_t *a2, const void ***a3)
+uint64_t *std::__tree<std::__value_type<std::reference_wrapper<std::string const>,void *>,std::__map_value_compare<std::reference_wrapper<std::string const>,std::__value_type<std::reference_wrapper<std::string const>,void *>,google::protobuf::internal::TransparentSupport<std::string>::less,true>,google::protobuf::internal::MapAllocator<std::__value_type<std::reference_wrapper<std::string const>,void *>>>::__find_equal<std::reference_wrapper<std::string const>>(uint64_t a1, const void ****a2, const void ***a3)
 {
-  v5 = a1 + 8;
+  v5 = (a1 + 8);
   v4 = *(a1 + 8);
   if (v4)
   {
@@ -3103,7 +2860,7 @@ uint64_t std::__tree<std::__value_type<std::reference_wrapper<std::string const>
       while (1)
       {
         v8 = v4;
-        if (!google::protobuf::internal::TransparentSupport<std::string>::less::operator()<std::reference_wrapper<std::string const>,std::reference_wrapper<std::string const>>(a1, a3, (v4 + 32)))
+        if (!google::protobuf::internal::TransparentSupport<std::string>::less::operator()<std::reference_wrapper<std::string const>,std::reference_wrapper<std::string const>>(a1, a3, v4 + 4))
         {
           break;
         }
@@ -3116,13 +2873,13 @@ uint64_t std::__tree<std::__value_type<std::reference_wrapper<std::string const>
         }
       }
 
-      if (!google::protobuf::internal::TransparentSupport<std::string>::less::operator()<std::reference_wrapper<std::string const>,std::reference_wrapper<std::string const>>(a1, (v8 + 32), a3))
+      if (!google::protobuf::internal::TransparentSupport<std::string>::less::operator()<std::reference_wrapper<std::string const>,std::reference_wrapper<std::string const>>(a1, v8 + 4, a3))
       {
         break;
       }
 
-      v5 = v8 + 8;
-      v4 = *(v8 + 8);
+      v5 = v8 + 1;
+      v4 = v8[1];
     }
 
     while (v4);
@@ -3130,7 +2887,7 @@ uint64_t std::__tree<std::__value_type<std::reference_wrapper<std::string const>
 
   else
   {
-    v8 = a1 + 8;
+    v8 = (a1 + 8);
   }
 
 LABEL_9:
@@ -3138,7 +2895,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t *std::__tree<std::__value_type<std::reference_wrapper<std::string const>,void *>,std::__map_value_compare<std::reference_wrapper<std::string const>,std::__value_type<std::reference_wrapper<std::string const>,void *>,google::protobuf::internal::TransparentSupport<std::string>::less,true>,google::protobuf::internal::MapAllocator<std::__value_type<std::reference_wrapper<std::string const>,void *>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::reference_wrapper<std::string const>,void *>,std::__map_value_compare<std::reference_wrapper<std::string const>,std::__value_type<std::reference_wrapper<std::string const>,void *>,google::protobuf::internal::TransparentSupport<std::string>::less,true>,google::protobuf::internal::MapAllocator<std::__value_type<std::reference_wrapper<std::string const>,void *>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -3268,7 +3025,7 @@ void google::protobuf::Map<std::string,std::string>::InnerMap::TransferList(void
   v4 = *(a2 + 8 * a3);
   do
   {
-    v5 = *(v4 + 48);
+    v5 = v4[6];
     v6 = google::protobuf::Map<std::string,std::string>::InnerMap::BucketNumber<std::string>(a1, v4);
     google::protobuf::Map<std::string,std::string>::InnerMap::InsertUnique(a1, v6, v4, v7);
     v4 = v5;
@@ -3328,7 +3085,7 @@ uint64_t google::protobuf::Map<std::string,std::string>::InnerMap::DestroyTree(u
   return result;
 }
 
-unsigned __int8 *CoreML::Specification::Metadata::_InternalSerialize(CoreML::Specification::Metadata *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *CoreML::Specification::Metadata::_InternalSerialize(CoreML::Specification::Metadata *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v6 = *(this + 8);
   v7 = (v6 & 0xFFFFFFFFFFFFFFFELL);
@@ -3487,7 +3244,7 @@ LABEL_33:
 
       if (v30 == *(v29 + 8 * (v27 ^ 1)))
       {
-        v30 = *(*v30 + 40);
+        v30 = *(*v30 + 5);
         v37 = v30;
         v38 = this + 16;
         v39 = v27;
@@ -3506,7 +3263,7 @@ LABEL_33:
 
       do
       {
-        a2 = google::protobuf::internal::MapEntryFuncs<std::string,std::string,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)9>::InternalSerialize(v30, (v30 + 24), a2, a3);
+        a2 = google::protobuf::internal::MapEntryFuncs<std::string,std::string,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)9>::InternalSerialize(v30, v30 + 3, a2, a3);
         CoreML::Specification::Metadata::_InternalSerialize(unsigned char *,google::protobuf::io::EpsCopyOutputStream *)const::Utf8Check::Check(v37);
         google::protobuf::Map<std::string,std::string>::InnerMap::iterator_base<google::protobuf::MapPair<std::string,std::string> const>::operator++(&v37);
         v30 = v37;
@@ -3549,17 +3306,17 @@ LABEL_46:
   return a2;
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*> &,google::protobuf::MapPair<std::string,std::string> const**,false>(uint64_t result, void *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*> &,google::protobuf::MapPair<std::string,std::string> const**,false>(uint64_t result, int8x16_t *a2, uint64_t a3, char a4)
 {
   v6 = result;
 LABEL_2:
-  v140 = (a2 - 1);
+  v140 = &a2[-1].i64[1];
   v143 = a2;
   v7 = v6;
   while (1)
   {
     v6 = v7;
-    v8 = a2 - v7;
+    v8 = (a2 - v7) >> 3;
     v9 = v8 - 2;
     if (v8 <= 2)
     {
@@ -3571,11 +3328,11 @@ LABEL_2:
       if (v8 == 2)
       {
         v82 = *v140;
-        v83 = *v6;
-        result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*v140, *v6);
+        v83 = v6->i64[0];
+        result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*v140, v6->i64[0]);
         if (result)
         {
-          *v6 = v82;
+          v6->i64[0] = v82;
           *v140 = v83;
         }
 
@@ -3593,38 +3350,38 @@ LABEL_2:
     if (v8 == 4)
     {
 
-      return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*> &,google::protobuf::MapPair<std::string,std::string> const**,0>(v6, v6 + 1, v6 + 2, v140);
+      return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*> &,google::protobuf::MapPair<std::string,std::string> const**,0>(v6, &v6->i64[1], &v6[1], v140);
     }
 
     if (v8 == 5)
     {
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*> &,google::protobuf::MapPair<std::string,std::string> const**,0>(v6, v6 + 1, v6 + 2, v6 + 3);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*> &,google::protobuf::MapPair<std::string,std::string> const**,0>(v6, &v6->i64[1], &v6[1], &v6[1].i64[1]);
       v77 = *v140;
-      v78 = v6[3];
+      v78 = v6[1].i64[1];
       result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*v140, v78);
       if (!result)
       {
         return result;
       }
 
-      v6[3] = v77;
+      v6[1].i64[1] = v77;
       *v140 = v78;
-      result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v6[3], v6[2]);
+      result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v6[1].i64[1], v6[1].i64[0]);
       if (!result)
       {
         return result;
       }
 
-      v79 = *(v6 + 1);
-      *(v6 + 1) = vextq_s8(v79, v79, 8uLL);
-      result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v79.i64[1], v6[1]);
+      v79 = v6[1];
+      v6[1] = vextq_s8(v79, v79, 8uLL);
+      result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v79.i64[1], v6->i64[1]);
       if (!result)
       {
         return result;
       }
 
-      v80 = *(v6 + 1);
-      *(v6 + 1) = vextq_s8(v80, v80, 8uLL);
+      v80 = *(v6 + 8);
+      *(v6 + 8) = vextq_s8(v80, v80, 8uLL);
       v81 = v80.i64[1];
       goto LABEL_180;
     }
@@ -3632,7 +3389,7 @@ LABEL_2:
 LABEL_10:
     if (v8 <= 23)
     {
-      v88 = v6 + 1;
+      v88 = &v6->u64[1];
       v90 = v6 == a2 || v88 == a2;
       if (a4)
       {
@@ -3642,8 +3399,8 @@ LABEL_10:
           v92 = v6;
           do
           {
-            v94 = *v92;
-            v93 = v92[1];
+            v94 = v92->i64[0];
+            v93 = v92->i64[1];
             v92 = v88;
             result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v93, v94);
             if (result)
@@ -3651,18 +3408,18 @@ LABEL_10:
               v95 = v91;
               while (1)
               {
-                *(v6 + v95 + 8) = v94;
+                *(&v6->i64[1] + v95) = v94;
                 if (!v95)
                 {
                   break;
                 }
 
-                v94 = *(v6 + v95 - 8);
+                v94 = *(&v6->i64[-1] + v95);
                 result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v93, v94);
                 v95 -= 8;
                 if ((result & 1) == 0)
                 {
-                  v96 = (v6 + v95 + 8);
+                  v96 = (&v6->i64[1] + v95);
                   goto LABEL_130;
                 }
               }
@@ -3673,11 +3430,11 @@ LABEL_130:
               a2 = v143;
             }
 
-            v88 = v92 + 1;
+            v88 = &v92->u64[1];
             v91 += 8;
           }
 
-          while (v92 + 1 != a2);
+          while (&v92->u64[1] != a2);
         }
       }
 
@@ -3685,8 +3442,8 @@ LABEL_130:
       {
         do
         {
-          v135 = *v6;
-          v134 = v6[1];
+          v135 = v6->i64[0];
+          v134 = v6->i64[1];
           v6 = v88;
           result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v134, v135);
           if (result)
@@ -3705,10 +3462,10 @@ LABEL_130:
             a2 = v143;
           }
 
-          v88 = v6 + 1;
+          v88 = &v6->u64[1];
         }
 
-        while (v6 + 1 != a2);
+        while (&v6->u64[1] != a2);
       }
 
       return result;
@@ -3726,7 +3483,7 @@ LABEL_130:
           if (v97 >= v98)
           {
             v100 = (2 * v98) | 1;
-            v101 = &v6[v100];
+            v101 = v6 + v100;
             if (2 * v98 + 2 >= v8)
             {
               v103 = *v101;
@@ -3753,7 +3510,7 @@ LABEL_130:
               }
             }
 
-            v105 = &v6[v99];
+            v105 = v6 + v99;
             v106 = *v105;
             result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v103, *v105);
             if ((result & 1) == 0)
@@ -3771,7 +3528,7 @@ LABEL_130:
 
                 v108 = (2 * v100) | 1;
                 v109 = v6;
-                v101 = &v6[v108];
+                v101 = v6 + v108;
                 v110 = 2 * v100 + 2;
                 if (v110 >= v8)
                 {
@@ -3813,13 +3570,13 @@ LABEL_130:
         do
         {
           v114 = 0;
-          v142 = *v6;
+          v142 = v6->i64[0];
           v144 = v113;
           v115 = v6;
           do
           {
             v116 = &v115[v114];
-            v117 = (v116 + 1);
+            v117 = v116 + 1;
             v118 = (2 * v114) | 1;
             v119 = 2 * v114 + 2;
             if (v119 >= v8)
@@ -3831,7 +3588,7 @@ LABEL_130:
             else
             {
               v122 = v116[2];
-              v121 = (v116 + 2);
+              v121 = v116 + 2;
               v120 = v122;
               v123 = *(v121 - 1);
               result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v123, v122);
@@ -3862,17 +3619,17 @@ LABEL_130:
           }
 
           while (v114 <= (v8 - 2) / 2);
-          v125 = v144 - 1;
-          if (v117 == v144 - 1)
+          v125 = &v144[-1].i64[1];
+          if (v117 == &v144[-1].u64[1])
           {
-            v113 = v144 - 1;
+            v113 = (v144 - 8);
             *v117 = v142;
           }
 
           else
           {
             *v117 = *v125;
-            v113 = v144 - 1;
+            v113 = (v144 - 8);
             *v125 = v142;
             v126 = (v117 - v6 + 8) >> 3;
             v127 = v126 < 2;
@@ -3880,7 +3637,7 @@ LABEL_130:
             if (!v127)
             {
               v129 = v128 >> 1;
-              v130 = &v6[v128 >> 1];
+              v130 = &v6->i64[v128 >> 1];
               v131 = *v130;
               v132 = *v117;
               result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*v130, *v117);
@@ -3896,7 +3653,7 @@ LABEL_130:
                   }
 
                   v129 = (v129 - 1) >> 1;
-                  v130 = &v6[v129];
+                  v130 = &v6->i64[v129];
                   v131 = *v130;
                   result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*v130, v132);
                   v117 = v133;
@@ -3917,24 +3674,24 @@ LABEL_130:
       return result;
     }
 
-    v10 = &v6[v8 >> 1];
+    v10 = v6 + (v8 >> 1);
     v11 = v10;
     v12 = *v140;
     if (v8 >= 0x81)
     {
       v13 = *v10;
-      v14 = *v6;
-      v15 = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*v10, *v6);
+      v14 = v6->i64[0];
+      v15 = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*v10, v6->i64[0]);
       v16 = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v12, v13);
       if (v15)
       {
         if (v16)
         {
-          *v6 = v12;
+          v6->i64[0] = v12;
           goto LABEL_27;
         }
 
-        *v6 = v13;
+        v6->i64[0] = v13;
         *v10 = v14;
         v25 = *v140;
         if (google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*v140, v14))
@@ -3950,48 +3707,48 @@ LABEL_27:
         *v10 = v12;
         *v140 = v13;
         v21 = *v10;
-        v22 = *v6;
-        if (google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*v10, *v6))
+        v22 = v6->i64[0];
+        if (google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*v10, v6->i64[0]))
         {
-          *v6 = v21;
+          v6->i64[0] = v21;
           *v10 = v22;
         }
       }
 
       v26 = v10 - 1;
       v27 = *(v10 - 1);
-      v28 = v6[1];
+      v28 = v6->i64[1];
       v29 = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v27, v28);
-      v30 = *(a2 - 2);
+      v30 = a2[-1].i64[0];
       v31 = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v30, v27);
       if (v29)
       {
         if (v31)
         {
-          v6[1] = v30;
+          v6->i64[1] = v30;
           goto LABEL_39;
         }
 
-        v6[1] = v27;
+        v6->i64[1] = v27;
         *v26 = v28;
-        v35 = *(a2 - 2);
+        v35 = a2[-1].i64[0];
         if (google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v35, v28))
         {
           *v26 = v35;
 LABEL_39:
-          *(a2 - 2) = v28;
+          a2[-1].i64[0] = v28;
         }
       }
 
       else if (v31)
       {
         *v26 = v30;
-        *(a2 - 2) = v27;
+        a2[-1].i64[0] = v27;
         v32 = *v26;
-        v33 = v6[1];
+        v33 = v6->i64[1];
         if (google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*v26, v33))
         {
-          v6[1] = v32;
+          v6->i64[1] = v32;
           *v26 = v33;
         }
       }
@@ -3999,38 +3756,38 @@ LABEL_39:
       v38 = v10[1];
       v37 = v10 + 1;
       v36 = v38;
-      v39 = v6[2];
+      v39 = v6[1].i64[0];
       v40 = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v38, v39);
-      v41 = *(a2 - 3);
+      v41 = a2[-2].i64[1];
       v42 = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v41, v38);
       if (v40)
       {
         if (v42)
         {
-          v6[2] = v41;
+          v6[1].i64[0] = v41;
           goto LABEL_48;
         }
 
-        v6[2] = v36;
+        v6[1].i64[0] = v36;
         *v37 = v39;
-        v45 = *(a2 - 3);
+        v45 = a2[-2].i64[1];
         if (google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v45, v39))
         {
           *v37 = v45;
 LABEL_48:
-          *(a2 - 3) = v39;
+          a2[-2].i64[1] = v39;
         }
       }
 
       else if (v42)
       {
         *v37 = v41;
-        *(a2 - 3) = v36;
+        a2[-2].i64[1] = v36;
         v43 = *v37;
-        v44 = v6[2];
+        v44 = v6[1].i64[0];
         if (google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*v37, v44))
         {
-          v6[2] = v43;
+          v6[1].i64[0] = v43;
           *v37 = v44;
         }
       }
@@ -4052,8 +3809,8 @@ LABEL_48:
           {
             v46 = v47;
 LABEL_56:
-            v51 = *v6;
-            *v6 = v46;
+            v51 = v6->i64[0];
+            v6->i64[0] = v46;
             *v11 = v51;
             goto LABEL_57;
           }
@@ -4083,22 +3840,22 @@ LABEL_56:
       goto LABEL_56;
     }
 
-    v17 = *v6;
+    v17 = v6->i64[0];
     v18 = *v10;
-    v19 = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*v6, *v10);
+    v19 = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v6->i64[0], *v10);
     v20 = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v12, v17);
     if (!v19)
     {
       if (v20)
       {
-        *v6 = v12;
+        v6->i64[0] = v12;
         *v140 = v17;
-        v23 = *v6;
+        v23 = v6->i64[0];
         v24 = *v10;
-        if (google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*v6, *v10))
+        if (google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v6->i64[0], *v10))
         {
           *v10 = v23;
-          *v6 = v24;
+          v6->i64[0] = v24;
         }
       }
 
@@ -4113,28 +3870,28 @@ LABEL_56:
     else
     {
       *v10 = v17;
-      *v6 = v18;
+      v6->i64[0] = v18;
       v34 = *v140;
       if (!google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*v140, v18))
       {
         goto LABEL_57;
       }
 
-      *v6 = v34;
+      v6->i64[0] = v34;
     }
 
     *v140 = v18;
 LABEL_57:
     --a3;
-    v52 = *v6;
+    v52 = v6->i64[0];
     v53 = v6;
-    if ((a4 & 1) != 0 || (v53 = v6, google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*(v6 - 1), *v6)))
+    if ((a4 & 1) != 0 || (v53 = v6, google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v6[-1].i64[1], v6->i64[0])))
     {
       do
       {
         v54 = v53;
-        v56 = v53[1];
-        ++v53;
+        v56 = *(v53 + 8);
+        v53 += 8;
         v55 = v56;
       }
 
@@ -4149,7 +3906,8 @@ LABEL_57:
             break;
           }
 
-          v58 = *--a2;
+          v58 = a2[-1].i64[1];
+          a2 = (a2 - 8);
         }
 
         while (!google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v58, v52));
@@ -4159,7 +3917,8 @@ LABEL_57:
       {
         do
         {
-          v57 = *--a2;
+          v57 = a2[-1].i64[1];
+          a2 = (a2 - 8);
         }
 
         while (!google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v57, v52));
@@ -4167,25 +3926,26 @@ LABEL_57:
 
       if (v53 < a2)
       {
-        v59 = *a2;
+        v59 = a2->i64[0];
         v60 = v53;
         v61 = a2;
         do
         {
-          *v60 = v59;
-          *v61 = v55;
+          v60->i64[0] = v59;
+          v61->i64[0] = v55;
           do
           {
             v54 = v60;
-            v62 = v60[1];
-            ++v60;
+            v62 = v60->i64[1];
+            v60 = (v60 + 8);
             v55 = v62;
           }
 
           while (google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v62, v52));
           do
           {
-            v63 = *--v61;
+            v63 = v61[-1].i64[1];
+            v61 = (v61 - 8);
             v59 = v63;
           }
 
@@ -4197,10 +3957,10 @@ LABEL_57:
 
       if (v54 != v6)
       {
-        *v6 = *v54;
+        v6->i64[0] = v54->i64[0];
       }
 
-      *v54 = v52;
+      v54->i64[0] = v52;
       v64 = v53 >= a2;
       a2 = v143;
       if (!v64)
@@ -4209,8 +3969,8 @@ LABEL_57:
       }
 
       v65 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*> &,google::protobuf::MapPair<std::string,std::string> const**>(v6, v54);
-      v7 = v54 + 1;
-      result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*> &,google::protobuf::MapPair<std::string,std::string> const**>(v54 + 1, v143);
+      v7 = &v54->u64[1];
+      result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*> &,google::protobuf::MapPair<std::string,std::string> const**>(&v54->i64[1], v143);
       if (result)
       {
         a2 = v54;
@@ -4227,7 +3987,7 @@ LABEL_57:
 LABEL_78:
         result = std::__introsort<std::_ClassicAlgPolicy,google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*> &,google::protobuf::MapPair<std::string,std::string> const**,false>(v6, v54, a3, a4 & 1);
         a4 = 0;
-        v7 = v54 + 1;
+        v7 = &v54->u64[1];
       }
     }
 
@@ -4240,8 +4000,8 @@ LABEL_78:
         v7 = v6;
         do
         {
-          v67 = v7[1];
-          ++v7;
+          v67 = v7->i64[1];
+          v7 = (v7 + 8);
           result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v52, v67);
         }
 
@@ -4250,7 +4010,7 @@ LABEL_78:
 
       else
       {
-        v68 = v6 + 1;
+        v68 = &v6->u64[1];
         do
         {
           v7 = v68;
@@ -4259,8 +4019,8 @@ LABEL_78:
             break;
           }
 
-          ++v68;
-          result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v52, *v7);
+          v68 = (v68 + 8);
+          result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v52, v7->i64[0]);
         }
 
         while (!result);
@@ -4287,17 +4047,17 @@ LABEL_78:
 
       else
       {
-        v72 = *v7;
+        v72 = v7->i64[0];
         v73 = *v69;
         a2 = v143;
         do
         {
-          *v7 = v73;
+          v7->i64[0] = v73;
           *v69 = v72;
           do
           {
-            v74 = v7[1];
-            ++v7;
+            v74 = v7->i64[1];
+            v7 = (v7 + 8);
             v72 = v74;
           }
 
@@ -4315,8 +4075,8 @@ LABEL_78:
         while (v7 < v69);
       }
 
-      v76 = v7 - 1;
-      if (v7 - 1 != v71)
+      v76 = &v7[-1].i64[1];
+      if (&v7[-1].u64[1] != v71)
       {
         *v71 = *v76;
       }
@@ -4326,9 +4086,9 @@ LABEL_78:
     }
   }
 
-  v84 = *v6;
-  v85 = v6[1];
-  v86 = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v85, *v6);
+  v84 = v6->i64[0];
+  v85 = v6->i64[1];
+  v86 = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v85, v6->i64[0]);
   v87 = *v140;
   result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*v140, v85);
   if (!v86)
@@ -4338,11 +4098,11 @@ LABEL_78:
       return result;
     }
 
-    v6[1] = v87;
+    v6->i64[1] = v87;
     *v140 = v85;
-    v81 = v6[1];
+    v81 = v6->i64[1];
 LABEL_180:
-    result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v81, *v6);
+    result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(v81, v6->i64[0]);
     if (result)
     {
       *v6 = vextq_s8(*v6, *v6, 8uLL);
@@ -4353,13 +4113,13 @@ LABEL_180:
 
   if (result)
   {
-    *v6 = v87;
+    v6->i64[0] = v87;
   }
 
   else
   {
-    *v6 = v85;
-    v6[1] = v84;
+    v6->i64[0] = v85;
+    v6->i64[1] = v84;
     v137 = *v140;
     result = google::protobuf::internal::CompareByDerefFirst<google::protobuf::MapPair<std::string,std::string> const*>::operator()(*v140, v84);
     if (!result)
@@ -4367,14 +4127,14 @@ LABEL_180:
       return result;
     }
 
-    v6[1] = v137;
+    v6->i64[1] = v137;
   }
 
   *v140 = v84;
   return result;
 }
 
-unsigned __int8 *google::protobuf::internal::MapEntryFuncs<std::string,std::string,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)9>::InternalSerialize(uint64_t a1, uint64_t a2, unsigned __int8 *a3, google::protobuf::io::EpsCopyOutputStream *this)
+char *google::protobuf::internal::MapEntryFuncs<std::string,std::string,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)9>::InternalSerialize(const void **a1, const void **a2, unsigned __int8 *a3, google::protobuf::io::EpsCopyOutputStream *this)
 {
   if (*this <= a3)
   {
@@ -4385,14 +4145,14 @@ unsigned __int8 *google::protobuf::internal::MapEntryFuncs<std::string,std::stri
   v7 = *(a1 + 23);
   if ((v7 & 0x80u) != 0)
   {
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
   }
 
   v8 = 9 * (__clz(v7 | 1) ^ 0x1F) + 73;
   v9 = *(a2 + 23);
   if ((v9 & 0x80u) != 0)
   {
-    v9 = *(a2 + 8);
+    v9 = *(a2 + 2);
   }
 
   v10 = v7 + v9 + (v8 >> 6) + ((9 * (__clz(v9 | 1) ^ 0x1F) + 73) >> 6);
@@ -4431,7 +4191,7 @@ unsigned __int8 *google::protobuf::internal::MapEntryFuncs<std::string,std::stri
   }
 
   v16 = *(a1 + 23);
-  if (v16 < 0 && (v16 = *(a1 + 8), v16 > 127) || *this - v12 + 14 < v16)
+  if (v16 < 0 && (v16 = a1[1], v16 > 127) || *this - v12 + 14 < v16)
   {
     v19 = google::protobuf::io::EpsCopyOutputStream::WriteStringOutline(this, 1, a1, v12);
   }
@@ -4461,7 +4221,7 @@ unsigned __int8 *google::protobuf::internal::MapEntryFuncs<std::string,std::stri
   }
 
   v20 = *(a2 + 23);
-  if (v20 < 0 && (v20 = *(a2 + 8), v20 > 127) || *this - v19 + 14 < v20)
+  if (v20 < 0 && (v20 = a2[1], v20 > 127) || *this - v19 + 14 < v20)
   {
 
     return google::protobuf::io::EpsCopyOutputStream::WriteStringOutline(this, 2, a2, v19);
@@ -4487,10 +4247,10 @@ unsigned __int8 *google::protobuf::internal::MapEntryFuncs<std::string,std::stri
   }
 }
 
-void CoreML::Specification::Metadata::_InternalSerialize(unsigned char *,google::protobuf::io::EpsCopyOutputStream *)const::Utf8Check::Check(char *a1)
+void CoreML::Specification::Metadata::_InternalSerialize(unsigned char *,google::protobuf::io::EpsCopyOutputStream *)const::Utf8Check::Check(google::protobuf::internal *a1)
 {
   v1 = a1;
-  v2 = a1[23];
+  v2 = *(a1 + 23);
   if ((v2 & 0x8000000000000000) != 0)
   {
     a1 = *a1;
@@ -4502,7 +4262,7 @@ void CoreML::Specification::Metadata::_InternalSerialize(unsigned char *,google:
     google::protobuf::internal::PrintUTF8ErrorLog("CoreML.Specification.Metadata.UserDefinedEntry.key", "serializing", v3);
   }
 
-  v4 = v1[47];
+  v4 = *(v1 + 47);
   if ((v4 & 0x8000000000000000) != 0)
   {
     v5 = *(v1 + 3);
@@ -4846,16 +4606,16 @@ LABEL_40:
   return v25 + 1 == a2;
 }
 
-const char *CoreML::Specification::Metadata::_InternalParse(CoreML::Specification::Metadata *this, const char *a2, google::protobuf::internal::ParseContext *a3)
+std::string::value_type *CoreML::Specification::Metadata::_InternalParse(CoreML::Specification::Metadata *this, std::string::value_type *a2, google::protobuf::internal::ParseContext *a3)
 {
-  v69 = a2;
+  v68 = a2;
   v5 = (this + 16);
 LABEL_2:
-  while ((google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(a3, &v69, *(a3 + 23)) & 1) == 0)
+  while ((google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(a3, &v68, *(a3 + 23)) & 1) == 0)
   {
-    v6 = (v69 + 1);
-    v7 = *v69;
-    if (*v69 < 0)
+    v6 = v68 + 1;
+    v7 = *v68;
+    if (*v68 < 0)
     {
       v7 = v7 + (*v6 << 7) - 128;
       if (*v6 < 0)
@@ -4864,8 +4624,8 @@ LABEL_2:
         v9 = 2;
         while (1)
         {
-          v7 += (v69[v9] - 1) << v8;
-          if ((v69[v9] & 0x80000000) == 0)
+          v7 += (v68[v9] - 1) << v8;
+          if ((v68[v9] & 0x80000000) == 0)
           {
             break;
           }
@@ -4878,12 +4638,12 @@ LABEL_2:
           }
         }
 
-        v6 = &v69[v9 + 1];
+        v6 = &v68[v9 + 1];
       }
 
       else
       {
-        v6 = (v69 + 2);
+        v6 = v68 + 2;
       }
     }
 
@@ -4927,17 +4687,16 @@ LABEL_2:
 LABEL_96:
       v59 = google::protobuf::internal::ArenaStringPtr::Mutable(v55, v54);
       v6 = google::protobuf::internal::InlineGreedyStringParser(v59, v6, a3);
-      v69 = v6;
+      v68 = v6;
       v62 = *(v59 + 23);
-      v63 = *v59;
       if ((v62 & 0x80000000) == 0)
       {
-        v64 = v59;
+        v63 = v59;
       }
 
       else
       {
-        v64 = *v59;
+        v63 = *v59;
       }
 
       if ((v62 & 0x8000000000000000) != 0)
@@ -4949,7 +4708,7 @@ LABEL_96:
         }
       }
 
-      if (!google::protobuf::internal::VerifyUTF8(v64, v62))
+      if (!google::protobuf::internal::VerifyUTF8(v63, v62))
       {
         return 0;
       }
@@ -5003,19 +4762,19 @@ LABEL_96:
         v6 -= 2;
         while (1)
         {
-          v69 = v6 + 2;
-          v70 = 0;
-          v11 = google::protobuf::internal::ParseContext::ReadSizeAndPushLimitAndDepth(a3, (v6 + 2), &v70);
+          v68 = v6 + 2;
+          v69 = 0;
+          v11 = google::protobuf::internal::ParseContext::ReadSizeAndPushLimitAndDepth(a3, (v6 + 2), &v69);
           if (!v11)
           {
             v6 = 0;
             goto LABEL_55;
           }
 
+          v70 = v5;
           v71 = v5;
-          v72 = v5;
-          memset(&v73, 0, sizeof(v73));
-          v75 = 0;
+          memset(&v72, 0, sizeof(v72));
+          v74 = 0;
           String = v11;
           v12 = google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(a3, &String, *(a3 + 23));
           v6 = String;
@@ -5024,8 +4783,8 @@ LABEL_96:
             if (String)
             {
 LABEL_61:
-              v39 = google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse>(v71[1].__r_.__value_.__r.__words[2]);
-              v75 = v39;
+              v39 = google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse>(v70[1].__r_.__value_.__r.__words[2]);
+              v74 = v39;
               goto LABEL_69;
             }
           }
@@ -5055,30 +4814,30 @@ LABEL_61:
               v14 = String + 2;
             }
 
-            String = google::protobuf::internal::EpsCopyInputStream::ReadString(a3, v14, v13, &v73);
+            String = google::protobuf::internal::EpsCopyInputStream::ReadString(a3, v14, v13, &v72);
             if (!String)
             {
               goto LABEL_53;
             }
 
-            if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v72.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v17 = &v73;
+              v17 = &v72;
             }
 
             else
             {
-              v17 = v73.__r_.__value_.__r.__words[0];
+              v17 = v72.__r_.__value_.__r.__words[0];
             }
 
-            if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v72.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v18 = HIBYTE(v73.__r_.__value_.__r.__words[2]);
+              v18 = HIBYTE(v72.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v18 = LODWORD(v73.__r_.__value_.__r.__words[1]);
+              v18 = LODWORD(v72.__r_.__value_.__r.__words[1]);
             }
 
             if (!google::protobuf::internal::IsStructurallyValidUTF8(v17, v18))
@@ -5101,11 +4860,11 @@ LABEL_53:
               goto LABEL_53;
             }
 
-            if (*String != 18 || (v22 = v72->__words[0], google::protobuf::Map<std::string,std::string>::InnerMap::insert<std::string&>(v77, v72, &v73), v23 = (v77[0] + 24), v74 = v77[0] + 24, v22 == v72->__words[0]))
+            if (*String != 18 || (v22 = v71->__words[0], google::protobuf::Map<std::string,std::string>::InnerMap::insert<std::string&>(v76, v71, &v72), v23 = (v76[0] + 24), v73 = v76[0] + 24, v22 == v71->__words[0]))
             {
 LABEL_63:
-              v36 = google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse>(v71[1].__r_.__value_.__r.__words[2]);
-              v75 = v36;
+              v36 = google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse>(v70[1].__r_.__value_.__r.__words[2]);
+              v74 = v36;
               goto LABEL_64;
             }
 
@@ -5134,19 +4893,19 @@ LABEL_63:
               goto LABEL_52;
             }
 
-            v28 = v74;
-            v29 = *(v74 + 23);
+            v28 = v73;
+            v29 = *(v73 + 23);
             if ((v29 & 0x8000000000000000) != 0)
             {
-              v28 = *v74;
-              v29 = *(v74 + 8);
+              v28 = *v73;
+              v29 = *(v73 + 8);
             }
 
             if (!google::protobuf::internal::IsStructurallyValidUTF8(v28, v29))
             {
               google::protobuf::internal::PrintUTF8ErrorLog("CoreML.Specification.Metadata.UserDefinedEntry.value", "parsing", v30);
 LABEL_52:
-              google::protobuf::Map<std::string,std::string>::erase<std::string>(v72, &v73.__r_.__value_.__l.__data_);
+              google::protobuf::Map<std::string,std::string>::erase<std::string>(v71, &v72);
               goto LABEL_53;
             }
 
@@ -5154,9 +4913,9 @@ LABEL_52:
             v6 = String;
             if ((v31 & 1) == 0 && String)
             {
-              v75 = google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse>(v71[1].__r_.__value_.__r.__words[2]);
-              v32 = v74;
-              v33 = google::protobuf::internal::MapEntryImpl<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse,google::protobuf::MessageLite,std::string,std::string,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)9>::mutable_value(v75);
+              v74 = google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse>(v70[1].__r_.__value_.__r.__words[2]);
+              v32 = v73;
+              v33 = google::protobuf::internal::MapEntryImpl<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse,google::protobuf::MessageLite,std::string,std::string,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)9>::mutable_value(v74);
               v34 = v33;
               if (*(v33 + 23) < 0)
               {
@@ -5168,8 +4927,8 @@ LABEL_52:
               *v34 = v35;
               *(v32 + 23) = 0;
               *v32 = 0;
-              google::protobuf::Map<std::string,std::string>::erase<std::string>(v72, &v73.__r_.__value_.__l.__data_);
-              v36 = v75;
+              google::protobuf::Map<std::string,std::string>::erase<std::string>(v71, &v72);
+              v36 = v74;
 LABEL_64:
               v36[8] |= 1u;
               v40 = *(v36 + 1);
@@ -5186,23 +4945,23 @@ LABEL_64:
                 operator delete(*v42);
               }
 
-              v44 = *&v73.__r_.__value_.__l.__data_;
-              v43[2] = v73.__r_.__value_.__r.__words[2];
+              v44 = *&v72.__r_.__value_.__l.__data_;
+              v43[2] = v72.__r_.__value_.__r.__words[2];
               *v43 = v44;
-              *(&v73.__r_.__value_.__s + 23) = 0;
-              v73.__r_.__value_.__s.__data_[0] = 0;
-              v39 = v75;
+              *(&v72.__r_.__value_.__s + 23) = 0;
+              v72.__r_.__value_.__s.__data_[0] = 0;
+              v39 = v74;
               v6 = String;
 LABEL_69:
               v6 = google::protobuf::internal::MapEntryImpl<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse,google::protobuf::MessageLite,std::string,std::string,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)9>::_InternalParse(v39, v6, a3);
               if (v6)
               {
-                v45 = (*(*v75 + 104))(v75);
-                std::string::operator=(&v73, v45);
-                google::protobuf::Map<std::string,std::string>::InnerMap::insert<std::string&>(v77, v72, &v73);
-                v74 = v77[0] + 24;
-                v46 = v75;
-                v75[8] |= 2u;
+                v45 = (*(*v74 + 104))(v74);
+                std::string::operator=(&v72, v45);
+                google::protobuf::Map<std::string,std::string>::InnerMap::insert<std::string&>(v76, v71, &v72);
+                v73 = v76[0] + 24;
+                v46 = v74;
+                v74[8] |= 2u;
                 v47 = *(v46 + 1);
                 v48 = (v47 & 0xFFFFFFFFFFFFFFFCLL);
                 if (v47)
@@ -5211,10 +4970,10 @@ LABEL_69:
                 }
 
                 v49 = google::protobuf::internal::ArenaStringPtr::Mutable(v46 + 3, v48);
-                v50 = v74;
-                if (*(v74 + 23) < 0)
+                v50 = v73;
+                if (*(v73 + 23) < 0)
                 {
-                  operator delete(*v74);
+                  operator delete(*v73);
                 }
 
                 v51 = *v49;
@@ -5227,7 +4986,7 @@ LABEL_69:
           }
 
 LABEL_54:
-          google::protobuf::internal::MapEntryImpl<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse,google::protobuf::MessageLite,std::string,std::string,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)9>::Parser<google::protobuf::internal::MapFieldLite<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse,std::string,std::string,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)9>,google::protobuf::Map<std::string,std::string>>::~Parser(&v71);
+          google::protobuf::internal::MapEntryImpl<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse,google::protobuf::MessageLite,std::string,std::string,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)9>::Parser<google::protobuf::internal::MapFieldLite<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse,std::string,std::string,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)9>,google::protobuf::Map<std::string,std::string>>::~Parser(&v70);
 LABEL_55:
           ++*(a3 + 22);
           if (*(a3 + 20))
@@ -5235,11 +4994,11 @@ LABEL_55:
             return 0;
           }
 
-          v37 = *(a3 + 7) + v70;
+          v37 = *(a3 + 7) + v69;
           *(a3 + 7) = v37;
           v38 = *(a3 + 1) + (v37 & (v37 >> 31));
           *a3 = v38;
-          v69 = v6;
+          v68 = v6;
           if (!v6)
           {
             return v6;
@@ -5255,46 +5014,46 @@ LABEL_55:
 LABEL_105:
       if (v7)
       {
-        v65 = (v7 & 7) == 4;
+        v64 = (v7 & 7) == 4;
       }
 
       else
       {
-        v65 = 1;
+        v64 = 1;
       }
 
-      if (v65)
+      if (v64)
       {
         *(a3 + 20) = v7 - 1;
         return v6;
       }
 
-      v66 = *(this + 1);
-      if (v66)
+      v65 = *(this + 1);
+      if (v65)
       {
-        v67 = ((v66 & 0xFFFFFFFFFFFFFFFCLL) + 8);
+        v66 = ((v65 & 0xFFFFFFFFFFFFFFFCLL) + 8);
       }
 
       else
       {
-        v67 = google::protobuf::internal::InternalMetadata::mutable_unknown_fields_slow<std::string>(this + 1);
+        v66 = google::protobuf::internal::InternalMetadata::mutable_unknown_fields_slow<std::string>(this + 1);
       }
 
-      v71 = v67;
-      v69 = google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(v7, &v71, v6, a3);
-      if (!v69)
+      v70 = v66;
+      v68 = google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(v7, &v70, v6, a3);
+      if (!v68)
       {
         return 0;
       }
     }
   }
 
-  return v69;
+  return v68;
 }
 
-void sub_1C1C18CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1C1C18CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::MapEntryImpl<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse,google::protobuf::MessageLite,std::string,std::string,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)9>::Parser<google::protobuf::internal::MapFieldLite<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse,std::string,std::string,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)9>,google::protobuf::Map<std::string,std::string>>::~Parser(va);
   _Unwind_Resume(a1);
 }
@@ -5415,7 +5174,7 @@ LABEL_18:
   *(a1 + 24) = v6;
 }
 
-uint64_t google::protobuf::Map<std::string,std::string>::erase<std::string>(void *a1, const void **a2)
+uint64_t google::protobuf::Map<std::string,std::string>::erase<std::string>(void *a1, uint64_t *a2)
 {
   result = google::protobuf::Map<std::string,std::string>::InnerMap::FindHelper<std::string>(a1, a2, 0, &v32);
   if (!v32)
@@ -5567,7 +5326,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse>(atomic_ullong *a1)
+atomic_ullong google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse>(atomic_ullong *a1)
 {
   if (!a1)
   {
@@ -5595,7 +5354,7 @@ uint64_t *google::protobuf::internal::MapEntryImpl<CoreML::Specification::Metada
   return google::protobuf::internal::ArenaStringPtr::Mutable((a1 + 24), v2);
 }
 
-const char *google::protobuf::internal::MapEntryImpl<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse,google::protobuf::MessageLite,std::string,std::string,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)9>::_InternalParse(uint64_t a1, const char *a2, google::protobuf::internal::EpsCopyInputStream *this)
+char *google::protobuf::internal::MapEntryImpl<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse,google::protobuf::MessageLite,std::string,std::string,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)9>::_InternalParse(uint64_t a1, char *a2, google::protobuf::internal::EpsCopyInputStream *this)
 {
   v31 = a2;
   while (1)
@@ -5605,7 +5364,7 @@ const char *google::protobuf::internal::MapEntryImpl<CoreML::Specification::Meta
       return v31;
     }
 
-    String = (v31 + 1);
+    String = v31 + 1;
     v6 = *v31;
     if (*v31 < 0)
     {
@@ -5635,7 +5394,7 @@ const char *google::protobuf::internal::MapEntryImpl<CoreML::Specification::Meta
 
       else
       {
-        String = (v31 + 2);
+        String = v31 + 2;
       }
     }
 
@@ -5769,7 +5528,7 @@ LABEL_46:
   return 0;
 }
 
-unsigned __int8 *google::protobuf::internal::MapEntryImpl<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse,google::protobuf::MessageLite,std::string,std::string,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)9>::_InternalSerialize(uint64_t a1, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *google::protobuf::internal::MapEntryImpl<CoreML::Specification::Metadata_UserDefinedEntry_DoNotUse,google::protobuf::MessageLite,std::string,std::string,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)9>::_InternalSerialize(uint64_t a1, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v6 = (*(*a1 + 104))(a1);
   if (*a3 <= a2)
@@ -6073,7 +5832,7 @@ BOOL google::protobuf::Map<std::string,std::string>::InnerMap::iterator_base<goo
   {
     while (1)
     {
-      v8 = *(v8 + 48);
+      v8 = v8[6];
       if (!v8)
       {
         break;
@@ -6103,7 +5862,7 @@ uint64_t google::protobuf::Map<std::string,std::string>::InnerMap::EraseFromLink
     return v3;
   }
 
-  *(v2 + 48) = google::protobuf::Map<std::string,std::string>::InnerMap::EraseFromLinkedList();
+  *(v2 + 48) = google::protobuf::Map<std::string,std::string>::InnerMap::EraseFromLinkedList(a1, v3);
   return v2;
 }
 
@@ -6344,9 +6103,9 @@ LABEL_34:
   return v2;
 }
 
-uint64_t CoreML::Specification::Metadata::Clear(CoreML::Specification::Metadata *this)
+void *CoreML::Specification::Metadata::Clear(CoreML::Specification::Metadata *this)
 {
-  result = google::protobuf::Map<std::string,std::string>::InnerMap::clear(this + 16);
+  result = google::protobuf::Map<std::string,std::string>::InnerMap::clear(this + 2);
   v3 = *(this + 8);
   if (v3 != &google::protobuf::internal::fixed_address_empty_string)
   {
@@ -6426,10 +6185,10 @@ uint64_t CoreML::Specification::Metadata::Clear(CoreML::Specification::Metadata 
   return result;
 }
 
-uint64_t google::protobuf::Map<std::string,std::string>::InnerMap::clear(uint64_t result)
+void *google::protobuf::Map<std::string,std::string>::InnerMap::clear(void *result)
 {
   v1 = result;
-  v2 = *(result + 8);
+  v2 = result[1];
   if (v2)
   {
     v3 = 0;
@@ -6581,7 +6340,7 @@ uint64_t google::protobuf::Map<std::string,std::string>::InnerMap::~InnerMap(uin
   return a1;
 }
 
-uint64_t google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::FunctionDescription>(atomic_ullong *a1)
+atomic_ullong google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::FunctionDescription>(atomic_ullong *a1)
 {
   if (!a1)
   {
@@ -6718,7 +6477,7 @@ void CoreML::Specification::FunctionDescription::MergeFrom(CoreML::Specification
   }
 }
 
-unsigned __int8 *CoreML::Specification::FunctionDescription::_InternalSerialize(CoreML::Specification::FunctionDescription *this, unsigned __int8 *__dst, google::protobuf::io::EpsCopyOutputStream *a3)
+char *CoreML::Specification::FunctionDescription::_InternalSerialize(CoreML::Specification::FunctionDescription *this, unsigned __int8 *__dst, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v6 = *(this + 11);
   v7 = (v6 & 0xFFFFFFFFFFFFFFFELL);
@@ -6981,7 +6740,7 @@ LABEL_45:
   return google::protobuf::io::EpsCopyOutputStream::WriteRawFallback(a3, v49, v48, __dst);
 }
 
-unsigned __int8 *CoreML::Specification::FeatureDescription::_InternalSerialize(void (***this)(CoreML::Specification::FeatureDescription *__hidden this), unsigned __int8 *__dst, google::protobuf::io::EpsCopyOutputStream *a3)
+char *CoreML::Specification::FeatureDescription::_InternalSerialize(void (***this)(CoreML::Specification::FeatureDescription *__hidden this), unsigned __int8 *__dst, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v6 = this[2];
   v7 = (v6 & 0xFFFFFFFFFFFFFFFELL);
@@ -7124,19 +6883,19 @@ LABEL_17:
 
 google::protobuf::internal *CoreML::Specification::FeatureDescription::_InternalParse(CoreML::Specification::FeatureDescription *this, google::protobuf::internal *a2, google::protobuf::internal::ParseContext *a3)
 {
-  v29 = a2;
+  v28 = a2;
   while (1)
   {
     while (1)
     {
-      if (google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(a3, &v29, *(a3 + 23)))
+      if (google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(a3, &v28, *(a3 + 23)))
       {
-        return v29;
+        return v28;
       }
 
-      v5 = v29 + 1;
-      v6 = *v29;
-      if (*v29 < 0)
+      v5 = v28 + 1;
+      v6 = *v28;
+      if (*v28 < 0)
       {
         v6 = v6 + (*v5 << 7) - 128;
         if (*v5 < 0)
@@ -7145,8 +6904,8 @@ google::protobuf::internal *CoreML::Specification::FeatureDescription::_Internal
           v8 = 2;
           while (1)
           {
-            v6 += (*(v29 + v8) - 1) << v7;
-            if ((*(v29 + v8) & 0x80000000) == 0)
+            v6 += (*(v28 + v8) - 1) << v7;
+            if ((*(v28 + v8) & 0x80000000) == 0)
             {
               break;
             }
@@ -7159,12 +6918,12 @@ google::protobuf::internal *CoreML::Specification::FeatureDescription::_Internal
             }
           }
 
-          v5 = v29 + v8 + 1;
+          v5 = v28 + v8 + 1;
         }
 
         else
         {
-          v5 = v29 + 2;
+          v5 = v28 + 2;
         }
       }
 
@@ -7195,7 +6954,7 @@ google::protobuf::internal *CoreML::Specification::FeatureDescription::_Internal
 
       v14 = google::protobuf::internal::ParseContext::ParseMessage(a3, v18, v5);
 LABEL_34:
-      v29 = v14;
+      v28 = v14;
       if (!v14)
       {
         return 0;
@@ -7251,8 +7010,8 @@ LABEL_17:
           v13 = google::protobuf::internal::InternalMetadata::mutable_unknown_fields_slow<std::string>(this + 1);
         }
 
-        v30 = v13;
-        v14 = google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(v6, &v30, v5, a3);
+        v29 = v13;
+        v14 = google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(v6, &v29, v5, a3);
         goto LABEL_34;
       }
 
@@ -7268,17 +7027,16 @@ LABEL_17:
 
     v22 = google::protobuf::internal::ArenaStringPtr::Mutable(v17, v16);
     v5 = google::protobuf::internal::InlineGreedyStringParser(v22, v5, a3);
-    v29 = v5;
+    v28 = v5;
     v25 = *(v22 + 23);
-    v26 = *v22;
     if ((v25 & 0x80000000) == 0)
     {
-      v27 = v22;
+      v26 = v22;
     }
 
     else
     {
-      v27 = *v22;
+      v26 = *v22;
     }
 
     if ((v25 & 0x8000000000000000) != 0)
@@ -7290,7 +7048,7 @@ LABEL_17:
       }
     }
 
-    if (!google::protobuf::internal::VerifyUTF8(v27, v25))
+    if (!google::protobuf::internal::VerifyUTF8(v26, v25))
     {
       return 0;
     }
@@ -7464,10 +7222,10 @@ void CoreML::Specification::FeatureDescription::MergeFrom(CoreML::Specification:
   }
 }
 
-void *CoreML::Specification::FeatureDescription::Clear(void *this)
+CoreML::Specification::FeatureType *CoreML::Specification::FeatureDescription::Clear(CoreML::Specification::FeatureType *this)
 {
   v1 = this;
-  v2 = this[2];
+  v2 = *(this + 2);
   if (v2 != &google::protobuf::internal::fixed_address_empty_string)
   {
     v3 = v2 & 0xFFFFFFFFFFFFFFFELL;
@@ -7484,7 +7242,7 @@ void *CoreML::Specification::FeatureDescription::Clear(void *this)
     }
   }
 
-  v4 = this[3];
+  v4 = *(this + 3);
   if (v4 != &google::protobuf::internal::fixed_address_empty_string)
   {
     v5 = v4 & 0xFFFFFFFFFFFFFFFELL;
@@ -7501,8 +7259,8 @@ void *CoreML::Specification::FeatureDescription::Clear(void *this)
     }
   }
 
-  v7 = this + 1;
-  v6 = this[1];
+  v7 = (this + 8);
+  v6 = *(this + 1);
   v8 = v6 & 1;
   v9 = (v6 & 0xFFFFFFFFFFFFFFFCLL);
   if (v6)
@@ -7518,7 +7276,7 @@ void *CoreML::Specification::FeatureDescription::Clear(void *this)
     goto LABEL_13;
   }
 
-  this = this[4];
+  this = *(this + 4);
   if (this)
   {
     CoreML::Specification::FeatureType::~FeatureType(this);
@@ -7527,7 +7285,7 @@ void *CoreML::Specification::FeatureDescription::Clear(void *this)
   }
 
 LABEL_13:
-  v1[4] = 0;
+  *(v1 + 4) = 0;
   if (v8)
   {
 
@@ -7537,7 +7295,7 @@ LABEL_13:
   return this;
 }
 
-uint64_t google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::FeatureDescription>(atomic_ullong *a1)
+atomic_ullong google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::FeatureDescription>(atomic_ullong *a1)
 {
   if (!a1)
   {
@@ -7609,20 +7367,20 @@ LABEL_12:
   google::protobuf::internal::InternalMetadata::~InternalMetadata(v3);
 }
 
-const char *CoreML::Specification::FunctionDescription::_InternalParse(CoreML::Specification::FunctionDescription *this, const char *a2, google::protobuf::internal::ParseContext *a3)
+std::string::value_type *CoreML::Specification::FunctionDescription::_InternalParse(CoreML::Specification::FunctionDescription *this, std::string::value_type *a2, google::protobuf::internal::ParseContext *a3)
 {
-  v38 = a2;
+  v37 = a2;
   while (1)
   {
 LABEL_2:
-    if (google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(a3, &v38, *(a3 + 23)))
+    if (google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(a3, &v37, *(a3 + 23)))
     {
-      return v38;
+      return v37;
     }
 
-    v5 = (v38 + 1);
-    v6 = *v38;
-    if (*v38 < 0)
+    v5 = v37 + 1;
+    v6 = *v37;
+    if (*v37 < 0)
     {
       v6 = v6 + (*v5 << 7) - 128;
       if (*v5 < 0)
@@ -7631,8 +7389,8 @@ LABEL_2:
         v8 = 2;
         while (1)
         {
-          v6 += (v38[v8] - 1) << v7;
-          if ((v38[v8] & 0x80000000) == 0)
+          v6 += (v37[v8] - 1) << v7;
+          if ((v37[v8] & 0x80000000) == 0)
           {
             break;
           }
@@ -7645,12 +7403,12 @@ LABEL_2:
           }
         }
 
-        v5 = &v38[v8 + 1];
+        v5 = &v37[v8 + 1];
       }
 
       else
       {
-        v5 = (v38 + 2);
+        v5 = v37 + 2;
       }
     }
 
@@ -7678,17 +7436,16 @@ LABEL_2:
 LABEL_63:
       v28 = google::protobuf::internal::ArenaStringPtr::Mutable(v21, v20);
       v5 = google::protobuf::internal::InlineGreedyStringParser(v28, v5, a3);
-      v38 = v5;
+      v37 = v5;
       v31 = *(v28 + 23);
-      v32 = *v28;
       if ((v31 & 0x80000000) == 0)
       {
-        v33 = v28;
+        v32 = v28;
       }
 
       else
       {
-        v33 = *v28;
+        v32 = *v28;
       }
 
       if ((v31 & 0x8000000000000000) != 0)
@@ -7700,7 +7457,7 @@ LABEL_63:
         }
       }
 
-      if (!google::protobuf::internal::VerifyUTF8(v33, v31))
+      if (!google::protobuf::internal::VerifyUTF8(v32, v31))
       {
         return 0;
       }
@@ -7783,34 +7540,34 @@ LABEL_63:
 LABEL_72:
       if (v6)
       {
-        v34 = (v6 & 7) == 4;
+        v33 = (v6 & 7) == 4;
       }
 
       else
       {
-        v34 = 1;
+        v33 = 1;
       }
 
-      if (v34)
+      if (v33)
       {
         *(a3 + 20) = v6 - 1;
         return v5;
       }
 
-      v35 = *(this + 1);
-      if (v35)
+      v34 = *(this + 1);
+      if (v34)
       {
-        v36 = ((v35 & 0xFFFFFFFFFFFFFFFCLL) + 8);
+        v35 = ((v34 & 0xFFFFFFFFFFFFFFFCLL) + 8);
       }
 
       else
       {
-        v36 = google::protobuf::internal::InternalMetadata::mutable_unknown_fields_slow<std::string>(this + 1);
+        v35 = google::protobuf::internal::InternalMetadata::mutable_unknown_fields_slow<std::string>(this + 1);
       }
 
-      v39 = v36;
-      v38 = google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(v6, &v39, v5, a3);
-      if (!v38)
+      v38 = v35;
+      v37 = google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(v6, &v38, v5, a3);
+      if (!v37)
       {
         return 0;
       }
@@ -7884,7 +7641,7 @@ LABEL_72:
     if (*a3 <= v18 || *v18 != 50)
     {
 LABEL_58:
-      v38 = v5;
+      v37 = v5;
       goto LABEL_2;
     }
   }
@@ -8063,13 +7820,13 @@ LABEL_36:
   return v16;
 }
 
-void *CoreML::Specification::FunctionDescription::Clear(void *this)
+CoreML::Specification::FeatureType *CoreML::Specification::FunctionDescription::Clear(CoreML::Specification::FeatureType *this)
 {
   v1 = this;
   v2 = *(this + 6);
   if (v2 >= 1)
   {
-    v3 = (this[4] + 8);
+    v3 = (*(this + 4) + 8);
     do
     {
       v4 = *v3++;
@@ -8078,13 +7835,13 @@ void *CoreML::Specification::FunctionDescription::Clear(void *this)
     }
 
     while (v2);
-    *(v1 + 24) = 0;
+    *(v1 + 6) = 0;
   }
 
-  v5 = *(v1 + 48);
+  v5 = *(v1 + 12);
   if (v5 >= 1)
   {
-    v6 = (*(v1 + 56) + 8);
+    v6 = (*(v1 + 7) + 8);
     do
     {
       v7 = *v6++;
@@ -8093,13 +7850,13 @@ void *CoreML::Specification::FunctionDescription::Clear(void *this)
     }
 
     while (v5);
-    *(v1 + 48) = 0;
+    *(v1 + 12) = 0;
   }
 
-  v8 = *(v1 + 72);
+  v8 = *(v1 + 18);
   if (v8 >= 1)
   {
-    v9 = (*(v1 + 80) + 8);
+    v9 = (*(v1 + 10) + 8);
     do
     {
       v10 = *v9++;
@@ -8108,10 +7865,10 @@ void *CoreML::Specification::FunctionDescription::Clear(void *this)
     }
 
     while (v8);
-    *(v1 + 72) = 0;
+    *(v1 + 18) = 0;
   }
 
-  v11 = *(v1 + 88);
+  v11 = *(v1 + 11);
   if (v11 != &google::protobuf::internal::fixed_address_empty_string)
   {
     v12 = v11 & 0xFFFFFFFFFFFFFFFELL;
@@ -8128,7 +7885,7 @@ void *CoreML::Specification::FunctionDescription::Clear(void *this)
     }
   }
 
-  v13 = *(v1 + 96);
+  v13 = *(v1 + 12);
   if (v13 != &google::protobuf::internal::fixed_address_empty_string)
   {
     v14 = v13 & 0xFFFFFFFFFFFFFFFELL;
@@ -8145,7 +7902,7 @@ void *CoreML::Specification::FunctionDescription::Clear(void *this)
     }
   }
 
-  v15 = *(v1 + 104);
+  v15 = *(v1 + 13);
   if (v15 != &google::protobuf::internal::fixed_address_empty_string)
   {
     v16 = v15 & 0xFFFFFFFFFFFFFFFELL;
@@ -8240,20 +7997,20 @@ google::protobuf::internal::RepeatedPtrFieldBase *google::protobuf::RepeatedPtrF
 
 google::protobuf::internal *CoreML::Specification::ModelDescription::_InternalParse(CoreML::Specification::ModelDescription *this, google::protobuf::internal *a2, google::protobuf::internal::ParseContext *a3)
 {
-  v50 = a2;
+  v49 = a2;
   while (1)
   {
     while (1)
     {
 LABEL_2:
-      if (google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(a3, &v50, *(a3 + 23)))
+      if (google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(a3, &v49, *(a3 + 23)))
       {
-        return v50;
+        return v49;
       }
 
-      v5 = v50 + 1;
-      v6 = *v50;
-      if (*v50 < 0)
+      v5 = v49 + 1;
+      v6 = *v49;
+      if (*v49 < 0)
       {
         v6 = v6 + (*v5 << 7) - 128;
         if (*v5 < 0)
@@ -8262,8 +8019,8 @@ LABEL_2:
           v8 = 2;
           while (1)
           {
-            v6 += (*(v50 + v8) - 1) << v7;
-            if ((*(v50 + v8) & 0x80000000) == 0)
+            v6 += (*(v49 + v8) - 1) << v7;
+            if ((*(v49 + v8) & 0x80000000) == 0)
             {
               break;
             }
@@ -8276,12 +8033,12 @@ LABEL_2:
             }
           }
 
-          v5 = v50 + v8 + 1;
+          v5 = v49 + v8 + 1;
         }
 
         else
         {
-          v5 = v50 + 2;
+          v5 = v49 + 2;
         }
       }
 
@@ -8300,27 +8057,27 @@ LABEL_2:
             --v5;
             while (1)
             {
-              v38 = *(this + 10);
-              if (v38 && (v39 = *(this + 18), v39 < *v38))
+              v37 = *(this + 10);
+              if (v37 && (v38 = *(this + 18), v38 < *v37))
               {
-                *(this + 18) = v39 + 1;
-                v40 = *&v38[2 * v39 + 2];
+                *(this + 18) = v38 + 1;
+                v39 = *&v37[2 * v38 + 2];
               }
 
               else
               {
-                v40 = google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::FeatureDescription>(*(this + 8));
-                google::protobuf::internal::RepeatedPtrFieldBase::AddOutOfLineHelper((this + 64), v40);
+                v39 = google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::FeatureDescription>(*(this + 8));
+                google::protobuf::internal::RepeatedPtrFieldBase::AddOutOfLineHelper((this + 64), v39);
               }
 
-              v41 = google::protobuf::internal::ParseContext::ParseMessage(a3, v40, (v5 + 1));
-              v5 = v41;
-              if (!v41)
+              v40 = google::protobuf::internal::ParseContext::ParseMessage(a3, v39, (v5 + 1));
+              v5 = v40;
+              if (!v40)
               {
                 return v5;
               }
 
-              if (*a3 <= v41 || *v41 != 106)
+              if (*a3 <= v40 || *v40 != 106)
               {
                 goto LABEL_99;
               }
@@ -8388,27 +8145,27 @@ LABEL_2:
           v5 -= 2;
           while (1)
           {
-            v42 = *(this + 16);
-            if (v42 && (v43 = *(this + 30), v43 < *v42))
+            v41 = *(this + 16);
+            if (v41 && (v42 = *(this + 30), v42 < *v41))
             {
-              *(this + 30) = v43 + 1;
-              v44 = *&v42[2 * v43 + 2];
+              *(this + 30) = v42 + 1;
+              v43 = *&v41[2 * v42 + 2];
             }
 
             else
             {
-              v44 = google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::FeatureDescription>(*(this + 14));
-              google::protobuf::internal::RepeatedPtrFieldBase::AddOutOfLineHelper((this + 112), v44);
+              v43 = google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::FeatureDescription>(*(this + 14));
+              google::protobuf::internal::RepeatedPtrFieldBase::AddOutOfLineHelper((this + 112), v43);
             }
 
-            v45 = google::protobuf::internal::ParseContext::ParseMessage(a3, v44, (v5 + 2));
-            v5 = v45;
-            if (!v45)
+            v44 = google::protobuf::internal::ParseContext::ParseMessage(a3, v43, (v5 + 2));
+            v5 = v44;
+            if (!v44)
             {
               return v5;
             }
 
-            if (*a3 <= v45 || *v45 != 914)
+            if (*a3 <= v44 || *v44 != 914)
             {
               goto LABEL_99;
             }
@@ -8440,7 +8197,7 @@ LABEL_2:
 
       v14 = google::protobuf::internal::ParseContext::ParseMessage(a3, v10, v5);
 LABEL_107:
-      v50 = v14;
+      v49 = v14;
       if (!v14)
       {
         return 0;
@@ -8489,17 +8246,16 @@ LABEL_107:
 LABEL_71:
     v32 = google::protobuf::internal::ArenaStringPtr::Mutable(v21, v20);
     v5 = google::protobuf::internal::InlineGreedyStringParser(v32, v5, a3);
-    v50 = v5;
+    v49 = v5;
     v35 = *(v32 + 23);
-    v36 = *v32;
     if ((v35 & 0x80000000) == 0)
     {
-      v37 = v32;
+      v36 = v32;
     }
 
     else
     {
-      v37 = *v32;
+      v36 = *v32;
     }
 
     if ((v35 & 0x8000000000000000) != 0)
@@ -8511,7 +8267,7 @@ LABEL_71:
       }
     }
 
-    if (!google::protobuf::internal::VerifyUTF8(v37, v35))
+    if (!google::protobuf::internal::VerifyUTF8(v36, v35))
     {
       return 0;
     }
@@ -8564,33 +8320,33 @@ LABEL_71:
 LABEL_100:
     if (v6)
     {
-      v46 = (v6 & 7) == 4;
+      v45 = (v6 & 7) == 4;
     }
 
     else
     {
-      v46 = 1;
+      v45 = 1;
     }
 
-    if (v46)
+    if (v45)
     {
       *(a3 + 20) = v6 - 1;
       return v5;
     }
 
-    v47 = *(this + 1);
-    if (v47)
+    v46 = *(this + 1);
+    if (v46)
     {
-      v48 = ((v47 & 0xFFFFFFFFFFFFFFFCLL) + 8);
+      v47 = ((v46 & 0xFFFFFFFFFFFFFFFCLL) + 8);
     }
 
     else
     {
-      v48 = google::protobuf::internal::InternalMetadata::mutable_unknown_fields_slow<std::string>(this + 1);
+      v47 = google::protobuf::internal::InternalMetadata::mutable_unknown_fields_slow<std::string>(this + 1);
     }
 
-    v51 = v48;
-    v14 = google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(v6, &v51, v5, a3);
+    v50 = v47;
+    v14 = google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(v6, &v50, v5, a3);
     goto LABEL_107;
   }
 
@@ -8620,19 +8376,19 @@ LABEL_100:
     if (*a3 <= v29 || *v29 != 10)
     {
 LABEL_99:
-      v50 = v5;
+      v49 = v5;
       goto LABEL_2;
     }
   }
 }
 
-void *CoreML::Specification::ModelDescription::Clear(void *this)
+CoreML::Specification::Metadata *CoreML::Specification::ModelDescription::Clear(CoreML::Specification::Metadata *this)
 {
   v1 = this;
   v2 = *(this + 6);
   if (v2 >= 1)
   {
-    v3 = (this[4] + 8);
+    v3 = (*(this + 4) + 8);
     do
     {
       v4 = *v3++;
@@ -8647,7 +8403,7 @@ void *CoreML::Specification::ModelDescription::Clear(void *this)
   v5 = *(v1 + 12);
   if (v5 >= 1)
   {
-    v6 = (v1[7] + 8);
+    v6 = (*(v1 + 7) + 8);
     do
     {
       v7 = *v6++;
@@ -8662,7 +8418,7 @@ void *CoreML::Specification::ModelDescription::Clear(void *this)
   v8 = *(v1 + 18);
   if (v8 >= 1)
   {
-    v9 = (v1[10] + 8);
+    v9 = (*(v1 + 10) + 8);
     do
     {
       v10 = *v9++;
@@ -8677,7 +8433,7 @@ void *CoreML::Specification::ModelDescription::Clear(void *this)
   v11 = *(v1 + 24);
   if (v11 >= 1)
   {
-    v12 = (v1[13] + 8);
+    v12 = (*(v1 + 13) + 8);
     do
     {
       v13 = *v12++;
@@ -8692,7 +8448,7 @@ void *CoreML::Specification::ModelDescription::Clear(void *this)
   v14 = *(v1 + 30);
   if (v14 >= 1)
   {
-    v15 = (v1[16] + 8);
+    v15 = (*(v1 + 16) + 8);
     do
     {
       v16 = *v15++;
@@ -8704,7 +8460,7 @@ void *CoreML::Specification::ModelDescription::Clear(void *this)
     *(v1 + 30) = 0;
   }
 
-  v17 = v1[17];
+  v17 = *(v1 + 17);
   if (v17 != &google::protobuf::internal::fixed_address_empty_string)
   {
     v18 = v17 & 0xFFFFFFFFFFFFFFFELL;
@@ -8721,7 +8477,7 @@ void *CoreML::Specification::ModelDescription::Clear(void *this)
     }
   }
 
-  v19 = v1[18];
+  v19 = *(v1 + 18);
   if (v19 != &google::protobuf::internal::fixed_address_empty_string)
   {
     v20 = v19 & 0xFFFFFFFFFFFFFFFELL;
@@ -8738,7 +8494,7 @@ void *CoreML::Specification::ModelDescription::Clear(void *this)
     }
   }
 
-  v21 = v1[19];
+  v21 = *(v1 + 19);
   if (v21 != &google::protobuf::internal::fixed_address_empty_string)
   {
     v22 = v21 & 0xFFFFFFFFFFFFFFFELL;
@@ -8755,7 +8511,7 @@ void *CoreML::Specification::ModelDescription::Clear(void *this)
     }
   }
 
-  v23 = v1[1];
+  v23 = *(v1 + 1);
   v24 = v23 & 1;
   v25 = (v23 & 0xFFFFFFFFFFFFFFFCLL);
   if (v23)
@@ -8771,16 +8527,16 @@ void *CoreML::Specification::ModelDescription::Clear(void *this)
     goto LABEL_37;
   }
 
-  this = v1[20];
+  this = *(v1 + 20);
   if (this)
   {
     CoreML::Specification::Metadata::~Metadata(this);
     this = MEMORY[0x1C6908B60]();
-    v24 = v1[1] & 1;
+    v24 = *(v1 + 1) & 1;
   }
 
 LABEL_37:
-  v1[20] = 0;
+  *(v1 + 20) = 0;
   if (v24)
   {
 
@@ -9336,7 +9092,7 @@ LABEL_10:
   return v3;
 }
 
-unsigned __int8 *CoreML::Specification::StringVector::_InternalSerialize(CoreML::Specification::StringVector *this, unsigned __int8 *__dst, google::protobuf::io::EpsCopyOutputStream *a3)
+char *CoreML::Specification::StringVector::_InternalSerialize(CoreML::Specification::StringVector *this, char *__dst, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v6 = *(this + 6);
   if (v6 >= 1)
@@ -9374,7 +9130,7 @@ unsigned __int8 *CoreML::Specification::StringVector::_InternalSerialize(CoreML:
           v8 = *v8;
         }
 
-        v13 = __dst + 2;
+        v13 = (__dst + 2);
         memcpy(v13, v8, v9);
         __dst = &v13[v9];
       }
@@ -9416,20 +9172,20 @@ unsigned __int8 *CoreML::Specification::StringVector::_InternalSerialize(CoreML:
   return google::protobuf::io::EpsCopyOutputStream::WriteRawFallback(a3, v18, v17, __dst);
 }
 
-const char *CoreML::Specification::StringVector::_InternalParse(CoreML::Specification::StringVector *this, const char *a2, google::protobuf::internal::ParseContext *a3)
+std::string::value_type *CoreML::Specification::StringVector::_InternalParse(CoreML::Specification::StringVector *this, std::string::value_type *a2, google::protobuf::internal::ParseContext *a3)
 {
-  v25 = a2;
+  v24 = a2;
   while (1)
   {
 LABEL_2:
-    if (google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(a3, &v25, *(a3 + 23)))
+    if (google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(a3, &v24, *(a3 + 23)))
     {
-      return v25;
+      return v24;
     }
 
-    v5 = (v25 + 1);
-    v6 = *v25;
-    if (*v25 < 0)
+    v5 = v24 + 1;
+    v6 = *v24;
+    if (*v24 < 0)
     {
       v6 = v6 + (*v5 << 7) - 128;
       if (*v5 < 0)
@@ -9438,8 +9194,8 @@ LABEL_2:
         v8 = 2;
         while (1)
         {
-          v6 += (v25[v8] - 1) << v7;
-          if ((v25[v8] & 0x80000000) == 0)
+          v6 += (v24[v8] - 1) << v7;
+          if ((v24[v8] & 0x80000000) == 0)
           {
             break;
           }
@@ -9452,12 +9208,12 @@ LABEL_2:
           }
         }
 
-        v5 = &v25[v8 + 1];
+        v5 = &v24[v8 + 1];
       }
 
       else
       {
-        v5 = (v25 + 2);
+        v5 = v24 + 2;
       }
     }
 
@@ -9493,9 +9249,9 @@ LABEL_2:
       v11 = google::protobuf::internal::InternalMetadata::mutable_unknown_fields_slow<std::string>(this + 1);
     }
 
-    v26 = v11;
-    v25 = google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(v6, &v26, v5, a3);
-    if (!v25)
+    v25 = v11;
+    v24 = google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(v6, &v25, v5, a3);
+    if (!v24)
     {
       return 0;
     }
@@ -9528,17 +9284,16 @@ LABEL_2:
     }
 
     v12 = google::protobuf::internal::InlineGreedyStringParser(AlignedWithCleanup, v12 + 1, a3);
-    v25 = v12;
+    v24 = v12;
     size = SHIBYTE(AlignedWithCleanup->__r_.__value_.__r.__words[2]);
-    v21 = AlignedWithCleanup->__r_.__value_.__r.__words[0];
     if ((size & 0x80000000) == 0)
     {
-      v22 = AlignedWithCleanup;
+      v21 = AlignedWithCleanup;
     }
 
     else
     {
-      v22 = AlignedWithCleanup->__r_.__value_.__r.__words[0];
+      v21 = AlignedWithCleanup->__r_.__value_.__r.__words[0];
     }
 
     if ((size & 0x8000000000000000) != 0)
@@ -9550,7 +9305,7 @@ LABEL_2:
       }
     }
 
-    if (!google::protobuf::internal::VerifyUTF8(v22, size) || v12 == 0)
+    if (!google::protobuf::internal::VerifyUTF8(v21, size) || v12 == 0)
     {
       return 0;
     }
@@ -9616,13 +9371,13 @@ std::string *CoreML::Specification::StringVector::CheckTypeAndMergeFrom(std::str
   {
     v5 = *(a2 + 4);
     v6 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend(&this->__r_.__value_.__r.__words[2], *(a2 + 6));
-    this = google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v3 + 16, v6, (v5 + 8), v4, **(v3 + 32) - *(v3 + 24));
-    v7 = *(v3 + 24) + v4;
-    *(v3 + 24) = v7;
-    v8 = *(v3 + 32);
-    if (*v8 < v7)
+    this = google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(&v3->__r_.__value_.__r.__words[2], v6, (v5 + 8), v4, *v3[1].__r_.__value_.__l.__size_ - LODWORD(v3[1].__r_.__value_.__l.__data_));
+    v7 = LODWORD(v3[1].__r_.__value_.__l.__data_) + v4;
+    LODWORD(v3[1].__r_.__value_.__l.__data_) = v7;
+    size = v3[1].__r_.__value_.__l.__size_;
+    if (*size < v7)
     {
-      *v8 = v7;
+      *size = v7;
     }
   }
 
@@ -9630,7 +9385,7 @@ std::string *CoreML::Specification::StringVector::CheckTypeAndMergeFrom(std::str
   if (v9)
   {
 
-    return google::protobuf::internal::InternalMetadata::DoMergeFrom<std::string>((v3 + 8), (v9 & 0xFFFFFFFFFFFFFFFCLL) + 8);
+    return google::protobuf::internal::InternalMetadata::DoMergeFrom<std::string>(&v3->__r_.__value_.__l.__size_, (v9 & 0xFFFFFFFFFFFFFFFCLL) + 8);
   }
 
   return this;
@@ -9675,7 +9430,7 @@ uint64_t *CoreML::Specification::StringVector::Clear(CoreML::Specification::Stri
   return result;
 }
 
-uint64_t google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::StringVector>(atomic_ullong *a1)
+atomic_ullong google::protobuf::Arena::CreateMaybeMessage<CoreML::Specification::StringVector>(atomic_ullong *a1)
 {
   if (!a1)
   {
@@ -9740,4 +9495,261 @@ void CoreML::Specification::StringVector::~StringVector(CoreML::Specification::S
   *(this + 4) = 0;
   *this = &unk_1F4160460;
   google::protobuf::internal::InternalMetadata::~InternalMetadata(v3);
+}
+
+char *CoreML::Specification::Int64Vector::_InternalSerialize(CoreML::Specification::Int64Vector *this, unsigned __int8 *__dst, google::protobuf::io::EpsCopyOutputStream *a3)
+{
+  v4 = __dst;
+  v6 = *(this + 8);
+  if (v6 >= 1)
+  {
+    if (*a3 <= __dst)
+    {
+      v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, __dst);
+    }
+
+    *v4 = 10;
+    v7 = v4 + 1;
+    if (v6 >= 0x80)
+    {
+      do
+      {
+        *v7++ = v6 | 0x80;
+        v20 = v6 >> 14;
+        v6 >>= 7;
+      }
+
+      while (v20);
+      v4 = v7 - 1;
+    }
+
+    v4 += 2;
+    *v7 = v6;
+    v8 = *(this + 3);
+    v9 = &v8[*(this + 4)];
+    do
+    {
+      if (*a3 <= v4)
+      {
+        v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
+      }
+
+      v11 = *v8++;
+      v10 = v11;
+      *v4 = v11;
+      if (v11 > 0x7F)
+      {
+        *v4 = v10 | 0x80;
+        v12 = v10 >> 7;
+        v4[1] = v10 >> 7;
+        v4 += 2;
+        if (v10 >= 0x4000)
+        {
+          v13 = v10 >> 7;
+          do
+          {
+            *(v4 - 1) = v13 | 0x80;
+            v13 = v12 >> 7;
+            *v4++ = v12 >> 7;
+            v14 = v12 >> 14;
+            v12 >>= 7;
+          }
+
+          while (v14);
+        }
+      }
+
+      else
+      {
+        ++v4;
+      }
+    }
+
+    while (v8 < v9);
+  }
+
+  v15 = *(this + 1);
+  if ((v15 & 1) == 0)
+  {
+    return v4;
+  }
+
+  v17 = v15 & 0xFFFFFFFFFFFFFFFCLL;
+  v18 = *(v17 + 31);
+  if (v18 < 0)
+  {
+    v19 = *(v17 + 8);
+    v18 = *(v17 + 16);
+  }
+
+  else
+  {
+    v19 = (v17 + 8);
+  }
+
+  if (*a3 - v4 >= v18)
+  {
+    v21 = v18;
+    memcpy(v4, v19, v18);
+    v4 += v21;
+    return v4;
+  }
+
+  return google::protobuf::io::EpsCopyOutputStream::WriteRawFallback(a3, v19, v18, v4);
+}
+
+google::protobuf::internal *CoreML::Specification::Int64Vector::_InternalParse(CoreML::Specification::Int64Vector *this, google::protobuf::internal *a2, google::protobuf::internal::ParseContext *a3)
+{
+  v17 = a2;
+  do
+  {
+    while (1)
+    {
+      if (google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(a3, &v17, *(a3 + 23)))
+      {
+        return v17;
+      }
+
+      v7 = (v17 + 1);
+      v8 = *v17;
+      if (*v17 < 0)
+      {
+        v8 = v8 + (*v7 << 7) - 128;
+        if (*v7 < 0)
+        {
+          v9 = 14;
+          v10 = 2;
+          while (1)
+          {
+            v8 += (*(v17 + v10) - 1) << v9;
+            if ((*(v17 + v10) & 0x80000000) == 0)
+            {
+              break;
+            }
+
+            ++v10;
+            v9 += 7;
+            if (v10 == 5)
+            {
+              return 0;
+            }
+          }
+
+          v7 = (v17 + v10 + 1);
+        }
+
+        else
+        {
+          v7 = (v17 + 2);
+        }
+      }
+
+      v17 = v7;
+      if ((v8 & 0xFFFFFFF8) != 8)
+      {
+        break;
+      }
+
+      if (v8 == 10)
+      {
+        v11 = google::protobuf::internal::PackedInt64Parser((this + 16), v7, a3, v6);
+        goto LABEL_24;
+      }
+
+      if (v8 != 8)
+      {
+        break;
+      }
+
+      Varint64 = google::protobuf::internal::ReadVarint64(&v17, v5);
+      google::protobuf::RepeatedField<long long>::Add(this + 4, Varint64);
+      if (!v17)
+      {
+        return 0;
+      }
+    }
+
+    if (v8)
+    {
+      v13 = (v8 & 7) == 4;
+    }
+
+    else
+    {
+      v13 = 1;
+    }
+
+    if (v13)
+    {
+      *(a3 + 20) = v8 - 1;
+      return v7;
+    }
+
+    v14 = *(this + 1);
+    if (v14)
+    {
+      v15 = ((v14 & 0xFFFFFFFFFFFFFFFCLL) + 8);
+    }
+
+    else
+    {
+      v15 = google::protobuf::internal::InternalMetadata::mutable_unknown_fields_slow<std::string>(this + 1);
+    }
+
+    v18 = v15;
+    v11 = google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(v8, &v18, v7, a3);
+LABEL_24:
+    v17 = v11;
+  }
+
+  while (v11);
+  return 0;
+}
+
+uint64_t CoreML::Specification::Int64Vector::ByteSizeLong(CoreML::Specification::Int64Vector *this)
+{
+  v1 = *(this + 4);
+  if (v1 < 1)
+  {
+    v2 = 0;
+  }
+
+  else
+  {
+    v2 = 0;
+    v3 = *(this + 3);
+    do
+    {
+      v4 = *v3++;
+      v2 += (9 * (__clz(v4 | 1) ^ 0x3F) + 73) >> 6;
+      --v1;
+    }
+
+    while (v1);
+    if (v2)
+    {
+      v5 = ((9 * (__clz(v2 | 1) ^ 0x3F) + 73) >> 6) + 1;
+      goto LABEL_8;
+    }
+  }
+
+  v5 = 0;
+LABEL_8:
+  *(this + 8) = v2;
+  v6 = v5 + v2;
+  v7 = *(this + 1);
+  if (v7)
+  {
+    v9 = v7 & 0xFFFFFFFFFFFFFFFCLL;
+    v10 = *((v7 & 0xFFFFFFFFFFFFFFFCLL) + 31);
+    if (v10 < 0)
+    {
+      v10 = *(v9 + 16);
+    }
+
+    v6 += v10;
+  }
+
+  *(this + 9) = v6;
+  return v6;
 }

@@ -67,7 +67,7 @@
 {
   editingCopy = editing;
   selfCopy = self;
-  sub_21D58E6C0();
+  sub_21D58E6C0(v5);
 }
 
 - (BOOL)textView:(id)view shouldInteractWithURL:(id)l inRange:(_NSRange)range
@@ -85,7 +85,7 @@
 {
   length = range.length;
   location = range.location;
-  sub_21D0D8CF0(0, &qword_27CE5DE90);
+  sub_21D0D8CF0(0, &qword_27CE5DE90, 0x277D75720);
   v8 = sub_21DBFA5EC();
   type metadata accessor for TTRIReminderTitleTextView();
   if (swift_dynamicCastClass())

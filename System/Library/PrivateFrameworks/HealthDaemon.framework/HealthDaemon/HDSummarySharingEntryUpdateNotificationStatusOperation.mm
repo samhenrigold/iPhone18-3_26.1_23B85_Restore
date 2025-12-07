@@ -27,12 +27,12 @@
   v10 = [(HDSummarySharingEntryUpdateNotificationStatusOperation *)&v16 init];
   if (v10)
   {
-    v11 = [dCopy copy];
+    v11 = objc_msgSend_copy(dCopy);
     invitationUUID = v10->_invitationUUID;
     v10->_invitationUUID = v11;
 
     v10->_notificationStatus = status;
-    v13 = [modifiedCopy copy];
+    v13 = objc_msgSend_copy(modifiedCopy);
     dateModified = v10->_dateModified;
     v10->_dateModified = v13;
   }

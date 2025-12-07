@@ -6,9 +6,9 @@
 
 + (id)medicalRecordFromClinicalItem:()ModelConversion error:
 {
-  v172 = *MEMORY[0x277D85DE8];
+  v171 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v140 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v139 = objc_alloc_init(MEMORY[0x277CBEB18]);
   representedResource = [(__CFString *)v4 representedResource];
   identifier = [representedResource identifier];
 
@@ -20,15 +20,15 @@
     {
       v7 = objc_opt_class();
       *buf = 138543362;
-      v167 = v7;
+      v166 = v7;
       _os_log_impl(&dword_251CC8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ missing FHIR identifier on clinical item's represented resource", buf, 0xCu);
     }
 
     v8 = [MEMORY[0x277CCA9B8] hk_error:3 description:@"clinical item is missing a represented resource"];
-    [v140 addObject:v8];
+    [v139 addObject:v8];
   }
 
-  v106 = [objc_alloc(MEMORY[0x277CCD600]) initWithFHIRIdentifier:identifier];
+  v105 = [objc_alloc(MEMORY[0x277CCD600]) initWithFHIRIdentifier:identifier];
   rulesVersion = [(__CFString *)v4 rulesVersion];
   integerValue = [rulesVersion integerValue];
 
@@ -40,20 +40,20 @@
     {
       v12 = objc_opt_class();
       *buf = 138543618;
-      v167 = v12;
-      v168 = 2114;
-      v169 = v4;
+      v166 = v12;
+      v167 = 2114;
+      v168 = v4;
       _os_log_impl(&dword_251CC8000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ invalid rules version on %{public}@", buf, 0x16u);
     }
 
     v13 = [MEMORY[0x277CCA9B8] hk_error:3 description:@"clinical item has invalid rules version"];
-    [v140 addObject:v13];
+    [v139 addObject:v13];
   }
 
-  v157 = 0;
-  v124 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"locale" expectedClass:objc_opt_class() isArray:0 error:&v157];
-  v137 = v157;
-  if (!v124 && v137)
+  v156 = 0;
+  v123 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"locale" expectedClass:objc_opt_class() isArray:0 error:&v156];
+  v136 = v156;
+  if (!v123 && v136)
   {
     _HKInitializeLogging();
     v14 = *MEMORY[0x277CCC2C0];
@@ -61,22 +61,22 @@
     {
       v15 = objc_opt_class();
       *buf = 138543874;
-      v167 = v15;
-      v168 = 2114;
-      v169 = @"locale";
-      v170 = 2114;
-      v171 = v137;
+      v166 = v15;
+      v167 = 2114;
+      v168 = @"locale";
+      v169 = 2114;
+      v170 = v136;
       _os_log_impl(&dword_251CC8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ error retrieving medical record property %{public}@ : %{public}@", buf, 0x20u);
     }
 
-    [v140 addObject:v137];
+    [v139 addObject:v136];
   }
 
   country = [(__CFString *)v4 country];
-  v156 = 0;
-  v123 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"note" expectedClass:objc_opt_class() isArray:0 error:&v156];
-  v136 = v156;
-  if (!v123 && v136)
+  v155 = 0;
+  v122 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"note" expectedClass:objc_opt_class() isArray:0 error:&v155];
+  v135 = v155;
+  if (!v122 && v135)
   {
     _HKInitializeLogging();
     v16 = *MEMORY[0x277CCC2C0];
@@ -84,21 +84,21 @@
     {
       v17 = objc_opt_class();
       *buf = 138543874;
-      v167 = v17;
-      v168 = 2114;
-      v169 = @"note";
-      v170 = 2114;
-      v171 = v136;
+      v166 = v17;
+      v167 = 2114;
+      v168 = @"note";
+      v169 = 2114;
+      v170 = v135;
       _os_log_impl(&dword_251CC8000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ error retrieving medical record property %{public}@ : %{public}@", buf, 0x20u);
     }
 
-    [v140 addObject:v136];
+    [v139 addObject:v135];
   }
 
-  v155 = 0;
-  v122 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"enteredInError" expectedClass:objc_opt_class() isArray:0 error:&v155];
-  v135 = v155;
-  if (!v122 && v135)
+  v154 = 0;
+  v121 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"enteredInError" expectedClass:objc_opt_class() isArray:0 error:&v154];
+  v134 = v154;
+  if (!v121 && v134)
   {
     _HKInitializeLogging();
     v18 = *MEMORY[0x277CCC2C0];
@@ -106,24 +106,24 @@
     {
       v19 = objc_opt_class();
       *buf = 138543874;
-      v167 = v19;
-      v168 = 2114;
-      v169 = @"enteredInError";
-      v170 = 2114;
-      v171 = v135;
+      v166 = v19;
+      v167 = 2114;
+      v168 = @"enteredInError";
+      v169 = 2114;
+      v170 = v134;
       _os_log_impl(&dword_251CC8000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ error retrieving medical record property %{public}@ : %{public}@", buf, 0x20u);
     }
 
-    [v140 addObject:v135];
+    [v139 addObject:v134];
   }
 
   representedResource2 = [(__CFString *)v4 representedResource];
   extractionHints = [representedResource2 extractionHints];
 
-  v154 = 0;
-  v21 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"statusCoding" expectedClass:objc_opt_class() isArray:0 error:&v154];
-  v22 = v154;
-  v109 = v22;
+  v153 = 0;
+  v21 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"statusCoding" expectedClass:objc_opt_class() isArray:0 error:&v153];
+  v22 = v153;
+  v108 = v22;
   if (v21 || !v22)
   {
     if (!v21)
@@ -131,14 +131,14 @@
       v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"Required value is nil, not creating valueStatusCoding instance to avoid throwing exception"];
       v26 = MEMORY[0x277CCA9B8];
       v27 = *MEMORY[0x277CCA450];
-      v164[0] = @"propertyName";
-      v164[1] = v27;
-      v165[0] = @"statusCoding";
-      v165[1] = v25;
-      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v165 forKeys:v164 count:2];
+      v163[0] = @"propertyName";
+      v163[1] = v27;
+      v164[0] = @"statusCoding";
+      v164[1] = v25;
+      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v164 forKeys:v163 count:2];
       v29 = [v26 errorWithDomain:@"HDHealthRecordsServiceErrorDomain" code:204 userInfo:v28];
 
-      [v140 addObject:v29];
+      [v139 addObject:v29];
     }
   }
 
@@ -150,22 +150,22 @@
     {
       v24 = objc_opt_class();
       *buf = 138543874;
-      v167 = v24;
-      v168 = 2114;
-      v169 = @"statusCoding";
-      v170 = 2114;
-      v171 = v109;
+      v166 = v24;
+      v167 = 2114;
+      v168 = @"statusCoding";
+      v169 = 2114;
+      v170 = v108;
       _os_log_impl(&dword_251CC8000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@ error retrieving medical record property %{public}@ : %{public}@", buf, 0x20u);
     }
 
-    [v140 addObject:v109];
+    [v139 addObject:v108];
   }
 
-  v110 = v21;
-  v153 = 0;
-  v30 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"coverageTypeCodingCollection" expectedClass:objc_opt_class() isArray:0 error:&v153];
-  v31 = v153;
-  v108 = v31;
+  v109 = v21;
+  v152 = 0;
+  v30 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"coverageTypeCodingCollection" expectedClass:objc_opt_class() isArray:0 error:&v152];
+  v31 = v152;
+  v107 = v31;
   if (v30 || !v31)
   {
     if (!v30)
@@ -173,14 +173,14 @@
       v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"Required value is nil, not creating valueCoverageTypeCodingCollection instance to avoid throwing exception"];
       v35 = MEMORY[0x277CCA9B8];
       v36 = *MEMORY[0x277CCA450];
-      v162[0] = @"propertyName";
-      v162[1] = v36;
-      v163[0] = @"coverageTypeCodingCollection";
-      v163[1] = v34;
-      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v163 forKeys:v162 count:2];
+      v161[0] = @"propertyName";
+      v161[1] = v36;
+      v162[0] = @"coverageTypeCodingCollection";
+      v162[1] = v34;
+      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v162 forKeys:v161 count:2];
       v38 = [v35 errorWithDomain:@"HDHealthRecordsServiceErrorDomain" code:204 userInfo:v37];
 
-      [v140 addObject:v38];
+      [v139 addObject:v38];
     }
   }
 
@@ -192,22 +192,22 @@
     {
       v33 = objc_opt_class();
       *buf = 138543874;
-      v167 = v33;
-      v168 = 2114;
-      v169 = @"coverageTypeCodingCollection";
-      v170 = 2114;
-      v171 = v108;
+      v166 = v33;
+      v167 = 2114;
+      v168 = @"coverageTypeCodingCollection";
+      v169 = 2114;
+      v170 = v107;
       _os_log_impl(&dword_251CC8000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@ error retrieving medical record property %{public}@ : %{public}@", buf, 0x20u);
     }
 
-    [v140 addObject:v108];
+    [v139 addObject:v107];
   }
 
-  v111 = v30;
-  v152 = 0;
-  v39 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"subscriber" expectedClass:objc_opt_class() isArray:0 error:&v152];
-  v134 = v152;
-  if (!v39 && v134)
+  v110 = v30;
+  v151 = 0;
+  v39 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"subscriber" expectedClass:objc_opt_class() isArray:0 error:&v151];
+  v133 = v151;
+  if (!v39 && v133)
   {
     _HKInitializeLogging();
     v40 = *MEMORY[0x277CCC2C0];
@@ -215,22 +215,22 @@
     {
       v41 = objc_opt_class();
       *buf = 138543874;
-      v167 = v41;
-      v168 = 2114;
-      v169 = @"subscriber";
-      v170 = 2114;
-      v171 = v134;
+      v166 = v41;
+      v167 = 2114;
+      v168 = @"subscriber";
+      v169 = 2114;
+      v170 = v133;
       _os_log_impl(&dword_251CC8000, v40, OS_LOG_TYPE_DEFAULT, "%{public}@ error retrieving medical record property %{public}@ : %{public}@", buf, 0x20u);
     }
 
-    [v140 addObject:v134];
+    [v139 addObject:v133];
   }
 
-  v112 = v39;
-  v151 = 0;
-  v42 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"subscriberId" expectedClass:objc_opt_class() isArray:0 error:&v151];
-  v43 = v151;
-  v107 = v43;
+  v111 = v39;
+  v150 = 0;
+  v42 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"subscriberId" expectedClass:objc_opt_class() isArray:0 error:&v150];
+  v43 = v150;
+  v106 = v43;
   if (v42 || !v43)
   {
     if (!v42)
@@ -238,14 +238,14 @@
       v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"Required value is nil, not creating valueSubscriberId instance to avoid throwing exception"];
       v47 = MEMORY[0x277CCA9B8];
       v48 = *MEMORY[0x277CCA450];
-      v160[0] = @"propertyName";
-      v160[1] = v48;
-      v161[0] = @"subscriberId";
-      v161[1] = v46;
-      v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v161 forKeys:v160 count:2];
+      v159[0] = @"propertyName";
+      v159[1] = v48;
+      v160[0] = @"subscriberId";
+      v160[1] = v46;
+      v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v160 forKeys:v159 count:2];
       v50 = [v47 errorWithDomain:@"HDHealthRecordsServiceErrorDomain" code:204 userInfo:v49];
 
-      [v140 addObject:v50];
+      [v139 addObject:v50];
     }
   }
 
@@ -257,22 +257,22 @@
     {
       v45 = objc_opt_class();
       *buf = 138543874;
-      v167 = v45;
-      v168 = 2114;
-      v169 = @"subscriberId";
-      v170 = 2114;
-      v171 = v107;
+      v166 = v45;
+      v167 = 2114;
+      v168 = @"subscriberId";
+      v169 = 2114;
+      v170 = v106;
       _os_log_impl(&dword_251CC8000, v44, OS_LOG_TYPE_DEFAULT, "%{public}@ error retrieving medical record property %{public}@ : %{public}@", buf, 0x20u);
     }
 
-    [v140 addObject:v107];
+    [v139 addObject:v106];
   }
 
-  v113 = v42;
-  v150 = 0;
-  v51 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"beneficiary" expectedClass:objc_opt_class() isArray:0 error:&v150];
-  v133 = v150;
-  if (!v51 && v133)
+  v112 = v42;
+  v149 = 0;
+  v51 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"beneficiary" expectedClass:objc_opt_class() isArray:0 error:&v149];
+  v132 = v149;
+  if (!v51 && v132)
   {
     _HKInitializeLogging();
     v52 = *MEMORY[0x277CCC2C0];
@@ -280,22 +280,22 @@
     {
       v53 = objc_opt_class();
       *buf = 138543874;
-      v167 = v53;
-      v168 = 2114;
-      v169 = @"beneficiary";
-      v170 = 2114;
-      v171 = v133;
+      v166 = v53;
+      v167 = 2114;
+      v168 = @"beneficiary";
+      v169 = 2114;
+      v170 = v132;
       _os_log_impl(&dword_251CC8000, v52, OS_LOG_TYPE_DEFAULT, "%{public}@ error retrieving medical record property %{public}@ : %{public}@", buf, 0x20u);
     }
 
-    [v140 addObject:v133];
+    [v139 addObject:v132];
   }
 
-  v114 = v51;
-  v149 = 0;
-  v54 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"policyHolder" expectedClass:objc_opt_class() isArray:0 error:&v149];
-  v132 = v149;
-  if (!v54 && v132)
+  v113 = v51;
+  v148 = 0;
+  v54 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"policyHolder" expectedClass:objc_opt_class() isArray:0 error:&v148];
+  v131 = v148;
+  if (!v54 && v131)
   {
     _HKInitializeLogging();
     v55 = *MEMORY[0x277CCC2C0];
@@ -303,22 +303,22 @@
     {
       v56 = objc_opt_class();
       *buf = 138543874;
-      v167 = v56;
-      v168 = 2114;
-      v169 = @"policyHolder";
-      v170 = 2114;
-      v171 = v132;
+      v166 = v56;
+      v167 = 2114;
+      v168 = @"policyHolder";
+      v169 = 2114;
+      v170 = v131;
       _os_log_impl(&dword_251CC8000, v55, OS_LOG_TYPE_DEFAULT, "%{public}@ error retrieving medical record property %{public}@ : %{public}@", buf, 0x20u);
     }
 
-    [v140 addObject:v132];
+    [v139 addObject:v131];
   }
 
-  v115 = v54;
-  v148 = 0;
-  v57 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"payor" expectedClass:objc_opt_class() isArray:1 error:&v148];
-  v131 = v148;
-  if (!v57 && v131)
+  v114 = v54;
+  v147 = 0;
+  v57 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"payor" expectedClass:objc_opt_class() isArray:1 error:&v147];
+  v130 = v147;
+  if (!v57 && v130)
   {
     _HKInitializeLogging();
     v58 = *MEMORY[0x277CCC2C0];
@@ -326,22 +326,22 @@
     {
       v59 = objc_opt_class();
       *buf = 138543874;
-      v167 = v59;
-      v168 = 2114;
-      v169 = @"payor";
-      v170 = 2114;
-      v171 = v131;
+      v166 = v59;
+      v167 = 2114;
+      v168 = @"payor";
+      v169 = 2114;
+      v170 = v130;
       _os_log_impl(&dword_251CC8000, v58, OS_LOG_TYPE_DEFAULT, "%{public}@ error retrieving medical record property %{public}@ : %{public}@", buf, 0x20u);
     }
 
-    [v140 addObject:v131];
+    [v139 addObject:v130];
   }
 
-  v116 = v57;
-  v147 = 0;
-  v60 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"relationshipCodingCollection" expectedClass:objc_opt_class() isArray:0 error:&v147];
-  v130 = v147;
-  if (!v60 && v130)
+  v115 = v57;
+  v146 = 0;
+  v60 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"relationshipCodingCollection" expectedClass:objc_opt_class() isArray:0 error:&v146];
+  v129 = v146;
+  if (!v60 && v129)
   {
     _HKInitializeLogging();
     v61 = *MEMORY[0x277CCC2C0];
@@ -349,22 +349,22 @@
     {
       v62 = objc_opt_class();
       *buf = 138543874;
-      v167 = v62;
-      v168 = 2114;
-      v169 = @"relationshipCodingCollection";
-      v170 = 2114;
-      v171 = v130;
+      v166 = v62;
+      v167 = 2114;
+      v168 = @"relationshipCodingCollection";
+      v169 = 2114;
+      v170 = v129;
       _os_log_impl(&dword_251CC8000, v61, OS_LOG_TYPE_DEFAULT, "%{public}@ error retrieving medical record property %{public}@ : %{public}@", buf, 0x20u);
     }
 
-    [v140 addObject:v130];
+    [v139 addObject:v129];
   }
 
-  v117 = v60;
-  v146 = 0;
-  v63 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"classification" expectedClass:objc_opt_class() isArray:1 error:&v146];
-  v129 = v146;
-  if (!v63 && v129)
+  v116 = v60;
+  v145 = 0;
+  v63 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"classification" expectedClass:objc_opt_class() isArray:1 error:&v145];
+  v128 = v145;
+  if (!v63 && v128)
   {
     _HKInitializeLogging();
     v64 = *MEMORY[0x277CCC2C0];
@@ -372,22 +372,22 @@
     {
       v65 = objc_opt_class();
       *buf = 138543874;
-      v167 = v65;
-      v168 = 2114;
-      v169 = @"classification";
-      v170 = 2114;
-      v171 = v129;
+      v166 = v65;
+      v167 = 2114;
+      v168 = @"classification";
+      v169 = 2114;
+      v170 = v128;
       _os_log_impl(&dword_251CC8000, v64, OS_LOG_TYPE_DEFAULT, "%{public}@ error retrieving medical record property %{public}@ : %{public}@", buf, 0x20u);
     }
 
-    [v140 addObject:v129];
+    [v139 addObject:v128];
   }
 
-  v118 = v63;
-  v145 = 0;
-  v66 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"network" expectedClass:objc_opt_class() isArray:0 error:&v145];
-  v128 = v145;
-  if (!v66 && v128)
+  v117 = v63;
+  v144 = 0;
+  v66 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"network" expectedClass:objc_opt_class() isArray:0 error:&v144];
+  v127 = v144;
+  if (!v66 && v127)
   {
     _HKInitializeLogging();
     v67 = *MEMORY[0x277CCC2C0];
@@ -395,22 +395,22 @@
     {
       v68 = objc_opt_class();
       *buf = 138543874;
-      v167 = v68;
-      v168 = 2114;
-      v169 = @"network";
-      v170 = 2114;
-      v171 = v128;
+      v166 = v68;
+      v167 = 2114;
+      v168 = @"network";
+      v169 = 2114;
+      v170 = v127;
       _os_log_impl(&dword_251CC8000, v67, OS_LOG_TYPE_DEFAULT, "%{public}@ error retrieving medical record property %{public}@ : %{public}@", buf, 0x20u);
     }
 
-    [v140 addObject:v128];
+    [v139 addObject:v127];
   }
 
-  v119 = v66;
-  v144 = 0;
-  v69 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"periodStartDate" expectedClass:objc_opt_class() isArray:0 error:&v144];
-  v127 = v144;
-  if (!v69 && v127)
+  v118 = v66;
+  v143 = 0;
+  v69 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"periodStartDate" expectedClass:objc_opt_class() isArray:0 error:&v143];
+  v126 = v143;
+  if (!v69 && v126)
   {
     _HKInitializeLogging();
     v70 = *MEMORY[0x277CCC2C0];
@@ -418,22 +418,22 @@
     {
       v71 = objc_opt_class();
       *buf = 138543874;
-      v167 = v71;
-      v168 = 2114;
-      v169 = @"periodStartDate";
-      v170 = 2114;
-      v171 = v127;
+      v166 = v71;
+      v167 = 2114;
+      v168 = @"periodStartDate";
+      v169 = 2114;
+      v170 = v126;
       _os_log_impl(&dword_251CC8000, v70, OS_LOG_TYPE_DEFAULT, "%{public}@ error retrieving medical record property %{public}@ : %{public}@", buf, 0x20u);
     }
 
-    [v140 addObject:v127];
+    [v139 addObject:v126];
   }
 
-  v120 = v69;
-  v143 = 0;
-  v72 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"periodEndDate" expectedClass:objc_opt_class() isArray:0 error:&v143];
-  v126 = v143;
-  if (!v72 && v126)
+  v119 = v69;
+  v142 = 0;
+  v72 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"periodEndDate" expectedClass:objc_opt_class() isArray:0 error:&v142];
+  v125 = v142;
+  if (!v72 && v125)
   {
     _HKInitializeLogging();
     v73 = *MEMORY[0x277CCC2C0];
@@ -441,22 +441,22 @@
     {
       v74 = objc_opt_class();
       *buf = 138543874;
-      v167 = v74;
-      v168 = 2114;
-      v169 = @"periodEndDate";
-      v170 = 2114;
-      v171 = v126;
+      v166 = v74;
+      v167 = 2114;
+      v168 = @"periodEndDate";
+      v169 = 2114;
+      v170 = v125;
       _os_log_impl(&dword_251CC8000, v73, OS_LOG_TYPE_DEFAULT, "%{public}@ error retrieving medical record property %{public}@ : %{public}@", buf, 0x20u);
     }
 
-    [v140 addObject:v126];
+    [v139 addObject:v125];
   }
 
-  v121 = v72;
-  v142 = 0;
-  v75 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"subscriberIdentifier" expectedClass:objc_opt_class() isArray:0 error:&v142];
-  v125 = v142;
-  if (!v75 && v125)
+  v120 = v72;
+  v141 = 0;
+  v75 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"subscriberIdentifier" expectedClass:objc_opt_class() isArray:0 error:&v141];
+  v124 = v141;
+  if (!v75 && v124)
   {
     _HKInitializeLogging();
     v76 = *MEMORY[0x277CCC2C0];
@@ -464,21 +464,21 @@
     {
       v77 = objc_opt_class();
       *buf = 138543874;
-      v167 = v77;
-      v168 = 2114;
-      v169 = @"subscriberIdentifier";
-      v170 = 2114;
-      v171 = v125;
+      v166 = v77;
+      v167 = 2114;
+      v168 = @"subscriberIdentifier";
+      v169 = 2114;
+      v170 = v124;
       _os_log_impl(&dword_251CC8000, v76, OS_LOG_TYPE_DEFAULT, "%{public}@ error retrieving medical record property %{public}@ : %{public}@", buf, 0x20u);
     }
 
-    [v140 addObject:v125];
+    [v139 addObject:v124];
   }
 
   v78 = v75;
-  v141 = 0;
-  v79 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"beneficiaryIdentifier" expectedClass:objc_opt_class() isArray:0 error:&v141];
-  v80 = v141;
+  v140 = 0;
+  v79 = [(__CFString *)v4 medicalRecordPropertyValueForKey:@"beneficiaryIdentifier" expectedClass:objc_opt_class() isArray:0 error:&v140];
+  v80 = v140;
   v81 = v80;
   if (!v79 && v80)
   {
@@ -488,19 +488,19 @@
     {
       v83 = objc_opt_class();
       *buf = 138543874;
-      v167 = v83;
-      v168 = 2114;
-      v169 = @"beneficiaryIdentifier";
-      v170 = 2114;
-      v171 = v81;
+      v166 = v83;
+      v167 = 2114;
+      v168 = @"beneficiaryIdentifier";
+      v169 = 2114;
+      v170 = v81;
       _os_log_impl(&dword_251CC8000, v82, OS_LOG_TYPE_DEFAULT, "%{public}@ error retrieving medical record property %{public}@ : %{public}@", buf, 0x20u);
     }
 
-    [v140 addObject:v81];
+    [v139 addObject:v81];
   }
 
   v84 = v79;
-  if (![v140 count])
+  if (![v139 count])
   {
     representedResource3 = [(__CFString *)v4 representedResource];
     receivedDate = [representedResource3 receivedDate];
@@ -515,11 +515,11 @@
       date = [MEMORY[0x277CBEAA8] date];
     }
 
-    bOOLValue = [v122 BOOLValue];
+    bOOLValue = [v121 BOOLValue];
     localDevice = [MEMORY[0x277CCD2E8] localDevice];
     medicalRecordMetadata = [(__CFString *)v4 medicalRecordMetadata];
     coverageRecordType = [MEMORY[0x277CCD278] coverageRecordType];
-    v98 = [MEMORY[0x277CCD270] coverageRecordWithType:coverageRecordType note:v123 enteredInError:bOOLValue modifiedDate:date originIdentifier:v106 locale:v124 extractionVersion:integerValue device:localDevice metadata:medicalRecordMetadata country:country state:(extractionHints >> 2) & 1 statusCoding:v110 coverageTypeCodingCollection:v111 subscriber:v112 subscriberId:v113 beneficiary:v114 policyHolder:v115 payor:v116 relationshipCodingCollection:v117 classification:v118 network:v119 periodStartDate:v120 periodEndDate:v121 subscriberIdentifier:v78 beneficiaryIdentifier:v84];
+    v98 = [MEMORY[0x277CCD270] coverageRecordWithType:coverageRecordType note:v122 enteredInError:bOOLValue modifiedDate:date originIdentifier:v105 locale:v123 extractionVersion:integerValue device:localDevice metadata:medicalRecordMetadata country:country state:(extractionHints >> 2) & 1 statusCoding:v109 coverageTypeCodingCollection:v110 subscriber:v111 subscriberId:v112 beneficiary:v113 policyHolder:v114 payor:v115 relationshipCodingCollection:v116 classification:v117 network:v118 periodStartDate:v119 periodEndDate:v120 subscriberIdentifier:v78 beneficiaryIdentifier:v84];
     representedResource4 = [(__CFString *)v4 representedResource];
     firstSeenDate = [representedResource4 firstSeenDate];
     [v98 _setCreationDate:firstSeenDate];
@@ -529,9 +529,9 @@
   }
 
   v85 = MEMORY[0x277CCA9B8];
-  v158 = @"conversionErrors";
-  v159 = v140;
-  v86 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v159 forKeys:&v158 count:1];
+  v157 = @"conversionErrors";
+  v158 = v139;
+  v86 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v158 forKeys:&v157 count:1];
   v87 = [v85 errorWithDomain:@"HDHealthRecordsServiceErrorDomain" code:201 userInfo:v86];
 
   v88 = v87;
@@ -555,8 +555,6 @@ LABEL_107:
 LABEL_108:
   date = localDevice;
 LABEL_111:
-
-  v101 = *MEMORY[0x277D85DE8];
 
   return v91;
 }

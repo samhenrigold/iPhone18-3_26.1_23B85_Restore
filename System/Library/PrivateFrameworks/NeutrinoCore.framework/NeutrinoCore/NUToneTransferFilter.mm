@@ -19,9 +19,11 @@
 
 uint64_t __42__NUToneTransferFilter_toneTransferKernel__block_invoke()
 {
-  toneTransferKernel_s_toneTransferKernel = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 toneTransfer(__sample im, __sample src, __sample dst, float f) \n{ \n  float epsilon = 1e-5 \n  vec3 y0 = src.rgb; \n  vec3 y1 = dst.rgb; \n  vec3 g = (y1 + epsilon) / (y0 + epsilon); \n  vec3 x = im.rgb; \n  vec3 y = mix(x, g * x, f); \n  return vec4(y, im.a); \n}\n"}];;
+  v0 = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 toneTransfer(__sample im, __sample src, __sample dst, float f) \n{ \n  float epsilon = 1e-5 \n  vec3 y0 = src.rgb; \n  vec3 y1 = dst.rgb; \n  vec3 g = (y1 + epsilon) / (y0 + epsilon); \n  vec3 x = im.rgb; \n  vec3 y = mix(x, g * x, f); \n  return vec4(y, im.a); \n}\n"}];;
+  v1 = toneTransferKernel_s_toneTransferKernel;
+  toneTransferKernel_s_toneTransferKernel = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)outputImage
@@ -46,7 +48,7 @@ uint64_t __42__NUToneTransferFilter_toneTransferKernel__block_invoke()
       v10 = v9;
 
       toneTransferKernel = [objc_opt_class() toneTransferKernel];
-      [inputImage extent];
+      objc_msgSend_extent(inputImage);
       v13 = v12;
       v15 = v14;
       v17 = v16;

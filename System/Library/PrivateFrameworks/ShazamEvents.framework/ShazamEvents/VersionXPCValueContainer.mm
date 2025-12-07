@@ -9,11 +9,9 @@
 - (_TtC12ShazamEvents24VersionXPCValueContainer)initWithCoder:(id)coder
 {
   swift_getObjectType();
-  v5 = sub_1E1008254(coder);
-  v6 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x30);
-  v7 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x34);
+  v4 = sub_1E1008254(coder);
   swift_deallocPartialClassInstance();
-  return v5;
+  return v4;
 }
 
 - (void)encodeWithCoder:(id)coder

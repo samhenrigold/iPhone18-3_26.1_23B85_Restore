@@ -66,7 +66,7 @@ void __42__SBBannerPoofTransitionAnimator_settings__block_invoke()
   if ([(BNBannerTransitionAnimator *)self isPresenting])
   {
     transitionView2 = [transitionCopy transitionView];
-    [transitionView2 frame];
+    objc_msgSend_frame(transitionView2);
     IsEmpty = CGRectIsEmpty(v29);
 
     if (IsEmpty)
@@ -93,7 +93,7 @@ void __42__SBBannerPoofTransitionAnimator_settings__block_invoke()
 
       [(UIViewFloatAnimatableProperty *)self->_blurProgressProperty setValue:1.0];
       transitionView6 = [transitionCopy transitionView];
-      [transitionView6 frame];
+      objc_msgSend_frame(transitionView6);
       v21 = v20;
       v23 = v22;
       v25 = v24;
@@ -158,7 +158,7 @@ void __42__SBBannerPoofTransitionAnimator_settings__block_invoke()
     v30 = [v28 numberWithDouble:?];
     [layer2 setValue:v30 forKeyPath:@"filters.gaussianBlur.inputRadius"];
 
-    [transitionView frame];
+    objc_msgSend_frame(transitionView);
     [transitionView setFrame:?];
   }
 }

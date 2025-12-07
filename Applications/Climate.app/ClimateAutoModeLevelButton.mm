@@ -9,7 +9,7 @@
 - (BOOL)isHighlighted
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ClimateAutoModeLevelButton();
+  v3.super_class = type metadata accessor for ClimateAutoModeLevelButton(0);
   return [(ClimateButton *)&v3 isHighlighted];
 }
 
@@ -17,7 +17,7 @@
 {
   highlightedCopy = highlighted;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for ClimateAutoModeLevelButton();
+  v7.super_class = type metadata accessor for ClimateAutoModeLevelButton(0);
   v4 = v7.receiver;
   [(ClimateButton *)&v7 setHighlighted:highlightedCopy];
   v5 = *&v4[OBJC_IVAR____TtC7Climate26ClimateAutoModeLevelButton_progressView];
@@ -33,7 +33,7 @@
   selfCopy = self;
   v6(levelCopy);
   v9.receiver = selfCopy;
-  v9.super_class = type metadata accessor for ClimateAutoModeLevelButton();
+  v9.super_class = type metadata accessor for ClimateAutoModeLevelButton(0);
   [(ClimateAutoControlServiceButton *)&v9 autoClimateControlService:serviceCopy didUpdateLevel:levelCopy];
 }
 

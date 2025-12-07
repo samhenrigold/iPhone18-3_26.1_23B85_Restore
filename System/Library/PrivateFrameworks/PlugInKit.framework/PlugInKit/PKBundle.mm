@@ -58,31 +58,31 @@
 
   else
   {
-    xpc_bundle_get_error();
-    v7 = pklog_handle_for_category(1);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    error = xpc_bundle_get_error();
+    v8 = pklog_handle_for_category(1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_1C68B722C();
+      sub_1C68B722C(pathCopy, error);
     }
 
     lastPathComponent = [pathCopy lastPathComponent];
     pathExtension = [lastPathComponent pathExtension];
-    v10 = [pathExtension isEqualToString:@"appex"];
+    v11 = [pathExtension isEqualToString:@"appex"];
 
-    if (v10)
+    if (v11)
     {
-      v11 = objc_alloc(MEMORY[0x1E69635D0]);
-      v12 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathCopy isDirectory:1];
-      v17 = 0;
-      v13 = [v11 initWithURL:v12 error:&v17];
-      v14 = v17;
+      v12 = objc_alloc(MEMORY[0x1E69635D0]);
+      v13 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathCopy isDirectory:1];
+      v18 = 0;
+      v14 = [v12 initWithURL:v13 error:&v18];
+      v15 = v18;
 
-      if (v13)
+      if (v14)
       {
-        v15 = pklog_handle_for_category(1);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = pklog_handle_for_category(1);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          sub_1C68B72BC(v13);
+          sub_1C68B72BC(v14, pathCopy);
         }
       }
     }
@@ -174,7 +174,7 @@
     v7 = pklog_handle_for_category(1);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_1C68B7410(self);
+      sub_1C68B7410(self, v4);
     }
   }
 

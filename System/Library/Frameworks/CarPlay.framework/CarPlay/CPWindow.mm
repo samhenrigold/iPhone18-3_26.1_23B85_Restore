@@ -13,11 +13,11 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v40[4] = *MEMORY[0x277D85DE8];
+  v39[4] = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
-  v39.receiver = self;
-  v39.super_class = CPWindow;
-  height = [(CPWindow *)&v39 initWithFrame:x, y, width, height];
+  v38.receiver = self;
+  v38.super_class = CPWindow;
+  height = [(CPWindow *)&v38 initWithFrame:x, y, width, height];
   v11 = height;
   if (height)
   {
@@ -48,11 +48,11 @@
     v27 = [rightAnchor constraintEqualToAnchor:rightAnchor2 constant:v11->_edgeInsets.right];
 
     v28 = MEMORY[0x277CCAAD0];
-    v40[0] = v18;
-    v40[1] = v21;
-    v40[2] = v24;
-    v40[3] = v27;
-    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:4];
+    v39[0] = v18;
+    v39[1] = v21;
+    v39[2] = v24;
+    v39[3] = v27;
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:4];
     [v28 activateConstraints:v29];
 
     topConstraint = v11->_topConstraint;
@@ -71,7 +71,6 @@
     v11->_rightConstraint = v27;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

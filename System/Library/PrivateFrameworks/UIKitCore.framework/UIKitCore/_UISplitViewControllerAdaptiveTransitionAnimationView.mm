@@ -33,7 +33,7 @@
 
 - (BOOL)_shouldAnimatePropertyWithKey:(id)key
 {
-  if ([key isEqualToString:@"meshTransform"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"meshTransform"))
   {
     return 1;
   }

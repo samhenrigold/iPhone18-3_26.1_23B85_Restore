@@ -16,11 +16,14 @@
 - (void)enumerateActions:(id)actions;
 - (void)enumeratePIDsInFilter:(id)filter;
 - (void)enumerateThreadStatesToInclude:(id)include;
+- (void)includePID:(int)d;
+- (void)includeThreadState:(unsigned int)state;
 - (void)setCallstackFrameDepth:(unint64_t)depth;
 - (void)setEventLimitHint:(unint64_t)hint;
 - (void)setHasThreadStateFilter:(BOOL)filter;
 - (void)setIsAllProcesses:(BOOL)processes;
 - (void)setKdebugFilter:(id)filter;
+- (void)setKind:(int)kind;
 - (void)setPmiEventThreshold:(unint64_t)threshold;
 - (void)setRecountConfiguration:(id)configuration;
 - (void)setSampleInterval:(unint64_t)interval;
@@ -113,6 +116,12 @@
   return v4;
 }
 
+- (void)setKind:(int)kind
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:*&kind];
+  [(NSMutableDictionary *)self->_dict setObject:v4 forKeyedSubscript:@"tk"];
+}
+
 - (unint64_t)sampleInterval
 {
   v2 = [(NSMutableDictionary *)self->_dict objectForKeyedSubscript:@"si"];
@@ -179,36 +188,53 @@
   }
 }
 
+- (void)includeThreadState:(unsigned int)state
+{
+  v3 = *&state;
+  [(DTKTraceTapTriggerConfig *)self setHasThreadStateFilter:1];
+  v7 = [(NSMutableDictionary *)self->_dict objectForKey:@"tsf"];
+  if (!v7)
+  {
+    sub_24802EB5C(a2, self);
+  }
+
+  v6 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:v3];
+  if (([v7 containsObject:v6] & 1) == 0)
+  {
+    [v7 addObject:v6];
+  }
+}
+
 - (void)enumerateThreadStatesToInclude:(id)include
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   includeCopy = include;
   v5 = [(NSMutableDictionary *)self->_dict objectForKey:@"tsf"];
   v6 = v5;
   if (v5)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
-    v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          includeCopy[2](includeCopy, [*(*(&v12 + 1) + 8 * i) intValue]);
+          includeCopy[2](includeCopy, [*(*(&v11 + 1) + 8 * i) intValue]);
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
@@ -220,8 +246,6 @@
     includeCopy[2](includeCopy, 1);
     includeCopy[2](includeCopy, 0x400000);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAllProcesses
@@ -253,46 +277,61 @@
   }
 }
 
+- (void)includePID:(int)d
+{
+  v3 = *&d;
+  [(DTKTraceTapTriggerConfig *)self setIsAllProcesses:0];
+  v7 = [(NSMutableDictionary *)self->_dict objectForKeyedSubscript:@"pf"];
+  if (!v7)
+  {
+    sub_24802EBD0(a2, self);
+  }
+
+  v6 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:v3];
+  if (([v7 containsObject:v6] & 1) == 0)
+  {
+    [v7 addObject:v6];
+  }
+}
+
 - (void)enumeratePIDsInFilter:(id)filter
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   filterCopy = filter;
   v5 = [(NSMutableDictionary *)self->_dict objectForKeyedSubscript:@"pf"];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        filterCopy[2](filterCopy, [*(*(&v11 + 1) + 8 * v9++) intValue]);
+        filterCopy[2](filterCopy, [*(*(&v10 + 1) + 8 * v9++) intValue]);
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAction:(int)action
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   if (action <= 3)
   {
     if ((action - 2) < 2 || !action)
@@ -305,16 +344,16 @@
 
     if (action != 1)
     {
-      goto LABEL_18;
+      return;
     }
 
     v4 = [MEMORY[0x277CCABB0] numberWithInt:?];
-    v16[0] = v4;
-    v5 = [MEMORY[0x277CCABB0] numberWithInt:v18];
-    v16[1] = v5;
-    v6 = [MEMORY[0x277CCABB0] numberWithInt:v19];
-    v16[2] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+    v15[0] = v4;
+    v5 = [MEMORY[0x277CCABB0] numberWithInt:v17];
+    v15[1] = v5;
+    v6 = [MEMORY[0x277CCABB0] numberWithInt:v18];
+    v15[2] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
     goto LABEL_12;
   }
 
@@ -322,25 +361,25 @@
   {
     case 4:
       v9 = MEMORY[0x277CCABB0];
-      v5 = v19;
-      v4 = v18;
+      v5 = v18;
+      v4 = v17;
       v6 = [v9 numberWithInt:4];
-      v15[0] = v6;
-      v15[1] = v4;
-      v15[2] = v5;
-      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v20];
-      v15[3] = v10;
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:4];
+      v14[0] = v6;
+      v14[1] = v4;
+      v14[2] = v5;
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v19];
+      v14[3] = v10;
+      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:4];
 
 LABEL_12:
       goto LABEL_14;
     case 5:
       v11 = MEMORY[0x277CCABB0];
-      v4 = v18;
+      v4 = v17;
       v12 = [v11 numberWithInt:5];
-      v17[0] = v12;
-      v17[1] = v4;
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+      v16[0] = v12;
+      v16[1] = v4;
+      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
 
 LABEL_14:
       if (v7)
@@ -355,40 +394,37 @@ LABEL_14:
         [v13 addObject:v7];
       }
 
-      break;
+      return;
     case 6:
       NSLog(&cfstr_DtktActionMaxN.isa, a2);
       break;
   }
-
-LABEL_18:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateActions:(id)actions
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v5 = [(NSMutableDictionary *)self->_dict objectForKey:@"ta"];
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         v11 = [v10 count];
         if (v11)
         {
@@ -439,7 +475,7 @@ LABEL_20:
 
             else if (v12 != 1)
             {
-              v20 = [v10 objectAtIndex:1];
+              v19 = [v10 objectAtIndex:1];
               actionsCopy[2](actionsCopy, 5);
             }
 
@@ -451,13 +487,11 @@ LABEL_20:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)pmiEventThreshold

@@ -62,7 +62,7 @@ void __49__HFTemperatureUnitCoordinator_sharedCoordinator__block_invoke()
 - (void)_updateIsCelsiusNotifyingObservers:(BOOL)observers
 {
   observersCopy = observers;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   isCelsius = self->_isCelsius;
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
   v7 = [currentLocale objectForKey:*MEMORY[0x277CBE700]];
@@ -70,40 +70,38 @@ void __49__HFTemperatureUnitCoordinator_sharedCoordinator__block_invoke()
 
   if (observersCopy && isCelsius != self->_isCelsius)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     observers = [(HFTemperatureUnitCoordinator *)self observers];
     allObjects = [observers allObjects];
 
-    v10 = [allObjects countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v10 = [allObjects countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         v13 = 0;
         do
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(allObjects);
           }
 
-          [*(*(&v15 + 1) + 8 * v13++) temperatureUnitObserver:self didChangeTemperatureUnit:self->_isCelsius];
+          [*(*(&v14 + 1) + 8 * v13++) temperatureUnitObserver:self didChangeTemperatureUnit:self->_isCelsius];
         }
 
         while (v11 != v13);
-        v11 = [allObjects countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v11 = [allObjects countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v11);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

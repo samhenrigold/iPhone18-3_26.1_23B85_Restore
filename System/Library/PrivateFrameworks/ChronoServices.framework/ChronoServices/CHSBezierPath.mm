@@ -67,7 +67,7 @@
   v5 = __encodePathIntoData(self->_path);
   if (!v5)
   {
-    v6 = CHSLogChronoServices();
+    v6 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [CHSBezierPath encodeWithCoder:];
@@ -83,7 +83,7 @@
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"data"];
   if (!v5)
   {
-    v6 = CHSLogChronoServices();
+    v6 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [CHSBezierPath initWithCoder:];
@@ -93,7 +93,7 @@
   PathByDecodingData = __createPathByDecodingData(v5);
   if (!PathByDecodingData)
   {
-    v8 = CHSLogChronoServices();
+    v8 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [CHSBezierPath initWithCoder:];
@@ -111,7 +111,7 @@
   v5 = __encodePathIntoData(self->_path);
   if (!v5)
   {
-    v6 = CHSLogChronoServices();
+    v6 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [CHSBezierPath encodeWithCoder:];
@@ -127,7 +127,7 @@
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"data"];
   if (!v5)
   {
-    v6 = CHSLogChronoServices();
+    v6 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [CHSBezierPath initWithCoder:];
@@ -137,7 +137,7 @@
   PathByDecodingData = __createPathByDecodingData(v5);
   if (!PathByDecodingData)
   {
-    v8 = CHSLogChronoServices();
+    v8 = CHSLogChronoServices(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [CHSBezierPath initWithCoder:];

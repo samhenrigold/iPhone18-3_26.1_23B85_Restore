@@ -88,12 +88,12 @@ void __86__ILClassificationUIExtensionHostContext_classificationResponseForReque
 - (void)setReadyForClassificationResponse:(BOOL)response
 {
   responseCopy = response;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = ILDefaultLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v14 = responseCopy;
+    v13 = responseCopy;
     _os_log_impl(&dword_238A6C000, v5, OS_LOG_TYPE_DEFAULT, "setReadyForClassificationResponse: %d", buf, 8u);
   }
 
@@ -106,17 +106,15 @@ void __86__ILClassificationUIExtensionHostContext_classificationResponseForReque
     if (delegateQueue)
     {
       delegateQueue2 = [(ILClassificationUIExtensionHostContext *)self delegateQueue];
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __76__ILClassificationUIExtensionHostContext_setReadyForClassificationResponse___block_invoke;
-      v11[3] = &unk_278A5F608;
-      v11[4] = self;
-      v12 = responseCopy;
-      dispatch_async(delegateQueue2, v11);
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __76__ILClassificationUIExtensionHostContext_setReadyForClassificationResponse___block_invoke;
+      v10[3] = &unk_278A5F608;
+      v10[4] = self;
+      v11 = responseCopy;
+      dispatch_async(delegateQueue2, v10);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __76__ILClassificationUIExtensionHostContext_setReadyForClassificationResponse___block_invoke(uint64_t a1)
@@ -143,11 +141,10 @@ void __76__ILClassificationUIExtensionHostContext_setReadyForClassificationRespo
 
 void __74__ILClassificationUIExtensionHostContext_prepareForClassificationRequest___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_238A6C000, a2, OS_LOG_TYPE_ERROR, "error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_238A6C000, a2, OS_LOG_TYPE_ERROR, "error: %@", &v2, 0xCu);
 }
 
 @end

@@ -92,24 +92,25 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v11 = __atxlog_handle_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [(ATXCGRectWrapper *)self initWithProto:v11];
+      [(ATXCGRectWrapper *)self initWithProto:v12];
     }
 
     goto LABEL_7;
   }
 
-  v5 = protoCopy;
-  v6 = [(ATXPBCGRectWrapper *)v5 x];
-  v7 = [(ATXPBCGRectWrapper *)v5 y];
-  width = [(ATXPBCGRectWrapper *)v5 width];
-  height = [(ATXPBCGRectWrapper *)v5 height];
+  v6 = protoCopy;
+  v7 = [(ATXPBCGRectWrapper *)v6 x];
+  v8 = [(ATXPBCGRectWrapper *)v6 y];
+  width = [(ATXPBCGRectWrapper *)v6 width];
+  height = [(ATXPBCGRectWrapper *)v6 height];
 
-  self = [(ATXCGRectWrapper *)self initWithCGRect:v6, v7, width, height];
+  self = [(ATXCGRectWrapper *)self initWithCGRect:v7, v8, width, height];
   selfCopy = self;
 LABEL_8:
 

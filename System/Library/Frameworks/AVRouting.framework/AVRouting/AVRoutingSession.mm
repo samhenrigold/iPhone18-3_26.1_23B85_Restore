@@ -47,16 +47,13 @@
 - (BOOL)establishedAutomaticallyFromLikelyDestination
 {
   cf = 0;
-  figRoutingSession = self->_ivars->figRoutingSession;
   CMBaseObject = FigRoutingSessionGetCMBaseObject();
-  VTable = CMBaseObjectGetVTable();
-  v5 = *(*(VTable + 8) + 48);
-  if (v5)
+  v3 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v3)
   {
-    v6 = *(VTable + 8) + 48;
-    v7 = v5(CMBaseObject, *MEMORY[0x1E69AF588], *MEMORY[0x1E695E480], &cf) == 0;
-    v8 = cf;
-    v9 = *MEMORY[0x1E695E4D0];
+    v4 = v3(CMBaseObject, *MEMORY[0x1E69AF588], *MEMORY[0x1E695E480], &cf) == 0;
+    v5 = cf;
+    v6 = *MEMORY[0x1E695E4D0];
     if (cf)
     {
       CFRelease(cf);
@@ -65,12 +62,12 @@
 
   else
   {
-    v7 = 0;
-    v8 = 0;
-    v9 = *MEMORY[0x1E695E4D0];
+    v4 = 0;
+    v5 = 0;
+    v6 = *MEMORY[0x1E695E4D0];
   }
 
-  return v8 == v9 && v7;
+  return v5 == v6 && v4;
 }
 
 - (AVRoutingSession)initWithFigRoutingSession:(OpaqueFigRoutingSession *)session
@@ -95,17 +92,16 @@
 {
   cf = 0;
   figRoutingSession = self->_ivars->figRoutingSession;
-  VTable = CMBaseObjectGetVTable();
-  v4 = *(*(VTable + 16) + 8);
-  if (!v4 || (v5 = *(VTable + 16) + 8, v4(figRoutingSession, &cf)))
+  v3 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (!v3 || v3(figRoutingSession, &cf))
   {
-    v7 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [AVRoutingSessionDestination alloc];
-    v7 = [(AVRoutingSessionDestination *)v6 initWithFigRoutingSessionDestination:cf];
+    v4 = [AVRoutingSessionDestination alloc];
+    v5 = [(AVRoutingSessionDestination *)v4 initWithFigRoutingSessionDestination:cf];
   }
 
   if (cf)
@@ -113,7 +109,7 @@
     CFRelease(cf);
   }
 
-  return v7;
+  return v5;
 }
 
 @end

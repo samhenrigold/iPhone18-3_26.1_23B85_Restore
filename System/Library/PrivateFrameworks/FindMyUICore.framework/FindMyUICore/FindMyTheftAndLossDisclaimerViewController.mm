@@ -9,7 +9,7 @@
 - (void)disclaimerViewControllerForContext:(id)context confirmActionHandler:(id)handler cancelActionHandler:(id)actionHandler completion:(id)completion
 {
   ObjectType = swift_getObjectType();
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EFC8580);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EFC8580, &qword_24B2E0010);
   MEMORY[0x28223BE20](v11 - 8);
   v13 = &v25 - v12;
   v14 = _Block_copy(handler);
@@ -36,7 +36,7 @@
   sub_24B2D5694();
   contextCopy = context;
 
-  sub_24AFD5880(v15);
+  sub_24AFD5880(v15, v18);
 
   v22 = sub_24B2D5684();
   v23 = swift_allocObject();
@@ -53,13 +53,13 @@
   v23[11] = ObjectType;
   sub_24B00A9A4(0, 0, v13, &unk_24B2F6088, v23);
 
-  sub_24AFD5890(v15);
+  sub_24AFD5890(v15, v18);
 }
 
 - (void)disclaimerLabelForContext:(id)context completion:(id)completion
 {
   ObjectType = swift_getObjectType();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EFC8580);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EFC8580, &qword_24B2E0010);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);

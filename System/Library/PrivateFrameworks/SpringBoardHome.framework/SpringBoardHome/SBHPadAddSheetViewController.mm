@@ -51,9 +51,9 @@
 
 - (SBHPadAddSheetViewController)initWithListLayoutProvider:(id)provider iconViewProvider:(id)viewProvider allowedWidgets:(SBHWidgetFilteringParameters)widgets appCellConfigurator:(id)configurator addWidgetSheetStyle:(unint64_t)style
 {
-  v37.receiver = self;
-  v37.super_class = SBHPadAddSheetViewController;
-  style = [(SBHAddWidgetSheetViewControllerBase *)&v37 initWithListLayoutProvider:provider iconViewProvider:viewProvider allowedWidgets:widgets.families appCellConfigurator:*&widgets.includesNonStackable addWidgetSheetStyle:configurator, style];
+  v39.receiver = self;
+  v39.super_class = SBHPadAddSheetViewController;
+  style = [(SBHAddWidgetSheetViewControllerBase *)&v39 initWithListLayoutProvider:provider iconViewProvider:viewProvider allowedWidgets:widgets.families appCellConfigurator:*&widgets.includesNonStackable addWidgetSheetStyle:configurator, style];
   if (style)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -63,43 +63,43 @@
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter addObserver:style selector:sel__contentSizeCategoryDidChange_ name:*MEMORY[0x1E69DDC48] object:0];
 
-    v11 = SBHScreenTypeForCurrentDevice();
-    SBHPadAddWidgetSheetMetricsForScreenTypeAndInterfaceOrientation(v11, 3, &v27);
-    v12 = v28;
-    *(style + 1240) = v27;
-    *(style + 1256) = v12;
-    v13 = v29;
+    v13 = SBHScreenTypeForCurrentDevice(v11, v12);
+    SBHPadAddWidgetSheetMetricsForScreenTypeAndInterfaceOrientation(v13, 3, &v29);
     v14 = v30;
-    v15 = v32;
-    *(style + 1304) = v31;
-    *(style + 1320) = v15;
-    *(style + 1272) = v13;
-    *(style + 1288) = v14;
-    v16 = v33;
+    *(style + 1240) = v29;
+    *(style + 1256) = v14;
+    v15 = v31;
+    v16 = v32;
     v17 = v34;
+    *(style + 1304) = v33;
+    *(style + 1320) = v17;
+    *(style + 1272) = v15;
+    *(style + 1288) = v16;
     v18 = v35;
-    *(style + 173) = v36;
-    *(style + 1352) = v17;
-    *(style + 1368) = v18;
-    *(style + 1336) = v16;
-    SBHPadAddWidgetSheetMetricsForScreenTypeAndInterfaceOrientation(v11, 1, &v27);
-    v19 = v28;
-    *(style + 87) = v27;
-    *(style + 88) = v19;
-    v20 = v29;
+    v19 = v36;
+    v20 = v37;
+    *(style + 173) = v38;
+    *(style + 1352) = v19;
+    *(style + 1368) = v20;
+    *(style + 1336) = v18;
+    SBHPadAddWidgetSheetMetricsForScreenTypeAndInterfaceOrientation(v13, 1, &v29);
     v21 = v30;
-    v22 = v32;
-    *(style + 91) = v31;
-    *(style + 92) = v22;
-    *(style + 89) = v20;
-    *(style + 90) = v21;
-    v23 = v33;
+    *(style + 87) = v29;
+    *(style + 88) = v21;
+    v22 = v31;
+    v23 = v32;
     v24 = v34;
+    *(style + 91) = v33;
+    *(style + 92) = v24;
+    *(style + 89) = v22;
+    *(style + 90) = v23;
     v25 = v35;
-    *(style + 192) = v36;
-    *(style + 94) = v24;
-    *(style + 95) = v25;
-    *(style + 93) = v23;
+    v26 = v36;
+    v27 = v37;
+    *(style + 192) = v38;
+    *(style + 94) = v26;
+    *(style + 95) = v27;
+    *(style + 93) = v25;
     [style setWantsBottomAttachedPresentation:1];
   }
 
@@ -129,7 +129,7 @@
   self->_backgroundView = _newBackgroundView;
 
   v7 = self->_backgroundView;
-  [view bounds];
+  objc_msgSend_bounds(view);
   [(MTMaterialView *)v7 setFrame:?];
   [(MTMaterialView *)self->_backgroundView setAutoresizingMask:18];
   [view addSubview:self->_backgroundView];
@@ -192,8 +192,7 @@
   clearColor2 = [MEMORY[0x1E69DC888] clearColor];
   [view3 setBackgroundColor:clearColor2];
 
-  [(UISplitViewController *)self->_splitViewController setViewController:self->_left forColumn:0];
-  v29 = SBHBundle();
+  v29 = SBHBundle([(UISplitViewController *)self->_splitViewController setViewController:self->_left forColumn:0]);
   v30 = [v29 localizedStringForKey:@"WIDGET_ADD_SHEET_SEARCH_PLACEHOLDER" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
 
   v31 = [[SBHWidgetSearchController alloc] initWithAddWidgetSheetStyle:addWidgetSheetStyle placeholderText:v30];
@@ -378,7 +377,7 @@
 {
   v10 = 0;
   memset(v9, 0, sizeof(v9));
-  v4 = SBHScreenTypeForCurrentDevice();
+  v4 = SBHScreenTypeForCurrentDevice(self, a2);
   SBHPadAddWidgetSheetMetricsForScreenTypeAndInterfaceOrientation(v4, orientation, v9);
   v5 = *v9;
   v6 = 0.0;
@@ -457,9 +456,9 @@
   listLayoutProvider = [(SBHAddWidgetSheetViewControllerBase *)self listLayoutProvider];
   v3 = [listLayoutProvider layoutForIconLocation:@"SBIconLocationRoot"];
 
-  [v3 iconImageInfoForGridSizeClass:@"SBHIconGridSizeClassSmall"];
+  objc_msgSend_iconImageInfoForGridSizeClass_(v3);
   v5 = v4;
-  [v3 iconImageInfoForGridSizeClass:@"SBHIconGridSizeClassMedium"];
+  objc_msgSend_iconImageInfoForGridSizeClass_(v3);
   v7 = v6 + v5 * -2.0;
 
   return v7;
@@ -470,11 +469,11 @@
   listLayoutProvider = [(SBHAddWidgetSheetViewControllerBase *)self listLayoutProvider];
   v6 = [listLayoutProvider layoutForIconLocation:@"SBIconLocationRoot"];
 
-  [v6 iconImageInfoForGridSizeClass:@"SBHIconGridSizeClassSmall"];
+  objc_msgSend_iconImageInfoForGridSizeClass_(v6);
   v8 = v7;
-  [v6 iconImageInfoForGridSizeClass:@"SBHIconGridSizeClassMedium"];
+  objc_msgSend_iconImageInfoForGridSizeClass_(v6);
   v10 = v9 - v8;
-  [(SBHPadAddSheetViewController *)self _metricsForCurrentOrientation:0];
+  objc_msgSend__metricsForCurrentOrientation(self, 0, 0, 0);
   v11 = ((v10 - v8 - 0.0 - 0.0 + width) / v10);
   if (v11 <= 2)
   {
@@ -499,11 +498,11 @@
   listLayoutProvider = [(SBHAddWidgetSheetViewControllerBase *)self listLayoutProvider];
   v6 = [listLayoutProvider layoutForIconLocation:@"SBIconLocationRoot"];
 
-  [v6 iconImageInfoForGridSizeClass:@"SBHIconGridSizeClassSmall"];
+  objc_msgSend_iconImageInfoForGridSizeClass_(v6);
   v8 = v7;
-  [v6 iconImageInfoForGridSizeClass:@"SBHIconGridSizeClassMedium"];
+  objc_msgSend_iconImageInfoForGridSizeClass_(v6);
   v10 = v9 - v8;
-  [(SBHPadAddSheetViewController *)self _metricsForCurrentOrientation:0];
+  objc_msgSend__metricsForCurrentOrientation(self, 0, 0, 0);
 
   return 0.0 - (v10 - v8 - columns * v10) + 0.0;
 }
@@ -515,7 +514,7 @@
     return *MEMORY[0x1E69DE3C8];
   }
 
-  [(SBHPadAddSheetViewController *)self _metricsForOrientation:orientation, 0];
+  objc_msgSend__metricsForOrientation_(self, 0);
   return 0.0 + 0.0 + 0.0 + 0.0;
 }
 
@@ -577,7 +576,7 @@
 
   view = [(UISplitViewController *)self->_splitViewController view];
   view2 = [(SBHAddWidgetSheetViewController *)self->_left view];
-  [view2 bounds];
+  objc_msgSend_bounds(view2);
   v9 = v8;
   v11 = v10;
   v13 = v12;
@@ -597,7 +596,7 @@
   }
 
   view4 = [(SBHPadAddSheetViewController *)self view];
-  [view4 bounds];
+  objc_msgSend_bounds(view4);
   v21 = v20;
 
   separatorView = self->_separatorView;
@@ -705,7 +704,8 @@
     selfCopy = self;
   }
 
-  [(SBHPadAddSheetViewController *)self _metricsForOrientation:[(SBHPadAddSheetViewController *)selfCopy interfaceOrientation]];
+  [(SBHPadAddSheetViewController *)selfCopy interfaceOrientation];
+  objc_msgSend__metricsForOrientation_(self);
 
   return result;
 }

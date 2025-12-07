@@ -186,7 +186,7 @@ LABEL_8:
 
 - (void)reloadData
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dataSource = [(VMAccountsView *)self dataSource];
   v4 = objc_opt_respondsToSelector();
 
@@ -207,28 +207,28 @@ LABEL_8:
   dataSource3 = [(VMAccountsView *)self dataSource];
   v9 = [dataSource3 numberOfRowsForAccountsView:self];
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   buttonStackView = [(VMAccountsView *)self buttonStackView];
   arrangedSubviews = [buttonStackView arrangedSubviews];
 
-  v12 = [arrangedSubviews countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v12 = [arrangedSubviews countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v37;
+    v14 = *v36;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v37 != v14)
+        if (*v36 != v14)
         {
           objc_enumerationMutation(arrangedSubviews);
         }
 
-        v16 = *(*(&v36 + 1) + 8 * i);
+        v16 = *(*(&v35 + 1) + 8 * i);
         [v16 removeFromSuperview];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -238,7 +238,7 @@ LABEL_8:
         }
       }
 
-      v13 = [arrangedSubviews countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v13 = [arrangedSubviews countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v13);
@@ -269,35 +269,33 @@ LABEL_8:
     }
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   buttons3 = [(VMAccountsView *)self buttons];
-  v27 = [buttons3 countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v27 = [buttons3 countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v33;
+    v29 = *v32;
     do
     {
       for (k = 0; k != v28; ++k)
       {
-        if (*v33 != v29)
+        if (*v32 != v29)
         {
           objc_enumerationMutation(buttons3);
         }
 
-        [*(*(&v32 + 1) + 8 * k) setPreferredIntrinsicContentSizeWidth:v18];
+        [*(*(&v31 + 1) + 8 * k) setPreferredIntrinsicContentSizeWidth:v18];
       }
 
-      v28 = [buttons3 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v28 = [buttons3 countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v28);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)buttonAtIndex:(unint64_t)index

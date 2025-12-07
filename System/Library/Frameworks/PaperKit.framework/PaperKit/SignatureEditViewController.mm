@@ -31,7 +31,7 @@
   *(&self->super.super + OBJC_IVAR____TtC8PaperKit27SignatureEditViewController_panelSize) = xmmword_1D4060E20;
   v4 = OBJC_IVAR____TtC8PaperKit27SignatureEditViewController_navigationBar;
   *(&self->super.super.super.isa + v4) = [objc_allocWithZone(MEMORY[0x1E69DCCC0]) init];
-  v5 = (&self->super.super.super.isa + OBJC_IVAR____TtC8PaperKit27SignatureEditViewController_completion);
+  v5 = (self + OBJC_IVAR____TtC8PaperKit27SignatureEditViewController_completion);
   *v5 = UnknownCanvasElementView.flags.modify;
   v5[1] = 0;
   result = _assertionFailure(_:_:file:line:flags:)();

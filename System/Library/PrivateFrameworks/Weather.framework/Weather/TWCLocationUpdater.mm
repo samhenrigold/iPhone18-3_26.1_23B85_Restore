@@ -5,10 +5,12 @@
 - (void)_geocodeLocation:(id)location currentCity:(id)city completionHandler:(id)handler;
 - (void)_updateWeatherForLocation:(id)location city:(id)city completionHandler:(id)handler;
 - (void)dealloc;
+- (void)enableProgressIndicator:(BOOL)indicator;
 - (void)parsedResultCity:(id)city;
 - (void)updateWeatherForCities:(id)cities withCompletionHandler:(id)handler;
 - (void)updateWeatherForCity:(id)city;
 - (void)updateWeatherForLocation:(id)location city:(id)city;
+- (void)updateWeatherForLocation:(id)location city:(id)city isFromFrameworkClient:(BOOL)client withCompletionHandler:(id)handler;
 @end
 
 @implementation TWCLocationUpdater
@@ -25,7 +27,7 @@
   return v3;
 }
 
-uint64_t __43__TWCLocationUpdater_sharedLocationUpdater__block_invoke()
+void *__43__TWCLocationUpdater_sharedLocationUpdater__block_invoke()
 {
   v0 = objc_alloc_init(TWCLocationUpdater);
   v1 = sharedLocationUpdater___sharedLocationUpdater;
@@ -138,19 +140,30 @@ uint64_t __43__TWCLocationUpdater_sharedLocationUpdater__block_invoke()
   }
 }
 
+- (void)enableProgressIndicator:(BOOL)indicator
+{
+  indicatorCopy = indicator;
+  v4 = MEMORY[0x277D76620];
+  if ([*MEMORY[0x277D76620] conformsToProtocol:&unk_288257D50] && objc_msgSend(*v4, "showProgressIndicator"))
+  {
+    v5 = +[ProgressController sharedProgressController];
+    [v5 setLoadingData:indicatorCopy];
+  }
+}
+
 - (void)updateWeatherForCity:(id)city
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   cityCopy = city;
   v5 = WALogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(cityCopy, "isLocalWeatherCity")}];
-    v12 = 138412546;
-    v13 = cityCopy;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "Update weather for city : %@, isLocalWeatherCity=%@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = cityCopy;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "Update weather for city : %@, isLocalWeatherCity=%@", &v11, 0x16u);
   }
 
   if ([cityCopy isLocalWeatherCity])
@@ -163,9 +176,9 @@ uint64_t __43__TWCLocationUpdater_sharedLocationUpdater__block_invoke()
     {
       if (v10)
       {
-        v12 = 138412290;
-        v13 = location;
-        _os_log_impl(&dword_272ACF000, v9, OS_LOG_TYPE_DEFAULT, "Has location: %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = location;
+        _os_log_impl(&dword_272ACF000, v9, OS_LOG_TYPE_DEFAULT, "Has location: %@", &v11, 0xCu);
       }
 
       [(TWCLocationUpdater *)self updateWeatherForLocation:location city:cityCopy];
@@ -175,15 +188,24 @@ uint64_t __43__TWCLocationUpdater_sharedLocationUpdater__block_invoke()
     {
       if (v10)
       {
-        LOWORD(v12) = 0;
-        _os_log_impl(&dword_272ACF000, v9, OS_LOG_TYPE_DEFAULT, "Does not have location from location manager, force location update", &v12, 2u);
+        LOWORD(v11) = 0;
+        _os_log_impl(&dword_272ACF000, v9, OS_LOG_TYPE_DEFAULT, "Does not have location from location manager, force location update", &v11, 2u);
       }
 
       [v7 forceLocationUpdate];
     }
   }
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (void)updateWeatherForLocation:(id)location city:(id)city isFromFrameworkClient:(BOOL)client withCompletionHandler:(id)handler
+{
+  clientCopy = client;
+  handlerCopy = handler;
+  cityCopy = city;
+  locationCopy = location;
+  [cityCopy setIsRequestedByFrameworkClient:clientCopy];
+  [cityCopy setIsLocalWeatherCity:1];
+  [(TWCLocationUpdater *)self _updateWeatherForLocation:locationCopy city:cityCopy completionHandler:handlerCopy];
 }
 
 - (void)updateWeatherForLocation:(id)location city:(id)city
@@ -196,20 +218,20 @@ uint64_t __43__TWCLocationUpdater_sharedLocationUpdater__block_invoke()
 
 - (void)_updateWeatherForLocation:(id)location city:(id)city completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   cityCopy = city;
   handlerCopy = handler;
   v11 = WALogForCategory(0);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315650;
-    v15 = "[TWCLocationUpdater _updateWeatherForLocation:city:completionHandler:]";
-    v16 = 2112;
-    v17 = locationCopy;
-    v18 = 2112;
-    v19 = cityCopy;
-    _os_log_impl(&dword_272ACF000, v11, OS_LOG_TYPE_DEFAULT, "%s currentLocation=%@, localCity=%@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[TWCLocationUpdater _updateWeatherForLocation:city:completionHandler:]";
+    v15 = 2112;
+    v16 = locationCopy;
+    v17 = 2112;
+    v18 = cityCopy;
+    _os_log_impl(&dword_272ACF000, v11, OS_LOG_TYPE_DEFAULT, "%s currentLocation=%@, localCity=%@", &v13, 0x20u);
   }
 
   if (cityCopy)
@@ -223,13 +245,11 @@ uint64_t __43__TWCLocationUpdater_sharedLocationUpdater__block_invoke()
     v12 = WAErrorWithCode(4, 0, 0, 0);
     handlerCopy[2](handlerCopy, 0, v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_geocodeLocation:(id)location currentCity:(id)city completionHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   cityCopy = city;
   handlerCopy = handler;
@@ -237,11 +257,11 @@ uint64_t __43__TWCLocationUpdater_sharedLocationUpdater__block_invoke()
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v23 = "[TWCLocationUpdater _geocodeLocation:currentCity:completionHandler:]";
-    v24 = 2112;
-    v25 = locationCopy;
-    v26 = 2112;
-    v27 = cityCopy;
+    v22 = "[TWCLocationUpdater _geocodeLocation:currentCity:completionHandler:]";
+    v23 = 2112;
+    v24 = locationCopy;
+    v25 = 2112;
+    v26 = cityCopy;
     _os_log_impl(&dword_272ACF000, v11, OS_LOG_TYPE_DEFAULT, "%s location=%@, currentCity=%@", buf, 0x20u);
   }
 
@@ -257,25 +277,23 @@ uint64_t __43__TWCLocationUpdater_sharedLocationUpdater__block_invoke()
     }
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __69__TWCLocationUpdater__geocodeLocation_currentCity_completionHandler___block_invoke;
-  v18[3] = &unk_279E69400;
-  v18[4] = self;
-  v19 = locationCopy;
-  v20 = cityCopy;
-  v21 = handlerCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __69__TWCLocationUpdater__geocodeLocation_currentCity_completionHandler___block_invoke;
+  v17[3] = &unk_279E69400;
+  v17[4] = self;
+  v18 = locationCopy;
+  v19 = cityCopy;
+  v20 = handlerCopy;
   v14 = handlerCopy;
   v15 = cityCopy;
   v16 = locationCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v18);
-
-  v17 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v17);
 }
 
 void __69__TWCLocationUpdater__geocodeLocation_currentCity_completionHandler___block_invoke(id *a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] reverseGeocoder];
   v3 = [v2 isGeocoding];
 
@@ -288,11 +306,11 @@ void __69__TWCLocationUpdater__geocodeLocation_currentCity_completionHandler___b
       v6 = a1[5];
       v7 = a1[6];
       *buf = 138412802;
-      v24 = v5;
-      v25 = 2112;
-      v26 = v6;
-      v27 = 2112;
-      v28 = v7;
+      v23 = v5;
+      v24 = 2112;
+      v25 = v6;
+      v26 = 2112;
+      v27 = v7;
       _os_log_impl(&dword_272ACF000, v4, OS_LOG_TYPE_DEFAULT, "cancelGeocode reverseGeocoder=%@ for location=%@, currentCity=%@", buf, 0x20u);
     }
 
@@ -308,34 +326,32 @@ void __69__TWCLocationUpdater__geocodeLocation_currentCity_completionHandler___b
     v11 = a1[5];
     v12 = a1[6];
     *buf = 138412546;
-    v24 = v11;
-    v25 = 2112;
-    v26 = v12;
+    v23 = v11;
+    v24 = 2112;
+    v25 = v12;
     _os_log_impl(&dword_272ACF000, v10, OS_LOG_TYPE_DEFAULT, "Will start reverseGeocodeLocation: location=%@, currentCity=%@", buf, 0x16u);
   }
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __69__TWCLocationUpdater__geocodeLocation_currentCity_completionHandler___block_invoke_33;
-  v20[3] = &unk_279E693D8;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __69__TWCLocationUpdater__geocodeLocation_currentCity_completionHandler___block_invoke_33;
+  v19[3] = &unk_279E693D8;
   v13 = a1[5];
   v14 = a1[6];
-  v19 = a1[4];
+  v18 = a1[4];
   v15 = a1[7];
-  *&v16 = v19;
+  *&v16 = v18;
   *(&v16 + 1) = v15;
   *&v17 = v13;
   *(&v17 + 1) = v14;
-  v21 = v17;
-  v22 = v16;
-  [v9 reverseGeocodeLocation:v13 completionHandler:v20];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v20 = v17;
+  v21 = v16;
+  [v9 reverseGeocodeLocation:v13 completionHandler:v19];
 }
 
 void __69__TWCLocationUpdater__geocodeLocation_currentCity_completionHandler___block_invoke_33(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = WALogForCategory(4);
@@ -343,13 +359,13 @@ void __69__TWCLocationUpdater__geocodeLocation_currentCity_completionHandler___b
   {
     v8 = [v5 firstObject];
     v9 = *(a1 + 32);
-    v18 = 138412802;
-    v19 = v8;
-    v20 = 2112;
-    v21 = v9;
-    v22 = 2112;
-    v23 = v6;
-    _os_log_impl(&dword_272ACF000, v7, OS_LOG_TYPE_DEFAULT, "Reverse-geocoded Weather Location finished: placemark=%@, location=%@, error=%@", &v18, 0x20u);
+    v17 = 138412802;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v9;
+    v21 = 2112;
+    v22 = v6;
+    _os_log_impl(&dword_272ACF000, v7, OS_LOG_TYPE_DEFAULT, "Reverse-geocoded Weather Location finished: placemark=%@, location=%@, error=%@", &v17, 0x20u);
   }
 
   if (v6)
@@ -368,22 +384,20 @@ void __69__TWCLocationUpdater__geocodeLocation_currentCity_completionHandler___b
     v16 = WALogForCategory(4);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = v15;
-      _os_log_impl(&dword_272ACF000, v16, OS_LOG_TYPE_DEFAULT, "ReversGeocoded mapitem is: %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v15;
+      _os_log_impl(&dword_272ACF000, v16, OS_LOG_TYPE_DEFAULT, "ReversGeocoded mapitem is: %@", &v17, 0xCu);
     }
 
     v10 = [objc_alloc(MEMORY[0x277D7B280]) initWithMapItem:v15 isCurrentLocation:{objc_msgSend(*(a1 + 40), "isLocalWeatherCity")}];
   }
 
   [*(a1 + 48) _completeReverseGeocodeForLocation:v10 currentCity:*(a1 + 40) geocodeError:v6 completionHandler:*(a1 + 56)];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_completeReverseGeocodeForLocation:(id)location currentCity:(id)city geocodeError:(id)error completionHandler:(id)handler
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   cityCopy = city;
   errorCopy = error;
@@ -392,13 +406,13 @@ void __69__TWCLocationUpdater__geocodeLocation_currentCity_completionHandler___b
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v38 = "[TWCLocationUpdater _completeReverseGeocodeForLocation:currentCity:geocodeError:completionHandler:]";
-    v39 = 2112;
-    v40 = locationCopy;
-    v41 = 2112;
-    v42 = cityCopy;
-    v43 = 2112;
-    v44 = errorCopy;
+    v37 = "[TWCLocationUpdater _completeReverseGeocodeForLocation:currentCity:geocodeError:completionHandler:]";
+    v38 = 2112;
+    v39 = locationCopy;
+    v40 = 2112;
+    v41 = cityCopy;
+    v42 = 2112;
+    v43 = errorCopy;
     _os_log_impl(&dword_272ACF000, v14, OS_LOG_TYPE_DEFAULT, "%s resultLocation=%@, currentCity=%@, geocodeError=%@", buf, 0x2Au);
   }
 
@@ -451,9 +465,9 @@ LABEL_15:
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v38 = cityCopy;
-    v39 = 2112;
-    v40 = locationCopy;
+    v37 = cityCopy;
+    v38 = 2112;
+    v39 = locationCopy;
     _os_log_impl(&dword_272ACF000, v24, OS_LOG_TYPE_DEFAULT, "Updating City '%@' with geocode location '%@'", buf, 0x16u);
   }
 
@@ -479,9 +493,9 @@ LABEL_15:
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v38 = locationCopy;
-    v39 = 2112;
-    v40 = cityCopy;
+    v37 = locationCopy;
+    v38 = 2112;
+    v39 = cityCopy;
     _os_log_impl(&dword_272ACF000, v29, OS_LOG_TYPE_DEFAULT, "Received reverse geocode for %@, currentCity=%@", buf, 0x16u);
   }
 
@@ -489,28 +503,27 @@ LABEL_15:
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v38 = cityCopy;
+    v37 = cityCopy;
     _os_log_impl(&dword_272ACF000, v30, OS_LOG_TYPE_DEFAULT, "Updating weather for currentCity: %@", buf, 0xCu);
   }
 
-  v36 = cityCopy;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __100__TWCLocationUpdater__completeReverseGeocodeForLocation_currentCity_geocodeError_completionHandler___block_invoke;
-  v33[3] = &unk_279E69428;
-  v33[4] = self;
-  v34 = cityCopy;
-  v35 = handlerCopy;
-  [(TWCLocationUpdater *)self updateWeatherForCities:v31 withCompletionHandler:v33];
+  v35 = cityCopy;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __100__TWCLocationUpdater__completeReverseGeocodeForLocation_currentCity_geocodeError_completionHandler___block_invoke;
+  v32[3] = &unk_279E69428;
+  v32[4] = self;
+  v33 = cityCopy;
+  v34 = handlerCopy;
+  [(TWCLocationUpdater *)self updateWeatherForCities:v31 withCompletionHandler:v32];
 
 LABEL_24:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __100__TWCLocationUpdater__completeReverseGeocodeForLocation_currentCity_geocodeError_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = (a1 + 40);
   [*(a1 + 32) parsedResultCity:*(a1 + 40)];
@@ -527,9 +540,9 @@ void __100__TWCLocationUpdater__completeReverseGeocodeForLocation_currentCity_ge
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *v5;
-    v11 = 138412290;
-    v12 = v8;
-    _os_log_impl(&dword_272ACF000, v7, OS_LOG_TYPE_DEFAULT, "Finished forecast retrieval for: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v8;
+    _os_log_impl(&dword_272ACF000, v7, OS_LOG_TYPE_DEFAULT, "Finished forecast retrieval for: %@", &v10, 0xCu);
   }
 
   v9 = *(a1 + 48);
@@ -537,53 +550,47 @@ void __100__TWCLocationUpdater__completeReverseGeocodeForLocation_currentCity_ge
   {
     (*(v9 + 16))(v9, *v5, v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWeatherForCities:(id)cities withCompletionHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   citiesCopy = cities;
   handlerCopy = handler;
   v8 = WALogForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v12 = "[TWCLocationUpdater updateWeatherForCities:withCompletionHandler:]";
-    v13 = 2112;
+    v11 = "[TWCLocationUpdater updateWeatherForCities:withCompletionHandler:]";
+    v12 = 2112;
     selfCopy = self;
-    v15 = 2112;
-    v16 = citiesCopy;
+    v14 = 2112;
+    v15 = citiesCopy;
     _os_log_impl(&dword_272ACF000, v8, OS_LOG_TYPE_DEFAULT, "%s self=%@, updating weather for cities: %@ in locationUpdater", buf, 0x20u);
   }
 
   [(TWCCityUpdater *)self cancel];
-  v10.receiver = self;
-  v10.super_class = TWCLocationUpdater;
-  [(TWCCityUpdater *)&v10 updateWeatherForCities:citiesCopy withCompletionHandler:handlerCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = TWCLocationUpdater;
+  [(TWCCityUpdater *)&v9 updateWeatherForCities:citiesCopy withCompletionHandler:handlerCopy];
 }
 
 - (void)_completeReverseGeocodeForLocation:(NSObject *)a3 currentCity:geocodeError:completionHandler:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1_0(&dword_272ACF000, a2, a3, "ReverseGeocode completed with error: %@, save the failed city: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1_0(&dword_272ACF000, a2, a3, "ReverseGeocode completed with error: %@, save the failed city: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __100__TWCLocationUpdater__completeReverseGeocodeForLocation_currentCity_geocodeError_completionHandler___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1_0(&dword_272ACF000, a2, a3, "Forecast retrieval failed retrieval for %@ with error %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1_0(&dword_272ACF000, a2, a3, "Forecast retrieval failed retrieval for %@ with error %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

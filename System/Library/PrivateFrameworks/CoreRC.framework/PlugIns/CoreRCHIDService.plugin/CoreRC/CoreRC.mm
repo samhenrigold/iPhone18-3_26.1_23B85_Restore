@@ -156,15 +156,20 @@ uint64_t IUnknown_QueryInterface(uint64_t a1, CFUUIDBytes a2, void *a3)
   return v3;
 }
 
-uint64_t sub_2624(uint64_t result)
+void *sub_2624(void *result)
 {
   if (gLogCategory_CoreRCHID <= 90)
   {
     v1 = result;
-    if (gLogCategory_CoreRCHID != -1 || (result = _LogCategory_Initialize(), result))
+    if (gLogCategory_CoreRCHID != -1)
     {
-      v2 = *v1;
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_CoreRCHID, "[CoreRCHIDService(CoreRC) addIRMappingWithValue:]", 90, "Error adding IR mapping %@", *v1);
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
+      return LogPrintF(&gLogCategory_CoreRCHID, "[CoreRCHIDService(CoreRC) addIRMappingWithValue:]", 90, "Error adding IR mapping %@", *v1);
     }
   }
 

@@ -15,29 +15,29 @@
 
 - (SISceneSegmentation)initWithNetworkConfiguration:(id)configuration
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
-  v16.receiver = self;
-  v16.super_class = SISceneSegmentation;
-  v6 = [(SIModel *)&v16 initWithNetworkConfiguration:configurationCopy];
+  v15.receiver = self;
+  v15.super_class = SISceneSegmentation;
+  v6 = [(SIModel *)&v15 initWithNetworkConfiguration:configurationCopy];
   if (v6)
   {
-    v19 = kSIMLSceneSegmentationInputTensorName;
+    v18 = kSIMLSceneSegmentationInputTensorName;
     v7 = [[SIPixelBuffer alloc] initWithCVPixelBuffer:0];
-    v20[0] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v19[0] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     [(SIModel *)v6 setInputs:v8];
 
-    v17[0] = kSIMLSceneSegmentationOutputLabelsTensorName;
+    v16[0] = kSIMLSceneSegmentationOutputLabelsTensorName;
     v9 = [[SIPixelBuffer alloc] initWithCVPixelBuffer:0];
-    v18[0] = v9;
-    v17[1] = kSIMLSceneSegmentationOutputExponentiatedLogitsTensorName;
+    v17[0] = v9;
+    v16[1] = kSIMLSceneSegmentationOutputExponentiatedLogitsTensorName;
     v10 = [[SIPixelBuffer alloc] initWithCVPixelBuffer:0];
-    v18[1] = v10;
-    v17[2] = kSIMLSceneSegmentationOutputNormalizationTensorName;
+    v17[1] = v10;
+    v16[2] = kSIMLSceneSegmentationOutputNormalizationTensorName;
     v11 = [[SIPixelBuffer alloc] initWithCVPixelBuffer:0];
-    v18[2] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+    v17[2] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
     [(SIModel *)v6 setOutputs:v12];
 
     [configurationCopy uncertaintyThreshold];
@@ -46,7 +46,6 @@
     v13 = v6;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

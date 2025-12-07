@@ -534,9 +534,9 @@ LABEL_21:
             {
               v24 = [CCToolKitToolTypeInstanceRestricted alloc];
               v25 = CCPBReaderReadDataNoCopy();
-              v90 = 0;
-              v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v90];
-              v10 = v90;
+              v88 = 0;
+              v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v88];
+              v10 = v88;
               restricted = self->_restricted;
               self->_restricted = v26;
 
@@ -566,9 +566,9 @@ LABEL_21:
 
           v53 = [CCToolKitToolTypeInstanceUnion alloc];
           v54 = CCPBReaderReadDataNoCopy();
-          v91 = 0;
-          v55 = [(CCItemMessage *)v53 initWithData:v54 error:&v91];
-          v10 = v91;
+          v89 = 0;
+          v55 = [(CCItemMessage *)v53 initWithData:v54 error:&v89];
+          v10 = v89;
           v56 = self->_unionType;
           self->_unionType = v55;
 
@@ -606,9 +606,9 @@ LABEL_50:
         {
           v60 = [CCToolKitToolTypeInstanceDeferred alloc];
           v61 = CCPBReaderReadDataNoCopy();
-          v89 = 0;
-          v62 = [(CCItemMessage *)v60 initWithData:v61 error:&v89];
-          v10 = v89;
+          v87 = 0;
+          v62 = [(CCItemMessage *)v60 initWithData:v61 error:&v87];
+          v10 = v87;
           v63 = self->_deferred;
           self->_deferred = v62;
 
@@ -640,9 +640,9 @@ LABEL_50:
         {
           v38 = [CCToolKitToolTypeInstanceConstrained alloc];
           v39 = CCPBReaderReadDataNoCopy();
-          v88 = 0;
-          v40 = [(CCItemMessage *)v38 initWithData:v39 error:&v88];
-          v10 = v88;
+          v86 = 0;
+          v40 = [(CCItemMessage *)v38 initWithData:v39 error:&v86];
+          v10 = v86;
           v41 = self->_constrained;
           self->_constrained = v40;
 
@@ -688,7 +688,6 @@ LABEL_38:
         {
           v79 = objc_opt_class();
           v80 = NSStringFromClass(v79);
-          v81 = *&v6[*v9];
           v10 = CCSkipFieldErrorForMessage();
         }
 
@@ -700,9 +699,9 @@ LABEL_38:
         case 1:
           v48 = [CCToolKitToolTypeIdentifier alloc];
           v49 = CCPBReaderReadDataNoCopy();
-          v94 = 0;
-          v50 = [(CCItemMessage *)v48 initWithData:v49 error:&v94];
-          v10 = v94;
+          v92 = 0;
+          v50 = [(CCItemMessage *)v48 initWithData:v49 error:&v92];
+          v10 = v92;
           v51 = self->_type;
           self->_type = v50;
 
@@ -719,9 +718,9 @@ LABEL_38:
         case 2:
           v69 = [CCToolKitToolTypeInstance alloc];
           v70 = CCPBReaderReadDataNoCopy();
-          v93 = 0;
-          v71 = [(CCItemMessage *)v69 initWithData:v70 error:&v93];
-          v10 = v93;
+          v91 = 0;
+          v71 = [(CCItemMessage *)v69 initWithData:v70 error:&v91];
+          v10 = v91;
           v72 = self->_collection;
           self->_collection = v71;
 
@@ -738,9 +737,9 @@ LABEL_38:
         case 3:
           v32 = [CCToolKitToolTypeInstanceOptional alloc];
           v33 = CCPBReaderReadDataNoCopy();
-          v92 = 0;
-          v34 = [(CCItemMessage *)v32 initWithData:v33 error:&v92];
-          v10 = v92;
+          v90 = 0;
+          v34 = [(CCItemMessage *)v32 initWithData:v33 error:&v90];
+          v10 = v90;
           v35 = self->_optionalVariant;
           self->_optionalVariant = v34;
 
@@ -784,23 +783,22 @@ LABEL_56:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v86 = 1;
+    v84 = 1;
     goto LABEL_60;
   }
 
 LABEL_57:
-  v82 = objc_opt_class();
-  v83 = NSStringFromClass(v82);
-  v84 = *&v6[*v9];
-  v85 = CCInvalidBufferErrorForMessage();
+  v81 = objc_opt_class();
+  v82 = NSStringFromClass(v81);
+  v83 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_58:
-  v86 = 0;
+  v84 = 0;
 LABEL_60:
 
-  return v86;
+  return v84;
 }
 
 - (CCToolKitToolTypeInstance)initWithKind:(id)kind kindType:(unsigned int)type error:(id *)error

@@ -2,6 +2,8 @@
 - (BOOL)isDynamicContainer;
 - (SKUIViewElement)cellTemplateViewElement;
 - (id)applyUpdatesWithElement:(id)element;
+- (void)cellTemplateViewElement;
+- (void)isDynamicContainer;
 - (void)setShelfItemViewElementValidator:(id)validator;
 @end
 
@@ -102,6 +104,30 @@
   [(SKUIShelfViewElement *)&v14 setShelfItemViewElementValidator:validatorCopy];
   cellTemplateViewElement = self->_cellTemplateViewElement;
   self->_cellTemplateViewElement = 0;
+}
+
+- (void)cellTemplateViewElement
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDynamicShelfMenuBarViewElement cellTemplateViewElement]";
+}
+
+- (void)applyUpdatesWithElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDynamicShelfMenuBarViewElement applyUpdatesWithElement:]";
+}
+
+- (void)isDynamicContainer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDynamicShelfMenuBarViewElement isDynamicContainer]";
+}
+
+- (void)setShelfItemViewElementValidator:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDynamicShelfMenuBarViewElement setShelfItemViewElementValidator:]";
 }
 
 @end

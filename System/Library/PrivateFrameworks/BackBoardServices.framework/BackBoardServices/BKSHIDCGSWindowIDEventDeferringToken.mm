@@ -5,9 +5,11 @@
 
 uint64_t __55___BKSHIDCGSWindowIDEventDeferringToken_protobufSchema__block_invoke(uint64_t a1)
 {
-  protobufSchema_schema_99 = [MEMORY[0x1E698E750] buildSchemaForClass:*(a1 + 32) builder:&__block_literal_global_102];
+  v1 = [MEMORY[0x1E698E750] buildSchemaForClass:? builder:?];
+  v2 = protobufSchema_schema_99;
+  protobufSchema_schema_99 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 @end

@@ -35,22 +35,22 @@
   return *&+[MADTextEmbeddingThresholdMD5 thresholdBase]::thresholdBase;
 }
 
-uint64_t __45__MADTextEmbeddingThresholdMD5_thresholdBase__block_invoke()
+void *__45__MADTextEmbeddingThresholdMD5_thresholdBase__block_invoke(uint64_t a1)
 {
   if (_os_feature_enabled_impl())
   {
-    v0 = 0.42;
+    v1 = 0.42;
   }
 
   else
   {
-    v0 = 0.41;
+    v1 = 0.41;
   }
 
-  v1 = objc_opt_class();
-  *&v2 = v0;
-  result = [v1 computeThresholdBase:v2];
-  +[MADTextEmbeddingThresholdMD5 thresholdBase]::thresholdBase = v4;
+  v2 = objc_opt_class();
+  *&v3 = v1;
+  result = [v2 computeThresholdBase:v3];
+  +[MADTextEmbeddingThresholdMD5 thresholdBase]::thresholdBase = v5;
   return result;
 }
 

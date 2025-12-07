@@ -44,13 +44,12 @@ void __94__BRKRoutineManager_fetchLocationsOfInterestWithSingleRetryOfType_routi
 
 void __94__BRKRoutineManager_fetchLocationsOfInterestWithSingleRetryOfType_routineManager_withHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = 136315394;
-  v3 = "+[BRKRoutineManager fetchLocationsOfInterestWithSingleRetryOfType:routineManager:withHandler:]_block_invoke";
-  v4 = 2114;
-  v5 = a1;
-  _os_log_error_impl(&dword_241EE4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: Retrying once %{public}@", &v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = 136315394;
+  v2 = "+[BRKRoutineManager fetchLocationsOfInterestWithSingleRetryOfType:routineManager:withHandler:]_block_invoke";
+  v3 = 2114;
+  v4 = a1;
+  _os_log_error_impl(&dword_241EE4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: Retrying once %{public}@", &v1, 0x16u);
 }
 
 @end

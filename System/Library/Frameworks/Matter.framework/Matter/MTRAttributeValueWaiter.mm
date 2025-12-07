@@ -14,39 +14,39 @@
 
 - (MTRAttributeValueWaiter)initWithDevice:(id)device values:(id)values queue:(id)queue completion:(id)completion
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   deviceCopy2 = device;
   valuesCopy = values;
   obj = queue;
   queueCopy = queue;
   completionCopy = completion;
-  v36.receiver = self;
-  v36.super_class = MTRAttributeValueWaiter;
-  v10 = [(MTRAttributeValueWaiter *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = MTRAttributeValueWaiter;
+  v10 = [(MTRAttributeValueWaiter *)&v35 init];
   if (v10)
   {
     v11 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(valuesCopy, "count")}];
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v12 = valuesCopy;
-    v13 = [v12 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v13)
     {
-      v14 = *v33;
+      v14 = *v32;
       do
       {
         v15 = 0;
         do
         {
-          if (*v33 != v14)
+          if (*v32 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v32 + 1) + 8 * v15);
+          v16 = *(*(&v31 + 1) + 8 * v15);
           v17 = [MTRAwaitedAttributeState alloc];
           v18 = [v12 objectForKeyedSubscript:{v16, deviceCopy, obj, deviceCopy2, queueCopy}];
           v19 = sub_23921BA0C(&v17->super.isa, v18);
@@ -56,7 +56,7 @@
         }
 
         while (v13 != v15);
-        v13 = [v12 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v13);
@@ -76,7 +76,6 @@
     v10->_lock._os_unfair_lock_opaque = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -96,31 +95,31 @@
 
 - (BOOL)allValuesSatisfied
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   if (self)
   {
     self = self->_valueExpectations;
   }
 
   allValues = [(MTRAttributeValueWaiter *)self allValues];
-  v3 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         if (!v6 || (*(v6 + 8) & 1) == 0)
         {
           v7 = 0;
@@ -128,7 +127,7 @@
         }
       }
 
-      v3 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v3)
       {
         continue;
@@ -141,7 +140,6 @@
   v7 = 1;
 LABEL_14:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -204,14 +202,14 @@ LABEL_14:
 
 - (void)_notifyWithError:(id)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   os_unfair_lock_lock(&self->_lock);
   if (self && self->_completion)
   {
-    v6 = self->_completion;
-    v7 = self->_queue;
-    objc_setProperty_nonatomic_copy(self, v8, 0, 40);
+    v5 = self->_completion;
+    v6 = self->_queue;
+    objc_setProperty_nonatomic_copy(self, v7, 0, 40);
     sub_23952CD74(self, 0);
     if (self->_expirationTimer)
     {
@@ -220,117 +218,112 @@ LABEL_14:
     }
 
     os_unfair_lock_unlock(&self->_lock);
-    if (errorCopy)
+    if (!errorCopy)
     {
-      domain = [errorCopy domain];
-      v10 = domain;
-      if (domain == @"MTRErrorDomain")
-      {
-        code = [errorCopy code];
-
-        if (code == 9)
-        {
-          v18 = sub_2393D9044(0);
-          if (sub_23921C1B0(v18))
-          {
-            sub_23921C188();
-            sub_23921C1A0();
-            _os_log_impl(v19, v20, v21, v22, v23, 0x16u);
-          }
-
-          if (!sub_2393D5398(2u))
-          {
-            goto LABEL_31;
-          }
-
-          goto LABEL_30;
-        }
-      }
-
-      else
-      {
-      }
-
-      domain2 = [errorCopy domain];
-      v25 = domain2;
-      if (domain2 != @"MTRErrorDomain")
-      {
-
-        goto LABEL_27;
-      }
-
-      code2 = [errorCopy code];
-
-      if (code2 != 16)
-      {
-LABEL_27:
-        v33 = sub_2393D9044(0);
-        if (sub_23921C1B0(v33))
-        {
-          sub_23921C188();
-          v43 = 2112;
-          v44 = errorCopy;
-          sub_23921C1A0();
-          _os_log_impl(v34, v35, v36, v37, v38, 0x20u);
-        }
-
-        if (!sub_2393D5398(2u))
-        {
-          goto LABEL_31;
-        }
-
-        goto LABEL_30;
-      }
-
-      v27 = sub_2393D9044(0);
-      if (sub_23921C1B0(v27))
+      v10 = sub_2393D9044(0);
+      if (sub_23921C1B0(v10))
       {
         sub_23921C188();
         sub_23921C1A0();
-        _os_log_impl(v28, v29, v30, v31, v32, 0x16u);
+        _os_log_impl(v11, v12, v13, v14, v15, 0x16u);
       }
 
-      if (!sub_2393D5398(2u))
+      if (sub_2393D5398(2u))
       {
+        sub_2393D5320(0, 2, "%@ %p wait for attribute values completed", self, self);
+      }
+
+      goto LABEL_31;
+    }
+
+    domain = [errorCopy domain];
+    v9 = domain;
+    if (domain == @"MTRErrorDomain")
+    {
+      code = [errorCopy code];
+
+      if (code == 9)
+      {
+        v17 = sub_2393D9044(0);
+        if (sub_23921C1B0(v17))
+        {
+          sub_23921C188();
+          sub_23921C1A0();
+          _os_log_impl(v18, v19, v20, v21, v22, 0x16u);
+        }
+
+        if (sub_2393D5398(2u))
+        {
+          sub_2393D5320(0, 2, "%@ %p wait for attribute values timed out", self, self);
+        }
+
         goto LABEL_31;
       }
     }
 
     else
     {
-      v11 = sub_2393D9044(0);
-      if (sub_23921C1B0(v11))
-      {
-        sub_23921C188();
-        sub_23921C1A0();
-        _os_log_impl(v12, v13, v14, v15, v16, 0x16u);
-      }
+    }
 
-      if (!sub_2393D5398(2u))
+    domain2 = [errorCopy domain];
+    v24 = domain2;
+    if (domain2 == @"MTRErrorDomain")
+    {
+      code2 = [errorCopy code];
+
+      if (code2 == 16)
       {
+        v26 = sub_2393D9044(0);
+        if (sub_23921C1B0(v26))
+        {
+          sub_23921C188();
+          sub_23921C1A0();
+          _os_log_impl(v27, v28, v29, v30, v31, 0x16u);
+        }
+
+        if (sub_2393D5398(2u))
+        {
+          sub_2393D5320(0, 2, "%@ %p wait for attribute values canceled", self, self);
+        }
+
         goto LABEL_31;
       }
     }
 
-LABEL_30:
-    sub_2393D5320(0, 2);
+    else
+    {
+    }
+
+    v32 = sub_2393D9044(0);
+    if (sub_23921C1B0(v32))
+    {
+      sub_23921C188();
+      v42 = 2112;
+      v43 = errorCopy;
+      sub_23921C1A0();
+      _os_log_impl(v33, v34, v35, v36, v37, 0x20u);
+    }
+
+    if (sub_2393D5398(2u))
+    {
+      sub_2393D5320(0, 2, "%@ %p wait for attribute values unknown error: %@", self, self, errorCopy);
+    }
+
 LABEL_31:
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = sub_23921BF8C;
     block[3] = &unk_278A71698;
-    v42 = v6;
-    v41 = errorCopy;
-    v39 = v6;
-    dispatch_async(v7, block);
+    v41 = v5;
+    v40 = errorCopy;
+    v38 = v5;
+    dispatch_async(v6, block);
 
     goto LABEL_4;
   }
 
   os_unfair_lock_unlock(&self->_lock);
 LABEL_4:
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startTimerWithTimeout:(double)timeout

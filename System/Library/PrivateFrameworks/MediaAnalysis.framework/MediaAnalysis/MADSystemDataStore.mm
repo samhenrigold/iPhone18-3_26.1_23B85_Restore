@@ -295,19 +295,19 @@ LABEL_21:
   return v2;
 }
 
-void __37__MADSystemDataStore_systemDataStore__block_invoke()
+void __37__MADSystemDataStore_systemDataStore__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v59 = *MEMORY[0x1E69E9840];
-  v0 = [objc_opt_class() modelDefinitionPath];
-  if (v0)
+  v61 = *MEMORY[0x1E69E9840];
+  v2 = [objc_opt_class() modelDefinitionPath];
+  if (v2)
   {
-    v1 = [MEMORY[0x1E695DFF8] fileURLWithPath:v0];
-    v2 = [objc_alloc(MEMORY[0x1E695D638]) initWithContentsOfURL:v1];
-    if (v2)
+    v3 = [MEMORY[0x1E695DFF8] fileURLWithPath:v2];
+    v4 = [objc_alloc(MEMORY[0x1E695D638]) initWithContentsOfURL:v3];
+    if (v4)
     {
-      v3 = [[MADSystemDataStore alloc] initWithManagedObjectModel:v2];
-      v4 = +[MADSystemDataStore systemDataStore]::database;
-      +[MADSystemDataStore systemDataStore]::database = v3;
+      v5 = [[MADSystemDataStore alloc] initWithManagedObjectModel:v4];
+      v6 = +[MADSystemDataStore systemDataStore]::database;
+      +[MADSystemDataStore systemDataStore]::database = v5;
 
       if (+[MADSystemDataStore systemDataStore]::database)
       {
@@ -317,10 +317,10 @@ void __37__MADSystemDataStore_systemDataStore__block_invoke()
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[MADSystemDataStore] Successfully opened MediaAnalysis CoreData", &buf, 2u);
         }
 
-        v5 = objc_autoreleasePoolPush();
-        v6 = [+[MADSystemDataStore systemDataStore]::database _persistentStoreCoordinator];
-        v7 = v6;
-        if (!v6)
+        v7 = objc_autoreleasePoolPush();
+        v8 = [+[MADSystemDataStore systemDataStore]::database _persistentStoreCoordinator];
+        v9 = v8;
+        if (!v8)
         {
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
@@ -334,156 +334,156 @@ void __37__MADSystemDataStore_systemDataStore__block_invoke()
 
         *&buf = 0;
         *(&buf + 1) = &buf;
-        v55 = 0x3032000000;
-        v56 = __Block_byref_object_copy__31;
-        v57 = __Block_byref_object_dispose__31;
-        v58 = 0;
-        v42[0] = MEMORY[0x1E69E9820];
-        v42[1] = 3221225472;
-        v42[2] = __37__MADSystemDataStore_systemDataStore__block_invoke_224;
-        v42[3] = &unk_1E834C4B0;
+        v57 = 0x3032000000;
+        v58 = __Block_byref_object_copy__31;
+        v59 = __Block_byref_object_dispose__31;
+        v60 = 0;
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __37__MADSystemDataStore_systemDataStore__block_invoke_224;
+        v44[3] = &unk_1E834C4B0;
         p_buf = &buf;
-        v8 = v6;
-        v43 = v8;
-        [v8 performBlockAndWait:v42];
+        v10 = v8;
+        v45 = v10;
+        [v10 performBlockAndWait:v44];
         if (!*(*(&buf + 1) + 40))
         {
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            LODWORD(v49) = 138412290;
-            *(&v49 + 4) = @"[MADSystemDataStore][Migration]";
-            _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Failed to fetch store with coordinator", &v49, 0xCu);
+            LODWORD(v51) = 138412290;
+            *(&v51 + 4) = @"[MADSystemDataStore][Migration]";
+            _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Failed to fetch store with coordinator", &v51, 0xCu);
           }
 
           goto LABEL_47;
         }
 
-        *&v49 = 0;
-        *(&v49 + 1) = &v49;
-        v50 = 0x3032000000;
-        v51 = __Block_byref_object_copy__31;
-        v52 = __Block_byref_object_dispose__31;
-        v53 = 0;
-        v38[0] = MEMORY[0x1E69E9820];
-        v38[1] = 3221225472;
-        v38[2] = __37__MADSystemDataStore_systemDataStore__block_invoke_226;
-        v38[3] = &unk_1E834E3C8;
-        v40 = &v49;
-        v9 = v8;
-        v39 = v9;
-        v41 = &buf;
-        [v9 performBlockAndWait:v38];
-        v27 = [*(*(&v49 + 1) + 40) objectForKeyedSubscript:@"ActivityScheduleMigrationDate"];
-        v26 = [*(*(&v49 + 1) + 40) objectForKeyedSubscript:@"ActivityScheduleMigrationAttempts"];
+        *&v51 = 0;
+        *(&v51 + 1) = &v51;
+        v52 = 0x3032000000;
+        v53 = __Block_byref_object_copy__31;
+        v54 = __Block_byref_object_dispose__31;
+        v55 = 0;
+        v40[0] = MEMORY[0x1E69E9820];
+        v40[1] = 3221225472;
+        v40[2] = __37__MADSystemDataStore_systemDataStore__block_invoke_226;
+        v40[3] = &unk_1E834E3C8;
+        v42 = &v51;
+        v11 = v10;
+        v41 = v11;
+        v43 = &buf;
+        [v11 performBlockAndWait:v40];
+        v29 = [*(*(&v51 + 1) + 40) objectForKeyedSubscript:@"ActivityScheduleMigrationDate"];
+        v28 = [*(*(&v51 + 1) + 40) objectForKeyedSubscript:@"ActivityScheduleMigrationAttempts"];
         if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
         {
-          v10 = +[VCPLogManager dateFormatter];
-          v11 = [v10 stringFromDate:v27];
-          *v45 = 138412546;
-          v46 = @"[MADSystemDataStore][Migration]";
-          v47 = 2112;
-          v48 = v11;
-          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "%@ Migration date %@", v45, 0x16u);
+          v12 = +[VCPLogManager dateFormatter];
+          v13 = [v12 stringFromDate:v29];
+          *v47 = 138412546;
+          v48 = @"[MADSystemDataStore][Migration]";
+          v49 = 2112;
+          v50 = v13;
+          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "%@ Migration date %@", v47, 0x16u);
         }
 
         if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
         {
-          *v45 = 138412546;
-          v46 = @"[MADSystemDataStore][Migration]";
-          v47 = 2112;
-          v48 = v26;
-          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "%@ Migration attempts %@", v45, 0x16u);
+          *v47 = 138412546;
+          v48 = @"[MADSystemDataStore][Migration]";
+          v49 = 2112;
+          v50 = v28;
+          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "%@ Migration attempts %@", v47, 0x16u);
         }
 
-        if (v26)
+        if (v28)
         {
-          v12 = [v26 intValue];
+          v14 = [v28 intValue];
         }
 
         else
         {
-          v12 = 0;
+          v14 = 0;
         }
 
-        if (v27 || v12 > 4)
+        if (v29 || v14 > 4)
         {
-          if (!v27 || !v12)
+          if (!v29 || !v14)
           {
             goto LABEL_46;
           }
 
-          v24 = [*(*(&v49 + 1) + 40) mutableCopy];
-          [v24 removeObjectForKey:@"ActivityScheduleMigrationAttempts"];
-          v28[0] = MEMORY[0x1E69E9820];
-          v28[1] = 3221225472;
-          v28[2] = __37__MADSystemDataStore_systemDataStore__block_invoke_238;
-          v28[3] = &unk_1E834CE28;
-          v29 = v9;
-          v17 = v24;
-          v30[0] = v17;
-          v30[1] = &buf;
-          [v29 performBlockAndWait:v28];
-          v22 = &v29;
-          v23 = v30;
+          v26 = [*(*(&v51 + 1) + 40) mutableCopy];
+          [v26 removeObjectForKey:@"ActivityScheduleMigrationAttempts"];
+          v30[0] = MEMORY[0x1E69E9820];
+          v30[1] = 3221225472;
+          v30[2] = __37__MADSystemDataStore_systemDataStore__block_invoke_238;
+          v30[3] = &unk_1E834CE28;
+          v31 = v11;
+          v19 = v26;
+          v32[0] = v19;
+          v32[1] = &buf;
+          [v31 performBlockAndWait:v30];
+          v24 = &v31;
+          v25 = v32;
         }
 
         else
         {
-          v25 = [*(*(&v49 + 1) + 40) mutableCopy];
-          v15 = [MEMORY[0x1E696AD98] numberWithInt:(v12 + 1)];
-          [v25 setValue:v15 forKey:@"ActivityScheduleMigrationAttempts"];
+          v27 = [*(*(&v51 + 1) + 40) mutableCopy];
+          v17 = [MEMORY[0x1E696AD98] numberWithInt:(v14 + 1)];
+          [v27 setValue:v17 forKey:@"ActivityScheduleMigrationAttempts"];
 
-          v35[0] = MEMORY[0x1E69E9820];
-          v35[1] = 3221225472;
-          v35[2] = __37__MADSystemDataStore_systemDataStore__block_invoke_235;
-          v35[3] = &unk_1E834CE28;
-          v16 = v9;
-          v36 = v16;
-          v17 = v25;
-          v37[0] = v17;
-          v37[1] = &buf;
-          [v16 performBlockAndWait:v35];
-          v18 = [objc_alloc(MEMORY[0x1E695D628]) initWithConcurrencyType:1];
-          [v18 setPersistentStoreCoordinator:v16];
-          [v18 setMergePolicy:*MEMORY[0x1E695D378]];
-          if ([MADManagedBackgroundActivitySchedule migrateDataWithManagedObjectContext:v18])
+          v37[0] = MEMORY[0x1E69E9820];
+          v37[1] = 3221225472;
+          v37[2] = __37__MADSystemDataStore_systemDataStore__block_invoke_235;
+          v37[3] = &unk_1E834CE28;
+          v18 = v11;
+          v38 = v18;
+          v19 = v27;
+          v39[0] = v19;
+          v39[1] = &buf;
+          [v18 performBlockAndWait:v37];
+          v20 = [objc_alloc(MEMORY[0x1E695D628]) initWithConcurrencyType:1];
+          [v20 setPersistentStoreCoordinator:v18];
+          [v20 setMergePolicy:*MEMORY[0x1E695D378]];
+          if ([MADManagedBackgroundActivitySchedule migrateDataWithManagedObjectContext:v20])
           {
-            v19 = [MEMORY[0x1E695DF00] now];
-            [v17 setValue:v19 forKey:@"ActivityScheduleMigrationDate"];
+            v21 = [MEMORY[0x1E695DF00] now];
+            [v19 setValue:v21 forKey:@"ActivityScheduleMigrationDate"];
 
-            [v17 removeObjectForKey:@"ActivityScheduleMigrationAttempts"];
-            v31[0] = MEMORY[0x1E69E9820];
-            v31[1] = 3221225472;
-            v31[2] = __37__MADSystemDataStore_systemDataStore__block_invoke_2;
-            v31[3] = &unk_1E834CE28;
-            v32 = v16;
-            v20 = v17;
-            v33 = v20;
-            v34 = &buf;
-            [v32 performBlockAndWait:v31];
+            [v19 removeObjectForKey:@"ActivityScheduleMigrationAttempts"];
+            v33[0] = MEMORY[0x1E69E9820];
+            v33[1] = 3221225472;
+            v33[2] = __37__MADSystemDataStore_systemDataStore__block_invoke_2;
+            v33[3] = &unk_1E834CE28;
+            v34 = v18;
+            v22 = v19;
+            v35 = v22;
+            v36 = &buf;
+            [v34 performBlockAndWait:v33];
             if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
             {
-              v21 = [v20 objectForKeyedSubscript:@"ActivityScheduleMigrationDate"];
-              *v45 = 138412546;
-              v46 = @"[MADSystemDataStore][Migration]";
-              v47 = 2112;
-              v48 = v21;
-              _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%@ Migrated Scheduling History (%@)", v45, 0x16u);
+              v23 = [v22 objectForKeyedSubscript:@"ActivityScheduleMigrationDate"];
+              *v47 = 138412546;
+              v48 = @"[MADSystemDataStore][Migration]";
+              v49 = 2112;
+              v50 = v23;
+              _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%@ Migrated Scheduling History (%@)", v47, 0x16u);
             }
           }
 
-          v22 = &v36;
-          v23 = v37;
+          v24 = &v38;
+          v25 = v39;
         }
 
 LABEL_46:
-        _Block_object_dispose(&v49, 8);
+        _Block_object_dispose(&v51, 8);
 
 LABEL_47:
         _Block_object_dispose(&buf, 8);
 
 LABEL_48:
-        objc_autoreleasePoolPop(v5);
+        objc_autoreleasePoolPop(v7);
         goto LABEL_49;
       }
 
@@ -493,8 +493,8 @@ LABEL_48:
       }
 
       LOWORD(buf) = 0;
-      v13 = MEMORY[0x1E69E9C10];
-      v14 = "[MADSystemDataStore] Failed to open MediaAnalysis CoreData";
+      v15 = MEMORY[0x1E69E9C10];
+      v16 = "[MADSystemDataStore] Failed to open MediaAnalysis CoreData";
     }
 
     else
@@ -505,11 +505,11 @@ LABEL_48:
       }
 
       LOWORD(buf) = 0;
-      v13 = MEMORY[0x1E69E9C10];
-      v14 = "[MADSystemDataStore] Failed to load embedding model";
+      v15 = MEMORY[0x1E69E9C10];
+      v16 = "[MADSystemDataStore] Failed to load embedding model";
     }
 
-    _os_log_impl(&dword_1C9B70000, v13, OS_LOG_TYPE_ERROR, v14, &buf, 2u);
+    _os_log_impl(&dword_1C9B70000, v15, OS_LOG_TYPE_ERROR, v16, &buf, 2u);
 LABEL_49:
 
     goto LABEL_50;

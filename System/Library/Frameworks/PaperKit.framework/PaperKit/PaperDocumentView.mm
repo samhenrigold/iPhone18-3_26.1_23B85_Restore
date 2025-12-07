@@ -173,7 +173,7 @@
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   swift_getKeyPath();
   v12[1] = self;
-  _s8PaperKit0A12DocumentViewCAC11Observation10ObservableAAWlTm_2(&lazy protocol witness table cache variable for type PaperDocumentView and conformance PaperDocumentView, type metadata accessor for PaperDocumentView);
+  _s8PaperKit0A12DocumentViewCAC11Observation10ObservableAAWlTm_2(&lazy protocol witness table cache variable for type PaperDocumentView and conformance PaperDocumentView, type metadata accessor for PaperDocumentView, &protocol conformance descriptor for PaperDocumentView);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 

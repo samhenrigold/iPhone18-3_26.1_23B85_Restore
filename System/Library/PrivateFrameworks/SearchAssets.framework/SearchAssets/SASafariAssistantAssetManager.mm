@@ -64,7 +64,7 @@
 - (void)resetSafariSummarizationAssets
 {
   selfCopy = self;
-  sub_2157E8598();
+  sub_2157E8598(selfCopy);
 }
 
 - (id)assetVersionForLocale:(id)locale

@@ -8,18 +8,18 @@ void __89___UISceneInterfaceProtectionHostComponent_appProtectionSubjectsChanged
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v6 = WeakRetained;
+    v8 = WeakRetained;
     v3 = [*(a1 + 32) containsObject:WeakRetained[4]];
-    WeakRetained = v6;
+    WeakRetained = v8;
     if (v3)
     {
-      v4 = [v6[4] requiresShielding];
-      v5 = *(a1 + 40);
+      v4 = [v8[4] requiresShielding];
+      v6 = *(a1 + 40);
       if (v4)
       {
-        if (v5 && [*(v5 + 32) requiresShielding])
+        if (v6 && [*(v6 + 32) requiresShielding])
         {
-          [(_UISceneInterfaceProtectionHostComponent *)v5 presentAppProtectionShieldView];
+          [(_UISceneInterfaceProtectionHostComponent *)v6 presentAppProtectionShieldView];
         }
 
         [(_UISceneInterfaceProtectionHostComponent *)*(a1 + 40) requestAppProtectionAuthIfNecessary];
@@ -31,7 +31,7 @@ void __89___UISceneInterfaceProtectionHostComponent_appProtectionSubjectsChanged
       }
 
       -[_UISceneInterfaceProtectionHostComponent _setUnderAppProtection:](*(a1 + 40), [*(*(a1 + 40) + 32) isLocked]);
-      WeakRetained = v6;
+      WeakRetained = v8;
     }
   }
 }

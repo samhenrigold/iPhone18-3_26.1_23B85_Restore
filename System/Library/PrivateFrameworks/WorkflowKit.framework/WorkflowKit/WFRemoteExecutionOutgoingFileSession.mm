@@ -9,30 +9,29 @@
 - (void)fileSentWithSuccess:(BOOL)success error:(id)error
 {
   successCopy = success;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v7 = getWFRemoteExecutionLogObject();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     transferIdentifier = [(WFRemoteExecutionOutgoingFileSession *)self transferIdentifier];
-    v10 = 136315906;
-    v11 = "[WFRemoteExecutionOutgoingFileSession fileSentWithSuccess:error:]";
-    v12 = 2114;
-    v13 = transferIdentifier;
-    v14 = 1024;
-    v15 = successCopy;
-    v16 = 2114;
-    v17 = errorCopy;
-    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_INFO, "%s <%{public}@> file sent with success: %i, error: %{public}@", &v10, 0x26u);
+    v9 = 136315906;
+    v10 = "[WFRemoteExecutionOutgoingFileSession fileSentWithSuccess:error:]";
+    v11 = 2114;
+    v12 = transferIdentifier;
+    v13 = 1024;
+    v14 = successCopy;
+    v15 = 2114;
+    v16 = errorCopy;
+    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_INFO, "%s <%{public}@> file sent with success: %i, error: %{public}@", &v9, 0x26u);
   }
 
   [(WFRemoteExecutionSession *)self finish];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)sendToDestinations:(id)destinations options:(id)options error:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   optionsCopy = options;
   if (!destinationsCopy)
@@ -47,11 +46,11 @@
     transferIdentifier = [(WFRemoteExecutionOutgoingFileSession *)self transferIdentifier];
     fileURL = [(WFRemoteExecutionOutgoingFileSession *)self fileURL];
     *buf = 136315650;
-    v31 = "[WFRemoteExecutionOutgoingFileSession sendToDestinations:options:error:]";
-    v32 = 2114;
-    v33 = transferIdentifier;
-    v34 = 2114;
-    v35 = fileURL;
+    v30 = "[WFRemoteExecutionOutgoingFileSession sendToDestinations:options:error:]";
+    v31 = 2114;
+    v32 = transferIdentifier;
+    v33 = 2114;
+    v34 = fileURL;
     _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_INFO, "%s <%{public}@> Sending file at URL: %{public}@", buf, 0x20u);
   }
 
@@ -67,11 +66,11 @@
 
   service = [(WFRemoteExecutionSession *)self service];
   fileURL2 = [(WFRemoteExecutionOutgoingFileSession *)self fileURL];
+  v27 = 0;
   v28 = 0;
-  v29 = 0;
-  v20 = [service sendResourceAtURL:fileURL2 metadata:v14 toDestinations:destinationsCopy priority:300 options:optionsCopy identifier:&v29 error:&v28];
-  v21 = v29;
-  v22 = v28;
+  v20 = [service sendResourceAtURL:fileURL2 metadata:v14 toDestinations:destinationsCopy priority:300 options:optionsCopy identifier:&v28 error:&v27];
+  v21 = v28;
+  v22 = v27;
 
   if (v20)
   {
@@ -86,9 +85,9 @@
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v31 = "[WFRemoteExecutionOutgoingFileSession sendToDestinations:options:error:]";
-      v32 = 2114;
-      v33 = v22;
+      v30 = "[WFRemoteExecutionOutgoingFileSession sendToDestinations:options:error:]";
+      v31 = 2114;
+      v32 = v22;
       _os_log_impl(&dword_1CA256000, v23, OS_LOG_TYPE_ERROR, "%s File sending failed with error: %{public}@", buf, 0x16u);
     }
 
@@ -101,7 +100,6 @@
     [(WFRemoteExecutionSession *)self finish];
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

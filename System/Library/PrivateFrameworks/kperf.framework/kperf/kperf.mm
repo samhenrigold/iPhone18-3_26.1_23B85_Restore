@@ -1,16 +1,15 @@
 uint64_t kperf_sysctl_get_uint32(const char *a1, unsigned int a2, _DWORD *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v7 = a2;
-  v8 = 0;
-  v6 = 16;
-  result = sysctlbyname(a1, &v7, &v6, &v7, 0x10uLL);
+  v8 = *MEMORY[0x277D85DE8];
+  v6 = a2;
+  v7 = 0;
+  v5 = 16;
+  result = sysctlbyname(a1, &v6, &v5, &v6, 0x10uLL);
   if (!result)
   {
-    *a3 = v8;
+    *a3 = v7;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -51,7 +50,7 @@ uint64_t kperf_kdebug_filter_add_internal(uint64_t a1, int a2, char a3)
   return result;
 }
 
-uint64_t kperf_kdebug_filter_get_n_filters(uint64_t a1)
+uint64_t kperf_kdebug_filter_get_n_filters(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -61,7 +60,7 @@ uint64_t kperf_kdebug_filter_get_n_filters(uint64_t a1)
   return *(a1 + 144);
 }
 
-uint64_t kperf_kdebug_filter_get_filter(uint64_t a1, int a2, _DWORD *a3, int *a4)
+uint64_t kperf_kdebug_filter_get_filter(uint64_t a1, uint64_t a2, _DWORD *a3, int *a4)
 {
   if (!a1)
   {
@@ -148,7 +147,7 @@ LABEL_7:
 
 uint64_t kperf_kdebug_filter_add_desc(uint64_t a1, char *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   __endptr = 0;
   if (!a1)
   {
@@ -180,7 +179,7 @@ uint64_t kperf_kdebug_filter_add_desc(uint64_t a1, char *a2)
     {
       if (v4 != 83)
       {
-        goto LABEL_40;
+        goto LABEL_39;
       }
 
       v5 = 2;
@@ -190,11 +189,11 @@ uint64_t kperf_kdebug_filter_add_desc(uint64_t a1, char *a2)
 
 LABEL_10:
     v8 = strtoul(v2 + 1, &__endptr, 0);
-    v9 = __endptr;
+    v10 = __endptr;
     if (__endptr == v2 + 1)
     {
-      v16 = kperf_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v19 = kperf_log(v8, v9);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         kperf_kdebug_filter_add_desc_cold_3();
       }
@@ -204,51 +203,49 @@ LABEL_10:
 
     if (v8 > v7)
     {
-      v17 = kperf_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v20 = kperf_log(v8, v9);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         kperf_kdebug_filter_add_desc_cold_2();
       }
 
 LABEL_35:
       *__error() = 22;
-LABEL_36:
-      result = 0xFFFFFFFFLL;
-      goto LABEL_37;
+      return 0xFFFFFFFFLL;
     }
 
-    v10 = v8 << v6;
-    v11 = *__endptr;
-    if (v11 <= 0x6D)
+    v11 = v8 << v6;
+    v12 = *__endptr;
+    if (v12 <= 0x6D)
     {
-      if (*__endptr && v11 != 44)
+      if (*__endptr && v12 != 44)
       {
 LABEL_19:
-        v12 = kperf_log();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = kperf_log(v8, v9);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v13 = *v9;
+          v14 = *v10;
           *buf = 67109120;
-          v23 = v13;
-          _os_log_error_impl(&dword_27718A000, v12, OS_LOG_TYPE_ERROR, "unrecognized suffix '%c'", buf, 8u);
+          v27 = v14;
+          _os_log_error_impl(&dword_27718A000, v13, OS_LOG_TYPE_ERROR, "unrecognized suffix '%c'", buf, 8u);
         }
       }
     }
 
     else
     {
-      switch(v11)
+      switch(v12)
       {
         case 'n':
-          v9 = __endptr + 1;
+          v10 = __endptr + 1;
           break;
         case 'r':
-          v9 = __endptr + 1;
-          v10 |= 2u;
+          v10 = __endptr + 1;
+          v11 |= 2u;
           break;
         case 's':
-          v9 = __endptr + 1;
-          v10 |= 1u;
+          v10 = __endptr + 1;
+          v11 |= 1u;
           break;
         default:
           goto LABEL_19;
@@ -257,27 +254,28 @@ LABEL_19:
       v5 |= 1u;
     }
 
-    if (*v9 == 44)
+    if (*v10 == 44)
     {
-      v2 = v9 + 1;
+      v2 = v10 + 1;
     }
 
     else
     {
-      v2 = v9;
+      v2 = v10;
     }
 
-    if (kperf_kdebug_filter_add_internal(a1, v10, v5))
+    if (kperf_kdebug_filter_add_internal(a1, v11, v5))
     {
-      v14 = *__error();
-      v15 = kperf_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v15 = __error();
+      v16 = *v15;
+      v18 = kperf_log(v15, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        kperf_kdebug_filter_add_desc_cold_1(v10, v15);
+        kperf_kdebug_filter_add_desc_cold_1(v11, v18);
       }
 
-      *__error() = v14;
-      goto LABEL_36;
+      *__error() = v16;
+      return 0xFFFFFFFFLL;
     }
   }
 
@@ -291,149 +289,149 @@ LABEL_19:
 
   if (*v2)
   {
-LABEL_40:
-    *__error() = 22;
-    v20 = kperf_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+LABEL_39:
+    v22 = __error();
+    *v22 = 22;
+    v24 = kperf_log(v22, v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      kperf_kdebug_filter_add_desc_cold_4(v2);
+      kperf_kdebug_filter_add_desc_cold_4();
     }
 
-    goto LABEL_36;
+    return 0xFFFFFFFFLL;
   }
 
-  result = 0;
-LABEL_37:
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
-char *kperf_kdebug_filter_create_desc(uint64_t a1)
+char *kperf_kdebug_filter_create_desc(uint64_t a1, uint64_t a2)
 {
-  n_filters = kperf_kdebug_filter_get_n_filters(a1);
+  n_filters = kperf_kdebug_filter_get_n_filters(a1, a2);
   if (n_filters)
   {
-    v3 = n_filters;
-    v4 = (14 * n_filters) | 1u;
-    v5 = malloc_type_calloc(1uLL, v4, 0xE1C3BF01uLL);
-    if (v5)
+    v4 = n_filters;
+    v5 = (14 * n_filters) | 1u;
+    v6 = malloc_type_calloc(1uLL, v5, 0xE1C3BF01uLL);
+    if (v6)
     {
-      v6 = v5;
-      v7 = 0;
-      v8 = 0;
+      v8 = v6;
+      v9 = 0;
+      v10 = 0;
       while (1)
       {
-        v22 = 0;
-        if (kperf_kdebug_filter_get_filter(a1, v8, &v22 + 1, &v22))
+        v27 = 0;
+        filter = kperf_kdebug_filter_get_filter(a1, v10, &v27 + 1, &v27);
+        if (filter)
         {
           break;
         }
 
-        v9 = v22 > 5 || ((1 << v22) & 0x2A) == 0;
-        if (v9)
-        {
-          v11 = "";
-        }
-
-        else
-        {
-          v10 = "r";
-          if ((v22 & 0x200000000) == 0)
-          {
-            v10 = "n";
-          }
-
-          v11 = "s";
-          if ((v22 & 0x100000000) == 0)
-          {
-            v11 = v10;
-          }
-        }
-
-        if (v22 > 5)
-        {
-          v21 = kperf_log();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-          {
-            kperf_kdebug_filter_create_desc_cold_3(&v22);
-          }
-
-          goto LABEL_35;
-        }
-
-        if (((1 << v22) & 3) != 0)
-        {
-          v12 = HIBYTE(HIDWORD(v22));
-          HIDWORD(v22) >>= 24;
-          v13 = 67;
-          v14 = 2;
-        }
-
-        else if (((1 << v22) & 0xC) != 0)
-        {
-          v12 = HIWORD(HIDWORD(v22));
-          HIDWORD(v22) >>= 16;
-          v13 = 83;
-          v14 = 4;
-        }
-
-        else
-        {
-          v12 = HIDWORD(v22) & 0xFFFFFFFC;
-          HIDWORD(v22) &= 0xFFFFFFFC;
-          v13 = 68;
-          v14 = 8;
-        }
-
-        if (v7)
-        {
-          v15 = ",";
-        }
-
-        else
+        v13 = v27 > 5 || ((1 << v27) & 0x2A) == 0;
+        if (v13)
         {
           v15 = "";
         }
 
-        v16 = snprintf(&v6[v7], v4 - v7, "%s%c0x%0*x%s", v15, v13, v14, v12, v11);
-        if ((v16 & 0x80000000) != 0)
+        else
         {
-          v19 = kperf_log();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          v14 = "r";
+          if ((v27 & 0x200000000) == 0)
           {
-            kperf_kdebug_filter_create_desc_cold_2(v8, v19);
+            v14 = "n";
+          }
+
+          v15 = "s";
+          if ((v27 & 0x100000000) == 0)
+          {
+            v15 = v14;
+          }
+        }
+
+        if (v27 > 5)
+        {
+          v26 = kperf_log(filter, v12);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          {
+            kperf_kdebug_filter_create_desc_cold_3();
           }
 
           goto LABEL_35;
         }
 
-        v7 += v16;
-        if (v7 <= v4)
+        if (((1 << v27) & 3) != 0)
         {
-          v9 = v3 - 1 == v8++;
-          if (!v9)
+          v16 = HIBYTE(HIDWORD(v27));
+          HIDWORD(v27) >>= 24;
+          v17 = 67;
+          v18 = 2;
+        }
+
+        else if (((1 << v27) & 0xC) != 0)
+        {
+          v16 = HIWORD(HIDWORD(v27));
+          HIDWORD(v27) >>= 16;
+          v17 = 83;
+          v18 = 4;
+        }
+
+        else
+        {
+          v16 = HIDWORD(v27) & 0xFFFFFFFC;
+          HIDWORD(v27) &= 0xFFFFFFFC;
+          v17 = 68;
+          v18 = 8;
+        }
+
+        if (v9)
+        {
+          v19 = ",";
+        }
+
+        else
+        {
+          v19 = "";
+        }
+
+        v20 = snprintf(&v8[v9], v5 - v9, "%s%c0x%0*x%s", v19, v17, v18, v16, v15);
+        if ((v20 & 0x80000000) != 0)
+        {
+          v24 = kperf_log(v20, v21);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          {
+            kperf_kdebug_filter_create_desc_cold_2(v10, v24);
+          }
+
+          goto LABEL_35;
+        }
+
+        v9 += v20;
+        if (v9 <= v5)
+        {
+          v13 = v4 - 1 == v10;
+          v10 = (v10 + 1);
+          if (!v13)
           {
             continue;
           }
         }
 
-        return v6;
+        return v8;
       }
 
-      v18 = kperf_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v23 = kperf_log(filter, v12);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         kperf_kdebug_filter_create_desc_cold_1();
       }
 
 LABEL_35:
-      free(v6);
+      free(v8);
     }
 
     else
     {
-      v17 = kperf_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v22 = kperf_log(0, v7);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         kperf_kdebug_filter_create_desc_cold_4();
       }
@@ -443,15 +441,15 @@ LABEL_35:
   return 0;
 }
 
-uint64_t kperf_kdebug_action_get(void *a1)
+uint64_t kperf_kdebug_action_get(void *a1, uint64_t a2)
 {
   if (!a1)
   {
     kperf_kdebug_filter_add_internal_cold_1();
   }
 
-  v2 = 8;
-  return sysctlbyname("kperf.kdebug.action", a1, &v2, 0, 0);
+  v3 = 8;
+  return sysctlbyname("kperf.kdebug.action", a1, &v3, 0, 0);
 }
 
 uint64_t kperf_kdbg_callstacks_set(int a1)
@@ -517,7 +515,7 @@ uint64_t kperf_kdbg_callstacks_get(_BOOL4 *a1)
       goto LABEL_7;
     }
 
-    result = kperf_action_samplers_get(0x20u, &v4);
+    result = kperf_action_samplers_get(32, &v4);
     if (result)
     {
       return result;
@@ -894,141 +892,148 @@ uint64_t kpc_get_actionid(unsigned int a1, void *a2)
 
 uint64_t trace_clear()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = 0;
   *__error() = 0;
-  *v4 = xmmword_27718F150;
-  v5 = 0;
-  v0 = sysctl(v4, 3u, 0, &v3, 0, 0);
+  *v3 = xmmword_27718F150;
+  v4 = 0;
+  v0 = sysctl(v3, 3u, 0, &v2, 0, 0);
   result = 0;
   if (v0 < 0)
   {
-    result = *__error();
+    return *__error();
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t trace_bufinit(int a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   *__error() = 0;
-  *&v5 = 0x1800000001;
-  DWORD2(v5) = 4;
-  HIDWORD(v5) = a1;
-  v6 = 0;
-  if (sysctl(&v5, 4u, 0, 0, 0, 0) < 0 || (v5 = xmmword_27718F160, v6 = 0, v2 = sysctl(&v5, 3u, 0, 0, 0, 0), result = 0, v2 < 0))
+  *&v4 = 0x1800000001;
+  DWORD2(v4) = 4;
+  HIDWORD(v4) = a1;
+  v5 = 0;
+  if (sysctl(&v4, 4u, 0, 0, 0, 0) < 0)
   {
-    result = *__error();
+    return *__error();
   }
 
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = xmmword_27718F160;
+  v5 = 0;
+  v2 = sysctl(&v4, 3u, 0, 0, 0, 0);
+  result = 0;
+  if (v2 < 0)
+  {
+    return *__error();
+  }
+
   return result;
 }
 
 uint64_t trace_rnginit()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = 0x40000;
-  v4 = 0xFFFFFFFF00000000;
-  v5 = 0;
-  v6 = 20;
-  *v7 = xmmword_27718F170;
-  v8 = 0;
-  if (sysctl(v7, 3u, &v3, &v6, 0, 0) < 0 || (*v7 = xmmword_27718F160, v8 = 0, v0 = sysctl(v7, 3u, 0, 0, 0, 0), result = 0, v0 < 0))
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = 0x40000;
+  v3 = 0xFFFFFFFF00000000;
+  v4 = 0;
+  v5 = 20;
+  *v6 = xmmword_27718F170;
+  v7 = 0;
+  if (sysctl(v6, 3u, &v2, &v5, 0, 0) < 0)
   {
-    result = *__error();
+    return *__error();
   }
 
-  v2 = *MEMORY[0x277D85DE8];
+  *v6 = xmmword_27718F160;
+  v7 = 0;
+  v0 = sysctl(v6, 3u, 0, 0, 0, 0);
+  result = 0;
+  if (v0 < 0)
+  {
+    return *__error();
+  }
+
   return result;
 }
 
 uint64_t trace_enable(int a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 0x1800000001;
-  v5 = 3;
-  v6 = a1;
-  v7 = 0;
-  v1 = sysctl(&v4, 4u, 0, 0, 0, 0);
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 0x1800000001;
+  v4 = 3;
+  v5 = a1;
+  v6 = 0;
+  v1 = sysctl(&v3, 4u, 0, 0, 0, 0);
   result = 0;
   if (v1 < 0)
   {
-    result = *__error();
+    return *__error();
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t trace_perf_filter()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5 = 0;
-  v3 = 0x2500010000;
-  v4 = 38;
-  v6 = 20;
-  *v7 = xmmword_27718F170;
-  v8 = 0;
-  v0 = sysctl(v7, 3u, &v3, &v6, 0, 0);
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = 0;
+  v2 = 0x2500010000;
+  v3 = 38;
+  v5 = 20;
+  *v6 = xmmword_27718F170;
+  v7 = 0;
+  v0 = sysctl(v6, 3u, &v2, &v5, 0, 0);
   result = 0;
   if (v0 < 0)
   {
-    result = *__error();
+    return *__error();
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t trace_read(void *a1, size_t *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v5 = xmmword_27718F180;
-  v6 = 0;
-  v2 = sysctl(&v5, 3u, a1, a2, 0, 0);
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = xmmword_27718F180;
+  v5 = 0;
+  v2 = sysctl(&v4, 3u, a1, a2, 0, 0);
   result = 0;
   if (v2 < 0)
   {
-    result = *__error();
+    return *__error();
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t trace_set_nowrap()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = 1;
-  *v4 = xmmword_27718F190;
-  v5 = 0;
-  v0 = sysctl(v4, 4u, 0, &v3, 0, 0);
-  v1 = *MEMORY[0x277D85DE8];
-  return v0 >> 31;
+  v4 = *MEMORY[0x277D85DE8];
+  v1 = 1;
+  *v2 = xmmword_27718F190;
+  v3 = 0;
+  return sysctl(v2, 4u, 0, &v1, 0, 0) >> 31;
 }
 
 uint64_t trace_get_bufinfo(void *a1, size_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = 5;
-  v4 = a2;
-  *v5 = 0x1800000001;
-  result = sysctl(v5, 3u, a1, &v4, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  v5 = 5;
+  v3 = a2;
+  *v4 = 0x1800000001;
+  return sysctl(v4, 3u, a1, &v3, 0, 0);
 }
 
 uint64_t trace_read_threadmap(void *a1, size_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5 = a2;
-  *v6 = xmmword_27718F1A0;
-  v7 = 0;
-  v2 = sysctl(v6, 3u, a1, &v5, 0, 0);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  *v5 = xmmword_27718F1A0;
+  v6 = 0;
+  v2 = sysctl(v5, 3u, a1, &v4, 0, 0);
   return v2 & (v2 >> 31);
 }
 
@@ -1038,49 +1043,46 @@ uint64_t trace_block(unint64_t a1)
   v5 = a1 / 0xF4240;
   *v6 = xmmword_27718F1B0;
   v7 = 0;
-  LODWORD(result) = sysctl(v6, 3u, 0, &v5, 0, 0);
+  result = sysctl(v6, 3u, 0, &v5, 0, 0);
   if (result || !v5)
   {
     if (v5)
     {
-      v2 = 0;
+      v3 = 0;
     }
 
     else
     {
-      v2 = result == 0;
+      v3 = result == 0;
     }
 
-    if (v2)
+    if (v3)
     {
-      result = 35;
+      return 35;
     }
 
     else
     {
-      result = result;
+      return result;
     }
   }
 
   else
   {
-    if (v5 != 1)
+    if (v5 == 1)
     {
-      v3 = kperf_log();
-      result = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
-      if (!result)
-      {
-        goto LABEL_12;
-      }
-
-      trace_block_cold_1(&v5, v3);
+      return 0;
     }
 
-    result = 0;
+    v4 = kperf_log(result, v2);
+    result = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+    if (result)
+    {
+      trace_block_cold_1(&v5, v4);
+      return 0;
+    }
   }
 
-LABEL_12:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1133,12 +1135,11 @@ uint64_t trace_start()
 
 uint64_t trace_set_typefilter(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4 = 0x2000;
-  *v5 = xmmword_27718F1C0;
-  v6 = 0;
-  v1 = sysctl(v5, 3u, a1, &v4, 0, 0);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = 0x2000;
+  *v4 = xmmword_27718F1C0;
+  v5 = 0;
+  v1 = sysctl(v4, 3u, a1, &v3, 0, 0);
   return v1 & (v1 >> 31);
 }
 
@@ -1970,36 +1971,36 @@ uint64_t kperf_logging_start()
   {
     if ((wrap & 1) == 0)
     {
-      trace_set_nowrap();
+      result = trace_set_nowrap();
     }
 
     if (kdebug)
     {
-      v1 = has_typefilter;
-      v2 = kperf_log();
-      v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG);
-      if (v1 == 1)
+      v2 = has_typefilter;
+      v3 = kperf_log(result, v1);
+      v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
+      if (v2 == 1)
       {
-        if (v3)
+        if (v4)
         {
-          kperf_logging_start_cold_3(v2, v4, v5, v6, v7, v8, v9, v10);
+          kperf_logging_start_cold_3(v3, v5, v6, v7, v8, v9, v10, v11);
         }
 
         trace_set_typefilter(&typefilter);
       }
 
-      else if (v3)
+      else if (v4)
       {
-        kperf_logging_start_cold_2(v2, v4, v5, v6, v7, v8, v9, v10);
+        kperf_logging_start_cold_2(v3, v5, v6, v7, v8, v9, v10, v11);
       }
     }
 
     else
     {
-      v11 = kperf_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = kperf_log(result, v1);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        kperf_logging_start_cold_1(v11, v12, v13, v14, v15, v16, v17, v18);
+        kperf_logging_start_cold_1(v12, v13, v14, v15, v16, v17, v18, v19);
       }
 
       trace_perf_filter();
@@ -2070,10 +2071,11 @@ uint64_t kperf_logging_set_size(uint64_t result)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 int8x16_t kperf_typefilter_invert(uint64_t a1)
@@ -2122,38 +2124,33 @@ uint64_t kperf_typefilter_disable_subclass(uint64_t result, unsigned int a2, uns
 
 uint64_t kperf_timer_period_set(unsigned int a1, uint64_t a2)
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v4[0] = a1;
-  v4[1] = a2;
-  result = sysctlbyname("kperf.timer.period", 0, 0, v4, 0x10uLL);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[2] = *MEMORY[0x277D85DE8];
+  v3[0] = a1;
+  v3[1] = a2;
+  return sysctlbyname("kperf.timer.period", 0, 0, v3, 0x10uLL);
 }
 
 uint64_t kperf_timer_period_get(unsigned int a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v6 = a1;
-  v7 = 0;
-  v5 = 16;
-  result = sysctlbyname("kperf.timer.period", &v6, &v5, &v6, 0x10uLL);
+  v7 = *MEMORY[0x277D85DE8];
+  v5 = a1;
+  v6 = 0;
+  v4 = 16;
+  result = sysctlbyname("kperf.timer.period", &v5, &v4, &v5, 0x10uLL);
   if (!result)
   {
-    *a2 = v7;
+    *a2 = v6;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t kperf_timer_action_set(unsigned int a1, unsigned int a2)
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v4[0] = a1;
-  v4[1] = a2;
-  result = sysctlbyname("kperf.timer.action", 0, 0, v4, 0x10uLL);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[2] = *MEMORY[0x277D85DE8];
+  v3[0] = a1;
+  v3[1] = a2;
+  return sysctlbyname("kperf.timer.action", 0, 0, v3, 0x10uLL);
 }
 
 uint64_t kperf_timer_lightweight_pet_get(BOOL *a1)
@@ -2171,112 +2168,97 @@ uint64_t kperf_timer_lightweight_pet_get(BOOL *a1)
 
 uint64_t kperf_action_samplers_set(unsigned int a1, unsigned int a2)
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v4[0] = a1;
-  v4[1] = a2;
-  result = sysctlbyname("kperf.action.samplers", 0, 0, v4, 0x10uLL);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[2] = *MEMORY[0x277D85DE8];
+  v3[0] = a1;
+  v3[1] = a2;
+  return sysctlbyname("kperf.action.samplers", 0, 0, v3, 0x10uLL);
 }
 
 uint64_t kperf_action_userdata_set(unsigned int a1, unsigned int a2)
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v4[0] = a1;
-  v4[1] = a2;
-  result = sysctlbyname("kperf.action.userdata", 0, 0, v4, 0x10uLL);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[2] = *MEMORY[0x277D85DE8];
+  v3[0] = a1;
+  v3[1] = a2;
+  return sysctlbyname("kperf.action.userdata", 0, 0, v3, 0x10uLL);
 }
 
 uint64_t kperf_action_filter_set_by_task(unsigned int a1, unsigned int a2)
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v4[0] = a1;
-  v4[1] = a2;
-  result = sysctlbyname("kperf.action.filter_by_task", 0, 0, v4, 0x10uLL);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[2] = *MEMORY[0x277D85DE8];
+  v3[0] = a1;
+  v3[1] = a2;
+  return sysctlbyname("kperf.action.filter_by_task", 0, 0, v3, 0x10uLL);
 }
 
 uint64_t kperf_action_filter_set_by_pid(unsigned int a1, int a2)
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v4[0] = a1;
-  v4[1] = a2;
-  result = sysctlbyname("kperf.action.filter_by_pid", 0, 0, v4, 0x10uLL);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[2] = *MEMORY[0x277D85DE8];
+  v3[0] = a1;
+  v3[1] = a2;
+  return sysctlbyname("kperf.action.filter_by_pid", 0, 0, v3, 0x10uLL);
 }
 
 uint64_t kperf_action_ucallstack_depth_set(unsigned int a1, unsigned int a2)
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v4[0] = a1;
-  v4[1] = a2;
-  result = sysctlbyname("kperf.action.ucallstack_depth", 0, 0, v4, 0x10uLL);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[2] = *MEMORY[0x277D85DE8];
+  v3[0] = a1;
+  v3[1] = a2;
+  return sysctlbyname("kperf.action.ucallstack_depth", 0, 0, v3, 0x10uLL);
 }
 
 uint64_t kperf_action_kcallstack_depth_set(unsigned int a1, unsigned int a2)
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v4[0] = a1;
-  v4[1] = a2;
-  result = sysctlbyname("kperf.action.kcallstack_depth", 0, 0, v4, 0x10uLL);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[2] = *MEMORY[0x277D85DE8];
+  v3[0] = a1;
+  v3[1] = a2;
+  return sysctlbyname("kperf.action.kcallstack_depth", 0, 0, v3, 0x10uLL);
 }
 
 uint64_t kperf_kern_is_64bit()
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v34 = xmmword_27718F218;
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
+  v34 = *MEMORY[0x277D85DE8];
+  v33 = xmmword_27718F218;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  v8 = 0u;
+  v12 = 0u;
   v9 = 0u;
-  v6 = 0u;
+  v10 = 0u;
   v7 = 0u;
-  v4 = 0u;
+  v8 = 0u;
   v5 = 0u;
-  memset(v3, 0, sizeof(v3));
-  v2 = 648;
-  if (sysctl(&v34, 4u, v3, &v2, 0, 0) == -1)
+  v6 = 0u;
+  v3 = 0u;
+  v4 = 0u;
+  memset(v2, 0, sizeof(v2));
+  v1 = 648;
+  if (sysctl(&v33, 4u, v2, &v1, 0, 0) == -1)
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = (v4 >> 2) & 1;
+    return (v3 >> 2) & 1;
   }
-
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void kperf_buffer_free_record(void *a1)
@@ -2820,7 +2802,7 @@ unint64_t kperf_tick_frequency(double a1, double a2)
   return (v2 / *&a2 * 1000000000.0);
 }
 
-uint64_t kperf_log()
+uint64_t kperf_log(uint64_t a1, uint64_t a2)
 {
   if (kperf_log_init_once != -1)
   {
@@ -2846,90 +2828,37 @@ void kperf_kdebug_filter_add_internal_cold_1()
 
 void kperf_kdebug_filter_add_desc_cold_1(int a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v4 = *__error();
-  v6[0] = 67109376;
-  v6[1] = a1;
-  v7 = 1024;
-  v8 = v4;
-  _os_log_error_impl(&dword_27718A000, a2, OS_LOG_TYPE_ERROR, "cannot add filter 0x%08x to filter (%{errno}d)", v6, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void kperf_kdebug_filter_add_desc_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void kperf_kdebug_filter_add_desc_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void kperf_kdebug_filter_add_desc_cold_4(char *a1)
-{
   v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void kperf_kdebug_filter_create_desc_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *__error();
+  v5[0] = 67109376;
+  v5[1] = a1;
+  v6 = 1024;
+  v7 = v4;
+  _os_log_error_impl(&dword_27718A000, a2, OS_LOG_TYPE_ERROR, "cannot add filter 0x%08x to filter (%{errno}d)", v5, 0xEu);
 }
 
 void kperf_kdebug_filter_create_desc_cold_2(int a1, NSObject *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = *__error();
   v5 = __error();
   v6 = strerror(*v5);
-  v8[0] = 67109634;
-  v8[1] = a1;
-  v9 = 1024;
-  v10 = v4;
-  v11 = 2080;
-  v12 = v6;
-  _os_log_error_impl(&dword_27718A000, a2, OS_LOG_TYPE_ERROR, "failed to write filter %u (%d: %s)", v8, 0x18u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void kperf_kdebug_filter_create_desc_cold_3(int *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void kperf_kdebug_filter_create_desc_cold_4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = 67109634;
+  v7[1] = a1;
+  v8 = 1024;
+  v9 = v4;
+  v10 = 2080;
+  v11 = v6;
+  _os_log_error_impl(&dword_27718A000, a2, OS_LOG_TYPE_ERROR, "failed to write filter %u (%d: %s)", v7, 0x18u);
 }
 
 void trace_block_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4[0] = 67109376;
-  v4[1] = 0;
-  v5 = 2048;
-  v6 = v2;
-  _os_log_error_impl(&dword_27718A000, a2, OS_LOG_TYPE_ERROR, "error: block returned unknown error (r = %d, delay = %zu)", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109376;
+  v3[1] = 0;
+  v4 = 2048;
+  v5 = v2;
+  _os_log_error_impl(&dword_27718A000, a2, OS_LOG_TYPE_ERROR, "error: block returned unknown error (r = %d, delay = %zu)", v3, 0x12u);
 }

@@ -81,7 +81,7 @@
 {
   if (self)
   {
-    [(FigTimeRangeObj *)self range];
+    objc_msgSend_range(self, a2);
   }
 
   else
@@ -100,7 +100,7 @@
 {
   if (self)
   {
-    [(FigTimeRangeObj *)self range];
+    objc_msgSend_range(self, a2);
   }
 
   else

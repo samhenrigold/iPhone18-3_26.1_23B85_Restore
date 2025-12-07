@@ -14,10 +14,10 @@
 
 - (AMUIDateTimeView)initWithFrame:(CGRect)frame
 {
-  v55[2] = *MEMORY[0x277D85DE8];
-  v53.receiver = self;
-  v53.super_class = AMUIDateTimeView;
-  v3 = [(AMUIDateTimeView *)&v53 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v54[2] = *MEMORY[0x277D85DE8];
+  v52.receiver = self;
+  v52.super_class = AMUIDateTimeView;
+  v3 = [(AMUIDateTimeView *)&v52 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     defaultTimeFont = [objc_opt_class() defaultTimeFont];
@@ -47,9 +47,9 @@
     [(UILabel *)v3->_timeLabel setTranslatesAutoresizingMaskIntoConstraints:0];
     [v17 addSubview:v3->_timeLabel];
     v18 = objc_alloc(MEMORY[0x277D75A68]);
-    v55[0] = v3->_dateLabel;
-    v55[1] = v17;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
+    v54[0] = v3->_dateLabel;
+    v54[1] = v17;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
     v20 = [v18 initWithArrangedSubviews:v19];
 
     [v20 setAxis:1];
@@ -71,42 +71,41 @@
     v3->_timeLabelYOffsetConstraint = v25;
 
     [(AMUIDateTimeView *)v3 setNeedsUpdateConstraints];
-    v43 = MEMORY[0x277CCAAD0];
+    v42 = MEMORY[0x277CCAAD0];
     leadingAnchor = [(AMUIDateTimeView *)v3 leadingAnchor];
     leadingAnchor2 = [v20 leadingAnchor];
-    v50 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v54[0] = v50;
+    v49 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v53[0] = v49;
     trailingAnchor = [(AMUIDateTimeView *)v3 trailingAnchor];
     trailingAnchor2 = [v20 trailingAnchor];
-    v47 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v54[1] = v47;
+    v46 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v53[1] = v46;
     topAnchor = [(AMUIDateTimeView *)v3 topAnchor];
     topAnchor2 = [v20 topAnchor];
-    v44 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v54[2] = v44;
+    v43 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v53[2] = v43;
     bottomAnchor = [(AMUIDateTimeView *)v3 bottomAnchor];
     bottomAnchor2 = [v20 bottomAnchor];
-    v39 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v54[3] = v39;
+    v38 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v53[3] = v38;
     centerXAnchor = [(UILabel *)v3->_timeLabel centerXAnchor];
     centerXAnchor2 = [v17 centerXAnchor];
     v27 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v54[4] = v27;
-    v54[5] = v3->_timeLabelYOffsetConstraint;
-    v41 = v17;
+    v53[4] = v27;
+    v53[5] = v3->_timeLabelYOffsetConstraint;
+    v40 = v17;
     widthAnchor = [v17 widthAnchor];
     widthAnchor2 = [(UILabel *)v3->_timeLabel widthAnchor];
     v30 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-    v54[6] = v30;
+    v53[6] = v30;
     heightAnchor = [v17 heightAnchor];
     heightAnchor2 = [(UILabel *)v3->_timeLabel heightAnchor];
     v33 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-    v54[7] = v33;
-    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:8];
-    [v43 activateConstraints:v34];
+    v53[7] = v33;
+    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:8];
+    [v42 activateConstraints:v34];
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -210,13 +209,11 @@ uint64_t __35__AMUIDateTimeView_defaultTimeFont__block_invoke()
 - (void)setTextColor:(id)color
 {
   colorCopy = color;
-  textColor = self->_textColor;
-  v8 = colorCopy;
   if ((BSEqualObjects() & 1) == 0)
   {
-    v6 = [v8 copy];
-    v7 = self->_textColor;
-    self->_textColor = v6;
+    v4 = [colorCopy copy];
+    textColor = self->_textColor;
+    self->_textColor = v4;
 
     [(AMUIDateTimeView *)self _updateLabels];
   }

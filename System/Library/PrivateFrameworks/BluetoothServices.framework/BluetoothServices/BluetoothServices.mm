@@ -1,7 +1,7 @@
-void sub_241BDF710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241BDF710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -13,127 +13,127 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_241BDFB64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241BDFB64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BDFF94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241BDFF94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE03C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241BE03C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE0734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_241BE0734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE0B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241BE0B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE0FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241BE0FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE13DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241BE13DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE1808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241BE1808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE1B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_241BE1B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE1FA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241BE1FA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE23D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241BE23D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE2800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241BE2800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE2C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241BE2C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE3130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_241BE3130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE3560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241BE3560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE3998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241BE3998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -145,40 +145,40 @@ void sub_241BE3E6C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_241BE4244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_241BE4244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
-  (*(v13 + 16))(v13);
+  va_start(va, a20);
+  (*(v20 + 16))(v20, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE45F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_241BE45F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
-  (*(v13 + 16))(v13);
+  va_start(va, a20);
+  (*(v20 + 16))(v20, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE49C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241BE49C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE4D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_241BE4D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
-  (*(v13 + 16))(v13);
+  va_start(va, a20);
+  (*(v20 + 16))(v20, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241BE57AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_241BE57AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -195,177 +195,177 @@ void _btSessionEventHandler(uint64_t a1, int a2, int a3, void *a4)
   v8 = objc_autoreleasePoolPush();
   v9 = a4;
   dispatch_assert_queue_V2(*(v9 + 23));
-  v10 = **(v9 + 17);
-  if (a2 > 1)
+  v10 = *(v9 + 17);
+  v11 = *v10;
+  if (a2 <= 1)
   {
-    if (a2 != 2)
+    if (a2)
     {
-      if (a2 == 3)
+      if (a2 == 1)
       {
-        if (v10 > 60)
+        if (v11 <= 30)
+        {
+          if (v11 == -1)
+          {
+            if (!_LogCategory_Initialize())
+            {
+              goto LABEL_25;
+            }
+
+            v10 = *(v9 + 17);
+          }
+
+          LogPrintF(v10, "void _btSessionEventHandler(BTSession, BTSessionEvent, BTResult, void *)", 30, "BTSession detached: %#m\n", (a3 + 310000));
+        }
+
+LABEL_25:
+        *(v9 + 10) = 0;
+        v9[89] = 0;
+        [v9 _btEnsureStopped];
+        if (v9[96] != 1 || (v9[91] & 1) != 0)
         {
           goto LABEL_42;
         }
 
-        if (v10 == -1)
+        v12 = *(v9 + 17);
+        if (*v12 > 30)
+        {
+          goto LABEL_40;
+        }
+
+        if (*v12 == -1)
         {
           if (!_LogCategory_Initialize())
           {
-            goto LABEL_42;
+            goto LABEL_40;
           }
 
-          v13 = *(v9 + 17);
+          v12 = *(v9 + 17);
         }
 
-LABEL_14:
-        LogPrintF();
-        goto LABEL_42;
+        LogPrintF(v12, "void _btSessionEventHandler(BTSession, BTSessionEvent, BTResult, void *)", 30, "BTSession retrying after detach\n");
+LABEL_40:
+        v9[96] = 0;
+        [v9 _btEnsureStopped];
+LABEL_41:
+        [v9 _btEnsureStarted];
+LABEL_42:
+        CFRelease(v9);
+        goto LABEL_43;
       }
 
-LABEL_12:
-      if (v10 > 40)
-      {
-        goto LABEL_42;
-      }
-
-      if (v10 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_42;
-        }
-
-        v11 = *(v9 + 17);
-      }
-
-      goto LABEL_14;
+      goto LABEL_12;
     }
 
-    if (v10 <= 60)
+    if (v11 <= 30)
     {
-      if (v10 != -1)
+      if (v11 != -1)
       {
-LABEL_20:
-        LogPrintF();
-        goto LABEL_36;
+LABEL_18:
+        LogPrintF(v10, "void _btSessionEventHandler(BTSession, BTSessionEvent, BTResult, void *)", 30, "BTSession attached: %#m\n", (a3 + 310000));
+        goto LABEL_33;
       }
 
       if (_LogCategory_Initialize())
       {
-        v17 = *(v9 + 17);
-        goto LABEL_20;
+        v10 = *(v9 + 17);
+        goto LABEL_18;
       }
     }
 
-LABEL_36:
-    *(v9 + 10) = 0;
+LABEL_33:
+    *(v9 + 10) = a1;
     v9[89] = 0;
-    v14 = v9[90];
-    [v9 _btEnsureStopped];
-    if (v14 != 1)
+    if (v9[90] == 1)
     {
-      goto LABEL_41;
+      [v9 _btEnsureStarted];
     }
 
-    goto LABEL_40;
+    else
+    {
+      [v9 _btEnsureStopped];
+    }
+
+    goto LABEL_43;
   }
 
-  if (a2)
+  if (a2 == 2)
   {
-    if (a2 == 1)
+    if (v11 > 60)
     {
-      if (v10 <= 30)
-      {
-        if (v10 == -1)
-        {
-          if (!_LogCategory_Initialize())
-          {
-            goto LABEL_24;
-          }
+      goto LABEL_37;
+    }
 
-          v15 = *(v9 + 17);
+    if (v11 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+LABEL_37:
+        *(v9 + 10) = 0;
+        v9[89] = 0;
+        v13 = v9[90];
+        [v9 _btEnsureStopped];
+        if (v13 != 1)
+        {
+          goto LABEL_42;
         }
 
-        v19 = (a3 + 310000);
-        LogPrintF();
-      }
-
-LABEL_24:
-      *(v9 + 10) = 0;
-      v9[89] = 0;
-      [v9 _btEnsureStopped];
-      if (v9[96] != 1 || (v9[91] & 1) != 0)
-      {
         goto LABEL_41;
       }
 
-      v12 = **(v9 + 17);
-      if (v12 > 30)
+      v10 = *(v9 + 17);
+    }
+
+    LogPrintF(v10, "void _btSessionEventHandler(BTSession, BTSessionEvent, BTResult, void *)", 60, "### BTSession terminated (bluetoothd crash)...re-attaching\n");
+    goto LABEL_37;
+  }
+
+  if (a2 == 3)
+  {
+    if (v11 > 60)
+    {
+      goto LABEL_43;
+    }
+
+    if (v11 == -1)
+    {
+      if (!_LogCategory_Initialize())
       {
-        goto LABEL_39;
+        goto LABEL_43;
       }
 
-      if (v12 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_39;
-        }
-
-        v18 = *(v9 + 17);
-      }
-
-      LogPrintF();
-LABEL_39:
-      v9[96] = 0;
-      [v9 _btEnsureStopped];
-LABEL_40:
-      [v9 _btEnsureStarted];
-LABEL_41:
-      CFRelease(v9);
-      goto LABEL_42;
+      v10 = *(v9 + 17);
     }
 
-    goto LABEL_12;
+    LogPrintF(v10, "void _btSessionEventHandler(BTSession, BTSessionEvent, BTResult, void *)", 60, "### BTSession failed: %#m\n");
+    goto LABEL_43;
   }
 
-  if (v10 <= 30)
+LABEL_12:
+  if (v11 > 40)
   {
-    if (v10 != -1)
+    goto LABEL_43;
+  }
+
+  if (v11 == -1)
+  {
+    if (!_LogCategory_Initialize())
     {
-LABEL_17:
-      LogPrintF();
-      goto LABEL_32;
+      goto LABEL_43;
     }
 
-    if (_LogCategory_Initialize())
-    {
-      v16 = *(v9 + 17);
-      goto LABEL_17;
-    }
+    v10 = *(v9 + 17);
   }
 
-LABEL_32:
-  *(v9 + 10) = a1;
-  v9[89] = 0;
-  if (v9[90] == 1)
-  {
-    [v9 _btEnsureStarted];
-  }
-
-  else
-  {
-    [v9 _btEnsureStopped];
-  }
-
-LABEL_42:
+  LogPrintF(v10, "void _btSessionEventHandler(BTSession, BTSessionEvent, BTResult, void *)", 40, "BTSession unknown event %d, result %#m\n");
+LABEL_43:
 
   objc_autoreleasePoolPop(v8);
 }
 
-void _btServiceEventHandler(uint64_t a1, _BYTE *a2, int a3, uint64_t a4, int a5, void *a6)
+void _btServiceEventHandler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, void *a6)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v12 = objc_autoreleasePoolPush();
   v13 = a6;
   dispatch_assert_queue_V2(*(v13 + 23));
@@ -375,407 +375,397 @@ void _btServiceEventHandler(uint64_t a1, _BYTE *a2, int a3, uint64_t a4, int a5,
   }
 
   v14 = (v13 + 136);
-  v15 = **(v13 + 17);
-  if (a3 == 2)
+  v15 = *(v13 + 17);
+  v16 = *v15;
+  switch(a3)
   {
-    if (v15 > 30)
-    {
-      goto LABEL_64;
-    }
-
-    if (v15 == -1)
-    {
-      v18 = *(v13 + 17);
-      if (!_LogCategory_Initialize())
+    case 2:
+      if (v16 <= 30)
       {
-        goto LABEL_64;
-      }
-
-      v19 = *v14;
-    }
-
-    goto LABEL_16;
-  }
-
-  if (a3 == 1)
-  {
-    if (v15 > 30)
-    {
-      goto LABEL_64;
-    }
-
-    if (v15 == -1)
-    {
-      v16 = *(v13 + 17);
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_64;
-      }
-
-      v17 = *v14;
-    }
-
-LABEL_16:
-    BTServiceSpecificEventToString(a4);
-    LogPrintF();
-    goto LABEL_64;
-  }
-
-  if (a3)
-  {
-    if (v15 > 30)
-    {
-      goto LABEL_64;
-    }
-
-    if (v15 == -1)
-    {
-      v24 = *(v13 + 17);
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_64;
-      }
-
-      v25 = *v14;
-    }
-
-    goto LABEL_16;
-  }
-
-  if (v15 > 30)
-  {
-    goto LABEL_22;
-  }
-
-  if (v15 != -1)
-  {
-    goto LABEL_7;
-  }
-
-  v20 = *(v13 + 17);
-  if (_LogCategory_Initialize())
-  {
-    v40 = *v14;
-LABEL_7:
-    v49 = BTServiceSpecificEventToString(a4);
-    v50 = (a5 + 310000);
-    v47 = &unk_241BF7988;
-    v48 = a4;
-    v46 = a2;
-    LogPrintF();
-  }
-
-LABEL_22:
-  if (a4 != 11)
-  {
-    goto LABEL_64;
-  }
-
-  __s1[0] = 0;
-  AddressString = softLinkBTDeviceGetAddressString(a1, __s1, 32);
-  if (AddressString)
-  {
-    _btServiceEventHandler_cold_1(AddressString, v13 + 17);
-    goto LABEL_64;
-  }
-
-  if (strcmp(__s1, v13 + 8))
-  {
-    _btServiceEventHandler_cold_2(v13 + 17);
-    goto LABEL_64;
-  }
-
-  if (!a5)
-  {
-    v55[0] = 0;
-    if (!a1)
-    {
-      goto LABEL_58;
-    }
-
-    softLinkBTDeviceGetName(a1, v55, 248);
-    if (v55[0])
-    {
-      v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:v55];
-      v27 = *(v13 + 26);
-      *(v13 + 26) = v26;
-    }
-
-    v54 = 0;
-    v53 = 0;
-    softLinkBTDeviceGetDeviceId(a1, &v54 + 4, &v54, &v53, (v13 + 160));
-    v52 = 0;
-    Default = softLinkBTAccessoryManagerGetDefault(*(v13 + 10), &v52);
-    if (Default)
-    {
-      v29 = Default;
-      v30 = **v14;
-      if (v30 <= 60)
-      {
-        if (v30 != -1)
-        {
-LABEL_38:
-          v46 = (v29 + 310000);
-          LogPrintF();
-          goto LABEL_49;
-        }
-
-        if (_LogCategory_Initialize())
-        {
-          v44 = *v14;
-          goto LABEL_38;
-        }
-      }
-    }
-
-LABEL_49:
-    if (!v52)
-    {
-      goto LABEL_58;
-    }
-
-    v51 = 0;
-    FeatureCapability = softLinkBTAccessoryManagerGetFeatureCapability(v52, a1, 26, &v51);
-    if (!FeatureCapability)
-    {
-      v37 = v51 != 0;
-LABEL_57:
-      v13[157] = v37;
-LABEL_58:
-      v38 = **v14;
-      if (v38 <= 30)
-      {
-        if (v38 == -1)
+        if (v16 == -1)
         {
           if (!_LogCategory_Initialize())
           {
-            goto LABEL_62;
+            break;
           }
 
-          v41 = *v14;
+          v15 = *v14;
         }
 
-        v46 = v55;
-        v47 = *(v13 + 40);
-        LogPrintF();
+        v40 = BTServiceSpecificEventToString(a4);
+        LogPrintF(v15, "void _btServiceEventHandler(BTDevice, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void *)", 30, "BTService event: %#{flags}, %d %s, %#m\n", a2, &unk_241BF7988, a4, v40, (a5 + 310000));
       }
 
-LABEL_62:
-      v13[41] = 0;
-      v32 = v13;
-      v33 = 0;
-      goto LABEL_63;
-    }
+      break;
+    case 1:
+      if (v16 <= 30)
+      {
+        if (v16 == -1)
+        {
+          if (!_LogCategory_Initialize())
+          {
+            break;
+          }
 
-    v35 = FeatureCapability;
-    v36 = **v14;
-    if (v36 <= 60)
-    {
-      if (v36 == -1)
+          v15 = *v14;
+        }
+
+        v39 = BTServiceSpecificEventToString(a4);
+        LogPrintF(v15, "void _btServiceEventHandler(BTDevice, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void *)", 30, "BTService disconnect: %#{flags}, %d %s, %#m\n", a2, &unk_241BF7988, a4, v39, (a5 + 310000));
+      }
+
+      break;
+    case 0:
+      if (v16 > 30)
+      {
+        goto LABEL_22;
+      }
+
+      if (v16 == -1)
       {
         if (!_LogCategory_Initialize())
         {
-          goto LABEL_56;
-        }
+LABEL_22:
+          if (a4 != 11)
+          {
+            break;
+          }
 
-        v45 = *v14;
-      }
+          __s1[0] = 0;
+          AddressString = softLinkBTDeviceGetAddressString(a1, __s1, 32);
+          if (AddressString)
+          {
+            _btServiceEventHandler_cold_1(AddressString, v13 + 17);
+            break;
+          }
 
-      v46 = (v35 + 310000);
-      LogPrintF();
-    }
+          if (strcmp(__s1, v13 + 8))
+          {
+            _btServiceEventHandler_cold_2(v13 + 17, __s1, v13 + 8);
+            break;
+          }
 
-LABEL_56:
-    v37 = 0;
-    goto LABEL_57;
-  }
+          if (a5)
+          {
+            if (v13[153] == 1)
+            {
+              v19 = (a5 + 310000);
+              v20 = *v14;
+              v21 = **v14;
+              if (v21 <= 60)
+              {
+                if (v21 == -1)
+                {
+                  if (!_LogCategory_Initialize())
+                  {
+                    goto LABEL_43;
+                  }
 
-  if (v13[153] == 1)
-  {
-    v22 = (a5 + 310000);
-    v23 = **v14;
-    if (v23 <= 60)
-    {
-      if (v23 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_43;
-        }
+                  v20 = *v14;
+                }
 
-        v42 = *v14;
-      }
-
-      v46 = v22;
-      LogPrintF();
-    }
+                LogPrintF(v20, "void _btServiceEventHandler(BTDevice, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void *)", 60, "### BTService connect failed: %#m\n", v19);
+              }
 
 LABEL_43:
-    v13[41] = 0;
-    v32 = v13;
-    v33 = v22;
+              v13[41] = 0;
+              v30 = v13;
+              v31 = v19;
 LABEL_63:
-    [v32 _completed:{v33, v46, v47, v48, v49, v50}];
-    goto LABEL_64;
-  }
+              [v30 _completed:v31];
+              break;
+            }
 
-  v31 = **v14;
-  if (v31 > 60)
-  {
-    goto LABEL_45;
-  }
+            v28 = *v14;
+            v29 = **v14;
+            if (v29 > 60)
+            {
+              goto LABEL_45;
+            }
 
-  if (v31 == -1)
-  {
-    if (!_LogCategory_Initialize())
-    {
-      goto LABEL_45;
-    }
+            if (v29 == -1)
+            {
+              if (!_LogCategory_Initialize())
+              {
+                goto LABEL_45;
+              }
 
-    v43 = *v14;
-  }
+              v28 = *v14;
+            }
 
-  LogPrintF();
+            LogPrintF(v28, "void _btServiceEventHandler(BTDevice, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void *)", 60, "### BTService connect failed: %#m\n", (a5 + 310000));
 LABEL_45:
-  if ((a5 - 151) <= 0xF && ((1 << (a5 + 105)) & 0x8081) != 0)
-  {
-    [v13 _btDeletePairingAndRetry];
+            if ((a5 - 151) <= 0xF && ((1 << (a5 + 105)) & 0x8081) != 0)
+            {
+              [v13 _btDeletePairingAndRetry];
+            }
+
+            break;
+          }
+
+          v46[0] = 0;
+          if (!a1)
+          {
+LABEL_58:
+            v37 = *v14;
+            v38 = **v14;
+            if (v38 <= 30)
+            {
+              if (v38 == -1)
+              {
+                if (!_LogCategory_Initialize())
+                {
+                  goto LABEL_62;
+                }
+
+                v37 = *v14;
+              }
+
+              LogPrintF(v37, "void _btServiceEventHandler(BTDevice, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void *)", 30, "BTService connected: '%s', version 0x%X\n", v46, *(v13 + 40));
+            }
+
+LABEL_62:
+            v13[41] = 0;
+            v30 = v13;
+            v31 = 0;
+            goto LABEL_63;
+          }
+
+          softLinkBTDeviceGetName(a1, v46, 248);
+          if (v46[0])
+          {
+            v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:v46];
+            v23 = *(v13 + 26);
+            *(v13 + 26) = v22;
+          }
+
+          v45 = 0;
+          v44 = 0;
+          softLinkBTDeviceGetDeviceId(a1, &v45 + 4, &v45, &v44, v13 + 160);
+          v43 = 0;
+          Default = softLinkBTAccessoryManagerGetDefault(*(v13 + 10), &v43);
+          if (Default)
+          {
+            v25 = Default;
+            v26 = *v14;
+            v27 = **v14;
+            if (v27 <= 60)
+            {
+              if (v27 != -1)
+              {
+LABEL_38:
+                LogPrintF(v26, "void _btServiceEventHandler(BTDevice, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void *)", 60, "### BTAccessoryManagerGetDefault failed: %#m\n", (v25 + 310000));
+                goto LABEL_49;
+              }
+
+              if (_LogCategory_Initialize())
+              {
+                v26 = *v14;
+                goto LABEL_38;
+              }
+            }
+          }
+
+LABEL_49:
+          if (!v43)
+          {
+            goto LABEL_58;
+          }
+
+          v42 = 0;
+          FeatureCapability = softLinkBTAccessoryManagerGetFeatureCapability(v43, a1, 26, &v42);
+          if (!FeatureCapability)
+          {
+            v36 = v42 != 0;
+LABEL_57:
+            v13[157] = v36;
+            goto LABEL_58;
+          }
+
+          v33 = FeatureCapability;
+          v34 = *v14;
+          v35 = **v14;
+          if (v35 <= 60)
+          {
+            if (v35 == -1)
+            {
+              if (!_LogCategory_Initialize())
+              {
+                goto LABEL_56;
+              }
+
+              v34 = *v14;
+            }
+
+            LogPrintF(v34, "void _btServiceEventHandler(BTDevice, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void *)", 60, "### BTAccessoryManagerGetFeatureCapability software volume failed: %#m\n", (v33 + 310000));
+          }
+
+LABEL_56:
+          v36 = 0;
+          goto LABEL_57;
+        }
+
+        v15 = *v14;
+      }
+
+      v17 = BTServiceSpecificEventToString(a4);
+      LogPrintF(v15, "void _btServiceEventHandler(BTDevice, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void *)", 30, "BTService connect: %#{flags}, %d %s, %#m\n", a2, &unk_241BF7988, a4, v17, (a5 + 310000));
+      goto LABEL_22;
+    default:
+      if (v16 <= 30)
+      {
+        if (v16 == -1)
+        {
+          if (!_LogCategory_Initialize())
+          {
+            break;
+          }
+
+          v15 = *v14;
+        }
+
+        v41 = BTServiceSpecificEventToString(a4);
+        LogPrintF(v15, "void _btServiceEventHandler(BTDevice, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void *)", 30, "BTService unknown event type: %#{flags}, %d, %d %s, %#m\n", a2, &unk_241BF7988, a3, a4, v41, (a5 + 310000));
+      }
+
+      break;
   }
 
 LABEL_64:
 
   objc_autoreleasePoolPop(v12);
-  v39 = *MEMORY[0x277D85DE8];
 }
 
-void _btPairingAgentStatusHandler(uint64_t a1, int a2, uint64_t a3, uint64_t a4, void *a5)
+void _btPairingAgentStatusHandler(uint64_t a1, int a2, uint64_t a3, int a4, void *a5)
 {
-  v7 = objc_autoreleasePoolPush();
-  v8 = a5;
-  dispatch_assert_queue_V2(*(v8 + 23));
-  v9 = **(v8 + 17);
-  if (a2 > 1)
+  v8 = objc_autoreleasePoolPush();
+  v9 = a5;
+  dispatch_assert_queue_V2(v9[23]);
+  v10 = v9[17];
+  v11 = *v10;
+  if (a2 <= 1)
   {
-    if (a2 == 2)
+    if (a2)
     {
-      if (v9 > 30)
+      if (a2 == 1)
       {
-        goto LABEL_31;
+        if (v11 > 30)
+        {
+          goto LABEL_32;
+        }
+
+        if (v11 != -1)
+        {
+          goto LABEL_6;
+        }
+
+        if (_LogCategory_Initialize())
+        {
+          v10 = v9[17];
+LABEL_6:
+          LogPrintF(v10, "void _btPairingAgentStatusHandler(BTPairingAgent, BTPairingEvent, BTDevice, BTResult, void *)", 30, "BTPairingAgent stopped: %#m\n", (a4 + 310000));
+          goto LABEL_32;
+        }
+
+        goto LABEL_32;
       }
 
-      if (v9 != -1)
+LABEL_12:
+      if (v11 > 30)
       {
-        goto LABEL_20;
+        goto LABEL_32;
       }
 
-      if (_LogCategory_Initialize())
+      if (v11 == -1)
       {
-        v14 = *(v8 + 17);
-        goto LABEL_20;
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_32;
+        }
+
+        v10 = v9[17];
       }
 
-      goto LABEL_31;
+      LogPrintF(v10, "void _btPairingAgentStatusHandler(BTPairingAgent, BTPairingEvent, BTDevice, BTResult, void *)", 30, "BTPairingAgent unknown event: %d, %#m\n");
+      goto LABEL_32;
     }
 
-    if (a2 == 3)
+    if (v11 <= 30)
     {
-      if (v9 > 30)
+      if (v11 != -1)
       {
-        goto LABEL_31;
-      }
-
-      if (v9 != -1)
-      {
-        goto LABEL_20;
+LABEL_17:
+        LogPrintF(v10, "void _btPairingAgentStatusHandler(BTPairingAgent, BTPairingEvent, BTDevice, BTResult, void *)", 30, "BTPairingAgent started: %#m\n", (a4 + 310000));
+        goto LABEL_29;
       }
 
       if (_LogCategory_Initialize())
       {
-        v12 = *(v8 + 17);
-        goto LABEL_20;
+        v10 = v9[17];
+        goto LABEL_17;
+      }
+    }
+
+LABEL_29:
+    if (*(v9 + 90) == 1)
+    {
+      *(v9 + 72) = 1;
+      [(dispatch_queue_t *)v9 _btEnsureStarted];
+    }
+
+    goto LABEL_32;
+  }
+
+  if (a2 != 2)
+  {
+    if (a2 == 3)
+    {
+      if (v11 > 30)
+      {
+        goto LABEL_32;
       }
 
-      goto LABEL_31;
+      if (v11 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_32;
+        }
+
+        v10 = v9[17];
+      }
+
+      LogPrintF(v10, "void _btPairingAgentStatusHandler(BTPairingAgent, BTPairingEvent, BTDevice, BTResult, void *)", 30, "BTPairingAgent attempt complete: %#m\n", (a4 + 310000));
+      goto LABEL_32;
     }
 
     goto LABEL_12;
   }
 
-  if (!a2)
+  if (v11 > 30)
   {
-    if (v9 > 30)
-    {
-      goto LABEL_28;
-    }
-
-    if (v9 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-LABEL_28:
-        if (*(v8 + 90) == 1)
-        {
-          *(v8 + 72) = 1;
-          [v8 _btEnsureStarted];
-        }
-
-        goto LABEL_31;
-      }
-
-      v13 = *(v8 + 17);
-    }
-
-    LogPrintF();
-    goto LABEL_28;
+    goto LABEL_32;
   }
 
-  if (a2 == 1)
+  if (v11 == -1)
   {
-    if (v9 > 30)
+    if (!_LogCategory_Initialize())
     {
-      goto LABEL_31;
+      goto LABEL_32;
     }
 
-    if (v9 != -1)
-    {
-      goto LABEL_20;
-    }
-
-    if (_LogCategory_Initialize())
-    {
-      v11 = *(v8 + 17);
-      goto LABEL_20;
-    }
-
-    goto LABEL_31;
+    v10 = v9[17];
   }
 
-LABEL_12:
-  if (v9 > 30)
-  {
-    goto LABEL_31;
-  }
+  LogPrintF(v10, "void _btPairingAgentStatusHandler(BTPairingAgent, BTPairingEvent, BTDevice, BTResult, void *)", 30, "BTPairingAgent attempt started: %#m\n");
+LABEL_32:
 
-  if (v9 != -1)
-  {
-    goto LABEL_20;
-  }
-
-  if (_LogCategory_Initialize())
-  {
-    v10 = *(v8 + 17);
-LABEL_20:
-    LogPrintF();
-  }
-
-LABEL_31:
-
-  objc_autoreleasePoolPop(v7);
+  objc_autoreleasePoolPop(v8);
 }
 
 void _btPairingAgentUserConfirmationHandler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v8 = objc_autoreleasePoolPush();
   v9 = a5;
   dispatch_assert_queue_V2(*(v9 + 23));
@@ -788,22 +778,23 @@ void _btPairingAgentUserConfirmationHandler(uint64_t a1, uint64_t a2, uint64_t a
   }
 
   v11 = strcmp(__s1, v9 + 8);
-  v12 = **(v9 + 17);
+  v12 = *(v9 + 17);
+  v13 = *v12;
   if (!v11)
   {
-    if (v12 <= 30)
+    if (v13 <= 30)
     {
-      if (v12 == -1)
+      if (v13 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_7;
         }
 
-        v15 = *(v9 + 17);
+        v12 = *(v9 + 17);
       }
 
-      LogPrintF();
+      LogPrintF(v12, "void _btPairingAgentUserConfirmationHandler(BTPairingAgent, BTDevice, uint32_t, BTBool, void *)", 30, "BTPairingAgent user confirmation handler\n");
     }
 
 LABEL_7:
@@ -811,25 +802,24 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if (v12 <= 30)
+  if (v13 <= 30)
   {
-    if (v12 == -1)
+    if (v13 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_8;
       }
 
-      v14 = *(v9 + 17);
+      v12 = *(v9 + 17);
     }
 
-    LogPrintF();
+    LogPrintF(v12, "void _btPairingAgentUserConfirmationHandler(BTPairingAgent, BTDevice, uint32_t, BTBool, void *)", 30, "BTPairingAgent user confirmation handler, ignoring device: %s vs %s\n", __s1, v9 + 8);
   }
 
 LABEL_8:
 
   objc_autoreleasePoolPop(v8);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 Class initWPClient()
@@ -862,7 +852,7 @@ uint64_t initBTSessionAttachWithQueue(uint64_t a1, uint64_t a2, uint64_t a3, voi
   }
 
   softLinkBTSessionAttachWithQueue = dlsym(MobileBluetoothLibrary_sLib, "BTSessionAttachWithQueue");
-  v9 = (softLinkBTSessionAttachWithQueue)(a1, a2, a3, v8);
+  v9 = softLinkBTSessionAttachWithQueue(a1, a2, a3, v8);
 
   return v9;
 }
@@ -955,7 +945,7 @@ uint64_t initBTPairingAgentStart(uint64_t a1)
   v2 = dlsym(MobileBluetoothLibrary_sLib, "BTPairingAgentStart");
   softLinkBTPairingAgentStart = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 void *__MobileBluetoothLibrary_block_invoke()
@@ -1014,7 +1004,7 @@ uint64_t initBTDeviceDisconnect(uint64_t a1)
   v2 = dlsym(MobileBluetoothLibrary_sLib, "BTDeviceDisconnect");
   softLinkBTDeviceDisconnect = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t initBTPairingAgentCancelPairing(uint64_t a1)
@@ -1027,7 +1017,7 @@ uint64_t initBTPairingAgentCancelPairing(uint64_t a1)
   v2 = dlsym(MobileBluetoothLibrary_sLib, "BTPairingAgentCancelPairing");
   softLinkBTPairingAgentCancelPairing = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t initBTPairingAgentStop(uint64_t a1)
@@ -1040,7 +1030,7 @@ uint64_t initBTPairingAgentStop(uint64_t a1)
   v2 = dlsym(MobileBluetoothLibrary_sLib, "BTPairingAgentStop");
   softLinkBTPairingAgentStop = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t initBTPairingAgentDestroy(uint64_t a1)
@@ -1053,7 +1043,7 @@ uint64_t initBTPairingAgentDestroy(uint64_t a1)
   v2 = dlsym(MobileBluetoothLibrary_sLib, "BTPairingAgentDestroy");
   softLinkBTPairingAgentDestroy = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t initBTServiceRemoveCallbacks(uint64_t a1, uint64_t a2)
@@ -1079,7 +1069,7 @@ uint64_t initBTSessionDetachWithQueue(uint64_t a1)
   v2 = dlsym(MobileBluetoothLibrary_sLib, "BTSessionDetachWithQueue");
   softLinkBTSessionDetachWithQueue = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t initBTPairingAgentDeletePairedDevice(uint64_t a1, uint64_t a2)
@@ -1343,33 +1333,18 @@ uint64_t initBTAccessoryManagerGetFeatureCapability(uint64_t a1, uint64_t a2, ui
   return (v8)(a1, a2, a3, a4);
 }
 
-uint64_t OUTLINED_FUNCTION_0_0(int a1, unsigned int **a2, uint64_t a3, _DWORD *a4)
+id BTErrorF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  *a4 = a1 + 310000;
-  result = *a2;
-  v5 = **a2;
-  return result;
+  v9 = NSErrorV();
+
+  return v9;
 }
 
-unsigned int *OUTLINED_FUNCTION_1(unsigned int **a1)
+id BTNestedErrorF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  result = *a1;
-  v2 = *result;
-  return result;
-}
+  v9 = NSErrorNestedV();
 
-id BTErrorF()
-{
-  v0 = NSErrorV();
-
-  return v0;
-}
-
-id BTNestedErrorF()
-{
-  v0 = NSErrorNestedV();
-
-  return v0;
+  return v9;
 }
 
 uint64_t BTXPCGetNextClientID()
@@ -1389,15 +1364,15 @@ uint64_t __BTXPCGetNextClientID_block_invoke()
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_1_0()
+uint64_t OUTLINED_FUNCTION_1_0(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
 
-  return LogPrintF();
+  return LogPrintF(a1, a2, 90, a4);
 }
 
-void sub_241BF0FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241BF0FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1426,39 +1401,31 @@ int *_btServiceEventHandler_cold_1(uint64_t a1, int **a2)
   v3 = **a2;
   if (v3 <= 90)
   {
-    if (v3 != -1)
+    if (v3 != -1 || (result = _LogCategory_Initialize(), result))
     {
-LABEL_3:
       OUTLINED_FUNCTION_2();
-      return LogPrintF();
-    }
-
-    result = _LogCategory_Initialize();
-    if (result)
-    {
-      v5 = *a2;
-      goto LABEL_3;
+      return LogPrintF(v4, "void _btServiceEventHandler(BTDevice, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void *)", 90, "### BTDeviceGetAddressString event %@ failed: %#m\n");
     }
   }
 
   return result;
 }
 
-int *_btServiceEventHandler_cold_2(int **a1)
+int *_btServiceEventHandler_cold_2(int **a1, const char *a2, const char *a3)
 {
   result = *a1;
   if (*result <= 30)
   {
     if (*result != -1)
     {
-      return LogPrintF();
+      return LogPrintF(result, "void _btServiceEventHandler(BTDevice, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void *)", 30, "BTService connect, ignoring device: %s vs %s\n", a2, a3);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v3 = *a1;
-      return LogPrintF();
+      result = *a1;
+      return LogPrintF(result, "void _btServiceEventHandler(BTDevice, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void *)", 30, "BTService connect, ignoring device: %s vs %s\n", a2, a3);
     }
   }
 
@@ -1470,18 +1437,10 @@ int *_btPairingAgentUserConfirmationHandler_cold_1(uint64_t a1, uint64_t a2)
   result = *(a2 + 136);
   if (*result <= 90)
   {
-    if (*result != -1)
+    if (*result != -1 || (result = _LogCategory_Initialize(), result))
     {
-LABEL_3:
       OUTLINED_FUNCTION_2();
-      return LogPrintF();
-    }
-
-    result = _LogCategory_Initialize();
-    if (result)
-    {
-      v4 = *(a2 + 136);
-      goto LABEL_3;
+      return LogPrintF(v3, "void _btPairingAgentUserConfirmationHandler(BTPairingAgent, BTDevice, uint32_t, BTBool, void *)", 90, "### BTDeviceGetAddressString confirm %@ failed: %#m\n");
     }
   }
 

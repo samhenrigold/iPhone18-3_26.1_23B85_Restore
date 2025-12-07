@@ -90,7 +90,7 @@
 
 - (id)buildTitle
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   voicemailTranscription = [(SSPhoneResultBuilder *)self voicemailTranscription];
   v4 = [voicemailTranscription length];
 
@@ -104,9 +104,9 @@
 
   else
   {
-    v13.receiver = self;
-    v13.super_class = SSPhoneResultBuilder;
-    buildTitle = [(SSResultBuilder *)&v13 buildTitle];
+    v12.receiver = self;
+    v12.super_class = SSPhoneResultBuilder;
+    buildTitle = [(SSResultBuilder *)&v12 buildTitle];
     if ([(SSPhoneResultBuilder *)self isMissedCall])
     {
       v7 = objc_opt_new();
@@ -116,31 +116,29 @@
       [v7 setTextColor:1];
       v9 = objc_opt_new();
 
-      v14[0] = v7;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+      v13[0] = v7;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
       [v9 setFormattedTextPieces:v10];
 
       buildTitle = v9;
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return buildTitle;
 }
 
 - (id)buildDescriptions
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   voicemailTranscription = [(SSPhoneResultBuilder *)self voicemailTranscription];
   v5 = [voicemailTranscription length];
 
   if (v5)
   {
-    v19.receiver = self;
-    v19.super_class = SSPhoneResultBuilder;
-    buildTitle = [(SSResultBuilder *)&v19 buildTitle];
+    v18.receiver = self;
+    v18.super_class = SSPhoneResultBuilder;
+    buildTitle = [(SSResultBuilder *)&v18 buildTitle];
     text = [buildTitle text];
 
     if (![text length])
@@ -175,21 +173,19 @@ LABEL_8:
     [v3 addObject:v12];
   }
 
-  if ([v3 count])
+  if (objc_msgSend_count(v3))
   {
     v13 = MEMORY[0x1E69CA3A0];
     v14 = [v3 componentsJoinedByString:@" · "];
     v15 = [v13 textWithString:v14];
-    v20[0] = v15;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+    v19[0] = v15;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
   }
 
   else
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -285,7 +281,7 @@ LABEL_8:
     [v3 addObject:v15];
   }
 
-  if ([v3 count])
+  if (objc_msgSend_count(v3))
   {
     v16 = v3;
   }
@@ -315,9 +311,9 @@ LABEL_8:
 
 - (id)buildPreviewButtonItems
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   contactIdentifiers = [(SSPhoneResultBuilder *)self contactIdentifiers];
-  if ([contactIdentifiers count] && (-[SSPhoneResultBuilder voicemailTranscription](self, "voicemailTranscription"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "length"), v4, !v5))
+  if (objc_msgSend_count(contactIdentifiers) && (-[SSPhoneResultBuilder voicemailTranscription](self, "voicemailTranscription"), v4 = objc_claimAutoreleasedReturnValue(), v5 = [v4 length], v4, !v5))
   {
     v7 = objc_opt_new();
     firstObject = [contactIdentifiers firstObject];
@@ -335,22 +331,20 @@ LABEL_8:
     }
 
     v11 = [v9 numberWithInt:v10];
-    v17[0] = v11;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
     [v7 setActionTypesToShow:v12];
 
-    v16 = v7;
-    buildPreviewButtonItems = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+    v15 = v7;
+    buildPreviewButtonItems = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
   }
 
   else
   {
-    v15.receiver = self;
-    v15.super_class = SSPhoneResultBuilder;
-    buildPreviewButtonItems = [(SSResultBuilder *)&v15 buildPreviewButtonItems];
+    v14.receiver = self;
+    v14.super_class = SSPhoneResultBuilder;
+    buildPreviewButtonItems = [(SSResultBuilder *)&v14 buildPreviewButtonItems];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return buildPreviewButtonItems;
 }

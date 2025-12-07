@@ -1,347 +1,4 @@
-uint64_t sub_10010DB7C(uint64_t a1, uint64_t a2, char a3, uint64_t a4, char a5)
-{
-  *(v5 + 163) = a5;
-  *(v5 + 144) = a2;
-  *(v5 + 152) = a4;
-  *(v5 + 162) = a3;
-  *(v5 + 136) = a1;
-
-  return _swift_task_switch(sub_10010DC18, 0, 0);
-}
-
-uint64_t sub_10010DC18()
-{
-  v115 = v0;
-  *(v0 + 40) = 0;
-  v1 = *(v0 + 152);
-  v2 = *(v0 + 136);
-  *(v0 + 48) = 0;
-  v3 = sub_1000CEAB4(v2, *(v0 + 162), &_mh_execute_header);
-  swift_beginAccess();
-  os_activity_scope_enter(v3, (v0 + 40));
-  swift_endAccess();
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v4, v5))
-  {
-    v6 = swift_slowAlloc();
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v4, v5, "Checking for first unlock.", v6, 2u);
-  }
-
-  v7 = *(v0 + 152);
-
-  v8 = MKBUserUnlockedSinceBoot();
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.error.getter();
-  v11 = os_log_type_enabled(v9, v10);
-  if (v8)
-  {
-    if (v11)
-    {
-      v13 = *(v0 + 136);
-      v12 = *(v0 + 144);
-      v14 = *(v0 + 162);
-      v15 = swift_slowAlloc();
-      v16 = swift_slowAlloc();
-      v114 = v16;
-      *v15 = 136446210;
-      v17 = StaticString.description.getter();
-      v19 = sub_1000A2E68(v17, v18, &v114);
-
-      *(v15 + 4) = v19;
-      _os_log_impl(&_mh_execute_header, v9, v10, "Device does not have the simplified_agent feature flag enabled. ScreenTimeAgent shouldn't run the DaemonActivity for %{public}s", v15, 0xCu);
-      sub_1000A462C(v16);
-    }
-
-    v20 = 1;
-  }
-
-  else
-  {
-    if (v11)
-    {
-      v21 = swift_slowAlloc();
-      *v21 = 0;
-      _os_log_impl(&_mh_execute_header, v9, v10, "Device has not been unlocked, and STAgent has been called. The caller will receive an error.", v21, 2u);
-    }
-
-    v20 = 0;
-  }
-
-  sub_1000A0F2C(&qword_1001E3648, &unk_100143730);
-  sub_10010A23C(&qword_1001E3650, &qword_1001E3648, &unk_100143730);
-  v22 = swift_allocError();
-  *v23 = v20;
-  swift_willThrow();
-  swift_beginAccess();
-  os_activity_scope_leave((v0 + 40));
-  swift_endAccess();
-  swift_unknownObjectRelease();
-  *(v0 + 104) = v22;
-  swift_errorRetain();
-  sub_1000A0F2C(&unk_1001E1110, &unk_100140900);
-  sub_1000A0F2C(&qword_1001E3648, &unk_100143730);
-  if (swift_dynamicCast() && (*(v0 + 160) & 1) == 0)
-  {
-    v46 = *(v0 + 152);
-
-    v47 = Logger.logObject.getter();
-    v48 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v47, v48))
-    {
-      v49 = swift_slowAlloc();
-      *v49 = 0;
-      _os_log_impl(&_mh_execute_header, v47, v48, "ScreenTimeAgent was started before first unlock. An error will be returned to our caller.", v49, 2u);
-    }
-
-    v50 = *(v0 + 152);
-
-    swift_allocError();
-    *v51 = 0;
-    swift_willThrow();
-    v52 = type metadata accessor for Logger();
-    (*(*(v52 - 8) + 8))(v50, v52);
-    v53 = *(v0 + 104);
-    goto LABEL_44;
-  }
-
-  v24 = *(v0 + 104);
-
-  *(v0 + 112) = v22;
-  v25 = *(*(type metadata accessor for DataStore.DataStoreError(0) - 8) + 64) + 15;
-  v26 = swift_task_alloc();
-  swift_errorRetain();
-  if (swift_dynamicCast())
-  {
-    if (swift_getEnumCaseMultiPayload() == 37)
-    {
-      v27 = *(v0 + 152);
-
-      v28 = *v26;
-      v29 = *v26;
-      v30 = Logger.logObject.getter();
-      v31 = static os_log_type_t.fault.getter();
-
-      if (os_log_type_enabled(v30, v31))
-      {
-        v32 = *(v0 + 136);
-        v33 = *(v0 + 144);
-        v112 = v28;
-        v34 = *(v0 + 162);
-        v35 = swift_slowAlloc();
-        v108 = swift_slowAlloc();
-        v110 = swift_slowAlloc();
-        v114 = v110;
-        *v35 = 136446466;
-        v36 = StaticString.description.getter();
-        v38 = sub_1000A2E68(v36, v37, &v114);
-
-        *(v35 + 4) = v38;
-        v28 = v112;
-        *(v35 + 12) = 2114;
-        sub_10010EAA8(&qword_1001E2A08, type metadata accessor for DataStore.DataStoreError);
-        swift_allocError();
-        *v39 = v112;
-        swift_storeEnumTagMultiPayload();
-        v40 = v29;
-        v41 = _swift_stdlib_bridgeErrorToNSError();
-        *(v35 + 14) = v41;
-        *v108 = v41;
-        _os_log_impl(&_mh_execute_header, v30, v31, "DaemonActivity %{public}s failed with unknown user: %{public}@", v35, 0x16u);
-        sub_1000A5148(v108, &unk_1001E1820, &qword_100140020);
-
-        sub_1000A462C(v110);
-      }
-
-      v42 = *(v0 + 152);
-      sub_10010EAA8(&qword_1001E2A08, type metadata accessor for DataStore.DataStoreError);
-      swift_allocError();
-      *v43 = v28;
-      swift_storeEnumTagMultiPayload();
-      swift_willThrow();
-      v44 = type metadata accessor for Logger();
-      (*(*(v44 - 8) + 8))(v42, v44);
-
-      v45 = *(v0 + 112);
-LABEL_44:
-
-      goto LABEL_45;
-    }
-
-    sub_10010A020(v26);
-  }
-
-  v54 = *(v0 + 112);
-
-  *(v0 + 120) = v22;
-  swift_errorRetain();
-  if (swift_dynamicCast() && (*(v0 + 161) & 1) == 0)
-  {
-
-    if (qword_1001E7008)
-    {
-      v68 = qword_1001E7008;
-    }
-
-    else
-    {
-      sub_1000D3FA4();
-      v68 = swift_allocError();
-      *v96 = 0;
-    }
-
-    v97 = *(v0 + 152);
-    swift_errorRetain();
-    swift_errorRetain();
-    v98 = Logger.logObject.getter();
-    v99 = static os_log_type_t.fault.getter();
-
-    if (os_log_type_enabled(v98, v99))
-    {
-      v100 = swift_slowAlloc();
-      v101 = swift_slowAlloc();
-      *v100 = 138412290;
-      swift_errorRetain();
-      v102 = _swift_stdlib_bridgeErrorToNSError();
-      *(v100 + 4) = v102;
-      *v101 = v102;
-      _os_log_impl(&_mh_execute_header, v98, v99, "The preflight error %@ did not result in a TTR.", v100, 0xCu);
-      sub_1000A5148(v101, &unk_1001E1820, &qword_100140020);
-    }
-
-    v103 = *(v0 + 152);
-
-    sub_10010C040(v68);
-    swift_willThrow();
-
-    v104 = type metadata accessor for Logger();
-    (*(*(v104 - 8) + 8))(v103, v104);
-    v105 = *(v0 + 120);
-    goto LABEL_44;
-  }
-
-  v55 = *(v0 + 120);
-
-  *(v0 + 128) = v22;
-  v56 = swift_task_alloc();
-  swift_errorRetain();
-  if (swift_dynamicCast())
-  {
-    if (swift_getEnumCaseMultiPayload() == 22)
-    {
-      v57 = *(v0 + 152);
-
-      v59 = *v56;
-      v58 = v56[1];
-
-      v60 = Logger.logObject.getter();
-      v61 = static os_log_type_t.error.getter();
-
-      if (os_log_type_enabled(v60, v61))
-      {
-        v62 = swift_slowAlloc();
-        v63 = swift_slowAlloc();
-        v114 = v63;
-        *v62 = 136315138;
-        *(v62 + 4) = sub_1000A2E68(v59, v58, &v114);
-        _os_log_impl(&_mh_execute_header, v60, v61, "askForTime response handling did not find ask request identifier %s", v62, 0xCu);
-        sub_1000A462C(v63);
-      }
-
-      v64 = *(v0 + 152);
-      sub_10010EAA8(&qword_1001E2A08, type metadata accessor for DataStore.DataStoreError);
-      swift_allocError();
-      *v65 = v59;
-      v65[1] = v58;
-      swift_storeEnumTagMultiPayload();
-      swift_willThrow();
-      v66 = type metadata accessor for Logger();
-      (*(*(v66 - 8) + 8))(v64, v66);
-
-      v67 = *(v0 + 128);
-      goto LABEL_44;
-    }
-
-    sub_10010A020(v56);
-  }
-
-  v69 = *(v0 + 152);
-
-  v70 = *(v0 + 128);
-
-  swift_errorRetain();
-  v71 = Logger.logObject.getter();
-  v72 = static os_log_type_t.fault.getter();
-
-  if (os_log_type_enabled(v71, v72))
-  {
-    v74 = *(v0 + 136);
-    v73 = *(v0 + 144);
-    v75 = *(v0 + 162);
-    v76 = swift_slowAlloc();
-    v77 = swift_slowAlloc();
-    v78 = swift_slowAlloc();
-    v114 = v78;
-    *v76 = 136446466;
-    v79 = StaticString.description.getter();
-    v81 = sub_1000A2E68(v79, v80, &v114);
-
-    *(v76 + 4) = v81;
-    *(v76 + 12) = 2114;
-    swift_errorRetain();
-    v82 = _swift_stdlib_bridgeErrorToNSError();
-    *(v76 + 14) = v82;
-    *v77 = v82;
-    _os_log_impl(&_mh_execute_header, v71, v72, "DaemonActivity %{public}s failed with: %{public}@.", v76, 0x16u);
-    sub_1000A5148(v77, &unk_1001E1820, &qword_100140020);
-
-    sub_1000A462C(v78);
-  }
-
-  if ((*(v0 + 163) & 1) == 0 && &class metadata base offset for TapToRadarService && &type metadata accessor for TapToRadarService && &nominal type descriptor for TapToRadarService && &type metadata for TapToRadarService)
-  {
-    v113 = *(v0 + 162);
-    v83 = *(v0 + 152);
-    v109 = *(v0 + 136);
-    v111 = *(v0 + 144);
-    v84 = *(*(sub_1000A0F2C(&unk_1001DF9B0, &qword_100140000) - 8) + 64) + 15;
-    v85 = swift_task_alloc();
-    v86 = type metadata accessor for TaskPriority();
-    (*(*(v86 - 8) + 56))(v85, 1, 1, v86);
-    v87 = type metadata accessor for Logger();
-    v88 = *(v87 - 8);
-    v89 = *(v88 + 64);
-    v90 = swift_task_alloc();
-    (*(v88 + 16))(v90, v83, v87);
-    v91 = (*(v88 + 80) + 32) & ~*(v88 + 80);
-    v92 = swift_allocObject();
-    *(v92 + 16) = 0;
-    *(v92 + 24) = 0;
-    (*(v88 + 32))(v92 + v91, v90, v87);
-    v93 = v92 + ((v91 + v89 + 7) & 0xFFFFFFFFFFFFFFF8);
-    *v93 = v109;
-    *(v93 + 8) = v111;
-    *(v93 + 16) = v113;
-    *(v92 + ((v91 + v89 + 31) & 0xFFFFFFFFFFFFFFF8)) = v22;
-
-    swift_errorRetain();
-    sub_1000A2630(0, 0, v85, &unk_100143740, v92);
-  }
-
-  v94 = *(v0 + 152);
-  sub_10010C040(v22);
-  swift_willThrow();
-
-  v95 = type metadata accessor for Logger();
-  (*(*(v95 - 8) + 8))(v94, v95);
-LABEL_45:
-  v106 = *(v0 + 8);
-
-  return v106();
-}
-
-uint64_t sub_10010EAA8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10010EAA8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -409,334 +66,304 @@ uint64_t sub_10010ED2C(uint64_t a1, uint64_t a2, char a3, uint64_t a4, char a5)
 
 uint64_t sub_10010EDC8()
 {
-  v115 = v0;
+  v89 = v0;
   *(v0 + 40) = 0;
-  v1 = *(v0 + 152);
-  v2 = *(v0 + 136);
+  v1 = *(v0 + 136);
   *(v0 + 48) = 0;
-  v3 = sub_1000CEAB4(v2, *(v0 + 162), &_mh_execute_header);
+  v2 = sub_1000CEAB4(v1, *(v0 + 162), &_mh_execute_header);
   swift_beginAccess();
-  os_activity_scope_enter(v3, (v0 + 40));
+  os_activity_scope_enter(v2, (v0 + 40));
   swift_endAccess();
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v4, v5))
+  v3 = Logger.logObject.getter();
+  v4 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v3, v4))
   {
-    v6 = swift_slowAlloc();
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v4, v5, "Checking for first unlock.", v6, 2u);
+    v5 = swift_slowAlloc();
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, v4, "Checking for first unlock.", v5, 2u);
   }
 
-  v7 = *(v0 + 152);
-
-  v8 = MKBUserUnlockedSinceBoot();
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.error.getter();
-  v11 = os_log_type_enabled(v9, v10);
-  if (v8)
+  v6 = MKBUserUnlockedSinceBoot();
+  v7 = Logger.logObject.getter();
+  v8 = static os_log_type_t.error.getter();
+  v9 = os_log_type_enabled(v7, v8);
+  if (v6)
   {
-    if (v11)
+    if (v9)
     {
-      v13 = *(v0 + 136);
-      v12 = *(v0 + 144);
-      v14 = *(v0 + 162);
-      v15 = swift_slowAlloc();
-      v16 = swift_slowAlloc();
-      v114 = v16;
-      *v15 = 136446210;
-      v17 = StaticString.description.getter();
-      v19 = sub_1000A2E68(v17, v18, &v114);
+      v10 = swift_slowAlloc();
+      v11 = swift_slowAlloc();
+      v88 = v11;
+      *v10 = 136446210;
+      v12 = StaticString.description.getter();
+      v14 = sub_1000A2E68(v12, v13, &v88);
 
-      *(v15 + 4) = v19;
-      _os_log_impl(&_mh_execute_header, v9, v10, "Device does not have the simplified_agent feature flag enabled. ScreenTimeAgent shouldn't run the DaemonActivity for %{public}s", v15, 0xCu);
-      sub_1000A462C(v16);
+      *(v10 + 4) = v14;
+      _os_log_impl(&_mh_execute_header, v7, v8, "Device does not have the simplified_agent feature flag enabled. ScreenTimeAgent shouldn't run the DaemonActivity for %{public}s", v10, 0xCu);
+      sub_1000A462C(v11);
     }
 
-    v20 = 1;
+    v15 = 1;
   }
 
   else
   {
-    if (v11)
+    if (v9)
     {
-      v21 = swift_slowAlloc();
-      *v21 = 0;
-      _os_log_impl(&_mh_execute_header, v9, v10, "Device has not been unlocked, and STAgent has been called. The caller will receive an error.", v21, 2u);
+      v16 = swift_slowAlloc();
+      *v16 = 0;
+      _os_log_impl(&_mh_execute_header, v7, v8, "Device has not been unlocked, and STAgent has been called. The caller will receive an error.", v16, 2u);
     }
 
-    v20 = 0;
+    v15 = 0;
   }
 
   sub_1000A0F2C(&qword_1001E3658, &qword_100143780);
   sub_10010A23C(&qword_1001E3660, &qword_1001E3658, &qword_100143780);
-  v22 = swift_allocError();
-  *v23 = v20;
+  v17 = swift_allocError();
+  *v18 = v15;
   swift_willThrow();
   swift_beginAccess();
   os_activity_scope_leave((v0 + 40));
   swift_endAccess();
   swift_unknownObjectRelease();
-  *(v0 + 104) = v22;
+  *(v0 + 104) = v17;
   swift_errorRetain();
   sub_1000A0F2C(&unk_1001E1110, &unk_100140900);
   sub_1000A0F2C(&qword_1001E3658, &qword_100143780);
   if (swift_dynamicCast() && (*(v0 + 160) & 1) == 0)
   {
-    v46 = *(v0 + 152);
 
-    v47 = Logger.logObject.getter();
-    v48 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v47, v48))
+    v34 = Logger.logObject.getter();
+    v35 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v34, v35))
     {
-      v49 = swift_slowAlloc();
-      *v49 = 0;
-      _os_log_impl(&_mh_execute_header, v47, v48, "ScreenTimeAgent was started before first unlock. An error will be returned to our caller.", v49, 2u);
+      v36 = swift_slowAlloc();
+      *v36 = 0;
+      _os_log_impl(&_mh_execute_header, v34, v35, "ScreenTimeAgent was started before first unlock. An error will be returned to our caller.", v36, 2u);
     }
 
-    v50 = *(v0 + 152);
+    v37 = *(v0 + 152);
 
     swift_allocError();
-    *v51 = 0;
+    *v38 = 0;
     swift_willThrow();
-    v52 = type metadata accessor for Logger();
-    (*(*(v52 - 8) + 8))(v50, v52);
-    v53 = *(v0 + 104);
+    v39 = type metadata accessor for Logger();
+    (*(*(v39 - 8) + 8))(v37, v39);
     goto LABEL_44;
   }
 
-  v24 = *(v0 + 104);
-
-  *(v0 + 112) = v22;
-  v25 = *(*(type metadata accessor for DataStore.DataStoreError(0) - 8) + 64) + 15;
-  v26 = swift_task_alloc();
+  *(v0 + 112) = v17;
+  type metadata accessor for DataStore.DataStoreError(0);
+  v19 = swift_task_alloc();
   swift_errorRetain();
   if (swift_dynamicCast())
   {
     if (swift_getEnumCaseMultiPayload() == 37)
     {
-      v27 = *(v0 + 152);
 
-      v28 = *v26;
-      v29 = *v26;
-      v30 = Logger.logObject.getter();
-      v31 = static os_log_type_t.fault.getter();
+      v20 = *v19;
+      v21 = *v19;
+      v22 = Logger.logObject.getter();
+      v23 = static os_log_type_t.fault.getter();
 
-      if (os_log_type_enabled(v30, v31))
+      if (os_log_type_enabled(v22, v23))
       {
-        v32 = *(v0 + 136);
-        v33 = *(v0 + 144);
-        v112 = v28;
-        v34 = *(v0 + 162);
-        v35 = swift_slowAlloc();
-        v108 = swift_slowAlloc();
-        v110 = swift_slowAlloc();
-        v114 = v110;
-        *v35 = 136446466;
-        v36 = StaticString.description.getter();
-        v38 = sub_1000A2E68(v36, v37, &v114);
+        v86 = v20;
+        v24 = swift_slowAlloc();
+        v82 = swift_slowAlloc();
+        v84 = swift_slowAlloc();
+        v88 = v84;
+        *v24 = 136446466;
+        v25 = StaticString.description.getter();
+        v27 = sub_1000A2E68(v25, v26, &v88);
 
-        *(v35 + 4) = v38;
-        v28 = v112;
-        *(v35 + 12) = 2114;
-        sub_10010EAA8(&qword_1001E2A08, type metadata accessor for DataStore.DataStoreError);
+        *(v24 + 4) = v27;
+        v20 = v86;
+        *(v24 + 12) = 2114;
+        sub_10010EAA8(&qword_1001E2A08, type metadata accessor for DataStore.DataStoreError, &unk_100142AB0);
         swift_allocError();
-        *v39 = v112;
+        *v28 = v86;
         swift_storeEnumTagMultiPayload();
-        v40 = v29;
-        v41 = _swift_stdlib_bridgeErrorToNSError();
-        *(v35 + 14) = v41;
-        *v108 = v41;
-        _os_log_impl(&_mh_execute_header, v30, v31, "DaemonActivity %{public}s failed with unknown user: %{public}@", v35, 0x16u);
-        sub_1000A5148(v108, &unk_1001E1820, &qword_100140020);
+        v29 = v21;
+        v30 = _swift_stdlib_bridgeErrorToNSError();
+        *(v24 + 14) = v30;
+        *v82 = v30;
+        _os_log_impl(&_mh_execute_header, v22, v23, "DaemonActivity %{public}s failed with unknown user: %{public}@", v24, 0x16u);
+        sub_1000A5148(v82, &unk_1001E1820, &qword_100140020);
 
-        sub_1000A462C(v110);
+        sub_1000A462C(v84);
       }
 
-      v42 = *(v0 + 152);
-      sub_10010EAA8(&qword_1001E2A08, type metadata accessor for DataStore.DataStoreError);
+      v31 = *(v0 + 152);
+      sub_10010EAA8(&qword_1001E2A08, type metadata accessor for DataStore.DataStoreError, &unk_100142AB0);
       swift_allocError();
-      *v43 = v28;
+      *v32 = v20;
       swift_storeEnumTagMultiPayload();
       swift_willThrow();
-      v44 = type metadata accessor for Logger();
-      (*(*(v44 - 8) + 8))(v42, v44);
+      v33 = type metadata accessor for Logger();
+      (*(*(v33 - 8) + 8))(v31, v33);
 
-      v45 = *(v0 + 112);
 LABEL_44:
 
       goto LABEL_45;
     }
 
-    sub_10010A020(v26);
+    sub_10010A020(v19);
   }
 
-  v54 = *(v0 + 112);
-
-  *(v0 + 120) = v22;
+  *(v0 + 120) = v17;
   swift_errorRetain();
   if (swift_dynamicCast() && (*(v0 + 161) & 1) == 0)
   {
 
     if (qword_1001E7008)
     {
-      v68 = qword_1001E7008;
+      v50 = qword_1001E7008;
     }
 
     else
     {
       sub_1000D3FA4();
-      v68 = swift_allocError();
-      *v96 = 0;
+      v50 = swift_allocError();
+      *v72 = 0;
     }
 
-    v97 = *(v0 + 152);
     swift_errorRetain();
     swift_errorRetain();
-    v98 = Logger.logObject.getter();
-    v99 = static os_log_type_t.fault.getter();
+    v73 = Logger.logObject.getter();
+    v74 = static os_log_type_t.fault.getter();
 
-    if (os_log_type_enabled(v98, v99))
+    if (os_log_type_enabled(v73, v74))
     {
-      v100 = swift_slowAlloc();
-      v101 = swift_slowAlloc();
-      *v100 = 138412290;
+      v75 = swift_slowAlloc();
+      v76 = swift_slowAlloc();
+      *v75 = 138412290;
       swift_errorRetain();
-      v102 = _swift_stdlib_bridgeErrorToNSError();
-      *(v100 + 4) = v102;
-      *v101 = v102;
-      _os_log_impl(&_mh_execute_header, v98, v99, "The preflight error %@ did not result in a TTR.", v100, 0xCu);
-      sub_1000A5148(v101, &unk_1001E1820, &qword_100140020);
+      v77 = _swift_stdlib_bridgeErrorToNSError();
+      *(v75 + 4) = v77;
+      *v76 = v77;
+      _os_log_impl(&_mh_execute_header, v73, v74, "The preflight error %@ did not result in a TTR.", v75, 0xCu);
+      sub_1000A5148(v76, &unk_1001E1820, &qword_100140020);
     }
 
-    v103 = *(v0 + 152);
+    v78 = *(v0 + 152);
 
-    sub_10010C040(v68);
+    sub_10010C040(v50);
     swift_willThrow();
 
-    v104 = type metadata accessor for Logger();
-    (*(*(v104 - 8) + 8))(v103, v104);
-    v105 = *(v0 + 120);
+    v79 = type metadata accessor for Logger();
+    (*(*(v79 - 8) + 8))(v78, v79);
     goto LABEL_44;
   }
 
-  v55 = *(v0 + 120);
-
-  *(v0 + 128) = v22;
-  v56 = swift_task_alloc();
+  *(v0 + 128) = v17;
+  v40 = swift_task_alloc();
   swift_errorRetain();
   if (swift_dynamicCast())
   {
     if (swift_getEnumCaseMultiPayload() == 22)
     {
-      v57 = *(v0 + 152);
 
-      v59 = *v56;
-      v58 = v56[1];
+      v42 = *v40;
+      v41 = v40[1];
 
-      v60 = Logger.logObject.getter();
-      v61 = static os_log_type_t.error.getter();
+      v43 = Logger.logObject.getter();
+      v44 = static os_log_type_t.error.getter();
 
-      if (os_log_type_enabled(v60, v61))
+      if (os_log_type_enabled(v43, v44))
       {
-        v62 = swift_slowAlloc();
-        v63 = swift_slowAlloc();
-        v114 = v63;
-        *v62 = 136315138;
-        *(v62 + 4) = sub_1000A2E68(v59, v58, &v114);
-        _os_log_impl(&_mh_execute_header, v60, v61, "askForTime response handling did not find ask request identifier %s", v62, 0xCu);
-        sub_1000A462C(v63);
+        v45 = swift_slowAlloc();
+        v46 = swift_slowAlloc();
+        v88 = v46;
+        *v45 = 136315138;
+        *(v45 + 4) = sub_1000A2E68(v42, v41, &v88);
+        _os_log_impl(&_mh_execute_header, v43, v44, "askForTime response handling did not find ask request identifier %s", v45, 0xCu);
+        sub_1000A462C(v46);
       }
 
-      v64 = *(v0 + 152);
-      sub_10010EAA8(&qword_1001E2A08, type metadata accessor for DataStore.DataStoreError);
+      v47 = *(v0 + 152);
+      sub_10010EAA8(&qword_1001E2A08, type metadata accessor for DataStore.DataStoreError, &unk_100142AB0);
       swift_allocError();
-      *v65 = v59;
-      v65[1] = v58;
+      *v48 = v42;
+      v48[1] = v41;
       swift_storeEnumTagMultiPayload();
       swift_willThrow();
-      v66 = type metadata accessor for Logger();
-      (*(*(v66 - 8) + 8))(v64, v66);
+      v49 = type metadata accessor for Logger();
+      (*(*(v49 - 8) + 8))(v47, v49);
 
-      v67 = *(v0 + 128);
       goto LABEL_44;
     }
 
-    sub_10010A020(v56);
+    sub_10010A020(v40);
   }
 
-  v69 = *(v0 + 152);
-
-  v70 = *(v0 + 128);
-
   swift_errorRetain();
-  v71 = Logger.logObject.getter();
-  v72 = static os_log_type_t.fault.getter();
+  v51 = Logger.logObject.getter();
+  v52 = static os_log_type_t.fault.getter();
 
-  if (os_log_type_enabled(v71, v72))
+  if (os_log_type_enabled(v51, v52))
   {
-    v74 = *(v0 + 136);
-    v73 = *(v0 + 144);
-    v75 = *(v0 + 162);
-    v76 = swift_slowAlloc();
-    v77 = swift_slowAlloc();
-    v78 = swift_slowAlloc();
-    v114 = v78;
-    *v76 = 136446466;
-    v79 = StaticString.description.getter();
-    v81 = sub_1000A2E68(v79, v80, &v114);
+    v53 = swift_slowAlloc();
+    v54 = swift_slowAlloc();
+    v55 = swift_slowAlloc();
+    v88 = v55;
+    *v53 = 136446466;
+    v56 = StaticString.description.getter();
+    v58 = sub_1000A2E68(v56, v57, &v88);
 
-    *(v76 + 4) = v81;
-    *(v76 + 12) = 2114;
+    *(v53 + 4) = v58;
+    *(v53 + 12) = 2114;
     swift_errorRetain();
-    v82 = _swift_stdlib_bridgeErrorToNSError();
-    *(v76 + 14) = v82;
-    *v77 = v82;
-    _os_log_impl(&_mh_execute_header, v71, v72, "DaemonActivity %{public}s failed with: %{public}@.", v76, 0x16u);
-    sub_1000A5148(v77, &unk_1001E1820, &qword_100140020);
+    v59 = _swift_stdlib_bridgeErrorToNSError();
+    *(v53 + 14) = v59;
+    *v54 = v59;
+    _os_log_impl(&_mh_execute_header, v51, v52, "DaemonActivity %{public}s failed with: %{public}@.", v53, 0x16u);
+    sub_1000A5148(v54, &unk_1001E1820, &qword_100140020);
 
-    sub_1000A462C(v78);
+    sub_1000A462C(v55);
   }
 
   if ((*(v0 + 163) & 1) == 0 && &class metadata base offset for TapToRadarService && &type metadata accessor for TapToRadarService && &nominal type descriptor for TapToRadarService && &type metadata for TapToRadarService)
   {
-    v113 = *(v0 + 162);
-    v83 = *(v0 + 152);
-    v109 = *(v0 + 136);
-    v111 = *(v0 + 144);
-    v84 = *(*(sub_1000A0F2C(&unk_1001DF9B0, &qword_100140000) - 8) + 64) + 15;
-    v85 = swift_task_alloc();
-    v86 = type metadata accessor for TaskPriority();
-    (*(*(v86 - 8) + 56))(v85, 1, 1, v86);
-    v87 = type metadata accessor for Logger();
-    v88 = *(v87 - 8);
-    v89 = *(v88 + 64);
-    v90 = swift_task_alloc();
-    (*(v88 + 16))(v90, v83, v87);
-    v91 = (*(v88 + 80) + 32) & ~*(v88 + 80);
-    v92 = swift_allocObject();
-    *(v92 + 16) = 0;
-    *(v92 + 24) = 0;
-    (*(v88 + 32))(v92 + v91, v90, v87);
-    v93 = v92 + ((v91 + v89 + 7) & 0xFFFFFFFFFFFFFFF8);
-    *v93 = v109;
-    *(v93 + 8) = v111;
-    *(v93 + 16) = v113;
-    *(v92 + ((v91 + v89 + 31) & 0xFFFFFFFFFFFFFFF8)) = v22;
+    v87 = *(v0 + 162);
+    v60 = *(v0 + 152);
+    v83 = *(v0 + 136);
+    v85 = *(v0 + 144);
+    sub_1000A0F2C(&unk_1001DF9B0, &qword_100140000);
+    v61 = swift_task_alloc();
+    v62 = type metadata accessor for TaskPriority();
+    (*(*(v62 - 8) + 56))(v61, 1, 1, v62);
+    v63 = type metadata accessor for Logger();
+    v64 = *(v63 - 8);
+    v65 = *(v64 + 64);
+    v66 = swift_task_alloc();
+    (*(v64 + 16))(v66, v60, v63);
+    v67 = (*(v64 + 80) + 32) & ~*(v64 + 80);
+    v68 = swift_allocObject();
+    *(v68 + 16) = 0;
+    *(v68 + 24) = 0;
+    (*(v64 + 32))(v68 + v67, v66, v63);
+    v69 = v68 + ((v67 + v65 + 7) & 0xFFFFFFFFFFFFFFF8);
+    *v69 = v83;
+    *(v69 + 8) = v85;
+    *(v69 + 16) = v87;
+    *(v68 + ((v67 + v65 + 31) & 0xFFFFFFFFFFFFFFF8)) = v17;
 
     swift_errorRetain();
-    sub_1000A2630(0, 0, v85, &unk_100143B38, v92);
+    sub_1000A2630(0, 0, v61, &unk_100143B38, v68);
   }
 
-  v94 = *(v0 + 152);
-  sub_10010C040(v22);
+  v70 = *(v0 + 152);
+  sub_10010C040(v17);
   swift_willThrow();
 
-  v95 = type metadata accessor for Logger();
-  (*(*(v95 - 8) + 8))(v94, v95);
+  v71 = type metadata accessor for Logger();
+  (*(*(v71 - 8) + 8))(v70, v71);
 LABEL_45:
-  v106 = *(v0 + 8);
+  v80 = *(v0 + 8);
 
-  return v106(0);
+  return v80(0);
 }
 
 uint64_t sub_10010FC5C(uint64_t a1, uint64_t a2, char a3, uint64_t a4, char a5)
@@ -752,334 +379,304 @@ uint64_t sub_10010FC5C(uint64_t a1, uint64_t a2, char a3, uint64_t a4, char a5)
 
 uint64_t sub_10010FCF8()
 {
-  v115 = v0;
+  v89 = v0;
   *(v0 + 40) = 0;
-  v1 = *(v0 + 152);
-  v2 = *(v0 + 136);
+  v1 = *(v0 + 136);
   *(v0 + 48) = 0;
-  v3 = sub_1000CEAB4(v2, *(v0 + 162), &_mh_execute_header);
+  v2 = sub_1000CEAB4(v1, *(v0 + 162), &_mh_execute_header);
   swift_beginAccess();
-  os_activity_scope_enter(v3, (v0 + 40));
+  os_activity_scope_enter(v2, (v0 + 40));
   swift_endAccess();
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v4, v5))
+  v3 = Logger.logObject.getter();
+  v4 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v3, v4))
   {
-    v6 = swift_slowAlloc();
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v4, v5, "Checking for first unlock.", v6, 2u);
+    v5 = swift_slowAlloc();
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, v4, "Checking for first unlock.", v5, 2u);
   }
 
-  v7 = *(v0 + 152);
-
-  v8 = MKBUserUnlockedSinceBoot();
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.error.getter();
-  v11 = os_log_type_enabled(v9, v10);
-  if (v8)
+  v6 = MKBUserUnlockedSinceBoot();
+  v7 = Logger.logObject.getter();
+  v8 = static os_log_type_t.error.getter();
+  v9 = os_log_type_enabled(v7, v8);
+  if (v6)
   {
-    if (v11)
+    if (v9)
     {
-      v13 = *(v0 + 136);
-      v12 = *(v0 + 144);
-      v14 = *(v0 + 162);
-      v15 = swift_slowAlloc();
-      v16 = swift_slowAlloc();
-      v114 = v16;
-      *v15 = 136446210;
-      v17 = StaticString.description.getter();
-      v19 = sub_1000A2E68(v17, v18, &v114);
+      v10 = swift_slowAlloc();
+      v11 = swift_slowAlloc();
+      v88 = v11;
+      *v10 = 136446210;
+      v12 = StaticString.description.getter();
+      v14 = sub_1000A2E68(v12, v13, &v88);
 
-      *(v15 + 4) = v19;
-      _os_log_impl(&_mh_execute_header, v9, v10, "Device does not have the simplified_agent feature flag enabled. ScreenTimeAgent shouldn't run the DaemonActivity for %{public}s", v15, 0xCu);
-      sub_1000A462C(v16);
+      *(v10 + 4) = v14;
+      _os_log_impl(&_mh_execute_header, v7, v8, "Device does not have the simplified_agent feature flag enabled. ScreenTimeAgent shouldn't run the DaemonActivity for %{public}s", v10, 0xCu);
+      sub_1000A462C(v11);
     }
 
-    v20 = 1;
+    v15 = 1;
   }
 
   else
   {
-    if (v11)
+    if (v9)
     {
-      v21 = swift_slowAlloc();
-      *v21 = 0;
-      _os_log_impl(&_mh_execute_header, v9, v10, "Device has not been unlocked, and STAgent has been called. The caller will receive an error.", v21, 2u);
+      v16 = swift_slowAlloc();
+      *v16 = 0;
+      _os_log_impl(&_mh_execute_header, v7, v8, "Device has not been unlocked, and STAgent has been called. The caller will receive an error.", v16, 2u);
     }
 
-    v20 = 0;
+    v15 = 0;
   }
 
   sub_1000A0F2C(&qword_1001E38A8, &qword_100143B18);
   sub_10010A23C(&qword_1001E38B0, &qword_1001E38A8, &qword_100143B18);
-  v22 = swift_allocError();
-  *v23 = v20;
+  v17 = swift_allocError();
+  *v18 = v15;
   swift_willThrow();
   swift_beginAccess();
   os_activity_scope_leave((v0 + 40));
   swift_endAccess();
   swift_unknownObjectRelease();
-  *(v0 + 104) = v22;
+  *(v0 + 104) = v17;
   swift_errorRetain();
   sub_1000A0F2C(&unk_1001E1110, &unk_100140900);
   sub_1000A0F2C(&qword_1001E38A8, &qword_100143B18);
   if (swift_dynamicCast() && (*(v0 + 160) & 1) == 0)
   {
-    v46 = *(v0 + 152);
 
-    v47 = Logger.logObject.getter();
-    v48 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v47, v48))
+    v34 = Logger.logObject.getter();
+    v35 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v34, v35))
     {
-      v49 = swift_slowAlloc();
-      *v49 = 0;
-      _os_log_impl(&_mh_execute_header, v47, v48, "ScreenTimeAgent was started before first unlock. An error will be returned to our caller.", v49, 2u);
+      v36 = swift_slowAlloc();
+      *v36 = 0;
+      _os_log_impl(&_mh_execute_header, v34, v35, "ScreenTimeAgent was started before first unlock. An error will be returned to our caller.", v36, 2u);
     }
 
-    v50 = *(v0 + 152);
+    v37 = *(v0 + 152);
 
     swift_allocError();
-    *v51 = 0;
+    *v38 = 0;
     swift_willThrow();
-    v52 = type metadata accessor for Logger();
-    (*(*(v52 - 8) + 8))(v50, v52);
-    v53 = *(v0 + 104);
+    v39 = type metadata accessor for Logger();
+    (*(*(v39 - 8) + 8))(v37, v39);
     goto LABEL_44;
   }
 
-  v24 = *(v0 + 104);
-
-  *(v0 + 112) = v22;
-  v25 = *(*(type metadata accessor for DataStore.DataStoreError(0) - 8) + 64) + 15;
-  v26 = swift_task_alloc();
+  *(v0 + 112) = v17;
+  type metadata accessor for DataStore.DataStoreError(0);
+  v19 = swift_task_alloc();
   swift_errorRetain();
   if (swift_dynamicCast())
   {
     if (swift_getEnumCaseMultiPayload() == 37)
     {
-      v27 = *(v0 + 152);
 
-      v28 = *v26;
-      v29 = *v26;
-      v30 = Logger.logObject.getter();
-      v31 = static os_log_type_t.fault.getter();
+      v20 = *v19;
+      v21 = *v19;
+      v22 = Logger.logObject.getter();
+      v23 = static os_log_type_t.fault.getter();
 
-      if (os_log_type_enabled(v30, v31))
+      if (os_log_type_enabled(v22, v23))
       {
-        v32 = *(v0 + 136);
-        v33 = *(v0 + 144);
-        v112 = v28;
-        v34 = *(v0 + 162);
-        v35 = swift_slowAlloc();
-        v108 = swift_slowAlloc();
-        v110 = swift_slowAlloc();
-        v114 = v110;
-        *v35 = 136446466;
-        v36 = StaticString.description.getter();
-        v38 = sub_1000A2E68(v36, v37, &v114);
+        v86 = v20;
+        v24 = swift_slowAlloc();
+        v82 = swift_slowAlloc();
+        v84 = swift_slowAlloc();
+        v88 = v84;
+        *v24 = 136446466;
+        v25 = StaticString.description.getter();
+        v27 = sub_1000A2E68(v25, v26, &v88);
 
-        *(v35 + 4) = v38;
-        v28 = v112;
-        *(v35 + 12) = 2114;
-        sub_10010EAA8(&qword_1001E2A08, type metadata accessor for DataStore.DataStoreError);
+        *(v24 + 4) = v27;
+        v20 = v86;
+        *(v24 + 12) = 2114;
+        sub_10010EAA8(&qword_1001E2A08, type metadata accessor for DataStore.DataStoreError, &unk_100142AB0);
         swift_allocError();
-        *v39 = v112;
+        *v28 = v86;
         swift_storeEnumTagMultiPayload();
-        v40 = v29;
-        v41 = _swift_stdlib_bridgeErrorToNSError();
-        *(v35 + 14) = v41;
-        *v108 = v41;
-        _os_log_impl(&_mh_execute_header, v30, v31, "DaemonActivity %{public}s failed with unknown user: %{public}@", v35, 0x16u);
-        sub_1000A5148(v108, &unk_1001E1820, &qword_100140020);
+        v29 = v21;
+        v30 = _swift_stdlib_bridgeErrorToNSError();
+        *(v24 + 14) = v30;
+        *v82 = v30;
+        _os_log_impl(&_mh_execute_header, v22, v23, "DaemonActivity %{public}s failed with unknown user: %{public}@", v24, 0x16u);
+        sub_1000A5148(v82, &unk_1001E1820, &qword_100140020);
 
-        sub_1000A462C(v110);
+        sub_1000A462C(v84);
       }
 
-      v42 = *(v0 + 152);
-      sub_10010EAA8(&qword_1001E2A08, type metadata accessor for DataStore.DataStoreError);
+      v31 = *(v0 + 152);
+      sub_10010EAA8(&qword_1001E2A08, type metadata accessor for DataStore.DataStoreError, &unk_100142AB0);
       swift_allocError();
-      *v43 = v28;
+      *v32 = v20;
       swift_storeEnumTagMultiPayload();
       swift_willThrow();
-      v44 = type metadata accessor for Logger();
-      (*(*(v44 - 8) + 8))(v42, v44);
+      v33 = type metadata accessor for Logger();
+      (*(*(v33 - 8) + 8))(v31, v33);
 
-      v45 = *(v0 + 112);
 LABEL_44:
 
       goto LABEL_45;
     }
 
-    sub_10010A020(v26);
+    sub_10010A020(v19);
   }
 
-  v54 = *(v0 + 112);
-
-  *(v0 + 120) = v22;
+  *(v0 + 120) = v17;
   swift_errorRetain();
   if (swift_dynamicCast() && (*(v0 + 161) & 1) == 0)
   {
 
     if (qword_1001E7008)
     {
-      v68 = qword_1001E7008;
+      v50 = qword_1001E7008;
     }
 
     else
     {
       sub_1000D3FA4();
-      v68 = swift_allocError();
-      *v96 = 0;
+      v50 = swift_allocError();
+      *v72 = 0;
     }
 
-    v97 = *(v0 + 152);
     swift_errorRetain();
     swift_errorRetain();
-    v98 = Logger.logObject.getter();
-    v99 = static os_log_type_t.fault.getter();
+    v73 = Logger.logObject.getter();
+    v74 = static os_log_type_t.fault.getter();
 
-    if (os_log_type_enabled(v98, v99))
+    if (os_log_type_enabled(v73, v74))
     {
-      v100 = swift_slowAlloc();
-      v101 = swift_slowAlloc();
-      *v100 = 138412290;
+      v75 = swift_slowAlloc();
+      v76 = swift_slowAlloc();
+      *v75 = 138412290;
       swift_errorRetain();
-      v102 = _swift_stdlib_bridgeErrorToNSError();
-      *(v100 + 4) = v102;
-      *v101 = v102;
-      _os_log_impl(&_mh_execute_header, v98, v99, "The preflight error %@ did not result in a TTR.", v100, 0xCu);
-      sub_1000A5148(v101, &unk_1001E1820, &qword_100140020);
+      v77 = _swift_stdlib_bridgeErrorToNSError();
+      *(v75 + 4) = v77;
+      *v76 = v77;
+      _os_log_impl(&_mh_execute_header, v73, v74, "The preflight error %@ did not result in a TTR.", v75, 0xCu);
+      sub_1000A5148(v76, &unk_1001E1820, &qword_100140020);
     }
 
-    v103 = *(v0 + 152);
+    v78 = *(v0 + 152);
 
-    sub_10010C040(v68);
+    sub_10010C040(v50);
     swift_willThrow();
 
-    v104 = type metadata accessor for Logger();
-    (*(*(v104 - 8) + 8))(v103, v104);
-    v105 = *(v0 + 120);
+    v79 = type metadata accessor for Logger();
+    (*(*(v79 - 8) + 8))(v78, v79);
     goto LABEL_44;
   }
 
-  v55 = *(v0 + 120);
-
-  *(v0 + 128) = v22;
-  v56 = swift_task_alloc();
+  *(v0 + 128) = v17;
+  v40 = swift_task_alloc();
   swift_errorRetain();
   if (swift_dynamicCast())
   {
     if (swift_getEnumCaseMultiPayload() == 22)
     {
-      v57 = *(v0 + 152);
 
-      v59 = *v56;
-      v58 = v56[1];
+      v42 = *v40;
+      v41 = v40[1];
 
-      v60 = Logger.logObject.getter();
-      v61 = static os_log_type_t.error.getter();
+      v43 = Logger.logObject.getter();
+      v44 = static os_log_type_t.error.getter();
 
-      if (os_log_type_enabled(v60, v61))
+      if (os_log_type_enabled(v43, v44))
       {
-        v62 = swift_slowAlloc();
-        v63 = swift_slowAlloc();
-        v114 = v63;
-        *v62 = 136315138;
-        *(v62 + 4) = sub_1000A2E68(v59, v58, &v114);
-        _os_log_impl(&_mh_execute_header, v60, v61, "askForTime response handling did not find ask request identifier %s", v62, 0xCu);
-        sub_1000A462C(v63);
+        v45 = swift_slowAlloc();
+        v46 = swift_slowAlloc();
+        v88 = v46;
+        *v45 = 136315138;
+        *(v45 + 4) = sub_1000A2E68(v42, v41, &v88);
+        _os_log_impl(&_mh_execute_header, v43, v44, "askForTime response handling did not find ask request identifier %s", v45, 0xCu);
+        sub_1000A462C(v46);
       }
 
-      v64 = *(v0 + 152);
-      sub_10010EAA8(&qword_1001E2A08, type metadata accessor for DataStore.DataStoreError);
+      v47 = *(v0 + 152);
+      sub_10010EAA8(&qword_1001E2A08, type metadata accessor for DataStore.DataStoreError, &unk_100142AB0);
       swift_allocError();
-      *v65 = v59;
-      v65[1] = v58;
+      *v48 = v42;
+      v48[1] = v41;
       swift_storeEnumTagMultiPayload();
       swift_willThrow();
-      v66 = type metadata accessor for Logger();
-      (*(*(v66 - 8) + 8))(v64, v66);
+      v49 = type metadata accessor for Logger();
+      (*(*(v49 - 8) + 8))(v47, v49);
 
-      v67 = *(v0 + 128);
       goto LABEL_44;
     }
 
-    sub_10010A020(v56);
+    sub_10010A020(v40);
   }
 
-  v69 = *(v0 + 152);
-
-  v70 = *(v0 + 128);
-
   swift_errorRetain();
-  v71 = Logger.logObject.getter();
-  v72 = static os_log_type_t.fault.getter();
+  v51 = Logger.logObject.getter();
+  v52 = static os_log_type_t.fault.getter();
 
-  if (os_log_type_enabled(v71, v72))
+  if (os_log_type_enabled(v51, v52))
   {
-    v74 = *(v0 + 136);
-    v73 = *(v0 + 144);
-    v75 = *(v0 + 162);
-    v76 = swift_slowAlloc();
-    v77 = swift_slowAlloc();
-    v78 = swift_slowAlloc();
-    v114 = v78;
-    *v76 = 136446466;
-    v79 = StaticString.description.getter();
-    v81 = sub_1000A2E68(v79, v80, &v114);
+    v53 = swift_slowAlloc();
+    v54 = swift_slowAlloc();
+    v55 = swift_slowAlloc();
+    v88 = v55;
+    *v53 = 136446466;
+    v56 = StaticString.description.getter();
+    v58 = sub_1000A2E68(v56, v57, &v88);
 
-    *(v76 + 4) = v81;
-    *(v76 + 12) = 2114;
+    *(v53 + 4) = v58;
+    *(v53 + 12) = 2114;
     swift_errorRetain();
-    v82 = _swift_stdlib_bridgeErrorToNSError();
-    *(v76 + 14) = v82;
-    *v77 = v82;
-    _os_log_impl(&_mh_execute_header, v71, v72, "DaemonActivity %{public}s failed with: %{public}@.", v76, 0x16u);
-    sub_1000A5148(v77, &unk_1001E1820, &qword_100140020);
+    v59 = _swift_stdlib_bridgeErrorToNSError();
+    *(v53 + 14) = v59;
+    *v54 = v59;
+    _os_log_impl(&_mh_execute_header, v51, v52, "DaemonActivity %{public}s failed with: %{public}@.", v53, 0x16u);
+    sub_1000A5148(v54, &unk_1001E1820, &qword_100140020);
 
-    sub_1000A462C(v78);
+    sub_1000A462C(v55);
   }
 
   if ((*(v0 + 163) & 1) == 0 && &class metadata base offset for TapToRadarService && &type metadata accessor for TapToRadarService && &nominal type descriptor for TapToRadarService && &type metadata for TapToRadarService)
   {
-    v113 = *(v0 + 162);
-    v83 = *(v0 + 152);
-    v109 = *(v0 + 136);
-    v111 = *(v0 + 144);
-    v84 = *(*(sub_1000A0F2C(&unk_1001DF9B0, &qword_100140000) - 8) + 64) + 15;
-    v85 = swift_task_alloc();
-    v86 = type metadata accessor for TaskPriority();
-    (*(*(v86 - 8) + 56))(v85, 1, 1, v86);
-    v87 = type metadata accessor for Logger();
-    v88 = *(v87 - 8);
-    v89 = *(v88 + 64);
-    v90 = swift_task_alloc();
-    (*(v88 + 16))(v90, v83, v87);
-    v91 = (*(v88 + 80) + 32) & ~*(v88 + 80);
-    v92 = swift_allocObject();
-    *(v92 + 16) = 0;
-    *(v92 + 24) = 0;
-    (*(v88 + 32))(v92 + v91, v90, v87);
-    v93 = v92 + ((v91 + v89 + 7) & 0xFFFFFFFFFFFFFFF8);
-    *v93 = v109;
-    *(v93 + 8) = v111;
-    *(v93 + 16) = v113;
-    *(v92 + ((v91 + v89 + 31) & 0xFFFFFFFFFFFFFFF8)) = v22;
+    v87 = *(v0 + 162);
+    v60 = *(v0 + 152);
+    v83 = *(v0 + 136);
+    v85 = *(v0 + 144);
+    sub_1000A0F2C(&unk_1001DF9B0, &qword_100140000);
+    v61 = swift_task_alloc();
+    v62 = type metadata accessor for TaskPriority();
+    (*(*(v62 - 8) + 56))(v61, 1, 1, v62);
+    v63 = type metadata accessor for Logger();
+    v64 = *(v63 - 8);
+    v65 = *(v64 + 64);
+    v66 = swift_task_alloc();
+    (*(v64 + 16))(v66, v60, v63);
+    v67 = (*(v64 + 80) + 32) & ~*(v64 + 80);
+    v68 = swift_allocObject();
+    *(v68 + 16) = 0;
+    *(v68 + 24) = 0;
+    (*(v64 + 32))(v68 + v67, v66, v63);
+    v69 = v68 + ((v67 + v65 + 7) & 0xFFFFFFFFFFFFFFF8);
+    *v69 = v83;
+    *(v69 + 8) = v85;
+    *(v69 + 16) = v87;
+    *(v68 + ((v67 + v65 + 31) & 0xFFFFFFFFFFFFFFF8)) = v17;
 
     swift_errorRetain();
-    sub_1000A2630(0, 0, v85, &unk_100143B20, v92);
+    sub_1000A2630(0, 0, v61, &unk_100143B20, v68);
   }
 
-  v94 = *(v0 + 152);
-  sub_10010C040(v22);
+  v70 = *(v0 + 152);
+  sub_10010C040(v17);
   swift_willThrow();
 
-  v95 = type metadata accessor for Logger();
-  (*(*(v95 - 8) + 8))(v94, v95);
+  v71 = type metadata accessor for Logger();
+  (*(*(v71 - 8) + 8))(v70, v71);
 LABEL_45:
-  v106 = *(v0 + 8);
+  v80 = *(v0 + 8);
 
-  return v106();
+  return v80();
 }
 
 void sub_100110B8C()
@@ -1098,6 +695,36 @@ void sub_100110C4C()
   v1 = __error();
   v2 = [NSString stringWithUTF8String:strerror(*v1)];
   [v3 handleFailureInFunction:v0 file:@"main.m" lineNumber:37 description:{@"Failed to create temporary directory: %@ (%d)", v2, *__error()}];
+}
+
+void sub_100110D0C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100006030(&_mh_execute_header, a2, a3, "CK account info error: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100110D78(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100006030(&_mh_execute_header, a2, a3, "Failed to reload account state: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100110DE4()
+{
+  sub_10000604C(__stack_chk_guard);
+  LODWORD(v7) = 138543362;
+  *(&v7 + 4) = v0;
+  sub_100006030(&_mh_execute_header, v1, v2, "CK account info error: %{public}@", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void sub_100110E50()
+{
+  sub_10000604C(__stack_chk_guard);
+  LODWORD(v7) = 138543362;
+  *(&v7 + 4) = v0;
+  sub_100006030(&_mh_execute_header, v1, v2, "Family fetch error: %{public}@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void sub_100110EBC(uint64_t a1, void *a2, NSObject *a3)
@@ -1151,12 +778,11 @@ void sub_1001111F8(uint64_t a1, uint64_t a2, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Client %{public}@ does not have required %{public}@ entitlement", &v3, 0x16u);
 }
 
-void sub_100111280(uint64_t a1)
+void sub_100111280()
 {
-  v1 = *(a1 + 32);
   sub_100011708();
   sub_10001173C();
-  _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x16u);
 }
 
 void sub_1001113C8()
@@ -1208,20 +834,25 @@ void sub_100111AD8(id *a1, NSObject *a2)
   sub_1000116D8(&_mh_execute_header, a2, v4, "Could not deserialize incoming v2 ask response: %{public}@", v5);
 }
 
-void sub_100111B68(uint64_t *a1)
+void sub_100111B68()
 {
-  v1 = *a1;
   sub_100011708();
   sub_10001173C();
-  _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x16u);
 }
 
-void sub_100111EC0(uint64_t a1, uint64_t *a2)
+void sub_100111E50(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = *a2;
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  sub_100011720(&_mh_execute_header, a2, a3, "Failed to fetch blueprints: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100111EC0()
+{
   sub_1000116CC();
   sub_10001173C();
-  _os_log_fault_impl(v3, v4, OS_LOG_TYPE_FAULT, v5, v6, 0x16u);
+  _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x16u);
 }
 
 void sub_100111FAC(uint64_t a1, uint64_t a2, NSObject *a3)
@@ -1233,12 +864,11 @@ void sub_100111FAC(uint64_t a1, uint64_t a2, NSObject *a3)
   _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "Failed to fetch catergory for resource identifier: %{public}@ with error: %{public}@", v6, 0x16u);
 }
 
-void sub_10011205C(uint64_t a1, uint64_t *a2)
+void sub_10011205C()
 {
-  v2 = *a2;
   sub_1000116CC();
   sub_10001173C();
-  _os_log_fault_impl(v3, v4, OS_LOG_TYPE_FAULT, v5, v6, 0x16u);
+  _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x16u);
 }
 
 void sub_100112148()
@@ -1277,13 +907,13 @@ void sub_100112370()
   _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "Failed to unarchive value for key: %{public}@ : %{public}@", v1, 0x16u);
 }
 
-void sub_1001123E8()
+void sub_1001123E8(uint64_t a1)
 {
-  v3 = +[NSAssertionHandler currentHandler];
-  v0 = [NSString stringWithUTF8String:"[STConcreteContactStorePrimitives numberOfContactsForOpaqueFamilyMember:]"];
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  [v3 handleFailureInFunction:v0 file:@"STConcreteContactStorePrimitives.m" lineNumber:30 description:{@"expected FAFamilyMember got %@", v2}];
+  v4 = +[NSAssertionHandler currentHandler];
+  v1 = [NSString stringWithUTF8String:"[STConcreteContactStorePrimitives numberOfContactsForOpaqueFamilyMember:]"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  [v4 handleFailureInFunction:v1 file:@"STConcreteContactStorePrimitives.m" lineNumber:30 description:{@"expected FAFamilyMember got %@", v3}];
 }
 
 void sub_100112494(uint64_t a1, NSObject *a2)
@@ -1293,11 +923,60 @@ void sub_100112494(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Failed to get number of contacts: %{public}@", &v2, 0xCu);
 }
 
+void sub_100112590(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 count];
+  sub_100014414(&_mh_execute_header, v1, v2, "Processing %lu modified objectIDs", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void sub_100112644(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 count];
+  sub_100014414(&_mh_execute_header, v1, v2, "Processing %lu deletions", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void sub_1001126D4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[STConcreteFamilyCirclePrimitives _startObservingFamilyChangeNotificationsOnQueue:]";
+  sub_100006030(&_mh_execute_header, a1, a3, "[v2] %{public}s: \nFailed to register for iCloud account change notifications", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10011274C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[STConcreteFamilyCirclePrimitives _startObservingFamilyChangeNotificationsOnQueue:]";
+  sub_100006030(&_mh_execute_header, a1, a3, "[v2] %{public}s: \nFailed to register for Family Circle change notifications", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1001127C4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[STConcreteFamilyCirclePrimitives _stopObservingFamilyChangeNotifications]";
+  sub_100006030(&_mh_execute_header, a1, a3, "[v2] %{public}s: \nFailed to unregister for iCloud account change notifications", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10011283C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[STConcreteFamilyCirclePrimitives _stopObservingFamilyChangeNotifications]";
+  sub_100006030(&_mh_execute_header, a1, a3, "[v2] %{public}s: \nFailed to unregister for Family Circle change notifications", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1001128B4(os_log_t log)
 {
   v1 = 136446210;
   v2 = "[STConcreteIDSTransportPrimitives _sendData:toDestinations:options:]";
   _os_log_fault_impl(&_mh_execute_header, log, OS_LOG_TYPE_FAULT, "[v2] %{public}s: \nprimativeIdentifierResult.type == STResultTypeFailure", &v1, 0xCu);
+}
+
+void sub_100112938()
+{
+  v6 = 136446466;
+  sub_10001932C();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nFailed to send data. error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_1001129AC()
@@ -1308,11 +987,32 @@ void sub_1001129AC()
   sub_100019368(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nFailed writing oversized data to url: %@, \nerror: %{public}@", v2, DWORD2(v2));
 }
 
+void sub_100112A34()
+{
+  v6 = 136446466;
+  sub_10001932C();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nFailed to send oversized data: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100112AA8()
+{
+  v6 = 136446466;
+  sub_10001932C();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nFailed to cleanup and delete oversized data resource: %{public}@", v2, v3, v4, v5, v6);
+}
+
 void sub_100112B1C(os_log_t log)
 {
   v1 = 136446210;
   v2 = "[STConcreteIDSTransportPrimitives addObserver:forReachabilityChangesOfPrimitiveDestinations:]";
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "[v2] %{public}s: \nUnable to add reachability observer. Observer is not delegate", &v1, 0xCu);
+}
+
+void sub_100112BA0()
+{
+  v6 = 136446466;
+  sub_10001932C();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nisCapabilityEnabled error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100112C14()
@@ -1338,6 +1038,13 @@ void sub_100112D24(void *a1, NSObject *a2)
   v4 = "[STConcreteIDSTransportPrimitives service:account:incomingResourceAtURL:fromID:context:]";
   sub_100019340();
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "[v2] %{public}s: \nFailed to handle incoming resouce. File too large; %{public}llu bytes", &v3, 0x16u);
+}
+
+void sub_100112DC0()
+{
+  v6 = 136446466;
+  sub_10001932C();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nFailed to get updated destination status, error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100112E34(uint64_t a1, NSObject *a2)
@@ -1376,40 +1083,40 @@ void sub_100113240(uint64_t a1, uint64_t a2)
   [v4 handleFailureInMethod:a1 object:a2 file:@"STConduit.m" lineNumber:59 description:{@"Invalid parameter not satisfying: %@", @"!self.isInvalid"}];
 }
 
-void sub_10011338C()
+void sub_10011338C(uint64_t a1)
 {
   objc_opt_class();
   sub_1000116CC();
-  v1 = v0;
+  v2 = v1;
   sub_100025118();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-void sub_100113418()
+void sub_100113418(uint64_t a1)
 {
   objc_opt_class();
   sub_1000116CC();
-  v1 = v0;
+  v2 = v1;
   sub_100025118();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-void sub_1001134A4()
+void sub_1001134A4(uint64_t a1)
 {
   objc_opt_class();
   sub_1000116CC();
-  v1 = v0;
+  v2 = v1;
   sub_100025118();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-void sub_100113530()
+void sub_100113530(uint64_t a1)
 {
   objc_opt_class();
   sub_1000116CC();
-  v1 = v0;
+  v2 = v1;
   sub_100025118();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void sub_100113858(void *a1)
@@ -1505,6 +1212,13 @@ void sub_100114078(uint64_t a1, uint64_t a2)
   [v4 handleFailureInMethod:a1 object:a2 file:@"STDaemonPersistenceController.m" lineNumber:287 description:{@"Failed to enable data vault: %@ (%d)", v6, *__error()}];
 }
 
+void sub_100114188(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(*a1 + 40);
+  sub_100006030(&_mh_execute_header, a2, a3, "Failed to get local device: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1001141FC(uint8_t *a1, void *a2, void *a3, NSObject *a4)
 {
   v7 = [a2 changeIdentifier];
@@ -1523,13 +1237,13 @@ void sub_100114344(uint64_t a1, uint64_t a2, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Failed to write device: %{public}@ - %{public}@", &v4, 0x16u);
 }
 
-void sub_100114578()
+void sub_100114578(uint64_t a1)
 {
   objc_opt_class();
   sub_1000116CC();
-  v1 = v0;
+  v2 = v1;
   sub_100025118();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void sub_1001146D4(void *a1)
@@ -1643,18 +1357,18 @@ void sub_100114E00()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1001150AC(uint64_t *a1)
+void sub_1001150AC()
 {
-  sub_100039840(a1, __stack_chk_guard);
+  sub_100039840(__stack_chk_guard);
   sub_100039834();
-  sub_100006030(&_mh_execute_header, v1, v2, "Failed to fetch family members: %{public}@", v3, v4, v5, v6, v7);
+  sub_100006030(&_mh_execute_header, v0, v1, "Failed to fetch family members: %{public}@", v2, v3, v4, v5);
 }
 
-void sub_100115114(uint64_t *a1)
+void sub_100115114()
 {
-  sub_100039840(a1, __stack_chk_guard);
+  sub_100039840(__stack_chk_guard);
   sub_100039834();
-  sub_100006030(&_mh_execute_header, v1, v2, "Failed to fetch local user: %{public}@", v3, v4, v5, v6, v7);
+  sub_100006030(&_mh_execute_header, v0, v1, "Failed to fetch local user: %{public}@", v2, v3, v4, v5);
 }
 
 void sub_10011524C(void *a1)
@@ -1789,32 +1503,32 @@ void sub_100115B68()
   _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100115BA4(uint64_t *a1)
+void sub_100115BA4()
 {
-  sub_100039840(a1, __stack_chk_guard);
+  sub_100039840(__stack_chk_guard);
   sub_100011708();
-  sub_100039864(&_mh_execute_header, v1, v2, "Found more than 1 user with the same apple id (%{public}@): %{public}@");
+  sub_100039864(&_mh_execute_header, v0, v1, "Found more than 1 user with the same apple id (%{public}@): %{public}@");
 }
 
-void sub_100115C0C(uint64_t *a1)
+void sub_100115C0C()
 {
-  sub_100039840(a1, __stack_chk_guard);
+  sub_100039840(__stack_chk_guard);
   sub_100039834();
-  sub_100006030(&_mh_execute_header, v1, v2, "Ignoring usage request from %{public}@, this user is not a parent", v3, v4, v5, v6, v7);
+  sub_100006030(&_mh_execute_header, v0, v1, "Ignoring usage request from %{public}@, this user is not a parent", v2, v3, v4, v5);
 }
 
-void sub_100115C74(uint64_t *a1)
+void sub_100115C74()
 {
-  sub_100039840(a1, __stack_chk_guard);
+  sub_100039840(__stack_chk_guard);
   sub_100011708();
-  sub_100026648(&_mh_execute_header, v1, v2, "Failed to save that all of %{public}@'s devices are new_usage: %{public}@");
+  sub_100026648(&_mh_execute_header, v0, v1, "Failed to save that all of %{public}@'s devices are new_usage: %{public}@");
 }
 
-void sub_100115CDC(uint64_t *a1)
+void sub_100115CDC()
 {
-  sub_100039840(a1, __stack_chk_guard);
+  sub_100039840(__stack_chk_guard);
   sub_100039834();
-  sub_100011720(&_mh_execute_header, v1, v2, "Can't fulfill usage request, cannot find user with Apple ID: %{public}@", v3, v4, v5, v6, v7);
+  sub_100011720(&_mh_execute_header, v0, v1, "Can't fulfill usage request, cannot find user with Apple ID: %{public}@", v2, v3, v4, v5);
 }
 
 void sub_100116090()
@@ -1824,11 +1538,11 @@ void sub_100116090()
   _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10011610C(uint64_t *a1)
+void sub_10011610C()
 {
-  sub_100039840(a1, __stack_chk_guard);
+  sub_100039840(__stack_chk_guard);
   sub_100039834();
-  sub_100011720(&_mh_execute_header, v1, v2, "Can't persist usage, cannot find user with Apple ID: %{public}@", v3, v4, v5, v6, v7);
+  sub_100011720(&_mh_execute_header, v0, v1, "Can't persist usage, cannot find user with Apple ID: %{public}@", v2, v3, v4, v5);
 }
 
 void sub_1001161DC()
@@ -1901,12 +1615,96 @@ void sub_100116F48(uint64_t a1, uint64_t a2, NSObject *a3)
   sub_100026648(&_mh_execute_header, a2, a3, "Failed to find a regular file in directory: %{public}@ - with error: %{public}@", *v3, *&v3[8], *&v3[16]);
 }
 
+void sub_10011702C()
+{
+  v6 = 136446466;
+  sub_10001932C();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nSender's primitives cannot send at this time: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_1001170A0()
+{
+  v6 = 136446466;
+  sub_10001932C();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nMessage recipients are unknown: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100117114()
+{
+  v6 = 136446466;
+  sub_10001932C();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nAll message recipients are unreachable: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100117188()
+{
+  v6 = 136446467;
+  sub_100042CC8();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nFailed to get return destination for raw address: %{private}@", v2, v3, v4, v5, v6);
+}
+
+void sub_1001171FC()
+{
+  v6 = 136446467;
+  sub_100042CC8();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nFailed to resolve user alias: %{private}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100117270()
+{
+  v6 = 136446466;
+  sub_10001932C();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nFailed to serialize message to data: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_1001172E4()
+{
+  v6 = 136446466;
+  sub_10001932C();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nSender is offline: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100117358()
+{
+  v6 = 136446467;
+  sub_100042CC8();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nFailed to get return destination for raw address: %{private}@", v2, v3, v4, v5, v6);
+}
+
 void sub_1001173CC(void *a1, NSObject *a2)
 {
   v3 = [a1 dsid];
   v4[0] = 136446467;
   sub_100042CC8();
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "[v2] %{public}s: \nFailed to resolve user alias: %{private}@", v4, 0x16u);
+}
+
+void sub_10011746C()
+{
+  v6 = 136446467;
+  sub_100042CC8();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nDropping message: invalid sender: %{private}@", v2, v3, v4, v5, v6);
+}
+
+void sub_1001174E0()
+{
+  v6 = 136446466;
+  sub_10001932C();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nDropping message: malformed - %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100117554()
+{
+  v6 = 136446467;
+  sub_100042CC8();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nFailed to acknowledge message: %{private}@ - unable to get return destination", v2, v3, v4, v5, v6);
+}
+
+void sub_1001175C8()
+{
+  v6 = 136446467;
+  sub_100042CC8();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nFailed to acknowledge message: %{private}@ - unable to resolve user alias", v2, v3, v4, v5, v6);
 }
 
 void sub_10011763C(os_log_t log)
@@ -1916,6 +1714,22 @@ void sub_10011763C(os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "[v2] %{public}s \nUnable to get return address", &v1, 0xCu);
 }
 
+void sub_1001176C0(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *v8 = 136446467;
+  *&v8[4] = "[STIDSMessageTransport _sendAcknowledgementMessageForResponseIdentifier:toDestination:]_block_invoke";
+  *&v8[12] = 2113;
+  *&v8[14] = *(a1 + 32);
+  sub_10001934C(&_mh_execute_header, a2, a3, "[v2] %{public}s: \nFailed to acknowledge message: %{private}@", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16]);
+}
+
+void sub_100117744()
+{
+  v6 = 136446467;
+  sub_100042CC8();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nReceived 'didSend' callback for unknown message; \nprimitiveMessageIdentifier: %{private}@)", v2, v3, v4, v5, v6);
+}
+
 void sub_1001177B8()
 {
   v3[0] = 136446723;
@@ -1923,6 +1737,13 @@ void sub_1001177B8()
   v4 = v0;
   v5 = v1;
   _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "[v2] %{public}s: \nReceived 'didDeliver' callback for message: \nprimitiveMessageIdentifier: %{private}@, \nprimitiveDestination: %{private}@", v3, 0x20u);
+}
+
+void sub_100117844()
+{
+  v6 = 136446467;
+  sub_100042CC8();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nReceived 'didDeliver' callback for unknown message; \nprimitiveIdentifier: %{private}@", v2, v3, v4, v5, v6);
 }
 
 void sub_1001178B8(uint64_t a1, uint64_t a2)
@@ -2011,32 +1832,32 @@ void sub_100117F10(uint64_t a1, NSObject *a2)
   _os_log_fault_impl(&_mh_execute_header, a2, OS_LOG_TYPE_FAULT, "[local] %{public}s: \nDid receive unrecognizable data, NSKeyedUnarchiver fail, error: %{public}@", &v2, 0x16u);
 }
 
-void sub_100118244(uint64_t a1)
+void sub_100118244()
 {
-  sub_100049A4C(a1, __stack_chk_guard);
+  sub_100049A4C(__stack_chk_guard);
   sub_100039834();
-  sub_100049A30(&_mh_execute_header, v1, v2, "Did delete web usage for %{public}@", v3, v4, v5, v6, v7);
+  sub_100049A30(&_mh_execute_header, v0, v1, "Did delete web usage for %{public}@", v2, v3, v4, v5);
 }
 
 void sub_1001182AC(void *a1)
 {
   [a1 count];
   sub_1000116CC();
-  sub_100014414(&_mh_execute_header, v1, v2, "Will delete web usage for multiple urls: %lu urls", v3, v4, v5, v6, v7);
+  sub_100014414(&_mh_execute_header, v1, v2, "Will delete web usage for multiple urls: %lu urls", v3, v4, v5, v6);
 }
 
 void sub_100118324(uint64_t a1)
 {
   [*(a1 + 32) count];
   sub_1000116CC();
-  sub_100014414(&_mh_execute_header, v1, v2, "Did delete web usage for multiple urls: %lu urls", v3, v4, v5, v6, v7);
+  sub_100014414(&_mh_execute_header, v1, v2, "Did delete web usage for multiple urls: %lu urls", v3, v4, v5, v6);
 }
 
-void sub_100118478(uint64_t a1)
+void sub_100118478()
 {
-  sub_100049A4C(a1, __stack_chk_guard);
+  sub_100049A4C(__stack_chk_guard);
   sub_100039834();
-  sub_100049A30(&_mh_execute_header, v1, v2, "Did delete web usage during %{public}@", v3, v4, v5, v6, v7);
+  sub_100049A30(&_mh_execute_header, v0, v1, "Did delete web usage during %{public}@", v2, v3, v4, v5);
 }
 
 void sub_1001185B0(os_log_t log)
@@ -2063,12 +1884,11 @@ void sub_1001186C4()
   _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "[v2] %{public}s: \nFailed to update ledger item to state: Sending - Missing ledger item for message identifier: %{public}@.", v1, 0x16u);
 }
 
-void sub_100118744(uint64_t a1)
+void sub_100118744()
 {
-  v1 = *(a1 + 40);
-  v4 = 136446723;
+  v2 = 136446723;
   sub_10004D7B0();
-  sub_100019368(&_mh_execute_header, v2, v3, "[v2] %{public}s: Will not send message identifier: %{public}@ - to: %{private}@", v4);
+  sub_100019368(&_mh_execute_header, v0, v1, "[v2] %{public}s: Will not send message identifier: %{public}@ - to: %{private}@", v2);
 }
 
 void sub_1001187C8(uint64_t a1, uint64_t a2, NSObject *a3)
@@ -2087,12 +1907,11 @@ void sub_1001187C8(uint64_t a1, uint64_t a2, NSObject *a3)
   sub_100019368(&_mh_execute_header, a2, a3, "[v2] %{public}s: Failed to update ledger item to state: %{public}@ - Missing ledger item for message identifier: %{public}@.", *v4, *&v4[8], *&v4[16], a2);
 }
 
-void sub_100118868(uint64_t a1)
+void sub_100118868()
 {
-  v1 = *(a1 + 32);
-  v4 = 136446722;
+  v2 = 136446722;
   sub_10004D7B0();
-  sub_100019368(&_mh_execute_header, v2, v3, "[v2] %{public}s: Did fail to send message identifier: %{public}@ error: %{public}@", v4);
+  sub_100019368(&_mh_execute_header, v0, v1, "[v2] %{public}s: Did fail to send message identifier: %{public}@ error: %{public}@", v2);
 }
 
 void sub_1001188E8()
@@ -2249,11 +2068,39 @@ void sub_1001190BC(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Fetch history after token failed with error: %@", &v2, 0xCu);
 }
 
+void sub_100119134()
+{
+  v6 = 136446467;
+  sub_100042CC8();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nFailed to serialize message address map to data: %{private}@", v2, v3, v4, v5, v6);
+}
+
+void sub_1001191A8()
+{
+  v6 = 136446467;
+  sub_100042CC8();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nFailed to deserialize message address map from data: %{private}@", v2, v3, v4, v5, v6);
+}
+
 void sub_10011921C(os_log_t log)
 {
   v1 = 136446210;
   v2 = "+[STPersistentIDSMessageTransportMessageAddressMap _loadMessageAddressesByPrimitiveDestinationFromKeyValueStore:]";
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "[v2] %{public}s: \nFailed to load message address map from key-value store.", &v1, 0xCu);
+}
+
+void sub_1001192A0()
+{
+  v6 = 136446467;
+  sub_100042CC8();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nFailed to deserialize message address from data: %{private}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100119314()
+{
+  v6 = 136446467;
+  sub_100042CC8();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nFailed to resolve primitive destination for raw address: %{private}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100119388(void *a1, NSObject *a2)
@@ -2262,6 +2109,27 @@ void sub_100119388(void *a1, NSObject *a2)
   v4[0] = 136446467;
   sub_100042CC8();
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "[v2] %{public}s: \nFailed to resolve raw address for user: %{private}@", v4, 0x16u);
+}
+
+void sub_100119428()
+{
+  v6 = 136446467;
+  sub_100042CC8();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nUnable to resolve userDSID from raw address: %{private}@", v2, v3, v4, v5, v6);
+}
+
+void sub_10011949C()
+{
+  v6 = 136446467;
+  sub_100042CC8();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nFailed to resolve raw address from primitive destination: %{private}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100119510()
+{
+  v6 = 136446467;
+  sub_100042CC8();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v2] %{public}s: \nFailed to resolve user-targeted primitive destination from primitive destination: %{private}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100119584()
@@ -2366,14 +2234,14 @@ void sub_10011A1CC(uint64_t a1, void *a2)
 {
   v2 = [a2 stream];
   sub_1000585FC();
-  sub_100058614(&_mh_execute_header, v3, v4, "Received event for %{public}s on stream %{public}@", v5, v6, v7, v8, v9);
+  sub_100058614(&_mh_execute_header, v3, v4, "Received event for %{public}s on stream %{public}@", v5, v6, v7, v8);
 }
 
 void sub_10011A264(uint64_t a1, void *a2)
 {
   v2 = [a2 stream];
   sub_1000585FC();
-  sub_100058614(&_mh_execute_header, v3, v4, "Dropping unhandled event for %{public}s on stream %{public}@", v5, v6, v7, v8, v9);
+  sub_100058614(&_mh_execute_header, v3, v4, "Dropping unhandled event for %{public}s on stream %{public}@", v5, v6, v7, v8);
 }
 
 void sub_10011A2FC(void *a1, NSObject *a2)
@@ -2390,25 +2258,46 @@ void sub_10011A398(uint64_t a1, uint64_t a2)
   [v4 handleFailureInMethod:a1 object:a2 file:@"STXPCEventDispatcher.m" lineNumber:119 description:{@"Invalid parameter not satisfying: %@", @"identifier"}];
 }
 
-void sub_10011A59C(uint64_t *a1)
+void sub_10011A414(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  sub_100039840(a1, __stack_chk_guard);
-  sub_100039834();
-  sub_100006030(&_mh_execute_header, v1, v2, "Failed to fetch blueprints to deduplicate configurations: %{public}@", v3, v4, v5, v6, v7);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100006030(&_mh_execute_header, a2, a3, "failed to cleanup and migrate blueprints during processing: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void sub_10011A604(uint64_t *a1)
+void sub_10011A4C4(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  sub_100039840(a1, __stack_chk_guard);
-  sub_100039834();
-  sub_100006030(&_mh_execute_header, v1, v2, "Failed to fetch blueprints: %{public}@", v3, v4, v5, v6, v7);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100006030(&_mh_execute_header, a2, a3, "Failed to save blueprints: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void sub_10011A66C(uint64_t *a1)
+void sub_10011A530(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  sub_100039840(a1, __stack_chk_guard);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100006030(&_mh_execute_header, a2, a3, "failed to fetch expired blueprints: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10011A59C()
+{
+  sub_100039840(__stack_chk_guard);
   sub_100039834();
-  _os_log_fault_impl(&_mh_execute_header, v1, OS_LOG_TYPE_FAULT, "Failed to fetch blueprints to upgrade to version 2 categories: %{public}@", v2, 0xCu);
+  sub_100006030(&_mh_execute_header, v0, v1, "Failed to fetch blueprints to deduplicate configurations: %{public}@", v2, v3, v4, v5);
+}
+
+void sub_10011A604()
+{
+  sub_100039840(__stack_chk_guard);
+  sub_100039834();
+  sub_100006030(&_mh_execute_header, v0, v1, "Failed to fetch blueprints: %{public}@", v2, v3, v4, v5);
+}
+
+void sub_10011A66C()
+{
+  sub_100039840(__stack_chk_guard);
+  sub_100039834();
+  _os_log_fault_impl(&_mh_execute_header, v0, OS_LOG_TYPE_FAULT, "Failed to fetch blueprints to upgrade to version 2 categories: %{public}@", v1, 0xCu);
 }
 
 void sub_10011A6E0(os_log_t log)
@@ -2439,13 +2328,6 @@ void sub_10011A860(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Failed to fetch enqueued payloads: %{public}@", &v2, 0xCu);
 }
 
-void sub_10011AF6C(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  sub_100011708();
-  sub_100026648(&_mh_execute_header, v2, v3, "Failed to process message: %{public}@ - %{public}@");
-}
-
 void sub_10011AFD8(uint64_t a1, NSObject *a2)
 {
   v2 = *(a1 + 32);
@@ -2455,32 +2337,6 @@ void sub_10011AFD8(uint64_t a1, NSObject *a2)
   v6 = 2114;
   v7 = v3;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Failed to process sent message: %{public}@ - %{public}@", &v4, 0x16u);
-}
-
-void sub_10011B060(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  sub_100011708();
-  sub_100026648(&_mh_execute_header, v2, v3, "Failed to process change %{public}@ - %{public}@");
-}
-
-void sub_10011B0CC(uint64_t a1)
-{
-  v1 = *(a1 + 48);
-  if (v1 <= 3)
-  {
-    v2 = *(&off_1001A5280 + v1);
-  }
-
-  sub_100011708();
-  sub_100026648(&_mh_execute_header, v3, v4, "Failed to process directive. Ending background activity: %{public}@ - error: %{public}@");
-}
-
-void sub_10011B304(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_100011708();
-  sub_100026648(&_mh_execute_header, v2, v3, "Failed to get current setup configuration for user: %{public}@ - %{public}@");
 }
 
 void sub_10011B41C(void *a1)
@@ -2568,15 +2424,15 @@ void sub_10011B8B8()
   [sub_10006BB60() handleFailureInFunction:? file:? lineNumber:? description:?];
 }
 
-void sub_10011B968()
+void sub_10011B968(uint64_t a1)
 {
-  v13 = +[NSAssertionHandler currentHandler];
-  v0 = [NSString stringWithUTF8String:"[STReactorDirectiveProcessor processDirective:]"];
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  [sub_10006BB88(v4 v5];
+  v14 = +[NSAssertionHandler currentHandler];
+  v1 = [NSString stringWithUTF8String:"[STReactorDirectiveProcessor processDirective:]"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  [sub_10006BB88(v5 v6];
 }
 
 void sub_10011BA30()
@@ -2591,15 +2447,15 @@ void sub_10011BA30()
   [sub_10006BB60() handleFailureInFunction:? file:? lineNumber:? description:?];
 }
 
-void sub_10011BAE0()
+void sub_10011BAE0(uint64_t a1)
 {
-  v13 = +[NSAssertionHandler currentHandler];
-  v0 = [NSString stringWithUTF8String:"[STReactorDirectiveProcessor processDirective:]"];
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  [sub_10006BB88(v4 v5];
+  v14 = +[NSAssertionHandler currentHandler];
+  v1 = [NSString stringWithUTF8String:"[STReactorDirectiveProcessor processDirective:]"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  [sub_10006BB88(v5 v6];
 }
 
 void sub_10011BBA8()
@@ -2650,16 +2506,15 @@ void sub_10011BDB8()
   [sub_10006BB60() handleFailureInFunction:? file:? lineNumber:? description:?];
 }
 
-void sub_10011BE68(uint64_t *a1)
+void sub_10011BE68(void *a1)
 {
-  v16 = +[NSAssertionHandler currentHandler];
-  v2 = [NSString stringWithUTF8String:"[STReactorDirectiveProcessor processDirective:]_block_invoke"];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = *a1;
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  [sub_10006BB88(v7 v8];
+  v14 = +[NSAssertionHandler currentHandler];
+  v1 = [NSString stringWithUTF8String:"[STReactorDirectiveProcessor processDirective:]_block_invoke"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  [sub_10006BB88(v5 v6];
 }
 
 void sub_10011C3A8(void *a1)
@@ -2667,7 +2522,7 @@ void sub_10011C3A8(void *a1)
   v1 = [a1 messages];
   [v1 count];
   sub_1000116CC();
-  sub_100014414(&_mh_execute_header, v2, v3, "Processing status messages: %lu", v4, v5, v6, v7, v8);
+  sub_100014414(&_mh_execute_header, v2, v3, "Processing status messages: %lu", v4, v5, v6, v7);
 }
 
 void sub_10011C430(uint8_t *a1, void *a2, void *a3, NSObject *a4)
@@ -2685,22 +2540,19 @@ void sub_10011C510()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10011C5E8(uint64_t a1)
+void sub_10011C5E8()
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   sub_100070FA4();
   sub_1000116FC();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_10011C73C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   objc_opt_class();
   sub_1000116CC();
-  v3 = v2;
-  sub_100014414(&_mh_execute_header, v4, v5, "%{public}@ : Finished", v6, v7, v8, v9, v10);
+  v2 = v1;
+  sub_100014414(&_mh_execute_header, v3, v4, "%{public}@ : Finished", v5, v6, v7, v8);
 }
 
 void sub_10011C7C4()
@@ -2881,7 +2733,7 @@ void sub_10011DC0C(void *a1)
 {
   v1 = [a1 name];
   sub_1000116CC();
-  sub_100014414(&_mh_execute_header, v2, v3, "Device name is now: %{private}@", v4, v5, v6, v7, v8);
+  sub_100014414(&_mh_execute_header, v2, v3, "Device name is now: %{private}@", v4, v5, v6, v7);
 }
 
 void sub_10011E378(void *a1)
@@ -2961,43 +2813,43 @@ void sub_10011ECDC(void *a1)
   v1 = [a1 managingOrganization];
   objc_opt_class();
   sub_1000116CC();
-  sub_100014414(&_mh_execute_header, v2, v3, "Fetching restrictions blueprint from organization: %@", v4, v5, v6, v7, v8);
+  sub_100014414(&_mh_execute_header, v2, v3, "Fetching restrictions blueprint from organization: %@", v4, v5, v6, v7);
 }
 
-void sub_10011ED64(uint64_t *a1)
+void sub_10011ED64()
 {
-  sub_100039840(a1, __stack_chk_guard);
+  sub_100039840(__stack_chk_guard);
   sub_100039834();
-  sub_100006030(&_mh_execute_header, v1, v2, "Fetching blueprints returned empty results: %{public}@", v3, v4, v5, v6, v7);
+  sub_100006030(&_mh_execute_header, v0, v1, "Fetching blueprints returned empty results: %{public}@", v2, v3, v4, v5);
 }
 
-void sub_10011EDCC(uint64_t *a1)
+void sub_10011EDCC()
 {
-  sub_100039840(a1, __stack_chk_guard);
+  sub_100039840(__stack_chk_guard);
   sub_100039834();
-  sub_100011720(&_mh_execute_header, v1, v2, "Failed to fetch blueprints: %{public}@", v3, v4, v5, v6, v7);
+  sub_100011720(&_mh_execute_header, v0, v1, "Failed to fetch blueprints: %{public}@", v2, v3, v4, v5);
 }
 
-void sub_10011EE34(uint64_t *a1)
+void sub_10011EE34()
 {
-  sub_100039840(a1, __stack_chk_guard);
+  sub_100039840(__stack_chk_guard);
   sub_100039834();
   sub_10008B948();
-  sub_100039864(&_mh_execute_header, v1, v2, "Failed to fetch user with dsid: %@, %{public}@");
+  sub_100039864(&_mh_execute_header, v0, v1, "Failed to fetch user with dsid: %@, %{public}@");
 }
 
-void sub_10011EF70(uint64_t a1)
+void sub_10011EF70()
 {
-  sub_10000604C(a1, __stack_chk_guard);
+  sub_10000604C(__stack_chk_guard);
   sub_100039834();
-  sub_100011720(&_mh_execute_header, v1, v2, "failed to update user device state: %{public}@", v3, v4, v5, v6, v7);
+  sub_100011720(&_mh_execute_header, v0, v1, "failed to update user device state: %{public}@", v2, v3, v4, v5);
 }
 
-void sub_10011EFD8(uint64_t a1)
+void sub_10011EFD8()
 {
-  sub_10000604C(a1, __stack_chk_guard);
+  sub_10000604C(__stack_chk_guard);
   sub_100039834();
-  sub_100011720(&_mh_execute_header, v1, v2, "failed to fetch user: %{public}@", v3, v4, v5, v6, v7);
+  sub_100011720(&_mh_execute_header, v0, v1, "failed to fetch user: %{public}@", v2, v3, v4, v5);
 }
 
 void sub_10011F0A8()
@@ -3021,11 +2873,11 @@ void sub_10011F280()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10011F3D0(uint64_t a1)
+void sub_10011F3D0()
 {
-  sub_10000604C(a1, __stack_chk_guard);
+  sub_10000604C(__stack_chk_guard);
   sub_100039834();
-  sub_100011720(&_mh_execute_header, v1, v2, "Failed to fetch local user: %{public}@", v3, v4, v5, v6, v7);
+  sub_100011720(&_mh_execute_header, v0, v1, "Failed to fetch local user: %{public}@", v2, v3, v4, v5);
 }
 
 void sub_10011F438()
@@ -3049,50 +2901,42 @@ void sub_10011F858()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10011F894(uint64_t *a1)
+void sub_10011F894()
 {
-  sub_100039840(a1, __stack_chk_guard);
+  sub_100039840(__stack_chk_guard);
   sub_100039834();
-  sub_100006030(&_mh_execute_header, v1, v2, "Cannot fetch or update location sharing modification value. Fetched user not in a family organization: %@", v3, v4, v5, v6, v7);
+  sub_100006030(&_mh_execute_header, v0, v1, "Cannot fetch or update location sharing modification value. Fetched user not in a family organization: %@", v2, v3, v4, v5);
 }
 
-void sub_10011F8FC(uint64_t a1, uint64_t *a2)
+void sub_10011F9DC()
 {
-  v2 = *a2;
-  sub_1000116CC();
-  sub_100039864(&_mh_execute_header, v3, v4, "Failed to fetch user with dsid: %@, %{public}@");
-}
-
-void sub_10011F9DC(uint64_t *a1)
-{
-  sub_100039840(a1, __stack_chk_guard);
+  sub_100039840(__stack_chk_guard);
   sub_100039834();
   sub_10008B948();
   sub_10001173C();
-  _os_log_error_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 0x16u);
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x16u);
 }
 
-void sub_10011FB44(uint64_t *a1)
+void sub_10011FB44()
 {
-  sub_100039840(a1, __stack_chk_guard);
+  sub_100039840(__stack_chk_guard);
   sub_100039834();
   sub_10008B948();
-  sub_100039864(&_mh_execute_header, v1, v2, "Failed to save locationSharingModificationAllowed value for user with dsid: %@: %{public}@");
+  sub_100039864(&_mh_execute_header, v0, v1, "Failed to save locationSharingModificationAllowed value for user with dsid: %@: %{public}@");
 }
 
-void sub_10011FBB0(uint64_t *a1)
+void sub_10011FBB0()
 {
-  sub_100039840(a1, __stack_chk_guard);
-  v2 = *(v1 + 40);
+  sub_100039840(__stack_chk_guard);
   sub_100039834();
-  sub_100006030(&_mh_execute_header, v3, v4, "For fetching restrictions, failed to fetch actual dsid of local user: %{public}@", v5, v6, v7, v8, v9);
+  sub_100006030(&_mh_execute_header, v0, v1, "For fetching restrictions, failed to fetch actual dsid of local user: %{public}@", v2, v3, v4, v5);
 }
 
-void sub_10011FC1C(uint64_t a1)
+void sub_10011FC1C()
 {
-  sub_10000604C(a1, __stack_chk_guard);
+  sub_10000604C(__stack_chk_guard);
   sub_100039834();
-  sub_100006030(&_mh_execute_header, v1, v2, "When retrieving communication safety state, failed to fetch user: %{public}@", v3, v4, v5, v6, v7);
+  sub_100006030(&_mh_execute_header, v0, v1, "When retrieving communication safety state, failed to fetch user: %{public}@", v2, v3, v4, v5);
 }
 
 void sub_10011FC84()
@@ -3100,13 +2944,6 @@ void sub_10011FC84()
   sub_1000116CC();
   sub_1000116FC();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-}
-
-void sub_10011FE94(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  sub_100039834();
-  sub_100006030(&_mh_execute_header, v2, v3, "Failed to fetch family circle for local user. Error: %{public}@", v4, v5, v6, v7, v8);
 }
 
 void sub_10011FF40(uint64_t a1)
@@ -3192,10 +3029,24 @@ void sub_1001204B0(uint64_t a1, NSObject *a2)
   _os_log_fault_impl(&_mh_execute_header, a2, OS_LOG_TYPE_FAULT, "Failed to update user device state: %{public}@", &v2, 0xCu);
 }
 
+void sub_100120528()
+{
+  v6 = 136446466;
+  sub_10001932C();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v1] %{public}s: \nFailed to delete orphaned payloads: %{public}@", v2, v3, v4, v5, v6);
+}
+
 void sub_10012059C(uint64_t a1, uint64_t a2)
 {
   v4 = +[NSAssertionHandler currentHandler];
   [v4 handleFailureInMethod:a1 object:a2 file:@"STTransportPayloadManager.m" lineNumber:95 description:{@"Invalid parameter not satisfying: %@", @"!self.isInvalid"}];
+}
+
+void sub_100120618()
+{
+  v6 = 136446466;
+  sub_10001932C();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v1] %{public}s: \nFailed to process payload queue: %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_10012068C()
@@ -3212,11 +3063,25 @@ void sub_100120708(os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "[v1] %{public}s: \nFailed to unarchive transport payload", &v1, 0xCu);
 }
 
+void sub_10012078C()
+{
+  v6 = 136446466;
+  sub_10001932C();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v1] %{public}s: \nFailed to unarchive data: %{public}@", v2, v3, v4, v5, v6);
+}
+
 void sub_100120800()
 {
   v2 = 136446722;
   sub_10001932C();
   sub_100019368(&_mh_execute_header, v0, v1, "[v1] %{public}s: \nFailed to resolve destinations %{public}@: %{public}@", v2);
+}
+
+void sub_10012087C()
+{
+  v6 = 136446466;
+  sub_10001932C();
+  sub_10001934C(&_mh_execute_header, v0, v1, "[v1] %{public}s: \nReceived invalid payload state: %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_1001208F0(uint64_t a1, NSObject *a2)
@@ -3270,7 +3135,7 @@ void sub_100120FD0(void *a1)
   v2 = [a1 name];
   v3 = [a1 object];
   sub_1000585FC();
-  sub_100058614(&_mh_execute_header, v4, v5, "Did receive notification %{public}@ for %{public}@", v6, v7, v8, v9, v10);
+  sub_100058614(&_mh_execute_header, v4, v5, "Did receive notification %{public}@ for %{public}@", v6, v7, v8, v9);
 }
 
 void sub_100121074(uint64_t a1)
@@ -3278,7 +3143,7 @@ void sub_100121074(uint64_t a1)
   v2 = [*(a1 + 32) name];
   v3 = [*(a1 + 32) object];
   sub_1000585FC();
-  sub_100058614(&_mh_execute_header, v4, v5, "Did reset usage in response to %{public}@ for %{public}@", v6, v7, v8, v9, v10);
+  sub_100058614(&_mh_execute_header, v4, v5, "Did reset usage in response to %{public}@ for %{public}@", v6, v7, v8, v9);
 }
 
 void sub_10012111C()
@@ -3287,27 +3152,6 @@ void sub_10012111C()
   v3 = 2114;
   v4 = v0;
   _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "Next weekly report rollup not scheduled: %{public}@ is already set, so %{public}@ is ignored", v2, 0x16u);
-}
-
-void sub_10012131C(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_100011708();
-  sub_100026648(&_mh_execute_header, v2, v3, "failed to post notification for notification “%{public}@”: %{public}@");
-}
-
-void sub_100121388(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_100011708();
-  sub_100026648(&_mh_execute_header, v2, v3, "failed to post notification “%{public}@”: %{public}@");
-}
-
-void sub_1001213F4(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_100011708();
-  sub_100026648(&_mh_execute_header, v2, v3, "failed to remove notification for notification “%{public}@”: %{public}@");
 }
 
 void sub_100121460(uint64_t a1, NSObject *a2)
@@ -3329,19 +3173,39 @@ void sub_1001214D8(uint64_t a1, NSObject *a2)
 void sub_100121564(void *a1)
 {
   v1 = [a1 identifier];
-  sub_10009E2A0(&_mh_execute_header, v2, v3, "Failed to create biome event for ask for time request: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  sub_10009E2A0(&_mh_execute_header, v2, v3, "Failed to create biome event for ask for time request: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_1001215EC(void *a1)
 {
   v1 = [a1 identifier];
-  sub_10009E2A0(&_mh_execute_header, v2, v3, "Failed to create biome event for ask for time response: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  sub_10009E2A0(&_mh_execute_header, v2, v3, "Failed to create biome event for ask for time response: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_100121674(void *a1)
 {
   v1 = [a1 identifier];
-  sub_10009E2A0(&_mh_execute_header, v2, v3, "Failed to create biome child state for downtimeStateEvent: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  sub_10009E2A0(&_mh_execute_header, v2, v3, "Failed to create biome child state for downtimeStateEvent: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
+}
+
+void sub_1001216FC(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100006030(&_mh_execute_header, a2, a3, "Could not fetch local user to create Screen Time population event: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100121768(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100006030(&_mh_execute_header, a2, a3, "Could not fetch local user: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1001217D4(uint64_t a1, NSObject *a2)

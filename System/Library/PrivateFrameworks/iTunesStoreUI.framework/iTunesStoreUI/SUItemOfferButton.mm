@@ -139,7 +139,7 @@
 {
   if (![(NSString *)self->_buttonStyle isEqualToString:?])
   {
-    [(SUItemOfferButton *)self _configurationForStyle:style];
+    objc_msgSend__configurationForStyle_(self);
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"Invalid button style"];
 
     self->_buttonStyle = [style copy];
@@ -415,34 +415,34 @@ uint64_t __53__SUItemOfferButton_setShowingConfirmation_duration___block_invoke(
 {
   if ([(SUItemOfferButton *)self isShowingConfirmation])
   {
-    v12 = xmmword_1E8166D68;
-    v13 = unk_1E8166D78;
-    v14 = @"PurchaseConfirmButtonPressed.png";
-    v10 = __ConfirmationConfiguration;
-    v11 = unk_1E8166D58;
-    v3 = &v10;
+    v11 = xmmword_1E8166D68;
+    v12 = unk_1E8166D78;
+    v13 = @"PurchaseConfirmButtonPressed.png";
+    v9 = __ConfirmationConfiguration;
+    v10 = unk_1E8166D58;
+    v3 = &v9;
 LABEL_6:
-    [(SUItemOfferButton *)self _applyConfiguration:v3, v5, v6, v7, v8, v9];
+    [(SUItemOfferButton *)self _applyConfiguration:v3, v4, v5, v6, v7, v8];
     return;
   }
 
-  v14 = 0;
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
+  v13 = 0;
   v11 = 0u;
-  itemOfferButtonStyle = [(SUItemOfferButton *)self itemOfferButtonStyle];
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  [(SUItemOfferButton *)self itemOfferButtonStyle];
   if (self)
   {
-    [(SUItemOfferButton *)self _configurationForStyle:itemOfferButtonStyle];
-    if (v10)
+    objc_msgSend__configurationForStyle_(self);
+    if (v9)
     {
+      v6 = v11;
       v7 = v12;
       v8 = v13;
-      v9 = v14;
+      v4 = v9;
       v5 = v10;
-      v6 = v11;
-      v3 = &v5;
+      v3 = &v4;
       goto LABEL_6;
     }
   }

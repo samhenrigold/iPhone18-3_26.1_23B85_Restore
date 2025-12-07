@@ -84,7 +84,7 @@
 
 - (void)importCallHistory:(id)history size:(unint64_t)size
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   historyCopy = history;
   if ([historyCopy count])
   {
@@ -97,9 +97,9 @@
     if (v10 >= 1)
     {
       v12 = MEMORY[0x277CCA9B8];
-      v24 = *MEMORY[0x277CCA450];
-      v25 = @"could not parse call history data.";
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v23 = *MEMORY[0x277CCA450];
+      v24 = @"could not parse call history data.";
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
       v14 = [v12 errorWithDomain:@"MKCallHistoryError" code:0 userInfo:v13];
       [(MKMigrator *)self migratorDidFailWithImportError:v14 count:v10];
     }
@@ -111,15 +111,15 @@
 
       objc_initWeak(&location, self);
       callHistoryManager = self->_callHistoryManager;
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __48__MKCallHistoryMigrator_importCallHistory_size___block_invoke;
-      v21[3] = &unk_2798DCE10;
-      objc_copyWeak(v22, &location);
-      v22[1] = v11;
-      v22[2] = size;
-      [(CHManager *)callHistoryManager addArrayToCallHistory:v8 withCompletion:v21];
-      objc_destroyWeak(v22);
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __48__MKCallHistoryMigrator_importCallHistory_size___block_invoke;
+      v20[3] = &unk_2798DCE10;
+      objc_copyWeak(v21, &location);
+      v21[1] = v11;
+      v21[2] = size;
+      [(CHManager *)callHistoryManager addArrayToCallHistory:v8 withCompletion:v20];
+      objc_destroyWeak(v21);
       objc_destroyWeak(&location);
     }
   }
@@ -133,14 +133,12 @@
     }
 
     v18 = MEMORY[0x277CCA9B8];
-    v26 = *MEMORY[0x277CCA450];
-    v27[0] = @"could not parse call history data.";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v25 = *MEMORY[0x277CCA450];
+    v26[0] = @"could not parse call history data.";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
     v19 = [v18 errorWithDomain:@"MKCallHistoryError" code:0 userInfo:v8];
     [(MKMigrator *)self migratorDidFailWithImportError:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __48__MKCallHistoryMigrator_importCallHistory_size___block_invoke(uint64_t a1)
@@ -151,21 +149,19 @@ void __48__MKCallHistoryMigrator_importCallHistory_size___block_invoke(uint64_t 
 
 - (void)didImportCallHistory:(unint64_t)history size:(unint64_t)size
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v7 = +[MKLog log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v10 = 134217984;
+    v9 = 134217984;
     historyCopy = history;
-    _os_log_impl(&dword_2592D2000, v7, OS_LOG_TYPE_INFO, "did import call history. count=%lu", &v10, 0xCu);
+    _os_log_impl(&dword_2592D2000, v7, OS_LOG_TYPE_INFO, "did import call history. count=%lu", &v9, 0xCu);
   }
 
   [(MKMigrator *)self migratorDidAppendDataSize:size];
   [(MKMigrator *)self migratorDidImportWithCount:history];
   delegate = [(MKMigrator *)self delegate];
   [delegate migratorDidExecuteOperation:self];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (MKSIMLabel)label

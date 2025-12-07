@@ -1,116 +1,3 @@
-void sub_100181E90(uint64_t a1, void *a2)
-{
-  v5 = a2;
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained)
-  {
-    v4 = [v5 sender];
-    [WeakRetained _selectAllButtonPressed:v4];
-  }
-}
-
-void sub_100182020(uint64_t a1)
-{
-  v2 = [*(a1 + 32) delegate];
-  [v2 didDismissSearchController:*(a1 + 32)];
-}
-
-void sub_100182684(id a1, NSError *a2)
-{
-  v2 = a2;
-  v3 = +[MessageListViewController log];
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-  {
-    v4 = [(NSError *)v2 ef_publicDescription];
-    sub_10048A490(v4, v5, v3);
-  }
-}
-
-void sub_1001828E4(_Unwind_Exception *a1)
-{
-  if (v1)
-  {
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_100182B5C(uint64_t a1)
-{
-  v2 = [*(a1 + 32) scene];
-  v3 = [v2 isInExpandedEnvironment];
-
-  if (v3)
-  {
-    v4 = [*(a1 + 40) messageListItemSelection];
-    v5 = [v4 messageListItems];
-    v6 = [v5 ef_map:&stru_100652A10];
-
-    [*(a1 + 32) _selectNextMessageAfterRemovingAllVisibleMessageListItemsWithItemIDs:v6 showConversationView:1];
-  }
-}
-
-id sub_100182C48(id a1, EMMessageListItem *a2)
-{
-  v2 = [(EMMessageListItem *)a2 itemID];
-
-  return v2;
-}
-
-void sub_100182E54(uint64_t a1)
-{
-  v2 = [*(a1 + 32) scene];
-  v3 = [v2 isInExpandedEnvironment];
-
-  if (v3)
-  {
-    v4 = [*(a1 + 40) messageListItemSelection];
-    v5 = [v4 messageListItems];
-    v6 = [v5 ef_map:&stru_100652A30];
-
-    [*(a1 + 32) _selectNextMessageAfterRemovingAllVisibleMessageListItemsWithItemIDs:v6 showConversationView:1];
-  }
-}
-
-id sub_100182F40(id a1, EMMessageListItem *a2)
-{
-  v2 = [(EMMessageListItem *)a2 itemID];
-
-  return v2;
-}
-
-id sub_100183B48(uint64_t a1, uint64_t a2)
-{
-  v4 = +[MessageListViewController signpostLog];
-  v5 = [*(a1 + 32) signpostID];
-  if ((v5 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
-  {
-    v6 = *(a1 + 56);
-    v13 = 67109120;
-    LODWORD(v14) = v6;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v4, OS_SIGNPOST_EVENT, v5, "MessageListViewController Delete", "The user has selected to Trash messages, with deleteAllMessages:%{BOOL}d", &v13, 8u);
-  }
-
-  v7 = +[NSDate now];
-  [*(a1 + 40) setObject:v7 forKeyedSubscript:EMUserDefaultLogMassDeletionAll];
-
-  [*(a1 + 48) addObject:*(a1 + 40)];
-  v8 = +[NSUserDefaults em_userDefaults];
-  v9 = [*(a1 + 48) copy];
-  [v8 setObject:v9 forKey:EMUserDefaultLogMassDeletion];
-
-  v10 = MFLogGeneral();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
-  {
-    v11 = NSStringFromMSDeleteOrArchive();
-    v13 = 138412290;
-    v14 = v11;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "User confirm %@", &v13, 0xCu);
-  }
-
-  return [*(a1 + 32) _deleteMessagesWithPreference:a2];
-}
-
 uint64_t sub_100183D60(uint64_t a1)
 {
   v2 = +[MessageListViewController signpostLog];
@@ -573,7 +460,7 @@ BOOL sub_100186594(id a1, EMMessageListItem *a2)
   return isKindOfClass & 1;
 }
 
-BOOL sub_1001866D0(void *a1)
+unint64_t sub_1001866D0(void *a1)
 {
   v1 = a1;
   if (a1)
@@ -1049,7 +936,7 @@ void sub_100191D38(uint64_t a1)
   }
 }
 
-void sub_100192B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, void *a14, uint64_t a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, id a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, id a38, uint64_t a39, id a40, id a41)
+void sub_100192B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, void *a14, uint64_t a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, id a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, id a38, uint64_t a39, id a40, id a41)
 {
   _Block_object_dispose(&a23, 8);
 
@@ -1223,12 +1110,12 @@ void sub_100193780(uint64_t a1)
   [v4 removeObject:*(a1 + 32)];
 }
 
-void sub_100193C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, ...)
+void sub_100193C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
 
   objc_destroyWeak(va);
-  objc_destroyWeak((v21 - 112));
+  objc_destroyWeak((v28 - 112));
 
   _Unwind_Resume(a1);
 }
@@ -1429,7 +1316,7 @@ double sub_100194EA8(uint64_t a1, void *a2)
     [*(a1 + 32) approximateHeightNeededForAccessibilityContentSizeCategory];
     v8 = v7;
     [v3 _containerBounds];
-    Height = CGRectGetHeight(v15);
+    Height = CGRectGetHeight(v18);
     [*(a1 + 40) mailActionCardMaximumContainerViewHeightForLargerMediumDetent];
     v10 = *(a1 + 40);
     if (Height <= v11)
@@ -1442,10 +1329,11 @@ double sub_100194EA8(uint64_t a1, void *a2)
       [v10 mailActionCardSmallerMediumDetentCoverage];
     }
 
+    v13 = v12;
     [v3 _containerSafeAreaInsets];
-    v12 = [*(a1 + 32) view];
-    UIRoundToViewScale();
-    v6 = fmax(v13, v8);
+    v15 = v14;
+    v16 = [*(a1 + 32) view];
+    v6 = fmax(UIRoundToViewScale(-(v15 - Height * v13)), v8);
   }
 
   return v6;
@@ -1458,7 +1346,7 @@ void sub_100194F8C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10019514C(uint64_t a1, void *a2)
+BOOL sub_10019514C(_BOOL8 a1, void *a2)
 {
   v4 = a2;
   v5 = v4;
@@ -1547,7 +1435,7 @@ id sub_10019527C(id a1)
   return v1;
 }
 
-void sub_100195410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_100195410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   v21 = v20;
 
@@ -1569,7 +1457,7 @@ void sub_100195440(uint64_t a1)
   *(v3 + 40) = v4;
 }
 
-void sub_1001955C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1001955C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -2583,12 +2471,12 @@ void sub_1001A5D18(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1001A5E64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1001A5E64(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = MFAttachmentShowcase;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2641,9 +2529,9 @@ id sub_1001A6DE8()
   return v1;
 }
 
-void sub_1001A6EB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001A6EB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2777,7 +2665,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_1001A8610()
+uint64_t sub_1001A8610(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1006DD3E0 = result;
@@ -3578,71 +3466,78 @@ id *sub_1001B1C90(id *result, double a2)
   return result;
 }
 
-void sub_1001B24B0(uint64_t a1, void *a2)
+void sub_1001B24B0(uint64_t a1, void *a2, unint64_t a3)
 {
-  v10 = a2;
-  [v10 frame];
-  y = v12.origin.y;
-  width = v12.size.width;
-  height = v12.size.height;
-  CGRectGetWidth(v12);
-  UIRoundToViewScale();
-  x = v13.origin.x;
-  v13.origin.y = y;
-  v13.size.width = width;
-  v13.size.height = height;
-  CGRectGetHeight(v13);
-  UIRoundToViewScale();
-  [v10 setFrame:{x, v7, width, height}];
-  v8 = [v10 superview];
+  v15 = a2;
+  [v15 frame];
+  y = v17.origin.y;
+  width = v17.size.width;
+  height = v17.size.height;
+  v8 = *(a1 + 40);
+  v9 = CGRectGetWidth(v17);
+  v18.origin.x = UIRoundToViewScale(v8 + v9 * -0.5);
+  x = v18.origin.x;
+  v11 = *(a1 + 48);
+  v18.origin.y = y;
+  v18.size.width = width;
+  v18.size.height = height;
+  v12 = CGRectGetHeight(v18);
+  [v15 setFrame:{x, UIRoundToViewScale(v11 + v12 * -0.5 + *(a1 + 56) * a3), width, height}];
+  v13 = [v15 superview];
 
-  if (!v8)
+  if (!v13)
   {
-    v9 = [*(a1 + 32) contentView];
-    [v9 addSubview:v10];
+    v14 = [*(a1 + 32) contentView];
+    [v14 addSubview:v15];
   }
 }
 
 void sub_1001B2AE8(uint64_t a1, void *a2, uint64_t a3)
 {
-  v19 = a2;
-  [v19 frame];
+  v23 = a2;
+  [v23 frame];
   v9 = v5;
   v10 = v6;
   v11 = v7;
   v12 = v8;
   if (a3)
   {
-    CGRectGetMidX(*(*(*(a1 + 40) + 8) + 32));
-    v5 = v9;
-    v6 = v10;
-    v7 = v11;
-    v8 = v12;
+    MidX = CGRectGetMidX(*(*(*(a1 + 40) + 8) + 32));
+    v25.origin.x = v9;
+    v25.origin.y = v10;
+    v25.size.width = v11;
+    v25.size.height = v12;
+    v14 = MidX + CGRectGetWidth(v25) * -0.5 + *(a1 + 56);
   }
 
-  CGRectGetWidth(*&v5);
-  UIRoundToViewScale();
-  x = v21.origin.x;
-  v21.origin.y = v10;
-  v21.size.width = v11;
-  v21.size.height = v12;
-  CGRectGetHeight(v21);
-  UIRoundToViewScale();
-  v15 = v14;
-  [v19 setFrame:{x, v14, v11, v12}];
-  v16 = [v19 superview];
-
-  if (!v16)
+  else
   {
-    v17 = [*(a1 + 32) contentView];
-    [v17 addSubview:v19];
+    v15 = *(a1 + 48);
+    v14 = v15 + CGRectGetWidth(*&v5) * -0.5;
   }
 
-  v18 = *(*(a1 + 40) + 8);
-  v18[4] = x;
-  v18[5] = v15;
-  v18[6] = v11;
-  v18[7] = v12;
+  v26.origin.x = UIRoundToViewScale(v14);
+  x = v26.origin.x;
+  v17 = *(a1 + 64);
+  v26.origin.y = v10;
+  v26.size.width = v11;
+  v26.size.height = v12;
+  Height = CGRectGetHeight(v26);
+  v19 = UIRoundToViewScale(v17 + Height * -0.5);
+  [v23 setFrame:{x, v19, v11, v12}];
+  v20 = [v23 superview];
+
+  if (!v20)
+  {
+    v21 = [*(a1 + 32) contentView];
+    [v21 addSubview:v23];
+  }
+
+  v22 = *(*(a1 + 40) + 8);
+  v22[4] = x;
+  v22[5] = v19;
+  v22[6] = v11;
+  v22[7] = v12;
 }
 
 void sub_1001B2FA0(uint64_t a1, void *a2, void *a3)
@@ -3869,7 +3764,7 @@ LABEL_7:
   }
 }
 
-uint64_t sub_1001B735C()
+uint64_t sub_1001B735C(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1006DD460 = result;
@@ -4148,7 +4043,7 @@ void sub_1001B9EE4(uint64_t a1)
   [v1 cellConfigurator:WeakRetained wantsToReloadCellAtIndexPaths:&__NSArray0__struct animated:1];
 }
 
-void sub_1001BA5C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
+void sub_1001BA5C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
 {
   _Block_object_dispose(&a20, 8);
   _Block_object_dispose(&a24, 8);
@@ -4417,12 +4312,12 @@ void sub_1001BFE14(uint64_t a1, void *a2)
   [WeakRetained _updateHorizontalStatusIndicators:v4];
 }
 
-void sub_1001C0148(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, ...)
+void sub_1001C0148(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, void *a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   objc_destroyWeak(va);
-  objc_destroyWeak((v20 - 88));
+  objc_destroyWeak((v27 - 88));
 
   _Unwind_Resume(a1);
 }
@@ -4520,28 +4415,29 @@ void sub_1001C0D20(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1001C0D90(uint64_t a1, void *a2)
+void sub_1001C0D90(uint64_t a1, void *a2, unint64_t a3)
 {
-  v9 = a2;
-  [v9 setTranslatesAutoresizingMaskIntoConstraints:1];
-  [v9 frame];
-  y = v11.origin.y;
-  width = v11.size.width;
-  height = v11.size.height;
-  CGRectGetWidth(v11);
-  UIRoundToViewScale();
-  x = v12.origin.x;
-  v12.origin.y = y;
-  v12.size.width = width;
-  v12.size.height = height;
-  CGRectGetHeight(v12);
-  UIRoundToViewScale();
-  [v9 setFrame:{x, v7, width, height}];
-  v8 = [v9 superview];
+  v14 = a2;
+  [v14 setTranslatesAutoresizingMaskIntoConstraints:1];
+  [v14 frame];
+  y = v16.origin.y;
+  width = v16.size.width;
+  height = v16.size.height;
+  v8 = *(a1 + 40);
+  v9 = CGRectGetWidth(v16);
+  v17.origin.x = UIRoundToViewScale(v8 + v9 * -0.5);
+  x = v17.origin.x;
+  v11 = *(a1 + 48);
+  v17.origin.y = y;
+  v17.size.width = width;
+  v17.size.height = height;
+  v12 = CGRectGetHeight(v17);
+  [v14 setFrame:{x, UIRoundToViewScale(v11 + v12 * -0.5 + *(a1 + 56) * a3), width, height}];
+  v13 = [v14 superview];
 
-  if (!v8)
+  if (!v13)
   {
-    [*(a1 + 32) addSubview:v9];
+    [*(a1 + 32) addSubview:v14];
   }
 }
 
@@ -4857,12 +4753,14 @@ void sub_1001C6E6C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1001C70A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1001C70A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
+
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v33 - 128), 8);
-  _Block_object_dispose((v33 - 96), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 128), 8);
+  _Block_object_dispose((v32 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4892,9 +4790,9 @@ void sub_1001C710C(uint64_t a1, uint64_t a2, void *a3, void *a4)
   *(*(*(a1 + v10) + 8) + 24) += v8;
 }
 
-void sub_1001C72C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001C72C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4918,9 +4816,9 @@ void sub_1001C72DC(uint64_t a1, uint64_t a2, void *a3)
   *(*(*(a1 + 32) + 8) + 24) += v6;
 }
 
-void sub_1001C7510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, ...)
+void sub_1001C7510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -4940,9 +4838,9 @@ void sub_1001C7570(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_1001C7704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001C7704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5302,12 +5200,12 @@ void sub_1001CFC60(uint64_t a1)
   qword_1006DD4F8 = v1;
 }
 
-void sub_1001CFCE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1001CFCE4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = MFKeyboardAvoidance;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -5781,10 +5679,10 @@ id sub_1001D8070(id a1, MFMessageCriterion *a2)
   return v5;
 }
 
-void sub_1001D86FC()
+void sub_1001D86FC(uint64_t a1)
 {
-  v0 = +[MFURLRoutingRequest log];
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = +[MFURLRoutingRequest log];
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_10048B814();
   }
@@ -5904,16 +5802,16 @@ void sub_1001DA760(uint64_t a1)
   qword_1006DD558 = v1;
 }
 
-void sub_1001DAAF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1001DAAF4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MFMailComposeDeliveryController;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_1001DABF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, ...)
+void sub_1001DABF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -6248,7 +6146,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_1001DCE0C()
+uint64_t sub_1001DCE0C(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1006DD570 = result;
@@ -6937,6 +6835,14 @@ void sub_1001E3FB0(uint64_t a1)
   [v9 performBlock:v10];
 }
 
+void sub_1001E5144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
+{
+  va_start(va, a38);
+
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_1001E5264(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -6964,12 +6870,12 @@ void sub_1001E5264(uint64_t a1, void *a2)
   }
 }
 
-void sub_1001E5444(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1001E5444(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = MFMailPurgeableStorageMonitor;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7179,11 +7085,11 @@ id sub_1001E8480(uint64_t a1, void *a2)
   return v4;
 }
 
-void sub_1001E8628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001E8628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8413,10 +8319,10 @@ void sub_1001F128C(id a1, UIPrintInteractionController *a2, BOOL a3, NSError *a4
   }
 }
 
-void sub_1001F142C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1001F142C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MFMessagePrinter;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8580,10 +8486,10 @@ void sub_1001F402C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1001F4254(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1001F4254(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MFMessageViewController;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8610,4 +8516,106 @@ void sub_1001F47C0(uint64_t a1)
       v3 = v10;
     }
   }
+}
+
+void sub_1001F49A8(uint64_t a1)
+{
+  v1 = [*(a1 + 32) view];
+  [v1 sceneMovedToForeground];
+}
+
+void sub_1001F5604(uint64_t a1)
+{
+  v2[0] = _NSConcreteStackBlock;
+  v2[1] = 3221225472;
+  v2[2] = sub_1001F56CC;
+  v2[3] = &unk_10064C838;
+  objc_copyWeak(&v3, (a1 + 32));
+  v1 = +[EFScheduler mainThreadScheduler];
+  [v1 performBlock:v2];
+
+  objc_destroyWeak(&v3);
+}
+
+void sub_1001F56CC(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v1 = [WeakRetained messageContentView];
+  [v1 reload];
+}
+
+void sub_1001F5B48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, id location, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23)
+{
+  objc_destroyWeak((v28 + 56));
+  objc_destroyWeak(&location);
+  _Block_object_dispose(&a18, 8);
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_1001F5BDC(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_1001F5BF4(uint64_t a1, void *a2)
+{
+  v7 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 56));
+  if ([*(a1 + 32) ef_conformsToMarkupUTType] && objc_msgSend(v7, "isEqualToString:", MFActivityTypeMarkupDocument))
+  {
+    v4 = [*(a1 + 40) contentURL];
+    [WeakRetained _previewURL:v4 withEditingEnabled:1];
+  }
+
+  v5 = *(*(a1 + 48) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = 0;
+}
+
+void sub_1001F5F74(id a1, NSError *a2)
+{
+  v2 = a2;
+  if (v2)
+  {
+    v3 = MFLogGeneral();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    {
+      sub_10048BD2C(v2, v3);
+    }
+  }
+}
+
+void sub_1001F6A58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+{
+  v14 = v13;
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1001F6B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14)
+{
+  v18 = v17;
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1001F6BBC(uint64_t a1, void *a2)
+{
+  v5 = a2;
+  v3 = [*(a1 + 32) contentRequest];
+  v4 = [v3 message];
+  [v5 setSourceMessageListItem:v4];
+
+  [v5 setPossibleStoreURL:{objc_msgSend(*(a1 + 40), "ef_hasScheme:", EMMailToURLScheme) ^ 1}];
+}
+
+BOOL sub_1001F6EC4(id a1, EMMailbox *a2)
+{
+  v2 = [(EMMailbox *)a2 account];
+  v3 = [v2 supportsiCloudCleanup];
+
+  return v3;
 }

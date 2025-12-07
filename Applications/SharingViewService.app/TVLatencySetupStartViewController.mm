@@ -15,7 +15,7 @@
   viewCopy = view;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupStartViewController handleTapOutsideView:]", 30, "Dismissing on tap outside view\n");
   }
 
   [self->super.super._mainController dismiss:1];
@@ -26,7 +26,7 @@
   buttonCopy = button;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupStartViewController handleDismissButton:]", 30, "Dismiss button\n");
   }
 
   [self->super.super._mainController dismiss:5];
@@ -37,7 +37,7 @@
   buttonCopy = button;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupStartViewController handleStartButton:]", 30, "Start button\n");
   }
 
   containerView = [(SVSBaseViewController *)self containerView];
@@ -75,9 +75,7 @@
       v6 = userInfo;
     }
 
-    v12 = name;
-    v13 = v6;
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupStartViewController handleDeviceSetupNotification:]", 30, "DeviceSetup notification '%@', %##@\n", name, v6);
   }
 
   name2 = [notificationCopy name];
@@ -95,7 +93,7 @@
     {
       if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001BF2B8, "[TVLatencySetupStartViewController handleDeviceSetupNotification:]", 30, "Auto-dismissing on setup started\n");
       }
 
       [self->super.super._mainController dismiss:16];
@@ -123,7 +121,7 @@
   disappearCopy = disappear;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupStartViewController viewDidDisappear:]", 30, "Start ViewDidDisappear\n");
   }
 
   v6.receiver = self;
@@ -138,7 +136,7 @@
   appearCopy = appear;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupStartViewController viewWillAppear:]", 30, "Start ViewWillAppear\n");
   }
 
   v10.receiver = self;

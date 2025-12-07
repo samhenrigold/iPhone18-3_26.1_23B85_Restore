@@ -322,7 +322,7 @@ LABEL_7:
 
 + (id)_createTemplateFromConfiguration:(id)configuration
 {
-  v13[4] = *MEMORY[0x277D85DE8];
+  v12[4] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   realm = [configurationCopy realm];
   objc_opt_class();
@@ -332,18 +332,16 @@ LABEL_7:
   if ((isKindOfClass & 1) == 0)
   {
     prefix = [configurationCopy prefix];
-    v13[0] = prefix;
+    v12[0] = prefix;
     v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lX", objc_msgSend(configurationCopy, "requiredServices")];
-    v13[1] = v8;
+    v12[1] = v8;
     v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lX", objc_msgSend(configurationCopy, "options")];
-    v13[2] = v9;
-    v13[3] = @"%@";
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:4];
+    v12[2] = v9;
+    v12[3] = @"%@";
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:4];
 
     v6 = [v10 componentsJoinedByString:@"."];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -371,7 +369,7 @@ LABEL_7:
 
 void __30__COCluster__updateIdentifier__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) identifier];
   v3 = [*(a1 + 32) configuration];
   v4 = [v3 realm];
@@ -415,11 +413,11 @@ LABEL_8:
   {
     v10 = *(a1 + 32);
     *buf = 134218498;
-    v16 = v10;
-    v17 = 2112;
-    v18 = v8;
-    v19 = 2112;
-    v20 = v2;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v8;
+    v18 = 2112;
+    v19 = v2;
     _os_log_impl(&dword_244328000, v9, OS_LOG_TYPE_DEFAULT, "%p cluster identifier changing to %@ from %@", buf, 0x20u);
   }
 
@@ -430,8 +428,6 @@ LABEL_8:
 
   *(*(*(a1 + 40) + 8) + 24) = 1;
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activate:(id)activate
@@ -463,16 +459,16 @@ LABEL_11:
 
 void __22__COCluster_activate___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = COLogForCategory(7);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v10 = 134218242;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_244328000, v2, OS_LOG_TYPE_DEFAULT, "%p cluster activating %@", &v10, 0x16u);
+    v9 = 134218242;
+    v10 = v3;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_244328000, v2, OS_LOG_TYPE_DEFAULT, "%p cluster activating %@", &v9, 0x16u);
   }
 
   v4 = [*(a1 + 40) copy];
@@ -484,8 +480,6 @@ void __22__COCluster_activate___block_invoke(uint64_t a1)
   v7 = *(a1 + 32);
   v8 = *(v7 + 32);
   *(v7 + 32) = 0;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __22__COCluster_activate___block_invoke_53(uint64_t a1, void *a2)
@@ -562,7 +556,7 @@ void __33__COCluster__invokeUpdateHandler__block_invoke(uint64_t a1)
 
 + (id)_clusterForCluster:(id)cluster
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   clusterCopy = cluster;
   if (!+[COFeatureStatus isCOClusterEnabled])
   {
@@ -613,32 +607,32 @@ void __33__COCluster__invokeUpdateHandler__block_invoke(uint64_t a1)
     {
       if (![@"COClusterDynamicGroup" isEqualToString:v7])
       {
-        v22 = 0;
-        v12 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"com.apple.([0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})-home-mesh" options:0 error:&v22];
-        v13 = v22;
+        v21 = 0;
+        v11 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"com.apple.([0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})-home-mesh" options:0 error:&v21];
+        v12 = v21;
         v5 = 0;
-        if (!v13)
+        if (!v12)
         {
-          v14 = [v12 firstMatchInString:v7 options:0 range:{0, objc_msgSend(v7, "length")}];
+          v13 = [v11 firstMatchInString:v7 options:0 range:{0, objc_msgSend(v7, "length")}];
           v5 = 0;
-          if ([v14 numberOfRanges] == 2)
+          if ([v13 numberOfRanges] == 2)
           {
-            v15 = [v14 rangeAtIndex:1];
-            v21 = [v7 substringWithRange:{v15, v16}];
-            v17 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v21];
-            v20 = [_COClusterRealmHome realmWithHomeKitHomeIdentifier:v17];
-            v18 = [COClusterConfiguration configurationWithDomain:@"COClusterHome" requiredServices:15 options:1 realm:?];
-            v5 = [[self alloc] _initWithConfiguration:v18 format:@"com.apple.%@-home-mesh" label:@"COClusterHome"];
-            v19 = COLogForCategory(7);
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            v14 = [v13 rangeAtIndex:1];
+            v20 = [v7 substringWithRange:{v14, v15}];
+            v16 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v20];
+            v19 = [_COClusterRealmHome realmWithHomeKitHomeIdentifier:v16];
+            v17 = [COClusterConfiguration configurationWithDomain:@"COClusterHome" requiredServices:15 options:1 realm:?];
+            v5 = [[self alloc] _initWithConfiguration:v17 format:@"com.apple.%@-home-mesh" label:@"COClusterHome"];
+            v18 = COLogForCategory(7);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134218498;
               selfCopy = self;
-              v25 = 2112;
-              v26 = v17;
-              v27 = 2112;
-              v28 = v7;
-              _os_log_impl(&dword_244328000, v19, OS_LOG_TYPE_DEFAULT, "Created legacy Home cluster %p using %@ from %@", buf, 0x20u);
+              v24 = 2112;
+              v25 = v16;
+              v26 = 2112;
+              v27 = v7;
+              _os_log_impl(&dword_244328000, v18, OS_LOG_TYPE_DEFAULT, "Created legacy Home cluster %p using %@ from %@", buf, 0x20u);
             }
           }
         }
@@ -671,8 +665,6 @@ LABEL_22:
   v5 = homeCluster2;
 LABEL_23:
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
@@ -690,16 +682,8 @@ LABEL_23:
 
 uint64_t __35__COCluster__allowedClusterClasses__block_invoke()
 {
-  v0 = +[COFeatureStatus isCOClusterEnabled];
-  v1 = objc_alloc(MEMORY[0x277CBEB98]);
-  v2 = off_278E11F78;
-  if (!v0)
-  {
-    v2 = 0x277CCACA8;
-  }
-
-  v3 = *v2;
-  _allowedClusterClasses_allowedClasses = [v1 initWithObjects:{objc_opt_class(), 0}];
+  +[COFeatureStatus isCOClusterEnabled];
+  _allowedClusterClasses_allowedClasses = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{objc_opt_class(), 0}];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -794,11 +778,10 @@ LABEL_30:
 
 + (void)_clusterForCluster:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_244328000, a2, OS_LOG_TYPE_ERROR, "Failed to identify cluster for %@, falling back", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_244328000, a2, OS_LOG_TYPE_ERROR, "Failed to identify cluster for %@, falling back", &v2, 0xCu);
 }
 
 @end

@@ -46,31 +46,27 @@
 
 - (void)_queue_pollSatisfied
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
-  v4 = dispatch_semaphore_create(0);
-  mediaRemoteQueue = self->_mediaRemoteQueue;
-  v6 = v4;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
+  v3 = dispatch_semaphore_create(0);
   MRMediaRemoteGetNowPlayingApplicationPlaybackState();
-  v7 = dispatch_time(0, 3000000000);
-  dispatch_semaphore_wait(v6, v7);
-  v8 = *(v18 + 24);
-  if (self->_queue_mediaPlaying != v8)
+  v4 = dispatch_time(0, 3000000000);
+  v5 = dispatch_semaphore_wait(v3, v4);
+  v6 = *(v16 + 24);
+  if (self->_queue_mediaPlaying != v6)
   {
-    self->_queue_mediaPlaying = v8;
-    v9 = SULogInstallConstraints();
-    self->_queue_mediaPlaying;
-    SULogInfoForSubsystem(v9, @"%@ - media playing constraint changed (satisfied? %@)", v10, v11, v12, v13, v14, v15, self);
+    self->_queue_mediaPlaying = v6;
+    v7 = SULogInstallConstraints(v5);
+    SULogInfoForSubsystem(v7, @"%@ - media playing constraint changed (satisfied? %@)", v8, v9, v10, v11, v12, v13, self);
 
     delegate = [(SUInstallationConstraintMonitorBase *)self delegate];
     [delegate installationConstraintMonitor:self constraintsDidChange:{-[SUInstallationConstraintMonitorBase representedConstraints](self, "representedConstraints")}];
   }
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v15, 8);
 }
 
 - (void)_handlePlaybackChangeNotification:(id)notification
@@ -86,7 +82,6 @@
 
 - (unint64_t)unsatisfiedConstraints
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
   [(SUInstallationConstraintMonitorMediaPlaying *)self _queue_pollSatisfied];
   if (!self->_queue_mediaPlaying)

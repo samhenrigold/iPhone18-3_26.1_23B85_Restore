@@ -28,8 +28,8 @@
 
   v8 = v7;
 
-  v11 = equalCopy && (destination = self->_destination, v10 = v8[2], BSEqualObjects()) && self->_userIdentifier == *(v8 + 2);
-  return v11;
+  v9 = equalCopy && BSEqualObjects() && self->_userIdentifier == v8[2];
+  return v9;
 }
 
 @end

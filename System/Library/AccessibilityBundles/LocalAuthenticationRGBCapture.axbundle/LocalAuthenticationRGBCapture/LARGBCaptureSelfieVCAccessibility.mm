@@ -27,24 +27,22 @@
 
 - (void)_toggleFlash:(id)flash
 {
-  v9.receiver = self;
-  v9.super_class = LARGBCaptureSelfieVCAccessibility;
-  [(LARGBCaptureSelfieVCAccessibility *)&v9 _toggleFlash:flash];
+  v7.receiver = self;
+  v7.super_class = LARGBCaptureSelfieVCAccessibility;
+  [(LARGBCaptureSelfieVCAccessibility *)&v7 _toggleFlash:flash];
   v4 = *MEMORY[0x29EDC7F70];
-  v5 = [(LARGBCaptureSelfieVCAccessibility *)self safeBoolForKey:@"_useFlash"];
-  v6 = *MEMORY[0x29EDC7FC0];
-  if (v5)
+  if ([(LARGBCaptureSelfieVCAccessibility *)self safeBoolForKey:@"_useFlash"])
   {
-    v7 = *MEMORY[0x29EDC7FC0];
+    v5 = *MEMORY[0x29EDC7FC0];
   }
 
   else
   {
-    v7 = 0;
+    v5 = 0;
   }
 
-  v8 = [(LARGBCaptureSelfieVCAccessibility *)self safeValueForKey:@"_flashButton"];
-  [v8 setAccessibilityTraits:v7 | v4];
+  v6 = [(LARGBCaptureSelfieVCAccessibility *)self safeValueForKey:@"_flashButton"];
+  [v6 setAccessibilityTraits:v5 | v4];
 
   UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
 }

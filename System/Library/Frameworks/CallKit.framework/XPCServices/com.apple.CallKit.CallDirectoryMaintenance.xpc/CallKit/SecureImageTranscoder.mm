@@ -28,8 +28,8 @@
 
 - (void)generatePreviewImageFrom:(NSData *)from completionHandler:(id)handler
 {
-  v7 = (*(*(sub_100014304(&qword_10003C700, &qword_100028750) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v7 = sub_100014304(&qword_10003C700, &qword_100028750);
+  __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();

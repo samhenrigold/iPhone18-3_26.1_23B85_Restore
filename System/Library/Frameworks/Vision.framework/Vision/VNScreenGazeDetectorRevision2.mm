@@ -7,7 +7,7 @@
 
 + (BOOL)modelFullyANEResident
 {
-  v2 = VNANEArchitectureName();
+  v2 = VNANEArchitectureName(self);
   v3 = VNANEGenerationNumberForArchitectureName(v2, 0);
   v4 = [v3 integerValue] != 13;
 
@@ -16,7 +16,7 @@
 
 + (BOOL)supportsExecution
 {
-  v2 = VNANEArchitectureName();
+  v2 = VNANEArchitectureName(self);
   v3 = VNANEGenerationNumberForArchitectureName(v2, 0);
   v4 = [v3 integerValue] > 0xC;
 

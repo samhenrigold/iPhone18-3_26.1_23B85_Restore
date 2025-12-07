@@ -6,7 +6,6 @@
 - (BOOL)promotePlaceholderWithModeIdentifier:(id)identifier error:(id *)error;
 - (id)_initWithClientIdentifier:(id)identifier;
 - (id)activeModeAssertionWithError:(id *)error;
-- (void)_queue_registerForUpdatesIfRequired;
 - (void)addListener:(id)listener withCompletionHandler:(id)handler;
 - (void)remoteService:(id)service didReceiveUpdatedActiveModeAssertion:(id)assertion stateUpdate:(id)update;
 - (void)remoteService:(id)service didReceiveUpdatedAvailableModes:(id)modes;
@@ -122,35 +121,35 @@ void __54__DNDModeSelectionService_serviceForClientIdentifier___block_invoke_2(u
 
 - (BOOL)activateModeWithDetails:(id)details error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   detailsCopy = details;
   v7 = _os_activity_create(&dword_22002F000, "com.apple.donotdisturb.DNDModeSelectionService.activateModeWithIdentifier", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v7, &state);
   v8 = [DNDRequestDetails detailsRepresentingNowWithClientIdentifier:self->_clientIdentifier];
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__8;
-  v29 = __Block_byref_object_dispose__8;
   v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__8;
+  v28 = __Block_byref_object_dispose__8;
+  v29 = 0;
   v9 = +[DNDRemoteServiceConnection sharedInstance];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __57__DNDModeSelectionService_activateModeWithDetails_error___block_invoke;
-  v21[3] = &unk_27843AB00;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __57__DNDModeSelectionService_activateModeWithDetails_error___block_invoke;
+  v20[3] = &unk_27843AB00;
   v10 = v7;
-  v22 = v10;
-  v23 = &v31;
-  v24 = &v25;
-  [v9 activateModeWithDetails:detailsCopy withRequestDetails:v8 completionHandler:v21];
+  v21 = v10;
+  v22 = &v30;
+  v23 = &v24;
+  [v9 activateModeWithDetails:detailsCopy withRequestDetails:v8 completionHandler:v20];
 
-  v11 = *(v32 + 24);
+  v11 = *(v31 + 24);
   v12 = DNDLogModeSelection;
   v13 = v12;
   if (v11 == 1)
@@ -159,9 +158,9 @@ void __54__DNDModeSelectionService_serviceForClientIdentifier___block_invoke_2(u
     {
       modeIdentifier = [detailsCopy modeIdentifier];
       *buf = 138543618;
-      v37 = v8;
-      v38 = 2114;
-      v39 = modeIdentifier;
+      v36 = v8;
+      v37 = 2114;
+      v38 = modeIdentifier;
       _os_log_impl(&dword_22002F000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Activate mode with identifier, modeIdentifier=%{public}@", buf, 0x16u);
     }
   }
@@ -169,32 +168,31 @@ void __54__DNDModeSelectionService_serviceForClientIdentifier___block_invoke_2(u
   else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     modeIdentifier2 = [detailsCopy modeIdentifier];
-    v20 = v26[5];
+    v19 = v25[5];
     *buf = 138543874;
-    v37 = v8;
-    v38 = 2114;
-    v39 = modeIdentifier2;
-    v40 = 2114;
-    v41 = v20;
+    v36 = v8;
+    v37 = 2114;
+    v38 = modeIdentifier2;
+    v39 = 2114;
+    v40 = v19;
     _os_log_error_impl(&dword_22002F000, v13, OS_LOG_TYPE_ERROR, "[%{public}@] Error when setting mode with identifier, modeIdentifier=%{public}@ error='%{public}@'", buf, 0x20u);
   }
 
   if (error)
   {
-    v15 = v26[5];
+    v15 = v25[5];
     if (v15)
     {
       *error = v15;
     }
   }
 
-  v16 = *(v32 + 24);
+  v16 = *(v31 + 24);
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v30, 8);
 
   os_activity_scope_leave(&state);
-  v17 = *MEMORY[0x277D85DE8];
   return v16 & 1;
 }
 
@@ -215,43 +213,43 @@ void __57__DNDModeSelectionService_activateModeWithDetails_error___block_invoke(
 
 - (BOOL)invalidateModeAssertionWithUUID:(id)d error:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v7 = _os_activity_create(&dword_22002F000, "com.apple.donotdisturb.DNDModeSelectionService.invalidateModeAssertionWithUUID", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v7, &state);
   v8 = [DNDRequestDetails detailsRepresentingNowWithClientIdentifier:self->_clientIdentifier];
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__8;
-  v25 = __Block_byref_object_dispose__8;
   v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__8;
+  v24 = __Block_byref_object_dispose__8;
+  v25 = 0;
   v9 = +[DNDRemoteServiceConnection sharedInstance];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __65__DNDModeSelectionService_invalidateModeAssertionWithUUID_error___block_invoke;
-  v17[3] = &unk_27843AB00;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __65__DNDModeSelectionService_invalidateModeAssertionWithUUID_error___block_invoke;
+  v16[3] = &unk_27843AB00;
   v10 = v7;
-  v18 = v10;
-  v19 = &v27;
-  v20 = &v21;
-  [v9 invalidateModeAssertionWithUUID:dCopy withRequestDetails:v8 completionHandler:v17];
+  v17 = v10;
+  v18 = &v26;
+  v19 = &v20;
+  [v9 invalidateModeAssertionWithUUID:dCopy withRequestDetails:v8 completionHandler:v16];
 
   v11 = DNDLogModeSelection;
-  if (*(v28 + 24) == 1)
+  if (*(v27 + 24) == 1)
   {
     if (os_log_type_enabled(DNDLogModeSelection, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v33 = v8;
-      v34 = 2114;
-      v35 = dCopy;
+      v32 = v8;
+      v33 = 2114;
+      v34 = dCopy;
       _os_log_impl(&dword_22002F000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Invalidate mode assertion with UUID, assertionUUID=%{public}@", buf, 0x16u);
       if (!error)
       {
@@ -275,13 +273,13 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v16 = v22[5];
+  v15 = v21[5];
   *buf = 138543874;
-  v33 = v8;
-  v34 = 2114;
-  v35 = dCopy;
-  v36 = 2114;
-  v37 = v16;
+  v32 = v8;
+  v33 = 2114;
+  v34 = dCopy;
+  v35 = 2114;
+  v36 = v15;
   _os_log_error_impl(&dword_22002F000, v11, OS_LOG_TYPE_ERROR, "[%{public}@] Error when invalidating mode assertion with UUID, assertionUUID=%{public}@ error='%{public}@'", buf, 0x20u);
   if (!error)
   {
@@ -289,20 +287,19 @@ LABEL_6:
   }
 
 LABEL_7:
-  v12 = v22[5];
+  v12 = v21[5];
   if (v12)
   {
     *error = v12;
   }
 
 LABEL_9:
-  v13 = *(v28 + 24);
+  v13 = *(v27 + 24);
 
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v26, 8);
 
   os_activity_scope_leave(&state);
-  v14 = *MEMORY[0x277D85DE8];
   return v13 & 1;
 }
 
@@ -323,7 +320,7 @@ void __65__DNDModeSelectionService_invalidateModeAssertionWithUUID_error___block
 
 - (id)activeModeAssertionWithError:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   v5 = _os_activity_create(&dword_22002F000, "com.apple.donotdisturb.DNDModeSelectionService.activeModeAssertion", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
@@ -339,35 +336,35 @@ void __65__DNDModeSelectionService_invalidateModeAssertionWithUUID_error___block
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__8;
-  v26 = __Block_byref_object_dispose__8;
-  v27 = 0;
-  v15 = 0;
-  v16[0] = &v15;
-  v16[1] = 0x3032000000;
-  v16[2] = __Block_byref_object_copy__8;
-  v16[3] = __Block_byref_object_dispose__8;
-  v17 = 0;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__8;
+  v28 = __Block_byref_object_dispose__8;
+  v29 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__8;
+  v18 = __Block_byref_object_dispose__8;
+  v19 = 0;
   v8 = +[DNDRemoteServiceConnection sharedInstance];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __56__DNDModeSelectionService_activeModeAssertionWithError___block_invoke;
-  v14[3] = &unk_27843AA10;
-  v14[4] = &buf;
-  v14[5] = &v15;
-  [v8 activeModeAssertionWithRequestDetails:v6 completionHandler:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __56__DNDModeSelectionService_activeModeAssertionWithError___block_invoke;
+  v13[3] = &unk_27843AA10;
+  v13[4] = &buf;
+  v13[5] = &v14;
+  [v8 activeModeAssertionWithRequestDetails:v6 completionHandler:v13];
 
-  if (*(v16[0] + 40))
+  if (v15[5])
   {
     if (os_log_type_enabled(DNDLogModeSelection, OS_LOG_TYPE_ERROR))
     {
-      [(DNDModeSelectionService *)v6 activeModeAssertionWithError:v16];
+      [DNDModeSelectionService activeModeAssertionWithError:];
     }
 
     if (error)
     {
-      *error = *(v16[0] + 40);
+      *error = v15[5];
     }
   }
 
@@ -375,19 +372,18 @@ void __65__DNDModeSelectionService_invalidateModeAssertionWithUUID_error___block
   if (os_log_type_enabled(DNDLogModeSelection, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(*(&buf + 1) + 40);
-    *v19 = 138543618;
-    v20 = v6;
-    v21 = 2114;
-    v22 = v10;
-    _os_log_impl(&dword_22002F000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got mode assertion, assertion=%{public}@", v19, 0x16u);
+    *v21 = 138543618;
+    v22 = v6;
+    v23 = 2114;
+    v24 = v10;
+    _os_log_impl(&dword_22002F000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got mode assertion, assertion=%{public}@", v21, 0x16u);
   }
 
   os_activity_scope_leave(&state);
   v11 = *(*(&buf + 1) + 40);
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
 
   _Block_object_dispose(&buf, 8);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -416,7 +412,7 @@ void __56__DNDModeSelectionService_activeModeAssertionWithError___block_invoke(u
 
 - (void)addListener:(id)listener withCompletionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   handlerCopy = handler;
   v8 = _os_activity_create(&dword_22002F000, "com.apple.donotdisturb.DNDModeSelectionService.addListener", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
@@ -427,34 +423,33 @@ void __56__DNDModeSelectionService_activeModeAssertionWithError___block_invoke(u
   if (os_log_type_enabled(DNDLogModeSelection, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v22 = listenerCopy;
+    v21 = listenerCopy;
     _os_log_impl(&dword_22002F000, v9, OS_LOG_TYPE_DEFAULT, "Adding update listener: listener=%{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   queue = self->_queue;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __61__DNDModeSelectionService_addListener_withCompletionHandler___block_invoke;
-  v15[3] = &unk_27843AB50;
-  v16 = v8;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __61__DNDModeSelectionService_addListener_withCompletionHandler___block_invoke;
+  v14[3] = &unk_27843AB50;
+  v15 = v8;
   v11 = v8;
-  objc_copyWeak(&v19, buf);
-  v17 = listenerCopy;
-  v18 = handlerCopy;
+  objc_copyWeak(&v18, buf);
+  v16 = listenerCopy;
+  v17 = handlerCopy;
   v12 = handlerCopy;
   v13 = listenerCopy;
-  dispatch_async(queue, v15);
+  dispatch_async(queue, v14);
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(buf);
   os_activity_scope_leave(&state);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __61__DNDModeSelectionService_addListener_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(*(a1 + 32), &state);
@@ -472,7 +467,7 @@ void __61__DNDModeSelectionService_addListener_withCompletionHandler___block_inv
       {
         v7 = *v4;
         *buf = 138543362;
-        v16 = v7;
+        v15 = v7;
         _os_log_impl(&dword_22002F000, v6, OS_LOG_TYPE_DEFAULT, "Registered for updates: listener=%{public}@", buf, 0xCu);
       }
     }
@@ -494,30 +489,28 @@ void __61__DNDModeSelectionService_addListener_withCompletionHandler___block_inv
       block[1] = 3221225472;
       block[2] = __61__DNDModeSelectionService_addListener_withCompletionHandler___block_invoke_11;
       block[3] = &unk_27843AB28;
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 48);
-      v13 = v5;
+      v10 = *(a1 + 32);
+      v11 = *(a1 + 48);
+      v12 = v5;
       dispatch_async(v8, block);
     }
   }
 
   os_activity_scope_leave(&state);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __61__DNDModeSelectionService_addListener_withCompletionHandler___block_invoke_11(uint64_t a1)
 {
-  v3.opaque[0] = 0;
-  v3.opaque[1] = 0;
-  os_activity_scope_enter(*(a1 + 32), &v3);
-  v2 = *(a1 + 48);
+  v2.opaque[0] = 0;
+  v2.opaque[1] = 0;
+  os_activity_scope_enter(*(a1 + 32), &v2);
   (*(*(a1 + 40) + 16))();
-  os_activity_scope_leave(&v3);
+  os_activity_scope_leave(&v2);
 }
 
 - (void)removeListener:(id)listener
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   v5 = _os_activity_create(&dword_22002F000, "com.apple.donotdisturb.DNDModeSelectionService.removeListener", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
@@ -527,7 +520,7 @@ void __61__DNDModeSelectionService_addListener_withCompletionHandler___block_inv
   if (os_log_type_enabled(DNDLogModeSelection, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v17 = listenerCopy;
+    v16 = listenerCopy;
     _os_log_impl(&dword_22002F000, v6, OS_LOG_TYPE_DEFAULT, "Removing update listener: listener=%{public}@", buf, 0xCu);
   }
 
@@ -537,17 +530,16 @@ void __61__DNDModeSelectionService_addListener_withCompletionHandler___block_inv
   block[1] = 3221225472;
   block[2] = __42__DNDModeSelectionService_removeListener___block_invoke;
   block[3] = &unk_27843AB78;
-  v12 = v5;
+  v11 = v5;
   v8 = v5;
-  objc_copyWeak(&v14, buf);
-  v13 = listenerCopy;
+  objc_copyWeak(&v13, buf);
+  v12 = listenerCopy;
   v9 = listenerCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(buf);
   os_activity_scope_leave(&state);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __42__DNDModeSelectionService_removeListener___block_invoke(uint64_t a1)
@@ -584,65 +576,62 @@ void __42__DNDModeSelectionService_removeListener___block_invoke(uint64_t a1)
 
 void __90__DNDModeSelectionService_remoteService_didReceiveUpdatedActiveModeAssertion_stateUpdate___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
+  v18 = *MEMORY[0x277D85DE8];
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v2 = *(*(a1 + 32) + 32);
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
+        v7 = *(*(&v13 + 1) + 8 * v6);
         v8 = *(a1 + 32);
         v9 = *(v8 + 24);
-        v11[0] = MEMORY[0x277D85DD0];
-        v11[1] = 3221225472;
-        v11[2] = __90__DNDModeSelectionService_remoteService_didReceiveUpdatedActiveModeAssertion_stateUpdate___block_invoke_2;
-        v11[3] = &unk_27843ABA0;
-        v11[4] = v7;
-        v11[5] = v8;
-        v12 = *(a1 + 40);
-        v13 = *(a1 + 48);
-        dispatch_async(v9, v11);
+        v10[0] = MEMORY[0x277D85DD0];
+        v10[1] = 3221225472;
+        v10[2] = __90__DNDModeSelectionService_remoteService_didReceiveUpdatedActiveModeAssertion_stateUpdate___block_invoke_2;
+        v10[3] = &unk_27843ABA0;
+        v10[4] = v7;
+        v10[5] = v8;
+        v11 = *(a1 + 40);
+        v12 = *(a1 + 48);
+        dispatch_async(v9, v10);
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __90__DNDModeSelectionService_remoteService_didReceiveUpdatedActiveModeAssertion_stateUpdate___block_invoke_2(void *a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
-    v7 = a1[7];
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = a1[6];
+    v6 = a1[7];
 
-    return [v4 modeSelectionService:v5 didReceiveUpdatedActiveModeAssertion:v6 stateUpdate:v7];
+    return [v3 modeSelectionService:v4 didReceiveUpdatedActiveModeAssertion:v5 stateUpdate:v6];
   }
 
   return result;
@@ -664,28 +653,28 @@ uint64_t __90__DNDModeSelectionService_remoteService_didReceiveUpdatedActiveMode
 
 void __64__DNDModeSelectionService_remoteService_didReceiveUpdatedModes___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
+  v17 = *MEMORY[0x277D85DE8];
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v2 = *(*(a1 + 32) + 32);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * v6);
+        v7 = *(*(&v12 + 1) + 8 * v6);
         v8 = *(a1 + 32);
         v9 = *(v8 + 24);
         block[0] = MEMORY[0x277D85DD0];
@@ -694,33 +683,30 @@ void __64__DNDModeSelectionService_remoteService_didReceiveUpdatedModes___block_
         block[3] = &unk_27843A210;
         block[4] = v7;
         block[5] = v8;
-        v12 = *(a1 + 40);
+        v11 = *(a1 + 40);
         dispatch_async(v9, block);
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __64__DNDModeSelectionService_remoteService_didReceiveUpdatedModes___block_invoke_2(void *a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = a1[6];
 
-    return [v4 modeSelectionService:v5 didReceiveModesUpdate:v6];
+    return [v3 modeSelectionService:v4 didReceiveModesUpdate:v5];
   }
 
   return result;
@@ -742,28 +728,28 @@ uint64_t __64__DNDModeSelectionService_remoteService_didReceiveUpdatedModes___bl
 
 void __73__DNDModeSelectionService_remoteService_didReceiveUpdatedAvailableModes___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
+  v17 = *MEMORY[0x277D85DE8];
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v2 = *(*(a1 + 32) + 32);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * v6);
+        v7 = *(*(&v12 + 1) + 8 * v6);
         v8 = *(a1 + 32);
         v9 = *(v8 + 24);
         block[0] = MEMORY[0x277D85DD0];
@@ -772,33 +758,30 @@ void __73__DNDModeSelectionService_remoteService_didReceiveUpdatedAvailableModes
         block[3] = &unk_27843A210;
         block[4] = v7;
         block[5] = v8;
-        v12 = *(a1 + 40);
+        v11 = *(a1 + 40);
         dispatch_async(v9, block);
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__DNDModeSelectionService_remoteService_didReceiveUpdatedAvailableModes___block_invoke_2(void *a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = a1[6];
 
-    return [v4 modeSelectionService:v5 didReceiveAvailableModesUpdate:v6];
+    return [v3 modeSelectionService:v4 didReceiveAvailableModesUpdate:v5];
   }
 
   return result;
@@ -806,7 +789,7 @@ uint64_t __73__DNDModeSelectionService_remoteService_didReceiveUpdatedAvailableM
 
 - (BOOL)_queue_registerForUpdatesIfRequired
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if ([(NSHashTable *)self->_listeners count]&& !self->_registeredForUpdates)
   {
@@ -823,49 +806,38 @@ uint64_t __73__DNDModeSelectionService_remoteService_didReceiveUpdatedAvailableM
       _os_log_impl(&dword_22002F000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Registering update listener", &buf, 0xCu);
     }
 
-    v11 = 0;
-    v12 = &v11;
-    v13 = 0x2020000000;
-    v14 = 0;
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x2020000000;
+    v13 = 0;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v17 = 0x3032000000;
-    v18 = __Block_byref_object_copy__8;
-    v19 = __Block_byref_object_dispose__8;
-    v20 = 0;
+    v16 = 0x3032000000;
+    v17 = __Block_byref_object_copy__8;
+    v18 = __Block_byref_object_dispose__8;
+    v19 = 0;
     v6 = +[DNDRemoteServiceConnection sharedInstance];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __62__DNDModeSelectionService__queue_registerForUpdatesIfRequired__block_invoke;
-    v10[3] = &unk_27843A750;
-    v10[4] = &v11;
-    v10[5] = &buf;
-    [v6 registerForModeSelectionUpdatesWithRequestDetails:v4 completionHandler:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __62__DNDModeSelectionService__queue_registerForUpdatesIfRequired__block_invoke;
+    v9[3] = &unk_27843A750;
+    v9[4] = &v10;
+    v9[5] = &buf;
+    [v6 registerForModeSelectionUpdatesWithRequestDetails:v4 completionHandler:v9];
 
     if (*(*(&buf + 1) + 40) && os_log_type_enabled(DNDLogModeSelection, OS_LOG_TYPE_ERROR))
     {
-      [(DNDModeSelectionService *)v4 _queue_registerForUpdatesIfRequired];
+      [DNDModeSelectionService _queue_registerForUpdatesIfRequired];
     }
 
     os_activity_scope_leave(&state);
-    self->_registeredForUpdates = *(v12 + 24);
+    self->_registeredForUpdates = *(v11 + 24);
     _Block_object_dispose(&buf, 8);
 
-    _Block_object_dispose(&v11, 8);
+    _Block_object_dispose(&v10, 8);
   }
 
-  if ([(NSHashTable *)self->_listeners count])
-  {
-    registeredForUpdates = self->_registeredForUpdates;
-  }
-
-  else
-  {
-    registeredForUpdates = 1;
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return registeredForUpdates;
+  return ![(NSHashTable *)self->_listeners count]|| self->_registeredForUpdates;
 }
 
 void __62__DNDModeSelectionService__queue_registerForUpdatesIfRequired__block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -875,24 +847,6 @@ void __62__DNDModeSelectionService__queue_registerForUpdatesIfRequired__block_in
   v7 = *(*(a1 + 40) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
-}
-
-- (void)activeModeAssertionWithError:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_0(&dword_22002F000, v3, v4, "[%{public}@] Error when requesting active mode assertion, error='%{public}@'");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_registerForUpdatesIfRequired
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_0(&dword_22002F000, v3, v4, "[%{public}@] Error when registering mode selection update listener, error='%{public}@'");
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

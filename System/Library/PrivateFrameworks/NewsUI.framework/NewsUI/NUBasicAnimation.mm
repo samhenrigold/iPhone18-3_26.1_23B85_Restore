@@ -1,5 +1,6 @@
 @interface NUBasicAnimation
 + (id)animationWithKeyPath:(id)path;
+- (void)animationDidStop:(id)stop finished:(BOOL)finished;
 @end
 
 @implementation NUBasicAnimation
@@ -12,6 +13,18 @@
   [v3 setDelegate:v3];
 
   return v3;
+}
+
+- (void)animationDidStop:(id)stop finished:(BOOL)finished
+{
+  finishedCopy = finished;
+  completion = [(NUBasicAnimation *)self completion];
+
+  if (completion)
+  {
+    completion2 = [(NUBasicAnimation *)self completion];
+    completion2[2](completion2, finishedCopy);
+  }
 }
 
 @end

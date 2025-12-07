@@ -11,7 +11,7 @@
   v4 = OBJC_IVAR____TtC15ShazamEventsApp15LocationManager_manager;
   *(&self->super.isa + v4) = [objc_allocWithZone(CLLocationManager) init];
   v5 = OBJC_IVAR____TtC15ShazamEventsApp15LocationManager_checkedThrowingContinuation;
-  v6 = sub_100009F70(&qword_10021AB50);
+  v6 = sub_100009F70(&qword_10021AB50, &qword_1001B04E0);
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   v8.receiver = self;
   v8.super_class = ObjectType;
@@ -20,7 +20,7 @@
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  v6 = sub_100009F70(&qword_10021F7D0);
+  v6 = sub_100009F70(&qword_10021F7D0, &qword_1001AD340);
   __chkstk_darwin(v6 - 8);
   v8 = &v16 - v7;
   sub_10005F1E0();

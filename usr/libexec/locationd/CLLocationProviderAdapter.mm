@@ -80,13 +80,13 @@
     if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_FAULT))
     {
       *buf = 134349824;
-      v23 = v9;
-      v24 = 1026;
-      v25 = v7;
-      v26 = 1026;
+      v24 = v9;
+      v25 = 1026;
+      v26 = v7;
+      v27 = 1026;
       notificationCopy2 = notification;
-      v28 = 2050;
-      v29 = filterCopy;
+      v29 = 2050;
+      v30 = filterCopy;
       _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_FAULT, "LocationProvider,Failed to registerForFilteredLocation %{public}p (%{public}d, %{public}d, %{public}f)", buf, 0x22u);
     }
 
@@ -98,19 +98,20 @@
         sub_10190651C();
       }
 
-      v14 = 134349824;
-      v15 = v9;
-      v16 = 1026;
-      v17 = v7;
-      v18 = 1026;
+      v15 = 134349824;
+      v16 = v9;
+      v17 = 1026;
+      v18 = v7;
+      v19 = 1026;
       notificationCopy3 = notification;
-      v20 = 2050;
-      v21 = filterCopy;
-      v11 = _os_log_send_and_compose_impl();
+      v21 = 2050;
+      v22 = filterCopy;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4608, 17, "LocationProvider,Failed to registerForFilteredLocation %{public}p (%{public}d, %{public}d, %{public}f)", &v15, 34);
+      v12 = v11;
       sub_100152C7C("Generic", 1, 0, 0, "[CLLocationProviderAdapter register:forNotification:distanceFilter:]", "%s\n", v11);
-      if (v11 != buf)
+      if (v12 != buf)
       {
-        free(v11);
+        free(v12);
       }
     }
   }
@@ -159,7 +160,7 @@
   locationProvider = [(CLLocationProviderAdapter *)self locationProvider];
   if (location)
   {
-    [location clientLocation];
+    objc_msgSend_clientLocation(location);
   }
 
   else
@@ -223,7 +224,8 @@
 - (void)fetchLocationWithReply:(id)reply
 {
   *v11 = 0xFFFF;
-  *&v11[4] = 0uLL;
+  *&v11[4] = 0;
+  *&v11[12] = 0;
   *&v11[20] = xmmword_101C75BF0;
   __asm { FMOV            V0.2D, #-1.0 }
 

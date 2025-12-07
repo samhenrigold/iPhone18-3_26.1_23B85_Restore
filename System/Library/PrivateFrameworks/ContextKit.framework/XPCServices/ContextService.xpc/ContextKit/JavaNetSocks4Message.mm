@@ -167,7 +167,7 @@ LABEL_12:
 
 - (id)description
 {
-  v3 = new_JavaLangStringBuilder_initWithInt_(0x32u);
+  v3 = new_JavaLangStringBuilder_initWithInt_(50);
   [(JavaLangStringBuilder *)v3 appendWithNSString:@"Version: "];
   v4 = [JavaNetSocks4Message getVersionNumber]_0(self);
   [(JavaLangStringBuilder *)v3 appendWithNSString:JavaLangInteger_toHexStringWithInt_(v4)];
@@ -219,7 +219,6 @@ LABEL_10:
       IOSArray_throwOutOfBoundsWithMsg(size, v6);
     }
 
-    v7 = *(&buffer->super.size_ + v6 + 4);
     if (!*(&buffer->super.size_ + v4 + 3))
     {
       return v4;

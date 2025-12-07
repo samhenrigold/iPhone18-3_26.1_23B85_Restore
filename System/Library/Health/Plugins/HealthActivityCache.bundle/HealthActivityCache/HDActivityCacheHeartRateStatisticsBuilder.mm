@@ -13,17 +13,17 @@
 
 - (HKHeartRateSummary)heartRateSummary
 {
-  v11 = 0;
-  v10 = 0;
-  v3 = sub_1417C(self, 10, 0, 0, &v11, &v10);
-  [(HKHeartRateSummarySleepStatistics *)self->_sleepStatistics setHasBGHRSleepMode:v11];
-  v4 = [HKHeartRateSummary alloc];
+  v17 = 0;
+  v16 = 0;
+  v6 = sub_1417C(self, 10, 0, 0, &v17, &v16, v2, v3, v4);
+  [(HKHeartRateSummarySleepStatistics *)self->_sleepStatistics setHasBGHRSleepMode:v17];
+  v7 = [HKHeartRateSummary alloc];
   activityCacheIndex = self->_activityCacheIndex;
-  v6 = sub_37C0(self);
-  v7 = sub_3884(self);
-  v8 = [v4 initWithActivityCacheIndex:activityCacheIndex heartRateDateInterval:v6 restingHeartRate:v3 walkingAverageHeartRate:v7 allDayStatistics:self->_allDayStatistics workoutStatistics:self->_workoutStatistics workoutRecoveryStatistics:self->_workoutRecoveryStatistics breatheStatistics:self->_breatheStatistics sleepStatistics:self->_sleepStatistics];
+  v9 = sub_37C0(self);
+  v13 = sub_3884(self, v10, v11, v12);
+  v14 = [v7 initWithActivityCacheIndex:activityCacheIndex heartRateDateInterval:v9 restingHeartRate:v6 walkingAverageHeartRate:v13 allDayStatistics:self->_allDayStatistics workoutStatistics:self->_workoutStatistics workoutRecoveryStatistics:self->_workoutRecoveryStatistics breatheStatistics:self->_breatheStatistics sleepStatistics:self->_sleepStatistics];
 
-  return v8;
+  return v14;
 }
 
 - (HDActivityCacheHeartRateStatisticsBuilder)initWithDateInterval:(id)interval activityCacheIndex:(int64_t)index
@@ -84,64 +84,63 @@
 
 - (void)addHeartRateSamples:(const void *)samples
 {
-  v5 = *samples;
-  v6 = *(samples + 1);
-  v7 = *samples;
-  if (v6 != v7)
+  v5 = *(samples + 1);
+  v6 = *samples;
+  if (v5 != v6)
   {
-    v8 = 0xAAAAAAAAAAAAAAABLL * ((v6 - v7) >> 3);
+    v7 = 0xAAAAAAAAAAAAAAABLL * ((v5 - v6) >> 3);
     begin = self->_heartRateSamples.__begin_;
     end = self->_heartRateSamples.__end_;
-    v11 = end - begin;
+    v10 = end - begin;
     if (end == begin)
     {
-      sub_12E50(&self->_heartRateSamples.__begin_, begin, v7, v6, v8);
+      sub_12E50(&self->_heartRateSamples.__begin_, begin, v6, v5, v7);
     }
 
     else
     {
-      sub_12D90(&self->_heartRateSamples.__begin_, v8 - 0x5555555555555555 * (v11 >> 3));
+      sub_12D90(&self->_heartRateSamples.__begin_, v7 - 0x5555555555555555 * (v10 >> 3));
       sub_12E50(&self->_heartRateSamples.__begin_, self->_heartRateSamples.__end_, *samples, *(samples + 1), 0xAAAAAAAAAAAAAAABLL * ((*(samples + 1) - *samples) >> 3));
-      sub_130C8(self->_heartRateSamples.__begin_, self->_heartRateSamples.__begin_ + v11, self->_heartRateSamples.__end_, &v21);
+      sub_130C8(self->_heartRateSamples.__begin_, (self->_heartRateSamples.__begin_ + v10), self->_heartRateSamples.__end_, &v20);
     }
   }
 
-  sub_14948(self, samples);
-  v12 = *samples;
-  v13 = *(samples + 1);
-  if (*samples != v13)
+  sub_14948(&self->super.isa, samples);
+  v11 = *samples;
+  v12 = *(samples + 1);
+  if (*samples != v12)
   {
+    v13 = 0;
     v14 = 0;
-    v15 = 0;
     while (1)
     {
-      v16 = *(v12 + 4);
-      v17 = v16 == 4 ? 1 : v15;
-      if (v16 == 3)
+      v15 = *(v11 + 4);
+      v16 = v15 == 4 ? 1 : v14;
+      if (v15 == 3)
       {
-        v14 = 1;
+        v13 = 1;
       }
 
       else
       {
-        v15 = v17;
+        v14 = v16;
       }
 
-      if (v14 & 1) != 0 && (v15)
+      if (v13 & 1) != 0 && (v14)
       {
         break;
       }
 
-      v12 += 24;
-      if (v12 == v13)
+      v11 += 24;
+      if (v11 == v12)
       {
-        if (v14)
+        if (v13)
         {
           restingHeartRate = self->_restingHeartRate;
           self->_restingHeartRate = 0;
         }
 
-        if ((v15 & 1) == 0)
+        if ((v14 & 1) == 0)
         {
           return;
         }
@@ -154,7 +153,7 @@ LABEL_21:
       }
     }
 
-    v19 = self->_restingHeartRate;
+    v18 = self->_restingHeartRate;
     self->_restingHeartRate = 0;
 
     goto LABEL_21;
@@ -200,25 +199,24 @@ LABEL_21:
 
 - (void)addWorkouts:(const void *)workouts
 {
-  v5 = *workouts;
-  v6 = *(workouts + 1);
-  v7 = *workouts;
-  if (v6 != v7)
+  v5 = *(workouts + 1);
+  v6 = *workouts;
+  if (v5 != v6)
   {
-    v8 = (v6 - v7) >> 6;
+    v7 = (v5 - v6) >> 6;
     begin = self->_workouts.__begin_;
     end = self->_workouts.__end_;
-    v11 = end - begin;
+    v10 = end - begin;
     if (end == begin)
     {
-      sub_16A60(&self->_workouts.__begin_, begin, v7, v6, v8);
+      sub_16A60(&self->_workouts.__begin_, begin, v6, v5, v7);
     }
 
     else
     {
-      sub_169C0(&self->_workouts.__begin_, v8 + (v11 >> 6));
+      sub_169C0(&self->_workouts.__begin_, v7 + (v10 >> 6));
       sub_16A60(&self->_workouts.__begin_, self->_workouts.__end_, *workouts, *(workouts + 1), (*(workouts + 1) - *workouts) >> 6);
-      sub_16C90(self->_workouts.__begin_, self->_workouts.__begin_ + v11, self->_workouts.__end_, &v14);
+      sub_16C90(self->_workouts.__begin_, self->_workouts.__begin_ + v10, self->_workouts.__end_, &v13);
     }
   }
 
@@ -279,20 +277,20 @@ LABEL_21:
     restingHeartRate = self->_restingHeartRate;
     self->_restingHeartRate = 0;
 
-    v19 = 0;
-    v18 = 0;
-    v17 = 0.0;
-    v9 = sub_1417C(self, 2, &v19 + 1, &v19, &v18, &v17);
-    v10 = +[HKUnit _countPerMinuteUnit];
-    [v9 doubleValueForUnit:v10];
-    v12 = v11;
+    v22 = 0;
+    v21 = 0;
+    v20 = 0.0;
+    v12 = sub_1417C(self, 2, &v22 + 1, &v22, &v21, &v20, v9, v10, v11);
+    v13 = +[HKUnit _countPerMinuteUnit];
+    [v12 doubleValueForUnit:v13];
+    v15 = v14;
 
     mergedIntervals = [(HKDateIntervalTree *)self->_asleepTimeIntervals mergedIntervals];
-    v14 = [mergedIntervals count];
+    v17 = [mergedIntervals count];
 
     daemon2 = [profileCopy daemon];
     analyticsSubmissionCoordinator2 = [daemon2 analyticsSubmissionCoordinator];
-    [analyticsSubmissionCoordinator2 heartRate_reportDailyRestingHeartRate:HIDWORD(v19) sedentaryHeartRateCount:v19 filteredSedentaryHeartRateCount:v14 != 0 hasTimeAsleep:v18 hasBGHRSleepMode:objc_msgSend(profileCopy unfilteredRestingHeartRate:"profileType") profileType:{v12, v17}];
+    [analyticsSubmissionCoordinator2 heartRate_reportDailyRestingHeartRate:HIDWORD(v22) sedentaryHeartRateCount:v22 filteredSedentaryHeartRateCount:v17 != 0 hasTimeAsleep:v21 hasBGHRSleepMode:objc_msgSend(profileCopy unfilteredRestingHeartRate:"profileType") profileType:{v15, v20}];
   }
 }
 

@@ -325,57 +325,55 @@
 
 - (unint64_t)createAliasForParticipantID:(unint64_t)d salt:(id)salt
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   saltCopy = salt;
   v6 = IDSIDAliasHashUInt64();
   v7 = +[IDSLogging _IDSGroupSession];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134218498;
-    v11 = v6;
-    v12 = 2048;
+    v9 = 134218498;
+    v10 = v6;
+    v11 = 2048;
     dCopy = d;
-    v14 = 2112;
-    v15 = saltCopy;
-    _os_log_impl(&dword_1959FF000, v7, OS_LOG_TYPE_DEFAULT, "createAliasForParticipantID created %llu from %llu and %@", &v10, 0x20u);
+    v13 = 2112;
+    v14 = saltCopy;
+    _os_log_impl(&dword_1959FF000, v7, OS_LOG_TYPE_DEFAULT, "createAliasForParticipantID created %llu from %llu and %@", &v9, 0x20u);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (unint64_t)createAliasForLocalParticipantIDWithSalt:(id)salt
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   saltCopy = salt;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
   v5 = +[IDSInternalQueueController sharedInstance];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = sub_195A219E4;
-  v12[3] = &unk_1E743EF60;
-  v12[4] = self;
-  v14 = &v15;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_195A219E4;
+  v11[3] = &unk_1E743EF60;
+  v11[4] = self;
+  v13 = &v14;
   v6 = saltCopy;
-  v13 = v6;
-  [v5 performBlock:v12 waitUntilDone:1];
+  v12 = v6;
+  [v5 performBlock:v11 waitUntilDone:1];
 
   v7 = +[IDSLogging _IDSGroupSession];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = v16[3];
+    v8 = v15[3];
     *buf = 134217984;
-    v20 = v8;
+    v19 = v8;
     _os_log_impl(&dword_1959FF000, v7, OS_LOG_TYPE_DEFAULT, "createAliasForLocalParticipantIDWithSalt created and returning %llu", buf, 0xCu);
   }
 
-  v9 = v16[3];
-  _Block_object_dispose(&v15, 8);
+  v9 = v15[3];
+  _Block_object_dispose(&v14, 8);
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -675,19 +673,19 @@
 - (void)manageDesignatedMembers:(id)members withType:(unsigned __int16)type
 {
   typeCopy = type;
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   membersCopy = members;
   if (typeCopy < 0xE)
   {
     v8 = +[IDSInternalQueueController sharedInstance];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_195A22DB8;
-    v10[3] = &unk_1E743F028;
-    v10[4] = self;
-    v11 = membersCopy;
-    v12 = typeCopy;
-    [v8 performBlock:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_195A22DB8;
+    v9[3] = &unk_1E743F028;
+    v9[4] = self;
+    v10 = membersCopy;
+    v11 = typeCopy;
+    [v8 performBlock:v9];
   }
 
   else
@@ -696,12 +694,10 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v14 = typeCopy;
+      v13 = typeCopy;
       _os_log_impl(&dword_1959FF000, v7, OS_LOG_TYPE_DEFAULT, "manageDesignatedMembers: invalid type: %u", buf, 8u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeParticipants:(id)participants

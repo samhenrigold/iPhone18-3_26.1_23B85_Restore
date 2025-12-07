@@ -137,14 +137,14 @@
 {
   WeakRetained = objc_loadWeakRetained(&self->super._counterpart);
   lockScreenConfiguration = [WeakRetained lockScreenConfiguration];
-  v8 = 0;
-  v4 = [lockScreenConfiguration pr_loadHomeScreenConfigurationWithError:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [lockScreenConfiguration pr_loadHomeScreenConfigurationWithError:&v9];
+  v5 = v9;
 
   if (v5)
   {
-    v6 = PBUILogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = PBUILogCommon(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(PBUIPosterHomeViewController *)v5 homeScreenConfiguration];
     }
@@ -818,7 +818,7 @@ void __72__PBUIPosterHomeViewController_performSnapshotOnQueue_scene_completion_
 
 void __72__PBUIPosterHomeViewController_performSnapshotOnQueue_scene_completion___block_invoke_6(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) clientSettings];
   v3 = [v2 pr_preferredProminentColor];
   if (v3)
@@ -832,36 +832,36 @@ void __72__PBUIPosterHomeViewController_performSnapshotOnQueue_scene_completion_
     v4 = v5 == 0;
   }
 
-  v6 = PBUILogSnapshot();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = PBUILogSnapshot(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = PBUIStringForWallpaperVariant([*(a1 + 40) variant]);
+    v8 = PBUIStringForWallpaperVariant([*(a1 + 40) variant]);
     *buf = 138543618;
-    v22 = v7;
-    v23 = 1024;
-    v24 = v4;
-    _os_log_impl(&dword_21E67D000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] needsPosterDerivedProminentColorDetermination: %{BOOL}u", buf, 0x12u);
+    v23 = v8;
+    v24 = 1024;
+    v25 = v4;
+    _os_log_impl(&dword_21E67D000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] needsPosterDerivedProminentColorDetermination: %{BOOL}u", buf, 0x12u);
   }
 
   if (!*(a1 + 48) && *(a1 + 56) && v4)
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __72__PBUIPosterHomeViewController_performSnapshotOnQueue_scene_completion___block_invoke_163;
-    v11[3] = &unk_278363650;
-    v8 = *(a1 + 96);
-    v12 = *(a1 + 104);
-    v19 = *(a1 + 112);
-    v13 = *(a1 + 64);
-    v14 = *(a1 + 72);
-    v9 = *(a1 + 56);
-    v10 = *(a1 + 40);
-    v15 = v9;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __72__PBUIPosterHomeViewController_performSnapshotOnQueue_scene_completion___block_invoke_163;
+    v12[3] = &unk_278363650;
+    v9 = *(a1 + 96);
+    v13 = *(a1 + 104);
+    v20 = *(a1 + 112);
+    v14 = *(a1 + 64);
+    v15 = *(a1 + 72);
+    v10 = *(a1 + 56);
+    v11 = *(a1 + 40);
     v16 = v10;
-    v17 = *(a1 + 80);
-    v18 = *(a1 + 88);
-    v20 = *(a1 + 120);
-    [v8 pui_determineProminentColorWithCompletion:v11];
+    v17 = v11;
+    v18 = *(a1 + 80);
+    v19 = *(a1 + 88);
+    v21 = *(a1 + 120);
+    [v9 pui_determineProminentColorWithCompletion:v12];
   }
 
   else
@@ -1091,46 +1091,47 @@ LABEL_16:
 
 - (BOOL)updatePresentation:(BOOL)presentation
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   homeScreenConfiguration = [(PBUIPosterHomeViewController *)self homeScreenConfiguration];
   showsSnapshot = [(PBUIEffectTrackingReplicaView *)self->_effectView showsSnapshot];
-  if (showsSnapshot != [(PBUIPosterHomeViewController *)self canShowSnapshot])
+  canShowSnapshot = [(PBUIPosterHomeViewController *)self canShowSnapshot];
+  if (showsSnapshot != canShowSnapshot)
   {
-    v8 = PBUILogSnapshot();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PBUILogSnapshot(canShowSnapshot);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = PBUIStringForWallpaperVariant([(PBUIPosterHomeViewController *)self variant]);
+      v10 = PBUIStringForWallpaperVariant([(PBUIPosterHomeViewController *)self variant]);
       *buf = 138543362;
-      v41 = v9;
-      _os_log_impl(&dword_21E67D000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] forcing update; we can now show a snapshot", buf, 0xCu);
+      v43 = v10;
+      _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] forcing update; we can now show a snapshot", buf, 0xCu);
     }
 
     presentation = 1;
   }
 
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __51__PBUIPosterHomeViewController_updatePresentation___block_invoke;
-  v38[3] = &unk_278361E18;
-  v38[4] = self;
-  v10 = MEMORY[0x223D62EE0](v38);
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __51__PBUIPosterHomeViewController_updatePresentation___block_invoke;
+  v40[3] = &unk_278361E18;
+  v40[4] = self;
+  v11 = MEMORY[0x223D62EE0](v40);
   if ((BSEqualObjects() & 1) == 0)
   {
     objc_storeStrong(&self->_homeConfiguration, homeScreenConfiguration);
-    v14 = PBUILogSnapshot();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = PBUILogSnapshot(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = PBUIStringForWallpaperVariant([(PBUIPosterHomeViewController *)self variant]);
+      v17 = PBUIStringForWallpaperVariant([(PBUIPosterHomeViewController *)self variant]);
       *buf = 138543362;
-      v41 = v15;
-      _os_log_impl(&dword_21E67D000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] forcing update; home configuration was updated", buf, 0xCu);
+      v43 = v17;
+      _os_log_impl(&dword_21E67D000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] forcing update; home configuration was updated", buf, 0xCu);
     }
 
-    v12 = [PBUIPosterHomeViewController presentationModeForHomeConfiguration:homeScreenConfiguration];
+    v13 = [PBUIPosterHomeViewController presentationModeForHomeConfiguration:homeScreenConfiguration];
 LABEL_12:
-    self->_currentMode = v12;
-    v16 = self->super._contentContainer;
-    if ((v12 - 1) <= 1)
+    self->_currentMode = v13;
+    v18 = self->super._contentContainer;
+    if ((v13 - 1) <= 1)
     {
       [(PBUIPosterHomeViewController *)self setFixedAverageColor:0];
       [(PBUIGradientView *)self->_gradientView removeFromSuperview];
@@ -1151,9 +1152,9 @@ LABEL_12:
         sceneView = self->super._sceneView;
         self->super._sceneView = presentationView;
 
-        v21 = self->super._sceneView;
-        [(UIView *)v16 bounds];
-        [(UIScenePresentation *)v21 setFrame:?];
+        v23 = self->super._sceneView;
+        [(UIView *)v18 bounds];
+        [(UIScenePresentation *)v23 setFrame:?];
         [(UIScenePresentation *)self->super._sceneView setAutoresizingMask:18];
         [(BSUIOrientationTransformWrapperView *)self->_dynamicWrapperView addContentView:self->super._sceneView];
       }
@@ -1162,30 +1163,30 @@ LABEL_12:
       {
         [(UIScenePresenter *)presenter deactivate];
         [(UIScenePresentation *)self->super._sceneView removeFromSuperview];
-        v30 = self->super._sceneView;
+        v32 = self->super._sceneView;
         self->super._sceneView = 0;
       }
 
-      if ([(PBUIPosterHomeViewController *)self showsSnapshotWhenIdleForMode:v12]|| !self->super._scene)
+      if ([(PBUIPosterHomeViewController *)self showsSnapshotWhenIdleForMode:v13]|| !self->super._scene)
       {
         if (self->_effectView)
         {
-          [(UIView *)v16 bringSubviewToFront:?];
+          [(UIView *)v18 bringSubviewToFront:?];
         }
 
         else
         {
-          v34 = [PBUIEffectTrackingReplicaView alloc];
-          [(UIView *)v16 bounds];
-          v35 = [(PBUIEffectTrackingReplicaView *)v34 initWithFrame:?];
+          v36 = [PBUIEffectTrackingReplicaView alloc];
+          [(UIView *)v18 bounds];
+          v37 = [(PBUIEffectTrackingReplicaView *)v36 initWithFrame:?];
           effectView = self->_effectView;
-          self->_effectView = v35;
+          self->_effectView = v37;
 
           [(PBUIEffectTrackingReplicaView *)self->_effectView setReason:@"HomeVC blurs"];
           [(PBUIEffectTrackingReplicaView *)self->_effectView setRequiresSnapshotTreatment:0];
           [(PBUIEffectTrackingReplicaView *)self->_effectView setAutoresizingMask:18];
           [(PBUIEffectTrackingReplicaView *)self->_effectView setDelegate:self];
-          [(UIView *)v16 addSubview:self->_effectView];
+          [(UIView *)v18 addSubview:self->_effectView];
         }
 
         [(PBUIPosterHomeViewController *)self configureEffectViewForMode];
@@ -1195,12 +1196,12 @@ LABEL_12:
       {
         [(PBUIEffectTrackingReplicaView *)self->_effectView invalidate];
         [(PBUIEffectTrackingReplicaView *)self->_effectView removeFromSuperview];
-        v31 = self->_effectView;
+        v33 = self->_effectView;
         self->_effectView = 0;
       }
 
-      v10[2](v10);
-      LOBYTE(v13) = 1;
+      v11[2](v11);
+      LOBYTE(v14) = 1;
 LABEL_33:
 
       goto LABEL_34;
@@ -1208,38 +1209,38 @@ LABEL_33:
 
     [(UIScenePresenter *)self->super._presenter deactivate];
     [(UIScenePresentation *)self->super._sceneView removeFromSuperview];
-    v22 = self->super._sceneView;
+    v24 = self->super._sceneView;
     self->super._sceneView = 0;
 
     [(PBUIEffectTrackingReplicaView *)self->_effectView invalidate];
     [(PBUIEffectTrackingReplicaView *)self->_effectView removeFromSuperview];
-    v23 = self->_effectView;
+    v25 = self->_effectView;
     self->_effectView = 0;
 
-    v24 = objc_alloc_init(PBUIWallpaperGradient);
-    if (v12 == 3)
+    v26 = objc_alloc_init(PBUIWallpaperGradient);
+    if (v13 == 3)
     {
       solidColorAppearance = [homeScreenConfiguration solidColorAppearance];
       effectiveColor = [solidColorAppearance effectiveColor];
 
       color = [effectiveColor color];
-      v39[0] = color;
-      v39[1] = color;
-      v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
-      [(PBUIWallpaperGradient *)v24 setColors:v33];
+      v41[0] = color;
+      v41[1] = color;
+      v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
+      [(PBUIWallpaperGradient *)v26 setColors:v35];
 
       [(PBUIPosterHomeViewController *)self setFixedAverageColor:color];
     }
 
     else
     {
-      if (v12 != 4)
+      if (v13 != 4)
       {
 LABEL_27:
-        v13 = [(PBUIPosterHomeViewController *)self updateGradientViewWithGradient:v24];
-        if (v13)
+        v14 = [(PBUIPosterHomeViewController *)self updateGradientViewWithGradient:v26];
+        if (v14)
         {
-          v10[2](v10);
+          v11[2](v11);
         }
 
         goto LABEL_33;
@@ -1252,25 +1253,25 @@ LABEL_27:
       gradientAppearance2 = [homeScreenConfiguration gradientAppearance];
       gradientColors = [gradientAppearance2 gradientColors];
 
-      [(PBUIWallpaperGradient *)v24 setColors:gradientColors];
+      [(PBUIWallpaperGradient *)v26 setColors:gradientColors];
       [(PBUIPosterHomeViewController *)self setFixedAverageColor:color];
     }
 
     goto LABEL_27;
   }
 
-  v11 = [PBUIPosterHomeViewController presentationModeForHomeConfiguration:homeScreenConfiguration];
-  v12 = v11;
-  if (presentation || self->_currentMode != v11)
+  v12 = [PBUIPosterHomeViewController presentationModeForHomeConfiguration:homeScreenConfiguration];
+  v13 = v12;
+  if (presentation || self->_currentMode != v12)
   {
     goto LABEL_12;
   }
 
-  v10[2](v10);
-  LOBYTE(v13) = 0;
+  v11[2](v11);
+  LOBYTE(v14) = 0;
 LABEL_34:
 
-  return v13;
+  return v14;
 }
 
 uint64_t __51__PBUIPosterHomeViewController_updatePresentation___block_invoke(uint64_t a1)
@@ -1287,8 +1288,7 @@ uint64_t __51__PBUIPosterHomeViewController_updatePresentation___block_invoke(ui
 
   v3 = [*(*v1 + 159) showsSnapshot];
   v4 = [*v1 canShowSnapshot];
-  [*(*v1 + 159) setShowsSnapshot:v4];
-  v5 = PBUILogRuntime();
+  v5 = PBUILogRuntime([*(*v1 + 159) setShowsSnapshot:v4]);
   v6 = v5;
   if (v3 == v4)
   {

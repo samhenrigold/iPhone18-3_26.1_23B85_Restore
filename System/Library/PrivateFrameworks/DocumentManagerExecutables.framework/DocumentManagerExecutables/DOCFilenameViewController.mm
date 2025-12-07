@@ -81,7 +81,7 @@
 - (NSArray)keyCommands
 {
   dismissingKeyCommandsWithAction_ = [objc_opt_self() dismissingKeyCommandsWithAction_];
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIKeyCommand);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIKeyCommand, 0x277D75650);
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;

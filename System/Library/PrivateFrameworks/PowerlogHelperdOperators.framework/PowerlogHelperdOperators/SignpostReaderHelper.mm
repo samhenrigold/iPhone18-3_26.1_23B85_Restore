@@ -3,12 +3,39 @@
 - (id)customGetNearestMidnight;
 - (id)generateRapidMSSWithStartDate:(id)date endDate:(id)endDate atPath:(id)path;
 - (id)generateRapidSignpostSummaryWithStartDate:(id)date endDate:(id)endDate;
+- (id)generateSignpostSubmissionWithTagConfig:(id)config withAllowlist:(id)allowlist withStartDate:(id)date withEndDate:(id)endDate includeSPFile:(BOOL)file;
 - (id)generateTaskingMSSWithStartDate:(id)date endDate:(id)endDate atPath:(id)path;
+- (id)getSignpostMetricsWithStartDate:(id)date withEndDate:(id)endDate processMXSignpost:(BOOL)signpost;
 - (id)getSignpostSummaryWithAllowlist:(id)allowlist withStartDate:(id)date withEndDate:(id)endDate;
 - (id)processSignpostWithConfig:(id)config withServiceType:(int)type;
 @end
 
 @implementation SignpostReaderHelper
+
+- (id)getSignpostMetricsWithStartDate:(id)date withEndDate:(id)endDate processMXSignpost:(BOOL)signpost
+{
+  signpostCopy = signpost;
+  dateCopy = date;
+  endDateCopy = endDate;
+  if (!endDateCopy)
+  {
+    endDateCopy = [(SignpostReaderHelper *)self customGetNearestMidnight];
+  }
+
+  v10 = MEMORY[0x277CBEC10];
+  if (dateCopy && endDateCopy)
+  {
+    v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    [v11 setObject:endDateCopy forKey:@"end_date"];
+    [v11 setObject:dateCopy forKey:@"start_date"];
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:signpostCopy];
+    [v11 setObject:v12 forKey:@"process_mxsignpost"];
+
+    v10 = [(SignpostReaderHelper *)self processSignpostWithConfig:v11 withServiceType:1];
+  }
+
+  return v10;
+}
 
 - (id)getSignpostSummaryWithAllowlist:(id)allowlist withStartDate:(id)date withEndDate:(id)endDate
 {
@@ -31,6 +58,33 @@
   return v5;
 }
 
+- (id)generateSignpostSubmissionWithTagConfig:(id)config withAllowlist:(id)allowlist withStartDate:(id)date withEndDate:(id)endDate includeSPFile:(BOOL)file
+{
+  v7 = MEMORY[0x277CBEC10];
+  if (config && allowlist && date && endDate)
+  {
+    fileCopy = file;
+    v13 = MEMORY[0x277CBEB38];
+    endDateCopy = endDate;
+    dateCopy = date;
+    allowlistCopy = allowlist;
+    configCopy = config;
+    v18 = objc_alloc_init(v13);
+    [v18 setObject:allowlistCopy forKey:@"taskingAllowlist"];
+
+    [v18 setObject:dateCopy forKey:@"taskingStartDate"];
+    [v18 setObject:endDateCopy forKey:@"taskingEndDate"];
+
+    [v18 setObject:configCopy forKey:@"taskingTagConfig"];
+    v19 = [MEMORY[0x277CCABB0] numberWithBool:fileCopy];
+    [v18 setObject:v19 forKeyedSubscript:@"taskingSubmitSP"];
+
+    v7 = [(SignpostReaderHelper *)self processSignpostWithConfig:v18 withServiceType:0];
+  }
+
+  return v7;
+}
+
 - (id)generateRapidSignpostSummaryWithStartDate:(id)date endDate:(id)endDate
 {
   dateCopy = date;
@@ -46,7 +100,7 @@
 
   else
   {
-    v11 = logHandle();
+    v11 = logHandle(endDateCopy);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SignpostReaderHelper generateRapidSignpostSummaryWithStartDate:endDate:];
@@ -60,7 +114,7 @@
 
 - (id)generateRapidMSSWithStartDate:(id)date endDate:(id)endDate atPath:(id)path
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   pathCopy = path;
@@ -76,29 +130,27 @@
 
   else
   {
-    v14 = logHandle();
+    v14 = logHandle(pathCopy);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412802;
-      v18 = dateCopy;
-      v19 = 2112;
-      v20 = endDateCopy;
-      v21 = 2112;
-      v22 = v11;
-      _os_log_error_impl(&dword_25EE51000, v14, OS_LOG_TYPE_ERROR, "Invalid arguments: startDate=%@ endDate=%@ path=%@", &v17, 0x20u);
+      v16 = 138412802;
+      v17 = dateCopy;
+      v18 = 2112;
+      v19 = endDateCopy;
+      v20 = 2112;
+      v21 = v11;
+      _os_log_error_impl(&dword_25EE51000, v14, OS_LOG_TYPE_ERROR, "Invalid arguments: startDate=%@ endDate=%@ path=%@", &v16, 0x20u);
     }
 
     v13 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (id)generateTaskingMSSWithStartDate:(id)date endDate:(id)endDate atPath:(id)path
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   pathCopy = path;
@@ -114,75 +166,74 @@
 
   else
   {
-    v14 = logHandle();
+    v14 = logHandle(pathCopy);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412802;
-      v18 = dateCopy;
-      v19 = 2112;
-      v20 = endDateCopy;
-      v21 = 2112;
-      v22 = v11;
-      _os_log_error_impl(&dword_25EE51000, v14, OS_LOG_TYPE_ERROR, "Invalid arguments: startDate=%@ endDate=%@ path=%@", &v17, 0x20u);
+      v16 = 138412802;
+      v17 = dateCopy;
+      v18 = 2112;
+      v19 = endDateCopy;
+      v20 = 2112;
+      v21 = v11;
+      _os_log_error_impl(&dword_25EE51000, v14, OS_LOG_TYPE_ERROR, "Invalid arguments: startDate=%@ endDate=%@ path=%@", &v16, 0x20u);
     }
 
     v13 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (id)processSignpostWithConfig:(id)config withServiceType:(int)type
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   configCopy = config;
-  v7 = logHandle();
+  v7 = logHandle(configCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
     *&buf[4] = type;
-    LOWORD(v33) = 2112;
-    *(&v33 + 2) = configCopy;
+    LOWORD(v34) = 2112;
+    *(&v34 + 2) = configCopy;
     _os_log_impl(&dword_25EE51000, v7, OS_LOG_TYPE_INFO, "processSignpost for service type (%d) with config %@", buf, 0x12u);
   }
 
   date = [MEMORY[0x277CBEAA8] date];
   createXPCConnection = [(SignpostReaderHelper *)self createXPCConnection];
   *buf = 0;
-  *&v33 = buf;
-  *(&v33 + 1) = 0x3032000000;
-  v34 = __Block_byref_object_copy__17;
-  v35 = __Block_byref_object_dispose__17;
+  *&v34 = buf;
+  *(&v34 + 1) = 0x3032000000;
+  v35 = __Block_byref_object_copy__17;
+  v36 = __Block_byref_object_dispose__17;
   dictionary = [MEMORY[0x277CBEAC0] dictionary];
+  v37 = dictionary;
   if (type > 2)
   {
     switch(type)
     {
       case 3:
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_37;
-        v22[3] = &unk_279A5FD18;
-        v22[4] = buf;
-        [createXPCConnection readRawSignpostData:configCopy withReply:v22];
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_37;
+        v23[3] = &unk_279A5FD18;
+        v23[4] = buf;
+        [createXPCConnection readRawSignpostData:configCopy withReply:v23];
         goto LABEL_19;
       case 4:
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_38;
-        v21[3] = &unk_279A5FD18;
-        v21[4] = buf;
-        [createXPCConnection generateMSSReportForRAPID:configCopy withReply:v21];
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_38;
+        v22[3] = &unk_279A5FD18;
+        v22[4] = buf;
+        [createXPCConnection generateMSSReportForRAPID:configCopy withReply:v22];
         goto LABEL_19;
       case 5:
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_39;
-        v20[3] = &unk_279A5FD18;
-        v20[4] = buf;
-        [createXPCConnection generateMSSReportForTasking:configCopy withReply:v20];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_39;
+        v21[3] = &unk_279A5FD18;
+        v21[4] = buf;
+        [createXPCConnection generateMSSReportForTasking:configCopy withReply:v21];
         goto LABEL_19;
     }
   }
@@ -192,78 +243,75 @@
     switch(type)
     {
       case 0:
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke;
-        v25[3] = &unk_279A5FD18;
-        v25[4] = buf;
-        [createXPCConnection submitSignpostDataWithConfig:configCopy withReply:v25];
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke;
+        v26[3] = &unk_279A5FD18;
+        v26[4] = buf;
+        [createXPCConnection submitSignpostDataWithConfig:configCopy withReply:v26];
         goto LABEL_19;
       case 1:
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_35;
-        v24[3] = &unk_279A5FD18;
-        v24[4] = buf;
-        [createXPCConnection summarizeSignpostMetrics:configCopy withReply:v24];
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_35;
+        v25[3] = &unk_279A5FD18;
+        v25[4] = buf;
+        [createXPCConnection summarizeSignpostMetrics:configCopy withReply:v25];
         goto LABEL_19;
       case 2:
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_36;
-        v23[3] = &unk_279A5FD18;
-        v23[4] = buf;
-        [createXPCConnection aggregateSignpostData:configCopy withReply:v23];
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_36;
+        v24[3] = &unk_279A5FD18;
+        v24[4] = buf;
+        [createXPCConnection aggregateSignpostData:configCopy withReply:v24];
         goto LABEL_19;
     }
   }
 
-  v10 = logHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = logHandle(dictionary);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    *v26 = 67109120;
-    LODWORD(v27) = type;
-    _os_log_impl(&dword_25EE51000, v10, OS_LOG_TYPE_INFO, "Unknown service type specified: %d", v26, 8u);
+    *v27 = 67109120;
+    LODWORD(v28) = type;
+    _os_log_impl(&dword_25EE51000, v11, OS_LOG_TYPE_INFO, "Unknown service type specified: %d", v27, 8u);
   }
 
 LABEL_19:
-  [(SignpostReaderHelper *)self closeXPCConnection];
-  v11 = logHandle();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = logHandle([(SignpostReaderHelper *)self closeXPCConnection]);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v12 = *(v33 + 40);
-    *v26 = 138412290;
-    v27 = v12;
-    _os_log_impl(&dword_25EE51000, v11, OS_LOG_TYPE_INFO, "The successful reply happened: %@", v26, 0xCu);
+    v13 = *(v34 + 40);
+    *v27 = 138412290;
+    v28 = v13;
+    _os_log_impl(&dword_25EE51000, v12, OS_LOG_TYPE_INFO, "The successful reply happened: %@", v27, 0xCu);
   }
 
   date2 = [MEMORY[0x277CBEAA8] date];
-  [date2 timeIntervalSinceDate:date];
-  v15 = v14;
-  v16 = logHandle();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v15 = [date2 timeIntervalSinceDate:date];
+  v17 = v16;
+  v18 = logHandle(v15);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
-    *v26 = 134218498;
-    v27 = v15;
-    v28 = 2112;
-    v29 = date;
-    v30 = 2112;
-    v31 = date2;
-    _os_log_impl(&dword_25EE51000, v16, OS_LOG_TYPE_INFO, "Time for signpost reading to run: %f, %@, %@", v26, 0x20u);
+    *v27 = 134218498;
+    v28 = v17;
+    v29 = 2112;
+    v30 = date;
+    v31 = 2112;
+    v32 = date2;
+    _os_log_impl(&dword_25EE51000, v18, OS_LOG_TYPE_INFO, "Time for signpost reading to run: %f, %@, %@", v27, 0x20u);
   }
 
-  v17 = *(v33 + 40);
+  v19 = *(v34 + 40);
   _Block_object_dispose(buf, 8);
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v19;
 }
 
 void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = logHandle();
+  v4 = logHandle(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_cold_1();
@@ -277,7 +325,7 @@ void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___bloc
 void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_35(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = logHandle();
+  v4 = logHandle(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_35_cold_1();
@@ -291,7 +339,7 @@ void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___bloc
 void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_36(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = logHandle();
+  v4 = logHandle(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_36_cold_1();
@@ -305,7 +353,7 @@ void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___bloc
 void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_37(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = logHandle();
+  v4 = logHandle(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_37_cold_1();
@@ -319,7 +367,7 @@ void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___bloc
 void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_38(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = logHandle();
+  v4 = logHandle(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_38_cold_1();
@@ -333,7 +381,7 @@ void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___bloc
 void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_39(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = logHandle();
+  v4 = logHandle(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_39_cold_1();
@@ -346,7 +394,7 @@ void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___bloc
 
 - (id)createXPCConnection
 {
-  v3 = logHandle();
+  v3 = logHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -362,8 +410,7 @@ void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___bloc
 
   [(NSXPCConnection *)self->_connectionToServer setInterruptionHandler:&__block_literal_global_52];
   [(NSXPCConnection *)self->_connectionToServer setInvalidationHandler:&__block_literal_global_55];
-  [(NSXPCConnection *)self->_connectionToServer resume];
-  v7 = logHandle();
+  v7 = logHandle([(NSXPCConnection *)self->_connectionToServer resume]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *v10 = 0;
@@ -375,28 +422,28 @@ void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___bloc
   return v8;
 }
 
-void __43__SignpostReaderHelper_createXPCConnection__block_invoke()
+void __43__SignpostReaderHelper_createXPCConnection__block_invoke(uint64_t a1)
 {
-  v0 = logHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = logHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __43__SignpostReaderHelper_createXPCConnection__block_invoke_cold_1(v0);
+    __43__SignpostReaderHelper_createXPCConnection__block_invoke_cold_1(v1);
   }
 }
 
-void __43__SignpostReaderHelper_createXPCConnection__block_invoke_53()
+void __43__SignpostReaderHelper_createXPCConnection__block_invoke_53(uint64_t a1)
 {
-  v0 = logHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = logHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __43__SignpostReaderHelper_createXPCConnection__block_invoke_53_cold_1(v0);
+    __43__SignpostReaderHelper_createXPCConnection__block_invoke_53_cold_1(v1);
   }
 }
 
 void __43__SignpostReaderHelper_createXPCConnection__block_invoke_56(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = logHandle();
+  v3 = logHandle(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __43__SignpostReaderHelper_createXPCConnection__block_invoke_56_cold_1(v2, v3);
@@ -415,70 +462,19 @@ void __43__SignpostReaderHelper_createXPCConnection__block_invoke_56(uint64_t a1
 
 - (void)generateRapidSignpostSummaryWithStartDate:endDate:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_25EE51000, v1, OS_LOG_TYPE_ERROR, "Invalid arguments: startDate=%@ endDate=%@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25EE51000, v0, v1, "submitSignpostDataWithConfig: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_35_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25EE51000, v0, v1, "summarizeSignpostMetrics: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_36_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25EE51000, v0, v1, "aggregateSignpostData : %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_37_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25EE51000, v0, v1, "readRawSignpostData : %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_38_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25EE51000, v0, v1, "generateMSSReportForRAPID : %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __66__SignpostReaderHelper_processSignpostWithConfig_withServiceType___block_invoke_39_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25EE51000, v0, v1, "generateMSSReportForTasking : %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_25EE51000, v1, OS_LOG_TYPE_ERROR, "Invalid arguments: startDate=%@ endDate=%@", v2, 0x16u);
 }
 
 void __43__SignpostReaderHelper_createXPCConnection__block_invoke_56_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 description];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_25EE51000, a2, OS_LOG_TYPE_ERROR, "Connection error happened %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25EE51000, a2, OS_LOG_TYPE_ERROR, "Connection error happened %@", v4, 0xCu);
 }
 
 @end

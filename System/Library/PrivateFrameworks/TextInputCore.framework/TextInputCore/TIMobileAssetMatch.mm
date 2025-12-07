@@ -78,56 +78,56 @@
 
 - (TIMobileAssetMatch)initWithTypes:(id)types inputModeLevels:(id)levels regions:(id)regions
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   levelsCopy = levels;
   regionsCopy = regions;
-  v76.receiver = self;
-  v76.super_class = TIMobileAssetMatch;
-  v10 = [(TIMobileAssetMatch *)&v76 init];
+  v75.receiver = self;
+  v75.super_class = TIMobileAssetMatch;
+  v10 = [(TIMobileAssetMatch *)&v75 init];
   if (!v10)
   {
     goto LABEL_48;
   }
 
-  v55 = typesCopy;
+  v54 = typesCopy;
   v11 = [typesCopy copy];
   types = v10->_types;
   v10->_types = v11;
 
-  v54 = levelsCopy;
+  v53 = levelsCopy;
   v13 = [levelsCopy copy];
   inputModeLevels = v10->_inputModeLevels;
   v10->_inputModeLevels = v13;
 
   v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
   regions = v10->_regions;
-  v53 = v10;
+  v52 = v10;
   v10->_regions = v15;
 
   array = [MEMORY[0x277CBEB18] array];
   for (i = 0; i != 3; ++i)
   {
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
     v73 = 0u;
+    v74 = 0u;
+    v71 = 0u;
+    v72 = 0u;
     v19 = regionsCopy;
-    v20 = [v19 countByEnumeratingWithState:&v72 objects:v80 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v71 objects:v79 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v73;
+      v22 = *v72;
 LABEL_5:
       v23 = 0;
       while (1)
       {
-        if (*v73 != v22)
+        if (*v72 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v72 + 1) + 8 * v23);
+        v24 = *(*(&v71 + 1) + 8 * v23);
         if ([array count] > 1)
         {
           break;
@@ -185,7 +185,7 @@ LABEL_19:
 LABEL_21:
         if (v21 == ++v23)
         {
-          v21 = [v19 countByEnumeratingWithState:&v72 objects:v80 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v71 objects:v79 count:16];
           if (v21)
           {
             goto LABEL_5;
@@ -198,46 +198,46 @@ LABEL_21:
   }
 
   array2 = [MEMORY[0x277CBEB18] array];
+  v67 = 0u;
   v68 = 0u;
   v69 = 0u;
   v70 = 0u;
-  v71 = 0u;
   obj = array;
-  v31 = [obj countByEnumeratingWithState:&v68 objects:v79 count:16];
+  v31 = [obj countByEnumeratingWithState:&v67 objects:v78 count:16];
   if (v31)
   {
     v32 = v31;
-    v58 = *v69;
+    v57 = *v68;
     do
     {
       for (j = 0; j != v32; ++j)
       {
-        if (*v69 != v58)
+        if (*v68 != v57)
         {
           objc_enumerationMutation(obj);
         }
 
-        v34 = [*(*(&v68 + 1) + 8 * j) mutableCopy];
+        v34 = [*(*(&v67 + 1) + 8 * j) mutableCopy];
+        v63 = 0u;
         v64 = 0u;
         v65 = 0u;
         v66 = 0u;
-        v67 = 0u;
         v35 = +[TIMobileAssetMatch knownAssetRegionAttributes];
-        v36 = [v35 countByEnumeratingWithState:&v64 objects:v78 count:16];
+        v36 = [v35 countByEnumeratingWithState:&v63 objects:v77 count:16];
         if (v36)
         {
           v37 = v36;
-          v38 = *v65;
+          v38 = *v64;
           do
           {
             for (k = 0; k != v37; ++k)
             {
-              if (*v65 != v38)
+              if (*v64 != v38)
               {
                 objc_enumerationMutation(v35);
               }
 
-              v40 = *(*(&v64 + 1) + 8 * k);
+              v40 = *(*(&v63 + 1) + 8 * k);
               v41 = [v34 objectForKeyedSubscript:v40];
 
               if (!v41)
@@ -246,7 +246,7 @@ LABEL_21:
               }
             }
 
-            v37 = [v35 countByEnumeratingWithState:&v64 objects:v78 count:16];
+            v37 = [v35 countByEnumeratingWithState:&v63 objects:v77 count:16];
           }
 
           while (v37);
@@ -255,51 +255,50 @@ LABEL_21:
         [array2 addObject:v34];
       }
 
-      v32 = [obj countByEnumeratingWithState:&v68 objects:v79 count:16];
+      v32 = [obj countByEnumeratingWithState:&v67 objects:v78 count:16];
     }
 
     while (v32);
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   v42 = array2;
-  v43 = [v42 countByEnumeratingWithState:&v60 objects:v77 count:16];
-  v10 = v53;
+  v43 = [v42 countByEnumeratingWithState:&v59 objects:v76 count:16];
+  v10 = v52;
   if (v43)
   {
     v44 = v43;
-    v45 = *v61;
+    v45 = *v60;
     do
     {
       for (m = 0; m != v44; ++m)
       {
-        if (*v61 != v45)
+        if (*v60 != v45)
         {
           objc_enumerationMutation(v42);
         }
 
-        v47 = *(*(&v60 + 1) + 8 * m);
+        v47 = *(*(&v59 + 1) + 8 * m);
         v48 = [v47 keysOfEntriesPassingTest:&__block_literal_global_48];
         allObjects = [v48 allObjects];
         v50 = [v47 dictionaryWithValuesForKeys:allObjects];
 
-        [(NSArray *)v53->_regions addObject:v50];
+        [(NSArray *)v52->_regions addObject:v50];
       }
 
-      v44 = [v42 countByEnumeratingWithState:&v60 objects:v77 count:16];
+      v44 = [v42 countByEnumeratingWithState:&v59 objects:v76 count:16];
     }
 
     while (v44);
   }
 
-  levelsCopy = v54;
-  typesCopy = v55;
+  levelsCopy = v53;
+  typesCopy = v54;
 LABEL_48:
 
-  v51 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -324,16 +323,14 @@ uint64_t __60__TIMobileAssetMatch_initWithTypes_inputModeLevels_regions___block_
 
 void __48__TIMobileAssetMatch_knownAssetRegionAttributes__block_invoke()
 {
-  v4[3] = *MEMORY[0x277D85DE8];
-  v4[0] = @"City";
-  v4[1] = @"Province";
-  v4[2] = @"Country";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
+  v3[3] = *MEMORY[0x277D85DE8];
+  v3[0] = @"City";
+  v3[1] = @"Province";
+  v3[2] = @"Country";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:3];
   v1 = [v0 copy];
   v2 = knownAssetRegionAttributes_assetRegionAttributes;
   knownAssetRegionAttributes_assetRegionAttributes = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

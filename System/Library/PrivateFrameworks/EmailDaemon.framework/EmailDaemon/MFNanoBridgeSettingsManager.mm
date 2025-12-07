@@ -29,9 +29,15 @@
 - (id)readFromSharedPreferencesValueForKey:(id)key;
 - (unint64_t)_linesOfPreview;
 - (void)_saveValueToSharedPreference:(id)preference forKey:(id)key;
+- (void)_setAlwaysLoadContentDirectly:(BOOL)directly;
+- (void)_setAskBeforeDeleting:(BOOL)deleting;
+- (void)_setCloudNotificationsEnabled:(BOOL)enabled;
 - (void)_setDefaultAccountId:(id)id;
 - (void)_setIncludeMailMailboxes:(id)mailboxes;
 - (void)_setLinesOfPreview:(unint64_t)preview;
+- (void)_setLoadRemoteImages:(BOOL)images;
+- (void)_setOrganizeByThread:(BOOL)thread;
+- (void)_setPrivacyProtectionEnabled:(BOOL)enabled;
 - (void)_setSignature:(id)signature;
 - (void)_setSwipeRightAction:(id)action;
 - (void)_setValue:(id)value forKey:(id)key syncWithClient:(BOOL)client perGizmo:(BOOL)gizmo;
@@ -48,6 +54,9 @@
 - (void)registry:(id)registry didUnpair:(id)unpair;
 - (void)reloadCachedAccounts;
 - (void)setAccountIdentities:(id)identities;
+- (void)setAskBeforeDeleting:(BOOL)deleting;
+- (void)setLoadRemoteImages:(BOOL)images;
+- (void)setOrganizeByThread:(BOOL)thread;
 - (void)setStandaloneAccountStateByAccountId:(id)id;
 - (void)setUpdateMailboxSelection:(id)selection;
 - (void)updateSharedPreferences;
@@ -336,6 +345,36 @@
 {
   v4 = [NSKeyedArchiver archivedDataWithRootObject:identities requiringSecureCoding:1 error:0];
   [MFNanoBridgeSettingsManager _setValue:"_setValue:forKey:syncWithClient:" forKey:? syncWithClient:?];
+}
+
+- (void)setAskBeforeDeleting:(BOOL)deleting
+{
+  deletingCopy = deleting;
+  if (![(MFNanoBridgeSettingsManager *)self mirrorSettingsFromCompanion])
+  {
+
+    [(MFNanoBridgeSettingsManager *)self _setAskBeforeDeleting:deletingCopy];
+  }
+}
+
+- (void)setLoadRemoteImages:(BOOL)images
+{
+  imagesCopy = images;
+  if (![(MFNanoBridgeSettingsManager *)self mirrorSettingsFromCompanion])
+  {
+
+    [(MFNanoBridgeSettingsManager *)self _setLoadRemoteImages:imagesCopy];
+  }
+}
+
+- (void)setOrganizeByThread:(BOOL)thread
+{
+  threadCopy = thread;
+  if (![(MFNanoBridgeSettingsManager *)self mirrorSettingsFromCompanion])
+  {
+
+    [(MFNanoBridgeSettingsManager *)self _setOrganizeByThread:threadCopy];
+  }
 }
 
 - (NSString)signature
@@ -1104,6 +1143,66 @@ LABEL_8:
   [(MFNanoBridgeSettingsManager *)self _setValue:v5 forKey:v4 syncWithClient:1];
 }
 
+- (void)_setAskBeforeDeleting:(BOOL)deleting
+{
+  v5 = [NSNumber numberWithBool:deleting];
+  v4 = sub_10007FF1C();
+  [(MFNanoBridgeSettingsManager *)self _setValue:v5 forKey:v4 syncWithClient:1];
+}
+
+- (void)_setLoadRemoteImages:(BOOL)images
+{
+  v5 = [NSNumber numberWithBool:images];
+  v4 = sub_10008028C();
+  [(MFNanoBridgeSettingsManager *)self _setValue:v5 forKey:v4 syncWithClient:1];
+}
+
+- (void)_setPrivacyProtectionEnabled:(BOOL)enabled
+{
+  v4 = [NSNumber numberWithBool:enabled];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
+  v5 = qword_100185A50;
+  v12 = qword_100185A50;
+  if (!qword_100185A50)
+  {
+    v6 = sub_1000831E0();
+    v10[3] = dlsym(v6, "NanoMailPrivacyProtectionKey");
+    qword_100185A50 = v10[3];
+    v5 = v10[3];
+  }
+
+  _Block_object_dispose(&v9, 8);
+  if (v5)
+  {
+    [(MFNanoBridgeSettingsManager *)self _setValue:v4 forKey:*v5 syncWithClient:1];
+  }
+
+  else
+  {
+    v7 = +[NSAssertionHandler currentHandler];
+    v8 = [NSString stringWithUTF8String:"NSString *getNanoMailPrivacyProtectionKey(void)"];
+    [v7 handleFailureInFunction:v8 file:@"MFNanoMailSoftLinking.h" lineNumber:57 description:{@"%s", dlerror()}];
+
+    __break(1u);
+  }
+}
+
+- (void)_setAlwaysLoadContentDirectly:(BOOL)directly
+{
+  v5 = [NSNumber numberWithBool:directly];
+  v4 = sub_100081144();
+  [(MFNanoBridgeSettingsManager *)self _setValue:v5 forKey:v4 syncWithClient:1];
+}
+
+- (void)_setOrganizeByThread:(BOOL)thread
+{
+  v5 = [NSNumber numberWithBool:thread];
+  v4 = sub_1000805FC();
+  [(MFNanoBridgeSettingsManager *)self _setValue:v5 forKey:v4 syncWithClient:1];
+}
+
 - (void)_setSwipeRightAction:(id)action
 {
   actionCopy = action;
@@ -1148,6 +1247,13 @@ LABEL_8:
 
     __break(1u);
   }
+}
+
+- (void)_setCloudNotificationsEnabled:(BOOL)enabled
+{
+  v5 = [NSNumber numberWithBool:enabled];
+  v4 = sub_1000814B8();
+  [(MFNanoBridgeSettingsManager *)self _setValue:v5 forKey:v4 syncWithClient:1];
 }
 
 - (BOOL)_mobileMailAskBeforeDeleting

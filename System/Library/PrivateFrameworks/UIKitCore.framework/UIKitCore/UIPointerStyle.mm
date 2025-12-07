@@ -52,7 +52,7 @@
 {
   v5 = effect;
   v6 = shape;
-  preview = [(UIPointerEffect *)v5 preview];
+  v7 = objc_msgSend_preview(v5);
   if (![(UIPointerEffect *)v5 allowsSanitization])
   {
     v11 = 0;
@@ -66,7 +66,7 @@
   {
     v5 = [_UIPointerAccessibilityEffect _effectWithInputEffect:v10];
     v11 = 0;
-    preview2 = v10;
+    v12 = v10;
 LABEL_36:
 
     goto LABEL_37;
@@ -74,7 +74,7 @@ LABEL_36:
 
   if (([(UIPointerEffect *)v10 options]& 0x100) != 0)
   {
-    preview2 = [(UIPointerEffect *)v10 preview];
+    v12 = objc_msgSend_preview(v10);
     v13 = objc_opt_class();
     v14 = objc_opt_class();
     if (v9)
@@ -84,11 +84,11 @@ LABEL_36:
 
     else
     {
-      v15 = preview2;
+      v15 = v12;
     }
 
     [(UIPointerShape *)v15 size];
-    *&v18 = _UISizeRespectingTransformsFromPreview(preview2, v16, v17).n128_u64[0];
+    *&v18 = _UISizeRespectingTransformsFromPreview(v12, v16, v17).n128_u64[0];
     v20 = v19;
     v21 = +[_UIPointerSettingsDomain rootSettings];
     sizeRuleSettings = [v21 sizeRuleSettings];
@@ -138,7 +138,7 @@ LABEL_19:
 
       if (v36)
       {
-        v5 = [(UIPointerEffect *)UIPointerHoverEffect effectWithPreview:preview2];
+        v5 = [(UIPointerEffect *)UIPointerHoverEffect effectWithPreview:v12];
         [(UIPointerEffect *)v5 setPrefersShadow:([(UIPointerEffect *)v10 options]>> 4) & 1];
         [(UIPointerEffect *)v5 set_tintViewTakesOnPointerShape:1];
         v11 = ([(UIPointerEffect *)v10 options]& 0x20) == 0;
@@ -159,7 +159,7 @@ LABEL_35:
       goto LABEL_36;
     }
 
-    v37 = preview2;
+    v37 = v12;
     parameters = [(UIPointerShape *)v37 parameters];
     visiblePath = [parameters visiblePath];
 
@@ -201,13 +201,13 @@ LABEL_38:
   if (!v6)
   {
     v53 = v5;
-    preview3 = [(UIPointerEffect *)v53 preview];
-    parameters2 = [preview3 parameters];
-    if ([preview3 _previewMode] == 1)
+    v54 = objc_msgSend_preview(v53);
+    parameters2 = [v54 parameters];
+    if ([v54 _previewMode] == 1)
     {
       if ([parameters2 _isSingleLineText])
       {
-        [preview3 size];
+        [v54 size];
         v57 = v56;
         v59 = v58;
         v60 = 0.0;
@@ -233,17 +233,17 @@ LABEL_57:
         [settings defaultPointerCornerRadius];
         v69 = v68;
 
-        view2 = [preview3 view];
+        view2 = [v54 view];
         [view2 bounds];
         v72 = v71;
         v74 = v73;
         v76 = v75;
         v78 = v77;
-        target = [preview3 target];
+        target = [v54 target];
         [target center];
         v81 = v80;
         v83 = v82;
-        target2 = [preview3 target];
+        target2 = [v54 target];
         container = [target2 container];
         [container _currentScreenScale];
         UIRectCenteredAboutPointScale(v72, v74, v76, v78, v81, v83, v86);
@@ -252,7 +252,7 @@ LABEL_57:
         v92 = v91;
         v94 = v93;
 
-        view3 = [preview3 view];
+        view3 = [v54 view];
         [view3 _cornerRadius];
         v97 = v96;
 
@@ -274,7 +274,7 @@ LABEL_57:
       }
 
       visiblePath4 = [parameters2 visiblePath];
-      visiblePath2 = _UIPathConvertedToPreviewContainerSpace(visiblePath4, preview3);
+      visiblePath2 = _UIPathConvertedToPreviewContainerSpace(visiblePath4, v54);
     }
 
     v66 = [UIPointerShape shapeWithPath:visiblePath2];
@@ -305,7 +305,7 @@ LABEL_58:
     if (path)
     {
       path2 = [(UIPointerShape *)v6 path];
-      v47 = _UIPathConvertedToPreviewContainerSpace(path2, preview);
+      v47 = _UIPathConvertedToPreviewContainerSpace(path2, v7);
 
       v48 = [UIPointerShape shapeWithPath:v47];
 
@@ -377,9 +377,9 @@ LABEL_62:
 - (UITargetedPreview)targetedPreview
 {
   pointerEffect = [(UIPointerStyle *)self pointerEffect];
-  preview = [pointerEffect preview];
+  v3 = objc_msgSend_preview(pointerEffect);
 
-  return preview;
+  return v3;
 }
 
 - (CGPoint)_pointerSlipFactor
@@ -552,8 +552,8 @@ LABEL_62:
     if (isKindOfClass)
     {
       pointerEffect2 = [(UIPointerStyle *)self pointerEffect];
-      preview = [pointerEffect2 preview];
-      v7 = [(UIPointerEffect *)_UIPointerPencilHighlightEffect effectWithPreview:preview];
+      v6 = objc_msgSend_preview(pointerEffect2);
+      v7 = [(UIPointerEffect *)_UIPointerPencilHighlightEffect effectWithPreview:v6];
       [(UIPointerStyle *)self setPointerEffect:v7];
     }
 
@@ -610,7 +610,7 @@ LABEL_62:
       v23 = target;
       if (target)
       {
-        [target transform];
+        objc_msgSend_transform(target);
         v25 = v43;
         v24 = v44;
         v27 = v45;
@@ -731,15 +731,15 @@ LABEL_62:
     view = [targetedPreview view];
     targetedPreview2 = [descriptorCopy targetedPreview];
     view2 = [targetedPreview2 view];
-    v9 = [view isEqual:view2];
+    isEqual = objc_msgSend_isEqual_(view);
   }
 
   else
   {
-    v9 = 0;
+    isEqual = 0;
   }
 
-  return v9;
+  return isEqual;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -806,9 +806,9 @@ LABEL_14:
           goto LABEL_27;
         }
 
-        v17 = [v11 isEqual:v12];
+        isEqual = objc_msgSend_isEqual_(v11);
 
-        if (!v17)
+        if (!isEqual)
         {
           LOBYTE(v14) = 0;
 LABEL_28:
@@ -836,7 +836,7 @@ LABEL_28:
           goto LABEL_25;
         }
 
-        v14 = [v16 isEqual:v21];
+        v14 = objc_msgSend_isEqual_(v16);
 
         if (!v14)
         {

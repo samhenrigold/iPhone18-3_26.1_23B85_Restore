@@ -295,20 +295,21 @@ LABEL_7:
   v11 = [v10 metadataForAssetAtURL:lCopy needsCoordination:1];
 
   v12 = [IMLibraryPlist titleFromPlistEntry:v11];
-  v13 = AEBundle();
+  v13 = AEBundle(v12);
   v14 = [v13 localizedStringForKey:@"OK" value:&stru_1E7188 table:0];
 
-  if ([v12 length])
+  v15 = [v12 length];
+  if (v15)
   {
-    v15 = AEBundle();
-    v16 = [v15 localizedStringForKey:@"Cannot Open “%@”" value:&stru_1E7188 table:0];
-    v17 = [NSString stringWithFormat:v16, v12];
+    v16 = AEBundle(v15);
+    v17 = [v16 localizedStringForKey:@"Cannot Open “%@”" value:&stru_1E7188 table:0];
+    v18 = [NSString stringWithFormat:v17, v12];
   }
 
   else
   {
-    v15 = AEBundle();
-    v17 = [v15 localizedStringForKey:@"Cannot Open Book" value:&stru_1E7188 table:0];
+    v16 = AEBundle(0);
+    v18 = [v16 localizedStringForKey:@"Cannot Open Book" value:&stru_1E7188 table:0];
   }
 
   code = [errorCopy code];
@@ -316,16 +317,15 @@ LABEL_7:
   {
     if (code == &stru_798.reloff)
     {
-      v19 = AEBundle();
-      v20 = [v19 localizedStringForKey:@"This book is protected by an incompatible technology." value:&stru_1E7188 table:0];
+      v20 = AEBundle(2000);
+      v21 = [v20 localizedStringForKey:@"This book is protected by an incompatible technology." value:&stru_1E7188 table:0];
       goto LABEL_26;
     }
 
     if (code == (&stru_798.reloff + 2))
     {
-LABEL_22:
-      v19 = AEBundle();
-      v20 = [v19 localizedStringForKey:@"This book cannot be opened because required software cannot be downloaded." value:&stru_1E7188 table:0];
+      v20 = AEBundle(2002);
+      v21 = [v20 localizedStringForKey:@"This book cannot be opened because required software cannot be downloaded." value:&stru_1E7188 table:0];
       goto LABEL_26;
     }
 
@@ -333,19 +333,19 @@ LABEL_22:
     {
       objc_opt_class();
       userInfo = [errorCopy userInfo];
-      v22 = [userInfo objectForKeyedSubscript:NSUnderlyingErrorKey];
-      v19 = BUDynamicCast();
+      v23 = [userInfo objectForKeyedSubscript:NSUnderlyingErrorKey];
+      v20 = BUDynamicCast();
 
-      localizedDescription = [v19 localizedDescription];
+      localizedDescription = [v20 localizedDescription];
       if ([localizedDescription length])
       {
-        v24 = localizedDescription;
+        v25 = localizedDescription;
       }
 
       else
       {
-        v28 = AEBundle();
-        v24 = [v28 localizedStringForKey:@"This book can’t be downloaded. Check your internet connection value:then try again." table:{&stru_1E7188, 0}];
+        v29 = AEBundle(0);
+        v25 = [v29 localizedStringForKey:@"This book can’t be downloaded. Check your internet connection value:then try again." table:{&stru_1E7188, 0}];
       }
 
       v9 = &_s13BookAnalytics13SkipDirectionO7forwardyA2CmFWC_ptr;
@@ -367,35 +367,38 @@ LABEL_18:
     if ([domain isEqualToString:AMSErrorDomain])
     {
 
-      goto LABEL_22;
+LABEL_22:
+      v20 = AEBundle(code);
+      v21 = [v20 localizedStringForKey:@"This book cannot be opened because required software cannot be downloaded." value:&stru_1E7188 table:0];
+      goto LABEL_26;
     }
 
     domain2 = [errorCopy domain];
-    v27 = [domain2 isEqualToString:AKAppleIDAuthenticationErrorDomain];
+    v28 = [domain2 isEqualToString:AKAppleIDAuthenticationErrorDomain];
 
-    if (v27)
+    if (v28)
     {
       goto LABEL_22;
     }
 
 LABEL_25:
-    v19 = AEBundle();
-    v20 = [v19 localizedStringForKey:@"It is formatted incorrectly value:or is not a format that Apple Books can open." table:{&stru_1E7188, 0}];
+    v20 = AEBundle(code);
+    v21 = [v20 localizedStringForKey:@"It is formatted incorrectly value:or is not a format that Apple Books can open." table:{&stru_1E7188, 0}];
     goto LABEL_26;
   }
 
-  v19 = AEBundle();
-  v20 = [v19 localizedStringForKey:@"You must authorize this computer from the Account menu." value:&stru_1E7188 table:0];
+  v20 = AEBundle(code);
+  v21 = [v20 localizedStringForKey:@"You must authorize this computer from the Account menu." value:&stru_1E7188 table:0];
 LABEL_26:
-  v24 = v20;
+  v25 = v21;
 LABEL_27:
 
-  v29 = [UIAlertController alertControllerWithTitle:v17 message:v24 preferredStyle:1];
-  v30 = [UIAlertAction actionWithTitle:v14 style:1 handler:0];
-  [v29 addAction:v30];
+  v30 = [UIAlertController alertControllerWithTitle:v18 message:v25 preferredStyle:1];
+  v31 = [UIAlertAction actionWithTitle:v14 style:1 handler:0];
+  [v30 addAction:v31];
 
   appInfoMgr = [v9[137] appInfoMgr];
-  [appInfoMgr presentViewController:v29 transaction:transactionCopy animated:1 completion:0];
+  [appInfoMgr presentViewController:v30 transaction:transactionCopy animated:1 completion:0];
 }
 
 @end

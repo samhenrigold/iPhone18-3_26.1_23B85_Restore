@@ -18,7 +18,7 @@
 
 - (GDEntityResolutionCollectionCandidate)initWithCoder:(id)coder
 {
-  v122[1] = *MEMORY[0x1E69E9840];
+  v121[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = NSStringFromSelector(sel_primaryName);
@@ -44,9 +44,9 @@ LABEL_51:
       }
 
       v53 = MEMORY[0x1E696ABC0];
-      v119 = *MEMORY[0x1E696A578];
-      v120 = @"GDEntityResolutionCollectionResult aliasConcat is nil";
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v120 forKeys:&v119 count:1];
+      v118 = *MEMORY[0x1E696A578];
+      v119 = @"GDEntityResolutionCollectionResult aliasConcat is nil";
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v119 forKeys:&v118 count:1];
       v16 = [v53 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v13];
       [coderCopy failWithError:v16];
       goto LABEL_28;
@@ -81,178 +81,93 @@ LABEL_51:
             v24 = NSStringFromSelector(sel_personFromLocation);
             v25 = [coderCopy decodeObjectOfClass:v23 forKey:v24];
 
-            v102 = v25;
+            v101 = v25;
             if (v25)
             {
               v26 = objc_opt_class();
               v27 = NSStringFromSelector(sel_personFromEvent);
               v28 = [coderCopy decodeObjectOfClass:v26 forKey:v27];
 
-              v103 = v22;
+              v102 = v22;
               if (v28)
               {
-                v100 = v19;
-                v101 = v28;
+                v99 = v19;
+                v100 = v28;
                 v29 = NSStringFromSelector(sel_firstPartyMsgTwoWeeks);
                 v30 = [coderCopy decodeIntegerForKey:v29];
 
                 error2 = [coderCopy error];
 
                 self = selfCopy;
-                if (error2)
+                if (error2 || (v98 = v30, NSStringFromSelector(sel_firstPartyMsgSixWeeks), v32 = objc_claimAutoreleasedReturnValue(), v33 = [coderCopy decodeIntegerForKey:v32], v32, objc_msgSend(coderCopy, "error"), v34 = objc_claimAutoreleasedReturnValue(), v34, v34) || (v97 = v33, NSStringFromSelector(sel_firstPartyMsgThreeMonths), v35 = objc_claimAutoreleasedReturnValue(), v36 = objc_msgSend(coderCopy, "decodeIntegerForKey:", v35), v35, objc_msgSend(coderCopy, "error"), v37 = objc_claimAutoreleasedReturnValue(), v37, v37) || (v96 = v36, NSStringFromSelector(sel_firstPartyMsgSixMonths), v38 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend(coderCopy, "decodeIntegerForKey:", v38), v38, objc_msgSend(coderCopy, "error"), v40 = objc_claimAutoreleasedReturnValue(), v40, v40) || (NSStringFromSelector(sel_thirdPartyMsgTwoWeeks), v41 = objc_claimAutoreleasedReturnValue(), v95 = objc_msgSend(coderCopy, "decodeIntegerForKey:", v41), v41, objc_msgSend(coderCopy, "error"), v42 = objc_claimAutoreleasedReturnValue(), v42, v42) || (NSStringFromSelector(sel_thirdPartyMsgSixWeeks), v43 = objc_claimAutoreleasedReturnValue(), v94 = objc_msgSend(coderCopy, "decodeIntegerForKey:", v43), v43, objc_msgSend(coderCopy, "error"), v44 = objc_claimAutoreleasedReturnValue(), v44, v44))
                 {
-                  goto LABEL_15;
-                }
-
-                v99 = v30;
-                v32 = NSStringFromSelector(sel_firstPartyMsgSixWeeks);
-                v33 = [coderCopy decodeIntegerForKey:v32];
-
-                error3 = [coderCopy error];
-
-                if (error3)
-                {
-                  goto LABEL_15;
-                }
-
-                v98 = v33;
-                v35 = NSStringFromSelector(sel_firstPartyMsgThreeMonths);
-                v36 = [coderCopy decodeIntegerForKey:v35];
-
-                error4 = [coderCopy error];
-
-                if (error4)
-                {
-                  goto LABEL_15;
-                }
-
-                v97 = v36;
-                v38 = NSStringFromSelector(sel_firstPartyMsgSixMonths);
-                v39 = [coderCopy decodeIntegerForKey:v38];
-
-                error5 = [coderCopy error];
-
-                if (error5)
-                {
-                  goto LABEL_15;
-                }
-
-                v41 = NSStringFromSelector(sel_thirdPartyMsgTwoWeeks);
-                v96 = [coderCopy decodeIntegerForKey:v41];
-
-                error6 = [coderCopy error];
-
-                if (error6 || (NSStringFromSelector(sel_thirdPartyMsgSixWeeks), v43 = objc_claimAutoreleasedReturnValue(), v95 = [coderCopy decodeIntegerForKey:v43], v43, objc_msgSend(coderCopy, "error"), v44 = objc_claimAutoreleasedReturnValue(), v44, v44))
-                {
-LABEL_15:
                   selfCopy2 = 0;
 LABEL_16:
-                  v46 = v101;
-                  v47 = v102;
-                  v19 = v100;
+                  v46 = v100;
+                  v47 = v101;
+                  v19 = v99;
 LABEL_45:
 
-                  v22 = v103;
+                  v22 = v102;
                   goto LABEL_46;
                 }
 
-                v68 = NSStringFromSelector(sel_thirdPartyMsgThreeMonths);
-                v94 = [coderCopy decodeIntegerForKey:v68];
+                v67 = NSStringFromSelector(sel_thirdPartyMsgThreeMonths);
+                v93 = [coderCopy decodeIntegerForKey:v67];
 
-                error7 = [coderCopy error];
+                error3 = [coderCopy error];
 
-                if (error7)
+                if (error3 || (NSStringFromSelector(sel_thirdPartyMsgSixMonths), v69 = objc_claimAutoreleasedReturnValue(), v70 = [coderCopy decodeIntegerForKey:v69], v69, objc_msgSend(coderCopy, "error"), v71 = objc_claimAutoreleasedReturnValue(), v71, v71) || (NSStringFromSelector(sel_callTwoWeeks), v72 = objc_claimAutoreleasedReturnValue(), v92 = objc_msgSend(coderCopy, "decodeIntegerForKey:", v72), v72, objc_msgSend(coderCopy, "error"), v73 = objc_claimAutoreleasedReturnValue(), v73, v73) || (NSStringFromSelector(sel_callSixWeeks), v74 = objc_claimAutoreleasedReturnValue(), v91 = objc_msgSend(coderCopy, "decodeIntegerForKey:", v74), v74, objc_msgSend(coderCopy, "error"), v75 = objc_claimAutoreleasedReturnValue(), v75, v75) || (NSStringFromSelector(sel_callTwelveWeeks), v76 = objc_claimAutoreleasedReturnValue(), v90 = objc_msgSend(coderCopy, "decodeIntegerForKey:", v76), v76, objc_msgSend(coderCopy, "error"), v77 = objc_claimAutoreleasedReturnValue(), v77, v77) || (NSStringFromSelector(sel_callSixMonths), v78 = objc_claimAutoreleasedReturnValue(), v89 = objc_msgSend(coderCopy, "decodeIntegerForKey:", v78), v78, objc_msgSend(coderCopy, "error"), v79 = objc_claimAutoreleasedReturnValue(), v79, v79))
                 {
-                  goto LABEL_59;
-                }
-
-                v70 = NSStringFromSelector(sel_thirdPartyMsgSixMonths);
-                v71 = [coderCopy decodeIntegerForKey:v70];
-
-                error8 = [coderCopy error];
-
-                if (error8)
-                {
-                  goto LABEL_59;
-                }
-
-                v73 = NSStringFromSelector(sel_callTwoWeeks);
-                v93 = [coderCopy decodeIntegerForKey:v73];
-
-                error9 = [coderCopy error];
-
-                if (error9)
-                {
-                  goto LABEL_59;
-                }
-
-                v75 = NSStringFromSelector(sel_callSixWeeks);
-                v92 = [coderCopy decodeIntegerForKey:v75];
-
-                error10 = [coderCopy error];
-
-                if (error10)
-                {
-                  goto LABEL_59;
-                }
-
-                v77 = NSStringFromSelector(sel_callTwelveWeeks);
-                v91 = [coderCopy decodeIntegerForKey:v77];
-
-                error11 = [coderCopy error];
-
-                if (error11 || (NSStringFromSelector(sel_callSixMonths), v79 = objc_claimAutoreleasedReturnValue(), v90 = [coderCopy decodeIntegerForKey:v79], v79, objc_msgSend(coderCopy, "error"), v80 = objc_claimAutoreleasedReturnValue(), v80, v80))
-                {
-LABEL_59:
                   selfCopy2 = 0;
                   self = selfCopy;
                   goto LABEL_16;
                 }
 
-                v81 = objc_opt_class();
-                v82 = NSStringFromSelector(sel_identifier);
-                v83 = [coderCopy decodeObjectOfClass:v81 forKey:v82];
+                v80 = objc_opt_class();
+                v81 = NSStringFromSelector(sel_identifier);
+                v82 = [coderCopy decodeObjectOfClass:v80 forKey:v81];
 
-                if (v83)
+                if (v82)
                 {
-                  v63 = v83;
-                  v89 = v83;
-                  v88 = v39;
-                  v47 = v102;
-                  v19 = v100;
-                  self = [(GDEntityResolutionCollectionCandidate *)selfCopy initWithPrimaryName:v7 personToPerson:v16 aliasConcat:v10 entityAliasConcat:v13 personFromOrganization:v100 personFromLocation:v103 personFromEventLocation:v102 personFromEvent:v101 firstPartyMsgTwoWeeks:v99 firstPartyMsgSixWeeks:v98 firstPartyMsgThreeMonths:v97 firstPartyMsgSixMonths:v88 thirdPartyMsgTwoWeeks:v96 thirdPartyMsgSixWeeks:v95 thirdPartyMsgThreeMonths:v94 thirdPartyMsgSixMonths:v71 callTwoWeeks:v93 callSixWeeks:v92 callTwelveWeeks:v91 callSixMonths:v90 identifier:v89];
+                  v63 = v82;
+                  v88 = v82;
+                  v87 = v39;
+                  v47 = v101;
+                  v19 = v99;
+                  self = [(GDEntityResolutionCollectionCandidate *)selfCopy initWithPrimaryName:v7 personToPerson:v16 aliasConcat:v10 entityAliasConcat:v13 personFromOrganization:v99 personFromLocation:v102 personFromEventLocation:v101 personFromEvent:v100 firstPartyMsgTwoWeeks:v98 firstPartyMsgSixWeeks:v97 firstPartyMsgThreeMonths:v96 firstPartyMsgSixMonths:v87 thirdPartyMsgTwoWeeks:v95 thirdPartyMsgSixWeeks:v94 thirdPartyMsgThreeMonths:v93 thirdPartyMsgSixMonths:v70 callTwoWeeks:v92 callSixWeeks:v91 callTwelveWeeks:v90 callSixMonths:v89 identifier:v88];
                   selfCopy2 = self;
                 }
 
                 else
                 {
-                  error12 = [coderCopy error];
+                  error4 = [coderCopy error];
 
-                  if (!error12)
+                  if (!error4)
                   {
-                    v85 = MEMORY[0x1E696ABC0];
-                    v105 = *MEMORY[0x1E696A578];
-                    v106 = @"GDEntityResolutionCollectionResult identifier is nil";
-                    v86 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
-                    v87 = [v85 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v86];
-                    [coderCopy failWithError:v87];
+                    v84 = MEMORY[0x1E696ABC0];
+                    v104 = *MEMORY[0x1E696A578];
+                    v105 = @"GDEntityResolutionCollectionResult identifier is nil";
+                    v85 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
+                    v86 = [v84 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v85];
+                    [coderCopy failWithError:v86];
                   }
 
                   v63 = 0;
                   selfCopy2 = 0;
                   self = selfCopy;
-                  v47 = v102;
-                  v19 = v100;
+                  v47 = v101;
+                  v19 = v99;
                 }
               }
 
               else
               {
-                error13 = [coderCopy error];
+                error5 = [coderCopy error];
 
                 self = selfCopy;
-                v47 = v102;
-                if (error13)
+                v47 = v101;
+                if (error5)
                 {
                   v46 = 0;
                   selfCopy2 = 0;
@@ -260,31 +175,31 @@ LABEL_59:
                 }
 
                 v64 = MEMORY[0x1E696ABC0];
-                v107 = *MEMORY[0x1E696A578];
-                v108 = @"GDEntityResolutionCollectionResult personFromEvent is nil";
-                v63 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
+                v106 = *MEMORY[0x1E696A578];
+                v107 = @"GDEntityResolutionCollectionResult personFromEvent is nil";
+                v63 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
                 v65 = [v64 errorWithDomain:@"GDErrorDomain" code:9 userInfo:?];
                 [coderCopy failWithError:v65];
 
-                v101 = 0;
+                v100 = 0;
                 selfCopy2 = 0;
               }
 
 LABEL_44:
 
-              v46 = v101;
+              v46 = v100;
               goto LABEL_45;
             }
 
-            error14 = [coderCopy error];
+            error6 = [coderCopy error];
 
-            if (!error14)
+            if (!error6)
             {
-              v103 = v22;
+              v102 = v22;
               v62 = MEMORY[0x1E696ABC0];
-              v109 = *MEMORY[0x1E696A578];
-              v110 = @"GDEntityResolutionCollectionResult personFromEventLocation is nil";
-              v101 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v110 forKeys:&v109 count:1];
+              v108 = *MEMORY[0x1E696A578];
+              v109 = @"GDEntityResolutionCollectionResult personFromEventLocation is nil";
+              v100 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v109 forKeys:&v108 count:1];
               v63 = [v62 errorWithDomain:@"GDErrorDomain" code:9 userInfo:?];
               [coderCopy failWithError:?];
               selfCopy2 = 0;
@@ -301,15 +216,15 @@ LABEL_46:
             goto LABEL_47;
           }
 
-          error15 = [coderCopy error];
+          error7 = [coderCopy error];
 
-          if (!error15)
+          if (!error7)
           {
-            v103 = 0;
+            v102 = 0;
             v61 = MEMORY[0x1E696ABC0];
-            v111 = *MEMORY[0x1E696A578];
-            v112 = @"GDEntityResolutionCollectionResult personFromLocation is nil";
-            v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v112 forKeys:&v111 count:1];
+            v110 = *MEMORY[0x1E696A578];
+            v111 = @"GDEntityResolutionCollectionResult personFromLocation is nil";
+            v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v111 forKeys:&v110 count:1];
             v46 = [v61 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v47];
             [coderCopy failWithError:v46];
             selfCopy2 = 0;
@@ -325,14 +240,14 @@ LABEL_47:
           goto LABEL_48;
         }
 
-        error16 = [coderCopy error];
+        error8 = [coderCopy error];
 
-        if (!error16)
+        if (!error8)
         {
           v59 = MEMORY[0x1E696ABC0];
-          v113 = *MEMORY[0x1E696A578];
-          v114 = @"GDEntityResolutionCollectionResult personFromOrganization is nil";
-          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v114 forKeys:&v113 count:1];
+          v112 = *MEMORY[0x1E696A578];
+          v113 = @"GDEntityResolutionCollectionResult personFromOrganization is nil";
+          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v113 forKeys:&v112 count:1];
           v47 = [v59 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v22];
           [coderCopy failWithError:v47];
           selfCopy2 = 0;
@@ -347,14 +262,14 @@ LABEL_48:
         goto LABEL_49;
       }
 
-      error17 = [coderCopy error];
+      error9 = [coderCopy error];
 
-      if (!error17)
+      if (!error9)
       {
         v57 = MEMORY[0x1E696ABC0];
-        v115 = *MEMORY[0x1E696A578];
-        v116 = @"GDEntityResolutionCollectionResult personToPerson is nil";
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
+        v114 = *MEMORY[0x1E696A578];
+        v115 = @"GDEntityResolutionCollectionResult personToPerson is nil";
+        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v115 forKeys:&v114 count:1];
         v22 = [v57 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v19];
         [coderCopy failWithError:v22];
         selfCopy2 = 0;
@@ -369,14 +284,14 @@ LABEL_49:
       goto LABEL_50;
     }
 
-    error18 = [coderCopy error];
+    error10 = [coderCopy error];
 
-    if (!error18)
+    if (!error10)
     {
       v55 = MEMORY[0x1E696ABC0];
-      v117 = *MEMORY[0x1E696A578];
-      v118 = @"GDEntityResolutionCollectionResult entityAliasConcat is nil";
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v118 forKeys:&v117 count:1];
+      v116 = *MEMORY[0x1E696A578];
+      v117 = @"GDEntityResolutionCollectionResult entityAliasConcat is nil";
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v117 forKeys:&v116 count:1];
       v19 = [v55 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v16];
       [coderCopy failWithError:v19];
       goto LABEL_32;
@@ -390,14 +305,14 @@ LABEL_50:
     goto LABEL_51;
   }
 
-  error19 = [coderCopy error];
+  error11 = [coderCopy error];
 
-  if (!error19)
+  if (!error11)
   {
     v51 = MEMORY[0x1E696ABC0];
-    v121 = *MEMORY[0x1E696A578];
-    v122[0] = @"GDEntityResolutionCollectionResult primaryName is nil";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v122 forKeys:&v121 count:1];
+    v120 = *MEMORY[0x1E696A578];
+    v121[0] = @"GDEntityResolutionCollectionResult primaryName is nil";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v121 forKeys:&v120 count:1];
     v13 = [v51 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v10];
     [coderCopy failWithError:v13];
     goto LABEL_24;
@@ -406,7 +321,6 @@ LABEL_50:
   selfCopy2 = 0;
 LABEL_52:
 
-  v66 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 

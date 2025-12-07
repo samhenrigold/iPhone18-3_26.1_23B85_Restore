@@ -24,7 +24,7 @@
   return v2;
 }
 
-uint64_t __80__LUIManagedDevicesNavigationControllerAccessibility_accessibilityPerformEscape__block_invoke(uint64_t a1)
+void *__80__LUIManagedDevicesNavigationControllerAccessibility_accessibilityPerformEscape__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) doneButtonPressed:0];
   *(*(*(a1 + 40) + 8) + 24) = 1;

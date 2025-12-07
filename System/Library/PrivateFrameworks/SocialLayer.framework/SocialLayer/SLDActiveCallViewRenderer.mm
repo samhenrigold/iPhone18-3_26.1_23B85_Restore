@@ -29,11 +29,11 @@
   slotTag = [(SLDActiveCallViewRenderer *)self slotTag];
   isCallActive = [slotTag isCallActive];
 
-  v7 = SLDaemonLogHandle();
-  activeCallGroupPhotoData = v7;
+  v8 = SLDaemonLogHandle(v7);
+  activeCallGroupPhotoData = v8;
   if (isCallActive)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       LODWORD(v26.a) = 138412290;
       *(&v26.a + 4) = self;
@@ -42,32 +42,32 @@
 
     slotTag2 = [(SLDActiveCallViewRenderer *)self slotTag];
     [slotTag2 maxWidth];
-    v11 = v10;
+    v12 = v11;
 
     v29.origin.x = 0.0;
     v29.origin.y = 0.0;
-    v29.size.width = v11;
+    v29.size.width = v12;
     v29.size.height = 45.0;
-    v12 = CGPathCreateWithRoundedRect(v29, 15.0, 15.0, 0);
+    v13 = CGPathCreateWithRoundedRect(v29, 15.0, 15.0, 0);
     CGContextSetRGBFillColor(context, 0.8, 0.8, 0.8, 1.0);
-    CGContextAddPath(context, v12);
+    CGContextAddPath(context, v13);
     CGContextDrawPath(context, kCGPathFill);
-    CGPathRelease(v12);
+    CGPathRelease(v13);
     slotTag3 = [(SLDActiveCallViewRenderer *)self slotTag];
     activeCallGroupPhotoData = [slotTag3 activeCallGroupPhotoData];
 
     if (activeCallGroupPhotoData)
     {
-      v14 = CGDataProviderCreateWithCFData(activeCallGroupPhotoData);
-      if (v14)
+      v15 = CGDataProviderCreateWithCFData(activeCallGroupPhotoData);
+      if (v15)
       {
-        v15 = v14;
-        v16 = CGImageSourceCreateWithDataProvider(v14, 0);
-        CFRelease(v15);
-        if (v16)
+        v16 = v15;
+        v17 = CGImageSourceCreateWithDataProvider(v15, 0);
+        CFRelease(v16);
+        if (v17)
         {
-          ImageAtIndex = CGImageSourceCreateImageAtIndex(v16, 0, 0);
-          CFRelease(v16);
+          ImageAtIndex = CGImageSourceCreateImageAtIndex(v17, 0, 0);
+          CFRelease(v17);
           if (ImageAtIndex)
           {
             CGContextSaveGState(context);
@@ -94,15 +94,15 @@
     }
 
     CGContextSaveGState(context);
-    v18 = *(MEMORY[0x277CBF2C0] + 16);
+    v19 = *(MEMORY[0x277CBF2C0] + 16);
     *&v26.a = *MEMORY[0x277CBF2C0];
-    *&v26.c = v18;
+    *&v26.c = v19;
     *&v26.tx = *(MEMORY[0x277CBF2C0] + 32);
     CGContextSetTextMatrix(context, &v26);
     CGContextTranslateCTM(context, 0.0, 45.0);
     CGContextScaleCTM(context, 1.0, -1.0);
     Mutable = CGPathCreateMutable();
-    v32.size.width = v11 + -46.0;
+    v32.size.width = v12 + -46.0;
     v32.origin.x = 46.0;
     v32.origin.y = 0.0;
     v32.size.height = 30.0;
@@ -110,24 +110,22 @@
     slotTag4 = [(SLDActiveCallViewRenderer *)self slotTag];
     activeCallDisplayName = [slotTag4 activeCallDisplayName];
 
-    v22 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:activeCallDisplayName];
-    v23 = CTFramesetterCreateWithAttributedString(v22);
-    v28.length = [(__CFAttributedString *)v22 length];
+    v23 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:activeCallDisplayName];
+    v24 = CTFramesetterCreateWithAttributedString(v23);
+    v28.length = [(__CFAttributedString *)v23 length];
     v28.location = 0;
-    Frame = CTFramesetterCreateFrame(v23, v28, Mutable, 0);
+    Frame = CTFramesetterCreateFrame(v24, v28, Mutable, 0);
     CTFrameDraw(Frame, context);
     CFRelease(Frame);
     CFRelease(Mutable);
-    CFRelease(v23);
+    CFRelease(v24);
     CGContextRestoreGState(context);
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [SLDActiveCallViewRenderer renderInContext:activeCallGroupPhotoData];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

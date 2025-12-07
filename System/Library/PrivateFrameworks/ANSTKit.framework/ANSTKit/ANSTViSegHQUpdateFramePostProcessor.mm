@@ -25,19 +25,19 @@
 
 - (ANSTViSegHQUpdateFramePostProcessor)initWithInferenceDescriptor:(id)descriptor error:(id *)error
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_configuration(descriptor, a2, descriptor);
   v8 = objc_msgSend_makeKeyTensorDescriptorForConfiguration_name_(_ANSTViSegHQUtility, v7, v6, @"key");
   v10 = objc_msgSend_makeValueTensorDescriptorForConfiguration_name_(_ANSTViSegHQUtility, v9, v6, @"value");
-  v28[0] = v8;
-  v28[1] = v10;
-  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v11, v28, 2);
   v27[0] = v8;
   v27[1] = v10;
-  v14 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v13, v27, 2);
-  v26.receiver = self;
-  v26.super_class = ANSTViSegHQUpdateFramePostProcessor;
-  v15 = [(ANSTInferencePostprocessor *)&v26 initWithInferenceInputDescriptors:MEMORY[0x277CBEBF8] inferenceOutputDescriptors:v12 processedOutputDescriptors:v14 error:error];
+  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v11, v27, 2);
+  v26[0] = v8;
+  v26[1] = v10;
+  v14 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v13, v26, 2);
+  v25.receiver = self;
+  v25.super_class = ANSTViSegHQUpdateFramePostProcessor;
+  v15 = [(ANSTInferencePostprocessor *)&v25 initWithInferenceInputDescriptors:MEMORY[0x277CBEBF8] inferenceOutputDescriptors:v12 processedOutputDescriptors:v14 error:error];
 
   if (v15)
   {
@@ -54,7 +54,6 @@
     v15->_valueTensorSwapSpace = malloc_type_malloc(v23, 0x4741119FuLL);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -201,7 +200,7 @@
 
 - (id)_inputTensorDataForDescriptor:(id)descriptor error:(id *)error
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   v9 = objc_msgSend_name(descriptorCopy, v7, v8);
   v11 = objc_msgSend_inputTensorDataForDescriptorNamed_(self, v10, v9);
@@ -214,22 +213,20 @@
   else if (error)
   {
     v14 = MEMORY[0x277CCA9B8];
-    v19[0] = *MEMORY[0x277CCA068];
-    v19[1] = @"ANSTDescriptor";
-    v20[0] = @"Input tensor data not found.";
-    v20[1] = descriptorCopy;
-    v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v12, v20, v19, 2);
+    v18[0] = *MEMORY[0x277CCA068];
+    v18[1] = @"ANSTDescriptor";
+    v19[0] = @"Input tensor data not found.";
+    v19[1] = descriptorCopy;
+    v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v12, v19, v18, 2);
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v14, v16, @"ANSTErrorDomain", 11, v15);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)_outputTensorDataForDescriptor:(id)descriptor error:(id *)error
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   v9 = objc_msgSend_name(descriptorCopy, v7, v8);
   v11 = objc_msgSend_outputTensorDataForDescriptorNamed_(self, v10, v9);
@@ -242,15 +239,13 @@
   else if (error)
   {
     v14 = MEMORY[0x277CCA9B8];
-    v19[0] = *MEMORY[0x277CCA068];
-    v19[1] = @"ANSTDescriptor";
-    v20[0] = @"Output tensor data not found.";
-    v20[1] = descriptorCopy;
-    v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v12, v20, v19, 2);
+    v18[0] = *MEMORY[0x277CCA068];
+    v18[1] = @"ANSTDescriptor";
+    v19[0] = @"Output tensor data not found.";
+    v19[1] = descriptorCopy;
+    v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v12, v19, v18, 2);
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v14, v16, @"ANSTErrorDomain", 11, v15);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

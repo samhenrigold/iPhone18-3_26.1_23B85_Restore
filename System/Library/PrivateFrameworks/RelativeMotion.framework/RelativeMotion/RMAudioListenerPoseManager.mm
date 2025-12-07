@@ -10,6 +10,8 @@
 - (void)setConnectionClient:(uint64_t)client;
 - (void)setPoseCallbackInternal:(void *)internal;
 - (void)setQueue:(uint64_t)queue;
+- (void)startReceivingAudioListenerPoseUpdatesWithForceSessionRestart:(BOOL)restart poseCallback:(id)callback;
+- (void)startReceivingAudioListenerPoseUpdatesWithForceSessionRestart:(BOOL)restart poseCallbackInternal:(id)internal;
 - (void)stopReceivingAudioListenerPoseUpdates;
 @end
 
@@ -35,7 +37,7 @@
 
 void __113__RMAudioListenerPoseManager_startReceivingAudioListenerPoseUpdatesWithForceSessionRestart_poseCallbackInternal___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -62,14 +64,12 @@ void __113__RMAudioListenerPoseManager_startReceivingAudioListenerPoseUpdatesWit
       v9 = logObject_TempestDataReceiver_Default;
       if (os_log_type_enabled(logObject_TempestDataReceiver_Default, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 134217984;
-        v12 = v8;
-        _os_log_impl(&dword_261A9A000, v9, OS_LOG_TYPE_DEFAULT, "invalid data size %lu", &v11, 0xCu);
+        v10 = 134217984;
+        v11 = v8;
+        _os_log_impl(&dword_261A9A000, v9, OS_LOG_TYPE_DEFAULT, "invalid data size %lu", &v10, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __113__RMAudioListenerPoseManager_startReceivingAudioListenerPoseUpdatesWithForceSessionRestart_poseCallbackInternal___block_invoke_29(uint64_t a1, void *a2, void *a3)
@@ -87,6 +87,19 @@ void __113__RMAudioListenerPoseManager_startReceivingAudioListenerPoseUpdatesWit
     *v7 = 0;
     _os_log_impl(&dword_261A9A000, v6, OS_LOG_TYPE_DEFAULT, "Received reply for priority message.", v7, 2u);
   }
+}
+
+- (void)startReceivingAudioListenerPoseUpdatesWithForceSessionRestart:(BOOL)restart poseCallback:(id)callback
+{
+  restartCopy = restart;
+  callbackCopy = callback;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __105__RMAudioListenerPoseManager_startReceivingAudioListenerPoseUpdatesWithForceSessionRestart_poseCallback___block_invoke;
+  v8[3] = &unk_279AF5360;
+  v9 = callbackCopy;
+  v7 = callbackCopy;
+  [(RMAudioListenerPoseManager *)self startReceivingAudioListenerPoseUpdatesWithForceSessionRestart:restartCopy poseCallbackInternal:v8];
 }
 
 void __105__RMAudioListenerPoseManager_startReceivingAudioListenerPoseUpdatesWithForceSessionRestart_poseCallback___block_invoke(uint64_t a1, double *a2, void *a3)
@@ -227,6 +240,66 @@ void __105__RMAudioListenerPoseManager_startReceivingAudioListenerPoseUpdatesWit
   }
 
   return v8;
+}
+
+- (void)startReceivingAudioListenerPoseUpdatesWithForceSessionRestart:(BOOL)restart poseCallbackInternal:(id)internal
+{
+  restartCopy = restart;
+  internalCopy = internal;
+  if (self)
+  {
+    dispatch_assert_queue_V2(self->_queue);
+    objc_setProperty_nonatomic_copy(self, v7, internalCopy, 32);
+    connectionClient = self->_connectionClient;
+  }
+
+  else
+  {
+    dispatch_assert_queue_V2(0);
+    connectionClient = 0;
+  }
+
+  [(RMConnectionClient *)connectionClient connect];
+  v9 = [(RMAudioListenerPoseManager *)self audioListenerPoseConfigurationWithForceSessionRestart:restartCopy];
+  if (self)
+  {
+    v10 = self->_connectionClient;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __113__RMAudioListenerPoseManager_startReceivingAudioListenerPoseUpdatesWithForceSessionRestart_poseCallbackInternal___block_invoke;
+  v14[3] = &unk_279AF5318;
+  v14[4] = self;
+  [(RMConnectionClient *)v10 requestStreamingWithMessage:v9 data:v14 callback:?];
+  if (onceToken_TempestDataReceiver_Default != -1)
+  {
+    dispatch_once(&onceToken_TempestDataReceiver_Default, &__block_literal_global_67);
+  }
+
+  v11 = logObject_TempestDataReceiver_Default;
+  if (os_log_type_enabled(logObject_TempestDataReceiver_Default, OS_LOG_TYPE_DEFAULT))
+  {
+    *v13 = 0;
+    _os_log_impl(&dword_261A9A000, v11, OS_LOG_TYPE_DEFAULT, "Sending message for relatived to hold onto priority.", v13, 2u);
+  }
+
+  if (self)
+  {
+    v12 = self->_connectionClient;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  [(RMConnectionClient *)v12 sendMessage:0 withData:&__block_literal_global_32 reply:?];
 }
 
 - (uint64_t)poseCallbackInternal

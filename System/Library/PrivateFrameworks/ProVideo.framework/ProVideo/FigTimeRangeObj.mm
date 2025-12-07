@@ -67,7 +67,7 @@
     v5 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"start"];
     if (v5)
     {
-      [v5 time];
+      objc_msgSend_time(v5);
     }
 
     else
@@ -81,7 +81,7 @@
     v6 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"duration"];
     if (v6)
     {
-      [v6 time];
+      objc_msgSend_time(v6);
     }
 
     else
@@ -191,11 +191,11 @@
 {
   if (self)
   {
-    [(FigTimeRangeObj *)self start];
+    objc_msgSend_start(self, a2);
     if (ascending)
     {
 LABEL_3:
-      [ascending start];
+      objc_msgSend_start(ascending);
       goto LABEL_6;
     }
   }
@@ -227,11 +227,11 @@ LABEL_6:
 {
   if (self)
   {
-    [(FigTimeRangeObj *)self start];
+    objc_msgSend_start(self, a2);
     if (descending)
     {
 LABEL_3:
-      [descending start];
+      objc_msgSend_start(descending);
       goto LABEL_6;
     }
   }

@@ -9,9 +9,9 @@
 {
   withCopy = with;
   saltCopy = salt;
-  v8 = specialized static HKDF.deriveKeyWith(_:salt:outputSize:)(withCopy, saltCopy);
+  v9 = specialized static HKDF.deriveKeyWith(_:salt:outputSize:)(withCopy, saltCopy, size);
 
-  return v8;
+  return v9;
 }
 
 - (_TtC17MessageProtection4HKDF)init

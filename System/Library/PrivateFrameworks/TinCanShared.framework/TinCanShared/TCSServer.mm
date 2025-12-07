@@ -15,6 +15,7 @@
 - (void)queryIsTinCannable:(id)cannable;
 - (void)remoteUplinkMuteChanged:(id)changed;
 - (void)sessionViewControllerViewDidAppear;
+- (void)setUplinkMuted:(BOOL)muted for:(id)for completion:(id)completion;
 @end
 
 @implementation TCSServer
@@ -58,45 +59,43 @@
 
 void __48__TCSServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_loadWeakRetained((a1 + 40));
+  v5 = v3;
   if (v3)
   {
-    _TCSInitializeLogging();
-    v4 = TCSLogDefault;
+    _TCSInitializeLogging(v3, v4);
+    v6 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_26F110000, v4, OS_LOG_TYPE_DEFAULT, "TCSServer connection invalidation handler called for %@", &v6, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_26F110000, v6, OS_LOG_TYPE_DEFAULT, "TCSServer connection invalidation handler called for %@", &v7, 0xCu);
     }
 
-    [WeakRetained _removeConnection:v3];
+    [WeakRetained _removeConnection:v5];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __48__TCSServer_listener_shouldAcceptNewConnection___block_invoke_64(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    _TCSInitializeLogging();
-    v2 = TCSLogDefault;
+    _TCSInitializeLogging(WeakRetained, v2);
+    v4 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 138412290;
-      v5 = WeakRetained;
-      _os_log_impl(&dword_26F110000, v2, OS_LOG_TYPE_DEFAULT, "TCSServer connection interruption handler called for %@", &v4, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_26F110000, v4, OS_LOG_TYPE_DEFAULT, "TCSServer connection interruption handler called for %@", &v5, 0xCu);
     }
 
-    [WeakRetained invalidate];
+    [v3 invalidate];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (TCSServer)init
@@ -217,6 +216,15 @@ void __37__TCSServer_remoteUplinkMuteChanged___block_invoke(uint64_t a1, void *a
   contactCopy = contact;
   delegate = [(TCSServer *)self delegate];
   [delegate completeInvitationFlowForContact:contactCopy];
+}
+
+- (void)setUplinkMuted:(BOOL)muted for:(id)for completion:(id)completion
+{
+  mutedCopy = muted;
+  completionCopy = completion;
+  forCopy = for;
+  delegate = [(TCSServer *)self delegate];
+  [delegate setUplinkMuted:mutedCopy for:forCopy completion:completionCopy];
 }
 
 - (void)getLogEntryForCallWithUniqueProxyIdentifier:(id)identifier completion:(id)completion

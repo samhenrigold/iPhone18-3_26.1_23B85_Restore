@@ -12,7 +12,7 @@
     sub_10000D0B4();
   }
 
-  v2 = sub_100003BEC();
+  v2 = sub_100003BEC(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4[0] = 67109120;
@@ -30,11 +30,11 @@
     v2 = +[FMDAutomationHelperFactory sharedFactory];
     v3 = [v2 automationHelperClassWithName:@"FMDAutomationAVRouteController"];
 
-    v4 = sub_100003BEC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100003BEC(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "FMDAVRouteController: switching to automation", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "FMDAVRouteController: switching to automation", buf, 2u);
     }
 
     block[0] = _NSConcreteStackBlock;
@@ -50,14 +50,14 @@
 
   else
   {
-    v5 = objc_alloc_init(FMDAVRouteController);
-    v6 = qword_100028BF8;
-    qword_100028BF8 = v5;
+    v6 = objc_alloc_init(FMDAVRouteController);
+    v7 = qword_100028BF8;
+    qword_100028BF8 = v6;
   }
 
-  v7 = qword_100028BF8;
+  v8 = qword_100028BF8;
 
-  return v7;
+  return v8;
 }
 
 @end

@@ -68,9 +68,9 @@ uint64_t __42__SUUIMediaPlayerInterface_sharedInstance__block_invoke(uint64_t a1
 
 - (SUUIMediaPlayerInterface)init
 {
-  v24.receiver = self;
-  v24.super_class = SUUIMediaPlayerInterface;
-  v2 = [(SUUIMediaPlayerInterface *)&v24 init];
+  v35.receiver = self;
+  v35.super_class = SUUIMediaPlayerInterface;
+  v2 = [(SUUIMediaPlayerInterface *)&v35 init];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x277CCAB00]) initWithKeyOptions:0 valueOptions:0 capacity:0];
@@ -90,23 +90,23 @@ uint64_t __42__SUUIMediaPlayerInterface_sharedInstance__block_invoke(uint64_t a1
     v2->_observerQueue = v9;
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v12 = SUUIMediaPlayerFramework();
-    v13 = *SUUIWeakLinkedSymbolForString("MPAVControllerItemChangedNotification", v12);
-    [defaultCenter addObserver:v2 selector:sel__playerItemDidChangeNotification_ name:v13 object:0];
-    v14 = SUUIMediaPlayerFramework();
-    v15 = *SUUIWeakLinkedSymbolForString("MPAVControllerItemWillChangeNotification", v14);
-    [defaultCenter addObserver:v2 selector:sel__playerItemWillChangeNotification_ name:v15 object:0];
-    v16 = SUUIMediaPlayerFramework();
-    v17 = *SUUIWeakLinkedSymbolForString("MPAVControllerItemReadyToPlayNotification", v16);
-    [defaultCenter addObserver:v2 selector:sel__playerItemReady_ name:v17 object:0];
-    v18 = SUUIMediaPlayerFramework();
-    v19 = *SUUIWeakLinkedSymbolForString("MPAVControllerRateDidChangeNotification", v18);
-    [defaultCenter addObserver:v2 selector:sel__playerRateDidChangeNotification_ name:v19 object:0];
-    v20 = SUUIMediaPlayerFramework();
-    v21 = *SUUIWeakLinkedSymbolForString("MPAVControllerBufferingStateChangedNotification", v20);
-    [defaultCenter addObserver:v2 selector:sel__bufferingStateChangedNotification_ name:v21 object:0];
-    v22 = SUUIMediaPlayerFramework();
-    [defaultCenter addObserver:v2 selector:sel__playbackErrorNotification_ name:*SUUIWeakLinkedSymbolForString("MPAVControllerPlaybackErrorNotification" object:{v22), 0}];
+    v13 = SUUIMediaPlayerFramework(defaultCenter, v12);
+    v14 = *SUUIWeakLinkedSymbolForString("MPAVControllerItemChangedNotification", v13);
+    v15 = [defaultCenter addObserver:v2 selector:sel__playerItemDidChangeNotification_ name:v14 object:0];
+    v17 = SUUIMediaPlayerFramework(v15, v16);
+    v18 = *SUUIWeakLinkedSymbolForString("MPAVControllerItemWillChangeNotification", v17);
+    v19 = [defaultCenter addObserver:v2 selector:sel__playerItemWillChangeNotification_ name:v18 object:0];
+    v21 = SUUIMediaPlayerFramework(v19, v20);
+    v22 = *SUUIWeakLinkedSymbolForString("MPAVControllerItemReadyToPlayNotification", v21);
+    v23 = [defaultCenter addObserver:v2 selector:sel__playerItemReady_ name:v22 object:0];
+    v25 = SUUIMediaPlayerFramework(v23, v24);
+    v26 = *SUUIWeakLinkedSymbolForString("MPAVControllerRateDidChangeNotification", v25);
+    v27 = [defaultCenter addObserver:v2 selector:sel__playerRateDidChangeNotification_ name:v26 object:0];
+    v29 = SUUIMediaPlayerFramework(v27, v28);
+    v30 = *SUUIWeakLinkedSymbolForString("MPAVControllerBufferingStateChangedNotification", v29);
+    v31 = [defaultCenter addObserver:v2 selector:sel__bufferingStateChangedNotification_ name:v30 object:0];
+    v33 = SUUIMediaPlayerFramework(v31, v32);
+    [defaultCenter addObserver:v2 selector:sel__playbackErrorNotification_ name:*SUUIWeakLinkedSymbolForString("MPAVControllerPlaybackErrorNotification" object:{v33), 0}];
   }
 
   return v2;
@@ -115,27 +115,27 @@ uint64_t __42__SUUIMediaPlayerInterface_sharedInstance__block_invoke(uint64_t a1
 - (void)dealloc
 {
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v4 = SUUIMediaPlayerFramework();
-  v5 = *SUUIWeakLinkedSymbolForString("MPAVControllerItemChangedNotification", v4);
-  [defaultCenter removeObserver:self name:v5 object:0];
-  v6 = SUUIMediaPlayerFramework();
-  v7 = *SUUIWeakLinkedSymbolForString("MPAVControllerItemWillChangeNotification", v6);
-  [defaultCenter removeObserver:self name:v7 object:0];
-  v8 = SUUIMediaPlayerFramework();
-  v9 = *SUUIWeakLinkedSymbolForString("MPAVControllerItemReadyToPlayNotification", v8);
-  [defaultCenter removeObserver:self name:v9 object:0];
-  v10 = SUUIMediaPlayerFramework();
-  v11 = *SUUIWeakLinkedSymbolForString("MPAVControllerRateDidChangeNotification", v10);
-  [defaultCenter removeObserver:self name:v11 object:0];
-  v12 = SUUIMediaPlayerFramework();
-  v13 = *SUUIWeakLinkedSymbolForString("MPAVControllerBufferingStateChangedNotification", v12);
-  [defaultCenter removeObserver:self name:v13 object:0];
-  v14 = SUUIMediaPlayerFramework();
-  [defaultCenter removeObserver:self name:*SUUIWeakLinkedSymbolForString("MPAVControllerPlaybackErrorNotification" object:{v14), 0}];
+  v5 = SUUIMediaPlayerFramework(defaultCenter, v4);
+  v6 = *SUUIWeakLinkedSymbolForString("MPAVControllerItemChangedNotification", v5);
+  v7 = [defaultCenter removeObserver:self name:v6 object:0];
+  v9 = SUUIMediaPlayerFramework(v7, v8);
+  v10 = *SUUIWeakLinkedSymbolForString("MPAVControllerItemWillChangeNotification", v9);
+  v11 = [defaultCenter removeObserver:self name:v10 object:0];
+  v13 = SUUIMediaPlayerFramework(v11, v12);
+  v14 = *SUUIWeakLinkedSymbolForString("MPAVControllerItemReadyToPlayNotification", v13);
+  v15 = [defaultCenter removeObserver:self name:v14 object:0];
+  v17 = SUUIMediaPlayerFramework(v15, v16);
+  v18 = *SUUIWeakLinkedSymbolForString("MPAVControllerRateDidChangeNotification", v17);
+  v19 = [defaultCenter removeObserver:self name:v18 object:0];
+  v21 = SUUIMediaPlayerFramework(v19, v20);
+  v22 = *SUUIWeakLinkedSymbolForString("MPAVControllerBufferingStateChangedNotification", v21);
+  v23 = [defaultCenter removeObserver:self name:v22 object:0];
+  v25 = SUUIMediaPlayerFramework(v23, v24);
+  [defaultCenter removeObserver:self name:*SUUIWeakLinkedSymbolForString("MPAVControllerPlaybackErrorNotification" object:{v25), 0}];
 
-  v15.receiver = self;
-  v15.super_class = SUUIMediaPlayerInterface;
-  [(SUUIMediaPlayerInterface *)&v15 dealloc];
+  v26.receiver = self;
+  v26.super_class = SUUIMediaPlayerInterface;
+  [(SUUIMediaPlayerInterface *)&v26 dealloc];
 }
 
 - (void)addObserver:(id)observer
@@ -233,17 +233,17 @@ LABEL_12:
     if (storeID)
     {
       storeID2 = [v9 storeID];
-      if ([storeID2 isEqualToString:matchesCopy])
+      if (objc_msgSend_isEqualToString_(storeID2))
       {
-        v11 = 1;
+        isEqualToString = 1;
         goto LABEL_13;
       }
     }
 
     storeAlbumID = [v9 storeAlbumID];
-    if (storeAlbumID && ([v9 storeAlbumID], v5 = objc_claimAutoreleasedReturnValue(), (objc_msgSend(v5, "isEqualToString:", matchesCopy) & 1) != 0))
+    if (storeAlbumID && ([v9 storeAlbumID], v5 = objc_claimAutoreleasedReturnValue(), (objc_msgSend_isEqualToString_(v5) & 1) != 0))
     {
-      v11 = 1;
+      isEqualToString = 1;
     }
 
     else
@@ -253,7 +253,7 @@ LABEL_12:
       {
         v14 = itemIdentifier;
         itemIdentifier2 = [v9 itemIdentifier];
-        v11 = [itemIdentifier2 isEqualToString:matchesCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(itemIdentifier2);
 
         if (!storeAlbumID)
         {
@@ -263,7 +263,7 @@ LABEL_12:
 
       else
       {
-        v11 = 0;
+        isEqualToString = 0;
         if (!storeAlbumID)
         {
 LABEL_12:
@@ -284,10 +284,10 @@ LABEL_13:
     goto LABEL_12;
   }
 
-  v11 = 0;
+  isEqualToString = 0;
 LABEL_15:
 
-  return v11;
+  return isEqualToString;
 }
 
 + (BOOL)isRadioItemIdentifier:(id)identifier
@@ -325,9 +325,9 @@ LABEL_15:
     if (onDeckItem)
     {
       itemIdentifier = [(SUUIMediaPlayerItemStatus *)onDeckItem itemIdentifier];
-      v7 = [itemIdentifier isEqualToString:deckCopy];
+      isEqualToString = objc_msgSend_isEqualToString_(itemIdentifier);
 
-      if (v7)
+      if (isEqualToString)
       {
         v8 = 1;
       }
@@ -398,9 +398,9 @@ LABEL_15:
   }
 
   itemIdentifier = [(SUUIMediaPlayerItemStatus *)onDeckItem itemIdentifier];
-  v15 = [itemIdentifier isEqualToString:identiferCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(itemIdentifier);
 
-  if ((v15 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     if (self->_onDeckItem)
     {
@@ -514,15 +514,15 @@ LABEL_12:
 - (void)_bufferingStateChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = SUUIMediaPlayerFramework();
-  v6 = *SUUIWeakLinkedSymbolForString("MPAVControllerNewStateParameter", v5);
+  v6 = SUUIMediaPlayerFramework(notificationCopy, v5);
+  v7 = *SUUIWeakLinkedSymbolForString("MPAVControllerNewStateParameter", v6);
   userInfo = [notificationCopy userInfo];
-  v8 = [userInfo objectForKey:v6];
+  v9 = [userInfo objectForKey:v7];
 
-  unsignedIntegerValue = [v8 unsignedIntegerValue];
-  v10 = [(SUUIMediaPlayerInterface *)self _playerForNotification:notificationCopy];
+  unsignedIntegerValue = [v9 unsignedIntegerValue];
+  v11 = [(SUUIMediaPlayerInterface *)self _playerForNotification:notificationCopy];
 
-  [(SUUIMediaPlayerInterface *)self _updateBufferingState:unsignedIntegerValue player:v10];
+  [(SUUIMediaPlayerInterface *)self _updateBufferingState:unsignedIntegerValue player:v11];
   [(SUUIMediaPlayerInterface *)self _notifyObserversOfItemStateChange];
 }
 
@@ -703,14 +703,14 @@ void __58__SUUIMediaPlayerInterface__notifiyObserversOfItemChange___block_invoke
 - (void)_playerItemWillChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v9 = [(SUUIMediaPlayerInterface *)self _playerForNotification:notificationCopy];
+  v11 = [(SUUIMediaPlayerInterface *)self _playerForNotification:notificationCopy];
   v5 = [(SUUIMediaPlayerInterface *)self _itemFromNotification:notificationCopy];
 
-  v6 = SUUIMediaPlayerFramework();
-  SUUIWeakLinkedClassForString(&cfstr_Mpplaceholdera.isa, v6);
+  v8 = SUUIMediaPlayerFramework(v6, v7);
+  SUUIWeakLinkedClassForString(&cfstr_Mpplaceholdera.isa, v8);
   if (v5)
   {
-    currentItem = [v9 currentItem];
+    currentItem = [v11 currentItem];
     if (currentItem == v5)
     {
       objc_opt_class();
@@ -721,7 +721,7 @@ void __58__SUUIMediaPlayerInterface__notifiyObserversOfItemChange___block_invoke
         goto LABEL_6;
       }
 
-      currentItem = [v9 playerItem];
+      currentItem = [v11 playerItem];
       [currentItem setPlayState:5];
     }
   }
@@ -785,52 +785,52 @@ LABEL_6:
 - (id)_itemFromNotification:(id)notification
 {
   notificationCopy = notification;
-  v4 = SUUIMediaPlayerFramework();
-  v5 = *SUUIWeakLinkedSymbolForString("MPAVControllerItemParameter", v4);
+  v5 = SUUIMediaPlayerFramework(notificationCopy, v4);
+  v6 = *SUUIWeakLinkedSymbolForString("MPAVControllerItemParameter", v5);
   userInfo = [notificationCopy userInfo];
 
-  v7 = [userInfo objectForKey:v5];
+  v8 = [userInfo objectForKey:v6];
 
-  v8 = SUUIMediaPlayerFramework();
-  SUUIWeakLinkedClassForString(&cfstr_Mpavitem.isa, v8);
+  v11 = SUUIMediaPlayerFramework(v9, v10);
+  SUUIWeakLinkedClassForString(&cfstr_Mpavitem.isa, v11);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = v7;
+    v12 = v8;
   }
 
   else
   {
-    v9 = 0;
+    v12 = 0;
   }
 
-  return v9;
+  return v12;
 }
 
 - (id)_playerForNotification:(id)notification
 {
   object = [notification object];
-  v5 = SUUIMediaPlayerFramework();
-  SUUIWeakLinkedClassForString(&cfstr_Mpavcontroller_7.isa, v5);
+  v6 = SUUIMediaPlayerFramework(object, v5);
+  SUUIWeakLinkedClassForString(&cfstr_Mpavcontroller_7.isa, v6);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = object;
-    v7 = [(NSMapTable *)self->_players objectForKey:v6];
-    if (!v7)
+    v7 = object;
+    v8 = [(NSMapTable *)self->_players objectForKey:v7];
+    if (!v8)
     {
-      v7 = objc_alloc_init(SUUIMediaPlayer);
-      [(SUUIMediaPlayer *)v7 setPlayer:v6];
-      [(NSMapTable *)self->_players setObject:v7 forKey:v6];
+      v8 = objc_alloc_init(SUUIMediaPlayer);
+      [(SUUIMediaPlayer *)v8 setPlayer:v7];
+      [(NSMapTable *)self->_players setObject:v8 forKey:v7];
     }
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)_createPeriodicTimeObserverIfNeeded:(id)needed
@@ -1029,43 +1029,43 @@ void __61__SUUIMediaPlayerInterface__notifyObserversOfItemStateChange__block_inv
   changeCopy = change;
   itemCopy = item;
   currentItem = [changeCopy currentItem];
-  v8 = currentItem;
+  v9 = currentItem;
   if (currentItem != itemCopy)
   {
     if (currentItem)
     {
-      [(SUUIMediaPlayerInterface *)self _unregisterForNotificationsForCurrentItem:currentItem];
+      currentItem = [(SUUIMediaPlayerInterface *)self _unregisterForNotificationsForCurrentItem:currentItem];
     }
 
-    v9 = SUUIMediaPlayerFramework();
-    SUUIWeakLinkedClassForString(&cfstr_Mpplaceholdera.isa, v9);
+    v10 = SUUIMediaPlayerFramework(currentItem, v8);
+    SUUIWeakLinkedClassForString(&cfstr_Mpplaceholdera.isa, v10);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [changeCopy setCurrentItem:itemCopy];
-      SUUIMPUFoundationFramework();
+      v11 = [changeCopy setCurrentItem:itemCopy];
+      SUUIMPUFoundationFramework(v11, v12);
       feeder = [itemCopy feeder];
       mPU_contentItemIdentifierCollection = [feeder MPU_contentItemIdentifierCollection];
 
       mPU_contentItemIdentifierCollection2 = [itemCopy MPU_contentItemIdentifierCollection];
-      v13 = [mPU_contentItemIdentifierCollection2 identifierForIdentifierType:1];
-      longLongValue = [v13 longLongValue];
+      v16 = [mPU_contentItemIdentifierCollection2 identifierForIdentifierType:1];
+      longLongValue = [v16 longLongValue];
 
       if (!longLongValue)
       {
-        v15 = [mPU_contentItemIdentifierCollection2 identifierForIdentifierType:8];
-        longLongValue = [v15 longLongValue];
+        v18 = [mPU_contentItemIdentifierCollection2 identifierForIdentifierType:8];
+        longLongValue = [v18 longLongValue];
       }
 
       if ([mPU_contentItemIdentifierCollection itemType] == 4)
       {
-        v16 = [mPU_contentItemIdentifierCollection identifierForIdentifierType:1];
-        longLongValue2 = [v16 longLongValue];
+        v19 = [mPU_contentItemIdentifierCollection identifierForIdentifierType:1];
+        longLongValue2 = [v19 longLongValue];
 
         if (!longLongValue2)
         {
-          v18 = [mPU_contentItemIdentifierCollection identifierForIdentifierType:8];
-          longLongValue2 = [v18 longLongValue];
+          v21 = [mPU_contentItemIdentifierCollection identifierForIdentifierType:8];
+          longLongValue2 = [v21 longLongValue];
         }
       }
 
@@ -1074,14 +1074,14 @@ void __61__SUUIMediaPlayerInterface__notifyObserversOfItemStateChange__block_inv
         longLongValue2 = 0;
       }
 
-      v19 = [mPU_contentItemIdentifierCollection identifierForIdentifierType:3];
-      v20 = [mPU_contentItemIdentifierCollection identifierForIdentifierType:2];
-      v21 = v20;
-      if (!longLongValue && !longLongValue2 && !v19 && !v20)
+      v22 = [mPU_contentItemIdentifierCollection identifierForIdentifierType:3];
+      v23 = [mPU_contentItemIdentifierCollection identifierForIdentifierType:2];
+      v24 = v23;
+      if (!longLongValue && !longLongValue2 && !v22 && !v23)
       {
-        v22 = 0;
+        v25 = 0;
 LABEL_26:
-        [(SUUIMediaPlayerInterface *)self _updateDurationForPlayerItem:v22 withMPAVItem:itemCopy];
+        [(SUUIMediaPlayerInterface *)self _updateDurationForPlayerItem:v25 withMPAVItem:itemCopy];
         if (itemCopy)
         {
           [(SUUIMediaPlayerInterface *)self _updateTimeValuesUsingItemTime:1 player:changeCopy item:itemCopy];
@@ -1091,12 +1091,12 @@ LABEL_26:
         goto LABEL_29;
       }
 
-      v27 = mPU_contentItemIdentifierCollection2;
-      v22 = objc_alloc_init(SUUIMediaPlayerItemStatus);
+      v30 = mPU_contentItemIdentifierCollection2;
+      v25 = objc_alloc_init(SUUIMediaPlayerItemStatus);
       if (longLongValue)
       {
-        v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lld", longLongValue];
-        [(SUUIMediaPlayerItemStatus *)v22 setStoreID:v23];
+        v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lld", longLongValue];
+        [(SUUIMediaPlayerItemStatus *)v25 setStoreID:v26];
         if (longLongValue2)
         {
           goto LABEL_18;
@@ -1105,57 +1105,57 @@ LABEL_26:
 
       else
       {
-        v23 = 0;
+        v26 = 0;
         if (longLongValue2)
         {
 LABEL_18:
-          v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lld", longLongValue2];
+          v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lld", longLongValue2];
 
-          [(SUUIMediaPlayerItemStatus *)v22 setStoreAlbumID:v24];
+          [(SUUIMediaPlayerItemStatus *)v25 setStoreAlbumID:v27];
           if (longLongValue)
           {
-            v25 = 1;
+            v28 = 1;
           }
 
           else
           {
-            v25 = 2;
+            v28 = 2;
           }
 
           goto LABEL_24;
         }
       }
 
-      if (!v21)
+      if (!v24)
       {
-        if (v19)
+        if (v22)
         {
-          v26 = v19;
+          v29 = v22;
 
-          v25 = 4;
-          v23 = v26;
+          v28 = 4;
+          v26 = v29;
         }
 
         else
         {
-          v25 = 0;
+          v28 = 0;
         }
 
         goto LABEL_25;
       }
 
-      v24 = v21;
+      v27 = v24;
 
-      v25 = 3;
+      v28 = 3;
 LABEL_24:
-      v23 = v24;
+      v26 = v27;
 LABEL_25:
-      [(SUUIMediaPlayerItemStatus *)v22 setItemType:v25];
-      [(SUUIMediaPlayerItemStatus *)v22 setItemIdentifier:v23];
-      [(SUUIMediaPlayerItemStatus *)v22 setPlayState:1];
-      [changeCopy setPlayerItem:v22];
+      [(SUUIMediaPlayerItemStatus *)v25 setItemType:v28];
+      [(SUUIMediaPlayerItemStatus *)v25 setItemIdentifier:v26];
+      [(SUUIMediaPlayerItemStatus *)v25 setPlayState:1];
+      [changeCopy setPlayerItem:v25];
 
-      mPU_contentItemIdentifierCollection2 = v27;
+      mPU_contentItemIdentifierCollection2 = v30;
       goto LABEL_26;
     }
   }
@@ -1170,8 +1170,8 @@ LABEL_29:
     v4 = MEMORY[0x277CCAB98];
     itemCopy = item;
     defaultCenter = [v4 defaultCenter];
-    v6 = SUUIMediaPlayerFramework();
-    [defaultCenter addObserver:self selector:sel__currentItemDurationAvailableNotification_ name:*SUUIWeakLinkedSymbolForString("MPAVItemDurationAvailableNotification" object:{v6), itemCopy}];
+    v7 = SUUIMediaPlayerFramework(defaultCenter, v6);
+    [defaultCenter addObserver:self selector:sel__currentItemDurationAvailableNotification_ name:*SUUIWeakLinkedSymbolForString("MPAVItemDurationAvailableNotification" object:{v7), itemCopy}];
   }
 }
 
@@ -1179,7 +1179,7 @@ LABEL_29:
 {
   playerCopy = player;
   playerItem = [playerCopy playerItem];
-  [playerItem currentTime];
+  objc_msgSend_currentTime(playerItem);
   if (v7 != possible)
   {
     [(SUUIMediaPlayerInterface *)self _updateItemForPlayer:playerCopy currentTime:possible];
@@ -1194,8 +1194,8 @@ LABEL_29:
     v4 = MEMORY[0x277CCAB98];
     itemCopy = item;
     defaultCenter = [v4 defaultCenter];
-    v6 = SUUIMediaPlayerFramework();
-    [defaultCenter removeObserver:self name:*SUUIWeakLinkedSymbolForString("MPAVItemDurationAvailableNotification" object:{v6), itemCopy}];
+    v7 = SUUIMediaPlayerFramework(defaultCenter, v6);
+    [defaultCenter removeObserver:self name:*SUUIWeakLinkedSymbolForString("MPAVItemDurationAvailableNotification" object:{v7), itemCopy}];
   }
 }
 
@@ -1342,7 +1342,7 @@ void __45__SUUIMediaPlayerInterface__startOnDeckTimer__block_invoke(uint64_t a1)
     if (!timeCopy)
     {
       player2 = [playerCopy player];
-      [player2 currentTime];
+      objc_msgSend_currentTime(player2);
       goto LABEL_12;
     }
 
@@ -1353,33 +1353,33 @@ void __45__SUUIMediaPlayerInterface__startOnDeckTimer__block_invoke(uint64_t a1)
       player2 = playerItem;
       if (playerItem)
       {
-        [playerItem currentTime];
+        playerItem = objc_msgSend_currentTime(playerItem);
       }
 
       else
       {
-        v25 = 0uLL;
-        v26 = 0;
+        v26 = 0uLL;
+        v27 = 0;
       }
 
-      v22 = SUUICoreMediaFramework();
-      v23 = SUUIWeakLinkedSymbolForString("CMTimeGetSeconds", v22);
-      if (!v23)
+      v23 = SUUICoreMediaFramework(playerItem, v20);
+      v24 = SUUIWeakLinkedSymbolForString("CMTimeGetSeconds", v23);
+      if (!v24)
       {
         goto LABEL_13;
       }
 
-      v27 = v25;
       v28 = v26;
-      v21 = v23(&v27);
+      v29 = v27;
+      v22 = v24(&v28);
 LABEL_12:
-      v18 = v21;
+      v18 = v22;
 LABEL_13:
     }
   }
 
   [(SUUIMediaPlayerInterface *)self _setCurrentTimeIfPossible:playerCopy player:v18];
-  if (v15 > 0.00000011921 || ([playerCopy periodicTimeObserver], v24 = objc_claimAutoreleasedReturnValue(), v24, !v24))
+  if (v15 > 0.00000011921 || ([playerCopy periodicTimeObserver], v25 = objc_claimAutoreleasedReturnValue(), v25, !v25))
   {
     [(SUUIMediaPlayerInterface *)self _destroyPeridicTimeObseverIfNeeded:playerCopy];
     [(SUUIMediaPlayerInterface *)self _createPeriodicTimeObserverIfNeeded:playerCopy];

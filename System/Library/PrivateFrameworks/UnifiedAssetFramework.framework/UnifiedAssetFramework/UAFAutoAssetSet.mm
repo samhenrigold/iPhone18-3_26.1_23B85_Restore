@@ -86,7 +86,7 @@ void __37__UAFAutoAssetSet_getConcurrentQueue__block_invoke()
 + (id)autoAssetEntryToAsset:(id)asset withAssetName:(id)name experimentationEnabled:(BOOL)enabled experimentId:(id)id
 {
   enabledCopy = enabled;
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   nameCopy = name;
   idCopy = id;
@@ -119,7 +119,7 @@ void __37__UAFAutoAssetSet_getConcurrentQueue__block_invoke()
     }
   }
 
-  v57 = v16;
+  v56 = v16;
   assetAttributes2 = [assetCopy assetAttributes];
   v21 = [assetAttributes2 objectForKey:@"_DownloadSize"];
   longLongValue = [v21 longLongValue];
@@ -155,28 +155,28 @@ void __37__UAFAutoAssetSet_getConcurrentQueue__block_invoke()
     }
   }
 
-  v56 = localContentURL;
+  v55 = localContentURL;
   context = objc_autoreleasePoolPush();
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   assetAttributes4 = [assetCopy assetAttributes];
-  v40 = [assetAttributes4 countByEnumeratingWithState:&v61 objects:v65 count:16];
+  v40 = [assetAttributes4 countByEnumeratingWithState:&v60 objects:v64 count:16];
   if (v40)
   {
     v41 = v40;
-    v42 = *v62;
+    v42 = *v61;
     do
     {
       for (i = 0; i != v41; ++i)
       {
-        if (*v62 != v42)
+        if (*v61 != v42)
         {
           objc_enumerationMutation(assetAttributes4);
         }
 
-        v44 = *(*(&v61 + 1) + 8 * i);
+        v44 = *(*(&v60 + 1) + 8 * i);
         assetAttributes5 = [assetCopy assetAttributes];
         v46 = [assetAttributes5 objectForKeyedSubscript:v44];
         objc_opt_class();
@@ -190,7 +190,7 @@ void __37__UAFAutoAssetSet_getConcurrentQueue__block_invoke()
         }
       }
 
-      v41 = [assetAttributes4 countByEnumeratingWithState:&v61 objects:v65 count:16];
+      v41 = [assetAttributes4 countByEnumeratingWithState:&v60 objects:v64 count:16];
     }
 
     while (v41);
@@ -219,29 +219,27 @@ void __37__UAFAutoAssetSet_getConcurrentQueue__block_invoke()
   }
 
   [v9 setObject:v51 forKeyedSubscript:@"ExperimentId"];
-  v52 = [[UAFAsset alloc] initWithName:nameCopy location:v56 metadata:v9];
-
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = [[UAFAsset alloc] initWithName:nameCopy location:v55 metadata:v9];
 
   return v52;
 }
 
 - (UAFAutoAssetSet)initWithAssetSetName:(id)name autoAssets:(id)assets uuid:(id)uuid experiment:(id)experiment atomicInstance:(id)instance error:(id *)error
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   assetsCopy = assets;
   uuidCopy = uuid;
   experimentCopy = experiment;
   instanceCopy = instance;
-  v47.receiver = self;
-  v47.super_class = UAFAutoAssetSet;
-  v20 = [(UAFAutoAssetSet *)&v47 init];
+  v46.receiver = self;
+  v46.super_class = UAFAutoAssetSet;
+  v20 = [(UAFAutoAssetSet *)&v46 init];
   v21 = v20;
   if (v20)
   {
-    v43 = experimentCopy;
-    v44 = nameCopy;
+    v42 = experimentCopy;
+    v43 = nameCopy;
     v22 = uuidCopy;
     if (error)
     {
@@ -254,9 +252,9 @@ void __37__UAFAutoAssetSet_getConcurrentQueue__block_invoke()
     v24 = objc_alloc(MEMORY[0x1E69B1918]);
     assetSetName = v21->_assetSetName;
     v26 = +[UAFAutoAssetSet getConcurrentQueue];
-    v46 = 0;
-    v27 = [v24 initLockerUsingClientDomain:@"com.apple.UnifiedAssetFramework" forAssetSetIdentifier:assetSetName usingDesiredPolicyCategory:0 completingFromQueue:v26 error:&v46];
-    v28 = v46;
+    v45 = 0;
+    v27 = [v24 initLockerUsingClientDomain:@"com.apple.UnifiedAssetFramework" forAssetSetIdentifier:assetSetName usingDesiredPolicyCategory:0 completingFromQueue:v26 error:&v45];
+    v28 = v45;
 
     objc_autoreleasePoolPop(v23);
     objc_storeStrong(&v21->_autoAssetSet, v27);
@@ -269,20 +267,20 @@ void __37__UAFAutoAssetSet_getConcurrentQueue__block_invoke()
     if (!v21->_autoAssetSet || v28)
     {
       v36 = UAFGetLogCategory(&UAFLogContextClient);
-      nameCopy = v44;
+      nameCopy = v43;
       uuidCopy = v22;
       if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         uuid = v21->_uuid;
-        v42 = v21->_assetSetName;
+        v41 = v21->_assetSetName;
         *buf = 136315906;
-        v49 = "[UAFAutoAssetSet initWithAssetSetName:autoAssets:uuid:experiment:atomicInstance:error:]";
-        v50 = 2114;
+        v48 = "[UAFAutoAssetSet initWithAssetSetName:autoAssets:uuid:experiment:atomicInstance:error:]";
+        v49 = 2114;
         uuidCopy2 = uuid;
-        v52 = 2114;
-        v53 = v42;
-        v54 = 2114;
-        v55 = v28;
+        v51 = 2114;
+        v52 = v41;
+        v53 = 2114;
+        v54 = v28;
         _os_log_error_impl(&dword_1BCF2C000, v36, OS_LOG_TYPE_ERROR, "%s %{public}@: Could not initialize auto asset set %{public}@ : %{public}@", buf, 0x2Au);
       }
 
@@ -290,22 +288,22 @@ void __37__UAFAutoAssetSet_getConcurrentQueue__block_invoke()
       v21->_autoAssetSet = 0;
 
       v35 = 0;
-      experimentCopy = v43;
+      experimentCopy = v42;
     }
 
     else
     {
-      v45 = 0;
-      v30 = [(UAFAutoAssetSet *)v21 lockAutoAssets:instanceCopy error:&v45];
-      v31 = v45;
+      v44 = 0;
+      v30 = [(UAFAutoAssetSet *)v21 lockAutoAssets:instanceCopy error:&v44];
+      v31 = v44;
       v28 = v31;
       uuidCopy = v22;
       if (v30)
       {
-        experimentCopy = v43;
+        experimentCopy = v42;
         if (assetsCopy)
         {
-          v32 = [(UAFAutoAssetSet *)v21 loadAutoAssets:assetsCopy experiment:v43 experimentActivated:&v21->_experimentActivated];
+          v32 = [(UAFAutoAssetSet *)v21 loadAutoAssets:assetsCopy experiment:v42 experimentActivated:&v21->_experimentActivated];
           assets = v21->_assets;
           v21->_assets = v32;
 
@@ -318,7 +316,7 @@ void __37__UAFAutoAssetSet_getConcurrentQueue__block_invoke()
 
       else
       {
-        experimentCopy = v43;
+        experimentCopy = v42;
         if (error)
         {
           v38 = v31;
@@ -332,7 +330,7 @@ void __37__UAFAutoAssetSet_getConcurrentQueue__block_invoke()
         }
       }
 
-      nameCopy = v44;
+      nameCopy = v43;
     }
   }
 
@@ -341,13 +339,12 @@ void __37__UAFAutoAssetSet_getConcurrentQueue__block_invoke()
     v35 = 0;
   }
 
-  v39 = *MEMORY[0x1E69E9840];
   return v35;
 }
 
 - (BOOL)lockAutoAssets:(id)assets error:(id *)error
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
   if (error)
   {
@@ -363,16 +360,16 @@ void __37__UAFAutoAssetSet_getConcurrentQueue__block_invoke()
   {
     uuid = self->_uuid;
     *buf = 138543362;
-    v39 = uuid;
+    v38 = uuid;
     _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "Lock AutoAssets", "%{public}@", buf, 0xCu);
   }
 
   v12 = objc_autoreleasePoolPush();
   autoAssetSet = self->_autoAssetSet;
   v14 = [UAFAutoAssetSet getLockReason:autoAssetSet];
-  v37 = 0;
-  v15 = [(MAAutoAssetSet *)autoAssetSet lockAtomicSync:v14 forAtomicInstance:assetsCopy error:&v37];
-  v16 = v37;
+  v36 = 0;
+  v15 = [(MAAutoAssetSet *)autoAssetSet lockAtomicSync:v14 forAtomicInstance:assetsCopy error:&v36];
+  v16 = v36;
 
   objc_autoreleasePoolPop(v12);
   objc_storeStrong(&self->_autoAssetSetStatus, v15);
@@ -382,7 +379,7 @@ void __37__UAFAutoAssetSet_getConcurrentQueue__block_invoke()
   {
     v19 = self->_uuid;
     *buf = 138543362;
-    v39 = v19;
+    v38 = v19;
     _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v18, OS_SIGNPOST_INTERVAL_END, v8, "Lock AutoAssets", "%{public}@", buf, 0xCu);
   }
 
@@ -404,13 +401,13 @@ void __37__UAFAutoAssetSet_getConcurrentQueue__block_invoke()
       assetSetName = self->_assetSetName;
       v29 = self->_atomicInstance;
       *buf = 136315906;
-      v39 = "[UAFAutoAssetSet lockAutoAssets:error:]";
-      v40 = 2114;
-      v41 = v27;
-      v42 = 2114;
-      v43 = assetSetName;
-      v44 = 2114;
-      v45 = v29;
+      v38 = "[UAFAutoAssetSet lockAutoAssets:error:]";
+      v39 = 2114;
+      v40 = v27;
+      v41 = 2114;
+      v42 = assetSetName;
+      v43 = 2114;
+      v44 = v29;
       _os_log_impl(&dword_1BCF2C000, v26, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Locked asset set %{public}@ atomic instance %{public}@", buf, 0x2Au);
     }
 
@@ -422,18 +419,18 @@ void __37__UAFAutoAssetSet_getConcurrentQueue__block_invoke()
     v31 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      v35 = self->_uuid;
-      v36 = self->_assetSetName;
+      v34 = self->_uuid;
+      v35 = self->_assetSetName;
       *buf = 136316162;
-      v39 = "[UAFAutoAssetSet lockAutoAssets:error:]";
-      v40 = 2114;
-      v41 = v35;
-      v42 = 2114;
-      v43 = v36;
-      v44 = 2114;
-      v45 = assetsCopy;
-      v46 = 2114;
-      v47 = v16;
+      v38 = "[UAFAutoAssetSet lockAutoAssets:error:]";
+      v39 = 2114;
+      v40 = v34;
+      v41 = 2114;
+      v42 = v35;
+      v43 = 2114;
+      v44 = assetsCopy;
+      v45 = 2114;
+      v46 = v16;
       _os_log_error_impl(&dword_1BCF2C000, v31, OS_LOG_TYPE_ERROR, "%s %{public}@: Could not lock asset set %{public}@ with atomic instance %{public}@: %{public}@", buf, 0x34u);
     }
 
@@ -450,16 +447,15 @@ void __37__UAFAutoAssetSet_getConcurrentQueue__block_invoke()
     }
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
 - (id)loadAutoAssets:(id)assets experiment:(id)experiment experimentActivated:(BOOL *)activated
 {
-  v137 = *MEMORY[0x1E69E9840];
+  v136 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
   experimentCopy = experiment;
-  v87 = assetsCopy;
+  v86 = assetsCopy;
   selfCopy = self;
   if (!assetsCopy)
   {
@@ -473,7 +469,7 @@ void __37__UAFAutoAssetSet_getConcurrentQueue__block_invoke()
       *&buf[12] = 2114;
       *&buf[14] = uuid;
       *&buf[22] = 2114;
-      v134 = assetSetName;
+      v133 = assetSetName;
       _os_log_error_impl(&dword_1BCF2C000, v52, OS_LOG_TYPE_ERROR, "%s %{public}@: Could not load asset set %{public}@ as autoAssets is unexpectedly nil", buf, 0x20u);
     }
 
@@ -491,14 +487,14 @@ LABEL_47:
     v53 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
-      v80 = self->_uuid;
-      v81 = self->_assetSetName;
+      v79 = self->_uuid;
+      v80 = self->_assetSetName;
       *buf = 136315650;
       *&buf[4] = "[UAFAutoAssetSet loadAutoAssets:experiment:experimentActivated:]";
       *&buf[12] = 2114;
-      *&buf[14] = v80;
+      *&buf[14] = v79;
       *&buf[22] = 2114;
-      v134 = v81;
+      v133 = v80;
       _os_log_error_impl(&dword_1BCF2C000, v53, OS_LOG_TYPE_ERROR, "%s %{public}@: Could not load asset set %{public}@ as _autoAssetSetStatus is unexpectedly nil", buf, 0x20u);
     }
 
@@ -513,7 +509,7 @@ LABEL_50:
 
   v10 = UAFGetLogCategory(&UAFLogContextClient);
   v11 = v10;
-  v84 = spid - 1;
+  v83 = spid - 1;
   if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     v12 = self->_uuid;
@@ -525,33 +521,33 @@ LABEL_50:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v134 = __Block_byref_object_copy__3;
-  v135 = __Block_byref_object_dispose__3;
-  v136 = 0;
+  v133 = __Block_byref_object_copy__3;
+  v134 = __Block_byref_object_dispose__3;
+  v135 = 0;
   context = objc_autoreleasePoolPush();
-  v92 = objc_opt_new();
-  v124 = 0u;
-  v125 = 0u;
-  v122 = 0u;
+  v91 = objc_opt_new();
   v123 = 0u;
+  v124 = 0u;
+  v121 = 0u;
+  v122 = 0u;
   v13 = assetsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v122 objects:v132 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v121 objects:v131 count:16];
   if (v14)
   {
-    v15 = *v123;
+    v15 = *v122;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v123 != v15)
+        if (*v122 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v122 + 1) + 8 * i);
+        v17 = *(*(&v121 + 1) + 8 * i);
         v18 = [v13 objectForKeyedSubscript:v17];
         v19 = [v18 objectForKeyedSubscript:@"AssetSpecifier"];
-        v20 = [v92 objectForKeyedSubscript:v19];
+        v20 = [v91 objectForKeyedSubscript:v19];
         v21 = v20 == 0;
 
         if (v21)
@@ -559,58 +555,58 @@ LABEL_50:
           v22 = [MEMORY[0x1E695DF70] arrayWithObject:v17];
           v23 = [v13 objectForKeyedSubscript:v17];
           v24 = [v23 objectForKeyedSubscript:@"AssetSpecifier"];
-          [v92 setObject:v22 forKeyedSubscript:v24];
+          [v91 setObject:v22 forKeyedSubscript:v24];
         }
 
         else
         {
           v22 = [v13 objectForKeyedSubscript:v17];
           v23 = [v22 objectForKeyedSubscript:@"AssetSpecifier"];
-          v24 = [v92 objectForKeyedSubscript:v23];
+          v24 = [v91 objectForKeyedSubscript:v23];
           [v24 addObject:v17];
         }
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v122 objects:v132 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v121 objects:v131 count:16];
     }
 
     while (v14);
   }
 
-  v120 = 0u;
-  v121 = 0u;
-  v118 = 0u;
   v119 = 0u;
+  v120 = 0u;
+  v117 = 0u;
+  v118 = 0u;
   latestDowloadedAtomicInstanceEntries = [(MAAutoAssetSetStatus *)selfCopy->_autoAssetSetStatus latestDowloadedAtomicInstanceEntries];
-  v26 = [latestDowloadedAtomicInstanceEntries countByEnumeratingWithState:&v118 objects:v131 count:16];
+  v26 = [latestDowloadedAtomicInstanceEntries countByEnumeratingWithState:&v117 objects:v130 count:16];
   if (v26)
   {
-    v27 = *v119;
+    v27 = *v118;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v119 != v27)
+        if (*v118 != v27)
         {
           objc_enumerationMutation(latestDowloadedAtomicInstanceEntries);
         }
 
-        v29 = *(*(&v118 + 1) + 8 * j);
+        v29 = *(*(&v117 + 1) + 8 * j);
         fullAssetSelector = [v29 fullAssetSelector];
         assetSpecifier = [fullAssetSelector assetSpecifier];
-        v32 = [v92 objectForKeyedSubscript:assetSpecifier];
+        v32 = [v91 objectForKeyedSubscript:assetSpecifier];
 
-        v115[0] = MEMORY[0x1E69E9820];
-        v115[1] = 3221225472;
-        v115[2] = __65__UAFAutoAssetSet_loadAutoAssets_experiment_experimentActivated___block_invoke;
-        v115[3] = &unk_1E7FFDB28;
-        v117 = buf;
-        v115[4] = v29;
-        v116 = experimentCopy;
-        [v32 enumerateObjectsUsingBlock:v115];
+        v114[0] = MEMORY[0x1E69E9820];
+        v114[1] = 3221225472;
+        v114[2] = __65__UAFAutoAssetSet_loadAutoAssets_experiment_experimentActivated___block_invoke;
+        v114[3] = &unk_1E7FFDB28;
+        v116 = buf;
+        v114[4] = v29;
+        v115 = experimentCopy;
+        [v32 enumerateObjectsUsingBlock:v114];
       }
 
-      v26 = [latestDowloadedAtomicInstanceEntries countByEnumeratingWithState:&v118 objects:v131 count:16];
+      v26 = [latestDowloadedAtomicInstanceEntries countByEnumeratingWithState:&v117 objects:v130 count:16];
     }
 
     while (v26);
@@ -620,12 +616,12 @@ LABEL_50:
   {
     v55 = UAFGetLogCategory(&UAFLogContextClient);
     v56 = v55;
-    if (v84 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v55))
+    if (v83 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v55))
     {
       v57 = selfCopy->_uuid;
-      *v129 = 138543362;
-      v130 = v57;
-      _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v56, OS_SIGNPOST_INTERVAL_END, spid, "Load AutoAssets", "%{public}@", v129, 0xCu);
+      *v128 = 138543362;
+      v129 = v57;
+      _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v56, OS_SIGNPOST_INTERVAL_END, spid, "Load AutoAssets", "%{public}@", v128, 0xCu);
     }
 
     v54 = *(*&buf[8] + 40);
@@ -635,25 +631,25 @@ LABEL_50:
 
   v36 = objc_opt_new();
   v37 = objc_opt_new();
-  v113 = 0u;
-  v114 = 0u;
-  v111 = 0u;
   v112 = 0u;
+  v113 = 0u;
+  v110 = 0u;
+  v111 = 0u;
   latestDowloadedAtomicInstanceEntries2 = [(MAAutoAssetSetStatus *)selfCopy->_autoAssetSetStatus latestDowloadedAtomicInstanceEntries];
-  v39 = [latestDowloadedAtomicInstanceEntries2 countByEnumeratingWithState:&v111 objects:v128 count:16];
+  v39 = [latestDowloadedAtomicInstanceEntries2 countByEnumeratingWithState:&v110 objects:v127 count:16];
   if (v39)
   {
-    v40 = *v112;
+    v40 = *v111;
     do
     {
       for (k = 0; k != v39; ++k)
       {
-        if (*v112 != v40)
+        if (*v111 != v40)
         {
           objc_enumerationMutation(latestDowloadedAtomicInstanceEntries2);
         }
 
-        v42 = *(*(&v111 + 1) + 8 * k);
+        v42 = *(*(&v110 + 1) + 8 * k);
         fullAssetSelector2 = [v42 fullAssetSelector];
         assetSpecifier2 = [fullAssetSelector2 assetSpecifier];
         [v37 addObject:assetSpecifier2];
@@ -669,39 +665,39 @@ LABEL_50:
         }
       }
 
-      v39 = [latestDowloadedAtomicInstanceEntries2 countByEnumeratingWithState:&v111 objects:v128 count:16];
+      v39 = [latestDowloadedAtomicInstanceEntries2 countByEnumeratingWithState:&v110 objects:v127 count:16];
     }
 
     while (v39);
   }
 
   *activatedCopy = 1;
+  v106 = 0u;
   v107 = 0u;
   v108 = 0u;
   v109 = 0u;
-  v110 = 0u;
   obj = v36;
-  v49 = [obj countByEnumeratingWithState:&v107 objects:v127 count:16];
+  v49 = [obj countByEnumeratingWithState:&v106 objects:v126 count:16];
   if (v49)
   {
-    v50 = *v108;
+    v50 = *v107;
     while (2)
     {
       for (m = 0; m != v49; ++m)
       {
-        if (*v108 != v50)
+        if (*v107 != v50)
         {
           objc_enumerationMutation(obj);
         }
 
-        if (([v37 containsObject:*(*(&v107 + 1) + 8 * m)] & 1) == 0)
+        if (([v37 containsObject:*(*(&v106 + 1) + 8 * m)] & 1) == 0)
         {
           *activatedCopy = 0;
           goto LABEL_56;
         }
       }
 
-      v49 = [obj countByEnumeratingWithState:&v107 objects:v127 count:16];
+      v49 = [obj countByEnumeratingWithState:&v106 objects:v126 count:16];
       if (v49)
       {
         continue;
@@ -719,12 +715,12 @@ LABEL_56:
 LABEL_70:
     v73 = UAFGetLogCategory(&UAFLogContextClient);
     v74 = v73;
-    if (v84 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v73))
+    if (v83 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v73))
     {
       v75 = selfCopy->_uuid;
-      *v129 = 138543362;
-      v130 = v75;
-      _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v74, OS_SIGNPOST_INTERVAL_END, spid, "Load AutoAssets", "%{public}@", v129, 0xCu);
+      *v128 = 138543362;
+      v129 = v75;
+      _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v74, OS_SIGNPOST_INTERVAL_END, spid, "Load AutoAssets", "%{public}@", v128, 0xCu);
     }
 
     v54 = *(*&buf[8] + 40);
@@ -739,72 +735,72 @@ LABEL_70:
 
   v59 = objc_opt_new();
   assetSpecifiers2 = [experimentCopy assetSpecifiers];
-  v104[0] = MEMORY[0x1E69E9820];
-  v104[1] = 3221225472;
-  v104[2] = __65__UAFAutoAssetSet_loadAutoAssets_experiment_experimentActivated___block_invoke_310;
-  v104[3] = &unk_1E7FFDB50;
-  v90 = v59;
-  v105 = v90;
-  v82 = v92;
-  v106 = v82;
-  [assetSpecifiers2 enumerateKeysAndObjectsUsingBlock:v104];
+  v103[0] = MEMORY[0x1E69E9820];
+  v103[1] = 3221225472;
+  v103[2] = __65__UAFAutoAssetSet_loadAutoAssets_experiment_experimentActivated___block_invoke_310;
+  v103[3] = &unk_1E7FFDB50;
+  v89 = v59;
+  v104 = v89;
+  v81 = v91;
+  v105 = v81;
+  [assetSpecifiers2 enumerateKeysAndObjectsUsingBlock:v103];
 
   v61 = objc_opt_new();
-  v102 = 0u;
-  v103 = 0u;
-  v100 = 0u;
   v101 = 0u;
+  v102 = 0u;
+  v99 = 0u;
+  v100 = 0u;
   latestDowloadedAtomicInstanceEntries3 = [(MAAutoAssetSetStatus *)selfCopy->_autoAssetSetStatus latestDowloadedAtomicInstanceEntries];
-  v63 = [latestDowloadedAtomicInstanceEntries3 countByEnumeratingWithState:&v100 objects:v126 count:16];
+  v63 = [latestDowloadedAtomicInstanceEntries3 countByEnumeratingWithState:&v99 objects:v125 count:16];
   if (v63)
   {
-    v64 = *v101;
+    v64 = *v100;
     do
     {
       for (n = 0; n != v63; ++n)
       {
-        if (*v101 != v64)
+        if (*v100 != v64)
         {
           objc_enumerationMutation(latestDowloadedAtomicInstanceEntries3);
         }
 
-        v66 = *(*(&v100 + 1) + 8 * n);
+        v66 = *(*(&v99 + 1) + 8 * n);
         fullAssetSelector4 = [v66 fullAssetSelector];
         assetSpecifier4 = [fullAssetSelector4 assetSpecifier];
-        v69 = [v90 objectForKeyedSubscript:assetSpecifier4];
+        v69 = [v89 objectForKeyedSubscript:assetSpecifier4];
 
-        v96[0] = MEMORY[0x1E69E9820];
-        v96[1] = 3221225472;
-        v96[2] = __65__UAFAutoAssetSet_loadAutoAssets_experiment_experimentActivated___block_invoke_2;
-        v96[3] = &unk_1E7FFDB78;
-        v97 = v61;
-        v98 = v66;
-        v99 = experimentCopy;
-        [v69 enumerateObjectsUsingBlock:v96];
+        v95[0] = MEMORY[0x1E69E9820];
+        v95[1] = 3221225472;
+        v95[2] = __65__UAFAutoAssetSet_loadAutoAssets_experiment_experimentActivated___block_invoke_2;
+        v95[3] = &unk_1E7FFDB78;
+        v96 = v61;
+        v97 = v66;
+        v98 = experimentCopy;
+        [v69 enumerateObjectsUsingBlock:v95];
       }
 
-      v63 = [latestDowloadedAtomicInstanceEntries3 countByEnumeratingWithState:&v100 objects:v126 count:16];
+      v63 = [latestDowloadedAtomicInstanceEntries3 countByEnumeratingWithState:&v99 objects:v125 count:16];
     }
 
     while (v63);
   }
 
-  v93[0] = MEMORY[0x1E69E9820];
-  v93[1] = 3221225472;
-  v93[2] = __65__UAFAutoAssetSet_loadAutoAssets_experiment_experimentActivated___block_invoke_3;
-  v93[3] = &unk_1E7FFDBC8;
+  v92[0] = MEMORY[0x1E69E9820];
+  v92[1] = 3221225472;
+  v92[2] = __65__UAFAutoAssetSet_loadAutoAssets_experiment_experimentActivated___block_invoke_3;
+  v92[3] = &unk_1E7FFDBC8;
   v54 = v61;
-  v94 = v54;
-  v95 = buf;
-  [v82 enumerateKeysAndObjectsUsingBlock:v93];
+  v93 = v54;
+  v94 = buf;
+  [v81 enumerateKeysAndObjectsUsingBlock:v92];
   v70 = UAFGetLogCategory(&UAFLogContextClient);
   v71 = v70;
-  if (v84 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v70))
+  if (v83 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v70))
   {
     v72 = selfCopy->_uuid;
-    *v129 = 138543362;
-    v130 = v72;
-    _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v71, OS_SIGNPOST_INTERVAL_END, spid, "Load AutoAssets", "%{public}@", v129, 0xCu);
+    *v128 = 138543362;
+    v129 = v72;
+    _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v71, OS_SIGNPOST_INTERVAL_END, spid, "Load AutoAssets", "%{public}@", v128, 0xCu);
   }
 
   v58 = 1;
@@ -820,7 +816,6 @@ LABEL_75:
   _Block_object_dispose(buf, 8);
 
 LABEL_78:
-  v76 = *MEMORY[0x1E69E9840];
 
   return v54;
 }
@@ -896,7 +891,7 @@ void __65__UAFAutoAssetSet_loadAutoAssets_experiment_experimentActivated___block
 
 - (void)invalidateWithQueue:(id)queue completion:(id)completion
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   completionCopy = completion;
   context = objc_autoreleasePoolPush();
@@ -907,15 +902,15 @@ void __65__UAFAutoAssetSet_loadAutoAssets_experiment_experimentActivated___block
     v9 = +[UAFAutoAssetSet getConcurrentQueue];
   }
 
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __50__UAFAutoAssetSet_invalidateWithQueue_completion___block_invoke;
-  v32[3] = &unk_1E7FFDBF0;
-  v26 = completionCopy;
-  v34 = v26;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __50__UAFAutoAssetSet_invalidateWithQueue_completion___block_invoke;
+  v31[3] = &unk_1E7FFDBF0;
+  v25 = completionCopy;
+  v33 = v25;
   v10 = v9;
-  v33 = v10;
-  v11 = MEMORY[0x1BFB33950](v32);
+  v32 = v10;
+  v11 = MEMORY[0x1BFB33950](v31);
   v12 = self->_uuid;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -934,20 +929,20 @@ void __65__UAFAutoAssetSet_loadAutoAssets_experiment_experimentActivated___block
     {
       uuid = self->_uuid;
       *buf = 138543362;
-      v36 = uuid;
+      v35 = uuid;
       _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v17, OS_SIGNPOST_INTERVAL_BEGIN, spid, "Unlock AutoAssets", "%{public}@", buf, 0xCu);
     }
 
     autoAssetSet = selfCopy->_autoAssetSet;
     v20 = [UAFAutoAssetSet getLockReason:autoAssetSet];
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __50__UAFAutoAssetSet_invalidateWithQueue_completion___block_invoke_314;
-    v28[3] = &unk_1E7FFDC18;
-    v29 = v12;
-    v30 = atomicInstance;
-    v31 = v11;
-    [(MAAutoAssetSet *)autoAssetSet endAtomicLock:v20 ofAtomicInstance:v30 completion:v28];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __50__UAFAutoAssetSet_invalidateWithQueue_completion___block_invoke_314;
+    v27[3] = &unk_1E7FFDC18;
+    v28 = v12;
+    v29 = atomicInstance;
+    v30 = v11;
+    [(MAAutoAssetSet *)autoAssetSet endAtomicLock:v20 ofAtomicInstance:v29 completion:v27];
 
     v21 = UAFGetLogCategory(&UAFLogContextClient);
     v22 = v21;
@@ -955,7 +950,7 @@ void __65__UAFAutoAssetSet_loadAutoAssets_experiment_experimentActivated___block
     {
       v23 = self->_uuid;
       *buf = 138543362;
-      v36 = v23;
+      v35 = v23;
       _os_signpost_emit_with_name_impl(&dword_1BCF2C000, v22, OS_SIGNPOST_INTERVAL_END, spid, "Unlock AutoAssets", "%{public}@", buf, 0xCu);
     }
   }
@@ -966,7 +961,6 @@ void __65__UAFAutoAssetSet_loadAutoAssets_experiment_experimentActivated___block
   }
 
   objc_autoreleasePoolPop(context);
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __50__UAFAutoAssetSet_invalidateWithQueue_completion___block_invoke(uint64_t a1, void *a2)
@@ -988,7 +982,7 @@ void __50__UAFAutoAssetSet_invalidateWithQueue_completion___block_invoke(uint64_
 
 void __50__UAFAutoAssetSet_invalidateWithQueue_completion___block_invoke_314(void *a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = UAFGetLogCategory(&UAFLogContextClient);
@@ -999,15 +993,15 @@ void __50__UAFAutoAssetSet_invalidateWithQueue_completion___block_invoke_314(voi
     {
       v9 = a1[4];
       v10 = a1[5];
-      v14 = 136315906;
-      v15 = "[UAFAutoAssetSet invalidateWithQueue:completion:]_block_invoke";
-      v16 = 2114;
-      v17 = v9;
-      v18 = 2114;
-      v19 = v5;
-      v20 = 2114;
-      v21 = v10;
-      _os_log_error_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_ERROR, "%s %{public}@ Failed to unlock asset set %{public}@ instance %{public}@", &v14, 0x2Au);
+      v13 = 136315906;
+      v14 = "[UAFAutoAssetSet invalidateWithQueue:completion:]_block_invoke";
+      v15 = 2114;
+      v16 = v9;
+      v17 = 2114;
+      v18 = v5;
+      v19 = 2114;
+      v20 = v10;
+      _os_log_error_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_ERROR, "%s %{public}@ Failed to unlock asset set %{public}@ instance %{public}@", &v13, 0x2Au);
     }
   }
 
@@ -1015,29 +1009,28 @@ void __50__UAFAutoAssetSet_invalidateWithQueue_completion___block_invoke_314(voi
   {
     v11 = a1[4];
     v12 = a1[5];
-    v14 = 136315906;
-    v15 = "[UAFAutoAssetSet invalidateWithQueue:completion:]_block_invoke";
-    v16 = 2114;
-    v17 = v11;
-    v18 = 2114;
-    v19 = v5;
-    v20 = 2114;
-    v21 = v12;
-    _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s %{public}@ Unlocked asset set %{public}@ atomic instance %{public}@", &v14, 0x2Au);
+    v13 = 136315906;
+    v14 = "[UAFAutoAssetSet invalidateWithQueue:completion:]_block_invoke";
+    v15 = 2114;
+    v16 = v11;
+    v17 = 2114;
+    v18 = v5;
+    v19 = 2114;
+    v20 = v12;
+    _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s %{public}@ Unlocked asset set %{public}@ atomic instance %{public}@", &v13, 0x2Au);
   }
 
   (*(a1[6] + 16))();
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)assetWithName:(id)name autoAssets:(id)assets experiment:(id)experiment
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if (self->_autoAssetSetStatus)
   {
-    LOBYTE(v16) = 0;
-    v9 = [(UAFAutoAssetSet *)self loadAutoAssets:assets experiment:experiment experimentActivated:&v16];
+    LOBYTE(v15) = 0;
+    v9 = [(UAFAutoAssetSet *)self loadAutoAssets:assets experiment:experiment experimentActivated:&v15];
     v10 = [v9 objectForKeyedSubscript:nameCopy];
   }
 
@@ -1048,34 +1041,32 @@ void __50__UAFAutoAssetSet_invalidateWithQueue_completion___block_invoke_314(voi
     {
       uuid = self->_uuid;
       assetSetName = self->_assetSetName;
-      v16 = 136315650;
-      v17 = "[UAFAutoAssetSet assetWithName:autoAssets:experiment:]";
-      v18 = 2114;
-      v19 = uuid;
-      v20 = 2114;
-      v21 = assetSetName;
-      _os_log_error_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_ERROR, "%s %{public}@: Could not load asset set %{public}@ as _autoAssetSetStatus is unexpectedly nil", &v16, 0x20u);
+      v15 = 136315650;
+      v16 = "[UAFAutoAssetSet assetWithName:autoAssets:experiment:]";
+      v17 = 2114;
+      v18 = uuid;
+      v19 = 2114;
+      v20 = assetSetName;
+      _os_log_error_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_ERROR, "%s %{public}@: Could not load asset set %{public}@ as _autoAssetSetStatus is unexpectedly nil", &v15, 0x20u);
     }
 
     v10 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)autoAssetSetStatus:(id)status
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   statusCopy = status;
   v4 = objc_autoreleasePoolPush();
   v5 = objc_alloc(MEMORY[0x1E69B1918]);
   v6 = +[UAFAutoAssetSet getClientName];
   v7 = +[UAFAutoAssetSet getConcurrentQueue];
-  v16 = 0;
-  v8 = [v5 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:v6 forAssetSetIdentifier:statusCopy comprisedOfEntries:0 completingFromQueue:v7 error:&v16];
-  v9 = v16;
+  v15 = 0;
+  v8 = [v5 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:v6 forAssetSetIdentifier:statusCopy comprisedOfEntries:0 completingFromQueue:v7 error:&v15];
+  v9 = v15;
 
   if (v8)
   {
@@ -1089,9 +1080,9 @@ void __50__UAFAutoAssetSet_invalidateWithQueue_completion___block_invoke_314(voi
 
   if (v10)
   {
-    v15 = 0;
-    v12 = [v8 currentSetStatusSync:&v15];
-    v9 = v15;
+    v14 = 0;
+    v12 = [v8 currentSetStatusSync:&v14];
+    v9 = v14;
     if (!v9)
     {
       goto LABEL_12;
@@ -1101,11 +1092,11 @@ void __50__UAFAutoAssetSet_invalidateWithQueue_completion___block_invoke_314(voi
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v18 = "+[UAFAutoAssetSet autoAssetSetStatus:]";
-      v19 = 2114;
-      v20 = statusCopy;
-      v21 = 2114;
-      v22 = v9;
+      v17 = "+[UAFAutoAssetSet autoAssetSetStatus:]";
+      v18 = 2114;
+      v19 = statusCopy;
+      v20 = 2114;
+      v21 = v9;
       _os_log_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_DEFAULT, "%s Could not get status of auto asset set %{public}@ : %{public}@", buf, 0x20u);
     }
   }
@@ -1116,11 +1107,11 @@ void __50__UAFAutoAssetSet_invalidateWithQueue_completion___block_invoke_314(voi
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v18 = "+[UAFAutoAssetSet autoAssetSetStatus:]";
-      v19 = 2114;
-      v20 = statusCopy;
-      v21 = 2114;
-      v22 = v9;
+      v17 = "+[UAFAutoAssetSet autoAssetSetStatus:]";
+      v18 = 2114;
+      v19 = statusCopy;
+      v20 = 2114;
+      v21 = v9;
       _os_log_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_DEFAULT, "%s Could not initialize auto asset set %{public}@ : %{public}@", buf, 0x20u);
     }
 
@@ -1130,22 +1121,20 @@ void __50__UAFAutoAssetSet_invalidateWithQueue_completion___block_invoke_314(voi
 LABEL_12:
   objc_autoreleasePoolPop(v4);
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (id)getMAAutoAssetDownloadErrorsSync
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E696AB50]);
   if (self->_autoAssetSet)
   {
     v4 = objc_autoreleasePoolPush();
     autoAssetSet = self->_autoAssetSet;
-    v21 = 0;
-    v6 = [(MAAutoAssetSet *)autoAssetSet currentSetStatusSync:&v21];
-    v7 = v21;
+    v20 = 0;
+    v6 = [(MAAutoAssetSet *)autoAssetSet currentSetStatusSync:&v20];
+    v7 = v20;
     objc_autoreleasePoolPop(v4);
     if (v7)
     {
@@ -1161,13 +1150,13 @@ LABEL_13:
       uuid = self->_uuid;
       summary = [(MAAutoAssetSet *)self->_autoAssetSet summary];
       *buf = 136315906;
-      v23 = "[UAFAutoAssetSet getMAAutoAssetDownloadErrorsSync]";
-      v24 = 2114;
-      v25 = uuid;
-      v26 = 2114;
-      v27 = summary;
-      v28 = 2114;
-      v29 = v7;
+      v22 = "[UAFAutoAssetSet getMAAutoAssetDownloadErrorsSync]";
+      v23 = 2114;
+      v24 = uuid;
+      v25 = 2114;
+      v26 = summary;
+      v27 = 2114;
+      v28 = v7;
       _os_log_error_impl(&dword_1BCF2C000, newerVersionError2, OS_LOG_TYPE_ERROR, "%s %{public}@: Could not get the current status of auto asset  %{public}@ : %{public}@", buf, 0x2Au);
     }
 
@@ -1205,24 +1194,22 @@ LABEL_13:
     v11 = self->_uuid;
     assetSetName = self->_assetSetName;
     *buf = 136315650;
-    v23 = "[UAFAutoAssetSet getMAAutoAssetDownloadErrorsSync]";
-    v24 = 2114;
-    v25 = v11;
-    v26 = 2114;
-    v27 = assetSetName;
+    v22 = "[UAFAutoAssetSet getMAAutoAssetDownloadErrorsSync]";
+    v23 = 2114;
+    v24 = v11;
+    v25 = 2114;
+    v26 = assetSetName;
     _os_log_error_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_ERROR, "%s %{public}@: Did not have auto asset set object for set %{public}@ when attempting to gather errors", buf, 0x20u);
   }
 
 LABEL_14:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (void)mapAsset:(id)asset queue:(id)queue completion:(id)completion
 {
-  v88[1] = *MEMORY[0x1E69E9840];
+  v87[1] = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   queueCopy = queue;
   completionCopy = completion;
@@ -1233,15 +1220,15 @@ LABEL_14:
     v12 = +[UAFAutoAssetSet getConcurrentQueue];
   }
 
-  v70[0] = MEMORY[0x1E69E9820];
-  v70[1] = 3221225472;
-  v70[2] = __45__UAFAutoAssetSet_mapAsset_queue_completion___block_invoke;
-  v70[3] = &unk_1E7FFDBF0;
+  v69[0] = MEMORY[0x1E69E9820];
+  v69[1] = 3221225472;
+  v69[2] = __45__UAFAutoAssetSet_mapAsset_queue_completion___block_invoke;
+  v69[3] = &unk_1E7FFDBF0;
   v13 = completionCopy;
-  v72 = v13;
+  v71 = v13;
   v14 = v12;
-  v71 = v14;
-  v15 = MEMORY[0x1BFB33950](v70);
+  v70 = v14;
+  v15 = MEMORY[0x1BFB33950](v69);
   if (self->_atomicInstance)
   {
     assets = [(UAFAutoAssetSet *)self assets];
@@ -1259,57 +1246,57 @@ LABEL_14:
 
         if (v21)
         {
-          v64 = v13;
-          v65 = assetCopy;
+          v63 = v13;
+          v64 = assetCopy;
           v22 = objc_alloc(MEMORY[0x1E69B1918]);
           v23 = +[UAFAutoAssetSet getClientName];
           assetSetName = self->_assetSetName;
-          v69 = 0;
-          v25 = [v22 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:v23 forAssetSetIdentifier:assetSetName comprisedOfEntries:0 completingFromQueue:v14 error:&v69];
-          v66 = v69;
+          v68 = 0;
+          v25 = [v22 initUsingClientDomain:@"com.apple.UnifiedAssetFramework" forClientName:v23 forAssetSetIdentifier:assetSetName comprisedOfEntries:0 completingFromQueue:v14 error:&v68];
+          v65 = v68;
 
-          v63 = v25;
+          v62 = v25;
           if (v25)
           {
             v26 = [objc_alloc(MEMORY[0x1E69B1910]) initForAssetType:v19 withAssetSpecifier:v21];
             v27 = UAFGetLogCategory(&UAFLogContextClient);
             v28 = v27;
-            v62 = v14;
+            v61 = v14;
             if (v26)
             {
-              v61 = v26;
+              v60 = v26;
               if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
               {
                 uuid = self->_uuid;
                 summary = [v26 summary];
                 atomicInstance = self->_atomicInstance;
                 *buf = 136315906;
-                v80 = "[UAFAutoAssetSet mapAsset:queue:completion:]";
-                v81 = 2114;
-                v82 = uuid;
-                v83 = 2114;
-                v84 = summary;
-                v85 = 2114;
-                v86 = atomicInstance;
+                v79 = "[UAFAutoAssetSet mapAsset:queue:completion:]";
+                v80 = 2114;
+                v81 = uuid;
+                v82 = 2114;
+                v83 = summary;
+                v84 = 2114;
+                v85 = atomicInstance;
                 _os_log_impl(&dword_1BCF2C000, v28, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Mapping %{public}@ from atomic instance %{public}@", buf, 0x2Au);
               }
 
-              v32 = v63;
-              v33 = [UAFAutoAssetSet getMapReason:v63];
+              v32 = v62;
+              v33 = [UAFAutoAssetSet getMapReason:v62];
               v34 = self->_atomicInstance;
-              v67[0] = MEMORY[0x1E69E9820];
-              v67[1] = 3221225472;
-              v67[2] = __45__UAFAutoAssetSet_mapAsset_queue_completion___block_invoke_334;
-              v67[3] = &unk_1E7FFDC40;
-              v67[4] = self;
-              v68 = v64;
+              v66[0] = MEMORY[0x1E69E9820];
+              v66[1] = 3221225472;
+              v66[2] = __45__UAFAutoAssetSet_mapAsset_queue_completion___block_invoke_334;
+              v66[3] = &unk_1E7FFDC40;
+              v66[4] = self;
+              v67 = v63;
               v35 = v34;
-              v13 = v64;
-              v36 = v61;
-              [v63 mapLockedAtomicEntry:v33 forAtomicInstance:v35 mappingSelector:v61 completion:v67];
+              v13 = v63;
+              v36 = v60;
+              [v62 mapLockedAtomicEntry:v33 forAtomicInstance:v35 mappingSelector:v60 completion:v66];
 
-              assetCopy = v65;
-              v37 = v66;
+              assetCopy = v64;
+              v37 = v65;
             }
 
             else
@@ -1317,50 +1304,50 @@ LABEL_14:
               v36 = 0;
               if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
               {
-                v60 = self->_uuid;
+                v59 = self->_uuid;
                 *buf = 136315906;
-                v80 = "[UAFAutoAssetSet mapAsset:queue:completion:]";
-                v81 = 2114;
-                v82 = v60;
-                v83 = 2114;
-                v84 = v19;
-                v85 = 2114;
-                v86 = v21;
+                v79 = "[UAFAutoAssetSet mapAsset:queue:completion:]";
+                v80 = 2114;
+                v81 = v59;
+                v82 = 2114;
+                v83 = v19;
+                v84 = 2114;
+                v85 = v21;
                 _os_log_error_impl(&dword_1BCF2C000, v28, OS_LOG_TYPE_ERROR, "%s %{public}@: Could not create selector for asset type: %{public}@ specifier: %{public}@", buf, 0x2Au);
               }
 
-              v37 = v66;
-              (v15)[2](v15, v66);
-              v13 = v64;
-              assetCopy = v65;
-              v32 = v63;
+              v37 = v65;
+              (v15)[2](v15, v65);
+              v13 = v63;
+              assetCopy = v64;
+              v32 = v62;
             }
 
-            v14 = v62;
+            v14 = v61;
           }
 
           else
           {
             v49 = UAFGetLogCategory(&UAFLogContextClient);
-            v13 = v64;
+            v13 = v63;
             if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
             {
-              v58 = self->_uuid;
-              v59 = self->_assetSetName;
+              v57 = self->_uuid;
+              v58 = self->_assetSetName;
               *buf = 136315906;
-              v80 = "[UAFAutoAssetSet mapAsset:queue:completion:]";
-              v81 = 2114;
-              v82 = v58;
-              v83 = 2114;
-              v84 = v59;
-              v85 = 2114;
-              v86 = v66;
+              v79 = "[UAFAutoAssetSet mapAsset:queue:completion:]";
+              v80 = 2114;
+              v81 = v57;
+              v82 = 2114;
+              v83 = v58;
+              v84 = 2114;
+              v85 = v65;
               _os_log_error_impl(&dword_1BCF2C000, v49, OS_LOG_TYPE_ERROR, "%s %{public}@: Error initializing MAAutoAssetSet for %{public}@: %{public}@", buf, 0x2Au);
             }
 
-            v37 = v66;
-            (v15)[2](v15, v66);
-            assetCopy = v65;
+            v37 = v65;
+            (v15)[2](v15, v65);
+            assetCopy = v64;
             v32 = 0;
           }
         }
@@ -1370,23 +1357,23 @@ LABEL_14:
           v46 = UAFGetLogCategory(&UAFLogContextClient);
           if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
-            v56 = self->_uuid;
-            v57 = self->_assetSetName;
+            v55 = self->_uuid;
+            v56 = self->_assetSetName;
             *buf = 136315906;
-            v80 = "[UAFAutoAssetSet mapAsset:queue:completion:]";
-            v81 = 2114;
-            v82 = v56;
-            v83 = 2114;
-            v84 = assetCopy;
-            v85 = 2114;
-            v86 = v57;
+            v79 = "[UAFAutoAssetSet mapAsset:queue:completion:]";
+            v80 = 2114;
+            v81 = v55;
+            v82 = 2114;
+            v83 = assetCopy;
+            v84 = 2114;
+            v85 = v56;
             _os_log_error_impl(&dword_1BCF2C000, v46, OS_LOG_TYPE_ERROR, "%s %{public}@: Asset %{public}@ in asset set %{public}@ has no asset specifier", buf, 0x2Au);
           }
 
           v47 = MEMORY[0x1E696ABC0];
-          v73 = *MEMORY[0x1E696A578];
-          v74 = @"No asset specifier found";
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+          v72 = *MEMORY[0x1E696A578];
+          v73 = @"No asset specifier found";
+          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
           v48 = [v47 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5001 userInfo:v21];
           (v15)[2](v15, v48);
         }
@@ -1397,25 +1384,25 @@ LABEL_14:
       v45 = UAFGetLogCategory(&UAFLogContextClient);
       if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
-        v54 = self->_uuid;
-        v55 = self->_assetSetName;
+        v53 = self->_uuid;
+        v54 = self->_assetSetName;
         *buf = 136315906;
-        v80 = "[UAFAutoAssetSet mapAsset:queue:completion:]";
-        v81 = 2114;
-        v82 = v54;
-        v83 = 2114;
-        v84 = assetCopy;
-        v85 = 2114;
-        v86 = v55;
+        v79 = "[UAFAutoAssetSet mapAsset:queue:completion:]";
+        v80 = 2114;
+        v81 = v53;
+        v82 = 2114;
+        v83 = assetCopy;
+        v84 = 2114;
+        v85 = v54;
         _os_log_error_impl(&dword_1BCF2C000, v45, OS_LOG_TYPE_ERROR, "%s %{public}@: Asset %{public}@ in asset set %{public}@ has no asset type", buf, 0x2Au);
       }
 
       v41 = MEMORY[0x1E696ABC0];
-      v75 = *MEMORY[0x1E696A578];
-      v76 = @"No asset type found";
+      v74 = *MEMORY[0x1E696A578];
+      v75 = @"No asset type found";
       v42 = MEMORY[0x1E695DF20];
-      v43 = &v76;
-      v44 = &v75;
+      v43 = &v75;
+      v44 = &v74;
     }
 
     else
@@ -1423,25 +1410,25 @@ LABEL_14:
       v40 = UAFGetLogCategory(&UAFLogContextClient);
       if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
-        v52 = self->_uuid;
-        v53 = self->_assetSetName;
+        v51 = self->_uuid;
+        v52 = self->_assetSetName;
         *buf = 136315906;
-        v80 = "[UAFAutoAssetSet mapAsset:queue:completion:]";
-        v81 = 2114;
-        v82 = v52;
-        v83 = 2114;
-        v84 = assetCopy;
-        v85 = 2114;
-        v86 = v53;
+        v79 = "[UAFAutoAssetSet mapAsset:queue:completion:]";
+        v80 = 2114;
+        v81 = v51;
+        v82 = 2114;
+        v83 = assetCopy;
+        v84 = 2114;
+        v85 = v52;
         _os_log_error_impl(&dword_1BCF2C000, v40, OS_LOG_TYPE_ERROR, "%s %{public}@: Asset %{public}@ not found in asset set %{public}@", buf, 0x2Au);
       }
 
       v41 = MEMORY[0x1E696ABC0];
-      v77 = *MEMORY[0x1E696A578];
-      v78 = @"No asset found";
+      v76 = *MEMORY[0x1E696A578];
+      v77 = @"No asset found";
       v42 = MEMORY[0x1E695DF20];
-      v43 = &v78;
-      v44 = &v77;
+      v43 = &v77;
+      v44 = &v76;
     }
 
     v19 = [v42 dictionaryWithObjects:v43 forKeys:v44 count:1];
@@ -1455,23 +1442,21 @@ LABEL_33:
   v38 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
   {
-    v51 = self->_uuid;
+    v50 = self->_uuid;
     *buf = 136315394;
-    v80 = "[UAFAutoAssetSet mapAsset:queue:completion:]";
-    v81 = 2114;
-    v82 = v51;
+    v79 = "[UAFAutoAssetSet mapAsset:queue:completion:]";
+    v80 = 2114;
+    v81 = v50;
     _os_log_error_impl(&dword_1BCF2C000, v38, OS_LOG_TYPE_ERROR, "%s %{public}@: object has no atomic instance.  invalidate previously called?", buf, 0x16u);
   }
 
   v39 = MEMORY[0x1E696ABC0];
-  v87 = *MEMORY[0x1E696A578];
-  v88[0] = @"No atomic instance";
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v88 forKeys:&v87 count:1];
+  v86 = *MEMORY[0x1E696A578];
+  v87[0] = @"No atomic instance";
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v87 forKeys:&v86 count:1];
   v19 = [v39 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5001 userInfo:v17];
   (v15)[2](v15, v19);
 LABEL_34:
-
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 void __45__UAFAutoAssetSet_mapAsset_queue_completion___block_invoke(uint64_t a1, void *a2)
@@ -1493,7 +1478,7 @@ void __45__UAFAutoAssetSet_mapAsset_queue_completion___block_invoke(uint64_t a1,
 
 void __45__UAFAutoAssetSet_mapAsset_queue_completion___block_invoke_334(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1502,21 +1487,20 @@ void __45__UAFAutoAssetSet_mapAsset_queue_completion___block_invoke_334(uint64_t
   {
     v11 = *(*(a1 + 32) + 32);
     v12 = [v8 assetSpecifier];
-    v14 = 136316162;
-    v15 = "[UAFAutoAssetSet mapAsset:queue:completion:]_block_invoke";
-    v16 = 2114;
-    v17 = v11;
-    v18 = 2114;
-    v19 = v12;
-    v20 = 2114;
-    v21 = v7;
-    v22 = 2114;
-    v23 = v9;
-    _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Mapped specifier %{public}@ from atomic instance %{public}@ with error: %{public}@", &v14, 0x34u);
+    v13 = 136316162;
+    v14 = "[UAFAutoAssetSet mapAsset:queue:completion:]_block_invoke";
+    v15 = 2114;
+    v16 = v11;
+    v17 = 2114;
+    v18 = v12;
+    v19 = 2114;
+    v20 = v7;
+    v21 = 2114;
+    v22 = v9;
+    _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s %{public}@: Mapped specifier %{public}@ from atomic instance %{public}@ with error: %{public}@", &v13, 0x34u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

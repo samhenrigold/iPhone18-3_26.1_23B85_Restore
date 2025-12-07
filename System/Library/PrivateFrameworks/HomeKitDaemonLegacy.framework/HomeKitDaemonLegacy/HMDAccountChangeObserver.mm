@@ -18,7 +18,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  Account.ChangeObserver.delegate.setter();
+  Account.ChangeObserver.delegate.setter(delegate);
 }
 
 - (HMDAccountChangeObserver)init

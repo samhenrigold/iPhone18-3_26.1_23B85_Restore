@@ -196,24 +196,24 @@ uint64_t __76__EDInteractionEventLogLegacyPersistentBitsProvider__findExistingSa
 
 - (id)_queryKeychainError:(id *)error
 {
-  v19[6] = *MEMORY[0x1E69E9840];
+  v18[6] = *MEMORY[0x1E69E9840];
   v4 = *MEMORY[0x1E697B008];
   v5 = *MEMORY[0x1E697AE88];
-  v18[0] = *MEMORY[0x1E697AFF8];
-  v18[1] = v5;
-  v19[0] = v4;
-  v19[1] = @"com.apple.mail.interaction-log.salt";
+  v17[0] = *MEMORY[0x1E697AFF8];
+  v17[1] = v5;
+  v18[0] = v4;
+  v18[1] = @"com.apple.mail.interaction-log.salt";
   v6 = *MEMORY[0x1E697B318];
-  v18[2] = *MEMORY[0x1E697AEB0];
-  v18[3] = v6;
-  v19[2] = MEMORY[0x1E695E118];
-  v19[3] = MEMORY[0x1E695E118];
+  v17[2] = *MEMORY[0x1E697AEB0];
+  v17[3] = v6;
+  v18[2] = MEMORY[0x1E695E118];
+  v18[3] = MEMORY[0x1E695E118];
   v7 = *MEMORY[0x1E697B260];
-  v18[4] = *MEMORY[0x1E697B310];
-  v18[5] = v7;
-  v19[4] = MEMORY[0x1E695E118];
-  v19[5] = &unk_1F45E66A0;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:6];
+  v17[4] = *MEMORY[0x1E697B310];
+  v17[5] = v7;
+  v18[4] = MEMORY[0x1E695E118];
+  v18[5] = &unk_1F45E66A0;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:6];
   result = 0;
   v9 = SecItemCopyMatching(v8, &result);
   v10 = v9;
@@ -224,8 +224,8 @@ uint64_t __76__EDInteractionEventLogLegacyPersistentBitsProvider__findExistingSa
       v11 = [objc_opt_class() log];
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v16 = 0;
-        _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_DEFAULT, "No old salt found", v16, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_DEFAULT, "No old salt found", v15, 2u);
       }
     }
 
@@ -256,27 +256,23 @@ uint64_t __76__EDInteractionEventLogLegacyPersistentBitsProvider__findExistingSa
   v12 = 0;
 LABEL_13:
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (void)_findExistingSaltError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Failed to read old salt %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Failed to read old salt %{public}@", &v2, 0xCu);
 }
 
 - (void)_queryKeychainError:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Error finding existing old salt: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Error finding existing old salt: %d", v2, 8u);
 }
 
 @end

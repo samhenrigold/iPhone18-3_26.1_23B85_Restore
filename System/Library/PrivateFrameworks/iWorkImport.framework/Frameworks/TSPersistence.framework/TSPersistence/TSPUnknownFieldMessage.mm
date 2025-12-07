@@ -149,89 +149,87 @@ LABEL_21:
 
 - (void)saveToArchiver:(id)archiver
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   archiverCopy = archiver;
-  v38.receiver = self;
-  v38.super_class = TSPUnknownFieldMessage;
-  [(TSPUnknownField *)&v38 saveToArchiver:archiverCopy];
+  v37.receiver = self;
+  v37.super_class = TSPUnknownFieldMessage;
+  [(TSPUnknownField *)&v37 saveToArchiver:archiverCopy];
   if (objc_msgSend_count(self->_strongObjects, v5, v6))
   {
-    TSP::Reference::Reference(v37, 0);
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
+    TSP::Reference::Reference(v36, 0);
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v11 = objc_msgSend_references(self->_strongObjects, v9, v10);
-    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v33, v40, 16);
+    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v32, v39, 16);
     if (v14)
     {
-      v15 = *v34;
+      v15 = *v33;
       do
       {
         v16 = 0;
         do
         {
-          if (*v34 != v15)
+          if (*v33 != v15)
           {
             objc_enumerationMutation(v11);
           }
 
-          objc_msgSend_setStrongLazyReference_message_(archiverCopy, v13, *(*(&v33 + 1) + 8 * v16++), v37);
+          objc_msgSend_setStrongLazyReference_message_(archiverCopy, v13, *(*(&v32 + 1) + 8 * v16++), v36);
         }
 
         while (v14 != v16);
-        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v33, v40, 16);
+        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v32, v39, 16);
       }
 
       while (v14);
     }
 
-    TSP::Reference::~Reference(v37);
+    TSP::Reference::~Reference(v36);
   }
 
   if (objc_msgSend_count(self->_weakObjects, v7, v8))
   {
-    TSP::Reference::Reference(v37, 0);
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
+    TSP::Reference::Reference(v36, 0);
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v21 = objc_msgSend_references(self->_weakObjects, v19, v20, 0);
-    v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v29, v39, 16);
+    v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v28, v38, 16);
     if (v24)
     {
-      v25 = *v30;
+      v25 = *v29;
       do
       {
         v26 = 0;
         do
         {
-          if (*v30 != v25)
+          if (*v29 != v25)
           {
             objc_enumerationMutation(v21);
           }
 
-          objc_msgSend_setWeakLazyReference_message_(archiverCopy, v23, *(*(&v29 + 1) + 8 * v26++), v37);
+          objc_msgSend_setWeakLazyReference_message_(archiverCopy, v23, *(*(&v28 + 1) + 8 * v26++), v36);
         }
 
         while (v24 != v26);
-        v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v23, &v29, v39, 16);
+        v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v23, &v28, v38, 16);
       }
 
       while (v24);
     }
 
-    TSP::Reference::~Reference(v37);
+    TSP::Reference::~Reference(v36);
   }
 
   if (objc_msgSend_count(self->_datas, v17, v18))
   {
-    memset(v37, 0, 24);
-    objc_msgSend_setDataReferenceArray_message_(archiverCopy, v27, self->_datas, v37);
-    sub_276A08184(v37);
+    memset(v36, 0, 24);
+    objc_msgSend_setDataReferenceArray_message_(archiverCopy, v27, self->_datas, v36);
+    sub_276A08184(v36);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)debugDescription

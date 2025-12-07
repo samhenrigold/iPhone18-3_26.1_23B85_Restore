@@ -18,33 +18,33 @@
   v8 = [planCopy objectForKeyedSubscript:@"deviceInfo"];
   deviceName = [v8 deviceName];
 
-  v10 = _TSLogDomain();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = _TSLogDomain(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    [(TSTransferredViewController *)planCopy initWithTransferredPlan:v10];
+    [(TSTransferredViewController *)planCopy initWithTransferredPlan:v11];
   }
 
   if ([formattedPhoneNumber length])
   {
-    v11 = MEMORY[0x277CCACA8];
-    v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v13 = [v12 localizedStringForKey:@"PLAN_TRANSFERRED_DETAIL_%@" value:&stru_28753DF48 table:@"Localizable"];
-    v14 = [v11 stringWithFormat:v13, formattedPhoneNumber];
+    v12 = MEMORY[0x277CCACA8];
+    v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v14 = [v13 localizedStringForKey:@"PLAN_TRANSFERRED_DETAIL_%@" value:&stru_28753DF48 table:@"Localizable"];
+    v15 = [v12 stringWithFormat:v14, formattedPhoneNumber];
   }
 
   else
   {
-    v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v14 = [v12 localizedStringForKey:@"PLAN_TRANSFERRED_DETAIL" value:&stru_28753DF48 table:@"Localizable"];
+    v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v15 = [v13 localizedStringForKey:@"PLAN_TRANSFERRED_DETAIL" value:&stru_28753DF48 table:@"Localizable"];
   }
 
-  v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v16 = [v15 localizedStringForKey:@"PLAN_TRANSFERRED_TITLE" value:&stru_28753DF48 table:@"Localizable"];
-  v19.receiver = self;
-  v19.super_class = TSTransferredViewController;
-  v17 = [(TSTransferredViewController *)&v19 initWithTitle:v16 detailText:v14 icon:0];
+  v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v17 = [v16 localizedStringForKey:@"PLAN_TRANSFERRED_TITLE" value:&stru_28753DF48 table:@"Localizable"];
+  v20.receiver = self;
+  v20.super_class = TSTransferredViewController;
+  v18 = [(TSTransferredViewController *)&v20 initWithTitle:v17 detailText:v15 icon:0];
 
-  return v17;
+  return v18;
 }
 
 - (void)viewDidLoad
@@ -92,13 +92,12 @@
 
 - (void)initWithTransferredPlan:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2080;
-  v6 = "[TSTransferredViewController initWithTransferredPlan:]";
-  _os_log_debug_impl(&dword_262AA8000, a2, OS_LOG_TYPE_DEBUG, "[Db] transferred plan: %@ @%s", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2080;
+  v5 = "[TSTransferredViewController initWithTransferredPlan:]";
+  _os_log_debug_impl(&dword_262AA8000, a2, OS_LOG_TYPE_DEBUG, "[Db] transferred plan: %@ @%s", &v2, 0x16u);
 }
 
 @end

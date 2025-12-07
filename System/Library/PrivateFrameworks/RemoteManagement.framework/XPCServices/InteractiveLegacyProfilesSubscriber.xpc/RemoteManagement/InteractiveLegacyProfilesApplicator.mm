@@ -1,6 +1,7 @@
 @interface InteractiveLegacyProfilesApplicator
 + (id)supportedConfigurationTypes;
 - (_TtC35InteractiveLegacyProfilesSubscriber35InteractiveLegacyProfilesApplicator)init;
+- (_TtC35InteractiveLegacyProfilesSubscriber35InteractiveLegacyProfilesApplicator)initWithAdapter:(id)adapter inPlaceUpdates:(BOOL)updates;
 @end
 
 @implementation InteractiveLegacyProfilesApplicator
@@ -8,12 +9,20 @@
 - (_TtC35InteractiveLegacyProfilesSubscriber35InteractiveLegacyProfilesApplicator)init
 {
   ObjectType = swift_getObjectType();
-  v4 = [objc_allocWithZone(type metadata accessor for InteractiveLegacyProfilesAdapter()) init];
-  v7.receiver = self;
-  v7.super_class = ObjectType;
-  v5 = [(InteractiveLegacyProfilesApplicator *)&v7 initWithAdapter:v4 inPlaceUpdates:1];
+  v6 = [objc_allocWithZone(type metadata accessor for InteractiveLegacyProfilesAdapter(0 v4];
+  v9.receiver = self;
+  v9.super_class = ObjectType;
+  v7 = [(InteractiveLegacyProfilesApplicator *)&v9 initWithAdapter:v6 inPlaceUpdates:1];
 
-  return v5;
+  return v7;
+}
+
+- (_TtC35InteractiveLegacyProfilesSubscriber35InteractiveLegacyProfilesApplicator)initWithAdapter:(id)adapter inPlaceUpdates:(BOOL)updates
+{
+  updatesCopy = updates;
+  v7.receiver = self;
+  v7.super_class = swift_getObjectType();
+  return [(InteractiveLegacyProfilesApplicator *)&v7 initWithAdapter:adapter inPlaceUpdates:updatesCopy];
 }
 
 + (id)supportedConfigurationTypes

@@ -1,104 +1,85 @@
-char *svm_train_one(int *a1, uint64_t a2)
+double *svm_train_one(int *a1, int *a2, double a3, double a4)
 {
-  v4 = malloc_type_malloc(8 * *a1, 0x100004000313F17uLL);
-  v5 = *a2;
+  v6 = malloc_type_malloc(8 * *a1, 0x100004000313F17uLL);
+  v7 = *a2;
   if (*a2 <= 1)
   {
-    if (!v5)
+    if (!v7)
     {
-      if (*a1 >= 0)
-      {
-        v12 = *a1;
-      }
-
       operator new[]();
     }
 
-    if (v5 == 1)
+    if (v7 == 1)
     {
-      v8 = *(a2 + 80);
-      if (*a1 >= 0)
-      {
-        v9 = *a1;
-      }
-
       operator new[]();
     }
   }
 
   else
   {
-    switch(v5)
+    switch(v7)
     {
       case 2:
-        if (*a1 >= 0)
-        {
-          v10 = *a1;
-        }
-
         operator new[]();
       case 3:
-        v11 = *a1;
         operator new[]();
       case 4:
-        v6 = *a1;
-        v7 = *(a2 + 48);
         operator new[]();
     }
   }
 
-  info("obj = %f, rho = %f\n", v21, v22);
-  v13 = *a1;
-  if (v13 >= 1)
+  info("obj = %f, rho = %f\n", v16, v17);
+  v8 = *a1;
+  if (v8 >= 1)
   {
-    v14 = 0;
-    v15 = 0;
-    v16 = 0;
-    v17 = 8 * v13;
+    v9 = 0;
+    v10 = 0;
+    v11 = 0;
+    v12 = 8 * v8;
     while (1)
     {
-      v18 = *&v4[v14];
-      if (v18 != 0.0)
+      v13 = *&v6[v9];
+      if (v13 != 0.0)
       {
-        v19 = fabs(v18);
-        ++v16;
-        if (*(*(a1 + 1) + v14) > 0.0)
+        v14 = fabs(v13);
+        ++v11;
+        if (*(*(a1 + 1) + v9) > 0.0)
         {
-          if (v19 < v23)
+          if (v14 < v18)
           {
-            goto LABEL_26;
+            goto LABEL_20;
           }
 
-LABEL_25:
-          ++v15;
-          goto LABEL_26;
+LABEL_19:
+          ++v10;
+          goto LABEL_20;
         }
 
-        if (v19 >= v24)
+        if (v14 >= v19)
         {
-          goto LABEL_25;
+          goto LABEL_19;
         }
       }
 
-LABEL_26:
-      v14 += 8;
-      if (v17 == v14)
+LABEL_20:
+      v9 += 8;
+      if (v12 == v9)
       {
-        goto LABEL_29;
+        goto LABEL_23;
       }
     }
   }
 
-  v16 = 0;
-  v15 = 0;
-LABEL_29:
-  info("nSV = %d, nBSV = %d\n", v16, v15);
-  return v4;
+  v11 = 0;
+  v10 = 0;
+LABEL_23:
+  info("nSV = %d, nBSV = %d\n", v11, v10);
+  return v6;
 }
 
-void sub_2472E90FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_2472E90FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   CPMLLibSVM::SVC_Q::~SVC_Q(va);
   _Unwind_Resume(a1);
 }
@@ -252,7 +233,7 @@ LABEL_11:
   free(v14);
 }
 
-void svm_cross_validation(int *a1, _DWORD *a2, int a3, uint64_t a4)
+void svm_cross_validation(int *a1, __int128 *a2, int a3, uint64_t a4)
 {
   v8 = *a1;
   v9 = malloc_type_malloc(4 * v8, 0x100004052888210uLL);
@@ -265,17 +246,17 @@ void svm_cross_validation(int *a1, _DWORD *a2, int a3, uint64_t a4)
   v10 = (a3 + 1);
   v11 = malloc_type_malloc(4 * v10, 0x100004052888210uLL);
   v12 = a3 >= v8 || *a2 >= 2u;
-  v109 = a2;
-  v110 = a4;
-  v111 = v8;
+  v108 = a2;
+  v109 = a4;
+  v110 = v8;
   if (!v12)
   {
-    v117 = 0;
-    v112 = 0;
-    v115 = 0;
     v116 = 0;
-    svm_group_classes(a1, &v117, &v116, &v112, &v115, v9);
-    v106 = malloc_type_malloc(4 * a3, 0x100004052888210uLL);
+    v111 = 0;
+    v114 = 0;
+    v115 = 0;
+    svm_group_classes(a1, &v116, &v115, &v111, &v114, v9);
+    v105 = malloc_type_malloc(4 * a3, 0x100004052888210uLL);
     v35 = malloc_type_malloc(4 * v8, 0x100004052888210uLL);
     v36 = v35;
     if (v8 >= 1)
@@ -293,13 +274,13 @@ void svm_cross_validation(int *a1, _DWORD *a2, int a3, uint64_t a4)
       while (v37);
     }
 
-    v41 = v117;
-    if (v117 >= 1)
+    v41 = v116;
+    if (v116 >= 1)
     {
       v42 = 0;
-      v43 = v115;
-      v44 = v112;
-      for (i = v117; i != v42; v41 = i)
+      v43 = v114;
+      v44 = v111;
+      for (i = v116; i != v42; v41 = i)
       {
         if (v43[v42] >= 1)
         {
@@ -327,19 +308,19 @@ void svm_cross_validation(int *a1, _DWORD *a2, int a3, uint64_t a4)
     if (a3 <= 0)
     {
       *v11 = 0;
-      v54 = v106;
+      v54 = v105;
       v53 = (a3 + 1);
     }
 
     else
     {
       v51 = 0;
-      v52 = v115;
-      v54 = v106;
+      v52 = v114;
+      v54 = v105;
       v53 = (a3 + 1);
       do
       {
-        v106[v51] = 0;
+        v105[v51] = 0;
         v55 = v51 + 1;
         if (v41 >= 1)
         {
@@ -350,7 +331,7 @@ void svm_cross_validation(int *a1, _DWORD *a2, int a3, uint64_t a4)
           {
             v59 = *v58++;
             v56 += v59 * v55 / a3 - v59 * v51 / a3;
-            v106[v51] = v56;
+            v105[v51] = v56;
             --v57;
           }
 
@@ -365,7 +346,7 @@ void svm_cross_validation(int *a1, _DWORD *a2, int a3, uint64_t a4)
       *v11 = 0;
       v61 = v11 + 1;
       v62 = (a3 + 1) - 1;
-      v63 = v106;
+      v63 = v105;
       do
       {
         v64 = *v63++;
@@ -380,8 +361,8 @@ void svm_cross_validation(int *a1, _DWORD *a2, int a3, uint64_t a4)
     if (v41 >= 1)
     {
       v65 = 0;
-      v66 = v112;
-      v67 = v115;
+      v66 = v111;
+      v67 = v114;
       do
       {
         if (a3 >= 1)
@@ -440,54 +421,54 @@ void svm_cross_validation(int *a1, _DWORD *a2, int a3, uint64_t a4)
       while (v79);
     }
 
-    free(v112);
-    free(v116);
+    free(v111);
     free(v115);
+    free(v114);
     free(v36);
     free(v54);
 LABEL_61:
     if (a3 >= 1)
     {
       v82 = 0;
-      v108 = a3;
+      v107 = a3;
       do
       {
         v83 = v11[v82++];
         v84 = v11[v82];
-        LODWORD(v112) = v83 - v84 + v111;
-        v114 = malloc_type_malloc(8 * v112, 0x2004093837F09uLL);
-        v113 = malloc_type_malloc(8 * v112, 0x100004000313F17uLL);
+        LODWORD(v111) = v83 - v84 + v110;
+        v113 = malloc_type_malloc(8 * v111, 0x2004093837F09uLL);
+        v112 = malloc_type_malloc(8 * v111, 0x100004000313F17uLL);
         if (v83 < 1)
         {
           v88 = 0;
-          v86 = v109;
+          v86 = v108;
         }
 
         else
         {
           v85 = 0;
-          v86 = v109;
+          v86 = v108;
           do
           {
             v87 = v9[v85];
-            *(v114 + v85) = *(*(a1 + 2) + 8 * v87);
-            *(v113 + v85++) = *(*(a1 + 1) + 8 * v87);
+            *(v113 + v85) = *(*(a1 + 2) + 8 * v87);
+            *(v112 + v85++) = *(*(a1 + 1) + 8 * v87);
           }
 
           while (v83 != v85);
           v88 = v83;
         }
 
-        if (v84 < v111)
+        if (v84 < v110)
         {
-          v89 = v111 - v84;
+          v89 = v110 - v84;
           v90 = 8 * v88;
           v91 = &v9[v84];
           do
           {
             v92 = *v91++;
-            *(v114 + v90) = *(*(a1 + 2) + 8 * v92);
-            *(v113 + v90) = *(*(a1 + 1) + 8 * v92);
+            *(v113 + v90) = *(*(a1 + 2) + 8 * v92);
+            *(v112 + v90) = *(*(a1 + 1) + 8 * v92);
             v90 += 8;
             --v89;
           }
@@ -496,11 +477,11 @@ LABEL_61:
         }
 
         v93 = v83;
-        v94 = svm_train(&v112, v86);
+        v94 = svm_train(&v111, v86);
         v95 = v94;
-        if (v86[25] && *v86 <= 1u)
+        if (*(v86 + 25) && *v86 <= 1u)
         {
-          v96 = malloc_type_malloc(8 * *(v94 + 104), 0x100004000313F17uLL);
+          v96 = malloc_type_malloc(8 * *(v94 + 26), 0x100004000313F17uLL);
           if (v93 < v84)
           {
             v97 = &v9[v93];
@@ -509,7 +490,7 @@ LABEL_61:
             {
               v99 = svm_predict_probability(v95, *(*(a1 + 2) + 8 * *v97), v96);
               v100 = *v97++;
-              *(v110 + 8 * v100) = v99;
+              *(v109 + 8 * v100) = v99;
               --v98;
             }
 
@@ -525,10 +506,9 @@ LABEL_61:
           v102 = v84 - v83;
           do
           {
-            v103 = *(*(a1 + 2) + 8 * *v101);
             svm_predict(v95);
-            v104 = *v101++;
-            *(v110 + 8 * v104) = v105;
+            v103 = *v101++;
+            *(v109 + 8 * v103) = v104;
             --v102;
           }
 
@@ -541,11 +521,11 @@ LABEL_61:
           free(v95);
         }
 
-        free(v114);
         free(v113);
+        free(v112);
       }
 
-      while (v82 != v108);
+      while (v82 != v107);
     }
 
     goto LABEL_83;
@@ -952,11 +932,9 @@ LABEL_55:
 
 void svm_predict(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v1 = (8 * ((*(a1 + 104) - 1) * *(a1 + 104) / 2) + 15) & 0xFFFFFFFF0;
-  v2 = MEMORY[0x28223BE20](a1);
-  svm_predict_values(v2, v4, (v6 - v3));
-  v5 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v1 = MEMORY[0x28223BE20](a1);
+  svm_predict_values(v1, v3, (v4 - v2));
 }
 
 void svm_free_and_destroy_model(void **a1)
@@ -1026,7 +1004,7 @@ double svm_get_svr_probability(uint64_t a1)
 
 void svm_predict_values(uint64_t a1, double *a2, double *a3)
 {
-  v63 = a3;
+  v61 = a3;
   v4 = a1;
   if ((*a1 - 2) > 2)
   {
@@ -1036,7 +1014,7 @@ void svm_predict_values(uint64_t a1, double *a2, double *a3)
     v20 = v14;
     if (*(v4 + 4) == 2)
     {
-      CPMLLibSVM::Kernel::k_function_rbf(a2, v4, v14, v15, v16, v17, v18, v19, v58, v59, v61, v63, v64, v65, v67, v69, v71, v73, v75, v77, __N, v80, *&v81, __C[0], __C[1], __C[2], __C[3], __C[4], __C[5], __C[6], __C[7], __C[8]);
+      CPMLLibSVM::Kernel::k_function_rbf(a2, v4, v14, v15, v16, v17, v18, v19, v56, v57, v59, v61, v62, v63, v65, v67, v69, v71, v73, v75, __N, v78, *&v79, __C[0], __C[1], __C[2], __C[3], __C[4], __C[5], __C[6], __C[7], __C[8]);
     }
 
     else if (v12 >= 1)
@@ -1075,106 +1053,95 @@ void svm_predict_values(uint64_t a1, double *a2, double *a3)
 
     v31 = malloc_type_malloc(4 * v13, 0x100004052888210uLL);
     v32 = v31;
-    if (v13 < 1)
+    if (v13 >= 1)
     {
-      goto LABEL_29;
-    }
-
-    v72 = v20;
-    bzero(v31, 4 * v13);
-    v33 = 0;
-    v34 = 0;
-    v35 = 0;
-    v36 = v25 + 4;
-    v60 = -v13;
-    v62 = v13;
-    v37 = 1;
-    v38 = 4;
-    v68 = v25;
-    v70 = v32;
-    do
-    {
-      v39 = v34 + 1;
-      if (v34 + 1 < v13)
+      v70 = v20;
+      bzero(v31, 4 * v13);
+      v33 = 0;
+      v34 = 0;
+      v35 = 0;
+      v36 = v25 + 4;
+      v58 = -v13;
+      v60 = v13;
+      v37 = 1;
+      v38 = 4;
+      v66 = v25;
+      v68 = v32;
+      do
       {
-        v66 = v35;
-        v40 = 0;
-        v74 = &v63[v35];
-        v76 = 8 * v35;
-        do
+        v39 = v34 + 1;
+        if (v34 + 1 < v13)
         {
-          v41 = *&v25[4 * v34];
-          v42 = *&v36[4 * v40];
-          v43 = *(v4 + 168);
-          v44 = *(v43 + 4 * v34);
-          v45 = *(v43 + v38 + 4 * v40);
-          v46 = *(v4 + 120);
-          v47 = v33;
-          v48 = *(v46 + v33 + 8 * v40);
-          v49 = v4;
-          v50 = *(v46 + 8 * v34);
-          __Na = v45;
-          __C[0] = 0;
-          v81 = 0.0;
-          vDSP_dotprD((v48 + 8 * v41), 1, &v72[v41], 1, __C, v44);
-          v51 = (v50 + 8 * v42);
-          v4 = v49;
-          v25 = v68;
-          vDSP_dotprD(v51, 1, &v72[v42], 1, &v81, __Na);
-          v33 = v47;
-          *__C = v81 + *__C;
-          v52 = *__C - *(*(v4 + 128) + v76 + 8 * v40);
-          v74[v40] = v52;
-          v53 = v37 + v40;
-          if (v52 > 0.0)
+          v64 = v35;
+          v40 = 0;
+          v72 = &v61[v35];
+          v74 = 8 * v35;
+          do
           {
-            v53 = v34;
+            v41 = *&v25[4 * v34];
+            v42 = *&v36[4 * v40];
+            v43 = *(v4 + 168);
+            v44 = *(v43 + 4 * v34);
+            v45 = *(v43 + v38 + 4 * v40);
+            v46 = *(v4 + 120);
+            v47 = v33;
+            v48 = *(v46 + v33 + 8 * v40);
+            v49 = v4;
+            v50 = *(v46 + 8 * v34);
+            __Na = v45;
+            __C[0] = 0;
+            v79 = 0.0;
+            vDSP_dotprD((v48 + 8 * v41), 1, &v70[v41], 1, __C, v44);
+            v51 = (v50 + 8 * v42);
+            v4 = v49;
+            v25 = v66;
+            vDSP_dotprD(v51, 1, &v70[v42], 1, &v79, __Na);
+            v33 = v47;
+            *__C = v79 + *__C;
+            v52 = *__C - *(*(v4 + 128) + v74 + 8 * v40);
+            v72[v40] = v52;
+            v53 = v37 + v40;
+            if (v52 > 0.0)
+            {
+              v53 = v34;
+            }
+
+            v32 = v68;
+            ++v68[v53];
+            ++v40;
           }
 
-          v32 = v70;
-          ++v70[v53];
-          ++v40;
+          while (v58 + v37 + v40);
+          v39 = v34 + 1;
+          v35 = v64 + v40;
+          v13 = v60;
         }
 
-        while (v60 + v37 + v40);
-        v39 = v34 + 1;
-        v35 = v66 + v40;
-        v13 = v62;
+        ++v37;
+        v38 += 4;
+        v36 += 4;
+        v33 += 8;
+        v34 = v39;
       }
 
-      ++v37;
-      v38 += 4;
-      v36 += 4;
-      v33 += 8;
-      v34 = v39;
-    }
-
-    while (v39 != v13);
-    v20 = v72;
-    if (v13 < 2)
-    {
-LABEL_29:
-      v56 = 0;
-    }
-
-    else
-    {
-      v54 = 0;
-      for (i = 1; i != v13; ++i)
+      while (v39 != v13);
+      v20 = v70;
+      if (v13 >= 2)
       {
-        if (v32[i] > v32[v54])
+        v54 = 0;
+        for (i = 1; i != v13; ++i)
         {
-          v54 = i;
+          if (v32[i] > v32[v54])
+          {
+            v54 = i;
+          }
         }
       }
-
-      v56 = v54;
     }
 
     free(v20);
     free(v25);
     free(v32);
-    v57 = *(*(v4 + 160) + 4 * v56);
   }
 
   else
@@ -1202,7 +1169,7 @@ LABEL_29:
       while (v5);
     }
 
-    *v63 = v8 - **(v4 + 128);
+    *v61 = v8 - **(v4 + 128);
   }
 }
 
@@ -1398,11 +1365,11 @@ uint64_t svm_save_model(const char *a1, double *a2)
 
 _DWORD *svm_load_model(const char *a1)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v1 = fopen(a1, "rb");
   if (!v1)
   {
-    goto LABEL_86;
+    return 0;
   }
 
   v2 = v1;
@@ -1424,12 +1391,12 @@ LABEL_85:
     free(*(v5 + 20));
     free(*(v5 + 21));
     free(v5);
-    goto LABEL_86;
+    return 0;
   }
 
   while (1)
   {
-    if (!(*__s2 ^ 0x657079745F6D7673 | v63))
+    if (!(*__s2 ^ 0x657079745F6D7673 | v62))
     {
       if (fscanf(v2, "%80s", __s2) == 1)
       {
@@ -1452,7 +1419,7 @@ LABEL_84:
       goto LABEL_85;
     }
 
-    if (*__s2 == 0x745F6C656E72656BLL && v63 == 6647929)
+    if (*__s2 == 0x745F6C656E72656BLL && v62 == 6647929)
     {
       if (fscanf(v2, "%80s", __s2) != 1)
       {
@@ -1495,7 +1462,7 @@ LABEL_59:
       goto LABEL_60;
     }
 
-    if (!(*__s2 ^ 0x7373616C635F726ELL | v63) || !(*__s2 ^ 0x76735F6C61746F74 | v63))
+    if (!(*__s2 ^ 0x7373616C635F726ELL | v62) || !(*__s2 ^ 0x76735F6C61746F74 | v62))
     {
       goto LABEL_56;
     }
@@ -1630,105 +1597,105 @@ LABEL_60:
 
   do
   {
-    v38 = getc(v2);
+    v37 = getc(v2);
   }
 
-  while (v38 != -1 && v38 != 10);
-  v39 = MEMORY[0x24C19FBF0](v2);
+  while (v37 != -1 && v37 != 10);
+  v38 = MEMORY[0x24C19FBF0](v2);
   max_line_len = 1024;
   line = malloc_type_malloc(0x400uLL, 0x100004077774924uLL);
   *__s2 = 0;
-  v40 = 0;
+  v39 = 0;
   while (readline(v2))
   {
     strtok(line, ":");
-    --v40;
+    --v39;
     do
     {
-      ++v40;
+      ++v39;
     }
 
     while (strtok(0, ":"));
   }
 
-  v41 = v5[27];
-  fseek(v2, v39, 0);
-  v42 = v5[26];
-  v43 = v5[27];
-  *(v5 + 15) = malloc_type_malloc(8 * (v42 - 1), 0x80040B8603338uLL);
-  v61 = v43;
-  v44 = 8 * v43;
-  if (v42 > 1)
+  v40 = v5[27];
+  fseek(v2, v38, 0);
+  v41 = v5[26];
+  v42 = v5[27];
+  *(v5 + 15) = malloc_type_malloc(8 * (v41 - 1), 0x80040B8603338uLL);
+  v60 = v42;
+  v43 = 8 * v42;
+  if (v41 > 1)
   {
-    v45 = 0;
+    v44 = 0;
     do
     {
-      *(*(v5 + 15) + v45) = malloc_type_malloc(v44, 0x100004000313F17uLL);
-      v45 += 8;
+      *(*(v5 + 15) + v44) = malloc_type_malloc(v43, 0x100004000313F17uLL);
+      v44 += 8;
     }
 
-    while (8 * (v42 - 1) != v45);
+    while (8 * (v41 - 1) != v44);
   }
 
-  *(v5 + 14) = malloc_type_malloc(v44, 0x2004093837F09uLL);
-  if (v61 >= 1)
+  *(v5 + 14) = malloc_type_malloc(v43, 0x2004093837F09uLL);
+  if (v60 >= 1)
   {
-    v46 = malloc_type_malloc(16 * (v41 + v40), 0x1000040F7F8B94BuLL);
+    v45 = malloc_type_malloc(16 * (v40 + v39), 0x1000040F7F8B94BuLL);
+    v46 = 0;
     v47 = 0;
-    v48 = 0;
-    v49 = 8 * (v42 - 1);
-    v59 = v46 + 8;
-    v60 = v46;
+    v48 = 8 * (v41 - 1);
+    v58 = v45 + 8;
+    v59 = v45;
     do
     {
       readline(v2);
-      *(*(v5 + 14) + 8 * v47) = &v46[16 * v48];
-      v50 = strtok(line, " \t");
-      *(**(v5 + 15) + 8 * v47) = strtod(v50, __s2);
-      if (v42 >= 3)
+      *(*(v5 + 14) + 8 * v46) = &v45[16 * v47];
+      v49 = strtok(line, " \t");
+      *(**(v5 + 15) + 8 * v46) = strtod(v49, __s2);
+      if (v41 >= 3)
       {
-        v51 = 8;
+        v50 = 8;
         do
         {
-          v52 = strtok(0, " \t");
-          *(*(*(v5 + 15) + v51) + 8 * v47) = strtod(v52, __s2);
-          v51 += 8;
+          v51 = strtok(0, " \t");
+          *(*(*(v5 + 15) + v50) + 8 * v46) = strtod(v51, __s2);
+          v50 += 8;
         }
 
-        while (v49 != v51);
+        while (v48 != v50);
       }
 
-      v53 = v48;
-      v54 = strtok(0, ":");
-      v55 = strtok(0, " \t");
-      if (v55)
+      v52 = v47;
+      v53 = strtok(0, ":");
+      v54 = strtok(0, " \t");
+      if (v54)
       {
-        v56 = v55;
-        v57 = v48 << 32;
-        v58 = &v59[16 * v48];
+        v55 = v54;
+        v56 = v47 << 32;
+        v57 = &v58[16 * v47];
         do
         {
-          *(v58 - 2) = strtol(v54, __s2, 10);
-          *v58 = strtod(v56, __s2);
-          v58 += 2;
-          v54 = strtok(0, ":");
-          v56 = strtok(0, " \t");
-          v57 += 0x100000000;
-          ++v48;
+          *(v57 - 2) = strtol(v53, __s2, 10);
+          *v57 = strtod(v55, __s2);
+          v57 += 2;
+          v53 = strtok(0, ":");
+          v55 = strtok(0, " \t");
+          v56 += 0x100000000;
+          ++v47;
         }
 
-        while (v56);
-        v53 = v57 >> 32;
-        v46 = v60;
+        while (v55);
+        v52 = v56 >> 32;
+        v45 = v59;
       }
 
-      ++v48;
-      *&v46[16 * v53] = -1;
       ++v47;
-      v49 = 8 * (v42 - 1);
+      *&v45[16 * v52] = -1;
+      ++v46;
+      v48 = 8 * (v41 - 1);
     }
 
-    while (v47 != v61);
+    while (v46 != v60);
   }
 
   free(line);
@@ -1737,17 +1704,13 @@ LABEL_60:
   if (!ferror(v2) && !fclose(v2))
   {
     v5[44] = 1;
-    goto LABEL_87;
+    return v5;
   }
 
-LABEL_86:
-  v5 = 0;
-LABEL_87:
-  v36 = *MEMORY[0x277D85DE8];
-  return v5;
+  return 0;
 }
 
-void *readline(__sFILE *a1)
+uint64_t readline(__sFILE *a1)
 {
   if (!fgets(line, max_line_len, a1))
   {
@@ -2274,7 +2237,7 @@ void sub_2472EC3E0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-float *CPMLLibSVM::SVR_Q::get_Q(CPMLLibSVM::SVR_Q *this, int a2, int a3)
+float *CPMLLibSVM::SVR_Q::get_Q(CPMLLibSVM::SVR_Q *this, int a2, unsigned int a3)
 {
   v28 = 0;
   v6 = *(this + 11);
@@ -2397,8 +2360,8 @@ void CPMLLibSVM::SVR_Q::~SVR_Q(CPMLLibSVM::SVR_Q *this)
 void CPMLUserDefinedAlgorithm::CPMLUserDefinedAlgorithm(CPMLUserDefinedAlgorithm *this, CPMLCDB *a2, CPMLSerialization *a3, CPMLTunableData *a4)
 {
   CPMLAlgorithm::CPMLAlgorithm(this, a2, a3, a4);
-  *v4 = &unk_2859272F8;
-  CPMLCDB::getIterator();
+  *v5 = &unk_2859272F8;
+  CPMLCDB::getIterator(a2, 0, 0, 0);
 }
 
 void CPMLUserDefinedAlgorithm::CPMLUserDefinedAlgorithm(CPMLUserDefinedAlgorithm *this, CPMLSerialization *a2, CPMLTunableData *a3)
@@ -2465,16 +2428,16 @@ double CPMLNaiveBayesSpotLightAdaptor::get_cx_given_y(CPMLNaiveBayesSpotLightAda
   v36 = a3;
   if (a2 < 2)
   {
-    v10 = 0.0;
+    v9 = 0.0;
     if (a2 != 1)
     {
       v34 = 0xBFF0000000000000;
       v35 = -1.0;
-      v11 = sqlite3_mprintf("select xCardinality from xCardinality%d where yMap=%d;", a2, a4);
-      (*(**(this + 1) + 224))(*(this + 1), &v34, v11);
-      if (v11)
+      v10 = sqlite3_mprintf("select xCardinality from xCardinality%d where yMap=%d;", a2, a4);
+      (*(**(this + 1) + 224))(*(this + 1), &v34, v10);
+      if (v10)
       {
-        sqlite3_free(v11);
+        sqlite3_free(v10);
       }
 
       if ((*&v35 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
@@ -2483,14 +2446,14 @@ double CPMLNaiveBayesSpotLightAdaptor::get_cx_given_y(CPMLNaiveBayesSpotLightAda
         v31 = 0;
         v32 = 0;
         v33 = 0;
-        v12 = sqlite3_mprintf("select keyValue from cacheString where indexValue=%d;", v36);
-        (*(**(this + 1) + 184))(*(this + 1), v37, 512, v12);
+        v11 = sqlite3_mprintf("select keyValue from cacheString where indexValue=%d;", v36);
+        (*(**(this + 1) + 184))(*(this + 1), v37, 512, v11);
         if (v37[0])
         {
-          v13 = sqlite3_mprintf("select count(*) from xcol0;");
-          (*(**(this + 1) + 224))(*(this + 1), &v35, v13);
-          sqlite3_free(v13);
-          MEMORY[0x28223BE20]();
+          v12 = sqlite3_mprintf("select count(*) from xcol0;");
+          (*(**(this + 1) + 224))(*(this + 1), &v35, v12);
+          sqlite3_free(v12);
+          MEMORY[0x28223BE20](v13);
           v15 = (&v30 - v14);
           v16 = sqlite3_mprintf("select indexValue from INDEX0 where keyValue like %s%% ;", v37);
           v17 = (*(**(this + 1) + 200))(*(this + 1), v15, v35, v16);
@@ -2499,11 +2462,11 @@ double CPMLNaiveBayesSpotLightAdaptor::get_cx_given_y(CPMLNaiveBayesSpotLightAda
             v19 = sqlite3_mprintf("select count(*) from xcol1;");
             (*(**(this + 1) + 224))(*(this + 1), &v35, v19);
             sqlite3_free(v19);
-            MEMORY[0x28223BE20]();
-            v21 = (&v30 - v20);
-            v22 = sqlite3_mprintf("select indexValue from INDEX1 where keyValue like '%s%%';", v37);
-            v23 = (*(**(this + 1) + 200))(*(this + 1), v21, v35, v22);
-            if (v23 < 1)
+            MEMORY[0x28223BE20](v20);
+            v22 = (&v30 - v21);
+            v23 = sqlite3_mprintf("select indexValue from INDEX1 where keyValue like '%s%%';", v37);
+            v24 = (*(**(this + 1) + 200))(*(this + 1), v22, v35, v23);
+            if (v24 < 1)
             {
               std::vector<int>::push_back[abi:ne200100](&v31, &v36);
               LODWORD(v18) = 0;
@@ -2511,14 +2474,14 @@ double CPMLNaiveBayesSpotLightAdaptor::get_cx_given_y(CPMLNaiveBayesSpotLightAda
 
             else
             {
-              v24 = v23;
+              v25 = v24;
               do
               {
-                std::vector<int>::push_back[abi:ne200100](&v31, v21++);
-                --v24;
+                std::vector<int>::push_back[abi:ne200100](&v31, v22++);
+                --v25;
               }
 
-              while (v24);
+              while (v25);
               LODWORD(v18) = 1;
             }
           }
@@ -2542,65 +2505,61 @@ double CPMLNaiveBayesSpotLightAdaptor::get_cx_given_y(CPMLNaiveBayesSpotLightAda
           LODWORD(v18) = 0;
         }
 
-        v25 = v31;
+        v26 = v31;
         if (v32 == v31)
         {
-          v10 = 0.0;
+          v9 = 0.0;
           if (!v31)
           {
-            goto LABEL_30;
+            return v9;
           }
         }
 
         else
         {
-          v26 = 0;
-          v10 = 0.0;
+          v27 = 0;
+          v9 = 0.0;
           do
           {
-            v27 = sqlite3_mprintf("select xyCount from xcol%d where (xMap==%d and yMap==%d);", v18, v25[v26], a4);
-            (*(**(this + 1) + 224))(*(this + 1), &v35, v27);
-            if (v27)
+            v28 = sqlite3_mprintf("select xyCount from xcol%d where (xMap==%d and yMap==%d);", v18, v26[v27], a4);
+            (*(**(this + 1) + 224))(*(this + 1), &v35, v28);
+            if (v28)
             {
-              sqlite3_free(v27);
+              sqlite3_free(v28);
             }
 
-            v28 = v35;
+            v29 = v35;
             if ((*&v35 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
             {
               v35 = 0.0;
-              v28 = 0.0;
+              v29 = 0.0;
             }
 
-            v10 = v10 + v28;
-            ++v26;
-            v25 = v31;
+            v9 = v9 + v29;
+            ++v27;
+            v26 = v31;
           }
 
-          while (v26 < (v32 - v31) >> 2);
+          while (v27 < (v32 - v31) >> 2);
           if (!v31)
           {
-            goto LABEL_30;
+            return v9;
           }
         }
 
-        v32 = v25;
-        operator delete(v25);
+        v32 = v26;
+        operator delete(v26);
       }
 
       else
       {
         *a5 = 0.0;
-        v10 = -2.0;
+        return -2.0;
       }
     }
 
-LABEL_30:
-    v29 = *MEMORY[0x277D85DE8];
-    return v10;
+    return v9;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return CPMLNaiveBayesAdaptor::get_cx_given_y(this, a2, a3, a4, a5);
 }
@@ -2617,7 +2576,7 @@ void sub_2472ECE74(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -2666,13 +2625,13 @@ void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
 }
 
-void CPMLIterator::CPMLIterator(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CPMLIterator::CPMLIterator(uint64_t a1, uint64_t a2, sqlite3 *a3, uint64_t a4, CPMLStatistics *a5, CPMLRemapper *a6, int a7, uint64_t a8)
 {
   *a1 = &unk_285927AC8;
   *(a1 + 12) = 0;
@@ -2804,21 +2763,27 @@ uint64_t CPMLIterator::iterateAll(CPMLIterator *this)
 
 uint64_t CPMLIterator::iterateFirst(CPMLIterator *this)
 {
-  v55[1] = *MEMORY[0x277D85DE8];
-  do
+  v56[1] = *MEMORY[0x277D85DE8];
+  while (1)
   {
     v2 = sqlite3_step(*(this + 5));
-    if (v2 == 101 || (v3 = v2, CPMLFeatureVector::resetAll(*(this + 6)), v3 != 100))
+    if (v2 == 101)
     {
-      result = 0;
-      goto LABEL_56;
+      return 0;
+    }
+
+    v3 = v2;
+    CPMLFeatureVector::resetAll(*(this + 6));
+    if (v3 != 100)
+    {
+      return 0;
     }
 
     ++*(this + 4);
     v4 = *(this + 8);
     if (*(v4 + 124) < 1)
     {
-      break;
+      return *(this + 6);
     }
 
     v5 = 0;
@@ -2835,149 +2800,153 @@ uint64_t CPMLIterator::iterateFirst(CPMLIterator *this)
         if (v9 == 2 || (v12 = sqlite3_column_type(v10, v11), v10 = *(this + 5), v11 = *(*(this + 8) + 128), v12 == 1))
         {
           v13 = sqlite3_column_double(v10, v11);
-LABEL_10:
-          CPMLFeatureVector::setYHat(*(this + 6), v13);
-          goto LABEL_17;
-        }
-
-        if (sqlite3_column_type(v10, v11) != 4)
-        {
-          v36 = sqlite3_column_text(*(this + 5), *(*(this + 8) + 128));
-          v13 = CPMLRemapper::remap(*(this + 7), v36, *(*(this + 8) + 128));
-          goto LABEL_10;
-        }
-
-        v22 = *(*(this + 8) + 128);
-        v23 = sqlite3_column_blob(*(this + 5), v22);
-        sqlite3_column_bytes(*(this + 5), v22);
-        v24 = MEMORY[0x28223BE20]();
-        v26 = v55 - v25;
-        v27 = *v23;
-        if (v27 == 83)
-        {
-          v39 = *(v23 + 1);
-          if (v39)
-          {
-            v40 = (v23 + 9);
-            do
-            {
-              v43 = *v40;
-              v41 = (v40 + 1);
-              v42 = v43;
-              strlcpy(v26, v41, v43);
-              v44 = CPMLRemapper::remap(*(this + 7), v26, v22);
-              if ((v44 & 0x80000000) == 0)
-              {
-                CPMLFeatureVector::insertYIntVClass(*(this + 6), v44);
-              }
-
-              v40 = &v41[v42];
-              --v39;
-            }
-
-            while (v39);
-            v13 = v44;
-            goto LABEL_51;
-          }
         }
 
         else
         {
-          if (v27 == 78)
+          if (sqlite3_column_type(v10, v11) == 4)
           {
-            v13 = CPMLRemapper::remap(*(this + 7), "", v22);
-LABEL_51:
-            YVectorVector = CPMLFeatureVector::getYVectorVector(*(this + 6));
-            v6 &= YVectorVector[1] != *YVectorVector;
-            goto LABEL_17;
-          }
-
-          CPMLLog = CPMLLog::getCPMLLog(v24);
-          CPMLLog::log(CPMLLog, CPML_LOG_ERR, "iterateFirst", "Encoding unsupported");
-        }
-
-        v13 = 0.0;
-        goto LABEL_51;
-      }
-
-      v14 = sqlite3_column_type(v8, v5);
-      v15 = *(this + 5);
-      if (v14 == 2 || (v16 = sqlite3_column_type(v15, v5), v15 = *(this + 5), v16 == 1))
-      {
-        v17 = sqlite3_column_double(v15, v5);
-        v13 = CPMLRemapper::normalizeColumn(*(this + 7), v17, v5);
-      }
-
-      else
-      {
-        v28 = sqlite3_column_type(v15, v5);
-        v29 = *(this + 5);
-        if (v28 == 4)
-        {
-          v30 = sqlite3_column_blob(v29, v5);
-          sqlite3_column_bytes(*(this + 5), v5);
-          v31 = MEMORY[0x28223BE20]();
-          v33 = v55 - v32;
-          v34 = *v30;
-          if (v34 != 83)
-          {
-            if (v34 == 78)
+            v22 = *(*(this + 8) + 128);
+            v23 = sqlite3_column_blob(*(this + 5), v22);
+            v24 = sqlite3_column_bytes(*(this + 5), v22);
+            v25 = MEMORY[0x28223BE20](v24);
+            v27 = v56 - v26;
+            v28 = *v23;
+            if (v28 == 83)
             {
-              v35 = CPMLRemapper::remap(*(this + 7), "", v5);
-              CPMLFeatureVector::insertIntToLastVVClass(*(this + 6), v35);
+              v41 = *(v23 + 1);
+              if (v41)
+              {
+                v42 = (v23 + 9);
+                do
+                {
+                  v45 = *v42;
+                  v43 = (v42 + 1);
+                  v44 = v45;
+                  strlcpy(v27, v43, v45);
+                  v46 = CPMLRemapper::remap(*(this + 7), v27, v22);
+                  if ((v46 & 0x80000000) == 0)
+                  {
+                    CPMLFeatureVector::insertYIntVClass(*(this + 6), v46);
+                  }
+
+                  v42 = &v43[v44];
+                  --v41;
+                }
+
+                while (v41);
+                v13 = v46;
+                goto LABEL_51;
+              }
             }
 
             else
             {
-              v52 = CPMLLog::getCPMLLog(v31);
-              CPMLLog::log(v52, CPML_LOG_ERR, "iterateFirst", "Encoding unsupported");
+              if (v28 == 78)
+              {
+                v13 = CPMLRemapper::remap(*(this + 7), "", v22);
+LABEL_51:
+                YVectorVector = CPMLFeatureVector::getYVectorVector(*(this + 6));
+                v6 &= YVectorVector[1] != *YVectorVector;
+                goto LABEL_17;
+              }
+
+              CPMLLog = CPMLLog::getCPMLLog(v25);
+              CPMLLog::log(CPMLLog, CPML_LOG_ERR, "iterateFirst", "Encoding unsupported");
             }
 
-            goto LABEL_24;
+            v13 = 0.0;
+            goto LABEL_51;
           }
 
-          v45 = *(v30 + 1);
-          v13 = 666.666;
-          if (v45)
-          {
-            v46 = (v30 + 9);
-            do
-            {
-              v48 = *v46;
-              v47 = (v46 + 1);
-              strlcpy(v33, v47, v48);
-              v49 = CPMLRemapper::remap(*(this + 7), v33, v5);
-              CPMLFeatureVector::insertIntToLastVVClass(*(this + 6), v49);
-              v46 = &v47[v48];
-              --v45;
-            }
-
-            while (v45);
-            v13 = v49;
-          }
+          v38 = sqlite3_column_text(*(this + 5), *(*(this + 8) + 128));
+          v13 = CPMLRemapper::remap(*(this + 7), v38, *(*(this + 8) + 128));
         }
 
-        else
-        {
-          v37 = sqlite3_column_text(v29, v5);
-          v13 = CPMLRemapper::remap(*(this + 7), v37, v5);
-          v38 = *(this + 8);
-          if (*(v38 + 136) == 1)
-          {
-            v13 = v13 / *(v38 + 120);
-          }
-        }
-      }
-
-      v18 = *(this + 8);
-      if (*(*(v18 + 72) + 4 * v5) || *(v18 + 136) == 1)
-      {
-        CPMLFeatureVector::insertRealVClass(*(this + 6), v13);
+        CPMLFeatureVector::setYHat(*(this + 6), v13);
       }
 
       else
       {
-        CPMLFeatureVector::insertIntVClass(*(this + 6), v13);
+        v14 = sqlite3_column_type(v8, v5);
+        v15 = *(this + 5);
+        if (v14 == 2 || (v16 = sqlite3_column_type(v15, v5), v15 = *(this + 5), v16 == 1))
+        {
+          v17 = sqlite3_column_double(v15, v5);
+          v13 = CPMLRemapper::normalizeColumn(*(this + 7), v17, v5);
+        }
+
+        else
+        {
+          v29 = sqlite3_column_type(v15, v5);
+          v30 = *(this + 5);
+          if (v29 == 4)
+          {
+            v31 = sqlite3_column_blob(v30, v5);
+            v32 = sqlite3_column_bytes(*(this + 5), v5);
+            v33 = MEMORY[0x28223BE20](v32);
+            v35 = v56 - v34;
+            v36 = *v31;
+            if (v36 != 83)
+            {
+              if (v36 == 78)
+              {
+                v37 = CPMLRemapper::remap(*(this + 7), "", v5);
+                CPMLFeatureVector::insertIntToLastVVClass(*(this + 6), v37);
+              }
+
+              else
+              {
+                v54 = CPMLLog::getCPMLLog(v33);
+                CPMLLog::log(v54, CPML_LOG_ERR, "iterateFirst", "Encoding unsupported");
+              }
+
+              goto LABEL_24;
+            }
+
+            v47 = *(v31 + 1);
+            v13 = 666.666;
+            if (v47)
+            {
+              v48 = (v31 + 9);
+              do
+              {
+                v50 = *v48;
+                v49 = (v48 + 1);
+                strlcpy(v35, v49, v50);
+                v51 = CPMLRemapper::remap(*(this + 7), v35, v5);
+                CPMLFeatureVector::insertIntToLastVVClass(*(this + 6), v51);
+                v48 = &v49[v50];
+                --v47;
+              }
+
+              while (v47);
+              v13 = v51;
+            }
+          }
+
+          else
+          {
+            v39 = sqlite3_column_text(v30, v5);
+            v13 = CPMLRemapper::remap(*(this + 7), v39, v5);
+            v40 = *(this + 8);
+            if (*(v40 + 136) == 1)
+            {
+              v13 = v13 / *(v40 + 120);
+            }
+          }
+        }
+
+        v18 = *(this + 8);
+        if (*(*(v18 + 72) + 4 * v5) || *(v18 + 136) == 1)
+        {
+          CPMLFeatureVector::insertRealVClass(*(this + 6), v13);
+        }
+
+        else
+        {
+          CPMLFeatureVector::insertIntVClass(*(this + 6), v13);
+        }
       }
 
 LABEL_17:
@@ -2990,13 +2959,11 @@ LABEL_24:
     }
 
     while (v5 < *(v4 + 124));
+    if (v6)
+    {
+      return *(this + 6);
+    }
   }
-
-  while ((v6 & 1) == 0);
-  result = *(this + 6);
-LABEL_56:
-  v54 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void CPMLTunableData::CPMLTunableData(CPMLTunableData *this, void *a2, void *a3)
@@ -3103,7 +3070,7 @@ BOOL CPMLTunableData::isOptionAvailable(CPMLTunableData *this, int a2)
   return v6;
 }
 
-void *CPMLStatistics::allocateMemory(CPMLStatistics *this)
+void CPMLStatistics::allocateMemory(CPMLStatistics *this)
 {
   std::vector<int>::reserve(this + 3, *(this + 31));
   std::vector<double>::reserve(this + 3, *(this + 31));
@@ -3116,7 +3083,7 @@ void *CPMLStatistics::allocateMemory(CPMLStatistics *this)
   std::vector<double>::reserve(this + 27, *(this + 31));
   v2 = *(this + 31);
 
-  return std::vector<double>::reserve(this + 30, v2);
+  std::vector<double>::reserve(this + 30, v2);
 }
 
 void std::vector<int>::reserve(std::vector<int> *this, std::vector<int>::size_type __n)
@@ -3125,7 +3092,6 @@ void std::vector<int>::reserve(std::vector<int> *this, std::vector<int>::size_ty
   {
     if (!(__n >> 62))
     {
-      v2 = this->__end_ - this->__begin_;
       std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(this, __n);
     }
 
@@ -3133,20 +3099,17 @@ void std::vector<int>::reserve(std::vector<int> *this, std::vector<int>::size_ty
   }
 }
 
-void *std::vector<double>::reserve(void *result, unint64_t a2)
+void std::vector<double>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(a1, a2);
     }
 
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t CPMLStatistics::CPMLStatistics(uint64_t a1, int a2, int a3)
@@ -3541,7 +3504,7 @@ void CPKNNClassfier::CPKNNClassfier(CPKNNClassfier *this, CPMLCDB *a2, CPMLSeria
   *(&v7 + 1) = SHIDWORD(v6);
   *(v5 + 120) = v7;
   *(v5 + 96) = xmmword_247321D00;
-  CPMLCDB::getIterator();
+  CPMLCDB::getIterator(a2, 0, 0, 0);
 }
 
 void CPKNNClassfier::CPKNNClassfier(CPKNNClassfier *this, CPMLSerialization *a2, CPMLTunableData *a3)
@@ -3602,26 +3565,25 @@ void CPKNNClassfier::CPKNNClassfier(CPKNNClassfier *this, CPMLSerialization *a2,
     {
       *(this + 244) = 0;
       *(this + 14) = malloc_type_calloc(*(this + 15), 8 * *(this + 16) + 8, 0x100004000313F17uLL);
-      v8 = *(this + 15) + *(this + 15) * *(this + 16);
       if (((*(a2->var0 + 12))(a2) & 0x80000000) != 0)
       {
-        v10 = *(this + 15);
-        v11 = *(this + 16) + 1;
-        v9 = *(this + 14);
-        if (v11 * v10)
+        v9 = *(this + 15);
+        v10 = *(this + 16) + 1;
+        v8 = *(this + 14);
+        if (v10 * v9)
         {
-          bzero(*(this + 14), 8 * v11 * v10);
+          bzero(*(this + 14), 8 * v10 * v9);
         }
       }
 
       else
       {
-        v9 = *(this + 14);
-        v10 = *(this + 15);
-        v11 = *(this + 16) + 1;
+        v8 = *(this + 14);
+        v9 = *(this + 15);
+        v10 = *(this + 16) + 1;
       }
 
-      (*(a2->var0 + 31))(a2, this + 144, v9, (8 * v10 * v11));
+      (*(a2->var0 + 31))(a2, this + 144, v8, (8 * v9 * v10));
     }
   }
 
@@ -3774,176 +3736,176 @@ uint64_t CPKNNClassfier::eval(uint64_t a1, CPMLFeatureVector *a2)
   }
 
   RealVector = CPMLFeatureVector::getRealVector(a2);
-  v17 = *RealVector;
-  v18 = *(RealVector + 8) - *RealVector;
-  if (v18)
+  v17 = RealVector;
+  v18 = *RealVector;
+  v19 = *(RealVector + 8) - *RealVector;
+  if (v19)
   {
-    v19 = v18 >> 3;
-    v20 = v56 + 2 * (IntVector[1] - *IntVector);
-    if (v19 <= 1)
+    v20 = v19 >> 3;
+    v21 = v56 + 2 * (IntVector[1] - *IntVector);
+    if (v20 <= 1)
     {
-      v19 = 1;
+      v20 = 1;
     }
 
     do
     {
-      v21 = *v17++;
-      *v20 = v21;
-      v20 += 8;
-      --v19;
+      v22 = *v18++;
+      *v21 = v22;
+      v21 += 8;
+      --v20;
     }
 
-    while (v19);
+    while (v20);
   }
 
   v54 = a2;
   if (*(a1 + 96))
   {
-    v22 = 0;
     v23 = 0;
+    v24 = 0;
     do
     {
       if (*(*(a1 + 88) + 8) == 1)
       {
-        v24 = *(a1 + 128);
-        if (v24)
+        v25 = *(a1 + 128);
+        if (v25)
         {
-          v25 = (*(a1 + 112) + v22 * (v24 + 1));
-          v26 = 0.0;
-          v27 = v56;
+          v26 = (*(a1 + 112) + v23 * (v25 + 1));
+          v27 = 0.0;
+          v28 = v56;
           do
           {
-            v28 = *v27++;
-            v29 = v28;
-            v30 = *v25++;
-            v26 = v26 + (v29 - v30) * (v29 - v30);
-            --v24;
+            v29 = *v28++;
+            v30 = v29;
+            v31 = *v26++;
+            v27 = v27 + (v30 - v31) * (v30 - v31);
+            --v25;
           }
 
-          while (v24);
+          while (v25);
         }
 
         else
         {
-          v26 = 0.0;
+          v27 = 0.0;
         }
       }
 
       else
       {
-        MEMORY[0x28223BE20]();
-        v32 = (&v53 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0));
-        (*(**(a1 + 88) + 152))(*(a1 + 88), v32, *(a1 + 128) + 1, "KNNDataTable", "KNNDataTable", (v23 * (*(a1 + 128) + 1)));
-        v33 = *(a1 + 128);
-        if (v33)
+        MEMORY[0x28223BE20](RealVector);
+        v33 = (&v53 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0));
+        RealVector = (*(**(a1 + 88) + 152))(*(a1 + 88), v33, *(a1 + 128) + 1, "KNNDataTable", "KNNDataTable", (v24 * (*(a1 + 128) + 1)));
+        v34 = *(a1 + 128);
+        if (v34)
         {
-          v26 = 0.0;
-          v34 = v56;
+          v27 = 0.0;
+          v35 = v56;
           do
           {
-            v35 = *v34++;
-            v36 = v35;
-            v37 = *v32++;
-            v26 = v26 + (v36 - v37) * (v36 - v37);
-            --v33;
+            v36 = *v35++;
+            v37 = v36;
+            v38 = *v33++;
+            v27 = v27 + (v37 - v38) * (v37 - v38);
+            --v34;
           }
 
-          while (v33);
+          while (v34);
         }
 
         else
         {
-          v26 = 0.0;
+          v27 = 0.0;
         }
       }
 
-      v4[v23] = sqrt(v26);
-      v38 = *(a1 + 136);
-      if (v38)
+      v4[v24] = sqrt(v27);
+      v39 = *(a1 + 136);
+      if (v39)
       {
-        v39 = v4[v23];
-        v40 = v55;
-        v41 = v6;
-        v42 = *(a1 + 136);
-        v43 = v23;
+        v40 = v4[v24];
+        v41 = v55;
+        v42 = v6;
+        v43 = *(a1 + 136);
+        v44 = v24;
         do
         {
-          v44 = *v40;
-          if (v39 < *v40)
+          v45 = *v41;
+          if (v40 < *v41)
           {
-            *v40 = v39;
-            v4[v23] = v44;
-            v45 = *v41;
-            *v41 = v43;
-            v43 = v45;
-            v39 = v44;
+            *v41 = v40;
+            v4[v24] = v45;
+            v46 = *v42;
+            *v42 = v44;
+            v44 = v46;
+            v40 = v45;
           }
 
+          ++v42;
           ++v41;
-          ++v40;
-          --v42;
+          --v43;
         }
 
-        while (v42);
+        while (v43);
       }
 
-      ++v23;
-      v22 += 8;
+      ++v24;
+      v23 += 8;
     }
 
-    while (*(a1 + 96) > v23);
-    if (v38)
+    while (*(a1 + 96) > v24);
+    if (v39)
     {
       goto LABEL_33;
     }
 
 LABEL_42:
-    v50 = 1.0;
+    v51 = 1.0;
     goto LABEL_43;
   }
 
-  v38 = *(a1 + 136);
-  if (!v38)
+  v39 = *(a1 + 136);
+  if (!v39)
   {
     goto LABEL_42;
   }
 
 LABEL_33:
-  v46 = 0;
-  v47 = 0.0;
+  v47 = 0;
+  v48 = 0.0;
   do
   {
-    v48 = *(a1 + 88);
-    if (v48[8] == 1)
+    v49 = *(a1 + 88);
+    if (v49[8] == 1)
     {
-      v49 = *(*(a1 + 112) + 8 * (v6[v46] + v6[v46] * *(a1 + 128)) + *(RealVector + 8) - *RealVector + 2 * (IntVector[1] - *IntVector));
+      v50 = *(*(a1 + 112) + 8 * (v6[v47] + v6[v47] * *(a1 + 128)) + v17[1] - *v17 + 2 * (IntVector[1] - *IntVector));
     }
 
     else
     {
-      (*(*v48 + 152))(v48, v57, 1, "KNNDataTable", "KNNDataTable", ((*(RealVector + 8) - *RealVector) >> 3) + ((IntVector[1] - *IntVector) >> 2) + v6[v46] + v6[v46] * *(a1 + 128));
-      v49 = *v57;
-      v38 = *(a1 + 136);
+      (*(*v49 + 152))(v49, v57, 1, "KNNDataTable", "KNNDataTable", ((v17[1] - *v17) >> 3) + ((IntVector[1] - *IntVector) >> 2) + v6[v47] + v6[v47] * *(a1 + 128));
+      v50 = *v57;
+      v39 = *(a1 + 136);
     }
 
-    v47 = v47 + v49;
-    ++v46;
+    v48 = v48 + v50;
+    ++v47;
   }
 
-  while (v46 < v38);
-  v50 = 1.0;
-  if (v47 / v38 < 0.5)
+  while (v47 < v39);
+  v51 = 1.0;
+  if (v48 / v39 < 0.5)
   {
-    v50 = 0.0;
+    v51 = 0.0;
   }
 
 LABEL_43:
-  CPMLFeatureVector::setYHat(v54, v50);
+  CPMLFeatureVector::setYHat(v54, v51);
   free(v6);
   free(v55);
   free(v4);
   free(v56);
-  v51 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -3971,7 +3933,7 @@ void CPMLNaiveBayesClassifier::CPMLNaiveBayesClassifier(CPMLNaiveBayesClassifier
   v10 = (*(var0 + 7) - *(var0 + 6)) >> 2;
   *(v5 + 144) = v7;
   *(v5 + 152) = v10;
-  CPMLCDB::getIterator();
+  CPMLCDB::getIterator(a2, 0, 0, 0);
 }
 
 void sub_2472EFB14(_Unwind_Exception *a1)
@@ -4161,7 +4123,7 @@ uint64_t CPMLNaiveBayesClassifier::serialize(CPMLNaiveBayesClassifier *this)
 
 uint64_t CPMLNaiveBayesClassifier::train(CPMLNaiveBayesClassifier *this)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = (*(**(this + 10) + 32))(*(this + 10));
   if (v2)
   {
@@ -4237,7 +4199,7 @@ uint64_t CPMLNaiveBayesClassifier::train(CPMLNaiveBayesClassifier *this)
 
     v27 = CPMLLog::getCPMLLog(YVectorVector);
     CPMLLog::log(v27, CPML_LOG_ERR, "train", "no vectors to process\n");
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
@@ -4273,7 +4235,7 @@ LABEL_17:
       v20 = 0;
       do
       {
-        sprintf(v29, "xcol%d", v20);
+        sprintf(v28, "xcol%d", v20);
         v21 = *(this + 18);
         if (v21)
         {
@@ -4284,7 +4246,7 @@ LABEL_17:
             do
             {
               v25 = sqlite3_mprintf("%d,%d,%lf", i, v24, *(**(this + 21) + v22 * v21 + 8 * v24));
-              (*(**(this + 11) + 136))(*(this + 11), v29, "xMap,yMap,xyCount", v25);
+              (*(**(this + 11) + 136))(*(this + 11), v28, "xMap,yMap,xyCount", v25);
               if (v25)
               {
                 sqlite3_free(v25);
@@ -4305,11 +4267,8 @@ LABEL_17:
       while (*(this + 12) > v20);
     }
 
-    result = 0;
+    return 0;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t CPMLNaiveBayesClassifier::eval(uint64_t a1, CPMLFeatureVector *a2, uint64_t *a3)
@@ -4523,9 +4482,9 @@ LABEL_8:
 void CPRegressionForestClassfier::CPRegressionForestClassfier(CPRegressionForestClassfier *this, CPMLCDB *a2, CPMLSerialization *a3, CPMLTunableData *a4)
 {
   CPMLAlgorithm::CPMLAlgorithm(this, a2, a3, a4);
-  *v4 = &unk_285927138;
-  strcpy((v4 + 8), "1.0.0");
-  CPMLCDB::getIterator();
+  *v5 = &unk_285927138;
+  strcpy((v5 + 8), "1.0.0");
+  CPMLCDB::getIterator(a2, 0, 0, 0);
 }
 
 void CPRegressionForestClassfier::CPRegressionForestClassfier(CPRegressionForestClassfier *this, CPMLSerialization *a2, CPMLTunableData *a3)
@@ -4582,7 +4541,7 @@ void *deSerializeTree(uint64_t a1, void *a2, uint64_t a3)
 
   if (v10 == 2)
   {
-    v8 = v6[1] + 8;
+    v8 = (v6[1] + 8);
 LABEL_7:
     v9 = a3 + 1;
     return deSerializeTree(a1, v8, v9);
@@ -4594,7 +4553,7 @@ LABEL_7:
   }
 
   deSerializeTree(a1, v6[1], a3 + 1);
-  v8 = v6[1] + 8;
+  v8 = (v6[1] + 8);
   v9 = a3 + 2;
   return deSerializeTree(a1, v8, v9);
 }
@@ -4855,7 +4814,7 @@ void CPMLNaiveBayesSuggestionsClassifier::CPMLNaiveBayesSuggestionsClassifier(CP
   v10 = (*(var0 + 7) - *(var0 + 6)) >> 2;
   *(v5 + 144) = v7;
   *(v5 + 152) = v10;
-  CPMLCDB::getIterator();
+  CPMLCDB::getIterator(a2, 0, 0, 0);
 }
 
 void sub_2472F3138(_Unwind_Exception *a1)
@@ -4930,7 +4889,7 @@ void CPMLNaiveBayesSuggestionsClassifier::CPMLNaiveBayesSuggestionsClassifier(CP
   *(v6 + 192) = 0;
   *(v6 + 96) = *(a2 + 31);
   v7 = 0;
-  v8 = 0;
+  v8 = 0.0;
   CPMLNaiveBayesSuggestionsClassifier::setTunableData(v6, a4);
 }
 
@@ -5008,7 +4967,7 @@ uint64_t CPMLNaiveBayesSuggestionsClassifier::serialize(CPMLNaiveBayesSuggestion
 
 uint64_t CPMLNaiveBayesSuggestionsClassifier::train(CPMLNaiveBayesSuggestionsClassifier *this)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = (*(**(this + 10) + 32))(*(this + 10));
   if (v2)
   {
@@ -5104,7 +5063,7 @@ uint64_t CPMLNaiveBayesSuggestionsClassifier::train(CPMLNaiveBayesSuggestionsCla
 
     v32 = CPMLLog::getCPMLLog(YVectorVector);
     CPMLLog::log(v32, CPML_LOG_ERR, "train", "no vectors to process\n");
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
@@ -5140,7 +5099,7 @@ LABEL_21:
       v24 = 0;
       do
       {
-        sprintf(v34, "xcol%d", v24);
+        sprintf(v33, "xcol%d", v24);
         v25 = *(this + 18);
         if (v25)
         {
@@ -5154,7 +5113,7 @@ LABEL_21:
               if (v29)
               {
                 v30 = sqlite3_mprintf("%d,%d,%lf", i, v28, v29);
-                (*(**(this + 11) + 136))(*(this + 11), v34, "xMap,yMap,xyCount", v30);
+                (*(**(this + 11) + 136))(*(this + 11), v33, "xMap,yMap,xyCount", v30);
                 if (v30)
                 {
                   sqlite3_free(v30);
@@ -5176,11 +5135,8 @@ LABEL_21:
       while (*(this + 12) > v24);
     }
 
-    result = 0;
+    return 0;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t CPMLNaiveBayesSuggestionsClassifier::eval(uint64_t a1, CPMLFeatureVector *this, uint64_t *a3)
@@ -5225,9 +5181,9 @@ uint64_t CPMLNaiveBayesSuggestionsClassifier::eval(uint64_t a1, CPMLFeatureVecto
       v14 = 0;
       do
       {
-        LODWORD(v21[0]) = *(v13 + 4 * v14);
+        LODWORD(v21[0]) = v13[v14];
         __p = v21;
-        *(std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v25, v21) + 5) = 1;
+        *(std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v25, v21, &std::piecewise_construct, &__p) + 5) = 1;
         ++v14;
         v13 = *v7;
       }
@@ -5251,7 +5207,7 @@ uint64_t CPMLNaiveBayesSuggestionsClassifier::eval(uint64_t a1, CPMLFeatureVecto
 
         LODWORD(v27) = *(*(*(**(a1 + 368) + 72))(*(a1 + 368)) + 4 * i);
         v21[0] = &v27;
-        if (*(std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v25, &v27) + 5) != 1)
+        if (*(std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v25, &v27, &std::piecewise_construct, v21) + 5) != 1)
         {
           std::vector<int>::push_back[abi:ne200100](&__p, &v27);
         }
@@ -5265,7 +5221,7 @@ uint64_t CPMLNaiveBayesSuggestionsClassifier::eval(uint64_t a1, CPMLFeatureVecto
       {
         LODWORD(v27) = *(v15 + 4 * v16);
         v21[0] = &v27;
-        if (*(std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v25, &v27) + 5) != 1)
+        if (*(std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v25, &v27, &std::piecewise_construct, v21) + 5) != 1)
         {
           std::vector<int>::push_back[abi:ne200100](&__p, &v27);
         }
@@ -5297,16 +5253,17 @@ uint64_t CPMLNaiveBayesSuggestionsClassifier::eval(uint64_t a1, CPMLFeatureVecto
   return result;
 }
 
-void sub_2472F4344(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_2472F4344(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
-  *(v16 - 72) = v15;
-  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100]((v16 - 72));
+  va_start(va, a14);
+  *(v15 - 72) = v14;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100]((v15 - 72));
   if (__p)
   {
     operator delete(__p);
   }
 
-  std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::~__hash_table(&a15);
+  std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
@@ -5342,33 +5299,33 @@ uint64_t std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_
   return a1;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(float *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5376,47 +5333,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -5432,7 +5389,7 @@ void std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hash
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -5440,7 +5397,7 @@ void std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hash
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -5464,7 +5421,7 @@ void std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hash
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -5551,7 +5508,7 @@ void sub_2472F4D2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -5565,13 +5522,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -5715,7 +5672,7 @@ uint64_t CPMLLogger::cpmlLog(uint64_t this, const char *a2)
   return this;
 }
 
-void *CPMLLogger::cpmlLog(void *result, uint64_t a2)
+void *CPMLLogger::cpmlLog(void *result, uint64_t ***a2)
 {
   if (*result == 1)
   {
@@ -5725,7 +5682,7 @@ void *CPMLLogger::cpmlLog(void *result, uint64_t a2)
     {
       if (v2[17])
       {
-        v4 = *(a2 + 8);
+        v4 = a2[1];
         if (*(a2 + 23) >= 0)
         {
           v5 = *(a2 + 23);
@@ -5771,7 +5728,7 @@ void CPNaiveBayesV2Classifier::CPNaiveBayesV2Classifier(CPNaiveBayesV2Classifier
   v10 = (*(var0 + 7) - *(var0 + 6)) >> 2;
   v5[25] = v7;
   v5[26] = v10;
-  CPMLCDB::getIterator();
+  CPMLCDB::getIterator(a2, 0, 0, 0);
 }
 
 void sub_2472F5628(_Unwind_Exception *a1)
@@ -5877,7 +5834,7 @@ void *CPNaiveBayesV2Classifier::initializeNaiveBayesV2Memory(CPNaiveBayesV2Class
 
 void CPNaiveBayesV2Classifier::CPNaiveBayesV2Classifier(CPNaiveBayesV2Classifier *this, CPMLSerialization *a2, CPMLTunableData *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   CPMLAlgorithm::CPMLAlgorithm(this, 0, a2, a3);
   *v5 = &unk_285927280;
   v5[29] = 0;
@@ -5894,59 +5851,57 @@ void CPNaiveBayesV2Classifier::CPNaiveBayesV2Classifier(CPNaiveBayesV2Classifier
   if (v6)
   {
     *(this + 22) = malloc_type_calloc(v6, 4uLL, 0x100004052888210uLL);
-    v7 = *(this + 21);
     (*(a2->var0 + 8))(a2);
   }
 
   CPNaiveBayesV2Classifier::initializeNaiveBayesV2Memory(this);
-  v8 = *(this + 13);
+  v7 = *(this + 13);
   if (*(this + 21))
   {
-    if (!v8)
+    if (!v7)
     {
       goto LABEL_15;
     }
 
-    v9 = 0;
-    v10 = 1;
+    v8 = 0;
+    v9 = 1;
     do
     {
-      if (v10)
+      if (v9)
       {
-        for (i = 0; i < v10; ++i)
+        for (i = 0; i < v9; ++i)
         {
-          sprintf(v15, "discreteFeatureTable%d", i);
-          (*(a2->var0 + 10))(a2, *(*(*(this + 23) + 8 * v9) + 8 * i), v15, *(*(this + 22) + 4 * i), 0);
-          v10 = *(this + 21);
+          sprintf(v13, "discreteFeatureTable%d", i);
+          (*(a2->var0 + 10))(a2, *(*(*(this + 23) + 8 * v8) + 8 * i), v13, *(*(this + 22) + 4 * i), 0);
+          v9 = *(this + 21);
         }
 
-        v8 = *(this + 13);
+        v7 = *(this + 13);
       }
 
-      ++v9;
+      ++v8;
     }
 
-    while (v8 > v9);
+    while (v7 > v8);
   }
 
-  if (*(this + 20) && v8)
+  if (*(this + 20) && v7)
   {
-    v12 = 0;
+    v11 = 0;
     do
     {
-      sprintf(v15, "datasetMean%d", v12);
-      sprintf(v14, "datasetVariance%d", v12);
-      (*(a2->var0 + 12))(a2, *(*(this + 14) + 8 * v12), v15, *(this + 12), 0);
-      (*(a2->var0 + 12))(a2, *(*(this + 15) + 8 * v12++), v14, *(this + 12), 0);
+      sprintf(v13, "datasetMean%d", v11);
+      sprintf(v12, "datasetVariance%d", v11);
+      (*(a2->var0 + 12))(a2, *(*(this + 14) + 8 * v11), v13, *(this + 12), 0);
+      (*(a2->var0 + 12))(a2, *(*(this + 15) + 8 * v11++), v12, *(this + 12), 0);
     }
 
-    while (*(this + 13) > v12);
+    while (*(this + 13) > v11);
   }
 
 LABEL_15:
   (*(a2->var0 + 10))(a2, *(this + 18), "dist_datasetOutput");
   (*(a2->var0 + 12))(a2, *(this + 27), "pY_tableFreqCount", *(this + 13), 0);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2472F5D44(_Unwind_Exception *a1)
@@ -6034,7 +5989,7 @@ void CPNaiveBayesV2Classifier::~CPNaiveBayesV2Classifier(CPNaiveBayesV2Classifie
 
 uint64_t CPNaiveBayesV2Classifier::serialize(CPNaiveBayesV2Classifier *this)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   (*(**(this + 11) + 32))(*(this + 11), this + 152, "totalDataCount", 1, 0);
   (*(**(this + 11) + 32))(*(this + 11), this + 96, "featureVectorSpace", 1, 0);
   (*(**(this + 11) + 32))(*(this + 11), this + 104, "resultCardinality", 1, 0);
@@ -6055,13 +6010,13 @@ uint64_t CPNaiveBayesV2Classifier::serialize(CPNaiveBayesV2Classifier *this)
     v3 = 0;
     do
     {
-      sprintf(v10, "discreteFeatureTable%d", v3);
+      sprintf(v9, "discreteFeatureTable%d", v3);
       if (*(this + 21))
       {
         v4 = 0;
         do
         {
-          (*(**(this + 11) + 32))(*(this + 11), *(*(*(this + 23) + 8 * v3) + 8 * v4), v10, *(*(this + 22) + 4 * v4), 0);
+          (*(**(this + 11) + 32))(*(this + 11), *(*(*(this + 23) + 8 * v3) + 8 * v4), v9, *(*(this + 22) + 4 * v4), 0);
           ++v4;
         }
 
@@ -6084,10 +6039,10 @@ uint64_t CPNaiveBayesV2Classifier::serialize(CPNaiveBayesV2Classifier *this)
   {
     for (i = 0; i < v5; ++i)
     {
-      sprintf(v10, "datasetMean%d", i);
-      sprintf(v9, "datasetVariance%d", i);
-      (*(**(this + 11) + 48))(*(this + 11), *(*(this + 14) + 8 * i), v10, *(this + 12), 0);
-      (*(**(this + 11) + 48))(*(this + 11), *(*(this + 15) + 8 * i), v9, *(this + 12), 0);
+      sprintf(v9, "datasetMean%d", i);
+      sprintf(v8, "datasetVariance%d", i);
+      (*(**(this + 11) + 48))(*(this + 11), *(*(this + 14) + 8 * i), v9, *(this + 12), 0);
+      (*(**(this + 11) + 48))(*(this + 11), *(*(this + 15) + 8 * i), v8, *(this + 12), 0);
       v5 = *(this + 13);
     }
   }
@@ -6095,7 +6050,6 @@ uint64_t CPNaiveBayesV2Classifier::serialize(CPNaiveBayesV2Classifier *this)
 LABEL_16:
   (*(**(this + 11) + 32))(*(this + 11), *(this + 18), "dist_datasetOutput", v5, 0);
   (*(**(this + 11) + 48))(*(this + 11), *(this + 27), "pY_tableFreqCount", *(this + 13), 0);
-  v7 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -6237,7 +6191,7 @@ uint64_t CPNaiveBayesV2Classifier::train(CPNaiveBayesV2Classifier *this)
 
 uint64_t CPNaiveBayesV2Classifier::eval(uint64_t a1, CPMLFeatureVector *a2)
 {
-  v60[1] = *MEMORY[0x277D85DE8];
+  v59[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 104);
   if (v3)
   {
@@ -6286,13 +6240,13 @@ uint64_t CPNaiveBayesV2Classifier::eval(uint64_t a1, CPMLFeatureVector *a2)
         v18 = v17;
         v19 = MEMORY[0x28223BE20](XVectorVector);
         MEMORY[0x28223BE20](v19);
-        v25 = (v60 - v24);
+        v25 = (v59 - v24);
         if (v17 >= 1)
         {
           v26 = *v22;
           v27 = (v23 >> 2) & 0x7FFFFFFF;
           v28 = v27;
-          v29 = (v60 - v24);
+          v29 = (v59 - v24);
           v30 = v21;
           do
           {
@@ -6443,18 +6397,15 @@ LABEL_21:
     CPMLFeatureVector::setYHatProbList(a2, (a1 + 232));
     *(a1 + 240) = *(a1 + 232);
     free(v5);
-    result = 0;
+    return 0;
   }
 
   else
   {
     v39 = CPMLLog::getCPMLLog(0);
     CPMLLog::log(v39, CPML_LOG_DEBUG, "eval", "resultcardinality 0");
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
-
-  v59 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t compareCPNaiveBayesResult(double *a1, double *a2)
@@ -6558,9 +6509,9 @@ void CPLogisticRegressionClassfier::Normalize(void *a1, void *a2)
   {
     v4 = *(*a2 + 8) - **a2;
     v5 = v4 >> 3;
-    std::valarray<double>::resize((a1 + 34), (v4 >> 3));
-    std::valarray<double>::resize((a1 + 32), (v4 >> 3));
-    std::valarray<double>::resize((a1 + 36), (v4 >> 3));
+    std::valarray<double>::resize((a1 + 34), (v4 >> 3), 2.22507386e-308);
+    std::valarray<double>::resize((a1 + 32), (v4 >> 3), 1.79769313e308);
+    std::valarray<double>::resize((a1 + 36), (v4 >> 3), 0.0);
     v6 = *a2;
     v7 = a2[1];
     v8 = (v4 >> 3) & 0x7FFFFFFF;
@@ -6616,7 +6567,7 @@ void CPLogisticRegressionClassfier::Normalize(void *a1, void *a2)
     v21 = (v19 - v20) >> 3;
     if (a1[37] - a1[36] != v19 - v20)
     {
-      std::valarray<double>::resize((a1 + 36), (v19 - v20) >> 3);
+      std::valarray<double>::resize((a1 + 36), (v19 - v20) >> 3, 0.0);
     }
 
     if (v19 != v20)
@@ -6713,8 +6664,7 @@ void CPLogisticRegressionClassfier::CPLogisticRegressionClassfier(CPLogisticRegr
   *(v5 + 272) = 0u;
   *(v5 + 288) = 0u;
   strcpy((v5 + 8), "1.0.0");
-  v6 = *(a2->var0 + 31);
-  CPMLCDB::getIterator();
+  CPMLCDB::getIterator(a2, 0, 0, 0);
 }
 
 void sub_2472F73DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, uint64_t a25, char *a26, void *a27, uint64_t a28)
@@ -6741,7 +6691,7 @@ void sub_2472F73DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void CPLogisticRegressionClassfier::Init(uint64_t a1, uint64_t **a2, int a3, int a4, int a5, int a6)
 {
-  v11 = a1 + 200;
+  v11 = (a1 + 200);
   if (v11 != a2)
   {
     std::vector<std::vector<data_record_t>>::__assign_with_size[abi:ne200100]<std::vector<data_record_t>*,std::vector<data_record_t>*>(v11, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * (a2[1] - *a2));
@@ -6802,7 +6752,7 @@ void *CPLogisticRegressionClassfier::initializeLogisticRegressionMemory(CPLogist
   return result;
 }
 
-double CPLogisticRegressionClassfier::ComputeSingleLogProb(uint64_t a1, uint64_t a2, int a3)
+double CPLogisticRegressionClassfier::ComputeSingleLogProb(uint64_t a1, uint64_t *a2, int a3, int a4, int a5)
 {
   if (a3 != 1)
   {
@@ -6817,7 +6767,7 @@ double CPLogisticRegressionClassfier::ComputeSingleLogProb(uint64_t a1, uint64_t
   return -0.0;
 }
 
-double CPLogisticRegressionClassfier::ObjectiveFunction(uint64_t a1, uint64_t *a2)
+double CPLogisticRegressionClassfier::ObjectiveFunction(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
   v3 = -1431655765 * ((a2[1] - *a2) >> 3);
@@ -6838,7 +6788,7 @@ double CPLogisticRegressionClassfier::ObjectiveFunction(uint64_t a1, uint64_t *a
       v11 = 0;
       do
       {
-        v8 = v8 + CPLogisticRegressionClassfier::ComputeSingleLogProb(v9 + v10, a1, v3);
+        v8 = v8 + CPLogisticRegressionClassfier::ComputeSingleLogProb(v9 + v10, a1, v3, v7, v6);
         ++v11;
         v2 = *a2;
         v9 = *(*a2 + 24 * v6);
@@ -6864,7 +6814,7 @@ double CPLogisticRegressionClassfier::ObjectiveFunction0(double **a1, uint64_t *
   {
     v7 = 0;
     v8 = v6 >> 5;
-    v9 = (*a1 + 1);
+    v9 = *a1 + 1;
     v10 = **a1;
     if (v8 <= 1)
     {
@@ -6991,7 +6941,7 @@ double CPLogisticRegressionClassfier::ObjectiveFunction0(double **a1, uint64_t *
   return v22;
 }
 
-void CPLogisticRegressionClassfier::ComputeSingleGradient(uint64_t a1, void *a2, int a3, int a4, int a5, uint64_t *a6)
+void CPLogisticRegressionClassfier::ComputeSingleGradient(uint64_t a1, uint64_t *a2, int a3, unsigned int a4, int a5, uint64_t *a6)
 {
   if (a5 < 0 || a3 <= a5)
   {
@@ -7137,7 +7087,7 @@ void CPLogisticRegressionClassfier::ObjectiveFunctionGradient0(uint64_t a1, uint
   v6 = (*(a1 + 8) - *a1) >> 3;
   v8 = *a2;
   v7 = a2[1];
-  if (0xAAAAAAAAAAAAAAABLL * (v7 - *a2) < 2)
+  if (0xAAAAAAAAAAAAAAABLL * ((v7 - *a2) >> 3) < 2)
   {
     goto LABEL_15;
   }
@@ -7200,7 +7150,7 @@ LABEL_14:
     ++v9;
   }
 
-  while (0xAAAAAAAAAAAAAAABLL * (v7 - v8) > v9);
+  while (0xAAAAAAAAAAAAAAABLL * ((v7 - v8) >> 3) > v9);
 LABEL_15:
   if (v8 == v7)
   {
@@ -7292,14 +7242,14 @@ LABEL_26:
   }
 }
 
-void sub_2472F81A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void **a13)
+void sub_2472F81A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char *a13)
 {
   a13 = &a10;
   std::vector<data_record_t>::__destroy_vector::operator()[abi:ne200100](&a13);
   _Unwind_Resume(a1);
 }
 
-void CPLogisticRegressionClassfier::ComputeSingleHessian(uint64_t a1, void *a2, int a3, uint64_t a4, void *a5)
+void CPLogisticRegressionClassfier::ComputeSingleHessian(uint64_t a1, uint64_t *a2, int a3, int a4, uint64_t *a5)
 {
   v5 = (a2[1] - *a2) >> 3;
   if (v5 * v5 != (a5[1] - *a5) >> 3)
@@ -7318,7 +7268,7 @@ void CPLogisticRegressionClassfier::ComputeSingleHessian(uint64_t a1, void *a2, 
   }
 }
 
-void CPLogisticRegressionClassfier::ObjectiveFunctionHessian(void *a1, uint64_t **a2, double **a3)
+void CPLogisticRegressionClassfier::ObjectiveFunctionHessian(uint64_t *a1, uint64_t **a2, double **a3)
 {
   v7 = *a2;
   v6 = a2[1];
@@ -7621,45 +7571,43 @@ LABEL_18:
 
 uint64_t CPLogisticRegressionClassfier::Serialize(uint64_t a1, uint64_t *a2)
 {
-  v10[19] = *MEMORY[0x277D85DE8];
-  std::ofstream::basic_ofstream(&v8, a2);
-  if ((v9[*(v8 - 24) + 24] & 5) != 0)
+  v9[19] = *MEMORY[0x277D85DE8];
+  std::ofstream::basic_ofstream(&v7, a2, 16);
+  if ((v8[*(v7 - 24) + 24] & 5) != 0)
   {
-    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82670], "cannot open output file", 23);
-    std::endl[abi:ne200100]<char,std::char_traits<char>>(v7);
+    v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82670], "cannot open output file", 23);
+    std::endl[abi:ne200100]<char,std::char_traits<char>>(v6);
     exit(1);
   }
 
-  MEMORY[0x24C19F840](&v8, **(a1 + 240));
+  MEMORY[0x24C19F840](&v7, **(a1 + 240));
   if (*(a1 + 248) - *(a1 + 240) >= 9uLL)
   {
     v3 = 1;
     do
     {
-      v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, " ", 1);
+      v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, " ", 1);
       MEMORY[0x24C19F840](v4, *(*(a1 + 240) + 8 * v3++));
     }
 
     while (v3 < (*(a1 + 248) - *(a1 + 240)) >> 3);
   }
 
-  v8 = *MEMORY[0x277D82810];
-  *&v9[*(v8 - 24) - 8] = *(MEMORY[0x277D82810] + 24);
-  MEMORY[0x24C19F790](v9);
+  v7 = *MEMORY[0x277D82810];
+  *&v8[*(v7 - 24) - 8] = *(MEMORY[0x277D82810] + 24);
+  MEMORY[0x24C19F790](v8);
   std::ostream::~ostream();
-  result = MEMORY[0x24C19F8D0](v10);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x24C19F8D0](v9);
 }
 
 uint64_t CPLogisticRegressionClassfier::Deserialize(uint64_t a1, uint64_t *a2)
 {
-  v11[19] = *MEMORY[0x277D85DE8];
-  std::ifstream::basic_ifstream(v9, a2);
-  if ((v10[*(v9[0] - 24) + 16] & 5) != 0)
+  v10[19] = *MEMORY[0x277D85DE8];
+  std::ifstream::basic_ifstream(v8, a2, 8);
+  if ((v9[*(v8[0] - 24) + 16] & 5) != 0)
   {
-    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82670], "cannot open input file", 22);
-    std::endl[abi:ne200100]<char,std::char_traits<char>>(v8);
+    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82670], "cannot open input file", 22);
+    std::endl[abi:ne200100]<char,std::char_traits<char>>(v7);
     exit(1);
   }
 
@@ -7670,7 +7618,7 @@ uint64_t CPLogisticRegressionClassfier::Deserialize(uint64_t a1, uint64_t *a2)
     v5 = 0;
     do
     {
-      MEMORY[0x24C19F7B0](v9, v3 + v4);
+      MEMORY[0x24C19F7B0](v8, v3 + v4);
       ++v5;
       v3 = *(a1 + 240);
       v4 += 8;
@@ -7679,13 +7627,11 @@ uint64_t CPLogisticRegressionClassfier::Deserialize(uint64_t a1, uint64_t *a2)
     while (v5 < (*(a1 + 248) - v3) >> 3);
   }
 
-  v9[0] = *MEMORY[0x277D82808];
-  *(v9 + *(v9[0] - 24)) = *(MEMORY[0x277D82808] + 24);
-  MEMORY[0x24C19F790](v10);
+  v8[0] = *MEMORY[0x277D82808];
+  *(v8 + *(v8[0] - 24)) = *(MEMORY[0x277D82808] + 24);
+  MEMORY[0x24C19F790](v9);
   std::istream::~istream();
-  result = MEMORY[0x24C19F8D0](v11);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x24C19F8D0](v10);
 }
 
 void sub_2472F8E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
@@ -7743,7 +7689,7 @@ void CPLogisticRegressionClassfier::Train(CPLogisticRegressionClassfier *this)
 
   v34 = 0;
   v35 = 0;
-  std::valarray<double>::resize(&v34, (*(this + 56) - 1 + (*(this + 56) - 1) * *(this + 57)) * (*(this + 56) - 1 + (*(this + 56) - 1) * *(this + 57)));
+  std::valarray<double>::resize(&v34, (*(this + 56) - 1 + (*(this + 56) - 1) * *(this + 57)) * (*(this + 56) - 1 + (*(this + 56) - 1) * *(this + 57)), 0.0);
   CPLogisticRegressionClassfier::ObjectiveFunctionHessian(&v38, this + 25, &v34);
   if (*(this + 48) >= 2)
   {
@@ -7826,7 +7772,7 @@ void CPLogisticRegressionClassfier::Train(CPLogisticRegressionClassfier *this)
   v26 = *(this + 56) - 1 + (*(this + 56) - 1) * *(this + 57);
   v27[0] = 0;
   v27[1] = 0;
-  std::valarray<double>::resize(v27, v26);
+  std::valarray<double>::resize(v27, v26, 1.0);
   if (v27[0])
   {
     if (v27[1] != v27[0])
@@ -7862,7 +7808,7 @@ void CPLogisticRegressionClassfier::Train(CPLogisticRegressionClassfier *this)
   {
     if (v39 != v38)
     {
-      v39 += (v38 - v39 + 7) & 0xFFFFFFFFFFFFFFF8;
+      v39 = (v39 + ((v38 - v39 + 7) & 0xFFFFFFFFFFFFFFF8));
     }
 
     operator delete(v38);
@@ -7958,16 +7904,16 @@ void CPLogisticRegressionClassfier::CPLogisticRegressionClassfier(CPLogisticRegr
   (*(a2->var0 + 13))(a2, v5 + 8, "version", 5, 0);
   v7 = 0;
   (*(a2->var0 + 10))(a2, &v7, "min_predictors_length", 1, 0);
-  std::valarray<double>::resize(this + 256, v7);
+  std::valarray<double>::resize(this + 256, v7, 0.0);
   (*(**(this + 11) + 96))(*(this + 11), *(this + 32), "min_predictors_", v7, 0);
   (*(a2->var0 + 10))(a2, &v7, "max_predictors_length", 1, 0);
-  std::valarray<double>::resize(this + 272, v7);
+  std::valarray<double>::resize(this + 272, v7, 0.0);
   (*(**(this + 11) + 96))(*(this + 11), *(this + 34), "max_predictors_", v7, 0);
   (*(a2->var0 + 10))(a2, &v7, "range_predictors_length", 1, 0);
-  std::valarray<double>::resize(this + 288, v7);
+  std::valarray<double>::resize(this + 288, v7, 0.0);
   (*(**(this + 11) + 96))(*(this + 11), *(this + 36), "range_predictors_", v7, 0);
   (*(a2->var0 + 10))(a2, &v7, "solution_length", 1, 0);
-  std::valarray<double>::resize(v6, v7);
+  std::valarray<double>::resize(v6, v7, 0.0);
   (*(**(this + 11) + 96))(*(this + 11), *(this + 30), "solution_", v7, 0);
   (*(a2->var0 + 10))(a2, this + 112, "totalDataCount", 1, 0);
   (*(a2->var0 + 10))(a2, this + 96, "featureVectorSpace", 1, 0);
@@ -7982,15 +7928,15 @@ void CPLogisticRegressionClassfier::CPLogisticRegressionClassfier(CPLogisticRegr
   (*(a2->var0 + 12))(a2, *(this + 19), "theta", *(this + 18) - 1, 0);
 }
 
-void sub_2472F9C58(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2472F9C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::valarray<double>::~valarray(v2 + 288);
-  std::valarray<double>::~valarray(v2 + 272);
-  std::valarray<double>::~valarray(v2 + 256);
-  std::valarray<double>::~valarray(v3);
+  va_start(va, a3);
+  std::valarray<double>::~valarray(v3 + 288);
+  std::valarray<double>::~valarray(v3 + 272);
+  std::valarray<double>::~valarray(v3 + 256);
+  std::valarray<double>::~valarray(v4);
   std::vector<std::vector<data_record_t>>::__destroy_vector::operator()[abi:ne200100](va);
-  CPModelClose(v2);
+  CPModelClose(v3);
   _Unwind_Resume(a1);
 }
 
@@ -8278,7 +8224,7 @@ void CPLogisticRegressionClassfier::gradientDescent(CPLogisticRegressionClassfie
 void CPLogisticRegressionClassfier::getAlgoSolution(uint64_t a1, uint64_t a2)
 {
   v4 = a1 + 240;
-  std::valarray<double>::resize(a2, (*(a1 + 248) - *(a1 + 240)) >> 3);
+  std::valarray<double>::resize(a2, (*(a1 + 248) - *(a1 + 240)) >> 3, 0.0);
   if (v4 != a2)
   {
     v5 = *(a1 + 240);
@@ -8288,7 +8234,7 @@ void CPLogisticRegressionClassfier::getAlgoSolution(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t std::vector<data_record_t>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<data_record_t>::push_back[abi:ne200100](uint64_t *a1, _DWORD *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -8306,19 +8252,19 @@ uint64_t std::vector<data_record_t>::push_back[abi:ne200100](uint64_t *a1, uint6
   return result;
 }
 
-uint64_t std::vector<data_record_t>::__construct_one_at_end[abi:ne200100]<data_record_t const&>(uint64_t a1, uint64_t a2)
+uint64_t *std::vector<data_record_t>::__construct_one_at_end[abi:ne200100]<data_record_t const&>(uint64_t a1, _DWORD *a2)
 {
   v3 = *(a1 + 8);
   *v3 = *a2;
   *(v3 + 16) = 0;
   *(v3 + 24) = 0;
   *(v3 + 8) = 0;
-  result = std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v3 + 8, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 3);
+  result = std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>((v3 + 8), *(a2 + 1), *(a2 + 2), (*(a2 + 2) - *(a2 + 1)) >> 3);
   *(a1 + 8) = v3 + 32;
   return result;
 }
 
-uint64_t std::vector<data_record_t>::__emplace_back_slow_path<data_record_t const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<data_record_t>::__emplace_back_slow_path<data_record_t const&>(uint64_t *a1, _DWORD *a2)
 {
   v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
@@ -8357,7 +8303,7 @@ uint64_t std::vector<data_record_t>::__emplace_back_slow_path<data_record_t cons
   *(v8 + 16) = 0;
   *(v8 + 24) = 0;
   *(v8 + 8) = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(32 * v2 + 8, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>((32 * v2 + 8), *(a2 + 1), *(a2 + 2), (*(a2 + 2) - *(a2 + 1)) >> 3);
   *&v17 = v17 + 32;
   v9 = a1[1];
   v10 = v16 + *a1 - v9;
@@ -8375,9 +8321,9 @@ uint64_t std::vector<data_record_t>::__emplace_back_slow_path<data_record_t cons
   return v14;
 }
 
-void sub_2472FA8E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2472FA8E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<data_record_t>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8501,7 +8447,7 @@ void std::__split_buffer<data_record_t>::__destruct_at_end[abi:ne200100](uint64_
   }
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8523,7 +8469,7 @@ void sub_2472FAB78(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -8537,11 +8483,11 @@ CoreOptimization::gradient_t *CoreOptimization::gradient_t::gradient_t(CoreOptim
 {
   *this = 0;
   *(this + 1) = 0;
-  std::valarray<double>::resize(this, a2);
+  std::valarray<double>::resize(this, a2, 0.0);
   return this;
 }
 
-uint64_t CoreOptimization::BFGS::BFGS(uint64_t a1, void *a2, __int128 *a3, int a4, double a5)
+uint64_t CoreOptimization::BFGS::BFGS(uint64_t a1, uint64_t **a2, __int128 *a3, int a4, double a5)
 {
   *a1 = a4;
   v9 = (a1 + 24);
@@ -8554,7 +8500,7 @@ uint64_t CoreOptimization::BFGS::BFGS(uint64_t a1, void *a2, __int128 *a3, int a
   return a1;
 }
 
-void std::vector<std::vector<data_record_t>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::vector<data_record_t>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -8580,20 +8526,20 @@ void std::vector<std::vector<data_record_t>>::__destroy_vector::operator()[abi:n
   }
 }
 
-void *std::vector<std::vector<data_record_t>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::vector<data_record_t>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::vector<data_record_t>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::vector<data_record_t>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::vector<data_record_t>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<data_record_t>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -8613,7 +8559,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<data_reco
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<std::vector<data_record_t>>::__init_with_size[abi:ne200100]<std::vector<data_record_t>*,std::vector<data_record_t>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<data_record_t>>::__init_with_size[abi:ne200100]<std::vector<data_record_t>*,std::vector<data_record_t>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8630,7 +8576,7 @@ void sub_2472FAEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<data_record_t>>,std::vector<data_record_t>*,std::vector<data_record_t>*,std::vector<data_record_t>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<data_record_t>>,std::vector<data_record_t>*,std::vector<data_record_t>*,std::vector<data_record_t>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -8671,10 +8617,10 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-void std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<data_record_t>>,std::vector<data_record_t>*>::operator()[abi:ne200100](uint64_t a1)
+void std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<data_record_t>>,std::vector<data_record_t>*>::operator()[abi:ne200100](uint64_t result)
 {
-  v1 = **(a1 + 16);
-  v2 = **(a1 + 8);
+  v1 = **(result + 16);
+  v2 = **(result + 8);
   while (v1 != v2)
   {
     v1 -= 3;
@@ -8683,7 +8629,7 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<data_record_t
   }
 }
 
-uint64_t std::vector<data_record_t>::__init_with_size[abi:ne200100]<data_record_t*,data_record_t*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<data_record_t>::__init_with_size[abi:ne200100]<data_record_t*,data_record_t*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8693,14 +8639,14 @@ uint64_t std::vector<data_record_t>::__init_with_size[abi:ne200100]<data_record_
   return result;
 }
 
-void sub_2472FB07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_2472FB07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<data_record_t>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<data_record_t>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<data_record_t>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -8728,7 +8674,7 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<d
       *(v4 + 16) = 0;
       *(v4 + 24) = 0;
       *(v4 + 8) = 0;
-      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v4 + 8, *(v6 + 8), *(v6 + 16), (*(v6 + 16) - *(v6 + 8)) >> 3);
+      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>((v4 + 8), *(v6 + 8), *(v6 + 16), (*(v6 + 16) - *(v6 + 8)) >> 3);
       v6 += 32;
       v4 = v11 + 32;
       v11 += 32;
@@ -8856,7 +8802,7 @@ void std::vector<std::vector<data_record_t>>::__vdeallocate(void ***a1)
   }
 }
 
-uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::vector<data_record_t> *,std::vector<data_record_t> *,std::vector<data_record_t> *>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
+uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::vector<data_record_t> *,std::vector<data_record_t> *,std::vector<data_record_t> *>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t **a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -8879,7 +8825,7 @@ uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::vector<data_record_t> 
   return v5;
 }
 
-void std::vector<data_record_t>::__assign_with_size[abi:ne200100]<data_record_t*,data_record_t*>(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<data_record_t>::__assign_with_size[abi:ne200100]<data_record_t*,data_record_t*>(uint64_t **a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v8 = *a1;
   if (a4 > (a1[2] - *a1) >> 5)
@@ -8955,7 +8901,7 @@ void std::vector<data_record_t>::__vdeallocate(uint64_t *a1)
   }
 }
 
-uint64_t std::__copy_impl::operator()[abi:ne200100]<data_record_t *,data_record_t *,data_record_t *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__copy_impl::operator()[abi:ne200100]<data_record_t *,data_record_t *,data_record_t *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -8965,11 +8911,11 @@ uint64_t std::__copy_impl::operator()[abi:ne200100]<data_record_t *,data_record_
       *a4 = *v5;
       if (v5 != a4)
       {
-        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>((a4 + 8), *(v5 + 8), *(v5 + 16), (*(v5 + 16) - *(v5 + 8)) >> 3);
+        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(a4 + 1, *(v5 + 8), *(v5 + 16), (*(v5 + 16) - *(v5 + 8)) >> 3);
       }
 
       v5 += 32;
-      a4 += 32;
+      a4 += 4;
     }
 
     while (v5 != a3);
@@ -8979,7 +8925,7 @@ uint64_t std::__copy_impl::operator()[abi:ne200100]<data_record_t *,data_record_
   return v5;
 }
 
-void *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -9196,7 +9142,7 @@ uint64_t CPMLAlgorithm::update(CPMLAlgorithm *this, CPMLCDB *a2, CPMLSerializati
   return 0xFFFFFFFFLL;
 }
 
-uint64_t CPLogCTypesV(void *a1, unint64_t a2, ...)
+uint64_t CPLogCTypesV(void *a1, double *a2, ...)
 {
   va_start(va, a2);
   v3 = a1;
@@ -9327,26 +9273,26 @@ CPMLDB *CPOpenDBWithFile(char *a1, char *a2, char *a3, uint64_t a4)
   return v10;
 }
 
-void sub_2472FD7E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2472FD7E8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = CPMLDB;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_2472FE22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, ...)
+void sub_2472FE22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_24730056C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_24730056C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9358,9 +9304,9 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2473017CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2473017CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9368,36 +9314,36 @@ void sub_2473017CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 uint64_t CPMLLIBSVMClassifier::establishParam(uint64_t this, CPMLTunableData *a2)
 {
   v2 = this;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     this = CPMLTunableData::getNumberOfItems(a2);
     if (this >= 1)
     {
-      CPMLTunableData::tDataGetString(a2, "svm_type", v16, 0x10uLL);
-      if (*v16 == 1448304451 && v16[4] == 67)
+      CPMLTunableData::tDataGetString(a2, "svm_type", v15, 0x10uLL);
+      if (*v15 == 1448304451 && v15[4] == 67)
       {
         goto LABEL_23;
       }
 
-      if (*v16 == 1398756686 && *&v16[4] == 17238)
+      if (*v15 == 1398756686 && *&v15[4] == 17238)
       {
         v9 = 1;
       }
 
-      else if (*v16 == 0x53414C435F454E4FLL && v16[8] == 83)
+      else if (*v15 == 0x53414C435F454E4FLL && v15[8] == 83)
       {
         v9 = 2;
       }
 
-      else if (*v16 == 0x5F4E4F4C49535045 && *&v16[3] == 0x5256535F4E4F4C49)
+      else if (*v15 == 0x5F4E4F4C49535045 && *&v15[3] == 0x5256535F4E4F4C49)
       {
         v9 = 3;
       }
 
       else
       {
-        if (*v16 != 1398756686 || *&v16[4] != 21078)
+        if (*v15 != 1398756686 || *&v15[4] != 21078)
         {
 LABEL_23:
           *(v2 + 160) = 0;
@@ -9409,8 +9355,8 @@ LABEL_23:
 
       *(v2 + 160) = v9;
 LABEL_30:
-      CPMLTunableData::tDataGetString(a2, "kernel_type", v16, 0x10uLL);
-      if (*v16 == 1162758476 && *&v16[4] == 21057)
+      CPMLTunableData::tDataGetString(a2, "kernel_type", v15, 0x10uLL);
+      if (*v15 == 1162758476 && *&v15[4] == 21057)
       {
         *(v2 + 164) = 0;
 LABEL_53:
@@ -9428,22 +9374,22 @@ LABEL_53:
         goto LABEL_54;
       }
 
-      if (*v16 == 1498173264)
+      if (*v15 == 1498173264)
       {
         v14 = 1;
       }
 
       else
       {
-        if (*v16 != 16978 || v16[2] != 70)
+        if (*v15 != 16978 || v15[2] != 70)
         {
-          if (*v16 == 1296517459 && *&v16[3] == 1145655117)
+          if (*v15 == 1296517459 && *&v15[3] == 1145655117)
           {
             v14 = 3;
             goto LABEL_52;
           }
 
-          if (*v16 == 0x55504D4F43455250 && *&v16[3] == 0x44455455504D4F43)
+          if (*v15 == 0x55504D4F43455250 && *&v15[3] == 0x44455455504D4F43)
           {
             v14 = 4;
             goto LABEL_52;
@@ -9471,7 +9417,6 @@ LABEL_54:
   *(v2 + 216) = 0;
   *(v2 + 224) = 0;
   *(v2 + 232) = 0;
-  v15 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -9520,12 +9465,12 @@ void CPMLLIBSVMClassifier::CPMLLIBSVMClassifier(CPMLLIBSVMClassifier *this, CPML
   *(this + 66) = v19;
   *(this + 34) = malloc_type_calloc(v19, 8uLL, 0x100004000313F17uLL);
   *(this + 35) = malloc_type_calloc(*(this + 66), 8uLL, 0x2004093837F09uLL);
-  CPMLCDB::getIterator();
+  CPMLCDB::getIterator(a2, 0, 0, 0);
 }
 
 void CPMLLIBSVMClassifier::CPMLLIBSVMClassifier(CPMLLIBSVMClassifier *this, CPMLSerialization *a2, CPMLTunableData *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   CPMLAlgorithm::CPMLAlgorithm(this, 0, a2, a3);
   *v5 = &unk_2859275C0;
   *(v5 + 296) = 0;
@@ -9543,94 +9488,87 @@ void CPMLLIBSVMClassifier::CPMLLIBSVMClassifier(CPMLLIBSVMClassifier *this, CPML
   v7 = ((*(*(this + 36) + 104) - 1) * *(*(this + 36) + 104) + (((*(*(this + 36) + 104) - 1) * *(*(this + 36) + 104)) >> 31)) >> 1;
   *(*(this + 36) + 128) = malloc_type_calloc(v7, 8uLL, 0x100004000313F17uLL);
   (*(**(this + 11) + 96))(*(this + 11));
-  v8 = malloc_type_calloc(*(*(this + 36) + 104), 4uLL, 0x100004052888210uLL);
-  v9 = *(this + 36);
-  *(v9 + 160) = v8;
-  v10 = *(v9 + 104);
+  *(*(this + 36) + 160) = malloc_type_calloc(*(*(this + 36) + 104), 4uLL, 0x100004052888210uLL);
   (*(**(this + 11) + 64))(*(this + 11));
-  v27 = 0;
-  (*(**(this + 11) + 64))(*(this + 11), &v27, "testA", 1, 0);
-  if (v27)
+  v20 = 0;
+  (*(**(this + 11) + 64))(*(this + 11), &v20, "testA", 1, 0);
+  if (v20)
   {
     *(*(this + 36) + 136) = malloc_type_calloc(v7, 8uLL, 0x100004000313F17uLL);
     (*(**(this + 11) + 96))(*(this + 11));
   }
 
-  (*(**(this + 11) + 64))(*(this + 11), &v27, "testB", 1, 0);
-  if (v27)
+  (*(**(this + 11) + 64))(*(this + 11), &v20, "testB", 1, 0);
+  if (v20)
   {
     *(*(this + 36) + 144) = malloc_type_calloc(v7, 8uLL, 0x100004000313F17uLL);
     (*(**(this + 11) + 96))(*(this + 11));
   }
 
-  v11 = malloc_type_calloc(*(*(this + 36) + 104), 4uLL, 0x100004052888210uLL);
-  v12 = *(this + 36);
-  *(v12 + 168) = v11;
-  v13 = *(v12 + 104);
+  *(*(this + 36) + 168) = malloc_type_calloc(*(*(this + 36) + 104), 4uLL, 0x100004052888210uLL);
   (*(**(this + 11) + 72))(*(this + 11));
-  v14 = malloc_type_calloc(*(*(this + 36) + 104), 8uLL, 0x80040B8603338uLL);
-  v15 = *(this + 36);
-  *(v15 + 120) = v14;
-  if (*(v15 + 104) >= 2)
+  v8 = malloc_type_calloc(*(*(this + 36) + 104), 8uLL, 0x80040B8603338uLL);
+  v9 = *(this + 36);
+  *(v9 + 120) = v8;
+  if (*(v9 + 104) >= 2)
   {
-    v16 = 0;
+    v10 = 0;
     do
     {
-      *(*(*(this + 36) + 120) + 8 * v16++) = malloc_type_calloc(*(v15 + 108), 8uLL, 0x100004000313F17uLL);
-      v15 = *(this + 36);
+      *(*(*(this + 36) + 120) + 8 * v10++) = malloc_type_calloc(*(v9 + 108), 8uLL, 0x100004000313F17uLL);
+      v9 = *(this + 36);
     }
 
-    while (v16 < *(v15 + 104) - 1);
+    while (v10 < *(v9 + 104) - 1);
   }
 
-  v17 = malloc_type_calloc(*(v15 + 108), 8uLL, 0x2004093837F09uLL);
-  v18 = *(this + 36);
-  *(v18 + 112) = v17;
-  if (*(v18 + 108) >= 1)
+  v11 = malloc_type_calloc(*(v9 + 108), 8uLL, 0x2004093837F09uLL);
+  v12 = *(this + 36);
+  *(v12 + 112) = v11;
+  if (*(v12 + 108) >= 1)
   {
-    v19 = 0;
+    v13 = 0;
     do
     {
-      v20 = malloc_type_calloc(*(this + 12) + 1, 0x10uLL, 0x1000040F7F8B94BuLL);
-      sprintf(v30, "model_sv_coef%d", v19);
-      sprintf(v29, "p_index%d", v19);
-      sprintf(v28, "p_value%d", v19);
-      v21 = *(this + 36);
-      if (*(v21 + 104) >= 2)
+      v14 = malloc_type_calloc(*(this + 12) + 1, 0x10uLL, 0x1000040F7F8B94BuLL);
+      sprintf(v23, "model_sv_coef%d", v13);
+      sprintf(v22, "p_index%d", v13);
+      sprintf(v21, "p_value%d", v13);
+      v15 = *(this + 36);
+      if (*(v15 + 104) >= 2)
       {
-        v22 = 0;
+        v16 = 0;
         do
         {
-          (*(**(this + 11) + 96))(*(this + 11), *(*(v21 + 120) + 8 * v22) + 8 * v19, v30, 1, v22);
-          ++v22;
-          v21 = *(this + 36);
+          (*(**(this + 11) + 96))(*(this + 11), *(*(v15 + 120) + 8 * v16) + 8 * v13, v23, 1, v16);
+          ++v16;
+          v15 = *(this + 36);
         }
 
-        while (v22 < *(v21 + 104) - 1);
+        while (v16 < *(v15 + 104) - 1);
       }
 
-      v23 = 0;
-      v24 = 0;
+      v17 = 0;
+      v18 = 0;
       do
       {
-        v25 = &v20[v23];
-        (*(**(this + 11) + 64))(*(this + 11), &v20[v23], v29, 1, v24);
-        (*(**(this + 11) + 96))(*(this + 11), &v20[v23 + 8], v28, 1, v24++);
-        v23 += 16;
+        v19 = &v14[v17];
+        (*(**(this + 11) + 64))(*(this + 11), &v14[v17], v22, 1, v18);
+        (*(**(this + 11) + 96))(*(this + 11), &v14[v17 + 8], v21, 1, v18++);
+        v17 += 16;
       }
 
-      while (*v25 != -1);
-      *(*(*(this + 36) + 112) + 8 * v19++) = malloc_type_realloc(v20, v23 & 0xFFFFFFFF0, 0x1000040F7F8B94BuLL);
-      v18 = *(this + 36);
+      while (*v19 != -1);
+      *(*(*(this + 36) + 112) + 8 * v13++) = malloc_type_realloc(v14, v17 & 0xFFFFFFFF0, 0x1000040F7F8B94BuLL);
+      v12 = *(this + 36);
     }
 
-    while (v19 < *(v18 + 108));
+    while (v13 < *(v12 + 108));
   }
 
-  *(v18 + 176) = 1;
+  *(v12 + 176) = 1;
   *(this + 34) = 0;
   *(this + 35) = 0;
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void CPMLLIBSVMClassifier::CPMLLIBSVMClassifier(CPMLLIBSVMClassifier *this, int *a2, CPMLTunableData *a3)
@@ -9678,7 +9616,7 @@ void CPMLLIBSVMClassifier::~CPMLLIBSVMClassifier(CPMLLIBSVMClassifier *this)
 
 uint64_t CPMLLIBSVMClassifier::serialize(CPMLLIBSVMClassifier *this)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(this + 11);
   v3 = strlen(this + 8);
   (*(*v2 + 56))(v2, this + 8, "version", v3, 0);
@@ -9696,8 +9634,8 @@ uint64_t CPMLLIBSVMClassifier::serialize(CPMLLIBSVMClassifier *this)
   (*(**(this + 11) + 16))(*(this + 11), *(*(this + 36) + 160), "model_label", *(*(this + 36) + 104), 0);
   if (*(*(this + 36) + 136))
   {
-    *v20 = 1;
-    (*(**(this + 11) + 16))(*(this + 11), v20, "testA", 1, 0);
+    *v19 = 1;
+    (*(**(this + 11) + 16))(*(this + 11), v19, "testA", 1, 0);
     v6 = *(this + 36);
     v7 = *(v6 + 136);
     LODWORD(v6) = (*(v6 + 104) - 1) * *(v6 + 104);
@@ -9706,14 +9644,14 @@ uint64_t CPMLLIBSVMClassifier::serialize(CPMLLIBSVMClassifier *this)
 
   else
   {
-    *v20 = 0;
-    (*(**(this + 11) + 16))(*(this + 11), v20, "testA", 1, 0);
+    *v19 = 0;
+    (*(**(this + 11) + 16))(*(this + 11), v19, "testA", 1, 0);
   }
 
   if (*(*(this + 36) + 144))
   {
-    *v20 = 1;
-    (*(**(this + 11) + 16))(*(this + 11), v20, "testB", 1, 0);
+    *v19 = 1;
+    (*(**(this + 11) + 16))(*(this + 11), v19, "testB", 1, 0);
     v8 = *(this + 36);
     v9 = *(v8 + 144);
     LODWORD(v8) = (*(v8 + 104) - 1) * *(v8 + 104);
@@ -9722,8 +9660,8 @@ uint64_t CPMLLIBSVMClassifier::serialize(CPMLLIBSVMClassifier *this)
 
   else
   {
-    *v20 = 0;
-    (*(**(this + 11) + 16))(*(this + 11), v20, "testB", 1, 0);
+    *v19 = 0;
+    (*(**(this + 11) + 16))(*(this + 11), v19, "testB", 1, 0);
   }
 
   (*(**(this + 11) + 24))(*(this + 11), *(*(this + 36) + 168), "model_nSV", *(*(this + 36) + 104), 0);
@@ -9732,16 +9670,16 @@ uint64_t CPMLLIBSVMClassifier::serialize(CPMLLIBSVMClassifier *this)
     v10 = 0;
     do
     {
-      sprintf(v20, "model_sv_coef%d", v10);
-      sprintf(v19, "p_index%d", v10);
-      sprintf(v18, "p_value%d", v10);
+      sprintf(v19, "model_sv_coef%d", v10);
+      sprintf(v18, "p_index%d", v10);
+      sprintf(v17, "p_value%d", v10);
       v11 = *(this + 36);
       if (*(v11 + 104) >= 2)
       {
         v12 = 0;
         do
         {
-          (*(**(this + 11) + 48))(*(this + 11), *(*(v11 + 120) + 8 * v12++) + 8 * v10, v20, 1, 0);
+          (*(**(this + 11) + 48))(*(this + 11), *(*(v11 + 120) + 8 * v12++) + 8 * v10, v19, 1, 0);
           v11 = *(this + 36);
         }
 
@@ -9751,21 +9689,20 @@ uint64_t CPMLLIBSVMClassifier::serialize(CPMLLIBSVMClassifier *this)
       v13 = *(*(v11 + 112) + 8 * v10);
       for (i = *v13; i != -1; i = v15)
       {
-        (*(**(this + 11) + 16))(*(this + 11), v13, v19, 1, 0);
-        (*(**(this + 11) + 48))(*(this + 11), v13 + 2, v18, 1, 0);
+        (*(**(this + 11) + 16))(*(this + 11), v13, v18, 1, 0);
+        (*(**(this + 11) + 48))(*(this + 11), v13 + 2, v17, 1, 0);
         v15 = v13[4];
         v13 += 4;
       }
 
-      (*(**(this + 11) + 16))(*(this + 11), v13, v19, 1, 0);
-      (*(**(this + 11) + 48))(*(this + 11), v13 + 2, v18, 1, 0);
+      (*(**(this + 11) + 16))(*(this + 11), v13, v18, 1, 0);
+      (*(**(this + 11) + 48))(*(this + 11), v13 + 2, v17, 1, 0);
       ++v10;
     }
 
     while (v10 < *(*(this + 36) + 108));
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -9780,7 +9717,7 @@ uint64_t CPMLLIBSVMClassifier::train(CPMLLIBSVMClassifier *this)
 
   else
   {
-    v4 = svm_train(this + 66, this + 160);
+    v4 = svm_train(this + 66, this + 10);
     result = 0;
     *(this + 36) = v4;
     *(this + 296) = 0;
@@ -9875,4 +9812,72 @@ uint64_t CPMLLIBSVMClassifier::eval(uint64_t a1, CPMLFeatureVector *this)
   CPMLFeatureVector::setYHat(this, v26);
   free(v25);
   return 0;
+}
+
+void CPMLDBSerialization::CPMLDBSerialization(CPMLDBSerialization *this, sqlite3 *a2)
+{
+  CPMLSerialization::CPMLSerialization(this, a2);
+  *v3 = &unk_285927638;
+  *(v3 + 120) = 0;
+  *(v3 + 112) = v3 + 120;
+  v4 = v3 + 112;
+  *(v3 + 128) = 0;
+  *(v3 + 96) = -1;
+  *(v3 + 104) = 0;
+  *(v3 + 40) = 0u;
+  *(v3 + 56) = 0u;
+  *(v3 + 72) = 0u;
+  *(v3 + 88) = 0;
+  ppStmt = 0;
+  v5 = sqlite3_mprintf("SELECT name FROM sqlite_master WHERE type = table");
+  v6 = strlen(v5);
+  sqlite3_prepare_v2(*(this + 4), v5, v6, &ppStmt, 0);
+  if (v5)
+  {
+    sqlite3_free(v5);
+  }
+
+  while (1)
+  {
+    v7 = sqlite3_step(ppStmt);
+    if (v7 != 100)
+    {
+      break;
+    }
+
+    v8 = sqlite3_column_text(ppStmt, 0);
+    v9 = strlen(v8);
+    if (v9 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+
+    v10 = v9;
+    if (v9 >= 0x17)
+    {
+      operator new();
+    }
+
+    v13 = v9;
+    if (v9)
+    {
+      memmove(&__p, v8, v9);
+    }
+
+    *(&__p + v10) = 0;
+    p_p = &__p;
+    *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v4, &__p, &std::piecewise_construct, &p_p, &v15) + 56) = 1;
+    if (v13 < 0)
+    {
+      operator delete(__p);
+    }
+  }
+
+  if (v7 != 101)
+  {
+    CPMLLog = CPMLLog::getCPMLLog(v7);
+    CPMLLog::log(CPMLLog, CPML_LOG_ERR, "CPMLDBSerialization", "Serializer: Error iterating rows\n");
+  }
+
+  sqlite3_finalize(ppStmt);
 }

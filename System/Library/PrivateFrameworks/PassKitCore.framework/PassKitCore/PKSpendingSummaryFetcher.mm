@@ -3043,7 +3043,7 @@ BOOL __75__PKSpendingSummaryFetcher__spendingMerchantsFromTransaction_currencyCo
   return v4;
 }
 
-uint64_t __75__PKSpendingSummaryFetcher__spendingMerchantsFromTransaction_currencyCode___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__75__PKSpendingSummaryFetcher__spendingMerchantsFromTransaction_currencyCode___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 shouldBeCombinedWithMerchant:*(a1 + 32)];
   if (result)
@@ -3667,9 +3667,9 @@ LABEL_28:
       goto LABEL_11;
     }
 
-    v9 = [v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v9)
+    if (!isEqualToString)
     {
       goto LABEL_11;
     }

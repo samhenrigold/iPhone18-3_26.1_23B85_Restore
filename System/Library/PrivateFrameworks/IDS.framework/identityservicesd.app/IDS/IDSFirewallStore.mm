@@ -499,7 +499,7 @@
 
         v12 = [[IDSURI alloc] initWithPrefixedURI:v8];
         v13 = [IDSFirewallEntry alloc];
-        [v9 doubleValue];
+        objc_msgSend_doubleValue(v9);
         v14 = [NSDate dateWithTimeIntervalSince1970:?];
         v15 = [v13 initWithURI:v12 andLastSeenDate:v14];
 

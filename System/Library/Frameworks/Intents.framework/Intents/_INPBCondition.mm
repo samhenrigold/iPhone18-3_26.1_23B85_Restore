@@ -1,6 +1,7 @@
 @interface _INPBCondition
 - (BOOL)isEqual:(id)equal;
 - (_INPBCondition)initWithCoder:(id)coder;
+- (id)conditionalOperatorAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsConditionalOperator:(id)operator;
@@ -106,7 +107,6 @@
   toCopy = to;
   if ([(_INPBCondition *)self hasConditionalOperator])
   {
-    conditionalOperator = self->_conditionalOperator;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -137,6 +137,21 @@
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)conditionalOperatorAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72831E0[string - 1];
   }
 
   return v4;

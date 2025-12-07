@@ -18,7 +18,7 @@
   a2.n128_u32[3] = a3.i32[0];
   v6[0] = a2;
   v6[1] = vextq_s8(vextq_s8(a3, a3, 0xCuLL), a4, 8uLL);
-  v7 = a4.u32[2];
+  v7 = a4.i32[2];
   v4 = [self valueWithBytes:v6 objCType:"{PUBoxablePerspectiveTransform=fffffffff}"];
 
   return v4;

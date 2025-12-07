@@ -39,9 +39,11 @@
 
 uint64_t __27__CNAPITriageLogger_os_log__block_invoke()
 {
-  os_log_cn_once_object_0_26 = os_log_create("com.apple.contacts", "api-triage");
+  v0 = os_log_create("com.apple.contacts", "api-triage");
+  v1 = os_log_cn_once_object_0_26;
+  os_log_cn_once_object_0_26 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (CNAPITriageLogger)init
@@ -299,15 +301,19 @@ uint64_t __27__CNAPITriageLogger_os_log__block_invoke()
   v3 = a1;
   [a2 serialNumber];
   OUTLINED_FUNCTION_1_7();
-  OUTLINED_FUNCTION_0_15(&dword_1954A0000, v4, v5, "%04llx ERROR %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_15(&dword_1954A0000, v4, v5, "%04llx ERROR %{public}@", v6, v7, v8, v9);
 }
 
 - (void)request:(void *)a3 willReturnAnchor:.cold.1(void *a1, void *a2, void *a3)
 {
   v5 = a1;
-  [a2 serialNumber];
-  v12 = [a3 error];
-  OUTLINED_FUNCTION_0_15(&dword_1954A0000, v6, v7, "%04llx Could not fetch the current history anchor; the client will be handed a nil token, resulting in a full sync on the next change history request. Error: %@", v8, v9, v10, v11, 2u);
+  v6 = [a2 serialNumber];
+  v7 = [a3 error];
+  *v14 = 134218242;
+  *&v14[4] = v6;
+  *&v14[12] = 2112;
+  *&v14[14] = v7;
+  OUTLINED_FUNCTION_0_15(&dword_1954A0000, v8, v9, "%04llx Could not fetch the current history anchor; the client will be handed a nil token, resulting in a full sync on the next change history request. Error: %@", v10, v11, v12, v13, *v14, *&v14[8], *&v14[16]);
 }
 
 - (void)request:(void *)a1 failedWithError:(void *)a2 .cold.1(void *a1, void *a2)
@@ -315,7 +321,7 @@ uint64_t __27__CNAPITriageLogger_os_log__block_invoke()
   v3 = a1;
   [a2 serialNumber];
   OUTLINED_FUNCTION_1_7();
-  OUTLINED_FUNCTION_0_15(&dword_1954A0000, v4, v5, "%04llx Request failed with error: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_15(&dword_1954A0000, v4, v5, "%04llx Request failed with error: %{public}@", v6, v7, v8, v9);
 }
 
 @end

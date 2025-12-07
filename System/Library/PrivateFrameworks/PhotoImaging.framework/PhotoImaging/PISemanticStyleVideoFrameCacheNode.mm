@@ -92,7 +92,7 @@ void __80__PISemanticStyleVideoFrameCacheNode_newRenderRequestWithOriginalReques
   v7 = [settings mutableCopy];
   if (stateCopy)
   {
-    [stateCopy time];
+    objc_msgSend_time(stateCopy);
   }
 
   else

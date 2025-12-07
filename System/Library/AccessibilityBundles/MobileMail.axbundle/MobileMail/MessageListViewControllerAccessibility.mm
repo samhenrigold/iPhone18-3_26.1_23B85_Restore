@@ -4,6 +4,7 @@
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axSetCategoryButtonsTrait;
 - (void)_updateBackButtonImageWithCount:(unint64_t)count;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MessageListViewControllerAccessibility
@@ -103,6 +104,16 @@ id __84__MessageListViewControllerAccessibility__accessibilityLoadAccessibilityI
   return v8;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = MessageListViewControllerAccessibility;
+  [(MessageListViewControllerAccessibility *)&v6 viewWillAppear:appear];
+  v4 = accessibilityLocalizedString(@"mail.message.list.name");
+  v5 = [(MessageListViewControllerAccessibility *)self safeUIViewForKey:@"collectionView"];
+  [v5 setAccessibilityLabel:v4];
+}
+
 - (void)_updateBackButtonImageWithCount:(unint64_t)count
 {
   v13.receiver = self;
@@ -146,50 +157,48 @@ id __84__MessageListViewControllerAccessibility__accessibilityLoadAccessibilityI
 
 - (void)_axSetCategoryButtonsTrait
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   objc_opt_class();
   v3 = __UIAccessibilityCastAsClass();
-  v20 = 0;
+  v19 = 0;
   objc_opt_class();
   v4 = [(MessageListViewControllerAccessibility *)self safeValueForKey:@"bucketsViewController"];
   v5 = [v4 safeSwiftValueForKey:@"collectionView"];
   v6 = __UIAccessibilityCastAsClass();
 
   subviews = [v6 subviews];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v8 = [subviews countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v8 = [subviews countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(subviews);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
-        v14[0] = MEMORY[0x29EDCA5F8];
-        v14[1] = 3221225472;
-        v14[2] = __68__MessageListViewControllerAccessibility__axSetCategoryButtonsTrait__block_invoke;
-        v14[3] = &unk_29F2D43D8;
-        v15 = v3;
-        [v12 setAccessibilityTraitsBlock:v14];
+        v12 = *(*(&v15 + 1) + 8 * i);
+        v13[0] = MEMORY[0x29EDCA5F8];
+        v13[1] = 3221225472;
+        v13[2] = __68__MessageListViewControllerAccessibility__axSetCategoryButtonsTrait__block_invoke;
+        v13[3] = &unk_29F2D43D8;
+        v14 = v3;
+        [v12 setAccessibilityTraitsBlock:v13];
       }
 
-      v9 = [subviews countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v9 = [subviews countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __68__MessageListViewControllerAccessibility__axSetCategoryButtonsTrait__block_invoke(uint64_t a1)

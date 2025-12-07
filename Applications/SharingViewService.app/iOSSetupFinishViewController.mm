@@ -44,7 +44,7 @@
   buttonCopy = button;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupFinishViewController handleDismissButton:]", 30, "Dismiss button\n");
   }
 
   [(iOSSetupBaseViewController *)self dismissWithType:5];
@@ -55,7 +55,7 @@
   disappearCopy = disappear;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupFinishViewController viewDidDisappear:]", 30, "Finish ViewDidDisappear\n");
   }
 
   v6.receiver = self;
@@ -71,7 +71,7 @@
   appearCopy = appear;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupFinishViewController viewWillAppear:]", 30, "Finish ViewWillAppear\n");
   }
 
   v28.receiver = self;

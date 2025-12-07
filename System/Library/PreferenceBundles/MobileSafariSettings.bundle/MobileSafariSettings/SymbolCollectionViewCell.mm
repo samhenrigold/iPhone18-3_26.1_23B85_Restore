@@ -96,16 +96,14 @@
 - (void)setSymbolName:(id)name
 {
   nameCopy = name;
-  symbolName = self->_symbolName;
-  v9 = nameCopy;
   if ((WBSIsEqual() & 1) == 0)
   {
-    v6 = [v9 copy];
-    v7 = self->_symbolName;
-    self->_symbolName = v6;
+    v4 = [nameCopy copy];
+    symbolName = self->_symbolName;
+    self->_symbolName = v4;
 
-    v8 = [UIImage _systemImageNamed:v9];
-    [(UIImageView *)self->_imageView setImage:v8];
+    v6 = [UIImage _systemImageNamed:nameCopy];
+    [(UIImageView *)self->_imageView setImage:v6];
   }
 }
 

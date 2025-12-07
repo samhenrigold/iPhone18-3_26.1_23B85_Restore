@@ -174,7 +174,7 @@
 
   if (v3)
   {
-    sub_100016C60(0, &qword_1009292E8);
+    sub_100016C60(0, &qword_1009292E8, UIAccessibilityCustomAction_ptr);
     v4.super.isa = sub_100753294().super.isa;
   }
 
@@ -191,7 +191,7 @@
   isa = actions;
   if (actions)
   {
-    sub_100016C60(0, &qword_1009292E8);
+    sub_100016C60(0, &qword_1009292E8, UIAccessibilityCustomAction_ptr);
     sub_1007532A4();
     selfCopy = self;
     isa = sub_100753294().super.isa;

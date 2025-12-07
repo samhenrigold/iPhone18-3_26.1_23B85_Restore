@@ -135,7 +135,7 @@ LABEL_12:
 
 + (id)SHADescription:(id)description
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   v6 = objc_msgSend_string(MEMORY[0x1E696AD60], v4, v5);
   if (objc_msgSend_length(descriptionCopy, v7, v8))
@@ -161,8 +161,6 @@ LABEL_12:
 
     while (v19);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

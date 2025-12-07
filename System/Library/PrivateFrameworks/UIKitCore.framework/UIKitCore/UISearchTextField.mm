@@ -854,7 +854,7 @@ LABEL_16:
   interactionCopy = interaction;
   selfCopy = self;
   _typedStorage = [(UIView *)selfCopy _typedStorage];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937088);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937088, &unk_18A652330);
   v8 = swift_allocObject();
   *(v8 + 16) = interaction;
   v9 = OBJC_IVAR____UITypedStorage_storage;
@@ -4581,7 +4581,7 @@ LABEL_9:
 {
   textCopy = text;
   [(UISearchTextField *)self _redirectSelectionToAvoidClobberingTokens];
-  if ([textCopy isEqualToString:@"\n"])
+  if (objc_msgSend_isEqualToString_(textCopy))
   {
     WeakRetained = objc_loadWeakRetained(&self->_searchBar);
     _searchController = [WeakRetained _searchController];
@@ -5311,7 +5311,7 @@ void __46__UISearchTextField__updateAtomViewSelection___block_invoke_2(void *a1,
 - (void)_receivedKeyboardWillShowOrHideNotification:(id)notification
 {
   name = [notification name];
-  if ([name isEqualToString:@"UIKeyboardWillShowNotification"])
+  if (objc_msgSend_isEqualToString_(name))
   {
     v5 = 2;
   }

@@ -21,8 +21,8 @@
 
 + (void)canAskWithCompletionHandler:(id)handler
 {
-  v5 = (*(*(sub_10002D464(&qword_100063AD8, &qword_100042A90) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v5 = sub_10002D464(&qword_100063AD8, &qword_100042A90);
+  __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(handler);
   v9 = swift_allocObject();
@@ -54,8 +54,8 @@
   declineCopy = decline;
   uuidCopy = uuid;
   postApproveCopy = postApprove;
-  v17 = (*(*(sub_10002D464(&qword_100063AD8, &qword_100042A90) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v17 = sub_10002D464(&qword_100063AD8, &qword_100042A90);
+  __chkstk_darwin(v17 - 8);
   v43 = &v43 - v18;
   v19 = _Block_copy(callback);
   v20 = _Block_copy(v53);

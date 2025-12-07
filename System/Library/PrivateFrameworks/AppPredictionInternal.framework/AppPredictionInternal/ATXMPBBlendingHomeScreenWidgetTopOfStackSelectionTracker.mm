@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)selectionTypeAsString:(int)string;
 - (int)StringAsSelectionType:(id)type;
 - (int)selectionType;
 - (unint64_t)hash;
@@ -25,6 +26,26 @@
   {
     return 1;
   }
+}
+
+- (id)selectionTypeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"NPlusOne";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"StackRotation";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSelectionType:(id)type
@@ -147,55 +168,53 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_layoutType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    selectionType = self->_selectionType;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_clientModelIdOfHighestRankingSuggestion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_highestConfidenceCategory)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    widgetsInStack = self->_widgetsInStack;
     PBDataWriterWriteUint32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_execuableTypeOfHighestRankingSuggestion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_abGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_clientModelABGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -311,7 +330,6 @@
     }
   }
 
-  v6 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_selectionType != *(equalCopy + 14))
@@ -323,7 +341,7 @@
   else if (*(equalCopy + 64))
   {
 LABEL_24:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_25;
   }
 
@@ -342,7 +360,6 @@ LABEL_24:
     }
   }
 
-  v9 = *(equalCopy + 64);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 64) & 2) == 0 || self->_widgetsInStack != *(equalCopy + 15))
@@ -374,17 +391,17 @@ LABEL_24:
   clientModelABGroup = self->_clientModelABGroup;
   if (clientModelABGroup | *(equalCopy + 2))
   {
-    v13 = [(NSString *)clientModelABGroup isEqual:?];
+    v11 = [(NSString *)clientModelABGroup isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v11 = 1;
   }
 
 LABEL_25:
 
-  return v13;
+  return v11;
 }
 
 - (unint64_t)hash

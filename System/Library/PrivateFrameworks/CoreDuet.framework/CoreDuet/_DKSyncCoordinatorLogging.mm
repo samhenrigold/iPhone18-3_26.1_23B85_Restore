@@ -65,33 +65,33 @@
 
 - (void)_updateSyncCounter:(void *)counter streamNameCounts:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   counterCopy = counter;
   if (self)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     portraitStreamNames = [(_DKSyncCoordinatorLogging *)self portraitStreamNames];
-    v8 = [portraitStreamNames countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [portraitStreamNames countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       do
       {
         v11 = 0;
         do
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(portraitStreamNames);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * v11);
-          v13 = [counterCopy countForObject:{v12, v18}];
+          v12 = *(*(&v17 + 1) + 8 * v11);
+          v13 = [counterCopy countForObject:{v12, v17}];
           if (v13)
           {
             v14 = v13;
@@ -106,15 +106,13 @@
         }
 
         while (v9 != v11);
-        v16 = [portraitStreamNames countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v16 = [portraitStreamNames countByEnumeratingWithState:&v17 objects:v21 count:16];
         v9 = v16;
       }
 
       while (v16);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendDistributedNotificationName:(void *)name object:(void *)object throttledActivityName:
@@ -149,12 +147,11 @@
 
 - (void)_sendDistributedNotificationName:(void *)name streamNameCounts:
 {
-  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   nameCopy = name;
   if (self)
   {
-    v18 = 0;
+    v17 = 0;
     portraitStreamNames = [(_DKSyncCoordinatorLogging *)self portraitStreamNames];
     OUTLINED_FUNCTION_38();
     v9 = [v8 countByEnumeratingWithState:? objects:? count:?];
@@ -178,7 +175,7 @@
             v14 = [(_DKSyncCoordinatorLogging *)self typeValueWithStreamName:v13];
             if (v14)
             {
-              v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_DKSyncCoordinatorLogging%@%@", v5, v14, v18];
+              v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_DKSyncCoordinatorLogging%@%@", v5, v14, v17];
               [(_DKSyncCoordinatorLogging *)self _sendDistributedNotificationName:v5 object:v13 throttledActivityName:v15];
             }
           }
@@ -195,8 +192,6 @@
       while (v16);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)syncCoordinator:(id)coordinator didInsertLocalAdditionEventsWithStreamNameCounts:(id)counts
@@ -221,20 +216,19 @@
 
 - (void)syncCoordinator:(id)coordinator didAddRemoteEventsWithStreamNameCounts:(id)counts events:(id)events
 {
-  v30 = *MEMORY[0x1E69E9840];
   coordinatorCopy = coordinator;
   countsCopy = counts;
   eventsCopy = events;
-  v28 = coordinatorCopy;
+  v27 = coordinatorCopy;
   if (qword_1EADBD6B8 != -1)
   {
     dispatch_once(&qword_1EADBD6B8, &__block_literal_global_36_1);
   }
 
-  v27 = countsCopy;
+  v26 = countsCopy;
   [(_DKSyncCoordinatorLogging *)self _updateSyncCounter:countsCopy streamNameCounts:?];
   date = [MEMORY[0x1E695DF00] date];
-  v29 = 0;
+  v28 = 0;
   v12 = eventsCopy;
   OUTLINED_FUNCTION_38();
   v14 = [v13 countByEnumeratingWithState:? objects:? count:?];
@@ -283,8 +277,7 @@
     while (v15);
   }
 
-  [(_DKSyncCoordinatorLogging *)self _sendDistributedNotificationName:v27 streamNameCounts:?];
-  v26 = *MEMORY[0x1E69E9840];
+  [(_DKSyncCoordinatorLogging *)self _sendDistributedNotificationName:v26 streamNameCounts:?];
 }
 
 - (void)syncCoordinator:(id)coordinator didDeleteRemoteEventsWithCount:(unint64_t)count

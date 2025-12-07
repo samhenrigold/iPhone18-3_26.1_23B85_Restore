@@ -3,7 +3,6 @@
 - (BOOL)_isApp;
 - (BOOL)_isAppClip;
 - (BOOL)_isAppLike;
-- (BOOL)_isAppleResource;
 - (BOOL)_isFolder;
 - (BOOL)_shouldTreatLikeApp;
 - (BOOL)iconStackResourcesAllowed;
@@ -43,7 +42,6 @@
   if (![(ISResourceProvider *)self resolved])
   {
     [(ISResourceProvider *)self setResolved:1];
-    record = self->_record;
     if (objc_opt_respondsToSelector())
     {
       iconResourceBundleURL = [(LSRecord *)self->_record iconResourceBundleURL];
@@ -53,61 +51,59 @@
     {
       if ((objc_opt_respondsToSelector() & 1) == 0)
       {
-        v5 = 0;
+        v4 = 0;
 LABEL_8:
-        v6 = [objc_alloc(MEMORY[0x1E69A8960]) initWithURL:v5];
+        v5 = [objc_alloc(MEMORY[0x1E69A8960]) initWithURL:v4];
         if ([(ISRecordResourceProvider *)self iconStackResourcesAllowed])
         {
-          v7 = 8;
+          v6 = 8;
         }
 
         else
         {
-          v7 = 0;
+          v6 = 0;
         }
 
         if ([(ISRecordResourceProvider *)self _shouldTreatLikeApp])
         {
-          v8 = v7 | 4;
+          v7 = v6 | 4;
         }
 
         else
         {
-          v8 = v7;
+          v7 = v6;
         }
 
         iconDictionary = [(LSRecord *)self->_record iconDictionary];
-        v53 = v5;
-        v10 = [ISResourceProvider resourceWithBundleURL:v5 iconDictionary:iconDictionary options:v8];
+        v45 = v4;
+        v9 = [ISResourceProvider resourceWithBundleURL:v4 iconDictionary:iconDictionary options:v7];
         resourcesByResourceKey = [(ISResourceProvider *)self resourcesByResourceKey];
-        [resourcesByResourceKey setObject:v10 forKeyedSubscript:?];
+        [resourcesByResourceKey setObject:v9 forKeyedSubscript:?];
 
-        v12 = +[ISDefaults sharedInstance];
-        isSolariumEnabled = [v12 isSolariumEnabled];
+        v11 = +[ISDefaults sharedInstance];
+        isSolariumEnabled = [v11 isSolariumEnabled];
 
         if (isSolariumEnabled)
         {
           [(ISRecordResourceProvider *)self assignLayerResources];
         }
 
-        v14 = self->_record;
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
         [(ISRecordResourceProvider *)self _findTextResourceWithIconDictionary:iconDictionary];
-        [(ISRecordResourceProvider *)self setPlatformWithBundle:v6];
+        [(ISRecordResourceProvider *)self setPlatformWithBundle:v5];
         record = [(ISRecordResourceProvider *)self record];
-        v17 = [(ISResourceProvider *)self _findBadgeResourceWithIconDictionary:iconDictionary bundle:v6 record:record];
+        v15 = [(ISResourceProvider *)self _findBadgeResourceWithIconDictionary:iconDictionary bundle:v5 record:record];
 
-        v18 = [(ISResourceProvider *)self _findBackgroundResourceWithIconDictionary:iconDictionary bundle:v6];
-        if (!v17 && !v18)
+        v16 = [(ISResourceProvider *)self _findBackgroundResourceWithIconDictionary:iconDictionary bundle:v5];
+        if (!v15 && !v16)
         {
           badgeResource = [(ISResourceProvider *)self badgeResource];
 
           if (!badgeResource)
           {
-            if ((isKindOfClass & 1) == 0 || (v20 = v10) == 0)
+            if ((isKindOfClass & 1) == 0 || (v18 = v9) == 0)
             {
-              v21 = self->_record;
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -115,71 +111,70 @@ LABEL_8:
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v20 = [ISResourceProvider resourceWithRecord:declaringBundleRecord options:0];
+                  v18 = [ISResourceProvider resourceWithRecord:declaringBundleRecord options:0];
                 }
 
                 else
                 {
-                  v20 = 0;
+                  v18 = 0;
                 }
               }
 
               else
               {
-                v20 = 0;
+                v18 = 0;
               }
             }
 
             resourcesByResourceKey2 = [(ISResourceProvider *)self resourcesByResourceKey];
-            [resourcesByResourceKey2 setObject:v20 forKeyedSubscript:@"kISBadgeResourceKey"];
+            [resourcesByResourceKey2 setObject:v18 forKeyedSubscript:@"kISBadgeResourceKey"];
           }
         }
 
         [(ISRecordResourceProvider *)self _determineRecipe];
-        v24 = [(ISResourceProvider *)self _findCustomRecipeWithIconDictionary:iconDictionary bundle:v6];
+        v21 = [(ISResourceProvider *)self _findCustomRecipeWithIconDictionary:iconDictionary bundle:v5];
         resourcesByResourceKey3 = [(ISResourceProvider *)self resourcesByResourceKey];
-        v52 = v10;
-        if (![resourcesByResourceKey3 count] && !v24)
+        v44 = v9;
+        if (![resourcesByResourceKey3 count] && !v21)
         {
-          v26 = self->_record;
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             containingBundleRecord = [(LSRecord *)self->_record containingBundleRecord];
             objc_opt_class();
-            v28 = objc_opt_isKindOfClass();
+            v24 = objc_opt_isKindOfClass();
 
-            if ((v28 & 1) == 0)
+            if ((v24 & 1) == 0)
             {
 LABEL_36:
               resourcesByResourceKey4 = [(ISResourceProvider *)self resourcesByResourceKey];
-              if ([resourcesByResourceKey4 count] != 0 || v24 || (v34 = self->_record, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+              if ([resourcesByResourceKey4 count] != 0 || v21 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
               {
 
-                v36 = v53;
+                v31 = v45;
               }
 
               else
               {
                 isDeclared = [(LSRecord *)self->_record isDeclared];
 
-                v36 = v53;
+                v31 = v45;
                 if (isDeclared)
                 {
                   iconDictionary2 = [(LSRecord *)self->_record iconDictionary];
-                  v38 = [iconDictionary2 _IF_stringForKey:@"UTTypeSymbolName"];
+                  v33 = [iconDictionary2 _IF_stringForKey:@"UTTypeSymbolName"];
 
-                  if (v38)
+                  if (v33)
                   {
-                    v39 = self->_record;
-                    v54[0] = MEMORY[0x1E69E9820];
-                    v54[1] = 3221225472;
-                    v54[2] = __44__ISRecordResourceProvider_resolveResources__block_invoke;
-                    v54[3] = &unk_1E77C6758;
-                    v55 = v53;
-                    v56 = v38;
+                    record = self->_record;
+                    v46[0] = MEMORY[0x1E69E9820];
+                    v46[1] = 3221225472;
+                    v46[2] = __44__ISRecordResourceProvider_resolveResources__block_invoke;
+                    v46[3] = &unk_1E77C6758;
+                    v47 = v45;
+                    v48 = v33;
                     selfCopy = self;
-                    [(LSRecord *)v39 enumeratePedigreeWithBlock:v54];
+                    [(LSRecord *)record enumeratePedigreeWithBlock:v46];
                   }
                 }
               }
@@ -191,25 +186,24 @@ LABEL_36:
 
               if ([(ISRecordResourceProvider *)self _isAppClip])
               {
-                v40 = objc_alloc_init(ISiOSAppClipRecipe);
-                [(ISResourceProvider *)self setSuggestedRecipe:v40];
+                v35 = objc_alloc_init(ISiOSAppClipRecipe);
+                [(ISResourceProvider *)self setSuggestedRecipe:v35];
               }
 
               resourcesByResourceKey5 = [(ISResourceProvider *)self resourcesByResourceKey];
-              v42 = [resourcesByResourceKey5 count] != 0 || v24;
+              v37 = [resourcesByResourceKey5 count] != 0 || v21;
 
-              if (v42)
+              if (v37)
               {
                 goto LABEL_59;
               }
 
-              v43 = self->_record;
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v44 = MEMORY[0x1E6982CB0];
+                v38 = MEMORY[0x1E6982CB0];
 LABEL_57:
-                identifier = [*v44 identifier];
+                identifier = [*v38 identifier];
                 resourcesByResourceKey7 = [ISResourceProvider resourceWithTypeIdentifier:identifier options:0];
                 resourcesByResourceKey6 = [(ISResourceProvider *)self resourcesByResourceKey];
                 [resourcesByResourceKey6 setObject:resourcesByResourceKey7 forKeyedSubscript:@"kISPrimaryResourceKey"];
@@ -217,27 +211,25 @@ LABEL_57:
                 goto LABEL_58;
               }
 
-              v45 = self->_record;
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v46 = [ISResourceProvider resourceWithTypeIdentifier:@"com.apple.application-and-system-extension" options:0];
+                v39 = [ISResourceProvider resourceWithTypeIdentifier:@"com.apple.application-and-system-extension" options:0];
               }
 
               else
               {
-                v47 = self->_record;
                 objc_opt_class();
-                if ((objc_opt_isKindOfClass() & 1) == 0 || ([iconDictionary _IF_dictionaryForKey:0x1F1A4EC00], v48 = objc_claimAutoreleasedReturnValue(), v48, !v48))
+                if ((objc_opt_isKindOfClass() & 1) == 0 || ([iconDictionary _IF_dictionaryForKey:0x1F1A4EC00], v40 = objc_claimAutoreleasedReturnValue(), v40, !v40))
                 {
-                  v44 = MEMORY[0x1E6982D60];
+                  v38 = MEMORY[0x1E6982D60];
                   goto LABEL_57;
                 }
 
-                v46 = +[ISGraphicSymbolResource defaultResource];
+                v39 = +[ISGraphicSymbolResource defaultResource];
               }
 
-              identifier = v46;
+              identifier = v39;
               resourcesByResourceKey7 = [(ISResourceProvider *)self resourcesByResourceKey];
               [resourcesByResourceKey7 setObject:identifier forKeyedSubscript:@"kISPrimaryResourceKey"];
 LABEL_58:
@@ -247,14 +239,14 @@ LABEL_59:
             }
 
             resourcesByResourceKey3 = [(LSRecord *)self->_record containingBundleRecord];
-            v29 = [resourcesByResourceKey3 URL];
+            v25 = [resourcesByResourceKey3 URL];
             iconDictionary3 = [resourcesByResourceKey3 iconDictionary];
-            v31 = [ISResourceProvider resourceWithBundleURL:v29 iconDictionary:iconDictionary3 options:v8];
+            v27 = [ISResourceProvider resourceWithBundleURL:v25 iconDictionary:iconDictionary3 options:v7];
 
-            if (v31)
+            if (v27)
             {
               resourcesByResourceKey8 = [(ISResourceProvider *)self resourcesByResourceKey];
-              [resourcesByResourceKey8 setObject:v31 forKeyedSubscript:@"kISPrimaryResourceKey"];
+              [resourcesByResourceKey8 setObject:v27 forKeyedSubscript:@"kISPrimaryResourceKey"];
             }
           }
         }
@@ -265,7 +257,7 @@ LABEL_59:
       iconResourceBundleURL = [(LSRecord *)self->_record URL];
     }
 
-    v5 = iconResourceBundleURL;
+    v4 = iconResourceBundleURL;
     goto LABEL_8;
   }
 }
@@ -309,7 +301,7 @@ LABEL_59:
 
 - (void)assignLayerResources
 {
-  v29[3] = *MEMORY[0x1E69E9840];
+  v28[3] = *MEMORY[0x1E69E9840];
   record = [(ISRecordResourceProvider *)self record];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -318,12 +310,12 @@ LABEL_59:
 
     if (record2 && [(ISRecordResourceProvider *)self _isFolder])
     {
-      v28 = record2;
+      v27 = record2;
       v5 = MEMORY[0x1E69636B0];
       identifier = [*MEMORY[0x1E6982DC8] identifier];
       v7 = [v5 typeRecordWithIdentifier:identifier];
 
-      v27 = v7;
+      v26 = v7;
       iconDictionary = [v7 iconDictionary];
       v9 = [iconDictionary _IF_dictionaryForKey:@"ISLayers"];
       v10 = [v9 _IF_arrayForKey:@"ISTypeIdentifiers"];
@@ -334,10 +326,10 @@ LABEL_59:
         [resourcesByResourceKey setObject:0 forKeyedSubscript:@"kISPrimaryResourceKey"];
       }
 
-      v29[0] = @"kISPrimaryResourceKey";
-      v29[1] = @"kISSecondaryResourceKey";
-      v29[2] = @"kISTertiaryResourceKey";
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
+      v28[0] = @"kISPrimaryResourceKey";
+      v28[1] = @"kISSecondaryResourceKey";
+      v28[2] = @"kISTertiaryResourceKey";
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:3];
       if ([v10 count])
       {
         v13 = 0;
@@ -396,7 +388,7 @@ LABEL_15:
 
 LABEL_17:
 
-      record2 = v28;
+      record2 = v27;
     }
   }
 
@@ -405,8 +397,6 @@ LABEL_17:
 
     record2 = 0;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_determineRecipe
@@ -519,23 +509,23 @@ LABEL_16:
 
 - (ISRecordResourceProvider)initWithRecord:(id)record fileExtension:(id)extension options:(unint64_t)options
 {
-  v40[3] = *MEMORY[0x1E69E9840];
+  v39[3] = *MEMORY[0x1E69E9840];
   recordCopy = record;
   extensionCopy = extension;
   if ([recordCopy _is_canProvideIconResources])
   {
-    v37.receiver = self;
-    v37.super_class = ISRecordResourceProvider;
-    v11 = [(ISResourceProvider *)&v37 init];
+    v36.receiver = self;
+    v36.super_class = ISRecordResourceProvider;
+    v11 = [(ISResourceProvider *)&v36 init];
     v12 = v11;
     if (v11)
     {
       objc_storeStrong(&v11->_record, record);
       iconDictionary = [recordCopy iconDictionary];
-      v40[0] = @"UTTypeIconBadgeName";
-      v40[1] = @"UTTypeIconText";
-      v40[2] = @"UTTypeIconBackgroundName";
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:3];
+      v39[0] = @"UTTypeIconBadgeName";
+      v39[1] = @"UTTypeIconText";
+      v39[2] = @"UTTypeIconBackgroundName";
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:3];
       v15 = [iconDictionary _IF_stringForKeys:v14];
 
       if (v15)
@@ -548,7 +538,7 @@ LABEL_16:
         optionsCopy = options;
       }
 
-      v34 = iconDictionary;
+      v33 = iconDictionary;
       v17 = [iconDictionary _IF_dictionaryForKey:@"ISDocumentIconConfiguration"];
       v18 = v17;
       if (v17)
@@ -568,20 +558,20 @@ LABEL_16:
       }
 
       v23 = MEMORY[0x1E6963688];
-      v39 = recordCopy;
-      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+      v38 = recordCopy;
+      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
       v25 = [v23 _is_resourceTokenForRecords:v24];
 
+      v34 = 0;
       v35 = 0;
-      v36 = 0;
-      [MEMORY[0x1E6963688] _is_getSequenceNumber:&v36 andUUID:&v35];
-      v26 = v35;
-      [(ISResourceProvider *)v12 setLsDatabaseSequenceNumber:v36];
+      [MEMORY[0x1E6963688] _is_getSequenceNumber:&v35 andUUID:&v34];
+      v26 = v34;
+      [(ISResourceProvider *)v12 setLsDatabaseSequenceNumber:v35];
       [(ISResourceProvider *)v12 setLsDatabaseUUID:v26];
       [(ISResourceProvider *)v12 setResourceToken:v25];
       persistentIdentifier = [recordCopy persistentIdentifier];
-      v38 = persistentIdentifier;
-      v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
+      v37 = persistentIdentifier;
+      v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
       [(ISResourceProvider *)v12 setSourceRecordIdentifiers:v28];
 
       [(ISResourceProvider *)v12 setOptions:optionsCopy];
@@ -609,7 +599,6 @@ LABEL_16:
     v12 = 0;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -777,7 +766,7 @@ LABEL_11:
 
 id __34__ISRecordResourceProvider_symbol__block_invoke(uint64_t a1, void *a2)
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 || ([v2 isCoreType] & 1) == 0)
@@ -800,9 +789,9 @@ LABEL_7:
   v4 = 0;
 LABEL_9:
   v5 = [v2 iconDictionary];
-  v11[0] = @"CFBundleSymbolName";
-  v11[1] = @"UTTypeSymbolName";
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[0] = @"CFBundleSymbolName";
+  v10[1] = @"UTTypeSymbolName";
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
   v7 = [v5 _IF_stringForKeys:v6];
 
   if (v7)
@@ -815,16 +804,7 @@ LABEL_9:
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
-}
-
-- (BOOL)_isAppleResource
-{
-  record = self->_record;
-  objc_opt_class();
-  return (objc_opt_isKindOfClass() & 1) != 0 && [(LSRecord *)self->_record developerType]== 1;
 }
 
 - (void)setPlatformWithBundle:(id)bundle
@@ -850,7 +830,7 @@ LABEL_9:
 
 - (BOOL)_findTextResourceWithIconDictionary:(id)dictionary
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v25[2] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v5 = [[ISFolderIconConfiguration alloc] initWithIconDictionary:dictionaryCopy];
   v6 = +[ISDefaults sharedInstance];
@@ -868,9 +848,9 @@ LABEL_9:
   else
   {
 
-    v26[0] = @"UTTypeIconText";
-    v26[1] = @"CFBundleIconText";
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+    v25[0] = @"UTTypeIconText";
+    v25[1] = @"CFBundleIconText";
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
     v12 = [dictionaryCopy _IF_stringForKeys:v11];
     uppercaseString = [v12 uppercaseString];
 
@@ -918,7 +898,6 @@ LABEL_9:
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return emoji;
 }
 

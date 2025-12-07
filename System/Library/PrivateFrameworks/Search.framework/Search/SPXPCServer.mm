@@ -3,6 +3,7 @@
 - (id)_highAvailabilityQueue;
 - (id)initListenerWithServiceName:(id)name;
 - (id)initListenerWithServiceName:(id)name onQueue:(id)queue qos:(unsigned int)qos;
+- (void)_handleNewConnection:(id)connection qos:(unsigned int)qos;
 - (void)dealloc;
 - (void)setHandlerForMessageName:(id)name handler:(id)handler;
 @end
@@ -61,6 +62,56 @@ void __37__SPXPCServer__highAvailabilityQueue__block_invoke()
   v7 = MEMORY[0x1CCA71310](v5);
 
   return v7;
+}
+
+- (void)_handleNewConnection:(id)connection qos:(unsigned int)qos
+{
+  v4 = *&qos;
+  connectionCopy = connection;
+  objc_initWeak(&location, self);
+  v7 = [[SPXPCConnection alloc] initWithXPCConnection:connectionCopy qos:v4];
+  from[1] = MEMORY[0x1E69E9820];
+  from[2] = 3221225472;
+  from[3] = __40__SPXPCServer__handleNewConnection_qos___block_invoke;
+  from[4] = &unk_1E82F8E68;
+  from[5] = self;
+  v8 = v7;
+  v18 = v8;
+  tracing_dispatch_sync();
+  if (!self->hadConnection)
+  {
+    self->hadConnection = 1;
+    firstConnectionBlock = self->_firstConnectionBlock;
+    if (firstConnectionBlock)
+    {
+      firstConnectionBlock[2]();
+      v10 = self->_firstConnectionBlock;
+      self->_firstConnectionBlock = 0;
+    }
+  }
+
+  objc_initWeak(from, v8);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __40__SPXPCServer__handleNewConnection_qos___block_invoke_2;
+  v14[3] = &unk_1E82F9620;
+  objc_copyWeak(&v15, &location);
+  objc_copyWeak(&v16, from);
+  [(SPXPCConnection *)v8 setMessageHandler:v14];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __40__SPXPCServer__handleNewConnection_qos___block_invoke_152;
+  v11[3] = &unk_1E82F9648;
+  objc_copyWeak(&v12, &location);
+  objc_copyWeak(&v13, from);
+  [(SPXPCConnection *)v8 setDisconnectHandler:v11];
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
+  objc_destroyWeak(from);
+
+  objc_destroyWeak(&location);
 }
 
 void __40__SPXPCServer__handleNewConnection_qos___block_invoke_2(uint64_t a1, void *a2)
@@ -202,46 +253,45 @@ void __55__SPXPCServer_initListenerWithServiceName_onQueue_qos___block_invoke(ui
 
 - (void)dealloc
 {
-  connectionsQueue = self->_connectionsQueue;
-  v5 = MEMORY[0x1E69E9820];
-  v6 = 3221225472;
-  v7 = __22__SPXPCServer_dealloc__block_invoke;
-  v8 = &unk_1E82F8F28;
+  v4 = MEMORY[0x1E69E9820];
+  v5 = 3221225472;
+  v6 = __22__SPXPCServer_dealloc__block_invoke;
+  v7 = &unk_1E82F8F28;
   selfCopy = self;
   tracing_dispatch_sync();
-  v4.receiver = self;
-  v4.super_class = SPXPCServer;
-  [(SPXPCServer *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = SPXPCServer;
+  [(SPXPCServer *)&v3 dealloc];
 }
 
 void __22__SPXPCServer_dealloc__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v15 = *MEMORY[0x1E69E9840];
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v2 = *(*(a1 + 32) + 24);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
-        [v7 setMessageHandler:{0, v11}];
+        v7 = *(*(&v10 + 1) + 8 * i);
+        [v7 setMessageHandler:{0, v10}];
         [v7 setDisconnectHandler:0];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
@@ -250,8 +300,6 @@ void __22__SPXPCServer_dealloc__block_invoke(uint64_t a1)
   v8 = *(a1 + 32);
   v9 = *(v8 + 24);
   *(v8 + 24) = 0;
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setHandlerForMessageName:(id)name handler:(id)handler
@@ -282,62 +330,47 @@ void __22__SPXPCServer_dealloc__block_invoke(uint64_t a1)
 
 - (void)_handlerForMessageName:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handlerForMessageName:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __40__SPXPCServer__handleNewConnection_qos___block_invoke_2_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 name];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __40__SPXPCServer__handleNewConnection_qos___block_invoke_2_cold_2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 name];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __40__SPXPCServer__handleNewConnection_qos___block_invoke_2_cold_3(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 name];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __55__SPXPCServer_initListenerWithServiceName_onQueue_qos___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
   _StringForXPCType(a2);
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

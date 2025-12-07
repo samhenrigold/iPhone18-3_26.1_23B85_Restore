@@ -20,7 +20,7 @@
 
 - (id)_encodeObject:(id)object codableAttribute:(id)attribute
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   attributeCopy = attribute;
   if (!objectCopy)
@@ -214,30 +214,30 @@ LABEL_32:
     codableEnum = [v29 codableEnum];
     if ([codableEnum type] == 2)
     {
-      v48 = v29;
-      v49 = v13;
+      v47 = v29;
+      v48 = v13;
       v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v49 = 0u;
       v50 = 0u;
       v51 = 0u;
       v52 = 0u;
-      v53 = 0u;
-      v47 = codableEnum;
+      v46 = codableEnum;
       values = [codableEnum values];
-      v33 = [values countByEnumeratingWithState:&v50 objects:v54 count:16];
+      v33 = [values countByEnumeratingWithState:&v49 objects:v53 count:16];
       if (v33)
       {
         v34 = v33;
-        v35 = *v51;
+        v35 = *v50;
         do
         {
           for (i = 0; i != v34; ++i)
           {
-            if (*v51 != v35)
+            if (*v50 != v35)
             {
               objc_enumerationMutation(values);
             }
 
-            v37 = *(*(&v50 + 1) + 8 * i);
+            v37 = *(*(&v49 + 1) + 8 * i);
             if ((integerValue >> [v37 index]))
             {
               name = [v37 name];
@@ -250,16 +250,16 @@ LABEL_32:
             }
           }
 
-          v34 = [values countByEnumeratingWithState:&v50 objects:v54 count:16];
+          v34 = [values countByEnumeratingWithState:&v49 objects:v53 count:16];
         }
 
         while (v34);
       }
 
       name3 = [v31 copy];
-      v29 = v48;
-      v13 = v49;
-      codableEnum = v47;
+      v29 = v47;
+      v13 = v48;
+      codableEnum = v46;
     }
 
     else
@@ -270,7 +270,6 @@ LABEL_32:
   }
 
 LABEL_60:
-  v45 = *MEMORY[0x1E69E9840];
 
   return name3;
 }
@@ -284,40 +283,40 @@ LABEL_60:
 
 - (id)encodeObject:(id)object withCodableAttribute:(id)attribute
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   attributeCopy = attribute;
   v8 = objectCopy;
   if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v9 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v8, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [(INJSONEncoder *)self _encodeObject:*(*(&v19 + 1) + 8 * i) codableAttribute:attributeCopy, v19];
+          v15 = [(INJSONEncoder *)self _encodeObject:*(*(&v18 + 1) + 8 * i) codableAttribute:attributeCopy, v18];
           if (v15)
           {
             [v9 addObject:v15];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v12);
@@ -332,14 +331,12 @@ LABEL_60:
     v16 = [(INJSONEncoder *)self _encodeObject:v8 codableAttribute:attributeCopy];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 - (id)encodeObject:(id)object withCodableDescription:(id)description
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   descriptionCopy = description;
   if (!objectCopy)
@@ -373,14 +370,14 @@ LABEL_27:
       v21 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
-        v24 = v21;
-        v25 = objc_opt_class();
-        v26 = NSStringFromClass(v25);
+        v23 = v21;
+        v24 = objc_opt_class();
+        v25 = NSStringFromClass(v24);
         *buf = 136315394;
-        v35 = "[INJSONEncoder encodeObject:withCodableDescription:]";
-        v36 = 2112;
-        v37 = v26;
-        _os_log_error_impl(&dword_18E991000, v24, OS_LOG_TYPE_ERROR, "%s %@ is not JSON encodable", buf, 0x16u);
+        v34 = "[INJSONEncoder encodeObject:withCodableDescription:]";
+        v35 = 2112;
+        v36 = v25;
+        _os_log_error_impl(&dword_18E991000, v23, OS_LOG_TYPE_ERROR, "%s %@ is not JSON encodable", buf, 0x16u);
       }
 
       descriptionCopy = 0;
@@ -389,29 +386,29 @@ LABEL_27:
   }
 
   v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v27 = descriptionCopy;
+  v26 = descriptionCopy;
   attributes = [descriptionCopy attributes];
   allValues = [attributes allValues];
 
-  v12 = [allValues countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v12 = [allValues countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v30;
+    v14 = *v29;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v30 != v14)
+        if (*v29 != v14)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v16 = *(*(&v29 + 1) + 8 * i);
+        v16 = *(*(&v28 + 1) + 8 * i);
         propertyName = [v16 propertyName];
         if (([propertyName hasPrefix:@"_"] & 1) == 0 && objc_msgSend(objectCopy, "_intents_isValidKey:", propertyName))
         {
@@ -421,14 +418,14 @@ LABEL_27:
         }
       }
 
-      v13 = [allValues countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v13 = [allValues countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v13);
   }
 
-  descriptionCopy = v27;
-  semanticRoot = [v27 semanticRoot];
+  descriptionCopy = v26;
+  semanticRoot = [v26 semanticRoot];
   if (semanticRoot)
   {
     [v9 setObject:semanticRoot forKey:@"_type"];
@@ -437,7 +434,6 @@ LABEL_27:
   v7 = [v9 copy];
 
 LABEL_28:
-  v22 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

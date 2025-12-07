@@ -444,16 +444,16 @@ LABEL_2:
   return v5;
 }
 
-id __24__TPSAssets_na_identity__block_invoke()
+id __24__TPSAssets_na_identity__block_invoke(uint64_t a1)
 {
   if (TPSAssetsGradientKey_block_invoke_na_once_token_0 != -1)
   {
     __24__TPSAssets_na_identity__block_invoke_cold_1();
   }
 
-  v1 = TPSAssetsGradientKey_block_invoke_na_once_object_0;
+  v2 = TPSAssetsGradientKey_block_invoke_na_once_object_0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __24__TPSAssets_na_identity__block_invoke_2()

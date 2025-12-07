@@ -1,6 +1,9 @@
 @interface NRGDaemon
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (NRGDaemon)init;
+- (id)sendProtobufRequest:(id)request type:(unsigned __int16)type priority:(int64_t)priority expectsResponse:(BOOL)response requestHandler:(id)handler errorHandler:(id)errorHandler toDevice:(id)device withTimeout:(double)self0;
+- (id)sendProtobufRequest:(id)request type:(unsigned __int16)type priority:(int64_t)priority expectsResponse:(BOOL)response requestHandler:(id)handler errorHandler:(id)errorHandler withTimeout:(double)timeout;
+- (id)sendProtobufResponse:(id)response type:(unsigned __int16)type priority:(int64_t)priority idsRequest:(id)request completionHandler:(id)handler withTimeout:(double)timeout;
 - (void)dealloc;
 - (void)handleRequest:(id)request;
 - (void)handleResponse:(id)response;
@@ -8,6 +11,7 @@
 - (void)purgeCache;
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)start;
+- (void)xpcGetIconForBundleID:(id)d iconVariant:(int)variant withTimeout:(double)timeout reply:(id)reply;
 @end
 
 @implementation NRGDaemon
@@ -340,6 +344,302 @@
     {
       sub_100011B64();
     }
+  }
+}
+
+- (id)sendProtobufRequest:(id)request type:(unsigned __int16)type priority:(int64_t)priority expectsResponse:(BOOL)response requestHandler:(id)handler errorHandler:(id)errorHandler withTimeout:(double)timeout
+{
+  responseCopy = response;
+  typeCopy = type;
+  idsService = self->_idsService;
+  errorHandlerCopy = errorHandler;
+  handlerCopy = handler;
+  requestCopy = request;
+  nrg_allDevices = [(IDSService *)idsService nrg_allDevices];
+  v20 = +[NRPairedDeviceRegistry sharedInstance];
+  v21 = NRGGetActivePairedDevice();
+  v22 = [v20 deviceForNRDevice:v21 fromIDSDevices:nrg_allDevices];
+
+  v23 = IDSCopyIDForDevice();
+  v24 = [(NRGDaemon *)self sendProtobufRequest:requestCopy type:typeCopy priority:priority expectsResponse:responseCopy requestHandler:handlerCopy errorHandler:errorHandlerCopy toDevice:timeout withTimeout:v23];
+
+  return v24;
+}
+
+- (id)sendProtobufRequest:(id)request type:(unsigned __int16)type priority:(int64_t)priority expectsResponse:(BOOL)response requestHandler:(id)handler errorHandler:(id)errorHandler toDevice:(id)device withTimeout:(double)self0
+{
+  responseCopy = response;
+  typeCopy = type;
+  handlerCopy = handler;
+  errorHandlerCopy = errorHandler;
+  deviceCopy = device;
+  requestCopy = request;
+  v20 = objc_opt_new();
+  v21 = [NSNumber numberWithBool:responseCopy];
+  [v20 setObject:v21 forKey:IDSSendMessageOptionExpectsPeerResponseKey];
+
+  if (timeout > 0.0)
+  {
+    v22 = [NSNumber numberWithDouble:timeout];
+    [v20 setObject:v22 forKey:IDSSendMessageOptionTimeoutKey];
+  }
+
+  [v20 setObject:&__kCFBooleanTrue forKeyedSubscript:IDSSendMessageOptionBypassDuetKey];
+  if (deviceCopy)
+  {
+    v23 = deviceCopy;
+  }
+
+  else
+  {
+    v23 = IDSDefaultPairedDevice;
+  }
+
+  v24 = [NSSet setWithObject:v23];
+  v25 = [IDSProtobuf alloc];
+  data = [requestCopy data];
+
+  v27 = [v25 initWithProtobufData:data type:typeCopy isResponse:0];
+  idsService = self->_idsService;
+  v40 = 0;
+  v41 = 0;
+  LOBYTE(data) = [(IDSService *)idsService sendProtobuf:v27 toDestinations:v24 priority:priority options:v20 identifier:&v41 error:&v40];
+  v29 = v41;
+  v30 = v40;
+  if (data)
+  {
+    if (handlerCopy)
+    {
+      v31 = nrg_daemon_log();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      {
+        data2 = [v27 data];
+        v33 = [data2 length];
+        *buf = 134349314;
+        v43 = v33;
+        v44 = 2114;
+        v45 = v29;
+        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "IDS Request Sent: %{public}ld bytes, identifier %{public}@", buf, 0x16u);
+      }
+
+      handlerCopy[2](handlerCopy, v29, 0);
+      if (errorHandlerCopy)
+      {
+        os_unfair_lock_lock(&self->_requestErrorHandlerLock);
+        requestErrorHandlerDictionary = self->_requestErrorHandlerDictionary;
+        v35 = objc_retainBlock(errorHandlerCopy);
+        [(NSMutableDictionary *)requestErrorHandlerDictionary setObject:v35 forKey:v29];
+
+        os_unfair_lock_unlock(&self->_requestErrorHandlerLock);
+      }
+    }
+  }
+
+  else
+  {
+    v36 = nrg_daemon_log();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    {
+      sub_100011BD8(v27, v29, v36);
+    }
+
+    if (!v30)
+    {
+      v30 = [NSError errorWithDomain:@"com.apple.NanoResourceGrabber" code:1 userInfo:&off_100021860];
+    }
+
+    if (handlerCopy)
+    {
+      (handlerCopy)[2](handlerCopy, v29, v30);
+    }
+
+    if (errorHandlerCopy)
+    {
+      (*(errorHandlerCopy + 2))(errorHandlerCopy, v30);
+    }
+
+    v29 = 0;
+  }
+
+  v37 = v29;
+
+  return v29;
+}
+
+- (id)sendProtobufResponse:(id)response type:(unsigned __int16)type priority:(int64_t)priority idsRequest:(id)request completionHandler:(id)handler withTimeout:(double)timeout
+{
+  typeCopy = type;
+  requestCopy = request;
+  handlerCopy = handler;
+  v49 = IDSSendMessageOptionPeerResponseIdentifierKey;
+  responseCopy = response;
+  v40 = requestCopy;
+  context = [requestCopy context];
+  outgoingResponseIdentifier = [context outgoingResponseIdentifier];
+  v50 = outgoingResponseIdentifier;
+  v19 = [NSDictionary dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+  v20 = [NSMutableDictionary dictionaryWithDictionary:v19];
+
+  if (timeout > 0.0)
+  {
+    v21 = [NSNumber numberWithDouble:timeout];
+    [v20 setObject:v21 forKey:IDSSendMessageOptionTimeoutKey];
+  }
+
+  v22 = [NSSet setWithObject:IDSDefaultPairedDevice];
+  v23 = [IDSProtobuf alloc];
+  data = [responseCopy data];
+
+  v25 = [v23 initWithProtobufData:data type:typeCopy isResponse:1];
+  selfCopy = self;
+  idsService = self->_idsService;
+  v41 = 0;
+  v42 = 0;
+  v27 = [(IDSService *)idsService sendProtobuf:v25 toDestinations:v22 priority:priority options:v20 identifier:&v42 error:&v41];
+  v28 = v42;
+  genericSendError = v41;
+  v30 = nrg_daemon_log();
+  v31 = v30;
+  if (v27)
+  {
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    {
+      data2 = [v25 data];
+      v32 = [data2 length];
+      context2 = [v40 context];
+      outgoingResponseIdentifier2 = [context2 outgoingResponseIdentifier];
+      *buf = 134349570;
+      v44 = v32;
+      v45 = 2114;
+      v46 = v28;
+      v47 = 2114;
+      v48 = outgoingResponseIdentifier2;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "IDS Response Sent: %{public}ld bytes, identifier %{public}@ (for %{public}@)", buf, 0x20u);
+    }
+  }
+
+  else if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  {
+    sub_100011C88(requestCopy, v28, v31);
+  }
+
+  if (handlerCopy)
+  {
+    if (genericSendError)
+    {
+      v34 = 1;
+    }
+
+    else
+    {
+      v34 = v27;
+    }
+
+    if ((v34 & 1) == 0)
+    {
+      genericSendError = [(NRGDaemon *)selfCopy genericSendError];
+    }
+
+    handlerCopy[2](handlerCopy, v27, genericSendError);
+  }
+
+  v35 = v28;
+
+  return v28;
+}
+
+- (void)xpcGetIconForBundleID:(id)d iconVariant:(int)variant withTimeout:(double)timeout reply:(id)reply
+{
+  v8 = *&variant;
+  dCopy = d;
+  replyCopy = reply;
+  v12 = NRGGetActivePairedDevice();
+  v13 = [v12 valueForProperty:NRDevicePropertyLocalPairingDataStorePath];
+  if (v13)
+  {
+    nrg_allDevices = [(IDSService *)self->_idsService nrg_allDevices];
+    v15 = +[NRPairedDeviceRegistry sharedInstance];
+    v16 = [v15 deviceForNRDevice:v12 fromIDSDevices:nrg_allDevices];
+
+    if (v16 && ([v16 isNearby] & 1) != 0)
+    {
+      v17 = objc_alloc_init(NRGResourceRequest);
+      [(NRGResourceRequest *)v17 setBundleID:dCopy];
+      [(NRGResourceRequest *)v17 setType:0];
+      [(NRGResourceRequest *)v17 setVariant:v8];
+      *&v37 = 0;
+      *(&v37 + 1) = &v37;
+      v38 = 0x3032000000;
+      v39 = sub_10000EE60;
+      v40 = sub_10000EE70;
+      v41 = 0;
+      v26[0] = _NSConcreteStackBlock;
+      v26[1] = 3221225472;
+      v26[2] = sub_100010930;
+      v26[3] = &unk_100020B58;
+      v31 = &v37;
+      v25 = dCopy;
+      v27 = v25;
+      selfCopy = self;
+      v30 = replyCopy;
+      v32 = v8;
+      v29 = v13;
+      [(NRGResourceRequest *)v17 setCompletionBlock:v26];
+      v18 = nrg_daemon_log();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      {
+        v19 = [NSNumber numberWithDouble:timeout];
+        *buf = 138412546;
+        v34 = v25;
+        v35 = 2112;
+        v36 = v19;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Requesting icon for %@ from remote device with timeout %@", buf, 0x16u);
+      }
+
+      v20 = [(NRGResourceRequest *)v17 sendWithTransport:self toDevice:v16 withTimeout:timeout];
+      v21 = *(*(&v37 + 1) + 40);
+      *(*(&v37 + 1) + 40) = v20;
+
+      if (*(*(&v37 + 1) + 40))
+      {
+        [(_NRGRequestDictionary *)self->_requestDictionary setObject:v17 forKey:?];
+      }
+
+      else
+      {
+        v24 = nrg_daemon_log();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        {
+          sub_100011D78();
+        }
+      }
+
+      _Block_object_dispose(&v37, 8);
+    }
+
+    else
+    {
+      v22 = nrg_daemon_log();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      {
+        LODWORD(v37) = 138412290;
+        *(&v37 + 4) = dCopy;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "not connected to paired device, will not request icon for %@", &v37, 0xCu);
+      }
+
+      (*(replyCopy + 2))(replyCopy, 0);
+    }
+  }
+
+  else
+  {
+    v23 = nrg_daemon_log();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      sub_100011DE0();
+    }
+
+    (*(replyCopy + 2))(replyCopy, 0);
   }
 }
 

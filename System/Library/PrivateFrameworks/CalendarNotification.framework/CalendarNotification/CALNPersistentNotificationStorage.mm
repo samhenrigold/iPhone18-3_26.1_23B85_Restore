@@ -1,5 +1,6 @@
 @interface CALNPersistentNotificationStorage
 + (id)notificationRecordsFromPersistentNotificationStorageWithPath:(id)path error:(id *)error;
++ (id)persistentNotificationStorageWithPath:(id)path isProtectedStorage:(BOOL)storage;
 - (BOOL)_loadNotificationsWithError:(id *)error;
 - (BOOL)_saveNotificationsWithError:(id *)error;
 - (CALNPersistentNotificationStorage)initWithPath:(id)path isProtectedStorage:(BOOL)storage;
@@ -12,9 +13,31 @@
 
 @implementation CALNPersistentNotificationStorage
 
++ (id)persistentNotificationStorageWithPath:(id)path isProtectedStorage:(BOOL)storage
+{
+  storageCopy = storage;
+  pathCopy = path;
+  v7 = [[self alloc] initWithPath:pathCopy isProtectedStorage:storageCopy];
+  workQueue = [v7 workQueue];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __94__CALNPersistentNotificationStorage_persistentNotificationStorageWithPath_isProtectedStorage___block_invoke;
+  v14[3] = &unk_278D6F278;
+  v15 = pathCopy;
+  v9 = v7;
+  v16 = v9;
+  v10 = pathCopy;
+  dispatch_sync(workQueue, v14);
+
+  v11 = v16;
+  v12 = v9;
+
+  return v9;
+}
+
 void __94__CALNPersistentNotificationStorage_persistentNotificationStorageWithPath_isProtectedStorage___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v4 = *(a1 + 32);
   v3 = (a1 + 32);
@@ -23,9 +46,9 @@ void __94__CALNPersistentNotificationStorage_persistentNotificationStorageWithPa
   v6 = v3[1];
   if (v5)
   {
-    v18 = 0;
-    v7 = [v6 _loadNotificationsWithError:&v18];
-    v8 = v18;
+    v17 = 0;
+    v7 = [v6 _loadNotificationsWithError:&v17];
+    v8 = v17;
     v9 = +[CALNLogSubsystem defaultCategory];
     v10 = v9;
     if (v7)
@@ -34,7 +57,7 @@ void __94__CALNPersistentNotificationStorage_persistentNotificationStorageWithPa
       {
         v11 = *v3;
         *buf = 138543362;
-        v20 = v11;
+        v19 = v11;
         v12 = "Persistent notification storage file loaded from path %{public}@.";
 LABEL_8:
         _os_log_impl(&dword_242909000, v10, OS_LOG_TYPE_DEFAULT, v12, buf, 0xCu);
@@ -49,9 +72,9 @@ LABEL_8:
 
   else
   {
-    v17 = 0;
-    v13 = [v6 _saveNotificationsWithError:&v17];
-    v8 = v17;
+    v16 = 0;
+    v13 = [v6 _saveNotificationsWithError:&v16];
+    v8 = v16;
     v14 = +[CALNLogSubsystem defaultCategory];
     v10 = v14;
     if (v13)
@@ -60,7 +83,7 @@ LABEL_8:
       {
         v15 = *v3;
         *buf = 138543362;
-        v20 = v15;
+        v19 = v15;
         v12 = "Notification storage file did not exist at path = %{public}@. Created a new file.";
         goto LABEL_8;
       }
@@ -71,8 +94,6 @@ LABEL_8:
       __94__CALNPersistentNotificationStorage_persistentNotificationStorageWithPath_isProtectedStorage___block_invoke_cold_1(v3);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (id)notificationRecordsFromPersistentNotificationStorageWithPath:(id)path error:(id *)error
@@ -91,18 +112,16 @@ LABEL_8:
   return v8;
 }
 
-void __104__CALNPersistentNotificationStorage_notificationRecordsFromPersistentNotificationStorageWithPath_error___block_invoke()
+void __104__CALNPersistentNotificationStorage_notificationRecordsFromPersistentNotificationStorageWithPath_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v2 = [v0 setWithArray:v1];
-  v3 = notificationRecordsFromPersistentNotificationStorageWithPath_error__allowedClasses;
-  notificationRecordsFromPersistentNotificationStorageWithPath_error__allowedClasses = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+  v4 = [v2 setWithArray:v3];
+  v5 = notificationRecordsFromPersistentNotificationStorageWithPath_error__allowedClasses;
+  notificationRecordsFromPersistentNotificationStorageWithPath_error__allowedClasses = v4;
 }
 
 - (CALNPersistentNotificationStorage)initWithPath:(id)path isProtectedStorage:(BOOL)storage
@@ -262,7 +281,7 @@ uint64_t __65__CALNPersistentNotificationStorage_removeAllNotificationRecords__b
 
 - (BOOL)_loadNotificationsWithError:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   workQueue = [(CALNPersistentNotificationStorage *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -276,31 +295,31 @@ uint64_t __65__CALNPersistentNotificationStorage_removeAllNotificationRecords__b
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v25 = [v8 count];
+      v24 = [v8 count];
       _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Loaded notification records, count = %lu", buf, 0xCu);
     }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         v14 = 0;
         do
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v19 + 1) + 8 * v14);
+          v15 = *(*(&v18 + 1) + 8 * v14);
           inMemoryStorage = [(CALNPersistentNotificationStorage *)self inMemoryStorage];
           [inMemoryStorage addNotificationRecord:v15];
 
@@ -308,14 +327,13 @@ uint64_t __65__CALNPersistentNotificationStorage_removeAllNotificationRecords__b
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v12);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v8 != 0;
 }
 
@@ -392,45 +410,37 @@ LABEL_15:
 
 void __94__CALNPersistentNotificationStorage_persistentNotificationStorageWithPath_isProtectedStorage___block_invoke_cold_1(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_2_0(&dword_242909000, v1, v2, "Notification storage file did not exist at path = %{public}@. Creating a new file FAILED with error: %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_242909000, v1, v2, "Notification storage file did not exist at path = %{public}@. Creating a new file FAILED with error: %@", v3, DWORD2(v3));
 }
 
 void __94__CALNPersistentNotificationStorage_persistentNotificationStorageWithPath_isProtectedStorage___block_invoke_cold_2(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_2_0(&dword_242909000, v1, v2, "Couldn't read existing persistent notification storage at path %{public}@. Will proceed anyway, which may mean contents will be overwritten. Error: %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_242909000, v1, v2, "Couldn't read existing persistent notification storage at path %{public}@. Will proceed anyway, which may mean contents will be overwritten. Error: %@", v3, DWORD2(v3));
 }
 
 - (void)_saveNotificationsWithError:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 path];
-  v7 = 138543618;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_242909000, a3, OS_LOG_TYPE_ERROR, "Error writing archived notifications to path = %{public}@, error = %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_242909000, a3, OS_LOG_TYPE_ERROR, "Error writing archived notifications to path = %{public}@, error = %@", &v6, 0x16u);
 }
 
 - (void)_saveNotificationsWithError:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = a1;
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = a1;
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_2_0(&dword_242909000, v1, v2, "Error archiving notifications (%@). error = %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_242909000, v1, v2, "Error archiving notifications (%@). error = %@", v3, DWORD2(v3));
 }
 
 @end

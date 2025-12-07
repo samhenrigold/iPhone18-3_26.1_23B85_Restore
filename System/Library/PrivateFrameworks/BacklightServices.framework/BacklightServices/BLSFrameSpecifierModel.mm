@@ -111,7 +111,7 @@ _DWORD *__30__BLSFrameSpecifierModel_init__block_invoke(uint64_t a1)
 
 void __42__BLSFrameSpecifierModel_debugDescription__block_invoke_2(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = a1[6];
   if (v2 <= 0x5A)
   {
@@ -123,31 +123,31 @@ void __42__BLSFrameSpecifierModel_debugDescription__block_invoke_2(void *a1)
     v3 = 85;
   }
 
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = *(a1[4] + 8);
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       v10 = v7;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
         if (v10 < v3 || v10 >= v2 - 6)
         {
-          v12 = *(*(&v15 + 1) + 8 * v9);
+          v12 = *(*(&v14 + 1) + 8 * v9);
           v11 = a1[5];
         }
 
@@ -162,7 +162,7 @@ void __42__BLSFrameSpecifierModel_debugDescription__block_invoke_2(void *a1)
           v12 = @"...";
         }
 
-        v13 = [v11 appendObject:v12 withName:{0, v15}];
+        v13 = [v11 appendObject:v12 withName:{0, v14}];
 LABEL_15:
         ++v10;
         ++v9;
@@ -170,13 +170,11 @@ LABEL_15:
 
       while (v6 != v9);
       v7 += v6;
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)specifiers
@@ -225,7 +223,7 @@ LABEL_15:
 
   else
   {
-    firstObject = bls_environment_log();
+    firstObject = bls_environment_log(0);
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
     {
       [(BLSFrameSpecifierModel *)self addSpecifiers:specifiersCopy, firstObject];
@@ -268,8 +266,8 @@ LABEL_15:
 
     v9 = [(NSMutableArray *)self->_specifiers count];
     os_unfair_lock_unlock(&self->_lock);
-    v10 = bls_environment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = bls_environment_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218498;
       selfCopy = self;
@@ -277,20 +275,18 @@ LABEL_15:
       v17 = v5 - v9;
       v18 = 2114;
       selfCopy2 = self;
-      _os_log_debug_impl(&dword_21FE25000, v10, OS_LOG_TYPE_DEBUG, "<BLSFrameSpecifierModel %p> purged %lu specifiers — %{public}@", buf, 0x20u);
+      _os_log_debug_impl(&dword_21FE25000, v11, OS_LOG_TYPE_DEBUG, "<BLSFrameSpecifierModel %p> purged %lu specifiers — %{public}@", buf, 0x20u);
     }
   }
 
   else
   {
-    v10 = bls_environment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = bls_environment_log(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(BLSFrameSpecifierModel *)self purgeAllButOneSpecifiersBeforeDate:v10];
+      [(BLSFrameSpecifierModel *)self purgeAllButOneSpecifiersBeforeDate:v11];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __61__BLSFrameSpecifierModel_purgeAllButOneSpecifiersBeforeDate___block_invoke(uint64_t a1, void *a2)
@@ -313,19 +309,19 @@ BOOL __67__BLSFrameSpecifierModel_withLock_purgeAllSpecifiersOnOrAfterDate___blo
 
 - (id)specifierAtPresentationDate:(id)date
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   if (dateCopy)
   {
     os_unfair_lock_lock(&self->_lock);
     specifiers = self->_specifiers;
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __54__BLSFrameSpecifierModel_specifierAtPresentationDate___block_invoke;
-    v33[3] = &unk_278429178;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __54__BLSFrameSpecifierModel_specifierAtPresentationDate___block_invoke;
+    v34[3] = &unk_278429178;
     v6 = dateCopy;
-    v34 = v6;
-    v7 = [(NSMutableArray *)specifiers indexOfObjectWithOptions:1 passingTest:v33];
+    v35 = v6;
+    v7 = [(NSMutableArray *)specifiers indexOfObjectWithOptions:1 passingTest:v34];
     v8 = self->_specifiers;
     if (v7 == 0x7FFFFFFFFFFFFFFFLL)
     {
@@ -344,50 +340,51 @@ BOOL __67__BLSFrameSpecifierModel_withLock_purgeAllSpecifiersOnOrAfterDate___blo
 
     else
     {
-      v14 = [(NSMutableArray *)v8 objectAtIndex:?];
+      v15 = [(NSMutableArray *)v8 objectAtIndex:?];
+      v14 = v15;
     }
 
-    v15 = bls_environment_log();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
+    v16 = bls_environment_log(v15);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
 
-    if (v16 && !v14 && [(NSMutableArray *)self->_specifiers count])
+    if (v17 && !v14 && [(NSMutableArray *)self->_specifiers count])
     {
       firstObject = [(NSMutableArray *)self->_specifiers firstObject];
       presentationInterval = [firstObject presentationInterval];
       startDate = [presentationInterval startDate];
-      v20 = [startDate compare:v6];
+      v21 = [startDate compare:v6];
 
       endDate = [presentationInterval endDate];
-      v22 = [endDate compare:v6];
+      v23 = [endDate compare:v6];
 
       [v6 timeIntervalSinceReferenceDate];
-      v24 = v23;
+      v25 = v24;
       startDate2 = [presentationInterval startDate];
       [startDate2 timeIntervalSinceReferenceDate];
-      v27 = v26;
+      v28 = v27;
 
-      v28 = bls_environment_log();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+      v30 = bls_environment_log(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
         bls_shortLoggingString = [v6 bls_shortLoggingString];
-        v32 = [(NSMutableArray *)self->_specifiers bls_boundedDescriptionWithTransformer:&__block_literal_global_32];
+        v33 = [(NSMutableArray *)self->_specifiers bls_boundedDescriptionWithTransformer:&__block_literal_global_32];
         *buf = 134219778;
         selfCopy = self;
-        v37 = 2114;
-        v38 = bls_shortLoggingString;
-        v39 = 2114;
-        v40 = v32;
-        v41 = 2114;
-        v42 = firstObject;
-        v43 = 2048;
-        v44 = v20;
-        v45 = 2048;
-        v46 = v22;
-        v47 = 2048;
-        v48 = v24;
-        v49 = 2048;
-        v50 = v27;
-        _os_log_debug_impl(&dword_21FE25000, v28, OS_LOG_TYPE_DEBUG, "%p:specifier:nil presentationDate:%{public}@ specifiers:%{public}@ firstSpecifier:%{public}@ startCompare:%ld, endCompare:%ld, presentationDateTimeInterval:%lf firstPresentationIntervalStartDateTimeInterval:%lf", buf, 0x52u);
+        v38 = 2114;
+        v39 = bls_shortLoggingString;
+        v40 = 2114;
+        v41 = v33;
+        v42 = 2114;
+        v43 = firstObject;
+        v44 = 2048;
+        v45 = v21;
+        v46 = 2048;
+        v47 = v23;
+        v48 = 2048;
+        v49 = v25;
+        v50 = 2048;
+        v51 = v28;
+        _os_log_debug_impl(&dword_21FE25000, v30, OS_LOG_TYPE_DEBUG, "%p:specifier:nil presentationDate:%{public}@ specifiers:%{public}@ firstSpecifier:%{public}@ startCompare:%ld, endCompare:%ld, presentationDateTimeInterval:%lf firstPresentationIntervalStartDateTimeInterval:%lf", buf, 0x52u);
       }
     }
 
@@ -398,8 +395,6 @@ BOOL __67__BLSFrameSpecifierModel_withLock_purgeAllSpecifiersOnOrAfterDate___blo
   {
     v14 = 0;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -445,7 +440,7 @@ id __54__BLSFrameSpecifierModel_specifierAtPresentationDate___block_invoke_2(uin
 
 - (void)withLock_purgeAllSpecifiersOnOrAfterDate:(uint64_t)date
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (date)
@@ -453,23 +448,23 @@ id __54__BLSFrameSpecifierModel_specifierAtPresentationDate___block_invoke_2(uin
     if (v3)
     {
       v5 = *(date + 8);
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __67__BLSFrameSpecifierModel_withLock_purgeAllSpecifiersOnOrAfterDate___block_invoke;
-      v9[3] = &unk_278429178;
-      v10 = v3;
-      v6 = [v5 indexOfObjectPassingTest:v9];
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __67__BLSFrameSpecifierModel_withLock_purgeAllSpecifiersOnOrAfterDate___block_invoke;
+      v8[3] = &unk_278429178;
+      v9 = v3;
+      v6 = [v5 indexOfObjectPassingTest:v8];
       if (v6 != 0x7FFFFFFFFFFFFFFFLL)
       {
         [*(date + 8) removeObjectsInRange:{v6, objc_msgSend(*(date + 8), "count") - v6}];
       }
 
-      v7 = v10;
+      v7 = v9;
     }
 
     else
     {
-      v7 = bls_environment_log();
+      v7 = bls_environment_log(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
@@ -478,8 +473,6 @@ id __54__BLSFrameSpecifierModel_specifierAtPresentationDate___block_invoke_2(uin
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)purgeAllSpecifiersOnOrAfterDate:(id)date
@@ -493,22 +486,20 @@ id __54__BLSFrameSpecifierModel_specifierAtPresentationDate___block_invoke_2(uin
 
 - (void)addSpecifiers:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_21FE25000, log, OS_LOG_TYPE_ERROR, "<BLSFrameSpecifierModel %p> tried to add empty specifiers %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_21FE25000, log, OS_LOG_TYPE_ERROR, "<BLSFrameSpecifierModel %p> tried to add empty specifiers %{public}@", &v3, 0x16u);
 }
 
 - (void)purgeAllButOneSpecifiersBeforeDate:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_21FE25000, a2, OS_LOG_TYPE_ERROR, "<BLSFrameSpecifierModel %p> tried to purge specifiers before a nil date", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_21FE25000, a2, OS_LOG_TYPE_ERROR, "<BLSFrameSpecifierModel %p> tried to purge specifiers before a nil date", &v2, 0xCu);
 }
 
 @end

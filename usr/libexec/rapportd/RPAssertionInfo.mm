@@ -474,47 +474,49 @@ LABEL_7:
 - (id)_descriptionWithLevel:(int)level
 {
   os_unfair_lock_assert_owner(&self->_lock);
-  NSAppendPrintF();
-  v18 = 0;
-  assertionIdentifier = self->_assertionIdentifier;
-  NSAppendPrintF();
-  v4 = v18;
+  v21 = 0;
+  NSAppendPrintF(&v21, "RPAssertion");
+  v4 = v21;
+  v20 = v4;
+  NSAppendPrintF(&v20, " %@", self->_assertionIdentifier);
+  v5 = v20;
 
-  assertionType = self->_assertionType;
-  NSAppendPrintF();
-  v5 = v4;
+  v19 = v5;
+  NSAppendPrintF(&v19, ", Ty %d", self->_assertionType);
+  v6 = v19;
 
-  processName = self->_processName;
-  NSAppendPrintF();
-  v6 = v5;
+  v18 = v6;
+  NSAppendPrintF(&v18, ", Pr '%@'", self->_processName);
+  v7 = v18;
 
+  v17 = v7;
   state = self->_state;
   if (state > 3)
   {
-    v8 = "?";
+    v9 = "?";
   }
 
   else
   {
-    v8 = (&off_1001AE558)[state];
+    v9 = (&off_1001AE558)[state];
   }
 
-  v17 = v8;
-  NSAppendPrintF();
-  v9 = v6;
+  NSAppendPrintF(&v17, ", St '%s'", v9);
+  v10 = v17;
 
   startDate = self->_startDate;
   if (startDate)
   {
-    v11 = startDate;
-    [(NSDate *)v11 timeIntervalSinceNow];
-    NSAppendPrintF();
-    v12 = v9;
+    v12 = startDate;
+    [(NSDate *)v12 timeIntervalSinceNow];
+    v16 = v10;
+    NSAppendPrintF(&v16, ", Dur %ll{dur}", -v13);
+    v14 = v16;
 
-    v9 = v12;
+    v10 = v14;
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)_invokeHandler:(id)handler onQueue:(id)queue

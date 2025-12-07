@@ -9,65 +9,63 @@
 - (void)fetchReturnValueFromIntentNamed:(NSString *)named inBundleId:(NSString *)id withParameters:(NSDictionary *)parameters completionHandler:(id)handler
 {
   v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DDD7278, &qword_232E07570);
-  v12 = *(*(v11 - 8) + 64);
   MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v24 - v13;
-  v15 = _Block_copy(handler);
-  v16 = swift_allocObject();
-  v16[2] = named;
-  v16[3] = id;
-  v16[4] = parameters;
-  v16[5] = v15;
-  v16[6] = self;
-  v17 = sub_232E016B0();
-  (*(*(v17 - 8) + 56))(v14, 1, 1, v17);
+  v13 = &v23 - v12;
+  v14 = _Block_copy(handler);
+  v15 = swift_allocObject();
+  v15[2] = named;
+  v15[3] = id;
+  v15[4] = parameters;
+  v15[5] = v14;
+  v15[6] = self;
+  v16 = sub_232E016B0();
+  (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
+  v17 = swift_allocObject();
+  v17[2] = 0;
+  v17[3] = 0;
+  v17[4] = &unk_232E07F08;
+  v17[5] = v15;
   v18 = swift_allocObject();
   v18[2] = 0;
   v18[3] = 0;
-  v18[4] = &unk_232E07F08;
-  v18[5] = v16;
-  v19 = swift_allocObject();
-  v19[2] = 0;
-  v19[3] = 0;
-  v19[4] = &unk_232E07F10;
-  v19[5] = v18;
+  v18[4] = &unk_232E07F10;
+  v18[5] = v17;
   namedCopy = named;
   idCopy = id;
   parametersCopy = parameters;
   selfCopy = self;
-  sub_232DF3F0C(0, 0, v14, &unk_232E07F18, v19);
+  sub_232DF3F0C(0, 0, v13, &unk_232E07F18, v18);
 }
 
 - (void)fetchReturnValueFromEntityNamed:(NSString *)named inBundleId:(NSString *)id withParameters:(NSDictionary *)parameters completionHandler:(id)handler
 {
   v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DDD7278, &qword_232E07570);
-  v12 = *(*(v11 - 8) + 64);
   MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v24 - v13;
-  v15 = _Block_copy(handler);
-  v16 = swift_allocObject();
-  v16[2] = named;
-  v16[3] = id;
-  v16[4] = parameters;
-  v16[5] = v15;
-  v16[6] = self;
-  v17 = sub_232E016B0();
-  (*(*(v17 - 8) + 56))(v14, 1, 1, v17);
+  v13 = &v23 - v12;
+  v14 = _Block_copy(handler);
+  v15 = swift_allocObject();
+  v15[2] = named;
+  v15[3] = id;
+  v15[4] = parameters;
+  v15[5] = v14;
+  v15[6] = self;
+  v16 = sub_232E016B0();
+  (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
+  v17 = swift_allocObject();
+  v17[2] = 0;
+  v17[3] = 0;
+  v17[4] = &unk_232E07EC8;
+  v17[5] = v15;
   v18 = swift_allocObject();
   v18[2] = 0;
   v18[3] = 0;
-  v18[4] = &unk_232E07EC8;
-  v18[5] = v16;
-  v19 = swift_allocObject();
-  v19[2] = 0;
-  v19[3] = 0;
-  v19[4] = &unk_232E07ED0;
-  v19[5] = v18;
+  v18[4] = &unk_232E07ED0;
+  v18[5] = v17;
   namedCopy = named;
   idCopy = id;
   parametersCopy = parameters;
   selfCopy = self;
-  sub_232DF3F0C(0, 0, v14, &unk_232E07040, v19);
+  sub_232DF3F0C(0, 0, v13, &unk_232E07040, v18);
 }
 
 - (TPSAppIntentsHelper)init

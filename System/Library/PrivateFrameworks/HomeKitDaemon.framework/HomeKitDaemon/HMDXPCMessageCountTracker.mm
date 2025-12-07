@@ -30,7 +30,7 @@
 
 - (void)submitCounters
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -38,92 +38,90 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v44 = v6;
+    v43 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Submitting counters", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDXPCMessageCountTracker *)selfCopy sampleCountersAndReset:1];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v26 = v40 = 0u;
-  obj = [v26 allKeys];
-  v7 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v25 = v39 = 0u;
+  obj = [v25 allKeys];
+  v7 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v38;
-    v25 = *v38;
+    v9 = *v37;
+    v24 = *v37;
     do
     {
       v10 = 0;
-      v27 = v8;
+      v26 = v8;
       do
       {
-        if (*v38 != v9)
+        if (*v37 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v37 + 1) + 8 * v10);
-        v32 = HMDXPCCounterTypeAsString([v11 unsignedIntegerValue]);
-        if (([v32 isEqualToString:@"XPCErroredRequests"] & 1) == 0)
+        v11 = *(*(&v36 + 1) + 8 * v10);
+        v31 = HMDXPCCounterTypeAsString([v11 unsignedIntegerValue]);
+        if (([v31 isEqualToString:@"XPCErroredRequests"] & 1) == 0)
         {
-          v29 = v10;
-          v12 = [v26 objectForKeyedSubscript:v11];
+          v28 = v10;
+          v12 = [v25 objectForKeyedSubscript:v11];
+          v32 = 0u;
           v33 = 0u;
           v34 = 0u;
           v35 = 0u;
-          v36 = 0u;
-          v31 = v12;
+          v30 = v12;
           allKeys = [v12 allKeys];
-          v13 = [allKeys countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v13 = [allKeys countByEnumeratingWithState:&v32 objects:v40 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v34;
+            v15 = *v33;
             do
             {
               for (i = 0; i != v14; ++i)
               {
-                if (*v34 != v15)
+                if (*v33 != v15)
                 {
                   objc_enumerationMutation(allKeys);
                 }
 
-                v17 = *(*(&v33 + 1) + 8 * i);
-                v18 = [v31 hmf_numberForKey:v17];
+                v17 = *(*(&v32 + 1) + 8 * i);
+                v18 = [v30 hmf_numberForKey:v17];
                 v19 = [v17 componentsSeparatedByString:@"/"];
                 firstObject = [v19 firstObject];
                 lastObject = [v19 lastObject];
-                v22 = [HMDXPCMessageCountersLogEvent XPCMessageCountersLogEventWithType:v32 peerInformation:firstObject messageName:lastObject count:v18];
+                v22 = [HMDXPCMessageCountersLogEvent XPCMessageCountersLogEventWithType:v31 peerInformation:firstObject messageName:lastObject count:v18];
                 logEventSubmitter = [(HMDXPCMessageCountTracker *)selfCopy logEventSubmitter];
                 [logEventSubmitter submitLogEvent:v22];
               }
 
-              v14 = [allKeys countByEnumeratingWithState:&v33 objects:v41 count:16];
+              v14 = [allKeys countByEnumeratingWithState:&v32 objects:v40 count:16];
             }
 
             while (v14);
           }
 
-          v9 = v25;
-          v8 = v27;
-          v10 = v29;
+          v9 = v24;
+          v8 = v26;
+          v10 = v28;
         }
 
         ++v10;
       }
 
       while (v10 != v8);
-      v8 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v8 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
     while (v8);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -168,42 +166,41 @@
 
 - (NSDictionary)stateDump
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [(HMDXPCMessageCountTracker *)self sampleCountersAndReset:0];
   v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v2, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   allKeys = [v2 allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = [v2 objectForKey:v9];
         v11 = HMDXPCCounterTypeAsString([v9 unsignedIntegerValue]);
         [v3 setObject:v10 forKeyedSubscript:v11];
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
 
-  v12 = [v3 copy];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = objc_msgSend_copy(v3);
 
   return v12;
 }
@@ -211,21 +208,21 @@
 - (id)sampleCountersAndReset:(BOOL)reset
 {
   resetCopy = reset;
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
-  v14[0] = &unk_283E72A58;
+  v13[0] = &unk_283E72A58;
   acceptedRequests = [(HMDXPCMessageCountTracker *)self acceptedRequests];
-  v6 = [acceptedRequests copy];
-  v15[0] = v6;
-  v14[1] = &unk_283E72A70;
+  v6 = objc_msgSend_copy(acceptedRequests);
+  v14[0] = v6;
+  v13[1] = &unk_283E72A70;
   erroredRequests = [(HMDXPCMessageCountTracker *)self erroredRequests];
-  v8 = [erroredRequests copy];
-  v15[1] = v8;
-  v14[2] = &unk_283E72A88;
+  v8 = objc_msgSend_copy(erroredRequests);
+  v14[1] = v8;
+  v13[2] = &unk_283E72A88;
   sentNotifications = [(HMDXPCMessageCountTracker *)self sentNotifications];
-  v10 = [sentNotifications copy];
-  v15[2] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v10 = objc_msgSend_copy(sentNotifications);
+  v14[2] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
 
   if (resetCopy)
   {
@@ -233,7 +230,6 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -260,7 +256,7 @@
 {
   os_unfair_lock_lock_with_options();
   v5 = [(HMDXPCMessageCountTracker *)self mutableCountersOfType:type];
-  v6 = [v5 copy];
+  v6 = objc_msgSend_copy(v5);
 
   os_unfair_lock_unlock(&self->_lock);
 
@@ -353,10 +349,9 @@
 
 void __40__HMDXPCMessageCountTracker_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_107761;
-  logCategory__hmf_once_v5_107761 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_107761;
+  logCategory__hmf_once_v5_107761 = v0;
 }
 
 uint64_t __42__HMDXPCMessageCountTracker_sharedTracker__block_invoke()

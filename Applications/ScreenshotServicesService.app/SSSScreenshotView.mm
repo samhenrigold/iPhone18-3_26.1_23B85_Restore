@@ -277,7 +277,7 @@
   v7 = modelModificationInfo;
   if (modelModificationInfo)
   {
-    [modelModificationInfo cropInfo];
+    objc_msgSend_cropInfo(modelModificationInfo);
   }
 
   else
@@ -669,7 +669,7 @@ LABEL_10:
     v25 = modelModificationInfo;
     if (modelModificationInfo)
     {
-      [modelModificationInfo cropInfo];
+      objc_msgSend_cropInfo(modelModificationInfo);
     }
 
     else
@@ -1114,7 +1114,7 @@ LABEL_24:
   [viewCopy contentInset];
   [self _scaledAndCenteredRect:x withinRect:{y, width, height, v13 + v20, v15 + v21, v17 - (v20 + v22), v19 - (v21 + v23)}];
   memset(&v24[1], 0, sizeof(CGAffineTransform));
-  [self _transformToConvertFromRect:? toRect:?];
+  objc_msgSend__transformToConvertFromRect_toRect_(self);
   [viewCopy frame];
   v24[0] = v24[1];
   v26 = CGRectApplyAffineTransform(v25, v24);
@@ -1148,7 +1148,7 @@ LABEL_24:
   v6 = modelModificationInfo;
   if (modelModificationInfo)
   {
-    [modelModificationInfo cropInfo];
+    objc_msgSend_cropInfo(modelModificationInfo);
   }
 
   else
@@ -1193,7 +1193,7 @@ LABEL_24:
     v6 = modelModificationInfo;
     if (modelModificationInfo)
     {
-      [modelModificationInfo cropInfo];
+      objc_msgSend_cropInfo(modelModificationInfo);
       v8 = v14;
       v7 = v13;
       v10 = v16;
@@ -1911,7 +1911,7 @@ LABEL_14:
   v5 = modelModificationInfo;
   if (modelModificationInfo)
   {
-    [modelModificationInfo cropInfo];
+    objc_msgSend_cropInfo(modelModificationInfo);
     v6 = v14;
     v7 = v13;
     v8 = v16;
@@ -2267,7 +2267,7 @@ LABEL_14:
   v8 = v7;
   if (v7)
   {
-    [v7 cropInfo];
+    objc_msgSend_cropInfo(v7);
   }
 
   else

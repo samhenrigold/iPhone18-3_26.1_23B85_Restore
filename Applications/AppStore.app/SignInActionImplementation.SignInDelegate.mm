@@ -8,7 +8,7 @@
 
 - (void)signInController:(id)controller didCompleteWithOperationsResults:(id)results
 {
-  sub_100005744(0, &unk_10098A2C0);
+  sub_100005744(0, &unk_10098A2C0, AIDAServiceOperationResult_ptr);
   v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;

@@ -236,7 +236,7 @@ void __73__MUPlacePictureItemSectionController__presentPhotoGalleryForPhotoIndex
 
 - (void)_performPunchout
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   [(MUPlacePictureItemSectionController *)self _captureUserAction:6054];
   v3 = self->_annotatedList;
   v4 = mkAttributionForAnnotatedList();
@@ -244,16 +244,14 @@ void __73__MUPlacePictureItemSectionController__presentPhotoGalleryForPhotoIndex
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     providerName = [v4 providerName];
-    v10 = 138412290;
-    v11 = providerName;
-    _os_log_impl(&dword_1C5620000, v5, OS_LOG_TYPE_INFO, "Attempting to punch our with attribution with provider %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = providerName;
+    _os_log_impl(&dword_1C5620000, v5, OS_LOG_TYPE_INFO, "Attempting to punch our with attribution with provider %@", &v9, 0xCu);
   }
 
   v7 = MEMORY[0x1E696F198];
   attributionURLs = [v4 attributionURLs];
   [v7 launchAttributionURLs:attributionURLs withAttribution:v4 completionHandler:&__block_literal_global_23963];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)placeTileCollectionView:(id)view didTapOnViewModel:(id)model
@@ -315,42 +313,42 @@ void __73__MUPlacePictureItemSectionController__presentPhotoGalleryForPhotoIndex
 
 - (void)_setupSubviews
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v22 = +[MUPlaceTilesViewConfiguration annotatedListConfiguration];
-  v3 = [[MUPlaceTilesView alloc] initWithConfiguration:v22];
+  v28 = *MEMORY[0x1E69E9840];
+  v21 = +[MUPlaceTilesViewConfiguration annotatedListConfiguration];
+  v3 = [[MUPlaceTilesView alloc] initWithConfiguration:v21];
   tilesView = self->_tilesView;
   self->_tilesView = v3;
 
-  v23 = objc_opt_new();
+  v22 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   pictureItemContainer = [(GEOAnnotatedItemList *)self->_annotatedList pictureItemContainer];
   pictureItems = [pictureItemContainer pictureItems];
 
-  v7 = [pictureItems countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v7 = [pictureItems countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(pictureItems);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
+        v12 = *(*(&v23 + 1) + 8 * i);
         pictureItemPhotoType = [v12 pictureItemPhotoType];
         if ((pictureItemPhotoType - 2) >= 2)
         {
           if (pictureItemPhotoType == 1)
           {
-            [v23 addObject:v12];
+            [v22 addObject:v12];
           }
         }
 
@@ -365,7 +363,7 @@ void __73__MUPlacePictureItemSectionController__presentPhotoGalleryForPhotoIndex
         }
       }
 
-      v8 = [pictureItems countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [pictureItems countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v8);
@@ -376,7 +374,7 @@ void __73__MUPlacePictureItemSectionController__presentPhotoGalleryForPhotoIndex
     v9 = 0;
   }
 
-  [(MUPlaceTilesView *)self->_tilesView setViewModels:v23];
+  [(MUPlaceTilesView *)self->_tilesView setViewModels:v22];
   [(MUPlaceTilesView *)self->_tilesView setDelegate:self];
   [(MUPlaceTilesView *)self->_tilesView setAnalyticsDelegate:self];
   if (v9)
@@ -392,8 +390,6 @@ void __73__MUPlacePictureItemSectionController__presentPhotoGalleryForPhotoIndex
 
   [(MUPlaceSectionView *)self->_sectionView configureWithSectionController:self];
   [(MUPlaceSectionView *)self->_sectionView attachViewToContentView:self->_tilesView];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (MUPlacePictureItemSectionController)initWithMapItem:(id)item annotatedList:(id)list presentingViewController:(id)controller

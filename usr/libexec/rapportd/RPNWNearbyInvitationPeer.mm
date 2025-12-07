@@ -12,6 +12,8 @@
 - (void)receiveDataForConnection:(id)connection statusHandler:(id)handler;
 - (void)receiveWithRequestID:(id)d receiveHandler:(id)handler;
 - (void)sendDataForConnection:(id)connection applicationService:(id)service connectionID:(id)d responseHandler:(id)handler;
+- (void)sendStatusUpdateForConnection:(id)connection connectionID:(id)d status:(int)status responseHandler:(id)handler;
+- (void)sendWithRequestID:(id)d data:(id)data status:(int)status applicationService:(id)service listenerID:(id)iD connectionID:(id)connectionID responseHandler:(id)handler;
 - (void)startDiscovery:(id)discovery foundHandler:(id)handler updateHandler:(id)updateHandler lostHandler:(id)lostHandler invalidationHandler:(id)invalidationHandler;
 - (void)startServer:(id)server withCompletion:(id)completion disconnectHandler:(id)handler;
 - (void)stopDiscovery;
@@ -48,11 +50,15 @@
   updateHandlerCopy = updateHandler;
   lostHandlerCopy = lostHandler;
   invalidationHandlerCopy = invalidationHandler;
+  v19 = invalidationHandlerCopy;
   if (self->_nearbyInvitationDiscovery)
   {
-    if (dword_1001D40E8 <= 90 && (dword_1001D40E8 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D40E8 <= 90)
     {
-      sub_10011D270();
+      if (dword_1001D40E8 != -1 || (invalidationHandlerCopy = _LogCategory_Initialize(), invalidationHandlerCopy))
+      {
+        sub_10011D270(invalidationHandlerCopy, v17, v18);
+      }
     }
   }
 
@@ -63,46 +69,46 @@
       sub_10011D28C(self);
     }
 
-    v17 = objc_alloc_init(RPNearbyInvitationDiscovery);
+    v20 = objc_alloc_init(RPNearbyInvitationDiscovery);
     nearbyInvitationDiscovery = self->_nearbyInvitationDiscovery;
-    self->_nearbyInvitationDiscovery = v17;
+    self->_nearbyInvitationDiscovery = v20;
 
-    v19 = +[RPNWNetworkAgent sharedNetworkAgent];
-    dispatchQueue = [v19 dispatchQueue];
+    v22 = +[RPNWNetworkAgent sharedNetworkAgent];
+    dispatchQueue = [v22 dispatchQueue];
     [(RPNearbyInvitationDiscovery *)self->_nearbyInvitationDiscovery setDispatchQueue:dispatchQueue];
 
     [(RPNearbyInvitationDiscovery *)self->_nearbyInvitationDiscovery setDiscoveryFlags:1];
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_100076788;
-    v29[3] = &unk_1001AD3B0;
-    v30 = handlerCopy;
-    [(RPNearbyInvitationDiscovery *)self->_nearbyInvitationDiscovery setDeviceFoundHandler:v29];
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_100076798;
-    v27[3] = &unk_1001AD3D8;
-    v28 = updateHandlerCopy;
-    [(RPNearbyInvitationDiscovery *)self->_nearbyInvitationDiscovery setDeviceChangedHandler:v27];
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 3221225472;
+    v32[2] = sub_100076788;
+    v32[3] = &unk_1001AD3B0;
+    v33 = handlerCopy;
+    [(RPNearbyInvitationDiscovery *)self->_nearbyInvitationDiscovery setDeviceFoundHandler:v32];
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_100076798;
+    v30[3] = &unk_1001AD3D8;
+    v31 = updateHandlerCopy;
+    [(RPNearbyInvitationDiscovery *)self->_nearbyInvitationDiscovery setDeviceChangedHandler:v30];
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_1000767B0;
+    v28[3] = &unk_1001AD3B0;
+    v29 = lostHandlerCopy;
+    [(RPNearbyInvitationDiscovery *)self->_nearbyInvitationDiscovery setDeviceLostHandler:v28];
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_1000767C0;
+    v26[3] = &unk_1001AD400;
+    v27 = v19;
+    [(RPNearbyInvitationDiscovery *)self->_nearbyInvitationDiscovery setInvalidationHandler:v26];
+    v24 = self->_nearbyInvitationDiscovery;
     v25[0] = _NSConcreteStackBlock;
     v25[1] = 3221225472;
-    v25[2] = sub_1000767B0;
-    v25[3] = &unk_1001AD3B0;
-    v26 = lostHandlerCopy;
-    [(RPNearbyInvitationDiscovery *)self->_nearbyInvitationDiscovery setDeviceLostHandler:v25];
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_1000767C0;
-    v23[3] = &unk_1001AD400;
-    v24 = invalidationHandlerCopy;
-    [(RPNearbyInvitationDiscovery *)self->_nearbyInvitationDiscovery setInvalidationHandler:v23];
-    v21 = self->_nearbyInvitationDiscovery;
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_1000767D0;
-    v22[3] = &unk_1001AB2C8;
-    v22[4] = self;
-    [(RPNearbyInvitationDiscovery *)v21 activateWithCompletion:v22];
+    v25[2] = sub_1000767D0;
+    v25[3] = &unk_1001AB2C8;
+    v25[4] = self;
+    [(RPNearbyInvitationDiscovery *)v24 activateWithCompletion:v25];
   }
 }
 
@@ -126,52 +132,56 @@
   serverCopy = server;
   completionCopy = completion;
   handlerCopy = handler;
+  v13 = handlerCopy;
   if (self->_nearbyInvitationServer)
   {
-    if (dword_1001D40E8 <= 90 && (dword_1001D40E8 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D40E8 <= 90)
     {
-      sub_10011D3E4();
+      if (dword_1001D40E8 != -1 || (handlerCopy = _LogCategory_Initialize(), handlerCopy))
+      {
+        sub_10011D3E4(handlerCopy, v11, v12);
+      }
     }
   }
 
   else
   {
-    v11 = objc_alloc_init(RPNearbyInvitationServer);
+    v14 = objc_alloc_init(RPNearbyInvitationServer);
     nearbyInvitationServer = self->_nearbyInvitationServer;
-    self->_nearbyInvitationServer = v11;
+    self->_nearbyInvitationServer = v14;
 
     applicationService = [serverCopy applicationService];
     [(RPNearbyInvitationServer *)self->_nearbyInvitationServer setServiceType:applicationService];
 
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_100076B40;
-    v19[3] = &unk_1001AD450;
-    v19[4] = self;
-    v21 = handlerCopy;
-    v20 = serverCopy;
-    [(RPNearbyInvitationServer *)self->_nearbyInvitationServer setSessionStartHandler:v19];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_100076B40;
+    v22[3] = &unk_1001AD450;
+    v22[4] = self;
+    v24 = v13;
+    v23 = serverCopy;
+    [(RPNearbyInvitationServer *)self->_nearbyInvitationServer setSessionStartHandler:v22];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_100076E6C;
+    v21[3] = &unk_1001AD478;
+    v21[4] = self;
+    [(RPNearbyInvitationServer *)self->_nearbyInvitationServer setSessionEndedHandler:v21];
+    [(RPNearbyInvitationServer *)self->_nearbyInvitationServer setInvalidationHandler:&stru_1001AD498];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100076F84;
+    v20[3] = &unk_1001AA970;
+    v20[4] = self;
+    [(RPNearbyInvitationServer *)self->_nearbyInvitationServer setInterruptionHandler:v20];
+    v17 = self->_nearbyInvitationServer;
     v18[0] = _NSConcreteStackBlock;
     v18[1] = 3221225472;
-    v18[2] = sub_100076E6C;
-    v18[3] = &unk_1001AD478;
+    v18[2] = sub_100076FE0;
+    v18[3] = &unk_1001AD4C0;
     v18[4] = self;
-    [(RPNearbyInvitationServer *)self->_nearbyInvitationServer setSessionEndedHandler:v18];
-    [(RPNearbyInvitationServer *)self->_nearbyInvitationServer setInvalidationHandler:&stru_1001AD498];
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_100076F84;
-    v17[3] = &unk_1001AA970;
-    v17[4] = self;
-    [(RPNearbyInvitationServer *)self->_nearbyInvitationServer setInterruptionHandler:v17];
-    v14 = self->_nearbyInvitationServer;
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_100076FE0;
-    v15[3] = &unk_1001AD4C0;
-    v15[4] = self;
-    v16 = completionCopy;
-    [(RPNearbyInvitationServer *)v14 activateWithCompletion:v15];
+    v19 = completionCopy;
+    [(RPNearbyInvitationServer *)v17 activateWithCompletion:v18];
   }
 }
 
@@ -195,11 +205,15 @@
   iDCopy = iD;
   handlerCopy = handler;
   disconnectHandlerCopy = disconnectHandler;
+  v23 = disconnectHandlerCopy;
   if (connectionCopy && !self->_nearbyInvitationSession)
   {
-    if (dword_1001D40E8 <= 90 && (dword_1001D40E8 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D40E8 <= 90)
     {
-      sub_10011D68C();
+      if (dword_1001D40E8 != -1 || (disconnectHandlerCopy = _LogCategory_Initialize(), disconnectHandlerCopy))
+      {
+        sub_10011D68C(disconnectHandlerCopy, v21, v22);
+      }
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0);
@@ -209,31 +223,31 @@
   {
     if (dword_1001D40E8 <= 30 && (dword_1001D40E8 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011D64C();
+      sub_10011D64C(peerCopy);
     }
 
-    v21 = objc_alloc_init(RPNearbyInvitationSession);
+    v24 = objc_alloc_init(RPNearbyInvitationSession);
     nearbyInvitationSession = self->_nearbyInvitationSession;
-    self->_nearbyInvitationSession = v21;
+    self->_nearbyInvitationSession = v24;
 
-    v23 = +[RPNWNetworkAgent sharedNetworkAgent];
-    dispatchQueue = [v23 dispatchQueue];
+    v26 = +[RPNWNetworkAgent sharedNetworkAgent];
+    dispatchQueue = [v26 dispatchQueue];
     [(RPNearbyInvitationSession *)self->_nearbyInvitationSession setDispatchQueue:dispatchQueue];
 
     [(RPNearbyInvitationSession *)self->_nearbyInvitationSession setDestinationDevice:peerCopy];
-    v25 = self->_nearbyInvitationSession;
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 3221225472;
-    v26[2] = sub_100077374;
-    v26[3] = &unk_1001AD510;
-    v27 = peerCopy;
-    v32 = handlerCopy;
+    v28 = self->_nearbyInvitationSession;
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_100077374;
+    v29[3] = &unk_1001AD510;
+    v30 = peerCopy;
+    v35 = handlerCopy;
     selfCopy = self;
-    v33 = disconnectHandlerCopy;
-    v29 = serviceCopy;
-    v30 = dCopy;
-    v31 = iDCopy;
-    [(RPNearbyInvitationSession *)v25 activateWithCompletion:v26];
+    v36 = v23;
+    v32 = serviceCopy;
+    v33 = dCopy;
+    v34 = iDCopy;
+    [(RPNearbyInvitationSession *)v28 activateWithCompletion:v29];
   }
 }
 
@@ -394,7 +408,7 @@
   {
     if (dword_1001D40E8 <= 30 && (dword_1001D40E8 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011D8C8();
+      sub_10011D8C8(dCopy);
     }
 
     nearbyInvitationSession = self->_nearbyInvitationSession;
@@ -409,7 +423,83 @@
 
   else if (dword_1001D40E8 <= 90 && (dword_1001D40E8 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011D908();
+    sub_10011D908(dCopy);
+  }
+}
+
+- (void)sendWithRequestID:(id)d data:(id)data status:(int)status applicationService:(id)service listenerID:(id)iD connectionID:(id)connectionID responseHandler:(id)handler
+{
+  v12 = *&status;
+  dCopy = d;
+  dataCopy = data;
+  serviceCopy = service;
+  iDCopy = iD;
+  connectionIDCopy = connectionID;
+  handlerCopy = handler;
+  v20 = handlerCopy;
+  if (self->_nearbyInvitationSession)
+  {
+    v29 = handlerCopy;
+    v21 = objc_alloc_init(NSMutableDictionary);
+    v22 = objc_alloc_init(NSMutableString);
+    [v21 setObject:&off_1001B8140 forKeyedSubscript:@"version"];
+    if (dataCopy)
+    {
+      [v21 setObject:dataCopy forKeyedSubscript:@"request"];
+      [v22 appendFormat:@" data=%zu bytes", objc_msgSend(dataCopy, "length")];
+    }
+
+    else if (v12)
+    {
+      v23 = [NSNumber numberWithInt:v12];
+      [v21 setObject:v23 forKeyedSubscript:@"status"];
+      [v22 appendFormat:@" status=%s", +[RPNWNearbyInvitationPeer statusCodeToString:](RPNWNearbyInvitationPeer, "statusCodeToString:", v12)];
+    }
+
+    [v21 setObject:serviceCopy forKeyedSubscript:@"applicationService"];
+    if (iDCopy)
+    {
+      uUIDString = [iDCopy UUIDString];
+      [v21 setObject:uUIDString forKeyedSubscript:@"listenerID"];
+
+      [v22 appendFormat:@" listenerID=%@", iDCopy];
+    }
+
+    if (connectionIDCopy)
+    {
+      uUIDString2 = [connectionIDCopy UUIDString];
+      [v21 setObject:uUIDString2 forKeyedSubscript:@"connectionID"];
+
+      [v22 appendFormat:@" connectionID=%@", connectionIDCopy];
+    }
+
+    v28 = dataCopy;
+    if (dword_1001D40E8 <= 30 && (dword_1001D40E8 != -1 || _LogCategory_Initialize()))
+    {
+      sub_10011D9F8(self, dCopy, serviceCopy, v22);
+    }
+
+    nearbyInvitationSession = self->_nearbyInvitationSession;
+    v35 = @"timeoutSeconds";
+    v36 = &off_1001B7FC0;
+    v27 = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_1000789E8;
+    v31[3] = &unk_1001AD5E8;
+    v31[4] = self;
+    v32 = dCopy;
+    v33 = serviceCopy;
+    v20 = v29;
+    v34 = v29;
+    [(RPNearbyInvitationSession *)nearbyInvitationSession sendRequestID:v32 request:v21 destinationID:@"rapport:rdid:DirectPeer" options:v27 responseHandler:v31];
+
+    dataCopy = v28;
+  }
+
+  else if (dword_1001D40E8 <= 90 && (dword_1001D40E8 != -1 || _LogCategory_Initialize()))
+  {
+    sub_10011DA88(dCopy);
   }
 }
 
@@ -434,7 +524,7 @@
   handlerCopy = handler;
   if (dword_1001D40E8 <= 30 && (dword_1001D40E8 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011DCD0();
+    sub_10011DCD0(connectionCopy);
   }
 
   v15[0] = _NSConcreteStackBlock;
@@ -444,6 +534,26 @@
   v16 = handlerCopy;
   v14 = handlerCopy;
   [(RPNWNearbyInvitationPeer *)self sendWithRequestID:@"com.apple.oneapi.nearbyinvitation.data" data:connectionCopy status:0 applicationService:serviceCopy listenerID:0 connectionID:dCopy responseHandler:v15];
+}
+
+- (void)sendStatusUpdateForConnection:(id)connection connectionID:(id)d status:(int)status responseHandler:(id)handler
+{
+  v7 = *&status;
+  connectionCopy = connection;
+  dCopy = d;
+  handlerCopy = handler;
+  if (dword_1001D40E8 <= 30 && (dword_1001D40E8 != -1 || _LogCategory_Initialize()))
+  {
+    sub_10011DD10(v7, dCopy);
+  }
+
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_100079058;
+  v14[3] = &unk_1001AD638;
+  v15 = handlerCopy;
+  v13 = handlerCopy;
+  [(RPNWNearbyInvitationPeer *)self sendWithRequestID:@"com.apple.oneapi.nearbyinvitation.data" data:0 status:v7 applicationService:connectionCopy listenerID:0 connectionID:dCopy responseHandler:v14];
 }
 
 @end

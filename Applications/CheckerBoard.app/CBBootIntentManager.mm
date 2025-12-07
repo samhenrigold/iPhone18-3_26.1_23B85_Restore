@@ -38,12 +38,12 @@
   sub_100039580(v6);
 
   v8 = v7;
-  sub_10003AF50(&v8, &v5, &qword_100091D60);
+  sub_10003AF50(&v8, &v5, &qword_100091D60, &unk_100059880);
   sub_10003AF20(v6);
   if (*(&v8 + 1))
   {
     v3 = String._bridgeToObjectiveC()();
-    sub_10003AFB8(&v8, &qword_100091D60);
+    sub_10003AFB8(&v8, &qword_100091D60, &unk_100059880);
   }
 
   else
@@ -60,12 +60,12 @@
   sub_100039580(v6);
 
   v8 = v7;
-  sub_10003AF50(&v8, &v5, &qword_100091D60);
+  sub_10003AF50(&v8, &v5, &qword_100091D60, &unk_100059880);
   sub_10003AF20(v6);
   if (*(&v8 + 1))
   {
     v3 = String._bridgeToObjectiveC()();
-    sub_10003AFB8(&v8, &qword_100091D60);
+    sub_10003AFB8(&v8, &qword_100091D60, &unk_100059880);
   }
 
   else
@@ -82,12 +82,12 @@
   sub_100039580(v6);
 
   v8 = v7;
-  sub_10003AF50(&v8, &v5, &qword_100091D60);
+  sub_10003AF50(&v8, &v5, &qword_100091D60, &unk_100059880);
   sub_10003AF20(v6);
   if (*(&v8 + 1))
   {
     v3 = String._bridgeToObjectiveC()();
-    sub_10003AFB8(&v8, &qword_100091D60);
+    sub_10003AFB8(&v8, &qword_100091D60, &unk_100059880);
   }
 
   else
@@ -102,12 +102,12 @@
 {
   sub_10003923C();
   v2 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v3 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("Deleting boot intent source data", 32, 2, &_mh_execute_header, v2, v3, &_swiftEmptyArrayStorage);
 
-  v3 = objc_opt_self();
-  v4 = String._bridgeToObjectiveC()();
-  [v3 clearNVRamVariable:v4];
+  v4 = objc_opt_self();
+  v5 = String._bridgeToObjectiveC()();
+  [v4 clearNVRamVariable:v5];
 }
 
 - (BOOL)isCurrentProcessFirstToReadIntent

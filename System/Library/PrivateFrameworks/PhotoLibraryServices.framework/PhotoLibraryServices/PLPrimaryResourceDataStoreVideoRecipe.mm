@@ -625,7 +625,7 @@ LABEL_13:
       dictionary = 0;
     }
 
-    if ([dictionary count])
+    if (objc_msgSend_count(dictionary))
     {
       v13 = dictionary;
     }

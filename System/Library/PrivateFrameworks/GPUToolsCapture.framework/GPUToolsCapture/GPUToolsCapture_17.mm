@@ -2432,7 +2432,7 @@ void DYTraceEncode_MTLRenderCommandEncoder_setMeshBuffers_offsets_withRange(uint
   v11 = *(a1 + 32);
   v12 = snprintf(a2 + 36, a3 - 36, "C@%zutU<b>@2ul", v11) + *a2;
   v13 = (v12 + 4) & 0xFFFFFFFC;
-  bzero(a2 + (v12 + 1), v13 - (v12 + 1));
+  bzero(a2 + v12 + 1, v13 - (v12 + 1));
   *a2 = v13;
   *(a2 + v13) = *a1;
   v14 = *a2 + 8;
@@ -2656,7 +2656,7 @@ void DYTraceEncode_MTLRenderCommandEncoder_setMeshSamplerStates_lodMinClamps_lod
   v11 = *(a1 + 40);
   v12 = snprintf(a2 + 36, a3 - 36, "C@%zutU<b>U<b>@2ul", v11) + *a2;
   v13 = (v12 + 4) & 0xFFFFFFFC;
-  bzero(a2 + (v12 + 1), v13 - (v12 + 1));
+  bzero(a2 + v12 + 1, v13 - (v12 + 1));
   *a2 = v13;
   *(a2 + v13) = *a1;
   v14 = *a2 + 8;
@@ -2985,7 +2985,7 @@ void DYTraceEncode_MTLRenderCommandEncoder_setObjectBuffers_offsets_withRange(ui
   v11 = *(a1 + 32);
   v12 = snprintf(a2 + 36, a3 - 36, "C@%zutU<b>@2ul", v11) + *a2;
   v13 = (v12 + 4) & 0xFFFFFFFC;
-  bzero(a2 + (v12 + 1), v13 - (v12 + 1));
+  bzero(a2 + v12 + 1, v13 - (v12 + 1));
   *a2 = v13;
   *(a2 + v13) = *a1;
   v14 = *a2 + 8;
@@ -3209,7 +3209,7 @@ void DYTraceEncode_MTLRenderCommandEncoder_setObjectSamplerStates_lodMinClamps_l
   v11 = *(a1 + 40);
   v12 = snprintf(a2 + 36, a3 - 36, "C@%zutU<b>U<b>@2ul", v11) + *a2;
   v13 = (v12 + 4) & 0xFFFFFFFC;
-  bzero(a2 + (v12 + 1), v13 - (v12 + 1));
+  bzero(a2 + v12 + 1, v13 - (v12 + 1));
   *a2 = v13;
   *(a2 + v13) = *a1;
   v14 = *a2 + 8;
@@ -4387,7 +4387,7 @@ void DYTraceEncode_MTLRenderCommandEncoder_setTileBuffers_offsets_withRange(uint
   v11 = *(a1 + 32);
   v12 = snprintf(a2 + 36, a3 - 36, "C@%zutU<b>@2ul", v11) + *a2;
   v13 = (v12 + 4) & 0xFFFFFFFC;
-  bzero(a2 + (v12 + 1), v13 - (v12 + 1));
+  bzero(a2 + v12 + 1, v13 - (v12 + 1));
   *a2 = v13;
   *(a2 + v13) = *a1;
   v14 = *a2 + 8;
@@ -5466,7 +5466,7 @@ void DYTraceEncode_MTLRenderCommandEncoder_setVertexBuffers_offsets_attributeStr
   v11 = *(a1 + 40);
   v12 = snprintf(a2 + 36, a3 - 36, "C@%zutU<b>U<b>@2ul", v11) + *a2;
   v13 = (v12 + 4) & 0xFFFFFFFC;
-  bzero(a2 + (v12 + 1), v13 - (v12 + 1));
+  bzero(a2 + v12 + 1, v13 - (v12 + 1));
   *a2 = v13;
   *(a2 + v13) = *a1;
   v14 = *a2 + 8;

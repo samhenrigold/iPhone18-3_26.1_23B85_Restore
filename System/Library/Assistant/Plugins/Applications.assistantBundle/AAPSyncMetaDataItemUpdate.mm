@@ -55,19 +55,16 @@
   objc_opt_class();
   objc_opt_class();
   objc_opt_class();
-  appId = self->_appId;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     sub_10C6C();
   }
 
-  appProxy = self->_appProxy;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     sub_10CC8();
   }
 
-  anchor = self->_anchor;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     sub_10D24();
@@ -519,149 +516,149 @@ LABEL_26:
   cf = _CFBundleCreateUnique();
   if (cf)
   {
-    v83[0] = kCFBundleIdentifierKey;
-    v83[1] = "setAppId:";
-    v83[2] = &stru_20A90;
-    v83[3] = AAPPlistStringParser;
-    v83[4] = 0;
-    v83[5] = kCFBundleVersionKey;
-    v83[6] = "setAppVersion:";
-    v83[7] = &stru_20A90;
-    v83[8] = AAPPlistStringParser;
-    v83[9] = 0;
-    v83[10] = _kCFBundleShortVersionStringKey;
-    v83[12] = 0;
-    v83[11] = 0;
-    v83[13] = AAPPlistStringParser;
-    v83[14] = 0;
-    v83[15] = kCFBundleNameKey;
-    v83[16] = "setAppName:";
-    v83[17] = &stru_20A90;
-    v83[18] = AAPPlistStringParser;
-    v47[0] = _NSConcreteStackBlock;
-    v47[1] = 3221225472;
-    v47[2] = sub_8334;
-    v47[3] = &unk_20AF8;
-    v47[4] = bundleURL;
-    v83[19] = v47;
-    v83[20] = @"CFBundleDisplayName";
-    v83[21] = "setDisplayAppName:";
-    v83[22] = &stru_20A90;
-    v83[23] = AAPPlistStringParser;
-    v83[24] = 0;
-    v83[25] = @"CFBundleSpokenName";
-    v83[26] = "setSpokenName:";
-    v83[27] = &stru_20A90;
-    v83[28] = AAPPlistStringParser;
-    v83[29] = 0;
-    v83[30] = _INAlternativeAppNamesKey;
-    v83[31] = "setAppNameSynonyms:";
-    v83[32] = &stru_20A90;
-    v83[33] = AAPAlternativeAppNamesParser;
-    v83[34] = 0;
-    v83[35] = _kCFBundleURLTypesKey;
-    v83[36] = "setSupportedSchemes:";
-    v83[37] = &stru_20A90;
-    v83[38] = AAPPlistURLTypesSchemesParser;
-    v83[39] = 0;
-    v83[40] = @"SiriSupport";
-    v83[41] = "setSiriSupport:";
-    v83[42] = &stru_20A90;
-    v83[43] = AAPPlistSiriSupportParser;
-    v83[44] = 0;
-    v83[45] = @"SBStarkLaunchModes";
-    v83[46] = "setStarkSupport:";
-    v83[47] = &stru_20A90;
-    v83[48] = AAPPlistStarkSupportParser;
-    v83[49] = 0;
-    v83[50] = @"CFBundleCarDisplayName";
-    v83[51] = "setCarPlayAlternativeDisplayName:";
-    v83[52] = &stru_20A90;
-    v83[53] = AAPPlistStringParser;
-    v85 = 0u;
-    v86 = 0u;
+    v81[0] = kCFBundleIdentifierKey;
+    v81[1] = "setAppId:";
+    v81[2] = &stru_20A90;
+    v81[3] = AAPPlistStringParser;
+    v81[4] = 0;
+    v81[5] = kCFBundleVersionKey;
+    v81[6] = "setAppVersion:";
+    v81[7] = &stru_20A90;
+    v81[8] = AAPPlistStringParser;
+    v81[9] = 0;
+    v81[10] = _kCFBundleShortVersionStringKey;
+    v81[12] = 0;
+    v81[11] = 0;
+    v81[13] = AAPPlistStringParser;
+    v81[14] = 0;
+    v81[15] = kCFBundleNameKey;
+    v81[16] = "setAppName:";
+    v81[17] = &stru_20A90;
+    v81[18] = AAPPlistStringParser;
+    v45[0] = _NSConcreteStackBlock;
+    v45[1] = 3221225472;
+    v45[2] = sub_8334;
+    v45[3] = &unk_20AF8;
+    v45[4] = bundleURL;
+    v81[19] = v45;
+    v81[20] = @"CFBundleDisplayName";
+    v81[21] = "setDisplayAppName:";
+    v81[22] = &stru_20A90;
+    v81[23] = AAPPlistStringParser;
+    v81[24] = 0;
+    v81[25] = @"CFBundleSpokenName";
+    v81[26] = "setSpokenName:";
+    v81[27] = &stru_20A90;
+    v81[28] = AAPPlistStringParser;
+    v81[29] = 0;
+    v81[30] = _INAlternativeAppNamesKey;
+    v81[31] = "setAppNameSynonyms:";
+    v81[32] = &stru_20A90;
+    v81[33] = AAPAlternativeAppNamesParser;
+    v81[34] = 0;
+    v81[35] = _kCFBundleURLTypesKey;
+    v81[36] = "setSupportedSchemes:";
+    v81[37] = &stru_20A90;
+    v81[38] = AAPPlistURLTypesSchemesParser;
+    v81[39] = 0;
+    v81[40] = @"SiriSupport";
+    v81[41] = "setSiriSupport:";
+    v81[42] = &stru_20A90;
+    v81[43] = AAPPlistSiriSupportParser;
+    v81[44] = 0;
+    v81[45] = @"SBStarkLaunchModes";
+    v81[46] = "setStarkSupport:";
+    v81[47] = &stru_20A90;
+    v81[48] = AAPPlistStarkSupportParser;
+    v81[49] = 0;
+    v81[50] = @"CFBundleCarDisplayName";
+    v81[51] = "setCarPlayAlternativeDisplayName:";
+    v81[52] = &stru_20A90;
+    v81[53] = AAPPlistStringParser;
+    v83 = 0u;
     v84 = 0u;
-    v45 = v83;
-    v46 = 0;
-    v79[0] = kCFBundleNameKey;
-    v79[1] = "setAppNameMap:";
-    v79[2] = &stru_20A90;
-    v79[3] = AAPPlistStringParser;
-    v79[4] = 0;
-    v79[5] = @"CFBundleDisplayName";
-    v79[6] = "setDisplayAppNameMap:";
-    v79[7] = &stru_20A90;
-    v79[8] = AAPPlistStringParser;
-    v79[9] = 0;
-    v79[10] = @"CFBundleSpokenName";
-    v79[11] = "setSpokenNameMap:";
-    v79[12] = &stru_20A90;
-    v79[13] = AAPPlistStringParser;
-    v79[14] = 0;
-    v79[15] = @"CFBundleCarDisplayName";
-    v79[16] = "setCarPlayAlternativeDisplayNameMap:";
-    v79[17] = &stru_20A90;
-    v79[18] = AAPPlistStringParser;
     v82 = 0u;
-    v81 = 0u;
-    v80 = 0u;
-    v43 = v79;
+    v43 = v81;
     v44 = 0;
-    v75[0] = @"itemId";
-    v75[1] = "setAdamId:";
-    v75[2] = &stru_20A90;
-    v75[3] = AAPPlistStringFromNumberParser;
-    v75[4] = 0;
-    v75[5] = @"itemName";
-    v75[6] = "setSpotlightName:";
-    v75[7] = &stru_20A90;
-    v75[8] = AAPPlistStringParser;
-    v75[9] = 0;
-    v75[10] = @"artistName";
-    v75[11] = "setProviderName:";
-    v75[12] = &stru_20A90;
-    v75[13] = AAPPlistStringParser;
-    v76 = 0u;
-    v77 = 0u;
+    v77[0] = kCFBundleNameKey;
+    v77[1] = "setAppNameMap:";
+    v77[2] = &stru_20A90;
+    v77[3] = AAPPlistStringParser;
+    v77[4] = 0;
+    v77[5] = @"CFBundleDisplayName";
+    v77[6] = "setDisplayAppNameMap:";
+    v77[7] = &stru_20A90;
+    v77[8] = AAPPlistStringParser;
+    v77[9] = 0;
+    v77[10] = @"CFBundleSpokenName";
+    v77[11] = "setSpokenNameMap:";
+    v77[12] = &stru_20A90;
+    v77[13] = AAPPlistStringParser;
+    v77[14] = 0;
+    v77[15] = @"CFBundleCarDisplayName";
+    v77[16] = "setCarPlayAlternativeDisplayNameMap:";
+    v77[17] = &stru_20A90;
+    v77[18] = AAPPlistStringParser;
+    v80 = 0u;
+    v79 = 0u;
     v78 = 0u;
-    v41 = v75;
+    v41 = v77;
     v42 = 0;
-    v49 = "setAppIdentifyingInfo:";
-    v50 = &stru_20A90;
-    v51 = AAPAggregateSyncIdentityParser;
-    v52 = 0;
-    v53 = "setBetaApp:";
-    v54 = &stru_20AD0;
-    v40[0] = _NSConcreteStackBlock;
-    v40[1] = 3221225472;
-    v40[2] = sub_8360;
-    v40[3] = &unk_20AF8;
-    v40[4] = self;
-    v55 = 0;
-    v56 = v40;
-    v57 = "setSupportsUniversalSearchSubscription:";
-    v58 = &stru_20AD0;
-    v59 = AAPUniversalSearchParser;
-    v60 = 0;
-    v61 = "setHasSiriIntegration:";
-    v62 = &stru_20AD0;
-    v39[0] = _NSConcreteStackBlock;
-    v39[1] = 3221225472;
-    v39[2] = sub_8390;
-    v39[3] = &unk_20AF8;
-    v39[4] = self;
-    v63 = 0;
-    v64 = v39;
-    v65 = "setAppNameSynonymsMap:";
-    v66 = &stru_20A90;
-    v67 = AAPAlternativeAppNamesMapParser;
-    v68 = 0;
-    v69 = "setNowPlayingAppWithBrowsableContent:";
-    v70 = &stru_20A90;
-    v71 = AAPPlistBrowsableMediaParser;
-    v74 = 0;
-    v73 = 0u;
-    v72 = 0u;
+    v73[0] = @"itemId";
+    v73[1] = "setAdamId:";
+    v73[2] = &stru_20A90;
+    v73[3] = AAPPlistStringFromNumberParser;
+    v73[4] = 0;
+    v73[5] = @"itemName";
+    v73[6] = "setSpotlightName:";
+    v73[7] = &stru_20A90;
+    v73[8] = AAPPlistStringParser;
+    v73[9] = 0;
+    v73[10] = @"artistName";
+    v73[11] = "setProviderName:";
+    v73[12] = &stru_20A90;
+    v73[13] = AAPPlistStringParser;
+    v74 = 0u;
+    v75 = 0u;
+    v76 = 0u;
+    v39 = v73;
+    v40 = 0;
+    v47 = "setAppIdentifyingInfo:";
+    v48 = &stru_20A90;
+    v49 = AAPAggregateSyncIdentityParser;
+    v50 = 0;
+    v51 = "setBetaApp:";
+    v52 = &stru_20AD0;
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = sub_8360;
+    v38[3] = &unk_20AF8;
+    v38[4] = self;
+    v53 = 0;
+    v54 = v38;
+    v55 = "setSupportsUniversalSearchSubscription:";
+    v56 = &stru_20AD0;
+    v57 = AAPUniversalSearchParser;
+    v58 = 0;
+    v59 = "setHasSiriIntegration:";
+    v60 = &stru_20AD0;
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_8390;
+    v37[3] = &unk_20AF8;
+    v37[4] = self;
+    v61 = 0;
+    v62 = v37;
+    v63 = "setAppNameSynonymsMap:";
+    v64 = &stru_20A90;
+    v65 = AAPAlternativeAppNamesMapParser;
+    v66 = 0;
+    v67 = "setNowPlayingAppWithBrowsableContent:";
+    v68 = &stru_20A90;
+    v69 = AAPPlistBrowsableMediaParser;
+    v72 = 0;
+    v71 = 0u;
+    v70 = 0u;
     entitlements = [(LSApplicationProxy *)self->_appProxy entitlements];
     if (!entitlements || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
@@ -671,30 +668,30 @@ LABEL_26:
       }
     }
 
-    v8 = [(AAPSyncMetaDataItemUpdate *)self valuesForInfoPlistEntries:v45 inBundle:cf withEntitlements:entitlements forLocalization:0 ignoringDefaultValues:0];
-    v46 = v8;
+    v8 = [(AAPSyncMetaDataItemUpdate *)self valuesForInfoPlistEntries:v43 inBundle:cf withEntitlements:entitlements forLocalization:0 ignoringDefaultValues:0];
+    v44 = v8;
     if (v8)
     {
       v9 = v8;
       v10 = [v8 objectForKey:kCFBundleIdentifierKey];
-      if ([v10 isEqualToString:self->_appId])
+      if (objc_msgSend_isEqualToString_(v10))
       {
-        v32 = a2;
-        v33 = v5;
-        v34 = entitlements;
-        v44 = [(AAPSyncMetaDataItemUpdate *)self valuesForLocalInfoPlistEntries:v43 inBundle:cf withEntitlements:entitlements ignoringDefaultValues:v9];
-        if ([-[LSApplicationProxy applicationType](self->_appProxy "applicationType")])
+        v30 = a2;
+        v31 = v5;
+        v32 = entitlements;
+        v42 = [(AAPSyncMetaDataItemUpdate *)self valuesForLocalInfoPlistEntries:v41 inBundle:cf withEntitlements:entitlements ignoringDefaultValues:v9];
+        if (objc_msgSend_isEqualToString_([(LSApplicationProxy *)self->_appProxy applicationType]))
         {
-          v42 = -[AAPSyncMetaDataItemUpdate valuesForEntries:inPlistAtURL:](self, "valuesForEntries:inPlistAtURL:", v75, [-[LSApplicationProxy bundleContainerURL](self->_appProxy "bundleContainerURL")]);
+          v40 = -[AAPSyncMetaDataItemUpdate valuesForEntries:inPlistAtURL:](self, "valuesForEntries:inPlistAtURL:", v73, [-[LSApplicationProxy bundleContainerURL](self->_appProxy "bundleContainerURL")]);
         }
 
         selfCopy = self;
         v11 = 0;
-        v12 = &v45;
-        v48[0] = &v45;
-        v48[1] = &v43;
-        v48[2] = &v41;
-        v48[3] = 0;
+        v12 = &v43;
+        v46[0] = &v43;
+        v46[1] = &v41;
+        v46[2] = &v39;
+        v46[3] = 0;
         do
         {
           v13 = *v12;
@@ -712,10 +709,9 @@ LABEL_26:
                 v19 = v17[1];
                 if (!v19)
                 {
-                  [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInMethod:"handleFailureInMethod:object:file:lineNumber:description:" object:v32 file:self lineNumber:@"AAPSyncMetaDataItemUpdate.m" description:472, @"no selector defined for setter of key=%@", *v17];
+                  [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInMethod:"handleFailureInMethod:object:file:lineNumber:description:" object:v30 file:self lineNumber:@"AAPSyncMetaDataItemUpdate.m" description:472, @"no selector defined for setter of key=%@", *v17];
                   v19 = v17[1];
                   v18 = v17[2];
-                  v21 = *v17;
                 }
 
                 (*(v18 + 16))(v18, v4, v19, [v15 objectForKey:?]);
@@ -731,66 +727,65 @@ LABEL_26:
             while (v20);
           }
 
-          v12 = v48[++v11];
+          v12 = v46[++v11];
         }
 
         while (v12);
-        if (v50)
+        if (v48)
         {
-          v22 = 0;
-          v23 = v46;
-          v24 = v44;
-          v25 = v42;
-          v26 = &v49;
+          v21 = 0;
+          v22 = v44;
+          v23 = v42;
+          v24 = v40;
+          v25 = &v47;
           do
           {
-            if (!*v26)
+            if (!*v25)
             {
               sub_11244();
             }
 
-            v38[0] = _NSConcreteStackBlock;
-            v38[1] = 3221225472;
-            v38[2] = sub_83F0;
-            v38[3] = &unk_20B20;
-            v38[4] = v23;
-            v38[5] = v24;
-            v38[6] = v25;
-            v38[7] = v34;
-            v38[8] = v26;
-            v38[9] = cf;
-            v27 = v26[3];
-            v37[0] = _NSConcreteStackBlock;
-            v37[1] = 3221225472;
-            v37[2] = sub_841C;
-            v37[3] = &unk_20A50;
-            v37[4] = v26;
-            [(AAPSyncMetaDataItemUpdate *)selfCopy valueForGenericParser:v38 withDefaultGenerator:v27 withErrorKeyDescriptor:v37];
-            v28 = *v26;
-            (*(v26[1] + 2))();
-            ++v22;
-            v29 = v26[5];
-            v26 += 4;
+            v36[0] = _NSConcreteStackBlock;
+            v36[1] = 3221225472;
+            v36[2] = sub_83F0;
+            v36[3] = &unk_20B20;
+            v36[4] = v22;
+            v36[5] = v23;
+            v36[6] = v24;
+            v36[7] = v32;
+            v36[8] = v25;
+            v36[9] = cf;
+            v26 = v25[3];
+            v35[0] = _NSConcreteStackBlock;
+            v35[1] = 3221225472;
+            v35[2] = sub_841C;
+            v35[3] = &unk_20A50;
+            v35[4] = v25;
+            [(AAPSyncMetaDataItemUpdate *)selfCopy valueForGenericParser:v36 withDefaultGenerator:v26 withErrorKeyDescriptor:v35];
+            (*(v25[1] + 2))();
+            ++v21;
+            v27 = v25[5];
+            v25 += 4;
           }
 
-          while (v29);
+          while (v27);
         }
 
-        v5 = v33;
+        v5 = v31;
       }
 
       else
       {
-        v30 = os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_ERROR);
+        v28 = os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_ERROR);
         if (v10)
         {
-          if (v30)
+          if (v28)
           {
             sub_11154();
           }
         }
 
-        else if (v30)
+        else if (v28)
         {
           sub_111D0();
         }

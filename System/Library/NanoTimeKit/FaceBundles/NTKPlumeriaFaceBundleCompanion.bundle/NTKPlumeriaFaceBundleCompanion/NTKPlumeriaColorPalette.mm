@@ -15,9 +15,9 @@
 
   configuration = [(NTKPlumeriaColorPalette *)self configuration];
   uniqueId = [configuration uniqueId];
-  v19.width = width;
-  v19.height = height;
-  v8 = NSStringFromCGSize(v19);
+  v18.width = width;
+  v18.height = height;
+  v8 = NSStringFromCGSize(v18);
   v9 = [NSString stringWithFormat:@"%@-%@", uniqueId, v8];
 
   v10 = [qword_17580 objectForKey:v9];
@@ -28,21 +28,9 @@
     v13 = NTKPlumeriaSettingIndexFromColorwayName(colorOption);
 
     v14 = [NSBundle bundleForClass:objc_opt_class()];
-    if (!v14)
+    if (!v14 || (NTKImageNamedFromBundle(), (v10 = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      goto LABEL_8;
-    }
-
-    if ((v13 - 1) <= 3)
-    {
-      v15 = *(&off_10410 + (v13 - 1));
-    }
-
-    v10 = NTKImageNamedFromBundle();
-    if (!v10)
-    {
-LABEL_8:
-      v16 = generateColorArray(v13);
+      v15 = generateColorArray(v13);
       v10 = NTKSwatchColorSectorsImage();
     }
 

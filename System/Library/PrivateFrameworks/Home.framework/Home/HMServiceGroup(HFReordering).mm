@@ -15,29 +15,29 @@
 
 - (HFServiceNameComponents)hf_serviceNameComponents
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   name = [self name];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   services = [self services];
-  v4 = [services countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [services countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(services);
         }
 
-        accessory = [*(*(&v15 + 1) + 8 * i) accessory];
+        accessory = [*(*(&v14 + 1) + 8 * i) accessory];
         room = [accessory room];
 
         if (room)
@@ -58,7 +58,7 @@
         }
       }
 
-      v5 = [services countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [services countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -72,8 +72,6 @@ LABEL_14:
 
   name2 = [v6 name];
   v12 = [[HFServiceNameComponents alloc] initWithRawServiceName:name rawRoomName:name2];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

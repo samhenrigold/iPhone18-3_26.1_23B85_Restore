@@ -1,6 +1,7 @@
 @interface AVTAttributeValueViewInvertColorsAccessibility
 - (void)_accessibilityLoadInvertColors;
 - (void)cleanupAfterTransition;
+- (void)updateSelectedState:(BOOL)state animated:(BOOL)animated;
 @end
 
 @implementation AVTAttributeValueViewInvertColorsAccessibility
@@ -17,6 +18,14 @@
 
   [AXInvertColorsAppHelper toggleInvertColors:v4];
   [AXInvertColorsAppHelper toggleInvertColors:v6];
+}
+
+- (void)updateSelectedState:(BOOL)state animated:(BOOL)animated
+{
+  v5.receiver = self;
+  v5.super_class = AVTAttributeValueViewInvertColorsAccessibility;
+  [(AVTAttributeValueViewInvertColorsAccessibility *)&v5 updateSelectedState:state animated:animated];
+  [(AVTAttributeValueViewInvertColorsAccessibility *)self _accessibilityLoadInvertColors];
 }
 
 - (void)cleanupAfterTransition

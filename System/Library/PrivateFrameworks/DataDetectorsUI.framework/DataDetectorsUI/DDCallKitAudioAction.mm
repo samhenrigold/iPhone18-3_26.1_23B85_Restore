@@ -26,7 +26,7 @@
 
 - (id)notificationIconBundleIdentifier
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (self->super._defaultAppPolicy)
   {
     identifier = [(TUCallProvider *)self->_provider identifier];
@@ -53,21 +53,21 @@
 
   else
   {
-    if (dd_isLSTrusted())
+    if (dd_isLSTrusted(self, a2))
     {
       defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-      v19 = 0;
-      v10 = [defaultWorkspace defaultApplicationForCategory:4 error:&v19];
-      v11 = v19;
+      v18 = 0;
+      v10 = [defaultWorkspace defaultApplicationForCategory:4 error:&v18];
+      v11 = v18;
 
       if (v11 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
         bundleIdentifier = [mainBundle bundleIdentifier];
         *buf = 138412546;
-        v21 = bundleIdentifier;
-        v22 = 2112;
-        v23 = v11;
+        v20 = bundleIdentifier;
+        v21 = 2112;
+        v22 = v11;
         _os_log_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Couldn't get default phone app from %@. Error: %@", buf, 0x16u);
       }
     }
@@ -88,8 +88,6 @@
 
     v5 = v16;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -187,7 +185,7 @@ LABEL_8:
 
 + (id)providersIfHandleIsEmergency:(id)emergency
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   emergencyCopy = emergency;
   v4 = emergencyCopy;
   if (emergencyCopy && [emergencyCopy type] != 3)
@@ -197,26 +195,26 @@ LABEL_8:
     if (telephonyProvider)
     {
       v8 = objc_alloc_init(MEMORY[0x277D6EF38]);
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       prioritizedSenderIdentities = [telephonyProvider prioritizedSenderIdentities];
-      v5 = [prioritizedSenderIdentities countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v5 = [prioritizedSenderIdentities countByEnumeratingWithState:&v18 objects:v23 count:16];
       if (v5)
       {
-        v18 = v6;
-        v10 = *v20;
+        v17 = v6;
+        v10 = *v19;
         while (2)
         {
           for (i = 0; i != v5; i = i + 1)
           {
-            if (*v20 != v10)
+            if (*v19 != v10)
             {
               objc_enumerationMutation(prioritizedSenderIdentities);
             }
 
-            v12 = *(*(&v19 + 1) + 8 * i);
+            v12 = *(*(&v18 + 1) + 8 * i);
             value = [v4 value];
             uUID = [v12 UUID];
             v15 = [v8 isEmergencyNumberForDigits:value senderIdentityUUID:uUID];
@@ -228,13 +226,13 @@ LABEL_8:
                 +[DDCallKitAudioAction providersIfHandleIsEmergency:];
               }
 
-              v23 = telephonyProvider;
-              v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+              v22 = telephonyProvider;
+              v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
               goto LABEL_17;
             }
           }
 
-          v5 = [prioritizedSenderIdentities countByEnumeratingWithState:&v19 objects:v24 count:16];
+          v5 = [prioritizedSenderIdentities countByEnumeratingWithState:&v18 objects:v23 count:16];
           if (v5)
           {
             continue;
@@ -244,7 +242,7 @@ LABEL_8:
         }
 
 LABEL_17:
-        v6 = v18;
+        v6 = v17;
       }
     }
 
@@ -258,8 +256,6 @@ LABEL_17:
   {
     v5 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -277,8 +273,8 @@ LABEL_17:
   v16 = v15;
   if (v15)
   {
-    v41 = onlyCopy;
-    v43 = v12;
+    v42 = onlyCopy;
+    v44 = v12;
     if ([(NSString *)v15 containsString:@"@"])
     {
       v17 = 3;
@@ -294,11 +290,11 @@ LABEL_17:
     lowercaseString = [scheme lowercaseString];
 
     facetimeScheme = [self facetimeScheme];
-    v63 = 0;
-    v64 = &v63;
-    v65 = 0x2020000000;
-    v47 = v14;
-    v42 = facetimeScheme;
+    v64 = 0;
+    v65 = &v64;
+    v66 = 0x2020000000;
+    v48 = v14;
+    v43 = facetimeScheme;
     if ([lowercaseString isEqualToString:facetimeScheme])
     {
       v21 = 1;
@@ -310,10 +306,10 @@ LABEL_17:
       v21 = [lowercaseString isEqualToString:v22];
     }
 
-    v66 = v21;
-    v61[0] = 0;
-    v61[1] = v61;
-    v61[2] = 0x2020000000;
+    v67 = v21;
+    v62[0] = 0;
+    v62[1] = v62;
+    v62[2] = 0x2020000000;
     if ([lowercaseString isEqualToString:@"telephony"])
     {
       v23 = 1;
@@ -324,100 +320,100 @@ LABEL_17:
       v23 = [lowercaseString isEqualToString:@"telephonyprompt"];
     }
 
-    v62 = v23;
-    v24 = [self providersIfHandleIsEmergency:obj];
-    v45 = v13;
-    v46 = contextCopy;
-    if (v24)
+    v63 = v23;
+    v25 = [self providersIfHandleIsEmergency:obj];
+    v46 = v13;
+    v47 = contextCopy;
+    if (v25)
     {
       if ([self video])
       {
 
-        _Block_object_dispose(v61, 8);
-        _Block_object_dispose(&v63, 8);
+        _Block_object_dispose(v62, 8);
+        _Block_object_dispose(&v64, 8);
 
-        v25 = 0;
-        v12 = v43;
-        v14 = v47;
+        v26 = 0;
+        v12 = v44;
+        v14 = v48;
         goto LABEL_26;
       }
 
-      v26 = 0;
-      v28 = v24;
-      v27 = v46;
+      v27 = 0;
+      v29 = v25;
+      v28 = v47;
     }
 
     else
     {
-      v26 = dd_hostApplicationCanListCallProviders();
+      v27 = dd_hostApplicationCanListCallProviders(0, v24);
       [(DDCallKitAudioAction *)self _callKitProvidersForHandleType:v17];
-      v28 = v27 = v46;
+      v29 = v28 = v47;
     }
 
-    v29 = v24 != 0;
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __70__DDCallKitAudioAction_actionsWithURL_result_context_defaultAppsOnly___block_invoke;
-    v49[3] = &unk_278291880;
+    v30 = v25 != 0;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __70__DDCallKitAudioAction_actionsWithURL_result_context_defaultAppsOnly___block_invoke;
+    v50[3] = &unk_278291880;
     selfCopy = self;
-    v30 = lCopy;
-    v50 = v30;
-    v58 = resultCopy;
-    v31 = v27;
+    v31 = lCopy;
     v51 = v31;
-    v39 = obj;
-    v52 = v39;
-    v32 = v47;
-    v59 = v26;
-    v60 = v29;
-    v53 = v32;
-    v55 = &v63;
-    v33 = v45;
+    v59 = resultCopy;
+    v32 = v28;
+    v52 = v32;
+    v40 = obj;
+    v53 = v40;
+    v33 = v48;
+    v60 = v27;
+    v61 = v30;
     v54 = v33;
-    v56 = v61;
-    v40 = v28;
-    [v28 enumerateObjectsUsingBlock:v49];
-    if (!(v26 & 1 | ((v64[3] & 1) == 0)) && [self facetimeAvailable])
+    v56 = &v64;
+    v34 = v46;
+    v55 = v34;
+    v57 = v62;
+    v41 = v29;
+    [v29 enumerateObjectsUsingBlock:v50];
+    if (!(v27 & 1 | ((v65[3] & 1) == 0)) && [self facetimeAvailable])
     {
-      v34 = objc_alloc_init(MEMORY[0x277D6EE28]);
-      faceTimeProvider = [v34 faceTimeProvider];
+      v35 = objc_alloc_init(MEMORY[0x277D6EE28]);
+      faceTimeProvider = [v35 faceTimeProvider];
       if (faceTimeProvider)
       {
-        v36 = [self actionWithURL:v30 result:resultCopy context:v31];
-        objc_storeStrong((v36 + 168), obj);
-        objc_storeStrong((v36 + 184), faceTimeProvider);
-        *(v36 + 176) = 2;
-        [v33 insertObject:v36 atIndex:0];
+        v37 = [self actionWithURL:v31 result:resultCopy context:v32];
+        objc_storeStrong((v37 + 168), obj);
+        objc_storeStrong((v37 + 184), faceTimeProvider);
+        *(v37 + 176) = 2;
+        [v34 insertObject:v37 atIndex:0];
       }
     }
 
-    if (v41 && [v33 count] >= 2)
+    if (v42 && [v34 count] >= 2)
     {
-      firstObject = [v33 firstObject];
-      [v33 removeAllObjects];
-      [v33 addObject:firstObject];
+      firstObject = [v34 firstObject];
+      [v34 removeAllObjects];
+      [v34 addObject:firstObject];
     }
 
-    [v33 addObjectsFromArray:v32];
+    [v34 addObjectsFromArray:v33];
 
-    _Block_object_dispose(v61, 8);
-    _Block_object_dispose(&v63, 8);
+    _Block_object_dispose(v62, 8);
+    _Block_object_dispose(&v64, 8);
 
-    v13 = v45;
-    contextCopy = v46;
-    v12 = v43;
-    v14 = v47;
+    v13 = v46;
+    contextCopy = v47;
+    v12 = v44;
+    v14 = v48;
   }
 
-  v25 = v13;
+  v26 = v13;
 LABEL_26:
 
-  return v25;
+  return v26;
 }
 
 void __70__DDCallKitAudioAction_actionsWithURL_result_context_defaultAppsOnly___block_invoke(uint64_t a1, void *a2)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 identifier];
   v5 = [v4 isEqualToString:@"com.apple.coretelephony"];
@@ -437,23 +433,23 @@ LABEL_17:
     aBlock[1] = 3221225472;
     aBlock[2] = __70__DDCallKitAudioAction_actionsWithURL_result_context_defaultAppsOnly___block_invoke_2;
     aBlock[3] = &unk_278291858;
-    v41 = *(a1 + 88);
+    v40 = *(a1 + 88);
     v15 = *(a1 + 32);
     v16 = *(a1 + 96);
-    v35 = v15;
-    v42 = v16;
-    v36 = *(a1 + 40);
-    v37 = *(a1 + 48);
+    v34 = v15;
+    v41 = v16;
+    v35 = *(a1 + 40);
+    v36 = *(a1 + 48);
     v17 = v3;
-    v38 = v17;
-    v43 = *(a1 + 105);
-    v44 = *(a1 + 104);
-    v45 = v7;
-    v29 = *(a1 + 64);
-    v18 = v29;
-    v39 = v29;
-    v40 = *(a1 + 80);
-    v46 = v5;
+    v37 = v17;
+    v42 = *(a1 + 105);
+    v43 = *(a1 + 104);
+    v44 = v7;
+    v28 = *(a1 + 64);
+    v18 = v28;
+    v38 = v28;
+    v39 = *(a1 + 80);
+    v45 = v5;
     v19 = _Block_copy(aBlock);
     if (v5)
     {
@@ -478,30 +474,30 @@ LABEL_29:
     }
 
     v21 = [v20 count];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v22 = v20;
-    v23 = [v22 countByEnumeratingWithState:&v30 objects:v51 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v29 objects:v50 count:16];
     if (v23)
     {
       v24 = v23;
       v25 = 0;
-      v26 = *v31;
+      v26 = *v30;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v31 != v26)
+          if (*v30 != v26)
           {
             objc_enumerationMutation(v22);
           }
 
-          (*(v19 + 2))(v19, *(*(&v30 + 1) + 8 * i), v25++, v21);
+          (*(v19 + 2))(v19, *(*(&v29 + 1) + 8 * i), v25++, v21);
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v30 objects:v51 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v29 objects:v50 count:16];
       }
 
       while (v24);
@@ -515,25 +511,25 @@ LABEL_29:
     goto LABEL_17;
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
-  v52[0] = objc_opt_class();
-  v52[1] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
-  v9 = [v8 countByEnumeratingWithState:&v47 objects:v53 count:16];
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v51[0] = objc_opt_class();
+  v51[1] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
+  v9 = [v8 countByEnumeratingWithState:&v46 objects:v52 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v48;
+    v11 = *v47;
     do
     {
       for (j = 0; j != v10; ++j)
       {
-        if (*v48 == v11)
+        if (*v47 == v11)
         {
-          v13 = *(*(&v47 + 1) + 8 * j);
+          v13 = *(*(&v46 + 1) + 8 * j);
           if (![v13 isAvailable])
           {
             continue;
@@ -543,7 +539,7 @@ LABEL_29:
         else
         {
           objc_enumerationMutation(v8);
-          v13 = *(*(&v47 + 1) + 8 * j);
+          v13 = *(*(&v46 + 1) + 8 * j);
           if (![v13 isAvailable])
           {
             continue;
@@ -556,7 +552,7 @@ LABEL_29:
         [*(a1 + 56) addObject:v14];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v47 objects:v53 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v46 objects:v52 count:16];
     }
 
     while (v10);
@@ -568,8 +564,6 @@ LABEL_29:
   }
 
 LABEL_30:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __70__DDCallKitAudioAction_actionsWithURL_result_context_defaultAppsOnly___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
@@ -770,17 +764,14 @@ LABEL_24:
 
 uint64_t __59__DDCallKitAudioAction__senderIdentityInitialForSymbolName__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) substringWithRange:?];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) substringWithRange:?];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (id)_nonSymbolBadgeForSenderIdentityCompact:(BOOL)compact
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   if (self->_senderIdentity)
   {
     _senderIdentityInitialForSymbolName = [(DDCallKitAudioAction *)self _senderIdentityInitialForSymbolName];
@@ -793,9 +784,9 @@ uint64_t __59__DDCallKitAudioAction__senderIdentityInitialForSymbolName__block_i
 
       v9 = [MEMORY[0x277D74300] fontWithDescriptor:v8 size:0.0];
 
-      v39 = *MEMORY[0x277D740A8];
-      v40[0] = v9;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+      v38 = *MEMORY[0x277D740A8];
+      v39[0] = v9;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
       [v5 sizeWithAttributes:v10];
       v12 = v11;
       v14 = v13;
@@ -806,7 +797,7 @@ uint64_t __59__DDCallKitAudioAction__senderIdentityInitialForSymbolName__block_i
       if (v12 <= v14)
       {
         v18 = (v15 * 1.67142857 - v12) * 0.5;
-        v27 = (v15 * 1.67142857 - v14) * 0.5;
+        v26 = (v15 * 1.67142857 - v14) * 0.5;
         v19 = v15 * 1.67142857;
         v14 = v15;
         v12 = v15;
@@ -820,27 +811,27 @@ uint64_t __59__DDCallKitAudioAction__senderIdentityInitialForSymbolName__block_i
         v18 = (v17 + v16) * 0.5;
         v19 = v17 + v16 + v12;
         v20 = v17 + v16 + v14;
-        v27 = v18;
+        v26 = v18;
       }
 
       v21 = [objc_alloc(MEMORY[0x277D75560]) initWithSize:{v19, v20}];
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __64__DDCallKitAudioAction__nonSymbolBadgeForSenderIdentityCompact___block_invoke;
-      v28[3] = &unk_2782918D0;
-      v31 = v16;
-      v32 = v17;
-      v33 = v12;
-      v34 = v14;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __64__DDCallKitAudioAction__nonSymbolBadgeForSenderIdentityCompact___block_invoke;
+      v27[3] = &unk_2782918D0;
+      v30 = v16;
+      v31 = v17;
+      v32 = v12;
+      v33 = v14;
       compactCopy = compact;
-      v35 = v15;
-      v36 = v18;
-      v37 = v27;
-      v29 = v5;
-      v30 = v9;
+      v34 = v15;
+      v35 = v18;
+      v36 = v26;
+      v28 = v5;
+      v29 = v9;
       v22 = v9;
       v23 = v5;
-      v24 = [v21 imageWithActions:v28];
+      v24 = [v21 imageWithActions:v27];
 
       _senderIdentityInitialForSymbolName = v24;
     }
@@ -851,14 +842,12 @@ uint64_t __59__DDCallKitAudioAction__senderIdentityInitialForSymbolName__block_i
     _senderIdentityInitialForSymbolName = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return _senderIdentityInitialForSymbolName;
 }
 
 void __64__DDCallKitAudioAction__nonSymbolBadgeForSenderIdentityCompact___block_invoke(uint64_t a1, void *a2)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277D75208] bezierPathWithRoundedRect:(*(a1 + 56) + *(a1 + 48)) * 0.5 cornerRadius:{(*(a1 + 56) + *(a1 + 48)) * 0.5, *(a1 + 64), *(a1 + 72), *(a1 + 80) * 0.166666667}];
   v5 = [MEMORY[0x277D75348] labelColor];
@@ -886,14 +875,12 @@ void __64__DDCallKitAudioAction__nonSymbolBadgeForSenderIdentityCompact___block_
   v9 = *(a1 + 32);
   v8 = *(a1 + 40);
   v10 = *MEMORY[0x277D740C0];
-  v13[0] = *MEMORY[0x277D740A8];
-  v13[1] = v10;
-  v14[0] = v8;
-  v14[1] = v7;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v12[0] = *MEMORY[0x277D740A8];
+  v12[1] = v10;
+  v13[0] = v8;
+  v13[1] = v7;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   [v9 drawAtPoint:v11 withAttributes:{*(a1 + 88), *(a1 + 96)}];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)compactIcon

@@ -170,11 +170,11 @@
 
 - (void)controller:(id)controller didChangeObject:(id)object atIndexPath:(id)path forChangeType:(unint64_t)type newIndexPath:(id)indexPath
 {
-  v12 = sub_1000F24EC(&unk_100ADFB90);
+  v12 = sub_1000F24EC(&unk_100ADFB90, &qword_1009512D0);
   __chkstk_darwin(v12 - 8);
-  v14 = &v26[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v14 = v26 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v15);
-  v17 = &v26[-v16];
+  v17 = v26 - v16;
   controllerCopy = controller;
   swift_unknownObjectRetain();
   selfCopy = self;
@@ -212,8 +212,8 @@
   (*(*(v25 - 8) + 56))(v14, v24, 1, v25);
   sub_1004658B0(v26, v17, type, v14);
 
-  sub_100004F84(v14, &unk_100ADFB90);
-  sub_100004F84(v17, &unk_100ADFB90);
+  sub_100004F84(v14, &unk_100ADFB90, &qword_1009512D0);
+  sub_100004F84(v17, &unk_100ADFB90, &qword_1009512D0);
   sub_10000BA7C(v26);
 }
 

@@ -159,7 +159,6 @@ LABEL_5:
     goto LABEL_24;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_playbackState != *(equalCopy + 1))
@@ -171,7 +170,7 @@ LABEL_5:
   else if (*(equalCopy + 48))
   {
 LABEL_24:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_25;
   }
 
@@ -217,17 +216,17 @@ LABEL_24:
   mediaIdentifier = self->_mediaIdentifier;
   if (mediaIdentifier | *(equalCopy + 5))
   {
-    v7 = [(NSString *)mediaIdentifier isEqual:?];
+    v6 = [(NSString *)mediaIdentifier isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_25:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -352,12 +351,11 @@ LABEL_6:
 {
   toCopy = to;
   has = self->_has;
-  v10 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    playbackState = self->_playbackState;
     PBDataWriterWriteInt64Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -376,9 +374,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  shuffleState = self->_shuffleState;
   PBDataWriterWriteInt64Field();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -392,22 +389,20 @@ LABEL_4:
   }
 
 LABEL_13:
-  repeatState = self->_repeatState;
   PBDataWriterWriteInt64Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    volume = self->_volume;
     PBDataWriterWriteDoubleField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_6:
   if (self->_mediaIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 

@@ -27,10 +27,9 @@ uint64_t sub_100002F30(uint64_t a1)
 uint64_t sub_100003044(uint64_t a1)
 {
   memcpy(__dst, off_10000C2A0, sizeof(__dst));
-  v1 = *(a1 + 40);
-  v2 = _sl_dlopen();
+  v1 = _sl_dlopen();
   result = a1;
-  *(*(*(a1 + 32) + 8) + 24) = v2;
+  *(*(*(a1 + 32) + 8) + 24) = v1;
   qword_1000111A0 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
@@ -41,7 +40,7 @@ uint64_t sub_100003104()
   v1 = sub_100002F30(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -85,7 +84,7 @@ uint64_t sub_1000032B0(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "AKAppleIDAuthenticationInAppContext");
   }
 
   qword_1000111A8 = *(*(*(a1 + 32) + 8) + 24);
@@ -125,7 +124,7 @@ uint64_t sub_100003488(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "AKBasicLoginContentViewController");
   }
 
   qword_1000111B0 = *(*(*(a1 + 32) + 8) + 24);

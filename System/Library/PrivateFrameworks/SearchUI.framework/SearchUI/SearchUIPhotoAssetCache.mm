@@ -25,7 +25,7 @@
   return v2;
 }
 
-uint64_t __38__SearchUIPhotoAssetCache_sharedCache__block_invoke()
+uint64_t __38__SearchUIPhotoAssetCache_sharedCache__block_invoke(uint64_t a1)
 {
   objc_opt_class();
   sharedCache_sharedCache = objc_opt_new();

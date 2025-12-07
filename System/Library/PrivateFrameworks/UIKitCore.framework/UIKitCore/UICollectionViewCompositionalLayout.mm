@@ -1346,9 +1346,9 @@ void __75__UICollectionViewCompositionalLayout__updateCollectionViewBackgroundCo
     goto LABEL_9;
   }
 
-  v11 = [v15 isEqual:v10];
+  isEqual = objc_msgSend_isEqual_(v15);
 
-  if ((v11 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_9:
     v13 = *(*(a1 + 32) + 8);
@@ -1750,7 +1750,7 @@ LABEL_10:
   return result;
 }
 
-void __93__UICollectionViewCompositionalLayout__supplementaryViewInsetsForScrollingToItemAtIndexPath___block_invoke(uint64_t a1, id *a2, void *a3)
+void __93__UICollectionViewCompositionalLayout__supplementaryViewInsetsForScrollingToItemAtIndexPath___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v6 = [*(a1 + 32) section];
   v7 = [a3 indexPath];
@@ -3310,7 +3310,7 @@ LABEL_23:
   v13 = v12;
   v15 = v14;
   v16 = [off_1E70ECC48 snapshotterForSectionCountsProvider:v7];
-  v17 = [(_UICollectionCompositionalLayoutSolverUpdate *)v9 solverUpdateForVisibleBounds:v11 updateItems:v13 updateTranslator:v15 finalDataSourceSnapshot:_UICollectionCompositionalLayoutSolverUpdate, updates, translator, v16];
+  v17 = [_UICollectionCompositionalLayoutSolverUpdate solverUpdateForVisibleBounds:updates updateItems:translator updateTranslator:v16 finalDataSourceSnapshot:v9, v11, v13, v15];
   [(UICollectionViewCompositionalLayout *)self setCurrentUpdate:v17];
 
   solver = [(UICollectionViewCompositionalLayout *)self solver];
@@ -3958,7 +3958,8 @@ LABEL_8:
   {
     kdebug_trace();
     solver2 = [(UICollectionViewCompositionalLayout *)self solver];
-    height = [(_UICollectionCompositionalLayoutSolver *)solver2 mutatedVisibleItemsForElementsForVisibleBounds:y, width, height];
+    v11.n128_f64[0] = x;
+    height = [(_UICollectionCompositionalLayoutSolver *)solver2 mutatedVisibleItemsForElementsForVisibleBounds:v11, y, width, height];
 
     kdebug_trace();
   }
@@ -4092,7 +4093,7 @@ LABEL_8:
   {
     _collectionViewData = [collectionView _collectionViewData];
     v10 = _collectionViewData;
-    if (_collectionViewData && ([(UICollectionViewData *)_collectionViewData _isIndexPathValid:path validateItemCounts:1]& 1) != 0)
+    if (_collectionViewData && [(UICollectionViewData *)_collectionViewData _isIndexPathValid:path validateItemCounts:1])
     {
       v11 = -[UICollectionViewCompositionalLayout _layoutSectionForSectionIndex:](self, "_layoutSectionForSectionIndex:", [path section]);
       v12 = v11;

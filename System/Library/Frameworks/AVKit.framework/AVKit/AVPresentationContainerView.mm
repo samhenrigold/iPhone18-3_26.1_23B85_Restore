@@ -47,7 +47,7 @@
     presentationContainerContentView2 = [(AVPresentationContainerView *)self presentationContainerContentView];
     [presentationContainerContentView2 setFrame:{v6, v8, v10, v12}];
 
-    [(AVPresentationContainerView *)self _contentTransform];
+    objc_msgSend__contentTransform(self);
     presentationContainerContentView3 = [(AVPresentationContainerView *)self presentationContainerContentView];
     v20[0] = v20[3];
     v20[1] = v20[4];

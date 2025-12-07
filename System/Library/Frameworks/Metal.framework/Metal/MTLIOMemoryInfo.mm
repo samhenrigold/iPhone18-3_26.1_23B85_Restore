@@ -20,7 +20,7 @@
   return _memoryInfo;
 }
 
-uint64_t __29__MTLIOMemoryInfo_initialize__block_invoke()
+void *__29__MTLIOMemoryInfo_initialize__block_invoke()
 {
   _memoryInfo = objc_alloc_init(MTLIOMemoryInfo);
   result = [_memoryInfo addDataSource:&__block_literal_global_3];

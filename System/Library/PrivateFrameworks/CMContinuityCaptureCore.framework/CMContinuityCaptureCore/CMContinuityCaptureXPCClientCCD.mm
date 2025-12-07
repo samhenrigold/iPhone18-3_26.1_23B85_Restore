@@ -44,21 +44,33 @@ uint64_t __49__CMContinuityCaptureXPCClientCCD_sharedInstance__block_invoke()
 
 - (CMContinuityCaptureXPCClientCCD)init
 {
-  v7.receiver = self;
-  v7.super_class = CMContinuityCaptureXPCClientCCD;
-  v2 = [(CMContinuityCaptureXPCClientCCD *)&v7 init];
+  v18.receiver = self;
+  v18.super_class = CMContinuityCaptureXPCClientCCD;
+  v2 = [(CMContinuityCaptureXPCClientCCD *)&v18 init];
   if (v2)
   {
     if (dword_27ECB4DA0)
     {
+      v17 = 0;
+      v16 = 0;
       v3 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      *&v4 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v14 = v4;
+      v15 = v4;
+      v12 = v4;
+      v13 = v4;
+      v10 = v4;
+      v11 = v4;
+      v8 = v4;
+      v9 = v4;
       os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v4 = dispatch_queue_create("com.apple.continuitycapture.remoteuiclient.connection", 0);
+    v5 = dispatch_queue_create("com.apple.continuitycapture.remoteuiclient.connection", 0);
     connectionQueue = v2->_connectionQueue;
-    v2->_connectionQueue = v4;
+    v2->_connectionQueue = v5;
   }
 
   return v2;
@@ -69,16 +81,28 @@ uint64_t __49__CMContinuityCaptureXPCClientCCD_sharedInstance__block_invoke()
   configurationCopy = configuration;
   if (dword_27ECB4DA0)
   {
+    v18 = 0;
+    v17 = 0;
     v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    *&v6 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v15 = v6;
+    v16 = v6;
+    v13 = v6;
+    v14 = v6;
+    v11 = v6;
+    v12 = v6;
+    v9 = v6;
+    v10 = v6;
     os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v7 = WeakRetained;
+  v8 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained sessionDidUpdateWithConfiguration:configurationCopy];
+    [WeakRetained sessionDidUpdateWithConfiguration:?];
   }
 }
 
@@ -86,13 +110,25 @@ uint64_t __49__CMContinuityCaptureXPCClientCCD_sharedInstance__block_invoke()
 {
   if (dword_27ECB4DA0)
   {
+    v16 = 0;
+    v15 = 0;
     v3 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    *&v4 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v13 = v4;
+    v14 = v4;
+    v11 = v4;
+    v12 = v4;
+    v9 = v4;
+    v10 = v4;
+    v7 = v4;
+    v8 = v4;
     os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v5 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained tearDownShield];
@@ -103,13 +139,25 @@ uint64_t __49__CMContinuityCaptureXPCClientCCD_sharedInstance__block_invoke()
 {
   if (dword_27ECB4DA0)
   {
+    v16 = 0;
+    v15 = 0;
     v3 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    *&v4 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v13 = v4;
+    v14 = v4;
+    v11 = v4;
+    v12 = v4;
+    v9 = v4;
+    v10 = v4;
+    v7 = v4;
+    v8 = v4;
     os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v5 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained serverXPCConnectionInterrupted];
@@ -121,8 +169,20 @@ uint64_t __49__CMContinuityCaptureXPCClientCCD_sharedInstance__block_invoke()
   infoCopy = info;
   if (dword_27ECB4DA0)
   {
-    v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v19 = 0;
+    v18 = 0;
+    v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    *&v7 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v16 = v7;
+    v17 = v7;
+    v14 = v7;
+    v15 = v7;
+    v12 = v7;
+    v13 = v7;
+    v10 = v7;
+    v11 = v7;
+    os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
@@ -130,7 +190,7 @@ uint64_t __49__CMContinuityCaptureXPCClientCCD_sharedInstance__block_invoke()
   v9 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained presentError:error userInfo:infoCopy];
+    [WeakRetained presentError:? userInfo:?];
   }
 }
 
@@ -138,19 +198,19 @@ uint64_t __49__CMContinuityCaptureXPCClientCCD_sharedInstance__block_invoke()
 {
   configurationCopy = configuration;
   _service = [(CMContinuityCaptureXPCClientCCD *)self _service];
-  [_service requestContinuityCaptureUIConfiguration:configurationCopy];
+  [_service requestContinuityCaptureUIConfiguration:?];
 }
 
 - (void)resumeStreamingForEvent:(int64_t)event
 {
   _service = [(CMContinuityCaptureXPCClientCCD *)self _service];
-  [_service resumeStreamingForEvent:event];
+  [_service resumeStreamingForEvent:?];
 }
 
 - (void)pauseSessionForEvent:(int64_t)event
 {
   _service = [(CMContinuityCaptureXPCClientCCD *)self _service];
-  [_service pauseSessionForEvent:event];
+  [_service pauseSessionForEvent:?];
 }
 
 - (void)disconnectSession
@@ -169,7 +229,7 @@ uint64_t __49__CMContinuityCaptureXPCClientCCD_sharedInstance__block_invoke()
 {
   conversationCopy = conversation;
   _service = [(CMContinuityCaptureXPCClientCCD *)self _service];
-  [_service prepareForPullConversation:conversationCopy];
+  [_service prepareForPullConversation:?];
 }
 
 - (void)setupSingSessionFromURL:(id)l remoteDisplayIdentifier:(id)identifier
@@ -177,7 +237,7 @@ uint64_t __49__CMContinuityCaptureXPCClientCCD_sharedInstance__block_invoke()
   identifierCopy = identifier;
   lCopy = l;
   _service = [(CMContinuityCaptureXPCClientCCD *)self _service];
-  [_service setupSingSessionFromURL:lCopy remoteDisplayIdentifier:identifierCopy];
+  [_service setupSingSessionFromURL:? remoteDisplayIdentifier:?];
 }
 
 - (void)setupSingSessionWithMediaRouteIdentifier:(id)identifier remoteDisplayIdentifier:(id)displayIdentifier
@@ -185,7 +245,7 @@ uint64_t __49__CMContinuityCaptureXPCClientCCD_sharedInstance__block_invoke()
   displayIdentifierCopy = displayIdentifier;
   identifierCopy = identifier;
   _service = [(CMContinuityCaptureXPCClientCCD *)self _service];
-  [_service setupSingSessionWithMediaRouteIdentifier:identifierCopy remoteDisplayIdentifier:displayIdentifierCopy];
+  [_service setupSingSessionWithMediaRouteIdentifier:? remoteDisplayIdentifier:?];
 }
 
 - (void)refreshPrivacyAcknowledgement
@@ -223,43 +283,55 @@ void __80__CMContinuityCaptureXPCClientCCD_connectToContinuityCaptureServerWithD
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v3 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.continuitycaptured" options:4096];
-    v4 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2854F7920];
-    [v3 setRemoteObjectInterface:v4];
+    v3 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:? options:?];
+    v4 = [MEMORY[0x277CCAE90] interfaceWithProtocol:?];
+    [v3 setRemoteObjectInterface:?];
 
-    v5 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2854F5EB0];
-    [v3 setExportedInterface:v5];
+    v5 = [MEMORY[0x277CCAE90] interfaceWithProtocol:?];
+    [v3 setExportedInterface:?];
 
-    [v3 setExportedObject:*(a1 + 32)];
+    [v3 setExportedObject:?];
     objc_initWeak(&location, v3);
-    [v3 setInvalidationHandler:&__block_literal_global_81];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __80__CMContinuityCaptureXPCClientCCD_connectToContinuityCaptureServerWithDelegate___block_invoke_3;
-    v11[3] = &unk_278D5C080;
-    objc_copyWeak(&v12, (a1 + 48));
-    [v3 setInterruptionHandler:v11];
+    [v3 setInvalidationHandler:?];
+    v24[1] = MEMORY[0x277D85DD0];
+    v24[2] = 3221225472;
+    v24[3] = __80__CMContinuityCaptureXPCClientCCD_connectToContinuityCaptureServerWithDelegate___block_invoke_3;
+    v24[4] = &unk_278D5C080;
+    objc_copyWeak(&v25, (a1 + 48));
+    [v3 setInterruptionHandler:?];
     [WeakRetained[1] invalidate];
     objc_storeStrong(WeakRetained + 1, v3);
     [WeakRetained[1] resume];
     v6 = [WeakRetained _service];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __80__CMContinuityCaptureXPCClientCCD_connectToContinuityCaptureServerWithDelegate___block_invoke_5;
-    v8[3] = &unk_278D5DAA8;
-    objc_copyWeak(&v10, (a1 + 48));
-    v9 = *(a1 + 40);
-    [v6 requestContinuityCaptureUIConfiguration:v8];
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __80__CMContinuityCaptureXPCClientCCD_connectToContinuityCaptureServerWithDelegate___block_invoke_5;
+    v22 = &unk_278D5DAA8;
+    objc_copyWeak(v24, (a1 + 48));
+    v23 = *(a1 + 40);
+    [v6 requestContinuityCaptureUIConfiguration:?];
 
     if (dword_27ECB4DA0)
     {
+      v18 = 0;
+      type = OS_LOG_TYPE_DEFAULT;
       v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      *&v8 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v15 = v8;
+      v16 = v8;
+      v13 = v8;
+      v14 = v8;
+      v11 = v8;
+      v12 = v8;
+      v9 = v8;
+      v10 = v8;
       os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    objc_destroyWeak(&v10);
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(v24);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(&location);
   }
 }
@@ -291,7 +363,7 @@ void __80__CMContinuityCaptureXPCClientCCD_connectToContinuityCaptureServerWithD
   {
     v3 = WeakRetained;
     v2 = objc_loadWeakRetained(WeakRetained + 3);
-    [v3 connectToContinuityCaptureServerWithDelegate:v2];
+    [v3 connectToContinuityCaptureServerWithDelegate:?];
 
     WeakRetained = v3;
   }
@@ -305,24 +377,24 @@ void __80__CMContinuityCaptureXPCClientCCD_connectToContinuityCaptureServerWithD
   {
     if (dword_27ECB4DA0)
     {
-      v18 = 0;
-      v17 = 0;
+      v16 = 0;
+      v15 = 0;
       v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       *&v6 = 0xAAAAAAAAAAAAAAAALL;
       *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v15 = v6;
-      v16 = v6;
       v13 = v6;
       v14 = v6;
       v11 = v6;
       v12 = v6;
       v9 = v6;
       v10 = v6;
+      v7 = v6;
+      v8 = v6;
       os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [WeakRetained sessionDidUpdateWithConfiguration:{v3, v7, v8}];
+    [WeakRetained sessionDidUpdateWithConfiguration:?];
     dispatch_semaphore_signal(*(a1 + 32));
   }
 }
@@ -330,12 +402,12 @@ void __80__CMContinuityCaptureXPCClientCCD_connectToContinuityCaptureServerWithD
 - (id)_service
 {
   connection = self->_connection;
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __43__CMContinuityCaptureXPCClientCCD__service__block_invoke;
-  v5[3] = &unk_278D5D990;
-  v5[4] = self;
-  v3 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v5];
+  v5 = MEMORY[0x277D85DD0];
+  v6 = 3221225472;
+  v7 = __43__CMContinuityCaptureXPCClientCCD__service__block_invoke;
+  v8 = &unk_278D5D990;
+  selfCopy = self;
+  v3 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:?];
 
   return v3;
 }
@@ -345,7 +417,19 @@ void __43__CMContinuityCaptureXPCClientCCD__service__block_invoke(uint64_t a1, v
   v2 = a2;
   if (dword_27ECB4DA0)
   {
+    v14 = 0;
+    v13 = 0;
     v3 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    *&v4 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v11 = v4;
+    v12 = v4;
+    v9 = v4;
+    v10 = v4;
+    v7 = v4;
+    v8 = v4;
+    v5 = v4;
+    v6 = v4;
     os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }

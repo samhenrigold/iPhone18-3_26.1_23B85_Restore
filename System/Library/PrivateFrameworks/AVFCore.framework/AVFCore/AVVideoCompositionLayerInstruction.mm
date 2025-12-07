@@ -327,7 +327,7 @@ LABEL_13:
     v28 = [(NSMutableArray *)self->_layerInstruction->transformRamps objectAtIndex:v20];
     if (v28)
     {
-      [v28 CMTimeRangeValue];
+      objc_msgSend_CMTimeRangeValue(v28);
     }
 
     else
@@ -365,7 +365,7 @@ BOOL __108__AVVideoCompositionLayerInstruction__setTransformRampFromStartTransfo
 
   if (a2)
   {
-    [a2 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(a2);
   }
 
   else
@@ -466,7 +466,7 @@ BOOL __108__AVVideoCompositionLayerInstruction__setTransformRampFromStartTransfo
         v14 = [(NSMutableArray *)self->_layerInstruction->transformRamps objectAtIndex:v12];
         if (v14)
         {
-          [v14 CMTimeRangeValue];
+          objc_msgSend_CMTimeRangeValue(v14);
           flags = DWORD1(v31);
           epoch = *(&v31 + 1);
         }
@@ -490,7 +490,7 @@ BOOL __108__AVVideoCompositionLayerInstruction__setTransformRampFromStartTransfo
         v18 = [(NSMutableArray *)self->_layerInstruction->transformRamps objectAtIndex:?];
         if (v18)
         {
-          [v18 CMTimeRangeValue];
+          objc_msgSend_CMTimeRangeValue(v18);
           flags = DWORD1(v31);
           epoch = *(&v31 + 1);
         }
@@ -544,7 +544,7 @@ BOOL __108__AVVideoCompositionLayerInstruction__setTransformRampFromStartTransfo
             v23 = [(NSMutableArray *)self->_layerInstruction->transformRamps objectAtIndex:?];
             if (v23)
             {
-              [v23 CMTimeRangeValue];
+              objc_msgSend_CMTimeRangeValue(v23);
             }
 
             else
@@ -598,7 +598,7 @@ BOOL __100__AVVideoCompositionLayerInstruction_getTransformRampForTime_startTran
   memset(&v12, 0, sizeof(v12));
   if (a2)
   {
-    [a2 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(a2);
   }
 
   range = v12;
@@ -681,7 +681,7 @@ BOOL __100__AVVideoCompositionLayerInstruction_getTransformRampForTime_startTran
     v24 = [(NSMutableArray *)self->_layerInstruction->opacityRamps objectAtIndex:v20];
     if (v24)
     {
-      [v24 CMTimeRangeValue];
+      objc_msgSend_CMTimeRangeValue(v24);
     }
 
     else
@@ -719,7 +719,7 @@ BOOL __102__AVVideoCompositionLayerInstruction__setOpacityRampFromStartOpacity_t
 
   if (a2)
   {
-    [a2 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(a2);
   }
 
   else
@@ -804,7 +804,7 @@ BOOL __102__AVVideoCompositionLayerInstruction__setOpacityRampFromStartOpacity_t
         v14 = [(NSMutableArray *)self->_layerInstruction->opacityRamps objectAtIndex:v12];
         if (v14)
         {
-          [v14 CMTimeRangeValue];
+          objc_msgSend_CMTimeRangeValue(v14);
           flags = DWORD1(v29);
           epoch = *(&v29 + 1);
         }
@@ -828,7 +828,7 @@ BOOL __102__AVVideoCompositionLayerInstruction__setOpacityRampFromStartOpacity_t
         v18 = [(NSMutableArray *)self->_layerInstruction->opacityRamps objectAtIndex:?];
         if (v18)
         {
-          [v18 CMTimeRangeValue];
+          objc_msgSend_CMTimeRangeValue(v18);
           flags = DWORD1(v29);
           epoch = *(&v29 + 1);
         }
@@ -877,7 +877,7 @@ BOOL __102__AVVideoCompositionLayerInstruction__setOpacityRampFromStartOpacity_t
             v20 = [(NSMutableArray *)self->_layerInstruction->opacityRamps objectAtIndex:?];
             if (v20)
             {
-              [v20 CMTimeRangeValue];
+              objc_msgSend_CMTimeRangeValue(v20);
             }
 
             else
@@ -931,7 +931,7 @@ BOOL __94__AVVideoCompositionLayerInstruction_getOpacityRampForTime_startOpacity
   memset(&v12, 0, sizeof(v12));
   if (a2)
   {
-    [a2 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(a2);
   }
 
   range = v12;
@@ -1030,7 +1030,7 @@ BOOL __94__AVVideoCompositionLayerInstruction_getOpacityRampForTime_startOpacity
     v32 = [(NSMutableArray *)self->_layerInstruction->cropRectangleRamps objectAtIndex:v26];
     if (v32)
     {
-      [v32 CMTimeRangeValue];
+      objc_msgSend_CMTimeRangeValue(v32);
     }
 
     else
@@ -1068,7 +1068,7 @@ BOOL __120__AVVideoCompositionLayerInstruction__setCropRectangleRampFromStartCro
 
   if (a2)
   {
-    [a2 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(a2);
   }
 
   else
@@ -1154,7 +1154,7 @@ BOOL __120__AVVideoCompositionLayerInstruction__setCropRectangleRampFromStartCro
         v13 = [(NSMutableArray *)self->_layerInstruction->cropRectangleRamps objectAtIndex:v11];
         if (v13)
         {
-          [v13 CMTimeRangeValue];
+          objc_msgSend_CMTimeRangeValue(v13);
           flags = DWORD1(v31);
           epoch = *(&v31 + 1);
         }
@@ -1176,7 +1176,7 @@ BOOL __120__AVVideoCompositionLayerInstruction__setCropRectangleRampFromStartCro
         v17 = [(NSMutableArray *)self->_layerInstruction->cropRectangleRamps objectAtIndex:?];
         if (v17)
         {
-          [v17 CMTimeRangeValue];
+          objc_msgSend_CMTimeRangeValue(v17);
           flags = DWORD1(v31);
           epoch = *(&v31 + 1);
         }
@@ -1227,7 +1227,7 @@ BOOL __120__AVVideoCompositionLayerInstruction__setCropRectangleRampFromStartCro
             v24 = [(NSMutableArray *)self->_layerInstruction->cropRectangleRamps objectAtIndex:?];
             if (v24)
             {
-              [v24 CMTimeRangeValue];
+              objc_msgSend_CMTimeRangeValue(v24);
             }
 
             else
@@ -1279,7 +1279,7 @@ BOOL __112__AVVideoCompositionLayerInstruction_getCropRectangleRampForTime_start
   memset(&v12, 0, sizeof(v12));
   if (a2)
   {
-    [a2 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(a2);
   }
 
   range = v12;
@@ -1348,7 +1348,7 @@ LABEL_8:
   v12 = [(NSMutableArray *)self->_layerInstruction->transformRamps objectAtIndex:0];
   if (v12)
   {
-    [v12 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(v12);
   }
 
   else
@@ -1440,7 +1440,7 @@ LABEL_8:
     v27 = [(NSMutableArray *)self->_layerInstruction->transformRamps objectAtIndex:2 * v23];
     if (v27)
     {
-      [v27 CMTimeRangeValue];
+      objc_msgSend_CMTimeRangeValue(v27);
     }
 
     else
@@ -1495,7 +1495,7 @@ LABEL_8:
       v30 = [(NSMutableArray *)self->_layerInstruction->transformRamps objectAtIndex:v26 + 2];
       if (v30)
       {
-        [v30 CMTimeRangeValue];
+        objc_msgSend_CMTimeRangeValue(v30);
       }
 
       else
@@ -1695,7 +1695,7 @@ LABEL_53:
   v53 = [(NSMutableArray *)self->_layerInstruction->opacityRamps objectAtIndex:0];
   if (v53)
   {
-    [v53 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(v53);
   }
 
   else
@@ -1771,7 +1771,7 @@ LABEL_53:
     v64 = [(NSMutableArray *)self->_layerInstruction->opacityRamps objectAtIndex:v61 - 1];
     if (v64)
     {
-      [v64 CMTimeRangeValue];
+      objc_msgSend_CMTimeRangeValue(v64);
     }
 
     else
@@ -1815,7 +1815,7 @@ LABEL_53:
       v67 = [(NSMutableArray *)self->_layerInstruction->opacityRamps objectAtIndex:v61 + 1];
       if (v67)
       {
-        [v67 CMTimeRangeValue];
+        objc_msgSend_CMTimeRangeValue(v67);
       }
 
       else
@@ -1958,7 +1958,7 @@ LABEL_91:
   v86 = [(NSMutableArray *)self->_layerInstruction->cropRectangleRamps objectAtIndex:0];
   if (v86)
   {
-    [v86 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(v86);
   }
 
   else
@@ -2064,7 +2064,7 @@ LABEL_91:
     v111 = [(NSMutableArray *)self->_layerInstruction->cropRectangleRamps objectAtIndex:v108 - 1];
     if (v111)
     {
-      [v111 CMTimeRangeValue];
+      objc_msgSend_CMTimeRangeValue(v111);
     }
 
     else
@@ -2127,7 +2127,7 @@ LABEL_91:
       v120 = [(NSMutableArray *)self->_layerInstruction->cropRectangleRamps objectAtIndex:v108 + 1];
       if (v120)
       {
-        [v120 CMTimeRangeValue];
+        objc_msgSend_CMTimeRangeValue(v120);
       }
 
       else

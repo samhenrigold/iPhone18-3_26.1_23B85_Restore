@@ -33,7 +33,7 @@
 
 - (NSString)debugDescription
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = objc_lookUpClass("NSString");
   if (v3)
   {
@@ -46,7 +46,6 @@
     free(v4);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

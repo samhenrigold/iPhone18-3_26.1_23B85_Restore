@@ -86,13 +86,11 @@ id __102__HMTimerTrigger_NaturalLanguage___hf_naturalLanguageNameWithOptions_tim
 
 void __102__HMTimerTrigger_NaturalLanguage___hf_naturalLanguageNameWithOptions_timeString_fireDate_recurrences___block_invoke_8(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = *(a1 + 32);
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+  v3[1] = *MEMORY[0x277D85DE8];
+  v3[0] = *(a1 + 32);
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
   v2 = qword_280E02E28;
   qword_280E02E28 = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __102__HMTimerTrigger_NaturalLanguage___hf_naturalLanguageNameWithOptions_timeString_fireDate_recurrences___block_invoke_10()

@@ -70,65 +70,65 @@ uint64_t __36__WLKSportsFavoriteCache_invalidate__block_invoke(uint64_t a1)
 
 void __58__WLKSportsFavoriteCache_deleteLegacyCacheWithCompletion___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v3 = [*(*(a1 + 32) + 16) dictionaryRepresentation];
   v4 = [v3 allKeys];
 
-  v5 = [v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         if (([v9 hasPrefix:@"WLKSportsFavoritesCacheKey"] & 1) != 0 || (objc_msgSend(v9, "hasPrefix:", @"WLKSportsFavoriteCacheLastModifiedKey") & 1) != 0 || (objc_msgSend(v9, "hasPrefix:", @"WLKSportsFavoriteCacheSyncingAvailableOverride") & 1) != 0 || (objc_msgSend(v9, "hasPrefix:", @"WLKSportsFavoriteCacheSyncingEnabledKey") & 1) != 0 || (objc_msgSend(v9, "hasPrefix:", @"WLKSportsFavoriteCacheSyncingEnabledLastModifiedKey") & 1) != 0 || objc_msgSend(v9, "hasPrefix:", @"WLKSportsFavoriteCacheSyncingEnabledOverride"))
         {
           [v2 addObject:v9];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v6);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v10 = v2;
-  v11 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [*(*(a1 + 32) + 16) removeObjectForKey:{*(*(&v17 + 1) + 8 * j), v17}];
+        [*(*(a1 + 32) + 16) removeObjectForKey:{*(*(&v16 + 1) + 8 * j), v16}];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v12);
@@ -139,8 +139,6 @@ void __58__WLKSportsFavoriteCache_deleteLegacyCacheWithCompletion___block_invoke
   {
     (*(v15 + 16))();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasCache
@@ -188,36 +186,36 @@ void __34__WLKSportsFavoriteCache_hasCache__block_invoke(uint64_t a1)
 
 void __71__WLKSportsFavoriteCache_setCache_overrideLastModifiedDate_completion___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v12 + 1) + 8 * v7) ID];
+        v8 = [*(*(&v11 + 1) + 8 * v7) ID];
         [v2 addObject:v8];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -231,9 +229,7 @@ void __71__WLKSportsFavoriteCache_setCache_overrideLastModifiedDate_completion__
     [v9 setObject:v10 forKey:@"my-sports-favorites-last-modified-date"];
   }
 
-  [*(a1 + 40) getFavoritesWithCompletion:{*(a1 + 48), v12}];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [*(a1 + 40) getFavoritesWithCompletion:{*(a1 + 48), v11}];
 }
 
 - (void)getFavoritesWithCompletion:(id)completion
@@ -252,49 +248,49 @@ void __71__WLKSportsFavoriteCache_setCache_overrideLastModifiedDate_completion__
 
 void __53__WLKSportsFavoriteCache_getFavoritesWithCompletion___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v3 = [*(*(a1 + 32) + 16) stringArrayForKey:@"my-sports-favorites"];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v21 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       v7 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [WLKSportsFavoriteFactory favoriteWithID:*(*(&v13 + 1) + 8 * v7)];
+        v8 = [WLKSportsFavoriteFactory favoriteWithID:*(*(&v12 + 1) + 8 * v7)];
         [v2 addObject:v8];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v21 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v20 count:16];
     }
 
     while (v5);
   }
 
   v9 = [*(*(a1 + 32) + 16) objectForKey:@"my-sports-favorites-last-modified-date"];
-  v10 = WLKSystemLogObject();
+  v10 = WLKSystemLogObject(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v18 = v3;
-    v19 = 2112;
-    v20 = v9;
+    v17 = v3;
+    v18 = 2112;
+    v19 = v9;
     _os_log_impl(&dword_272A0F000, v10, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - cached favorites: %@, lastModified: %@", buf, 0x16u);
   }
 
@@ -303,8 +299,6 @@ void __53__WLKSportsFavoriteCache_getFavoritesWithCompletion___block_invoke(uint
   {
     (*(v11 + 16))(v11, v2, v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFavorites:(id)favorites completion:(id)completion
@@ -326,7 +320,7 @@ void __53__WLKSportsFavoriteCache_getFavoritesWithCompletion___block_invoke(uint
 
 void __50__WLKSportsFavoriteCache_addFavorites_completion___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 16) stringArrayForKey:@"my-sports-favorites"];
   v3 = v2;
   v4 = MEMORY[0x277CBEBF8];
@@ -340,31 +334,31 @@ void __50__WLKSportsFavoriteCache_addFavorites_completion___block_invoke(uint64_
   v6 = [MEMORY[0x277CBEB70] orderedSetWithArray:v5];
   v7 = [v6 mutableCopy];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = *(a1 + 40);
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [v7 addObject:{*(*(&v17 + 1) + 8 * v12++), v17}];
+        [v7 addObject:{*(*(&v16 + 1) + 8 * v12++), v16}];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
@@ -377,7 +371,6 @@ void __50__WLKSportsFavoriteCache_addFavorites_completion___block_invoke(uint64_
   [v14 setObject:v15 forKey:@"my-sports-favorites-last-modified-date"];
 
   [*(a1 + 32) getFavoritesWithCompletion:*(a1 + 48)];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeFavorites:(id)favorites completion:(id)completion
@@ -399,7 +392,7 @@ void __50__WLKSportsFavoriteCache_addFavorites_completion___block_invoke(uint64_
 
 void __53__WLKSportsFavoriteCache_removeFavorites_completion___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 16) stringArrayForKey:@"my-sports-favorites"];
   v3 = v2;
   v4 = MEMORY[0x277CBEBF8];
@@ -413,31 +406,31 @@ void __53__WLKSportsFavoriteCache_removeFavorites_completion___block_invoke(uint
   v6 = [MEMORY[0x277CBEB70] orderedSetWithArray:v5];
   v7 = [v6 mutableCopy];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = *(a1 + 40);
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [v7 removeObject:{*(*(&v17 + 1) + 8 * v12++), v17}];
+        [v7 removeObject:{*(*(&v16 + 1) + 8 * v12++), v16}];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
@@ -450,7 +443,6 @@ void __53__WLKSportsFavoriteCache_removeFavorites_completion___block_invoke(uint
   [v14 setObject:v15 forKey:@"my-sports-favorites-last-modified-date"];
 
   [*(a1 + 32) getFavoritesWithCompletion:*(a1 + 48)];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hasFavoritesSyncEnabledKey:(id)key
@@ -492,22 +484,21 @@ uint64_t __53__WLKSportsFavoriteCache_hasFavoritesSyncEnabledKey___block_invoke(
 
 void __36__WLKSportsFavoriteCache_isOptedIn___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 16) BOOLForKey:@"my-sports-onboarding-status"];
   v3 = [*(*(a1 + 32) + 16) objectForKey:@"my-sports-onboarding-status-last-modified-date"];
-  v4 = WLKSystemLogObject();
+  v4 = WLKSystemLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 debugDescription];
-    v7[0] = 67109378;
-    v7[1] = v2;
-    v8 = 2112;
-    v9 = v5;
-    _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - cached onboarding state: %d, lastModified: %@", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = v2;
+    v7 = 2112;
+    v8 = v5;
+    _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - cached onboarding state: %d, lastModified: %@", v6, 0x12u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setOptInStatus:(BOOL)status overrideLastModifiedDate:(BOOL)date completion:(id)completion
@@ -528,14 +519,14 @@ void __36__WLKSportsFavoriteCache_isOptedIn___block_invoke(uint64_t a1)
 
 uint64_t __77__WLKSportsFavoriteCache_setOptInStatus_overrideLastModifiedDate_completion___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = WLKSystemLogObject();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = WLKSystemLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 48);
-    v10[0] = 67109120;
-    v10[1] = v3;
-    _os_log_impl(&dword_272A0F000, v2, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - setting cache for onboarding state: %d", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = v3;
+    _os_log_impl(&dword_272A0F000, v2, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - setting cache for onboarding state: %d", v9, 8u);
   }
 
   v4 = *(*(a1 + 32) + 16);
@@ -552,10 +543,9 @@ uint64_t __77__WLKSportsFavoriteCache_setOptInStatus_overrideLastModifiedDate_co
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, 0);
+    return (*(result + 16))(result, 0);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -575,16 +565,14 @@ uint64_t __77__WLKSportsFavoriteCache_setOptInStatus_overrideLastModifiedDate_co
 
 void __50__WLKSportsFavoriteCache_dictionaryRepresentation__block_invoke(uint64_t a1)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   v1 = *(*(a1 + 32) + 16);
-  v5[0] = @"my-sports-onboarding-status";
-  v5[1] = @"my-sports-onboarding-status-last-modified-date";
-  v5[2] = @"my-sports-favorites";
-  v5[3] = @"my-sports-favorites-last-modified-date";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
+  v4[0] = @"my-sports-onboarding-status";
+  v4[1] = @"my-sports-onboarding-status-last-modified-date";
+  v4[2] = @"my-sports-favorites";
+  v4[3] = @"my-sports-favorites-last-modified-date";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
   v3 = [v1 dictionaryWithValuesForKeys:v2];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

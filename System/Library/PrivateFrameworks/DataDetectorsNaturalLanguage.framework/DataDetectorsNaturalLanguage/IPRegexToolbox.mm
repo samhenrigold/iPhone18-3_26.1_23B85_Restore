@@ -271,38 +271,7 @@ LABEL_43:
   regexCopy = regex;
   stringCopy = string;
   v9 = objc_autoreleasePoolPush();
-  if (!stringCopy)
-  {
-    goto LABEL_11;
-  }
-
-  if (lowercaseCopy)
-  {
-    if ([regexCopy options])
-    {
-      v12 = 1;
-    }
-
-    else
-    {
-      v10 = objc_autoreleasePoolPush();
-      lowercaseString = [stringCopy lowercaseString];
-
-      objc_autoreleasePoolPop(v10);
-      v12 = 0;
-      stringCopy = lowercaseString;
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  v13 = [stringCopy length];
-  v14 = v13 >= 0x2710 ? 10000 : v13;
-  v15 = [regexCopy rangeOfFirstMatchInString:stringCopy options:2 range:{0, v14}];
-  if (v15 != 0x7FFFFFFFFFFFFFFFLL)
+  if (stringCopy && (!lowercaseCopy ? (v12 = 0) : ([regexCopy options] & 1) != 0 ? (v12 = 1) : (v10 = objc_autoreleasePoolPush(), objc_msgSend(stringCopy, "lowercaseString"), v11 = objc_claimAutoreleasedReturnValue(), stringCopy, objc_autoreleasePoolPop(v10), v12 = 0, stringCopy = v11), (v13 = objc_msgSend(stringCopy, "length"), v13 >= 0x2710) ? (v14 = 10000) : (v14 = v13), v15 = objc_msgSend(regexCopy, "rangeOfFirstMatchInString:options:range:", stringCopy, 2, 0, v14), v15 != 0x7FFFFFFFFFFFFFFFLL))
   {
     v18 = v15;
     v19 = v16;
@@ -311,9 +280,9 @@ LABEL_43:
     v17 = v21;
     if (v12)
     {
-      lowercaseString2 = [v21 lowercaseString];
+      lowercaseString = [v21 lowercaseString];
 
-      v17 = lowercaseString2;
+      v17 = lowercaseString;
     }
 
     objc_autoreleasePoolPop(v20);
@@ -321,7 +290,6 @@ LABEL_43:
 
   else
   {
-LABEL_11:
     v17 = 0;
   }
 

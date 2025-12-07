@@ -137,7 +137,7 @@ void __52__SoftwareTransparency_verifyProofs_for_completion___block_invoke(uint6
 
 - (void)verifyExpiringProofs:(id)proofs for:(id)for completion:(id)completion
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   proofsCopy = proofs;
   forCopy = for;
   completionCopy = completion;
@@ -155,14 +155,12 @@ void __52__SoftwareTransparency_verifyProofs_for_completion___block_invoke(uint6
     v14 = [(SWTransparencyExpiringVerificationResult *)v12 initWithResult:1 expiry:v13];
 
     v15 = MEMORY[0x1E696ABC0];
-    v19 = *MEMORY[0x1E696A578];
-    v20[0] = @"verify proofs blocked because device is not eligible for GM";
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x1E696A578];
+    v19[0] = @"verify proofs blocked because device is not eligible for GM";
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     v17 = [v15 errorWithDomain:@"TransparencyErrorInterface" code:-398 userInfo:v16];
     (*(completionCopy + 2))(completionCopy, v14, v17);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)verifyExpiringProofs:(id)proofs for:(id)for counter:(int)counter completion:(id)completion
@@ -195,11 +193,10 @@ void __52__SoftwareTransparency_verifyProofs_for_completion___block_invoke(uint6
 
 void __68__SoftwareTransparency_verifyExpiringProofs_for_counter_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
   v2 = *(a1 + 40);
-  v4 = a2;
-  v5 = [objc_opt_class() invalidResponse];
-  (*(v2 + 16))(v2, v5, v4);
+  v3 = a2;
+  v4 = [objc_opt_class() invalidResponse];
+  (*(v2 + 16))(v2, v4, v3);
 }
 
 - (void)sysdiagnoseInfo:(int)info completion:(id)completion
@@ -229,9 +226,8 @@ void __68__SoftwareTransparency_verifyExpiringProofs_for_counter_completion___bl
 
 void __51__SoftwareTransparency_sysdiagnoseInfo_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  v3 = *(a1 + 32);
-  if ([objc_opt_class() retryable:v4])
+  v3 = a2;
+  if ([objc_opt_class() retryable:v3])
   {
     [*(a1 + 32) sysdiagnoseInfo:(*(a1 + 48) + 1) completion:*(a1 + 40)];
   }
@@ -403,19 +399,17 @@ void __35__SoftwareTransparency_isAvailable__block_invoke()
 
 void __88__SoftwareTransparency_verifyExpiringProofs_forDigest_configuration_counter_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = a2;
-  v3 = *(a1 + 32);
-  if ([objc_opt_class() retryable:v7])
+  v5 = a2;
+  if ([objc_opt_class() retryable:v5])
   {
     [*(a1 + 32) verifyExpiringProofs:*(a1 + 40) forDigest:*(a1 + 48) configuration:*(a1 + 56) counter:(*(a1 + 72) + 1) completion:*(a1 + 64)];
   }
 
   else
   {
-    v4 = *(a1 + 64);
-    v5 = *(a1 + 32);
-    v6 = [objc_opt_class() invalidResponse];
-    (*(v4 + 16))(v4, v6, v7);
+    v3 = *(a1 + 64);
+    v4 = [objc_opt_class() invalidResponse];
+    (*(v3 + 16))(v3, v4, v5);
   }
 }
 

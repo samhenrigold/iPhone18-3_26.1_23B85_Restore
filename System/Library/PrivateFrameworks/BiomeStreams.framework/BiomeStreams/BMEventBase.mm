@@ -19,7 +19,7 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
     {
-      [BMEventBase init];
+      [(BMEventBase *)v2 init];
     }
 
     v3 = 0;
@@ -35,32 +35,32 @@
 
 - (BOOL)isValidWithContext:(id)context error:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   contextCopy = context;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = self->__validators;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v10 |= [*(*(&v16 + 1) + 8 * i) isValidWithContext:contextCopy error:{error, v16}] ^ 1;
+        v10 |= [*(*(&v15 + 1) + 8 * i) isValidWithContext:contextCopy error:{error, v15}] ^ 1;
       }
 
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
@@ -72,38 +72,37 @@
     v13 = 1;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 
 - (BOOL)isCompleteWithContext:(id)context error:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   contextCopy = context;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = self->__validators;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v10 |= [*(*(&v16 + 1) + 8 * i) isCompleteWithContext:contextCopy error:{error, v16}] ^ 1;
+        v10 |= [*(*(&v15 + 1) + 8 * i) isCompleteWithContext:contextCopy error:{error, v15}] ^ 1;
       }
 
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
@@ -115,33 +114,32 @@
     v13 = 1;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 
 - (id)forwardingTargetForSelector:(SEL)selector
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = self->__validators;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           v9 = v8;
@@ -149,7 +147,7 @@
         }
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -162,35 +160,33 @@
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)valueForKeyPath:(id)path
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   pathCopy = path;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = self->__validators;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         NSSelectorFromString(pathCopy);
         if (objc_opt_respondsToSelector())
         {
@@ -204,7 +200,7 @@ LABEL_11:
         }
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -214,12 +210,10 @@ LABEL_11:
     }
   }
 
-  v15.receiver = self;
-  v15.super_class = BMEventBase;
-  v12 = [(BMEventBase *)&v15 valueForKeyPath:pathCopy];
+  v14.receiver = self;
+  v14.super_class = BMEventBase;
+  v12 = [(BMEventBase *)&v14 valueForKeyPath:pathCopy];
 LABEL_12:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

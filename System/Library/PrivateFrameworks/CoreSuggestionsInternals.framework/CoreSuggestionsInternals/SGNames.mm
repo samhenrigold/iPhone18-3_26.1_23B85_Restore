@@ -58,7 +58,7 @@
 
 + (id)cjkSpacersToWhiteSpace:(id)space
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   spaceCopy = space;
   v4 = +[SGNames cjkSpacerCharacters];
   v5 = [spaceCopy length];
@@ -73,12 +73,12 @@
   buffer[0] = 0uLL;
   if (v7 > 0x200)
   {
-    v36 = malloc_type_posix_memalign(buffer, 8uLL, 2 * v5, 0x1000040BDFB0063uLL);
+    v35 = malloc_type_posix_memalign(buffer, 8uLL, 2 * v5, 0x1000040BDFB0063uLL);
     BYTE8(buffer[0]) = 0;
-    if (v36)
+    if (v35)
     {
-      v37 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
-      objc_exception_throw(v37);
+      v36 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
+      objc_exception_throw(v36);
     }
 
     v8 = *&buffer[0];
@@ -87,7 +87,7 @@
   else
   {
     MEMORY[0x28223BE20](v5);
-    v8 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v8 = &v37 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(v8, v7);
   }
 
@@ -101,21 +101,21 @@
 
   memset(buffer, 0, sizeof(buffer));
   Length = CFStringGetLength(v9);
-  v43 = v9;
-  v46 = 0;
-  v47 = Length;
+  v42 = v9;
+  v45 = 0;
+  v46 = Length;
   CharactersPtr = CFStringGetCharactersPtr(v9);
   CStringPtr = 0;
-  v44 = CharactersPtr;
+  v43 = CharactersPtr;
   if (!CharactersPtr)
   {
     CStringPtr = CFStringGetCStringPtr(v9, 0x600u);
   }
 
+  v47 = 0;
   v48 = 0;
-  v49 = 0;
-  v45 = CStringPtr;
-  v40 = Length - 1;
+  v44 = CStringPtr;
+  v39 = Length - 1;
   if (Length < 1)
   {
 LABEL_36:
@@ -123,12 +123,12 @@ LABEL_36:
     goto LABEL_40;
   }
 
-  v38 = v6;
-  v39 = spaceCopy;
+  v37 = v6;
+  v38 = spaceCopy;
   v14 = 0;
   v15 = 0;
 LABEL_9:
-  v41 = v15;
+  v40 = v15;
   v16 = -v14;
   v17 = v14 + 64;
   do
@@ -143,69 +143,69 @@ LABEL_9:
       v18 = v14;
     }
 
-    v19 = v47;
-    if (v47 <= v14)
+    v19 = v46;
+    if (v46 <= v14)
     {
       v21 = 0;
     }
 
     else
     {
-      if (v44)
+      if (v43)
       {
-        v20 = &v44[v46];
+        v20 = &v43[v45];
 LABEL_16:
         v21 = v20[v14];
         goto LABEL_18;
       }
 
-      if (!v45)
+      if (!v44)
       {
-        v24 = v48;
-        if (v49 <= v14 || v48 > v14)
+        v24 = v47;
+        if (v48 <= v14 || v47 > v14)
         {
           v26 = v18 + v16;
           v27 = v17 - v18;
           v28 = v14 - v18;
           v29 = v28 + 64;
-          if (v28 + 64 >= v47)
+          if (v28 + 64 >= v46)
           {
-            v29 = v47;
+            v29 = v46;
           }
 
-          v48 = v28;
-          v49 = v29;
-          if (v47 >= v27)
+          v47 = v28;
+          v48 = v29;
+          if (v46 >= v27)
           {
             v19 = v27;
           }
 
-          v52.location = v28 + v46;
-          v52.length = v19 + v26;
-          CFStringGetCharacters(v43, v52, buffer);
-          v24 = v48;
+          v51.location = v28 + v45;
+          v51.length = v19 + v26;
+          CFStringGetCharacters(v42, v51, buffer);
+          v24 = v47;
         }
 
         v20 = buffer - v24;
         goto LABEL_16;
       }
 
-      v21 = v45[v46 + v14];
+      v21 = v44[v45 + v14];
     }
 
 LABEL_18:
-    v22 = [v4 characterIsMember:{v21, v38}];
+    v22 = [v4 characterIsMember:{v21, v37}];
     v23 = v14 + 1;
     if (v22)
     {
       *&v8[2 * v14] = 32;
       v15 = 1;
-      if (v40 != v14++)
+      if (v39 != v14++)
       {
         goto LABEL_9;
       }
 
-      spaceCopy = v39;
+      spaceCopy = v38;
       goto LABEL_39;
     }
 
@@ -217,12 +217,12 @@ LABEL_18:
 
   while (Length != v23);
 
-  spaceCopy = v39;
-  if (v41)
+  spaceCopy = v38;
+  if (v40)
   {
 LABEL_39:
     v32 = objc_alloc(MEMORY[0x277CCACA8]);
-    v33 = [v32 initWithCharacters:v8 length:v38];
+    v33 = [v32 initWithCharacters:v8 length:v37];
     goto LABEL_41;
   }
 
@@ -236,8 +236,6 @@ LABEL_41:
   }
 
 LABEL_43:
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -269,31 +267,31 @@ void __30__SGNames_cjkSpacerCharacters__block_invoke()
 
 + (id)nameStringFromEmailAddress:(id)address
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   v5 = [self possibleNameStringFromEmailAddress:addressCopy];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = objc_autoreleasePoolPush();
   v7 = [v5 componentsSeparatedByString:{@" ", 0}];
   objc_autoreleasePoolPop(v6);
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         if ([v12 length] != 1 && !objc_msgSend(self, "isCommonNameWord:", v12))
         {
 
@@ -302,7 +300,7 @@ void __30__SGNames_cjkSpacerCharacters__block_invoke()
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         continue;
@@ -315,14 +313,12 @@ void __30__SGNames_cjkSpacerCharacters__block_invoke()
   v13 = v5;
 LABEL_12:
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 + (id)possibleNameStringFromEmailAddress:(id)address
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   if ([SGInhumans isInhumanEmailAddress:addressCopy])
   {
@@ -332,25 +328,25 @@ LABEL_12:
 
   v5 = [addressCopy length];
   buffer[0] = 0uLL;
-  v38 = (2 * v5) | 1;
-  if (v38 > 0x200)
+  v37 = (2 * v5) | 1;
+  if (v37 > 0x200)
   {
-    v35 = malloc_type_posix_memalign(buffer, 8uLL, 2 * [addressCopy length], 0x1000040BDFB0063uLL);
+    v34 = malloc_type_posix_memalign(buffer, 8uLL, 2 * [addressCopy length], 0x1000040BDFB0063uLL);
     BYTE8(buffer[0]) = 0;
-    if (v35)
+    if (v34)
     {
-      v36 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
-      objc_exception_throw(v36);
+      v35 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
+      objc_exception_throw(v35);
     }
 
-    v40 = *&buffer[0];
+    v39 = *&buffer[0];
   }
 
   else
   {
     MEMORY[0x28223BE20](v5);
-    v40 = &v37 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-    bzero(v40, v6);
+    v39 = &v36 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v39, v6);
   }
 
   if (possibleNameStringFromEmailAddress___pasOnceToken48 != -1)
@@ -359,18 +355,18 @@ LABEL_12:
   }
 
   v7 = possibleNameStringFromEmailAddress___pasExprOnceResult;
-  v39 = addressCopy;
+  v38 = addressCopy;
   v8 = objc_opt_self();
 
   if (v8)
   {
     memset(buffer, 0, sizeof(buffer));
-    v9 = v39;
-    v37 = addressCopy;
-    Length = CFStringGetLength(v39);
-    v42 = v9;
-    v45 = 0;
-    v46 = Length;
+    v9 = v38;
+    v36 = addressCopy;
+    Length = CFStringGetLength(v38);
+    v41 = v9;
+    v44 = 0;
+    v45 = Length;
     CharactersPtr = CFStringGetCharactersPtr(v9);
     if (CharactersPtr)
     {
@@ -379,12 +375,12 @@ LABEL_12:
 
     else
     {
-      CStringPtr = CFStringGetCStringPtr(v39, 0x600u);
+      CStringPtr = CFStringGetCStringPtr(v38, 0x600u);
     }
 
+    v46 = 0;
     v47 = 0;
-    v48 = 0;
-    v44 = CStringPtr;
+    v43 = CStringPtr;
     if (Length >= 1)
     {
       v12 = 0;
@@ -404,8 +400,8 @@ LABEL_12:
           v17 = v13;
         }
 
-        v18 = v46;
-        if (v46 <= v13)
+        v18 = v45;
+        if (v45 <= v13)
         {
           v21 = 0;
           v20 = 0;
@@ -417,56 +413,56 @@ LABEL_12:
           break;
         }
 
-        if (!v44)
+        if (!v43)
         {
-          v23 = v47;
-          if (v48 <= v13 || v47 > v13)
+          v23 = v46;
+          if (v47 <= v13 || v46 > v13)
           {
             v25 = v17 + v12;
             v26 = v16 - v17;
             v27 = v13 - v17;
             v28 = v27 + 64;
-            if (v27 + 64 >= v46)
+            if (v27 + 64 >= v45)
             {
-              v28 = v46;
+              v28 = v45;
             }
 
-            v47 = v27;
-            v48 = v28;
-            if (v46 >= v26)
+            v46 = v27;
+            v47 = v28;
+            if (v45 >= v26)
             {
               v18 = v26;
             }
 
-            v51.location = v27 + v45;
-            v51.length = v18 + v25;
-            CFStringGetCharacters(v42, v51, buffer);
-            v23 = v47;
+            v50.location = v27 + v44;
+            v50.length = v18 + v25;
+            CFStringGetCharacters(v41, v50, buffer);
+            v23 = v46;
           }
 
           v19 = buffer - v23;
           goto LABEL_19;
         }
 
-        v20 = v44[v45 + v13];
+        v20 = v43[v44 + v13];
 LABEL_23:
         v21 = v20;
         if (v20 == 64)
         {
           if (v14)
           {
-            v33 = v14 - (*&v40[2 * v14 - 2] == 32);
+            v32 = v14 - (*&v39[2 * v14 - 2] == 32);
           }
 
           else
           {
-            v33 = 0;
+            v32 = 0;
           }
 
-          addressCopy = v37;
-          v34 = objc_alloc(MEMORY[0x277CCACA8]);
-          v4 = [v34 initWithCharacters:v40 length:v33];
-          v30 = v39;
+          addressCopy = v36;
+          v33 = objc_alloc(MEMORY[0x277CCACA8]);
+          v4 = [v33 initWithCharacters:v39 length:v32];
+          v30 = v38;
           goto LABEL_51;
         }
 
@@ -475,7 +471,7 @@ LABEL_24:
         {
           if (v14)
           {
-            v22 = &v40[2 * v14];
+            v22 = &v39[2 * v14];
             if (*(v22 - 1) != 32)
             {
               ++v14;
@@ -493,7 +489,7 @@ LABEL_24:
           }
 
           v15 = 0;
-          *&v40[2 * v14++] = v20;
+          *&v39[2 * v14++] = v20;
         }
 
         else
@@ -510,14 +506,14 @@ LABEL_24:
         }
       }
 
-      v19 = &CharactersPtr[v45];
+      v19 = &CharactersPtr[v44];
 LABEL_19:
       v20 = v19[v13];
       goto LABEL_23;
     }
 
 LABEL_45:
-    addressCopy = v37;
+    addressCopy = v36;
   }
 
   v29 = sgLogHandle();
@@ -531,21 +527,19 @@ LABEL_45:
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
   {
     LODWORD(buffer[0]) = 138412290;
-    *(buffer + 4) = v39;
+    *(buffer + 4) = v38;
     _os_log_debug_impl(&dword_231E60000, v30, OS_LOG_TYPE_DEBUG, "Given a putative e-mail address with no @: %@", buffer, 0xCu);
   }
 
   v4 = 0;
 LABEL_51:
 
-  if (v38 >= 0x201)
+  if (v37 >= 0x201)
   {
-    free(v40);
+    free(v39);
   }
 
 LABEL_53:
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -582,32 +576,32 @@ void __46__SGNames_possibleNameStringFromEmailAddress___block_invoke()
 
 + (id)bestName:(id)name
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = objc_opt_new();
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = nameCopy;
-  v5 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v5 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v39;
+    v7 = *v38;
     v8 = @"@";
-    v36 = *v39;
+    v35 = *v38;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v39 != v7)
+        if (*v38 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v38 + 1) + 8 * i);
-        if ([v10 rangeOfString:v8 options:{2, v36}] == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v10, "length"))
+        v10 = *(*(&v37 + 1) + 8 * i);
+        if ([v10 rangeOfString:v8 options:{2, v35}] == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v10, "length"))
         {
           v11 = v6;
           v12 = v8;
@@ -615,7 +609,7 @@ void __46__SGNames_possibleNameStringFromEmailAddress___block_invoke()
           [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
           v15 = v14 = v4;
           v16 = [v10 componentsSeparatedByCharactersInSet:v15];
-          v17 = [v16 count];
+          v17 = objc_msgSend_count(v16);
 
           v18 = v14;
           v19 = [v14 objectForKeyedSubscript:v10];
@@ -638,7 +632,7 @@ void __46__SGNames_possibleNameStringFromEmailAddress___block_invoke()
 
           objc_autoreleasePoolPop(v13);
           v8 = v12;
-          v7 = v36;
+          v7 = v35;
         }
 
         else
@@ -647,34 +641,34 @@ void __46__SGNames_possibleNameStringFromEmailAddress___block_invoke()
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v6 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
     while (v6);
   }
 
   v23 = v4;
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v24 = [v23 countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v41 objects:v46 count:16];
   if (v24)
   {
     v25 = v24;
     v26 = 0;
     v27 = 0;
-    v28 = *v43;
+    v28 = *v42;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v43 != v28)
+        if (*v42 != v28)
         {
           objc_enumerationMutation(v23);
         }
 
-        v30 = *(*(&v42 + 1) + 8 * j);
+        v30 = *(*(&v41 + 1) + 8 * j);
         v31 = [v23 objectForKeyedSubscript:v30];
         unsignedIntegerValue2 = [v31 unsignedIntegerValue];
 
@@ -687,7 +681,7 @@ void __46__SGNames_possibleNameStringFromEmailAddress___block_invoke()
         }
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
     while (v25);
@@ -697,8 +691,6 @@ void __46__SGNames_possibleNameStringFromEmailAddress___block_invoke()
   {
     v26 = 0;
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -721,7 +713,7 @@ void __46__SGNames_possibleNameStringFromEmailAddress___block_invoke()
 
 + (id)sketchesForName:(id)name
 {
-  v101[1] = *MEMORY[0x277D85DE8];
+  v100[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   [(__CFString *)nameCopy rangeOfString:@"@" options:2];
   if (v4 || ![(__CFString *)nameCopy length])
@@ -731,119 +723,119 @@ void __46__SGNames_possibleNameStringFromEmailAddress___block_invoke()
   }
 
   nameCopy = nameCopy;
-  v8 = objc_opt_self();
+  v7 = objc_opt_self();
 
-  if (!v8)
+  if (!v7)
   {
     goto LABEL_42;
   }
 
-  memset(v87, 0, sizeof(v87));
+  memset(v86, 0, sizeof(v86));
   Length = CFStringGetLength(nameCopy);
-  v88 = nameCopy;
-  v91 = 0;
-  v92 = Length;
+  v87 = nameCopy;
+  v90 = 0;
+  v91 = Length;
   CharactersPtr = CFStringGetCharactersPtr(nameCopy);
   CStringPtr = 0;
-  v89 = CharactersPtr;
+  v88 = CharactersPtr;
   if (!CharactersPtr)
   {
     CStringPtr = CFStringGetCStringPtr(nameCopy, 0x600u);
   }
 
+  v92 = 0;
   v93 = 0;
-  v94 = 0;
-  v90 = CStringPtr;
+  v89 = CStringPtr;
   if (Length <= 0)
   {
 LABEL_42:
 
 LABEL_43:
-    v27 = objc_autoreleasePoolPush();
+    v26 = objc_autoreleasePoolPush();
     lowercaseString = [(__CFString *)nameCopy lowercaseString];
-    v101[0] = lowercaseString;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v101 count:1];
+    v100[0] = lowercaseString;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v100 count:1];
 
     goto LABEL_44;
   }
 
+  v11 = 0;
   v12 = 0;
   v13 = 0;
-  v14 = 0;
   while (2)
   {
-    v15 = -v13;
-    v16 = v13 + 64;
+    v14 = -v12;
+    v15 = v12 + 64;
     while (1)
     {
-      if (v13 >= 4)
+      if (v12 >= 4)
       {
-        v17 = 4;
+        v16 = 4;
       }
 
       else
       {
-        v17 = v13;
+        v16 = v12;
       }
 
-      v18 = v92;
-      if (v92 <= v13)
+      v17 = v91;
+      if (v91 <= v12)
       {
         goto LABEL_45;
       }
 
-      if (v89)
+      if (v88)
       {
-        v19 = &v89[v91];
+        v18 = &v88[v90];
 LABEL_19:
-        v20 = v19[v13];
+        v19 = v18[v12];
         goto LABEL_22;
       }
 
-      if (!v90)
+      if (!v89)
       {
-        if (v94 <= v13 || v12 > v13)
+        if (v93 <= v12 || v11 > v12)
         {
-          v23 = v17 + v15;
-          v24 = v16 - v17;
-          v25 = v13 - v17;
-          v26 = v25 + 64;
-          if (v25 + 64 >= v92)
+          v22 = v16 + v14;
+          v23 = v15 - v16;
+          v24 = v12 - v16;
+          v25 = v24 + 64;
+          if (v24 + 64 >= v91)
           {
-            v26 = v92;
+            v25 = v91;
           }
 
+          v92 = v24;
           v93 = v25;
-          v94 = v26;
-          if (v92 >= v24)
+          if (v91 >= v23)
           {
-            v18 = v24;
+            v17 = v23;
           }
 
-          v103.location = v25 + v91;
-          v103.length = v18 + v23;
-          CFStringGetCharacters(v88, v103, v87);
-          v12 = v93;
+          v102.location = v24 + v90;
+          v102.length = v17 + v22;
+          CFStringGetCharacters(v87, v102, v86);
+          v11 = v92;
         }
 
-        v19 = v87 - v12;
+        v18 = v86 - v11;
         goto LABEL_19;
       }
 
-      v20 = v90[v91 + v13];
+      v19 = v89[v90 + v12];
 LABEL_22:
-      if (v20 - 65 > 0x39 || ((1 << (v20 - 65)) & 0x3FFFFFF03FFFFFFLL) == 0)
+      if (v19 - 65 > 0x39 || ((1 << (v19 - 65)) & 0x3FFFFFF03FFFFFFLL) == 0)
       {
         break;
       }
 
-      ++v13;
-      --v15;
-      ++v16;
-      if (Length == v13)
+      ++v12;
+      --v14;
+      ++v15;
+      if (Length == v12)
       {
 
-        if (v14)
+        if (v13)
         {
           goto LABEL_61;
         }
@@ -852,200 +844,200 @@ LABEL_22:
       }
     }
 
-    if (v20 != 32 || (v14 & 1) != 0)
+    if (v19 != 32 || (v13 & 1) != 0)
     {
 LABEL_45:
 
       if (nameCopy)
       {
-        v29 = SGNamesAsciify(nameCopy);
+        v28 = SGNamesAsciify(nameCopy);
 
         nameCopy = _PASRemoveSomePunctuation();
       }
 
-      v30 = objc_opt_new();
+      v29 = objc_opt_new();
+      v82 = 0u;
       v83 = 0u;
       v84 = 0u;
       v85 = 0u;
-      v86 = 0u;
-      v31 = objc_autoreleasePoolPush();
+      v30 = objc_autoreleasePoolPush();
       whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
-      v33 = [(__CFString *)nameCopy componentsSeparatedByCharactersInSet:whitespaceAndNewlineCharacterSet];
+      v32 = [(__CFString *)nameCopy componentsSeparatedByCharactersInSet:whitespaceAndNewlineCharacterSet];
 
-      objc_autoreleasePoolPop(v31);
-      v34 = [v33 countByEnumeratingWithState:&v83 objects:v99 count:16];
-      if (v34)
+      objc_autoreleasePoolPop(v30);
+      v33 = [v32 countByEnumeratingWithState:&v82 objects:v98 count:16];
+      if (v33)
       {
-        v35 = v34;
-        v36 = *v84;
+        v34 = v33;
+        v35 = *v83;
         do
         {
-          for (i = 0; i != v35; ++i)
+          for (i = 0; i != v34; ++i)
           {
-            if (*v84 != v36)
+            if (*v83 != v35)
             {
-              objc_enumerationMutation(v33);
+              objc_enumerationMutation(v32);
             }
 
-            v38 = *(*(&v83 + 1) + 8 * i);
-            if ([v38 length] && (objc_msgSend(v38, "hasSuffix:", @":") & 1) == 0)
+            v37 = *(*(&v82 + 1) + 8 * i);
+            if ([v37 length] && (objc_msgSend(v37, "hasSuffix:", @":") & 1) == 0)
             {
-              [v30 addObject:v38];
+              [v29 addObject:v37];
             }
           }
 
-          v35 = [v33 countByEnumeratingWithState:&v83 objects:v99 count:16];
+          v34 = [v32 countByEnumeratingWithState:&v82 objects:v98 count:16];
         }
 
-        while (v35);
+        while (v34);
       }
 
-      if (![v30 count])
+      if (!objc_msgSend_count(v29))
       {
         v5 = MEMORY[0x277CBEBF8];
-        v43 = &stru_284703F00;
+        v42 = &stru_284703F00;
+        v52 = &stru_284703F00;
         v53 = &stru_284703F00;
-        v54 = &stru_284703F00;
 LABEL_105:
 
         goto LABEL_3;
       }
 
-      if ([v30 count] == 1)
+      if (objc_msgSend_count(v29) == 1)
       {
-        v39 = [v30 objectAtIndexedSubscript:0];
-        v40 = letters(v39);
-        v98 = v40;
-        v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&v98 count:1];
-        v42 = [v41 mutableCopy];
+        v38 = [v29 objectAtIndexedSubscript:0];
+        v39 = letters(v38);
+        v97 = v39;
+        v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v97 count:1];
+        v41 = [v40 mutableCopy];
 
-        v43 = &stru_284703F00;
+        v42 = &stru_284703F00;
+        v76 = &stru_284703F00;
         v77 = &stru_284703F00;
-        v78 = &stru_284703F00;
 LABEL_94:
         v5 = objc_opt_new();
+        v78 = 0u;
         v79 = 0u;
         v80 = 0u;
         v81 = 0u;
-        v82 = 0u;
-        v67 = v42;
-        v68 = [v67 countByEnumeratingWithState:&v79 objects:v95 count:16];
-        if (v68)
+        v66 = v41;
+        v67 = [v66 countByEnumeratingWithState:&v78 objects:v94 count:16];
+        if (v67)
         {
-          v69 = v68;
-          v70 = *v80;
+          v68 = v67;
+          v69 = *v79;
           do
           {
-            for (j = 0; j != v69; ++j)
+            for (j = 0; j != v68; ++j)
             {
-              if (*v80 != v70)
+              if (*v79 != v69)
               {
-                objc_enumerationMutation(v67);
+                objc_enumerationMutation(v66);
               }
 
-              v72 = *(*(&v79 + 1) + 8 * j);
-              if (v72 && [*(*(&v79 + 1) + 8 * j) length])
+              v71 = *(*(&v78 + 1) + 8 * j);
+              if (v71 && [*(*(&v78 + 1) + 8 * j) length])
               {
-                [v5 addObject:v72];
+                [v5 addObject:v71];
               }
             }
 
-            v69 = [v67 countByEnumeratingWithState:&v79 objects:v95 count:16];
+            v68 = [v66 countByEnumeratingWithState:&v78 objects:v94 count:16];
           }
 
-          while (v69);
+          while (v68);
         }
 
+        v52 = v76;
         v53 = v77;
-        v54 = v78;
         goto LABEL_105;
       }
 
-      v76 = objc_autoreleasePoolPush();
-      v55 = [v30 _pas_componentsJoinedByString:@" "];
-      v56 = [SGIdentityName nameWithString:v55];
+      v75 = objc_autoreleasePoolPush();
+      v54 = [v29 _pas_componentsJoinedByString:@" "];
+      v55 = [SGIdentityName nameWithString:v54];
 
-      firstname = [v56 firstname];
-      middlename = [v56 middlename];
-      surname = [v56 surname];
+      firstname = [v55 firstname];
+      middlename = [v55 middlename];
+      surname = [v55 surname];
       if (firstname)
       {
-        v60 = surname == 0;
+        v59 = surname == 0;
       }
 
       else
       {
-        v60 = 0;
+        v59 = 0;
       }
 
-      if (v60)
+      if (v59)
       {
-        v43 = 0;
+        v42 = 0;
       }
 
       else
       {
-        v43 = firstname;
+        v42 = firstname;
       }
 
-      if (v60)
+      if (v59)
       {
-        v61 = firstname;
+        v60 = firstname;
       }
 
       else
       {
-        v61 = surname;
+        v60 = surname;
       }
 
-      v78 = v61;
-      v62 = middlename;
+      v77 = v60;
+      v61 = middlename;
       [(__CFString *)middlename rangeOfString:@" " options:2];
-      if (v63)
+      if (v62)
       {
 
-        v62 = &stru_284703F00;
+        v61 = &stru_284703F00;
       }
 
-      if (v43 && [(__CFString *)v43 length])
+      if (v42 && [(__CFString *)v42 length])
       {
-        v64 = sketchWithInitialAndName(v43, v78);
-        v97 = v64;
-        v65 = [MEMORY[0x277CBEA60] arrayWithObjects:&v97 count:1];
-        v42 = [v65 mutableCopy];
+        v63 = sketchWithInitialAndName(v42, v77);
+        v96 = v63;
+        v64 = [MEMORY[0x277CBEA60] arrayWithObjects:&v96 count:1];
+        v41 = [v64 mutableCopy];
 
-        if (!v62 || [(__CFString *)v62 length]< 2)
+        if (!v61 || [(__CFString *)v61 length]< 2)
         {
           goto LABEL_93;
         }
 
-        v66 = sketchWithInitialAndName(v43, v62);
-        [v42 addObject:v66];
+        v65 = sketchWithInitialAndName(v42, v61);
+        [v41 addObject:v65];
       }
 
       else
       {
-        if (!v78 || ![(__CFString *)v78 length])
+        if (!v77 || ![(__CFString *)v77 length])
         {
-          v42 = 0;
+          v41 = 0;
 LABEL_93:
-          v77 = v62;
+          v76 = v61;
 
-          objc_autoreleasePoolPop(v76);
+          objc_autoreleasePoolPop(v75);
           goto LABEL_94;
         }
 
-        v96 = v78;
-        v66 = [MEMORY[0x277CBEA60] arrayWithObjects:&v96 count:1];
-        v42 = [v66 mutableCopy];
+        v95 = v77;
+        v65 = [MEMORY[0x277CBEA60] arrayWithObjects:&v95 count:1];
+        v41 = [v65 mutableCopy];
       }
 
       goto LABEL_93;
     }
 
-    ++v13;
-    v14 = 1;
-    if (v13 != Length)
+    ++v12;
+    v13 = 1;
+    if (v12 != Length)
     {
       continue;
     }
@@ -1054,66 +1046,64 @@ LABEL_93:
   }
 
 LABEL_61:
-  v27 = objc_autoreleasePoolPush();
-  v44 = [(__CFString *)nameCopy rangeOfString:@" " options:2];
-  v45 = [(__CFString *)nameCopy characterAtIndex:0];
-  v46 = [(__CFString *)nameCopy length];
-  v47 = v46 - v44 + 3;
-  v87[0] = 0uLL;
-  if (v47 > 0x200)
+  v26 = objc_autoreleasePoolPush();
+  v43 = [(__CFString *)nameCopy rangeOfString:@" " options:2];
+  v44 = [(__CFString *)nameCopy characterAtIndex:0];
+  v45 = [(__CFString *)nameCopy length];
+  v46 = v45 - v43 + 3;
+  v86[0] = 0uLL;
+  if (v46 > 0x200)
   {
-    v73 = malloc_type_posix_memalign(v87, 8uLL, v47, 0xCD6EA8D1uLL);
-    BYTE8(v87[0]) = 0;
-    if (v73)
+    v72 = malloc_type_posix_memalign(v86, 8uLL, v46, 0xCD6EA8D1uLL);
+    BYTE8(v86[0]) = 0;
+    if (v72)
     {
-      v74 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
-      objc_exception_throw(v74);
+      v73 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
+      objc_exception_throw(v73);
     }
 
-    v48 = *&v87[0];
+    v47 = *&v86[0];
   }
 
   else
   {
-    MEMORY[0x28223BE20](v46);
-    v48 = &v75 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
-    bzero(v48, v47);
+    MEMORY[0x28223BE20](v45);
+    v47 = &v74 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v47, v46);
   }
 
-  snprintf(v48, v47, "%c.%s", v45, ([(__CFString *)nameCopy UTF8String]+ v44 + 1));
-  if (v47)
+  snprintf(v47, v46, "%c.%s", v44, ([(__CFString *)nameCopy UTF8String]+ v43 + 1));
+  if (v46)
   {
-    v49 = v48;
-    v50 = v47;
+    v48 = v47;
+    v49 = v46;
     do
     {
-      v51 = *v49;
-      if ((v51 - 65) <= 0x19)
+      v50 = *v48;
+      if ((v50 - 65) <= 0x19)
       {
-        *v49 = v51 | 0x20;
+        *v48 = v50 | 0x20;
       }
 
-      ++v49;
-      --v50;
+      ++v48;
+      --v49;
     }
 
-    while (v50);
+    while (v49);
   }
 
-  v52 = [MEMORY[0x277CCACA8] stringWithUTF8String:v48];
-  v100 = v52;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v100 count:1];
+  v51 = [MEMORY[0x277CCACA8] stringWithUTF8String:v47];
+  v99 = v51;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v99 count:1];
 
-  if (v47 >= 0x201)
+  if (v46 >= 0x201)
   {
-    free(v48);
+    free(v47);
   }
 
 LABEL_44:
-  objc_autoreleasePoolPop(v27);
+  objc_autoreleasePoolPop(v26);
 LABEL_3:
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1286,7 +1276,7 @@ LABEL_43:
   v32 = objc_autoreleasePoolPush();
   v33 = [(__CFString *)v31 componentsSeparatedByString:@"@"];
   objc_autoreleasePoolPop(v32);
-  if ([v33 count] == 2)
+  if (objc_msgSend_count(v33) == 2)
   {
     v34 = [v33 objectAtIndexedSubscript:0];
   }
@@ -1479,12 +1469,12 @@ LABEL_82:
           }
 
 LABEL_94:
-          if ([v41 count] < 2)
+          if (objc_msgSend_count(v41, v66) < 2)
           {
             v64 = 0;
           }
 
-          else if ([v41 count] >= 4)
+          else if (objc_msgSend_count(v41) >= 4)
           {
             v64 = 0;
           }
@@ -1521,7 +1511,7 @@ LABEL_52:
   }
 
 LABEL_53:
-  if ([v4 count])
+  if (objc_msgSend_count(v4, v66))
   {
     v39 = objc_autoreleasePoolPush();
     v30 = [v4 _pas_componentsJoinedByString:@" "];
@@ -1564,7 +1554,7 @@ LABEL_57:
 
 + (double)nameSimilarity:(id)similarity and:(id)and
 {
-  v92[3] = *MEMORY[0x277D85DE8];
+  v91[3] = *MEMORY[0x277D85DE8];
   similarityCopy = similarity;
   andCopy = and;
   v7 = objc_autoreleasePoolPush();
@@ -1582,29 +1572,29 @@ LABEL_57:
     goto LABEL_30;
   }
 
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
-  v78 = 0u;
+  v82 = 0u;
   v79 = 0u;
-  *buffer = 0u;
+  v80 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  *buffer = 0u;
+  v76 = 0u;
   Length = CFStringGetLength(v9);
   theString = v9;
-  v87 = 0;
-  v88 = Length;
+  v86 = 0;
+  v87 = Length;
   CharactersPtr = CFStringGetCharactersPtr(v9);
   CStringPtr = 0;
-  v85 = CharactersPtr;
+  v84 = CharactersPtr;
   if (!CharactersPtr)
   {
     CStringPtr = CFStringGetCStringPtr(v9, 0x600u);
   }
 
+  v88 = 0;
   v89 = 0;
-  v90 = 0;
-  v86 = CStringPtr;
+  v85 = CStringPtr;
   if (Length < 1)
   {
 LABEL_30:
@@ -1628,51 +1618,51 @@ LABEL_30:
       v18 = v16;
     }
 
-    v19 = v88;
-    if (v88 <= v16)
+    v19 = v87;
+    if (v87 <= v16)
     {
       goto LABEL_18;
     }
 
-    if (v85)
+    if (v84)
     {
-      v20 = &v85[v87];
+      v20 = &v84[v86];
 LABEL_14:
       v21 = v20[v16];
       goto LABEL_17;
     }
 
-    if (!v86)
+    if (!v85)
     {
-      if (v90 <= v16 || v15 > v16)
+      if (v89 <= v16 || v15 > v16)
       {
         v23 = v18 + v14;
         v24 = v17 - v18;
         v25 = v16 - v18;
         v26 = v25 + 64;
-        if (v25 + 64 >= v88)
+        if (v25 + 64 >= v87)
         {
-          v26 = v88;
+          v26 = v87;
         }
 
-        v89 = v25;
-        v90 = v26;
-        if (v88 >= v24)
+        v88 = v25;
+        v89 = v26;
+        if (v87 >= v24)
         {
           v19 = v24;
         }
 
-        v93.location = v25 + v87;
-        v93.length = v19 + v23;
-        CFStringGetCharacters(theString, v93, buffer);
-        v15 = v89;
+        v92.location = v25 + v86;
+        v92.length = v19 + v23;
+        CFStringGetCharacters(theString, v92, buffer);
+        v15 = v88;
       }
 
       v20 = &buffer[-v15];
       goto LABEL_14;
     }
 
-    v21 = v86[v87 + v16];
+    v21 = v85[v86 + v16];
 LABEL_17:
     if (v21 > 0x7Fu)
     {
@@ -1707,53 +1697,42 @@ LABEL_31:
     v8 = 10.0;
     if (([(__CFString *)v9 isEqualToString:andCopy]& 1) == 0)
     {
-      if (v29 && v31)
+      if (v29 && v31 || (SGNamesOnlyNameChars(v9), v32 = objc_claimAutoreleasedReturnValue(), SGNamesOnlyNameChars(andCopy), v33 = objc_claimAutoreleasedReturnValue(), v34 = [v32 isEqualToString:v33], v33, v32, v8 = 8.0, (v34 & 1) == 0))
       {
-        goto LABEL_36;
-      }
-
-      v32 = SGNamesOnlyNameChars(v9);
-      v33 = SGNamesOnlyNameChars(andCopy);
-      v34 = [v32 isEqualToString:v33];
-
-      v8 = 8.0;
-      if ((v34 & 1) == 0)
-      {
-LABEL_36:
         v35 = tokenizeName(v9);
         v36 = tokenizeName(andCopy);
         v8 = 0.0;
-        if ([v35 count] && objc_msgSend(v36, "count"))
+        if (objc_msgSend_count(v35) && objc_msgSend_count(v36))
         {
-          if ([v35 count] >= 4)
+          if (objc_msgSend_count(v35) >= 4)
           {
             v37 = [v35 objectAtIndexedSubscript:0];
-            v92[0] = v37;
+            v91[0] = v37;
             v38 = [v35 objectAtIndexedSubscript:1];
-            v92[1] = v38;
-            v39 = [v35 objectAtIndexedSubscript:{objc_msgSend(v35, "count") - 1}];
-            v92[2] = v39;
-            v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:3];
+            v91[1] = v38;
+            v39 = [v35 objectAtIndexedSubscript:objc_msgSend_count(v35) - 1];
+            v91[2] = v39;
+            v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v91 count:3];
 
             v35 = v40;
           }
 
-          if ([v36 count] >= 4)
+          if (objc_msgSend_count(v36) >= 4)
           {
             v41 = [v36 objectAtIndexedSubscript:0];
-            v91[0] = v41;
+            v90[0] = v41;
             v42 = [v36 objectAtIndexedSubscript:1];
-            v91[1] = v42;
-            v43 = [v36 objectAtIndexedSubscript:{objc_msgSend(v36, "count") - 1}];
-            v91[2] = v43;
-            v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v91 count:3];
+            v90[1] = v42;
+            v43 = [v36 objectAtIndexedSubscript:objc_msgSend_count(v36) - 1];
+            v90[2] = v43;
+            v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v90 count:3];
 
             v36 = v44;
           }
 
           v45 = v36;
-          v46 = [v36 count];
-          v47 = [v35 count];
+          v46 = objc_msgSend_count(v36);
+          v47 = objc_msgSend_count(v35);
           v48 = v46 >= v47;
           if (v46 >= v47)
           {
@@ -1770,7 +1749,7 @@ LABEL_36:
             v35 = v45;
           }
 
-          if ([v35 count] == 2 && objc_msgSend(v36, "count") == 3)
+          if (objc_msgSend_count(v35) == 2 && objc_msgSend_count(v36) == 3)
           {
             v49 = [v35 objectAtIndexedSubscript:1];
             if ([v49 length])
@@ -1783,8 +1762,8 @@ LABEL_36:
 
               else
               {
-                v74 = [v35 objectAtIndexedSubscript:1];
-                v51 = [v74 characterAtIndex:0];
+                v73 = [v35 objectAtIndexedSubscript:1];
+                v51 = [v73 characterAtIndex:0];
                 v52 = [v36 objectAtIndexedSubscript:1];
                 v53 = v51 == [v52 characterAtIndex:0];
               }
@@ -1801,38 +1780,21 @@ LABEL_36:
             v53 = 0;
           }
 
-          v54 = [v35 objectAtIndexedSubscript:{objc_msgSend(v35, "count") - 1}];
-          v73 = [v36 objectAtIndexedSubscript:{objc_msgSend(v36, "count") - 1}];
+          v54 = [v35 objectAtIndexedSubscript:objc_msgSend_count(v35) - 1];
+          v72 = [v36 objectAtIndexedSubscript:objc_msgSend_count(v36) - 1];
           v55 = [v35 objectAtIndexedSubscript:0];
           v56 = [v36 objectAtIndexedSubscript:0];
-          v71 = v53;
-          if (v53 || [v54 isEqualToString:v73])
+          v70 = v53;
+          if (v53 || [v54 isEqualToString:v72])
           {
-            v75 = v54;
+            v74 = v54;
             v57 = [v55 characterAtIndex:0];
             v58 = v57 == [v56 characterAtIndex:0];
-            v54 = v75;
-            if (v58 || (+[SGNicknames nicknamesForName:](SGNicknames, "nicknamesForName:", v55), v59 = objc_claimAutoreleasedReturnValue(), v60 = [v59 containsObject:v56], v59, v54 = v75, v60))
+            v54 = v74;
+            if (v58 || (+[SGNicknames nicknamesForName:](SGNicknames, "nicknamesForName:", v55), v59 = objc_claimAutoreleasedReturnValue(), v60 = [v59 containsObject:v56], v59, v54 = v74, v60))
             {
-              if ([v35 count] != 3)
+              if (objc_msgSend_count(v35) != 3 || objc_msgSend_count(v36) != 3 || ([v35 objectAtIndexedSubscript:1], v61 = objc_claimAutoreleasedReturnValue(), v69 = objc_msgSend(v61, "characterAtIndex:", 0), objc_msgSend(v36, "objectAtIndexedSubscript:", 1), v62 = objc_claimAutoreleasedReturnValue(), v71 = v69 == objc_msgSend(v62, "characterAtIndex:", 0) || v70, v62, v54 = v74, v61, v71))
               {
-                goto LABEL_66;
-              }
-
-              if ([v36 count] != 3)
-              {
-                goto LABEL_66;
-              }
-
-              v61 = [v35 objectAtIndexedSubscript:1];
-              v70 = [v61 characterAtIndex:0];
-              v62 = [v36 objectAtIndexedSubscript:1];
-              v72 = v70 == [v62 characterAtIndex:0] || v71;
-
-              v54 = v75;
-              if (v72)
-              {
-LABEL_66:
                 v63 = 0.0;
                 if ([v36 containsObject:v55])
                 {
@@ -1860,7 +1822,7 @@ LABEL_66:
                 }
 
                 v8 = -v63;
-                v54 = v75;
+                v54 = v74;
               }
             }
           }
@@ -1872,7 +1834,6 @@ LABEL_66:
 LABEL_79:
   objc_autoreleasePoolPop(v7);
 
-  v68 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -2136,7 +2097,7 @@ id __36__SGNames_handleLastNameFirstOrder___block_invoke_2(uint64_t a1)
 
 + (id)cleanName:(id)name
 {
-  v113 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (![nameCopy length])
   {
@@ -2196,7 +2157,7 @@ LABEL_10:
     }
   }
 
-  v85 = nameCopy;
+  v82 = nameCopy;
   theString = nameCopy;
   v8 = objc_opt_self();
 
@@ -2206,34 +2167,34 @@ LABEL_10:
     goto LABEL_47;
   }
 
-  v104 = 0u;
-  v105 = 0u;
-  v102 = 0u;
-  v103 = 0u;
-  v100 = 0u;
   v101 = 0u;
-  buffer = 0u;
+  v102 = 0u;
   v99 = 0u;
+  v100 = 0u;
+  v97 = 0u;
+  v98 = 0u;
+  buffer = 0u;
+  v96 = 0u;
   Length = CFStringGetLength(theString);
-  v106 = theString;
-  v109 = 0;
-  v110 = Length;
+  v103 = theString;
+  v106 = 0;
+  v107 = Length;
   CharactersPtr = CFStringGetCharactersPtr(theString);
   CStringPtr = 0;
-  v107 = CharactersPtr;
+  v104 = CharactersPtr;
   if (!CharactersPtr)
   {
     CStringPtr = CFStringGetCStringPtr(theString, 0x600u);
   }
 
-  v111 = 0;
-  v112 = 0;
-  v108 = CStringPtr;
+  v108 = 0;
+  v109 = 0;
+  v105 = CStringPtr;
   if (Length < 1)
   {
 LABEL_47:
 
-    nameCopy = v85;
+    nameCopy = v82;
     goto LABEL_49;
   }
 
@@ -2255,8 +2216,8 @@ LABEL_47:
       v19 = v15;
     }
 
-    v20 = v110;
-    if (v110 <= v15)
+    v20 = v107;
+    if (v107 <= v15)
     {
       v23 = 0;
       v22 = 0;
@@ -2275,46 +2236,46 @@ LABEL_28:
       goto LABEL_34;
     }
 
-    if (v107)
+    if (v104)
     {
-      v21 = &v107[v109];
+      v21 = &v104[v106];
 LABEL_23:
       v22 = v21[v15];
       goto LABEL_27;
     }
 
-    if (!v108)
+    if (!v105)
     {
-      v25 = v111;
-      if (v112 <= v15 || v111 > v15)
+      v25 = v108;
+      if (v109 <= v15 || v108 > v15)
       {
         v27 = v19 + v13;
         v28 = v17 - v19;
         v29 = v15 - v19;
         v30 = v29 + 64;
-        if (v29 + 64 >= v110)
+        if (v29 + 64 >= v107)
         {
-          v30 = v110;
+          v30 = v107;
         }
 
-        v111 = v29;
-        v112 = v30;
-        if (v110 >= v28)
+        v108 = v29;
+        v109 = v30;
+        if (v107 >= v28)
         {
           v20 = v28;
         }
 
-        v115.location = v29 + v109;
-        v115.length = v20 + v27;
-        CFStringGetCharacters(v106, v115, &buffer);
-        v25 = v111;
+        v112.location = v29 + v106;
+        v112.length = v20 + v27;
+        CFStringGetCharacters(v103, v112, &buffer);
+        v25 = v108;
       }
 
       v21 = &buffer - v25;
       goto LABEL_23;
     }
 
-    v22 = v108[v109 + v15];
+    v22 = v105[v106 + v15];
 LABEL_27:
     v23 = v22;
     if (v22 <= 0x7Fu)
@@ -2348,7 +2309,7 @@ LABEL_35:
 
   while (Length != v15);
 
-  nameCopy = v85;
+  nameCopy = v82;
   v9 = theString;
   if (v16)
   {
@@ -2358,203 +2319,178 @@ LABEL_49:
   }
 
 LABEL_54:
-  v88 = 0;
-  v89 = &v88;
-  v90 = 0x3032000000;
-  v91 = __Block_byref_object_copy__17345;
-  v92 = __Block_byref_object_dispose__17346;
+  v85 = 0;
+  v86 = &v85;
+  v87 = 0x3032000000;
+  v88 = __Block_byref_object_copy__17345;
+  v89 = __Block_byref_object_dispose__17346;
   v32 = nameCopy;
-  v93 = removeParens(nameCopy);
-  v33 = v89[5];
-  v34 = _PASCollapseWhitespaceAndStrip();
-  v35 = v89[5];
-  v89[5] = v34;
+  v90 = removeParens(nameCopy);
+  v33 = _PASCollapseWhitespaceAndStrip();
+  v34 = v86[5];
+  v86[5] = v33;
 
-  v36 = v89[5];
-  v37 = _PASStripQuotationMarks();
-  v38 = v89[5];
-  v89[5] = v37;
+  v35 = _PASStripQuotationMarks();
+  v36 = v86[5];
+  v86[5] = v35;
 
-  if ([v89[5] hasSuffix:@" via LinkedIn"])
+  if ([v86[5] hasSuffix:@" via LinkedIn"])
   {
-    v39 = objc_autoreleasePoolPush();
-    v40 = [v89[5] substringToIndex:{objc_msgSend(v89[5], "length") - 13}];
-    objc_autoreleasePoolPop(v39);
-    v41 = v89[5];
-    v89[5] = v40;
+    v37 = objc_autoreleasePoolPush();
+    v38 = [v86[5] substringToIndex:{objc_msgSend(v86[5], "length") - 13}];
+    objc_autoreleasePoolPop(v37);
+    v39 = v86[5];
+    v86[5] = v38;
   }
 
-  v42 = v89[5];
-  v43 = v42;
-  if (v42 && ([v42 rangeOfString:@"@" options:2], v44))
+  v40 = v86[5];
+  v41 = v40;
+  if (v40 && ([v40 rangeOfString:@"@" options:2], v42))
   {
-    v45 = objc_autoreleasePoolPush();
-    v46 = [v43 componentsSeparatedByString:@" "];
-    objc_autoreleasePoolPop(v45);
-    v47 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v46, "count")}];
-    v97 = 0u;
-    v95 = 0u;
-    v96 = 0u;
+    v43 = objc_autoreleasePoolPush();
+    v44 = [v41 componentsSeparatedByString:@" "];
+    objc_autoreleasePoolPop(v43);
+    v45 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:objc_msgSend_count(v44)];
     v94 = 0u;
-    v48 = v46;
-    v49 = [v48 countByEnumeratingWithState:&v94 objects:&buffer count:16];
-    if (v49)
+    v92 = 0u;
+    v93 = 0u;
+    v91 = 0u;
+    v46 = v44;
+    v47 = [v46 countByEnumeratingWithState:&v91 objects:&buffer count:16];
+    if (v47)
     {
-      v50 = *v95;
+      v48 = *v92;
       do
       {
-        for (i = 0; i != v49; ++i)
+        for (i = 0; i != v47; ++i)
         {
-          if (*v95 != v50)
+          if (*v92 != v48)
           {
-            objc_enumerationMutation(v48);
+            objc_enumerationMutation(v46);
           }
 
-          v52 = *(*(&v94 + 1) + 8 * i);
-          [v52 rangeOfString:@"@" options:2];
-          if (!v53)
+          v50 = *(*(&v91 + 1) + 8 * i);
+          [v50 rangeOfString:@"@" options:2];
+          if (!v51)
           {
-            [v47 addObject:v52];
+            [v45 addObject:v50];
           }
         }
 
-        v49 = [v48 countByEnumeratingWithState:&v94 objects:&buffer count:16];
+        v47 = [v46 countByEnumeratingWithState:&v91 objects:&buffer count:16];
       }
 
-      while (v49);
+      while (v47);
     }
 
-    v54 = objc_autoreleasePoolPush();
-    v55 = [v47 _pas_componentsJoinedByString:@" "];
-    objc_autoreleasePoolPop(v54);
+    v52 = objc_autoreleasePoolPush();
+    v53 = [v45 _pas_componentsJoinedByString:@" "];
+    objc_autoreleasePoolPop(v52);
   }
 
   else
   {
-    v55 = v43;
+    v53 = v41;
   }
 
-  v56 = v89[5];
-  v89[5] = v55;
+  v54 = v86[5];
+  v86[5] = v53;
 
-  v57 = _PASGetQuotationMarkCharacterSet();
-  v58 = v89[5];
-  v59 = objc_opt_self();
+  v55 = _PASGetQuotationMarkCharacterSet();
+  v56 = v86[5];
+  v57 = objc_opt_self();
 
-  if (!v59)
+  if (!v57 || ((v101 = 0u, v102 = 0u, v99 = 0u, v100 = 0u, v97 = 0u, v98 = 0u, buffer = 0u, v96 = 0u, v58 = CFStringGetLength(v56), v103 = v56, v106 = 0, v107 = v58, (v104 = CFStringGetCharactersPtr(v56)) == 0) ? (v59 = CFStringGetCStringPtr(v56, 0x600u)) : (v59 = 0), v108 = 0, v109 = 0, v105 = v59, v58 <= 0))
   {
-    goto LABEL_100;
-  }
-
-  v104 = 0u;
-  v105 = 0u;
-  v102 = 0u;
-  v103 = 0u;
-  v100 = 0u;
-  v101 = 0u;
-  buffer = 0u;
-  v99 = 0u;
-  v60 = CFStringGetLength(v58);
-  v106 = v58;
-  v109 = 0;
-  v110 = v60;
-  v107 = CFStringGetCharactersPtr(v58);
-  v61 = v107 ? 0 : CFStringGetCStringPtr(v58, 0x600u);
-  v111 = 0;
-  v112 = 0;
-  v108 = v61;
-  if (v60 <= 0)
-  {
-LABEL_100:
 
     goto LABEL_103;
   }
 
+  v60 = 0;
+  v61 = 0;
   v62 = 0;
-  v63 = 0;
-  v64 = 0;
-  v65 = 64;
+  v63 = 64;
   while (2)
   {
-    if (v63 >= 4)
+    if (v61 >= 4)
     {
-      v66 = 4;
+      v64 = 4;
     }
 
     else
     {
-      v66 = v63;
+      v64 = v61;
     }
 
-    v67 = v110;
-    if (v110 <= v63)
+    v65 = v107;
+    if (v107 <= v61)
     {
-      v69 = 0;
+      v67 = 0;
       goto LABEL_86;
     }
 
-    if (v107)
+    if (v104)
     {
-      v68 = &v107[v109];
+      v66 = &v104[v106];
       goto LABEL_81;
     }
 
-    if (v108)
+    if (v105)
     {
-      v69 = v108[v109 + v63];
+      v67 = v105[v106 + v61];
     }
 
     else
     {
-      v70 = v111;
-      if (v112 <= v63 || v111 > v63)
+      v68 = v108;
+      if (v109 <= v61 || v108 > v61)
       {
-        v72 = v66 + v62;
-        v73 = v65 - v66;
-        v74 = v63 - v66;
-        v75 = v74 + 64;
-        if (v74 + 64 >= v110)
+        v70 = v64 + v60;
+        v71 = v63 - v64;
+        v72 = v61 - v64;
+        v73 = v72 + 64;
+        if (v72 + 64 >= v107)
         {
-          v75 = v110;
+          v73 = v107;
         }
 
-        v111 = v74;
-        v112 = v75;
-        if (v110 >= v73)
+        v108 = v72;
+        v109 = v73;
+        if (v107 >= v71)
         {
-          v67 = v73;
+          v65 = v71;
         }
 
-        v116.location = v74 + v109;
-        v116.length = v67 + v72;
-        CFStringGetCharacters(v106, v116, &buffer);
-        v70 = v111;
+        v113.location = v72 + v106;
+        v113.length = v65 + v70;
+        CFStringGetCharacters(v103, v113, &buffer);
+        v68 = v108;
       }
 
-      v68 = &buffer - v70;
+      v66 = &buffer - v68;
 LABEL_81:
-      v69 = v68[v63];
+      v67 = v66[v61];
     }
 
-    if (v69 == 34)
+    if (v67 == 34)
     {
 LABEL_87:
-      ++v64;
+      ++v62;
     }
 
     else
     {
 LABEL_86:
-      if (CFCharacterSetIsCharacterMember(v57, v69))
+      if (CFCharacterSetIsCharacterMember(v55, v67))
       {
         goto LABEL_87;
       }
     }
 
+    ++v61;
+    --v60;
     ++v63;
-    --v62;
-    ++v65;
-    if (v60 != v63)
+    if (v58 != v61)
     {
       continue;
     }
@@ -2562,35 +2498,33 @@ LABEL_86:
     break;
   }
 
-  if (v64 > 1)
+  if (v62 > 1)
   {
-    v76 = objc_autoreleasePoolPush();
-    v77 = patterns_17281();
-    v78 = [v77 regex2ForKey:@"QuotedNickname"];
-    v79 = v89[5];
-    v87[0] = MEMORY[0x277D85DD0];
-    v87[1] = 3221225472;
-    v87[2] = __21__SGNames_cleanName___block_invoke_2;
-    v87[3] = &unk_27894FD80;
-    v87[4] = &v88;
-    [v78 enumerateMatchesInString:v79 ngroups:2 block:v87];
+    v74 = objc_autoreleasePoolPush();
+    v75 = patterns_17281();
+    v76 = [v75 regex2ForKey:@"QuotedNickname"];
+    v77 = v86[5];
+    v84[0] = MEMORY[0x277D85DD0];
+    v84[1] = 3221225472;
+    v84[2] = __21__SGNames_cleanName___block_invoke_2;
+    v84[3] = &unk_27894FD80;
+    v84[4] = &v85;
+    [v76 enumerateMatchesInString:v77 ngroups:2 block:v84];
 
-    objc_autoreleasePoolPop(v76);
+    objc_autoreleasePoolPop(v74);
   }
 
 LABEL_103:
-  v80 = objc_autoreleasePoolPush();
-  v81 = v89[5];
+  v78 = objc_autoreleasePoolPush();
+  v79 = v86[5];
   whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
-  v31 = [v81 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
+  v31 = [v79 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
 
-  objc_autoreleasePoolPop(v80);
-  _Block_object_dispose(&v88, 8);
+  objc_autoreleasePoolPop(v78);
+  _Block_object_dispose(&v85, 8);
 
   nameCopy = v32;
 LABEL_104:
-
-  v83 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -2655,7 +2589,7 @@ void __21__SGNames_cleanName___block_invoke()
 
 + (id)stripAndReturnHonorifics:(id)honorifics
 {
-  v33[3] = *MEMORY[0x277D85DE8];
+  v32[3] = *MEMORY[0x277D85DE8];
   honorificsCopy = honorifics;
   if (honorificsCopy)
   {
@@ -2676,51 +2610,51 @@ void __21__SGNames_cleanName___block_invoke()
     if (!v6)
     {
       v7 = objc_autoreleasePoolPush();
-      v26 = 0;
-      v27 = &v26;
-      v28 = 0x3032000000;
-      v29 = __Block_byref_object_copy__17345;
-      v30 = __Block_byref_object_dispose__17346;
-      v31 = &stru_284703F00;
-      v20 = 0;
-      v21 = &v20;
-      v22 = 0x3032000000;
-      v23 = __Block_byref_object_copy__17345;
-      v24 = __Block_byref_object_dispose__17346;
-      v25 = &stru_284703F00;
-      v14 = 0;
-      v15 = &v14;
-      v16 = 0x3032000000;
-      v17 = __Block_byref_object_copy__17345;
-      v18 = __Block_byref_object_dispose__17346;
+      v25 = 0;
+      v26 = &v25;
+      v27 = 0x3032000000;
+      v28 = __Block_byref_object_copy__17345;
+      v29 = __Block_byref_object_dispose__17346;
+      v30 = &stru_284703F00;
+      v19 = 0;
+      v20 = &v19;
+      v21 = 0x3032000000;
+      v22 = __Block_byref_object_copy__17345;
+      v23 = __Block_byref_object_dispose__17346;
+      v24 = &stru_284703F00;
+      v13 = 0;
+      v14 = &v13;
+      v15 = 0x3032000000;
+      v16 = __Block_byref_object_copy__17345;
+      v17 = __Block_byref_object_dispose__17346;
       v8 = honorificsCopy;
-      v19 = v8;
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __36__SGNames_stripAndReturnHonorifics___block_invoke_75;
-      v13[3] = &unk_27894E3E8;
-      v13[4] = &v14;
-      v13[5] = &v26;
-      findEndOfHonorificPrefixCandidate(v8, v13);
-      v12 = MEMORY[0x277D85DD0];
+      v18 = v8;
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __36__SGNames_stripAndReturnHonorifics___block_invoke_75;
+      v12[3] = &unk_27894E3E8;
+      v12[4] = &v13;
+      v12[5] = &v25;
+      findEndOfHonorificPrefixCandidate(v8, v12);
+      v11 = MEMORY[0x277D85DD0];
       _PASMemoryHeavyOperation();
-      v9 = v15[5];
-      v33[0] = v27[5];
-      v33[1] = v9;
-      v33[2] = v21[5];
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:{3, v12, 3221225472, __36__SGNames_stripAndReturnHonorifics___block_invoke_2, &unk_27894E438, &v14, &v20}];
+      v9 = v14[5];
+      v32[0] = v26[5];
+      v32[1] = v9;
+      v32[2] = v20[5];
+      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:{3, v11, 3221225472, __36__SGNames_stripAndReturnHonorifics___block_invoke_2, &unk_27894E438, &v13, &v19}];
       os_unfair_lock_lock(&stripAndReturnHonorifics__cacheLock);
-      if ([stripAndReturnHonorifics__cache count] >= 0xA)
+      if (objc_msgSend_count(stripAndReturnHonorifics__cache) >= 0xA)
       {
         [stripAndReturnHonorifics__cache removeAllObjects];
       }
 
       [stripAndReturnHonorifics__cache setObject:v6 forKeyedSubscript:v8];
       os_unfair_lock_unlock(&stripAndReturnHonorifics__cacheLock);
-      _Block_object_dispose(&v14, 8);
+      _Block_object_dispose(&v13, 8);
 
-      _Block_object_dispose(&v20, 8);
-      _Block_object_dispose(&v26, 8);
+      _Block_object_dispose(&v19, 8);
+      _Block_object_dispose(&v25, 8);
 
       objc_autoreleasePoolPop(v7);
     }
@@ -2730,8 +2664,6 @@ void __21__SGNames_cleanName___block_invoke()
   {
     v6 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

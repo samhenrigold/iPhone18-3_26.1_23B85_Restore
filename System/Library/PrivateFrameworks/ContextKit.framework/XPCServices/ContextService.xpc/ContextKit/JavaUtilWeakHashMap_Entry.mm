@@ -25,23 +25,23 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  LODWORD(getValue) = [JavaUtilMap_Entry_class_() isInstance:equal];
+  getValue = [JavaUtilMap_Entry_class_(self a2)];
   if (getValue)
   {
-    v6 = JavaUtilMap_Entry_class_();
-    if (equal && ([v6 isInstance:equal] & 1) == 0)
+    v7 = JavaUtilMap_Entry_class_(getValue, v6);
+    if (equal && ([v7 isInstance:equal] & 1) == 0)
     {
       JreThrowClassCastException();
     }
 
-    v10.receiver = self;
-    v10.super_class = JavaUtilWeakHashMap_Entry;
-    v7 = [(JavaLangRefReference *)&v10 get];
-    if (v7)
+    v11.receiver = self;
+    v11.super_class = JavaUtilWeakHashMap_Entry;
+    v8 = [(JavaLangRefReference *)&v11 get];
+    if (v8)
     {
       if (equal)
       {
-        LODWORD(getValue) = [v7 isEqual:{objc_msgSend(equal, "getKey")}];
+        LODWORD(getValue) = [v8 isEqual:{objc_msgSend(equal, "getKey")}];
         if (!getValue)
         {
           return getValue;
@@ -95,11 +95,10 @@ LABEL_11:
 
 - (NSString)description
 {
-  v13.receiver = self;
-  v13.super_class = JavaUtilWeakHashMap_Entry;
-  v3 = [(JavaLangRefReference *)&v13 get];
-  value = self->value_;
-  return JreStrcat("@C@", v4, v5, v6, v7, v8, v9, v10, v3);
+  v11.receiver = self;
+  v11.super_class = JavaUtilWeakHashMap_Entry;
+  v2 = [(JavaLangRefReference *)&v11 get];
+  return JreStrcat("@C@", v3, v4, v5, v6, v7, v8, v9, v2);
 }
 
 - (void)dealloc

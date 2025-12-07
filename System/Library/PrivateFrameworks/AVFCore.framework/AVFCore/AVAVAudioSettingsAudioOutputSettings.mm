@@ -758,7 +758,7 @@ LABEL_177:
   audioSettingsDictionary = [(AVAudioOutputSettings *)self audioSettingsDictionary];
   v5 = [(NSDictionary *)audioSettingsDictionary objectForKey:*MEMORY[0x1E69582B0]];
   v6 = encoderExistsForFormat([v5 unsignedIntValue]);
-  if ((v6 & 1) == 0)
+  if (!v6)
   {
     v7 = AVLocalizedError(@"AVFoundationErrorDomain", -11834, [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"soun", @"AVErrorMediaTypeKey", objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:", v5, 0), @"AVErrorMediaSubTypeKey", 0}]);
     if (error)

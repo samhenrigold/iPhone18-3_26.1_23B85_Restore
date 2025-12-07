@@ -15,21 +15,8 @@ void sub_FC4(void *a1)
     {
       v7 = [v5 objectForKeyedSubscript:NSFileProtectionKey];
 
-      if (v7 == NSFileProtectionNone)
+      if (v7 == NSFileProtectionNone || (v29 = NSFileProtectionKey, v30 = NSFileProtectionNone, +[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &v30, &v29, 1), v8 = objc_claimAutoreleasedReturnValue(), v24 = 0, [v3 setAttributes:v8 ofItemAtPath:v1 error:&v24], v6 = v24, v8, !v6))
       {
-        goto LABEL_6;
-      }
-
-      v29 = NSFileProtectionKey;
-      v30 = NSFileProtectionNone;
-      v8 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-      v24 = 0;
-      [v3 setAttributes:v8 ofItemAtPath:v1 error:&v24];
-      v6 = v24;
-
-      if (!v6)
-      {
-LABEL_6:
         v21 = [v3 enumeratorAtPath:{v1, v5}];
         v9 = [v21 nextObject];
         if (v9)

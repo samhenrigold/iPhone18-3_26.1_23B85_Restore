@@ -61,7 +61,7 @@
 
 void __110__AMSUIParentalVerificationCommon__promiseToPromptAfterFailureWithBag_viewController_metrics_pageID_flowName___block_invoke(uint64_t a1, void *a2)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = [a2 selectedActionIdentifier];
   v5 = [v3 locateActionWithIdentifier:v4];
@@ -72,27 +72,24 @@ void __110__AMSUIParentalVerificationCommon__promiseToPromptAfterFailureWithBag_
   if (v7)
   {
     v8 = *(a1 + 48);
-    v9 = *MEMORY[0x1E698C548];
-    v16 = @"really_cancelled";
-    v17[0] = MEMORY[0x1E695E118];
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
-    v11 = AMSCustomError();
-    [v8 finishWithError:v11];
+    v14 = @"really_cancelled";
+    v15[0] = MEMORY[0x1E695E118];
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v10 = AMSCustomError();
+    [v8 finishWithError:v10];
 
     [*(a1 + 56) enqueueEventWithTargetId:@"Cancel" pageId:*(a1 + 64) displayReason:0];
   }
 
   else
   {
-    v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ failed for parental verification, moving on to next method", *(a1 + 72)];
-    v13 = *(a1 + 48);
-    v14 = AMSError();
-    [v13 finishWithError:v14];
+    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ failed for parental verification, moving on to next method", *(a1 + 72)];
+    v12 = *(a1 + 48);
+    v13 = AMSError();
+    [v12 finishWithError:v13];
 
     [*(a1 + 56) enqueueEventWithTargetId:@"Continue" pageId:*(a1 + 64) displayReason:0];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

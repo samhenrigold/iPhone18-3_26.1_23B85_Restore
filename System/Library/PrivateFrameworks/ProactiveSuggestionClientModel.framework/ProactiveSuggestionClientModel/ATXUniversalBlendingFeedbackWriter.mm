@@ -69,55 +69,54 @@ void __103__ATXUniversalBlendingFeedbackWriter_sendEventToBiomeIfNeededForClient
   {
 
 LABEL_4:
-    v5 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_blending(v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [*(a1 + 40) clientModelId];
+      v7 = [*(a1 + 40) clientModelId];
       v13 = 138543362;
-      v14 = v6;
-      _os_log_impl(&dword_1DEFC4000, v5, OS_LOG_TYPE_DEFAULT, "Adding event to client model Biome stream for: %{public}@", &v13, 0xCu);
+      v14 = v7;
+      _os_log_impl(&dword_1DEFC4000, v6, OS_LOG_TYPE_DEFAULT, "Adding event to client model Biome stream for: %{public}@", &v13, 0xCu);
     }
 
-    v7 = [*(*(a1 + 48) + 8) source];
-    [v7 sendEvent:*(a1 + 40)];
+    v8 = [*(*(a1 + 48) + 8) source];
+    [v8 sendEvent:*(a1 + 40)];
 
-    v8 = [[ATXLightweightClientModelCacheUpdate alloc] initWithClientModelCacheUpdate:*(a1 + 40)];
-    v9 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v9 = [[ATXLightweightClientModelCacheUpdate alloc] initWithClientModelCacheUpdate:*(a1 + 40)];
+    v10 = __atxlog_handle_blending(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [(ATXLightweightClientModelCacheUpdate *)v8 clientModelId];
+      v11 = [(ATXLightweightClientModelCacheUpdate *)v9 clientModelId];
       v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_1DEFC4000, v9, OS_LOG_TYPE_DEFAULT, "Adding event to lightweight client model Biome stream for: %{public}@", &v13, 0xCu);
+      v14 = v11;
+      _os_log_impl(&dword_1DEFC4000, v10, OS_LOG_TYPE_DEFAULT, "Adding event to lightweight client model Biome stream for: %{public}@", &v13, 0xCu);
     }
 
-    v11 = [*(*(a1 + 48) + 16) source];
-    [v11 sendEvent:v8];
+    v12 = [*(*(a1 + 48) + 16) source];
+    [v12 sendEvent:v9];
     goto LABEL_9;
   }
 
-  v3 = [*(a1 + 40) suggestions];
-  v4 = [v3 count];
+  v4 = [*(a1 + 40) suggestions];
+  v5 = [v4 count];
 
-  if (v4)
+  if (v5)
   {
     goto LABEL_4;
   }
 
-  v8 = __atxlog_handle_blending();
-  if (!os_log_type_enabled(&v8->super, OS_LOG_TYPE_DEFAULT))
+  v9 = __atxlog_handle_blending(v3);
+  if (!os_log_type_enabled(&v9->super, OS_LOG_TYPE_DEFAULT))
   {
     goto LABEL_10;
   }
 
-  v11 = [*(a1 + 40) clientModelId];
+  v12 = [*(a1 + 40) clientModelId];
   v13 = 138543362;
-  v14 = v11;
-  _os_log_impl(&dword_1DEFC4000, &v8->super, OS_LOG_TYPE_DEFAULT, "Not adding event for client model to Biome stream (%{public}@) because our previous suggestion was empty and so is our new one.", &v13, 0xCu);
+  v14 = v12;
+  _os_log_impl(&dword_1DEFC4000, &v9->super, OS_LOG_TYPE_DEFAULT, "Not adding event for client model to Biome stream (%{public}@) because our previous suggestion was empty and so is our new one.", &v13, 0xCu);
 LABEL_9:
 
 LABEL_10:
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)donateBlendingModelUICacheUpdate:(id)update uiConsumer:(unsigned __int8)consumer
@@ -150,22 +149,20 @@ LABEL_10:
 
 uint64_t __63__ATXUniversalBlendingFeedbackWriter_donateUIInteractionEvent___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_blending();
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = __atxlog_handle_blending(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [MEMORY[0x1E698B028] stringForConsumerSubtype:{objc_msgSend(*(a1 + 32), "consumerSubTypeForUIStream")}];
     v4 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_1DEFC4000, v2, OS_LOG_TYPE_DEFAULT, "Feedback Writer: Recording UI interaction event for consumerSubType %@. Event: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_1DEFC4000, v2, OS_LOG_TYPE_DEFAULT, "Feedback Writer: Recording UI interaction event for consumerSubType %@. Event: %@", &v6, 0x16u);
   }
 
-  result = [*(*(a1 + 40) + 32) donateGenericUIEvent:*(a1 + 32)];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 40) + 32) donateGenericUIEvent:*(a1 + 32)];
 }
 
 @end

@@ -7,14 +7,14 @@
 
 - (void)userContentController:(id)controller didReceiveScriptMessage:(id)message
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  v6 = _ef_log_EDMailDropMetadataGenerator();
+  v6 = _ef_log_EDMailDropMetadataGenerator(messageCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v13 = 138412290;
-    v14 = messageCopy;
-    _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_INFO, "MailDrop: Received Script message with %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = messageCopy;
+    _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_INFO, "MailDrop: Received Script message with %@", &v12, 0xCu);
   }
 
   webView = [(EDMailDropWebViewScriptHandler *)self webView];
@@ -35,8 +35,6 @@
 
 LABEL_6:
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (WKWebView)webView

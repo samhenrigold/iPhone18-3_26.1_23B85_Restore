@@ -43,7 +43,7 @@
   v32 = v17;
   v18 = [v14 sinkWithBookmark:0 completion:v35 receiveInput:v31];
   v19 = [BMPairedEventSession openSessionsFromBookmark:v37[5]];
-  v20 = sub_100063A54();
+  v20 = sub_100063A54(v19);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     v21 = [v19 count];
@@ -123,18 +123,20 @@
   var0 = subsumes.var0;
   v6 = range.var1;
   v7 = range.var0;
-  if ([range.var0 isEarlierDateThan:subsumes.var0])
+  v8 = [range.var0 isEarlierDateThan:subsumes.var0];
+  if (v8)
   {
     v8 = [v6 isLaterDateThan:var1];
+    v9 = v8;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  v9 = sub_100063A54();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = sub_100063A54(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     toString = [v7 toString];
     [v6 toString];
@@ -142,8 +144,8 @@
     sub_1000EABDC();
   }
 
-  v11 = sub_100063A54();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v13 = sub_100063A54(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     toString2 = [var0 toString];
     [var1 toString];
@@ -151,44 +153,44 @@
     sub_1000EAC34();
   }
 
-  v13 = sub_100063A54();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v16 = sub_100063A54(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     sub_1000EAC8C();
   }
 
-  return v8;
+  return v9;
 }
 
 + (void)printBMAppInfocusEvent:(id)event
 {
   eventCopy = event;
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(eventCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_1000EAD04(eventCopy);
   }
 
-  v5 = sub_100063A54();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = sub_100063A54(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_1000EAD94(eventCopy);
   }
 
-  v6 = sub_100063A54();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v8 = sub_100063A54(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1000EAE18(eventCopy);
   }
 
-  v7 = sub_100063A54();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v10 = sub_100063A54(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     sub_1000EAEA8(eventCopy);
   }
 
-  v8 = sub_100063A54();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v12 = sub_100063A54(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     sub_1000EAF2C(eventCopy);
   }

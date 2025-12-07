@@ -93,7 +93,7 @@ LABEL_12:
   lCopy = l;
   if ((objc_msgSend_isFileURL(lCopy, v6, v7) & 1) == 0)
   {
-    sub_276BD6AC4();
+    sub_276BD6AC4(self);
   }
 
   v20.receiver = self;
@@ -151,7 +151,7 @@ LABEL_12:
 
 - (void)cacheResourceAtURL:(id)l forInfo:(id)info copy:(BOOL)copy completionQueue:(id)queue completionHandler:(id)handler
 {
-  v40[2] = *MEMORY[0x277D85DE8];
+  v39[2] = *MEMORY[0x277D85DE8];
   lCopy = l;
   infoCopy = info;
   queueCopy = queue;
@@ -162,7 +162,7 @@ LABEL_12:
     copyCopy = copy;
     v19 = objc_msgSend_readingIntentWithURL_options_(MEMORY[0x277CCA9E0], v17, lCopy, 1);
     v21 = objc_msgSend_writingIntentWithURL_options_(MEMORY[0x277CCA9E0], v20, v18, 8);
-    v32 = lCopy;
+    v31 = lCopy;
     if (qword_280A530B0 != -1)
     {
       sub_276BD6BA0();
@@ -170,24 +170,24 @@ LABEL_12:
 
     v22 = objc_alloc(MEMORY[0x277CCA9E8]);
     v24 = objc_msgSend_initWithFilePresenter_(v22, v23, 0);
-    v40[0] = v19;
-    v40[1] = v21;
-    v26 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v25, v40, 2);
+    v39[0] = v19;
+    v39[1] = v21;
+    v26 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v25, v39, 2);
     ioOperationQueue = self->_ioOperationQueue;
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = sub_276AE8930;
-    v35[3] = &unk_27A6E70D8;
-    v35[4] = self;
-    v35[5] = v19;
-    v35[6] = v21;
-    v36 = infoCopy;
-    v39 = copyCopy;
-    v38 = handlerCopy;
-    v37 = queueCopy;
-    objc_msgSend_tsp_coordinateAccessWithIntents_queue_byAccessor_(v24, v28, v26, ioOperationQueue, v35);
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = sub_276AE8930;
+    v34[3] = &unk_27A6E70D8;
+    v34[4] = self;
+    v34[5] = v19;
+    v34[6] = v21;
+    v35 = infoCopy;
+    v38 = copyCopy;
+    v37 = handlerCopy;
+    v36 = queueCopy;
+    objc_msgSend_tsp_coordinateAccessWithIntents_queue_byAccessor_(v24, v28, v26, ioOperationQueue, v34);
 
-    lCopy = v32;
+    lCopy = v31;
   }
 
   else
@@ -215,25 +215,23 @@ LABEL_12:
       block[1] = 3221225472;
       block[2] = sub_276AE8BA0;
       block[3] = &unk_27A6E4E90;
-      v34 = handlerCopy;
+      v33 = handlerCopy;
       dispatch_async(queueCopy, block);
     }
 
     else
     {
-      v30 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v17, *MEMORY[0x277CCA738], -1002, 0);
-      (*(handlerCopy + 2))(handlerCopy, 0, v30);
+      v29 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v17, *MEMORY[0x277CCA738], -1002, 0);
+      (*(handlerCopy + 2))(handlerCopy, 0, v29);
     }
   }
 
 LABEL_5:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)purge
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (qword_280A530B0 != -1)
   {
     sub_276BD6BDC();
@@ -243,48 +241,46 @@ LABEL_5:
   v7 = objc_msgSend_cacheURL(self, v5, v6);
   v9 = objc_msgSend_contentsOfDirectoryAtURL_includingPropertiesForKeys_options_error_(v4, v8, v7, 0, 1, 0);
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = v9;
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v27, v32, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v26, v31, 16);
   if (v11)
   {
     v13 = v11;
-    v14 = *v28;
+    v14 = *v27;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v28 != v14)
+        if (*v27 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = objc_msgSend_writingIntentWithURL_options_(MEMORY[0x277CCA9E0], v12, *(*(&v27 + 1) + 8 * i), 1);
+        v16 = objc_msgSend_writingIntentWithURL_options_(MEMORY[0x277CCA9E0], v12, *(*(&v26 + 1) + 8 * i), 1);
         v17 = objc_alloc(MEMORY[0x277CCA9E8]);
         v19 = objc_msgSend_initWithFilePresenter_(v17, v18, 0);
-        v31 = v16;
-        v21 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v20, &v31, 1);
+        v30 = v16;
+        v21 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v20, &v30, 1);
         ioOperationQueue = self->_ioOperationQueue;
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = sub_276AE8E88;
-        v26[3] = &unk_27A6E7100;
-        v26[4] = v16;
-        v26[5] = v4;
-        v26[6] = self;
-        objc_msgSend_tsp_coordinateAccessWithIntents_queue_byAccessor_(v19, v23, v21, ioOperationQueue, v26);
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = sub_276AE8E88;
+        v25[3] = &unk_27A6E7100;
+        v25[4] = v16;
+        v25[5] = v4;
+        v25[6] = self;
+        objc_msgSend_tsp_coordinateAccessWithIntents_queue_byAccessor_(v19, v23, v21, ioOperationQueue, v25);
       }
 
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v27, v32, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v26, v31, 16);
     }
 
     while (v13);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -99,7 +99,7 @@
 
 - (id)accessibilityLabel
 {
-  v2 = SVBundle();
+  v2 = SVBundle(self);
   v3 = [v2 localizedStringForKey:@"Play" value:&stru_2877C2D00 table:0];
 
   return v3;
@@ -107,7 +107,7 @@
 
 - (id)accessibilityHint
 {
-  v2 = SVBundle();
+  v2 = SVBundle(self);
   v3 = [v2 localizedStringForKey:@"Double tap to begin video playback" value:&stru_2877C2D00 table:0];
 
   return v3;

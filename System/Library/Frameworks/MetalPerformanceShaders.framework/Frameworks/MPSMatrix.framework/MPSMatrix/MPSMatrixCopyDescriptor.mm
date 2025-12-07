@@ -49,26 +49,26 @@
 
 - (MPSMatrixCopyDescriptor)initWithSourceMatrices:(NSArray *)sourceMatrices destinationMatrices:(NSArray *)destinationMatrices offsetVector:(MPSVector *)offsets offset:(NSUInteger)byteOffset
 {
-  v34.receiver = self;
-  v34.super_class = MPSMatrixCopyDescriptor;
-  v10 = [(MPSMatrixCopyDescriptor *)&v34 init];
+  v19.receiver = self;
+  v19.super_class = MPSMatrixCopyDescriptor;
+  v10 = [(MPSMatrixCopyDescriptor *)&v19 init];
   if (v10)
   {
     v11 = offsets;
     v10->_cpuOffsetsVector = 0;
     v10->_gpuOffsetsVector = v11;
-    v19 = objc_msgSend_count(sourceMatrices, v12, v13, v14, v15, v16, v17, v18);
-    v10->_sourceMatrices = malloc_type_malloc(8 * v19, 0x80040B8603338uLL);
-    v10->_destinationMatrices = malloc_type_malloc(8 * v19, 0x80040B8603338uLL);
-    v10->_allocCount = v19;
-    v10->_filledCount = v19;
+    v14 = objc_msgSend_count(sourceMatrices, v12, v13);
+    v10->_sourceMatrices = malloc_type_malloc(8 * v14, 0x80040B8603338uLL);
+    v10->_destinationMatrices = malloc_type_malloc(8 * v14, 0x80040B8603338uLL);
+    v10->_allocCount = v14;
+    v10->_filledCount = v14;
     v10->_gpuBufferOffset = byteOffset;
-    if (v19)
+    if (v14)
     {
-      for (i = 0; i != v19; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        v10->_sourceMatrices[i] = objc_msgSend_objectAtIndexedSubscript_(sourceMatrices, v20, i, v21, v22, v23, v24, v25);
-        v10->_destinationMatrices[i] = objc_msgSend_objectAtIndexedSubscript_(destinationMatrices, v27, i, v28, v29, v30, v31, v32);
+        v10->_sourceMatrices[i] = objc_msgSend_objectAtIndexedSubscript_(sourceMatrices, v15, i);
+        v10->_destinationMatrices[i] = objc_msgSend_objectAtIndexedSubscript_(destinationMatrices, v17, i);
       }
     }
   }
@@ -81,13 +81,13 @@
   v5 = *&offsets.destinationRowOffset;
   v6 = *&offsets.sourceRowOffset;
   v9 = [MPSMatrixCopyDescriptor alloc];
-  v17 = objc_msgSend_device(sourceMatrix, v10, v11, v12, v13, v14, v15, v16);
-  result = objc_msgSend_initWithDevice_count_(v9, v18, v17, 1, v19, v20, v21, v22);
+  v12 = objc_msgSend_device(sourceMatrix, v10, v11);
+  result = objc_msgSend_initWithDevice_count_(v9, v13, v12, 1);
   if (result)
   {
-    v26 = result;
-    objc_msgSend_setCopyOperationAtIndex_sourceMatrix_destinationMatrix_offsets_(result, v24, 0, sourceMatrix, destinationMatrix, v6, v5, v25);
-    return v26;
+    v16 = result;
+    objc_msgSend_setCopyOperationAtIndex_sourceMatrix_destinationMatrix_offsets_(result, v15, 0, sourceMatrix, destinationMatrix, v6, v5);
+    return v16;
   }
 
   return result;

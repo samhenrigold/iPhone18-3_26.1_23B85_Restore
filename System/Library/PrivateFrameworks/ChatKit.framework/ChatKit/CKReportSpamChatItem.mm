@@ -45,7 +45,7 @@
   if ([(CKReportSpamChatItem *)self isGroupChat])
   {
     v5 = objc_alloc(MEMORY[0x1E696AAB0]);
-    v6 = CKFrameworkBundle();
+    v6 = CKFrameworkBundle(v5);
     v7 = v6;
     v8 = @"REPORT_SPAM_GROUP_STATUS";
   }
@@ -53,7 +53,7 @@
   else if ([(CKReportSpamChatItem *)self isBusinessChat])
   {
     v5 = objc_alloc(MEMORY[0x1E696AAB0]);
-    v6 = CKFrameworkBundle();
+    v6 = CKFrameworkBundle(v5);
     v7 = v6;
     v8 = @"REPORT_SPAM_BUSINESS_STATUS";
   }
@@ -62,55 +62,57 @@
   {
     filterExtension = [(CKReportSpamChatItem *)self filterExtension];
 
-    v5 = objc_alloc(MEMORY[0x1E696AAB0]);
+    v10 = objc_alloc(MEMORY[0x1E696AAB0]);
+    v5 = v10;
     if (filterExtension)
     {
-      v10 = MEMORY[0x1E696AEC0];
-      v11 = CKFrameworkBundle();
-      v12 = [v11 localizedStringForKey:@"REPORT_SPAM_FILTER_EXTENSION" value:&stru_1F04268F8 table:@"ChatKit"];
+      v11 = MEMORY[0x1E696AEC0];
+      v12 = CKFrameworkBundle(v10);
+      v13 = [v12 localizedStringForKey:@"REPORT_SPAM_FILTER_EXTENSION" value:&stru_1F04268F8 table:@"ChatKit"];
       filterExtension2 = [(CKReportSpamChatItem *)self filterExtension];
-      v14 = [v10 stringWithFormat:v12, filterExtension2];
+      v15 = [v11 stringWithFormat:v13, filterExtension2];
 
       mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
       userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
       if (userInterfaceLayoutDirection == 1)
       {
-        v17 = @"\u200F";
+        v18 = @"\u200F";
       }
 
       else
       {
-        v17 = @"\u200E";
+        v18 = @"\u200E";
       }
 
-      v7 = [(__CFString *)v17 stringByAppendingString:v14];
+      v7 = [(__CFString *)v18 stringByAppendingString:v15];
 
-      v18 = [v5 initWithString:v7 attributes:transcriptEmphasizedFontAttributes];
+      v19 = [v5 initWithString:v7 attributes:transcriptEmphasizedFontAttributes];
       goto LABEL_12;
     }
 
-    v6 = CKFrameworkBundle();
+    v6 = CKFrameworkBundle(v10);
     v7 = v6;
     v8 = @"REPORT_SPAM_STATUS";
   }
 
-  v19 = [v6 localizedStringForKey:v8 value:&stru_1F04268F8 table:@"ChatKit"];
-  v18 = [v5 initWithString:v19 attributes:transcriptEmphasizedFontAttributes];
+  v20 = [v6 localizedStringForKey:v8 value:&stru_1F04268F8 table:@"ChatKit"];
+  v19 = [v5 initWithString:v20 attributes:transcriptEmphasizedFontAttributes];
 
 LABEL_12:
 
-  return v18;
+  return v19;
 }
 
 - (id)transcriptTextForSpam:(BOOL)spam
 {
-  if ([(CKReportSpamChatItem *)self isGroupChat])
+  isGroupChat = [(CKReportSpamChatItem *)self isGroupChat];
+  if (isGroupChat)
   {
-    v5 = CKFrameworkBundle();
+    v6 = CKFrameworkBundle(isGroupChat);
     if (!spam)
     {
-      v6 = @"REPORT_SPAM_GROUP_STATUS";
+      v7 = @"REPORT_SPAM_GROUP_STATUS";
       goto LABEL_9;
     }
 
@@ -118,12 +120,13 @@ LABEL_12:
   }
 
   isBusinessChat = [(CKReportSpamChatItem *)self isBusinessChat];
-  v5 = CKFrameworkBundle();
-  if (isBusinessChat)
+  v9 = isBusinessChat;
+  v6 = CKFrameworkBundle(isBusinessChat);
+  if (v9)
   {
     if (!spam)
     {
-      v6 = @"REPORT_SPAM_BUSINESS_STATUS";
+      v7 = @"REPORT_SPAM_BUSINESS_STATUS";
       goto LABEL_9;
     }
 
@@ -133,15 +136,15 @@ LABEL_12:
   if (spam)
   {
 LABEL_8:
-    v6 = @"REPORTED_SPAM_STATUS";
+    v7 = @"REPORTED_SPAM_STATUS";
     goto LABEL_9;
   }
 
-  v6 = @"REPORT_SPAM_STATUS";
+  v7 = @"REPORT_SPAM_STATUS";
 LABEL_9:
-  v8 = [v5 localizedStringForKey:v6 value:&stru_1F04268F8 table:@"ChatKit"];
+  v10 = [v6 localizedStringForKey:v7 value:&stru_1F04268F8 table:@"ChatKit"];
 
-  return v8;
+  return v10;
 }
 
 - (NSAttributedString)transcriptButtonText
@@ -157,7 +160,7 @@ LABEL_9:
       if (![(CKReportSpamChatItem *)self hasMultipleMessages])
       {
         v7 = objc_alloc(MEMORY[0x1E696AAB0]);
-        v11 = CKFrameworkBundle();
+        v11 = CKFrameworkBundle(v7);
         v8 = v11;
         v9 = @"REPORT_SPAM_SMS_BUTTON_TITLE_SINGULAR";
 LABEL_11:
@@ -172,7 +175,7 @@ LABEL_11:
 
       canUnsubscribe = [(CKReportSpamChatItem *)self canUnsubscribe];
       v7 = objc_alloc(MEMORY[0x1E696AAB0]);
-      v8 = CKFrameworkBundle();
+      v8 = CKFrameworkBundle(v7);
       if (!canUnsubscribe)
       {
         v9 = @"REPORT_SPAM_SMS_BUTTON_TITLE_ALL";
@@ -186,7 +189,7 @@ LABEL_10:
     {
       canUnsubscribe2 = [(CKReportSpamChatItem *)self canUnsubscribe];
       v7 = objc_alloc(MEMORY[0x1E696AAB0]);
-      v8 = CKFrameworkBundle();
+      v8 = CKFrameworkBundle(v7);
       if (!canUnsubscribe2)
       {
         v9 = @"REPORT_SPAM_BUTTON_TITLE";

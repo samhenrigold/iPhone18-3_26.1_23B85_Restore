@@ -32,82 +32,78 @@
 
 - (id)allowListedDataclassesForAppleAccountClassBasic
 {
-  v9[5] = *MEMORY[0x1E69E9840];
+  v8[5] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = *MEMORY[0x1E6959640];
-  v9[0] = *MEMORY[0x1E6959630];
-  v9[1] = v3;
+  v8[0] = *MEMORY[0x1E6959630];
+  v8[1] = v3;
   v4 = *MEMORY[0x1E69596C0];
-  v9[2] = *MEMORY[0x1E6959698];
-  v9[3] = v4;
-  v9[4] = *MEMORY[0x1E69596E0];
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
+  v8[2] = *MEMORY[0x1E6959698];
+  v8[3] = v4;
+  v8[4] = *MEMORY[0x1E69596E0];
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:5];
   v6 = [v2 setWithArray:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)allowListedDataclassesForAppleAccountClassFull
 {
-  v10[6] = *MEMORY[0x1E69E9840];
+  v9[6] = *MEMORY[0x1E69E9840];
   allowListedDataclassesForAppleAccountClassBasic = [(AADataclassManager *)self allowListedDataclassesForAppleAccountClassBasic];
   v3 = *MEMORY[0x1E6959618];
-  v10[0] = *MEMORY[0x1E6959600];
-  v10[1] = v3;
+  v9[0] = *MEMORY[0x1E6959600];
+  v9[1] = v3;
   v4 = *MEMORY[0x1E6959628];
-  v10[2] = *MEMORY[0x1E6959620];
-  v10[3] = v4;
+  v9[2] = *MEMORY[0x1E6959620];
+  v9[3] = v4;
   v5 = *MEMORY[0x1E6959718];
-  v10[4] = *MEMORY[0x1E69596D8];
-  v10[5] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
+  v9[4] = *MEMORY[0x1E69596D8];
+  v9[5] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:6];
   v7 = [allowListedDataclassesForAppleAccountClassBasic setByAddingObjectsFromArray:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)_userVisibleDataclasses
 {
-  v20[22] = *MEMORY[0x1E69E9840];
+  v19[22] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = *MEMORY[0x1E6959600];
-  v20[0] = *MEMORY[0x1E6959670];
-  v20[1] = v3;
+  v19[0] = *MEMORY[0x1E6959670];
+  v19[1] = v3;
   v4 = *MEMORY[0x1E6959700];
-  v20[2] = *MEMORY[0x1E69596A8];
-  v20[3] = v4;
+  v19[2] = *MEMORY[0x1E69596A8];
+  v19[3] = v4;
   v5 = *MEMORY[0x1E6959630];
-  v20[4] = *MEMORY[0x1E6959608];
-  v20[5] = v5;
+  v19[4] = *MEMORY[0x1E6959608];
+  v19[5] = v5;
   v6 = *MEMORY[0x1E6959658];
-  v20[6] = *MEMORY[0x1E6959640];
-  v20[7] = v6;
+  v19[6] = *MEMORY[0x1E6959640];
+  v19[7] = v6;
   v7 = *MEMORY[0x1E6959668];
-  v20[8] = *MEMORY[0x1E6959678];
-  v20[9] = v7;
+  v19[8] = *MEMORY[0x1E6959678];
+  v19[9] = v7;
   v8 = *MEMORY[0x1E6959690];
-  v20[10] = *MEMORY[0x1E6959660];
-  v20[11] = v8;
+  v19[10] = *MEMORY[0x1E6959660];
+  v19[11] = v8;
   v9 = *MEMORY[0x1E69596B8];
-  v20[12] = *MEMORY[0x1E6959698];
-  v20[13] = v9;
+  v19[12] = *MEMORY[0x1E6959698];
+  v19[13] = v9;
   v10 = *MEMORY[0x1E69596D0];
-  v20[14] = *MEMORY[0x1E69596C0];
-  v20[15] = v10;
+  v19[14] = *MEMORY[0x1E69596C0];
+  v19[15] = v10;
   v11 = *MEMORY[0x1E6959708];
-  v20[16] = *MEMORY[0x1E69596E0];
-  v20[17] = v11;
+  v19[16] = *MEMORY[0x1E69596E0];
+  v19[17] = v11;
   v12 = *MEMORY[0x1E6959718];
-  v20[18] = *MEMORY[0x1E6959710];
-  v20[19] = v12;
+  v19[18] = *MEMORY[0x1E6959710];
+  v19[19] = v12;
   v13 = *MEMORY[0x1E6959680];
-  v20[20] = *MEMORY[0x1E69596C8];
-  v20[21] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:22];
+  v19[20] = *MEMORY[0x1E69596C8];
+  v19[21] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:22];
   v15 = [v2 setWithArray:v14];
 
   if (+[AAPreferences isMomentsDataclassEnabled])
@@ -124,32 +120,28 @@
     v15 = v17;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 - (id)_nonVisibleServiceDataclass
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
-  v7[0] = *MEMORY[0x1E6959688];
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+  v6[0] = *MEMORY[0x1E6959688];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)denyListedMacOSDataclasses
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = *MEMORY[0x1E6959670];
-  v9[0] = *MEMORY[0x1E6959600];
-  v9[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[0] = *MEMORY[0x1E6959600];
+  v8[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   v5 = [v2 setWithArray:v4];
 
   if ((_os_feature_enabled_impl() & 1) == 0)
@@ -158,8 +150,6 @@
 
     v5 = v6;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -194,7 +184,7 @@ LABEL_9:
 
 - (id)filteredServerProvidedFeatures:(id)features forAccount:(id)account
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   featuresCopy = features;
   accountCopy = account;
   if (accountCopy)
@@ -246,45 +236,43 @@ LABEL_3:
   }
 
   v14 = [MEMORY[0x1E695DFA8] setWithArray:MEMORY[0x1E695E0F0]];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v15 = v9;
-  v16 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v24;
+    v18 = *v23;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v24 != v18)
+        if (*v23 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v23 + 1) + 8 * i);
+        v20 = *(*(&v22 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           [AADataclassManager filteredServerProvidedFeatures:forAccount:];
         }
 
-        if ([(AADataclassManager *)self shouldProvisionDataclass:v20 forAccount:accountCopy, v23])
+        if ([(AADataclassManager *)self shouldProvisionDataclass:v20 forAccount:accountCopy, v22])
         {
           [v14 addObject:v20];
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v17);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -413,47 +401,45 @@ void __40__AADataclassManager_dataclassBundleMap__block_invoke()
 
 void __56__AADataclassManager__isRestrictedForDataclass_account___block_invoke()
 {
-  v17[11] = *MEMORY[0x1E69E9840];
+  v16[11] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E69ADE28];
   v1 = *MEMORY[0x1E69596A0];
-  v16[0] = *MEMORY[0x1E6959688];
-  v16[1] = v1;
+  v15[0] = *MEMORY[0x1E6959688];
+  v15[1] = v1;
   v2 = *MEMORY[0x1E69ADF18];
-  v17[0] = v0;
-  v17[1] = v2;
+  v16[0] = v0;
+  v16[1] = v2;
   v3 = *MEMORY[0x1E69ADF60];
   v4 = *MEMORY[0x1E6959700];
-  v16[2] = *MEMORY[0x1E69596F0];
-  v16[3] = v4;
+  v15[2] = *MEMORY[0x1E69596F0];
+  v15[3] = v4;
   v5 = *MEMORY[0x1E69ADE08];
-  v17[2] = v3;
-  v17[3] = v5;
+  v16[2] = v3;
+  v16[3] = v5;
   v6 = *MEMORY[0x1E69ADE20];
   v7 = *MEMORY[0x1E6959658];
-  v16[4] = *MEMORY[0x1E6959600];
-  v16[5] = v7;
+  v15[4] = *MEMORY[0x1E6959600];
+  v15[5] = v7;
   v8 = *MEMORY[0x1E69ADE78];
-  v17[4] = v6;
-  v17[5] = v8;
+  v16[4] = v6;
+  v16[5] = v8;
   v9 = *MEMORY[0x1E69ADE98];
   v10 = *MEMORY[0x1E6959678];
-  v16[6] = *MEMORY[0x1E6959670];
-  v16[7] = v10;
+  v15[6] = *MEMORY[0x1E6959670];
+  v15[7] = v10;
   v11 = *MEMORY[0x1E69ADEA0];
-  v17[6] = v9;
-  v17[7] = v11;
+  v16[6] = v9;
+  v16[7] = v11;
   v12 = *MEMORY[0x1E6959718];
-  v16[8] = *MEMORY[0x1E69596B8];
-  v16[9] = v12;
-  v17[8] = *MEMORY[0x1E69ADF08];
-  v17[9] = v0;
-  v16[10] = *MEMORY[0x1E6959680];
-  v17[10] = *MEMORY[0x1E69ADEC0];
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:11];
+  v15[8] = *MEMORY[0x1E69596B8];
+  v15[9] = v12;
+  v16[8] = *MEMORY[0x1E69ADF08];
+  v16[9] = v0;
+  v15[10] = *MEMORY[0x1E6959680];
+  v16[10] = *MEMORY[0x1E69ADEC0];
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:11];
   v14 = _isRestrictedForDataclass_account__dataclassToFeatureDictionary;
   _isRestrictedForDataclass_account__dataclassToFeatureDictionary = v13;
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)userDefaultsDisabledDataclasses
@@ -473,7 +459,7 @@ void __56__AADataclassManager__isRestrictedForDataclass_account___block_invoke()
   v5 = v4;
 
   v6 = [v5 valueForKey:@"DisabledDataclasses"];
-  v7 = _AALogSystem();
+  v7 = _AALogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [AADataclassManager userDefaultsDisabledDataclasses];
@@ -488,36 +474,36 @@ void __56__AADataclassManager__isRestrictedForDataclass_account___block_invoke()
 {
   v13 = *MEMORY[0x1E69E9840];
   dataclassCopy = dataclass;
-  if ([(AADataclassManager *)self _isRestrictedForDataclass:dataclassCopy account:account])
+  v7 = [(AADataclassManager *)self _isRestrictedForDataclass:dataclassCopy account:account];
+  if (v7)
   {
-    v7 = _AALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _AALogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138412290;
       v12 = dataclassCopy;
-      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "%@ is not available due to restrictions.", &v11, 0xCu);
+      _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "%@ is not available due to restrictions.", &v11, 0xCu);
     }
 
-    v8 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v8 = [(AADataclassManager *)self _appStatusRestrictsProvisioningForDataclass:dataclassCopy];
+    v9 = [(AADataclassManager *)self _appStatusRestrictsProvisioningForDataclass:dataclassCopy];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v9;
 }
 
 - (BOOL)_appStatusRestrictsProvisioningForDataclass:(id)dataclass
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dataclassCopy = dataclass;
   v5 = [(AADataclassManager *)self appBundleIdentifierForDataclass:dataclassCopy];
   if (!v5)
   {
-    v6 = _AALogSystem();
+    v6 = _AALogSystem(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [AADataclassManager _appStatusRestrictsProvisioningForDataclass:];
@@ -529,16 +515,17 @@ void __56__AADataclassManager__isRestrictedForDataclass_account___block_invoke()
   v6 = [AAAppStateProvider appStateForBundleID:v5];
   if (([v6 isInstalled]& 1) != 0)
   {
-    if ([v6 isRestricted])
+    isRestricted = [v6 isRestricted];
+    if (isRestricted)
     {
-      v7 = _AALogSystem();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = _AALogSystem(isRestricted);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138412290;
-        v13 = dataclassCopy;
-        v8 = "%@ is not available with a restricted app.";
+        v13 = 138412290;
+        v14 = dataclassCopy;
+        v9 = "%@ is not available with a restricted app.";
 LABEL_11:
-        _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, v8, &v12, 0xCu);
+        _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, v9, &v13, 0xCu);
         goto LABEL_12;
       }
 
@@ -546,31 +533,31 @@ LABEL_11:
     }
 
 LABEL_13:
-    v9 = 0;
+    v11 = 0;
     goto LABEL_14;
   }
 
-  if (![(AADataclassManager *)self _hideDataclassWhenAppRemoved:dataclassCopy])
+  v10 = [(AADataclassManager *)self _hideDataclassWhenAppRemoved:dataclassCopy];
+  if (!v10)
   {
     goto LABEL_13;
   }
 
-  v7 = _AALogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _AALogSystem(v10);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = dataclassCopy;
-    v8 = "%@ is not available when its app is removed.";
+    v13 = 138412290;
+    v14 = dataclassCopy;
+    v9 = "%@ is not available when its app is removed.";
     goto LABEL_11;
   }
 
 LABEL_12:
 
-  v9 = 1;
+  v11 = 1;
 LABEL_14:
 
-  v10 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v11;
 }
 
 - (BOOL)_shouldShowDataclassWhenAppIsRemoved:(id)removed
@@ -589,26 +576,24 @@ LABEL_14:
 
 void __59__AADataclassManager__shouldShowDataclassWhenAppIsRemoved___block_invoke()
 {
-  v6[6] = *MEMORY[0x1E69E9840];
+  v5[6] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6959640];
-  v6[0] = *MEMORY[0x1E6959630];
-  v6[1] = v0;
+  v5[0] = *MEMORY[0x1E6959630];
+  v5[1] = v0;
   v1 = *MEMORY[0x1E6959678];
-  v6[2] = *MEMORY[0x1E6959670];
-  v6[3] = v1;
+  v5[2] = *MEMORY[0x1E6959670];
+  v5[3] = v1;
   v2 = *MEMORY[0x1E6959718];
-  v6[4] = *MEMORY[0x1E69596E0];
-  v6[5] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:6];
+  v5[4] = *MEMORY[0x1E69596E0];
+  v5[5] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:6];
   v4 = _shouldShowDataclassWhenAppIsRemoved__dataclassesToKeep;
   _shouldShowDataclassWhenAppIsRemoved__dataclassesToKeep = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)canAutoEnableDataclass:(id)dataclass forAccount:(id)account
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dataclassCopy = dataclass;
   accountCopy = account;
   v8 = accountCopy;
@@ -631,12 +616,12 @@ void __59__AADataclassManager__shouldShowDataclassWhenAppIsRemoved___block_invok
 
   [AADataclassManager canAutoEnableDataclass:forAccount:];
 LABEL_3:
-  v9 = _AALogSystem();
+  v9 = _AALogSystem(accountCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138412290;
-    v23 = dataclassCopy;
-    _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "Checking if we need to auto-enable: %@", &v22, 0xCu);
+    v23 = 138412290;
+    v24 = dataclassCopy;
+    _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "Checking if we need to auto-enable: %@", &v23, 0xCu);
   }
 
   if (![v8 aa_isPrimaryEmailVerified])
@@ -678,36 +663,42 @@ LABEL_17:
 
   else
   {
-    if ([dataclassCopy isEqualToString:*MEMORY[0x1E6959670]] && +[AADeviceModelHelper isDeviceiPad](AADeviceModelHelper, "isDeviceiPad"))
+    if ([dataclassCopy isEqualToString:*MEMORY[0x1E6959670]])
     {
-      v21 = _AALogSystem();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v21 = +[AADeviceModelHelper isDeviceiPad];
+      if (v21)
       {
-        LOWORD(v22) = 0;
-        _os_log_impl(&dword_1B6F6A000, v21, OS_LOG_TYPE_DEFAULT, "Health Dataclass. Setting auto-enable for iPad to false.", &v22, 2u);
-      }
+        v22 = _AALogSystem(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v23) = 0;
+          _os_log_impl(&dword_1B6F6A000, v22, OS_LOG_TYPE_DEFAULT, "Health Dataclass. Setting auto-enable for iPad to false.", &v23, 2u);
+        }
 
-      goto LABEL_17;
+        goto LABEL_17;
+      }
     }
 
     v13 = 0;
   }
 
 LABEL_18:
-  if ([v8 aa_isManagedAppleID])
+  aa_isManagedAppleID = [v8 aa_isManagedAppleID];
+  if (aa_isManagedAppleID)
   {
-    if ((([v8 aa_serverDisabledDataclass:dataclassCopy] | v13) & 1) == 0)
+    aa_isManagedAppleID = [v8 aa_serverDisabledDataclass:dataclassCopy];
+    if (((aa_isManagedAppleID | v13) & 1) == 0)
     {
 LABEL_20:
-      v14 = _AALogSystem();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = _AALogSystem(aa_isManagedAppleID);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 138412290;
-        v23 = dataclassCopy;
-        _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "Auto-enabling dataclass: %@", &v22, 0xCu);
+        v23 = 138412290;
+        v24 = dataclassCopy;
+        _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "Auto-enabling dataclass: %@", &v23, 0xCu);
       }
 
-      v15 = 1;
+      v16 = 1;
       goto LABEL_27;
     }
   }
@@ -717,19 +708,18 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v14 = _AALogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _AALogSystem(aa_isManagedAppleID);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138412290;
-    v23 = dataclassCopy;
-    _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "Skipping auto-enable for %@", &v22, 0xCu);
+    v23 = 138412290;
+    v24 = dataclassCopy;
+    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "Skipping auto-enable for %@", &v23, 0xCu);
   }
 
-  v15 = 0;
+  v16 = 0;
 LABEL_27:
 
-  v16 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v16;
 }
 
 - (BOOL)shouldProvisionDataclass:(id)dataclass forAccount:(id)account
@@ -818,28 +808,34 @@ LABEL_19:
   {
 
 LABEL_10:
-    v8 = 1;
+    v9 = 1;
     goto LABEL_11;
   }
 
   aa_accountClass2 = [accountCopy aa_accountClass];
   v6 = [aa_accountClass2 isEqualToString:@"full"];
 
-  if ((v6 & 1) != 0 || ![accountCopy aa_isNotesMigrated])
+  if (v6)
   {
     goto LABEL_10;
   }
 
-  v7 = _AALogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  aa_isNotesMigrated = [accountCopy aa_isNotesMigrated];
+  if (!aa_isNotesMigrated)
+  {
+    goto LABEL_10;
+  }
+
+  v8 = _AALogSystem(aa_isNotesMigrated);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [AADataclassManager _shouldProvisionNotesForAccount:];
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_11:
 
-  return v8;
+  return v9;
 }
 
 - (BOOL)_shouldProvisionRemindersForAccount:(id)account
@@ -855,33 +851,39 @@ LABEL_11:
   {
 
 LABEL_10:
-    v8 = 1;
+    v9 = 1;
     goto LABEL_11;
   }
 
   aa_accountClass2 = [accountCopy aa_accountClass];
   v6 = [aa_accountClass2 isEqualToString:@"full"];
 
-  if ((v6 & 1) != 0 || ![accountCopy aa_isRemindersMigrated])
+  if (v6)
   {
     goto LABEL_10;
   }
 
-  v7 = _AALogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  aa_isRemindersMigrated = [accountCopy aa_isRemindersMigrated];
+  if (!aa_isRemindersMigrated)
+  {
+    goto LABEL_10;
+  }
+
+  v8 = _AALogSystem(aa_isRemindersMigrated);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [AADataclassManager _shouldProvisionRemindersForAccount:];
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_11:
 
-  return v8;
+  return v9;
 }
 
 - (void)enableDataclassesWithoutLocalDataDataclassActionsForAccount:(id)account completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   completionCopy = completion;
   v8 = [(AADataclassManager *)self filterDataclassesForPossibleAutoEnablementForAccount:accountCopy];
@@ -892,7 +894,7 @@ LABEL_11:
 
   else
   {
-    v9 = _AALogSystem();
+    v9 = _AALogSystem(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
@@ -905,28 +907,26 @@ LABEL_11:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v19 = __Block_byref_object_copy__5;
-    v20 = __Block_byref_object_dispose__5;
-    v21 = os_transaction_create();
-    v12 = MEMORY[0x1E69E9820];
-    v13 = 3221225472;
-    v14 = __93__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsForAccount_completion___block_invoke;
-    v15 = &unk_1E7C9BB20;
-    v16 = completionCopy;
-    v17 = buf;
-    v10 = _Block_copy(&v12);
-    [(AAAccountStoreProxyProtocol *)self->_storeProxy saveAccount:accountCopy onAccountStore:self->_store withCompletionHandler:v10, v12, v13, v14, v15];
+    v18 = __Block_byref_object_copy__5;
+    v19 = __Block_byref_object_dispose__5;
+    v20 = os_transaction_create();
+    v11 = MEMORY[0x1E69E9820];
+    v12 = 3221225472;
+    v13 = __93__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsForAccount_completion___block_invoke;
+    v14 = &unk_1E7C9BB20;
+    v15 = completionCopy;
+    v16 = buf;
+    v10 = _Block_copy(&v11);
+    [(AAAccountStoreProxyProtocol *)self->_storeProxy saveAccount:accountCopy onAccountStore:self->_store withCompletionHandler:v10, v11, v12, v13, v14];
 
     _Block_object_dispose(buf, 8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __93__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsForAccount_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = _AALogSystem();
+  v5 = _AALogSystem(v4);
   v6 = v5;
   if (v4)
   {
@@ -961,6 +961,7 @@ void __93__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsF
   dataclassesCopy = dataclasses;
   accountCopy = account;
   completionCopy = completion;
+  v11 = completionCopy;
   if (!dataclassesCopy)
   {
     [AADataclassManager enableDataclassesWithoutLocalDataDataclassActionsForDataclasses:fromAccount:completion:];
@@ -971,19 +972,19 @@ void __93__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsF
     [AADataclassManager enableDataclassesWithoutLocalDataDataclassActionsForDataclasses:fromAccount:completion:];
   }
 
-  if (!completionCopy)
+  if (!v11)
   {
     [AADataclassManager enableDataclassesWithoutLocalDataDataclassActionsForDataclasses:fromAccount:completion:];
   }
 
-  v11 = _AALogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _AALogSystem(completionCopy);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     v20 = accountCopy;
     v21 = 2114;
     v22 = dataclassesCopy;
-    _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "Attempting to auto-enable dataclasses for account (%@): %{public}@", buf, 0x16u);
+    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "Attempting to auto-enable dataclasses for account (%@): %{public}@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
@@ -992,104 +993,101 @@ void __93__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsF
   v15[2] = __109__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsForDataclasses_fromAccount_completion___block_invoke;
   v15[3] = &unk_1E7C9BB70;
   objc_copyWeak(&v18, buf);
-  v12 = completionCopy;
-  v17 = v12;
+  v13 = v11;
+  v17 = v13;
   v15[4] = self;
-  v13 = accountCopy;
-  v16 = v13;
-  [(AADataclassManager *)self _buildAutoEnableableDataclassesAndActionsForAccount:v13 dataclassesForEnablement:dataclassesCopy completion:v15];
+  v14 = accountCopy;
+  v16 = v14;
+  [(AADataclassManager *)self _buildAutoEnableableDataclassesAndActionsForAccount:v14 dataclassesForEnablement:dataclassesCopy completion:v15];
 
   objc_destroyWeak(&v18);
   objc_destroyWeak(buf);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __109__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsForDataclasses_fromAccount_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = [v5 objectForKeyedSubscript:@"dataclasses"];
-    v8 = [v5 objectForKeyedSubscript:@"dataclassActions"];
-    v9 = _AALogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-    {
-      LODWORD(buf) = 138412290;
-      *(&buf + 4) = v7;
-      _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "Filtered dataclasses: %@", &buf, 0xCu);
-    }
-
-    v10 = _AALogSystem();
+    v8 = [v5 objectForKeyedSubscript:@"dataclasses"];
+    v9 = [v5 objectForKeyedSubscript:@"dataclassActions"];
+    v10 = _AALogSystem(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = v8;
-      _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "Filtered dataclass actions: %@", &buf, 0xCu);
+      _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "Filtered dataclasses: %@", &buf, 0xCu);
+    }
+
+    v12 = _AALogSystem(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      LODWORD(buf) = 138412290;
+      *(&buf + 4) = v9;
+      _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "Filtered dataclass actions: %@", &buf, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 56));
     if (WeakRetained)
     {
-      v12 = [*(a1 + 32) _shouldVerifyAccountSave];
+      v14 = [*(a1 + 32) _shouldVerifyAccountSave];
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v31 = 0x3032000000;
-      v32 = __Block_byref_object_copy__5;
-      v33 = __Block_byref_object_dispose__5;
-      v34 = os_transaction_create();
-      v22 = MEMORY[0x1E69E9820];
-      v23 = 3221225472;
-      v24 = __109__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsForDataclasses_fromAccount_completion___block_invoke_144;
-      v25 = &unk_1E7C9BB48;
-      v14 = *(a1 + 40);
-      v13 = a1 + 40;
-      v26 = v14;
-      v15 = v8;
-      v27 = v15;
-      v28 = *(v13 + 8);
+      v32 = 0x3032000000;
+      v33 = __Block_byref_object_copy__5;
+      v34 = __Block_byref_object_dispose__5;
+      v35 = os_transaction_create();
+      v23 = MEMORY[0x1E69E9820];
+      v24 = 3221225472;
+      v25 = __109__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsForDataclasses_fromAccount_completion___block_invoke_144;
+      v26 = &unk_1E7C9BB48;
+      v16 = *(a1 + 40);
+      v15 = a1 + 40;
+      v27 = v16;
+      v17 = v9;
+      v28 = v17;
+      v29 = *(v15 + 8);
       p_buf = &buf;
-      v16 = _Block_copy(&v22);
-      [WeakRetained[2] saveAccount:*v13 onAccountStore:WeakRetained[1] withDataclassActions:v15 doVerify:v12 completion:{v16, v22, v23, v24, v25}];
+      v18 = _Block_copy(&v23);
+      [WeakRetained[2] saveAccount:*v15 onAccountStore:WeakRetained[1] withDataclassActions:v17 doVerify:v14 completion:{v18, v23, v24, v25, v26}];
 
       _Block_object_dispose(&buf, 8);
     }
 
     else
     {
-      v18 = _AALogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = _AALogSystem(0);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        __109__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsForDataclasses_fromAccount_completion___block_invoke_cold_1(v18);
+        __109__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsForDataclasses_fromAccount_completion___block_invoke_cold_1(v20);
       }
 
-      v19 = *(a1 + 48);
-      v20 = [MEMORY[0x1E696ABC0] errorWithDomain:@"AASignInErrors" code:-8015 userInfo:0];
-      (*(v19 + 16))(v19, 0, v20);
+      v21 = *(a1 + 48);
+      v22 = [MEMORY[0x1E696ABC0] errorWithDomain:@"AASignInErrors" code:-8015 userInfo:0];
+      (*(v21 + 16))(v21, 0, v22);
     }
   }
 
   else
   {
-    v17 = _AALogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = _AALogSystem(v6);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       __109__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsForDataclasses_fromAccount_completion___block_invoke_cold_2();
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __109__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsForDataclasses_fromAccount_completion___block_invoke_144(void *a1, int a2, void *a3)
 {
   v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _AALogSystem();
+  v6 = _AALogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -1111,53 +1109,51 @@ void __109__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActions
 
   if (v5)
   {
-    v10 = _AALogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _AALogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __109__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsForDataclasses_fromAccount_completion___block_invoke_144_cold_1();
     }
   }
 
   (*(a1[6] + 16))();
-  v11 = *(a1[7] + 8);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = 0;
-
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *(a1[7] + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = 0;
 }
 
 - (void)_buildAutoEnableableDataclassesAndActionsForAccount:(id)account dataclassesForEnablement:(id)enablement completion:(id)completion
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   enablementCopy = enablement;
   completionCopy = completion;
-  v30 = [enablementCopy mutableCopy];
+  v29 = [enablementCopy mutableCopy];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   v11 = enablementCopy;
-  v12 = [v11 countByEnumeratingWithState:&v40 objects:v46 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v39 objects:v45 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v41;
+    v14 = *v40;
     do
     {
       v15 = 0;
       do
       {
-        if (*v41 != v14)
+        if (*v40 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [accountCopy setEnabled:1 forDataclass:{*(*(&v40 + 1) + 8 * v15++), v30}];
+        [accountCopy setEnabled:1 forDataclass:{*(*(&v39 + 1) + 8 * v15++), v29}];
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v40 objects:v46 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v39 objects:v45 count:16];
     }
 
     while (v13);
@@ -1166,39 +1162,39 @@ void __109__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActions
   v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
   aa_isPrimaryEmailVerified = [accountCopy aa_isPrimaryEmailVerified];
   store = self->_store;
-  v39 = 0;
-  v19 = [(ACAccountStore *)store dataclassActionsForAccountSave:accountCopy error:&v39];
-  v20 = v39;
+  v38 = 0;
+  v19 = [(ACAccountStore *)store dataclassActionsForAccountSave:accountCopy error:&v38];
+  v20 = v38;
   v21 = v20;
   if (v19)
   {
-    v22 = _AALogSystem();
+    v22 = _AALogSystem(v20);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v45 = v19;
+      v44 = v19;
       _os_log_impl(&dword_1B6F6A000, v22, OS_LOG_TYPE_DEFAULT, "We have potential dataclass actions: %@", buf, 0xCu);
     }
 
     v23 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v31 = MEMORY[0x1E69E9820];
-    v32 = 3221225472;
-    v33 = __110__AADataclassManager__buildAutoEnableableDataclassesAndActionsForAccount_dataclassesForEnablement_completion___block_invoke;
-    v34 = &unk_1E7C9BB98;
+    v30 = MEMORY[0x1E69E9820];
+    v31 = 3221225472;
+    v32 = __110__AADataclassManager__buildAutoEnableableDataclassesAndActionsForAccount_dataclassesForEnablement_completion___block_invoke;
+    v33 = &unk_1E7C9BB98;
     selfCopy = self;
-    v36 = v23;
-    v24 = v30;
-    v37 = v30;
-    v38 = accountCopy;
+    v35 = v23;
+    v24 = v29;
+    v36 = v29;
+    v37 = accountCopy;
     v25 = v23;
-    [v19 enumerateKeysAndObjectsUsingBlock:&v31];
+    [v19 enumerateKeysAndObjectsUsingBlock:&v30];
     v26 = [v25 copy];
     [v16 setObject:v26 forKeyedSubscript:@"dataclassActions"];
 
     goto LABEL_12;
   }
 
-  v24 = v30;
+  v24 = v29;
   if (!v20)
   {
 LABEL_12:
@@ -1214,7 +1210,7 @@ LABEL_12:
     goto LABEL_19;
   }
 
-  v28 = _AALogSystem();
+  v28 = _AALogSystem(v20);
   if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
     [AADataclassManager _buildAutoEnableableDataclassesAndActionsForAccount:dataclassesForEnablement:completion:];
@@ -1222,30 +1218,28 @@ LABEL_12:
 
   (completionCopy)[2](completionCopy, 0, v21);
 LABEL_19:
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __110__AADataclassManager__buildAutoEnableableDataclassesAndActionsForAccount_dataclassesForEnablement_completion___block_invoke(id *a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v6 count])
   {
     v7 = [v6 count];
-    v8 = _AALogSystem();
+    v8 = _AALogSystem(v7);
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (v7 == 1)
     {
       if (v9)
       {
         v10 = [v6 objectAtIndexedSubscript:0];
-        v15 = 134218242;
-        v16 = [v10 type];
-        v17 = 2112;
-        v18 = v5;
-        _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "Action %lu available for %@", &v15, 0x16u);
+        v14 = 134218242;
+        v15 = [v10 type];
+        v16 = 2112;
+        v17 = v5;
+        _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "Action %lu available for %@", &v14, 0x16u);
       }
 
       v11 = [v6 firstObject];
@@ -1260,11 +1254,11 @@ void __110__AADataclassManager__buildAutoEnableableDataclassesAndActionsForAccou
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           v13 = [v11 type];
-          v15 = 138412546;
-          v16 = v5;
-          v17 = 2048;
-          v18 = v13;
-          _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "Not enabling dataclass %@ as only action %lu is not safe for auto enablement.", &v15, 0x16u);
+          v14 = 138412546;
+          v15 = v5;
+          v16 = 2048;
+          v17 = v13;
+          _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "Not enabling dataclass %@ as only action %lu is not safe for auto enablement.", &v14, 0x16u);
         }
 
         [a1[6] removeObject:v5];
@@ -1276,17 +1270,15 @@ void __110__AADataclassManager__buildAutoEnableableDataclassesAndActionsForAccou
     {
       if (v9)
       {
-        v15 = 138412290;
-        v16 = v5;
-        _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "Unable to auto-enable dataclass %@ as enablement requires a user decision.", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = v5;
+        _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "Unable to auto-enable dataclass %@ as enablement requires a user decision.", &v14, 0xCu);
       }
 
       [a1[6] removeObject:v5];
       [a1[7] setEnabled:0 forDataclass:v5];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)filterDataclassesForPossibleAutoEnablementForAccount:(id)account
@@ -1311,13 +1303,19 @@ void __110__AADataclassManager__buildAutoEnableableDataclassesAndActionsForAccou
 uint64_t __75__AADataclassManager_filterDataclassesForPossibleAutoEnablementForAccount___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (![*(a1 + 32) isProvisionedForDataclass:v3] || (objc_msgSend(*(a1 + 32), "isEnabledForDataclass:", v3) & 1) != 0)
+  if (![*(a1 + 32) isProvisionedForDataclass:v3])
   {
     goto LABEL_6;
   }
 
-  v4 = _AALogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v4 = [*(a1 + 32) isEnabledForDataclass:v3];
+  if (v4)
+  {
+    goto LABEL_6;
+  }
+
+  v5 = _AALogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __75__AADataclassManager_filterDataclassesForPossibleAutoEnablementForAccount___block_invoke_cold_1();
   }
@@ -1325,16 +1323,16 @@ uint64_t __75__AADataclassManager_filterDataclassesForPossibleAutoEnablementForA
   if ([*(a1 + 40) containsObject:v3])
   {
 LABEL_6:
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = +[AADataclassManager sharedManager];
-    v5 = [v7 canAutoEnableDataclass:v3 forAccount:*(a1 + 32)];
+    v8 = +[AADataclassManager sharedManager];
+    v6 = [v8 canAutoEnableDataclass:v3 forAccount:*(a1 + 32)];
   }
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)_shouldVerifyAccountSave
@@ -1353,8 +1351,8 @@ LABEL_6:
     return 1;
   }
 
-  v5 = _AALogSystem();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = _AALogSystem(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [AADataclassManager _shouldVerifyAccountSave];
   }
@@ -1388,20 +1386,16 @@ LABEL_6:
 
 - (void)userDefaultsDisabledDataclasses
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_appStatusRestrictsProvisioningForDataclass:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)canAutoEnableDataclass:forAccount:.cold.1()
@@ -1446,11 +1440,9 @@ LABEL_6:
 
 - (void)_shouldProvisionNotesForAccount:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_shouldProvisionRemindersForAccount:.cold.1()
@@ -1463,19 +1455,9 @@ LABEL_6:
 
 - (void)_shouldProvisionRemindersForAccount:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __93__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsForAccount_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, v0, v1, "Failed to save account without auto-enableable dataclasses with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enableDataclassesWithoutLocalDataDataclassActionsForDataclasses:fromAccount:completion:.cold.1()
@@ -1500,30 +1482,6 @@ void __93__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsF
   v1 = [MEMORY[0x1E696AAA8] currentHandler];
   OUTLINED_FUNCTION_1_3();
   [v0 handleFailureInMethod:@"completion" object:? file:? lineNumber:? description:?];
-}
-
-void __109__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsForDataclasses_fromAccount_completion___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, v0, v1, "Unable to build list of dataclasses and actions for enablement %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __109__AADataclassManager_enableDataclassesWithoutLocalDataDataclassActionsForDataclasses_fromAccount_completion___block_invoke_144_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, v0, v1, "Encountered error when saving with dataclass actions: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_buildAutoEnableableDataclassesAndActionsForAccount:dataclassesForEnablement:completion:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, v0, v1, "Failed to get dataclass actions for account, error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

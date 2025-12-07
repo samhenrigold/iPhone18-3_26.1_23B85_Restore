@@ -131,28 +131,29 @@
   neccessaryCopy = neccessary;
   if (!self->_deliveryButton && !self->_isCriticalAlert)
   {
-    v12 = neccessaryCopy;
+    v13 = neccessaryCopy;
     isDeliveredQuietly = [neccessaryCopy isDeliveredQuietly];
-    v6 = NCUserNotificationsUIKitFrameworkBundle();
-    v7 = v6;
-    if (isDeliveredQuietly)
+    v6 = isDeliveredQuietly;
+    v7 = NCUserNotificationsUIKitFrameworkBundle(isDeliveredQuietly);
+    v8 = v7;
+    if (v6)
     {
-      v8 = @"NOTIFICATION_MANAGEMENT_DELIVER_PROMINENTLY";
+      v9 = @"NOTIFICATION_MANAGEMENT_DELIVER_PROMINENTLY";
     }
 
     else
     {
-      v8 = @"NOTIFICATION_MANAGEMENT_DELIVER_QUIETLY";
+      v9 = @"NOTIFICATION_MANAGEMENT_DELIVER_QUIETLY";
     }
 
-    v9 = [v6 localizedStringForKey:v8 value:&stru_282FE84F8 table:0];
+    v10 = [v7 localizedStringForKey:v9 value:&stru_282FE84F8 table:0];
 
-    v10 = [NCNotificationManagementBlueButton buttonWithTitle:v9];
+    v11 = [NCNotificationManagementBlueButton buttonWithTitle:v10];
     deliveryButton = self->_deliveryButton;
-    self->_deliveryButton = v10;
+    self->_deliveryButton = v11;
 
     [(NCNotificationManagementView *)self addSubview:self->_deliveryButton];
-    neccessaryCopy = v12;
+    neccessaryCopy = v13;
   }
 }
 
@@ -161,45 +162,47 @@
   neccessaryCopy = neccessary;
   if (!self->_onOffToggleButton)
   {
-    v12 = neccessaryCopy;
+    v14 = neccessaryCopy;
     if (self->_isCriticalAlert)
     {
       criticalAlertsEnabled = [neccessaryCopy criticalAlertsEnabled];
-      v6 = NCUserNotificationsUIKitFrameworkBundle();
-      if (criticalAlertsEnabled)
+      v6 = criticalAlertsEnabled;
+      v7 = NCUserNotificationsUIKitFrameworkBundle(criticalAlertsEnabled);
+      if (v6)
       {
-        v7 = @"NOTIFICATION_MANAGEMENT_TURN_OFF_CRITICAL_ALERTS";
+        v8 = @"NOTIFICATION_MANAGEMENT_TURN_OFF_CRITICAL_ALERTS";
       }
 
       else
       {
-        v7 = @"NOTIFICATION_MANAGEMENT_TURN_ON_CRITICAL_ALERTS";
+        v8 = @"NOTIFICATION_MANAGEMENT_TURN_ON_CRITICAL_ALERTS";
       }
     }
 
     else
     {
       notificationsEnabled = [neccessaryCopy notificationsEnabled];
-      v6 = NCUserNotificationsUIKitFrameworkBundle();
-      if (notificationsEnabled)
+      v10 = notificationsEnabled;
+      v7 = NCUserNotificationsUIKitFrameworkBundle(notificationsEnabled);
+      if (v10)
       {
-        v7 = @"NOTIFICATION_MANAGEMENT_TURN_OFF_DEFAULT";
+        v8 = @"NOTIFICATION_MANAGEMENT_TURN_OFF_DEFAULT";
       }
 
       else
       {
-        v7 = @"NOTIFICATION_MANAGEMENT_TURN_ON_DEFAULT";
+        v8 = @"NOTIFICATION_MANAGEMENT_TURN_ON_DEFAULT";
       }
     }
 
-    v9 = [v6 localizedStringForKey:v7 value:&stru_282FE84F8 table:0];
+    v11 = [v7 localizedStringForKey:v8 value:&stru_282FE84F8 table:0];
 
-    v10 = [NCNotificationManagementBlueButton buttonWithTitle:v9];
+    v12 = [NCNotificationManagementBlueButton buttonWithTitle:v11];
     onOffToggleButton = self->_onOffToggleButton;
-    self->_onOffToggleButton = v10;
+    self->_onOffToggleButton = v12;
 
     [(NCNotificationManagementView *)self addSubview:self->_onOffToggleButton];
-    neccessaryCopy = v12;
+    neccessaryCopy = v14;
   }
 }
 
@@ -219,7 +222,7 @@
   neccessaryCopy = neccessary;
   if (!self->_explanation)
   {
-    v18 = neccessaryCopy;
+    v21 = neccessaryCopy;
     v5 = objc_alloc_init(MEMORY[0x277D756B8]);
     explanation = self->_explanation;
     self->_explanation = v5;
@@ -231,58 +234,59 @@
 
       if (deviceClass == 2)
       {
-        v9 = NCUserNotificationsUIKitFrameworkBundle();
-        v10 = v9;
-        v11 = @"NOTIFICATION_MANAGEMENT_CRITICAL_EXPLANATION_IPAD";
+        v10 = NCUserNotificationsUIKitFrameworkBundle(v9);
+        v11 = v10;
+        v12 = @"NOTIFICATION_MANAGEMENT_CRITICAL_EXPLANATION_IPAD";
 LABEL_12:
-        v15 = [v9 localizedStringForKey:v11 value:&stru_282FE84F8 table:0];
+        v18 = [v10 localizedStringForKey:v12 value:&stru_282FE84F8 table:0];
 
-        [(UILabel *)self->_explanation setText:v15];
+        [(UILabel *)self->_explanation setText:v18];
         [(UILabel *)self->_explanation setContentMode:4];
         [(UILabel *)self->_explanation setTextAlignment:1];
         preferredFontProvider = [MEMORY[0x277CF0D60] preferredFontProvider];
-        v17 = [preferredFontProvider preferredFontForTextStyle:*MEMORY[0x277D76968] hiFontStyle:8];
+        v20 = [preferredFontProvider preferredFontForTextStyle:*MEMORY[0x277D76968] hiFontStyle:8];
 
-        [(UILabel *)self->_explanation setFont:v17];
+        [(UILabel *)self->_explanation setFont:v20];
         [(UILabel *)self->_explanation setNumberOfLines:0];
         [(NCNotificationManagementView *)self _updateExplanationVisualStyling];
         [(NCNotificationManagementView *)self addSubview:self->_explanation];
 
-        neccessaryCopy = v18;
+        neccessaryCopy = v21;
         goto LABEL_13;
       }
 
       mEMORY[0x277CF0CA8]2 = [MEMORY[0x277CF0CA8] sharedInstance];
       deviceClass2 = [mEMORY[0x277CF0CA8]2 deviceClass];
 
-      v10 = NCUserNotificationsUIKitFrameworkBundle();
+      v11 = NCUserNotificationsUIKitFrameworkBundle(v17);
       if (deviceClass2 == 1)
       {
-        v11 = @"NOTIFICATION_MANAGEMENT_CRITICAL_EXPLANATION_IPOD";
+        v12 = @"NOTIFICATION_MANAGEMENT_CRITICAL_EXPLANATION_IPOD";
       }
 
       else
       {
-        v11 = @"NOTIFICATION_MANAGEMENT_CRITICAL_EXPLANATION_IPHONE";
+        v12 = @"NOTIFICATION_MANAGEMENT_CRITICAL_EXPLANATION_IPHONE";
       }
     }
 
     else
     {
-      isDeliveredQuietly = [v18 isDeliveredQuietly];
-      v10 = NCUserNotificationsUIKitFrameworkBundle();
-      if (isDeliveredQuietly)
+      isDeliveredQuietly = [v21 isDeliveredQuietly];
+      v14 = isDeliveredQuietly;
+      v11 = NCUserNotificationsUIKitFrameworkBundle(isDeliveredQuietly);
+      if (v14)
       {
-        v11 = @"NOTIFICATION_MANAGEMENT_PROMINENT_EXPLANATION";
+        v12 = @"NOTIFICATION_MANAGEMENT_PROMINENT_EXPLANATION";
       }
 
       else
       {
-        v11 = @"NOTIFICATION_MANAGEMENT_QUIET_EXPLANATION";
+        v12 = @"NOTIFICATION_MANAGEMENT_QUIET_EXPLANATION";
       }
     }
 
-    v9 = v10;
+    v10 = v11;
     goto LABEL_12;
   }
 
@@ -314,117 +318,118 @@ LABEL_13:
 - (CGSize)_titleSizeForPlatterWidth:(double)width
 {
   v3 = width + -32.0 + -40.0 + -16.0;
-  [(UILabel *)self->_titleLabel sizeThatFits:v3, 1.79769313e308];
-  _NCMainScreenScale();
+  v4 = [(UILabel *)self->_titleLabel sizeThatFits:v3, 1.79769313e308];
+  _NCMainScreenScale(v4, v5);
   UISizeRoundToScale();
-  if (v4 >= v3)
+  if (v6 >= v3)
   {
-    v4 = v3;
+    v6 = v3;
   }
 
-  result.height = v5;
-  result.width = v4;
+  result.height = v7;
+  result.width = v6;
   return result;
 }
 
 - (CGSize)_explanationSizeForPlatterWidth:(double)width
 {
   v3 = width + -32.0;
-  [(UILabel *)self->_explanation sizeThatFits:width + -32.0, 1.79769313e308];
-  _NCMainScreenScale();
+  v4 = [(UILabel *)self->_explanation sizeThatFits:width + -32.0, 1.79769313e308];
+  _NCMainScreenScale(v4, v5);
   UISizeRoundToScale();
-  v5 = v3;
-  result.height = v4;
-  result.width = v5;
+  v7 = v3;
+  result.height = v6;
+  result.width = v7;
   return result;
 }
 
 - (void)layoutSubviews
 {
-  v36.receiver = self;
-  v36.super_class = NCNotificationManagementView;
-  [(NCNotificationManagementView *)&v36 layoutSubviews];
+  v48.receiver = self;
+  v48.super_class = NCNotificationManagementView;
+  [(NCNotificationManagementView *)&v48 layoutSubviews];
   [(NCNotificationManagementView *)self _configureTopSeparatorIfNeccessary];
   [(NCNotificationManagementView *)self bounds];
-  Width = CGRectGetWidth(v37);
-  v35.receiver = self;
-  v35.super_class = NCNotificationManagementView;
-  _shouldReverseLayoutDirection = [(NCNotificationManagementView *)&v35 _shouldReverseLayoutDirection];
-  _NCMainScreenScale();
+  Width = CGRectGetWidth(v49);
+  v47.receiver = self;
+  v47.super_class = NCNotificationManagementView;
+  _shouldReverseLayoutDirection = [(NCNotificationManagementView *)&v47 _shouldReverseLayoutDirection];
+  v5 = _shouldReverseLayoutDirection;
+  _NCMainScreenScale(_shouldReverseLayoutDirection, v6);
   UIRectIntegralWithScale();
-  v32 = v6;
-  v33 = v5;
-  v30 = v8;
-  v31 = v7;
+  v44 = v8;
+  v45 = v7;
+  v42 = v10;
+  v43 = v9;
   [(UIImageView *)self->_icon setFrame:?];
-  if (_shouldReverseLayoutDirection)
+  if (v5)
   {
     [(UILabel *)self->_titleLabel frame];
-    v9 = CGRectGetWidth(v38);
+    v11 = CGRectGetWidth(v50);
   }
 
-  v10 = [(UILabel *)self->_titleLabel font:v9];
-  [v10 lineHeight];
+  v12 = [(UILabel *)self->_titleLabel font:v11];
+  [v12 lineHeight];
 
-  [(NCNotificationManagementView *)self _titleSizeForPlatterWidth:Width];
+  v13 = [(NCNotificationManagementView *)self _titleSizeForPlatterWidth:Width];
   titleLabel = self->_titleLabel;
-  _NCMainScreenScale();
+  _NCMainScreenScale(v13, v15);
   UIRectIntegralWithScale();
   [(UILabel *)titleLabel setFrame:?];
   [(UILabel *)self->_titleLabel _firstLineBaselineOffsetFromBoundsTop];
   font = [(UILabel *)self->_subtitleLabel font];
   [font _scaledValueForValue:24.0];
 
-  v34 = Width;
-  v13 = NCRectWithSize();
-  v15 = v14;
-  v17 = v16;
+  v46 = Width;
+  v17 = NCRectWithSize();
   v19 = v18;
+  v21 = v20;
+  v23 = v22;
   [(UILabel *)self->_subtitleLabel setBounds:?];
   [(UILabel *)self->_subtitleLabel _firstLineBaselineOffsetFromBoundsTop];
-  if (_shouldReverseLayoutDirection)
+  if (v5)
   {
-    v39.origin.x = v13;
-    v39.origin.y = v15;
-    v39.size.width = v17;
-    v39.size.height = v19;
-    CGRectGetWidth(v39);
+    v51.origin.x = v17;
+    v51.origin.y = v19;
+    v51.size.width = v21;
+    v51.size.height = v23;
+    CGRectGetWidth(v51);
   }
 
-  v40.origin.y = v32;
-  v40.origin.x = v33;
-  v40.size.height = v30;
-  v40.size.width = v31;
-  CGRectGetMaxY(v40);
+  v52.origin.y = v44;
+  v52.origin.x = v45;
+  v52.size.height = v42;
+  v52.size.width = v43;
+  CGRectGetMaxY(v52);
   subtitleLabel = self->_subtitleLabel;
-  _NCMainScreenScale();
+  _NCMainScreenScale(v25, v26);
   UIRectIntegralWithScale();
   [(UILabel *)subtitleLabel setFrame:?];
   font2 = [(UILabel *)self->_subtitleLabel font];
   [font2 _scaledValueForValue:8.0];
 
-  _NCMainScreenScale();
+  _NCMainScreenScale(v28, v29);
   UIPointRoundToScale();
-  v23 = v22;
-  v25 = v24;
+  v31 = v30;
+  v33 = v32;
   [(NCNotificationManagementView *)self _separatorHeight];
-  [(UIView *)self->_topSeparator setFrame:v23, v25, v34, v26];
-  [(NCNotificationManagementView *)self _separatorHeight];
+  [(UIView *)self->_topSeparator setFrame:v31, v33, v46, v34];
+  _separatorHeight = [(NCNotificationManagementView *)self _separatorHeight];
   deliveryButton = self->_deliveryButton;
   if (deliveryButton)
   {
-    _NCMainScreenScale();
+    _NCMainScreenScale(_separatorHeight, v36);
     UIRectIntegralWithScale();
-    [(NCNotificationManagementBlueButton *)deliveryButton setFrame:?];
+    _separatorHeight = [(NCNotificationManagementBlueButton *)deliveryButton setFrame:?];
   }
 
   onOffToggleButton = self->_onOffToggleButton;
-  _NCMainScreenScale();
+  _NCMainScreenScale(_separatorHeight, v36);
   UIRectIntegralWithScale();
   [(NCNotificationManagementBlueButton *)onOffToggleButton setFrame:?];
-  [(NCNotificationManagementView *)self _explanationSizeForPlatterWidth:v34];
+  v39 = [(NCNotificationManagementView *)self _explanationSizeForPlatterWidth:v46];
   explanation = self->_explanation;
-  _NCMainScreenScale();
+  _NCMainScreenScale(v39, v41);
   UIRectIntegralWithScale();
   [(UILabel *)explanation setFrame:?];
 }

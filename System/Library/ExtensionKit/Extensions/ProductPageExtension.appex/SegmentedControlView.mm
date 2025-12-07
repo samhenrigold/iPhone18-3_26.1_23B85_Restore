@@ -59,12 +59,13 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension20SegmentedControlView_segmentDidChangeHandler);
   if (v3)
   {
+    v5 = *&self->segmentedControl[OBJC_IVAR____TtC20ProductPageExtension20SegmentedControlView_segmentDidChangeHandler];
     inCopy = in;
     selfCopy = self;
-    sub_10001CE50(v3);
+    sub_10001CE50(v3, v5);
     v3(inCopy);
 
-    sub_1000B9010(v3);
+    sub_1000B9010(v3, v5);
   }
 }
 

@@ -15,7 +15,7 @@
     {
       v4 = ABPKMLModelConfiguration2DStandard;
 LABEL_10:
-      v5 = objc_alloc_init(v4);
+      v6 = objc_alloc_init(v4);
       goto LABEL_11;
     }
 
@@ -30,22 +30,23 @@ LABEL_8:
     goto LABEL_10;
   }
 
-  if ([configCopy algMode] == 10)
+  algMode = [configCopy algMode];
+  if (algMode == 10)
   {
     goto LABEL_8;
   }
 
-  v7 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = __ABPKLogSharedInstance(algMode);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_23EDDC000, v7, OS_LOG_TYPE_ERROR, " Invalid algorithm mode specified ", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_23EDDC000, v8, OS_LOG_TYPE_ERROR, " Invalid algorithm mode specified ", v9, 2u);
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_11:
 
-  return v5;
+  return v6;
 }
 
 + (CGSize)inputDimensionsForModelWithNetworkConfig:(id)config

@@ -84,54 +84,53 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_clientError)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_serverError)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    retryAfterSeconds = self->_retryAfterSeconds;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_errorDescription)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_errorKey)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_errorInternal)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_extensionError)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_auxiliaryError)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -266,7 +265,6 @@
     }
   }
 
-  v12 = *(equalCopy + 72);
   if (*&self->_has)
   {
     if ((equalCopy[9] & 1) == 0 || self->_retryAfterSeconds != *(equalCopy + 14))
@@ -283,47 +281,47 @@ LABEL_21:
   }
 
   errorDescription = self->_errorDescription;
-  v14 = equalCopy[3];
-  if (errorDescription | v14 && !objc_msgSend_isEqual_(errorDescription, v7, v14))
+  v13 = equalCopy[3];
+  if (errorDescription | v13 && !objc_msgSend_isEqual_(errorDescription, v7, v13))
   {
     goto LABEL_21;
   }
 
   errorKey = self->_errorKey;
-  v16 = equalCopy[5];
-  if (errorKey | v16)
+  v15 = equalCopy[5];
+  if (errorKey | v15)
   {
-    if (!objc_msgSend_isEqual_(errorKey, v7, v16))
+    if (!objc_msgSend_isEqual_(errorKey, v7, v15))
     {
       goto LABEL_21;
     }
   }
 
   errorInternal = self->_errorInternal;
-  v18 = equalCopy[4];
-  if (errorInternal | v18)
+  v17 = equalCopy[4];
+  if (errorInternal | v17)
   {
-    if (!objc_msgSend_isEqual_(errorInternal, v7, v18))
+    if (!objc_msgSend_isEqual_(errorInternal, v7, v17))
     {
       goto LABEL_21;
     }
   }
 
   extensionError = self->_extensionError;
-  v20 = equalCopy[6];
-  if (extensionError | v20)
+  v19 = equalCopy[6];
+  if (extensionError | v19)
   {
-    if (!objc_msgSend_isEqual_(extensionError, v7, v20))
+    if (!objc_msgSend_isEqual_(extensionError, v7, v19))
     {
       goto LABEL_21;
     }
   }
 
   auxiliaryError = self->_auxiliaryError;
-  v22 = equalCopy[1];
-  if (auxiliaryError | v22)
+  v21 = equalCopy[1];
+  if (auxiliaryError | v21)
   {
-    isEqual = objc_msgSend_isEqual_(auxiliaryError, v7, v22);
+    isEqual = objc_msgSend_isEqual_(auxiliaryError, v7, v21);
   }
 
   else

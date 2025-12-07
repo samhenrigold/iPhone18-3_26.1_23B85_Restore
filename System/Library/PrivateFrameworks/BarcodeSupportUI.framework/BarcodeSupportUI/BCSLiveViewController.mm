@@ -18,8 +18,10 @@
 - (void)compensateForInterfaceOrientationInLiveView:(int64_t)view referenceSize:(CGSize)size;
 - (void)compensateForVideoRotationAngleInLiveView:(double)view;
 - (void)didCaptureVisualCode:(id)code image:(id)image shouldAnimate:(BOOL)animate;
+- (void)resetUIAndStartCapturing:(BOOL)capturing;
 - (void)sessionControlsDidBecomeActive:(id)active;
 - (void)sessionControlsDidBecomeInactive:(id)inactive;
+- (void)torchButtonView:(id)view torchModeChangedTo:(BOOL)to;
 - (void)updateQRCodeAvailability:(int64_t)availability;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
@@ -50,10 +52,10 @@
 
 - (void)viewDidLoad
 {
-  v70[4] = *MEMORY[0x277D85DE8];
-  v68.receiver = self;
-  v68.super_class = BCSLiveViewController;
-  [(BCSLiveViewController *)&v68 viewDidLoad];
+  v69[4] = *MEMORY[0x277D85DE8];
+  v67.receiver = self;
+  v67.super_class = BCSLiveViewController;
+  [(BCSLiveViewController *)&v67 viewDidLoad];
   v3 = objc_alloc_init(BCSPreviewContainerView);
   previewContainerView = self->_previewContainerView;
   self->_previewContainerView = v3;
@@ -125,55 +127,55 @@
 
   if ((_UISolariumEnabled() & 1) == 0)
   {
-    v58 = MEMORY[0x277CCAAD0];
-    v70[0] = self->_coachingMessageTopAnchorConstraint;
+    v57 = MEMORY[0x277CCAAD0];
+    v69[0] = self->_coachingMessageTopAnchorConstraint;
     centerXAnchor = [(BCSCoachingMessageView *)self->_coachingMessageView centerXAnchor];
     view8 = [(BCSLiveViewController *)self view];
     centerXAnchor2 = [view8 centerXAnchor];
-    v60 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v70[1] = v60;
+    v59 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    v69[1] = v59;
     bottomAnchor = [(BCSCoachingMessageView *)self->_coachingMessageView bottomAnchor];
     topAnchor3 = [(BCSSubjectIndicatorView *)self->_focusIndicator topAnchor];
     v31 = [bottomAnchor constraintLessThanOrEqualToAnchor:topAnchor3 constant:-10.0];
-    v70[2] = v31;
+    v69[2] = v31;
     widthAnchor = [(BCSCoachingMessageView *)self->_coachingMessageView widthAnchor];
     view9 = [(BCSLiveViewController *)self view];
     widthAnchor2 = [view9 widthAnchor];
     v35 = [widthAnchor constraintLessThanOrEqualToAnchor:widthAnchor2];
-    v70[3] = v35;
-    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:4];
-    [v58 activateConstraints:v36];
+    v69[3] = v35;
+    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:4];
+    [v57 activateConstraints:v36];
   }
 
-  v53 = MEMORY[0x277CCAAD0];
+  v52 = MEMORY[0x277CCAAD0];
   centerXAnchor3 = [(BCSSubjectIndicatorView *)self->_focusIndicator centerXAnchor];
   view10 = [(BCSLiveViewController *)self view];
   centerXAnchor4 = [view10 centerXAnchor];
-  v61 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-  v69[0] = v61;
+  v60 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
+  v68[0] = v60;
   centerYAnchor = [(BCSSubjectIndicatorView *)self->_focusIndicator centerYAnchor];
   view11 = [(BCSLiveViewController *)self view];
   centerYAnchor2 = [view11 centerYAnchor];
-  v54 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v69[1] = v54;
+  v53 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  v68[1] = v53;
   centerXAnchor5 = [(UIView *)self->_focusIndicatorInsetView centerXAnchor];
   centerXAnchor6 = [(BCSSubjectIndicatorView *)self->_focusIndicator centerXAnchor];
-  v50 = [centerXAnchor5 constraintEqualToAnchor:centerXAnchor6];
-  v69[2] = v50;
+  v49 = [centerXAnchor5 constraintEqualToAnchor:centerXAnchor6];
+  v68[2] = v49;
   centerYAnchor3 = [(UIView *)self->_focusIndicatorInsetView centerYAnchor];
   centerYAnchor4 = [(BCSSubjectIndicatorView *)self->_focusIndicator centerYAnchor];
   v38 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
-  v69[3] = v38;
+  v68[3] = v38;
   widthAnchor3 = [(UIView *)self->_focusIndicatorInsetView widthAnchor];
   widthAnchor4 = [(BCSSubjectIndicatorView *)self->_focusIndicator widthAnchor];
   v41 = [widthAnchor3 constraintEqualToAnchor:widthAnchor4 multiplier:0.8];
-  v69[4] = v41;
+  v68[4] = v41;
   heightAnchor = [(UIView *)self->_focusIndicatorInsetView heightAnchor];
   heightAnchor2 = [(BCSSubjectIndicatorView *)self->_focusIndicator heightAnchor];
   v44 = [heightAnchor constraintEqualToAnchor:heightAnchor2 multiplier:0.8];
-  v69[5] = v44;
-  v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:6];
-  [v53 activateConstraints:v45];
+  v68[5] = v44;
+  v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:6];
+  [v52 activateConstraints:v45];
 
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen bounds];
@@ -186,7 +188,55 @@
 
   [(BCSPreviewContainerView *)self->_previewContainerView setNeedsLayout];
   [(BCSSubjectIndicatorView *)self->_focusIndicator setBouncing:1];
-  v48 = *MEMORY[0x277D85DE8];
+}
+
+- (void)resetUIAndStartCapturing:(BOOL)capturing
+{
+  capturingCopy = capturing;
+  [(UIImageView *)self->_targetQRImage removeFromSuperview];
+  targetQRImage = self->_targetQRImage;
+  self->_targetQRImage = 0;
+
+  animator = self->_animator;
+  if (capturingCopy)
+  {
+    [(BCSScanningAnimator *)animator reset];
+    v7 = self->_animator;
+    self->_animator = 0;
+
+    [(BCSSubjectIndicatorView *)self->_focusIndicator _removeAllAnimations:1];
+    layer = [(BCSSubjectIndicatorView *)self->_focusIndicator layer];
+    [layer setMeshTransform:0];
+
+    focusIndicator = self->_focusIndicator;
+    v10 = *(MEMORY[0x277CBF2C0] + 16);
+    v14[0] = *MEMORY[0x277CBF2C0];
+    v14[1] = v10;
+    v14[2] = *(MEMORY[0x277CBF2C0] + 32);
+    [(BCSSubjectIndicatorView *)focusIndicator setTransform:v14];
+    delegate = [(BCSLiveViewController *)self delegate];
+    [delegate liveViewControllerDidResetCapture:self];
+  }
+
+  else
+  {
+    [(BCSScanningAnimator *)animator showCoverView];
+  }
+
+  [(BCSSubjectIndicatorView *)self->_focusIndicator setBouncing:capturingCopy];
+  if ((_UISolariumEnabled() & 1) == 0)
+  {
+    [(BCSCoachingMessageView *)self->_coachingMessageView setContentHidden:capturingCopy ^ 1];
+  }
+
+  if (capturingCopy)
+  {
+    v12 = _BCSLocalizedString();
+    [(BCSLiveViewController *)self _updateCoacheMessageWithString:v12];
+  }
+
+  parentViewController = [(BCSLiveViewController *)self parentViewController];
+  [parentViewController setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)_liveViewTapped
@@ -249,19 +299,19 @@
   v30 = v29;
   v32 = v31;
   [imageCopy extent];
-  CGAffineTransformMakeScale(&v144, v33, v34);
-  v145.origin.x = v26;
-  v145.origin.y = v28;
-  v145.size.width = v30;
-  v145.size.height = v32;
-  v146 = CGRectApplyAffineTransform(v145, &v144);
-  v35 = [imageCopy imageByCroppingToRect:{v146.origin.x, v146.origin.y, v146.size.width, v146.size.height}];
+  CGAffineTransformMakeScale(&v146, v33, v34);
+  v147.origin.x = v26;
+  v147.origin.y = v28;
+  v147.size.width = v30;
+  v147.size.height = v32;
+  v148 = CGRectApplyAffineTransform(v147, &v146);
+  v35 = [imageCopy imageByCroppingToRect:{v148.origin.x, v148.origin.y, v148.size.width, v148.size.height}];
   [(BCSImageQuad *)v24 normalize];
   [v35 extent];
   [(BCSImageQuad *)v24 topLeft];
   [BCSLiveViewController _convertLogicalPoint:"_convertLogicalPoint:inBounds:" inBounds:?];
-  v127 = v37;
-  v129 = v36;
+  v129 = v37;
+  v131 = v36;
   [(BCSImageQuad *)v24 topRight];
   [BCSLiveViewController _convertLogicalPoint:"_convertLogicalPoint:inBounds:" inBounds:?];
   v39 = v38;
@@ -272,12 +322,12 @@
   v45 = v44;
   [(BCSImageQuad *)v24 bottomLeft];
   [BCSLiveViewController _convertLogicalPoint:"_convertLogicalPoint:inBounds:" inBounds:?];
-  v48 = [[BCSImageQuad alloc] initWithTopLeft:v129 topRight:v127 bottomRight:v39 bottomLeft:v41, v43, v45, v46, v47];
+  v48 = [[BCSImageQuad alloc] initWithTopLeft:v131 topRight:v129 bottomRight:v39 bottomLeft:v41, v43, v45, v46, v47];
   [(BCSImageQuad *)v48 adjustOrientationInImageSpace:1];
-  v125 = v35;
+  v127 = v35;
   v49 = [(BCSLiveViewController *)self _perspectiveCorrectedImage:v35 imageQuad:v48];
   [(UIImageView *)self->_targetQRImage removeFromSuperview];
-  v124 = v49;
+  v126 = v49;
   v50 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v49];
   targetQRImage = self->_targetQRImage;
   self->_targetQRImage = v50;
@@ -292,8 +342,8 @@
 
   [codeCopy topLeft];
   [BCSLiveViewController _convertLogicalPoint:"_convertLogicalPoint:inBounds:" inBounds:?];
-  v128 = v61;
-  v130 = v62;
+  v130 = v61;
+  v132 = v62;
   [codeCopy topRight];
   [BCSLiveViewController _convertLogicalPoint:"_convertLogicalPoint:inBounds:" inBounds:?];
   v64 = v63;
@@ -304,13 +354,13 @@
   v70 = v69;
   [codeCopy bottomLeft];
   [BCSLiveViewController _convertLogicalPoint:"_convertLogicalPoint:inBounds:" inBounds:?];
-  v122 = v66;
-  v123 = v64;
-  v120 = v70;
-  v121 = v68;
-  v118 = v72;
-  v119 = v71;
-  v73 = [[BCSImageQuad alloc] initWithTopLeft:v128 topRight:v130 bottomRight:v64 bottomLeft:v66, v68, v70, v71, v72];
+  v124 = v66;
+  v125 = v64;
+  v122 = v70;
+  v123 = v68;
+  v120 = v72;
+  v121 = v71;
+  v73 = [[BCSImageQuad alloc] initWithTopLeft:v130 topRight:v132 bottomRight:v64 bottomLeft:v66, v68, v70, v71, v72];
   [(BCSImageQuad *)v73 boundingBox];
   v75 = v74;
   v77 = v76;
@@ -318,30 +368,30 @@
   v81 = v80;
   view2 = [(BCSLiveViewController *)self view];
   [view2 bounds];
-  Height = CGRectGetHeight(v147);
+  Height = CGRectGetHeight(v149);
 
-  v144.b = 0.0;
-  v144.c = 0.0;
-  v144.a = 1.0;
-  *&v144.d = xmmword_241A064E0;
-  v144.ty = Height;
-  v148.origin.x = v75;
-  v148.origin.y = v77;
-  v148.size.width = v79;
-  v148.size.height = v81;
-  v149 = CGRectApplyAffineTransform(v148, &v144);
-  x = v149.origin.x;
-  y = v149.origin.y;
-  width = v149.size.width;
-  v87 = v149.size.height;
+  v146.b = 0.0;
+  v146.c = 0.0;
+  v146.a = 1.0;
+  *&v146.d = xmmword_241A064E0;
+  v146.ty = Height;
+  v150.origin.x = v75;
+  v150.origin.y = v77;
+  v150.size.width = v79;
+  v150.size.height = v81;
+  v151 = CGRectApplyAffineTransform(v150, &v146);
+  x = v151.origin.x;
+  y = v151.origin.y;
+  width = v151.size.width;
+  v87 = v151.size.height;
   _bcs_roundRectToPixels();
   [(UIImageView *)self->_targetQRImage setFrame:?];
   if ([codeCopy codeType] == 1)
   {
     [(UIImageView *)self->_targetQRImage bounds];
-    v88 = CGRectGetWidth(v150);
+    v88 = CGRectGetWidth(v152);
     [(UIImageView *)self->_targetQRImage bounds];
-    v89 = CGRectGetHeight(v151);
+    v89 = CGRectGetHeight(v153);
     v90 = v88 / v89;
     if (v88 > v89)
     {
@@ -379,13 +429,13 @@
     [layer setCornerRadius:v88 * 0.5];
 
     v100 = *(MEMORY[0x277CBF2C0] + 16);
-    *&v144.a = *MEMORY[0x277CBF2C0];
-    *&v144.c = v100;
-    *&v144.tx = *(MEMORY[0x277CBF2C0] + 32);
-    CGAffineTransformScale(&v143, &v144, sx, v91);
+    *&v146.a = *MEMORY[0x277CBF2C0];
+    *&v146.c = v100;
+    *&v146.tx = *(MEMORY[0x277CBF2C0] + 32);
+    CGAffineTransformScale(&v145, &v146, sx, v91);
     v101 = self->_targetQRImage;
-    v144 = v143;
-    [(UIImageView *)v101 setTransform:&v144];
+    v146 = v145;
+    [(UIImageView *)v101 setTransform:&v146];
     layer2 = [(UIImageView *)self->_targetQRImage layer];
     [layer2 setMasksToBounds:1];
 
@@ -403,76 +453,77 @@
   }
 
   [(BCSScanningAnimator *)animator setFocusIndicator:self->_focusIndicator];
-  v118 = [[BCSImageQuad alloc] initWithTopLeft:v128 topRight:v130 bottomRight:v123 bottomLeft:v122, v121, v120, v119, v118];
-  [(BCSImageQuad *)v118 setBounds:x, y, width, v87];
-  [(BCSImageQuad *)v118 normalize];
-  [(BCSImageQuad *)v118 flip];
-  [(BCSScanningAnimator *)self->_animator setImageQuad:v118];
+  v120 = [[BCSImageQuad alloc] initWithTopLeft:v130 topRight:v132 bottomRight:v125 bottomLeft:v124, v123, v122, v121, v120];
+  [(BCSImageQuad *)v120 setBounds:x, y, width, v87];
+  [(BCSImageQuad *)v120 normalize];
+  [(BCSImageQuad *)v120 flip];
+  [(BCSScanningAnimator *)self->_animator setImageQuad:v120];
   [(BCSScanningAnimator *)self->_animator setTargetQRImage:self->_targetQRImage];
   [(BCSScanningAnimator *)self->_animator setTargetCode:codeCopy];
   [(BCSSubjectIndicatorView *)self->_focusIndicator setBouncing:0];
-  if ((_UISolariumEnabled() & 1) == 0)
+  v107 = _UISolariumEnabled();
+  if ((v107 & 1) == 0)
   {
-    v141[4] = self;
-    v142[0] = MEMORY[0x277D85DD0];
-    v142[1] = 3221225472;
-    v142[2] = __66__BCSLiveViewController_didCaptureVisualCode_image_shouldAnimate___block_invoke;
-    v142[3] = &unk_278D01AE0;
-    v142[4] = self;
-    v141[0] = MEMORY[0x277D85DD0];
-    v141[1] = 3221225472;
-    v141[2] = __66__BCSLiveViewController_didCaptureVisualCode_image_shouldAnimate___block_invoke_2;
-    v141[3] = &unk_278D01B28;
-    [MEMORY[0x277D75D18] animateWithDuration:v142 animations:v141 completion:0.25];
+    v143[4] = self;
+    v144[0] = MEMORY[0x277D85DD0];
+    v144[1] = 3221225472;
+    v144[2] = __66__BCSLiveViewController_didCaptureVisualCode_image_shouldAnimate___block_invoke;
+    v144[3] = &unk_278D01AE0;
+    v144[4] = self;
+    v143[0] = MEMORY[0x277D85DD0];
+    v143[1] = 3221225472;
+    v143[2] = __66__BCSLiveViewController_didCaptureVisualCode_image_shouldAnimate___block_invoke_2;
+    v143[3] = &unk_278D01B28;
+    v107 = [MEMORY[0x277D75D18] animateWithDuration:v144 animations:v143 completion:0.25];
   }
 
-  v107 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner();
-  if (os_signpost_enabled(v107))
+  v109 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner(v107, v108);
+  if (os_signpost_enabled(v109))
   {
-    LOWORD(v144.a) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2419E7000, v107, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "pushAnimationStarts", "start QR code animation", &v144, 2u);
+    LOWORD(v146.a) = 0;
+    _os_signpost_emit_with_name_impl(&dword_2419E7000, v109, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "pushAnimationStarts", "start QR code animation", &v146, 2u);
   }
 
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __66__BCSLiveViewController_didCaptureVisualCode_image_shouldAnimate___block_invoke_30;
   aBlock[3] = &unk_278D01B78;
-  v108 = codeCopy;
-  v138 = v108;
-  v109 = imageCopy;
-  v139 = v109;
+  v110 = codeCopy;
+  v140 = v110;
+  v111 = imageCopy;
+  v141 = v111;
   selfCopy = self;
-  v110 = _Block_copy(aBlock);
-  codeType = [v108 codeType];
-  v112 = self->_animator;
+  v112 = _Block_copy(aBlock);
+  codeType = [v110 codeType];
+  v114 = self->_animator;
   if (codeType == 1)
   {
-    v134[0] = MEMORY[0x277D85DD0];
-    v134[1] = 3221225472;
-    v134[2] = __66__BCSLiveViewController_didCaptureVisualCode_image_shouldAnimate___block_invoke_39;
-    v134[3] = &unk_278D01BC8;
-    v134[4] = self;
-    v113 = &v135;
-    v114 = &v136;
-    v135 = v108;
-    v136 = v110;
-    v115 = v110;
-    [(BCSScanningAnimator *)v112 animateAppClipCodeBounceWithCompletion:v134 shouldAnimate:animateCopy];
+    v136[0] = MEMORY[0x277D85DD0];
+    v136[1] = 3221225472;
+    v136[2] = __66__BCSLiveViewController_didCaptureVisualCode_image_shouldAnimate___block_invoke_39;
+    v136[3] = &unk_278D01BC8;
+    v136[4] = self;
+    v115 = &v137;
+    v116 = &v138;
+    v137 = v110;
+    v138 = v112;
+    v117 = v112;
+    [(BCSScanningAnimator *)v114 animateAppClipCodeBounceWithCompletion:v136 shouldAnimate:animateCopy];
   }
 
   else
   {
-    v131[0] = MEMORY[0x277D85DD0];
-    v131[1] = 3221225472;
-    v131[2] = __66__BCSLiveViewController_didCaptureVisualCode_image_shouldAnimate___block_invoke_3;
-    v131[3] = &unk_278D01BC8;
-    v131[4] = self;
-    v113 = &v132;
-    v114 = &v133;
-    v132 = v108;
-    v133 = v110;
-    v116 = v110;
-    [(BCSScanningAnimator *)v112 animatePushWithCompletion:v131 shouldAnimate:animateCopy];
+    v133[0] = MEMORY[0x277D85DD0];
+    v133[1] = 3221225472;
+    v133[2] = __66__BCSLiveViewController_didCaptureVisualCode_image_shouldAnimate___block_invoke_3;
+    v133[3] = &unk_278D01BC8;
+    v133[4] = self;
+    v115 = &v134;
+    v116 = &v135;
+    v134 = v110;
+    v135 = v112;
+    v118 = v112;
+    [(BCSScanningAnimator *)v114 animatePushWithCompletion:v133 shouldAnimate:animateCopy];
   }
 }
 
@@ -486,37 +537,36 @@ uint64_t __66__BCSLiveViewController_didCaptureVisualCode_image_shouldAnimate___
 
 BOOL __66__BCSLiveViewController_didCaptureVisualCode_image_shouldAnimate___block_invoke_30(void *a1)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v2 = +[BCSSecureCaptureSession hasActiveSession];
   if (v2)
   {
     v3 = objc_alloc(MEMORY[0x277CCAE58]);
     v4 = [v3 initWithActivityType:*MEMORY[0x277CD48A0]];
-    v13[0] = @"detectedCode";
+    v14[0] = @"detectedCode";
     v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:a1[4]];
-    v13[1] = @"detectedImage";
-    v14[0] = v5;
+    v14[1] = @"detectedImage";
+    v15[0] = v5;
     v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:a1[5]];
-    v14[1] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v15[1] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
     [v4 setUserInfo:v7];
 
-    v8 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner();
-    if (os_signpost_enabled(v8))
+    v10 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner(v8, v9);
+    if (os_signpost_enabled(v10))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_2419E7000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "captureExtensionCodePayload", "created Capture Extension code payload", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_2419E7000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "captureExtensionCodePayload", "created Capture Extension code payload", buf, 2u);
     }
 
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __66__BCSLiveViewController_didCaptureVisualCode_image_shouldAnimate___block_invoke_35;
-    v11[3] = &unk_278D01B50;
-    v11[4] = a1[6];
-    [BCSSecureCaptureSession authenticateWithUserActivity:v4 completionHandler:v11];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __66__BCSLiveViewController_didCaptureVisualCode_image_shouldAnimate___block_invoke_35;
+    v12[3] = &unk_278D01B50;
+    v12[4] = a1[6];
+    [BCSSecureCaptureSession authenticateWithUserActivity:v4 completionHandler:v12];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -531,10 +581,10 @@ void __66__BCSLiveViewController_didCaptureVisualCode_image_shouldAnimate___bloc
     block[3] = &unk_278D01AE0;
     block[4] = *(a1 + 32);
     dispatch_async(MEMORY[0x277D85CD0], block);
-    v4 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __66__BCSLiveViewController_didCaptureVisualCode_image_shouldAnimate___block_invoke_35_cold_1(v4, v3);
+      __66__BCSLiveViewController_didCaptureVisualCode_image_shouldAnimate___block_invoke_35_cold_1(v6, v3);
     }
   }
 }
@@ -660,73 +710,73 @@ void __64__BCSLiveViewController__continueToPopAnimationForDetectedCode___block_
 
     if (v4 == 1)
     {
-      v5 = *(a1 + 32);
-      v6 = *(a1 + 40);
-      v7 = *(v5 + 1088);
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __64__BCSLiveViewController__continueToPopAnimationForDetectedCode___block_invoke_2;
-      v25[3] = &unk_278D01C68;
-      v25[4] = v5;
-      v26 = *(a1 + 48);
-      [v7 showFirstTimePromptIfNecessary:v6 completion:v25];
-      v8 = v26;
+      v7 = *(a1 + 32);
+      v8 = *(a1 + 40);
+      v9 = *(v7 + 1088);
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __64__BCSLiveViewController__continueToPopAnimationForDetectedCode___block_invoke_2;
+      v27[3] = &unk_278D01C68;
+      v27[4] = v7;
+      v28 = *(a1 + 48);
+      [v9 showFirstTimePromptIfNecessary:v8 completion:v27];
+      v10 = v28;
     }
 
     else
     {
-      v10 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner();
-      if (os_signpost_enabled(v10))
+      v12 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner(v5, v6);
+      if (os_signpost_enabled(v12))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_2419E7000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "startShowingAlertForUserChoice", "show alert for multiple action items", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_2419E7000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "startShowingAlertForUserChoice", "show alert for multiple action items", buf, 2u);
       }
 
-      v11 = [*(a1 + 40) actionPickerItems];
-      v12 = [v11 firstObject];
-      v13 = [v12 actionURL];
-      v14 = [v13 _bcs_isUPIURL];
+      v13 = [*(a1 + 40) actionPickerItems];
+      v14 = [v13 firstObject];
+      v15 = [v14 actionURL];
+      v16 = [v15 _bcs_isUPIURL];
 
-      v15 = *(a1 + 32);
-      if (v14)
+      v17 = *(a1 + 32);
+      if (v16)
       {
-        v16 = *(v15 + 1040);
+        v18 = *(v17 + 1040);
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __64__BCSLiveViewController__continueToPopAnimationForDetectedCode___block_invoke_42;
+        v25[3] = &unk_278D01C90;
+        v25[4] = v17;
         v23[0] = MEMORY[0x277D85DD0];
         v23[1] = 3221225472;
-        v23[2] = __64__BCSLiveViewController__continueToPopAnimationForDetectedCode___block_invoke_42;
-        v23[3] = &unk_278D01C90;
-        v23[4] = v15;
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __64__BCSLiveViewController__continueToPopAnimationForDetectedCode___block_invoke_2_43;
-        v21[3] = &unk_278D01C40;
-        v21[4] = v15;
-        v22 = *(a1 + 40);
-        [v16 animatePopWithAppImageBlock:v23 completion:v21];
-        v8 = v22;
+        v23[2] = __64__BCSLiveViewController__continueToPopAnimationForDetectedCode___block_invoke_2_43;
+        v23[3] = &unk_278D01C40;
+        v23[4] = v17;
+        v24 = *(a1 + 40);
+        [v18 animatePopWithAppImageBlock:v25 completion:v23];
+        v10 = v24;
       }
 
       else
       {
-        v17 = *(v15 + 1088);
-        v18 = *(a1 + 40);
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __64__BCSLiveViewController__continueToPopAnimationForDetectedCode___block_invoke_4_46;
-        v19[3] = &unk_278D01CB8;
-        v19[4] = v15;
-        v20 = v18;
-        [v17 showItemsWithAction:v20 completion:v19];
-        v8 = v20;
+        v19 = *(v17 + 1088);
+        v20 = *(a1 + 40);
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __64__BCSLiveViewController__continueToPopAnimationForDetectedCode___block_invoke_4_46;
+        v21[3] = &unk_278D01CB8;
+        v21[4] = v17;
+        v22 = v20;
+        [v19 showItemsWithAction:v22 completion:v21];
+        v10 = v22;
       }
     }
   }
 
   else
   {
-    v9 = *(a1 + 32);
+    v11 = *(a1 + 32);
 
-    [v9 resetUIAndStartCapturing:1];
+    [v11 resetUIAndStartCapturing:1];
   }
 }
 
@@ -855,16 +905,16 @@ id __64__BCSLiveViewController__continueToPopAnimationForDetectedCode___block_in
   return v4;
 }
 
-uint64_t __64__BCSLiveViewController__continueToPopAnimationForDetectedCode___block_invoke_6(uint64_t result, int a2)
+id *__64__BCSLiveViewController__continueToPopAnimationForDetectedCode___block_invoke_6(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    v3 = [*(result + 32) delegate];
+    v3 = [result[4] delegate];
     [v3 liveViewControllerWillPerformAction:v2[4]];
 
-    [*(v2[4] + 1088) performActionPickerItem:v2[5]];
-    v4 = *(v2[4] + 1088);
+    [*(v2[4] + 136) performActionPickerItem:v2[5]];
+    v4 = *(v2[4] + 136);
     v5 = v2[6];
 
     return [v4 logActivatedEventForAction:v5];
@@ -1227,6 +1277,13 @@ void __67__BCSLiveViewController_actionCoordinator_didParseCode_withAction___blo
   }
 }
 
+- (void)torchButtonView:(id)view torchModeChangedTo:(BOOL)to
+{
+  toCopy = to;
+  delegate = [(BCSLiveViewController *)self delegate];
+  [delegate liveViewController:self torchModeChangedTo:toCopy];
+}
+
 - (void)sessionControlsDidBecomeActive:(id)active
 {
   if ((_UISolariumEnabled() & 1) == 0)
@@ -1262,14 +1319,12 @@ void __67__BCSLiveViewController_actionCoordinator_didParseCode_withAction___blo
 
 void __66__BCSLiveViewController_didCaptureVisualCode_image_shouldAnimate___block_invoke_35_cold_1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 _bcs_privacyPreservingDescription];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_2419E7000, v3, OS_LOG_TYPE_ERROR, "BCSLiveViewController: capture extension authentication failed with error: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_2419E7000, v3, OS_LOG_TYPE_ERROR, "BCSLiveViewController: capture extension authentication failed with error: %{public}@", &v5, 0xCu);
 }
 
 @end

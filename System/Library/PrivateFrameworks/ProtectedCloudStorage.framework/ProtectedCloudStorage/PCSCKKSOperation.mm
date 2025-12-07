@@ -48,15 +48,15 @@
 - (BOOL)checkDependencies
 {
   selfCopy = self;
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = self->_successDependencies;
-  v3 = [(NSMutableArray *)obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+  v3 = [(NSMutableArray *)obj countByEnumeratingWithState:&v30 objects:v36 count:16];
   v4 = v3 == 0;
-  v29 = v3;
+  v28 = v3;
   if (!v3)
   {
     goto LABEL_18;
@@ -64,21 +64,21 @@
 
   v5 = 0;
   v6 = 0;
-  v27 = selfCopy;
-  v28 = *v32;
-  v25 = *MEMORY[0x1E696AA08];
+  v26 = selfCopy;
+  v27 = *v31;
+  v24 = *MEMORY[0x1E696AA08];
   v7 = 1;
   do
   {
     v8 = 0;
     do
     {
-      if (*v32 != v28)
+      if (*v31 != v27)
       {
         objc_enumerationMutation(obj);
       }
 
-      v9 = *(*(&v31 + 1) + 8 * v8);
+      v9 = *(*(&v30 + 1) + 8 * v8);
       isFinished = [v9 isFinished];
       isCancelled = [v9 isCancelled];
       error = [v9 error];
@@ -95,21 +95,21 @@
         if (v16)
         {
           error4 = [v9 error];
-          selfCopy = v27;
-          [(PCSCKKSOperation *)v27 setError:error4];
+          selfCopy = v26;
+          [(PCSCKKSOperation *)v26 setError:error4];
         }
 
         else
         {
           v18 = MEMORY[0x1E696ABC0];
           v19 = PCSCKKSOperationErrorDomain;
-          v35 = v25;
+          v34 = v24;
           error4 = [v9 error];
-          v36 = error4;
-          v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+          v35 = error4;
+          v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
           v21 = [v18 errorWithDomain:v19 code:1 userInfo:v20];
-          selfCopy = v27;
-          [(PCSCKKSOperation *)v27 setError:v21];
+          selfCopy = v26;
+          [(PCSCKKSOperation *)v26 setError:v21];
         }
       }
 
@@ -119,16 +119,15 @@
       ++v8;
     }
 
-    while (v29 != v8);
-    v29 = [(NSMutableArray *)obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+    while (v28 != v8);
+    v28 = [(NSMutableArray *)obj countByEnumeratingWithState:&v30 objects:v36 count:16];
   }
 
-  while (v29);
+  while (v28);
 
   if (!(v5 & 1 | ((v7 & 1) == 0) | v6 & 1))
   {
-    v4 = 1;
-    goto LABEL_19;
+    return 1;
   }
 
   error5 = [(PCSCKKSOperation *)selfCopy error];
@@ -140,13 +139,10 @@
     v4 = 0;
 LABEL_18:
 
-    goto LABEL_19;
+    return v4;
   }
 
-  v4 = 0;
-LABEL_19:
-  v23 = *MEMORY[0x1E69E9840];
-  return v4;
+  return 0;
 }
 
 - (BOOL)startOperation
@@ -183,39 +179,37 @@ LABEL_19:
 
 void __34__PCSCKKSOperation_startOperation__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = [WeakRetained dependencies];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [WeakRetained removeDependency:*(*(&v8 + 1) + 8 * v6++)];
+        [WeakRetained removeDependency:*(*(&v7 + 1) + 8 * v6++)];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)completeOperation

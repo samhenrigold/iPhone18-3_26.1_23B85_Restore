@@ -39,10 +39,10 @@
 
 - (MKAPIServer)init
 {
-  v62 = *MEMORY[0x277D85DE8];
-  v60.receiver = self;
-  v60.super_class = MKAPIServer;
-  v2 = [(MKAPIServer *)&v60 init];
+  v61 = *MEMORY[0x277D85DE8];
+  v59.receiver = self;
+  v59.super_class = MKAPIServer;
+  v2 = [(MKAPIServer *)&v59 init];
   if (v2)
   {
     v3 = objc_alloc_init(MKCertificate);
@@ -156,38 +156,37 @@
     [(NSHashTable *)v2->_migrators addObject:v2->_fileMigrator];
     [(NSHashTable *)v2->_migrators addObject:v2->_containerMigrator];
     [(NSHashTable *)v2->_migrators addObject:v2->_simMigrator];
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     v49 = v2->_migrators;
-    v50 = [(NSHashTable *)v49 countByEnumeratingWithState:&v56 objects:v61 count:16];
+    v50 = [(NSHashTable *)v49 countByEnumeratingWithState:&v55 objects:v60 count:16];
     if (v50)
     {
       v51 = v50;
-      v52 = *v57;
+      v52 = *v56;
       do
       {
         v53 = 0;
         do
         {
-          if (*v57 != v52)
+          if (*v56 != v52)
           {
             objc_enumerationMutation(v49);
           }
 
-          [*(*(&v56 + 1) + 8 * v53++) setDelegate:{v2, v56}];
+          [*(*(&v55 + 1) + 8 * v53++) setDelegate:{v2, v55}];
         }
 
         while (v51 != v53);
-        v51 = [(NSHashTable *)v49 countByEnumeratingWithState:&v56 objects:v61 count:16];
+        v51 = [(NSHashTable *)v49 countByEnumeratingWithState:&v55 objects:v60 count:16];
       }
 
       while (v51);
     }
   }
 
-  v54 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -201,7 +200,7 @@
 
 - (void)cancel
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   [(MKHTTPServer *)self->_http cancel];
   [(MKHTTPServer *)self->_https cancel];
   [(MKUSBHTTPServer *)self->_usb cancel];
@@ -237,95 +236,91 @@
     objc_sync_exit(selfCopy);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v11 = self->_migrators;
-  v12 = [(NSHashTable *)v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v12 = [(NSHashTable *)v11 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v12)
   {
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        [*(*(&v16 + 1) + 8 * v14++) cancel];
+        [*(*(&v15 + 1) + 8 * v14++) cancel];
       }
 
       while (v12 != v14);
-      v12 = [(NSHashTable *)v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v12 = [(NSHashTable *)v11 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)import
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   allObjects = [(NSHashTable *)self->_migrators allObjects];
-  v3 = [allObjects countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [allObjects countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) import];
+        [*(*(&v7 + 1) + 8 * v6++) import];
       }
 
       while (v4 != v6);
-      v4 = [allObjects countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [allObjects countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runHTTP
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   [(MKHTTPServer *)self->_http cancel];
   [(MKUSBHTTPServer *)self->_usb cancel];
   v3 = objc_alloc_init(MKSRPServer);
-  v29 = [[MKGETSRPRouter alloc] initWithSRP:v3];
-  [(MKGETSRPRouter *)v29 setDelegate:self];
-  v28 = [[MKPOSTSRPRouter alloc] initWithSRP:v3];
-  [(MKPOSTSRPRouter *)v28 setDelegate:self];
+  v28 = [[MKGETSRPRouter alloc] initWithSRP:v3];
+  [(MKGETSRPRouter *)v28 setDelegate:self];
+  v27 = [[MKPOSTSRPRouter alloc] initWithSRP:v3];
+  [(MKPOSTSRPRouter *)v27 setDelegate:self];
   v4 = [MKSRPPrecheck alloc];
   password = [(MKSRPServer *)v3 password];
   v6 = [(MKSRPPrecheck *)v4 initWithPassword:password];
 
-  v27 = [[MKGETSRPPrecheckRouter alloc] initWithPrecheck:v6];
-  v23 = v6;
-  v26 = [[MKPOSTSRPPrecheckRouter alloc] initWithPrecheck:v6];
-  v25 = [[MKGETCertificateRouter alloc] initWithSRP:v3 certificate:self->_certificate];
-  [(MKGETCertificateRouter *)v25 setDelegate:self];
-  v24 = [[MKPOSTCertificateRouter alloc] initWithSRP:v3];
-  [(MKPOSTCertificateRouter *)v24 setDelegate:self];
+  v26 = [[MKGETSRPPrecheckRouter alloc] initWithPrecheck:v6];
+  v22 = v6;
+  v25 = [[MKPOSTSRPPrecheckRouter alloc] initWithPrecheck:v6];
+  v24 = [[MKGETCertificateRouter alloc] initWithSRP:v3 certificate:self->_certificate];
+  [(MKGETCertificateRouter *)v24 setDelegate:self];
+  v23 = [[MKPOSTCertificateRouter alloc] initWithSRP:v3];
+  [(MKPOSTCertificateRouter *)v23 setDelegate:self];
   v7 = objc_alloc_init(MKGETStatusRouter);
   getStatusRouter = self->_getStatusRouter;
   self->_getStatusRouter = v7;
@@ -340,39 +335,39 @@
   self->_usb = v11;
 
   [(MKUSBHTTPServer *)self->_usb setDelegate:self];
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v13 = self->_usb;
-  v34[0] = self->_http;
-  v34[1] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
-  v15 = [v14 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v33[0] = self->_http;
+  v33[1] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+  v15 = [v14 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v31;
+    v17 = *v30;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v31 != v17)
+        if (*v30 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v30 + 1) + 8 * i);
-        [v19 addRouter:v29 method:1 path:@"/srp"];
-        [v19 addRouter:v28 method:3 path:@"/srp"];
-        [v19 addRouter:v27 method:1 path:@"/srp/precheck"];
-        [v19 addRouter:v26 method:3 path:@"/srp/precheck"];
-        [v19 addRouter:v25 method:1 path:@"/certificate"];
-        [v19 addRouter:v24 method:3 path:@"/certificate"];
+        v19 = *(*(&v29 + 1) + 8 * i);
+        [v19 addRouter:v28 method:1 path:@"/srp"];
+        [v19 addRouter:v27 method:3 path:@"/srp"];
+        [v19 addRouter:v26 method:1 path:@"/srp/precheck"];
+        [v19 addRouter:v25 method:3 path:@"/srp/precheck"];
+        [v19 addRouter:v24 method:1 path:@"/certificate"];
+        [v19 addRouter:v23 method:3 path:@"/certificate"];
         [v19 addRouter:self->_getStatusRouter method:1 path:@"/status"];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v16);
@@ -384,37 +379,35 @@
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   password2 = [(MKSRPServer *)v3 password];
   [WeakRetained server:self didCreateCode:password2];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runHTTPS:(id)s
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   sCopy = s;
   [(MKHTTPServer *)self->_https cancel];
-  v31 = objc_alloc_init(MKPOSTClientRouter);
-  [(MKPOSTClientRouter *)v31 setDelegate:self];
+  v30 = objc_alloc_init(MKPOSTClientRouter);
+  [(MKPOSTClientRouter *)v30 setDelegate:self];
   v5 = objc_alloc_init(MKPUTRouter);
   [(MKPUTRouter *)v5 setDelegate:self];
-  v29 = objc_alloc_init(MKPOSTProgressRouter);
-  [(MKPOSTProgressRouter *)v29 setDelegate:self];
+  v28 = objc_alloc_init(MKPOSTProgressRouter);
+  [(MKPOSTProgressRouter *)v28 setDelegate:self];
   v6 = objc_alloc_init(MKGETSecuredStatusRouter);
   [(MKGETSecuredStatusRouter *)v6 setGetStatusRouter:self->_getStatusRouter];
   supportedContentTypes = [(MKPUTRouter *)v5 supportedContentTypes];
   [(MKGETSecuredStatusRouter *)v6 setSupportedContentTypes:supportedContentTypes];
 
-  v30 = v5;
+  v29 = v5;
   supportedTransferEncodings = [(MKPUTRouter *)v5 supportedTransferEncodings];
   [(MKGETSecuredStatusRouter *)v6 setSupportedTransferEncodings:supportedTransferEncodings];
 
   signatures = [(MKContainerMigrator *)self->_containerMigrator signatures];
   [(MKGETSecuredStatusRouter *)v6 setSignatures:signatures];
 
-  v28 = objc_alloc_init(MKGETPlaceholderRouter);
-  v27 = objc_alloc_init(MKDELETEPlaceholderRouter);
-  v26 = objc_alloc_init(MKGETMigratorRouter);
-  [(MKGETMigratorRouter *)v26 setMigrators:self->_migrators];
+  v27 = objc_alloc_init(MKGETPlaceholderRouter);
+  v26 = objc_alloc_init(MKDELETEPlaceholderRouter);
+  v25 = objc_alloc_init(MKGETMigratorRouter);
+  [(MKGETMigratorRouter *)v25 setMigrators:self->_migrators];
   v10 = objc_alloc_init(MKDELETESIMRouter);
   [(MKDELETESIMRouter *)v10 setDelegate:self];
   v11 = objc_alloc_init(MKHTTPServer);
@@ -423,44 +416,44 @@
 
   [(MKHTTPServer *)self->_https setDelegate:self];
   [(MKHTTPServer *)self->_https setCertificate:self->_certificate];
-  v24 = sCopy;
+  v23 = sCopy;
   [(MKHTTPServer *)self->_https setClientCertificate:sCopy];
   [(MKHTTPServer *)self->_https setUseHTTPS:1];
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   usb = self->_usb;
   selfCopy = self;
-  v36[0] = self->_https;
-  v36[1] = usb;
-  obj = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
-  v14 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v35[0] = self->_https;
+  v35[1] = usb;
+  obj = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+  v14 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v33;
+    v16 = *v32;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v33 != v16)
+        if (*v32 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v32 + 1) + 8 * i);
-        [v18 addRouter:v31 method:3 path:@"/client"];
-        [v18 addRouter:v30 method:4 path:@"/"];
-        [v18 addRouter:v29 method:3 path:@"/progress"];
+        v18 = *(*(&v31 + 1) + 8 * i);
+        [v18 addRouter:v30 method:3 path:@"/client"];
+        [v18 addRouter:v29 method:4 path:@"/"];
+        [v18 addRouter:v28 method:3 path:@"/progress"];
         [v18 addRouter:v6 method:1 path:@"/status"];
-        [v18 addRouter:v28 method:1 path:@"/placeholder"];
-        [v18 addRouter:v27 method:5 path:@"/placeholder"];
-        [v18 addRouter:v26 method:1 path:@"/migrator"];
+        [v18 addRouter:v27 method:1 path:@"/placeholder"];
+        [v18 addRouter:v26 method:5 path:@"/placeholder"];
+        [v18 addRouter:v25 method:1 path:@"/migrator"];
         [v18 addRouter:v10 method:5 path:@"/sim"];
       }
 
-      v15 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v15 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v15);
@@ -476,22 +469,20 @@
   objc_sync_enter(v21);
   v21->_isImporting = 0;
   objc_sync_exit(v21);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)server:(id)server didOpen:(int64_t)open
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   v7 = +[MKLog log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412546;
-    v12 = serverCopy;
-    v13 = 2048;
+    v10 = 138412546;
+    v11 = serverCopy;
+    v12 = 2048;
     openCopy = open;
-    _os_log_impl(&dword_2592D2000, v7, OS_LOG_TYPE_INFO, "%@ open %ld port.", &v11, 0x16u);
+    _os_log_impl(&dword_2592D2000, v7, OS_LOG_TYPE_INFO, "%@ open %ld port.", &v10, 0x16u);
   }
 
   selfCopy = self;
@@ -510,8 +501,6 @@ LABEL_7:
   }
 
   objc_sync_exit(selfCopy);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)serverDidCancel:(id)cancel
@@ -559,7 +548,7 @@ LABEL_7:
 
 - (void)router:(id)router didReceiveClient:(id)client
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   routerCopy = router;
   clientCopy = client;
   v7 = +[MKLog log];
@@ -575,23 +564,23 @@ LABEL_7:
     inputMethodLanguages = [clientCopy inputMethodLanguages];
     *buf = 138414594;
     selfCopy = self;
-    v35 = 2112;
-    v36 = hostname;
-    v37 = 2112;
-    v38 = brand;
-    v39 = 2112;
-    v40 = model;
-    v41 = 2112;
-    v42 = name;
-    v43 = 2112;
-    v44 = v11;
-    v45 = 2112;
-    v46 = version;
-    v47 = 2112;
-    v48 = locale;
-    v49 = 2112;
-    v50 = inputMethodLanguages;
-    v51 = 2048;
+    v34 = 2112;
+    v35 = hostname;
+    v36 = 2112;
+    v37 = brand;
+    v38 = 2112;
+    v39 = model;
+    v40 = 2112;
+    v41 = name;
+    v42 = 2112;
+    v43 = v11;
+    v44 = 2112;
+    v45 = version;
+    v46 = 2112;
+    v47 = locale;
+    v48 = 2112;
+    v49 = inputMethodLanguages;
+    v50 = 2048;
     activatedCellularPlans = [clientCopy activatedCellularPlans];
     _os_log_impl(&dword_2592D2000, v7, OS_LOG_TYPE_INFO, "%@ did receive a client. hostname=%@, brand=%@, model=%@, name=%@, os=%@, version=%@, locale=%@, inputMethodLanguages=%@ activatedCellularPlans=%lu", buf, 0x66u);
   }
@@ -633,7 +622,6 @@ LABEL_7:
   [payload5 setAndroidVersion:version2];
 
   objc_sync_exit(v19);
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)router:(id)router didUpdateProgress:(float)progress remainingTime:(unint64_t)time state:(int)state
@@ -838,38 +826,36 @@ LABEL_7:
 
 - (void)setImportContexts
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_migrators;
-  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(MKAPIServer *)self setImportContext:*(*(&v9 + 1) + 8 * v7++), v9];
+        [(MKAPIServer *)self setImportContext:*(*(&v8 + 1) + 8 * v7++), v8];
       }
 
       while (v5 != v7);
-      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setImportContext:(id)context
@@ -1221,7 +1207,7 @@ LABEL_20:
 
 - (void)setSwitcherFlags
 {
-  v46[4] = *MEMORY[0x277D85DE8];
+  v45[4] = *MEMORY[0x277D85DE8];
   v3 = +[MKLog log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -1238,57 +1224,57 @@ LABEL_20:
   brand2 = [client3 brand];
   v11 = [v4 stringWithFormat:@"%@/%@/Android/%@/Android", brand, model, brand2];
 
-  v46[0] = MEMORY[0x277CBEC38];
-  v45[0] = @"MigratedFromAndroid";
-  v45[1] = @"MigratedFromAndroidToiOSVersion";
+  v45[0] = MEMORY[0x277CBEC38];
+  v44[0] = @"MigratedFromAndroid";
+  v44[1] = @"MigratedFromAndroidToiOSVersion";
   v12 = +[MKSystem version];
-  v46[1] = v12;
-  v46[2] = v11;
-  v33 = v11;
-  v45[2] = @"MigratedFromAndroidDeviceType";
-  v45[3] = @"MigratedFromAndroidOSVersion";
+  v45[1] = v12;
+  v45[2] = v11;
+  v32 = v11;
+  v44[2] = @"MigratedFromAndroidDeviceType";
+  v44[3] = @"MigratedFromAndroidOSVersion";
   client4 = [(MKAPIServer *)self client];
   v14 = [client4 os];
-  v46[3] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:4];
+  v45[3] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:4];
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v16 = v15;
-  v17 = [v16 countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v35 objects:v43 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v37;
+    v19 = *v36;
     v20 = *MEMORY[0x277CBF008];
     v21 = *MEMORY[0x277CBF040];
     v22 = *MEMORY[0x277CBF010];
-    v35 = *MEMORY[0x277CBED28];
-    v34 = *MEMORY[0x277CBED10];
+    v34 = *MEMORY[0x277CBED28];
+    v33 = *MEMORY[0x277CBED10];
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v37 != v19)
+        if (*v36 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v24 = *(*(&v36 + 1) + 8 * i);
+        v24 = *(*(&v35 + 1) + 8 * i);
         v25 = [v16 objectForKeyedSubscript:v24];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           if ([v25 BOOLValue])
           {
-            v26 = v35;
+            v26 = v34;
           }
 
           else
           {
-            v26 = v34;
+            v26 = v33;
           }
 
           CFPreferencesSetValue(v24, v26, v20, v21, v22);
@@ -1300,9 +1286,9 @@ LABEL_20:
 
           bOOLValue = [v25 BOOLValue];
           *buf = 138412546;
-          v41 = v24;
-          v42 = 1024;
-          LODWORD(v43) = bOOLValue;
+          v40 = v24;
+          v41 = 1024;
+          LODWORD(v42) = bOOLValue;
           v29 = v27;
           v30 = "%@ is set to %d.";
           v31 = 18;
@@ -1320,9 +1306,9 @@ LABEL_20:
         if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v41 = v24;
-          v42 = 2112;
-          v43 = v25;
+          v40 = v24;
+          v41 = 2112;
+          v42 = v25;
           v29 = v27;
           v30 = "%@ is set to %@.";
           v31 = 22;
@@ -1335,18 +1321,16 @@ LABEL_18:
 LABEL_19:
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v35 objects:v43 count:16];
     }
 
     while (v18);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 + (void)clean
 {
-  v57[3] = *MEMORY[0x277D85DE8];
+  v56[3] = *MEMORY[0x277D85DE8];
   v2 = NSHomeDirectory();
   v3 = [v2 stringByAppendingString:@"/Library/MigrationKit/matd/"];
 
@@ -1355,16 +1339,16 @@ LABEL_19:
 
   if (v5)
   {
-    v46 = objc_alloc_init(MKPowerAssertion);
+    v45 = objc_alloc_init(MKPowerAssertion);
     v6 = [[MKPhotoLibraryAlbumMigrator alloc] initWithReuseDatabase:1];
     v7 = [[MKPhotoLibraryMigrator alloc] initWithType:0 reuseDatabase:1];
     v8 = [[MKPhotoLibraryMigrator alloc] initWithType:1 reuseDatabase:1];
     [(MKPhotoLibraryMigrator *)v7 setAlbumMigrator:v6];
     [(MKPhotoLibraryMigrator *)v8 setAlbumMigrator:v6];
-    v57[0] = v7;
-    v57[1] = v8;
-    v57[2] = v6;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:3];
+    v56[0] = v7;
+    v56[1] = v8;
+    v56[2] = v6;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:3];
     v10 = objc_alloc_init(MKApplicationMigrator);
     v11 = dispatch_semaphore_create(0);
     v12 = dispatch_queue_create("com.apple.migrationkit.app.install", 0);
@@ -1373,49 +1357,49 @@ LABEL_19:
     block[2] = __20__MKAPIServer_clean__block_invoke;
     block[3] = &unk_2798DCCA0;
     v13 = v10;
-    v53 = v13;
+    v52 = v13;
     v14 = v11;
-    v54 = v14;
-    v45 = v12;
+    v53 = v14;
+    v44 = v12;
     dispatch_async(v12, block);
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     v15 = v9;
-    v16 = [v15 countByEnumeratingWithState:&v48 objects:v56 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v47 objects:v55 count:16];
     if (v16)
     {
       v17 = v16;
-      v43 = v8;
-      v44 = v7;
+      v42 = v8;
+      v43 = v7;
       v18 = v13;
-      v19 = *v49;
+      v19 = *v48;
       while (2)
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v49 != v19)
+          if (*v48 != v19)
           {
             objc_enumerationMutation(v15);
           }
 
-          v21 = *(*(&v48 + 1) + 8 * i);
+          v21 = *(*(&v47 + 1) + 8 * i);
           importAndWait = [v21 importAndWait];
           [v21 import];
           if (!importAndWait)
           {
 
             dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
-            v26 = v46;
+            v26 = v45;
             v13 = v18;
-            v8 = v43;
-            v7 = v44;
+            v8 = v42;
+            v7 = v43;
             goto LABEL_20;
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v48 objects:v56 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v47 objects:v55 count:16];
         if (v17)
         {
           continue;
@@ -1426,14 +1410,14 @@ LABEL_19:
 
       dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
       defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-      v47 = 0;
-      [defaultManager2 removeItemAtPath:v3 error:&v47];
-      v24 = v47;
+      v46 = 0;
+      [defaultManager2 removeItemAtPath:v3 error:&v46];
+      v24 = v46;
 
       v25 = v24;
-      v26 = v46;
+      v26 = v45;
       v13 = v18;
-      v8 = v43;
+      v8 = v42;
       if (v25)
       {
         v27 = +[MKLog log];
@@ -1443,34 +1427,34 @@ LABEL_19:
         }
       }
 
-      v7 = v44;
+      v7 = v43;
       if (+[MKInternal isInternal](MKInternal, "isInternal") && +[MKAPIServer isPhotosBenchmarkEnabled])
       {
-        v42 = v25;
+        v41 = v25;
         v28 = [MKBenchmark alloc];
-        importCount = [(MKMigrator *)v44 importCount];
-        importErrorCount = [(MKMigrator *)v44 importErrorCount];
-        [(MKMigrator *)v44 importTime];
-        v41 = [(MKBenchmark *)v28 initWithLabel:@"Image" count:importErrorCount + importCount time:?];
-        v55[0] = v41;
-        v31 = [MKBenchmark alloc];
-        importCount2 = [(MKMigrator *)v43 importCount];
-        importErrorCount2 = [(MKMigrator *)v43 importErrorCount];
+        importCount = [(MKMigrator *)v43 importCount];
+        importErrorCount = [(MKMigrator *)v43 importErrorCount];
         [(MKMigrator *)v43 importTime];
-        v40 = [(MKBenchmark *)v31 initWithLabel:@"Video" count:importErrorCount2 + importCount2 time:?];
-        v55[1] = v40;
+        v40 = [(MKBenchmark *)v28 initWithLabel:@"Image" count:importErrorCount + importCount time:?];
+        v54[0] = v40;
+        v31 = [MKBenchmark alloc];
+        importCount2 = [(MKMigrator *)v42 importCount];
+        importErrorCount2 = [(MKMigrator *)v42 importErrorCount];
+        [(MKMigrator *)v42 importTime];
+        v39 = [(MKBenchmark *)v31 initWithLabel:@"Video" count:importErrorCount2 + importCount2 time:?];
+        v54[1] = v39;
         v34 = [MKBenchmark alloc];
         importCount3 = [(MKMigrator *)v6 importCount];
         importErrorCount3 = [(MKMigrator *)v6 importErrorCount];
         [(MKMigrator *)v6 importTime];
         v37 = [(MKBenchmark *)v34 initWithLabel:@"Album" count:importErrorCount3 + importCount3 time:?];
-        v55[2] = v37;
-        v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:3];
+        v54[2] = v37;
+        v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:3];
 
-        v25 = v42;
+        v25 = v41;
         [MKAPIServer benchmark:v38];
 
-        v7 = v44;
+        v7 = v43;
       }
     }
 
@@ -1478,13 +1462,11 @@ LABEL_19:
     {
 
       dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
-      v26 = v46;
+      v26 = v45;
     }
 
 LABEL_20:
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 intptr_t __20__MKAPIServer_clean__block_invoke(uint64_t a1)
@@ -1504,16 +1486,16 @@ intptr_t __20__MKAPIServer_clean__block_invoke(uint64_t a1)
 
 + (void)benchmark:(id)benchmark
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   benchmarkCopy = benchmark;
   v4 = objc_alloc_init(MEMORY[0x277CCAB68]);
   [v4 appendString:@"(Internal Only)"];
-  v28 = 0u;
-  v29 = 0u;
   v27 = 0u;
+  v28 = 0u;
   v26 = 0u;
+  v25 = 0u;
   v5 = benchmarkCopy;
-  v6 = [v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v25 objects:v31 count:16];
   v7 = v5;
   if (!v6)
   {
@@ -1522,17 +1504,17 @@ intptr_t __20__MKAPIServer_clean__block_invoke(uint64_t a1)
 
   v8 = v6;
   v9 = 0;
-  v10 = *v27;
+  v10 = *v26;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v27 != v10)
+      if (*v26 != v10)
       {
         objc_enumerationMutation(v5);
       }
 
-      v12 = *(*(&v26 + 1) + 8 * i);
+      v12 = *(*(&v25 + 1) + 8 * i);
       [v4 appendString:@"\n"];
       benchmark = [v12 benchmark];
       [v4 appendString:benchmark];
@@ -1540,7 +1522,7 @@ intptr_t __20__MKAPIServer_clean__block_invoke(uint64_t a1)
       v9 += [v12 count];
     }
 
-    v8 = [v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
+    v8 = [v5 countByEnumeratingWithState:&v25 objects:v31 count:16];
   }
 
   while (v8);
@@ -1549,39 +1531,37 @@ intptr_t __20__MKAPIServer_clean__block_invoke(uint64_t a1)
   {
     v14 = dispatch_semaphore_create(0);
     v15 = *MEMORY[0x277CBF198];
-    v30[0] = *MEMORY[0x277CBF188];
-    v30[1] = v15;
-    v31[0] = @"Import Complete";
-    v31[1] = v4;
-    v30[2] = *MEMORY[0x277CBF1E8];
-    v31[2] = @"OK";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
-    v25[0] = 0;
-    v25[1] = v25;
-    v25[2] = 0x2020000000;
-    v25[3] = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, 0, v7);
-    v23[0] = 0;
-    v23[1] = v23;
-    v23[2] = 0x2020000000;
-    v24 = 0;
+    v29[0] = *MEMORY[0x277CBF188];
+    v29[1] = v15;
+    v30[0] = @"Import Complete";
+    v30[1] = v4;
+    v29[2] = *MEMORY[0x277CBF1E8];
+    v30[2] = @"OK";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
+    v24[0] = 0;
+    v24[1] = v24;
+    v24[2] = 0x2020000000;
+    v24[3] = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, 0, v7);
+    v22[0] = 0;
+    v22[1] = v22;
+    v22[2] = 0x2020000000;
+    v23 = 0;
     v16 = dispatch_get_global_queue(25, 0);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __25__MKAPIServer_benchmark___block_invoke;
     block[3] = &unk_2798DCCC8;
-    v21 = v25;
-    v22 = v23;
-    v20 = v14;
+    v20 = v24;
+    v21 = v22;
+    v19 = v14;
     v17 = v14;
     dispatch_async(v16, block);
 
     dispatch_semaphore_wait(v17, 0xFFFFFFFFFFFFFFFFLL);
-    _Block_object_dispose(v23, 8);
-    _Block_object_dispose(v25, 8);
+    _Block_object_dispose(v22, 8);
+    _Block_object_dispose(v24, 8);
 LABEL_10:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 intptr_t __25__MKAPIServer_benchmark___block_invoke(uint64_t a1)

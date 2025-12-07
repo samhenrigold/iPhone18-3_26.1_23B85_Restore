@@ -34,6 +34,7 @@
 - (void)_reloadAtrialFibrillationSetupTableHeaderView;
 - (void)_reloadTableViewAndScrollToTop;
 - (void)_showInternalSettingsViewController;
+- (void)_startOnboardingForFirstTime:(BOOL)time;
 - (void)_updateDetectionState;
 - (void)featureStatusProviding:(id)providing didUpdateFeatureStatus:(id)status;
 - (void)recomputeTotalSampleCount;
@@ -41,8 +42,11 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
 - (void)updateMarginsForWidthDesignation:(int64_t)designation;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewIsAppearing:(BOOL)appearing;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)widthDesignationDidChangeWithTraitEnvironment:(id)environment previousTraitCollection:(id)collection;
 @end
 
@@ -133,10 +137,10 @@
 
 - (void)viewDidLoad
 {
-  v29[1] = *MEMORY[0x277D85DE8];
-  v28.receiver = self;
-  v28.super_class = WDAtrialFibrillationEventOverviewViewController;
-  [(HKTableViewController *)&v28 viewDidLoad];
+  v28[1] = *MEMORY[0x277D85DE8];
+  v27.receiver = self;
+  v27.super_class = WDAtrialFibrillationEventOverviewViewController;
+  [(HKTableViewController *)&v27 viewDidLoad];
   localization = [(HKDisplayType *)self->_displayType localization];
   displayName = [localization displayName];
   [(WDAtrialFibrillationEventOverviewViewController *)self setTitle:displayName];
@@ -178,21 +182,20 @@
   tableView9 = [(WDAtrialFibrillationEventOverviewViewController *)self tableView];
   [tableView9 registerClass:objc_opt_class() forCellReuseIdentifier:@"DataTypeDescription"];
 
-  v29[0] = objc_opt_class();
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v28[0] = objc_opt_class();
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
   v22 = [(WDAtrialFibrillationEventOverviewViewController *)self registerForTraitChanges:v21 withTarget:self action:sel_widthDesignationDidChangeWithTraitEnvironment_previousTraitCollection_];
 
   objc_initWeak(&location, self);
   dataProvider = self->_dataProvider;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __62__WDAtrialFibrillationEventOverviewViewController_viewDidLoad__block_invoke;
-  v25[3] = &unk_2796E6CF0;
-  objc_copyWeak(&v26, &location);
-  [(WDDataListViewControllerDataProvider *)dataProvider startCollectingDataWithUpdateHandler:v25];
-  objc_destroyWeak(&v26);
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __62__WDAtrialFibrillationEventOverviewViewController_viewDidLoad__block_invoke;
+  v24[3] = &unk_2796E6CF0;
+  objc_copyWeak(&v25, &location);
+  [(WDDataListViewControllerDataProvider *)dataProvider startCollectingDataWithUpdateHandler:v24];
+  objc_destroyWeak(&v25);
   objc_destroyWeak(&location);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __62__WDAtrialFibrillationEventOverviewViewController_viewDidLoad__block_invoke(uint64_t a1)
@@ -210,6 +213,43 @@ void __62__WDAtrialFibrillationEventOverviewViewController_viewDidLoad__block_in
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _reloadAllData];
+}
+
+- (void)viewIsAppearing:(BOOL)appearing
+{
+  v5.receiver = self;
+  v5.super_class = WDAtrialFibrillationEventOverviewViewController;
+  [(WDAtrialFibrillationEventOverviewViewController *)&v5 viewIsAppearing:appearing];
+  traitCollection = [(WDAtrialFibrillationEventOverviewViewController *)self traitCollection];
+  [(WDAtrialFibrillationEventOverviewViewController *)self updateMarginsForWidthDesignation:[(WDAtrialFibrillationEventOverviewViewController *)self widthDesignationFromTraitCollection:traitCollection]];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WDAtrialFibrillationEventOverviewViewController;
+  [(WDAtrialFibrillationEventOverviewViewController *)&v4 viewWillAppear:appear];
+  [(WDAtrialFibrillationEventOverviewViewController *)self _reloadAllData];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = WDAtrialFibrillationEventOverviewViewController;
+  [(WDAtrialFibrillationEventOverviewViewController *)&v10 viewDidAppear:appear];
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  isAppleInternalInstall = [mEMORY[0x277CCDD30] isAppleInternalInstall];
+
+  if (isAppleInternalInstall)
+  {
+    tripleTapToSettingsRecognizer = [(WDAtrialFibrillationEventOverviewViewController *)self tripleTapToSettingsRecognizer];
+    [tripleTapToSettingsRecognizer setNumberOfTapsRequired:3];
+
+    navigationController = [(WDAtrialFibrillationEventOverviewViewController *)self navigationController];
+    navigationBar = [navigationController navigationBar];
+    tripleTapToSettingsRecognizer2 = [(WDAtrialFibrillationEventOverviewViewController *)self tripleTapToSettingsRecognizer];
+    [navigationBar addGestureRecognizer:tripleTapToSettingsRecognizer2];
+  }
 }
 
 - (void)viewDidLayoutSubviews
@@ -366,15 +406,15 @@ void __62__WDAtrialFibrillationEventOverviewViewController_viewDidLoad__block_in
 
 - (void)featureStatusProviding:(id)providing didUpdateFeatureStatus:(id)status
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2D8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
     *buf = 138543362;
-    v11 = objc_opt_class();
-    v7 = v11;
+    v10 = objc_opt_class();
+    v7 = v10;
     _os_log_impl(&dword_251E85000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Received update for IRN feature status", buf, 0xCu);
   }
 
@@ -384,18 +424,33 @@ void __62__WDAtrialFibrillationEventOverviewViewController_viewDidLoad__block_in
   block[3] = &unk_2796E6D18;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v8 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_startOnboardingForFirstTime:(BOOL)time
+{
+  timeCopy = time;
+  v5 = objc_alloc(MEMORY[0x277D13090]);
+  profile = [(WDAtrialFibrillationEventOverviewViewController *)self profile];
+  healthStore = [profile healthStore];
+  profile2 = [(WDAtrialFibrillationEventOverviewViewController *)self profile];
+  dateCache = [profile2 dateCache];
+  v10 = [v5 initWithOnboardingType:0 isFirstTimeOnboarding:timeCopy healthStore:healthStore dateCache:dateCache provenance:2 delegate:self];
+  [(WDAtrialFibrillationEventOverviewViewController *)self setOnboardingManager:v10];
+
+  onboardingManager = [(WDAtrialFibrillationEventOverviewViewController *)self onboardingManager];
+  onboardingNavigationController = [onboardingManager onboardingNavigationController];
+
+  [onboardingNavigationController setModalInPresentation:1];
+  navigationController = [(WDAtrialFibrillationEventOverviewViewController *)self navigationController];
+  [navigationController presentViewController:onboardingNavigationController animated:1 completion:0];
 }
 
 - (void)_updateDetectionState
 {
-  v13 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v3 = OUTLINED_FUNCTION_3();
   v4 = OUTLINED_FUNCTION_0_0(v3);
-  OUTLINED_FUNCTION_1(&dword_251E85000, v5, v6, "[%{public}@]: Error retrieving feature status for IRN; reporting 'unavailable': %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_251E85000, v5, v6, "[%{public}@]: Error retrieving feature status for IRN; reporting 'unavailable': %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_reloadAllData
@@ -1383,36 +1438,27 @@ LABEL_19:
 
 void __76__WDAtrialFibrillationEventOverviewViewController_recomputeTotalSampleCount__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = OUTLINED_FUNCTION_3();
-  v6 = OUTLINED_FUNCTION_0_0(v5);
-  OUTLINED_FUNCTION_1(&dword_251E85000, v7, v8, "%{public}@: Error counting heart event samples: %{public}@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = OUTLINED_FUNCTION_3();
+  v5 = OUTLINED_FUNCTION_0_0(v4);
+  OUTLINED_FUNCTION_1(&dword_251E85000, v6, v7, "%{public}@: Error counting heart event samples: %{public}@", v8, v9, v10, v11);
 }
 
 void __79__WDAtrialFibrillationEventOverviewViewController__getLatestAnalyzedSampleDate__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = OUTLINED_FUNCTION_3();
-  v6 = OUTLINED_FUNCTION_0_0(v5);
-  OUTLINED_FUNCTION_1(&dword_251E85000, v7, v8, "%{public}@: Error loading latest analyzed sample time: %{public}@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = OUTLINED_FUNCTION_3();
+  v5 = OUTLINED_FUNCTION_0_0(v4);
+  OUTLINED_FUNCTION_1(&dword_251E85000, v6, v7, "%{public}@: Error loading latest analyzed sample time: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_atrialFibrillationDetectionRescindedHeaderView
 {
-  v10 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v2 = objc_opt_class();
-  OUTLINED_FUNCTION_2(&dword_251E85000, v3, v4, "[%{public}@]: Asked to configure rescinded header view, but no feature status is present", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  LODWORD(v10) = 138543362;
+  *(&v10 + 4) = objc_opt_class();
+  v3 = *(&v10 + 4);
+  OUTLINED_FUNCTION_2(&dword_251E85000, v4, v5, "[%{public}@]: Asked to configure rescinded header view, but no feature status is present", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 @end

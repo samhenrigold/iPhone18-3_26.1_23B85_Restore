@@ -1331,7 +1331,7 @@ LABEL_34:
   dispatch_async(xpcCommandQueue, v7);
 }
 
-uint64_t __81__VCCaptionsManager_notifyClientsWithStreamToken_service_arguments_isTranslated___block_invoke(uint64_t a1)
+void *__81__VCCaptionsManager_notifyClientsWithStreamToken_service_arguments_isTranslated___block_invoke(uint64_t a1)
 {
   v1 = a1;
   v57 = *MEMORY[0x1E69E9840];
@@ -1552,7 +1552,7 @@ LABEL_30:
           }
 
 LABEL_37:
-          ++v19;
+          v19 = v19 + 1;
         }
 
         while (v16 != v19);

@@ -54,32 +54,32 @@
 
 - (void)setText:(id)text
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   textCopy = text;
   v4 = [textCopy copy];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v5 = +[AXKonaSpeechSegment encodingReplacements];
   allKeys = [v5 allKeys];
 
-  v7 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       v9 = 0;
       v10 = v4;
       do
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * v9);
+        v11 = *(*(&v20 + 1) + 8 * v9);
         v12 = +[AXKonaSpeechSegment encodingReplacements];
         v13 = [v12 objectForKeyedSubscript:v11];
         v4 = [v10 stringByReplacingOccurrencesOfString:v11 withString:v13];
@@ -89,7 +89,7 @@
       }
 
       while (v7 != v9);
-      v7 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
@@ -103,13 +103,13 @@
     self->_encodedString = 0;
   }
 
-  v20 = 0;
+  v19 = 0;
   v15 = [v4 maximumLengthOfBytesUsingEncoding:{-[AXKonaSpeechSegment targetEncoding](self, "targetEncoding")}];
   v16 = malloc_type_calloc(v15 + 1, 1uLL, 0x100004077774924uLL);
   self->_encodedString = v16;
-  [v4 getBytes:v16 maxLength:v15 usedLength:&v20 encoding:-[AXKonaSpeechSegment targetEncoding](self options:"targetEncoding") range:1 remainingRange:{0, objc_msgSend(v4, "length"), 0}];
-  self->_encodedString[v20] = 0;
-  [(AXKonaSpeechSegment *)self setEncodedStringLength:v20];
+  [v4 getBytes:v16 maxLength:v15 usedLength:&v19 encoding:-[AXKonaSpeechSegment targetEncoding](self options:"targetEncoding") range:1 remainingRange:{0, objc_msgSend(v4, "length"), 0}];
+  self->_encodedString[v19] = 0;
+  [(AXKonaSpeechSegment *)self setEncodedStringLength:v19];
   for (i = 0; [v4 length] > i; ++i)
   {
     if (self->_encodedString[i] == 63 && [v4 characterAtIndex:i] != 63)
@@ -117,8 +117,6 @@
       self->_encodedString[i] = 32;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (_NSRange)range

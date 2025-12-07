@@ -9,18 +9,20 @@
 - (void)_reportToApple:(id)apple;
 - (void)_send;
 - (void)_setAdditionalDetails:(id)details withSpecifier:(id)specifier;
+- (void)reloadSpecifiersForProvider:(id)provider oldSpecifiers:(id)specifiers animated:(BOOL)animated;
 - (void)specifierProvider:(id)provider didFinishLoadingSpecifier:(id)specifier;
 - (void)specifierProvider:(id)provider showViewController:(id)controller;
 - (void)specifierProvider:(id)provider willBeginLoadingSpecifier:(id)specifier;
 - (void)traitEnvironment:(id)environment didChangeTraitCollection:(id)collection;
 - (void)validateDataclassAccessForProvider:(id)provider specifier:(id)specifier completion:(id)completion;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TUIKTReportToAppleViewController
 
 - (TUIKTReportToAppleViewController)initWithContext:(id)context staticIdentityManager:(id)manager
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   managerCopy = manager;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_20 != -1)
@@ -32,12 +34,12 @@
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v20 = "[TUIKTReportToAppleViewController initWithContext:staticIdentityManager:]";
-    v21 = 2114;
-    v22 = contextCopy;
-    v23 = 2114;
-    v24 = managerCopy;
-    v25 = 2114;
+    v19 = "[TUIKTReportToAppleViewController initWithContext:staticIdentityManager:]";
+    v20 = 2114;
+    v21 = contextCopy;
+    v22 = 2114;
+    v23 = managerCopy;
+    v24 = 2114;
     selfCopy = self;
     _os_log_impl(&dword_26F50B000, v9, OS_LOG_TYPE_DEFAULT, "%s context = %{public}@, staticIdentityManager = %{public}@ on %{public}@", buf, 0x2Au);
   }
@@ -57,12 +59,11 @@
     reportManager = v11->_reportManager;
     v11->_reportManager = v12;
 
-    v18 = objc_opt_class();
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+    v17 = objc_opt_class();
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
     v15 = [(TUIKTReportToAppleViewController *)v11 registerForTraitChanges:v14 withAction:sel_traitEnvironment_didChangeTraitCollection_];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -71,6 +72,37 @@ uint64_t __74__TUIKTReportToAppleViewController_initWithContext_staticIdentityMa
   TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_20 = os_log_create("com.apple.Transparency", "ui");
 
   return MEMORY[0x2821F96F8]();
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v17.receiver = self;
+  v17.super_class = TUIKTReportToAppleViewController;
+  [(TUIKTReportToAppleViewController *)&v17 viewWillAppear:appear];
+  reportManager = self->_reportManager;
+  failingValidation = [(TUIKTReportToAppleContext *)self->_context failingValidation];
+  [(TUIReportManager *)reportManager fetchDataWithUUID:failingValidation];
+
+  navigationItem = [(TUIKTReportToAppleViewController *)self navigationItem];
+  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v8 = [v7 localizedStringForKey:@"REPORT_TO_APPLE_TITLE" value:&stru_287F92480 table:@"Localizable"];
+  [navigationItem setTitle:v8];
+
+  v9 = objc_alloc(MEMORY[0x277D751E0]);
+  v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v11 = [v10 localizedStringForKey:@"SEND" value:&stru_287F92480 table:@"Localizable"];
+  v12 = [v9 initWithTitle:v11 style:0 target:self action:sel__send];
+
+  [navigationItem setRightBarButtonItem:v12];
+  v13 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel__dismiss];
+  [navigationItem setLeftBarButtonItem:v13];
+  v14 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:self action:sel__dismissKeyboard_];
+  gestureRecognizer = self->_gestureRecognizer;
+  self->_gestureRecognizer = v14;
+
+  [(UIGestureRecognizer *)self->_gestureRecognizer setCancelsTouchesInView:0];
+  view = [(TUIKTReportToAppleViewController *)self view];
+  [view addGestureRecognizer:self->_gestureRecognizer];
 }
 
 - (void)traitEnvironment:(id)environment didChangeTraitCollection:(id)collection
@@ -282,6 +314,38 @@ uint64_t __80__TUIKTReportToAppleViewController_specifierProvider_didFinishLoadi
   return MEMORY[0x2821F96F8]();
 }
 
+- (void)reloadSpecifiersForProvider:(id)provider oldSpecifiers:(id)specifiers animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v14 = *MEMORY[0x277D85DE8];
+  providerCopy = provider;
+  specifiersCopy = specifiers;
+  dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
+  if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_20 != -1)
+  {
+    [TUIKTReportToAppleViewController reloadSpecifiersForProvider:oldSpecifiers:animated:];
+  }
+
+  v10 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_20;
+  if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_20, OS_LOG_TYPE_DEBUG))
+  {
+    v12 = 138412290;
+    v13 = providerCopy;
+    _os_log_impl(&dword_26F50B000, v10, OS_LOG_TYPE_DEBUG, "Reloading specifiers for provider %@", &v12, 0xCu);
+  }
+
+  if ([specifiersCopy count])
+  {
+    specifiers = [providerCopy specifiers];
+    [(TUIKTReportToAppleViewController *)self replaceContiguousSpecifiers:specifiersCopy withSpecifiers:specifiers animated:animatedCopy];
+  }
+
+  else
+  {
+    [(TUIKTReportToAppleViewController *)self reloadSpecifiers];
+  }
+}
+
 uint64_t __87__TUIKTReportToAppleViewController_reloadSpecifiersForProvider_oldSpecifiers_animated___block_invoke()
 {
   TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_20 = os_log_create("com.apple.Transparency", "ui");
@@ -350,22 +414,19 @@ void __41__TUIKTReportToAppleViewController__send__block_invoke_2(uint64_t a1)
   if (*(a1 + 32))
   {
     v3 = MEMORY[0x277D75110];
-    v4 = *(a1 + 40);
-    v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v6 = [v5 localizedStringForKey:@"REPORT_TO_APPLE_TITLE" value:&stru_287F92480 table:@"Localizable"];
-    v7 = *(a1 + 40);
-    v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v9 = [v8 localizedStringForKey:@"REPORT_TO_APPLE_ERROR" value:&stru_287F92480 table:@"Localizable"];
-    v10 = [v3 alertControllerWithTitle:v6 message:v9 preferredStyle:1];
+    v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v5 = [v4 localizedStringForKey:@"REPORT_TO_APPLE_TITLE" value:&stru_287F92480 table:@"Localizable"];
+    v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v7 = [v6 localizedStringForKey:@"REPORT_TO_APPLE_ERROR" value:&stru_287F92480 table:@"Localizable"];
+    v8 = [v3 alertControllerWithTitle:v5 message:v7 preferredStyle:1];
 
-    v11 = MEMORY[0x277D750F8];
-    v12 = *(a1 + 40);
-    v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v14 = [v13 localizedStringForKey:@"DISMISS" value:&stru_287F92480 table:@"Localizable"];
-    v15 = [v11 actionWithTitle:v14 style:1 handler:&__block_literal_global_110_0];
+    v9 = MEMORY[0x277D750F8];
+    v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v11 = [v10 localizedStringForKey:@"DISMISS" value:&stru_287F92480 table:@"Localizable"];
+    v12 = [v9 actionWithTitle:v11 style:1 handler:&__block_literal_global_110_0];
 
-    [v10 addAction:v15];
-    [*(a1 + 40) presentViewController:v10 animated:1 completion:0];
+    [v8 addAction:v12];
+    [*(a1 + 40) presentViewController:v8 animated:1 completion:0];
   }
 
   else
@@ -375,11 +436,11 @@ void __41__TUIKTReportToAppleViewController__send__block_invoke_2(uint64_t a1)
       __41__TUIKTReportToAppleViewController__send__block_invoke_2_cold_1();
     }
 
-    v16 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_20;
+    v13 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_20;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_20, OS_LOG_TYPE_DEBUG))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_26F50B000, v16, OS_LOG_TYPE_DEBUG, "Report to Apple sent", v17, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_26F50B000, v13, OS_LOG_TYPE_DEBUG, "Report to Apple sent", v14, 2u);
     }
 
     [WeakRetained _dismiss];
@@ -411,13 +472,12 @@ uint64_t __41__TUIKTReportToAppleViewController__send__block_invoke_4()
 
 - (void)traitEnvironment:(uint64_t)a1 didChangeTraitCollection:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[TUIKTReportToAppleViewController traitEnvironment:didChangeTraitCollection:]";
-  v5 = 2114;
-  v6 = a1;
-  _os_log_debug_impl(&dword_26F50B000, a2, OS_LOG_TYPE_DEBUG, "%s  on %{public}@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[TUIKTReportToAppleViewController traitEnvironment:didChangeTraitCollection:]";
+  v4 = 2114;
+  v5 = a1;
+  _os_log_debug_impl(&dword_26F50B000, a2, OS_LOG_TYPE_DEBUG, "%s  on %{public}@", &v2, 0x16u);
 }
 
 @end

@@ -11,32 +11,32 @@
 
 + (id)resultFromSource:(id)source andUploadDictionaries:(id)dictionaries
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   dictionariesCopy = dictionaries;
-  v28 = [MEMORY[0x277CBEB58] set];
+  v27 = [MEMORY[0x277CBEB58] set];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = dictionariesCopy;
-  v32 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
-  if (v32)
+  v31 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+  if (v31)
   {
-    v30 = *v35;
+    v29 = *v34;
     do
     {
       v6 = 0;
       do
       {
-        if (*v35 != v30)
+        if (*v34 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v34 + 1) + 8 * v6);
+        v7 = *(*(&v33 + 1) + 8 * v6);
         v8 = [v7 objectForKeyedSubscript:@"cert"];
         if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
@@ -45,26 +45,26 @@
           {
             v10 = v9;
             objc_opt_class();
-            v33 = v10;
-            if ((objc_opt_isKindOfClass() & 1) != 0 && ([v28 containsObject:v10] & 1) == 0)
+            v32 = v10;
+            if ((objc_opt_isKindOfClass() & 1) != 0 && ([v27 containsObject:v10] & 1) == 0)
             {
               v11 = [v8 objectForKeyedSubscript:@"pubKeyDigest"];
               v12 = [v8 objectForKeyedSubscript:@"sigAlgo"];
               v13 = [[ASTUploadFilesCertsEntry alloc] initWithCert:v10 andPubKeyDigest:v11 andSigAlgo:v12];
-              [v28 addObject:v10];
+              [v27 addObject:v10];
               [array addObject:v13];
             }
           }
 
           else
           {
-            v33 = 0;
+            v32 = 0;
           }
         }
 
         else
         {
-          v33 = &stru_2852CD800;
+          v32 = &stru_2852CD800;
         }
 
         v14 = [v7 objectForKeyedSubscript:@"id"];
@@ -80,16 +80,15 @@
         ++v6;
       }
 
-      while (v32 != v6);
-      v22 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
-      v32 = v22;
+      while (v31 != v6);
+      v22 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v31 = v22;
     }
 
     while (v22);
   }
 
   v23 = [[ASTUploadFilesResult alloc] initWithSource:sourceCopy andCerts:array andFiles:array2];
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -115,30 +114,30 @@
 
 - (id)generatePayload
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   selfCopy = self;
   certs = [(ASTUploadFilesResult *)self certs];
-  v4 = [certs countByEnumeratingWithState:&v47 objects:v58 count:16];
+  v4 = [certs countByEnumeratingWithState:&v46 objects:v57 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v48;
+    v6 = *v47;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v48 != v6)
+        if (*v47 != v6)
         {
           objc_enumerationMutation(certs);
         }
 
-        v8 = *(*(&v47 + 1) + 8 * i);
+        v8 = *(*(&v46 + 1) + 8 * i);
         sigAlgo = [v8 sigAlgo];
         if (sigAlgo)
         {
@@ -151,45 +150,45 @@
         }
         v10 = ;
 
-        v56[0] = @"cert";
+        v55[0] = @"cert";
         certString = [v8 certString];
-        v57[0] = certString;
-        v56[1] = @"pubKeyDigest";
+        v56[0] = certString;
+        v55[1] = @"pubKeyDigest";
         pubKeyDigest = [v8 pubKeyDigest];
-        v56[2] = @"sigAlgo";
-        v57[1] = pubKeyDigest;
-        v57[2] = v10;
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:3];
+        v55[2] = @"sigAlgo";
+        v56[1] = pubKeyDigest;
+        v56[2] = v10;
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:3];
 
         [array addObject:v13];
       }
 
-      v5 = [certs countByEnumeratingWithState:&v47 objects:v58 count:16];
+      v5 = [certs countByEnumeratingWithState:&v46 objects:v57 count:16];
     }
 
     while (v5);
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   obj = [(ASTUploadFilesResult *)selfCopy files];
-  v36 = [obj countByEnumeratingWithState:&v43 objects:v55 count:16];
-  if (v36)
+  v35 = [obj countByEnumeratingWithState:&v42 objects:v54 count:16];
+  if (v35)
   {
-    v33 = *v44;
+    v32 = *v43;
     do
     {
-      for (j = 0; j != v36; ++j)
+      for (j = 0; j != v35; ++j)
       {
-        if (*v44 != v33)
+        if (*v43 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v43 + 1) + 8 * j);
-        v53[0] = @"id";
+        v15 = *(*(&v42 + 1) + 8 * j);
+        v52[0] = @"id";
         uploadId = [v15 uploadId];
         if (uploadId)
         {
@@ -200,9 +199,9 @@
         {
           [MEMORY[0x277CBEB68] null];
         }
-        v41 = ;
-        v54[0] = v41;
-        v53[1] = @"name";
+        v40 = ;
+        v53[0] = v40;
+        v52[1] = @"name";
         name = [v15 name];
         if (name)
         {
@@ -213,11 +212,11 @@
         {
           [MEMORY[0x277CBEB68] null];
         }
-        v39 = ;
-        v54[1] = v39;
-        v53[2] = @"sig";
-        v38 = [v15 sig];
-        if (v38)
+        v38 = ;
+        v53[1] = v38;
+        v52[2] = @"sig";
+        v37 = [v15 sig];
+        if (v37)
         {
           [v15 sig];
         }
@@ -226,9 +225,9 @@
         {
           [MEMORY[0x277CBEB68] null];
         }
-        v37 = ;
-        v54[2] = v37;
-        v53[3] = @"pubKeyDigest";
+        v36 = ;
+        v53[2] = v36;
+        v52[3] = @"pubKeyDigest";
         pubKeyDigest2 = [v15 pubKeyDigest];
         if (pubKeyDigest2)
         {
@@ -240,8 +239,8 @@
           [MEMORY[0x277CBEB68] null];
         }
         v17 = ;
-        v54[3] = v17;
-        v53[4] = @"status";
+        v53[3] = v17;
+        v52[4] = @"status";
         status = [v15 status];
         if (status)
         {
@@ -253,8 +252,8 @@
           [MEMORY[0x277CBEB68] null];
         }
         v19 = ;
-        v54[4] = v19;
-        v53[5] = @"size";
+        v53[4] = v19;
+        v52[5] = @"size";
         v20 = [v15 size];
         if (v20)
         {
@@ -266,8 +265,8 @@
           [MEMORY[0x277CCABB0] numberWithLong:0];
         }
         v21 = ;
-        v54[5] = v21;
-        v53[6] = @"uploadUrl";
+        v53[5] = v21;
+        v52[6] = @"uploadUrl";
         uploadUrl = [v15 uploadUrl];
         if (uploadUrl)
         {
@@ -279,30 +278,28 @@
           [MEMORY[0x277CBEB68] null];
         }
         v23 = ;
-        v54[6] = v23;
-        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:7];
+        v53[6] = v23;
+        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:7];
 
         [array2 addObject:v24];
       }
 
-      v36 = [obj countByEnumeratingWithState:&v43 objects:v55 count:16];
+      v35 = [obj countByEnumeratingWithState:&v42 objects:v54 count:16];
     }
 
-    while (v36);
+    while (v35);
   }
 
-  v51[0] = @"source";
+  v50[0] = @"source";
   source = [(ASTUploadFilesResult *)selfCopy source];
-  v52[0] = source;
-  v51[1] = @"certs";
+  v51[0] = source;
+  v50[1] = @"certs";
   v26 = [array copy];
-  v52[1] = v26;
-  v51[2] = @"files";
+  v51[1] = v26;
+  v50[2] = @"files";
   v27 = [array2 copy];
-  v52[2] = v27;
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:3];
-
-  v29 = *MEMORY[0x277D85DE8];
+  v51[2] = v27;
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:3];
 
   return v28;
 }

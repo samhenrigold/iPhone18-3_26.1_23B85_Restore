@@ -265,7 +265,7 @@
 
 + (BOOL)isTapToRadarKitSupported
 {
-  v2 = sub_100819824();
+  v2 = sub_100819824(0);
   if (v2)
   {
     LOBYTE(v2) = sub_100819C90() != 0;

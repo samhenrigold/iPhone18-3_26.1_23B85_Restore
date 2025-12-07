@@ -28,7 +28,7 @@ void __42__PUPhotoEditShadowView_softEdgeMaskImage__block_invoke()
   v2 = [v5 imageByCroppingToRect:{0.0, 0.0, 100.0, 100.0}];
   v3 = [v2 imageByApplyingGaussianBlurWithSigma:6.0];
   v4 = [MEMORY[0x1E695F620] context];
-  [v3 extent];
+  objc_msgSend_extent(v3);
   softEdgeMaskImage_maskImage = [v4 createCGImage:v3 fromRect:?];
 }
 

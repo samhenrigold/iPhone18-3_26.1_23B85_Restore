@@ -8,8 +8,6 @@
 - (int)_applySmartStyleProxyRenderingWithMethod:(int)method fromSampleBuffer:(opaqueCMSampleBuffer *)buffer to:(opaqueCMSampleBuffer *)to;
 - (int)_loadAndConfigureSmartStyleBundle:(BOOL)bundle;
 - (int)_loadAndConfigureSmartStyleProxyRenderer;
-- (uint64_t)_loadAndConfigureSmartStyleProxyRenderer;
-- (uint64_t)prepareForCurrentConfigurationToBecomeLive;
 - (void)_consumeSampleBufferAttachments:(opaqueCMSampleBuffer *)attachments;
 - (void)dealloc;
 - (void)didReachEndOfDataForInput:(id)input;
@@ -84,7 +82,7 @@
           v21 = objc_alloc_init(BWNodeInputMediaConfiguration);
           [(BWNodeInputMediaConfiguration *)v21 setFormatRequirements:objc_alloc_init(BWVideoFormatRequirements)];
           [(BWNodeInputMediaConfiguration *)v21 setPassthroughMode:0];
-          if ([v20 isEqualToString:0x1F21AB070])
+          if (objc_msgSend_isEqualToString_(v20))
           {
             [(BWNodeInputMediaConfiguration *)v21 setRetainedBufferCount:4];
           }
@@ -169,7 +167,7 @@
   {
     if (input)
     {
-      if ([key isEqualToString:@"PrimaryFormat"])
+      if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
       {
         formatRequirements = [(BWNodeOutput *)self->super._output formatRequirements];
         -[BWFormatRequirements setWidth:](formatRequirements, "setWidth:", [format width]);
@@ -202,13 +200,13 @@
 
     else
     {
-      [BWSmartStyleApplyNode didSelectFormat:forInput:forAttachedMediaKey:];
+      [BWSmartStyleApplyNode didSelectFormat:a2 forInput:? forAttachedMediaKey:?];
     }
   }
 
   else
   {
-    [BWSmartStyleApplyNode didSelectFormat:forInput:forAttachedMediaKey:];
+    [(BWSmartStyleApplyNode *)self didSelectFormat:a2 forInput:0 forAttachedMediaKey:input, key];
   }
 }
 
@@ -256,7 +254,7 @@
 
   if (!input)
   {
-    [BWSmartStyleApplyNode renderSampleBuffer:forInput:];
+    [BWSmartStyleApplyNode renderSampleBuffer:a2 forInput:?];
     goto LABEL_29;
   }
 
@@ -411,11 +409,11 @@ LABEL_29:
   self->_smartStyleClass = v3;
   if (!v3 || (v4 = NSClassFromString([MEMORY[0x1E696AEC0] stringWithFormat:@"CMISmartStyleProxyRendererV%d", 1]), !self->_smartStyleClass) || (v5 = objc_msgSend([v4 alloc], "initWithOptionalMetalCommandQueue:", self->_metalCommandQueue), (self->_smartStyleProxyRenderer = v5) == 0))
   {
-    prewarm = -12786;
+    LODWORD(v13) = -12786;
 LABEL_22:
 
     self->_smartStyleProxyRenderer = 0;
-    return prewarm;
+    return v13;
   }
 
   [(CMISmartStyleProxyRenderer *)v5 setMaxInputStylesCount:1];
@@ -442,7 +440,7 @@ LABEL_16:
 LABEL_17:
     v12 = 0;
 LABEL_18:
-    prewarm = -12786;
+    v13 = 4294954510;
     goto LABEL_10;
   }
 
@@ -459,39 +457,40 @@ LABEL_18:
     {
       [v11 setAllocatorBackend:v8];
       [(CMISmartStyleProxyRenderer *)smartStyleProxyRenderer setExternalMemoryResource:v12];
-      prewarm = 0;
+      v13 = 0;
       goto LABEL_10;
     }
 
     goto LABEL_18;
   }
 
-  prewarm = v10;
+  v13 = v10;
   v12 = 0;
 LABEL_10:
 
-  if (prewarm)
+  if (v13)
   {
-    [BWSmartStyleApplyNode _loadAndConfigureSmartStyleProxyRenderer];
+    [(BWSmartStyleApplyNode *)v13 _loadAndConfigureSmartStyleProxyRenderer];
     goto LABEL_22;
   }
 
   setup = [(CMISmartStyleProxyRenderer *)self->_smartStyleProxyRenderer setup];
   if (setup)
   {
-    prewarm = setup;
+    LODWORD(v13) = setup;
     [BWSmartStyleApplyNode _loadAndConfigureSmartStyleProxyRenderer];
     goto LABEL_22;
   }
 
   prewarm = [(CMISmartStyleProxyRenderer *)self->_smartStyleProxyRenderer prewarm];
+  LODWORD(v13) = prewarm;
   if (prewarm)
   {
-    [BWSmartStyleApplyNode _loadAndConfigureSmartStyleProxyRenderer];
+    [(BWSmartStyleApplyNode *)prewarm _loadAndConfigureSmartStyleProxyRenderer];
     goto LABEL_22;
   }
 
-  return prewarm;
+  return v13;
 }
 
 - (id)_updateSupportedPixelFormats
@@ -552,7 +551,7 @@ LABEL_10:
   *retstr = **&MEMORY[0x1E6960C70];
   if (!a4)
   {
-    return [BWSmartStyleApplyNode _getSampleBufferPresentationTimeStamp:];
+    return [(BWSmartStyleApplyNode *)self _getSampleBufferPresentationTimeStamp:stamp];
   }
 
   v6 = CMGetAttachment(a4, *off_1E798A3C8, 0);
@@ -618,17 +617,17 @@ LABEL_10:
 LABEL_10:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return 0;
   }
 }
 
 - (int)_applySmartStyleFromSampleBuffer:(opaqueCMSampleBuffer *)buffer to:(opaqueCMSampleBuffer *)to
 {
-  v66 = 0;
-  v67 = 0;
-  v64 = *MEMORY[0x1E6960CC0];
-  v65 = *(MEMORY[0x1E6960CC0] + 8);
+  v69 = 0;
+  v70[0] = 0;
+  v67 = *MEMORY[0x1E6960CC0];
+  v68 = *(MEMORY[0x1E6960CC0] + 8);
   v7 = *(MEMORY[0x1E695F050] + 16);
   rect.origin = *MEMORY[0x1E695F050];
   rect.size = v7;
@@ -637,7 +636,7 @@ LABEL_10:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v54, v55, v56, key, v58, v59, v60, v61);
     goto LABEL_51;
   }
 
@@ -646,7 +645,7 @@ LABEL_10:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v54, v55, v56, key, v58, v59, v60, v61);
     goto LABEL_53;
   }
 
@@ -655,18 +654,19 @@ LABEL_10:
   {
     toCopy = 0;
     OUTLINED_FUNCTION_9_61();
-    v65 = 0;
-    v64 = 0;
+    v68 = 0;
+    v67 = 0;
 LABEL_18:
-    v37 = -12780;
+    v39 = -12780;
     goto LABEL_39;
   }
 
-  v12 = [(BWSmartStyleApplyNode *)self _getSampleBufferPresentationTimeStamp:?];
-  v20 = v61;
-  v64 = v58;
-  v65 = v59;
-  if ((v60 & 1) == 0)
+  SampleBufferPresentationTimeStamp = objc_msgSend__getSampleBufferPresentationTimeStamp_(self, a2);
+  v20 = v64;
+  v67 = v61;
+  v21 = v63;
+  v68 = v62;
+  if ((v63 & 1) == 0)
   {
 LABEL_51:
     toCopy = 0;
@@ -677,8 +677,8 @@ LABEL_53:
 
   if (*v8 == 1)
   {
-    OUTLINED_FUNCTION_8_58(v12, v13, v14, v15, v16, v17, v18, v19, v51, v52, v53, key, v55, v56, v57, v58, v59, v60, v61, *&rect.origin.x, *&rect.origin.y, *&rect.size.width, *&rect.size.height, v63, v64, v65);
-    OUTLINED_FUNCTION_5_7();
+    *&v22 = OUTLINED_FUNCTION_8_58(SampleBufferPresentationTimeStamp, v13, v14, v15, v16, v17, v18, v19, v54, v55, v56, key, v58, v59, v60, v61, v62, v63, v64, *&rect.origin.x, *&rect.origin.y, *&rect.size.width, *&rect.size.height, v66, v67, v68);
+    OUTLINED_FUNCTION_5_7(822150521, v22);
   }
 
   ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
@@ -686,26 +686,27 @@ LABEL_53:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-    AttachedMedia = FigDebugAssert3();
+    AttachedMedia = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v54, v55, v56, key, v58, v59, v60, v61);
     toCopy = 0;
     v4 = 0;
     goto LABEL_18;
   }
 
-  v21 = *off_1E798A3C8;
-  v22 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
-  if (!v22)
+  HIDWORD(v60) = v21;
+  v23 = *off_1E798A3C8;
+  v24 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
+  if (!v24)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v54, v55, v56, key, v58, v59, v60, v61);
     toCopy = 0;
     OUTLINED_FUNCTION_9_61();
-    v37 = -12780;
+    v39 = -12780;
     goto LABEL_39;
   }
 
-  v23 = v22;
+  v25 = v24;
   AttachedMedia = BWSampleBufferGetAttachedMedia(buffer, 0x1F21AB0D0);
   v4 = AttachedMedia;
   if (!AttachedMedia)
@@ -713,11 +714,11 @@ LABEL_53:
     toCopy = 0;
 LABEL_58:
     ImageBuffer = 0;
-    v37 = -12783;
+    v39 = -12783;
     goto LABEL_39;
   }
 
-  v55 = toCopy;
+  v58 = toCopy;
   AttachedMedia = BWSampleBufferGetAttachedMedia(buffer, 0x1F21AB070);
   toCopy = AttachedMedia;
   if (!AttachedMedia)
@@ -726,13 +727,13 @@ LABEL_58:
     goto LABEL_58;
   }
 
-  v53 = v6;
-  key = v21;
-  v56 = v20;
-  v32 = *off_1E798B588;
-  v33 = [objc_msgSend(v23 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
+  v56 = v6;
+  key = v23;
+  v59 = v20;
+  v34 = *off_1E798B588;
+  v35 = [objc_msgSend(v25 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
   mostRecentCoefficients = self->_mostRecentCoefficients;
-  if (v33 == self->_mostRecentQuadraBinningFactor)
+  if (v35 == self->_mostRecentQuadraBinningFactor)
   {
     if (mostRecentCoefficients)
     {
@@ -742,14 +743,14 @@ LABEL_58:
 
     self->_mostRecentCoefficients = CFRetain(toCopy);
     self->_applyGlobalMostRecentCoefficients = 0;
-    v35 = self->_currentGlobalLocalMixFactor - self->_globalLocalSystemMixFactorDecayRate;
+    v37 = self->_currentGlobalLocalMixFactor - self->_globalLocalSystemMixFactorDecayRate;
     [objc_msgSend(-[CMISmartStyleProcessor configuration](self->_smartStyleProcessor "configuration")];
-    if (v35 >= v36)
+    if (v37 >= v38)
     {
-      v36 = v35;
+      v38 = v37;
     }
 
-    self->_currentGlobalLocalMixFactor = v36;
+    self->_currentGlobalLocalMixFactor = v38;
   }
 
   else if (mostRecentCoefficients)
@@ -759,23 +760,23 @@ LABEL_58:
     toCopy = mostRecentCoefficients;
   }
 
-  self->_mostRecentQuadraBinningFactor = [objc_msgSend(v23 objectForKeyedSubscript:{v32), "intValue"}];
-  v38 = [v23 objectForKeyedSubscript:*off_1E798A8F0];
-  if (v38 && !CGRectMakeWithDictionaryRepresentation(v38, &rect) || (v39 = CMSampleBufferGetImageBuffer(v4)) == 0 || (v40 = v39, (v41 = CMSampleBufferGetImageBuffer(toCopy)) == 0))
+  self->_mostRecentQuadraBinningFactor = [objc_msgSend(v25 objectForKeyedSubscript:{v34), "intValue"}];
+  v40 = [v25 objectForKeyedSubscript:*off_1E798A8F0];
+  if (v40 && !CGRectMakeWithDictionaryRepresentation(v40, &rect) || (v41 = CMSampleBufferGetImageBuffer(v4)) == 0 || (v42 = v41, (v43 = CMSampleBufferGetImageBuffer(toCopy)) == 0))
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_3_47();
-    LODWORD(v51) = 0;
-    FigDebugAssert3();
+    LODWORD(v54) = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v54);
     toCopy = 0;
     OUTLINED_FUNCTION_9_61();
-    v37 = -12780;
+    v39 = -12780;
 LABEL_71:
     v8 = MEMORY[0x1E695FF58];
     goto LABEL_39;
   }
 
-  v42 = v41;
+  v44 = v43;
   AttachedMedia = [(BWPixelBufferPool *)[(BWNodeOutput *)self->super._output livePixelBufferPool] newPixelBuffer];
   v4 = AttachedMedia;
   if (!AttachedMedia)
@@ -784,7 +785,7 @@ LABEL_71:
 LABEL_63:
     ImageBuffer = 0;
 LABEL_70:
-    v37 = -12786;
+    v39 = -12786;
     goto LABEL_71;
   }
 
@@ -794,37 +795,37 @@ LABEL_70:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_3_47();
-    LODWORD(v51) = 0;
-    AttachedMedia = FigDebugAssert3();
+    LODWORD(v54) = 0;
+    AttachedMedia = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v54, v55, v6, v23, v58, v20, v60, v61);
     goto LABEL_63;
   }
 
   [toCopy setMetalSharedEvent:{CMGetAttachment(buffer, *off_1E798A4C0, 0)}];
   [toCopy setInputUnstyledPixelBuffer:ImageBuffer];
-  [toCopy setInputMetadataDict:v23];
-  [toCopy setInputUnstyledThumbnailPixelBuffer:v40];
+  [toCopy setInputMetadataDict:v25];
+  [toCopy setInputUnstyledThumbnailPixelBuffer:v42];
   [toCopy setOutputStyledPixelBuffer:v4];
   [toCopy setPrimaryCaptureRect:{rect.origin.x, rect.origin.y, rect.size.width, rect.size.height}];
-  *&v43 = self->_currentGlobalLocalMixFactor;
-  [toCopy setGlobalLinearSystemMixFactor:v43];
+  *&v45 = self->_currentGlobalLocalMixFactor;
+  [toCopy setGlobalLinearSystemMixFactor:v45];
   [toCopy setApplyDither:self->_applyDither];
   if (!self->_filterType)
   {
-    [toCopy setInputStyleCoefficientsPixelBuffer:v42];
+    [toCopy setInputStyleCoefficientsPixelBuffer:v44];
     ImageBuffer = 0;
     goto LABEL_32;
   }
 
   [(CMISmartStyleProcessor *)self->_smartStyleProcessor utilities];
   OUTLINED_FUNCTION_5_83();
-  v45 = [v44 enqueueCoefficientsForFiltering:v42 withMetadata:v23 pts:&v58];
-  if (v45)
+  v47 = [v46 enqueueCoefficientsForFiltering:v44 withMetadata:v25 pts:&v61];
+  if (v47)
   {
-    v37 = v45;
+    v39 = v47;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_3_47();
-    LODWORD(v51) = v37;
-    AttachedMedia = FigDebugAssert3();
+    LODWORD(v54) = v39;
+    AttachedMedia = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v54, v55, v6, v23, v58, v20, v60, v61);
     ImageBuffer = 0;
     goto LABEL_71;
   }
@@ -834,70 +835,70 @@ LABEL_70:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_3_47();
-    LODWORD(v51) = 0;
-    AttachedMedia = FigDebugAssert3();
+    LODWORD(v54) = 0;
+    AttachedMedia = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v54, v55, v6, v23, v58, v20, v60, v61);
     goto LABEL_70;
   }
 
   [(CMISmartStyleProcessor *)self->_smartStyleProcessor utilities];
   OUTLINED_FUNCTION_5_83();
-  [v46 filterCoefficientsForFrameWithMetadata:v23 pts:&v58 filterType:? toPixelBuffer:?];
+  [v48 filterCoefficientsForFrameWithMetadata:v25 pts:&v61 filterType:? toPixelBuffer:?];
   [toCopy setInputStyleCoefficientsPixelBuffer:ImageBuffer];
 LABEL_32:
   [(CMISmartStyleProcessor *)self->_smartStyleProcessor setInputOutput:toCopy];
   process = [(CMISmartStyleProcessor *)self->_smartStyleProcessor process];
   if (process || (process = [(CMISmartStyleProcessor *)self->_smartStyleProcessor finishProcessing]) != 0)
   {
-    v37 = process;
+    v39 = process;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_3_47();
-    LODWORD(v51) = v37;
-    AttachedMedia = FigDebugAssert3();
+    LODWORD(v54) = v39;
+    AttachedMedia = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v54);
     v8 = MEMORY[0x1E695FF58];
     goto LABEL_39;
   }
 
-  v48 = BWCMSampleBufferCreateCopyWithNewPixelBuffer(buffer, v4, &v66, &v67);
+  v50 = BWCMSampleBufferCreateCopyWithNewPixelBuffer(buffer, v4, &v69, v70);
   v8 = MEMORY[0x1E695FF58];
-  if (v48)
+  if (v50)
   {
-    v37 = v48;
+    v39 = v50;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_3_47();
-    LODWORD(v51) = v37;
-    AttachedMedia = FigDebugAssert3();
+    LODWORD(v54) = v39;
+    AttachedMedia = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v54, v55, v6, v23, v58, v20, v60, v61);
     goto LABEL_39;
   }
 
-  v49 = CMGetAttachment(buffer, v21, 0);
-  if (!v49)
+  v51 = CMGetAttachment(buffer, v23, 0);
+  if (!v51)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_3_47();
-    LODWORD(v51) = 0;
-    AttachedMedia = FigDebugAssert3();
+    LODWORD(v54) = 0;
+    AttachedMedia = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v54, v55, v6, v23, v58, v20, v60, v61);
     goto LABEL_18;
   }
 
-  [v49 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*off_1E798A8B8];
-  AttachedMedia = v67;
-  if (v67)
+  [v51 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*off_1E798A8B8];
+  AttachedMedia = v70[0];
+  if (v70[0])
   {
-    AttachedMedia = CFRetain(v67);
+    AttachedMedia = CFRetain(v70[0]);
   }
 
-  v37 = 0;
-  *v55 = AttachedMedia;
+  v39 = 0;
+  *v58 = AttachedMedia;
 LABEL_39:
   if (*v8 == 1)
   {
-    OUTLINED_FUNCTION_8_58(AttachedMedia, v25, v26, v27, v28, v29, v30, v31, v51, v52, v53, key, v55, v56, v57, v58, v59, v60, v61, *&rect.origin.x, *&rect.origin.y, *&rect.size.width, *&rect.size.height, v63, v64, v65);
-    OUTLINED_FUNCTION_5_7();
+    *&v52 = OUTLINED_FUNCTION_8_58(AttachedMedia, v27, v28, v29, v30, v31, v32, v33, v54, v55, v56, key, v58, v59, v60, v61, v62, v63, v64, *&rect.origin.x, *&rect.origin.y, *&rect.size.width, *&rect.size.height, v66, v67, v68);
+    OUTLINED_FUNCTION_5_7(822150522, v52);
   }
 
-  if (v67)
+  if (v70[0])
   {
-    CFRelease(v67);
+    CFRelease(v70[0]);
   }
 
   if (v4)
@@ -905,9 +906,9 @@ LABEL_39:
     CFRelease(v4);
   }
 
-  if (v66)
+  if (v69)
   {
-    CFRelease(v66);
+    CFRelease(v69);
   }
 
   if (ImageBuffer)
@@ -915,16 +916,16 @@ LABEL_39:
     CFRelease(ImageBuffer);
   }
 
-  return v37;
+  return v39;
 }
 
 - (int)_applySmartStyleProxyRenderingWithMethod:(int)method fromSampleBuffer:(opaqueCMSampleBuffer *)buffer to:(opaqueCMSampleBuffer *)to
 {
   selfCopy = self;
-  v41 = 0;
+  v44 = 0;
   cf = 0;
-  v38 = *MEMORY[0x1E6960CC0];
-  v39 = *(MEMORY[0x1E6960CC0] + 8);
+  v41 = *MEMORY[0x1E6960CC0];
+  v42 = *(MEMORY[0x1E6960CC0] + 8);
   v12 = MEMORY[0x1E695FF58];
   if (method == 2)
   {
@@ -937,9 +938,9 @@ LABEL_39:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_11();
-      self = FigDebugAssert3();
+      self = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v30, v31, v32, v33, v34, v35, currentStyle, v37);
       selfCopy2 = 0;
-      v24 = 0;
+      v25 = 0;
       goto LABEL_26;
     }
 
@@ -955,19 +956,19 @@ LABEL_39:
   if (!self)
   {
     selfCopy2 = 0;
-    v39 = 0;
-    v38 = 0;
+    v42 = 0;
+    v41 = 0;
 LABEL_18:
-    v24 = -12780;
+    v25 = -12780;
     goto LABEL_26;
   }
 
-  self = [(BWSmartStyleApplyNode *)self _getSampleBufferPresentationTimeStamp:buffer];
-  v14 = v37;
-  v38 = v34;
-  v15 = v36;
-  v39 = v35;
-  if ((v36 & 1) == 0)
+  self = objc_msgSend__getSampleBufferPresentationTimeStamp_(self, a2, buffer);
+  v14 = v40;
+  v41 = v37;
+  v15 = v39;
+  v42 = v38;
+  if ((v39 & 1) == 0)
   {
 LABEL_36:
     selfCopy2 = 0;
@@ -976,84 +977,96 @@ LABEL_36:
 
   if (*v12 == 1)
   {
-    OUTLINED_FUNCTION_7_73(self, a2, *&method, buffer, to, v5, v6, v7, v27, v28, v29, v30, v31, v32, currentStyle, v34, v35, v36, v37, v38, v39);
-    OUTLINED_FUNCTION_5_7();
+    *&v16 = OUTLINED_FUNCTION_7_73(self, a2, *&method, buffer, to, v5, v6, v7, v30, v31, v32, v33, v34, v35, currentStyle, v37, v38, v39, v40, v41, v42);
+    OUTLINED_FUNCTION_5_7(822150525, v16);
   }
 
   ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
-  if (!ImageBuffer || (v17 = ImageBuffer, (v18 = CMGetAttachment(buffer, *off_1E798A3C8, 0)) == 0))
+  if (!ImageBuffer || (v18 = ImageBuffer, (v19 = CMGetAttachment(buffer, *off_1E798A3C8, 0)) == 0))
   {
 LABEL_35:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_11();
-    self = FigDebugAssert3();
+    self = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     goto LABEL_36;
   }
 
-  v19 = v18;
-  v30 = v8;
+  v20 = v19;
+  v33 = v8;
   self = [(BWPixelBufferPool *)[(BWNodeOutput *)selfCopy->super._output livePixelBufferPool] newPixelBuffer];
   selfCopy2 = self;
   if (self)
   {
-    v31 = v14;
-    HIDWORD(v32) = v15;
-    CVBufferPropagateAttachments(v17, self);
-    v21 = [v19 objectForKeyedSubscript:*off_1E798A8D0];
+    v34 = v14;
+    HIDWORD(v35) = v15;
+    CVBufferPropagateAttachments(v18, self);
+    v22 = [v20 objectForKeyedSubscript:*off_1E798A8D0];
     AttachedMedia = BWSampleBufferGetAttachedMedia(buffer, 0x1F21AAED0);
     if (AttachedMedia)
     {
-      v23 = CMSampleBufferGetImageBuffer(AttachedMedia);
+      v24 = CMSampleBufferGetImageBuffer(AttachedMedia);
     }
 
     else
     {
-      v23 = 0;
+      v24 = 0;
     }
 
     currentStyle = selfCopy->_currentStyle;
     -[CMISmartStyleProxyRenderer setInputStyles:](selfCopy->_smartStyleProxyRenderer, "setInputStyles:", [MEMORY[0x1E695DEC8] arrayWithObjects:&currentStyle count:1]);
-    [(CMISmartStyleProxyRenderer *)selfCopy->_smartStyleProxyRenderer setInputPixelBuffer:v17];
-    [(CMISmartStyleProxyRenderer *)selfCopy->_smartStyleProxyRenderer setInputMaskPixelBuffer:v23];
-    [(CMISmartStyleProxyRenderer *)selfCopy->_smartStyleProxyRenderer setInputImageStatistics:v21];
+    [(CMISmartStyleProxyRenderer *)selfCopy->_smartStyleProxyRenderer setInputPixelBuffer:v18];
+    [(CMISmartStyleProxyRenderer *)selfCopy->_smartStyleProxyRenderer setInputMaskPixelBuffer:v24];
+    [(CMISmartStyleProxyRenderer *)selfCopy->_smartStyleProxyRenderer setInputImageStatistics:v22];
     [(CMISmartStyleProxyRenderer *)selfCopy->_smartStyleProxyRenderer setOutputPixelBuffer:selfCopy2];
-    v25 = [(CMISmartStyleProxyRenderer *)selfCopy->_smartStyleProxyRenderer prepareToProcess:v13];
-    if (v25 || (v25 = [(CMISmartStyleProxyRenderer *)selfCopy->_smartStyleProxyRenderer process]) != 0 || (v25 = BWCMSampleBufferCreateCopyWithNewPixelBuffer(buffer, selfCopy2, &cf, &v41)) != 0)
+    v26 = [(CMISmartStyleProxyRenderer *)selfCopy->_smartStyleProxyRenderer prepareToProcess:v13];
+    if (v26 || (v26 = [(CMISmartStyleProxyRenderer *)selfCopy->_smartStyleProxyRenderer process]) != 0)
     {
-      v24 = v25;
+      v25 = v26;
       fig_log_get_emitter();
       OUTLINED_FUNCTION_4_88();
-      self = FigDebugAssert3();
+      self = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
     else
     {
-      self = v41;
-      if (v41)
+      v27 = BWCMSampleBufferCreateCopyWithNewPixelBuffer(buffer, selfCopy2, &cf, &v44);
+      if (v27)
       {
-        self = CFRetain(v41);
+        v25 = v27;
+        fig_log_get_emitter();
+        OUTLINED_FUNCTION_4_88();
+        self = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v30, v31, v32, v8, v14, v35, currentStyle, v37);
       }
 
-      v24 = 0;
-      *to = self;
+      else
+      {
+        self = v44;
+        if (v44)
+        {
+          self = CFRetain(v44);
+        }
+
+        v25 = 0;
+        *to = self;
+      }
     }
   }
 
   else
   {
-    v24 = -12786;
+    v25 = -12786;
   }
 
 LABEL_26:
   if (*v12 == 1)
   {
-    OUTLINED_FUNCTION_7_73(self, a2, *&method, buffer, to, v5, v6, v7, v27, v28, v29, v30, v31, v32, currentStyle, v34, v35, v36, v37, v38, v39);
-    OUTLINED_FUNCTION_5_7();
+    *&v28 = OUTLINED_FUNCTION_7_73(self, a2, *&method, buffer, to, v5, v6, v7, v30, v31, v32, v33, v34, v35, currentStyle, v37, v38, v39, v40, v41, v42);
+    OUTLINED_FUNCTION_5_7(822150526, v28);
   }
 
-  if (v41)
+  if (v44)
   {
-    CFRelease(v41);
+    CFRelease(v44);
   }
 
   if (selfCopy2)
@@ -1066,105 +1079,7 @@ LABEL_26:
     CFRelease(cf);
   }
 
-  return v24;
-}
-
-- (uint64_t)initWithMetalCommandQueue:renderingMethod:squareAspectRatioConfigEnabled:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithMetalCommandQueue:renderingMethod:squareAspectRatioConfigEnabled:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithMetalCommandQueue:renderingMethod:squareAspectRatioConfigEnabled:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithMetalCommandQueue:renderingMethod:squareAspectRatioConfigEnabled:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)setMaxLossyCompressionLevel:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)didSelectFormat:forInput:forAttachedMediaKey:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)didSelectFormat:forInput:forAttachedMediaKey:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)didSelectFormat:forInput:forAttachedMediaKey:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)prepareForCurrentConfigurationToBecomeLive
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
+  return v25;
 }
 
 - (void)renderSampleBuffer:(char)a3 forInput:(uint64_t *)a4 .cold.6(id *a1, const void *a2, char a3, uint64_t *a4)
@@ -1203,25 +1118,11 @@ LABEL_26:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6.value, v6.timescale, v6.epoch, v7, v8);
   [a1 _consumeSampleBufferAttachments:0];
-  CMSampleBufferGetPresentationTimeStamp(&v3, 0);
-  v2 = [BWDroppedSample newDroppedSampleWithReason:0x1F219C1B0 pts:&v3];
+  CMSampleBufferGetPresentationTimeStamp(&v6, 0);
+  v2 = [BWDroppedSample newDroppedSampleWithReason:0x1F219C1B0 pts:&v6];
   [a1[2] emitDroppedSample:v2];
-}
-
-- (uint64_t)_loadAndConfigureSmartStyleProxyRenderer
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_getSampleBufferPresentationTimeStamp:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

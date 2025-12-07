@@ -3,6 +3,7 @@
 - (MRDAVRoutingDataSource)init;
 - (NSArray)pickedRoutes;
 - (id)authorizationRequestCallbackForRouteID:(id)d;
+- (id)pickedRoutesForCategory:(id)category source:(unsigned int)source;
 - (void)addAuthorizationCallbackForRouteID:(id)d requestCallback:(id)callback;
 - (void)removeAuthorizationCallbackForRouteID:(id)d;
 @end
@@ -57,6 +58,24 @@
   }
 
   return v4;
+}
+
+- (id)pickedRoutesForCategory:(id)category source:(unsigned int)source
+{
+  v4 = [(MRDAVRoutingDataSource *)self pickedRouteForCategory:category source:*&source];
+  v5 = v4;
+  if (v4)
+  {
+    v8 = v4;
+    v6 = [NSArray arrayWithObjects:&v8 count:1];
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
 }
 
 - (void)addAuthorizationCallbackForRouteID:(id)d requestCallback:(id)callback

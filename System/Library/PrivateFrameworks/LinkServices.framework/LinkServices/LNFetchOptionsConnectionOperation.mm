@@ -8,10 +8,10 @@
 
 - (void)start
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = LNFetchOptionsConnectionOperation;
-  [(LNConnectionOperation *)&v18 start];
+  v24 = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = LNFetchOptionsConnectionOperation;
+  [(LNConnectionOperation *)&v17 start];
   v3 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -21,11 +21,11 @@
     name = [parameterMetadata name];
     searchTerm = [(LNFetchOptionsConnectionOperation *)self searchTerm];
     *buf = 138412802;
-    v20 = identifier;
-    v21 = 2112;
-    v22 = name;
-    v23 = 2112;
-    v24 = searchTerm;
+    v19 = identifier;
+    v20 = 2112;
+    v21 = name;
+    v22 = 2112;
+    v23 = searchTerm;
     _os_log_impl(&dword_19763D000, v3, OS_LOG_TYPE_INFO, "Fetching options for action %@, parameter: %@, searchTerm: %@", buf, 0x20u);
   }
 
@@ -36,14 +36,12 @@
   optionsProviderReference = [(LNFetchOptionsConnectionOperation *)self optionsProviderReference];
   searchTerm2 = [(LNFetchOptionsConnectionOperation *)self searchTerm];
   localeIdentifier = [(LNFetchOptionsConnectionOperation *)self localeIdentifier];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __42__LNFetchOptionsConnectionOperation_start__block_invoke;
-  v17[3] = &unk_1E74B1F28;
-  v17[4] = self;
-  [connectionInterface fetchOptionsForAction:action actionMetadata:actionMetadata2 parameterMetadata:parameterMetadata2 optionsProviderReference:optionsProviderReference searchTerm:searchTerm2 localeIdentifier:localeIdentifier completionHandler:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __42__LNFetchOptionsConnectionOperation_start__block_invoke;
+  v16[3] = &unk_1E74B1F28;
+  v16[4] = self;
+  [connectionInterface fetchOptionsForAction:action actionMetadata:actionMetadata2 parameterMetadata:parameterMetadata2 optionsProviderReference:optionsProviderReference searchTerm:searchTerm2 localeIdentifier:localeIdentifier completionHandler:v16];
 }
 
 - (void)finishWithError:(id)error

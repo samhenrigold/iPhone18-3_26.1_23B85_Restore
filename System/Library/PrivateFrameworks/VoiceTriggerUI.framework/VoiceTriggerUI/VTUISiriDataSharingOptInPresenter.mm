@@ -43,7 +43,7 @@
 
 - (BOOL)shouldShowSiriDataSharingOptInView
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dataSharingOptInStatus = self->_dataSharingOptInStatus;
   v3 = dataSharingOptInStatus - 1;
   if ((dataSharingOptInStatus - 1) >= 3)
@@ -53,9 +53,9 @@
       v6 = VTUILogContextFacility;
       if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 136315138;
-        v10 = "[VTUISiriDataSharingOptInPresenter shouldShowSiriDataSharingOptInView]";
-        _os_log_impl(&dword_2728BC000, v6, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: VTUISiriDataSharingOptInView requested: User has not made a decision. Returning YES", &v9, 0xCu);
+        v8 = 136315138;
+        v9 = "[VTUISiriDataSharingOptInPresenter shouldShowSiriDataSharingOptInView]";
+        _os_log_impl(&dword_2728BC000, v6, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: VTUISiriDataSharingOptInView requested: User has not made a decision. Returning YES", &v8, 0xCu);
       }
 
       v3 = 1;
@@ -69,14 +69,13 @@
     v3 = 0;
     if (v5)
     {
-      v9 = 136315138;
-      v10 = "[VTUISiriDataSharingOptInPresenter shouldShowSiriDataSharingOptInView]";
-      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: VTUISiriDataSharingOptInView requested: User has made a decision. Returning NO", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[VTUISiriDataSharingOptInPresenter shouldShowSiriDataSharingOptInView]";
+      _os_log_impl(&dword_2728BC000, v4, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: VTUISiriDataSharingOptInView requested: User has made a decision. Returning NO", &v8, 0xCu);
       v3 = 0;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3 & 1;
 }
 
@@ -147,7 +146,7 @@ void __65__VTUISiriDataSharingOptInPresenter__fetchSiriDataSharingEnabled__block
 
 void __65__VTUISiriDataSharingOptInPresenter__fetchSiriDataSharingEnabled__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (v5)
   {
@@ -169,18 +168,16 @@ void __65__VTUISiriDataSharingOptInPresenter__fetchSiriDataSharingEnabled__block
         v9 = MEMORY[0x277CCABB0];
         v10 = v8;
         v11 = [v9 numberWithInteger:a3];
-        v13 = 136315394;
-        v14 = "[VTUISiriDataSharingOptInPresenter _fetchSiriDataSharingEnabled]_block_invoke";
-        v15 = 2112;
-        v16 = v11;
-        _os_log_impl(&dword_2728BC000, v10, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: Siri data sharing opt in fetch completed with state:%@", &v13, 0x16u);
+        v12 = 136315394;
+        v13 = "[VTUISiriDataSharingOptInPresenter _fetchSiriDataSharingEnabled]_block_invoke";
+        v14 = 2112;
+        v15 = v11;
+        _os_log_impl(&dword_2728BC000, v10, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: Siri data sharing opt in fetch completed with state:%@", &v12, 0x16u);
       }
 
       v7[3] = a3;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setSiriDataSharingStatus:(int64_t)status forceDismissal:(BOOL)dismissal
@@ -202,7 +199,7 @@ void __65__VTUISiriDataSharingOptInPresenter__fetchSiriDataSharingEnabled__block
 
 void __78__VTUISiriDataSharingOptInPresenter__setSiriDataSharingStatus_forceDismissal___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -216,13 +213,13 @@ void __78__VTUISiriDataSharingOptInPresenter__setSiriDataSharingStatus_forceDism
       v8 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(WeakRetained, "sourceOfChange")}];
       v9 = [WeakRetained reasonForChange];
       *buf = 136315906;
-      v19 = "[VTUISiriDataSharingOptInPresenter _setSiriDataSharingStatus:forceDismissal:]_block_invoke";
-      v20 = 2112;
-      v21 = v7;
-      v22 = 2112;
-      v23 = v8;
-      v24 = 2112;
-      v25 = v9;
+      v18 = "[VTUISiriDataSharingOptInPresenter _setSiriDataSharingStatus:forceDismissal:]_block_invoke";
+      v19 = 2112;
+      v20 = v7;
+      v21 = 2112;
+      v22 = v8;
+      v23 = 2112;
+      v24 = v9;
       _os_log_impl(&dword_2728BC000, v6, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: Setting data sharing status: %@ source: %@ reason: %@", buf, 0x2Au);
     }
 
@@ -230,19 +227,17 @@ void __78__VTUISiriDataSharingOptInPresenter__setSiriDataSharingStatus_forceDism
     v11 = *(a1 + 40);
     v12 = [WeakRetained sourceOfChange];
     v13 = [WeakRetained reasonForChange];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __78__VTUISiriDataSharingOptInPresenter__setSiriDataSharingStatus_forceDismissal___block_invoke_5;
-    v15[3] = &unk_279E54968;
-    v16[1] = *(a1 + 40);
-    v17 = *(a1 + 48);
-    objc_copyWeak(v16, (a1 + 32));
-    [v10 setSiriDataSharingOptInStatus:v11 propagateToHomeAccessories:1 source:v12 reason:v13 completion:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __78__VTUISiriDataSharingOptInPresenter__setSiriDataSharingStatus_forceDismissal___block_invoke_5;
+    v14[3] = &unk_279E54968;
+    v15[1] = *(a1 + 40);
+    v16 = *(a1 + 48);
+    objc_copyWeak(v15, (a1 + 32));
+    [v10 setSiriDataSharingOptInStatus:v11 propagateToHomeAccessories:1 source:v12 reason:v13 completion:v14];
 
-    objc_destroyWeak(v16);
+    objc_destroyWeak(v15);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __78__VTUISiriDataSharingOptInPresenter__setSiriDataSharingStatus_forceDismissal___block_invoke_5(uint64_t a1, void *a2)
@@ -269,7 +264,7 @@ void __78__VTUISiriDataSharingOptInPresenter__setSiriDataSharingStatus_forceDism
 
 void __78__VTUISiriDataSharingOptInPresenter__setSiriDataSharingStatus_forceDismissal___block_invoke_6(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = VTUILogContextFacility;
   if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
@@ -277,11 +272,11 @@ void __78__VTUISiriDataSharingOptInPresenter__setSiriDataSharingStatus_forceDism
     v4 = *(a1 + 40);
     v5 = v2;
     v6 = [v3 numberWithBool:v4];
-    v9 = 136315394;
-    v10 = "[VTUISiriDataSharingOptInPresenter _setSiriDataSharingStatus:forceDismissal:]_block_invoke";
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_2728BC000, v5, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: Setting data sharing completed. Requesting dismissal:%@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[VTUISiriDataSharingOptInPresenter _setSiriDataSharingStatus:forceDismissal:]_block_invoke";
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_2728BC000, v5, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: Setting data sharing completed. Requesting dismissal:%@", &v8, 0x16u);
   }
 
   if (*(a1 + 40) == 1)
@@ -289,8 +284,6 @@ void __78__VTUISiriDataSharingOptInPresenter__setSiriDataSharingStatus_forceDism
     WeakRetained = objc_loadWeakRetained((a1 + 32));
     [WeakRetained _requestDismissal];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_modalViewControllerForViewStyle:(int64_t)style
@@ -430,43 +423,41 @@ void __78__VTUISiriDataSharingOptInPresenter__setSiriDataSharingStatus_forceDism
 
 - (void)_userTappedOptInToDataSharing
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = VTUILogContextFacility;
   if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[VTUISiriDataSharingOptInPresenter _userTappedOptInToDataSharing]";
-    _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: User has selected to share. Enabling..", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[VTUISiriDataSharingOptInPresenter _userTappedOptInToDataSharing]";
+    _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: User has selected to share. Enabling..", &v4, 0xCu);
   }
 
   [(VTUISiriDataSharingOptInPresenter *)self _setSiriDataSharingStatus:1 forceDismissal:1];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_userTappedOptOutOfDataSharing
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = VTUILogContextFacility;
   if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[VTUISiriDataSharingOptInPresenter _userTappedOptOutOfDataSharing]";
-    _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: User has selected not to share. Disabling..", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[VTUISiriDataSharingOptInPresenter _userTappedOptOutOfDataSharing]";
+    _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: User has selected not to share. Disabling..", &v4, 0xCu);
   }
 
   [(VTUISiriDataSharingOptInPresenter *)self _setSiriDataSharingStatus:2 forceDismissal:1];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_userTappedDismissButtonFromProxCard
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = VTUILogContextFacility;
   if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[VTUISiriDataSharingOptInPresenter _userTappedDismissButtonFromProxCard]";
-    _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: User tapped the delete button on the prox card.", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[VTUISiriDataSharingOptInPresenter _userTappedDismissButtonFromProxCard]";
+    _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s #SiriDataSharingOptIn: User tapped the delete button on the prox card.", &v7, 0xCu);
   }
 
   [(VTUISiriDataSharingOptInPresenter *)self _setSiriDataSharingStatus:3 forceDismissal:0];
@@ -478,8 +469,6 @@ void __78__VTUISiriDataSharingOptInPresenter__setSiriDataSharingStatus_forceDism
     presentationDelegate2 = [(VTUISiriDataSharingOptInPresenter *)self presentationDelegate];
     [presentationDelegate2 siriDataSharingOptInViewDismissButtonTappedFromPresenter:self];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestDismissal
@@ -543,27 +532,24 @@ void __78__VTUISiriDataSharingOptInPresenter__setSiriDataSharingStatus_forceDism
 
 void __65__VTUISiriDataSharingOptInPresenter__fetchSiriDataSharingEnabled__block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_2728BC000, v0, OS_LOG_TYPE_ERROR, "%s #SiriDataSharingOptIn: Siri data sharing opt in status fetch failed with error:%@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2728BC000, v0, OS_LOG_TYPE_ERROR, "%s #SiriDataSharingOptIn: Siri data sharing opt in status fetch failed with error:%@", v1, 0x16u);
 }
 
 void __78__VTUISiriDataSharingOptInPresenter__setSiriDataSharingStatus_forceDismissal___block_invoke_5_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCABB0];
   v5 = *(a1 + 40);
   v6 = a2;
   v7 = [v4 numberWithInteger:v5];
-  v10[0] = 136315650;
+  v9[0] = 136315650;
   OUTLINED_FUNCTION_0();
-  v11 = v8;
-  v12 = a3;
-  _os_log_error_impl(&dword_2728BC000, v6, OS_LOG_TYPE_ERROR, "%s #SiriDataSharingOptIn: Setting data sharing status:%@ failed with error:%@", v10, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = v8;
+  v11 = a3;
+  _os_log_error_impl(&dword_2728BC000, v6, OS_LOG_TYPE_ERROR, "%s #SiriDataSharingOptIn: Setting data sharing status:%@ failed with error:%@", v9, 0x20u);
 }
 
 @end

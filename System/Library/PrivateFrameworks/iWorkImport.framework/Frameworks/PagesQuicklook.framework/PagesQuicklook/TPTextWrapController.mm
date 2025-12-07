@@ -31,113 +31,113 @@
 
 - (id)beginWrappingToColumn:(id)column columnTransformFromWP:(CGAffineTransform *)p target:(id)target hasWrappables:(BOOL *)wrappables
 {
-  v119 = *MEMORY[0x277D85DE8];
+  v162 = *MEMORY[0x277D85DE8];
   columnCopy = column;
   targetCopy = target;
   v9 = [TPTextWrapCookie alloc];
-  v15 = objc_msgSend_initWithColumn_targetLayout_(v9, v10, v11, v12, v13, v14, columnCopy, targetCopy);
+  v17 = objc_msgSend_initWithColumn_targetLayout_(v9, v10, v13, v14, v15, v16, columnCopy, targetCopy, v11, v12);
   WeakRetained = objc_loadWeakRetained(&self->_documentRoot);
-  v106 = objc_msgSend_drawablesZOrder(WeakRetained, v17, v18, v19, v20, v21);
+  v149 = objc_msgSend_drawablesZOrder(WeakRetained, v19, v24, v25, v26, v27, v20, v21, v22, v23);
 
-  v27 = objc_msgSend_storage(columnCopy, v22, v23, v24, v25, v26);
-  v33 = objc_msgSend_zOrderOfDrawable_(v106, v28, v29, v30, v31, v32, v27);
+  v37 = objc_msgSend_storage(columnCopy, v28, v33, v34, v35, v36, v29, v30, v31, v32);
+  v46 = objc_msgSend_zOrderOfDrawable_(v149, v38, v42, v43, v44, v45, v37, v39, v40, v41);
 
   objc_opt_class();
-  v39 = objc_msgSend_pageLayout(targetCopy, v34, v35, v36, v37, v38);
-  v40 = TSUDynamicCast();
+  v56 = objc_msgSend_pageLayout(targetCopy, v47, v52, v53, v54, v55, v48, v49, v50, v51);
+  v57 = TSUDynamicCast();
 
-  v115 = 0u;
-  v116 = 0u;
-  v113 = 0u;
-  v114 = 0u;
-  v102 = v40;
-  objc_msgSend_floatingDrawableLayouts(v40, v41, 0, v42, v43, v44);
-  obj = v98 = self;
-  v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v45, v46, v47, v48, v49, &v113, v118, 16);
-  if (v51)
+  v158 = 0u;
+  v159 = 0u;
+  v156 = 0u;
+  v157 = 0u;
+  v145 = v57;
+  objc_msgSend_floatingDrawableLayouts(v57, v58, 0, v63, v64, v65, v59, v60, v61, v62);
+  obj = v141 = self;
+  v77 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v66, v68, v69, v70, v71, &v156, v161, 16, v67);
+  if (v77)
   {
-    v56 = *v114;
-    v103 = *v114;
+    v82 = *v157;
+    v146 = *v157;
     do
     {
-      v57 = 0;
-      v104 = v51;
+      v83 = 0;
+      v147 = v77;
       do
       {
-        if (*v114 != v56)
+        if (*v157 != v82)
         {
           objc_enumerationMutation(obj);
         }
 
-        v58 = objc_msgSend_info(*(*(&v113 + 1) + 8 * v57), v50, v52, v53, v54, v55, v97);
-        v64 = v33 < objc_msgSend_zOrderOfDrawable_(v106, v59, v60, v61, v62, v63, v58);
+        v84 = objc_msgSend_info(*(*(&v156 + 1) + 8 * v83), v72, v78, v79, v80, v81, v73, v74, v75, v76, v140);
+        v93 = v46 < objc_msgSend_zOrderOfDrawable_(v149, v85, v89, v90, v91, v92, v84, v86, v87, v88);
 
-        if (v64)
+        if (v93)
         {
-          v66 = TSUProtocolCast();
-          if (v66)
+          v98 = TSUProtocolCast();
+          if (v98)
           {
-            objc_msgSend_addFloatingWrappable_(v15, v65, v67, v68, v69, v70, v66, &unk_28853CDB0);
+            objc_msgSend_addFloatingWrappable_(v17, v94, v99, v100, v101, v102, v98, v95, v96, v97, &unk_28853CDB0);
             *wrappables = 1;
           }
 
-          v97 = &unk_288510D20;
-          v71 = TSUProtocolCast();
-          v76 = v71;
-          if (v71)
+          v140 = &unk_288510D20;
+          v103 = TSUProtocolCast();
+          v112 = v103;
+          if (v103)
           {
-            v111 = 0u;
-            v112 = 0u;
-            v109 = 0u;
-            v110 = 0u;
-            v77 = objc_msgSend_descendentWrappables(v71, v72, 0, v73, v74, v75, &unk_288510D20);
-            v84 = objc_msgSend_countByEnumeratingWithState_objects_count_(v77, v78, v79, v80, v81, v82, &v109, v117, 16);
-            v89 = v33;
-            if (v84)
+            v154 = 0u;
+            v155 = 0u;
+            v152 = 0u;
+            v153 = 0u;
+            v113 = objc_msgSend_descendentWrappables(v103, v104, 0, v109, v110, v111, v105, v106, v107, v108, &unk_288510D20);
+            v124 = objc_msgSend_countByEnumeratingWithState_objects_count_(v113, v114, v116, v117, v118, v119, &v152, v160, 16, v115);
+            v129 = v46;
+            if (v124)
             {
-              v90 = *v110;
+              v130 = *v153;
               do
               {
-                for (i = 0; i != v84; ++i)
+                for (i = 0; i != v124; ++i)
                 {
-                  if (*v110 != v90)
+                  if (*v153 != v130)
                   {
-                    objc_enumerationMutation(v77);
+                    objc_enumerationMutation(v113);
                   }
 
-                  objc_msgSend_addFloatingWrappable_(v15, v83, v85, v86, v87, v88, *(*(&v109 + 1) + 8 * i));
+                  objc_msgSend_addFloatingWrappable_(v17, v120, v125, v126, v127, v128, *(*(&v152 + 1) + 8 * i), v121, v122, v123);
                   *wrappables = 1;
                 }
 
-                v84 = objc_msgSend_countByEnumeratingWithState_objects_count_(v77, v83, v85, v86, v87, v88, &v109, v117, 16);
+                v124 = objc_msgSend_countByEnumeratingWithState_objects_count_(v113, v120, v125, v126, v127, v128, &v152, v160, 16, v123);
               }
 
-              while (v84);
+              while (v124);
             }
 
-            v33 = v89;
-            v56 = v103;
-            v51 = v104;
+            v46 = v129;
+            v82 = v146;
+            v77 = v147;
           }
         }
 
-        ++v57;
+        ++v83;
       }
 
-      while (v57 != v51);
-      v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v50, v52, v53, v54, v55, &v113, v118, 16);
+      while (v83 != v77);
+      v77 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v72, v78, v79, v80, v81, &v156, v161, 16, v76);
     }
 
-    while (v51);
+    while (v77);
   }
 
-  v92 = *&p->c;
-  v107[0] = *&p->a;
-  v107[1] = v92;
-  v108 = *&p->tx;
-  objc_msgSend_setUpCanvasToWrapSpaceAffineTransformation_(v98, v93, v108, v92, v94, v95, v107);
+  v132 = *&p->c;
+  v150[0] = *&p->a;
+  v150[1] = v132;
+  v151 = *&p->tx;
+  objc_msgSend_setUpCanvasToWrapSpaceAffineTransformation_(v141, v133, v151, v132, v137, v138, v150, v134, v135, v136);
 
-  return v15;
+  return v17;
 }
 
 - (void)setUpCanvasToWrapSpaceAffineTransformation:(CGAffineTransform *)transformation
@@ -160,34 +160,34 @@
 
 - (id)p_groupInfoContainingWrappable:(id)wrappable
 {
-  v7 = objc_msgSend_info(wrappable, a2, v3, v4, v5, v6);
-  v13 = objc_msgSend_parentInfo(v7, v8, v9, v10, v11, v12);
+  v10 = objc_msgSend_info(wrappable, a2, v6, v7, v8, v9, wrappable, v3, v4, v5);
+  v20 = objc_msgSend_parentInfo(v10, v11, v16, v17, v18, v19, v12, v13, v14, v15);
 
-  if (v13)
+  if (v20)
   {
     while (1)
     {
-      v14 = objc_opt_class();
-      if (objc_msgSend_isMemberOfClass_(v13, v15, v16, v17, v18, v19, v14))
+      v21 = objc_opt_class();
+      if (objc_msgSend_isMemberOfClass_(v20, v22, v26, v27, v28, v29, v21, v23, v24, v25))
       {
         break;
       }
 
-      v25 = objc_msgSend_parentInfo(v13, v20, v21, v22, v23, v24);
+      v39 = objc_msgSend_parentInfo(v20, v30, v35, v36, v37, v38, v31, v32, v33, v34);
 
-      v13 = v25;
-      if (!v25)
+      v20 = v39;
+      if (!v39)
       {
         goto LABEL_6;
       }
     }
 
-    v13 = v13;
+    v20 = v20;
   }
 
 LABEL_6:
 
-  return v13;
+  return v20;
 }
 
 - (void)splitLine:(CGRect)line lineSegmentRects:(id)rects wrappableAttachments:(id)attachments ignoreFloatingGraphics:(BOOL)graphics canvasCausedWrap:(BOOL *)wrap skipHint:(double *)hint userInfo:(id)info
@@ -196,482 +196,482 @@ LABEL_6:
   height = line.size.height;
   x = line.origin.x;
   width = line.size.width;
-  v390 = *MEMORY[0x277D85DE8];
+  v556 = *MEMORY[0x277D85DE8];
   rectsCopy = rects;
   attachmentsCopy = attachments;
   infoCopy = info;
   objc_opt_class();
-  v373 = TSUDynamicCast();
-  v360 = objc_msgSend_column(v373, v12, v13, v14, v15, v16);
-  v359 = objc_msgSend_target(v373, v17, v18, v19, v20, v21);
-  if (!v360)
+  v539 = TSUDynamicCast();
+  v526 = objc_msgSend_column(v539, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+  v525 = objc_msgSend_target(v539, v21, v26, v27, v28, v29, v22, v23, v24, v25);
+  if (!v526)
   {
-    v27 = MEMORY[0x277D81150];
-    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, v23, v24, v25, v26, "[TPTextWrapController splitLine:lineSegmentRects:wrappableAttachments:ignoreFloatingGraphics:canvasCausedWrap:skipHint:userInfo:]");
-    v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, v30, v31, v32, v33, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPTextWrapController.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v27, v35, v36, v37, v38, v39, v28, v34, 134, 0, "invalid nil value for '%{public}s'", "column");
+    v39 = MEMORY[0x277D81150];
+    v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, v35, v36, v37, v38, "[TPTextWrapController splitLine:lineSegmentRects:wrappableAttachments:ignoreFloatingGraphics:canvasCausedWrap:skipHint:userInfo:]", v32, v33, v34);
+    v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, v45, v46, v47, v48, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPTextWrapController.mm", v42, v43, v44);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v39, v50, v51, v52, v53, v54, v40, v49, 134, 0, "invalid nil value for '%{public}s'", "column");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v40, v41, v42, v43, v44);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v55, v60, v61, v62, v63, v56, v57, v58, v59);
   }
 
-  if (!v359)
+  if (!v525)
   {
-    v45 = MEMORY[0x277D81150];
-    v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, v23, v24, v25, v26, "[TPTextWrapController splitLine:lineSegmentRects:wrappableAttachments:ignoreFloatingGraphics:canvasCausedWrap:skipHint:userInfo:]");
-    v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, v48, v49, v50, v51, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPTextWrapController.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v53, v54, v55, v56, v57, v46, v52, 135, 0, "invalid nil value for '%{public}s'", "target");
+    v64 = MEMORY[0x277D81150];
+    v65 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, v35, v36, v37, v38, "[TPTextWrapController splitLine:lineSegmentRects:wrappableAttachments:ignoreFloatingGraphics:canvasCausedWrap:skipHint:userInfo:]", v32, v33, v34);
+    v74 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v66, v70, v71, v72, v73, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPTextWrapController.mm", v67, v68, v69);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v64, v75, v76, v77, v78, v79, v65, v74, 135, 0, "invalid nil value for '%{public}s'", "target");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v58, v59, v60, v61, v62);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v80, v85, v86, v87, v88, v81, v82, v83, v84);
   }
 
-  if (objc_msgSend_count(rectsCopy, v22, v23, v24, v25, v26))
+  if (objc_msgSend_count(rectsCopy, v30, v35, v36, v37, v38, v31, v32, v33, v34))
   {
-    v68 = MEMORY[0x277D81150];
-    v69 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v63, v64, v65, v66, v67, "[TPTextWrapController splitLine:lineSegmentRects:wrappableAttachments:ignoreFloatingGraphics:canvasCausedWrap:skipHint:userInfo:]");
-    v75 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v70, v71, v72, v73, v74, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPTextWrapController.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v68, v76, v77, v78, v79, v80, v69, v75, 136, 0, "Unexpected rects already in segment list");
+    v98 = MEMORY[0x277D81150];
+    v99 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v89, v94, v95, v96, v97, "[TPTextWrapController splitLine:lineSegmentRects:wrappableAttachments:ignoreFloatingGraphics:canvasCausedWrap:skipHint:userInfo:]", v91, v92, v93);
+    v108 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v100, v104, v105, v106, v107, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPTextWrapController.mm", v101, v102, v103);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v98, v109, v110, v111, v112, v113, v99, v108, 136, 0, "Unexpected rects already in segment list");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v81, v82, v83, v84, v85);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v114, v119, v120, v121, v122, v115, v116, v117, v118);
   }
 
-  objc_msgSend_makeEmpty(rectsCopy, v63, v64, v65, v66, v67);
+  objc_msgSend_makeEmpty(rectsCopy, v89, v94, v95, v96, v97, v90, v91, v92, v93);
   if (hint)
   {
     *hint = 1.0;
   }
 
-  objc_msgSend_frameBounds(v360, v86, v87, v88, v89, v90);
-  v91 = *&self->_canvasSpaceToWrapSpace.c;
-  *&v386.a = *&self->_canvasSpaceToWrapSpace.a;
-  *&v386.c = v91;
-  *&v386.tx = *&self->_canvasSpaceToWrapSpace.tx;
-  v392 = CGRectApplyAffineTransform(v391, &v386);
-  v92 = v392.origin.x;
-  v93 = v392.origin.y;
-  v94 = v392.size.width;
-  v95 = v392.size.height;
-  v96 = rectsCopy;
-  v393.origin.x = x;
-  v393.size.width = width;
-  v393.origin.y = y;
-  v393.size.height = height;
-  v432.origin.x = v92;
-  v432.origin.y = v93;
-  v432.size.width = v94;
-  v432.size.height = v95;
-  v102 = v96;
-  v355 = v96;
-  if (CGRectIntersectsRect(v393, v432))
+  objc_msgSend_frameBounds(v526, v123, v128, v129, v130, v131, v124, v125, v126, v127);
+  v132 = *&self->_canvasSpaceToWrapSpace.c;
+  *&v552.a = *&self->_canvasSpaceToWrapSpace.a;
+  *&v552.c = v132;
+  *&v552.tx = *&self->_canvasSpaceToWrapSpace.tx;
+  v558 = CGRectApplyAffineTransform(v557, &v552);
+  v133 = v558.origin.x;
+  v134 = v558.origin.y;
+  v135 = v558.size.width;
+  v136 = v558.size.height;
+  v137 = rectsCopy;
+  v559.origin.x = x;
+  v559.size.width = width;
+  v559.origin.y = y;
+  v559.size.height = height;
+  v598.origin.x = v133;
+  v598.origin.y = v134;
+  v598.size.width = v135;
+  v598.size.height = v136;
+  v147 = v137;
+  v521 = v137;
+  if (CGRectIntersectsRect(v559, v598))
   {
-    v98.n128_f64[0] = x;
-    v100.n128_f64[0] = width;
-    v99.n128_f64[0] = y;
-    v101.n128_f64[0] = height;
-    objc_msgSend_addRect_(v96, v97, v98, v99, v100, v101);
-    v103 = *&self->_canvasSpaceToWrapSpace.c;
-    *&v386.a = *&self->_canvasSpaceToWrapSpace.a;
-    *&v386.c = v103;
-    *&v386.tx = *&self->_canvasSpaceToWrapSpace.tx;
-    if (CGAffineTransformIsIdentity(&v386))
+    v143.n128_f64[0] = x;
+    v145.n128_f64[0] = width;
+    v144.n128_f64[0] = y;
+    v146.n128_f64[0] = height;
+    objc_msgSend_addRect_(v137, v138, v143, v144, v145, v146, v139, v140, v141, v142);
+    v148 = *&self->_canvasSpaceToWrapSpace.c;
+    *&v552.a = *&self->_canvasSpaceToWrapSpace.a;
+    *&v552.c = v148;
+    *&v552.tx = *&self->_canvasSpaceToWrapSpace.tx;
+    if (CGAffineTransformIsIdentity(&v552))
     {
-      v352 = objc_msgSend_interiorWrapSegments(v373, v104, v105, v106, v107, v108);
+      v518 = objc_msgSend_interiorWrapSegments(v539, v149, v154, v155, v156, v157, v150, v151, v152, v153);
     }
 
     else
     {
-      v114 = objc_msgSend_interiorWrapSegments(v373, v104, v105, v106, v107, v108);
-      v115 = *&self->_canvasSpaceToWrapSpace.c;
-      *&v386.a = *&self->_canvasSpaceToWrapSpace.a;
-      *&v386.c = v115;
-      *&v386.tx = *&self->_canvasSpaceToWrapSpace.tx;
-      v352 = objc_msgSend_wrapSegmentsByApplyingAffineTransform_(v114, v116, *&v386.tx, v115, v117, v118, &v386);
+      v167 = objc_msgSend_interiorWrapSegments(v539, v149, v154, v155, v156, v157, v150, v151, v152, v153);
+      v168 = *&self->_canvasSpaceToWrapSpace.c;
+      *&v552.a = *&self->_canvasSpaceToWrapSpace.a;
+      *&v552.c = v168;
+      *&v552.tx = *&self->_canvasSpaceToWrapSpace.tx;
+      v518 = objc_msgSend_wrapSegmentsByApplyingAffineTransform_(v167, v169, *&v552.tx, v168, v173, v174, &v552, v170, v171, v172);
     }
 
-    v119 = 0x277D80000uLL;
-    v365 = v96;
-    if (v352)
+    v175 = 0x277D80000uLL;
+    v531 = v137;
+    if (v518)
     {
-      v120 = objc_opt_new();
-      v121.n128_f64[0] = x;
-      v122.n128_f64[0] = width;
-      v123.n128_f64[0] = y;
-      v124.n128_f64[0] = height;
-      objc_msgSend_splitLine_lineSegmentRects_wrapSegments_type_skipHint_(MEMORY[0x277D80F88], v125, v121, v123, v122, v124, v120, v352, 0, 0);
-      v126.n128_u64[0] = *MEMORY[0x277D810E0];
-      v365 = objc_msgSend_horizontalIntersectionsOfRectList_withRectList_minWidth_(MEMORY[0x277D80F88], v127, v126, v128, v129, v130, v96, v120);
+      v176 = objc_opt_new();
+      v177.n128_f64[0] = x;
+      v178.n128_f64[0] = width;
+      v179.n128_f64[0] = y;
+      v180.n128_f64[0] = height;
+      objc_msgSend_splitLine_lineSegmentRects_wrapSegments_type_skipHint_(MEMORY[0x277D80F88], v181, v177, v179, v178, v180, v176, v518, 0, 0);
+      v182.n128_u64[0] = *MEMORY[0x277D810E0];
+      v531 = objc_msgSend_horizontalIntersectionsOfRectList_withRectList_minWidth_(MEMORY[0x277D80F88], v183, v182, v186, v187, v188, v137, v176, v184, v185);
     }
 
-    v131 = objc_msgSend_floatingWrappables(infoCopy, v109, v110, v111, v112, v113);
-    v356 = v131;
-    if (objc_msgSend_count(attachmentsCopy, v132, v133, v134, v135, v136))
+    v189 = objc_msgSend_floatingWrappables(infoCopy, v158, v163, v164, v165, v166, v159, v160, v161, v162);
+    v522 = v189;
+    if (objc_msgSend_count(attachmentsCopy, v190, v195, v196, v197, v198, v191, v192, v193, v194))
     {
-      v131 = objc_msgSend_mutableCopy(v131, v137, v138, v139, v140, v141);
-      v384 = 0u;
-      v385 = 0u;
-      v382 = 0u;
-      v383 = 0u;
+      v189 = objc_msgSend_mutableCopy(v189, v199, v204, v205, v206, v207, v200, v201, v202, v203);
+      v550 = 0u;
+      v551 = 0u;
+      v548 = 0u;
+      v549 = 0u;
       obj = attachmentsCopy;
-      v147 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v142, v143, v144, v145, v146, &v382, v389, 16);
-      if (v147)
+      v214 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v208, v210, v211, v212, v213, &v548, v555, 16, v209);
+      if (v214)
       {
-        v369 = *v383;
+        v535 = *v549;
         do
         {
-          v371 = v147;
-          for (i = 0; i != v371; ++i)
+          v537 = v214;
+          for (i = 0; i != v537; ++i)
           {
-            if (*v383 != v369)
+            if (*v549 != v535)
             {
               objc_enumerationMutation(obj);
             }
 
-            v154 = *(*(&v382 + 1) + 8 * i);
-            v155 = objc_msgSend_target(v373, v148, v149, v150, v151, v152, v336);
-            v161 = objc_msgSend_validatedLayoutForAnchoredDrawable_(v155, v156, v157, v158, v159, v160, v154);
+            v225 = *(*(&v548 + 1) + 8 * i);
+            v226 = objc_msgSend_target(v539, v215, v220, v221, v222, v223, v216, v217, v218, v219, v502);
+            v235 = objc_msgSend_validatedLayoutForAnchoredDrawable_(v226, v227, v231, v232, v233, v234, v225, v228, v229, v230);
 
-            v163 = TSUProtocolCast();
-            if (v163)
+            v240 = TSUProtocolCast();
+            if (v240)
             {
-              objc_msgSend_addObject_(v131, v162, v164, v165, v166, v167, v163, &unk_28853CDB0);
+              objc_msgSend_addObject_(v189, v236, v241, v242, v243, v244, v240, v237, v238, v239, &unk_28853CDB0);
             }
 
-            v336 = &unk_288510D20;
-            v168 = TSUProtocolCast();
-            v173 = v168;
-            if (v168)
+            v502 = &unk_288510D20;
+            v245 = TSUProtocolCast();
+            v254 = v245;
+            if (v245)
             {
-              v380 = 0u;
-              v381 = 0u;
-              v378 = 0u;
-              v379 = 0u;
-              v174 = objc_msgSend_descendentWrappables(v168, v169, 0, v170, v171, v172, &unk_288510D20);
-              v175 = v119;
+              v546 = 0u;
+              v547 = 0u;
+              v544 = 0u;
+              v545 = 0u;
+              v255 = objc_msgSend_descendentWrappables(v245, v246, 0, v251, v252, v253, v247, v248, v249, v250, &unk_288510D20);
+              v256 = v175;
               hintCopy = hint;
-              v183 = objc_msgSend_countByEnumeratingWithState_objects_count_(v174, v177, v178, v179, v180, v181, &v378, v388, 16);
-              if (v183)
+              v268 = objc_msgSend_countByEnumeratingWithState_objects_count_(v255, v258, v260, v261, v262, v263, &v544, v554, 16, v259);
+              if (v268)
               {
-                v188 = *v379;
+                v273 = *v545;
                 do
                 {
-                  for (j = 0; j != v183; ++j)
+                  for (j = 0; j != v268; ++j)
                   {
-                    if (*v379 != v188)
+                    if (*v545 != v273)
                     {
-                      objc_enumerationMutation(v174);
+                      objc_enumerationMutation(v255);
                     }
 
-                    objc_msgSend_addObject_(v131, v182, v184, v185, v186, v187, *(*(&v378 + 1) + 8 * j));
+                    objc_msgSend_addObject_(v189, v264, v269, v270, v271, v272, *(*(&v544 + 1) + 8 * j), v265, v266, v267);
                   }
 
-                  v183 = objc_msgSend_countByEnumeratingWithState_objects_count_(v174, v182, v184, v185, v186, v187, &v378, v388, 16);
+                  v268 = objc_msgSend_countByEnumeratingWithState_objects_count_(v255, v264, v269, v270, v271, v272, &v544, v554, 16, v267);
                 }
 
-                while (v183);
+                while (v268);
               }
 
               hint = hintCopy;
-              v119 = v175;
+              v175 = v256;
             }
           }
 
-          v147 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v148, v149, v150, v151, v152, &v382, v389, 16);
+          v214 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v215, v220, v221, v222, v223, &v548, v555, 16, v219);
         }
 
-        while (v147);
+        while (v214);
       }
     }
 
-    v376 = 0u;
-    v377 = 0u;
-    v374 = 0u;
-    v375 = 0u;
-    obja = v131;
-    v195 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v190, v191, v192, v193, v194, &v374, v387, 16);
-    if (v195)
+    v542 = 0u;
+    v543 = 0u;
+    v540 = 0u;
+    v541 = 0u;
+    obja = v189;
+    v281 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v275, v277, v278, v279, v280, &v540, v553, 16, v276);
+    if (v281)
     {
-      v370 = *v375;
-      v196 = &v386;
+      v536 = *v541;
+      v282 = &v552;
       if (!hint)
       {
-        v196 = 0;
+        v282 = 0;
       }
 
-      v351 = v196;
+      v517 = v282;
       do
       {
-        v372 = v195;
-        for (k = 0; k != v372; ++k)
+        v538 = v281;
+        for (k = 0; k != v538; ++k)
         {
-          if (*v375 != v370)
+          if (*v541 != v536)
           {
             objc_enumerationMutation(obja);
           }
 
-          v198 = *(*(&v374 + 1) + 8 * k);
-          v199 = objc_opt_new();
-          v205 = objc_msgSend_wrapDirection(v198, v200, v201, v202, v203, v204);
-          v211 = objc_msgSend_wrapFitType(v198, v206, v207, v208, v209, v210);
-          v217 = objc_msgSend_wrapType(v198, v212, v213, v214, v215, v216);
-          v223 = objc_msgSend_p_groupInfoContainingWrappable_(self, v218, v219, v220, v221, v222, v198);
-          v229 = v223;
-          if (v223)
+          v284 = *(*(&v540 + 1) + 8 * k);
+          v285 = objc_opt_new();
+          v295 = objc_msgSend_wrapDirection(v284, v286, v291, v292, v293, v294, v287, v288, v289, v290);
+          v305 = objc_msgSend_wrapFitType(v284, v296, v301, v302, v303, v304, v297, v298, v299, v300);
+          v315 = objc_msgSend_wrapType(v284, v306, v311, v312, v313, v314, v307, v308, v309, v310);
+          v324 = objc_msgSend_p_groupInfoContainingWrappable_(self, v316, v320, v321, v322, v323, v284, v317, v318, v319);
+          v334 = v324;
+          if (v324)
           {
-            v230 = objc_msgSend_exteriorTextWrap(v223, v224, v225, v226, v227, v228);
-            if ((objc_msgSend_isHTMLWrap(v230, v231, v232, v233, v234, v235) & 1) != 0 || objc_msgSend_isInlineWithText(v229, v236, v237, v238, v239, v240))
+            v335 = objc_msgSend_exteriorTextWrap(v324, v325, v330, v331, v332, v333, v326, v327, v328, v329);
+            if ((objc_msgSend_isHTMLWrap(v335, v336, v341, v342, v343, v344, v337, v338, v339, v340) & 1) != 0 || objc_msgSend_isInlineWithText(v334, v345, v350, v351, v352, v353, v346, v347, v348, v349))
             {
-              if (v230)
+              if (v335)
               {
-                v205 = objc_msgSend_direction(v230, v236, v237, v238, v239, v240);
-                v211 = objc_msgSend_fitType(v230, v241, v242, v243, v244, v245);
-                v217 = objc_msgSend_type(v230, v246, v247, v248, v249, v250);
+                v295 = objc_msgSend_direction(v335, v345, v350, v351, v352, v353, v346, v347, v348, v349);
+                v305 = objc_msgSend_fitType(v335, v354, v359, v360, v361, v362, v355, v356, v357, v358);
+                v315 = objc_msgSend_type(v335, v363, v368, v369, v370, v371, v364, v365, v366, v367);
               }
 
               else
               {
-                v217 = 0;
-                v211 = 0;
-                v205 = 2;
+                v315 = 0;
+                v305 = 0;
+                v295 = 2;
               }
             }
           }
 
-          if (!v217 || v217 == 5)
+          if (!v315 || v315 == 5)
           {
             goto LABEL_106;
           }
 
-          if (v217 == 4)
+          if (v315 == 4)
           {
-            if (objc_msgSend_p_shouldTextFlowAroundWrappable_inTarget_inColumn_(self, v251, v252, v253, v254, v255, v198, v359, v360))
+            if (objc_msgSend_p_shouldTextFlowAroundWrappable_inTarget_inColumn_(self, v372, v377, v378, v379, v380, v284, v525, v526, v376))
             {
-              v205 = 2;
-              v217 = 1;
+              v295 = 2;
+              v315 = 1;
             }
 
             else
             {
-              v217 = 2;
+              v315 = 2;
             }
           }
 
-          objc_msgSend_boundsInfluencingExteriorWrap(v198, v251, v252, v253, v254, v255, v336);
-          v261 = v257.n128_f64[0];
-          v262 = v258.n128_f64[0];
-          v263 = v259.n128_f64[0];
-          v264 = v260.n128_f64[0];
-          if (v373)
+          objc_msgSend_boundsInfluencingExteriorWrap(v284, v372, v377, v378, v379, v380, v373, v374, v375, v376, v502);
+          v389 = v385.n128_f64[0];
+          v390 = v386.n128_f64[0];
+          v391 = v387.n128_f64[0];
+          v392 = v388.n128_f64[0];
+          if (v539)
           {
-            objc_msgSend_targetInverseTransformInRoot(v373, v256, v257, v258, v259, v260);
+            objc_msgSend_targetInverseTransformInRoot(v539, v385, v386, v387, v388, v381, v382, v383, v384);
           }
 
           else
           {
-            memset(&v386, 0, sizeof(v386));
+            memset(&v552, 0, sizeof(v552));
           }
 
-          v394.origin.x = v261;
-          v394.origin.y = v262;
-          v394.size.width = v263;
-          v394.size.height = v264;
-          v395 = CGRectApplyAffineTransform(v394, &v386);
-          v265 = *&self->_canvasSpaceToWrapSpace.c;
-          *&v386.a = *&self->_canvasSpaceToWrapSpace.a;
-          *&v386.c = v265;
-          *&v386.tx = *&self->_canvasSpaceToWrapSpace.tx;
-          v396 = CGRectApplyAffineTransform(v395, &v386);
-          v266 = v396.origin.x;
-          v267 = v396.origin.y;
-          v268 = v396.size.width;
-          v269 = v396.size.height;
-          v433.origin.x = x;
-          v433.size.width = width;
-          v433.origin.y = y;
-          v433.size.height = height;
-          if (!CGRectIntersectsRect(v396, v433))
+          v560.origin.x = v389;
+          v560.origin.y = v390;
+          v560.size.width = v391;
+          v560.size.height = v392;
+          v561 = CGRectApplyAffineTransform(v560, &v552);
+          v393 = *&self->_canvasSpaceToWrapSpace.c;
+          *&v552.a = *&self->_canvasSpaceToWrapSpace.a;
+          *&v552.c = v393;
+          *&v552.tx = *&self->_canvasSpaceToWrapSpace.tx;
+          v562 = CGRectApplyAffineTransform(v561, &v552);
+          v394 = v562.origin.x;
+          v395 = v562.origin.y;
+          v396 = v562.size.width;
+          v397 = v562.size.height;
+          v599.origin.x = x;
+          v599.size.width = width;
+          v599.origin.y = y;
+          v599.size.height = height;
+          if (!CGRectIntersectsRect(v562, v599))
           {
-            v276 = v365;
+            v410 = v531;
             goto LABEL_105;
           }
 
-          if (wrap && (objc_msgSend_indexOfObject_(v356, v270, v271, v272, v273, v274, v198) != 0x7FFFFFFFFFFFFFFFLL || (objc_msgSend_isHTMLWrap(v198, v270, v271, v272, v273, v274) & 1) == 0))
+          if (wrap && (objc_msgSend_indexOfObject_(v522, v398, v403, v404, v405, v406, v284, v400, v401, v402) != 0x7FFFFFFFFFFFFFFFLL || (objc_msgSend_isHTMLWrap(v284, v398, v403, v404, v405, v406, v407, v408, v401, v402) & 1) == 0))
           {
             *wrap = 1;
           }
 
-          if (v217 == 2)
+          if (v315 == 2)
           {
             if (hint)
             {
-              v397.origin.x = v266;
-              v397.origin.y = v267;
-              v397.size.width = v268;
-              v397.size.height = v269;
-              MaxY = CGRectGetMaxY(v397);
-              v398.origin.x = x;
-              v398.size.width = width;
-              v398.origin.y = y;
-              v398.size.height = height;
-              v271.n128_f64[0] = ceil(MaxY - CGRectGetMinY(v398));
-              v272.n128_f64[0] = *hint;
-              if (*hint >= v271.n128_f64[0])
+              v563.origin.x = v394;
+              v563.origin.y = v395;
+              v563.size.width = v396;
+              v563.size.height = v397;
+              MaxY = CGRectGetMaxY(v563);
+              v564.origin.x = x;
+              v564.size.width = width;
+              v564.origin.y = y;
+              v564.size.height = height;
+              v403.n128_f64[0] = ceil(MaxY - CGRectGetMinY(v564));
+              v404.n128_f64[0] = *hint;
+              if (*hint >= v403.n128_f64[0])
               {
-                v271.n128_f64[0] = *hint;
+                v403.n128_f64[0] = *hint;
               }
 
-              *hint = v271.n128_f64[0];
+              *hint = v403.n128_f64[0];
             }
 
             goto LABEL_104;
           }
 
-          if (!v211)
+          if (!v305)
           {
-            v403.origin.x = x;
-            v403.size.width = width;
-            v403.origin.y = y;
-            v403.size.height = height;
-            MaxX = CGRectGetMaxX(v403);
-            v404.origin.x = v266;
-            v404.origin.y = v267;
-            v404.size.width = v268;
-            v404.size.height = v269;
-            if (MaxX <= CGRectGetMaxX(v404) || (v405.origin.x = x, v405.size.width = width, v405.origin.y = y, v405.size.height = height, v298 = CGRectGetMinX(v405), v406.origin.x = v266, v406.origin.y = v267, v406.size.width = v268, v406.size.height = v269, v298 >= CGRectGetMinX(v406)))
+            v569.origin.x = x;
+            v569.size.width = width;
+            v569.origin.y = y;
+            v569.size.height = height;
+            MaxX = CGRectGetMaxX(v569);
+            v570.origin.x = v394;
+            v570.origin.y = v395;
+            v570.size.width = v396;
+            v570.size.height = v397;
+            if (MaxX <= CGRectGetMaxX(v570) || (v571.origin.x = x, v571.size.width = width, v571.origin.y = y, v571.size.height = height, v446 = CGRectGetMinX(v571), v572.origin.x = v394, v572.origin.y = v395, v572.size.width = v396, v572.size.height = v397, v446 >= CGRectGetMinX(v572)))
             {
-              v421.origin.x = v266;
-              v421.origin.y = v267;
-              v421.size.width = v268;
-              v421.size.height = v269;
-              v434.origin.x = x;
-              v434.size.width = width;
-              v434.origin.y = y;
-              v434.size.height = height;
-              v422 = CGRectIntersection(v421, v434);
-              v309 = v422.origin.x;
-              v310 = v422.origin.y;
-              v311 = v422.size.width;
-              v312 = v422.size.height;
-              v313 = CGRectGetMaxX(v422);
-              v423.origin.x = x;
-              v423.size.width = width;
-              v423.origin.y = y;
-              v423.size.height = height;
-              if (v313 >= CGRectGetMaxX(v423))
+              v587.origin.x = v394;
+              v587.origin.y = v395;
+              v587.size.width = v396;
+              v587.size.height = v397;
+              v600.origin.x = x;
+              v600.size.width = width;
+              v600.origin.y = y;
+              v600.size.height = height;
+              v588 = CGRectIntersection(v587, v600);
+              v463 = v588.origin.x;
+              v464 = v588.origin.y;
+              v465 = v588.size.width;
+              v466 = v588.size.height;
+              v467 = CGRectGetMaxX(v588);
+              v589.origin.x = x;
+              v589.size.width = width;
+              v589.origin.y = y;
+              v589.size.height = height;
+              if (v467 >= CGRectGetMaxX(v589))
               {
-                v315 = 0;
-                v314 = x;
+                v469 = 0;
+                v468 = x;
               }
 
               else
               {
-                v424.origin.x = v309;
-                v424.origin.y = v310;
-                v424.size.width = v311;
-                v424.size.height = v312;
-                v314 = CGRectGetMaxX(v424);
-                v315 = 1;
+                v590.origin.x = v463;
+                v590.origin.y = v464;
+                v590.size.width = v465;
+                v590.size.height = v466;
+                v468 = CGRectGetMaxX(v590);
+                v469 = 1;
               }
 
-              v425.origin.y = y;
-              v316 = width - v311;
-              v425.origin.x = v314;
-              v425.size.width = v316;
-              v425.size.height = height;
-              v271.n128_f64[0] = CGRectGetWidth(v425);
-              v272.n128_u64[0] = 20.0;
-              if (v271.n128_f64[0] >= 20.0 && (v205 == 2 || v217 == 3 || v315 != (v205 == 0)))
+              v591.origin.y = y;
+              v470 = width - v465;
+              v591.origin.x = v468;
+              v591.size.width = v470;
+              v591.size.height = height;
+              v403.n128_f64[0] = CGRectGetWidth(v591);
+              v404.n128_u64[0] = 20.0;
+              if (v403.n128_f64[0] >= 20.0 && (v295 == 2 || v315 == 3 || v469 != (v295 == 0)))
               {
-                v271.n128_f64[0] = v314;
-                v272.n128_f64[0] = y;
-                v274.n128_f64[0] = height;
-                v273.n128_f64[0] = v316;
-                objc_msgSend_addRect_(v199, v270, v271, v272, v273, v274);
+                v403.n128_f64[0] = v468;
+                v404.n128_f64[0] = y;
+                v406.n128_f64[0] = height;
+                v405.n128_f64[0] = v470;
+                objc_msgSend_addRect_(v285, v398, v403, v404, v405, v406, v471, v472, v401, v402);
               }
             }
 
             else
             {
-              v407.origin.x = x;
-              v407.origin.y = y;
-              v407.size.width = width;
-              v407.size.height = height;
-              MinX = CGRectGetMinX(v407);
-              v408.origin.x = x;
-              v408.origin.y = y;
-              v408.size.width = width;
-              v408.size.height = height;
-              MinY = CGRectGetMinY(v408);
-              v409.origin.x = v266;
-              v409.origin.y = v267;
-              v409.size.width = v268;
-              v409.size.height = v269;
-              v340 = CGRectGetMinX(v409);
-              v410.origin.x = x;
-              v410.origin.y = y;
-              v410.size.width = width;
-              v410.size.height = height;
-              v338 = CGRectGetMinX(v410);
-              v411.origin.x = x;
-              v411.origin.y = y;
-              v411.size.width = width;
-              v411.size.height = height;
-              recta = CGRectGetHeight(v411);
-              v412.origin.x = v266;
-              v412.origin.y = v267;
-              v412.size.width = v268;
-              v412.size.height = v269;
-              v350 = CGRectGetMaxX(v412);
-              v413.origin.x = x;
-              v413.size.width = width;
-              v413.origin.y = y;
-              v413.size.height = height;
-              v348 = CGRectGetMinY(v413);
-              v414.origin.x = x;
-              v414.size.width = width;
-              v414.origin.y = y;
-              v414.size.height = height;
-              v299 = CGRectGetMaxX(v414);
-              v415.origin.x = v266;
-              v415.origin.y = v267;
-              v415.size.width = v268;
-              v415.size.height = v269;
-              v300 = CGRectGetMaxX(v415);
-              v416.origin.x = x;
-              v416.size.width = width;
-              v416.origin.y = y;
-              v416.size.height = height;
-              v301 = CGRectGetHeight(v416);
-              v417.origin.y = MinY;
-              v417.origin.x = MinX;
-              v417.size.width = v340 - v338;
-              v417.size.height = recta;
-              v307 = v299 - v300;
-              if (CGRectGetWidth(v417) >= 20.0)
+              v573.origin.x = x;
+              v573.origin.y = y;
+              v573.size.width = width;
+              v573.size.height = height;
+              MinX = CGRectGetMinX(v573);
+              v574.origin.x = x;
+              v574.origin.y = y;
+              v574.size.width = width;
+              v574.size.height = height;
+              MinY = CGRectGetMinY(v574);
+              v575.origin.x = v394;
+              v575.origin.y = v395;
+              v575.size.width = v396;
+              v575.size.height = v397;
+              v506 = CGRectGetMinX(v575);
+              v576.origin.x = x;
+              v576.origin.y = y;
+              v576.size.width = width;
+              v576.size.height = height;
+              v504 = CGRectGetMinX(v576);
+              v577.origin.x = x;
+              v577.origin.y = y;
+              v577.size.width = width;
+              v577.size.height = height;
+              recta = CGRectGetHeight(v577);
+              v578.origin.x = v394;
+              v578.origin.y = v395;
+              v578.size.width = v396;
+              v578.size.height = v397;
+              v516 = CGRectGetMaxX(v578);
+              v579.origin.x = x;
+              v579.size.width = width;
+              v579.origin.y = y;
+              v579.size.height = height;
+              v514 = CGRectGetMinY(v579);
+              v580.origin.x = x;
+              v580.size.width = width;
+              v580.origin.y = y;
+              v580.size.height = height;
+              v447 = CGRectGetMaxX(v580);
+              v581.origin.x = v394;
+              v581.origin.y = v395;
+              v581.size.width = v396;
+              v581.size.height = v397;
+              v448 = CGRectGetMaxX(v581);
+              v582.origin.x = x;
+              v582.size.width = width;
+              v582.origin.y = y;
+              v582.size.height = height;
+              v449 = CGRectGetHeight(v582);
+              v583.origin.y = MinY;
+              v583.origin.x = MinX;
+              v583.size.width = v506 - v504;
+              v583.size.height = recta;
+              v459 = v447 - v448;
+              if (CGRectGetWidth(v583) >= 20.0)
               {
-                if ((v205 & 0xFFFFFFFD) == 0 || v217 == 3 && (v418.origin.y = MinY, v418.origin.x = MinX, v418.size.width = v340 - v338, v418.size.height = recta, v308 = CGRectGetWidth(v418), v419.origin.y = v348, v419.origin.x = v350, v419.size.width = v307, v419.size.height = v301, v308 >= CGRectGetWidth(v419)))
+                if ((v295 & 0xFFFFFFFD) == 0 || v315 == 3 && (v584.origin.y = MinY, v584.origin.x = MinX, v584.size.width = v506 - v504, v584.size.height = recta, v460 = CGRectGetWidth(v584), v585.origin.y = v514, v585.origin.x = v516, v585.size.width = v459, v585.size.height = v449, v460 >= CGRectGetWidth(v585)))
                 {
-                  v304.n128_f64[0] = MinY;
-                  v303.n128_f64[0] = MinX;
-                  v305.n128_f64[0] = v340 - v338;
-                  v306.n128_f64[0] = recta;
-                  objc_msgSend_addRect_(v199, v302, v303, v304, v305, v306);
+                  v456.n128_f64[0] = MinY;
+                  v455.n128_f64[0] = MinX;
+                  v457.n128_f64[0] = v506 - v504;
+                  v458.n128_f64[0] = recta;
+                  objc_msgSend_addRect_(v285, v450, v455, v456, v457, v458, v451, v452, v453, v454);
                 }
               }
 
-              v420.origin.y = v348;
-              v420.origin.x = v350;
-              v420.size.width = v307;
-              v420.size.height = v301;
-              v271.n128_f64[0] = CGRectGetWidth(v420);
-              v272.n128_u64[0] = 20.0;
-              if (v271.n128_f64[0] >= 20.0)
+              v586.origin.y = v514;
+              v586.origin.x = v516;
+              v586.size.width = v459;
+              v586.size.height = v449;
+              v403.n128_f64[0] = CGRectGetWidth(v586);
+              v404.n128_u64[0] = 20.0;
+              if (v403.n128_f64[0] >= 20.0)
               {
-                if ((v205 - 1) < 2 || v217 == 3 && (v430.origin.y = MinY, v430.origin.x = MinX, v430.size.width = v340 - v338, v430.size.height = recta, v325 = CGRectGetWidth(v430), v431.origin.y = v348, v431.origin.x = v350, v431.size.width = v307, v431.size.height = v301, v325 < CGRectGetWidth(v431)))
+                if ((v295 - 1) < 2 || v315 == 3 && (v596.origin.y = MinY, v596.origin.x = MinX, v596.size.width = v506 - v504, v596.size.height = recta, v484 = CGRectGetWidth(v596), v597.origin.y = v514, v597.origin.x = v516, v597.size.width = v459, v597.size.height = v449, v484 < CGRectGetWidth(v597)))
                 {
-                  v272.n128_f64[0] = v348;
-                  v271.n128_f64[0] = v350;
-                  v273.n128_f64[0] = v307;
-                  v274.n128_f64[0] = v301;
-                  objc_msgSend_addRect_(v199, v270, v271, v272, v273, v274);
+                  v404.n128_f64[0] = v514;
+                  v403.n128_f64[0] = v516;
+                  v405.n128_f64[0] = v459;
+                  v406.n128_f64[0] = v449;
+                  objc_msgSend_addRect_(v285, v398, v403, v404, v405, v406, v461, v462, v401, v402);
                 }
               }
             }
@@ -679,70 +679,70 @@ LABEL_6:
             goto LABEL_104;
           }
 
-          if (v211 != 1)
+          if (v305 != 1)
           {
             goto LABEL_104;
           }
 
-          v386.a = 1.0;
-          v271.n128_f64[0] = x;
-          v273.n128_f64[0] = width;
-          v272.n128_f64[0] = y;
-          v274.n128_f64[0] = height;
-          objc_msgSend_p_splitLine_lineSegmentRects_wrappable_cookie_skipHint_(self, v270, v271, v272, v273, v274, v199, v198, v373, v351);
+          v552.a = 1.0;
+          v403.n128_f64[0] = x;
+          v405.n128_f64[0] = width;
+          v404.n128_f64[0] = y;
+          v406.n128_f64[0] = height;
+          objc_msgSend_p_splitLine_lineSegmentRects_wrappable_cookie_skipHint_(self, v398, v403, v404, v405, v406, v285, v284, v539, v517);
           if (hint)
           {
-            v278.n128_f64[0] = *hint;
-            v279.n128_u64[0] = *&v386.a;
-            if (*hint < v386.a)
+            v416.n128_f64[0] = *hint;
+            v417.n128_u64[0] = *&v552.a;
+            if (*hint < v552.a)
             {
-              v278.n128_f64[0] = v386.a;
+              v416.n128_f64[0] = v552.a;
             }
 
-            *hint = v278.n128_f64[0];
+            *hint = v416.n128_f64[0];
           }
 
-          if (!objc_msgSend_count(v199, v277, v278, v279, v280, v281))
+          if (!objc_msgSend_count(v285, v411, v416, v417, v418, v419, v412, v413, v414, v415))
           {
             goto LABEL_104;
           }
 
-          objc_msgSend_rectAtIndex_(v199, v270, v271, v272, v273, v274, 0);
-          v347 = v283.n128_f64[0];
-          v349 = v282.n128_f64[0];
-          v343 = v285.n128_f64[0];
-          v345 = v284.n128_f64[0];
-          v287 = objc_msgSend_count(v199, v286, v282, v283, v284, v285);
-          objc_msgSend_rectAtIndex_(v199, v288, v289, v290, v291, v292, v287 - 1);
-          v339 = v273.n128_f64[0];
-          rect = v272.n128_f64[0];
-          v337 = v274.n128_f64[0];
-          v293 = v271.n128_f64[0];
-          if (v217 == 3)
+          objc_msgSend_rectAtIndex_(v285, v398, v403, v404, v405, v406, 0, v420, v401, v402);
+          v513 = v422.n128_f64[0];
+          v515 = v421.n128_f64[0];
+          v509 = v424.n128_f64[0];
+          v511 = v423.n128_f64[0];
+          v430 = objc_msgSend_count(v285, v425, v421, v422, v423, v424, v426, v427, v428, v429);
+          objc_msgSend_rectAtIndex_(v285, v431, v435, v436, v437, v438, v430 - 1, v432, v433, v434);
+          v505 = v405.n128_f64[0];
+          rect = v404.n128_f64[0];
+          v503 = v406.n128_f64[0];
+          v441 = v403.n128_f64[0];
+          if (v315 == 3)
           {
-            v399.origin.x = v266;
-            v399.origin.y = v267;
-            v399.size.width = v268;
-            v399.size.height = v269;
-            v294 = CGRectGetMinX(v399);
-            v400.origin.x = x;
-            v400.size.width = width;
-            v400.origin.y = y;
-            v400.size.height = height;
-            v295 = CGRectGetMinX(v400);
-            v401.origin.x = x;
-            v401.size.width = width;
-            v401.origin.y = y;
-            v401.size.height = height;
-            v296 = CGRectGetMaxX(v401);
-            v402.origin.x = v266;
-            v402.origin.y = v267;
-            v402.size.width = v268;
-            v402.size.height = v269;
-            v271.n128_f64[0] = CGRectGetMaxX(v402);
-            v272.n128_f64[0] = v294 - v295;
-            v271.n128_f64[0] = v296 - v271.n128_f64[0];
-            if (v294 - v295 < v271.n128_f64[0])
+            v565.origin.x = v394;
+            v565.origin.y = v395;
+            v565.size.width = v396;
+            v565.size.height = v397;
+            v442 = CGRectGetMinX(v565);
+            v566.origin.x = x;
+            v566.size.width = width;
+            v566.origin.y = y;
+            v566.size.height = height;
+            v443 = CGRectGetMinX(v566);
+            v567.origin.x = x;
+            v567.size.width = width;
+            v567.origin.y = y;
+            v567.size.height = height;
+            v444 = CGRectGetMaxX(v567);
+            v568.origin.x = v394;
+            v568.origin.y = v395;
+            v568.size.width = v396;
+            v568.size.height = v397;
+            v403.n128_f64[0] = CGRectGetMaxX(v568);
+            v404.n128_f64[0] = v442 - v443;
+            v403.n128_f64[0] = v444 - v403.n128_f64[0];
+            if (v442 - v443 < v403.n128_f64[0])
             {
               goto LABEL_101;
             }
@@ -750,65 +750,65 @@ LABEL_6:
 
           else
           {
-            if (v205 == 1)
+            if (v295 == 1)
             {
 LABEL_101:
-              objc_msgSend_makeEmpty(v199, v270, v271, v272, v273, v274);
-              v428.origin.x = v293;
-              v428.size.width = v339;
-              v428.origin.y = rect;
-              v428.size.height = v337;
-              v318 = CGRectGetMaxX(v428);
-              v429.origin.x = v266;
-              v429.origin.y = v267;
-              v429.size.width = v268;
-              v429.size.height = v269;
-              if (v318 >= CGRectGetMaxX(v429))
+              objc_msgSend_makeEmpty(v285, v398, v403, v404, v405, v406, v439, v440, v401, v402);
+              v594.origin.x = v441;
+              v594.size.width = v505;
+              v594.origin.y = rect;
+              v594.size.height = v503;
+              v476 = CGRectGetMaxX(v594);
+              v595.origin.x = v394;
+              v595.origin.y = v395;
+              v595.size.width = v396;
+              v595.size.height = v397;
+              if (v476 >= CGRectGetMaxX(v595))
               {
-                v271.n128_f64[0] = v293;
-                v273.n128_f64[0] = v339;
-                v272.n128_f64[0] = rect;
-                v274.n128_f64[0] = v337;
+                v403.n128_f64[0] = v441;
+                v405.n128_f64[0] = v505;
+                v404.n128_f64[0] = rect;
+                v406.n128_f64[0] = v503;
                 goto LABEL_103;
               }
 
               goto LABEL_104;
             }
 
-            if (v205)
+            if (v295)
             {
               goto LABEL_104;
             }
           }
 
-          objc_msgSend_makeEmpty(v199, v270, v271, v272, v273, v274);
-          v426.origin.y = v347;
-          v426.origin.x = v349;
-          v426.size.height = v343;
-          v426.size.width = v345;
-          v317 = CGRectGetMinX(v426);
-          v427.origin.x = v266;
-          v427.origin.y = v267;
-          v427.size.width = v268;
-          v427.size.height = v269;
-          if (v317 <= CGRectGetMinX(v427))
+          objc_msgSend_makeEmpty(v285, v398, v403, v404, v405, v406, v439, v440, v401, v402);
+          v592.origin.y = v513;
+          v592.origin.x = v515;
+          v592.size.height = v509;
+          v592.size.width = v511;
+          v473 = CGRectGetMinX(v592);
+          v593.origin.x = v394;
+          v593.origin.y = v395;
+          v593.size.width = v396;
+          v593.size.height = v397;
+          if (v473 <= CGRectGetMinX(v593))
           {
-            v272.n128_f64[0] = v347;
-            v271.n128_f64[0] = v349;
-            v274.n128_f64[0] = v343;
-            v273.n128_f64[0] = v345;
+            v404.n128_f64[0] = v513;
+            v403.n128_f64[0] = v515;
+            v406.n128_f64[0] = v509;
+            v405.n128_f64[0] = v511;
 LABEL_103:
-            objc_msgSend_addRect_(v199, v270, v271, v272, v273, v274);
+            objc_msgSend_addRect_(v285, v398, v403, v404, v405, v406, v474, v475, v401, v402);
           }
 
 LABEL_104:
-          v271.n128_u64[0] = 20.0;
-          v319 = objc_msgSend_horizontalIntersectionsOfRectList_withRectList_minWidth_(*(v119 + 3976), v270, v271, v272, v273, v274, v365, v199);
+          v403.n128_u64[0] = 20.0;
+          v477 = objc_msgSend_horizontalIntersectionsOfRectList_withRectList_minWidth_(*(v175 + 3976), v398, v403, v404, v405, v406, v531, v285, v401, v402);
 
-          v276 = v319;
+          v410 = v477;
 LABEL_105:
-          v365 = v276;
-          if (!objc_msgSend_count(v276, v270, v271, v272, v273, v274))
+          v531 = v410;
+          if (!objc_msgSend_count(v410, v398, v403, v404, v405, v406, v399, v400, v401, v402))
           {
 
             goto LABEL_114;
@@ -817,114 +817,114 @@ LABEL_105:
 LABEL_106:
         }
 
-        v195 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v320, v321, v322, v323, v324, &v374, v387, 16);
+        v281 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v478, v480, v481, v482, v483, &v540, v553, 16, v479);
       }
 
-      while (v195);
+      while (v281);
     }
 
 LABEL_114:
 
-    v102 = v365;
-    if (v365 != v355)
+    v147 = v531;
+    if (v531 != v521)
     {
-      objc_msgSend_makeEmpty(v355, v326, v327, v328, v329, v330);
-      objc_msgSend_addRectList_(v355, v331, v332, v333, v334, v335, v365);
+      objc_msgSend_makeEmpty(v521, v485, v490, v491, v492, v493, v486, v487, v488, v489);
+      objc_msgSend_addRectList_(v521, v494, v498, v499, v500, v501, v531, v495, v496, v497);
     }
   }
 }
 
 - (id)p_wrapDrawables:(id)drawables userInfo:(id)info
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v128 = *MEMORY[0x277D85DE8];
   drawablesCopy = drawables;
   infoCopy = info;
-  v78 = drawablesCopy;
-  if (objc_msgSend_count(drawablesCopy, v6, v7, v8, v9, v10))
+  v114 = drawablesCopy;
+  if (objc_msgSend_count(drawablesCopy, v6, v11, v12, v13, v14, v7, v8, v9, v10))
   {
-    v16 = objc_msgSend_floatingWrappables(infoCopy, v11, v12, v13, v14, v15);
-    v22 = objc_msgSend_mutableCopy(v16, v17, v18, v19, v20, v21);
+    v24 = objc_msgSend_floatingWrappables(infoCopy, v15, v20, v21, v22, v23, v16, v17, v18, v19);
+    v34 = objc_msgSend_mutableCopy(v24, v25, v30, v31, v32, v33, v26, v27, v28, v29);
 
-    v88 = 0u;
-    v89 = 0u;
-    v86 = 0u;
-    v87 = 0u;
+    v124 = 0u;
+    v125 = 0u;
+    v122 = 0u;
+    v123 = 0u;
     obj = drawablesCopy;
-    v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v23, v24, v25, v26, v27, &v86, v91, 16);
-    if (v29)
+    v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v35, v37, v38, v39, v40, &v122, v127, 16, v36);
+    if (v46)
     {
-      v80 = *v87;
+      v116 = *v123;
       do
       {
-        for (i = 0; i != v29; ++i)
+        for (i = 0; i != v46; ++i)
         {
-          if (*v87 != v80)
+          if (*v123 != v116)
           {
             objc_enumerationMutation(obj);
           }
 
-          v35 = *(*(&v86 + 1) + 8 * i);
-          v36 = objc_msgSend_target(infoCopy, v28, v30, v31, v32, v33, v77);
-          v42 = objc_msgSend_validatedLayoutForAnchoredDrawable_(v36, v37, v38, v39, v40, v41, v35);
+          v52 = *(*(&v122 + 1) + 8 * i);
+          v53 = objc_msgSend_target(infoCopy, v41, v47, v48, v49, v50, v42, v43, v44, v45, v113);
+          v62 = objc_msgSend_validatedLayoutForAnchoredDrawable_(v53, v54, v58, v59, v60, v61, v52, v55, v56, v57);
 
-          v43 = TSUProtocolCast();
-          v49 = v43;
-          if (v43 && objc_msgSend_wrapType(v43, v44, v45, v46, v47, v48, &unk_28853CDB0) != 5)
+          v63 = TSUProtocolCast();
+          v73 = v63;
+          if (v63 && objc_msgSend_wrapType(v63, v64, v69, v70, v71, v72, v65, v66, v67, v68, &unk_28853CDB0) != 5)
           {
-            objc_msgSend_addObject_(v22, v50, v51, v52, v53, v54, v49);
+            objc_msgSend_addObject_(v34, v74, v78, v79, v80, v81, v73, v75, v76, v77);
           }
 
-          v77 = &unk_288510D20;
-          v55 = TSUProtocolCast();
-          v60 = v55;
-          if (v55)
+          v113 = &unk_288510D20;
+          v82 = TSUProtocolCast();
+          v91 = v82;
+          if (v82)
           {
-            v84 = 0u;
-            v85 = 0u;
-            v82 = 0u;
-            v83 = 0u;
-            v61 = objc_msgSend_descendentWrappables(v55, v56, 0, v57, v58, v59, &unk_288510D20);
-            v68 = objc_msgSend_countByEnumeratingWithState_objects_count_(v61, v62, v63, v64, v65, v66, &v82, v90, 16);
-            if (v68)
+            v120 = 0u;
+            v121 = 0u;
+            v118 = 0u;
+            v119 = 0u;
+            v92 = objc_msgSend_descendentWrappables(v82, v83, 0, v88, v89, v90, v84, v85, v86, v87, &unk_288510D20);
+            v104 = objc_msgSend_countByEnumeratingWithState_objects_count_(v92, v93, v95, v96, v97, v98, &v118, v126, 16, v94);
+            if (v104)
             {
-              v73 = *v83;
+              v109 = *v119;
               do
               {
-                for (j = 0; j != v68; ++j)
+                for (j = 0; j != v104; ++j)
                 {
-                  if (*v83 != v73)
+                  if (*v119 != v109)
                   {
-                    objc_enumerationMutation(v61);
+                    objc_enumerationMutation(v92);
                   }
 
-                  v75 = *(*(&v82 + 1) + 8 * j);
-                  if (objc_msgSend_wrapType(v75, v67, v69, v70, v71, v72) != 5)
+                  v111 = *(*(&v118 + 1) + 8 * j);
+                  if (objc_msgSend_wrapType(v111, v99, v105, v106, v107, v108, v100, v101, v102, v103) != 5)
                   {
-                    objc_msgSend_addObject_(v22, v67, v69, v70, v71, v72, v75);
+                    objc_msgSend_addObject_(v34, v99, v105, v106, v107, v108, v111, v101, v102, v103);
                   }
                 }
 
-                v68 = objc_msgSend_countByEnumeratingWithState_objects_count_(v61, v67, v69, v70, v71, v72, &v82, v90, 16);
+                v104 = objc_msgSend_countByEnumeratingWithState_objects_count_(v92, v99, v105, v106, v107, v108, &v118, v126, 16, v103);
               }
 
-              while (v68);
+              while (v104);
             }
           }
         }
 
-        v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v28, v30, v31, v32, v33, &v86, v91, 16);
+        v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v41, v47, v48, v49, v50, &v122, v127, 16, v45);
       }
 
-      while (v29);
+      while (v46);
     }
   }
 
   else
   {
-    v22 = objc_msgSend_floatingWrappables(infoCopy, v11, v12, v13, v14, v15);
+    v34 = objc_msgSend_floatingWrappables(infoCopy, v15, v20, v21, v22, v23, v16, v17, v18, v19);
   }
 
-  return v22;
+  return v34;
 }
 
 - (double)nextUnobstructedSpanStartingAt:(CGRect)at wrappableAttachments:(id)attachments userInfo:(id)info
@@ -933,248 +933,248 @@ LABEL_114:
   width = at.size.width;
   y = at.origin.y;
   x = at.origin.x;
-  v229 = *MEMORY[0x277D85DE8];
+  v326 = *MEMORY[0x277D85DE8];
   attachmentsCopy = attachments;
   infoCopy = info;
-  v222 = objc_msgSend_target(infoCopy, v13, v14, v15, v16, v17);
-  v23 = objc_msgSend_p_wrapDrawables_userInfo_(self, v18, v19, v20, v21, v22, attachmentsCopy, infoCopy);
-  v24 = MEMORY[0x277CBEB18];
-  v221 = v23;
-  v30 = objc_msgSend_count(v23, v25, v26, v27, v28, v29);
-  v36 = objc_msgSend_arrayWithCapacity_(v24, v31, v32, v33, v34, v35, v30);
-  v37.n128_f64[0] = x;
-  v38.n128_f64[0] = y;
-  v39.n128_f64[0] = width;
-  v40.n128_f64[0] = height;
-  objc_msgSend_rectInRoot_(v222, v41, v37, v38, v39, v40);
-  v42 = *&self->_canvasSpaceToWrapSpace.c;
-  *&v227.a = *&self->_canvasSpaceToWrapSpace.a;
-  *&v227.c = v42;
-  *&v227.tx = *&self->_canvasSpaceToWrapSpace.tx;
-  v231 = CGRectApplyAffineTransform(v230, &v227);
-  v43 = v231.origin.x;
-  v44 = v231.origin.y;
-  v45 = v231.size.width;
-  v46 = v231.size.height;
-  v48 = objc_msgSend_column(infoCopy, v47, v231.origin, *&v231.origin.y, v231.size, *&v231.size.height);
-  v217 = *&v46;
-  v218 = *&v45;
-  v219 = *&v44;
-  v220 = *&v43;
-  v213 = x;
-  v214 = y;
-  v215 = width;
-  v216 = height;
-  objc_msgSend_frameBounds(v48, v49, v50, v51, v52, v53);
-  objc_msgSend_rectInRoot_(v222, v54, v55, v56, v57, v58);
+  v319 = objc_msgSend_target(infoCopy, v13, v18, v19, v20, v21, v14, v15, v16, v17);
+  v29 = objc_msgSend_p_wrapDrawables_userInfo_(self, v22, v25, v26, v27, v28, attachmentsCopy, infoCopy, v23, v24);
+  v30 = MEMORY[0x277CBEB18];
+  v318 = v29;
+  v40 = objc_msgSend_count(v29, v31, v36, v37, v38, v39, v32, v33, v34, v35);
+  v49 = objc_msgSend_arrayWithCapacity_(v30, v41, v45, v46, v47, v48, v40, v42, v43, v44);
+  v50.n128_f64[0] = x;
+  v51.n128_f64[0] = y;
+  v52.n128_f64[0] = width;
+  v53.n128_f64[0] = height;
+  objc_msgSend_rectInRoot_(v319, v54, v50, v51, v52, v53, v55, v56, v57, v58);
   v59 = *&self->_canvasSpaceToWrapSpace.c;
-  *&v227.a = *&self->_canvasSpaceToWrapSpace.a;
-  *&v227.c = v59;
-  *&v227.tx = *&self->_canvasSpaceToWrapSpace.tx;
-  v233 = CGRectApplyAffineTransform(v232, &v227);
-  v60 = v233.origin.x;
-  v61 = v233.origin.y;
-  v62 = v233.size.width;
-  v63 = v233.size.height;
+  *&v324.a = *&self->_canvasSpaceToWrapSpace.a;
+  *&v324.c = v59;
+  *&v324.tx = *&self->_canvasSpaceToWrapSpace.tx;
+  v328 = CGRectApplyAffineTransform(v327, &v324);
+  v60 = v328.origin.x;
+  v61 = v328.origin.y;
+  v62 = v328.size.width;
+  v63 = v328.size.height;
+  v69 = objc_msgSend_column(infoCopy, v64, v328.origin, *&v328.origin.y, v328.size, *&v328.size.height, v65, v66, v67, v68);
+  v314 = *&v63;
+  v315 = *&v62;
+  v316 = *&v61;
+  v317 = *&v60;
+  v310 = x;
+  v311 = y;
+  v312 = width;
+  v313 = height;
+  objc_msgSend_frameBounds(v69, v70, v75, v76, v77, v78, v71, v72, v73, v74);
+  objc_msgSend_rectInRoot_(v319, v79, v84, v85, v86, v87, v80, v81, v82, v83);
+  v88 = *&self->_canvasSpaceToWrapSpace.c;
+  *&v324.a = *&self->_canvasSpaceToWrapSpace.a;
+  *&v324.c = v88;
+  *&v324.tx = *&self->_canvasSpaceToWrapSpace.tx;
+  v330 = CGRectApplyAffineTransform(v329, &v324);
+  v89 = v330.origin.x;
+  v90 = v330.origin.y;
+  v91 = v330.size.width;
+  v92 = v330.size.height;
 
-  v225 = 0u;
-  v226 = 0u;
-  v223 = 0u;
-  v224 = 0u;
-  v64 = v221;
-  v71 = objc_msgSend_countByEnumeratingWithState_objects_count_(v64, v65, v66, v67, v68, v69, &v223, v228, 16);
-  if (v71)
+  v322 = 0u;
+  v323 = 0u;
+  v320 = 0u;
+  v321 = 0u;
+  v93 = v318;
+  v105 = objc_msgSend_countByEnumeratingWithState_objects_count_(v93, v94, v96, v97, v98, v99, &v320, v325, 16, v95);
+  if (v105)
   {
-    v76 = *v224;
+    v110 = *v321;
     do
     {
-      v77 = 0;
+      v111 = 0;
       do
       {
-        if (*v224 != v76)
+        if (*v321 != v110)
         {
-          objc_enumerationMutation(v64);
+          objc_enumerationMutation(v93);
         }
 
-        v78 = *(*(&v223 + 1) + 8 * v77);
-        objc_msgSend_boundsInfluencingExteriorWrap(v78, v70, v72, v73, v74, v75);
-        v79 = *&self->_canvasSpaceToWrapSpace.c;
-        *&v227.a = *&self->_canvasSpaceToWrapSpace.a;
-        *&v227.c = v79;
-        *&v227.tx = *&self->_canvasSpaceToWrapSpace.tx;
-        v235 = CGRectApplyAffineTransform(v234, &v227);
-        v80 = v235.origin.x;
-        v81 = v235.origin.y;
-        v82 = v235.size.width;
-        v83 = v235.size.height;
-        v236.origin.x = v60;
-        v236.origin.y = v61;
-        v236.size.width = v62;
-        v236.size.height = v63;
-        if (CGRectIntersectsRect(v235, v236))
+        v112 = *(*(&v320 + 1) + 8 * v111);
+        objc_msgSend_boundsInfluencingExteriorWrap(v112, v100, v106, v107, v108, v109, v101, v102, v103, v104);
+        v113 = *&self->_canvasSpaceToWrapSpace.c;
+        *&v324.a = *&self->_canvasSpaceToWrapSpace.a;
+        *&v324.c = v113;
+        *&v324.tx = *&self->_canvasSpaceToWrapSpace.tx;
+        v332 = CGRectApplyAffineTransform(v331, &v324);
+        v114 = v332.origin.x;
+        v115 = v332.origin.y;
+        v116 = v332.size.width;
+        v117 = v332.size.height;
+        v333.origin.x = v89;
+        v333.origin.y = v90;
+        v333.size.width = v91;
+        v333.size.height = v92;
+        if (CGRectIntersectsRect(v332, v333))
         {
-          v84 = objc_msgSend_wrapFitType(v78, v70, v72, v73, v74, v75);
-          if (objc_msgSend_wrapType(v78, v85, v86, v87, v88, v89) == 2)
+          v118 = objc_msgSend_wrapFitType(v112, v100, v106, v107, v108, v109, v101, v102, v103, v104);
+          if (objc_msgSend_wrapType(v112, v119, v124, v125, v126, v127, v120, v121, v122, v123) == 2)
           {
-            v91.n128_f64[0] = v60;
-            v92.n128_f64[0] = v81;
-            v93.n128_f64[0] = v62;
-            v94.n128_f64[0] = v83;
-            v95 = objc_msgSend_bezierPathWithRect_(MEMORY[0x277D81160], v90, v91, v92, v93, v94);
+            v133.n128_f64[0] = v89;
+            v134.n128_f64[0] = v115;
+            v135.n128_f64[0] = v91;
+            v136.n128_f64[0] = v117;
+            v137 = objc_msgSend_bezierPathWithRect_(MEMORY[0x277D81160], v128, v133, v134, v135, v136, v129, v130, v131, v132);
             goto LABEL_14;
           }
 
-          if (v84)
+          if (v118)
           {
-            if (v84 == 1)
+            if (v118 == 1)
             {
-              v101 = *&self->_canvasSpaceToWrapSpace.c;
-              *&v227.a = *&self->_canvasSpaceToWrapSpace.a;
-              *&v227.c = v101;
-              *&v227.tx = *&self->_canvasSpaceToWrapSpace.tx;
-              if (CGAffineTransformIsIdentity(&v227))
+              v146 = *&self->_canvasSpaceToWrapSpace.c;
+              *&v324.a = *&self->_canvasSpaceToWrapSpace.a;
+              *&v324.c = v146;
+              *&v324.tx = *&self->_canvasSpaceToWrapSpace.tx;
+              if (CGAffineTransformIsIdentity(&v324))
               {
-                v95 = objc_msgSend_wrapPath(v78, v102, v103, v104, v105, v106);
+                v137 = objc_msgSend_wrapPath(v112, v147, v152, v153, v154, v155, v148, v149, v150, v151);
                 goto LABEL_14;
               }
 
-              v108 = objc_msgSend_wrapPath(v78, v102, v103, v104, v105, v106);
-              v107 = objc_msgSend_copy(v108, v109, v110, v111, v112, v113);
+              v157 = objc_msgSend_wrapPath(v112, v147, v152, v153, v154, v155, v148, v149, v150, v151);
+              v156 = objc_msgSend_copy(v157, v158, v163, v164, v165, v166, v159, v160, v161, v162);
 
-              v114 = *&self->_canvasSpaceToWrapSpace.c;
-              *&v227.a = *&self->_canvasSpaceToWrapSpace.a;
-              *&v227.c = v114;
-              *&v227.tx = *&self->_canvasSpaceToWrapSpace.tx;
-              objc_msgSend_transformUsingAffineTransform_(v107, v115, *&v227.tx, v114, v116, v117, &v227);
+              v167 = *&self->_canvasSpaceToWrapSpace.c;
+              *&v324.a = *&self->_canvasSpaceToWrapSpace.a;
+              *&v324.c = v167;
+              *&v324.tx = *&self->_canvasSpaceToWrapSpace.tx;
+              objc_msgSend_transformUsingAffineTransform_(v156, v168, *&v324.tx, v167, v172, v173, &v324, v169, v170, v171);
 LABEL_15:
-              if (v107)
+              if (v156)
               {
-                objc_msgSend_addObject_(v36, v96, v97, v98, v99, v100, v107);
+                objc_msgSend_addObject_(v49, v138, v142, v143, v144, v145, v156, v139, v140, v141);
               }
             }
 
             else
             {
-              v107 = 0;
+              v156 = 0;
             }
 
             goto LABEL_19;
           }
 
-          v91.n128_f64[0] = v80;
-          v92.n128_f64[0] = v81;
-          v93.n128_f64[0] = v82;
-          v94.n128_f64[0] = v83;
-          v95 = objc_msgSend_bezierPathWithRect_(MEMORY[0x277D81160], v90, v91, v92, v93, v94);
+          v133.n128_f64[0] = v114;
+          v134.n128_f64[0] = v115;
+          v135.n128_f64[0] = v116;
+          v136.n128_f64[0] = v117;
+          v137 = objc_msgSend_bezierPathWithRect_(MEMORY[0x277D81160], v128, v133, v134, v135, v136, v129, v130, v131, v132);
 LABEL_14:
-          v107 = v95;
+          v156 = v137;
           goto LABEL_15;
         }
 
 LABEL_19:
-        ++v77;
+        ++v111;
       }
 
-      while (v71 != v77);
-      v118 = objc_msgSend_countByEnumeratingWithState_objects_count_(v64, v70, v72, v73, v74, v75, &v223, v228, 16);
-      v71 = v118;
+      while (v105 != v111);
+      v174 = objc_msgSend_countByEnumeratingWithState_objects_count_(v93, v100, v106, v107, v108, v109, &v320, v325, 16, v104);
+      v105 = v174;
     }
 
-    while (v118);
+    while (v174);
   }
 
-  if (objc_msgSend_count(v36, v119, v120, v121, v122, v123))
+  if (objc_msgSend_count(v49, v175, v180, v181, v182, v183, v176, v177, v178, v179))
   {
-    v129 = objc_msgSend_uniteBezierPaths_(MEMORY[0x277D81160], v124, v125, v126, v127, v128, v36);
-    if ((objc_msgSend_isFlat(v129, v130, v131, v132, v133, v134) & 1) == 0)
+    v192 = objc_msgSend_uniteBezierPaths_(MEMORY[0x277D81160], v184, v188, v189, v190, v191, v49, v185, v186, v187);
+    if ((objc_msgSend_isFlat(v192, v193, v198, v199, v200, v201, v194, v195, v196, v197) & 1) == 0)
     {
-      v140 = objc_msgSend_bezierPathByFlatteningPath(v129, v135, v136, v137, v138, v139);
+      v211 = objc_msgSend_bezierPathByFlatteningPath(v192, v202, v207, v208, v209, v210, v203, v204, v205, v206);
 
-      v129 = v140;
+      v192 = v211;
     }
 
-    v141 = objc_alloc(MEMORY[0x277D803F0]);
-    v147 = objc_msgSend_initWithPath_(v141, v142, v143, v144, v145, v146, v129);
-    v149.n128_u64[0] = v219;
-    v148.n128_u64[0] = v220;
-    v151.n128_u64[0] = v217;
-    v150.n128_u64[0] = v218;
-    objc_msgSend_unobstructedSpanForWrapSegments_startingSpan_columnBounds_(MEMORY[0x277D80F88], v152, v148, v149, v150, v151, v147, v60, v61, v62, v63);
-    v158 = v154.n128_f64[0];
+    v212 = objc_alloc(MEMORY[0x277D803F0]);
+    v221 = objc_msgSend_initWithPath_(v212, v213, v217, v218, v219, v220, v192, v214, v215, v216);
+    v223.n128_u64[0] = v316;
+    v222.n128_u64[0] = v317;
+    v225.n128_u64[0] = v314;
+    v224.n128_u64[0] = v315;
+    objc_msgSend_unobstructedSpanForWrapSegments_startingSpan_columnBounds_(MEMORY[0x277D80F88], v226, v222, v223, v224, v225, v221, v227, v228, v229, v89, v90, v91, v92);
+    v238 = v234.n128_f64[0];
     b = self->_wrapSpaceToCanvasSpace.b;
     d = self->_wrapSpaceToCanvasSpace.d;
-    v161 = 0.0;
-    v162 = 0.0;
-    v163 = 0.0;
+    v241 = 0.0;
+    v242 = 0.0;
+    v243 = 0.0;
     ty = self->_wrapSpaceToCanvasSpace.ty;
     if (infoCopy)
     {
-      objc_msgSend_targetInverseTransformInRoot(infoCopy, v153, v154, v155, v156, v157);
-      v163 = v227.b;
-      v162 = v227.d;
-      v161 = v227.ty;
+      objc_msgSend_targetInverseTransformInRoot(infoCopy, v234, v235, v236, v237, v230, v231, v232, v233);
+      v243 = v324.b;
+      v242 = v324.d;
+      v241 = v324.ty;
     }
 
-    v169.n128_f64[0] = v161 + (ty + v158 * d + b * 0.0) * v162 + v163 * 0.0;
+    v252.n128_f64[0] = v241 + (ty + v238 * d + b * 0.0) * v242 + v243 * 0.0;
   }
 
   else
   {
-    v170 = *&self->_wrapSpaceToCanvasSpace.c;
-    *&v227.a = *&self->_wrapSpaceToCanvasSpace.a;
-    *&v227.c = v170;
-    *&v227.tx = *&self->_wrapSpaceToCanvasSpace.tx;
-    v171 = v213;
-    *&v170 = v214;
-    v172 = v215;
-    v173 = v216;
-    *v166.n128_u64 = CGRectApplyAffineTransform(*(&v170 - 8), &v227);
+    v253 = *&self->_wrapSpaceToCanvasSpace.c;
+    *&v324.a = *&self->_wrapSpaceToCanvasSpace.a;
+    *&v324.c = v253;
+    *&v324.tx = *&self->_wrapSpaceToCanvasSpace.tx;
+    v254 = v310;
+    *&v253 = v311;
+    v255 = v312;
+    v256 = v313;
+    *v249.n128_u64 = CGRectApplyAffineTransform(*(&v253 - 8), &v324);
   }
 
-  if ((v169.n128_u64[0] & 0x7FFFFFFFFFFFFFFFLL) > 0x7FEFFFFFFFFFFFFFLL)
+  if ((v252.n128_u64[0] & 0x7FFFFFFFFFFFFFFFLL) > 0x7FEFFFFFFFFFFFFFLL)
   {
     goto LABEL_35;
   }
 
-  if (v169.n128_f64[0] > 0.0)
+  if (v252.n128_f64[0] > 0.0)
   {
-    v166.n128_u64[0] = 0x47EFFFFFE0000000;
-    if (v169.n128_f64[0] > 3.40282347e38)
+    v249.n128_u64[0] = 0x47EFFFFFE0000000;
+    if (v252.n128_f64[0] > 3.40282347e38)
     {
-      v176 = MEMORY[0x277D81150];
-      v177 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v165, v166, v169, v167, v168, "[TPTextWrapController nextUnobstructedSpanStartingAt:wrappableAttachments:userInfo:]");
-      v183 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v178, v179, v180, v181, v182, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPTextWrapController.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v176, v184, v185, v186, v187, v188, v177, v183, 426, 0, "Out-of-bounds type assignment was clamped to max");
+      v259 = MEMORY[0x277D81150];
+      v260 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v245, v249, v252, v250, v251, "[TPTextWrapController nextUnobstructedSpanStartingAt:wrappableAttachments:userInfo:]", v246, v247, v248);
+      v269 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v261, v265, v266, v267, v268, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPTextWrapController.mm", v262, v263, v264);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v259, v270, v271, v272, v273, v274, v260, v269, 426, 0, "Out-of-bounds type assignment was clamped to max");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v189, v190, v191, v192, v193);
-      *&v194 = 3.4028e38;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v275, v280, v281, v282, v283, v276, v277, v278, v279);
+      *&v284 = 3.4028e38;
 LABEL_39:
-      v174 = *&v194;
+      v257 = *&v284;
       goto LABEL_36;
     }
   }
 
-  if (v169.n128_f64[0] < 0.0)
+  if (v252.n128_f64[0] < 0.0)
   {
-    v166.n128_u64[0] = 0xC7EFFFFFE0000000;
-    if (v169.n128_f64[0] < -3.40282347e38)
+    v249.n128_u64[0] = 0xC7EFFFFFE0000000;
+    if (v252.n128_f64[0] < -3.40282347e38)
     {
-      v195 = MEMORY[0x277D81150];
-      v196 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v165, v166, v169, v167, v168, "[TPTextWrapController nextUnobstructedSpanStartingAt:wrappableAttachments:userInfo:]");
-      v202 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v197, v198, v199, v200, v201, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPTextWrapController.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v195, v203, v204, v205, v206, v207, v196, v202, 426, 0, "Out-of-bounds type assignment was clamped to min");
+      v285 = MEMORY[0x277D81150];
+      v286 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v245, v249, v252, v250, v251, "[TPTextWrapController nextUnobstructedSpanStartingAt:wrappableAttachments:userInfo:]", v246, v247, v248);
+      v295 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v287, v291, v292, v293, v294, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPTextWrapController.mm", v288, v289, v290);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v285, v296, v297, v298, v299, v300, v286, v295, 426, 0, "Out-of-bounds type assignment was clamped to min");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v208, v209, v210, v211, v212);
-      *&v194 = -3.4028e38;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v301, v306, v307, v308, v309, v302, v303, v304, v305);
+      *&v284 = -3.4028e38;
       goto LABEL_39;
     }
   }
 
 LABEL_35:
-  v174 = v169.n128_f64[0];
+  v257 = v252.n128_f64[0];
 LABEL_36:
 
-  return v174;
+  return v257;
 }
 
 - (BOOL)checkForUnobstructedSpan:(CGRect)span wrappableAttachments:(id)attachments userInfo:(id)info
@@ -1183,84 +1183,84 @@ LABEL_36:
   width = span.size.width;
   y = span.origin.y;
   x = span.origin.x;
-  v71 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   attachmentsCopy = attachments;
   infoCopy = info;
-  v18 = objc_msgSend_target(infoCopy, v13, v14, v15, v16, v17);
-  v24 = objc_msgSend_p_wrapDrawables_userInfo_(self, v19, v20, v21, v22, v23, attachmentsCopy, infoCopy);
-  if (objc_msgSend_count(v24, v25, v26, v27, v28, v29))
+  v22 = objc_msgSend_target(infoCopy, v13, v18, v19, v20, v21, v14, v15, v16, v17);
+  v30 = objc_msgSend_p_wrapDrawables_userInfo_(self, v23, v26, v27, v28, v29, attachmentsCopy, infoCopy, v24, v25);
+  if (objc_msgSend_count(v30, v31, v36, v37, v38, v39, v32, v33, v34, v35))
   {
-    v31.n128_f64[0] = x;
-    v32.n128_f64[0] = y;
-    v33.n128_f64[0] = width;
-    v34.n128_f64[0] = height;
-    objc_msgSend_rectInRoot_(v18, v30, v31, v32, v33, v34);
-    v35 = *&self->_canvasSpaceToWrapSpace.c;
-    *&v69.a = *&self->_canvasSpaceToWrapSpace.a;
-    *&v69.c = v35;
-    *&v69.tx = *&self->_canvasSpaceToWrapSpace.tx;
-    v73 = CGRectApplyAffineTransform(v72, &v69);
-    v36 = v73.origin.x;
-    v37 = v73.origin.y;
-    v38 = v73.size.width;
-    v39 = v73.size.height;
-    v65 = 0u;
-    v66 = 0u;
-    v67 = 0u;
-    v68 = 0u;
-    v40 = v24;
-    v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v40, v41, v42, v43, v44, v45, &v65, v70, 16);
-    v63 = v18;
-    v64 = attachmentsCopy;
-    if (v47)
+    v45.n128_f64[0] = x;
+    v46.n128_f64[0] = y;
+    v47.n128_f64[0] = width;
+    v48.n128_f64[0] = height;
+    objc_msgSend_rectInRoot_(v22, v40, v45, v46, v47, v48, v41, v42, v43, v44);
+    v49 = *&self->_canvasSpaceToWrapSpace.c;
+    *&v88.a = *&self->_canvasSpaceToWrapSpace.a;
+    *&v88.c = v49;
+    *&v88.tx = *&self->_canvasSpaceToWrapSpace.tx;
+    v92 = CGRectApplyAffineTransform(v91, &v88);
+    v50 = v92.origin.x;
+    v51 = v92.origin.y;
+    v52 = v92.size.width;
+    v53 = v92.size.height;
+    v84 = 0u;
+    v85 = 0u;
+    v86 = 0u;
+    v87 = 0u;
+    v54 = v30;
+    v66 = objc_msgSend_countByEnumeratingWithState_objects_count_(v54, v55, v57, v58, v59, v60, &v84, v89, 16, v56);
+    v82 = v22;
+    v83 = attachmentsCopy;
+    if (v66)
     {
-      v52 = *v66;
-      v53 = 1;
+      v71 = *v85;
+      v72 = 1;
 LABEL_4:
-      v54 = 0;
+      v73 = 0;
       while (1)
       {
-        if (*v66 != v52)
+        if (*v85 != v71)
         {
-          objc_enumerationMutation(v40);
+          objc_enumerationMutation(v54);
         }
 
-        v55 = *(*(&v65 + 1) + 8 * v54);
-        objc_msgSend_boundsInfluencingExteriorWrap(v55, v46, v48, v49, v50, v51, v63, v64, v65);
-        v56 = *&self->_canvasSpaceToWrapSpace.c;
-        *&v69.a = *&self->_canvasSpaceToWrapSpace.a;
-        *&v69.c = v56;
-        *&v69.tx = *&self->_canvasSpaceToWrapSpace.tx;
-        v75 = CGRectApplyAffineTransform(v74, &v69);
-        v76.origin.x = v36;
-        v76.origin.y = v37;
-        v76.size.width = v38;
-        v76.size.height = v39;
-        if (CGRectIntersectsRect(v75, v76))
+        v74 = *(*(&v84 + 1) + 8 * v73);
+        objc_msgSend_boundsInfluencingExteriorWrap(v74, v61, v67, v68, v69, v70, v62, v63, v64, v65, v82, v83, v84);
+        v75 = *&self->_canvasSpaceToWrapSpace.c;
+        *&v88.a = *&self->_canvasSpaceToWrapSpace.a;
+        *&v88.c = v75;
+        *&v88.tx = *&self->_canvasSpaceToWrapSpace.tx;
+        v94 = CGRectApplyAffineTransform(v93, &v88);
+        v95.origin.x = v50;
+        v95.origin.y = v51;
+        v95.size.width = v52;
+        v95.size.height = v53;
+        if (CGRectIntersectsRect(v94, v95))
         {
-          v57 = objc_msgSend_wrapType(v55, v46, v48, v49, v50, v51);
-          if (!v57 || v57 == 5)
+          v76 = objc_msgSend_wrapType(v74, v61, v67, v68, v69, v70, v62, v63, v64, v65);
+          if (!v76 || v76 == 5)
           {
-            v59 = 1;
+            v78 = 1;
           }
 
           else
           {
-            v53 = 0;
-            v59 = 0;
+            v72 = 0;
+            v78 = 0;
           }
 
-          v60 = !v57 || v57 == 5;
-          if (!v60 && v59 == 0)
+          v79 = !v76 || v76 == 5;
+          if (!v79 && v78 == 0)
           {
             break;
           }
         }
 
-        if (v47 == ++v54)
+        if (v66 == ++v73)
         {
-          v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v40, v46, v48, v49, v50, v51, &v65, v70, 16);
-          if (v47)
+          v66 = objc_msgSend_countByEnumeratingWithState_objects_count_(v54, v61, v67, v68, v69, v70, &v84, v89, 16, v65);
+          if (v66)
           {
             goto LABEL_4;
           }
@@ -1272,19 +1272,19 @@ LABEL_4:
 
     else
     {
-      v53 = 1;
+      v72 = 1;
     }
 
-    v18 = v63;
-    attachmentsCopy = v64;
+    v22 = v82;
+    attachmentsCopy = v83;
   }
 
   else
   {
-    v53 = 1;
+    v72 = 1;
   }
 
-  return v53 & 1;
+  return v72 & 1;
 }
 
 - (BOOL)p_shouldTextFlowAroundWrappable:(id)wrappable inTarget:(id)target inColumn:(id)column
@@ -1292,67 +1292,67 @@ LABEL_4:
   wrappableCopy = wrappable;
   targetCopy = target;
   columnCopy = column;
-  if ((objc_msgSend_hasAlpha(wrappableCopy, v11, v12, v13, v14, v15) & 1) == 0)
+  if ((objc_msgSend_hasAlpha(wrappableCopy, v11, v16, v17, v18, v19, v12, v13, v14, v15) & 1) == 0)
   {
-    objc_msgSend_boundsInRoot(wrappableCopy, v16, v17, v18, v19, v20);
-    v22 = *&self->_canvasSpaceToWrapSpace.c;
+    objc_msgSend_boundsInRoot(wrappableCopy, v20, v25, v26, v27, v28, v21, v22, v23, v24);
+    v30 = *&self->_canvasSpaceToWrapSpace.c;
     *&recta[1] = *&self->_canvasSpaceToWrapSpace.a;
-    *&recta[3] = v22;
+    *&recta[3] = v30;
     *&recta[5] = *&self->_canvasSpaceToWrapSpace.tx;
-    v48 = CGRectApplyAffineTransform(v47, &recta[1]);
-    y = v48.origin.y;
-    width = v48.size.width;
-    height = v48.size.height;
-    recta[0] = *&v48.origin.x;
-    v26.n128_f64[0] = CGRectGetWidth(v48);
-    v44 = v26.n128_f64[0];
-    objc_msgSend_frameBounds(columnCopy, v27, v26, v28, v29, v30);
-    objc_msgSend_rectInRoot_(targetCopy, v31, v32, v33, v34, v35);
-    v36 = *&self->_canvasSpaceToWrapSpace.c;
+    v64 = CGRectApplyAffineTransform(v63, &recta[1]);
+    y = v64.origin.y;
+    width = v64.size.width;
+    height = v64.size.height;
+    recta[0] = *&v64.origin.x;
+    v34.n128_f64[0] = CGRectGetWidth(v64);
+    v60 = v34.n128_f64[0];
+    objc_msgSend_frameBounds(columnCopy, v35, v34, v40, v41, v42, v36, v37, v38, v39);
+    objc_msgSend_rectInRoot_(targetCopy, v43, v48, v49, v50, v51, v44, v45, v46, v47);
+    v52 = *&self->_canvasSpaceToWrapSpace.c;
     *&recta[1] = *&self->_canvasSpaceToWrapSpace.a;
-    *&recta[3] = v36;
+    *&recta[3] = v52;
     *&recta[5] = *&self->_canvasSpaceToWrapSpace.tx;
-    v50 = CGRectApplyAffineTransform(v49, &recta[1]);
-    x = v50.origin.x;
-    v38 = v50.origin.y;
-    v39 = v50.size.width;
-    v40 = v50.size.height;
-    v45 = CGRectGetWidth(v50);
-    *&v51.origin.x = recta[0];
-    v51.origin.y = y;
-    v51.size.width = width;
-    v51.size.height = height;
-    MinX = CGRectGetMinX(v51);
-    v52.origin.x = x;
-    v52.origin.y = v38;
-    v52.size.width = v39;
-    v52.size.height = v40;
-    if (MinX - CGRectGetMinX(v52) < 1.0 || (v53.origin.x = x, v53.origin.y = v38, v53.size.width = v39, v53.size.height = v40, MaxX = CGRectGetMaxX(v53), *&v54.origin.x = recta[0], v54.origin.y = y, v54.size.width = width, v54.size.height = height, MaxX - CGRectGetMaxX(v54) < 1.0))
+    v66 = CGRectApplyAffineTransform(v65, &recta[1]);
+    x = v66.origin.x;
+    v54 = v66.origin.y;
+    v55 = v66.size.width;
+    v56 = v66.size.height;
+    v61 = CGRectGetWidth(v66);
+    *&v67.origin.x = recta[0];
+    v67.origin.y = y;
+    v67.size.width = width;
+    v67.size.height = height;
+    MinX = CGRectGetMinX(v67);
+    v68.origin.x = x;
+    v68.origin.y = v54;
+    v68.size.width = v55;
+    v68.size.height = v56;
+    if (MinX - CGRectGetMinX(v68) < 1.0 || (v69.origin.x = x, v69.origin.y = v54, v69.size.width = v55, v69.size.height = v56, MaxX = CGRectGetMaxX(v69), *&v70.origin.x = recta[0], v70.origin.y = y, v70.size.width = width, v70.size.height = height, MaxX - CGRectGetMaxX(v70) < 1.0))
     {
-      v55.origin.x = x;
-      v55.origin.y = v38;
-      v55.size.width = v39;
-      v55.size.height = v40;
-      *&v57.origin.x = recta[0];
-      v57.origin.y = y;
-      v57.size.width = width;
-      v57.size.height = height;
-      v56 = CGRectIntersection(v55, v57);
-      v21 = CGRectGetWidth(v56) < v45 * 0.800000012;
+      v71.origin.x = x;
+      v71.origin.y = v54;
+      v71.size.width = v55;
+      v71.size.height = v56;
+      *&v73.origin.x = recta[0];
+      v73.origin.y = y;
+      v73.size.width = width;
+      v73.size.height = height;
+      v72 = CGRectIntersection(v71, v73);
+      v29 = CGRectGetWidth(v72) < v61 * 0.800000012;
       goto LABEL_6;
     }
 
-    if (v44 >= v45 * 0.333333343)
+    if (v60 >= v61 * 0.333333343)
     {
-      v21 = 0;
+      v29 = 0;
       goto LABEL_6;
     }
   }
 
-  v21 = 1;
+  v29 = 1;
 LABEL_6:
 
-  return v21;
+  return v29;
 }
 
 - (void)p_splitLine:(CGRect)line lineSegmentRects:(id)rects wrappable:(id)wrappable cookie:(id)cookie skipHint:(double *)hint
@@ -1364,28 +1364,28 @@ LABEL_6:
   rectsCopy = rects;
   wrappableCopy = wrappable;
   v17 = *&self->_canvasSpaceToWrapSpace.c;
-  *&v36.a = *&self->_canvasSpaceToWrapSpace.a;
-  *&v36.c = v17;
-  *&v36.tx = *&self->_canvasSpaceToWrapSpace.tx;
-  v22 = objc_msgSend_transformedWrapSegmentsForWrappable_canvasSpaceToWrapSpaceTransform_(cookie, v18, *&v36.tx, v17, v19, v20, wrappableCopy, &v36);
-  if (!v22)
+  *&v49.a = *&self->_canvasSpaceToWrapSpace.a;
+  *&v49.c = v17;
+  *&v49.tx = *&self->_canvasSpaceToWrapSpace.tx;
+  v28 = objc_msgSend_transformedWrapSegmentsForWrappable_canvasSpaceToWrapSpaceTransform_(cookie, v18, *&v49.tx, v17, v21, v22, wrappableCopy, &v49, v19, v20);
+  if (!v28)
   {
-    objc_msgSend_frameInRoot(wrappableCopy, v21, v23, v24, v25, v26);
-    v27 = *&self->_canvasSpaceToWrapSpace.c;
-    *&v36.a = *&self->_canvasSpaceToWrapSpace.a;
-    *&v36.c = v27;
-    *&v36.tx = *&self->_canvasSpaceToWrapSpace.tx;
-    v38 = CGRectApplyAffineTransform(v37, &v36);
-    v29 = objc_msgSend_bezierPathWithRect_(MEMORY[0x277D81160], v28, v38.origin, *&v38.origin.y, v38.size, *&v38.size.height);
-    v30 = objc_alloc(MEMORY[0x277D803F0]);
-    v22 = objc_msgSend_initWithPath_(v30, v31, v32, v33, v34, v35, v29);
+    objc_msgSend_frameInRoot(wrappableCopy, v23, v29, v30, v31, v32, v24, v25, v26, v27);
+    v33 = *&self->_canvasSpaceToWrapSpace.c;
+    *&v49.a = *&self->_canvasSpaceToWrapSpace.a;
+    *&v49.c = v33;
+    *&v49.tx = *&self->_canvasSpaceToWrapSpace.tx;
+    v51 = CGRectApplyAffineTransform(v50, &v49);
+    v39 = objc_msgSend_bezierPathWithRect_(MEMORY[0x277D81160], v34, v51.origin, *&v51.origin.y, v51.size, *&v51.size.height, v35, v36, v37, v38);
+    v40 = objc_alloc(MEMORY[0x277D803F0]);
+    v28 = objc_msgSend_initWithPath_(v40, v41, v45, v46, v47, v48, v39, v42, v43, v44);
   }
 
-  v23.n128_f64[0] = x;
-  v24.n128_f64[0] = y;
-  v25.n128_f64[0] = width;
-  v26.n128_f64[0] = height;
-  objc_msgSend_splitLine_lineSegmentRects_wrapSegments_type_skipHint_(MEMORY[0x277D80F88], v21, v23, v24, v25, v26, rectsCopy, v22, 1, hint);
+  v29.n128_f64[0] = x;
+  v30.n128_f64[0] = y;
+  v31.n128_f64[0] = width;
+  v32.n128_f64[0] = height;
+  objc_msgSend_splitLine_lineSegmentRects_wrapSegments_type_skipHint_(MEMORY[0x277D80F88], v23, v29, v30, v31, v32, rectsCopy, v28, 1, hint);
 }
 
 - (TPDocumentRoot)documentRoot

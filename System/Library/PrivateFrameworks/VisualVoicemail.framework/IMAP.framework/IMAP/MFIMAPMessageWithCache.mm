@@ -4,6 +4,7 @@
 - (id)messageData;
 - (void)dealloc;
 - (void)setHeaders:(id)headers;
+- (void)setMessageData:(id)data isPartial:(BOOL)partial;
 @end
 
 @implementation MFIMAPMessageWithCache
@@ -37,6 +38,34 @@
   }
 
   return v3;
+}
+
+- (void)setMessageData:(id)data isPartial:(BOOL)partial
+{
+  partialCopy = partial;
+  dataCopy = data;
+  v8 = dataCopy;
+  if (self->_messageData != dataCopy)
+  {
+    if (dataCopy)
+    {
+      mf_rangeOfRFC822HeaderData = [(NSData *)dataCopy mf_rangeOfRFC822HeaderData];
+      if (mf_rangeOfRFC822HeaderData != 0x7FFFFFFFFFFFFFFFLL)
+      {
+        v11 = [(NSData *)v8 mf_subdataWithRange:mf_rangeOfRFC822HeaderData, v10];
+        v12 = [objc_alloc(MEMORY[0x277D24F40]) initWithHeaderData:v11 encoding:{-[MFIMAPMessageWithCache preferredEncoding](self, "preferredEncoding")}];
+        if (v12)
+        {
+          [(MFIMAPMessageWithCache *)self setHeaders:v12];
+        }
+      }
+    }
+
+    objc_storeStrong(&self->_messageData, data);
+    v13.receiver = self;
+    v13.super_class = MFIMAPMessageWithCache;
+    [(MFIMAPMessage *)&v13 setIsPartial:partialCopy];
+  }
 }
 
 - (BOOL)isMessageContentsLocallyAvailable

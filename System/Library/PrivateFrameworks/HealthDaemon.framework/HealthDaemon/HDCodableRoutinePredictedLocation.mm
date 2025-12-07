@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)modeOfTransportationAsString:(int)string;
+- (id)sourceTypeAsString:(int)string;
 - (int)StringAsModeOfTransportation:(id)transportation;
 - (int)StringAsSourceType:(id)type;
 - (int)modeOfTransportation;
@@ -61,6 +63,21 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)modeOfTransportationAsString:(int)string
+{
+  if ((string + 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2786151B8[string + 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsModeOfTransportation:(id)transportation
 {
   transportationCopy = transportation;
@@ -113,6 +130,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)sourceTypeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2786151D0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSourceType:(id)type
@@ -261,19 +293,18 @@ LABEL_18:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_locationOfInterest)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    confidence = self->_confidence;
     PBDataWriterWriteDoubleField();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -292,9 +323,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  nextEntryTime = self->_nextEntryTime;
   PBDataWriterWriteDoubleField();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -308,22 +338,20 @@ LABEL_6:
   }
 
 LABEL_15:
-  modeOfTransportation = self->_modeOfTransportation;
   PBDataWriterWriteInt32Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_7:
-    sourceType = self->_sourceType;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_8:
   if (self->_geoData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -471,7 +499,6 @@ LABEL_6:
     }
   }
 
-  v6 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_confidence != *(equalCopy + 1))
@@ -483,7 +510,7 @@ LABEL_6:
   else if (*(equalCopy + 48))
   {
 LABEL_26:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_27;
   }
 
@@ -529,17 +556,17 @@ LABEL_26:
   geoData = self->_geoData;
   if (geoData | *(equalCopy + 3))
   {
-    v8 = [(NSData *)geoData isEqual:?];
+    v7 = [(NSData *)geoData isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_27:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash
@@ -649,7 +676,7 @@ LABEL_19:
       goto LABEL_7;
     }
 
-    [(HDCodableRoutineLocation *)locationOfInterest mergeFrom:?];
+    locationOfInterest = [(HDCodableRoutineLocation *)locationOfInterest mergeFrom:?];
   }
 
   else
@@ -659,7 +686,7 @@ LABEL_19:
       goto LABEL_7;
     }
 
-    [(HDCodableRoutinePredictedLocation *)self setLocationOfInterest:?];
+    locationOfInterest = [(HDCodableRoutinePredictedLocation *)self setLocationOfInterest:?];
   }
 
   fromCopy = v8;
@@ -714,10 +741,11 @@ LABEL_11:
 LABEL_12:
   if (*(fromCopy + 3))
   {
-    [(HDCodableRoutinePredictedLocation *)self setGeoData:?];
+    locationOfInterest = [(HDCodableRoutinePredictedLocation *)self setGeoData:?];
+    fromCopy = v8;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](locationOfInterest, fromCopy);
 }
 
 @end

@@ -76,36 +76,36 @@
 
 - (void)_enumeratePartialSolutionsWithEndIndex:(unint64_t)index usingBlock:(id)block
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  v22 = 0;
+  v21 = 0;
   partialSolutions = self->_partialSolutions;
   v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
   v9 = [(NSMutableDictionary *)partialSolutions objectForKeyedSubscript:v8];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   allKeys = [v9 allKeys];
-  v11 = [allKeys countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v11 = [allKeys countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
 LABEL_3:
     v14 = 0;
     while (1)
     {
-      if (*v19 != v13)
+      if (*v18 != v13)
       {
         objc_enumerationMutation(allKeys);
       }
 
-      v15 = *(*(&v18 + 1) + 8 * v14);
+      v15 = *(*(&v17 + 1) + 8 * v14);
       v16 = [v9 objectForKeyedSubscript:v15];
-      blockCopy[2](blockCopy, v16, [v15 unsignedLongValue], &v22);
-      LOBYTE(v15) = v22;
+      blockCopy[2](blockCopy, v16, [v15 unsignedLongValue], &v21);
+      LOBYTE(v15) = v21;
 
       if (v15)
       {
@@ -114,7 +114,7 @@ LABEL_3:
 
       if (v12 == ++v14)
       {
-        v12 = [allKeys countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v12 = [allKeys countByEnumeratingWithState:&v17 objects:v22 count:16];
         if (v12)
         {
           goto LABEL_3;
@@ -124,8 +124,6 @@ LABEL_3:
       }
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updatePartialSolutionsWithPatternMatch:(id)match patternCount:(unint64_t)count
@@ -214,7 +212,7 @@ void __86__WBSPasswordPatternMatchSolver__updatePartialSolutionsWithPatternMatch
   return v3;
 }
 
-uint64_t __48__WBSPasswordPatternMatchSolver__unwindSolution__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__48__WBSPasswordPatternMatchSolver__unwindSolution__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 guessesRequiredWithPatternCountPenalty];
   if (v6 < *(*(*(a1 + 32) + 8) + 24))
@@ -278,47 +276,47 @@ void __83__WBSPasswordPatternMatchSolver__updateExhaustiveSearchPartialSolutions
 
 - (id)optimalEvaluation
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = [(NSString *)self->_password length];
   [MEMORY[0x1E695DF20] safari_dictionaryWithObjectsInFastEnumerationCollection:self->_patternMatches groupedUsingBlock:&__block_literal_global_49];
-  v22 = v20 = v3;
+  v21 = v19 = v3;
   if (v3)
   {
     v4 = 0;
     do
     {
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
-      v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{v4, v20}];
-      v6 = [v22 objectForKeyedSubscript:v5];
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
+      v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{v4, v19}];
+      v6 = [v21 objectForKeyedSubscript:v5];
 
-      v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v25;
+        v9 = *v24;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v25 != v9)
+            if (*v24 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            v11 = *(*(&v24 + 1) + 8 * i);
+            v11 = *(*(&v23 + 1) + 8 * i);
             range = [v11 range];
             if (range)
             {
-              v23[0] = MEMORY[0x1E69E9820];
-              v23[1] = 3221225472;
-              v23[2] = __50__WBSPasswordPatternMatchSolver_optimalEvaluation__block_invoke_2;
-              v23[3] = &unk_1E7CF37F0;
-              v23[4] = self;
-              v23[5] = v11;
-              [(WBSPasswordPatternMatchSolver *)self _enumeratePartialSolutionsWithEndIndex:range - 1 usingBlock:v23];
+              v22[0] = MEMORY[0x1E69E9820];
+              v22[1] = 3221225472;
+              v22[2] = __50__WBSPasswordPatternMatchSolver_optimalEvaluation__block_invoke_2;
+              v22[3] = &unk_1E7CF37F0;
+              v22[4] = self;
+              v22[5] = v11;
+              [(WBSPasswordPatternMatchSolver *)self _enumeratePartialSolutionsWithEndIndex:range - 1 usingBlock:v22];
             }
 
             else
@@ -327,7 +325,7 @@ void __83__WBSPasswordPatternMatchSolver__updateExhaustiveSearchPartialSolutions
             }
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
         }
 
         while (v8);
@@ -336,16 +334,15 @@ void __83__WBSPasswordPatternMatchSolver__updateExhaustiveSearchPartialSolutions
       [(WBSPasswordPatternMatchSolver *)self _updateExhaustiveSearchPartialSolutionsAtEndIndex:v4++];
     }
 
-    while (v4 != v20);
+    while (v4 != v19);
   }
 
   _unwindSolution = [(WBSPasswordPatternMatchSolver *)self _unwindSolution];
-  v14 = -[WBSPasswordPatternMatchSolver _partialSolutionWithEndIndex:patternCount:](self, "_partialSolutionWithEndIndex:patternCount:", v21 - 1, [_unwindSolution count]);
+  v14 = -[WBSPasswordPatternMatchSolver _partialSolutionWithEndIndex:patternCount:](self, "_partialSolutionWithEndIndex:patternCount:", v20 - 1, [_unwindSolution count]);
   [v14 guessesRequiredWithPatternCountPenalty];
   v16 = v15;
 
   v17 = [[WBSPasswordEvaluation alloc] initWithEvaluationType:0 password:self->_password patternMatches:_unwindSolution guessesRequired:v16];
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

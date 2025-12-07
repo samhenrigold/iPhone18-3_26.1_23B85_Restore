@@ -143,10 +143,10 @@ LABEL_6:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  [*a1 code];
-  return FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v8, v10, v11, v12, v13, v14, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  v4 = [*a1 code];
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, "<<<< FigCaptureSessionConfiguration >>>>", 0x17C5, v1, v5, v6, v9);
 }
 
 @end

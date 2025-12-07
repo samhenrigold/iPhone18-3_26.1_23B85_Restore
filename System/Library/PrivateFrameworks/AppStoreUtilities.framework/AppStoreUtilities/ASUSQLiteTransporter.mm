@@ -24,7 +24,7 @@
 
 - (BOOL)canBeginTransportation
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = self->_databasePath;
   objc_opt_self();
   os_unfair_lock_lock(&_configurationLock);
@@ -50,11 +50,11 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         databasePath = self->_databasePath;
-        v28 = 138543362;
-        v29 = databasePath;
+        v26 = 138543362;
+        v27 = databasePath;
         v12 = "Refusing to begin transportation for known path: %{public}@";
 LABEL_20:
-        _os_log_error_impl(&dword_2400F8000, v10, OS_LOG_TYPE_ERROR, v12, &v28, 0xCu);
+        _os_log_error_impl(&dword_2400F8000, v10, OS_LOG_TYPE_ERROR, v12, &v26, 0xCu);
         goto LABEL_14;
       }
 
@@ -75,16 +75,15 @@ LABEL_20:
     v10 = ASULogHandleForCategory(1);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v27 = self->_databasePath;
-      v28 = 138543362;
-      v29 = v27;
+      v25 = self->_databasePath;
+      v26 = 138543362;
+      v27 = v25;
       v12 = "Refusing to begin transportation as path does not exist: %{public}@";
       goto LABEL_20;
     }
 
 LABEL_14:
 
-    v20 = *MEMORY[0x277D85DE8];
     return 0;
   }
 
@@ -116,20 +115,19 @@ LABEL_17:
   [ASUDefaultsManager setTransporterConfiguration:v17];
   os_unfair_lock_unlock(&_configurationLock);
 
-  v22 = [[ASUSQLiteConnectionOptions alloc] initWithDatabasePath:self->_databasePath];
-  [(ASUSQLiteConnectionOptions *)v22 setReadOnly:1];
-  v23 = [[ASUSQLiteConnection alloc] initWithOptions:v22];
+  v21 = [[ASUSQLiteConnectionOptions alloc] initWithDatabasePath:self->_databasePath];
+  [(ASUSQLiteConnectionOptions *)v21 setReadOnly:1];
+  v22 = [[ASUSQLiteConnection alloc] initWithOptions:v21];
   connection = self->_connection;
-  self->_connection = v23;
+  self->_connection = v22;
 
   open = [(ASUSQLiteConnection *)self->_connection open];
-  v26 = *MEMORY[0x277D85DE8];
   return open;
 }
 
 - (BOOL)endTransportationAndRemoveDatabase
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ([(ASUSQLiteConnection *)self->_connection close]&& ASUSQLiteDeleteDatabase(self->_databasePath, 0))
   {
     v3 = self->_databasePath;
@@ -153,7 +151,7 @@ LABEL_17:
 
     os_unfair_lock_unlock(&_configurationLock);
 
-    result = 1;
+    return 1;
   }
 
   else
@@ -162,16 +160,13 @@ LABEL_17:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       databasePath = self->_databasePath;
-      v12 = 138543362;
-      v13 = databasePath;
-      _os_log_error_impl(&dword_2400F8000, v9, OS_LOG_TYPE_ERROR, "Remembering path after ending transportation: %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = databasePath;
+      _os_log_error_impl(&dword_2400F8000, v9, OS_LOG_TYPE_ERROR, "Remembering path after ending transportation: %{public}@", &v11, 0xCu);
     }
 
-    result = 0;
+    return 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)performTransportationUsingBlock:(id)block

@@ -23,7 +23,7 @@
 
   else
   {
-    [BWDeferredMetadataIntermediate initWithMetadata:? tag:? bufferTag:? URL:?];
+    [(BWDeferredMetadataIntermediate *)self initWithMetadata:a2 tag:metadata bufferTag:tag URL:0, l];
     return 0;
   }
 
@@ -73,12 +73,6 @@
   v6 = [string copy];
 
   return v6;
-}
-
-- (void)initWithMetadata:(void *)a1 tag:bufferTag:URL:.cold.1(void *a1)
-{
-  OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
 }
 
 @end

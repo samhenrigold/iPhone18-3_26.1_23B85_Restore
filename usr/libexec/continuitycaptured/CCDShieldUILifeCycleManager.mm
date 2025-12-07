@@ -6,6 +6,7 @@
 - (void)_acquireAppSwitcherAssertion;
 - (void)_acquireLockScreenAssertion;
 - (void)_forceTerminateShieldIfApplicableWithBundleID:(id)d completion:(id)completion completionTimeoutInSec:(unint64_t)sec;
+- (void)_launchShieldForDeviceIdentifier:(id)identifier name:(id)name model:(int64_t)model skipPlacementStep:(BOOL)step isDedicated:(BOOL)dedicated micOnly:(BOOL)only statusHandler:(id)handler;
 - (void)_launchShieldUIProcess;
 - (void)_releaseAlwaysOnDisplayAssertion;
 - (void)_releaseAppSwitcherAssertion;
@@ -260,6 +261,120 @@
   v22 = nameCopy;
   v23 = identifierCopy;
   dispatch_async(queue, v24);
+}
+
+- (void)_launchShieldForDeviceIdentifier:(id)identifier name:(id)name model:(int64_t)model skipPlacementStep:(BOOL)step isDedicated:(BOOL)dedicated micOnly:(BOOL)only statusHandler:(id)handler
+{
+  dedicatedCopy = dedicated;
+  onlyCopy = only;
+  stepCopy = step;
+  identifierCopy = identifier;
+  nameCopy = name;
+  handlerCopy = handler;
+  dispatch_assert_queue_V2(self->_queue);
+  v16 = CMContinuityCaptureLog();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    activeSession = self->_activeSession;
+    *buf = 138545410;
+    selfCopy = self;
+    v40 = 2080;
+    v41 = "[CCDShieldUILifeCycleManager _launchShieldForDeviceIdentifier:name:model:skipPlacementStep:isDedicated:micOnly:statusHandler:]";
+    v42 = 1024;
+    v43 = stepCopy;
+    v44 = 1024;
+    v45 = dedicatedCopy;
+    v46 = 1024;
+    v47 = onlyCopy;
+    v48 = 2114;
+    v49 = identifierCopy;
+    v50 = 2114;
+    v51 = nameCopy;
+    v52 = 1024;
+    modelCopy = model;
+    v54 = 2114;
+    v55 = activeSession;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ %s skipPlacementStep:%d isDedicated:%d micOnly:%d identifier:%{public}@ name:%{public}@ model:%d activeSession:%{public}@", buf, 0x4Cu);
+  }
+
+  p_activeSession = &self->_activeSession;
+  v18 = self->_activeSession;
+  if (!v18)
+  {
+    goto LABEL_7;
+  }
+
+  v32 = stepCopy;
+  v20 = handlerCopy;
+  deviceIdentifier = [(CCDShieldUISession *)v18 deviceIdentifier];
+  v22 = [deviceIdentifier isEqualToString:identifierCopy];
+
+  if ((v22 & 1) == 0)
+  {
+    [(CCDShieldUILifeCycleManager *)self notifyShieldStatus:-2003];
+    handlerCopy = v20;
+    goto LABEL_11;
+  }
+
+  handlerCopy = v20;
+  stepCopy = v32;
+  p_activeSession = &self->_activeSession;
+  if (self->_activeSession)
+  {
+    [(CCDShieldUILifeCycleManager *)self notifyShieldStatus:0];
+  }
+
+  else
+  {
+LABEL_7:
+    selfCopy2 = self;
+    objc_sync_enter(selfCopy2);
+    v33 = handlerCopy;
+    v24 = objc_retainBlock(handlerCopy);
+    statusHandler = selfCopy2->_statusHandler;
+    selfCopy2->_statusHandler = v24;
+
+    objc_sync_exit(selfCopy2);
+    v26 = dispatch_get_global_queue(2, 0);
+    dispatch_async(v26, &stru_10001C7B8);
+
+    v27 = CMContinuityCaptureLog();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543618;
+      selfCopy = selfCopy2;
+      v40 = 2114;
+      v41 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ Creating CCDShieldUISession for device %{public}@", buf, 0x16u);
+    }
+
+    objc_initWeak(buf, selfCopy2);
+    v28 = [CCDShieldUISession alloc];
+    v29 = [NSNumber numberWithBool:stepCopy];
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_10000311C;
+    v36[3] = &unk_10001C6E0;
+    objc_copyWeak(&v37, buf);
+    v30 = [(CCDShieldUISession *)v28 initWithDeviceIdentifier:identifierCopy name:nameCopy model:model placementStepSkipped:v29 isDedicated:dedicatedCopy micOnly:onlyCopy sessionInterruptionBlock:v36];
+
+    [(CCDShieldUILifeCycleManager *)selfCopy2 willChangeValueForKey:@"activeSession"];
+    v31 = selfCopy2;
+    objc_sync_enter(v31);
+    objc_storeStrong(p_activeSession, v30);
+    objc_sync_exit(v31);
+
+    [(CCDShieldUILifeCycleManager *)v31 didChangeValueForKey:@"activeSession"];
+    [(CCDShieldUILifeCycleManager *)v31 _acquireLockScreenAssertion];
+    [(CCDShieldUILifeCycleManager *)v31 _acquireAppSwitcherAssertion];
+    [(CCDShieldUILifeCycleManager *)v31 _launchShieldUIProcess];
+
+    objc_destroyWeak(&v37);
+    objc_destroyWeak(buf);
+    handlerCopy = v33;
+  }
+
+LABEL_11:
 }
 
 - (void)_launchShieldUIProcess

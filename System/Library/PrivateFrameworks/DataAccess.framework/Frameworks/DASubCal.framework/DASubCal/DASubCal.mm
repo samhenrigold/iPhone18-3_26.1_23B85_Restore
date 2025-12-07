@@ -179,7 +179,7 @@ CFUserNotificationRef SubCalCopyInvalidAccountNotification(void *a1)
 
 CFUserNotificationRef SubCalCopyAuthNeededForHostNotification(void *a1, void *a2)
 {
-  v43[2] = *MEMORY[0x277D85DE8];
+  v42[2] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = MEMORY[0x277CCACA8];
@@ -190,39 +190,39 @@ CFUserNotificationRef SubCalCopyAuthNeededForHostNotification(void *a1, void *a2
   v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v10 = [v9 localizedStringForKey:@"PASSWORD_OK" value:&stru_285AC8AA0 table:@"DataAccess"];
   v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v35 = [v11 localizedStringForKey:@"PASSWORD_CANCEL" value:&stru_285AC8AA0 table:@"DataAccess"];
+  v34 = [v11 localizedStringForKey:@"PASSWORD_CANCEL" value:&stru_285AC8AA0 table:@"DataAccess"];
   v12 = v8;
   v13 = v10;
   v14 = v4;
   v15 = 0;
   if (v12 && v13)
   {
-    v33 = v11;
-    v34 = v3;
+    v32 = v11;
+    v33 = v3;
     error = 0;
     v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v17 = [v16 localizedStringForKey:@"INVALID_USERNAME_PLACEHOLDER" value:&stru_285AC8AA0 table:@"DataAccess"];
-    v43[0] = v17;
+    v42[0] = v17;
     v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v19 = [v18 localizedStringForKey:@"INVALID_PASSWORD_PLACEHOLDER" value:&stru_285AC8AA0 table:@"DataAccess"];
-    v43[1] = v19;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
+    v42[1] = v19;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
 
     v21 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v20, "count")}];
     v22 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v20, "count")}];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     v23 = v20;
-    v24 = [v23 countByEnumeratingWithState:&v37 objects:v42 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v36 objects:v41 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v38;
+      v26 = *v37;
       while (1)
       {
-        if (*v38 != v26)
+        if (*v37 != v26)
         {
           objc_enumerationMutation(v23);
         }
@@ -231,7 +231,7 @@ CFUserNotificationRef SubCalCopyAuthNeededForHostNotification(void *a1, void *a2
         [v22 addObject:&unk_285ACAA50];
         if (!--v25)
         {
-          v25 = [v23 countByEnumeratingWithState:&v37 objects:v42 count:16];
+          v25 = [v23 countByEnumeratingWithState:&v36 objects:v41 count:16];
           if (!v25)
           {
             break;
@@ -249,15 +249,14 @@ CFUserNotificationRef SubCalCopyAuthNeededForHostNotification(void *a1, void *a2
     }
 
     v29 = objc_alloc(MEMORY[0x277CBEB38]);
-    v30 = [v29 initWithObjectsAndKeys:{v12, *MEMORY[0x277CBF198], v23, *MEMORY[0x277CBF230], v21, *MEMORY[0x277D67438], v22, *MEMORY[0x277D67440], v13, *MEMORY[0x277CBF1E8], v35, *MEMORY[0x277CBF1C0], 0}];
+    v30 = [v29 initWithObjectsAndKeys:{v12, *MEMORY[0x277CBF198], v23, *MEMORY[0x277CBF230], v21, *MEMORY[0x277D67438], v22, *MEMORY[0x277D67440], v13, *MEMORY[0x277CBF1E8], v34, *MEMORY[0x277CBF1C0], 0}];
     [v30 addEntriesFromDictionary:v14];
     v15 = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0x20003uLL, &error, v30);
 
-    v3 = v34;
-    v11 = v33;
+    v3 = v33;
+    v11 = v32;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

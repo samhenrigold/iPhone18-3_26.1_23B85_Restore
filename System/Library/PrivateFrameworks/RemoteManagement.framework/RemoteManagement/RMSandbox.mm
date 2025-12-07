@@ -67,12 +67,11 @@
 
 + (void)configureSandbox
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v2 = *__error();
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_fault_impl(&dword_1E1168000, self, OS_LOG_TYPE_FAULT, "Failed to initialize sandbox: %{darwin.errno}d", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_fault_impl(&dword_1E1168000, self, OS_LOG_TYPE_FAULT, "Failed to initialize sandbox: %{darwin.errno}d", v3, 8u);
 }
 
 @end

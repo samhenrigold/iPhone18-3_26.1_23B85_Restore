@@ -39,24 +39,24 @@
 
 - (void)viewWillLayoutSubviews
 {
-  v15.receiver = self;
-  v15.super_class = swift_getObjectType();
-  v2 = v15.receiver;
-  [(DebugFormatWorkspaceTreeViewController *)&v15 viewWillLayoutSubviews];
-  v3 = sub_1D61D4F20();
-  view = [v3 view];
+  v16.receiver = self;
+  v16.super_class = swift_getObjectType();
+  v2 = v16.receiver;
+  [(DebugFormatWorkspaceTreeViewController *)&v16 viewWillLayoutSubviews];
+  v4 = sub_1D61D4F20(v3);
+  view = [v4 view];
 
   if (view)
   {
     view2 = [v2 view];
     if (view2)
     {
-      v6 = view2;
+      v7 = view2;
       [view2 bounds];
-      v8 = v7;
-      v10 = v9;
-      v12 = v11;
-      v14 = v13;
+      v9 = v8;
+      v11 = v10;
+      v13 = v12;
+      v15 = v14;
 
       [view setFrame_];
       return;

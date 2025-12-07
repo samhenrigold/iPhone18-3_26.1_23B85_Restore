@@ -10,13 +10,13 @@
 
 - (void)resetServerProtocol:(id)protocol didReceiveAuthenticationError:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     mSVerboseDescription = [error MSVerboseDescription];
-    v11 = 138543362;
-    v12 = mSVerboseDescription;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Couldn't reset server. Received authentication error: %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = mSVerboseDescription;
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Couldn't reset server. Received authentication error: %{public}@", &v10, 0xCu);
   }
 
   daemon = self->_daemon;
@@ -26,13 +26,11 @@
   [(MSDaemon *)self->_daemon releaseBusy];
   selfReference = self->_selfReference;
   self->_selfReference = 0;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetServerProtocol:(id)protocol didFinishWithError:(id)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   protocolCopy = protocol;
   errorCopy = error;
   if (errorCopy)
@@ -40,9 +38,9 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       mSVerboseDescription = [errorCopy MSVerboseDescription];
-      v13 = 138543362;
-      v14 = mSVerboseDescription;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Couldn't reset server. Error: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = mSVerboseDescription;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Couldn't reset server. Error: %{public}@", &v12, 0xCu);
     }
   }
 
@@ -50,8 +48,8 @@
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Successfully reset server state.", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Successfully reset server state.", &v12, 2u);
     }
 
     daemon = self->_daemon;
@@ -62,8 +60,6 @@
   [(MSDaemon *)self->_daemon releaseBusy];
   selfReference = self->_selfReference;
   self->_selfReference = 0;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetServer

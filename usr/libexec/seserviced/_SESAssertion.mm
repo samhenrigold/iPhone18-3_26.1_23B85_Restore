@@ -4,6 +4,7 @@
 - (_SESAssertion)initWithRemoteObject:(id)object keyIdentifier:(id)identifier appletIdentifier:(id)appletIdentifier options:(id)options queue:(id)queue;
 - (id)start:(BOOL)start;
 - (void)invalidate:(id)invalidate;
+- (void)invalidateInternal:(BOOL)internal;
 - (void)stop:(BOOL)stop;
 @end
 
@@ -208,6 +209,24 @@ LABEL_8:
     v13 = self->_didEndCallback;
     self->_didEndCallback = 0;
   }
+}
+
+- (void)invalidateInternal:(BOOL)internal
+{
+  internalCopy = internal;
+  dispatch_assert_queue_V2(self->_queue);
+  v5 = SESDefaultLogObject();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v6 = 138412546;
+    selfCopy = self;
+    v8 = 1024;
+    v9 = internalCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "SESAssertion invalidateInternal %@ bridged %d", &v6, 0x12u);
+  }
+
+  [self->_remoteObject didInvalidate];
+  [(_SESAssertion *)self stop:internalCopy];
 }
 
 - (BOOL)isEquivalentForKeyIdentifier:(id)identifier appletIdentifier:(id)appletIdentifier

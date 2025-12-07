@@ -6,7 +6,7 @@
 
 - (id)activityViewController:(id)controller itemForActivityType:(id)type
 {
-  if ([type isEqualToString:*MEMORY[0x1E69CDA88]])
+  if (objc_msgSend_isEqualToString_(type, a2, *MEMORY[0x1E69CDA88]))
   {
     selfCopy = self;
   }

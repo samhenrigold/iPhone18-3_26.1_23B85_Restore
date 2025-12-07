@@ -206,7 +206,7 @@
 - (CRLBezierPath)bezierPath
 {
   bezierPathWithoutFlips = [(CRLPathSource *)self bezierPathWithoutFlips];
-  [(CRLPathSource *)self pathFlipTransform];
+  objc_msgSend_pathFlipTransform(self);
   [bezierPathWithoutFlips transformUsingAffineTransform:&v5];
 
   return bezierPathWithoutFlips;
@@ -642,12 +642,12 @@ LABEL_23:
         sub_10130EE10(v19, v17);
       }
 
-      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Should not be trying to get the path of a custom shape from here!", v20, v21, v22, v23, v24, v25, v26, "+[CRLPathSource pathSourceForShapeType:naturalSize:]");
-      v27 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLPathSource pathSourceForShapeType:naturalSize:]");
-      v28 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLPathSource.m"];
-      [CRLAssertionHandler handleFailureInFunction:v27 file:v28 lineNumber:309 isFatal:1 description:"Should not be trying to get the path of a custom shape from here!"];
+      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Should not be trying to get the path of a custom shape from here!", "+[CRLPathSource pathSourceForShapeType:naturalSize:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLPathSource.m", 309);
+      v20 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLPathSource pathSourceForShapeType:naturalSize:]");
+      v21 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLPathSource.m"];
+      [CRLAssertionHandler handleFailureInFunction:v20 file:v21 lineNumber:309 isFatal:1 description:"Should not be trying to get the path of a custom shape from here!"];
 
-      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v29, v30);
+      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v22, v23);
       abort();
     default:
       break;

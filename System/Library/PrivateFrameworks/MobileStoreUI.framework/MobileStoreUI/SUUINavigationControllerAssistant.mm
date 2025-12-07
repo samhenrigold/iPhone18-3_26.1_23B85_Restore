@@ -592,20 +592,20 @@ void __83__SUUINavigationControllerAssistant__showOverlayView_previousOverlayVie
   [v2 setFrame:1 isAnimating:{*(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80)}];
 }
 
-uint64_t __83__SUUINavigationControllerAssistant__showOverlayView_previousOverlayView_animated___block_invoke_2(uint64_t result)
+id *__83__SUUINavigationControllerAssistant__showOverlayView_previousOverlayView_animated___block_invoke_2(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
-    v2 = *(result + 40);
-    v3 = [*(result + 48) paletteBackgroundView];
-    [v3 convertRect:*(v1 + 32) fromView:{*(*(*(v1 + 56) + 8) + 32), *(*(*(v1 + 56) + 8) + 40), *(*(*(v1 + 56) + 8) + 48), *(*(*(v1 + 56) + 8) + 56)}];
+    v2 = result[5];
+    v3 = [result[6] paletteBackgroundView];
+    [v3 convertRect:v1[4] fromView:{*(*(v1[7] + 1) + 32), *(*(v1[7] + 1) + 40), *(*(v1[7] + 1) + 48), *(*(v1[7] + 1) + 56)}];
     [v2 setFrame:?];
 
-    v4 = [*(v1 + 48) paletteBackgroundView];
-    [v4 addSubview:*(v1 + 40)];
+    v4 = [v1[6] paletteBackgroundView];
+    [v4 addSubview:v1[5]];
 
-    v5 = *(v1 + 32);
+    v5 = v1[4];
 
     return [v5 removeFromSuperview];
   }

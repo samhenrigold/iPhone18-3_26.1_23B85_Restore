@@ -1,17 +1,17 @@
-void sub_1C2538664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, void *a47, uint64_t a48, char a49, void *a50)
+void sub_1C2538664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, uint64_t a49, void *a50)
 {
   std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::destroy(&a46, a47);
   std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::destroy(&a49, a50);
   _Unwind_Resume(a1);
 }
 
-void *ARPlaneUpdateQueue::insert(void *a1, uint64_t a2, uint64_t a3, id *a4)
+void *ARPlaneUpdateQueue::insert(uint64_t a1, uint64_t a2, uint64_t a3, id *a4)
 {
   v21 = *MEMORY[0x1E69E9840];
   *&v20 = a2;
   *(&v20 + 1) = a3;
-  result = std::__tree<std::array<unsigned char,16ul>>::find<std::array<unsigned char,16ul>>((a1 + 6), &v20);
-  if (a1 + 7 == result)
+  result = std::__tree<std::array<unsigned char,16ul>>::find<std::array<unsigned char,16ul>>(a1 + 48, &v20);
+  if ((a1 + 56) == result)
   {
     v7 = *(a4 + 8);
     v8 = *(a4 + 10);
@@ -41,15 +41,15 @@ void *ARPlaneUpdateQueue::insert(void *a1, uint64_t a2, uint64_t a3, id *a4)
     std::deque<std::pair<std::array<unsigned char,16ul>,ARTexturedPlane>>::push_back(a1, v17);
 
     std::__tree<std::array<unsigned char,16ul>>::destroy(v18, v18[1]);
-    return std::__tree<std::array<unsigned char,16ul>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::array<unsigned char,16ul> const&>((a1 + 6), &v20);
+    return std::__tree<std::array<unsigned char,16ul>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::array<unsigned char,16ul> const&>((a1 + 48), &v20, &v20);
   }
 
   return result;
 }
 
-void sub_1C2538944(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C2538944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<ARTexturedPlane>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -72,20 +72,20 @@ uint64_t std::vector<ARTexturedPlane>::push_back[abi:ne200100](uint64_t *a1, id 
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::array<unsigned char,16ul>,std::set<std::array<unsigned char,16ul>>>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,std::set<std::array<unsigned char,16ul>>>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,std::set<std::array<unsigned char,16ul>>>>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::piecewise_construct_t const&,std::tuple<std::array<unsigned char,16ul> const&>,std::tuple<>>(uint64_t a1, unsigned __int8 *a2)
+uint64_t std::__tree<std::__value_type<std::array<unsigned char,16ul>,std::set<std::array<unsigned char,16ul>>>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,std::set<std::array<unsigned char,16ul>>>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,std::set<std::array<unsigned char,16ul>>>>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::piecewise_construct_t const&,std::tuple<std::array<unsigned char,16ul> const&>,std::tuple<>>(uint64_t **a1, unsigned __int8 *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__find_equal<std::array<unsigned char,16ul>>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__find_equal<std::array<unsigned char,16ul>>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::pair<std::array<unsigned char,16ul> const,ARTexturedPlane> const&>(uint64_t a1, unsigned __int8 *a2)
+void *std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::pair<std::array<unsigned char,16ul> const,ARTexturedPlane> const&>(uint64_t **a1, unsigned __int8 *a2, uint64_t a3)
 {
-  result = *std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__find_equal<std::array<unsigned char,16ul>>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__find_equal<std::array<unsigned char,16ul>>(a1, &v4, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__construct_node<std::pair<std::array<unsigned char,16ul> const,ARTexturedPlane> const&>();
@@ -117,9 +117,8 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   operator delete(a2);
 }
 
-void *std::deque<std::pair<std::array<unsigned char,16ul>,ARTexturedPlane>>::push_back(void *result, uint64_t a2)
+void std::deque<std::pair<std::array<unsigned char,16ul>,ARTexturedPlane>>::push_back(unint64_t *result, uint64_t a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   v6 = 2 * (v4 - v5) + ((v4 - v5) >> 3) - 1;
@@ -131,9 +130,9 @@ void *std::deque<std::pair<std::array<unsigned char,16ul>,ARTexturedPlane>>::pus
   v7 = result[5] + result[4];
   if (v6 == v7)
   {
-    result = std::deque<std::pair<std::array<unsigned char,16ul>,ARTexturedPlane>>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5] + v3[4];
+    std::deque<std::pair<std::array<unsigned char,16ul>,ARTexturedPlane>>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5] + result[4];
   }
 
   v8 = *(v5 + 8 * (v7 / 0x11)) + 240 * (v7 % 0x11);
@@ -182,23 +181,22 @@ void *std::deque<std::pair<std::array<unsigned char,16ul>,ARTexturedPlane>>::pus
   v22 = *(a2 + 232);
   *(a2 + 232) = 0;
   *(v8 + 232) = v22;
-  ++v3[5];
-  return result;
+  ++result[5];
 }
 
-void *std::deque<std::pair<std::array<unsigned char,16ul>,ARTexturedPlane>>::__add_back_capacity(void *a1)
+void std::deque<std::pair<std::array<unsigned char,16ul>,ARTexturedPlane>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x11;
   v3 = v1 - 17;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -206,25 +204,25 @@ void *std::deque<std::pair<std::array<unsigned char,16ul>,ARTexturedPlane>>::__a
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::allocator<__CVPixelBufferPool *>::allocate_at_least[abi:ne200100](a1, v9);
+    v10 = a1;
+    std::allocator<__CVPixelBufferPool *>::allocate_at_least[abi:ne200100](a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int> *>>::emplace_back<std::pair<int,int> *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<std::pair<int,int> *,std::allocator<std::pair<int,int> *>>::emplace_back<std::pair<int,int> *&>(a1, &v9);
 }
 
 void sub_1C2539038(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -382,14 +380,14 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
@@ -417,7 +415,7 @@ LABEL_8:
     v17 = *v7;
     if (*v7 && *(v17 + 24) != 1)
     {
-      v18 = v7[1];
+      v18 = *(v7 + 8);
       if (!v18)
       {
         goto LABEL_55;
@@ -429,18 +427,18 @@ LABEL_54:
 LABEL_55:
         *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v26 = v17[1];
+        v26 = *(v17 + 8);
         *v7 = v26;
         if (v26)
         {
           *(v26 + 16) = v7;
         }
 
-        v27 = v7[2];
-        v17[2] = v27;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
         v27[*v27 != v7] = v17;
-        v17[1] = v7;
-        v7[2] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
         v18 = v7;
       }
 
@@ -449,7 +447,7 @@ LABEL_55:
         v17 = v7;
       }
 
-      v28 = v17[2];
+      v28 = *(v17 + 16);
       *(v17 + 24) = *(v28 + 24);
       *(v28 + 24) = 1;
       *(v18 + 24) = 1;
@@ -468,14 +466,14 @@ LABEL_55:
       goto LABEL_72;
     }
 
-    v18 = v7[1];
+    v18 = *(v7 + 8);
     if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
@@ -485,11 +483,11 @@ LABEL_49:
     v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v20 = v13[1];
+    v20 = *(v13 + 8);
     *v12 = v20;
     if (v20)
     {
@@ -497,11 +495,11 @@ LABEL_49:
     }
 
     v21 = v12[2];
-    v13[2] = v21;
+    *(v13 + 16) = v21;
     v21[*v21 != v12] = v13;
-    v13[1] = v12;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v22 = v7[1];
+    v22 = *(v7 + 8);
     if (result == v22)
     {
       result = v7;
@@ -516,11 +514,11 @@ LABEL_49:
     goto LABEL_68;
   }
 
-  v24 = v7[1];
+  v24 = *(v7 + 8);
   if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
@@ -536,24 +534,24 @@ LABEL_52:
     goto LABEL_65;
   }
 
-  if (v23[3])
+  if (*(v23 + 24))
   {
-    v24 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
     *(v24 + 24) = 1;
     *(v7 + 24) = 0;
     v32 = *v24;
-    v7[1] = *v24;
+    *(v7 + 8) = *v24;
     if (v32)
     {
       *(v32 + 16) = v7;
     }
 
-    v33 = v7[2];
-    v24[2] = v33;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
     v33[*v33 != v7] = v24;
     *v24 = v7;
-    v7[2] = v24;
+    *(v7 + 16) = v24;
     v23 = v7;
   }
 
@@ -563,7 +561,7 @@ LABEL_68:
     v24 = v7;
   }
 
-  v28 = v24[2];
+  v28 = *(v24 + 16);
   *(v24 + 24) = *(v28 + 24);
   *(v28 + 24) = 1;
   *(v23 + 24) = 1;
@@ -677,16 +675,16 @@ uint64_t std::vector<ARTexturedPlane>::__emplace_back_slow_path<ARTexturedPlane 
     v6 = v3;
   }
 
-  v26 = a1;
+  v28 = a1;
   if (v6)
   {
     std::allocator<ARTexturedPlane>::allocate_at_least[abi:ne200100](a1, v6);
   }
 
   v7 = 224 * v2;
-  v23 = 0;
-  v24 = v7;
-  v25 = v7;
+  v25 = 0;
+  v26 = v7;
+  v27 = v7;
   v8 = *a2;
   v9 = *(a2 + 1);
   v10 = *(a2 + 3);
@@ -710,26 +708,26 @@ uint64_t std::vector<ARTexturedPlane>::__emplace_back_slow_path<ARTexturedPlane 
   *(v7 + 16) = v9;
   std::set<std::array<unsigned char,16ul>>::set[abi:ne200100]((v7 + 192), (a2 + 24));
   *(v7 + 216) = a2[27];
-  *&v25 = v25 + 224;
+  *&v27 = v27 + 224;
   v17 = a1[1];
-  v18 = v24 + *a1 - v17;
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ARTexturedPlane>,ARTexturedPlane*>(a1, *a1, v17, v18);
-  v19 = *a1;
+  v18 = v26 + *a1 - v17;
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ARTexturedPlane>,ARTexturedPlane*>(a1, *a1, v17, v18, v19, v20);
+  v21 = *a1;
   *a1 = v18;
-  v20 = a1[2];
-  v22 = v25;
-  *(a1 + 1) = v25;
-  *&v25 = v19;
-  *(&v25 + 1) = v20;
-  v23 = v19;
-  v24 = v19;
-  std::__split_buffer<ARTexturedPlane>::~__split_buffer(&v23);
-  return v22;
+  v22 = a1[2];
+  v24 = v27;
+  *(a1 + 1) = v27;
+  *&v27 = v21;
+  *(&v27 + 1) = v22;
+  v25 = v21;
+  v26 = v21;
+  std::__split_buffer<ARTexturedPlane>::~__split_buffer(&v25);
+  return v24;
 }
 
-void sub_1C25397B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C25397B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<ARTexturedPlane>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -744,73 +742,73 @@ void std::allocator<ARTexturedPlane>::allocate_at_least[abi:ne200100](uint64_t a
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ARTexturedPlane>,ARTexturedPlane*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ARTexturedPlane>,ARTexturedPlane*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v24 = a4;
-  v23 = a4;
-  v21[0] = a1;
-  v21[1] = &v23;
-  v21[2] = &v24;
+  v26 = a4;
+  v25 = a4;
+  v23[0] = a1;
+  v23[1] = &v25;
+  v23[2] = &v26;
   if (a2 != a3)
   {
-    v4 = 0;
+    v6 = 0;
     do
     {
-      v5 = a4 + v4;
-      v6 = *(a2 + v4);
-      v7 = *(a2 + v4 + 16);
-      v8 = *(a2 + v4 + 48);
-      *(v5 + 32) = *(a2 + v4 + 32);
-      *(v5 + 48) = v8;
-      *v5 = v6;
-      *(v5 + 16) = v7;
-      v9 = *(a2 + v4 + 64);
-      v10 = *(a2 + v4 + 80);
-      v11 = *(a2 + v4 + 112);
-      *(v5 + 96) = *(a2 + v4 + 96);
-      *(v5 + 112) = v11;
-      *(v5 + 64) = v9;
-      *(v5 + 80) = v10;
-      v12 = *(a2 + v4 + 128);
-      v13 = *(a2 + v4 + 144);
-      v14 = *(a2 + v4 + 176);
-      *(v5 + 160) = *(a2 + v4 + 160);
-      *(v5 + 176) = v14;
-      *(v5 + 128) = v12;
-      *(v5 + 144) = v13;
-      *(v5 + 192) = *(a2 + v4 + 192);
-      v15 = (a2 + v4 + 200);
-      v16 = *v15;
-      *(a4 + v4 + 200) = *v15;
-      v17 = a4 + v4 + 200;
-      v18 = *(a2 + v4 + 208);
-      *(v5 + 208) = v18;
-      if (v18)
+      v7 = a4 + v6;
+      v8 = *(a2 + v6);
+      v9 = *(a2 + v6 + 16);
+      v10 = *(a2 + v6 + 48);
+      *(v7 + 32) = *(a2 + v6 + 32);
+      *(v7 + 48) = v10;
+      *v7 = v8;
+      *(v7 + 16) = v9;
+      v11 = *(a2 + v6 + 64);
+      v12 = *(a2 + v6 + 80);
+      v13 = *(a2 + v6 + 112);
+      *(v7 + 96) = *(a2 + v6 + 96);
+      *(v7 + 112) = v13;
+      *(v7 + 64) = v11;
+      *(v7 + 80) = v12;
+      v14 = *(a2 + v6 + 128);
+      v15 = *(a2 + v6 + 144);
+      v16 = *(a2 + v6 + 176);
+      *(v7 + 160) = *(a2 + v6 + 160);
+      *(v7 + 176) = v16;
+      *(v7 + 128) = v14;
+      *(v7 + 144) = v15;
+      *(v7 + 192) = *(a2 + v6 + 192);
+      v17 = (a2 + v6 + 200);
+      v18 = *v17;
+      *(a4 + v6 + 200) = *v17;
+      v19 = a4 + v6 + 200;
+      v20 = *(a2 + v6 + 208);
+      *(v7 + 208) = v20;
+      if (v20)
       {
-        *(v16 + 16) = v17;
-        *(a2 + v4 + 192) = v15;
-        *v15 = 0;
-        *(a2 + v4 + 208) = 0;
+        *(v18 + 16) = v19;
+        *(a2 + v6 + 192) = v17;
+        *v17 = 0;
+        *(a2 + v6 + 208) = 0;
       }
 
       else
       {
-        *(v5 + 192) = v17;
+        *(v7 + 192) = v19;
       }
 
-      v19 = *(a2 + v4 + 216);
-      *(a2 + v4 + 216) = 0;
-      *(a4 + v4 + 216) = v19;
-      v4 += 224;
+      v21 = *(a2 + v6 + 216);
+      *(a2 + v6 + 216) = 0;
+      *(a4 + v6 + 216) = v21;
+      v6 += 224;
     }
 
-    while (a2 + v4 != a3);
-    v24 = a4 + v4;
+    while (a2 + v6 != a3);
+    v26 = a4 + v6;
   }
 
-  v22 = 1;
+  v24 = 1;
   std::__allocator_destroy[abi:ne200100]<std::allocator<ARTexturedPlane>,ARTexturedPlane*,ARTexturedPlane*>(a1, a2, a3);
-  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<ARTexturedPlane>,ARTexturedPlane*>>::~__exception_guard_exceptions[abi:ne200100](v21);
+  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<ARTexturedPlane>,ARTexturedPlane*>>::~__exception_guard_exceptions[abi:ne200100](v23);
 }
 
 void std::__allocator_destroy[abi:ne200100]<std::allocator<ARTexturedPlane>,ARTexturedPlane*,ARTexturedPlane*>(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1055,7 +1053,7 @@ void *std::map<std::array<unsigned char,16ul>,ARTexturedPlane>::map[abi:ne200100
   return a1;
 }
 
-uint64_t std::map<std::array<unsigned char,16ul>,ARTexturedPlane>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__tree_node<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,void *> *,long>>>(uint64_t result, unsigned __int8 *a2, unsigned __int8 *a3)
+void *std::map<std::array<unsigned char,16ul>,ARTexturedPlane>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__tree_node<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,void *> *,long>>>(void *result, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   if (a2 != a3)
   {
@@ -1063,7 +1061,7 @@ uint64_t std::map<std::array<unsigned char,16ul>,ARTexturedPlane>::insert[abi:ne
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__emplace_hint_unique_key_args<std::array<unsigned char,16ul>,std::pair<std::array<unsigned char,16ul> const,ARTexturedPlane> const&>(v5, v5 + 1, v4 + 32);
+      result = std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__emplace_hint_unique_key_args<std::array<unsigned char,16ul>,std::pair<std::array<unsigned char,16ul> const,ARTexturedPlane> const&>(v5, (v5 + 8), v4 + 32, (v4 + 32));
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -1097,9 +1095,9 @@ uint64_t std::map<std::array<unsigned char,16ul>,ARTexturedPlane>::insert[abi:ne
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__emplace_hint_unique_key_args<std::array<unsigned char,16ul>,std::pair<std::array<unsigned char,16ul> const,ARTexturedPlane> const&>(void *a1, void *a2, unsigned __int8 *a3)
+void *std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__emplace_hint_unique_key_args<std::array<unsigned char,16ul>,std::pair<std::array<unsigned char,16ul> const,ARTexturedPlane> const&>(uint64_t **a1, void *a2, unsigned __int8 *a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__find_equal<std::array<unsigned char,16ul>>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__find_equal<std::array<unsigned char,16ul>>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__construct_node<std::pair<std::array<unsigned char,16ul> const,ARTexturedPlane> const&>();
@@ -1291,15 +1289,15 @@ LABEL_21:
   return a4;
 }
 
-uint64_t **std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__tree_node<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,void *> *,long>>(uint64_t **result, uint64_t *a2, uint64_t *a3)
+void *std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__tree_node<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,void *> *,long>>(void *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -1402,23 +1400,23 @@ uint64_t **std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTextur
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__emplace_multi<std::pair<std::array<unsigned char,16ul> const,ARTexturedPlane> const&>();
+    std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__emplace_multi<std::pair<std::array<unsigned char,16ul> const,ARTexturedPlane> const&>(v5, (a2 + 4));
   }
 
   return result;
 }
 
-void sub_1C253A220(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C253A220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__node_insert_multi(uint64_t **a1, uint64_t *a2)
+uint64_t *std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__node_insert_multi(uint64_t a1, uint64_t *a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     while (2)
@@ -1472,7 +1470,7 @@ LABEL_9:
 
   else
   {
-    v8 = a1 + 1;
+    v8 = (a1 + 8);
   }
 
 LABEL_12:
@@ -1543,7 +1541,7 @@ void sub_1C253A640(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void convert(float32x4_t *a1@<X8>)
+void convert(uint64_t a2@<X8>)
 {
   v52 = *MEMORY[0x1E69E9840];
   *v3.i64 = ARVisionToRenderingCoordinateTransform();
@@ -1588,32 +1586,32 @@ void convert(float32x4_t *a1@<X8>)
   CV3DPlaneDetectionPlaneExtentAlignedBoundingBox();
   v17 = CV3DPlaneDetectionAlignedBoundingBoxMin();
   v18 = CV3DPlaneDetectionAlignedBoundingBoxMax();
-  a1[12].i64[1] = 0;
-  a1[12].i64[0] = &a1[12].i64[1];
-  a1[13].i64[0] = 0;
-  a1[13].i64[1] = 0;
+  *(a2 + 200) = 0;
+  *(a2 + 192) = a2 + 200;
+  *(a2 + 208) = 0;
+  *(a2 + 216) = 0;
   v19 = CV3DPlaneDetectionPlaneCopyUUID();
-  a1->i64[0] = toUUID(v19);
-  a1->i64[1] = v20;
+  *a2 = toUUID(v19);
+  *(a2 + 8) = v20;
   CFRelease(v19);
-  a1[1].i64[0] = CV3DPlaneDetectionPlaneAge();
+  *(a2 + 16) = CV3DPlaneDetectionPlaneAge();
   v21 = vaddq_f32(v43, vmlaq_f32(vmlaq_n_f32(vmulq_n_f32(v40, *v18), v41, v18[1]), 0, v42));
   v22 = vaddq_f32(v43, vmlaq_f32(vmlaq_n_f32(vmulq_n_f32(v40, *v17), v41, v17[1]), 0, v42));
-  a1[6] = vmaxnmq_f32(v21, v22);
-  a1[7] = vminnmq_f32(v21, v22);
-  a1[2] = v39;
-  a1[3] = v37;
-  a1[4] = v35;
-  a1[5] = v33;
+  *(a2 + 96) = vmaxnmq_f32(v21, v22);
+  *(a2 + 112) = vminnmq_f32(v21, v22);
+  *(a2 + 32) = v39;
+  *(a2 + 48) = v37;
+  *(a2 + 64) = v35;
+  *(a2 + 80) = v33;
   if (CV3DPlaneDetectionPlaneExtentOrientedBoundingBox())
   {
     v23 = vaddq_f32(v43, vmlaq_f32(vmlaq_lane_f32(vmulq_n_f32(v40, v44.f32[2]), v41, *&v44.u32[2], 1), 0, v42));
     v24 = vaddq_f32(v43, vmlaq_f32(vmlaq_lane_f32(vmulq_n_f32(v40, v45.f32[0]), v41, *v45.f32, 1), 0, v42));
     v25 = vmlaq_f32(vmlaq_lane_f32(vmulq_n_f32(v40, v45.f32[2]), v41, *&v45.u32[2], 1), 0, v42);
-    a1[8] = vaddq_f32(v43, vmlaq_f32(vmlaq_lane_f32(vmulq_n_f32(v40, v44.f32[0]), v41, *v44.f32, 1), 0, v42));
-    a1[9] = v23;
-    a1[10] = v24;
-    a1[11] = vaddq_f32(v43, v25);
+    *(a2 + 128) = vaddq_f32(v43, vmlaq_f32(vmlaq_lane_f32(vmulq_n_f32(v40, v44.f32[0]), v41, *v44.f32, 1), 0, v42));
+    *(a2 + 144) = v23;
+    *(a2 + 160) = v24;
+    *(a2 + 176) = vaddq_f32(v43, v25);
   }
 
   v26 = CV3DPlaneDetectionPlaneMergedIds();
@@ -1628,7 +1626,7 @@ void convert(float32x4_t *a1@<X8>)
         ValueAtIndex = CFArrayGetValueAtIndex(v27, i);
         *&v48 = toUUID(ValueAtIndex);
         *(&v48 + 1) = v31;
-        std::__tree<std::array<unsigned char,16ul>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::array<unsigned char,16ul> const&>(&a1[12], &v48);
+        std::__tree<std::array<unsigned char,16ul>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::array<unsigned char,16ul> const&>((a2 + 192), &v48, &v48);
       }
     }
 
@@ -1636,80 +1634,81 @@ void convert(float32x4_t *a1@<X8>)
   }
 }
 
-void convert(const CV3DPlaneDetectionPlaneList *a1@<X0>, void *a2@<X8>)
+void convert(uint64_t **__return_ptr a1@<X8>, const CV3DPlaneDetectionPlaneList *a2@<X0>)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  a2[2] = 0;
-  a2[1] = 0;
-  *a2 = a2 + 1;
-  if (a1)
+  v29 = *MEMORY[0x1E69E9840];
+  a1[2] = 0;
+  a1[1] = 0;
+  *a1 = (a1 + 1);
+  if (a2)
   {
-    v3 = CV3DPlaneDetectionPlaneListLength();
-    if (v3)
+    v4 = CV3DPlaneDetectionPlaneListLength();
+    if (v4)
     {
-      v4 = 0;
+      v5 = 0;
       do
       {
         if (CV3DPlaneDetectionPlaneAtIndex())
         {
-          v5 = CV3DPlaneDetectionPlaneCopyUUID();
-          convert(v22);
-          v21[0] = toUUID(v5);
-          v21[1] = v6;
-          v7 = std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::piecewise_construct_t const&,std::tuple<std::array<unsigned char,16ul> const&>,std::tuple<>>(a2, v21);
-          v9 = v22[10];
-          v8 = v22[11];
-          v10 = v22[9];
-          v11 = v22[7];
-          *(v7 + 176) = v22[8];
-          *(v7 + 192) = v10;
-          *(v7 + 208) = v9;
-          *(v7 + 224) = v8;
-          v12 = v22[5];
-          *(v7 + 112) = v22[4];
-          *(v7 + 128) = v12;
-          *(v7 + 144) = v22[6];
-          *(v7 + 160) = v11;
-          v13 = v22[1];
-          v15 = v22[2];
-          v14 = v22[3];
-          *(v7 + 48) = v22[0];
-          *(v7 + 64) = v13;
-          *(v7 + 80) = v15;
-          *(v7 + 96) = v14;
-          v16 = v7 + 248;
-          std::__tree<std::array<unsigned char,16ul>>::destroy(v7 + 240, *(v7 + 248));
-          v17 = v24;
-          *(v7 + 240) = v23;
-          *(v7 + 248) = v17;
-          v18 = v25;
-          *(v7 + 256) = v25;
-          if (v18)
+          v6 = CV3DPlaneDetectionPlaneCopyUUID();
+          convert(v24);
+          v23[0] = toUUID(v6);
+          v23[1] = v7;
+          v22 = v23;
+          v8 = std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::piecewise_construct_t const&,std::tuple<std::array<unsigned char,16ul> const&>,std::tuple<>>(a1, v23, &std::piecewise_construct, &v22);
+          v10 = v24[10];
+          v9 = v24[11];
+          v11 = v24[9];
+          v12 = v24[7];
+          *(v8 + 176) = v24[8];
+          *(v8 + 192) = v11;
+          *(v8 + 208) = v10;
+          *(v8 + 224) = v9;
+          v13 = v24[5];
+          *(v8 + 112) = v24[4];
+          *(v8 + 128) = v13;
+          *(v8 + 144) = v24[6];
+          *(v8 + 160) = v12;
+          v14 = v24[1];
+          v16 = v24[2];
+          v15 = v24[3];
+          *(v8 + 48) = v24[0];
+          *(v8 + 64) = v14;
+          *(v8 + 80) = v16;
+          *(v8 + 96) = v15;
+          v17 = v8 + 248;
+          std::__tree<std::array<unsigned char,16ul>>::destroy(v8 + 240, *(v8 + 248));
+          v18 = v26;
+          *(v8 + 240) = v25;
+          *(v8 + 248) = v18;
+          v19 = v27;
+          *(v8 + 256) = v27;
+          if (v19)
           {
-            v17[2] = v16;
-            v23 = &v24;
-            v24 = 0;
-            v25 = 0;
+            v18[2] = v17;
+            v25 = &v26;
+            v26 = 0;
+            v27 = 0;
           }
 
           else
           {
-            *(v7 + 240) = v16;
+            *(v8 + 240) = v17;
           }
 
-          v19 = v26;
-          v26 = 0;
-          v20 = *(v7 + 264);
-          *(v7 + 264) = v19;
+          v20 = v28;
+          v28 = 0;
+          v21 = *(v8 + 264);
+          *(v8 + 264) = v20;
 
-          std::__tree<std::array<unsigned char,16ul>>::destroy(&v23, v24);
-          CFRelease(v5);
+          std::__tree<std::array<unsigned char,16ul>>::destroy(&v25, v26);
+          CFRelease(v6);
         }
 
-        ++v4;
+        ++v5;
       }
 
-      while (v3 != v4);
+      while (v4 != v5);
     }
   }
 }
@@ -1744,11 +1743,11 @@ double randomPlanePointInWorldCoordinates(const ARTexturedPlane *a1)
   return result;
 }
 
-double convert@<D0>(const ARTexturedPlane *a1@<X0>, _OWORD *a2@<X8>)
+double convert@<D0>(float32x4_t *__return_ptr a1@<X8>, const ARTexturedPlane *a2@<X0>)
 {
   v2 = 0;
-  p_var1 = &a1[2].var1;
-  p_end_node = &a1[2].var4.__tree_.__end_node_;
+  p_var1 = &a2[2].var1;
+  p_end_node = &a2[2].var4.__tree_.__end_node_;
   v5 = -3;
   do
   {
@@ -1779,7 +1778,7 @@ double convert@<D0>(const ARTexturedPlane *a1@<X0>, _OWORD *a2@<X8>)
   v13 = vmulq_f32(v12, v12);
   v14 = vsubq_f32(*&p_var1[2 * v9], v11);
   v15 = vmulq_f32(v14, v14);
-  v16 = vaddq_f32(*&a1[2].var1, *&a1[2].var4.__tree_.__end_node_.__left_);
+  v16 = vaddq_f32(*&a2[2].var1, *&a2[2].var4.__tree_.__end_node_.__left_);
   v17 = vadd_f32(vzip1_s32(*v13.i8, *v15.i8), vzip2_s32(*v13.i8, *v15.i8));
   v18 = vextq_s8(v13, v13, 8uLL);
   *v15.i8 = vadd_f32(vzip1_s32(*v18.i8, *&vextq_s8(v15, v15, 8uLL)), v17);
@@ -1804,18 +1803,18 @@ double convert@<D0>(const ARTexturedPlane *a1@<X0>, _OWORD *a2@<X8>)
   v28.f32[1] = v23 * 0.5;
   v21.i32[3] = HIDWORD(*MEMORY[0x1E69E9B18]);
   v22.i32[3] = v26.i32[3];
-  v29 = vaddq_f32(vaddq_f32(v16, *&a1[2].var5), *(&a1[3].var0 + 8));
-  v30 = *&a1->var4.__tree_.__end_node_.__left_;
-  v31 = *&a1->var5;
-  v32 = *(&a1[1].var0 + 8);
-  v33 = *&a1[1].var4.__tree_.__begin_node_;
+  v29 = vaddq_f32(vaddq_f32(v16, *&a2[2].var5), *(&a2[3].var0 + 8));
+  v30 = *&a2->var4.__tree_.__end_node_.__left_;
+  v31 = *&a2->var5;
+  v32 = *(&a2[1].var0 + 8);
+  v33 = *&a2[1].var4.__tree_.__begin_node_;
   v46 = *MEMORY[0x1E69E9B18];
   v47 = v25;
   v48 = v26;
   v49 = v28;
   do
   {
-    *(&v50 + v8) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v21, COERCE_FLOAT(*(&v46 + v8))), v25, *(&v46 + v8), 1), v22, *(&v46 + v8), 2), v27, *(&v46 + v8), 3);
+    *(&v50 + v8) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v21, COERCE_FLOAT(*(&v46 + v8))), v25, *&v46.f32[v8 / 4], 1), v22, *(&v46 + v8), 2), v27, *(&v46 + v8), 3);
     v8 += 16;
   }
 
@@ -1831,7 +1830,7 @@ double convert@<D0>(const ARTexturedPlane *a1@<X0>, _OWORD *a2@<X8>)
   v49 = v53;
   do
   {
-    *(&v50 + v34) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v24, COERCE_FLOAT(*(&v46 + v34))), v25, *(&v46 + v34), 1), v26, *(&v46 + v34), 2), v39, *(&v46 + v34), 3);
+    *(&v50 + v34) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v24, COERCE_FLOAT(*(&v46 + v34))), v25, *&v46.f32[v34 / 4], 1), v26, *(&v46 + v34), 2), v39, *(&v46 + v34), 3);
     v34 += 16;
   }
 
@@ -1843,7 +1842,7 @@ double convert@<D0>(const ARTexturedPlane *a1@<X0>, _OWORD *a2@<X8>)
   v49 = v53;
   do
   {
-    *(&v50 + v40) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, COERCE_FLOAT(*(&v46 + v40))), v31, *(&v46 + v40), 1), v32, *(&v46 + v40), 2), v33, *(&v46 + v40), 3);
+    *(&v50 + v40) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, COERCE_FLOAT(*(&v46 + v40))), v31, *&v46.f32[v40 / 4], 1), v32, *(&v46 + v40), 2), v33, *(&v46 + v40), 3);
     v40 += 16;
   }
 
@@ -1851,55 +1850,55 @@ double convert@<D0>(const ARTexturedPlane *a1@<X0>, _OWORD *a2@<X8>)
   v41 = v51;
   v42 = v52;
   v43 = v53;
-  *a2 = v50;
-  a2[1] = v41;
-  a2[2] = v42;
-  a2[3] = v43;
+  *a1 = v50;
+  a1[1] = v41;
+  a1[2] = v42;
+  a1[3] = v43;
   v44 = vzip1q_s32(v18, v18);
   *&v44.i32[1] = v23;
-  a2[4] = v44;
+  a1[4] = v44;
   return *v44.i64;
 }
 
-uint64_t ARIsBoxInViewFrustum(float32x4_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4, float32x4_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, float32x4_t a14, float32x4_t a15, float32x4_t a16, float32x4_t a17, float32x4_t a18, float32x4_t a19, float32x4_t a20, unint64_t a21)
+uint64_t ARIsBoxInViewFrustum(float32x4_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4, float32x4_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, float32x4_t a14, float32x4_t a15, float32x4_t a16, float32x4_t a17, float32x4_t a18, float32x4_t a19, float32x4_t a20, float32x4_t a21, float32x4_t a22, float32x4_t a23, unint64_t a24)
 {
-  if (fabsf(a5.f32[0]) != INFINITY || (v21 = vmvn_s8(vceq_f32(vabs_f32(vext_s8(*a5.f32, *&vextq_s8(a5, a5, 8uLL), 4uLL)), vneg_f32(0x7F0000007FLL))), (v21.i8[0] & 1) != 0) || (v21.i8[4] & 1) != 0)
+  if (fabsf(a5.f32[0]) != INFINITY || (v24 = vmvn_s8(vceq_f32(vabs_f32(vext_s8(*a5.f32, *&vextq_s8(a5, a5, 8uLL), 4uLL)), vneg_f32(0x7F0000007FLL))), (v24.i8[0] & 1) != 0) || (v24.i8[4] & 1) != 0)
   {
-    v35 = vaddq_f32(a5, a5);
-    v36 = vnegq_f32(a5);
-    v23 = 100;
+    v38 = vaddq_f32(a5, a5);
+    v39 = vnegq_f32(a5);
+    v26 = 100;
     while (1)
     {
-      v24.f32[0] = rand();
-      v42 = v24;
-      v41 = rand();
-      v25 = rand();
-      v26 = v42;
-      v26.f32[1] = v41;
-      v26.f32[2] = v25;
-      v27.i64[0] = 0x3000000030000000;
-      v27.i64[1] = 0x3000000030000000;
-      v28 = vmlaq_f32(v36, v35, vmulq_f32(v26, v27));
-      v27.i64[0] = 0x3F0000003F000000;
-      v27.i64[1] = 0x3F0000003F000000;
-      v29 = vmulq_f32(v28, v27);
-      v30 = vaddq_f32(a4, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a1, v29.f32[0]), a2, *v29.f32, 1), a3, v29, 2));
-      v31 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a14, v30.f32[0]), a15, *v30.f32, 1), a16, v30, 2), a17, v30, 3);
-      v32 = vdivq_f32(v31, vdupq_laneq_s32(v31, 3));
-      if (v32.f32[2] < 0.0)
+      v27.f32[0] = rand();
+      v45 = v27;
+      v44 = rand();
+      v28 = rand();
+      v29 = v45;
+      v29.f32[1] = v44;
+      v29.f32[2] = v28;
+      v30.i64[0] = 0x3000000030000000;
+      v30.i64[1] = 0x3000000030000000;
+      v31 = vmlaq_f32(v39, v38, vmulq_f32(v29, v30));
+      v30.i64[0] = 0x3F0000003F000000;
+      v30.i64[1] = 0x3F0000003F000000;
+      v32 = vmulq_f32(v31, v30);
+      v33 = vaddq_f32(a4, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a1, v32.f32[0]), a2, *v32.f32, 1), a3, v32, 2));
+      v34 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a17, v33.f32[0]), a18, *v33.f32, 1), a19, v33, 2), a20, v33, 3);
+      v35 = vdivq_f32(v34, vdupq_laneq_s32(v34, 3));
+      if (v35.f32[2] < 0.0)
       {
-        v33 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a18, v32.f32[0]), a19, *v32.f32, 1), a20, v32, 2);
-        *v34.f32 = vdiv_f32(*v33.i8, vdup_laneq_s32(v33, 2));
-        v34.i64[1] = v34.i64[0];
-        v33.i32[0] = vmovn_s32(vcgtq_f32(a21, v34)).u32[0];
-        v33.i32[1] = vmovn_s32(vcgeq_f32(v34, a21)).i32[1];
-        if (vminv_u16(*v33.i8))
+        v36 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a21, v35.f32[0]), a22, *v35.f32, 1), a23, v35, 2);
+        *v37.f32 = vdiv_f32(*v36.i8, vdup_laneq_s32(v36, 2));
+        v37.i64[1] = v37.i64[0];
+        v36.i32[0] = vmovn_s32(vcgtq_f32(a24, v37)).u32[0];
+        v36.i32[1] = vmovn_s32(vcgeq_f32(v37, a24)).i32[1];
+        if (vminv_u16(*v36.i8))
         {
           break;
         }
       }
 
-      if (!--v23)
+      if (!--v26)
       {
         return 0;
       }
@@ -2018,7 +2017,7 @@ std::mersenne_twister_engine<unsigned int, 32, 624, 397, 31, 2567483615, 11, 429
   return (v6 << 15) & 0xEFC60000 ^ v6 ^ (((v6 << 15) & 0xEFC60000 ^ v6) >> 18);
 }
 
-void arkit::gaussianKernel(arkit *this@<X0>, float a2@<S0>, uint64_t a3@<X8>)
+void arkit::gaussianKernel(arkit *this@<X0>, float a2@<S0>, float **a3@<X8>)
 {
   if (this <= 0)
   {
@@ -2032,8 +2031,8 @@ void arkit::gaussianKernel(arkit *this@<X0>, float a2@<S0>, uint64_t a3@<X8>)
   }
 
   *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
+  a3[1] = 0;
+  a3[2] = 0;
   if (a2 == 0.0)
   {
     v13 = 1065353216;
@@ -2051,7 +2050,7 @@ void arkit::gaussianKernel(arkit *this@<X0>, float a2@<S0>, uint64_t a3@<X8>)
     {
       v12 = v6 * expf(-(v8 * v8) / v7);
       std::vector<float>::push_back[abi:ne200100](a3, &v12);
-      v10 = *(a3 + 8);
+      v10 = a3[1];
       v9 = v9 + *(v10 - 1);
       ++v8;
       --v3;
@@ -2077,7 +2076,7 @@ void sub_1C253CA38(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -2126,13 +2125,13 @@ void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
 }
 
-void arkit::unflatten(void *a1@<X0>, void *a2@<X8>, double a3@<D0>)
+void arkit::unflatten(void *a1@<X0>, const void **a2@<X8>, double a3@<D0>)
 {
   v4 = HIDWORD(a3);
   v5 = LODWORD(a3);
@@ -2166,7 +2165,7 @@ void arkit::unflatten(void *a1@<X0>, void *a2@<X8>, double a3@<D0>)
       {
         do
         {
-          std::vector<float>::push_back[abi:ne200100]((*a2 + 24 * v8), (*a1 + 4 * v10++));
+          std::vector<float>::push_back[abi:ne200100](*a2 + 3 * v8, (*a1 + 4 * v10++));
           --v9;
         }
 
@@ -2193,11 +2192,11 @@ void sub_1C253CC1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+const void **std::vector<std::vector<float>>::push_back[abi:ne200100](const void **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
@@ -2239,8 +2238,8 @@ uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t resul
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
-    v12 = *(result + 8) - *result;
-    v13 = v11 - v12;
+    v12 = result[1] - *result;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -2257,21 +2256,21 @@ uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t resul
   else
   {
     *v4 = 0;
-    v4[1] = 0;
-    v4[2] = 0;
+    *(v4 + 1) = 0;
+    *(v4 + 2) = 0;
     *v4 = *a2;
-    v4[2] = *(a2 + 16);
+    *(v4 + 2) = *(a2 + 16);
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = (v4 + 3);
+    v6 = (v4 + 24);
   }
 
   v3[1] = v6;
   return result;
 }
 
-void arkit::unflatten(void *a1@<X0>, uint64_t a2@<X8>, __n128 a3@<Q0>)
+void arkit::unflatten(void *a1@<X0>, void **a2@<X8>, __n128 a3@<Q0>)
 {
   v4 = a3.n128_u32[0];
   v5 = a3.n128_u32[1];
@@ -2281,8 +2280,8 @@ void arkit::unflatten(void *a1@<X0>, uint64_t a2@<X8>, __n128 a3@<Q0>)
   }
 
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   if (a3.n128_u32[2])
   {
     v14 = 0;
@@ -2302,7 +2301,7 @@ void arkit::unflatten(void *a1@<X0>, uint64_t a2@<X8>, __n128 a3@<Q0>)
         v9 = v14;
         do
         {
-          v10 = *a2 + 24 * v7;
+          v10 = (*a2 + 24 * v7);
           __p = 0;
           v16 = 0;
           v17 = 0;
@@ -2319,7 +2318,7 @@ void arkit::unflatten(void *a1@<X0>, uint64_t a2@<X8>, __n128 a3@<Q0>)
           {
             do
             {
-              std::vector<float>::push_back[abi:ne200100]((*(*a2 + 24 * v7) + 24 * v8), (*a1 + 4 * v12++));
+              std::vector<float>::push_back[abi:ne200100]((*(*a2 + 3 * v7) + 24 * v8), (*a1 + 4 * v12++));
               --v11;
             }
 
@@ -2396,7 +2395,7 @@ void **std::vector<std::vector<std::vector<float>>>::push_back[abi:ne200100](voi
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
     v12 = result[1] - *result;
-    v13 = v11 - v12;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -2443,8 +2442,8 @@ void arkit::sum(float ***a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
     v5 = a1[1];
     while (v6 != v5)
     {
-      v24[0] = 0;
-      std::vector<float>::push_back[abi:ne200100](a3, v24);
+      v24 = 0;
+      std::vector<float>::push_back[abi:ne200100](a3, &v24);
       v7 = *v6;
       v8 = v6[1];
       if (*v6 != v8)
@@ -2468,8 +2467,8 @@ void arkit::sum(float ***a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
   else
   {
     v12 = (*a1)[1] - **a1;
-    v24[1] = 0;
-    std::vector<float>::vector[abi:ne200100](a3, v12);
+    v25 = 0;
+    std::vector<float>::vector[abi:ne200100](a3, v12, &v25);
     v13 = *a1;
     v14 = (*a1)[1] - **a1;
     if (v14)
@@ -2477,7 +2476,7 @@ void arkit::sum(float ***a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
       v15 = 0;
       v16 = v14 >> 2;
       v17 = a1[1];
-      v18 = 0xAAAAAAAAAAAAAAABLL * (v17 - v13);
+      v18 = 0xAAAAAAAAAAAAAAABLL * ((v17 - v13) >> 3);
       v19 = *a3;
       if (v18 <= 1)
       {
@@ -2500,7 +2499,7 @@ void arkit::sum(float ***a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
           {
             v23 = *v22;
             v22 += 3;
-            v20 = v23[v15] + v20;
+            v20 = *&v23[4 * v15] + v20;
             v19[v15] = v20;
             --v21;
           }
@@ -2665,7 +2664,7 @@ void sub_1C253D3D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -2676,7 +2675,7 @@ uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t a1, u
   else
   {
     std::vector<std::vector<float>>::__construct_one_at_end[abi:ne200100]<std::vector<float> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
@@ -2697,7 +2696,7 @@ char *std::vector<float>::insert(void *a1, char *__src, float *a3)
       _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 1 > v11)
     {
@@ -2792,11 +2791,11 @@ void sub_1C253D5DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void arkit::mixtureKernels(uint64_t *a1@<X0>, void *a2@<X1>, arkit *a3@<X2>, void *a4@<X8>)
+void arkit::mixtureKernels(uint64_t *a1@<X0>, void *a2@<X1>, arkit *a3@<X2>, uint64_t a4@<X8>)
 {
   *a4 = 0;
-  a4[1] = 0;
-  a4[2] = 0;
+  *(a4 + 8) = 0;
+  *(a4 + 16) = 0;
   v5 = *a1;
   if (a1[1] != *a1)
   {
@@ -2808,11 +2807,11 @@ void arkit::mixtureKernels(uint64_t *a1@<X0>, void *a2@<X1>, arkit *a3@<X2>, voi
       v17 = 0;
       v18 = 0;
       std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v16, *(v5 + v9), *(v5 + v9 + 8), (*(v5 + v9 + 8) - *(v5 + v9)) >> 2);
-      v11 = (*a2 + v9);
+      v11 = *a2 + v9;
       v14 = 0;
       v15 = 0;
       v13 = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v13, *v11, v11[1], (v11[1] - *v11) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v13, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
       arkit::mixtureKernel(a3, &v16, &v13, __p);
       std::vector<std::vector<float>>::push_back[abi:ne200100](a4, __p);
       if (__p[0])
@@ -2842,7 +2841,7 @@ void arkit::mixtureKernels(uint64_t *a1@<X0>, void *a2@<X1>, arkit *a3@<X2>, voi
   }
 }
 
-void arkit::unflattenParams(char **a1, void *a2, uint64_t *a3, uint64_t *a4, char **a5, uint64_t *a6, uint64_t a7, uint64_t a8)
+void arkit::unflattenParams(char **a1, void *a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6, uint64_t a7, uint64_t a8)
 {
   v8 = a1[1];
   v9 = (v8 - *a1) >> 2;
@@ -2853,7 +2852,7 @@ void arkit::unflattenParams(char **a1, void *a2, uint64_t *a3, uint64_t *a4, cha
   }
 
   v14 = v10 / v9;
-  v15 = a3[1];
+  v15 = *(a3 + 8);
   v16 = *a3;
   v17 = v15 - *a3;
   v18 = v17 >> 2;
@@ -2867,7 +2866,7 @@ void arkit::unflattenParams(char **a1, void *a2, uint64_t *a3, uint64_t *a4, cha
     arkit::unflattenParams();
   }
 
-  if (v17 != a4[1] - *a4)
+  if (v17 != *(a4 + 8) - *a4)
   {
     arkit::unflattenParams();
   }
@@ -2877,7 +2876,7 @@ void arkit::unflattenParams(char **a1, void *a2, uint64_t *a3, uint64_t *a4, cha
   {
     std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a5, *a1, v8, v9);
     v16 = *a3;
-    v15 = a3[1];
+    v15 = *(a3 + 8);
     v18 = (v15 - *a3) >> 2;
   }
 
@@ -2905,7 +2904,7 @@ void arkit::unflattenParams(char **a1, void *a2, uint64_t *a3, uint64_t *a4, cha
   v26 = 0;
   v27 = 0;
   v25 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v25, *a4, a4[1], (a4[1] - *a4) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v25, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 2);
   arkit::unflatten(&v25, &v31, v24);
   std::vector<std::vector<std::vector<float>>>::__vdeallocate(a8);
   *a8 = v31;
@@ -2940,7 +2939,7 @@ void sub_1C253D9BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void arkit::loadParams(int a1, char **a2, uint64_t *a3, uint64_t a4, uint64_t a5, void **a6)
+void arkit::loadParams(int a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t a5, void **a6)
 {
   v27 = *MEMORY[0x1E69E9840];
   switch(a1)
@@ -6349,7 +6348,7 @@ void arkit::gaussianMixtureKernels(int a1@<W0>, arkit *a2@<X1>, uint64_t a3@<X8>
       do
       {
         *&__p = (*&v10 * *(v29[0][3 * v9] + v11)) + (*(&v10 + 1) * *(*(v30[0] + 24 * v9) + v11));
-        std::vector<float>::push_back[abi:ne200100]((v20 + 24 * v9), &__p);
+        std::vector<float>::push_back[abi:ne200100](&v20[3 * v9], &__p);
         v11 += 4;
       }
 
@@ -6371,7 +6370,7 @@ void arkit::gaussianMixtureKernels(int a1@<W0>, arkit *a2@<X1>, uint64_t a3@<X8>
   *(a3 + 24) = 0;
   *(a3 + 32) = 0;
   *(a3 + 40) = 0;
-  std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(a3 + 24, v20, v21, 0xAAAAAAAAAAAAAAABLL * ((v21 - v20) >> 3));
+  std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>((a3 + 24), v20, v21, 0xAAAAAAAAAAAAAAABLL * ((v21 - v20) >> 3));
   *(a3 + 48) = (*&v10 * v13) + (*(&v10 + 1) * v12);
   if (v17)
   {
@@ -6536,7 +6535,7 @@ void std::__split_buffer<std::vector<std::vector<float>>>::clear[abi:ne200100](u
   }
 }
 
-void std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -6562,6 +6561,19 @@ void std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[
   }
 }
 
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, __int32 *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_1C254553C(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -6574,32 +6586,32 @@ void sub_1C254553C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::vector<float>>::__construct_one_at_end[abi:ne200100]<std::vector<float> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<float>>::__construct_one_at_end[abi:ne200100]<std::vector<float> const&>(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
   v3[1] = 0;
   v3[2] = 0;
-  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v3, *a2, a2[1], (a2[1] - *a2) >> 2);
+  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v3, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   *(a1 + 8) = v3 + 3;
   return result;
 }
 
-uint64_t std::vector<std::vector<float>>::__emplace_back_slow_path<std::vector<float> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<float>>::__emplace_back_slow_path<std::vector<float> const&>(char **a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -6623,16 +6635,16 @@ uint64_t std::vector<std::vector<float>>::__emplace_back_slow_path<std::vector<f
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(24 * v2, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((24 * v2), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -6641,20 +6653,20 @@ uint64_t std::vector<std::vector<float>>::__emplace_back_slow_path<std::vector<f
   return v8;
 }
 
-void sub_1C25456C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C25456C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-float std::__split_buffer<float>::emplace_back<float>(void *a1, float *a2)
+float std::__split_buffer<float>::emplace_back<float>(unint64_t *a1, float *a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
   {
     v5 = a1[1];
-    v6 = &v5[-*a1];
+    v6 = v5 - *a1;
     if (v5 <= *a1)
     {
       if (v4 == *a1)
@@ -6664,7 +6676,7 @@ float std::__split_buffer<float>::emplace_back<float>(void *a1, float *a2)
 
       else
       {
-        v11 = &v4[-*a1] >> 1;
+        v11 = (v4 - *a1) >> 1;
       }
 
       std::allocator<unsigned int>::allocate_at_least[abi:ne200100](a1[4], v11);
@@ -6672,21 +6684,21 @@ float std::__split_buffer<float>::emplace_back<float>(void *a1, float *a2)
 
     v7 = ((v6 >> 2) + 1) / -2;
     v8 = ((v6 >> 2) + 1) / 2;
-    v9 = &v5[-4 * v8];
+    v9 = &v5[-v8];
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      memmove(&v5[-4 * v8], v5, v4 - v5);
+      memmove(&v5[-v8], v5, v4 - v5);
       v5 = a1[1];
     }
 
-    v4 = &v9[v10];
-    a1[1] = &v5[4 * v7];
+    v4 = (v9 + v10);
+    a1[1] = &v5[v7];
   }
 
   result = *a2;
   *v4 = *a2;
-  a1[2] = v4 + 4;
+  a1[2] = (v4 + 1);
   return result;
 }
 
@@ -6730,7 +6742,7 @@ void std::vector<std::vector<float>>::__vdeallocate(uint64_t *a1)
   }
 }
 
-uint64_t std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6747,7 +6759,7 @@ void sub_1C25458F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -6764,8 +6776,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *v6, v6[1], (v6[1] - *v6) >> 2);
-      v6 += 3;
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 2);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -6847,144 +6859,144 @@ uint64_t arkit::ChromaFilter::uvl2ind(uint64_t a1)
   return result;
 }
 
-uint64_t arkit::ChromaFilter::filter()
+uint64_t arkit::ChromaFilter::filter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v2 = v1;
-  v3 = v0;
-  v5 = v4;
-  v41 = *MEMORY[0x1E69E9840];
+  v5 = MEMORY[0x1EEE9AC00](a1, a2, a3, a4, a5);
+  v7 = v6;
+  v8 = v5;
+  v10 = v9;
+  v46 = *MEMORY[0x1E69E9840];
   memcpy(__dst, &unk_1C25EAB24, sizeof(__dst));
-  std::unordered_set<unsigned int>::unordered_set(v38, __dst, 1372);
-  v6 = 0xAAAAAAAAAAAAAAABLL * ((v2[1] - *v2) >> 2);
+  std::unordered_set<unsigned int>::unordered_set(v43, __dst, 1372);
+  v11 = 0xAAAAAAAAAAAAAAABLL * ((v7[1] - *v7) >> 2);
   LOBYTE(__dst[0]) = 0;
-  std::vector<BOOL>::vector(v5, v6);
-  v36 = 0;
-  v37 = 0;
-  v8 = *v2;
-  v7 = v2[1];
-  if (v7 == *v2)
+  std::vector<BOOL>::vector(v10, v11, __dst);
+  v41 = 0;
+  v42 = 0;
+  v13 = *v7;
+  v12 = v7[1];
+  if (v12 == *v7)
   {
-    return std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,unsigned long>>>::~__hash_table(v38);
+    return std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,unsigned long>>>::~__hash_table(v43);
   }
 
-  v9 = 0;
-  v10 = 0;
-  v11 = 0;
-  v12 = 0;
+  v14 = 0;
+  v15 = 0;
+  v16 = 0;
+  v17 = 0;
   _S8 = 15.0;
   do
   {
-    v14 = *(v8 + v9);
-    if (v14 >= v3[2])
+    v19 = *(v13 + v14);
+    if (v19 >= v8[2])
     {
       goto LABEL_18;
     }
 
-    v15 = *(v8 + v9 + 4);
-    if (v15 < 0.0)
+    v20 = *(v13 + v14 + 4);
+    if (v20 < 0.0)
     {
       goto LABEL_18;
     }
 
-    if (v14 < 0.0 || v15 >= v3[3])
+    if (v19 < 0.0 || v20 >= v8[3])
     {
       goto LABEL_18;
     }
 
-    arkit::ImageViewYUV::at(v3, v14, v15, v35);
-    LOBYTE(v17) = v35[0];
-    LOBYTE(v18) = v35[1];
-    LOBYTE(v19) = v35[2];
-    *&v36 = v17 / 255.0;
-    *(&v36 + 1) = v18 / 255.0;
-    *&v37 = v19 / 255.0;
-    HIDWORD(v37) = 1065353216;
+    arkit::ImageViewYUV::at(v40, v8, v19, v20);
+    LOBYTE(v22) = v40[0];
+    LOBYTE(v23) = v40[1];
+    LOBYTE(v24) = v40[2];
+    *&v41 = v22 / 255.0;
+    *(&v41 + 1) = v23 / 255.0;
+    *&v42 = v24 / 255.0;
+    HIDWORD(v42) = 1065353216;
     __dst[0] = xmmword_1C25EAAF4;
     __dst[1] = unk_1C25EAB04;
     __dst[2] = xmmword_1C25EAB14;
-    v39[0] = __dst;
-    v39[1] = &v36;
-    v33 = 0;
-    v34 = 0.0;
-    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,4u,false>,cva::Matrix<float,4u,1u,false>>(&v33, v39);
-    _V0.S[1] = v33.i32[1];
+    v44[0] = __dst;
+    v44[1] = &v41;
+    v38 = 0;
+    v39 = 0.0;
+    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,4u,false>,cva::Matrix<float,4u,1u,false>>(&v38, v44);
+    _V0.S[1] = v38.i32[1];
     __asm { FMLA            S2, S8, V0.S[1] }
 
-    *v26.i32 = _S2 + (v34 * 3.0);
-    if (*v26.i32 <= 0.0)
+    *v31.i32 = _S2 + (v39 * 3.0);
+    if (*v31.i32 <= 0.0)
     {
-      v28 = (*v5 + 8 * (v10 >> 6));
-      v29 = 1 << v10;
+      v33 = (*v10 + 8 * (v15 >> 6));
+      v34 = 1 << v15;
 LABEL_14:
-      v30 = *v28 & ~v29;
+      v35 = *v33 & ~v34;
       goto LABEL_15;
     }
 
-    *&__dst[0] = vdiv_f32(vmul_f32(v33, 0x40C0000040800000), vdup_lane_s32(v26, 0));
-    DWORD2(__dst[0]) = v33.i32[1];
-    LODWORD(v39[0]) = arkit::ChromaFilter::uvl2ind(__dst);
-    v27 = std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::find<unsigned int>(v38, v39);
-    v28 = (*v5 + 8 * (v10 >> 6));
-    v29 = 1 << v10;
-    if (!v27)
+    *&__dst[0] = vdiv_f32(vmul_f32(v38, 0x40C0000040800000), vdup_lane_s32(v31, 0));
+    DWORD2(__dst[0]) = v38.i32[1];
+    LODWORD(v44[0]) = arkit::ChromaFilter::uvl2ind(__dst);
+    v32 = std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::find<unsigned int>(v43, v44);
+    v33 = (*v10 + 8 * (v15 >> 6));
+    v34 = 1 << v15;
+    if (!v32)
     {
       goto LABEL_14;
     }
 
-    v30 = *v28 | v29;
+    v35 = *v33 | v34;
 LABEL_15:
-    *v28 = v30;
-    if ((v30 & v29) != 0)
+    *v33 = v35;
+    if ((v35 & v34) != 0)
     {
-      ++v12;
+      ++v17;
     }
 
-    ++v11;
-    v8 = *v2;
-    v7 = v2[1];
+    ++v16;
+    v13 = *v7;
+    v12 = v7[1];
 LABEL_18:
-    ++v10;
-    v9 += 12;
+    ++v15;
+    v14 += 12;
   }
 
-  while (0xAAAAAAAAAAAAAAABLL * ((v7 - v8) >> 2) > v10);
-  if (v11 > 2 * v12)
+  while (0xAAAAAAAAAAAAAAABLL * ((v12 - v13) >> 2) > v15);
+  if (v16 > 2 * v17)
   {
-    v31 = v5[1];
-    if (v31 >= 1)
+    v36 = v10[1];
+    if (v36 >= 1)
     {
-      *&__dst[0] = *v5;
+      *&__dst[0] = *v10;
       DWORD2(__dst[0]) = 0;
-      std::__fill_n_BOOL[abi:ne200100]<true,std::vector<BOOL>>(__dst, v31);
+      std::__fill_n_BOOL[abi:ne200100]<true,std::vector<BOOL>>(__dst, v36);
     }
   }
 
-  return std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,unsigned long>>>::~__hash_table(v38);
+  return std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,unsigned long>>>::~__hash_table(v43);
 }
 
-void sub_1C2546DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C2546DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
-  if (*v6)
+  va_start(va, a11);
+  if (*v11)
   {
-    operator delete(*v6);
+    operator delete(*v11);
   }
 
   std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,unsigned long>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t arkit::ImageViewYUV::at@<X0>(arkit::ImageViewYUV *this@<X0>, unsigned int a2@<W1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
+uint64_t *arkit::ImageViewYUV::at@<X0>(uint64_t *__return_ptr a1@<X8>, arkit::ImageViewYUV *this@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>)
 {
-  if (*(this + 2) <= a2 || *(this + 3) <= a3)
+  if (*(this + 2) <= a3 || *(this + 3) <= a4)
   {
     arkit::ImageViewYUV::at();
   }
 
   v4 = 0;
   v5 = *(this + 1);
-  v35 = a2 | (a3 << 32);
+  v35 = a3 | (a4 << 32);
   v36 = v5;
   do
   {
@@ -7000,7 +7012,7 @@ uint64_t arkit::ImageViewYUV::at@<X0>(arkit::ImageViewYUV *this@<X0>, unsigned i
     arkit::ImageViewYUV::at();
   }
 
-  if (*(this + 10) <= a2 >> 1 || (v9 = a3 >> 1, *(this + 11) <= v9))
+  if (*(this + 10) <= a3 >> 1 || (v9 = a4 >> 1, *(this + 11) <= v9))
   {
     arkit::ImageViewYUV::at();
   }
@@ -7010,7 +7022,7 @@ uint64_t arkit::ImageViewYUV::at@<X0>(arkit::ImageViewYUV *this@<X0>, unsigned i
   v12 = *this;
   v13 = *(this + 4);
   v14 = *(this + 5);
-  v15 = a2 >> 1;
+  v15 = a3 >> 1;
   v16 = *(this + 5);
   v35 = v15 | (v9 << 32);
   v36 = v16;
@@ -7056,31 +7068,31 @@ uint64_t arkit::ImageViewYUV::at@<X0>(arkit::ImageViewYUV *this@<X0>, unsigned i
 
   v28 = v21 + v22;
   v29 = v11 + v12;
-  v30 = v13 * a2 + v14 * a3;
+  v30 = v13 * a3 + v14 * a4;
   v31 = *(this + 11);
   v32 = *(this + 8);
   v34 = *(this + 20);
   result = *(this + 21);
-  *a4 = *(v29 + v30);
-  a4[1] = *(v28 + (v23 * v15 + v24 * v9));
-  a4[2] = *(v31 + v32 + (v34 * v15 + result * v9));
+  *a1 = *(v29 + v30);
+  *(a1 + 1) = *(v28 + (v23 * v15 + v24 * v9));
+  *(a1 + 2) = *(v31 + v32 + (v34 * v15 + result * v9));
   return result;
 }
 
-void *std::vector<BOOL>::vector(void *result, uint64_t a2)
+uint64_t *std::vector<BOOL>::vector(uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<BOOL>::__vallocate[abi:ne200100](result, a2);
+    std::vector<BOOL>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -7250,7 +7262,7 @@ uint64_t cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<floa
   {
     v11 = 0;
     v10 = 0;
-    result = cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,4u,false>,cva::Matrix<float,4u,1u,false>>(&v10);
+    result = cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::Matrix<float,3u,4u,false>,cva::Matrix<float,4u,1u,false>>(&v10, a2);
     *v2 = v10;
     *(v2 + 8) = v11;
   }
@@ -7288,7 +7300,8 @@ uint64_t std::unordered_set<unsigned int>::unordered_set(uint64_t a1, unsigned i
     v5 = 4 * a3;
     do
     {
-      std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a1, a2++);
+      std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a1, a2, a2);
+      ++a2;
       v5 -= 4;
     }
 
@@ -7298,33 +7311,33 @@ uint64_t std::unordered_set<unsigned int>::unordered_set(uint64_t a1, unsigned i
   return a1;
 }
 
-uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(void *a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -7332,172 +7345,172 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void arkit::FaceLightOptimizer::compute(uint64_t *a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+void arkit::FaceLightOptimizer::compute(uint64_t *a1@<X0>, void *a2@<X1>, uint64_t a4@<X8>)
 {
-  v6 = *a1;
-  v5 = a1[1];
-  if ((v5 - *a1) >> 5 >= ((a2[1] - *a2) >> 3))
+  v9 = *a1;
+  v8 = a1[1];
+  if ((v8 - *a1) >> 5 >= ((a2[1] - *a2) >> 3))
   {
-    v7 = (a2[1] - *a2) >> 3;
+    v10 = (a2[1] - *a2) >> 3;
   }
 
   else
   {
-    v7 = (v5 - *a1) >> 5;
+    v10 = (v8 - *a1) >> 5;
   }
 
-  if (v5 == v6)
+  if (v8 == v9)
   {
-    v8 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v8 = *(v6 + 24);
+    v11 = *(v9 + 24);
   }
 
-  v28[0] = 0;
-  v28[1] = 0;
-  cva::MatrixData<float,0ul,0ul,false>::allocate(v28, v7);
-  v29 = v7;
-  v25[0] = 0;
-  v25[1] = 0;
-  v9 = cva::MatrixData<float,0ul,0ul,false>::allocate(v25, (v8 * v7));
-  v26 = v7;
-  v27 = v8;
-  v24 = v8;
-  if (v7 >= 1)
+  v32[0] = 0;
+  v32[1] = 0;
+  cva::MatrixData<float,0ul,0ul,false>::allocate(v32, v10);
+  v33 = v10;
+  v29[0] = 0;
+  v29[1] = 0;
+  v12 = cva::MatrixData<float,0ul,0ul,false>::allocate(v29, (v11 * v10));
+  v30 = v10;
+  v31 = v11;
+  v28 = v11;
+  if (v10 >= 1)
   {
-    v10 = 0;
-    v21 = "matrixmixin.h";
-    v22 = "(row < mixed().rows()) || cva::detail::assertMessage(Index out of bounds.)";
-    v20 = "row";
+    v13 = 0;
+    v25 = "matrixmixin.h";
+    v26 = "(row < mixed().rows()) || cva::detail::assertMessage(Index out of bounds.)";
+    v24 = "row";
     while (1)
     {
-      if (v10 >= v29)
+      if (v13 >= v33)
       {
         __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
       }
 
-      v11 = *a1 + 32 * *(*a2 + 8 * v10);
-      *(v28[0] + v10) = *v11;
-      v12 = v26;
-      if (v10 >= v26)
+      v14 = *a1 + 32 * *(*a2 + 8 * v13);
+      *(v32[0] + v13) = *v14;
+      v15 = v30;
+      if (v13 >= v30)
       {
         break;
       }
 
-      v13 = v27;
-      v14 = v25[0];
-      if (v27 != *(v11 + 24))
+      v16 = v31;
+      v17 = v29[0];
+      if (v31 != *(v14 + 24))
       {
-        cva::Logger::instance(v9);
-        v9 = cva::Logger::logInCategory();
-        if (v13 != *(v11 + 24))
+        v18 = cva::Logger::instance(v12);
+        v12 = cva::Logger::logInCategory(v18, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", 1, v16, 1, *(v14 + 24));
+        if (v16 != *(v14 + 24))
         {
-          v19 = 163;
-          v20 = "assert_equal_size";
-          v21 = "matrixfun.h";
-          v22 = "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)";
+          v23 = 163;
+          v24 = "assert_equal_size";
+          v25 = "matrixfun.h";
+          v26 = "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)";
 LABEL_28:
-          __assert_rtn(v20, v21, v19, v22);
+          __assert_rtn(v24, v25, v23, v26);
         }
       }
 
-      if (v13)
+      if (v16)
       {
-        v15 = &v14[4 * v10];
+        v19 = &v17[4 * v13];
       }
 
       else
       {
-        v15 = 0;
+        v19 = 0;
       }
 
-      v16 = &v14[4 * v10 + 4 * v13 * v12];
-      if (!v13)
+      v20 = &v17[4 * v13 + 4 * v16 * v15];
+      if (!v16)
       {
-        v16 = 0;
+        v20 = 0;
       }
 
-      if (v15 != v16)
+      if (v19 != v20)
       {
-        v17 = *(v11 + 8);
+        v21 = *(v14 + 8);
         do
         {
-          v18 = *v17++;
-          *v15 = v18;
-          v15 += 4 * v12;
+          v22 = *v21++;
+          *v19 = v22;
+          v19 += 4 * v15;
         }
 
-        while (v15 != v16);
+        while (v19 != v20);
       }
 
-      if (++v10 == (v7 & 0x7FFFFFFF))
+      if (++v13 == (v10 & 0x7FFFFFFF))
       {
         goto LABEL_22;
       }
     }
 
-    v19 = 1063;
+    v23 = 1063;
     goto LABEL_28;
   }
 
 LABEL_22:
-  if (v24 <= v7)
+  if (v28 <= v10)
   {
-    arkit::FaceLightOptimizer::solveQuadratic(v28, v25, 1);
+    arkit::FaceLightOptimizer::solveQuadratic(v32, v29, 1);
   }
 
-  *(a3 + 32) = 0;
-  *a3 = 0u;
-  *(a3 + 16) = 0u;
-  *(a3 + 48) = 0;
-  *(a3 + 56) = 0;
-  *(a3 + 40) = 0;
-  *(a3 + 64) = 0;
-  free(v25[0]);
-  free(v28[0]);
+  *(a4 + 32) = 0;
+  *a4 = 0u;
+  *(a4 + 16) = 0u;
+  *(a4 + 48) = 0;
+  *(a4 + 56) = 0;
+  *(a4 + 40) = 0;
+  *(a4 + 64) = 0;
+  free(v29[0]);
+  free(v32[0]);
 }
 
 void sub_1C2547B88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, void *a32)
@@ -7512,266 +7525,266 @@ void sub_1C2547B88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void arkit::FaceLightOptimizer::solveQuadratic(uint64_t a1, uint64_t a2, int a3)
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   kdebug_trace();
-  v6 = *(a1 + 16);
-  if (v6 != *(a2 + 16))
+  v9 = *(a1 + 16);
+  if (v9 != *(a2 + 16))
   {
     arkit::FaceLightOptimizer::solveQuadratic();
   }
 
-  v7 = *(a2 + 20);
-  v8 = v6 + 14;
-  v9 = (v7 * (v6 + 14));
-  v65[0] = 0;
-  v65[1] = 0;
-  v10 = cva::MatrixData<float,0ul,0ul,false>::allocate(v65, v9);
-  v66 = v8;
-  v67 = v7;
-  v11 = *(a2 + 16);
-  v12 = v8 - v11;
-  if (v8 < v11)
+  v10 = *(a2 + 20);
+  v11 = v9 + 14;
+  v12 = (v10 * (v9 + 14));
+  v69[0] = 0;
+  v69[1] = 0;
+  v13 = cva::MatrixData<float,0ul,0ul,false>::allocate(v69, v12);
+  v70 = v11;
+  v71 = v10;
+  v14 = *(a2 + 16);
+  v15 = v11 - v14;
+  if (v11 < v14)
   {
-    v14 = "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)";
-    v15 = 2252;
-    v16 = "matrixmixin.h";
-    v10 = "assert_in_bounds";
+    v18 = "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)";
+    v19 = 2252;
+    v20 = "matrixmixin.h";
+    v13 = "assert_in_bounds";
   }
 
   else
   {
-    v13 = v65[0];
-    if (v7 == *(a2 + 20) || (cva::Logger::instance(v10), cva::Logger::logInCategory(), v14 = "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)", v15 = 163, v16 = "matrixfun.h", v10 = "assert_equal_size", v11 == *(a2 + 16)) && v7 == *(a2 + 20))
+    v16 = v69[0];
+    if (v10 == *(a2 + 20) || (v17 = cva::Logger::instance(v13), cva::Logger::logInCategory(v17, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", v14, v10, *(a2 + 16), *(a2 + 20)), v18 = "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)", v19 = 163, v20 = "matrixfun.h", v13 = "assert_equal_size", v14 == *(a2 + 16)) && v10 == *(a2 + 20))
     {
-      if (v11 * v7)
+      if (v14 * v10)
       {
-        v17 = v13;
+        v21 = v16;
       }
 
       else
       {
-        v17 = 0;
+        v21 = 0;
       }
 
-      if (v11 * v7)
+      if (v14 * v10)
       {
-        v18 = &v13[v9];
+        v22 = &v16[v12];
       }
 
       else
       {
-        v18 = 0;
+        v22 = 0;
       }
 
-      v19 = v7;
-      if (v17 != v18)
+      v23 = v10;
+      if (v21 != v22)
       {
-        v20 = 0;
-        v21 = *a2;
+        v24 = 0;
+        v25 = *a2;
         do
         {
-          v22 = *v21++;
-          *v17 = v22;
-          if (v20 + 1 >= v11)
+          v26 = *v25++;
+          *v21 = v26;
+          if (v24 + 1 >= v14)
           {
-            v23 = v12;
+            v27 = v15;
           }
 
           else
           {
-            v23 = 0;
+            v27 = 0;
           }
 
-          v17 += v23 + 1;
-          if (v20 + 1 < v11)
+          v21 += v27 + 1;
+          if (v24 + 1 < v14)
           {
-            ++v20;
+            ++v24;
           }
 
           else
           {
-            v20 = 0;
+            v24 = 0;
           }
         }
 
-        while (v17 != v18);
-        v19 = *(a2 + 20);
+        while (v21 != v22);
+        v23 = *(a2 + 20);
       }
 
-      v24 = 0;
+      v28 = 0;
       for (i = 0; i != 14; ++i)
       {
-        if (v19)
+        if (v23)
         {
-          v26 = 0;
-          v27 = v24;
+          v30 = 0;
+          v31 = v28;
           do
           {
-            v10 = arkit::kFLEDarkCoefficients(v10);
-            v28 = *(a2 + 16) + i;
-            if (v66 <= v28 || v26 >= v67)
+            v13 = arkit::kFLEDarkCoefficients(v13);
+            v32 = *(a2 + 16) + i;
+            if (v70 <= v32 || v30 >= v71)
             {
               __assert_rtn("assert_in_bounds", "matrixmixin.h", 2269, "((row < mixed().rows()) && (col < mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)");
             }
 
-            *(v65[0] + v28 + v66 * v26++) = *&v10[v27];
-            v19 = *(a2 + 20);
-            v27 += 4;
+            *(v69[0] + v32 + v70 * v30++) = *&v13[v31];
+            v23 = *(a2 + 20);
+            v31 += 4;
           }
 
-          while (v19 > v26);
+          while (v23 > v30);
         }
 
-        v24 += 4 * v7;
+        v28 += 4 * v10;
       }
 
-      v30 = (*(a1 + 16) + 14);
-      v63[0] = 0;
-      v63[1] = 0;
-      cva::MatrixData<float,0ul,0ul,false>::allocate(v63, v30);
-      v64 = v30;
-      v31 = *(a1 + 16);
-      if (v30 < v31)
+      v34 = (*(a1 + 16) + 14);
+      v67[0] = 0;
+      v67[1] = 0;
+      cva::MatrixData<float,0ul,0ul,false>::allocate(v67, v34);
+      v68 = v34;
+      v35 = *(a1 + 16);
+      if (v34 < v35)
       {
         __assert_rtn("assert_in_bounds", "matrixmixin.h", 2252, "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)");
       }
 
-      v32 = v63[0];
-      if (v31)
+      v36 = v67[0];
+      if (v35)
       {
-        v33 = *a1;
-        v34 = 4 * v31;
+        v37 = *a1;
+        v38 = 4 * v35;
         do
         {
-          v35 = *v33++;
-          *v32++ = v35;
-          v34 -= 4;
+          v39 = *v37++;
+          *v36++ = v39;
+          v38 -= 4;
         }
 
-        while (v34);
-        v32 = v63[0];
+        while (v38);
+        v36 = v67[0];
       }
 
-      v36 = 0;
-      v37 = 4 * (v30 - v31);
-      v38 = &v32[v31];
+      v40 = 0;
+      v41 = 4 * (v34 - v35);
+      v42 = &v36[v35];
       do
       {
-        if (v37 == v36)
+        if (v41 == v40)
         {
           __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
         }
 
-        v38[v36 / 4] = 0;
-        v36 += 4;
+        v42[v40 / 4] = 0;
+        v40 += 4;
       }
 
-      while (v36 != 56);
-      v60 = 0;
-      v61 = 0;
-      v62 = 0;
-      v57 = v65;
-      if (v67)
+      while (v40 != 56);
+      v64 = 0;
+      v65 = 0;
+      v66 = 0;
+      v61 = v69;
+      if (v71)
       {
-        v39 = v67 * v67;
-        if (!v65[0])
+        v43 = v71 * v71;
+        if (!v69[0])
         {
-          v68 = 0;
-          v69 = 0;
-          cva::MatrixData<float,0ul,0ul,false>::allocate(&v68, v39);
-          LODWORD(v70) = *(v57 + 5);
-          HIDWORD(v70) = v67;
-          v72 = &v57;
-          v73 = v65;
-          if (*(v57 + 4) != v66)
+          v72 = 0;
+          v73 = 0;
+          cva::MatrixData<float,0ul,0ul,false>::allocate(&v72, v43);
+          LODWORD(v74) = *(v61 + 5);
+          HIDWORD(v74) = v71;
+          v76 = &v61;
+          v77 = v69;
+          if (*(v61 + 4) != v70)
           {
             __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
           }
 
-          v74 = 1065353216;
-          cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>(&v68, v71);
-          v41 = v60;
-          v42 = v61;
-          v60 = v68;
-          v61 = v69;
-          v68 = v41;
-          v69 = v42;
-          v62 = v70;
-          v70 = 0;
-          free(v41);
+          v78 = 1065353216;
+          cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>(&v72, v75);
+          v45 = v64;
+          v46 = v65;
+          v64 = v72;
+          v65 = v73;
+          v72 = v45;
+          v73 = v46;
+          v66 = v74;
+          v74 = 0;
+          free(v45);
 LABEL_47:
-          v57 = 0;
-          v58 = 0;
-          v59 = 0;
-          v56[0] = v63;
-          if (v64 != v66)
+          v61 = 0;
+          v62 = 0;
+          v63 = 0;
+          v60[0] = v67;
+          if (v68 != v70)
           {
             goto LABEL_52;
           }
 
-          if (v67)
+          if (v71)
           {
-            if (!v63[0] || !v65[0])
+            if (!v67[0] || !v69[0])
             {
-              v68 = 0;
-              v69 = 0;
-              cva::MatrixData<float,0ul,0ul,false>::allocate(&v68, v67);
-              LODWORD(v70) = v67;
-              v72 = v56;
-              v73 = v65;
-              if (*(v56[0] + 16) != v66)
+              v72 = 0;
+              v73 = 0;
+              cva::MatrixData<float,0ul,0ul,false>::allocate(&v72, v71);
+              LODWORD(v74) = v71;
+              v76 = v60;
+              v77 = v69;
+              if (*(v60[0] + 16) != v70)
               {
                 __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
               }
 
-              v74 = 1065353216;
-              cva::assign<false,false,cva::Matrix<float,1u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,1u,false> const>,cva::Matrix<float,0u,0u,false>>(&v68, v71);
-              v44 = v57;
-              v45 = v58;
-              v57 = v68;
-              v58 = v69;
-              v68 = v44;
-              v69 = v45;
-              v59 = v70;
-              LODWORD(v70) = 0;
-              free(v44);
+              v78 = 1065353216;
+              cva::assign<false,false,cva::Matrix<float,1u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,1u,false> const>,cva::Matrix<float,0u,0u,false>>(&v72, v75);
+              v48 = v61;
+              v49 = v62;
+              v61 = v72;
+              v62 = v73;
+              v72 = v48;
+              v73 = v49;
+              v63 = v74;
+              LODWORD(v74) = 0;
+              free(v48);
 LABEL_57:
-              v56[0] = 0;
-              v56[1] = 0;
-              v54 = 0;
+              v60[0] = 0;
+              v60[1] = 0;
+              v58 = 0;
+              v59 = 0;
+              v57[0] = 0;
+              v57[1] = 0;
               v55 = 0;
-              v53[0] = 0;
-              v53[1] = 0;
-              v51 = 0;
+              v56 = 0;
+              v54[0] = 0;
+              v54[1] = 0;
               v52 = 0;
-              v50[0] = 0;
-              v50[1] = 0;
-              v48 = 0;
-              v49 = 0;
-              v46 = 0;
-              v47 = 0;
-              if (v7)
+              v53 = 0;
+              v50 = 0;
+              v51 = 0;
+              if (v10)
               {
-                LODWORD(v56[0]) = v7;
-                HIDWORD(v56[0]) = v7;
+                LODWORD(v60[0]) = v10;
+                HIDWORD(v60[0]) = v10;
                 operator new[]();
               }
 
               if (a3)
               {
-                v50[0] = 0x6400000000;
+                v54[0] = 0x6400000000;
                 operator new[]();
               }
 
-              thirdparty::quadprogpp::solve_quadprog(v56, &v54, v53, &v51, v50, &v48, &v46);
+              thirdparty::quadprogpp::solve_quadprog(v60, &v58, v57, &v55, v54, &v52, &v50);
             }
 
-            v59 = v67;
-            cva::MatrixData<float,0ul,0ul,false>::reserve(&v57, v67);
-            v43 = *(v56[0] + 16);
-            v72 = v56;
-            v73 = v65;
-            if (v43 != v66)
+            v63 = v71;
+            cva::MatrixData<float,0ul,0ul,false>::reserve(&v61, v71);
+            v47 = *(v60[0] + 16);
+            v76 = v60;
+            v77 = v69;
+            if (v47 != v70)
             {
 LABEL_52:
               __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
@@ -7780,40 +7793,40 @@ LABEL_52:
 
           else
           {
-            v72 = v56;
-            v73 = v65;
+            v76 = v60;
+            v77 = v69;
           }
 
-          v74 = 1065353216;
-          cva::assign<false,false,cva::Matrix<float,1u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,1u,false> const>,cva::Matrix<float,0u,0u,false>>(&v57, v71);
+          v78 = 1065353216;
+          cva::assign<false,false,cva::Matrix<float,1u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,1u,false> const>,cva::Matrix<float,0u,0u,false>>(&v61, v75);
           goto LABEL_57;
         }
 
-        LODWORD(v62) = v67;
-        HIDWORD(v62) = v67;
-        cva::MatrixData<float,0ul,0ul,false>::reserve(&v60, v39);
-        v40 = v57;
+        LODWORD(v66) = v71;
+        HIDWORD(v66) = v71;
+        cva::MatrixData<float,0ul,0ul,false>::reserve(&v64, v43);
+        v44 = v61;
       }
 
       else
       {
-        v40 = v65;
+        v44 = v69;
       }
 
-      v72 = &v57;
-      v73 = v65;
-      if (*(v40 + 4) != v66)
+      v76 = &v61;
+      v77 = v69;
+      if (*(v44 + 4) != v70)
       {
         __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
       }
 
-      v74 = 1065353216;
-      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>(&v60, v71);
+      v78 = 1065353216;
+      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>(&v64, v75);
       goto LABEL_47;
     }
   }
 
-  __assert_rtn(v10, v16, v15, v14);
+  __assert_rtn(v13, v20, v19, v18);
 }
 
 void sub_1C2548920(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, void *a30)
@@ -7825,18 +7838,18 @@ void sub_1C2548920(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void arkit::FaceLightOptimizer::inlierSet(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, const void **a4@<X8>, float a5@<S0>)
+void arkit::FaceLightOptimizer::inlierSet(uint64_t a1@<X1>, const void **a2@<X8>, float a3@<S0>, uint64_t a4@<X0>, uint64_t a5@<X2>)
 {
-  if (a5 < 0.0)
+  if (a3 < 0.0)
   {
     arkit::FaceLightOptimizer::inlierSet();
   }
 
-  v7 = *(a2 + 16);
-  arkit::FaceLightOptimizer::penaltyFunction(a1, a2, a3, &v18);
-  *a4 = 0;
-  a4[1] = 0;
-  a4[2] = 0;
+  v7 = *(a1 + 16);
+  arkit::FaceLightOptimizer::penaltyFunction(a4, a1, a5, &v18);
+  *a2 = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   if (v7 >= 1)
   {
     v8 = 0;
@@ -7847,13 +7860,13 @@ void arkit::FaceLightOptimizer::inlierSet(uint64_t a1@<X0>, uint64_t a2@<X1>, ui
         __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
       }
 
-      if (*(v18 + i) < a5)
+      if (*(v18 + i) < a3)
       {
-        v10 = a4[2];
+        v10 = a2[2];
         if (v8 >= v10)
         {
-          v11 = *a4;
-          v12 = v8 - *a4;
+          v11 = *a2;
+          v12 = v8 - *a2;
           v13 = v12 >> 3;
           v14 = (v12 >> 3) + 1;
           if (v14 >> 61)
@@ -7879,16 +7892,16 @@ void arkit::FaceLightOptimizer::inlierSet(uint64_t a1@<X0>, uint64_t a2@<X1>, ui
 
           if (v16)
           {
-            _ZNSt3__19allocatorIDv2_fE17allocate_at_leastB8ne200100Em(a4, v16);
+            _ZNSt3__19allocatorIDv2_fE17allocate_at_leastB8ne200100Em(a2, v16);
           }
 
           *(8 * v13) = i;
           v8 = (8 * v13 + 8);
           memcpy(0, v11, v12);
-          v17 = *a4;
-          *a4 = 0;
-          a4[1] = v8;
-          a4[2] = 0;
+          v17 = *a2;
+          *a2 = 0;
+          a2[1] = v8;
+          a2[2] = 0;
           if (v17)
           {
             operator delete(v17);
@@ -7900,7 +7913,7 @@ void arkit::FaceLightOptimizer::inlierSet(uint64_t a1@<X0>, uint64_t a2@<X1>, ui
           *v8++ = i;
         }
 
-        a4[1] = v8;
+        a2[1] = v8;
       }
     }
   }
@@ -7944,16 +7957,16 @@ float arkit::FaceLightOptimizer::computeConfidence(uint64_t a1, uint64_t a2, uin
   return v7;
 }
 
-void arkit::FaceLightOptimizer::solveLinear(uint64_t a1@<X0>, _DWORD *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void arkit::FaceLightOptimizer::solveLinear(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   v33 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 16) != a2[4])
+  if (*(a1 + 16) != *(a2 + 16))
   {
     arkit::FaceLightOptimizer::solveLinear();
   }
 
   v25 = 869711765;
-  v8 = a2[5];
+  v8 = *(a2 + 20);
   v22 = 0;
   v23 = 0;
   cva::MatrixData<float,0ul,0ul,false>::allocate(&v22, v8);
@@ -8059,7 +8072,7 @@ void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse(_DWORD *a1@<X0>, int
 {
   v21 = *MEMORY[0x1E69E9840];
   v15 = a1 + 6;
-  v6 = cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S(a1);
+  v6 = cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S(a1, a2);
   v12[0] = v6;
   v12[1] = v7;
   v8 = *a2;
@@ -8098,7 +8111,7 @@ void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse(_DWORD *a1@<X0>, int
 
 void arkit::FaceLightOptimizer::penaltyFunction(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v6 = *(a2 + 16);
   if (v6 != *(a3 + 16))
   {
@@ -8115,27 +8128,27 @@ void arkit::FaceLightOptimizer::penaltyFunction(uint64_t a1@<X0>, uint64_t a2@<X
   }
 
   v9 = *(a3 + 16);
-  v33[0] = 0;
-  v33[1] = 0;
-  cva::MatrixData<float,0ul,0ul,false>::allocate(v33, v9);
+  v35[0] = 0;
+  v35[1] = 0;
+  cva::MatrixData<float,0ul,0ul,false>::allocate(v35, v9);
   v10 = *(a3 + 20);
-  v34 = *(a3 + 16);
-  v36 = a3;
-  v37 = a1;
+  v36 = *(a3 + 16);
+  v38 = a3;
+  v39 = a1;
   if (v10 != 9)
   {
     __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
   }
 
-  v38 = 1065353216;
-  cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,9u,1u,false>>(v33, &v35);
-  v12 = v34;
-  if (v34 != *(a2 + 16))
+  v40 = 1065353216;
+  cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,9u,1u,false>>(v35, &v37);
+  v12 = v36;
+  if (v36 != *(a2 + 16))
   {
-    cva::Logger::instance(v11);
-    cva::Logger::logInCategory();
-    v12 = v34;
-    if (v34 != *(a2 + 16))
+    v13 = cva::Logger::instance(v11);
+    cva::Logger::logInCategory(v13, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", v36, 1, *(a2 + 16), 1);
+    v12 = v36;
+    if (v36 != *(a2 + 16))
     {
       __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
     }
@@ -8146,17 +8159,17 @@ void arkit::FaceLightOptimizer::penaltyFunction(uint64_t a1@<X0>, uint64_t a2@<X
     goto LABEL_7;
   }
 
-  if (v33[0] != *a4 && *a2 != *a4)
+  if (v35[0] != *a4 && *a2 != *a4)
   {
     *(a4 + 16) = v12;
     cva::MatrixData<float,0ul,0ul,false>::reserve(a4, v12);
-    v12 = v34;
-    if (*(a4 + 16) != v34)
+    v12 = v36;
+    if (*(a4 + 16) != v36)
     {
-      cva::Logger::instance(v21);
-      cva::Logger::logInCategory();
+      v23 = cva::Logger::instance(v22);
+      cva::Logger::logInCategory(v23, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *(a4 + 16), 1, v36, 1);
       v12 = *(a4 + 16);
-      if (v12 != v34)
+      if (v12 != v36)
       {
         __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
       }
@@ -8165,61 +8178,61 @@ void arkit::FaceLightOptimizer::penaltyFunction(uint64_t a1@<X0>, uint64_t a2@<X
 LABEL_7:
     if (v12)
     {
-      v13 = *a4;
-      v14 = v12;
-      v15 = *a2;
-      v16 = v33[0];
-      v17 = 4 * v14;
+      v14 = *a4;
+      v15 = v12;
+      v16 = *a2;
+      v17 = v35[0];
+      v18 = 4 * v15;
       do
       {
-        v18 = *v16++;
-        v19 = v18;
-        v20 = *v15++;
-        *v13++ = (v19 - v20) / (v20 + 0.01);
-        v17 -= 4;
+        v19 = *v17++;
+        v20 = v19;
+        v21 = *v16++;
+        *v14++ = (v20 - v21) / (v21 + 0.01);
+        v18 -= 4;
       }
 
-      while (v17);
+      while (v18);
     }
 
     goto LABEL_21;
   }
 
-  v35 = 0;
-  v36 = 0;
-  cva::MatrixData<float,0ul,0ul,false>::allocate(&v35, v12);
-  v22 = v34;
-  v23 = v35;
-  if (v34)
+  v37 = 0;
+  v38 = 0;
+  cva::MatrixData<float,0ul,0ul,false>::allocate(&v37, v12);
+  v24 = v36;
+  v25 = v37;
+  if (v36)
   {
-    v24 = *a2;
-    v25 = v33[0];
-    v26 = 4 * v34;
+    v26 = *a2;
+    v27 = v35[0];
+    v28 = 4 * v36;
     do
     {
-      v27 = *v25++;
-      v28 = v27;
-      v29 = *v24++;
-      *v23++ = (v28 - v29) / (v29 + 0.01);
-      v26 -= 4;
+      v29 = *v27++;
+      v30 = v29;
+      v31 = *v26++;
+      *v25++ = (v30 - v31) / (v31 + 0.01);
+      v28 -= 4;
     }
 
-    while (v26);
-    v23 = v35;
+    while (v28);
+    v25 = v37;
   }
 
-  v30 = *a4;
-  v31 = *(a4 + 8);
-  v32 = v36;
-  *a4 = v23;
-  *(a4 + 8) = v32;
-  v35 = v30;
-  v36 = v31;
-  *(a4 + 16) = v22;
-  LODWORD(v37) = 0;
-  free(v30);
+  v32 = *a4;
+  v33 = *(a4 + 8);
+  v34 = v38;
+  *a4 = v25;
+  *(a4 + 8) = v34;
+  v37 = v32;
+  v38 = v33;
+  *(a4 + 16) = v24;
+  LODWORD(v39) = 0;
+  free(v32);
 LABEL_21:
-  free(v33[0]);
+  free(v35[0]);
 }
 
 void sub_1C25493C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13)
@@ -8315,24 +8328,24 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTranspose
   v5 = **(a2 + 8);
   if (*v5 == *a1 || *v4 == *a1)
   {
-    v8 = (*(v4 + 20) * *(v5 + 20));
-    v14 = 0;
+    v9 = (*(v4 + 20) * *(v5 + 20));
     v15 = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(&v14, v8);
-    v9 = *(*(a2 + 16) + 20);
-    LODWORD(v16) = *(**(a2 + 8) + 20);
-    HIDWORD(v16) = v9;
-    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>(&v14, a2);
-    v10 = *a1;
-    v11 = *(a1 + 8);
-    v12 = v15;
-    *a1 = v14;
-    *(a1 + 8) = v12;
-    v14 = v10;
-    v15 = v11;
-    *(a1 + 16) = v16;
     v16 = 0;
-    free(v10);
+    cva::MatrixData<float,0ul,0ul,false>::allocate(&v15, v9);
+    v10 = *(*(a2 + 16) + 20);
+    LODWORD(v17) = *(**(a2 + 8) + 20);
+    HIDWORD(v17) = v10;
+    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>(&v15, a2);
+    v11 = *a1;
+    v12 = *(a1 + 8);
+    v13 = v16;
+    *a1 = v15;
+    *(a1 + 8) = v13;
+    v15 = v11;
+    v16 = v12;
+    *(a1 + 16) = v17;
+    v17 = 0;
+    free(v11);
   }
 
   else
@@ -8340,8 +8353,8 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTranspose
     v6 = *(a1 + 16);
     if (v6 != *(v5 + 20) || (v7 = *(a1 + 20), v7 != *(v4 + 20)))
     {
-      cva::Logger::instance(a1);
-      cva::Logger::logInCategory();
+      v8 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v8, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *(a1 + 16), *(a1 + 20), *(**(a2 + 8) + 20), *(*(a2 + 16) + 20));
       v6 = *(a1 + 16);
       v5 = **(a2 + 8);
       if (v6 != *(v5 + 20) || (v4 = *(a2 + 16), v7 = *(v4 + 20), *(a1 + 20) != v7))
@@ -8357,9 +8370,9 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTranspose
 
     if (v6 * v7)
     {
-      v13 = *a1;
+      v14 = *a1;
 
-      bzero(v13, 4 * (v6 * v7));
+      bzero(v14, 4 * (v6 * v7));
     }
   }
 }
@@ -8370,22 +8383,22 @@ void cva::assign<false,false,cva::Matrix<float,1u,0u,false>,cva::MatrixTranspose
   v5 = **(a2 + 8);
   if (*v5 == *a1 || *v4 == *a1)
   {
-    v7 = *(v4 + 20);
-    v12 = 0;
+    v8 = *(v4 + 20);
     v13 = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(&v12, v7);
-    v14 = *(*(a2 + 16) + 20);
-    cva::assign<false,false,cva::Matrix<float,1u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,1u,false> const>,cva::Matrix<float,0u,0u,false>>(&v12, a2);
-    v8 = *a1;
-    v9 = *(a1 + 8);
-    v10 = v13;
-    *a1 = v12;
-    *(a1 + 8) = v10;
-    v12 = v8;
-    v13 = v9;
-    *(a1 + 16) = v14;
     v14 = 0;
-    free(v8);
+    cva::MatrixData<float,0ul,0ul,false>::allocate(&v13, v8);
+    v15 = *(*(a2 + 16) + 20);
+    cva::assign<false,false,cva::Matrix<float,1u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,1u,false> const>,cva::Matrix<float,0u,0u,false>>(&v13, a2);
+    v9 = *a1;
+    v10 = *(a1 + 8);
+    v11 = v14;
+    *a1 = v13;
+    *(a1 + 8) = v11;
+    v13 = v9;
+    v14 = v10;
+    *(a1 + 16) = v15;
+    v15 = 0;
+    free(v9);
   }
 
   else
@@ -8393,8 +8406,8 @@ void cva::assign<false,false,cva::Matrix<float,1u,0u,false>,cva::MatrixTranspose
     v6 = *(a1 + 16);
     if (v6 != *(v4 + 20))
     {
-      cva::Logger::instance(a1);
-      cva::Logger::logInCategory();
+      v7 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v7, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", 1, *(a1 + 16), 1, *(*(a2 + 16) + 20));
       v6 = *(a1 + 16);
       v4 = *(a2 + 16);
       if (v6 != *(v4 + 20))
@@ -8412,9 +8425,9 @@ void cva::assign<false,false,cva::Matrix<float,1u,0u,false>,cva::MatrixTranspose
 
     if (v6)
     {
-      v11 = *a1;
+      v12 = *a1;
 
-      bzero(v11, 4 * v6);
+      bzero(v12, 4 * v6);
     }
   }
 }
@@ -8433,7 +8446,7 @@ uint64_t thirdparty::quadprogpp::Matrix<double>::~Matrix(uint64_t a1)
   return a1;
 }
 
-uint64_t cva::SVD<cva::Matrix<float,0u,0u,false>,true>::SVD<cva::Matrix<float,0u,0u,false>>(uint64_t a1, _DWORD *a2, char a3, int a4)
+uint64_t cva::SVD<cva::Matrix<float,0u,0u,false>,true>::SVD<cva::Matrix<float,0u,0u,false>>(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   *(a1 + 64) = 0;
   *(a1 + 32) = 0u;
@@ -8454,10 +8467,10 @@ void sub_1C2549978(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decompose<cva::Matrix<float,0u,0u,false> const&>(uint64_t a1, _DWORD *a2, char a3, int a4)
+void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decompose<cva::Matrix<float,0u,0u,false> const&>(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v5 = a2[4];
-  v6 = a2[5];
+  v5 = *(a2 + 16);
+  v6 = *(a2 + 20);
   *(a1 + 72) = v5;
   *(a1 + 76) = v6;
   if (!(v5 | v6))
@@ -8499,8 +8512,9 @@ LABEL_8:
   }
 }
 
-void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::Matrix<float,0u,0u,false>>(uint64_t a1, uint64_t a2, char a3)
+void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::Matrix<float,0u,0u,false>>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = (*(a2 + 20) * *(a2 + 16));
   __dst[0] = 0;
   __dst[1] = 0;
@@ -8511,38 +8525,38 @@ void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::Matrix<
   }
 
   __dst[2] = *(a2 + 16);
-  cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<0u,0u>(a1, __dst, a3);
+  cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<0u,0u>(a1, __dst, v3);
   free(__dst[0]);
 }
 
-void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeRectangular<cva::Matrix<float,0u,0u,false>>(uint64_t a1, _DWORD *a2, int a3)
+void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeRectangular<cva::Matrix<float,0u,0u,false>>(uint64_t *a1, void **a2, int a3)
 {
   v3 = a3;
-  v47 = *MEMORY[0x1E69E9840];
-  if (a2[5] >= a2[4])
+  v49 = *MEMORY[0x1E69E9840];
+  if (*(a2 + 5) >= *(a2 + 4))
   {
-    v40 = a2;
-    v43 = a2;
-    v44 = &v40;
-    cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>>(a1, &v43, a3 != 0);
+    v42 = a2;
+    v45 = a2;
+    v46 = &v42;
+    cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>>(a1, &v45, a3 != 0);
     if (*(a1 + 80) != 1)
     {
       return;
     }
 
-    v12 = *(a1 + 64);
-    if (v12)
+    v14 = *(a1 + 16);
+    if (v14)
     {
-      v13 = *(a1 + 48);
-      v14 = 4 * v12;
+      v15 = a1[6];
+      v16 = 4 * v14;
       do
       {
-        *v13 = sqrtf(*v13);
-        ++v13;
-        v14 -= 4;
+        *v15 = sqrtf(*v15);
+        ++v15;
+        v16 -= 4;
       }
 
-      while (v14);
+      while (v16);
     }
 
     if ((v3 & 2) == 0)
@@ -8550,53 +8564,53 @@ void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeRectangular<cva::Ma
       return;
     }
 
-    v33 = cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S(a1);
-    v34 = v15;
-    v35 = &v33;
-    v36 = 925353388;
-    v37 = a1;
-    if (*(a1 + 20) != v33)
+    v35 = cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S(a1, v13);
+    v36 = v17;
+    v37 = &v35;
+    v38 = 925353388;
+    v39 = a1;
+    if (*(a1 + 5) != v35)
     {
       cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse();
     }
 
-    v38 = &v35;
-    v39 = &v37;
-    if (*(a1 + 16) != a2[4])
+    v40 = &v37;
+    v41 = &v39;
+    if (*(a1 + 4) != *(a2 + 4))
     {
       cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse();
     }
 
-    v16 = HIDWORD(v33);
-    if (__PAIR64__(a2[5], HIDWORD(v33)) == *(a1 + 40))
+    v18 = HIDWORD(v35);
+    if (__PAIR64__(*(a2 + 5), HIDWORD(v35)) == a1[5])
     {
-      v44 = &v38;
-      v45 = a2;
+      v46 = &v40;
+      v47 = a2;
 LABEL_30:
-      v46 = 1065353216;
-      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>,cva::Matrix<float,0u,0u,false>>(a1 + 24, &v43);
+      v48 = 1065353216;
+      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>,cva::Matrix<float,0u,0u,false>>((a1 + 3), &v45);
       return;
     }
 
-    v20 = *(a1 + 24);
-    if (*v15 == v20)
+    v22 = a1[3];
+    if (*v17 == v22)
     {
-      v21 = a2[5];
+      v23 = *(a2 + 5);
     }
 
     else
     {
-      v21 = a2[5];
-      if (*a1 != v20 && *a2 != v20)
+      v23 = *(a2 + 5);
+      if (*a1 != v22 && *a2 != v22)
       {
-        *(a1 + 40) = HIDWORD(v33);
-        *(a1 + 44) = v21;
-        cva::MatrixData<float,0ul,0ul,false>::reserve(a1 + 24, (v21 * v16));
-        v22 = a2[4];
-        v23 = *(*v39 + 4);
-        v44 = &v38;
-        v45 = a2;
-        if (v23 != v22)
+        *(a1 + 10) = HIDWORD(v35);
+        *(a1 + 11) = v23;
+        cva::MatrixData<float,0ul,0ul,false>::reserve((a1 + 3), (v23 * v18));
+        v24 = *(a2 + 4);
+        v25 = *(*v41 + 16);
+        v46 = &v40;
+        v47 = a2;
+        if (v25 != v24)
         {
           cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse();
         }
@@ -8605,99 +8619,99 @@ LABEL_30:
       }
     }
 
-    v40 = 0;
-    v41 = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(&v40, (v21 * HIDWORD(v33)));
-    v30 = a2[4];
-    v29 = a2[5];
-    LODWORD(v42) = *(*v38 + 1);
-    HIDWORD(v42) = v29;
-    v44 = &v38;
-    v45 = a2;
-    if (*(*v39 + 4) != v30)
+    v42 = 0;
+    v43 = 0;
+    cva::MatrixData<float,0ul,0ul,false>::allocate(&v42, (v23 * HIDWORD(v35)));
+    v32 = *(a2 + 4);
+    v31 = *(a2 + 5);
+    LODWORD(v44) = *(*v40 + 4);
+    HIDWORD(v44) = v31;
+    v46 = &v40;
+    v47 = a2;
+    if (*(*v41 + 16) != v32)
     {
       __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
     }
 
-    v46 = 1065353216;
-    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>,cva::Matrix<float,0u,0u,false>>(&v40, &v43);
-    v26 = *(a1 + 24);
-    v31 = *(a1 + 32);
-    v32 = v41;
-    *(a1 + 24) = v40;
-    *(a1 + 32) = v32;
-    v40 = v26;
-    v41 = v31;
-    *(a1 + 40) = v42;
+    v48 = 1065353216;
+    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>,cva::Matrix<float,0u,0u,false>>(&v42, &v45);
+    v28 = a1[3];
+    v33 = a1[4];
+    v34 = v43;
+    a1[3] = v42;
+    a1[4] = v34;
+    v42 = v28;
+    v43 = v33;
+    a1[5] = v44;
 LABEL_36:
-    v42 = 0;
-    free(v26);
+    v44 = 0;
+    free(v28);
     return;
   }
 
-  v40 = a2;
-  v43 = &v40;
-  v44 = a2;
-  cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>>(a1, &v43, 2 * (a3 != 0));
+  v42 = a2;
+  v45 = &v42;
+  v46 = a2;
+  cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>>(a1, &v45, 2 * (a3 != 0));
   if (*(a1 + 80) == 1)
   {
-    v6 = *(a1 + 64);
-    if (v6)
+    v7 = *(a1 + 16);
+    if (v7)
     {
-      v7 = *(a1 + 48);
-      v8 = 4 * v6;
+      v8 = a1[6];
+      v9 = 4 * v7;
       do
       {
-        *v7 = sqrtf(*v7);
-        ++v7;
-        v8 -= 4;
+        *v8 = sqrtf(*v8);
+        ++v8;
+        v9 -= 4;
       }
 
-      while (v8);
+      while (v9);
     }
 
     if (v3)
     {
-      v37 = a1 + 24;
-      v9 = cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S(a1);
-      v33 = v9;
-      v34 = v10;
-      v35 = &v33;
-      v36 = 925353388;
-      if (*(a1 + 40) != HIDWORD(v9))
+      v39 = (a1 + 3);
+      v10 = cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S(a1, v6);
+      v35 = v10;
+      v36 = v11;
+      v37 = &v35;
+      v38 = 925353388;
+      if (*(a1 + 10) != HIDWORD(v10))
       {
         cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse();
       }
 
-      v38 = &v37;
-      v39 = &v35;
-      if (a2[5] != *(a1 + 44))
+      v40 = &v39;
+      v41 = &v37;
+      if (*(a2 + 5) != *(a1 + 11))
       {
         cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse();
       }
 
-      v11 = a2[4];
-      if (v11 == *(a1 + 16) && *(a1 + 20) == v9)
+      v12 = *(a2 + 4);
+      if (v12 == *(a1 + 4) && *(a1 + 5) == v10)
       {
-        v44 = a2;
-        v45 = &v38;
+        v46 = a2;
+        v47 = &v40;
 LABEL_25:
-        v46 = 1065353216;
-        cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>>(a1, &v43);
+        v48 = 1065353216;
+        cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>>(a1, &v45);
         return;
       }
 
-      v17 = *a1;
-      if (*a2 != *a1 && *(a1 + 24) != v17 && *v10 != v17)
+      v19 = *a1;
+      if (*a2 != *a1 && a1[3] != v19 && *v11 != v19)
       {
-        *(a1 + 16) = v11;
-        *(a1 + 20) = v9;
-        cva::MatrixData<float,0ul,0ul,false>::reserve(a1, (v11 * v9));
-        v18 = a2[5];
-        v19 = *(*v38 + 5);
-        v44 = a2;
-        v45 = &v38;
-        if (v18 != v19)
+        *(a1 + 4) = v12;
+        *(a1 + 5) = v10;
+        cva::MatrixData<float,0ul,0ul,false>::reserve(a1, (v12 * v10));
+        v20 = *(a2 + 5);
+        v21 = *(*v40 + 20);
+        v46 = a2;
+        v47 = &v40;
+        if (v20 != v21)
         {
           cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse();
         }
@@ -8705,39 +8719,39 @@ LABEL_25:
         goto LABEL_25;
       }
 
-      v40 = 0;
-      v41 = 0;
-      cva::MatrixData<float,0ul,0ul,false>::allocate(&v40, (v11 * v9));
-      v24 = **v39;
-      v25 = a2[5];
-      LODWORD(v42) = a2[4];
-      HIDWORD(v42) = v24;
-      v44 = a2;
-      v45 = &v38;
-      if (v25 != *(*v38 + 5))
+      v42 = 0;
+      v43 = 0;
+      cva::MatrixData<float,0ul,0ul,false>::allocate(&v42, (v12 * v10));
+      v26 = **v41;
+      v27 = *(a2 + 5);
+      LODWORD(v44) = *(a2 + 4);
+      HIDWORD(v44) = v26;
+      v46 = a2;
+      v47 = &v40;
+      if (v27 != *(*v40 + 20))
       {
         __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
       }
 
-      v46 = 1065353216;
-      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>>(&v40, &v43);
-      v26 = *a1;
-      v27 = *(a1 + 8);
-      v28 = v41;
-      *a1 = v40;
-      *(a1 + 8) = v28;
-      v40 = v26;
-      v41 = v27;
-      *(a1 + 16) = v42;
+      v48 = 1065353216;
+      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>>(&v42, &v45);
+      v28 = *a1;
+      v29 = a1[1];
+      v30 = v43;
+      *a1 = v42;
+      a1[1] = v30;
+      v42 = v28;
+      v43 = v29;
+      a1[2] = v44;
       goto LABEL_36;
     }
   }
 }
 
-void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<0u,0u>(uint64_t a1, uint64_t a2, char a3)
+void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<0u,0u>(uint64_t a1, void *a2, char a3)
 {
-  v5 = *(a2 + 16);
-  v6 = *(a2 + 20);
+  v5 = *(a2 + 4);
+  v6 = *(a2 + 5);
   if (v6 >= v5)
   {
     v7 = v5;
@@ -8784,33 +8798,33 @@ LABEL_6:
   *(a1 + 24) = 0;
   free(v9);
 LABEL_9:
+  v15 = 0;
   v14 = 0;
-  v13 = 0;
   cva::vecLib::gesvd<float>();
-  v11[0] = 0;
-  v11[1] = 0;
-  cva::MatrixData<float,0ul,0ul,false>::allocate(v11, 0.0);
-  v12 = 0.0;
+  v12[0] = 0;
+  v12[1] = 0;
+  cva::MatrixData<float,0ul,0ul,false>::allocate(v12, 0.0);
+  v13 = 0.0;
   v10 = cva::vecLib::gesvd<float>();
-  if (v13 < 0)
+  if (v14 < 0)
   {
     __assert_rtn("decomposeDirect", "matrixsvd.h", 439, "(info >= 0) || cva::detail::assertMessage(gesvd() compute SVD failed!)");
   }
 
-  if (v13)
+  if (v14)
   {
-    cva::Logger::instance(v10);
-    cva::Logger::logInCategory();
+    v11 = cva::Logger::instance(v10);
+    cva::Logger::logInCategory(v11, 2, *MEMORY[0x1E6997750], "%s\n", "gesvd() DBDSQR did not converge!");
   }
 
-  free(v11[0]);
-  *(a1 + 80) = v13 == 0;
+  free(v12[0]);
+  *(a1 + 80) = v14 == 0;
 }
 
 void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>>(uint64_t a1, uint64_t **a2, char a3)
 {
   v19 = *MEMORY[0x1E69E9840];
-  v6 = (a2 + 1);
+  v6 = a2 + 1;
   v7 = (*(a2[1] + 5) * *(**a2 + 20));
   v12[0] = 0;
   v12[1] = 0;
@@ -8819,8 +8833,8 @@ void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::MatrixM
   v9 = **a2;
   v10 = *v6;
   v13 = *(v9 + 20);
-  v11 = *(v10 + 16);
-  v14 = *(v10 + 20);
+  v11 = *(v10 + 4);
+  v14 = *(v10 + 5);
   v16 = v8;
   v17 = v10;
   if (*(v9 + 16) != v11)
@@ -8834,26 +8848,26 @@ void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::MatrixM
   free(v12[0]);
 }
 
-uint64_t cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S(_DWORD *a1)
+uint64_t cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S(_DWORD *a1, uint64_t a2)
 {
-  v2 = a1[18];
-  LODWORD(v1) = a1[19];
-  if (v1 >= v2)
+  v3 = a1[18];
+  LODWORD(v2) = a1[19];
+  if (v2 >= v3)
   {
-    v1 = v2;
+    v2 = v3;
   }
 
   else
   {
-    v1 = v1;
+    v2 = v2;
   }
 
-  if (v1 > a1[16])
+  if (v2 > a1[16])
   {
     cva::SVD<cva::Matrix<float,0u,0u,false>,true>::S();
   }
 
-  return v1 | (v1 << 32);
+  return v2 | (v2 << 32);
 }
 
 void cva::SVD<cva::Matrix<float,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>>(uint64_t a1, void **a2, char a3)
@@ -8888,24 +8902,24 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u
   v4 = *(a2 + 8);
   if (*v4 == *a1)
   {
-    v12 = (***(*(a2 + 16) + 8) * *(v4 + 16));
-    v17 = 0;
+    v13 = (***(*(a2 + 16) + 8) * *(v4 + 16));
     v18 = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(&v17, v12);
-    v13 = ***(*(a2 + 16) + 8);
-    LODWORD(v19) = *(*(a2 + 8) + 16);
-    HIDWORD(v19) = v13;
-    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>>(&v17, a2);
-    v14 = *a1;
-    v15 = *(a1 + 8);
-    v16 = v18;
-    *a1 = v17;
-    *(a1 + 8) = v16;
-    v17 = v14;
-    v18 = v15;
-    *(a1 + 16) = v19;
     v19 = 0;
-    free(v14);
+    cva::MatrixData<float,0ul,0ul,false>::allocate(&v18, v13);
+    v14 = ***(*(a2 + 16) + 8);
+    LODWORD(v20) = *(*(a2 + 8) + 16);
+    HIDWORD(v20) = v14;
+    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>>(&v18, a2);
+    v15 = *a1;
+    v16 = *(a1 + 8);
+    v17 = v19;
+    *a1 = v18;
+    *(a1 + 8) = v17;
+    v18 = v15;
+    v19 = v16;
+    *(a1 + 16) = v20;
+    v20 = 0;
+    free(v15);
   }
 
   else
@@ -8913,8 +8927,8 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u
     v5 = *(a1 + 16);
     if (v5 != *(v4 + 16) || (v6 = *(a1 + 20), v7 = *(a2 + 16), v6 != **v7[1]))
     {
-      cva::Logger::instance(a1);
-      cva::Logger::logInCategory();
+      v8 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v8, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *(a1 + 16), *(a1 + 20), *(*(a2 + 8) + 16), ***(*(a2 + 16) + 8));
       v5 = *(a1 + 16);
       v4 = *(a2 + 8);
       if (v5 != *(v4 + 16) || (v7 = *(a2 + 16), v6 = **v7[1], *(a1 + 20) != v6))
@@ -8925,40 +8939,40 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u
 
     if (*(v4 + 20) * v5)
     {
-      v8 = (v6 * *(**v7 + 20));
-      if (v8)
+      v9 = (v6 * *(**v7 + 20));
+      if (v9)
       {
-        v17 = 0;
         v18 = 0;
-        cva::MatrixData<float,0ul,0ul,false>::allocate(&v17, v8);
-        v9 = **v7[1];
-        LODWORD(v19) = *(**v7 + 20);
-        HIDWORD(v19) = v9;
-        cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>(&v17, v7);
+        v19 = 0;
+        cva::MatrixData<float,0ul,0ul,false>::allocate(&v18, v9);
+        v10 = **v7[1];
+        LODWORD(v20) = *(**v7 + 20);
+        HIDWORD(v20) = v10;
+        cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>(&v18, v7);
         cva::VecLib<float>::gemm();
       }
     }
 
-    v10 = v5 * v6;
-    if (v10)
+    v11 = v5 * v6;
+    if (v11)
     {
-      v11 = *a1;
+      v12 = *a1;
 
-      bzero(v11, 4 * v10);
+      bzero(v12, 4 * v11);
     }
   }
 }
 
 void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>(cva::Logger *a1, uint64_t **a2)
 {
-  v32[3] = *MEMORY[0x1E69E9840];
+  v33[3] = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 4);
   v5 = *a2;
   v6 = **a2;
   if (v4 != *(v6 + 20) || (v7 = *(a1 + 5), v8 = a2[1], v9 = *v8, v7 != **v8))
   {
-    cva::Logger::instance(a1);
-    cva::Logger::logInCategory();
+    v10 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v10, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *(a1 + 4), *(a1 + 5), *(**a2 + 20), **a2[1]);
     v4 = *(a1 + 4);
     v5 = *a2;
     v6 = **a2;
@@ -8968,7 +8982,7 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTranspose
     }
   }
 
-  v31 = v8;
+  v32 = v8;
   if (v7 >= v9[1])
   {
     v7 = v9[1];
@@ -8979,133 +8993,133 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTranspose
     cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>();
   }
 
-  v28[0] = v4;
-  v28[1] = v7;
-  v29 = v5;
-  v30 = 0;
-  v23 = &v31;
-  v27 = &v23;
-  v32[0] = v28;
-  v32[1] = &v24;
-  v10 = *a1;
-  v25 = v4;
-  v26 = v7;
-  v19[0] = v4;
-  v19[1] = v7;
-  v20 = v10;
-  v21 = v4;
-  v22 = 0;
-  cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v19, v32);
-  v11 = *(*v5 + 16);
-  v12 = *(a1 + 5) - v11;
-  if (*(a1 + 5) > v11)
+  v29[0] = v4;
+  v29[1] = v7;
+  v30 = v5;
+  v31 = 0;
+  v24 = &v32;
+  v28 = &v24;
+  v33[0] = v29;
+  v33[1] = &v25;
+  v11 = *a1;
+  v26 = v4;
+  v27 = v7;
+  v20[0] = v4;
+  v20[1] = v7;
+  v21 = v11;
+  v22 = v4;
+  v23 = 0;
+  cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v20, v33);
+  v12 = *(*v5 + 16);
+  v13 = *(a1 + 5) - v12;
+  if (*(a1 + 5) > v12)
   {
-    v13 = *(a1 + 4);
-    v14 = *a1 + 4 * v13 * v11;
-    v15 = v13 * v12;
-    v16 = v15 == 0;
-    if (v15)
+    v14 = *(a1 + 4);
+    v15 = *a1 + 4 * v14 * v12;
+    v16 = v14 * v13;
+    v17 = v16 == 0;
+    if (v16)
     {
-      v17 = v14;
+      v18 = v15;
     }
 
     else
     {
-      v17 = 0;
-    }
-
-    v18 = (v14 + 4 * v15);
-    if (v16)
-    {
       v18 = 0;
     }
 
-    if (v17 != v18)
+    v19 = (v15 + 4 * v16);
+    if (v17)
     {
-      bzero(v17, ((v18 - v17 - 4) & 0xFFFFFFFFFFFFFFFCLL) + 4);
+      v19 = 0;
+    }
+
+    if (v18 != v19)
+    {
+      bzero(v18, ((v19 - v18 - 4) & 0xFFFFFFFFFFFFFFFCLL) + 4);
     }
   }
 }
 
-uint64_t cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(uint64_t a1, void *a2)
+int *cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(int *a1, void *a2)
 {
-  v4 = *(a1 + 8) - 4 * *(a1 + 20);
+  v4 = *(a1 + 1) - 4 * a1[5];
   if (***(*a2 + 8) == v4 || **(****(a2[1] + 16) + 8) == v4)
   {
     v5 = *a1;
-    v6 = *(a1 + 4);
-    v21[0] = 0;
-    v21[1] = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(v21, (v6 * v5));
-    v22 = v5;
-    v23 = v6;
-    cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v21, a2);
+    v6 = a1[1];
+    v22[0] = 0;
+    v22[1] = 0;
+    cva::MatrixData<float,0ul,0ul,false>::allocate(v22, (v6 * v5));
+    v23 = v5;
+    v24 = v6;
+    cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v22, a2);
     v8 = *a1;
-    if (*a1 != v22 || (v9 = *(a1 + 4), v9 != v23))
+    if (*a1 != v23 || (v9 = a1[1], v9 != v24))
     {
-      cva::Logger::instance(v7);
-      cva::Logger::logInCategory();
+      v10 = cva::Logger::instance(v7);
+      cva::Logger::logInCategory(v10, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *a1, a1[1], v23, v24);
       v8 = *a1;
-      if (*a1 != v22 || (v9 = *(a1 + 4), v9 != v23))
+      if (*a1 != v23 || (v9 = a1[1], v9 != v24))
       {
         __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
       }
     }
 
-    v10 = *(a1 + 16);
-    v11 = v8 * v9 == 0;
+    v11 = a1[4];
+    v12 = v8 * v9 == 0;
     if (v8 * v9)
     {
-      v12 = *(a1 + 8);
+      v13 = *(a1 + 1);
     }
 
     else
     {
-      v12 = 0;
-    }
-
-    v13 = *(a1 + 8) + 4 * (v10 * v9);
-    if (v11)
-    {
       v13 = 0;
     }
 
-    v14 = v21[0];
-    if (v12 != v13)
+    v14 = *(a1 + 1) + 4 * (v11 * v9);
+    if (v12)
     {
-      v15 = 0;
-      v16 = v10 - v8;
-      v17 = v21[0];
+      v14 = 0;
+    }
+
+    v15 = v22[0];
+    if (v13 != v14)
+    {
+      v16 = 0;
+      v17 = v11 - v8;
+      v18 = v22[0];
       do
       {
-        v18 = *v17++;
-        *v12 = v18;
-        if (v15 + 1 >= v8)
+        v19 = *v18++;
+        *v13 = v19;
+        if (v16 + 1 >= v8)
         {
-          v19 = v16;
+          v20 = v17;
         }
 
         else
         {
-          v19 = 0;
+          v20 = 0;
         }
 
-        v12 += v19 + 1;
-        if (v15 + 1 < v8)
+        v13 += v20 + 1;
+        if (v16 + 1 < v8)
         {
-          ++v15;
+          ++v16;
         }
 
         else
         {
-          v15 = 0;
+          v16 = 0;
         }
       }
 
-      while (v12 != v13);
+      while (v13 != v14);
     }
 
-    free(v14);
+    free(v15);
   }
 
   else
@@ -9116,14 +9130,14 @@ uint64_t cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva:
   return a1;
 }
 
-void cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(cva::Logger *a1, void *a2)
+void cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(cva::Logger *a1, uint64_t a2)
 {
   v4 = *(a1 + 4);
   v5 = *a2;
   if (v4 != **a2 || (v6 = *(a1 + 5), v6 != v5[1]))
   {
-    cva::Logger::instance(a1);
-    cva::Logger::logInCategory();
+    v7 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v7, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *(a1 + 4), *(a1 + 5), **a2, *(*a2 + 4));
     v4 = *(a1 + 4);
     v5 = *a2;
     if (v4 != **a2 || (v6 = *(a1 + 5), v6 != v5[1]))
@@ -9132,171 +9146,171 @@ void cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinary
     }
   }
 
-  v7 = v6 * v4;
-  if (v7)
+  v8 = v6 * v4;
+  if (v8)
   {
-    v8 = 0;
     v9 = 0;
-    v10 = a2[1];
-    v11 = *a1;
-    v12 = 4 * v7;
+    v10 = 0;
+    v11 = *(a2 + 8);
+    v12 = *a1;
+    v13 = 4 * v8;
     do
     {
-      if (v4 <= v9 || v5[1] <= HIDWORD(v9))
+      if (v4 <= v10 || v5[1] <= HIDWORD(v10))
       {
         cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v13 = v5[5] + HIDWORD(v9);
-      v14 = **(v5 + 1);
-      v15 = *(v14 + 16);
-      if (v15 <= v13 || (v16 = v5[4] + v9, v16 >= *(v14 + 20)))
+      v14 = v5[5] + HIDWORD(v10);
+      v15 = **(v5 + 1);
+      v16 = *(v15 + 16);
+      if (v16 <= v14 || (v17 = v5[4] + v10, v17 >= *(v15 + 20)))
       {
         cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v17 = *(*v14 + 4 * (v13 + v15 * v16));
-      *v11++ = v17 * cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>::operator()(v10, v8, HIDWORD(v8));
-      v18 = (v9 + 1);
+      v18 = *(*v15 + 4 * (v14 + v16 * v17));
+      *v12++ = v18 * cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>::operator()(v11, v9, HIDWORD(v9));
+      v19 = (v10 + 1);
       v4 = *v5;
-      if (*v5 <= v18)
+      if (*v5 <= v19)
+      {
+        v10 = (v10 & 0xFFFFFFFF00000000) + 0x100000000;
+      }
+
+      else
+      {
+        v10 = v10 & 0xFFFFFFFF00000000 | v19;
+      }
+
+      v20 = (v9 + 1);
+      if (*(v11 + 4) <= v20)
       {
         v9 = (v9 & 0xFFFFFFFF00000000) + 0x100000000;
       }
 
       else
       {
-        v9 = v9 & 0xFFFFFFFF00000000 | v18;
+        v9 = v9 & 0xFFFFFFFF00000000 | v20;
       }
 
-      v19 = (v8 + 1);
-      if (*(v10 + 4) <= v19)
-      {
-        v8 = (v8 & 0xFFFFFFFF00000000) + 0x100000000;
-      }
-
-      else
-      {
-        v8 = v8 & 0xFFFFFFFF00000000 | v19;
-      }
-
-      v12 -= 4;
+      v13 -= 4;
     }
 
-    while (v12);
+    while (v13);
   }
 }
 
-void cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(uint64_t a1, void *a2)
+void cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(float **a1, uint64_t a2)
 {
   v4 = *a1;
   v5 = *a2;
-  if (*a1 != **a2 || (v6 = *(a1 + 4), v6 != v5[1]))
+  if (*a1 != **a2 || (v6 = *(a1 + 1), v6 != v5[1]))
   {
-    cva::Logger::instance(a1);
-    cva::Logger::logInCategory();
+    v7 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v7, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *a1, *(a1 + 1), **a2, *(*a2 + 4));
     v4 = *a1;
     v5 = *a2;
-    if (*a1 != **a2 || (v6 = *(a1 + 4), v6 != v5[1]))
+    if (*a1 != **a2 || (v6 = *(a1 + 1), v6 != v5[1]))
     {
       cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
     }
   }
 
-  v7 = v6 * v4;
-  v8 = *(a1 + 16);
+  v8 = v6 * v4;
+  v9 = *(a1 + 4);
   if (v6 * v4)
   {
-    v9 = *(a1 + 8);
+    v10 = a1[1];
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v10 = *(a1 + 8) + 4 * (v8 * v6);
-  if (v7)
+  v11 = &a1[1][v9 * v6];
+  if (v8)
   {
-    v11 = v10;
+    v12 = v11;
   }
 
   else
-  {
-    v11 = 0;
-  }
-
-  if (v9 != v11)
   {
     v12 = 0;
+  }
+
+  if (v10 != v12)
+  {
     v13 = 0;
     v14 = 0;
-    v15 = a2[1];
-    v16 = v8 - v4;
-    v17 = v4;
+    v15 = 0;
+    v16 = *(a2 + 8);
+    v17 = v9 - v4;
+    v18 = v4;
     do
     {
-      if (v17 <= v13 || v5[1] <= HIDWORD(v13))
+      if (v18 <= v14 || v5[1] <= HIDWORD(v14))
       {
         cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v18 = v5[5] + HIDWORD(v13);
-      v19 = **(v5 + 1);
-      v20 = *(v19 + 16);
-      if (v20 <= v18 || (v21 = v5[4] + v13, v21 >= *(v19 + 20)))
+      v19 = v5[5] + HIDWORD(v14);
+      v20 = **(v5 + 1);
+      v21 = *(v20 + 16);
+      if (v21 <= v19 || (v22 = v5[4] + v14, v22 >= *(v20 + 20)))
       {
         cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v22 = *(*v19 + 4 * (v18 + v20 * v21));
-      *v9 = v22 * cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>::operator()(v15, v12, HIDWORD(v12));
-      v23 = (v13 + 1);
-      v17 = *v5;
-      if (*v5 <= v23)
+      v23 = *(*v20 + 4 * (v19 + v21 * v22));
+      *v10 = v23 * cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>::operator()(v16, v13, HIDWORD(v13));
+      v24 = (v14 + 1);
+      v18 = *v5;
+      if (*v5 <= v24)
+      {
+        v14 = (v14 & 0xFFFFFFFF00000000) + 0x100000000;
+      }
+
+      else
+      {
+        v14 = v14 & 0xFFFFFFFF00000000 | v24;
+      }
+
+      v25 = (v13 + 1);
+      if (*(v16 + 4) <= v25)
       {
         v13 = (v13 & 0xFFFFFFFF00000000) + 0x100000000;
       }
 
       else
       {
-        v13 = v13 & 0xFFFFFFFF00000000 | v23;
+        v13 = v13 & 0xFFFFFFFF00000000 | v25;
       }
 
-      v24 = (v12 + 1);
-      if (*(v15 + 4) <= v24)
+      if (v15 + 1 >= v4)
       {
-        v12 = (v12 & 0xFFFFFFFF00000000) + 0x100000000;
-      }
-
-      else
-      {
-        v12 = v12 & 0xFFFFFFFF00000000 | v24;
-      }
-
-      if (v14 + 1 >= v4)
-      {
-        v25 = v16;
+        v26 = v17;
       }
 
       else
       {
-        v25 = 0;
+        v26 = 0;
       }
 
-      v9 += v25 + 1;
-      if (v14 + 1 < v4)
+      v10 += v26 + 1;
+      if (v15 + 1 < v4)
       {
-        ++v14;
+        ++v15;
       }
 
       else
       {
-        v14 = 0;
+        v15 = 0;
       }
     }
 
-    while (v9 != v11);
+    while (v10 != v12);
   }
 }
 
@@ -9338,24 +9352,24 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u
   v5 = **(a2 + 16);
   if (*v4 == *a1 || *v5 == *a1)
   {
-    v8 = (*(v5 + 16) * *(v4 + 16));
-    v14 = 0;
+    v9 = (*(v5 + 16) * *(v4 + 16));
     v15 = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(&v14, v8);
-    v9 = *(**(a2 + 16) + 16);
-    LODWORD(v16) = *(*(a2 + 8) + 16);
-    HIDWORD(v16) = v9;
-    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>(&v14, a2);
-    v10 = *a1;
-    v11 = *(a1 + 8);
-    v12 = v15;
-    *a1 = v14;
-    *(a1 + 8) = v12;
-    v14 = v10;
-    v15 = v11;
-    *(a1 + 16) = v16;
     v16 = 0;
-    free(v10);
+    cva::MatrixData<float,0ul,0ul,false>::allocate(&v15, v9);
+    v10 = *(**(a2 + 16) + 16);
+    LODWORD(v17) = *(*(a2 + 8) + 16);
+    HIDWORD(v17) = v10;
+    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>(&v15, a2);
+    v11 = *a1;
+    v12 = *(a1 + 8);
+    v13 = v16;
+    *a1 = v15;
+    *(a1 + 8) = v13;
+    v15 = v11;
+    v16 = v12;
+    *(a1 + 16) = v17;
+    v17 = 0;
+    free(v11);
   }
 
   else
@@ -9363,8 +9377,8 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u
     v6 = *(a1 + 16);
     if (v6 != *(v4 + 16) || (v7 = *(a1 + 20), v7 != *(v5 + 16)))
     {
-      cva::Logger::instance(a1);
-      cva::Logger::logInCategory();
+      v8 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v8, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *(a1 + 16), *(a1 + 20), *(*(a2 + 8) + 16), *(**(a2 + 16) + 16));
       v6 = *(a1 + 16);
       v4 = *(a2 + 8);
       if (v6 != *(v4 + 16) || (v5 = **(a2 + 16), v7 = *(v5 + 16), *(a1 + 20) != v7))
@@ -9380,9 +9394,9 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u
 
     if (v6 * v7)
     {
-      v13 = *a1;
+      v14 = *a1;
 
-      bzero(v13, 4 * (v6 * v7));
+      bzero(v14, 4 * (v6 * v7));
     }
   }
 }
@@ -9392,250 +9406,250 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<
   v4 = *(a2 + 16);
   if (*v4 == *a1)
   {
-    v12 = (*(v4 + 20) * *(***(a2 + 8) + 4));
-    v17 = 0;
+    v13 = (*(v4 + 20) * *(***(a2 + 8) + 4));
     v18 = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(&v17, v12);
-    v13 = *(*(a2 + 16) + 20);
-    LODWORD(v19) = *(***(a2 + 8) + 4);
-    HIDWORD(v19) = v13;
-    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>,cva::Matrix<float,0u,0u,false>>(&v17, a2);
-    v14 = *a1;
-    v15 = *(a1 + 8);
-    v16 = v18;
-    *a1 = v17;
-    *(a1 + 8) = v16;
-    v17 = v14;
-    v18 = v15;
-    *(a1 + 16) = v19;
     v19 = 0;
-    free(v14);
+    cva::MatrixData<float,0ul,0ul,false>::allocate(&v18, v13);
+    v14 = *(*(a2 + 16) + 20);
+    LODWORD(v20) = *(***(a2 + 8) + 4);
+    HIDWORD(v20) = v14;
+    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>,cva::Matrix<float,0u,0u,false>>(&v18, a2);
+    v15 = *a1;
+    v16 = *(a1 + 8);
+    v17 = v19;
+    *a1 = v18;
+    *(a1 + 8) = v17;
+    v18 = v15;
+    v19 = v16;
+    *(a1 + 16) = v20;
+    v20 = 0;
+    free(v15);
   }
 
   else
   {
     v5 = *(a1 + 16);
     v6 = *(a2 + 8);
-    if (v5 != *(**v6 + 4) || (v7 = *(a1 + 20), v7 != *(v4 + 20)))
+    if (v5 != (**v6)[1] || (v7 = *(a1 + 20), v7 != *(v4 + 20)))
     {
-      cva::Logger::instance(a1);
-      cva::Logger::logInCategory();
+      v8 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v8, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *(a1 + 16), *(a1 + 20), *(***(a2 + 8) + 4), *(*(a2 + 16) + 20));
       v5 = *(a1 + 16);
       v6 = *(a2 + 8);
-      if (v5 != *(**v6 + 4) || (v4 = *(a2 + 16), v7 = *(v4 + 20), *(a1 + 20) != v7))
+      if (v5 != (**v6)[1] || (v4 = *(a2 + 16), v7 = *(v4 + 20), *(a1 + 20) != v7))
       {
         cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
       }
     }
 
-    v8 = (*(*v6[1] + 16) * v5);
-    if (v8 && v7 * *(v4 + 16))
+    v9 = (*v6[1])[4] * v5;
+    if (v9 && v7 * *(v4 + 16))
     {
-      v17 = 0;
       v18 = 0;
-      cva::MatrixData<float,0ul,0ul,false>::allocate(&v17, v8);
-      v9 = *(*v6[1] + 16);
-      LODWORD(v19) = *(**v6 + 4);
-      HIDWORD(v19) = v9;
-      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>(&v17, v6);
+      v19 = 0;
+      cva::MatrixData<float,0ul,0ul,false>::allocate(&v18, v9);
+      v10 = (*v6[1])[4];
+      LODWORD(v20) = (**v6)[1];
+      HIDWORD(v20) = v10;
+      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>(&v18, v6);
       cva::VecLib<float>::gemm();
     }
 
-    v10 = v5 * v7;
-    if (v10)
+    v11 = v5 * v7;
+    if (v11)
     {
-      v11 = *a1;
+      v12 = *a1;
 
-      bzero(v11, 4 * v10);
+      bzero(v12, 4 * v11);
     }
   }
 }
 
-uint64_t cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>(cva::Logger *a1, uint64_t a2)
+int *cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>>(cva::Logger *a1, unsigned int ***a2)
 {
-  v35[3] = *MEMORY[0x1E69E9840];
+  v36[3] = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 4);
   v5 = *a2;
   v6 = **a2;
-  if (v4 != v6[1] || (v7 = *(a1 + 5), v8 = *(a2 + 8), v9 = *v8, v7 != *(*v8 + 16)))
+  if (v4 != v6[1] || (v7 = *(a1 + 5), v8 = a2[1], v9 = *v8, v7 != (*v8)[4]))
   {
-    cva::Logger::instance(a1);
-    cva::Logger::logInCategory();
+    v10 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v10, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *(a1 + 4), *(a1 + 5), (**a2)[1], (*a2[1])[4]);
     v4 = *(a1 + 4);
     v5 = *a2;
     v6 = **a2;
-    if (v4 != v6[1] || (v8 = *(a2 + 8), v9 = *v8, v7 = *(*v8 + 16), *(a1 + 5) != v7))
+    if (v4 != v6[1] || (v8 = a2[1], v9 = *v8, v7 = (*v8)[4], *(a1 + 5) != v7))
     {
       cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
     }
   }
 
-  v34 = v5;
-  v10 = *v6;
+  v35 = v5;
+  v11 = *v6;
   if (*v6 >= v4)
   {
-    v10 = v4;
+    v11 = v4;
   }
 
-  if (v10 > *(v9 + 20))
+  if (v11 > v9[5])
   {
     cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>();
   }
 
-  v31[0] = v10;
-  v31[1] = v7;
-  v32 = v8;
-  v33 = 0;
-  v28 = v10;
-  v29 = v7;
-  v30 = &v34;
-  v35[0] = v31;
-  v35[1] = &v27;
-  v11 = *a1;
-  v23[0] = v10;
-  v23[1] = v7;
-  v24 = v11;
-  v25 = v4;
-  v26 = 0;
-  result = cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(v23, v35);
-  v13 = *(*v8 + 20);
-  v14 = *(a1 + 4);
-  if (v14 > v13)
+  v32[0] = v11;
+  v32[1] = v7;
+  v33 = v8;
+  v34 = 0;
+  v29 = v11;
+  v30 = v7;
+  v31 = &v35;
+  v36[0] = v32;
+  v36[1] = &v28;
+  v12 = *a1;
+  v24[0] = v11;
+  v24[1] = v7;
+  v25 = v12;
+  v26 = v4;
+  v27 = 0;
+  result = cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(v24, v36);
+  v14 = (*v8)[5];
+  v15 = *(a1 + 4);
+  if (v15 > v14)
   {
-    v15 = v14 - v13;
-    v16 = *(a1 + 5);
-    v17 = v16 * (v14 - v13);
-    v18 = v17 == 0;
-    if (v17)
+    v16 = v15 - v14;
+    v17 = *(a1 + 5);
+    v18 = v17 * (v15 - v14);
+    v19 = v18 == 0;
+    if (v18)
     {
-      v19 = (*a1 + 4 * v13);
+      v20 = (*a1 + 4 * v14);
     }
 
     else
     {
-      v19 = 0;
-    }
-
-    v20 = *a1 + 4 * v13 + 4 * v16 * v14;
-    if (v18)
-    {
       v20 = 0;
     }
 
-    if (v19 != v20)
+    v21 = *a1 + 4 * v14 + 4 * v17 * v15;
+    if (v19)
     {
       v21 = 0;
+    }
+
+    if (v20 != v21)
+    {
+      v22 = 0;
       do
       {
-        *v19 = 0;
-        if (v21 + 1 >= v15)
+        *v20 = 0;
+        if (v22 + 1 >= v16)
         {
-          v22 = v13;
+          v23 = v14;
+        }
+
+        else
+        {
+          v23 = 0;
+        }
+
+        v20 += v23 + 1;
+        if (v22 + 1 < v16)
+        {
+          ++v22;
         }
 
         else
         {
           v22 = 0;
         }
-
-        v19 += v22 + 1;
-        if (v21 + 1 < v15)
-        {
-          ++v21;
-        }
-
-        else
-        {
-          v21 = 0;
-        }
       }
 
-      while (v19 != v20);
+      while (v20 != v21);
     }
   }
 
   return result;
 }
 
-uint64_t cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(uint64_t a1, void *a2)
+int *cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(int *a1, void *a2)
 {
-  v4 = *(a1 + 8) - 4 * *(a1 + 20);
+  v4 = *(a1 + 1) - 4 * a1[5];
   if (***(*a2 + 8) == v4 || **(***(a2[1] + 16) + 8) == v4)
   {
     v5 = *a1;
-    v6 = *(a1 + 4);
-    v21[0] = 0;
-    v21[1] = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(v21, (v6 * v5));
-    v22 = v5;
-    v23 = v6;
-    cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(v21, a2);
+    v6 = a1[1];
+    v22[0] = 0;
+    v22[1] = 0;
+    cva::MatrixData<float,0ul,0ul,false>::allocate(v22, (v6 * v5));
+    v23 = v5;
+    v24 = v6;
+    cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(v22, a2);
     v8 = *a1;
-    if (*a1 != v22 || (v9 = *(a1 + 4), v9 != v23))
+    if (*a1 != v23 || (v9 = a1[1], v9 != v24))
     {
-      cva::Logger::instance(v7);
-      cva::Logger::logInCategory();
+      v10 = cva::Logger::instance(v7);
+      cva::Logger::logInCategory(v10, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *a1, a1[1], v23, v24);
       v8 = *a1;
-      if (*a1 != v22 || (v9 = *(a1 + 4), v9 != v23))
+      if (*a1 != v23 || (v9 = a1[1], v9 != v24))
       {
         __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
       }
     }
 
-    v10 = *(a1 + 16);
-    v11 = v8 * v9 == 0;
+    v11 = a1[4];
+    v12 = v8 * v9 == 0;
     if (v8 * v9)
     {
-      v12 = *(a1 + 8);
+      v13 = *(a1 + 1);
     }
 
     else
     {
-      v12 = 0;
-    }
-
-    v13 = *(a1 + 8) + 4 * (v10 * v9);
-    if (v11)
-    {
       v13 = 0;
     }
 
-    v14 = v21[0];
-    if (v12 != v13)
+    v14 = *(a1 + 1) + 4 * (v11 * v9);
+    if (v12)
     {
-      v15 = 0;
-      v16 = v10 - v8;
-      v17 = v21[0];
+      v14 = 0;
+    }
+
+    v15 = v22[0];
+    if (v13 != v14)
+    {
+      v16 = 0;
+      v17 = v11 - v8;
+      v18 = v22[0];
       do
       {
-        v18 = *v17++;
-        *v12 = v18;
-        if (v15 + 1 >= v8)
+        v19 = *v18++;
+        *v13 = v19;
+        if (v16 + 1 >= v8)
         {
-          v19 = v16;
+          v20 = v17;
         }
 
         else
         {
-          v19 = 0;
+          v20 = 0;
         }
 
-        v12 += v19 + 1;
-        if (v15 + 1 < v8)
+        v13 += v20 + 1;
+        if (v16 + 1 < v8)
         {
-          ++v15;
+          ++v16;
         }
 
         else
         {
-          v15 = 0;
+          v16 = 0;
         }
       }
 
-      while (v12 != v13);
+      while (v13 != v14);
     }
 
-    free(v14);
+    free(v15);
   }
 
   else
@@ -9646,14 +9660,14 @@ uint64_t cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva:
   return a1;
 }
 
-void cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(cva::Logger *a1, void *a2)
+void cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(cva::Logger *a1, uint64_t a2)
 {
   v4 = *(a1 + 4);
   v5 = *a2;
   if (v4 != **a2 || (v6 = *(a1 + 5), v6 != v5[1]))
   {
-    cva::Logger::instance(a1);
-    cva::Logger::logInCategory();
+    v7 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v7, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *(a1 + 4), *(a1 + 5), **a2, *(*a2 + 4));
     v4 = *(a1 + 4);
     v5 = *a2;
     if (v4 != **a2 || (v6 = *(a1 + 5), v6 != v5[1]))
@@ -9662,171 +9676,171 @@ void cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinary
     }
   }
 
-  v7 = v6 * v4;
-  if (v7)
+  v8 = v6 * v4;
+  if (v8)
   {
-    v8 = 0;
     v9 = 0;
-    v10 = a2[1];
-    v11 = *a1;
-    v12 = 4 * v7;
+    v10 = 0;
+    v11 = *(a2 + 8);
+    v12 = *a1;
+    v13 = 4 * v8;
     do
     {
-      if (v4 <= v9 || v5[1] <= HIDWORD(v9))
+      if (v4 <= v10 || v5[1] <= HIDWORD(v10))
       {
         cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v13 = v5[5] + HIDWORD(v9);
-      v14 = **(v5 + 1);
-      v15 = *(v14 + 16);
-      if (v15 <= v13 || (v16 = v5[4] + v9, v16 >= *(v14 + 20)))
+      v14 = v5[5] + HIDWORD(v10);
+      v15 = **(v5 + 1);
+      v16 = *(v15 + 16);
+      if (v16 <= v14 || (v17 = v5[4] + v10, v17 >= *(v15 + 20)))
       {
         cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v17 = *(*v14 + 4 * (v13 + v15 * v16));
-      *v11++ = v17 * cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>::operator()(v10, v8, HIDWORD(v8));
-      v18 = (v9 + 1);
+      v18 = *(*v15 + 4 * (v14 + v16 * v17));
+      *v12++ = v18 * cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>::operator()(v11, v9, HIDWORD(v9));
+      v19 = (v10 + 1);
       v4 = *v5;
-      if (*v5 <= v18)
+      if (*v5 <= v19)
+      {
+        v10 = (v10 & 0xFFFFFFFF00000000) + 0x100000000;
+      }
+
+      else
+      {
+        v10 = v10 & 0xFFFFFFFF00000000 | v19;
+      }
+
+      v20 = (v9 + 1);
+      if (*(v11 + 4) <= v20)
       {
         v9 = (v9 & 0xFFFFFFFF00000000) + 0x100000000;
       }
 
       else
       {
-        v9 = v9 & 0xFFFFFFFF00000000 | v18;
+        v9 = v9 & 0xFFFFFFFF00000000 | v20;
       }
 
-      v19 = (v8 + 1);
-      if (*(v10 + 4) <= v19)
-      {
-        v8 = (v8 & 0xFFFFFFFF00000000) + 0x100000000;
-      }
-
-      else
-      {
-        v8 = v8 & 0xFFFFFFFF00000000 | v19;
-      }
-
-      v12 -= 4;
+      v13 -= 4;
     }
 
-    while (v12);
+    while (v13);
   }
 }
 
-void cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(uint64_t a1, void *a2)
+void cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(float **a1, uint64_t a2)
 {
   v4 = *a1;
   v5 = *a2;
-  if (*a1 != **a2 || (v6 = *(a1 + 4), v6 != v5[1]))
+  if (*a1 != **a2 || (v6 = *(a1 + 1), v6 != v5[1]))
   {
-    cva::Logger::instance(a1);
-    cva::Logger::logInCategory();
+    v7 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v7, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *a1, *(a1 + 1), **a2, *(*a2 + 4));
     v4 = *a1;
     v5 = *a2;
-    if (*a1 != **a2 || (v6 = *(a1 + 4), v6 != v5[1]))
+    if (*a1 != **a2 || (v6 = *(a1 + 1), v6 != v5[1]))
     {
       cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::Matrix<float,0u,0u,false>>();
     }
   }
 
-  v7 = v6 * v4;
-  v8 = *(a1 + 16);
+  v8 = v6 * v4;
+  v9 = *(a1 + 4);
   if (v6 * v4)
   {
-    v9 = *(a1 + 8);
+    v10 = a1[1];
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v10 = *(a1 + 8) + 4 * (v8 * v6);
-  if (v7)
+  v11 = &a1[1][v9 * v6];
+  if (v8)
   {
-    v11 = v10;
+    v12 = v11;
   }
 
   else
-  {
-    v11 = 0;
-  }
-
-  if (v9 != v11)
   {
     v12 = 0;
+  }
+
+  if (v10 != v12)
+  {
     v13 = 0;
     v14 = 0;
-    v15 = a2[1];
-    v16 = v8 - v4;
-    v17 = v4;
+    v15 = 0;
+    v16 = *(a2 + 8);
+    v17 = v9 - v4;
+    v18 = v4;
     do
     {
-      if (v17 <= v13 || v5[1] <= HIDWORD(v13))
+      if (v18 <= v14 || v5[1] <= HIDWORD(v14))
       {
         cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v18 = v5[5] + HIDWORD(v13);
-      v19 = **(v5 + 1);
-      v20 = *(v19 + 16);
-      if (v20 <= v18 || (v21 = v5[4] + v13, v21 >= *(v19 + 20)))
+      v19 = v5[5] + HIDWORD(v14);
+      v20 = **(v5 + 1);
+      v21 = *(v20 + 16);
+      if (v21 <= v19 || (v22 = v5[4] + v14, v22 >= *(v20 + 20)))
       {
         cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v22 = *(*v19 + 4 * (v18 + v20 * v21));
-      *v9 = v22 * cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>::operator()(v15, v12, HIDWORD(v12));
-      v23 = (v13 + 1);
-      v17 = *v5;
-      if (*v5 <= v23)
+      v23 = *(*v20 + 4 * (v19 + v21 * v22));
+      *v10 = v23 * cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const>,1u,0u>::operator()(v16, v13, HIDWORD(v13));
+      v24 = (v14 + 1);
+      v18 = *v5;
+      if (*v5 <= v24)
+      {
+        v14 = (v14 & 0xFFFFFFFF00000000) + 0x100000000;
+      }
+
+      else
+      {
+        v14 = v14 & 0xFFFFFFFF00000000 | v24;
+      }
+
+      v25 = (v13 + 1);
+      if (*(v16 + 4) <= v25)
       {
         v13 = (v13 & 0xFFFFFFFF00000000) + 0x100000000;
       }
 
       else
       {
-        v13 = v13 & 0xFFFFFFFF00000000 | v23;
+        v13 = v13 & 0xFFFFFFFF00000000 | v25;
       }
 
-      v24 = (v12 + 1);
-      if (*(v15 + 4) <= v24)
+      if (v15 + 1 >= v4)
       {
-        v12 = (v12 & 0xFFFFFFFF00000000) + 0x100000000;
-      }
-
-      else
-      {
-        v12 = v12 & 0xFFFFFFFF00000000 | v24;
-      }
-
-      if (v14 + 1 >= v4)
-      {
-        v25 = v16;
+        v26 = v17;
       }
 
       else
       {
-        v25 = 0;
+        v26 = 0;
       }
 
-      v9 += v25 + 1;
-      if (v14 + 1 < v4)
+      v10 += v26 + 1;
+      if (v15 + 1 < v4)
       {
-        ++v14;
+        ++v15;
       }
 
       else
       {
-        v14 = 0;
+        v15 = 0;
       }
     }
 
-    while (v9 != v11);
+    while (v10 != v12);
   }
 }
 
@@ -9867,24 +9881,24 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<
   v4 = **(a2 + 16);
   if (*v4 == *a1)
   {
-    v12 = (*(v4 + 16) * *(***(a2 + 8) + 20));
-    v17 = 0;
+    v13 = (*(v4 + 16) * *(***(a2 + 8) + 20));
     v18 = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(&v17, v12);
-    v13 = *(**(a2 + 16) + 16);
-    LODWORD(v19) = *(***(a2 + 8) + 20);
-    HIDWORD(v19) = v13;
-    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>(&v17, a2);
-    v14 = *a1;
-    v15 = *(a1 + 8);
-    v16 = v18;
-    *a1 = v17;
-    *(a1 + 8) = v16;
-    v17 = v14;
-    v18 = v15;
-    *(a1 + 16) = v19;
     v19 = 0;
-    free(v14);
+    cva::MatrixData<float,0ul,0ul,false>::allocate(&v18, v13);
+    v14 = *(**(a2 + 16) + 16);
+    LODWORD(v20) = *(***(a2 + 8) + 20);
+    HIDWORD(v20) = v14;
+    cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>>(&v18, a2);
+    v15 = *a1;
+    v16 = *(a1 + 8);
+    v17 = v19;
+    *a1 = v18;
+    *(a1 + 8) = v17;
+    v18 = v15;
+    v19 = v16;
+    *(a1 + 16) = v20;
+    v20 = 0;
+    free(v15);
   }
 
   else
@@ -9893,8 +9907,8 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<
     v6 = *(a2 + 8);
     if (v5 != *(**v6 + 20) || (v7 = *(a1 + 20), v7 != *(v4 + 16)))
     {
-      cva::Logger::instance(a1);
-      cva::Logger::logInCategory();
+      v8 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v8, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *(a1 + 16), *(a1 + 20), *(***(a2 + 8) + 20), *(**(a2 + 16) + 16));
       v5 = *(a1 + 16);
       v6 = *(a2 + 8);
       if (v5 != *(**v6 + 20) || (v4 = **(a2 + 16), v7 = *(v4 + 16), *(a1 + 20) != v7))
@@ -9903,25 +9917,25 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixMultExpr<
       }
     }
 
-    v8 = (**v6[1] * v5);
-    if (v8 && v7 * *(v4 + 20))
+    v9 = (**v6[1] * v5);
+    if (v9 && v7 * *(v4 + 20))
     {
-      v17 = 0;
       v18 = 0;
-      cva::MatrixData<float,0ul,0ul,false>::allocate(&v17, v8);
-      v9 = **v6[1];
-      LODWORD(v19) = *(**v6 + 20);
-      HIDWORD(v19) = v9;
-      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>(&v17, v6);
+      v19 = 0;
+      cva::MatrixData<float,0ul,0ul,false>::allocate(&v18, v9);
+      v10 = **v6[1];
+      LODWORD(v20) = *(**v6 + 20);
+      HIDWORD(v20) = v10;
+      cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>>>(&v18, v6);
       cva::VecLib<float>::gemm();
     }
 
-    v10 = v5 * v7;
-    if (v10)
+    v11 = v5 * v7;
+    if (v11)
     {
-      v11 = *a1;
+      v12 = *a1;
 
-      bzero(v11, 4 * v10);
+      bzero(v12, 4 * v11);
     }
   }
 }

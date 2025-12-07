@@ -8,9 +8,9 @@
 - (_TtC20ProductPageExtension29BundleSearchResultContentView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC20ProductPageExtension29BundleSearchResultContentView_lockupView;
-  *(&self->super.super.super.isa + v4) = [objc_allocWithZone(type metadata accessor for SmallSearchLockupView()) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.isa + v4) = [objc_allocWithZone(type metadata accessor for SmallSearchLockupView(0)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   v5 = OBJC_IVAR____TtC20ProductPageExtension29BundleSearchResultContentView_bundleView;
-  *(&self->super.super.super.isa + v5) = [objc_allocWithZone(type metadata accessor for BundleView()) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.isa + v5) = [objc_allocWithZone(type metadata accessor for BundleView(0)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   result = sub_10077156C();
   __break(1u);
   return result;
@@ -19,7 +19,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100714B24();
+  sub_100714B24(selfCopy);
 }
 
 @end

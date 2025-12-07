@@ -113,7 +113,7 @@
   swift_unknownObjectRetain();
   selfCopy = self;
   os_unfair_lock_lock(v4 + 12);
-  sub_188EA9B00();
+  sub_188EA9B00(&v4[4]);
   os_unfair_lock_unlock(v4 + 12);
 
   swift_unknownObjectRelease();
@@ -174,7 +174,8 @@
   y = to.y;
   x = to.x;
   selfCopy = self;
-  sub_188D76F28(dissipate, x, y);
+  v7.n128_f64[0] = x;
+  sub_188D76F28(dissipate, v7, y);
 }
 
 - (CGPoint)initialTouchLocation

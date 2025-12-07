@@ -2,12 +2,17 @@
 + (id)new;
 + (id)newWithBuffer:(id)buffer;
 + (id)newWithStore:(__CSStore *)store buffer:(id)buffer;
++ (id)separatorForTitle:(id)title separator:(char)separator;
 - (NSAttributedString)attributedString;
 - (id).cxx_construct;
 - (id)init:(__CSStore *)init outBuffer:(id)buffer;
+- (id)link:(unsigned int)link unit:(unsigned int)unit linkedAttributedText:(id)text;
+- (id)link:(unsigned int)link unit:(unsigned int)unit linkedText:(id)text;
+- (id)link:(unsigned int)link unitID:(unsigned int)d linkedAttributedText:(id)text;
 - (id)linkURL:(id)l;
 - (id)linkURL:(id)l linkedAttributedText:(id)text;
 - (id)linkURL:(id)l linkedText:(id)text;
+- (id)writeLink:(unsigned int)link unitID:(unsigned int)d linkedText:(id)text;
 - (void)beginBitfieldFlags:(id)flags;
 - (void)beginFlags:(id)flags flags:(unint64_t)a4;
 - (void)endFlags;
@@ -58,6 +63,20 @@
   v3 = CSStore2::AttributedStringWriter::link(&self->_writer, l, 0);
 
   return v3;
+}
+
+- (id)link:(unsigned int)link unit:(unsigned int)unit linkedText:(id)text
+{
+  v5 = CSStore2::AttributedStringWriter::link(&self->_writer, *&link, *&unit, text);
+
+  return v5;
+}
+
+- (id)link:(unsigned int)link unit:(unsigned int)unit linkedAttributedText:(id)text
+{
+  v5 = CSStore2::AttributedStringWriter::link(&self->_writer, *&link, *&unit, text);
+
+  return v5;
 }
 
 - (void)write:(id)write interval:(double)interval
@@ -194,6 +213,20 @@
   return v4;
 }
 
+- (id)writeLink:(unsigned int)link unitID:(unsigned int)d linkedText:(id)text
+{
+  v5 = CSStore2::AttributedStringWriter::link(&self->_writer, *&link, *&d, text);
+
+  return v5;
+}
+
+- (id)link:(unsigned int)link unitID:(unsigned int)d linkedAttributedText:(id)text
+{
+  v5 = CSStore2::AttributedStringWriter::link(&self->_writer, *&link, *&d, text);
+
+  return v5;
+}
+
 - (void)missingFlag:(unint64_t)flag name:(id)name color:(unsigned int)color
 {
   colorCopy = color;
@@ -224,13 +257,13 @@
 
 - (void)endFlags
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   impl = self->_writer.var0.__val_._impl;
   if ((*(impl + 152) & 1) == 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void CSStore2::AttributedStringWriter::endFlags()"];
-    [currentHandler handleFailureInFunction:v31 file:@"CSAttributedStringWriter.mm" lineNumber:925 description:@"Called endFlags() without calling beginFlags() first."];
+    v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void CSStore2::AttributedStringWriter::endFlags()"];
+    [currentHandler handleFailureInFunction:v30 file:@"CSAttributedStringWriter.mm" lineNumber:925 description:@"Called endFlags() without calling beginFlags() first."];
   }
 
   v3 = objc_autoreleasePoolPush();
@@ -238,12 +271,12 @@
   if (*(impl + 7))
   {
     v3 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:*(impl + 7)];
-    v34 = v3;
+    v33 = v3;
   }
 
   else
   {
-    v34 = 0;
+    v33 = 0;
   }
 
   v4 = *(impl + 12);
@@ -275,25 +308,25 @@
     if (v3)
     {
       v6 = objc_alloc_init(MEMORY[0x1E696AD40]);
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
       v7 = v5;
-      v8 = [v7 countByEnumeratingWithState:&v42 objects:buf count:16];
+      v8 = [v7 countByEnumeratingWithState:&v41 objects:buf count:16];
       if (v8)
       {
-        v9 = *v43;
+        v9 = *v42;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v43 != v9)
+            if (*v42 != v9)
             {
               objc_enumerationMutation(v7);
             }
 
-            v11 = *(*(&v42 + 1) + 8 * i);
+            v11 = *(*(&v41 + 1) + 8 * i);
             if ([(NSAttributedString *)v6 length])
             {
               v12 = CSStore2::getAttributedStringWithCharacter(0x20);
@@ -306,7 +339,7 @@
             [(NSAttributedString *)v6 appendAttributedString:v11];
           }
 
-          v8 = [v7 countByEnumeratingWithState:&v42 objects:buf count:16];
+          v8 = [v7 countByEnumeratingWithState:&v41 objects:buf count:16];
         }
 
         while (v8);
@@ -342,11 +375,11 @@ LABEL_26:
     context = CSStore2::getLog(v3);
     if (os_log_type_enabled(context, OS_LOG_TYPE_DEBUG))
     {
-      v29 = *(impl + 8);
+      v28 = *(impl + 8);
       *buf = 134218242;
-      v47 = v29;
-      v48 = 2114;
-      v49 = v34;
+      v46 = v28;
+      v47 = 2114;
+      v48 = v33;
       _os_log_debug_impl(&dword_1B9D5B000, context, OS_LOG_TYPE_DEBUG, "Eliding empty flags value (%016llx) for title %{public}@", buf, 0x16u);
     }
 
@@ -363,26 +396,26 @@ LABEL_35:
   {
     if (*(impl + 153) == 1)
     {
-      CSStore2::AttributedStringWriter::attributedString(&self->_writer, v34, v6);
+      CSStore2::AttributedStringWriter::attributedString(&self->_writer, v33, v6);
     }
 
     else
     {
       v18 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(impl + 8)];
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = ___ZN8CSStore222AttributedStringWriter8endFlagsEv_block_invoke;
-      v38[3] = &unk_1E7ED33F8;
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = ___ZN8CSStore222AttributedStringWriter8endFlagsEv_block_invoke;
+      v37[3] = &unk_1E7ED33F8;
       p_writer = &self->_writer;
-      v39 = v34;
-      v40 = v6;
-      CSStore2::AttributedStringWriter::withAppliedAttribute(&self->_writer, @"_CSVNum", v18, v38);
+      v38 = v33;
+      v39 = v6;
+      CSStore2::AttributedStringWriter::withAppliedAttribute(&self->_writer, @"_CSVNum", v18, v37);
     }
   }
 
-  memset(v35, 0, sizeof(v35));
-  v36 = 1065353216;
-  v37 = 0;
+  memset(v34, 0, sizeof(v34));
+  v35 = 1065353216;
+  v36 = 0;
   v19 = *(impl + 7);
   *(impl + 7) = 0;
 
@@ -442,7 +475,7 @@ LABEL_35:
     *(impl + 17) = 0;
   }
 
-  *&v35[0] = 0;
+  *&v34[0] = 0;
   v27 = *(impl + 14);
   *(impl + 14) = 0;
   if (v27)
@@ -452,14 +485,12 @@ LABEL_35:
 
   *(impl + 15) = 0;
   *(impl + 16) = 0;
-  *(&v35[0] + 1) = 0;
+  *(&v34[0] + 1) = 0;
   *(impl + 17) = 0;
   *(impl + 36) = 1065353216;
-  *(impl + 76) = v37;
-  std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::~__hash_table(v35);
+  *(impl + 76) = v36;
+  std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::~__hash_table(v34);
   std::__hash_table<std::__hash_value_type<unsigned long,NSString * {__strong}>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,NSString * {__strong}>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,NSString * {__strong}>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,NSString * {__strong}>>>::__deallocate_node(0);
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginFlags:(id)flags flags:(unint64_t)a4
@@ -572,6 +603,13 @@ LABEL_35:
   }
 
   return v9;
+}
+
++ (id)separatorForTitle:(id)title separator:(char)separator
+{
+  v4 = CSStore2::AttributedStringWriter::Separator(separator, title, title);
+
+  return v4;
 }
 
 + (id)newWithBuffer:(id)buffer

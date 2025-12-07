@@ -6,7 +6,7 @@
 
 - (void)_intents_startExtensionConnectionWithExtensionInputItems:()IntentsCore intent:queue:completion:
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v10 = a4;
   v11 = a5;
   v12 = a6;
@@ -14,7 +14,7 @@
   _plugIn = [self _plugIn];
   userElection = [_plugIn userElection];
   v15 = MEMORY[0x277CD38C8];
-  v44 = v11;
+  v43 = v11;
   if ((userElection & 0x100) != 0)
   {
     v19 = *MEMORY[0x277CD38C8];
@@ -22,8 +22,8 @@
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v55 = "[NSExtension(IntentsCore) _intents_startExtensionConnectionWithExtensionInputItems:intent:queue:completion:]";
-      v56 = 2112;
+      v54 = "[NSExtension(IntentsCore) _intents_startExtensionConnectionWithExtensionInputItems:intent:queue:completion:]";
+      v55 = 2112;
       selfCopy = self;
       _os_log_impl(&dword_255503000, v19, OS_LOG_TYPE_INFO, "%s Extension loading timeout disabled for %@ for debugging.", buf, 0x16u);
     }
@@ -34,14 +34,14 @@
   else
   {
     v16 = objc_alloc(MEMORY[0x277CD4300]);
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __109__NSExtension_IntentsCore___intents_startExtensionConnectionWithExtensionInputItems_intent_queue_completion___block_invoke;
-    v49[3] = &unk_2797E8068;
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __109__NSExtension_IntentsCore___intents_startExtensionConnectionWithExtensionInputItems_intent_queue_completion___block_invoke;
+    v48[3] = &unk_2797E8068;
     v17 = v10;
-    v50 = v10;
-    v51 = v12;
-    v18 = [v16 initWithTimeoutInterval:v11 onQueue:v49 timeoutHandler:10.0];
+    v49 = v10;
+    v50 = v12;
+    v18 = [v16 initWithTimeoutInterval:v11 onQueue:v48 timeoutHandler:10.0];
   }
 
   [v18 start];
@@ -52,21 +52,21 @@
   {
     identifier = [self identifier];
     *buf = 138412290;
-    v55 = identifier;
+    v54 = identifier;
     _os_signpost_emit_with_name_impl(&dword_255503000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v20, "INSignpostExtensionLaunch", "%@", buf, 0xCu);
   }
 
-  v48 = 0;
-  v24 = [self beginExtensionRequestWithOptions:1 inputItems:v13 error:&v48];
+  v47 = 0;
+  v24 = [self beginExtensionRequestWithOptions:1 inputItems:v13 error:&v47];
 
-  v25 = v48;
+  v25 = v47;
   v26 = *v15;
   v27 = v26;
   if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
   {
     identifier2 = [self identifier];
     *buf = 138412290;
-    v55 = identifier2;
+    v54 = identifier2;
     _os_signpost_emit_with_name_impl(&dword_255503000, v27, OS_SIGNPOST_INTERVAL_END, v20, "INSignpostExtensionLaunch", "%@", buf, 0xCu);
   }
 
@@ -83,8 +83,8 @@
     if (os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v55 = "[NSExtension(IntentsCore) _intents_startExtensionConnectionWithExtensionInputItems:intent:queue:completion:]";
-      v56 = 2114;
+      v54 = "[NSExtension(IntentsCore) _intents_startExtensionConnectionWithExtensionInputItems:intent:queue:completion:]";
+      v55 = 2114;
       selfCopy = v24;
       _os_log_error_impl(&dword_255503000, v34, OS_LOG_TYPE_ERROR, "%s UNEXPECTED: requestIdentifier should be of class NSUUID: %{public}@", buf, 0x16u);
     }
@@ -104,17 +104,17 @@ LABEL_21:
   if (os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v55 = "[NSExtension(IntentsCore) _intents_startExtensionConnectionWithExtensionInputItems:intent:queue:completion:]";
-    v56 = 2114;
+    v54 = "[NSExtension(IntentsCore) _intents_startExtensionConnectionWithExtensionInputItems:intent:queue:completion:]";
+    v55 = 2114;
     selfCopy = v25;
     _os_log_error_impl(&dword_255503000, v29, OS_LOG_TYPE_ERROR, "%s Error with extension request %{public}@", buf, 0x16u);
   }
 
   v30 = MEMORY[0x277CCA9B8];
   v31 = *MEMORY[0x277CD3848];
-  v52 = *MEMORY[0x277CCA7E8];
-  v53 = v25;
-  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+  v51 = *MEMORY[0x277CCA7E8];
+  v52 = v25;
+  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
   v33 = [v30 errorWithDomain:v31 code:5001 userInfo:v32];
 
   if (v33)
@@ -127,8 +127,8 @@ LABEL_22:
   if (os_log_type_enabled(*v15, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v55 = "[NSExtension(IntentsCore) _intents_startExtensionConnectionWithExtensionInputItems:intent:queue:completion:]";
-    v56 = 2112;
+    v54 = "[NSExtension(IntentsCore) _intents_startExtensionConnectionWithExtensionInputItems:intent:queue:completion:]";
+    v55 = 2112;
     selfCopy = v24;
     _os_log_impl(&dword_255503000, v35, OS_LOG_TYPE_INFO, "%s Extension successfully brought up with request identifier %@", buf, 0x16u);
   }
@@ -141,13 +141,13 @@ LABEL_22:
     remoteObjectProxy = [_auxiliaryConnection remoteObjectProxy];
 
     identifier3 = [v17 identifier];
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __109__NSExtension_IntentsCore___intents_startExtensionConnectionWithExtensionInputItems_intent_queue_completion___block_invoke_4;
-    v45[3] = &unk_2797E8068;
-    v47 = v12;
-    v46 = v24;
-    [remoteObjectProxy beginTransactionWithIntentIdentifier:identifier3 completion:v45];
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __109__NSExtension_IntentsCore___intents_startExtensionConnectionWithExtensionInputItems_intent_queue_completion___block_invoke_4;
+    v44[3] = &unk_2797E8068;
+    v46 = v12;
+    v45 = v24;
+    [remoteObjectProxy beginTransactionWithIntentIdentifier:identifier3 completion:v44];
 
     v33 = 0;
   }
@@ -158,8 +158,8 @@ LABEL_22:
     if (os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v55 = "[NSExtension(IntentsCore) _intents_startExtensionConnectionWithExtensionInputItems:intent:queue:completion:]";
-      v56 = 2114;
+      v54 = "[NSExtension(IntentsCore) _intents_startExtensionConnectionWithExtensionInputItems:intent:queue:completion:]";
+      v55 = 2114;
       selfCopy = v24;
       _os_log_error_impl(&dword_255503000, v41, OS_LOG_TYPE_ERROR, "%s UNEXPECTED: extension context host is nil: %{public}@", buf, 0x16u);
     }
@@ -169,7 +169,6 @@ LABEL_22:
   }
 
 LABEL_30:
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 @end

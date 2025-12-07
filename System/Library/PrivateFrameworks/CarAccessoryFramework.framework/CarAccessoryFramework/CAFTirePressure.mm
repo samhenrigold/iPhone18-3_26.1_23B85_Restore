@@ -17,6 +17,7 @@
 - (id)name;
 - (unsigned)pressureState;
 - (unsigned)sensorState;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -251,6 +252,104 @@
   stringValue = [vehicleLayoutKeyCharacteristic stringValue];
 
   return stringValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x000000003000001A"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    sensorStateCharacteristic = [(CAFTirePressure *)self sensorStateCharacteristic];
+    uniqueIdentifier2 = [sensorStateCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers tirePressureService:self didUpdateSensorState:{-[CAFTirePressure sensorState](self, "sensorState")}];
+LABEL_17:
+
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x000000003000001B"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    pressureCharacteristic = [(CAFTirePressure *)self pressureCharacteristic];
+    uniqueIdentifier4 = [pressureCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      pressure = [(CAFTirePressure *)self pressure];
+      [observers tirePressureService:self didUpdatePressure:pressure];
+LABEL_16:
+
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x000000003000001C"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    pressureStateCharacteristic = [(CAFTirePressure *)self pressureStateCharacteristic];
+    uniqueIdentifier6 = [pressureStateCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      [observers tirePressureService:self didUpdatePressureState:{-[CAFTirePressure pressureState](self, "pressureState")}];
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000065"])
+  {
+    goto LABEL_17;
+  }
+
+  uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+  vehicleLayoutKeyCharacteristic = [(CAFTirePressure *)self vehicleLayoutKeyCharacteristic];
+  uniqueIdentifier8 = [vehicleLayoutKeyCharacteristic uniqueIdentifier];
+  v27 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+  if (v27)
+  {
+    observers2 = [(CAFService *)self observers];
+    vehicleLayoutKey = [(CAFTirePressure *)self vehicleLayoutKey];
+    [observers2 tirePressureService:self didUpdateVehicleLayoutKey:vehicleLayoutKey];
+
+    observers = [(CAFService *)self observers];
+    pressure = [(CAFTirePressure *)self name];
+    [observers tirePressureService:self didUpdateName:pressure];
+    goto LABEL_16;
+  }
+
+LABEL_18:
+  v30.receiver = self;
+  v30.super_class = CAFTirePressure;
+  [(CAFService *)&v30 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForSensorState

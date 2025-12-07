@@ -1,6 +1,8 @@
 @interface WLRejectViewController
 - (WLRejectViewController)initWithWelcomeController:(id)controller;
 - (void)_retry;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WLRejectViewController
@@ -37,6 +39,22 @@
   }
 
   return v11;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WLRejectViewController;
+  [(WLRejectViewController *)&v4 viewWillAppear:appear];
+  [(OBTrayButton *)self->_retryButton hidesBusyIndicator];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = WLRejectViewController;
+  [(OBBaseWelcomeController *)&v4 viewDidDisappear:disappear];
+  [(OBTrayButton *)self->_retryButton hidesBusyIndicator];
 }
 
 - (void)_retry

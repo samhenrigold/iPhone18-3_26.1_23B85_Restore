@@ -196,37 +196,37 @@ LABEL_31:
 
 - (id)serializeWithError:(id *)error
 {
-  v61 = *MEMORY[0x277D85DE8];
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
+  v60 = *MEMORY[0x277D85DE8];
   v58 = 0u;
-  v55 = 0u;
+  v59 = 0u;
   v56 = 0u;
-  v53 = 0u;
+  v57 = 0u;
   v54 = 0u;
-  v51 = 0u;
+  v55 = 0u;
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v44 = 0u;
+  v47 = 0u;
   v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   TLV8BufferInit();
   instanceID = [(HAP2TLVParamServiceSignature *)self instanceID];
 
   if (instanceID)
   {
     instanceID2 = [(HAP2TLVParamServiceSignature *)self instanceID];
-    v39 = 0;
-    v7 = [instanceID2 serializeWithError:&v39];
-    v8 = v39;
+    v38 = 0;
+    v7 = [instanceID2 serializeWithError:&v38];
+    v8 = v38;
 
     if (v8)
     {
@@ -262,9 +262,9 @@ LABEL_35:
   if (serviceType)
   {
     serviceType2 = [(HAP2TLVParamServiceSignature *)self serviceType];
-    v38 = 0;
-    v7 = [serviceType2 serializeWithError:&v38];
-    v8 = v38;
+    v37 = 0;
+    v7 = [serviceType2 serializeWithError:&v37];
+    v8 = v37;
 
     if (!v8)
     {
@@ -297,9 +297,9 @@ LABEL_18:
   if (properties)
   {
     properties2 = [(HAP2TLVParamServiceSignature *)self properties];
-    v37 = 0;
-    v7 = [properties2 serializeWithError:&v37];
-    v8 = v37;
+    v36 = 0;
+    v7 = [properties2 serializeWithError:&v36];
+    v8 = v36;
 
     if (v8)
     {
@@ -320,9 +320,9 @@ LABEL_18:
   if (linkedServices)
   {
     linkedServices2 = [(HAP2TLVParamServiceSignature *)self linkedServices];
-    v36 = 0;
-    v7 = [linkedServices2 serializeWithError:&v36];
-    v8 = v36;
+    v35 = 0;
+    v7 = [linkedServices2 serializeWithError:&v35];
+    v8 = v35;
 
     if (!v8)
     {
@@ -365,9 +365,9 @@ LABEL_31:
   if (characteristicList)
   {
     characteristicList2 = [(HAP2TLVParamServiceSignature *)self characteristicList];
-    v35 = 0;
-    v7 = [characteristicList2 serializeWithError:&v35];
-    v8 = v35;
+    v34 = 0;
+    v7 = [characteristicList2 serializeWithError:&v34];
+    v8 = v34;
 
     if (v8)
     {
@@ -375,44 +375,44 @@ LABEL_31:
     }
 
     bytes3 = [v7 bytes];
-    v30 = bytes3 + [v7 length];
+    v29 = bytes3 + [v7 length];
     do
     {
-      if ((v30 - bytes3) >= 255)
+      if ((v29 - bytes3) >= 255)
       {
-        v31 = 255;
+        v30 = 255;
       }
 
       else
       {
-        v31 = v30 - bytes3;
+        v30 = v29 - bytes3;
       }
 
-      v32 = TLV8BufferAppend();
-      if (v32)
+      v31 = TLV8BufferAppend();
+      if (v31)
       {
-        v33 = 0;
-      }
-
-      else
-      {
-        v33 = v31;
-      }
-
-      bytes3 += v33;
-      if (v32)
-      {
-        v34 = 1;
+        v32 = 0;
       }
 
       else
       {
-        v34 = bytes3 >= v30;
+        v32 = v30;
+      }
+
+      bytes3 += v32;
+      if (v31)
+      {
+        v33 = 1;
+      }
+
+      else
+      {
+        v33 = bytes3 >= v29;
       }
     }
 
-    while (!v34);
-    v10 = v32;
+    while (!v33);
+    v10 = v31;
 
     if (v10)
     {
@@ -420,12 +420,10 @@ LABEL_31:
     }
   }
 
-  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v40 length:?];
+  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v39 length:?];
   v8 = 0;
 LABEL_36:
   TLV8BufferFree();
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

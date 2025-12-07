@@ -77,51 +77,52 @@ LABEL_6:
 {
   v6 = a3;
   v7 = a4;
-  if (_ASCloudKitSchemaVersionForRecord(v6) == 2)
+  v8 = _ASCloudKitSchemaVersionForRecord(v6);
+  if (v8 == 2)
   {
     encryptedValues = [v6 encryptedValues];
-    v9 = [encryptedValues objectForKeyedSubscript:@"EncryptedData"];
+    v11 = [encryptedValues objectForKeyedSubscript:@"EncryptedData"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v10 = v9;
+      v12 = v11;
     }
 
     else
     {
-      v10 = 0;
+      v12 = 0;
     }
 
-    if (v10)
+    if (v12)
     {
-      v12 = [[ASCodableCloudKitAchievement alloc] initWithData:v10];
-      v11 = [self fitnessFriendAchievementWithCodableAchievement:v12 friendUUID:v7];
+      v16 = [[ASCodableCloudKitAchievement alloc] initWithData:v12];
+      v13 = [self fitnessFriendAchievementWithCodableAchievement:v16 friendUUID:v7];
     }
 
     else
     {
-      ASLoggingInitialize();
+      ASLoggingInitialize(v14, v15);
       if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
       {
         +[_HKFitnessFriendAchievement(CloudKitCodingSupport) fitnessFriendAchievementWithRecord:friendUUID:];
       }
 
-      v11 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    ASLoggingInitialize();
+    ASLoggingInitialize(v8, v9);
     if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
     {
       +[_HKFitnessFriendAchievement(CloudKitCodingSupport) fitnessFriendAchievementWithRecord:friendUUID:];
     }
 
-    v11 = 0;
+    v13 = 0;
   }
 
-  return v11;
+  return v13;
 }
 
 + (id)_fitnessFriendAchievementWithCodableAchievement:()CloudKitCodingSupport friendUUID:
@@ -134,29 +135,30 @@ LABEL_6:
   if ([v5 hasTemplateUniqueName])
   {
     templateUniqueName = [v5 templateUniqueName];
+    v11 = templateUniqueName;
     if (templateUniqueName)
     {
 LABEL_3:
       hasDoubleValue = [v5 hasDoubleValue];
-      v11 = MEMORY[0x277CCABB0];
+      v13 = MEMORY[0x277CCABB0];
       if (hasDoubleValue)
       {
         [v5 doubleValue];
-        [v11 numberWithDouble:?];
+        [v13 numberWithDouble:?];
       }
 
       else
       {
         [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v5, "intValue")}];
       }
-      v15 = ;
-      v14 = [MEMORY[0x277CCDDC0] achievementWithTemplateUniqueName:templateUniqueName completedDate:v8 value:v15 friendUUID:v6];
-      v16 = MEMORY[0x277CCAD78];
+      v17 = ;
+      v16 = [MEMORY[0x277CCDDC0] achievementWithTemplateUniqueName:v11 completedDate:v8 value:v17 friendUUID:v6];
+      v18 = MEMORY[0x277CCAD78];
       sample = [v5 sample];
       uuid = [sample uuid];
-      v19 = [v16 hk_UUIDWithData:uuid];
+      v21 = [v18 hk_UUIDWithData:uuid];
 
-      [v14 _setUUID:v19];
+      [v16 _setUUID:v21];
       goto LABEL_11;
     }
   }
@@ -165,34 +167,32 @@ LABEL_3:
   {
     definitionIdentifier = [v5 definitionIdentifier];
     [v5 workoutActivityType];
-    templateUniqueName = ACHTemplateUniqueNameForLegacyAchievementInfo();
+    v11 = ACHTemplateUniqueNameForLegacyAchievementInfo();
 
-    if (templateUniqueName)
+    if (v11)
     {
       goto LABEL_3;
     }
   }
 
-  ASLoggingInitialize();
-  v13 = ASLogCloudKit;
+  ASLoggingInitialize(templateUniqueName, v10);
+  v15 = ASLogCloudKit;
   if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
   {
-    [_HKFitnessFriendAchievement(CloudKitCodingSupport) _fitnessFriendAchievementWithCodableAchievement:v13 friendUUID:?];
+    [_HKFitnessFriendAchievement(CloudKitCodingSupport) _fitnessFriendAchievementWithCodableAchievement:v15 friendUUID:?];
   }
 
-  v14 = 0;
+  v16 = 0;
 LABEL_11:
 
-  return v14;
+  return v16;
 }
 
 + (void)fitnessFriendAchievementWithRecord:()CloudKitCodingSupport friendUUID:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)fitnessFriendAchievementWithRecord:()CloudKitCodingSupport friendUUID:.cold.2()
@@ -204,13 +204,10 @@ LABEL_11:
 
 + (void)_fitnessFriendAchievementWithCodableAchievement:()CloudKitCodingSupport friendUUID:.cold.1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6() definitionIdentifier];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_23E4FA000, v4, v5, "Codable achievement had no templateUniqueName and an unknown or missing definitionIdentifier: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23E4FA000, v4, v5, "Codable achievement had no templateUniqueName and an unknown or missing definitionIdentifier: %{public}@", v6, v7, v8, v9);
 }
 
 @end

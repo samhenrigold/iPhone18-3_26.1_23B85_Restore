@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)pushPriorityAsString:(int)string;
 - (int)StringAsPushPriority:(id)priority;
 - (int)pushPriority;
 - (unint64_t)hash;
@@ -59,6 +60,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)pushPriorityAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27843E060[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPushPriority:(id)priority
@@ -255,32 +271,30 @@ LABEL_13:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v6 = toCopy;
   if (*&self->_has)
   {
-    publishInitiateTimestampMillis = self->_publishInitiateTimestampMillis;
     PBDataWriterWriteUint64Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_channelIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_publishPayload)
   {
     PBDataWriterWriteDataField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    publishPayloadExpiryTtlMillis = self->_publishPayloadExpiryTtlMillis;
     PBDataWriterWriteUint64Field();
-    toCopy = v12;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -299,9 +313,8 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  pushPriority = self->_pushPriority;
   PBDataWriterWriteInt32Field();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -315,9 +328,8 @@ LABEL_10:
   }
 
 LABEL_20:
-  pendingPublishHint = self->_pendingPublishHint;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -331,22 +343,20 @@ LABEL_11:
   }
 
 LABEL_21:
-  scheduledPublishHint = self->_scheduledPublishHint;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_12:
-    retryCount = self->_retryCount;
     PBDataWriterWriteUint32Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
 LABEL_13:
   if (self->_adopter)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 }
 
@@ -538,7 +548,6 @@ LABEL_9:
     goto LABEL_43;
   }
 
-  v5 = *(equalCopy + 60);
   if (*&self->_has)
   {
     if ((*(equalCopy + 60) & 1) == 0 || self->_publishInitiateTimestampMillis != *(equalCopy + 1))
@@ -567,7 +576,6 @@ LABEL_9:
     }
   }
 
-  v8 = *(equalCopy + 60);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 60) & 2) == 0 || self->_publishPayloadExpiryTtlMillis != *(equalCopy + 2))
@@ -601,7 +609,6 @@ LABEL_9:
       goto LABEL_43;
     }
 
-    v9 = *(equalCopy + 56);
     if (self->_pendingPublishHint)
     {
       if ((*(equalCopy + 56) & 1) == 0)
@@ -629,7 +636,7 @@ LABEL_9:
     }
 
 LABEL_43:
-    v12 = 0;
+    v8 = 0;
     goto LABEL_44;
   }
 
@@ -638,7 +645,6 @@ LABEL_43:
     goto LABEL_43;
   }
 
-  v10 = *(equalCopy + 57);
   if (self->_scheduledPublishHint)
   {
     if ((*(equalCopy + 57) & 1) == 0)
@@ -669,17 +675,17 @@ LABEL_25:
   adopter = self->_adopter;
   if (adopter | *(equalCopy + 3))
   {
-    v12 = [(NSString *)adopter isEqual:?];
+    v8 = [(NSString *)adopter isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v8 = 1;
   }
 
 LABEL_44:
 
-  return v12;
+  return v8;
 }
 
 - (unint64_t)hash

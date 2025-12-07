@@ -539,7 +539,7 @@ void __44__PFParallaxLayoutHelper_scoreIntermediate___block_invoke(uint64_t a1, 
         v51 = 0u;
         v52 = 0u;
         [(PFParallaxLayoutHelper *)self spatialPadding];
-        [PFParallaxLayoutUtilities computeSpatialFrameForVisibleRect:v36 adaptiveVisibleRect:v35 spatialPaddingPercentage:v12 effectiveImageRect:v14, v16, v18, v20, v22, v27, 0, 0, v24, v26];
+        objc_msgSend_computeSpatialFrameForVisibleRect_adaptiveVisibleRect_spatialPaddingPercentage_effectiveImageRect_(PFParallaxLayoutUtilities, v36, v35, v12, v14, v16, v18, v20, v22, v27, 0, 0, v24, v26);
         [v7 visibleRect];
         v29 = v28 - *(&v51 + 1);
         [v7 visibleRect];
@@ -2294,42 +2294,42 @@ void __68__PFParallaxLayoutHelper_intermediateWithZoomStrategy_intermediate___bl
 
 - (double)initWithPosterClassification:(double)classification initialRect:(double)rect imageSize:(double)size effectiveAcceptableRect:(double)acceptableRect effectivePreferredRect:(double)preferredRect validBoundsNormalized:(uint64_t)normalized headroomFeasible:(uint64_t)feasible hasTopEdgeContact:(char)self0 computeSpatial:(char)self1 spatialPadding:(char)self2 layoutType:(uint64_t)self3 allowedLayoutStrategies:(uint64_t)self4 layoutConfiguration:(double)self5
 {
-  v39 = a30;
-  v47.receiver = self;
-  v47.super_class = PFParallaxLayoutHelper;
-  v40 = objc_msgSendSuper2(&v47, sel_init);
-  *(v40 + 2) = feasible;
-  v40[10] = a2;
-  v40[11] = classification;
-  v40[12] = rect;
-  v40[13] = size;
-  v40[8] = acceptableRect;
-  v40[9] = preferredRect;
-  v41 = *MEMORY[0x1E695EFF8];
-  v42 = *(MEMORY[0x1E695EFF8] + 8);
-  v40[14] = *MEMORY[0x1E695EFF8] + a25 * acceptableRect;
-  v40[15] = v42 + a26 * preferredRect;
-  v40[16] = acceptableRect * a27;
-  v40[17] = preferredRect * a28;
-  v40[18] = v41 + a17 * acceptableRect;
-  v40[19] = v42 + a18 * preferredRect;
-  v40[20] = acceptableRect * a19;
-  v40[21] = preferredRect * a20;
-  v40[22] = v41 + a21 * acceptableRect;
-  v40[23] = v42 + a22 * preferredRect;
-  v40[24] = acceptableRect * a23;
-  v40[25] = preferredRect * a24;
-  v43 = *(v40 + 7);
-  *(v40 + 7) = v39;
+  v41 = a30;
+  v49.receiver = self;
+  v49.super_class = PFParallaxLayoutHelper;
+  v42 = objc_msgSendSuper2(&v49, sel_init);
+  *(v42 + 2) = feasible;
+  v42[10] = a2;
+  v42[11] = classification;
+  v42[12] = rect;
+  v42[13] = size;
+  v42[8] = acceptableRect;
+  v42[9] = preferredRect;
+  v43 = *MEMORY[0x1E695EFF8];
+  v44 = *(MEMORY[0x1E695EFF8] + 8);
+  v42[14] = *MEMORY[0x1E695EFF8] + a25 * acceptableRect;
+  v42[15] = v44 + a26 * preferredRect;
+  v42[16] = acceptableRect * a27;
+  v42[17] = preferredRect * a28;
+  v42[18] = v43 + a17 * acceptableRect;
+  v42[19] = v44 + a18 * preferredRect;
+  v42[20] = acceptableRect * a19;
+  v42[21] = preferredRect * a20;
+  v42[22] = v43 + a21 * acceptableRect;
+  v42[23] = v44 + a22 * preferredRect;
+  v42[24] = acceptableRect * a23;
+  v42[25] = preferredRect * a24;
+  v45 = *(v42 + 7);
+  *(v42 + 7) = v41;
 
-  *(v40 + 3) = type;
-  *(v40 + 8) = contact;
-  *(v40 + 9) = spatial;
-  *(v40 + 4) = a29;
-  *(v40 + 10) = padding;
-  v40[5] = 1.0;
-  *(v40 + 6) = strategies;
-  return v40;
+  *(v42 + 3) = type;
+  *(v42 + 8) = contact;
+  *(v42 + 9) = spatial;
+  *(v42 + 4) = a29;
+  *(v42 + 10) = padding;
+  v42[5] = 1.0;
+  *(v42 + 6) = strategies;
+  return v42;
 }
 
 + (CGRect)inflatePersonFaceRect:(CGRect)result

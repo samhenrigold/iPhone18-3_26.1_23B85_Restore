@@ -1,15 +1,15 @@
 @interface BWStreamStartStopState
-- (BOOL)dependentWillStart;
-- (BOOL)streamWillStart;
 - (BOOL)streamWillStop;
 - (float)initWithStream:(void *)stream masterState:(float)state timeoutInSeconds:;
+- (uint64_t)dependentWillStart;
+- (uint64_t)streamWillStart;
 - (void)dealloc;
 - (void)streamDidStop;
 @end
 
 @implementation BWStreamStartStopState
 
-- (BOOL)streamWillStart
+- (uint64_t)streamWillStart
 {
   if (!result)
   {
@@ -83,7 +83,7 @@ LABEL_6:
   }
 }
 
-- (BOOL)dependentWillStart
+- (uint64_t)dependentWillStart
 {
   if (result)
   {
@@ -131,14 +131,14 @@ LABEL_6:
   v7 = objc_msgSendSuper2(&v10, sel_init);
   if (v7)
   {
-    *(v7 + 2) = a2;
-    *(v7 + 6) = stream;
-    v7[16] = state;
+    v7[2] = a2;
+    v7[6] = stream;
+    *(v7 + 16) = state;
     v8 = dispatch_group_create();
-    *(v7 + 3) = v8;
+    v7[3] = v8;
     dispatch_group_enter(v8);
     *(v7 + 32) = 1;
-    *(v7 + 5) = dispatch_group_create();
+    v7[5] = dispatch_group_create();
   }
 
   return v7;

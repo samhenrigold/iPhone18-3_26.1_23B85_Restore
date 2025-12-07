@@ -80,15 +80,15 @@ void __81__PLSearchIndexingLazyFetchHelper_enumerateSearchEntityRelationsForPers
   localeIdentifier = [entity localeIdentifier];
   if (localeIdentifier)
   {
-    v7 = [identifierCopy isEqualToString:localeIdentifier];
+    isEqualToString = objc_msgSend_isEqualToString_(identifierCopy);
   }
 
   else
   {
-    v7 = 1;
+    isEqualToString = 1;
   }
 
-  return v7;
+  return isEqualToString;
 }
 
 - (void)enumerateMomentSearchEntitiesWithIndexLocaleIdentifier:(id)identifier withBlock:(id)block

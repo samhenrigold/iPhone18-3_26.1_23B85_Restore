@@ -17,33 +17,33 @@
 
 + (void)processMessages:(id)messages withDatabase:(CalDatabase *)database calStore:(void *)store accountInfo:(id)info handledEventCallback:(id)callback cancellationToken:(id)token options:(unint64_t)options
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   callbackCopy = callback;
   tokenCopy = token;
   allObjects = [messages allObjects];
   v16 = [allObjects sortedArrayUsingSelector:sel_compare_];
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v17 = v16;
-  v18 = [v17 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v29;
+    v20 = *v28;
 LABEL_3:
     v21 = 0;
     while (1)
     {
-      if (*v29 != v20)
+      if (*v28 != v20)
       {
         objc_enumerationMutation(v17);
       }
 
-      v22 = *(*(&v28 + 1) + 8 * v21);
+      v22 = *(*(&v27 + 1) + 8 * v21);
       if ([tokenCopy isCancelled])
       {
         break;
@@ -58,7 +58,7 @@ LABEL_3:
 
       if (v19 == ++v21)
       {
-        v19 = [v17 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
         if (v19)
         {
           goto LABEL_3;
@@ -68,8 +68,6 @@ LABEL_3:
       }
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)diffsAreImportant:(id)important
@@ -112,7 +110,7 @@ LABEL_3:
 
 + (id)getOccurrenceChange:(id)change forEvent:(id)event inCalendar:(id)calendar
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   eventCopy = event;
   calendarCopy = calendar;
@@ -124,26 +122,26 @@ LABEL_3:
     recurrence_id2 = [eventCopy recurrence_id];
     v13 = [calendarCopy systemDateForDate:recurrence_id2 options:1];
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     recurrenceIDs = [changeCopy recurrenceIDs];
-    v15 = [recurrenceIDs countByEnumeratingWithState:&v36 objects:v42 count:16];
+    v15 = [recurrenceIDs countByEnumeratingWithState:&v35 objects:v41 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v37;
+      v17 = *v36;
       while (2)
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v37 != v17)
+          if (*v36 != v17)
           {
             objc_enumerationMutation(recurrenceIDs);
           }
 
-          v19 = *(*(&v36 + 1) + 8 * i);
+          v19 = *(*(&v35 + 1) + 8 * i);
           v20 = [calendarCopy systemDateForDate:v19 options:1];
           if ([v13 isEqual:v20])
           {
@@ -153,7 +151,7 @@ LABEL_3:
               v22 = v21;
               v23 = [selfCopy debugStringForEvent:eventCopy];
               *buf = 138412290;
-              v41 = v23;
+              v40 = v23;
               _os_log_impl(&dword_1DEBB1000, v22, OS_LOG_TYPE_DEBUG, "event has occurrence change: %@", buf, 0xCu);
             }
 
@@ -163,7 +161,7 @@ LABEL_3:
           }
         }
 
-        v16 = [recurrenceIDs countByEnumeratingWithState:&v36 objects:v42 count:16];
+        v16 = [recurrenceIDs countByEnumeratingWithState:&v35 objects:v41 count:16];
         if (v16)
         {
           continue;
@@ -191,7 +189,7 @@ LABEL_16:
         v28 = v27;
         v29 = [self debugStringForEvent:eventCopy];
         *buf = 138412290;
-        v41 = v29;
+        v40 = v29;
         _os_log_impl(&dword_1DEBB1000, v28, OS_LOG_TYPE_DEBUG, "event does NOT have occurrence change: %@", buf, 0xCu);
       }
 
@@ -210,21 +208,19 @@ LABEL_16:
     v31 = v30;
     v32 = [self debugStringForEvent:eventCopy];
     *buf = 138412290;
-    v41 = v32;
+    v40 = v32;
     _os_log_impl(&dword_1DEBB1000, v31, OS_LOG_TYPE_DEBUG, "event has occurrence change: %@", buf, 0xCu);
   }
 
   masterChange2 = [changeCopy masterChange];
 LABEL_23:
 
-  v33 = *MEMORY[0x1E69E9840];
-
   return masterChange2;
 }
 
 + (BOOL)doScheduleChanges:(id)changes applyToEvent:(id)event inCalendar:(id)calendar
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   eventCopy = event;
   calendarCopy = calendar;
@@ -242,28 +238,28 @@ LABEL_23:
       recurrence_id2 = [eventCopy recurrence_id];
       recurrenceIDs2 = [calendarCopy systemDateForDate:recurrence_id2 options:1];
 
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       recurrenceIDs = [changesCopy recurrenceIDs];
-      v15 = [recurrenceIDs countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v15 = [recurrenceIDs countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v15)
       {
         v16 = v15;
-        v24 = eventCopy;
-        v17 = *v26;
+        v23 = eventCopy;
+        v17 = *v25;
 LABEL_6:
         v18 = 0;
         while (1)
         {
-          if (*v26 != v17)
+          if (*v25 != v17)
           {
             objc_enumerationMutation(recurrenceIDs);
           }
 
           v10 = 1;
-          v19 = [calendarCopy systemDateForDate:*(*(&v25 + 1) + 8 * v18) options:1];
+          v19 = [calendarCopy systemDateForDate:*(*(&v24 + 1) + 8 * v18) options:1];
           v20 = [recurrenceIDs2 isEqual:v19];
 
           if (v20)
@@ -273,7 +269,7 @@ LABEL_6:
 
           if (v16 == ++v18)
           {
-            v16 = [recurrenceIDs countByEnumeratingWithState:&v25 objects:v29 count:16];
+            v16 = [recurrenceIDs countByEnumeratingWithState:&v24 objects:v28 count:16];
             if (v16)
             {
               goto LABEL_6;
@@ -284,7 +280,7 @@ LABEL_6:
           }
         }
 
-        eventCopy = v24;
+        eventCopy = v23;
       }
 
       else
@@ -309,7 +305,6 @@ LABEL_6:
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -324,28 +319,28 @@ LABEL_6:
 
 + (id)myAddressWithAccountInfo:(id)info forEvent:(id)event
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   infoCopy = info;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   attendee = [event attendee];
-  v8 = [attendee countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [attendee countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(attendee);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         value = [v12 value];
         v14 = [self isAddressMe:value withAccountInfo:infoCopy];
 
@@ -356,7 +351,7 @@ LABEL_6:
         }
       }
 
-      v9 = [attendee countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [attendee countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v9)
       {
         continue;
@@ -369,35 +364,33 @@ LABEL_6:
   v15 = 0;
 LABEL_11:
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 + (BOOL)myStatusNeedsActionForEvent:(id)event withAccountInfo:(id)info
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   infoCopy = info;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   attendee = [event attendee];
-  v8 = [attendee countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [attendee countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(attendee);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         if ([v12 partstat] < 2 || objc_msgSend(v12, "rsvp"))
         {
           value = [v12 value];
@@ -411,7 +404,7 @@ LABEL_11:
         }
       }
 
-      v9 = [attendee countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [attendee countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v9)
       {
         continue;
@@ -424,79 +417,74 @@ LABEL_11:
   v15 = 0;
 LABEL_13:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 + (void)copyEventInStore:(void *)store appropriateForHandlingMessageForEventUID:(id)d inDatabase:(CalDatabase *)database
 {
-  v20 = *MEMORY[0x1E69E9840];
-  if (store)
+  v19 = *MEMORY[0x1E69E9840];
+  if (!store)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v5 = CalDatabaseCopyAllEventsWithUniqueIdentifierInStore(database, d, store);
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
-    if (v6)
+    return 0;
+  }
+
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v5 = CalDatabaseCopyAllEventsWithUniqueIdentifierInStore(database, d, store);
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v18 count:16];
+  if (v6)
+  {
+    v7 = *v13;
+    while (2)
     {
-      v7 = *v14;
-      while (2)
+      for (i = 0; i != v6; i = i + 1)
       {
-        for (i = 0; i != v6; i = i + 1)
+        if (*v13 != v7)
         {
-          if (*v14 != v7)
-          {
-            objc_enumerationMutation(v5);
-          }
-
-          v9 = *(*(&v13 + 1) + 8 * i);
-          if (CalEventIsOnCalendarThatAllowsScheduling(v9))
-          {
-            v6 = CFRetain(v9);
-            goto LABEL_14;
-          }
-
-          v10 = CDBLogHandle;
-          if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
-          {
-            *buf = 138412290;
-            v18 = v9;
-            _os_log_impl(&dword_1DEBB1000, v10, OS_LOG_TYPE_INFO, "Rejecting candidate event for iTIP message because it is on a calendar that does not allow scheduling %@", buf, 0xCu);
-          }
+          objc_enumerationMutation(v5);
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
-        if (v6)
+        v9 = *(*(&v12 + 1) + 8 * i);
+        if (CalEventIsOnCalendarThatAllowsScheduling(v9))
         {
-          continue;
+          v6 = CFRetain(v9);
+          goto LABEL_14;
         }
 
-        break;
+        v10 = CDBLogHandle;
+        if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412290;
+          v17 = v9;
+          _os_log_impl(&dword_1DEBB1000, v10, OS_LOG_TYPE_INFO, "Rejecting candidate event for iTIP message because it is on a calendar that does not allow scheduling %@", buf, 0xCu);
+        }
       }
+
+      v6 = [v5 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
 LABEL_14:
-  }
 
-  else
-  {
-    v6 = 0;
-  }
-
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 + (void)processMessage:(id)message withDatabase:(CalDatabase *)database calStore:(void *)store accountInfo:(id)info handledEventCallback:(id)callback options:(unint64_t)options
 {
   optionsCopy = options;
-  v85 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   infoCopy = info;
   callbackCopy = callback;
-  v71 = messageCopy;
+  v70 = messageCopy;
   calendar = [messageCopy calendar];
   allOccurrences = [messageCopy allOccurrences];
   v13 = CDBLogHandle;
@@ -505,36 +493,36 @@ LABEL_14:
     v14 = v13;
     filename = [messageCopy filename];
     *buf = 138412546;
-    v82 = filename;
-    v83 = 2048;
-    v84 = [allOccurrences count];
+    v81 = filename;
+    v82 = 2048;
+    v83 = [allOccurrences count];
     _os_log_impl(&dword_1DEBB1000, v14, OS_LOG_TYPE_DEBUG, "process: ++++ %@ (contains %lu occurrences)", buf, 0x16u);
   }
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   obj = allOccurrences;
-  v16 = [obj countByEnumeratingWithState:&v76 objects:v80 count:16];
+  v16 = [obj countByEnumeratingWithState:&v75 objects:v79 count:16];
   if (v16)
   {
-    v70 = 0;
-    v73 = *v77;
+    v69 = 0;
+    v72 = *v76;
     v18 = *MEMORY[0x1E6993100];
     *&v17 = 138412546;
-    v65 = v17;
+    v64 = v17;
     do
     {
       v19 = 0;
       do
       {
-        if (*v77 != v73)
+        if (*v76 != v72)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v76 + 1) + 8 * v19);
+        v20 = *(*(&v75 + 1) + 8 * v19);
         v21 = [v20 uid];
         v22 = v20;
         v23 = calendar;
@@ -571,7 +559,7 @@ LABEL_14:
             goto LABEL_18;
           }
 
-          if (v32 == 3 && (v28 & [v71 iMIPImported]) == 1)
+          if (v32 == 3 && (v28 & [v70 iMIPImported]) == 1)
           {
             v42 = [v22 uid];
             v43 = [self copyEventInStore:store appropriateForHandlingMessageForEventUID:v42 inDatabase:database];
@@ -582,12 +570,12 @@ LABEL_14:
               if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v82 = v21;
+                v81 = v21;
                 _os_log_impl(&dword_1DEBB1000, v44, OS_LOG_TYPE_INFO, "Making a new detachment with UID %@ for iTIP REPLY.", buf, 0xCu);
               }
 
               Copy = CalCalendarItemCreateCopy(v43, 0);
-              CalEventRemoveAllRecurrences();
+              CalEventRemoveAllRecurrences(Copy);
               CalEventAddDetachedEvent(v43, Copy);
               CalEventSetOriginalStartDate(Copy, *&v25);
               started = CalEventCopyStartTimeZone(Copy);
@@ -603,13 +591,13 @@ LABEL_14:
               if (Copy)
               {
 LABEL_18:
-                if ((v70 & 1) != 0 && CalEventIsDetached(Copy) && (CalEventIsSignificantlyDetachedIgnoringParticipation(Copy) & 1) == 0 && ((v35 = [v71 iMIPImported], v32 == 3) ? (v36 = v35) : (v36 = 0), (v36 & 1) == 0))
+                if ((v69 & 1) != 0 && CalEventIsDetached(Copy) && (CalEventIsSignificantlyDetachedIgnoringParticipation(Copy) & 1) == 0 && ((v35 = [v70 iMIPImported], v32 == 3) ? (v36 = v35) : (v36 = 0), (v36 & 1) == 0))
                 {
                   v57 = CDBLogHandle;
                   if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
                   {
                     *buf = 138412290;
-                    v82 = v21;
+                    v81 = v21;
                     _os_log_impl(&dword_1DEBB1000, v57, OS_LOG_TYPE_INFO, "Ignoring inbox item %@ because it's detached but not significantly", buf, 0xCu);
                   }
                 }
@@ -667,17 +655,17 @@ LABEL_56:
                       if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
                       {
                         *buf = 138412290;
-                        v82 = v21;
+                        v81 = v21;
                         _os_log_impl(&dword_1DEBB1000, v56, OS_LOG_TYPE_INFO, "Ignoring message %@ because it's older than what's already in the database.", buf, 0xCu);
                       }
 
-                      iMIPImported = [v71 iMIPImported];
+                      iMIPImported = [v70 iMIPImported];
                       goto LABEL_29;
                     }
                   }
 
 LABEL_28:
-                  iMIPImported = [self handleEvent:v22 calEvent:Copy eventID:v21 database:database message:v71 accountInfo:infoCopy];
+                  iMIPImported = [self handleEvent:v22 calEvent:Copy eventID:v21 database:database message:v70 accountInfo:infoCopy];
 LABEL_29:
                   if (iMIPImported)
                   {
@@ -685,7 +673,7 @@ LABEL_29:
                     if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 138412290;
-                      v82 = v21;
+                      v81 = v21;
                       _os_log_impl(&dword_1DEBB1000, v41, OS_LOG_TYPE_DEBUG, "Event with identifier %@ handled message.", buf, 0xCu);
                     }
 
@@ -694,7 +682,7 @@ LABEL_29:
                       callbackCopy[2]();
                     }
 
-                    v70 = 1;
+                    v69 = 1;
 LABEL_65:
                     CFRelease(Copy);
                     goto LABEL_66;
@@ -712,10 +700,10 @@ LABEL_65:
               if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
               {
                 v60 = [v22 uid];
-                *buf = v65;
-                v82 = v21;
-                v83 = 2112;
-                v84 = v60;
+                *buf = v64;
+                v81 = v21;
+                v82 = 2112;
+                v83 = v60;
                 _os_log_impl(&dword_1DEBB1000, v59, OS_LOG_TYPE_INFO, "Could not find a valid event in the calendar database with uid %@. Also couldn't find the original event with uid %@.", buf, 0x16u);
               }
 
@@ -731,7 +719,7 @@ LABEL_65:
             if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v82 = v21;
+              v81 = v21;
               _os_log_impl(&dword_1DEBB1000, v48, OS_LOG_TYPE_INFO, "Could not find a valid event in the calendar database with uid %@", buf, 0xCu);
             }
 
@@ -744,7 +732,7 @@ LABEL_62:
         if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v82 = v21;
+          v81 = v21;
           _os_log_impl(&dword_1DEBB1000, v58, OS_LOG_TYPE_DEBUG, "Event with identifier %@ didn't handle the message; looking at the next event.", buf, 0xCu);
         }
 
@@ -759,7 +747,7 @@ LABEL_66:
       }
 
       while (v16 != v19);
-      v61 = [obj countByEnumeratingWithState:&v76 objects:v80 count:16];
+      v61 = [obj countByEnumeratingWithState:&v75 objects:v79 count:16];
       v16 = v61;
     }
 
@@ -769,18 +757,16 @@ LABEL_66:
   v62 = CDBLogHandle;
   if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
   {
-    filename2 = [v71 filename];
+    filename2 = [v70 filename];
     *buf = 138412290;
-    v82 = filename2;
+    v81 = filename2;
     _os_log_impl(&dword_1DEBB1000, v62, OS_LOG_TYPE_DEBUG, "process: ~~~~ leaving message: %@", buf, 0xCu);
   }
-
-  v64 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)handleEvent:(id)event calEvent:(void *)calEvent eventID:(id)d database:(CalDatabase *)database message:(id)message accountInfo:(id)info
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   dCopy = d;
   messageCopy = message;
@@ -794,7 +780,7 @@ LABEL_66:
       LODWORD(self) = [messageCopy iMIPImported];
       if (self)
       {
-        CalEventSetStatus(calEvent, 3);
+        CalEventSetStatus(calEvent, 3u);
       }
 
       v32 = CDBLogHandle;
@@ -805,7 +791,7 @@ LABEL_66:
         {
           v34 = v32;
           *buf = 67109120;
-          LODWORD(v81) = CalCalendarItemGetRowID();
+          LODWORD(v80) = CalCalendarItemGetRowID(calEvent);
           _os_log_impl(&dword_1DEBB1000, v34, OS_LOG_TYPE_INFO, "Found a cancellation for an event (%d) that was proposed or invitee not yet accepted. Hiding alert for this change.", buf, 8u);
         }
 
@@ -819,7 +805,7 @@ LABEL_66:
         {
           v37 = v32;
           *buf = 67109120;
-          LODWORD(v81) = CalCalendarItemGetRowID();
+          LODWORD(v80) = CalCalendarItemGetRowID(calEvent);
           _os_log_impl(&dword_1DEBB1000, v37, OS_LOG_TYPE_INFO, "Marking cancelled event %d as needing a notification", buf, 8u);
         }
 
@@ -831,19 +817,19 @@ LABEL_66:
       CalEventSetNeedsNotification(calEventCopy2, v36);
       break;
     case 3:
-      v69 = dCopy;
+      v68 = dCopy;
       attendee = [eventCopy attendee];
       lastObject = [attendee lastObject];
 
       value = [lastObject value];
       absoluteString = [value absoluteString];
 
-      v68 = absoluteString;
+      v67 = absoluteString;
       v26 = CalDatabaseCopyAttendeeForEventWithAddress(database, calEvent, absoluteString);
       if (v26)
       {
         v27 = v26;
-        v66 = lastObject;
+        v65 = lastObject;
         partstat = [lastObject partstat];
         iMIPImported = [messageCopy iMIPImported];
         if (iMIPImported)
@@ -866,30 +852,30 @@ LABEL_66:
           v30 = [self _calculateDiffsForCalEvent:calEvent icsEvent:eventCopy inMessage:messageCopy];
         }
 
-        v72 = 0u;
-        v73 = 0u;
-        v70 = 0u;
         v71 = 0u;
+        v72 = 0u;
+        v69 = 0u;
+        v70 = 0u;
         self = v30;
-        v51 = [self countByEnumeratingWithState:&v70 objects:v78 count:16];
+        v51 = [self countByEnumeratingWithState:&v69 objects:v77 count:16];
         if (v51)
         {
           v52 = v51;
           calEventCopy3 = calEvent;
-          v62 = calendar;
-          v65 = messageCopy;
+          v61 = calendar;
+          v64 = messageCopy;
           v53 = 0;
-          v54 = *v71;
+          v54 = *v70;
           do
           {
             for (i = 0; i != v52; ++i)
             {
-              if (*v71 != v54)
+              if (*v70 != v54)
               {
                 objc_enumerationMutation(self);
               }
 
-              v56 = *(*(&v70 + 1) + 8 * i);
+              v56 = *(*(&v69 + 1) + 8 * i);
               if ([v56 isEqualToString:II_ATTENDEES_KEY])
               {
                 v57 = partstat == 3;
@@ -920,13 +906,13 @@ LABEL_66:
               }
             }
 
-            v52 = [self countByEnumeratingWithState:&v70 objects:v78 count:16];
+            v52 = [self countByEnumeratingWithState:&v69 objects:v77 count:16];
           }
 
           while (v52);
 
-          messageCopy = v65;
-          calendar = v62;
+          messageCopy = v64;
+          calendar = v61;
           if (v53)
           {
             CalEventAddInvitationChangedProperties(calEventCopy3, v53);
@@ -942,7 +928,7 @@ LABEL_66:
         CFRelease(v27);
 
         LOBYTE(self) = iMIPImported;
-        lastObject = v66;
+        lastObject = v65;
       }
 
       else
@@ -950,7 +936,7 @@ LABEL_66:
         LOBYTE(self) = 0;
       }
 
-      dCopy = v69;
+      dCopy = v68;
       break;
     case 2:
       if (!CalEventHasOccurrenceInTheFuture(calEvent))
@@ -959,7 +945,7 @@ LABEL_66:
         if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v81 = dCopy;
+          v80 = dCopy;
           v21 = "Ignoring inbox update for %@ because it is in the past";
           goto LABEL_25;
         }
@@ -975,7 +961,7 @@ LABEL_26:
         if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v81 = dCopy;
+          v80 = dCopy;
           v21 = "Ignoring cancellation for event we never responded to (%@)";
 LABEL_25:
           _os_log_impl(&dword_1DEBB1000, v20, OS_LOG_TYPE_INFO, v21, buf, 0xCu);
@@ -1004,92 +990,102 @@ LABEL_25:
           if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v81 = dCopy;
+            v80 = dCopy;
             _os_log_impl(&dword_1DEBB1000, v40, OS_LOG_TYPE_INFO, "Setting needs notification for event %@ because an iTIP request was found in the inbox", buf, 0xCu);
           }
 
-          v61 = calendar;
-          v63 = infoCopy;
-          v64 = messageCopy;
+          v60 = calendar;
+          v62 = infoCopy;
+          v63 = messageCopy;
           CalEventSetNeedsNotification(calEvent, 1);
-          v76 = 0u;
-          v77 = 0u;
-          v74 = 0u;
           v75 = 0u;
+          v76 = 0u;
+          v73 = 0u;
+          v74 = 0u;
           v41 = v39;
-          v42 = [v41 countByEnumeratingWithState:&v74 objects:v79 count:16];
+          v42 = [v41 countByEnumeratingWithState:&v73 objects:v78 count:16];
           if (v42)
           {
             v43 = v42;
-            v44 = 0;
-            v45 = *v75;
+            LODWORD(v44) = 0;
+            v45 = *v74;
             do
             {
               v46 = 0;
               do
               {
-                if (*v75 != v45)
+                if (*v74 != v45)
                 {
                   objc_enumerationMutation(v41);
                 }
 
-                v47 = *(*(&v74 + 1) + 8 * v46);
+                v47 = *(*(&v73 + 1) + 8 * v46);
                 if (([v47 isEqualToString:II_FROM_KEY] & 1) != 0 || objc_msgSend(v47, "isEqualToString:", II_TO_KEY))
                 {
-                  v44 |= 2u;
+                  v44 = v44 | 2;
                 }
 
                 else if ([v47 isEqualToString:II_ALL_DAY_KEY])
                 {
-                  v44 |= 1u;
+                  v44 = v44 | 1;
                 }
 
                 else if ([v47 isEqualToString:II_EVENT_TITLE_KEY])
                 {
-                  v44 |= 4u;
+                  v44 = v44 | 4;
                 }
 
                 else if ([v47 isEqualToString:II_LOCATION_KEY])
                 {
-                  v44 |= 8u;
+                  v44 = v44 | 8;
                 }
 
                 else if ([v47 isEqualToString:II_VIDEOCONFERENCE_KEY])
                 {
-                  v44 |= 0x100u;
+                  v44 = v44 | 0x100;
                 }
 
                 else if ([v47 isEqualToString:II_RECURRENCE_KEY])
                 {
-                  v44 |= 0x200u;
+                  v44 = v44 | 0x200;
+                }
+
+                else
+                {
+                  v44 = v44;
                 }
 
                 ++v46;
               }
 
               while (v43 != v46);
-              v48 = [v41 countByEnumeratingWithState:&v74 objects:v79 count:16];
+              v48 = [v41 countByEnumeratingWithState:&v73 objects:v78 count:16];
               v43 = v48;
             }
 
             while (v48);
           }
 
-          CalEventSetInvitationChangedProperties(calEvent);
+          else
+          {
+            v44 = 0;
+          }
+
+          CalEventSetInvitationChangedProperties(calEvent, v44);
           LOBYTE(self) = 1;
-          messageCopy = v64;
-          calendar = v61;
-          infoCopy = v63;
-          goto LABEL_92;
+          messageCopy = v63;
+          calendar = v60;
+          infoCopy = v62;
+          goto LABEL_93;
         }
 
         v49 = CDBLogHandle;
         if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v81 = dCopy;
+          v80 = dCopy;
           v50 = "Ignoring inbox item %@ because it's for an event that is not significantly detached";
-          goto LABEL_90;
+          goto LABEL_91;
         }
       }
 
@@ -1099,28 +1095,27 @@ LABEL_25:
         if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v81 = dCopy;
+          v80 = dCopy;
           v50 = "Ignoring inbox item %@ because it doesn't look important";
-LABEL_90:
+LABEL_91:
           _os_log_impl(&dword_1DEBB1000, v49, OS_LOG_TYPE_INFO, v50, buf, 0xCu);
         }
       }
 
       LOBYTE(self) = 0;
-LABEL_92:
+LABEL_93:
 
       break;
     default:
       goto LABEL_26;
   }
 
-  v58 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 + (id)_calculateDiffsForCalEvent:(void *)event icsEvent:(id)icsEvent inMessage:(id)message
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   icsEventCopy = icsEvent;
   messageCopy = message;
   scheduleChanges = [messageCopy scheduleChanges];
@@ -1204,30 +1199,30 @@ LABEL_92:
 
   if ([v13 recurrenceChanged])
   {
-    v32 = scheduleChanges;
-    v33 = messageCopy;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
+    v31 = scheduleChanges;
+    v32 = messageCopy;
     v36 = 0u;
-    v34 = icsEventCopy;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v33 = icsEventCopy;
     relatedTo = [icsEventCopy relatedTo];
-    v20 = [relatedTo countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v20 = [relatedTo countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v36;
+      v22 = *v35;
       v23 = *MEMORY[0x1E69E3FB0];
 LABEL_31:
       v24 = 0;
       while (1)
       {
-        if (*v36 != v22)
+        if (*v35 != v22)
         {
           objc_enumerationMutation(relatedTo);
         }
 
-        v25 = *(*(&v35 + 1) + 8 * v24);
+        v25 = *(*(&v34 + 1) + 8 * v24);
         v26 = [v25 parameterValueForName:v23];
         v27 = v26;
         if (v26)
@@ -1245,7 +1240,7 @@ LABEL_31:
 
         if (v21 == ++v24)
         {
-          v21 = [relatedTo countByEnumeratingWithState:&v35 objects:v39 count:16];
+          v21 = [relatedTo countByEnumeratingWithState:&v34 objects:v38 count:16];
           if (v21)
           {
             goto LABEL_31;
@@ -1272,12 +1267,10 @@ LABEL_39:
     value2 = 0;
 LABEL_42:
 
-    messageCopy = v33;
-    icsEventCopy = v34;
-    scheduleChanges = v32;
+    messageCopy = v32;
+    icsEventCopy = v33;
+    scheduleChanges = v31;
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

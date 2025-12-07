@@ -41,7 +41,7 @@
     LOBYTE(v4) = 1;
   }
 
-  else if ([appCopy isEqualToString:@"com.apple.facetime"])
+  else if (objc_msgSend_isEqualToString_(appCopy))
   {
     v5 = MGGetBoolAnswer();
     v4 = v5 & MGGetBoolAnswer() ^ 1;
@@ -398,32 +398,32 @@ void __69__SKUIJSRestrictions_presentExplicitRestrictionAlertIfNeededOfType::__b
 - (int64_t)_explicitRestrictionAlertTypeForTypeString:(id)string
 {
   stringCopy = string;
-  if ([stringCopy isEqualToString:@"onLaunch"])
+  if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 0;
   }
 
-  else if ([stringCopy isEqualToString:@"onContainerLoad"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 1;
   }
 
-  else if ([stringCopy isEqualToString:@"onPlay"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 2;
   }
 
-  else if ([stringCopy isEqualToString:@"onPurchase"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 3;
   }
 
-  else if ([stringCopy isEqualToString:@"onAddToLibrary"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 4;
   }
 
-  else if ([stringCopy isEqualToString:@"onOpen"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 5;
   }

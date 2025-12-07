@@ -10,10 +10,10 @@
 
 - (_BlastDoorLPIconMetadata)init
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = _BlastDoorLPIconMetadata;
-  v2 = [(_BlastDoorLPIconMetadata *)&v7 init];
+  v7 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = _BlastDoorLPIconMetadata;
+  v2 = [(_BlastDoorLPIconMetadata *)&v6 init];
   v3 = v2;
   if (v2)
   {
@@ -21,7 +21,6 @@
     v4 = v2;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -41,11 +40,11 @@
 
 - (_BlastDoorLPIconMetadata)initWithCoder:(id)coder
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = _BlastDoorLPIconMetadata;
-  v5 = [(_BlastDoorLPIconMetadata *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = _BlastDoorLPIconMetadata;
+  v5 = [(_BlastDoorLPIconMetadata *)&v12 init];
   if (v5)
   {
     v5->_version = [coderCopy decodeInt32ForKey:@"version"];
@@ -60,7 +59,6 @@
     v10 = v5;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -75,11 +73,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v12.receiver = self;
-  v12.super_class = _BlastDoorLPIconMetadata;
-  if ([(_BlastDoorLPIconMetadata *)&v12 isEqual:equalCopy])
+  v11.receiver = self;
+  v11.super_class = _BlastDoorLPIconMetadata;
+  if ([(_BlastDoorLPIconMetadata *)&v11 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -117,7 +115,6 @@
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

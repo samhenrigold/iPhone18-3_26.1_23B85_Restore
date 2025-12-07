@@ -22,7 +22,7 @@
 
 - (id)loadLinkedContentForHeadline:(id)headline withContext:(id)context priority:(int64_t)priority completion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   headlineCopy = headline;
   contextCopy = context;
   completionCopy = completion;
@@ -30,66 +30,64 @@
   v13 = dispatch_group_create();
   if (headlineCopy && contextCopy)
   {
-    v24 = completionCopy;
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
+    v23 = completionCopy;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     obj = [(NSArray *)self->_linkedContentProviders copy];
-    v14 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v14 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v32;
+      v16 = *v31;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v32 != v16)
+          if (*v31 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v31 + 1) + 8 * i);
+          v18 = *(*(&v30 + 1) + 8 * i);
           dispatch_group_enter(v13);
           if (objc_opt_respondsToSelector())
           {
-            v29[0] = MEMORY[0x277D85DD0];
-            v29[1] = 3221225472;
-            v29[2] = __87__NULinkedContentManager_loadLinkedContentForHeadline_withContext_priority_completion___block_invoke;
-            v29[3] = &unk_2799A3498;
-            v30 = v13;
-            v19 = [v18 loadLinkedContentForHeadline:headlineCopy withContext:contextCopy priority:priority completion:v29];
-            v20 = &v30;
+            v28[0] = MEMORY[0x277D85DD0];
+            v28[1] = 3221225472;
+            v28[2] = __87__NULinkedContentManager_loadLinkedContentForHeadline_withContext_priority_completion___block_invoke;
+            v28[3] = &unk_2799A3498;
+            v29 = v13;
+            v19 = [v18 loadLinkedContentForHeadline:headlineCopy withContext:contextCopy priority:priority completion:v28];
+            v20 = &v29;
           }
 
           else
           {
-            v27[0] = MEMORY[0x277D85DD0];
-            v27[1] = 3221225472;
-            v27[2] = __87__NULinkedContentManager_loadLinkedContentForHeadline_withContext_priority_completion___block_invoke_2;
-            v27[3] = &unk_2799A3498;
-            v28 = v13;
-            v19 = [v18 loadLinkedContentForHeadline:headlineCopy withContext:contextCopy completion:v27];
-            v20 = &v28;
+            v26[0] = MEMORY[0x277D85DD0];
+            v26[1] = 3221225472;
+            v26[2] = __87__NULinkedContentManager_loadLinkedContentForHeadline_withContext_priority_completion___block_invoke_2;
+            v26[3] = &unk_2799A3498;
+            v27 = v13;
+            v19 = [v18 loadLinkedContentForHeadline:headlineCopy withContext:contextCopy completion:v26];
+            v20 = &v27;
           }
 
           [array addObject:v19];
         }
 
-        v15 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v15 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v15);
     }
 
-    completionCopy = v24;
+    completionCopy = v23;
   }
 
   dispatch_group_notify(v13, MEMORY[0x277D85CD0], completionCopy);
   v21 = [MEMORY[0x277D31088] groupCancelHandlerWithCancelHandlers:array];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

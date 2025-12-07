@@ -1,4 +1,5 @@
 @interface NTKVideoFaceView
+- (CGRect)_keylineFrameForComplicationSlot:(id)slot selected:(BOOL)selected;
 - (NTKVideoFaceView)initWithFaceStyle:(int64_t)style forDevice:(id)device clientIdentifier:(id)identifier;
 - (double)_rightSideMarginForDigitalTimeHeroPosition;
 - (double)_timeTravelYAdjustment;
@@ -202,6 +203,38 @@
   v6.receiver = self;
   v6.super_class = NTKVideoFaceView;
   [(NTKVideoFaceView *)&v6 _cleanupAfterEditing];
+}
+
+- (CGRect)_keylineFrameForComplicationSlot:(id)slot selected:(BOOL)selected
+{
+  if (NTKComplicationSlotDate == slot)
+  {
+    slotCopy = slot;
+    delegate = [(NTKVideoFaceView *)self delegate];
+    v12 = [delegate faceViewComplicationIsEmptyForSlot:slotCopy];
+
+    [(NTKVideoFaceView *)&v22 _keylineFrameForComplicationSlot:slotCopy selected:v12, v21.receiver, v21.super_class, self, NTKVideoFaceView];
+  }
+
+  else
+  {
+    [(NTKVideoFaceView *)&v21 _keylineFrameForComplicationSlot:slot selected:selected, self, NTKVideoFaceView, v22.receiver, v22.super_class];
+  }
+
+  v13 = v6;
+  v14 = v7;
+  v15 = v8;
+  v16 = v9;
+
+  v17 = v13;
+  v18 = v14;
+  v19 = v15;
+  v20 = v16;
+  result.size.height = v20;
+  result.size.width = v19;
+  result.origin.y = v18;
+  result.origin.x = v17;
+  return result;
 }
 
 - (id)_swatchImageForEditOption:(id)option mode:(int64_t)mode withSelectedOptions:(id)options

@@ -408,23 +408,23 @@
     visibleMenus = [firstObject visibleMenus];
     if (visibleMenus)
     {
-      menu = visibleMenus;
+      v9 = visibleMenus;
       if (dyld_program_sdk_at_least())
       {
-        if (![menu count])
+        if (![v9 count])
         {
           v10 = [UIMenu menuWithChildren:MEMORY[0x1E695E0F0]];
           v43[0] = v10;
           v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:1];
 
-          menu = v11;
+          v9 = v11;
         }
 
         v38 = 0u;
         v39 = 0u;
         v36 = 0u;
         v37 = 0u;
-        v12 = menu;
+        v12 = v9;
         v13 = [v12 countByEnumeratingWithState:&v36 objects:v42 count:16];
         if (v13)
         {
@@ -464,11 +464,11 @@
           v12 = obj;
         }
 
-        menu = v12;
+        v9 = v12;
         goto LABEL_24;
       }
 
-      lastObject = [menu lastObject];
+      lastObject = [v9 lastObject];
       v12 = (v34)[2](v34, lastObject);
 
       if (!v12)
@@ -483,9 +483,9 @@ LABEL_24:
     {
       uiController = [firstObject uiController];
       menuConfiguration2 = [uiController menuConfiguration];
-      menu = [menuConfiguration2 menu];
+      v9 = objc_msgSend_menu(menuConfiguration2);
 
-      v26 = (v34)[2](v34, menu);
+      v26 = (v34)[2](v34, v9);
       if (!v26)
       {
 LABEL_25:
@@ -822,7 +822,7 @@ void __53__UIContextMenuInteraction__presentMenuAtLocation3D___block_invoke(uint
     v41 = target3;
     if (target3)
     {
-      [target3 transform];
+      objc_msgSend_transform(target3);
     }
 
     else
@@ -979,7 +979,7 @@ LABEL_18:
       [v21 setPreferredLayout:3];
       if (v21)
       {
-        [v21 _preferredAnchor];
+        objc_msgSend__preferredAnchor(v21);
         if (v55 == 0x7FFFFFFFFFFFFFFFLL)
         {
           if (*(&v55 + 1) == 0x7FFFFFFFFFFFFFFFLL)
@@ -1013,7 +1013,7 @@ LABEL_18:
     }
 
 LABEL_22:
-    [v21 _preferredAnchor];
+    objc_msgSend__preferredAnchor(v21);
     if (v55 != __PAIR128__(0x7FFFFFFFFFFFFFFFLL, 0x7FFFFFFFFFFFFFFFLL) || ![pendingConfiguration preferredMenuAlignment])
     {
 LABEL_33:
@@ -2406,10 +2406,10 @@ LABEL_6:
 
   else
   {
-    preview = [configurationCopy preview];
-    if (preview)
+    v10 = objc_msgSend_preview(configurationCopy);
+    if (v10)
     {
-      sourcePreview = preview;
+      sourcePreview = v10;
     }
 
     else
@@ -2448,9 +2448,9 @@ LABEL_6:
 
   if (animatedCopy)
   {
-    preview = [configurationCopy preview];
+    v16 = objc_msgSend_preview(configurationCopy);
 
-    if (preview && firstObject)
+    if (v16 && firstObject)
     {
       v17 = [[_UIWindowSceneActivationAnimator alloc] initWithConfiguration:configurationCopy];
       uiController = [firstObject uiController];
@@ -2546,7 +2546,7 @@ void __98__UIContextMenuInteraction__requestSceneActivationWithConfiguration_ani
   v5 = *(a1 + 32);
   if (a2)
   {
-    v6 = [*(a1 + 40) preview];
+    v6 = objc_msgSend_preview(*(a1 + 40));
     [v5 animateWithSourcePreview:v6 velocity:0.0];
   }
 

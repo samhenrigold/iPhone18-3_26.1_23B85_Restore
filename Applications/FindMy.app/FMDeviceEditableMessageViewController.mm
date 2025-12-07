@@ -11,13 +11,13 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_100096E34();
+  sub_100096E34(selfCopy, v5, v6);
 }
 
 - (void)updateViewConstraints
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for FMDeviceEditableMessageViewController();
+  v7.super_class = type metadata accessor for FMDeviceEditableMessageViewController(0);
   v2 = v7.receiver;
   [(FMDeviceEditableMessageViewController *)&v7 updateViewConstraints];
   v3 = *&v2[OBJC_IVAR____TtC6FindMy37FMDeviceEditableMessageViewController_tableViewheightConstraint];
@@ -44,7 +44,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_100094060(viewCopy);
+  v12 = sub_100094060(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 

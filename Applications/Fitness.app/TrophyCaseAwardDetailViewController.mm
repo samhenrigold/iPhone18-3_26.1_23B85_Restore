@@ -72,7 +72,7 @@
 {
   sub_100007C5C(self + OBJC_IVAR____TtC10FitnessApp35TrophyCaseAwardDetailViewController_achievementDataProvider, v6);
   sub_1000066AC(v6, v6[3]);
-  sub_100045F80(&unk_1008EAEE0, v3, type metadata accessor for TrophyCaseAwardDetailViewController);
+  sub_100045F80(&unk_1008EAEE0, v3, type metadata accessor for TrophyCaseAwardDetailViewController, &unk_100702794);
   selfCopy = self;
   dispatch thunk of AAUIAwardsDataProviding.remove(observer:)();
 
@@ -93,8 +93,9 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_10064F288(appear);
+  sub_10064F288(appearCopy);
 }
 
 - (void)viewWillLayoutSubviews
@@ -155,7 +156,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_100650F20(viewCopy);
+  v12 = sub_100650F20(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 
@@ -167,11 +168,11 @@
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_100653254();
+  sub_100653254(v9, v12);
 
   (*(v7 + 8))(v9, v6);
 }

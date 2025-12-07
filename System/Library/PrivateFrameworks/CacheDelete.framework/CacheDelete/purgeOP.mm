@@ -1,4 +1,5 @@
 @interface purgeOP
++ (id)purgeOpAtUrgency:(int)urgency info:(id)info reply:(id)reply;
 - (purgeOP)initWithUrgency:(int)urgency info:(id)info reply:(id)reply;
 @end
 
@@ -22,6 +23,16 @@
   }
 
   return v12;
+}
+
++ (id)purgeOpAtUrgency:(int)urgency info:(id)info reply:(id)reply
+{
+  v6 = *&urgency;
+  replyCopy = reply;
+  infoCopy = info;
+  v9 = [[purgeOP alloc] initWithUrgency:v6 info:infoCopy reply:replyCopy];
+
+  return v9;
 }
 
 @end

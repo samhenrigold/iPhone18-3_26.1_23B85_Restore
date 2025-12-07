@@ -278,29 +278,29 @@
 
 - (id)_attendeesForSuggestedEventFromAttendees:(id)attendees
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   attendeesCopy = attendees;
   array = [MEMORY[0x1E695DF70] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = attendeesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         if (([v10 isCurrentUser] & 1) == 0)
         {
           name = [v10 name];
@@ -318,13 +318,11 @@
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -335,7 +333,7 @@
   attendees = self->_attendees;
   self->_attendees = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, attendees);
 }
 
 - (EKStructuredLocation)preferredLocation
@@ -506,7 +504,7 @@ LABEL_31:
 {
   timePropertiesCopy = timeProperties;
   propertiesCopy = properties;
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   calendarCopy = calendar;
   title = [(EKAutocompleteSearchResult *)self title];
@@ -528,7 +526,7 @@ LABEL_31:
     [selfCopy setCalendar:v15];
   }
 
-  v67 = v15;
+  v66 = v15;
   if (propertiesCopy)
   {
     timeZone = [(EKAutocompleteSearchResult *)self timeZone];
@@ -546,7 +544,7 @@ LABEL_31:
     [selfCopy setEndDateUnadjustedForLegacyClients:endDate];
   }
 
-  v70 = selfCopy;
+  v69 = selfCopy;
   if (timePropertiesCopy)
   {
     [(EKAutocompleteSearchResult *)self travelTime];
@@ -643,67 +641,67 @@ LABEL_46:
       goto LABEL_47;
     }
 
-    v66 = calendarCopy;
+    v65 = calendarCopy;
     v39 = selfCopy;
     attendees3 = [selfCopy attendees];
-    v69 = [attendees3 valueForKey:@"URL"];
+    v68 = [attendees3 valueForKey:@"URL"];
 
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
     v76 = 0u;
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
     selfCopy2 = self;
     attendees4 = [(EKAutocompleteSearchResult *)self attendees];
-    v42 = [attendees4 countByEnumeratingWithState:&v75 objects:v80 count:16];
+    v42 = [attendees4 countByEnumeratingWithState:&v74 objects:v79 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v76;
+      v44 = *v75;
       do
       {
         for (i = 0; i != v43; ++i)
         {
-          if (*v76 != v44)
+          if (*v75 != v44)
           {
             objc_enumerationMutation(attendees4);
           }
 
-          v46 = *(*(&v75 + 1) + 8 * i);
+          v46 = *(*(&v74 + 1) + 8 * i);
           v47 = [v46 URL];
           calendar2 = [v39 calendar];
           ownerIdentityAddress = [calendar2 ownerIdentityAddress];
           if ([v47 isEqual:ownerIdentityAddress])
           {
 
-            v39 = v70;
+            v39 = v69;
           }
 
           else
           {
             v50 = [v46 URL];
-            v51 = [v69 containsObject:v50];
+            v51 = [v68 containsObject:v50];
 
-            v39 = v70;
+            v39 = v69;
             if ((v51 & 1) == 0)
             {
-              [v70 addAttendee:v46];
+              [v69 addAttendee:v46];
             }
           }
         }
 
-        v43 = [attendees4 countByEnumeratingWithState:&v75 objects:v80 count:16];
+        v43 = [attendees4 countByEnumeratingWithState:&v74 objects:v79 count:16];
       }
 
       while (v43);
     }
 
     self = selfCopy2;
-    calendarCopy = v66;
+    calendarCopy = v65;
     modeCopy3 = mode;
   }
 
-  v52 = v70;
-  if (!modeCopy3 || ([v70 isPrivacySet] & 1) == 0)
+  v52 = v69;
+  if (!modeCopy3 || ([v69 isPrivacySet] & 1) == 0)
   {
     goto LABEL_46;
   }
@@ -712,26 +710,26 @@ LABEL_47:
   [v52 setAvailability:{-[EKAutocompleteSearchResult availability](self, "availability")}];
   if (modeCopy3)
   {
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
     v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
     alarms = [(EKAutocompleteSearchResult *)self alarms];
-    v55 = [alarms countByEnumeratingWithState:&v71 objects:v79 count:16];
+    v55 = [alarms countByEnumeratingWithState:&v70 objects:v78 count:16];
     if (v55)
     {
       v56 = v55;
-      v57 = *v72;
+      v57 = *v71;
       do
       {
         for (j = 0; j != v56; ++j)
         {
-          if (*v72 != v57)
+          if (*v71 != v57)
           {
             objc_enumerationMutation(alarms);
           }
 
-          v59 = *(*(&v71 + 1) + 8 * j);
+          v59 = *(*(&v70 + 1) + 8 * j);
           if (([v59 isDefaultAlarm] & 1) == 0)
           {
             duplicate4 = [v59 duplicate];
@@ -739,7 +737,7 @@ LABEL_47:
           }
         }
 
-        v56 = [alarms countByEnumeratingWithState:&v71 objects:v79 count:16];
+        v56 = [alarms countByEnumeratingWithState:&v70 objects:v78 count:16];
       }
 
       while (v56);
@@ -761,8 +759,6 @@ LABEL_62:
 
   localStructuredData = [(EKAutocompleteSearchResult *)self localStructuredData];
   [v52 setLocalStructuredData:localStructuredData];
-
-  v64 = *MEMORY[0x1E69E9840];
 }
 
 - (id)eventRepresentingSelf
@@ -781,32 +777,32 @@ LABEL_62:
 
 + (id)_copyAlarmsForAutocompleteFromResult:(id)result
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   v4 = objc_alloc(MEMORY[0x1E695DF70]);
   alarms = [resultCopy alarms];
   v6 = [v4 initWithCapacity:{objc_msgSend(alarms, "count")}];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   alarms2 = [resultCopy alarms];
-  v8 = [alarms2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [alarms2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(alarms2);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         if (([v12 isDefaultAlarm] & 1) == 0)
         {
           duplicate = [v12 duplicate];
@@ -814,13 +810,12 @@ LABEL_62:
         }
       }
 
-      v9 = [alarms2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [alarms2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

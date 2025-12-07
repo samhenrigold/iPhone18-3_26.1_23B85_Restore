@@ -47,18 +47,18 @@
 
 - (NSDictionary)userInfo
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v4 = objc_sync_enter(selfCopy);
   if (selfCopy->_userInfoLoadError)
   {
-    v4 = PRLogModel();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+    v5 = PRLogModel(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-    if (v5)
+    if (v6)
     {
-      v6 = PRLogModel();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = PRLogModel(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -66,18 +66,18 @@
       }
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else if (selfCopy->_userInfo)
   {
-    v8 = PRLogModel();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+    v10 = PRLogModel(v4);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-    if (v9)
+    if (v11)
     {
-      v10 = PRLogModel();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = PRLogModel(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -85,28 +85,28 @@
       }
     }
 
-    v7 = selfCopy->_userInfo;
+    v9 = selfCopy->_userInfo;
   }
 
   else
   {
-    v11 = [PRPosterPathUtilities userInfoURLForPosterContentsURL:selfCopy->_pathContentsURL];
-    v21 = 0;
-    v12 = [PRPosterPathUtilities loadUserInfoForURL:v11 error:&v21];
-    v13 = v21;
-    v14 = v21;
+    v14 = [PRPosterPathUtilities userInfoURLForPosterContentsURL:selfCopy->_pathContentsURL];
+    v26 = 0;
+    v15 = [PRPosterPathUtilities loadUserInfoForURL:v14 error:&v26];
+    v16 = v26;
+    v17 = v26;
     userInfo = selfCopy->_userInfo;
-    selfCopy->_userInfo = v12;
+    selfCopy->_userInfo = v15;
 
-    v16 = PRLogModel();
-    LODWORD(v12) = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+    v20 = PRLogModel(v19);
+    LODWORD(v15) = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
 
-    if (v12)
+    if (v15)
     {
       if (selfCopy->_userInfo)
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           NSStringFromSelector(a2);
           objc_claimAutoreleasedReturnValue();
@@ -116,33 +116,33 @@
 
       else
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           logPreamble = selfCopy->_logPreamble;
-          v20 = NSStringFromSelector(a2);
+          v25 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v23 = logPreamble;
-          v24 = 2114;
-          v25 = v20;
-          v26 = 2114;
-          v27 = v14;
-          _os_log_debug_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
+          v28 = logPreamble;
+          v29 = 2114;
+          v30 = v25;
+          v31 = 2114;
+          v32 = v17;
+          _os_log_debug_impl(&dword_1A8AA7000, v22, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
         }
       }
     }
 
-    if (v14)
+    if (v17)
     {
-      objc_storeStrong(&selfCopy->_userInfoLoadError, v13);
+      objc_storeStrong(&selfCopy->_userInfoLoadError, v16);
     }
 
-    v7 = selfCopy->_userInfo;
+    v9 = selfCopy->_userInfo;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v7;
+  return v9;
 }
 
 + (id)modelObjectCacheLock
@@ -239,9 +239,9 @@ uint64_t __52__PRPosterPathModelObjectCache_modelObjectCacheLock__block_invoke()
 - (id)_initWithPath:(id)path
 {
   pathCopy = path;
-  v44.receiver = self;
-  v44.super_class = PRPosterPathModelObjectCache;
-  v5 = [(PRPosterPathModelObjectCache *)&v44 init];
+  v46.receiver = self;
+  v46.super_class = PRPosterPathModelObjectCache;
+  v5 = [(PRPosterPathModelObjectCache *)&v46 init];
   if (!v5)
   {
 LABEL_8:
@@ -281,17 +281,17 @@ LABEL_8:
 
   if ((v20 & 1) == 0)
   {
-    v39 = MEMORY[0x1E696AEC0];
+    v41 = MEMORY[0x1E696AEC0];
     WeakRetained = objc_loadWeakRetained(&v5->_identity);
     provider = [WeakRetained provider];
     pathExtension = [provider pathExtension];
-    v41 = objc_loadWeakRetained(&v5->_identity);
-    [v41 type];
-    v35 = NSStringFromPFServerPosterType();
+    v43 = objc_loadWeakRetained(&v5->_identity);
+    [v43 type];
+    v37 = NSStringFromPFServerPosterType();
+    v42 = objc_loadWeakRetained(&v5->_identity);
+    descriptorIdentifier = [v42 descriptorIdentifier];
     v40 = objc_loadWeakRetained(&v5->_identity);
-    descriptorIdentifier = [v40 descriptorIdentifier];
-    v38 = objc_loadWeakRetained(&v5->_identity);
-    posterUUID = [v38 posterUUID];
+    posterUUID = [v40 posterUUID];
     uUIDString = [posterUUID UUIDString];
     v23 = [uUIDString substringToIndex:7];
     v24 = objc_loadWeakRetained(&v5->_identity);
@@ -299,17 +299,17 @@ LABEL_8:
     v26 = objc_loadWeakRetained(&v5->_identity);
     supplement = [v26 supplement];
     v28 = [(NSString *)v5->_role stringByReplacingOccurrencesOfString:@"PRPosterRole" withString:&stru_1F1C13D90];
-    v29 = [v39 stringWithFormat:@"%@:%@:%@:%@:%llu_%llu:%@", pathExtension, v35, descriptorIdentifier, v23, version, supplement, v28];
+    v29 = [v41 stringWithFormat:@"%@:%@:%@:%@:%llu_%llu:%@", pathExtension, v37, descriptorIdentifier, v23, version, supplement, v28];
     logPreamble = v5->_logPreamble;
     v5->_logPreamble = v29;
 
-    v31 = PRLogModel();
-    LODWORD(uUIDString) = os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG);
+    v32 = PRLogModel(v31);
+    LODWORD(uUIDString) = os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG);
 
     if (uUIDString)
     {
-      v32 = PRLogModel();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      v34 = PRLogModel(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
       {
         [PRPosterPathModelObjectCache _initWithPath:];
       }
@@ -326,7 +326,7 @@ LABEL_9:
 
 - (void)invalidate
 {
-  v3 = PRLogModel();
+  v3 = PRLogModel(self);
   if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
 LABEL_5:
@@ -338,7 +338,7 @@ LABEL_5:
 
   if (logPreamble)
   {
-    v3 = PRLogModel();
+    v3 = PRLogModel(v5);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       [PRPosterPathModelObjectCache invalidate];
@@ -442,39 +442,39 @@ LABEL_6:
 
 - (void)dealloc
 {
-  v3 = PRLogModel();
+  v3 = PRLogModel(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
 
   if (v4)
   {
-    v5 = PRLogModel();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = PRLogModel(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [PRPosterPathModelObjectCache dealloc];
     }
   }
 
-  v6.receiver = self;
-  v6.super_class = PRPosterPathModelObjectCache;
-  [(PRPosterPathModelObjectCache *)&v6 dealloc];
+  v7.receiver = self;
+  v7.super_class = PRPosterPathModelObjectCache;
+  [(PRPosterPathModelObjectCache *)&v7 dealloc];
 }
 
 - (PRPosterConfiguredProperties)configuredProperties
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v3 = objc_sync_enter(selfCopy);
   if (selfCopy->_configuredProperties)
   {
-    v3 = PRLogModel();
-    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
+    v4 = PRLogModel(v3);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
 
-    if (!v4)
+    if (!v5)
     {
       goto LABEL_15;
     }
 
-    v5 = PRLogModel();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = PRLogModel(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -486,19 +486,19 @@ LABEL_6:
   {
     if ([(NSString *)selfCopy->_role isEqual:@"PRPosterRoleAmbient"])
     {
-      v6 = [PRPosterConfiguredProperties alloc];
+      v8 = [PRPosterConfiguredProperties alloc];
       ambientConfiguration = [(PRPosterPathModelObjectCache *)selfCopy ambientConfiguration];
       ambientWidgetLayout = [(PRPosterPathModelObjectCache *)selfCopy ambientWidgetLayout];
       otherMetadata = [(PRPosterPathModelObjectCache *)selfCopy otherMetadata];
       userInfo = [(PRPosterPathModelObjectCache *)selfCopy userInfo];
-      v10 = [(PRPosterConfiguredProperties *)v6 initWithAmbientConfiguration:ambientConfiguration widgetLayout:ambientWidgetLayout otherMetadata:otherMetadata userInfo:userInfo];
+      v12 = [(PRPosterConfiguredProperties *)v8 initWithAmbientConfiguration:ambientConfiguration widgetLayout:ambientWidgetLayout otherMetadata:otherMetadata userInfo:userInfo];
       configuredProperties = selfCopy->_configuredProperties;
-      selfCopy->_configuredProperties = v10;
+      selfCopy->_configuredProperties = v12;
     }
 
     else
     {
-      v23 = [PRPosterConfiguredProperties alloc];
+      v27 = [PRPosterConfiguredProperties alloc];
       ambientConfiguration = [(PRPosterPathModelObjectCache *)selfCopy titleStyleConfiguration];
       ambientWidgetLayout = [(PRPosterPathModelObjectCache *)selfCopy focusConfiguration];
       otherMetadata = [(PRPosterPathModelObjectCache *)selfCopy complicationLayout];
@@ -509,23 +509,23 @@ LABEL_6:
       suggestionMetadata = [(PRPosterPathModelObjectCache *)selfCopy suggestionMetadata];
       otherMetadata2 = [(PRPosterPathModelObjectCache *)selfCopy otherMetadata];
       userInfo2 = [(PRPosterPathModelObjectCache *)selfCopy userInfo];
-      v17 = [(PRPosterConfiguredProperties *)v23 initWithTitleStyleConfiguration:ambientConfiguration focusConfiguration:ambientWidgetLayout complicationLayout:otherMetadata renderingConfiguration:userInfo homeScreenConfiguration:configuredProperties colorVariationsConfiguration:colorVariationsConfiguration quickActionsConfiguration:quickActionsConfiguration suggestionMetadata:suggestionMetadata otherMetadata:otherMetadata2 userInfo:userInfo2];
-      v18 = selfCopy->_configuredProperties;
-      selfCopy->_configuredProperties = v17;
+      v19 = [(PRPosterConfiguredProperties *)v27 initWithTitleStyleConfiguration:ambientConfiguration focusConfiguration:ambientWidgetLayout complicationLayout:otherMetadata renderingConfiguration:userInfo homeScreenConfiguration:configuredProperties colorVariationsConfiguration:colorVariationsConfiguration quickActionsConfiguration:quickActionsConfiguration suggestionMetadata:suggestionMetadata otherMetadata:otherMetadata2 userInfo:userInfo2];
+      v20 = selfCopy->_configuredProperties;
+      selfCopy->_configuredProperties = v19;
     }
 
-    v19 = PRLogModel();
-    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
+    v22 = PRLogModel(v21);
+    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
 
-    if (!v20)
+    if (!v23)
     {
       goto LABEL_15;
     }
 
     if (selfCopy->_configuredProperties)
     {
-      v5 = PRLogModel();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v7 = PRLogModel(v24);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -535,8 +535,8 @@ LABEL_6:
 
     else
     {
-      v5 = PRLogModel();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v7 = PRLogModel(v24);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -546,10 +546,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  v21 = selfCopy->_configuredProperties;
+  v25 = selfCopy->_configuredProperties;
   objc_sync_exit(selfCopy);
 
-  return v21;
+  return v25;
 }
 
 - (void)resetConfiguredProperties
@@ -637,18 +637,18 @@ id __43__PRPosterPathModelObjectCache_description__block_invoke_2(uint64_t a1)
 
 - (PRPosterTitleStyleConfiguration)titleStyleConfiguration
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v4 = objc_sync_enter(selfCopy);
   if (selfCopy->_titleStyleConfigurationLoadError)
   {
-    v4 = PRLogModel();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+    v5 = PRLogModel(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-    if (v5)
+    if (v6)
     {
-      v6 = PRLogModel();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = PRLogModel(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -656,18 +656,18 @@ id __43__PRPosterPathModelObjectCache_description__block_invoke_2(uint64_t a1)
       }
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else if (selfCopy->_titleStyleConfiguration)
   {
-    v8 = PRLogModel();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+    v10 = PRLogModel(v4);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-    if (v9)
+    if (v11)
     {
-      v10 = PRLogModel();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = PRLogModel(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -675,28 +675,28 @@ id __43__PRPosterPathModelObjectCache_description__block_invoke_2(uint64_t a1)
       }
     }
 
-    v7 = selfCopy->_titleStyleConfiguration;
+    v9 = selfCopy->_titleStyleConfiguration;
   }
 
   else
   {
-    v11 = [PRPosterPathUtilities titleStyleConfigurationURLForPathInstanceURL:selfCopy->_pathInstanceURL];
-    v21 = 0;
-    v12 = [PRPosterPathUtilities loadUserObjectForURL:v11 expectedClass:objc_opt_class() strict:1 error:&v21];
-    v13 = v21;
-    v14 = v21;
+    v14 = [PRPosterPathUtilities titleStyleConfigurationURLForPathInstanceURL:selfCopy->_pathInstanceURL];
+    v26 = 0;
+    v15 = [PRPosterPathUtilities loadUserObjectForURL:v14 expectedClass:objc_opt_class() strict:1 error:&v26];
+    v16 = v26;
+    v17 = v26;
     titleStyleConfiguration = selfCopy->_titleStyleConfiguration;
-    selfCopy->_titleStyleConfiguration = v12;
+    selfCopy->_titleStyleConfiguration = v15;
 
-    v16 = PRLogModel();
-    LODWORD(v12) = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+    v20 = PRLogModel(v19);
+    LODWORD(v15) = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
 
-    if (v12)
+    if (v15)
     {
       if (selfCopy->_titleStyleConfiguration)
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           NSStringFromSelector(a2);
           objc_claimAutoreleasedReturnValue();
@@ -706,46 +706,46 @@ id __43__PRPosterPathModelObjectCache_description__block_invoke_2(uint64_t a1)
 
       else
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           logPreamble = selfCopy->_logPreamble;
-          v20 = NSStringFromSelector(a2);
+          v25 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v23 = logPreamble;
-          v24 = 2114;
-          v25 = v20;
-          v26 = 2114;
-          v27 = v14;
-          _os_log_debug_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
+          v28 = logPreamble;
+          v29 = 2114;
+          v30 = v25;
+          v31 = 2114;
+          v32 = v17;
+          _os_log_debug_impl(&dword_1A8AA7000, v22, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
         }
       }
     }
 
-    if (v14)
+    if (v17)
     {
-      objc_storeStrong(&selfCopy->_titleStyleConfigurationLoadError, v13);
+      objc_storeStrong(&selfCopy->_titleStyleConfigurationLoadError, v16);
     }
 
-    v7 = selfCopy->_titleStyleConfiguration;
+    v9 = selfCopy->_titleStyleConfiguration;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v7;
+  return v9;
 }
 
 - (void)resetTitleStyleConfiguration
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v4 = PRLogModel();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v4 = objc_sync_enter(selfCopy);
+  v5 = PRLogModel(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-  if (v5)
+  if (v6)
   {
-    v6 = PRLogModel();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = PRLogModel(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -767,18 +767,18 @@ id __43__PRPosterPathModelObjectCache_description__block_invoke_2(uint64_t a1)
 
 - (PRPosterRenderingConfiguration)renderingConfiguration
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v4 = objc_sync_enter(selfCopy);
   if (selfCopy->_renderingConfigurationLoadError)
   {
-    v4 = PRLogModel();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+    v5 = PRLogModel(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-    if (v5)
+    if (v6)
     {
-      v6 = PRLogModel();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = PRLogModel(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -786,18 +786,18 @@ id __43__PRPosterPathModelObjectCache_description__block_invoke_2(uint64_t a1)
       }
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else if (selfCopy->_renderingConfiguration)
   {
-    v8 = PRLogModel();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+    v10 = PRLogModel(v4);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-    if (v9)
+    if (v11)
     {
-      v10 = PRLogModel();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = PRLogModel(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -805,28 +805,28 @@ id __43__PRPosterPathModelObjectCache_description__block_invoke_2(uint64_t a1)
       }
     }
 
-    v7 = selfCopy->_renderingConfiguration;
+    v9 = selfCopy->_renderingConfiguration;
   }
 
   else
   {
-    v11 = [PRPosterPathUtilities renderingConfigurationURLForPathInstanceURL:selfCopy->_pathInstanceURL];
-    v21 = 0;
-    v12 = [PRPosterPathUtilities loadUserObjectForURL:v11 expectedClass:objc_opt_class() strict:1 error:&v21];
-    v13 = v21;
-    v14 = v21;
+    v14 = [PRPosterPathUtilities renderingConfigurationURLForPathInstanceURL:selfCopy->_pathInstanceURL];
+    v26 = 0;
+    v15 = [PRPosterPathUtilities loadUserObjectForURL:v14 expectedClass:objc_opt_class() strict:1 error:&v26];
+    v16 = v26;
+    v17 = v26;
     renderingConfiguration = selfCopy->_renderingConfiguration;
-    selfCopy->_renderingConfiguration = v12;
+    selfCopy->_renderingConfiguration = v15;
 
-    v16 = PRLogModel();
-    LODWORD(v12) = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+    v20 = PRLogModel(v19);
+    LODWORD(v15) = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
 
-    if (v12)
+    if (v15)
     {
       if (selfCopy->_renderingConfiguration)
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           NSStringFromSelector(a2);
           objc_claimAutoreleasedReturnValue();
@@ -836,46 +836,46 @@ id __43__PRPosterPathModelObjectCache_description__block_invoke_2(uint64_t a1)
 
       else
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           logPreamble = selfCopy->_logPreamble;
-          v20 = NSStringFromSelector(a2);
+          v25 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v23 = logPreamble;
-          v24 = 2114;
-          v25 = v20;
-          v26 = 2114;
-          v27 = v14;
-          _os_log_debug_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
+          v28 = logPreamble;
+          v29 = 2114;
+          v30 = v25;
+          v31 = 2114;
+          v32 = v17;
+          _os_log_debug_impl(&dword_1A8AA7000, v22, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
         }
       }
     }
 
-    if (v14)
+    if (v17)
     {
-      objc_storeStrong(&selfCopy->_renderingConfigurationLoadError, v13);
+      objc_storeStrong(&selfCopy->_renderingConfigurationLoadError, v16);
     }
 
-    v7 = selfCopy->_renderingConfiguration;
+    v9 = selfCopy->_renderingConfiguration;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v7;
+  return v9;
 }
 
 - (void)resetRenderingConfiguration
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v4 = PRLogModel();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v4 = objc_sync_enter(selfCopy);
+  v5 = PRLogModel(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-  if (v5)
+  if (v6)
   {
-    v6 = PRLogModel();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = PRLogModel(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -897,18 +897,18 @@ id __43__PRPosterPathModelObjectCache_description__block_invoke_2(uint64_t a1)
 
 - (PRPosterConfigurableOptions)configurableOptions
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v4 = objc_sync_enter(selfCopy);
   if (selfCopy->_configurableOptionsLoadError)
   {
-    v4 = PRLogModel();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+    v5 = PRLogModel(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-    if (v5)
+    if (v6)
     {
-      v6 = PRLogModel();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = PRLogModel(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -916,18 +916,18 @@ id __43__PRPosterPathModelObjectCache_description__block_invoke_2(uint64_t a1)
       }
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else if (selfCopy->_configurableOptions)
   {
-    v8 = PRLogModel();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+    v10 = PRLogModel(v4);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-    if (v9)
+    if (v11)
     {
-      v10 = PRLogModel();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = PRLogModel(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -935,28 +935,28 @@ id __43__PRPosterPathModelObjectCache_description__block_invoke_2(uint64_t a1)
       }
     }
 
-    v7 = selfCopy->_configurableOptions;
+    v9 = selfCopy->_configurableOptions;
   }
 
   else
   {
-    v11 = [PRPosterPathUtilities configurableOptionsURLForContentsURL:selfCopy->_pathContentsURL];
-    v21 = 0;
-    v12 = [PRPosterPathUtilities loadUserObjectForURL:v11 expectedClass:objc_opt_class() strict:1 error:&v21];
-    v13 = v21;
-    v14 = v21;
+    v14 = [PRPosterPathUtilities configurableOptionsURLForContentsURL:selfCopy->_pathContentsURL];
+    v26 = 0;
+    v15 = [PRPosterPathUtilities loadUserObjectForURL:v14 expectedClass:objc_opt_class() strict:1 error:&v26];
+    v16 = v26;
+    v17 = v26;
     configurableOptions = selfCopy->_configurableOptions;
-    selfCopy->_configurableOptions = v12;
+    selfCopy->_configurableOptions = v15;
 
-    v16 = PRLogModel();
-    LODWORD(v12) = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+    v20 = PRLogModel(v19);
+    LODWORD(v15) = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
 
-    if (v12)
+    if (v15)
     {
       if (selfCopy->_configurableOptions)
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           NSStringFromSelector(a2);
           objc_claimAutoreleasedReturnValue();
@@ -966,46 +966,46 @@ id __43__PRPosterPathModelObjectCache_description__block_invoke_2(uint64_t a1)
 
       else
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           logPreamble = selfCopy->_logPreamble;
-          v20 = NSStringFromSelector(a2);
+          v25 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v23 = logPreamble;
-          v24 = 2114;
-          v25 = v20;
-          v26 = 2114;
-          v27 = v14;
-          _os_log_debug_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
+          v28 = logPreamble;
+          v29 = 2114;
+          v30 = v25;
+          v31 = 2114;
+          v32 = v17;
+          _os_log_debug_impl(&dword_1A8AA7000, v22, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
         }
       }
     }
 
-    if (v14)
+    if (v17)
     {
-      objc_storeStrong(&selfCopy->_configurableOptionsLoadError, v13);
+      objc_storeStrong(&selfCopy->_configurableOptionsLoadError, v16);
     }
 
-    v7 = selfCopy->_configurableOptions;
+    v9 = selfCopy->_configurableOptions;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v7;
+  return v9;
 }
 
 - (void)resetConfigurableOptions
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v4 = PRLogModel();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v4 = objc_sync_enter(selfCopy);
+  v5 = PRLogModel(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-  if (v5)
+  if (v6)
   {
-    v6 = PRLogModel();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = PRLogModel(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -1027,19 +1027,19 @@ id __43__PRPosterPathModelObjectCache_description__block_invoke_2(uint64_t a1)
 
 - (id)homeScreenConfigurationOrError:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v6 = objc_sync_enter(selfCopy);
   p_homeScreenConfigurationLoadError = &selfCopy->_homeScreenConfigurationLoadError;
   if (selfCopy->_homeScreenConfigurationLoadError)
   {
-    v7 = PRLogModel();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+    v8 = PRLogModel(v6);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
 
-    if (v8)
+    if (v9)
     {
-      v9 = PRLogModel();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v11 = PRLogModel(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1049,14 +1049,14 @@ id __43__PRPosterPathModelObjectCache_description__block_invoke_2(uint64_t a1)
 
     if (error && ([*p_homeScreenConfigurationLoadError pf_isFileNotFoundError] & 1) == 0)
     {
-      v14 = [*p_homeScreenConfigurationLoadError copy];
-      v10 = 0;
-      *error = v14;
+      v17 = [*p_homeScreenConfigurationLoadError copy];
+      v12 = 0;
+      *error = v17;
     }
 
     else
     {
-      v10 = 0;
+      v12 = 0;
     }
 
     goto LABEL_37;
@@ -1064,13 +1064,13 @@ id __43__PRPosterPathModelObjectCache_description__block_invoke_2(uint64_t a1)
 
   if (selfCopy->_homeScreenConfiguration)
   {
-    v11 = PRLogModel();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
+    v13 = PRLogModel(v6);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
 
-    if (v12)
+    if (v14)
     {
-      v13 = PRLogModel();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v16 = PRLogModel(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1078,72 +1078,74 @@ id __43__PRPosterPathModelObjectCache_description__block_invoke_2(uint64_t a1)
       }
     }
 
-    v10 = selfCopy->_homeScreenConfiguration;
+    v12 = selfCopy->_homeScreenConfiguration;
     goto LABEL_37;
   }
 
-  v15 = [PRPosterPathUtilities homeScreenConfigurationURLForSupplementURL:selfCopy->_pathSupplementURL];
-  v35 = 0;
-  v16 = [PRPosterPathUtilities loadUserObjectForURL:v15 expectedClass:objc_opt_class() strict:0 error:&v35];
-  v17 = v35;
+  v18 = [PRPosterPathUtilities homeScreenConfigurationURLForSupplementURL:selfCopy->_pathSupplementURL];
+  v42 = 0;
+  v19 = [PRPosterPathUtilities loadUserObjectForURL:v18 expectedClass:objc_opt_class() strict:0 error:&v42];
+  v20 = v42;
   homeScreenConfiguration = selfCopy->_homeScreenConfiguration;
-  selfCopy->_homeScreenConfiguration = v16;
+  selfCopy->_homeScreenConfiguration = v19;
 
   if (selfCopy->_homeScreenConfiguration)
   {
-    v19 = 0;
+    v22 = 0;
   }
 
   else
   {
-    v20 = [PRPosterPathUtilities oldHomeScreenConfigurationURLForIdentifierURL:selfCopy->_pathIdentifierURL];
-    v34 = 0;
-    v21 = [PRPosterPathUtilities loadUserObjectForURL:v20 expectedClass:objc_opt_class() strict:0 error:&v34];
-    v19 = v34;
-    v22 = selfCopy->_homeScreenConfiguration;
-    selfCopy->_homeScreenConfiguration = v21;
+    v23 = [PRPosterPathUtilities oldHomeScreenConfigurationURLForIdentifierURL:selfCopy->_pathIdentifierURL];
+    v41 = 0;
+    v24 = [PRPosterPathUtilities loadUserObjectForURL:v23 expectedClass:objc_opt_class() strict:0 error:&v41];
+    v22 = v41;
+    v25 = selfCopy->_homeScreenConfiguration;
+    selfCopy->_homeScreenConfiguration = v24;
   }
 
-  if (v17)
+  if (v20)
   {
-    v23 = v17;
+    v26 = v20;
   }
 
   else
   {
-    v23 = v19;
+    v26 = v22;
   }
 
-  v24 = v23;
+  v27 = v26;
+  v28 = v27;
   if (!selfCopy->_homeScreenConfiguration)
   {
-    v28 = PRLogModel();
-    v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG);
+    v33 = PRLogModel(v27);
+    v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG);
 
-    if (v29)
+    if (v34)
     {
-      v30 = PRLogModel();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v36 = PRLogModel(v35);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
         logPreamble = selfCopy->_logPreamble;
-        v33 = NSStringFromSelector(a2);
+        v40 = NSStringFromSelector(a2);
         *buf = 138543874;
-        v37 = logPreamble;
-        v38 = 2114;
-        v39 = v33;
-        v40 = 2114;
-        v41 = v24;
-        _os_log_debug_impl(&dword_1A8AA7000, v30, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
+        v44 = logPreamble;
+        v45 = 2114;
+        v46 = v40;
+        v47 = 2114;
+        v48 = v28;
+        _os_log_debug_impl(&dword_1A8AA7000, v36, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
       }
     }
 
-    if (![v24 pf_isFileNotFoundError])
+    pf_isFileNotFoundError = [v28 pf_isFileNotFoundError];
+    if (!pf_isFileNotFoundError)
     {
       goto LABEL_34;
     }
 
-    v27 = PRLogModel();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v32 = PRLogModel(pf_isFileNotFoundError);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       [PRPosterPathModelObjectCache homeScreenConfigurationOrError:];
     }
@@ -1151,13 +1153,13 @@ id __43__PRPosterPathModelObjectCache_description__block_invoke_2(uint64_t a1)
     goto LABEL_33;
   }
 
-  v25 = PRLogModel();
-  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG);
+  v29 = PRLogModel(v27);
+  v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG);
 
-  if (v26)
+  if (v30)
   {
-    v27 = PRLogModel();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v32 = PRLogModel(v31);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -1168,30 +1170,30 @@ LABEL_33:
   }
 
 LABEL_34:
-  if (v24)
+  if (v28)
   {
-    objc_storeStrong(&selfCopy->_homeScreenConfigurationLoadError, v23);
+    objc_storeStrong(&selfCopy->_homeScreenConfigurationLoadError, v26);
   }
 
-  v10 = selfCopy->_homeScreenConfiguration;
+  v12 = selfCopy->_homeScreenConfiguration;
 
 LABEL_37:
   objc_sync_exit(selfCopy);
 
-  return v10;
+  return v12;
 }
 
 - (void)resetHomeScreenConfiguration
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v4 = PRLogModel();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v4 = objc_sync_enter(selfCopy);
+  v5 = PRLogModel(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-  if (v5)
+  if (v6)
   {
-    v6 = PRLogModel();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = PRLogModel(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -1213,18 +1215,18 @@ LABEL_37:
 
 - (PRPosterFocusConfiguration)focusConfiguration
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v4 = objc_sync_enter(selfCopy);
   if (selfCopy->_focusConfigurationLoadError)
   {
-    v4 = PRLogModel();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+    v5 = PRLogModel(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-    if (v5)
+    if (v6)
     {
-      v6 = PRLogModel();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = PRLogModel(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1232,18 +1234,18 @@ LABEL_37:
       }
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else if (selfCopy->_focusConfiguration)
   {
-    v8 = PRLogModel();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+    v10 = PRLogModel(v4);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-    if (v9)
+    if (v11)
     {
-      v10 = PRLogModel();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = PRLogModel(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1251,28 +1253,28 @@ LABEL_37:
       }
     }
 
-    v7 = selfCopy->_focusConfiguration;
+    v9 = selfCopy->_focusConfiguration;
   }
 
   else
   {
-    v11 = [PRPosterPathUtilities focusConfigurationURLForIdentifierURL:selfCopy->_pathIdentifierURL];
-    v21 = 0;
-    v12 = [PRPosterPathUtilities loadUserObjectForURL:v11 expectedClass:objc_opt_class() strict:0 error:&v21];
-    v13 = v21;
-    v14 = v21;
+    v14 = [PRPosterPathUtilities focusConfigurationURLForIdentifierURL:selfCopy->_pathIdentifierURL];
+    v26 = 0;
+    v15 = [PRPosterPathUtilities loadUserObjectForURL:v14 expectedClass:objc_opt_class() strict:0 error:&v26];
+    v16 = v26;
+    v17 = v26;
     focusConfiguration = selfCopy->_focusConfiguration;
-    selfCopy->_focusConfiguration = v12;
+    selfCopy->_focusConfiguration = v15;
 
-    v16 = PRLogModel();
-    LODWORD(v12) = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+    v20 = PRLogModel(v19);
+    LODWORD(v15) = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
 
-    if (v12)
+    if (v15)
     {
       if (selfCopy->_focusConfiguration)
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           NSStringFromSelector(a2);
           objc_claimAutoreleasedReturnValue();
@@ -1282,46 +1284,46 @@ LABEL_37:
 
       else
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           logPreamble = selfCopy->_logPreamble;
-          v20 = NSStringFromSelector(a2);
+          v25 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v23 = logPreamble;
-          v24 = 2114;
-          v25 = v20;
-          v26 = 2114;
-          v27 = v14;
-          _os_log_debug_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
+          v28 = logPreamble;
+          v29 = 2114;
+          v30 = v25;
+          v31 = 2114;
+          v32 = v17;
+          _os_log_debug_impl(&dword_1A8AA7000, v22, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
         }
       }
     }
 
-    if (v14)
+    if (v17)
     {
-      objc_storeStrong(&selfCopy->_focusConfigurationLoadError, v13);
+      objc_storeStrong(&selfCopy->_focusConfigurationLoadError, v16);
     }
 
-    v7 = selfCopy->_focusConfiguration;
+    v9 = selfCopy->_focusConfiguration;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v7;
+  return v9;
 }
 
 - (void)resetFocusConfiguration
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v4 = PRLogModel();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v4 = objc_sync_enter(selfCopy);
+  v5 = PRLogModel(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-  if (v5)
+  if (v6)
   {
-    v6 = PRLogModel();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = PRLogModel(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -1343,18 +1345,18 @@ LABEL_37:
 
 - (PRPosterComplicationLayout)complicationLayout
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v4 = objc_sync_enter(selfCopy);
   if (selfCopy->_complicationLayoutLoadError)
   {
-    v4 = PRLogModel();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+    v5 = PRLogModel(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-    if (v5)
+    if (v6)
     {
-      v6 = PRLogModel();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = PRLogModel(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1362,18 +1364,18 @@ LABEL_37:
       }
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else if (selfCopy->_complicationLayout)
   {
-    v8 = PRLogModel();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+    v10 = PRLogModel(v4);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-    if (v9)
+    if (v11)
     {
-      v10 = PRLogModel();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = PRLogModel(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1381,28 +1383,28 @@ LABEL_37:
       }
     }
 
-    v7 = selfCopy->_complicationLayout;
+    v9 = selfCopy->_complicationLayout;
   }
 
   else
   {
-    v11 = [PRPosterPathUtilities complicationsLayoutURLForInstanceURL:selfCopy->_pathInstanceURL];
-    v21 = 0;
-    v12 = [PRPosterPathUtilities loadUserObjectForURL:v11 expectedClass:objc_opt_class() strict:0 error:&v21];
-    v13 = v21;
-    v14 = v21;
+    v14 = [PRPosterPathUtilities complicationsLayoutURLForInstanceURL:selfCopy->_pathInstanceURL];
+    v26 = 0;
+    v15 = [PRPosterPathUtilities loadUserObjectForURL:v14 expectedClass:objc_opt_class() strict:0 error:&v26];
+    v16 = v26;
+    v17 = v26;
     complicationLayout = selfCopy->_complicationLayout;
-    selfCopy->_complicationLayout = v12;
+    selfCopy->_complicationLayout = v15;
 
-    v16 = PRLogModel();
-    LODWORD(v12) = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+    v20 = PRLogModel(v19);
+    LODWORD(v15) = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
 
-    if (v12)
+    if (v15)
     {
       if (selfCopy->_complicationLayout)
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           NSStringFromSelector(a2);
           objc_claimAutoreleasedReturnValue();
@@ -1412,46 +1414,46 @@ LABEL_37:
 
       else
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           logPreamble = selfCopy->_logPreamble;
-          v20 = NSStringFromSelector(a2);
+          v25 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v23 = logPreamble;
-          v24 = 2114;
-          v25 = v20;
-          v26 = 2114;
-          v27 = v14;
-          _os_log_debug_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
+          v28 = logPreamble;
+          v29 = 2114;
+          v30 = v25;
+          v31 = 2114;
+          v32 = v17;
+          _os_log_debug_impl(&dword_1A8AA7000, v22, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
         }
       }
     }
 
-    if (v14)
+    if (v17)
     {
-      objc_storeStrong(&selfCopy->_complicationLayoutLoadError, v13);
+      objc_storeStrong(&selfCopy->_complicationLayoutLoadError, v16);
     }
 
-    v7 = selfCopy->_complicationLayout;
+    v9 = selfCopy->_complicationLayout;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v7;
+  return v9;
 }
 
 - (void)resetComplicationLayout
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v4 = PRLogModel();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v4 = objc_sync_enter(selfCopy);
+  v5 = PRLogModel(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-  if (v5)
+  if (v6)
   {
-    v6 = PRLogModel();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = PRLogModel(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -1473,18 +1475,18 @@ LABEL_37:
 
 - (PRPosterColorVariationsConfiguration)colorVariationsConfiguration
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v4 = objc_sync_enter(selfCopy);
   if (selfCopy->_colorVariationsConfigurationLoadError)
   {
-    v4 = PRLogModel();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+    v5 = PRLogModel(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-    if (v5)
+    if (v6)
     {
-      v6 = PRLogModel();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = PRLogModel(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1492,18 +1494,18 @@ LABEL_37:
       }
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else if (selfCopy->_colorVariationsConfiguration)
   {
-    v8 = PRLogModel();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+    v10 = PRLogModel(v4);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-    if (v9)
+    if (v11)
     {
-      v10 = PRLogModel();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = PRLogModel(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1511,28 +1513,28 @@ LABEL_37:
       }
     }
 
-    v7 = selfCopy->_colorVariationsConfiguration;
+    v9 = selfCopy->_colorVariationsConfiguration;
   }
 
   else
   {
-    v11 = [PRPosterPathUtilities colorVariationsConfigurationURLForInstanceURL:selfCopy->_pathInstanceURL];
-    v21 = 0;
-    v12 = [PRPosterPathUtilities loadUserObjectForURL:v11 expectedClass:objc_opt_class() strict:1 error:&v21];
-    v13 = v21;
-    v14 = v21;
+    v14 = [PRPosterPathUtilities colorVariationsConfigurationURLForInstanceURL:selfCopy->_pathInstanceURL];
+    v26 = 0;
+    v15 = [PRPosterPathUtilities loadUserObjectForURL:v14 expectedClass:objc_opt_class() strict:1 error:&v26];
+    v16 = v26;
+    v17 = v26;
     colorVariationsConfiguration = selfCopy->_colorVariationsConfiguration;
-    selfCopy->_colorVariationsConfiguration = v12;
+    selfCopy->_colorVariationsConfiguration = v15;
 
-    v16 = PRLogModel();
-    LODWORD(v12) = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+    v20 = PRLogModel(v19);
+    LODWORD(v15) = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
 
-    if (v12)
+    if (v15)
     {
       if (selfCopy->_colorVariationsConfiguration)
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           NSStringFromSelector(a2);
           objc_claimAutoreleasedReturnValue();
@@ -1542,46 +1544,46 @@ LABEL_37:
 
       else
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           logPreamble = selfCopy->_logPreamble;
-          v20 = NSStringFromSelector(a2);
+          v25 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v23 = logPreamble;
-          v24 = 2114;
-          v25 = v20;
-          v26 = 2114;
-          v27 = v14;
-          _os_log_debug_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
+          v28 = logPreamble;
+          v29 = 2114;
+          v30 = v25;
+          v31 = 2114;
+          v32 = v17;
+          _os_log_debug_impl(&dword_1A8AA7000, v22, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
         }
       }
     }
 
-    if (v14)
+    if (v17)
     {
-      objc_storeStrong(&selfCopy->_colorVariationsConfigurationLoadError, v13);
+      objc_storeStrong(&selfCopy->_colorVariationsConfigurationLoadError, v16);
     }
 
-    v7 = selfCopy->_colorVariationsConfiguration;
+    v9 = selfCopy->_colorVariationsConfiguration;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v7;
+  return v9;
 }
 
 - (void)resetColorVariationsConfiguration
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v4 = PRLogModel();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v4 = objc_sync_enter(selfCopy);
+  v5 = PRLogModel(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-  if (v5)
+  if (v6)
   {
-    v6 = PRLogModel();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = PRLogModel(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -1603,18 +1605,18 @@ LABEL_37:
 
 - (PRPosterQuickActionsConfiguration)quickActionsConfiguration
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v4 = objc_sync_enter(selfCopy);
   if (selfCopy->_quickActionsConfigurationLoadError)
   {
-    v4 = PRLogModel();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+    v5 = PRLogModel(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-    if (v5)
+    if (v6)
     {
-      v6 = PRLogModel();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = PRLogModel(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1622,18 +1624,18 @@ LABEL_37:
       }
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else if (selfCopy->_quickActionsConfiguration)
   {
-    v8 = PRLogModel();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+    v10 = PRLogModel(v4);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-    if (v9)
+    if (v11)
     {
-      v10 = PRLogModel();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = PRLogModel(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1641,28 +1643,28 @@ LABEL_37:
       }
     }
 
-    v7 = selfCopy->_quickActionsConfiguration;
+    v9 = selfCopy->_quickActionsConfiguration;
   }
 
   else
   {
-    v11 = [PRPosterPathUtilities quickActionsConfigurationURLForInstanceURL:selfCopy->_pathInstanceURL];
-    v21 = 0;
-    v12 = [PRPosterPathUtilities loadUserObjectForURL:v11 expectedClass:objc_opt_class() strict:0 error:&v21];
-    v13 = v21;
-    v14 = v21;
+    v14 = [PRPosterPathUtilities quickActionsConfigurationURLForInstanceURL:selfCopy->_pathInstanceURL];
+    v26 = 0;
+    v15 = [PRPosterPathUtilities loadUserObjectForURL:v14 expectedClass:objc_opt_class() strict:0 error:&v26];
+    v16 = v26;
+    v17 = v26;
     quickActionsConfiguration = selfCopy->_quickActionsConfiguration;
-    selfCopy->_quickActionsConfiguration = v12;
+    selfCopy->_quickActionsConfiguration = v15;
 
-    v16 = PRLogModel();
-    LODWORD(v12) = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+    v20 = PRLogModel(v19);
+    LODWORD(v15) = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
 
-    if (v12)
+    if (v15)
     {
       if (selfCopy->_quickActionsConfiguration)
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           NSStringFromSelector(a2);
           objc_claimAutoreleasedReturnValue();
@@ -1672,46 +1674,46 @@ LABEL_37:
 
       else
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           logPreamble = selfCopy->_logPreamble;
-          v20 = NSStringFromSelector(a2);
+          v25 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v23 = logPreamble;
-          v24 = 2114;
-          v25 = v20;
-          v26 = 2114;
-          v27 = v14;
-          _os_log_debug_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
+          v28 = logPreamble;
+          v29 = 2114;
+          v30 = v25;
+          v31 = 2114;
+          v32 = v17;
+          _os_log_debug_impl(&dword_1A8AA7000, v22, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
         }
       }
     }
 
-    if (v14)
+    if (v17)
     {
-      objc_storeStrong(&selfCopy->_quickActionsConfigurationLoadError, v13);
+      objc_storeStrong(&selfCopy->_quickActionsConfigurationLoadError, v16);
     }
 
-    v7 = selfCopy->_quickActionsConfiguration;
+    v9 = selfCopy->_quickActionsConfiguration;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v7;
+  return v9;
 }
 
 - (void)resetQuickActionsConfiguration
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v4 = PRLogModel();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v4 = objc_sync_enter(selfCopy);
+  v5 = PRLogModel(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-  if (v5)
+  if (v6)
   {
-    v6 = PRLogModel();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = PRLogModel(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -1733,18 +1735,18 @@ LABEL_37:
 
 - (PRPosterSuggestionMetadata)suggestionMetadata
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v4 = objc_sync_enter(selfCopy);
   if (selfCopy->_suggestionMetadataLoadError)
   {
-    v4 = PRLogModel();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+    v5 = PRLogModel(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-    if (v5)
+    if (v6)
     {
-      v6 = PRLogModel();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = PRLogModel(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1752,18 +1754,18 @@ LABEL_37:
       }
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else if (selfCopy->_suggestionMetadata)
   {
-    v8 = PRLogModel();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+    v10 = PRLogModel(v4);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-    if (v9)
+    if (v11)
     {
-      v10 = PRLogModel();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = PRLogModel(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1771,28 +1773,28 @@ LABEL_37:
       }
     }
 
-    v7 = selfCopy->_suggestionMetadata;
+    v9 = selfCopy->_suggestionMetadata;
   }
 
   else
   {
-    v11 = [PRPosterPathUtilities suggestionMetadataURLForIdentifierURL:selfCopy->_pathIdentifierURL];
-    v21 = 0;
-    v12 = [PRPosterPathUtilities loadUserObjectForURL:v11 expectedClass:objc_opt_class() strict:0 error:&v21];
-    v13 = v21;
-    v14 = v21;
+    v14 = [PRPosterPathUtilities suggestionMetadataURLForIdentifierURL:selfCopy->_pathIdentifierURL];
+    v26 = 0;
+    v15 = [PRPosterPathUtilities loadUserObjectForURL:v14 expectedClass:objc_opt_class() strict:0 error:&v26];
+    v16 = v26;
+    v17 = v26;
     suggestionMetadata = selfCopy->_suggestionMetadata;
-    selfCopy->_suggestionMetadata = v12;
+    selfCopy->_suggestionMetadata = v15;
 
-    v16 = PRLogModel();
-    LODWORD(v12) = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+    v20 = PRLogModel(v19);
+    LODWORD(v15) = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
 
-    if (v12)
+    if (v15)
     {
       if (selfCopy->_suggestionMetadata)
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           NSStringFromSelector(a2);
           objc_claimAutoreleasedReturnValue();
@@ -1802,46 +1804,46 @@ LABEL_37:
 
       else
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           logPreamble = selfCopy->_logPreamble;
-          v20 = NSStringFromSelector(a2);
+          v25 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v23 = logPreamble;
-          v24 = 2114;
-          v25 = v20;
-          v26 = 2114;
-          v27 = v14;
-          _os_log_debug_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
+          v28 = logPreamble;
+          v29 = 2114;
+          v30 = v25;
+          v31 = 2114;
+          v32 = v17;
+          _os_log_debug_impl(&dword_1A8AA7000, v22, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
         }
       }
     }
 
-    if (v14)
+    if (v17)
     {
-      objc_storeStrong(&selfCopy->_suggestionMetadataLoadError, v13);
+      objc_storeStrong(&selfCopy->_suggestionMetadataLoadError, v16);
     }
 
-    v7 = selfCopy->_suggestionMetadata;
+    v9 = selfCopy->_suggestionMetadata;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v7;
+  return v9;
 }
 
 - (void)resetSuggestionMetadata
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v4 = PRLogModel();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v4 = objc_sync_enter(selfCopy);
+  v5 = PRLogModel(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-  if (v5)
+  if (v6)
   {
-    v6 = PRLogModel();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = PRLogModel(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -1863,18 +1865,18 @@ LABEL_37:
 
 - (PRPosterMetadata)otherMetadata
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v4 = objc_sync_enter(selfCopy);
   if (selfCopy->_otherMetadataLoadError)
   {
-    v4 = PRLogModel();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+    v5 = PRLogModel(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-    if (v5)
+    if (v6)
     {
-      v6 = PRLogModel();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = PRLogModel(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1882,18 +1884,18 @@ LABEL_37:
       }
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else if (selfCopy->_otherMetadata)
   {
-    v8 = PRLogModel();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+    v10 = PRLogModel(v4);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-    if (v9)
+    if (v11)
     {
-      v10 = PRLogModel();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = PRLogModel(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1901,28 +1903,28 @@ LABEL_37:
       }
     }
 
-    v7 = selfCopy->_otherMetadata;
+    v9 = selfCopy->_otherMetadata;
   }
 
   else
   {
-    v11 = [PRPosterPathUtilities otherMetadataURLForContentsURL:selfCopy->_pathContentsURL];
-    v21 = 0;
-    v12 = [PRPosterPathUtilities loadUserObjectForURL:v11 expectedClass:objc_opt_class() strict:1 error:&v21];
-    v13 = v21;
-    v14 = v21;
+    v14 = [PRPosterPathUtilities otherMetadataURLForContentsURL:selfCopy->_pathContentsURL];
+    v26 = 0;
+    v15 = [PRPosterPathUtilities loadUserObjectForURL:v14 expectedClass:objc_opt_class() strict:1 error:&v26];
+    v16 = v26;
+    v17 = v26;
     otherMetadata = selfCopy->_otherMetadata;
-    selfCopy->_otherMetadata = v12;
+    selfCopy->_otherMetadata = v15;
 
-    v16 = PRLogModel();
-    LODWORD(v12) = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+    v20 = PRLogModel(v19);
+    LODWORD(v15) = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
 
-    if (v12)
+    if (v15)
     {
       if (selfCopy->_otherMetadata)
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           NSStringFromSelector(a2);
           objc_claimAutoreleasedReturnValue();
@@ -1932,46 +1934,46 @@ LABEL_37:
 
       else
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           logPreamble = selfCopy->_logPreamble;
-          v20 = NSStringFromSelector(a2);
+          v25 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v23 = logPreamble;
-          v24 = 2114;
-          v25 = v20;
-          v26 = 2114;
-          v27 = v14;
-          _os_log_debug_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
+          v28 = logPreamble;
+          v29 = 2114;
+          v30 = v25;
+          v31 = 2114;
+          v32 = v17;
+          _os_log_debug_impl(&dword_1A8AA7000, v22, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
         }
       }
     }
 
-    if (v14)
+    if (v17)
     {
-      objc_storeStrong(&selfCopy->_otherMetadataLoadError, v13);
+      objc_storeStrong(&selfCopy->_otherMetadataLoadError, v16);
     }
 
-    v7 = selfCopy->_otherMetadata;
+    v9 = selfCopy->_otherMetadata;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v7;
+  return v9;
 }
 
 - (void)resetOtherMetadata
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v4 = PRLogModel();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v4 = objc_sync_enter(selfCopy);
+  v5 = PRLogModel(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-  if (v5)
+  if (v6)
   {
-    v6 = PRLogModel();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = PRLogModel(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -1993,18 +1995,18 @@ LABEL_37:
 
 - (PRPosterDescriptorGalleryOptions)galleryOptions
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v4 = objc_sync_enter(selfCopy);
   if (selfCopy->_galleryOptionsLoadError)
   {
-    v4 = PRLogModel();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+    v5 = PRLogModel(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-    if (v5)
+    if (v6)
     {
-      v6 = PRLogModel();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = PRLogModel(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -2012,18 +2014,18 @@ LABEL_37:
       }
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else if (selfCopy->_galleryOptions)
   {
-    v8 = PRLogModel();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+    v10 = PRLogModel(v4);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-    if (v9)
+    if (v11)
     {
-      v10 = PRLogModel();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = PRLogModel(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -2031,28 +2033,28 @@ LABEL_37:
       }
     }
 
-    v7 = selfCopy->_galleryOptions;
+    v9 = selfCopy->_galleryOptions;
   }
 
   else
   {
-    v11 = [PRPosterPathUtilities descriptorGalleryOptionsURLForContentsURL:selfCopy->_pathContentsURL];
-    v21 = 0;
-    v12 = [PRPosterPathUtilities loadUserObjectForURL:v11 expectedClass:objc_opt_class() strict:0 error:&v21];
-    v13 = v21;
-    v14 = v21;
+    v14 = [PRPosterPathUtilities descriptorGalleryOptionsURLForContentsURL:selfCopy->_pathContentsURL];
+    v26 = 0;
+    v15 = [PRPosterPathUtilities loadUserObjectForURL:v14 expectedClass:objc_opt_class() strict:0 error:&v26];
+    v16 = v26;
+    v17 = v26;
     galleryOptions = selfCopy->_galleryOptions;
-    selfCopy->_galleryOptions = v12;
+    selfCopy->_galleryOptions = v15;
 
-    v16 = PRLogModel();
-    LODWORD(v12) = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+    v20 = PRLogModel(v19);
+    LODWORD(v15) = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
 
-    if (v12)
+    if (v15)
     {
       if (selfCopy->_galleryOptions)
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           NSStringFromSelector(a2);
           objc_claimAutoreleasedReturnValue();
@@ -2062,46 +2064,46 @@ LABEL_37:
 
       else
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           logPreamble = selfCopy->_logPreamble;
-          v20 = NSStringFromSelector(a2);
+          v25 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v23 = logPreamble;
-          v24 = 2114;
-          v25 = v20;
-          v26 = 2114;
-          v27 = v14;
-          _os_log_debug_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
+          v28 = logPreamble;
+          v29 = 2114;
+          v30 = v25;
+          v31 = 2114;
+          v32 = v17;
+          _os_log_debug_impl(&dword_1A8AA7000, v22, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
         }
       }
     }
 
-    if (v14)
+    if (v17)
     {
-      objc_storeStrong(&selfCopy->_galleryOptionsLoadError, v13);
+      objc_storeStrong(&selfCopy->_galleryOptionsLoadError, v16);
     }
 
-    v7 = selfCopy->_galleryOptions;
+    v9 = selfCopy->_galleryOptions;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v7;
+  return v9;
 }
 
 - (void)resetGalleryOptions
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v4 = PRLogModel();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v4 = objc_sync_enter(selfCopy);
+  v5 = PRLogModel(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-  if (v5)
+  if (v6)
   {
-    v6 = PRLogModel();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = PRLogModel(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -2123,18 +2125,18 @@ LABEL_37:
 
 - (ATXPosterDescriptorGalleryOptions)proactiveGalleryOptions
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v4 = objc_sync_enter(selfCopy);
   if (selfCopy->_proactiveGalleryOptionsLoadError)
   {
-    v4 = PRLogModel();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+    v5 = PRLogModel(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-    if (v5)
+    if (v6)
     {
-      v6 = PRLogModel();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = PRLogModel(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -2142,18 +2144,18 @@ LABEL_37:
       }
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else if (selfCopy->_proactiveGalleryOptions)
   {
-    v8 = PRLogModel();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+    v10 = PRLogModel(v4);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-    if (v9)
+    if (v11)
     {
-      v10 = PRLogModel();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = PRLogModel(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -2161,28 +2163,28 @@ LABEL_37:
       }
     }
 
-    v7 = selfCopy->_proactiveGalleryOptions;
+    v9 = selfCopy->_proactiveGalleryOptions;
   }
 
   else
   {
-    v11 = [PRPosterPathUtilities proactiveGalleryOptionsURLForContentsURL:selfCopy->_pathContentsURL];
-    v21 = 0;
-    v12 = [PRPosterPathUtilities loadUserObjectForURL:v11 expectedClass:objc_opt_class() strict:0 error:&v21];
-    v13 = v21;
-    v14 = v21;
+    v14 = [PRPosterPathUtilities proactiveGalleryOptionsURLForContentsURL:selfCopy->_pathContentsURL];
+    v26 = 0;
+    v15 = [PRPosterPathUtilities loadUserObjectForURL:v14 expectedClass:objc_opt_class() strict:0 error:&v26];
+    v16 = v26;
+    v17 = v26;
     proactiveGalleryOptions = selfCopy->_proactiveGalleryOptions;
-    selfCopy->_proactiveGalleryOptions = v12;
+    selfCopy->_proactiveGalleryOptions = v15;
 
-    v16 = PRLogModel();
-    LODWORD(v12) = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+    v20 = PRLogModel(v19);
+    LODWORD(v15) = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
 
-    if (v12)
+    if (v15)
     {
       if (selfCopy->_proactiveGalleryOptions)
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           NSStringFromSelector(a2);
           objc_claimAutoreleasedReturnValue();
@@ -2192,46 +2194,46 @@ LABEL_37:
 
       else
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           logPreamble = selfCopy->_logPreamble;
-          v20 = NSStringFromSelector(a2);
+          v25 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v23 = logPreamble;
-          v24 = 2114;
-          v25 = v20;
-          v26 = 2114;
-          v27 = v14;
-          _os_log_debug_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
+          v28 = logPreamble;
+          v29 = 2114;
+          v30 = v25;
+          v31 = 2114;
+          v32 = v17;
+          _os_log_debug_impl(&dword_1A8AA7000, v22, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
         }
       }
     }
 
-    if (v14)
+    if (v17)
     {
-      objc_storeStrong(&selfCopy->_proactiveGalleryOptionsLoadError, v13);
+      objc_storeStrong(&selfCopy->_proactiveGalleryOptionsLoadError, v16);
     }
 
-    v7 = selfCopy->_proactiveGalleryOptions;
+    v9 = selfCopy->_proactiveGalleryOptions;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v7;
+  return v9;
 }
 
 - (void)resetProactiveGalleryOptions
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v4 = PRLogModel();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v4 = objc_sync_enter(selfCopy);
+  v5 = PRLogModel(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-  if (v5)
+  if (v6)
   {
-    v6 = PRLogModel();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = PRLogModel(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -2253,18 +2255,18 @@ LABEL_37:
 
 - (PRPosterAmbientConfiguration)ambientConfiguration
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v4 = objc_sync_enter(selfCopy);
   if (selfCopy->_ambientConfigurationLoadError)
   {
-    v4 = PRLogModel();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+    v5 = PRLogModel(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-    if (v5)
+    if (v6)
     {
-      v6 = PRLogModel();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = PRLogModel(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -2272,18 +2274,18 @@ LABEL_37:
       }
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else if (selfCopy->_ambientConfiguration)
   {
-    v8 = PRLogModel();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+    v10 = PRLogModel(v4);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-    if (v9)
+    if (v11)
     {
-      v10 = PRLogModel();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = PRLogModel(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -2291,28 +2293,28 @@ LABEL_37:
       }
     }
 
-    v7 = selfCopy->_ambientConfiguration;
+    v9 = selfCopy->_ambientConfiguration;
   }
 
   else
   {
-    v11 = [PRPosterPathUtilities ambientConfigurationURLForContentsURL:selfCopy->_pathContentsURL];
-    v21 = 0;
-    v12 = [PRPosterPathUtilities loadUserObjectForURL:v11 expectedClass:objc_opt_class() strict:0 error:&v21];
-    v13 = v21;
-    v14 = v21;
+    v14 = [PRPosterPathUtilities ambientConfigurationURLForContentsURL:selfCopy->_pathContentsURL];
+    v26 = 0;
+    v15 = [PRPosterPathUtilities loadUserObjectForURL:v14 expectedClass:objc_opt_class() strict:0 error:&v26];
+    v16 = v26;
+    v17 = v26;
     ambientConfiguration = selfCopy->_ambientConfiguration;
-    selfCopy->_ambientConfiguration = v12;
+    selfCopy->_ambientConfiguration = v15;
 
-    v16 = PRLogModel();
-    LODWORD(v12) = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+    v20 = PRLogModel(v19);
+    LODWORD(v15) = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
 
-    if (v12)
+    if (v15)
     {
       if (selfCopy->_ambientConfiguration)
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           NSStringFromSelector(a2);
           objc_claimAutoreleasedReturnValue();
@@ -2322,46 +2324,46 @@ LABEL_37:
 
       else
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           logPreamble = selfCopy->_logPreamble;
-          v20 = NSStringFromSelector(a2);
+          v25 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v23 = logPreamble;
-          v24 = 2114;
-          v25 = v20;
-          v26 = 2114;
-          v27 = v14;
-          _os_log_debug_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
+          v28 = logPreamble;
+          v29 = 2114;
+          v30 = v25;
+          v31 = 2114;
+          v32 = v17;
+          _os_log_debug_impl(&dword_1A8AA7000, v22, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
         }
       }
     }
 
-    if (v14)
+    if (v17)
     {
-      objc_storeStrong(&selfCopy->_ambientConfigurationLoadError, v13);
+      objc_storeStrong(&selfCopy->_ambientConfigurationLoadError, v16);
     }
 
-    v7 = selfCopy->_ambientConfiguration;
+    v9 = selfCopy->_ambientConfiguration;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v7;
+  return v9;
 }
 
 - (void)resetAmbientConfiguration
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v4 = PRLogModel();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v4 = objc_sync_enter(selfCopy);
+  v5 = PRLogModel(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-  if (v5)
+  if (v6)
   {
-    v6 = PRLogModel();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = PRLogModel(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -2383,18 +2385,18 @@ LABEL_37:
 
 - (PRPosterAmbientWidgetLayout)ambientWidgetLayout
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v4 = objc_sync_enter(selfCopy);
   if (selfCopy->_ambientWidgetLayoutLoadError)
   {
-    v4 = PRLogModel();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+    v5 = PRLogModel(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-    if (v5)
+    if (v6)
     {
-      v6 = PRLogModel();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = PRLogModel(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -2402,18 +2404,18 @@ LABEL_37:
       }
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else if (selfCopy->_ambientWidgetLayout)
   {
-    v8 = PRLogModel();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+    v10 = PRLogModel(v4);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-    if (v9)
+    if (v11)
     {
-      v10 = PRLogModel();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = PRLogModel(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -2421,28 +2423,28 @@ LABEL_37:
       }
     }
 
-    v7 = selfCopy->_ambientWidgetLayout;
+    v9 = selfCopy->_ambientWidgetLayout;
   }
 
   else
   {
-    v11 = [PRPosterPathUtilities ambientWidgetLayoutURLForInstanceURL:selfCopy->_pathInstanceURL];
-    v21 = 0;
-    v12 = [PRPosterPathUtilities loadUserObjectForURL:v11 expectedClass:objc_opt_class() strict:0 error:&v21];
-    v13 = v21;
-    v14 = v21;
+    v14 = [PRPosterPathUtilities ambientWidgetLayoutURLForInstanceURL:selfCopy->_pathInstanceURL];
+    v26 = 0;
+    v15 = [PRPosterPathUtilities loadUserObjectForURL:v14 expectedClass:objc_opt_class() strict:0 error:&v26];
+    v16 = v26;
+    v17 = v26;
     ambientWidgetLayout = selfCopy->_ambientWidgetLayout;
-    selfCopy->_ambientWidgetLayout = v12;
+    selfCopy->_ambientWidgetLayout = v15;
 
-    v16 = PRLogModel();
-    LODWORD(v12) = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+    v20 = PRLogModel(v19);
+    LODWORD(v15) = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
 
-    if (v12)
+    if (v15)
     {
       if (selfCopy->_ambientWidgetLayout)
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           NSStringFromSelector(a2);
           objc_claimAutoreleasedReturnValue();
@@ -2452,46 +2454,46 @@ LABEL_37:
 
       else
       {
-        v17 = PRLogModel();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v22 = PRLogModel(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           logPreamble = selfCopy->_logPreamble;
-          v20 = NSStringFromSelector(a2);
+          v25 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v23 = logPreamble;
-          v24 = 2114;
-          v25 = v20;
-          v26 = 2114;
-          v27 = v14;
-          _os_log_debug_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
+          v28 = logPreamble;
+          v29 = 2114;
+          v30 = v25;
+          v31 = 2114;
+          v32 = v17;
+          _os_log_debug_impl(&dword_1A8AA7000, v22, OS_LOG_TYPE_DEBUG, "[%{public}@ cache] failed to load cached value for %{public}@: %{public}@", buf, 0x20u);
         }
       }
     }
 
-    if (v14)
+    if (v17)
     {
-      objc_storeStrong(&selfCopy->_ambientWidgetLayoutLoadError, v13);
+      objc_storeStrong(&selfCopy->_ambientWidgetLayoutLoadError, v16);
     }
 
-    v7 = selfCopy->_ambientWidgetLayout;
+    v9 = selfCopy->_ambientWidgetLayout;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v7;
+  return v9;
 }
 
 - (void)resetAmbientWidgetLayout
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v4 = PRLogModel();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v4 = objc_sync_enter(selfCopy);
+  v5 = PRLogModel(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-  if (v5)
+  if (v6)
   {
-    v6 = PRLogModel();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = PRLogModel(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();

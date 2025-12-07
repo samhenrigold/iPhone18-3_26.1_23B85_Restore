@@ -41,7 +41,7 @@
 
   if (v5)
   {
-    type metadata accessor for SessionDonor();
+    type metadata accessor for SessionDonor(0);
     v6 = swift_dynamicCastClass();
     if (v6)
     {
@@ -225,7 +225,7 @@ LABEL_5:
 
   selfCopy = self;
   _s5Books17EngagementManagerC19fetchDialogRequests3for10completionyShySSG_ySDySSSo16AMSDialogRequestCG_s5Error_pSgtcSgtF_0(v6, v5, v7);
-  sub_100007020(v5);
+  sub_100007020(v5, v7);
 }
 
 - (void)downloadQueue:(id)queue purchasedDidCompleteWithResponse:(id)response

@@ -60,13 +60,13 @@
 
 - (void)_recalculateCurrentFractionCompleted
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v3 = self->_phaseStates;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (!v4)
   {
 
@@ -78,19 +78,19 @@ LABEL_18:
   v5 = v4;
   v6 = 0;
   v7 = 0;
-  v8 = *v19;
+  v8 = *v18;
   do
   {
     v9 = 0;
     do
     {
-      if (*v19 != v8)
+      if (*v18 != v8)
       {
         objc_enumerationMutation(v3);
       }
 
-      v10 = *(*(&v18 + 1) + 8 * v9);
-      v11 = [(NSMutableDictionary *)self->_phaseStates objectForKeyedSubscript:v10, v18];
+      v10 = *(*(&v17 + 1) + 8 * v9);
+      v11 = [(NSMutableDictionary *)self->_phaseStates objectForKeyedSubscript:v10, v17];
       if (v11)
       {
         v12 = v11[1];
@@ -119,7 +119,7 @@ LABEL_18:
     }
 
     while (v5 != v9);
-    v15 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v15 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
     v5 = v15;
   }
 
@@ -133,45 +133,42 @@ LABEL_18:
   v16 = v6 / v7;
 LABEL_19:
   self->_currentFractionCompleted = v16;
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTotalUnitCount:(unint64_t)count forPhase:(unint64_t)phase
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:phase];
-  v10 = v6;
+  v9 = v6;
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:count];
-  v11[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   [(IPInstallableProgressData *)self setTotalUnitCountsForPhases:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTotalUnitCountsForPhases:(id)phases
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   phasesCopy = phases;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = [phasesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [phasesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(phasesCopy);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = [phasesCopy objectForKeyedSubscript:v9];
         v11 = -[IPInstallableProgressData _findOrCreatePhaseState:](self, "_findOrCreatePhaseState:", [v9 unsignedIntegerValue]);
         unsignedLongLongValue = [v10 unsignedLongLongValue];
@@ -181,15 +178,13 @@ LABEL_19:
         }
       }
 
-      v6 = [phasesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [phasesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
   [(IPInstallableProgressData *)self _recalculateCurrentFractionCompleted];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setInstallPhase:(unint64_t)phase

@@ -49,25 +49,23 @@
 
 - (id)attributeDescriptions
 {
-  v12[1] = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = HMSettingIntegerValue;
-  attributeDescriptions = [(HMImmutableSettingValue *)&v11 attributeDescriptions];
+  v11[1] = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = HMSettingIntegerValue;
+  attributeDescriptions = [(HMImmutableSettingValue *)&v10 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMSettingIntegerValue integerValue](self, "integerValue")}];
   v6 = [v4 initWithName:@"integerValue" value:v5];
-  v12[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   v8 = [attributeDescriptions arrayByAddingObjectsFromArray:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (HMSettingIntegerValue)initWithProtoPayload:(id)payload
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   if ([payloadCopy hasIntegerValueEvent])
   {
@@ -86,11 +84,11 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = HMFGetLogIdentifier();
-        v16 = 138543618;
-        v17 = v13;
-        v18 = 2112;
-        v19 = payloadCopy;
-        _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting value due to no integer value in integer value event in proto payload: %@", &v16, 0x16u);
+        v15 = 138543618;
+        v16 = v13;
+        v17 = 2112;
+        v18 = payloadCopy;
+        _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting value due to no integer value in integer value event in proto payload: %@", &v15, 0x16u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -106,18 +104,17 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v10;
-      v18 = 2112;
-      v19 = payloadCopy;
-      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting value due to no integer value event type in proto payload: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v10;
+      v17 = 2112;
+      v18 = payloadCopy;
+      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting value due to no integer value event type in proto payload: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -133,11 +130,11 @@
 
 - (HMSettingIntegerValue)initWithPayload:(id)payload
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
-  v14 = 0;
-  v5 = [payloadCopy hmf_integerForKey:@"HMImmutableSettingValuePayloadKey" error:&v14];
-  v6 = v14;
+  v13 = 0;
+  v5 = [payloadCopy hmf_integerForKey:@"HMImmutableSettingValuePayloadKey" error:&v13];
+  v6 = v13;
   if (v6)
   {
     v7 = objc_autoreleasePoolPush();
@@ -147,9 +144,9 @@
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v16 = v10;
-      v17 = 2112;
-      v18 = payloadCopy;
+      v15 = v10;
+      v16 = 2112;
+      v17 = payloadCopy;
       _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting integer value due to no integer value in payload: %@", buf, 0x16u);
     }
 
@@ -163,28 +160,26 @@
     v11 = selfCopy;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (id)payloadCopy
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = HMSettingIntegerValue;
-  payloadCopy = [(HMImmutableSettingValue *)&v10 payloadCopy];
+  v11[2] = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = HMSettingIntegerValue;
+  payloadCopy = [(HMImmutableSettingValue *)&v9 payloadCopy];
   v4 = [payloadCopy mutableCopy];
 
-  v11[0] = @"HMImmutableSettingValueTypePayloadKey";
-  v11[1] = @"HMImmutableSettingValuePayloadKey";
-  v12[0] = &unk_1F0EFD238;
+  v10[0] = @"HMImmutableSettingValueTypePayloadKey";
+  v10[1] = @"HMImmutableSettingValuePayloadKey";
+  v11[0] = &unk_1F0EFD238;
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMSettingIntegerValue integerValue](self, "integerValue")}];
-  v12[1] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   [v4 addEntriesFromDictionary:v6];
 
   v7 = [v4 copy];
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

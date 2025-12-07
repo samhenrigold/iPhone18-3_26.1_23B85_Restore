@@ -275,12 +275,12 @@ LABEL_5:
     v11 = +[UIKeyboardInputModeController sharedInputModeController];
     currentInputMode = [v11 currentInputMode];
     identifier = [currentInputMode identifier];
-    v14 = [identifier isEqualToString:@"autofillsignup"];
+    isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
     dockView = [(UISystemKeyboardDockController *)self->_dockViewController dockView];
-    [dockView setHidden:v14 & v9 | v9 ^ 1u];
+    [dockView setHidden:isEqualToString & v9 | v9 ^ 1u];
 
-    if (((v14 & v9) | v9 ^ 1))
+    if (((isEqualToString & v9) | v9 ^ 1))
     {
       dockViewController = self->_dockViewController;
 
@@ -1070,7 +1070,7 @@ LABEL_125:
                 v198 = [MEMORY[0x1E695DEC8] arrayWithObjects:v424 count:3];
                 v277 = [(NSMutableDictionary *)self->_backdropInnerGuideConstraints objectForKey:@"items"];
                 v278 = v198;
-                if (([v277 isEqual:v198] & 1) == 0)
+                if ((objc_msgSend_isEqual_(v277) & 1) == 0)
                 {
                   v326 = 0u;
                   v327 = 0u;
@@ -2822,7 +2822,7 @@ LABEL_8:
       v14 = [UIView alloc];
       v15 = [(UIView *)v14 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
       [(UIView *)v15 setTranslatesAutoresizingMaskIntoConstraints:0];
-      v16 = +[UIColor blackColor];
+      v16 = objc_msgSend_blackColor(UIColor);
       [(UIView *)v15 setBackgroundColor:v16];
 
       v17 = objc_alloc_init(UIView);
@@ -4691,7 +4691,7 @@ LABEL_14:
       goto LABEL_24;
     }
 
-    if (([(UIInputViewSetPlacementApplicator *)self->_applicator isEqual:v10]& 1) == 0)
+    if ((objc_msgSend_isEqual_(self->_applicator) & 1) == 0)
     {
       draggableView = [v10 draggableView];
       if ([draggableView isHidden])
@@ -5657,7 +5657,7 @@ void __75__UIInputWindowControllerHostingItem_updateProgress_startHeight_endHeig
     v13 = 0;
   }
 
-  if (![transitionCopy isEqualToString:0x1EFB7AD30])
+  if (!objc_msgSend_isEqualToString_(transitionCopy))
   {
     if (v13)
     {
@@ -5672,8 +5672,8 @@ void __75__UIInputWindowControllerHostingItem_updateProgress_startHeight_endHeig
       goto LABEL_18;
     }
 
-    v16 = [transitionCopy isEqualToString:0x1EFB7AA90];
-    if (v16)
+    isEqualToString = objc_msgSend_isEqualToString_(transitionCopy);
+    if (isEqualToString)
     {
       [(UIInputWindowControllerHostingItem *)self willBeginTranslation];
       v17 = MEMORY[0x1E695E118];
@@ -5681,7 +5681,7 @@ void __75__UIInputWindowControllerHostingItem_updateProgress_startHeight_endHeig
 
     else
     {
-      if (![transitionCopy isEqualToString:0x1EFB7AB30])
+      if (!objc_msgSend_isEqualToString_(transitionCopy))
       {
         v17 = 0;
 LABEL_17:
@@ -5696,7 +5696,7 @@ LABEL_17:
 LABEL_14:
         if (+[UIInputWindowController supportsStateBasedAnimations])
         {
-          [(UIInputWindowControllerHostingItem *)self prepareForTransitionToState:4 animationType:9 interactiveTransition:v16];
+          [(UIInputWindowControllerHostingItem *)self prepareForTransitionToState:4 animationType:9 interactiveTransition:isEqualToString];
         }
 
         goto LABEL_17;
@@ -5764,14 +5764,14 @@ LABEL_18:
     v16 = 0;
   }
 
-  if ([transitionCopy isEqualToString:0x1EFB7AD50])
+  if (objc_msgSend_isEqualToString_(transitionCopy))
   {
     v17 = @"Offset";
   }
 
   else
   {
-    if (v16 || ([transitionCopy isEqualToString:0x1EFB7AA90] & 1) == 0 && !objc_msgSend(transitionCopy, "isEqualToString:", 0x1EFB7AAD0))
+    if (v16 || (objc_msgSend_isEqualToString_(transitionCopy) & 1) == 0 && !objc_msgSend_isEqualToString_(transitionCopy))
     {
       goto LABEL_13;
     }
@@ -5791,13 +5791,13 @@ LABEL_18:
   }
 
 LABEL_13:
-  if (+[UIKeyboard isKeyboardProcess](UIKeyboard, "isKeyboardProcess") && !self->_scrolling && [transitionCopy isEqualToString:0x1EFB7AC50])
+  if (+[UIKeyboard isKeyboardProcess]&& !self->_scrolling && objc_msgSend_isEqualToString_(transitionCopy))
   {
     [(UIInputWindowControllerHostingItem *)self createAnimationMatchWithInfo:v9];
   }
 
-  v24 = [transitionCopy isEqualToString:0x1EFB7AC50];
-  if (v24)
+  isEqualToString = objc_msgSend_isEqualToString_(transitionCopy);
+  if (isEqualToString)
   {
     placement2 = [(UIInputWindowControllerHostingItem *)self placement];
     if ([placement2 showsKeyboard])
@@ -5844,7 +5844,7 @@ LABEL_13:
   }
 
   v46 = v16;
-  if (!v16 && (([transitionCopy isEqualToString:0x1EFB7AA90] & 1) != 0 || objc_msgSend(transitionCopy, "isEqualToString:", 0x1EFB7AAD0)))
+  if (!v16 && ((objc_msgSend_isEqualToString_(transitionCopy) & 1) != 0 || objc_msgSend_isEqualToString_(transitionCopy)))
   {
     v30 = placement2;
     v31 = objc_loadWeakRetained(&self->_container);
@@ -5853,7 +5853,7 @@ LABEL_13:
       v29 = 1;
     }
 
-    else if ([transitionCopy isEqualToString:0x1EFB7AB10])
+    else if (objc_msgSend_isEqualToString_(transitionCopy))
     {
       v29 = [(UIInputWindowControllerHostingItem *)self _isForSelf:v9];
     }
@@ -5879,7 +5879,7 @@ LABEL_32:
 
 LABEL_33:
     v10 = v26;
-    if (!v24)
+    if (!isEqualToString)
     {
       goto LABEL_44;
     }
@@ -5887,7 +5887,7 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  v29 = ([transitionCopy isEqualToString:0x1EFB7AB10] & 1) != 0 && -[UIInputWindowControllerHostingItem _isForSelf:](self, "_isForSelf:", v9);
+  v29 = (objc_msgSend_isEqualToString_(transitionCopy) & 1) != 0 && [(UIInputWindowControllerHostingItem *)self _isForSelf:v9];
   v32 = v45;
   if (v27)
   {
@@ -5903,7 +5903,7 @@ LABEL_42:
 LABEL_43:
 
   v10 = v26;
-  if (v24)
+  if (isEqualToString)
   {
 LABEL_34:
 
@@ -5913,7 +5913,7 @@ LABEL_34:
     }
 
 LABEL_45:
-    if ([transitionCopy isEqualToString:0x1EFB7AC50])
+    if (objc_msgSend_isEqualToString_(transitionCopy))
     {
       self->_scrolling = 1;
     }
@@ -5930,7 +5930,7 @@ LABEL_44:
   }
 
 LABEL_50:
-  if ([transitionCopy isEqualToString:0x1EFB7AB30])
+  if (objc_msgSend_isEqualToString_(transitionCopy))
   {
     v35 = objc_loadWeakRetained(&self->_container);
     v36 = [v35 host:self isForPurpose:2];
@@ -5952,9 +5952,9 @@ LABEL_48:
     }
   }
 
-  if (v46 || ![transitionCopy isEqualToString:0x1EFB7ADB0])
+  if (v46 || !objc_msgSend_isEqualToString_(transitionCopy))
   {
-    if ([transitionCopy isEqualToString:0x1EFB7ADD0])
+    if (objc_msgSend_isEqualToString_(transitionCopy))
     {
       v10[2](v10);
     }
@@ -5988,11 +5988,11 @@ void __64__UIInputWindowControllerHostingItem_updateTransition_withInfo___block_
   [v3 layoutIfNeeded];
 }
 
-uint64_t __64__UIInputWindowControllerHostingItem_updateTransition_withInfo___block_invoke_3(uint64_t result, int a2)
+id *__64__UIInputWindowControllerHostingItem_updateTransition_withInfo___block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) finishFlickTransition];
+    return [result[4] finishFlickTransition];
   }
 
   return result;
@@ -6012,7 +6012,7 @@ uint64_t __64__UIInputWindowControllerHostingItem_updateTransition_withInfo___bl
     [subPlacements firstObject];
   }
 
-  if ([transitionCopy isEqualToString:0x1EFB7AC50])
+  if (objc_msgSend_isEqualToString_(transitionCopy))
   {
     placement4 = [(UIInputWindowControllerHostingItem *)self placement];
     if ([placement4 showsKeyboard])
@@ -6115,10 +6115,10 @@ LABEL_52:
     [owner5 moveKeyboardLayoutGuideOffscreen];
   }
 
-  if (![transitionCopy isEqualToString:0x1EFB7ADB0])
+  if (!objc_msgSend_isEqualToString_(transitionCopy))
   {
     v15 = [infoCopy objectForKey:0x1EFB7ABD0];
-    v26 = [transitionCopy isEqualToString:0x1EFB7AAD0];
+    isEqualToString = objc_msgSend_isEqualToString_(transitionCopy);
     placement5 = [(UIInputWindowControllerHostingItem *)self placement];
     inputViewSet = [(UIInputWindowControllerHostingItem *)self inputViewSet];
     [placement5 inputAssistantViewHeightForInputViewSet:inputViewSet];
@@ -6193,7 +6193,7 @@ LABEL_52:
       -[UIInputWindowControllerHostingItem transitionDidFinish:](self, "transitionDidFinish:", [v39 BOOLValue]);
     }
 
-    if (v26)
+    if (isEqualToString)
     {
       hostView = [(UIInputWindowControllerHostingItem *)self hostView];
       [hostView layoutIfNeeded];
@@ -6222,7 +6222,7 @@ LABEL_52:
       }
     }
 
-    if (v26)
+    if (isEqualToString)
     {
       [(UIInputWindowControllerHostingItem *)self didFinishTranslation];
     }

@@ -313,7 +313,7 @@
   animator = self->_animator;
   if (animator && [(UIViewPropertyAnimator *)animator state]== &dword_0 + 1)
   {
-    v6 = BCCardModelLog();
+    v6 = BCCardModelLog(1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1E46F0(v6);
@@ -1236,44 +1236,45 @@ LABEL_25:
 
 - (void)_updateViewController:(double)controller scrollView:(double)view withContentInset:(double)inset unalteredContentInset:(double)contentInset contentInsetForScrollIndicatorInsets:(double)insets
 {
-  v46 = a11;
-  v26 = a12;
-  if ([v46 prefersAdditionalSafeAreaInsetsForInsetting])
+  v44 = a11;
+  v22 = a12;
+  prefersAdditionalSafeAreaInsetsForInsetting = [v44 prefersAdditionalSafeAreaInsetsForInsetting];
+  if (prefersAdditionalSafeAreaInsetsForInsetting)
   {
-    v27 = view - BCCardAdditionalBottomInset();
-    [v46 additionalSafeAreaInsets];
+    v25 = view - BCCardAdditionalBottomInset(prefersAdditionalSafeAreaInsetsForInsetting, v24);
+    [v44 additionalSafeAreaInsets];
+    v27 = v26;
     v29 = v28;
     v31 = v30;
     v33 = v32;
-    v35 = v34;
-    viewIfLoaded = [v46 viewIfLoaded];
+    viewIfLoaded = [v44 viewIfLoaded];
     [viewIfLoaded safeAreaInsets];
-    v38 = v37 - v33;
+    v36 = v35 - v31;
 
-    [v46 setAdditionalSafeAreaInsets:{v29, v31, v27 - v38, v35}];
+    [v44 setAdditionalSafeAreaInsets:{v27, v29, v25 - v36, v33}];
   }
 
   else
   {
     scrollView = [self scrollView];
-    v40 = scrollView;
-    if (scrollView == v26)
+    v38 = scrollView;
+    if (scrollView == v22)
     {
     }
 
     else
     {
-      contentInsetAdjustmentBehavior = [v26 contentInsetAdjustmentBehavior];
+      contentInsetAdjustmentBehavior = [v22 contentInsetAdjustmentBehavior];
 
       if (contentInsetAdjustmentBehavior != &dword_0 + 2)
       {
-        [v26 setContentInsetAdjustmentBehavior:2];
+        [v22 setContentInsetAdjustmentBehavior:2];
       }
     }
 
-    [v26 setContentInset:{a2, controller, view, inset}];
+    [v22 setContentInset:{a2, controller, view, inset}];
     [self _scrollIndicatorInsetsForContentInset:a13 unalteredContentInset:{a14, a15, a16, contentInset, insets, a8, a9}];
-    [v26 setScrollIndicatorInsets:?];
+    [v22 setScrollIndicatorInsets:?];
   }
 }
 
@@ -1489,68 +1490,68 @@ LABEL_3:
 {
   expandedCopy = expanded;
   controllerCopy = controller;
-  if (isPad())
+  if (isPad(controllerCopy, v6))
   {
     navigationItem = [controllerCopy navigationItem];
     [navigationItem _minimumContentMargins];
-    v8 = v7;
-    v10 = v9;
+    v9 = v8;
+    v11 = v10;
 
-    v11 = 0.0;
     v12 = 0.0;
+    v13 = 0.0;
     if (expandedCopy)
     {
       cardStackViewController = [(BCCardViewController *)self cardStackViewController];
       [cardStackViewController safeAreaInsetsFromWindowCorners];
-      v15 = v14;
-      v17 = v16;
+      v16 = v15;
+      v18 = v17;
 
       view = [(BCCardViewController *)self view];
       effectiveUserInterfaceLayoutDirection = [view effectiveUserInterfaceLayoutDirection];
 
       if (effectiveUserInterfaceLayoutDirection == &dword_0 + 1)
       {
-        v20 = v17;
+        v21 = v18;
       }
 
       else
       {
-        v20 = v15;
+        v21 = v16;
       }
 
       if (effectiveUserInterfaceLayoutDirection == &dword_0 + 1)
       {
-        v21 = v15;
+        v22 = v16;
       }
 
       else
       {
-        v21 = v17;
-      }
-
-      if (v20 <= 0.0)
-      {
-        v12 = v20;
-      }
-
-      else
-      {
-        v12 = v20 + 12.0;
+        v22 = v18;
       }
 
       if (v21 <= 0.0)
       {
-        v11 = v21;
+        v13 = v21;
       }
 
       else
       {
-        v11 = v21 + 12.0;
+        v13 = v21 + 12.0;
+      }
+
+      if (v22 <= 0.0)
+      {
+        v12 = v22;
+      }
+
+      else
+      {
+        v12 = v22 + 12.0;
       }
     }
 
     navigationItem2 = [controllerCopy navigationItem];
-    [navigationItem2 _setMinimumContentMargins:{v8, v12, v10, v11}];
+    [navigationItem2 _setMinimumContentMargins:{v9, v13, v11, v12}];
   }
 }
 
@@ -2140,7 +2141,7 @@ LABEL_7:
     [topContentViewController didSetCurrentCardState:v14];
   }
 
-  _objc_release_x1();
+  _objc_release_x1(currentState);
 }
 
 - (void)animationCompletedAtPosition:(int64_t)position

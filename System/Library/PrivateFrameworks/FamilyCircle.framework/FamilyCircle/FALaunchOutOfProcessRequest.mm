@@ -20,14 +20,14 @@
 
 void __74__FALaunchOutOfProcessRequest_launchOutOfProcessUIWithOptions_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1B70B0000, v4, OS_LOG_TYPE_DEFAULT, "FARegisterPushTokenRequest: Error from service - %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1B70B0000, v4, OS_LOG_TYPE_DEFAULT, "FARegisterPushTokenRequest: Error from service - %@", &v6, 0xCu);
   }
 
   if (*(a1 + 32))
@@ -35,8 +35,6 @@ void __74__FALaunchOutOfProcessRequest_launchOutOfProcessUIWithOptions_completio
     v5 = [[FACircleStateResponse alloc] initWithLoadSuccess:0 error:v3 userInfo:0];
     (*(*(a1 + 32) + 16))();
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -11,7 +11,7 @@
 
 - (id)_categoriesForCriteriaMatchingForPublicEvent:(id)event
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   categories = [eventCopy categories];
   v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:categories];
@@ -31,9 +31,9 @@
         {
           v12 = loggingConnection;
           name = [eventCopy name];
-          v19 = 138412290;
-          v20 = name;
-          _os_log_impl(&dword_22F0FC000, v12, OS_LOG_TYPE_DEFAULT, "Additionally evaluating against musicConcert category for event %@", &v19, 0xCu);
+          v18 = 138412290;
+          v19 = name;
+          _os_log_impl(&dword_22F0FC000, v12, OS_LOG_TYPE_DEFAULT, "Additionally evaluating against musicConcert category for event %@", &v18, 0xCu);
         }
 
         v14 = objc_alloc(MEMORY[0x277D27780]);
@@ -44,8 +44,6 @@
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -84,48 +82,48 @@
 
 - (void)collectConsolidatedAddressesForMomentNodes:(id)nodes largeFrequentLocationNodes:(id)locationNodes consolidatedAddresses:(id *)addresses consolidatedAddressesByMomentIdentifier:(id *)identifier momentNodesForConsolidatedAddresses:(id *)consolidatedAddresses progressBlock:(id)block
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   locationNodesCopy = locationNodes;
   blockCopy = block;
   v15 = _Block_copy(blockCopy);
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
-  v56 = 0;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
   v52 = 0;
-  v35 = blockCopy;
-  if (!v15 || (v16 = CFAbsoluteTimeGetCurrent(), v16 - v50[3] < 0.01) || (v50[3] = v16, v48 = 0, (*(v15 + 2))(v15, &v48, 0.0), v17 = *(v54 + 24) | v48, *(v54 + 24) = v17, (v17 & 1) == 0))
+  v53 = &v52;
+  v54 = 0x2020000000;
+  v55 = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 0;
+  v34 = blockCopy;
+  if (!v15 || (v16 = CFAbsoluteTimeGetCurrent(), v16 - v49[3] < 0.01) || (v49[3] = v16, v47 = 0, (*(v15 + 2))(v15, &v47, 0.0), v17 = *(v53 + 24) | v47, *(v53 + 24) = v17, (v17 & 1) == 0))
   {
     addressesCopy = addresses;
     v19 = self->_loggingConnection;
     v20 = [MEMORY[0x277CBEB58] set];
     v21 = [MEMORY[0x277CBEB58] set];
     v22 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(nodesCopy, "count")}];
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __212__PGPublicEventDisambiguator_collectConsolidatedAddressesForMomentNodes_largeFrequentLocationNodes_consolidatedAddresses_consolidatedAddressesByMomentIdentifier_momentNodesForConsolidatedAddresses_progressBlock___block_invoke;
-    v38[3] = &unk_2788870B8;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __212__PGPublicEventDisambiguator_collectConsolidatedAddressesForMomentNodes_largeFrequentLocationNodes_consolidatedAddresses_consolidatedAddressesByMomentIdentifier_momentNodesForConsolidatedAddresses_progressBlock___block_invoke;
+    v37[3] = &unk_2788870B8;
     v23 = v15;
-    v47 = 0x3F847AE147AE147BLL;
-    v45 = &v49;
-    v46 = &v53;
-    v44 = v23;
-    v38[4] = self;
-    v39 = locationNodesCopy;
+    v46 = 0x3F847AE147AE147BLL;
+    v44 = &v48;
+    v45 = &v52;
+    v43 = v23;
+    v37[4] = self;
+    v38 = locationNodesCopy;
     v24 = v19;
-    v40 = v24;
+    v39 = v24;
     v25 = v20;
-    v41 = v25;
+    v40 = v25;
     v26 = v22;
-    v42 = v26;
+    v41 = v26;
     v27 = v21;
-    v43 = v27;
-    [nodesCopy enumerateNodesUsingBlock:v38];
-    if (*(v54 + 24) == 1)
+    v42 = v27;
+    [nodesCopy enumerateNodesUsingBlock:v37];
+    if (*(v53 + 24) == 1)
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
@@ -135,9 +133,9 @@ LABEL_15:
       }
 
       *buf = 67109378;
-      v58 = 254;
-      v59 = 2080;
-      v60 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGPublicEventDisambiguator.m";
+      v57 = 254;
+      v58 = 2080;
+      v59 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGPublicEventDisambiguator.m";
       v28 = MEMORY[0x277D86220];
     }
 
@@ -155,25 +153,25 @@ LABEL_15:
       }
 
       Current = CFAbsoluteTimeGetCurrent();
-      if (Current - v50[3] < 0.01)
+      if (Current - v49[3] < 0.01)
       {
         goto LABEL_15;
       }
 
-      v50[3] = Current;
-      v48 = 0;
-      (*(v23 + 2))(v23, &v48, 1.0);
-      v33 = *(v54 + 24) | v48;
-      *(v54 + 24) = v33;
+      v49[3] = Current;
+      v47 = 0;
+      (*(v23 + 2))(v23, &v47, 1.0);
+      v33 = *(v53 + 24) | v47;
+      *(v53 + 24) = v33;
       if ((v33 & 1) == 0 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         goto LABEL_15;
       }
 
       *buf = 67109378;
-      v58 = 260;
-      v59 = 2080;
-      v60 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGPublicEventDisambiguator.m";
+      v57 = 260;
+      v58 = 2080;
+      v59 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGPublicEventDisambiguator.m";
       v28 = MEMORY[0x277D86220];
     }
 
@@ -184,17 +182,15 @@ LABEL_15:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v58 = 199;
-    v59 = 2080;
-    v60 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGPublicEventDisambiguator.m";
+    v57 = 199;
+    v58 = 2080;
+    v59 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGPublicEventDisambiguator.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
 LABEL_16:
-  _Block_object_dispose(&v49, 8);
-  _Block_object_dispose(&v53, 8);
-
-  v34 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v52, 8);
 }
 
 void __212__PGPublicEventDisambiguator_collectConsolidatedAddressesForMomentNodes_largeFrequentLocationNodes_consolidatedAddresses_consolidatedAddressesByMomentIdentifier_momentNodesForConsolidatedAddresses_progressBlock___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
@@ -240,7 +236,7 @@ void __212__PGPublicEventDisambiguator_collectConsolidatedAddressesForMomentNode
 
 void __212__PGPublicEventDisambiguator_collectConsolidatedAddressesForMomentNodes_largeFrequentLocationNodes_consolidatedAddresses_consolidatedAddressesByMomentIdentifier_momentNodesForConsolidatedAddresses_progressBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 addressNode];
   if (![v4 isPersonHomeOrWorkAddress])
@@ -248,31 +244,31 @@ void __212__PGPublicEventDisambiguator_collectConsolidatedAddressesForMomentNode
     if (*(a1 + 64) == 1)
     {
       [v3 coordinates];
-      v34 = v11;
-      v35 = v12;
+      v33 = v11;
+      v34 = v12;
+      v29 = 0u;
       v30 = 0u;
       v31 = 0u;
       v32 = 0u;
-      v33 = 0u;
       v6 = *(a1 + 48);
-      v13 = [v6 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v13 = [v6 countByEnumeratingWithState:&v29 objects:v35 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v31;
+        v15 = *v30;
 LABEL_7:
         v16 = 0;
         while (1)
         {
-          if (*v31 != v15)
+          if (*v30 != v15)
           {
             objc_enumerationMutation(v6);
           }
 
-          v17 = [*(*(&v30 + 1) + 8 * v16) addressNode];
+          v17 = [*(*(&v29 + 1) + 8 * v16) addressNode];
           [v17 coordinate];
-          v28 = v18;
-          v29 = v19;
+          v27 = v18;
+          v28 = v19;
 
           CLLocationCoordinate2DGetDistanceFrom();
           if (v20 <= 200.0)
@@ -282,7 +278,7 @@ LABEL_7:
 
           if (v14 == ++v16)
           {
-            v14 = [v6 countByEnumeratingWithState:&v30 objects:v36 count:16];
+            v14 = [v6 countByEnumeratingWithState:&v29 objects:v35 count:16];
             if (v14)
             {
               goto LABEL_7;
@@ -298,16 +294,16 @@ LABEL_7:
           goto LABEL_18;
         }
 
-        v22 = v34;
-        v23 = v35;
+        v22 = v33;
+        v23 = v34;
         v24 = MEMORY[0x277CCACA8];
         v9 = v21;
-        v25 = [v24 stringWithFormat:@"{%.8f, %.8f}", v22, v23, v28, v29, v30];
+        v25 = [v24 stringWithFormat:@"{%.8f, %.8f}", v22, v23, v27, v28, v29];
         v26 = [*(a1 + 40) name];
         *buf = 138412547;
-        v38 = v25;
-        v39 = 2113;
-        v40 = v26;
+        v37 = v25;
+        v38 = 2113;
+        v39 = v26;
         _os_log_debug_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_DEBUG, "[PublicEvents] Not considering address (%@) close to frequent location for Moment %{private}@", buf, 0x16u);
 
         goto LABEL_17;
@@ -331,67 +327,66 @@ LABEL_13:
   v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"{%.8f, %.8f}", v7, v8];
   v10 = [*(a1 + 40) name];
   *buf = 138478083;
-  v38 = v9;
-  v39 = 2113;
-  v40 = v10;
+  v37 = v9;
+  v38 = 2113;
+  v39 = v10;
   _os_log_debug_impl(&dword_22F0FC000, v6, OS_LOG_TYPE_DEBUG, "[PublicEvents] Not considering address %{private}@ at home/work for Moment %{private}@", buf, 0x16u);
 
 LABEL_17:
 LABEL_18:
 
 LABEL_19:
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)disambiguateEvents:(id)events forTimeLocationTuple:(id)tuple momentNode:(id)node graph:(id)graph meaningfulEventProcessorCache:(id)cache serviceManager:(id)manager
 {
-  v154 = *MEMORY[0x277D85DE8];
+  v153 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   tupleCopy = tuple;
   nodeCopy = node;
   graphCopy = graph;
   cacheCopy = cache;
   managerCopy = manager;
-  v107 = [MEMORY[0x277CBEB58] set];
+  v106 = [MEMORY[0x277CBEB58] set];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v98 = graphCopy;
+  v97 = graphCopy;
   v20 = [(PGPublicEventDisambiguator *)self publicEventCriteriaByCategoryInGraph:graphCopy];
-  v99 = nodeCopy;
-  v100 = tupleCopy;
-  v96 = managerCopy;
-  v97 = cacheCopy;
+  v98 = nodeCopy;
+  v99 = tupleCopy;
+  v95 = managerCopy;
+  v96 = cacheCopy;
   v21 = [[PGPublicEventMatchingOptions alloc] initWithTimeLocationTuple:tupleCopy momentNode:nodeCopy meaningfulEventProcessorCache:cacheCopy serviceManager:managerCopy];
+  v130 = 0u;
   v131 = 0u;
   v132 = 0u;
   v133 = 0u;
-  v134 = 0u;
   obj = eventsCopy;
-  v109 = v20;
-  v104 = [obj countByEnumeratingWithState:&v131 objects:v144 count:16];
-  if (v104)
+  v108 = v20;
+  v103 = [obj countByEnumeratingWithState:&v130 objects:v143 count:16];
+  if (v103)
   {
-    v103 = *v132;
+    v102 = *v131;
     selfCopy = self;
     do
     {
       v22 = 0;
       do
       {
-        if (*v132 != v103)
+        if (*v131 != v102)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v131 + 1) + 8 * v22);
+        v23 = *(*(&v130 + 1) + 8 * v22);
         name = [v23 name];
         v25 = [(PGPublicEventDisambiguator *)self _categoriesForCriteriaMatchingForPublicEvent:v23];
+        v126 = 0u;
         v127 = 0u;
         v128 = 0u;
         v129 = 0u;
-        v130 = 0u;
-        v112 = v25;
-        v26 = [v25 countByEnumeratingWithState:&v127 objects:v143 count:16];
-        v106 = name;
+        v111 = v25;
+        v26 = [v25 countByEnumeratingWithState:&v126 objects:v142 count:16];
+        v105 = name;
         if (!v26)
         {
 LABEL_39:
@@ -402,44 +397,44 @@ LABEL_39:
 
           if (PGIsAppleInternal_isAppleInternal == 1)
           {
-            v51 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v112, "count")}];
+            v51 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v111, "count")}];
+            v118 = 0u;
             v119 = 0u;
             v120 = 0u;
             v121 = 0u;
-            v122 = 0u;
-            v52 = v112;
-            v53 = [v52 countByEnumeratingWithState:&v119 objects:v141 count:16];
+            v52 = v111;
+            v53 = [v52 countByEnumeratingWithState:&v118 objects:v140 count:16];
             if (v53)
             {
               v54 = v53;
-              v55 = *v120;
+              v55 = *v119;
               do
               {
                 for (i = 0; i != v54; ++i)
                 {
-                  if (*v120 != v55)
+                  if (*v119 != v55)
                   {
                     objc_enumerationMutation(v52);
                   }
 
-                  category = [*(*(&v119 + 1) + 8 * i) category];
+                  category = [*(*(&v118 + 1) + 8 * i) category];
                   [v51 addObject:category];
                 }
 
-                v54 = [v52 countByEnumeratingWithState:&v119 objects:v141 count:16];
+                v54 = [v52 countByEnumeratingWithState:&v118 objects:v140 count:16];
               }
 
               while (v54);
             }
 
             loggingConnection = self->_loggingConnection;
-            name = v106;
+            name = v105;
             if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138478083;
-              *&buf[4] = v106;
-              v152 = 2113;
-              v153 = v51;
+              *&buf[4] = v105;
+              v151 = 2113;
+              v152 = v51;
               _os_log_debug_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEBUG, "[PublicEvents] Disambiguating event %{private}@: not matching allowed categories. event categories: %{private}@", buf, 0x16u);
             }
           }
@@ -447,23 +442,23 @@ LABEL_39:
           goto LABEL_52;
         }
 
-        v105 = v22;
+        v104 = v22;
         v27 = 0;
-        v28 = *v128;
+        v28 = *v127;
         v29 = v26;
-        v110 = *v128;
+        v109 = *v127;
         do
         {
           v30 = 0;
-          v111 = v29;
+          v110 = v29;
           do
           {
-            if (*v128 != v28)
+            if (*v127 != v28)
             {
-              objc_enumerationMutation(v112);
+              objc_enumerationMutation(v111);
             }
 
-            category2 = [*(*(&v127 + 1) + 8 * v30) category];
+            category2 = [*(*(&v126 + 1) + 8 * v30) category];
             v32 = [v20 objectForKeyedSubscript:category2];
             v33 = [v32 count];
             v34 = v33 != 0;
@@ -472,37 +467,37 @@ LABEL_39:
               goto LABEL_36;
             }
 
-            v125 = 0u;
-            v126 = 0u;
-            v123 = 0u;
             v124 = 0u;
-            v116 = v32;
+            v125 = 0u;
+            v122 = 0u;
+            v123 = 0u;
+            v115 = v32;
             v35 = v32;
-            v36 = [v35 countByEnumeratingWithState:&v123 objects:v142 count:16];
+            v36 = [v35 countByEnumeratingWithState:&v122 objects:v141 count:16];
             if (v36)
             {
               v37 = v36;
-              v113 = category2;
+              v112 = category2;
               v38 = 0;
               v39 = 0;
-              v40 = *v124;
+              v40 = *v123;
               v41 = 1.79769313e308;
               while (1)
               {
                 v42 = 0;
                 do
                 {
-                  if (*v124 != v40)
+                  if (*v123 != v40)
                   {
                     objc_enumerationMutation(v35);
                   }
 
-                  v43 = *(*(&v123 + 1) + 8 * v42);
+                  v43 = *(*(&v122 + 1) + 8 * v42);
                   *buf = 0;
-                  LOBYTE(v135) = 0;
-                  if ([v43 isMatchingEvent:v23 matchingOptions:v21 withHighConfidence:&v135 matchingDistance:buf])
+                  LOBYTE(v134) = 0;
+                  if ([v43 isMatchingEvent:v23 matchingOptions:v21 withHighConfidence:&v134 matchingDistance:buf])
                   {
-                    v44 = v135;
+                    v44 = v134;
                     if ((v39 & 1) == 0)
                     {
                       goto LABEL_25;
@@ -511,7 +506,7 @@ LABEL_39:
                     if (v38)
                     {
                       v44 = 1;
-                      if (v135)
+                      if (v134)
                       {
                         v38 = 1;
                         v39 = 1;
@@ -531,7 +526,7 @@ LABEL_39:
                     else
                     {
                       v39 = 1;
-                      if (v135)
+                      if (v134)
                       {
                         v44 = 1;
 LABEL_25:
@@ -550,17 +545,17 @@ LABEL_26:
                 }
 
                 while (v37 != v42);
-                v45 = [v35 countByEnumeratingWithState:&v123 objects:v142 count:16];
+                v45 = [v35 countByEnumeratingWithState:&v122 objects:v141 count:16];
                 v37 = v45;
                 if (!v45)
                 {
 
                   v46 = v39 & v38;
-                  v20 = v109;
-                  v28 = v110;
-                  v29 = v111;
-                  category2 = v113;
-                  v32 = v116;
+                  v20 = v108;
+                  v28 = v109;
+                  v29 = v110;
+                  category2 = v112;
+                  v32 = v115;
                   v34 = 1;
                   if (v46)
                   {
@@ -568,16 +563,16 @@ LABEL_26:
                     v48 = [dictionary objectForKeyedSubscript:v47];
 
                     v34 = 1;
-                    v32 = v116;
+                    v32 = v115;
                     if (!v48)
                     {
                       v49 = [MEMORY[0x277CCABB0] numberWithDouble:v41];
-                      category2 = v113;
+                      category2 = v112;
                       v50 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v23, "muid")}];
                       [dictionary setObject:v49 forKeyedSubscript:v50];
 
-                      v32 = v116;
-                      [v107 addObject:v23];
+                      v32 = v115;
+                      [v106 addObject:v23];
                       goto LABEL_35;
                     }
                   }
@@ -587,7 +582,7 @@ LABEL_26:
               }
             }
 
-            v32 = v116;
+            v32 = v115;
 LABEL_35:
             v34 = 1;
 LABEL_36:
@@ -597,13 +592,13 @@ LABEL_36:
           }
 
           while (v30 != v29);
-          v29 = [v112 countByEnumeratingWithState:&v127 objects:v143 count:16];
+          v29 = [v111 countByEnumeratingWithState:&v126 objects:v142 count:16];
         }
 
         while (v29);
         self = selfCopy;
-        v22 = v105;
-        name = v106;
+        v22 = v104;
+        name = v105;
         if ((v27 & 1) == 0)
         {
           goto LABEL_39;
@@ -614,15 +609,15 @@ LABEL_52:
         ++v22;
       }
 
-      while (v22 != v104);
-      v104 = [obj countByEnumeratingWithState:&v131 objects:v144 count:16];
+      while (v22 != v103);
+      v103 = [obj countByEnumeratingWithState:&v130 objects:v143 count:16];
     }
 
-    while (v104);
+    while (v103);
   }
 
   v59 = self->_loggingConnection;
-  v60 = v107;
+  v60 = v106;
   v61 = dictionary;
   v62 = v59;
   v63 = [v60 count];
@@ -648,17 +643,17 @@ LABEL_66:
     goto LABEL_69;
   }
 
-  v117 = v62;
+  v116 = v62;
   v64 = [MEMORY[0x277CBEB58] set];
   allObjects = [v60 allObjects];
-  v139[0] = MEMORY[0x277D85DD0];
-  v139[1] = 3221225472;
-  v139[2] = ___PGFilterMatchingPublicEvents_block_invoke;
-  v139[3] = &unk_2788870E0;
-  v115 = v61;
+  v138[0] = MEMORY[0x277D85DD0];
+  v138[1] = 3221225472;
+  v138[2] = ___PGFilterMatchingPublicEvents_block_invoke;
+  v138[3] = &unk_2788870E0;
+  v114 = v61;
   v66 = v61;
-  v140 = v66;
-  v67 = [allObjects sortedArrayUsingComparator:v139];
+  v139 = v66;
+  v67 = [allObjects sortedArrayUsingComparator:v138];
 
   v68 = [v67 objectAtIndexedSubscript:0];
   v69 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v68, "muid")}];
@@ -666,7 +661,7 @@ LABEL_66:
   [v70 floatValue];
   v72 = v71;
 
-  v114 = v68;
+  v113 = v68;
   [v64 addObject:v68];
   if ([v67 count] >= 2)
   {
@@ -702,9 +697,9 @@ LABEL_66:
 
 LABEL_68:
 
-  v20 = v109;
-  v61 = v115;
-  v62 = v117;
+  v20 = v108;
+  v61 = v114;
+  v62 = v116;
 LABEL_69:
   if (PGIsAppleInternal_onceToken != -1)
   {
@@ -713,56 +708,54 @@ LABEL_69:
 
   if (PGIsAppleInternal_isAppleInternal == 1)
   {
-    v118 = v62;
+    v117 = v62;
     v82 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v134 = 0u;
     v135 = 0u;
     v136 = 0u;
     v137 = 0u;
-    v138 = 0u;
     v83 = v64;
-    v84 = [v83 countByEnumeratingWithState:&v135 objects:buf count:16];
+    v84 = [v83 countByEnumeratingWithState:&v134 objects:buf count:16];
     if (v84)
     {
       v85 = v84;
-      v86 = *v136;
+      v86 = *v135;
       do
       {
         for (j = 0; j != v85; ++j)
         {
-          if (*v136 != v86)
+          if (*v135 != v86)
           {
             objc_enumerationMutation(v83);
           }
 
-          name3 = [*(*(&v135 + 1) + 8 * j) name];
+          name3 = [*(*(&v134 + 1) + 8 * j) name];
           [v82 addObject:name3];
         }
 
-        v85 = [v83 countByEnumeratingWithState:&v135 objects:buf count:16];
+        v85 = [v83 countByEnumeratingWithState:&v134 objects:buf count:16];
       }
 
       while (v85);
     }
 
-    v62 = v118;
-    v89 = v118;
+    v62 = v117;
+    v89 = v117;
     if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
     {
       v90 = [v82 count];
       v91 = [v82 componentsJoinedByString:{@", "}];
-      *v145 = 134218499;
-      v146 = v90;
-      v147 = 2112;
-      v148 = @"high";
-      v149 = 2113;
-      v150 = v91;
-      _os_log_impl(&dword_22F0FC000, v89, OS_LOG_TYPE_DEFAULT, "[PublicEvents] Disambiguating event: found %lu %@ confidence events. %{private}@", v145, 0x20u);
+      *v144 = 134218499;
+      v145 = v90;
+      v146 = 2112;
+      v147 = @"high";
+      v148 = 2113;
+      v149 = v91;
+      _os_log_impl(&dword_22F0FC000, v89, OS_LOG_TYPE_DEFAULT, "[PublicEvents] Disambiguating event: found %lu %@ confidence events. %{private}@", v144, 0x20u);
     }
 
-    v20 = v109;
+    v20 = v108;
   }
-
-  v92 = *MEMORY[0x277D85DE8];
 
   return v64;
 }

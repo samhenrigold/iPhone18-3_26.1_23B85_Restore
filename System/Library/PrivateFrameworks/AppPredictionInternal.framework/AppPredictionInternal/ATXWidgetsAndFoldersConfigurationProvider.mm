@@ -26,11 +26,10 @@
 
 - (void)cacheHomeScreenConfigurationsIfNecessary
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXWidgetsAndFoldersConfigurations: could not fetch home page configurations with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXWidgetsAndFoldersConfigurations: could not fetch home page configurations with error: %@", &v2, 0xCu);
 }
 
 uint64_t __85__ATXWidgetsAndFoldersConfigurationProvider_cacheHomeScreenConfigurationsIfNecessary__block_invoke(uint64_t a1, void *a2)
@@ -77,59 +76,6 @@ uint64_t __85__ATXWidgetsAndFoldersConfigurationProvider_cacheHomeScreenConfigur
 
 - (unint64_t)globalAllPagesFolderCount
 {
-  v18 = *MEMORY[0x277D85DE8];
-  [(ATXWidgetsAndFoldersConfigurationProvider *)self cacheHomeScreenConfigurationsIfNecessary];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v3 = self->_pages;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = 0;
-    v7 = *v14;
-    do
-    {
-      for (i = 0; i != v5; ++i)
-      {
-        if (*v14 != v7)
-        {
-          objc_enumerationMutation(v3);
-        }
-
-        leafIcons = [*(*(&v13 + 1) + 8 * i) leafIcons];
-        v10 = [leafIcons _pas_filteredArrayWithTest:&__block_literal_global_19_2];
-        v6 += [v10 count];
-      }
-
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    }
-
-    while (v5);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return v6;
-}
-
-uint64_t __70__ATXWidgetsAndFoldersConfigurationProvider_globalAllPagesFolderCount__block_invoke(uint64_t a1, void *a2)
-{
-  v2 = a2;
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  return isKindOfClass & 1;
-}
-
-- (unint64_t)globalAllPagesWidgetCount
-{
   v17 = *MEMORY[0x277D85DE8];
   [(ATXWidgetsAndFoldersConfigurationProvider *)self cacheHomeScreenConfigurationsIfNecessary];
   v14 = 0u;
@@ -152,8 +98,9 @@ uint64_t __70__ATXWidgetsAndFoldersConfigurationProvider_globalAllPagesFolderCou
           objc_enumerationMutation(v3);
         }
 
-        stacks = [*(*(&v12 + 1) + 8 * i) stacks];
-        v6 += [stacks count];
+        leafIcons = [*(*(&v12 + 1) + 8 * i) leafIcons];
+        v10 = [leafIcons _pas_filteredArrayWithTest:&__block_literal_global_19_2];
+        v6 += [v10 count];
       }
 
       v5 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
@@ -167,7 +114,57 @@ uint64_t __70__ATXWidgetsAndFoldersConfigurationProvider_globalAllPagesFolderCou
     v6 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
+  return v6;
+}
+
+uint64_t __70__ATXWidgetsAndFoldersConfigurationProvider_globalAllPagesFolderCount__block_invoke(uint64_t a1, void *a2)
+{
+  v2 = a2;
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  return isKindOfClass & 1;
+}
+
+- (unint64_t)globalAllPagesWidgetCount
+{
+  v16 = *MEMORY[0x277D85DE8];
+  [(ATXWidgetsAndFoldersConfigurationProvider *)self cacheHomeScreenConfigurationsIfNecessary];
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v3 = self->_pages;
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = 0;
+    v7 = *v12;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v12 != v7)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        stacks = [*(*(&v11 + 1) + 8 * i) stacks];
+        v6 += [stacks count];
+      }
+
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v5);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
   return v6;
 }
 

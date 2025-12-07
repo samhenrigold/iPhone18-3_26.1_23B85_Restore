@@ -48,7 +48,7 @@
 
 - (id)_newSelectSQLWithProperties:(id)properties columns:(id)columns
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   columnsCopy = columns;
   v8 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:@"SELECT "];
@@ -58,7 +58,7 @@
     [v8 appendString:@"DISTINCT "];
   }
 
-  v38 = columnsCopy;
+  v37 = columnsCopy;
   v10 = [columnsCopy componentsJoinedByString:{@", "}];
   [v9 appendString:v10];
 
@@ -72,64 +72,64 @@
     [v12 unionSet:v13];
   }
 
-  v37 = v13;
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
+  v36 = v13;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v14 = propertiesCopy;
-  v15 = [v14 countByEnumeratingWithState:&v43 objects:v48 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v42 objects:v47 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v44;
+    v17 = *v43;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v44 != v17)
+        if (*v43 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [(objc_class *)self->_entityClass joinClauseForProperty:*(*(&v43 + 1) + 8 * i)];
+        v19 = [(objc_class *)self->_entityClass joinClauseForProperty:*(*(&v42 + 1) + 8 * i)];
         if (v19)
         {
           [v12 addObject:v19];
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v42 objects:v47 count:16];
     }
 
     while (v16);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v20 = v12;
-  v21 = [v20 countByEnumeratingWithState:&v39 objects:v47 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v38 objects:v46 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v40;
+    v23 = *v39;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v40 != v23)
+        if (*v39 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v39 + 1) + 8 * j);
+        v25 = *(*(&v38 + 1) + 8 * j);
         [v9 appendString:@" "];
         [v9 appendString:v25];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v38 objects:v46 count:16];
     }
 
     while (v22);
@@ -194,7 +194,6 @@
     [v9 appendString:@" LIMIT ?"];
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

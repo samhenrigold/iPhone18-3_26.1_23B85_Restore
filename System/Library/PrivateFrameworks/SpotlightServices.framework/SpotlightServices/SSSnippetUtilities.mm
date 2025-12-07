@@ -30,7 +30,7 @@
               +[SSSnippetUtilities createFormattedSnippetForResult:withContext:];
             }
 
-            goto LABEL_49;
+            goto LABEL_48;
           }
 
           v48 = v9;
@@ -87,73 +87,68 @@
           v23 = [array copy];
           v10 = v50;
           v24 = [(TPFTextPieceFinder *)v50 createPiecesWithTargets:v23];
-          if ([v24 count])
+          if (objc_msgSend_count(v24) && objc_msgSend_count(v23))
           {
-            if ([v23 count])
-            {
-              v25 = [[SSSnippetHighlightTool alloc] initWithTerms:v23];
-              firstObject = [v24 firstObject];
-              v27 = [(SSSnippetHighlightTool *)v25 makeHighlightedSnippet:firstObject];
-            }
+            v25 = [[SSSnippetHighlightTool alloc] initWithTerms:v23];
+            firstObject = [v24 firstObject];
+            v27 = [(SSSnippetHighlightTool *)v25 makeHighlightedSnippet:firstObject];
 
-            else
-            {
-              v27 = 0;
-            }
+            v28 = objc_msgSend_count(v27);
           }
 
           else
           {
             v27 = 0;
+            v28 = objc_msgSend_count(0);
           }
 
-          if ([v27 count])
+          if (v28)
           {
             v46 = v24;
             v47 = v23;
-            v28 = SSGeneralLog();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+            v29 = SSGeneralLog();
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
             {
               +[SSSnippetUtilities createFormattedSnippetForResult:withContext:];
             }
 
-            v29 = objc_opt_new();
-            [resultCopy setFormattedSnippet:v29];
+            v30 = objc_opt_new();
+            [resultCopy setFormattedSnippet:v30];
 
-            firstObject2 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v27, "count")}];
+            firstObject2 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v27)];
             v51 = 0u;
             v52 = 0u;
             v53 = 0u;
             v54 = 0u;
             v45 = v27;
-            v31 = v27;
-            v32 = [v31 countByEnumeratingWithState:&v51 objects:v59 count:16];
-            if (v32)
+            v32 = v27;
+            v33 = [v32 countByEnumeratingWithState:&v51 objects:v59 count:16];
+            if (v33)
             {
-              v33 = v32;
-              v34 = *v52;
+              v34 = v33;
+              v35 = *v52;
               do
               {
-                for (j = 0; j != v33; ++j)
+                for (j = 0; j != v34; ++j)
                 {
-                  if (*v52 != v34)
+                  if (*v52 != v35)
                   {
-                    objc_enumerationMutation(v31);
+                    objc_enumerationMutation(v32);
                   }
 
-                  v36 = *(*(&v51 + 1) + 8 * j);
-                  v37 = objc_opt_new();
-                  string = [v36 string];
-                  [v37 setText:string];
+                  v37 = *(*(&v51 + 1) + 8 * j);
+                  v38 = objc_opt_new();
+                  string = [v37 string];
+                  [v38 setText:string];
 
-                  [v37 setIsEmphasized:{+[SSSnippetHighlightTool isSegmentHighlighted:](SSSnippetHighlightTool, "isSegmentHighlighted:", v36)}];
-                  [firstObject2 addObject:v37];
+                  [v38 setIsEmphasized:{+[SSSnippetHighlightTool isSegmentHighlighted:](SSSnippetHighlightTool, "isSegmentHighlighted:", v37)}];
+                  [firstObject2 addObject:v38];
                 }
 
-                v33 = [v31 countByEnumeratingWithState:&v51 objects:v59 count:16];
+                v34 = [v32 countByEnumeratingWithState:&v51 objects:v59 count:16];
               }
 
-              while (v33);
+              while (v34);
             }
 
             formattedSnippet = [resultCopy formattedSnippet];
@@ -165,37 +160,37 @@
             v24 = v46;
             v23 = v47;
             v27 = v45;
-            goto LABEL_48;
+            goto LABEL_47;
           }
 
-          v40 = [v24 count];
+          v41 = objc_msgSend_count(v24);
           firstObject2 = SSGeneralLog();
-          v41 = os_log_type_enabled(firstObject2, OS_LOG_TYPE_DEBUG);
+          v42 = os_log_type_enabled(firstObject2, OS_LOG_TYPE_DEBUG);
           v7 = v49;
-          if (v40)
+          if (v41)
           {
-            if (v41)
+            if (v42)
             {
               +[SSSnippetUtilities createFormattedSnippetForResult:withContext:];
             }
 
-            v42 = MEMORY[0x1E69CA3A0];
+            v43 = MEMORY[0x1E69CA3A0];
             firstObject2 = [v24 firstObject];
-            v43 = [v42 textWithString:firstObject2];
-            [resultCopy setFormattedSnippet:v43];
+            v44 = [v43 textWithString:firstObject2];
+            [resultCopy setFormattedSnippet:v44];
           }
 
-          else if (v41)
+          else if (v42)
           {
             v9 = v48;
             [(SSSnippetUtilities *)v11 createFormattedSnippetForResult:v48 withContext:firstObject2];
-            goto LABEL_48;
+            goto LABEL_47;
           }
 
           v9 = v48;
-LABEL_48:
+LABEL_47:
 
-LABEL_49:
+LABEL_48:
         }
       }
 
@@ -227,8 +222,6 @@ LABEL_49:
       +[SSSnippetUtilities createFormattedSnippetForResult:withContext:];
     }
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 @end

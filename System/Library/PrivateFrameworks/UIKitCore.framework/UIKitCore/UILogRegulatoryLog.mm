@@ -6,7 +6,7 @@
 void ____UILogRegulatoryLog_block_invoke()
 {
   v2 = MGCopyAnswer();
-  if ([v2 isEqualToString:@"Carrier"])
+  if (objc_msgSend_isEqualToString_(v2))
   {
     v0 = _UIPrivateMainBundleIdentifier();
 

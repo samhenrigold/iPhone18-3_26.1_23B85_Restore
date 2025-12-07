@@ -8,6 +8,7 @@
 - (void)dealloc;
 - (void)getCurrentCTMetrics:(__CTServerConnection *)metrics;
 - (void)setCurrentSignalBars:(int64_t)bars;
+- (void)setLteVoiceLQM:(int)m;
 - (void)setServingCellECIO:(double)o;
 - (void)setServingCellRSCP:(double)p;
 - (void)setServingCellRSRP:(double)p;
@@ -16,6 +17,7 @@
 - (void)setServingCellSNR:(double)r;
 - (void)setSrvccHandoverState:(BOOL)state;
 - (void)tiggerEnhanceLQMConfiguration;
+- (void)updateAudioQuality:(id)quality;
 - (void)updateAudioQualityKaroo:(id *)karoo;
 - (void)updateMovAverageOfSignalBar;
 @end
@@ -144,30 +146,28 @@
 
 - (__CTServerConnection)configureLaunchableCommCenter
 {
-  v3 = getprogname();
-  v4 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s-iRAT Manager", v3);
-  v5 = _CTServerConnectionCreateAndLaunchWithIdentifier();
-  mQueue = self->mQueue;
+  v2 = getprogname();
+  v3 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s-iRAT Manager", v2);
+  v4 = _CTServerConnectionCreateAndLaunchWithIdentifier();
   _CTServerConnectionSetTargetQueue();
-  if (v4)
+  if (v3)
   {
-    CFRelease(v4);
+    CFRelease(v3);
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)getCurrentCTMetrics:(__CTServerConnection *)metrics
 {
-  v18 = 0;
+  v17 = 0;
   cf = 0;
-  mServerQueue = self->mServerQueue;
   VoiceLinkQualityMetric = _CTServerConnectionGetVoiceLinkQualityMetric();
   [WCM_Logging logLevel:22 message:@"_CTServerConnectionGetVoiceLinkQualityMetric: error: %d, domain: %d", HIDWORD(VoiceLinkQualityMetric), VoiceLinkQualityMetric];
   EnhancedVoiceLinkQualityMetric = _CTServerConnectionGetEnhancedVoiceLinkQualityMetric();
   [WCM_Logging logLevel:22 message:@"LQM Blob Pointer: %p, error:%d, domain:%d", 0, HIDWORD(EnhancedVoiceLinkQualityMetric), EnhancedVoiceLinkQualityMetric];
   [WCM_Logging logLevel:22 message:@"Did not receive LQM BLOB from CT"];
-  sub_1000E8210(0, self);
+  sub_1000E8210(0, self, metrics);
   LOBYTE(theString1) = 1;
   if (metrics)
   {
@@ -190,16 +190,16 @@
       goto LABEL_10;
     }
 
-    v8 = @"Unable to retrieve data enable status";
+    v7 = @"Unable to retrieve data enable status";
   }
 
   else
   {
     [WCM_Logging logLevel:22 message:@"iRAT currently not connected to telephony service"];
-    v8 = @"iRAT currently not connected to telephony service";
+    v7 = @"iRAT currently not connected to telephony service";
   }
 
-  [WCM_Logging logLevel:22 message:v8];
+  [WCM_Logging logLevel:22 message:v7];
 LABEL_10:
   theString1 = 0;
   RegistrationStatus = _CTServerConnectionGetRegistrationStatus();
@@ -210,21 +210,21 @@ LABEL_10:
 
   else
   {
-    v10 = CFStringCompare(theString1, kCTRegistrationStatusRegisteredHome, 0);
-    v11 = kCTRegistrationStatusRegisteredRoaming;
-    if (v10)
+    v9 = CFStringCompare(theString1, kCTRegistrationStatusRegisteredHome, 0);
+    v10 = kCTRegistrationStatusRegisteredRoaming;
+    if (v9)
     {
-      v12 = CFStringCompare(theString1, kCTRegistrationStatusRegisteredRoaming, 0) == kCFCompareEqualTo;
+      v11 = CFStringCompare(theString1, kCTRegistrationStatusRegisteredRoaming, 0) == kCFCompareEqualTo;
     }
 
     else
     {
-      v12 = 1;
+      v11 = 1;
     }
 
-    v13 = CFStringCompare(theString1, v11, 0) == kCFCompareEqualTo;
-    [(WRM_CTService *)self updateRegistrationStatus:v12];
-    [WCM_Logging logLevel:22 message:@"WRM_CTService:_CTServerConnectionGetRegistrationStatus reg status %d, roaming Status %d", v12, v13];
+    v12 = CFStringCompare(theString1, v10, 0) == kCFCompareEqualTo;
+    [(WRM_CTService *)self updateRegistrationStatus:v11];
+    [WCM_Logging logLevel:22 message:@"WRM_CTService:_CTServerConnectionGetRegistrationStatus reg status %d, roaming Status %d", v11, v12];
   }
 
   sub_1000E833C(metrics, self);
@@ -232,27 +232,27 @@ LABEL_10:
   if (HIDWORD(CapabilityStatusExtended))
   {
     [WCM_Logging logLevel:22 message:@"_CTServerConnectionGetCapabilityStatusExtended: error: %d, domain: %d", HIDWORD(CapabilityStatusExtended), CapabilityStatusExtended];
-    v15 = 0;
-    v18 = 0;
+    v14 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v15 = v18 != 0;
+    v14 = v17 != 0;
   }
 
-  [(WRM_CTService *)self updateVoLTEEnableStatus:v15];
-  if (v18)
+  [(WRM_CTService *)self updateVoLTEEnableStatus:v14];
+  if (v17)
   {
-    v16 = @"_CTServerConnectionGetCapabilityStatusExtended: volteSupported";
+    v15 = @"_CTServerConnectionGetCapabilityStatusExtended: volteSupported";
   }
 
   else
   {
-    v16 = @"_CTServerConnectionGetCapabilityStatusExtended: volte not Supported";
+    v15 = @"_CTServerConnectionGetCapabilityStatusExtended: volte not Supported";
   }
 
-  [WCM_Logging logLevel:22 message:v16];
+  [WCM_Logging logLevel:22 message:v15];
   if (cf)
   {
     CFRelease(cf);
@@ -264,22 +264,14 @@ LABEL_10:
   [WCM_Logging logLevel:22 message:@"WRM_CTService:configureCTNotificationCallBacks"];
   v3 = getprogname();
   v4 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s-iRAT Manager", v3);
-  mServerQueue = self->mServerQueue;
   self->mCoreTelephonyConnection = _CTServerConnectionCreateOnTargetQueue();
   _CTServerConnectionRegisterForNotification();
-  mCoreTelephonyConnection = self->mCoreTelephonyConnection;
   _CTServerConnectionRegisterForNotification();
-  v7 = self->mCoreTelephonyConnection;
   _CTServerConnectionRegisterForNotification();
-  v8 = self->mCoreTelephonyConnection;
   _CTServerConnectionRegisterForNotification();
-  v9 = self->mCoreTelephonyConnection;
   _CTServerConnectionRegisterForNotification();
-  v10 = self->mCoreTelephonyConnection;
   _CTServerConnectionRegisterForNotification();
-  v11 = self->mCoreTelephonyConnection;
   _CTServerConnectionRegisterForNotification();
-  v12 = self->mCoreTelephonyConnection;
   _CTServerConnectionRegisterForNotification();
   [(WRM_CTService *)self getCurrentCTMetrics:self->mCoreTelephonyConnection];
   if (v4)
@@ -419,6 +411,20 @@ LABEL_10:
   }
 }
 
+- (void)setLteVoiceLQM:(int)m
+{
+  if (m && (m + 2) <= 0x66)
+  {
+    self->mLTEVoiceLQM = m;
+    self->mValidLTEVoIPLqm = 1;
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:22 message:@"setLteVoiceLQM, discarding invalid voiceLQM %d", *&m];
+  }
+}
+
 - (void)setCurrentSignalBars:(int64_t)bars
 {
   if (bars)
@@ -443,6 +449,13 @@ LABEL_10:
   v4[4] = self;
   stateCopy = state;
   dispatch_async(mQueue, v4);
+}
+
+- (void)updateAudioQuality:(id)quality
+{
+  v4 = (100 * quality.var0) / (quality.var1 + 0.000001) < 80.0 || quality.var1 < 0x1F5uLL;
+  self->mPrevAudioQualityWasGood = v4;
+  [WCM_Logging logLevel:22 message:@"BB Audio Metrics, CodecType: %d, Total Erasures: %d, Total playbacks: %d, Percent Erasures: %f, RSCP: %f, ECIO:%f, Eval Quality: %d", *&quality.var2, *&quality.var0, quality.var1, (100 * quality.var0) / (quality.var1 + 0.000001), *&self->mRscp, *&self->mEcio, v4];
 }
 
 - (void)updateAudioQualityKaroo:(id *)karoo

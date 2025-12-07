@@ -9,6 +9,7 @@
 - (id)syncSpecifier;
 - (void)setPrivateSharingEnabled:(id)enabled forSpecifier:(id)specifier;
 - (void)showShortcutsSharingAndPrivacy;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -172,6 +173,30 @@
   [v4 setProperty:&__kCFBooleanTrue forKey:PSDefaultValueKey];
 
   return v4;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v17.receiver = self;
+  v17.super_class = WFShortcutsSettingsController;
+  [(WFShortcutsSettingsController *)&v17 viewDidAppear:appear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.shortcuts"];
+  v5 = [_NSLocalizedStringResource alloc];
+  v6 = +[NSLocale currentLocale];
+  v7 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v7 bundleURL];
+  v9 = [v5 initWithKey:@"Shortcuts" table:0 locale:v6 bundleURL:bundleURL];
+
+  v10 = [_NSLocalizedStringResource alloc];
+  v11 = +[NSLocale currentLocale];
+  v12 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL2 = [v12 bundleURL];
+  v14 = [v10 initWithKey:@"Apps" table:0 locale:v11 bundleURL:bundleURL2];
+
+  v15 = VCBundleIdentifierShortcutsiOS;
+  v18 = v14;
+  v16 = [NSArray arrayWithObjects:&v18 count:1];
+  [(WFShortcutsSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:v15 title:v9 localizedNavigationComponents:v16 deepLink:v4];
 }
 
 - (void)viewDidLoad

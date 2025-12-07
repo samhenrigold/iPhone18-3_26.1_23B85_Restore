@@ -320,7 +320,7 @@ void __55__AXSettingsTickedSliderCell_handleSliderBeingDragged___block_invoke(ui
 - (void)_determineDisplayValue:(double)a3 .cold.1(NSObject *a1, double a2, double a3)
 {
   v11 = *MEMORY[0x1E69E9840];
-  v5 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+  v5 = [MEMORY[0x1E696AD98] numberWithDouble:a2];
   v6 = [MEMORY[0x1E696AD98] numberWithDouble:a3];
   v7 = 138412546;
   v8 = v5;

@@ -8,13 +8,13 @@
 {
   v53[1] = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  options = [configurationCopy options];
+  v4 = objc_msgSend_options(configurationCopy);
   assetCollection = [configurationCopy assetCollection];
   keyAsset = [configurationCopy keyAsset];
   assets = [configurationCopy assets];
   referencePersons = [configurationCopy referencePersons];
   persistableRecipe = [configurationCopy persistableRecipe];
-  if ((options & 2) != 0 && keyAsset)
+  if ((v4 & 2) != 0 && keyAsset)
   {
     v53[0] = keyAsset;
     v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
@@ -42,7 +42,7 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v15 = (options >> 8) & 2 | ((options & 2) >> 1);
+    v15 = (v4 >> 8) & 2 | ((v4 & 2) >> 1);
     v16 = [PXStoryPHAssetCollectionAssetsProducer alloc];
     v17 = keyAsset;
     if (objc_opt_class() && (objc_opt_isKindOfClass() & 1) != 0)

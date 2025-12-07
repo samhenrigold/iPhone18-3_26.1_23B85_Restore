@@ -63,7 +63,7 @@ void __25__CRSUIWindow_commonInit__block_invoke(uint64_t a1)
 
 - (void)commonInit
 {
-  v39[4] = *MEMORY[0x277D85DE8];
+  v38[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D756D0]);
   notificationLayoutGuide = self->_notificationLayoutGuide;
   self->_notificationLayoutGuide = v3;
@@ -73,22 +73,22 @@ void __25__CRSUIWindow_commonInit__block_invoke(uint64_t a1)
   obj = [heightAnchor constraintEqualToConstant:0.0];
 
   objc_storeStrong(&self->_heightConstraint, obj);
-  v26 = MEMORY[0x277CCAAD0];
-  v39[0] = obj;
+  v25 = MEMORY[0x277CCAAD0];
+  v38[0] = obj;
   leftAnchor = [(CRSUIWindow *)self leftAnchor];
   leftAnchor2 = [(UILayoutGuide *)self->_notificationLayoutGuide leftAnchor];
   v7 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v39[1] = v7;
+  v38[1] = v7;
   bottomAnchor = [(CRSUIWindow *)self bottomAnchor];
   bottomAnchor2 = [(UILayoutGuide *)self->_notificationLayoutGuide bottomAnchor];
   v10 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v39[2] = v10;
+  v38[2] = v10;
   rightAnchor = [(CRSUIWindow *)self rightAnchor];
   rightAnchor2 = [(UILayoutGuide *)self->_notificationLayoutGuide rightAnchor];
   v13 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v39[3] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:4];
-  [v26 activateConstraints:v14];
+  v38[3] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:4];
+  [v25 activateConstraints:v14];
 
   v15 = objc_alloc_init(CRSUIApplicationSceneSettingsDiffInspector);
   settingsDiffInspector = self->_settingsDiffInspector;
@@ -96,19 +96,19 @@ void __25__CRSUIWindow_commonInit__block_invoke(uint64_t a1)
 
   objc_initWeak(&location, self);
   v17 = self->_settingsDiffInspector;
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __25__CRSUIWindow_commonInit__block_invoke;
-  v31[3] = &unk_278DA12D0;
-  objc_copyWeak(&v32, &location);
-  [(CRSUIApplicationSceneSettingsDiffInspector *)v17 observeBannerFrameWithBlock:v31];
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __25__CRSUIWindow_commonInit__block_invoke;
+  v30[3] = &unk_278DA12D0;
+  objc_copyWeak(&v31, &location);
+  [(CRSUIApplicationSceneSettingsDiffInspector *)v17 observeBannerFrameWithBlock:v30];
   v18 = self->_settingsDiffInspector;
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __25__CRSUIWindow_commonInit__block_invoke_2;
-  v29[3] = &unk_278DA12D0;
-  objc_copyWeak(&v30, &location);
-  [(CRSUIApplicationSceneSettingsDiffInspector *)v18 observeMapStyleWithBlock:v29];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __25__CRSUIWindow_commonInit__block_invoke_2;
+  v28[3] = &unk_278DA12D0;
+  objc_copyWeak(&v29, &location);
+  [(CRSUIApplicationSceneSettingsDiffInspector *)v18 observeMapStyleWithBlock:v28];
   windowScene = [(CRSUIWindow *)self windowScene];
   selfCopy = self;
   v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&selfCopy count:1];
@@ -123,17 +123,15 @@ void __25__CRSUIWindow_commonInit__block_invoke(uint64_t a1)
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v36 = 2114;
-    v37 = v23;
+    v35 = 2114;
+    v36 = v23;
     _os_log_impl(&dword_243218000, v24, OS_LOG_TYPE_DEFAULT, "Initial map style for: %{public}@ is: %{public}@", buf, 0x16u);
   }
 
   [(CRSUIWindow *)self _setMapStyle:mapStyle];
-  objc_destroyWeak(&v30);
-  objc_destroyWeak(&v32);
+  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v31);
   objc_destroyWeak(&location);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __25__CRSUIWindow_commonInit__block_invoke_2(uint64_t a1)
@@ -144,16 +142,16 @@ void __25__CRSUIWindow_commonInit__block_invoke_2(uint64_t a1)
 
 - (void)_setMapStyle:(int64_t)style
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = [objc_opt_class() _stringForStyle:style];
   v6 = CRSUILogForCategory(4uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138543618;
+    v13 = 138543618;
     selfCopy2 = self;
-    v16 = 2114;
-    v17 = v5;
-    _os_log_impl(&dword_243218000, v6, OS_LOG_TYPE_DEFAULT, "Updating map style for %{public}@, to style: %{public}@", &v14, 0x16u);
+    v15 = 2114;
+    v16 = v5;
+    _os_log_impl(&dword_243218000, v6, OS_LOG_TYPE_DEFAULT, "Updating map style for %{public}@, to style: %{public}@", &v13, 0x16u);
   }
 
   v7 = [MEMORY[0x277D75C80] crsui_traitCollectionWithMapStyle:style];
@@ -165,17 +163,15 @@ void __25__CRSUIWindow_commonInit__block_invoke_2(uint64_t a1)
   v11 = CRSUILogForCategory(4uLL);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138543618;
+    v13 = 138543618;
     selfCopy2 = self;
-    v16 = 2114;
-    v17 = v10;
-    _os_log_impl(&dword_243218000, v11, OS_LOG_TYPE_DEFAULT, "Trait collection for %{public}@, is style: %{public}@", &v14, 0x16u);
+    v15 = 2114;
+    v16 = v10;
+    _os_log_impl(&dword_243218000, v11, OS_LOG_TYPE_DEFAULT, "Trait collection for %{public}@, is style: %{public}@", &v13, 0x16u);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"CRSUIWindowMapStyleChangedNotification" object:self];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateMapStyleTrait

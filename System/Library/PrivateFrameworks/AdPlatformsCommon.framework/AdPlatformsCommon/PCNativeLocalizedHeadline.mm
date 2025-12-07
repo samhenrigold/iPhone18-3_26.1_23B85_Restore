@@ -8,31 +8,31 @@
 - (PCNativeLocalizedHeadline)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v11 = objc_msgSend_init(self, v5, v6, v7, v8, v9, v10);
-  if (v11)
+  v7 = objc_msgSend_init(self, v5, v6);
+  if (v7)
   {
-    v12 = objc_opt_class();
-    v17 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v13, v12, @"languageIdentifier", v14, v15, v16);
-    languageIdentifier = v11->_languageIdentifier;
-    v11->_languageIdentifier = v17;
+    v8 = objc_opt_class();
+    v10 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v9, v8, @"languageIdentifier");
+    languageIdentifier = v7->_languageIdentifier;
+    v7->_languageIdentifier = v10;
 
-    v19 = objc_opt_class();
-    v24 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v20, v19, @"value", v21, v22, v23);
-    value = v11->_value;
-    v11->_value = v24;
+    v12 = objc_opt_class();
+    v14 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v13, v12, @"value");
+    value = v7->_value;
+    v7->_value = v14;
   }
 
-  return v11;
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v11 = objc_msgSend_languageIdentifier(self, v5, v6, v7, v8, v9, v10);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v12, v11, @"languageIdentifier", v13, v14, v15);
+  v7 = objc_msgSend_languageIdentifier(self, v5, v6);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v8, v7, @"languageIdentifier");
 
-  v26 = objc_msgSend_value(self, v16, v17, v18, v19, v20, v21);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v22, v26, @"value", v23, v24, v25);
+  v12 = objc_msgSend_value(self, v9, v10);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v11, v12, @"value");
 }
 
 @end

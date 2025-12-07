@@ -17,7 +17,7 @@
   v9[3] = v7;
   v9[4] = sub_1A3FBAE24;
   v9[5] = v8;
-  sub_1A3C67884(sub_1A3FBB3C4, v9);
+  sub_1A3C67884(sub_1A3FBB3C4, v9, "PhotosUICore/UserPromptCoordinator.swift", 40, 2u, 109);
 }
 
 - (PXUserPromptCoordinator)init

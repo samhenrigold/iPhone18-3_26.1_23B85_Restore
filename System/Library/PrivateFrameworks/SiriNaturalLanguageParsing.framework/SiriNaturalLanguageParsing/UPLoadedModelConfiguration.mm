@@ -61,7 +61,7 @@
 
 - (UPLoadedModelConfiguration)initWithModelConfiguration:(id)configuration
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v4 = SNLPOSLoggerForCategory(7);
   v5 = os_signpost_id_generate(v4);
@@ -81,9 +81,9 @@
     _os_log_impl(&dword_22284A000, v8, OS_LOG_TYPE_DEFAULT, "BEGIN UPLoadedModelConfigurationInit", buf, 2u);
   }
 
-  v35.receiver = self;
-  v35.super_class = UPLoadedModelConfiguration;
-  v9 = [(UPLoadedModelConfiguration *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = UPLoadedModelConfiguration;
+  v9 = [(UPLoadedModelConfiguration *)&v34 init];
 
   if (v9)
   {
@@ -97,26 +97,26 @@
 
     v14 = MEMORY[0x277CBEAC0];
     configPath = [configurationCopy configPath];
-    v30 = [v14 dictionaryWithContentsOfFile:configPath];
+    v29 = [v14 dictionaryWithContentsOfFile:configPath];
 
-    [v30 objectForKeyedSubscript:@"locale"];
+    [v29 objectForKeyedSubscript:@"locale"];
     v16 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:objc_claimAutoreleasedReturnValue()];
     locale = v9->_locale;
     v9->_locale = v16;
 
-    v18 = [v30 objectForKeyedSubscript:@"app_bundle"];
+    v18 = [v29 objectForKeyedSubscript:@"app_bundle"];
     bundleId = v9->_bundleId;
     v9->_bundleId = v18;
 
     spanVocabPath = [configurationCopy spanVocabPath];
     v21 = spanVocabPath;
-    std::string::basic_string[abi:ne200100]<0>(&v34, [spanVocabPath UTF8String]);
+    std::string::basic_string[abi:ne200100]<0>(&v33, [spanVocabPath UTF8String]);
 
     grammarPath = [configurationCopy grammarPath];
     v23 = grammarPath;
-    std::string::basic_string[abi:ne200100]<0>(v33, [grammarPath UTF8String]);
+    std::string::basic_string[abi:ne200100]<0>(v32, [grammarPath UTF8String]);
 
-    uaap_orchestration::grammar::UaapGrammar::fromFile(v33);
+    uaap_orchestration::grammar::UaapGrammar::fromFile(v32);
   }
 
   v24 = SNLPOSLoggerForCategory(7);
@@ -135,7 +135,6 @@
   }
 
   v27 = 0;
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 

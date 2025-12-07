@@ -46,16 +46,7 @@ LABEL_4:
     v14 = [v8 URLForDirectory:13 inDomain:1 appropriateForURL:0 create:1 error:&v23];
     v15 = v23;
 
-    if (!v14)
-    {
-      goto LABEL_10;
-    }
-
-    v16 = +[NSUUID UUID];
-    uUIDString = [v16 UUIDString];
-    v10 = [v14 URLByAppendingPathComponent:uUIDString];
-
-    if (v10)
+    if (v14 && (+[NSUUID UUID](NSUUID, "UUID"), v16 = objc_claimAutoreleasedReturnValue(), [v16 UUIDString], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "URLByAppendingPathComponent:", v17), v10 = objc_claimAutoreleasedReturnValue(), v14, v17, v16, v10))
     {
       v18 = +[NSFileManager defaultManager];
       v22 = v15;
@@ -70,7 +61,6 @@ LABEL_4:
 
     else
     {
-LABEL_10:
       v11 = v15;
     }
   }
@@ -120,10 +110,10 @@ LABEL_14:
       sub_100150C48();
     }
 
-    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v4, v5, v6, v7, v8, v9, v10, "[TSPDataCopyProviderConcrete URL]");
-    v11 = [NSString stringWithUTF8String:"[TSPDataCopyProviderConcrete URL]"];
-    v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDataCopyProvider.m"];
-    [TSUAssertionHandler handleFailureInFunction:v11 file:v12 lineNumber:55 isFatal:1 description:"invalid nil value for '%{public}s'", "URL", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDataCopyProvider.m", 55, "URL"];
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d invalid nil value for '%{public}s'", "[TSPDataCopyProviderConcrete URL]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDataCopyProvider.m", 55, "URL");
+    v4 = [NSString stringWithUTF8String:"[TSPDataCopyProviderConcrete URL]"];
+    v5 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDataCopyProvider.m"];
+    [TSUAssertionHandler handleFailureInFunction:v4 file:v5 lineNumber:55 isFatal:1 description:"invalid nil value for '%{public}s'", "URL"];
 
     TSUCrashBreakpoint();
     abort();
@@ -148,10 +138,10 @@ LABEL_14:
       sub_100150CF0();
     }
 
-    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v4, v5, v6, v7, v8, v9, v10, "[TSPDataCopyProviderConcrete readChannel]");
-    v11 = [NSString stringWithUTF8String:"[TSPDataCopyProviderConcrete readChannel]"];
-    v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDataCopyProvider.m"];
-    [TSUAssertionHandler handleFailureInFunction:v11 file:v12 lineNumber:61 isFatal:1 description:"invalid nil value for '%{public}s'", "readChannel", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDataCopyProvider.m", 61, "readChannel"];
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d invalid nil value for '%{public}s'", "[TSPDataCopyProviderConcrete readChannel]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDataCopyProvider.m", 61, "readChannel");
+    v4 = [NSString stringWithUTF8String:"[TSPDataCopyProviderConcrete readChannel]"];
+    v5 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDataCopyProvider.m"];
+    [TSUAssertionHandler handleFailureInFunction:v4 file:v5 lineNumber:61 isFatal:1 description:"invalid nil value for '%{public}s'", "readChannel"];
 
     TSUCrashBreakpoint();
     abort();
@@ -176,10 +166,10 @@ LABEL_14:
       sub_100150D98();
     }
 
-    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v4, v5, v6, v7, v8, v9, v10, "[TSPDataCopyProviderConcrete inputStream]");
-    v11 = [NSString stringWithUTF8String:"[TSPDataCopyProviderConcrete inputStream]"];
-    v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDataCopyProvider.m"];
-    [TSUAssertionHandler handleFailureInFunction:v11 file:v12 lineNumber:67 isFatal:1 description:"invalid nil value for '%{public}s'", "inputStream", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDataCopyProvider.m", 67, "inputStream"];
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d invalid nil value for '%{public}s'", "[TSPDataCopyProviderConcrete inputStream]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDataCopyProvider.m", 67, "inputStream");
+    v4 = [NSString stringWithUTF8String:"[TSPDataCopyProviderConcrete inputStream]"];
+    v5 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDataCopyProvider.m"];
+    [TSUAssertionHandler handleFailureInFunction:v4 file:v5 lineNumber:67 isFatal:1 description:"invalid nil value for '%{public}s'", "inputStream"];
 
     TSUCrashBreakpoint();
     abort();
@@ -217,10 +207,10 @@ LABEL_14:
       sub_100150E40();
     }
 
-    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v13, v14, v15, v16, v17, v18, v19, "[TSPDataCopyProviderConcrete inputStreamForRange:]");
-    v20 = [NSString stringWithUTF8String:"[TSPDataCopyProviderConcrete inputStreamForRange:]"];
-    v21 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDataCopyProvider.m"];
-    [TSUAssertionHandler handleFailureInFunction:v20 file:v21 lineNumber:83 isFatal:1 description:"invalid nil value for '%{public}s'", "inputStream", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDataCopyProvider.m", 83, "inputStream"];
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d invalid nil value for '%{public}s'", "[TSPDataCopyProviderConcrete inputStreamForRange:]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDataCopyProvider.m", 83, "inputStream");
+    v13 = [NSString stringWithUTF8String:"[TSPDataCopyProviderConcrete inputStreamForRange:]"];
+    v14 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDataCopyProvider.m"];
+    [TSUAssertionHandler handleFailureInFunction:v13 file:v14 lineNumber:83 isFatal:1 description:"invalid nil value for '%{public}s'", "inputStream"];
 
     TSUCrashBreakpoint();
     abort();

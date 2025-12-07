@@ -66,9 +66,11 @@
 
 uint64_t __40__SUManagedDeviceManager_sharedInstance__block_invoke()
 {
-  sharedInstance___instance_6 = objc_alloc_init(SUManagedDeviceManager);
+  v0 = objc_alloc_init(SUManagedDeviceManager);
+  v1 = sharedInstance___instance_6;
+  sharedInstance___instance_6 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (BOOL)isManagedByMDM
@@ -214,13 +216,11 @@ void __43__SUManagedDeviceManager_setAssetAudience___block_invoke(uint64_t a1)
 {
   if (([*(*(a1 + 32) + 16) isEqualToString:*(a1 + 40)] & 1) == 0)
   {
-    v10 = *(a1 + 40);
     SULogInfo(@"Asset audience changed from:%@ to:%@", v2, v3, v4, v5, v6, v7, v8, *(*(a1 + 32) + 16));
     objc_storeStrong((*(a1 + 32) + 16), *(a1 + 40));
-    v11 = +[SUState currentState];
-    [v11 setLastAssetAudience:*(*(a1 + 32) + 16)];
-    [v11 save];
-    v9 = *(*(a1 + 32) + 8);
+    v9 = +[SUState currentState];
+    [v9 setLastAssetAudience:*(*(a1 + 32) + 16)];
+    [v9 save];
     if (objc_opt_respondsToSelector())
     {
       [*(*(a1 + 32) + 8) assetAudienceChanged:?];

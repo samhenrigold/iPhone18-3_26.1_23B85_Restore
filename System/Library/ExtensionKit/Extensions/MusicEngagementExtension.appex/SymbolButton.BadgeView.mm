@@ -76,17 +76,17 @@
 
 - (void)layoutSubviews
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo6UIViewC11MediaCoreUIE6CornerVSgMd);
-  __chkstk_darwin(v3 - 8);
-  v5 = &v9 - v4;
-  v6 = type metadata accessor for SymbolButton.BadgeView();
-  v9.receiver = self;
-  v9.super_class = v6;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo6UIViewC11MediaCoreUIE6CornerVSgMd, &_sSo6UIViewC11MediaCoreUIE6CornerVSgMR);
+  __chkstk_darwin();
+  v4 = &v8 - v3;
+  v5 = type metadata accessor for SymbolButton.BadgeView();
+  v8.receiver = self;
+  v8.super_class = v5;
   selfCopy = self;
-  [(SymbolButton.BadgeView *)&v9 layoutSubviews];
+  [(SymbolButton.BadgeView *)&v8 layoutSubviews];
   static UIView.Corner.rounded.getter();
-  v8 = type metadata accessor for UIView.Corner();
-  (*(*(v8 - 8) + 56))(v5, 0, 1, v8);
+  v7 = type metadata accessor for UIView.Corner();
+  (*(*(v7 - 8) + 56))(v4, 0, 1, v7);
   UIView.corner.setter();
   SymbolButton.BadgeView.layoutPunchOutView()();
 }

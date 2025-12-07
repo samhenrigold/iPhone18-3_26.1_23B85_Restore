@@ -24,11 +24,11 @@
 
 - (HMDCameraRecordingGeneralConfiguration)initWithCoder:(id)coder
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v16.receiver = self;
-  v16.super_class = HMDCameraRecordingGeneralConfiguration;
-  v5 = [(HMDCameraRecordingGeneralConfiguration *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = HMDCameraRecordingGeneralConfiguration;
+  v5 = [(HMDCameraRecordingGeneralConfiguration *)&v15 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"kGeneralConfigurationPrebufferLength"];
@@ -39,16 +39,15 @@
     v5->_eventTriggerOptions = [v8 unsignedLongLongValue];
 
     v9 = MEMORY[0x277CBEB98];
-    v17[0] = objc_opt_class();
-    v17[1] = objc_opt_class();
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v16[0] = objc_opt_class();
+    v16[1] = objc_opt_class();
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
     v11 = [v9 setWithArray:v10];
     v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"kGeneralConfigurationMediaContainerConfigurations"];
     mediaContainerConfigurations = v5->_mediaContainerConfigurations;
     v5->_mediaContainerConfigurations = v12;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -91,14 +90,14 @@
 
 - (BOOL)_parseFromTLVData
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CFEC08] wrappertlv:1 name:@"kGeneralConfigurationPrebufferLength"];
   v4 = [MEMORY[0x277CFEC08] wrappertlv:2 name:@"kGeneralConfigurationEventTriggerOptions"];
   v5 = [MEMORY[0x277CFEA58] wrappertlv:3 name:@"kGeneralConfigurationMediaContainerConfigurations" objectCreator:&__block_literal_global_90768];
-  v15[0] = v3;
-  v15[1] = v4;
-  v15[2] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+  v14[0] = v3;
+  v14[1] = v4;
+  v14[2] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
   v7 = [(HAPTLVBase *)self _parse:v6];
   if (v7)
   {
@@ -114,7 +113,6 @@
     self->_mediaContainerConfigurations = field3;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

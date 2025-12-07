@@ -27,8 +27,14 @@
 - (void)openMessages:(id)messages;
 - (void)openTrialDialog;
 - (void)presentStewieTryOutModeIfPossible;
+- (void)refreshStewieAssetSpecifier:(BOOL)specifier;
+- (void)refreshTipSpecifier:(BOOL)specifier;
+- (void)reloadAlarmSoundAnimated:(BOOL)animated;
 - (void)reloadEmergencyContactsAnimated:(BOOL)animated;
+- (void)reloadHealthButtonLabelWithContacts:(BOOL)contacts;
 - (void)reloadKappaSpecifier;
+- (void)reloadPrivacyFooterWithContacts:(BOOL)contacts;
+- (void)reloadStopSharingGroupAnimated:(BOOL)animated;
 - (void)setCallWithHold:(id)hold forSpecifier:(id)specifier;
 - (void)setCallWithPresses:(id)presses forSpecifier:(id)specifier;
 - (void)setCrashDetectionEnabled:(id)enabled forSpecifier:(id)specifier;
@@ -45,15 +51,50 @@
 - (void)tipKitMakeTipSpecifier;
 - (void)tipKitStartObservation;
 - (void)tipKitStopObservation;
+- (void)updateAutoCallSpecifierEnabled:(BOOL)enabled;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SOSSettingsController
 
+- (void)refreshTipSpecifier:(BOOL)specifier
+{
+  specifierCopy = specifier;
+  tipEntrySpecifier = [(SOSSettingsController *)self tipEntrySpecifier];
+  v5 = +[SOSSettingsController tipSpecifierKey];
+  v6 = [tipEntrySpecifier objectForKeyedSubscript:v5];
+
+  v7 = self->_stewieSupported & [(SOSSettingsController *)self _canLaunchDemoFlow];
+  if ((v7 & 1) != 0 && v6 && (-[SOSSettingsController specifiers](self, "specifiers"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 containsObject:tipEntrySpecifier], v8, (v9 & 1) == 0))
+  {
+    [(SOSSettingsController *)self insertSpecifier:tipEntrySpecifier atIndex:0 animated:specifierCopy];
+  }
+
+  else
+  {
+    specifiers = [(SOSSettingsController *)self specifiers];
+    if ([specifiers containsObject:tipEntrySpecifier])
+    {
+
+      if (((v6 != 0) & v7) == 0)
+      {
+        [(SOSSettingsController *)self removeSpecifier:tipEntrySpecifier animated:specifierCopy];
+      }
+    }
+
+    else
+    {
+    }
+  }
+}
+
 - (SOSSettingsController)initWithNibName:(id)name bundle:(id)bundle
 {
-  v24.receiver = self;
-  v24.super_class = SOSSettingsController;
-  v4 = [(SOSSettingsController *)&v24 initWithNibName:name bundle:bundle];
+  v25.receiver = self;
+  v25.super_class = SOSSettingsController;
+  v4 = [(SOSSettingsController *)&v25 initWithNibName:name bundle:bundle];
   if (v4)
   {
     v5 = objc_alloc_init(SOSContactsManager);
@@ -93,27 +134,34 @@
     stewieStateMonitor = v4->_stewieStateMonitor;
     v4->_stewieStateMonitor = v17;
 
-    v19 = sub_8EF4();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_8EF4(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = v4->_stewieStateMonitor;
+      v21 = v4->_stewieStateMonitor;
       *buf = 138412290;
-      v26 = v20;
-      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Created Stewie state monitor: %@", buf, 0xCu);
+      v27 = v21;
+      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Created Stewie state monitor: %@", buf, 0xCu);
     }
 
-    [(CTStewieStateMonitor *)v4->_stewieStateMonitor start];
-    v21 = sub_8EF4();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_8EF4([(CTStewieStateMonitor *)v4->_stewieStateMonitor start]);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = v4->_stewieStateMonitor;
+      v23 = v4->_stewieStateMonitor;
       *buf = 138412290;
-      v26 = v22;
-      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Stewie state monitor has been started: %@", buf, 0xCu);
+      v27 = v23;
+      _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Stewie state monitor has been started: %@", buf, 0xCu);
     }
   }
 
   return v4;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SOSSettingsController;
+  [(SOSSettingsController *)&v4 viewDidAppear:appear];
+  [(SOSSettingsController *)self emitNavigationEvent];
 }
 
 - (void)emitNavigationEvent
@@ -153,14 +201,15 @@
   v10 = v9;
   if (v9)
   {
-    if ([v9 isEqualToString:SOSSettingsURLSourceAccCallNotification])
+    v11 = [v9 isEqualToString:SOSSettingsURLSourceAccCallNotification];
+    if (v11)
     {
       self->_openedViaAccCallNotification = 1;
-      v11 = sub_8EF4();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_8EF4(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,opened via notification", buf, 2u);
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,opened via notification", buf, 2u);
       }
 
       [(SOSSettingsController *)self submitSOSNotificationTapMetric];
@@ -168,56 +217,58 @@
       goto LABEL_19;
     }
 
-    if ([v10 isEqualToString:SOSSettingsURLSourceCrashDetectionFeedbackRequestNotification])
+    v13 = [v10 isEqualToString:SOSSettingsURLSourceCrashDetectionFeedbackRequestNotification];
+    if (v13)
     {
-      v12 = sub_8EF4();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,opened via settings - CrashDetection", buf, 2u);
-      }
-
-      v13 = [lCopy valueForKey:SOSSettingsURLSourceCrashDetectionUUIDKey];
-      v14 = sub_8EF4();
+      v14 = sub_8EF4(v13);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = 138412290;
-        v18 = v13;
-        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,FeedbackAssistant,%@", buf, 0xCu);
+        *buf = 0;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,opened via settings - CrashDetection", buf, 2u);
       }
 
-      [(SOSSettingsController *)self showCrashDetectionFeedbackAssistantWithUUID:v13];
+      v15 = [lCopy valueForKey:SOSSettingsURLSourceCrashDetectionUUIDKey];
+      v16 = sub_8EF4(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v21 = v15;
+        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,FeedbackAssistant,%@", buf, 0xCu);
+      }
+
+      [(SOSSettingsController *)self showCrashDetectionFeedbackAssistantWithUUID:v15];
 LABEL_18:
 
       goto LABEL_19;
     }
   }
 
-  if (![v10 isEqualToString:SOSSettingsURLSourceSettingsResetFollowUp])
+  v17 = [v10 isEqualToString:SOSSettingsURLSourceSettingsResetFollowUp];
+  if (!v17)
   {
     self->_openedViaAccCallNotification = 0;
-    v13 = sub_8EF4();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_8EF4(v17);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,not opened via notification", buf, 2u);
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,not opened via notification", buf, 2u);
     }
 
     goto LABEL_18;
   }
 
-  v15 = sub_8EF4();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v18 = sub_8EF4(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,opened via settings reset FollowUp", buf, 2u);
+    _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,opened via settings reset FollowUp", buf, 2u);
   }
 
   [SOSUtilities setSettingsResetFollowUpState:3];
 LABEL_19:
-  v16.receiver = self;
-  v16.super_class = SOSSettingsController;
-  [(SOSSettingsController *)&v16 handleURL:lCopy withCompletion:completionCopy];
+  v19.receiver = self;
+  v19.super_class = SOSSettingsController;
+  [(SOSSettingsController *)&v19 handleURL:lCopy withCompletion:completionCopy];
 }
 
 - (void)showCrashDetectionFeedbackAssistantWithUUID:(id)d
@@ -226,44 +277,44 @@ LABEL_19:
   v5 = +[OSASystemConfiguration sharedInstance];
   targetAudience = [v5 targetAudience];
 
-  v7 = sub_8EF4();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_8EF4(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = targetAudience;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,showCrashDetectionFeedbackAssistant,BuildType:%@", buf, 0xCu);
+    v24 = targetAudience;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,showCrashDetectionFeedbackAssistant,BuildType:%@", buf, 0xCu);
   }
 
-  if ([targetAudience isEqualToString:@"Internal"] & 1) != 0 || (objc_msgSend(targetAudience, "isEqualToString:", @"Seed"))
+  if ([targetAudience isEqualToString:@"Internal"] & 1) != 0 || (v9 = objc_msgSend(targetAudience, "isEqualToString:", @"Seed"), (v9))
   {
-    v8 = [[_TtC11SOSSettings35SOSCrashDetectionFeedbackController alloc] initWithDelegate:self legalText:0 uuid:dCopy];
+    v10 = [[_TtC11SOSSettings35SOSCrashDetectionFeedbackController alloc] initWithDelegate:self legalText:0 uuid:dCopy];
     feedbackController = self->_feedbackController;
-    self->_feedbackController = &v8->super;
+    self->_feedbackController = &v10->super;
 
-    v10 = [_TtC11SOSSettings23SOSKappaFeedbackConsent alloc];
-    v15 = _NSConcreteStackBlock;
-    v16 = 3221225472;
-    v17 = sub_4730;
-    v18 = &unk_20EE8;
-    v19 = dCopy;
+    v12 = [_TtC11SOSSettings23SOSKappaFeedbackConsent alloc];
+    v17 = _NSConcreteStackBlock;
+    v18 = 3221225472;
+    v19 = sub_4730;
+    v20 = &unk_20EE8;
+    v21 = dCopy;
     selfCopy = self;
-    v11 = [(SOSKappaFeedbackConsent *)v10 initWithCallback:&v15];
+    v13 = [(SOSKappaFeedbackConsent *)v12 initWithCallback:&v17];
     kappaConsentUI = self->_kappaConsentUI;
-    self->_kappaConsentUI = v11;
+    self->_kappaConsentUI = v13;
 
-    v13 = [(SOSKappaFeedbackConsent *)self->_kappaConsentUI getViewController:v15];
-    [(SOSSettingsController *)self presentViewController:v13 animated:1 completion:0];
+    v15 = [(SOSKappaFeedbackConsent *)self->_kappaConsentUI getViewController:v17];
+    [(SOSSettingsController *)self presentViewController:v15 animated:1 completion:0];
 
-    v14 = v19;
+    v16 = v21;
   }
 
   else
   {
-    v14 = sub_8EF4();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_8EF4(v9);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,showCrashDetectionFeedbackAssistant,not internal or seed user so don't show FA", buf, 2u);
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,showCrashDetectionFeedbackAssistant,not internal or seed user so don't show FA", buf, 2u);
     }
   }
 }
@@ -273,33 +324,37 @@ LABEL_19:
   v3 = +[OSASystemConfiguration sharedInstance];
   targetAudience = [v3 targetAudience];
 
-  v5 = sub_8F7C();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_8F7C(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = targetAudience;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,showFeedbackAssistant,BuildType:%@", &v11, 0xCu);
+    v13 = 138412290;
+    v14 = targetAudience;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,showFeedbackAssistant,BuildType:%@", &v13, 0xCu);
   }
 
-  if (([targetAudience isEqualToString:@"Internal"] & 1) == 0 && (objc_msgSend(targetAudience, "isEqualToString:", @"Seed") & 1) == 0)
+  if (([targetAudience isEqualToString:@"Internal"] & 1) == 0)
   {
-    getFeedbackViewController = sub_8F7C();
-    if (os_log_type_enabled(getFeedbackViewController, OS_LOG_TYPE_DEFAULT))
+    v7 = [targetAudience isEqualToString:@"Seed"];
+    if ((v7 & 1) == 0)
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_0, getFeedbackViewController, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,showFeedbackAssistant,not internal or seed user so don't show FA", &v11, 2u);
-    }
+      getFeedbackViewController = sub_8F7C(v7);
+      if (os_log_type_enabled(getFeedbackViewController, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v13) = 0;
+        _os_log_impl(&dword_0, getFeedbackViewController, OS_LOG_TYPE_DEFAULT, "SOSSettingsController,showFeedbackAssistant,not internal or seed user so don't show FA", &v13, 2u);
+      }
 
-    goto LABEL_9;
+      goto LABEL_9;
+    }
   }
 
   if (objc_opt_class())
   {
-    v6 = [_TtC11SOSSettings21SOSFeedbackController alloc];
-    v7 = +[SOSUtilities accidentalCallFeedbackAssistantLegalText];
-    v8 = [(SOSFeedbackController *)v6 initWithDelegate:self legalText:v7];
+    v8 = [_TtC11SOSSettings21SOSFeedbackController alloc];
+    v9 = +[SOSUtilities accidentalCallFeedbackAssistantLegalText];
+    v10 = [(SOSFeedbackController *)v8 initWithDelegate:self legalText:v9];
     feedbackController = self->_feedbackController;
-    self->_feedbackController = v8;
+    self->_feedbackController = v10;
 
     getFeedbackViewController = [(SOSFeedbackController *)self->_feedbackController getFeedbackViewController];
     [(SOSSettingsController *)self presentViewController:getFeedbackViewController animated:1 completion:&stru_20F08];
@@ -310,7 +365,7 @@ LABEL_9:
 - (void)feedbackController:(id)controller didCompleteWithFeedbackID:(id)d
 {
   dCopy = d;
-  v5 = sub_8EF4();
+  v5 = sub_8EF4(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -322,7 +377,7 @@ LABEL_9:
 - (void)feedbackController:(id)controller didFailToStartWithError:(id)error
 {
   errorCopy = error;
-  v5 = sub_8EF4();
+  v5 = sub_8EF4(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -333,7 +388,7 @@ LABEL_9:
 
 - (void)feedbackControllerDidCancel:(id)cancel
 {
-  v3 = sub_8EF4();
+  v3 = sub_8EF4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -345,7 +400,7 @@ LABEL_9:
 {
   lCopy = l;
   errorCopy = error;
-  v8 = sub_8EF4();
+  v8 = sub_8EF4(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412546;
@@ -359,7 +414,7 @@ LABEL_9:
 - (void)feedbackController:(id)controller didFailToSubmitFeedback:(id)feedback
 {
   feedbackCopy = feedback;
-  v5 = sub_8EF4();
+  v5 = sub_8EF4(feedbackCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -410,6 +465,39 @@ LABEL_9:
   v7 = self->_kappaSpecifier;
 
   [(SOSSettingsController *)self reloadSpecifier:v7 animated:1];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = SOSSettingsController;
+  [(SOSSettingsController *)&v5 viewWillAppear:appear];
+  v4 = +[SOSUtilities getKappaThirdPartyDisplayNameForApp];
+
+  if (!v4)
+  {
+    if ([(SOSSettingsController *)self containsSpecifier:self->_kappaThirdPartySpecifier])
+    {
+      [(SOSSettingsController *)self removeSpecifier:self->_kappaThirdPartySpecifier];
+    }
+
+    if ([(SOSSettingsController *)self containsSpecifier:self->_kappaThirdPartyGroupSpecifier])
+    {
+      [(SOSSettingsController *)self removeSpecifier:self->_kappaThirdPartyGroupSpecifier];
+    }
+
+    [(SOSSettingsController *)self reload];
+  }
+
+  [(SOSSettingsController *)self tipKitStartObservation];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = SOSSettingsController;
+  [(SOSSettingsController *)&v4 viewWillDisappear:disappear];
+  [(SOSSettingsController *)self tipKitStopObservation];
 }
 
 - (id)specifiers
@@ -837,6 +925,197 @@ LABEL_11:
   [(SOSContactsManager *)contactsManager SOSContactsWithTimeout:v4 andCompletion:5.0];
 }
 
+- (void)reloadStopSharingGroupAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = +[SOSManager sharedInstance];
+  isSendingLocationUpdate = [v5 isSendingLocationUpdate];
+
+  identifier = [(PSSpecifier *)self->_stopSharingGroup identifier];
+  v8 = [(SOSSettingsController *)self specifierForID:identifier];
+
+  if (((isSendingLocationUpdate ^ (v8 == 0)) & 1) == 0)
+  {
+    stopSharingButton = self->_stopSharingButton;
+    if (isSendingLocationUpdate)
+    {
+      v37[0] = self->_stopSharingGroup;
+      v37[1] = stopSharingButton;
+      v10 = [NSArray arrayWithObjects:v37 count:2];
+      [(SOSSettingsController *)self insertContiguousSpecifiers:v10 atIndex:0 animated:animatedCopy];
+
+      mapViewCell = self->_mapViewCell;
+      v36[0] = self->_lastLocationSentGroup;
+      v36[1] = mapViewCell;
+      v36[2] = self->_openMessagesButton;
+      v12 = [NSArray arrayWithObjects:v36 count:3];
+      [(SOSSettingsController *)self insertContiguousSpecifiers:v12 atIndex:2 animated:animatedCopy];
+    }
+
+    else
+    {
+      v39[0] = self->_stopSharingGroup;
+      v39[1] = stopSharingButton;
+      v13 = [NSArray arrayWithObjects:v39 count:2];
+      [(SOSSettingsController *)self removeContiguousSpecifiers:v13 animated:animatedCopy];
+
+      v14 = self->_mapViewCell;
+      v38[0] = self->_lastLocationSentGroup;
+      v38[1] = v14;
+      v38[2] = self->_openMessagesButton;
+      v12 = [NSArray arrayWithObjects:v38 count:3];
+      [(SOSSettingsController *)self removeContiguousSpecifiers:v12 animated:animatedCopy];
+    }
+  }
+
+  v30 = [NSNumber numberWithInt:isSendingLocationUpdate ^ 1];
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  specifiers = [(SOSSettingsController *)self specifiers];
+  v16 = [specifiers countByEnumeratingWithState:&v31 objects:v35 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v32;
+    v19 = &selRef_mapView_didAddOverlayViews_;
+    v20 = &selRef_mapView_didAddOverlayViews_;
+    v21 = &selRef_mapView_didAddOverlayViews_;
+    v29 = PSEnabledKey;
+    do
+    {
+      for (i = 0; i != v17; i = i + 1)
+      {
+        if (*v32 != v18)
+        {
+          objc_enumerationMutation(specifiers);
+        }
+
+        v23 = *(*(&v31 + 1) + 8 * i);
+        if (v23 != self->_stopSharingGroup && v23 != *&self->PSListController_opaque[*(v19 + 68)] && v23 != *&self->PSListController_opaque[*(v20 + 69)] && v23 != *&self->PSListController_opaque[*(v21 + 70)] && v23 != self->_openMessagesButton)
+        {
+          if (v23 != self->_callWithHoldSpecifier && v23 != self->_callWithPressesSpecifier)
+          {
+            v24 = 0;
+            goto LABEL_22;
+          }
+
+          coreTelephonyClient = [(SOSSettingsController *)self coreTelephonyClient];
+          v28 = coreTelephonyClient;
+          if ([SOSUtilities shouldForceDisableAutoCallForClient:coreTelephonyClient])
+          {
+          }
+
+          else
+          {
+            v24 = 1;
+LABEL_22:
+            v26 = [(PSSpecifier *)v23 propertyForKey:v29];
+            v27 = [v26 isEqual:v30];
+
+            if (v24)
+            {
+            }
+
+            v20 = &selRef_mapView_didAddOverlayViews_;
+            if ((v27 & 1) == 0)
+            {
+              [(PSSpecifier *)v23 setProperty:v30 forKey:v29];
+              [(SOSSettingsController *)self reloadSpecifier:v23];
+            }
+
+            v19 = &selRef_mapView_didAddOverlayViews_;
+          }
+
+          v21 = &selRef_mapView_didAddOverlayViews_;
+          continue;
+        }
+      }
+
+      v17 = [specifiers countByEnumeratingWithState:&v31 objects:v35 count:16];
+    }
+
+    while (v17);
+  }
+}
+
+- (void)reloadAlarmSoundAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  if ((+[SOSUtilities isCallWithVolumeLockHoldEnabled](SOSUtilities, "isCallWithVolumeLockHoldEnabled") & 1) != 0 || +[SOSUtilities isCallWithSideButtonPressesEnabled])
+  {
+    coreTelephonyClient = [(SOSSettingsController *)self coreTelephonyClient];
+    v6 = [SOSUtilities shouldForceDisableAutoCallForClient:coreTelephonyClient]^ 1;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  identifier = [(PSSpecifier *)self->_alarmSoundSwitch identifier];
+  v8 = [(SOSSettingsController *)self specifierForID:identifier];
+
+  if (((v6 ^ (v8 == 0)) & 1) == 0)
+  {
+    alarmSoundSwitch = self->_alarmSoundSwitch;
+    if (v6)
+    {
+      v12[0] = self->_alarmSoundGroup;
+      v12[1] = alarmSoundSwitch;
+      v10 = [NSArray arrayWithObjects:v12 count:2];
+      [(SOSSettingsController *)self addSpecifiersFromArray:v10 animated:animatedCopy];
+    }
+
+    else
+    {
+      v11[0] = self->_alarmSoundGroup;
+      v11[1] = alarmSoundSwitch;
+      v10 = [NSArray arrayWithObjects:v11 count:2];
+      [(SOSSettingsController *)self removeContiguousSpecifiers:v10 animated:animatedCopy];
+    }
+  }
+}
+
+- (void)reloadHealthButtonLabelWithContacts:(BOOL)contacts
+{
+  contactsCopy = contacts;
+  v6 = [(SOSSettingsController *)self specifierForID:@"OPEN_HEALTH"];
+  v5 = +[SOSUtilities emergencyContactsEditDescription];
+  [v6 setName:v5];
+
+  [(SOSSettingsController *)self reloadSpecifier:v6 animated:contactsCopy];
+}
+
+- (void)reloadPrivacyFooterWithContacts:(BOOL)contacts
+{
+  contactsCopy = contacts;
+  v5 = [(SOSSettingsController *)self specifierForID:@"EMERGENCY_CONTACTS"];
+  if (v5)
+  {
+    v14 = v5;
+    v6 = +[SOSUtilities emergencyContactsFooterLinkTitle];
+    v7 = +[SOSUtilities emergencyContactsFooterDescription];
+    v8 = [v7 rangeOfString:v6 options:5];
+    v10 = v9;
+    [v14 setProperty:v7 forKey:PSFooterHyperlinkViewTitleKey];
+    v16.location = v8;
+    v16.length = v10;
+    v11 = NSStringFromRange(v16);
+    [v14 setProperty:v11 forKey:PSFooterHyperlinkViewLinkRangeKey];
+
+    v12 = [NSValue valueWithNonretainedObject:self];
+    [v14 setProperty:v12 forKey:PSFooterHyperlinkViewTargetKey];
+
+    v13 = NSStringFromSelector("openPrivacy");
+    [v14 setProperty:v13 forKey:PSFooterHyperlinkViewActionKey];
+
+    [(SOSSettingsController *)self reloadSpecifier:v14 animated:contactsCopy];
+    v5 = v14;
+  }
+}
+
 - (id)emergencySOSSoundEnabled:(id)enabled
 {
   v3 = +[SOSUtilities shouldPlayAudioDuringCountdown]^ 1;
@@ -945,6 +1224,31 @@ LABEL_11:
   [v4 setTarget:self];
   [v4 setConfirmationAction:"stopSharingLocation:"];
   [(SOSSettingsController *)self showConfirmationViewForSpecifier:v4 useAlert:0];
+}
+
+- (void)updateAutoCallSpecifierEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5 = sub_8EF4(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v11[0] = 67109120;
+    v11[1] = enabledCopy;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Setting SOS auto call specifiers to enabled: %d", v11, 8u);
+  }
+
+  callWithHoldSpecifier = self->_callWithHoldSpecifier;
+  v7 = [NSNumber numberWithBool:enabledCopy];
+  v8 = PSEnabledKey;
+  [(PSSpecifier *)callWithHoldSpecifier setProperty:v7 forKey:PSEnabledKey];
+
+  [(SOSSettingsController *)self reloadSpecifier:self->_callWithHoldSpecifier animated:1];
+  callWithPressesSpecifier = self->_callWithPressesSpecifier;
+  v10 = [NSNumber numberWithBool:enabledCopy];
+  [(PSSpecifier *)callWithPressesSpecifier setProperty:v10 forKey:v8];
+
+  [(SOSSettingsController *)self reloadSpecifier:self->_callWithPressesSpecifier animated:1];
+  [(SOSSettingsController *)self reloadAlarmSoundAnimated:1];
 }
 
 - (void)openMessages:(id)messages
@@ -1071,6 +1375,18 @@ LABEL_7:
   [(CoreTelephonyClient *)coreTelephonyClient getStewieSupportWithCompletion:v4];
 }
 
+- (void)refreshStewieAssetSpecifier:(BOOL)specifier
+{
+  specifierCopy = specifier;
+  stewieAnimationViewCell = self->_stewieAnimationViewCell;
+  v6 = [NSValue valueWithNonretainedObject:self];
+  [(PSSpecifier *)stewieAnimationViewCell setProperty:v6 forKey:@"StewieSectionDemoDelegate"];
+
+  v7 = self->_stewieAnimationViewCell;
+
+  [(SOSSettingsController *)self reloadSpecifier:v7 animated:specifierCopy];
+}
+
 - (void)presentStewieTryOutModeIfPossible
 {
   if ([(SOSSettingsController *)self _canLaunchDemoFlow])
@@ -1088,8 +1404,7 @@ LABEL_7:
     self->_stewieSupported = 0;
     [(SOSSettingsController *)self refreshTipSpecifier:0];
     [(SOSSettingsController *)self removeSpecifier:self->_stewieAnimationGroup];
-    [(SOSSettingsController *)self removeSpecifier:self->_stewieAnimationViewCell];
-    v6 = sub_8EF4();
+    v6 = sub_8EF4([(SOSSettingsController *)self removeSpecifier:self->_stewieAnimationViewCell]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 136315394;
@@ -1140,7 +1455,7 @@ LABEL_7:
 - (void)setCrashDetectionEnabled:(id)enabled forSpecifier:(id)specifier
 {
   enabledCopy = enabled;
-  v6 = sub_8EF4();
+  v6 = sub_8EF4(enabledCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;

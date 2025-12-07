@@ -37,7 +37,7 @@
 
 - (void)resolveEntities:(id)entities
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   if (self)
   {
@@ -51,7 +51,7 @@
 
   v6 = cache;
   v7 = [entitiesCopy bs_map:&__block_literal_global_9];
-  v26 = v7;
+  v25 = v7;
   if (self)
   {
     [(STExecutableIdentityBatchResolving *)self->_identityResolver resolveIdentities:v7];
@@ -66,22 +66,22 @@
 
   v9 = entityResolver;
   array = [MEMORY[0x277CBEB18] array];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v11 = entitiesCopy;
-  v12 = [v11 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v32;
+    v14 = *v31;
     do
     {
       v15 = 0;
       do
       {
-        if (*v32 != v14)
+        if (*v31 != v14)
         {
           objc_enumerationMutation(v11);
         }
@@ -105,16 +105,16 @@
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v13);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   if (self)
   {
     cachedEntities = self->_cachedEntities;
@@ -126,26 +126,26 @@
   }
 
   v19 = cachedEntities;
-  v20 = [(NSArray *)v19 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v20 = [(NSArray *)v19 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v28;
+    v22 = *v27;
     do
     {
       v23 = 0;
       do
       {
-        if (*v28 != v22)
+        if (*v27 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        [(STReferenceCountedCache *)v6 decrementReferenceCountForKey:*(*(&v27 + 1) + 8 * v23++)];
+        [(STReferenceCountedCache *)v6 decrementReferenceCountForKey:*(*(&v26 + 1) + 8 * v23++)];
       }
 
       while (v21 != v23);
-      v21 = [(NSArray *)v19 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v21 = [(NSArray *)v19 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v21);
@@ -155,8 +155,6 @@
   {
     objc_setProperty_nonatomic_copy(self, v24, array, 40);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_entityWithResolvedIdentityForEntity:(uint64_t)entity
@@ -186,38 +184,38 @@
 
 - (void)invalidate
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self)
   {
     self->_invalidated = 1;
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     cachedEntities = self->_cachedEntities;
   }
 
   else
   {
     cachedEntities = 0;
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
   }
 
   v4 = cachedEntities;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
@@ -232,11 +230,11 @@
           cache = 0;
         }
 
-        [(STReferenceCountedCache *)cache decrementReferenceCountForKey:*(*(&v13 + 1) + 8 * v8++), v13];
+        [(STReferenceCountedCache *)cache decrementReferenceCountForKey:*(*(&v12 + 1) + 8 * v8++), v12];
       }
 
       while (v6 != v8);
-      v10 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v10 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       v6 = v10;
     }
 
@@ -255,8 +253,6 @@
   {
     [0 invalidate];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)resolveEntity:(id)entity

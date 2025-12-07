@@ -45,8 +45,7 @@ LABEL_5:
       goto LABEL_5;
     }
 
-    [(FilterSpamSettingsBundleController *)v5 initSilenceJunkCallingController];
-    v11 = PHDefaultLog();
+    v11 = PHDefaultLog([(FilterSpamSettingsBundleController *)v5 initSilenceJunkCallingController]);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *v13 = 0;
@@ -89,8 +88,7 @@ LABEL_9:
     if (specifierForFaceTime)
     {
       [v5 addObject:specifierForFaceTime];
-      [(FilterSpamSettingsBundleController *)self setActiveSpecifier:specifierCopy];
-      v7 = PHDefaultLog();
+      v7 = PHDefaultLog([(FilterSpamSettingsBundleController *)self setActiveSpecifier:specifierCopy]);
       if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_13;
@@ -103,7 +101,7 @@ LABEL_9:
 
     else
     {
-      v7 = PHDefaultLog();
+      v7 = PHDefaultLog(0);
       if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_13;
@@ -120,8 +118,7 @@ LABEL_9:
     specifierForFaceTime = [(PHSilenceJunkCallingController *)self->_silenceJunkCallingController specifiers];
     if (specifierForFaceTime)
     {
-      [v5 addObjectsFromArray:specifierForFaceTime];
-      v7 = PHDefaultLog();
+      v7 = PHDefaultLog([v5 addObjectsFromArray:specifierForFaceTime]);
       if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_13;
@@ -134,7 +131,7 @@ LABEL_9:
 
     else
     {
-      v7 = PHDefaultLog();
+      v7 = PHDefaultLog(0);
       if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_13;

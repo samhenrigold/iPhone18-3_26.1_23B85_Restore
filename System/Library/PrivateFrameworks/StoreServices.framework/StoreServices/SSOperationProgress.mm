@@ -495,7 +495,7 @@ uint64_t __31__SSOperationProgress_snapshot__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __34__SSOperationProgress_description__block_invoke(uint64_t a1)
+void *__34__SSOperationProgress_description__block_invoke(uint64_t a1)
 {
   v2 = objc_alloc(MEMORY[0x1E696AEC0]);
   v4.receiver = *(a1 + 32);

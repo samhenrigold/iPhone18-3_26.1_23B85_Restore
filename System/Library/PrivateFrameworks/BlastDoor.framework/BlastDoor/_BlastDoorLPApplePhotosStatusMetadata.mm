@@ -8,11 +8,11 @@
 
 - (_BlastDoorLPApplePhotosStatusMetadata)initWithCoder:(id)coder
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v12.receiver = self;
-  v12.super_class = _BlastDoorLPApplePhotosStatusMetadata;
-  v5 = [(_BlastDoorLPApplePhotosStatusMetadata *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = _BlastDoorLPApplePhotosStatusMetadata;
+  v5 = [(_BlastDoorLPApplePhotosStatusMetadata *)&v11 init];
   if (v5)
   {
     v6 = [coderCopy _bd_lp_strictlyDecodeNSAttributedStringForKey:@"title"];
@@ -24,7 +24,6 @@
     v9 = v5;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -44,11 +43,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v9.receiver = self;
-  v9.super_class = _BlastDoorLPApplePhotosStatusMetadata;
-  if ([(_BlastDoorLPApplePhotosStatusMetadata *)&v9 isEqual:equalCopy])
+  v8.receiver = self;
+  v8.super_class = _BlastDoorLPApplePhotosStatusMetadata;
+  if ([(_BlastDoorLPApplePhotosStatusMetadata *)&v8 isEqual:equalCopy])
   {
     goto LABEL_2;
   }
@@ -74,7 +73,6 @@ LABEL_2:
 
 LABEL_7:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

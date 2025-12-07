@@ -21,7 +21,7 @@
   if (v11)
   {
     anchor = [configurationCopy anchor];
-    v13 = [anchor copy];
+    v13 = objc_msgSend_copy(anchor);
     anchor = v11->_anchor;
     v11->_anchor = v13;
   }
@@ -144,15 +144,15 @@
 
 BOOL __44__HDDatabaseChangesQueryServer__queue_start__block_invoke(void *a1, void *a2, void *a3)
 {
-  v138 = *MEMORY[0x277D85DE8];
-  v79 = a2;
-  v3 = [v79 protectedDatabase];
-  v83 = [HDSQLiteEntity maxValueForProperty:"maxValueForProperty:predicate:database:error:" predicate:? database:? error:?];
-  v80 = 0;
+  v137 = *MEMORY[0x277D85DE8];
+  v78 = a2;
+  v3 = [v78 protectedDatabase];
+  v82 = [HDSQLiteEntity maxValueForProperty:"maxValueForProperty:predicate:database:error:" predicate:? database:? error:?];
+  v79 = 0;
 
-  if (!v83)
+  if (!v82)
   {
-    v9 = v80;
+    v9 = v79;
     v10 = v9;
     v8 = v9 == 0;
     if (v9)
@@ -172,7 +172,7 @@ BOOL __44__HDDatabaseChangesQueryServer__queue_start__block_invoke(void *a1, voi
     goto LABEL_78;
   }
 
-  v4 = [MEMORY[0x277CCD840] _anchorWithRowid:{objc_msgSend(v83, "longLongValue")}];
+  v4 = [MEMORY[0x277CCD840] _anchorWithRowid:{objc_msgSend(v82, "longLongValue")}];
   v5 = *(a1[5] + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
@@ -185,9 +185,9 @@ BOOL __44__HDDatabaseChangesQueryServer__queue_start__block_invoke(void *a1, voi
   }
 
   v12 = a1[4];
-  v13 = [v79 protectedDatabase];
-  v86 = a1[7];
-  v77 = v13;
+  v13 = [v78 protectedDatabase];
+  v85 = a1[7];
+  v76 = v13;
   if (!v12)
   {
     v67 = 0;
@@ -197,148 +197,148 @@ BOOL __44__HDDatabaseChangesQueryServer__queue_start__block_invoke(void *a1, voi
   v14 = [v12 queryQueue];
   dispatch_assert_queue_V2(v14);
 
-  v81 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v75 = +[(HDSQLiteSchemaEntity *)HDSampleEntity];
-  v84 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT MAX(%@) FROM %@ WHERE %@ = ?", @"data_id", v75, @"data_type"];
+  v80 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v74 = +[(HDSQLiteSchemaEntity *)HDSampleEntity];
+  v83 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT MAX(%@) FROM %@ WHERE %@ = ?", @"data_id", v74, @"data_type"];
   v15 = [(HDDatabaseChangesQueryServer *)v12 _authorizedObjectTypes];
   v16 = [v12 configuration];
-  v78 = [v16 includeChangeDetails];
+  v77 = [v16 includeChangeDetails];
 
-  v76 = v15;
-  v88 = v77;
+  v75 = v15;
+  v87 = v76;
   v17 = MEMORY[0x277CCACA8];
   v18 = +[(HDSQLiteSchemaEntity *)HDQuantitySampleSeriesEntity];
   v19 = +[(HDSQLiteSchemaEntity *)HDSampleEntity];
   v20 = [v17 stringWithFormat:@"SELECT %@, COUNT(*) FROM %@ CROSS JOIN %@ USING (%@) WHERE %@ IS NOT NULL GROUP BY %@", @"data_type", v18, v19, @"data_id", @"insertion_era", @"data_type"];
 
-  v132 = 0;
-  v133 = &v132;
-  v134 = 0x3032000000;
-  v135 = __Block_byref_object_copy__100;
-  v136 = __Block_byref_object_dispose__100;
-  v137 = 0;
-  v101 = MEMORY[0x277D85DD0];
-  v102 = 3221225472;
-  v103 = __107__HDDatabaseChangesQueryServer__queue_sampleTypeCodesWithUnfrozenSeriesWithAuthorizedTypes_database_error___block_invoke;
-  v104 = &unk_278614620;
-  v105 = &v132;
-  if ([v88 executeUncachedSQL:v20 error:a3 bindingHandler:0 enumerationHandler:&v101])
+  v131 = 0;
+  v132 = &v131;
+  v133 = 0x3032000000;
+  v134 = __Block_byref_object_copy__100;
+  v135 = __Block_byref_object_dispose__100;
+  v136 = 0;
+  v100 = MEMORY[0x277D85DD0];
+  v101 = 3221225472;
+  v102 = __107__HDDatabaseChangesQueryServer__queue_sampleTypeCodesWithUnfrozenSeriesWithAuthorizedTypes_database_error___block_invoke;
+  v103 = &unk_278614620;
+  v104 = &v131;
+  if ([v87 executeUncachedSQL:v20 error:a3 bindingHandler:0 enumerationHandler:&v100])
   {
-    if ([v133[5] count])
+    if ([v132[5] count])
     {
-      *&v97 = MEMORY[0x277D85DD0];
-      *(&v97 + 1) = 3221225472;
-      *&v98 = __107__HDDatabaseChangesQueryServer__queue_sampleTypeCodesWithUnfrozenSeriesWithAuthorizedTypes_database_error___block_invoke_2;
-      *(&v98 + 1) = &unk_278621CD8;
-      *&v99 = &v132;
-      [v76 hk_filter:&v97];
+      *&v96 = MEMORY[0x277D85DD0];
+      *(&v96 + 1) = 3221225472;
+      *&v97 = __107__HDDatabaseChangesQueryServer__queue_sampleTypeCodesWithUnfrozenSeriesWithAuthorizedTypes_database_error___block_invoke_2;
+      *(&v97 + 1) = &unk_278621CD8;
+      *&v98 = &v131;
+      [v75 hk_filter:&v96];
     }
 
     else
     {
       [MEMORY[0x277CBEB98] set];
     }
-    v85 = ;
+    v84 = ;
   }
 
   else
   {
-    v85 = 0;
+    v84 = 0;
   }
 
-  _Block_object_dispose(&v132, 8);
+  _Block_object_dispose(&v131, 8);
 
-  if (!v85)
+  if (!v84)
   {
 LABEL_73:
     v67 = 0;
     goto LABEL_76;
   }
 
-  v99 = 0u;
-  v100 = 0u;
   v98 = 0u;
+  v99 = 0u;
   v97 = 0u;
-  obj = v76;
-  v21 = [obj countByEnumeratingWithState:&v97 objects:&v132 count:16];
+  v96 = 0u;
+  obj = v75;
+  v21 = [obj countByEnumeratingWithState:&v96 objects:&v131 count:16];
   if (!v21)
   {
     goto LABEL_75;
   }
 
-  v22 = *v98;
+  v22 = *v97;
   v23 = *MEMORY[0x277CCBCB0];
-  v72 = v12;
-  v73 = *v98;
+  v71 = v12;
+  v72 = *v97;
   while (2)
   {
     for (i = 0; i != v21; ++i)
     {
-      if (*v98 != v22)
+      if (*v97 != v22)
       {
         objc_enumerationMutation(obj);
       }
 
-      v25 = *(*(&v97 + 1) + 8 * i);
+      v25 = *(*(&v96 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         v26 = v25;
-        v93 = 0;
-        v94 = &v93;
-        v95 = 0x2020000000;
-        v96 = -1;
-        v91[0] = MEMORY[0x277D85DD0];
-        v91[1] = 3221225472;
-        v91[2] = __83__HDDatabaseChangesQueryServer__queue_changesByTypeWithDatabase_sinceAnchor_error___block_invoke;
-        v91[3] = &unk_278614860;
-        v27 = v26;
-        v92 = v27;
+        v92 = 0;
+        v93 = &v92;
+        v94 = 0x2020000000;
+        v95 = -1;
         v90[0] = MEMORY[0x277D85DD0];
         v90[1] = 3221225472;
-        v90[2] = __83__HDDatabaseChangesQueryServer__queue_changesByTypeWithDatabase_sinceAnchor_error___block_invoke_2;
-        v90[3] = &unk_278614620;
-        v90[4] = &v93;
-        if (([v88 executeSQL:v84 error:a3 bindingHandler:v91 enumerationHandler:v90] & 1) == 0)
+        v90[2] = __83__HDDatabaseChangesQueryServer__queue_changesByTypeWithDatabase_sinceAnchor_error___block_invoke;
+        v90[3] = &unk_278614860;
+        v27 = v26;
+        v91 = v27;
+        v89[0] = MEMORY[0x277D85DD0];
+        v89[1] = 3221225472;
+        v89[2] = __83__HDDatabaseChangesQueryServer__queue_changesByTypeWithDatabase_sinceAnchor_error___block_invoke_2;
+        v89[3] = &unk_278614620;
+        v89[4] = &v92;
+        if (([v87 executeSQL:v83 error:a3 bindingHandler:v90 enumerationHandler:v89] & 1) == 0)
         {
 
-          _Block_object_dispose(&v93, 8);
+          _Block_object_dispose(&v92, 8);
           goto LABEL_73;
         }
 
-        if (v94[3] <= v86)
+        if (v93[3] <= v85)
         {
-          if ([v85 containsObject:v27])
+          if ([v84 containsObject:v27])
           {
             v33 = [objc_alloc(MEMORY[0x277CCD8E0]) _initWithSampleType:v27 startTime:1 endTime:0 hasUnfrozenSeries:v23 queryStrategy:v23];
-            [v81 setObject:v33 forKeyedSubscript:v27];
+            [v80 setObject:v33 forKeyedSubscript:v27];
           }
 
 LABEL_68:
-          _Block_object_dispose(&v93, 8);
+          _Block_object_dispose(&v92, 8);
 
           continue;
         }
 
-        if (!v78)
+        if (!v77)
         {
-          v34 = [objc_alloc(MEMORY[0x277CCD8E0]) _initWithSampleType:v27 startTime:objc_msgSend(v85 endTime:"containsObject:" hasUnfrozenSeries:v27) queryStrategy:{0, v23, v23}];
+          v34 = [objc_alloc(MEMORY[0x277CCD8E0]) _initWithSampleType:v27 startTime:objc_msgSend(v84 endTime:"containsObject:" hasUnfrozenSeries:v27) queryStrategy:{0, v23, v23}];
 LABEL_66:
           if (!v34)
           {
 LABEL_74:
 
-            _Block_object_dispose(&v93, 8);
+            _Block_object_dispose(&v92, 8);
             goto LABEL_75;
           }
 
-          [v81 setObject:v34 forKeyedSubscript:v27];
+          [v80 setObject:v34 forKeyedSubscript:v27];
 
           goto LABEL_68;
         }
 
-        v74 = [v85 containsObject:v27];
-        v28 = v94[3];
+        v73 = [v84 containsObject:v27];
+        v28 = v93[3];
         v29 = v27;
         v30 = [v12 queryQueue];
         dispatch_assert_queue_V2(v30);
@@ -362,17 +362,17 @@ LABEL_74:
 
         else
         {
-          if (v86)
+          if (v85)
           {
             v35 = [v12 configuration];
-            v36 = v28 - v86 > [v35 anchorStrategyChangeCountLimit];
+            v36 = v28 - v85 > [v35 anchorStrategyChangeCountLimit];
 
             if (!v36)
             {
 
 LABEL_55:
               v53 = v29;
-              v54 = v88;
+              v54 = v87;
               v55 = [v12 queryQueue];
               dispatch_assert_queue_V2(v55);
 
@@ -388,55 +388,55 @@ LABEL_55:
                 v56 = v12[30];
               }
 
-              v128 = 0;
-              v129 = &v128;
-              v130 = 0x2020000000;
-              v131 = v23;
-              v124 = 0;
-              v125 = &v124;
-              v126 = 0x2020000000;
-              v127 = v23;
-              v120 = 0;
-              v121 = &v120;
-              v122 = 0x2020000000;
-              LOBYTE(v123) = 0;
-              v110 = MEMORY[0x277D85DD0];
-              v111 = 3221225472;
-              v112 = __130__HDDatabaseChangesQueryServer__queue_detailedChangeUsingAnchorIndexStrategyForType_sinceAnchor_hasUnfrozenSeries_database_error___block_invoke;
-              v113 = &unk_278613B58;
-              v115 = v86;
+              v127 = 0;
+              v128 = &v127;
+              v129 = 0x2020000000;
+              v130 = v23;
+              v123 = 0;
+              v124 = &v123;
+              v125 = 0x2020000000;
+              v126 = v23;
+              v119 = 0;
+              v120 = &v119;
+              v121 = 0x2020000000;
+              LOBYTE(v122) = 0;
+              v109 = MEMORY[0x277D85DD0];
+              v110 = 3221225472;
+              v111 = __130__HDDatabaseChangesQueryServer__queue_detailedChangeUsingAnchorIndexStrategyForType_sinceAnchor_hasUnfrozenSeries_database_error___block_invoke;
+              v112 = &unk_278613B58;
+              v114 = v85;
               v61 = v53;
-              v114 = v61;
-              v101 = MEMORY[0x277D85DD0];
-              v102 = 3221225472;
-              v103 = __130__HDDatabaseChangesQueryServer__queue_detailedChangeUsingAnchorIndexStrategyForType_sinceAnchor_hasUnfrozenSeries_database_error___block_invoke_2;
-              v104 = &unk_278621D00;
-              v105 = &v120;
-              v106 = &v128;
-              v108 = v86;
-              v107 = &v124;
+              v113 = v61;
+              v100 = MEMORY[0x277D85DD0];
+              v101 = 3221225472;
+              v102 = __130__HDDatabaseChangesQueryServer__queue_detailedChangeUsingAnchorIndexStrategyForType_sinceAnchor_hasUnfrozenSeries_database_error___block_invoke_2;
+              v103 = &unk_278621D00;
+              v104 = &v119;
+              v105 = &v127;
+              v107 = v85;
+              v106 = &v123;
               v62 = v54;
-              if ([v54 executeSQL:v56 error:a3 bindingHandler:&v110 enumerationHandler:&v101])
+              if ([v54 executeSQL:v56 error:a3 bindingHandler:&v109 enumerationHandler:&v100])
               {
                 v63 = objc_alloc(MEMORY[0x277CCD8E0]);
-                if (*(v121 + 24))
+                if (*(v120 + 24))
                 {
                   v64 = MEMORY[0x277CCBCB0];
                 }
 
                 else
                 {
-                  v64 = v129 + 3;
+                  v64 = v128 + 3;
                 }
 
                 v65 = *v64;
-                v66 = v125 + 3;
-                if (*(v121 + 24))
+                v66 = v124 + 3;
+                if (*(v120 + 24))
                 {
                   v66 = MEMORY[0x277CCBCB0];
                 }
 
-                v34 = [v63 _initWithSampleType:v61 startTime:v74 endTime:2 hasUnfrozenSeries:v65 queryStrategy:*v66];
+                v34 = [v63 _initWithSampleType:v61 startTime:v73 endTime:2 hasUnfrozenSeries:v65 queryStrategy:*v66];
               }
 
               else
@@ -444,9 +444,9 @@ LABEL_55:
                 v34 = 0;
               }
 
-              _Block_object_dispose(&v120, 8);
-              _Block_object_dispose(&v124, 8);
-              _Block_object_dispose(&v128, 8);
+              _Block_object_dispose(&v119, 8);
+              _Block_object_dispose(&v123, 8);
+              _Block_object_dispose(&v127, 8);
 
               goto LABEL_66;
             }
@@ -454,7 +454,7 @@ LABEL_55:
         }
 
         v37 = v29;
-        v38 = v88;
+        v38 = v87;
         v39 = [v12 queryQueue];
         dispatch_assert_queue_V2(v39);
 
@@ -469,44 +469,44 @@ LABEL_55:
           v40 = v12[29];
         }
 
-        v128 = 0;
-        v129 = &v128;
-        v130 = 0x2020000000;
-        v131 = v23;
-        v124 = 0;
-        v125 = &v124;
-        v126 = 0x2020000000;
-        v127 = v23;
-        v120 = 0;
-        v121 = &v120;
-        v122 = 0x2020000000;
-        v123 = v23;
-        v116 = 0;
-        v117 = &v116;
-        v118 = 0x2020000000;
+        v127 = 0;
+        v128 = &v127;
+        v129 = 0x2020000000;
+        v130 = v23;
+        v123 = 0;
+        v124 = &v123;
+        v125 = 0x2020000000;
+        v126 = v23;
         v119 = 0;
-        v110 = MEMORY[0x277D85DD0];
-        v111 = 3221225472;
-        v112 = __128__HDDatabaseChangesQueryServer__queue_detailedChangeUsingDateIndexStrategyForType_sinceAnchor_hasUnfrozenSeries_database_error___block_invoke;
-        v113 = &unk_278613B58;
+        v120 = &v119;
+        v121 = 0x2020000000;
+        v122 = v23;
+        v115 = 0;
+        v116 = &v115;
+        v117 = 0x2020000000;
+        v118 = 0;
+        v109 = MEMORY[0x277D85DD0];
+        v110 = 3221225472;
+        v111 = __128__HDDatabaseChangesQueryServer__queue_detailedChangeUsingDateIndexStrategyForType_sinceAnchor_hasUnfrozenSeries_database_error___block_invoke;
+        v112 = &unk_278613B58;
         v44 = v37;
-        v114 = v44;
-        v115 = v86;
-        v101 = MEMORY[0x277D85DD0];
-        v102 = 3221225472;
-        v103 = __128__HDDatabaseChangesQueryServer__queue_detailedChangeUsingDateIndexStrategyForType_sinceAnchor_hasUnfrozenSeries_database_error___block_invoke_2;
-        v104 = &unk_278621D28;
-        v105 = &v128;
-        v106 = &v124;
-        v109 = v86;
-        v107 = &v120;
-        v108 = &v116;
-        if ([v38 executeSQL:v40 error:a3 bindingHandler:&v110 enumerationHandler:&v101])
+        v113 = v44;
+        v114 = v85;
+        v100 = MEMORY[0x277D85DD0];
+        v101 = 3221225472;
+        v102 = __128__HDDatabaseChangesQueryServer__queue_detailedChangeUsingDateIndexStrategyForType_sinceAnchor_hasUnfrozenSeries_database_error___block_invoke_2;
+        v103 = &unk_278621D28;
+        v104 = &v127;
+        v105 = &v123;
+        v108 = v85;
+        v106 = &v119;
+        v107 = &v115;
+        if ([v38 executeSQL:v40 error:a3 bindingHandler:&v109 enumerationHandler:&v100])
         {
-          if (v129[3] != v23 && *(v121 + 3) != v23 && [v44 isMaximumDurationRestricted])
+          if (v128[3] != v23 && *(v120 + 3) != v23 && [v44 isMaximumDurationRestricted])
           {
-            v45 = *(v121 + 3);
-            v46 = v125[3];
+            v45 = *(v120 + 3);
+            v46 = v124[3];
             [v44 maximumAllowedDuration];
             v48 = v46 + v47;
             if (v45 < v48)
@@ -514,28 +514,28 @@ LABEL_55:
               v48 = v45;
             }
 
-            *(v121 + 3) = v48;
+            *(v120 + 3) = v48;
           }
 
           v49 = objc_alloc(MEMORY[0x277CCD8E0]);
-          if (*(v117 + 24))
+          if (*(v116 + 24))
           {
             v50 = MEMORY[0x277CCBCB0];
           }
 
           else
           {
-            v50 = v129 + 3;
+            v50 = v128 + 3;
           }
 
           v51 = *v50;
-          v52 = (v121 + 3);
-          if (*(v117 + 24))
+          v52 = (v120 + 3);
+          if (*(v116 + 24))
           {
             v52 = MEMORY[0x277CCBCB0];
           }
 
-          v34 = [v49 _initWithSampleType:v44 startTime:v74 endTime:1 hasUnfrozenSeries:v51 queryStrategy:*v52];
+          v34 = [v49 _initWithSampleType:v44 startTime:v73 endTime:1 hasUnfrozenSeries:v51 queryStrategy:*v52];
         }
 
         else
@@ -543,18 +543,18 @@ LABEL_55:
           v34 = 0;
         }
 
-        v12 = v72;
-        v22 = v73;
-        _Block_object_dispose(&v116, 8);
-        _Block_object_dispose(&v120, 8);
-        _Block_object_dispose(&v124, 8);
-        _Block_object_dispose(&v128, 8);
+        v12 = v71;
+        v22 = v72;
+        _Block_object_dispose(&v115, 8);
+        _Block_object_dispose(&v119, 8);
+        _Block_object_dispose(&v123, 8);
+        _Block_object_dispose(&v127, 8);
 
         goto LABEL_66;
       }
     }
 
-    v21 = [obj countByEnumeratingWithState:&v97 objects:&v132 count:16];
+    v21 = [obj countByEnumeratingWithState:&v96 objects:&v131 count:16];
     if (v21)
     {
       continue;
@@ -565,7 +565,7 @@ LABEL_55:
 
 LABEL_75:
 
-  v67 = v81;
+  v67 = v80;
 LABEL_76:
 
 LABEL_77:
@@ -576,7 +576,6 @@ LABEL_77:
   v8 = *(*(a1[6] + 8) + 40) != 0;
 LABEL_78:
 
-  v70 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -600,7 +599,7 @@ LABEL_78:
 - (id)_authorizedObjectTypes
 {
   selfCopy = self;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self)
   {
     objectTypes = [self objectTypes];
@@ -608,9 +607,9 @@ LABEL_78:
     {
       client = [selfCopy client];
       authorizationOracle = [client authorizationOracle];
-      v11 = 0;
-      v5 = [authorizationOracle authorizationStatusRecordsForTypes:objectTypes error:&v11];
-      v6 = v11;
+      v10 = 0;
+      v5 = [authorizationOracle authorizationStatusRecordsForTypes:objectTypes error:&v10];
+      v6 = v10;
 
       if (v5)
       {
@@ -624,9 +623,9 @@ LABEL_78:
         if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v13 = selfCopy;
-          v14 = 2114;
-          v15 = v6;
+          v12 = selfCopy;
+          v13 = 2114;
+          v14 = v6;
           _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Error reading authorization statuses: %{public}@", buf, 0x16u);
         }
 
@@ -641,8 +640,6 @@ LABEL_78:
       selfCopy = [MEMORY[0x277CBEB98] set];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
@@ -789,33 +786,33 @@ uint64_t __128__HDDatabaseChangesQueryServer__queue_detailedChangeUsingDateIndex
 
 void __52__HDDatabaseChangesQueryServer_samplesAdded_anchor___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) longLongValue];
   if (v2 > [*(*(a1 + 40) + 216) _rowid])
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     obj = *(a1 + 48);
-    v3 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v3 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v3)
     {
       v4 = v3;
-      v23 = *v25;
+      v22 = *v24;
       v5 = *MEMORY[0x277CCBCB0];
       do
       {
         v6 = 0;
         do
         {
-          if (*v25 != v23)
+          if (*v24 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
           v7 = *(a1 + 40);
-          v8 = *(*(&v24 + 1) + 8 * v6);
+          v8 = *(*(&v23 + 1) + 8 * v6);
           if (v7)
           {
             v9 = [v7 queryQueue];
@@ -863,14 +860,12 @@ void __52__HDDatabaseChangesQueryServer_samplesAdded_anchor___block_invoke(uint6
         }
 
         while (v4 != v6);
-        v4 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v4 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v4);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didAddSamplesOfTypes:(id)types anchor:(id)anchor
@@ -930,41 +925,41 @@ void __60__HDDatabaseChangesQueryServer_didAddSamplesOfTypes_anchor___block_invo
 
 void __65__HDDatabaseChangesQueryServer_samplesOfTypesWereRemoved_anchor___block_invoke(id *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] longLongValue];
   if (v2 > [*(a1[5] + 27) _rowid])
   {
     v3 = [(HDDatabaseChangesQueryServer *)a1[5] _authorizedObjectTypes];
     v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v5 = a1[6];
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       v9 = *MEMORY[0x277CCBCB0];
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
-          if ([v3 containsObject:{v11, v15}])
+          v11 = *(*(&v14 + 1) + 8 * i);
+          if ([v3 containsObject:{v11, v14}])
           {
             v12 = [objc_alloc(MEMORY[0x277CCD8E0]) _initWithSampleType:v11 startTime:0 endTime:0 hasUnfrozenSeries:v9 queryStrategy:v9];
             [v4 setObject:v12 forKeyedSubscript:v11];
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -976,8 +971,6 @@ void __65__HDDatabaseChangesQueryServer_samplesOfTypesWereRemoved_anchor___block
       [(HDDatabaseChangesQueryServer *)a1[5] _queue_deliverQueryAnchor:v13 sampleTypeChanges:v4];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __54__HDDatabaseChangesQueryServer__authorizedObjectTypes__block_invoke(uint64_t a1, void *a2)

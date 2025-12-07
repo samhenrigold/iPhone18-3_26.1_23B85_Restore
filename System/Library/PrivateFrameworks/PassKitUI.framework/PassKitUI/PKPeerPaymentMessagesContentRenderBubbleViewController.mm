@@ -670,7 +670,7 @@ void __106__PKPeerPaymentMessagesContentRenderBubbleViewController__updateiOSBub
     _os_log_impl(&dword_1BD026000, v7, OS_LOG_TYPE_DEFAULT, "PKPeerPaymentMessagesContentRenderBubbleViewController %p: Fetching remote status.", buf, 0xCu);
   }
 
-  v9 = (a1 + 5);
+  v9 = a1 + 5;
   v10 = [a1[5] renderBubbleDelegate];
   v12 = a1[4];
   v11 = a1 + 4;

@@ -55,7 +55,7 @@
     timestamp = [(MRProtocolMessage *)self timestamp];
     if (timestamp)
     {
-      [(_MRMediaRemoteMessageProtobuf *)v8 setTimestamp:(MRTimeUtilitiesGetProcessorTimeScale() * timestamp)];
+      [(_MRMediaRemoteMessageProtobuf *)v8 setTimestamp:(MRTimeUtilitiesGetProcessorTimeScale(timestamp, v12) * timestamp)];
     }
 
     error = self->_error;
@@ -370,7 +370,7 @@
     }
 
     data = [(_MRMediaRemoteMessageProtobuf *)v8 data];
-    v16 = self->_protobufData;
+    v17 = self->_protobufData;
     self->_protobufData = data;
 
     protobufData = self->_protobufData;
@@ -381,10 +381,9 @@
 
 - (void)dealloc
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_14();
-  _os_log_fault_impl(&dword_1A2860000, v0, OS_LOG_TYPE_FAULT, "%@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1A2860000, v0, OS_LOG_TYPE_FAULT, "%@", v1, 0xCu);
 }
 
 - (MRProtocolClientConnection)clientConnection
@@ -1004,22 +1003,6 @@ LABEL_10:
 LABEL_11:
 
   return v9;
-}
-
-- (void)replyWithMessage:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_5(&dword_1A2860000, v0, v1, "Could not send reply because the message was not expecting a reply: %{public}@ ", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)replyWithMessage:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_5(&dword_1A2860000, v0, v1, "Could not send reply message because there is no client %{public}@ ", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)protobufData

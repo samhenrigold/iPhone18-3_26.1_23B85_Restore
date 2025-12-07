@@ -107,25 +107,25 @@
 
 + (void)setDatabaseVersion:(int64_t)version
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v5 = +[BMStreamMigrations pathToVersionFile];
-  v24 = @"Version";
+  v23 = @"Version";
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:version];
-  v25[0] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+  v24[0] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
 
-  v23 = 0;
-  v8 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v7 options:0 error:&v23];
-  v9 = v23;
+  v22 = 0;
+  v8 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v7 options:0 error:&v22];
+  v9 = v22;
   stringByDeletingLastPathComponent = [v5 stringByDeletingLastPathComponent];
-  v22 = v9;
-  [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v22];
-  v11 = v22;
+  v21 = v9;
+  [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v21];
+  v11 = v21;
 
-  v21 = v11;
-  [v8 writeToFile:v5 options:268435457 error:&v21];
-  v12 = v21;
+  v20 = v11;
+  [v8 writeToFile:v5 options:268435457 error:&v20];
+  v12 = v20;
 
   if (v12)
   {
@@ -135,8 +135,6 @@
       [(BMStreamMigrations *)v12 setDatabaseVersion:v13, v14, v15, v16, v17, v18, v19];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)migrate
@@ -148,7 +146,7 @@
 
 - (void)migrateFromVersion:(int64_t)version
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (version != 9)
   {
     versionCopy = version;
@@ -156,11 +154,11 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [MEMORY[0x1E696AD98] numberWithInteger:versionCopy];
-      v14 = 138412546;
-      v15 = v6;
-      v16 = 2112;
-      v17 = &unk_1F20EBBF0;
-      _os_log_impl(&dword_1AC15D000, v5, OS_LOG_TYPE_DEFAULT, "Initiating Biome migration from version %@ to version %@.", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v6;
+      v15 = 2112;
+      v16 = &unk_1F20EBBF0;
+      _os_log_impl(&dword_1AC15D000, v5, OS_LOG_TYPE_DEFAULT, "Initiating Biome migration from version %@ to version %@.", &v13, 0x16u);
     }
 
     if (versionCopy <= 8)
@@ -248,48 +246,46 @@ LABEL_25:
       while (versionCopy != 9);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_moveStreamsWithPathMapping:(id)mapping
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v5 = mappingCopy;
-  v6 = [v5 countByEnumeratingWithState:&v29 objects:v39 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v28 objects:v38 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v30;
-    v26 = *MEMORY[0x1E696A250];
+    v9 = *v29;
+    v25 = *MEMORY[0x1E696A250];
     *&v7 = 138543874;
-    v25 = v7;
+    v24 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
-        v12 = [v5 objectForKeyedSubscript:{v11, v25}];
+        v11 = *(*(&v28 + 1) + 8 * i);
+        v12 = [v5 objectForKeyedSubscript:{v11, v24}];
         if ([defaultManager fileExistsAtPath:v12])
         {
           v13 = __biome_log_for_category(0);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             *buf = 138543618;
-            v34 = v11;
-            v35 = 2114;
-            v36 = v12;
+            v33 = v11;
+            v34 = 2114;
+            v35 = v12;
             _os_log_impl(&dword_1AC15D000, v13, OS_LOG_TYPE_INFO, "Skipping migration of %{public}@ to %{public}@ because destination already exists", buf, 0x16u);
           }
 
@@ -298,9 +294,9 @@ LABEL_25:
 
         else
         {
-          v28 = 0;
-          v15 = [defaultManager moveItemAtPath:v11 toPath:v12 error:&v28];
-          v16 = v28;
+          v27 = 0;
+          v15 = [defaultManager moveItemAtPath:v11 toPath:v12 error:&v27];
+          v16 = v27;
           v14 = v16;
           if (v15)
           {
@@ -308,19 +304,19 @@ LABEL_25:
           }
 
           domain = [v16 domain];
-          if (![domain isEqualToString:v26])
+          if (![domain isEqualToString:v25])
           {
 
 LABEL_15:
             v13 = __biome_log_for_category(0);
             if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
-              *buf = v25;
-              v34 = v11;
-              v35 = 2114;
-              v36 = v12;
-              v37 = 2114;
-              v38 = v14;
+              *buf = v24;
+              v33 = v11;
+              v34 = 2114;
+              v35 = v12;
+              v36 = 2114;
+              v37 = v14;
               _os_log_error_impl(&dword_1AC15D000, v13, OS_LOG_TYPE_ERROR, "Failed to migrate %{public}@ to %{public}@ with error %{public}@", buf, 0x20u);
             }
 
@@ -345,9 +341,9 @@ LABEL_15:
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             *buf = 138543618;
-            v34 = v11;
-            v35 = 2114;
-            v36 = v12;
+            v33 = v11;
+            v34 = 2114;
+            v35 = v12;
             _os_log_impl(&dword_1AC15D000, v13, OS_LOG_TYPE_INFO, "Skipping migration of %{public}@ to %{public}@ because source does not exist", buf, 0x16u);
           }
         }
@@ -355,9 +351,9 @@ LABEL_15:
 LABEL_20:
 
 LABEL_21:
-        v27 = v14;
-        v19 = [defaultManager removeItemAtPath:v11 error:&v27];
-        v20 = v27;
+        v26 = v14;
+        v19 = [defaultManager removeItemAtPath:v11 error:&v26];
+        v20 = v26;
 
         if (v19)
         {
@@ -365,7 +361,7 @@ LABEL_21:
         }
 
         domain2 = [v20 domain];
-        if ([domain2 isEqualToString:v26])
+        if ([domain2 isEqualToString:v25])
         {
           code2 = [v20 code];
 
@@ -383,56 +379,54 @@ LABEL_21:
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v34 = v11;
-          v35 = 2114;
-          v36 = v20;
+          v33 = v11;
+          v34 = 2114;
+          v35 = v20;
           _os_log_error_impl(&dword_1AC15D000, v23, OS_LOG_TYPE_ERROR, "Failed to remove %{public}@ with error %{public}@", buf, 0x16u);
         }
 
 LABEL_29:
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v29 objects:v39 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v28 objects:v38 count:16];
     }
 
     while (v8);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeStreamPaths:(id)paths
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v5 = pathsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v23;
+    v9 = *v22;
     v10 = *MEMORY[0x1E696A250];
     *&v7 = 138543618;
-    v20 = v7;
+    v19 = v7;
     do
     {
       v11 = 0;
       do
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * v11);
-        v21 = 0;
-        v13 = [defaultManager removeItemAtPath:v12 error:{&v21, v20}];
-        v14 = v21;
+        v12 = *(*(&v21 + 1) + 8 * v11);
+        v20 = 0;
+        v13 = [defaultManager removeItemAtPath:v12 error:{&v20, v19}];
+        v14 = v20;
         v15 = v14;
         if ((v13 & 1) == 0)
         {
@@ -454,10 +448,10 @@ LABEL_29:
           v18 = __biome_log_for_category(0);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            *buf = v20;
-            v27 = v12;
-            v28 = 2114;
-            v29 = v15;
+            *buf = v19;
+            v26 = v12;
+            v27 = 2114;
+            v28 = v15;
             _os_log_error_impl(&dword_1AC15D000, v18, OS_LOG_TYPE_ERROR, "Failed to remove %{public}@ with error %{public}@", buf, 0x16u);
           }
         }
@@ -468,53 +462,51 @@ LABEL_14:
       }
 
       while (v8 != v11);
-      v8 = [v5 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v8);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_migrateStreamsToLibrary:(id)library streamType:(unint64_t)type
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   libraryCopy = library;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   obj = libraryCopy;
-  v7 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v7 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v44;
-    v36 = *MEMORY[0x1E696A250];
+    v10 = *v43;
+    v35 = *MEMORY[0x1E696A250];
     v11 = 0x1E796A000uLL;
     *&v8 = 138412290;
-    v35 = v8;
+    v34 = v8;
     typeCopy = type;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v44 != v10)
+        if (*v43 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v43 + 1) + 8 * i);
-        v14 = [*(v11 + 2312) pathForStreamIdentifier:v13 streamType:{type, v35}];
+        v13 = *(*(&v42 + 1) + 8 * i);
+        v14 = [*(v11 + 2312) pathForStreamIdentifier:v13 streamType:{type, v34}];
         if ([defaultManager fileExistsAtPath:v14])
         {
           v15 = __biome_log_for_category(0);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v35;
-            v48 = v13;
+            *buf = v34;
+            v47 = v13;
             _os_log_debug_impl(&dword_1AC15D000, v15, OS_LOG_TYPE_DEBUG, "Migrating stream %@ to BMLibrary.", buf, 0xCu);
           }
 
@@ -526,14 +518,14 @@ LABEL_14:
           v20 = __biome_log_for_category(0);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v35;
-            v48 = v19;
+            *buf = v34;
+            v47 = v19;
             _os_log_debug_impl(&dword_1AC15D000, v20, OS_LOG_TYPE_DEBUG, "New path: %@", buf, 0xCu);
           }
 
-          v42 = 1;
+          v41 = 1;
           stringByDeletingLastPathComponent = [v19 stringByDeletingLastPathComponent];
-          v22 = [defaultManager fileExistsAtPath:stringByDeletingLastPathComponent isDirectory:&v42];
+          v22 = [defaultManager fileExistsAtPath:stringByDeletingLastPathComponent isDirectory:&v41];
 
           if (v22)
           {
@@ -543,25 +535,25 @@ LABEL_14:
           else
           {
             stringByDeletingLastPathComponent2 = [v19 stringByDeletingLastPathComponent];
-            v41 = 0;
-            [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent2 withIntermediateDirectories:1 attributes:0 error:&v41];
-            v23 = v41;
+            v40 = 0;
+            [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent2 withIntermediateDirectories:1 attributes:0 error:&v40];
+            v23 = v40;
 
             if (v23)
             {
               v25 = __biome_log_for_category(0);
               if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
-                *buf = v35;
-                v48 = v23;
+                *buf = v34;
+                v47 = v23;
                 _os_log_error_impl(&dword_1AC15D000, v25, OS_LOG_TYPE_ERROR, "Error creating migrated path: %@", buf, 0xCu);
               }
             }
           }
 
-          v40 = v23;
-          v26 = [defaultManager moveItemAtPath:v14 toPath:v19 error:&v40];
-          v27 = v40;
+          v39 = v23;
+          v26 = [defaultManager moveItemAtPath:v14 toPath:v19 error:&v39];
+          v27 = v39;
 
           if (v26)
           {
@@ -574,7 +566,7 @@ LABEL_30:
           }
 
           domain = [v27 domain];
-          if ([domain isEqual:v36])
+          if ([domain isEqual:v35])
           {
             code = [v27 code];
 
@@ -583,24 +575,24 @@ LABEL_30:
               v31 = __biome_log_for_category(0);
               if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
               {
-                *buf = v35;
-                v48 = v19;
+                *buf = v34;
+                v47 = v19;
                 _os_log_impl(&dword_1AC15D000, v31, OS_LOG_TYPE_DEFAULT, "Skip migrating stream since the new path already exists: %@", buf, 0xCu);
               }
 
 LABEL_26:
 
-              v39 = v27;
-              v32 = [defaultManager removeItemAtPath:v14 error:&v39];
-              v28 = v39;
+              v38 = v27;
+              v32 = [defaultManager removeItemAtPath:v14 error:&v38];
+              v28 = v38;
 
               if ((v32 & 1) == 0)
               {
                 v33 = __biome_log_for_category(0);
                 if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
                 {
-                  *buf = v35;
-                  v48 = v28;
+                  *buf = v34;
+                  v47 = v28;
                   _os_log_error_impl(&dword_1AC15D000, v33, OS_LOG_TYPE_ERROR, "Error removing old stream, %@", buf, 0xCu);
                 }
               }
@@ -616,8 +608,8 @@ LABEL_26:
           v31 = __biome_log_for_category(0);
           if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
-            *buf = v35;
-            v48 = v27;
+            *buf = v34;
+            v47 = v27;
             _os_log_error_impl(&dword_1AC15D000, v31, OS_LOG_TYPE_ERROR, "Error moving stream to library location, %@", buf, 0xCu);
           }
 
@@ -627,13 +619,11 @@ LABEL_26:
 LABEL_31:
       }
 
-      v9 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
+      v9 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
     }
 
     while (v9);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 + (id)libraryPathForStreamIdentifier:(id)identifier
@@ -670,16 +660,16 @@ LABEL_31:
 
 + (void)readCurrentDatabaseVersion
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1AC15D000, a2, a3, "Error deserializing migration version file, %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0(&dword_1AC15D000, a2, a3, "Error deserializing migration version file, %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)setDatabaseVersion:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1AC15D000, a2, a3, "Error writing migration version file, %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1AC15D000, a2, a3, "Error writing migration version file, %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

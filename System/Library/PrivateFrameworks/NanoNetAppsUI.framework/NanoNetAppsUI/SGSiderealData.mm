@@ -3,7 +3,6 @@
 - (SGSiderealData)initWithStartOfDay:(double)day location:(id)location useXR:(BOOL)r;
 - (double)pseudoAltitudeForProgress:(double)progress;
 - (double)sunsetFilter:(double)filter;
-- (double)timeToProgress:(double)progress;
 - (id)gradientWithSunsetFilterForDayProgress:(double)progress;
 @end
 
@@ -104,29 +103,20 @@ LABEL_5:
   return v10;
 }
 
-- (double)timeToProgress:(double)progress
-{
-  startOfDay = self->_startOfDay;
-  CLKMapFractionIntoRange();
-  return result;
-}
-
 - (double)pseudoAltitudeForProgress:(double)progress
 {
-  startOfDay = self->_startOfDay;
   CLKMapFractionIntoRange();
-  v6 = v5;
+  v5 = v4;
   [SGSiderealData _geoLocationForLocation:self->_location];
-  v8 = v7;
-  v10 = v9;
-  [SGSiderealData _absoluteTimeToJulianDay:v6];
-  v12 = [objc_alloc(MEMORY[0x277D0EB38]) initWithLocation:0 julianDay:0 body:v8 useHighPrecision:{v10, v11}];
-  solarNoonTime = self->_solarNoonTime;
-  [v12 altitude];
+  v7 = v6;
+  v9 = v8;
+  [SGSiderealData _absoluteTimeToJulianDay:v5];
+  v11 = [objc_alloc(MEMORY[0x277D0EB38]) initWithLocation:0 julianDay:0 body:v7 useHighPrecision:{v9, v10}];
+  [v11 altitude];
   CLKMapFractionIntoRange();
-  v15 = v14;
+  v13 = v12;
 
-  return v15;
+  return v13;
 }
 
 - (double)sunsetFilter:(double)filter
@@ -151,7 +141,7 @@ LABEL_5:
 
 - (id)gradientWithSunsetFilterForDayProgress:(double)progress
 {
-  v26[3] = *MEMORY[0x277D85DE8];
+  v25[3] = *MEMORY[0x277D85DE8];
   [(SGSiderealData *)self pseudoAltitudeForProgress:?];
   v6 = v5;
   useXR = self->_useXR;
@@ -175,24 +165,22 @@ LABEL_5:
   v12 = [v10 objectAtIndexedSubscript:1];
   [v12 rgbfColorForFraction:v6];
   CLKUIConvertToXRSRGBfFromRGBf();
-  v25 = v13;
+  v24 = v13;
 
   v14 = [v10 objectAtIndexedSubscript:2];
   [v14 rgbfColorForFraction:v6];
   CLKUIConvertToXRSRGBfFromRGBf();
-  v24 = v15;
+  v23 = v15;
 
   [(SGSiderealData *)self sunsetFilter:progress];
   v17 = v16;
   v18 = [SGSiderealData _applySunsetFilter:"_applySunsetFilter:toColor:" toColor:?];
-  v19 = [(SGSiderealData *)self _applySunsetFilter:v17 toColor:v25];
-  v20 = [(SGSiderealData *)self _applySunsetFilter:v17 toColor:v24];
-  v26[0] = v18;
-  v26[1] = v19;
-  v26[2] = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:3];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v19 = [(SGSiderealData *)self _applySunsetFilter:v17 toColor:v24];
+  v20 = [(SGSiderealData *)self _applySunsetFilter:v17 toColor:v23];
+  v25[0] = v18;
+  v25[1] = v19;
+  v25[2] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
 
   return v21;
 }

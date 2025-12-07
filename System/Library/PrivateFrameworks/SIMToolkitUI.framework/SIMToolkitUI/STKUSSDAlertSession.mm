@@ -45,9 +45,9 @@
   [(STKAlertSession *)&v3 invalidate];
 }
 
-uint64_t __33__STKUSSDAlertSession_invalidate__block_invoke(uint64_t result)
+void *__33__STKUSSDAlertSession_invalidate__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if ((*(v1 + 41) & 1) == 0)
   {
     return [*(v1 + 88) invalidate];
@@ -118,7 +118,7 @@ void __41__STKUSSDAlertSession_performUSSDUpdate___block_invoke(uint64_t a1)
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v7 = STKUSSDSessionCommunicationInterface();
   [connectionCopy setRemoteObjectInterface:v7];
@@ -130,39 +130,38 @@ void __41__STKUSSDAlertSession_performUSSDUpdate___block_invoke(uint64_t a1)
   [connectionCopy resume];
   objc_storeStrong(&self->_ussdConnection, connection);
   remoteObjectProxy = [(NSXPCConnection *)self->_ussdConnection remoteObjectProxy];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v10 = self->_connectionQueue;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        (*(*(*(&v17 + 1) + 8 * v14) + 16))(*(*(&v17 + 1) + 8 * v14));
+        (*(*(*(&v16 + 1) + 8 * v14) + 16))(*(*(&v16 + 1) + 8 * v14));
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v12);
   }
 
   [(NSMutableArray *)self->_connectionQueue removeAllObjects];
-  v15 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

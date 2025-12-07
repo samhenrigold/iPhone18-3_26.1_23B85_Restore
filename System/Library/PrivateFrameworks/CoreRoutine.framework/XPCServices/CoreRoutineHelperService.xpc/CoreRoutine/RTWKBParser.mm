@@ -1,6 +1,9 @@
 @interface RTWKBParser
 - (double)readDoubleFromData:(id)data offset:(unint64_t *)offset littleEndian:(BOOL)endian;
+- (id)parseLinearRingFromData:(id)data offset:(unint64_t *)offset littleEndian:(BOOL)endian;
+- (id)parsePointFromData:(id)data offset:(unint64_t *)offset littleEndian:(BOOL)endian;
 - (id)parsePolygonFromData:(id)data offset:(unint64_t *)offset;
+- (id)parsePolygonFromData:(id)data offset:(unint64_t *)offset littleEndian:(BOOL)endian;
 - (id)parsePolygonsFromData:(id)data;
 - (unint64_t)readUInt64FromData:(id)data offset:(unint64_t *)offset littleEndian:(BOOL)endian;
 - (unsigned)readUInt32FromData:(id)data offset:(unint64_t *)offset littleEndian:(BOOL)endian;
@@ -62,6 +65,49 @@
 
   *offset += 8;
   return v7;
+}
+
+- (id)parsePointFromData:(id)data offset:(unint64_t *)offset littleEndian:(BOOL)endian
+{
+  endianCopy = endian;
+  dataCopy = data;
+  [(RTWKBParser *)self readDoubleFromData:dataCopy offset:offset littleEndian:endianCopy];
+  v10 = v9;
+  [(RTWKBParser *)self readDoubleFromData:dataCopy offset:offset littleEndian:endianCopy];
+  v12 = v11;
+
+  v13 = [[RTCoordinate alloc] initWithLatitude:v12 longitude:v10];
+
+  return v13;
+}
+
+- (id)parseLinearRingFromData:(id)data offset:(unint64_t *)offset littleEndian:(BOOL)endian
+{
+  endianCopy = endian;
+  dataCopy = data;
+  v9 = [(RTWKBParser *)self readUInt32FromData:dataCopy offset:offset littleEndian:endianCopy];
+  for (i = [NSMutableArray arrayWithCapacity:v9];
+  {
+    v11 = [(RTWKBParser *)self parsePointFromData:dataCopy offset:offset littleEndian:endianCopy];
+    [i addObject:v11];
+  }
+
+  return i;
+}
+
+- (id)parsePolygonFromData:(id)data offset:(unint64_t *)offset littleEndian:(BOOL)endian
+{
+  endianCopy = endian;
+  dataCopy = data;
+  v9 = [(RTWKBParser *)self readUInt32FromData:dataCopy offset:offset littleEndian:endianCopy];
+  for (i = [NSMutableArray arrayWithCapacity:v9];
+  {
+    v11 = [(RTWKBParser *)self parseLinearRingFromData:dataCopy offset:offset littleEndian:endianCopy];
+    v12 = [[RTPolygon alloc] initWithVertices:v11];
+    [i addObject:v12];
+  }
+
+  return i;
 }
 
 - (id)parsePolygonFromData:(id)data offset:(unint64_t *)offset

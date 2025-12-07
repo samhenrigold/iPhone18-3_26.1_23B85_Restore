@@ -6,8 +6,8 @@
 
 - (id)description
 {
-  timeRange = [(TVPInterstitial *)self timeRange];
-  v3 = [timeRange description];
+  v2 = objc_msgSend_timeRange(self, a2);
+  v3 = [v2 description];
 
   return v3;
 }

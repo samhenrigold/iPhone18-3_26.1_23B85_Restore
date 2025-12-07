@@ -107,50 +107,47 @@ LABEL_17:
 
 void __32__SGNicknames_nicknamesForName___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v3 = [v2 pathForResource:@"nicknames" ofType:@"dat"];
+  v15 = *MEMORY[0x277D85DE8];
+  v1 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v2 = [v1 pathForResource:@"nicknames" ofType:@"dat"];
 
-  if (v3)
+  if (v2)
   {
-    v12 = 0;
-    v4 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v3 options:1 error:&v12];
-    v5 = v12;
-    v6 = nicknamesForName__dataFile;
-    nicknamesForName__dataFile = v4;
+    v10 = 0;
+    v3 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v2 options:1 error:&v10];
+    v4 = v10;
+    v5 = nicknamesForName__dataFile;
+    nicknamesForName__dataFile = v3;
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   if (nicknamesForName__dataFile)
   {
-    v7 = [nicknamesForName__dataFile bytes];
-    v8 = *v7;
-    v9 = v7[1];
-    nicknamesForName__nicks_0 = (v8 - 8) >> 1;
-    nicknamesForName__nicks_1 = (v7 + 2);
-    nicknamesForName__nicks_2 = v7 + v8;
-    nicknamesForName__nicks_3 = v7 + v9;
+    v6 = [nicknamesForName__dataFile bytes];
+    v7 = *v6;
+    v8 = v6[1];
+    nicknamesForName__nicks_0 = (v7 - 8) >> 1;
+    nicknamesForName__nicks_1 = (v6 + 2);
+    nicknamesForName__nicks_2 = v6 + v7;
+    nicknamesForName__nicks_3 = v6 + v8;
   }
 
   else
   {
-    v10 = sgLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = sgLogHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v14 = v3;
-      v15 = 2112;
-      v16 = v5;
-      _os_log_error_impl(&dword_231E60000, v10, OS_LOG_TYPE_ERROR, "Could not load nicknames from %@: %@", buf, 0x16u);
+      v12 = v2;
+      v13 = 2112;
+      v14 = v4;
+      _os_log_error_impl(&dword_231E60000, v9, OS_LOG_TYPE_ERROR, "Could not load nicknames from %@: %@", buf, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

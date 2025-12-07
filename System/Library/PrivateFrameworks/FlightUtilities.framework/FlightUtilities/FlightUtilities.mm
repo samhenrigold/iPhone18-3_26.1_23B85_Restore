@@ -42,6 +42,34 @@ CLLocationCoordinate2D CLLocationCoordinate2DMake(CLLocationDegrees latitude, CL
   return result;
 }
 
+MKCoordinateRegion MKCoordinateRegionForMapRect(MKMapRect rect)
+{
+  MEMORY[0x282123640](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height);
+  result.span.longitudeDelta = v4;
+  result.span.latitudeDelta = v3;
+  result.center.longitude = v2;
+  result.center.latitude = v1;
+  return result;
+}
+
+MKMapPoint MKMapPointForCoordinate(CLLocationCoordinate2D coordinate)
+{
+  MEMORY[0x282123658](coordinate, *&coordinate.longitude);
+  result.y = v2;
+  result.x = v1;
+  return result;
+}
+
+MKMapRect MKMapRectUnion(MKMapRect rect1, MKMapRect rect2)
+{
+  MEMORY[0x2821236C0](rect1.origin, *&rect1.origin.y, rect1.size, *&rect1.size.height, rect2.origin, *&rect2.origin.y, rect2.size, *&rect2.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
+}
+
 __double2 __sincos_stret(double a1)
 {
   MEMORY[0x2822043C0](a1);

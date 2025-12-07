@@ -67,10 +67,10 @@
 
 - (id)_canonicalMultiColorPalette
 {
-  v4 = objc_msgSend_pigmentNamed_(MEMORY[0x277D2C0B0], a2, v2, @"leghorn.multicolor-default");
-  v7 = objc_msgSend_copyWithOption_(self, v5, v6, v4);
+  v3 = objc_msgSend_pigmentNamed_(MEMORY[0x277D2C0B0], a2, @"leghorn.multicolor-default");
+  v5 = objc_msgSend_copyWithOption_(self, v4, v3);
 
-  return v7;
+  return v5;
 }
 
 - (id)_proxyPalette
@@ -121,7 +121,7 @@
     v11 = ;
     v14 = objc_msgSend_primaryColor(self, v12, v13);
     v15 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v15, v16, 1.0, v11, v14);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v15, v16, v11, v14, 1.0);
   }
 
   return v8;
@@ -159,7 +159,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 0.2, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 0.2);
   }
 
   return v8;
@@ -207,7 +207,7 @@
     }
     v21 = ;
     v22 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackBackgroundColor_backgroundMultiple_fallbackRootColor_rootMultiplier_(v22, v23, 1.5, v11, v16, v21, 0.3);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackBackgroundColor_backgroundMultiple_fallbackRootColor_rootMultiplier_(v22, v23, v11, v16, v21, 1.5, 0.3);
   }
 
   return v8;
@@ -255,7 +255,7 @@
     }
     v21 = ;
     v22 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackBackgroundColor_backgroundMultiple_fallbackRootColor_rootMultiplier_(v22, v23, 0.6, v11, v16, v21, 0.12);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackBackgroundColor_backgroundMultiple_fallbackRootColor_rootMultiplier_(v22, v23, v11, v16, v21, 0.6, 0.12);
   }
 
   return v8;
@@ -294,7 +294,7 @@
     v16 = ;
     v19 = objc_msgSend_clearColor(MEMORY[0x277D75348], v17, v18);
     v20 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackBackgroundColor_backgroundMultiple_fallbackRootColor_rootMultiplier_(v20, v21, 0.0, v11, v16, v19, 0.0);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackBackgroundColor_backgroundMultiple_fallbackRootColor_rootMultiplier_(v20, v21, v11, v16, v19, 0.0, 0.0);
   }
 
   return v8;
@@ -332,7 +332,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 1.0, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 1.0);
   }
 
   return v8;
@@ -361,7 +361,7 @@
     v11 = ;
     v14 = objc_msgSend_compassMajorTickColor(self, v12, v13);
     v15 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v15, v16, 1.0, v11, v14);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v15, v16, v11, v14, 1.0);
   }
 
   return v8;
@@ -391,7 +391,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 0.5, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 0.5);
   }
 
   return v8;
@@ -420,7 +420,7 @@
     v11 = ;
     v14 = objc_msgSend_compassMajorTickColor(self, v12, v13);
     v15 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v15, v16, 1.0, v11, v14);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v15, v16, v11, v14, 1.0);
   }
 
   return v8;
@@ -449,7 +449,7 @@
     v11 = ;
     v14 = objc_msgSend_compassMajorTickColor(self, v12, v13);
     v15 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v15, v16, 1.0, v11, v14);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v15, v16, v11, v14, 1.0);
   }
 
   return v8;
@@ -478,7 +478,7 @@
     v11 = ;
     v14 = objc_msgSend_compassMajorTickColor(self, v12, v13);
     v15 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v15, v16, 1.0, v11, v14);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v15, v16, v11, v14, 1.0);
   }
 
   return v8;
@@ -508,7 +508,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 1.0, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 1.0);
   }
 
   return v8;
@@ -537,7 +537,7 @@
     v11 = ;
     v14 = objc_msgSend_waypointActiveConeColor(self, v12, v13);
     v15 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v15, v16, 1.0, v11, v14);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v15, v16, v11, v14, 1.0);
   }
 
   return v8;
@@ -567,7 +567,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 0.6, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 0.6);
   }
 
   return v8;
@@ -597,7 +597,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 0.8, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 0.8);
   }
 
   return v8;
@@ -627,7 +627,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 0.4, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 0.4);
   }
 
   return v8;
@@ -657,7 +657,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 1.0, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 1.0);
   }
 
   return v8;
@@ -687,7 +687,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 0.6, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 0.6);
   }
 
   return v8;
@@ -717,7 +717,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 0.2, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 0.2);
   }
 
   return v8;
@@ -747,7 +747,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 1.0, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 1.0);
   }
 
   return v8;
@@ -776,7 +776,7 @@
     v11 = ;
     v14 = objc_msgSend_secondsMajorTickColor(self, v12, v13);
     v15 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v15, v16, 1.0, v11, v14);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v15, v16, v11, v14, 1.0);
   }
 
   return v8;
@@ -806,7 +806,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 0.5, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 0.5);
   }
 
   return v8;
@@ -835,7 +835,7 @@
     v11 = ;
     v14 = objc_msgSend_secondsInactiveMajorTickColor(self, v12, v13);
     v15 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v15, v16, 1.0, v11, v14);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v15, v16, v11, v14, 1.0);
   }
 
   return v8;
@@ -865,7 +865,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 0.7, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 0.7);
   }
 
   return v8;
@@ -895,7 +895,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 1.0, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 1.0);
   }
 
   return v8;
@@ -925,7 +925,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 1.0, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 1.0);
   }
 
   return v8;
@@ -955,7 +955,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 1.0, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 1.0);
   }
 
   return v8;
@@ -987,7 +987,7 @@
     }
 
     v18 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v18, v19, v15, v11, v14);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v18, v19, v11, v14, v15);
   }
 
   return v8;
@@ -1019,7 +1019,7 @@
     }
 
     v18 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v18, v19, v15, v11, v14);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v18, v19, v11, v14, v15);
   }
 
   return v8;
@@ -1051,7 +1051,7 @@
     }
 
     v18 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v18, v19, v15, v11, v14);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v18, v19, v11, v14, v15);
   }
 
   return v8;
@@ -1083,7 +1083,7 @@
     }
 
     v18 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v18, v19, v15, v11, v14);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v18, v19, v11, v14, v15);
   }
 
   return v8;
@@ -1121,7 +1121,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 1.0, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 1.0);
   }
 
   return v8;
@@ -1159,7 +1159,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 1.0, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 1.0);
   }
 
   return v8;
@@ -1197,7 +1197,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 1.0, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 1.0);
   }
 
   return v8;
@@ -1235,7 +1235,7 @@
     }
     v16 = ;
     v17 = objc_opt_class();
-    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, 1.0, v11, v16);
+    v8 = objc_msgSend__colorFromColorSetColor_fallbackRootColor_alpha_(v17, v18, v11, v16, 1.0);
   }
 
   return v8;
@@ -1246,9 +1246,9 @@
   v3 = objc_msgSend_pigmentEditOption(self, a2, v2);
   v6 = objc_msgSend_identifier(v3, v4, v5);
 
-  if (objc_msgSend_hasPrefix_(v6, v7, v8, @"leghorn."))
+  if (objc_msgSend_hasPrefix_(v6, v7, @"leghorn."))
   {
-    hasSuffix = objc_msgSend_hasSuffix_(v6, v9, v10, @"-fs");
+    hasSuffix = objc_msgSend_hasSuffix_(v6, v8, @"-fs");
   }
 
   else
@@ -1264,9 +1264,9 @@
   v3 = objc_msgSend_pigmentEditOption(self, a2, v2);
   v6 = objc_msgSend_identifier(v3, v4, v5);
 
-  if (objc_msgSend_hasPrefix_(v6, v7, v8, @"leghorn."))
+  if (objc_msgSend_hasPrefix_(v6, v7, @"leghorn."))
   {
-    hasSuffix = objc_msgSend_hasSuffix_(v6, v9, v10, @"-duo");
+    hasSuffix = objc_msgSend_hasSuffix_(v6, v8, @"-duo");
   }
 
   else
@@ -1296,9 +1296,9 @@
 {
   height = size.height;
   width = size.width;
-  isFullScreen = objc_msgSend__isFullScreen(self, a2, size.width);
-  isDuo = objc_msgSend__isDuo(self, v7, v8);
-  v12 = isDuo;
+  isFullScreen = objc_msgSend__isFullScreen(self, a2, v3);
+  isDuo = objc_msgSend__isDuo(self, v8, v9);
+  v13 = isDuo;
   if ((isFullScreen & 1) != 0 || isDuo)
   {
     if (qword_27E1DF048 != -1)
@@ -1306,39 +1306,39 @@
       sub_23BEE6C84();
     }
 
-    v14 = MEMORY[0x277CCACA8];
-    v15 = objc_msgSend_configuration(self, v10, v11);
-    v18 = objc_msgSend_uniqueId(v15, v16, v17);
-    v38.width = width;
-    v38.height = height;
-    v19 = NSStringFromCGSize(v38);
-    v22 = objc_msgSend_stringWithFormat_(v14, v20, v21, @"%@-%@", v18, v19);
+    v15 = MEMORY[0x277CCACA8];
+    v16 = objc_msgSend_configuration(self, v11, v12);
+    v19 = objc_msgSend_uniqueId(v16, v17, v18);
+    v36.width = width;
+    v36.height = height;
+    v20 = NSStringFromCGSize(v36);
+    v22 = objc_msgSend_stringWithFormat_(v15, v21, @"%@-%@", v19, v20);
 
-    height = objc_msgSend_objectForKey_(qword_27E1DF040, v23, v24, v22);
+    height = objc_msgSend_objectForKey_(qword_27E1DF040, v23, v22);
     if (!height)
     {
-      if (v12)
+      if (v13)
       {
-        v27 = objc_msgSend_secondaryColor(self, v25, v26);
-        objc_msgSend_primaryColor(self, v28, v29);
+        v26 = objc_msgSend_secondaryColor(self, v24, v25);
+        objc_msgSend_primaryColor(self, v27, v28);
       }
 
       else
       {
-        v27 = objc_msgSend_primaryColor(self, v25, v26);
-        objc_msgSend_primaryBackgroundColor(self, v30, v31);
+        v26 = objc_msgSend_primaryColor(self, v24, v25);
+        objc_msgSend_primaryBackgroundColor(self, v29, v30);
       }
-      v32 = ;
+      v31 = ;
       height = NTKSwatchTwoColorImage();
-      objc_msgSend_setObject_forKey_(qword_27E1DF040, v33, v34, height, v22);
+      objc_msgSend_setObject_forKey_(qword_27E1DF040, v32, height, v22);
     }
   }
 
   else
   {
-    v36.receiver = self;
-    v36.super_class = NTKLeghornFaceColorPalette;
-    height = [(NTKFaceColorPalette *)&v36 swatchImageForSize:width, height];
+    v34.receiver = self;
+    v34.super_class = NTKLeghornFaceColorPalette;
+    height = [(NTKFaceColorPalette *)&v34 swatchImageForSize:width, height];
   }
 
   return height;

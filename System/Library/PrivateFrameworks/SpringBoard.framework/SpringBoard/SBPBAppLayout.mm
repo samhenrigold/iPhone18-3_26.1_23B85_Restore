@@ -1,7 +1,7 @@
 @interface SBPBAppLayout
-+ (uint64_t)displayItemLayoutAttributesType;
-+ (uint64_t)displayItemsType;
-+ (uint64_t)layoutAttributesEntriesType;
++ (double)displayItemLayoutAttributesType;
++ (double)displayItemsType;
++ (double)layoutAttributesEntriesType;
 - (BOOL)hasCenterDisplayItem;
 - (BOOL)hasCenterLayoutAttributes;
 - (BOOL)hasContinuousExposeIdentifier;
@@ -31,24 +31,16 @@
 - (uint64_t)centerDisplayItem;
 - (uint64_t)centerDisplayItemRole;
 - (uint64_t)centerLayoutAttributes;
-- (uint64_t)clearDisplayItemLayoutAttributes;
-- (uint64_t)clearDisplayItemLayoutAttributesForNonPreferredDisplays;
-- (uint64_t)clearDisplayItems;
-- (uint64_t)clearLayoutAttributesEntries;
 - (uint64_t)continuousExposeIdentifier;
 - (uint64_t)copyTo:(uint64_t)to;
 - (uint64_t)displayItemLayoutAttributes;
-- (uint64_t)displayItemLayoutAttributesCount;
 - (uint64_t)displayItemLayoutAttributesForNonPreferredDisplays;
-- (uint64_t)displayItemLayoutAttributesForNonPreferredDisplaysCount;
 - (uint64_t)displayItems;
-- (uint64_t)displayItemsCount;
 - (uint64_t)environment;
 - (uint64_t)hasCenterDisplayItemRole;
 - (uint64_t)hasSecondaryDisplayItemRole;
 - (uint64_t)hidden;
 - (uint64_t)layoutAttributesEntries;
-- (uint64_t)layoutAttributesEntriesCount;
 - (uint64_t)layoutConfiguration;
 - (uint64_t)preferredDisplayOrdinal;
 - (uint64_t)primaryDisplayItem;
@@ -72,6 +64,14 @@
 - (void)addDisplayItemLayoutAttributesForNonPreferredDisplay:(uint64_t)display;
 - (void)addDisplayItems:(uint64_t)items;
 - (void)addLayoutAttributesEntries:(uint64_t)entries;
+- (void)clearDisplayItemLayoutAttributes;
+- (void)clearDisplayItemLayoutAttributesForNonPreferredDisplays;
+- (void)clearDisplayItems;
+- (void)clearLayoutAttributesEntries;
+- (void)displayItemLayoutAttributesCount;
+- (void)displayItemLayoutAttributesForNonPreferredDisplaysCount;
+- (void)displayItemsCount;
+- (void)layoutAttributesEntriesCount;
 - (void)mergeFrom:(uint64_t)from;
 - (void)setCenterDisplayItem:(uint64_t)item;
 - (void)setCenterLayoutAttributes:(uint64_t)attributes;
@@ -89,25 +89,28 @@
 
 @implementation SBPBAppLayout
 
-+ (uint64_t)displayItemsType
++ (double)displayItemsType
 {
   objc_opt_self();
 
-  return objc_opt_class();
+  objc_opt_class();
+  return result;
 }
 
-+ (uint64_t)displayItemLayoutAttributesType
++ (double)displayItemLayoutAttributesType
 {
   objc_opt_self();
 
-  return objc_opt_class();
+  objc_opt_class();
+  return result;
 }
 
-+ (uint64_t)layoutAttributesEntriesType
++ (double)layoutAttributesEntriesType
 {
   objc_opt_self();
 
-  return objc_opt_class();
+  objc_opt_class();
+  return result;
 }
 
 - (id)description
@@ -1452,7 +1455,7 @@ LABEL_4:
   return result;
 }
 
-- (uint64_t)clearDisplayItems
+- (void)clearDisplayItems
 {
   if (result)
   {
@@ -1480,7 +1483,7 @@ LABEL_4:
   }
 }
 
-- (uint64_t)displayItemsCount
+- (void)displayItemsCount
 {
   if (result)
   {
@@ -1501,7 +1504,7 @@ LABEL_4:
   return index;
 }
 
-- (uint64_t)clearDisplayItemLayoutAttributes
+- (void)clearDisplayItemLayoutAttributes
 {
   if (result)
   {
@@ -1529,7 +1532,7 @@ LABEL_4:
   }
 }
 
-- (uint64_t)displayItemLayoutAttributesCount
+- (void)displayItemLayoutAttributesCount
 {
   if (result)
   {
@@ -1560,7 +1563,7 @@ LABEL_4:
   return result;
 }
 
-- (uint64_t)clearDisplayItemLayoutAttributesForNonPreferredDisplays
+- (void)clearDisplayItemLayoutAttributesForNonPreferredDisplays
 {
   if (result)
   {
@@ -1588,7 +1591,7 @@ LABEL_4:
   }
 }
 
-- (uint64_t)displayItemLayoutAttributesForNonPreferredDisplaysCount
+- (void)displayItemLayoutAttributesForNonPreferredDisplaysCount
 {
   if (result)
   {
@@ -1609,7 +1612,7 @@ LABEL_4:
   return index;
 }
 
-- (uint64_t)clearLayoutAttributesEntries
+- (void)clearLayoutAttributesEntries
 {
   if (result)
   {
@@ -1637,7 +1640,7 @@ LABEL_4:
   }
 }
 
-- (uint64_t)layoutAttributesEntriesCount
+- (void)layoutAttributesEntriesCount
 {
   if (result)
   {

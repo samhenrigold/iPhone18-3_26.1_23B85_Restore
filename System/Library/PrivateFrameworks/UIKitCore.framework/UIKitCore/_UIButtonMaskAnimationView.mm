@@ -161,15 +161,15 @@ LABEL_12:
   v7.super_class = _UIButtonMaskAnimationView;
   if ([(UIView *)&v7 _shouldAnimatePropertyWithKey:keyCopy])
   {
-    v5 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v5 = [keyCopy isEqualToString:@"borderColor"];
+    isEqualToString = objc_msgSend_isEqualToString_(keyCopy);
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (void)animationDidStop:(id)stop finished:(BOOL)finished
@@ -179,9 +179,9 @@ LABEL_12:
   if (objc_opt_isKindOfClass())
   {
     keyPath = [stopCopy keyPath];
-    v6 = [keyPath isEqualToString:@"opacity"];
+    isEqualToString = objc_msgSend_isEqualToString_(keyPath);
 
-    if (v6)
+    if (isEqualToString)
     {
       layer = [(UIView *)self layer];
       [layer removeAnimationForKey:@"borderWidth"];

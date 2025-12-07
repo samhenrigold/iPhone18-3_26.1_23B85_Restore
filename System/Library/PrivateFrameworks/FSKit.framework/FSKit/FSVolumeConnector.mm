@@ -19,6 +19,7 @@
 - (void)getStandardItemAttributesForItem:(id)item replyHandler:(id)handler;
 - (void)listXattrsOf:(id)of requestID:(unint64_t)d replyHandler:(id)handler;
 - (void)lookupIn:(id)in name:(id)name flags:(unsigned int)flags requestID:(unint64_t)d replyHandler:(id)handler;
+- (void)makeCloneOf:(id)of named:(id)named inDirectory:(id)directory attributes:(id)attributes usingFlags:(unsigned int)flags requestID:(unint64_t)d replyHandler:(id)handler;
 - (void)makeLinkOf:(id)of named:(id)named inDirectory:(id)directory requestID:(unint64_t)d replyHandler:(id)handler;
 - (void)makeSymlinkIn:(id)in named:(id)named contents:(id)contents attributes:(id)attributes requestID:(unint64_t)d replyHandler:(id)handler;
 - (void)mount:(id)mount replyHandler:(id)handler;
@@ -28,6 +29,7 @@
 - (void)pathConfigurationOf:(id)of propertyName:(int)name requestID:(unint64_t)d replyHandler:(id)handler;
 - (void)readDirectory:(id)directory intoBuffer:(id)buffer cookie:(unint64_t)cookie verifier:(unint64_t)verifier requestID:(unint64_t)d replyHandler:(id)handler;
 - (void)readDirectory:(id)directory requestedAttributes:(unint64_t)attributes intoBuffer:(id)buffer cookie:(unint64_t)cookie verifier:(unint64_t)verifier requestID:(unint64_t)d replyHandler:(id)handler;
+- (void)readDirectory:(id)directory withAttr:(BOOL)attr requestedAttributes:(unint64_t)attributes intoBuffer:(id)buffer cookie:(unint64_t)cookie verifier:(unint64_t)verifier requestID:(unint64_t)d replyHandler:(id)self0;
 - (void)readFrom:(id)from atOffset:(unint64_t)offset intoBuffer:(id)buffer requestID:(unint64_t)d replyHandler:(id)handler;
 - (void)readSymbolicLinkOf:(id)of requestID:(unint64_t)d replyHandler:(id)handler;
 - (void)reclaim:(id)reclaim requestID:(unint64_t)d replyHandler:(id)handler;
@@ -119,45 +121,47 @@ void __67__FSVolumeConnector_getStandardItemAttributesForItem_replyHandler___blo
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = fskit_std_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = fskit_std_log(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __67__FSVolumeConnector_getStandardItemAttributesForItem_replyHandler___block_invoke_cold_1(v6);
+      __67__FSVolumeConnector_getStandardItemAttributesForItem_replyHandler___block_invoke_cold_1(v7);
     }
 
 LABEL_4:
 
-    v8 = *(*(a1 + 40) + 16);
+    v9 = *(*(a1 + 40) + 16);
     goto LABEL_11;
   }
 
   if (!v5)
   {
-    v7 = fskit_std_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = fskit_std_log(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      __67__FSVolumeConnector_getStandardItemAttributesForItem_replyHandler___block_invoke_cold_3(v7, v17, v18, v19, v20, v21, v22, v23);
+      __67__FSVolumeConnector_getStandardItemAttributesForItem_replyHandler___block_invoke_cold_3(v8, v19, v20, v21, v22, v23, v24, v25);
     }
 
     goto LABEL_4;
   }
 
-  if (([v5 hasMinimalRequiredAttributes] & 1) == 0)
+  v10 = [v5 hasMinimalRequiredAttributes];
+  if ((v10 & 1) == 0)
   {
-    v9 = fskit_std_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v11 = fskit_std_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      __67__FSVolumeConnector_getStandardItemAttributesForItem_replyHandler___block_invoke_cold_2(v9, v10, v11, v12, v13, v14, v15, v16);
+      __67__FSVolumeConnector_getStandardItemAttributesForItem_replyHandler___block_invoke_cold_2(v11, v12, v13, v14, v15, v16, v17, v18);
     }
   }
 
   atomic_fetch_add((*(a1 + 32) + 16), 1uLL);
   [v5 setAttributeSeqno:?];
-  v8 = *(*(a1 + 40) + 16);
+  v9 = *(*(a1 + 40) + 16);
 LABEL_11:
-  v8();
+  v9();
 }
 
 - (void)getStandardItemAttributesDataForItem:(id)item replyHandler:(id)handler
@@ -253,12 +257,13 @@ void __64__FSVolumeConnector_getIOItemAttributesSubsetData_replyHandler___block_
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = fskit_std_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = fskit_std_log(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __64__FSVolumeConnector_getIOItemAttributesSubsetData_replyHandler___block_invoke_cold_1(v6);
+      __64__FSVolumeConnector_getIOItemAttributesSubsetData_replyHandler___block_invoke_cold_1(v7);
     }
 
     (*(a1[5] + 16))(a1[5]);
@@ -266,58 +271,57 @@ void __64__FSVolumeConnector_getIOItemAttributesSubsetData_replyHandler___block_
 
   else
   {
-    v8 = 0;
+    v9 = 0;
     if ([v5 isValid:{64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}])
     {
-      v8 = 64;
+      v9 = 64;
       v16[2] = [v5 size];
       v16[0] = 64;
     }
 
     if ([v5 isValid:{128, v16[0]}])
     {
-      v8 |= 0x80uLL;
+      v9 |= 0x80uLL;
       v16[3] = [v5 allocSize];
-      v16[0] = v8;
+      v16[0] = v9;
     }
 
     if ([v5 isValid:{256, v16[0]}])
     {
-      v8 |= 0x100uLL;
+      v9 |= 0x100uLL;
       v16[4] = [v5 fileID];
-      v16[0] = v8;
+      v16[0] = v9;
     }
 
     if ([v5 isValid:{1024, v16[0]}])
     {
       v16[5] = [v5 accessTime];
-      v16[6] = v9;
-      v8 |= 0x400uLL;
-      v16[0] = v8;
+      v16[6] = v10;
+      v9 |= 0x400uLL;
+      v16[0] = v9;
     }
 
     if ([v5 isValid:{2048, v16[0]}])
     {
       v16[7] = [v5 modifyTime];
-      v16[8] = v10;
-      v8 |= 0x800uLL;
-      v16[0] = v8;
+      v16[8] = v11;
+      v9 |= 0x800uLL;
+      v16[0] = v9;
     }
 
     if ([v5 isValid:{4096, v16[0]}])
     {
       v16[9] = [v5 changeTime];
-      v16[10] = v11;
-      v16[0] = v8 | 0x1000;
+      v16[10] = v12;
+      v16[0] = v9 | 0x1000;
     }
 
     v16[1] = atomic_fetch_add((a1[4] + 16), 1uLL);
-    v12 = [MEMORY[0x277CBEA90] dataWithBytes:v16 length:88];
-    v13 = *(a1[6] + 8);
-    v14 = *(v13 + 40);
-    *(v13 + 40) = v12;
+    v13 = [MEMORY[0x277CBEA90] dataWithBytes:v16 length:88];
+    v14 = *(a1[6] + 8);
+    v15 = *(v14 + 40);
+    *(v14 + 40) = v13;
 
-    v15 = *(*(a1[6] + 8) + 40);
     (*(a1[5] + 16))(a1[5]);
   }
 }
@@ -344,23 +348,23 @@ void __58__FSVolumeConnector_getFreeSpaceInVolumeWithReplyHandler___block_invoke
 
   if (v4)
   {
-    v5 = [v4 availableBlocks];
-    v6 = [v4 blockSize];
+    v6 = [v4 availableBlocks];
+    v7 = [v4 blockSize];
     add = atomic_fetch_add((*v2 + 8), 1uLL);
-    v10[0] = v6 * v5;
-    v10[1] = add;
-    v8 = [MEMORY[0x277CBEA90] dataWithBytes:v10 length:16];
+    v11[0] = v7 * v6;
+    v11[1] = add;
+    v9 = [MEMORY[0x277CBEA90] dataWithBytes:v11 length:16];
   }
 
   else
   {
-    v9 = fskit_std_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = fskit_std_log(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __58__FSVolumeConnector_getFreeSpaceInVolumeWithReplyHandler___block_invoke_cold_1(v2);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   (*(*(a1 + 40) + 16))();
@@ -370,85 +374,87 @@ void __58__FSVolumeConnector_getFreeSpaceInVolumeWithReplyHandler___block_invoke
 {
   length = range.length;
   location = range.location;
-  v45 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   handlerCopy = handler;
-  v15 = fskit_std_log();
+  v15 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316418;
-    v34 = "[FSVolumeConnector blockmapFile:range:flags:operationID:replyHandler:]";
-    v35 = 2112;
-    v36 = fileCopy;
-    v37 = 2048;
-    v38 = location;
-    v39 = 2048;
-    v40 = length;
-    v41 = 2048;
+    v35 = "[FSVolumeConnector blockmapFile:range:flags:operationID:replyHandler:]";
+    v36 = 2112;
+    v37 = fileCopy;
+    v38 = 2048;
+    v39 = location;
+    v40 = 2048;
+    v41 = length;
+    v42 = 2048;
     flagsCopy = flags;
-    v43 = 2048;
+    v44 = 2048;
     dCopy = d;
     _os_log_debug_impl(&dword_24A929000, v15, OS_LOG_TYPE_DEBUG, "%s:start:theFile:%@:theRangeLocation:%lu:theRangeLength:%lu:flags:%lu:operationID:%llu", buf, 0x3Eu);
   }
 
   v16 = self->_ourVolume;
-  if ([(FSModuleVolume *)v16 supportsKOIOOps])
+  supportsKOIOOps = [(FSModuleVolume *)v16 supportsKOIOOps];
+  if (supportsKOIOOps)
   {
     volume = [(FSModuleVolume *)v16 volume];
-    v18 = [(FSModuleVolume *)v16 getItemForFH:fileCopy];
-    v19 = v18;
-    if (v18)
+    v19 = [(FSModuleVolume *)v16 getItemForFH:fileCopy];
+    v20 = v19;
+    if (v19)
     {
-      if ([v18 type] == 1)
+      if ([v19 type] == 1)
       {
-        v28 = volume;
-        v20 = [[FSExtentPacker alloc] initWithBlockmapFlags:flags];
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = __71__FSVolumeConnector_blockmapFile_range_flags_operationID_replyHandler___block_invoke;
-        v29[3] = &unk_278FED870;
+        v29 = volume;
+        v21 = [[FSExtentPacker alloc] initWithBlockmapFlags:flags];
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __71__FSVolumeConnector_blockmapFile_range_flags_operationID_replyHandler___block_invoke;
+        v30[3] = &unk_278FED870;
         selfCopy = self;
-        v32 = handlerCopy;
-        v30 = v20;
-        v21 = v20;
-        [v28 blockmapFile:v19 offset:location length:length flags:flags operationID:d packer:v21 replyHandler:v29];
+        v33 = handlerCopy;
+        v31 = v21;
+        v22 = v21;
+        [v29 blockmapFile:v20 offset:location length:length flags:flags operationID:d packer:v22 replyHandler:v30];
 
-        volume = v28;
+        volume = v29;
       }
 
       else
       {
-        if ([v19 type] == 2)
+        type = [v20 type];
+        if (type == 2)
         {
-          v24 = 21;
+          v26 = 21;
         }
 
         else
         {
-          v24 = 22;
+          v26 = 22;
         }
 
-        v25 = fskit_std_log();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        v27 = fskit_std_log(type);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
-          type = [v19 type];
+          type2 = [v20 type];
           *buf = 136315650;
-          v34 = "[FSVolumeConnector blockmapFile:range:flags:operationID:replyHandler:]";
-          v35 = 2048;
-          v36 = type;
-          v37 = 1024;
-          LODWORD(v38) = v24;
-          _os_log_impl(&dword_24A929000, v25, OS_LOG_TYPE_INFO, "%s: Given item is not a file (type = %lu). Error = %d.", buf, 0x1Cu);
+          v35 = "[FSVolumeConnector blockmapFile:range:flags:operationID:replyHandler:]";
+          v36 = 2048;
+          v37 = type2;
+          v38 = 1024;
+          LODWORD(v39) = v26;
+          _os_log_impl(&dword_24A929000, v27, OS_LOG_TYPE_INFO, "%s: Given item is not a file (type = %lu). Error = %d.", buf, 0x1Cu);
         }
 
-        (*(handlerCopy + 2))(handlerCopy, v24, 0, 0);
+        (*(handlerCopy + 2))(handlerCopy, v26, 0, 0);
       }
     }
 
     else
     {
-      v23 = fskit_std_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v24 = fskit_std_log(0);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [FSVolumeConnector blockmapFile:range:flags:operationID:replyHandler:];
       }
@@ -459,24 +465,21 @@ void __58__FSVolumeConnector_getFreeSpaceInVolumeWithReplyHandler___block_invoke
 
   else
   {
-    v22 = fskit_std_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = fskit_std_log(supportsKOIOOps);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector blockmapFile:range:flags:operationID:replyHandler:];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 45, 0, 0);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __71__FSVolumeConnector_blockmapFile_range_flags_operationID_replyHandler___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    [a2 fs_posixCode];
-    v3 = fskit_std_log();
+    v3 = fskit_std_log([a2 fs_posixCode]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __71__FSVolumeConnector_blockmapFile_range_flags_operationID_replyHandler___block_invoke_cold_1();
@@ -488,10 +491,11 @@ LABEL_5:
     return;
   }
 
-  if ([*(a1 + 32) extentsPacked] < 1)
+  v5 = [*(a1 + 32) extentsPacked];
+  if (v5 < 1)
   {
-    v9 = fskit_std_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = fskit_std_log(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __71__FSVolumeConnector_blockmapFile_range_flags_operationID_replyHandler___block_invoke_cold_2();
     }
@@ -500,17 +504,17 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v5 = [*(a1 + 32) extentDataByExtentsPacked];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __71__FSVolumeConnector_blockmapFile_range_flags_operationID_replyHandler___block_invoke_298;
-  v10[3] = &unk_278FED848;
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
-  v11 = v5;
-  v12 = v7;
-  v8 = v5;
-  [v6 getFreeSpaceInVolumeWithReplyHandler:v10];
+  v6 = [*(a1 + 32) extentDataByExtentsPacked];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __71__FSVolumeConnector_blockmapFile_range_flags_operationID_replyHandler___block_invoke_298;
+  v11[3] = &unk_278FED848;
+  v7 = *(a1 + 40);
+  v8 = *(a1 + 48);
+  v12 = v6;
+  v13 = v8;
+  v9 = v6;
+  [v7 getFreeSpaceInVolumeWithReplyHandler:v11];
 }
 
 - (void)checkAccessTo:(id)to requestedAccess:(unint64_t)access requestID:(unint64_t)d replyHandler:(id)handler
@@ -518,7 +522,7 @@ LABEL_5:
   v29 = *MEMORY[0x277D85DE8];
   toCopy = to;
   handlerCopy = handler;
-  v12 = fskit_std_log();
+  v12 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
@@ -533,24 +537,25 @@ LABEL_5:
   }
 
   v13 = self->_ourVolume;
-  if ([(FSModuleVolume *)v13 supportsAccessOps])
+  supportsAccessOps = [(FSModuleVolume *)v13 supportsAccessOps];
+  if (supportsAccessOps)
   {
     volume = [(FSModuleVolume *)v13 volume];
-    v15 = [(FSModuleVolume *)v13 getItemForFH:toCopy];
-    if (v15)
+    v16 = [(FSModuleVolume *)v13 getItemForFH:toCopy];
+    if (v16)
     {
       v19[0] = MEMORY[0x277D85DD0];
       v19[1] = 3221225472;
       v19[2] = __74__FSVolumeConnector_checkAccessTo_requestedAccess_requestID_replyHandler___block_invoke;
       v19[3] = &unk_278FECE48;
       v20 = handlerCopy;
-      [volume checkAccessToItem:v15 requestedAccess:access replyHandler:v19];
+      [volume checkAccessToItem:v16 requestedAccess:access replyHandler:v19];
     }
 
     else
     {
-      v17 = fskit_std_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = fskit_std_log(0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [FSVolumeConnector checkAccessTo:requestedAccess:requestID:replyHandler:];
       }
@@ -561,24 +566,21 @@ LABEL_5:
 
   else
   {
-    v16 = fskit_std_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = fskit_std_log(supportsAccessOps);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector checkAccessTo:requestedAccess:requestID:replyHandler:];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 45);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__FSVolumeConnector_checkAccessTo_requestedAccess_requestID_replyHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   if (a3)
   {
-    [a3 fs_posixCode];
-    v4 = fskit_std_log();
+    v4 = fskit_std_log([a3 fs_posixCode]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __74__FSVolumeConnector_checkAccessTo_requestedAccess_requestID_replyHandler___block_invoke_cold_1();
@@ -599,58 +601,59 @@ uint64_t __74__FSVolumeConnector_checkAccessTo_requestedAccess_requestID_replyHa
 {
   length = range.length;
   location = range.location;
-  v46 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   oCopy = o;
   handlerCopy = handler;
-  v16 = fskit_std_log();
+  v16 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316674;
-    v33 = "[FSVolumeConnector endIO:range:status:flags:operationID:replyHandler:]";
-    v34 = 2112;
-    v35 = oCopy;
-    v36 = 2048;
-    v37 = location;
-    v38 = 2048;
-    v39 = length;
-    v40 = 1024;
+    v34 = "[FSVolumeConnector endIO:range:status:flags:operationID:replyHandler:]";
+    v35 = 2112;
+    v36 = oCopy;
+    v37 = 2048;
+    v38 = location;
+    v39 = 2048;
+    v40 = length;
+    v41 = 1024;
     statusCopy = status;
-    v42 = 2048;
+    v43 = 2048;
     flagsCopy = flags;
-    v44 = 2048;
+    v45 = 2048;
     dCopy = d;
     _os_log_debug_impl(&dword_24A929000, v16, OS_LOG_TYPE_DEBUG, "%s:start:theFile:%@:originalRangeLocation:%lu:originalRangeLength:%lu:ioStatus:%d:flags:%lu:operationID:%llu", buf, 0x44u);
   }
 
   v17 = self->_ourVolume;
-  if ([(FSModuleVolume *)v17 supportsKOIOOps])
+  supportsKOIOOps = [(FSModuleVolume *)v17 supportsKOIOOps];
+  if (supportsKOIOOps)
   {
     volume = [(FSModuleVolume *)v17 volume];
-    v18 = [(FSModuleVolume *)v17 getItemForFH:oCopy];
-    v19 = v18;
-    if (v18)
+    v19 = [(FSModuleVolume *)v17 getItemForFH:oCopy];
+    v20 = v19;
+    if (v19)
     {
-      if ([v18 type] == 1)
+      if ([v19 type] == 1)
       {
         if (status)
         {
-          v27 = fs_errorForPOSIXError(status);
+          v28 = fs_errorForPOSIXError(status);
         }
 
         else
         {
-          v27 = 0;
+          v28 = 0;
         }
 
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = __71__FSVolumeConnector_endIO_range_status_flags_operationID_replyHandler___block_invoke;
-        v29[3] = &unk_278FED870;
-        v31 = handlerCopy;
-        v29[4] = self;
-        v30 = v19;
-        v25 = volume;
-        [volume completeIOForFile:v30 offset:location length:length status:v27 flags:flags operationID:d replyHandler:v29];
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __71__FSVolumeConnector_endIO_range_status_flags_operationID_replyHandler___block_invoke;
+        v30[3] = &unk_278FED870;
+        v32 = handlerCopy;
+        v30[4] = self;
+        v31 = v20;
+        v27 = volume;
+        [volume completeIOForFile:v31 offset:location length:length status:v28 flags:flags operationID:d replyHandler:v30];
         if (status)
         {
         }
@@ -658,36 +661,37 @@ uint64_t __74__FSVolumeConnector_checkAccessTo_requestedAccess_requestID_replyHa
         goto LABEL_25;
       }
 
-      if ([v19 type] == 2)
+      type = [v20 type];
+      if (type == 2)
       {
-        v22 = 21;
+        v24 = 21;
       }
 
       else
       {
-        v22 = 22;
+        v24 = 22;
       }
 
-      v23 = fskit_std_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v25 = fskit_std_log(type);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
-        type = [v19 type];
+        type2 = [v20 type];
         *buf = 136315650;
-        v33 = "[FSVolumeConnector endIO:range:status:flags:operationID:replyHandler:]";
-        v34 = 2048;
-        v35 = type;
-        v36 = 1024;
-        LODWORD(v37) = v22;
-        _os_log_impl(&dword_24A929000, v23, OS_LOG_TYPE_INFO, "%s: Given item is not a file (type = %lu). Error = %d.", buf, 0x1Cu);
+        v34 = "[FSVolumeConnector endIO:range:status:flags:operationID:replyHandler:]";
+        v35 = 2048;
+        v36 = type2;
+        v37 = 1024;
+        LODWORD(v38) = v24;
+        _os_log_impl(&dword_24A929000, v25, OS_LOG_TYPE_INFO, "%s: Given item is not a file (type = %lu). Error = %d.", buf, 0x1Cu);
       }
 
-      (*(handlerCopy + 2))(handlerCopy, v22, 0);
+      (*(handlerCopy + 2))(handlerCopy, v24, 0);
     }
 
     else
     {
-      v21 = fskit_std_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v22 = fskit_std_log(0);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [FSVolumeConnector endIO:range:status:flags:operationID:replyHandler:];
       }
@@ -695,30 +699,27 @@ uint64_t __74__FSVolumeConnector_checkAccessTo_requestedAccess_requestID_replyHa
       (*(handlerCopy + 2))(handlerCopy, 70, 0);
     }
 
-    v25 = volume;
+    v27 = volume;
 LABEL_25:
 
     goto LABEL_26;
   }
 
-  v20 = fskit_std_log();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  v21 = fskit_std_log(supportsKOIOOps);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     [FSVolumeConnector endIO:range:status:flags:operationID:replyHandler:];
   }
 
   (*(handlerCopy + 2))(handlerCopy, 45, 0);
 LABEL_26:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __71__FSVolumeConnector_endIO_range_status_flags_operationID_replyHandler___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    [a2 fs_posixCode];
-    v3 = fskit_std_log();
+    v3 = fskit_std_log([a2 fs_posixCode]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __71__FSVolumeConnector_endIO_range_status_flags_operationID_replyHandler___block_invoke_cold_1();
@@ -762,7 +763,7 @@ void __71__FSVolumeConnector_endIO_range_status_flags_operationID_replyHandler__
   handlerCopy = handler;
   v12 = self->_ourVolume;
   string = [named string];
-  v14 = fskit_std_log();
+  v14 = fskit_std_log(string);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
@@ -893,8 +894,8 @@ LABEL_59:
 
       if (!volumeStatistics)
       {
-        v52 = fskit_std_log();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+        v53 = fskit_std_log(v50);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
           [FSVolumeConnector otherAttributeOf:v12 named:? requestID:? replyHandler:?];
         }
@@ -905,10 +906,10 @@ LABEL_59:
 
       if ([string isEqualToString:@"_N_f_bsize"])
       {
-        v50 = MEMORY[0x277CBEA90];
+        v51 = MEMORY[0x277CBEA90];
         blockSize = [volumeStatistics blockSize];
 LABEL_88:
-        fileSystemTypeName = [v50 dataWithInteger:blockSize];
+        fileSystemTypeName = [v51 dataWithInteger:blockSize];
         (handlerCopy[2])(handlerCopy, 0, fileSystemTypeName);
 LABEL_89:
 
@@ -917,42 +918,42 @@ LABEL_89:
 
       if ([string isEqualToString:@"_N_f_iosize"])
       {
-        v50 = MEMORY[0x277CBEA90];
+        v51 = MEMORY[0x277CBEA90];
         blockSize = [volumeStatistics ioSize];
         goto LABEL_88;
       }
 
       if ([string isEqualToString:@"_N_f_blocks"])
       {
-        v50 = MEMORY[0x277CBEA90];
+        v51 = MEMORY[0x277CBEA90];
         blockSize = [volumeStatistics totalBlocks];
         goto LABEL_88;
       }
 
       if ([string isEqualToString:@"_N_f_bavail"])
       {
-        v50 = MEMORY[0x277CBEA90];
+        v51 = MEMORY[0x277CBEA90];
         blockSize = [volumeStatistics availableBlocks];
         goto LABEL_88;
       }
 
       if ([string isEqualToString:@"_N_f_bfree"])
       {
-        v50 = MEMORY[0x277CBEA90];
+        v51 = MEMORY[0x277CBEA90];
         blockSize = [volumeStatistics freeBlocks];
         goto LABEL_88;
       }
 
       if ([string isEqualToString:@"_N_f_bused"])
       {
-        v50 = MEMORY[0x277CBEA90];
+        v51 = MEMORY[0x277CBEA90];
         blockSize = [volumeStatistics usedBlocks];
         goto LABEL_88;
       }
 
       if ([string isEqualToString:@"_N_f_subtype"])
       {
-        v50 = MEMORY[0x277CBEA90];
+        v51 = MEMORY[0x277CBEA90];
         blockSize = [volumeStatistics fileSystemSubType];
         goto LABEL_88;
       }
@@ -970,8 +971,8 @@ LABEL_89:
     if (([string isEqualToString:@"_B_has_perm_enforcement"] & 1) != 0 || objc_msgSend(string, "isEqualToString:", @"_B_has_access_check"))
     {
       *buf = 0;
-      v56 = MEMORY[0x277CBEA90];
-      v57 = 8;
+      v57 = MEMORY[0x277CBEA90];
+      v58 = 8;
     }
 
     else
@@ -1000,26 +1001,26 @@ LABEL_54:
         {
           if ([(FSModuleVolume *)v12 supportsVolumeRenameOps])
           {
-            v61 = 128;
+            v62 = 128;
           }
 
           else
           {
-            v61 = 0;
+            v62 = 0;
           }
 
           if ([(FSModuleVolume *)v12 supportsPreallocateOps])
           {
-            v61 |= 0x40uLL;
+            v62 |= 0x40uLL;
           }
 
           if ([(FSModuleVolume *)v12 supportsXattrOps]&& ![(FSModuleVolume *)v12 supportsLimitedXattrOps])
           {
-            v61 |= 0x4000uLL;
+            v62 |= 0x4000uLL;
           }
 
           v44 = MEMORY[0x277CBEA90];
-          v45 = v61;
+          v45 = v62;
           goto LABEL_52;
         }
 
@@ -1033,14 +1034,14 @@ LABEL_54:
             volumeStatistics = [(FSModuleVolume *)v12 volume];
             fileSystemTypeName = [volumeStatistics name];
             string2 = [fileSystemTypeName string];
-            v64 = [string2 dataUsingEncoding:4];
-            (handlerCopy[2])(handlerCopy, 0, v64);
+            v65 = [string2 dataUsingEncoding:4];
+            (handlerCopy[2])(handlerCopy, 0, v65);
 
             goto LABEL_93;
           }
         }
 
-        if (![string isEqualToString:@"_O_f_uuid"] || (-[FSModuleVolume volume](v12, "volume"), v65 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v65, "volumeID"), v66 = objc_claimAutoreleasedReturnValue(), v66, v65, !v66))
+        if (![string isEqualToString:@"_O_f_uuid"] || (-[FSModuleVolume volume](v12, "volume"), v66 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v66, "volumeID"), v67 = objc_claimAutoreleasedReturnValue(), v67, v66, !v67))
         {
           if ([string isEqualToString:@"_N_supported_xattr_namessize"])
           {
@@ -1053,45 +1054,45 @@ LABEL_54:
             v96 = [(FSModuleVolume *)v12 getItemForFH:ofCopy];
             if (v96)
             {
-              v67 = [obj supportedXattrNamesForItem:v96];
-              v68 = v67;
-              if (v67)
+              v68 = [obj supportedXattrNamesForItem:v96];
+              v69 = v68;
+              if (v68)
               {
                 v110 = 0u;
                 v111 = 0u;
                 v108 = 0u;
                 v109 = 0u;
-                v69 = [v67 countByEnumeratingWithState:&v108 objects:v114 count:16];
-                if (v69)
+                v70 = [v68 countByEnumeratingWithState:&v108 objects:v114 count:16];
+                if (v70)
                 {
-                  v70 = v69;
-                  v71 = 0;
-                  v72 = *v109;
+                  v71 = v70;
+                  v72 = 0;
+                  v73 = *v109;
                   do
                   {
-                    for (i = 0; i != v70; ++i)
+                    for (i = 0; i != v71; ++i)
                     {
-                      if (*v109 != v72)
+                      if (*v109 != v73)
                       {
-                        objc_enumerationMutation(v68);
+                        objc_enumerationMutation(v69);
                       }
 
                       string3 = [*(*(&v108 + 1) + 8 * i) string];
-                      v71 += [string3 lengthOfBytesUsingEncoding:4] + 1;
+                      v72 += [string3 lengthOfBytesUsingEncoding:4] + 1;
                     }
 
-                    v70 = [v68 countByEnumeratingWithState:&v108 objects:v114 count:16];
+                    v71 = [v69 countByEnumeratingWithState:&v108 objects:v114 count:16];
                   }
 
-                  while (v70);
+                  while (v71);
                 }
 
                 else
                 {
-                  v71 = 0;
+                  v72 = 0;
                 }
 
-                v85 = [MEMORY[0x277CBEA90] dataWithInteger:v71];
+                v85 = [MEMORY[0x277CBEA90] dataWithInteger:v72];
                 (handlerCopy[2])(handlerCopy, 0, v85);
               }
 
@@ -1103,7 +1104,7 @@ LABEL_54:
 
             else
             {
-              v83 = fskit_std_log();
+              v83 = fskit_std_log(0);
               if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
               {
                 [FSVolumeConnector otherAttributeOf:named:requestID:replyHandler:];
@@ -1133,43 +1134,43 @@ LABEL_54:
                 v107 = 0u;
                 v104 = 0u;
                 v105 = 0u;
-                v75 = v94;
-                v76 = [v75 countByEnumeratingWithState:&v104 objects:v113 count:16];
-                if (v76)
+                v76 = v94;
+                v77 = [v76 countByEnumeratingWithState:&v104 objects:v113 count:16];
+                if (v77)
                 {
-                  v77 = v76;
-                  v78 = 0;
-                  v79 = *v105;
+                  v78 = v77;
+                  v79 = 0;
+                  v80 = *v105;
                   do
                   {
-                    for (j = 0; j != v77; ++j)
+                    for (j = 0; j != v78; ++j)
                     {
-                      if (*v105 != v79)
+                      if (*v105 != v80)
                       {
-                        objc_enumerationMutation(v75);
+                        objc_enumerationMutation(v76);
                       }
 
                       string4 = [*(*(&v104 + 1) + 8 * j) string];
-                      v78 += [string4 lengthOfBytesUsingEncoding:4] + 1;
+                      v79 += [string4 lengthOfBytesUsingEncoding:4] + 1;
                     }
 
-                    v77 = [v75 countByEnumeratingWithState:&v104 objects:v113 count:16];
+                    v78 = [v76 countByEnumeratingWithState:&v104 objects:v113 count:16];
                   }
 
-                  while (v77);
+                  while (v78);
                 }
 
                 else
                 {
-                  v78 = 0;
+                  v79 = 0;
                 }
 
-                v87 = [MEMORY[0x277CBEB28] dataWithCapacity:v78];
+                v87 = [MEMORY[0x277CBEB28] dataWithCapacity:v79];
                 v100 = 0u;
                 v101 = 0u;
                 v102 = 0u;
                 v103 = 0u;
-                obja = v75;
+                obja = v76;
                 v88 = [obja countByEnumeratingWithState:&v100 objects:v112 count:16];
                 if (v88)
                 {
@@ -1207,7 +1208,7 @@ LABEL_54:
 
             else
             {
-              v84 = fskit_std_log();
+              v84 = fskit_std_log(0);
               if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
               {
                 [FSVolumeConnector otherAttributeOf:named:requestID:replyHandler:];
@@ -1236,11 +1237,11 @@ LABEL_93:
       *buf = xmmword_24A971008;
       *&buf[16] = unk_24A971018;
       v116[0] = 1574;
-      v56 = MEMORY[0x277CBEA90];
-      v57 = 40;
+      v57 = MEMORY[0x277CBEA90];
+      v58 = 40;
     }
 
-    v46 = [v56 dataWithBytes:buf length:v57];
+    v46 = [v57 dataWithBytes:buf length:v58];
     goto LABEL_53;
   }
 
@@ -1322,7 +1323,7 @@ LABEL_37:
   uTF8String2 = [volume2 UTF8String];
   if (!uTF8String2)
   {
-    v41 = fskit_std_log();
+    v41 = fskit_std_log(0);
     if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector otherAttributeOf:named:requestID:replyHandler:];
@@ -1339,19 +1340,17 @@ LABEL_40:
 
 LABEL_44:
 LABEL_144:
-
-  v82 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setOtherAttributeOf:(id)of named:(id)named value:(id)value requestID:(unint64_t)d replyHandler:(id)handler
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   ofCopy = of;
   namedCopy = named;
   valueCopy = value;
   handlerCopy = handler;
   string = [namedCopy string];
-  v17 = fskit_std_log();
+  v17 = fskit_std_log(string);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316162;
@@ -1359,11 +1358,11 @@ LABEL_144:
     *&buf[12] = 2112;
     *&buf[14] = ofCopy;
     *&buf[22] = 2112;
-    v53 = string;
-    *v54 = 2112;
-    *&v54[2] = valueCopy;
-    *&v54[10] = 2048;
-    *&v54[12] = d;
+    v52 = string;
+    *v53 = 2112;
+    *&v53[2] = valueCopy;
+    *&v53[10] = 2048;
+    *&v53[12] = d;
     _os_log_debug_impl(&dword_24A929000, v17, OS_LOG_TYPE_DEBUG, "%s:start:theItem:%@:name:%@:value:%@:reqID:%llu", buf, 0x34u);
   }
 
@@ -1380,12 +1379,12 @@ LABEL_144:
     {
       v20 = valueCopy;
       v21 = *[valueCopy bytes];
-      v50[0] = MEMORY[0x277D85DD0];
-      v50[1] = 3221225472;
-      v50[2] = __76__FSVolumeConnector_setOtherAttributeOf_named_value_requestID_replyHandler___block_invoke;
-      v50[3] = &unk_278FECE20;
-      v51 = handlerCopy;
-      [(FSVolumeConnector *)self synchronize:v21 replyHandler:v50];
+      v49[0] = MEMORY[0x277D85DD0];
+      v49[1] = 3221225472;
+      v49[2] = __76__FSVolumeConnector_setOtherAttributeOf_named_value_requestID_replyHandler___block_invoke;
+      v49[3] = &unk_278FECE20;
+      v50 = handlerCopy;
+      [(FSVolumeConnector *)self synchronize:v21 replyHandler:v49];
 
       goto LABEL_22;
     }
@@ -1399,46 +1398,46 @@ LABEL_14:
         goto LABEL_22;
       }
 
-      v27 = valueCopy;
+      v26 = valueCopy;
       bytes = [valueCopy bytes];
       if ((bytes[2] & 0x20) == 0)
       {
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v53 = __Block_byref_object_copy__4;
-        *v54 = __Block_byref_object_dispose__4;
-        *&v54[8] = 0;
-        v28 = [MEMORY[0x277CBEB28] dataWithData:valueCopy];
-        v29 = v28;
-        mutableBytes = [v28 mutableBytes];
+        v52 = __Block_byref_object_copy__4;
+        *v53 = __Block_byref_object_dispose__4;
+        *&v53[8] = 0;
+        v27 = [MEMORY[0x277CBEB28] dataWithData:valueCopy];
+        v28 = v27;
+        mutableBytes = [v27 mutableBytes];
         aBlock[0] = MEMORY[0x277D85DD0];
         aBlock[1] = 3221225472;
         aBlock[2] = __76__FSVolumeConnector_setOtherAttributeOf_named_value_requestID_replyHandler___block_invoke_2;
         aBlock[3] = &unk_278FED938;
-        v48 = buf;
-        v49 = mutableBytes;
-        v47 = handlerCopy;
+        v47 = buf;
+        v48 = mutableBytes;
+        v46 = handlerCopy;
         aBlock[4] = self;
-        v31 = v19;
-        v45 = v31;
-        v37 = v28;
-        v46 = v37;
-        v38 = _Block_copy(aBlock);
-        if ([(FSModuleVolume *)v18 supportsKOIOOps]&& ([(FSModuleVolume *)v18 volume], v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_opt_respondsToSelector(), v32, (v33 & 1) != 0))
+        v30 = v19;
+        v44 = v30;
+        v36 = v27;
+        v45 = v36;
+        v37 = _Block_copy(aBlock);
+        if ([(FSModuleVolume *)v18 supportsKOIOOps]&& ([(FSModuleVolume *)v18 volume], v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_opt_respondsToSelector(), v31, (v32 & 1) != 0))
         {
-          v34 = [[FSExtentPacker alloc] initWithExtentCount:8];
-          v35 = *(*&buf[8] + 40);
-          *(*&buf[8] + 40) = v34;
+          v33 = [[FSExtentPacker alloc] initWithExtentCount:8];
+          v34 = *(*&buf[8] + 40);
+          *(*&buf[8] + 40) = v33;
 
           volume = [(FSModuleVolume *)v18 volume];
-          [volume preallocateSpaceForFile:v31 atOffset:*bytes length:bytes[1] flags:*(bytes + 4) packer:*(*&buf[8] + 40) replyHandler:v38];
+          [volume preallocateSpaceForFile:v30 atOffset:*bytes length:bytes[1] flags:*(bytes + 4) packer:*(*&buf[8] + 40) replyHandler:v37];
         }
 
         else
         {
           volume = [(FSModuleVolume *)v18 volume];
-          [volume preallocateSpaceForItem:v31 atOffset:*bytes length:bytes[1] flags:*(bytes + 4) replyHandler:v38];
+          [volume preallocateSpaceForItem:v30 atOffset:*bytes length:bytes[1] flags:*(bytes + 4) replyHandler:v37];
         }
 
         _Block_object_dispose(buf, 8);
@@ -1452,13 +1451,13 @@ LABEL_14:
       {
         volume2 = [(FSModuleVolume *)v18 volume];
         v24 = [FSFileName nameWithData:valueCopy];
-        v42[0] = MEMORY[0x277D85DD0];
-        v42[1] = 3221225472;
-        v42[2] = __76__FSVolumeConnector_setOtherAttributeOf_named_value_requestID_replyHandler___block_invoke_6;
-        v42[3] = &unk_278FED960;
-        v42[4] = self;
-        v43 = handlerCopy;
-        [volume2 setVolumeName:v24 replyHandler:v42];
+        v41[0] = MEMORY[0x277D85DD0];
+        v41[1] = 3221225472;
+        v41[2] = __76__FSVolumeConnector_setOtherAttributeOf_named_value_requestID_replyHandler___block_invoke_6;
+        v41[3] = &unk_278FED960;
+        v41[4] = self;
+        v42 = handlerCopy;
+        [volume2 setVolumeName:v24 replyHandler:v41];
 
         goto LABEL_22;
       }
@@ -1466,12 +1465,12 @@ LABEL_14:
       if ([string isEqualToString:@"_N_INACTIVE"] && -[FSModuleVolume supportsItemDeactivation](v18, "supportsItemDeactivation"))
       {
         volume3 = [(FSModuleVolume *)v18 volume];
-        v40[0] = MEMORY[0x277D85DD0];
-        v40[1] = 3221225472;
-        v40[2] = __76__FSVolumeConnector_setOtherAttributeOf_named_value_requestID_replyHandler___block_invoke_394;
-        v40[3] = &unk_278FECE20;
-        v41 = handlerCopy;
-        [volume3 deactivateItem:v19 replyHandler:v40];
+        v39[0] = MEMORY[0x277D85DD0];
+        v39[1] = 3221225472;
+        v39[2] = __76__FSVolumeConnector_setOtherAttributeOf_named_value_requestID_replyHandler___block_invoke_394;
+        v39[3] = &unk_278FECE20;
+        v40 = handlerCopy;
+        [volume3 deactivateItem:v19 replyHandler:v39];
 
         goto LABEL_22;
       }
@@ -1481,7 +1480,7 @@ LABEL_14:
     goto LABEL_22;
   }
 
-  v22 = fskit_std_log();
+  v22 = fskit_std_log(0);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
     [FSVolumeConnector setOtherAttributeOf:named:value:requestID:replyHandler:];
@@ -1489,8 +1488,6 @@ LABEL_14:
 
   (*(handlerCopy + 2))(handlerCopy, 70, 0, 0, 0);
 LABEL_22:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __76__FSVolumeConnector_setOtherAttributeOf_named_value_requestID_replyHandler___block_invoke(uint64_t a1, void *a2)
@@ -1617,7 +1614,7 @@ void __76__FSVolumeConnector_setOtherAttributeOf_named_value_requestID_replyHand
 
   else
   {
-    v12 = fskit_std_log();
+    v12 = fskit_std_log(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       __76__FSVolumeConnector_setOtherAttributeOf_named_value_requestID_replyHandler___block_invoke_6_cold_1(v12, v13, v14, v15, v16, v17, v18, v19);
@@ -1655,8 +1652,8 @@ uint64_t __76__FSVolumeConnector_setOtherAttributeOf_named_value_requestID_reply
 
   else
   {
-    v11 = fskit_std_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = fskit_std_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector volumeStatistics:? requestID:? replyHandler:?];
     }
@@ -1672,7 +1669,7 @@ uint64_t __76__FSVolumeConnector_setOtherAttributeOf_named_value_requestID_reply
   namedCopy = named;
   attributesCopy = attributes;
   handlerCopy = handler;
-  v18 = fskit_std_log();
+  v18 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
@@ -1691,9 +1688,10 @@ uint64_t __76__FSVolumeConnector_setOtherAttributeOf_named_value_requestID_reply
   v21 = v20;
   if (v20)
   {
-    if ([v20 type] == 2)
+    type = [v20 type];
+    if (type == 2)
     {
-      v22 = [(FSItemAttributes *)FSItemSetAttributesRequest requestWithData:attributesCopy];
+      v23 = [(FSItemAttributes *)FSItemSetAttributesRequest requestWithData:attributesCopy];
       volume = [(FSModuleVolume *)v19 volume];
       v28[0] = MEMORY[0x277D85DD0];
       v28[1] = 3221225472;
@@ -1703,22 +1701,22 @@ uint64_t __76__FSVolumeConnector_setOtherAttributeOf_named_value_requestID_reply
       v28[4] = self;
       v29 = v21;
       v30 = v19;
-      [volume createItemNamed:namedCopy type:type inDirectory:v29 attributes:v22 replyHandler:v28];
+      [volume createItemNamed:namedCopy type:type inDirectory:v29 attributes:v23 replyHandler:v28];
     }
 
     else
     {
-      v25 = fskit_std_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      v26 = fskit_std_log(type);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
-        type = [v21 type];
+        type2 = [v21 type];
         *buf = 136315650;
         v33 = "[FSVolumeConnector createIn:named:type:attributes:requestID:replyHandler:]";
         v34 = 2048;
-        v35 = type;
+        v35 = type2;
         v36 = 1024;
         LODWORD(v37) = 20;
-        _os_log_impl(&dword_24A929000, v25, OS_LOG_TYPE_INFO, "%s: Given parent item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
+        _os_log_impl(&dword_24A929000, v26, OS_LOG_TYPE_INFO, "%s: Given parent item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
       }
 
       (*(handlerCopy + 2))(handlerCopy, 20, 0, 0, 0, 0);
@@ -1727,34 +1725,32 @@ uint64_t __76__FSVolumeConnector_setOtherAttributeOf_named_value_requestID_reply
 
   else
   {
-    v24 = fskit_std_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = fskit_std_log(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector createIn:named:type:attributes:requestID:replyHandler:];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 70, 0, 0, 0, 0);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = v9;
   if (v9)
   {
-    v11 = [v9 fs_posixCode];
-    if (v11)
+    v9 = [v9 fs_posixCode];
+    if (v9)
     {
-      if (v11 == 17)
+      if (v9 == 17)
       {
-        v12 = fskit_std_log();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v11 = fskit_std_log(v9);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandler___block_invoke_cold_1(v10);
         }
@@ -1762,51 +1758,50 @@ void __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandl
 
       else
       {
-        v12 = fskit_std_log();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v11 = fskit_std_log(v9);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
-          v16 = [v10 description];
+          v15 = [v10 description];
           *buf = 136315394;
-          v24 = "[FSVolumeConnector createIn:named:type:attributes:requestID:replyHandler:]_block_invoke";
-          v25 = 2112;
-          v26 = v16;
-          _os_log_impl(&dword_24A929000, v12, OS_LOG_TYPE_INFO, "%s:error:%@", buf, 0x16u);
+          v22 = "[FSVolumeConnector createIn:named:type:attributes:requestID:replyHandler:]_block_invoke";
+          v23 = 2112;
+          v24 = v15;
+          _os_log_impl(&dword_24A929000, v11, OS_LOG_TYPE_INFO, "%s:error:%@", buf, 0x16u);
         }
       }
 
-      v15 = *(*(a1 + 56) + 16);
+      v14 = *(*(a1 + 56) + 16);
 LABEL_14:
-      v15();
+      v14();
       goto LABEL_15;
     }
   }
 
   if (!v7)
   {
-    v14 = fskit_std_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v13 = fskit_std_log(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandler___block_invoke_cold_2();
     }
 
-    v15 = *(*(a1 + 56) + 16);
+    v14 = *(*(a1 + 56) + 16);
     goto LABEL_14;
   }
 
-  v13 = *(a1 + 32);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandler___block_invoke_396;
-  v18[3] = &unk_278FED9B0;
-  v18[4] = v13;
-  v19 = *(a1 + 40);
-  v20 = *(a1 + 48);
-  v21 = v7;
-  v22 = *(a1 + 56);
-  [v13 getStandardItemAttributesDataForNewItem:v21 replyHandler:v18];
+  v12 = *(a1 + 32);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandler___block_invoke_396;
+  v16[3] = &unk_278FED9B0;
+  v16[4] = v12;
+  v17 = *(a1 + 40);
+  v18 = *(a1 + 48);
+  v19 = v7;
+  v20 = *(a1 + 56);
+  [v12 getStandardItemAttributesDataForNewItem:v19 replyHandler:v16];
 
 LABEL_15:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandler___block_invoke_396(uint64_t a1, void *a2)
@@ -1853,26 +1848,27 @@ void __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandl
 {
   v3 = a2;
   [*(a1 + 32) insertIntoFHCache:*(a1 + 40)];
-  if ([*(a1 + 32) spotlightIsEnabled] && *(a1 + 48))
+  v4 = [*(a1 + 32) spotlightIsEnabled];
+  if (v4 && *(a1 + 48))
   {
-    v4 = fskit_std_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = fskit_std_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandler___block_invoke_3_cold_1();
     }
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandler___block_invoke_397;
-  v7[3] = &unk_278FED988;
-  v5 = *(a1 + 56);
-  v11 = *(a1 + 64);
-  v8 = v3;
-  v9 = *(a1 + 40);
-  v10 = *(a1 + 48);
-  v6 = v3;
-  [v5 getFreeSpaceInVolumeWithReplyHandler:v7];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandler___block_invoke_397;
+  v8[3] = &unk_278FED988;
+  v6 = *(a1 + 56);
+  v12 = *(a1 + 64);
+  v9 = v3;
+  v10 = *(a1 + 40);
+  v11 = *(a1 + 48);
+  v7 = v3;
+  [v6 getFreeSpaceInVolumeWithReplyHandler:v8];
 }
 
 void __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandler___block_invoke_397(void *a1, void *a2)
@@ -1896,7 +1892,8 @@ void __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandl
   v16 = v15;
   if (v15)
   {
-    if ([v15 type] == 2)
+    type = [v15 type];
+    if (type == 2)
     {
       *buf = 0;
       *&buf[8] = buf;
@@ -1910,29 +1907,29 @@ void __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandl
       aBlock[3] = &unk_278FEDB18;
       v31 = handlerCopy;
       aBlock[4] = self;
-      v17 = v14;
-      v28 = v17;
+      v18 = v14;
+      v28 = v18;
       v32 = buf;
       flagsCopy = flags;
-      v18 = nameCopy;
-      v29 = v18;
-      v19 = v16;
-      v30 = v19;
-      v20 = _Block_copy(aBlock);
-      if ((flags & 0x10000000) != 0 && [(FSModuleVolume *)v17 supportsKOIOOps])
+      v19 = nameCopy;
+      v29 = v19;
+      v20 = v16;
+      v30 = v20;
+      v21 = _Block_copy(aBlock);
+      if ((flags & 0x10000000) != 0 && [(FSModuleVolume *)v18 supportsKOIOOps])
       {
-        v21 = [[FSExtentPacker alloc] initWithExtentCount:2];
-        v22 = *(*&buf[8] + 40);
-        *(*&buf[8] + 40) = v21;
+        v22 = [[FSExtentPacker alloc] initWithExtentCount:2];
+        v23 = *(*&buf[8] + 40);
+        *(*&buf[8] + 40) = v22;
 
-        volume = [(FSModuleVolume *)v17 volume];
-        [volume lookupItemNamed:v18 inDirectory:v19 packer:*(*&buf[8] + 40) replyHandler:v20];
+        volume = [(FSModuleVolume *)v18 volume];
+        [volume lookupItemNamed:v19 inDirectory:v20 packer:*(*&buf[8] + 40) replyHandler:v21];
       }
 
       else
       {
-        volume = [(FSModuleVolume *)v17 volume];
-        [volume lookupItemNamed:v18 inDirectory:v19 replyHandler:v20];
+        volume = [(FSModuleVolume *)v18 volume];
+        [volume lookupItemNamed:v19 inDirectory:v20 replyHandler:v21];
       }
 
       _Block_object_dispose(buf, 8);
@@ -1940,8 +1937,8 @@ void __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandl
 
     else
     {
-      v25 = fskit_std_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      v26 = fskit_std_log(type);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
         *&buf[4] = "[FSVolumeConnector lookupIn:name:flags:requestID:replyHandler:]";
@@ -1949,7 +1946,7 @@ void __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandl
         *&buf[14] = [v16 type];
         *&buf[22] = 1024;
         LODWORD(v35) = 20;
-        _os_log_impl(&dword_24A929000, v25, OS_LOG_TYPE_INFO, "%s: Given parent item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
+        _os_log_impl(&dword_24A929000, v26, OS_LOG_TYPE_INFO, "%s: Given parent item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
       }
 
       (*(handlerCopy + 2))(handlerCopy, 20, 0xFFFFFFFFLL, 0, 0, 0, 0, 0, 0, 0);
@@ -1958,16 +1955,14 @@ void __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandl
 
   else
   {
-    v24 = fskit_std_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = fskit_std_log(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector lookupIn:name:flags:requestID:replyHandler:];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 70, 0xFFFFFFFFLL, 0, 0, 0, 0, 0, 0, 0);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __64__FSVolumeConnector_lookupIn_name_flags_requestID_replyHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -2008,7 +2003,7 @@ void __64__FSVolumeConnector_lookupIn_name_flags_requestID_replyHandler___block_
 
   else
   {
-    v19 = fskit_std_log();
+    v19 = fskit_std_log(0);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
       __64__FSVolumeConnector_lookupIn_name_flags_requestID_replyHandler___block_invoke_cold_1();
@@ -2146,7 +2141,7 @@ void __64__FSVolumeConnector_lookupIn_name_flags_requestID_replyHandler___block_
 
   else
   {
-    v16 = fskit_std_log();
+    v16 = fskit_std_log(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       __64__FSVolumeConnector_lookupIn_name_flags_requestID_replyHandler___block_invoke_4_cold_1();
@@ -2208,7 +2203,7 @@ void __64__FSVolumeConnector_lookupIn_name_flags_requestID_replyHandler___block_
   fromCopy = from;
   namedCopy = named;
   handlerCopy = handler;
-  v18 = fskit_std_log();
+  v18 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316418;
@@ -2234,7 +2229,8 @@ void __64__FSVolumeConnector_lookupIn_name_flags_requestID_replyHandler___block_
     v22 = v21;
     if (v21)
     {
-      if ([v21 type] == 2)
+      type = [v21 type];
+      if (type == 2)
       {
         volume = [(FSModuleVolume *)v19 volume];
         v29[0] = MEMORY[0x277D85DD0];
@@ -2249,17 +2245,17 @@ void __64__FSVolumeConnector_lookupIn_name_flags_requestID_replyHandler___block_
 
       else
       {
-        v26 = fskit_std_log();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+        v27 = fskit_std_log(type);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
-          type = [v22 type];
+          type2 = [v22 type];
           *buf = 136315650;
           v33 = "[FSVolumeConnector removeDirectory:from:named:usingFlags:requestID:replyHandler:]";
           v34 = 2048;
-          v35 = type;
+          v35 = type2;
           v36 = 1024;
           LODWORD(v37) = 20;
-          _os_log_impl(&dword_24A929000, v26, OS_LOG_TYPE_INFO, "%s: Given parent item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
+          _os_log_impl(&dword_24A929000, v27, OS_LOG_TYPE_INFO, "%s: Given parent item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
         }
 
         (*(handlerCopy + 2))(handlerCopy, 20, 0, 0);
@@ -2268,8 +2264,8 @@ void __64__FSVolumeConnector_lookupIn_name_flags_requestID_replyHandler___block_
 
     else
     {
-      v25 = fskit_std_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = fskit_std_log(0);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         [FSVolumeConnector removeDirectory:from:named:usingFlags:requestID:replyHandler:];
       }
@@ -2280,45 +2276,44 @@ void __64__FSVolumeConnector_lookupIn_name_flags_requestID_replyHandler___block_
 
   else
   {
-    v24 = fskit_std_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = fskit_std_log(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector removeDirectory:from:named:usingFlags:requestID:replyHandler:];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 70, 0, 0);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __82__FSVolumeConnector_removeDirectory_from_named_usingFlags_requestID_replyHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = fskit_std_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = fskit_std_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __82__FSVolumeConnector_removeDirectory_from_named_usingFlags_requestID_replyHandler___block_invoke_cold_1(v3);
+      __82__FSVolumeConnector_removeDirectory_from_named_usingFlags_requestID_replyHandler___block_invoke_cold_1(v4);
     }
 
-    (*(*(a1 + 48) + 16))(*(a1 + 48), [v3 fs_posixCode], 0, 0);
+    (*(*(a1 + 48) + 16))(*(a1 + 48), [v4 fs_posixCode], 0, 0);
   }
 
   else
   {
-    v6 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v7 = *(v6 + 48);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __82__FSVolumeConnector_removeDirectory_from_named_usingFlags_requestID_replyHandler___block_invoke_405;
-    v8[3] = &unk_278FED690;
-    v8[4] = v6;
-    v9 = v5;
-    v10 = *(a1 + 48);
-    [v7 enqueue:v8];
+    v7 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v8 = *(v7 + 48);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __82__FSVolumeConnector_removeDirectory_from_named_usingFlags_requestID_replyHandler___block_invoke_405;
+    v9[3] = &unk_278FED690;
+    v9[4] = v7;
+    v10 = v6;
+    v11 = *(a1 + 48);
+    [v8 enqueue:v9];
   }
 }
 
@@ -2357,7 +2352,7 @@ void __82__FSVolumeConnector_removeDirectory_from_named_usingFlags_requestID_rep
   fromCopy = from;
   namedCopy = named;
   handlerCopy = handler;
-  v18 = fskit_std_log();
+  v18 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316418;
@@ -2380,10 +2375,11 @@ void __82__FSVolumeConnector_removeDirectory_from_named_usingFlags_requestID_rep
   v21 = v20;
   if (v20)
   {
-    if ([v20 type] == 2)
+    type = [v20 type];
+    if (type == 2)
     {
-      v22 = [(FSModuleVolume *)v19 getItemForFH:itemCopy];
-      if (v22)
+      v23 = [(FSModuleVolume *)v19 getItemForFH:itemCopy];
+      if (v23)
       {
         volume = [(FSModuleVolume *)v19 volume];
         v29[0] = MEMORY[0x277D85DD0];
@@ -2392,15 +2388,15 @@ void __82__FSVolumeConnector_removeDirectory_from_named_usingFlags_requestID_rep
         v29[3] = &unk_278FEDB90;
         v32 = handlerCopy;
         v29[4] = self;
-        v30 = v22;
+        v30 = v23;
         v31 = v21;
         [volume removeItem:v30 named:namedCopy fromDirectory:v31 replyHandler:v29];
       }
 
       else
       {
-        v27 = fskit_std_log();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v28 = fskit_std_log(0);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           [FSVolumeConnector removeItem:from:named:usingFlags:requestID:replyHandler:];
         }
@@ -2411,17 +2407,17 @@ void __82__FSVolumeConnector_removeDirectory_from_named_usingFlags_requestID_rep
 
     else
     {
-      v25 = fskit_std_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      v26 = fskit_std_log(type);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
-        type = [v21 type];
+        type2 = [v21 type];
         *buf = 136315650;
         v34 = "[FSVolumeConnector removeItem:from:named:usingFlags:requestID:replyHandler:]";
         v35 = 2048;
-        v36 = type;
+        v36 = type2;
         v37 = 1024;
         LODWORD(v38) = 20;
-        _os_log_impl(&dword_24A929000, v25, OS_LOG_TYPE_INFO, "%s: Given parent item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
+        _os_log_impl(&dword_24A929000, v26, OS_LOG_TYPE_INFO, "%s: Given parent item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
       }
 
       (*(handlerCopy + 2))(handlerCopy, 20, 0, 0, 0);
@@ -2430,48 +2426,47 @@ void __82__FSVolumeConnector_removeDirectory_from_named_usingFlags_requestID_rep
 
   else
   {
-    v24 = fskit_std_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = fskit_std_log(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector removeItem:from:named:usingFlags:requestID:replyHandler:];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 70, 0, 0, 0);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __77__FSVolumeConnector_removeItem_from_named_usingFlags_requestID_replyHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = fskit_std_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = fskit_std_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __77__FSVolumeConnector_removeItem_from_named_usingFlags_requestID_replyHandler___block_invoke_cold_1(v3);
+      __77__FSVolumeConnector_removeItem_from_named_usingFlags_requestID_replyHandler___block_invoke_cold_1(v4);
     }
 
-    (*(*(a1 + 56) + 16))(*(a1 + 56), [v3 fs_posixCode], 0, 0, 0);
+    (*(*(a1 + 56) + 16))(*(a1 + 56), [v4 fs_posixCode], 0, 0, 0);
   }
 
   else
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __77__FSVolumeConnector_removeItem_from_named_usingFlags_requestID_replyHandler___block_invoke_406;
-    v11[3] = &unk_278FED0C0;
-    v10 = *(a1 + 32);
-    v5 = *(v10 + 48);
-    v6 = *(&v10 + 1);
-    v7 = *(a1 + 48);
-    v8 = *(a1 + 56);
-    *&v9 = v7;
-    *(&v9 + 1) = v8;
-    v12 = v10;
-    v13 = v9;
-    [v5 enqueue:v11];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __77__FSVolumeConnector_removeItem_from_named_usingFlags_requestID_replyHandler___block_invoke_406;
+    v12[3] = &unk_278FED0C0;
+    v11 = *(a1 + 32);
+    v6 = *(v11 + 48);
+    v7 = *(&v11 + 1);
+    v8 = *(a1 + 48);
+    v9 = *(a1 + 56);
+    *&v10 = v8;
+    *(&v10 + 1) = v9;
+    v13 = v11;
+    v14 = v10;
+    [v6 enqueue:v12];
   }
 }
 
@@ -2541,7 +2536,7 @@ void __77__FSVolumeConnector_removeItem_from_named_usingFlags_requestID_replyHan
 {
   reclaimCopy = reclaim;
   handlerCopy = handler;
-  v9 = fskit_std_log();
+  v9 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [FSVolumeConnector reclaim:requestID:replyHandler:];
@@ -2563,7 +2558,7 @@ void __77__FSVolumeConnector_removeItem_from_named_usingFlags_requestID_replyHan
 
   else
   {
-    v13 = fskit_std_log();
+    v13 = fskit_std_log(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector reclaim:requestID:replyHandler:];
@@ -2577,8 +2572,7 @@ void __52__FSVolumeConnector_reclaim_requestID_replyHandler___block_invoke(uint6
 {
   if (a2)
   {
-    [a2 fs_posixCode];
-    v3 = fskit_std_log();
+    v3 = fskit_std_log([a2 fs_posixCode]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __52__FSVolumeConnector_reclaim_requestID_replyHandler___block_invoke_cold_1();
@@ -2604,7 +2598,7 @@ void __52__FSVolumeConnector_reclaim_requestID_replyHandler___block_invoke(uint6
   v29 = *MEMORY[0x277D85DE8];
   openCopy = open;
   handlerCopy = handler;
-  v12 = fskit_std_log();
+  v12 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
@@ -2619,24 +2613,25 @@ void __52__FSVolumeConnector_reclaim_requestID_replyHandler___block_invoke(uint6
   }
 
   v13 = self->_ourVolume;
-  if ([(FSModuleVolume *)v13 supportsOpenCloseOps])
+  supportsOpenCloseOps = [(FSModuleVolume *)v13 supportsOpenCloseOps];
+  if (supportsOpenCloseOps)
   {
     volume = [(FSModuleVolume *)v13 volume];
-    v15 = [(FSModuleVolume *)v13 getItemForFH:openCopy];
-    if (v15)
+    v16 = [(FSModuleVolume *)v13 getItemForFH:openCopy];
+    if (v16)
     {
       v19[0] = MEMORY[0x277D85DD0];
       v19[1] = 3221225472;
       v19[2] = __58__FSVolumeConnector_open_withMode_requestID_replyHandler___block_invoke;
       v19[3] = &unk_278FECE20;
       v20 = handlerCopy;
-      [volume openItem:v15 withModes:mode replyHandler:v19];
+      [volume openItem:v16 withModes:mode replyHandler:v19];
     }
 
     else
     {
-      v17 = fskit_std_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = fskit_std_log(0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [FSVolumeConnector open:withMode:requestID:replyHandler:];
       }
@@ -2647,24 +2642,21 @@ void __52__FSVolumeConnector_reclaim_requestID_replyHandler___block_invoke(uint6
 
   else
   {
-    v16 = fskit_std_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = fskit_std_log(supportsOpenCloseOps);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector open:withMode:requestID:replyHandler:];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 45);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__FSVolumeConnector_open_withMode_requestID_replyHandler___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    [a2 fs_posixCode];
-    v3 = fskit_std_log();
+    v3 = fskit_std_log([a2 fs_posixCode]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __58__FSVolumeConnector_open_withMode_requestID_replyHandler___block_invoke_cold_1();
@@ -2673,7 +2665,7 @@ uint64_t __58__FSVolumeConnector_open_withMode_requestID_replyHandler___block_in
 
   else
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __58__FSVolumeConnector_open_withMode_requestID_replyHandler___block_invoke_cold_2();
@@ -2688,7 +2680,7 @@ uint64_t __58__FSVolumeConnector_open_withMode_requestID_replyHandler___block_in
   v29 = *MEMORY[0x277D85DE8];
   closeCopy = close;
   handlerCopy = handler;
-  v12 = fskit_std_log();
+  v12 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
@@ -2703,24 +2695,25 @@ uint64_t __58__FSVolumeConnector_open_withMode_requestID_replyHandler___block_in
   }
 
   v13 = self->_ourVolume;
-  if ([(FSModuleVolume *)v13 supportsOpenCloseOps])
+  supportsOpenCloseOps = [(FSModuleVolume *)v13 supportsOpenCloseOps];
+  if (supportsOpenCloseOps)
   {
     volume = [(FSModuleVolume *)v13 volume];
-    v15 = [(FSModuleVolume *)v13 getItemForFH:closeCopy];
-    if (v15)
+    v16 = [(FSModuleVolume *)v13 getItemForFH:closeCopy];
+    if (v16)
     {
       v19[0] = MEMORY[0x277D85DD0];
       v19[1] = 3221225472;
       v19[2] = __62__FSVolumeConnector_close_keepingMode_requestID_replyHandler___block_invoke;
       v19[3] = &unk_278FECE20;
       v20 = handlerCopy;
-      [volume closeItem:v15 keepingModes:mode replyHandler:v19];
+      [volume closeItem:v16 keepingModes:mode replyHandler:v19];
     }
 
     else
     {
-      v17 = fskit_std_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = fskit_std_log(0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [FSVolumeConnector close:keepingMode:requestID:replyHandler:];
       }
@@ -2731,24 +2724,21 @@ uint64_t __58__FSVolumeConnector_open_withMode_requestID_replyHandler___block_in
 
   else
   {
-    v16 = fskit_std_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = fskit_std_log(supportsOpenCloseOps);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector close:keepingMode:requestID:replyHandler:];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 45);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __62__FSVolumeConnector_close_keepingMode_requestID_replyHandler___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    [a2 fs_posixCode];
-    v3 = fskit_std_log();
+    v3 = fskit_std_log([a2 fs_posixCode]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __62__FSVolumeConnector_close_keepingMode_requestID_replyHandler___block_invoke_cold_1();
@@ -2757,7 +2747,7 @@ uint64_t __62__FSVolumeConnector_close_keepingMode_requestID_replyHandler___bloc
 
   else
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __62__FSVolumeConnector_close_keepingMode_requestID_replyHandler___block_invoke_cold_2();
@@ -2769,79 +2759,81 @@ uint64_t __62__FSVolumeConnector_close_keepingMode_requestID_replyHandler___bloc
 
 - (void)writeTo:(id)to atOffset:(unint64_t)offset fromBuffer:(id)buffer requestID:(unint64_t)d replyHandler:(id)handler
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   toCopy = to;
   bufferCopy = buffer;
   handlerCopy = handler;
-  v15 = fskit_std_log();
+  v15 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316162;
-    v30 = "[FSVolumeConnector writeTo:atOffset:fromBuffer:requestID:replyHandler:]";
-    v31 = 2112;
-    v32 = toCopy;
-    v33 = 2048;
+    v31 = "[FSVolumeConnector writeTo:atOffset:fromBuffer:requestID:replyHandler:]";
+    v32 = 2112;
+    v33 = toCopy;
+    v34 = 2048;
     offsetCopy = offset;
-    v35 = 2112;
-    v36 = bufferCopy;
-    v37 = 2048;
+    v36 = 2112;
+    v37 = bufferCopy;
+    v38 = 2048;
     dCopy = d;
     _os_log_debug_impl(&dword_24A929000, v15, OS_LOG_TYPE_DEBUG, "%s:start:theFile:%@:atOffset:%llu:buffer:%@:reqID:%llu", buf, 0x34u);
   }
 
   v16 = self->_ourVolume;
-  if ([(FSModuleVolume *)v16 supportsReadWriteOps])
+  supportsReadWriteOps = [(FSModuleVolume *)v16 supportsReadWriteOps];
+  if (supportsReadWriteOps)
   {
     volume = [(FSModuleVolume *)v16 volume];
-    v18 = [(FSModuleVolume *)v16 getItemForFH:toCopy];
-    v19 = v18;
-    if (v18)
+    v19 = [(FSModuleVolume *)v16 getItemForFH:toCopy];
+    v20 = v19;
+    if (v19)
     {
-      if ([v18 type] == 1)
+      if ([v19 type] == 1)
       {
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __72__FSVolumeConnector_writeTo_atOffset_fromBuffer_requestID_replyHandler___block_invoke;
-        v26[3] = &unk_278FEDC30;
-        v28 = handlerCopy;
-        v26[4] = self;
-        v27 = v19;
-        [volume writeContents:bufferCopy toFile:v27 atOffset:offset replyHandler:v26];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __72__FSVolumeConnector_writeTo_atOffset_fromBuffer_requestID_replyHandler___block_invoke;
+        v27[3] = &unk_278FEDC30;
+        v29 = handlerCopy;
+        v27[4] = self;
+        v28 = v20;
+        [volume writeContents:bufferCopy toFile:v28 atOffset:offset replyHandler:v27];
       }
 
       else
       {
-        if ([v19 type] == 2)
+        type = [v20 type];
+        if (type == 2)
         {
-          v22 = 21;
+          v24 = 21;
         }
 
         else
         {
-          v22 = 22;
+          v24 = 22;
         }
 
-        v23 = fskit_std_log();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        v25 = fskit_std_log(type);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
-          type = [v19 type];
+          type2 = [v20 type];
           *buf = 136315650;
-          v30 = "[FSVolumeConnector writeTo:atOffset:fromBuffer:requestID:replyHandler:]";
-          v31 = 2048;
-          v32 = type;
-          v33 = 1024;
-          LODWORD(offsetCopy) = v22;
-          _os_log_impl(&dword_24A929000, v23, OS_LOG_TYPE_INFO, "%s: Given item is not a file (type = %lu). Error = %d.", buf, 0x1Cu);
+          v31 = "[FSVolumeConnector writeTo:atOffset:fromBuffer:requestID:replyHandler:]";
+          v32 = 2048;
+          v33 = type2;
+          v34 = 1024;
+          LODWORD(offsetCopy) = v24;
+          _os_log_impl(&dword_24A929000, v25, OS_LOG_TYPE_INFO, "%s: Given item is not a file (type = %lu). Error = %d.", buf, 0x1Cu);
         }
 
-        (*(handlerCopy + 2))(handlerCopy, v22, 0, 0, 0);
+        (*(handlerCopy + 2))(handlerCopy, v24, 0, 0, 0);
       }
     }
 
     else
     {
-      v21 = fskit_std_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v22 = fskit_std_log(0);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [FSVolumeConnector writeTo:atOffset:fromBuffer:requestID:replyHandler:];
       }
@@ -2852,24 +2844,21 @@ uint64_t __62__FSVolumeConnector_close_keepingMode_requestID_replyHandler___bloc
 
   else
   {
-    v20 = fskit_std_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = fskit_std_log(supportsReadWriteOps);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector writeTo:atOffset:fromBuffer:requestID:replyHandler:];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 45, 0, 0, 0);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __72__FSVolumeConnector_writeTo_atOffset_fromBuffer_requestID_replyHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   if (a3)
   {
-    [a3 fs_posixCode];
-    v4 = fskit_std_log();
+    v4 = fskit_std_log([a3 fs_posixCode]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __72__FSVolumeConnector_writeTo_atOffset_fromBuffer_requestID_replyHandler___block_invoke_cold_1();
@@ -2880,7 +2869,7 @@ void __72__FSVolumeConnector_writeTo_atOffset_fromBuffer_requestID_replyHandler_
 
   else
   {
-    v6 = fskit_std_log();
+    v6 = fskit_std_log(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       __72__FSVolumeConnector_writeTo_atOffset_fromBuffer_requestID_replyHandler___block_invoke_cold_2();
@@ -2936,81 +2925,83 @@ void __72__FSVolumeConnector_writeTo_atOffset_fromBuffer_requestID_replyHandler_
 
 - (void)readFrom:(id)from atOffset:(unint64_t)offset intoBuffer:(id)buffer requestID:(unint64_t)d replyHandler:(id)handler
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   bufferCopy = buffer;
   handlerCopy = handler;
-  v15 = fskit_std_log();
+  v15 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316162;
-    v33 = "[FSVolumeConnector readFrom:atOffset:intoBuffer:requestID:replyHandler:]";
-    v34 = 2112;
-    v35 = fromCopy;
-    v36 = 2048;
+    v34 = "[FSVolumeConnector readFrom:atOffset:intoBuffer:requestID:replyHandler:]";
+    v35 = 2112;
+    v36 = fromCopy;
+    v37 = 2048;
     offsetCopy = offset;
-    v38 = 2112;
-    v39 = bufferCopy;
-    v40 = 2048;
+    v39 = 2112;
+    v40 = bufferCopy;
+    v41 = 2048;
     dCopy = d;
     _os_log_debug_impl(&dword_24A929000, v15, OS_LOG_TYPE_DEBUG, "%s:start:theFile:%@:atOffset:%llu:buffer:%@:reqID:%llu", buf, 0x34u);
   }
 
   v16 = self->_ourVolume;
-  if ([(FSModuleVolume *)v16 supportsReadWriteOps])
+  supportsReadWriteOps = [(FSModuleVolume *)v16 supportsReadWriteOps];
+  if (supportsReadWriteOps)
   {
     volume = [(FSModuleVolume *)v16 volume];
-    v18 = [(FSModuleVolume *)v16 getItemForFH:fromCopy];
-    v19 = v18;
-    if (v18)
+    v19 = [(FSModuleVolume *)v16 getItemForFH:fromCopy];
+    v20 = v19;
+    if (v19)
     {
-      if ([v18 type] == 1)
+      if ([v19 type] == 1)
       {
-        v20 = [bufferCopy length];
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __73__FSVolumeConnector_readFrom_atOffset_intoBuffer_requestID_replyHandler___block_invoke;
-        v27[3] = &unk_278FEDC80;
-        v28 = bufferCopy;
-        v31 = handlerCopy;
+        v21 = [bufferCopy length];
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __73__FSVolumeConnector_readFrom_atOffset_intoBuffer_requestID_replyHandler___block_invoke;
+        v28[3] = &unk_278FEDC80;
+        v29 = bufferCopy;
+        v32 = handlerCopy;
         selfCopy = self;
-        v30 = v19;
-        [volume readFromFile:v30 offset:offset length:v20 intoBuffer:v28 replyHandler:v27];
+        v31 = v20;
+        [volume readFromFile:v31 offset:offset length:v21 intoBuffer:v29 replyHandler:v28];
       }
 
       else
       {
-        if ([v19 type] == 2)
+        type = [v20 type];
+        if (type == 2)
         {
-          v23 = 21;
+          v25 = 21;
         }
 
         else
         {
-          v23 = 22;
+          v25 = 22;
         }
 
-        v24 = fskit_std_log();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+        v26 = fskit_std_log(type);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
-          type = [v19 type];
+          type2 = [v20 type];
           *buf = 136315650;
-          v33 = "[FSVolumeConnector readFrom:atOffset:intoBuffer:requestID:replyHandler:]";
-          v34 = 2048;
-          v35 = type;
-          v36 = 1024;
-          LODWORD(offsetCopy) = v23;
-          _os_log_impl(&dword_24A929000, v24, OS_LOG_TYPE_INFO, "%s: Given item is not a file (type = %lu). Error = %d.", buf, 0x1Cu);
+          v34 = "[FSVolumeConnector readFrom:atOffset:intoBuffer:requestID:replyHandler:]";
+          v35 = 2048;
+          v36 = type2;
+          v37 = 1024;
+          LODWORD(offsetCopy) = v25;
+          _os_log_impl(&dword_24A929000, v26, OS_LOG_TYPE_INFO, "%s: Given item is not a file (type = %lu). Error = %d.", buf, 0x1Cu);
         }
 
-        (*(handlerCopy + 2))(handlerCopy, v23, 0, 0);
+        (*(handlerCopy + 2))(handlerCopy, v25, 0, 0);
       }
     }
 
     else
     {
-      v22 = fskit_std_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = fskit_std_log(0);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         [FSVolumeConnector readFrom:atOffset:intoBuffer:requestID:replyHandler:];
       }
@@ -3021,24 +3012,21 @@ void __72__FSVolumeConnector_writeTo_atOffset_fromBuffer_requestID_replyHandler_
 
   else
   {
-    v21 = fskit_std_log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = fskit_std_log(supportsReadWriteOps);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector readFrom:atOffset:intoBuffer:requestID:replyHandler:];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 45, 0, 0);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __73__FSVolumeConnector_readFrom_atOffset_intoBuffer_requestID_replyHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   if (a3)
   {
-    [a3 fs_posixCode];
-    v4 = fskit_std_log();
+    v4 = fskit_std_log([a3 fs_posixCode]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __73__FSVolumeConnector_readFrom_atOffset_intoBuffer_requestID_replyHandler___block_invoke_cold_1();
@@ -3049,7 +3037,7 @@ void __73__FSVolumeConnector_readFrom_atOffset_intoBuffer_requestID_replyHandler
 
   else
   {
-    v6 = fskit_std_log();
+    v6 = fskit_std_log(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       __73__FSVolumeConnector_readFrom_atOffset_intoBuffer_requestID_replyHandler___block_invoke_cold_2();
@@ -3087,20 +3075,20 @@ void __73__FSVolumeConnector_readFrom_atOffset_intoBuffer_requestID_replyHandler
 
 - (void)setFileAttributesOf:(id)of to:(id)to requestID:(unint64_t)d replyHandler:(id)handler
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   ofCopy = of;
   toCopy = to;
   handlerCopy = handler;
-  v13 = fskit_std_log();
+  v13 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v26 = "[FSVolumeConnector setFileAttributesOf:to:requestID:replyHandler:]";
-    v27 = 2112;
-    v28 = ofCopy;
-    v29 = 2112;
-    v30 = toCopy;
-    v31 = 2048;
+    v25 = "[FSVolumeConnector setFileAttributesOf:to:requestID:replyHandler:]";
+    v26 = 2112;
+    v27 = ofCopy;
+    v28 = 2112;
+    v29 = toCopy;
+    v30 = 2048;
     dCopy = d;
     _os_log_debug_impl(&dword_24A929000, v13, OS_LOG_TYPE_DEBUG, "%s:start:theItem:%@:setAttrs:%@:reqID:%llu", buf, 0x2Au);
   }
@@ -3111,21 +3099,21 @@ void __73__FSVolumeConnector_readFrom_atOffset_intoBuffer_requestID_replyHandler
   {
     v16 = [(FSItemAttributes *)FSItemSetAttributesRequest requestWithData:toCopy];
     volume = [(FSModuleVolume *)v14 volume];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __67__FSVolumeConnector_setFileAttributesOf_to_requestID_replyHandler___block_invoke;
-    v21[3] = &unk_278FEDCA8;
-    v24 = handlerCopy;
-    v21[4] = self;
-    v22 = toCopy;
-    v23 = v16;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __67__FSVolumeConnector_setFileAttributesOf_to_requestID_replyHandler___block_invoke;
+    v20[3] = &unk_278FEDCA8;
+    v23 = handlerCopy;
+    v20[4] = self;
+    v21 = toCopy;
+    v22 = v16;
     v18 = v16;
-    [volume setAttributes:v18 onItem:v15 replyHandler:v21];
+    [volume setAttributes:v18 onItem:v15 replyHandler:v20];
   }
 
   else
   {
-    v19 = fskit_std_log();
+    v19 = fskit_std_log(0);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector setFileAttributesOf:to:requestID:replyHandler:];
@@ -3133,8 +3121,6 @@ void __73__FSVolumeConnector_readFrom_atOffset_intoBuffer_requestID_replyHandler
 
     (*(handlerCopy + 2))(handlerCopy, 70, 0, 0, 0);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __67__FSVolumeConnector_setFileAttributesOf_to_requestID_replyHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3144,8 +3130,7 @@ void __67__FSVolumeConnector_setFileAttributesOf_to_requestID_replyHandler___blo
   v7 = v6;
   if (v6)
   {
-    [v6 fs_posixCode];
-    v8 = fskit_std_log();
+    v8 = fskit_std_log([v6 fs_posixCode]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __67__FSVolumeConnector_setFileAttributesOf_to_requestID_replyHandler___block_invoke_cold_1();
@@ -3159,7 +3144,7 @@ LABEL_5:
 
   if (!v5)
   {
-    v12 = fskit_std_log();
+    v12 = fskit_std_log(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       __67__FSVolumeConnector_setFileAttributesOf_to_requestID_replyHandler___block_invoke_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
@@ -3225,7 +3210,7 @@ void __67__FSVolumeConnector_setFileAttributesOf_to_requestID_replyHandler___blo
 
   else
   {
-    v14 = fskit_std_log();
+    v14 = fskit_std_log(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector fileAttributes:requestedAttributes:requestID:replyHandler:];
@@ -3256,7 +3241,7 @@ void __79__FSVolumeConnector_fileAttributes_requestedAttributes_requestID_replyH
 
   else
   {
-    v10 = fskit_std_log();
+    v10 = fskit_std_log(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       __79__FSVolumeConnector_fileAttributes_requestedAttributes_requestID_replyHandler___block_invoke_cold_1(v10, v11, v12, v13, v14, v15, v16, v17);
@@ -3266,28 +3251,104 @@ void __79__FSVolumeConnector_fileAttributes_requestedAttributes_requestID_replyH
   }
 }
 
+- (void)readDirectory:(id)directory withAttr:(BOOL)attr requestedAttributes:(unint64_t)attributes intoBuffer:(id)buffer cookie:(unint64_t)cookie verifier:(unint64_t)verifier requestID:(unint64_t)d replyHandler:(id)self0
+{
+  attrCopy = attr;
+  v37 = *MEMORY[0x277D85DE8];
+  bufferCopy = buffer;
+  handlerCopy = handler;
+  v18 = self->_ourVolume;
+  v19 = [(FSModuleVolume *)v18 getItemForFH:directory];
+  v20 = v19;
+  if (v19)
+  {
+    type = [v19 type];
+    if (type == 2)
+    {
+      if (cookie == -1)
+      {
+        (*(handlerCopy + 2))(handlerCopy, 4294966295, 0, 0);
+      }
+
+      else
+      {
+        if (attrCopy)
+        {
+          v22 = [[FSItemGetAttributesRequest alloc] initWithWantedLIAttributes:attributes];
+          [(FSItemGetAttributesRequest *)v22 setWantedAttributes:[(FSItemGetAttributesRequest *)v22 wantedAttributes]| 1];
+        }
+
+        else
+        {
+          v22 = 0;
+        }
+
+        v25 = [[FSDirectoryEntryPacker alloc] initWithBuffer:bufferCopy withAttributes:attrCopy];
+        volume = [(FSModuleVolume *)v18 volume];
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __114__FSVolumeConnector_readDirectory_withAttr_requestedAttributes_intoBuffer_cookie_verifier_requestID_replyHandler___block_invoke;
+        v28[3] = &unk_278FEDCD0;
+        v29 = v25;
+        v30 = handlerCopy;
+        v27 = v25;
+        [volume enumerateDirectory:v20 startingAtCookie:cookie verifier:verifier providingAttributes:v22 usingPacker:v27 replyHandler:v28];
+      }
+    }
+
+    else
+    {
+      v24 = fskit_std_log(type);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      {
+        *buf = 136315650;
+        v32 = "[FSVolumeConnector readDirectory:withAttr:requestedAttributes:intoBuffer:cookie:verifier:requestID:replyHandler:]";
+        v33 = 2048;
+        type2 = [v20 type];
+        v35 = 1024;
+        v36 = 20;
+        _os_log_impl(&dword_24A929000, v24, OS_LOG_TYPE_INFO, "%s: Given item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
+      }
+
+      (*(handlerCopy + 2))(handlerCopy, 20, 0, 0);
+    }
+  }
+
+  else
+  {
+    v23 = fskit_std_log(0);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      [FSVolumeConnector readDirectory:withAttr:requestedAttributes:intoBuffer:cookie:verifier:requestID:replyHandler:];
+    }
+
+    (*(handlerCopy + 2))(handlerCopy, 70, 0, 0);
+  }
+}
+
 void __114__FSVolumeConnector_readDirectory_withAttr_requestedAttributes_intoBuffer_cookie_verifier_requestID_replyHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
   v6 = (a1 + 32);
-  if (![*(a1 + 32) outOfSpace])
+  v7 = [*(a1 + 32) outOfSpace];
+  if (!v7)
   {
     if (v5)
     {
-      v10 = [v5 domain];
-      if ([v10 isEqualToString:@"FSKitErrorDomain"])
+      v11 = [v5 domain];
+      if ([v11 isEqualToString:@"FSKitErrorDomain"])
       {
-        v11 = [v5 code];
+        v12 = [v5 code];
 
-        if (v11 == 4506)
+        if (v12 == 4506)
         {
-          v12 = fskit_std_log();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v14 = fskit_std_log(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             __114__FSVolumeConnector_readDirectory_withAttr_requestedAttributes_intoBuffer_cookie_verifier_requestID_replyHandler___block_invoke_cold_2();
           }
 
-          v13 = *(*(a1 + 40) + 16);
+          v15 = *(*(a1 + 40) + 16);
           goto LABEL_20;
         }
       }
@@ -3296,51 +3357,50 @@ void __114__FSVolumeConnector_readDirectory_withAttr_requestedAttributes_intoBuf
       {
       }
 
-      [v5 fs_posixCode];
-      v15 = fskit_std_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = fskit_std_log([v5 fs_posixCode]);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         __114__FSVolumeConnector_readDirectory_withAttr_requestedAttributes_intoBuffer_cookie_verifier_requestID_replyHandler___block_invoke_cold_1();
       }
 
-      v13 = *(*(a1 + 40) + 16);
+      v15 = *(*(a1 + 40) + 16);
       goto LABEL_20;
     }
 
     if ([*v6 bytesPacked])
     {
       [*(a1 + 32) setLastEntryAsEOF];
-      v14 = *(a1 + 40);
+      v16 = *(a1 + 40);
       [*(a1 + 32) bytesPacked];
-      v13 = *(v14 + 16);
+      v15 = *(v16 + 16);
     }
 
     else
     {
-      v13 = *(*(a1 + 40) + 16);
+      v15 = *(*(a1 + 40) + 16);
     }
 
 LABEL_20:
-    v13();
+    v15();
     goto LABEL_21;
   }
 
-  v7 = fskit_std_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = fskit_std_log(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     __114__FSVolumeConnector_readDirectory_withAttr_requestedAttributes_intoBuffer_cookie_verifier_requestID_replyHandler___block_invoke_cold_3((a1 + 32));
   }
 
-  v8 = [*(a1 + 32) bytesPacked];
-  v9 = *(a1 + 40);
-  if (v8)
+  v9 = [*(a1 + 32) bytesPacked];
+  v10 = *(a1 + 40);
+  if (v9)
   {
-    (*(v9 + 16))(v9, 0, [*v6 bytesPacked], a2);
+    (*(v10 + 16))(v10, 0, [*v6 bytesPacked], a2);
   }
 
   else
   {
-    (*(v9 + 16))(v9, 4294966295, 0, a2);
+    (*(v10 + 16))(v10, 4294966295, 0, a2);
   }
 
 LABEL_21:
@@ -3375,7 +3435,7 @@ LABEL_21:
   v26 = *MEMORY[0x277D85DE8];
   ofCopy = of;
   handlerCopy = handler;
-  v9 = fskit_std_log();
+  v9 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [FSVolumeConnector readSymbolicLinkOf:requestID:replyHandler:];
@@ -3386,7 +3446,8 @@ LABEL_21:
   v12 = v11;
   if (v11)
   {
-    if ([v11 type] == 3)
+    type = [v11 type];
+    if (type == 3)
     {
       volume = [(FSModuleVolume *)v10 volume];
       v17[0] = MEMORY[0x277D85DD0];
@@ -3401,16 +3462,16 @@ LABEL_21:
 
     else
     {
-      v15 = fskit_std_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v16 = fskit_std_log(type);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
         v21 = "[FSVolumeConnector readSymbolicLinkOf:requestID:replyHandler:]";
         v22 = 2048;
-        type = [v12 type];
+        type2 = [v12 type];
         v24 = 1024;
         v25 = 22;
-        _os_log_impl(&dword_24A929000, v15, OS_LOG_TYPE_INFO, "%s: Given item is not a symlink (type = %lu). Error = %d.", buf, 0x1Cu);
+        _os_log_impl(&dword_24A929000, v16, OS_LOG_TYPE_INFO, "%s: Given item is not a symlink (type = %lu). Error = %d.", buf, 0x1Cu);
       }
 
       (*(handlerCopy + 2))(handlerCopy, 22, 0, 0);
@@ -3419,16 +3480,14 @@ LABEL_21:
 
   else
   {
-    v14 = fskit_std_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = fskit_std_log(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector readSymbolicLinkOf:requestID:replyHandler:];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 70, 0, 0);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __63__FSVolumeConnector_readSymbolicLinkOf_requestID_replyHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3438,8 +3497,7 @@ void __63__FSVolumeConnector_readSymbolicLinkOf_requestID_replyHandler___block_i
   v7 = v6;
   if (v6)
   {
-    [v6 fs_posixCode];
-    v8 = fskit_std_log();
+    v8 = fskit_std_log([v6 fs_posixCode]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __63__FSVolumeConnector_readSymbolicLinkOf_requestID_replyHandler___block_invoke_cold_1();
@@ -3468,7 +3526,7 @@ void __63__FSVolumeConnector_readSymbolicLinkOf_requestID_replyHandler___block_i
       goto LABEL_8;
     }
 
-    v13 = fskit_std_log();
+    v13 = fskit_std_log(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       __63__FSVolumeConnector_readSymbolicLinkOf_requestID_replyHandler___block_invoke_cold_2(v13, v14, v15, v16, v17, v18, v19, v20);
@@ -3497,7 +3555,7 @@ void __63__FSVolumeConnector_readSymbolicLinkOf_requestID_replyHandler___block_i
 void __63__FSVolumeConnector_readSymbolicLinkOf_requestID_replyHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = fskit_std_log();
+  v4 = fskit_std_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __63__FSVolumeConnector_readSymbolicLinkOf_requestID_replyHandler___block_invoke_2_cold_1(a1, v3, v4);
@@ -3516,7 +3574,7 @@ void __63__FSVolumeConnector_readSymbolicLinkOf_requestID_replyHandler___block_i
   contentsCopy = contents;
   attributesCopy = attributes;
   handlerCopy = handler;
-  v19 = fskit_std_log();
+  v19 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316418;
@@ -3539,12 +3597,13 @@ void __63__FSVolumeConnector_readSymbolicLinkOf_requestID_replyHandler___block_i
   v22 = v21;
   if (v21)
   {
-    if ([v21 type] == 2)
+    type = [v21 type];
+    if (type == 2)
     {
       [(FSItemAttributes *)FSItemSetAttributesRequest requestWithData:attributesCopy];
-      v24 = v23 = namedCopy;
+      v25 = v24 = namedCopy;
       v31 = contentsCopy;
-      v25 = [[FSFileName alloc] initWithData:contentsCopy];
+      v26 = [[FSFileName alloc] initWithData:contentsCopy];
       volume = [(FSModuleVolume *)v20 volume];
       v32[0] = MEMORY[0x277D85DD0];
       v32[1] = 3221225472;
@@ -3554,25 +3613,25 @@ void __63__FSVolumeConnector_readSymbolicLinkOf_requestID_replyHandler___block_i
       v32[4] = self;
       v33 = v22;
       v34 = v20;
-      [volume createSymbolicLinkNamed:v23 inDirectory:v33 attributes:v24 linkContents:v25 replyHandler:v32];
+      [volume createSymbolicLinkNamed:v24 inDirectory:v33 attributes:v25 linkContents:v26 replyHandler:v32];
 
       contentsCopy = v31;
-      namedCopy = v23;
+      namedCopy = v24;
     }
 
     else
     {
-      v28 = fskit_std_log();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      v29 = fskit_std_log(type);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
-        type = [v22 type];
+        type2 = [v22 type];
         *buf = 136315650;
         v37 = "[FSVolumeConnector makeSymlinkIn:named:contents:attributes:requestID:replyHandler:]";
         v38 = 2048;
-        v39 = type;
+        v39 = type2;
         v40 = 1024;
         LODWORD(v41) = 20;
-        _os_log_impl(&dword_24A929000, v28, OS_LOG_TYPE_INFO, "%s: Given parent item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
+        _os_log_impl(&dword_24A929000, v29, OS_LOG_TYPE_INFO, "%s: Given parent item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
       }
 
       (*(handlerCopy + 2))(handlerCopy, 20, 0, 0, 0, 0);
@@ -3581,35 +3640,33 @@ void __63__FSVolumeConnector_readSymbolicLinkOf_requestID_replyHandler___block_i
 
   else
   {
-    v27 = fskit_std_log();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = fskit_std_log(0);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector makeSymlinkIn:named:contents:attributes:requestID:replyHandler:];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 70, 0, 0, 0, 0);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_replyHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = v9;
   if (v9)
   {
-    v11 = [v9 fs_posixCode];
-    v12 = v11;
-    if (v11)
+    v9 = [v9 fs_posixCode];
+    v11 = v9;
+    if (v9)
     {
-      if (v11 == 17)
+      if (v9 == 17)
       {
-        v13 = fskit_std_log();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v12 = fskit_std_log(v9);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_replyHandler___block_invoke_cold_1();
         }
@@ -3617,51 +3674,50 @@ void __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_r
 
       else
       {
-        v13 = fskit_std_log();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v12 = fskit_std_log(v9);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v25 = "[FSVolumeConnector makeSymlinkIn:named:contents:attributes:requestID:replyHandler:]_block_invoke";
-          v26 = 1024;
-          v27 = v12;
-          _os_log_impl(&dword_24A929000, v13, OS_LOG_TYPE_INFO, "%s:reply:error:%d", buf, 0x12u);
+          v23 = "[FSVolumeConnector makeSymlinkIn:named:contents:attributes:requestID:replyHandler:]_block_invoke";
+          v24 = 1024;
+          v25 = v11;
+          _os_log_impl(&dword_24A929000, v12, OS_LOG_TYPE_INFO, "%s:reply:error:%d", buf, 0x12u);
         }
       }
 
-      v17 = *(*(a1 + 56) + 16);
+      v16 = *(*(a1 + 56) + 16);
 LABEL_14:
-      v17();
+      v16();
       goto LABEL_15;
     }
   }
 
   if (!v7)
   {
-    v16 = fskit_std_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v15 = fskit_std_log(v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_replyHandler___block_invoke_cold_2();
     }
 
-    v17 = *(*(a1 + 56) + 16);
+    v16 = *(*(a1 + 56) + 16);
     goto LABEL_14;
   }
 
-  v14 = *(a1 + 32);
-  v15 = *(v14 + 48);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_replyHandler___block_invoke_414;
-  v19[3] = &unk_278FEDD48;
-  v19[4] = v14;
-  v20 = v7;
-  v21 = *(a1 + 40);
-  v22 = *(a1 + 48);
-  v23 = *(a1 + 56);
-  [v15 enqueue:v19];
+  v13 = *(a1 + 32);
+  v14 = *(v13 + 48);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_replyHandler___block_invoke_414;
+  v17[3] = &unk_278FEDD48;
+  v17[4] = v13;
+  v18 = v7;
+  v19 = *(a1 + 40);
+  v20 = *(a1 + 48);
+  v21 = *(a1 + 56);
+  [v14 enqueue:v17];
 
 LABEL_15:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_replyHandler___block_invoke_414(uint64_t a1)
@@ -3727,38 +3783,35 @@ void __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_r
 
 void __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_replyHandler___block_invoke_4(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  [*(a1 + 32) insertIntoFHCache:*(a1 + 40)];
-  v4 = fskit_std_log();
+  v4 = fskit_std_log([*(a1 + 32) insertIntoFHCache:*(a1 + 40)]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v8 = [*(a1 + 40) fileHandle];
-    v9 = *(a1 + 48);
+    v7 = [*(a1 + 40) fileHandle];
+    v8 = *(a1 + 48);
     *buf = 136315906;
-    v16 = "[FSVolumeConnector makeSymlinkIn:named:contents:attributes:requestID:replyHandler:]_block_invoke_4";
-    v17 = 2112;
-    v18 = v3;
-    v19 = 2112;
-    v20 = v8;
-    v21 = 2112;
-    v22 = v9;
+    v15 = "[FSVolumeConnector makeSymlinkIn:named:contents:attributes:requestID:replyHandler:]_block_invoke_4";
+    v16 = 2112;
+    v17 = v3;
+    v18 = 2112;
+    v19 = v7;
+    v20 = 2112;
+    v21 = v8;
     _os_log_debug_impl(&dword_24A929000, v4, OS_LOG_TYPE_DEBUG, "%s:reply:error:0:directoryAttrs:%@:theItem:%@:theAttrs:%@", buf, 0x2Au);
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_replyHandler___block_invoke_415;
-  v10[3] = &unk_278FED988;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_replyHandler___block_invoke_415;
+  v9[3] = &unk_278FED988;
   v5 = *(a1 + 56);
-  v14 = *(a1 + 64);
-  v11 = v3;
-  v12 = *(a1 + 40);
-  v13 = *(a1 + 48);
+  v13 = *(a1 + 64);
+  v10 = v3;
+  v11 = *(a1 + 40);
+  v12 = *(a1 + 48);
   v6 = v3;
-  [v5 getFreeSpaceInVolumeWithReplyHandler:v10];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [v5 getFreeSpaceInVolumeWithReplyHandler:v9];
 }
 
 void __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_replyHandler___block_invoke_415(void *a1, void *a2)
@@ -3778,7 +3831,7 @@ void __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_r
   namedCopy = named;
   directoryCopy = directory;
   handlerCopy = handler;
-  v16 = fskit_std_log();
+  v16 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316162;
@@ -3802,7 +3855,8 @@ void __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_r
     v20 = v19;
     if (v19)
     {
-      if ([v19 type] == 2)
+      type = [v19 type];
+      if (type == 2)
       {
         volume = [(FSModuleVolume *)v17 volume];
         v27[0] = MEMORY[0x277D85DD0];
@@ -3818,17 +3872,17 @@ void __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_r
 
       else
       {
-        v24 = fskit_std_log();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+        v25 = fskit_std_log(type);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
-          type = [v20 type];
+          type2 = [v20 type];
           *buf = 136315650;
           v32 = "[FSVolumeConnector makeLinkOf:named:inDirectory:requestID:replyHandler:]";
           v33 = 2048;
-          v34 = type;
+          v34 = type2;
           v35 = 1024;
           LODWORD(v36) = 20;
-          _os_log_impl(&dword_24A929000, v24, OS_LOG_TYPE_INFO, "%s: Given parent item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
+          _os_log_impl(&dword_24A929000, v25, OS_LOG_TYPE_INFO, "%s: Given parent item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
         }
 
         (*(handlerCopy + 2))(handlerCopy, 20, 0, 0, 0);
@@ -3837,8 +3891,8 @@ void __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_r
 
     else
     {
-      v23 = fskit_std_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v24 = fskit_std_log(0);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [FSVolumeConnector makeLinkOf:named:inDirectory:requestID:replyHandler:];
       }
@@ -3849,16 +3903,14 @@ void __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_r
 
   else
   {
-    v22 = fskit_std_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = fskit_std_log(0);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector makeLinkOf:named:inDirectory:requestID:replyHandler:];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 70, 0, 0, 0);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __73__FSVolumeConnector_makeLinkOf_named_inDirectory_requestID_replyHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3868,8 +3920,7 @@ void __73__FSVolumeConnector_makeLinkOf_named_inDirectory_requestID_replyHandler
   v7 = v6;
   if (v6)
   {
-    [v6 fs_posixCode];
-    v8 = fskit_std_log();
+    v8 = fskit_std_log([v6 fs_posixCode]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __73__FSVolumeConnector_makeLinkOf_named_inDirectory_requestID_replyHandler___block_invoke_cold_1();
@@ -3900,7 +3951,7 @@ void __73__FSVolumeConnector_makeLinkOf_named_inDirectory_requestID_replyHandler
       goto LABEL_8;
     }
 
-    v15 = fskit_std_log();
+    v15 = fskit_std_log(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       __73__FSVolumeConnector_makeLinkOf_named_inDirectory_requestID_replyHandler___block_invoke_cold_2(v15, v16, v17, v18, v19, v20, v21, v22);
@@ -3981,7 +4032,7 @@ void __73__FSVolumeConnector_makeLinkOf_named_inDirectory_requestID_replyHandler
   ofCopy = of;
   namedCopy = named;
   handlerCopy = handler;
-  v13 = fskit_std_log();
+  v13 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
@@ -3996,24 +4047,25 @@ void __73__FSVolumeConnector_makeLinkOf_named_inDirectory_requestID_replyHandler
   }
 
   v14 = self->_ourVolume;
-  if ([(FSModuleVolume *)v14 supportsXattrOps])
+  supportsXattrOps = [(FSModuleVolume *)v14 supportsXattrOps];
+  if (supportsXattrOps)
   {
     volume = [(FSModuleVolume *)v14 volume];
-    v16 = [(FSModuleVolume *)v14 getItemForFH:ofCopy];
-    if (v16)
+    v17 = [(FSModuleVolume *)v14 getItemForFH:ofCopy];
+    if (v17)
     {
       v20[0] = MEMORY[0x277D85DD0];
       v20[1] = 3221225472;
       v20[2] = __58__FSVolumeConnector_xattrOf_named_requestID_replyHandler___block_invoke;
       v20[3] = &unk_278FEDD98;
       v21 = handlerCopy;
-      [volume getXattrNamed:namedCopy ofItem:v16 replyHandler:v20];
+      [volume getXattrNamed:namedCopy ofItem:v17 replyHandler:v20];
     }
 
     else
     {
-      v18 = fskit_std_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = fskit_std_log(0);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [FSVolumeConnector xattrOf:named:requestID:replyHandler:];
       }
@@ -4024,16 +4076,14 @@ void __73__FSVolumeConnector_makeLinkOf_named_inDirectory_requestID_replyHandler
 
   else
   {
-    v17 = fskit_std_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = fskit_std_log(supportsXattrOps);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector xattrOf:named:requestID:replyHandler:];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 45, 0);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __58__FSVolumeConnector_xattrOf_named_requestID_replyHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -4043,8 +4093,7 @@ void __58__FSVolumeConnector_xattrOf_named_requestID_replyHandler___block_invoke
   v7 = v6;
   if (v6)
   {
-    [v6 fs_posixCode];
-    v8 = fskit_std_log();
+    v8 = fskit_std_log([v6 fs_posixCode]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __58__FSVolumeConnector_xattrOf_named_requestID_replyHandler___block_invoke_cold_1();
@@ -4055,7 +4104,7 @@ void __58__FSVolumeConnector_xattrOf_named_requestID_replyHandler___block_invoke
 
   else
   {
-    v10 = fskit_std_log();
+    v10 = fskit_std_log(0);
     v11 = v10;
     if (v5)
     {
@@ -4083,7 +4132,7 @@ void __58__FSVolumeConnector_xattrOf_named_requestID_replyHandler___block_invoke
   namedCopy = named;
   valueCopy = value;
   handlerCopy = handler;
-  v18 = fskit_std_log();
+  v18 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316162;
@@ -4100,24 +4149,25 @@ void __58__FSVolumeConnector_xattrOf_named_requestID_replyHandler___block_invoke
   }
 
   v19 = self->_ourVolume;
-  if ([(FSModuleVolume *)v19 supportsXattrOps])
+  supportsXattrOps = [(FSModuleVolume *)v19 supportsXattrOps];
+  if (supportsXattrOps)
   {
     volume = [(FSModuleVolume *)v19 volume];
-    v21 = [(FSModuleVolume *)v19 getItemForFH:ofCopy];
-    if (v21)
+    v22 = [(FSModuleVolume *)v19 getItemForFH:ofCopy];
+    if (v22)
     {
       v25[0] = MEMORY[0x277D85DD0];
       v25[1] = 3221225472;
       v25[2] = __71__FSVolumeConnector_setXattrOf_named_value_how_requestID_replyHandler___block_invoke;
       v25[3] = &unk_278FECE20;
       v26 = handlerCopy;
-      [volume setXattrNamed:namedCopy toData:valueCopy onItem:v21 policy:how replyHandler:v25];
+      [volume setXattrNamed:namedCopy toData:valueCopy onItem:v22 policy:how replyHandler:v25];
     }
 
     else
     {
-      v23 = fskit_std_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v24 = fskit_std_log(0);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [FSVolumeConnector setXattrOf:named:value:how:requestID:replyHandler:];
       }
@@ -4128,24 +4178,21 @@ void __58__FSVolumeConnector_xattrOf_named_requestID_replyHandler___block_invoke
 
   else
   {
-    v22 = fskit_std_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = fskit_std_log(supportsXattrOps);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector setXattrOf:named:value:how:requestID:replyHandler:];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 45);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__FSVolumeConnector_setXattrOf_named_value_how_requestID_replyHandler___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    [a2 fs_posixCode];
-    v3 = fskit_std_log();
+    v3 = fskit_std_log([a2 fs_posixCode]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __71__FSVolumeConnector_setXattrOf_named_value_how_requestID_replyHandler___block_invoke_cold_1();
@@ -4156,10 +4203,9 @@ uint64_t __71__FSVolumeConnector_setXattrOf_named_value_how_requestID_replyHandl
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    return v6();
+    return v5();
   }
 }
 
@@ -4167,31 +4213,32 @@ uint64_t __71__FSVolumeConnector_setXattrOf_named_value_how_requestID_replyHandl
 {
   ofCopy = of;
   handlerCopy = handler;
-  v9 = fskit_std_log();
+  v9 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [FSVolumeConnector listXattrsOf:requestID:replyHandler:];
   }
 
   v10 = self->_ourVolume;
-  if ([(FSModuleVolume *)v10 supportsXattrOps])
+  supportsXattrOps = [(FSModuleVolume *)v10 supportsXattrOps];
+  if (supportsXattrOps)
   {
     volume = [(FSModuleVolume *)v10 volume];
-    v12 = [(FSModuleVolume *)v10 getItemForFH:ofCopy];
-    if (v12)
+    v13 = [(FSModuleVolume *)v10 getItemForFH:ofCopy];
+    if (v13)
     {
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __57__FSVolumeConnector_listXattrsOf_requestID_replyHandler___block_invoke;
-      v15[3] = &unk_278FED020;
-      v16 = handlerCopy;
-      [volume listXattrsOfItem:v12 replyHandler:v15];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __57__FSVolumeConnector_listXattrsOf_requestID_replyHandler___block_invoke;
+      v16[3] = &unk_278FED020;
+      v17 = handlerCopy;
+      [volume listXattrsOfItem:v13 replyHandler:v16];
     }
 
     else
     {
-      v14 = fskit_std_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = fskit_std_log(0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [FSVolumeConnector listXattrsOf:requestID:replyHandler:];
       }
@@ -4202,8 +4249,8 @@ uint64_t __71__FSVolumeConnector_setXattrOf_named_value_how_requestID_replyHandl
 
   else
   {
-    v13 = fskit_std_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = fskit_std_log(supportsXattrOps);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector listXattrsOf:requestID:replyHandler:];
     }
@@ -4219,8 +4266,7 @@ void __57__FSVolumeConnector_listXattrsOf_requestID_replyHandler___block_invoke(
   v7 = v6;
   if (v6)
   {
-    [v6 fs_posixCode];
-    v8 = fskit_std_log();
+    v8 = fskit_std_log([v6 fs_posixCode]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __57__FSVolumeConnector_listXattrsOf_requestID_replyHandler___block_invoke_cold_1();
@@ -4234,7 +4280,7 @@ LABEL_5:
 
   if (!v5)
   {
-    v12 = fskit_std_log();
+    v12 = fskit_std_log(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       __57__FSVolumeConnector_listXattrsOf_requestID_replyHandler___block_invoke_cold_3(v12, v13, v14, v15, v16, v17, v18, v19);
@@ -4245,7 +4291,7 @@ LABEL_5:
   }
 
   v10 = [v5 fs_map:&__block_literal_global_13];
-  v11 = fskit_std_log();
+  v11 = fskit_std_log(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     __57__FSVolumeConnector_listXattrsOf_requestID_replyHandler___block_invoke_cold_2();
@@ -4281,7 +4327,7 @@ LABEL_10:
 {
   mountCopy = mount;
   handlerCopy = handler;
-  v8 = fskit_std_log();
+  v8 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [FSVolumeConnector mount:replyHandler:];
@@ -4302,12 +4348,13 @@ LABEL_10:
 void __40__FSVolumeConnector_mount_replyHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = fskit_std_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = fskit_std_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __40__FSVolumeConnector_mount_replyHandler___block_invoke_cold_1(v3);
+      __40__FSVolumeConnector_mount_replyHandler___block_invoke_cold_1(v4);
     }
   }
 
@@ -4330,7 +4377,7 @@ void __40__FSVolumeConnector_mount_replyHandler___block_invoke(uint64_t a1, void
 - (void)unmount:(id)unmount
 {
   unmountCopy = unmount;
-  v5 = fskit_std_log();
+  v5 = fskit_std_log(unmountCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [FSVolumeConnector unmount:];
@@ -4351,7 +4398,7 @@ void __40__FSVolumeConnector_mount_replyHandler___block_invoke(uint64_t a1, void
 
 uint64_t __29__FSVolumeConnector_unmount___block_invoke(uint64_t a1)
 {
-  v2 = fskit_std_log();
+  v2 = fskit_std_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __29__FSVolumeConnector_unmount___block_invoke_cold_1();
@@ -4361,14 +4408,124 @@ uint64_t __29__FSVolumeConnector_unmount___block_invoke(uint64_t a1)
   return (*(*(a1 + 40) + 16))();
 }
 
+- (void)makeCloneOf:(id)of named:(id)named inDirectory:(id)directory attributes:(id)attributes usingFlags:(unsigned int)flags requestID:(unint64_t)d replyHandler:(id)handler
+{
+  v10 = *&flags;
+  v52 = *MEMORY[0x277D85DE8];
+  ofCopy = of;
+  namedCopy = named;
+  directoryCopy = directory;
+  attributesCopy = attributes;
+  handlerCopy = handler;
+  v20 = fskit_std_log(handlerCopy);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 136316674;
+    v39 = "[FSVolumeConnector makeCloneOf:named:inDirectory:attributes:usingFlags:requestID:replyHandler:]";
+    v40 = 2112;
+    v41 = ofCopy;
+    v42 = 2112;
+    v43 = namedCopy;
+    v44 = 2112;
+    v45 = directoryCopy;
+    v46 = 2112;
+    v47 = attributesCopy;
+    v48 = 1024;
+    v49 = v10;
+    v50 = 2048;
+    dCopy = d;
+    _os_log_debug_impl(&dword_24A929000, v20, OS_LOG_TYPE_DEBUG, "%s:start:sourceFile:%@:name:%@:theDirectory:%@:attributes:%@:flags:%d:reqID:%llu", buf, 0x44u);
+  }
+
+  v21 = self->_ourVolume;
+  supportsCloneOps = [(FSModuleVolume *)v21 supportsCloneOps];
+  if (supportsCloneOps)
+  {
+    volume = [(FSModuleVolume *)v21 volume];
+    v23 = [(FSModuleVolume *)v21 getItemForFH:directoryCopy];
+    v24 = v23;
+    if (v23)
+    {
+      type = [v23 type];
+      if (type == 2)
+      {
+        v26 = [(FSModuleVolume *)v21 getItemForFH:ofCopy];
+        if (v26)
+        {
+          v32 = [(FSItemAttributes *)FSItemSetAttributesRequest requestWithData:attributesCopy];
+          v34[0] = MEMORY[0x277D85DD0];
+          v34[1] = 3221225472;
+          v34[2] = __96__FSVolumeConnector_makeCloneOf_named_inDirectory_attributes_usingFlags_requestID_replyHandler___block_invoke;
+          v34[3] = &unk_278FEDE30;
+          v37 = handlerCopy;
+          v34[4] = self;
+          v35 = v24;
+          v36 = v21;
+          [volume makeCloneOf:v26 inDirectory:v35 named:namedCopy attributes:v32 usingFlags:v10 replyHandler:v34];
+        }
+
+        else
+        {
+          v31 = fskit_std_log(0);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          {
+            [FSVolumeConnector makeCloneOf:named:inDirectory:attributes:usingFlags:requestID:replyHandler:];
+          }
+
+          (*(handlerCopy + 2))(handlerCopy, 70, 0, 0, 0, 0);
+        }
+      }
+
+      else
+      {
+        v29 = fskit_std_log(type);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+        {
+          type2 = [v24 type];
+          *buf = 136315650;
+          v39 = "[FSVolumeConnector makeCloneOf:named:inDirectory:attributes:usingFlags:requestID:replyHandler:]";
+          v40 = 2048;
+          v41 = type2;
+          v42 = 1024;
+          LODWORD(v43) = 20;
+          _os_log_impl(&dword_24A929000, v29, OS_LOG_TYPE_INFO, "%s: Given parent item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
+        }
+
+        (*(handlerCopy + 2))(handlerCopy, 20, 0, 0, 0, 0);
+      }
+    }
+
+    else
+    {
+      v28 = fskit_std_log(0);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      {
+        [FSVolumeConnector makeCloneOf:named:inDirectory:attributes:usingFlags:requestID:replyHandler:];
+      }
+
+      (*(handlerCopy + 2))(handlerCopy, 70, 0, 0, 0, 0);
+    }
+  }
+
+  else
+  {
+    v27 = fskit_std_log(supportsCloneOps);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      [FSVolumeConnector makeCloneOf:named:inDirectory:attributes:usingFlags:requestID:replyHandler:];
+    }
+
+    (*(handlerCopy + 2))(handlerCopy, 45, 0, 0, 0, 0);
+  }
+}
+
 void __96__FSVolumeConnector_makeCloneOf_named_inDirectory_attributes_usingFlags_requestID_replyHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = v5;
   if (a3)
   {
-    [a3 fs_posixCode];
-    v7 = fskit_std_log();
+    v7 = fskit_std_log([a3 fs_posixCode]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __96__FSVolumeConnector_makeCloneOf_named_inDirectory_attributes_usingFlags_requestID_replyHandler___block_invoke_cold_1();
@@ -4486,7 +4643,7 @@ void __96__FSVolumeConnector_makeCloneOf_named_inDirectory_attributes_usingFlags
 - (void)setUpdateInterest:(id)interest interest:(BOOL)a4 requestID:(unint64_t)d replyHandler:(id)handler
 {
   handlerCopy = handler;
-  v7 = fskit_std_log();
+  v7 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [FSVolumeConnector setUpdateInterest:interest:requestID:replyHandler:];
@@ -4499,14 +4656,15 @@ void __96__FSVolumeConnector_makeCloneOf_named_inDirectory_attributes_usingFlags
 - (void)fetchVolumeMachPortLabeled:(id)labeled requestID:(unint64_t)d replyHandler:(id)handler
 {
   handlerCopy = handler;
-  if ([*MEMORY[0x277D23D58] isEqualToString:labeled])
+  v8 = [*MEMORY[0x277D23D58] isEqualToString:labeled];
+  if (v8)
   {
     WeakRetained = objc_loadWeakRetained(&self->_ourConnection);
-    v9 = [WeakRetained valueForEntitlement:@"com.apple.private.LiveFS.setmachport"];
+    v10 = [WeakRetained valueForEntitlement:@"com.apple.private.LiveFS.setmachport"];
 
-    if (v9 && ([v9 BOOLValue] & 1) != 0)
+    if (v10 && (v11 = [v10 BOOLValue], (v11 & 1) != 0))
     {
-      if ([(FSModuleVolume *)self->_ourVolume supportsKOIOOps]|| [(FSModuleVolume *)self->_ourVolume useMetaDataIO])
+      if ([(FSModuleVolume *)self->_ourVolume supportsKOIOOps]|| (v12 = [(FSModuleVolume *)self->_ourVolume useMetaDataIO], (v12 & 1) != 0))
       {
         ourExtension = [(FSModuleVolume *)self->_ourVolume ourExtension];
         getFSMachPort = [ourExtension getFSMachPort];
@@ -4518,8 +4676,8 @@ void __96__FSVolumeConnector_makeCloneOf_named_inDirectory_attributes_usingFlags
 
         else
         {
-          v14 = fskit_std_log();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v18 = fskit_std_log(v15);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             [FSVolumeConnector fetchVolumeMachPortLabeled:requestID:replyHandler:];
           }
@@ -4530,8 +4688,8 @@ void __96__FSVolumeConnector_makeCloneOf_named_inDirectory_attributes_usingFlags
 
       else
       {
-        v15 = fskit_std_log();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v19 = fskit_std_log(v12);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           [FSVolumeConnector fetchVolumeMachPortLabeled:requestID:replyHandler:];
         }
@@ -4542,8 +4700,8 @@ void __96__FSVolumeConnector_makeCloneOf_named_inDirectory_attributes_usingFlags
 
     else
     {
-      v13 = fskit_std_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v17 = fskit_std_log(v11);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [FSVolumeConnector fetchVolumeMachPortLabeled:requestID:replyHandler:];
       }
@@ -4554,8 +4712,8 @@ void __96__FSVolumeConnector_makeCloneOf_named_inDirectory_attributes_usingFlags
 
   else
   {
-    v12 = fskit_std_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = fskit_std_log(v8);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector fetchVolumeMachPortLabeled:requestID:replyHandler:];
     }
@@ -4567,7 +4725,7 @@ void __96__FSVolumeConnector_makeCloneOf_named_inDirectory_attributes_usingFlags
 - (void)parentsAndAttributesForItemsByID:(id)d requestID:(unint64_t)iD replyHandler:(id)handler
 {
   handlerCopy = handler;
-  v6 = fskit_std_log();
+  v6 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [FSVolumeConnector parentsAndAttributesForItemsByID:requestID:replyHandler:];
@@ -4679,7 +4837,7 @@ LABEL_27:
 
 - (void)renameItemIn:(id)in named:(id)named item:(id)item toDirectory:(id)directory newName:(id)name toItem:(id)toItem usingFlags:(unsigned int)flags requestID:(unint64_t)self0 replyHandler:(id)self1
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   inCopy = in;
   namedCopy = named;
   itemCopy = item;
@@ -4692,8 +4850,8 @@ LABEL_27:
   v26 = v25;
   if (!v25)
   {
-    v28 = fskit_std_log();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v29 = fskit_std_log(0);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       [FSVolumeConnector renameItemIn:named:item:toDirectory:newName:toItem:usingFlags:requestID:replyHandler:];
     }
@@ -4701,20 +4859,21 @@ LABEL_27:
     goto LABEL_9;
   }
 
-  if ([v25 type] == 2)
+  type = [v25 type];
+  if (type == 2)
   {
     if (inCopy == directoryCopy)
     {
-      v27 = v26;
+      v28 = v26;
     }
 
     else
     {
-      v27 = [(FSModuleVolume *)v24 getItemForFH:directoryCopy];
-      if (!v27)
+      v28 = [(FSModuleVolume *)v24 getItemForFH:directoryCopy];
+      if (!v28)
       {
-        v28 = fskit_std_log();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v29 = fskit_std_log(0);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           [FSVolumeConnector renameItemIn:named:item:toDirectory:newName:toItem:usingFlags:requestID:replyHandler:];
         }
@@ -4726,16 +4885,17 @@ LABEL_9:
       }
     }
 
-    v48 = v27;
-    if ([v27 type] == 2)
+    v49 = v28;
+    type2 = [v28 type];
+    if (type2 == 2)
     {
-      v31 = [(FSModuleVolume *)v24 getItemForFH:itemCopy];
-      v46 = itemCopy;
-      v47 = v31;
-      if (!v31)
+      v32 = [(FSModuleVolume *)v24 getItemForFH:itemCopy];
+      v47 = itemCopy;
+      v48 = v32;
+      if (!v32)
       {
-        v33 = fskit_std_log();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v34 = fskit_std_log(0);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
           [FSVolumeConnector renameItemIn:named:item:toDirectory:newName:toItem:usingFlags:requestID:replyHandler:];
         }
@@ -4745,45 +4905,45 @@ LABEL_9:
 
       if (!toItemCopy)
       {
-        v41 = 0;
-        v42 = nameCopy;
-        v43 = namedCopy;
-        v45 = 0;
+        v42 = 0;
+        v43 = nameCopy;
+        v44 = namedCopy;
+        v46 = 0;
 LABEL_33:
         volume = [(FSModuleVolume *)self->_ourVolume volume];
-        v49[0] = MEMORY[0x277D85DD0];
-        v49[1] = 3221225472;
-        v49[2] = __106__FSVolumeConnector_renameItemIn_named_item_toDirectory_newName_toItem_usingFlags_requestID_replyHandler___block_invoke;
-        v49[3] = &unk_278FEDF70;
-        v54 = handlerCopy;
-        v49[4] = self;
-        v50 = v47;
-        v51 = v26;
-        v36 = v48;
-        v52 = v48;
-        v53 = v45;
-        namedCopy = v43;
-        nameCopy = v42;
-        v38 = v45;
-        [volume renameItem:v50 inDirectory:v51 named:v43 toNewName:v49 inDirectory:? overItem:? replyHandler:?];
+        v50[0] = MEMORY[0x277D85DD0];
+        v50[1] = 3221225472;
+        v50[2] = __106__FSVolumeConnector_renameItemIn_named_item_toDirectory_newName_toItem_usingFlags_requestID_replyHandler___block_invoke;
+        v50[3] = &unk_278FEDF70;
+        v55 = handlerCopy;
+        v50[4] = self;
+        v51 = v48;
+        v52 = v26;
+        v37 = v49;
+        v53 = v49;
+        v54 = v46;
+        namedCopy = v44;
+        nameCopy = v43;
+        v39 = v46;
+        [volume renameItem:v51 inDirectory:v52 named:v44 toNewName:v50 inDirectory:? overItem:? replyHandler:?];
 
-        v35 = v47;
-        toItemCopy = v41;
+        v36 = v48;
+        toItemCopy = v42;
         goto LABEL_34;
       }
 
       if (itemCopy == toItemCopy)
       {
-        v32 = v31;
+        v33 = v32;
       }
 
       else
       {
-        v32 = [(FSModuleVolume *)v24 getItemForFH:toItemCopy];
-        if (!v32)
+        v33 = [(FSModuleVolume *)v24 getItemForFH:toItemCopy];
+        if (!v33)
         {
-          v33 = fskit_std_log();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v34 = fskit_std_log(0);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             [FSVolumeConnector renameItemIn:named:item:toDirectory:newName:toItem:usingFlags:requestID:replyHandler:];
           }
@@ -4792,36 +4952,36 @@ LABEL_27:
 
           (*(handlerCopy + 2))(handlerCopy, 70, 0, 0, 0, 0, 0);
 LABEL_28:
-          v35 = v47;
           v36 = v48;
+          v37 = v49;
 LABEL_34:
 
-          itemCopy = v46;
+          itemCopy = v47;
           goto LABEL_13;
         }
       }
 
-      v45 = v32;
-      type = [v32 type];
-      if (type == [v47 type])
+      v46 = v33;
+      type3 = [v33 type];
+      if (type3 == [v48 type])
       {
 LABEL_32:
-        v41 = toItemCopy;
-        v42 = nameCopy;
-        v43 = namedCopy;
+        v42 = toItemCopy;
+        v43 = nameCopy;
+        v44 = namedCopy;
         goto LABEL_33;
       }
 
-      if ([v45 type] == 2)
+      if ([v46 type] == 2)
       {
-        v39 = fskit_std_log();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+        v40 = fskit_std_log(2);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v56 = "[FSVolumeConnector renameItemIn:named:item:toDirectory:newName:toItem:usingFlags:requestID:replyHandler:]";
-          v57 = 1024;
-          LODWORD(type2) = 21;
-          _os_log_impl(&dword_24A929000, v39, OS_LOG_TYPE_INFO, "%s: Given fromItem is not a directory, but toItem is a directory. Error = %d.", buf, 0x12u);
+          v57 = "[FSVolumeConnector renameItemIn:named:item:toDirectory:newName:toItem:usingFlags:requestID:replyHandler:]";
+          v58 = 1024;
+          LODWORD(type4) = 21;
+          _os_log_impl(&dword_24A929000, v40, OS_LOG_TYPE_INFO, "%s: Given fromItem is not a directory, but toItem is a directory. Error = %d.", buf, 0x12u);
         }
 
         (*(handlerCopy + 2))(handlerCopy, 21, 0, 0, 0, 0, 0);
@@ -4829,19 +4989,19 @@ LABEL_32:
 
       else
       {
-        if ([v47 type] != 2)
+        if ([v48 type] != 2)
         {
           goto LABEL_32;
         }
 
-        v40 = fskit_std_log();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+        v41 = fskit_std_log(2);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v56 = "[FSVolumeConnector renameItemIn:named:item:toDirectory:newName:toItem:usingFlags:requestID:replyHandler:]";
-          v57 = 1024;
-          LODWORD(type2) = 20;
-          _os_log_impl(&dword_24A929000, v40, OS_LOG_TYPE_INFO, "%s: Given fromItem is a directory, but toItem is not a directory. Error = %d.", buf, 0x12u);
+          v57 = "[FSVolumeConnector renameItemIn:named:item:toDirectory:newName:toItem:usingFlags:requestID:replyHandler:]";
+          v58 = 1024;
+          LODWORD(type4) = 20;
+          _os_log_impl(&dword_24A929000, v41, OS_LOG_TYPE_INFO, "%s: Given fromItem is a directory, but toItem is not a directory. Error = %d.", buf, 0x12u);
         }
 
         (*(handlerCopy + 2))(handlerCopy, 20, 0, 0, 0, 0, 0);
@@ -4850,16 +5010,16 @@ LABEL_32:
       goto LABEL_28;
     }
 
-    v34 = fskit_std_log();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    v35 = fskit_std_log(type2);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v56 = "[FSVolumeConnector renameItemIn:named:item:toDirectory:newName:toItem:usingFlags:requestID:replyHandler:]";
-      v57 = 2048;
-      type2 = [v48 type];
-      v59 = 1024;
-      v60 = 20;
-      _os_log_impl(&dword_24A929000, v34, OS_LOG_TYPE_INFO, "%s: Given toDirectory item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
+      v57 = "[FSVolumeConnector renameItemIn:named:item:toDirectory:newName:toItem:usingFlags:requestID:replyHandler:]";
+      v58 = 2048;
+      type4 = [v49 type];
+      v60 = 1024;
+      v61 = 20;
+      _os_log_impl(&dword_24A929000, v35, OS_LOG_TYPE_INFO, "%s: Given toDirectory item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 20, 0, 0, 0, 0, 0);
@@ -4867,24 +5027,22 @@ LABEL_32:
 
   else
   {
-    v29 = fskit_std_log();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    v30 = fskit_std_log(type);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v56 = "[FSVolumeConnector renameItemIn:named:item:toDirectory:newName:toItem:usingFlags:requestID:replyHandler:]";
-      v57 = 2048;
-      type2 = [v26 type];
-      v59 = 1024;
-      v60 = 20;
-      _os_log_impl(&dword_24A929000, v29, OS_LOG_TYPE_INFO, "%s: Given fromDirectory item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
+      v57 = "[FSVolumeConnector renameItemIn:named:item:toDirectory:newName:toItem:usingFlags:requestID:replyHandler:]";
+      v58 = 2048;
+      type4 = [v26 type];
+      v60 = 1024;
+      v61 = 20;
+      _os_log_impl(&dword_24A929000, v30, OS_LOG_TYPE_INFO, "%s: Given fromDirectory item is not a directory (type = %lu). Error = %d.", buf, 0x1Cu);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 20, 0, 0, 0, 0, 0);
   }
 
 LABEL_13:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __106__FSVolumeConnector_renameItemIn_named_item_toDirectory_newName_toItem_usingFlags_requestID_replyHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -4921,7 +5079,7 @@ void __106__FSVolumeConnector_renameItemIn_named_item_toDirectory_newName_toItem
 
   else
   {
-    v14 = fskit_std_log();
+    v14 = fskit_std_log(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       __106__FSVolumeConnector_renameItemIn_named_item_toDirectory_newName_toItem_usingFlags_requestID_replyHandler___block_invoke_cold_1(v14, v15, v16, v17, v18, v19, v20, v21);
@@ -5103,7 +5261,7 @@ void __106__FSVolumeConnector_renameItemIn_named_item_toDirectory_newName_toItem
 - (void)replenishSearchCreditsFor:(id)for credits:(unsigned int)credits requestID:(unint64_t)d replyHandler:(id)handler
 {
   handlerCopy = handler;
-  v7 = fskit_std_log();
+  v7 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [FSVolumeConnector replenishSearchCreditsFor:credits:requestID:replyHandler:];
@@ -5115,7 +5273,7 @@ void __106__FSVolumeConnector_renameItemIn_named_item_toDirectory_newName_toItem
 - (void)abortSearch:(id)search requestID:(unint64_t)d replyHandler:(id)handler
 {
   handlerCopy = handler;
-  v6 = fskit_std_log();
+  v6 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [FSVolumeConnector abortSearch:requestID:replyHandler:];
@@ -5127,7 +5285,7 @@ void __106__FSVolumeConnector_renameItemIn_named_item_toDirectory_newName_toItem
 - (void)search:(id)search token:(id)token criteria:(id)criteria resumeAt:(id)at maxData:(unsigned int)data maxDelay:(double)delay initialCredits:(unsigned int)credits requestID:(unint64_t)self0 replyHandler:(id)self1
 {
   handlerCopy = handler;
-  v12 = fskit_std_log();
+  v12 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [FSVolumeConnector search:token:criteria:resumeAt:maxData:maxDelay:initialCredits:requestID:replyHandler:];
@@ -5145,927 +5303,397 @@ void __106__FSVolumeConnector_renameItemIn_named_item_toDirectory_newName_toItem
 
 void __67__FSVolumeConnector_getStandardItemAttributesForItem_replyHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 fs_posixCode];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __67__FSVolumeConnector_getStandardItemAttributesForItem_replyHandler___block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s: Reported attributes are incomplete", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FSVolumeConnector getStandardItemAttributesForItem:replyHandler:]_block_invoke";
+  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s: Reported attributes are incomplete", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __67__FSVolumeConnector_getStandardItemAttributesForItem_replyHandler___block_invoke_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil attributes", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FSVolumeConnector getStandardItemAttributesForItem:replyHandler:]_block_invoke";
+  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil attributes", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __64__FSVolumeConnector_getIOItemAttributesSubsetData_replyHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __58__FSVolumeConnector_getFreeSpaceInVolumeWithReplyHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*(*a1 + 24) volume];
   v2 = [v1 name];
   v3 = [v2 debugDescription];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-- (void)blockmapFile:range:flags:operationID:replyHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)blockmapFile:range:flags:operationID:replyHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __71__FSVolumeConnector_blockmapFile_range_flags_operationID_replyHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __71__FSVolumeConnector_blockmapFile_range_flags_operationID_replyHandler___block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)checkAccessTo:requestedAccess:requestID:replyHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)checkAccessTo:requestedAccess:requestID:replyHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v6);
 }
 
 void __74__FSVolumeConnector_checkAccessTo_requestedAccess_requestID_replyHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)endIO:range:status:flags:operationID:replyHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)endIO:range:status:flags:operationID:replyHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v6);
 }
 
 void __71__FSVolumeConnector_endIO_range_status_flags_operationID_replyHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)otherAttributeOf:named:requestID:replyHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v6);
 }
 
 - (void)otherAttributeOf:(void *)a1 named:requestID:replyHandler:.cold.3(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 volume];
   v2 = [v1 name];
   v3 = [v2 debugDescription];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)otherAttributeOf:named:requestID:replyHandler:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setOtherAttributeOf:named:value:requestID:replyHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __76__FSVolumeConnector_setOtherAttributeOf_named_value_requestID_replyHandler___block_invoke_6_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil innerNewName", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FSVolumeConnector setOtherAttributeOf:named:value:requestID:replyHandler:]_block_invoke_6";
+  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil innerNewName", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)volumeStatistics:(id *)a1 requestID:replyHandler:.cold.1(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*a1 volume];
   v2 = [v1 name];
   v3 = [v2 debugDescription];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-- (void)createIn:named:type:attributes:requestID:replyHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandler___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_24A929000, v2, v3, "%s:error:%@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_24A929000, v2, v3, "%s:error:%@", v4, v5, v6, v7, v8);
 }
 
 void __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandler___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_10_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __75__FSVolumeConnector_createIn_named_type_attributes_requestID_replyHandler___block_invoke_3_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)lookupIn:name:flags:requestID:replyHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __64__FSVolumeConnector_lookupIn_name_flags_requestID_replyHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_10_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __64__FSVolumeConnector_lookupIn_name_flags_requestID_replyHandler___block_invoke_4_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_10_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)removeDirectory:from:named:usingFlags:requestID:replyHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:file:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)removeDirectory:from:named:usingFlags:requestID:replyHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:dir:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __82__FSVolumeConnector_removeDirectory_from_named_usingFlags_requestID_replyHandler___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)removeItem:from:named:usingFlags:requestID:replyHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:file:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)removeItem:from:named:usingFlags:requestID:replyHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:dir:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __77__FSVolumeConnector_removeItem_from_named_usingFlags_requestID_replyHandler___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reclaim:requestID:replyHandler:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_14();
-  OUTLINED_FUNCTION_6(&dword_24A929000, v0, v1, "%s:start:theItem:%@:reqID:%llu", v3);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)reclaim:requestID:replyHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_24A929000, v0, v1, "%s:start:theItem:%@:reqID:%llu", v2);
 }
 
 void __52__FSVolumeConnector_reclaim_requestID_replyHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)open:withMode:requestID:replyHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)open:withMode:requestID:replyHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v6);
 }
 
 void __58__FSVolumeConnector_open_withMode_requestID_replyHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __58__FSVolumeConnector_open_withMode_requestID_replyHandler___block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)close:keepingMode:requestID:replyHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)close:keepingMode:requestID:replyHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v6);
 }
 
 void __62__FSVolumeConnector_close_keepingMode_requestID_replyHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __62__FSVolumeConnector_close_keepingMode_requestID_replyHandler___block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)writeTo:atOffset:fromBuffer:requestID:replyHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)writeTo:atOffset:fromBuffer:requestID:replyHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v6);
 }
 
 void __72__FSVolumeConnector_writeTo_atOffset_fromBuffer_requestID_replyHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v6);
 }
 
 void __72__FSVolumeConnector_writeTo_atOffset_fromBuffer_requestID_replyHandler___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)readFrom:atOffset:intoBuffer:requestID:replyHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)readFrom:atOffset:intoBuffer:requestID:replyHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __73__FSVolumeConnector_readFrom_atOffset_intoBuffer_requestID_replyHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v6);
 }
 
 void __73__FSVolumeConnector_readFrom_atOffset_intoBuffer_requestID_replyHandler___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setFileAttributesOf:to:requestID:replyHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __67__FSVolumeConnector_setFileAttributesOf_to_requestID_replyHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v6);
 }
 
 void __67__FSVolumeConnector_setFileAttributesOf_to_requestID_replyHandler___block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil attributes", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fileAttributes:requestedAttributes:requestID:replyHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FSVolumeConnector setFileAttributesOf:to:requestID:replyHandler:]_block_invoke";
+  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil attributes", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __79__FSVolumeConnector_fileAttributes_requestedAttributes_requestID_replyHandler___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil attributes", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)readDirectory:withAttr:requestedAttributes:intoBuffer:cookie:verifier:requestID:replyHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FSVolumeConnector fileAttributes:requestedAttributes:requestID:replyHandler:]_block_invoke";
+  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil attributes", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __114__FSVolumeConnector_readDirectory_withAttr_requestedAttributes_intoBuffer_cookie_verifier_requestID_replyHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __114__FSVolumeConnector_readDirectory_withAttr_requestedAttributes_intoBuffer_cookie_verifier_requestID_replyHandler___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v6);
 }
 
 void __114__FSVolumeConnector_readDirectory_withAttr_requestedAttributes_intoBuffer_cookie_verifier_requestID_replyHandler___block_invoke_cold_3(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [*a1 bytesPacked];
+  v7 = 136315394;
   OUTLINED_FUNCTION_13();
-  OUTLINED_FUNCTION_3(&dword_24A929000, v1, v2, "%s: Packer is out of space, bytes packed (%ld)", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_24A929000, v1, v2, "%s: Packer is out of space, bytes packed (%ld)", v3, v4, v5, v6, v7);
 }
 
 - (void)readSymbolicLinkOf:requestID:replyHandler:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_14();
-  OUTLINED_FUNCTION_6(&dword_24A929000, v0, v1, "%s:start:theDirectory:%@:reqID:%llu", v3);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)readSymbolicLinkOf:requestID:replyHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_24A929000, v0, v1, "%s:start:theDirectory:%@:reqID:%llu", v2);
 }
 
 void __63__FSVolumeConnector_readSymbolicLinkOf_requestID_replyHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v6);
 }
 
 void __63__FSVolumeConnector_readSymbolicLinkOf_requestID_replyHandler___block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil contents", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FSVolumeConnector readSymbolicLinkOf:requestID:replyHandler:]_block_invoke";
+  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil contents", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __63__FSVolumeConnector_readSymbolicLinkOf_requestID_replyHandler___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  *v4 = 136315650;
-  *&v4[4] = "[FSVolumeConnector readSymbolicLinkOf:requestID:replyHandler:]_block_invoke_2";
-  *&v4[12] = 2112;
-  *&v4[14] = *(a1 + 32);
-  *&v4[22] = 2112;
-  OUTLINED_FUNCTION_6(&dword_24A929000, a2, a3, "%s:reply:error:0:linkData:%@:linkAttrs:%@", *v4, *&v4[8], *&v4[16], a2);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)makeSymlinkIn:named:contents:attributes:requestID:replyHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  *v3 = 136315650;
+  *&v3[4] = "[FSVolumeConnector readSymbolicLinkOf:requestID:replyHandler:]_block_invoke_2";
+  *&v3[12] = 2112;
+  *&v3[14] = *(a1 + 32);
+  *&v3[22] = 2112;
+  OUTLINED_FUNCTION_6(&dword_24A929000, a2, a3, "%s:reply:error:0:linkData:%@:linkAttrs:%@", *v3, *&v3[8], *&v3[16], a2);
 }
 
 void __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_replyHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __84__FSVolumeConnector_makeSymlinkIn_named_contents_attributes_requestID_replyHandler___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_10_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)makeLinkOf:named:inDirectory:requestID:replyHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)makeLinkOf:named:inDirectory:requestID:replyHandler:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __73__FSVolumeConnector_makeLinkOf_named_inDirectory_requestID_replyHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v6);
 }
 
 void __73__FSVolumeConnector_makeLinkOf_named_inDirectory_requestID_replyHandler___block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s: linkName is nil", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)xattrOf:named:requestID:replyHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)xattrOf:named:requestID:replyHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FSVolumeConnector makeLinkOf:named:inDirectory:requestID:replyHandler:]_block_invoke";
+  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s: linkName is nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __58__FSVolumeConnector_xattrOf_named_requestID_replyHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v6);
 }
 
 void __58__FSVolumeConnector_xattrOf_named_requestID_replyHandler___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __58__FSVolumeConnector_xattrOf_named_requestID_replyHandler___block_invoke_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil value", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setXattrOf:named:value:how:requestID:replyHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setXattrOf:named:value:how:requestID:replyHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FSVolumeConnector xattrOf:named:requestID:replyHandler:]_block_invoke";
+  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil value", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __71__FSVolumeConnector_setXattrOf_named_value_how_requestID_replyHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v6);
 }
 
 - (void)listXattrsOf:requestID:replyHandler:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_14();
-  OUTLINED_FUNCTION_6(&dword_24A929000, v0, v1, "%s:start:theItem:%@:%llu", v3);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)listXattrsOf:requestID:replyHandler:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)listXattrsOf:requestID:replyHandler:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_24A929000, v0, v1, "%s:start:theItem:%@:%llu", v2);
 }
 
 void __57__FSVolumeConnector_listXattrsOf_requestID_replyHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v6);
 }
 
 void __57__FSVolumeConnector_listXattrsOf_requestID_replyHandler___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __57__FSVolumeConnector_listXattrsOf_requestID_replyHandler___block_invoke_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil value", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FSVolumeConnector listXattrsOf:requestID:replyHandler:]_block_invoke";
+  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil value", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)mount:replyHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __40__FSVolumeConnector_mount_replyHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 fs_posixCode];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)unmount:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __29__FSVolumeConnector_unmount___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)makeCloneOf:named:inDirectory:attributes:usingFlags:requestID:replyHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)makeCloneOf:named:inDirectory:attributes:usingFlags:requestID:replyHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:file:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)makeCloneOf:named:inDirectory:attributes:usingFlags:requestID:replyHandler:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __96__FSVolumeConnector_makeCloneOf_named_inDirectory_attributes_usingFlags_requestID_replyHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setUpdateInterest:interest:requestID:replyHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fetchVolumeMachPortLabeled:requestID:replyHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fetchVolumeMachPortLabeled:requestID:replyHandler:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fetchVolumeMachPortLabeled:requestID:replyHandler:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fetchVolumeMachPortLabeled:requestID:replyHandler:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)parentsAndAttributesForItemsByID:requestID:replyHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)renameItemIn:named:item:toDirectory:newName:toItem:usingFlags:requestID:replyHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:toDir:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)renameItemIn:named:item:toDirectory:newName:toItem:usingFlags:requestID:replyHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:file:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)renameItemIn:named:item:toDirectory:newName:toItem:usingFlags:requestID:replyHandler:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:fromItem:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)renameItemIn:named:item:toDirectory:newName:toItem:usingFlags:requestID:replyHandler:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:fromDir:error:%d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_24A929000, v0, v1, "%s:reply:error:%d", v2, v3, v4, v5, v6);
 }
 
 void __106__FSVolumeConnector_renameItemIn_named_item_toDirectory_newName_toItem_usingFlags_requestID_replyHandler___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil newName", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)replenishSearchCreditsFor:credits:requestID:replyHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)abortSearch:requestID:replyHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)search:token:criteria:resumeAt:maxData:maxDelay:initialCredits:requestID:replyHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FSVolumeConnector renameItemIn:named:item:toDirectory:newName:toItem:usingFlags:requestID:replyHandler:]_block_invoke";
+  OUTLINED_FUNCTION_9_1(&dword_24A929000, a1, a3, "%s:nil newName", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

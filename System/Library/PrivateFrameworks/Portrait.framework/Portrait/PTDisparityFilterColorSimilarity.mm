@@ -8,16 +8,16 @@
 
 - (PTDisparityFilterColorSimilarity)initWithMetalContext:(id)context
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v31.receiver = self;
-  v31.super_class = PTDisparityFilterColorSimilarity;
-  v5 = [(PTDisparityFilterColorSimilarity *)&v31 init];
+  v32.receiver = self;
+  v32.super_class = PTDisparityFilterColorSimilarity;
+  v5 = [(PTDisparityFilterColorSimilarity *)&v32 init];
   if (v5)
   {
     v6 = 0.0;
     v7 = -1;
-    v8 = v32;
+    v8 = v33;
     do
     {
       v9 = 0;
@@ -39,36 +39,36 @@
     while (v7 != 2);
     for (i = 0; i != 9; ++i)
     {
-      *&v32[i] = *&v32[i] / v6;
+      *&v33[i] = *&v33[i] / v6;
     }
 
-    _S0 = v32[0];
-    _S1 = v32[1];
+    _S0 = v33[0];
+    _S1 = v33[1];
     __asm { FCVT            H0, S0 }
+
+    v31[0] = _S0;
+    __asm { FCVT            H0, S1 }
+
+    v31[1] = _S0;
+    _S0 = v33[2];
+    _S1 = v33[3];
+    __asm { FCVT            H0, S0 }
+
+    v31[2] = _S0;
+    __asm { FCVT            H0, S1 }
 
     v30[0] = _S0;
-    __asm { FCVT            H0, S1 }
+    _S0 = v33[4];
+    _S1 = v33[5];
+    __asm { FCVT            H0, S0 }
 
     v30[1] = _S0;
-    _S0 = v32[2];
-    _S1 = v32[3];
-    __asm { FCVT            H0, S0 }
+    __asm { FCVT            H0, S1 }
 
     v30[2] = _S0;
-    __asm { FCVT            H0, S1 }
-
-    v29[0] = _S0;
-    _S0 = v32[4];
-    _S1 = v32[5];
-    __asm { FCVT            H0, S0 }
-
-    v29[1] = _S0;
-    __asm { FCVT            H0, S1 }
-
-    v29[2] = _S0;
     v23 = objc_opt_new();
-    [v23 setConstantHalf3:v30 withName:@"kWeights2DRow0_half3"];
-    [v23 setConstantHalf3:v29 withName:@"kWeights2DRow1_half3"];
+    [v23 setConstantHalf3:v31 withName:@"kWeights2DRow0_half3"];
+    [v23 setConstantHalf3:v30 withName:@"kWeights2DRow1_half3"];
     v24 = [contextCopy computePipelineStateFor:@"temporalFilterExponentialMovingAverageColorSimilarities" withConstants:v23];
     temporalFilterExponentialMovingAverageColorSimilarities = v5->_temporalFilterExponentialMovingAverageColorSimilarities;
     v5->_temporalFilterExponentialMovingAverageColorSimilarities = v24;
@@ -76,27 +76,27 @@
     if (v5->_temporalFilterExponentialMovingAverageColorSimilarities)
     {
       v5->_frameIndex = 0;
-      v26 = v5;
+      v27 = v5;
     }
 
     else
     {
-      v27 = _PTLogSystem();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v28 = _PTLogSystem(v26);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        [PTDisparityFilterColorSimilarity initWithMetalContext:v27];
+        [PTDisparityFilterColorSimilarity initWithMetalContext:v28];
       }
 
-      v26 = 0;
+      v27 = 0;
     }
   }
 
   else
   {
-    v26 = 0;
+    v27 = 0;
   }
 
-  return v26;
+  return v27;
 }
 
 - (int)temporalDisparityFilter:(id)filter inDisplacement:(id)displacement inStatePrev:(id)prev inDisparity:(id)disparity outDisparity:(id)outDisparity outState:(id)state
@@ -145,7 +145,7 @@
 
 - (int)temporalDisparityFilter:(id)filter inDisplacement:(id)displacement inDisparityPrev:(id)prev inDisparity:(id)disparity outDisparity:(id)outDisparity disparityBias:(float)bias
 {
-  v8 = _PTLogSystem();
+  v8 = _PTLogSystem(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [PTDisparityFilterColorSimilarity temporalDisparityFilter:v8 inDisplacement:? inDisparityPrev:? inDisparity:? outDisparity:? disparityBias:?];

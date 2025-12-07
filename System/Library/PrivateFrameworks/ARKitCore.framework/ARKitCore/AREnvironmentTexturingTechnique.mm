@@ -26,11 +26,11 @@
     planeWorld = v6->_planeWorld;
     v6->_planeWorld = v9;
 
-    v11 = ARCreateNonFixedPriorityDispatchQueue("com.apple.arkit.environmentTexturing.planeUpdate");
+    v11 = ARCreateNonFixedPriorityDispatchQueue("com.apple.arkit.environmentTexturing.planeUpdate", 25, 0);
     planeUpdateQueue = v6->_planeUpdateQueue;
     v6->_planeUpdateQueue = v11;
 
-    v13 = ARCreateNonFixedPriorityDispatchQueue("com.apple.arkit.environmentTexturing.networkPrewarm");
+    v13 = ARCreateNonFixedPriorityDispatchQueue("com.apple.arkit.environmentTexturing.networkPrewarm", 25, 0);
     networkPrewarmQueue = v6->_networkPrewarmQueue;
     v6->_networkPrewarmQueue = v13;
 
@@ -155,7 +155,7 @@
   planeWorld = self->_planeWorld;
   if (planeWorld)
   {
-    [(ARPlaneWorld *)planeWorld planes];
+    objc_msgSend_planes(planeWorld);
   }
 
   else
@@ -249,17 +249,17 @@ void __72__AREnvironmentTexturingTechnique_requestResultDataAtTimestamp_context_
   }
 }
 
-void __72__AREnvironmentTexturingTechnique_requestResultDataAtTimestamp_context___block_invoke_2(id *a1)
+void __72__AREnvironmentTexturingTechnique_requestResultDataAtTimestamp_context___block_invoke_2(void **a1)
 {
   WeakRetained = objc_loadWeakRetained(a1 + 7);
   if (WeakRetained)
   {
-    [a1[4] timestamp];
+    objc_msgSend_timestamp(a1[4]);
     kdebug_trace();
     v3 = objc_autoreleasePoolPush();
     v4 = WeakRetained[7];
     v5 = [a1[5] detectionResult];
-    convert([v5 cv3dPlaneDetections], v21);
+    convert(v21, [v5 cv3dPlaneDetections]);
     v6 = [a1[4] pixelBuffer];
     [a1[4] exposureTargetOffset];
     v8 = v7;
@@ -275,7 +275,7 @@ void __72__AREnvironmentTexturingTechnique_requestResultDataAtTimestamp_context_
     std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::destroy(v21, v21[1]);
 
     objc_autoreleasePoolPop(v3);
-    [a1[4] timestamp];
+    objc_msgSend_timestamp(a1[4]);
     kdebug_trace();
   }
 }

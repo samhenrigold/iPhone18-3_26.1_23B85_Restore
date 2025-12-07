@@ -46,7 +46,7 @@
 
 - (NSArray)specifiers
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   p_specifiers = &self->_specifiers;
   specifiers = self->_specifiers;
   if (specifiers)
@@ -63,48 +63,48 @@
   serviceProviderController2 = [(PHSilenceJunkCallingController *)self serviceProviderController];
   serviceProvidersSupportingSpamBlocking = [serviceProviderController2 serviceProvidersSupportingSpamBlocking];
 
-  v11 = TPSLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v13 = TPSLog(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v35 = serviceProvidersSupportingSpamBlocking;
-    v36 = 2048;
-    v37 = v8;
-    _os_log_impl(&dword_21B8E9000, v11, OS_LOG_TYPE_DEFAULT, "addSpamBlockingSpecifiersIfNecessary service providers %@ allServiceProviderCount=%ld", buf, 0x16u);
+    v36 = serviceProvidersSupportingSpamBlocking;
+    v37 = 2048;
+    v38 = v8;
+    _os_log_impl(&dword_21B8E9000, v13, OS_LOG_TYPE_DEFAULT, "addSpamBlockingSpecifiersIfNecessary service providers %@ allServiceProviderCount=%ld", buf, 0x16u);
   }
 
   if ([serviceProvidersSupportingSpamBlocking count] && objc_msgSend(MEMORY[0x277D6EDE8], "supportsPrimaryCalling"))
   {
     if (v8 == 2)
     {
-      v12 = [serviceProvidersSupportingSpamBlocking count];
+      v14 = [serviceProvidersSupportingSpamBlocking count];
       firstObject = [serviceProvidersSupportingSpamBlocking firstObject];
       localizedName = [firstObject localizedName];
-      if (v12 != 2)
+      if (v14 != 2)
       {
 
-        v24 = MEMORY[0x277CCACA8];
-        v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        firstObject2 = [v20 localizedStringForKey:@"SPAM_SIMS_EXTENSIONS_LIST_FOOTER_%@_%@_DS_SINGLE" value:&stru_282D54710 table:@"CallDirectorySettings"];
-        v23 = [v24 stringWithFormat:firstObject2, localizedName, localizedName];
+        v26 = MEMORY[0x277CCACA8];
+        v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        firstObject2 = [v22 localizedStringForKey:@"SPAM_SIMS_EXTENSIONS_LIST_FOOTER_%@_%@_DS_SINGLE" value:&stru_282D54710 table:@"CallDirectorySettings"];
+        v25 = [v26 stringWithFormat:firstObject2, localizedName, localizedName];
         goto LABEL_15;
       }
 
       lastObject = [serviceProvidersSupportingSpamBlocking lastObject];
       localizedName2 = [lastObject localizedName];
-      v17 = [localizedName isEqualToString:localizedName2];
+      v19 = [localizedName isEqualToString:localizedName2];
 
-      v18 = MEMORY[0x277CCACA8];
-      v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      localizedName = v19;
-      if (!v17)
+      v20 = MEMORY[0x277CCACA8];
+      v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      localizedName = v21;
+      if (!v19)
       {
-        v20 = [v19 localizedStringForKey:@"SPAM_SIMS_EXTENSIONS_LIST_FOOTER_%@_%@_DS_BOTH" value:&stru_282D54710 table:@"CallDirectorySettings"];
+        v22 = [v21 localizedStringForKey:@"SPAM_SIMS_EXTENSIONS_LIST_FOOTER_%@_%@_DS_BOTH" value:&stru_282D54710 table:@"CallDirectorySettings"];
         firstObject2 = [serviceProvidersSupportingSpamBlocking firstObject];
         localizedName3 = [firstObject2 localizedName];
         lastObject2 = [serviceProvidersSupportingSpamBlocking lastObject];
         localizedName4 = [lastObject2 localizedName];
-        v23 = [v18 stringWithFormat:v20, localizedName3, localizedName4];
+        v25 = [v20 stringWithFormat:v22, localizedName3, localizedName4];
 
         goto LABEL_15;
       }
@@ -112,31 +112,30 @@
 
     else
     {
-      v18 = MEMORY[0x277CCACA8];
-      v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      localizedName = v19;
+      v20 = MEMORY[0x277CCACA8];
+      v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      localizedName = v21;
     }
 
-    v20 = [v19 localizedStringForKey:@"SPAM_SIMS_EXTENSIONS_LIST_FOOTER_%@" value:&stru_282D54710 table:@"CallDirectorySettings"];
+    v22 = [v21 localizedStringForKey:@"SPAM_SIMS_EXTENSIONS_LIST_FOOTER_%@" value:&stru_282D54710 table:@"CallDirectorySettings"];
     firstObject2 = [serviceProvidersSupportingSpamBlocking firstObject];
     localizedName5 = [firstObject2 localizedName];
-    v23 = [v18 stringWithFormat:v20, localizedName5];
+    v25 = [v20 stringWithFormat:v22, localizedName5];
 
 LABEL_15:
-    v27 = MEMORY[0x277D3FAD8];
-    v28 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v29 = [v28 localizedStringForKey:@"SPAM_TOGGLE_TITLE" value:&stru_282D54710 table:@"CallDirectorySettings"];
-    v30 = [v27 preferenceSpecifierNamed:v29 target:self set:sel_setSilenceJunkCallingEnabled_specifier_ get:sel_getSilenceJunkCallingEnabled_ detail:0 cell:6 edit:0];
+    v29 = MEMORY[0x277D3FAD8];
+    v30 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v31 = [v30 localizedStringForKey:@"SPAM_TOGGLE_TITLE" value:&stru_282D54710 table:@"CallDirectorySettings"];
+    v32 = [v29 preferenceSpecifierNamed:v31 target:self set:sel_setSilenceJunkCallingEnabled_specifier_ get:sel_getSilenceJunkCallingEnabled_ detail:0 cell:6 edit:0];
 
-    [v30 setProperty:v23 forKey:*MEMORY[0x277D40160]];
-    [(NSArray *)v4 addObject:v30];
+    [v32 setProperty:v25 forKey:*MEMORY[0x277D40160]];
+    [(NSArray *)v4 addObject:v32];
     [(PHSilenceJunkCallingController *)self setHasSpamEnabledSim:1];
   }
 
   objc_storeStrong(p_specifiers, v4);
 
 LABEL_17:
-  v31 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -178,12 +177,12 @@ LABEL_17:
 {
   v16 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
-  v6 = TPSLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = TPSLog(enabledCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138412290;
     v15 = enabledCopy;
-    _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "User toggled silence junk calling enabled switch to %@", &v14, 0xCu);
+    _os_log_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_DEFAULT, "User toggled silence junk calling enabled switch to %@", &v14, 0xCu);
   }
 
   featureFlags = [(PHSilenceJunkCallingController *)self featureFlags];
@@ -198,8 +197,8 @@ LABEL_17:
 
   else
   {
-    v11 = objc_alloc(MEMORY[0x277CBEBD0]);
-    configurationProvider = [v11 initWithSuiteName:*MEMORY[0x277D6EFA0]];
+    v12 = objc_alloc(MEMORY[0x277CBEBD0]);
+    configurationProvider = [v12 initWithSuiteName:*MEMORY[0x277D6EFA0]];
     if ([enabledCopy integerValue])
     {
       acceptableJunkConfidence = [MEMORY[0x277D6EDE0] acceptableJunkConfidence];
@@ -212,8 +211,6 @@ LABEL_17:
 
     [configurationProvider setInteger:acceptableJunkConfidence forKey:*MEMORY[0x277D6F058]];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)objectForKeyHierarchy:(id)hierarchy subscriptionContext:(id)context error:(id *)error
@@ -253,19 +250,19 @@ LABEL_17:
   v13 = 0;
   v5 = [(PHSilenceJunkCallingController *)self stringForKeyHierarchy:&unk_282D5D618 subscriptionContext:contextCopy error:&v13];
   v6 = v13;
-  v7 = v6;
+  v8 = v6;
   if (v5)
   {
-    v8 = TPSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = TPSLog(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v15 = v5;
       v16 = 2112;
       v17 = contextCopy;
-      v9 = "Retrieved call blocking value '%@' for subscription %@";
+      v10 = "Retrieved call blocking value '%@' for subscription %@";
 LABEL_7:
-      _os_log_impl(&dword_21B8E9000, v8, OS_LOG_TYPE_DEFAULT, v9, buf, 0x16u);
+      _os_log_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_DEFAULT, v10, buf, 0x16u);
     }
   }
 
@@ -276,14 +273,14 @@ LABEL_7:
       goto LABEL_9;
     }
 
-    v8 = TPSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = TPSLog(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v15 = contextCopy;
       v16 = 2112;
-      v17 = v7;
-      v9 = "Retrieving call blocking value for subscription %@ failed with error %@";
+      v17 = v8;
+      v10 = "Retrieving call blocking value for subscription %@ failed with error %@";
       goto LABEL_7;
     }
   }
@@ -291,16 +288,15 @@ LABEL_7:
 LABEL_9:
   if ([v5 isEqualToIgnoringCase:@"Enabled"])
   {
-    v10 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v10 = [v5 isEqualToIgnoringCase:@"Dynamic"];
+    v11 = [v5 isEqualToIgnoringCase:@"Dynamic"];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 - (id)informationalUrlForSubscriptionContext:(id)context
@@ -310,19 +306,19 @@ LABEL_9:
   v12 = 0;
   v5 = [(PHSilenceJunkCallingController *)self stringForKeyHierarchy:&unk_282D5D630 subscriptionContext:contextCopy error:&v12];
   v6 = v12;
-  v7 = v6;
+  v8 = v6;
   if (v5)
   {
-    v8 = TPSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = TPSLog(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v14 = v5;
       v15 = 2112;
       v16 = contextCopy;
-      v9 = "Retrieved informational url value '%@' for subscription %@";
+      v10 = "Retrieved informational url value '%@' for subscription %@";
 LABEL_7:
-      _os_log_impl(&dword_21B8E9000, v8, OS_LOG_TYPE_DEFAULT, v9, buf, 0x16u);
+      _os_log_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_DEFAULT, v10, buf, 0x16u);
     }
   }
 
@@ -333,20 +329,19 @@ LABEL_7:
       goto LABEL_9;
     }
 
-    v8 = TPSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = TPSLog(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v14 = contextCopy;
       v15 = 2112;
-      v16 = v7;
-      v9 = "Retrieving informational url value for subscription %@ failed with error %@";
+      v16 = v8;
+      v10 = "Retrieving informational url value for subscription %@ failed with error %@";
       goto LABEL_7;
     }
   }
 
 LABEL_9:
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

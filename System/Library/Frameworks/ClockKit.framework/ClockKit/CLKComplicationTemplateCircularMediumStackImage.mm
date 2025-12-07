@@ -59,7 +59,7 @@ void __90__CLKComplicationTemplateCircularMediumStackImage__imageSDKSize_deviceS
   v4 = [CLKDeviceMetrics metricsWithDevice:a2 identitySizeClass:2];
   *&xmmword_27DE91990 = __90__CLKComplicationTemplateCircularMediumStackImage__imageSDKSize_deviceSize_forSDKVersion___block_invoke_4(v4, v4);
   *(&xmmword_27DE91990 + 1) = v2;
-  _imageSDKSize_deviceSize_forSDKVersion___imageSize_918 = __90__CLKComplicationTemplateCircularMediumStackImage__imageSDKSize_deviceSize_forSDKVersion___block_invoke_4([v4 setNewestAllowedSizeClass:&unk_284A34128], v4);
+  _imageSDKSize_deviceSize_forSDKVersion___imageSize_918[0] = __90__CLKComplicationTemplateCircularMediumStackImage__imageSDKSize_deviceSize_forSDKVersion___block_invoke_4([v4 setNewestAllowedSizeClass:&unk_284A34128], v4);
   *algn_27DE91988 = v3;
 }
 

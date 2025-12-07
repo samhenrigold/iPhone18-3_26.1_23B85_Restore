@@ -65,7 +65,7 @@
 {
   if (self->_promptingSemaphoreHeld)
   {
-    v3 = tcc_access_log();
+    v3 = tcc_access_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       messageIdentifier = self->_messageIdentifier;
@@ -87,15 +87,15 @@
 {
   messageCopy = message;
   titleCopy = title;
-  v8 = tcc_access_log();
+  v8 = tcc_access_log(titleCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     subjectIdentity = [(TCCDRequestContext *)self subjectIdentity];
     identifier = [subjectIdentity identifier];
     *buf = 136315394;
     *&buf[4] = "[TCCDRequestContext(AsynchronousNotification) presentAsynchronousDenialNotificationWithMessage:buttonTitle:]";
-    v61 = 2112;
-    v62 = identifier;
+    v63 = 2112;
+    v64 = identifier;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%s: called for %@", buf, 0x16u);
   }
 
@@ -106,95 +106,95 @@
 
   if (qword_1000C1178)
   {
-    v11 = objc_opt_new();
-    if (v11)
+    v12 = objc_opt_new();
+    if (v12)
     {
-      v12 = v11;
-      v57 = messageCopy;
-      [v11 setBody:messageCopy];
-      v13 = qword_1000C1178;
+      v13 = v12;
+      v59 = messageCopy;
+      [v12 setBody:messageCopy];
+      v14 = qword_1000C1178;
       service = [(TCCDRequestContext *)self service];
       name = [service name];
-      v16 = v13;
-      v17 = name;
-      v56 = titleCopy;
-      v18 = titleCopy;
+      v17 = v14;
+      v18 = name;
+      v58 = titleCopy;
+      v19 = titleCopy;
       if (!qword_1000C11A8)
       {
-        v19 = objc_opt_new();
-        v20 = qword_1000C11A8;
-        qword_1000C11A8 = v19;
+        v20 = objc_opt_new();
+        v21 = qword_1000C11A8;
+        qword_1000C11A8 = v20;
       }
 
-      v21 = [NSString stringWithFormat:@"%@.%@", @"com.apple.tcc.notification", v17];
-      v22 = [qword_1000C11A8 objectForKeyedSubscript:v21];
-      if (!v22)
+      v22 = [NSString stringWithFormat:@"%@.%@", @"com.apple.tcc.notification", v18];
+      v23 = [qword_1000C11A8 objectForKeyedSubscript:v22];
+      if (!v23)
       {
-        v55 = [UNNotificationAction actionWithIdentifier:@"BUTTON_ACTION_ID" title:v18 options:0];
-        *buf = v55;
-        v23 = [NSArray arrayWithObjects:buf count:1];
-        v22 = [UNNotificationCategory categoryWithIdentifier:v21 actions:v23 intentIdentifiers:&__NSArray0__struct options:0];
+        v57 = [UNNotificationAction actionWithIdentifier:@"BUTTON_ACTION_ID" title:v19 options:0];
+        *buf = v57;
+        v24 = [NSArray arrayWithObjects:buf count:1];
+        v23 = [UNNotificationCategory categoryWithIdentifier:v22 actions:v24 intentIdentifiers:&__NSArray0__struct options:0];
 
-        [qword_1000C11A8 setObject:v22 forKeyedSubscript:v21];
+        [qword_1000C11A8 setObject:v23 forKeyedSubscript:v22];
         allValues = [qword_1000C11A8 allValues];
-        v25 = [NSSet setWithArray:allValues];
-        [v16 setNotificationCategories:v25];
+        v26 = [NSSet setWithArray:allValues];
+        [v17 setNotificationCategories:v26];
       }
 
-      [v12 setCategoryIdentifier:v21];
-      [v12 setInterruptionLevel:1];
-      v26 = +[UNNotificationSound defaultSound];
-      [v12 setSound:v26];
+      [v13 setCategoryIdentifier:v22];
+      [v13 setInterruptionLevel:1];
+      v27 = +[UNNotificationSound defaultSound];
+      [v13 setSound:v27];
 
-      [v12 setShouldIgnoreDoNotDisturb:1];
-      [v12 setShouldBackgroundDefaultAction:1];
-      v58 = @"TCCServiceName";
+      [v13 setShouldIgnoreDoNotDisturb:1];
+      [v13 setShouldBackgroundDefaultAction:1];
+      v60 = @"TCCServiceName";
       service2 = [(TCCDRequestContext *)self service];
       name2 = [service2 name];
-      v59 = name2;
-      v29 = [NSDictionary dictionaryWithObjects:&v59 forKeys:&v58 count:1];
-      [v12 setUserInfo:v29];
+      v61 = name2;
+      v30 = [NSDictionary dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+      [v13 setUserInfo:v30];
 
-      v30 = +[NSUUID UUID];
-      uUIDString = [v30 UUIDString];
-      v32 = [UNNotificationRequest requestWithIdentifier:uUIDString content:v12 trigger:0];
+      v31 = +[NSUUID UUID];
+      uUIDString = [v31 UUIDString];
+      v33 = [UNNotificationRequest requestWithIdentifier:uUIDString content:v13 trigger:0];
 
-      if (v32)
+      if (v33)
       {
-        [qword_1000C1178 addNotificationRequest:v32 withCompletionHandler:&stru_1000A63E8];
+        [qword_1000C1178 addNotificationRequest:v33 withCompletionHandler:&stru_1000A63E8];
 
-        titleCopy = v56;
-        messageCopy = v57;
+        titleCopy = v58;
+        messageCopy = v59;
       }
 
       else
       {
-        v47 = tcc_access_log();
-        titleCopy = v56;
-        messageCopy = v57;
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        v49 = tcc_access_log(v34);
+        titleCopy = v58;
+        messageCopy = v59;
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
         {
-          sub_100043D18(v47, v48, v49, v50, v51, v52, v53, v54);
+          sub_100043D18(v49, v50, v51, v52, v53, v54, v55, v56);
         }
       }
     }
 
     else
     {
-      v12 = tcc_access_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = tcc_access_log(0);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        sub_100043D90(v12, v40, v41, v42, v43, v44, v45, v46);
+        sub_100043D90(v13, v42, v43, v44, v45, v46, v47, v48);
       }
     }
   }
 
   else
   {
-    v12 = tcc_access_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = tcc_access_log(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_100043E08(v12, v33, v34, v35, v36, v37, v38, v39);
+      sub_100043E08(v13, v35, v36, v37, v38, v39, v40, v41);
     }
   }
 }
@@ -212,20 +212,20 @@
   if (v9)
   {
     notificationButtonTitleLocalizationKey = [serviceCopy notificationButtonTitleLocalizationKey];
-    v11 = [serviceCopy localizedTextWithKey:notificationButtonTitleLocalizationKey];
+    v12 = [serviceCopy localizedTextWithKey:notificationButtonTitleLocalizationKey];
 
-    if (v11)
+    if (v12)
     {
-      [(TCCDRequestContext *)self presentAsynchronousDenialNotificationWithMessage:v9 buttonTitle:v11];
+      [(TCCDRequestContext *)self presentAsynchronousDenialNotificationWithMessage:v9 buttonTitle:v12];
     }
   }
 
   else
   {
-    v11 = tcc_access_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = tcc_access_log(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_100043F0C(serviceCopy, self, v11);
+      sub_100043F0C(serviceCopy, self, v12);
     }
   }
 }
@@ -252,13 +252,13 @@
 
     if (v23)
     {
-      v24 = tcc_access_log();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      v25 = tcc_access_log(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         identityDescription = [(TCCDRequestContext *)self identityDescription];
         *buf = 138543362;
         *&buf[4] = identityDescription;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Delaying prompt for %{public}@", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Delaying prompt for %{public}@", buf, 0xCu);
       }
 
       promptingSemaphore2 = [(TCCDRequestContext *)self promptingSemaphore];
@@ -271,8 +271,8 @@
 
   service = [(TCCDRequestContext *)self service];
   [service ios_watchKitUserNotificationNumber];
-  v162 = v159 = resultCopy;
-  if (v162)
+  v171 = v168 = resultCopy;
+  if (v171)
   {
   }
 
@@ -283,8 +283,8 @@
 
     if (!is_wk2_proxy)
     {
-      v43 = 0;
-      v162 = 0;
+      v46 = 0;
+      v171 = 0;
       goto LABEL_24;
     }
   }
@@ -294,14 +294,14 @@
 
   if (pluginBundleIdentifier)
   {
-    v31 = tcc_sync_log();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+    v33 = tcc_sync_log(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
     {
-      sub_100043FE4(v162, self, v31);
+      sub_100043FE4(v171, self, v33);
     }
 
     sharedDeviceConnection = [sub_100043430() sharedDeviceConnection];
-    integerValue = [v162 integerValue];
+    integerValue = [v171 integerValue];
     subjectIdentity3 = [(TCCDRequestContext *)self subjectIdentity];
     displayName = [subjectIdentity3 displayName];
     subjectIdentity4 = [(TCCDRequestContext *)self subjectIdentity];
@@ -316,64 +316,64 @@
 
     if (!is_wk2_proxy2)
     {
-      v43 = 0;
+      v46 = 0;
       goto LABEL_24;
     }
 
-    v40 = v162;
-    if (!v162)
+    v43 = v171;
+    if (!v171)
     {
-      v40 = &off_1000ADF28;
+      v43 = &off_1000ADF28;
     }
 
-    v41 = tcc_sync_log();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+    v44 = tcc_sync_log(v42);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000440E4(v40, self, v41);
+      sub_1000440E4(v43, self, v44);
     }
 
     sharedDeviceConnection = [sub_100043430() sharedDeviceConnection];
-    v162 = v40;
-    integerValue2 = [v40 integerValue];
+    v171 = v43;
+    integerValue2 = [v43 integerValue];
     subjectIdentity3 = [(TCCDRequestContext *)self subjectIdentity];
     displayName = [subjectIdentity3 displayName];
     [sharedDeviceConnection showUserNotification:integerValue2 bundleID:displayName];
   }
 
-  v43 = 1;
-  resultCopy = v159;
+  v46 = 1;
+  resultCopy = v168;
 LABEL_24:
   selfCopy = self;
-  v45 = headerCopy;
-  v46 = messageCopy;
-  v47 = titleCopy;
-  v170 = buttonTitleCopy;
-  v169 = cButtonTitleCopy;
-  v157 = resultCopy;
-  v48 = objc_opt_new();
-  v161 = v45;
-  if (!v45)
+  v48 = headerCopy;
+  v49 = messageCopy;
+  v50 = titleCopy;
+  v179 = buttonTitleCopy;
+  v178 = cButtonTitleCopy;
+  v166 = resultCopy;
+  v51 = objc_opt_new();
+  v170 = v48;
+  if (!v48)
   {
     sub_100044330();
   }
 
-  if (!v47)
+  if (!v50)
   {
     sub_100044304();
   }
 
-  if (!v170)
+  if (!v179)
   {
     sub_1000442D8();
   }
 
-  v49 = v48;
-  v168 = v47;
-  v160 = v46;
-  v156 = v43;
-  v50 = tcc_access_log();
-  v167 = selfCopy;
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+  v52 = v51;
+  v177 = v50;
+  v169 = v49;
+  v165 = v46;
+  v53 = tcc_access_log(v51);
+  v176 = selfCopy;
+  if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
   {
     subjectIdentity6 = [(TCCDRequestContext *)selfCopy subjectIdentity];
     identifier = [subjectIdentity6 identifier];
@@ -384,116 +384,117 @@ LABEL_24:
     *&buf[12] = 2112;
     *&buf[14] = identifier;
     *&buf[22] = 2112;
-    v181 = name;
-    _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_INFO, "%s: called for %@ for service %@", buf, 0x20u);
+    v190 = name;
+    _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_INFO, "%s: called for %@ for service %@", buf, 0x20u);
   }
 
   service3 = [(TCCDRequestContext *)selfCopy service];
   localizedResourcesBundle = [service3 localizedResourcesBundle];
   bundleURL = [localizedResourcesBundle bundleURL];
-  [v49 setObject:bundleURL forKeyedSubscript:kCFUserNotificationLocalizationURLKey];
+  [v52 setObject:bundleURL forKeyedSubscript:kCFUserNotificationLocalizationURLKey];
 
-  [v49 setObject:v161 forKeyedSubscript:kCFUserNotificationAlertHeaderKey];
-  if (v160)
-  {
-    [v49 setObject:v160 forKeyedSubscript:kCFUserNotificationAlertMessageKey];
-  }
-
-  v158 = headerCopy;
-  v187 = xmmword_1000809E0;
-  v188 = unk_1000809F0;
-  cButtonAuthCopy = buttonAuth;
-  v59 = v168;
+  [v52 setObject:v170 forKeyedSubscript:kCFUserNotificationAlertHeaderKey];
   if (v169)
   {
-    *&v187 = buttonAuth;
+    [v52 setObject:v169 forKeyedSubscript:kCFUserNotificationAlertMessageKey];
+  }
+
+  v167 = headerCopy;
+  v196 = xmmword_1000809E0;
+  v197 = unk_1000809F0;
+  cButtonAuthCopy = buttonAuth;
+  v62 = v177;
+  if (v178)
+  {
+    *&v196 = buttonAuth;
     cButtonAuthCopy = cButtonAuth;
   }
 
-  *(&v187 + 1) = cButtonAuthCopy;
-  *&v188 = auth;
-  v186[0] = kCFUserNotificationDefaultButtonTitleKey;
-  v186[1] = kCFUserNotificationAlternateButtonTitleKey;
-  v60 = 0;
-  v186[2] = kCFUserNotificationOtherButtonTitleKey;
-  v186[3] = 0;
-  v155 = 134217984;
+  *(&v196 + 1) = cButtonAuthCopy;
+  *&v197 = auth;
+  v195[0] = kCFUserNotificationDefaultButtonTitleKey;
+  v195[1] = kCFUserNotificationAlternateButtonTitleKey;
+  v63 = 0;
+  v195[2] = kCFUserNotificationOtherButtonTitleKey;
+  v195[3] = 0;
+  v164 = 134217984;
   do
   {
-    v61 = v186[v60];
-    if (!v61)
+    v64 = v195[v63];
+    v65 = v64;
+    if (!v64)
     {
       goto LABEL_43;
     }
 
-    v62 = *(&v187 + v60 * 8);
-    if (v62 == auth)
+    v66 = *(&v196 + v63 * 8);
+    if (v66 == auth)
     {
-      v63 = v49;
-      v64 = v59;
+      v67 = v52;
+      v68 = v62;
 LABEL_42:
-      [v63 setObject:v64 forKeyedSubscript:v61];
+      [v67 setObject:v68 forKeyedSubscript:v65];
       goto LABEL_43;
     }
 
-    if (v62 == buttonAuth)
+    if (v66 == buttonAuth)
     {
-      v63 = v49;
-      v64 = v170;
+      v67 = v52;
+      v68 = v179;
       goto LABEL_42;
     }
 
-    if (v62 == cButtonAuth)
+    if (v66 == cButtonAuth)
     {
-      if (!v169)
+      if (!v178)
       {
         goto LABEL_43;
       }
 
-      v63 = v49;
-      v64 = v169;
+      v67 = v52;
+      v68 = v178;
       goto LABEL_42;
     }
 
-    v65 = tcc_access_log();
-    if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+    v69 = tcc_access_log(v64);
+    if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      *&buf[4] = v62;
-      _os_log_error_impl(&_mh_execute_header, v65, OS_LOG_TYPE_ERROR, "tried to assign invalid auth %llu to button", buf, 0xCu);
+      *&buf[4] = v66;
+      _os_log_error_impl(&_mh_execute_header, v69, OS_LOG_TYPE_ERROR, "tried to assign invalid auth %llu to button", buf, 0xCu);
     }
 
-    v59 = v168;
+    v62 = v177;
 LABEL_43:
 
-    ++v60;
+    ++v63;
   }
 
-  while (v60 != 4);
-  v66 = _os_feature_enabled_impl();
-  headerCopy = v158;
-  v67 = v167;
-  if ((v66 & 1) != 0 && _os_feature_enabled_impl())
+  while (v63 != 4);
+  v70 = _os_feature_enabled_impl();
+  headerCopy = v167;
+  v71 = v176;
+  if ((v70 & 1) != 0 && _os_feature_enabled_impl())
   {
-    service4 = [(TCCDRequestContext *)v167 service];
+    service4 = [(TCCDRequestContext *)v176 service];
     name2 = [service4 name];
     buttonAuth = +[TCCDPlatform currentPlatform];
     server = [buttonAuth server];
     temporaryDirectory = [server temporaryDirectory];
-    v72 = [TCCDIconGenerator createIconForTCCService:name2 withTempDirectory:temporaryDirectory];
-    if (v72)
+    v76 = [TCCDIconGenerator createIconForTCCService:name2 withTempDirectory:temporaryDirectory];
+    if (v76)
     {
-      v73 = +[NSFileManager defaultManager];
-      path = [v72 path];
-      LODWORD(v155) = [v73 fileExistsAtPath:path];
+      v77 = +[NSFileManager defaultManager];
+      path = [v76 path];
+      LODWORD(v164) = [v77 fileExistsAtPath:path];
 
-      headerCopy = v158;
-      v67 = v167;
+      headerCopy = v167;
+      v71 = v176;
 
-      if (v155)
+      if (v164)
       {
-        service4 = [v72 path];
-        [v49 setObject:service4 forKeyedSubscript:SBUserNotificationHeaderImagePath];
+        service4 = [v76 path];
+        [v52 setObject:service4 forKeyedSubscript:SBUserNotificationHeaderImagePath];
         goto LABEL_54;
       }
     }
@@ -507,34 +508,34 @@ LABEL_54:
 
   if (_os_feature_enabled_impl())
   {
-    service5 = [(TCCDRequestContext *)v67 service];
+    service5 = [(TCCDRequestContext *)v71 service];
     usesTwoStagePrompting = [service5 usesTwoStagePrompting];
 
     if (usesTwoStagePrompting)
     {
-      [v49 setObject:&off_1000ADF40 forKeyedSubscript:SBUserNotificationButtonLayoutDirectionKey];
+      [v52 setObject:&off_1000ADF40 forKeyedSubscript:SBUserNotificationButtonLayoutDirectionKey];
     }
   }
 
-  service6 = [(TCCDRequestContext *)v67 service];
+  service6 = [(TCCDRequestContext *)v71 service];
   name3 = [service6 name];
-  v79 = [name3 isEqualToString:@"kTCCServiceFocusStatus"];
+  v83 = [name3 isEqualToString:@"kTCCServiceFocusStatus"];
 
-  if (v79)
+  if (v83)
   {
-    [v49 setObject:@"com.apple.FocusSettingsUI.UserNotificationExtension" forKeyedSubscript:SBUserNotificationExtensionIdentifierKey];
+    [v52 setObject:@"com.apple.FocusSettingsUI.UserNotificationExtension" forKeyedSubscript:SBUserNotificationExtensionIdentifierKey];
   }
 
-  service7 = [(TCCDRequestContext *)v67 service];
+  service7 = [(TCCDRequestContext *)v71 service];
   name4 = [service7 name];
   service9 = [name4 isEqualToString:@"kTCCServicePhotos"];
 
   if (service9)
   {
-    [v49 setObject:@"com.apple.mobileslideshow.PhotosTCCNotificationExtension" forKeyedSubscript:SBUserNotificationExtensionIdentifierKey];
+    [v52 setObject:@"com.apple.mobileslideshow.PhotosTCCNotificationExtension" forKeyedSubscript:SBUserNotificationExtensionIdentifierKey];
   }
 
-  service8 = [(TCCDRequestContext *)v67 service];
+  service8 = [(TCCDRequestContext *)v71 service];
   name5 = [service8 name];
   if (([name5 isEqualToString:@"kTCCServiceCalendar"] & 1) == 0)
   {
@@ -542,19 +543,19 @@ LABEL_54:
     goto LABEL_68;
   }
 
-  service9 = [(TCCDRequestContext *)v67 service];
+  service9 = [(TCCDRequestContext *)v71 service];
   supportsStagedPrompting = [service9 supportsStagedPrompting];
 
   if (supportsStagedPrompting)
   {
-    service10 = [(TCCDRequestContext *)v67 service];
+    service10 = [(TCCDRequestContext *)v71 service];
     service9 = [service10 authSpecificNotificationExtensionBundleIdentifier];
-    v87 = [NSNumber numberWithUnsignedLongLong:[(TCCDRequestContext *)v67 desiredAuth]];
-    service8 = [service9 objectForKeyedSubscript:v87];
+    v91 = [NSNumber numberWithUnsignedLongLong:[(TCCDRequestContext *)v71 desiredAuth]];
+    service8 = [service9 objectForKeyedSubscript:v91];
 
     if (service8)
     {
-      [v49 setObject:service8 forKeyedSubscript:SBUserNotificationExtensionIdentifierKey];
+      [v52 setObject:service8 forKeyedSubscript:SBUserNotificationExtensionIdentifierKey];
     }
 
 LABEL_68:
@@ -562,29 +563,29 @@ LABEL_68:
 
   if (_os_feature_enabled_impl() && _os_feature_enabled_impl())
   {
-    service11 = [(TCCDRequestContext *)v67 service];
+    service11 = [(TCCDRequestContext *)v71 service];
     service8 = [service11 name];
     if ([service8 isEqualToString:@"kTCCServiceAddressBook"])
     {
-      service9 = [(TCCDRequestContext *)v67 desiredAuth];
+      service9 = [(TCCDRequestContext *)v71 desiredAuth];
 
       if (service9 == 2)
       {
-        v89 = tcc_access_log();
-        if (os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
+        v94 = tcc_access_log(v93);
+        if (os_log_type_enabled(v94, OS_LOG_TYPE_INFO))
         {
-          service8 = [(TCCDRequestContext *)v67 subjectIdentity];
+          service8 = [(TCCDRequestContext *)v71 subjectIdentity];
           service9 = [service8 identifier];
           *buf = 136315394;
           *&buf[4] = "display_prompt";
           *&buf[12] = 2112;
           *&buf[14] = service9;
-          _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_INFO, "%s: Contacts full access prompt called for %@", buf, 0x16u);
+          _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_INFO, "%s: Contacts full access prompt called for %@", buf, 0x16u);
         }
 
-        [v49 setObject:@"com.apple.ContactsUI.FullAccessSettingsPromptExtension" forKeyedSubscript:SBUserNotificationExtensionIdentifierKey];
-        [v49 setObject:0 forKeyedSubscript:SBUserNotificationHeaderImageAssetCatalogPathKey];
-        [v49 setObject:0 forKeyedSubscript:SBUserNotificationHeaderImageAssetCatalogImageKey];
+        [v52 setObject:@"com.apple.ContactsUI.FullAccessSettingsPromptExtension" forKeyedSubscript:SBUserNotificationExtensionIdentifierKey];
+        [v52 setObject:0 forKeyedSubscript:SBUserNotificationHeaderImageAssetCatalogPathKey];
+        [v52 setObject:0 forKeyedSubscript:SBUserNotificationHeaderImageAssetCatalogImageKey];
       }
     }
 
@@ -595,34 +596,34 @@ LABEL_68:
 
   if (_os_feature_enabled_impl())
   {
-    service12 = [(TCCDRequestContext *)v67 service];
+    service12 = [(TCCDRequestContext *)v71 service];
     service8 = [service12 name];
     service9 = [service8 isEqualToString:@"kTCCServiceBluetoothAlways"];
 
     if (service9)
     {
-      [v49 setObject:@"com.apple.corelocation.CoreLocationNumberedMapCalloutPromptPlugin" forKeyedSubscript:SBUserNotificationExtensionIdentifierKey];
+      [v52 setObject:@"com.apple.corelocation.CoreLocationNumberedMapCalloutPromptPlugin" forKeyedSubscript:SBUserNotificationExtensionIdentifierKey];
     }
   }
 
-  service13 = [(TCCDRequestContext *)v67 service];
+  service13 = [(TCCDRequestContext *)v71 service];
   supportsStagedPrompting2 = [service13 supportsStagedPrompting];
-  v93 = supportsStagedPrompting2;
-  v94 = &SBSProcessIDForDisplayIdentifier_ptr;
+  v98 = supportsStagedPrompting2;
+  v99 = &SBSProcessIDForDisplayIdentifier_ptr;
   if (!supportsStagedPrompting2)
   {
 LABEL_83:
-    v96 = _os_feature_enabled_impl();
-    if (v96)
+    v101 = _os_feature_enabled_impl();
+    if (v101)
     {
-      service8 = [(TCCDRequestContext *)v167 service];
+      service8 = [(TCCDRequestContext *)v176 service];
       service9 = [service8 name];
       if ([service9 isEqualToString:@"kTCCServiceBluetoothAlways"])
       {
 
-        v67 = v167;
-        v94 = &SBSProcessIDForDisplayIdentifier_ptr;
-        if (v93)
+        v71 = v176;
+        v99 = &SBSProcessIDForDisplayIdentifier_ptr;
+        if (v98)
         {
           goto LABEL_86;
         }
@@ -633,24 +634,24 @@ LABEL_83:
 
     if (_os_feature_enabled_impl() && (_os_feature_enabled_impl() & 1) != 0)
     {
-      [(TCCDRequestContext *)v167 service];
-      v98 = v97 = buttonAuth;
-      name6 = [v98 name];
-      v100 = [name6 isEqualToString:@"kTCCServiceAddressBook"];
+      [(TCCDRequestContext *)v176 service];
+      v103 = v102 = buttonAuth;
+      name6 = [v103 name];
+      v105 = [name6 isEqualToString:@"kTCCServiceAddressBook"];
 
-      headerCopy = v158;
-      buttonAuth = v97;
-      if (!v96)
+      headerCopy = v167;
+      buttonAuth = v102;
+      if (!v101)
       {
 LABEL_95:
-        if (v93)
+        if (v98)
         {
         }
 
-        resultCopy = v159;
-        v67 = v167;
-        v94 = &SBSProcessIDForDisplayIdentifier_ptr;
-        if (v100)
+        resultCopy = v168;
+        v71 = v176;
+        v99 = &SBSProcessIDForDisplayIdentifier_ptr;
+        if (v105)
         {
           goto LABEL_98;
         }
@@ -661,8 +662,8 @@ LABEL_95:
 
     else
     {
-      v100 = 0;
-      if ((v96 & 1) == 0)
+      v105 = 0;
+      if ((v101 & 1) == 0)
       {
         goto LABEL_95;
       }
@@ -671,13 +672,13 @@ LABEL_95:
     goto LABEL_95;
   }
 
-  service14 = [(TCCDRequestContext *)v67 service];
+  service14 = [(TCCDRequestContext *)v71 service];
   service8 = [service14 name];
   if (([service8 isEqualToString:@"kTCCServiceCalendar"] & 1) == 0)
   {
-    v154 = service8;
-    v155 = service14;
-    buttonAuth = [(TCCDRequestContext *)v67 service];
+    v163 = service8;
+    v164 = service14;
+    buttonAuth = [(TCCDRequestContext *)v71 service];
     name7 = [buttonAuth name];
     if (([name7 isEqualToString:@"kTCCServicePhotos"] & 1) == 0)
     {
@@ -686,219 +687,220 @@ LABEL_95:
 
 LABEL_86:
 
-    service14 = v155;
-    service8 = v154;
+    service14 = v164;
+    service8 = v163;
   }
 
 LABEL_88:
-  resultCopy = v159;
+  resultCopy = v168;
 LABEL_98:
-  v184[0] = kTCCNotificationExtensionClientDataKey;
-  clientDict = [(TCCDRequestContext *)v67 clientDict];
-  v102 = clientDict;
+  v193[0] = kTCCNotificationExtensionClientDataKey;
+  clientDict = [(TCCDRequestContext *)v71 clientDict];
+  v107 = clientDict;
   if (clientDict)
   {
-    v103 = clientDict;
+    v108 = clientDict;
   }
 
   else
   {
-    v103 = &__NSDictionary0__struct;
+    v108 = &__NSDictionary0__struct;
   }
 
-  v185[0] = v103;
-  v184[1] = kTCCNotificationExtensionDaemonDataKey;
-  daemonDict = [(TCCDRequestContext *)v67 daemonDict];
-  v105 = daemonDict;
+  v194[0] = v108;
+  v193[1] = kTCCNotificationExtensionDaemonDataKey;
+  daemonDict = [(TCCDRequestContext *)v71 daemonDict];
+  v110 = daemonDict;
   if (daemonDict)
   {
-    v106 = daemonDict;
+    v111 = daemonDict;
   }
 
   else
   {
-    v106 = &__NSDictionary0__struct;
+    v111 = &__NSDictionary0__struct;
   }
 
-  v185[1] = v106;
-  v184[2] = @"ClientBundleIdentifier";
-  subjectIdentity7 = [(TCCDRequestContext *)v67 subjectIdentity];
+  v194[1] = v111;
+  v193[2] = @"ClientBundleIdentifier";
+  subjectIdentity7 = [(TCCDRequestContext *)v71 subjectIdentity];
   identifier2 = [subjectIdentity7 identifier];
-  v185[2] = identifier2;
-  v109 = [NSDictionary dictionaryWithObjects:v185 forKeys:v184 count:3];
+  v194[2] = identifier2;
+  v114 = [NSDictionary dictionaryWithObjects:v194 forKeys:v193 count:3];
 
-  v110 = objc_alloc_init(NSExtensionItem);
-  [v110 setUserInfo:v109];
-  v111 = tcc_access_log();
-  if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
+  v115 = objc_alloc_init(NSExtensionItem);
+  v116 = tcc_access_log([v115 setUserInfo:v114]);
+  if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *&buf[4] = v109;
-    _os_log_impl(&_mh_execute_header, v111, OS_LOG_TYPE_DEFAULT, "extensionItem.userInfo: %@", buf, 0xCu);
+    *&buf[4] = v114;
+    _os_log_impl(&_mh_execute_header, v116, OS_LOG_TYPE_DEFAULT, "extensionItem.userInfo: %@", buf, 0xCu);
   }
 
-  v183 = v110;
-  v112 = [v94[427] arrayWithObjects:&v183 count:1];
-  v173 = 0;
-  v113 = [NSKeyedArchiver archivedDataWithRootObject:v112 requiringSecureCoding:1 error:&v173];
-  v114 = v173;
+  v192 = v115;
+  v117 = [v99[427] arrayWithObjects:&v192 count:1];
+  v182 = 0;
+  v118 = [NSKeyedArchiver archivedDataWithRootObject:v117 requiringSecureCoding:1 error:&v182];
+  v119 = v182;
 
-  if (v114)
+  if (v119)
   {
-    v115 = tcc_access_log();
-    if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
+    v121 = tcc_access_log(v120);
+    if (os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
     {
-      sub_1000441B0(v114, v115, v116, v117, v118, v119, v120, v121);
+      sub_1000441B0(v119, v121, v122, v123, v124, v125, v126, v127);
     }
   }
 
   else
   {
-    [v49 setObject:v113 forKeyedSubscript:SBUserNotificationExtensionItemsKey];
+    [v52 setObject:v118 forKeyedSubscript:SBUserNotificationExtensionItemsKey];
   }
 
 LABEL_112:
   if (&SBUserNotificationDefaultButtonTag)
   {
-    [v49 setObject:&off_1000ADF58 forKeyedSubscript:SBUserNotificationDefaultButtonTag];
+    [v52 setObject:&off_1000ADF58 forKeyedSubscript:SBUserNotificationDefaultButtonTag];
   }
 
-  if ([(TCCDRequestContext *)v67 reminderPrompt])
+  reminderPrompt = [(TCCDRequestContext *)v71 reminderPrompt];
+  if (reminderPrompt)
   {
-    [v49 setObject:&off_1000B0250 forKeyedSubscript:SBUserNotificationAllowedApplicationsKey];
+    reminderPrompt = [v52 setObject:&off_1000B0250 forKeyedSubscript:SBUserNotificationAllowedApplicationsKey];
   }
 
-  v122 = tcc_access_log();
-  if (os_log_type_enabled(v122, OS_LOG_TYPE_DEBUG))
+  v129 = tcc_access_log(reminderPrompt);
+  if (os_log_type_enabled(v129, OS_LOG_TYPE_DEBUG))
   {
-    sub_10004421C(v49, v122);
+    sub_10004421C(v52, v129);
   }
 
   error = 0;
-  v123 = CFUserNotificationCreate(0, 0.0, 0x20uLL, &error, v49);
-  v124 = error;
-  if (!v123 || error)
+  v130 = CFUserNotificationCreate(0, 0.0, 0x20uLL, &error, v52);
+  v131 = error;
+  if (!v130 || error)
   {
-    service15 = [(TCCDRequestContext *)v67 service];
+    service15 = [(TCCDRequestContext *)v71 service];
     name8 = [service15 name];
-    identityDescription2 = [(TCCDRequestContext *)v67 identityDescription];
-    v152 = v124;
-    v127 = v157;
-    [v157 denyAuthorizationWithErrorCode:2 format:{@"Failed CFUserNotificationCreate(): status %d; service %{public}@ and subject %{public}@", v152, name8, identityDescription2}];
+    identityDescription2 = [(TCCDRequestContext *)v71 identityDescription];
+    v161 = v131;
+    v135 = v166;
+    [v166 denyAuthorizationWithErrorCode:2 format:{@"Failed CFUserNotificationCreate(): status %d; service %{public}@ and subject %{public}@", v161, name8, identityDescription2}];
 LABEL_130:
 
     goto LABEL_133;
   }
 
-  v125 = v123;
-  if ([(TCCDRequestContext *)v67 reminderPrompt])
+  v132 = v130;
+  reminderPrompt2 = [(TCCDRequestContext *)v71 reminderPrompt];
+  if (reminderPrompt2)
   {
-    v126 = tcc_access_log();
-    v127 = v157;
-    if (os_log_type_enabled(v126, OS_LOG_TYPE_DEBUG))
+    v134 = tcc_access_log(reminderPrompt2);
+    v135 = v166;
+    if (os_log_type_enabled(v134, OS_LOG_TYPE_DEBUG))
     {
-      sub_100044294(v126);
+      sub_100044294(v134);
     }
 
-    v128 = [NSValue valueWithPointer:v125];
-    *buf = v157;
-    *&buf[8] = v67;
-    v129 = [v94[427] arrayWithObjects:buf count:2];
-    v130 = sub_100043730();
-    [v130 setObject:v129 forKeyedSubscript:v128];
+    v136 = [NSValue valueWithPointer:v132];
+    *buf = v166;
+    *&buf[8] = v71;
+    v137 = [v99[427] arrayWithObjects:buf count:2];
+    v138 = sub_100043730(v137);
+    [v138 setObject:v137 forKeyedSubscript:v136];
 
-    RunLoopSource = CFUserNotificationCreateRunLoopSource(kCFAllocatorDefault, v125, sub_100043774, 0);
+    RunLoopSource = CFUserNotificationCreateRunLoopSource(kCFAllocatorDefault, v132, sub_100043774, 0);
     if (RunLoopSource)
     {
-      v132 = RunLoopSource;
+      v140 = RunLoopSource;
       Main = CFRunLoopGetMain();
-      CFRunLoopAddSource(Main, v132, kCFRunLoopCommonModes);
-      v125 = v132;
+      CFRunLoopAddSource(Main, v140, kCFRunLoopCommonModes);
+      v132 = v140;
     }
 
     else
     {
-      v141 = sub_100043730();
-      [v141 removeObjectForKey:v128];
+      v150 = sub_100043730(0);
+      [v150 removeObjectForKey:v136];
     }
 
-    CFRelease(v125);
+    CFRelease(v132);
 
 LABEL_133:
-    v142 = v160;
+    v151 = v169;
     goto LABEL_134;
   }
 
-  v137 = +[TCCDPlatform currentPlatform];
-  server2 = [v137 server];
+  v145 = +[TCCDPlatform currentPlatform];
+  server2 = [v145 server];
   generateBacktraceOnPrompt = [server2 generateBacktraceOnPrompt];
 
-  v127 = v157;
+  v135 = v166;
   if (generateBacktraceOnPrompt)
   {
-    v140 = dispatch_get_global_queue(0, 0);
+    v148 = dispatch_get_global_queue(0, 0);
     *buf = _NSConcreteStackBlock;
     *&buf[8] = 3221225472;
     *&buf[16] = sub_100043C14;
-    v181 = &unk_1000A4F58;
-    v182 = v67;
-    dispatch_async(v140, buf);
+    v190 = &unk_1000A4F58;
+    v191 = v71;
+    dispatch_async(v148, buf);
   }
 
   responseFlags = 0;
-  error = CFUserNotificationReceiveResponse(v125, seconds, &responseFlags);
-  CFRelease(v125);
+  error = CFUserNotificationReceiveResponse(v132, seconds, &responseFlags);
+  CFRelease(v132);
   if (error)
   {
-    service15 = [(TCCDRequestContext *)v67 service];
+    service15 = [(TCCDRequestContext *)v71 service];
     name8 = [service15 name];
-    identityDescription2 = [(TCCDRequestContext *)v67 identityDescription];
-    [v157 denyAuthorizationWithErrorCode:2 format:{@"Failed CFUserNotificationReceiveResponse(): service %{public}@, subject %{public}@, status: %d", name8, identityDescription2, error}];
+    identityDescription2 = [(TCCDRequestContext *)v71 identityDescription];
+    [v166 denyAuthorizationWithErrorCode:2 format:{@"Failed CFUserNotificationReceiveResponse(): service %{public}@, subject %{public}@, status: %d", name8, identityDescription2, error}];
     goto LABEL_130;
   }
 
-  v145 = tcc_access_log();
-  if (os_log_type_enabled(v145, OS_LOG_TYPE_INFO))
+  v154 = tcc_access_log(v149);
+  if (os_log_type_enabled(v154, OS_LOG_TYPE_INFO))
   {
-    v146 = responseFlags;
-    service16 = [(TCCDRequestContext *)v67 service];
+    v155 = responseFlags;
+    service16 = [(TCCDRequestContext *)v71 service];
     name9 = [service16 name];
-    subjectIdentity8 = [(TCCDRequestContext *)v67 subjectIdentity];
+    subjectIdentity8 = [(TCCDRequestContext *)v71 subjectIdentity];
     identifier3 = [subjectIdentity8 identifier];
-    *v174 = 134218498;
-    v175 = v146;
-    resultCopy = v159;
-    v176 = 2114;
-    v177 = name9;
-    v178 = 2114;
-    v179 = identifier3;
-    _os_log_impl(&_mh_execute_header, v145, OS_LOG_TYPE_INFO, "CFUserNotification response: 0x%lx; service %{public}@ and subject %{public}@", v174, 0x20u);
+    *v183 = 134218498;
+    v184 = v155;
+    resultCopy = v168;
+    v185 = 2114;
+    v186 = name9;
+    v187 = 2114;
+    v188 = identifier3;
+    _os_log_impl(&_mh_execute_header, v154, OS_LOG_TYPE_INFO, "CFUserNotification response: 0x%lx; service %{public}@ and subject %{public}@", v183, 0x20u);
 
-    v127 = v157;
+    v135 = v166;
   }
 
-  v151 = responseFlags & 3;
-  [v127 setAuthorizationValue:*(&v187 + v151)];
-  [v127 setDatabaseAction:1];
-  if (v151 != 3)
+  v160 = responseFlags & 3;
+  [v135 setAuthorizationValue:*(&v196 + v160)];
+  [v135 setDatabaseAction:1];
+  if (v160 != 3)
   {
-    [v127 setAuthorizationReason:2];
+    [v135 setAuthorizationReason:2];
     goto LABEL_133;
   }
 
-  v142 = v160;
+  v151 = v169;
   if (seconds)
   {
-    [v127 setDatabaseFlags:{objc_msgSend(v127, "databaseFlags") | 1}];
-    [v127 setAuthorizationReason:9];
+    [v135 setDatabaseFlags:{objc_msgSend(v135, "databaseFlags") | 1}];
+    [v135 setAuthorizationReason:9];
   }
 
   else
   {
-    [v127 setAuthorizationReason:13];
-    if ([v127 promptType] == 2)
+    [v135 setAuthorizationReason:13];
+    if ([v135 promptType] == 2)
     {
-      [v127 setAuthorizationValue:currentAuth];
+      [v135 setAuthorizationValue:currentAuth];
     }
   }
 
@@ -907,7 +909,7 @@ LABEL_134:
   {
   }
 
-  if (v156)
+  if (v165)
   {
     sharedDeviceConnection2 = [sub_100043430() sharedDeviceConnection];
     [sharedDeviceConnection2 hideUserNotification];

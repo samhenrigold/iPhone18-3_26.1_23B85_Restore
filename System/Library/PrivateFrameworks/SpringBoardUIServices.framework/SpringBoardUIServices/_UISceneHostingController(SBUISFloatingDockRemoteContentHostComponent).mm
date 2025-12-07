@@ -6,26 +6,26 @@
 
 - (void)floatingDockRemoteContentHostComponent
 {
-  v2 = objc_opt_class();
-  v3 = [self componentForExtension:v2 ofClass:objc_opt_class()];
-  v4 = objc_opt_class();
-  v5 = v3;
-  if (v4)
+  v3 = objc_opt_class();
+  v4 = [self componentForExtension:v3 ofClass:objc_opt_class()];
+  v5 = objc_opt_class();
+  v6 = v4;
+  if (v5)
   {
     if (objc_opt_isKindOfClass())
     {
-      v4 = v5;
+      v5 = v6;
     }
 
     else
     {
-      v4 = 0;
+      v5 = 0;
     }
   }
 
-  v6 = v4;
+  v7 = v5;
 
-  return v4;
+  return v5;
 }
 
 @end

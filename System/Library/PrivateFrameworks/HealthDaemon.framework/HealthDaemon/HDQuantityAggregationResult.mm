@@ -14,11 +14,11 @@
   v11 = [(HDQuantityAggregationResult *)&v17 init];
   if (v11)
   {
-    v12 = [samplesCopy copy];
+    v12 = objc_msgSend_copy(samplesCopy);
     aggregatedSamples = v11->_aggregatedSamples;
     v11->_aggregatedSamples = v12;
 
-    v14 = [dataCopy copy];
+    v14 = objc_msgSend_copy(dataCopy);
     consumedSensorData = v11->_consumedSensorData;
     v11->_consumedSensorData = v14;
 

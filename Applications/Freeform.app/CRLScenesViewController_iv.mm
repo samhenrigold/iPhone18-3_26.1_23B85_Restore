@@ -95,7 +95,6 @@
 
 - (NSArray)keyCommands
 {
-  sub_1005B981C(&unk_1019F4D60);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_10146CE00;
   v4 = objc_opt_self();
@@ -105,7 +104,7 @@
   v7 = [v4 keyCommandWithInput:v6 modifierFlags:0 action:"deleteForward:"];
 
   *(v3 + 40) = v7;
-  sub_100006370(0, &qword_101A001C0);
+  sub_100006370(0, &qword_101A001C0, UIKeyCommand_ptr);
   v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v8.super.isa;
@@ -146,7 +145,7 @@ LABEL_7:
   viewsCopy = views;
   if (views)
   {
-    sub_100006370(0, &qword_1019F6D00);
+    sub_100006370(0, &qword_1019F6D00, UIView_ptr);
     viewsCopy = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -158,6 +157,7 @@ LABEL_7:
 
 - (void)dismissScenesPopoverWithAnimated:(BOOL)animated completion:(id)completion
 {
+  animatedCopy = animated;
   v6 = _Block_copy(completion);
   if (v6)
   {
@@ -172,8 +172,8 @@ LABEL_7:
   }
 
   selfCopy = self;
-  sub_100697F30(animated, v6, v7);
-  sub_1000C1014(v6);
+  sub_100697F30(animatedCopy, v6, v7);
+  sub_1000C1014(v6, v7);
 }
 
 - (_TtC8Freeform26CRLScenesViewController_iv)initWithNibName:(id)name bundle:(id)bundle

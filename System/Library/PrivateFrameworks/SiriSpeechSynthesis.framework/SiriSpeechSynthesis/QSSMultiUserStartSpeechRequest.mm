@@ -40,9 +40,9 @@ flatbuffers::DetachedBuffer *__46__QSSMultiUserStartSpeechRequest_flatbuffData__
 
 - (Offset<siri::speech::schema_fb::MultiUserStartSpeechRequest>)addObjectToBuffer:(void *)buffer
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   start_speech_request = [(QSSMultiUserStartSpeechRequest *)self start_speech_request];
-  v21 = [start_speech_request addObjectToBuffer:buffer];
+  v19 = [start_speech_request addObjectToBuffer:buffer];
 
   user_parameters = [(QSSMultiUserStartSpeechRequest *)self user_parameters];
   v7 = [user_parameters count];
@@ -56,16 +56,11 @@ flatbuffers::DetachedBuffer *__46__QSSMultiUserStartSpeechRequest_flatbuffData__
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
+  memset(v21, 0, sizeof(v21));
   obj = [(QSSMultiUserStartSpeechRequest *)self user_parameters];
-  if ([obj countByEnumeratingWithState:&v23 objects:v27 count:16])
+  if ([obj countByEnumeratingWithState:v21 objects:v22 count:16])
   {
-    *v24;
-    *v24;
-    [**(&v23 + 1) addObjectToBuffer:buffer];
+    [**(&v21[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -87,7 +82,7 @@ flatbuffers::DetachedBuffer *__46__QSSMultiUserStartSpeechRequest_flatbuffData__
   v14 = *(buffer + 8);
   v15 = *(buffer + 12);
   v16 = *(buffer + 10);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, v21);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, v19);
   if (v8)
   {
     v17 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v8);
@@ -95,9 +90,7 @@ flatbuffers::DetachedBuffer *__46__QSSMultiUserStartSpeechRequest_flatbuffData__
   }
 
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, String);
-  v18.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v14 - v15 + v16);
-  v19 = *MEMORY[0x277D85DE8];
-  return v18;
+  return flatbuffers::FlatBufferBuilder::EndTable(buffer, v14 - v15 + v16);
 }
 
 - (NSString)primary_speech_id

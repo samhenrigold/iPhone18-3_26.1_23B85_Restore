@@ -80,13 +80,13 @@ void __45__URLCompletionDatabase__updateCloudDevices___block_invoke(uint64_t a1)
 
 - (void)enumerateMatchDataForTypedStringHint:(id)hint filterResultsUsingProfileIdentifier:(id)identifier options:(unint64_t)options withBlock:(id)block
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   hintCopy = hint;
   identifierCopy = identifier;
   blockCopy = block;
   v11 = +[Application sharedApplication];
   historyController = [v11 historyController];
-  v48 = [historyController historyForProfileIdentifier:identifierCopy loadIfNeeded:1];
+  v50 = [historyController historyForProfileIdentifier:identifierCopy loadIfNeeded:1];
 
   group = dispatch_group_create();
   searchableCollectionsMask = self->_searchableCollectionsMask;
@@ -97,23 +97,23 @@ void __45__URLCompletionDatabase__updateCloudDevices___block_invoke(uint64_t a1)
     date = [MEMORY[0x277CBEAA8] date];
     [date timeIntervalSinceReferenceDate];
     v17 = v16;
-    v75[0] = MEMORY[0x277D85DD0];
-    v75[1] = 3221225472;
-    v75[2] = __116__URLCompletionDatabase_enumerateMatchDataForTypedStringHint_filterResultsUsingProfileIdentifier_options_withBlock___block_invoke;
-    v75[3] = &unk_2781DB760;
-    v76 = v48;
+    v77[0] = MEMORY[0x277D85DD0];
+    v77[1] = 3221225472;
+    v77[2] = __116__URLCompletionDatabase_enumerateMatchDataForTypedStringHint_filterResultsUsingProfileIdentifier_options_withBlock___block_invoke;
+    v77[3] = &unk_2781DB760;
+    v78 = v50;
     v18 = array;
-    v77 = v18;
-    v72[0] = MEMORY[0x277D85DD0];
-    v72[1] = 3221225472;
-    v72[2] = __116__URLCompletionDatabase_enumerateMatchDataForTypedStringHint_filterResultsUsingProfileIdentifier_options_withBlock___block_invoke_2;
-    v72[3] = &unk_2781DB788;
-    v73 = hintCopy;
-    v74 = group;
-    [v76 searchForUserTypedString:v73 options:options currentTime:v75 enumerationBlock:v72 completionHandler:v17];
+    v79 = v18;
+    v74[0] = MEMORY[0x277D85DD0];
+    v74[1] = 3221225472;
+    v74[2] = __116__URLCompletionDatabase_enumerateMatchDataForTypedStringHint_filterResultsUsingProfileIdentifier_options_withBlock___block_invoke_2;
+    v74[3] = &unk_2781DB788;
+    v75 = hintCopy;
+    v76 = group;
+    [v78 searchForUserTypedString:v75 options:options currentTime:v77 enumerationBlock:v74 completionHandler:v17];
 
     searchableCollectionsMask = self->_searchableCollectionsMask;
-    v50 = v18;
+    v52 = v18;
     if ((searchableCollectionsMask & 2) == 0)
     {
 LABEL_3:
@@ -128,7 +128,7 @@ LABEL_3:
 
   else
   {
-    v50 = 0;
+    v52 = 0;
     if ((searchableCollectionsMask & 2) == 0)
     {
       goto LABEL_3;
@@ -141,9 +141,9 @@ LABEL_3:
   block[2] = __116__URLCompletionDatabase_enumerateMatchDataForTypedStringHint_filterResultsUsingProfileIdentifier_options_withBlock___block_invoke_285;
   block[3] = &unk_2781DB7B0;
   block[4] = self;
-  v69 = hintCopy;
+  v71 = hintCopy;
   optionsCopy = options;
-  v70 = blockCopy;
+  v72 = blockCopy;
   dispatch_sync(cloudTabsAccessQueue, block);
 
   searchableCollectionsMask = self->_searchableCollectionsMask;
@@ -161,29 +161,29 @@ LABEL_4:
 LABEL_8:
   bookmarksCache = self->_bookmarksCache;
   normalizedString = [hintCopy normalizedString];
-  v47 = [(NSCache *)bookmarksCache objectForKey:normalizedString];
+  v49 = [(NSCache *)bookmarksCache objectForKey:normalizedString];
 
-  if (v47)
+  if (v49)
   {
+    v68 = 0u;
+    v69 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v64 = 0u;
-    v65 = 0u;
-    obj = v47;
-    v22 = [obj countByEnumeratingWithState:&v64 objects:v79 count:16];
+    obj = v49;
+    v22 = [obj countByEnumeratingWithState:&v66 objects:v81 count:16];
     if (v22)
     {
-      v23 = *v65;
+      v23 = *v67;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v65 != v23)
+          if (*v67 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = *(*(&v64 + 1) + 8 * i);
+          v25 = *(*(&v66 + 1) + 8 * i);
           address = [v25 address];
           title = [v25 title];
           hasMatchWithOptions = SafariShared::BookmarkAndHistoryCompletionMatch::hasMatchWithOptions();
@@ -195,7 +195,7 @@ LABEL_8:
           }
         }
 
-        v22 = [obj countByEnumeratingWithState:&v64 objects:v79 count:16];
+        v22 = [obj countByEnumeratingWithState:&v66 objects:v81 count:16];
       }
 
       while (v22);
@@ -219,18 +219,18 @@ LABEL_8:
 
     v35 = [MEMORY[0x277CBEB18] arrayWithCapacity:16];
     bookmarkProvider = self->_bookmarkProvider;
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = __116__URLCompletionDatabase_enumerateMatchDataForTypedStringHint_filterResultsUsingProfileIdentifier_options_withBlock___block_invoke_2_287;
-    v58[3] = &unk_2781DB7D8;
+    v60[0] = MEMORY[0x277D85DD0];
+    v60[1] = 3221225472;
+    v60[2] = __116__URLCompletionDatabase_enumerateMatchDataForTypedStringHint_filterResultsUsingProfileIdentifier_options_withBlock___block_invoke_2_287;
+    v60[3] = &unk_2781DB7D8;
     v37 = hintCopy;
-    v59 = v37;
+    v61 = v37;
     optionsCopy2 = options;
     v38 = v35;
-    v60 = v38;
-    v62 = blockCopy;
-    v61 = v48;
-    [(WBBookmarkProvider *)bookmarkProvider enumerateBookmarks:1 andReadingListItems:1 matchingString:obj usingBlock:v58];
+    v62 = v38;
+    v64 = blockCopy;
+    v63 = v50;
+    [(WBBookmarkProvider *)bookmarkProvider enumerateBookmarks:1 andReadingListItems:1 matchingString:obj usingBlock:v60];
     v39 = self->_bookmarksCache;
     normalizedString2 = [v37 normalizedString];
     [(NSCache *)v39 setObject:v38 forKey:normalizedString2];
@@ -240,42 +240,43 @@ LABEL_8:
   {
 LABEL_24:
     v41 = dispatch_time(0, 2000000000);
-    if (dispatch_group_wait(group, v41))
+    v42 = dispatch_group_wait(group, v41);
+    if (v42)
     {
-      v42 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v44 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v42, v43);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
-        [URLCompletionDatabase enumerateMatchDataForTypedStringHint:hintCopy filterResultsUsingProfileIdentifier:v42 options:? withBlock:?];
+        [URLCompletionDatabase enumerateMatchDataForTypedStringHint:hintCopy filterResultsUsingProfileIdentifier:v44 options:? withBlock:?];
       }
     }
 
     else
     {
+      v58 = 0u;
+      v59 = 0u;
       v56 = 0u;
       v57 = 0u;
-      v54 = 0u;
-      v55 = 0u;
-      v43 = v50;
-      v44 = [v43 countByEnumeratingWithState:&v54 objects:v78 count:16];
-      if (v44)
+      v45 = v52;
+      v46 = [v45 countByEnumeratingWithState:&v56 objects:v80 count:16];
+      if (v46)
       {
-        v45 = *v55;
+        v47 = *v57;
         do
         {
-          for (j = 0; j != v44; ++j)
+          for (j = 0; j != v46; ++j)
           {
-            if (*v55 != v45)
+            if (*v57 != v47)
             {
-              objc_enumerationMutation(v43);
+              objc_enumerationMutation(v45);
             }
 
-            (*(blockCopy + 2))(blockCopy, *(*(&v54 + 1) + 8 * j));
+            (*(blockCopy + 2))(blockCopy, *(*(&v56 + 1) + 8 * j));
           }
 
-          v44 = [v43 countByEnumeratingWithState:&v54 objects:v78 count:16];
+          v46 = [v45 countByEnumeratingWithState:&v56 objects:v80 count:16];
         }
 
-        while (v44);
+        while (v46);
       }
     }
   }
@@ -299,34 +300,35 @@ void __116__URLCompletionDatabase_enumerateMatchDataForTypedStringHint_filterRes
 
 void __116__URLCompletionDatabase_enumerateMatchDataForTypedStringHint_filterResultsUsingProfileIdentifier_options_withBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v5 = [v3 safari_privacyPreservingDescription];
-      __116__URLCompletionDatabase_enumerateMatchDataForTypedStringHint_filterResultsUsingProfileIdentifier_options_withBlock___block_invoke_2_cold_1(v5, a1, v6, v4);
+      v7 = [v5 safari_privacyPreservingDescription];
+      __116__URLCompletionDatabase_enumerateMatchDataForTypedStringHint_filterResultsUsingProfileIdentifier_options_withBlock___block_invoke_2_cold_1(v7, a1, v8, v6);
     }
   }
 
   dispatch_group_leave(*(a1 + 40));
 }
 
-void __116__URLCompletionDatabase_enumerateMatchDataForTypedStringHint_filterResultsUsingProfileIdentifier_options_withBlock___block_invoke_285(uint64_t a1)
+void __116__URLCompletionDatabase_enumerateMatchDataForTypedStringHint_filterResultsUsingProfileIdentifier_options_withBlock___block_invoke_285(void *a1)
 {
   v32 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   if (!*(v2 + 136))
   {
     v3 = [*(v2 + 128) syncedRemoteCloudTabDevicesForProfileWithIdentifier:*(v2 + 168)];
     v4 = [v3 copy];
-    v5 = *(a1 + 32);
+    v5 = a1[4];
     v6 = *(v5 + 136);
     *(v5 + 136) = v4;
 
-    v2 = *(a1 + 32);
+    v2 = a1[4];
   }
 
   v28 = 0u;
@@ -373,7 +375,7 @@ void __116__URLCompletionDatabase_enumerateMatchDataForTypedStringHint_filterRes
               v15 = [v12 title];
               if (SafariShared::BookmarkAndHistoryCompletionMatch::hasMatchWithOptions())
               {
-                v16 = *(a1 + 48);
+                v16 = a1[6];
                 v17 = [objc_alloc(MEMORY[0x277D28E88]) initWithCloudTabItem:v12 device:v8];
                 (*(v16 + 16))(v16, v17);
               }

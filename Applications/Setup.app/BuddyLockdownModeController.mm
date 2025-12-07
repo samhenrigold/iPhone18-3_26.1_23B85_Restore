@@ -65,9 +65,9 @@
 - (BOOL)controllerNeedsToRun
 {
   selfCopy = self;
-  v3 = sub_10002DB90();
+  v4 = sub_10002DB90(selfCopy, v3);
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (_TtC5Setup27BuddyLockdownModeController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

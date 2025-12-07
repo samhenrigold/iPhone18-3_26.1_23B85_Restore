@@ -205,7 +205,6 @@ LABEL_6:
       goto LABEL_25;
     }
 
-    v7 = *(equalCopy + 20);
     if (self->_isCustomResponse)
     {
       if ((*(equalCopy + 20) & 1) == 0)
@@ -398,7 +397,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    modelId = self->_modelId;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -418,7 +416,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  responseClassId = self->_responseClassId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -433,7 +430,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  replyTextId = self->_replyTextId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -448,12 +444,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  isCustomResponse = self->_isCustomResponse;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_6:
-    isRobotResponse = self->_isRobotResponse;
     PBDataWriterWriteBOOLField();
   }
 

@@ -70,7 +70,7 @@
 
 - (void)updateAnalyzer
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   currentSettings = [MEMORY[0x1E69B0B08] currentSettings];
   staticWaveform = [currentSettings staticWaveform];
@@ -86,46 +86,47 @@
     {
       +[MRUWaveformData zero];
     }
-    v15 = ;
+    v18 = ;
     [(MRUWaveformController *)self setWaveform:?];
   }
 
   else if (self->_playing && self->_visible && self->_routeSupportsWaveform && self->_nowPlayingPID)
   {
-    if ([(MRUAudioAnalyzer *)self->_audioAnalyzer pid]!= self->_nowPlayingPID)
+    v6 = [(MRUAudioAnalyzer *)self->_audioAnalyzer pid];
+    if (v6 != self->_nowPlayingPID)
     {
-      v5 = MCLogCategoryWaveform();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = MCLogCategoryWaveform(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         nowPlayingPID = self->_nowPlayingPID;
         *buf = 138412546;
         selfCopy3 = self;
-        v18 = 1024;
-        LODWORD(v19) = nowPlayingPID;
-        _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_DEFAULT, "%@ Creating new audio analyzer for PID: %u", buf, 0x12u);
+        v21 = 1024;
+        LODWORD(v22) = nowPlayingPID;
+        _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "%@ Creating new audio analyzer for PID: %u", buf, 0x12u);
       }
 
       [(MRUAudioAnalyzer *)self->_audioAnalyzer removeObserver:self];
       self->_isAnalyzingAudio = 0;
-      v7 = [MRUAudioAnalyzer audioAnalyzerForPID:self->_nowPlayingPID];
+      v9 = [MRUAudioAnalyzer audioAnalyzerForPID:self->_nowPlayingPID];
       audioAnalyzer = self->_audioAnalyzer;
-      self->_audioAnalyzer = v7;
+      self->_audioAnalyzer = v9;
     }
 
     if (!self->_isAnalyzingAudio)
     {
-      v9 = +[MRUWaveformData zero];
-      [(MRUWaveformController *)self setWaveform:v9];
+      v11 = +[MRUWaveformData zero];
+      [(MRUWaveformController *)self setWaveform:v11];
 
-      v10 = MCLogCategoryWaveform();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v13 = MCLogCategoryWaveform(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = self->_audioAnalyzer;
+        v14 = self->_audioAnalyzer;
         *buf = 138412546;
         selfCopy3 = self;
-        v18 = 2112;
-        v19 = v11;
-        _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEFAULT, "%@ Starting audio analyzer: %@", buf, 0x16u);
+        v21 = 2112;
+        v22 = v14;
+        _os_log_impl(&dword_1A20FC000, v13, OS_LOG_TYPE_DEFAULT, "%@ Starting audio analyzer: %@", buf, 0x16u);
       }
 
       [(MRUAudioAnalyzer *)self->_audioAnalyzer addObserver:self];
@@ -135,21 +136,21 @@
 
   else if (self->_audioAnalyzer && self->_isAnalyzingAudio)
   {
-    v12 = MCLogCategoryWaveform();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v15 = MCLogCategoryWaveform(v5);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = self->_audioAnalyzer;
+      v16 = self->_audioAnalyzer;
       *buf = 138412546;
       selfCopy3 = self;
-      v18 = 2112;
-      v19 = v13;
-      _os_log_impl(&dword_1A20FC000, v12, OS_LOG_TYPE_DEFAULT, "%@ Stopping audio analyzer: %@", buf, 0x16u);
+      v21 = 2112;
+      v22 = v16;
+      _os_log_impl(&dword_1A20FC000, v15, OS_LOG_TYPE_DEFAULT, "%@ Stopping audio analyzer: %@", buf, 0x16u);
     }
 
     [(MRUAudioAnalyzer *)self->_audioAnalyzer removeObserver:self];
     self->_isAnalyzingAudio = 0;
-    v14 = +[MRUWaveformData zero];
-    [(MRUWaveformController *)self setWaveform:v14];
+    v17 = +[MRUWaveformData zero];
+    [(MRUWaveformController *)self setWaveform:v17];
   }
 }
 
@@ -182,7 +183,7 @@
   v13 = *MEMORY[0x1E69E9840];
   if (self->_nowPlayingPID != d)
   {
-    v5 = MCLogCategoryWaveform();
+    v5 = MCLogCategoryWaveform(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       nowPlayingPID = self->_nowPlayingPID;
@@ -207,7 +208,7 @@
   {
     visibleCopy = visible;
     self->_visible = visible;
-    v5 = MCLogCategoryWaveform();
+    v5 = MCLogCategoryWaveform(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412546;
@@ -231,7 +232,7 @@
   {
     playingCopy = playing;
     self->_playing = playing;
-    v5 = MCLogCategoryWaveform();
+    v5 = MCLogCategoryWaveform(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 138412546;
@@ -260,7 +261,7 @@
   {
     waveformCopy = waveform;
     self->_routeSupportsWaveform = waveform;
-    v5 = MCLogCategoryWaveform();
+    v5 = MCLogCategoryWaveform(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 138412546;
@@ -284,30 +285,30 @@
 
 - (void)setEndpointRoute:(id)route
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   if (self->_endpointRoute != routeCopy)
   {
     objc_storeStrong(&self->_endpointRoute, route);
-    v6 = MCLogCategoryWaveform();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = MCLogCategoryWaveform(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412546;
+      v11 = 138412546;
       selfCopy = self;
-      v12 = 2112;
-      v13 = routeCopy;
-      _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "%@ endpointRoute changed to: %@", &v10, 0x16u);
+      v13 = 2112;
+      v14 = routeCopy;
+      _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "%@ endpointRoute changed to: %@", &v11, 0x16u);
     }
 
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    v8 = *MEMORY[0x1E696F860];
+    v9 = *MEMORY[0x1E696F860];
     [defaultCenter removeObserver:self name:*MEMORY[0x1E696F860] object:0];
 
     [(MRUWaveformController *)self updateRoute:routeCopy];
     if (routeCopy)
     {
       defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
-      [defaultCenter2 addObserver:self selector:sel_routeDidUpdateNotification_ name:v8 object:routeCopy];
+      [defaultCenter2 addObserver:self selector:sel_routeDidUpdateNotification_ name:v9 object:routeCopy];
     }
   }
 }
@@ -324,69 +325,69 @@
 
 - (void)updateRoute:(id)route
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
-  v5 = MCLogCategoryWaveform();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = MCLogCategoryWaveform(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
     selfCopy = self;
-    v23 = 2112;
-    v24 = routeCopy;
-    _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_INFO, "%@ updating info from route: %@", buf, 0x16u);
+    v24 = 2112;
+    v25 = routeCopy;
+    _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_INFO, "%@ updating info from route: %@", buf, 0x16u);
   }
 
   endpointObject = [routeCopy endpointObject];
   outputDevices = [endpointObject outputDevices];
-  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v8 = [outputDevices countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v8)
+  v20 = 0u;
+  v9 = [outputDevices countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v9)
   {
-    v9 = v8;
-    v10 = 0;
+    v10 = v9;
     v11 = 0;
-    v12 = *v17;
+    v12 = 0;
+    v13 = *v18;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v12)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(outputDevices);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * i);
-        if ([v14 isLocalDevice])
+        v15 = *(*(&v17 + 1) + 8 * i);
+        if ([v15 isLocalDevice])
         {
-          if ([v14 deviceSubtype] == 14 || objc_msgSend(v14, "deviceType") == 3)
+          if ([v15 deviceSubtype] == 14 || objc_msgSend(v15, "deviceType") == 3)
           {
-            v10 = 1;
+            v11 = 1;
           }
         }
 
         else
         {
-          v11 = 1;
+          v12 = 1;
         }
       }
 
-      v9 = [outputDevices countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [outputDevices countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
-    while (v9);
-    v15 = (v11 | v10) ^ 1;
+    while (v10);
+    v16 = (v12 | v11) ^ 1;
   }
 
   else
   {
-    v15 = 1;
+    v16 = 1;
   }
 
-  [(MRUWaveformController *)self setRouteSupportsWaveform:v15 & 1];
+  [(MRUWaveformController *)self setRouteSupportsWaveform:v16 & 1];
 }
 
 - (void)updateImage:(id)image

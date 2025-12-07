@@ -311,9 +311,10 @@ void sub_4ACC(id a1)
 
 void sub_4D28(id a1)
 {
-  qword_46AD0 = objc_alloc_init(NTKAlaskanComplicationsConfiguration);
+  v1 = objc_alloc_init(NTKAlaskanComplicationsConfiguration);
+  qword_46AD0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1);
 }
 
 id sub_507C(uint64_t a1, void *a2)
@@ -434,9 +435,10 @@ void sub_71FC(void *a1@<X1>, void *a2@<X8>)
 
 void sub_7448(id a1)
 {
-  qword_46B48 = [[NTKCornerComplicationConfiguration alloc] initWithTopLeftComplication:43 topRightComplication:10 bottomLeftComplication:3 bottomRightComplication:7];
+  v1 = [[NTKCornerComplicationConfiguration alloc] initWithTopLeftComplication:43 topRightComplication:10 bottomLeftComplication:3 bottomRightComplication:7];
+  qword_46B48 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1);
 }
 
 void sub_8BC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -572,12 +574,12 @@ void sub_9984(uint64_t a1)
   }
 }
 
-void sub_9DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_9DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  objc_destroyWeak((v15 + 32));
+  va_start(va, a22);
+  objc_destroyWeak((v22 + 32));
   objc_destroyWeak(va);
-  objc_destroyWeak((v16 - 104));
+  objc_destroyWeak((v23 - 104));
   _Unwind_Resume(a1);
 }
 
@@ -1111,9 +1113,9 @@ int64_t sub_F950(id a1, NTKAlaskanGMTTimezoneLocation *a2, NTKAlaskanGMTTimezone
   return v8;
 }
 
-void sub_10314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1171,7 +1173,7 @@ void sub_11538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   _Unwind_Resume(a1);
 }
 
-id sub_11598(uint64_t a1, uint64_t a2)
+CALayer *sub_11598(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -1635,7 +1637,7 @@ void sub_14414(uint64_t a1, void *a2)
     v8 = v7;
     if (v4)
     {
-      [v4 transform];
+      objc_msgSend_transform(v4);
       v10 = v20;
       v9 = v21;
       v12 = v22;
@@ -1994,7 +1996,7 @@ void sub_1D800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   _Unwind_Resume(a1);
 }
 
-id sub_1D8C4(uint64_t a1)
+CALayer *sub_1D8C4(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_opt_new();
@@ -2465,7 +2467,7 @@ void sub_20BD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-id sub_20C10(uint64_t a1, uint64_t a2)
+CALayer *sub_20C10(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)

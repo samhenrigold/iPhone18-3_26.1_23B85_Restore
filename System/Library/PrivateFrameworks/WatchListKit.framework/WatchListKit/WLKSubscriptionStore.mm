@@ -6,6 +6,7 @@
 - (id)cachedSubscriptionData;
 - (void)_setIsSubscriptionSyncInProgress:(BOOL)progress;
 - (void)dealloc;
+- (void)fetchSubscriptionData:(BOOL)data completion:(id)completion;
 - (void)refreshSubscriptionDataIfNeeded;
 @end
 
@@ -25,9 +26,11 @@
 
 uint64_t __38__WLKSubscriptionStore_sharedInstance__block_invoke()
 {
-  sharedInstance___singleInstance_0 = objc_alloc_init(WLKSubscriptionStore);
+  v0 = objc_alloc_init(WLKSubscriptionStore);
+  v1 = sharedInstance___singleInstance_0;
+  sharedInstance___singleInstance_0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (WLKSubscriptionStore)init
@@ -64,29 +67,30 @@ uint64_t __38__WLKSubscriptionStore_sharedInstance__block_invoke()
 - (void)refreshSubscriptionDataIfNeeded
 {
   _isSubscriptionSyncInProgress = [(WLKSubscriptionStore *)self _isSubscriptionSyncInProgress];
-  v4 = WLKSubscriptionSyncLogObject();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (_isSubscriptionSyncInProgress)
+  v4 = _isSubscriptionSyncInProgress;
+  v5 = WLKSubscriptionSyncLogObject(_isSubscriptionSyncInProgress);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
-    if (v5)
+    if (v6)
     {
       *buf = 0;
-      _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "Not refreshing subscription data as subscription sync is already in-progress", buf, 2u);
+      _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "Not refreshing subscription data as subscription sync is already in-progress", buf, 2u);
     }
   }
 
   else
   {
-    if (v5)
+    if (v6)
     {
-      *v7 = 0;
-      _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "Start subscription refresh request", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "Start subscription refresh request", v8, 2u);
     }
 
     _connection = [(WLKSubscriptionStore *)self _connection];
-    v4 = [_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_15];
+    v5 = [_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_15];
 
-    [v4 refreshSubscriptionData:0];
+    [v5 refreshSubscriptionData:0];
   }
 }
 
@@ -143,13 +147,14 @@ void __28__WLKSubscriptionStore_init__block_invoke(uint64_t a1)
 {
   state64 = 0;
   notify_get_state(*(*(a1 + 32) + 24), &state64);
-  if (state64 != getpid())
+  v2 = getpid();
+  if (state64 != v2)
   {
-    v2 = WLKSubscriptionSyncLogObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = WLKSubscriptionSyncLogObject(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_272A0F000, v2, OS_LOG_TYPE_DEFAULT, "Handling internal sync notification", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "Handling internal sync notification", v5, 2u);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -157,13 +162,13 @@ void __28__WLKSubscriptionStore_init__block_invoke(uint64_t a1)
   }
 }
 
-void __28__WLKSubscriptionStore_init__block_invoke_3()
+void __28__WLKSubscriptionStore_init__block_invoke_3(uint64_t a1)
 {
-  v0 = WLKSubscriptionSyncLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = WLKSubscriptionSyncLogObject(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_272A0F000, v0, OS_LOG_TYPE_DEFAULT, "Internal sync complete", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_272A0F000, v1, OS_LOG_TYPE_DEFAULT, "Internal sync complete", v2, 2u);
   }
 }
 
@@ -180,16 +185,53 @@ void __28__WLKSubscriptionStore_init__block_invoke_3()
   [(WLKSubscriptionStore *)&v4 dealloc];
 }
 
+- (void)fetchSubscriptionData:(BOOL)data completion:(id)completion
+{
+  dataCopy = data;
+  completionCopy = completion;
+  _connection = [(WLKSubscriptionStore *)self _connection];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __57__WLKSubscriptionStore_fetchSubscriptionData_completion___block_invoke;
+  v18[3] = &unk_279E5EB38;
+  v8 = completionCopy;
+  v19 = v8;
+  v9 = [_connection remoteObjectProxyWithErrorHandler:v18];
+
+  v11 = WLKSubscriptionSyncLogObject(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(buf) = 0;
+    _os_log_impl(&dword_272A0F000, v11, OS_LOG_TYPE_DEFAULT, "calling out to daemon to fetch subscription data", &buf, 2u);
+  }
+
+  [(WLKSubscriptionStore *)self _setIsSubscriptionSyncInProgress:1];
+  objc_initWeak(&buf, self);
+  v12 = getpid();
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __57__WLKSubscriptionStore_fetchSubscriptionData_completion___block_invoke_12;
+  v14[3] = &unk_279E5FD28;
+  objc_copyWeak(&v16, &buf);
+  v14[4] = self;
+  v13 = v8;
+  v15 = v13;
+  [v9 fetchSubscriptionData:dataCopy callerProcessID:v12 completion:v14];
+
+  objc_destroyWeak(&v16);
+  objc_destroyWeak(&buf);
+}
+
 void __57__WLKSubscriptionStore_fetchSubscriptionData_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = WLKSubscriptionSyncLogObject();
+  v4 = WLKSubscriptionSyncLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "Error: Unable to communicate with the remote object proxy (%@)", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "Error: Unable to communicate with the remote object proxy (%@)", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -197,8 +239,6 @@ void __57__WLKSubscriptionStore_fetchSubscriptionData_completion___block_invoke(
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __57__WLKSubscriptionStore_fetchSubscriptionData_completion___block_invoke_12(uint64_t a1, void *a2, void *a3)
@@ -256,15 +296,15 @@ void __57__WLKSubscriptionStore_fetchSubscriptionData_completion___block_invoke_
       {
 
 LABEL_11:
-        v11 = WLKSubscriptionSyncLogObject();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = WLKSubscriptionSyncLogObject(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_272A0F000, v11, OS_LOG_TYPE_DEFAULT, "WLKSubscriptionData did change. Firing in-process notification", buf, 2u);
+          _os_log_impl(&dword_272A0F000, v12, OS_LOG_TYPE_DEFAULT, "WLKSubscriptionData did change. Firing in-process notification", buf, 2u);
         }
 
-        v12 = [MEMORY[0x277CCAB98] defaultCenter];
-        [v12 postNotificationName:@"WLKSubscriptionStoreSubscriptionDataDidChange" object:0];
+        v13 = [MEMORY[0x277CCAB98] defaultCenter];
+        [v13 postNotificationName:@"WLKSubscriptionStoreSubscriptionDataDidChange" object:0];
 
         goto LABEL_14;
       }
@@ -282,32 +322,28 @@ LABEL_14:
 
   if (*(a1 + 48))
   {
-    v13 = WLKSubscriptionSyncLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = WLKSubscriptionSyncLogObject(WeakRetained);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_272A0F000, v13, OS_LOG_TYPE_DEFAULT, "Fetched subscription data", v16, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_272A0F000, v14, OS_LOG_TYPE_DEFAULT, "Fetched subscription data", v15, 2u);
     }
 
-    v14 = *(a1 + 40);
-    v15 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 }
 
 void __55__WLKSubscriptionStore_refreshSubscriptionDataIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = WLKSubscriptionSyncLogObject();
+  v3 = WLKSubscriptionSyncLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "Error: Unable to communicate with the remote object proxy (%@)", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "Error: Unable to communicate with the remote object proxy (%@)", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cachedSubscriptionData
@@ -332,19 +368,19 @@ void __55__WLKSubscriptionStore_refreshSubscriptionDataIfNeeded__block_invoke(ui
   return v3;
 }
 
-void __35__WLKSubscriptionStore__connection__block_invoke()
+void __35__WLKSubscriptionStore__connection__block_invoke(uint64_t a1)
 {
-  v0 = WLKSubscriptionSyncLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = WLKSubscriptionSyncLogObject(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_272A0F000, v0, OS_LOG_TYPE_DEFAULT, "Connection interrupted.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_272A0F000, v1, OS_LOG_TYPE_DEFAULT, "Connection interrupted.", v2, 2u);
   }
 }
 
 void __35__WLKSubscriptionStore__connection__block_invoke_22(uint64_t a1)
 {
-  v2 = WLKSubscriptionSyncLogObject();
+  v2 = WLKSubscriptionSyncLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

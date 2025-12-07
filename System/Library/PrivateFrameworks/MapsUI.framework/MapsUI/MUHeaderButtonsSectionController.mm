@@ -7,6 +7,7 @@
 - (NSArray)sectionViews;
 - (_MKPlaceActionButtonController)alternatePrimaryButtonController;
 - (_MKPlaceActionButtonController)secondaryButtonController;
+- (id)analyticsModuleForAction:(int)action presentationOptions:(id)options;
 - (id)infoCardChildPossibleActions;
 - (id)revealedAnalyticsModule;
 - (unint64_t)primaryButtonType;
@@ -42,6 +43,14 @@
   v3 = [(MUHeaderButtonsSectionController *)self analyticsModuleTypeForAction:0 presentationOptions:0];
 
   return [v2 moduleWithType:v3];
+}
+
+- (id)analyticsModuleForAction:(int)action presentationOptions:(id)options
+{
+  v4 = MEMORY[0x1E69A1B10];
+  v5 = [(MUHeaderButtonsSectionController *)self analyticsModuleTypeForAction:*&action presentationOptions:options];
+
+  return [v4 moduleFromModuleType:v5];
 }
 
 - (id)infoCardChildPossibleActions
@@ -121,24 +130,22 @@
 - (void)_updateWithPreviousState:(BOOL)state
 {
   stateCopy = state;
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ([(MUHeaderButtonsSectionController *)self hasContent]!= state)
   {
     v5 = MUGetPlaceCardLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8[0] = 67109376;
-      v8[1] = stateCopy;
-      v9 = 1024;
+      v7[0] = 67109376;
+      v7[1] = stateCopy;
+      v8 = 1024;
       hasContent = [(MUHeaderButtonsSectionController *)self hasContent];
-      _os_log_impl(&dword_1C5620000, v5, OS_LOG_TYPE_INFO, "MUPlaceHeaderButtonsSectionController: hasContent changed from %d to %d, will tell parent to update.", v8, 0xEu);
+      _os_log_impl(&dword_1C5620000, v5, OS_LOG_TYPE_INFO, "MUPlaceHeaderButtonsSectionController: hasContent changed from %d to %d, will tell parent to update.", v7, 0xEu);
     }
 
     delegate = [(MUHeaderButtonsSectionController *)self delegate];
     [delegate headerButtonsSectionControllerDidUpdateContent:self];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasContent
@@ -265,10 +272,9 @@
 
 - (NSArray)sectionViews
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = self->_sectionView;
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = self->_sectionView;
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }

@@ -281,9 +281,9 @@ LABEL_51:
   objc_autoreleasePoolPop(v4);
 }
 
-void sub_100001144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -331,7 +331,7 @@ BOOL sub_1000012B8(void *a1)
 {
   if (a1)
   {
-    result = sub_100001718();
+    result = sub_100001718(a1);
     if (!result)
     {
       return result;
@@ -431,15 +431,16 @@ uint64_t sub_1000014D0(uint64_t a1)
   if (a1)
   {
     v2 = CFPreferencesCopyAppValue(@"MACaptionDisplayType", @"com.apple.mediaaccessibility.public");
+    v3 = v2;
     if (v2)
     {
-      if (!sub_100001718() || (v3 = [v2 integerValue], v3 > 3))
+      if (!sub_100001718(v2) || (v4 = [v3 integerValue], v4 > 3))
       {
         v1 = 0;
         goto LABEL_8;
       }
 
-      *v1 = [NSNumber numberWithInteger:v3];
+      *v1 = [NSNumber numberWithInteger:v4];
     }
 
     v1 = 1;
@@ -526,7 +527,7 @@ LABEL_4:
   return 1;
 }
 
-BOOL sub_100001718()
+BOOL sub_100001718(uint64_t a1)
 {
   result = 0;
   if (objc_opt_respondsToSelector())
@@ -562,16 +563,16 @@ Class sub_1000017A8(uint64_t a1)
 
 uint64_t sub_1000018A8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100008090 = result;
   return result;
 }
 
-void sub_10000191C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000191C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 CFNumberRef sub_100001938(void *a1)
@@ -745,7 +746,7 @@ xpc_object_t sub_100001CFC(const __CFDictionary *a1)
   return v2;
 }
 
-uint64_t sub_100001E58(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t sub_100001E58(uint64_t a1, const char *a2, void *a3)
 {
   if (a2)
   {

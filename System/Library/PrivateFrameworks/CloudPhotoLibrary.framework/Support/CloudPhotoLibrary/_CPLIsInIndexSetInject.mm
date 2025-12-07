@@ -1,6 +1,7 @@
 @interface _CPLIsInIndexSetInject
 - (NSString)description;
 - (_CPLIsInIndexSetInject)initWithInjection:(id)injection indexSet:(id)set exclude:(BOOL)exclude;
+- (int)bindWithStatement:(sqlite3_stmt *)statement startingAtIndex:(int)index;
 @end
 
 @implementation _CPLIsInIndexSetInject
@@ -134,6 +135,44 @@
   }
 
   return v11;
+}
+
+- (int)bindWithStatement:(sqlite3_stmt *)statement startingAtIndex:(int)index
+{
+  indexSet = self->_indexSet;
+  if (*&self->_onlyIndex == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    return 0;
+  }
+
+  injection = self->_injection;
+  if (injection)
+  {
+    v8 = [injection bindWithStatement:statement startingAtIndex:*&index] + 1;
+    if (self->_indexSet)
+    {
+LABEL_5:
+      pql_sqlite3_bind_pointer();
+      return v8;
+    }
+  }
+
+  else
+  {
+    v8 = 1;
+    if (indexSet)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  onlyIndex = self->_onlyIndex;
+  if (onlyIndex != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    sqlite3_bind_int64(statement, index, onlyIndex);
+  }
+
+  return v8;
 }
 
 - (NSString)description

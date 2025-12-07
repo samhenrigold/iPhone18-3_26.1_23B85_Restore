@@ -154,7 +154,7 @@ void __56__ATXAppPredictionBlacklist_registerPrefsChangeHandler___block_invoke(u
   v4 = *(a1 + 32);
   v5 = a2;
   v8 = _Block_copy(v4);
-  v6 = v5[2];
+  v6 = *(v5 + 2);
   v7 = [MEMORY[0x277CCABB0] numberWithInt:*(*(*(a1 + 40) + 8) + 24)];
   [v6 setObject:v8 forKeyedSubscript:v7];
 }
@@ -218,61 +218,59 @@ void __46__ATXAppPredictionBlacklist__listenForUpdates__block_invoke(uint64_t a1
 
 void __46__ATXAppPredictionBlacklist__listenForUpdates__block_invoke_2(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v2 = __atxlog_handle_default();
+  v20 = *MEMORY[0x277D85DE8];
+  v2 = __atxlog_handle_default(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __46__ATXAppPredictionBlacklist__listenForUpdates__block_invoke_2_cold_1(a1);
   }
 
   [*(a1 + 40) _updateBlacklist];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__46;
-  v18 = __Block_byref_object_dispose__46;
-  v19 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__46;
+  v17 = __Block_byref_object_dispose__46;
+  v18 = 0;
   v3 = *(*(a1 + 40) + 8);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __46__ATXAppPredictionBlacklist__listenForUpdates__block_invoke_50;
-  v13[3] = &unk_27859BFA0;
-  v13[4] = &v14;
-  [v3 runWithLockAcquired:v13];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __46__ATXAppPredictionBlacklist__listenForUpdates__block_invoke_50;
+  v12[3] = &unk_27859BFA0;
+  v12[4] = &v13;
+  [v3 runWithLockAcquired:v12];
   v10 = 0u;
-  v4 = v15[5];
-  v5 = [v4 countByEnumeratingWithState:&v9 objects:v20 count:16];
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v4 = v14[5];
+  v5 = [v4 countByEnumeratingWithState:&v8 objects:v19 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v9 + 1) + 8 * v7) + 16))(*(*(&v9 + 1) + 8 * v7));
+        (*(*(*(&v8 + 1) + 8 * v7) + 16))(*(*(&v8 + 1) + 8 * v7));
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v9 objects:v20 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v8 objects:v19 count:16];
     }
 
     while (v5);
   }
 
   ATXUpdatePredictionsImmediatelyWithReason(13);
-  _Block_object_dispose(&v14, 8);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v13, 8);
 }
 
 uint64_t __46__ATXAppPredictionBlacklist__listenForUpdates__block_invoke_50(uint64_t a1, uint64_t a2)
@@ -321,10 +319,9 @@ void __72__ATXAppPredictionBlacklist__createBlacklistFromPreferencesDisabledApps
   v12 = v3[1];
   v3[1] = v11;
 
-  v13 = __atxlog_handle_default();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = __atxlog_handle_default(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = *(a1 + 32);
     v15 = objc_opt_class();
     v16 = NSStringFromClass(v15);
     v17 = v3[1];
@@ -332,19 +329,18 @@ void __72__ATXAppPredictionBlacklist__createBlacklistFromPreferencesDisabledApps
     v30 = v16;
     v31 = 2112;
     v32 = v17;
-    _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "%@ - apps that cannot be suggested: %@", &v29, 0x16u);
+    _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "%@ - apps that cannot be suggested: %@", &v29, 0x16u);
   }
 
-  v18 = __atxlog_handle_default();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v19 = __atxlog_handle_default(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     __72__ATXAppPredictionBlacklist__createBlacklistFromPreferencesDisabledApps__block_invoke_cold_1(a1);
   }
 
-  v19 = __atxlog_handle_default();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v21 = __atxlog_handle_default(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    v21 = *(a1 + 32);
     v22 = objc_opt_class();
     v23 = NSStringFromClass(v22);
     v24 = CFPreferencesCopyValue(@"SBSearchDisabledApps", @"com.apple.spotlightui", v5, v6);
@@ -367,10 +363,8 @@ void __72__ATXAppPredictionBlacklist__createBlacklistFromPreferencesDisabledApps
     v30 = v23;
     v31 = 2112;
     v32 = v28;
-    _os_log_debug_impl(&dword_2263AA000, v19, OS_LOG_TYPE_DEBUG, "%@ - apps that cannot show in search: %@", &v29, 0x16u);
+    _os_log_debug_impl(&dword_2263AA000, v21, OS_LOG_TYPE_DEBUG, "%@ - apps that cannot show in search: %@", &v29, 0x16u);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateBlacklistFromGlobalsBlacklistedApps
@@ -420,10 +414,9 @@ void __71__ATXAppPredictionBlacklist__updateBlacklistFromGlobalsBlacklistedApps_
     while (v8);
   }
 
-  v11 = __atxlog_handle_default();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = __atxlog_handle_default(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = *v4;
     v13 = objc_opt_class();
     v14 = NSStringFromClass(v13);
     v15 = v3[1];
@@ -431,16 +424,14 @@ void __71__ATXAppPredictionBlacklist__updateBlacklistFromGlobalsBlacklistedApps_
     v23 = v14;
     v24 = 2112;
     v25 = v15;
-    _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "%@ - updated suggest app blacklist: %@", buf, 0x16u);
+    _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "%@ - updated suggest app blacklist: %@", buf, 0x16u);
   }
 
-  v16 = __atxlog_handle_default();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v17 = __atxlog_handle_default(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     __71__ATXAppPredictionBlacklist__updateBlacklistFromGlobalsBlacklistedApps__block_invoke_cold_1(v4);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateBlacklist
@@ -452,13 +443,10 @@ void __71__ATXAppPredictionBlacklist__updateBlacklistFromGlobalsBlacklistedApps_
 
 - (void)_performMigrationsIfNeeded
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v7 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_3_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_resetBlacklistWithSet:(id)set
@@ -485,40 +473,28 @@ void __52__ATXAppPredictionBlacklist__resetBlacklistWithSet___block_invoke(uint6
 
 void __46__ATXAppPredictionBlacklist__listenForUpdates__block_invoke_2_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v9 = NSStringFromClass(v2);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_3_3();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __72__ATXAppPredictionBlacklist__createBlacklistFromPreferencesDisabledApps__block_invoke_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v10 = ATXAppsThatCannotShowContentInSearch();
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  v8 = ATXAppsThatCannotShowContentInSearch();
   OUTLINED_FUNCTION_3_3();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void __71__ATXAppPredictionBlacklist__updateBlacklistFromGlobalsBlacklistedApps__block_invoke_cold_1(uint64_t *a1)
+void __71__ATXAppPredictionBlacklist__updateBlacklistFromGlobalsBlacklistedApps__block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v11 = [*(*a1 + 40) blacklistedAppsForAppPredictions];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v9 = [*(*a1 + 40) blacklistedAppsForAppPredictions];
   OUTLINED_FUNCTION_3_3();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 @end

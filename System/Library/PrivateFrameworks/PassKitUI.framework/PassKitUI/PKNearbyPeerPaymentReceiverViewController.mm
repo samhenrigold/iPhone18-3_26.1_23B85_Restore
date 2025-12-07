@@ -19,21 +19,22 @@
   v7 = _Block_copy(dismissAction);
   v8 = sub_1BE052244();
   v9 = swift_allocObject();
-  *(v9 + 16) = v6;
+  v9[2] = v6;
   v10 = swift_allocObject();
-  *(v10 + 16) = v7;
+  v10[2] = v7;
   v11 = sub_1BD265B54(v8, sub_1BD166E88, v9, sub_1BD267094, v10);
-
+  v9, v12, v13, v14, v15, v16, v17, v18;
+  v10, v19, v20, v21, v22, v23, v24, v25;
   return v11;
 }
 
 - (void)viewDidLoad
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for NearbyPeerPaymentReceiverViewController();
+  v5.super_class = type metadata accessor for NearbyPeerPaymentReceiverViewController(0);
   v2 = v5.receiver;
   [(PKNearbyPeerPaymentViewController *)&v5 viewDidLoad];
-  type metadata accessor for NearbyPeerPaymentReceiverVFXViewController();
+  type metadata accessor for NearbyPeerPaymentReceiverVFXViewController(0);
   v3 = swift_dynamicCastClass();
   if (v3)
   {
@@ -47,31 +48,31 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_1BD2608DC(appear, &selRef_viewDidAppear_);
+  sub_1BD2608DC(appear, &selRef_viewDidAppear_, MEMORY[0x1E69BA818]);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  sub_1BD2608DC(disappear, &selRef_viewDidDisappear_);
+  sub_1BD2608DC(disappear, &selRef_viewDidDisappear_, MEMORY[0x1E69BA820]);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1BD260AB4();
+  sub_1BD260AB4(selfCopy, v2);
 }
 
 - (void)invalidate
 {
   v3 = OBJC_IVAR___PKNearbyPeerPaymentReceiverViewController_transferMonitor;
   swift_beginAccess();
-  sub_1BD0EE8CC(self + v3, v6);
-  v4 = v7;
-  v5 = v8;
-  __swift_project_boxed_opaque_existential_1(v6, v7);
+  sub_1BD0EE8CC(self + v3, v13);
+  v4 = v14;
+  v5 = v15;
+  __swift_project_boxed_opaque_existential_1(v13, v14);
   (*(v5 + 96))(v4, v5);
-  __swift_destroy_boxed_opaque_existential_0(v6);
+  __swift_destroy_boxed_opaque_existential_0(v13, v6, v7, v8, v9, v10, v11, v12);
 }
 
 - (void)peerPaymentIdentityManager:(id)manager didUpdateProfileAppearanceData:(id)data

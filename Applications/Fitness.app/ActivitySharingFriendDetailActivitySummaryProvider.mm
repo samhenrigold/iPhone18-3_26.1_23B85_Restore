@@ -29,17 +29,19 @@
 - (int64_t)earliestActivitySummaryIndex
 {
   selfCopy = self;
-  v3 = sub_1004F47EC();
+  sub_1004F47EC();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (int64_t)latestActivitySummaryIndex
 {
   selfCopy = self;
-  v3 = sub_1004F484C();
+  sub_1004F484C();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (int64_t)fitnessStartOfWeekOffset

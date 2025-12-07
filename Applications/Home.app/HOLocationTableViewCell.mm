@@ -173,38 +173,27 @@
   [v3 addObject:v10];
 
   locationIcon = [(HOLocationTableViewCell *)self locationIcon];
-  if (!locationIcon)
+  if (locationIcon && (v12 = locationIcon, -[HOLocationTableViewCell locationIcon](self, "locationIcon"), v13 = objc_claimAutoreleasedReturnValue(), -[HOLocationTableViewCell contentView](self, "contentView"), v14 = objc_claimAutoreleasedReturnValue(), v15 = [v13 isDescendantOfView:v14], v14, v13, v12, v15))
   {
-    goto LABEL_4;
-  }
-
-  v12 = locationIcon;
-  locationIcon2 = [(HOLocationTableViewCell *)self locationIcon];
-  contentView2 = [(HOLocationTableViewCell *)self contentView];
-  v15 = [locationIcon2 isDescendantOfView:contentView2];
-
-  if (v15)
-  {
-    locationIcon3 = [(HOLocationTableViewCell *)self locationIcon];
-    leadingAnchor3 = [locationIcon3 leadingAnchor];
+    locationIcon2 = [(HOLocationTableViewCell *)self locationIcon];
+    leadingAnchor3 = [locationIcon2 leadingAnchor];
     titleLabel2 = [(HOLocationTableViewCell *)self titleLabel];
     trailingAnchor = [titleLabel2 trailingAnchor];
     v20 = [leadingAnchor3 constraintEqualToAnchor:trailingAnchor constant:20.0];
     [v3 addObject:v20];
 
-    locationIcon4 = [(HOLocationTableViewCell *)self locationIcon];
+    locationIcon3 = [(HOLocationTableViewCell *)self locationIcon];
   }
 
   else
   {
-LABEL_4:
-    locationIcon4 = [(HOLocationTableViewCell *)self titleLabel];
+    locationIcon3 = [(HOLocationTableViewCell *)self titleLabel];
   }
 
-  v22 = locationIcon4;
-  trailingAnchor2 = [locationIcon4 trailingAnchor];
-  contentView3 = [(HOLocationTableViewCell *)self contentView];
-  layoutMarginsGuide2 = [contentView3 layoutMarginsGuide];
+  v22 = locationIcon3;
+  trailingAnchor2 = [locationIcon3 trailingAnchor];
+  contentView2 = [(HOLocationTableViewCell *)self contentView];
+  layoutMarginsGuide2 = [contentView2 layoutMarginsGuide];
   trailingAnchor3 = [layoutMarginsGuide2 trailingAnchor];
   v27 = [trailingAnchor2 constraintEqualToAnchor:trailingAnchor3];
   [v3 addObject:v27];

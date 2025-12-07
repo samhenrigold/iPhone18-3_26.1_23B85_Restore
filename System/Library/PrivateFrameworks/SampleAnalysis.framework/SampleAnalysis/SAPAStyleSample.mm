@@ -59,83 +59,83 @@ LABEL_8:
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   if (!buffer)
   {
-    v29 = @"Passed NULL buffer";
+    v28 = @"Passed NULL buffer";
     goto LABEL_24;
   }
 
   if (*buffer != 2171757396)
   {
-    v29 = @"Bad SASample magic";
+    v28 = @"Bad SASample magic";
 LABEL_24:
-    bufferDictionary = [SAException exceptionWithName:@"Decoding failure" reason:v29 userInfo:0, bufferDictionary];
+    bufferDictionary = [SAException exceptionWithName:@"Decoding failure" reason:v28 userInfo:0, bufferDictionary];
     objc_exception_throw(bufferDictionary);
   }
 
   v10 = *(buffer + 3);
   v11 = objc_opt_class();
   v12 = SASerializableNewMutableArrayFromIndexList(buffer + 32, v10, dictionary, bufferDictionary, v11);
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v13 = [v12 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v13)
   {
     v15 = v13;
-    v16 = *v36;
+    v16 = *v35;
     do
     {
       v17 = 0;
       do
       {
-        if (*v36 != v16)
+        if (*v35 != v16)
         {
           objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v35 + 1) + 8 * v17);
+        v18 = *(*(&v34 + 1) + 8 * v17);
         if (v18)
         {
-          Property = objc_getProperty(*(*(&v35 + 1) + 8 * v17), v14, 8, 1);
+          Property = objc_getProperty(*(*(&v34 + 1) + 8 * v17), v14, 8, 1);
           [(SAThreadState *)Property applyPAStyleSampleTimestamp:?];
-          v33 = 0u;
-          v34 = 0u;
-          v31 = 0u;
           v32 = 0u;
+          v33 = 0u;
+          v30 = 0u;
+          v31 = 0u;
           v21 = objc_getProperty(v18, v20, 16, 1);
         }
 
         else
         {
           v21 = 0;
-          v33 = 0u;
-          v34 = 0u;
-          v31 = 0u;
           v32 = 0u;
+          v33 = 0u;
+          v30 = 0u;
+          v31 = 0u;
         }
 
         v22 = v21;
-        v23 = [v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v30 objects:v38 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v32;
+          v25 = *v31;
           do
           {
             for (i = 0; i != v24; ++i)
             {
-              if (*v32 != v25)
+              if (*v31 != v25)
               {
                 objc_enumerationMutation(v22);
               }
 
-              [(SAThreadState *)*(*(&v31 + 1) + 8 * i) applyPAStyleSampleTimestamp:?];
+              [(SAThreadState *)*(*(&v30 + 1) + 8 * i) applyPAStyleSampleTimestamp:?];
             }
 
-            v24 = [v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
+            v24 = [v22 countByEnumeratingWithState:&v30 objects:v38 count:16];
           }
 
           while (v24);
@@ -145,14 +145,12 @@ LABEL_24:
       }
 
       while (v17 != v15);
-      v27 = [v12 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v27 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
       v15 = v27;
     }
 
     while (v27);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 @end

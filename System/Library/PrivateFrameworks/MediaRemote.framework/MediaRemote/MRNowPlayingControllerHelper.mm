@@ -6,8 +6,11 @@
 - (void)controller:(id)controller didLoadResponse:(id)response;
 - (void)controller:(id)controller playbackQueueDidChangeFrom:(id)from to:(id)to;
 - (void)controller:(id)controller playbackRateDidChangeFrom:(float)from to:(float)to;
+- (void)controller:(id)controller playbackStateDidChangeFrom:(unsigned int)from to:(unsigned int)to;
 - (void)controller:(id)controller playerLastPlayingDateDidChange:(id)change;
 - (void)controller:(id)controller playerPathDidChange:(id)change;
+- (void)controller:(id)controller repeatModeDidChangeFrom:(int)from to:(int)to;
+- (void)controller:(id)controller shuffleModeDidChangeFrom:(int)from to:(int)to;
 - (void)controller:(id)controller supportedCommandsDidChangeFrom:(id)from to:(id)to;
 - (void)controllerWillReloadForInvalidation:(id)invalidation;
 @end
@@ -20,6 +23,15 @@
   if (didLoadResponse)
   {
     didLoadResponse[2](didLoadResponse, response);
+  }
+}
+
+- (void)controller:(id)controller playbackStateDidChangeFrom:(unsigned int)from to:(unsigned int)to
+{
+  playbackStateDidChange = self->_playbackStateDidChange;
+  if (playbackStateDidChange)
+  {
+    playbackStateDidChange[2](playbackStateDidChange, *&to);
   }
 }
 
@@ -65,6 +77,24 @@
   if (supportedCommandsDidChange)
   {
     supportedCommandsDidChange[2](supportedCommandsDidChange, to);
+  }
+}
+
+- (void)controller:(id)controller shuffleModeDidChangeFrom:(int)from to:(int)to
+{
+  shuffleModeDidChange = self->_shuffleModeDidChange;
+  if (shuffleModeDidChange)
+  {
+    shuffleModeDidChange[2](shuffleModeDidChange, *&to);
+  }
+}
+
+- (void)controller:(id)controller repeatModeDidChangeFrom:(int)from to:(int)to
+{
+  repeatModeDidChange = self->_repeatModeDidChange;
+  if (repeatModeDidChange)
+  {
+    repeatModeDidChange[2](repeatModeDidChange, *&to);
   }
 }
 

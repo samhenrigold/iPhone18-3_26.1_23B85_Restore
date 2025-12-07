@@ -59,8 +59,8 @@ void mlir::RegisteredOperationName::Model<mlir::func::ReturnOp>::~Model(void *__
 uint64_t mlir::RegisteredOperationName::Model<mlir::func::ReturnOp>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
-  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks[0]();
+  v9 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -86,122 +86,124 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::func::ReturnOp>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::func::ReturnOp>::hasTrait(uint64_t a1, uint64_t a2)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  v11 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks[0])(v10, a2);
-  v7 = v11;
-  if (v11 >= 8)
-  {
-    if ((v11 & 4) != 0)
-    {
-      v8 = v10[0];
-      if ((v11 & 2) != 0)
-      {
-        v8 = v10;
-      }
-
-      v9 = result;
-      (*((v11 & 0xFFFFFFFFFFFFFFF8) + 16))(v8, v3, v4, v5, v6);
-      result = v9;
-    }
-
-    if ((v7 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v10[0], v10[1]);
-    }
-  }
-
-  return result;
-}
-
-void mlir::RegisteredOperationName::Model<mlir::func::ReturnOp>::printAssembly(uint64_t a1, mlir::Operation *a2, mlir::OpAsmPrinter *a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::func::ReturnOp>::hasTrait()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
-  (llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks[0])(v8, a2, a3, a4, a5);
-  v6 = v9;
+  v9 = &llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks(v8);
+  v5 = v9;
   if (v9 >= 8)
   {
     if ((v9 & 4) != 0)
     {
+      v6 = v8[0];
       if ((v9 & 2) != 0)
       {
-        v7 = v8;
+        v6 = v8;
       }
 
-      else
-      {
-        v7 = v8[0];
-      }
-
-      (*((v9 & 0xFFFFFFFFFFFFFFF8) + 16))(v7, v5);
+      v7 = result;
+      (*((v9 & 0xFFFFFFFFFFFFFFF8) + 16))(v6, v1, v2, v3, v4);
+      result = v7;
     }
 
-    if ((v6 & 2) == 0)
+    if ((v5 & 2) == 0)
     {
       llvm::deallocate_buffer(v8[0], v8[1]);
-    }
-  }
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::func::ReturnOp>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
     }
   }
 
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::func::ReturnOp>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::func::ReturnOp>::printAssembly()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks(v4);
+  v2 = v5;
+  if (v5 >= 8)
   {
-    if ((v8 & 4) != 0)
+    if ((v5 & 4) != 0)
     {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
+      if ((v5 & 2) != 0)
       {
-        v5 = v7;
+        v3 = v4;
       }
 
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
     }
 
-    if ((v4 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::func::ReturnOp>::verifyInvariants()
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
+  {
+    if ((v6 & 4) != 0)
+    {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v5[0], v5[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::func::ReturnOp>::verifyRegionInvariants()
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
+  {
+    if ((v6 & 4) != 0)
+    {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -227,7 +229,7 @@ void mlir::RegisteredOperationName::Model<mlir::func::ReturnOp>::setInherentAttr
 uint64_t mlir::RegisteredOperationName::Model<mlir::func::ReturnOp>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v34 = *MEMORY[0x1E69E9840];
-  a5(v23, a6);
+  (a5)(v23, a6, a2, a3, a4);
   if (v23[0])
   {
     v20 = 3;
@@ -835,24 +837,24 @@ const char *llvm::getTypeName<mlir::OpTrait::ReturnLike<mlir::TypeID mlir::TypeI
   return &v2[v3];
 }
 
-BOOL mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::verifyInvariants(mlir::OpTrait::impl *a1, mlir::Operation *a2)
+uint64_t mlir::Op<mlir::func::ReturnOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::VariadicOperands,mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::MemRefsNormalizable,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike,mlir::OpTrait::IsTerminator>::verifyInvariants(mlir::OpTrait::impl *a1, mlir::Operation *a2)
 {
-  if (!mlir::OpTrait::impl::verifyZeroRegions(a1, a2) || !mlir::OpTrait::impl::verifyZeroResults(a1, v3) || !mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) || (mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl<mlir::func::ReturnOp>::verifyTrait(a1) & 1) == 0 || !mlir::OpTrait::impl::verifyIsTerminator(a1, v5))
+  if ((mlir::OpTrait::impl::verifyZeroRegions(a1, a2) & 1) == 0 || (mlir::OpTrait::impl::verifyZeroResults(a1, v3) & 1) == 0 || (mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) & 1) == 0 || !mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl<mlir::func::ReturnOp>::verifyTrait(a1) || (mlir::OpTrait::impl::verifyIsTerminator(a1, v5) & 1) == 0)
   {
     return 0;
   }
 
   v7 = a1;
-  return mlir::func::ReturnOp::verify(&v7);
+  return mlir::func::ReturnOp::verify(&v7) & 1;
 }
 
-uint64_t mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl<mlir::func::ReturnOp>::verifyTrait(uint64_t a1)
+BOOL mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl<mlir::func::ReturnOp>::verifyTrait(mlir::Block **a1)
 {
   v48 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 16))
+  if (a1[2])
   {
     v1 = a1;
-    ParentOp = mlir::Block::getParentOp(*(a1 + 16));
+    ParentOp = mlir::Block::getParentOp(a1[2]);
     a1 = v1;
     if (ParentOp)
     {
@@ -864,7 +866,7 @@ uint64_t mlir::OpTrait::HasParent<mlir::func::FuncOp>::Impl<mlir::func::ReturnOp
   }
 
   v30 = 257;
-  mlir::Operation::emitOpError(a1, &v29, &v36);
+  mlir::Operation::emitOpError(a1, v29, &v36);
   if (!v36)
   {
     goto LABEL_12;
@@ -1043,19 +1045,19 @@ LABEL_12:
   return v16;
 }
 
-uint64_t llvm::interleave<llvm::StringLiteral const*,mlir::Diagnostic& mlir::Diagnostic::appendRange<llvm::ArrayRef<llvm::StringLiteral>>(llvm::ArrayRef<llvm::StringLiteral> const&,char const*)::{lambda(llvm::ArrayRef<llvm::StringLiteral> const&)#1},mlir::Diagnostic& mlir::Diagnostic::appendRange<llvm::ArrayRef<llvm::StringLiteral>>(llvm::ArrayRef<llvm::StringLiteral> const&,char const*)::{lambda(void)#1},void>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, const char **a5)
+uint64_t *llvm::interleave<llvm::StringLiteral const*,mlir::Diagnostic& mlir::Diagnostic::appendRange<llvm::ArrayRef<llvm::StringLiteral>>(llvm::ArrayRef<llvm::StringLiteral> const&,char const*)::{lambda(llvm::ArrayRef<llvm::StringLiteral> const&)#1},mlir::Diagnostic& mlir::Diagnostic::appendRange<llvm::ArrayRef<llvm::StringLiteral>>(llvm::ArrayRef<llvm::StringLiteral> const&,char const*)::{lambda(void)#1},void>(uint64_t *result, uint64_t *a2, uint64_t a3, uint64_t a4, const char **a5)
 {
   if (result != a2)
   {
     v28 = v5;
     v29 = v6;
     v27 = 262;
-    v11 = *(result + 8);
+    v11 = result[1];
     v24 = *result;
     v25 = v11;
     v12 = result;
     result = mlir::Diagnostic::operator<<(a3, &v24);
-    for (i = v12 + 16; i != a2; result = mlir::Diagnostic::operator<<(a3, &v24))
+    for (i = v12 + 2; i != a2; result = mlir::Diagnostic::operator<<(a3, &v24))
     {
       v14 = *a5;
       if (*a5)
@@ -1088,26 +1090,26 @@ uint64_t llvm::interleave<llvm::StringLiteral const*,mlir::Diagnostic& mlir::Dia
       if (v17 <= &v24 && v17 + 24 * v16 > &v24)
       {
         v23 = &v24 - v17;
-        llvm::SmallVectorBase<unsigned int>::grow_pod(a4 + 16, a4 + 32, v16 + 1, 24);
+        llvm::SmallVectorBase<unsigned int>::grow_pod(a4 + 16, (a4 + 32), v16 + 1, 24);
         v17 = *(a4 + 16);
         v18 = &v23[v17];
         goto LABEL_8;
       }
 
-      llvm::SmallVectorBase<unsigned int>::grow_pod(a4 + 16, a4 + 32, v16 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(a4 + 16, (a4 + 32), v16 + 1, 24);
       v17 = *(a4 + 16);
 LABEL_7:
       v18 = &v24;
 LABEL_8:
       v19 = v17 + 24 * *(a4 + 24);
       v20 = *v18;
-      *(v19 + 16) = *(v18 + 2);
+      *(v19 + 16) = v18[2];
       *v19 = v20;
       ++*(a4 + 24);
       v27 = 262;
       v21 = *i;
-      v22 = *(i + 8);
-      i += 16;
+      v22 = i[1];
+      i += 2;
       v24 = v21;
       v25 = v22;
     }
@@ -1116,7 +1118,7 @@ LABEL_8:
   return result;
 }
 
-__n128 llvm::interleave<mlir::ValueTypeIterator<llvm::detail::indexed_accessor_range_base<mlir::ResultRange,mlir::detail::OpResultImpl *,mlir::OpResult,mlir::OpResult,mlir::OpResult>::iterator>,mlir::Diagnostic& mlir::Diagnostic::appendRange<mlir::ValueTypeRange<mlir::ResultRange>>(mlir::ValueTypeRange<mlir::ResultRange> const&,char const*)::{lambda(mlir::ValueTypeRange<mlir::ResultRange> const&)#1},mlir::Diagnostic& mlir::Diagnostic::appendRange<mlir::ValueTypeRange<mlir::ResultRange>>(mlir::ValueTypeRange<mlir::ResultRange> const&,char const*)::{lambda(void)#1},void>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char **a7)
+__n128 llvm::interleave<mlir::ValueTypeIterator<llvm::detail::indexed_accessor_range_base<mlir::ResultRange,mlir::detail::OpResultImpl *,mlir::OpResult,mlir::OpResult,mlir::OpResult>::iterator>,mlir::Diagnostic& mlir::Diagnostic::appendRange<mlir::ValueTypeRange<mlir::ResultRange>>(mlir::ValueTypeRange<mlir::ResultRange> const&,char const*)::{lambda(mlir::ValueTypeRange<mlir::ResultRange> const&)#1},mlir::Diagnostic& mlir::Diagnostic::appendRange<mlir::ValueTypeRange<mlir::ResultRange>>(mlir::ValueTypeRange<mlir::ResultRange> const&,char const*)::{lambda(void)#1},void>(mlir::detail::OpResultImpl *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char **a7)
 {
   if (a2 != a4)
   {
@@ -1133,14 +1135,14 @@ __n128 llvm::interleave<mlir::ValueTypeIterator<llvm::detail::indexed_accessor_r
       if (v17 <= &v38 && v17 + 24 * v19 > &v38)
       {
         v37 = &v38 - v17;
-        llvm::SmallVectorBase<unsigned int>::grow_pod(a5 + 16, a5 + 32, v19 + 1, 24);
+        llvm::SmallVectorBase<unsigned int>::grow_pod(a5 + 16, (a5 + 32), v19 + 1, 24);
         v17 = *(a5 + 16);
         v16 = &v37[v17];
       }
 
       else
       {
-        llvm::SmallVectorBase<unsigned int>::grow_pod(a5 + 16, a5 + 32, v19 + 1, 24);
+        llvm::SmallVectorBase<unsigned int>::grow_pod(a5 + 16, (a5 + 32), v19 + 1, 24);
         v17 = *(a5 + 16);
         v16 = &v38;
       }
@@ -1184,13 +1186,13 @@ __n128 llvm::interleave<mlir::ValueTypeIterator<llvm::detail::indexed_accessor_r
       if (v26 <= &v38 && v26 + 24 * v25 > &v38)
       {
         v35 = &v38 - v26;
-        llvm::SmallVectorBase<unsigned int>::grow_pod(a6 + 16, a6 + 32, v25 + 1, 24);
+        llvm::SmallVectorBase<unsigned int>::grow_pod(a6 + 16, (a6 + 32), v25 + 1, 24);
         v26 = *(a6 + 16);
         v27 = &v35[v26];
         goto LABEL_10;
       }
 
-      llvm::SmallVectorBase<unsigned int>::grow_pod(a6 + 16, a6 + 32, v25 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(a6 + 16, (a6 + 32), v25 + 1, 24);
       v26 = *(a6 + 16);
 LABEL_9:
       v27 = &v38;
@@ -1210,14 +1212,14 @@ LABEL_10:
         if (v33 <= &v38 && v33 + 24 * v32 > &v38)
         {
           v36 = &v38 - v33;
-          llvm::SmallVectorBase<unsigned int>::grow_pod(a5 + 16, a5 + 32, v32 + 1, 24);
+          llvm::SmallVectorBase<unsigned int>::grow_pod(a5 + 16, (a5 + 32), v32 + 1, 24);
           v33 = *v18;
           v31 = &v36[*v18];
         }
 
         else
         {
-          llvm::SmallVectorBase<unsigned int>::grow_pod(a5 + 16, a5 + 32, v32 + 1, 24);
+          llvm::SmallVectorBase<unsigned int>::grow_pod(a5 + 16, (a5 + 32), v32 + 1, 24);
           v33 = *v18;
           v31 = &v38;
         }
@@ -1272,7 +1274,7 @@ uint64_t mlir::detail::constant_op_binder<mlir::SymbolRefAttr>::match(unint64_t 
   return result;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::func::CallOp,mlir::SymbolRefAttr &,mlir::ValueTypeRange<mlir::ResultRange>,mlir::OperandRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+char *mlir::OpBuilder::create<mlir::func::CallOp,mlir::SymbolRefAttr &,mlir::ValueTypeRange<mlir::ResultRange>,mlir::OperandRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
 {
   v26 = *MEMORY[0x1E69E9840];
   v21 = a2;
@@ -1295,10 +1297,10 @@ uint64_t mlir::OpBuilder::create<mlir::func::CallOp,mlir::SymbolRefAttr &,mlir::
 
   mlir::ValueRange::ValueRange(&v24, NextResultAtOffset, v16 - v15);
   mlir::TypeRange::TypeRange(v23, v24, v25);
-  v17 = mlir::ValueRange::ValueRange(&v24, *a5, *(a5 + 8));
+  v17 = mlir::ValueRange::ValueRange(&v24, *a5, a5[1]);
   mlir::func::CallOp::build(v17, v22, v13, v23[0], v23[1], v24, v25);
   v18 = mlir::OpBuilder::create(a1, v22);
-  if (*(*(v18 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::func::CallOp,void>::id)
+  if (*(*(v18 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::func::CallOp,void>::id)
   {
     v19 = v18;
   }
@@ -1320,9 +1322,9 @@ uint64_t llvm::function_ref<mlir::Type ()(mlir::Builder &,llvm::ArrayRef<mlir::T
   return mlir::Builder::getFunctionType(a2, v11[0], v11[1], v10[0], v10[1]);
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<mlir::StringAttr,unsigned int,llvm::DenseMapInfo<mlir::StringAttr,void>,llvm::detail::DenseMapPair<mlir::StringAttr,unsigned int>>,mlir::StringAttr,unsigned int,llvm::DenseMapInfo<mlir::StringAttr,void>,llvm::detail::DenseMapPair<mlir::StringAttr,unsigned int>>::try_emplace<unsigned int>@<X0>(uint64_t result@<X0>, void *a2@<X1>, _DWORD *a3@<X2>, uint64_t a4@<X8>)
+uint64_t *llvm::DenseMapBase<llvm::DenseMap<mlir::StringAttr,unsigned int,llvm::DenseMapInfo<mlir::StringAttr,void>,llvm::detail::DenseMapPair<mlir::StringAttr,unsigned int>>,mlir::StringAttr,unsigned int,llvm::DenseMapInfo<mlir::StringAttr,void>,llvm::detail::DenseMapPair<mlir::StringAttr,unsigned int>>::try_emplace<unsigned int>@<X0>(uint64_t *result@<X0>, void *a2@<X1>, _DWORD *a3@<X2>, uint64_t a4@<X8>)
 {
-  v5 = *(result + 16);
+  v5 = *(result + 4);
   if (!v5)
   {
     v9 = 0;
@@ -1372,28 +1374,28 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<mlir::StringAttr,unsigned int,llvm::D
 
 LABEL_5:
     v20 = v9;
-    v12 = *(result + 8);
+    v12 = *(result + 2);
     if (4 * v12 + 4 >= 3 * v5)
     {
       v5 *= 2;
     }
 
-    else if (v5 + ~v12 - *(result + 12) > v5 >> 3)
+    else if (v5 + ~v12 - *(result + 3) > v5 >> 3)
     {
-      *(result + 8) = v12 + 1;
+      *(result + 2) = v12 + 1;
       if (*v9 == -4096)
       {
 LABEL_9:
         *v9 = *a2;
         *(v9 + 8) = *a3;
         v6 = *result;
-        v5 = *(result + 16);
+        v5 = *(result + 4);
         v11 = 1;
         goto LABEL_10;
       }
 
 LABEL_8:
-      --*(result + 12);
+      --*(result + 3);
       goto LABEL_9;
     }
 
@@ -1406,7 +1408,7 @@ LABEL_8:
     result = v17;
     a4 = v18;
     v9 = v20;
-    ++*(v17 + 8);
+    ++*(v17 + 2);
     if (*v9 == -4096)
     {
       goto LABEL_9;
@@ -1594,7 +1596,7 @@ uint64_t llvm::SmallVectorTemplateBase<std::pair<mlir::StringAttr,mlir::Attribut
   if (v6 >= *(a1 + 12))
   {
     v9 = a1;
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a1 + 16, v6 + 1, 16);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(a1, (a1 + 16), v6 + 1, 16);
     a1 = v9;
     LODWORD(v6) = *(v9 + 8);
   }
@@ -1678,7 +1680,7 @@ const char *llvm::getTypeName<mlir::func::detail::CallOpGenericAdaptorBase::Prop
   return &v2[v3];
 }
 
-uint64_t mlir::AsmParser::parseAttribute<mlir::FlatSymbolRefAttr>(uint64_t a1, void *a2, uint64_t a3)
+BOOL mlir::AsmParser::parseAttribute<mlir::FlatSymbolRefAttr>(uint64_t a1, void *a2, uint64_t a3)
 {
   v33 = *MEMORY[0x1E69E9840];
   v6 = (*(*a1 + 40))(a1);
@@ -1814,7 +1816,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::fu
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -1827,7 +1829,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::fu
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -1854,7 +1856,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::fu
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -1867,7 +1869,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::fu
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -1994,7 +1996,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::fu
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -2007,7 +2009,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::fu
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -2034,7 +2036,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::fu
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -2047,7 +2049,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::fu
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -2199,7 +2201,7 @@ __n128 OUTLINED_FUNCTION_14_4@<Q0>(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, u
   return result;
 }
 
-void OUTLINED_FUNCTION_32_2(uint64_t a1, unint64_t a2)
+void OUTLINED_FUNCTION_32_2(uint64_t a1, void *a2)
 {
 
   llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a2, v2 + 1, 24);
@@ -2218,7 +2220,7 @@ void OUTLINED_FUNCTION_43_0(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, uint64_t
   llvm::SmallVectorBase<unsigned int>::grow_pod(v17 + 24, va, a1 + 1, 24);
 }
 
-size_t *mlir::func::registerInlinerExtension(mlir::DialectRegistry &)::$_0::__invoke(uint64_t *a1, int32x2_t *a2)
+size_t *mlir::func::registerInlinerExtension(mlir::DialectRegistry &)::$_0::__invoke(int32x2_t **a1, int32x2_t *a2)
 {
   v4 = operator new(0x18uLL);
   {
@@ -2244,11 +2246,11 @@ size_t *mlir::func::registerInlinerExtension(mlir::DialectRegistry &)::$_0::__in
   return mlir::MLIRContext::getOrLoadDialect(a1, "cf", 2, &mlir::detail::TypeIDResolver<mlir::cf::ControlFlowDialect,void>::id, llvm::function_ref<std::unique_ptr<mlir::Dialect> ()(void)>::callback_fn<mlir::cf::ControlFlowDialect * mlir::MLIRContext::getOrLoadDialect<mlir::cf::ControlFlowDialect>(void)::{lambda(void)#1}>, &v9);
 }
 
-void anonymous namespace::FuncInlinerInterface::~FuncInlinerInterface(_anonymous_namespace_::FuncInlinerInterface *this, uint64_t a2)
+void anonymous namespace::FuncInlinerInterface::~FuncInlinerInterface(_anonymous_namespace_::FuncInlinerInterface *this)
 {
-  v2 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(this, a2);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
 
-  operator delete(v2);
+  operator delete(v1);
 }
 
 uint64_t anonymous namespace::FuncInlinerInterface::isLegalToInline()
@@ -2262,7 +2264,7 @@ uint64_t anonymous namespace::FuncInlinerInterface::isLegalToInline()
 
 void anonymous namespace::FuncInlinerInterface::handleTerminator(_anonymous_namespace_::FuncInlinerInterface *this, mlir::Operation *a2, mlir::Block *a3)
 {
-  v12 = a3;
+  v14 = a3;
   if (*(*(a2 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::func::ReturnOp,void>::id)
   {
     v3 = a2;
@@ -2273,33 +2275,35 @@ void anonymous namespace::FuncInlinerInterface::handleTerminator(_anonymous_name
     v3 = 0;
   }
 
-  v11 = v3;
+  v13 = v3;
   if (v3)
   {
-    v10[0] = mlir::Attribute::getContext((a2 + 24));
-    v10[1] = 0;
-    v10[2] = *(a2 + 2);
-    v10[3] = MPSGraphDelegateCompiler.precompilationDescriptor.modify(a2, v5);
-    v6 = *(a2 + 3);
-    ODSOperandIndexAndLength = mlir::func::ReturnOp::getODSOperandIndexAndLength(&v11, 0);
-    if ((*(v11 + 46) & 0x80) != 0)
+    v12[0] = mlir::Attribute::getContext((a2 + 24));
+    v12[1] = 0;
+    v5 = *(a2 + 2);
+    MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+    v12[2] = v5;
+    v12[3] = v6;
+    v7 = *(a2 + 3);
+    ODSOperandIndexAndLength = mlir::func::ReturnOp::getODSOperandIndexAndLength(&v13, 0);
+    if ((*(v13 + 46) & 0x80) != 0)
     {
-      v8 = *(v11 + 9);
+      v9 = *(v13 + 9);
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
 
-    v9[0] = v8 + 32 * ODSOperandIndexAndLength;
-    v9[1] = (HIDWORD(ODSOperandIndexAndLength) + ODSOperandIndexAndLength) - ODSOperandIndexAndLength;
-    mlir::OpBuilder::create<mlir::cf::BranchOp,mlir::Block *&,mlir::OperandRange>(v10, v6, &v12, v9);
-    mlir::Operation::erase(a2);
+    v11[0] = v9 + 32 * ODSOperandIndexAndLength;
+    v11[1] = (HIDWORD(ODSOperandIndexAndLength) + ODSOperandIndexAndLength) - ODSOperandIndexAndLength;
+    mlir::OpBuilder::create<mlir::cf::BranchOp,mlir::Block *&,mlir::OperandRange>(v12, v7, &v14, v11);
+    mlir::Operation::erase(a2, v10);
   }
 }
 
-uint64_t mlir::OpBuilder::create<mlir::cf::BranchOp,mlir::Block *&,mlir::OperandRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+char *mlir::OpBuilder::create<mlir::cf::BranchOp,mlir::Block *&,mlir::OperandRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v18[5] = *MEMORY[0x1E69E9840];
   v15 = a2;
@@ -2312,10 +2316,10 @@ uint64_t mlir::OpBuilder::create<mlir::cf::BranchOp,mlir::Block *&,mlir::Operand
 
   mlir::OperationState::OperationState(v17, a2, v9);
   v11 = *a3;
-  mlir::ValueRange::ValueRange(v18, *a4, *(a4 + 8));
+  mlir::ValueRange::ValueRange(v18, *a4, a4[1]);
   mlir::cf::BranchOp::build(a1, v17, v11, v18[0], v18[1]);
   v12 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v12 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::cf::BranchOp,void>::id)
+  if (*(*(v12 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::cf::BranchOp,void>::id)
   {
     v13 = v12;
   }
@@ -2329,7 +2333,7 @@ uint64_t mlir::OpBuilder::create<mlir::cf::BranchOp,mlir::Block *&,mlir::Operand
   return v13;
 }
 
-int32x2_t *llvm::function_ref<std::unique_ptr<mlir::Dialect> ()(void)>::callback_fn<mlir::cf::ControlFlowDialect * mlir::MLIRContext::getOrLoadDialect<mlir::cf::ControlFlowDialect>(void)::{lambda(void)#1}>@<X0>(mlir::MLIRContext **a1@<X0>, int32x2_t **a2@<X8>)
+mlir::cf::ControlFlowDialect *llvm::function_ref<std::unique_ptr<mlir::Dialect> ()(void)>::callback_fn<mlir::cf::ControlFlowDialect * mlir::MLIRContext::getOrLoadDialect<mlir::cf::ControlFlowDialect>(void)::{lambda(void)#1}>@<X0>(mlir::MLIRContext **a1@<X0>, mlir::cf::ControlFlowDialect **a2@<X8>)
 {
   v3 = *a1;
   v4 = operator new(0x60uLL);
@@ -3587,7 +3591,7 @@ LABEL_48:
   }
 }
 
-uint64_t mlir::function_interface_impl::parseFunctionSignature(char *a1, char a2, uint64_t a3, _BYTE *a4, uint64_t a5, uint64_t a6)
+uint64_t mlir::function_interface_impl::parseFunctionSignature(_BYTE *a1, char a2, uint64_t a3, _BYTE *a4, uint64_t a5, uint64_t a6)
 {
   v17 = a2;
   *a4 = 0;
@@ -3633,7 +3637,7 @@ uint64_t mlir::function_interface_impl::parseFunctionSignature(char *a1, char a2
   v11 = *(a5 + 8);
   if (v11 >= *(a5 + 12))
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a5, a5 + 16, v11 + 1, 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(a5, (a5 + 16), v11 + 1, 8);
     LODWORD(v11) = *(a5 + 8);
   }
 
@@ -3654,7 +3658,7 @@ uint64_t mlir::function_interface_impl::parseFunctionSignature(char *a1, char a2
   return 1;
 }
 
-uint64_t mlir::function_interface_impl::addArgAndResultAttrs(uint64_t result, uint64_t a2, uint64_t *a3, uint64_t a4, void **a5, uint64_t a6, uint64_t a7, uint64_t a8)
+mlir::DictionaryAttr **mlir::function_interface_impl::addArgAndResultAttrs(mlir::DictionaryAttr **result, uint64_t a2, uint64_t *a3, uint64_t a4, void **a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v12 = result;
   v31[6] = *MEMORY[0x1E69E9840];
@@ -3787,7 +3791,7 @@ LABEL_15:
   return result;
 }
 
-void mlir::function_interface_impl::addArgAndResultAttrs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void **a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void mlir::function_interface_impl::addArgAndResultAttrs(mlir::DictionaryAttr **a1, uint64_t a2, uint64_t a3, uint64_t a4, void **a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v21[6] = *MEMORY[0x1E69E9840];
   v19 = v21;
@@ -3846,7 +3850,7 @@ LABEL_7:
   }
 }
 
-BOOL mlir::function_interface_impl::parseFunctionOp(char *a1, uint64_t a2, char a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t, void *, void, void *, void, void, void **), uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL mlir::function_interface_impl::parseFunctionOp(mlir::AsmParser *a1, uint64_t a2, char a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t, void *, void, void *, void, void, void **), uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v119[8] = *MEMORY[0x1E69E9840];
   v85 = a4;
@@ -3862,7 +3866,7 @@ BOOL mlir::function_interface_impl::parseFunctionOp(char *a1, uint64_t a2, char 
   if (mlir::AsmParser::parseSymbolName(a1, &v84))
   {
     v76 = a8;
-    mlir::NamedAttrList::append(a2 + 112, "sym_name", 8, v84);
+    mlir::NamedAttrList::append(a2 + 112, "sym_name", 8uLL, v84);
     v15 = (*(*a1 + 40))(a1);
     v83 = 0;
     v16 = 0;
@@ -4126,7 +4130,7 @@ LABEL_60:
           v60 = *(a2 + 120);
           if (v60 + v59 > *(a2 + 124))
           {
-            llvm::SmallVectorBase<unsigned int>::grow_pod(a2 + 112, a2 + 128, v60 + v59, 16);
+            llvm::SmallVectorBase<unsigned int>::grow_pod(a2 + 112, (a2 + 128), v60 + v59, 16);
             LODWORD(v60) = *(a2 + 120);
           }
 
@@ -4792,7 +4796,7 @@ LABEL_15:
   }
 }
 
-uint64_t llvm::function_ref<llvm::ParseResult ()(void)>::callback_fn<parseFunctionArgumentList(mlir::OpAsmParser &,BOOL,llvm::SmallVectorImpl<mlir::OpAsmParser::Argument> &,BOOL &)::$_0>(uint64_t a1)
+BOOL llvm::function_ref<llvm::ParseResult ()(void)>::callback_fn<parseFunctionArgumentList(mlir::OpAsmParser &,BOOL,llvm::SmallVectorImpl<mlir::OpAsmParser::Argument> &,BOOL &)::$_0>(uint64_t a1)
 {
   v52 = *MEMORY[0x1E69E9840];
   if (**a1 == 1)
@@ -4925,7 +4929,7 @@ LABEL_53:
         if (v26 <= v37 && v35)
         {
           v36 = v37 - v26;
-          llvm::SmallVectorBase<unsigned int>::grow_pod(v33, (v33 + 2), v34 + 1, 64);
+          llvm::SmallVectorBase<unsigned int>::grow_pod(v33, v33 + 2, v34 + 1, 64);
           v23 = v33;
           v26 = *v33;
           v27 = &v36[*v33];
@@ -4933,7 +4937,7 @@ LABEL_53:
 
         else
         {
-          llvm::SmallVectorBase<unsigned int>::grow_pod(v33, (v33 + 2), v34 + 1, 64);
+          llvm::SmallVectorBase<unsigned int>::grow_pod(v33, v33 + 2, v34 + 1, 64);
           v23 = v33;
           v26 = *v33;
           v27 = v37;
@@ -5056,7 +5060,7 @@ uint64_t llvm::SmallVectorTemplateBase<mlir::DictionaryAttr,true>::growAndEmplac
   if (v1 >= *(a1 + 12))
   {
     v4 = a1;
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a1 + 16, v1 + 1, 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(a1, (a1 + 16), v1 + 1, 8);
     a1 = v4;
     LODWORD(v1) = *(v4 + 8);
   }
@@ -5239,7 +5243,7 @@ BOOL mlir::AsmParser::parseSymbolName(mlir::AsmParser *this, mlir::StringAttr *a
   return v3;
 }
 
-uint64_t mlir::ub::UBDialect::initialize(int32x2_t *this)
+uint64_t *mlir::ub::UBDialect::initialize(mlir::ub::UBDialect *this)
 {
   mlir::RegisteredOperationName::insert<mlir::ub::PoisonOp>(this);
   mlir::Dialect::addAttribute<mlir::ub::PoisonAttr>(this);
@@ -5269,7 +5273,7 @@ uint64_t mlir::ub::UBDialect::initialize(int32x2_t *this)
 
   v7[0] = &mlir::detail::TypeIDResolver<mlir::ub::UBDialect,void>::id;
   v7[1] = mlir::detail::TypeIDResolver<mlir::ConvertToLLVMPatternInterface,void>::resolveTypeID(void)::id;
-  return llvm::DenseMapBase<llvm::DenseMap<std::pair<mlir::TypeID,mlir::TypeID>,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<std::pair<mlir::TypeID,mlir::TypeID>,void>,llvm::detail::DenseSetPair<std::pair<mlir::TypeID,mlir::TypeID>>>,std::pair<mlir::TypeID,mlir::TypeID>,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<std::pair<mlir::TypeID,mlir::TypeID>,void>,llvm::detail::DenseSetPair<std::pair<mlir::TypeID,mlir::TypeID>>>::try_emplace<llvm::detail::DenseSetEmpty&>(&this[9], v7, v8);
+  return llvm::DenseMapBase<llvm::DenseMap<std::pair<mlir::TypeID,mlir::TypeID>,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<std::pair<mlir::TypeID,mlir::TypeID>,void>,llvm::detail::DenseSetPair<std::pair<mlir::TypeID,mlir::TypeID>>>,std::pair<mlir::TypeID,mlir::TypeID>,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<std::pair<mlir::TypeID,mlir::TypeID>,void>,llvm::detail::DenseSetPair<std::pair<mlir::TypeID,mlir::TypeID>>>::try_emplace<llvm::detail::DenseSetEmpty&>(this + 9, v7, v8);
 }
 
 mlir::ub::UBDialect *mlir::ub::UBDialect::UBDialect(mlir::ub::UBDialect *this, mlir::MLIRContext *a2)
@@ -5286,10 +5290,10 @@ void sub_1DFB44930(void *__p)
   operator delete(__p);
 }
 
-uint64_t mlir::ub::UBDialect::materializeConstant(uint64_t a1, mlir::OpBuilder *a2, void *a3, uint64_t a4, uint64_t a5)
+char *mlir::ub::UBDialect::materializeConstant(uint64_t a1, mlir::OpBuilder *a2, uint64_t ***a3, uint64_t a4, uint64_t a5)
 {
   v8 = a4;
-  if (*(*a3 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
+  if ((*a3)[17] == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
   {
     v5 = a3;
   }
@@ -5584,7 +5588,7 @@ void mlir::ub::UBDialect::printAttribute(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t mlir::ub::PoisonOp::setPropertiesFromAttr(void *a1, uint64_t a2, void (*a3)(void *__return_ptr, uint64_t), uint64_t a4)
+uint64_t mlir::ub::PoisonOp::setPropertiesFromAttr(uint64_t *a1, uint64_t a2, void (*a3)(void *__return_ptr, uint64_t), uint64_t a4)
 {
   v57 = *MEMORY[0x1E69E9840];
   if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::DictionaryAttr,void>::id)
@@ -5846,7 +5850,7 @@ LABEL_47:
   return 0;
 }
 
-uint64_t mlir::ub::__mlir_ods_local_attr_constraint_UBOps1(uint64_t *a1, void *a2, const char *a3, void (*a4)(void *__return_ptr, void), uint64_t a5)
+BOOL mlir::ub::__mlir_ods_local_attr_constraint_UBOps1(uint64_t *a1, const void **a2, const char *a3, void (*a4)(void *__return_ptr, void), uint64_t a5)
 {
   v55 = *MEMORY[0x1E69E9840];
   if (!a1)
@@ -5923,7 +5927,7 @@ LABEL_14:
         v35 = &v39 - v45;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v45, v48, v46 + 1, 24);
         v18 = v45;
-        v17 = v45 + v35;
+        v17 = (v45 + v35);
       }
 
       else
@@ -5936,7 +5940,7 @@ LABEL_14:
 
     v19 = &v18[24 * v46];
     v20 = *v17;
-    *(v19 + 2) = *(v17 + 2);
+    *(v19 + 2) = v17[2];
     *v19 = v20;
     ++v46;
     if (v43)
@@ -5959,7 +5963,7 @@ LABEL_14:
             v36 = &v39 - v45;
             llvm::SmallVectorBase<unsigned int>::grow_pod(&v45, v48, v46 + 1, 24);
             v22 = v45;
-            v21 = v45 + v36;
+            v21 = (v45 + v36);
           }
 
           else
@@ -5972,7 +5976,7 @@ LABEL_14:
 
         v23 = &v22[24 * v46];
         v24 = *v21;
-        *(v23 + 2) = *(v21 + 2);
+        *(v23 + 2) = v21[2];
         *v23 = v24;
         ++v46;
       }
@@ -6071,7 +6075,7 @@ BOOL mlir::ub::PoisonOp::readProperties(uint64_t a1, void *a2)
   return mlir::DialectBytecodeReader::readOptionalAttribute<mlir::ub::PoisonAttrInterface>(a1, a2[32]);
 }
 
-BOOL mlir::DialectBytecodeReader::readOptionalAttribute<mlir::ub::PoisonAttrInterface>(uint64_t a1, void *a2)
+BOOL mlir::DialectBytecodeReader::readOptionalAttribute<mlir::ub::PoisonAttrInterface>(uint64_t a1, uint64_t *a2)
 {
   v53 = *MEMORY[0x1E69E9840];
   v36 = 0;
@@ -6155,7 +6159,7 @@ BOOL mlir::DialectBytecodeReader::readOptionalAttribute<mlir::ub::PoisonAttrInte
     }
 
     v40 = 261;
-    v37 += v12 + v13;
+    v37 = (v37 + v12 + v13);
     v38 = v14;
     mlir::Diagnostic::operator<<(&v42, &v37);
     if (v41)
@@ -6328,7 +6332,7 @@ void mlir::ub::PoisonOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
   v11 = *(a2 + 72);
   if (v11 >= *(a2 + 76))
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a2 + 64, a2 + 80, v11 + 1, 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(a2 + 64, (a2 + 80), v11 + 1, 8);
     LODWORD(v11) = *(a2 + 72);
   }
 
@@ -6429,7 +6433,7 @@ uint64_t mlir::ub::PoisonOp::parse(uint64_t a1, uint64_t a2)
   v5 = mlir::NamedAttrList::get(a2 + 112, **(v4 + 96));
   if (v5)
   {
-    if ((mlir::ub::__mlir_ods_local_attr_constraint_UBOps1(v5, "value", 5, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ub::PoisonOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>, v11) & 1) == 0)
+    if (!mlir::ub::__mlir_ods_local_attr_constraint_UBOps1(v5, "value", 5, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ub::PoisonOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>, v11))
     {
       return 0;
     }
@@ -6487,7 +6491,7 @@ uint64_t mlir::ub::PoisonOp::parse(uint64_t a1, uint64_t a2)
   v9 = *(a2 + 72);
   if (v9 >= *(a2 + 76))
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a2 + 64, a2 + 80, v9 + 1, 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(a2 + 64, (a2 + 80), v9 + 1, 8);
     LODWORD(v9) = *(a2 + 72);
   }
 
@@ -6806,19 +6810,19 @@ void *llvm::DefaultDoCastIfPossible<mlir::ub::PoisonAttrInterface,mlir::ub::Pois
   return result;
 }
 
-void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ub::__mlir_ods_local_attr_constraint_UBOps1(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ub::__mlir_ods_local_attr_constraint_UBOps1(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Block ***a1@<X0>, uint64_t a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(v2, &v3, a2);
+  mlir::Operation::emitOpError(v2, v3, a2);
 }
 
-uint64_t mlir::RegisteredOperationName::insert<mlir::ub::PoisonOp>(uint64_t a1)
+void *mlir::RegisteredOperationName::insert<mlir::ub::PoisonOp>(uint64_t a1)
 {
   v11[6] = *MEMORY[0x1E69E9840];
   v2 = operator new(0x70uLL);
   mlir::detail::InterfaceMap::get<mlir::OpTrait::ZeroRegions<mlir::ub::PoisonOp>,mlir::OpTrait::OneResult<mlir::ub::PoisonOp>,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl<mlir::ub::PoisonOp>,mlir::OpTrait::ZeroSuccessors<mlir::ub::PoisonOp>,mlir::OpTrait::ZeroOperands<mlir::ub::PoisonOp>,mlir::OpTrait::OpInvariants<mlir::ub::PoisonOp>,mlir::BytecodeOpInterface::Trait<mlir::ub::PoisonOp>,mlir::OpTrait::ConstantLike<mlir::ub::PoisonOp>,mlir::ConditionallySpeculatable::Trait<mlir::ub::PoisonOp>,mlir::OpTrait::AlwaysSpeculatableImplTrait<mlir::ub::PoisonOp>,mlir::MemoryEffectOpInterface::Trait<mlir::ub::PoisonOp>>(&v9);
-  mlir::OperationName::Impl::Impl(v2, "ub.poison", 9, a1, &mlir::detail::TypeIDResolver<mlir::ub::PoisonOp,void>::id, &v9);
+  mlir::OperationName::Impl::Impl(v2, "ub.poison", 9uLL, a1, &mlir::detail::TypeIDResolver<mlir::ub::PoisonOp,void>::id, &v9);
   v3 = v9;
   if (v10)
   {
@@ -6912,102 +6916,41 @@ void mlir::RegisteredOperationName::Model<mlir::ub::PoisonOp>::~Model(void *__p)
   operator delete(__p);
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::ub::PoisonOp>::foldHook(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::ub::PoisonOp>::foldHook()
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v14 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks[0])(v13, a2, a3, a4, a5);
-  v10 = v14;
-  if (v14 >= 8)
+  v10 = *MEMORY[0x1E69E9840];
+  v9 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks(v8);
+  v5 = v9;
+  if (v9 >= 8)
   {
-    if ((v14 & 4) != 0)
+    if ((v9 & 4) != 0)
     {
-      v11 = v13[0];
-      if ((v14 & 2) != 0)
+      v6 = v8[0];
+      if ((v9 & 2) != 0)
       {
-        v11 = v13;
+        v6 = v8;
       }
 
-      v12 = result;
-      (*((v14 & 0xFFFFFFFFFFFFFFF8) + 16))(v11, v6, v7, v8, v9);
-      result = v12;
-    }
-
-    if ((v10 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v13[0], v13[1]);
-    }
-  }
-
-  return result;
-}
-
-BOOL mlir::RegisteredOperationName::Model<mlir::ub::PoisonOp>::hasTrait(uint64_t a1, uint64_t a2)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks[0])(v9, a2);
-  v6 = v10;
-  if (v10 >= 8)
-  {
-    if ((v10 & 4) != 0)
-    {
-      v7 = v9[0];
-      if ((v10 & 2) != 0)
-      {
-        v7 = v9;
-      }
-
-      v8 = result;
-      (*((v10 & 0xFFFFFFFFFFFFFFF8) + 16))(v7, v3, v4, v5);
-      result = v8;
-    }
-
-    if ((v6 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v9[0], v9[1]);
-    }
-  }
-
-  return result;
-}
-
-void mlir::RegisteredOperationName::Model<mlir::ub::PoisonOp>::printAssembly(uint64_t a1, mlir::Operation *a2, mlir::OpAsmPrinter *a3, uint64_t a4, uint64_t a5)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
-  (llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks[0])(v7, a2, a3, a4, a5);
-  v5 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      if ((v8 & 2) != 0)
-      {
-        v6 = v7;
-      }
-
-      else
-      {
-        v6 = v7[0];
-      }
-
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v6);
+      v7 = result;
+      (*((v9 & 0xFFFFFFFFFFFFFFF8) + 16))(v6, v1, v2, v3, v4);
+      result = v7;
     }
 
     if ((v5 & 2) == 0)
     {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v8[0], v8[1]);
     }
   }
+
+  return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::ub::PoisonOp>::verifyInvariants(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::ub::PoisonOp>::hasTrait()
 {
   v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
+  v8 = &llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks(v7);
   v4 = v8;
   if (v8 >= 8)
   {
@@ -7020,7 +6963,7 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::ub::PoisonOp>::verifyInvaria
       }
 
       v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
+      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v1, v2, v3);
       result = v6;
     }
 
@@ -7033,31 +6976,94 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::ub::PoisonOp>::verifyInvaria
   return result;
 }
 
-uint64_t mlir::RegisteredOperationName::Model<mlir::ub::PoisonOp>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::ub::PoisonOp>::printAssembly()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks(v3);
+  v1 = v4;
+  if (v4 >= 8)
   {
-    if ((v8 & 4) != 0)
+    if ((v4 & 4) != 0)
     {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
+      if ((v4 & 2) != 0)
       {
-        v5 = v7;
+        v2 = v3;
       }
 
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
+      else
+      {
+        v2 = v3[0];
+      }
+
+      result = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))(v2);
     }
 
-    if ((v4 & 2) == 0)
+    if ((v1 & 2) == 0)
     {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::ub::PoisonOp>::verifyInvariants()
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
+  {
+    if ((v6 & 4) != 0)
+    {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v5[0], v5[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::ub::PoisonOp>::verifyRegionInvariants()
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::BytecodeOpInterface::Trait,mlir::OpTrait::ConstantLike,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
+  {
+    if ((v6 & 4) != 0)
+    {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -7111,7 +7117,7 @@ void mlir::RegisteredOperationName::Model<mlir::ub::PoisonOp>::populateInherentA
   if (v5)
   {
 
-    mlir::NamedAttrList::append(a3, "value", 5, v5);
+    mlir::NamedAttrList::append(a3, "value", 5uLL, v5);
   }
 }
 
@@ -7230,7 +7236,7 @@ uint64_t mlir::Op<mlir::ub::PoisonOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::O
       v15 = *(a4 + 8);
       if (v15 >= *(a4 + 12))
       {
-        llvm::SmallVectorBase<unsigned int>::grow_pod(a4, a4 + 16, v15 + 1, 8);
+        llvm::SmallVectorBase<unsigned int>::grow_pod(a4, (a4 + 16), v15 + 1, 8);
         LODWORD(v15) = *(a4 + 8);
       }
 
@@ -7523,29 +7529,29 @@ void llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter 
 
 uint64_t mlir::op_definition_impl::verifyTraits<mlir::OpTrait::ZeroRegions<mlir::ub::PoisonOp>,mlir::OpTrait::OneResult<mlir::ub::PoisonOp>,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl<mlir::ub::PoisonOp>,mlir::OpTrait::ZeroSuccessors<mlir::ub::PoisonOp>,mlir::OpTrait::ZeroOperands<mlir::ub::PoisonOp>,mlir::OpTrait::OpInvariants<mlir::ub::PoisonOp>,mlir::BytecodeOpInterface::Trait<mlir::ub::PoisonOp>,mlir::OpTrait::ConstantLike<mlir::ub::PoisonOp>,mlir::ConditionallySpeculatable::Trait<mlir::ub::PoisonOp>,mlir::OpTrait::AlwaysSpeculatableImplTrait<mlir::ub::PoisonOp>,mlir::MemoryEffectOpInterface::Trait<mlir::ub::PoisonOp>>(mlir::OpTrait::impl *a1, mlir::Operation *a2)
 {
-  if (!mlir::OpTrait::impl::verifyZeroRegions(a1, a2))
+  if ((mlir::OpTrait::impl::verifyZeroRegions(a1, a2) & 1) == 0)
   {
     return 0;
   }
 
-  if (!mlir::OpTrait::impl::verifyOneResult(a1, v3))
+  if ((mlir::OpTrait::impl::verifyOneResult(a1, v3) & 1) == 0)
   {
     return 0;
   }
 
-  if (!mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4))
+  if ((mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) & 1) == 0)
   {
     return 0;
   }
 
-  if (!mlir::OpTrait::impl::verifyZeroOperands(a1, v5))
+  if ((mlir::OpTrait::impl::verifyZeroOperands(a1, v5) & 1) == 0)
   {
     return 0;
   }
 
   v6 = *(a1 + 2 * ((*(a1 + 11) >> 23) & 1) + 8);
   v9 = a1;
-  if ((mlir::ub::__mlir_ods_local_attr_constraint_UBOps1(v6, "value", 5, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ub::__mlir_ods_local_attr_constraint_UBOps1(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, &v9) & 1) == 0)
+  if (!mlir::ub::__mlir_ods_local_attr_constraint_UBOps1(v6, "value", 5, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ub::__mlir_ods_local_attr_constraint_UBOps1(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, &v9))
   {
     return 0;
   }
@@ -7564,7 +7570,7 @@ uint64_t mlir::op_definition_impl::verifyTraits<mlir::OpTrait::ZeroRegions<mlir:
   return 1;
 }
 
-uint64_t mlir::Dialect::addAttribute<mlir::ub::PoisonAttr>(uint64_t a1)
+uint64_t *mlir::Dialect::addAttribute<mlir::ub::PoisonAttr>(uint64_t a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   mlir::AbstractAttribute::get<mlir::ub::PoisonAttr>(a1, &v13);
@@ -7761,11 +7767,11 @@ LABEL_6:
   return Slow;
 }
 
-void anonymous namespace::UBInlinerInterface::~UBInlinerInterface(_anonymous_namespace_::UBInlinerInterface *this, uint64_t a2)
+void anonymous namespace::UBInlinerInterface::~UBInlinerInterface(_anonymous_namespace_::UBInlinerInterface *this)
 {
-  v2 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(this, a2);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
 
-  operator delete(v2);
+  operator delete(v1);
 }
 
 void llvm::function_ref<void ()(mlir::OpaqueProperties)>::callback_fn<mlir::ub::detail::PoisonOpGenericAdaptorBase::Properties & mlir::OperationState::getOrAddProperties<mlir::ub::detail::PoisonOpGenericAdaptorBase::Properties>(void)::{lambda(mlir::OpaqueProperties)#1}>(int a1, void *__p)
@@ -7830,7 +7836,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ub
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -7843,7 +7849,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ub
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -7870,7 +7876,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ub
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -7883,7 +7889,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ub
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -8050,14 +8056,14 @@ BOOL mlir::AsmParser::parseAttribute<mlir::ub::PoisonAttrInterface>(uint64_t a1,
   return result;
 }
 
-uint64_t mlir::AffineExpr::walk<void>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t mlir::AffineExpr::walk<void>(uint64_t a1, uint64_t (*a2)(uint64_t, uint64_t), uint64_t (*a3)(uint64_t, uint64_t))
 {
   v4[0] = a2;
   v4[1] = a3;
   return mlir::AffineExprVisitor<void mlir::AffineExpr::walk<void>(mlir::AffineExpr,llvm::function_ref<void ()(mlir::AffineExpr)>)::AffineExprWalker,void>::walkPostOrder(v4, a1);
 }
 
-uint64_t mlir::AffineExprVisitor<void mlir::AffineExpr::walk<void>(mlir::AffineExpr,llvm::function_ref<void ()(mlir::AffineExpr)>)::AffineExprWalker,void>::walkPostOrder(uint64_t a1, uint64_t a2)
+uint64_t mlir::AffineExprVisitor<void mlir::AffineExpr::walk<void>(mlir::AffineExpr,llvm::function_ref<void ()(mlir::AffineExpr)>)::AffineExprWalker,void>::walkPostOrder(uint64_t (**a1)(uint64_t, uint64_t), uint64_t a2)
 {
   if (*(a2 + 8) <= 4u)
   {
@@ -8066,12 +8072,12 @@ uint64_t mlir::AffineExprVisitor<void mlir::AffineExpr::walk<void>(mlir::AffineE
   }
 
   v5 = *a1;
-  v4 = *(a1 + 8);
+  v4 = a1[1];
 
   return v5(v4, a2);
 }
 
-uint64_t mlir::getAffineBinaryOpExpr(int a1, mlir::MLIRContext **a2, uint64_t a3)
+mlir::MLIRContext **mlir::getAffineBinaryOpExpr(int a1, mlir::MLIRContext **a2, uint64_t a3)
 {
   v4 = a2;
   if (a1 > 2)
@@ -8540,7 +8546,7 @@ uint64_t mlir::AffineExpr::operator*(uint64_t *a1, uint64_t a2)
         if (v11 && *(v11 + 8) == 5)
         {
           v23 = *(v3 + 16);
-          v3 = mlir::AffineExpr::operator*(&v23, v10 * *(v11 + 16));
+          v3 = mlir::AffineExpr::operator*(&v23);
           if (!v3)
           {
             goto LABEL_30;
@@ -8610,15 +8616,7 @@ LABEL_30:
   return v3;
 }
 
-{
-  v6 = **a1;
-  v7 = a2;
-  AffineUniquer = mlir::MLIRContext::getAffineUniquer(v6);
-  v4 = mlir::StorageUniquer::get<mlir::detail::AffineConstantExprStorage,long long &>(AffineUniquer, llvm::function_ref<void ()(mlir::detail::AffineConstantExprStorage *)>::callback_fn<mlir::getAffineConstantExpr(long long,mlir::MLIRContext *)::$_0>, &v6, &v7);
-  return mlir::AffineExpr::operator*(a1, v4);
-}
-
-uint64_t mlir::AffineExpr::floorDiv(mlir::MLIRContext ***a1, uint64_t a2)
+mlir::MLIRContext **mlir::AffineExpr::floorDiv(mlir::MLIRContext ***a1, uint64_t a2)
 {
   v22 = a2;
   if (*(*a1 + 2) == 5)
@@ -8724,7 +8722,7 @@ LABEL_27:
 
   if (v5)
   {
-    v6 = ((v5 ^ v4) & 0x8000000000000000) != 0 ? (v5 + ((v4 >> 63) | 1)) / v4 - 1 : v5 / v4;
+    v6 = ((v5 ^ v4) < 0 ? (v5 + ((v4 >> 63) | 1)) / v4 - 1 : v5 / v4);
   }
 
   else
@@ -8969,83 +8967,83 @@ LABEL_26:
   return result;
 }
 
-uint64_t mlir::AffineExpr::replaceDimsAndSymbols(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5)
+mlir::MLIRContext **mlir::AffineExpr::replaceDimsAndSymbols(mlir::MLIRContext ***a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5)
 {
   result = *a1;
-  v7 = *(result + 8);
+  v7 = *(result + 2);
   if (v7 > 4)
   {
     if (v7 != 5)
     {
       if (v7 == 7)
       {
-        v14 = *(result + 16);
-        v15 = (a4 + 8 * v14);
-        v16 = a5 > v14;
+        v18 = *(result + 4);
+        v19 = (a4 + 8 * v18);
+        v20 = a5 > v18;
       }
 
       else
       {
-        v17 = *(result + 16);
-        v15 = (a2 + 8 * v17);
-        v16 = a3 > v17;
+        v21 = *(result + 4);
+        v19 = (a2 + 8 * v21);
+        v20 = a3 > v21;
       }
 
-      if (v16)
+      if (v20)
       {
-        v18 = v15;
+        v22 = v19;
       }
 
       else
       {
-        v18 = a1;
+        v22 = a1;
       }
 
-      return *v18;
+      return *v22;
     }
   }
 
   else
   {
-    v8 = *(result + 16);
-    v9 = *(result + 24);
-    v19 = v9;
-    v20 = v8;
-    v10 = mlir::AffineExpr::replaceDimsAndSymbols(&v20);
-    v11 = mlir::AffineExpr::replaceDimsAndSymbols(&v19);
+    v8 = result[2];
+    v9 = result[3];
+    v23 = v9;
+    v24 = v8;
+    v14 = mlir::AffineExpr::replaceDimsAndSymbols(&v24, a2, a3, a4, a5);
+    v15 = mlir::AffineExpr::replaceDimsAndSymbols(&v23, a2, a3, a4, a5);
     result = *a1;
-    if (v8 != v10 || v9 != v11)
+    if (v8 != v14 || v9 != v15)
     {
-      v13 = *(result + 8);
-      v21 = v10;
-      if (v13 > 2)
+      v17 = *(result + 2);
+      v25 = v14;
+      if (v17 > 2)
       {
-        if (v13 != 3)
+        if (v17 != 3)
         {
-          if (v13 == 4)
+          if (v17 == 4)
           {
-            return mlir::AffineExpr::ceilDiv(&v21, v11);
+            return mlir::AffineExpr::ceilDiv(&v25, v15);
           }
 
-          return mlir::AffineExpr::operator%(&v21, v11);
+          return mlir::AffineExpr::operator%(&v25, v15);
         }
 
-        return mlir::AffineExpr::floorDiv(&v21, v11);
+        return mlir::AffineExpr::floorDiv(&v25, v15);
       }
 
       else
       {
-        if (v13)
+        if (v17)
         {
-          if (v13 == 1)
+          if (v17 == 1)
           {
-            return mlir::AffineExpr::operator*(&v21, v11);
+            return mlir::AffineExpr::operator*(&v25, v15);
           }
 
-          return mlir::AffineExpr::operator%(&v21, v11);
+          return mlir::AffineExpr::operator%(&v25, v15);
         }
 
-        return mlir::AffineExpr::operator+(&v21, v11);
+        return mlir::AffineExpr::operator+(&v25, v15);
       }
     }
   }
@@ -9053,7 +9051,7 @@ uint64_t mlir::AffineExpr::replaceDimsAndSymbols(uint64_t *a1, uint64_t a2, unin
   return result;
 }
 
-uint64_t mlir::AffineExpr::shiftDims(mlir::MLIRContext ***this, unsigned int a2, int a3, unsigned int a4)
+mlir::MLIRContext **mlir::AffineExpr::shiftDims(mlir::MLIRContext ***this, unsigned int a2, int a3, unsigned int a4)
 {
   v29[4] = *MEMORY[0x1E69E9840];
   v27 = v29;
@@ -9139,7 +9137,7 @@ uint64_t mlir::getAffineDimExpr(mlir *this, mlir::MLIRContext *a2, mlir::MLIRCon
   return mlir::StorageUniquer::get<mlir::detail::AffineDimExprStorage,unsigned int,unsigned int &>(AffineUniquer, llvm::function_ref<void ()(mlir::detail::AffineDimExprStorage *)>::callback_fn<getAffineDimOrSymbol(mlir::AffineExprKind,unsigned int,mlir::MLIRContext *)::$_0>, &v6, &v5, &v7);
 }
 
-uint64_t mlir::AffineExpr::shiftSymbols(mlir::MLIRContext ***this, unsigned int a2, int a3, unsigned int a4)
+mlir::MLIRContext **mlir::AffineExpr::shiftSymbols(mlir::MLIRContext ***this, unsigned int a2, int a3, unsigned int a4)
 {
   v29[4] = *MEMORY[0x1E69E9840];
   v27 = v29;
@@ -9225,7 +9223,7 @@ uint64_t mlir::getAffineSymbolExpr(mlir *this, mlir::MLIRContext *a2, mlir::MLIR
   return mlir::StorageUniquer::get<mlir::detail::AffineDimExprStorage,unsigned int,unsigned int &>(AffineUniquer, llvm::function_ref<void ()(mlir::detail::AffineDimExprStorage *)>::callback_fn<getAffineDimOrSymbol(mlir::AffineExprKind,unsigned int,mlir::MLIRContext *)::$_0>, &v6, &v5, &v7);
 }
 
-uint64_t mlir::AffineExpr::replace(unint64_t *a1, uint64_t *a2)
+mlir::MLIRContext **mlir::AffineExpr::replace(unint64_t *a1, uint64_t *a2)
 {
   v2 = *(a2 + 4);
   if (v2)
@@ -9246,11 +9244,11 @@ LABEL_3:
 
     else
     {
-      v18 = 1;
+      v19 = 1;
       while (v7 != -4096)
       {
-        v19 = v6 + v18++;
-        v6 = v19 & (v2 - 1);
+        v20 = v6 + v19++;
+        v6 = v20 & (v2 - 1);
         v7 = *(v3 + 16 * v6);
         if (*a1 == v7)
         {
@@ -9265,42 +9263,42 @@ LABEL_3:
   {
     v9 = *(v8 + 16);
     v10 = *(v8 + 24);
-    v20 = v10;
-    v21 = v9;
-    v12 = mlir::AffineExpr::replace(&v21);
-    v13 = mlir::AffineExpr::replace(&v20);
+    v21 = v10;
+    v22 = v9;
+    v13 = mlir::AffineExpr::replace(&v22, a2);
+    v14 = mlir::AffineExpr::replace(&v21, a2);
     v8 = *a1;
-    if (v9 != v12 || v10 != v13)
+    if (v9 != v13 || v10 != v14)
     {
-      v15 = *(v8 + 8);
-      v22 = v12;
-      if (v15 > 2)
+      v16 = *(v8 + 8);
+      v23 = v13;
+      if (v16 > 2)
       {
-        if (v15 == 3)
+        if (v16 == 3)
         {
-          return mlir::AffineExpr::floorDiv(&v22, v13);
+          return mlir::AffineExpr::floorDiv(&v23, v14);
         }
 
-        if (v15 == 4)
+        if (v16 == 4)
         {
-          return mlir::AffineExpr::ceilDiv(&v22, v13);
+          return mlir::AffineExpr::ceilDiv(&v23, v14);
         }
       }
 
       else
       {
-        if (!v15)
+        if (!v16)
         {
-          return mlir::AffineExpr::operator+(&v22, v13);
+          return mlir::AffineExpr::operator+(&v23, v14);
         }
 
-        if (v15 == 1)
+        if (v16 == 1)
         {
-          return mlir::AffineExpr::operator*(&v22, v13);
+          return mlir::AffineExpr::operator*(&v23, v14);
         }
       }
 
-      return mlir::AffineExpr::operator%(&v22, v13);
+      return mlir::AffineExpr::operator%(&v23, v14);
     }
   }
 
@@ -9314,7 +9312,7 @@ void mlir::AffineExpr::replace(unint64_t *a1, uint64_t a2, uint64_t a3)
   v8 = 0;
   v5 = a2;
   v6 = a3;
-  llvm::DenseMapBase<llvm::DenseMap<mlir::AffineExpr,mlir::AffineExpr,llvm::DenseMapInfo<mlir::AffineExpr,void>,llvm::detail::DenseMapPair<mlir::AffineExpr,mlir::AffineExpr>>,mlir::AffineExpr,mlir::AffineExpr,llvm::DenseMapInfo<mlir::AffineExpr,void>,llvm::detail::DenseMapPair<mlir::AffineExpr,mlir::AffineExpr>>::try_emplace<mlir::AffineExpr>(v7, &v5, &v6, &v4);
+  llvm::DenseMapBase<llvm::DenseMap<mlir::AffineExpr,mlir::AffineExpr,llvm::DenseMapInfo<mlir::AffineExpr,void>,llvm::detail::DenseMapPair<mlir::AffineExpr,mlir::AffineExpr>>,mlir::AffineExpr,mlir::AffineExpr,llvm::DenseMapInfo<mlir::AffineExpr,void>,llvm::detail::DenseMapPair<mlir::AffineExpr,mlir::AffineExpr>>::try_emplace<mlir::AffineExpr>(v7, &v5, &v6, v4);
   mlir::AffineExpr::replace(a1, v7);
   llvm::deallocate_buffer(v7[0], (16 * v8));
 }
@@ -9615,7 +9613,16 @@ uint64_t mlir::StorageUniquer::get<mlir::detail::AffineBinaryOpExprStorage,unsig
   return mlir::StorageUniquer::getParametricStorageTypeImpl(a1, mlir::detail::TypeIDResolver<mlir::detail::AffineBinaryOpExprStorage,void>::resolveTypeID(void)::id, (v12 >> 31) ^ v12, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::AffineBinaryOpExprStorage * mlir::StorageUniquer::get<mlir::detail::AffineBinaryOpExprStorage,unsigned int,mlir::AffineExpr const&,mlir::AffineExpr&>(llvm::function_ref<void ()(mlir::detail::AffineBinaryOpExprStorage *)>,mlir::TypeID,unsigned int,mlir::AffineExpr const&,mlir::AffineExpr&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v21, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::AffineBinaryOpExprStorage * mlir::StorageUniquer::get<mlir::detail::AffineBinaryOpExprStorage,unsigned int,mlir::AffineExpr const&,mlir::AffineExpr&>(llvm::function_ref<void ()(mlir::detail::AffineBinaryOpExprStorage *)>,mlir::TypeID,unsigned int,mlir::AffineExpr const&,mlir::AffineExpr&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v20);
 }
 
-uint64_t mlir::AffineExpr::operator-(uint64_t *a1)
+uint64_t mlir::AffineExpr::operator*(mlir::MLIRContext ***a1, uint64_t a2)
+{
+  v6 = **a1;
+  v7 = a2;
+  AffineUniquer = mlir::MLIRContext::getAffineUniquer(v6);
+  v4 = mlir::StorageUniquer::get<mlir::detail::AffineConstantExprStorage,long long &>(AffineUniquer, llvm::function_ref<void ()(mlir::detail::AffineConstantExprStorage *)>::callback_fn<mlir::getAffineConstantExpr(long long,mlir::MLIRContext *)::$_0>, &v6, &v7);
+  return mlir::AffineExpr::operator*(a1, v4);
+}
+
+uint64_t mlir::AffineExpr::operator-(mlir::MLIRContext ***a1)
 {
   v5 = **a1;
   v6 = -1;
@@ -9653,7 +9660,7 @@ uint64_t mlir::AffineExpr::operator%(mlir::MLIRContext ***a1, uint64_t a2)
   return mlir::AffineExpr::operator%(a1, v4);
 }
 
-uint64_t mlir::AffineExpr::compose(uint64_t *a1, uint64_t a2)
+mlir::MLIRContext **mlir::AffineExpr::compose(mlir::MLIRContext ***a1, uint64_t a2)
 {
   v15[8] = *MEMORY[0x1E69E9840];
   v12 = a2;

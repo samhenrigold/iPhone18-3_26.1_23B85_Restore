@@ -95,47 +95,47 @@ LABEL_6:
 
 - (id)_dictionaryRepresentation
 {
-  v31[12] = *MEMORY[0x1E69E9840];
+  v30[12] = *MEMORY[0x1E69E9840];
   entityIdentifiers = self->_entityIdentifiers;
-  v29 = entityIdentifiers;
-  v30[0] = @"entityIdentifiers";
+  v28 = entityIdentifiers;
+  v29[0] = @"entityIdentifiers";
   if (!entityIdentifiers)
   {
     entityIdentifiers = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = entityIdentifiers;
-  v31[0] = entityIdentifiers;
-  v30[1] = @"entityName";
+  v22 = entityIdentifiers;
+  v30[0] = entityIdentifiers;
+  v29[1] = @"entityName";
   entityName = self->_entityName;
-  v28 = entityName;
+  v27 = entityName;
   if (!entityName)
   {
     entityName = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = entityName;
-  v31[1] = entityName;
-  v30[2] = @"entityType";
-  v27 = [MEMORY[0x1E696AD98] numberWithInteger:self->_entityType];
-  v31[2] = v27;
-  v30[3] = @"outerDeviceType";
-  v26 = [MEMORY[0x1E696AD98] numberWithInteger:self->_outerDeviceType];
-  v31[3] = v26;
-  v30[4] = @"outerDeviceName";
+  v21 = entityName;
+  v30[1] = entityName;
+  v29[2] = @"entityType";
+  v26 = [MEMORY[0x1E696AD98] numberWithInteger:self->_entityType];
+  v30[2] = v26;
+  v29[3] = @"outerDeviceType";
+  v25 = [MEMORY[0x1E696AD98] numberWithInteger:self->_outerDeviceType];
+  v30[3] = v25;
+  v29[4] = @"outerDeviceName";
   outerDeviceName = self->_outerDeviceName;
-  v25 = outerDeviceName;
+  v24 = outerDeviceName;
   if (!outerDeviceName)
   {
     outerDeviceName = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = outerDeviceName;
-  v31[4] = outerDeviceName;
-  v30[5] = @"deviceType";
-  v24 = [MEMORY[0x1E696AD98] numberWithInteger:self->_deviceType];
-  v31[5] = v24;
-  v30[6] = @"home";
+  v20 = outerDeviceName;
+  v30[4] = outerDeviceName;
+  v29[5] = @"deviceType";
+  v23 = [MEMORY[0x1E696AD98] numberWithInteger:self->_deviceType];
+  v30[5] = v23;
+  v29[6] = @"home";
   home = self->_home;
   null = home;
   if (!home)
@@ -143,9 +143,9 @@ LABEL_6:
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = null;
-  v31[6] = null;
-  v30[7] = @"zone";
+  v18 = null;
+  v30[6] = null;
+  v29[7] = @"zone";
   zone = self->_zone;
   null2 = zone;
   if (!zone)
@@ -153,8 +153,8 @@ LABEL_6:
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v31[7] = null2;
-  v30[8] = @"group";
+  v30[7] = null2;
+  v29[8] = @"group";
   group = self->_group;
   null3 = group;
   if (!group)
@@ -162,8 +162,8 @@ LABEL_6:
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v31[8] = null3;
-  v30[9] = @"room";
+  v30[8] = null3;
+  v29[9] = @"room";
   room = self->_room;
   null4 = room;
   if (!room)
@@ -171,14 +171,14 @@ LABEL_6:
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v31[9] = null4;
-  v30[10] = @"isExcludeFilter";
-  v14 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isExcludeFilter, v19}];
-  v31[10] = v14;
-  v30[11] = @"hasAllQuantifier";
+  v30[9] = null4;
+  v29[10] = @"isExcludeFilter";
+  v14 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isExcludeFilter, v18}];
+  v30[10] = v14;
+  v29[11] = @"hasAllQuantifier";
   v15 = [MEMORY[0x1E696AD98] numberWithBool:self->_hasAllQuantifier];
-  v31[11] = v15;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:12];
+  v30[11] = v15;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:12];
 
   if (room)
   {
@@ -224,19 +224,17 @@ LABEL_18:
 LABEL_31:
 
 LABEL_19:
-  if (!v25)
+  if (!v24)
+  {
+  }
+
+  if (!v27)
   {
   }
 
   if (!v28)
   {
   }
-
-  if (!v29)
-  {
-  }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -351,19 +349,19 @@ LABEL_19:
 
 - (INHomeFilter)initWithCoder:(id)coder
 {
-  v24[3] = *MEMORY[0x1E69E9840];
+  v23[3] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
-  v24[0] = objc_opt_class();
-  v24[1] = objc_opt_class();
-  v24[2] = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:3];
+  v23[0] = objc_opt_class();
+  v23[1] = objc_opt_class();
+  v23[2] = objc_opt_class();
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:3];
   v6 = [v3 setWithArray:v5];
-  v22 = [coderCopy decodeObjectOfClasses:v6 forKey:@"entityIdentifiers"];
+  v21 = [coderCopy decodeObjectOfClasses:v6 forKey:@"entityIdentifiers"];
 
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"entityName"];
-  v21 = [coderCopy decodeIntegerForKey:@"entityType"];
-  v20 = [coderCopy decodeIntegerForKey:@"outerDeviceType"];
+  v20 = [coderCopy decodeIntegerForKey:@"entityType"];
+  v19 = [coderCopy decodeIntegerForKey:@"outerDeviceType"];
   v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"outerDeviceName"];
   v9 = [coderCopy decodeIntegerForKey:@"deviceType"];
   v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"home"];
@@ -373,11 +371,10 @@ LABEL_19:
   v14 = [coderCopy decodeBoolForKey:@"isExcludeFilter"];
   v15 = [coderCopy decodeBoolForKey:@"hasAllQuantifier"];
 
-  BYTE1(v19) = v15;
-  LOBYTE(v19) = v14;
-  v16 = [(INHomeFilter *)self initWithEntityIdentifiers:v22 entityName:v7 entityType:v21 outerDeviceType:v20 outerDeviceName:v8 deviceType:v9 home:v10 zone:v11 group:v12 room:v13 isExcludeFilter:v19 hasAllQuantifier:?];
+  BYTE1(v18) = v15;
+  LOBYTE(v18) = v14;
+  v16 = [(INHomeFilter *)self initWithEntityIdentifiers:v21 entityName:v7 entityType:v20 outerDeviceType:v19 outerDeviceName:v8 deviceType:v9 home:v10 zone:v11 group:v12 room:v13 isExcludeFilter:v18 hasAllQuantifier:?];
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

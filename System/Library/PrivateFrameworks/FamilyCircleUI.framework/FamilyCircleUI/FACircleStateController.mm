@@ -137,14 +137,14 @@ void __66__FACircleStateController_performOperationWithContext_completion___bloc
 
 - (void)performWithContext:(id)context completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
-  v8 = _FALogSystem();
+  v8 = _FALogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138477827;
-    v20 = contextCopy;
+    v19 = contextCopy;
     _os_log_impl(&dword_21BB35000, v8, OS_LOG_TYPE_DEFAULT, "Performing operation with context: %{private}@", buf, 0xCu);
   }
 
@@ -154,24 +154,22 @@ void __66__FACircleStateController_performOperationWithContext_completion___bloc
   aBlock[1] = 3221225472;
   aBlock[2] = __57__FACircleStateController_performWithContext_completion___block_invoke;
   aBlock[3] = &unk_2782F3658;
-  objc_copyWeak(&v18, buf);
+  objc_copyWeak(&v17, buf);
   v9 = _Block_copy(aBlock);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __57__FACircleStateController_performWithContext_completion___block_invoke_2;
-  v13[3] = &unk_2782F36F8;
-  objc_copyWeak(&v16, buf);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __57__FACircleStateController_performWithContext_completion___block_invoke_2;
+  v12[3] = &unk_2782F36F8;
+  objc_copyWeak(&v15, buf);
   v10 = contextCopy;
-  v14 = v10;
+  v13 = v10;
   v11 = v9;
-  v15 = v11;
-  [(FACircleStateController *)self _ensurePresenterWithCompletion:v13];
+  v14 = v11;
+  [(FACircleStateController *)self _ensurePresenterWithCompletion:v12];
 
-  objc_destroyWeak(&v16);
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __57__FACircleStateController_performWithContext_completion___block_invoke(uint64_t a1, void *a2)
@@ -194,13 +192,14 @@ void __57__FACircleStateController_performWithContext_completion___block_invoke_
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained(a1 + 6);
+  v8 = WeakRetained;
   if (!v5)
   {
-    v8 = _FALogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _FALogSystem(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21BB35000, v8, OS_LOG_TYPE_DEFAULT, "No presenter provided", buf, 2u);
+      _os_log_impl(&dword_21BB35000, v9, OS_LOG_TYPE_DEFAULT, "No presenter provided", buf, 2u);
     }
   }
 
@@ -210,63 +209,65 @@ void __57__FACircleStateController_performWithContext_completion___block_invoke_
     aBlock[1] = 3221225472;
     aBlock[2] = __57__FACircleStateController_performWithContext_completion___block_invoke_24;
     aBlock[3] = &unk_2782F36A8;
-    objc_copyWeak(&v22, a1 + 6);
-    v19 = a1[4];
-    v9 = v5;
-    v20 = v9;
-    v21 = a1[5];
-    v10 = _Block_copy(aBlock);
-    if ([WeakRetained _contextRequiresRemoteService:a1[4]])
+    objc_copyWeak(&v25, a1 + 6);
+    v22 = a1[4];
+    v10 = v5;
+    v23 = v10;
+    v24 = a1[5];
+    v11 = _Block_copy(aBlock);
+    v12 = [v8 _contextRequiresRemoteService:a1[4]];
+    if (v12)
     {
-      if ([WeakRetained _processRequiresSpringBoardServices])
+      v13 = [v8 _processRequiresSpringBoardServices];
+      if (v13)
       {
-        v11 = _FALogSystem();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v14 = _FALogSystem(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_21BB35000, v11, OS_LOG_TYPE_DEFAULT, "Presenting flow using springboard...", buf, 2u);
+          _os_log_impl(&dword_21BB35000, v14, OS_LOG_TYPE_DEFAULT, "Presenting flow using springboard...", buf, 2u);
         }
 
-        [WeakRetained _presentFlowUsingSpringBoardWithContext:a1[4] completion:a1[5]];
+        [v8 _presentFlowUsingSpringBoardWithContext:a1[4] completion:a1[5]];
       }
 
       else
       {
-        v14 = _FALogSystem();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v17 = _FALogSystem(v13);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_21BB35000, v14, OS_LOG_TYPE_DEFAULT, "Presenting flow using UIRemoteViewController...", buf, 2u);
+          _os_log_impl(&dword_21BB35000, v17, OS_LOG_TYPE_DEFAULT, "Presenting flow using UIRemoteViewController...", buf, 2u);
         }
 
-        [WeakRetained _presentViewServiceWithContext:a1[4] viewController:v9 completion:a1[5]];
+        [v8 _presentViewServiceWithContext:a1[4] viewController:v10 completion:a1[5]];
       }
     }
 
     else
     {
-      v12 = _FALogSystem();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v15 = _FALogSystem(v12);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        __57__FACircleStateController_performWithContext_completion___block_invoke_2_cold_1(v12);
+        __57__FACircleStateController_performWithContext_completion___block_invoke_2_cold_1(v15);
       }
 
-      v13 = a1[4];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __57__FACircleStateController_performWithContext_completion___block_invoke_27;
-      v15[3] = &unk_2782F36D0;
-      v16 = v10;
-      v17 = a1[5];
-      [WeakRetained _performOperationWithContext:v13 viewController:v9 completion:v15];
+      v16 = a1[4];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __57__FACircleStateController_performWithContext_completion___block_invoke_27;
+      v18[3] = &unk_2782F36D0;
+      v19 = v11;
+      v20 = a1[5];
+      [v8 _performOperationWithContext:v16 viewController:v10 completion:v18];
     }
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v25);
   }
 
   else
   {
-    [WeakRetained _presentPlatformUnsupportedAlertWithCompletion:a1[5]];
+    [v8 _presentPlatformUnsupportedAlertWithCompletion:a1[5]];
   }
 }
 
@@ -274,7 +275,7 @@ void __57__FACircleStateController_performWithContext_completion___block_invoke_
 {
   v5 = a3;
   WeakRetained = objc_loadWeakRetained(a1 + 7);
-  v7 = _FALogSystem();
+  v7 = _FALogSystem(WeakRetained);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -406,7 +407,7 @@ void __74__FACircleStateController__presentPlatformUnsupportedAlertWithCompletio
 {
   v18 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
-  v5 = _FALogSystem();
+  v5 = _FALogSystem(serviceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v16 = 134217984;
@@ -431,29 +432,28 @@ void __74__FACircleStateController__presentPlatformUnsupportedAlertWithCompletio
     lowercaseString = [clientBundleID lowercaseString];
     v10 = [_whitelistedInProcessClients containsObject:lowercaseString];
 
-    v11 = _FALogSystem();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v12 = _FALogSystem(v11);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
     if (v10)
     {
-      if (v12)
+      if (v13)
       {
         clientBundleID2 = [serviceCopy clientBundleID];
         v16 = 138412290;
         presentationType = clientBundleID2;
-        _os_log_impl(&dword_21BB35000, v11, OS_LOG_TYPE_DEFAULT, "%@ is allowed in process UI", &v16, 0xCu);
+        _os_log_impl(&dword_21BB35000, v12, OS_LOG_TYPE_DEFAULT, "%@ is allowed in process UI", &v16, 0xCu);
       }
     }
 
-    else if (v12)
+    else if (v13)
     {
       LOWORD(v16) = 0;
-      _os_log_impl(&dword_21BB35000, v11, OS_LOG_TYPE_DEFAULT, "Context requires remote service", &v16, 2u);
+      _os_log_impl(&dword_21BB35000, v12, OS_LOG_TYPE_DEFAULT, "Context requires remote service", &v16, 2u);
     }
 
     v6 = v10 ^ 1;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -467,23 +467,21 @@ void __74__FACircleStateController__presentPlatformUnsupportedAlertWithCompletio
 
 - (void)_presentFlowUsingSpringBoardWithContext:(id)context completion:(id)completion
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v13 = @"FARemoteAlertServiceUserInfoContextData";
+  v12 = @"FARemoteAlertServiceUserInfoContextData";
   dataRepresentation = [context dataRepresentation];
-  v14[0] = dataRepresentation;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[0] = dataRepresentation;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
 
   v8 = objc_alloc_init(MEMORY[0x277D082C0]);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __78__FACircleStateController__presentFlowUsingSpringBoardWithContext_completion___block_invoke;
-  v11[3] = &unk_2782F2E88;
-  v12 = completionCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __78__FACircleStateController__presentFlowUsingSpringBoardWithContext_completion___block_invoke;
+  v10[3] = &unk_2782F2E88;
+  v11 = completionCopy;
   v9 = completionCopy;
-  [v8 launchOutOfProcessUIWithOptions:v7 completion:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [v8 launchOutOfProcessUIWithOptions:v7 completion:v10];
 }
 
 void __78__FACircleStateController__presentFlowUsingSpringBoardWithContext_completion___block_invoke(uint64_t a1, void *a2)
@@ -585,7 +583,7 @@ void __82__FACircleStateController__performOperationWithContext_viewController_c
   v8 = WeakRetained;
   if (!v5)
   {
-    v12 = _FALogSystem();
+    v12 = _FALogSystem(WeakRetained);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       __82__FACircleStateController__performOperationWithContext_viewController_completion___block_invoke_cold_1(a1, v12);
@@ -650,35 +648,34 @@ void __82__FACircleStateController__performOperationWithContext_viewController_c
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   [WeakRetained setCirclePresenter:0];
   v5 = [v3 loadSuccess];
-  v6 = _FALogSystem();
-  v7 = v6;
-  if (v5)
+  v6 = v5;
+  v7 = _FALogSystem(v5);
+  v8 = v7;
+  if (v6)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
+      v9 = *(a1 + 32);
       v10 = 138477827;
-      v11 = v8;
-      _os_log_impl(&dword_21BB35000, v7, OS_LOG_TYPE_DEFAULT, "Successfully completed flow for context: %{private}@", &v10, 0xCu);
+      v11 = v9;
+      _os_log_impl(&dword_21BB35000, v8, OS_LOG_TYPE_DEFAULT, "Successfully completed flow for context: %{private}@", &v10, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __82__FACircleStateController__performOperationWithContext_viewController_completion___block_invoke_69_cold_1(a1, v3, v7);
+    __82__FACircleStateController__performOperationWithContext_viewController_completion___block_invoke_69_cold_1(a1, v3, v8);
   }
 
   (*(*(a1 + 40) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_21BB35000, a2, OS_LOG_TYPE_DEBUG, "%@ deallocated", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_21BB35000, a2, OS_LOG_TYPE_DEBUG, "%@ deallocated", &v2, 0xCu);
 }
 
 - (void)remoteViewControllerDidStartFlow:(id)flow
@@ -710,27 +707,23 @@ void __82__FACircleStateController__performOperationWithContext_viewController_c
 
 void __82__FACircleStateController__performOperationWithContext_viewController_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) eventType];
-  v5 = 138477827;
-  v6 = v3;
-  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "Failed to find URL for event type: %{private}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138477827;
+  v5 = v3;
+  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "Failed to find URL for event type: %{private}@", &v4, 0xCu);
 }
 
 void __82__FACircleStateController__performOperationWithContext_viewController_completion___block_invoke_69_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = [a2 error];
-  v7 = 138478083;
-  v8 = v4;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_21BB35000, a3, OS_LOG_TYPE_ERROR, "Failed to complete flow for context: %{private}@, error: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138478083;
+  v7 = v4;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_21BB35000, a3, OS_LOG_TYPE_ERROR, "Failed to complete flow for context: %{private}@, error: %{public}@", &v6, 0x16u);
 }
 
 @end

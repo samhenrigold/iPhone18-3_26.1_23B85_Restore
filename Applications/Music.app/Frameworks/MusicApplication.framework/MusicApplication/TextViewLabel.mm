@@ -81,10 +81,11 @@
   v3 = *&self->textColor[OBJC_IVAR____TtC16MusicApplication13TextViewLabel_delegate];
   if (v3)
   {
+    v4 = *&self->lineBreakMode[OBJC_IVAR____TtC16MusicApplication13TextViewLabel_delegate];
     selfCopy = self;
-    sub_307CC(v3);
+    sub_307CC(v3, v4);
     v3(selfCopy);
-    sub_17654(v3);
+    sub_17654(v3, v4);
   }
 }
 
@@ -95,10 +96,11 @@
     v5 = *&self->maximumNumberOfLines[OBJC_IVAR____TtC16MusicApplication13TextViewLabel_delegate];
     if (v5)
     {
+      v6 = *&self->isEnabled[OBJC_IVAR____TtC16MusicApplication13TextViewLabel_delegate];
       selfCopy = self;
-      sub_307CC(v5);
+      sub_307CC(v5, v6);
       v5(selfCopy);
-      sub_17654(v5);
+      sub_17654(v5, v6);
     }
   }
 }

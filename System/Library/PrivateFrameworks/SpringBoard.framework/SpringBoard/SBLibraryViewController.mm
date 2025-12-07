@@ -84,11 +84,11 @@
   {
     if ((isRotating & isValid) == 1)
     {
-      v14 = SBLogAppLibrary();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = SBLogAppLibrary(v9);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        *v16 = 0;
-        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "[SBLibraryViewController] Updating async rendering assertion to: Relinquished", v16, 2u);
+        *v17 = 0;
+        _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "[SBLibraryViewController] Updating async rendering assertion to: Relinquished", v17, 2u);
       }
 
       asynchronousRenderingAssertion2 = [(SBLibraryViewController *)self asynchronousRenderingAssertion];
@@ -100,18 +100,18 @@
 
   else
   {
-    v9 = SBLogAppLibrary();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogAppLibrary(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[SBLibraryViewController] Updating async rendering assertion to: Acquired", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "[SBLibraryViewController] Updating async rendering assertion to: Acquired", buf, 2u);
     }
 
-    v10 = [SBAsynchronousRenderingAssertion alloc];
-    v11 = objc_opt_class();
-    v12 = NSStringFromClass(v11);
-    v13 = [(SBAsynchronousRenderingAssertion *)v10 initWithReason:v12];
-    [(SBLibraryViewController *)self setAsynchronousRenderingAssertion:v13];
+    v11 = [SBAsynchronousRenderingAssertion alloc];
+    v12 = objc_opt_class();
+    v13 = NSStringFromClass(v12);
+    v14 = [(SBAsynchronousRenderingAssertion *)v11 initWithReason:v13];
+    [(SBLibraryViewController *)self setAsynchronousRenderingAssertion:v14];
   }
 }
 
@@ -554,13 +554,14 @@ LABEL_8:
   if ([(SBLibraryViewController *)self _canHandleKeyEvents]&& [(SBLibraryViewController *)self _canHandleKeyUIEvent:beganCopy])
   {
     containerViewController = [(SBHLibraryViewController *)self containerViewController];
-    if (([containerViewController isActive] & 1) == 0)
+    isActive = [containerViewController isActive];
+    if ((isActive & 1) == 0)
     {
-      v6 = SBLogAppLibrary();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = SBLogAppLibrary(isActive);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Activating type-ahead search in App Library due to key input event", v10, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Activating type-ahead search in App Library due to key input event", v11, 2u);
       }
 
       view = [(SBLibraryViewController *)self view];
@@ -633,7 +634,7 @@ LABEL_8:
 
     v10 = _canHandleKeyUIEvent__keyInputsToIgnore;
     _unmodifiedInput = [eventCopy _unmodifiedInput];
-    v4 = [v10 containsObject:_unmodifiedInput] ^ 1;
+    v4 = objc_msgSend_containsObject_(v10) ^ 1;
   }
 
   else

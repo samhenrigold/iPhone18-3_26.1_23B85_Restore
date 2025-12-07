@@ -50,7 +50,7 @@
 
 - (void)completeCurrentReport
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   self->_hasCompleteReport = 1;
   self->_watchAddedNotificationCountForLastCompleteReport = self->_watchAddedNotificationCountForCurrentIncompleteReport;
@@ -65,20 +65,19 @@
     watchAddedNotificationCountForLastCompleteReport = self->_watchAddedNotificationCountForLastCompleteReport;
     watchRemovedNotificationCountForLastCompleteReport = self->_watchRemovedNotificationCountForLastCompleteReport;
     hasCompleteReport = self->_hasCompleteReport;
-    v10 = 138544130;
-    v11 = v5;
-    v12 = 2048;
-    v13 = watchAddedNotificationCountForLastCompleteReport;
-    v14 = 2048;
-    v15 = watchRemovedNotificationCountForLastCompleteReport;
-    v16 = 1024;
-    v17 = hasCompleteReport;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@WatchConnectivityLogEventManagerTimer fired: Watch added: %lu Watch removed: %lu reportComplete: %d", &v10, 0x26u);
+    v9 = 138544130;
+    v10 = v5;
+    v11 = 2048;
+    v12 = watchAddedNotificationCountForLastCompleteReport;
+    v13 = 2048;
+    v14 = watchRemovedNotificationCountForLastCompleteReport;
+    v15 = 1024;
+    v16 = hasCompleteReport;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@WatchConnectivityLogEventManagerTimer fired: Watch added: %lu Watch removed: %lu reportComplete: %d", &v9, 0x26u);
   }
 
   objc_autoreleasePoolPop(v3);
   os_unfair_lock_unlock(&self->_lock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)incrementWatchRemovedNotificationCount

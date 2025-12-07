@@ -179,7 +179,7 @@
   }
 
   v4 = [MEMORY[0x1E695DF58] canonicalLanguageIdentifierFromString:codeCopy];
-  if ([v4 isEqual:@"en-US"])
+  if (objc_msgSend_isEqual_(v4))
   {
     v5 = _UINSLocalizedStringWithDefaultValue(@"American English", @"American English");
   }
@@ -362,9 +362,9 @@ LABEL_9:
 {
   attributes = [(MAAsset *)self->_rawAsset attributes];
   v3 = [attributes objectForKey:@"DictionaryPackageName"];
-  v4 = [v3 isEqualToString:@"TTY Abbreviations Dictionary.dictionary"];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (id)description

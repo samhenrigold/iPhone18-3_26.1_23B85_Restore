@@ -290,39 +290,53 @@ LABEL_27:
 {
   configCopy = config;
   v5 = configCopy;
-  if (!configCopy)
+  v16 = 0;
+  if (configCopy)
   {
-    goto LABEL_15;
-  }
-
-  sub_295EAB41C(configCopy, "fallbackFocusROI_left", &self->_simpleLensModelConfig.left);
-  if (!v6)
-  {
-    goto LABEL_15;
-  }
-
-  sub_295EAB41C(v5, "fallbackFocusROI_top", &self->_simpleLensModelConfig.top);
-  if (!v7)
-  {
-    goto LABEL_15;
-  }
-
-  sub_295EAB41C(v5, "fallbackFocusROI_width", &self->_simpleLensModelConfig.width);
-  if (!v8)
-  {
-    goto LABEL_15;
-  }
-
-  sub_295EAB41C(v5, "fallbackFocusROI_height", &self->_simpleLensModelConfig.height);
-  if (v9 && (sub_295EAB41C(v5, "zeroShiftPercentile", &self->_simpleLensModelConfig.zeroShiftPercentile), v10) && (sub_295EAB41C(v5, "simulatedAperture", &self->_simpleLensModelConfig.simulatedAperture), v11) && (sub_295EAB41C(v5, "minimumSimulatedAperture", &self->_simpleLensModelConfig.minimumSimulatedAperture), v12) && (sub_295EAB41C(v5, "maximumSimulatedAperture", &self->_simpleLensModelConfig.maximumSimulatedAperture), v13) && (sub_295EAB41C(v5, "maxFGBlur", &self->_simpleLensModelConfig.maxFGBlur), v14) && (sub_295EAB41C(v5, "shiftDeadZone", &self->_simpleLensModelConfig.shiftDeadZone), v15) && (sub_295EAB5FC(v5, "disparityScalingFactor", &self->_dynamicParams) & 1) != 0)
-  {
-    v16 = 1;
-  }
-
-  else
-  {
-LABEL_15:
-    v16 = 0;
+    sub_295EAB41C(configCopy, "fallbackFocusROI_left", &self->_simpleLensModelConfig.left);
+    if (v6)
+    {
+      sub_295EAB41C(v5, "fallbackFocusROI_top", &self->_simpleLensModelConfig.top);
+      if (v7)
+      {
+        sub_295EAB41C(v5, "fallbackFocusROI_width", &self->_simpleLensModelConfig.width);
+        if (v8)
+        {
+          sub_295EAB41C(v5, "fallbackFocusROI_height", &self->_simpleLensModelConfig.height);
+          if (v9)
+          {
+            sub_295EAB41C(v5, "zeroShiftPercentile", &self->_simpleLensModelConfig.zeroShiftPercentile);
+            if (v10)
+            {
+              sub_295EAB41C(v5, "simulatedAperture", &self->_simpleLensModelConfig.simulatedAperture);
+              if (v11)
+              {
+                sub_295EAB41C(v5, "minimumSimulatedAperture", &self->_simpleLensModelConfig.minimumSimulatedAperture);
+                if (v12)
+                {
+                  sub_295EAB41C(v5, "maximumSimulatedAperture", &self->_simpleLensModelConfig.maximumSimulatedAperture);
+                  if (v13)
+                  {
+                    sub_295EAB41C(v5, "maxFGBlur", &self->_simpleLensModelConfig.maxFGBlur);
+                    if (v14)
+                    {
+                      sub_295EAB41C(v5, "shiftDeadZone", &self->_simpleLensModelConfig.shiftDeadZone);
+                      if (v15)
+                      {
+                        if (sub_295EAB5FC(v5, "disparityScalingFactor", &self->_dynamicParams))
+                        {
+                          v16 = 1;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   return v16;
@@ -364,45 +378,57 @@ LABEL_15:
 {
   configCopy = config;
   v5 = configCopy;
-  if (!configCopy)
+  v17 = 0;
+  if (configCopy)
   {
-    goto LABEL_16;
-  }
-
-  sub_295EAB41C(configCopy, "zeroShiftPercentile", &self->_mattingConfig.preprocessingAmplitude);
-  if (!v6)
-  {
-    goto LABEL_16;
-  }
-
-  sub_295EAB41C(v5, "preprocessingAlphaThreshold", &self->_mattingConfig.preprocessingExponent);
-  if (!v7)
-  {
-    goto LABEL_16;
-  }
-
-  sub_295EAB41C(v5, "preprocessingAmplitude", &self->_mattingConfig.preprocessingGamma);
-  if (!v8)
-  {
-    goto LABEL_16;
-  }
-
-  sub_295EAB41C(v5, "preprocessingExponent", &self->_mattingConfig.preprocessingMinFactor);
-  if (!v9)
-  {
-    goto LABEL_16;
-  }
-
-  sub_295EAB41C(v5, "preprocessingGamma", &self->_mattingConfig.preprocessingMaxFactor);
-  if (v10 && (sub_295EAB41C(v5, "preprocessingMinFactor", &self->_mattingConfig.radius), v11) && (sub_295EAB41C(v5, "preprocessingMaxFactor", &self->_mattingConfig.subsampling), v12) && (sub_295EAB41C(v5, "radius", &self->_mattingConfig.epsilon), v13) && (sub_295EAB41C(v5, "subsampling", &self->_mattingConfig.iterations), v14) && (sub_295EAB41C(v5, "epsilon", &self->_mattingConfig.rgbWeight), v15) && sub_295EAB384(v5, "iterations", &self->_renderingMajorVersion) && (sub_295EAB41C(v5, "rgbWeight", &self->_renderingMajorVersion + 1), (v16 & 1) != 0))
-  {
-    v17 = 1;
-  }
-
-  else
-  {
-LABEL_16:
-    v17 = 0;
+    sub_295EAB41C(configCopy, "zeroShiftPercentile", &self->_mattingConfig.preprocessingAmplitude);
+    if (v6)
+    {
+      sub_295EAB41C(v5, "preprocessingAlphaThreshold", &self->_mattingConfig.preprocessingExponent);
+      if (v7)
+      {
+        sub_295EAB41C(v5, "preprocessingAmplitude", &self->_mattingConfig.preprocessingGamma);
+        if (v8)
+        {
+          sub_295EAB41C(v5, "preprocessingExponent", &self->_mattingConfig.preprocessingMinFactor);
+          if (v9)
+          {
+            sub_295EAB41C(v5, "preprocessingGamma", &self->_mattingConfig.preprocessingMaxFactor);
+            if (v10)
+            {
+              sub_295EAB41C(v5, "preprocessingMinFactor", &self->_mattingConfig.radius);
+              if (v11)
+              {
+                sub_295EAB41C(v5, "preprocessingMaxFactor", &self->_mattingConfig.subsampling);
+                if (v12)
+                {
+                  sub_295EAB41C(v5, "radius", &self->_mattingConfig.epsilon);
+                  if (v13)
+                  {
+                    sub_295EAB41C(v5, "subsampling", &self->_mattingConfig.iterations);
+                    if (v14)
+                    {
+                      sub_295EAB41C(v5, "epsilon", &self->_mattingConfig.rgbWeight);
+                      if (v15)
+                      {
+                        if (sub_295EAB384(v5, "iterations", &self->_renderingMajorVersion))
+                        {
+                          sub_295EAB41C(v5, "rgbWeight", &self->_renderingMajorVersion + 1);
+                          if (v16)
+                          {
+                            v17 = 1;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   return v17;
@@ -650,10 +676,10 @@ LABEL_16:
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "linearBoostGain", &self->_renderingConfig.fgMaxNRings);
-  if ((v39 & 1) == 0)
+  v39 = sub_295EAB41C(v5, "linearBoostGain", &self->_renderingConfig.fgMaxNRings);
+  if ((v40 & 1) == 0)
   {
-    sub_295EB4698();
+    sub_295EB4698(v39);
   }
 
   if (SLODWORD(self[1].super.isa) < 7)
@@ -684,43 +710,43 @@ LABEL_61:
   }
 
   sub_295EAB41C(v5, "fgTraceStepScale", &self->_renderingConfig.fgAlphaSmoothstepStart);
-  if (!v40)
-  {
-    goto LABEL_130;
-  }
-
-  sub_295EAB41C(v5, "fgHitThreshold", &self->_renderingConfig.fgAlphaSmoothstepEnd);
   if (!v41)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "fgAlphaSmoothstepStart", &self->_renderingConfig.fgBlurWeightSmoothstepStart);
+  sub_295EAB41C(v5, "fgHitThreshold", &self->_renderingConfig.fgAlphaSmoothstepEnd);
   if (!v42)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "fgAlphaSmoothstepEnd", &self->_renderingConfig.fgBlurWeightSmoothstepEnd);
+  sub_295EAB41C(v5, "fgAlphaSmoothstepStart", &self->_renderingConfig.fgBlurWeightSmoothstepStart);
   if (!v43)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "fgBlurWeightSmoothstepStart", &self->_renderingConfig.fgAARadius);
+  sub_295EAB41C(v5, "fgAlphaSmoothstepEnd", &self->_renderingConfig.fgBlurWeightSmoothstepEnd);
   if (!v44)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "fgBlurWeightSmoothstepEnd", &self->_renderingConfig.bicubicDownsampleParamB);
+  sub_295EAB41C(v5, "fgBlurWeightSmoothstepStart", &self->_renderingConfig.fgAARadius);
   if (!v45)
   {
     goto LABEL_130;
   }
 
+  sub_295EAB41C(v5, "fgBlurWeightSmoothstepEnd", &self->_renderingConfig.bicubicDownsampleParamB);
+  if (!v46)
+  {
+    goto LABEL_130;
+  }
+
   sub_295EAB41C(v5, "fgAARadius", &self->_renderingConfig.bicubicDownsampleParamC);
-  if ((v46 & 1) == 0)
+  if ((v47 & 1) == 0)
   {
     goto LABEL_130;
   }
@@ -731,10 +757,10 @@ LABEL_61:
   }
 
   sub_295EAB41C(v5, "bicubicDownsampleParamB", &self->_hairnetConfig.hairnetMaskGmagThreshold);
-  if (!v47 || (sub_295EAB41C(v5, "bicubicDownsampleParamC", &self->_hairnetConfig.hairnetMaskBlurMapThreshold), (v48 & 1) == 0))
+  if (!v48 || (sub_295EAB41C(v5, "bicubicDownsampleParamC", &self->_hairnetConfig.hairnetMaskBlurMapThreshold), (v49 & 1) == 0))
   {
 LABEL_130:
-    v108 = 0;
+    v109 = 0;
     goto LABEL_129;
   }
 
@@ -759,91 +785,91 @@ LABEL_62:
   self->_segmentationFusionConfig.maxBlur = simulatedAperture;
   *&self->_renderingConfig.preFilterRadius = simulatedAperture;
   sub_295EAB41C(v5, "faces.maxBlurOnEyes", &self->_anon_1ac[136]);
-  if (!v51)
-  {
-    goto LABEL_130;
-  }
-
-  sub_295EAB41C(v5, "faces.maxBlurDistFromFocus", &self->_anon_1ac[140]);
   if (!v52)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "faces.eyeToEyebrowRatio", &self->_anon_1ac[144]);
+  sub_295EAB41C(v5, "faces.maxBlurDistFromFocus", &self->_anon_1ac[140]);
   if (!v53)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "faces.linearBlurGrowthM", &self->_anon_1ac[148]);
+  sub_295EAB41C(v5, "faces.eyeToEyebrowRatio", &self->_anon_1ac[144]);
   if (!v54)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "faces.linearBlurGrowthC", &self->_anon_1ac[152]);
+  sub_295EAB41C(v5, "faces.linearBlurGrowthM", &self->_anon_1ac[148]);
   if (!v55)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "faces.distToBlurScaling", &self->_anon_1ac[156]);
+  sub_295EAB41C(v5, "faces.linearBlurGrowthC", &self->_anon_1ac[152]);
   if (!v56)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "faces.capMultip", &self->_anon_1ac[160]);
+  sub_295EAB41C(v5, "faces.distToBlurScaling", &self->_anon_1ac[156]);
   if (!v57)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "faces.gainMultip", &self->_anon_1ac[164]);
+  sub_295EAB41C(v5, "faces.capMultip", &self->_anon_1ac[160]);
   if (!v58)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "faces.chinThetaLimit", &self->_anon_1ac[168]);
+  sub_295EAB41C(v5, "faces.gainMultip", &self->_anon_1ac[164]);
   if (!v59)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "faces.chinThetaMultip", &self->_anon_1ac[172]);
+  sub_295EAB41C(v5, "faces.chinThetaLimit", &self->_anon_1ac[168]);
   if (!v60)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "faces.chinVectorSnapping", &self->_anon_1ac[176]);
+  sub_295EAB41C(v5, "faces.chinThetaMultip", &self->_anon_1ac[172]);
   if (!v61)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "segfusion.subtractiveLowerAlpha", &self->_segmentationFusionConfig.subtractiveUpperAlpha);
+  sub_295EAB41C(v5, "faces.chinVectorSnapping", &self->_anon_1ac[176]);
   if (!v62)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "segfusion.subtractiveUpperAlpha", &self->_segmentationFusionConfig.subtractiveMaxBlur);
+  sub_295EAB41C(v5, "segfusion.subtractiveLowerAlpha", &self->_segmentationFusionConfig.subtractiveUpperAlpha);
   if (!v63)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "segfusion.additiveLowerAlpha", &self->_segmentationFusionConfig.additiveUpperAlpha);
+  sub_295EAB41C(v5, "segfusion.subtractiveUpperAlpha", &self->_segmentationFusionConfig.subtractiveMaxBlur);
   if (!v64)
   {
     goto LABEL_130;
   }
 
+  sub_295EAB41C(v5, "segfusion.additiveLowerAlpha", &self->_segmentationFusionConfig.additiveUpperAlpha);
+  if (!v65)
+  {
+    goto LABEL_130;
+  }
+
   sub_295EAB41C(v5, "segfusion.additiveUpperAlpha", &self->_segmentationFusionConfig.additiveMaxBlur);
-  if (!v65 || !sub_295EAB5FC(v5, "segfusion.additiveMaxBlur", &self->_dynamicParams.segmentationFusionAdditiveMaxBlur) || !sub_295EAB5FC(v5, "segfusion.subtractiveMaxBlur", &self->_dynamicParams.segmentationFusionSubtractiveMaxBlur))
+  if (!v66 || !sub_295EAB5FC(v5, "segfusion.additiveMaxBlur", &self->_dynamicParams.segmentationFusionAdditiveMaxBlur) || !sub_295EAB5FC(v5, "segfusion.subtractiveMaxBlur", &self->_dynamicParams.segmentationFusionSubtractiveMaxBlur))
   {
     goto LABEL_130;
   }
@@ -851,13 +877,13 @@ LABEL_62:
   self->_segmentationFusionConfig.additiveLowerAlpha = self->_dynamicParams.segmentationFusionSubtractiveMaxBlur.brightLightNearValue;
   *&self->_noiseEstimationConfig = self->_dynamicParams.segmentationFusionAdditiveMaxBlur.brightLightNearValue;
   antiAliasBlurStrength = self->_renderingConfig.antiAliasBlurStrength;
-  v67 = *&self->_renderingConfig.nRings;
-  if (SLODWORD(v67) >= SLODWORD(antiAliasBlurStrength))
+  v68 = *&self->_renderingConfig.nRings;
+  if (SLODWORD(v68) >= SLODWORD(antiAliasBlurStrength))
   {
-    v67 = self->_renderingConfig.antiAliasBlurStrength;
+    v68 = self->_renderingConfig.antiAliasBlurStrength;
   }
 
-  *&self->_renderingConfig.nRings = v67;
+  *&self->_renderingConfig.nRings = v68;
   if (SLODWORD(self->_renderingConfig.basePixelWeight) > SLODWORD(antiAliasBlurStrength))
   {
     antiAliasBlurStrength = self->_renderingConfig.basePixelWeight;
@@ -865,73 +891,73 @@ LABEL_62:
 
   self->_renderingConfig.basePixelWeight = antiAliasBlurStrength;
   sub_295EAB41C(v5, "blurmapRefinement.subjectDistance.minimumFocusDistance", &self->_blurmapRefinementConfig.subjectDistance.scalingFactor);
-  if (!v68)
-  {
-    goto LABEL_130;
-  }
-
-  sub_295EAB41C(v5, "blurmapRefinement.subjectDistance.maximumFocusDistance", &self->_blurmapRefinementConfig.subjectDistance.offset);
   if (!v69)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.subjectDistance.scalingFactor", &self->_blurmapRefinementConfig.eyeProtectionParams.maxFaces);
+  sub_295EAB41C(v5, "blurmapRefinement.subjectDistance.maximumFocusDistance", &self->_blurmapRefinementConfig.subjectDistance.offset);
   if (!v70)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.subjectDistance.offset", &self->_blurmapRefinementConfig.eyeProtectionParams.faceWeightsSmoothStepMin);
+  sub_295EAB41C(v5, "blurmapRefinement.subjectDistance.scalingFactor", &self->_blurmapRefinementConfig.eyeProtectionParams.maxFaces);
   if (!v71)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.protectBodyStrength", &self->_blurmapRefinementConfig.relativeApertureScalingStrength);
+  sub_295EAB41C(v5, "blurmapRefinement.subjectDistance.offset", &self->_blurmapRefinementConfig.eyeProtectionParams.faceWeightsSmoothStepMin);
   if (!v72)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.smoothstepMin", &self->_blurmapRefinementConfig.maxBlur);
+  sub_295EAB41C(v5, "blurmapRefinement.protectBodyStrength", &self->_blurmapRefinementConfig.relativeApertureScalingStrength);
   if (!v73)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.smoothstepMax", &self->_blurmapRefinementConfig.distanceAdd);
+  sub_295EAB41C(v5, "blurmapRefinement.smoothstepMin", &self->_blurmapRefinementConfig.maxBlur);
   if (!v74)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.maxBlur", &self->_blurmapRefinementConfig.subjectDistance.minimumFocusDistance);
+  sub_295EAB41C(v5, "blurmapRefinement.smoothstepMax", &self->_blurmapRefinementConfig.distanceAdd);
   if (!v75)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.distanceAdd", &self->_blurmapRefinementConfig.subjectDistance.maximumFocusDistance);
+  sub_295EAB41C(v5, "blurmapRefinement.maxBlur", &self->_blurmapRefinementConfig.subjectDistance.minimumFocusDistance);
   if (!v76)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.relativeApertureScalingStrength", &self->_blurmapRefinementConfig.smoothstepMax);
+  sub_295EAB41C(v5, "blurmapRefinement.distanceAdd", &self->_blurmapRefinementConfig.subjectDistance.maximumFocusDistance);
   if (!v77)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.faceMaskAdditiveMaxBlur", &self->_blurmapRefinementConfig.focusWindowLeft);
+  sub_295EAB41C(v5, "blurmapRefinement.relativeApertureScalingStrength", &self->_blurmapRefinementConfig.smoothstepMax);
   if (!v78)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.faceMaskSubtractiveMaxBlur", &self->_blurmapRefinementConfig.focusWindowTop);
+  sub_295EAB41C(v5, "blurmapRefinement.faceMaskAdditiveMaxBlur", &self->_blurmapRefinementConfig.focusWindowLeft);
   if (!v79)
+  {
+    goto LABEL_130;
+  }
+
+  sub_295EAB41C(v5, "blurmapRefinement.faceMaskSubtractiveMaxBlur", &self->_blurmapRefinementConfig.focusWindowTop);
+  if (!v80)
   {
     goto LABEL_130;
   }
@@ -942,25 +968,25 @@ LABEL_62:
   }
 
   sub_295EAB41C(v5, "blurmapRefinement.personThreshold", &self->_blurmapRefinementConfig.hairParams.fusion.subtractiveLowerAlpha);
-  if (!v80)
-  {
-    goto LABEL_130;
-  }
-
-  sub_295EAB41C(v5, "blurmapRefinement.personMaxBlur", &self->_blurmapRefinementConfig.hairParams.fusion.subtractiveUpperAlpha);
   if (!v81)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.hairSubtractiveLowerAlpha", &self->_blurmapRefinementConfig.hairParams.fusion.subtractiveMaxBlur);
+  sub_295EAB41C(v5, "blurmapRefinement.personMaxBlur", &self->_blurmapRefinementConfig.hairParams.fusion.subtractiveUpperAlpha);
   if (!v82)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.hairSubtractiveUpperAlpha", &self->_blurmapRefinementConfig.hairParams.fusion.additiveLowerAlpha);
+  sub_295EAB41C(v5, "blurmapRefinement.hairSubtractiveLowerAlpha", &self->_blurmapRefinementConfig.hairParams.fusion.subtractiveMaxBlur);
   if (!v83)
+  {
+    goto LABEL_130;
+  }
+
+  sub_295EAB41C(v5, "blurmapRefinement.hairSubtractiveUpperAlpha", &self->_blurmapRefinementConfig.hairParams.fusion.additiveLowerAlpha);
+  if (!v84)
   {
     goto LABEL_130;
   }
@@ -971,13 +997,13 @@ LABEL_62:
   }
 
   sub_295EAB41C(v5, "blurmapRefinement.hairAdditiveLowerAlpha", &self->_blurmapRefinementConfig.hairParams.fusion.additiveMaxBlur);
-  if (!v84)
+  if (!v85)
   {
     goto LABEL_130;
   }
 
   sub_295EAB41C(v5, "blurmapRefinement.hairAdditiveUpperAlpha", &self->_blurmapRefinementConfig.hairParams.maxDistance);
-  if (!v85)
+  if (!v86)
   {
     goto LABEL_130;
   }
@@ -993,13 +1019,13 @@ LABEL_62:
   }
 
   sub_295EAB41C(v5, "blurmapRefinement.hairThreshold", &self->_blurmapRefinementConfig.protectBodyStrength);
-  if (!v86)
+  if (!v87)
   {
     goto LABEL_130;
   }
 
   sub_295EAB41C(v5, "blurmapRefinement.hairMaxBlur", &self->_blurmapRefinementConfig.apertureScaling);
-  if (!v87)
+  if (!v88)
   {
     goto LABEL_130;
   }
@@ -1012,129 +1038,129 @@ LABEL_62:
   }
 
   sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.faceWeightsSmoothStepMin", &self->_blurmapRefinementConfig.eyeProtectionParams.ovalDimsDistanceScale);
-  if (!v88)
-  {
-    goto LABEL_130;
-  }
-
-  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.faceWeightsSmoothStepMax", &self->_blurmapRefinementConfig.eyeProtectionParams.ovalDimsDistanceOffset);
   if (!v89)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.ovalDimsDistanceScale", &self->_blurmapRefinementConfig.eyeProtectionParams.ovalDimsRadiusHorizontal);
+  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.faceWeightsSmoothStepMax", &self->_blurmapRefinementConfig.eyeProtectionParams.ovalDimsDistanceOffset);
   if (!v90)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.ovalDimsDistanceOffset", &self->_blurmapRefinementConfig.eyeProtectionParams.ovalDimsRadiusVertical);
+  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.ovalDimsDistanceScale", &self->_blurmapRefinementConfig.eyeProtectionParams.ovalDimsRadiusHorizontal);
   if (!v91)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.ovalDimsRadiusHorizontal", &self->_blurmapRefinementConfig.eyeProtectionParams.ovalFallOffSmoothStepMin);
+  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.ovalDimsDistanceOffset", &self->_blurmapRefinementConfig.eyeProtectionParams.ovalDimsRadiusVertical);
   if (!v92)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.ovalDimsRadiusVertical", &self->_blurmapRefinementConfig.eyeProtectionParams.ovalFallOffSmoothStepMax);
+  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.ovalDimsRadiusHorizontal", &self->_blurmapRefinementConfig.eyeProtectionParams.ovalFallOffSmoothStepMin);
   if (!v93)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.ovalFallOffSmoothStepMin", &self->_blurmapRefinementConfig.eyeProtectionParams.personMaskSmoothStepMin);
+  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.ovalDimsRadiusVertical", &self->_blurmapRefinementConfig.eyeProtectionParams.ovalFallOffSmoothStepMax);
   if (!v94)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.ovalFallOffSmoothStepMax", &self->_blurmapRefinementConfig.eyeProtectionParams.personMaskSmoothStepMax);
+  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.ovalFallOffSmoothStepMin", &self->_blurmapRefinementConfig.eyeProtectionParams.personMaskSmoothStepMin);
   if (!v95)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.personMaskSmoothStepMin", &self->_blurmapRefinementConfig.eyeProtectionParams.preventStrength);
+  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.ovalFallOffSmoothStepMax", &self->_blurmapRefinementConfig.eyeProtectionParams.personMaskSmoothStepMax);
   if (!v96)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.personMaskSmoothStepMax", &self->_blurmapRefinementConfig.eyeProtectionParams.subtractiveMaxBlur);
+  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.personMaskSmoothStepMin", &self->_blurmapRefinementConfig.eyeProtectionParams.preventStrength);
   if (!v97)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.preventStrength", &self->_blurmapRefinementConfig.eyeProtectionParams.subtractiveApertureScaling);
+  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.personMaskSmoothStepMax", &self->_blurmapRefinementConfig.eyeProtectionParams.subtractiveMaxBlur);
   if (!v98)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.subtractiveMaxBlur", &self->_blurmapRefinementConfig.eyeProtectionParams.maxMaskSmoothstepMin);
+  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.preventStrength", &self->_blurmapRefinementConfig.eyeProtectionParams.subtractiveApertureScaling);
   if (!v99)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.subtractiveApertureScaling", &self->_blurmapRefinementConfig.eyeProtectionParams.maxMaskSmoothstepMax);
+  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.subtractiveMaxBlur", &self->_blurmapRefinementConfig.eyeProtectionParams.maxMaskSmoothstepMin);
   if (!v100)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.maxMaskSmoothstepMin", &self->_blurmapRefinementConfig.faceMask_additiveMaxBlur);
+  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.subtractiveApertureScaling", &self->_blurmapRefinementConfig.eyeProtectionParams.maxMaskSmoothstepMax);
   if (!v101)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.maxMaskSmoothstepMax", &self->_blurmapRefinementConfig.faceMask_subtractiveMaxBlur);
+  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.maxMaskSmoothstepMin", &self->_blurmapRefinementConfig.faceMask_additiveMaxBlur);
   if (!v102)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "crispHair.trustedRegionAlphaThreshold", &self->_crispHairConfig.trustedRegionAlphaThreshold);
+  sub_295EAB41C(v5, "blurmapRefinement.eyeProtectionParams.maxMaskSmoothstepMax", &self->_blurmapRefinementConfig.faceMask_subtractiveMaxBlur);
   if (!v103)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "crispHair.trustedRegionErode", &self->_crispHairConfig.trustedRegionErode);
+  sub_295EAB41C(v5, "crispHair.trustedRegionAlphaThreshold", &self->_crispHairConfig.trustedRegionAlphaThreshold);
   if (!v104)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "crispHair.expandingRadius", &self->_crispHairConfig.expandingRadius);
+  sub_295EAB41C(v5, "crispHair.trustedRegionErode", &self->_crispHairConfig.trustedRegionErode);
   if (!v105)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "crispHair.compositeAlphaThresholdLow", &self->_crispHairConfig.compositeAlphaThresholdLow);
+  sub_295EAB41C(v5, "crispHair.expandingRadius", &self->_crispHairConfig.expandingRadius);
   if (!v106)
   {
     goto LABEL_130;
   }
 
-  sub_295EAB41C(v5, "crispHair.compositeAlphaThresholdHigh", &self->_crispHairConfig.compositeAlphaThresholdHigh);
-  if ((v107 & 1) == 0)
+  sub_295EAB41C(v5, "crispHair.compositeAlphaThresholdLow", &self->_crispHairConfig.compositeAlphaThresholdLow);
+  if (!v107)
   {
     goto LABEL_130;
   }
 
-  v108 = 1;
+  sub_295EAB41C(v5, "crispHair.compositeAlphaThresholdHigh", &self->_crispHairConfig.compositeAlphaThresholdHigh);
+  if ((v108 & 1) == 0)
+  {
+    goto LABEL_130;
+  }
+
+  v109 = 1;
 LABEL_129:
 
-  return v108;
+  return v109;
 }
 
 - (BOOL)readHairNetConfig:(id)config

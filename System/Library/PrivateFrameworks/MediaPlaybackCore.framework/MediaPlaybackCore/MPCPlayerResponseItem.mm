@@ -799,30 +799,21 @@ LABEL_9:
 
   if (!v10)
   {
-    v41 = 0;
-    v39 = 0u;
-    v40 = 0u;
-    v38 = 0u;
+    v35 = 0u;
     builder6 = [WeakRetained builder];
-    indexPath = self->_indexPath;
     chain6 = [WeakRetained chain];
     if (builder6)
     {
-      v37 = 0;
-      memset(v36, 0, sizeof(v36));
-      [builder6 playerItemDuration:v36 atIndexPath:indexPath chain:chain6];
+      objc_msgSend_playerItemDuration_atIndexPath_chain_(builder6, 0, 0, 0, 0, 0, 0, 0);
     }
 
     else
     {
-      v41 = 0;
-      v39 = 0u;
-      v40 = 0u;
-      v38 = 0u;
+      v35 = 0u;
     }
 
-    LODWORD(v34) = DWORD2(v40);
-    v10 = [MEMORY[0x1E696AD98] numberWithFloat:v34];
+    LODWORD(v33) = DWORD2(v35);
+    v10 = [MEMORY[0x1E696AD98] numberWithFloat:v33];
   }
 
   [v10 floatValue];
@@ -952,9 +943,9 @@ LABEL_23:
   pathCopy = path;
   participantCopy = participant;
   responseCopy = response;
-  v92.receiver = self;
-  v92.super_class = MPCPlayerResponseItem;
-  v15 = [(MPCPlayerResponseItem *)&v92 init];
+  v88.receiver = self;
+  v88.super_class = MPCPlayerResponseItem;
+  v15 = [(MPCPlayerResponseItem *)&v88 init];
   if (v15)
   {
     identifiers = [objectCopy identifiers];
@@ -985,49 +976,45 @@ LABEL_23:
     v15->_placeholder = [builder2 playerItemIsPlaceholder:0 atIndexPath:v25 chain:chain2];
 
     builder3 = [responseCopy builder];
-    v28 = v15->_indexPath;
     chain3 = [responseCopy chain];
     if (builder3)
     {
-      v87 = 0;
-      memset(v86, 0, sizeof(v86));
-      [builder3 playerItemDuration:v86 atIndexPath:v28 chain:chain3];
+      objc_msgSend_playerItemDuration_atIndexPath_chain_(builder3, 0, 0, 0, 0, 0, 0, 0);
     }
 
     else
     {
-      v91 = 0;
-      v89 = 0u;
-      v90 = 0u;
-      v88 = 0u;
+      v87 = 0;
+      v85 = 0u;
+      v86 = 0u;
+      v84 = 0u;
     }
 
-    v30 = v89;
-    *&v15->_duration.snapshotTime = v88;
-    *&v15->_duration.endTime = v30;
-    *&v15->_duration.elapsedDuration = v90;
-    *&v15->_duration.isLiveContent = v91;
+    *&v15->_duration.snapshotTime = v84;
+    *&v15->_duration.endTime = v85;
+    *&v15->_duration.elapsedDuration = v86;
+    *&v15->_duration.isLiveContent = v87;
 
     builder4 = [responseCopy builder];
-    v32 = v15->_indexPath;
+    v30 = v15->_indexPath;
     chain4 = [responseCopy chain];
-    v34 = [builder4 playerItemLocalizedDurationString:0 atIndexPath:v32 chain:chain4];
+    v32 = [builder4 playerItemLocalizedDurationString:0 atIndexPath:v30 chain:chain4];
     localizedDurationString = v15->_localizedDurationString;
-    v15->_localizedDurationString = v34;
+    v15->_localizedDurationString = v32;
 
     builder5 = [responseCopy builder];
-    v37 = v15->_indexPath;
+    v35 = v15->_indexPath;
     chain5 = [responseCopy chain];
-    v39 = [builder5 playerItemExplicitBadge:0 atIndexPath:v37 chain:chain5];
+    v37 = [builder5 playerItemExplicitBadge:0 atIndexPath:v35 chain:chain5];
     explicitBadge = v15->_explicitBadge;
-    v15->_explicitBadge = v39;
+    v15->_explicitBadge = v37;
 
     builder6 = [responseCopy builder];
-    v42 = v15->_indexPath;
+    v40 = v15->_indexPath;
     chain6 = [responseCopy chain];
-    v44 = [builder6 playerItemTransitionInfo:0 atIndexPath:v42 chain:chain6];
+    v42 = [builder6 playerItemTransitionInfo:0 atIndexPath:v40 chain:chain6];
     transitionInfo = v15->_transitionInfo;
-    v15->_transitionInfo = v44;
+    v15->_transitionInfo = v42;
 
     builder7 = [responseCopy builder];
     section = [(NSIndexPath *)v15->_indexPath section];
@@ -1035,35 +1022,35 @@ LABEL_23:
     v15->_autoPlay = [builder7 sectionIsAutoPlaySection:0 atIndex:section chain:chain7];
 
     builder8 = [responseCopy builder];
-    v50 = v15->_indexPath;
+    v48 = v15->_indexPath;
     chain8 = [responseCopy chain];
-    v15->_preview = [builder8 playerItemIsPreview:0 atIndexPath:v50 chain:chain8];
+    v15->_preview = [builder8 playerItemIsPreview:0 atIndexPath:v48 chain:chain8];
 
     builder9 = [responseCopy builder];
-    v53 = v15->_indexPath;
+    v51 = v15->_indexPath;
     chain9 = [responseCopy chain];
-    v55 = [builder9 playerItemLanguageOptionGroups:0 atIndexPath:v53 chain:chain9];
+    v53 = [builder9 playerItemLanguageOptionGroups:0 atIndexPath:v51 chain:chain9];
 
     builder10 = [responseCopy builder];
-    v57 = v15->_indexPath;
+    v55 = v15->_indexPath;
     chain10 = [responseCopy chain];
-    v59 = [builder10 playerItemCurrentLanguageOptions:0 atIndexPath:v57 chain:chain10];
+    v57 = [builder10 playerItemCurrentLanguageOptions:0 atIndexPath:v55 chain:chain10];
 
-    v60 = [(MPCPlayerResponseItem *)v15 _buildLanguageOptionGroups:v55 currentLanguageOptions:v59];
+    v58 = [(MPCPlayerResponseItem *)v15 _buildLanguageOptionGroups:v53 currentLanguageOptions:v57];
     languageOptionGroups = v15->_languageOptionGroups;
-    v15->_languageOptionGroups = v60;
+    v15->_languageOptionGroups = v58;
 
     builder11 = [responseCopy builder];
     chain11 = [responseCopy chain];
-    v64 = [builder11 preferredAudioFormat:0 chain:chain11];
+    v62 = [builder11 preferredAudioFormat:0 chain:chain11];
     preferredFormat = v15->_preferredFormat;
-    v15->_preferredFormat = v64;
+    v15->_preferredFormat = v62;
 
     builder12 = [responseCopy builder];
     chain12 = [responseCopy chain];
-    v68 = [builder12 activeAudioFormat:0 chain:chain12];
+    v66 = [builder12 activeAudioFormat:0 chain:chain12];
     activeFormat = v15->_activeFormat;
-    v15->_activeFormat = v68;
+    v15->_activeFormat = v66;
 
     builder13 = [responseCopy builder];
     chain13 = [responseCopy chain];
@@ -1075,20 +1062,20 @@ LABEL_23:
 
     builder15 = [responseCopy builder];
     chain15 = [responseCopy chain];
-    v76 = [builder15 alternateAudioFormats:0 chain:chain15];
+    v74 = [builder15 alternateAudioFormats:0 chain:chain15];
     alternateFormats = v15->_alternateFormats;
-    v15->_alternateFormats = v76;
+    v15->_alternateFormats = v74;
 
     builder16 = [responseCopy builder];
     chain16 = [responseCopy chain];
-    v80 = [builder16 audioRoute:0 chain:chain16];
+    v78 = [builder16 audioRoute:0 chain:chain16];
     audioRoute = v15->_audioRoute;
-    v15->_audioRoute = v80;
+    v15->_audioRoute = v78;
 
     builder17 = [responseCopy builder];
-    v83 = v15->_indexPath;
+    v81 = v15->_indexPath;
     chain17 = [responseCopy chain];
-    v15->_isFavoritable = [builder17 playerItemIsFavoritable:0 atIndexPath:v83 chain:chain17];
+    v15->_isFavoritable = [builder17 playerItemIsFavoritable:0 atIndexPath:v81 chain:chain17];
   }
 
   return v15;

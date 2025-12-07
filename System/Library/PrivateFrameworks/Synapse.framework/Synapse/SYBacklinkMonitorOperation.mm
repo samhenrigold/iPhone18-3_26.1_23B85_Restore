@@ -83,25 +83,24 @@
 
 - (void)beginProcessing
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   processingQueue = [(SYBacklinkMonitorOperation *)self processingQueue];
   dispatch_assert_queue_V2(processingQueue);
 
   v4 = os_log_create("com.apple.synapse", "BacklinkMonitor");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
+    v5 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_225901000, v4, OS_LOG_TYPE_DEFAULT, "BacklinkOperation %p: Begin processing.", &v6, 0xCu);
+    _os_log_impl(&dword_225901000, v4, OS_LOG_TYPE_DEFAULT, "BacklinkOperation %p: Begin processing.", &v5, 0xCu);
   }
 
   [(SYBacklinkMonitorOperation *)self _searchBacklinksForInputUserActivity];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_searchBacklinksForInputUserActivity
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   processingQueue = [(SYBacklinkMonitorOperation *)self processingQueue];
   dispatch_assert_queue_V2(processingQueue);
 
@@ -111,13 +110,13 @@
   if (inputUserActivityInfo && SYIsLinkableUserActivity(inputUserActivityInfo))
   {
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __66__SYBacklinkMonitorOperation__searchBacklinksForInputUserActivity__block_invoke;
-    v10[3] = &unk_27856BD18;
-    v10[5] = v6;
-    v10[4] = self;
-    [SYItemIndexingManager fetchIdentifiersLinkedToUserActivity:v5 completion:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __66__SYBacklinkMonitorOperation__searchBacklinksForInputUserActivity__block_invoke;
+    v9[3] = &unk_27856BD18;
+    v9[5] = v6;
+    v9[4] = self;
+    [SYItemIndexingManager fetchIdentifiersLinkedToUserActivity:v5 completion:v9];
   }
 
   else
@@ -133,20 +132,18 @@
 
       *buf = 134218242;
       selfCopy = self;
-      v13 = 2112;
-      v14 = v8;
+      v12 = 2112;
+      v13 = v8;
       _os_log_impl(&dword_225901000, v7, OS_LOG_TYPE_DEFAULT, "BacklinkOperation %p: Skipping query, input activity is %@.", buf, 0x16u);
     }
 
     [(SYBacklinkMonitorOperation *)self _showOrHideBacklinkIndicatorForDomainIdentifiers:0 linkedIdentifiers:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __66__SYBacklinkMonitorOperation__searchBacklinksForInputUserActivity__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
@@ -170,11 +167,11 @@ void __66__SYBacklinkMonitorOperation__searchBacklinksForInputUserActivity__bloc
   {
     v16 = *(a1 + 32);
     *buf = 134218496;
-    v25 = v16;
-    v26 = 2048;
-    v27 = [v13 count];
-    v28 = 2048;
-    v29 = (v8 - v9) * 1000.0;
+    v24 = v16;
+    v25 = 2048;
+    v26 = [v13 count];
+    v27 = 2048;
+    v28 = (v8 - v9) * 1000.0;
     _os_log_impl(&dword_225901000, v15, OS_LOG_TYPE_DEFAULT, "BacklinkOperation %p: Found %ld item(s) linked to current activity. Query duration: %0.0f ms.", buf, 0x20u);
   }
 
@@ -184,13 +181,11 @@ void __66__SYBacklinkMonitorOperation__searchBacklinksForInputUserActivity__bloc
   block[2] = __66__SYBacklinkMonitorOperation__searchBacklinksForInputUserActivity__block_invoke_30;
   block[3] = &unk_27856B578;
   block[4] = *(a1 + 32);
-  v22 = v14;
-  v23 = v13;
+  v21 = v14;
+  v22 = v13;
   v18 = v13;
   v19 = v14;
   dispatch_async(v17, block);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showOrHideBacklinkIndicatorForDomainIdentifiers:(id)identifiers linkedIdentifiers:(id)linkedIdentifiers
@@ -253,7 +248,7 @@ void __97__SYBacklinkMonitorOperation__showOrHideBacklinkIndicatorForDomainIdent
 
 - (void)_finishProcessingAndNotify
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   processingQueue = [(SYBacklinkMonitorOperation *)self processingQueue];
   dispatch_assert_queue_V2(processingQueue);
 
@@ -261,15 +256,13 @@ void __97__SYBacklinkMonitorOperation__showOrHideBacklinkIndicatorForDomainIdent
   v4 = os_log_create("com.apple.synapse", "BacklinkMonitor");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
+    v6 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_225901000, v4, OS_LOG_TYPE_DEFAULT, "BacklinkOperation %p: Finished, notifying delegate.", &v7, 0xCu);
+    _os_log_impl(&dword_225901000, v4, OS_LOG_TYPE_DEFAULT, "BacklinkOperation %p: Finished, notifying delegate.", &v6, 0xCu);
   }
 
   delegate = [(SYBacklinkMonitorOperation *)self delegate];
   [delegate backlinkMonitorOperationDidFinish:self];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setOperationState:(int64_t)state

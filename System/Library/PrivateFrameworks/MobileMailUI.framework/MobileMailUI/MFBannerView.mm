@@ -34,7 +34,7 @@
 
 - (void)_configureWithType:(void *)type
 {
-  v41[2] = *MEMORY[0x277D85DE8];
+  v40[2] = *MEMORY[0x277D85DE8];
   if (type)
   {
     type = [type type];
@@ -42,7 +42,7 @@
     {
       if (type == 1)
       {
-        v32 = [MEMORY[0x277D755B8] systemImageNamed:*MEMORY[0x277D259D0]];
+        v31 = [MEMORY[0x277D755B8] systemImageNamed:*MEMORY[0x277D259D0]];
         viewModel = [type viewModel];
         readLaterDate = [viewModel readLaterDate];
         v5 = [type _readLaterStringForDate:readLaterDate];
@@ -53,7 +53,7 @@
 
       else if (type == 2)
       {
-        v32 = [MEMORY[0x277D755B8] systemImageNamed:*MEMORY[0x277D28198]];
+        v31 = [MEMORY[0x277D755B8] systemImageNamed:*MEMORY[0x277D28198]];
         v3 = MEMORY[0x277CCACA8];
         v4 = _EFLocalizedString();
         v5 = [v3 stringWithFormat:v4];
@@ -64,7 +64,7 @@
 
       else
       {
-        v32 = 0;
+        v31 = 0;
         v5 = 0;
         [type viewModel];
       }
@@ -72,7 +72,7 @@
 
     else
     {
-      v32 = [MEMORY[0x277D755B8] systemImageNamed:*MEMORY[0x277D259D8]];
+      v31 = [MEMORY[0x277D755B8] systemImageNamed:*MEMORY[0x277D259D8]];
       v8 = MEMORY[0x277CCACA8];
       v9 = _EFLocalizedString();
       v5 = [v8 stringWithFormat:v9];
@@ -81,7 +81,7 @@
       [type viewModel];
     }
     v10 = ;
-    v33 = [type _subtitleWithViewModel:v10];
+    v32 = [type _subtitleWithViewModel:v10];
 
     banner = [type banner];
     [banner setTitle:v5];
@@ -91,61 +91,59 @@
     if (v12)
     {
       v15 = objc_alloc(MEMORY[0x277CCA898]);
-      v40[0] = *v13;
+      v39[0] = *v13;
       titleFont = [type titleFont];
-      v41[0] = titleFont;
-      v40[1] = *v14;
+      v40[0] = titleFont;
+      v39[1] = *v14;
       secondaryLabelColor = [MEMORY[0x277D75348] secondaryLabelColor];
-      v41[1] = secondaryLabelColor;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
+      v40[1] = secondaryLabelColor;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
       v19 = [v15 initWithString:v5 attributes:v18];
       [banner setAttributedTitle:v19];
     }
 
-    [banner setSubtitle:v33];
-    if ([v33 length])
+    [banner setSubtitle:v32];
+    if ([v32 length])
     {
       v20 = objc_alloc(MEMORY[0x277CCA898]);
-      v38[0] = *v13;
+      v37[0] = *v13;
       subtitleFont = [type subtitleFont];
-      v38[1] = *v14;
-      v39[0] = subtitleFont;
+      v37[1] = *v14;
+      v38[0] = subtitleFont;
       labelColor = [MEMORY[0x277D75348] labelColor];
-      v39[1] = labelColor;
-      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
-      v24 = [v20 initWithString:v33 attributes:v23];
+      v38[1] = labelColor;
+      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
+      v24 = [v20 initWithString:v32 attributes:v23];
       [banner setAttributedSubtitle:v24];
     }
 
-    [banner setActionTitle:v31];
+    [banner setActionTitle:v30];
     if ((MUISolariumFeatureEnabled() & 1) == 0)
     {
       tertiarySystemFillColor = [MEMORY[0x277D75348] tertiarySystemFillColor];
       [banner setBackgroundColor:tertiarySystemFillColor];
     }
 
-    v26 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v32];
+    v26 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v31];
     [v26 setContentMode:1];
-    v37 = v26;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+    v36 = v26;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
     [banner setImageSGViews:v27];
 
     objc_initWeak(&location, type);
     v28 = MEMORY[0x277D025D8];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __35__MFBannerView__configureWithType___block_invoke;
-    v34[3] = &unk_2781819F8;
-    objc_copyWeak(&v35, &location);
-    v29 = [v28 actionWithTitle:&stru_2826D1AD8 handler:v34];
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __35__MFBannerView__configureWithType___block_invoke;
+    v33[3] = &unk_2781819F8;
+    objc_copyWeak(&v34, &location);
+    v29 = [v28 actionWithTitle:&stru_2826D1AD8 handler:v33];
     [banner setPrimaryAction:v29];
 
     [banner reload];
-    objc_destroyWeak(&v35);
+    objc_destroyWeak(&v34);
     objc_destroyWeak(&location);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __35__MFBannerView__configureWithType___block_invoke(uint64_t a1)

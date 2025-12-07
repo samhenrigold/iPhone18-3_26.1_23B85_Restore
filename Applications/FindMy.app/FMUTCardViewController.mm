@@ -12,7 +12,7 @@
 {
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC6FindMy22FMUTCardViewController_selectionSubscription) = 0;
   v4 = OBJC_IVAR____TtC6FindMy22FMUTCardViewController_returnSelection;
-  v5 = type metadata accessor for FMSelectedSection();
+  v5 = type metadata accessor for FMSelectedSection(0);
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC6FindMy22FMUTCardViewController_content) = 0;
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC6FindMy22FMUTCardViewController_bypassWelcomeScreen) = 0;

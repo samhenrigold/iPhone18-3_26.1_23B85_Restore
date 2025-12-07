@@ -20,9 +20,11 @@
 
 uint64_t __38__MRUWaveformSettings_currentSettings__block_invoke()
 {
-  __MRUWaveformSettingsCurrent = [[MRUWaveformSettings alloc] initWithStops:?];
+  v0 = [[MRUWaveformSettings alloc] initWithStops:?];
+  v1 = __MRUWaveformSettingsCurrent;
+  __MRUWaveformSettingsCurrent = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (MRUWaveformSettings)ambientSettings
@@ -42,9 +44,9 @@ uint64_t __38__MRUWaveformSettings_currentSettings__block_invoke()
   v4 = a2;
   if (stops)
   {
-    v9.receiver = stops;
-    v9.super_class = MRUWaveformSettings;
-    v5 = objc_msgSendSuper2(&v9, sel_init);
+    v11.receiver = stops;
+    v11.super_class = MRUWaveformSettings;
+    v5 = objc_msgSendSuper2(&v11, sel_init);
     stops = v5;
     if (v5)
     {
@@ -55,7 +57,7 @@ uint64_t __38__MRUWaveformSettings_currentSettings__block_invoke()
       *(stops + 12) = xmmword_1A23078B0;
       *(stops + 28) = xmmword_1A23078C0;
       *(stops + 11) = 1059648963;
-      *(stops + 8) = MRUDeviceSupportsVariableFrameRate();
+      *(stops + 8) = MRUDeviceSupportsVariableFrameRate(v7, v8);
       currentSettings = [MEMORY[0x1E69B0B28] currentSettings];
       *(stops + 12) = [currentSettings waveformNonVariableFramerate];
 

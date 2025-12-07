@@ -31,9 +31,10 @@ LABEL_3:
 LABEL_4:
   applicationCopy = application;
   selfCopy = self;
-  v13 = sub_29DF00CCC(application, v8, v10, optionsCopy);
+  sub_29DF00CCC(application, v8, v10, optionsCopy);
+  v14 = v13;
 
-  return v13 & 1;
+  return v14 & 1;
 }
 
 - (void)userNotificationCenter:(id)center openSettingsForNotification:(id)notification

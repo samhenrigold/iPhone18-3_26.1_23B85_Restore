@@ -98,7 +98,7 @@
   return v5;
 }
 
-uint64_t __52__SBInsertionSwitcherModifier_handleInsertionEvent___block_invoke(uint64_t a1)
+void *__52__SBInsertionSwitcherModifier_handleInsertionEvent___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) indexToScrollToAfterInsertingAtIndex:{objc_msgSend(*(a1 + 40), "index")}];
   *(*(*(a1 + 48) + 8) + 24) = result;

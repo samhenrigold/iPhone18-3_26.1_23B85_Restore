@@ -79,10 +79,11 @@ void __76__CPSInstallationController__prewarmDemoIPAWithBundleID_session_complet
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = CPS_LOG_CHANNEL_PREFIXClipServices(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __76__CPSInstallationController__prewarmDemoIPAWithBundleID_session_completion___block_invoke_cold_1();
     }
@@ -90,16 +91,16 @@ void __76__CPSInstallationController__prewarmDemoIPAWithBundleID_session_complet
 
   else
   {
-    v8 = a1[4];
-    v9 = a1[5];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __76__CPSInstallationController__prewarmDemoIPAWithBundleID_session_completion___block_invoke_2;
-    v11[3] = &unk_278DCDF80;
-    v10 = a1[7];
-    v11[4] = a1[6];
-    v12 = v10;
-    [v8 installAppWithBundleID:v5 session:v9 completionHandler:v11];
+    v10 = a1[4];
+    v11 = a1[5];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __76__CPSInstallationController__prewarmDemoIPAWithBundleID_session_completion___block_invoke_2;
+    v13[3] = &unk_278DCDF80;
+    v12 = a1[7];
+    v13[4] = a1[6];
+    v14 = v12;
+    [v10 installAppWithBundleID:v5 session:v11 completionHandler:v13];
   }
 }
 
@@ -107,10 +108,11 @@ void __76__CPSInstallationController__prewarmDemoIPAWithBundleID_session_complet
 {
   v6 = a2;
   v7 = a4;
+  v9 = v7;
   if (v7)
   {
-    v8 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = CPS_LOG_CHANNEL_PREFIXClipServices(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __76__CPSInstallationController__prewarmDemoIPAWithBundleID_session_completion___block_invoke_2_cold_1();
     }
@@ -121,8 +123,8 @@ void __76__CPSInstallationController__prewarmDemoIPAWithBundleID_session_complet
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 40));
     [WeakRetained installationControllerDidInstallPlaceholder:*(a1 + 32)];
 
-    v10 = objc_loadWeakRetained((*(a1 + 32) + 40));
-    [v10 installationController:*(a1 + 32) didUpdateProgress:0.5];
+    v12 = objc_loadWeakRetained((*(a1 + 32) + 40));
+    [v12 installationController:*(a1 + 32) didUpdateProgress:0.5];
   }
 
   (*(*(a1 + 40) + 16))();
@@ -136,15 +138,16 @@ void __76__CPSInstallationController__prewarmDemoIPAWithBundleID_session_complet
     goto LABEL_6;
   }
 
-  v10 = 0;
-  v4 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:applicationIconFileURL options:8 error:&v10];
-  v5 = v10;
+  v12 = 0;
+  v4 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:applicationIconFileURL options:8 error:&v12];
+  v5 = v12;
+  v7 = v5;
   if (v5)
   {
-    v6 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = CPS_LOG_CHANNEL_PREFIXClipServices(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(CPSInstallationController *)v5 _placeholderArtworkForSession:v6];
+      [(CPSInstallationController *)v7 _placeholderArtworkForSession:v8];
     }
 
     goto LABEL_5;
@@ -159,11 +162,11 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v8 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v10 = CPS_LOG_CHANNEL_PREFIXClipServices(0, v6);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_2436ED000, v8, OS_LOG_TYPE_INFO, "Uses app icon in prox card as the placeholder icon.", v9, 2u);
+    *v11 = 0;
+    _os_log_impl(&dword_2436ED000, v10, OS_LOG_TYPE_INFO, "Uses app icon in prox card as the placeholder icon.", v11, 2u);
   }
 
 LABEL_7:
@@ -228,7 +231,6 @@ void __72__CPSInstallationController_prewarmClipWithBundleID_session_completion_
   if (v2)
   {
     v3 = *(a1[7] + 2);
-    v4 = *MEMORY[0x277D85DE8];
 
     v3();
   }
@@ -238,33 +240,32 @@ void __72__CPSInstallationController_prewarmClipWithBundleID_session_completion_
     [a1[4] setDelegate:a1[6]];
     if (+[CPSClipURL usesDemoMetadata])
     {
-      v5 = a1[4];
-      v6 = a1[5];
-      v7 = a1[6];
-      v8 = a1[7];
-      v9 = *MEMORY[0x277D85DE8];
+      v4 = a1[4];
+      v5 = a1[5];
+      v6 = a1[6];
+      v7 = a1[7];
 
-      [v5 _prewarmDemoIPAWithBundleID:v6 session:v7 completion:v8];
+      [v4 _prewarmDemoIPAWithBundleID:v5 session:v6 completion:v7];
     }
 
     else
     {
-      v10 = [a1[6] metadata];
+      v8 = [a1[6] metadata];
       v56 = 0;
-      if ([v10 hasUpToDateVersionInstalledOnSystemIsPlaceholder:&v56] && (v56 & 1) == 0)
+      v9 = [v8 hasUpToDateVersionInstalledOnSystemIsPlaceholder:&v56];
+      if (v9 && (v56 & 1) == 0)
       {
-        v33 = CPS_LOG_CHANNEL_PREFIXClipServices();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        v36 = CPS_LOG_CHANNEL_PREFIXClipServices(v9, v10);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
-          v34 = a1[4];
-          v35 = v33;
-          v36 = objc_opt_class();
-          v37 = a1[5];
+          v37 = v36;
+          v38 = objc_opt_class();
+          v39 = a1[5];
           *buf = 138543619;
-          v58 = v36;
+          v58 = v38;
           v59 = 2113;
-          v60 = v37;
-          _os_log_impl(&dword_2436ED000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@: Skipping prewarm since clip is already installed for %{private}@", buf, 0x16u);
+          v60 = v39;
+          _os_log_impl(&dword_2436ED000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@: Skipping prewarm since clip is already installed for %{private}@", buf, 0x16u);
         }
 
         [a1[4] _informDelegateDidInstallPlaceholder:0];
@@ -273,7 +274,7 @@ void __72__CPSInstallationController_prewarmClipWithBundleID_session_completion_
 
       else
       {
-        v11 = [v10 amsDictionary];
+        v11 = [v8 amsDictionary];
         if (v11)
         {
           v12 = objc_alloc(MEMORY[0x277CEC390]);
@@ -284,169 +285,160 @@ void __72__CPSInstallationController_prewarmClipWithBundleID_session_completion_
           WeakRetained = objc_loadWeakRetained(a1[4] + 5);
           [WeakRetained installationControllerWillStartInstall:a1[4]];
 
-          [*(a1[4] + 2) setObject:v14 forKeyedSubscript:a1[5]];
-          v16 = CPS_LOG_CHANNEL_PREFIXClipServices();
-          if (os_signpost_enabled(v16))
+          v16 = [*(a1[4] + 2) setObject:v14 forKeyedSubscript:a1[5]];
+          v18 = CPS_LOG_CHANNEL_PREFIXClipServices(v16, v17);
+          if (os_signpost_enabled(v18))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_2436ED000, v16, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PlaceholderInstall", "Start creating placeholder.", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_2436ED000, v18, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PlaceholderInstall", "Start creating placeholder.", buf, 2u);
           }
 
-          v17 = +[CPSUtilities isNetworkConstrained];
-          v18 = CPS_LOG_CHANNEL_PREFIXClipServices();
-          v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
-          if (v17)
+          v19 = +[CPSUtilities isNetworkConstrained];
+          v20 = v19;
+          v22 = CPS_LOG_CHANNEL_PREFIXClipServices(v19, v21);
+          v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+          if (v20)
           {
-            if (v19)
+            if (v23)
             {
-              v20 = a1[4];
-              v21 = v18;
-              v22 = objc_opt_class();
-              v23 = a1[5];
+              v24 = v22;
+              v25 = objc_opt_class();
+              v26 = a1[5];
               *buf = 138543619;
-              v58 = v22;
+              v58 = v25;
               v59 = 2113;
-              v60 = v23;
-              _os_log_impl(&dword_2436ED000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@: Prewarming with placeholder only for %{private}@", buf, 0x16u);
+              v60 = v26;
+              _os_log_impl(&dword_2436ED000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@: Prewarming with placeholder only for %{private}@", buf, 0x16u);
             }
 
             v53[0] = MEMORY[0x277D85DD0];
             v53[1] = 3221225472;
             v53[2] = __72__CPSInstallationController_prewarmClipWithBundleID_session_completion___block_invoke_11;
             v53[3] = &unk_278DCDFD0;
-            v24 = &v54 + 1;
-            v25 = &v55;
-            v26 = &v55 + 1;
+            v27 = &v54 + 1;
+            v28 = &v55;
+            v29 = &v55 + 1;
             v48 = a1[4];
-            v27 = a1[6];
-            v28 = a1[5];
-            v29 = a1[7];
-            *&v30 = v28;
-            *(&v30 + 1) = v29;
-            *&v31 = v48;
-            *(&v31 + 1) = v27;
-            v54 = v31;
-            v55 = v30;
+            v30 = a1[6];
+            v31 = a1[5];
+            v32 = a1[7];
+            *&v33 = v31;
+            *(&v33 + 1) = v32;
+            *&v34 = v48;
+            *(&v34 + 1) = v30;
+            v54 = v34;
+            v55 = v33;
             [v14 installPlaceholderWithCompletionHandler:v53];
           }
 
           else
           {
-            if (v19)
+            if (v23)
             {
-              v38 = a1[4];
-              v39 = v18;
-              v40 = objc_opt_class();
-              v41 = a1[5];
+              v40 = v22;
+              v41 = objc_opt_class();
+              v42 = a1[5];
               *buf = 138543619;
-              v58 = v40;
+              v58 = v41;
               v59 = 2113;
-              v60 = v41;
-              _os_log_impl(&dword_2436ED000, v39, OS_LOG_TYPE_DEFAULT, "%{public}@: Prewarming for %{private}@", buf, 0x16u);
+              v60 = v42;
+              _os_log_impl(&dword_2436ED000, v40, OS_LOG_TYPE_DEFAULT, "%{public}@: Prewarming for %{private}@", buf, 0x16u);
             }
 
             v50[0] = MEMORY[0x277D85DD0];
             v50[1] = 3221225472;
             v50[2] = __72__CPSInstallationController_prewarmClipWithBundleID_session_completion___block_invoke_13;
             v50[3] = &unk_278DCDFD0;
-            v24 = &v51 + 1;
-            v25 = &v52;
-            v26 = &v52 + 1;
+            v27 = &v51 + 1;
+            v28 = &v52;
+            v29 = &v52 + 1;
             v49 = a1[4];
-            v42 = a1[6];
-            v43 = a1[5];
-            v44 = a1[7];
-            *&v45 = v43;
-            *(&v45 + 1) = v44;
-            *&v46 = v49;
-            *(&v46 + 1) = v42;
-            v51 = v46;
-            v52 = v45;
+            v43 = a1[6];
+            v44 = a1[5];
+            v45 = a1[7];
+            *&v46 = v44;
+            *(&v46 + 1) = v45;
+            *&v47 = v49;
+            *(&v47 + 1) = v43;
+            v51 = v47;
+            v52 = v46;
             [v14 startDownloadWithCompletionHandler:v50];
           }
         }
 
         else
         {
-          v32 = a1[7];
+          v35 = a1[7];
           v14 = [MEMORY[0x277CCA9B8] cps_errorWithCode:4];
-          v32[2](v32, v14);
+          v35[2](v35, v14);
         }
       }
-
-      v47 = *MEMORY[0x277D85DE8];
     }
   }
 }
 
 void __72__CPSInstallationController_prewarmClipWithBundleID_session_completion___block_invoke_11(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  v5 = v4;
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __72__CPSInstallationController_prewarmClipWithBundleID_session_completion___block_invoke_11_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 32);
-    v7 = v5;
+    v7 = v6;
     v8 = objc_opt_class();
     v9 = [*(a1 + 40) logID];
     v10 = *(a1 + 48);
-    v12 = 138543875;
-    v13 = v8;
-    v14 = 2048;
-    v15 = v9;
-    v16 = 2113;
-    v17 = v10;
-    _os_log_impl(&dword_2436ED000, v7, OS_LOG_TYPE_INFO, "%{public}@: Completed request for placeholder for session (%p) %{private}@", &v12, 0x20u);
+    v11 = 138543875;
+    v12 = v8;
+    v13 = 2048;
+    v14 = v9;
+    v15 = 2113;
+    v16 = v10;
+    _os_log_impl(&dword_2436ED000, v7, OS_LOG_TYPE_INFO, "%{public}@: Completed request for placeholder for session (%p) %{private}@", &v11, 0x20u);
   }
 
   (*(*(a1 + 56) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __72__CPSInstallationController_prewarmClipWithBundleID_session_completion___block_invoke_13(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  v5 = v4;
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __72__CPSInstallationController_prewarmClipWithBundleID_session_completion___block_invoke_13_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 32);
-    v7 = v5;
+    v7 = v6;
     v8 = objc_opt_class();
     v9 = [*(a1 + 40) logID];
     v10 = *(a1 + 48);
-    v12 = 138543875;
-    v13 = v8;
-    v14 = 2048;
-    v15 = v9;
-    v16 = 2113;
-    v17 = v10;
-    _os_log_impl(&dword_2436ED000, v7, OS_LOG_TYPE_INFO, "%{public}@: Started download clip for session (%p) %{private}@", &v12, 0x20u);
+    v11 = 138543875;
+    v12 = v8;
+    v13 = 2048;
+    v14 = v9;
+    v15 = 2113;
+    v16 = v10;
+    _os_log_impl(&dword_2436ED000, v7, OS_LOG_TYPE_INFO, "%{public}@: Started download clip for session (%p) %{private}@", &v11, 0x20u);
   }
 
   (*(*(a1 + 56) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)installClipWithBundleID:(id)d session:(id)session completion:(id)completion
@@ -469,44 +461,44 @@ void __72__CPSInstallationController_prewarmClipWithBundleID_session_completion_
   dispatch_async(queue, v15);
 }
 
-void __72__CPSInstallationController_installClipWithBundleID_session_completion___block_invoke(uint64_t a1)
+void __72__CPSInstallationController_installClipWithBundleID_session_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   v35 = *MEMORY[0x277D85DE8];
-  v2 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CPS_LOG_CHANNEL_PREFIXClipServices(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
     *buf = 138478083;
-    v32 = v3;
+    v32 = v4;
     v33 = 2048;
-    v34 = v4;
-    _os_log_impl(&dword_2436ED000, v2, OS_LOG_TYPE_DEFAULT, "CPSInstallationController: Installing clip with bundleID (%{private}@), session (%p)", buf, 0x16u);
+    v34 = v5;
+    _os_log_impl(&dword_2436ED000, v3, OS_LOG_TYPE_DEFAULT, "CPSInstallationController: Installing clip with bundleID (%{private}@), session (%p)", buf, 0x16u);
   }
 
-  v5 = [*(*(a1 + 48) + 16) objectForKeyedSubscript:*(a1 + 32)];
-  v6 = v5;
-  if (v5)
+  v6 = [*(*(a1 + 48) + 16) objectForKeyedSubscript:*(a1 + 32)];
+  v7 = v6;
+  if (v6)
   {
-    v7 = *(*(a1 + 48) + 24);
-    v8 = [v5 uniqueID];
-    v9 = [v7 objectForKeyedSubscript:v8];
+    v8 = *(*(a1 + 48) + 24);
+    v9 = [v6 uniqueID];
+    v10 = [v8 objectForKeyedSubscript:v9];
 
-    if (v9)
+    if (v10)
     {
       +[CPSClipURL shouldStallProgress];
     }
 
     else
     {
-      v9 = +[CPSPromise promise];
-      v15 = *(*(a1 + 48) + 24);
-      v16 = [v6 uniqueID];
-      [v15 setObject:v9 forKeyedSubscript:v16];
+      v10 = +[CPSPromise promise];
+      v16 = *(*(a1 + 48) + 24);
+      v17 = [v7 uniqueID];
+      [v16 setObject:v10 forKeyedSubscript:v17];
 
       if (!+[CPSClipURL shouldStallProgress])
       {
-        [*(a1 + 48) _continueInstallForBundleID:*(a1 + 32) session:v6 completion:*(a1 + 56)];
+        [*(a1 + 48) _continueInstallForBundleID:*(a1 + 32) session:v7 completion:*(a1 + 56)];
         goto LABEL_10;
       }
     }
@@ -519,46 +511,44 @@ LABEL_10:
 
   if (+[CPSClipURL usesDemoMetadata])
   {
-    v10 = +[CPSSessionManager sharedManager];
-    v11 = [v10 legacyInstaller];
-    [v11 stopStallingCurrentInstallation];
+    v11 = +[CPSSessionManager sharedManager];
+    v12 = [v11 legacyInstaller];
+    [v12 stopStallingCurrentInstallation];
 
-    v12 = dispatch_time(0, 300000000);
-    v13 = *(a1 + 48);
-    v14 = *(v13 + 32);
+    v13 = dispatch_time(0, 300000000);
+    v14 = *(a1 + 48);
+    v15 = *(v14 + 32);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __72__CPSInstallationController_installClipWithBundleID_session_completion___block_invoke_16;
     block[3] = &unk_278DCDE30;
-    block[4] = v13;
-    dispatch_after(v12, v14, block);
+    block[4] = v14;
+    dispatch_after(v13, v15, block);
   }
 
   else
   {
-    v17 = *(a1 + 48);
-    v18 = *(a1 + 32);
-    v19 = [*(a1 + 40) configuration];
-    v20 = [v19 sourceBundleID];
+    v18 = *(a1 + 48);
+    v19 = *(a1 + 32);
+    v20 = [*(a1 + 40) configuration];
+    v21 = [v20 sourceBundleID];
     v27[0] = MEMORY[0x277D85DD0];
     v27[1] = 3221225472;
     v27[2] = __72__CPSInstallationController_installClipWithBundleID_session_completion___block_invoke_2;
     v27[3] = &unk_278DCE048;
     v26 = *(a1 + 48);
-    v21 = *(&v26 + 1);
-    v22 = *(a1 + 40);
-    *&v23 = *(a1 + 32);
-    *(&v24 + 1) = v22;
-    *(&v23 + 1) = *(&v26 + 1);
-    *&v24 = v26;
-    v29 = v23;
-    v28 = v24;
-    [v17 _getClipSessionForBundleID:v18 sourceBundleID:v20 forInstall:1 completion:v27];
+    v22 = *(&v26 + 1);
+    v23 = *(a1 + 40);
+    *&v24 = *(a1 + 32);
+    *(&v25 + 1) = v23;
+    *(&v24 + 1) = *(&v26 + 1);
+    *&v25 = v26;
+    v29 = v24;
+    v28 = v25;
+    [v18 _getClipSessionForBundleID:v19 sourceBundleID:v21 forInstall:1 completion:v27];
   }
 
 LABEL_12:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __72__CPSInstallationController_installClipWithBundleID_session_completion___block_invoke_16(uint64_t a1)
@@ -657,54 +647,50 @@ void __72__CPSInstallationController_installClipWithBundleID_session_completion_
 {
   v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  v5 = v4;
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __72__CPSInstallationController_installClipWithBundleID_session_completion___block_invoke_4_cold_1(a1, v5, v3);
+      __72__CPSInstallationController_installClipWithBundleID_session_completion___block_invoke_4_cold_1(a1, v6, v3);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 32);
+    v7 = *(a1 + 32);
     v8 = 138477827;
-    v9 = v6;
-    _os_log_impl(&dword_2436ED000, v5, OS_LOG_TYPE_INFO, "ClipSessionManager: startDownload succeeds for bundleID %{private}@", &v8, 0xCu);
+    v9 = v7;
+    _os_log_impl(&dword_2436ED000, v6, OS_LOG_TYPE_INFO, "ClipSessionManager: startDownload succeeds for bundleID %{private}@", &v8, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __72__CPSInstallationController_installClipWithBundleID_session_completion___block_invoke_17(uint64_t a1, void *a2)
 {
   v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  v5 = v4;
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __72__CPSInstallationController_installClipWithBundleID_session_completion___block_invoke_17_cold_1(a1, v5, v3);
+      __72__CPSInstallationController_installClipWithBundleID_session_completion___block_invoke_17_cold_1(a1, v6, v3);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 32);
+    v7 = *(a1 + 32);
     v8 = 138477827;
-    v9 = v6;
-    _os_log_impl(&dword_2436ED000, v5, OS_LOG_TYPE_INFO, "ClipSessionManager: downloadAndInstall succeeds for bundleID %{private}@", &v8, 0xCu);
+    v9 = v7;
+    _os_log_impl(&dword_2436ED000, v6, OS_LOG_TYPE_INFO, "ClipSessionManager: downloadAndInstall succeeds for bundleID %{private}@", &v8, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_continueInstallForBundleID:(id)d session:(id)session completion:(id)completion
@@ -712,23 +698,23 @@ void __72__CPSInstallationController_installClipWithBundleID_session_completion_
   dCopy = d;
   completionCopy = completion;
   sessionCopy = session;
-  v11 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_signpost_enabled(v11))
+  v12 = CPS_LOG_CHANNEL_PREFIXClipServices(sessionCopy, v11);
+  if (os_signpost_enabled(v12))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2436ED000, v11, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "ContinueInstall", "Start continuing install.", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2436ED000, v12, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "ContinueInstall", "Start continuing install.", buf, 2u);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __76__CPSInstallationController__continueInstallForBundleID_session_completion___block_invoke;
-  v14[3] = &unk_278DCE098;
-  v14[4] = self;
-  v15 = dCopy;
-  v16 = completionCopy;
-  v12 = completionCopy;
-  v13 = dCopy;
-  [sessionCopy continueInstallWithCompletionHandler:v14];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __76__CPSInstallationController__continueInstallForBundleID_session_completion___block_invoke;
+  v15[3] = &unk_278DCE098;
+  v15[4] = self;
+  v16 = dCopy;
+  v17 = completionCopy;
+  v13 = completionCopy;
+  v14 = dCopy;
+  [sessionCopy continueInstallWithCompletionHandler:v15];
 }
 
 void __76__CPSInstallationController__continueInstallForBundleID_session_completion___block_invoke(uint64_t a1, void *a2)
@@ -746,36 +732,35 @@ void __76__CPSInstallationController__continueInstallForBundleID_session_complet
   dispatch_async(v4, block);
 }
 
-uint64_t __76__CPSInstallationController__continueInstallForBundleID_session_completion___block_invoke_2(void *a1)
+uint64_t __76__CPSInstallationController__continueInstallForBundleID_session_completion___block_invoke_2(void *a1, uint64_t a2)
 {
   v11 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 4);
-  v3 = a1[4];
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  v5 = v4;
-  if (v3)
+  v3 = (a1 + 4);
+  v4 = a1[4];
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(a1, a2);
+  v6 = v5;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __76__CPSInstallationController__continueInstallForBundleID_session_completion___block_invoke_2_cold_1(a1, v2, v5);
+      __76__CPSInstallationController__continueInstallForBundleID_session_completion___block_invoke_2_cold_1(a1, v3, v6);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v6 = a1[5];
+    v7 = a1[5];
     v9 = 138477827;
-    v10 = v6;
-    _os_log_impl(&dword_2436ED000, v5, OS_LOG_TYPE_INFO, "ClipSessionManager: continueInstall succeeds for bundleID %{private}@", &v9, 0xCu);
+    v10 = v7;
+    _os_log_impl(&dword_2436ED000, v6, OS_LOG_TYPE_INFO, "ClipSessionManager: continueInstall succeeds for bundleID %{private}@", &v9, 0xCu);
   }
 
   result = a1[6];
   if (result)
   {
-    result = (*(result + 16))(result, *v2);
+    return (*(result + 16))(result, *v3);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -871,31 +856,30 @@ void __71__CPSInstallationController__cancelClipSessionWithBundleID_completion__
 
 void __71__CPSInstallationController__cancelClipSessionWithBundleID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  v5 = v4;
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __71__CPSInstallationController__cancelClipSessionWithBundleID_completion___block_invoke_2_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 32);
-    v7 = v5;
+    v7 = v6;
     v8 = objc_opt_class();
     v9 = *(a1 + 40);
     v10 = *(a1 + 48);
     *buf = 138543875;
-    v21 = v8;
-    v22 = 2048;
-    v23 = v9;
-    v24 = 2113;
-    v25 = v10;
+    v20 = v8;
+    v21 = 2048;
+    v22 = v9;
+    v23 = 2113;
+    v24 = v10;
     _os_log_impl(&dword_2436ED000, v7, OS_LOG_TYPE_INFO, "%{public}@: Successfully canceled session (%p) for %{private}@", buf, 0x20u);
   }
 
@@ -908,12 +892,10 @@ void __71__CPSInstallationController__cancelClipSessionWithBundleID_completion__
   v12 = *(a1 + 48);
   v13 = *(a1 + 32);
   v14 = *(a1 + 40);
-  v17 = v12;
-  v18 = v13;
-  v19 = v14;
+  v16 = v12;
+  v17 = v13;
+  v18 = v14;
   dispatch_async(v11, block);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __71__CPSInstallationController__cancelClipSessionWithBundleID_completion___block_invoke_20(uint64_t *a1)
@@ -936,35 +918,32 @@ void __71__CPSInstallationController__cancelClipSessionWithBundleID_completion__
 
 void __71__CPSInstallationController__cancelClipSessionWithBundleID_completion___block_invoke_2_22(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  v5 = v4;
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __71__CPSInstallationController__cancelClipSessionWithBundleID_completion___block_invoke_2_22_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = a1[4];
-    v7 = v5;
+    v7 = v6;
     v8 = objc_opt_class();
     v9 = a1[5];
     v10 = a1[6];
-    v12 = 138543875;
-    v13 = v8;
-    v14 = 2048;
-    v15 = v9;
-    v16 = 2113;
-    v17 = v10;
-    _os_log_impl(&dword_2436ED000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully cleaned up placeholder for session (%p) for %{private}@", &v12, 0x20u);
+    v11 = 138543875;
+    v12 = v8;
+    v13 = 2048;
+    v14 = v9;
+    v15 = 2113;
+    v16 = v10;
+    _os_log_impl(&dword_2436ED000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully cleaned up placeholder for session (%p) for %{private}@", &v11, 0x20u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_bundleIDFromSession:(id)session
@@ -1069,7 +1048,7 @@ void __52__CPSInstallationController__doneWithSession_error___block_invoke(uint6
 
 - (void)clipSession:(id)session didFailWithError:(id)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   errorCopy = error;
   domain = [errorCopy domain];
@@ -1079,19 +1058,19 @@ void __52__CPSInstallationController__doneWithSession_error___block_invoke(uint6
 
     if (code == 907)
     {
-      v10 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = CPS_LOG_CHANNEL_PREFIXClipServices(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = v10;
-        v18 = 138543618;
-        v19 = objc_opt_class();
-        v20 = 2048;
-        v21 = sessionCopy;
-        _os_log_impl(&dword_2436ED000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Session (%p) User Canceled.", &v18, 0x16u);
+        v13 = v12;
+        v19 = 138543618;
+        v20 = objc_opt_class();
+        v21 = 2048;
+        v22 = sessionCopy;
+        _os_log_impl(&dword_2436ED000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: Session (%p) User Canceled.", &v19, 0x16u);
       }
 
-      v12 = [MEMORY[0x277CCA9B8] cps_errorWithCode:8];
-      [(CPSInstallationController *)self _doneWithSession:sessionCopy error:v12];
+      v14 = [MEMORY[0x277CCA9B8] cps_errorWithCode:8];
+      [(CPSInstallationController *)self _doneWithSession:sessionCopy error:v14];
 
       goto LABEL_10;
     }
@@ -1101,100 +1080,92 @@ void __52__CPSInstallationController__doneWithSession_error___block_invoke(uint6
   {
   }
 
-  v13 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v15 = CPS_LOG_CHANNEL_PREFIXClipServices(v10, v11);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v15 = v13;
-    v16 = objc_opt_class();
+    v16 = v15;
+    v17 = objc_opt_class();
     cps_privacyPreservingDescription = [errorCopy cps_privacyPreservingDescription];
-    v18 = 138543874;
-    v19 = v16;
-    v20 = 2048;
-    v21 = sessionCopy;
-    v22 = 2114;
-    v23 = cps_privacyPreservingDescription;
-    _os_log_error_impl(&dword_2436ED000, v15, OS_LOG_TYPE_ERROR, "%{public}@: Session (%p) failed: %{public}@", &v18, 0x20u);
+    v19 = 138543874;
+    v20 = v17;
+    v21 = 2048;
+    v22 = sessionCopy;
+    v23 = 2114;
+    v24 = cps_privacyPreservingDescription;
+    _os_log_error_impl(&dword_2436ED000, v16, OS_LOG_TYPE_ERROR, "%{public}@: Session (%p) failed: %{public}@", &v19, 0x20u);
   }
 
   [(CPSInstallationController *)self _doneWithSession:sessionCopy error:errorCopy];
 LABEL_10:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clipSession:(id)session didUpdateProgress:(double)progress
 {
   v17 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
-  v7 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = CPS_LOG_CHANNEL_PREFIXClipServices(sessionCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v8 = v7;
+    v9 = v8;
     v11 = 138543874;
     v12 = objc_opt_class();
     v13 = 2048;
     v14 = sessionCopy;
     v15 = 2048;
     progressCopy = progress;
-    _os_log_impl(&dword_2436ED000, v8, OS_LOG_TYPE_INFO, "%{public}@: Updated progress for session (%p): %f", &v11, 0x20u);
+    _os_log_impl(&dword_2436ED000, v9, OS_LOG_TYPE_INFO, "%{public}@: Updated progress for session (%p): %f", &v11, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained installationController:self didUpdateProgress:progress];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clipSessionDidCompleteSuccessfully:(id)successfully
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   successfullyCopy = successfully;
-  v5 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = CPS_LOG_CHANNEL_PREFIXClipServices(successfullyCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
-    v9 = 138543618;
-    v10 = objc_opt_class();
-    v11 = 2048;
-    v12 = successfullyCopy;
-    _os_log_impl(&dword_2436ED000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully completed session (%p)", &v9, 0x16u);
+    v7 = v6;
+    v11 = 138543618;
+    v12 = objc_opt_class();
+    v13 = 2048;
+    v14 = successfullyCopy;
+    _os_log_impl(&dword_2436ED000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully completed session (%p)", &v11, 0x16u);
   }
 
-  [(CPSInstallationController *)self _doneWithSession:successfullyCopy error:0];
-  v7 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_signpost_enabled(v7))
+  v8 = [(CPSInstallationController *)self _doneWithSession:successfullyCopy error:0];
+  v10 = CPS_LOG_CHANNEL_PREFIXClipServices(v8, v9);
+  if (os_signpost_enabled(v10))
   {
-    LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2436ED000, v7, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "ContinueInstall", "End continuing install enableTelemetry=YES ", &v9, 2u);
+    LOWORD(v11) = 0;
+    _os_signpost_emit_with_name_impl(&dword_2436ED000, v10, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "ContinueInstall", "End continuing install enableTelemetry=YES ", &v11, 2u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clipSessionDidInstallPlaceholder:(id)placeholder
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   placeholderCopy = placeholder;
-  v5 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = CPS_LOG_CHANNEL_PREFIXClipServices(placeholderCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
-    v9 = 138543618;
-    v10 = objc_opt_class();
-    v11 = 2048;
-    v12 = placeholderCopy;
-    _os_log_impl(&dword_2436ED000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully installed placeholder (%p)", &v9, 0x16u);
+    v7 = v6;
+    v11 = 138543618;
+    v12 = objc_opt_class();
+    v13 = 2048;
+    v14 = placeholderCopy;
+    _os_log_impl(&dword_2436ED000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully installed placeholder (%p)", &v11, 0x16u);
   }
 
-  [(CPSInstallationController *)self _informDelegateDidInstallPlaceholder:placeholderCopy];
-  v7 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_signpost_enabled(v7))
+  v8 = [(CPSInstallationController *)self _informDelegateDidInstallPlaceholder:placeholderCopy];
+  v10 = CPS_LOG_CHANNEL_PREFIXClipServices(v8, v9);
+  if (os_signpost_enabled(v10))
   {
-    LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2436ED000, v7, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PlaceholderInstall", "End creating placeholder.", &v9, 2u);
+    LOWORD(v11) = 0;
+    _os_signpost_emit_with_name_impl(&dword_2436ED000, v10, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PlaceholderInstall", "End creating placeholder.", &v11, 2u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_informDelegateDidInstallPlaceholder:(id)placeholder
@@ -1210,126 +1181,79 @@ LABEL_10:
   return WeakRetained;
 }
 
-void __76__CPSInstallationController__prewarmDemoIPAWithBundleID_session_completion___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_0(&dword_2436ED000, v0, v1, "An error occurred when download IPA for %{private}@; error: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __76__CPSInstallationController__prewarmDemoIPAWithBundleID_session_completion___block_invoke_2_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_0(&dword_2436ED000, v0, v1, "An error occurred when installing IPA for %{private}@; error: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_placeholderArtworkForSession:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "Fail to read placeholder icon: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "Fail to read placeholder icon: %{public}@", &v2, 0xCu);
 }
 
 void __72__CPSInstallationController_prewarmClipWithBundleID_session_completion___block_invoke_11_cold_1()
 {
   OUTLINED_FUNCTION_5_0();
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(v4, v5);
+  OUTLINED_FUNCTION_8(v3, v4);
   OUTLINED_FUNCTION_7();
-  v6 = [*(v1 + 40) logID];
-  v7 = *(v1 + 48);
-  v8 = [v0 cps_privacyPreservingDescription];
+  v5 = [*(v1 + 40) logID];
+  v6 = [v0 cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_1(&dword_2436ED000, v9, v10, "%{public}@: Failed to install placeholder for session (%p) for %{private}@: %{public}@", v11, v12, v13, v14, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_2436ED000, v7, v8, "%{public}@: Failed to install placeholder for session (%p) for %{private}@: %{public}@", v9, v10, v11, v12);
 }
 
 void __72__CPSInstallationController_prewarmClipWithBundleID_session_completion___block_invoke_13_cold_1()
 {
   OUTLINED_FUNCTION_5_0();
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(v4, v5);
+  OUTLINED_FUNCTION_8(v3, v4);
   OUTLINED_FUNCTION_7();
-  v6 = [*(v1 + 40) logID];
-  v7 = *(v1 + 48);
-  v8 = [v0 cps_privacyPreservingDescription];
+  v5 = [*(v1 + 40) logID];
+  v6 = [v0 cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_1(&dword_2436ED000, v9, v10, "%{public}@: Failed to start download session (%p) for %{private}@: %{public}@", v11, v12, v13, v14, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_2436ED000, v7, v8, "%{public}@: Failed to start download session (%p) for %{private}@: %{public}@", v9, v10, v11, v12);
 }
 
 void __72__CPSInstallationController_installClipWithBundleID_session_completion___block_invoke_4_cold_1(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 32);
-  v5 = a2;
-  v6 = [a3 cps_privacyPreservingDescription];
+  v4 = a2;
+  v5 = [a3 cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_2436ED000, v7, v8, "ClipSessionManager: startDownload failed for bundleID %{private}@ with error: %{public}@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_2436ED000, v6, v7, "ClipSessionManager: startDownload failed for bundleID %{private}@ with error: %{public}@", v8, v9, v10, v11);
 }
 
 void __72__CPSInstallationController_installClipWithBundleID_session_completion___block_invoke_17_cold_1(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 32);
-  v5 = a2;
-  v6 = [a3 cps_privacyPreservingDescription];
+  v4 = a2;
+  v5 = [a3 cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_2436ED000, v7, v8, "ClipSessionManager: downloadAndInstall failed for bundleID %{private}@ with error: %{public}@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_2436ED000, v6, v7, "ClipSessionManager: downloadAndInstall failed for bundleID %{private}@ with error: %{public}@", v8, v9, v10, v11);
 }
 
 void __76__CPSInstallationController__continueInstallForBundleID_session_completion___block_invoke_2_cold_1(uint64_t a1, void **a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 40);
-  v4 = *a2;
-  v5 = a3;
-  v6 = [v4 cps_privacyPreservingDescription];
+  v3 = *a2;
+  v4 = a3;
+  v5 = [v3 cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_2436ED000, v7, v8, "ClipSessionManager: continueInstall failed for bundleID %{private}@ with error: %{public}@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_2436ED000, v6, v7, "ClipSessionManager: continueInstall failed for bundleID %{private}@ with error: %{public}@", v8, v9, v10, v11);
 }
 
 void __71__CPSInstallationController__cancelClipSessionWithBundleID_completion___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_5_0();
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(v4, v5);
+  OUTLINED_FUNCTION_8(v2, v3);
   OUTLINED_FUNCTION_7();
-  v7 = *(v1 + 40);
-  v6 = *(v1 + 48);
-  v8 = [v0 cps_privacyPreservingDescription];
+  v4 = [v0 cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_1(&dword_2436ED000, v9, v10, "%{public}@: Failed to cancel session (%p) for %{private}@: %{public}@", v11, v12, v13, v14, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_2436ED000, v5, v6, "%{public}@: Failed to cancel session (%p) for %{private}@: %{public}@", v7, v8, v9, v10);
 }
 
 void __71__CPSInstallationController__cancelClipSessionWithBundleID_completion___block_invoke_2_22_cold_1()
 {
   OUTLINED_FUNCTION_5_0();
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(v4, v5);
+  OUTLINED_FUNCTION_8(v2, v3);
   OUTLINED_FUNCTION_7();
-  v7 = *(v1 + 40);
-  v6 = *(v1 + 48);
-  v8 = [v0 cps_privacyPreservingDescription];
+  v4 = [v0 cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_1(&dword_2436ED000, v9, v10, "%{public}@: Failed to clean up placeholder for session (%p) for %{private}@: %{public}@", v11, v12, v13, v14, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_2436ED000, v5, v6, "%{public}@: Failed to clean up placeholder for session (%p) for %{private}@: %{public}@", v7, v8, v9, v10);
 }
 
 @end

@@ -36,10 +36,10 @@
 
   else
   {
-    v9 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_gi(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      [(ATXInfoToBlendingConfidenceMapper *)levelCopy blendingConfidenceCategoryForInfoConfidenceLevel:v9];
+      [(ATXInfoToBlendingConfidenceMapper *)levelCopy blendingConfidenceCategoryForInfoConfidenceLevel:v10];
     }
 
     integerValue = 0;

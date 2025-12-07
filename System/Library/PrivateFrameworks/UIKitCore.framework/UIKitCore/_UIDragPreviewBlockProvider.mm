@@ -50,8 +50,8 @@
 
 - (id)_duiPreview
 {
-  preview = [(_UIDragPreviewBlockProvider *)self preview];
-  _duiPreview = [preview _duiPreview];
+  v2 = objc_msgSend_preview(self, a2);
+  _duiPreview = [v2 _duiPreview];
 
   return _duiPreview;
 }
@@ -73,23 +73,23 @@
 
 - (id)_createImageComponent
 {
-  preview = [(_UIDragPreviewBlockProvider *)self preview];
+  v3 = objc_msgSend_preview(self, a2);
 
-  if (!preview)
+  if (!v3)
   {
     initHidingDragImage = [[_UIDraggingImageComponent alloc] initHidingDragImage];
     goto LABEL_18;
   }
 
-  preview2 = [(_UIDragPreviewBlockProvider *)self preview];
+  v4 = objc_msgSend_preview(self);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
-  if ((isKindOfClass & 1) == 0 || (-[_UIDragPreviewBlockProvider preview](self, "preview"), v6 = objc_claimAutoreleasedReturnValue(), [v6 _dragPreviewProvider], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "imageComponent"), initHidingDragImage = objc_claimAutoreleasedReturnValue(), v7, v6, !initHidingDragImage))
+  if ((isKindOfClass & 1) == 0 || (objc_msgSend_preview(self), v6 = objc_claimAutoreleasedReturnValue(), [v6 _dragPreviewProvider], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "imageComponent"), initHidingDragImage = objc_claimAutoreleasedReturnValue(), v7, v6, !initHidingDragImage))
   {
-    preview3 = [(_UIDragPreviewBlockProvider *)self preview];
-    view = [preview3 view];
-    parameters = [preview3 parameters];
+    v9 = objc_msgSend_preview(self);
+    view = [v9 view];
+    parameters = [v9 parameters];
     _previewMode = [parameters _previewMode];
 
     if ((_previewMode - 3) <= 1)
@@ -107,7 +107,7 @@ LABEL_17:
 
     else
     {
-      v13 = [preview3 _preventAfterScreenUpdatesSnapshot] ^ 1;
+      v13 = [v9 _preventAfterScreenUpdatesSnapshot] ^ 1;
     }
 
     CanBeRenderedAfterCommit = _UIViewCanBeRenderedAfterCommit(view, v13);

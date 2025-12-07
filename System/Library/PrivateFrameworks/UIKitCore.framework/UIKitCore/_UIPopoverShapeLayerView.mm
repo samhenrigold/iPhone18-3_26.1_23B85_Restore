@@ -7,7 +7,7 @@
 - (BOOL)_shouldAnimatePropertyWithKey:(id)key
 {
   keyCopy = key;
-  if ([@"path" isEqualToString:keyCopy])
+  if (objc_msgSend_isEqualToString_(@"path"))
   {
     v5 = 1;
   }

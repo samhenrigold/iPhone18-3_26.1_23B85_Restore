@@ -52,7 +52,7 @@
 - (id)_respondToActions:(id)actions forFBSScene:(id)scene inUIScene:(id)iScene fromTransitionContext:(id)context
 {
   sub_1DAD674D4(0, &unk_1EE00A880, 0x1E698E5F0);
-  sub_1DAD8D6A4(&qword_1EE00A870, &unk_1EE00A880, 0x1E698E5F0);
+  sub_1DAD8D6A4(&qword_1EE00A870, &unk_1EE00A880, 0x1E698E5F0, MEMORY[0x1E69E81B8]);
   v10 = sub_1DAED1F6C();
   sceneCopy = scene;
   iSceneCopy = iScene;
@@ -105,7 +105,7 @@
 - (void)applicationDidReceiveMemoryWarning
 {
   selfCopy = self;
-  sub_1DADE1F7C();
+  sub_1DADE1F7C(selfCopy);
 }
 
 - (NSString)description

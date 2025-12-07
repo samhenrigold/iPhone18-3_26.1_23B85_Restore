@@ -105,15 +105,16 @@
 
 - (BOOL)startSkip:(unint64_t)skip actionSource:(unint64_t)source
 {
-  v7 = BKAudiobooksSkipControllerLog();
+  v7 = BKAudiobooksSkipControllerLog(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v15[0] = 67109120;
-    v15[1] = skip;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "startSkip: %d", v15, 8u);
+    v16[0] = 67109120;
+    v16[1] = skip;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "startSkip: %d", v16, 8u);
   }
 
   _canStartSkip = [(BKAudiobookSkipController *)self _canStartSkip];
+  v9 = _canStartSkip;
   if (_canStartSkip)
   {
     [(BKAudiobookSkipController *)self _cancelSkip];
@@ -132,8 +133,8 @@
     if (isPlaying)
     {
       [(BKAudiobookSkipController *)self setWasPlaying:1];
-      v12 = objc_loadWeakRetained(&self->_audiobookControls);
-      [v12 pause];
+      v13 = objc_loadWeakRetained(&self->_audiobookControls);
+      [v13 pause];
     }
 
     self->_skipStepCount = 0;
@@ -143,26 +144,27 @@
 
   else
   {
-    v13 = BKAudiobooksSkipControllerLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = BKAudiobooksSkipControllerLog(_canStartSkip);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_21568();
     }
   }
 
-  return _canStartSkip;
+  return v9;
 }
 
 - (BOOL)endSkip
 {
-  v3 = BKAudiobooksSkipControllerLog();
+  v3 = BKAudiobooksSkipControllerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "endSkip", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "endSkip", v9, 2u);
   }
 
   _canEndSkip = [(BKAudiobookSkipController *)self _canEndSkip];
+  v5 = _canEndSkip;
   if (_canEndSkip)
   {
     [(BKAudiobookSkipController *)self _cancelSkip];
@@ -186,14 +188,14 @@
 
   else
   {
-    v6 = BKAudiobooksSkipControllerLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = BKAudiobooksSkipControllerLog(_canEndSkip);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_2159C();
     }
   }
 
-  return _canEndSkip;
+  return v5;
 }
 
 - (void)endSkipIfSkipping
@@ -207,17 +209,18 @@
 
 - (BOOL)singleSkip:(unint64_t)skip interval:(double)interval
 {
-  v7 = BKAudiobooksSkipControllerLog();
+  v7 = BKAudiobooksSkipControllerLog(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v14[0] = 67109376;
-    v14[1] = skip;
-    v15 = 2048;
+    v15[0] = 67109376;
+    v15[1] = skip;
+    v16 = 2048;
     intervalCopy = interval;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "singleSkip: %d interval:%lf", v14, 0x12u);
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "singleSkip: %d interval:%lf", v15, 0x12u);
   }
 
   _canStartSkip = [(BKAudiobookSkipController *)self _canStartSkip];
+  v9 = _canStartSkip;
   if (_canStartSkip)
   {
     [(BKAudiobookSkipController *)self _cancelSkip];
@@ -229,36 +232,37 @@
 
     [(BKAudiobookSkipController *)self _sendWillWillBeginSkippingObserverCallbacksWithDirection:skip];
     [(BKAudiobookSkipController *)self _pushTemporaryTimeInterval:[(BKAudiobookSkipController *)self direction] skipDirection:interval];
-    v11 = v10;
+    v12 = v11;
     [(BKAudiobookSkipController *)self _processSkipEvent];
-    [(BKAudiobookSkipController *)self _popToStashedTimeInterval:[(BKAudiobookSkipController *)self direction] skipDirection:v11];
+    [(BKAudiobookSkipController *)self _popToStashedTimeInterval:[(BKAudiobookSkipController *)self direction] skipDirection:v12];
     [(BKAudiobookSkipController *)self _sendDidEndSkippingObserverCallbacks];
     [(BKAudiobookSkipController *)self _cancelSkip];
   }
 
   else
   {
-    v12 = BKAudiobooksSkipControllerLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = BKAudiobooksSkipControllerLog(_canStartSkip);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_215D0();
     }
   }
 
-  return _canStartSkip;
+  return v9;
 }
 
 - (BOOL)startSeek:(unint64_t)seek
 {
-  v5 = BKAudiobooksSkipControllerLog();
+  v5 = BKAudiobooksSkipControllerLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v19[0] = 67109120;
-    v19[1] = seek;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "startSeek: %d", v19, 8u);
+    v20[0] = 67109120;
+    v20[1] = seek;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "startSeek: %d", v20, 8u);
   }
 
   _canStartSeek = [(BKAudiobookSkipController *)self _canStartSeek];
+  v7 = _canStartSeek;
   if (_canStartSeek)
   {
     [(BKAudiobookSkipController *)self _cancelSeek];
@@ -272,9 +276,9 @@
     WeakRetained = objc_loadWeakRetained(&self->_audiobookControls);
     -[BKAudiobookSkipController setWasPlaying:](self, "setWasPlaying:", [WeakRetained isPlaying]);
 
-    v9 = objc_loadWeakRetained(&self->_audiobookControls);
-    [v9 playbackRate];
-    self->_playbackRateBeforeSeek = v10;
+    v10 = objc_loadWeakRetained(&self->_audiobookControls);
+    [v10 playbackRate];
+    self->_playbackRateBeforeSeek = v11;
 
     playbackRateBeforeSeek = self->_playbackRateBeforeSeek;
     if (playbackRateBeforeSeek == 0.0)
@@ -282,7 +286,7 @@
       playbackRateBeforeSeek = 1.0;
     }
 
-    v12 = playbackRateBeforeSeek;
+    v13 = playbackRateBeforeSeek;
     if (seek == 1)
     {
       [(BKAudiobookSkipController *)self forwardSeekSpeedMultiplier];
@@ -293,10 +297,10 @@
       [(BKAudiobookSkipController *)self backwardSeekSpeedMultiplier];
     }
 
-    v15 = v13 * v12;
-    v16 = objc_loadWeakRetained(&self->_audiobookControls);
-    *&v17 = v15;
-    [v16 setPlaybackRate:v17];
+    v16 = v14 * v13;
+    v17 = objc_loadWeakRetained(&self->_audiobookControls);
+    *&v18 = v16;
+    [v17 setPlaybackRate:v18];
 
     [(BKAudiobookSkipController *)self seekSampleTime];
     [(BKAudiobookSkipController *)self _scheduleSeekTimerWithInterval:?];
@@ -304,38 +308,39 @@
 
   else
   {
-    v14 = BKAudiobooksSkipControllerLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = BKAudiobooksSkipControllerLog(_canStartSeek);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_21604();
     }
   }
 
-  return _canStartSeek;
+  return v7;
 }
 
 - (BOOL)endSeek
 {
-  v3 = BKAudiobooksSkipControllerLog();
+  v3 = BKAudiobooksSkipControllerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "endSeek", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "endSeek", v12, 2u);
   }
 
   _canEndSeek = [(BKAudiobookSkipController *)self _canEndSeek];
+  v5 = _canEndSeek;
   if (_canEndSeek)
   {
     [(BKAudiobookSkipController *)self _cancelSeek];
     playbackRateBeforeSeek = self->_playbackRateBeforeSeek;
     WeakRetained = objc_loadWeakRetained(&self->_audiobookControls);
-    *&v7 = playbackRateBeforeSeek;
-    [WeakRetained setPlaybackRate:v7];
+    *&v8 = playbackRateBeforeSeek;
+    [WeakRetained setPlaybackRate:v8];
 
     if ([(BKAudiobookSkipController *)self wasPlaying])
     {
-      v8 = objc_loadWeakRetained(&self->_audiobookControls);
-      [v8 play];
+      v9 = objc_loadWeakRetained(&self->_audiobookControls);
+      [v9 play];
     }
 
     [(BKAudiobookSkipController *)self _sendDidEndSeekingObserverCallbacks];
@@ -345,14 +350,14 @@
 
   else
   {
-    v9 = BKAudiobooksSkipControllerLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = BKAudiobooksSkipControllerLog(_canEndSeek);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_21638();
     }
   }
 
-  return _canEndSeek;
+  return v5;
 }
 
 - (void)endSeekIfSeeking
@@ -412,7 +417,7 @@
 
 - (void)reset
 {
-  v3 = BKAudiobooksSkipControllerLog();
+  v3 = BKAudiobooksSkipControllerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

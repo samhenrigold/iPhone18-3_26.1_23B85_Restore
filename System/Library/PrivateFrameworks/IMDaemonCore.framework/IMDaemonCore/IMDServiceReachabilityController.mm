@@ -23,11 +23,13 @@
 
 - (int64_t)sortOrderForServiceName:(id)name
 {
-  sub_22B7DB6A8();
+  v4 = sub_22B7DB6A8();
+  v6 = v5;
   selfCopy = self;
-  v5 = sub_22B74CA5C();
+  v8 = sub_22B74CA5C(v4, v6);
 
-  return v5;
+  v6, v9, v10, v11, v12, v13, v14, v15, v17, v18;
+  return v8;
 }
 
 - (id)reachabilityContextForChat:(id)chat
@@ -49,6 +51,8 @@
   chatCopy = chat;
   selfCopy = self;
   sub_22B74BF9C(chatCopy, v8, sub_22B74CEA8, v9);
+
+  v8, v12, v13, v14, v15, v16, v17, v18, v19, v20;
 }
 
 - (void)calculateServiceForSendingToHandles:(id)handles accounts:(id)accounts context:(id)context completionBlock:(id)block
@@ -62,6 +66,9 @@
   contextCopy = context;
   selfCopy = self;
   sub_22B74C1CC(v9, v10, contextCopy, sub_22B74C9C0, v11);
+
+  v9, v14, v15, v16, v17, v18, v19, v20, v28, v30;
+  v10, v21, v22, v23, v24, v25, v26, v27, v29, v31;
 }
 
 - (IMDServiceReachabilityController)init

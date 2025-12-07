@@ -106,9 +106,9 @@
 {
   presentationLayoutInfo = [indicator presentationLayoutInfo];
   _tilingView = [(PUScrubberView *)self _tilingView];
-  indexPath = [presentationLayoutInfo indexPath];
+  v6 = objc_msgSend_indexPath(presentationLayoutInfo);
   dataSourceIdentifier = [presentationLayoutInfo dataSourceIdentifier];
-  v8 = [_tilingView presentedTileControllerWithIndexPath:indexPath kind:@"PUTileKindItemContent" dataSourceIdentifier:dataSourceIdentifier];
+  v8 = [_tilingView presentedTileControllerWithIndexPath:v6 kind:@"PUTileKindItemContent" dataSourceIdentifier:dataSourceIdentifier];
 
   presentationLayoutInfo2 = [v8 presentationLayoutInfo];
 
@@ -336,11 +336,11 @@ void __55__PUScrubberView__disableLayoutTransitionsForDuration___block_invoke(ui
     expandedItemIndexPath = [browsingSession viewModel];
 
     currentAssetReference = [expandedItemIndexPath currentAssetReference];
-    indexPath = [currentAssetReference indexPath];
-    if (indexPath)
+    v17 = objc_msgSend_indexPath(currentAssetReference);
+    if (v17)
     {
       [expandedItemIndexPath currentAssetTransitionProgress];
-      [_scrubberLayout visibleRectForScrollingToItemAtIndexPath:indexPath transitionProgress:?];
+      [_scrubberLayout visibleRectForScrollingToItemAtIndexPath:v17 transitionProgress:?];
       v8 = v18;
       v10 = v19;
       v12 = v20;
@@ -687,7 +687,7 @@ uint64_t __31__PUScrubberView__endScrubbing__block_invoke_2(uint64_t a1)
       v40 = y;
     }
 
-    if ((PUPointIsEqualToPointWithTolerance() & 1) == 0)
+    if ((PUPointIsEqualToPointWithTolerance(v38, v40, x, y, 0.25) & 1) == 0)
     {
       offset->x = v38;
       offset->y = v40;
@@ -761,8 +761,8 @@ uint64_t __31__PUScrubberView__endScrubbing__block_invoke_2(uint64_t a1)
   }
 
   currentAssetReference = [viewModel currentAssetReference];
-  firstItemIndexPath = [_currentAssetsDataSource indexPathForAssetReference:currentAssetReference];
-  if (!firstItemIndexPath && _currentAssetsDataSource)
+  v13 = objc_msgSend_indexPathForAssetReference_(_currentAssetsDataSource);
+  if (!v13 && _currentAssetsDataSource)
   {
     if ([_currentAssetsDataSource isEmpty])
     {
@@ -772,10 +772,10 @@ LABEL_10:
       goto LABEL_13;
     }
 
-    firstItemIndexPath = [_currentAssetsDataSource firstItemIndexPath];
+    v13 = objc_msgSend_firstItemIndexPath(_currentAssetsDataSource);
   }
 
-  if (!firstItemIndexPath)
+  if (!v13)
   {
     goto LABEL_10;
   }
@@ -790,7 +790,7 @@ LABEL_10:
     [viewModel currentAssetTransitionProgress];
   }
 
-  [layoutCopy visibleRectForScrollingToItemAtIndexPath:firstItemIndexPath transitionProgress:?];
+  [layoutCopy visibleRectForScrollingToItemAtIndexPath:v13 transitionProgress:?];
   v14 = v16;
   v15 = v17;
 
@@ -1229,9 +1229,9 @@ LABEL_19:
     memset(&v16[1], 0, sizeof(CMTime));
     if (irisPlayer)
     {
-      [irisPlayer currentPhotoTime];
+      objc_msgSend_currentPhotoTime(irisPlayer);
       memset(v16, 0, 24);
-      [irisPlayer currentVideoDuration];
+      objc_msgSend_currentVideoDuration(irisPlayer);
     }
 
     else
@@ -1280,7 +1280,7 @@ LABEL_19:
       currentAssetReference = [viewModel currentAssetReference];
       asset = [currentAssetReference asset];
 
-      [asset duration];
+      objc_msgSend_duration(asset);
       [(PUScrubberView *)self _lengthForDuration:?];
       v9 = v14;
 
@@ -1336,7 +1336,7 @@ LABEL_19:
 
     _currentAssetsDataSource = [(PUScrubberView *)self _currentAssetsDataSource];
     currentAssetReference = [viewModel currentAssetReference];
-    indexPath = [currentAssetReference indexPath];
+    v107 = objc_msgSend_indexPath(currentAssetReference);
     v8 = [viewModel assetViewModelForAssetReference:currentAssetReference];
     videoPlayer = [v8 videoPlayer];
     irisPlayer = [v8 irisPlayer];
@@ -1399,14 +1399,14 @@ LABEL_23:
         if (videoPlayer2 != v104)
         {
           asset2 = [currentAssetReference asset];
-          [asset2 duration];
+          objc_msgSend_duration(asset2);
           Seconds = v24;
           if ([asset2 canPlayPhotoIris])
           {
             memset(&v109, 0, sizeof(v109));
             if (asset2)
             {
-              [asset2 photoIrisVideoDuration];
+              objc_msgSend_photoIrisVideoDuration(asset2);
               if (v109.flags)
               {
                 time = v109;
@@ -1452,18 +1452,18 @@ LABEL_34:
           }
 
           v102 = _tilingView;
-          indexPath2 = [_expandedAssetReference indexPath];
+          v40 = objc_msgSend_indexPath(_expandedAssetReference);
           expandedItemIndexPath = [v33 expandedItemIndexPath];
           v42 = expandedItemIndexPath;
-          if (indexPath2 == expandedItemIndexPath)
+          if (v40 == expandedItemIndexPath)
           {
           }
 
           else
           {
-            indexPath3 = [_expandedAssetReference indexPath];
+            v43 = objc_msgSend_indexPath(_expandedAssetReference);
             expandedItemIndexPath2 = [v33 expandedItemIndexPath];
-            v45 = [indexPath3 isEqual:expandedItemIndexPath2];
+            v45 = [v43 isEqual:expandedItemIndexPath2];
 
             if (!v45)
             {
@@ -1478,9 +1478,9 @@ LABEL_34:
           v51 = v48 != v49 && _expandedAssetReference != 0;
           v52 = v46 | v39;
           _decelerationTargetIndexPath = [(PUScrubberView *)self _decelerationTargetIndexPath];
-          v54 = [indexPath isEqual:_decelerationTargetIndexPath];
+          v54 = [v107 isEqual:_decelerationTargetIndexPath];
           v55 = _decelerationTargetIndexPath;
-          if ((v54 & 1) != 0 || _decelerationTargetIndexPath && !-[PUScrubberView _isHandlingScrollViewWillEndDragging](self, "_isHandlingScrollViewWillEndDragging") && ([v105 decelerationTargetExpansionDistance], v57 > 0.0) && (objc_msgSend(v102, "contentOffset"), v59 = v58, v61 = v60, -[PUScrubberView _decelerationTargetOffset](self, "_decelerationTargetOffset"), v64 = hypot(v62 - v59, v63 - v61), objc_msgSend(v105, "decelerationTargetExpansionDistance"), v55 = _decelerationTargetIndexPath, v64 < v65) || -[PUScrubberView _useLoupe](self, "_useLoupe") && (v66 = -[PUScrubberView _isLibraryScrubbing](self, "_isLibraryScrubbing"), v55 = indexPath, v66))
+          if ((v54 & 1) != 0 || _decelerationTargetIndexPath && !-[PUScrubberView _isHandlingScrollViewWillEndDragging](self, "_isHandlingScrollViewWillEndDragging") && ([v105 decelerationTargetExpansionDistance], v57 > 0.0) && (objc_msgSend(v102, "contentOffset"), v59 = v58, v61 = v60, -[PUScrubberView _decelerationTargetOffset](self, "_decelerationTargetOffset"), v64 = hypot(v62 - v59, v63 - v61), objc_msgSend(v105, "decelerationTargetExpansionDistance"), v55 = _decelerationTargetIndexPath, v64 < v65) || -[PUScrubberView _useLoupe](self, "_useLoupe") && (v66 = -[PUScrubberView _isLibraryScrubbing](self, "_isLibraryScrubbing"), v55 = v107, v66))
           {
             v56 = v55;
           }
@@ -1558,8 +1558,8 @@ LABEL_34:
           {
             v84 = [(PUScrubberView *)self _newScrubberLayoutWithDataSource:v100];
 
-            indexPath4 = [_expandedAssetReference indexPath];
-            [v84 setExpandedItemIndexPath:indexPath4];
+            v85 = objc_msgSend_indexPath(_expandedAssetReference);
+            [v84 setExpandedItemIndexPath:v85];
 
             [v84 setOnlyShowExpandedItem:type == 1];
             [(PUScrubberView *)self _setScrubberLayout:v84];
@@ -1809,7 +1809,7 @@ LABEL_18:
   {
     if (playerCopy)
     {
-      [playerCopy currentVideoDuration];
+      objc_msgSend_currentVideoDuration(playerCopy);
       if ((v11 & 0x100000000) != 0)
       {
         v9[0] = MEMORY[0x1E69E9820];
@@ -2017,7 +2017,7 @@ void __29__PUScrubberView__handleTap___block_invoke(uint64_t a1, uint64_t a2, vo
 
     if (v10)
     {
-      v11 = [v14 indexPath];
+      v11 = objc_msgSend_indexPath(v14);
       v12 = *(*(a1 + 40) + 8);
       v13 = *(v12 + 40);
       *(v12 + 40) = v11;
@@ -2120,14 +2120,14 @@ LABEL_14:
     browsingSession = [(PUScrubberView *)self browsingSession];
     viewModel = [browsingSession viewModel];
     currentAssetReference = [viewModel currentAssetReference];
-    indexPath = [currentAssetReference indexPath];
+    v33 = objc_msgSend_indexPath(currentAssetReference);
 
     _tilingView5 = [(PUScrubberView *)self _tilingView];
     v60[0] = MEMORY[0x1E69E9820];
     v60[1] = 3221225472;
     v60[2] = __45__PUScrubberView__handleUserScrollWillBegin___block_invoke;
     v60[3] = &unk_1E7B7DD60;
-    _videoScrubberController2 = indexPath;
+    _videoScrubberController2 = v33;
     v61 = _videoScrubberController2;
     v62 = &v63;
     [_tilingView5 enumeratePresentedTileControllersInRect:v60 usingBlock:{v23, v25, v27, v29}];
@@ -2221,20 +2221,20 @@ LABEL_26:
   _Block_object_dispose(&v63, 8);
 }
 
-void __45__PUScrubberView__handleUserScrollWillBegin___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void __45__PUScrubberView__handleUserScrollWillBegin___block_invoke(uint64_t a1, const char *a2, void *a3, _BYTE *a4)
 {
-  v6 = *(a1 + 32);
-  v7 = [a3 indexPath];
-  v8 = v7;
-  if (v6 == v7)
+  v7 = *(a1 + 32);
+  v8 = objc_msgSend_indexPath(a3, a2);
+  v9 = v8;
+  if (v7 == v8)
   {
 
     goto LABEL_5;
   }
 
-  v9 = [v6 isEqual:v7];
+  v10 = [v7 isEqual:v8];
 
-  if (v9)
+  if (v10)
   {
 LABEL_5:
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -2242,7 +2242,7 @@ LABEL_5:
   }
 }
 
-uint64_t __45__PUScrubberView__handleUserScrollWillBegin___block_invoke_2(uint64_t a1)
+void *__45__PUScrubberView__handleUserScrollWillBegin___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) setActivated:1];
   result = [*(a1 + 32) desiredPlayState];

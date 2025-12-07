@@ -11,6 +11,7 @@
 - (double)_stickerUploadTTL;
 - (id)_createPayloadRequestDictionaryForMessageGUID:(id)d requestKey:(id)key;
 - (id)_createPayloadResponseDictionaryWithDictionary:(id)dictionary payloadData:(id)data attachments:(id)attachments;
+- (id)_downloadRestrictionForUTIType:(id)type fileSize:(unint64_t)size qualityType:(unint64_t)qualityType isSticker:(BOOL)sticker forceAutoDownloadIfPossible:(BOOL)possible lqmEnabled:(BOOL)enabled;
 - (id)_fileHash:(id)hash;
 - (id)_transferInfoFileForKey:(id)key;
 - (id)_transferInfoForKey:(id)key;
@@ -88,6 +89,200 @@
   attachmentRefreshDeliveryController = [msgSession attachmentRefreshDeliveryController];
 
   return attachmentRefreshDeliveryController;
+}
+
+- (id)_downloadRestrictionForUTIType:(id)type fileSize:(unint64_t)size qualityType:(unint64_t)qualityType isSticker:(BOOL)sticker forceAutoDownloadIfPossible:(BOOL)possible lqmEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  possibleCopy = possible;
+  stickerCopy = sticker;
+  typeCopy = type;
+  v45 = 0;
+  v14 = UTTypeConformsTo(typeCopy, kUTTypeImage);
+  if (qualityType == 1 && !enabledCopy && v14 && (+[IMFeatureFlags sharedFeatureFlags](IMFeatureFlags, "sharedFeatureFlags"), v15 = objc_claimAutoreleasedReturnValue(), v16 = [v15 isHighQualityPhotosEnabled], v15, v16))
+  {
+    v17 = IMAttachmentsLogHandle();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "Using high quality photo size limit for download.", buf, 2u);
+    }
+
+    v18 = +[IMDAttachmentUtilities modernHighQualityPhotoSizeLimit];
+  }
+
+  else
+  {
+    v19 = IMAttachmentsLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "*Not* using high quality photo size limit for download", buf, 2u);
+    }
+
+    v18 = [IMDAttachmentUtilities largeFileSizeFor:typeCopy allowedLargerRepresentation:&v45];
+  }
+
+  v20 = v18;
+  v21 = +[IMDAttachmentUtilities freeSpaceInHomeDirectory];
+  if (v21 < +[IMDAttachmentUtilities minimumFreeSpace]|| size + size > v21)
+  {
+    v22 = IMAttachmentsLogHandle();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134217984;
+      v47 = v21;
+      _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Not enough free space to download: %llu", buf, 0xCu);
+    }
+
+    if (v45 == 1)
+    {
+      [AttachmentDownloadRestriction noSpaceForHighQualityLimit:v20 qualityType:qualityType isSticker:stickerCopy lqmEnabled:enabledCopy];
+    }
+
+    else
+    {
+      [AttachmentDownloadRestriction noSpaceForLowQualityLimit:v20 qualityType:qualityType isSticker:stickerCopy lqmEnabled:enabledCopy];
+    }
+    v23 = ;
+    goto LABEL_19;
+  }
+
+  v26 = +[IMLockdownManager sharedInstance];
+  if ([v26 isInternalInstall])
+  {
+    v27 = IMGetCachedDomainBoolForKey();
+
+    if (v27)
+    {
+      v23 = [AttachmentDownloadRestriction restrictionAllowedBySettingWithQualityType:qualityType isSticker:stickerCopy lqmEnabled:enabledCopy];
+LABEL_19:
+      v24 = v23;
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+  }
+
+  v28 = +[IMLockdownManager sharedInstance];
+  if ([v28 isInternalInstall])
+  {
+    v29 = IMGetCachedDomainBoolForKey();
+
+    if (v29)
+    {
+      v23 = [AttachmentDownloadRestriction restrictionDisallowedBySettingWithQualityType:qualityType isSticker:stickerCopy lqmEnabled:enabledCopy];
+      goto LABEL_19;
+    }
+  }
+
+  else
+  {
+  }
+
+  v30 = 1;
+  if (!v45)
+  {
+    v30 = 2;
+  }
+
+  v44 = v30;
+  v31 = IMAttachmentsLogHandle();
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "Should auto download:", buf, 2u);
+  }
+
+  v32 = IMAttachmentsLogHandle();
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134217984;
+    v47 = size >> 10;
+    _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEFAULT, "           File Size: %lld kb", buf, 0xCu);
+  }
+
+  v33 = IMAttachmentsLogHandle();
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134217984;
+    v47 = v21 >> 10;
+    _os_log_impl(&dword_0, v33, OS_LOG_TYPE_DEFAULT, "          Free Space: %lld kb", buf, 0xCu);
+  }
+
+  v34 = IMAttachmentsLogHandle();
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134217984;
+    v47 = v20 >> 10;
+    _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "    Max Size Allowed: %lld kb", buf, 0xCu);
+  }
+
+  v35 = IMAttachmentsLogHandle();
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  {
+    v36 = @"NO";
+    if (v45)
+    {
+      v36 = @"YES";
+    }
+
+    *buf = 138412290;
+    v47 = v36;
+    _os_log_impl(&dword_0, v35, OS_LOG_TYPE_DEFAULT, "        Was HQ limit: %@", buf, 0xCu);
+  }
+
+  v37 = IMAttachmentsLogHandle();
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+  {
+    v38 = @"NO";
+    if (possibleCopy)
+    {
+      v38 = @"YES";
+    }
+
+    *buf = 138412290;
+    v47 = v38;
+    _os_log_impl(&dword_0, v37, OS_LOG_TYPE_DEFAULT, "Should Force Auto Download: %@", buf, 0xCu);
+  }
+
+  if (possibleCopy)
+  {
+    v39 = [AttachmentDownloadRestriction restrictionForceAllowedWithQualityType:qualityType isSticker:stickerCopy lqmEnabled:enabledCopy];
+  }
+
+  else
+  {
+    v40 = 3;
+    if (v20 > size)
+    {
+      v40 = 0;
+    }
+
+    v39 = [AttachmentDownloadRestriction restrictionWithLimitType:v44 limitSize:v20 qualityType:qualityType isSticker:stickerCopy allowDownload:v20 > size lqmEnabled:enabledCopy restrictionReason:v40];
+  }
+
+  v24 = v39;
+  v41 = IMAttachmentsLogHandle();
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+  {
+    allowDownload = [v24 allowDownload];
+    v43 = @"NO";
+    if (allowDownload)
+    {
+      v43 = @"YES";
+    }
+
+    *buf = 138412290;
+    v47 = v43;
+    _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, "  Download Restriction Result: %@", buf, 0xCu);
+  }
+
+LABEL_20:
+
+  return v24;
 }
 
 - (BOOL)_previewAttachmentEnabledForStickers

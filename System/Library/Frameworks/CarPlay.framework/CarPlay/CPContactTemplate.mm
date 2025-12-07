@@ -113,24 +113,24 @@ void __34__CPContactTemplate_performUpdate__block_invoke(uint64_t a1, void *a2)
 
 void __54__CPContactTemplate_handleActionForControlIdentifier___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) entity];
   v3 = [v2 objectForIdentifier:*(a1 + 40)];
 
   if (v3)
   {
     v4 = v3;
-    v5 = CarPlayFrameworkGeneralLogging();
+    v5 = CarPlayFrameworkGeneralLogging(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
       v7 = *(a1 + 40);
       *buf = 138412802;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v4;
-      v15 = 2112;
-      v16 = v7;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v4;
+      v14 = 2112;
+      v15 = v7;
       _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_INFO, "%@: Activated button: %@ for control identifier: %@", buf, 0x20u);
     }
 
@@ -140,12 +140,10 @@ void __54__CPContactTemplate_handleActionForControlIdentifier___block_invoke(uin
   else
   {
     v8 = *(a1 + 40);
-    v10.receiver = *(a1 + 32);
-    v10.super_class = CPContactTemplate;
-    objc_msgSendSuper2(&v10, sel_handleActionForControlIdentifier_, v8);
+    v9.receiver = *(a1 + 32);
+    v9.super_class = CPContactTemplate;
+    objc_msgSendSuper2(&v9, sel_handleActionForControlIdentifier_, v8);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

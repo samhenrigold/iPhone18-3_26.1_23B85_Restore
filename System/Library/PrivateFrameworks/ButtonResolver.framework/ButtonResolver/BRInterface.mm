@@ -162,7 +162,7 @@
 
 - (void)init
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = _BRLog_log_3;
   if (!_BRLog_log_3)
   {
@@ -172,12 +172,10 @@
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "[BRInterface init]";
-    _os_log_error_impl(&dword_242149000, v2, OS_LOG_TYPE_ERROR, "%s failed!", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[BRInterface init]";
+    _os_log_error_impl(&dword_242149000, v2, OS_LOG_TYPE_ERROR, "%s failed!", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

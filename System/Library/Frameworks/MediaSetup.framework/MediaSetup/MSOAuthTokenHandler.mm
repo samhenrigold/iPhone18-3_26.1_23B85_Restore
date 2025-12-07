@@ -43,15 +43,15 @@
 
 - (void)performTokenFetchTaskWithSession:(id)session bodyString:(id)string completionHandler:(id)handler
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   handlerCopy = handler;
   sessionCopy = session;
-  v10 = _MSLogingFacility();
+  v10 = _MSLogingFacility(sessionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v34 = stringCopy;
+    v33 = stringCopy;
     _os_log_impl(&dword_23986C000, v10, OS_LOG_TYPE_INFO, "bodyString: %@", buf, 0xCu);
   }
 
@@ -71,273 +71,253 @@
   v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"Basic %@", v19];
   [v13 setValue:v20 forHTTPHeaderField:@"Authorization"];
   [stringCopy dataUsingEncoding:4];
-  v21 = v28 = stringCopy;
+  v21 = v27 = stringCopy;
   [v13 setHTTPBody:v21];
 
   v22 = [MEMORY[0x277CBEAA8] now];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __85__MSOAuthTokenHandler_performTokenFetchTaskWithSession_bodyString_completionHandler___block_invoke;
-  v30[3] = &unk_278AA2B70;
-  v31 = v22;
-  v32 = handlerCopy;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __85__MSOAuthTokenHandler_performTokenFetchTaskWithSession_bodyString_completionHandler___block_invoke;
+  v29[3] = &unk_278AA2B70;
+  v30 = v22;
+  v31 = handlerCopy;
   v23 = handlerCopy;
   v24 = v22;
-  v25 = [sessionCopy dataTaskWithRequest:v13 completionHandler:v30];
+  v25 = [sessionCopy dataTaskWithRequest:v13 completionHandler:v29];
 
   networkActivity = [(MSOAuthTokenHandler *)self networkActivity];
   [networkActivity associateWithTask:v25];
 
   [v25 resume];
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __85__MSOAuthTokenHandler_performTokenFetchTaskWithSession_bodyString_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = _MSLogingFacility();
+  v10 = _MSLogingFacility(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 138412802;
-    v76 = v8;
-    v77 = 2112;
-    v78 = v7;
-    v79 = 2112;
-    v80 = v9;
+    v79 = v8;
+    v80 = 2112;
+    v81 = v7;
+    v82 = 2112;
+    v83 = v9;
     _os_log_impl(&dword_23986C000, v10, OS_LOG_TYPE_INFO, "task complete: resp: %@ data: %@ error: %@", buf, 0x20u);
   }
 
   if (v9)
   {
-    v11 = _MSLogingFacility();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = _MSLogingFacility(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       __85__MSOAuthTokenHandler_performTokenFetchTaskWithSession_bodyString_completionHandler___block_invoke_cold_1();
     }
   }
 
-  v12 = 0;
+  v13 = 0;
   if (!v7 || !v8)
   {
-    v19 = 0;
-    v31 = 0;
-    v32 = 0;
-    v33 = 0;
-    v34 = 0;
+    v22 = 0;
+    v35 = 0;
+    v36 = 0;
+    v37 = 0;
+    v38 = 0;
     goto LABEL_45;
   }
 
-  v13 = v8;
-  if ([v13 statusCode] == 200)
+  v14 = v8;
+  if ([v14 statusCode] == 200)
   {
-    v64 = 0;
-    v14 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:0 error:&v64];
-    v58 = v14;
-    v59 = v64;
-    if (v14)
+    v67 = 0;
+    v15 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:0 error:&v67];
+    v16 = v67;
+    v61 = v15;
+    v62 = v16;
+    if (v15)
     {
-      v15 = [v14 objectForKeyedSubscript:@"token_type"];
+      v17 = [v15 objectForKeyedSubscript:@"token_type"];
       objc_opt_class();
-      v60 = v15;
+      v63 = v17;
       if (objc_opt_isKindOfClass())
       {
-        v12 = [v14 objectForKeyedSubscript:@"access_token"];
+        v13 = [v15 objectForKeyedSubscript:@"access_token"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v16 = [v14 objectForKeyedSubscript:@"scope"];
-          if (v16)
+          v18 = [v15 objectForKeyedSubscript:@"scope"];
+          if (v18)
           {
-            v17 = v16;
+            v19 = v18;
             objc_opt_class();
-            v62 = v17;
-            if (objc_opt_isKindOfClass())
+            v65 = v19;
+            isKindOfClass = objc_opt_isKindOfClass();
+            if (isKindOfClass)
             {
               goto LABEL_19;
             }
 
-            v18 = _MSLogingFacility();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+            v21 = _MSLogingFacility(isKindOfClass);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               __85__MSOAuthTokenHandler_performTokenFetchTaskWithSession_bodyString_completionHandler___block_invoke_cold_3();
             }
           }
 
-          v62 = 0;
+          v65 = 0;
 LABEL_19:
-          v19 = [v14 objectForKeyedSubscript:@"refresh_token"];
-          if (v19)
+          v22 = [v15 objectForKeyedSubscript:@"refresh_token"];
+          if (v22)
           {
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) == 0)
+            v23 = objc_opt_isKindOfClass();
+            if ((v23 & 1) == 0)
             {
-              v20 = v19;
-              v21 = _MSLogingFacility();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+              v24 = v22;
+              v25 = _MSLogingFacility(v23);
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
                 __85__MSOAuthTokenHandler_performTokenFetchTaskWithSession_bodyString_completionHandler___block_invoke_cold_4();
               }
 
-              v19 = 0;
+              v22 = 0;
             }
           }
 
-          v22 = [v14 objectForKeyedSubscript:@"expires_in"];
-          if (!v22 || (objc_opt_respondsToSelector() & 1) == 0 || ([v22 doubleValue], v23 <= 0.0))
+          v26 = [v15 objectForKeyedSubscript:@"expires_in"];
+          if (!v26 || (objc_opt_respondsToSelector() & 1) == 0 || ([v26 doubleValue], v27 <= 0.0))
           {
-            v31 = 0;
+            v35 = 0;
 LABEL_42:
 
-            if (v12)
+            if (v13)
             {
-              v32 = v60;
-              v33 = v62;
-              v34 = [CMSAuthenticationCredential authCredentialWithToken:v12 tokenType:v60 expirationDate:v31 scope:v62 refreshToken:v19];
+              v36 = v63;
+              v37 = v65;
+              v38 = [CMSAuthenticationCredential authCredentialWithToken:v13 tokenType:v63 expirationDate:v35 scope:v65 refreshToken:v22];
             }
 
             else
             {
-              v34 = 0;
-              v32 = v60;
-              v33 = v62;
+              v38 = 0;
+              v36 = v63;
+              v37 = v65;
             }
 
             goto LABEL_45;
           }
 
-          v24 = v23;
-          v25 = [v13 valueForHTTPHeaderField:@"Date"];
-          if (!v25)
+          v28 = v27;
+          v29 = [v14 valueForHTTPHeaderField:@"Date"];
+          if (!v29 || (v30 = objc_alloc_init(MEMORY[0x277CCA968]), [v30 setDateFormat:@"EE, dd LLL yyyy HH:mm:ss zz"], v58 = v9, v31 = v13, v32 = v22, v33 = objc_msgSend(objc_alloc(MEMORY[0x277CBEAF8]), "initWithLocaleIdentifier:", @"en_US"), objc_msgSend(v30, "setLocale:", v33), v33, v22 = v32, v13 = v31, v9 = v58, objc_msgSend(v30, "dateFromString:", v29), v59 = objc_claimAutoreleasedReturnValue(), v30, (v34 = v59) == 0))
           {
-            goto LABEL_29;
+            v34 = *(a1 + 32);
           }
 
-          v26 = objc_alloc_init(MEMORY[0x277CCA968]);
-          [v26 setDateFormat:@"EE, dd LLL yyyy HH:mm:ss zz"];
-          v55 = v9;
-          v27 = v12;
-          v28 = v19;
-          v29 = [objc_alloc(MEMORY[0x277CBEAF8]) initWithLocaleIdentifier:@"en_US"];
-          [v26 setLocale:v29];
-
-          v19 = v28;
-          v12 = v27;
-          v9 = v55;
-          v56 = [v26 dateFromString:v25];
-
-          v30 = v56;
-          if (!v56)
-          {
-LABEL_29:
-            v30 = *(a1 + 32);
-          }
-
-          v57 = v30;
-          v31 = [v30 dateByAddingTimeInterval:v24];
+          v60 = v34;
+          v35 = [v34 dateByAddingTimeInterval:v28];
 
 LABEL_41:
           goto LABEL_42;
         }
 
-        v54 = MEMORY[0x277CCA9B8];
-        v73 = @"MSUserInfoErrorStringKey";
-        v74 = @"No access_token in response data";
-        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-        v42 = [v54 errorWithDomain:@"com.apple.mediasetup.errorDomain" code:8 userInfo:v22];
-        v62 = 0;
-        v31 = 0;
-        v19 = 0;
+        v57 = MEMORY[0x277CCA9B8];
+        v76 = @"MSUserInfoErrorStringKey";
+        v77 = @"No access_token in response data";
+        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+        v46 = [v57 errorWithDomain:@"com.apple.mediasetup.errorDomain" code:8 userInfo:v26];
+        v65 = 0;
+        v35 = 0;
+        v22 = 0;
 LABEL_40:
-        v25 = v9;
-        v9 = v42;
+        v29 = v9;
+        v9 = v46;
         goto LABEL_41;
       }
 
-      v43 = MEMORY[0x277CCA9B8];
-      v71 = @"MSUserInfoErrorStringKey";
-      v72 = @"No token_type in response data";
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
-      v42 = [v43 errorWithDomain:@"com.apple.mediasetup.errorDomain" code:8 userInfo:v22];
-      v62 = 0;
+      v47 = MEMORY[0x277CCA9B8];
+      v74 = @"MSUserInfoErrorStringKey";
+      v75 = @"No token_type in response data";
+      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+      v46 = [v47 errorWithDomain:@"com.apple.mediasetup.errorDomain" code:8 userInfo:v26];
+      v65 = 0;
     }
 
     else
     {
-      v40 = _MSLogingFacility();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v44 = _MSLogingFacility(v16);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         __85__MSOAuthTokenHandler_performTokenFetchTaskWithSession_bodyString_completionHandler___block_invoke_cold_5();
       }
 
-      v41 = MEMORY[0x277CCA9B8];
-      v69 = @"MSUserInfoErrorStringKey";
-      v70 = @"unable to parse json data";
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
-      v42 = [v41 errorWithDomain:@"com.apple.mediasetup.errorDomain" code:8 userInfo:v22];
-      v60 = 0;
-      v62 = 0;
+      v45 = MEMORY[0x277CCA9B8];
+      v72 = @"MSUserInfoErrorStringKey";
+      v73 = @"unable to parse json data";
+      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+      v46 = [v45 errorWithDomain:@"com.apple.mediasetup.errorDomain" code:8 userInfo:v26];
+      v63 = 0;
+      v65 = 0;
     }
 
-    v31 = 0;
-    v19 = 0;
-    v12 = 0;
+    v35 = 0;
+    v22 = 0;
+    v13 = 0;
     goto LABEL_40;
   }
 
-  v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"non-200 status code: %ld", objc_msgSend(v13, "statusCode")];
-  v36 = _MSLogingFacility();
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+  v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"non-200 status code: %ld", objc_msgSend(v14, "statusCode")];
+  v40 = _MSLogingFacility(v39);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
   {
-    __85__MSOAuthTokenHandler_performTokenFetchTaskWithSession_bodyString_completionHandler___block_invoke_cold_2(v13, v36);
+    __85__MSOAuthTokenHandler_performTokenFetchTaskWithSession_bodyString_completionHandler___block_invoke_cold_2(v14, v40);
   }
 
-  v37 = MEMORY[0x277CCA9B8];
-  v67 = @"MSUserInfoErrorStringKey";
-  v68 = v35;
-  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
-  v39 = [v37 errorWithDomain:@"com.apple.mediasetup.errorDomain" code:8 userInfo:v38];
+  v41 = MEMORY[0x277CCA9B8];
+  v70 = @"MSUserInfoErrorStringKey";
+  v71 = v39;
+  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+  v43 = [v41 errorWithDomain:@"com.apple.mediasetup.errorDomain" code:8 userInfo:v42];
 
-  v12 = 0;
-  v19 = 0;
-  v32 = 0;
-  v33 = 0;
-  v34 = 0;
-  v9 = v39;
-  v31 = 0;
+  v13 = 0;
+  v22 = 0;
+  v36 = 0;
+  v37 = 0;
+  v38 = 0;
+  v9 = v43;
+  v35 = 0;
 LABEL_45:
-  if (!(v34 | v9))
+  if (!(v38 | v9))
   {
-    v61 = MEMORY[0x277CCA9B8];
-    v63 = v31;
-    v65 = @"MSUserInfoErrorStringKey";
-    v66 = @"could not create credential from response data";
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
-    v44 = v12;
-    v45 = v19;
-    v46 = v33;
-    v47 = v32;
-    v48 = v8;
-    v49 = v7;
-    v51 = v50 = a1;
-    v52 = [v61 errorWithDomain:@"com.apple.mediasetup.errorDomain" code:8 userInfo:v51];
+    v64 = MEMORY[0x277CCA9B8];
+    v66 = v35;
+    v68 = @"MSUserInfoErrorStringKey";
+    v69 = @"could not create credential from response data";
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+    v48 = v13;
+    v49 = v22;
+    v50 = v37;
+    v51 = v36;
+    v52 = v8;
+    v53 = v7;
+    v55 = v54 = a1;
+    v56 = [v64 errorWithDomain:@"com.apple.mediasetup.errorDomain" code:8 userInfo:v55];
 
-    a1 = v50;
-    v7 = v49;
-    v8 = v48;
-    v32 = v47;
-    v33 = v46;
-    v19 = v45;
-    v12 = v44;
-    v9 = v52;
-    v31 = v63;
+    a1 = v54;
+    v7 = v53;
+    v8 = v52;
+    v36 = v51;
+    v37 = v50;
+    v22 = v49;
+    v13 = v48;
+    v9 = v56;
+    v35 = v66;
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performTokenGrantRequestWithSession:(id)session completionHandler:(id)handler
@@ -532,45 +512,12 @@ void __35__MSOAuthTokenHandler_fetchTokens___block_invoke_4(uint64_t a1, void *a
   (*(*(a1 + 40) + 16))();
 }
 
-void __85__MSOAuthTokenHandler_performTokenFetchTaskWithSession_bodyString_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23986C000, v0, v1, "Task failed: Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __85__MSOAuthTokenHandler_performTokenFetchTaskWithSession_bodyString_completionHandler___block_invoke_cold_2(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   [a1 statusCode];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_23986C000, a2, OS_LOG_TYPE_ERROR, "non-200 status code: %ld", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __85__MSOAuthTokenHandler_performTokenFetchTaskWithSession_bodyString_completionHandler___block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23986C000, v0, v1, "Unusable scope %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __85__MSOAuthTokenHandler_performTokenFetchTaskWithSession_bodyString_completionHandler___block_invoke_cold_4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23986C000, v0, v1, "Unusable refresh_token %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __85__MSOAuthTokenHandler_performTokenFetchTaskWithSession_bodyString_completionHandler___block_invoke_cold_5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23986C000, v0, v1, "unable to parse json data: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23986C000, a2, OS_LOG_TYPE_ERROR, "non-200 status code: %ld", v3, 0xCu);
 }
 
 @end

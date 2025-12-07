@@ -70,7 +70,7 @@
   v9 = __nwlog_obj();
   *buf = 136446210;
   v24 = "[NWActivityClientMetricStatistics initWithData:]";
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v20 = 0;
@@ -288,8 +288,8 @@ LABEL_31:
   v3 = v2;
   v20[625] = *MEMORY[0x1E69E9840];
   v4 = objc_alloc(MEMORY[0x1E695DEF0]);
-  [v3 report];
-  [v3 report];
+  objc_msgSend_report(v3);
+  objc_msgSend_report(v3);
   if (strlen(v19) >> 3 > 0x270)
   {
     v5 = 5000;
@@ -297,7 +297,7 @@ LABEL_31:
 
   else
   {
-    [v3 report];
+    objc_msgSend_report(v3);
     v5 = strlen(v18);
   }
 
@@ -380,7 +380,7 @@ LABEL_31:
     }
   }
 
-  [v4 report];
+  objc_msgSend_report(v4);
   strlcpy(v8, [v6 UTF8String], 0x1388uLL);
 }
 
@@ -394,7 +394,7 @@ LABEL_31:
     v7 = __nwlog_obj();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [v6 report];
+      objc_msgSend_report(v6);
       *buf = 136446466;
       v11 = "[NWActivityClientMetricStatistics clientMetricString]";
       v12 = 2080;
@@ -406,7 +406,7 @@ LABEL_31:
   }
 
   v3 = MEMORY[0x1E696AEC0];
-  [v2 report];
+  objc_msgSend_report(v2);
   v4 = [v3 stringWithCString:&v8 encoding:134217984];
 
   return v4;
@@ -433,7 +433,7 @@ LABEL_31:
     }
   }
 
-  [v4 report];
+  objc_msgSend_report(v4);
   strlcpy(v8, [v6 UTF8String], 0x100uLL);
 }
 
@@ -441,7 +441,7 @@ LABEL_31:
 {
   v5[657] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
-  [(NWActivityClientMetricStatistics *)self report];
+  objc_msgSend_report(self, a2);
   v3 = [v2 stringWithCString:v5 encoding:134217984];
 
   return v3;
@@ -452,11 +452,11 @@ LABEL_31:
   v10 = *MEMORY[0x1E69E9840];
   if (!self->_activityUUID)
   {
-    [(NWActivityClientMetricStatistics *)self report];
+    objc_msgSend_report(self, a2);
     if (!uuid_is_null(v9))
     {
       v3 = objc_alloc(MEMORY[0x1E696AFB0]);
-      [(NWActivityClientMetricStatistics *)self report];
+      objc_msgSend_report(self);
       v4 = [v3 initWithUUIDBytes:v8];
       activityUUID = self->_activityUUID;
       self->_activityUUID = v4;

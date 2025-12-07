@@ -74,17 +74,17 @@ LABEL_8:
 - (id)styleTextAsMessage:(id)message boundingSize:(CGSize)size
 {
   width = size.width;
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v21 = *MEMORY[0x277D740A8];
-  v7 = v21;
+  v20 = *MEMORY[0x277D740A8];
+  v7 = v20;
   messageLargeFont = [(NUTitleViewStyler *)self messageLargeFont];
-  v22[0] = messageLargeFont;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v21[0] = messageLargeFont;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
   [messageCopy sizeWithAttributes:v9];
   v11 = v10;
 
-  v19[0] = v7;
+  v18[0] = v7;
   if (v11 > width)
   {
     [(NUTitleViewStyler *)self messageSmallFont];
@@ -95,17 +95,16 @@ LABEL_8:
     [(NUTitleViewStyler *)self messageLargeFont];
   }
   v12 = ;
-  v20[0] = v12;
-  v19[1] = *MEMORY[0x277D74118];
+  v19[0] = v12;
+  v18[1] = *MEMORY[0x277D74118];
   messageParagraphStyle = [(NUTitleViewStyler *)self messageParagraphStyle];
-  v20[1] = messageParagraphStyle;
-  v19[2] = *MEMORY[0x277D740C0];
+  v19[1] = messageParagraphStyle;
+  v18[2] = *MEMORY[0x277D740C0];
   textColor = [(NUTitleViewStyler *)self textColor];
-  v20[2] = textColor;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v19[2] = textColor;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
 
   v16 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:messageCopy attributes:v15];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -113,17 +112,17 @@ LABEL_8:
 - (id)styleTextAsTitle:(id)title boundingSize:(CGSize)size
 {
   width = size.width;
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   titleCopy = title;
-  v21 = *MEMORY[0x277D740A8];
-  v7 = v21;
+  v20 = *MEMORY[0x277D740A8];
+  v7 = v20;
   titleLargeFont = [(NUTitleViewStyler *)self titleLargeFont];
-  v22[0] = titleLargeFont;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v21[0] = titleLargeFont;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
   [titleCopy sizeWithAttributes:v9];
   v11 = v10;
 
-  v19[0] = v7;
+  v18[0] = v7;
   if (v11 <= width)
   {
     [(NUTitleViewStyler *)self titleLargeFont];
@@ -134,19 +133,18 @@ LABEL_8:
     [(NUTitleViewStyler *)self titleSmallFont];
   }
   v12 = ;
-  v20[0] = v12;
-  v19[1] = *MEMORY[0x277D74118];
+  v19[0] = v12;
+  v18[1] = *MEMORY[0x277D74118];
   width = [(NUTitleViewStyler *)self titleParagraphStyleWithWrapping:v11 > width];
-  v20[1] = width;
-  v19[2] = *MEMORY[0x277D740C0];
+  v19[1] = width;
+  v18[2] = *MEMORY[0x277D740C0];
   textColor = [(NUTitleViewStyler *)self textColor];
-  v19[3] = *MEMORY[0x277D740D0];
-  v20[2] = textColor;
-  v20[3] = &unk_286E12E68;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
+  v18[3] = *MEMORY[0x277D740D0];
+  v19[2] = textColor;
+  v19[3] = &unk_286E12E68;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
 
   v16 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:titleCopy attributes:v15];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -216,15 +214,15 @@ void __37__NUTitleViewStyler_messageSmallFont__block_invoke()
 
 void __35__NUTitleViewStyler_titleLargeFont__block_invoke()
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D74300] systemFontOfSize:24.0 weight:*MEMORY[0x277D743F8]];
   v1 = titleLargeFont_largeFont;
   titleLargeFont_largeFont = v0;
 
   v2 = [titleLargeFont_largeFont fontDescriptor];
-  v9 = *MEMORY[0x277D743E0];
-  v10[0] = &unk_286E12FB0;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x277D743E0];
+  v9[0] = &unk_286E12FB0;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v4 = [v2 fontDescriptorByAddingAttributes:v3];
 
   v5 = MEMORY[0x277D74300];
@@ -232,8 +230,6 @@ void __35__NUTitleViewStyler_titleLargeFont__block_invoke()
   v6 = [v5 fontWithDescriptor:v2 size:?];
   v7 = titleLargeFont_largeFont;
   titleLargeFont_largeFont = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)titleSmallFont
@@ -250,15 +246,15 @@ void __35__NUTitleViewStyler_titleLargeFont__block_invoke()
 
 void __35__NUTitleViewStyler_titleSmallFont__block_invoke()
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D74300] systemFontOfSize:17.5 weight:*MEMORY[0x277D743F8]];
   v1 = titleSmallFont_smallFont;
   titleSmallFont_smallFont = v0;
 
   v2 = [titleSmallFont_smallFont fontDescriptor];
-  v9 = *MEMORY[0x277D743E0];
-  v10[0] = &unk_286E12FB0;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x277D743E0];
+  v9[0] = &unk_286E12FB0;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v4 = [v2 fontDescriptorByAddingAttributes:v3];
 
   v5 = MEMORY[0x277D74300];
@@ -266,8 +262,6 @@ void __35__NUTitleViewStyler_titleSmallFont__block_invoke()
   v6 = [v5 fontWithDescriptor:v2 size:?];
   v7 = titleSmallFont_smallFont;
   titleSmallFont_smallFont = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)titleParagraphStyleWithWrapping:(BOOL)wrapping

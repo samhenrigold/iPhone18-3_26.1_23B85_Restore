@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)interfaceTypeAsString:(int)string;
+- (id)protocolTypeAsString:(int)string;
 - (int)StringAsInterfaceType:(id)type;
 - (int)StringAsProtocolType:(id)type;
 - (int)interfaceType;
@@ -90,6 +92,19 @@
   }
 
   self->_has = (*&self->_has & 0xFFBFFFFF | v3);
+}
+
+- (id)interfaceTypeAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32A48[string - 1];
+  }
 }
 
 - (int)StringAsInterfaceType:(id)type
@@ -455,6 +470,19 @@
   }
 
   self->_has = (*&self->_has & 0xFF7FFFFF | v3);
+}
+
+- (id)protocolTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32A68[string - 1];
+  }
 }
 
 - (int)StringAsProtocolType:(id)type
@@ -855,7 +883,6 @@ LABEL_25:
   has = self->_has;
   if ((*&has & 0x40000) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x400000) == 0)
@@ -875,7 +902,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  interfaceType = self->_interfaceType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -890,7 +916,6 @@ LABEL_4:
   }
 
 LABEL_34:
-  connectionCount = self->_connectionCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -905,7 +930,6 @@ LABEL_5:
   }
 
 LABEL_35:
-  tfoSuccessCount = self->_tfoSuccessCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -920,7 +944,6 @@ LABEL_6:
   }
 
 LABEL_36:
-  mptcpSuccessCount = self->_mptcpSuccessCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -935,7 +958,6 @@ LABEL_7:
   }
 
 LABEL_37:
-  restrictedNetworkCount = self->_restrictedNetworkCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -950,7 +972,6 @@ LABEL_8:
   }
 
 LABEL_38:
-  captivePresentCount = self->_captivePresentCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -965,7 +986,6 @@ LABEL_9:
   }
 
 LABEL_39:
-  resultSuccessCount = self->_resultSuccessCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -980,7 +1000,6 @@ LABEL_10:
   }
 
 LABEL_40:
-  resultNetworkUnavailableCount = self->_resultNetworkUnavailableCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -995,7 +1014,6 @@ LABEL_11:
   }
 
 LABEL_41:
-  resultServerUnreachableCount = self->_resultServerUnreachableCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1010,7 +1028,6 @@ LABEL_12:
   }
 
 LABEL_42:
-  resultSendFailureCount = self->_resultSendFailureCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1025,7 +1042,6 @@ LABEL_13:
   }
 
 LABEL_43:
-  resultResponseTimeoutCount = self->_resultResponseTimeoutCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1040,7 +1056,6 @@ LABEL_14:
   }
 
 LABEL_44:
-  resultConnectionResetCount = self->_resultConnectionResetCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1055,7 +1070,6 @@ LABEL_15:
   }
 
 LABEL_45:
-  resultServerBusyCount = self->_resultServerBusyCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1070,7 +1084,6 @@ LABEL_16:
   }
 
 LABEL_46:
-  resultServerOfflineCount = self->_resultServerOfflineCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1085,7 +1098,6 @@ LABEL_17:
   }
 
 LABEL_47:
-  resultServerDetachedCount = self->_resultServerDetachedCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1100,7 +1112,6 @@ LABEL_18:
   }
 
 LABEL_48:
-  resultServerInterruptCount = self->_resultServerInterruptCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1115,7 +1126,6 @@ LABEL_19:
   }
 
 LABEL_49:
-  resultServerSessionExpiredCount = self->_resultServerSessionExpiredCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1130,7 +1140,6 @@ LABEL_20:
   }
 
 LABEL_50:
-  resultUnknownErrorCount = self->_resultUnknownErrorCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -1145,7 +1154,6 @@ LABEL_21:
   }
 
 LABEL_51:
-  restrictedNetworkFailedCount = self->_restrictedNetworkFailedCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1160,7 +1168,6 @@ LABEL_22:
   }
 
 LABEL_52:
-  captivePresentFailedCount = self->_captivePresentFailedCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1175,40 +1182,35 @@ LABEL_23:
   }
 
 LABEL_53:
-  alternatePathCount = self->_alternatePathCount;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x200000) != 0)
   {
 LABEL_24:
-    exceededMssCount = self->_exceededMssCount;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_25:
   if (self->_connectionDurationBuckets.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_connectionDurationBuckets.list[v6];
       PBDataWriterWriteUint32Field();
-      ++v6;
+      ++v5;
     }
 
-    while (v6 < self->_connectionDurationBuckets.count);
+    while (v5 < self->_connectionDurationBuckets.count);
   }
 
-  v8 = self->_has;
-  if ((*&v8 & 0x800000) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x800000) != 0)
   {
-    protocolType = self->_protocolType;
     PBDataWriterWriteInt32Field();
-    v8 = self->_has;
+    v6 = self->_has;
   }
 
-  if ((*&v8 & 0x1000) != 0)
+  if ((*&v6 & 0x1000) != 0)
   {
-    resultServerOrphanedCount = self->_resultServerOrphanedCount;
 
     PBDataWriterWriteUint64Field();
   }

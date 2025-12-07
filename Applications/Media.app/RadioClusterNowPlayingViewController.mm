@@ -14,20 +14,19 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100033388();
+  sub_100033388(selfCopy);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_10003386C();
+  sub_10003386C(selfCopy);
 }
 
 - (void)invalidate
 {
   v3 = OBJC_IVAR____TtC5Media36RadioClusterNowPlayingViewController_cancelSet;
   swift_beginAccess();
-  v4 = *(&self->super.super.super.isa + v3);
   *(&self->super.super.super.isa + v3) = &_swiftEmptySetSingleton;
   selfCopy = self;
 

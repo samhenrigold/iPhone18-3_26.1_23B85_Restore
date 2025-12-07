@@ -204,8 +204,8 @@
     view = [(SBHTodayViewController *)self view];
     window = [view window];
     [(SBHTodayViewController *)self _effectiveLayoutInsets];
-    [window bounds];
-    [view bounds];
+    objc_msgSend_bounds(window);
+    objc_msgSend_bounds(view);
     [window convertRect:view fromView:?];
     CGRectGetMaxY(v18);
     UIEdgeInsetsSubtract();
@@ -767,7 +767,7 @@ __CFString *__44__SBHTodayViewController__setupStateCapture__block_invoke(uint64
 {
   appearCopy = appear;
   v17 = *MEMORY[0x1E69E9840];
-  v5 = SBLogCommon();
+  v5 = SBLogCommon(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = _SBFLoggingMethodProem();
@@ -804,7 +804,7 @@ __CFString *__44__SBHTodayViewController__setupStateCapture__block_invoke(uint64
 {
   appearCopy = appear;
   v47 = *MEMORY[0x1E69E9840];
-  v5 = SBLogCommon();
+  v5 = SBLogCommon(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = _SBFLoggingMethodProem();
@@ -890,7 +890,7 @@ __CFString *__44__SBHTodayViewController__setupStateCapture__block_invoke(uint64
 {
   disappearCopy = disappear;
   v26 = *MEMORY[0x1E69E9840];
-  v5 = SBLogCommon();
+  v5 = SBLogCommon(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = _SBFLoggingMethodProem();
@@ -951,7 +951,7 @@ __CFString *__44__SBHTodayViewController__setupStateCapture__block_invoke(uint64
 {
   disappearCopy = disappear;
   v26 = *MEMORY[0x1E69E9840];
-  v5 = SBLogCommon();
+  v5 = SBLogCommon(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = _SBFLoggingMethodProem();
@@ -1144,11 +1144,11 @@ uint64_t __54__SBHTodayViewController__updateEditingStateAnimated___block_invoke
   return [v9 layoutIconsNow];
 }
 
-uint64_t __54__SBHTodayViewController__updateEditingStateAnimated___block_invoke_2(uint64_t result)
+id *__54__SBHTodayViewController__updateEditingStateAnimated___block_invoke_2(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    return [*(result + 40) _endSuspendingVisibleRowRangeUpdatesForReason:?];
+    return [result[5] _endSuspendingVisibleRowRangeUpdatesForReason:?];
   }
 
   return result;
@@ -1781,7 +1781,7 @@ LABEL_11:
 void __52__SBHTodayViewController__widgetIconViewAtLocation___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v6 = a2;
-  [v6 bounds];
+  objc_msgSend_bounds(v6);
   [v6 convertRect:*(*(a1 + 32) + 1136) toView:?];
   if (CGRectContainsPoint(v8, *(a1 + 48)))
   {
@@ -2313,7 +2313,7 @@ uint64_t __92__SBHTodayViewController_coronaAnimationController_willAnimateCoron
     v31 = v30;
     v33 = v32;
     v35 = v34;
-    [(UIScrollView *)self->_scrollView bounds];
+    objc_msgSend_bounds(self->_scrollView);
     if (position == 1)
     {
       iconLocation = [(SBHTodayViewController *)self iconLocation];
@@ -2408,7 +2408,7 @@ uint64_t __92__SBHTodayViewController_coronaAnimationController_willAnimateCoron
     [(SBHTodayViewController *)self setRevealed:1];
     [draggingCopy contentSize];
     v9 = v8;
-    [draggingCopy bounds];
+    objc_msgSend_bounds(draggingCopy);
     if (v9 > v10)
     {
       [(UIScrollView *)self->_scrollView contentOffset];
@@ -2440,7 +2440,7 @@ uint64_t __92__SBHTodayViewController_coronaAnimationController_willAnimateCoron
       {
         [draggingCopy contentSize];
         v34 = v33;
-        [draggingCopy bounds];
+        objc_msgSend_bounds(draggingCopy);
         if (v16 < 0.0 && v28 < v34 - v35)
         {
           [draggingCopy contentOffset];
@@ -2667,15 +2667,16 @@ uint64_t __65__SBHTodayViewController_enumerateScrollableIconViewsUsingBlock___b
     v7 = 0;
     do
     {
-      v8 = [array objectAtIndex:v7];
-      v9 = [array objectAtIndex:++v7];
-      [v8 bounds];
+      v8 = objc_msgSend_objectAtIndex_(array);
+      ++v7;
+      v9 = objc_msgSend_objectAtIndex_(array);
+      objc_msgSend_bounds(v8);
       [v8 convertRect:view toView:?];
       v11 = v10;
       v13 = v12;
       v15 = v14;
       v17 = v16;
-      [v9 bounds];
+      objc_msgSend_bounds(v9);
       [v9 convertRect:view toView:?];
       v19 = v18;
       v21 = v20;
@@ -2692,7 +2693,7 @@ uint64_t __65__SBHTodayViewController_enumerateScrollableIconViewsUsingBlock___b
         v61.size.width = v23;
         v61.size.height = v25;
         MinY = CGRectGetMinY(v61);
-        [view bounds];
+        objc_msgSend_bounds(view);
         if (MinY < CGRectGetMidY(v62))
         {
           v27 = v9;
@@ -2713,7 +2714,7 @@ uint64_t __65__SBHTodayViewController_enumerateScrollableIconViewsUsingBlock___b
     v30 = [array indexOfObject:firstObject];
     for (i = v30 + 1; i < [array count]; ++i)
     {
-      v32 = [array objectAtIndex:i];
+      v32 = objc_msgSend_objectAtIndex_(array);
       [v29 insertObject:v32 atIndex:0];
     }
 
@@ -2722,7 +2723,7 @@ uint64_t __65__SBHTodayViewController_enumerateScrollableIconViewsUsingBlock___b
     {
       do
       {
-        v34 = [array objectAtIndex:v33];
+        v34 = objc_msgSend_objectAtIndex_(array);
         [v29 insertObject:v34 atIndex:0];
 
         --v33;
@@ -2915,7 +2916,7 @@ LABEL_9:
   numberOfIcons = [listModel numberOfIcons];
   isCarouselLayout = [layoutDelegate isCarouselLayout];
   view = [(SBHTodayViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   [view convertRect:self->_scrollView toView:?];
   [(UIScrollView *)self->_scrollView convertRect:viewCopy toView:?];
   v11 = v10;
@@ -2928,7 +2929,7 @@ LABEL_9:
   if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1 && (isCarouselLayout & 1) == 0)
   {
     window = [view window];
-    [window bounds];
+    objc_msgSend_bounds(window);
     [window convertRect:self->_scrollView toView:?];
     [(UIScrollView *)self->_scrollView convertRect:viewCopy toView:?];
     v13 = v21;
@@ -2956,7 +2957,7 @@ LABEL_9:
     {
       if (layoutDelegate)
       {
-        [layoutDelegate layoutAttributesForIconCoordinate:v27 metrics:v28 adjustedForRevealProgress:{layoutMetrics, 0}];
+        objc_msgSend_layoutAttributesForIconCoordinate_metrics_adjustedForRevealProgress_(layoutDelegate, v28, v27, v28, layoutMetrics, 0);
       }
 
       if ((BSFloatIsZero() & 1) == 0)
@@ -3156,7 +3157,7 @@ LABEL_57:
 - (CGPoint)_interactiveSpotlightDraggingBeginPoint
 {
   view = [(SBHTodayViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -3185,13 +3186,13 @@ LABEL_57:
 - (BOOL)_isViewVisibleInScrollViewSpace:(id)space
 {
   spaceCopy = space;
-  [spaceCopy bounds];
+  objc_msgSend_bounds(spaceCopy);
   [spaceCopy convertRect:self->_scrollView toView:?];
   v6 = v5;
   v8 = v7;
   v10 = v9;
   v12 = v11;
-  [(UIScrollView *)self->_scrollView bounds];
+  objc_msgSend_bounds(self->_scrollView);
   v16.origin.x = v6;
   v16.origin.y = v8;
   v16.size.width = v10;

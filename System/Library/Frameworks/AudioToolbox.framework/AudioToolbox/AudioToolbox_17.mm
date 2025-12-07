@@ -7057,7 +7057,7 @@ void std::__formatter::__escape[abi:ne200100]<char>(std::string *a1, unsigned __
         if (v8 == 92)
         {
           v10 = a1;
-          v11 = "\\\";
+          v11 = "\\\"";
           goto LABEL_43;
         }
       }
@@ -7078,7 +7078,7 @@ LABEL_41:
           v10 = a1;
           if (a4 == 1)
           {
-            v11 = "\\"";
+            v11 = "\";
 LABEL_43:
             std::string::append(v10, v11, 2uLL);
             goto LABEL_44;

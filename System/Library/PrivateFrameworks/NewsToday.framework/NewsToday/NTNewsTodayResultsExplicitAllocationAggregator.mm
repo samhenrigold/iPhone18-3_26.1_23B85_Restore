@@ -77,7 +77,7 @@ LABEL_6:
 
 - (id)aggregateSections:(id)sections itemsBySectionDescriptor:(id)descriptor budgetInfo:(id)info todayData:(id)data
 {
-  v51[2] = *MEMORY[0x277D85DE8];
+  v50[2] = *MEMORY[0x277D85DE8];
   sectionsCopy = sections;
   descriptorCopy = descriptor;
   infoCopy = info;
@@ -92,65 +92,64 @@ LABEL_6:
     [NTNewsTodayResultsExplicitAllocationAggregator aggregateSections:itemsBySectionDescriptor:budgetInfo:todayData:];
   }
 
-  v49[0] = 0;
-  v49[1] = v49;
-  v49[2] = 0x2020000000;
+  v48[0] = 0;
+  v48[1] = v48;
+  v48[2] = 0x2020000000;
   [infoCopy slotsLimit];
-  v49[3] = v14;
+  v48[3] = v14;
   v15 = objc_opt_new();
   v16 = objc_opt_new();
   v17 = objc_opt_new();
   v18 = objc_opt_new();
-  v34 = objc_opt_new();
+  v33 = objc_opt_new();
   if ([infoCopy respectMinMaxLimit])
   {
-    v51[0] = &__block_literal_global_6;
-    v19 = v51;
+    v50[0] = &__block_literal_global_6;
+    v19 = v50;
     v20 = &__block_literal_global_124;
   }
 
   else
   {
-    v50 = &__block_literal_global_127;
-    v19 = &v50;
+    v49 = &__block_literal_global_127;
+    v19 = &v49;
     v20 = &__block_literal_global_129;
   }
 
   v19[1] = v20;
   v21 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __114__NTNewsTodayResultsExplicitAllocationAggregator_aggregateSections_itemsBySectionDescriptor_budgetInfo_todayData___block_invoke_5;
-  v36[3] = &unk_279983488;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __114__NTNewsTodayResultsExplicitAllocationAggregator_aggregateSections_itemsBySectionDescriptor_budgetInfo_todayData___block_invoke_5;
+  v35[3] = &unk_279983488;
   v22 = sectionsCopy;
-  v37 = v22;
-  v48 = v49;
+  v36 = v22;
+  v47 = v48;
   v23 = descriptorCopy;
-  v38 = v23;
+  v37 = v23;
   v24 = v18;
-  v39 = v24;
+  v38 = v24;
   v25 = v17;
-  v40 = v25;
+  v39 = v25;
   v26 = v16;
-  v41 = v26;
+  v40 = v26;
   selfCopy = self;
   v27 = dataCopy;
-  v43 = v27;
+  v42 = v27;
   v28 = infoCopy;
-  v44 = v28;
+  v43 = v28;
   v29 = v15;
-  v45 = v29;
+  v44 = v29;
   v30 = v21;
-  v46 = v30;
-  v31 = v34;
-  v47 = v31;
-  [v30 enumerateObjectsUsingBlock:v36];
-  v35 = [[NTItemAggregationResult alloc] initWithAggregatedItemsBySectionDescriptor:v25 unusedSectionDescriptors:v24 debugInspectionsBySectionDescriptor:v31];
+  v45 = v30;
+  v31 = v33;
+  v46 = v31;
+  [v30 enumerateObjectsUsingBlock:v35];
+  v34 = [[NTItemAggregationResult alloc] initWithAggregatedItemsBySectionDescriptor:v25 unusedSectionDescriptors:v24 debugInspectionsBySectionDescriptor:v31];
 
-  _Block_object_dispose(v49, 8);
-  v32 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v48, 8);
 
-  return v35;
+  return v34;
 }
 
 void __114__NTNewsTodayResultsExplicitAllocationAggregator_aggregateSections_itemsBySectionDescriptor_budgetInfo_todayData___block_invoke_5(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
@@ -191,7 +190,7 @@ void __114__NTNewsTodayResultsExplicitAllocationAggregator_aggregateSections_ite
 
 void __114__NTNewsTodayResultsExplicitAllocationAggregator_aggregateSections_itemsBySectionDescriptor_budgetInfo_todayData___block_invoke_6(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v6 = a2;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
@@ -203,12 +202,12 @@ void __114__NTNewsTodayResultsExplicitAllocationAggregator_aggregateSections_ite
   v8 = v7;
   if (*(*(*(a1 + 120) + 8) + 24) <= 0.0)
   {
-    v49 = MEMORY[0x277D85DD0];
-    v50 = 3221225472;
-    v51 = __114__NTNewsTodayResultsExplicitAllocationAggregator_aggregateSections_itemsBySectionDescriptor_budgetInfo_todayData___block_invoke_8;
-    v52 = &unk_2799827B8;
-    v53 = v7;
-    v53[2]();
+    v48 = MEMORY[0x277D85DD0];
+    v49 = 3221225472;
+    v50 = __114__NTNewsTodayResultsExplicitAllocationAggregator_aggregateSections_itemsBySectionDescriptor_budgetInfo_todayData___block_invoke_8;
+    v51 = &unk_2799827B8;
+    v52 = v7;
+    v52[2]();
   }
 
   else
@@ -222,44 +221,44 @@ void __114__NTNewsTodayResultsExplicitAllocationAggregator_aggregateSections_ite
       v13 = [v11 count];
       if (v12 != v13)
       {
-        v38 = v12 - v13;
-        v41 = v9;
+        v37 = v12 - v13;
+        v40 = v9;
         v14 = [*(a1 + 56) copy];
+        v44 = 0u;
         v45 = 0u;
         v46 = 0u;
         v47 = 0u;
-        v48 = 0u;
-        v40 = v11;
+        v39 = v11;
         v15 = v11;
-        v16 = [v15 countByEnumeratingWithState:&v45 objects:v55 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v44 objects:v54 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v46;
+          v18 = *v45;
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v46 != v18)
+              if (*v45 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v20 = [*(*(&v45 + 1) + 8 * i) clusterID];
+              v20 = [*(*(&v44 + 1) + 8 * i) clusterID];
               if (v20)
               {
                 [v14 removeObject:v20];
               }
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v45 objects:v55 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v44 objects:v54 count:16];
           }
 
           while (v17);
         }
 
-        v44 = 0.0;
-        v43 = 0;
+        v43 = 0.0;
+        v42 = 0;
         v21 = *(a1 + 64);
         v22 = *(a1 + 72);
         if (v15)
@@ -275,23 +274,23 @@ void __114__NTNewsTodayResultsExplicitAllocationAggregator_aggregateSections_ite
         v24 = *(a1 + 80);
         v25 = *(a1 + 88);
         v26 = *(*(*(a1 + 120) + 8) + 24);
-        v42 = 0;
-        v27 = [v21 _itemsForSection:v6 items:v10 todayData:v22 budgetInfo:v24 previouslyChosenItems:v23 priorClusterIDsInOtherSections:v14 sectionItemsLimit:v26 otherArticleIDs:v38 remainingSlots:v25 slotsUsed:&v44 noMoreItemsToGive:&v43 + 1 noRoomForMoreItems:&v43 debugInspection:&v42];
-        v39 = v42;
+        v41 = 0;
+        v27 = [v21 _itemsForSection:v6 items:v10 todayData:v22 budgetInfo:v24 previouslyChosenItems:v23 priorClusterIDsInOtherSections:v14 sectionItemsLimit:v26 otherArticleIDs:v37 remainingSlots:v25 slotsUsed:&v43 noMoreItemsToGive:&v42 + 1 noRoomForMoreItems:&v42 debugInspection:&v41];
+        v38 = v41;
         v28 = [v15 count];
         v29 = *(a1 + 136);
         v30 = [*(a1 + 96) count];
-        if (!v28 && HIBYTE(v43) == 1 && v29 + 1 == v30)
+        if (!v28 && HIBYTE(v42) == 1 && v29 + 1 == v30)
         {
           [*(a1 + 40) addObject:v6];
         }
 
-        if (v43 == 1)
+        if (v42 == 1)
         {
           v8[2](v8);
-          v11 = v40;
-          v9 = v41;
-          v31 = v39;
+          v11 = v39;
+          v9 = v40;
+          v31 = v38;
         }
 
         else
@@ -315,11 +314,11 @@ void __114__NTNewsTodayResultsExplicitAllocationAggregator_aggregateSections_ite
             [*(a1 + 48) setObject:v36 forKeyedSubscript:v6];
           }
 
-          v11 = v40;
-          v9 = v41;
-          v31 = v39;
-          [*(a1 + 104) setObject:v39 forKeyedSubscript:v6];
-          *(*(*(a1 + 120) + 8) + 24) = *(*(*(a1 + 120) + 8) + 24) - v44;
+          v11 = v39;
+          v9 = v40;
+          v31 = v38;
+          [*(a1 + 104) setObject:v38 forKeyedSubscript:v6];
+          *(*(*(a1 + 120) + 8) + 24) = *(*(*(a1 + 120) + 8) + 24) - v43;
         }
       }
     }
@@ -331,8 +330,6 @@ void __114__NTNewsTodayResultsExplicitAllocationAggregator_aggregateSections_ite
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __114__NTNewsTodayResultsExplicitAllocationAggregator_aggregateSections_itemsBySectionDescriptor_budgetInfo_todayData___block_invoke_7(uint64_t result)
@@ -345,7 +342,7 @@ uint64_t __114__NTNewsTodayResultsExplicitAllocationAggregator_aggregateSections
 
 - (id)_itemsForSection:(id)section items:(id)items todayData:(id)data budgetInfo:(id)info previouslyChosenItems:(id)chosenItems priorClusterIDsInOtherSections:(id)sections sectionItemsLimit:(unint64_t)limit otherArticleIDs:(id)self0 remainingSlots:(double)self1 slotsUsed:(double *)self2 noMoreItemsToGive:(BOOL *)self3 noRoomForMoreItems:(BOOL *)self4 debugInspection:(id *)self5
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
   itemsCopy = items;
   dataCopy = data;
@@ -444,23 +441,23 @@ LABEL_25:
   }
 
   feedPersonalizer = [(NTNewsTodayResultsExplicitAllocationAggregator *)self feedPersonalizer];
-  v65 = [v26 incrementalSortTransformationWithFeedPersonalizer:?];
-  v31 = [v65 transformFeedItems:itemsCopy];
+  v64 = [v26 incrementalSortTransformationWithFeedPersonalizer:?];
+  v31 = [v64 transformFeedItems:itemsCopy];
   v32 = [chosenItemsCopy fc_setByTransformingWithBlock:&__block_literal_global_151];
   selfCopy = self;
   v34 = v31;
-  v66 = v27;
-  v67 = dataCopy;
-  v64 = v32;
+  v65 = v27;
+  v66 = dataCopy;
+  v63 = v32;
   v35 = [NTNewsTodayResultsExplicitAllocationAggregator _sectionFilterTransformationWithDescriptor:selfCopy todayData:"_sectionFilterTransformationWithDescriptor:todayData:priorClusterIDsInOtherSections:priorClusterIDsInSection:otherArticleIDs:" priorClusterIDsInOtherSections:v26 priorClusterIDsInSection:dataCopy otherArticleIDs:v27];
-  v73 = [v35 transformFeedItems:v31];
-  v36 = NTSharedLog();
+  v72 = [v35 transformFeedItems:v31];
+  v36 = NTSharedLog(v72);
   if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v75 = [v31 count];
-    v76 = 2048;
-    v77 = [v73 count];
+    v74 = [v31 count];
+    v75 = 2048;
+    v76 = [v72 count];
     _os_log_impl(&dword_25BF21000, v36, OS_LOG_TYPE_DEFAULT, "Filtered feed items from %lu to %lu", buf, 0x16u);
   }
 
@@ -505,7 +502,7 @@ LABEL_25:
   }
 
   v48 = [v26 incrementalLimitTransformationWithFeedPersonalizer:feedPersonalizer limit:limitCopy priorFeedItems:chosenItemsCopy];
-  v49 = [v48 transformFeedItems:v73];
+  v49 = [v48 transformFeedItems:v72];
   if ([v49 count])
   {
     v50 = [v49 count];
@@ -520,13 +517,13 @@ LABEL_25:
 
   *used = v52;
   *moreItems = v45 <= 0.0;
-  *give = [v73 count] == 0;
+  *give = [v72 count] == 0;
   if (FCIsWidgetDebugInspectionEnabled())
   {
     [v49 fc_arrayByTransformingWithBlock:&__block_literal_global_155];
     v54 = v53 = v26;
     [v34 fc_arrayByTransformingWithBlock:&__block_literal_global_157];
-    v71 = v35;
+    v70 = v35;
     v56 = v55 = v34;
     v57 = v28;
     v58 = [NTWidgetDebugInspectionSection alloc];
@@ -534,16 +531,14 @@ LABEL_25:
     v60 = v58;
     v28 = v57;
     v30 = chosenItemsCopy;
-    *v63 = [(NTWidgetDebugInspectionSection *)v60 initWithArticleIDs:v54 name:name2 sortedCandidates:v56];
+    *v62 = [(NTWidgetDebugInspectionSection *)v60 initWithArticleIDs:v54 name:name2 sortedCandidates:v56];
 
     v34 = v55;
-    v35 = v71;
+    v35 = v70;
 
     v26 = v53;
     v29 = infoCopy;
   }
-
-  v61 = *MEMORY[0x277D85DE8];
 
   return v49;
 }
@@ -600,286 +595,228 @@ LABEL_11:
   supplementalIntraSectionFilterOptions = [descriptorCopy supplementalIntraSectionFilterOptions];
   v18 = objc_opt_new();
   supplementalIntraSectionFilterOptions2 = [descriptorCopy supplementalIntraSectionFilterOptions];
+  v20 = supplementalIntraSectionFilterOptions2;
   if ((supplementalInterSectionFilterOptions & 4) != 0)
   {
-    [v18 unionSet:sectionsCopy];
+    supplementalIntraSectionFilterOptions2 = [v18 unionSet:sectionsCopy];
   }
 
   if ((supplementalIntraSectionFilterOptions & 4) != 0)
   {
-    v20 = supplementalIntraSectionFilterOptions2 | 4;
-    [v18 unionSet:sectionCopy];
+    v21 = v20 | 4;
+    supplementalIntraSectionFilterOptions2 = [v18 unionSet:sectionCopy];
   }
 
   else
   {
-    v20 = supplementalIntraSectionFilterOptions2 | 0x84;
+    v21 = v20 | 0x84;
   }
 
   v36 = sectionCopy;
   v37 = sectionsCopy;
-  v21 = NTSharedLog();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v22 = NTSharedLog(supplementalIntraSectionFilterOptions2);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     name = [descriptorCopy name];
     FCFeedFilterOptionsToNSString();
-    v24 = v23 = self;
-    v25 = NTTodaySectionReadArticlesFilterMethodToNSString([descriptorCopy readArticlesFilterMethod]);
-    v26 = NTTodaySectionSeenArticlesFilterMethodToNSString([descriptorCopy seenArticlesFilterMethod]);
+    v25 = v24 = self;
+    v26 = NTTodaySectionReadArticlesFilterMethodToNSString([descriptorCopy readArticlesFilterMethod]);
+    v27 = NTTodaySectionSeenArticlesFilterMethodToNSString([descriptorCopy seenArticlesFilterMethod]);
     *buf = 138544386;
     v40 = name;
     v41 = 2114;
-    v42 = v24;
+    v42 = v25;
     v43 = 2114;
-    v44 = v25;
+    v44 = v26;
     v45 = 2114;
-    v46 = v26;
+    v46 = v27;
     v47 = 2048;
     seenArticlesMinimumTimeSinceFirstSeenToFilter = [descriptorCopy seenArticlesMinimumTimeSinceFirstSeenToFilter];
-    _os_log_impl(&dword_25BF21000, v21, OS_LOG_TYPE_DEFAULT, "will apply filter transformation to section, name=%{public}@, supplementalOptions=%{public}@, readFilterMethod=%{public}@, seenFilterMethod=%{public}@, minimumTimeSinceFirstSeenToFilter=%lld", buf, 0x34u);
+    _os_log_impl(&dword_25BF21000, v22, OS_LOG_TYPE_DEFAULT, "will apply filter transformation to section, name=%{public}@, supplementalOptions=%{public}@, readFilterMethod=%{public}@, seenFilterMethod=%{public}@, minimumTimeSinceFirstSeenToFilter=%lld", buf, 0x34u);
 
-    self = v23;
+    self = v24;
   }
 
-  v27 = [NTSectionFeedFilterTransformation alloc];
+  v28 = [NTSectionFeedFilterTransformation alloc];
   configurationManager = [(NTNewsTodayResultsExplicitAllocationAggregator *)self configurationManager];
   readArticlesFilterMethod = [descriptorCopy readArticlesFilterMethod];
   seenArticlesFilterMethod = [descriptorCopy seenArticlesFilterMethod];
   seenArticlesMinimumTimeSinceFirstSeenToFilter2 = [descriptorCopy seenArticlesMinimumTimeSinceFirstSeenToFilter];
   filterDate = [(NTNewsTodayResultsExplicitAllocationAggregator *)self filterDate];
-  v33 = -[NTSectionFeedFilterTransformation initWithTodayData:configurationManager:readArticlesFilterMethod:seenArticlesFilterMethod:minimumTimeSinceFirstSeenToFilter:supplementalFeedFilterOptions:otherArticleIDs:otherClusterIDs:filterDate:paywalledArticlesMaxCount:](v27, "initWithTodayData:configurationManager:readArticlesFilterMethod:seenArticlesFilterMethod:minimumTimeSinceFirstSeenToFilter:supplementalFeedFilterOptions:otherArticleIDs:otherClusterIDs:filterDate:paywalledArticlesMaxCount:", dataCopy, configurationManager, readArticlesFilterMethod, seenArticlesFilterMethod, v20, dsCopy, seenArticlesMinimumTimeSinceFirstSeenToFilter2, v18, filterDate, [descriptorCopy paywalledArticlesMaxCount]);
+  v34 = -[NTSectionFeedFilterTransformation initWithTodayData:configurationManager:readArticlesFilterMethod:seenArticlesFilterMethod:minimumTimeSinceFirstSeenToFilter:supplementalFeedFilterOptions:otherArticleIDs:otherClusterIDs:filterDate:paywalledArticlesMaxCount:](v28, "initWithTodayData:configurationManager:readArticlesFilterMethod:seenArticlesFilterMethod:minimumTimeSinceFirstSeenToFilter:supplementalFeedFilterOptions:otherArticleIDs:otherClusterIDs:filterDate:paywalledArticlesMaxCount:", dataCopy, configurationManager, readArticlesFilterMethod, seenArticlesFilterMethod, v21, dsCopy, seenArticlesMinimumTimeSinceFirstSeenToFilter2, v18, filterDate, [descriptorCopy paywalledArticlesMaxCount]);
 
-  v34 = *MEMORY[0x277D85DE8];
-
-  return v33;
+  return v34;
 }
 
 - (void)initWithConfigurationManager:feedPersonalizer:filterDate:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "configurationManager"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "configurationManager", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithConfigurationManager:feedPersonalizer:filterDate:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "filterDate"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "filterDate", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)aggregateSections:itemsBySectionDescriptor:budgetInfo:todayData:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "sectionDescriptors"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sectionDescriptors", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)aggregateSections:itemsBySectionDescriptor:budgetInfo:todayData:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "itemsBySectionDescriptor"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "itemsBySectionDescriptor", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_itemsForSection:items:todayData:budgetInfo:previouslyChosenItems:priorClusterIDsInOtherSections:sectionItemsLimit:otherArticleIDs:remainingSlots:slotsUsed:noMoreItemsToGive:noRoomForMoreItems:debugInspection:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "sectionDescriptor"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sectionDescriptor", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_itemsForSection:items:todayData:budgetInfo:previouslyChosenItems:priorClusterIDsInOtherSections:sectionItemsLimit:otherArticleIDs:remainingSlots:slotsUsed:noMoreItemsToGive:noRoomForMoreItems:debugInspection:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "items"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "items", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_itemsForSection:items:todayData:budgetInfo:previouslyChosenItems:priorClusterIDsInOtherSections:sectionItemsLimit:otherArticleIDs:remainingSlots:slotsUsed:noMoreItemsToGive:noRoomForMoreItems:debugInspection:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "budgetInfo"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "budgetInfo", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_itemsForSection:items:todayData:budgetInfo:previouslyChosenItems:priorClusterIDsInOtherSections:sectionItemsLimit:otherArticleIDs:remainingSlots:slotsUsed:noMoreItemsToGive:noRoomForMoreItems:debugInspection:.cold.4()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "previouslyChosenItems"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "previouslyChosenItems", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_itemsForSection:items:todayData:budgetInfo:previouslyChosenItems:priorClusterIDsInOtherSections:sectionItemsLimit:otherArticleIDs:remainingSlots:slotsUsed:noMoreItemsToGive:noRoomForMoreItems:debugInspection:.cold.5()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "otherArticleIDs"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "otherArticleIDs", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_itemsForSection:items:todayData:budgetInfo:previouslyChosenItems:priorClusterIDsInOtherSections:sectionItemsLimit:otherArticleIDs:remainingSlots:slotsUsed:noMoreItemsToGive:noRoomForMoreItems:debugInspection:.cold.6()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "priorClusterIDsInOtherSections"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "priorClusterIDsInOtherSections", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_itemsForSection:items:todayData:budgetInfo:previouslyChosenItems:priorClusterIDsInOtherSections:sectionItemsLimit:otherArticleIDs:remainingSlots:slotsUsed:noMoreItemsToGive:noRoomForMoreItems:debugInspection:.cold.7()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "sectionItemsLimit > 0"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sectionItemsLimit > 0", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_itemsForSection:items:todayData:budgetInfo:previouslyChosenItems:priorClusterIDsInOtherSections:sectionItemsLimit:otherArticleIDs:remainingSlots:slotsUsed:noMoreItemsToGive:noRoomForMoreItems:debugInspection:.cold.8()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "remainingSlots >= 0"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "remainingSlots >= 0", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_itemsForSection:items:todayData:budgetInfo:previouslyChosenItems:priorClusterIDsInOtherSections:sectionItemsLimit:otherArticleIDs:remainingSlots:slotsUsed:noMoreItemsToGive:noRoomForMoreItems:debugInspection:.cold.9()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "slotsUsedOut"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "slotsUsedOut", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_itemsForSection:items:todayData:budgetInfo:previouslyChosenItems:priorClusterIDsInOtherSections:sectionItemsLimit:otherArticleIDs:remainingSlots:slotsUsed:noMoreItemsToGive:noRoomForMoreItems:debugInspection:.cold.10()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "noMoreItemsToGive"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "noMoreItemsToGive", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_itemsForSection:items:todayData:budgetInfo:previouslyChosenItems:priorClusterIDsInOtherSections:sectionItemsLimit:otherArticleIDs:remainingSlots:slotsUsed:noMoreItemsToGive:noRoomForMoreItems:debugInspection:.cold.11()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "noRoomForMoreItemsOut"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "noRoomForMoreItemsOut", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_sectionFilterTransformationWithDescriptor:todayData:priorClusterIDsInOtherSections:priorClusterIDsInSection:otherArticleIDs:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "sectionDescriptor"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sectionDescriptor", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_sectionFilterTransformationWithDescriptor:todayData:priorClusterIDsInOtherSections:priorClusterIDsInSection:otherArticleIDs:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "priorClusterIDsInOtherSections"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "priorClusterIDsInOtherSections", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_sectionFilterTransformationWithDescriptor:todayData:priorClusterIDsInOtherSections:priorClusterIDsInSection:otherArticleIDs:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "otherArticleIDs"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "otherArticleIDs", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_sectionFilterTransformationWithDescriptor:todayData:priorClusterIDsInOtherSections:priorClusterIDsInSection:otherArticleIDs:.cold.4()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "priorClusterIDsInSection"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "priorClusterIDsInSection", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

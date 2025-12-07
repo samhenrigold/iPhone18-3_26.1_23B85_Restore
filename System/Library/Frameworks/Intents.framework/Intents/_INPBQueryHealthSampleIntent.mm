@@ -3,6 +3,9 @@
 - (_INPBQueryHealthSampleIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)expectedResultTypeAsString:(int)string;
+- (id)objectTypeAsString:(int)string;
+- (id)questionTypeAsString:(int)string;
 - (int)StringAsExpectedResultType:(id)type;
 - (int)StringAsObjectType:(id)type;
 - (int)StringAsQuestionType:(id)type;
@@ -24,7 +27,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(_INPBQueryHealthSampleIntent *)self hasExpectedResultType])
   {
@@ -81,30 +84,30 @@
   if ([(NSArray *)self->_recordDates count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v13 = self->_recordDates;
-    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v35;
+      v16 = *v34;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v35 != v16)
+          if (*v34 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          dictionaryRepresentation2 = [*(*(&v34 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v33 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation2];
         }
 
-        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v15);
@@ -116,30 +119,30 @@
   if ([(NSArray *)self->_thresholdValues count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v20 = self->_thresholdValues;
-    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v31;
+      v23 = *v30;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v31 != v23)
+          if (*v30 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          dictionaryRepresentation3 = [*(*(&v30 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v29 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation3];
         }
 
-        v22 = [(NSArray *)v20 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v22 = [(NSArray *)v20 countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v22);
@@ -151,8 +154,6 @@
   unit = [(_INPBQueryHealthSampleIntent *)self unit];
   dictionaryRepresentation4 = [unit dictionaryRepresentation];
   [dictionary setObject:dictionaryRepresentation4 forKeyedSubscript:@"unit"];
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -427,11 +428,10 @@ LABEL_35:
 
 - (void)writeTo:(id)to
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_INPBQueryHealthSampleIntent *)self hasExpectedResultType])
   {
-    expectedResultType = self->_expectedResultType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -445,78 +445,74 @@ LABEL_35:
 
   if ([(_INPBQueryHealthSampleIntent *)self hasObjectType])
   {
-    objectType = self->_objectType;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBQueryHealthSampleIntent *)self hasQuestionType])
   {
-    questionType = self->_questionType;
     PBDataWriterWriteInt32Field();
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v10 = self->_recordDates;
-  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v11)
-  {
-    v12 = v11;
-    v13 = *v30;
-    do
-    {
-      v14 = 0;
-      do
-      {
-        if (*v30 != v13)
-        {
-          objc_enumerationMutation(v10);
-        }
-
-        v15 = *(*(&v29 + 1) + 8 * v14);
-        PBDataWriterWriteSubmessage();
-        ++v14;
-      }
-
-      while (v12 != v14);
-      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
-    }
-
-    while (v12);
-  }
-
-  v27 = 0u;
-  v28 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v16 = self->_thresholdValues;
-  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
-  if (v17)
+  v23 = 0u;
+  v24 = 0u;
+  v7 = self->_recordDates;
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  if (v8)
   {
-    v18 = v17;
-    v19 = *v26;
+    v9 = v8;
+    v10 = *v24;
     do
     {
-      v20 = 0;
+      v11 = 0;
       do
       {
-        if (*v26 != v19)
+        if (*v24 != v10)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v7);
         }
 
-        v21 = *(*(&v25 + 1) + 8 * v20);
         PBDataWriterWriteSubmessage();
-        ++v20;
+        ++v11;
       }
 
-      while (v18 != v20);
-      v18 = [(NSArray *)v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      while (v9 != v11);
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
-    while (v18);
+    while (v9);
+  }
+
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v12 = self->_thresholdValues;
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v20;
+    do
+    {
+      v16 = 0;
+      do
+      {
+        if (*v20 != v15)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v16;
+      }
+
+      while (v14 != v16);
+      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+    }
+
+    while (v14);
   }
 
   unit = [(_INPBQueryHealthSampleIntent *)self unit];
@@ -526,8 +522,6 @@ LABEL_35:
     unit2 = [(_INPBQueryHealthSampleIntent *)self unit];
     PBDataWriterWriteSubmessage();
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addThresholdValues:(id)values
@@ -630,6 +624,21 @@ LABEL_35:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)questionTypeAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727ED48[string];
   }
 
   return v4;
@@ -1051,6 +1060,21 @@ LABEL_35:
   return v4;
 }
 
+- (id)objectTypeAsString:(int)string
+{
+  if (string >= 0x4B)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727EAF0[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasObjectType:(BOOL)type
 {
   if (type)
@@ -1137,6 +1161,21 @@ LABEL_35:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)expectedResultTypeAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727EAA0[string];
   }
 
   return v4;

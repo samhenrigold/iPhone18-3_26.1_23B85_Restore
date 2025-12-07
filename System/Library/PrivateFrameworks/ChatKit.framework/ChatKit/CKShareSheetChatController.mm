@@ -21,7 +21,7 @@
 {
   if (!self->_interactionSignPost)
   {
-    v3 = _chatControllerTelemetryLogHandle();
+    v3 = _chatControllerTelemetryLogHandle(self);
     v4 = os_signpost_id_make_with_pointer(v3, self);
     if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
@@ -41,7 +41,7 @@
 {
   if (self->_interactionSignPost == 1)
   {
-    v3 = _chatControllerTelemetryLogHandle();
+    v3 = _chatControllerTelemetryLogHandle(self);
     v4 = os_signpost_id_make_with_pointer(v3, self);
     if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {

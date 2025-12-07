@@ -188,7 +188,7 @@ void __40__PIPhotoEffectHDR_hdrOffsetColorKernel__block_invoke()
   v5 = -[CIImage imageByTaggingWithColorSpace:](inputImage, "imageByTaggingWithColorSpace:", [workingColorSpace CGColorSpace]);
 
   hdrOffsetKernel = [(PIPhotoEffectHDR *)self hdrOffsetKernel];
-  [v5 extent];
+  objc_msgSend_extent(v5);
   v8 = v7;
   v10 = v9;
   v12 = v11;

@@ -44,7 +44,7 @@ uint64_t __59__NMSPodcastsDownloadableContentController_Legacy_delegate__block_i
   v4 = *(v3 + 40);
   *(v3 + 40) = WeakRetained;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](WeakRetained, v4);
 }
 
 void __75__NMSPodcastsDownloadableContentController_Legacy_extensionAccessDidChange__block_invoke(uint64_t a1)
@@ -110,28 +110,28 @@ void __88__NMSPodcastsDownloadableContentController_Legacy__processLatestPersist
 
 void __88__NMSPodcastsDownloadableContentController_Legacy__processLatestPersistenHistoryChanges__block_invoke_22(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v2 = [*(*(*(a1 + 40) + 8) + 40) result];
-  v3 = [v2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v19;
+    v5 = *v18;
     do
     {
       v6 = 0;
       do
       {
-        if (*v19 != v5)
+        if (*v18 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v18 + 1) + 8 * v6);
+        v7 = *(*(&v17 + 1) + 8 * v6);
         v8 = objc_autoreleasePoolPush();
         if ([*(a1 + 32) _shouldMergeHistoryTransaction:v7])
         {
@@ -139,8 +139,8 @@ void __88__NMSPodcastsDownloadableContentController_Legacy__processLatestPersist
           v9 = _MTLogCategoryDatabase();
           if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
           {
-            *v17 = 0;
-            _os_log_impl(&dword_25B27B000, v9, OS_LOG_TYPE_INFO, "NMSPodcastsDownloadableContentObserver merging changes", v17, 2u);
+            *v16 = 0;
+            _os_log_impl(&dword_25B27B000, v9, OS_LOG_TYPE_INFO, "NMSPodcastsDownloadableContentObserver merging changes", v16, 2u);
           }
 
           v10 = [MEMORY[0x277D3DAE8] sharedInstance];
@@ -159,13 +159,11 @@ void __88__NMSPodcastsDownloadableContentController_Legacy__processLatestPersist
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v4);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __97__NMSPodcastsDownloadableContentController_Legacy__resetPersistentHistoryTokenAndNotifyObservers__block_invoke(uint64_t a1)

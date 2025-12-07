@@ -618,13 +618,11 @@ LABEL_8:
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"playbackQueueRequest";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"playbackQueueRequest";
   v2 = [(MRPlaybackQueueRequest *)self description];
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -1007,9 +1005,9 @@ LABEL_8:
     {
       requestIdentifier3 = [(MRPlaybackQueueRequest *)equalCopy requestIdentifier];
       requestIdentifier4 = [(MRPlaybackQueueRequest *)self requestIdentifier];
-      v47 = [requestIdentifier3 isEqualToString:requestIdentifier4];
+      isEqualToString = objc_msgSend_isEqualToString_(requestIdentifier3);
 
-      if (!v47)
+      if (!isEqualToString)
       {
         goto LABEL_66;
       }
@@ -1026,7 +1024,7 @@ LABEL_8:
     {
       label3 = [(MRPlaybackQueueRequest *)equalCopy label];
       label4 = [(MRPlaybackQueueRequest *)self label];
-      v53 = [label3 isEqualToString:label4];
+      v53 = objc_msgSend_isEqualToString_(label3);
 
       if (!v53)
       {

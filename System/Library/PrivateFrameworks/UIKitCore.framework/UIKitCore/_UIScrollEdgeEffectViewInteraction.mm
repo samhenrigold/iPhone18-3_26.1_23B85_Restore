@@ -117,9 +117,10 @@
 - (id)forcingPocketFor:(unint64_t)for
 {
   selfCopy = self;
-  v5 = sub_189047484(for);
+  sub_189047484(for);
+  v6 = v5;
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)needsPockets

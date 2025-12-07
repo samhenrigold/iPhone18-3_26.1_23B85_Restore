@@ -2010,7 +2010,7 @@ LABEL_52:
 
 - (BOOL)addPoliciesForProbing
 {
-  sub_100086944();
+  sub_100086944(NSPPrivacyProxyPolicySerialization);
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;

@@ -11,16 +11,17 @@
 {
   accountCopy = account;
   registryCopy = registry;
-  v14.receiver = self;
-  v14.super_class = FMDSupportedAccessoryTypesRequest;
-  v8 = [(FMDRequest *)&v14 initWithAccount:accountCopy];
+  v15.receiver = self;
+  v15.super_class = FMDSupportedAccessoryTypesRequest;
+  v8 = [(FMDRequest *)&v15 initWithAccount:accountCopy];
   if (!v8)
   {
     goto LABEL_4;
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     extAccessoryConfigURL = [accountCopy extAccessoryConfigURL];
     baseURL = v8->_baseURL;
@@ -28,20 +29,20 @@
 
     objc_storeStrong(&v8->_registry, registry);
 LABEL_4:
-    v11 = v8;
+    v12 = v8;
     goto LABEL_8;
   }
 
-  v12 = sub_10000BE38();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v13 = sub_10000BE38(isKindOfClass);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    sub_1002265FC(accountCopy, v12);
+    sub_1002265FC(accountCopy, v13);
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_8:
 
-  return v11;
+  return v12;
 }
 
 - (id)requestHeaders

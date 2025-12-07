@@ -26,7 +26,7 @@
   return v2;
 }
 
-uint64_t __37__AMSURLSecurityPolicy_defaultPolicy__block_invoke()
+uint64_t __37__AMSURLSecurityPolicy_defaultPolicy__block_invoke(uint64_t a1)
 {
   qword_1ED6E31F8 = [objc_alloc(objc_opt_class()) initWithTrustMode:1];
 

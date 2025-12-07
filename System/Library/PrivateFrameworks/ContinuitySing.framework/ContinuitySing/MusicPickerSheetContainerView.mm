@@ -42,12 +42,10 @@
   v5[1] = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC14ContinuitySing29MusicPickerSheetContainerView_source) = MEMORY[0x277D84F90];
   v6 = OBJC_IVAR____TtC14ContinuitySing29MusicPickerSheetContainerView_dataSource;
-  v7 = type metadata accessor for PickerDataSource();
-  v8 = *(v7 + 48);
-  v9 = *(v7 + 52);
-  v10 = swift_allocObject();
+  type metadata accessor for PickerDataSource(0);
+  v7 = swift_allocObject();
   sub_244238358();
-  *(&self->super.super.super.isa + v6) = v10;
+  *(&self->super.super.super.isa + v6) = v7;
   result = sub_244257E28();
   __break(1u);
   return result;

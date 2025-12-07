@@ -17,7 +17,7 @@
     internalSpring = v2->_internalSpring;
     v2->_internalSpring = v3;
 
-    nullsub_1(0.8425, 0.0625, 0.4, 0.125);
+    nullsub_1();
     [(FLSpring *)v2->_internalSpring setTrackingParameters:?];
     [(FLSpring *)v2->_internalSpring setTracking:1];
     v2->_lastUpdate = 0.0;

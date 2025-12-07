@@ -14,6 +14,7 @@
 - (void)removeArrangedLayoutItem:(id)item;
 - (void)resetAlignmentForArrangedLayoutItem:(id)item;
 - (void)setAlignment:(int64_t)alignment forArrangedLayoutItem:(id)item;
+- (void)setAlignmentBoundsContent:(BOOL)content forArrangedLayoutItem:(id)item;
 - (void)setAlignmentFittingSizePriority:(float)priority forArrangedLayoutItem:(id)item;
 - (void)setArrangedLayoutItems:(id)items;
 - (void)setOffset:(UIOffset)offset forArrangedLayoutItem:(id)item;
@@ -38,6 +39,14 @@
   v6 = v5;
 
   return v6;
+}
+
+- (void)setAlignmentBoundsContent:(BOOL)content forArrangedLayoutItem:(id)item
+{
+  contentCopy = content;
+  internal = self->_internal;
+  v6 = unwrapLayoutItem(item);
+  [(MUCompositionalStackLayoutGroupInternal *)internal setAlignmentBoundsContent:contentCopy forArrangedLayoutItem:v6];
 }
 
 - (BOOL)alignmentBoundsContentForArrangedLayoutItem:(id)item

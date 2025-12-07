@@ -20,9 +20,11 @@
 
 uint64_t __30__CNFeatureFlags_currentFlags__block_invoke()
 {
-  currentFlags_cn_once_object_1 = objc_alloc_init(CNFeatureFlags);
+  v0 = objc_alloc_init(CNFeatureFlags);
+  v1 = currentFlags_cn_once_object_1;
+  currentFlags_cn_once_object_1 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)isFeatureEnabled:(unint64_t)enabled

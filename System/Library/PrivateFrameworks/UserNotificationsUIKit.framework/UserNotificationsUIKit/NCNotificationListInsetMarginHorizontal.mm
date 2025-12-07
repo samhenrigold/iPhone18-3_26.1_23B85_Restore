@@ -5,15 +5,15 @@
 
 void ___NCNotificationListInsetMarginHorizontal_block_invoke()
 {
-  v1 = [MEMORY[0x277D75418] currentDevice];
-  if ([v1 userInterfaceIdiom])
+  v2 = [MEMORY[0x277D75418] currentDevice];
+  if ([v2 userInterfaceIdiom])
   {
   }
 
   else
   {
-    v3.origin.x = NCMainScreenReferenceBounds();
-    Width = CGRectGetWidth(v3);
+    v4.origin.x = NCMainScreenReferenceBounds(0, v0);
+    Width = CGRectGetWidth(v4);
 
     if (Width >= 393.0)
     {

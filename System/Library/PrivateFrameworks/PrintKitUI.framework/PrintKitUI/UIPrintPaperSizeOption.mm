@@ -147,7 +147,7 @@ LABEL_17:
   dispatch_async(MEMORY[0x277D85CD0], v9);
 }
 
-uint64_t __73__UIPrintPaperSizeOption_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
+void *__73__UIPrintPaperSizeOption_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) isEqualToString:0x2871AF150])
   {

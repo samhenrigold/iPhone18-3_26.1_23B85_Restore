@@ -38,11 +38,10 @@
     }
 
     v4 = *&self->stickerAttachmentInfo[OBJC_IVAR___BlastDoorStickerAttachmentInfo_stickerAttachmentInfo + 128];
-    v5 = *&self->stickerAttachmentInfo[OBJC_IVAR___BlastDoorStickerAttachmentInfo_stickerAttachmentInfo + 136];
 
-    v6 = sub_2146D9588();
+    v5 = sub_2146D9588();
     sub_213FDC6D0(v4, v2);
-    v3 = v6;
+    v3 = v5;
   }
 
   else
@@ -66,11 +65,10 @@
     }
 
     v4 = *&self->stickerAttachmentInfo[OBJC_IVAR___BlastDoorStickerAttachmentInfo_stickerAttachmentInfo + 168];
-    v5 = *&self->stickerAttachmentInfo[OBJC_IVAR___BlastDoorStickerAttachmentInfo_stickerAttachmentInfo + 176];
 
-    v6 = sub_2146D9588();
+    v5 = sub_2146D9588();
     sub_213FDC6D0(v4, v2);
-    v3 = v6;
+    v3 = v5;
   }
 
   else

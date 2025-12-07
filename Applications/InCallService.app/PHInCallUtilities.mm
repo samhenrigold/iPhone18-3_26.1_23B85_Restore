@@ -127,7 +127,7 @@
       goto LABEL_8;
     }
 
-    applicationState = sub_100004F84();
+    applicationState = sub_100004F84(v4);
     if (os_log_type_enabled(applicationState, OS_LOG_TYPE_ERROR))
     {
       sub_1002547D4(v2, v5, applicationState);
@@ -260,15 +260,15 @@ LABEL_8:
     inCallStatusBarSuppressionReasons2 = [(PHInCallUtilities *)self inCallStatusBarSuppressionReasons];
     [inCallStatusBarSuppressionReasons2 addObject:reasonCopy];
 
-    v8 = sub_100004F84();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004F84(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       inCallStatusBarSuppressionReasons3 = [(PHInCallUtilities *)self inCallStatusBarSuppressionReasons];
-      v10 = 138412546;
-      v11 = reasonCopy;
-      v12 = 2112;
-      v13 = inCallStatusBarSuppressionReasons3;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "added reason: %@, reasons: %@", &v10, 0x16u);
+      v11 = 138412546;
+      v12 = reasonCopy;
+      v13 = 2112;
+      v14 = inCallStatusBarSuppressionReasons3;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "added reason: %@, reasons: %@", &v11, 0x16u);
     }
   }
 
@@ -286,15 +286,15 @@ LABEL_8:
     inCallStatusBarSuppressionReasons2 = [(PHInCallUtilities *)self inCallStatusBarSuppressionReasons];
     [inCallStatusBarSuppressionReasons2 removeObject:reasonCopy];
 
-    v8 = sub_100004F84();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004F84(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       inCallStatusBarSuppressionReasons3 = [(PHInCallUtilities *)self inCallStatusBarSuppressionReasons];
-      v10 = 138412546;
-      v11 = reasonCopy;
-      v12 = 2112;
-      v13 = inCallStatusBarSuppressionReasons3;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "removed reason: %@, reasons: %@", &v10, 0x16u);
+      v11 = 138412546;
+      v12 = reasonCopy;
+      v13 = 2112;
+      v14 = inCallStatusBarSuppressionReasons3;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "removed reason: %@, reasons: %@", &v11, 0x16u);
     }
   }
 
@@ -303,7 +303,7 @@ LABEL_8:
 
 - (void)stopSuppressingInCallStatusBar
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     inCallStatusBarSuppressionReasons = [(PHInCallUtilities *)self inCallStatusBarSuppressionReasons];
@@ -344,7 +344,7 @@ LABEL_8:
   if (dword_1003A84E8 != hasStatusBarSuppressionReasons)
   {
     v3 = hasStatusBarSuppressionReasons;
-    v4 = sub_100004F84();
+    v4 = sub_100004F84(hasStatusBarSuppressionReasons);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = @"NO";
@@ -370,33 +370,38 @@ LABEL_8:
   completionCopy = completion;
   if (completionCopy)
   {
-    if (+[PHInCallUIUtilities isSpringBoardPasscodeLocked])
+    v5 = +[PHInCallUIUtilities isSpringBoardPasscodeLocked];
+    if (v5)
     {
-      v5 = sub_100004F84();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_100004F84(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Requesting passcode", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Requesting passcode", buf, 2u);
       }
 
       SBSRequestPasscodeUnlockAlertUI();
     }
 
-    else if ([(PHInCallUtilities *)self isInLostMode])
-    {
-      v6 = sub_100004F84();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-      {
-        *v7 = 0;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "In lost mode and no passcode, not displaying UI", v7, 2u);
-      }
-
-      completionCopy[2](completionCopy, 0);
-    }
-
     else
     {
-      completionCopy[2](completionCopy, 1);
+      isInLostMode = [(PHInCallUtilities *)self isInLostMode];
+      if (isInLostMode)
+      {
+        v8 = sub_100004F84(isInLostMode);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        {
+          *v9 = 0;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "In lost mode and no passcode, not displaying UI", v9, 2u);
+        }
+
+        completionCopy[2](completionCopy, 0);
+      }
+
+      else
+      {
+        completionCopy[2](completionCopy, 1);
+      }
     }
   }
 }
@@ -439,25 +444,26 @@ LABEL_8:
 {
   barCopy = bar;
   logCopy = log;
+  v7 = logCopy;
   if (self->_requestedVCPresentationWithStatusBar != barCopy)
   {
     self->_requestedVCPresentationWithStatusBar = barCopy;
-    v7 = sub_100004F84();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004F84(logCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = NSStringFromBOOL();
-      v9 = 138412546;
-      v10 = v8;
-      v11 = 2112;
-      v12 = logCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "set requestedPresentationWithStatusBar: %@ because: %@", &v9, 0x16u);
+      v9 = NSStringFromBOOL();
+      v10 = 138412546;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "set requestedPresentationWithStatusBar: %@ because: %@", &v10, 0x16u);
     }
   }
 }
 
 - (BOOL)isLockToEndCallEnabled
 {
-  if (!sub_100071310() || !sub_10007143C())
+  if (!sub_100071310(0) || !sub_10007143C())
   {
     return 1;
   }
@@ -469,16 +475,17 @@ LABEL_8:
   }
 
   v3 = v2();
-  v4 = v3 != 0;
-  v5 = sub_100004F84();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v4 = v3;
+  v5 = v3 != 0;
+  v6 = sub_100004F84(v3);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = v3 != 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Accessibility lock to end: %d", v7, 8u);
+    v8[0] = 67109120;
+    v8[1] = v4 != 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Accessibility lock to end: %d", v8, 8u);
   }
 
-  return v4;
+  return v5;
 }
 
 + (id)contactStoreForCall:(id)call

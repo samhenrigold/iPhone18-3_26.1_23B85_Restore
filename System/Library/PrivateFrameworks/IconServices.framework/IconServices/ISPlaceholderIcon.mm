@@ -28,7 +28,7 @@ uint64_t __35__ISPlaceholderIcon_sharedInstance__block_invoke()
 
 - (ISPlaceholderIcon)init
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   iconsetResourceBundle = [MEMORY[0x1E69A8960] iconsetResourceBundle];
   assetCatalogURL = [iconsetResourceBundle assetCatalogURL];
   __is__contentModifiedDate = [assetCatalogURL __is__contentModifiedDate];
@@ -38,17 +38,16 @@ uint64_t __35__ISPlaceholderIcon_sharedInstance__block_invoke()
   v7 = [v6 _IF_UUIDWithDouble:?];
   v8 = [MEMORY[0x1E696AFB0] _IF_UUIDWithString:@"STATIC_PLACHOLDER_ICON"];
   v9 = MEMORY[0x1E696AFB0];
-  v17[0] = v8;
-  v17[1] = v7;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16[0] = v8;
+  v16[1] = v7;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
   v11 = [v9 _IF_UUIDByXORingUUIDs:v10];
 
   _IF_nullUUID = [MEMORY[0x1E696AFB0] _IF_nullUUID];
-  v16.receiver = self;
-  v16.super_class = ISPlaceholderIcon;
-  v13 = [(ISConcreteIcon *)&v16 initWithDigest:_IF_nullUUID];
+  v15.receiver = self;
+  v15.super_class = ISPlaceholderIcon;
+  v13 = [(ISConcreteIcon *)&v15 initWithDigest:_IF_nullUUID];
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

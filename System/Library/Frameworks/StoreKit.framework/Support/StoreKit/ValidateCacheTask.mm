@@ -27,7 +27,7 @@
 {
   client = [(ValidateCacheTask *)self client];
   client2 = [(ValidateCacheTask *)self client];
-  v79 = [client2 bag];
+  v80 = [client2 bag];
 
   *(&self->super._finished + 2) = 0;
   *(&self->_logKey + 2) = 0;
@@ -39,7 +39,7 @@ LABEL_2:
   }
 
   v6 = +[_TtC9storekitd6BagKey ignoreIAPQueueCheckSuppression];
-  v7 = [v79 BOOLForKey:v6];
+  v7 = [v80 BOOLForKey:v6];
   v8 = [v7 valueWithError:0];
   bOOLValue = [v8 BOOLValue];
 
@@ -89,38 +89,38 @@ LABEL_13:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v108 = sub_1000333B4;
-  v109 = sub_1000333C4;
-  v110 = 0;
+  v109 = sub_1000333B4;
+  v110 = sub_1000333C4;
+  v111 = 0;
+  v96 = 0;
+  v97 = &v96;
+  v98 = 0x3032000000;
+  v99 = sub_1000333B4;
+  v100 = sub_1000333C4;
+  v101 = 0;
+  v92 = 0;
+  v93 = &v92;
+  v94 = 0x2020000000;
   v95 = 0;
-  v96 = &v95;
-  v97 = 0x3032000000;
-  v98 = sub_1000333B4;
-  v99 = sub_1000333C4;
-  v100 = 0;
+  v88 = 0;
+  v89 = &v88;
+  v90 = 0x2020000000;
   v91 = 0;
-  v92 = &v91;
-  v93 = 0x2020000000;
-  v94 = 0;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
-  v90 = 0;
   store = [(ValidateCacheTask *)self store];
-  v81[0] = _NSConcreteStackBlock;
-  v81[1] = 3221225472;
-  v81[2] = sub_1000333CC;
-  v81[3] = &unk_100381108;
-  v83 = buf;
+  v82[0] = _NSConcreteStackBlock;
+  v82[1] = 3221225472;
+  v82[2] = sub_1000333CC;
+  v82[3] = &unk_100381108;
+  v84 = buf;
   v19 = client;
-  v82 = v19;
-  v84 = &v95;
-  v85 = &v91;
-  v86 = &v87;
-  [store readUsingSession:v81];
+  v83 = v19;
+  v85 = &v96;
+  v86 = &v92;
+  v87 = &v88;
+  [store readUsingSession:v82];
 
   includeFinishedConsumables = [(ValidateCacheTask *)self includeFinishedConsumables];
-  if (*(v92 + 24) != includeFinishedConsumables)
+  if (*(v93 + 24) != includeFinishedConsumables)
   {
     store2 = [(ValidateCacheTask *)self store];
     requestBundleID3 = [v19 requestBundleID];
@@ -140,18 +140,18 @@ LABEL_13:
         requestBundleID4 = [v19 requestBundleID];
         includeFinishedConsumables2 = [(ValidateCacheTask *)self includeFinishedConsumables];
         v36 = @"NO";
-        *v101 = 138543874;
-        v102 = logKey3;
-        v103 = 2114;
+        *v102 = 138543874;
+        v103 = logKey3;
+        v104 = 2114;
         if (includeFinishedConsumables2)
         {
           v36 = @"YES";
         }
 
-        v104 = requestBundleID4;
-        v105 = 2114;
-        v106 = v36;
-        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping transaction sync for %{public}@ where includeFinishedConsumables (%{public}@) doesn't match cache", v101, 0x20u);
+        v105 = requestBundleID4;
+        v106 = 2114;
+        v107 = v36;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping transaction sync for %{public}@ where includeFinishedConsumables (%{public}@) doesn't match cache", v102, 0x20u);
       }
 
       goto LABEL_50;
@@ -169,18 +169,18 @@ LABEL_13:
       requestBundleID5 = [v19 requestBundleID];
       includeFinishedConsumables3 = [(ValidateCacheTask *)self includeFinishedConsumables];
       v41 = @"NO";
-      *v101 = 138543874;
-      v102 = logKey4;
-      v103 = 2114;
+      *v102 = 138543874;
+      v103 = logKey4;
+      v104 = 2114;
       if (includeFinishedConsumables3)
       {
         v41 = @"YES";
       }
 
-      v104 = requestBundleID5;
-      v105 = 2114;
-      v106 = v41;
-      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "[%{public}@] Forcing transaction sync for %{public}@ because includeFinishedConsumables (%{public}@) doesn't match cache", v101, 0x20u);
+      v105 = requestBundleID5;
+      v106 = 2114;
+      v107 = v41;
+      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "[%{public}@] Forcing transaction sync for %{public}@ because includeFinishedConsumables (%{public}@) doesn't match cache", v102, 0x20u);
     }
 
     goto LABEL_55;
@@ -200,11 +200,11 @@ LABEL_13:
       {
         logKey5 = [(ValidateCacheTask *)self logKey];
         requestBundleID6 = [v19 requestBundleID];
-        *v101 = 138543618;
-        v102 = logKey5;
-        v103 = 2114;
-        v104 = requestBundleID6;
-        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping transaction sync for %{public}@ with no history.", v101, 0x16u);
+        *v102 = 138543618;
+        v103 = logKey5;
+        v104 = 2114;
+        v105 = requestBundleID6;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping transaction sync for %{public}@ with no history.", v102, 0x16u);
       }
 
       goto LABEL_50;
@@ -220,11 +220,11 @@ LABEL_13:
     {
       logKey6 = [(ValidateCacheTask *)self logKey];
       requestBundleID7 = [v19 requestBundleID];
-      *v101 = 138543618;
-      v102 = logKey6;
-      v103 = 2114;
-      v104 = requestBundleID7;
-      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "[%{public}@] Forcing transaction sync for %{public}@ because there is no history", v101, 0x16u);
+      *v102 = 138543618;
+      v103 = logKey6;
+      v104 = 2114;
+      v105 = requestBundleID7;
+      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "[%{public}@] Forcing transaction sync for %{public}@ because there is no history", v102, 0x16u);
     }
 
 LABEL_55:
@@ -234,11 +234,11 @@ LABEL_55:
     goto LABEL_79;
   }
 
-  if (v96[5])
+  if (v97[5])
   {
     currentAccountToken = [v19 currentAccountToken];
     v22 = currentAccountToken;
-    v23 = v96[5];
+    v23 = v97[5];
     if (!currentAccountToken)
     {
       if (v23)
@@ -253,11 +253,11 @@ LABEL_55:
         {
           logKey7 = [(ValidateCacheTask *)self logKey];
           requestBundleID8 = [v19 requestBundleID];
-          *v101 = 138543618;
-          v102 = logKey7;
-          v103 = 2114;
-          v104 = requestBundleID8;
-          _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "[%{public}@] Removing all transactions %{public}@ because there is no account", v101, 0x16u);
+          *v102 = 138543618;
+          v103 = logKey7;
+          v104 = 2114;
+          v105 = requestBundleID8;
+          _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "[%{public}@] Removing all transactions %{public}@ because there is no account", v102, 0x16u);
         }
 
         store3 = [(ValidateCacheTask *)self store];
@@ -286,11 +286,11 @@ LABEL_55:
         {
           logKey8 = [(ValidateCacheTask *)self logKey];
           requestBundleID11 = [v19 requestBundleID];
-          *v101 = 138543618;
-          v102 = logKey8;
-          v103 = 2114;
-          v104 = requestBundleID11;
-          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping transaction sync for %{public}@ where the tokens don't match", v101, 0x16u);
+          *v102 = 138543618;
+          v103 = logKey8;
+          v104 = 2114;
+          v105 = requestBundleID11;
+          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping transaction sync for %{public}@ where the tokens don't match", v102, 0x16u);
         }
       }
 
@@ -306,11 +306,11 @@ LABEL_55:
         {
           logKey9 = [(ValidateCacheTask *)self logKey];
           requestBundleID12 = [v19 requestBundleID];
-          *v101 = 138543618;
-          v102 = logKey9;
-          v103 = 2114;
-          v104 = requestBundleID12;
-          _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "[%{public}@] Forcing transaction sync for %{public}@ because the tokens don't match", v101, 0x16u);
+          *v102 = 138543618;
+          v103 = logKey9;
+          v104 = 2114;
+          v105 = requestBundleID12;
+          _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "[%{public}@] Forcing transaction sync for %{public}@ because the tokens don't match", v102, 0x16u);
         }
 
         *(&self->super._finished + 2) = 1;
@@ -321,11 +321,11 @@ LABEL_55:
     }
 
     v24 = +[_TtC9storekitd6BagKey transactionReceiptsMaxAge];
-    v25 = [v79 integerForKey:v24];
+    v25 = [v80 integerForKey:v24];
 
-    v80 = 0;
-    v26 = [v25 valueWithError:&v80];
-    v27 = v80;
+    v81 = 0;
+    v26 = [v25 valueWithError:&v81];
+    v27 = v81;
     if (v27)
     {
       if (qword_1003D3FE8 != -1)
@@ -339,13 +339,13 @@ LABEL_55:
       {
         logKey10 = [(ValidateCacheTask *)self logKey];
         requestBundleID13 = [v19 requestBundleID];
-        *v101 = 138543874;
-        v102 = logKey10;
-        v103 = 2114;
-        v104 = requestBundleID13;
-        v105 = 2114;
-        v106 = v27;
-        _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "[%{public}@] Error getting max age for %{public}@ transaction history: %{public}@", v101, 0x20u);
+        *v102 = 138543874;
+        v103 = logKey10;
+        v104 = 2114;
+        v105 = requestBundleID13;
+        v106 = 2114;
+        v107 = v27;
+        _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "[%{public}@] Error getting max age for %{public}@ transaction history: %{public}@", v102, 0x20u);
       }
 
       goto LABEL_23;
@@ -353,16 +353,16 @@ LABEL_55:
 
     if (v5)
     {
-      v29 = sub_100033370();
+      v29 = sub_100033370(0);
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         logKey11 = [(ValidateCacheTask *)self logKey];
         requestBundleID14 = [v19 requestBundleID];
-        *v101 = 138543618;
-        v102 = logKey11;
-        v103 = 2114;
-        v104 = requestBundleID14;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping transaction sync for %{public}@ lastUpdated check", v101, 0x16u);
+        *v102 = 138543618;
+        v103 = logKey11;
+        v104 = 2114;
+        v105 = requestBundleID14;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping transaction sync for %{public}@ lastUpdated check", v102, 0x16u);
 
         v28 = v26;
       }
@@ -385,23 +385,23 @@ LABEL_55:
     v27 = 0;
     if (v70)
     {
-      v71 = sub_100033370();
-      if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+      v72 = sub_100033370(v71);
+      if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
       {
         logKey12 = [(ValidateCacheTask *)self logKey];
         requestBundleID15 = [v19 requestBundleID];
-        *v101 = 138543618;
-        v102 = logKey12;
-        v103 = 2114;
-        v104 = requestBundleID15;
-        v76 = requestBundleID15;
-        _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "[%{public}@] Forcing transaction sync for %{public}@ because lastUpdated is older than maxAge", v101, 0x16u);
+        *v102 = 138543618;
+        v103 = logKey12;
+        v104 = 2114;
+        v105 = requestBundleID15;
+        v77 = requestBundleID15;
+        _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, "[%{public}@] Forcing transaction sync for %{public}@ because lastUpdated is older than maxAge", v102, 0x16u);
       }
     }
 
     else
     {
-      if (*(v88 + 24) != 1)
+      if (*(v89 + 24) != 1)
       {
 LABEL_23:
 
@@ -409,17 +409,17 @@ LABEL_78:
         goto LABEL_79;
       }
 
-      v71 = sub_100033370();
-      if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+      v72 = sub_100033370(v71);
+      if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
       {
         logKey13 = [(ValidateCacheTask *)self logKey];
         requestBundleID16 = [v19 requestBundleID];
-        *v101 = 138543618;
-        v102 = logKey13;
-        v103 = 2114;
-        v104 = requestBundleID16;
-        v76 = requestBundleID16;
-        _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "[%{public}@] Forcing transaction sync for %{public}@ because transaction history has a recently expired subscription", v101, 0x16u);
+        *v102 = 138543618;
+        v103 = logKey13;
+        v104 = 2114;
+        v105 = requestBundleID16;
+        v77 = requestBundleID16;
+        _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, "[%{public}@] Forcing transaction sync for %{public}@ because transaction history has a recently expired subscription", v102, 0x16u);
       }
     }
 
@@ -444,11 +444,11 @@ LABEL_78:
     {
       logKey14 = [(ValidateCacheTask *)self logKey];
       requestBundleID18 = [v19 requestBundleID];
-      *v101 = 138543618;
-      v102 = logKey14;
-      v103 = 2114;
-      v104 = requestBundleID18;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping transaction sync for %{public}@ where the cached history has no token.", v101, 0x16u);
+      *v102 = 138543618;
+      v103 = logKey14;
+      v104 = 2114;
+      v105 = requestBundleID18;
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping transaction sync for %{public}@ where the cached history has no token.", v102, 0x16u);
     }
 
 LABEL_50:
@@ -466,11 +466,11 @@ LABEL_50:
   {
     logKey15 = [(ValidateCacheTask *)self logKey];
     requestBundleID19 = [v19 requestBundleID];
-    *v101 = 138543618;
-    v102 = logKey15;
-    v103 = 2114;
-    v104 = requestBundleID19;
-    _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "[%{public}@] Forcing transaction sync for %{public}@ because the cached history has no token", v101, 0x16u);
+    *v102 = 138543618;
+    v103 = logKey15;
+    v104 = 2114;
+    v105 = requestBundleID19;
+    _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "[%{public}@] Forcing transaction sync for %{public}@ because the cached history has no token", v102, 0x16u);
   }
 
   *(&self->super._finished + 2) = 1;
@@ -478,9 +478,9 @@ LABEL_50:
 LABEL_79:
   [(AsyncTask *)self completeWithSuccess];
 
-  _Block_object_dispose(&v87, 8);
-  _Block_object_dispose(&v91, 8);
-  _Block_object_dispose(&v95, 8);
+  _Block_object_dispose(&v88, 8);
+  _Block_object_dispose(&v92, 8);
+  _Block_object_dispose(&v96, 8);
 
   _Block_object_dispose(buf, 8);
 }

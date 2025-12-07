@@ -73,7 +73,7 @@ LABEL_8:
 
 + (id)SHA1AsBitString:(id)string
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   uTF8String = [string UTF8String];
   v7 = strlen(uTF8String);
@@ -84,8 +84,6 @@ LABEL_8:
     v10 = [self intToBitString:md[i] withLength:8];
     [v8 appendFormat:@"%@", v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -101,7 +99,7 @@ LABEL_8:
 + (id)tokenizeSentence:(id)sentence removePunctuation:(BOOL)punctuation tokenizePerson:(BOOL)person tokenizeLocation:(BOOL)location tokenizeNumber:(BOOL)number action:(int64_t)action
 {
   punctuationCopy = punctuation;
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   sentenceCopy = sentence;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 || ![sentenceCopy length])
@@ -119,8 +117,8 @@ LABEL_8:
   array = [MEMORY[0x277CBEB18] array];
   v16 = objc_alloc(MEMORY[0x277CD89D8]);
   v17 = *MEMORY[0x277CD8970];
-  v34[0] = *MEMORY[0x277CD8970];
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+  v33[0] = *MEMORY[0x277CD8970];
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
   v19 = [v16 initWithTagSchemes:v18];
 
   [v19 setString:sentenceCopy];
@@ -135,24 +133,24 @@ LABEL_8:
   }
 
   v21 = [sentenceCopy length];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __106__FedStatsUtils_tokenizeSentence_removePunctuation_tokenizePerson_tokenizeLocation_tokenizeNumber_action___block_invoke;
-  v28[3] = &unk_278FF6268;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __106__FedStatsUtils_tokenizeSentence_removePunctuation_tokenizePerson_tokenizeLocation_tokenizeNumber_action___block_invoke;
+  v27[3] = &unk_278FF6268;
   personCopy = person;
   v22 = array;
-  v29 = v22;
+  v28 = v22;
   locationCopy = location;
   numberCopy = number;
-  v30 = sentenceCopy;
-  [v19 enumerateTagsInRange:0 unit:v21 scheme:0 options:v17 usingBlock:{v20, v28}];
+  v29 = sentenceCopy;
+  [v19 enumerateTagsInRange:0 unit:v21 scheme:0 options:v17 usingBlock:{v20, v27}];
   if ([v22 count])
   {
     switch(action)
     {
       case 2:
-        v27 = [v22 sortedArrayUsingSelector:sel_compare_];
-        v24 = [v27 componentsJoinedByString:@" "];
+        v26 = [v22 sortedArrayUsingSelector:sel_compare_];
+        v24 = [v26 componentsJoinedByString:@" "];
 
         goto LABEL_21;
       case 1:
@@ -170,7 +168,6 @@ LABEL_19:
 LABEL_21:
 
 LABEL_13:
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -293,9 +290,9 @@ void __32__FedStatsUtils_getDeviceRegion__block_invoke()
   v8 = MEMORY[0x277CCACA8];
   if (processInfo)
   {
-    [processInfo operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(processInfo);
     v9 = v17;
-    [v7 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v7);
     v10 = v15;
   }
 
@@ -454,28 +451,28 @@ LABEL_22:
 
 + (id)normL2:(id)l2
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   l2Copy = l2;
-  v4 = [l2Copy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [l2Copy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     v7 = 0.0;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(l2Copy);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -488,7 +485,7 @@ LABEL_22:
         v7 = v7 + (v10 * v10);
       }
 
-      v5 = [l2Copy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [l2Copy countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v5)
       {
         continue;
@@ -507,18 +504,15 @@ LABEL_22:
   v11 = [MEMORY[0x277CCABB0] numberWithFloat:v12];
 LABEL_13:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 + (void)checkDeviceRegionCodeRestrictionForAllowedRegions:(uint64_t)a1 deniedRegions:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24AAFE000, a2, OS_LOG_TYPE_DEBUG, "Device region code: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24AAFE000, a2, OS_LOG_TYPE_DEBUG, "Device region code: %@", &v2, 0xCu);
 }
 
 @end

@@ -111,54 +111,54 @@ void __46__VKImageAnalyzerMadInterface_sharedInterface__block_invoke()
   viInterface = self->_viInterface;
   if (!viInterface)
   {
-    v4 = _VKSignpostLog();
+    v4 = _VKSignpostLog(0);
     if (os_signpost_enabled(v4))
     {
-      LOWORD(v13[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B4335000, v4, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "VKImageAnalyzerMadInterface Visual Intelligence Analyzer", &unk_1B4435C0E, v13, 2u);
+      LOWORD(v14[0]) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1B4335000, v4, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "VKImageAnalyzerMadInterface Visual Intelligence Analyzer", &unk_1B4435C0E, v14, 2u);
     }
 
     v5 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v13[0]) = 0;
-      _os_log_impl(&dword_1B4335000, v5, OS_LOG_TYPE_INFO, "Signpost Begin: VKImageAnalyzerMadInterface Visual Intelligence Analyzer", v13, 2u);
+      LOWORD(v14[0]) = 0;
+      _os_log_impl(&dword_1B4335000, v5, OS_LOG_TYPE_INFO, "Signpost Begin: VKImageAnalyzerMadInterface Visual Intelligence Analyzer", v14, 2u);
     }
 
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x2050000000;
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x2050000000;
     v6 = getVICVisualIntelligenceAnalyzerClass_softClass_0;
-    v17 = getVICVisualIntelligenceAnalyzerClass_softClass_0;
+    v18 = getVICVisualIntelligenceAnalyzerClass_softClass_0;
     if (!getVICVisualIntelligenceAnalyzerClass_softClass_0)
     {
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __getVICVisualIntelligenceAnalyzerClass_block_invoke_0;
-      v13[3] = &unk_1E7BE3F48;
-      v13[4] = &v14;
-      __getVICVisualIntelligenceAnalyzerClass_block_invoke_0(v13);
-      v6 = v15[3];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __getVICVisualIntelligenceAnalyzerClass_block_invoke_0;
+      v14[3] = &unk_1E7BE3F48;
+      v14[4] = &v15;
+      __getVICVisualIntelligenceAnalyzerClass_block_invoke_0(v14);
+      v6 = v16[3];
     }
 
     v7 = v6;
-    _Block_object_dispose(&v14, 8);
+    _Block_object_dispose(&v15, 8);
     v8 = objc_alloc_init(v6);
     v9 = self->_viInterface;
     self->_viInterface = v8;
 
-    v10 = _VKSignpostLog();
-    if (os_signpost_enabled(v10))
+    v11 = _VKSignpostLog(v10);
+    if (os_signpost_enabled(v11))
     {
-      LOWORD(v13[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B4335000, v10, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "VKImageAnalyzerMadInterface Visual Intelligence Analyzer", &unk_1B4435C0E, v13, 2u);
+      LOWORD(v14[0]) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1B4335000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "VKImageAnalyzerMadInterface Visual Intelligence Analyzer", &unk_1B4435C0E, v14, 2u);
     }
 
-    v11 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v13[0]) = 0;
-      _os_log_impl(&dword_1B4335000, v11, OS_LOG_TYPE_INFO, "Signpost End: VKImageAnalyzerMadInterface Visual Intelligence Analyzer", v13, 2u);
+      LOWORD(v14[0]) = 0;
+      _os_log_impl(&dword_1B4335000, v12, OS_LOG_TYPE_INFO, "Signpost End: VKImageAnalyzerMadInterface Visual Intelligence Analyzer", v14, 2u);
     }
 
     viInterface = self->_viInterface;
@@ -225,7 +225,7 @@ void __46__VKImageAnalyzerMadInterface_sharedInterface__block_invoke()
   return v6;
 }
 
-uint64_t __50__VKImageAnalyzerMadInterface_statusForRequestID___block_invoke(uint64_t a1)
+void *__50__VKImageAnalyzerMadInterface_statusForRequestID___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _statusForRequestID:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -610,8 +610,8 @@ uint64_t __48__VKImageAnalyzerMadInterface_cancelAllRequests__block_invoke_163(u
   }
 
   date = [MEMORY[0x1E695DF00] date];
-  v11 = _VKSignpostLog();
-  v12 = _VKSignpostLog();
+  v11 = _VKSignpostLog(date);
+  v12 = _VKSignpostLog(v11);
   v13 = os_signpost_id_make_with_pointer(v12, self);
 
   if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
@@ -773,7 +773,7 @@ void __61__VKImageAnalyzerMadInterface__processRequest_callbackQueue___block_inv
 
 void __61__VKImageAnalyzerMadInterface__processRequest_callbackQueue___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DF00];
   v5 = a3;
   v6 = [v4 date];
@@ -784,11 +784,11 @@ void __61__VKImageAnalyzerMadInterface__processRequest_callbackQueue___block_inv
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = [*(a1 + 40) requestID];
-    v18[0] = 67109376;
-    v18[1] = v10;
-    v19 = 2048;
-    v20 = v8;
-    _os_log_impl(&dword_1B4335000, v9, OS_LOG_TYPE_DEFAULT, "Mad processing complete for requestID: %d, duration: %f", v18, 0x12u);
+    v19[0] = 67109376;
+    v19[1] = v10;
+    v20 = 2048;
+    v21 = v8;
+    _os_log_impl(&dword_1B4335000, v9, OS_LOG_TYPE_DEFAULT, "Mad processing complete for requestID: %d, duration: %f", v19, 0x12u);
   }
 
   (*(*(a1 + 56) + 16))();
@@ -797,28 +797,28 @@ void __61__VKImageAnalyzerMadInterface__processRequest_callbackQueue___block_inv
 
   if (v12 >= 0xB)
   {
-    v13 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      __61__VKImageAnalyzerMadInterface__processRequest_callbackQueue___block_invoke_2_cold_1(v13);
+      __61__VKImageAnalyzerMadInterface__processRequest_callbackQueue___block_invoke_2_cold_1(v14);
     }
   }
 
-  v14 = _VKSignpostLog();
-  v15 = _VKSignpostLog();
-  v16 = os_signpost_id_make_with_pointer(v15, *(a1 + 48));
+  v15 = _VKSignpostLog(v13);
+  v16 = _VKSignpostLog(v15);
+  v17 = os_signpost_id_make_with_pointer(v16, *(a1 + 48));
 
-  if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
-    LOWORD(v18[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B4335000, v14, OS_SIGNPOST_INTERVAL_END, v16, "VisionKit MAD Parse Request", &unk_1B4435C0E, v18, 2u);
+    LOWORD(v19[0]) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B4335000, v15, OS_SIGNPOST_INTERVAL_END, v17, "VisionKit MAD Parse Request", &unk_1B4435C0E, v19, 2u);
   }
 
-  v17 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  v18 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v18[0]) = 0;
-    _os_log_impl(&dword_1B4335000, v17, OS_LOG_TYPE_INFO, "Signpost Begin: VisionKit MAD Parse Request", v18, 2u);
+    LOWORD(v19[0]) = 0;
+    _os_log_impl(&dword_1B4335000, v18, OS_LOG_TYPE_INFO, "Signpost Begin: VisionKit MAD Parse Request", v19, 2u);
   }
 }
 
@@ -1614,9 +1614,8 @@ LABEL_12:
   viImageType = [requestCopy viImageType];
   [v24 setImageType:viImageType];
 
-  [v24 setEngagementSuggestionType:v25];
-  v33 = _VKSignpostLog();
-  v34 = _VKSignpostLog();
+  v33 = _VKSignpostLog([v24 setEngagementSuggestionType:v25]);
+  v34 = _VKSignpostLog(v33);
   v35 = os_signpost_id_make_with_pointer(v34, self);
 
   if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
@@ -1695,8 +1694,8 @@ void __117__VKImageAnalyzerMadInterface_generateVisualSearchResultForRequest_ana
 
   v11 = [*(a1 + 48) results];
   v12 = [v11 firstObject];
-  v13 = _VKSignpostLog();
-  v14 = _VKSignpostLog();
+  v13 = _VKSignpostLog(v12);
+  v14 = _VKSignpostLog(v13);
   v15 = os_signpost_id_make_with_pointer(v14, *(a1 + 56));
 
   if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
@@ -1717,7 +1716,7 @@ void __117__VKImageAnalyzerMadInterface_generateVisualSearchResultForRequest_ana
 
 - (void)generateTextualVisualSearchResultForAnalysis:(id)analysis queryInfo:(id)info completionHandler:(id)handler
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   analysisCopy = analysis;
   handlerCopy = handler;
   v10 = MEMORY[0x1E695DF00];
@@ -1768,41 +1767,41 @@ void __117__VKImageAnalyzerMadInterface_generateVisualSearchResultForRequest_ana
   v28 = [v27 numberWithDouble:?];
   [v17 setUiScale:v28];
 
-  v29 = _VKSignpostLog();
-  v30 = _VKSignpostLog();
-  v31 = os_signpost_id_make_with_pointer(v30, self);
+  v30 = _VKSignpostLog(v29);
+  v31 = _VKSignpostLog(v30);
+  v32 = os_signpost_id_make_with_pointer(v31, self);
 
-  if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
+  if (v32 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B4335000, v29, OS_SIGNPOST_INTERVAL_BEGIN, v31, "VisionKit MAD VisualSearch Text Request", &unk_1B4435C0E, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B4335000, v30, OS_SIGNPOST_INTERVAL_BEGIN, v32, "VisionKit MAD VisualSearch Text Request", &unk_1B4435C0E, buf, 2u);
   }
 
-  v32 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+  v33 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B4335000, v32, OS_LOG_TYPE_INFO, "Signpost Begin: VisionKit MAD VisualSearch Text Request", buf, 2u);
+    _os_log_impl(&dword_1B4335000, v33, OS_LOG_TYPE_INFO, "Signpost Begin: VisionKit MAD VisualSearch Text Request", buf, 2u);
   }
 
-  v47 = v17;
-  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
+  v48 = v17;
+  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
   imageAnalysisResult4 = [analysisCopy imageAnalysisResult];
   request2 = [imageAnalysisResult4 request];
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = __104__VKImageAnalyzerMadInterface_generateTextualVisualSearchResultForAnalysis_queryInfo_completionHandler___block_invoke_239;
-  v41[3] = &unk_1E7BE6478;
-  v42 = date;
-  v43 = analysisCopy;
-  v44 = v17;
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __104__VKImageAnalyzerMadInterface_generateTextualVisualSearchResultForAnalysis_queryInfo_completionHandler___block_invoke_239;
+  v42[3] = &unk_1E7BE6478;
+  v43 = date;
+  v44 = analysisCopy;
+  v45 = v17;
   selfCopy = self;
-  v46 = handlerCopy;
-  v36 = handlerCopy;
-  v37 = v17;
-  v38 = analysisCopy;
-  v39 = date;
-  [(VKImageAnalyzerMadInterface *)self performMADRequest:v33 forRequest:request2 withCompletion:v41];
+  v47 = handlerCopy;
+  v37 = handlerCopy;
+  v38 = v17;
+  v39 = analysisCopy;
+  v40 = date;
+  [(VKImageAnalyzerMadInterface *)self performMADRequest:v34 forRequest:request2 withCompletion:v42];
 }
 
 uint64_t __104__VKImageAnalyzerMadInterface_generateTextualVisualSearchResultForAnalysis_queryInfo_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1815,7 +1814,7 @@ uint64_t __104__VKImageAnalyzerMadInterface_generateTextualVisualSearchResultFor
 
 void __104__VKImageAnalyzerMadInterface_generateTextualVisualSearchResultForAnalysis_queryInfo_completionHandler___block_invoke_239(uint64_t a1, int a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a3;
   [*(a1 + 32) timeIntervalSinceNow];
   v7 = v6;
@@ -1827,28 +1826,28 @@ void __104__VKImageAnalyzerMadInterface_generateTextualVisualSearchResultForAnal
     {
       v10 = [*(a1 + 40) analysisRequestID];
       v11 = [v5 localizedDescription];
-      v21 = 134218754;
-      v22 = v7;
-      v23 = 1024;
-      v24 = a2;
-      v25 = 1024;
-      v26 = v10;
-      v27 = 2112;
-      v28 = v11;
-      _os_log_error_impl(&dword_1B4335000, v9, OS_LOG_TYPE_ERROR, "VisualSearch Text Request completed: duration: %f, requestID %d, id: %d, error %@", &v21, 0x22u);
+      v22 = 134218754;
+      v23 = v7;
+      v24 = 1024;
+      v25 = a2;
+      v26 = 1024;
+      v27 = v10;
+      v28 = 2112;
+      v29 = v11;
+      _os_log_error_impl(&dword_1B4335000, v9, OS_LOG_TYPE_ERROR, "VisualSearch Text Request completed: duration: %f, requestID %d, id: %d, error %@", &v22, 0x22u);
     }
   }
 
   else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v12 = [*(a1 + 40) analysisRequestID];
-    v21 = 134218496;
-    v22 = v7;
-    v23 = 1024;
-    v24 = a2;
-    v25 = 1024;
-    v26 = v12;
-    _os_log_impl(&dword_1B4335000, v9, OS_LOG_TYPE_DEFAULT, "VisualSearch Text Request completed: duration: %f, requestID %d, id: %d", &v21, 0x18u);
+    v22 = 134218496;
+    v23 = v7;
+    v24 = 1024;
+    v25 = a2;
+    v26 = 1024;
+    v27 = v12;
+    _os_log_impl(&dword_1B4335000, v9, OS_LOG_TYPE_DEFAULT, "VisualSearch Text Request completed: duration: %f, requestID %d, id: %d", &v22, 0x18u);
   }
 
   v13 = [*(a1 + 48) results];
@@ -1856,21 +1855,21 @@ void __104__VKImageAnalyzerMadInterface_generateTextualVisualSearchResultForAnal
   v15 = [v13 firstObject];
   v16 = VKDynamicCast(v14, v15);
 
-  v17 = _VKSignpostLog();
-  v18 = _VKSignpostLog();
-  v19 = os_signpost_id_make_with_pointer(v18, *(a1 + 56));
+  v18 = _VKSignpostLog(v17);
+  v19 = _VKSignpostLog(v18);
+  v20 = os_signpost_id_make_with_pointer(v19, *(a1 + 56));
 
-  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
-    LOWORD(v21) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B4335000, v17, OS_SIGNPOST_INTERVAL_END, v19, "VisionKit MAD VisualSearch Text Request", &unk_1B4435C0E, &v21, 2u);
+    LOWORD(v22) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B4335000, v18, OS_SIGNPOST_INTERVAL_END, v20, "VisionKit MAD VisualSearch Text Request", &unk_1B4435C0E, &v22, 2u);
   }
 
-  v20 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  v21 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v21) = 0;
-    _os_log_impl(&dword_1B4335000, v20, OS_LOG_TYPE_INFO, "Signpost Begin: VisionKit MAD VisualSearch Text Request", &v21, 2u);
+    LOWORD(v22) = 0;
+    _os_log_impl(&dword_1B4335000, v21, OS_LOG_TYPE_INFO, "Signpost Begin: VisionKit MAD VisualSearch Text Request", &v22, 2u);
   }
 
   (*(*(a1 + 64) + 16))();

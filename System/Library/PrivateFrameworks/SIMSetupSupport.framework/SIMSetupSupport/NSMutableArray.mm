@@ -5,7 +5,7 @@
 
 uint64_t __64__NSMutableArray_CTDisplayPlan__filteredPlansWithoutSODATether___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -26,22 +26,22 @@ uint64_t __64__NSMutableArray_CTDisplayPlan__filteredPlansWithoutSODATether___bl
 
       if (v6)
       {
-        v8 = _TSLogDomain();
-        if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = _TSLogDomain(v8);
+        if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
 LABEL_8:
 
           goto LABEL_10;
         }
 
-        v9 = [v5 identifier];
-        v16 = 138412546;
-        v17 = v9;
-        v18 = 2080;
-        v19 = "[NSMutableArray(CTDisplayPlan) filteredPlansWithoutSODATether:]_block_invoke";
-        v10 = "Account member plan (%@) with a SODA tether @%s";
+        v10 = [v5 identifier];
+        v17 = 138412546;
+        v18 = v10;
+        v19 = 2080;
+        v20 = "[NSMutableArray(CTDisplayPlan) filteredPlansWithoutSODATether:]_block_invoke";
+        v11 = "Account member plan (%@) with a SODA tether @%s";
 LABEL_7:
-        _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, v10, &v16, 0x16u);
+        _os_log_impl(&dword_262AA8000, v9, OS_LOG_TYPE_DEFAULT, v11, &v17, 0x16u);
 
         goto LABEL_8;
       }
@@ -51,42 +51,42 @@ LABEL_7:
     {
       if ([v5 isWebsheetTransferablePlan])
       {
-        v12 = *(a1 + 32);
-        v13 = [v5 carrierName];
-        LODWORD(v12) = [v12 containsStringCaseInsensitive:v13];
+        v13 = *(a1 + 32);
+        v14 = [v5 carrierName];
+        LODWORD(v13) = [v13 containsStringCaseInsensitive:v14];
 
-        if (v12)
+        if (v13)
         {
-          if (+[TSUtilities inBuddy])
+          v15 = +[TSUtilities inBuddy];
+          if (v15)
           {
-            v8 = _TSLogDomain();
-            if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+            v9 = _TSLogDomain(v15);
+            if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_8;
             }
 
-            v9 = [v5 identifier];
-            v16 = 138412546;
-            v17 = v9;
-            v18 = 2080;
-            v19 = "[NSMutableArray(CTDisplayPlan) filteredPlansWithoutSODATether:]_block_invoke";
-            v10 = "Websheet-inbuddy plan (%@) with a SODA tether @%s";
+            v10 = [v5 identifier];
+            v17 = 138412546;
+            v18 = v10;
+            v19 = 2080;
+            v20 = "[NSMutableArray(CTDisplayPlan) filteredPlansWithoutSODATether:]_block_invoke";
+            v11 = "Websheet-inbuddy plan (%@) with a SODA tether @%s";
             goto LABEL_7;
           }
         }
       }
     }
 
-    v11 = 1;
+    v12 = 1;
     goto LABEL_18;
   }
 
 LABEL_10:
-  v11 = 0;
+  v12 = 0;
 LABEL_18:
 
-  v14 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 @end

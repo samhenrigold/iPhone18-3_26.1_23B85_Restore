@@ -171,7 +171,7 @@
   targetImage = [(NUImageRenderJob *)self targetImage];
   if (renderedRegion)
   {
-    [renderedRegion bounds];
+    objc_msgSend_bounds(renderedRegion);
   }
 
   else
@@ -373,7 +373,7 @@ void __29__NUImageRenderJob_complete___block_invoke(void *a1, uint64_t a2)
     memset(buf, 0, 32);
     if (regionToRender)
     {
-      [regionToRender bounds];
+      objc_msgSend_bounds(regionToRender);
       v15 = *&buf[24];
       v14 = *&buf[16];
     }
@@ -694,7 +694,7 @@ LABEL_28:
     v12 = outputGeometry2;
     if (outputGeometry2)
     {
-      [outputGeometry2 physicalScaledExtent];
+      objc_msgSend_physicalScaledExtent(outputGeometry2);
     }
 
     else
@@ -706,7 +706,7 @@ LABEL_28:
     v14 = self->_regionToRender;
     if (v14)
     {
-      [(NURegion *)v14 bounds];
+      objc_msgSend_bounds(v14);
       v16 = v127;
       v15 = v128;
     }
@@ -721,7 +721,7 @@ LABEL_28:
     *&buf[16] = v130;
     v132 = v16;
     v133 = v15;
-    NU::RectT<long>::add(v132.i64, buf);
+    NU::RectT<long>::add(&v132, buf);
     if (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_s64(v129, v132), vceqq_s64(v130, v133)))))
     {
 LABEL_28:

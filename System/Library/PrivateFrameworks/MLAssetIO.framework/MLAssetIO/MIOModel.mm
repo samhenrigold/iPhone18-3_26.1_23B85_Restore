@@ -25,7 +25,7 @@
 
 - (MIOModel)initWithContentsOfURL:(id)l error:(id *)error
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   path = [lCopy path];
@@ -64,16 +64,15 @@
   if (error)
   {
     v13 = MEMORY[0x1E696ABC0];
-    v19 = *MEMORY[0x1E696A578];
+    v18 = *MEMORY[0x1E696A578];
     v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"MIOModel instance must be initialized with an existing model file or package."];
-    v20[0] = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v19[0] = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     *error = [v13 errorWithDomain:@"com.apple.mlassetio" code:2 userInfo:v15];
 
     error = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -97,11 +96,11 @@
 
 - (MIOModel)initWithModeling:(id)modeling error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   modelingCopy = modeling;
-  v19.receiver = self;
-  v19.super_class = MIOModel;
-  v8 = [(MIOModel *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = MIOModel;
+  v8 = [(MIOModel *)&v18 init];
   if (!v8)
   {
     goto LABEL_8;
@@ -127,12 +126,12 @@ LABEL_8:
   if (error)
   {
     v12 = MEMORY[0x1E696ABC0];
-    v20 = *MEMORY[0x1E696A578];
+    v19 = *MEMORY[0x1E696A578];
     v13 = MEMORY[0x1E696AEC0];
     specificationVersion3 = [modelingCopy specificationVersion];
     v15 = [v13 stringWithFormat:@"The model specification version (%zd) is greater than the maximum supported version (%d)", objc_msgSend(specificationVersion3, "majorVersion"), 10];
-    v21 = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v20 = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     *error = [v12 errorWithDomain:@"com.apple.mlassetio" code:1 userInfo:v16];
 
     error = 0;
@@ -140,7 +139,6 @@ LABEL_8:
 
 LABEL_9:
 
-  v17 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -245,15 +243,15 @@ LABEL_9:
 
 - (id)layerHistogram
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
-  v15 = [(MIOModel *)self neuralNetworkLayerHistogramForFunctionNamed:0];
+  v14 = [(MIOModel *)self neuralNetworkLayerHistogramForFunctionNamed:0];
   v3 = [(MIOModel *)self programOperationHistogramForFunctionNamed:0];
   v4 = [MEMORY[0x1E695E0F0] mutableCopy];
   v5 = v4;
-  if (v15)
+  if (v14)
   {
-    [v4 addObject:v15];
+    [v4 addObject:v14];
   }
 
   if (v3)
@@ -262,41 +260,40 @@ LABEL_9:
   }
 
   v6 = [MEMORY[0x1E695E0F8] mutableCopy];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __26__MIOModel_layerHistogram__block_invoke;
-        v16[3] = &unk_1E814D7E0;
-        v17 = v6;
-        [v11 enumerateKeysAndObjectsUsingBlock:v16];
+        v11 = *(*(&v17 + 1) + 8 * i);
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __26__MIOModel_layerHistogram__block_invoke;
+        v15[3] = &unk_1E814D7E0;
+        v16 = v6;
+        [v11 enumerateKeysAndObjectsUsingBlock:v15];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
   objc_autoreleasePoolPop(context);
-  v12 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

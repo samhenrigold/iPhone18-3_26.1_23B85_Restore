@@ -22,7 +22,7 @@
   routerAccessory = [(HMDWiFiReconfigurationLogEvent *)self routerAccessory];
   [routerAccessory populateVendorDetailsForCoreAnalytics:v3 keyPrefix:@"router"];
 
-  v9 = [v3 copy];
+  v9 = objc_msgSend_copy(v3);
 
   return v9;
 }

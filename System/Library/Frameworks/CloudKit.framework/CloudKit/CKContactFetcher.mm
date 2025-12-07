@@ -6,7 +6,7 @@
 
 + (id)contactForUserIdentity:(id)identity contactStore:(id)store
 {
-  v218 = *MEMORY[0x1E69E9840];
+  v217 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   storeCopy = store;
   v9 = sub_1886A64AC(storeCopy, v7, v8);
@@ -29,26 +29,26 @@ LABEL_5:
     }
 
     v70 = dispatch_semaphore_create(0);
-    v200 = 0;
-    v201 = &v200;
-    v202 = 0x2020000000;
-    LOBYTE(v203) = 0;
-    *&v213 = 0;
-    *(&v213 + 1) = &v213;
-    v214 = 0x3032000000;
-    v215 = sub_1883EE24C;
-    v216 = sub_1883EF7CC;
-    v217 = 0;
-    v194[0] = MEMORY[0x1E69E9820];
-    v194[1] = 3221225472;
-    v195 = sub_1886A6B6C;
-    v196 = &unk_1E70C1A88;
-    v198 = &v200;
-    v199 = &v213;
+    v199 = 0;
+    v200 = &v199;
+    v201 = 0x2020000000;
+    LOBYTE(v202) = 0;
+    *&v212 = 0;
+    *(&v212 + 1) = &v212;
+    v213 = 0x3032000000;
+    v214 = sub_1883EE24C;
+    v215 = sub_1883EF7CC;
+    v216 = 0;
+    v193[0] = MEMORY[0x1E69E9820];
+    v193[1] = 3221225472;
+    v194 = sub_1886A6B6C;
+    v195 = &unk_1E70C1A88;
+    v197 = &v199;
+    v198 = &v212;
     v71 = v70;
-    v197 = v71;
+    v196 = v71;
     v68 = v15;
-    v72 = v194;
+    v72 = v193;
     if (objc_opt_respondsToSelector())
     {
       [v68 requestAccessForEntityType:0 completionHandler:v72];
@@ -56,7 +56,7 @@ LABEL_5:
 
     else
     {
-      v195(v72, 0, 0);
+      v194(v72, 0, 0);
     }
 
     v73 = dispatch_time(0, 10000000000);
@@ -90,99 +90,99 @@ LABEL_5:
       v76 = os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_INFO);
       if (v76)
       {
-        v79 = *(v201 + 24);
-        v80 = *(*(&v213 + 1) + 40);
+        v79 = *(v200 + 24);
+        v80 = *(*(&v212 + 1) + 40);
         *buf = 67109378;
-        v210 = v79;
-        v211 = 2112;
-        v212 = v80;
+        v209 = v79;
+        v210 = 2112;
+        v211 = v80;
         _os_log_impl(&dword_1883EA000, v65, OS_LOG_TYPE_INFO, "RequestWeakLinkedStoreAccess results: granted = %d, error = %@", buf, 0x12u);
       }
 
       v19 = sub_1886A6B04(v76, v77, v78);
     }
 
-    _Block_object_dispose(&v213, 8);
-    _Block_object_dispose(&v200, 8);
+    _Block_object_dispose(&v212, 8);
+    _Block_object_dispose(&v199, 8);
 
     if (!v74)
     {
 LABEL_6:
       if (v19 == 3)
       {
-        v200 = 0;
-        v201 = &v200;
-        v202 = 0x2020000000;
+        v199 = 0;
+        v200 = &v199;
+        v201 = 0x2020000000;
         v20 = qword_1ED4B6548;
-        v203 = qword_1ED4B6548;
+        v202 = qword_1ED4B6548;
         if (!qword_1ED4B6548)
         {
-          *&v213 = MEMORY[0x1E69E9820];
-          *(&v213 + 1) = 3221225472;
-          v214 = sub_1886A733C;
-          v215 = &unk_1E70BBE90;
-          v216 = &v200;
+          *&v212 = MEMORY[0x1E69E9820];
+          *(&v212 + 1) = 3221225472;
+          v213 = sub_1886A733C;
+          v214 = &unk_1E70BBE90;
+          v215 = &v199;
           v21 = sub_1886A6E64(v16, v17, v18);
           v22 = dlsym(v21, "CNContactGivenNameKey");
-          *(*(v216 + 1) + 24) = v22;
-          qword_1ED4B6548 = *(*(v216 + 1) + 24);
-          v20 = v201[3];
+          *(*(v215 + 1) + 24) = v22;
+          qword_1ED4B6548 = *(*(v215 + 1) + 24);
+          v20 = v200[3];
         }
 
-        _Block_object_dispose(&v200, 8);
+        _Block_object_dispose(&v199, 8);
         if (!v20)
         {
           identityCopy = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v23, v24);
-          v165 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v164, "NSString *getCNContactGivenNameKey(void)");
-          v166 = dlerror();
-          objc_msgSend_handleFailureInFunction_file_lineNumber_description_(identityCopy, v167, v165, @"CKContactFetcher.m", 25, @"%s", v166);
+          v164 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v163, "NSString *getCNContactGivenNameKey(void)");
+          v165 = dlerror();
+          objc_msgSend_handleFailureInFunction_file_lineNumber_description_(identityCopy, v166, v164, @"CKContactFetcher.m", 25, @"%s", v165);
 
           goto LABEL_114;
         }
 
         v25 = *v20;
         v20 = v25;
-        v207 = v25;
-        v200 = 0;
-        v201 = &v200;
-        v202 = 0x2020000000;
+        v206 = v25;
+        v199 = 0;
+        v200 = &v199;
+        v201 = 0x2020000000;
         v28 = qword_1ED4B6550;
-        v203 = qword_1ED4B6550;
+        v202 = qword_1ED4B6550;
         if (!qword_1ED4B6550)
         {
-          *&v213 = MEMORY[0x1E69E9820];
-          *(&v213 + 1) = 3221225472;
-          v214 = sub_1886A738C;
-          v215 = &unk_1E70BBE90;
-          v216 = &v200;
+          *&v212 = MEMORY[0x1E69E9820];
+          *(&v212 + 1) = 3221225472;
+          v213 = sub_1886A738C;
+          v214 = &unk_1E70BBE90;
+          v215 = &v199;
           v29 = sub_1886A6E64(v25, v26, v27);
           v30 = dlsym(v29, "CNContactFamilyNameKey");
-          *(*(v216 + 1) + 24) = v30;
-          qword_1ED4B6550 = *(*(v216 + 1) + 24);
-          v28 = v201[3];
+          *(*(v215 + 1) + 24) = v30;
+          qword_1ED4B6550 = *(*(v215 + 1) + 24);
+          v28 = v200[3];
         }
 
-        _Block_object_dispose(&v200, 8);
+        _Block_object_dispose(&v199, 8);
         if (!v28)
         {
           identityCopy = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v31, v32);
-          v169 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v168, "NSString *getCNContactFamilyNameKey(void)");
-          v170 = dlerror();
-          objc_msgSend_handleFailureInFunction_file_lineNumber_description_(identityCopy, v171, v169, @"CKContactFetcher.m", 26, @"%s", v170);
+          v168 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v167, "NSString *getCNContactFamilyNameKey(void)");
+          v169 = dlerror();
+          objc_msgSend_handleFailureInFunction_file_lineNumber_description_(identityCopy, v170, v168, @"CKContactFetcher.m", 26, @"%s", v169);
 
           goto LABEL_114;
         }
 
-        v208 = *v28;
+        v207 = *v28;
         v33 = MEMORY[0x1E695DEC8];
-        v34 = v208;
-        v180 = objc_msgSend_arrayWithObjects_count_(v33, v35, &v207, 2);
+        v34 = v207;
+        v179 = objc_msgSend_arrayWithObjects_count_(v33, v35, &v206, 2);
 
         v4 = 0x1E695D000uLL;
-        v181 = objc_msgSend_array(MEMORY[0x1E695DF70], v36, v37);
-        v182 = objc_msgSend_array(MEMORY[0x1E695DF70], v38, v39);
-        v183 = objc_msgSend_lookupInfo(identityCopy, v40, v41);
-        v44 = objc_msgSend_emailAddress(v183, v42, v43);
+        v180 = objc_msgSend_array(MEMORY[0x1E695DF70], v36, v37);
+        v181 = objc_msgSend_array(MEMORY[0x1E695DF70], v38, v39);
+        v182 = objc_msgSend_lookupInfo(identityCopy, v40, v41);
+        v44 = objc_msgSend_emailAddress(v182, v42, v43);
         v47 = objc_msgSend_length(v44, v45, v46) == 0;
 
         if (v47)
@@ -191,7 +191,7 @@ LABEL_6:
         }
 
         v51 = sub_1886A6BDC(v48, v49, v50);
-        v54 = objc_msgSend_emailAddress(v183, v52, v53);
+        v54 = objc_msgSend_emailAddress(v182, v52, v53);
         v20 = objc_msgSend_predicateForContactsMatchingEmailAddress_(v51, v55, v54);
 
         if (!v20)
@@ -204,47 +204,47 @@ LABEL_6:
           goto LABEL_115;
         }
 
-        v57 = objc_msgSend_addObject_(v182, v56, v20);
-        v200 = 0;
-        v201 = &v200;
-        v202 = 0x2020000000;
+        v57 = objc_msgSend_addObject_(v181, v56, v20);
+        v199 = 0;
+        v200 = &v199;
+        v201 = 0x2020000000;
         v60 = qword_1ED4B6558;
-        v203 = qword_1ED4B6558;
+        v202 = qword_1ED4B6558;
         if (!qword_1ED4B6558)
         {
-          *&v213 = MEMORY[0x1E69E9820];
-          *(&v213 + 1) = 3221225472;
-          v214 = sub_1886A74A4;
-          v215 = &unk_1E70BBE90;
-          v216 = &v200;
+          *&v212 = MEMORY[0x1E69E9820];
+          *(&v212 + 1) = 3221225472;
+          v213 = sub_1886A74A4;
+          v214 = &unk_1E70BBE90;
+          v215 = &v199;
           v61 = sub_1886A6E64(v57, v58, v59);
           v62 = dlsym(v61, "CNContactEmailAddressesKey");
-          *(*(v216 + 1) + 24) = v62;
-          qword_1ED4B6558 = *(*(v216 + 1) + 24);
-          v60 = v201[3];
+          *(*(v215 + 1) + 24) = v62;
+          qword_1ED4B6558 = *(*(v215 + 1) + 24);
+          v60 = v200[3];
         }
 
-        _Block_object_dispose(&v200, 8);
+        _Block_object_dispose(&v199, 8);
         if (!v60)
         {
           identityCopy = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v63, v64);
-          v173 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v172, "NSString *getCNContactEmailAddressesKey(void)");
-          v174 = dlerror();
-          objc_msgSend_handleFailureInFunction_file_lineNumber_description_(identityCopy, v175, v173, @"CKContactFetcher.m", 23, @"%s", v174);
+          v172 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v171, "NSString *getCNContactEmailAddressesKey(void)");
+          v173 = dlerror();
+          objc_msgSend_handleFailureInFunction_file_lineNumber_description_(identityCopy, v174, v172, @"CKContactFetcher.m", 23, @"%s", v173);
 
           goto LABEL_114;
         }
 
         if (*v60)
         {
-          objc_msgSend_addObject_(v181, v63, *v60);
+          objc_msgSend_addObject_(v180, v63, *v60);
         }
 
         while (1)
         {
 
 LABEL_53:
-          v82 = objc_msgSend_phoneNumber(v183, v49, v50);
+          v82 = objc_msgSend_phoneNumber(v182, v49, v50);
           v85 = objc_msgSend_length(v82, v83, v84) == 0;
 
           if (v85)
@@ -253,7 +253,7 @@ LABEL_53:
           }
 
           v89 = sub_1886A6CBC(v86, v87, v88);
-          v92 = objc_msgSend_phoneNumber(v183, v90, v91);
+          v92 = objc_msgSend_phoneNumber(v182, v90, v91);
           v94 = objc_msgSend_phoneNumberWithStringValue_(v89, v93, v92);
 
           if (!v94)
@@ -267,10 +267,10 @@ LABEL_53:
             if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
             {
               v110 = v109;
-              v113 = objc_msgSend_phoneNumber(v183, v111, v112);
-              LODWORD(v213) = 138412290;
-              *(&v213 + 4) = v113;
-              _os_log_error_impl(&dword_1883EA000, v110, OS_LOG_TYPE_ERROR, "Failed to create CNPhoneNumber object from string: %@", &v213, 0xCu);
+              v113 = objc_msgSend_phoneNumber(v182, v111, v112);
+              LODWORD(v212) = 138412290;
+              *(&v212 + 4) = v113;
+              _os_log_error_impl(&dword_1883EA000, v110, OS_LOG_TYPE_ERROR, "Failed to create CNPhoneNumber object from string: %@", &v212, 0xCu);
             }
 
             goto LABEL_70;
@@ -288,11 +288,11 @@ LABEL_53:
             v114 = ck_log_facility_ck;
             if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
             {
-              v160 = v114;
-              v163 = objc_msgSend_phoneNumber(v183, v161, v162);
-              LODWORD(v213) = 138412290;
-              *(&v213 + 4) = v163;
-              _os_log_error_impl(&dword_1883EA000, v160, OS_LOG_TYPE_ERROR, "Failed to create CNContact predicate for phone number: %@", &v213, 0xCu);
+              v159 = v114;
+              v162 = objc_msgSend_phoneNumber(v182, v160, v161);
+              LODWORD(v212) = 138412290;
+              *(&v212 + 4) = v162;
+              _os_log_error_impl(&dword_1883EA000, v159, OS_LOG_TYPE_ERROR, "Failed to create CNContact predicate for phone number: %@", &v212, 0xCu);
             }
 
 LABEL_69:
@@ -301,41 +301,41 @@ LABEL_70:
             break;
           }
 
-          v101 = objc_msgSend_addObject_(v182, v100, v20);
-          v200 = 0;
-          v201 = &v200;
-          v202 = 0x2020000000;
+          v101 = objc_msgSend_addObject_(v181, v100, v20);
+          v199 = 0;
+          v200 = &v199;
+          v201 = 0x2020000000;
           v104 = qword_1ED4B6560;
-          v203 = qword_1ED4B6560;
+          v202 = qword_1ED4B6560;
           if (!qword_1ED4B6560)
           {
-            *&v213 = MEMORY[0x1E69E9820];
-            *(&v213 + 1) = 3221225472;
-            v214 = sub_1886A75BC;
-            v215 = &unk_1E70BBE90;
-            v216 = &v200;
+            *&v212 = MEMORY[0x1E69E9820];
+            *(&v212 + 1) = 3221225472;
+            v213 = sub_1886A75BC;
+            v214 = &unk_1E70BBE90;
+            v215 = &v199;
             v105 = sub_1886A6E64(v101, v102, v103);
             v106 = dlsym(v105, "CNContactPhoneNumbersKey");
-            *(*(v216 + 1) + 24) = v106;
-            qword_1ED4B6560 = *(*(v216 + 1) + 24);
-            v104 = v201[3];
+            *(*(v215 + 1) + 24) = v106;
+            qword_1ED4B6560 = *(*(v215 + 1) + 24);
+            v104 = v200[3];
           }
 
-          _Block_object_dispose(&v200, 8);
+          _Block_object_dispose(&v199, 8);
           if (v104)
           {
             if (*v104)
             {
-              objc_msgSend_addObject_(v181, v107, *v104);
+              objc_msgSend_addObject_(v180, v107, *v104);
             }
 
             goto LABEL_69;
           }
 
           identityCopy = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v107, v108);
-          v177 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v176, "NSString *getCNContactPhoneNumbersKey(void)");
-          v178 = dlerror();
-          objc_msgSend_handleFailureInFunction_file_lineNumber_description_(identityCopy, v179, v177, @"CKContactFetcher.m", 24, @"%s", v178);
+          v176 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v175, "NSString *getCNContactPhoneNumbersKey(void)");
+          v177 = dlerror();
+          objc_msgSend_handleFailureInFunction_file_lineNumber_description_(identityCopy, v178, v176, @"CKContactFetcher.m", 24, @"%s", v177);
 
 LABEL_114:
           __break(1u);
@@ -345,71 +345,71 @@ LABEL_50:
           v81 = ck_log_facility_ck;
           if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
           {
-            v156 = v81;
-            v159 = objc_msgSend_emailAddress(v183, v157, v158);
-            LODWORD(v213) = 138412290;
-            *(&v213 + 4) = v159;
-            _os_log_error_impl(&dword_1883EA000, v156, OS_LOG_TYPE_ERROR, "Failed to create CNContact predicate for email address: %@", &v213, 0xCu);
+            v155 = v81;
+            v158 = objc_msgSend_emailAddress(v182, v156, v157);
+            LODWORD(v212) = 138412290;
+            *(&v212 + 4) = v158;
+            _os_log_error_impl(&dword_1883EA000, v155, OS_LOG_TYPE_ERROR, "Failed to create CNContact predicate for email address: %@", &v212, 0xCu);
           }
         }
 
-        if (objc_msgSend_count(v182, v87, v88))
+        if (objc_msgSend_count(v181, v87, v88))
         {
-          v117 = objc_msgSend_mutableCopy(v180, v115, v116);
-          v192 = 0u;
-          v193 = 0u;
-          v190 = 0u;
+          v117 = objc_msgSend_mutableCopy(v179, v115, v116);
           v191 = 0u;
-          v118 = v181;
-          v121 = objc_msgSend_countByEnumeratingWithState_objects_count_(v118, v119, &v190, v206, 16);
+          v192 = 0u;
+          v189 = 0u;
+          v190 = 0u;
+          v118 = v180;
+          v121 = objc_msgSend_countByEnumeratingWithState_objects_count_(v118, v119, &v189, v205, 16);
           if (v121)
           {
-            v122 = *v191;
+            v122 = *v190;
             do
             {
               for (i = 0; i != v121; ++i)
               {
-                if (*v191 != v122)
+                if (*v190 != v122)
                 {
                   objc_enumerationMutation(v118);
                 }
 
-                v124 = *(*(&v190 + 1) + 8 * i);
+                v124 = *(*(&v189 + 1) + 8 * i);
                 if ((objc_msgSend_containsObject_(v117, v120, v124) & 1) == 0)
                 {
                   objc_msgSend_addObject_(v117, v120, v124);
                 }
               }
 
-              v121 = objc_msgSend_countByEnumeratingWithState_objects_count_(v118, v120, &v190, v206, 16);
+              v121 = objc_msgSend_countByEnumeratingWithState_objects_count_(v118, v120, &v189, v205, 16);
             }
 
             while (v121);
           }
 
           v127 = objc_msgSend_array(*(v4 + 3952), v125, v126);
-          v188 = 0u;
-          v189 = 0u;
-          v186 = 0u;
           v187 = 0u;
-          v128 = v182;
-          v131 = objc_msgSend_countByEnumeratingWithState_objects_count_(v128, v129, &v186, v205, 16);
+          v188 = 0u;
+          v185 = 0u;
+          v186 = 0u;
+          v128 = v181;
+          v131 = objc_msgSend_countByEnumeratingWithState_objects_count_(v128, v129, &v185, v204, 16);
           if (v131)
           {
-            v132 = *v187;
+            v132 = *v186;
             while (2)
             {
               for (j = 0; j != v131; ++j)
               {
-                if (*v187 != v132)
+                if (*v186 != v132)
                 {
                   objc_enumerationMutation(v128);
                 }
 
-                v134 = *(*(&v186 + 1) + 8 * j);
-                v185 = 0;
-                v135 = objc_msgSend_unifiedContactsMatchingPredicate_keysToFetch_error_(v15, v130, v134, v117, &v185);
-                v136 = v185;
+                v134 = *(*(&v185 + 1) + 8 * j);
+                v184 = 0;
+                v135 = objc_msgSend_unifiedContactsMatchingPredicate_keysToFetch_error_(v15, v130, v134, v117, &v184);
+                v136 = v184;
                 if (v136)
                 {
                   v138 = 1;
@@ -431,9 +431,9 @@ LABEL_50:
                   v153 = ck_log_facility_ck;
                   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
                   {
-                    LODWORD(v213) = 138412290;
-                    *(&v213 + 4) = v152;
-                    _os_log_error_impl(&dword_1883EA000, v153, OS_LOG_TYPE_ERROR, "Failed to fetch contacts from contact store: %@", &v213, 0xCu);
+                    LODWORD(v212) = 138412290;
+                    *(&v212 + 4) = v152;
+                    _os_log_error_impl(&dword_1883EA000, v153, OS_LOG_TYPE_ERROR, "Failed to fetch contacts from contact store: %@", &v212, 0xCu);
                   }
 
                   v65 = sub_1886A658C(identityCopy);
@@ -444,7 +444,7 @@ LABEL_50:
                 objc_msgSend_addObjectsFromArray_(v127, v137, v135);
               }
 
-              v131 = objc_msgSend_countByEnumeratingWithState_objects_count_(v128, v130, &v186, v205, 16);
+              v131 = objc_msgSend_countByEnumeratingWithState_objects_count_(v128, v130, &v185, v204, 16);
               if (v131)
               {
                 continue;
@@ -459,10 +459,10 @@ LABEL_50:
             v143 = objc_msgSend_sortDescriptorWithKey_ascending_selector_(MEMORY[0x1E696AEB0], v141, @"familyName", 1, sel_localizedCaseInsensitiveCompare_);
             v145 = objc_msgSend_sortDescriptorWithKey_ascending_selector_(MEMORY[0x1E696AEB0], v144, @"givenName", 1, sel_localizedCaseInsensitiveCompare_);
             v147 = objc_msgSend_sortDescriptorWithKey_ascending_(MEMORY[0x1E696AEB0], v146, @"identifier", 1);
-            v204[0] = v143;
-            v204[1] = v145;
-            v204[2] = v147;
-            v149 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v148, v204, 3);
+            v203[0] = v143;
+            v203[1] = v145;
+            v203[2] = v147;
+            v149 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v148, v203, 3);
             objc_msgSend_sortUsingDescriptors_(v127, v150, v149);
           }
 
@@ -498,8 +498,8 @@ LABEL_101:
         v69 = ck_log_facility_ck;
         if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v213) = 0;
-          _os_log_error_impl(&dword_1883EA000, v69, OS_LOG_TYPE_ERROR, "Contacts access denied or restricted. Returning synthetic contact.", &v213, 2u);
+          LOWORD(v212) = 0;
+          _os_log_error_impl(&dword_1883EA000, v69, OS_LOG_TYPE_ERROR, "Contacts access denied or restricted. Returning synthetic contact.", &v212, 2u);
         }
 
         v65 = sub_1886A658C(identityCopy);
@@ -530,8 +530,8 @@ LABEL_101:
   v67 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v213) = 0;
-    _os_log_error_impl(&dword_1883EA000, v67, OS_LOG_TYPE_ERROR, "CNContactStore not available. Returning synthetic contact.", &v213, 2u);
+    LOWORD(v212) = 0;
+    _os_log_error_impl(&dword_1883EA000, v67, OS_LOG_TYPE_ERROR, "CNContactStore not available. Returning synthetic contact.", &v212, 2u);
   }
 
   v65 = sub_1886A658C(identityCopy);
@@ -539,7 +539,6 @@ LABEL_101:
 LABEL_105:
 
 LABEL_106:
-  v154 = *MEMORY[0x1E69E9840];
 
   return v65;
 }

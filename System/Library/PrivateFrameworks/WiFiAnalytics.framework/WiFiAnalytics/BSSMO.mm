@@ -48,7 +48,7 @@ void __33__BSSMO_defaultPropertiesToFetch__block_invoke(uint64_t a1)
 
 + (BOOL)verifyConstraints:(id)constraints withError:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   constraintsCopy = constraints;
   v6 = [constraintsCopy objectForKeyedSubscript:@"bssid"];
 
@@ -63,56 +63,56 @@ void __33__BSSMO_defaultPropertiesToFetch__block_invoke(uint64_t a1)
       goto LABEL_4;
     }
 
-    v17 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v16 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      v18 = [constraintsCopy objectForKeyedSubscript:@"bssid"];
+      v17 = [constraintsCopy objectForKeyedSubscript:@"bssid"];
       *buf = 136446722;
-      v25 = "+[BSSMO verifyConstraints:withError:]";
-      v26 = 1024;
-      v27 = 42;
-      v28 = 2112;
-      v29 = v18;
-      _os_log_impl(&dword_1C8460000, v17, OS_LOG_TYPE_FAULT, "%{public}s::%d:Invalid bssid: %@", buf, 0x1Cu);
+      v24 = "+[BSSMO verifyConstraints:withError:]";
+      v25 = 1024;
+      v26 = 42;
+      v27 = 2112;
+      v28 = v17;
+      _os_log_impl(&dword_1C8460000, v16, OS_LOG_TYPE_FAULT, "%{public}s::%d:Invalid bssid: %@", buf, 0x1Cu);
     }
 
     if (error)
     {
-      v19 = MEMORY[0x1E696ABC0];
-      v20 = *MEMORY[0x1E696A588];
-      v21 = @"WAErrorCodeInvalidInput";
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-      v15 = v19;
-      v16 = 9035;
+      v18 = MEMORY[0x1E696ABC0];
+      v19 = *MEMORY[0x1E696A588];
+      v20 = @"WAErrorCodeInvalidInput";
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+      v14 = v18;
+      v15 = 9035;
       goto LABEL_13;
     }
   }
 
   else
   {
-    v11 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v10 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      v12 = [constraintsCopy objectForKeyedSubscript:@"bssid"];
+      v11 = [constraintsCopy objectForKeyedSubscript:@"bssid"];
       *buf = 136446722;
-      v25 = "+[BSSMO verifyConstraints:withError:]";
-      v26 = 1024;
-      v27 = 40;
-      v28 = 2112;
-      v29 = v12;
-      _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_FAULT, "%{public}s::%d:Invalid input. bssid:%@", buf, 0x1Cu);
+      v24 = "+[BSSMO verifyConstraints:withError:]";
+      v25 = 1024;
+      v26 = 40;
+      v27 = 2112;
+      v28 = v11;
+      _os_log_impl(&dword_1C8460000, v10, OS_LOG_TYPE_FAULT, "%{public}s::%d:Invalid input. bssid:%@", buf, 0x1Cu);
     }
 
     if (error)
     {
-      v13 = MEMORY[0x1E696ABC0];
-      v22 = *MEMORY[0x1E696A588];
-      v23 = @"WAErrorCodeLacksRequiredArgument";
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-      v15 = v13;
-      v16 = 9010;
+      v12 = MEMORY[0x1E696ABC0];
+      v21 = *MEMORY[0x1E696A588];
+      v22 = @"WAErrorCodeLacksRequiredArgument";
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+      v14 = v12;
+      v15 = 9010;
 LABEL_13:
-      *error = [v15 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:v16 userInfo:v14];
+      *error = [v14 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:v15 userInfo:v13];
 
       LOBYTE(error) = 0;
     }
@@ -120,41 +120,38 @@ LABEL_13:
 
 LABEL_4:
 
-  v9 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 + (id)constraintsWithBSSID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v4 = [BSSMO formattedMACAddressNotation:dCopy as:6];
   v5 = v4;
   if (v4)
   {
-    v10 = @"bssid";
-    v11 = v4;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+    v9 = @"bssid";
+    v10 = v4;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
   }
 
   else
   {
-    v9 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v13 = "+[BSSMO constraintsWithBSSID:]";
-      v14 = 1024;
-      v15 = 58;
-      v16 = 2112;
-      v17 = dCopy;
-      _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_ERROR, "%{public}s::%d:Invalid input. bssid:%@", buf, 0x1Cu);
+      v12 = "+[BSSMO constraintsWithBSSID:]";
+      v13 = 1024;
+      v14 = 58;
+      v15 = 2112;
+      v16 = dCopy;
+      _os_log_impl(&dword_1C8460000, v8, OS_LOG_TYPE_ERROR, "%{public}s::%d:Invalid input. bssid:%@", buf, 0x1Cu);
     }
 
     v6 = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -262,7 +259,7 @@ void __30__BSSMO_allSsidsForBssid_moc___block_invoke(uint64_t a1, void *a2)
 
 + (id)bssManagedObjectPropertyValue:(id)value forKey:(id)key
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v6 = keyCopy;
   if (value && keyCopy)
@@ -285,26 +282,24 @@ void __30__BSSMO_allSsidsForBssid_moc___block_invoke(uint64_t a1, void *a2)
     v10 = WALogCategoryDeviceStoreHandle();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136446722;
-      v14 = "+[BSSMO bssManagedObjectPropertyValue:forKey:]";
-      v15 = 1024;
-      v16 = 112;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_impl(&dword_1C8460000, v10, OS_LOG_TYPE_ERROR, "%{public}s::%d:Nil bssMO or key %@", &v13, 0x1Cu);
+      v12 = 136446722;
+      v13 = "+[BSSMO bssManagedObjectPropertyValue:forKey:]";
+      v14 = 1024;
+      v15 = 112;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_1C8460000, v10, OS_LOG_TYPE_ERROR, "%{public}s::%d:Nil bssMO or key %@", &v12, 0x1Cu);
     }
 
     v9 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (BOOL)setBssManagedObjectPropertyValueForKey:(id)key forKey:(id)forKey withValue:(id)value
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   forKeyCopy = forKey;
   valueCopy = value;
@@ -313,13 +308,13 @@ void __30__BSSMO_allSsidsForBssid_moc___block_invoke(uint64_t a1, void *a2)
     dictionary = WALogCategoryDeviceStoreHandle();
     if (os_log_type_enabled(dictionary, OS_LOG_TYPE_ERROR))
     {
-      v16 = 136446466;
-      v17 = "+[BSSMO setBssManagedObjectPropertyValueForKey:forKey:withValue:]";
-      v18 = 1024;
-      v19 = 122;
-      v15 = "%{public}s::%d:bssMO nil";
+      v15 = 136446466;
+      v16 = "+[BSSMO setBssManagedObjectPropertyValueForKey:forKey:withValue:]";
+      v17 = 1024;
+      v18 = 122;
+      v14 = "%{public}s::%d:bssMO nil";
 LABEL_12:
-      _os_log_impl(&dword_1C8460000, dictionary, OS_LOG_TYPE_ERROR, v15, &v16, 0x12u);
+      _os_log_impl(&dword_1C8460000, dictionary, OS_LOG_TYPE_ERROR, v14, &v15, 0x12u);
     }
 
 LABEL_13:
@@ -332,11 +327,11 @@ LABEL_13:
     dictionary = WALogCategoryDeviceStoreHandle();
     if (os_log_type_enabled(dictionary, OS_LOG_TYPE_ERROR))
     {
-      v16 = 136446466;
-      v17 = "+[BSSMO setBssManagedObjectPropertyValueForKey:forKey:withValue:]";
-      v18 = 1024;
-      v19 = 123;
-      v15 = "%{public}s::%d:key nil";
+      v15 = 136446466;
+      v16 = "+[BSSMO setBssManagedObjectPropertyValueForKey:forKey:withValue:]";
+      v17 = 1024;
+      v18 = 123;
+      v14 = "%{public}s::%d:key nil";
       goto LABEL_12;
     }
 
@@ -361,13 +356,12 @@ LABEL_13:
   v12 = 1;
 LABEL_7:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 + (BOOL)coalesceBssidsIntoDeployment:(id)deployment moc:(id)moc
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   deploymentCopy = deployment;
   mocCopy = moc;
   if (deploymentCopy)
@@ -381,11 +375,11 @@ LABEL_7:
       {
         uUIDString = [uUID UUIDString];
         *buf = 136446722;
-        v22 = "+[BSSMO coalesceBssidsIntoDeployment:moc:]";
-        v23 = 1024;
-        v24 = 155;
-        v25 = 2112;
-        v26 = uUIDString;
+        v21 = "+[BSSMO coalesceBssidsIntoDeployment:moc:]";
+        v22 = 1024;
+        v23 = 155;
+        v24 = 2112;
+        v25 = uUIDString;
         v11 = "%{public}s::%d:Existing UUID %@";
 LABEL_7:
         _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_DEBUG, v11, buf, 0x1Cu);
@@ -400,11 +394,11 @@ LABEL_7:
       {
         uUIDString = [uUID UUIDString];
         *buf = 136446722;
-        v22 = "+[BSSMO coalesceBssidsIntoDeployment:moc:]";
-        v23 = 1024;
-        v24 = 152;
-        v25 = 2112;
-        v26 = uUIDString;
+        v21 = "+[BSSMO coalesceBssidsIntoDeployment:moc:]";
+        v22 = 1024;
+        v23 = 152;
+        v24 = 2112;
+        v25 = uUIDString;
         v11 = "%{public}s::%d:Created UUID %@";
         goto LABEL_7;
       }
@@ -415,13 +409,13 @@ LABEL_7:
     {
       uUIDString2 = [uUID UUIDString];
       *buf = 136446978;
-      v22 = "+[BSSMO coalesceBssidsIntoDeployment:moc:]";
-      v23 = 1024;
-      v24 = 158;
-      v25 = 2112;
-      v26 = uUIDString2;
-      v27 = 2112;
-      v28 = deploymentCopy;
+      v21 = "+[BSSMO coalesceBssidsIntoDeployment:moc:]";
+      v22 = 1024;
+      v23 = 158;
+      v24 = 2112;
+      v25 = uUIDString2;
+      v26 = 2112;
+      v27 = deploymentCopy;
       _os_log_impl(&dword_1C8460000, v12, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Applying deployment UUID %@ bssidsArray %@", buf, 0x26u);
     }
 
@@ -439,22 +433,21 @@ LABEL_7:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446466;
-    v22 = "+[BSSMO coalesceBssidsIntoDeployment:moc:]";
-    v23 = 1024;
-    v24 = 147;
+    v21 = "+[BSSMO coalesceBssidsIntoDeployment:moc:]";
+    v22 = 1024;
+    v23 = 147;
     _os_log_impl(&dword_1C8460000, v7, OS_LOG_TYPE_ERROR, "%{public}s::%d:bssidArray nil", buf, 0x12u);
   }
 
   v18 = 0;
 LABEL_11:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 + (id)getDeploymentUuidForBssids:(id)bssids moc:(id)moc
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   bssidsCopy = bssids;
   mocCopy = moc;
   if (bssidsCopy)
@@ -505,14 +498,14 @@ LABEL_11:
       }
     }
 
-    v21 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v24 = "+[BSSMO getDeploymentUuidForBssids:moc:]";
-      v25 = 1024;
-      v26 = 177;
-      _os_log_impl(&dword_1C8460000, v21, OS_LOG_TYPE_ERROR, "%{public}s::%d:bssidsArray nil", buf, 0x12u);
+      v23 = "+[BSSMO getDeploymentUuidForBssids:moc:]";
+      v24 = 1024;
+      v25 = 177;
+      _os_log_impl(&dword_1C8460000, v20, OS_LOG_TYPE_ERROR, "%{public}s::%d:bssidsArray nil", buf, 0x12u);
     }
 
     uUIDString2 = 0;
@@ -521,14 +514,14 @@ LABEL_11:
 
   else
   {
-    v22 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v24 = "+[BSSMO getDeploymentUuidForBssids:moc:]";
-      v25 = 1024;
-      v26 = 174;
-      _os_log_impl(&dword_1C8460000, v22, OS_LOG_TYPE_ERROR, "%{public}s::%d:bssidArray nil", buf, 0x12u);
+      v23 = "+[BSSMO getDeploymentUuidForBssids:moc:]";
+      v24 = 1024;
+      v25 = 174;
+      _os_log_impl(&dword_1C8460000, v21, OS_LOG_TYPE_ERROR, "%{public}s::%d:bssidArray nil", buf, 0x12u);
     }
 
     uUIDString2 = 0;
@@ -538,15 +531,13 @@ LABEL_11:
 
 LABEL_12:
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return uUIDString2;
 }
 
 + (unint64_t)numBssInBand:(id)band bandIs24:(BOOL)is24 moc:(id)moc
 {
   is24Copy = is24;
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   bandCopy = band;
   mocCopy = moc;
   if (bandCopy)
@@ -562,15 +553,15 @@ LABEL_12:
     v16 = MEMORY[0x1E696AB28];
     if (is24Copy)
     {
-      v26 = bandCopy;
-      v17 = &v26;
+      v25 = bandCopy;
+      v17 = &v25;
       v18 = v13;
     }
 
     else
     {
-      v25 = bandCopy;
-      v17 = &v25;
+      v24 = bandCopy;
+      v17 = &v24;
       v18 = v14;
     }
 
@@ -584,39 +575,38 @@ LABEL_12:
 
   else
   {
-    v24 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v23 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v28 = "+[BSSMO numBssInBand:bandIs24:moc:]";
-      v29 = 1024;
-      v30 = 197;
-      _os_log_impl(&dword_1C8460000, v24, OS_LOG_TYPE_ERROR, "%{public}s::%d:ssid nil", buf, 0x12u);
+      v27 = "+[BSSMO numBssInBand:bandIs24:moc:]";
+      v28 = 1024;
+      v29 = 197;
+      _os_log_impl(&dword_1C8460000, v23, OS_LOG_TYPE_ERROR, "%{public}s::%d:ssid nil", buf, 0x12u);
     }
 
     v21 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 + (id)copyBssidsForDeployment:(id)deployment deploymentUuid:(id)uuid moc:(id)moc
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   deploymentCopy = deployment;
   uuidCopy = uuid;
   mocCopy = moc;
   if (!deploymentCopy)
   {
-    v25 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v24 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v28 = "+[BSSMO copyBssidsForDeployment:deploymentUuid:moc:]";
-      v29 = 1024;
-      v30 = 226;
-      _os_log_impl(&dword_1C8460000, v25, OS_LOG_TYPE_ERROR, "%{public}s::%d:ssid nil", buf, 0x12u);
+      v27 = "+[BSSMO copyBssidsForDeployment:deploymentUuid:moc:]";
+      v28 = 1024;
+      v29 = 226;
+      _os_log_impl(&dword_1C8460000, v24, OS_LOG_TYPE_ERROR, "%{public}s::%d:ssid nil", buf, 0x12u);
     }
 
     deploymentCopy2 = 0;
@@ -633,10 +623,10 @@ LABEL_12:
     v12 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:uuidCopy];
     v13 = MEMORY[0x1E696AB28];
     v14 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == %@", @"apid", v12];
-    v26[0] = v14;
+    v25[0] = v14;
     deploymentCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"network.ssid == %@", deploymentCopy];
-    v26[1] = deploymentCopy;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+    v25[1] = deploymentCopy;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
     deploymentCopy2 = [v13 andPredicateWithSubpredicates:v16];
   }
 
@@ -649,14 +639,14 @@ LABEL_12:
   v19 = v18;
   if (!v18 || ![v18 count])
   {
-    v24 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v23 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v28 = "+[BSSMO copyBssidsForDeployment:deploymentUuid:moc:]";
-      v29 = 1024;
-      v30 = 241;
-      _os_log_impl(&dword_1C8460000, v24, OS_LOG_TYPE_ERROR, "%{public}s::%d:bssidsArray nil", buf, 0x12u);
+      v27 = "+[BSSMO copyBssidsForDeployment:deploymentUuid:moc:]";
+      v28 = 1024;
+      v29 = 241;
+      _os_log_impl(&dword_1C8460000, v23, OS_LOG_TYPE_ERROR, "%{public}s::%d:bssidsArray nil", buf, 0x12u);
     }
 
 LABEL_15:
@@ -668,13 +658,12 @@ LABEL_15:
 LABEL_8:
   v21 = [v20 copy];
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 + (id)copyDeploymentUuidsForSsid:(id)ssid moc:(id)moc
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   mocCopy = moc;
   ssidCopy = ssid;
   v7 = +[BSSMO entity];
@@ -690,14 +679,14 @@ LABEL_8:
 
   else
   {
-    v15 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v14 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v17 = "+[BSSMO copyDeploymentUuidsForSsid:moc:]";
-      v18 = 1024;
-      v19 = 256;
-      _os_log_impl(&dword_1C8460000, v15, OS_LOG_TYPE_ERROR, "%{public}s::%d:bssidsArray nil", buf, 0x12u);
+      v16 = "+[BSSMO copyDeploymentUuidsForSsid:moc:]";
+      v17 = 1024;
+      v18 = 256;
+      _os_log_impl(&dword_1C8460000, v14, OS_LOG_TYPE_ERROR, "%{public}s::%d:bssidsArray nil", buf, 0x12u);
     }
 
     v11 = 0;
@@ -705,13 +694,12 @@ LABEL_8:
 
   v12 = [v11 copy];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 + (id)formattedMACAddressNotation:(id)notation as:(unint64_t)as
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   notationCopy = notation;
   if (notationCopy)
   {
@@ -728,10 +716,10 @@ LABEL_8:
         if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
         {
           *buf = 136446722;
-          v24 = "+[BSSMO formattedMACAddressNotation:as:]";
-          v25 = 1024;
-          v26 = 286;
-          v27 = 2048;
+          v23 = "+[BSSMO formattedMACAddressNotation:as:]";
+          v24 = 1024;
+          v25 = 286;
+          v26 = 2048;
           asCopy = as;
           _os_log_impl(&dword_1C8460000, v17, OS_LOG_TYPE_FAULT, "%{public}s::%d:invalid type: %lu", buf, 0x1Cu);
         }
@@ -751,18 +739,18 @@ LABEL_8:
       v11 = 0;
       while (1)
       {
-        v22 = 0;
+        v21 = 0;
         v12 = MEMORY[0x1E696AE88];
         v13 = [v9 objectAtIndex:v11];
         v14 = [v12 scannerWithString:v13];
 
-        [v14 scanHexInt:&v22];
-        if (v22 == -1)
+        [v14 scanHexInt:&v21];
+        if (v21 == -1)
         {
           break;
         }
 
-        v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%02x", v22];
+        v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%02x", v21];
         [array setObject:v15 atIndexedSubscript:v11];
 
         if (as == ++v11)
@@ -773,35 +761,35 @@ LABEL_8:
         }
       }
 
-      v20 = WALogCategoryDeviceStoreHandle();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      v19 = WALogCategoryDeviceStoreHandle();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
         *buf = 136446978;
-        v24 = "+[BSSMO formattedMACAddressNotation:as:]";
-        v25 = 1024;
-        v26 = 304;
-        v27 = 2048;
+        v23 = "+[BSSMO formattedMACAddressNotation:as:]";
+        v24 = 1024;
+        v25 = 304;
+        v26 = 2048;
         asCopy = v11;
-        v29 = 2112;
+        v28 = 2112;
         asCopy2 = notationCopy;
-        _os_log_impl(&dword_1C8460000, v20, OS_LOG_TYPE_FAULT, "%{public}s::%d:No int value for octet %lu for %@", buf, 0x26u);
+        _os_log_impl(&dword_1C8460000, v19, OS_LOG_TYPE_FAULT, "%{public}s::%d:No int value for octet %lu for %@", buf, 0x26u);
       }
     }
 
     else
     {
-      v21 = WALogCategoryDeviceStoreHandle();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+      v20 = WALogCategoryDeviceStoreHandle();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
         *buf = 136446978;
-        v24 = "+[BSSMO formattedMACAddressNotation:as:]";
-        v25 = 1024;
-        v26 = 298;
-        v27 = 2112;
+        v23 = "+[BSSMO formattedMACAddressNotation:as:]";
+        v24 = 1024;
+        v25 = 298;
+        v26 = 2112;
         asCopy = notationCopy;
-        v29 = 2048;
+        v28 = 2048;
         asCopy2 = as;
-        _os_log_impl(&dword_1C8460000, v21, OS_LOG_TYPE_FAULT, "%{public}s::%d:Cannot format %@ into %lu octets", buf, 0x26u);
+        _os_log_impl(&dword_1C8460000, v20, OS_LOG_TYPE_FAULT, "%{public}s::%d:Cannot format %@ into %lu octets", buf, 0x26u);
       }
     }
   }
@@ -809,8 +797,6 @@ LABEL_8:
 LABEL_15:
   v16 = 0;
 LABEL_16:
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

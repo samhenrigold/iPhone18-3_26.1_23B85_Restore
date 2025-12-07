@@ -1,79 +1,3 @@
-uint64_t __symptomConnectionCreate_block_invoke()
-{
-  v0 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v1 = transportDictionary;
-  transportDictionary = v0;
-
-  return MEMORY[0x2821F96F8](v0, v1);
-}
-
-uint64_t symptomConnectionDestroy(void *a1, uint64_t a2)
-{
-  v25 = *MEMORY[0x277D85DE8];
-  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%llu", a2];
-  v5 = transportLogHandle;
-  if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_DEBUG))
-  {
-    v6 = transportDictionary;
-    v7 = v5;
-    v8 = [v6 description];
-    *buf = 134218242;
-    v20 = a2;
-    v21 = 2080;
-    v22 = [v8 UTF8String];
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "symptomConnectionDestroy for %llu, dictionary %s", buf, 0x16u);
-  }
-
-  v9 = [transportDictionary objectForKey:v4];
-  v10 = v9;
-  if (v9)
-  {
-    if (v9 == a1)
-    {
-      [v9 disconnect];
-      [transportDictionary removeObjectForKey:v4];
-      v16 = 1;
-      goto LABEL_12;
-    }
-
-    v11 = transportLogHandle;
-    if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134218496;
-      v20 = a2;
-      v21 = 2048;
-      v22 = v10;
-      v23 = 2048;
-      v24 = a1;
-      v12 = "Mismatched  entry for key %llu on delete, found %p, given %p";
-      v13 = v11;
-      v14 = 32;
-LABEL_9:
-      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, v12, buf, v14);
-    }
-  }
-
-  else
-  {
-    v15 = transportLogHandle;
-    if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      v20 = a2;
-      v12 = "No entry for key %llu on delete";
-      v13 = v15;
-      v14 = 12;
-      goto LABEL_9;
-    }
-  }
-
-  v16 = 0;
-LABEL_12:
-
-  v17 = *MEMORY[0x277D85DE8];
-  return v16;
-}
-
 uint64_t InitializeEngine(uint64_t a1)
 {
   AllocateEnvironmentData(a1, 0x12u, 0x90uLL, DeallocateEngineData);
@@ -189,12 +113,12 @@ unint64_t RunCommand(void *a1)
   v5 = 0u;
   v6 = 0u;
   v4 = 0u;
-  result = EnvArgCountCheck(a1, "run", 2u, 1);
+  result = EnvArgCountCheck(a1, "run", 2, 1);
   if (result != -1)
   {
     if (result == 1)
     {
-      result = EnvArgTypeCheck(a1, "run", 1, 1, &v4);
+      result = EnvArgTypeCheck(a1, "run", 1, 1u, &v4);
       if (!result)
       {
         return result;
@@ -293,7 +217,7 @@ uint64_t SetBreakCommand(uint64_t a1)
     v5 = 0u;
     v6 = 0u;
     v4 = 0u;
-    result = EnvArgTypeCheck(a1, "set-break", 1, 2, &v4);
+    result = EnvArgTypeCheck(a1, "set-break", 1, 2u, &v4);
     if (result)
     {
       v3 = *(v5 + 24);
@@ -321,7 +245,7 @@ uint64_t SetBreakCommand(uint64_t a1)
 
 uint64_t RemoveBreakCommand(uint64_t a1)
 {
-  result = EnvArgCountCheck(a1, "remove-break", 2u, 1);
+  result = EnvArgCountCheck(a1, "remove-break", 2, 1);
   if (result != -1)
   {
     if (result)
@@ -329,7 +253,7 @@ uint64_t RemoveBreakCommand(uint64_t a1)
       v6 = 0u;
       v7 = 0u;
       v5 = 0u;
-      result = EnvArgTypeCheck(a1, "remove-break", 1, 2, &v5);
+      result = EnvArgTypeCheck(a1, "remove-break", 1, 2u, &v5);
       if (result)
       {
         v3 = *(v6 + 24);
@@ -382,7 +306,7 @@ uint64_t RemoveBreakCommand(uint64_t a1)
 uint64_t ShowBreaksCommand(uint64_t a1)
 {
   v3 = 0;
-  result = EnvArgCountCheck(a1, "show-breaks", 2u, 1);
+  result = EnvArgCountCheck(a1, "show-breaks", 2, 1);
   if (result != -1)
   {
     if (result == 1)
@@ -542,7 +466,7 @@ uint64_t EnvGetFocus(uint64_t a1)
 
 uint64_t FocusCommand(uint64_t a1)
 {
-  v2 = EnvArgCountCheck(a1, "focus", 1u, 1);
+  v2 = EnvArgCountCheck(a1, "focus", 1, 1);
   if (v2 == -1)
   {
     return 0;
@@ -559,7 +483,7 @@ uint64_t FocusCommand(uint64_t a1)
   v8 = 0u;
   while (1)
   {
-    result = EnvArgTypeCheck(a1, "focus", v3, 2, &v8);
+    result = EnvArgTypeCheck(a1, "focus", v3, 2u, &v8);
     if (!result)
     {
       break;
@@ -574,7 +498,8 @@ uint64_t FocusCommand(uint64_t a1)
     }
 
     EnvFocus(a1, Defmodule);
-    v7 = __OFSUB__(v3--, 1);
+    v7 = __OFSUB__(v3, 1);
+    v3 = (v3 - 1);
     if ((v3 < 0) ^ v7 | (v3 == 0))
     {
       return 1;
@@ -587,36 +512,37 @@ uint64_t FocusCommand(uint64_t a1)
 void configure_symptom_logging(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (logHandlesPred != -1)
   {
     configure_symptom_logging_cold_1();
   }
 
-  initializeActivityMeasurements();
-  v3 = measureLaunchXPCHandle();
-  if (os_signpost_enabled(v3))
+  initializeActivityMeasurements(v2);
+  v5 = measureLaunchXPCHandle(v4);
+  if (os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_23255B000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PrelaunchSequenceInterval", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_23255B000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PrelaunchSequenceInterval", "", buf, 2u);
   }
 
   markMeasurement(1, 1);
-  v4 = measureLaunchXPCHandle();
-  if (os_signpost_enabled(v4))
+  v7 = measureLaunchXPCHandle(v6);
+  if (os_signpost_enabled(v7))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_23255B000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ProcessLaunch", "Immediately after called into main", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_23255B000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ProcessLaunch", "Immediately after called into main", buf, 2u);
   }
 
-  v5 = prefs_store_init(0, &__block_literal_global_35);
+  v8 = prefs_store_init(0, &__block_literal_global_35);
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __configure_symptom_logging_block_invoke_36;
   aBlock[3] = &unk_27898F078;
-  v8 = v2;
-  v6 = v2;
-  prefs_start_monitoring(v5, aBlock);
-  sharedPrefsStore = v5;
+  v11 = v3;
+  v9 = v3;
+  prefs_start_monitoring(v8, aBlock);
+  sharedPrefsStore = v8;
 }
 
 void __configure_symptom_logging_block_invoke()
@@ -756,16 +682,14 @@ void __configure_symptom_logging_block_invoke()
 
 void __configure_symptom_logging_block_invoke_32(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = configurationLogHandle;
   if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 134217984;
-    v6 = a2;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SYMPTOM_CONFIG: prefs callback, prefs = %p\n", &v5, 0xCu);
+    v4 = 134217984;
+    v5 = a2;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SYMPTOM_CONFIG: prefs callback, prefs = %p\n", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __configure_symptom_logging_block_invoke_36(uint64_t a1, uint64_t a2)
@@ -781,24 +705,22 @@ void __configure_symptom_logging_block_invoke_36(uint64_t a1, uint64_t a2)
 
 uint64_t __configure_symptom_logging_block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = configurationLogHandle;
   if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 40);
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "SYMPTOM_CONFIG: init callback, prefs = %p\n", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "SYMPTOM_CONFIG: init callback, prefs = %p\n", &v5, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 void configure_symptom_evaluator_handling(void *a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   if (!v3)
@@ -839,9 +761,9 @@ void configure_symptom_evaluator_handling(void *a1, void *a2)
     else
     {
       v10 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v6 length:? freeWhenDone:?];
-      v18 = 0;
-      v3 = [MEMORY[0x277CCAC58] propertyListWithData:v10 options:2 format:0 error:&v18];
-      v11 = v18;
+      v17 = 0;
+      v3 = [MEMORY[0x277CCAC58] propertyListWithData:v10 options:2 format:0 error:&v17];
+      v11 = v17;
       v9 = v11;
       if (!v3)
       {
@@ -852,7 +774,7 @@ void configure_symptom_evaluator_handling(void *a1, void *a2)
           v14 = [v9 description];
           v15 = [v14 UTF8String];
           *buf = 136315138;
-          v21 = v15;
+          v20 = v15;
           _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "Malformed default symptom plist %s", buf, 0xCu);
         }
 
@@ -870,8 +792,6 @@ void configure_symptom_evaluator_handling(void *a1, void *a2)
   v16 = [v3 objectForKey:@"ADDITONAL_HANDLER_ARRAY"];
   [SimpleSyndromeHandler setDefaultNextStage:v4];
   [ConfigurationHandler configureItems:v3];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void configure_symptom_network_diagnostics()
@@ -905,22 +825,20 @@ void activate_symptom_evaluator_handling()
 
 void configure_analytics_launchpad_for_helper()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v3[0] = @"HANDLER_CLASS";
-  v3[1] = @"HANDLER_CONFIG";
-  v4[0] = @"AnalyticsLaunchpad";
-  v4[1] = MEMORY[0x277CBEC10];
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:2];
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v2[0] = @"HANDLER_CLASS";
+  v2[1] = @"HANDLER_CONFIG";
+  v3[0] = @"AnalyticsLaunchpad";
+  v3[1] = MEMORY[0x277CBEC10];
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:2];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   [ConfigurationHandler configureItems:v1];
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void init_symptom_evaluator_listening(const char *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v1 = a1;
@@ -934,13 +852,12 @@ void init_symptom_evaluator_listening(const char *a1)
   v2 = transportLogHandle;
   if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v4 = 136315138;
-    v5 = v1;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "About to start listening on %s", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = v1;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "About to start listening on %s", &v3, 0xCu);
   }
 
   symtrans_main(v1);
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t init_managed_event_listening(const char *a1)
@@ -962,14 +879,14 @@ _BYTE *CreateCStringFromBitMask(uint64_t a1, unint64_t a2)
 {
   if (!a2)
   {
-    CreateCStringFromBitMask_cold_2(&v14);
+    CreateCStringFromBitMask_cold_2(v14);
   }
 
   v4 = 9 * a2;
   v5 = malloc_type_malloc(9 * a2, 0x9273045DuLL);
   if (!v5)
   {
-    CreateCStringFromBitMask_cold_1(&v14);
+    CreateCStringFromBitMask_cold_1(v14);
   }
 
   v6 = v5;
@@ -1018,7 +935,7 @@ _BYTE *CreateCStringFromBitMask(uint64_t a1, unint64_t a2)
   return v6;
 }
 
-uint64_t ConstructJoins(uint64_t a1, unsigned int a2, uint64_t a3, int a4, uint64_t a5, int a6, int a7)
+void *ConstructJoins(void *a1, unsigned int a2, uint64_t a3, int a4, void *a5, int a6, unsigned int a7)
 {
   v10 = a4;
   v11 = a3;
@@ -1226,12 +1143,12 @@ LABEL_51:
     if (v11)
     {
 LABEL_52:
-      v81 = 0;
+      v80 = 0;
       v35 = 1;
       v36 = a1;
       v37 = a6;
       v38 = a7;
-      v86 = v10;
+      v85 = v10;
       while (1)
       {
         v39 = *(v11 + 200);
@@ -1275,7 +1192,7 @@ LABEL_52:
 LABEL_57:
             v42 = 0;
 LABEL_60:
-            v89 = 1;
+            v88 = 1;
             goto LABEL_66;
           }
 
@@ -1305,10 +1222,10 @@ LABEL_60:
           v43 = 1;
         }
 
-        v89 = v43;
+        v88 = v43;
 LABEL_66:
         v44 = *(v11 + 76);
-        v85 = v38;
+        v84 = v38;
         if (v44 <= v10)
         {
           v48 = v37;
@@ -1323,7 +1240,7 @@ LABEL_66:
             v52 = *(v11 + 104);
             v56 = *(v11 + 144);
             v57 = *(v11 + 152);
-            v88 = (v60 & 7) << 7;
+            v87 = (v60 & 7) << 7;
             v58 = v54;
           }
 
@@ -1331,7 +1248,7 @@ LABEL_66:
           {
             v54 = 0;
             v53 = 0;
-            v88 = 0;
+            v87 = 0;
             v56 = 0;
             v57 = 0;
             v58 = 0;
@@ -1350,13 +1267,13 @@ LABEL_66:
           v47 = a2;
           v48 = v37;
           v49 = v42;
-          v50 = ConstructJoins(v46, a2, v11, (v86 + 1), a5);
+          v50 = ConstructJoins(v46, a2, v11, v85 + 1, a5, v37, v38);
           LOBYTE(v51) = v45;
-          v10 = v86;
+          v10 = v85;
           v52 = v49;
           v53 = v50;
           v54 = 0;
-          v88 = 0;
+          v87 = 0;
           v55 = (v11 + 96);
           v56 = *(v11 + 112);
           v57 = *(v11 + 120);
@@ -1367,7 +1284,7 @@ LABEL_66:
         v63 = v10 == 1 && v35 == v47;
         if (a5)
         {
-          v64 = *(a5 + 112);
+          v64 = a5[14];
         }
 
         else if (*(v11 + 192))
@@ -1376,7 +1293,7 @@ LABEL_66:
           {
             v64 = 0;
             v65 = 0;
-            v81 = *(v54 + 16);
+            v80 = *(v54 + 16);
             goto LABEL_81;
           }
 
@@ -1385,42 +1302,12 @@ LABEL_66:
 
         else
         {
-          v64 = *(*(*(a1 + 48) + 128) + 40);
+          v64 = *(*(a1[6] + 128) + 40);
         }
 
         v65 = 1;
-        if (v48 != 1)
-        {
-          goto LABEL_88;
-        }
-
 LABEL_81:
-        v66 = *(v11 + 16) & 1;
-        v82 = *v55;
-        v83 = v54;
-        v67 = a5;
-        v68 = v52;
-        v69 = v51;
-        v70 = v44;
-        v71 = v53;
-        v72 = v35;
-        v73 = v56;
-        v74 = v11;
-        v75 = v57;
-        ShareableJoin = FindShareableJoin(v64, v81, v65, v58, v85, v66, v51 & 1, v63, v61, v52, v56, v57);
-        v61 = v82;
-        v54 = v83;
-        v57 = v75;
-        v11 = v74;
-        v56 = v73;
-        v35 = v72;
-        v53 = v71;
-        v44 = v70;
-        LOBYTE(v51) = v69;
-        v10 = v86;
-        v52 = v68;
-        a5 = v67;
-        if (ShareableJoin)
+        if (v48 == 1 && (v66 = *(v11 + 16) & 1, v81 = *v55, v82 = v54, v67 = a5, v68 = v52, v69 = v51, v70 = v44, v71 = v53, v72 = v35, v73 = v56, v74 = v11, v75 = v57, ShareableJoin = FindShareableJoin(v64, v80, v65, v58, v84, v66, v51 & 1, v63, v61, v52, v56, v57), v61 = v81, v54 = v82, v57 = v75, v11 = v74, v56 = v73, v35 = v72, v53 = v71, v44 = v70, LOBYTE(v51) = v69, v10 = v85, v52 = v68, a5 = v67, ShareableJoin))
         {
           v77 = ShareableJoin;
           v36 = a1;
@@ -1431,7 +1318,7 @@ LABEL_81:
 
           v37 = 1;
           a5 = v77;
-          if (v89)
+          if (v88)
           {
             goto LABEL_107;
           }
@@ -1439,8 +1326,6 @@ LABEL_81:
 
         else
         {
-LABEL_88:
-          v78 = *(v11 + 16);
           v36 = a1;
           if (v44 <= v10)
           {
@@ -1454,8 +1339,8 @@ LABEL_88:
 
           a5 = NewJoin;
           v37 = 0;
-          *NewJoin = *NewJoin & 0xFFFFFC7F | v88;
-          if (v89)
+          *NewJoin = *NewJoin & 0xFFFFFC7F | v87;
+          if (v88)
           {
             goto LABEL_107;
           }
@@ -1473,7 +1358,7 @@ LABEL_88:
   }
 
   v36 = a1;
-  a5 = FindShareableJoin(*(*(*(a1 + 48) + 128) + 40), 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+  a5 = FindShareableJoin(*(*(a1[6] + 128) + 40), 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0);
   if (!a5)
   {
     a5 = CreateNewJoin(a1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -1495,7 +1380,7 @@ LABEL_107:
   return a5;
 }
 
-uint64_t FindShareableJoin(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *a11, void *a12)
+int *FindShareableJoin(uint64_t a1, int *a2, int a3, uint64_t a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *a11, void *a12)
 {
   v19 = a1;
   if (a3)
@@ -1512,10 +1397,10 @@ uint64_t FindShareableJoin(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5
   {
     do
     {
-      if (*(a2 + 104) == a4)
+      if (*(a2 + 13) == a4)
       {
         v20 = *a2;
-        if ((*a2 & 1) == a5 && (a7 || ((v20 >> 3) & 1) == a6) && ((v20 >> 4) & 1) == a7 && (a8 != 1 || (v20 & 2) != 0 || !BetaMemoryNotEmpty(a2)) && IdenticalExpression(*(a2 + 72), a9) == 1 && IdenticalExpression(*(a2 + 80), a10) == 1 && IdenticalExpression(*(a2 + 88), a11) == 1 && IdenticalExpression(*(a2 + 96), a12) == 1)
+        if ((*a2 & 1) == a5 && (a7 || ((v20 >> 3) & 1) == a6) && ((v20 >> 4) & 1) == a7 && (a8 != 1 || (v20 & 2) != 0 || !BetaMemoryNotEmpty(a2)) && IdenticalExpression(*(a2 + 9), a9) == 1 && IdenticalExpression(*(a2 + 10), a10) == 1 && IdenticalExpression(*(a2 + 11), a11) == 1 && IdenticalExpression(*(a2 + 12), a12) == 1)
         {
           break;
         }
@@ -1534,7 +1419,7 @@ uint64_t FindShareableJoin(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5
 
       else
       {
-        v21 = (a2 + 128);
+        v21 = (a2 + 32);
       }
 
       a2 = *v21;
@@ -2135,7 +2020,7 @@ LABEL_47:
 
 uint64_t GenericDispatch(void *a1, uint64_t a2, uint64_t a3, __int16 *a4, uint64_t a5, uint64_t a6)
 {
-  memset(v47, 0, sizeof(v47));
+  memset(v42, 0, sizeof(v42));
   *(a6 + 8) = 2;
   result = EnvFalseSymbol(a1);
   *(a6 + 16) = result;
@@ -2146,14 +2031,14 @@ uint64_t GenericDispatch(void *a1, uint64_t a2, uint64_t a3, __int16 *a4, uint64
   {
     v15 = *(v13 + 440);
     v16 = *(v15 + 112);
-    v42[0] = 0;
-    v43 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v46 = 0;
-    v42[1] = v16;
-    *(v15 + 112) = v42;
-    v40 = ExecutingConstruct(a1);
+    v37[0] = 0;
+    v38 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v41 = 0;
+    v37[1] = v16;
+    *(v15 + 112) = v37;
+    v35 = ExecutingConstruct(a1);
     SetExecutingConstruct(a1, 1);
     v17 = a1[6];
     v18 = *(v17 + 216);
@@ -2194,7 +2079,7 @@ uint64_t GenericDispatch(void *a1, uint64_t a2, uint64_t a3, __int16 *a4, uint64
           v27 = EnvGetDefruleName(a1, a2);
           EnvPrintRouter(a1, "werror", v27);
           EnvPrintRouter(a1, "werror", " method #");
-          PrintLongInteger(a1, "werror", *a4, v28, v29, v30, v31, v32);
+          PrintLongInteger(a1, "werror", *a4);
           EnvPrintRouter(a1, "werror", " is not applicable to the given arguments.\n");
           v25 = a1[6];
         }
@@ -2207,52 +2092,52 @@ uint64_t GenericDispatch(void *a1, uint64_t a2, uint64_t a3, __int16 *a4, uint64
         *(v25[27] + 144) = ApplicableMethod;
       }
 
-      v33 = v25[27];
-      v34 = *(v33 + 144);
-      if (v34)
+      v28 = v25[27];
+      v29 = *(v28 + 144);
+      if (v29)
       {
-        if (*(*(v33 + 136) + 52))
+        if (*(*(v28 + 136) + 52))
         {
           WatchGeneric(a1, ">>");
           v25 = a1[6];
-          v34 = *(v25[27] + 144);
+          v29 = *(v25[27] + 144);
         }
 
-        v35 = *(v34 + 16);
-        if ((v35 & 2) != 0)
+        v30 = *(v29 + 16);
+        if ((v30 & 2) != 0)
         {
           WatchMethod(a1, ">>");
           v25 = a1[6];
-          v34 = *(v25[27] + 144);
-          v35 = *(v34 + 16);
+          v29 = *(v25[27] + 144);
+          v30 = *(v29 + 16);
         }
 
-        if (v35)
+        if (v30)
         {
-          v41[1] = *(*(v34 + 32) + 8);
-          v41[0] = 30;
-          v41[3] = 0;
-          v41[2] = GetProcParamExpressions(a1);
-          EvaluateExpression(a1, v41, a6);
+          v36[1] = *(*(v29 + 32) + 8);
+          v36[0] = 30;
+          v36[3] = 0;
+          v36[2] = GetProcParamExpressions(a1);
+          EvaluateExpression(a1, v36, a6);
         }
 
         else
         {
-          StartProfile(a1, v47, (v34 + 48), *(v25[15] + 72));
+          StartProfile(a1, v42, (v29 + 48), *(v25[15] + 72));
           EvaluateProcActions(a1, **(*(*(a1[6] + 216) + 136) + 16), *(*(*(a1[6] + 216) + 144) + 32), *(*(*(a1[6] + 216) + 144) + 14), a6, UnboundMethodErr);
-          EndProfile(a1, v47);
+          EndProfile(a1, v42);
         }
 
-        v37 = *(a1[6] + 216);
-        v38 = *(v37 + 144);
-        --*(v38 + 4);
-        if ((*(v38 + 16) & 2) != 0)
+        v32 = *(a1[6] + 216);
+        v33 = *(v32 + 144);
+        --*(v33 + 4);
+        if ((*(v33 + 16) & 2) != 0)
         {
           WatchMethod(a1, "<<");
-          v37 = *(a1[6] + 216);
+          v32 = *(a1[6] + 216);
         }
 
-        if (*(*(v37 + 136) + 52))
+        if (*(*(v32 + 136) + 52))
         {
           WatchGeneric(a1, "<<");
         }
@@ -2262,8 +2147,8 @@ uint64_t GenericDispatch(void *a1, uint64_t a2, uint64_t a3, __int16 *a4, uint64
       {
         PrintErrorID(a1, "GENRCEXE", 1, 0);
         EnvPrintRouter(a1, "werror", "No applicable methods for ");
-        v36 = EnvGetDefruleName(a1, a2);
-        EnvPrintRouter(a1, "werror", v36);
+        v31 = EnvGetDefruleName(a1, a2);
+        EnvPrintRouter(a1, "werror", v31);
         EnvPrintRouter(a1, "werror", ".\n");
         SetEvaluationError(a1, 1);
       }
@@ -2271,16 +2156,16 @@ uint64_t GenericDispatch(void *a1, uint64_t a2, uint64_t a3, __int16 *a4, uint64
       --*(a2 + 48);
       **(a1[6] + 104) = 0;
       PopProcParameters(a1);
-      v39 = a1[6];
-      *(*(v39 + 216) + 136) = v19;
-      *(*(v39 + 216) + 144) = v20;
-      v24 = v39 + 352;
+      v34 = a1[6];
+      *(*(v34 + 216) + 136) = v19;
+      *(*(v34 + 216) + 144) = v20;
+      v24 = v34 + 352;
     }
 
     --*(*v24 + 16);
-    RestorePriorGarbageFrame(a1, v42, v16, a6);
+    RestorePriorGarbageFrame(a1, v37, v16, a6);
     CallPeriodicTasks(a1);
-    return SetExecutingConstruct(a1, v40);
+    return SetExecutingConstruct(a1, v35);
   }
 
   return result;
@@ -2292,7 +2177,7 @@ uint64_t UnboundMethodErr(uint64_t a1)
   DefruleName = EnvGetDefruleName(a1, *(*(*(a1 + 48) + 216) + 136));
   EnvPrintRouter(a1, "werror", DefruleName);
   EnvPrintRouter(a1, "werror", " method #");
-  PrintLongInteger(a1, "werror", **(*(*(a1 + 48) + 216) + 144), v3, v4, v5, v6, v7);
+  PrintLongInteger(a1, "werror", **(*(*(a1 + 48) + 216) + 144));
 
   return EnvPrintRouter(a1, "werror", ".\n");
 }
@@ -2446,7 +2331,7 @@ uint64_t WatchGeneric(uint64_t a1, char *a2)
   EnvPrintRouter(a1, "wtrace", *(**(*(*(a1 + 48) + 216) + 136) + 24));
   EnvPrintRouter(a1, "wtrace", " ");
   EnvPrintRouter(a1, "wtrace", " ED:");
-  PrintLongInteger(a1, "wtrace", *(*(*(a1 + 48) + 352) + 16), v6, v7, v8, v9, v10);
+  PrintLongInteger(a1, "wtrace", *(*(*(a1 + 48) + 352) + 16));
 
   return PrintProcParamArray(a1, "wtrace");
 }
@@ -2466,17 +2351,17 @@ uint64_t WatchMethod(uint64_t a1, char *a2)
 
   EnvPrintRouter(a1, "wtrace", *(**(*(*(a1 + 48) + 216) + 136) + 24));
   EnvPrintRouter(a1, "wtrace", ":#");
-  v11 = *(*(*(a1 + 48) + 216) + 144);
-  if (v11[8])
+  v6 = *(*(*(a1 + 48) + 216) + 144);
+  if (v6[8])
   {
     EnvPrintRouter(a1, "wtrace", "SYS");
-    v11 = *(*(*(a1 + 48) + 216) + 144);
+    v6 = *(*(*(a1 + 48) + 216) + 144);
   }
 
-  PrintLongInteger(a1, "wtrace", *v11, v6, v7, v8, v9, v10);
+  PrintLongInteger(a1, "wtrace", *v6);
   EnvPrintRouter(a1, "wtrace", " ");
   EnvPrintRouter(a1, "wtrace", " ED:");
-  PrintLongInteger(a1, "wtrace", *(*(*(a1 + 48) + 352) + 16), v12, v13, v14, v15, v16);
+  PrintLongInteger(a1, "wtrace", *(*(*(a1 + 48) + 352) + 16));
 
   return PrintProcParamArray(a1, "wtrace");
 }
@@ -2500,23 +2385,23 @@ unint64_t NextMethodP(uint64_t a1)
   return result;
 }
 
-void CallNextMethod(uint64_t a1, uint64_t a2)
+void CallNextMethod(void *a1, uint64_t a2)
 {
   memset(v15, 0, sizeof(v15));
   *(a2 + 8) = 2;
   *(a2 + 16) = EnvFalseSymbol(a1);
-  v4 = *(a1 + 48);
+  v4 = a1[6];
   if (!*(*(v4 + 352) + 12))
   {
     v5 = *(v4 + 216);
     v6 = *(v5 + 144);
-    if (v6 && (ApplicableMethod = FindApplicableMethod(a1, *(v5 + 136), *(v5 + 144)), v8 = *(a1 + 48), *(*(v8 + 216) + 144) = ApplicableMethod, v5 = *(v8 + 216), (v9 = *(v5 + 144)) != 0))
+    if (v6 && (ApplicableMethod = FindApplicableMethod(a1, *(v5 + 136), *(v5 + 144)), v8 = a1[6], *(*(v8 + 216) + 144) = ApplicableMethod, v5 = *(v8 + 216), (v9 = *(v5 + 144)) != 0))
     {
       v10 = *(v9 + 16);
       if ((v10 & 2) != 0)
       {
         WatchMethod(a1, ">>");
-        v8 = *(a1 + 48);
+        v8 = a1[6];
         v5 = *(v8 + 216);
         v9 = *(v5 + 144);
         v10 = *(v9 + 16);
@@ -2534,18 +2419,18 @@ void CallNextMethod(uint64_t a1, uint64_t a2)
       else
       {
         StartProfile(a1, v15, (*(v5 + 136) + 40), *(*(v8 + 120) + 72));
-        EvaluateProcActions(a1, **(*(*(*(a1 + 48) + 216) + 136) + 16), *(*(*(*(a1 + 48) + 216) + 144) + 32), *(*(*(*(a1 + 48) + 216) + 144) + 14), a2, UnboundMethodErr);
+        EvaluateProcActions(a1, **(*(*(a1[6] + 216) + 136) + 16), *(*(*(a1[6] + 216) + 144) + 32), *(*(*(a1[6] + 216) + 144) + 14), a2, UnboundMethodErr);
         EndProfile(a1, v15);
       }
 
-      v11 = *(a1 + 48);
+      v11 = a1[6];
       v12 = *(v11 + 216);
       v13 = *(v12 + 144);
       --*(v13 + 4);
       if ((*(v13 + 16) & 2) != 0)
       {
         WatchMethod(a1, "<<");
-        v11 = *(a1 + 48);
+        v11 = a1[6];
         v12 = *(v11 + 216);
       }
 
@@ -2571,14 +2456,14 @@ uint64_t CallSpecificMethod(void *a1, uint64_t a2)
   v8 = 0u;
   *(a2 + 8) = 2;
   *(a2 + 16) = EnvFalseSymbol(a1);
-  result = EnvArgTypeCheck(a1, "call-specific-method", 1, 2, &v8);
+  result = EnvArgTypeCheck(a1, "call-specific-method", 1, 2u, &v8);
   if (result)
   {
     result = CheckGenericExists(a1, "call-specific-method", *(v9 + 24));
     if (result)
     {
       v5 = result;
-      result = EnvArgTypeCheck(a1, "call-specific-method", 2, 1, &v8);
+      result = EnvArgTypeCheck(a1, "call-specific-method", 2, 1u, &v8);
       if (result)
       {
         result = CheckMethodExists(a1, "call-specific-method", v5, *(v9 + 24));
@@ -2664,7 +2549,7 @@ uint64_t FreeDefgenericModule(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t ClearDefmethods(uint64_t a1)
+uint64_t ClearDefmethods(void *a1)
 {
   if (Bloaded(a1) == 1)
   {
@@ -2698,7 +2583,7 @@ uint64_t ClearDefmethods(uint64_t a1)
   return v2;
 }
 
-uint64_t RemoveAllExplicitMethods(uint64_t a1, uint64_t a2)
+uint64_t RemoveAllExplicitMethods(void *a1, uint64_t a2)
 {
   v4 = *(a2 + 64);
   v5 = *(a2 + 64);
@@ -2824,9 +2709,9 @@ uint64_t MethodsExecuting(uint64_t a1)
   return 1;
 }
 
-uint64_t DeleteMethodInfo(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t DeleteMethodInfo(void *a1, uint64_t a2, uint64_t a3)
 {
-  *(*(*(a1 + 48) + 216) + 160) = *(a2 + 48);
+  *(*(a1[6] + 216) + 160) = *(a2 + 48);
   ExpressionDeinstall(a1, *(a3 + 32));
   ReturnPackedExpression(a1, *(a3 + 32));
   result = ClearUserDataList(a1, *(a3 + 48));
@@ -2877,11 +2762,11 @@ uint64_t DeleteMethodInfo(uint64_t a1, uint64_t a2, uint64_t a3)
     result = rm(a1, v14, 24 * v9);
   }
 
-  *(a2 + 48) = *(*(*(a1 + 48) + 216) + 160);
+  *(a2 + 48) = *(*(a1[6] + 216) + 160);
   return result;
 }
 
-uint64_t RemoveDefgeneric(uint64_t a1, uint64_t a2)
+uint64_t RemoveDefgeneric(void *a1, uint64_t a2)
 {
   v4 = *(a2 + 64);
   if (v4 < 1)
@@ -2914,14 +2799,14 @@ uint64_t RemoveDefgeneric(uint64_t a1, uint64_t a2)
   DecrementSymbolCount(a1, DefgenericNamePointer);
   EnvSetDefgenericPPForm(a1, a2, 0);
   result = ClearUserDataList(a1, *(a2 + 40));
-  v10 = *(a1 + 48);
+  v10 = a1[6];
   *(*(v10 + 472) + 32) = a2;
   **(*(v10 + 472) + 32) = *(*(*(v10 + 472) + 40) + 576);
   *(*(*(v10 + 472) + 40) + 576) = *(*(v10 + 472) + 32);
   return result;
 }
 
-uint64_t ClearDefgenerics(uint64_t a1)
+uint64_t ClearDefgenerics(void *a1)
 {
   if (Bloaded(a1) == 1)
   {
@@ -3051,90 +2936,88 @@ uint64_t FindMethodByIndex(uint64_t a1, uint64_t a2)
   return result;
 }
 
-char *PrintMethod(uint64_t a1, char *__dst, size_t __n, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *PrintMethod(uint64_t a1, char *__dst, size_t __n, __int16 *a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   *__dst = 0;
-  if (*(a4 + 16))
+  if (a4[8])
   {
     genstrncpy(__dst, "SYS", __n);
   }
 
-  gensprintf(__s2, "%-2d ", __n, a4, a5, a6, a7, a8, *a4);
+  gensprintf(__s2, "%-2d ", *a4);
   result = genstrncat(__dst, __s2, __n - 3);
-  v13 = *(a4 + 8);
-  if (v13 >= 1)
+  v9 = a4[4];
+  if (v9 >= 1)
   {
-    for (i = 0; i < v13; ++i)
+    for (i = 0; i < v9; ++i)
     {
-      v15 = *(a4 + 24) + 24 * i;
-      if (v13 - 1 == i && *(a4 + 12) == -1)
+      v11 = *(a4 + 3) + 24 * i;
+      if (v9 - 1 == i && a4[6] == -1)
       {
-        if (!*(v15 + 16) && !*(v15 + 8))
+        if (!*(v11 + 16) && !*(v11 + 8))
         {
-          v27 = strlen(__dst);
-          result = genstrncat(__dst, "$?", __n - v27);
-          break;
+          v23 = strlen(__dst);
+          return genstrncat(__dst, "$?", __n - v23);
         }
 
-        v16 = "($? ";
+        v12 = "($? ";
       }
 
       else
       {
-        v16 = "(";
+        v12 = "(";
       }
 
-      v17 = strlen(__dst);
-      genstrncat(__dst, v16, __n - v17);
-      v18 = *(v15 + 16);
-      if (v18 >= 1)
+      v13 = strlen(__dst);
+      genstrncat(__dst, v12, __n - v13);
+      v14 = *(v11 + 16);
+      if (v14 >= 1)
       {
-        v19 = 0;
+        v15 = 0;
         do
         {
-          v20 = TypeName(a1, *(*(*v15 + 8 * v19) + 24));
-          v21 = strlen(__dst);
-          genstrncat(__dst, v20, __n - v21);
-          v18 = *(v15 + 16);
-          if (v18 - 1 > v19)
+          v16 = TypeName(a1, *(*(*v11 + 8 * v15) + 24));
+          v17 = strlen(__dst);
+          genstrncat(__dst, v16, __n - v17);
+          v14 = *(v11 + 16);
+          if (v14 - 1 > v15)
           {
-            v22 = strlen(__dst);
-            genstrncat(__dst, " ", __n - v22);
-            LOWORD(v18) = *(v15 + 16);
+            v18 = strlen(__dst);
+            genstrncat(__dst, " ", __n - v18);
+            LOWORD(v14) = *(v11 + 16);
           }
 
-          ++v19;
+          ++v15;
         }
 
-        while (v19 < v18);
+        while (v15 < v14);
       }
 
-      if (*(v15 + 8))
+      if (*(v11 + 8))
       {
-        if (v18)
+        if (v14)
         {
-          v23 = strlen(__dst);
-          genstrncat(__dst, " ", __n - v23);
+          v19 = strlen(__dst);
+          genstrncat(__dst, " ", __n - v19);
         }
 
-        v24 = strlen(__dst);
-        genstrncat(__dst, "<qry>", __n - v24);
+        v20 = strlen(__dst);
+        genstrncat(__dst, "<qry>", __n - v20);
       }
 
-      v25 = strlen(__dst);
-      result = genstrncat(__dst, ")", __n - v25);
-      v13 = *(a4 + 8);
-      if (v13 - 1 != i)
+      v21 = strlen(__dst);
+      result = genstrncat(__dst, ")", __n - v21);
+      v9 = a4[4];
+      if (v9 - 1 != i)
       {
-        v26 = strlen(__dst);
-        result = genstrncat(__dst, " ", __n - v26);
-        LOWORD(v13) = *(a4 + 8);
+        v22 = strlen(__dst);
+        result = genstrncat(__dst, " ", __n - v22);
+        LOWORD(v9) = a4[4];
       }
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3151,23 +3034,23 @@ const char *TypeName(uint64_t a1, unsigned int a2)
   return "<UNKNOWN-TYPE>";
 }
 
-uint64_t PreviewGeneric(uint64_t a1)
+uint64_t PreviewGeneric(void *a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v26 = 0u;
-  v27 = 0u;
-  v25 = 0u;
-  *(*(*(a1 + 48) + 352) + 8) = 0;
-  result = EnvArgTypeCheck(a1, "preview-generic", 1, 2, &v25);
+  v24 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
+  v22 = 0u;
+  v20 = 0u;
+  *(*(a1[6] + 352) + 8) = 0;
+  result = EnvArgTypeCheck(a1, "preview-generic", 1, 2u, &v20);
   if (result)
   {
-    v3 = LookupDefgenericByMdlOrScope(a1, *(v26 + 24));
+    v3 = LookupDefgenericByMdlOrScope(a1, *(v21 + 24));
     if (v3)
     {
       v4 = v3;
       v5 = ExecutingConstruct(a1);
       SetExecutingConstruct(a1, 1);
-      v6 = *(a1 + 48);
+      v6 = a1[6];
       v7 = *(v6 + 216);
       v8 = *(v7 + 136);
       *(v7 + 136) = v4;
@@ -3177,7 +3060,7 @@ uint64_t PreviewGeneric(uint64_t a1)
       v11 = CountArguments(v10);
       DefruleName = EnvGetDefruleName(a1, v4);
       PushProcParameters(a1, v10, v11, DefruleName, "generic function", UnboundMethodErr);
-      if (!*(*(*(a1 + 48) + 352) + 8))
+      if (!*(*(a1[6] + 352) + 8))
       {
         ++*(v4 + 48);
         if (*(v4 + 64) < 1)
@@ -3197,7 +3080,7 @@ uint64_t PreviewGeneric(uint64_t a1)
             v17 = EnvGetDefruleName(a1, v4);
             EnvPrintRouter(a1, "wdisplay", v17);
             EnvPrintRouter(a1, "wdisplay", " #");
-            PrintMethod(a1, __dst, 0xFFuLL, *(v4 + 56) + v16 - 4, v18, v19, v20, v21);
+            PrintMethod(a1, __dst, 0xFFuLL, (*(v4 + 56) + v16 - 4));
             EnvPrintRouter(a1, "wdisplay", __dst);
             EnvPrintRouter(a1, "wdisplay", "\n");
             v13 = 1;
@@ -3214,8 +3097,8 @@ uint64_t PreviewGeneric(uint64_t a1)
         {
 LABEL_10:
           EnvPrintRouter(a1, "wdisplay", "No applicable methods for ");
-          v22 = EnvGetDefruleName(a1, v4);
-          EnvPrintRouter(a1, "wdisplay", v22);
+          v18 = EnvGetDefruleName(a1, v4);
+          EnvPrintRouter(a1, "wdisplay", v18);
           EnvPrintRouter(a1, "wdisplay", ".\n");
         }
 
@@ -3223,22 +3106,21 @@ LABEL_10:
       }
 
       PopProcParameters(a1);
-      v23 = *(a1 + 48);
-      *(*(v23 + 216) + 136) = v8;
-      --*(*(v23 + 352) + 16);
-      result = SetExecutingConstruct(a1, v5);
+      v19 = a1[6];
+      *(*(v19 + 216) + 136) = v8;
+      --*(*(v19 + 352) + 16);
+      return SetExecutingConstruct(a1, v5);
     }
 
     else
     {
       PrintErrorID(a1, "GENRCFUN", 3, 0);
       EnvPrintRouter(a1, "werror", "Unable to find generic function ");
-      EnvPrintRouter(a1, "werror", *(v26 + 24));
-      result = EnvPrintRouter(a1, "werror", " in function preview-generic.\n");
+      EnvPrintRouter(a1, "werror", *(v21 + 24));
+      return EnvPrintRouter(a1, "werror", " in function preview-generic.\n");
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3270,7 +3152,7 @@ LABEL_5:
     DefruleName = EnvGetDefruleName(a1, a3);
     EnvPrintRouter(a1, "werror", DefruleName);
     EnvPrintRouter(a1, "werror", " #");
-    PrintLongInteger(a1, "werror", a4, v13, v14, v15, v16, v17);
+    PrintLongInteger(a1, "werror", a4);
     EnvPrintRouter(a1, "werror", " in function ");
     EnvPrintRouter(a1, "werror", a2);
     EnvPrintRouter(a1, "werror", ".\n");
@@ -3301,7 +3183,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t PrintGenericName(uint64_t a1, FILE *a2, uint64_t **a3)
+uint64_t PrintGenericName(uint64_t a1, FILE *a2, void **a3)
 {
   v6 = *a3[2];
   if (v6 != EnvGetCurrentModule(a1))
@@ -3527,7 +3409,7 @@ uint64_t UpdateMemoryRequests(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void *gm1(uint64_t a1, unint64_t a2)
+void *gm1(uint64_t a1, size_t a2)
 {
   if (a2 <= 8)
   {
@@ -3633,9 +3515,9 @@ void sub_2327250B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_232726594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_232726594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4356,7 +4238,7 @@ uint64_t SetupGenericFunctions(uint64_t a1)
   AddPortConstructItem(a1, "defgeneric", 2);
   AddConstruct(a1, "defmethod", "defmethods", ParseDefmethod, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   AddSaveFunction(a1, "defgeneric", SaveDefgenerics, 1000);
-  AddSaveFunction(a1, "defmethod", SaveDefmethods, -1000);
+  AddSaveFunction(a1, "defmethod", SaveDefmethods, 4294966296);
   EnvDefineFunction2(a1, "undefgeneric", 118, UndefgenericCommand, "UndefgenericCommand", "11w");
   EnvDefineFunction2(a1, "undefmethod", 118, UndefmethodCommand, "UndefmethodCommand", "22*wg");
   EnvDefineFunction2(a1, "call-next-method", 117, CallNextMethod, "CallNextMethod", "00");
@@ -4461,7 +4343,7 @@ BOOL EnvIsDefgenericDeletable(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t EnvUndefgeneric(uint64_t a1, uint64_t a2)
+BOOL EnvUndefgeneric(void *a1, uint64_t a2)
 {
   if (a2)
   {
@@ -4501,15 +4383,15 @@ uint64_t EnvUndefgeneric(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t UndefmethodCommand(uint64_t a1)
+uint64_t UndefmethodCommand(void *a1)
 {
   v10 = 0u;
   v11 = 0u;
   v9 = 0u;
-  result = EnvArgTypeCheck(a1, "undefmethod", 1, 2, &v9);
+  result = EnvArgTypeCheck(a1, "undefmethod", 1, 2u, &v9);
   if (result)
   {
-    v3 = LookupConstruct(a1, **(*(a1 + 48) + 216), *(v10 + 24), 1);
+    v3 = LookupConstruct(a1, **(a1[6] + 216), *(v10 + 24), 1);
     if (!v3)
     {
       v6 = *(v10 + 24);
@@ -4558,11 +4440,11 @@ uint64_t PPDefmethodCommand(uint64_t a1)
   v7 = 0u;
   v8 = 0u;
   v6 = 0u;
-  result = EnvArgTypeCheck(a1, "ppdefmethod", 1, 2, &v6);
+  result = EnvArgTypeCheck(a1, "ppdefmethod", 1, 2u, &v6);
   if (result)
   {
     v3 = *(v7 + 24);
-    result = EnvArgTypeCheck(a1, "ppdefmethod", 2, 1, &v6);
+    result = EnvArgTypeCheck(a1, "ppdefmethod", 2, 1u, &v6);
     if (result)
     {
       result = CheckGenericExists(a1, "ppdefmethod", v3);
@@ -4592,7 +4474,7 @@ uint64_t ListDefmethodsCommand(uint64_t a1)
     v5 = 0u;
     v6 = 0u;
     v4 = 0u;
-    result = EnvArgTypeCheck(a1, "list-defmethods", 1, 2, &v4);
+    result = EnvArgTypeCheck(a1, "list-defmethods", 1, 2u, &v4);
     if (result)
     {
       result = CheckGenericExists(a1, "list-defmethods", *(v5 + 24));
@@ -4620,7 +4502,7 @@ void GetDefmethodListCommand(uint64_t a1, uint64_t a2)
     v6 = 0u;
     v7 = 0u;
     v5 = 0u;
-    if (EnvArgTypeCheck(a1, "get-defmethod-list", 1, 2, &v5) && (v4 = CheckGenericExists(a1, "get-defmethod-list", *(v6 + 24))) != 0)
+    if (EnvArgTypeCheck(a1, "get-defmethod-list", 1, 2u, &v5) && (v4 = CheckGenericExists(a1, "get-defmethod-list", *(v6 + 24))) != 0)
     {
       EnvGetDefmethodList(a1, v4, a2);
     }
@@ -4643,7 +4525,7 @@ double GetMethodRestrictionsCommand(uint64_t a1, uint64_t a2)
   v8 = 0u;
   v9 = 0u;
   v7 = 0u;
-  if (!EnvArgTypeCheck(a1, "get-method-restrictions", 1, 2, &v7))
+  if (!EnvArgTypeCheck(a1, "get-method-restrictions", 1, 2u, &v7))
   {
     return EnvSetMultifieldErrorValue(a1, a2);
   }
@@ -4655,7 +4537,7 @@ double GetMethodRestrictionsCommand(uint64_t a1, uint64_t a2)
   }
 
   v5 = v4;
-  if (!EnvArgTypeCheck(a1, "get-method-restrictions", 2, 1, &v7) || CheckMethodExists(a1, "get-method-restrictions", v5, *(v8 + 24)) == -1)
+  if (!EnvArgTypeCheck(a1, "get-method-restrictions", 2, 1u, &v7) || CheckMethodExists(a1, "get-method-restrictions", v5, *(v8 + 24)) == -1)
   {
     return EnvSetMultifieldErrorValue(a1, a2);
   }
@@ -4725,7 +4607,7 @@ BOOL EnvIsDefmethodDeletable(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t EnvUndefmethod(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t EnvUndefmethod(void *a1, uint64_t a2, uint64_t a3)
 {
   if (Bloaded(a1) == 1)
   {
@@ -4736,7 +4618,7 @@ uint64_t EnvUndefmethod(uint64_t a1, uint64_t a2, uint64_t a3)
       ConstructNameString = GetConstructNameString(a2);
       EnvPrintRouter(a1, "werror", ConstructNameString);
       EnvPrintRouter(a1, "werror", " #");
-      PrintLongInteger(a1, "werror", a3, v7, v8, v9, v10, v11);
+      PrintLongInteger(a1, "werror", a3);
     }
 
     else
@@ -4744,7 +4626,7 @@ uint64_t EnvUndefmethod(uint64_t a1, uint64_t a2, uint64_t a3)
       EnvPrintRouter(a1, "werror", "*");
     }
 
-    v12 = ".\n";
+    v7 = ".\n";
     goto LABEL_9;
   }
 
@@ -4754,79 +4636,79 @@ uint64_t EnvUndefmethod(uint64_t a1, uint64_t a2, uint64_t a3)
     {
       if (a3)
       {
-        v15 = CheckMethodExists(a1, "undefmethod", a2, a3);
-        if (v15 == -1)
+        v10 = CheckMethodExists(a1, "undefmethod", a2, a3);
+        if (v10 == -1)
         {
           return 0;
         }
 
-        v16 = v15;
-        v17 = *(a2 + 56) + 56 * v15;
-        if (*(v17 + 16))
+        v11 = v10;
+        v12 = *(a2 + 56) + 56 * v10;
+        if (*(v12 + 16))
         {
-          v13 = 1;
+          v8 = 1;
           SetEvaluationError(a1, 1);
           PrintErrorID(a1, "GENRCCOM", 4, 0);
           EnvPrintRouter(a1, "werror", "Cannot remove implicit system function method for generic function ");
-          v20 = GetConstructNameString(a2);
-          EnvPrintRouter(a1, "werror", v20);
+          v15 = GetConstructNameString(a2);
+          EnvPrintRouter(a1, "werror", v15);
           EnvPrintRouter(a1, "werror", ".\n");
-          return v13;
+          return v8;
         }
 
-        DeleteMethodInfo(a1, a2, v17);
-        v18 = *(a2 + 64) - 1;
+        DeleteMethodInfo(a1, a2, v12);
+        v13 = *(a2 + 64) - 1;
         if (*(a2 + 64) == 1)
         {
           rm(a1, *(a2 + 56), 0x38uLL);
-          v19 = 0;
+          v14 = 0;
           *(a2 + 64) = 0;
         }
 
         else
         {
-          *(a2 + 64) = v18;
-          v21 = gm2(a1, 56 * v18);
-          v19 = v21;
-          v22 = *(a2 + 64);
-          if (v22 >= 1)
+          *(a2 + 64) = v13;
+          v16 = gm2(a1, 56 * v13);
+          v14 = v16;
+          v17 = *(a2 + 64);
+          if (v17 >= 1)
           {
-            v23 = 0;
-            v24 = 0;
-            v25 = v21;
+            v18 = 0;
+            v19 = 0;
+            v20 = v16;
             do
             {
-              if (v16 == v24)
+              if (v11 == v19)
               {
-                v26 = v23 + 1;
+                v21 = v18 + 1;
               }
 
               else
               {
-                v26 = v23;
+                v21 = v18;
               }
 
-              v27 = *(a2 + 56) + 56 * v26;
-              v28 = *v27;
-              v29 = *(v27 + 16);
-              v30 = *(v27 + 32);
-              v25[6] = *(v27 + 48);
-              *(v25 + 1) = v29;
-              *(v25 + 2) = v30;
-              *v25 = v28;
-              v25 += 7;
-              ++v24;
-              v23 = v26 + 1;
-              v22 = *(a2 + 64);
+              v22 = *(a2 + 56) + 56 * v21;
+              v23 = *v22;
+              v24 = *(v22 + 16);
+              v25 = *(v22 + 32);
+              v20[6] = *(v22 + 48);
+              *(v20 + 1) = v24;
+              *(v20 + 2) = v25;
+              *v20 = v23;
+              v20 += 7;
+              ++v19;
+              v18 = v21 + 1;
+              v17 = *(a2 + 64);
             }
 
-            while (v24 < v22);
+            while (v19 < v17);
           }
 
-          rm(a1, *(a2 + 56), 56 * v22 + 56);
+          rm(a1, *(a2 + 56), 56 * v17 + 56);
         }
 
-        *(a2 + 56) = v19;
+        *(a2 + 56) = v14;
       }
 
       else
@@ -4844,9 +4726,9 @@ uint64_t EnvUndefmethod(uint64_t a1, uint64_t a2, uint64_t a3)
   if (a3)
   {
     PrintErrorID(a1, "GENRCCOM", 3, 0);
-    v12 = "Incomplete method specification for deletion.\n";
+    v7 = "Incomplete method specification for deletion.\n";
 LABEL_9:
-    EnvPrintRouter(a1, "werror", v12);
+    EnvPrintRouter(a1, "werror", v7);
     return 0;
   }
 
@@ -4855,9 +4737,9 @@ LABEL_9:
 
 char *EnvGetDefmethodDescription(uint64_t a1, char *a2, size_t a3, uint64_t a4, uint64_t a5)
 {
-  v8 = *(a4 + 56) + 56 * FindMethodByIndex(a4, a5);
+  v8 = (*(a4 + 56) + 56 * FindMethodByIndex(a4, a5));
 
-  return PrintMethod(a1, a2, a3, v8, v9, v10, v11, v12);
+  return PrintMethod(a1, a2, a3, v8);
 }
 
 uint64_t EnvSetDefmethodWatch(uint64_t a1, char a2, uint64_t a3, uint64_t a4)
@@ -4907,7 +4789,7 @@ uint64_t EnvListDefmethods(uint64_t a1, FILE *a2, uint64_t a3)
 
 uint64_t ListMethodsForGeneric(uint64_t a1, FILE *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   result = *(a3 + 64);
   if (result >= 1)
   {
@@ -4917,7 +4799,7 @@ uint64_t ListMethodsForGeneric(uint64_t a1, FILE *a2, uint64_t a3)
       ConstructNameString = GetConstructNameString(a3);
       EnvPrintRouter(a1, a2, ConstructNameString);
       EnvPrintRouter(a1, a2, " #");
-      PrintMethod(a1, __dst, 0xFFuLL, *(a3 + 56) + v7, v10, v11, v12, v13);
+      PrintMethod(a1, __dst, 0xFFuLL, (*(a3 + 56) + v7));
       EnvPrintRouter(a1, a2, __dst);
       EnvPrintRouter(a1, a2, "\n");
       result = *(a3 + 64);
@@ -4925,7 +4807,6 @@ uint64_t ListMethodsForGeneric(uint64_t a1, FILE *a2, uint64_t a3)
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5008,7 +4889,7 @@ LABEL_8:
   return result;
 }
 
-void *EnvGetMethodRestrictions(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *EnvGetMethodRestrictions(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v6 = *(a2 + 56);
   v7 = v6 + 56 * FindMethodByIndex(a2, a3);
@@ -5324,26 +5205,24 @@ LABEL_15:
 
 uint64_t PrintMethodWatchFlag(uint64_t a1, FILE *a2, uint64_t a3, uint64_t a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   ConstructNameString = GetConstructNameString(a3);
   EnvPrintRouter(a1, a2, ConstructNameString);
   EnvPrintRouter(a1, a2, " ");
   MethodByIndex = FindMethodByIndex(a3, a4);
-  PrintMethod(a1, __dst, 0x3BuLL, *(a3 + 56) + 56 * MethodByIndex, v10, v11, v12, v13);
+  PrintMethod(a1, __dst, 0x3BuLL, (*(a3 + 56) + 56 * MethodByIndex));
   EnvPrintRouter(a1, a2, __dst);
   if ((*(*(a3 + 56) + 56 * FindMethodByIndex(a3, a4) + 16) & 2) != 0)
   {
-    v14 = " = on\n";
+    v10 = " = on\n";
   }
 
   else
   {
-    v14 = " = off\n";
+    v10 = " = off\n";
   }
 
-  result = EnvPrintRouter(a1, a2, v14);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return EnvPrintRouter(a1, a2, v10);
 }
 
 uint64_t AWDSymptomsNetworkDebuggabilityFrameworkIssueReadFrom(_BYTE *a1, void *a2)
@@ -6070,11 +5949,12 @@ LABEL_176:
   return [a2 hasError] ^ 1;
 }
 
-void sub_23272DA44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_23272DA44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
-  objc_destroyWeak((v17 + 40));
+  va_start(va, location);
+  objc_destroyWeak((v16 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6795,7 +6675,7 @@ void __SFGetQueueAttribute_block_invoke()
 
 id SFGetStandardQueue(int a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (SFGetStandardQueue_pred != -1)
   {
     SFGetStandardQueue_cold_1();
@@ -6860,14 +6740,13 @@ LABEL_20:
   v4 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v7[0] = 67109120;
-    v7[1] = 0;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "SFStandardQueue called for unknown identifier %d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = 0;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "SFStandardQueue called for unknown identifier %d", v6, 8u);
   }
 
   v2 = 0;
 LABEL_21:
-  v5 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -6907,7 +6786,7 @@ void __SFGetStandardQueue_block_invoke()
 
 id SFGetAnalyticsQueue(int a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (SFGetAnalyticsQueue_pred != -1)
   {
     SFGetAnalyticsQueue_cold_1();
@@ -6920,9 +6799,9 @@ LABEL_9:
     v4 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v7[0] = 67109120;
-      v7[1] = 0;
-      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "SFAnalyticsQueue called for unknown identifier %d", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = 0;
+      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "SFAnalyticsQueue called for unknown identifier %d", v6, 8u);
     }
 
     goto LABEL_11;
@@ -6951,7 +6830,6 @@ LABEL_7:
 LABEL_11:
   v3 = 0;
 LABEL_12:
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -7241,7 +7119,7 @@ LABEL_76:
     ExpressionInstall(a1, v24);
     v53 = PackExpression(a1, v24);
     ReturnExpression(a1, v24);
-    v25 = ConstructJoins(a1, v20, v18, 1, 0, 1, 1);
+    v25 = ConstructJoins(a1, v20, v18, 1, 0, 1, 1u);
     if (v18)
     {
       v51 = v17;
@@ -7314,7 +7192,7 @@ LABEL_76:
     *(v16 + 13) = v57;
     ModuleItem = FindModuleItem(a1, "defrule");
     v16[2] = GetModuleItem(a1, 0, *(ModuleItem + 8));
-    *(v25 + 136) = v16;
+    v25[17] = v16;
     v16[11] = v25;
     v14 = v54;
     do
@@ -7325,7 +7203,7 @@ LABEL_76:
         *v25 |= 2u;
       }
 
-      v25 = *(v25 + 120);
+      v25 = v25[15];
     }
 
     while (v25);
@@ -7573,7 +7451,7 @@ uint64_t ReplaceRHSVariable(uint64_t a1, unsigned __int16 *a2, unsigned __int16 
   return 0;
 }
 
-uint64_t ExpressionComplexity(uint64_t a1, void *a2)
+uint64_t ExpressionComplexity(uint64_t a1, unsigned __int16 *a2)
 {
   if (!a2)
   {
@@ -7587,11 +7465,11 @@ uint64_t ExpressionComplexity(uint64_t a1, void *a2)
     v5 = *v2;
     if (v5 == 30)
     {
-      v6 = v2[1];
+      v6 = *(v2 + 1);
       v7 = *(*(a1 + 48) + 360);
       if (v6 == *v7 || v6 == v7[4] || v6 == v7[1])
       {
-        v4 = ExpressionComplexity(a1, v2[2]) + v4;
+        v4 = ExpressionComplexity(a1, *(v2 + 2)) + v4;
       }
 
       else
@@ -7609,7 +7487,7 @@ uint64_t ExpressionComplexity(uint64_t a1, void *a2)
       }
     }
 
-    v2 = v2[3];
+    v2 = *(v2 + 3);
   }
 
   while (v2);
@@ -7677,10 +7555,10 @@ uint64_t ResetDefrules(void *a1)
   return result;
 }
 
-uint64_t ResetDefrulesPrime(uint64_t result)
+void *ResetDefrulesPrime(void *result)
 {
   v1 = result;
-  v2 = *(*(result + 48) + 128);
+  v2 = *(result[6] + 128);
   v3 = *(v2 + 40);
   if (v3)
   {
@@ -7909,7 +7787,7 @@ uint64_t FindNamedConstructInModuleOrImports(uint64_t a1, char *a2, char **a3)
   return result;
 }
 
-uint64_t FindNamedConstructInModule(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t FindNamedConstructInModule(uint64_t a1, char *a2, uint64_t a3)
 {
   SaveCurrentModule(a1);
   ModuleAndConstructName = ExtractModuleAndConstructName(a1, a2);
@@ -7934,71 +7812,67 @@ uint64_t FindNamedConstructInModule(uint64_t a1, const char *a2, uint64_t a3)
   return v10;
 }
 
-uint64_t UndefconstructCommand(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unsigned __int8 *UndefconstructCommand(uint64_t a1, char *a2, const char **a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  gensprintf(v15, "%s name", a3, a4, a5, a6, a7, a8, *a3);
-  result = GetConstructName(a1, a2, v15);
-  if (!result)
+  v10 = *MEMORY[0x277D85DE8];
+  gensprintf(v9, "%s name", *a3);
+  result = GetConstructName(a1, a2, v9);
+  if (result)
   {
-    goto LABEL_10;
-  }
-
-  v12 = result;
-  if (!(*(a3 + 24))(a1, result))
-  {
-    v13 = *v12;
-    if (v13 == 42)
-    {
-      if (!v12[1])
-      {
-        goto LABEL_3;
-      }
-    }
-
-    else if (42 == v13)
+    v7 = result;
+    if ((a3[3])(a1, result))
     {
       goto LABEL_3;
     }
 
-    result = CantFindItemErrorMessage(a1, *a3, v12);
-    goto LABEL_10;
-  }
-
+    v8 = *v7;
+    if (v8 == 42)
+    {
+      if (!v7[1])
+      {
 LABEL_3:
-  result = DeleteNamedConstruct(a1, v12, a3);
-  if (!result)
-  {
-    result = CantDeleteItemErrorMessage(a1, *a3, v12);
+        result = DeleteNamedConstruct(a1, v7, a3);
+        if (!result)
+        {
+          return CantDeleteItemErrorMessage(a1, *a3, v7);
+        }
+
+        return result;
+      }
+    }
+
+    else if (42 == v8)
+    {
+      goto LABEL_3;
+    }
+
+    return CantFindItemErrorMessage(a1, *a3, v7);
   }
 
-LABEL_10:
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t PPConstructCommand(uint64_t a1, char *a2, char **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *PPConstructCommand(uint64_t a1, char *a2, const char **a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  gensprintf(v14, "%s name", a3, a4, a5, a6, a7, a8, *a3);
-  result = GetConstructName(a1, a2, v14);
+  v9 = *MEMORY[0x277D85DE8];
+  gensprintf(v8, "%s name", *a3);
+  result = GetConstructName(a1, a2, v8);
   if (result)
   {
-    v12 = result;
+    v7 = result;
     result = PPConstruct(a1, result, "wdisplay", a3);
     if (!result)
     {
-      result = CantFindItemErrorMessage(a1, *a3, v12);
+      return CantFindItemErrorMessage(a1, *a3, v7);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t PPConstruct(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t PPConstruct(uint64_t a1, uint64_t a2, FILE *a3, uint64_t a4)
 {
-  result = (*(a4 + 24))();
+  result = (*(a4 + 24))(a1, a2);
   if (result)
   {
     v8 = result;
@@ -8014,30 +7888,24 @@ uint64_t PPConstruct(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return result;
 }
 
-uint64_t GetConstructModuleCommand(uint64_t a1, char *a2, char **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t GetConstructModuleCommand(uint64_t a1, char *a2, char **a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  gensprintf(v16, "%s name", a3, a4, a5, a6, a7, a8, *a3);
-  ConstructName = GetConstructName(a1, a2, v16);
-  if (!ConstructName)
+  v11 = *MEMORY[0x277D85DE8];
+  gensprintf(v10, "%s name", *a3);
+  ConstructName = GetConstructName(a1, a2, v10);
+  if (ConstructName)
   {
-    goto LABEL_5;
+    v7 = ConstructName;
+    ConstructModule = GetConstructModule(a1, ConstructName, a3);
+    if (ConstructModule)
+    {
+      return *ConstructModule;
+    }
+
+    CantFindItemErrorMessage(a1, *a3, v7);
   }
 
-  v12 = ConstructName;
-  ConstructModule = GetConstructModule(a1, ConstructName, a3);
-  if (!ConstructModule)
-  {
-    CantFindItemErrorMessage(a1, *a3, v12);
-LABEL_5:
-    result = EnvFalseSymbol(a1);
-    goto LABEL_6;
-  }
-
-  result = *ConstructModule;
-LABEL_6:
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return EnvFalseSymbol(a1);
 }
 
 void *GetConstructModule(uint64_t a1, char *a2, char **a3)
@@ -8063,18 +7931,18 @@ void *GetConstructModule(uint64_t a1, char *a2, char **a3)
   return result;
 }
 
-uint64_t Undefconstruct(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t Undefconstruct(void *a1, uint64_t a2, char **a3)
 {
   if (a2)
   {
-    if (!(*(a3 + 72))(a1))
+    if (!(a3[9])(a1))
     {
       return 0;
     }
 
     RemoveConstructFromModule(a1, a2);
-    (*(a3 + 88))(a1, a2);
-    v6 = *(a1 + 48);
+    (a3[11])(a1, a2);
+    v6 = a1[6];
     v7 = *(v6 + 440);
     if (!*(*(v7 + 112) + 2) || **(v6 + 320) || **(v6 + 352))
     {
@@ -8093,24 +7961,24 @@ LABEL_22:
     return v8;
   }
 
-  v9 = (*(a3 + 56))(a1);
+  v9 = (a3[7])(a1);
   if (v9)
   {
     v10 = v9;
     v8 = 1;
     do
     {
-      v11 = (*(a3 + 56))(a1, v10);
-      if ((*(a3 + 72))(a1, v10))
+      v11 = (a3[7])(a1, v10);
+      if ((a3[9])(a1, v10))
       {
         RemoveConstructFromModule(a1, v10);
-        (*(a3 + 88))(a1, v10);
+        (a3[11])(a1, v10);
       }
 
       else
       {
         v12 = *a3;
-        v13 = (*(a3 + 32))(v10);
+        v13 = (a3[4])(v10);
         CantDeleteItemErrorMessage(a1, v12, *(v13 + 24));
         v8 = 0;
       }
@@ -8126,7 +7994,7 @@ LABEL_22:
     v8 = 1;
   }
 
-  v14 = *(a1 + 48);
+  v14 = a1[6];
   v15 = *(v14 + 440);
   if (*(*(v15 + 112) + 2) && !**(v14 + 320) && !**(v14 + 352) && !*(v15 + 16))
   {
@@ -8167,7 +8035,7 @@ void GetConstructListFunction(uint64_t a1, char *a2, uint64_t a3, uint64_t a4)
   v13 = 0u;
   v14 = 0u;
   v12 = 0u;
-  v8 = EnvArgCountCheck(a1, a2, 2u, 1);
+  v8 = EnvArgCountCheck(a1, a2, 2, 1);
   if (v8 == 1)
   {
     EnvRtnUnknown(a1, 1, &v12);
@@ -8348,7 +8216,7 @@ uint64_t ListConstructCommand(uint64_t a1, char *a2, uint64_t a3)
   v11 = 0u;
   v12 = 0u;
   v10 = 0u;
-  result = EnvArgCountCheck(a1, a2, 2u, 1);
+  result = EnvArgCountCheck(a1, a2, 2, 1);
   if (result != -1)
   {
     if (result == 1)
@@ -9524,7 +9392,7 @@ uint64_t OddpFunction(uint64_t a1)
   v4 = 0u;
   v5 = 0u;
   v3 = 0u;
-  result = EnvArgTypeCheck(a1, "oddp", 1, 1, &v3);
+  result = EnvArgTypeCheck(a1, "oddp", 1, 1u, &v3);
   if (result)
   {
     return *(v4 + 24) != ((*(v4 + 24) + (*(v4 + 24) >> 63)) & 0xFFFFFFFFFFFFFFFELL);
@@ -9543,7 +9411,7 @@ uint64_t EvenpFunction(uint64_t a1)
   v4 = 0u;
   v5 = 0u;
   v3 = 0u;
-  result = EnvArgTypeCheck(a1, "evenp", 1, 1, &v3);
+  result = EnvArgTypeCheck(a1, "evenp", 1, 1u, &v3);
   if (result)
   {
     return *(v4 + 24) == ((*(v4 + 24) + (*(v4 + 24) >> 63)) & 0xFFFFFFFFFFFFFFFELL);
@@ -9765,6 +9633,196 @@ uint64_t *AnyFacts(void *a1)
     *(*(*(v15 + 472) + 40) + 128) = *(*(v15 + 472) + 32);
     DeleteQueryTemplates(a1, v3);
     return v12;
+  }
+
+  return result;
+}
+
+void *QueryFindFact(void *a1, uint64_t a2)
+{
+  v25 = 0;
+  *(a2 + 8) = 4;
+  *(a2 + 24) = xmmword_2328169C0;
+  v4 = DetermineQueryTemplates(a1, *(*(**(a1[6] + 352) + 16) + 24), "find-fact", &v25);
+  if (v4)
+  {
+    v5 = v4;
+    PushQueryCore(a1);
+    v6 = a1[6];
+    v7 = *(v6 + 472);
+    v8 = *(*(v7 + 40) + 448);
+    if (v8)
+    {
+      *(v7 + 32) = v8;
+      *(*(*(v6 + 472) + 40) + 448) = **(*(v6 + 472) + 32);
+      v9 = a1[6];
+      v10 = *(*(v9 + 472) + 32);
+    }
+
+    else
+    {
+      v10 = genalloc(a1, 0x38uLL);
+      v9 = a1[6];
+    }
+
+    *(*(v9 + 504) + 8) = v10;
+    v12 = v25;
+    v13 = 8 * v25;
+    v14 = gm2(a1, v13);
+    v15 = a1[6];
+    **(*(v15 + 504) + 8) = v14;
+    *(*(*(v15 + 504) + 8) + 8) = *(**(v15 + 352) + 16);
+    if (TestForFirstInChain(a1, v5, 0))
+    {
+      Multifield = EnvCreateMultifield(a1, v12);
+      *(a2 + 16) = Multifield;
+      *(a2 + 32) = (v12 - 1);
+      v17 = a1[6];
+      if (v12)
+      {
+        v18 = 1;
+        do
+        {
+          v19 = &Multifield[2 * v18 + 1];
+          *v19 = 6;
+          *(v19 + 8) = *(**(*(v17 + 504) + 8) + 8 * (v18++ - 1));
+        }
+
+        while (v18 <= v12);
+      }
+    }
+
+    else
+    {
+      *(a2 + 16) = EnvCreateMultifield(a1, 0);
+      v17 = a1[6];
+    }
+
+    v20 = *(v17 + 504);
+    *(v20 + 24) = 0;
+    rm(a1, **(v20 + 8), v13);
+    v21 = a1[6];
+    *(*(v21 + 472) + 32) = *(*(v21 + 504) + 8);
+    **(*(v21 + 472) + 32) = *(*(*(v21 + 472) + 40) + 448);
+    *(*(*(v21 + 472) + 40) + 448) = *(*(v21 + 472) + 32);
+    v22 = a1[6];
+    *(*(v22 + 504) + 8) = **(*(v22 + 504) + 16);
+    v23 = *(v22 + 504);
+    v24 = *(v23 + 16);
+    *(v23 + 16) = *(v24 + 8);
+    *(*(v22 + 472) + 32) = v24;
+    **(*(v22 + 472) + 32) = *(*(*(v22 + 472) + 40) + 128);
+    *(*(*(v22 + 472) + 40) + 128) = *(*(v22 + 472) + 32);
+
+    return DeleteQueryTemplates(a1, v5);
+  }
+
+  else
+  {
+    result = EnvCreateMultifield(a1, 0);
+    *(a2 + 16) = result;
+  }
+
+  return result;
+}
+
+void *QueryFindAllFacts(void *a1, uint64_t a2)
+{
+  v29 = 0;
+  *(a2 + 8) = 4;
+  *(a2 + 24) = xmmword_2328169C0;
+  v4 = DetermineQueryTemplates(a1, *(*(**(a1[6] + 352) + 16) + 24), "find-all-facts", &v29);
+  if (v4)
+  {
+    v5 = v4;
+    PushQueryCore(a1);
+    v6 = a1[6];
+    v7 = *(v6 + 472);
+    v8 = *(*(v7 + 40) + 448);
+    if (v8)
+    {
+      *(v7 + 32) = v8;
+      *(*(*(v6 + 472) + 40) + 448) = **(*(v6 + 472) + 32);
+      v9 = a1[6];
+      v10 = *(*(v9 + 472) + 32);
+    }
+
+    else
+    {
+      v10 = genalloc(a1, 0x38uLL);
+      v9 = a1[6];
+    }
+
+    *(*(v9 + 504) + 8) = v10;
+    v12 = v29;
+    v13 = 8 * v29;
+    v14 = gm2(a1, v13);
+    v15 = a1[6];
+    **(*(v15 + 504) + 8) = v14;
+    *(*(*(v15 + 504) + 8) + 8) = *(**(v15 + 352) + 16);
+    *(*(*(v15 + 504) + 8) + 16) = 0;
+    *(*(*(v15 + 504) + 8) + 24) = 0;
+    v16 = *(*(v15 + 504) + 8);
+    *(v16 + 40) = v12;
+    *(v16 + 44) = 0;
+    TestEntireChain(a1, v5, 0);
+    v17 = *(a1[6] + 504);
+    *(v17 + 24) = 0;
+    *(a2 + 16) = EnvCreateMultifield(a1, *(*(v17 + 8) + 44) * v12);
+    v18 = a1[6];
+    v19 = *(*(v18 + 504) + 8);
+    if (*(v19 + 24))
+    {
+      v20 = v18 + 504;
+      do
+      {
+        v21 = *(a2 + 32) + 2;
+        if (v12)
+        {
+          v22 = 0;
+          v23 = *(a2 + 16) + 24;
+          do
+          {
+            v24 = v23 + 16 * (v21 - 1);
+            *v24 = 6;
+            *(v24 + 8) = *(**(*(*v20 + 8) + 24) + v22);
+            ++v21;
+            v22 += 8;
+          }
+
+          while (v13 != v22);
+        }
+
+        *(a2 + 32) = v21 - 2;
+        PopQuerySoln(a1);
+        v20 = a1[6] + 504;
+        v19 = *(*v20 + 8);
+      }
+
+      while (*(v19 + 24));
+    }
+
+    rm(a1, *v19, v13);
+    v25 = a1[6];
+    *(*(v25 + 472) + 32) = *(*(v25 + 504) + 8);
+    **(*(v25 + 472) + 32) = *(*(*(v25 + 472) + 40) + 448);
+    *(*(*(v25 + 472) + 40) + 448) = *(*(v25 + 472) + 32);
+    v26 = a1[6];
+    *(*(v26 + 504) + 8) = **(*(v26 + 504) + 16);
+    v27 = *(v26 + 504);
+    v28 = *(v27 + 16);
+    *(v27 + 16) = *(v28 + 8);
+    *(*(v26 + 472) + 32) = v28;
+    **(*(v26 + 472) + 32) = *(*(*(v26 + 472) + 40) + 128);
+    *(*(*(v26 + 472) + 40) + 128) = *(*(v26 + 472) + 32);
+
+    return DeleteQueryTemplates(a1, v5);
+  }
+
+  else
+  {
+    result = EnvCreateMultifield(a1, 0);
+    *(a2 + 16) = result;
   }
 
   return result;

@@ -143,18 +143,18 @@ id __57__PXMonthsSublayoutComposition_configuredLayoutGenerator__block_invoke(ui
 {
   v3 = objc_alloc_init(MEMORY[0x1E696AD50]);
   v4 = objc_alloc_init(MEMORY[0x1E696AD50]);
-  layout = [(PXGSublayoutComposition *)self layout];
+  v5 = objc_msgSend_layout(self);
   numberOfSublayouts = [(PXGSublayoutComposition *)self numberOfSublayouts];
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;
   v14[2] = __57__PXMonthsSublayoutComposition_updateSublayoutAttributes__block_invoke;
   v14[3] = &unk_1E77438C8;
-  v15 = layout;
+  v15 = v5;
   v16 = v3;
   v17 = v4;
   v7 = v4;
   v8 = v3;
-  v9 = layout;
+  v9 = v5;
   [(PXGSublayoutComposition *)self enumerateSublayoutProvidersForRange:0 usingBlock:numberOfSublayouts, v14];
   v10 = [v8 copy];
   indexesOfChapterHeaders = self->_indexesOfChapterHeaders;

@@ -114,7 +114,7 @@
   return v5;
 }
 
-uint64_t __67__SUSUIUpdateAgreementManager_cellularFeeAgreementStatusForUpdate___block_invoke(uint64_t a1)
+void *__67__SUSUIUpdateAgreementManager_cellularFeeAgreementStatusForUpdate___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_agreementDictValueForKey:kAgreementDictKeyCellularFee forDescriptor:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -151,7 +151,7 @@ uint64_t __67__SUSUIUpdateAgreementManager_cellularFeeAgreementStatusForUpdate__
   return v5;
 }
 
-uint64_t __61__SUSUIUpdateAgreementManager_termsAgreementStatusForUpdate___block_invoke(uint64_t a1)
+void *__61__SUSUIUpdateAgreementManager_termsAgreementStatusForUpdate___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_agreementDictValueForKey:kAgreementDictKeyTerms forDescriptor:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;

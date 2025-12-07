@@ -35,8 +35,8 @@
 
 - (BOOL)_updateFromCatalog:(id)catalog displayGamut:(int64_t)gamut deviceIdiom:(int64_t)idiom appearanceName:(id)name
 {
-  v21.receiver = self;
-  v21.super_class = CUINamedLayerImage;
+  v14.receiver = self;
+  v14.super_class = CUINamedLayerImage;
   v11 = [CUINamedLookup _updateFromCatalog:sel__updateFromCatalog_displayGamut_deviceIdiom_appearanceName_ displayGamut:? deviceIdiom:? appearanceName:?];
   if (v11)
   {
@@ -54,9 +54,7 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    gradientOrColorName = [(CUINamedLayerImage *)self gradientOrColorName];
-    [(CUINamedLookup *)self name];
-    _CUILog(4, "CoreUI: Couldn't find gradient/colorname '%@' for icon layer stack %@", v14, v15, v16, v17, v18, v19, gradientOrColorName);
+    _CUILog(4, "CoreUI: Couldn't find gradient/colorname '%@' for icon layer stack %@", [(CUINamedLayerImage *)self gradientOrColorName], [(CUINamedLookup *)self name]);
     LOBYTE(v11) = 0;
   }
 
@@ -68,25 +66,24 @@ LABEL_6:
   AssociatedObject = objc_getAssociatedObject(self, "com.apple.coreui.iconstack.sdf");
   if (!AssociatedObject)
   {
-    storageRef = [(CUINamedLookup *)self storageRef];
-    v8 = _LookupStructuredThemeProvider(storageRef, v7);
-    v9 = CUIRenditionKeyValueForAttribute([v8 renditionKeyForName:{-[CUINamedLookup name](self, "name")}], 17);
-    v10 = [(CUIRenditionKey *)[(CUINamedLookup *)self renditionKey] copy];
-    [v10 setThemeElement:41];
-    [v10 setThemePart:0];
-    [v10 setThemeIdentifier:v9];
-    [v10 setThemeDisplayGamut:1];
-    [v10 setThemeDimension1:0];
-    [v10 setThemeDimension2:0];
-    if ([v8 canGetRenditionWithKey:{objc_msgSend(v10, "keyList")}] || (objc_msgSend(v10, "setThemeDisplayGamut:", 0), objc_msgSend(v8, "canGetRenditionWithKey:", objc_msgSend(v10, "keyList"))))
+    [(CUINamedLookup *)self storageRef];
+    v6 = _LookupStructuredThemeProvider();
+    v7 = CUIRenditionKeyValueForAttribute([v6 renditionKeyForName:{-[CUINamedLookup name](self, "name")}], 17);
+    v8 = [(CUIRenditionKey *)[(CUINamedLookup *)self renditionKey] copy];
+    [v8 setThemeElement:41];
+    [v8 setThemePart:0];
+    [v8 setThemeIdentifier:v7];
+    [v8 setThemeDisplayGamut:1];
+    [v8 setThemeDimension1:0];
+    [v8 setThemeDimension2:0];
+    if ([v6 canGetRenditionWithKey:{objc_msgSend(v8, "keyList")}] || (objc_msgSend(v8, "setThemeDisplayGamut:", 0), objc_msgSend(v6, "canGetRenditionWithKey:", objc_msgSend(v8, "keyList"))))
     {
-      AssociatedObject = [(CUINamedLookup *)[CUINamedTexture alloc] initWithName:[(CUINamedLookup *)self name] usingRenditionKey:v10 fromTheme:[(CUINamedLookup *)self storageRef]];
+      AssociatedObject = [(CUINamedLookup *)[CUINamedTexture alloc] initWithName:[(CUINamedLookup *)self name] usingRenditionKey:v8 fromTheme:[(CUINamedLookup *)self storageRef]];
     }
 
     else
     {
-      name = [(CUINamedLookup *)self name];
-      _CUILog(4, "CoreUI: unable to locate sdf '%@' key:%@ releasing", v12, v13, v14, v15, v16, v17, name);
+      _CUILog(4, "CoreUI: unable to locate sdf '%@' key:%@ releasing", [(CUINamedLookup *)self name], v8);
       AssociatedObject = 0;
     }
 

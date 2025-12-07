@@ -83,11 +83,11 @@
 
   if (self->mCornerRadius >= v13 * 0.5)
   {
-    v76.origin.x = 0.0;
-    v76.origin.y = 0.0;
-    v76.size.width = v4;
-    v76.size.height = v6;
-    CGPathAddEllipseInRect(Mutable, 0, v76);
+    v74.origin.x = 0.0;
+    v74.origin.y = 0.0;
+    v74.size.width = v4;
+    v74.size.height = v6;
+    CGPathAddEllipseInRect(Mutable, 0, v74);
   }
 
   else
@@ -135,40 +135,38 @@
     v36 = sub_4F9D8(v34, v35);
     v38 = sub_4F9A8(v36, v37, mTailSize);
     v40 = sub_4F9B8(1, v38, v39);
-    v73 = *p_mTailPosition;
+    v71 = *p_mTailPosition;
     x = p_mTailPosition->x;
     v42 = self->mTailPosition.y;
     v43 = sub_4CF38(v30, v31, v40);
-    v44 = self->mTailPosition.y;
-    v46 = sub_4F99C(v43, v45, p_mTailPosition->x);
-    v48 = sub_4F9A8(v46, v47, 20.0);
-    v74 = sub_4CF38(x, v42, v48);
-    v75 = v49;
-    v70 = *p_mTailPosition;
-    v50 = p_mTailPosition->x;
-    v51 = self->mTailPosition.y;
-    v52 = sub_4F99C(v30, v31, v40);
-    v53 = self->mTailPosition.y;
-    v55 = sub_4F99C(v52, v54, p_mTailPosition->x);
-    v57 = sub_4F9A8(v55, v56, 20.0);
-    v71 = sub_4CF38(v50, v51, v57);
-    v72 = v58;
-    v59 = sub_4FF9C(v12, &v73);
-    v61 = v60;
-    v62 = sub_4FF9C(v12, &v70);
-    v64 = v63;
-    v65 = CGPathCreateMutable();
-    CGPathMoveToPoint(v65, 0, v59, v61);
-    CGPathAddLineToPoint(v65, 0, p_mTailPosition->x, p_mTailPosition->y);
-    CGPathAddLineToPoint(v65, 0, v62, v64);
-    v69[0] = v12;
-    v69[1] = v65;
-    v66 = CFArrayCreate(0, v69, 2, &kCFTypeArrayCallBacks);
-    v67 = sub_50C8C(v66);
-    CFRelease(v66);
+    v45 = sub_4F99C(v43, v44, p_mTailPosition->x);
+    v47 = sub_4F9A8(v45, v46, 20.0);
+    v72 = sub_4CF38(x, v42, v47);
+    v73 = v48;
+    v68 = *p_mTailPosition;
+    v49 = p_mTailPosition->x;
+    v50 = self->mTailPosition.y;
+    v51 = sub_4F99C(v30, v31, v40);
+    v53 = sub_4F99C(v51, v52, p_mTailPosition->x);
+    v55 = sub_4F9A8(v53, v54, 20.0);
+    v69 = sub_4CF38(v49, v50, v55);
+    v70 = v56;
+    v57 = sub_4FF9C(v12, &v71.x);
+    v59 = v58;
+    v60 = sub_4FF9C(v12, &v68.x);
+    v62 = v61;
+    v63 = CGPathCreateMutable();
+    CGPathMoveToPoint(v63, 0, v57, v59);
+    CGPathAddLineToPoint(v63, 0, p_mTailPosition->x, p_mTailPosition->y);
+    CGPathAddLineToPoint(v63, 0, v60, v62);
+    v67[0] = v12;
+    v67[1] = v63;
+    v64 = CFArrayCreate(0, v67, 2, &kCFTypeArrayCallBacks);
+    v65 = sub_50C8C(v64);
+    CFRelease(v64);
     CFRelease(v12);
-    CFRelease(v65);
-    return v67;
+    CFRelease(v63);
+    return v65;
   }
 
   return v12;

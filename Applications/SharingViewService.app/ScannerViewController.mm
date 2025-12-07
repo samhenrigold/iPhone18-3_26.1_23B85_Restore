@@ -10,7 +10,7 @@
 {
   appearCopy = appear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for ScannerViewController();
+  v7.super_class = type metadata accessor for ScannerViewController(0);
   v4 = v7.receiver;
   [(ScannerViewController *)&v7 viewWillAppear:appearCopy];
   v5 = *&v4[OBJC_IVAR____TtC18SharingViewService21ScannerViewController_scannerEngineViewController + 8];
@@ -23,7 +23,7 @@
 {
   disappearCopy = disappear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for ScannerViewController();
+  v7.super_class = type metadata accessor for ScannerViewController(0);
   v4 = v7.receiver;
   [(ScannerViewController *)&v7 viewDidDisappear:disappearCopy];
   v5 = *&v4[OBJC_IVAR____TtC18SharingViewService21ScannerViewController_scannerEngineViewController + 8];

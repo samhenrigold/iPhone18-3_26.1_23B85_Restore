@@ -242,19 +242,19 @@ LABEL_25:
 
 - (HMHomeNetworkInfo)initWithCoder:(id)coder
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
-  v25[0] = objc_opt_class();
-  v25[1] = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+  v24[0] = objc_opt_class();
+  v24[1] = objc_opt_class();
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
   v6 = [v3 setWithArray:v5];
   v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"Ipv4Addresses"];
 
   v8 = MEMORY[0x1E695DFD8];
-  v24[0] = objc_opt_class();
-  v24[1] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+  v23[0] = objc_opt_class();
+  v23[1] = objc_opt_class();
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
   v10 = [v8 setWithArray:v9];
   v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"Ipv6Addresses"];
 
@@ -269,7 +269,6 @@ LABEL_25:
   v19 = v7;
   v20 = [(HMHomeNetworkInfo *)self initWithIpv4Addresses:v7 ipv6Addresses:v11 ipv4NetworkSignature:v12 ipv6NetworkSignature:v13 binaryIPv4NetworkSignature:v14 binaryIPv6NetworkSignature:v15 routerIPV4:v16 routerIPV6:v17 wiFiInfo:v18];
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

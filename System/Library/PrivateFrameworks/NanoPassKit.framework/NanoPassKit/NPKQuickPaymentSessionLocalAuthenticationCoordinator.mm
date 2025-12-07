@@ -53,203 +53,199 @@
 
 void __102__NPKQuickPaymentSessionLocalAuthenticationCoordinator_beginLocalAuthenticationWithPolicy_completion___block_invoke(uint64_t a1)
 {
-  v64 = *MEMORY[0x277D85DE8];
-  v2 = pk_Payment_log();
+  v71 = *MEMORY[0x277D85DE8];
+  v2 = pk_Payment_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_Payment_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = _Block_copy(*(a1 + 40));
+      v6 = _Block_copy(*(a1 + 40));
       *buf = 138412290;
-      v63 = v5;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: begin local authentication with completion:%@", buf, 0xCu);
+      v70 = v6;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: begin local authentication with completion:%@", buf, 0xCu);
     }
   }
 
-  v6 = MEMORY[0x277D37D28];
-  v7 = *MEMORY[0x277D38558];
-  v61[0] = *MEMORY[0x277D38538];
-  v61[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
-  v59 = *MEMORY[0x277D383D8];
-  v60 = *MEMORY[0x277D38460];
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
-  [v6 subjects:v8 sendEvent:v9];
+  v7 = MEMORY[0x277D37D28];
+  v8 = *MEMORY[0x277D38558];
+  v68[0] = *MEMORY[0x277D38538];
+  v68[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
+  v66 = *MEMORY[0x277D383D8];
+  v67 = *MEMORY[0x277D38460];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+  [v7 subjects:v9 sendEvent:v10];
 
-  v10 = *(a1 + 32);
-  if (v10[4])
+  v11 = *(a1 + 32);
+  if (v11[4])
   {
-    v11 = pk_Payment_log();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v12 = pk_Payment_log(v11);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-    if (v12)
+    if (v13)
     {
-      v13 = pk_Payment_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = pk_Payment_log(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: existing completion handler", buf, 2u);
+        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: existing completion handler", buf, 2u);
       }
     }
 
-    v14 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CD4770] code:-9 userInfo:0];
-    [*(a1 + 32) _invokeCompletionHandlerForInvalidationWithError:v14];
+    v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CD4770] code:-9 userInfo:0];
+    [*(a1 + 32) _invokeCompletionHandlerForInvalidationWithError:v16];
 
-    v10 = *(a1 + 32);
+    v11 = *(a1 + 32);
   }
 
-  if (!v10[5])
+  if (v11[5])
   {
-    [v10 setCompletionHandler:*(a1 + 40)];
-    if (*(*(a1 + 32) + 64))
+    v17 = pk_Payment_log(v11);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+
+    if (v18)
     {
-      v33 = pk_Payment_log();
-      v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
-
-      if (!v34)
-      {
-        goto LABEL_20;
-      }
-
-      v31 = pk_Payment_log();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v20 = pk_Payment_log(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v31, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: in-progress context", buf, 2u);
+        _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: already-completed context", buf, 2u);
+      }
+    }
+
+    if (*(a1 + 40))
+    {
+      v21 = *(*(a1 + 32) + 40);
+      v22 = *(*(a1 + 32) + 48);
+      v23 = *(*(a1 + 32) + 56);
+      v24 = *(a1 + 32);
+      v25 = *(v24 + 40);
+      *(v24 + 40) = 0;
+
+      v26 = *(a1 + 32);
+      v27 = *(v26 + 48);
+      *(v26 + 48) = 0;
+
+      v28 = *(a1 + 32);
+      v29 = *(v28 + 56);
+      *(v28 + 56) = 0;
+
+      v61[0] = MEMORY[0x277D85DD0];
+      v61[1] = 3221225472;
+      v61[2] = __102__NPKQuickPaymentSessionLocalAuthenticationCoordinator_beginLocalAuthenticationWithPolicy_completion___block_invoke_59;
+      v61[3] = &unk_279948930;
+      v30 = *(a1 + 32);
+      v31 = *(a1 + 40);
+      v62 = v21;
+      v63 = v22;
+      v64 = v23;
+      v65 = v31;
+      v32 = v23;
+      v33 = v22;
+      v34 = v21;
+      [v30 _performDelegateCallback:v61];
+
+LABEL_18:
+LABEL_19:
+    }
+  }
+
+  else
+  {
+    v35 = [v11 setCompletionHandler:*(a1 + 40)];
+    if (!*(*(a1 + 32) + 64))
+    {
+      kdebug_trace();
+      v34 = objc_alloc_init(MEMORY[0x277CD4790]);
+      v39 = pk_Payment_log(v34);
+      v40 = os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT);
+
+      if (v40)
+      {
+        v42 = pk_Payment_log(v41);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_25B300000, v42, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: created new context", buf, 2u);
+        }
+      }
+
+      WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
+
+      v45 = pk_Payment_log(v44);
+      v46 = os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT);
+
+      if (WeakRetained)
+      {
+        if (v46)
+        {
+          v48 = pk_Payment_log(v47);
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_25B300000, v48, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: evaluating asynchronously", buf, 2u);
+          }
+        }
+
+        [v34 setUiDelegate:*(a1 + 32)];
+        v49 = dispatch_get_global_queue(0, 0);
+        block[0] = MEMORY[0x277D85DD0];
+        block[1] = 3221225472;
+        block[2] = __102__NPKQuickPaymentSessionLocalAuthenticationCoordinator_beginLocalAuthenticationWithPolicy_completion___block_invoke_62;
+        block[3] = &unk_279945F18;
+        v50 = v34;
+        v51 = *(a1 + 48);
+        v52 = *(a1 + 32);
+        v58 = v50;
+        v59 = v52;
+        v60 = v51;
+        dispatch_async(v49, block);
+
+        objc_storeStrong((*(a1 + 32) + 64), v34);
+        v33 = v58;
+      }
+
+      else
+      {
+        if (v46)
+        {
+          v53 = pk_Payment_log(v47);
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_25B300000, v53, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: evaluating synchronously", buf, 2u);
+          }
+        }
+
+        [v34 setUiDelegate:*(a1 + 32)];
+        v54 = *(a1 + 48);
+        v56 = 0;
+        v55 = [v34 evaluatePolicy:v54 options:0 error:&v56];
+        v33 = v56;
+        [*(a1 + 32) _handleLocalAuthenticationPolicyEvaluatedWithContext:v34 error:v33];
+      }
+
+      goto LABEL_18;
+    }
+
+    v36 = pk_Payment_log(v35);
+    v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
+
+    if (v37)
+    {
+      v34 = pk_Payment_log(v38);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_25B300000, v34, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: in-progress context", buf, 2u);
       }
 
       goto LABEL_19;
     }
-
-    kdebug_trace();
-    v31 = objc_alloc_init(MEMORY[0x277CD4790]);
-    v35 = pk_Payment_log();
-    v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
-
-    if (v36)
-    {
-      v37 = pk_Payment_log();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_25B300000, v37, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: created new context", buf, 2u);
-      }
-    }
-
-    WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-
-    v39 = pk_Payment_log();
-    v40 = os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT);
-
-    if (WeakRetained)
-    {
-      if (v40)
-      {
-        v41 = pk_Payment_log();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_25B300000, v41, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: evaluating asynchronously", buf, 2u);
-        }
-      }
-
-      [v31 setUiDelegate:*(a1 + 32)];
-      v42 = dispatch_get_global_queue(0, 0);
-      block[0] = MEMORY[0x277D85DD0];
-      block[1] = 3221225472;
-      block[2] = __102__NPKQuickPaymentSessionLocalAuthenticationCoordinator_beginLocalAuthenticationWithPolicy_completion___block_invoke_62;
-      block[3] = &unk_279945F18;
-      v43 = v31;
-      v44 = *(a1 + 48);
-      v45 = *(a1 + 32);
-      v51 = v43;
-      v52 = v45;
-      v53 = v44;
-      dispatch_async(v42, block);
-
-      objc_storeStrong((*(a1 + 32) + 64), v31);
-      v30 = v51;
-    }
-
-    else
-    {
-      if (v40)
-      {
-        v46 = pk_Payment_log();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_25B300000, v46, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: evaluating synchronously", buf, 2u);
-        }
-      }
-
-      [v31 setUiDelegate:*(a1 + 32)];
-      v47 = *(a1 + 48);
-      v49 = 0;
-      v48 = [v31 evaluatePolicy:v47 options:0 error:&v49];
-      v30 = v49;
-      [*(a1 + 32) _handleLocalAuthenticationPolicyEvaluatedWithContext:v31 error:v30];
-    }
-
-LABEL_18:
-
-LABEL_19:
-    goto LABEL_20;
   }
-
-  v15 = pk_Payment_log();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-
-  if (v16)
-  {
-    v17 = pk_Payment_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: already-completed context", buf, 2u);
-    }
-  }
-
-  if (*(a1 + 40))
-  {
-    v18 = *(*(a1 + 32) + 40);
-    v19 = *(*(a1 + 32) + 48);
-    v20 = *(*(a1 + 32) + 56);
-    v21 = *(a1 + 32);
-    v22 = *(v21 + 40);
-    *(v21 + 40) = 0;
-
-    v23 = *(a1 + 32);
-    v24 = *(v23 + 48);
-    *(v23 + 48) = 0;
-
-    v25 = *(a1 + 32);
-    v26 = *(v25 + 56);
-    *(v25 + 56) = 0;
-
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __102__NPKQuickPaymentSessionLocalAuthenticationCoordinator_beginLocalAuthenticationWithPolicy_completion___block_invoke_59;
-    v54[3] = &unk_279948930;
-    v27 = *(a1 + 32);
-    v28 = *(a1 + 40);
-    v55 = v18;
-    v56 = v19;
-    v57 = v20;
-    v58 = v28;
-    v29 = v20;
-    v30 = v19;
-    v31 = v18;
-    [v27 _performDelegateCallback:v54];
-
-    goto LABEL_18;
-  }
-
-LABEL_20:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __102__NPKQuickPaymentSessionLocalAuthenticationCoordinator_beginLocalAuthenticationWithPolicy_completion___block_invoke_62(int8x16_t *a1)
@@ -299,160 +295,160 @@ void __102__NPKQuickPaymentSessionLocalAuthenticationCoordinator_beginLocalAuthe
 
 void __119__NPKQuickPaymentSessionLocalAuthenticationCoordinator_beginLocalAuthenticationWithAccessControl_operation_completion___block_invoke(uint64_t a1)
 {
-  v2 = pk_Payment_log();
+  v2 = pk_Payment_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_Payment_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: begin local authentication with access control", buf, 2u);
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: begin local authentication with access control", buf, 2u);
     }
   }
 
-  v5 = *(a1 + 32);
-  if (v5[4])
+  v6 = *(a1 + 32);
+  if (v6[4])
   {
-    v6 = pk_Payment_log();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v7 = pk_Payment_log(v6);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-    if (v7)
+    if (v8)
     {
-      v8 = pk_Payment_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = pk_Payment_log(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: existing completion handler", buf, 2u);
+        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: existing completion handler", buf, 2u);
       }
     }
 
-    v9 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CD4770] code:-9 userInfo:0];
-    [*(a1 + 32) _invokeCompletionHandlerForInvalidationWithError:v9];
+    v11 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CD4770] code:-9 userInfo:0];
+    [*(a1 + 32) _invokeCompletionHandlerForInvalidationWithError:v11];
 
-    v5 = *(a1 + 32);
+    v6 = *(a1 + 32);
   }
 
-  if (!v5[5])
+  if (!v6[5])
   {
-    [v5 setCompletionHandler:*(a1 + 40)];
+    v30 = [v6 setCompletionHandler:*(a1 + 40)];
     if (*(*(a1 + 32) + 64))
     {
-      v27 = pk_Payment_log();
-      v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+      v31 = pk_Payment_log(v30);
+      v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
 
-      if (!v28)
+      if (!v32)
       {
         return;
       }
 
-      v26 = pk_Payment_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v29 = pk_Payment_log(v33);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v26, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: in-progress context", buf, 2u);
+        _os_log_impl(&dword_25B300000, v29, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: in-progress context", buf, 2u);
       }
     }
 
     else
     {
       kdebug_trace();
-      v29 = objc_alloc_init(MEMORY[0x277CD4790]);
-      v30 = pk_Payment_log();
-      v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+      v34 = objc_alloc_init(MEMORY[0x277CD4790]);
+      v35 = pk_Payment_log(v34);
+      v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
 
-      if (v31)
+      if (v36)
       {
-        v32 = pk_Payment_log();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v38 = pk_Payment_log(v37);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_25B300000, v32, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: created new context", buf, 2u);
+          _os_log_impl(&dword_25B300000, v38, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: created new context", buf, 2u);
         }
       }
 
-      v33 = pk_Payment_log();
-      v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
+      v39 = pk_Payment_log(v37);
+      v40 = os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT);
 
-      if (v34)
+      if (v40)
       {
-        v35 = pk_Payment_log();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v42 = pk_Payment_log(v41);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_25B300000, v35, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: evaluating asynchronously", buf, 2u);
+          _os_log_impl(&dword_25B300000, v42, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: evaluating asynchronously", buf, 2u);
         }
       }
 
-      [v29 setUiDelegate:*(a1 + 32)];
-      v36 = dispatch_get_global_queue(0, 0);
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = __119__NPKQuickPaymentSessionLocalAuthenticationCoordinator_beginLocalAuthenticationWithAccessControl_operation_completion___block_invoke_65;
-      v42[3] = &unk_279948980;
-      v37 = v29;
-      v38 = *(a1 + 56);
-      v45 = *(a1 + 48);
-      v46 = v38;
-      v39 = *(a1 + 32);
-      v43 = v37;
-      v44 = v39;
-      dispatch_async(v36, v42);
+      [v34 setUiDelegate:*(a1 + 32)];
+      v43 = dispatch_get_global_queue(0, 0);
+      v49[0] = MEMORY[0x277D85DD0];
+      v49[1] = 3221225472;
+      v49[2] = __119__NPKQuickPaymentSessionLocalAuthenticationCoordinator_beginLocalAuthenticationWithAccessControl_operation_completion___block_invoke_65;
+      v49[3] = &unk_279948980;
+      v44 = v34;
+      v45 = *(a1 + 56);
+      v52 = *(a1 + 48);
+      v53 = v45;
+      v46 = *(a1 + 32);
+      v50 = v44;
+      v51 = v46;
+      dispatch_async(v43, v49);
 
-      v40 = *(a1 + 32);
-      v41 = *(v40 + 64);
-      *(v40 + 64) = v37;
-      v26 = v37;
+      v47 = *(a1 + 32);
+      v48 = *(v47 + 64);
+      *(v47 + 64) = v44;
+      v29 = v44;
     }
 
     goto LABEL_31;
   }
 
-  v10 = pk_Payment_log();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  v12 = pk_Payment_log(v6);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-  if (v11)
+  if (v13)
   {
-    v12 = pk_Payment_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v15 = pk_Payment_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: already-completed context", buf, 2u);
+      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: already-completed context", buf, 2u);
     }
   }
 
   if (*(a1 + 40))
   {
-    v13 = *(*(a1 + 32) + 40);
-    v14 = *(*(a1 + 32) + 48);
-    v15 = *(*(a1 + 32) + 56);
-    v16 = *(a1 + 32);
-    v17 = *(v16 + 40);
-    *(v16 + 40) = 0;
+    v16 = *(*(a1 + 32) + 40);
+    v17 = *(*(a1 + 32) + 48);
+    v18 = *(*(a1 + 32) + 56);
+    v19 = *(a1 + 32);
+    v20 = *(v19 + 40);
+    *(v19 + 40) = 0;
 
-    v18 = *(a1 + 32);
-    v19 = *(v18 + 48);
-    *(v18 + 48) = 0;
+    v21 = *(a1 + 32);
+    v22 = *(v21 + 48);
+    *(v21 + 48) = 0;
 
-    v20 = *(a1 + 32);
-    v21 = *(v20 + 56);
-    *(v20 + 56) = 0;
+    v23 = *(a1 + 32);
+    v24 = *(v23 + 56);
+    *(v23 + 56) = 0;
 
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __119__NPKQuickPaymentSessionLocalAuthenticationCoordinator_beginLocalAuthenticationWithAccessControl_operation_completion___block_invoke_64;
-    v47[3] = &unk_279948930;
-    v22 = *(a1 + 32);
-    v23 = *(a1 + 40);
-    v48 = v13;
-    v49 = v14;
-    v50 = v15;
-    v51 = v23;
-    v24 = v15;
-    v25 = v14;
-    v26 = v13;
-    [v22 _performDelegateCallback:v47];
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __119__NPKQuickPaymentSessionLocalAuthenticationCoordinator_beginLocalAuthenticationWithAccessControl_operation_completion___block_invoke_64;
+    v54[3] = &unk_279948930;
+    v25 = *(a1 + 32);
+    v26 = *(a1 + 40);
+    v55 = v16;
+    v56 = v17;
+    v57 = v18;
+    v58 = v26;
+    v27 = v18;
+    v28 = v17;
+    v29 = v16;
+    [v25 _performDelegateCallback:v54];
 
 LABEL_31:
   }
@@ -490,16 +486,16 @@ void __119__NPKQuickPaymentSessionLocalAuthenticationCoordinator_beginLocalAuthe
 
 - (void)invalidateLocalAuthenticationContexts
 {
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: requested invalidate context", buf, 2u);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: requested invalidate context", buf, 2u);
     }
   }
 
@@ -515,36 +511,34 @@ void __119__NPKQuickPaymentSessionLocalAuthenticationCoordinator_beginLocalAuthe
 void __93__NPKQuickPaymentSessionLocalAuthenticationCoordinator_invalidateLocalAuthenticationContexts__block_invoke(uint64_t a1)
 {
   v17 = *MEMORY[0x277D85DE8];
-  v2 = pk_Payment_log();
+  v2 = pk_Payment_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_Payment_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
-      v6 = *(v5 + 40);
-      v7 = *(v5 + 64);
+      v6 = *(a1 + 32);
+      v7 = *(v6 + 40);
+      v8 = *(v6 + 64);
       v13 = 138412546;
-      v14 = v6;
+      v14 = v7;
       v15 = 2112;
-      v16 = v7;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: invalidating context completed:%@ inProgress:%@", &v13, 0x16u);
+      v16 = v8;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: invalidating context completed:%@ inProgress:%@", &v13, 0x16u);
     }
   }
 
   [*(*(a1 + 32) + 40) invalidate];
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = 0;
+  v9 = *(a1 + 32);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = 0;
 
   [*(*(a1 + 32) + 64) invalidate];
-  v10 = *(a1 + 32);
-  v11 = *(v10 + 64);
-  *(v10 + 64) = 0;
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 64);
+  *(v11 + 64) = 0;
 }
 
 - (void)event:(int64_t)event params:(id)params reply:(id)reply
@@ -552,43 +546,43 @@ void __93__NPKQuickPaymentSessionLocalAuthenticationCoordinator_invalidateLocalA
   v29 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   v8 = [paramsCopy objectForKeyedSubscript:&unk_286CE7738];
-  v9 = pk_Payment_log();
+  v9 = pk_Payment_log(v8);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
   if (v10)
   {
-    v11 = pk_Payment_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_Payment_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = [(NPKQuickPaymentSessionLocalAuthenticationCoordinator *)self _nameForLocalAuthenticationEvent:event];
+      v13 = [(NPKQuickPaymentSessionLocalAuthenticationCoordinator *)self _nameForLocalAuthenticationEvent:event];
       if (v8)
       {
         if ([v8 BOOLValue])
         {
-          v13 = @"activated";
+          v14 = @"activated";
         }
 
         else
         {
-          v13 = @"deactivated";
+          v14 = @"deactivated";
         }
       }
 
       else
       {
-        v13 = @"received";
+        v14 = @"received";
       }
 
-      v14 = [MEMORY[0x277CCABB0] numberWithInteger:event];
+      v15 = [MEMORY[0x277CCABB0] numberWithInteger:event];
       *buf = 138413058;
-      v22 = v12;
+      v22 = v13;
       v23 = 2112;
-      v24 = v13;
+      v24 = v14;
       v25 = 2112;
-      v26 = v14;
+      v26 = v15;
       v27 = 2112;
       v28 = paramsCopy;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: LocalAuthentication UI ***** %@ %@ ***** - event: %@ params: %@", buf, 0x2Au);
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: LocalAuthentication UI ***** %@ %@ ***** - event: %@ params: %@", buf, 0x2Au);
     }
   }
 
@@ -604,8 +598,6 @@ void __93__NPKQuickPaymentSessionLocalAuthenticationCoordinator_invalidateLocalA
     eventCopy = event;
     dispatch_async(localAuthenticationQueue, block);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __75__NPKQuickPaymentSessionLocalAuthenticationCoordinator_event_params_reply___block_invoke(uint64_t a1)
@@ -662,19 +654,19 @@ uint64_t __75__NPKQuickPaymentSessionLocalAuthenticationCoordinator_event_params
   }
 
   v15 = _Block_copy(self->_completionHandler);
-  v16 = pk_Payment_log();
+  v16 = pk_Payment_log(v15);
   v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
   if (v15)
   {
     if (v17)
     {
-      v18 = pk_Payment_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = pk_Payment_log(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v38 = errorCopy;
-        _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: have completion handler for evaluate policy with error:%@", buf, 0xCu);
+        _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: have completion handler for evaluate policy with error:%@", buf, 0xCu);
       }
     }
 
@@ -689,9 +681,9 @@ uint64_t __75__NPKQuickPaymentSessionLocalAuthenticationCoordinator_event_params
     v34 = externalizedContext;
     v35 = errorCopy;
     v36 = v15;
-    v20 = errorCopy;
-    v21 = externalizedContext;
-    v22 = contextCopy;
+    v21 = errorCopy;
+    v22 = externalizedContext;
+    v23 = contextCopy;
     [(NPKQuickPaymentSessionLocalAuthenticationCoordinator *)self _performDelegateCallback:v32];
 
     completedError = v36;
@@ -701,49 +693,47 @@ uint64_t __75__NPKQuickPaymentSessionLocalAuthenticationCoordinator_event_params
   {
     if (v17)
     {
-      v24 = pk_Payment_log();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v25 = pk_Payment_log(v18);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v38 = errorCopy;
-        _os_log_impl(&dword_25B300000, v24, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: no completion handler for evaluate policy with error:%@", buf, 0xCu);
+        _os_log_impl(&dword_25B300000, v25, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: no completion handler for evaluate policy with error:%@", buf, 0xCu);
       }
     }
 
     completedContext = self->_completedContext;
     self->_completedContext = contextCopy;
-    v26 = contextCopy;
+    v27 = contextCopy;
 
     completedCredential = self->_completedCredential;
     self->_completedCredential = externalizedContext;
-    v28 = externalizedContext;
+    v29 = externalizedContext;
 
     completedError = self->_completedError;
     self->_completedError = errorCopy;
-    v29 = errorCopy;
+    v30 = errorCopy;
   }
 
   inProgressContext = self->_inProgressContext;
   self->_inProgressContext = 0;
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activateLocalAuthenticationEvent:(int64_t)event
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_localAuthenticationQueue);
-  v5 = pk_Payment_log();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v6 = pk_Payment_log(v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-  if (v6)
+  if (v7)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_Payment_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134217984;
+      v14 = 134217984;
       eventCopy = event;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Activating local authentication event %ld", &v13, 0xCu);
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Activating local authentication event %ld", &v14, 0xCu);
     }
   }
 
@@ -756,51 +746,49 @@ uint64_t __75__NPKQuickPaymentSessionLocalAuthenticationCoordinator_event_params
   }
 
   pendingLocalAuthenticationEvents2 = [(NPKQuickPaymentSessionLocalAuthenticationCoordinator *)self pendingLocalAuthenticationEvents];
-  v11 = [MEMORY[0x277CCABB0] numberWithInteger:event];
-  [pendingLocalAuthenticationEvents2 addObject:v11];
+  v13 = [MEMORY[0x277CCABB0] numberWithInteger:event];
+  [pendingLocalAuthenticationEvents2 addObject:v13];
 
   [(NPKQuickPaymentSessionLocalAuthenticationCoordinator *)self _presentNextLocalAuthenticationEvent];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deactivateLocalAuthenticationEvent:(int64_t)event
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_localAuthenticationQueue);
-  v5 = pk_Payment_log();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v6 = pk_Payment_log(v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-  if (v6)
+  if (v7)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_Payment_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       eventCopy = event;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: Deactivating local authentication with event %ld", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: Deactivating local authentication with event %ld", buf, 0xCu);
     }
   }
 
   activeLocalAuthenticationEvent = [(NPKQuickPaymentSessionLocalAuthenticationCoordinator *)self activeLocalAuthenticationEvent];
-  v9 = activeLocalAuthenticationEvent;
+  v11 = activeLocalAuthenticationEvent;
   if (activeLocalAuthenticationEvent && [activeLocalAuthenticationEvent integerValue] == event)
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __92__NPKQuickPaymentSessionLocalAuthenticationCoordinator__deactivateLocalAuthenticationEvent___block_invoke;
-    v13[3] = &unk_279945830;
-    v13[4] = self;
-    v13[5] = event;
-    [(NPKQuickPaymentSessionLocalAuthenticationCoordinator *)self _performDelegateCallback:v13];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __92__NPKQuickPaymentSessionLocalAuthenticationCoordinator__deactivateLocalAuthenticationEvent___block_invoke;
+    v14[3] = &unk_279945830;
+    v14[4] = self;
+    v14[5] = event;
+    [(NPKQuickPaymentSessionLocalAuthenticationCoordinator *)self _performDelegateCallback:v14];
     [(NPKQuickPaymentSessionLocalAuthenticationCoordinator *)self setActiveLocalAuthenticationEvent:0];
   }
 
   pendingLocalAuthenticationEvents = [(NPKQuickPaymentSessionLocalAuthenticationCoordinator *)self pendingLocalAuthenticationEvents];
-  v11 = [MEMORY[0x277CCABB0] numberWithInteger:event];
-  [pendingLocalAuthenticationEvents removeObject:v11];
+  v13 = [MEMORY[0x277CCABB0] numberWithInteger:event];
+  [pendingLocalAuthenticationEvents removeObject:v13];
 
   [(NPKQuickPaymentSessionLocalAuthenticationCoordinator *)self _presentNextLocalAuthenticationEvent];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __92__NPKQuickPaymentSessionLocalAuthenticationCoordinator__deactivateLocalAuthenticationEvent___block_invoke(uint64_t a1)
@@ -902,51 +890,49 @@ void __92__NPKQuickPaymentSessionLocalAuthenticationCoordinator__presentNextLoca
   v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v7 = pk_Payment_log();
+  v7 = pk_Payment_log(WeakRetained);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
   if (v8)
   {
-    v9 = pk_Payment_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_Payment_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [WeakRetained _nameForLocalAuthenticationEvent:*(a1 + 40)];
+      v11 = [WeakRetained _nameForLocalAuthenticationEvent:*(a1 + 40)];
       if (a2)
       {
-        v11 = @"success";
+        v12 = @"success";
       }
 
       else
       {
-        v11 = [v5 description];
+        v12 = [v5 description];
       }
 
       v13 = 138412546;
-      v14 = v10;
+      v14 = v11;
       v15 = 2112;
-      v16 = v11;
-      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: setCredential for %@ returned %@", &v13, 0x16u);
+      v16 = v12;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: setCredential for %@ returned %@", &v13, 0x16u);
       if ((a2 & 1) == 0)
       {
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelLocalAuthentication
 {
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: Cancelling authentication", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Local authentication coordinator: Cancelling authentication", v8, 2u);
     }
   }
 

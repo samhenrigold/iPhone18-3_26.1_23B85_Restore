@@ -63,7 +63,7 @@
 
 - (BOOL)iteratingExecuteKGQ:(id)q error:(id *)error block:(id)block
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   qCopy = q;
   blockCopy = block;
   v8 = GDXPCLog();
@@ -74,111 +74,110 @@
   }
 
   *buf = 0;
-  v53 = buf;
-  v54 = 0x3032000000;
-  v55 = sub_1ABF1B8A8;
-  v56 = sub_1ABF1B8B8;
-  v57 = 0;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2020000000;
-  v51 = 1;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = sub_1ABF1B8A8;
-  v46 = sub_1ABF1B8B8;
+  v52 = buf;
+  v53 = 0x3032000000;
+  v54 = sub_1ABF1B8A8;
+  v55 = sub_1ABF1B8B8;
+  v56 = 0;
   v47 = 0;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = sub_1ABF1B8A8;
-  v40 = sub_1ABF1B8B8;
+  v48 = &v47;
+  v49 = 0x2020000000;
+  v50 = 1;
   v41 = 0;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = sub_1ABF1B8A8;
+  v45 = sub_1ABF1B8B8;
+  v46 = 0;
   v35 = 0;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = sub_1ABF1B8A8;
+  v39 = sub_1ABF1B8B8;
+  v40 = 0;
   v31 = 0;
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = sub_1ABF1BE8C;
-  v27[3] = &unk_1E7962718;
-  v27[4] = buf;
-  v27[5] = &v32;
-  v27[6] = &v28;
-  v9 = [(GDXPCKnosisService *)self synchronousRemoteObjectProxyWithErrorHandler:v27];
-  if (*(v49 + 24) == 1)
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = sub_1ABF1BE8C;
+  v26[3] = &unk_1E7962718;
+  v26[4] = buf;
+  v26[5] = &v31;
+  v26[6] = &v27;
+  v9 = [(GDXPCKnosisService *)self synchronousRemoteObjectProxyWithErrorHandler:v26];
+  if (*(v48 + 24) == 1)
   {
     do
     {
-      if (v33[3])
+      if (v32[3])
       {
         break;
       }
 
-      if (*(v53 + 5))
+      if (*(v52 + 5))
       {
         break;
       }
 
       v10 = MEMORY[0x1E696AD98];
-      longValue = [v43[5] longValue];
-      v12 = [v10 numberWithLong:{objc_msgSend(v37[5], "longValue") + longValue}];
+      longValue = [v42[5] longValue];
+      v12 = [v10 numberWithLong:{objc_msgSend(v36[5], "longValue") + longValue}];
       [qCopy setOffset:v12];
 
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = sub_1ABF1BF80;
-      v19[3] = &unk_1E7962740;
-      v21 = buf;
-      v22 = &v32;
-      v23 = &v28;
-      v24 = &v48;
-      v25 = &v42;
-      v26 = &v36;
-      v20 = blockCopy;
-      [v9 executeKGQ:qCopy withCompletion:v19];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = sub_1ABF1BF80;
+      v18[3] = &unk_1E7962740;
+      v20 = buf;
+      v21 = &v31;
+      v22 = &v27;
+      v23 = &v47;
+      v24 = &v41;
+      v25 = &v35;
+      v19 = blockCopy;
+      [v9 executeKGQ:qCopy withCompletion:v18];
     }
 
-    while ((v49[3] & 1) != 0);
+    while ((v48[3] & 1) != 0);
   }
 
-  v13 = *(v29 + 24);
+  v13 = *(v28 + 24);
   if (v13 == 1)
   {
     if (error)
     {
-      *error = *(v53 + 5);
+      *error = *(v52 + 5);
     }
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(v53 + 5);
-      *v58 = 138412290;
-      v59 = v16;
-      _os_log_error_impl(&dword_1ABA78000, v8, OS_LOG_TYPE_ERROR, "GDXPCKnosisService: error during iteratingExecuteKGQ call: %@", v58, 0xCu);
+      v15 = *(v52 + 5);
+      *v57 = 138412290;
+      v58 = v15;
+      _os_log_error_impl(&dword_1ABA78000, v8, OS_LOG_TYPE_ERROR, "GDXPCKnosisService: error during iteratingExecuteKGQ call: %@", v57, 0xCu);
     }
   }
 
-  _Block_object_dispose(&v28, 8);
-  _Block_object_dispose(&v32, 8);
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v35, 8);
 
-  _Block_object_dispose(&v42, 8);
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v47, 8);
   _Block_object_dispose(buf, 8);
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13 ^ 1;
 }
 
 - (id)executeKGQ:(id)q error:(id *)error
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   qCopy = q;
   limit2 = GDXPCLog();
   if (os_log_type_enabled(limit2, OS_LOG_TYPE_DEFAULT))
@@ -193,63 +192,63 @@
   }
 
   *buf = 0;
-  v57 = buf;
-  v58 = 0x3032000000;
-  v59 = sub_1ABF1B8A8;
-  v60 = sub_1ABF1B8B8;
-  v61 = &stru_1F20A2CD8;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = sub_1ABF1B8A8;
-  v54 = sub_1ABF1B8B8;
-  v55 = &stru_1F20A2CD8;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = sub_1ABF1B8A8;
-  v48 = sub_1ABF1B8B8;
+  v56 = buf;
+  v57 = 0x3032000000;
+  v58 = sub_1ABF1B8A8;
+  v59 = sub_1ABF1B8B8;
+  v60 = &stru_1F20A2CD8;
   v49 = 0;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = sub_1ABF1B8A8;
+  v53 = sub_1ABF1B8B8;
+  v54 = &stru_1F20A2CD8;
   v43 = 0;
-  v39[0] = 0;
-  v39[1] = v39;
-  v39[2] = 0x2020000000;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = sub_1ABF1B8A8;
+  v47 = sub_1ABF1B8B8;
+  v48 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 0;
+  v38[0] = 0;
+  v38[1] = v38;
+  v38[2] = 0x2020000000;
   limit = [qCopy limit];
   integerValue = [limit integerValue];
 
-  v39[3] = integerValue;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = sub_1ABF1B8A8;
-  v37 = sub_1ABF1B8B8;
-  v38 = 0;
+  v38[3] = integerValue;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = sub_1ABF1B8A8;
+  v36 = sub_1ABF1B8B8;
+  v37 = 0;
   array = [MEMORY[0x1E695DF70] array];
-  v22 = MEMORY[0x1E69E9820];
-  v23 = 3221225472;
-  v24 = sub_1ABF1C4F4;
-  v25 = &unk_1E79626F0;
-  v27 = &v50;
-  v28 = buf;
-  v29 = &v40;
-  v30 = &v33;
-  v31 = &v44;
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 3221225472;
+  v23 = sub_1ABF1C4F4;
+  v24 = &unk_1E79626F0;
+  v26 = &v49;
+  v27 = buf;
+  v28 = &v39;
+  v29 = &v32;
+  v30 = &v43;
   v11 = array;
-  v26 = v11;
-  v32 = v39;
-  if ([(GDXPCKnosisService *)self iteratingExecuteKGQ:qCopy error:error block:&v22])
+  v25 = v11;
+  v31 = v38;
+  if ([(GDXPCKnosisService *)self iteratingExecuteKGQ:qCopy error:error block:&v21])
   {
     v12 = [GDKnosisResult alloc];
-    v13 = *(v57 + 5);
-    v14 = v51[5];
-    v15 = v41[3];
-    v16 = v45[5];
+    v13 = *(v56 + 5);
+    v14 = v50[5];
+    v15 = v40[3];
+    v16 = v44[5];
     limit2 = [qCopy limit];
-    LOBYTE(v21) = 0;
-    v17 = [(GDKnosisResult *)v12 initWithQuery:v13 kgq:v14 status:v15 answers:v11 errorMessage:v16 limit:limit2 offset:&unk_1F20CF3B0 hasMoreAnswers:v21 debug:v34[5], v22, v23, v24, v25];
+    LOBYTE(v20) = 0;
+    v17 = [(GDKnosisResult *)v12 initWithQuery:v13 kgq:v14 status:v15 answers:v11 errorMessage:v16 limit:limit2 offset:&unk_1F20CF3B0 hasMoreAnswers:v20 debug:v33[5], v21, v22, v23, v24];
   }
 
   else
@@ -258,31 +257,29 @@
     {
       if (error)
       {
-        v20 = *error;
+        v19 = *error;
       }
 
       else
       {
-        v20 = 0;
+        v19 = 0;
       }
 
-      *v62 = 138412290;
-      v63 = v20;
-      _os_log_error_impl(&dword_1ABA78000, limit2, OS_LOG_TYPE_ERROR, "GDXPCKnosisService: error during ExecuteKGQ call: %@", v62, 0xCu);
+      *v61 = 138412290;
+      v62 = v19;
+      _os_log_error_impl(&dword_1ABA78000, limit2, OS_LOG_TYPE_ERROR, "GDXPCKnosisService: error during ExecuteKGQ call: %@", v61, 0xCu);
     }
 
     v17 = 0;
   }
 
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(v39, 8);
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(v38, 8);
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v43, 8);
 
-  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(&v49, 8);
   _Block_object_dispose(buf, 8);
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

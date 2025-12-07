@@ -72,13 +72,13 @@
     [(GKInstanceScoreNetworkRequest *)v11 setRequestData:v16];
 
     requestData = [(GKInstanceScoreNetworkRequest *)v11 requestData];
-    v30[0] = @"leaderboard-id";
+    v30 = @"leaderboard-id";
     leaderboardIdentifier = [scoreCopy leaderboardIdentifier];
-    v30[1] = @"player-id";
-    v31[0] = leaderboardIdentifier;
+    v31 = @"player-id";
+    v32 = leaderboardIdentifier;
     playerID = [(GKInstanceScoreNetworkRequest *)v11 playerID];
-    v31[1] = playerID;
-    v20 = [NSDictionary dictionaryWithObjects:v31 forKeys:v30 count:2];
+    v33 = playerID;
+    v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     v21 = mergeValuesForKeyWithDictionary(requestData, v20);
     [(GKInstanceScoreNetworkRequest *)v11 setRequestData:v21];
 
@@ -87,7 +87,7 @@
       requestData2 = [(GKInstanceScoreNetworkRequest *)v11 requestData];
       v28 = @"challenges";
       v29 = challengesCopy;
-      v23 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+      v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
       v24 = mergeValuesForKeyWithDictionary(requestData2, v23);
       [(GKInstanceScoreNetworkRequest *)v11 setRequestData:v24];
     }

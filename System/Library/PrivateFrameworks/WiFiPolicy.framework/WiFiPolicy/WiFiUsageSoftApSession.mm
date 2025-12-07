@@ -4,6 +4,9 @@
 - (id)eventDictionary:(BOOL)dictionary;
 - (void)addSoftApClientEvent:(BOOL)event identifier:(id)identifier isAppleClient:(BOOL)client isInstantHotspot:(BOOL)hotspot isAutoHotspot:(BOOL)autoHotspot isHidden:(BOOL)hidden;
 - (void)addSoftApCoexEvent:(unint64_t)event deniedUnii1ChannelMap:(unint64_t)map deniedUnii2aChannelMap:(unint64_t)channelMap deniedUnii2cChannelMap:(unint64_t)unii2cChannelMap deniedUnii3ChannelMap:(unint64_t)unii3ChannelMap;
+- (void)awdlStateDidChange:(BOOL)change inMode:(int64_t)mode;
+- (void)linkStateDidChange:(BOOL)change isInvoluntary:(BOOL)involuntary linkChangeReason:(int64_t)reason linkChangeSubreason:(int64_t)subreason withNetworkDetails:(id)details;
+- (void)softApStateDidChange:(BOOL)change requester:(id)requester status:(id)status changeReason:(id)reason channelNumber:(unint64_t)number countryCode:(unint64_t)code isHidden:(BOOL)hidden isInfraConnected:(BOOL)self0 isAwdlUp:(BOOL)self1 lowPowerModeDuration:(double)self2 compatibilityMode:(BOOL)self3 requestToUpLatency:(double)self4 idleTimeBeforeTeardownSec:(double)self5 idleTimeAfterLastClientDisconnectedSec:(double)self6;
 - (void)summarizeSession;
 @end
 
@@ -20,6 +23,217 @@
   [(WiFiUsageSoftApSession *)v4 setFiveGHzDeniedUnii2cChannelCount:0];
   [(WiFiUsageSoftApSession *)v4 setFiveGHzDeniedUnii3ChannelCount:0];
   return v4;
+}
+
+- (void)linkStateDidChange:(BOOL)change isInvoluntary:(BOOL)involuntary linkChangeReason:(int64_t)reason linkChangeSubreason:(int64_t)subreason withNetworkDetails:(id)details
+{
+  changeCopy = change;
+  date = [MEMORY[0x277CBEAA8] date];
+  v10 = date;
+  lastInfraActiveTime = self->_lastInfraActiveTime;
+  if (changeCopy)
+  {
+    if (!lastInfraActiveTime)
+    {
+      v13 = date;
+      date = [(WiFiUsageSoftApSession *)self setLastInfraActiveTime:date];
+      v10 = v13;
+      ++self->_infraStateChangedCount;
+    }
+  }
+
+  else if (lastInfraActiveTime)
+  {
+    v14 = date;
+    [date timeIntervalSinceDate:?];
+    self->_infraActiveDuration = v12 + self->_infraActiveDuration;
+    date = [(WiFiUsageSoftApSession *)self setLastInfraActiveTime:0];
+    v10 = v14;
+  }
+
+  MEMORY[0x2821F96F8](date, v10);
+}
+
+- (void)awdlStateDidChange:(BOOL)change inMode:(int64_t)mode
+{
+  changeCopy = change;
+  date = [MEMORY[0x277CBEAA8] date];
+  v7 = date;
+  if (changeCopy)
+  {
+    v9 = date;
+    date = [(WiFiUsageSoftApSession *)self setLastAwdlActiveTime:date];
+    v7 = v9;
+    ++self->_awdlStateChangedCount;
+  }
+
+  else if (self->_lastAwdlActiveTime)
+  {
+    v10 = date;
+    [date timeIntervalSinceDate:?];
+    self->_awdlActiveDuration = v8 + self->_awdlActiveDuration;
+    date = [(WiFiUsageSoftApSession *)self setLastAwdlActiveTime:0];
+    v7 = v10;
+  }
+
+  MEMORY[0x2821F96F8](date, v7);
+}
+
+- (void)softApStateDidChange:(BOOL)change requester:(id)requester status:(id)status changeReason:(id)reason channelNumber:(unint64_t)number countryCode:(unint64_t)code isHidden:(BOOL)hidden isInfraConnected:(BOOL)self0 isAwdlUp:(BOOL)self1 lowPowerModeDuration:(double)self2 compatibilityMode:(BOOL)self3 requestToUpLatency:(double)self4 idleTimeBeforeTeardownSec:(double)self5 idleTimeAfterLastClientDisconnectedSec:(double)self6
+{
+  changeCopy = change;
+  requesterCopy = requester;
+  statusCopy = status;
+  reasonCopy = reason;
+  date = [MEMORY[0x277CBEAA8] date];
+  v35 = requesterCopy;
+  if ([(WiFiUsageSession *)self isSessionActive]== changeCopy)
+  {
+    goto LABEL_10;
+  }
+
+  if (!changeCopy)
+  {
+    NSLog(&cfstr_SSoftapSession_0.isa, "[WiFiUsageSoftApSession softApStateDidChange:requester:status:changeReason:channelNumber:countryCode:isHidden:isInfraConnected:isAwdlUp:lowPowerModeDuration:compatibilityMode:requestToUpLatency:idleTimeBeforeTeardownSec:idleTimeAfterLastClientDisconnectedSec:]");
+    [(WiFiUsageSoftApSession *)self setLowPowerModeDuration:duration];
+    [(WiFiUsageSoftApSession *)self setTearDownReason:reasonCopy];
+    if (sec > 0.0)
+    {
+      [(WiFiUsageSoftApSession *)self setIdleTimeBeforeTeardownSec:sec];
+    }
+
+    if (disconnectedSec > 0.0)
+    {
+      [(WiFiUsageSoftApSession *)self setIdleTimeAfterLastClientDisconnectedSec:disconnectedSec];
+    }
+
+    [(WiFiUsageSession *)self sessionDidEnd];
+    [(NSMutableSet *)self->_connectedClients removeAllObjects];
+LABEL_10:
+    v29 = 0;
+    if (!statusCopy)
+    {
+      goto LABEL_12;
+    }
+
+    goto LABEL_11;
+  }
+
+  NSLog(&cfstr_SSoftapSession.isa, "[WiFiUsageSoftApSession softApStateDidChange:requester:status:changeReason:channelNumber:countryCode:isHidden:isInfraConnected:isAwdlUp:lowPowerModeDuration:compatibilityMode:requestToUpLatency:idleTimeBeforeTeardownSec:idleTimeAfterLastClientDisconnectedSec:]");
+  [(WiFiUsageSession *)self sessionDidStart];
+  [(WiFiUsageSoftApSession *)self setRequester:requesterCopy];
+  [(WiFiUsageSoftApSession *)self setCompatibilityEnabled:mode];
+  [(WiFiUsageSoftApSession *)self setLowPowerModeDuration:0.0];
+  [(WiFiUsageSoftApSession *)self setInfraActiveDuration:0.0];
+  [(WiFiUsageSoftApSession *)self setAwdlActiveDuration:0.0];
+  [(WiFiUsageSoftApSession *)self setRequestToUpLatency:0.0];
+  [(WiFiUsageSoftApSession *)self setIdleTimeBeforeTeardownSec:0.0];
+  [(WiFiUsageSoftApSession *)self setIdleTimeAfterLastClientDisconnectedSec:0.0];
+  [(WiFiUsageSoftApSession *)self setAppleClientConnectCount:0];
+  [(WiFiUsageSoftApSession *)self setOtherClientConnectCount:0];
+  [(WiFiUsageSoftApSession *)self setHiddenClientConnectCount:0];
+  [(WiFiUsageSoftApSession *)self setBroadcastClientConnectCount:0];
+  [(WiFiUsageSoftApSession *)self setTwoFourGHzClientConnectCount:0];
+  [(WiFiUsageSoftApSession *)self setFiveGHzClientConnectCount:0];
+  [(WiFiUsageSoftApSession *)self setClientDisconnectCount:0];
+  [(WiFiUsageSoftApSession *)self setMaxConnectedClientCount:0];
+  [(WiFiUsageSoftApSession *)self setInstantHotspotClientConnectCount:0];
+  [(WiFiUsageSoftApSession *)self setAutoHotspotClientConnectCount:0];
+  [(WiFiUsageSoftApSession *)self setLastAwdlActiveTime:0];
+  [(WiFiUsageSoftApSession *)self setLastInfraActiveTime:0];
+  [(WiFiUsageSoftApSession *)self setTwoFourGHzChannelCount:0];
+  [(WiFiUsageSoftApSession *)self setFiveGHzChannelCount:0];
+  [(WiFiUsageSoftApSession *)self setInfraStateChangedCount:0];
+  [(WiFiUsageSoftApSession *)self setAwdlStateChangedCount:0];
+  [(WiFiUsageSoftApSession *)self setKnownNetworkScanCount:0];
+  [(WiFiUsageSoftApSession *)self setHiddenTransitionCount:0];
+  [(WiFiUsageSoftApSession *)self setBandTransitionCount:0];
+  connectedClients = self->_connectedClients;
+  if (connectedClients)
+  {
+    [(NSMutableSet *)connectedClients removeAllObjects];
+  }
+
+  else
+  {
+    v32 = [MEMORY[0x277CBEB58] set];
+    v33 = self->_connectedClients;
+    self->_connectedClients = v32;
+  }
+
+  v29 = 1;
+  if (statusCopy)
+  {
+LABEL_11:
+    [(WiFiUsageSoftApSession *)self setStatus:statusCopy];
+  }
+
+LABEL_12:
+  if (code)
+  {
+    [(WiFiUsageSoftApSession *)self setAppliedCountryCode:code];
+  }
+
+  if (latency > 0.0)
+  {
+    [(WiFiUsageSoftApSession *)self setRequestToUpLatency:latency];
+  }
+
+  if (changeCopy)
+  {
+    if ((v29 & 1) == 0)
+    {
+      v30 = number - self->_lastChannel;
+      if (v30)
+      {
+        if (v30 < 0)
+        {
+          v30 = self->_lastChannel - number;
+        }
+
+        if (v30 >= 0x65)
+        {
+          ++self->_bandTransitionCount;
+        }
+      }
+
+      if (self->_lastHiddenState != hidden)
+      {
+        ++self->_hiddenTransitionCount;
+      }
+    }
+
+    if (!self->_lastInfraActiveTime && connected)
+    {
+      [(WiFiUsageSoftApSession *)self setLastInfraActiveTime:date];
+    }
+
+    if (!self->_lastAwdlActiveTime && up)
+    {
+      [(WiFiUsageSoftApSession *)self setLastAwdlActiveTime:date];
+    }
+
+    if (number && self->_lastChannel != number)
+    {
+      v31 = &OBJC_IVAR___WiFiUsageSoftApSession__fiveGHzChannelCount;
+      if (number < 0xE)
+      {
+        v31 = &OBJC_IVAR___WiFiUsageSoftApSession__twoFourGHzChannelCount;
+      }
+
+      ++*(&self->super.super.isa + *v31);
+    }
+
+    [(WiFiUsageSoftApSession *)self setLastHiddenState:hidden];
+    [(WiFiUsageSoftApSession *)self setLastChannel:number];
+  }
+
+  v38.receiver = self;
+  v38.super_class = WiFiUsageSoftApSession;
+  BYTE3(v34) = mode;
+  BYTE2(v34) = up;
+  LOWORD(v34) = __PAIR16__(connected, hidden);
+  [WiFiUsageSession softApStateDidChange:sel_softApStateDidChange_requester_status_changeReason_channelNumber_countryCode_isHidden_isInfraConnected_isAwdlUp_lowPowerModeDuration_compatibilityMode_requestToUpLatency_idleTimeBeforeTeardownSec_idleTimeAfterLastClientDisconnectedSec_ requester:changeCopy status:v35 changeReason:statusCopy channelNumber:reasonCopy countryCode:number isHidden:code isInfraConnected:duration isAwdlUp:latency lowPowerModeDuration:sec compatibilityMode:disconnectedSec requestToUpLatency:v34 idleTimeBeforeTeardownSec:? idleTimeAfterLastClientDisconnectedSec:?];
 }
 
 - (void)addSoftApClientEvent:(BOOL)event identifier:(id)identifier isAppleClient:(BOOL)client isInstantHotspot:(BOOL)hotspot isAutoHotspot:(BOOL)autoHotspot isHidden:(BOOL)hidden
@@ -110,7 +324,7 @@
 
 - (id)eventDictionary:(BOOL)dictionary
 {
-  v51[1] = *MEMORY[0x277D85DE8];
+  v50[1] = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   sessionName = [(WiFiUsageSession *)self sessionName];
   [dictionary setObject:sessionName forKeyedSubscript:@"SessionName"];
@@ -225,8 +439,8 @@
   v45 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_fiveGHzDeniedUnii3ChannelCount];
   [dictionary setObject:v45 forKeyedSubscript:@"FiveGHzDeniedUnii3ChannelCount"];
 
-  v51[0] = self->_appliedCountryCode;
-  v46 = [MEMORY[0x277CCACA8] stringWithCString:v51 encoding:4];
+  v50[0] = self->_appliedCountryCode;
+  v46 = [MEMORY[0x277CCACA8] stringWithCString:v50 encoding:4];
   [dictionary setObject:v46 forKeyedSubscript:@"CountryCodeApplied"];
 
   v47 = [MEMORY[0x277CCABB0] numberWithBool:self->_compatibilityEnabled];
@@ -237,8 +451,6 @@
     sessionStartTime = [(WiFiUsageSession *)self sessionStartTime];
     [dictionary setObject:sessionStartTime forKeyedSubscript:@"SessionStartTimestamp"];
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

@@ -16,7 +16,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   if (self)
   {
@@ -36,16 +36,14 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_INFO, "%{public}@Handling keychain availability timer", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_INFO, "%{public}@Handling keychain availability timer", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
     [(HMBCloudCredentialsAvailabilityListener *)selfCopy _handleKeychainAvailabilityChanged];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleKeychainAvailabilityChanged
@@ -79,7 +77,7 @@
 
 - (void)handleIdentityUpdateNotification:(id)notification
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -87,20 +85,18 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_22AD27000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling CKIdentityUpdateNotification", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_22AD27000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling CKIdentityUpdateNotification", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMBCloudCredentialsAvailabilityListener *)selfCopy _handleKeychainAvailabilityChanged];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccountChangedNotification:(id)notification
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -108,57 +104,53 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_22AD27000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling CKAccountChangedNotification", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_22AD27000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling CKAccountChangedNotification", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMBCloudCredentialsAvailabilityListener *)selfCopy _checkAccountAvailability];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkAccountAvailability
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self)
   {
-    v13 = [objc_alloc(MEMORY[0x277D0F770]) initWithName:@"Check account availability"];
+    v12 = [objc_alloc(MEMORY[0x277D0F770]) initWithName:@"Check account availability"];
     v2 = objc_autoreleasePoolPush();
     selfCopy = self;
     v4 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = HMFGetLogIdentifier();
-      identifier = [v13 identifier];
+      identifier = [v12 identifier];
       shortDescription = [identifier shortDescription];
       *buf = 138543618;
-      v15 = v5;
-      v16 = 2114;
-      v17 = shortDescription;
+      v14 = v5;
+      v15 = 2114;
+      v16 = shortDescription;
       _os_log_impl(&dword_22AD27000, v4, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Fetching account info", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v2);
     v9 = objc_getProperty(selfCopy, v8, 16, 1);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __68__HMBCloudCredentialsAvailabilityListener__checkAccountAvailability__block_invoke;
-    v11[3] = &unk_2786E03A0;
-    v11[4] = selfCopy;
-    v12 = v13;
-    [v9 accountInfoWithCompletionHandler:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __68__HMBCloudCredentialsAvailabilityListener__checkAccountAvailability__block_invoke;
+    v10[3] = &unk_2786E03A0;
+    v10[4] = selfCopy;
+    v11 = v12;
+    [v9 accountInfoWithCompletionHandler:v10];
 
     __HMFActivityScopeLeave();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HMBCloudCredentialsAvailabilityListener__checkAccountAvailability__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -172,17 +164,17 @@ void __68__HMBCloudCredentialsAvailabilityListener__checkAccountAvailability__bl
       v18 = HMFGetLogIdentifier();
       v19 = [*(a1 + 40) identifier];
       v20 = [v19 shortDescription];
-      v36 = 138543874;
-      v37 = v18;
-      v38 = 2114;
-      v39 = v20;
-      v40 = 2112;
-      v41 = v6;
+      v35 = 138543874;
+      v36 = v18;
+      v37 = 2114;
+      v38 = v20;
+      v39 = 2112;
+      v40 = v6;
       v21 = "%{public}@[%{public}@] Failed to fetch account info: %@";
       v22 = v10;
       v23 = 32;
 LABEL_19:
-      _os_log_impl(&dword_22AD27000, v22, OS_LOG_TYPE_ERROR, v21, &v36, v23);
+      _os_log_impl(&dword_22AD27000, v22, OS_LOG_TYPE_ERROR, v21, &v35, v23);
 
       goto LABEL_20;
     }
@@ -195,13 +187,13 @@ LABEL_19:
     v11 = HMFGetLogIdentifier();
     v12 = [*(a1 + 40) identifier];
     v13 = [v12 shortDescription];
-    v36 = 138543874;
-    v37 = v11;
-    v38 = 2114;
-    v39 = v13;
-    v40 = 2112;
-    v41 = v5;
-    _os_log_impl(&dword_22AD27000, v10, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Fetched account info: %@", &v36, 0x20u);
+    v35 = 138543874;
+    v36 = v11;
+    v37 = 2114;
+    v38 = v13;
+    v39 = 2112;
+    v40 = v5;
+    _os_log_impl(&dword_22AD27000, v10, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Fetched account info: %@", &v35, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -215,10 +207,10 @@ LABEL_19:
       v18 = HMFGetLogIdentifier();
       v19 = [*(a1 + 40) identifier];
       v20 = [v19 shortDescription];
-      v36 = 138543618;
-      v37 = v18;
-      v38 = 2114;
-      v39 = v20;
+      v35 = 138543618;
+      v36 = v18;
+      v37 = 2114;
+      v38 = v20;
       v21 = "%{public}@[%{public}@] CloudKit account is not currently available; waiting for CKAccountChangedNotification to check again";
       goto LABEL_18;
     }
@@ -239,10 +231,10 @@ LABEL_20:
       v18 = HMFGetLogIdentifier();
       v19 = [*(a1 + 40) identifier];
       v20 = [v19 shortDescription];
-      v36 = 138543618;
-      v37 = v18;
-      v38 = 2114;
-      v39 = v20;
+      v35 = 138543618;
+      v36 = v18;
+      v37 = 2114;
+      v38 = v20;
       v21 = "%{public}@[%{public}@] Account does not have valid credentials; waiting for CKAccountChangedNotification to check again";
       goto LABEL_18;
     }
@@ -271,10 +263,10 @@ LABEL_20:
         v18 = HMFGetLogIdentifier();
         v19 = [*(a1 + 40) identifier];
         v20 = [v19 shortDescription];
-        v36 = 138543618;
-        v37 = v18;
-        v38 = 2114;
-        v39 = v20;
+        v35 = 138543618;
+        v36 = v18;
+        v37 = 2114;
+        v38 = v20;
         v21 = "%{public}@[%{public}@] Manatee is not currently available; waiting for CKAccountChangedNotification to check again";
 LABEL_18:
         v22 = v10;
@@ -290,50 +282,48 @@ LABEL_18:
   {
   }
 
-  v25 = objc_autoreleasePoolPush();
-  v26 = *(a1 + 32);
-  v27 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+  v24 = objc_autoreleasePoolPush();
+  v25 = *(a1 + 32);
+  v26 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
-    v28 = HMFGetLogIdentifier();
-    v29 = [*(a1 + 40) identifier];
-    v30 = [v29 shortDescription];
-    v36 = 138543618;
-    v37 = v28;
-    v38 = 2114;
-    v39 = v30;
-    _os_log_impl(&dword_22AD27000, v27, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Account is available", &v36, 0x16u);
+    v27 = HMFGetLogIdentifier();
+    v28 = [*(a1 + 40) identifier];
+    v29 = [v28 shortDescription];
+    v35 = 138543618;
+    v36 = v27;
+    v37 = 2114;
+    v38 = v29;
+    _os_log_impl(&dword_22AD27000, v26, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Account is available", &v35, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v25);
-  v32 = *(a1 + 32);
-  if (v32)
+  objc_autoreleasePoolPop(v24);
+  v31 = *(a1 + 32);
+  if (v31)
   {
-    v32 = objc_getProperty(v32, v31, 24, 1);
-    v33 = *(a1 + 32);
+    v31 = objc_getProperty(v31, v30, 24, 1);
+    v32 = *(a1 + 32);
   }
 
   else
   {
-    v33 = 0;
+    v32 = 0;
   }
 
-  [v32 removeObserver:v33 name:*MEMORY[0x277CBBF00] object:0];
-  v35 = *(a1 + 32);
-  if (v35)
+  [v31 removeObserver:v32 name:*MEMORY[0x277CBBF00] object:0];
+  v34 = *(a1 + 32);
+  if (v34)
   {
-    v35 = objc_getProperty(v35, v34, 32, 1);
+    v34 = objc_getProperty(v34, v33, 32, 1);
   }
 
-  [v35 finishWithNoResult];
+  [v34 finishWithNoResult];
 LABEL_21:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)waitForKeychainAvailability
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   if (self && objc_getProperty(self, v3, 40, 1))
   {
@@ -349,9 +339,9 @@ LABEL_10:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v24 = 138543362;
-    v25 = v9;
-    _os_log_impl(&dword_22AD27000, v8, OS_LOG_TYPE_INFO, "%{public}@Will wait for keychain availability", &v24, 0xCu);
+    v23 = 138543362;
+    v24 = v9;
+    _os_log_impl(&dword_22AD27000, v8, OS_LOG_TYPE_INFO, "%{public}@Will wait for keychain availability", &v23, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -396,24 +386,23 @@ LABEL_11:
     [v21 resume];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)_waitForAccountAvailabilityAndRecheckIfAlreadyAvailable:(os_unfair_lock_s *)available
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (!available)
   {
     v23 = 0;
     goto LABEL_16;
   }
 
+  v2 = a2;
   os_unfair_lock_lock_with_options();
   if (objc_getProperty(available, v4, 32, 1))
   {
-    if (!a2 || (v6 = objc_getProperty(available, v5, 32, 1), v7 = [v6 isFinished], v6, !v7))
+    if (!v2 || (v6 = objc_getProperty(available, v5, 32, 1), v7 = [v6 isFinished], v6, !v7))
     {
       v12 = objc_autoreleasePoolPush();
       availableCopy = available;
@@ -422,13 +411,13 @@ LABEL_11:
       {
         v15 = HMFGetLogIdentifier();
         v16 = HMFBooleanToString();
-        v27 = 138543874;
-        v28 = v15;
-        v29 = 2112;
-        v30 = v16;
-        v31 = 2112;
+        v26 = 138543874;
+        v27 = v15;
+        v28 = 2112;
+        v29 = v16;
+        v30 = 2112;
         Property = objc_getProperty(availableCopy, v17, 32, 1);
-        _os_log_impl(&dword_22AD27000, v14, OS_LOG_TYPE_INFO, "%{public}@Skipping re-check with should check: %@ account available future: %@", &v27, 0x20u);
+        _os_log_impl(&dword_22AD27000, v14, OS_LOG_TYPE_INFO, "%{public}@Skipping re-check with should check: %@ account available future: %@", &v26, 0x20u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -442,9 +431,9 @@ LABEL_11:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v11;
-      _os_log_impl(&dword_22AD27000, v10, OS_LOG_TYPE_INFO, "%{public}@Will reset and re-check account availability", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = v11;
+      _os_log_impl(&dword_22AD27000, v10, OS_LOG_TYPE_INFO, "%{public}@Will reset and re-check account availability", &v26, 0xCu);
     }
   }
 
@@ -456,9 +445,9 @@ LABEL_11:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v20 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v20;
-      _os_log_impl(&dword_22AD27000, v10, OS_LOG_TYPE_INFO, "%{public}@Will wait for account availability", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = v20;
+      _os_log_impl(&dword_22AD27000, v10, OS_LOG_TYPE_INFO, "%{public}@Will wait for account availability", &v26, 0xCu);
     }
   }
 
@@ -477,7 +466,6 @@ LABEL_14:
   }
 
 LABEL_16:
-  v25 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -532,12 +520,11 @@ id __80__HMBCloudCredentialsAvailabilityListener_initWithContainer_notificationC
 
 uint64_t __54__HMBCloudCredentialsAvailabilityListener_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v17;
-  logCategory__hmf_once_v17 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v17;
+  logCategory__hmf_once_v17 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

@@ -25,62 +25,62 @@
 
 - (void)createResource
 {
-  v12.receiver = self;
-  v12.super_class = EPCentralManagerManager;
-  [(EPResourceManager *)&v12 createResource];
+  v14.receiver = self;
+  v14.super_class = EPCentralManagerManager;
+  [(EPResourceManager *)&v14 createResource];
   v3 = [CBCentralManager alloc];
   queue = [(EPResourceManager *)self queue];
   v5 = [v3 initWithDelegate:self queue:queue];
   manager = self->_manager;
   self->_manager = v5;
 
-  v7 = sub_1000A98C0();
-  LODWORD(queue) = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = sub_1000A98C0(v7);
+  LODWORD(queue) = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (queue)
   {
-    v8 = sub_1000A98C0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_1000A98C0(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = self->_manager;
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v11 = self->_manager;
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 134218754;
       selfCopy = self;
-      v15 = 2048;
-      v16 = v9;
-      v17 = 2112;
+      v17 = 2048;
       v18 = v11;
-      v19 = 2048;
+      v19 = 2112;
+      v20 = v13;
+      v21 = 2048;
       selfCopy2 = self;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "EPCentralManagerManager[%p]: Init CBCentralManager %p with delgate %@[%p]", buf, 0x2Au);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "EPCentralManagerManager[%p]: Init CBCentralManager %p with delgate %@[%p]", buf, 0x2Au);
     }
   }
 }
 
 - (void)destroyResource
 {
-  v8.receiver = self;
-  v8.super_class = EPCentralManagerManager;
-  [(EPResourceManager *)&v8 destroyResource];
-  v3 = sub_1000A98C0();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+  v10.receiver = self;
+  v10.super_class = EPCentralManagerManager;
+  destroyResource = [(EPResourceManager *)&v10 destroyResource];
+  v4 = sub_1000A98C0(destroyResource);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-  if (v4)
+  if (v5)
   {
-    v5 = sub_1000A98C0();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_1000A98C0(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       manager = self->_manager;
       *buf = 134218240;
       selfCopy = self;
-      v11 = 2048;
-      v12 = manager;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "EPCentralManagerManager[%p]: Nilling CBCentralManager %p", buf, 0x16u);
+      v13 = 2048;
+      v14 = manager;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "EPCentralManagerManager[%p]: Nilling CBCentralManager %p", buf, 0x16u);
     }
   }
 
-  v7 = self->_manager;
+  v9 = self->_manager;
   self->_manager = 0;
 }
 
@@ -149,33 +149,33 @@ LABEL_12:
 {
   managerCopy = manager;
   peripheralCopy = peripheral;
-  v8 = sub_1000A98C0();
+  v8 = sub_1000A98C0(peripheralCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = sub_1000A98C0();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_1000A98C0(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [peripheralCopy identifier];
       uUIDString = [identifier UUIDString];
       *buf = 134218242;
       selfCopy = self;
-      v20 = 2112;
-      v21 = uUIDString;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "EPCentralManagerManager[%p]: received centralManager:didConnectPeripheral: from CoreBluetooth for peripheral %@", buf, 0x16u);
+      v21 = 2112;
+      v22 = uUIDString;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "EPCentralManagerManager[%p]: received centralManager:didConnectPeripheral: from CoreBluetooth for peripheral %@", buf, 0x16u);
     }
   }
 
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_10008DD78;
-  v15[3] = &unk_100175998;
-  v16 = managerCopy;
-  v17 = peripheralCopy;
-  v13 = peripheralCopy;
-  v14 = managerCopy;
-  [(EPResourceManager *)self enumerateResourcesWithBlock:v15];
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_10008DD78;
+  v16[3] = &unk_100175998;
+  v17 = managerCopy;
+  v18 = peripheralCopy;
+  v14 = peripheralCopy;
+  v15 = managerCopy;
+  [(EPResourceManager *)self enumerateResourcesWithBlock:v16];
 }
 
 - (void)centralManager:(id)manager didDisconnectPeripheral:(id)peripheral error:(id)error
@@ -183,35 +183,35 @@ LABEL_12:
   managerCopy = manager;
   peripheralCopy = peripheral;
   errorCopy = error;
-  v11 = sub_1000A98C0();
+  v11 = sub_1000A98C0(errorCopy);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
   if (v12)
   {
-    v13 = sub_1000A98C0();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_1000A98C0(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [peripheralCopy identifier];
       uUIDString = [identifier UUIDString];
       *buf = 134218242;
       selfCopy = self;
-      v25 = 2112;
-      v26 = uUIDString;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "EPCentralManagerManager[%p]: received centralManager:didDisconnectPeripheral: from CoreBluetooth for peripheral %@", buf, 0x16u);
+      v26 = 2112;
+      v27 = uUIDString;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "EPCentralManagerManager[%p]: received centralManager:didDisconnectPeripheral: from CoreBluetooth for peripheral %@", buf, 0x16u);
     }
   }
 
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_10008DF44;
-  v19[3] = &unk_1001759C0;
-  v20 = managerCopy;
-  v21 = peripheralCopy;
-  v22 = errorCopy;
-  v16 = errorCopy;
-  v17 = peripheralCopy;
-  v18 = managerCopy;
-  [(EPResourceManager *)self enumerateResourcesWithBlock:v19];
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_10008DF44;
+  v20[3] = &unk_1001759C0;
+  v21 = managerCopy;
+  v22 = peripheralCopy;
+  v23 = errorCopy;
+  v17 = errorCopy;
+  v18 = peripheralCopy;
+  v19 = managerCopy;
+  [(EPResourceManager *)self enumerateResourcesWithBlock:v20];
 }
 
 + (id)stringForCBPeripheralState:(int64_t)state
@@ -231,36 +231,36 @@ LABEL_12:
 {
   managerCopy = manager;
   stateCopy = state;
-  v8 = sub_1000A98C0();
+  v8 = sub_1000A98C0(stateCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = sub_1000A98C0();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_1000A98C0(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [stateCopy identifier];
       uUIDString = [identifier UUIDString];
-      v13 = [objc_opt_class() stringForCBPeripheralState:{objc_msgSend(stateCopy, "state")}];
+      v14 = [objc_opt_class() stringForCBPeripheralState:{objc_msgSend(stateCopy, "state")}];
       *buf = 134218498;
       selfCopy = self;
-      v21 = 2112;
-      v22 = uUIDString;
-      v23 = 2112;
-      v24 = v13;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "EPCentralManagerManager[%p]: received centralManager:didUpdatePeripheralConnectionState: from CoreBluetooth for peripheral %@ to connectivity state %@", buf, 0x20u);
+      v22 = 2112;
+      v23 = uUIDString;
+      v24 = 2112;
+      v25 = v14;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "EPCentralManagerManager[%p]: received centralManager:didUpdatePeripheralConnectionState: from CoreBluetooth for peripheral %@ to connectivity state %@", buf, 0x20u);
     }
   }
 
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_10008E144;
-  v16[3] = &unk_100175998;
-  v17 = managerCopy;
-  v18 = stateCopy;
-  v14 = stateCopy;
-  v15 = managerCopy;
-  [(EPResourceManager *)self enumerateResourcesWithBlock:v16];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_10008E144;
+  v17[3] = &unk_100175998;
+  v18 = managerCopy;
+  v19 = stateCopy;
+  v15 = stateCopy;
+  v16 = managerCopy;
+  [(EPResourceManager *)self enumerateResourcesWithBlock:v17];
 }
 
 - (void)centralManager:(id)manager didFailToConnectPeripheral:(id)peripheral error:(id)error

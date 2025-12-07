@@ -1,6 +1,6 @@
 int main(int argc, const char **argv, const char **envp)
 {
-  v3 = sub_10000098C();
+  v3 = sub_10000098C(*&argc);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -12,26 +12,26 @@ int main(int argc, const char **argv, const char **envp)
   xpc_main(sub_1000009D4);
 }
 
-id sub_10000098C()
+id sub_10000098C(uint64_t a1)
 {
   if (qword_1000080A8 != -1)
   {
     sub_100001850();
   }
 
-  v1 = qword_1000080A0;
+  v2 = qword_1000080A0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000009D4(void *a1)
 {
   v1 = a1;
-  v2 = sub_10000098C();
+  v2 = sub_10000098C(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v8 = v1;
+    v9 = v1;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "adding connection %@", buf, 0xCu);
   }
 
@@ -46,15 +46,15 @@ void sub_1000009D4(void *a1)
   handler[2] = sub_100000BE8;
   handler[3] = &unk_1000042E8;
   v3 = v1;
-  v6 = v3;
+  v7 = v3;
   xpc_connection_set_event_handler(v3, handler);
   xpc_connection_resume(v3);
-  v4 = sub_10000098C();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = sub_10000098C(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v8 = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "did resume connection %@", buf, 0xCu);
+    v9 = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "did resume connection %@", buf, 0xCu);
   }
 }
 
@@ -89,8 +89,8 @@ void sub_100000BE8(uint64_t a1, void *a2)
 
   if (!v8 || (value = xpc_BOOL_get_value(v8), v8, !value))
   {
-    v17 = sub_10000098C();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = sub_10000098C(v9);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_100001AF4(pid);
     }
@@ -99,29 +99,29 @@ void sub_100000BE8(uint64_t a1, void *a2)
   }
 
   int64 = xpc_dictionary_get_int64(v5, "eventID");
-  v11 = sub_10000098C();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_10000098C(int64);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     [NSNumber numberWithLongLong:int64];
-    v13 = v12 = v5;
-    v14 = [NSNumber numberWithInt:pid];
+    v14 = v13 = v5;
+    v15 = [NSNumber numberWithInt:pid];
     *buf = 134218498;
-    *v97 = v12;
-    *&v97[8] = 2112;
-    v98 = v13;
-    v99 = 2112;
-    v100 = v14;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "handling event %p eventID %@ from client pid %@", buf, 0x20u);
+    *v49 = v13;
+    *&v49[8] = 2112;
+    v50 = v14;
+    v51 = 2112;
+    v52 = v15;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "handling event %p eventID %@ from client pid %@", buf, 0x20u);
 
-    v5 = v12;
+    v5 = v13;
   }
 
   if (int64 != 3)
   {
     if (int64 == 2)
     {
-      v19 = sub_10000098C();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v21 = sub_10000098C(v16);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         sub_1000019F8();
       }
@@ -132,8 +132,8 @@ void sub_100000BE8(uint64_t a1, void *a2)
     else if (int64 == 1)
     {
       string = xpc_dictionary_get_string(v5, "message");
-      v16 = sub_10000098C();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v18 = sub_10000098C(string);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         sub_100001A2C();
       }
@@ -143,8 +143,8 @@ void sub_100000BE8(uint64_t a1, void *a2)
 
     else
     {
-      v70 = sub_10000098C();
-      if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+      v40 = sub_10000098C(v16);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         sub_100001A60(int64);
       }
@@ -153,114 +153,114 @@ void sub_100000BE8(uint64_t a1, void *a2)
     goto LABEL_15;
   }
 
-  v91 = v5;
-  v20 = sub_10000098C();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v43 = v5;
+  v22 = sub_10000098C(v16);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
     sub_10000188C();
   }
 
-  v21 = 0;
+  v24 = 0;
   while (1)
   {
-    v22 = sub_10000098C();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v25 = sub_10000098C(v23);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v97 = v21;
-      *&v97[4] = 1024;
-      *&v97[6] = 10;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Attempt %d/%d: requesting purge from logd", buf, 0xEu);
+      *v49 = v24;
+      *&v49[4] = 1024;
+      *&v49[6] = 10;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Attempt %d/%d: requesting purge from logd", buf, 0xEu);
     }
 
-    sub_100001214("Attempt %d/%d: requesting purge from logd", v23, v24, v25, v26, v27, v28, v29, v21);
+    sub_100001214("Attempt %d/%d: requesting purge from logd", v24, 10);
     mach_service = xpc_connection_create_mach_service("com.apple.logd.admin", 0, 2uLL);
     if (!mach_service)
     {
-      v44 = sub_10000098C();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v33 = sub_10000098C(0);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        sub_100001978(&v94, v95, v44);
+        sub_100001978(&v46, v47, v33);
       }
 
-      sub_100001214("Failed to create connection to logd", v45, v46, v47, v48, v49, v50, v51, v86);
+      sub_100001214("Failed to create connection to logd");
       goto LABEL_38;
     }
 
-    v31 = mach_service;
+    v27 = mach_service;
     xpc_connection_set_event_handler(mach_service, &stru_100004328);
-    xpc_connection_activate(v31);
-    v32 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_uint64(v32, "operation", 5uLL);
-    xpc_dictionary_set_uint64(v32, "purge", 0xFFFFFFFFFFFFFFFFLL);
-    v33 = xpc_connection_send_message_with_reply_sync(v31, v32);
-    type = xpc_get_type(v33);
+    xpc_connection_activate(v27);
+    v28 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_uint64(v28, "operation", 5uLL);
+    xpc_dictionary_set_uint64(v28, "purge", 0xFFFFFFFFFFFFFFFFLL);
+    v29 = xpc_connection_send_message_with_reply_sync(v27, v28);
+    type = xpc_get_type(v29);
     if (type == &_xpc_type_dictionary)
     {
       break;
     }
 
-    v35 = type;
-    v36 = sub_10000098C();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v31 = type;
+    v32 = sub_10000098C(type);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      sub_1000018C0(&v101, v35, &v102);
+      sub_1000018C0(&v53, v31, &v54);
     }
 
-    name = xpc_type_get_name(v35);
-    sub_100001214("Non dictionary response from logd: '%s'", v37, v38, v39, v40, v41, v42, v43, name);
+    xpc_type_get_name(v31);
+    sub_100001214("Non dictionary response from logd: '%s'");
 LABEL_37:
 
 LABEL_38:
-    v62 = sub_10000098C();
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+    v39 = sub_10000098C(v34);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      sub_1000019B8(&v92, v93, v62);
+      sub_1000019B8(&v44, v45, v39);
     }
 
-    sub_100001214("Failed to purge logs via logd. Retrying after 1s", v63, v64, v65, v66, v67, v68, v69, v88);
-    sleep(1u);
-    v21 = (v21 + 1);
-    if (v21 == 10)
+    sub_100001214("Failed to purge logs via logd. Retrying after 1s");
+    v23 = sleep(1u);
+    if (++v24 == 10)
     {
       goto LABEL_50;
     }
   }
 
-  v52 = xpc_dictionary_get_int64(v33, "st");
-  v53 = sub_10000098C();
-  v54 = v53;
-  if (v52)
+  v35 = xpc_dictionary_get_int64(v29, "st");
+  v36 = v35;
+  v37 = sub_10000098C(v35);
+  v38 = v37;
+  if (v36)
   {
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      sub_10000191C(&v103, v52, &v104);
+      sub_10000191C(&v55, v36, &v56);
     }
 
-    v89 = strerror(v52);
-    sub_100001214("Error from logd: %s", v55, v56, v57, v58, v59, v60, v61, v89);
+    strerror(v36);
+    sub_100001214("Error from logd: %s");
     goto LABEL_37;
   }
 
-  if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "Success from logd: deleted all logs", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Success from logd: deleted all logs", buf, 2u);
   }
 
-  sub_100001214("Success from logd: deleted all logs", v71, v72, v73, v74, v75, v76, v77, v86);
-  v78 = sub_10000098C();
-  if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+  sub_100001214("Success from logd: deleted all logs");
+  v42 = sub_10000098C(v41);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "logd purge success", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "logd purge success", buf, 2u);
   }
 
-  sub_100001214("logd purge success", v79, v80, v81, v82, v83, v84, v85, v90);
+  sub_100001214("logd purge success");
 LABEL_50:
   sub_10000132C(@"/private/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs/sysdiagnose");
   sub_10000132C(@"/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.osanalytics/Library/Logs/DiagnosticReports/DiagnosticLogs/sysdiagnose/");
-  v5 = v91;
+  v5 = v43;
   if (dword_100008098 != -1)
   {
     close(dword_100008098);
@@ -274,12 +274,13 @@ LABEL_15:
 LABEL_16:
 }
 
-void sub_100001214(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void sub_100001214(const char *a1, ...)
 {
-  if (dword_100008098 == -1 && (dword_100008098 = open("/private/var/db/logd_cleanup_migrator.txt", 513, 438), dword_100008098 == -1))
+  va_start(va, a1);
+  if (dword_100008098 == -1 && (v2 = open("/private/var/db/logd_cleanup_migrator.txt", 513, 438), dword_100008098 = v2, v2 == -1))
   {
-    v13 = sub_10000098C();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v6 = sub_10000098C(v2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_100001B88();
     }
@@ -287,13 +288,13 @@ void sub_100001214(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
   else
   {
-    v10 = [NSString alloc];
-    v11 = [NSString stringWithUTF8String:a1];
-    v12 = [v10 initWithFormat:v11 arguments:&a9];
+    v3 = [NSString alloc];
+    v4 = [NSString stringWithUTF8String:a1];
+    v5 = [v3 initWithFormat:v4 arguments:va];
 
-    v13 = [v12 stringByAppendingString:@"\n"];
+    v6 = [v5 stringByAppendingString:@"\n"];
 
-    write(dword_100008098, [v13 UTF8String], [v13 length]);
+    write(dword_100008098, [v6 UTF8String], [v6 length]);
   }
 }
 
@@ -301,11 +302,11 @@ void sub_10000132C(void *a1)
 {
   v1 = a1;
   v2 = +[NSFileManager defaultManager];
-  v45 = v1;
+  v32 = v1;
   v3 = [NSURL fileURLWithPath:v1 isDirectory:1];
   v4 = [NSArray arrayWithObjects:NSURLIsDirectoryKey, NSURLNameKey, NSURLPathKey, 0];
-  v46 = v2;
-  v44 = v3;
+  v33 = v2;
+  v31 = v3;
   v5 = [v2 enumeratorAtURL:v3 includingPropertiesForKeys:v4 options:5 errorHandler:&stru_100004368];
 
   v6 = [v5 nextObject];
@@ -313,7 +314,7 @@ void sub_10000132C(void *a1)
   {
     v7 = v6;
     v8 = @"sysdiagnose";
-    v47 = v5;
+    v34 = v5;
     do
     {
       v9 = objc_autoreleasePoolPush();
@@ -323,69 +324,68 @@ void sub_10000132C(void *a1)
         v11 = v8;
         v12 = v10;
         v13 = [NSSet setWithObjects:@"21N5165G", @"21N5207G", @"21N5233F", @"21N5259K", 0];
-        v49 = 0u;
-        v50 = 0u;
-        v51 = 0u;
-        v52 = 0u;
+        v36 = 0u;
+        v37 = 0u;
+        v38 = 0u;
+        v39 = 0u;
         v14 = v13;
-        v15 = [v14 countByEnumeratingWithState:&v49 objects:buf count:16];
+        v15 = [v14 countByEnumeratingWithState:&v36 objects:buf count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v50;
+          v17 = *v37;
           while (2)
           {
             for (i = 0; i != v16; i = i + 1)
             {
-              if (*v50 != v17)
+              if (*v37 != v17)
               {
                 objc_enumerationMutation(v14);
               }
 
-              if ([v12 rangeOfString:*(*(&v49 + 1) + 8 * i) options:1] != 0x7FFFFFFFFFFFFFFFLL)
+              if ([v12 rangeOfString:*(*(&v36 + 1) + 8 * i) options:1] != 0x7FFFFFFFFFFFFFFFLL)
               {
 
-                v19 = sub_10000098C();
-                if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+                v20 = sub_10000098C(v19);
+                if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
                 {
-                  v20 = [v7 fileSystemRepresentation];
+                  v21 = [v7 fileSystemRepresentation];
                   *buf = 136315138;
-                  v54 = v20;
-                  _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Found problematic sysdiagnose. Deleting: %s", buf, 0xCu);
+                  v41 = v21;
+                  _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Found problematic sysdiagnose. Deleting: %s", buf, 0xCu);
                 }
 
-                v21 = [v7 fileSystemRepresentation];
-                sub_100001214("Found problematic sysdiagnose. Deleting: %s", v22, v23, v24, v25, v26, v27, v28, v21);
-                v48 = 0;
-                [v46 removeItemAtURL:v7 error:&v48];
-                v29 = v48;
+                sub_100001214("Found problematic sysdiagnose. Deleting: %s", [v7 fileSystemRepresentation]);
+                v35 = 0;
+                [v33 removeItemAtURL:v7 error:&v35];
+                v22 = v35;
+                v23 = v22;
                 v8 = v11;
-                if (v29)
+                if (v22)
                 {
-                  v30 = sub_10000098C();
-                  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+                  v24 = sub_10000098C(v22);
+                  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
                   {
-                    v41 = [v7 fileSystemRepresentation];
-                    v42 = [v29 localizedDescription];
-                    v43 = [v42 UTF8String];
+                    v28 = [v7 fileSystemRepresentation];
+                    v29 = [v23 localizedDescription];
+                    v30 = [v29 UTF8String];
                     *buf = 136315394;
-                    v54 = v41;
-                    v55 = 2080;
-                    v56 = v43;
-                    _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Failed to delete sysdiagnose at %s: %s", buf, 0x16u);
+                    v41 = v28;
+                    v42 = 2080;
+                    v43 = v30;
+                    _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to delete sysdiagnose at %s: %s", buf, 0x16u);
                   }
 
-                  v31 = [v7 fileSystemRepresentation];
-                  v32 = [v29 localizedDescription];
-                  [v32 UTF8String];
-                  sub_100001214("Failed to delete sysdiagnose at %s: %s", v33, v34, v35, v36, v37, v38, v39, v31);
+                  v25 = [v7 fileSystemRepresentation];
+                  v26 = [v23 localizedDescription];
+                  sub_100001214("Failed to delete sysdiagnose at %s: %s", v25, [v26 UTF8String]);
                 }
 
                 goto LABEL_20;
               }
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v49 objects:buf count:16];
+            v16 = [v14 countByEnumeratingWithState:&v36 objects:buf count:16];
             if (v16)
             {
               continue;
@@ -397,45 +397,46 @@ void sub_10000132C(void *a1)
 
         v8 = v11;
 LABEL_20:
-        v5 = v47;
+        v5 = v34;
       }
 
       objc_autoreleasePoolPop(v9);
-      v40 = [v5 nextObject];
+      v27 = [v5 nextObject];
 
-      v7 = v40;
+      v7 = v27;
     }
 
-    while (v40);
+    while (v27);
   }
 }
 
 BOOL sub_10000175C(id a1, NSURL *a2, NSError *a3)
 {
   v3 = a3;
-  v4 = sub_10000098C();
+  v4 = sub_10000098C(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_100001BC8(v3);
   }
 
   v5 = [(NSError *)v3 localizedDescription];
-  v6 = [v5 UTF8String];
-  sub_100001214("Failed to enumerate sysdiagnose files: %s", v7, v8, v9, v10, v11, v12, v13, v6);
+  sub_100001214("Failed to enumerate sysdiagnose files: %s", [v5 UTF8String]);
 
   return 1;
 }
 
-void sub_1000017E8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000017E8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_100001808(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001808(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_100001830(void *a1, uint64_t a2, uint64_t a3, const char *a4)
@@ -477,18 +478,23 @@ void sub_1000019B8(uint8_t *buf, _BYTE *a2, os_log_t log)
 void sub_100001A60(uint64_t a1)
 {
   v1 = [NSNumber numberWithLongLong:a1];
-  sub_1000017E8(&_mh_execute_header, v2, v3, "unknown eventID %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  sub_1000017E8(&_mh_execute_header, v2, v3, "unknown eventID %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_100001AF4(uint64_t a1)
 {
   v1 = [NSNumber numberWithInt:a1];
-  sub_1000017E8(&_mh_execute_header, v2, v3, "pid %@ lacks necessary entitlement", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  sub_1000017E8(&_mh_execute_header, v2, v3, "pid %@ lacks necessary entitlement", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_100001BC8(void *a1)
 {
   v1 = [a1 localizedDescription];
-  [v1 UTF8String];
-  sub_1000017E8(&_mh_execute_header, v2, v3, "Failed to enumerate sysdiagnose files: %s", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = [v1 UTF8String];
+  sub_1000017E8(&_mh_execute_header, v2, v3, "Failed to enumerate sysdiagnose files: %s", v4, v5, v6, v7, v8, DWORD2(v8));
 }

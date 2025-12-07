@@ -6,7 +6,7 @@
 
 + (void)executeDelayByUserDefaultIfSet:(id)set
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   setCopy = set;
   v4 = +[LKPlatformSupport isInternalBuild];
   if (setCopy)
@@ -24,21 +24,19 @@
           v8 = MEMORY[0x277CCACC8];
           v9 = v7;
           currentThread = [v8 currentThread];
-          v12 = 138412802;
-          v13 = currentThread;
-          v14 = 2048;
-          v15 = v6;
-          v16 = 2112;
-          v17 = setCopy;
-          _os_log_impl(&dword_25618F000, v9, OS_LOG_TYPE_DEFAULT, "Delaying %@ for %lu seconds because %@ (user default) is set.", &v12, 0x20u);
+          v11 = 138412802;
+          v12 = currentThread;
+          v13 = 2048;
+          v14 = v6;
+          v15 = 2112;
+          v16 = setCopy;
+          _os_log_impl(&dword_25618F000, v9, OS_LOG_TYPE_DEFAULT, "Delaying %@ for %lu seconds because %@ (user default) is set.", &v11, 0x20u);
         }
 
         [MEMORY[0x277CCACC8] sleepForTimeInterval:v6];
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

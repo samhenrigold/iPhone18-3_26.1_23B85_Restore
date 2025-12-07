@@ -30,18 +30,14 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v3 = OBJC_IVAR____TtC13HearingTestUI23NoResultsViewController_flowManager;
-  v4 = (*(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC13HearingTestUI23NoResultsViewController_flowManager) + OBJC_IVAR____TtC13HearingTestUI22HearingTestFlowManager_analyticsManager);
-  v5 = *v4;
-  v6 = v4[1];
+  v3 = *(*(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC13HearingTestUI23NoResultsViewController_flowManager) + OBJC_IVAR____TtC13HearingTestUI22HearingTestFlowManager_analyticsManager + 8);
   ObjectType = swift_getObjectType();
-  v11 = 5;
-  v8 = *(v6 + 48);
+  v7 = 5;
+  v5 = *(v3 + 48);
   selfCopy = self;
   swift_unknownObjectRetain();
-  v8(&v11, selfCopy, &protocol witness table for NoResultsViewController, ObjectType, v6);
+  v5(&v7, selfCopy, &protocol witness table for NoResultsViewController, ObjectType, v3);
   swift_unknownObjectRelease();
-  v9 = *(&self->super.super.super.super.super.isa + v3);
   sub_20CDDE578(1);
 }
 
@@ -55,18 +51,14 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v3 = OBJC_IVAR____TtC13HearingTestUI23NoResultsViewController_flowManager;
-  v4 = (*(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC13HearingTestUI23NoResultsViewController_flowManager) + OBJC_IVAR____TtC13HearingTestUI22HearingTestFlowManager_analyticsManager);
-  v5 = *v4;
-  v6 = v4[1];
+  v3 = *(*(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC13HearingTestUI23NoResultsViewController_flowManager) + OBJC_IVAR____TtC13HearingTestUI22HearingTestFlowManager_analyticsManager + 8);
   ObjectType = swift_getObjectType();
-  v11 = 3;
-  v8 = *(v6 + 48);
+  v7 = 3;
+  v5 = *(v3 + 48);
   selfCopy = self;
   swift_unknownObjectRetain();
-  v8(&v11, selfCopy, &protocol witness table for NoResultsViewController, ObjectType, v6);
+  v5(&v7, selfCopy, &protocol witness table for NoResultsViewController, ObjectType, v3);
   swift_unknownObjectRelease();
-  v9 = *(&self->super.super.super.super.super.isa + v3);
   sub_20CDDE960();
 }
 

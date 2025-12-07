@@ -9,7 +9,7 @@
 + (id)featurePayloadFor:(int64_t)for
 {
   _s8Freeform23CRLAnalyticsFeatureUsedC14featurePayload3forSDySSSo8NSObjectCGAA0bC4NameO_tFZ_0(for);
-  sub_100006370(0, &qword_1019F54D0);
+  sub_100006370(0, &qword_1019F54D0, NSObject_ptr);
   v3.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -20,7 +20,7 @@
   v4 = objc_opt_self();
   v5 = String._bridgeToObjectiveC()();
   _s8Freeform23CRLAnalyticsFeatureUsedC14featurePayload3forSDySSSo8NSObjectCGAA0bC4NameO_tFZ_0(name);
-  sub_100006370(0, &qword_1019F54D0);
+  sub_100006370(0, &qword_1019F54D0, NSObject_ptr);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   [v4 sendEventInDomain:v5 lazily:1 eventPayload:isa];

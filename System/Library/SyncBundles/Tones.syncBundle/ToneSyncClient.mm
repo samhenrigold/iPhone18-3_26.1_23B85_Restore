@@ -203,151 +203,148 @@
   {
     v10 = NSStringFromSelector(a2);
     *buf = 138543874;
-    v54 = v10;
-    v55 = 1024;
-    *v56 = sync;
-    *&v56[4] = 2114;
-    *&v56[6] = anchorCopy;
+    v52 = v10;
+    v53 = 1024;
+    *v54 = sync;
+    *&v54[4] = 2114;
+    *&v54[6] = anchorCopy;
     _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "%{public}@, sync type: %u, reconciled anchor: %{public}@", buf, 0x1Cu);
   }
 
-  v49 = 0u;
-  v50 = 0u;
   v47 = 0u;
   v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   obj = [objc_opt_class() _syncPlistPaths];
-  v38 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
-  if (v38)
+  v36 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+  if (v36)
   {
-    v11 = *v48;
-    v12 = &_ATLogCategorySyncBundle_ptr;
-    v36 = *v48;
+    v11 = *v46;
+    v34 = *v46;
     do
     {
-      for (i = 0; i != v38; i = v33 + 1)
+      for (i = 0; i != v36; i = v31 + 1)
       {
-        if (*v48 != v11)
+        if (*v46 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v42 = i;
-        v14 = *(*(&v47 + 1) + 8 * i);
+        v40 = i;
+        v13 = *(*(&v45 + 1) + 8 * i);
         _toneSyncPlistFolderPath = [objc_opt_class() _toneSyncPlistFolderPath];
-        v16 = [_toneSyncPlistFolderPath stringByAppendingPathComponent:v14];
+        v15 = [_toneSyncPlistFolderPath stringByAppendingPathComponent:v13];
 
-        v41 = [[NSDictionary alloc] initWithContentsOfFile:v16];
-        v17 = [v41 objectForKey:@"operations"];
-        v18 = v12[67];
+        v39 = [[NSDictionary alloc] initWithContentsOfFile:v15];
+        v16 = [v39 objectForKey:@"operations"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v19 = v17;
+          v17 = v16;
         }
 
         else
         {
-          v19 = 0;
+          v17 = 0;
         }
 
-        v20 = v19;
+        v18 = v17;
 
-        v40 = v20;
-        if (v20)
+        v38 = v18;
+        if (v18)
         {
-          v39 = v16;
-          v21 = _ATLogCategorySyncBundle_Oversize();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v37 = v15;
+          v19 = _ATLogCategorySyncBundle_Oversize();
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v54 = v20;
-            _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Operations: %{public}@", buf, 0xCu);
+            v52 = v18;
+            _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Operations: %{public}@", buf, 0xCu);
           }
 
-          v45 = 0u;
-          v46 = 0u;
           v43 = 0u;
           v44 = 0u;
-          v22 = v20;
-          v23 = [v22 countByEnumeratingWithState:&v43 objects:v51 count:16];
-          if (v23)
+          v41 = 0u;
+          v42 = 0u;
+          v20 = v18;
+          v21 = [v20 countByEnumeratingWithState:&v41 objects:v49 count:16];
+          if (v21)
           {
-            v24 = v23;
-            v25 = *v44;
+            v22 = v21;
+            v23 = *v42;
             do
             {
-              for (j = 0; j != v24; j = j + 1)
+              for (j = 0; j != v22; j = j + 1)
               {
-                if (*v44 != v25)
+                if (*v42 != v23)
                 {
-                  objc_enumerationMutation(v22);
+                  objc_enumerationMutation(v20);
                 }
 
-                v27 = *(*(&v43 + 1) + 8 * j);
+                v25 = *(*(&v41 + 1) + 8 * j);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v28 = v27;
+                  v26 = v25;
                 }
 
                 else
                 {
-                  v28 = 0;
+                  v26 = 0;
                 }
 
-                v29 = v28;
+                v27 = v26;
 
-                if (v29)
+                if (v27)
                 {
-                  [(ToneSyncClient *)self _processSyncOperation:v29];
+                  [(ToneSyncClient *)self _processSyncOperation:v27];
                 }
 
                 else
                 {
-                  v30 = _ATLogCategorySyncBundle();
-                  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+                  v28 = _ATLogCategorySyncBundle();
+                  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                   {
-                    v31 = objc_opt_class();
+                    v29 = objc_opt_class();
                     *buf = 138543618;
-                    v54 = 0;
-                    v55 = 2114;
-                    *v56 = v31;
-                    v32 = v31;
-                    _os_log_impl(&dword_0, v30, OS_LOG_TYPE_ERROR, "Invalid operation: %{public}@ (%{public}@)", buf, 0x16u);
+                    v52 = 0;
+                    v53 = 2114;
+                    *v54 = v29;
+                    v30 = v29;
+                    _os_log_impl(&dword_0, v28, OS_LOG_TYPE_ERROR, "Invalid operation: %{public}@ (%{public}@)", buf, 0x16u);
                   }
                 }
               }
 
-              v24 = [v22 countByEnumeratingWithState:&v43 objects:v51 count:16];
+              v22 = [v20 countByEnumeratingWithState:&v41 objects:v49 count:16];
             }
 
-            while (v24);
-            v11 = v36;
-            v12 = &_ATLogCategorySyncBundle_ptr;
+            while (v22);
+            v11 = v34;
           }
 
-          v33 = v42;
-          v16 = v39;
+          v31 = v40;
+          v15 = v37;
         }
 
         else
         {
-          v22 = _ATLogCategorySyncBundle();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v20 = _ATLogCategorySyncBundle();
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v54 = 0;
-            _os_log_impl(&dword_0, v22, OS_LOG_TYPE_ERROR, "No operations or invalid operation: %{public}@", buf, 0xCu);
+            v52 = 0;
+            _os_log_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "No operations or invalid operation: %{public}@", buf, 0xCu);
           }
 
-          v33 = v42;
+          v31 = v40;
         }
       }
 
-      v38 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+      v36 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
     }
 
-    while (v38);
+    while (v36);
   }
 
   [(ToneSyncClient *)self _writeSyncAnchor:anchorCopy];

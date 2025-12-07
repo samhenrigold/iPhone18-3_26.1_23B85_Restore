@@ -274,27 +274,21 @@ LABEL_18:
 
 - (void)setCoreSpotlightIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  coreSpotlightIdentifier = self->_coreSpotlightIdentifier;
-  self->_coreSpotlightIdentifier = v4;
+  self->_coreSpotlightIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setApplicationBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  applicationBundleIdentifier = self->_applicationBundleIdentifier;
-  self->_applicationBundleIdentifier = v4;
+  self->_applicationBundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setShareProviderTypeIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  shareProviderTypeIdentifier = self->_shareProviderTypeIdentifier;
-  self->_shareProviderTypeIdentifier = v4;
+  self->_shareProviderTypeIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

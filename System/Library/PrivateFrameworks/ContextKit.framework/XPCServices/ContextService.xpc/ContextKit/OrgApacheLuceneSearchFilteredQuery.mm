@@ -18,7 +18,7 @@
     sub_100026EB0();
   }
 
-  [(OrgApacheLuceneSearchBooleanQuery_Builder *)v4 addWithOrgApacheLuceneSearchQuery:v5 withOrgApacheLuceneSearchBooleanClause_OccurEnum:OrgApacheLuceneSearchBooleanClause_OccurEnum_values_];
+  [(OrgApacheLuceneSearchBooleanQuery_Builder *)v4 addWithOrgApacheLuceneSearchQuery:v5 withOrgApacheLuceneSearchBooleanClause_OccurEnum:OrgApacheLuceneSearchBooleanClause_OccurEnum_values_[0]];
   v6 = *(&self->filter_ + 4);
   if (!v6)
   {
@@ -58,8 +58,8 @@ LABEL_8:
   -[JavaLangStringBuilder appendWithNSString:](v5, "appendWithNSString:", [v6 toStringWithNSString:string]);
   [(JavaLangStringBuilder *)v5 appendWithNSString:@"->"]);
   [(JavaLangStringBuilder *)v5 appendWithId:*(&self->query_ + 4)];
-  [(OrgApacheLuceneSearchQuery *)self getBoost];
-  [(JavaLangStringBuilder *)v5 appendWithNSString:OrgApacheLuceneUtilToStringUtils_boostWithFloat_(v7)];
+  getBoost = [(OrgApacheLuceneSearchQuery *)self getBoost];
+  [(JavaLangStringBuilder *)v5 appendWithNSString:OrgApacheLuceneUtilToStringUtils_boostWithFloat_(v9, getBoost, v8)];
 
   return [(JavaLangStringBuilder *)v5 description];
 }

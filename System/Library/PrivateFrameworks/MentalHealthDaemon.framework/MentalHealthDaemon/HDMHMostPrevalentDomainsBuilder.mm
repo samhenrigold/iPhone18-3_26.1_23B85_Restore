@@ -22,34 +22,34 @@
 
 - (void)_addStateOfMind:(id)mind toMap:(void *)map
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   mindCopy = mind;
   endDate = [mindCopy endDate];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   domains = [mindCopy domains];
-  v6 = [domains countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v6 = [domains countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v6)
   {
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(domains);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         [v9 integerValue];
         if (HKStateOfMindDomainIsKnown())
         {
           integerValue = [v9 integerValue];
-          v23 = &integerValue;
-          v10 = std::__hash_table<std::__hash_value_type<long,_HDMHDomainCount * {__strong}>,std::__unordered_map_hasher<long,std::__hash_value_type<long,_HDMHDomainCount * {__strong}>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,_HDMHDomainCount * {__strong}>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,_HDMHDomainCount * {__strong}>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(map, &integerValue)[3];
+          v22 = &integerValue;
+          v10 = std::__hash_table<std::__hash_value_type<long,_HDMHDomainCount * {__strong}>,std::__unordered_map_hasher<long,std::__hash_value_type<long,_HDMHDomainCount * {__strong}>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,_HDMHDomainCount * {__strong}>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,_HDMHDomainCount * {__strong}>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(map, &integerValue, &std::piecewise_construct, &v22)[3];
           v11 = v10;
           if (v10)
           {
@@ -61,21 +61,19 @@
           {
             v12 = [[_HDMHDomainCount alloc] initWithCount:1 mostRecentDate:endDate];
             integerValue = [v9 integerValue];
-            v23 = &integerValue;
-            v13 = std::__hash_table<std::__hash_value_type<long,_HDMHDomainCount * {__strong}>,std::__unordered_map_hasher<long,std::__hash_value_type<long,_HDMHDomainCount * {__strong}>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,_HDMHDomainCount * {__strong}>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,_HDMHDomainCount * {__strong}>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(map, &integerValue);
+            v22 = &integerValue;
+            v13 = std::__hash_table<std::__hash_value_type<long,_HDMHDomainCount * {__strong}>,std::__unordered_map_hasher<long,std::__hash_value_type<long,_HDMHDomainCount * {__strong}>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,_HDMHDomainCount * {__strong}>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,_HDMHDomainCount * {__strong}>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(map, &integerValue, &std::piecewise_construct, &v22);
             v14 = v13[3];
             v13[3] = v12;
           }
         }
       }
 
-      v6 = [domains countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v6 = [domains countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_winningSummaryForPleasant:(BOOL)pleasant

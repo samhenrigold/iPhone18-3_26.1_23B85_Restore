@@ -5,6 +5,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)triggerSourceTypeAsString:(int)string;
 - (int)StringAsTriggerSourceType:(id)type;
 - (int)triggerSourceType;
 - (unint64_t)hash;
@@ -367,7 +368,6 @@ LABEL_19:
       goto LABEL_79;
     }
 
-    v17 = *(equalCopy + 118);
     if (self->_hasResponseContext)
     {
       if ((*(equalCopy + 118) & 1) == 0)
@@ -394,7 +394,6 @@ LABEL_19:
       goto LABEL_79;
     }
 
-    v18 = *(equalCopy + 120);
     if (self->_isResponseContextBlacklisted)
     {
       if ((*(equalCopy + 120) & 1) == 0)
@@ -421,7 +420,6 @@ LABEL_19:
       goto LABEL_79;
     }
 
-    v19 = *(equalCopy + 119);
     if (self->_isDocumentEmpty)
     {
       if ((*(equalCopy + 119) & 1) == 0)
@@ -526,16 +524,15 @@ LABEL_19:
     }
   }
 
-  v24 = self->_has;
-  v25 = *(equalCopy + 62);
-  if ((v24 & 0x10) != 0)
+  v21 = self->_has;
+  v22 = *(equalCopy + 62);
+  if ((v21 & 0x10) != 0)
   {
-    if ((v25 & 0x10) == 0)
+    if ((v22 & 0x10) == 0)
     {
       goto LABEL_79;
     }
 
-    v26 = *(equalCopy + 116);
     if (self->_hasContextBeforeInput)
     {
       if ((*(equalCopy + 116) & 1) == 0)
@@ -550,27 +547,27 @@ LABEL_19:
     }
   }
 
-  else if ((v25 & 0x10) != 0)
+  else if ((v22 & 0x10) != 0)
   {
     goto LABEL_79;
   }
 
-  if (v24)
+  if (v21)
   {
-    if ((v25 & 1) == 0 || self->_maxPredictionItems != *(equalCopy + 10))
+    if ((v22 & 1) == 0 || self->_maxPredictionItems != *(equalCopy + 10))
     {
       goto LABEL_79;
     }
   }
 
-  else if (v25)
+  else if (v22)
   {
     goto LABEL_79;
   }
 
-  if ((v24 & 0x20) != 0)
+  if ((v21 & 0x20) != 0)
   {
-    if ((v25 & 0x20) != 0)
+    if ((v22 & 0x20) != 0)
     {
       if (self->_hasRecipientNames)
       {
@@ -585,19 +582,19 @@ LABEL_19:
         goto LABEL_79;
       }
 
-      v27 = 1;
+      v23 = 1;
       goto LABEL_80;
     }
 
 LABEL_79:
-    v27 = 0;
+    v23 = 0;
     goto LABEL_80;
   }
 
-  v27 = (v25 & 0x20) == 0;
+  v23 = (v22 & 0x20) == 0;
 LABEL_80:
 
-  return v27;
+  return v23;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -890,7 +887,6 @@ LABEL_37:
   toCopy = to;
   if ((*&self->_has & 8) != 0)
   {
-    triggerSourceType = self->_triggerSourceType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -917,7 +913,6 @@ LABEL_37:
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    hasResponseContext = self->_hasResponseContext;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 0x100) == 0)
@@ -937,12 +932,10 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  isResponseContextBlacklisted = self->_isResponseContextBlacklisted;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_14:
-    isDocumentEmpty = self->_isDocumentEmpty;
     PBDataWriterWriteBOOLField();
   }
 
@@ -962,17 +955,15 @@ LABEL_15:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 4) != 0)
+  v5 = self->_has;
+  if ((v5 & 4) != 0)
   {
-    maxTextualResponseItems = self->_maxTextualResponseItems;
     PBDataWriterWriteUint32Field();
-    v7 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v7 & 2) != 0)
+  if ((v5 & 2) != 0)
   {
-    maxStructuredInfoItems = self->_maxStructuredInfoItems;
     PBDataWriterWriteUint32Field();
   }
 
@@ -996,16 +987,15 @@ LABEL_15:
     PBDataWriterWriteStringField();
   }
 
-  v10 = self->_has;
-  if ((v10 & 0x10) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x10) != 0)
   {
-    hasContextBeforeInput = self->_hasContextBeforeInput;
     PBDataWriterWriteBOOLField();
-    v10 = self->_has;
-    if ((v10 & 1) == 0)
+    v6 = self->_has;
+    if ((v6 & 1) == 0)
     {
 LABEL_35:
-      if ((v10 & 0x20) == 0)
+      if ((v6 & 0x20) == 0)
       {
         goto LABEL_37;
       }
@@ -1014,17 +1004,15 @@ LABEL_35:
     }
   }
 
-  else if ((v10 & 1) == 0)
+  else if ((v6 & 1) == 0)
   {
     goto LABEL_35;
   }
 
-  maxPredictionItems = self->_maxPredictionItems;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_36:
-    hasRecipientNames = self->_hasRecipientNames;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1284,6 +1272,21 @@ LABEL_25:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)triggerSourceTypeAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279ABE4D8[string];
   }
 
   return v4;

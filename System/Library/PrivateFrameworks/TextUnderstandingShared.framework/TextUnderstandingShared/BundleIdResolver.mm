@@ -104,10 +104,10 @@
 {
   v3 = MEMORY[0x28223BE20](self);
   v5 = v4;
-  v16 = *MEMORY[0x277D85DE8];
-  v14.receiver = v3;
-  v14.super_class = BundleIdResolver;
-  v6 = [(BundleIdResolver *)&v14 init];
+  v15 = *MEMORY[0x277D85DE8];
+  v13.receiver = v3;
+  v13.super_class = BundleIdResolver;
+  v6 = [(BundleIdResolver *)&v13 init];
   if (v6)
   {
     bzero(buffer, 0x1000uLL);
@@ -132,7 +132,6 @@
     pthread_mutex_init(&v6->_lock, 0);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

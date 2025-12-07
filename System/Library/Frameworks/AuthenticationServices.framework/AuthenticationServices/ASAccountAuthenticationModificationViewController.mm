@@ -28,24 +28,24 @@
   v11 = [objc_opt_class() description];
   [v11 containsString:@"."];
 
-  v12 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+  v14 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension(v12, v13);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
   if (MethodImplementation == v10)
   {
-    if (v13)
+    if (v15)
     {
       [ASAccountAuthenticationModificationViewController convertAccountToSignInWithAppleWithoutUserInteractionForServiceIdentifier:existingCredential:userInfo:];
     }
   }
 
-  else if (v13)
+  else if (v15)
   {
     [ASAccountAuthenticationModificationViewController convertAccountToSignInWithAppleWithoutUserInteractionForServiceIdentifier:existingCredential:userInfo:];
   }
 
   extensionContext = [(ASAccountAuthenticationModificationViewController *)self extensionContext];
-  v15 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASExtensionErrorDomain" code:1000 userInfo:0];
-  [extensionContext cancelRequestWithError:v15];
+  v17 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASExtensionErrorDomain" code:1000 userInfo:0];
+  [extensionContext cancelRequestWithError:v17];
 }
 
 - (void)prepareInterfaceToConvertAccountToSignInWithAppleForServiceIdentifier:(ASCredentialServiceIdentifier *)serviceIdentifier existingCredential:(ASPasswordCredential *)existingCredential userInfo:(NSDictionary *)userInfo
@@ -58,24 +58,24 @@
   v11 = [objc_opt_class() description];
   [v11 containsString:@"."];
 
-  v12 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+  v14 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension(v12, v13);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
   if (MethodImplementation == v10)
   {
-    if (v13)
+    if (v15)
     {
       [ASAccountAuthenticationModificationViewController convertAccountToSignInWithAppleWithoutUserInteractionForServiceIdentifier:existingCredential:userInfo:];
     }
   }
 
-  else if (v13)
+  else if (v15)
   {
     [ASAccountAuthenticationModificationViewController convertAccountToSignInWithAppleWithoutUserInteractionForServiceIdentifier:existingCredential:userInfo:];
   }
 
   extensionContext = [(ASAccountAuthenticationModificationViewController *)self extensionContext];
-  v15 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASExtensionErrorDomain" code:1000 userInfo:0];
-  [extensionContext cancelRequestWithError:v15];
+  v17 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASExtensionErrorDomain" code:1000 userInfo:0];
+  [extensionContext cancelRequestWithError:v17];
 }
 
 - (void)changePasswordWithoutUserInteractionForServiceIdentifier:(ASCredentialServiceIdentifier *)serviceIdentifier existingCredential:(ASPasswordCredential *)existingCredential newPassword:(NSString *)newPassword userInfo:(NSDictionary *)userInfo
@@ -88,24 +88,24 @@
   v12 = [objc_opt_class() description];
   [v12 containsString:@"."];
 
-  v13 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension();
-  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+  v15 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension(v13, v14);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
   if (MethodImplementation == v11)
   {
-    if (v14)
+    if (v16)
     {
       [ASAccountAuthenticationModificationViewController convertAccountToSignInWithAppleWithoutUserInteractionForServiceIdentifier:existingCredential:userInfo:];
     }
   }
 
-  else if (v14)
+  else if (v16)
   {
     [ASAccountAuthenticationModificationViewController convertAccountToSignInWithAppleWithoutUserInteractionForServiceIdentifier:existingCredential:userInfo:];
   }
 
   extensionContext = [(ASAccountAuthenticationModificationViewController *)self extensionContext];
-  v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASExtensionErrorDomain" code:1000 userInfo:0];
-  [extensionContext cancelRequestWithError:v16];
+  v18 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASExtensionErrorDomain" code:1000 userInfo:0];
+  [extensionContext cancelRequestWithError:v18];
 }
 
 - (void)prepareInterfaceToChangePasswordForServiceIdentifier:(ASCredentialServiceIdentifier *)serviceIdentifier existingCredential:(ASPasswordCredential *)existingCredential newPassword:(NSString *)newPassword userInfo:(NSDictionary *)userInfo
@@ -118,24 +118,24 @@
   v12 = [objc_opt_class() description];
   [v12 containsString:@"."];
 
-  v13 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension();
-  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+  v15 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension(v13, v14);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
   if (MethodImplementation == v11)
   {
-    if (v14)
+    if (v16)
     {
       [ASAccountAuthenticationModificationViewController convertAccountToSignInWithAppleWithoutUserInteractionForServiceIdentifier:existingCredential:userInfo:];
     }
   }
 
-  else if (v14)
+  else if (v16)
   {
     [ASAccountAuthenticationModificationViewController convertAccountToSignInWithAppleWithoutUserInteractionForServiceIdentifier:existingCredential:userInfo:];
   }
 
   extensionContext = [(ASAccountAuthenticationModificationViewController *)self extensionContext];
-  v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASExtensionErrorDomain" code:1000 userInfo:0];
-  [extensionContext cancelRequestWithError:v16];
+  v18 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASExtensionErrorDomain" code:1000 userInfo:0];
+  [extensionContext cancelRequestWithError:v18];
 }
 
 - (void)cancelRequest
@@ -143,22 +143,6 @@
   extensionContext = [(ASAccountAuthenticationModificationViewController *)self extensionContext];
   v2 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASExtensionErrorDomain" code:1 userInfo:0];
   [extensionContext cancelRequestWithError:v2];
-}
-
-- (void)convertAccountToSignInWithAppleWithoutUserInteractionForServiceIdentifier:existingCredential:userInfo:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_4(&dword_1B1C8D000, v0, v1, "Class %{public}s's implementation of %{public}s should not call super. Canceling extension request.");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)convertAccountToSignInWithAppleWithoutUserInteractionForServiceIdentifier:existingCredential:userInfo:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_4(&dword_1B1C8D000, v0, v1, "Class %{public}s must override %{public}s. Canceling extension request.");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

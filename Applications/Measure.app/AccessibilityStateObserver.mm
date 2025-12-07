@@ -43,7 +43,7 @@
 - (_TtC7Measure26AccessibilityStateObserver)init
 {
   v3 = OBJC_IVAR____TtC7Measure26AccessibilityStateObserver_implementation;
-  type metadata accessor for AccessibilityStateObserverBridge();
+  type metadata accessor for AccessibilityStateObserverBridge(0);
   swift_allocObject();
   *(&self->super.isa + v3) = sub_10019C360();
   v6.receiver = self;

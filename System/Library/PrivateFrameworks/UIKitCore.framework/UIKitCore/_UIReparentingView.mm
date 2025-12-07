@@ -40,9 +40,10 @@
   v9 = (&self->super.super.super.isa + OBJC_IVAR____TtC5UIKit18_UIReparentingView_OpacityPairInputAmount);
   *v9 = 0xD00000000000001FLL;
   v9[1] = 0x800000018A6891C0;
-  v11.receiver = self;
-  v11.super_class = type metadata accessor for _UIReparentingView();
-  return [(UIView *)&v11 initWithFrame:x, y, width, height];
+  type metadata accessor for _UIReparentingView();
+  v12.receiver = self;
+  v12.super_class = v10;
+  return [(UIView *)&v12 initWithFrame:x, y, width, height];
 }
 
 @end

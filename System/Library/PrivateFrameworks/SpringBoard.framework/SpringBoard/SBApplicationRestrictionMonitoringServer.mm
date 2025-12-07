@@ -166,11 +166,11 @@ void __104__SBApplicationRestrictionMonitoringServer_applicationRestrictionContr
   connectionCopy = connection;
   contextCopy = context;
   remoteProcess = [connectionCopy remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v12 = objc_msgSend_auditToken(remoteProcess);
 
   v13 = self->_queue;
   objc_initWeak(&location, self);
-  if (([(FBServiceClientAuthenticator *)self->_authenticator authenticateAuditToken:auditToken]& 1) != 0)
+  if (([(FBServiceClientAuthenticator *)self->_authenticator authenticateAuditToken:v12]& 1) != 0)
   {
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;

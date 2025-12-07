@@ -167,7 +167,7 @@ TRIFBFactorLevel *__37__TRIFBFastFactorLevels_levelsAsDict__block_invoke_3(uint6
   return v5;
 }
 
-uint64_t __41__TRIFBFastFactorLevels_verifyUTF8Fields__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__41__TRIFBFastFactorLevels_verifyUTF8Fields__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 verifyUTF8Fields];
   if ((result & 1) == 0)
@@ -185,18 +185,18 @@ uint64_t __41__TRIFBFastFactorLevels_verifyUTF8Fields__block_invoke(uint64_t a1,
   v4 = levels;
   if (levels)
   {
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x2020000000;
-    v17 = 1;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __41__TRIFBFastFactorLevels_verifyUTF8Fields__block_invoke;
-    v13[3] = &unk_27885E9D8;
-    v13[4] = &v14;
-    [levels enumerateObjectsUsingBlock:v13];
-    v5 = *(v15 + 24);
-    _Block_object_dispose(&v14, 8);
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x2020000000;
+    v14 = 1;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __41__TRIFBFastFactorLevels_verifyUTF8Fields__block_invoke;
+    v10[3] = &unk_27885E9D8;
+    v10[4] = &v11;
+    [levels enumerateObjectsUsingBlock:v10];
+    v5 = *(v12 + 24);
+    _Block_object_dispose(&v11, 8);
     if ((v5 & 1) == 0)
     {
 
@@ -243,11 +243,9 @@ LABEL_11:
   }
 
 LABEL_14:
-  ptr = self->_ptr;
-  v9 = &ptr[-*ptr->var0];
-  if (*v9->var0 >= 0xBu && (v10 = *v9[10].var0) != 0)
+  v8 = &self->_ptr[-*self->_ptr];
+  if (*v8->var0 >= 0xBu && *v8[10].var0)
   {
-    v11 = *ptr[v10].var0;
     LOBYTE(valid) = AFBIsValidUTF8();
   }
 

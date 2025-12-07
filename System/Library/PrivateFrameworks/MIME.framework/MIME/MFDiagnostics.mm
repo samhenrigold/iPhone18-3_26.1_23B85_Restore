@@ -39,9 +39,10 @@
 
 uint64_t __33__MFDiagnostics_sharedController__block_invoke()
 {
-  sharedController_controller = objc_alloc_init(MFDiagnostics);
+  v0 = objc_alloc_init(MFDiagnostics);
+  sharedController_controller = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (void)addDiagnosticsGenerator:(id)generator
@@ -62,44 +63,43 @@ uint64_t __33__MFDiagnostics_sharedController__block_invoke()
 
 - (id)copyDiagnosticInformation
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E696AD60]);
   [(NSLock *)self->_diagnosticLock lock];
   allObjects = [(MFWeakSet *)self->_diagnosticsGenerators allObjects];
   [(NSLock *)self->_diagnosticLock unlock];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = [allObjects sortedArrayUsingComparator:{&__block_literal_global_4, 0}];
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        copyDiagnosticInformation = [*(*(&v12 + 1) + 8 * v8) copyDiagnosticInformation];
+        copyDiagnosticInformation = [*(*(&v11 + 1) + 8 * v8) copyDiagnosticInformation];
         [v3 appendString:copyDiagnosticInformation];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

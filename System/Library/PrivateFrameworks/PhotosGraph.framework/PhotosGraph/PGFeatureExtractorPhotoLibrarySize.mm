@@ -24,7 +24,7 @@
 
 - (id)floatVectorWithEntity:(id)entity error:(id *)error
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   preCalculatedPhotoLibrarySize = [objc_opt_class() preCalculatedPhotoLibrarySize];
   if (preCalculatedPhotoLibrarySize)
@@ -39,8 +39,8 @@ LABEL_4:
     v6 = objc_alloc(MEMORY[0x277D22C40]);
     *&v7 = preCalculatedPhotoLibrarySize;
     v8 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
-    v13[0] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     v10 = [v6 initWithArray:v9];
 
     goto LABEL_5;
@@ -49,17 +49,14 @@ LABEL_4:
   v10 = 0;
 LABEL_5:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)featureNames
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = @"PhotoLibrarySize";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = @"PhotoLibrarySize";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }

@@ -90,7 +90,7 @@
     v27 = v4->_processHandle;
     if (v27)
     {
-      [(RBSProcessHandle *)v27 auditToken];
+      objc_msgSend_auditToken(v27);
     }
 
     v28 = xpc_copy_code_signing_identity_for_token();
@@ -315,12 +315,11 @@
   v17 = [NSString stringWithFormat:@"    Live activities: all %d, while FG %d. Considered: %d", [(NSMutableSet *)self->_liveActivities_AllActive count], [(NSMutableSet *)self->_liveActivities_ActiveWhileAppFG count], sub_100208CEC()];
   [v3 addObject:v17];
 
-  launchdJobLabelInternal = self->_launchdJobLabelInternal;
-  v19 = [NSString stringWithFormat:@"    Label: %@. Signing ID: %@", launchdJobLabelInternal, self->_signingIdentityInternal];
-  [v3 addObject:v19];
+  v18 = [NSString stringWithFormat:@"    Label: %@. Signing ID: %@", self->_launchdJobLabelInternal, self->_signingIdentityInternal];
+  [v3 addObject:v18];
 
-  v20 = [NSString stringWithFormat:@"    Bundle: ID %@, UIBackgroundModeNI %d", self->_bundleIdentifierInternal, self->_isUIBackgroundModeEnabledInternal];
-  [v3 addObject:v20];
+  v19 = [NSString stringWithFormat:@"    Bundle: ID %@, UIBackgroundModeNI %d", self->_bundleIdentifierInternal, self->_isUIBackgroundModeEnabledInternal];
+  [v3 addObject:v19];
 
   objc_autoreleasePoolPop(v4);
   os_unfair_lock_unlock(&self->_lock);

@@ -184,7 +184,7 @@
       v22 = 0;
     }
 
-    [v22 doubleValue];
+    objc_msgSend_doubleValue(v22);
     [(QRAllocation *)v6 setPurgeAtExpiration:?];
   }
 
@@ -358,7 +358,7 @@
         }
 
         v15 = Value;
-        [v15 doubleValue];
+        objc_msgSend_doubleValue(v15);
         if (v7 > v16)
         {
           if (v12)

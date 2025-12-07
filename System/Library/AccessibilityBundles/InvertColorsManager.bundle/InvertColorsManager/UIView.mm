@@ -4,6 +4,7 @@
 - (BOOL)_accessibilityAppliesInvertColorsInDarkUI;
 - (BOOL)_accessibilityInvertEnabled;
 - (void)_accessibilityApplyInvertFilter;
+- (void)_setAccessibilityInvertState:(int)state;
 @end
 
 @implementation UIView
@@ -29,6 +30,14 @@
   v8 = [accessibilityInvertEnabledOverride3 integerValue] == &dword_0 + 1;
 
   return v8;
+}
+
+- (void)_setAccessibilityInvertState:(int)state
+{
+  v4 = [NSNumber numberWithInt:*&state];
+  [(UIView *)self setAccessibilityInvertEnabledOverride:v4];
+
+  [AXInvertColorsAppHelper toggleInvertColors:self];
 }
 
 - (BOOL)_accessibilityAppliesInvertColors

@@ -9,12 +9,12 @@
 
 - (CBScalablePipe)initWithPipeManager:(id)manager info:(id)info
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   infoCopy = info;
-  v37.receiver = self;
-  v37.super_class = CBScalablePipe;
-  v9 = [(CBScalablePipe *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = CBScalablePipe;
+  v9 = [(CBScalablePipe *)&v36 init];
   v10 = v9;
   if (v9)
   {
@@ -94,13 +94,13 @@
         }
 
         *buf = 138413058;
-        v40 = v10;
-        v41 = 1024;
-        *v42 = socket;
-        *&v42[4] = 2080;
-        *&v42[6] = v30;
-        *&v42[14] = 2080;
-        *&v42[16] = v29;
+        v39 = v10;
+        v40 = 1024;
+        *v41 = socket;
+        *&v41[4] = 2080;
+        *&v41[6] = v30;
+        *&v41[14] = 2080;
+        *&v41[16] = v29;
         _os_log_impl(&dword_1C0AC1000, v27, OS_LOG_TYPE_DEFAULT, "%@ created socket pipe: fd %d, in %s, out %s", buf, 0x26u);
       }
     }
@@ -137,27 +137,27 @@
             [CBCharacteristic handleDescriptorsDiscovered:];
           }
 
-          v33 = CBLogComponent;
+          v32 = CBLogComponent;
           if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
           {
             channel = v10->_channel;
             *buf = 138412802;
             if (channel)
             {
-              v35 = "yes";
+              v34 = "yes";
             }
 
             else
             {
-              v35 = "no";
+              v34 = "no";
             }
 
-            v40 = v10;
-            v41 = 2112;
-            *v42 = v23;
-            *&v42[8] = 2080;
-            *&v42[10] = v35;
-            _os_log_impl(&dword_1C0AC1000, v33, OS_LOG_TYPE_DEFAULT, "%@ created skywalk pipe: UUID %@, channel %s", buf, 0x20u);
+            v39 = v10;
+            v40 = 2112;
+            *v41 = v23;
+            *&v41[8] = 2080;
+            *&v41[10] = v34;
+            _os_log_impl(&dword_1C0AC1000, v32, OS_LOG_TYPE_DEFAULT, "%@ created skywalk pipe: UUID %@, channel %s", buf, 0x20u);
           }
         }
       }
@@ -177,7 +177,6 @@
     }
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -185,7 +184,7 @@
 {
   pipeManager = self->_pipeManager;
   self->_pipeManager = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, pipeManager);
 }
 
 - (void)dealloc
@@ -258,22 +257,6 @@
   }
 
   return [v3 stringWithFormat:@"<%@: peer = %@, name = %@, type = %s, priority = %s reliability is %s, socket %d, channel %s>", v4, self->_peer, self->_name, v10, v5, v11, self->_socket, v12];
-}
-
-- (void)initWithPipeManager:info:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_3(&dword_1C0AC1000, v0, v1, "%@ init with no socket/UUID: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithPipeManager:info:.cold.4()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_3(&dword_1C0AC1000, v0, v1, "%@ not creating skywalk channel: UUID %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

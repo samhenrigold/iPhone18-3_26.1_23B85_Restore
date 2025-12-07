@@ -225,7 +225,7 @@ uint64_t __59__LargeMonthWeekViewAccessibility__axUpdateDayNumberLabels__block_i
   v3 = [(LargeMonthWeekViewAccessibility *)self safeValueForKey:@"_firstOfMonthLabel"];
   v4 = [(LargeMonthWeekViewAccessibility *)self safeValueForKey:@"_startDate"];
   date = [v4 date];
-  v6 = _AXGetYearlessStringForDay();
+  v6 = _AXGetYearlessStringForDay(date);
   [v3 setAccessibilityLabel:v6];
 
   return v3;

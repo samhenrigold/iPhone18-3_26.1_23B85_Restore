@@ -204,20 +204,20 @@ void __38___VUIAccessViewController__disallow___block_invoke_3(uint64_t a1)
 uint64_t __48___VUIAccessViewController__completeWithStatus___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = WeakRetained;
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v4 = WeakRetained[135];
-    if (v4)
+    WeakRetained = WeakRetained[135];
+    if (WeakRetained)
     {
-      v7 = v3;
-      (*(v4 + 16))(v4, *(a1 + 40), v3[127]);
+      v7 = v4;
+      (WeakRetained[2])(WeakRetained, *(a1 + 40), v4[127]);
       v5 = v7[135];
       v7[135] = 0;
     }
   }
 
-  return MEMORY[0x1EEE66BE0]();
+  return MEMORY[0x1EEE66BE0](WeakRetained, v3);
 }
 
 void __47___VUIAccessViewController__fetchRemoteAppInfo__block_invoke(uint64_t a1)

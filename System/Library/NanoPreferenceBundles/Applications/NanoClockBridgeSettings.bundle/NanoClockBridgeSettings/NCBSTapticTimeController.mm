@@ -4,6 +4,7 @@
 - (void)_setTapticTimeEnabled:(id)enabled;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NCBSTapticTimeController
@@ -16,6 +17,14 @@
   v3 = +[AXTimeOutputPreferences sharedInstance];
   tapticTimeLocalizedTitle = [v3 tapticTimeLocalizedTitle];
   [(NCBSTapticTimeController *)self setTitle:tapticTimeLocalizedTitle];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = NCBSTapticTimeController;
+  [(NCBSAccessibilityPreferenceListController *)&v3 viewWillAppear:appear];
+  +[NCBSClockSettingsNavigationDonation donateUserVisitForTapticTimeSettings];
 }
 
 - (id)specifiers

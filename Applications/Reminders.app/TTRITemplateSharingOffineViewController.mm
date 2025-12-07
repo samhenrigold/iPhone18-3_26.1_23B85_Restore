@@ -18,9 +18,9 @@
 
   v3 = type metadata accessor for Logger();
   sub_100003E30(v3, qword_10077FA20);
-  sub_100008E04(_swiftEmptyArrayStorage);
-  sub_100008E04(_swiftEmptyArrayStorage);
-  sub_1003F9818("init(coder:) has not been implemented", 37, 2);
+  v4 = sub_100008E04(_swiftEmptyArrayStorage);
+  v5 = sub_100008E04(_swiftEmptyArrayStorage);
+  sub_1003F9818("init(coder:) has not been implemented", 37, 2uLL, v4, v5);
   __break(1u);
   return result;
 }
@@ -77,8 +77,8 @@
 
   v4 = type metadata accessor for Logger();
   sub_100003E30(v4, qword_10076B0D8);
-  sub_100008E04(_swiftEmptyArrayStorage);
-  sub_10000FD44();
+  v5 = sub_100008E04(_swiftEmptyArrayStorage);
+  sub_10000FD44("Template Sharing User Dismiss Offline Message", 45, 2, v5);
 
   sub_10009FC2C(1);
 }

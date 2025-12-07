@@ -193,7 +193,7 @@ void __35__SBActivityManager_sharedInstance__block_invoke()
 
 - (void)startObservingActivityUpdates
 {
-  v3 = SBLogActivity();
+  v3 = SBLogActivity(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -249,7 +249,7 @@ void __50__SBActivityManager_startObservingActivityUpdates__block_invoke_3(uint6
 
 - (void)cancelObservingActivityUpdates
 {
-  v3 = SBLogActivity();
+  v3 = SBLogActivity(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -284,7 +284,7 @@ void __50__SBActivityManager_startObservingActivityUpdates__block_invoke_3(uint6
   v10 = *MEMORY[0x277D85DE8];
   if (self->_environment != environment)
   {
-    v5 = SBLogActivity();
+    v5 = SBLogActivity(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = @"ambient";
@@ -391,7 +391,7 @@ void __36__SBActivityManager_setEnvironment___block_invoke(uint64_t a1)
 {
   v21 = *MEMORY[0x277D85DE8];
   failedCopy = failed;
-  v5 = SBLogActivity();
+  v5 = SBLogActivity(failedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     item = [failedCopy item];
@@ -457,7 +457,7 @@ void __36__SBActivityManager_setEnvironment___block_invoke(uint64_t a1)
 
   else if (state)
   {
-    v6 = SBLogActivity();
+    v6 = SBLogActivity(state);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 134217984;
@@ -526,7 +526,7 @@ void __36__SBActivityManager_setEnvironment___block_invoke(uint64_t a1)
   if (v6)
   {
     v7 = v6;
-    v8 = SBLogActivity();
+    v8 = SBLogActivity(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
@@ -573,7 +573,7 @@ void __36__SBActivityManager_setEnvironment___block_invoke(uint64_t a1)
   else
   {
     v16 = [[SBActivityItem alloc] initWithContentUpdate:updateCopy];
-    v17 = SBLogActivity();
+    v17 = SBLogActivity(v16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
@@ -638,7 +638,7 @@ void __64__SBActivityManager__activityStartedOrUpdatedWithContentUpdate___block_
   v2 = [*(*(a1 + 32) + 40) objectForKeyedSubscript:*(a1 + 40)];
   if (!v2)
   {
-    v3 = SBLogActivity();
+    v3 = SBLogActivity(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 40);
@@ -692,7 +692,7 @@ void __64__SBActivityManager__activityStartedOrUpdatedWithContentUpdate___block_
   BSDispatchQueueAssertMain();
   v14 = updateCopy;
   identifier = [updateCopy identifier];
-  v6 = SBLogActivity();
+  v6 = SBLogActivity(identifier);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -748,7 +748,7 @@ void __64__SBActivityManager__activityStartedOrUpdatedWithContentUpdate___block_
   BSDispatchQueueAssertMain();
   v16 = updateCopy;
   identifier = [updateCopy identifier];
-  v6 = SBLogActivity();
+  v6 = SBLogActivity(identifier);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -803,7 +803,7 @@ void __64__SBActivityManager__activityStartedOrUpdatedWithContentUpdate___block_
 
 - (void)_stopActiveAlertForActivityIdentifier:(id)identifier
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   activeAlert = self->_activeAlert;
   if (activeAlert)
@@ -814,16 +814,16 @@ void __64__SBActivityManager__activityStartedOrUpdatedWithContentUpdate___block_
 
     if (v8)
     {
-      v9 = SBLogActivity();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = SBLogActivity(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138543362;
-        v12 = identifierCopy;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] Stopping active alert", &v11, 0xCu);
+        v12 = 138543362;
+        v13 = identifierCopy;
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] Stopping active alert", &v12, 0xCu);
       }
 
       [(SBActivityAlert *)self->_activeAlert stopAlerting];
-      v10 = self->_activeAlert;
+      v11 = self->_activeAlert;
       self->_activeAlert = 0;
     }
   }
@@ -841,7 +841,7 @@ void __64__SBActivityManager__activityStartedOrUpdatedWithContentUpdate___block_
   if (bOOLValue == updateCopy)
   {
     v17 = bOOLValue;
-    v11 = SBLogActivity();
+    v11 = SBLogActivity(bOOLValue);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
@@ -1083,57 +1083,57 @@ void __60__SBActivityManager_prominenceAssertionByActivityIdentifier__block_invo
 
 - (void)_presentActivityAlert:(id)alert
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   alertCopy = alert;
-  BSDispatchQueueAssertMain();
+  v6 = BSDispatchQueueAssertMain();
   if (alertCopy)
   {
     item = [alertCopy item];
     identifier = [item identifier];
     payloadIdentifier = [alertCopy payloadIdentifier];
-    v9 = SBLogActivity();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogActivity(payloadIdentifier);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v31 = identifier;
-      v32 = 2114;
-      v33 = payloadIdentifier;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] presents an alert with payload: %{public}@", buf, 0x16u);
+      v32 = identifier;
+      v33 = 2114;
+      v34 = payloadIdentifier;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] presents an alert with payload: %{public}@", buf, 0x16u);
     }
 
-    v23 = identifier;
+    v24 = identifier;
 
-    v27 = 0u;
     v28 = 0u;
-    v25 = 0u;
+    v29 = 0u;
     v26 = 0u;
+    v27 = 0u;
     selfCopy = self;
-    v10 = [(NSHashTable *)self->_observers copy];
-    v11 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
-    if (v11)
+    v11 = [(NSHashTable *)self->_observers copy];
+    v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v13 = *v26;
+      v13 = v12;
+      v14 = *v27;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v26 != v13)
+          if (*v27 != v14)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v25 + 1) + 8 * i);
-          if ([v15 shouldHandleActivityItem:item] && (objc_opt_respondsToSelector() & 1) != 0)
+          v16 = *(*(&v26 + 1) + 8 * i);
+          if ([v16 shouldHandleActivityItem:item] && (objc_opt_respondsToSelector() & 1) != 0)
           {
-            [v15 presentAlert:alertCopy];
+            [v16 presentAlert:alertCopy];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
-      while (v12);
+      while (v13);
     }
 
     objc_storeStrong(&selfCopy->_activeAlert, alert);
@@ -1141,63 +1141,63 @@ void __60__SBActivityManager_prominenceAssertionByActivityIdentifier__block_invo
 
   else
   {
-    item = SBLogActivity();
+    item = SBLogActivity(v6);
     if (os_log_type_enabled(item, OS_LOG_TYPE_ERROR))
     {
-      [(SBActivityManager *)item _presentActivityAlert:v16, v17, v18, v19, v20, v21, v22];
+      [(SBActivityManager *)item _presentActivityAlert:v17, v18, v19, v20, v21, v22, v23];
     }
   }
 }
 
 - (void)_dismissActivityAlert:(id)alert
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   alertCopy = alert;
-  BSDispatchQueueAssertMain();
+  v5 = BSDispatchQueueAssertMain();
   if (alertCopy)
   {
     item = [alertCopy item];
     identifier = [item identifier];
-    v7 = SBLogActivity();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogActivity(identifier);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v28 = identifier;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] dismisses the alert", buf, 0xCu);
+      v29 = identifier;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] dismisses the alert", buf, 0xCu);
     }
 
     [alertCopy stopAlerting];
-    v24 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
+    v24 = 0u;
     selfCopy = self;
-    v8 = [(NSHashTable *)self->_observers copy];
-    v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v9)
+    v9 = [(NSHashTable *)self->_observers copy];
+    v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v23;
+      v11 = v10;
+      v12 = *v24;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v23 != v11)
+          if (*v24 != v12)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v22 + 1) + 8 * i);
-          if ([v13 shouldHandleActivityItem:item] && (objc_opt_respondsToSelector() & 1) != 0)
+          v14 = *(*(&v23 + 1) + 8 * i);
+          if ([v14 shouldHandleActivityItem:item] && (objc_opt_respondsToSelector() & 1) != 0)
           {
-            [v13 dismissAlert:alertCopy];
+            [v14 dismissAlert:alertCopy];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
 
     [(SBActivityManager *)selfCopy _stopActiveAlertForActivityIdentifier:identifier];
@@ -1205,17 +1205,17 @@ void __60__SBActivityManager_prominenceAssertionByActivityIdentifier__block_invo
 
   else
   {
-    item = SBLogActivity();
+    item = SBLogActivity(v5);
     if (os_log_type_enabled(item, OS_LOG_TYPE_ERROR))
     {
-      [(SBActivityManager *)item _dismissActivityAlert:v14, v15, v16, v17, v18, v19, v20];
+      [(SBActivityManager *)item _dismissActivityAlert:v15, v16, v17, v18, v19, v20, v21];
     }
   }
 }
 
 - (void)_removeAllObservers
 {
-  v3 = SBLogActivity();
+  v3 = SBLogActivity(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1231,7 +1231,7 @@ void __60__SBActivityManager_prominenceAssertionByActivityIdentifier__block_invo
   itemCopy = item;
   BSDispatchQueueAssertMain();
   allKeys = [(NSMutableDictionary *)self->_itemsByBundleIdentifier allKeys];
-  v8 = [allKeys containsObject:idCopy];
+  v8 = objc_msgSend_containsObject_(allKeys);
 
   if (v8)
   {
@@ -1269,7 +1269,7 @@ void __60__SBActivityManager_prominenceAssertionByActivityIdentifier__block_invo
   if (v7)
   {
     v8 = [(NSMutableDictionary *)self->_itemsByBundleIdentifier objectForKey:idCopy];
-    if ([v8 containsObject:itemCopy])
+    if (objc_msgSend_containsObject_(v8))
     {
       [v8 removeObject:itemCopy];
       [(NSMutableDictionary *)self->_itemsByBundleIdentifier setObject:v8 forKey:idCopy];
@@ -1526,67 +1526,72 @@ void __65__SBActivityManager__updateForScreenTimeLimitForBundleId_policy___block
 - (void)_activityBlocked:(BOOL)blocked item:(id)item
 {
   blockedCopy = blocked;
-  v25 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   BSDispatchQueueAssertMain();
+  v22 = 0u;
+  v23 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
   v7 = [(NSHashTable *)self->_observers copy];
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
-    v17 = v7;
+    v10 = *v21;
+    v19 = v7;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         if (blockedCopy)
         {
-          if (objc_opt_respondsToSelector())
+          v13 = objc_opt_respondsToSelector();
+          if (v13)
           {
-            v13 = SBLogActivity();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            v14 = SBLogActivity(v13);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               identifier = [itemCopy identifier];
               *buf = 138543362;
-              v23 = identifier;
-              _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] hides activity content", buf, 0xCu);
+              v25 = identifier;
+              _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] hides activity content", buf, 0xCu);
 
-              v7 = v17;
+              v7 = v19;
             }
 
             [v12 activityWasBlocked:itemCopy];
           }
         }
 
-        else if (objc_opt_respondsToSelector())
+        else
         {
-          v15 = SBLogActivity();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v16 = objc_opt_respondsToSelector();
+          if (v16)
           {
-            identifier2 = [itemCopy identifier];
-            *buf = 138543362;
-            v23 = identifier2;
-            _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] unhides activity content", buf, 0xCu);
+            v17 = SBLogActivity(v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+            {
+              identifier2 = [itemCopy identifier];
+              *buf = 138543362;
+              v25 = identifier2;
+              _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] unhides activity content", buf, 0xCu);
 
-            v7 = v17;
+              v7 = v19;
+            }
+
+            [v12 activityWasUnblocked:itemCopy];
           }
-
-          [v12 activityWasUnblocked:itemCopy];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v9);
@@ -1696,7 +1701,7 @@ LABEL_11:
 {
   activitiesCopy = activities;
   v20 = *MEMORY[0x277D85DE8];
-  v5 = SBLogActivity();
+  v5 = SBLogActivity(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67240192;
@@ -1744,9 +1749,9 @@ LABEL_11:
   if (observerCopy)
   {
     v9 = observerCopy;
-    v5 = [(NSHashTable *)self->_observers containsObject:observerCopy];
+    v5 = objc_msgSend_containsObject_(self->_observers, observerCopy, observerCopy);
     observerCopy = v9;
-    if (!v5)
+    if ((v5 & 1) == 0)
     {
       observers = self->_observers;
       if (!observers)
@@ -1790,7 +1795,7 @@ LABEL_11:
 
 void __73__SBActivityManager_activityAlertClient_presentAlertProvider_completion___block_invoke(uint64_t a1)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -1819,136 +1824,137 @@ void __73__SBActivityManager_activityAlertClient_presentAlertProvider_completion
       v20 = [*(a1 + 32) body];
       v21 = [(SBActivityAlert *)v17 initWithItem:v5 payloadIdentifier:v8 options:v18 title:v19 body:v20];
 
-      v22 = *(a1 + 40);
-      v51 = v5;
-      if (*(v22 + 128))
+      v23 = *(a1 + 40);
+      v56 = v5;
+      if (*(v23 + 128))
       {
-        v23 = SBLogActivity();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v24 = SBLogActivity(v22);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          v24 = [*(*(a1 + 40) + 128) item];
-          v25 = [v24 identifier];
+          v25 = [*(*(a1 + 40) + 128) item];
+          v26 = [v25 identifier];
           *buf = 138543618;
-          v53 = v4;
-          v54 = 2112;
-          *v55 = v25;
-          _os_log_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] Received a new alert, stopping previous ongoing alert (ActivityID: %@)", buf, 0x16u);
+          v58 = v4;
+          v59 = 2112;
+          *v60 = v26;
+          _os_log_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] Received a new alert, stopping previous ongoing alert (ActivityID: %@)", buf, 0x16u);
         }
 
-        v26 = v8;
+        v27 = v8;
 
         [*(*(a1 + 40) + 128) stopAlerting];
-        v27 = *(a1 + 40);
-        v28 = *(v27 + 128);
-        *(v27 + 128) = 0;
+        v28 = *(a1 + 40);
+        v29 = *(v28 + 128);
+        *(v28 + 128) = 0;
 
-        v22 = *(a1 + 40);
+        v23 = *(a1 + 40);
       }
 
       else
       {
-        v26 = v8;
+        v27 = v8;
       }
 
-      v29 = [(SBActivityAlert *)v21 shouldAlertInEnvironment:*(v22 + 48)];
-      v30 = [(SBActivityAlert *)v21 canPresentInEnvironment:*(*(a1 + 40) + 48) alertType:0];
-      v31 = [*(a1 + 32) options];
-      v32 = [v31 presentationOptions];
-      v33 = [v32 interrupting];
+      v30 = [(SBActivityAlert *)v21 shouldAlertInEnvironment:*(v23 + 48)];
+      v31 = [(SBActivityAlert *)v21 canPresentInEnvironment:*(*(a1 + 40) + 48) alertType:0];
+      v32 = [*(a1 + 32) options];
+      v33 = [v32 presentationOptions];
+      v34 = [v33 interrupting];
 
-      v34 = [*(a1 + 32) options];
-      v35 = [v34 presentationOptions];
-      v36 = [v35 optional];
+      v35 = [*(a1 + 32) options];
+      v36 = [v35 presentationOptions];
+      v37 = [v36 optional];
 
-      v37 = SBLogActivity();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v39 = SBLogActivity(v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138544386;
-        v53 = v4;
-        v54 = 1026;
-        *v55 = v29;
-        *&v55[4] = 1026;
-        *&v55[6] = v30;
-        v56 = 1026;
-        v57 = v36;
-        v58 = 1026;
-        v59 = v33;
-        _os_log_impl(&dword_21ED4E000, v37, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] shouldPresentActivityAlert: %{public}d, canPresentActivityAlert: %{public}d, isAlertPresentationOptional: %{public}d, interrupting: %{public}d", buf, 0x24u);
+        v58 = v4;
+        v59 = 1026;
+        *v60 = v30;
+        *&v60[4] = 1026;
+        *&v60[6] = v31;
+        v61 = 1026;
+        v62 = v37;
+        v63 = 1026;
+        v64 = v34;
+        _os_log_impl(&dword_21ED4E000, v39, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] shouldPresentActivityAlert: %{public}d, canPresentActivityAlert: %{public}d, isAlertPresentationOptional: %{public}d, interrupting: %{public}d", buf, 0x24u);
       }
 
-      if (v29)
+      if (v30)
       {
-        if ((v33 & 1) == 0)
+        if ((v34 & 1) == 0)
         {
-          v40 = SBLogActivity();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v43 = SBLogActivity(v40);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v53 = v4;
-            _os_log_impl(&dword_21ED4E000, v40, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] alert is not interrupting, don't alert, send an error back", buf, 0xCu);
+            v58 = v4;
+            _os_log_impl(&dword_21ED4E000, v43, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] alert is not interrupting, don't alert, send an error back", buf, 0xCu);
           }
 
-          v39 = SBActivityAlertError(2uLL);
+          v42 = SBActivityAlertError(2uLL);
           goto LABEL_27;
         }
 
-        if (!v30)
+        if (!v31)
         {
-          v44 = SBLogActivity();
-          v41 = v26;
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+          v47 = SBLogActivity(v40);
+          v44 = v27;
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v53 = v4;
-            _os_log_impl(&dword_21ED4E000, v44, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] is already visible to the user and interrupting", buf, 0xCu);
+            v58 = v4;
+            _os_log_impl(&dword_21ED4E000, v47, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] is already visible to the user and interrupting", buf, 0xCu);
           }
 
-          v42 = v51;
-          if (v36)
+          v45 = v56;
+          if (v37)
           {
-            v45 = +[SBLockScreenManager sharedInstance];
-            if ([v45 isUILocked] && (+[SBBacklightController sharedInstance](SBBacklightController, "sharedInstance"), v46 = objc_claimAutoreleasedReturnValue(), v47 = objc_msgSend(v46, "screenIsOn"), v46, (v47 & 1) == 0))
+            v49 = +[SBLockScreenManager sharedInstance];
+            v50 = [v49 isUILocked];
+            if (v50 && (+[SBBacklightController sharedInstance](SBBacklightController, "sharedInstance"), v51 = objc_claimAutoreleasedReturnValue(), v52 = [v51 screenIsOn], v51, (v52 & 1) == 0))
             {
-              v50 = SBLogActivity();
-              if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+              v55 = SBLogActivity(v50);
+              if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v53 = v4;
-                _os_log_impl(&dword_21ED4E000, v50, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] alert is optional and screen is locked and off, don't alert", buf, 0xCu);
+                v58 = v4;
+                _os_log_impl(&dword_21ED4E000, v55, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] alert is optional and screen is locked and off, don't alert", buf, 0xCu);
               }
 
-              v39 = SBActivityAlertError(1uLL);
+              v42 = SBActivityAlertError(1uLL);
             }
 
             else
             {
-              v48 = SBLogActivity();
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+              v53 = SBLogActivity(v50);
+              if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v53 = v4;
-                _os_log_impl(&dword_21ED4E000, v48, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] alert is optional, interrupting and screen is on, alert user", buf, 0xCu);
+                v58 = v4;
+                _os_log_impl(&dword_21ED4E000, v53, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] alert is optional, interrupting and screen is on, alert user", buf, 0xCu);
               }
 
               [(SBActivityAlert *)v21 alertWithScreenOn:1 playSound:1];
               objc_storeStrong((*(a1 + 40) + 128), v21);
-              v39 = 0;
+              v42 = 0;
             }
           }
 
           else
           {
-            v49 = SBLogActivity();
-            if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+            v54 = SBLogActivity(v48);
+            if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v53 = v4;
-              _os_log_impl(&dword_21ED4E000, v49, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] alert is mandatory and interrupting, turn screen on and play sound", buf, 0xCu);
+              v58 = v4;
+              _os_log_impl(&dword_21ED4E000, v54, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] alert is mandatory and interrupting, turn screen on and play sound", buf, 0xCu);
             }
 
             [(SBActivityAlert *)v21 alertWithScreenOn:1 playSound:1];
             objc_storeStrong((*(a1 + 40) + 128), v21);
-            v39 = 0;
+            v42 = 0;
           }
 
           goto LABEL_28;
@@ -1959,31 +1965,31 @@ void __73__SBActivityManager_activityAlertClient_presentAlertProvider_completion
 
       else
       {
-        v38 = SBLogActivity();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v41 = SBLogActivity(v40);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v53 = v4;
-          _os_log_impl(&dword_21ED4E000, v38, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] this activity can't be alerted either on this device or on watch", buf, 0xCu);
+          v58 = v4;
+          _os_log_impl(&dword_21ED4E000, v41, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] this activity can't be alerted either on this device or on watch", buf, 0xCu);
         }
       }
 
-      v39 = 0;
+      v42 = 0;
 LABEL_27:
-      v41 = v26;
-      v42 = v51;
+      v44 = v27;
+      v45 = v56;
 LABEL_28:
-      v43 = *(a1 + 48);
-      if (v43)
+      v46 = *(a1 + 48);
+      if (v46)
       {
-        (*(v43 + 16))(v43, v39);
+        (*(v46 + 16))(v46, v42);
       }
 
       return;
     }
   }
 
-  v9 = SBLogActivity();
+  v9 = SBLogActivity(v2);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     __73__SBActivityManager_activityAlertClient_presentAlertProvider_completion___block_invoke_cold_1(v9, v10, v11, v12, v13, v14, v15, v16);
@@ -2035,9 +2041,10 @@ void __62__SBActivityManager_activityAlertClient_dismissAlertProvider___block_in
 
 uint64_t __53__SBActivityManager_settings_changedValueForKeyPath___block_invoke(uint64_t a1)
 {
-  if (([*(a1 + 32) hasPrefix:@"hideActivitiesInLockScreen"] & 1) != 0 || (objc_msgSend(*(a1 + 32), "hasPrefix:", @"hideActivitiesInDynamicIsland") & 1) != 0 || (result = objc_msgSend(*(a1 + 32), "hasPrefix:", @"hideActivitiesInAmbient"), result))
+  result = [*(a1 + 32) hasPrefix:@"hideActivitiesInLockScreen"];
+  if (result & 1) != 0 || (result = [*(a1 + 32) hasPrefix:@"hideActivitiesInDynamicIsland"], (result) || (result = objc_msgSend(*(a1 + 32), "hasPrefix:", @"hideActivitiesInAmbient"), result))
   {
-    v3 = SBLogActivity();
+    v3 = SBLogActivity(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;

@@ -1,3 +1,93 @@
+uint64_t sub_100023808(const __CFData *a1, uint64_t a2, const __CFArray *a3, const __CFData **a4, void *a5, _DWORD *a6, CFErrorRef *a7)
+{
+  cf = 0;
+  v26 = 0;
+  v14 = (*(a2 + 48) & 5) != 0 || *(a2 + 208) || *(a2 + 216) || *(a2 + 232);
+  v15 = objc_autoreleasePoolPush();
+  v16 = sub_10002226C(*(a2 + 120), 0, @"od", &cf, *(a2 + 144), a1, *a2, *(a2 + 184), a4, &v26, v14, a6, a7);
+  objc_autoreleasePoolPop(v15);
+  if (!v16)
+  {
+    goto LABEL_9;
+  }
+
+  if (v26 <= 1)
+  {
+    SecError(-26275, a7, @"version is unexpected: %d", v26);
+LABEL_9:
+    v17 = 0;
+    v18 = 0;
+    goto LABEL_10;
+  }
+
+  v18 = SecAccessControlCopyData();
+  if (sub_100018A9C(*a4, a3))
+  {
+    if (v26 >= 4)
+    {
+      CFDictionarySetValue(*a4, kSecAttrAccessControl, v18);
+    }
+
+    v17 = 1;
+  }
+
+  else
+  {
+    v22 = secLogObjForScope("SecError");
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      Value = CFDictionaryGetValue(*a4, kSecAttrAccessGroup);
+      *buf = 138412546;
+      v29 = Value;
+      v30 = 2112;
+      v31 = a3;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "item's accessGroup '%@' not in %@", buf, 0x16u);
+    }
+
+    v24 = CFDictionaryGetValue(*a4, kSecAttrAccessGroup);
+    SecError(-34018, a7, @"item's access group '%@' not in %@", v24, a3);
+    v25 = *a4;
+    if (*a4)
+    {
+      *a4 = 0;
+      CFRelease(v25);
+    }
+
+    v17 = 0;
+  }
+
+LABEL_10:
+  v19 = cf;
+  if (a5)
+  {
+    if (cf)
+    {
+      CFRetain(cf);
+      v20 = cf;
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+
+    *a5 = v19;
+    v19 = v20;
+  }
+
+  if (v19)
+  {
+    CFRelease(v19);
+  }
+
+  if (v18)
+  {
+    CFRelease(v18);
+  }
+
+  return v17;
+}
+
 uint64_t sub_100023A94(uint64_t a1, __CFString **a2)
 {
   v4 = sub_100002404(a1, kSecAttrSharingGroup);
@@ -105,7 +195,7 @@ const void *sub_100023CAC(void *a1, CFDictionaryRef theDict, int a3, uint64_t a4
   return v14;
 }
 
-uint64_t sub_100023D78(void **a1, CFDictionaryRef theDict, __CFString **a3)
+uint64_t sub_100023D78(uint64_t *a1, CFDictionaryRef theDict, __CFString **a3)
 {
   Value = CFDictionaryGetValue(theDict, kSecValuePersistentRef);
   if (!Value)
@@ -168,7 +258,7 @@ __CFDictionary *sub_100023FA8(void *a1, uint64_t a2, __CFString **a3)
   return result;
 }
 
-__CFData *sub_100023FF4(uint64_t a1, uint64_t a2, __CFString **a3)
+__CFData *sub_100023FF4(uint64_t a1, uint64_t a2, CFErrorRef *a3)
 {
   v22 = 0;
   v5 = sub_1000019D8(a1, 32, a3);
@@ -402,7 +492,7 @@ CFTypeRef sub_10002452C(CFTypeRef cf, __CFString **a2)
   return v2;
 }
 
-uint64_t sub_1000245C0(uint64_t a1, CFTypeRef *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t sub_1000245C0(CFTypeRef *a1, CFErrorRef *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a3;
   if (a3)
@@ -421,13 +511,13 @@ uint64_t sub_1000245C0(uint64_t a1, CFTypeRef *a2, uint64_t a3, uint64_t a4, uin
       v15 = -1;
     }
 
-    SecCFCreateErrorWithFormat(v15, v13, 0, a2, 0, v14, v10, v11, v16);
+    SecCFCreateErrorWithFormat(v15, v13, 0, a2, 0, v14, v10, v11);
     return 0;
   }
 
   else
   {
-    SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain[0], 0, a2, 0, @"Null DER", a7, a8, v16);
+    SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain[0], 0, a2, 0, @"Null DER", a7, a8);
   }
 
   return v8;
@@ -574,7 +664,7 @@ uint64_t sub_100024EA0(uint64_t a1, int a2, _OWORD *a3)
 
       else
       {
-        __security_simulatecrash(@"Execution has encountered an unexpected state", 1405091854);
+        __security_simulatecrash(@"Execution has encountered an unexpected state", 0x53C0000Eu);
         v8 = 0;
         *(v3 + 40) = 0;
       }
@@ -833,9 +923,9 @@ LABEL_3:
   return v13 & 1;
 }
 
-void sub_10002555C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10002555C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -958,23 +1048,24 @@ id sub_100026400(uint64_t a1, uint64_t a2, uint64_t a3)
   return [v4 setTransaction:0];
 }
 
-void sub_10002709C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_10002709C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a28, 8);
-  _Block_object_dispose(&a32, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_100027318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100027668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100027318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a7);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_100027668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1334,7 +1425,7 @@ LABEL_38:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t sub_1000291FC()
+uint64_t sub_1000291FC(uint64_t a1, uint64_t a2)
 {
   if (qword_100073840 != -1)
   {
@@ -1344,7 +1435,7 @@ uint64_t sub_1000291FC()
   return qword_100073848;
 }
 
-uint64_t sub_100029270()
+uint64_t sub_100029270(uint64_t a1, uint64_t a2)
 {
   if (qword_100073850 != -1)
   {
@@ -1354,7 +1445,7 @@ uint64_t sub_100029270()
   return qword_100073858;
 }
 
-BOOL sub_1000292E0(CFTypeRef cf1)
+BOOL sub_1000292E0(CFTypeRef cf1, uint64_t a2)
 {
   if (qword_100073850 != -1)
   {
@@ -1364,7 +1455,7 @@ BOOL sub_1000292E0(CFTypeRef cf1)
   return CFEqual(cf1, qword_100073858) != 0;
 }
 
-uint64_t sub_100029330()
+uint64_t sub_100029330(uint64_t a1, uint64_t a2)
 {
   if (qword_100073860 != -1)
   {
@@ -1374,7 +1465,7 @@ uint64_t sub_100029330()
   return qword_100073868;
 }
 
-BOOL sub_1000293A4(CFTypeRef cf1)
+BOOL sub_1000293A4(CFTypeRef cf1, uint64_t a2)
 {
   if (qword_100073860 != -1)
   {
@@ -1408,7 +1499,7 @@ CFDataRef sub_1000294E4(unsigned int a1)
   return CFDataCreate(0, bytes, 16);
 }
 
-uint64_t sub_10002955C(const __CFData *a1, _DWORD *a2)
+BOOL sub_10002955C(const __CFData *a1, _DWORD *a2)
 {
   if (CFDataGetLength(a1) != 16)
   {
@@ -1450,14 +1541,6 @@ const __CFData *sub_1000295F0(const __CFData *result)
     return ((*BytePtr != 0x114EC8A39FAB1A82 || *(BytePtr + 2) != -397635414) && (*BytePtr != 0x9A460A992EBEC436 || *(BytePtr + 2) != -1542878804));
   }
 
-  return result;
-}
-
-uint64_t sub_1000296E8(uint64_t a1, uint64_t a2)
-{
-  v2 = a1 + 16 * a2;
-  result = *(v2 + 264);
-  v4 = *(v2 + 272);
   return result;
 }
 
@@ -1977,22 +2060,24 @@ uint64_t sub_100029F58(const void **a1, CFErrorRef *a2)
   return v3;
 }
 
-uint64_t sub_10002A060(uint64_t a1, int a2, CFErrorRef *a3)
+uint64_t sub_10002A060(uint64_t a1, uint64_t a2, CFErrorRef *a3)
 {
+  v4 = a2;
+  v5 = a1;
   if (a2 && !*(a1 + 40))
   {
-    if ((*(a1 + 114) & 1) != 0 || *(a1 + 113) == 1 && !sub_1000292E0(*(a1 + 128)))
+    if ((*(a1 + 114) & 1) != 0 || *(a1 + 113) == 1 && (a1 = sub_1000292E0(*(a1 + 128), a2), (a1 & 1) == 0))
     {
-      sub_100018160();
+      sub_100018160(a1);
     }
 
-    if (*(a1 + 115) == 1)
+    if (*(v5 + 115) == 1)
     {
       sub_1000180F0();
     }
   }
 
-  return sub_100029F58(a1, a3) & a2;
+  return sub_100029F58(v5, a3) & v4;
 }
 
 void *sub_10002A0E4(uint64_t a1, const void *a2, CFDictionaryRef theDict, uint64_t a4, __CFString **a5)
@@ -2001,7 +2086,7 @@ void *sub_10002A0E4(uint64_t a1, const void *a2, CFDictionaryRef theDict, uint64
   {
     if (a5 && !*a5)
     {
-      SecError(-50, a5, @"Missing class");
+      SecError(-50, a5, @"Missing class", a4);
     }
 
     return 0;
@@ -2092,40 +2177,40 @@ LABEL_10:
       v23 = secLogObjForScope("SecError");
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = 134218240;
-        v29 = v10;
-        v30 = 1024;
-        v31 = 128;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "key_count: %ld, QUERY_KEY_LIMIT: %d", &v28, 0x12u);
+        v30 = 134218240;
+        v31 = v10;
+        v32 = 1024;
+        v33 = 128;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "key_count: %ld, QUERY_KEY_LIMIT: %d", &v30, 0x12u);
       }
 
-      SecError(-50, a5, @"Past query key limit");
+      SecError(-50, a5, @"Past query key limit", v24);
     }
 
     return 0;
   }
 
-  v26 = malloc_type_calloc(1uLL, 16 * v10 + 264, 0x10E0040DE1CE4F2uLL);
-  if (!v26)
+  v27 = malloc_type_calloc(1uLL, 16 * v10 + 264, 0x10E0040DE1CE4F2uLL);
+  if (!v27)
   {
     if (a5 && !*a5)
     {
-      SecError(-108, a5, @"Out of memory");
+      SecError(-108, a5, @"Out of memory", v28);
     }
 
     return 0;
   }
 
-  v24 = v26;
-  v26[32] = v10;
-  v26[16] = CFRetain(v8);
-  *(v24 + 155) = 0;
-  *(v24 + 30) = dword_1000739E8;
-  *v24 = a1;
-  v24[2] = v10;
-  v24[3] = v10;
+  v25 = v27;
+  v27[32] = v10;
+  v27[16] = CFRetain(v8);
+  *(v25 + 155) = 0;
+  *(v25 + 30) = dword_1000739E8;
+  *v25 = a1;
+  v25[2] = v10;
+  v25[3] = v10;
   Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  v24[1] = Mutable;
+  v25[1] = Mutable;
   if (a4)
   {
     if (*(a4 + 44) == 1)
@@ -2133,10 +2218,10 @@ LABEL_10:
       CFDictionaryAddValue(Mutable, @"clip", kCFBooleanTrue);
     }
 
-    *(v24 + 116) = *(a4 + 57) ^ 1;
+    *(v25 + 116) = *(a4 + 57) ^ 1;
   }
 
-  return v24;
+  return v25;
 }
 
 uint64_t sub_10002A3B0(void *context, CFDictionaryRef theDict, CFErrorRef *a3)
@@ -2191,7 +2276,7 @@ void sub_10002A408(CFTypeRef cf, const void *a2, uint64_t a3)
   }
 }
 
-uint64_t sub_10002A574(const __CFDictionary *a1, const void *a2, uint64_t a3, uint64_t a4, __CFString **a5)
+uint64_t sub_10002A574(const __CFDictionary *a1, const void *a2, uint64_t a3, uint64_t a4, CFErrorRef *a5)
 {
   Value = CFDictionaryGetValue(a1, kSecClass);
   if (Value && (v11 = Value, v12 = CFGetTypeID(Value), v12 == CFStringGetTypeID()))
@@ -2349,10 +2434,10 @@ void sub_10002A900(CFTypeRef cf, uint64_t a2)
   }
 }
 
-void sub_10002A9A8(const __CFString *cf, const __CFBoolean *a2, uint64_t a3)
+void sub_10002A9A8(__CFString *cf, const __CFBoolean *a2, __CFString **a3)
 {
-  v3 = (a3 + 40);
-  if (*(a3 + 40))
+  v3 = a3 + 5;
+  if (a3[5])
   {
     return;
   }
@@ -2454,13 +2539,13 @@ void *sub_10002AC38(const void *a1, const void *a2, uint64_t a3)
   return sub_10002B874(a3, a2, (a3 + 40));
 }
 
-void sub_10002ACD0(CFTypeRef cf2, const void *a2, uint64_t a3)
+void sub_10002ACD0(__CFString *cf2, __CFString *a2, __CFString **a3)
 {
-  v6 = *(a3 + 16) - 1;
-  *(a3 + 16) = v6;
-  v7 = a3 + 16 * v6;
-  *(v7 + 264) = cf2;
-  *(v7 + 272) = a2;
+  v6 = &a3[2][-1].length + 7;
+  a3[2] = v6;
+  v7 = &a3[2 * v6];
+  v7[33] = cf2;
+  v7[34] = a2;
   if (!CFEqual(kSecMatchLimit, cf2))
   {
     if (CFEqual(kSecMatchIssuers, cf2))
@@ -2498,7 +2583,7 @@ void sub_10002ACD0(CFTypeRef cf2, const void *a2, uint64_t a3)
 
         if (CFArrayGetCount(v11) >= 1)
         {
-          *(a3 + 176) = v11;
+          a3[22] = v11;
           return;
         }
 
@@ -2622,7 +2707,7 @@ LABEL_46:
       v30 = @"unsupported value for kSecMatchEmailAddressIfPresent attribute";
     }
 
-    SecError(-50, (a3 + 40), v30);
+    SecError(-50, a3 + 5, v30);
     return;
   }
 
@@ -2638,20 +2723,20 @@ LABEL_46:
     {
       if (!CFEqual(kSecMatchLimitOne, a2))
       {
-        SecError(-50, (a3 + 40), @"unsupported match limit %@", a2);
+        SecError(-50, a3 + 5, @"unsupported match limit %@", a2);
         return;
       }
 
       v19 = 1;
     }
 
-    *(a3 + 104) = v19;
+    a3[13] = v19;
     return;
   }
 
-  if (!CFNumberGetValue(a2, kCFNumberCFIndexType, (a3 + 104)))
+  if (!CFNumberGetValue(a2, kCFNumberCFIndexType, a3 + 13))
   {
-    SecError(-50, (a3 + 40), @"failed to convert match limit %@ to CFIndex", a2);
+    SecError(-50, a3 + 5, @"failed to convert match limit %@ to CFIndex", a2);
   }
 }
 
@@ -2778,29 +2863,30 @@ void sub_10002B328(const void *a1, const __CFString *a2, uint64_t a3)
     }
 
     v15 = kSecUseSystemKeychain;
-    if (CFEqual(a1, kSecUseSystemKeychain))
+    v16 = CFEqual(a1, kSecUseSystemKeychain);
+    if (v16)
     {
       *(a3 + 120) = dword_1000739E8;
       if (*(a3 + 192) == 2)
       {
-        v19 = kSecUseSystemKeychainAlways;
-        v20 = v15;
+        v21 = kSecUseSystemKeychainAlways;
+        v22 = v15;
 LABEL_32:
-        SecError(-50, (a3 + 40), @"add_use: can't specify both %@ and %@", v19, v20);
+        SecError(-50, (a3 + 40), @"add_use: can't specify both %@ and %@", v21, v22);
         return;
       }
 
-      v17 = 1;
+      v19 = 1;
     }
 
     else
     {
-      if (!sub_100016F58() || (v16 = kSecUseSystemKeychainAlways, !CFEqual(a1, kSecUseSystemKeychainAlways)))
+      if (!sub_100016F58(v16, v17) || (v18 = kSecUseSystemKeychainAlways, !CFEqual(a1, kSecUseSystemKeychainAlways)))
       {
         if (CFEqual(a1, kSecUseSyncBubbleKeychain))
         {
-          v18 = CFGetTypeID(a2);
-          if (v18 == CFNumberGetTypeID() && CFNumberGetValue(a2, kCFNumberSInt32Type, (a3 + 196)) && *(a3 + 196) >= 1)
+          v20 = CFGetTypeID(a2);
+          if (v20 == CFNumberGetTypeID() && CFNumberGetValue(a2, kCFNumberSInt32Type, (a3 + 196)) && *(a3 + 196) >= 1)
           {
             *(a3 + 120) = dword_1000739E8;
           }
@@ -2821,16 +2907,16 @@ LABEL_32:
 
       if (*(a3 + 192) == 1)
       {
-        v19 = v15;
-        v20 = v16;
+        v21 = v15;
+        v22 = v18;
         goto LABEL_32;
       }
 
       *(a3 + 120) = dword_1000739E8;
-      v17 = 2;
+      v19 = 2;
     }
 
-    *(a3 + 192) = v17;
+    *(a3 + 192) = v19;
     return;
   }
 
@@ -2938,7 +3024,7 @@ size_t sub_10002B94C(void *a1, const char *a2, const __CFString *a3, uint64_t a4
 {
   if (!a3)
   {
-    return SecError(-50, a5, @"object for key %s is NULL", a2);
+    return SecError(-50, a5, @"object for key %s is NULL", a4, a2);
   }
 
   result = der_sizeof_plist(a3, a5, a3, a4, a5, a6, a7, a8);
@@ -3021,19 +3107,19 @@ BOOL sub_10002BB0C(uint64_t a1, uint64_t a2, const __CFString *a3, __CFString **
   return v4;
 }
 
-void sub_10002BBDC(uint64_t a1, char *string)
+void sub_10002BBDC(void *a1, char *string)
 {
-  v3 = *(a1 + 48);
+  v3 = a1[6];
   if (string)
   {
-    v4 = *(a1 + 40);
+    v4 = a1[5];
 
     xpc_dictionary_set_string(v4, v3, string);
   }
 
   else
   {
-    *(*(*(a1 + 32) + 8) + 24) = SecError(-50, *(a1 + 56), @"failed to convert string for key %s to utf8", *(a1 + 48));
+    *(*(a1[4] + 8) + 24) = SecError(-50, a1[7], @"failed to convert string for key %s to utf8", a1[6]);
   }
 }
 
@@ -3154,7 +3240,7 @@ CFTypeRef sub_10002BF14(int a1, xpc_object_t xdict, char *key, __CFString **a4)
   if (data)
   {
     v8 = data;
-    v9 = data + length;
+    v9 = &data[length];
     v10 = SecCFAllocatorZeroize();
     if (der_decode_plist(v10, &cf, a4, v8, v9, v11, v12, v13) != v9)
     {
@@ -3172,7 +3258,7 @@ CFTypeRef sub_10002BF14(int a1, xpc_object_t xdict, char *key, __CFString **a4)
         }
       }
 
-      __security_simulatecrash(v14, 1405091842);
+      __security_simulatecrash(v14, 0x53C00002u);
       if (v14)
       {
         CFRelease(v14);
@@ -3224,7 +3310,7 @@ CFStringRef sub_10002C0B8(void *a1, const char *a2, __CFString **a3)
   return 0;
 }
 
-void sub_10002C6BC()
+void sub_10002C6BC(uint64_t result, uint64_t a2)
 {
   if (qword_100073878 != -1)
   {
@@ -3381,9 +3467,9 @@ id sub_100030538(uint64_t a1)
   return [v14 setKeybag_state:v15];
 }
 
-void sub_1000307E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000307E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3485,17 +3571,17 @@ uint64_t aks_kc_backup_wrap_key(int a1, void *__src, size_t __n, char *__dst, vo
 {
   if (__n >= 0x21)
   {
-    __security_simulatecrash(@"Execution has encountered an unexpected state", 1405091854);
+    __security_simulatecrash(@"Execution has encountered an unexpected state", 0x53C0000Eu);
   }
 
   if (dword_1000739E8 != a1)
   {
-    __security_simulatecrash(@"Execution has encountered an unexpected state", 1405091854);
+    __security_simulatecrash(@"Execution has encountered an unexpected state", 0x53C0000Eu);
   }
 
   if (*a5 <= 0xA7uLL)
   {
-    __security_simulatecrash(@"Execution has encountered an unexpected state", 1405091854);
+    __security_simulatecrash(@"Execution has encountered an unexpected state", 0x53C0000Eu);
   }
 
   *a5 = __n + 8;
@@ -3535,18 +3621,18 @@ uint64_t aks_kc_backup_unwrap_key(uint64_t a1, unsigned __int8 *__src, unint64_t
 {
   if (!a1)
   {
-    __security_simulatecrash(@"Execution has encountered an unexpected state", 1405091854);
+    __security_simulatecrash(@"Execution has encountered an unexpected state", 0x53C0000Eu);
   }
 
   if (*a1 != 0x616220636967616DLL || *(a1 + 8) != 0x79656B2070756B63 || *(a1 + 16) != 560423266)
   {
-    __security_simulatecrash(@"Execution has encountered an unexpected state", 1405091854);
+    __security_simulatecrash(@"Execution has encountered an unexpected state", 0x53C0000Eu);
   }
 
   v12 = a3 - 8;
   if (a3 < 8 || !__src || !__dst)
   {
-    __security_simulatecrash(@"Execution has encountered an unexpected state", 1405091854);
+    __security_simulatecrash(@"Execution has encountered an unexpected state", 0x53C0000Eu);
   }
 
   v13 = 8;
@@ -3565,7 +3651,7 @@ uint64_t aks_kc_backup_unwrap_key(uint64_t a1, unsigned __int8 *__src, unint64_t
   while (v13);
   if (*a5 < v12)
   {
-    __security_simulatecrash(@"Execution has encountered an unexpected state", 1405091854);
+    __security_simulatecrash(@"Execution has encountered an unexpected state", 0x53C0000Eu);
   }
 
   *a5 = v12;
@@ -3575,7 +3661,7 @@ uint64_t aks_kc_backup_unwrap_key(uint64_t a1, unsigned __int8 *__src, unint64_t
 
 uint64_t aks_unwrap_key(char *a1, int a2, uint64_t a3, uint64_t a4, void *a5, _DWORD *a6)
 {
-  +[SecMockAKS trapdoor];
+  [SecMockAKS trapdoor:a3];
   if (+[SecMockAKS isSEPDown])
   {
     return 3758097109;
@@ -3734,34 +3820,7 @@ uint64_t aks_ref_key_decrypt(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
       if (!v23 && v22)
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
-        {
-          goto LABEL_25;
-        }
-
-        v24 = [v22 ciphertext];
-        objc_opt_class();
-        isKindOfClass = objc_opt_isKindOfClass();
-
-        if ((isKindOfClass & 1) == 0)
-        {
-          goto LABEL_25;
-        }
-
-        v26 = [v22 authenticationCode];
-        objc_opt_class();
-        v27 = objc_opt_isKindOfClass();
-
-        if ((v27 & 1) == 0)
-        {
-          goto LABEL_25;
-        }
-
-        v28 = [v22 initializationVector];
-        objc_opt_class();
-        v29 = objc_opt_isKindOfClass();
-
-        if (v29)
+        if (objc_opt_isKindOfClass() & 1) != 0 && ([v22 ciphertext], v24 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v24, (isKindOfClass) && (objc_msgSend(v22, "authenticationCode"), v26 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v27 = objc_opt_isKindOfClass(), v26, (v27) && (objc_msgSend(v22, "initializationVector"), v28 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v29 = objc_opt_isKindOfClass(), v28, (v29))
         {
           v30 = [_SFAuthenticatedEncryptionOperation alloc];
           v31 = [v21 key];
@@ -3803,7 +3862,6 @@ uint64_t aks_ref_key_decrypt(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
 
         else
         {
-LABEL_25:
           v23 = 0;
         }
       }
@@ -4127,11 +4185,11 @@ uint64_t sub_100032D94(const __CFDictionary *a1, uint64_t a2)
   }
 }
 
-uint64_t sub_100032DFC(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t sub_100032DFC(uint64_t result, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (*a3 == 1)
   {
-    result = sub_100032E4C(result, a2, *(a3 + 16));
+    result = sub_100032E4C(result, a2, *(a3 + 16), a4, a5, a6, a7, a8);
     if (result)
     {
       *(a3 + 8) += result;
@@ -4146,9 +4204,9 @@ uint64_t sub_100032DFC(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t sub_100032E4C(uint64_t a1, uint64_t a2, CFTypeRef *a3)
+uint64_t sub_100032E4C(const void *a1, const void *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if (der_sizeof_plist(a1, a3) && der_sizeof_plist(a2, a3))
+  if (der_sizeof_plist(a1, a3, a3, a4, a5, a6, a7, a8) && der_sizeof_plist(a2, a3, v10, v11, v12, v13, v14, v15))
   {
 
     return ccder_sizeof();
@@ -4156,21 +4214,21 @@ uint64_t sub_100032E4C(uint64_t a1, uint64_t a2, CFTypeRef *a3)
 
   else
   {
-    SecCFCreateErrorWithFormat(-6, sSecDERErrorDomain[0], 0, a3, 0, @"null input", v5, v6, v8);
+    SecCFCreateErrorWithFormat(-6, sSecDERErrorDomain[0], 0, a3, 0, @"null input", v14, v15);
     return 0;
   }
 }
 
-uint64_t sub_100032EEC(const __CFDictionary *a1, CFTypeRef *a2, char a3)
+uint64_t sub_100032EEC(const __CFDictionary *a1, CFErrorRef *a2, char a3, uint64_t a4, uint64_t a5)
 {
   Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
-  v13[0] = 0xAAAAAAAAAAAAAA01;
-  v13[1] = a2;
-  BYTE1(v13[0]) = a3;
-  v13[2] = Mutable;
-  v13[3] = 0;
-  CFDictionaryApplyFunction(a1, sub_100033134, v13);
-  if ((v13[0] & 1) == 0)
+  v15[0] = 0xAAAAAAAAAAAAAA01;
+  v15[1] = a2;
+  BYTE1(v15[0]) = a3;
+  v15[2] = Mutable;
+  v15[3] = 0;
+  CFDictionaryApplyFunction(a1, sub_100033134, v15);
+  if ((v15[0] & 1) == 0)
   {
     if (Mutable)
     {
@@ -4180,23 +4238,23 @@ uint64_t sub_100032EEC(const __CFDictionary *a1, CFTypeRef *a2, char a3)
     return 0;
   }
 
-  v14.length = CFArrayGetCount(Mutable);
-  v14.location = 0;
-  CFArraySortValues(Mutable, v14, sub_100033078, 0);
+  v16.length = CFArrayGetCount(Mutable);
+  v16.location = 0;
+  CFArraySortValues(Mutable, v16, sub_100033078, 0);
   Count = CFArrayGetCount(Mutable);
   if (Count >= 1)
   {
-    v8 = Count + 1;
+    v10 = Count + 1;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v8 - 2);
+      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v10 - 2);
       CFDataGetLength(ValueAtIndex);
       CFDataGetBytePtr(ValueAtIndex);
       ccder_encode_body();
-      --v8;
+      --v10;
     }
 
-    while (v8 > 1);
+    while (v10 > 1);
   }
 
   if (Mutable)
@@ -4207,7 +4265,7 @@ uint64_t sub_100032EEC(const __CFDictionary *a1, CFTypeRef *a2, char a3)
   result = ccder_encode_constructed_tl();
   if (!result)
   {
-    SecCFCreateErrorWithFormat(-7, sSecDERErrorDomain[0], 0, a2, 0, @"ccder failed to encode", v11, v12, v13[0]);
+    SecCFCreateErrorWithFormat(-7, sSecDERErrorDomain[0], 0, a2, 0, @"ccder failed to encode", v13, v14);
     return 0;
   }
 
@@ -4280,31 +4338,31 @@ uint64_t sub_100033078(const __CFData *a1, const __CFData *a2)
   }
 }
 
-void sub_100033134(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_100033134(const void *a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (*a3 == 1)
   {
-    v6 = sub_100032E4C(a1, a2, *(a3 + 8));
-    if (!v6)
+    v11 = sub_100032E4C(a1, a2, *(a3 + 8), a4, a5, a6, a7, a8);
+    if (!v11)
     {
       *a3 = 0;
       return;
     }
 
-    v7 = v6;
-    Mutable = CFDataCreateMutable(*(a3 + 24), v6);
-    CFDataSetLength(Mutable, v7);
+    v12 = v11;
+    Mutable = CFDataCreateMutable(*(a3 + 24), v11);
+    CFDataSetLength(Mutable, v12);
     MutableBytePtr = CFDataGetMutableBytePtr(Mutable);
-    v10 = *(a3 + 8);
-    v11 = *(a3 + 1);
-    v12 = der_encode_plist_repair(a2, v10, v11, MutableBytePtr, &MutableBytePtr[v7]);
-    der_encode_plist_repair(a1, v10, v11, MutableBytePtr, v12);
-    v13 = ccder_encode_constructed_tl();
-    if (v13)
+    v15 = *(a3 + 8);
+    v16 = *(a3 + 1);
+    v20 = der_encode_plist_repair(a2, v15, v16, MutableBytePtr, &MutableBytePtr[v12], v17, v18, v19);
+    der_encode_plist_repair(a1, v15, v16, MutableBytePtr, v20, v21, v22, v23);
+    v24 = ccder_encode_constructed_tl();
+    if (v24)
     {
-      v18.length = v13 - MutableBytePtr;
-      v18.location = 0;
-      CFDataDeleteBytes(Mutable, v18);
+      v28.length = v24 - MutableBytePtr;
+      v28.location = 0;
+      CFDataDeleteBytes(Mutable, v28);
       CFArrayAppendValue(*(a3 + 16), Mutable);
       if (!Mutable)
       {
@@ -4314,7 +4372,7 @@ void sub_100033134(uint64_t a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      SecCFCreateErrorWithFormat(-7, sSecDERErrorDomain[0], 0, v10, 0, @"ccder failed to encode", v14, v15, v16);
+      SecCFCreateErrorWithFormat(-7, sSecDERErrorDomain[0], 0, v15, 0, @"ccder failed to encode", v25, v26);
       *a3 = 0;
       if (!Mutable)
       {
@@ -4628,14 +4686,14 @@ LABEL_13:
   return CFStringCreateWithSubstring(0, a1, v44);
 }
 
-uint64_t sub_100033A50(char **a1, unint64_t a2, CFTypeRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100033A50(char **a1, unint64_t a2, CFErrorRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v10 = *a1;
   if (*a1)
   {
     if (v10 >= a2)
     {
-      SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain[0], 0, a3, 0, @"Unexpected end of datetime", a7, a8, v14);
+      SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain[0], 0, a3, 0, @"Unexpected end of datetime", a7, a8);
       *a1 = 0;
     }
 
@@ -4651,12 +4709,12 @@ uint64_t sub_100033A50(char **a1, unint64_t a2, CFTypeRef *a3, uint64_t a4, uint
     }
   }
 
-  SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain[0], 0, a3, 0, @"Not a decimal digit", a7, a8, v14);
+  SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain[0], 0, a3, 0, @"Not a decimal digit", a7, a8);
   *a1 = 0;
   return 0xFFFFFFFFLL;
 }
 
-char *sub_100033AF8(double *a1, CFTypeRef *a2, unsigned int a3, char *a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *sub_100033AF8(double *a1, CFErrorRef *a2, unsigned int a3, char *a4, char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v112 = a4;
   v109 = sub_100033A50(&v112, a5, a2, a4, a5, a6, a7, a8);
@@ -4680,7 +4738,7 @@ char *sub_100033AF8(double *a1, CFTypeRef *a2, unsigned int a3, char *a4, unint6
   v70 = *v112;
   if (v70 == 46)
   {
-    if ((v112 + 1) < a5)
+    if (v112 + 1 < a5)
     {
       v70 = v112[1];
       if ((v70 - 58) < 0xFFFFFFF6)
@@ -4690,7 +4748,7 @@ char *sub_100033AF8(double *a1, CFTypeRef *a2, unsigned int a3, char *a4, unint6
 LABEL_14:
         v74 = -1;
 LABEL_23:
-        SecCFCreateErrorWithFormat(v74, v71, 0, a2, 0, v72, v64, v65, v105);
+        SecCFCreateErrorWithFormat(v74, v71, 0, a2, 0, v72, v64, v65);
         v67 = 0;
         goto LABEL_24;
       }
@@ -4754,7 +4812,7 @@ LABEL_8:
       if (v70 != 43)
       {
 LABEL_24:
-        SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain[0], 0, a2, 0, @"Invalid datetime character", v64, v65, v105);
+        SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain[0], 0, a2, 0, @"Invalid datetime character", v64, v65);
         v80 = NAN;
         goto LABEL_25;
       }
@@ -4784,8 +4842,8 @@ LABEL_26:
     v81 = (v25 + 10 * v107);
     v82 = (v37 + 10 * v31);
     v83 = (v49 + 10 * v43);
-    v128[0] = 0;
-    if (sub_100033FA8(a3, (v108 + 10 * v109), v81, v82, v83, (v66 + 10 * v55), v128, a2))
+    v128 = 0;
+    if (sub_100033FA8(a3, (v108 + 10 * v109), v81, v82, v83, (v66 + 10 * v55), &v128, a2))
     {
       v124 = 0;
       v125 = &v124;
@@ -4815,7 +4873,7 @@ LABEL_26:
 
       else
       {
-        SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain[0], 0, a2, 0, @"Failed to encode date from components", v84, v85, v105);
+        SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain[0], 0, a2, 0, @"Failed to encode date from components", v84, v85);
         v86 = NAN;
       }
 
@@ -4834,14 +4892,14 @@ LABEL_26:
 
   else
   {
-    SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain[0], 0, a2, 0, @"trailing garbage at end of datetime", v64, v65, v105);
+    SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain[0], 0, a2, 0, @"trailing garbage at end of datetime", v64, v65);
     return 0;
   }
 
   return v67;
 }
 
-uint64_t sub_100033FA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, __CFString **a8)
+uint64_t sub_100033FA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BOOL4 *a7, __CFString **a8)
 {
   if ((a1 & 3) != 0)
   {
@@ -4893,9 +4951,9 @@ uint64_t sub_1000340CC(uint64_t a1, CFCalendarRef calendar)
   return result;
 }
 
-char *der_decode_date(const __CFAllocator *a1, CFDateRef *a2, CFTypeRef *a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *der_decode_date(const __CFAllocator *a1, CFDateRef *a2, CFErrorRef *a3, uint64_t a4, char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v46 = a5;
+  v45 = a5;
   if (!a4)
   {
     v40 = sSecDERErrorDomain[0];
@@ -4905,12 +4963,12 @@ char *der_decode_date(const __CFAllocator *a1, CFDateRef *a2, CFTypeRef *a3, uin
   }
 
   at = 0.0;
-  v47 = ccder_decode_constructed_tl();
-  v16 = sub_100033A50(&v47, v46, a3, v11, v12, v13, v14, v15);
-  v22 = sub_100033A50(&v47, v46, a3, v17, v18, v19, v20, v21) + 10 * v16;
-  v28 = sub_100033A50(&v47, v46, a3, v23, v24, v25, v26, v27);
-  v34 = sub_100033A50(&v47, v46, a3, v29, v30, v31, v32, v33);
-  v38 = sub_100033AF8(&at, a3, v34 + 10 * v28 + 100 * v22, v47, v46, v35, v36, v37);
+  v46 = ccder_decode_constructed_tl();
+  v16 = sub_100033A50(&v46, v45, a3, v11, v12, v13, v14, v15);
+  v22 = sub_100033A50(&v46, v45, a3, v17, v18, v19, v20, v21) + 10 * v16;
+  v28 = sub_100033A50(&v46, v45, a3, v23, v24, v25, v26, v27);
+  v34 = sub_100033A50(&v46, v45, a3, v29, v30, v31, v32, v33);
+  v38 = sub_100033AF8(&at, a3, v34 + 10 * v28 + 100 * v22, v46, v45, v35, v36, v37);
   if (v38)
   {
     v39 = CFDateCreate(a1, at);
@@ -4921,7 +4979,7 @@ char *der_decode_date(const __CFAllocator *a1, CFDateRef *a2, CFTypeRef *a3, uin
       v41 = @"Failed to create date";
       v42 = -3;
 LABEL_6:
-      SecCFCreateErrorWithFormat(v42, v40, 0, a3, 0, v41, a7, a8, v44);
+      SecCFCreateErrorWithFormat(v42, v40, 0, a3, 0, v41, a7, a8);
       return 0;
     }
   }
@@ -4929,7 +4987,7 @@ LABEL_6:
   return v38;
 }
 
-unint64_t sub_100034290(CFTypeRef *a1, int a2, uint64_t a3, unint64_t a4, double a5)
+unint64_t sub_100034290(CFErrorRef *a1, int a2, uint64_t a3, unint64_t a4, double a5)
 {
   v45 = 0;
   v46 = 0;
@@ -4958,7 +5016,7 @@ unint64_t sub_100034290(CFTypeRef *a1, int a2, uint64_t a3, unint64_t a4, double
 
   else
   {
-    SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain[0], 0, a1, 0, @"Failed to encode date.", v10, v11, v41);
+    SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain[0], 0, a1, 0, @"Failed to encode date.", v10, v11);
     v12 = *(p_err + 24);
     _Block_object_dispose(&err, 8);
     if ((v12 & 1) == 0)
@@ -4989,7 +5047,7 @@ unint64_t sub_100034290(CFTypeRef *a1, int a2, uint64_t a3, unint64_t a4, double
   if ((sub_100033FA8(HIDWORD(v46), v46, HIDWORD(v45), v45, HIDWORD(v44), v44, 0, &err) & 1) == 0)
   {
     v13 = CFErrorCopyDescription(err);
-    __security_simulatecrash(v13, 1405091842);
+    __security_simulatecrash(v13, 0x53C00002u);
     if (v13)
     {
       CFRelease(v13);
@@ -5171,7 +5229,7 @@ uint64_t sub_1000348CC(uint64_t a1, CFCalendarRef calendar)
   return result;
 }
 
-BOOL SecDbError(int a1, CFTypeRef *a2, CFStringRef format, ...)
+BOOL SecDbError(int a1, CFErrorRef *a2, CFStringRef format, ...)
 {
   va_start(va, format);
   if (a1 && a2)
@@ -5184,7 +5242,7 @@ BOOL SecDbError(int a1, CFTypeRef *a2, CFStringRef format, ...)
   return a1 == 0;
 }
 
-BOOL SecDbErrorWithDb(uint64_t a1, sqlite3 *a2, CFTypeRef *a3, CFStringRef format, ...)
+BOOL SecDbErrorWithDb(uint64_t a1, sqlite3 *a2, CFErrorRef *a3, CFStringRef format, ...)
 {
   va_start(va, format);
   if (a1 && a3)
@@ -5228,7 +5286,7 @@ BOOL SecDbErrorWithDb(uint64_t a1, sqlite3 *a2, CFTypeRef *a3, CFStringRef forma
   return a1 == 0;
 }
 
-BOOL sub_100034ABC(uint64_t a1, sqlite3_stmt *a2, CFTypeRef *a3, CFStringRef format, ...)
+BOOL sub_100034ABC(uint64_t a1, sqlite3_stmt *a2, CFErrorRef *a3, CFStringRef format, ...)
 {
   va_start(va, format);
   if (a1 && a3)
@@ -5286,13 +5344,6 @@ uint64_t sub_100034C9C(uint64_t a1)
   result = _CFRuntimeRegisterClass();
   **(a1 + 32) = result;
   return result;
-}
-
-CFStringRef sub_100034CD0(uint64_t a1)
-{
-  SecGetDebugDescriptionFormatOptions();
-  v2 = *(a1 + 16);
-  return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"<SecDb path:%@ connections: %@>", v2, *(a1 + 48));
 }
 
 void sub_100034D6C(uint64_t a1)
@@ -5519,7 +5570,7 @@ void SecDbCorrupt(uint64_t a1, const void *a2)
   }
 }
 
-uint64_t SecDbExec(uint64_t a1, const __CFString *cf, CFTypeRef *a3)
+unint64_t SecDbExec(uint64_t a1, const __CFString *cf, CFErrorRef *a3)
 {
   v4 = cf;
   CFRetain(cf);
@@ -5560,7 +5611,7 @@ uint64_t SecDbExec(uint64_t a1, const __CFString *cf, CFTypeRef *a3)
   return v6;
 }
 
-sqlite3_stmt *SecDbCopyStmt(uint64_t a1, const __CFString *a2, CFStringRef *a3, CFTypeRef *a4)
+sqlite3_stmt *SecDbCopyStmt(uint64_t a1, const __CFString *a2, CFStringRef *a3, CFErrorRef *a4)
 {
   v12.location = 0;
   v12.length = 0;
@@ -5614,7 +5665,7 @@ sqlite3_stmt *SecDbCopyStmt(uint64_t a1, const __CFString *a2, CFStringRef *a3, 
   return v7;
 }
 
-uint64_t sub_100035674(uint64_t a1, sqlite3_stmt *pStmt, CFTypeRef *a3)
+uint64_t sub_100035674(uint64_t a1, sqlite3_stmt *pStmt, CFErrorRef *a3)
 {
   v6 = 0;
   while (1)
@@ -5652,14 +5703,14 @@ uint64_t sub_100035674(uint64_t a1, sqlite3_stmt *pStmt, CFTypeRef *a3)
   return 1;
 }
 
-BOOL SecDbFinalize(sqlite3_stmt *a1, CFTypeRef *a2)
+BOOL SecDbFinalize(sqlite3_stmt *a1, CFErrorRef *a2)
 {
   v4 = sqlite3_db_handle(a1);
   v5 = sqlite3_finalize(a1);
   return !v5 || SecDbErrorWithDb(v5, v4, a2, @"finalize: %p", a1);
 }
 
-BOOL sub_10003583C(uint64_t a1, uint64_t a2, uint64_t a3, int a4, CFTypeRef *a5)
+BOOL sub_10003583C(uint64_t a1, uint64_t a2, uint64_t a3, int a4, CFErrorRef *a5)
 {
   if (a2 - 5 > 1)
   {
@@ -5707,7 +5758,7 @@ BOOL sub_10003583C(uint64_t a1, uint64_t a2, uint64_t a3, int a4, CFTypeRef *a5)
   return 1;
 }
 
-BOOL sub_1000359F4(uint64_t a1, uint64_t a2, CFTypeRef *a3, CFStringRef format, ...)
+BOOL sub_1000359F4(uint64_t a1, uint64_t a2, CFErrorRef *a3, CFStringRef format, ...)
 {
   va_start(va, format);
   if (!a2 || a2 == 101)
@@ -5924,44 +5975,49 @@ LABEL_50:
   return !a2 || a2 == 101;
 }
 
-uint64_t sub_100035F68(uint64_t a1, int __errnum, CFTypeRef *a3)
+uint64_t sub_100035F68(uint64_t a1, uint64_t __errnum, CFErrorRef *a3)
 {
   v3 = *(a1 + 16);
   if (*(v3 + 163) == 1)
   {
-    v11 = *(v3 + 16);
+    v12 = *(v3 + 16);
     *buf = _NSConcreteStackBlock;
-    v14 = 0x40000000;
-    v15 = sub_100033794;
-    v16 = &unk_100063AE0;
-    v17 = &stru_100063FF8;
-    sub_100033584(v11, buf);
-    v12 = secLogObjForScope("SecWarning");
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v15 = 0x40000000;
+    v16 = sub_100033794;
+    v17 = &unk_100063AE0;
+    v18 = &stru_100063FF8;
+    sub_100033584(v12, buf);
+    v13 = secLogObjForScope("SecWarning");
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "SecDbHandleCorrupt: killing self so that successor might cleanly delete corrupt db", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "SecDbHandleCorrupt: killing self so that successor might cleanly delete corrupt db", buf, 2u);
     }
 
     exit(1);
   }
 
-  v5 = __errnum;
   v7 = __errnum;
-  strerror(__errnum);
-  SecCFCreateErrorWithFormat(v7, kCFErrorDomainPOSIX, 0, a3, 0, @"SecDbHandleCorrupt not allowed to repair, handled error: [%d] %s", v8, v9, v5);
+  v8 = strerror(__errnum);
+  SecCFCreateErrorWithFormat(v7, kCFErrorDomainPOSIX, 0, a3, 0, @"SecDbHandleCorrupt not allowed to repair, handled error: [%d] %s", v9, v10, __errnum, v8);
   *(a1 + 40) = 0;
   return 0;
 }
 
-uint64_t sub_1000360A4(uint64_t a1, sqlite3_stmt *a2)
+BOOL sub_1000360A4(uint64_t a1, sqlite3_stmt *a2)
 {
-  v2 = *(*(a1 + 32) + 8);
-  v4 = *(a1 + 40);
-  return SecDbStep(*(a1 + 56), a2);
+  v2 = *(a1 + 56);
+  v3 = *(*(a1 + 32) + 8);
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 0x40000000;
+  v5[2] = sub_1000361A8;
+  v5[3] = &unk_100063F00;
+  v7 = a2;
+  v6 = *(a1 + 40);
+  return SecDbStep(v2, a2, (v3 + 24), v5);
 }
 
-sqlite3_stmt *SecDbPrepare(uint64_t a1, const __CFString *a2, CFTypeRef *a3, uint64_t a4)
+sqlite3_stmt *SecDbPrepare(uint64_t a1, const __CFString *a2, CFErrorRef *a3, uint64_t a4)
 {
   result = SecDbCopyStmt(a1, a2, 0, a3);
   if (result)
@@ -6000,7 +6056,7 @@ void sub_1000361A8(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = 1;
 }
 
-BOOL SecDbStep(uint64_t a1, sqlite3_stmt *pStmt, CFTypeRef *a3, uint64_t a4)
+BOOL SecDbStep(uint64_t a1, sqlite3_stmt *pStmt, CFErrorRef *a3, uint64_t a4)
 {
   while (1)
   {
@@ -6079,12 +6135,12 @@ void sub_100036414(id a1, const char *a2)
   }
 }
 
-uint64_t sub_10003659C(void *a1, const char *a2, unint64_t a3)
+uint64_t sub_10003659C(void *a1, unint64_t a2, unint64_t a3)
 {
-  v31[0] = 0;
+  v33 = 0;
   v7 = a1[5];
   v6 = a1[6];
-  if (sub_100017084())
+  if (sub_100017084(a1, a2))
   {
     __s = 0;
     asprintf(&__s, "%s%s", "EXPLAIN QUERY PLAN ", a2);
@@ -6107,29 +6163,29 @@ uint64_t sub_10003659C(void *a1, const char *a2, unint64_t a3)
       v13 = secLogObjForScope("item");
       if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-LABEL_19:
+LABEL_24:
         free(__s);
-        goto LABEL_20;
+        goto LABEL_25;
       }
 
       LODWORD(buf) = 67109120;
       DWORD1(buf) = v12;
       v14 = "Unable to prepare query: %d";
       p_buf = &buf;
-LABEL_18:
+LABEL_23:
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v14, p_buf, 8u);
-      goto LABEL_19;
+      goto LABEL_24;
     }
 
     Mutable = CFStringCreateMutable(kCFAllocatorDefault, 0);
-    v31[1] = 0;
+    cf = 0;
     *&buf = _NSConcreteStackBlock;
     *(&buf + 1) = 0x40000000;
-    v38 = sub_1000369A8;
-    v39 = &unk_100064018;
-    v40 = ppStmt;
-    v41 = Mutable;
-    SecDbStep(v7, ppStmt);
+    v41 = sub_1000369A8;
+    v42 = &unk_100064018;
+    v43 = ppStmt;
+    v44 = Mutable;
+    SecDbStep(v7, ppStmt, &cf, &buf);
     CStringPtr = CFStringGetCStringPtr(Mutable, 0x8000100u);
     v18 = secLogObjForScope("item");
     v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
@@ -6137,19 +6193,19 @@ LABEL_18:
     {
       if (v19)
       {
-        *v35 = 136315138;
-        v36 = CStringPtr;
+        *v38 = 136315138;
+        v39 = CStringPtr;
         v20 = "query plan: %s";
         v21 = v18;
         v22 = 12;
 LABEL_12:
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, v20, v35, v22);
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, v20, v38, v22);
       }
     }
 
     else if (v19)
     {
-      *v35 = 0;
+      *v38 = 0;
       v20 = "Failed to get query plan";
       v21 = v18;
       v22 = 2;
@@ -6161,33 +6217,51 @@ LABEL_12:
       CFRelease(Mutable);
     }
 
-    v23 = sqlite3_finalize(ppStmt);
-    if (!v23)
+    if (cf)
     {
-      goto LABEL_19;
+      v23 = secLogObjForScope("item");
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+        *v38 = 138412290;
+        v39 = cf;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Failed to show plan: %@", v38, 0xCu);
+      }
+
+      v24 = cf;
+      if (cf)
+      {
+        cf = 0;
+        CFRelease(v24);
+      }
     }
 
-    v24 = v23;
+    v25 = sqlite3_finalize(ppStmt);
+    if (!v25)
+    {
+      goto LABEL_24;
+    }
+
+    v26 = v25;
     v13 = secLogObjForScope("item");
     if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_19;
+      goto LABEL_24;
     }
 
-    *v35 = 67109120;
-    LODWORD(v36) = v24;
+    *v38 = 67109120;
+    LODWORD(v39) = v26;
     v14 = "Unable to finalize query: %d";
-    p_buf = v35;
-    goto LABEL_18;
+    p_buf = v38;
+    goto LABEL_23;
   }
 
-LABEL_20:
-  v25 = *(v7 + 64);
+LABEL_25:
+  v27 = *(v7 + 64);
   if (a3 >> 31)
   {
     result = SecDbErrorWithDb(18, *(v7 + 64), v6, @"prepare_v2: sql bigger than INT_MAX");
-LABEL_22:
-    v27 = 0;
+LABEL_27:
+    v29 = 0;
   }
 
   else
@@ -6195,7 +6269,7 @@ LABEL_22:
     for (i = 0; ; ++i)
     {
       *&buf = 0;
-      result = sqlite3_prepare_v2(v25, a2, a3, &buf, v31);
+      result = sqlite3_prepare_v2(v27, a2, a3, &buf, &v33);
       if (!result)
       {
         break;
@@ -6204,22 +6278,22 @@ LABEL_22:
       result = sub_10003583C(v7, result, @"preparev2", i, v6);
       if ((result & 1) == 0)
       {
-        goto LABEL_22;
+        goto LABEL_27;
       }
     }
 
-    v27 = buf;
+    v29 = buf;
   }
 
-  *(*(a1[4] + 8) + 24) = v27;
-  v29 = a1[7];
-  if (v29)
+  *(*(a1[4] + 8) + 24) = v29;
+  v31 = a1[7];
+  if (v31)
   {
-    v30 = (v31[0] - a2);
-    if (v31[0] > a2 && v31[0] < &a2[a3])
+    v32 = &v33[-a2];
+    if (v33 > a2 && v33 < a2 + a3)
     {
-      *v29 = v30;
-      v29[1] = (a3 - v30);
+      *v31 = v32;
+      v31[1] = (a3 - v32);
     }
   }
 
@@ -6307,7 +6381,7 @@ uint64_t sub_100036BDC(void *a1, sqlite3_stmt *a2)
   return 1;
 }
 
-uint64_t SecDbWithSQL(uint64_t a1, const __CFString *cf, CFTypeRef *a3, uint64_t a4)
+uint64_t SecDbWithSQL(uint64_t a1, const __CFString *cf, CFErrorRef *a3, uint64_t a4)
 {
   v6 = cf;
   CFRetain(cf);
@@ -6360,7 +6434,7 @@ uint64_t sub_100036D90(uint64_t a1, _BYTE *a2)
   return result;
 }
 
-uint64_t SecDbTransaction(uint64_t a1, uint64_t a2, CFTypeRef *a3, uint64_t a4)
+uint64_t SecDbTransaction(uint64_t a1, uint64_t a2, CFErrorRef *a3, uint64_t a4)
 {
   v13 = 1;
   if (*(a1 + 25) != 1)
@@ -6461,7 +6535,7 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  (*(a4 + 16))(a4, &v13);
+  (*(a4 + 16))(a4, &v13, a3);
   if ((v13 & 1) == 0)
   {
     v5 = secLogObjForScope("#SecDB");
@@ -6608,7 +6682,7 @@ void sub_1000372F4(uint64_t a1, uint64_t a2)
   }
 }
 
-BOOL SecDbCheckpoint(uint64_t a1, CFTypeRef *a2)
+BOOL SecDbCheckpoint(uint64_t a1, CFErrorRef *a2)
 {
   v4 = sqlite3_wal_checkpoint_v2(*(a1 + 64), 0, 1, 0, 0);
 
@@ -6630,12 +6704,13 @@ void SecDbSetCorruptionReset(uint64_t a1, void *aBlock)
   }
 }
 
-BOOL SecDbConnectionAcquireRefMigrationSafe(uint64_t a1, int a2, void *a3, uint64_t a4)
+BOOL SecDbConnectionAcquireRefMigrationSafe(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
+  v6 = a2;
   CFRetain(a1);
   if (byte_100073980 == 1)
   {
-    if (a2)
+    if (v6)
     {
       if (dispatch_semaphore_wait(*(a1 + 120), 0))
       {
@@ -6664,7 +6739,7 @@ LABEL_9:
     goto LABEL_13;
   }
 
-  if (a2)
+  if (v6)
   {
     dispatch_semaphore_wait(*(a1 + 120), 0xFFFFFFFFFFFFFFFFLL);
   }
@@ -6701,7 +6776,7 @@ LABEL_13:
   block[8] = a1;
   block[9] = a3;
   block[10] = a4;
-  v23 = a2;
+  v23 = v6;
   block[6] = &v29;
   block[7] = &v37;
   block[4] = v24;
@@ -6711,7 +6786,7 @@ LABEL_13:
   if (*(v34 + 24) == 1 && !v38[3])
   {
     v21 = 0;
-    v12 = sub_100037DA8(a1, a2);
+    v12 = sub_100037DA8(a1, v6);
     v13 = (v25)(v24, v12);
     v11 = v38;
     if (v13)
@@ -6758,7 +6833,7 @@ LABEL_13:
 
   else
   {
-    if (a2)
+    if (v6)
     {
       dispatch_semaphore_signal(*(a1 + 120));
     }
@@ -7074,25 +7149,23 @@ void sub_100037FB4(uint64_t a1)
   if (*(v1 + 144) == 1)
   {
     *(v1 + 144) = 0;
-    v3 = *(a1 + 40);
-    v4 = *(a1 + 48);
     if (((*(*(*(*(*(*(a1 + 32) + 8) + 24) + 16) + 136) + 16))() & 1) == 0)
     {
-      v5 = *(*(a1 + 32) + 8);
-      v6 = *(v5 + 24);
-      if (v6[40] != 1 || (sub_100035F68(v6, 0, *(a1 + 48)) & 1) == 0 && (v5 = *(*(a1 + 32) + 8), (v6 = *(v5 + 24)) != 0))
+      v3 = *(*(a1 + 32) + 8);
+      v4 = *(v3 + 24);
+      if (v4[40] != 1 || (sub_100035F68(v4, 0, *(a1 + 48)) & 1) == 0 && (v3 = *(*(a1 + 32) + 8), (v4 = *(v3 + 24)) != 0))
       {
-        *(v5 + 24) = 0;
+        *(v3 + 24) = 0;
 
-        CFRelease(v6);
+        CFRelease(v4);
       }
     }
   }
 }
 
-void sub_10003807C(uint64_t a1, char *filename)
+void sub_10003807C(void *a1, char *filename)
 {
-  v4 = *(a1 + 40);
+  v4 = a1[5];
   v5 = 4194305;
   if (*(*(v4 + 16) + 162) == 1)
   {
@@ -7107,7 +7180,7 @@ void sub_10003807C(uint64_t a1, char *filename)
     }
   }
 
-  if (*(a1 + 48))
+  if (a1[6])
   {
     v6 = sub_1000382C4(v4, filename, v5, 0);
   }
@@ -7117,73 +7190,74 @@ void sub_10003807C(uint64_t a1, char *filename)
     v6 = 0;
   }
 
-  *(*(*(a1 + 32) + 8) + 24) = v6;
-  v7 = *(*(a1 + 32) + 8);
+  *(*(a1[4] + 8) + 24) = v6;
+  v7 = *(a1[4] + 8);
   if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
-    if (*(a1 + 48))
+    if (a1[6])
     {
       v8 = dirname(filename);
       if (v8)
       {
         v9 = v8;
-        v10 = *(*(*(a1 + 40) + 16) + 160);
+        v10 = *(*(a1[5] + 16) + 160);
         v11 = mkpath_np(v8, (v10 >> 2) & 0x49 | v10);
         if (v11 && v11 != 17)
         {
           v13 = v11;
-          v14 = *(a1 + 56);
-          strerror(v11);
-          SecCFCreateErrorWithFormat(v13, kCFErrorDomainPOSIX, 0, v14, 0, @"mkpath_np %s: [%d] %s", v15, v16, v9);
-          *(*(*(a1 + 32) + 8) + 24) = 0;
+          v14 = v11;
+          v15 = a1[7];
+          v16 = strerror(v11);
+          SecCFCreateErrorWithFormat(v14, kCFErrorDomainPOSIX, 0, v15, 0, @"mkpath_np %s: [%d] %s", v17, v18, v9, v13, v16);
+          *(*(a1[4] + 8) + 24) = 0;
         }
       }
     }
 
-    v17 = *(*(a1 + 32) + 8);
-    if (*(v17 + 24) == 1)
+    v19 = *(a1[4] + 8);
+    if (*(v19 + 24) == 1)
     {
-      v18 = sub_1000382C4(*(a1 + 40), filename, 4194310, *(a1 + 56));
-      v17 = *(*(a1 + 32) + 8);
+      v20 = sub_1000382C4(a1[5], filename, 4194310, a1[7]);
+      v19 = *(a1[4] + 8);
     }
 
     else
     {
-      v18 = 0;
+      v20 = 0;
     }
 
-    *(v17 + 24) = v18;
-    if (*(*(*(a1 + 32) + 8) + 24) == 1)
+    *(v19 + 24) = v20;
+    if (*(*(a1[4] + 8) + 24) == 1)
     {
-      chmod(filename, *(*(*(a1 + 40) + 16) + 160));
-      v19 = *(a1 + 48);
-      if (v19)
+      chmod(filename, *(*(a1[5] + 16) + 160));
+      v21 = a1[6];
+      if (v21)
       {
-        *v19 = 1;
+        *v21 = 1;
       }
     }
   }
 
-  if (*(*(*(a1 + 32) + 8) + 24) == 1)
+  if (*(*(a1[4] + 8) + 24) == 1)
   {
     if (qword_100073940 != -1)
     {
       dispatch_once(&qword_100073940, &stru_100063FB8);
     }
 
-    v20 = dword_100073948;
+    v22 = dword_100073948;
     if (dword_100073948)
     {
-      v21 = *(a1 + 40);
-      v22 = v21[8];
+      v23 = a1[5];
+      v24 = v23[8];
 
-      sqlite3_trace_v2(v22, v20, sub_10003844C, v21);
+      sqlite3_trace_v2(v24, v22, sub_10003844C, v23);
     }
   }
 }
 
-BOOL sub_1000382C4(uint64_t a1, char *filename, uint64_t a3, CFTypeRef *a4)
+BOOL sub_1000382C4(uint64_t a1, char *filename, uint64_t a3, CFErrorRef *a4)
 {
   v8 = *(a1 + 16);
   v9 = *(v8 + 164);
@@ -7670,18 +7744,18 @@ uint64_t SecDbPerformWrite(uint64_t a1, __CFString **a2, uint64_t a3)
   return 0;
 }
 
-BOOL SecDbBindBlob(sqlite3_stmt *a1, uint64_t a2, const void *a3, unint64_t a4, void (__cdecl *a5)(void *), CFTypeRef *a6)
+BOOL SecDbBindBlob(sqlite3_stmt *a1, uint64_t a2, const void *a3, unint64_t a4, void (__cdecl *a5)(void *), CFErrorRef *a6)
 {
   if (a4 >> 31)
   {
-    return sub_100034ABC(18, a1, a6, @"bind_blob[%d]: blob bigger than INT_MAX", a2);
+    return sub_100034ABC(18, a1, a6, @"bind_blob[%d]: blob bigger than INT_MAX", a5, a2);
   }
 
   v10 = sqlite3_bind_blob(a1, a2, a3, a4, a5);
-  return sub_100034ABC(v10, a1, a6, @"bind_blob[%d]", a2);
+  return sub_100034ABC(v10, a1, a6, @"bind_blob[%d]", v11, a2);
 }
 
-uint64_t SecDbBindObject(sqlite3_stmt *a1, uint64_t a2, const __CFString *cf, CFTypeRef *a4)
+uint64_t SecDbBindObject(sqlite3_stmt *a1, uint64_t a2, const __CFString *cf, CFErrorRef *a4)
 {
   v4 = &v26;
   v26 = 0;
@@ -7820,7 +7894,7 @@ BOOL sub_1000393FC(uint64_t a1, char *a2, unint64_t a3)
   return result;
 }
 
-uint64_t SecDbForEach(uint64_t a1, sqlite3_stmt *pStmt, CFTypeRef *a3, uint64_t a4)
+uint64_t SecDbForEach(uint64_t a1, sqlite3_stmt *pStmt, CFErrorRef *a3, uint64_t a4)
 {
   for (i = 0; ; i = (i + 1))
   {
@@ -8034,7 +8108,7 @@ uint64_t SecBucket2Significant(int64_t a1)
   return v1 * a1;
 }
 
-uint64_t der_decode_number(const __CFAllocator *a1, CFNumberRef *a2, CFTypeRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *der_decode_number(const __CFAllocator *a1, CFNumberRef *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a4)
   {
@@ -8047,7 +8121,7 @@ uint64_t der_decode_number(const __CFAllocator *a1, CFNumberRef *a2, CFTypeRef *
       *a2 = v17;
       if (v17)
       {
-        return v13 + v20;
+        return (v13 + v20);
       }
 
       v14 = sSecDERErrorDomain[0];
@@ -8074,7 +8148,7 @@ uint64_t der_decode_number(const __CFAllocator *a1, CFNumberRef *a2, CFTypeRef *
   return 0;
 }
 
-uint64_t sub_100039D04(const __CFNumber *a1, CFTypeRef *a2)
+uint64_t sub_100039D04(const __CFNumber *a1, CFErrorRef *a2)
 {
   valuePtr = 0xAAAAAAAAAAAAAAAALL;
   if (CFNumberGetValue(a1, kCFNumberLongLongType, &valuePtr))
@@ -8103,12 +8177,12 @@ uint64_t sub_100039D04(const __CFNumber *a1, CFTypeRef *a2)
 
   else
   {
-    SecCFCreateErrorWithFormat(-4, sSecDERErrorDomain[0], 0, a2, 0, @"Unable to get number from data", v3, v4, v9);
+    SecCFCreateErrorWithFormat(-4, sSecDERErrorDomain[0], 0, a2, 0, @"Unable to get number from data", v3, v4);
     return 0;
   }
 }
 
-uint64_t sub_100039DE4(const __CFNumber *a1, CFTypeRef *a2, uint64_t a3, uint64_t a4)
+uint64_t sub_100039DE4(const __CFNumber *a1, CFErrorRef *a2, uint64_t a3, uint64_t a4)
 {
   valuePtr = 0xAAAAAAAAAAAAAAAALL;
   if (!CFNumberGetValue(a1, kCFNumberLongLongType, &valuePtr))
@@ -8117,7 +8191,7 @@ uint64_t sub_100039DE4(const __CFNumber *a1, CFTypeRef *a2, uint64_t a3, uint64_
     v16 = @"Unable to get number from data";
     v17 = -4;
 LABEL_23:
-    SecCFCreateErrorWithFormat(v17, v15, 0, a2, 0, v16, v7, v8, v21);
+    SecCFCreateErrorWithFormat(v17, v15, 0, a2, 0, v16, v7, v8);
     return 0;
   }
 
@@ -8207,7 +8281,7 @@ LABEL_22:
   return result;
 }
 
-BOOL SecKernError(int a1, CFTypeRef *a2, CFStringRef format, ...)
+BOOL SecKernError(int a1, CFErrorRef *a2, CFStringRef format, ...)
 {
   va_start(va, format);
   if (a1 && a2)
@@ -8220,7 +8294,7 @@ BOOL SecKernError(int a1, CFTypeRef *a2, CFStringRef format, ...)
   return a1 == 0;
 }
 
-void sub_100039FA8(CFIndex a1, const __CFString *a2, __CFString *cf, CFTypeRef *a4, CFDictionaryRef formatOptions, CFStringRef format, va_list arguments)
+void sub_100039FA8(CFIndex a1, const __CFString *a2, __CFString *cf, CFErrorRef *a4, CFDictionaryRef formatOptions, CFStringRef format, va_list arguments)
 {
   if (!a4)
   {
@@ -8353,6 +8427,13 @@ LABEL_30:
 LABEL_44:
     CFRelease(v21);
   }
+}
+
+uint64_t SecCFCreateErrorWithFormat(CFIndex a1, const __CFString *a2, __CFString *a3, CFErrorRef *a4, const __CFDictionary *a5, const __CFString *a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+  sub_100039FA8(a1, a2, a3, a4, a5, a6, va);
+  return 0;
 }
 
 BOOL SecError(int a1, __CFString **a2, CFStringRef format, ...)
@@ -8526,7 +8607,7 @@ LABEL_11:
   }
 }
 
-uint64_t der_decode_plist(uint64_t a1, uint64_t a2, CFTypeRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *der_decode_plist(const __CFAllocator *a1, CFNumberRef *a2, CFErrorRef *a3, const UInt8 *a4, _BYTE *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a4)
   {
@@ -8552,7 +8633,7 @@ uint64_t der_decode_plist(uint64_t a1, uint64_t a2, CFTypeRef *a3, uint64_t a4, 
     v12 = -6;
   }
 
-  SecCFCreateErrorWithFormat(v12, v10, 0, a3, 0, v11, a7, a8, v13);
+  SecCFCreateErrorWithFormat(v12, v10, 0, a3, 0, v11, a7, a8);
   return 0;
 }
 
@@ -8560,8 +8641,8 @@ uint64_t der_sizeof_plist(const __CFString *a1, CFTypeRef *a2, uint64_t a3, uint
 {
   if (!a1)
   {
-    v15 = sSecDERErrorDomain[0];
-    v16 = @"Null CFType";
+    v21 = sSecDERErrorDomain[0];
+    v22 = @"Null CFType";
     goto LABEL_8;
   }
 
@@ -8576,7 +8657,7 @@ uint64_t der_sizeof_plist(const __CFString *a1, CFTypeRef *a2, uint64_t a3, uint
       do
       {
         ValueAtIndex = CFArrayGetValueAtIndex(a1, v13 - 2);
-        v12 += der_sizeof_plist(ValueAtIndex, a2);
+        v12 += der_sizeof_plist(ValueAtIndex, a2, v15, v16, v17, v18, v19, v20);
         --v13;
       }
 
@@ -8633,24 +8714,24 @@ LABEL_14:
       goto LABEL_14;
     }
 
-    v15 = sSecDERErrorDomain[0];
-    v16 = @"Unsupported CFType";
+    v21 = sSecDERErrorDomain[0];
+    v22 = @"Unsupported CFType";
 LABEL_8:
-    SecCFCreateErrorWithFormat(-5, v15, 0, a2, 0, v16, a7, a8, v19);
+    SecCFCreateErrorWithFormat(-5, v21, 0, a2, 0, v22, a7, a8);
     return 0;
   }
 
   return sub_100039D04(a1, a2);
 }
 
-uint64_t der_encode_plist_repair(const __CFString *a1, CFTypeRef *a2, uint64_t a3, UInt8 *a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t der_encode_plist_repair(const __CFString *a1, CFErrorRef *a2, uint64_t a3, UInt8 *a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (!a1)
   {
-    v21 = sSecDERErrorDomain[0];
-    v22 = @"Null CFType";
+    v24 = sSecDERErrorDomain[0];
+    v25 = @"Null CFType";
 LABEL_8:
-    SecCFCreateErrorWithFormat(-5, v21, 0, a2, 0, v22, a7, a8, v30);
+    SecCFCreateErrorWithFormat(-5, v24, 0, a2, 0, v25, a7, a8);
     return 0;
   }
 
@@ -8665,7 +8746,7 @@ LABEL_8:
       do
       {
         ValueAtIndex = CFArrayGetValueAtIndex(a1, v15 - 2);
-        v16 = der_encode_plist_repair(ValueAtIndex, a2, a3, a4, v16);
+        v16 = der_encode_plist_repair(ValueAtIndex, a2, a3, a4, v16, v18, v19, v20);
         --v15;
       }
 
@@ -8680,15 +8761,15 @@ LABEL_8:
     CFBooleanGetValue(a1);
     ccder_encode_body();
 LABEL_13:
-    v18 = ccder_encode_tl();
+    v21 = ccder_encode_tl();
 LABEL_14:
-    v23 = v18;
-    if (!v18)
+    v26 = v21;
+    if (!v21)
     {
-      SecCFCreateErrorWithFormat(-7, sSecDERErrorDomain[0], 0, a2, 0, @"ccder failed to encode", v19, v20, v30);
+      SecCFCreateErrorWithFormat(-7, sSecDERErrorDomain[0], 0, a2, 0, @"ccder failed to encode", v22, v23);
     }
 
-    return v23;
+    return v26;
   }
 
   if (CFDataGetTypeID() == v13)
@@ -8704,26 +8785,26 @@ LABEL_14:
     AbsoluteTime = CFDateGetAbsoluteTime(a1);
     sub_100034290(a2, a3, a4, a5, AbsoluteTime);
 LABEL_6:
-    v18 = ccder_encode_constructed_tl();
+    v21 = ccder_encode_constructed_tl();
     goto LABEL_14;
   }
 
   if (CFDictionaryGetTypeID() == v13)
   {
 
-    return sub_100032EEC(a1, a2, a3);
+    return sub_100032EEC(a1, a2, a3, a4, a5);
   }
 
   if (CFSetGetTypeID() == v13)
   {
 
-    return sub_10003CC4C(a1, a2, a3);
+    return sub_10003CC4C(a1, a2, a3, a4, a5);
   }
 
   if (CFStringGetTypeID() == v13)
   {
 
-    return sub_10003BB78(a1, a2, a4, a5, v26, v27, v28, v29);
+    return sub_10003BB78(a1, a2, a4, a5, v29, v30, v31, v32);
   }
 
   if (CFNumberGetTypeID() == v13)
@@ -8734,8 +8815,8 @@ LABEL_6:
 
   if (CFNullGetTypeID() != v13)
   {
-    v21 = sSecDERErrorDomain[0];
-    v22 = @"Unsupported CFType";
+    v24 = sSecDERErrorDomain[0];
+    v25 = @"Unsupported CFType";
     goto LABEL_8;
   }
 
@@ -8757,7 +8838,7 @@ __CFData *CFPropertyListCreateDERData(uint64_t a1, const __CFString *a2, CFTypeR
   return Mutable;
 }
 
-CFTypeRef CFPropertyListCreateWithDERData(uint64_t a1, CFDataRef theData, uint64_t a3, void *a4, CFTypeRef *a5)
+CFTypeRef CFPropertyListCreateWithDERData(const __CFAllocator *a1, CFDataRef theData, uint64_t a3, void *a4, CFErrorRef *a5)
 {
   cf = 0;
   BytePtr = CFDataGetBytePtr(theData);
@@ -8774,7 +8855,7 @@ CFTypeRef CFPropertyListCreateWithDERData(uint64_t a1, CFDataRef theData, uint64
 
   else
   {
-    SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain[0], 0, a5, 0, @"trailing garbage after plist item", v16, v17, v20);
+    SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain[0], 0, a5, 0, @"trailing garbage after plist item", v16, v17);
     v18 = cf;
     if (cf)
     {
@@ -8837,7 +8918,7 @@ void sec_action_set_handler(NSObject *a1, const void *a2)
   dispatch_activate(a1);
 }
 
-__CFData *sub_10003B8C0(const __CFAllocator *a1, CFIndex *a2)
+__CFData *sub_10003B8C0(const __CFAllocator *a1, CFIndex *a2, uint64_t a3, uint64_t a4)
 {
   Mutable = CFDataCreateMutable(a1, *a2);
   CFDataSetLength(Mutable, *a2);
@@ -8848,25 +8929,25 @@ __CFData *sub_10003B8C0(const __CFAllocator *a1, CFIndex *a2)
 
 __CFData *CFDataCopySHA1Digest(const __CFData *a1)
 {
-  CFDataGetLength(a1);
-  v2 = CFGetAllocator(a1);
-  CFDataGetBytePtr(a1);
-  v3 = ccsha1_di();
+  Length = CFDataGetLength(a1);
+  v3 = CFGetAllocator(a1);
+  BytePtr = CFDataGetBytePtr(a1);
+  v5 = ccsha1_di();
 
-  return sub_10003B8C0(v2, v3);
+  return sub_10003B8C0(v3, v5, Length, BytePtr);
 }
 
 __CFData *CFDataCopySHA256Digest(const __CFData *a1)
 {
-  CFDataGetLength(a1);
-  v2 = CFGetAllocator(a1);
-  CFDataGetBytePtr(a1);
-  v3 = ccsha256_di();
+  Length = CFDataGetLength(a1);
+  v3 = CFGetAllocator(a1);
+  BytePtr = CFDataGetBytePtr(a1);
+  v5 = ccsha256_di();
 
-  return sub_10003B8C0(v2, v3);
+  return sub_10003B8C0(v3, v5, Length, BytePtr);
 }
 
-const UInt8 *der_decode_string(const __CFAllocator *a1, CFStringRef *a2, CFTypeRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+const UInt8 *der_decode_string(const __CFAllocator *a1, CFStringRef *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a4)
   {
@@ -8900,7 +8981,7 @@ const UInt8 *der_decode_string(const __CFAllocator *a1, CFStringRef *a2, CFTypeR
     v16 = -6;
   }
 
-  SecCFCreateErrorWithFormat(v16, v14, 0, a3, 0, v15, a7, a8, v19);
+  SecCFCreateErrorWithFormat(v16, v14, 0, a3, 0, v15, a7, a8);
   return 0;
 }
 
@@ -8915,15 +8996,15 @@ uint64_t sub_10003BAF8(const __CFString *a1)
   return ccder_sizeof();
 }
 
-uint64_t sub_10003BB78(const __CFString *a1, CFTypeRef *a2, UInt8 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10003BB78(const __CFString *a1, CFErrorRef *a2, UInt8 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a4)
   {
     Length = CFStringGetLength(a1);
-    v18 = 0;
-    v19.location = 0;
-    v19.length = Length;
-    if (CFStringGetBytes(a1, v19, 0x8000100u, 0, 0, a3, a4 - a3, &v18) == Length)
+    usedBufLen = 0;
+    v18.location = 0;
+    v18.length = Length;
+    if (CFStringGetBytes(a1, v18, 0x8000100u, 0, 0, a3, a4 - a3, &usedBufLen) == Length)
     {
       ccder_encode_body();
       result = ccder_encode_tl();
@@ -8952,11 +9033,11 @@ uint64_t sub_10003BB78(const __CFString *a1, CFTypeRef *a2, UInt8 *a3, uint64_t 
     v16 = -6;
   }
 
-  SecCFCreateErrorWithFormat(v16, v14, 0, a2, 0, v15, a7, a8, usedBufLen);
+  SecCFCreateErrorWithFormat(v16, v14, 0, a2, 0, v15, a7, a8);
   return 0;
 }
 
-uint64_t der_decode_BOOLean(uint64_t a1, uint64_t a2, CFTypeRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unsigned __int8 *der_decode_BOOLean(uint64_t a1, CFBooleanRef *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a4)
   {
@@ -8973,11 +9054,11 @@ uint64_t der_decode_BOOLean(uint64_t a1, uint64_t a2, CFTypeRef *a3, uint64_t a4
     v11 = -6;
   }
 
-  SecCFCreateErrorWithFormat(v11, v9, 0, a3, 0, v10, a7, a8, v13);
+  SecCFCreateErrorWithFormat(v11, v9, 0, a3, 0, v10, a7, a8);
   return 0;
 }
 
-const UInt8 *der_decode_data(const __CFAllocator *a1, CFDataRef *a2, CFTypeRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+const UInt8 *der_decode_data(const __CFAllocator *a1, CFDataRef *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a4)
   {
@@ -9011,7 +9092,7 @@ const UInt8 *der_decode_data(const __CFAllocator *a1, CFDataRef *a2, CFTypeRef *
     v16 = -6;
   }
 
-  SecCFCreateErrorWithFormat(v16, v14, 0, a3, 0, v15, a7, a8, v19);
+  SecCFCreateErrorWithFormat(v16, v14, 0, a3, 0, v15, a7, a8);
   return 0;
 }
 
@@ -9122,9 +9203,9 @@ void sub_10003C404(uint64_t a1, void *a2)
   [*(a1 + 32) insertObject:v4 atIndex:0];
 }
 
-void sub_10003C5A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003C5A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9165,7 +9246,7 @@ void sub_10003C75C(uint64_t a1, void *a2, void *a3)
   [v9 addObject:v10];
 }
 
-uint64_t der_decode_null(uint64_t a1, CFNullRef *a2, CFTypeRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t der_decode_null(uint64_t a1, CFNullRef *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a4)
   {
@@ -9188,16 +9269,16 @@ uint64_t der_decode_null(uint64_t a1, CFNullRef *a2, CFTypeRef *a3, uint64_t a4,
     v13 = -6;
   }
 
-  SecCFCreateErrorWithFormat(v13, v11, 0, a3, 0, v12, a7, a8, v14);
+  SecCFCreateErrorWithFormat(v13, v11, 0, a3, 0, v12, a7, a8);
   return 0;
 }
 
-uint64_t sub_10003CB30(CFTypeRef *a1)
+uint64_t sub_10003CB30(CFErrorRef *a1)
 {
   v4 = ccder_encode_tl();
   if (!v4)
   {
-    SecCFCreateErrorWithFormat(-7, sSecDERErrorDomain[0], 0, a1, 0, @"ccder failed to encode", v2, v3, v6);
+    SecCFCreateErrorWithFormat(-7, sSecDERErrorDomain[0], 0, a1, 0, @"ccder failed to encode", v2, v3);
   }
 
   return v4;
@@ -9219,11 +9300,11 @@ uint64_t sub_10003CB94(const __CFSet *a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10003CBFC(uint64_t result, uint64_t a2)
+uint64_t sub_10003CBFC(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (*a2 == 1)
   {
-    result = der_sizeof_plist(result, *(a2 + 16));
+    result = der_sizeof_plist(result, *(a2 + 16), a3, a4, a5, a6, a7, a8);
     if (result)
     {
       *(a2 + 8) += result;
@@ -9238,16 +9319,16 @@ uint64_t sub_10003CBFC(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_10003CC4C(const __CFSet *a1, CFTypeRef *a2, char a3)
+uint64_t sub_10003CC4C(const __CFSet *a1, CFErrorRef *a2, char a3, uint64_t a4, uint64_t a5)
 {
   Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
-  v13[0] = 0xAAAAAAAAAAAAAA01;
-  v13[1] = a2;
-  BYTE1(v13[0]) = a3;
-  v13[2] = Mutable;
-  v13[3] = 0;
-  CFSetApplyFunction(a1, sub_10003CE94, v13);
-  if ((v13[0] & 1) == 0)
+  v15[0] = 0xAAAAAAAAAAAAAA01;
+  v15[1] = a2;
+  BYTE1(v15[0]) = a3;
+  v15[2] = Mutable;
+  v15[3] = 0;
+  CFSetApplyFunction(a1, sub_10003CE94, v15);
+  if ((v15[0] & 1) == 0)
   {
     if (Mutable)
     {
@@ -9257,23 +9338,23 @@ uint64_t sub_10003CC4C(const __CFSet *a1, CFTypeRef *a2, char a3)
     return 0;
   }
 
-  v14.length = CFArrayGetCount(Mutable);
-  v14.location = 0;
-  CFArraySortValues(Mutable, v14, sub_10003CDD8, 0);
+  v16.length = CFArrayGetCount(Mutable);
+  v16.location = 0;
+  CFArraySortValues(Mutable, v16, sub_10003CDD8, 0);
   Count = CFArrayGetCount(Mutable);
   if (Count >= 1)
   {
-    v8 = Count + 1;
+    v10 = Count + 1;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v8 - 2);
+      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v10 - 2);
       CFDataGetLength(ValueAtIndex);
       CFDataGetBytePtr(ValueAtIndex);
       ccder_encode_body();
-      --v8;
+      --v10;
     }
 
-    while (v8 > 1);
+    while (v10 > 1);
   }
 
   if (Mutable)
@@ -9284,7 +9365,7 @@ uint64_t sub_10003CC4C(const __CFSet *a1, CFTypeRef *a2, char a3)
   result = ccder_encode_constructed_tl();
   if (!result)
   {
-    SecCFCreateErrorWithFormat(-7, sSecDERErrorDomain[0], 0, a2, 0, @"ccder failed to encode", v11, v12, v13[0]);
+    SecCFCreateErrorWithFormat(-7, sSecDERErrorDomain[0], 0, a2, 0, @"ccder failed to encode", v13, v14);
     return 0;
   }
 
@@ -9372,12 +9453,12 @@ void sub_10003CE94(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, 
     Mutable = CFDataCreateMutable(*(a2 + 24), v10);
     CFDataSetLength(Mutable, v11);
     MutableBytePtr = CFDataGetMutableBytePtr(Mutable);
-    v14 = der_encode_plist_repair(a1, *(a2 + 8), *(a2 + 1), MutableBytePtr, &MutableBytePtr[v11]);
-    if (v14)
+    v17 = der_encode_plist_repair(a1, *(a2 + 8), *(a2 + 1), MutableBytePtr, &MutableBytePtr[v11], v14, v15, v16);
+    if (v17)
     {
-      v16.length = v14 - MutableBytePtr;
-      v16.location = 0;
-      CFDataDeleteBytes(Mutable, v16);
+      v19.length = v17 - MutableBytePtr;
+      v19.location = 0;
+      CFDataDeleteBytes(Mutable, v19);
       CFArrayAppendValue(*(a2 + 16), Mutable);
       if (!Mutable)
       {
@@ -9478,7 +9559,7 @@ void sub_10003D150(uint64_t a1)
   }
 }
 
-BOOL SecAKSDoWithKeybagLockAssertion(int a1, CFTypeRef *a2, uint64_t a3)
+BOOL SecAKSDoWithKeybagLockAssertion(int a1, CFErrorRef *a2, uint64_t a3)
 {
   v18 = 0;
   v19 = &v18;
@@ -9538,106 +9619,4 @@ uint64_t SecAKSSanitizedKeyclass(uint64_t a1)
   }
 
   return v2;
-}
-
-uint64_t SecSupportsEnhancedApfs()
-{
-  if (qword_1000739D0 != -1)
-  {
-    dispatch_once(&qword_1000739D0, &stru_1000642B8);
-  }
-
-  if (byte_1000739C8)
-  {
-    return 1;
-  }
-
-  if (qword_1000739E0 != -1)
-  {
-    dispatch_once(&qword_1000739E0, &stru_1000642F8);
-  }
-
-  return byte_1000739D8;
-}
-
-void sub_10003D4BC(id a1)
-{
-  __len = 1023;
-  bzero(__big, 0x400uLL);
-  if (!sysctlbyname("kern.bootargs", __big, &__len, 0, 0) && strnstr(__big, "-apfs_shared_datavolume", __len))
-  {
-    byte_1000739D8 = 1;
-  }
-
-  v1 = secLogObjForScope("eapfs");
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 67109120;
-    v4 = byte_1000739D8;
-    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "eapfs boot-arg set to %{BOOL}d", buf, 8u);
-  }
-}
-
-void sub_10003D5BC(id a1)
-{
-  v1 = IORegistryEntryFromPath(kIOMainPortDefault, "IODeviceTree:/filesystems");
-  if (v1)
-  {
-    v2 = v1;
-    CFProperty = IORegistryEntryCreateCFProperty(v1, @"e-apfs", kCFAllocatorDefault, 0);
-    if (CFProperty)
-    {
-      CFRelease(CFProperty);
-      byte_1000739C8 = 1;
-    }
-
-    IOObjectRelease(v2);
-  }
-
-  v4 = secLogObjForScope("eapfs");
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    v5[0] = 67109120;
-    v5[1] = byte_1000739C8;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "eapfs IODT set to %{BOOL}d", v5, 8u);
-  }
-}
-
-uint64_t SecIsEduMode()
-{
-  if (qword_1000739B0 != -1)
-  {
-    dispatch_once(&qword_1000739B0, &stru_100064238);
-  }
-
-  return byte_1000739AC;
-}
-
-void sub_10003D704(id a1)
-{
-  v1 = MKBUserTypeDeviceMode();
-  if (v1)
-  {
-    v2 = v1;
-    value = 0;
-    if (CFDictionaryGetValueIfPresent(v1, kMKBDeviceModeKey[0], &value))
-    {
-      if (CFEqual(value, kMKBDeviceModeSharedIPad))
-      {
-        byte_1000739AC = 1;
-      }
-    }
-
-    CFRelease(v2);
-  }
-
-  else
-  {
-    v3 = secLogObjForScope("edumode");
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-    {
-      *v4 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Cannot determine because deviceMode is NULL", v4, 2u);
-    }
-  }
 }

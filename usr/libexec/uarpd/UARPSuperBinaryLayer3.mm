@@ -140,29 +140,13 @@ LABEL_9:
   listCopy = list;
   lCopy = l;
   v12 = [(UARPSuperBinaryLayer3 *)self init];
-  if (!v12)
-  {
-    goto LABEL_3;
-  }
-
-  v13 = [listCopy copy];
-  propertyList = v12->_propertyList;
-  v12->_propertyList = v13;
-
-  v15 = [lCopy copy];
-  payloadsURL = v12->_payloadsURL;
-  v12->_payloadsURL = v15;
-
-  v12->_noMissingPayloads = payloads;
-  v12->_useFilesystem = filesystem;
-  if (![(UARPSuperBinaryLayer3 *)v12 expandSuperBinaryPropertyList])
+  if (v12 && (v13 = [listCopy copy], propertyList = v12->_propertyList, v12->_propertyList = v13, propertyList, v15 = objc_msgSend(lCopy, "copy"), payloadsURL = v12->_payloadsURL, v12->_payloadsURL = v15, payloadsURL, v12->_noMissingPayloads = payloads, v12->_useFilesystem = filesystem, !-[UARPSuperBinaryLayer3 expandSuperBinaryPropertyList](v12, "expandSuperBinaryPropertyList")))
   {
     v17 = 0;
   }
 
   else
   {
-LABEL_3:
     v17 = v12;
   }
 
@@ -982,22 +966,13 @@ LABEL_11:
                   manifestLocation = [v14 manifestLocation];
                   componentTag = [manifestLocation componentTag];
 
-                  if (!componentTag)
-                  {
-                    goto LABEL_26;
-                  }
-
-                  manifestLocation2 = [v14 manifestLocation];
-                  componentTag2 = [manifestLocation2 componentTag];
-                  v22 = [(UARPSuperBinaryLayer3 *)self payloadWith4cc:componentTag2];
-
-                  if (v22)
+                  if (componentTag && ([v14 manifestLocation], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "componentTag"), v21 = objc_claimAutoreleasedReturnValue(), -[UARPSuperBinaryLayer3 payloadWith4cc:](self, "payloadWith4cc:", v21), v22 = objc_claimAutoreleasedReturnValue(), v21, v20, v22))
                   {
                     v23 = [v17 copy];
                     [v22 setManifest:v23];
 
-                    manifestLocation3 = [v14 manifestLocation];
-                    [v22 setManifestAsTLV:{objc_msgSend(manifestLocation3, "metaData")}];
+                    manifestLocation2 = [v14 manifestLocation];
+                    [v22 setManifestAsTLV:{objc_msgSend(manifestLocation2, "metaData")}];
 
                     if ([v22 manifestAsTLV])
                     {
@@ -1032,7 +1007,6 @@ LABEL_11:
 
                   else
                   {
-LABEL_26:
                     v31 = [v17 copy];
                     manifest = self->_manifest;
                     self->_manifest = v31;
@@ -1699,29 +1673,28 @@ LABEL_13:
   if (v3)
   {
     uarpSuperBinaryHeaderEndianSwap([v3 bytes], &self->_superbinaryHeader.superBinaryFormatVersion);
-    p_superBinaryHeaderLength = &self->_superbinaryHeader.superBinaryHeaderLength;
     if (self->_superbinaryHeader.superBinaryHeaderLength == 44)
     {
       if (self->_assetLength >= self->_superbinaryHeader.superBinaryLength)
       {
         self->_formatVersion = self->_superbinaryHeader.superBinaryFormatVersion;
-        v8 = [[UARPComponentVersion alloc] initWithMajorVersion:self->_superbinaryHeader.superBinaryVersion.major minorVersion:self->_superbinaryHeader.superBinaryVersion.minor releaseVersion:self->_superbinaryHeader.superBinaryVersion.release buildVersion:self->_superbinaryHeader.superBinaryVersion.build];
+        v7 = [[UARPComponentVersion alloc] initWithMajorVersion:self->_superbinaryHeader.superBinaryVersion.major minorVersion:self->_superbinaryHeader.superBinaryVersion.minor releaseVersion:self->_superbinaryHeader.superBinaryVersion.release buildVersion:self->_superbinaryHeader.superBinaryVersion.build];
         assetVersion = self->_assetVersion;
-        self->_assetVersion = v8;
+        self->_assetVersion = v7;
 
-        v6 = 1;
+        v5 = 1;
         goto LABEL_11;
       }
 
       if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
       {
-        sub_100083694(&self->_assetLength, p_superBinaryHeaderLength);
+        sub_100083694();
       }
     }
 
     else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_100083608(p_superBinaryHeaderLength);
+      sub_100083608();
     }
   }
 
@@ -1730,10 +1703,10 @@ LABEL_13:
     sub_10008372C();
   }
 
-  v6 = 0;
+  v5 = 0;
 LABEL_11:
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)expandSuperBinaryHeadersAndMetaData
@@ -1870,7 +1843,7 @@ LABEL_11:
   {
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_1000838F8(header);
+      sub_1000838F8();
     }
 
     v11 = 0;

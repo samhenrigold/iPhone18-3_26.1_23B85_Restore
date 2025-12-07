@@ -118,7 +118,7 @@
   if (v2)
   {
     v6 = *(self + OBJC_IVAR____TtC4Maps28PlaceSummaryOutlineCellModel_searchResult);
-    sub_100014C84(0, &qword_10190E160);
+    sub_100014C84(0, &qword_10190E160, off_1015F65F8);
     v3 = v2;
     v4 = _bridgeAnythingToObjectiveC<A>(_:)();
   }

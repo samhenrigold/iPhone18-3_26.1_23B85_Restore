@@ -120,7 +120,7 @@
   swift_unknownObjectRelease();
   [(CARSettingsTableViewCell *)selfCopy setNeedsUpdateConfiguration];
 
-  sub_100038D70(&v6);
+  sub_100038D70(v6);
 }
 
 @end

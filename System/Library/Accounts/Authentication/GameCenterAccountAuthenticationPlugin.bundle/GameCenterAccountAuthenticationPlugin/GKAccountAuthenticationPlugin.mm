@@ -26,10 +26,10 @@
   v17 = v7;
   v18 = v6;
   v19 = v9;
-  sub_AE28();
-  sub_1DD8();
-  v20 = sub_AE4C();
-  sub_A5DC(v20);
+  v20 = sub_AE28();
+  sub_1DD8(v20, v21);
+  v22 = sub_AE4C();
+  sub_A5DC(v22, v23);
 
   sub_AF70();
 }
@@ -52,10 +52,10 @@
   v17 = v7;
   v18 = v6;
   v19 = v9;
-  sub_AE28();
-  sub_2B68();
-  v20 = sub_AE4C();
-  sub_A5DC(v20);
+  v20 = sub_AE28();
+  sub_2B68(v20, v21);
+  v22 = sub_AE4C();
+  sub_A5DC(v22, v23);
 
   sub_AF70();
 }
@@ -105,7 +105,7 @@
   v18 = v13;
   sub_65BC(v18, v9, v19, v15);
   v20 = sub_AE4C();
-  sub_A5DC(v20);
+  sub_A5DC(v20, v21);
 
   sub_AF70();
 }

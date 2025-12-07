@@ -4,6 +4,7 @@
 - (id)descriptionExtras;
 - (id)formattedValue;
 - (int)int32Value;
+- (void)setInt32Value:(int)value;
 @end
 
 @implementation CAFInt32Characteristic
@@ -31,6 +32,36 @@
 
   intValue = [v4 intValue];
   return intValue;
+}
+
+- (void)setInt32Value:(int)value
+{
+  v3 = *&value;
+  range = [(CAFInt32Characteristic *)self range];
+  v6 = [range valueIsInRange:v3];
+
+  if (v6)
+  {
+    v7 = MEMORY[0x277CCABB0];
+    range2 = [(CAFInt32Characteristic *)self range];
+    v8 = [v7 numberWithInt:{objc_msgSend(range2, "valueRoundedToNearestStepValue:", v3)}];
+    [(CAFCharacteristic *)self setValue:v8];
+  }
+
+  else
+  {
+    v9 = MEMORY[0x277CCA9B8];
+    v10 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+    range3 = [(CAFInt32Characteristic *)self range];
+    v12 = [v9 CAF_outOfRangeErrorForValue:v10 range:range3];
+    [(CAFCharacteristic *)self setError:v12];
+
+    v14 = CAFGeneralLogging(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      [(CAFInt32Characteristic *)self setInt32Value:v3, v14];
+    }
+  }
 }
 
 - (CAFInt32Range)range
@@ -80,13 +111,12 @@
 
 - (void)setInt32Value:(os_log_t)log .cold.1(uint64_t a1, int a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 1026;
-  v7 = a2;
-  _os_log_error_impl(&dword_231618000, log, OS_LOG_TYPE_ERROR, "%{public}@ int32Value out of range %{public}d", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 1026;
+  v6 = a2;
+  _os_log_error_impl(&dword_231618000, log, OS_LOG_TYPE_ERROR, "%{public}@ int32Value out of range %{public}d", &v3, 0x12u);
 }
 
 @end

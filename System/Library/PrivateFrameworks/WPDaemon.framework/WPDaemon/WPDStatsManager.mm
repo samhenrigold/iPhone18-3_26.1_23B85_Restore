@@ -118,11 +118,11 @@ void __32__WPDStatsManager_reportPLStats__block_invoke(uint64_t a1)
 
 - (WPDStatsManager)initWithServer:(id)server
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   serverCopy = server;
-  v30.receiver = self;
-  v30.super_class = WPDStatsManager;
-  v5 = [(WPDStatsManager *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = WPDStatsManager;
+  v5 = [(WPDStatsManager *)&v29 init];
   v6 = v5;
   if (v5)
   {
@@ -138,12 +138,12 @@ void __32__WPDStatsManager_reportPLStats__block_invoke(uint64_t a1)
     aggressiveScanArray = v6->_aggressiveScanArray;
     v6->_aggressiveScanArray = v10;
 
-    v31[0] = &unk_288201A60;
-    v31[1] = &unk_288201A78;
+    v30[0] = &unk_288201A60;
+    v30[1] = &unk_288201A78;
     v12 = v6->_aggressiveScanArray;
-    v32[0] = v6->_regularScanArray;
-    v32[1] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
+    v31[0] = v6->_regularScanArray;
+    v31[1] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
     scanArray = v6->_scanArray;
     v6->_scanArray = v13;
 
@@ -192,7 +192,6 @@ void __32__WPDStatsManager_reportPLStats__block_invoke(uint64_t a1)
     v6->_PLLogAvailable = v27;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -219,34 +218,34 @@ void __32__WPDStatsManager_reportPLStats__block_invoke(uint64_t a1)
 
 - (id)description
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   generateStateDumpStrings = [(WPDStatsManager *)self generateStateDumpStrings];
   v5 = [generateStateDumpStrings count] - 1;
   v6 = [MEMORY[0x277CCAB68] stringWithFormat:@"%@\n", self->_name];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = [generateStateDumpStrings subarrayWithRange:{1, v5}];
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [v6 appendString:*(*(&v15 + 1) + 8 * i)];
+        [v6 appendString:*(*(&v14 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -255,7 +254,6 @@ void __32__WPDStatsManager_reportPLStats__block_invoke(uint64_t a1)
   v12 = [MEMORY[0x277CCACA8] stringWithString:v6];
 
   objc_autoreleasePoolPop(v3);
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -297,28 +295,28 @@ void __32__WPDStatsManager_reportPLStats__block_invoke(uint64_t a1)
 
 - (void)generateStateDump
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   generateStateDumpStrings = [(WPDStatsManager *)self generateStateDumpStrings];
-  v3 = [generateStateDumpStrings countByEnumeratingWithState:&v10 objects:v16 count:16];
+  v3 = [generateStateDumpStrings countByEnumeratingWithState:&v9 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(generateStateDumpStrings);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         if (WPLogInitOnce != -1)
         {
           [WPDStatsManager generateStateDump];
@@ -328,7 +326,7 @@ void __32__WPDStatsManager_reportPLStats__block_invoke(uint64_t a1)
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v15 = v7;
+          v14 = v7;
           _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: %@", buf, 0xCu);
         }
 
@@ -336,13 +334,11 @@ void __32__WPDStatsManager_reportPLStats__block_invoke(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [generateStateDumpStrings countByEnumeratingWithState:&v10 objects:v16 count:16];
+      v4 = [generateStateDumpStrings countByEnumeratingWithState:&v9 objects:v15 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startActivity:(unint64_t)activity forType:(unsigned __int8)type scanRate:(int64_t)rate
@@ -660,42 +656,38 @@ void __46__WPDStatsManager_resetActivityAsync_forType___block_invoke(uint64_t a1
 
 - (void)startActivity:(unsigned __int8)a1 forType:(NSObject *)a2 scanRate:.cold.2(unsigned __int8 a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 134218240;
-  v4 = a1;
-  v5 = 2048;
-  v6 = 28;
-  _os_log_error_impl(&dword_272965000, a2, OS_LOG_TYPE_ERROR, "WPClientType %ld beyond bounds WPClientMax = %ld", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 134218240;
+  v3 = a1;
+  v4 = 2048;
+  v5 = 28;
+  _os_log_error_impl(&dword_272965000, a2, OS_LOG_TYPE_ERROR, "WPClientType %ld beyond bounds WPClientMax = %ld", &v2, 0x16u);
 }
 
 void __32__WPDStatsManager_reportPLStats__block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138478083;
-  v4 = @"WirelessProximity";
-  v5 = 2113;
-  v6 = a1;
-  _os_log_debug_impl(&dword_272965000, a2, OS_LOG_TYPE_DEBUG, "WPStatsManager did write to PL log %{private}@ info:%{private}@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138478083;
+  v3 = @"WirelessProximity";
+  v4 = 2113;
+  v5 = a1;
+  _os_log_debug_impl(&dword_272965000, a2, OS_LOG_TYPE_DEBUG, "WPStatsManager did write to PL log %{private}@ info:%{private}@", &v2, 0x16u);
 }
 
 void __32__WPDStatsManager_reportPLStats__block_invoke_cold_4(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138477827;
-  v3 = @"WirelessProximity";
-  _os_log_debug_impl(&dword_272965000, log, OS_LOG_TYPE_DEBUG, "WPStatsManager denied write to PL log (%{private}@)", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138477827;
+  v2 = @"WirelessProximity";
+  _os_log_debug_impl(&dword_272965000, log, OS_LOG_TYPE_DEBUG, "WPStatsManager denied write to PL log (%{private}@)", &v1, 0xCu);
 }
 
 void __32__WPDStatsManager_reportPLStats__block_invoke_cold_6(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138477827;
-  v3 = @"WirelessProximity";
-  _os_log_debug_impl(&dword_272965000, log, OS_LOG_TYPE_DEBUG, "WPStatsManager skipped write to PL log (%{private}@)", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138477827;
+  v2 = @"WirelessProximity";
+  _os_log_debug_impl(&dword_272965000, log, OS_LOG_TYPE_DEBUG, "WPStatsManager skipped write to PL log (%{private}@)", &v1, 0xCu);
 }
 
 @end

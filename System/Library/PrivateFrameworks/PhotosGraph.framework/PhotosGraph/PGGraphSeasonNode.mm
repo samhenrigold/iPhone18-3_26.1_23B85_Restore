@@ -8,6 +8,7 @@
 - (NSArray)localizedSynonyms;
 - (NSString)featureIdentifier;
 - (NSString)localizedName;
+- (PGGraphSeasonNode)initWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties;
 - (PGGraphSeasonNode)initWithName:(id)name;
 - (PGGraphSeasonNodeCollection)collection;
 - (id)propertyDictionary;
@@ -63,7 +64,7 @@
 
 - (id)propertyForKey:(id)key
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([keyCopy isEqualToString:@"name"])
   {
@@ -74,27 +75,24 @@
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
     {
-      v8 = 138412290;
-      v9 = keyCopy;
-      _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Unsupported property '%@' accessed on PGGraphSeasonNode.", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = keyCopy;
+      _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Unsupported property '%@' accessed on PGGraphSeasonNode.", &v7, 0xCu);
     }
 
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)propertyDictionary
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   name = self->_name;
-  v6 = @"name";
-  v7[0] = name;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = @"name";
+  v6[0] = name;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -116,6 +114,14 @@
   }
 
   return v8;
+}
+
+- (PGGraphSeasonNode)initWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties
+{
+  v6 = [properties objectForKeyedSubscript:{@"name", domain}];
+  v7 = [(PGGraphSeasonNode *)self initWithName:v6];
+
+  return v7;
 }
 
 - (PGGraphSeasonNode)initWithName:(id)name
@@ -159,16 +165,15 @@ uint64_t __40__PGGraphSeasonNode_numberOfMomentNodes__block_invoke(uint64_t a1, 
 
 + (id)filterForSeasonName:(id)name
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D22C78];
   nameCopy = name;
   v5 = [v3 alloc];
-  v10 = @"name";
-  v11[0] = nameCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"name";
+  v10[0] = nameCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [v5 initWithLabel:@"Season" domain:400 properties:v6];
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -183,7 +188,7 @@ uint64_t __40__PGGraphSeasonNode_numberOfMomentNodes__block_invoke(uint64_t a1, 
 
 + (id)_localizationKeyForSeasonNode:(id)node
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   name = [nodeCopy name];
   if ([name isEqualToString:*MEMORY[0x277D275F0]])
@@ -213,15 +218,14 @@ uint64_t __40__PGGraphSeasonNode_numberOfMomentNodes__block_invoke(uint64_t a1, 
 
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = nodeCopy;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Trying to localize season node with unsupported label: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = nodeCopy;
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Trying to localize season node with unsupported label: %@", &v9, 0xCu);
     }
 
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

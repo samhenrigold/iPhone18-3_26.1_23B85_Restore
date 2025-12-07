@@ -151,29 +151,29 @@ void __56__ATXRecentActionEngagementCache_clearRecentEngagements__block_invoke(u
 {
   v2 = [MEMORY[0x1E696AC08] defaultManager];
   v3 = *(*(a1 + 32) + 8);
-  v11 = 0;
-  [v2 removeItemAtPath:v3 error:&v11];
-  v4 = v11;
+  v13 = 0;
+  [v2 removeItemAtPath:v3 error:&v13];
+  v4 = v13;
 
   if (v4)
   {
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __56__ATXRecentActionEngagementCache_clearRecentEngagements__block_invoke_cold_1();
     }
   }
 
-  v6 = [MEMORY[0x1E696AC08] defaultManager];
-  v7 = *(*(a1 + 32) + 16);
-  v10 = 0;
-  [v6 removeItemAtPath:v7 error:&v10];
-  v8 = v10;
+  v7 = [MEMORY[0x1E696AC08] defaultManager];
+  v8 = *(*(a1 + 32) + 16);
+  v12 = 0;
+  [v7 removeItemAtPath:v8 error:&v12];
+  v9 = v12;
 
-  if (v8)
+  if (v9)
   {
-    v9 = __atxlog_handle_default();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_default(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __56__ATXRecentActionEngagementCache_clearRecentEngagements__block_invoke_cold_2();
     }
@@ -192,9 +192,9 @@ void __56__ATXRecentActionEngagementCache_clearRecentEngagements__block_invoke(u
 - (id)_recentActionsNoSyncForCacheAtPath:(id)path
 {
   pathCopy = path;
-  v20 = 0;
-  v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:pathCopy options:0 error:&v20];
-  v5 = v20;
+  v22 = 0;
+  v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:pathCopy options:0 error:&v22];
+  v5 = v22;
   v6 = v5;
   if (v4)
   {
@@ -203,47 +203,48 @@ void __56__ATXRecentActionEngagementCache_clearRecentEngagements__block_invoke(u
     v9 = MEMORY[0x1E695DFD8];
     v10 = objc_opt_class();
     v11 = [v9 setWithObjects:{v10, objc_opt_class(), 0}];
-    v19 = v6;
-    v12 = [v8 unarchivedObjectOfClasses:v11 fromData:v4 error:&v19];
-    v13 = v19;
+    v21 = v6;
+    v12 = [v8 unarchivedObjectOfClasses:v11 fromData:v4 error:&v21];
+    v13 = v21;
 
     objc_autoreleasePoolPop(v7);
     if (v12)
     {
-      v14 = v12;
+      v15 = v12;
     }
 
     else
     {
-      v17 = __atxlog_handle_default();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = __atxlog_handle_default(v14);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [ATXRecentActionEngagementCache _recentActionsNoSyncForCacheAtPath:];
       }
 
-      v14 = objc_opt_new();
+      v15 = objc_opt_new();
     }
 
-    v16 = v14;
+    v18 = v15;
 
     v6 = v13;
   }
 
   else
   {
-    if ([v5 code] != 260)
+    code = [v5 code];
+    if (code != 260)
     {
-      v15 = __atxlog_handle_default();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = __atxlog_handle_default(code);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [ATXRecentActionEngagementCache _recentActionsNoSyncForCacheAtPath:];
       }
     }
 
-    v16 = objc_opt_new();
+    v18 = objc_opt_new();
   }
 
-  return v16;
+  return v18;
 }
 
 - (void)_addEngagedActionSetNoSync:(id)sync toCacheAtPath:(id)path
@@ -277,9 +278,9 @@ void __56__ATXRecentActionEngagementCache_clearRecentEngagements__block_invoke(u
   pathCopy = path;
   v7 = objc_autoreleasePoolPush();
   v8 = objc_autoreleasePoolPush();
-  v12 = 0;
-  v9 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:setCopy requiringSecureCoding:1 error:&v12];
-  v10 = v12;
+  v13 = 0;
+  v9 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:setCopy requiringSecureCoding:1 error:&v13];
+  v10 = v13;
   objc_autoreleasePoolPop(v8);
   if (v9)
   {
@@ -288,8 +289,8 @@ void __56__ATXRecentActionEngagementCache_clearRecentEngagements__block_invoke(u
 
   else
   {
-    v11 = __atxlog_handle_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_default(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXRecentActionEngagementCache _serializeAndWriteNoSyncActionSet:toCacheAtPath:];
     }

@@ -27,9 +27,9 @@
   contentCopy = content;
   adjacentContentCopy = adjacentContent;
   contextCopy = context;
-  v32.receiver = self;
-  v32.super_class = APContext;
-  v20 = [(APContext *)&v32 init];
+  v28.receiver = self;
+  v28.super_class = APContext;
+  v20 = [(APContext *)&v28 init];
   v21 = v20;
   if (v20)
   {
@@ -39,9 +39,9 @@
     objc_storeStrong(&v21->_requestedAdIdentifier, adIdentifier);
     objc_storeStrong(&v21->_current, content);
     objc_storeStrong(&v21->_adjacent, adjacentContent);
-    v28 = objc_msgSend_copy(contextCopy, v22, v23, v24, v25, v26, v27);
+    v24 = objc_msgSend_copy(contextCopy, v22, v23);
     supplementalContext = v21->_supplementalContext;
-    v21->_supplementalContext = v28;
+    v21->_supplementalContext = v24;
   }
 
   return v21;
@@ -50,52 +50,51 @@
 - (APContext)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v78.receiver = self;
-  v78.super_class = APContext;
-  v5 = [(APContext *)&v78 init];
+  v44.receiver = self;
+  v44.super_class = APContext;
+  v5 = [(APContext *)&v44 init];
   if (v5)
   {
     v6 = objc_opt_class();
-    v11 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v7, v6, @"identifier", v8, v9, v10);
+    v8 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v7, v6, @"identifier");
     identifier = v5->_identifier;
-    v5->_identifier = v11;
+    v5->_identifier = v8;
 
-    v18 = objc_msgSend_decodeIntForKey_(coderCopy, v13, @"height", v14, v15, v16, v17);
-    v5->_maxSize.height = v18;
-    v5->_maxSize.width = objc_msgSend_decodeIntForKey_(coderCopy, v19, @"width", v20, v21, v18, v22);
-    v23 = objc_opt_class();
-    v28 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v24, v23, @"requestedAdIdentifier", v25, v26, v27);
+    v5->_maxSize.height = objc_msgSend_decodeIntForKey_(coderCopy, v10, @"height");
+    v5->_maxSize.width = objc_msgSend_decodeIntForKey_(coderCopy, v11, @"width");
+    v12 = objc_opt_class();
+    v14 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v13, v12, @"requestedAdIdentifier");
     requestedAdIdentifier = v5->_requestedAdIdentifier;
-    v5->_requestedAdIdentifier = v28;
+    v5->_requestedAdIdentifier = v14;
 
-    v30 = objc_opt_class();
-    v35 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v31, v30, @"current", v32, v33, v34);
+    v16 = objc_opt_class();
+    v18 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v17, v16, @"current");
     current = v5->_current;
-    v5->_current = v35;
+    v5->_current = v18;
 
-    v37 = MEMORY[0x1E695DFD8];
-    v38 = objc_opt_class();
-    v39 = objc_opt_class();
-    v45 = objc_msgSend_setWithObjects_(v37, v40, v38, v41, v42, v43, v44, v39, 0);
-    v50 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v46, v45, @"adjacent", v47, v48, v49);
+    v20 = MEMORY[0x1E695DFD8];
+    v21 = objc_opt_class();
+    v22 = objc_opt_class();
+    v24 = objc_msgSend_setWithObjects_(v20, v23, v21, v22, 0);
+    v26 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v25, v24, @"adjacent");
     adjacent = v5->_adjacent;
-    v5->_adjacent = v50;
+    v5->_adjacent = v26;
 
-    v52 = MEMORY[0x1E695DFD8];
-    v53 = objc_opt_class();
-    v54 = objc_opt_class();
-    v55 = objc_opt_class();
-    v56 = objc_opt_class();
-    v57 = objc_opt_class();
-    v63 = objc_msgSend_setWithObjects_(v52, v58, v53, v59, v60, v61, v62, v54, v55, v56, v57, 0);
-    v68 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v64, v63, @"supplementalContext", v65, v66, v67);
+    v28 = MEMORY[0x1E695DFD8];
+    v29 = objc_opt_class();
+    v30 = objc_opt_class();
+    v31 = objc_opt_class();
+    v32 = objc_opt_class();
+    v33 = objc_opt_class();
+    v35 = objc_msgSend_setWithObjects_(v28, v34, v29, v30, v31, v32, v33, 0);
+    v37 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v36, v35, @"supplementalContext");
     supplementalContext = v5->_supplementalContext;
-    v5->_supplementalContext = v68;
+    v5->_supplementalContext = v37;
 
-    v70 = objc_opt_class();
-    v75 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v71, v70, @"prefetchTimestamp", v72, v73, v74);
+    v39 = objc_opt_class();
+    v41 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v40, v39, @"prefetchTimestamp");
     prefetchTimestamp = v5->_prefetchTimestamp;
-    v5->_prefetchTimestamp = v75;
+    v5->_prefetchTimestamp = v41;
   }
 
   return v5;
@@ -104,35 +103,35 @@
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v11 = objc_msgSend_identifier(self, v5, v6, v7, v8, v9, v10);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v12, v11, @"identifier", v13, v14, v15);
+  v7 = objc_msgSend_identifier(self, v5, v6);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v8, v7, @"identifier");
 
-  objc_msgSend_maxSize(self, v16, v17, v18, v19, v20, v21);
-  objc_msgSend_encodeInt_forKey_(coderCopy, v23, v22, @"width", v24, v22, v25);
-  objc_msgSend_maxSize(self, v26, v27, v28, v29, v30, v31);
-  objc_msgSend_encodeInt_forKey_(coderCopy, v33, v32, @"height", v34, v35, v32);
-  v42 = objc_msgSend_requestedAdIdentifier(self, v36, v37, v38, v39, v40, v41);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v43, v42, @"requestedAdIdentifier", v44, v45, v46);
+  objc_msgSend_maxSize(self, v9, v10);
+  objc_msgSend_encodeInt_forKey_(coderCopy, v12, v11, @"width");
+  objc_msgSend_maxSize(self, v13, v14);
+  objc_msgSend_encodeInt_forKey_(coderCopy, v16, v15, @"height");
+  v19 = objc_msgSend_requestedAdIdentifier(self, v17, v18);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v20, v19, @"requestedAdIdentifier");
 
-  v53 = objc_msgSend_current(self, v47, v48, v49, v50, v51, v52);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v54, v53, @"current", v55, v56, v57);
+  v23 = objc_msgSend_current(self, v21, v22);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v24, v23, @"current");
 
-  v64 = objc_msgSend_adjacent(self, v58, v59, v60, v61, v62, v63);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v65, v64, @"adjacent", v66, v67, v68);
+  v27 = objc_msgSend_adjacent(self, v25, v26);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v28, v27, @"adjacent");
 
-  v75 = objc_msgSend_supplementalContext(self, v69, v70, v71, v72, v73, v74);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v76, v75, @"supplementalContext", v77, v78, v79);
+  v31 = objc_msgSend_supplementalContext(self, v29, v30);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v32, v31, @"supplementalContext");
 
-  v90 = objc_msgSend_prefetchTimestamp(self, v80, v81, v82, v83, v84, v85);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v86, v90, @"prefetchTimestamp", v87, v88, v89);
+  v36 = objc_msgSend_prefetchTimestamp(self, v33, v34);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v35, v36, @"prefetchTimestamp");
 }
 
 - (NSString)fingerprint
 {
-  v7 = objc_msgSend_identifier(self, a2, v2, v3, v4, v5, v6);
-  v14 = objc_msgSend_UUIDString(v7, v8, v9, v10, v11, v12, v13);
+  v3 = objc_msgSend_identifier(self, a2, v2);
+  v6 = objc_msgSend_UUIDString(v3, v4, v5);
 
-  return v14;
+  return v6;
 }
 
 @end

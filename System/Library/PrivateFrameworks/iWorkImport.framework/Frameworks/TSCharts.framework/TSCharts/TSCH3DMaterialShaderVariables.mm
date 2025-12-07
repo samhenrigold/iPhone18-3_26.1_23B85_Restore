@@ -81,27 +81,27 @@
         if (factor == v26)
         {
           textureColor = self->_textureColor;
-          v32 = objc_msgSend_textureColor(v10, v25, v27, v28, v29);
-          if (textureColor == v32)
+          v31 = objc_msgSend_textureColor(v10, v25, v27, v28, v29);
+          if (textureColor == v31)
           {
             color = self->_color;
-            v38 = objc_msgSend_color(v10, v31, v33, v34, v35);
-            if (color == v38)
+            v37 = objc_msgSend_color(v10, v32, v33, v34);
+            if (color == v37)
             {
               modulation = self->_modulation;
-              v44 = objc_msgSend_modulation(v10, v37, v39, v40, v41);
-              if (modulation == v44)
+              v43 = objc_msgSend_modulation(v10, v36, v38, v39, v40);
+              if (modulation == v43)
               {
                 texcoords = self->_texcoords;
-                v49 = objc_msgSend_texcoords(v10, v43, v45, v46, v47);
-                if (texcoords == v49)
+                v48 = objc_msgSend_texcoords(v10, v42, v44, v45, v46);
+                if (texcoords == v48)
                 {
-                  v54 = v49;
+                  v53 = v48;
                   textureMatrix = self->_textureMatrix;
-                  v56 = objc_msgSend_textureMatrix(v10, v50, v51, v52, v53);
-                  v17 = textureMatrix == v56;
+                  v55 = objc_msgSend_textureMatrix(v10, v49, v50, v51, v52);
+                  v17 = textureMatrix == v55;
 
-                  v49 = v54;
+                  v48 = v53;
                 }
 
                 else

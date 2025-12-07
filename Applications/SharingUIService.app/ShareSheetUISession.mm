@@ -101,28 +101,27 @@
 - (void)performShareActivityProxy:(id)proxy activityIdentifier:(id)identifier
 {
   v7 = sub_1000025C4(&qword_100046C08, &unk_10002E280);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v14 - v9;
+  v9 = &v13 - v8;
   if (identifier)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v11 = type metadata accessor for UUID();
-    (*(*(v11 - 8) + 56))(v10, 0, 1, v11);
+    v10 = type metadata accessor for UUID();
+    (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
   }
 
   else
   {
-    v12 = type metadata accessor for UUID();
-    (*(*(v12 - 8) + 56))(v10, 1, 1, v12);
+    v11 = type metadata accessor for UUID();
+    (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
   }
 
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_10001DC0C(proxy, v10);
+  sub_10001DC0C(proxy, v9);
   swift_unknownObjectRelease();
 
-  sub_100009C18(v10, &qword_100046C08, &unk_10002E280);
+  sub_100009C18(v9, &qword_100046C08, &unk_10002E280);
 }
 
 - (void)handleActionsEdit
@@ -197,15 +196,14 @@
 {
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
-  sub_10002040C(v12, category);
+  sub_10002040C(v11, category);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)userDefaultsViewController:(id)controller didFavoriteActivity:(BOOL)activity withIdentifier:(id)identifier activityCategory:(int64_t)category
@@ -213,15 +211,14 @@
   activityCopy = activity;
   v10 = type metadata accessor for UUID();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   __chkstk_darwin(v10);
-  v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
-  sub_1000206FC(activityCopy, v14, category);
+  sub_1000206FC(activityCopy, v13, category);
 
-  (*(v11 + 8))(v14, v10);
+  (*(v11 + 8))(v13, v10);
 }
 
 - (void)userDefaultsViewController:(id)controller didUpdateFavoritesProxies:(id)proxies activityCategory:(int64_t)category
@@ -238,15 +235,14 @@
   disabledCopy = disabled;
   v10 = type metadata accessor for UUID();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   __chkstk_darwin(v10);
-  v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
-  sub_100020C34(v14, category, disabledCopy);
+  sub_100020C34(v13, category, disabledCopy);
 
-  (*(v11 + 8))(v14, v10);
+  (*(v11 + 8))(v13, v10);
 }
 
 - (void)userDefaultsViewControllerDidDisappear:(id)disappear

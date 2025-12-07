@@ -679,10 +679,10 @@ LABEL_125:
     [NSThread detachNewThreadSelector:"createBeatsThreaded:" toTarget:self withObject:[NSArray arrayWithObjects:v11, v173, 0]];
   }
 
-  [objc_msgSend(groupCopy "audioPlaylist")];
+  objc_msgSend_duration([groupCopy audioPlaylist]);
   if (v83 > 0.0 && +[MPAuthoringUtilities audioScalingModeFromOptions:](MPAuthoringUtilities, "audioScalingModeFromOptions:", v11) == &dword_0 + 1 && ![v11 objectForKey:kMPAuthoringAudioDuration])
   {
-    [objc_msgSend(groupCopy "audioPlaylist")];
+    objc_msgSend_duration([groupCopy audioPlaylist]);
     v84 = [NSNumber numberWithDouble:?];
     [v11 setObject:v84 forKey:kMPAuthoringAudioDuration];
   }
@@ -1341,7 +1341,7 @@ LABEL_211:
     v7 = [[NSMutableDictionary alloc] initWithDictionary:optionsCopy];
     if (![v7 objectForKey:kMPAuthoringAudioDuration])
     {
-      [objc_msgSend(group "audioPlaylist")];
+      objc_msgSend_duration([group audioPlaylist]);
       v8 = [NSNumber numberWithDouble:?];
       [v7 setObject:v8 forKey:kMPAuthoringAudioDuration];
     }
@@ -1615,7 +1615,7 @@ LABEL_14:
       [v14 setDuration:?];
       [v15 setDuration:v17];
       [v10 addEffectContainer:v15];
-      [v11 duration];
+      objc_msgSend_duration(v11);
       v19 = v18;
       [v11 introTransitionDuration];
       if (v19 - v20 >= v17)
@@ -1625,11 +1625,11 @@ LABEL_14:
 
       else
       {
-        [v11 duration];
+        objc_msgSend_duration(v11);
         [v11 setUserInfoAttribute:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:"), @"savedExportDuration"}];
-        [v11 duration];
+        objc_msgSend_duration(v11);
         v22 = v21;
-        [v11 duration];
+        objc_msgSend_duration(v11);
         v24 = v23;
         [v11 introTransitionDuration];
         [v11 setDuration:v22 + v17 - (v24 - v25)];
@@ -1668,12 +1668,12 @@ LABEL_17:
 
     else if (transition)
     {
-      [transition duration];
+      objc_msgSend_duration(transition);
       v34 = v33;
       [v11 setTransition:0];
-      [v11 duration];
+      objc_msgSend_duration(v11);
       [v11 setUserInfoAttribute:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:"), @"savedExportDuration"}];
-      [v11 duration];
+      objc_msgSend_duration(v11);
       [v11 setDuration:v35 - v34];
       goto LABEL_17;
     }
@@ -1822,11 +1822,11 @@ LABEL_27:
               goto LABEL_38;
             }
 
-            [v19 duration];
+            objc_msgSend_duration(v19);
             v32 = v31;
             [v19 introTransitionDuration];
             v34 = v33;
-            [v24 duration];
+            objc_msgSend_duration(v24);
             if (v32 >= v34 + v35)
             {
               goto LABEL_38;
@@ -1834,7 +1834,7 @@ LABEL_27:
 
             [v19 introTransitionDuration];
             v37 = v36;
-            [v24 duration];
+            objc_msgSend_duration(v24);
             v28 = v37 + v38;
           }
 
@@ -1894,7 +1894,7 @@ LABEL_38:
 
   else
   {
-    [-[MPDocument audioPlaylist](v10 "audioPlaylist")];
+    objc_msgSend_duration([(MPDocument *)v10 audioPlaylist]);
   }
 
   v17 = v16;
@@ -1949,81 +1949,82 @@ LABEL_38:
 - (void)configureIntroInDocument:(id)document withOptions:(id)options
 {
   optionsCopy = options;
-  if (![objc_msgSend(options objectForKey:{kMPAuthoringLive), "BOOLValue"}] || !MRIsAppleTV())
+  v6 = [objc_msgSend(options objectForKey:{kMPAuthoringLive), "BOOLValue"}];
+  if (!v6 || !MRIsAppleTV(v6, v7))
   {
 LABEL_20:
-    documentCopy = [MPAuthoringUtilities introEffectIDFromOptions:optionsCopy, v19, documentCopy];
+    documentCopy = [MPAuthoringUtilities introEffectIDFromOptions:optionsCopy, v21, documentCopy];
     if (documentCopy && [documentCopy isEqualToString:kMPFadeInEffect])
     {
       [MPAuthoringUtilities introDurationFromOptions:optionsCopy];
-      if (v18 == -1.0)
+      if (v20 == -1.0)
       {
-        v18 = 0.5;
+        v20 = 0.5;
       }
 
-      [document setFadeInDuration:v18];
+      [document setFadeInDuration:v20];
     }
 
     return;
   }
 
-  v6 = [optionsCopy mutableCopy];
-  v23 = 0u;
-  v24 = 0u;
+  v8 = [optionsCopy mutableCopy];
   v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   layers = [document layers];
-  v8 = [layers countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (!v8)
+  v10 = [layers countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (!v10)
   {
 
     goto LABEL_20;
   }
 
-  v9 = v8;
-  v19 = optionsCopy;
+  v11 = v10;
+  v21 = optionsCopy;
   documentCopy = document;
-  v10 = 0;
-  v21 = 0;
-  v11 = *v24;
+  v12 = 0;
+  v23 = 0;
+  v13 = *v26;
   do
   {
-    for (i = 0; i != v9; i = i + 1)
+    for (i = 0; i != v11; i = i + 1)
     {
-      if (*v24 != v11)
+      if (*v26 != v13)
       {
         objc_enumerationMutation(layers);
       }
 
-      v13 = *(*(&v23 + 1) + 8 * i);
+      v15 = *(*(&v25 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v14 = [NSNumber numberWithInteger:v10];
-        [v6 setObject:v14 forKey:kMPAuthoringLayerIndex];
-        if ([MPAuthoringUtilities useIntroTransition:v6])
+        v16 = [NSNumber numberWithInteger:v12];
+        [v8 setObject:v16 forKey:kMPAuthoringLayerIndex];
+        if ([MPAuthoringUtilities useIntroTransition:v8])
         {
-          v15 = [v13 countOfEffectContainers] < 1 ? 0 : objc_msgSend(v13, "objectInEffectContainersAtIndex:", 0);
-          documentCopy2 = [(MPAuthoringController *)self transitionFromOptions:v6 firstEffectContainer:v15 nextEffectContainer:v15, v19, documentCopy];
+          v17 = [v15 countOfEffectContainers] < 1 ? 0 : objc_msgSend(v15, "objectInEffectContainersAtIndex:", 0);
+          documentCopy2 = [(MPAuthoringController *)self transitionFromOptions:v8 firstEffectContainer:v17 nextEffectContainer:v17, v21, documentCopy];
           if (([objc_msgSend(documentCopy2 "transitionID")] & 1) == 0)
           {
-            [v13 setIntroTransition:documentCopy2];
-            v21 = 1;
+            [v15 setIntroTransition:documentCopy2];
+            v23 = 1;
           }
         }
       }
 
-      ++v10;
+      ++v12;
     }
 
-    v9 = [layers countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v11 = [layers countByEnumeratingWithState:&v25 objects:v29 count:16];
   }
 
-  while (v9);
+  while (v11);
 
-  optionsCopy = v19;
+  optionsCopy = v21;
   document = documentCopy;
-  if ((v21 & 1) == 0)
+  if ((v23 & 1) == 0)
   {
     goto LABEL_20;
   }
@@ -2037,7 +2038,7 @@ LABEL_20:
     [MPAuthoringUtilities outroDurationFromOptions:options];
     if (v8 == -1.0)
     {
-      [-[MPAuthoringController transitionFromOptions:](self transitionFromOptions:{options), "duration"}];
+      objc_msgSend_duration([(MPAuthoringController *)self transitionFromOptions:options]);
     }
 
     [document setFadeOutDuration:?];
@@ -2595,27 +2596,27 @@ LABEL_26:
   v8 = +[MPClusterController sharedController];
   v9 = +[MPEffectManager sharedManager];
   v10 = [MPAuthoringUtilities styleFromOptions:options];
-  v164 = [MPAuthoringUtilities layerIndexFromOptions:options];
-  v173 = [MPAuthoringUtilities effectListFromOptions:options];
+  v166 = [MPAuthoringUtilities layerIndexFromOptions:options];
+  v175 = [MPAuthoringUtilities effectListFromOptions:options];
   v11 = [MPAuthoringUtilities layerHasImagesFromOptions:options];
-  v162 = [MPAuthoringUtilities canRepeatEffectWithPreset:options];
-  v155 = [MPAuthoringUtilities canRepeatPreset:options];
-  v167 = [MPAuthoringUtilities useLargestEffectsFromOptions:options];
-  v157 = [MPAuthoringUtilities matchEffectsUsingTagsFromOptions:options];
+  v164 = [MPAuthoringUtilities canRepeatEffectWithPreset:options];
+  v157 = [MPAuthoringUtilities canRepeatPreset:options];
+  v169 = [MPAuthoringUtilities useLargestEffectsFromOptions:options];
+  v159 = [MPAuthoringUtilities matchEffectsUsingTagsFromOptions:options];
   v12 = [MPAuthoringUtilities outroEffectIDFromOptions:options];
   v13 = [images count];
-  v168 = v9;
+  v170 = v9;
   v14 = v13 - [v9 numberOfSlidesForEffectID:v12];
   selfCopy = self;
-  v153 = v12;
+  v155 = v12;
   if ([(NSMutableDictionary *)self->_cachedROIInformation objectForKey:@"movieExists"])
   {
-    v160 = [-[NSMutableDictionary objectForKey:](self->_cachedROIInformation objectForKey:{@"movieExists", "BOOLValue"}];
+    v162 = [-[NSMutableDictionary objectForKey:](self->_cachedROIInformation objectForKey:{@"movieExists", "BOOLValue"}];
   }
 
   else
   {
-    v160 = 1;
+    v162 = 1;
   }
 
   v15 = [+[MPStyleManager sharedManager](MPStyleManager "sharedManager")];
@@ -2624,7 +2625,7 @@ LABEL_26:
   {
 LABEL_7:
     v16 = [images count];
-    v153 = 0;
+    v155 = 0;
     goto LABEL_8;
   }
 
@@ -2641,8 +2642,8 @@ LABEL_7:
   }
 
 LABEL_8:
-  v158 = [MPAuthoringUtilities ignoreClusteringForImages:images withOptions:options]| v15 ^ 1;
-  if ((v158 & 1) == 0 && ((v11 ^ 1) & 1) == 0)
+  v160 = [MPAuthoringUtilities ignoreClusteringForImages:images withOptions:options]| v15 ^ 1;
+  if ((v160 & 1) == 0 && ((v11 ^ 1) & 1) == 0)
   {
     [v8 updateClusterRatings];
     v17 = [options objectForKey:kMPAuthoringCachedAbsolutePaths];
@@ -2661,17 +2662,17 @@ LABEL_8:
     if (v20)
     {
       [(MPAuthoringController *)selfCopy findUsableClustersForUserDefinedSlideOrderPresentation:v20 inClusters:v19];
-      LOBYTE(v158) = 0;
+      LOBYTE(v160) = 0;
     }
 
     else
     {
-      LOBYTE(v158) = 1;
+      LOBYTE(v160) = 1;
     }
   }
 
   [(MPAuthoringController *)selfCopy cacheROIInformationForImages:images withOptions:options];
-  v161 = v7;
+  v163 = v7;
   optionsCopy = options;
   imagesCopy2 = images;
   if (obj)
@@ -2683,33 +2684,33 @@ LABEL_8:
   {
     v24 = [+[MPStyleManager sharedManager](MPStyleManager "sharedManager")];
     v25 = objc_alloc_init(NSMutableArray);
-    v205 = 0u;
-    v206 = 0u;
     v207 = 0u;
     v208 = 0u;
+    v209 = 0u;
+    v210 = 0u;
     objectEnumerator = [v24 objectEnumerator];
-    v27 = [objectEnumerator countByEnumeratingWithState:&v205 objects:v215 count:16];
+    v27 = [objectEnumerator countByEnumeratingWithState:&v207 objects:v217 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v206;
+      v29 = *v208;
       do
       {
         for (i = 0; i != v28; i = i + 1)
         {
-          if (*v206 != v29)
+          if (*v208 != v29)
           {
             objc_enumerationMutation(objectEnumerator);
           }
 
-          v31 = *(*(&v205 + 1) + 8 * i);
+          v31 = *(*(&v207 + 1) + 8 * i);
           if (([objc_msgSend(v31 objectForKey:{@"imageOnlyTitleEffect", "BOOLValue"}] & 1) == 0)
           {
             [v25 addObject:v31];
           }
         }
 
-        v28 = [objectEnumerator countByEnumeratingWithState:&v205 objects:v215 count:16];
+        v28 = [objectEnumerator countByEnumeratingWithState:&v207 objects:v217 count:16];
       }
 
       while (v28);
@@ -2718,8 +2719,8 @@ LABEL_8:
     images = imagesCopy2;
     v32 = [(MPAuthoringController *)selfCopy findEffectIDInPresetArray:v25 forImages:imagesCopy2 withOptions:optionsCopy];
 
-    v7 = v161;
-    v23 = v173;
+    v7 = v163;
+    v23 = v175;
     if (!v32)
     {
       v32 = [MPAuthoringUtilities titleEffectFromOptions:optionsCopy];
@@ -2738,39 +2739,39 @@ LABEL_17:
       v21 = 0;
       p_isa = &selfCopy->super.isa;
 LABEL_18:
-      v23 = v173;
+      v23 = v175;
       goto LABEL_52;
     }
 
     v33 = [+[MPStyleManager sharedManager](MPStyleManager "sharedManager")];
     v34 = objc_alloc_init(NSMutableArray);
-    v201 = 0u;
-    v202 = 0u;
     v203 = 0u;
     v204 = 0u;
+    v205 = 0u;
+    v206 = 0u;
     objectEnumerator2 = [v33 objectEnumerator];
-    v36 = [objectEnumerator2 countByEnumeratingWithState:&v201 objects:v214 count:16];
+    v36 = [objectEnumerator2 countByEnumeratingWithState:&v203 objects:v216 count:16];
     if (v36)
     {
       v37 = v36;
-      v38 = *v202;
+      v38 = *v204;
       do
       {
         for (j = 0; j != v37; j = j + 1)
         {
-          if (*v202 != v38)
+          if (*v204 != v38)
           {
             objc_enumerationMutation(objectEnumerator2);
           }
 
-          v40 = *(*(&v201 + 1) + 8 * j);
+          v40 = *(*(&v203 + 1) + 8 * j);
           if ([objc_msgSend(v40 objectForKey:{@"imageOnlyTitleEffect", "BOOLValue"}])
           {
             [v34 addObject:v40];
           }
         }
 
-        v37 = [objectEnumerator2 countByEnumeratingWithState:&v201 objects:v214 count:16];
+        v37 = [objectEnumerator2 countByEnumeratingWithState:&v203 objects:v216 count:16];
       }
 
       while (v37);
@@ -2780,24 +2781,24 @@ LABEL_18:
     {
       images = imagesCopy2;
       v32 = [(MPAuthoringController *)selfCopy findEffectIDInPresetArray:v34 forImages:imagesCopy2 withOptions:optionsCopy];
-      v7 = v161;
+      v7 = v163;
     }
 
     else
     {
       v32 = 0;
-      v7 = v161;
+      v7 = v163;
       images = imagesCopy2;
     }
 
-    v23 = v173;
+    v23 = v175;
     if (!v32)
     {
       goto LABEL_51;
     }
   }
 
-  if (v164 == [+[MPStyleManager sharedManager](MPStyleManager "sharedManager")])
+  if (v166 == [+[MPStyleManager sharedManager](MPStyleManager "sharedManager")])
   {
     v41 = [v32 objectForKey:@"presetID"];
     v42 = [v32 objectForKey:@"backgroundEffect"];
@@ -2848,13 +2849,13 @@ LABEL_52:
         {
           if (v16 - v47 >= v46)
           {
-            [v161 addObject:v44];
+            [v163 addObject:v44];
             v48 = v46;
           }
 
           else
           {
-            [v161 addObject:@"JustASlide/Default"];
+            [v163 addObject:@"JustASlide/Default"];
             v48 = 1;
           }
 
@@ -2875,8 +2876,8 @@ LABEL_52:
 
   if (v11)
   {
-    v171 = v21;
-    v156 = v16;
+    v173 = v21;
+    v158 = v16;
     [p_isa populateWeighter:p_isa[8] withEffects:v23 andOptions:optionsCopy];
     imageCounts = [p_isa[8] imageCounts];
     lastIndex = [imageCounts lastIndex];
@@ -2891,135 +2892,136 @@ LABEL_52:
       }
     }
 
-    v174 = objc_alloc_init(NSMutableArray);
+    v176 = objc_alloc_init(NSMutableArray);
     if ((obj & 1) == 0)
     {
+      v201 = 0u;
+      v202 = 0u;
       v199 = 0u;
       v200 = 0u;
-      v197 = 0u;
-      v198 = 0u;
-      v51 = [(NSArray *)v23 countByEnumeratingWithState:&v197 objects:v213 count:16];
+      v51 = [(NSArray *)v23 countByEnumeratingWithState:&v199 objects:v215 count:16];
       if (v51)
       {
         v52 = v51;
-        v53 = *v198;
+        v53 = *v200;
         do
         {
           for (k = 0; k != v52; k = k + 1)
           {
-            if (*v198 != v53)
+            if (*v200 != v53)
             {
               objc_enumerationMutation(v23);
             }
 
-            v55 = *(*(&v197 + 1) + 8 * k);
+            v55 = *(*(&v199 + 1) + 8 * k);
             v56 = [v55 objectForKey:@"order"];
             if (v56)
             {
               v57 = v56;
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) == 0 || (!MRIsAppleTV() ? (v58 = @"Desktop") : (v58 = @"AppleTV"), (v57 = [v57 objectForKey:v58]) != 0))
+              isKindOfClass = objc_opt_isKindOfClass();
+              if ((isKindOfClass & 1) == 0 || (!MRIsAppleTV(isKindOfClass, v59) ? (v60 = @"Desktop") : (v60 = @"AppleTV"), (v57 = [v57 objectForKey:v60]) != 0))
               {
                 integerValue = [v57 integerValue];
-                if (integerValue >= [v174 count])
+                if (integerValue >= [v176 count])
                 {
-                  [v174 addObject:v55];
+                  [v176 addObject:v55];
                 }
 
                 else
                 {
-                  [v174 insertObject:v55 atIndex:integerValue];
+                  [v176 insertObject:v55 atIndex:integerValue];
                 }
               }
             }
           }
 
-          v52 = [(NSArray *)v23 countByEnumeratingWithState:&v197 objects:v213 count:16];
+          v52 = [(NSArray *)v23 countByEnumeratingWithState:&v199 objects:v215 count:16];
         }
 
         while (v52);
       }
     }
 
-    v60 = v174;
-    if ([v174 count])
+    v62 = v176;
+    if ([v176 count])
     {
-      v61 = objc_alloc_init(MPWeighter);
-      [(MPAuthoringController *)selfCopy populateWeighter:v61 withEffects:v174 andOptions:optionsCopy];
+      v63 = objc_alloc_init(MPWeighter);
+      [(MPAuthoringController *)selfCopy populateWeighter:v63 withEffects:v176 andOptions:optionsCopy];
+      v197 = 0u;
+      v198 = 0u;
       v195 = 0u;
       v196 = 0u;
-      v193 = 0u;
-      v194 = 0u;
-      obja = [(MPWeighter *)v61 allItems];
-      v62 = [obja countByEnumeratingWithState:&v193 objects:v212 count:16];
-      if (v62)
+      obja = [(MPWeighter *)v63 allItems];
+      v64 = [obja countByEnumeratingWithState:&v195 objects:v214 count:16];
+      if (v64)
       {
-        v63 = v62;
-        v64 = *v194;
+        v65 = v64;
+        v66 = *v196;
         do
         {
-          for (m = 0; m != v63; m = m + 1)
+          for (m = 0; m != v65; m = m + 1)
           {
-            if (*v194 != v64)
+            if (*v196 != v66)
             {
               objc_enumerationMutation(obja);
             }
 
-            v66 = *(*(&v193 + 1) + 8 * m);
-            v67 = [MPUtilities idOfCombinedID:v66];
-            v68 = -[MPAuthoringController findEffectIDInWeighter:images:startingIndex:count:triesToFind:constraints:previousTags:](selfCopy, "findEffectIDInWeighter:images:startingIndex:count:triesToFind:constraints:previousTags:", v61, imagesCopy2, v171, [v168 numberOfSlidesForEffectID:v66], 0, 0, 0);
-            if (v68)
+            v68 = *(*(&v195 + 1) + 8 * m);
+            v69 = [MPUtilities idOfCombinedID:v68];
+            v70 = -[MPAuthoringController findEffectIDInWeighter:images:startingIndex:count:triesToFind:constraints:previousTags:](selfCopy, "findEffectIDInWeighter:images:startingIndex:count:triesToFind:constraints:previousTags:", v63, imagesCopy2, v173, [v170 numberOfSlidesForEffectID:v68], 0, 0, 0);
+            if (v70)
             {
-              v69 = v68;
-              v171 = &v171[[v168 numberOfSlidesForEffectID:v67]];
-              [v161 addObject:v69];
+              v71 = v70;
+              v173 = &v173[[v170 numberOfSlidesForEffectID:v69]];
+              [v163 addObject:v71];
             }
           }
 
-          v63 = [obja countByEnumeratingWithState:&v193 objects:v212 count:16];
+          v65 = [obja countByEnumeratingWithState:&v195 objects:v214 count:16];
         }
 
-        while (v63);
+        while (v65);
       }
 
-      if ([v161 count])
+      if ([v163 count])
       {
-        v70 = selfCopy;
-        v71 = [-[MPWeighter allItems](selfCopy->_weighter "allItems")];
-        v72 = optionsCopy;
+        v72 = selfCopy;
+        v73 = [-[MPWeighter allItems](selfCopy->_weighter "allItems")];
+        v74 = optionsCopy;
         images = imagesCopy2;
-        v73 = v156;
-        v74 = v164;
-        v60 = v174;
-        if (v71 != 0x7FFFFFFFFFFFFFFFLL)
+        v75 = v158;
+        v76 = v166;
+        v62 = v176;
+        if (v73 != 0x7FFFFFFFFFFFFFFFLL)
         {
-          [(MPWeighter *)selfCopy->_weighter ignoreIndex:v71];
+          [(MPWeighter *)selfCopy->_weighter ignoreIndex:v73];
         }
       }
 
       else
       {
-        v72 = optionsCopy;
+        v74 = optionsCopy;
         images = imagesCopy2;
-        v70 = selfCopy;
-        v73 = v156;
-        v74 = v164;
-        v60 = v174;
+        v72 = selfCopy;
+        v75 = v158;
+        v76 = v166;
+        v62 = v176;
       }
     }
 
     else
     {
-      v72 = optionsCopy;
-      v70 = selfCopy;
-      v73 = v156;
-      v74 = v164;
+      v74 = optionsCopy;
+      v72 = selfCopy;
+      v75 = v158;
+      v76 = v166;
     }
 
-    v151 = [objc_msgSend(v72 objectForKey:{kMPAuthoringLive), "BOOLValue"}];
-    if (v151 && [-[MPDocument layers](v70->_authoredDocument "layers")] > v74 && (v75 = objc_msgSend(-[MPDocument layers](v70->_authoredDocument, "layers"), "objectAtIndex:", v74), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) && (v76 = objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(v75, "effectContainers"), "lastObject"), "effects"), "lastObject"), (v77 = -[MPWeighter constraintsForItem:](v70->_weighter, "constraintsForItem:", +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@/%@", objc_msgSend(v76, "effectID"), objc_msgSend(v76, "presetID")))) != 0))
+    v153 = [objc_msgSend(v74 objectForKey:{kMPAuthoringLive), "BOOLValue"}];
+    if (v153 && [-[MPDocument layers](v72->_authoredDocument "layers")] > v76 && (v77 = objc_msgSend(-[MPDocument layers](v72->_authoredDocument, "layers"), "objectAtIndex:", v76), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) && (v78 = objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(v77, "effectContainers"), "lastObject"), "effects"), "lastObject"), (v79 = -[MPWeighter constraintsForItem:](v72->_weighter, "constraintsForItem:", +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@/%@", objc_msgSend(v78, "effectID"), objc_msgSend(v78, "presetID")))) != 0))
     {
-      objb = v77[2];
+      objb = v79[2];
     }
 
     else
@@ -3027,191 +3029,191 @@ LABEL_52:
       objb = 0;
     }
 
-    v78 = v171;
-    if (v171 < v73)
+    v80 = v173;
+    if (v173 < v75)
     {
-      v175 = 0;
+      v177 = 0;
       while (1)
       {
-        v172 = v78;
-        v192 = 0x7FFFFFFFFFFFFFFFLL;
-        v79 = 0x7FFFFFFFFFFFFFFFLL;
-        if ((v158 & 1) == 0)
+        v174 = v80;
+        v194 = 0x7FFFFFFFFFFFFFFFLL;
+        v81 = 0x7FFFFFFFFFFFFFFFLL;
+        if ((v160 & 1) == 0)
         {
-          v79 = [(MPAuthoringController *)v70 bestCountFromClusterForEffectWithImages:images atStartIndex:v78 withWeighter:v70->_weighter usedIndex:&v192];
+          v81 = [(MPAuthoringController *)v72 bestCountFromClusterForEffectWithImages:images atStartIndex:v80 withWeighter:v72->_weighter usedIndex:&v194];
         }
 
-        v80 = v79;
-        v81 = v172;
-        v163 = v73 - v172;
-        v82 = v73 - v172 >= lastIndex ? lastIndex : v73 - v172;
-        v83 = v82 > 0 ? v160 : 0;
-        if (v83 == 1)
+        v82 = v81;
+        v83 = v174;
+        v165 = v75 - v174;
+        v84 = v75 - v174 >= lastIndex ? lastIndex : v75 - v174;
+        v85 = v84 > 0 ? v162 : 0;
+        if (v85 == 1)
         {
-          v84 = -1;
-          while (([objc_msgSend(-[NSMutableDictionary objectForKey:](v70->_cachedROIInformation objectForKey:{objc_msgSend(images, "objectAtIndex:", v81)), "objectForKey:", @"isMovie", "BOOLValue"}] & 1) == 0)
+          v86 = -1;
+          while (([objc_msgSend(-[NSMutableDictionary objectForKey:](v72->_cachedROIInformation objectForKey:{objc_msgSend(images, "objectAtIndex:", v83)), "objectForKey:", @"isMovie", "BOOLValue"}] & 1) == 0)
           {
-            --v84;
-            ++v81;
-            if (v82 + v84 == -1)
+            --v86;
+            ++v83;
+            if (v84 + v86 == -1)
             {
               goto LABEL_123;
             }
           }
 
-          [(MPWeighter *)v70->_weighter clearIgnoreIndices];
-          v82 = -v84;
+          [(MPWeighter *)v72->_weighter clearIgnoreIndices];
+          v84 = -v86;
 LABEL_123:
-          v85 = v167;
+          v87 = v169;
         }
 
         else
         {
-          v85 = v167;
+          v87 = v169;
         }
 
-        lastIndex3 = v80;
-        if (v80 == 0x7FFFFFFFFFFFFFFFLL)
+        lastIndex3 = v82;
+        if (v82 == 0x7FFFFFFFFFFFFFFFLL)
         {
           break;
         }
 
 LABEL_141:
-        v94 = objc_alloc_init(NSMutableIndexSet);
-        ignoredIndices = [(MPWeighter *)v70->_weighter ignoredIndices];
-        if ((v85 & 1) == 0)
+        v96 = objc_alloc_init(NSMutableIndexSet);
+        ignoredIndices = [(MPWeighter *)v72->_weighter ignoredIndices];
+        if ((v87 & 1) == 0)
         {
-          v165 = lastIndex3;
+          v167 = lastIndex3;
+          v192 = 0u;
+          v193 = 0u;
           v190 = 0u;
           v191 = 0u;
-          v188 = 0u;
-          v189 = 0u;
           allConstraints = [(MPWeighter *)selfCopy->_weighter allConstraints];
-          v97 = [allConstraints countByEnumeratingWithState:&v188 objects:v211 count:16];
-          if (v97)
+          v99 = [allConstraints countByEnumeratingWithState:&v190 objects:v213 count:16];
+          if (v99)
           {
-            v98 = v97;
-            v99 = 0;
-            v100 = *v189;
+            v100 = v99;
+            v101 = 0;
+            v102 = *v191;
             do
             {
-              for (n = 0; n != v98; n = n + 1)
+              for (n = 0; n != v100; n = n + 1)
               {
-                if (*v189 != v100)
+                if (*v191 != v102)
                 {
                   objc_enumerationMutation(allConstraints);
                 }
 
-                v102 = *(*(*(&v188 + 1) + 8 * n) + 8);
-                if (v102 <= v82 && ([ignoredIndices containsIndex:v99] & 1) == 0)
+                v104 = *(*(*(&v190 + 1) + 8 * n) + 8);
+                if (v104 <= v84 && ([ignoredIndices containsIndex:v101] & 1) == 0)
                 {
-                  [v94 addIndex:v102];
+                  [v96 addIndex:v104];
                 }
 
-                ++v99;
+                ++v101;
               }
 
-              v98 = [allConstraints countByEnumeratingWithState:&v188 objects:v211 count:16];
+              v100 = [allConstraints countByEnumeratingWithState:&v190 objects:v213 count:16];
             }
 
-            while (v98);
+            while (v100);
           }
 
-          lastIndex3 = v165;
-          [v94 removeIndex:v165];
+          lastIndex3 = v167;
+          [v96 removeIndex:v167];
           images = imagesCopy2;
-          v85 = v167;
+          v87 = v169;
         }
 
-        v166 = 0;
-        v187 = 0;
-        v103 = -1;
-        while ((v103 == -1) | v85 & 1)
+        v168 = 0;
+        v189 = 0;
+        v105 = -1;
+        while ((v105 == -1) | v87 & 1)
         {
 LABEL_166:
-          if (v85)
+          if (v87)
           {
-            v112 = selfCopy;
-            v113 = [(MPWeighter *)selfCopy->_weighter numberOfItemsWithImageCount:lastIndex3];
-            v114 = (v113 & ~(v113 >> 63)) + 1;
-            while (--v114)
+            v114 = selfCopy;
+            v115 = [(MPWeighter *)selfCopy->_weighter numberOfItemsWithImageCount:lastIndex3];
+            v116 = (v115 & ~(v115 >> 63)) + 1;
+            while (--v116)
             {
               imagesCopy3 = images;
               imagesCopy4 = images;
-              v117 = lastIndex3;
-              v93 = [(MPAuthoringController *)selfCopy findEffectIDInWeighter:selfCopy->_weighter images:imagesCopy4 startingIndex:v172 count:lastIndex3 triesToFind:&v187 constraints:0 previousTags:v175];
-              v118 = [-[MPWeighter allItems](selfCopy->_weighter "allItems")];
-              if (![(MPWeighter *)selfCopy->_weighter itemAtIndex:v118 meetsContraints:objb])
+              v119 = lastIndex3;
+              v95 = [(MPAuthoringController *)selfCopy findEffectIDInWeighter:selfCopy->_weighter images:imagesCopy4 startingIndex:v174 count:lastIndex3 triesToFind:&v189 constraints:0 previousTags:v177];
+              v120 = [-[MPWeighter allItems](selfCopy->_weighter "allItems")];
+              if (![(MPWeighter *)selfCopy->_weighter itemAtIndex:v120 meetsContraints:objb])
               {
-                [(MPWeighter *)selfCopy->_weighter addIndexToIgnore:v118];
-                v93 = 0;
+                [(MPWeighter *)selfCopy->_weighter addIndexToIgnore:v120];
+                v95 = 0;
               }
 
-              lastIndex3 = v117;
+              lastIndex3 = v119;
               images = imagesCopy3;
-              if (v93)
+              if (v95)
               {
                 goto LABEL_177;
               }
             }
 
-            v93 = 0;
+            v95 = 0;
           }
 
-          else if (lastIndex3 == v103)
+          else if (lastIndex3 == v105)
           {
-            v93 = 0;
-            v112 = selfCopy;
+            v95 = 0;
+            v114 = selfCopy;
           }
 
           else
           {
-            v112 = selfCopy;
-            v93 = [(MPAuthoringController *)selfCopy findEffectIDInWeighter:selfCopy->_weighter images:images startingIndex:v172 count:lastIndex3 triesToFind:&v187 constraints:objb previousTags:v175];
+            v114 = selfCopy;
+            v95 = [(MPAuthoringController *)selfCopy findEffectIDInWeighter:selfCopy->_weighter images:images startingIndex:v174 count:lastIndex3 triesToFind:&v189 constraints:objb previousTags:v177];
           }
 
 LABEL_177:
-          if (v162)
+          if (v164)
           {
-            v119 = v163;
+            v121 = v165;
           }
 
           else
           {
-            v119 = v163;
-            if ([ignoredIndices containsIndex:{objc_msgSend(-[MPWeighter allItems](v112->_weighter, "allItems"), "indexOfObject:", v93)}] && objc_msgSend(v94, "count"))
+            v121 = v165;
+            if ([ignoredIndices containsIndex:{objc_msgSend(-[MPWeighter allItems](v114->_weighter, "allItems"), "indexOfObject:", v95)}] && objc_msgSend(v96, "count"))
             {
-              v93 = 0;
+              v95 = 0;
             }
           }
 
-          if (([v94 count] | v93) == 0 && !v166)
+          if (([v96 count] | v95) == 0 && !v168)
           {
             imagesCopy5 = images;
-            v121 = lastIndex3;
-            [v94 addIndex:1];
+            v123 = lastIndex3;
+            [v96 addIndex:1];
             firstIndex = [ignoredIndices firstIndex];
             if (firstIndex != 0x7FFFFFFFFFFFFFFFLL)
             {
               for (ii = firstIndex; ii != 0x7FFFFFFFFFFFFFFFLL; ii = [ignoredIndices indexGreaterThanIndex:ii])
               {
-                if (*([-[MPWeighter allConstraints](v112->_weighter "allConstraints")] + 1) <= v119)
+                if (*([-[MPWeighter allConstraints](v114->_weighter "allConstraints")] + 1) <= v121)
                 {
-                  [v94 addIndex:?];
+                  [v96 addIndex:?];
                 }
               }
             }
 
-            v166 = [v94 count] != 0;
-            lastIndex3 = v121;
+            v168 = [v96 count] != 0;
+            lastIndex3 = v123;
             images = imagesCopy5;
           }
 
-          if ([v94 count])
+          if ([v96 count])
           {
-            v103 = lastIndex3;
-            v85 = v167;
-            if (!v93)
+            v105 = lastIndex3;
+            v87 = v169;
+            if (!v95)
             {
               continue;
             }
@@ -3220,115 +3222,115 @@ LABEL_177:
           goto LABEL_193;
         }
 
-        if ([v94 count])
+        if ([v96 count])
         {
-          v104 = objc_alloc_init(NSMutableIndexSet);
-          v183 = 0u;
-          v184 = 0u;
+          v106 = objc_alloc_init(NSMutableIndexSet);
           v185 = 0u;
           v186 = 0u;
+          v187 = 0u;
+          v188 = 0u;
           allConstraints2 = [(MPWeighter *)selfCopy->_weighter allConstraints];
-          v106 = [allConstraints2 countByEnumeratingWithState:&v183 objects:v210 count:16];
-          if (v106)
+          v108 = [allConstraints2 countByEnumeratingWithState:&v185 objects:v212 count:16];
+          if (v108)
           {
-            v107 = v106;
-            v108 = 0;
-            v109 = *v184;
+            v109 = v108;
+            v110 = 0;
+            v111 = *v186;
             do
             {
-              for (jj = 0; jj != v107; jj = jj + 1)
+              for (jj = 0; jj != v109; jj = jj + 1)
               {
-                if (*v184 != v109)
+                if (*v186 != v111)
                 {
                   objc_enumerationMutation(allConstraints2);
                 }
 
-                if ([v94 containsIndex:*(*(*(&v183 + 1) + 8 * jj) + 8)])
+                if ([v96 containsIndex:*(*(*(&v185 + 1) + 8 * jj) + 8)])
                 {
-                  [v104 addIndex:v108];
+                  [v106 addIndex:v110];
                 }
 
-                ++v108;
+                ++v110;
               }
 
-              v107 = [allConstraints2 countByEnumeratingWithState:&v183 objects:v210 count:16];
+              v109 = [allConstraints2 countByEnumeratingWithState:&v185 objects:v212 count:16];
             }
 
-            while (v107);
+            while (v109);
           }
 
-          v111 = [(MPWeighter *)selfCopy->_weighter getRandomIndexInSubset:v104];
+          v113 = [(MPWeighter *)selfCopy->_weighter getRandomIndexInSubset:v106];
 
           lastIndex3 = *([-[MPWeighter allConstraints](selfCopy->_weighter "allConstraints")] + 1);
-          [v94 removeIndex:lastIndex3];
+          [v96 removeIndex:lastIndex3];
           images = imagesCopy2;
-          v85 = v167;
+          v87 = v169;
           goto LABEL_166;
         }
 
-        v93 = 0;
+        v95 = 0;
 LABEL_193:
-        v124 = v187 < 1 || lastIndex3 < 1;
-        v70 = selfCopy;
-        if (!v124)
+        v126 = v189 < 1 || lastIndex3 < 1;
+        v72 = selfCopy;
+        if (!v126)
         {
-          v125 = 0;
-          v126 = v172;
-          v127 = &v172[lastIndex3];
+          v127 = 0;
+          v128 = v174;
+          v129 = &v174[lastIndex3];
           do
           {
-            v128 = -[NSMutableDictionary objectForKey:](selfCopy->_cachedROIInformation, "objectForKey:", [images objectAtIndex:v126]);
-            if ([objc_msgSend(v128 objectForKey:{@"canSwitch", "BOOLValue"}])
+            v130 = -[NSMutableDictionary objectForKey:](selfCopy->_cachedROIInformation, "objectForKey:", [images objectAtIndex:v128]);
+            if ([objc_msgSend(v130 objectForKey:{@"canSwitch", "BOOLValue"}])
             {
-              if ((v187 & v125) != 0)
+              if ((v189 & v127) != 0)
               {
-                [v128 setObject:+[NSNumber numberWithBool:](NSNumber forKey:{"numberWithBool:", 0), @"wasFlipped"}];
+                [v130 setObject:+[NSNumber numberWithBool:](NSNumber forKey:{"numberWithBool:", 0), @"wasFlipped"}];
               }
 
-              ++v125;
+              ++v127;
             }
 
-            ++v126;
+            ++v128;
           }
 
-          while (v126 < v127);
+          while (v128 < v129);
         }
 
-        if (((v93 == 0) & v160) == 1)
+        if (((v95 == 0) & v162) == 1)
         {
-          if ([(MPAuthoringController *)selfCopy imagesHaveMovie:images start:v172 count:lastIndex])
+          if ([(MPAuthoringController *)selfCopy imagesHaveMovie:images start:v174 count:lastIndex])
           {
-            v129 = [[NSDictionary alloc] initWithObjectsAndKeys:{+[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", 1), @"numOfImages", +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", 0), @"ignoreMovies", 0}];
-            v130 = [(MPWeighter *)selfCopy->_weighter indicesMeetingConstraints:v129];
+            v131 = [[NSDictionary alloc] initWithObjectsAndKeys:{+[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", 1), @"numOfImages", +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", 0), @"ignoreMovies", 0}];
+            v132 = [(MPWeighter *)selfCopy->_weighter indicesMeetingConstraints:v131];
 
-            if ([v130 count])
+            if ([v132 count])
             {
-              firstIndex2 = [v130 firstIndex];
+              firstIndex2 = [v132 firstIndex];
               if (firstIndex2 != 0x7FFFFFFFFFFFFFFFLL)
               {
-                v132 = firstIndex2;
+                v134 = firstIndex2;
                 do
                 {
-                  if (-[MPAuthoringController imagesHaveMovie:start:count:](selfCopy, "imagesHaveMovie:start:count:", images, v172, *([-[MPWeighter allConstraints](selfCopy->_weighter "allConstraints")] + 1)))
+                  if (-[MPAuthoringController imagesHaveMovie:start:count:](selfCopy, "imagesHaveMovie:start:count:", images, v174, *([-[MPWeighter allConstraints](selfCopy->_weighter "allConstraints")] + 1)))
                   {
-                    v93 = [-[MPWeighter allItems](selfCopy->_weighter "allItems")];
+                    v95 = [-[MPWeighter allItems](selfCopy->_weighter "allItems")];
                   }
 
                   else
                   {
-                    v93 = 0;
+                    v95 = 0;
                   }
 
-                  v133 = [v130 indexGreaterThanIndex:v132];
-                  if (v133 == 0x7FFFFFFFFFFFFFFFLL)
+                  v135 = [v132 indexGreaterThanIndex:v134];
+                  if (v135 == 0x7FFFFFFFFFFFFFFFLL)
                   {
                     break;
                   }
 
-                  v132 = v133;
+                  v134 = v135;
                 }
 
-                while (!v93);
+                while (!v95);
                 goto LABEL_213;
               }
             }
@@ -3336,87 +3338,87 @@ LABEL_193:
 
 LABEL_214:
           allItems = [(MPWeighter *)selfCopy->_weighter allItems];
-          v93 = [allItems objectAtIndex:v192];
+          v95 = [allItems objectAtIndex:v194];
         }
 
         else
         {
 LABEL_213:
-          if (!v93)
+          if (!v95)
           {
             goto LABEL_214;
           }
         }
 
 LABEL_216:
-        weighter = v70->_weighter;
-        if (v162)
+        weighter = v72->_weighter;
+        if (v164)
         {
           [(MPWeighter *)weighter clearIgnoreIndices];
         }
 
         else
         {
-          v136 = [-[MPWeighter allItems](weighter "allItems")];
-          if (v136 != 0x7FFFFFFFFFFFFFFFLL)
+          v138 = [-[MPWeighter allItems](weighter "allItems")];
+          if (v138 != 0x7FFFFFFFFFFFFFFFLL)
           {
-            [(MPWeighter *)v70->_weighter ignoreIndex:v136];
+            [(MPWeighter *)v72->_weighter ignoreIndex:v138];
           }
 
-          if ((v155 & 1) == 0)
+          if ((v157 & 1) == 0)
           {
-            v137 = [MPUtilities presetIDOfCombinedID:v93];
-            v179 = 0u;
-            v180 = 0u;
+            v139 = [MPUtilities presetIDOfCombinedID:v95];
             v181 = 0u;
             v182 = 0u;
-            allItems2 = [(MPWeighter *)v70->_weighter allItems];
-            v139 = [allItems2 countByEnumeratingWithState:&v179 objects:v209 count:16];
-            if (v139)
+            v183 = 0u;
+            v184 = 0u;
+            allItems2 = [(MPWeighter *)v72->_weighter allItems];
+            v141 = [allItems2 countByEnumeratingWithState:&v181 objects:v211 count:16];
+            if (v141)
             {
-              v140 = v139;
-              v141 = 0;
-              v142 = *v180;
+              v142 = v141;
+              v143 = 0;
+              v144 = *v182;
               do
               {
-                for (kk = 0; kk != v140; kk = kk + 1)
+                for (kk = 0; kk != v142; kk = kk + 1)
                 {
-                  if (*v180 != v142)
+                  if (*v182 != v144)
                   {
                     objc_enumerationMutation(allItems2);
                   }
 
-                  if ([*(*(&v179 + 1) + 8 * kk) hasSuffix:v137])
+                  if ([*(*(&v181 + 1) + 8 * kk) hasSuffix:v139])
                   {
-                    [(MPWeighter *)v70->_weighter addIndexToIgnore:v141];
+                    [(MPWeighter *)v72->_weighter addIndexToIgnore:v143];
                   }
 
-                  ++v141;
+                  ++v143;
                 }
 
-                v140 = [allItems2 countByEnumeratingWithState:&v179 objects:v209 count:16];
+                v142 = [allItems2 countByEnumeratingWithState:&v181 objects:v211 count:16];
               }
 
-              while (v140);
+              while (v142);
             }
           }
         }
 
-        if (v70->_logLevel >= 2)
+        if (v72->_logLevel >= 2)
         {
-          v144 = [-[MPWeighter allItems](v70->_weighter "allItems")];
-          if (v144 != 0x7FFFFFFFFFFFFFFFLL)
+          v146 = [-[MPWeighter allItems](v72->_weighter "allItems")];
+          if (v146 != 0x7FFFFFFFFFFFFFFFLL)
           {
-            [(MPWeighter *)v70->_weighter increaseUsageCountOfObjectAtIndex:v144];
+            [(MPWeighter *)v72->_weighter increaseUsageCountOfObjectAtIndex:v146];
           }
         }
 
-        v145 = [v168 numOfImagesForEffectPresetID:v93];
-        [v161 addObject:v93];
-        v146 = [(MPWeighter *)v70->_weighter constraintsForItem:v93];
-        if (v146)
+        v147 = [v170 numOfImagesForEffectPresetID:v95];
+        [v163 addObject:v95];
+        v148 = [(MPWeighter *)v72->_weighter constraintsForItem:v95];
+        if (v148)
         {
-          objb = v146[2];
+          objb = v148[2];
         }
 
         else
@@ -3425,14 +3427,14 @@ LABEL_216:
         }
 
         images = imagesCopy2;
-        if (v157)
+        if (v159)
         {
-          v175 = [objc_msgSend(v168 attributesForEffectID:+[MPUtilities idOfCombinedID:](MPUtilities andPresetID:{"idOfCombinedID:", v93), +[MPUtilities idOfCombinedID:](MPUtilities, "idOfCombinedID:", v93)), "objectForKey:", @"endLayoutTags"}];
+          v177 = [objc_msgSend(v170 attributesForEffectID:+[MPUtilities idOfCombinedID:](MPUtilities andPresetID:{"idOfCombinedID:", v95), +[MPUtilities idOfCombinedID:](MPUtilities, "idOfCombinedID:", v95)), "objectForKey:", @"endLayoutTags"}];
         }
 
-        v78 = &v172[v145];
-        v73 = v156;
-        if (&v172[v145] >= v156)
+        v80 = &v174[v147];
+        v75 = v158;
+        if (&v174[v147] >= v158)
         {
           goto LABEL_239;
         }
@@ -3440,11 +3442,11 @@ LABEL_216:
 
       if (objb)
       {
-        v87 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:{+[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", v82), @"numOfImages", +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", 0), @"hasPanorama", 0}];
-        [v87 addEntriesFromDictionary:objb];
-        v192 = [(MPWeighter *)v70->_weighter getRandomIndexMeetingContraints:v87];
+        v89 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:{+[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", v84), @"numOfImages", +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", 0), @"hasPanorama", 0}];
+        [v89 addEntriesFromDictionary:objb];
+        v194 = [(MPWeighter *)v72->_weighter getRandomIndexMeetingContraints:v89];
 
-        if (v85)
+        if (v87)
         {
           goto LABEL_127;
         }
@@ -3452,38 +3454,38 @@ LABEL_216:
 
       else
       {
-        v192 = [(MPWeighter *)v70->_weighter getRandomIndexWithNoPanoramasForImageCount:v82];
-        if (v85)
+        v194 = [(MPWeighter *)v72->_weighter getRandomIndexWithNoPanoramasForImageCount:v84];
+        if (v87)
         {
 LABEL_127:
           lastIndex2 = [imageCounts lastIndex];
-          if (v151)
+          if (v153)
           {
-            v89 = vcvtpd_s64_f64(vcvtd_n_f64_s64(v163, 1uLL));
-            if (v163 <= lastIndex2)
+            v91 = vcvtpd_s64_f64(vcvtd_n_f64_s64(v165, 1uLL));
+            if (v165 <= lastIndex2)
             {
-              lastIndex3 = v82;
+              lastIndex3 = v84;
             }
 
             else
             {
-              lastIndex3 = v89;
+              lastIndex3 = v91;
             }
           }
 
           else
           {
-            lastIndex3 = v82;
-            if (v82 > lastIndex2)
+            lastIndex3 = v84;
+            if (v84 > lastIndex2)
             {
-              if (v82 >= (2 * [imageCounts lastIndex]))
+              if (v84 >= (2 * [imageCounts lastIndex]))
               {
                 lastIndex3 = [imageCounts lastIndex];
               }
 
               else
               {
-                lastIndex3 = vcvtpd_s64_f64(vcvtd_n_f64_s64(v82, 1uLL));
+                lastIndex3 = vcvtpd_s64_f64(vcvtd_n_f64_s64(v84, 1uLL));
               }
             }
           }
@@ -3492,14 +3494,14 @@ LABEL_138:
           if (lastIndex3 == 0x7FFFFFFFFFFFFFFFLL)
           {
 LABEL_139:
-            [(MPWeighter *)v70->_weighter clearIgnoreIndices];
-            v91 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:{+[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", v163), @"numOfImages", 0}];
-            v92 = [(MPWeighter *)v70->_weighter getRandomIndexMeetingContraints:v91];
+            [(MPWeighter *)v72->_weighter clearIgnoreIndices];
+            v93 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:{+[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", v165), @"numOfImages", 0}];
+            v94 = [(MPWeighter *)v72->_weighter getRandomIndexMeetingContraints:v93];
 
-            v93 = @"JustASlide/Default";
-            if (v92 != 0x7FFFFFFFFFFFFFFFLL)
+            v95 = @"JustASlide/Default";
+            if (v94 != 0x7FFFFFFFFFFFFFFFLL)
             {
-              v93 = [-[MPWeighter allItems](v70->_weighter "allItems")];
+              v95 = [-[MPWeighter allItems](v72->_weighter "allItems")];
             }
 
             goto LABEL_216;
@@ -3509,36 +3511,36 @@ LABEL_139:
         }
       }
 
-      if (v192 == 0x7FFFFFFFFFFFFFFFLL)
+      if (v194 == 0x7FFFFFFFFFFFFFFFLL)
       {
         goto LABEL_139;
       }
 
-      allConstraints3 = [(MPWeighter *)v70->_weighter allConstraints];
-      lastIndex3 = *([allConstraints3 objectAtIndex:v192] + 1);
+      allConstraints3 = [(MPWeighter *)v72->_weighter allConstraints];
+      lastIndex3 = *([allConstraints3 objectAtIndex:v194] + 1);
       goto LABEL_138;
     }
   }
 
 LABEL_239:
-  v147 = [MPAuthoringUtilities lastPresetFromOptions:optionsCopy];
-  if (v147)
+  v149 = [MPAuthoringUtilities lastPresetFromOptions:optionsCopy];
+  if (v149)
   {
-    v148 = v147;
+    v150 = v149;
     if (([objc_msgSend(optionsCopy objectForKey:{@"hasMoreImages", "BOOLValue"}] & 1) == 0)
     {
-      v149 = +[MPAuthoringUtilities idFromPresetID:](MPAuthoringUtilities, "idFromPresetID:", [v161 lastObject]);
-      [v161 removeObjectAtIndex:{objc_msgSend(v161, "count") - 1}];
-      [v161 addObject:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@/%@", v149, v148)}];
+      v151 = +[MPAuthoringUtilities idFromPresetID:](MPAuthoringUtilities, "idFromPresetID:", [v163 lastObject]);
+      [v163 removeObjectAtIndex:{objc_msgSend(v163, "count") - 1}];
+      [v163 addObject:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@/%@", v151, v150)}];
     }
   }
 
-  if (v153 && ([v153 hasPrefix:@"Fade"] & 1) == 0)
+  if (v155 && ([v155 hasPrefix:@"Fade"] & 1) == 0)
   {
-    [v161 addObject:v153];
+    [v163 addObject:v155];
   }
 
-  return v161;
+  return v163;
 }
 
 - (BOOL)imagesHaveMovie:(id)movie start:(int64_t)start count:(int64_t)count
@@ -3722,471 +3724,472 @@ LABEL_26:
     [weighter clearAllItems];
   }
 
-  v102 = +[MPEffectManager sharedManager];
+  v105 = +[MPEffectManager sharedManager];
   [MPAuthoringUtilities aspectRatioFromOptions:options];
   v8 = v7;
   v9 = [MPAuthoringUtilities screenSizeFromOptions:options];
-  v91 = [MPAuthoringUtilities matchEffectsUsingTagsFromOptions:options];
+  v94 = [MPAuthoringUtilities matchEffectsUsingTagsFromOptions:options];
   v10 = [MPAuthoringUtilities styleFromOptions:options];
-  v139 = 0u;
-  v140 = 0u;
-  v141 = 0u;
   v142 = 0u;
-  v11 = [effects countByEnumeratingWithState:&v139 objects:v149 count:16];
+  v143 = 0u;
+  v144 = 0u;
+  v145 = 0u;
+  v11 = [effects countByEnumeratingWithState:&v142 objects:v152 count:16];
   if (v11)
   {
     v12 = v11;
     selfCopy = self;
-    v99 = 0;
-    v103 = *v140;
-    v88 = v10;
-    v90 = v9;
+    v102 = 0;
+    v106 = *v143;
+    v91 = v10;
+    v93 = v9;
     do
     {
       v13 = 0;
-      v93 = v12;
+      v96 = v12;
       do
       {
-        if (*v140 != v103)
+        if (*v143 != v106)
         {
           objc_enumerationMutation(effects);
         }
 
-        v14 = *(*(&v139 + 1) + 8 * v13);
+        v14 = *(*(&v142 + 1) + 8 * v13);
         v15 = [v14 objectForKey:@"likelihood"];
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          if (MRIsAppleTV())
+          if (MRIsAppleTV(isKindOfClass, v17))
           {
-            v16 = @"AppleTV";
+            v18 = @"AppleTV";
           }
 
           else
           {
-            v16 = @"Desktop";
+            v18 = @"Desktop";
           }
 
-          v15 = [v15 objectForKey:v16];
+          v15 = [v15 objectForKey:v18];
         }
 
-        v17 = [v14 objectForKey:@"presetID"];
+        v19 = [v14 objectForKey:@"presetID"];
         if ([v14 objectForKey:@"backgroundEffect"])
         {
-          v17 = [v14 objectForKey:@"backgroundEffect"];
+          v19 = [v14 objectForKey:@"backgroundEffect"];
         }
 
-        v18 = [v14 objectForKey:@"exclusion"];
-        v104 = v15;
-        if (MRIsAppleTV() && (v137 = 0u, v138 = 0u, v135 = 0u, v136 = 0u, (v19 = [v18 countByEnumeratingWithState:&v135 objects:v148 count:16]) != 0))
+        v20 = [v14 objectForKey:@"exclusion"];
+        v107 = v15;
+        if (MRIsAppleTV(v20, v21) && (v140 = 0u, v141 = 0u, v138 = 0u, v139 = 0u, (v22 = [v20 countByEnumeratingWithState:&v138 objects:v151 count:16]) != 0))
         {
-          v20 = v19;
-          v21 = *v136;
-          v22 = 1;
+          v23 = v22;
+          v24 = *v139;
+          v25 = 1;
           do
           {
-            for (i = 0; i != v20; i = i + 1)
+            for (i = 0; i != v23; i = i + 1)
             {
-              if (*v136 != v21)
+              if (*v139 != v24)
               {
-                objc_enumerationMutation(v18);
+                objc_enumerationMutation(v20);
               }
 
-              v22 &= [*(*(&v135 + 1) + 8 * i) isEqualToString:@"AppleTV"] ^ 1;
+              v25 &= [*(*(&v138 + 1) + 8 * i) isEqualToString:@"AppleTV"] ^ 1;
             }
 
-            v20 = [v18 countByEnumeratingWithState:&v135 objects:v148 count:16];
+            v23 = [v20 countByEnumeratingWithState:&v138 objects:v151 count:16];
           }
 
-          while (v20);
+          while (v23);
         }
 
         else
         {
-          v22 = 1;
+          v25 = 1;
         }
 
         switch(v9)
         {
           case 2uLL:
-            v125 = 0u;
+            v128 = 0u;
+            v129 = 0u;
             v126 = 0u;
-            v123 = 0u;
-            v124 = 0u;
-            v32 = [v18 countByEnumeratingWithState:&v123 objects:v145 count:16];
-            if (v32)
+            v127 = 0u;
+            v35 = [v20 countByEnumeratingWithState:&v126 objects:v148 count:16];
+            if (v35)
             {
-              v33 = v32;
-              v34 = *v124;
+              v36 = v35;
+              v37 = *v127;
               do
               {
-                for (j = 0; j != v33; j = j + 1)
+                for (j = 0; j != v36; j = j + 1)
                 {
-                  if (*v124 != v34)
+                  if (*v127 != v37)
                   {
-                    objc_enumerationMutation(v18);
+                    objc_enumerationMutation(v20);
                   }
 
-                  v22 &= [*(*(&v123 + 1) + 8 * j) isEqualToString:@"smallScreen"] ^ 1;
+                  v25 &= [*(*(&v126 + 1) + 8 * j) isEqualToString:@"smallScreen"] ^ 1;
                 }
 
-                v33 = [v18 countByEnumeratingWithState:&v123 objects:v145 count:16];
+                v36 = [v20 countByEnumeratingWithState:&v126 objects:v148 count:16];
               }
 
-              while (v33);
+              while (v36);
             }
 
             break;
           case 1uLL:
-            v129 = 0u;
+            v132 = 0u;
+            v133 = 0u;
             v130 = 0u;
-            v127 = 0u;
-            v128 = 0u;
-            v28 = [v18 countByEnumeratingWithState:&v127 objects:v146 count:16];
-            if (v28)
+            v131 = 0u;
+            v31 = [v20 countByEnumeratingWithState:&v130 objects:v149 count:16];
+            if (v31)
             {
-              v29 = v28;
-              v30 = *v128;
+              v32 = v31;
+              v33 = *v131;
               do
               {
-                for (k = 0; k != v29; k = k + 1)
+                for (k = 0; k != v32; k = k + 1)
                 {
-                  if (*v128 != v30)
+                  if (*v131 != v33)
                   {
-                    objc_enumerationMutation(v18);
+                    objc_enumerationMutation(v20);
                   }
 
-                  v22 &= [*(*(&v127 + 1) + 8 * k) isEqualToString:@"mediumScreen"] ^ 1;
+                  v25 &= [*(*(&v130 + 1) + 8 * k) isEqualToString:@"mediumScreen"] ^ 1;
                 }
 
-                v29 = [v18 countByEnumeratingWithState:&v127 objects:v146 count:16];
+                v32 = [v20 countByEnumeratingWithState:&v130 objects:v149 count:16];
               }
 
-              while (v29);
+              while (v32);
             }
 
             break;
           case 0uLL:
-            v133 = 0u;
+            v136 = 0u;
+            v137 = 0u;
             v134 = 0u;
-            v131 = 0u;
-            v132 = 0u;
-            v24 = [v18 countByEnumeratingWithState:&v131 objects:v147 count:16];
-            if (v24)
+            v135 = 0u;
+            v27 = [v20 countByEnumeratingWithState:&v134 objects:v150 count:16];
+            if (v27)
             {
-              v25 = v24;
-              v26 = *v132;
+              v28 = v27;
+              v29 = *v135;
               do
               {
-                for (m = 0; m != v25; m = m + 1)
+                for (m = 0; m != v28; m = m + 1)
                 {
-                  if (*v132 != v26)
+                  if (*v135 != v29)
                   {
-                    objc_enumerationMutation(v18);
+                    objc_enumerationMutation(v20);
                   }
 
-                  v22 &= [*(*(&v131 + 1) + 8 * m) isEqualToString:@"largeScreen"] ^ 1;
+                  v25 &= [*(*(&v134 + 1) + 8 * m) isEqualToString:@"largeScreen"] ^ 1;
                 }
 
-                v25 = [v18 countByEnumeratingWithState:&v131 objects:v147 count:16];
+                v28 = [v20 countByEnumeratingWithState:&v134 objects:v150 count:16];
               }
 
-              while (v25);
+              while (v28);
             }
 
             break;
         }
 
-        v36 = v14;
-        v37 = [v14 objectForKey:@"minAspectRatio"];
-        if (v37)
+        v39 = v14;
+        v40 = [v14 objectForKey:@"minAspectRatio"];
+        if (v40)
         {
-          [v37 floatValue];
-          v39 = v38 <= 1.0 || v8 <= 1.0;
-          if ((!v39 || v38 < 1.0 && v8 < 1.0) && v8 < v38 + -0.00999999978)
+          [v40 floatValue];
+          v42 = v41 <= 1.0 || v8 <= 1.0;
+          if ((!v42 || v41 < 1.0 && v8 < 1.0) && v8 < v41 + -0.00999999978)
           {
-            LOBYTE(v22) = 0;
+            LOBYTE(v25) = 0;
           }
         }
 
-        v40 = [v14 objectForKey:@"maxAspectRatio"];
-        if (!v40 || (([v40 floatValue], v41 <= 1.0) || v8 <= 1.0) && (v41 >= 1.0 || v8 >= 1.0) || v8 <= v41 + 0.00999999978)
+        v43 = [v14 objectForKey:@"maxAspectRatio"];
+        if (!v43 || (([v43 floatValue], v44 <= 1.0) || v8 <= 1.0) && (v44 >= 1.0 || v8 >= 1.0) || v8 <= v44 + 0.00999999978)
         {
-          if (((v17 != 0) & v22) == 1)
+          if (((v19 != 0) & v25) == 1)
           {
-            v42 = [v102 numOfImagesForEffectPresetID:v17];
-            v43 = objc_alloc_init(MPWeighterConstraint);
-            v105 = v42;
-            v43->numOfImages = v42;
-            v44 = [objc_msgSend(v36 objectForKey:{@"moviesOnly", "BOOLValue"}];
-            v101 = [objc_msgSend(v36 objectForKey:{@"ignoreMovies", "BOOLValue"}];
-            v45 = [MPUtilities idOfCombinedID:v17];
-            v46 = [v102 orientationForEffectID:v45];
-            v47 = v46;
-            if ((v8 >= 1.0 || ([v46 isEqualToString:@"landscape"] & 1) == 0) && (v8 < 1.0 || (objc_msgSend(v47, "isEqualToString:", @"portrait") & 1) == 0))
+            v45 = [v105 numOfImagesForEffectPresetID:v19];
+            v46 = objc_alloc_init(MPWeighterConstraint);
+            v108 = v45;
+            v46->numOfImages = v45;
+            v47 = [objc_msgSend(v39 objectForKey:{@"moviesOnly", "BOOLValue"}];
+            v104 = [objc_msgSend(v39 objectForKey:{@"ignoreMovies", "BOOLValue"}];
+            v48 = [MPUtilities idOfCombinedID:v19];
+            v49 = [v105 orientationForEffectID:v48];
+            v50 = v49;
+            if ((v8 >= 1.0 || ([v49 isEqualToString:@"landscape"] & 1) == 0) && (v8 < 1.0 || (objc_msgSend(v50, "isEqualToString:", @"portrait") & 1) == 0))
             {
-              v94 = v44;
-              v97 = v17;
-              v98 = v13;
-              v48 = [MPUtilities presetIDOfCombinedID:v17];
-              v49 = [objc_msgSend(v102 mediaAspectRatioHintsForEffectID:v45 usingPresetID:v48 defaultAspectRatio:{v8), "allValues"}];
-              v96 = v36;
-              v50 = [v36 objectForKey:@"aspectRatios"];
-              if (v50)
+              v97 = v47;
+              v100 = v19;
+              v101 = v13;
+              v51 = [MPUtilities presetIDOfCombinedID:v19];
+              v52 = [objc_msgSend(v105 mediaAspectRatioHintsForEffectID:v48 usingPresetID:v51 defaultAspectRatio:{v8), "allValues"}];
+              v99 = v39;
+              v53 = [v39 objectForKey:@"aspectRatios"];
+              if (v53)
               {
-                v49 = v50;
+                v52 = v53;
               }
 
-              v119 = 0u;
-              v120 = 0u;
-              v121 = 0u;
               v122 = 0u;
-              v51 = [v49 countByEnumeratingWithState:&v119 objects:v144 count:16];
-              if (v51)
+              v123 = 0u;
+              v124 = 0u;
+              v125 = 0u;
+              v54 = [v52 countByEnumeratingWithState:&v122 objects:v147 count:16];
+              if (v54)
               {
-                v52 = v51;
-                v53 = 0;
-                v54 = 0;
-                v106 = 0;
-                v107 = 0;
-                v55 = *v120;
+                v55 = v54;
+                v56 = 0;
+                v57 = 0;
+                v109 = 0;
+                v110 = 0;
+                v58 = *v123;
                 do
                 {
-                  v56 = 0;
-                  v57 = v106;
+                  v59 = 0;
+                  v60 = v109;
                   do
                   {
-                    if (*v120 != v55)
+                    if (*v123 != v58)
                     {
-                      objc_enumerationMutation(v49);
+                      objc_enumerationMutation(v52);
                     }
 
-                    [*(*(&v119 + 1) + 8 * v56) floatValue];
-                    v59 = v58;
-                    if (v58 >= 1.075 || v59 <= 0.95)
+                    [*(*(&v122 + 1) + 8 * v59) floatValue];
+                    v62 = v61;
+                    if (v61 >= 1.075 || v62 <= 0.95)
                     {
-                      if (v58 >= 3.0)
-                      {
-                        ++v54;
-                      }
-
-                      else if (v59 >= 1.075)
+                      if (v61 >= 3.0)
                       {
                         ++v57;
                       }
 
+                      else if (v62 >= 1.075)
+                      {
+                        ++v60;
+                      }
+
                       else
                       {
-                        ++v107;
+                        ++v110;
                       }
                     }
 
                     else
                     {
-                      ++v53;
+                      ++v56;
                     }
 
-                    v56 = v56 + 1;
+                    v59 = v59 + 1;
                   }
 
-                  while (v52 != v56);
-                  v106 = v57;
-                  v52 = [v49 countByEnumeratingWithState:&v119 objects:v144 count:16];
+                  while (v55 != v59);
+                  v109 = v60;
+                  v55 = [v52 countByEnumeratingWithState:&v122 objects:v147 count:16];
                 }
 
-                while (v52);
+                while (v55);
               }
 
               else
               {
-                v54 = 0;
-                v106 = 0;
-                v107 = 0;
-              }
-
-              v95 = v43;
-              v114 = +[NSMutableArray array];
-              v60 = +[NSMutableArray array];
-              v61 = [+[MPEffectManager sharedManager](MPEffectManager "sharedManager")];
-              v115 = 0u;
-              v116 = 0u;
-              v117 = 0u;
-              v118 = 0u;
-              v62 = [v61 countByEnumeratingWithState:&v115 objects:v143 count:16];
-              if (v62)
-              {
-                v63 = v62;
-                v111 = 0;
-                v112 = 0;
+                v57 = 0;
                 v109 = 0;
                 v110 = 0;
-                v108 = 0;
+              }
+
+              v98 = v46;
+              v117 = +[NSMutableArray array];
+              v63 = +[NSMutableArray array];
+              v64 = [+[MPEffectManager sharedManager](MPEffectManager "sharedManager")];
+              v118 = 0u;
+              v119 = 0u;
+              v120 = 0u;
+              v121 = 0u;
+              v65 = [v64 countByEnumeratingWithState:&v118 objects:v146 count:16];
+              if (v65)
+              {
+                v66 = v65;
+                v114 = 0;
+                v115 = 0;
+                v112 = 0;
                 v113 = 0;
-                v64 = 0;
-                v65 = *v116;
+                v111 = 0;
+                v116 = 0;
+                v67 = 0;
+                v68 = *v119;
                 do
                 {
-                  for (n = 0; n != v63; n = n + 1)
+                  for (n = 0; n != v66; n = n + 1)
                   {
-                    if (*v116 != v65)
+                    if (*v119 != v68)
                     {
-                      objc_enumerationMutation(v61);
+                      objc_enumerationMutation(v64);
                     }
 
-                    v67 = *(*(&v115 + 1) + 8 * n);
-                    v68 = [+[MPEffectManager sharedManager](MPEffectManager "sharedManager")];
-                    if (v68 > 3)
+                    v70 = *(*(&v118 + 1) + 8 * n);
+                    v71 = [+[MPEffectManager sharedManager](MPEffectManager "sharedManager")];
+                    if (v71 > 3)
                     {
-                      if (v68 == &dword_4)
+                      if (v71 == &dword_4)
+                      {
+                        ++v114;
+                      }
+
+                      else if (v71 == (&dword_4 + 1))
+                      {
+                        ++v112;
+                      }
+
+                      else if (v71 == (&dword_4 + 2))
                       {
                         ++v111;
                       }
-
-                      else if (v68 == (&dword_4 + 1))
-                      {
-                        ++v109;
-                      }
-
-                      else if (v68 == (&dword_4 + 2))
-                      {
-                        ++v108;
-                      }
                     }
 
-                    else if (v68 == (&dword_0 + 1))
+                    else if (v71 == (&dword_0 + 1))
                     {
-                      ++v110;
+                      ++v113;
                     }
 
-                    else if (v68 == (&dword_0 + 2))
+                    else if (v71 == (&dword_0 + 2))
                     {
-                      ++v112;
+                      ++v115;
                     }
 
                     else
                     {
-                      v69 = v113;
-                      if (v68 == (&dword_0 + 3))
+                      v72 = v116;
+                      if (v71 == (&dword_0 + 3))
                       {
-                        v69 = v113 + 1;
+                        v72 = v116 + 1;
                       }
 
-                      v113 = v69;
+                      v116 = v72;
                     }
 
-                    v70 = [v67 objectForKey:@"maxBreak"];
-                    if (v70)
+                    v73 = [v70 objectForKey:@"maxBreak"];
+                    if (v73)
                     {
-                      [v114 addObject:v70];
+                      [v117 addObject:v73];
                     }
 
-                    v71 = [v67 objectForKey:@"minBreak"];
-                    if (v71)
+                    v74 = [v70 objectForKey:@"minBreak"];
+                    if (v74)
                     {
-                      [v60 addObject:v71];
+                      [v63 addObject:v74];
                     }
 
-                    ++v64;
+                    ++v67;
                   }
 
-                  v63 = [v61 countByEnumeratingWithState:&v115 objects:v143 count:16];
+                  v66 = [v64 countByEnumeratingWithState:&v118 objects:v146 count:16];
                 }
 
-                while (v63);
+                while (v66);
               }
 
               else
               {
-                v111 = 0;
+                v114 = 0;
+                v115 = 0;
                 v112 = 0;
-                v109 = 0;
-                v110 = 0;
-                v108 = 0;
                 v113 = 0;
+                v111 = 0;
+                v116 = 0;
               }
 
-              v72 = 0x7FFFFFFFFFFFFFFFLL;
-              v73 = v105;
-              if (v105 == 0x7FFFFFFFFFFFFFFFLL)
+              v75 = 0x7FFFFFFFFFFFFFFFLL;
+              v76 = v108;
+              if (v108 == 0x7FFFFFFFFFFFFFFFLL)
               {
-                v74 = 0;
-                v75 = 0;
-                v54 = 0;
-                v76 = 0;
-                v43 = v95;
-                v77 = v101;
+                v77 = 0;
+                v78 = 0;
+                v57 = 0;
+                v79 = 0;
+                v46 = v98;
+                v80 = v104;
               }
 
               else
               {
-                v43 = v95;
-                v77 = v101;
-                if (v105 < 1)
+                v46 = v98;
+                v80 = v104;
+                if (v108 < 1)
                 {
-                  v76 = 0;
+                  v79 = 0;
                 }
 
                 else
                 {
-                  v78 = 0;
-                  v76 = 0;
+                  v81 = 0;
+                  v79 = 0;
                   do
                   {
-                    v79 = [(MPAuthoringController *)selfCopy determineIfSlideDisplayesForTheWholeDurationForEffect:v45 presetID:v48 atIndex:v78 inStyleID:v88];
-                    v73 = v105;
-                    if (v105 == 1)
+                    v82 = [(MPAuthoringController *)selfCopy determineIfSlideDisplayesForTheWholeDurationForEffect:v48 presetID:v51 atIndex:v81 inStyleID:v91];
+                    v76 = v108;
+                    if (v108 == 1)
                     {
-                      v80 = 1;
+                      v83 = 1;
                     }
 
                     else
                     {
-                      v80 = v79;
+                      v83 = v82;
                     }
 
-                    v76 += v80;
-                    ++v78;
+                    v79 += v83;
+                    ++v81;
                   }
 
-                  while (v105 != v78);
+                  while (v108 != v81);
                 }
 
-                v75 = v106;
-                v74 = v107;
-                v72 = v73 - v106 - (v54 + v107);
+                v78 = v109;
+                v77 = v110;
+                v75 = v76 - v109 - (v57 + v110);
               }
 
-              -[MPWeighterConstraint setNextConstraints:](v43, "setNextConstraints:", [v96 objectForKey:@"nextConstraints"]);
-              [(MPWeighterConstraint *)v43 setPresetID:v48];
-              v43->movieCount = v76;
-              v43->moviesOnly = v94;
-              v43->ignoreMovies = v77;
-              v43->wideLandscape = v54;
-              v43->square = v72;
-              v43->landscape = v75;
-              v43->portrait = v74;
-              v43->hPanoramas = v110;
-              v43->vPanoramas = v112;
-              v43->supportsHPanoramas = v111;
-              v43->supportsVPanoramas = v109;
-              v43->supportsAllPanoramas = v108;
-              v43->allPanoramas = v113;
-              v86 = v110 > 0 || v112 > 0 || v113 > 0 || v111 > 0 || v109 > 0 || v108 > 0;
-              v43->hasPanorama = v86;
-              [(MPWeighterConstraint *)v43 setMaxAspectRatios:v114];
-              [(MPWeighterConstraint *)v43 setMinAspectRatios:v60];
-              v13 = v98;
-              if (v91)
+              -[MPWeighterConstraint setNextConstraints:](v46, "setNextConstraints:", [v99 objectForKey:@"nextConstraints"]);
+              [(MPWeighterConstraint *)v46 setPresetID:v51];
+              v46->movieCount = v79;
+              v46->moviesOnly = v97;
+              v46->ignoreMovies = v80;
+              v46->wideLandscape = v57;
+              v46->square = v75;
+              v46->landscape = v78;
+              v46->portrait = v77;
+              v46->hPanoramas = v113;
+              v46->vPanoramas = v115;
+              v46->supportsHPanoramas = v114;
+              v46->supportsVPanoramas = v112;
+              v46->supportsAllPanoramas = v111;
+              v46->allPanoramas = v116;
+              v89 = v113 > 0 || v115 > 0 || v116 > 0 || v114 > 0 || v112 > 0 || v111 > 0;
+              v46->hasPanorama = v89;
+              [(MPWeighterConstraint *)v46 setMaxAspectRatios:v117];
+              [(MPWeighterConstraint *)v46 setMinAspectRatios:v63];
+              v13 = v101;
+              if (v94)
               {
-                -[MPWeighterConstraint setTags:](v43, "setTags:", [objc_msgSend(+[MPEffectManager sharedManager](MPEffectManager "sharedManager")]);
+                -[MPWeighterConstraint setTags:](v46, "setTags:", [objc_msgSend(+[MPEffectManager sharedManager](MPEffectManager "sharedManager")]);
               }
 
-              v99 |= v43->hasPanorama;
-              [weighter addItem:v97 withWeight:objc_msgSend(v104 andContraints:{"integerValue"), v43}];
-              v9 = v90;
+              v102 |= v46->hasPanorama;
+              [weighter addItem:v100 withWeight:objc_msgSend(v107 andContraints:{"integerValue"), v46}];
+              v9 = v93;
             }
 
-            v12 = v93;
+            v12 = v96;
           }
         }
 
@@ -4194,19 +4197,19 @@ LABEL_26:
       }
 
       while (v13 != v12);
-      v12 = [effects countByEnumeratingWithState:&v139 objects:v149 count:16];
+      v12 = [effects countByEnumeratingWithState:&v142 objects:v152 count:16];
     }
 
     while (v12);
-    v87 = v99 ^ 1;
+    v90 = v102 ^ 1;
   }
 
   else
   {
-    v87 = 1;
+    v90 = 1;
   }
 
-  [weighter setIgnorePanoramas:v87 & 1];
+  [weighter setIgnorePanoramas:v90 & 1];
 }
 
 - (void)populateWeighter:(id)weighter withTransitions:(id)transitions andOptions:(id)options
@@ -4222,81 +4225,82 @@ LABEL_26:
   }
 
   v7 = [MPAuthoringUtilities useTransitionLayoutTagsWithOptions:options];
-  v24 = 0u;
-  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v8 = [transitions countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v28 = 0u;
+  v29 = 0u;
+  v8 = [transitions countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v27;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v25 != v10)
+        if (*v27 != v10)
         {
           objc_enumerationMutation(transitions);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
+        v12 = *(*(&v26 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v17 = objc_alloc_init(MPWeighterConstraint);
+          v19 = objc_alloc_init(MPWeighterConstraint);
           if (v7)
           {
-            v22 = [+[MPTransitionManager sharedManager](MPTransitionManager "sharedManager")];
-            -[MPWeighterConstraint setTags:](v17, "setTags:", [v22 objectForKey:@"tags"]);
-            v17->tagsOnSourceOnly = [objc_msgSend(v22 objectForKey:{@"tagsOnSourceOnly", "BOOLValue"}];
+            v24 = [+[MPTransitionManager sharedManager](MPTransitionManager "sharedManager")];
+            -[MPWeighterConstraint setTags:](v19, "setTags:", [v24 objectForKey:@"tags"]);
+            v19->tagsOnSourceOnly = [objc_msgSend(v24 objectForKey:{@"tagsOnSourceOnly", "BOOLValue"}];
           }
 
           weighterCopy2 = weighter;
-          v21 = v12;
+          v23 = v12;
           integerValue = &dword_0 + 1;
           goto LABEL_22;
         }
 
         v13 = [v12 objectForKey:@"likelihood"];
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          if (MRIsAppleTV())
+          if (MRIsAppleTV(isKindOfClass, v15))
           {
-            v14 = @"AppleTV";
+            v16 = @"AppleTV";
           }
 
           else
           {
-            v14 = @"Desktop";
+            v16 = @"Desktop";
           }
 
-          v13 = [v13 objectForKey:v14];
+          v13 = [v13 objectForKey:v16];
         }
 
-        v15 = [v12 objectForKey:@"presetID"];
-        if (v15)
+        v17 = [v12 objectForKey:@"presetID"];
+        if (v17)
         {
-          v16 = v15;
-          v17 = objc_alloc_init(MPWeighterConstraint);
-          v18 = [v12 objectForKey:@"constraints"];
-          if (v18)
+          v18 = v17;
+          v19 = objc_alloc_init(MPWeighterConstraint);
+          v20 = [v12 objectForKey:@"constraints"];
+          if (v20)
           {
-            -[MPWeighterConstraint setPresetID:](v17, "setPresetID:", [v18 objectForKey:@"presetID"]);
+            -[MPWeighterConstraint setPresetID:](v19, "setPresetID:", [v20 objectForKey:@"presetID"]);
           }
 
           integerValue = [v13 integerValue];
           weighterCopy2 = weighter;
-          v21 = v16;
+          v23 = v18;
 LABEL_22:
-          [weighterCopy2 addItem:v21 withWeight:integerValue andContraints:v17];
+          [weighterCopy2 addItem:v23 withWeight:integerValue andContraints:v19];
 
           continue;
         }
       }
 
-      v9 = [transitions countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [transitions countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v9);
@@ -4608,7 +4612,7 @@ LABEL_22:
   v123 = +[MPEffectManager sharedManager];
   [MPAuthoringUtilities durationPerEffectFromOptions:options];
   v8 = v7;
-  [-[MPAuthoringController transitionFromOptions:](self transitionFromOptions:{options), "duration"}];
+  objc_msgSend_duration([(MPAuthoringController *)self transitionFromOptions:options]);
   v103 = v9;
   [MPAuthoringUtilities layerTimeScaleFromOptions:options];
   v107 = v10;
@@ -5015,7 +5019,7 @@ LABEL_87:
             v81 = v36;
           }
 
-          [v27 duration];
+          objc_msgSend_duration(v27);
           v83 = v81 <= 0.0 || v81 == v82;
           if (!v83)
           {
@@ -5101,7 +5105,7 @@ LABEL_87:
           v99 = -(v92 + v98 - v103 * 2.0);
           if (v99 > 0.0)
           {
-            [v97 duration];
+            objc_msgSend_duration(v97);
             [v97 setDuration:v100 - v99];
           }
 
@@ -5143,9 +5147,9 @@ LABEL_87:
           if (v16 < v10)
           {
             layersCopy = layers;
-            [objc_msgSend(layers objectAtIndex:{v16), "duration"}];
+            objc_msgSend_duration([layers objectAtIndex:v16]);
             v19 = v18;
-            [v14 duration];
+            objc_msgSend_duration(v14);
             v21 = v20;
             v36 = 0u;
             v37 = 0u;
@@ -5170,7 +5174,7 @@ LABEL_87:
                   v28 = *(*(&v36 + 1) + 8 * i);
                   if ([v28 countOfEffects] >= 1)
                   {
-                    [v28 duration];
+                    objc_msgSend_duration(v28);
                     [v28 setDuration:v26 * v29];
                   }
                 }
@@ -5181,7 +5185,7 @@ LABEL_87:
               while (v24);
             }
 
-            [v14 duration];
+            objc_msgSend_duration(v14);
             p_vtable = (&OBJC_METACLASS___MPDocumentInternal + 24);
             layers = layersCopy;
             p_superclass = (MCGenericAction + 8);
@@ -5189,9 +5193,9 @@ LABEL_87:
             if (v19 != v30)
             {
               v31 = [objc_msgSend(v14 "effectContainers")];
-              [v31 duration];
+              objc_msgSend_duration(v31);
               v33 = v32;
-              [v14 duration];
+              objc_msgSend_duration(v14);
               [v31 setDuration:v33 + v19 - v34];
             }
           }
@@ -5226,9 +5230,9 @@ LABEL_87:
           v14 = [objc_msgSend(objc_msgSend(v6 objectForKey:{v11), "objectForKey:", @"zIndex", "integerValue"}];
           if (v14 < v8)
           {
-            [objc_msgSend(layers objectAtIndex:{v14), "duration"}];
+            objc_msgSend_duration([layers objectAtIndex:v14]);
             v16 = v15;
-            [v12 duration];
+            objc_msgSend_duration(v12);
             v18 = v17;
             v19 = [objc_msgSend(v12 "effectContainers")];
             if (v19 && (v20 = v19, ![objc_msgSend(v19 "effects")]))
@@ -5283,19 +5287,19 @@ LABEL_87:
     if (vcvtd_n_f64_u64([beats count], 1uLL) > objc_msgSend(layer, "countOfEffectContainers") && v11 / v10 > v13 - v15)
     {
       [(MPAuthoringController *)self scaleLayerToMatchAudio:layer withBeats:beats withOptions:options];
-      [layer duration];
+      objc_msgSend_duration(layer);
       if (vabdd_f64(v16, v10) > 1.0)
       {
         -[MPAuthoringController beatAlignEffectContainers:toBeats:withOptions:](self, "beatAlignEffectContainers:toBeats:withOptions:", [layer effectContainers], beats, options);
         [(MPAuthoringController *)self scaleLayerToMatchAudio:layer withBeats:beats withOptions:options];
-        [layer duration];
+        objc_msgSend_duration(layer);
         if (vabdd_f64(v17, v10) > 1.0)
         {
           v18 = v17 - v10;
           [MPAuthoringUtilities minimumEffectDurationFromOptions:options];
           v20 = v19;
           v21 = [objc_msgSend(layer "effectContainers")];
-          [v21 duration];
+          objc_msgSend_duration(v21);
           if (v22 - v18 >= v20)
           {
             [v21 setDuration:?];
@@ -5304,7 +5308,7 @@ LABEL_87:
       }
     }
 
-    [layer duration];
+    objc_msgSend_duration(layer);
     if (vabdd_f64(v23, v10) > 1.0)
     {
       [layer setSkipTimeCalculations:1];
@@ -5329,7 +5333,7 @@ LABEL_87:
   [MPAuthoringUtilities audioDurationFactorFromOptions:options];
   v15 = v14;
   audioCopy = audio;
-  [audio duration];
+  objc_msgSend_duration(audio);
   v17 = v16;
   v142 = +[MPEffectManager sharedManager];
   v132 = [MPAuthoringUtilities matchPhasesWithTransitionFromOptions:options];
@@ -5407,7 +5411,7 @@ LABEL_87:
     else
     {
       v126 = v57;
-      [v57 duration];
+      objc_msgSend_duration(v57);
       v58 = v59;
     }
 
@@ -5419,7 +5423,7 @@ LABEL_87:
 
     else
     {
-      [lastObject duration];
+      objc_msgSend_duration(lastObject);
       v58 = v58 + v63;
       v64 = lastObject;
     }
@@ -5562,7 +5566,7 @@ LABEL_108:
             while (v75);
             if ((v76 & v136) == 1)
             {
-              [v128 duration];
+              objc_msgSend_duration(v128);
               v69 = v69 + v86;
 LABEL_119:
               v64 = v125;
@@ -5579,7 +5583,7 @@ LABEL_119:
             }
           }
 
-          [v128 duration];
+          objc_msgSend_duration(v128, v121);
           v58 = v58 + v87;
           goto LABEL_119;
         }
@@ -5785,7 +5789,7 @@ LABEL_157:
                       while (v109);
                     }
 
-                    [v134 duration];
+                    objc_msgSend_duration(v134);
                     v114 = v113;
                     [v134 introTransitionDuration];
                     v116 = v115;
@@ -6030,13 +6034,13 @@ LABEL_67:
   v12 = v11;
   v113 = +[MPEffectManager sharedManager];
   v13 = [MPAuthoringUtilities scaleEffectsForPanoramasFromOptions:options];
-  [audio duration];
+  objc_msgSend_duration(audio);
   beatsCopy = beats;
   if (v14 < v10)
   {
     v100 = [beats count];
     v138 = 0x7FFFFFFFFFFFFFFFLL;
-    [audio duration];
+    objc_msgSend_duration(audio);
     [(MPAuthoringController *)self findClosestBeatForTime:beats inBeats:&v138 atIndex:?];
     v97 = v138;
     v99 = [[NSSortDescriptor alloc] initWithKey:@"duration" ascending:1];
@@ -6184,7 +6188,7 @@ LABEL_27:
 
             [v28 startTime];
             v37 = v36;
-            [v28 duration];
+            objc_msgSend_duration(v28);
             [(MPAuthoringController *)self findClosestBeatForTime:beatsCopy inBeats:&v138 atIndex:v37 + v38];
             if (v138 != v100 - 1)
             {
@@ -6192,7 +6196,7 @@ LABEL_27:
               v40 = v39;
               [objc_msgSend(beatsCopy objectAtIndex:{v138), "doubleValue"}];
               v42 = v40 - v41;
-              [v28 duration];
+              objc_msgSend_duration(v28);
               v44 = v43 + v42;
               [v28 outroTransitionDuration];
               v46 = v45;
@@ -6404,7 +6408,7 @@ LABEL_27:
 
         [v74 startTime];
         v83 = v82;
-        [v74 duration];
+        objc_msgSend_duration(v74);
         [(MPAuthoringController *)self findClosestBeatForTime:beatsCopy inBeats:&v138 atIndex:v83 + v84];
         if (v138)
         {
@@ -6412,9 +6416,9 @@ LABEL_27:
           v86 = v85;
           [objc_msgSend(beatsCopy objectAtIndex:{v138 - 1), "doubleValue"}];
           v88 = v86 - v87;
-          [v74 duration];
+          objc_msgSend_duration(v74);
           v90 = v89;
-          [v74 duration];
+          objc_msgSend_duration(v74);
           v92 = v91 - v88;
           [v74 outroTransitionDuration];
           v94 = v93;
@@ -6881,7 +6885,7 @@ LABEL_24:
         }
 
 LABEL_34:
-        [v38 duration];
+        objc_msgSend_duration(v38);
         v31 = v30;
         [v38 outroTransitionDuration];
         v29 = v31 - v32;
@@ -7073,7 +7077,7 @@ LABEL_31:
 
               if (v37)
               {
-                [v48 duration];
+                objc_msgSend_duration(v48);
                 v16 = v16 + v39 * 2.0;
                 goto LABEL_46;
               }
@@ -7105,7 +7109,7 @@ LABEL_48:
         }
 
 LABEL_45:
-        [v48 duration];
+        objc_msgSend_duration(v48);
         v16 = v16 + v40;
 LABEL_46:
         v22 = v49 + 1;
@@ -14129,7 +14133,7 @@ LABEL_27:
       else
       {
         v34 = [MPTransition transitionWithTransitionID:@"Dissolve"];
-        [-[MPAuthoringController transitionFromOptions:](self transitionFromOptions:{v9), "duration"}];
+        objc_msgSend_duration([(MPAuthoringController *)self transitionFromOptions:v9]);
         if (v35 > 0.0)
         {
           [(MPTransition *)v34 setDuration:?];

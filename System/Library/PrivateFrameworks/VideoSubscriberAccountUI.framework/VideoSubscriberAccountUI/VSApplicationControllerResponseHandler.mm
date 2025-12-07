@@ -155,7 +155,7 @@ LABEL_21:
 
 - (void)_handleJavascriptResponseInternal:(id)internal requestType:(int64_t)type accountAuthentication:(id)authentication completionHandler:(id)handler
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   internalCopy = internal;
   authenticationCopy = authentication;
   handlerCopy = handler;
@@ -258,32 +258,32 @@ LABEL_13:
 
   userChannelList = [internalCopy userChannelList];
   selfCopy = self;
-  v64 = authenticationScheme;
-  v65 = userChannelList;
+  v63 = authenticationScheme;
+  v64 = userChannelList;
   if ([userChannelList count])
   {
-    v61 = authenticationCopy;
+    v60 = authenticationCopy;
     v23 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v66 = 0u;
     v67 = 0u;
     v68 = 0u;
     v69 = 0u;
-    v70 = 0u;
     v24 = userChannelList;
-    v25 = [v24 countByEnumeratingWithState:&v67 objects:v71 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v66 objects:v70 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v68;
+      v27 = *v67;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v68 != v27)
+          if (*v67 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v67 + 1) + 8 * i);
+          v29 = *(*(&v66 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -291,13 +291,13 @@ LABEL_13:
           }
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v67 objects:v71 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v66 objects:v70 count:16];
       }
 
       while (v26);
     }
 
-    authenticationCopy = v61;
+    authenticationCopy = v60;
     self = selfCopy;
     v21 = MEMORY[0x277CE2438];
   }
@@ -310,13 +310,13 @@ LABEL_13:
   v38 = *v21;
   if ([authenticationScheme isEqual:v38])
   {
-    v66 = 0;
-    v39 = [(VSApplicationControllerResponseHandler *)self _parseSAMLResponseString:v19 error:&v66];
-    v40 = v66;
+    v65 = 0;
+    v39 = [(VSApplicationControllerResponseHandler *)self _parseSAMLResponseString:v19 error:&v65];
+    v40 = v65;
     v41 = v40;
     if (v39)
     {
-      v62 = v39;
+      v61 = v39;
       v42 = v39;
       v43 = objc_alloc_init(VSApplicationControllerResponse);
       [(VSApplicationControllerResponse *)v43 setAuthenticationScheme:v38];
@@ -327,7 +327,7 @@ LABEL_13:
       v45 = MEMORY[0x277CCABB0];
       expectedAction3 = [v42 expectedAction];
 
-      authenticationScheme = v64;
+      authenticationScheme = v63;
       v47 = [v45 numberWithInteger:expectedAction3];
       [(VSApplicationControllerResponse *)v43 setExpectedAction:v47];
 
@@ -339,7 +339,7 @@ LABEL_13:
       [(VSApplicationControllerResponseHandler *)selfCopy _setSubscriptionDataWithResponse:v43 forJavascriptResponse:internalCopy];
       v49 = [MEMORY[0x277CE2250] failableWithObject:v43];
 
-      v39 = v62;
+      v39 = v61;
     }
 
     else
@@ -380,8 +380,6 @@ LABEL_13:
 
 LABEL_45:
   handlerCopy[2](handlerCopy, v49);
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_parseSAMLResponseString:(id)string error:(id *)error

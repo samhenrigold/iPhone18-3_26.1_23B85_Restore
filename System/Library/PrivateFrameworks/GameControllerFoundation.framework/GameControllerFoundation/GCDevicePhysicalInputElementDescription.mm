@@ -80,47 +80,40 @@
 
 - (BOOL)validate:(id *)validate
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  if (!self->_identifier)
+  v13[1] = *MEMORY[0x1E69E9840];
+  if (self->_identifier)
   {
-    if (validate)
+    if ([(NSSet *)self->_aliases count])
     {
-      v5 = MEMORY[0x1E696ABC0];
-      v13 = *MEMORY[0x1E696A588];
-      v14[0] = @"Element must have an 'identifier'.";
-      v6 = MEMORY[0x1E695DF20];
-      v7 = v14;
-      v8 = &v13;
-LABEL_8:
-      v9 = [v6 dictionaryWithObjects:v7 forKeys:v8 count:1];
-      *validate = [v5 errorWithDomain:@"GCDevicePhysicalInputError" code:0 userInfo:v9];
+      return 1;
     }
 
-LABEL_9:
-    result = 0;
-    goto LABEL_10;
-  }
-
-  if (![(NSSet *)self->_aliases count])
-  {
     if (validate)
     {
       v5 = MEMORY[0x1E696ABC0];
-      v11 = *MEMORY[0x1E696A588];
-      v12 = @"Element must have one or more 'aliases'.";
+      v10 = *MEMORY[0x1E696A588];
+      v11 = @"Element must have one or more 'aliases'.";
       v6 = MEMORY[0x1E695DF20];
-      v7 = &v12;
-      v8 = &v11;
+      v7 = &v11;
+      v8 = &v10;
       goto LABEL_8;
     }
-
-    goto LABEL_9;
   }
 
-  result = 1;
-LABEL_10:
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  else if (validate)
+  {
+    v5 = MEMORY[0x1E696ABC0];
+    v12 = *MEMORY[0x1E696A588];
+    v13[0] = @"Element must have an 'identifier'.";
+    v6 = MEMORY[0x1E695DF20];
+    v7 = v13;
+    v8 = &v12;
+LABEL_8:
+    v9 = [v6 dictionaryWithObjects:v7 forKeys:v8 count:1];
+    *validate = [v5 errorWithDomain:@"GCDevicePhysicalInputError" code:0 userInfo:v9];
+  }
+
+  return 0;
 }
 
 - (BOOL)isEqual:(id)equal

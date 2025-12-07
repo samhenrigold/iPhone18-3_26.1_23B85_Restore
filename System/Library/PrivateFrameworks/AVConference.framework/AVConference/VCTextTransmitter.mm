@@ -62,7 +62,7 @@
 
 - (BOOL)start
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (objc_opt_class() != self)
   {
     if (objc_opt_respondsToSelector())
@@ -75,71 +75,75 @@
       v3 = &stru_1F570E008;
     }
 
-    if (VRTraceGetErrorLogLevelForModule() < 6)
+    ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+    if (ErrorLogLevelForModule < 6)
     {
       goto LABEL_12;
     }
 
-    v9 = VRTraceErrorLogLevelToCSTR();
-    v10 = *MEMORY[0x1E6986650];
-    if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+    v11 = VRTraceErrorLogLevelToCSTR();
+    v12 = *MEMORY[0x1E6986650];
+    ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+    if (!ErrorLogLevelForModule)
     {
       goto LABEL_12;
     }
 
     *buf = 136316162;
-    *&buf[4] = v9;
-    v20 = 2080;
-    v21 = "[VCTextTransmitter start]";
-    v22 = 1024;
-    v23 = 60;
-    v24 = 2112;
-    v25 = v3;
-    v26 = 2048;
+    *&buf[4] = v11;
+    v22 = 2080;
+    v23 = "[VCTextTransmitter start]";
+    v24 = 1024;
+    v25 = 60;
+    v26 = 2112;
+    v27 = v3;
+    v28 = 2048;
     selfCopy = self;
-    v6 = "VCTextTransmitter [%s] %s:%d %@(%p) ";
-    v7 = v10;
-    v8 = 48;
+    v8 = "VCTextTransmitter [%s] %s:%d %@(%p) ";
+    v9 = v12;
+    v10 = 48;
     goto LABEL_11;
   }
 
-  if (VRTraceGetErrorLogLevelForModule() >= 6)
+  ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+  if (ErrorLogLevelForModule >= 6)
   {
-    v4 = VRTraceErrorLogLevelToCSTR();
-    v5 = *MEMORY[0x1E6986650];
-    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+    v6 = VRTraceErrorLogLevelToCSTR();
+    v7 = *MEMORY[0x1E6986650];
+    ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+    if (ErrorLogLevelForModule)
     {
       *buf = 136315650;
-      *&buf[4] = v4;
-      v20 = 2080;
-      v21 = "[VCTextTransmitter start]";
-      v22 = 1024;
-      v23 = 60;
-      v6 = "VCTextTransmitter [%s] %s:%d ";
-      v7 = v5;
-      v8 = 28;
+      *&buf[4] = v6;
+      v22 = 2080;
+      v23 = "[VCTextTransmitter start]";
+      v24 = 1024;
+      v25 = 60;
+      v8 = "VCTextTransmitter [%s] %s:%d ";
+      v9 = v7;
+      v10 = 28;
 LABEL_11:
-      _os_log_impl(&dword_1DB56E000, v7, OS_LOG_TYPE_DEFAULT, v6, buf, v8);
+      _os_log_impl(&dword_1DB56E000, v9, OS_LOG_TYPE_DEFAULT, v8, buf, v10);
     }
   }
 
 LABEL_12:
-  self->_startTime = micro();
+  self->_startTime = micro(ErrorLogLevelForModule, v5);
   [(VCTextTransmitter *)self sendCharacter:65279];
   numRedundantPayloads = self->_config.numRedundantPayloads;
   if (numRedundantPayloads)
   {
-    v12 = 0;
+    v14 = 0;
     for (i = 0; i < numRedundantPayloads; ++i)
     {
-      v14 = [(VCTextTransmitter *)self getCharTimestampForSystemTime:self->_startTime - self->_txIntervalMin * (numRedundantPayloads + v12)];
+      v16 = [(VCTextTransmitter *)self getCharTimestampForSystemTime:self->_startTime - self->_txIntervalMin * (numRedundantPayloads + v14)];
       currentPayloadType = self->_currentPayloadType;
-      v17 = 0;
-      v18 = currentPayloadType;
+      v19 = 0;
+      v20 = currentPayloadType;
       *buf = 0;
-      [(VCTextTransmitter *)self updatePayloadHistory:&stru_1F570E008 timestamp:v14 payloadType:&v18 payload:buf payloadLength:&v17];
+      [(VCTextTransmitter *)self updatePayloadHistory:&stru_1F570E008 timestamp:v16 payloadType:&v20 payload:buf payloadLength:&v19];
       numRedundantPayloads = self->_config.numRedundantPayloads;
-      --v12;
+      --v14;
     }
   }
 
@@ -290,7 +294,8 @@ LABEL_11:
 
 - (void)sendTextFrameWithRedundancy:(id)redundancy marker:(int)marker
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v4 = *&marker;
+  v50 = *MEMORY[0x1E69E9840];
   if (objc_opt_class() == self)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 6)
@@ -300,11 +305,11 @@ LABEL_11:
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v36 = v8;
-        v37 = 2080;
-        v38 = "[VCTextTransmitter sendTextFrameWithRedundancy:marker:]";
-        v39 = 1024;
-        v40 = 103;
+        v39 = v8;
+        v40 = 2080;
+        v41 = "[VCTextTransmitter sendTextFrameWithRedundancy:marker:]";
+        v42 = 1024;
+        v43 = 103;
         v10 = "VCTextTransmitter [%s] %s:%d ";
         v11 = v9;
         v12 = 28;
@@ -333,14 +338,14 @@ LABEL_11:
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136316162;
-        v36 = v13;
-        v37 = 2080;
-        v38 = "[VCTextTransmitter sendTextFrameWithRedundancy:marker:]";
-        v39 = 1024;
-        v40 = 103;
-        v41 = 2112;
+        v39 = v13;
+        v40 = 2080;
+        v41 = "[VCTextTransmitter sendTextFrameWithRedundancy:marker:]";
+        v42 = 1024;
+        v43 = 103;
+        v44 = 2112;
         redundancyCopy = v7;
-        v43 = 2048;
+        v46 = 2048;
         selfCopy4 = self;
         v10 = "VCTextTransmitter [%s] %s:%d %@(%p) ";
         v11 = v14;
@@ -352,38 +357,41 @@ LABEL_11:
 
   if (objc_opt_class() == self)
   {
-    if (VRTraceGetErrorLogLevelForModule() < 8)
+    ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+    if (ErrorLogLevelForModule < 8)
     {
       goto LABEL_29;
     }
 
-    v16 = VRTraceErrorLogLevelToCSTR();
-    v17 = *MEMORY[0x1E6986650];
-    v18 = *MEMORY[0x1E6986650];
+    v18 = VRTraceErrorLogLevelToCSTR();
+    v19 = *MEMORY[0x1E6986650];
+    v20 = *MEMORY[0x1E6986650];
     if (*MEMORY[0x1E6986640] == 1)
     {
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      ErrorLogLevelForModule = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+      if (!ErrorLogLevelForModule)
       {
         goto LABEL_29;
       }
 
       *buf = 136315906;
-      v36 = v16;
-      v37 = 2080;
-      v38 = "[VCTextTransmitter sendTextFrameWithRedundancy:marker:]";
-      v39 = 1024;
-      v40 = 104;
-      v41 = 2112;
+      v39 = v18;
+      v40 = 2080;
+      v41 = "[VCTextTransmitter sendTextFrameWithRedundancy:marker:]";
+      v42 = 1024;
+      v43 = 104;
+      v44 = 2112;
       redundancyCopy = redundancy;
-      v19 = "VCTextTransmitter [%s] %s:%d Sending text:%@";
-      v20 = v17;
-      v21 = 38;
+      v21 = "VCTextTransmitter [%s] %s:%d Sending text:%@";
+      v22 = v19;
+      v23 = 38;
 LABEL_24:
-      _os_log_impl(&dword_1DB56E000, v20, OS_LOG_TYPE_DEFAULT, v19, buf, v21);
+      _os_log_impl(&dword_1DB56E000, v22, OS_LOG_TYPE_DEFAULT, v21, buf, v23);
       goto LABEL_29;
     }
 
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    ErrorLogLevelForModule = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
+    if (ErrorLogLevelForModule)
     {
       [VCTextTransmitter sendTextFrameWithRedundancy:marker:];
     }
@@ -401,67 +409,71 @@ LABEL_24:
       v15 = &stru_1F570E008;
     }
 
-    if (VRTraceGetErrorLogLevelForModule() >= 8)
+    ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+    if (ErrorLogLevelForModule >= 8)
     {
-      v22 = VRTraceErrorLogLevelToCSTR();
-      v23 = *MEMORY[0x1E6986650];
-      v24 = *MEMORY[0x1E6986650];
+      v24 = VRTraceErrorLogLevelToCSTR();
+      v25 = *MEMORY[0x1E6986650];
+      v26 = *MEMORY[0x1E6986650];
       if (*MEMORY[0x1E6986640] == 1)
       {
-        if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        ErrorLogLevelForModule = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+        if (!ErrorLogLevelForModule)
         {
           goto LABEL_29;
         }
 
         *buf = 136316418;
-        v36 = v22;
-        v37 = 2080;
-        v38 = "[VCTextTransmitter sendTextFrameWithRedundancy:marker:]";
-        v39 = 1024;
-        v40 = 104;
-        v41 = 2112;
+        v39 = v24;
+        v40 = 2080;
+        v41 = "[VCTextTransmitter sendTextFrameWithRedundancy:marker:]";
+        v42 = 1024;
+        v43 = 104;
+        v44 = 2112;
         redundancyCopy = v15;
-        v43 = 2048;
+        v46 = 2048;
         selfCopy4 = self;
-        v45 = 2112;
+        v48 = 2112;
         redundancyCopy3 = redundancy;
-        v19 = "VCTextTransmitter [%s] %s:%d %@(%p) Sending text:%@";
-        v20 = v23;
-        v21 = 58;
+        v21 = "VCTextTransmitter [%s] %s:%d %@(%p) Sending text:%@";
+        v22 = v25;
+        v23 = 58;
         goto LABEL_24;
       }
 
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      ErrorLogLevelForModule = os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG);
+      if (ErrorLogLevelForModule)
       {
         *buf = 136316418;
-        v36 = v22;
-        v37 = 2080;
-        v38 = "[VCTextTransmitter sendTextFrameWithRedundancy:marker:]";
-        v39 = 1024;
-        v40 = 104;
-        v41 = 2112;
+        v39 = v24;
+        v40 = 2080;
+        v41 = "[VCTextTransmitter sendTextFrameWithRedundancy:marker:]";
+        v42 = 1024;
+        v43 = 104;
+        v44 = 2112;
         redundancyCopy = v15;
-        v43 = 2048;
+        v46 = 2048;
         selfCopy4 = self;
-        v45 = 2112;
+        v48 = 2112;
         redundancyCopy3 = redundancy;
-        _os_log_debug_impl(&dword_1DB56E000, v23, OS_LOG_TYPE_DEBUG, "VCTextTransmitter [%s] %s:%d %@(%p) Sending text:%@", buf, 0x3Au);
+        _os_log_debug_impl(&dword_1DB56E000, v25, OS_LOG_TYPE_DEBUG, "VCTextTransmitter [%s] %s:%d %@(%p) Sending text:%@", buf, 0x3Au);
       }
     }
   }
 
 LABEL_29:
-  v25 = micro();
-  v26 = [(VCTextTransmitter *)self getCharTimestampForSystemTime:?];
+  v27 = micro(ErrorLogLevelForModule, v17);
+  v28 = [(VCTextTransmitter *)self getCharTimestampForSystemTime:?];
   currentPayloadType = self->_currentPayloadType;
-  v33 = 0;
-  v32 = 0;
-  [(VCTextTransmitter *)self updatePayloadHistory:redundancy timestamp:v26 payloadType:&currentPayloadType payload:&v33 payloadLength:&v32];
-  if (v33)
+  v36 = 0;
+  v35 = 0;
+  [(VCTextTransmitter *)self updatePayloadHistory:redundancy timestamp:v28 payloadType:&currentPayloadType payload:&v36 payloadLength:&v35];
+  if (v36)
   {
-    v31 = 0;
+    v34 = 0;
     txIntervalMin = self->_txIntervalMin;
-    if ((RTPSendRTP(self->_config.rtpHandle, currentPayloadType, marker, v26, v33, v32, &v31, 0, v25, txIntervalMin, 0, 0, 0, 0, 0, 0) & 0x80000000) != 0)
+    LOBYTE(v33) = 0;
+    if ((RTPSendRTP(self->_config.rtpHandle, currentPayloadType, v4, v28, v36, v35, v27, &v34, 0, txIntervalMin, v33, 0, 0, 0, 0) & 0x80000000) != 0)
     {
       if (objc_opt_class() == self)
       {
@@ -479,31 +491,31 @@ LABEL_29:
       {
         if (objc_opt_respondsToSelector())
         {
-          v28 = [(VCTextTransmitter *)self performSelector:sel_logPrefix];
+          v30 = [(VCTextTransmitter *)self performSelector:sel_logPrefix];
         }
 
         else
         {
-          v28 = &stru_1F570E008;
+          v30 = &stru_1F570E008;
         }
 
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v29 = VRTraceErrorLogLevelToCSTR();
-          v30 = *MEMORY[0x1E6986650];
+          v31 = VRTraceErrorLogLevelToCSTR();
+          v32 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
           {
             *buf = 136316162;
-            v36 = v29;
-            v37 = 2080;
-            v38 = "[VCTextTransmitter sendTextFrameWithRedundancy:marker:]";
-            v39 = 1024;
-            v40 = 116;
-            v41 = 2112;
-            redundancyCopy = v28;
-            v43 = 2048;
+            v39 = v31;
+            v40 = 2080;
+            v41 = "[VCTextTransmitter sendTextFrameWithRedundancy:marker:]";
+            v42 = 1024;
+            v43 = 116;
+            v44 = 2112;
+            redundancyCopy = v30;
+            v46 = 2048;
             selfCopy4 = self;
-            _os_log_error_impl(&dword_1DB56E000, v30, OS_LOG_TYPE_ERROR, "VCTextTransmitter [%s] %s:%d %@(%p) failed to send RTP", buf, 0x30u);
+            _os_log_error_impl(&dword_1DB56E000, v32, OS_LOG_TYPE_ERROR, "VCTextTransmitter [%s] %s:%d %@(%p) failed to send RTP", buf, 0x30u);
           }
         }
       }
@@ -820,7 +832,7 @@ LABEL_11:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCTextTransmitter [%s] %s:%d Trying to send when the transmitter is stopped!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCTextTransmitter [%s] %s:%d Trying to send when the transmitter is stopped!", v2, v3, v4, v5);
 }
 
 - (void)sendTextFrameWithRedundancy:marker:.cold.1()
@@ -840,28 +852,28 @@ LABEL_11:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCTextTransmitter [%s] %s:%d failed to send RTP", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCTextTransmitter [%s] %s:%d failed to send RTP", v2, v3, v4, v5);
 }
 
 - (void)sendTextFrameWithRedundancy:marker:.cold.3()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCTextTransmitter [%s] %s:%d Invalid payload!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCTextTransmitter [%s] %s:%d Invalid payload!", v2, v3, v4, v5);
 }
 
 - (void)updatePayloadHistory:timestamp:payloadType:payload:payloadLength:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCTextTransmitter [%s] %s:%d Invalid red payload!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCTextTransmitter [%s] %s:%d Invalid red payload!", v2, v3, v4, v5);
 }
 
 - (void)startHeartbeat
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCTextTransmitter [%s] %s:%d Failed to create polling", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCTextTransmitter [%s] %s:%d Failed to create polling", v2, v3, v4, v5);
 }
 
 @end

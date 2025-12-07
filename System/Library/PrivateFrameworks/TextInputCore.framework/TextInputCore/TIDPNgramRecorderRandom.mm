@@ -7,7 +7,7 @@
 
 - (BOOL)report
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = arc4random_uniform([(TIDPNgramRecorderCascading *)self n]+ 1);
   if (v3 <= 2)
   {
@@ -21,11 +21,11 @@
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v14 = 136315394;
-    v15 = "[TIDPNgramRecorderRandom report]";
-    v16 = 2048;
-    v17 = v4;
-    _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  Using random n value: %lu", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[TIDPNgramRecorderRandom report]";
+    v15 = 2048;
+    v16 = v4;
+    _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  Using random n value: %lu", &v13, 0x16u);
   }
 
   v5 = [TIDPNgramRecorder alloc];
@@ -45,7 +45,6 @@
 
   report = [(TIDPNgramRecorder *)v8 report];
 
-  v12 = *MEMORY[0x277D85DE8];
   return report;
 }
 

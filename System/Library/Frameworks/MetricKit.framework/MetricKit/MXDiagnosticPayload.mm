@@ -140,7 +140,7 @@ LABEL_5:
 
 - (id)toDictionary
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = objc_alloc_init(MEMORY[0x277CCA968]);
   v5 = [objc_alloc(MEMORY[0x277CBEAF8]) initWithLocaleIdentifier:@"en_US_POSIX"];
@@ -161,30 +161,30 @@ LABEL_5:
   if (self->_cpuExceptionDiagnostics)
   {
     v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v60 = 0u;
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
     v9 = self->_cpuExceptionDiagnostics;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v61 objects:v69 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v60 objects:v68 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v62;
+      v12 = *v61;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v62 != v12)
+          if (*v61 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          toDictionary = [*(*(&v61 + 1) + 8 * i) toDictionary];
+          toDictionary = [*(*(&v60 + 1) + 8 * i) toDictionary];
           [v8 addObject:toDictionary];
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v61 objects:v69 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v60 objects:v68 count:16];
       }
 
       while (v11);
@@ -196,30 +196,30 @@ LABEL_5:
   if (self->_diskWriteExceptionDiagnostics)
   {
     v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
     v16 = self->_diskWriteExceptionDiagnostics;
-    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v57 objects:v68 count:16];
+    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v56 objects:v67 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v58;
+      v19 = *v57;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v58 != v19)
+          if (*v57 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          toDictionary2 = [*(*(&v57 + 1) + 8 * j) toDictionary];
+          toDictionary2 = [*(*(&v56 + 1) + 8 * j) toDictionary];
           [v15 addObject:toDictionary2];
         }
 
-        v18 = [(NSArray *)v16 countByEnumeratingWithState:&v57 objects:v68 count:16];
+        v18 = [(NSArray *)v16 countByEnumeratingWithState:&v56 objects:v67 count:16];
       }
 
       while (v18);
@@ -231,30 +231,30 @@ LABEL_5:
   if (self->_hangDiagnostics)
   {
     v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
     v23 = self->_hangDiagnostics;
-    v24 = [(NSArray *)v23 countByEnumeratingWithState:&v53 objects:v67 count:16];
+    v24 = [(NSArray *)v23 countByEnumeratingWithState:&v52 objects:v66 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v54;
+      v26 = *v53;
       do
       {
         for (k = 0; k != v25; ++k)
         {
-          if (*v54 != v26)
+          if (*v53 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          toDictionary3 = [*(*(&v53 + 1) + 8 * k) toDictionary];
+          toDictionary3 = [*(*(&v52 + 1) + 8 * k) toDictionary];
           [v22 addObject:toDictionary3];
         }
 
-        v25 = [(NSArray *)v23 countByEnumeratingWithState:&v53 objects:v67 count:16];
+        v25 = [(NSArray *)v23 countByEnumeratingWithState:&v52 objects:v66 count:16];
       }
 
       while (v25);
@@ -266,30 +266,30 @@ LABEL_5:
   if (self->_appLaunchDiagnostics)
   {
     v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     v30 = self->_appLaunchDiagnostics;
-    v31 = [(NSArray *)v30 countByEnumeratingWithState:&v49 objects:v66 count:16];
+    v31 = [(NSArray *)v30 countByEnumeratingWithState:&v48 objects:v65 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v50;
+      v33 = *v49;
       do
       {
         for (m = 0; m != v32; ++m)
         {
-          if (*v50 != v33)
+          if (*v49 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          toDictionary4 = [*(*(&v49 + 1) + 8 * m) toDictionary];
+          toDictionary4 = [*(*(&v48 + 1) + 8 * m) toDictionary];
           [v29 addObject:toDictionary4];
         }
 
-        v32 = [(NSArray *)v30 countByEnumeratingWithState:&v49 objects:v66 count:16];
+        v32 = [(NSArray *)v30 countByEnumeratingWithState:&v48 objects:v65 count:16];
       }
 
       while (v32);
@@ -301,30 +301,30 @@ LABEL_5:
   if (self->_crashDiagnostics)
   {
     v36 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     v37 = self->_crashDiagnostics;
-    v38 = [(NSArray *)v37 countByEnumeratingWithState:&v45 objects:v65 count:16];
+    v38 = [(NSArray *)v37 countByEnumeratingWithState:&v44 objects:v64 count:16];
     if (v38)
     {
       v39 = v38;
-      v40 = *v46;
+      v40 = *v45;
       do
       {
         for (n = 0; n != v39; ++n)
         {
-          if (*v46 != v40)
+          if (*v45 != v40)
           {
             objc_enumerationMutation(v37);
           }
 
-          toDictionary5 = [*(*(&v45 + 1) + 8 * n) toDictionary];
+          toDictionary5 = [*(*(&v44 + 1) + 8 * n) toDictionary];
           [v36 addObject:toDictionary5];
         }
 
-        v39 = [(NSArray *)v37 countByEnumeratingWithState:&v45 objects:v65 count:16];
+        v39 = [(NSArray *)v37 countByEnumeratingWithState:&v44 objects:v64 count:16];
       }
 
       while (v39);
@@ -332,8 +332,6 @@ LABEL_5:
 
     [v3 setValue:v36 forKey:@"crashDiagnostics"];
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

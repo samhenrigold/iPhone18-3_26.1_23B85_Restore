@@ -60,39 +60,41 @@
 
 + (void)stopMonitoringTouchEvents
 {
-  if (sub_1000423E0())
+  v2 = sub_1000423E0();
+  if (v2)
   {
-    v2 = sub_100042E68();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_100042E68(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v23 = "+[TouchEventMonitor stopMonitoringTouchEvents]";
-      v24 = 1024;
-      v25 = 67;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "[%s:%d] stopMonitoringTouchEvents", buf, 0x12u);
+      v27 = "+[TouchEventMonitor stopMonitoringTouchEvents]";
+      v28 = 1024;
+      v29 = 67;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[%s:%d] stopMonitoringTouchEvents", buf, 0x12u);
     }
   }
 
   sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/iOS/ScreenSharingServer/TouchEventMonitor.m", 110, 67, "+[TouchEventMonitor stopMonitoringTouchEvents]", 7, 0, "stopMonitoringTouchEvents");
-  v3 = +[TouchEventMonitor sharedTouchEventMonitor];
-  touchInfoLock = [v3 touchInfoLock];
+  v4 = +[TouchEventMonitor sharedTouchEventMonitor];
+  touchInfoLock = [v4 touchInfoLock];
   [touchInfoLock lock];
 
-  v5 = +[TouchEventMonitor sharedTouchEventMonitor];
-  monitorCount = [v5 monitorCount];
+  v6 = +[TouchEventMonitor sharedTouchEventMonitor];
+  monitorCount = [v6 monitorCount];
 
   if (monitorCount < 1)
   {
-    if (sub_1000423E0())
+    v16 = sub_1000423E0();
+    if (v16)
     {
-      v14 = sub_100042E68();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v17 = sub_100042E68(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v23 = "+[TouchEventMonitor stopMonitoringTouchEvents]";
-        v24 = 1024;
-        v25 = 99;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[%s:%d] stopMonitoringTouchEvents called when not monitoring", buf, 0x12u);
+        v27 = "+[TouchEventMonitor stopMonitoringTouchEvents]";
+        v28 = 1024;
+        v29 = 99;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[%s:%d] stopMonitoringTouchEvents called when not monitoring", buf, 0x12u);
       }
     }
 
@@ -101,168 +103,173 @@
 
   else
   {
-    v7 = +[TouchEventMonitor sharedTouchEventMonitor];
-    [v7 setMonitorCount:{objc_msgSend(v7, "monitorCount") - 1}];
-
     v8 = +[TouchEventMonitor sharedTouchEventMonitor];
-    monitorCount2 = [v8 monitorCount];
+    [v8 setMonitorCount:{objc_msgSend(v8, "monitorCount") - 1}];
+
+    v9 = +[TouchEventMonitor sharedTouchEventMonitor];
+    monitorCount2 = [v9 monitorCount];
 
     if (monitorCount2)
     {
-      if (sub_1000423E0())
+      v11 = sub_1000423E0();
+      if (v11)
       {
-        v10 = sub_100042E68();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v12 = sub_100042E68(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = +[TouchEventMonitor sharedTouchEventMonitor];
-          monitorCount3 = [v11 monitorCount];
+          v13 = +[TouchEventMonitor sharedTouchEventMonitor];
+          monitorCount3 = [v13 monitorCount];
           *buf = 136315650;
-          v23 = "+[TouchEventMonitor stopMonitoringTouchEvents]";
-          v24 = 1024;
-          v25 = 96;
-          v26 = 2048;
-          v27 = monitorCount3;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[%s:%d] monitorCount %ld", buf, 0x1Cu);
+          v27 = "+[TouchEventMonitor stopMonitoringTouchEvents]";
+          v28 = 1024;
+          v29 = 96;
+          v30 = 2048;
+          v31 = monitorCount3;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[%s:%d] monitorCount %ld", buf, 0x1Cu);
         }
       }
 
-      v13 = +[TouchEventMonitor sharedTouchEventMonitor];
-      sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/iOS/ScreenSharingServer/TouchEventMonitor.m", 110, 96, "+[TouchEventMonitor stopMonitoringTouchEvents]", 7, 0, "monitorCount %ld", [v13 monitorCount]);
+      v15 = +[TouchEventMonitor sharedTouchEventMonitor];
+      sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/iOS/ScreenSharingServer/TouchEventMonitor.m", 110, 96, "+[TouchEventMonitor stopMonitoringTouchEvents]", 7, 0, "monitorCount %ld", [v15 monitorCount]);
 LABEL_23:
 
       goto LABEL_24;
     }
 
     dispatch_async(&_dispatch_main_q, &stru_100068BF0);
-    v15 = +[TouchEventMonitor sharedTouchEventMonitor];
-    touchEventTimer = [v15 touchEventTimer];
+    v18 = +[TouchEventMonitor sharedTouchEventMonitor];
+    touchEventTimer = [v18 touchEventTimer];
 
     if (touchEventTimer)
     {
-      if (sub_1000423E0())
+      v20 = sub_1000423E0();
+      if (v20)
       {
-        v17 = sub_100042E68();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v21 = sub_100042E68(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v23 = "+[TouchEventMonitor stopMonitoringTouchEvents]";
-          v24 = 1024;
-          v25 = 90;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[%s:%d] stop timer", buf, 0x12u);
+          v27 = "+[TouchEventMonitor stopMonitoringTouchEvents]";
+          v28 = 1024;
+          v29 = 90;
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[%s:%d] stop timer", buf, 0x12u);
         }
       }
 
       sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/iOS/ScreenSharingServer/TouchEventMonitor.m", 110, 90, "+[TouchEventMonitor stopMonitoringTouchEvents]", 7, 0, "stop timer");
-      v18 = +[TouchEventMonitor sharedTouchEventMonitor];
-      touchEventTimer2 = [v18 touchEventTimer];
+      v22 = +[TouchEventMonitor sharedTouchEventMonitor];
+      touchEventTimer2 = [v22 touchEventTimer];
       dispatch_source_cancel(touchEventTimer2);
 
-      v13 = +[TouchEventMonitor sharedTouchEventMonitor];
-      [v13 setTouchEventTimer:0];
+      v15 = +[TouchEventMonitor sharedTouchEventMonitor];
+      [v15 setTouchEventTimer:0];
       goto LABEL_23;
     }
   }
 
 LABEL_24:
-  v20 = +[TouchEventMonitor sharedTouchEventMonitor];
-  touchInfoLock2 = [v20 touchInfoLock];
+  v24 = +[TouchEventMonitor sharedTouchEventMonitor];
+  touchInfoLock2 = [v24 touchInfoLock];
   [touchInfoLock2 unlock];
 }
 
 + (void)startMonitoringTouchEvents
 {
-  if (sub_1000423E0())
+  v2 = sub_1000423E0();
+  if (v2)
   {
-    v2 = sub_100042E68();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_100042E68(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v29 = "+[TouchEventMonitor startMonitoringTouchEvents]";
-      v30 = 1024;
-      v31 = 105;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "[%s:%d] startMonitoringTouchEvents", buf, 0x12u);
+      v32 = "+[TouchEventMonitor startMonitoringTouchEvents]";
+      v33 = 1024;
+      v34 = 105;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[%s:%d] startMonitoringTouchEvents", buf, 0x12u);
     }
   }
 
   sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/iOS/ScreenSharingServer/TouchEventMonitor.m", 110, 105, "+[TouchEventMonitor startMonitoringTouchEvents]", 7, 0, "startMonitoringTouchEvents");
-  v3 = +[TouchEventMonitor sharedTouchEventMonitor];
-  touchInfoLock = [v3 touchInfoLock];
+  v4 = +[TouchEventMonitor sharedTouchEventMonitor];
+  touchInfoLock = [v4 touchInfoLock];
   [touchInfoLock lock];
 
-  v5 = +[TouchEventMonitor sharedTouchEventMonitor];
-  monitorCount = [v5 monitorCount];
+  v6 = +[TouchEventMonitor sharedTouchEventMonitor];
+  monitorCount = [v6 monitorCount];
 
   if (monitorCount)
   {
-    if (sub_1000423E0())
+    v8 = sub_1000423E0();
+    if (v8)
     {
-      v7 = sub_100042E68();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100042E68(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = +[TouchEventMonitor sharedTouchEventMonitor];
-        monitorCount2 = [v8 monitorCount];
+        v10 = +[TouchEventMonitor sharedTouchEventMonitor];
+        monitorCount2 = [v10 monitorCount];
         *buf = 136315650;
-        v29 = "+[TouchEventMonitor startMonitoringTouchEvents]";
-        v30 = 1024;
-        v31 = 148;
-        v32 = 2048;
-        v33 = monitorCount2;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[%s:%d] [TouchEventMonitor sharedTouchEventMonitor].monitorCount %ld", buf, 0x1Cu);
+        v32 = "+[TouchEventMonitor startMonitoringTouchEvents]";
+        v33 = 1024;
+        v34 = 148;
+        v35 = 2048;
+        v36 = monitorCount2;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%s:%d] [TouchEventMonitor sharedTouchEventMonitor].monitorCount %ld", buf, 0x1Cu);
       }
     }
 
-    v10 = +[TouchEventMonitor sharedTouchEventMonitor];
-    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/iOS/ScreenSharingServer/TouchEventMonitor.m", 110, 148, "+[TouchEventMonitor startMonitoringTouchEvents]", 7, 0, "[TouchEventMonitor sharedTouchEventMonitor].monitorCount %ld", [v10 monitorCount]);
+    v12 = +[TouchEventMonitor sharedTouchEventMonitor];
+    sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/iOS/ScreenSharingServer/TouchEventMonitor.m", 110, 148, "+[TouchEventMonitor startMonitoringTouchEvents]", 7, 0, "[TouchEventMonitor sharedTouchEventMonitor].monitorCount %ld", [v12 monitorCount]);
   }
 
   else
   {
     dispatch_async(&_dispatch_main_q, &stru_100068C10);
-    v10 = dispatch_get_global_queue(2, 0);
-    v11 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v10);
-    v12 = +[TouchEventMonitor sharedTouchEventMonitor];
-    [v12 setTouchEventTimer:v11];
-
-    v13 = dispatch_walltime(0, 0);
+    v12 = dispatch_get_global_queue(2, 0);
+    v13 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v12);
     v14 = +[TouchEventMonitor sharedTouchEventMonitor];
-    touchEventTimer = [v14 touchEventTimer];
-    dispatch_source_set_timer(touchEventTimer, v13, 0x2FAF080uLL, 0x3D0900uLL);
+    [v14 setTouchEventTimer:v13];
 
-    if (sub_1000423E0())
+    v15 = dispatch_walltime(0, 0);
+    v16 = +[TouchEventMonitor sharedTouchEventMonitor];
+    touchEventTimer = [v16 touchEventTimer];
+    dispatch_source_set_timer(touchEventTimer, v15, 0x2FAF080uLL, 0x3D0900uLL);
+
+    v18 = sub_1000423E0();
+    if (v18)
     {
-      v16 = sub_100042E68();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_100042E68(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = +[TouchEventMonitor sharedTouchEventMonitor];
-        touchEventTimer2 = [v17 touchEventTimer];
+        v20 = +[TouchEventMonitor sharedTouchEventMonitor];
+        touchEventTimer2 = [v20 touchEventTimer];
         *buf = 136315650;
-        v29 = "+[TouchEventMonitor startMonitoringTouchEvents]";
-        v30 = 1024;
-        v31 = 136;
-        v32 = 2048;
-        v33 = touchEventTimer2;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[%s:%d] [TouchEventMonitor sharedTouchEventMonitor].touchEventTimer %p", buf, 0x1Cu);
+        v32 = "+[TouchEventMonitor startMonitoringTouchEvents]";
+        v33 = 1024;
+        v34 = 136;
+        v35 = 2048;
+        v36 = touchEventTimer2;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[%s:%d] [TouchEventMonitor sharedTouchEventMonitor].touchEventTimer %p", buf, 0x1Cu);
       }
     }
 
-    v19 = +[TouchEventMonitor sharedTouchEventMonitor];
-    touchEventTimer3 = [v19 touchEventTimer];
+    v22 = +[TouchEventMonitor sharedTouchEventMonitor];
+    touchEventTimer3 = [v22 touchEventTimer];
     sub_100042760("/Library/Caches/com.apple.xbs/Sources/EmbeddedScreenSharingServer/iOS/ScreenSharingServer/TouchEventMonitor.m", 110, 136, "+[TouchEventMonitor startMonitoringTouchEvents]", 7, 0, "[TouchEventMonitor sharedTouchEventMonitor].touchEventTimer %p", touchEventTimer3);
 
-    v21 = +[TouchEventMonitor sharedTouchEventMonitor];
-    touchEventTimer4 = [v21 touchEventTimer];
+    v24 = +[TouchEventMonitor sharedTouchEventMonitor];
+    touchEventTimer4 = [v24 touchEventTimer];
     dispatch_source_set_event_handler(touchEventTimer4, &stru_100068C30);
 
-    v23 = +[TouchEventMonitor sharedTouchEventMonitor];
-    touchEventTimer5 = [v23 touchEventTimer];
+    v26 = +[TouchEventMonitor sharedTouchEventMonitor];
+    touchEventTimer5 = [v26 touchEventTimer];
     dispatch_resume(touchEventTimer5);
   }
 
-  v25 = +[TouchEventMonitor sharedTouchEventMonitor];
-  [v25 setMonitorCount:{objc_msgSend(v25, "monitorCount") + 1}];
+  v28 = +[TouchEventMonitor sharedTouchEventMonitor];
+  [v28 setMonitorCount:{objc_msgSend(v28, "monitorCount") + 1}];
 
-  v26 = +[TouchEventMonitor sharedTouchEventMonitor];
-  touchInfoLock2 = [v26 touchInfoLock];
+  v29 = +[TouchEventMonitor sharedTouchEventMonitor];
+  touchInfoLock2 = [v29 touchInfoLock];
   [touchInfoLock2 unlock];
 }
 

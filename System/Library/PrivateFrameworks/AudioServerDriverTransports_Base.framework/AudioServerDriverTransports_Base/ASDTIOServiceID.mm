@@ -1,11 +1,48 @@
 @interface ASDTIOServiceID
++ (id)forIdentifier:(id)identifier andClientType:(unsigned int)type;
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)initForIdentifier:(id)identifier andClientType:(unsigned int)type;
 - (unint64_t)hash;
 @end
 
 @implementation ASDTIOServiceID
+
+- (id)initForIdentifier:(id)identifier andClientType:(unsigned int)type
+{
+  v4 = *&type;
+  identifierCopy = identifier;
+  v11.receiver = self;
+  v11.super_class = ASDTIOServiceID;
+  v7 = [(ASDTIOServiceID *)&v11 init];
+  v8 = v7;
+  if (v7)
+  {
+    if (!identifierCopy)
+    {
+      v9 = 0;
+      goto LABEL_6;
+    }
+
+    [(ASDTIOServiceID *)v7 setIdentifier:identifierCopy];
+    [(ASDTIOServiceID *)v8 setClientType:v4];
+  }
+
+  v9 = v8;
+LABEL_6:
+
+  return v9;
+}
+
++ (id)forIdentifier:(id)identifier andClientType:(unsigned int)type
+{
+  v4 = *&type;
+  identifierCopy = identifier;
+  v7 = [[self alloc] initForIdentifier:identifierCopy andClientType:v4];
+
+  return v7;
+}
 
 - (unint64_t)hash
 {

@@ -10,6 +10,7 @@
 - (_PSSuggestionProxy)initWithBundleID:(id)d interactionRecipients:(id)recipients contactID:(id)iD reason:(id)reason reasonType:(id)type;
 - (_PSSuggestionProxy)initWithBundleID:(id)d interactionRecipients:(id)recipients handles:(id)handles reason:(id)reason reasonType:(id)type;
 - (_PSSuggestionProxy)initWithCoder:(id)coder;
+- (id)descriptionRedacted:(BOOL)redacted;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -18,7 +19,7 @@
 
 - (_PSSuggestionProxy)initWithBundleID:(id)d interactionRecipients:(id)recipients contactID:(id)iD handle:(id)handle reason:(id)reason reasonType:(id)type groupName:(id)name image:(id)self0
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   recipientsCopy = recipients;
   iDCopy = iD;
@@ -29,8 +30,8 @@
   imageCopy = image;
   if (handleCopy)
   {
-    v30[0] = handleCopy;
-    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+    v29[0] = handleCopy;
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
   }
 
   else
@@ -39,20 +40,19 @@
   }
 
   v24 = [MEMORY[0x1E696AD98] numberWithDouble:-1.0];
-  LOBYTE(v28) = 0;
-  v25 = [(_PSSuggestionProxy *)self initWithBundleID:dCopy interactionRecipients:recipientsCopy contactID:iDCopy handles:v23 reason:reasonCopy reasonType:typeCopy useGroupsWhenFindingRecipient:v28 groupName:nameCopy image:imageCopy modelScore:v24];
+  LOBYTE(v27) = 0;
+  v25 = [(_PSSuggestionProxy *)self initWithBundleID:dCopy interactionRecipients:recipientsCopy contactID:iDCopy handles:v23 reason:reasonCopy reasonType:typeCopy useGroupsWhenFindingRecipient:v27 groupName:nameCopy image:imageCopy modelScore:v24];
 
   if (handleCopy)
   {
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
 - (_PSSuggestionProxy)initWithBundleID:(id)d interactionRecipients:(id)recipients contactID:(id)iD handle:(id)handle reason:(id)reason reasonType:(id)type image:(id)image
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   recipientsCopy = recipients;
   iDCopy = iD;
@@ -62,8 +62,8 @@
   imageCopy = image;
   if (handleCopy)
   {
-    v28[0] = handleCopy;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+    v27[0] = handleCopy;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
   }
 
   else
@@ -72,14 +72,13 @@
   }
 
   v23 = [MEMORY[0x1E696AD98] numberWithDouble:-1.0];
-  LOBYTE(v27) = 0;
-  v24 = [(_PSSuggestionProxy *)self initWithBundleID:dCopy interactionRecipients:recipientsCopy contactID:iDCopy handles:v22 reason:reasonCopy reasonType:typeCopy useGroupsWhenFindingRecipient:v27 groupName:0 image:imageCopy modelScore:v23];
+  LOBYTE(v26) = 0;
+  v24 = [(_PSSuggestionProxy *)self initWithBundleID:dCopy interactionRecipients:recipientsCopy contactID:iDCopy handles:v22 reason:reasonCopy reasonType:typeCopy useGroupsWhenFindingRecipient:v26 groupName:0 image:imageCopy modelScore:v23];
 
   if (handleCopy)
   {
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -100,7 +99,7 @@
 
 - (_PSSuggestionProxy)initWithBundleID:(id)d interactionRecipients:(id)recipients contactID:(id)iD handle:(id)handle reason:(id)reason reasonType:(id)type
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (handle)
   {
     handleCopy = handle;
@@ -114,8 +113,8 @@
     v21 = [v14 arrayWithObjects:&handleCopy count:1];
     v22 = [MEMORY[0x1E696AD98] numberWithDouble:-1.0];
 
-    LOBYTE(v36) = 0;
-    v23 = [(_PSSuggestionProxy *)self initWithBundleID:dCopy interactionRecipients:recipientsCopy contactID:iDCopy handles:v21 reason:reasonCopy reasonType:typeCopy useGroupsWhenFindingRecipient:v36 groupName:0 image:0 modelScore:v22, handleCopy, v38];
+    LOBYTE(v35) = 0;
+    v23 = [(_PSSuggestionProxy *)self initWithBundleID:dCopy interactionRecipients:recipientsCopy contactID:iDCopy handles:v21 reason:reasonCopy reasonType:typeCopy useGroupsWhenFindingRecipient:v35 groupName:0 image:0 modelScore:v22, handleCopy, v37];
 
     v24 = v23;
   }
@@ -131,13 +130,12 @@
     dCopy2 = d;
     v32 = [v25 numberWithDouble:-1.0];
 
-    LOBYTE(v36) = 0;
-    v33 = [(_PSSuggestionProxy *)self initWithBundleID:dCopy2 interactionRecipients:recipientsCopy2 contactID:iDCopy2 handles:0 reason:reasonCopy2 reasonType:typeCopy2 useGroupsWhenFindingRecipient:v36 groupName:0 image:0 modelScore:v32];
+    LOBYTE(v35) = 0;
+    v33 = [(_PSSuggestionProxy *)self initWithBundleID:dCopy2 interactionRecipients:recipientsCopy2 contactID:iDCopy2 handles:0 reason:reasonCopy2 reasonType:typeCopy2 useGroupsWhenFindingRecipient:v35 groupName:0 image:0 modelScore:v32];
 
     v24 = v33;
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -158,7 +156,7 @@
 
 - (_PSSuggestionProxy)initWithBundleID:(id)d interactionRecipients:(id)recipients contactID:(id)iD handle:(id)handle reason:(id)reason reasonType:(id)type useGroupsWhenFindingRecipient:(BOOL)recipient
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if (handle)
   {
     handleCopy = handle;
@@ -172,8 +170,8 @@
     v22 = [v15 arrayWithObjects:&handleCopy count:1];
     v23 = [MEMORY[0x1E696AD98] numberWithDouble:-1.0];
 
-    LOBYTE(v37) = recipient;
-    v24 = [(_PSSuggestionProxy *)self initWithBundleID:dCopy interactionRecipients:recipientsCopy contactID:iDCopy handles:v22 reason:reasonCopy reasonType:typeCopy useGroupsWhenFindingRecipient:v37 groupName:0 image:0 modelScore:v23, handleCopy, v39];
+    LOBYTE(v36) = recipient;
+    v24 = [(_PSSuggestionProxy *)self initWithBundleID:dCopy interactionRecipients:recipientsCopy contactID:iDCopy handles:v22 reason:reasonCopy reasonType:typeCopy useGroupsWhenFindingRecipient:v36 groupName:0 image:0 modelScore:v23, handleCopy, v38];
 
     v25 = v24;
   }
@@ -189,13 +187,12 @@
     dCopy2 = d;
     v33 = [v26 numberWithDouble:-1.0];
 
-    LOBYTE(v37) = recipient;
-    v34 = [(_PSSuggestionProxy *)self initWithBundleID:dCopy2 interactionRecipients:recipientsCopy2 contactID:iDCopy2 handles:0 reason:reasonCopy2 reasonType:typeCopy2 useGroupsWhenFindingRecipient:v37 groupName:0 image:0 modelScore:v33];
+    LOBYTE(v36) = recipient;
+    v34 = [(_PSSuggestionProxy *)self initWithBundleID:dCopy2 interactionRecipients:recipientsCopy2 contactID:iDCopy2 handles:0 reason:reasonCopy2 reasonType:typeCopy2 useGroupsWhenFindingRecipient:v36 groupName:0 image:0 modelScore:v33];
 
     v25 = v34;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -282,37 +279,90 @@
   return v5;
 }
 
-- (unint64_t)hash
+- (id)descriptionRedacted:(BOOL)redacted
 {
-  v20 = *MEMORY[0x1E69E9840];
+  redactedCopy = redacted;
+  bundleID = [(_PSSuggestionProxy *)self bundleID];
+  if (bundleID)
+  {
+    v6 = bundleID;
+    interactionRecipients = [(_PSSuggestionProxy *)self interactionRecipients];
+
+    if (interactionRecipients)
+    {
+      v8 = MEMORY[0x1E696AEC0];
+      bundleID2 = [(_PSSuggestionProxy *)self bundleID];
+      v10 = MEMORY[0x1E6997908];
+      interactionRecipients2 = [(_PSSuggestionProxy *)self interactionRecipients];
+      v12 = [v10 descriptionOfObject:interactionRecipients2 redacted:redactedCopy];
+      v13 = [v8 stringWithFormat:@"bundleID: %@, interactionRecipients: %@", bundleID2, v12];
+
+LABEL_8:
+      goto LABEL_9;
+    }
+  }
+
+  contactID = [(_PSSuggestionProxy *)self contactID];
+
+  if (contactID)
+  {
+    v15 = MEMORY[0x1E696AEC0];
+    v16 = MEMORY[0x1E6997908];
+    bundleID2 = [(_PSSuggestionProxy *)self contactID];
+    v17 = [v16 descriptionOfObject:bundleID2 redacted:redactedCopy];
+    v13 = [v15 stringWithFormat:@"contactID: %@", v17];
+
+    goto LABEL_8;
+  }
+
   handles = [(_PSSuggestionProxy *)self handles];
 
   if (handles)
   {
-    v17 = 0u;
-    v18 = 0u;
+    v19 = MEMORY[0x1E6997908];
+    bundleID2 = [(_PSSuggestionProxy *)self handles];
+    v13 = [v19 descriptionOfArray:bundleID2 redacted:redactedCopy];
+    goto LABEL_8;
+  }
+
+  v13 = 0;
+LABEL_9:
+  v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%@ %p> %@", objc_opt_class(), self, v13];
+
+  return v20;
+}
+
+- (unint64_t)hash
+{
+  v18 = *MEMORY[0x1E69E9840];
+  handles = [(_PSSuggestionProxy *)self handles];
+
+  if (handles)
+  {
     v15 = 0u;
     v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     handles2 = [(_PSSuggestionProxy *)self handles];
-    v5 = [handles2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v5 = [handles2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v16;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v16 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(handles2);
           }
 
-          v7 ^= [*(*(&v15 + 1) + 8 * i) hash];
+          v7 ^= [*(*(&v13 + 1) + 8 * i) hash];
         }
 
-        v6 = [handles2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [handles2 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v6);
@@ -331,9 +381,7 @@
 
   v10 = [(NSString *)self->_bundleID hash];
   v11 = [(NSString *)self->_interactionRecipients hash];
-  v12 = [(NSString *)self->_contactID hash];
-  v13 = *MEMORY[0x1E69E9840];
-  return v10 ^ v7 ^ v11 ^ v12;
+  return v10 ^ v7 ^ v11 ^ [(NSString *)self->_contactID hash];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -544,11 +592,11 @@ LABEL_48:
 
 - (_PSSuggestionProxy)initWithCoder:(id)coder
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v28.receiver = self;
-  v28.super_class = _PSSuggestionProxy;
-  v5 = [(_PSSuggestionProxy *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = _PSSuggestionProxy;
+  v5 = [(_PSSuggestionProxy *)&v27 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bundleID"];
@@ -577,9 +625,9 @@ LABEL_48:
 
     v5->_useGroupsWhenFindingRecipient = [coderCopy decodeBoolForKey:@"useGroupsWhenFindingRecipient"];
     v18 = MEMORY[0x1E695DFD8];
-    v29[0] = objc_opt_class();
-    v29[1] = objc_opt_class();
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+    v28[0] = objc_opt_class();
+    v28[1] = objc_opt_class();
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
     v20 = [v18 setWithArray:v19];
 
     v21 = [coderCopy decodeObjectOfClasses:v20 forKey:@"handles"];
@@ -593,7 +641,6 @@ LABEL_48:
     v25 = v5;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

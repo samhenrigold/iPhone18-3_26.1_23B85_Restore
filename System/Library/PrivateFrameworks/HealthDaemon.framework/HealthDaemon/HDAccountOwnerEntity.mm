@@ -7,7 +7,7 @@
 
 + (id)insertDataObject:(id)object withProvenance:(id)provenance inDatabase:(id)database persistentID:(id)d error:(id *)error
 {
-  v28[3] = *MEMORY[0x277D85DE8];
+  v27[3] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   dCopy = d;
   databaseCopy = database;
@@ -18,19 +18,19 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"HDAccountOwnerEntity.m" lineNumber:53 description:{@"Subclasses must override %s", "+[HDAccountOwnerEntity insertDataObject:withProvenance:inDatabase:persistentID:error:]"}];
   }
 
-  v28[0] = @"data_id";
-  v28[1] = @"name";
-  v28[2] = @"birth_date";
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __86__HDAccountOwnerEntity_insertDataObject_withProvenance_inDatabase_persistentID_error___block_invoke;
-  v25[3] = &unk_278613DE8;
-  v26 = dCopy;
-  v27 = objectCopy;
+  v27[0] = @"data_id";
+  v27[1] = @"name";
+  v27[2] = @"birth_date";
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:3];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __86__HDAccountOwnerEntity_insertDataObject_withProvenance_inDatabase_persistentID_error___block_invoke;
+  v24[3] = &unk_278613DE8;
+  v25 = dCopy;
+  v26 = objectCopy;
   v17 = objectCopy;
   v18 = dCopy;
-  v19 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v16 error:error bindingHandler:v25];
+  v19 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v16 error:error bindingHandler:v24];
 
   if (v19)
   {
@@ -44,7 +44,6 @@
 
   v21 = v20;
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

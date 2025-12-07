@@ -178,7 +178,7 @@ LABEL_16:
     return self->path_;
   }
 
-  PropertyWithNSString = JavaLangSystem_getPropertyWithNSString_(@"user.dir");
+  PropertyWithNSString = JavaLangSystem_getPropertyWithNSString_(@"user.dir", v3);
   path = self->path_;
   if (!path)
   {
@@ -190,9 +190,9 @@ LABEL_16:
     return PropertyWithNSString;
   }
 
-  v6 = self->path_;
+  v7 = self->path_;
 
-  return sub_1001AA358(PropertyWithNSString, v6);
+  return sub_1001AA358(PropertyWithNSString, v7);
 }
 
 - (id)getAbsoluteFile
@@ -652,7 +652,6 @@ LABEL_8:
 
   if ([(JavaIoFile *)self isDirectory])
   {
-    v14 = self->path_;
     v12 = JreStrcat("$$", v4, v5, v6, v7, v8, v9, v10, @"Cannot create: ");
 LABEL_12:
     v13 = new_JavaIoIOException_initWithNSString_(v12);

@@ -38,8 +38,8 @@
         {
           objc_storeStrong(v11 + 1, obj);
           bundlePath = [v10 bundlePath];
-          infoDictionary = [v10 infoDictionary];
-          v65 = [infoDictionary bs_safeObjectForKey:@"BSPluginSpecification" ofType:objc_opt_class()];
+          v14 = objc_msgSend_infoDictionary(v10);
+          v65 = [v14 bs_safeObjectForKey:@"BSPluginSpecification" ofType:objc_opt_class()];
           stringByDeletingPathExtension = [v65 bs_safeObjectForKey:@"BSPluginName" ofType:objc_opt_class()];
           if (!stringByDeletingPathExtension)
           {
@@ -56,7 +56,7 @@
           v18 = [v65 bs_safeObjectForKey:@"BSPluginControllerClass" ofType:objc_opt_class()];
           if (!v18)
           {
-            v18 = [infoDictionary bs_safeObjectForKey:@"NSPrincipalClass" ofType:objc_opt_class()];
+            v18 = [v14 bs_safeObjectForKey:@"NSPrincipalClass" ofType:objc_opt_class()];
           }
 
           bundleIdentifier = [v10 bundleIdentifier];
@@ -83,8 +83,8 @@
         v12 = 0;
       }
 
-      infoDictionary2 = [v10 infoDictionary];
-      [infoDictionary2 bs_safeObjectForKey:@"UIRequiredDeviceCapabilities" ofType:objc_opt_class()];
+      v66 = objc_msgSend_infoDictionary(v10);
+      [v66 bs_safeObjectForKey:@"UIRequiredDeviceCapabilities" ofType:objc_opt_class()];
       v80 = 0u;
       v81 = 0u;
       v78 = 0u;
@@ -189,7 +189,7 @@ LABEL_42:
         v41 = 0;
       }
 
-      v43 = [infoDictionary2 objectForKey:@"UIDeviceFamily"];
+      v43 = [v66 objectForKey:@"UIDeviceFamily"];
       if (v43)
       {
         objc_opt_class();

@@ -41,21 +41,21 @@
     if (v17)
     {
       [v15 bounds];
-      v116 = v18;
-      v118 = v19;
-      v112 = v21;
-      v114 = v20;
+      v115 = v18;
+      v117 = v19;
+      v111 = v21;
+      v113 = v20;
       [annotationCopy rectangle];
-      x = v127.origin.x;
-      y = v127.origin.y;
-      width = v127.size.width;
-      height = v127.size.height;
-      MidX = CGRectGetMidX(v127);
-      v128.origin.x = x;
-      v128.origin.y = y;
-      v128.size.width = width;
-      v128.size.height = height;
-      MidY = CGRectGetMidY(v128);
+      x = v126.origin.x;
+      y = v126.origin.y;
+      width = v126.size.width;
+      height = v126.size.height;
+      MidX = CGRectGetMidX(v126);
+      v127.origin.x = x;
+      v127.origin.y = y;
+      v127.size.width = width;
+      v127.size.height = height;
+      MidY = CGRectGetMidY(v127);
       originalExifOrientation = [annotationCopy originalExifOrientation];
       v29 = x;
       v30 = y;
@@ -63,257 +63,258 @@
       v32 = height;
       if (originalExifOrientation != 1)
       {
-        memset(&v126, 0, sizeof(v126));
-        [AKGeometryHelper affineTransformForExifOrientation:[AKGeometryHelper inverseExifOrientation:originalExifOrientation] aboutCenter:MidX, MidY];
-        transform = v126;
+        [AKGeometryHelper inverseExifOrientation:originalExifOrientation];
+        memset(&v125, 0, sizeof(v125));
+        objc_msgSend_affineTransformForExifOrientation_aboutCenter_(AKGeometryHelper, MidX, MidY);
+        transform = v125;
         CGContextConcatCTM(context, &transform);
-        transform = v126;
-        v129.origin.x = x;
-        v129.origin.y = y;
-        v129.size.width = width;
-        v129.size.height = height;
-        v130 = CGRectApplyAffineTransform(v129, &transform);
-        *(&v30 - 1) = CGRectStandardize(v130);
+        transform = v125;
+        v128.origin.x = x;
+        v128.origin.y = y;
+        v128.size.width = width;
+        v128.size.height = height;
+        v129 = CGRectApplyAffineTransform(v128, &transform);
+        *(&v30 - 1) = CGRectStandardize(v129);
         v29 = v33;
       }
 
-      v99 = MidX;
-      v106 = v30;
-      v108 = v31;
-      v110 = v32;
-      v97 = MidY;
-      memset(&v126, 0, sizeof(v126));
-      CGContextGetCTM(&v126, context);
-      v123[0] = MEMORY[0x277D85DD0];
-      v123[1] = 3221225472;
-      v123[2] = sub_23F451394;
-      v123[3] = &unk_278C7BD28;
-      v124 = v126;
-      v34 = [AKGeometryHelper exifOrientationWithConversionBlock:v123];
-      transform = v126;
-      v131.origin.x = x;
-      v131.origin.y = y;
-      v131.size.width = width;
-      v131.size.height = height;
-      v132 = CGRectApplyAffineTransform(v131, &transform);
-      v133 = CGRectStandardize(v132);
-      v134 = CGRectIntegral(v133);
-      rect_16 = v134.size.height;
-      rect_24 = v134.size.width;
-      transform = v126;
-      v134.origin.x = 0.0;
-      v134.origin.y = 0.0;
-      v134.size.width = 1.0;
-      v134.size.height = 1.0;
-      v135 = CGRectApplyAffineTransform(v134, &transform);
-      v35 = v135.origin.x;
-      v36 = v135.origin.y;
-      v37 = v135.size.width;
-      v38 = v135.size.height;
-      v39 = CGRectGetWidth(v135);
-      v136.origin.x = v35;
-      v136.origin.y = v36;
-      v136.size.width = v37;
-      v136.size.height = v38;
-      v40 = CGRectGetHeight(v136);
-      if (v39 >= v40)
+      v98 = MidX;
+      v105 = v30;
+      v107 = v31;
+      v109 = v32;
+      v96 = MidY;
+      memset(&v125, 0, sizeof(v125));
+      CGContextGetCTM(&v125, context);
+      v122[0] = MEMORY[0x277D85DD0];
+      v122[1] = 3221225472;
+      v122[2] = sub_23F451394;
+      v122[3] = &unk_278C7BD28;
+      v123 = v125;
+      [AKGeometryHelper exifOrientationWithConversionBlock:v122];
+      transform = v125;
+      v130.origin.x = x;
+      v130.origin.y = y;
+      v130.size.width = width;
+      v130.size.height = height;
+      v131 = CGRectApplyAffineTransform(v130, &transform);
+      v132 = CGRectStandardize(v131);
+      v133 = CGRectIntegral(v132);
+      rect_16 = v133.size.height;
+      rect_24 = v133.size.width;
+      transform = v125;
+      v133.origin.x = 0.0;
+      v133.origin.y = 0.0;
+      v133.size.width = 1.0;
+      v133.size.height = 1.0;
+      v134 = CGRectApplyAffineTransform(v133, &transform);
+      v34 = v134.origin.x;
+      v35 = v134.origin.y;
+      v36 = v134.size.width;
+      v37 = v134.size.height;
+      v38 = CGRectGetWidth(v134);
+      v135.origin.x = v34;
+      v135.origin.y = v35;
+      v135.size.width = v36;
+      v135.size.height = v37;
+      v39 = CGRectGetHeight(v135);
+      if (v38 >= v39)
       {
-        v40 = v39;
+        v39 = v38;
       }
 
-      rect_8 = v40;
-      v137.origin.x = v29;
-      v137.origin.y = v106;
-      v137.size.width = v108;
-      v137.size.height = v110;
-      v41 = CGRectGetWidth(v137);
-      v138.origin.x = v116;
-      v138.origin.y = v114;
-      v138.size.width = v112;
-      v138.size.height = v118;
-      v42 = v41 / CGRectGetWidth(v138);
-      v139.origin.x = v29;
-      v139.origin.y = v106;
-      v139.size.width = v108;
-      v139.size.height = v110;
-      v43 = CGRectGetHeight(v139);
-      v140.origin.x = v116;
-      v140.origin.y = v114;
-      v140.size.width = v112;
-      v140.size.height = v118;
-      v44 = v43 / CGRectGetHeight(v140);
-      if (v42 < v44)
+      rect_8 = v39;
+      v136.origin.x = v29;
+      v136.origin.y = v105;
+      v136.size.width = v107;
+      v136.size.height = v109;
+      v40 = CGRectGetWidth(v136);
+      v137.origin.x = v115;
+      v137.origin.y = v113;
+      v137.size.width = v111;
+      v137.size.height = v117;
+      v41 = v40 / CGRectGetWidth(v137);
+      v138.origin.x = v29;
+      v138.origin.y = v105;
+      v138.size.width = v107;
+      v138.size.height = v109;
+      v42 = CGRectGetHeight(v138);
+      v139.origin.x = v115;
+      v139.origin.y = v113;
+      v139.size.width = v111;
+      v139.size.height = v117;
+      v43 = v42 / CGRectGetHeight(v139);
+      if (v41 < v43)
       {
-        v44 = v42;
+        v43 = v41;
       }
 
-      v45 = rect_8 * v44;
+      v44 = rect_8 * v43;
       Type = CGContextGetType();
       if (Type == 6 || Type == 1)
       {
-        v47 = v45 * 4.16666667;
-        v48 = rect_24 * 4.16666667;
-        v49 = rect_16 * 4.16666667;
+        v46 = v44 * 4.16666667;
+        v47 = rect_24 * 4.16666667;
+        v48 = rect_16 * 4.16666667;
       }
 
       else
       {
-        v47 = v45;
-        v49 = rect_16;
-        v48 = rect_24;
+        v46 = v44;
+        v48 = rect_16;
+        v47 = rect_24;
       }
 
-      if (v48 >= v49)
+      if (v47 >= v48)
       {
-        v50 = v48;
+        v49 = v47;
       }
 
       else
       {
-        v50 = v49;
+        v49 = v48;
       }
 
-      [AKInkRendererHelper maxRenderingSize:*&v97];
-      v52 = v51;
-      v53 = v50 <= v51;
-      v54 = v47 * (v51 / v50);
-      if (v53)
+      [AKInkRendererHelper maxRenderingSize:*&v96];
+      v51 = v50;
+      v52 = v49 <= v50;
+      v53 = v46 * (v50 / v49);
+      if (v52)
       {
-        v55 = v47;
+        v54 = v46;
       }
 
       else
       {
-        v55 = v54;
+        v54 = v53;
       }
 
-      v56 = [AKInkRendererHelper renderDrawing:v15 clippedToStrokeSpaceRect:v116 scale:v114, v112, v118, v55];
-      if (v56)
+      v55 = [AKInkRendererHelper renderDrawing:v15 clippedToStrokeSpaceRect:v115 scale:v113, v111, v117, v54];
+      if (v55)
       {
         memset(&transform, 0, sizeof(transform));
-        CGAffineTransformMakeScale(&transform, v45, v45);
-        v122 = transform;
-        v141.origin.x = v116;
-        v141.origin.y = v114;
-        v141.size.width = v112;
-        v141.size.height = v118;
-        v142 = CGRectApplyAffineTransform(v141, &v122);
-        v57 = v142.origin.x;
-        v119 = v50;
-        v58 = v142.origin.y;
-        v59 = v142.size.width;
-        v60 = v142.size.height;
-        v143 = CGRectIntegral(v142);
-        v117 = v52;
-        v61 = v143.origin.x;
-        v62 = v143.origin.y;
-        v63 = v143.size.width;
-        v64 = v143.size.height;
-        memset(&v122, 0, sizeof(v122));
-        [AKGeometryHelper affineTransformForExifOrientation:v34 aboutCenter:*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)];
-        v121 = v122;
-        v144.origin.x = v57;
-        v144.origin.y = v58;
-        v144.size.width = v59;
-        v144.size.height = v60;
-        v145 = CGRectApplyAffineTransform(v144, &v121);
-        v65 = v145.origin.x;
-        v66 = v145.origin.y;
-        v67 = v145.size.width;
-        rect_16a = v145.size.width;
-        v113 = v145.size.height;
-        v121 = v122;
-        v145.origin.x = v61;
-        v145.origin.y = v62;
-        v145.size.width = v63;
-        v145.size.height = v64;
-        v146 = CGRectApplyAffineTransform(v145, &v121);
-        v68 = v146.origin.x;
-        v69 = v146.origin.y;
-        v70 = v146.size.width;
-        v71 = v146.size.height;
-        v146.origin.x = round(v146.size.width);
-        origin = v146.origin;
-        v146.origin.x = round(v146.size.height);
-        v115 = v146.origin;
-        v107 = v126.ty + v98 * v126.d + v126.b * v100;
-        v109 = v126.tx + v98 * v126.c + v126.a * v100;
-        v146.origin.x = v68;
-        v72 = CGRectGetMidX(v146);
-        v147.origin.x = v65;
-        v147.origin.y = v66;
-        v147.size.width = v67;
-        v147.size.height = v113;
-        rect_24a = v72 - CGRectGetMidX(v147);
-        v148.origin.x = v68;
-        v148.origin.y = v69;
-        v148.size.width = v70;
-        v148.size.height = v71;
-        v73 = CGRectGetMidY(v148);
-        v149.origin.x = v65;
-        v149.origin.y = v66;
-        v149.size.width = rect_16a;
-        v149.size.height = v113;
-        v74 = v107 + v73 - CGRectGetMidY(v149);
-        *v75.i64 = origin.x - trunc(origin.x * 0.5) * 2.0;
-        v76.f64[0] = NAN;
-        v76.f64[1] = NAN;
-        v77 = vnegq_f64(v76);
-        v78 = round(v109 + rect_24a + 0.5) + -0.5;
-        *v79.i64 = round(v109 + rect_24a);
-        if (*vbslq_s8(v77, v75, origin).i64 == 0.0)
-        {
-          v80 = *v79.i64;
-        }
-
-        else
-        {
-          v80 = v78;
-        }
-
-        *v79.i64 = v115.x - trunc(v115.x * 0.5) * 2.0;
-        v81 = round(v74 + 0.5) + -0.5;
-        v82 = round(v74);
-        if (*vbslq_s8(v77, v79, v115).i64 == 0.0)
-        {
-          v81 = v82;
-        }
-
-        [AKGeometryHelper rectWithSize:origin.x centeredAtPoint:v115.x, v80, v81];
-        v84 = v83;
-        v86 = v85;
-        v88 = v87;
-        v90 = v89;
-        v120 = v126;
+        CGAffineTransformMakeScale(&transform, v44, v44);
+        v121 = transform;
+        v140.origin.x = v115;
+        v140.origin.y = v113;
+        v140.size.width = v111;
+        v140.size.height = v117;
+        v141 = CGRectApplyAffineTransform(v140, &v121);
+        v56 = v141.origin.x;
+        v118 = v49;
+        v57 = v141.origin.y;
+        v58 = v141.size.width;
+        v59 = v141.size.height;
+        v142 = CGRectIntegral(v141);
+        v116 = v51;
+        v60 = v142.origin.x;
+        v61 = v142.origin.y;
+        v62 = v142.size.width;
+        v63 = v142.size.height;
         memset(&v121, 0, sizeof(v121));
-        CGAffineTransformInvert(&v121, &v120);
+        objc_msgSend_affineTransformForExifOrientation_aboutCenter_(AKGeometryHelper, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8));
         v120 = v121;
-        v150.origin.x = v84;
-        v150.origin.y = v86;
-        v150.size.width = v88;
-        v150.size.height = v90;
-        v151 = CGRectApplyAffineTransform(v150, &v120);
-        v91 = v151.origin.x;
-        v92 = v151.origin.y;
-        v93 = v151.size.width;
-        v94 = v151.size.height;
-        if (v119 <= v117)
+        v143.origin.x = v56;
+        v143.origin.y = v57;
+        v143.size.width = v58;
+        v143.size.height = v59;
+        v144 = CGRectApplyAffineTransform(v143, &v120);
+        v64 = v144.origin.x;
+        v65 = v144.origin.y;
+        v66 = v144.size.width;
+        rect_16a = v144.size.width;
+        v112 = v144.size.height;
+        v120 = v121;
+        v144.origin.x = v60;
+        v144.origin.y = v61;
+        v144.size.width = v62;
+        v144.size.height = v63;
+        v145 = CGRectApplyAffineTransform(v144, &v120);
+        v67 = v145.origin.x;
+        v68 = v145.origin.y;
+        v69 = v145.size.width;
+        v70 = v145.size.height;
+        v145.origin.x = round(v145.size.width);
+        origin = v145.origin;
+        v145.origin.x = round(v145.size.height);
+        v114 = v145.origin;
+        v106 = v125.ty + v97 * v125.d + v125.b * v99;
+        v108 = v125.tx + v97 * v125.c + v125.a * v99;
+        v145.origin.x = v67;
+        v71 = CGRectGetMidX(v145);
+        v146.origin.x = v64;
+        v146.origin.y = v65;
+        v146.size.width = v66;
+        v146.size.height = v112;
+        rect_24a = v71 - CGRectGetMidX(v146);
+        v147.origin.x = v67;
+        v147.origin.y = v68;
+        v147.size.width = v69;
+        v147.size.height = v70;
+        v72 = CGRectGetMidY(v147);
+        v148.origin.x = v64;
+        v148.origin.y = v65;
+        v148.size.width = rect_16a;
+        v148.size.height = v112;
+        v73 = v106 + v72 - CGRectGetMidY(v148);
+        *v74.i64 = origin.x - trunc(origin.x * 0.5) * 2.0;
+        v75.f64[0] = NAN;
+        v75.f64[1] = NAN;
+        v76 = vnegq_f64(v75);
+        v77 = round(v108 + rect_24a + 0.5) + -0.5;
+        *v78.i64 = round(v108 + rect_24a);
+        if (*vbslq_s8(v76, v74, origin).i64 == 0.0)
         {
-          v95 = kCGInterpolationNone;
+          v79 = *v78.i64;
         }
 
         else
         {
-          v95 = kCGInterpolationHigh;
+          v79 = v77;
         }
 
-        CGContextSetInterpolationQuality(context, v95);
-        akCGImage = [v56 akCGImage];
-        v152.origin.x = v91;
-        v152.origin.y = v92;
-        v152.size.width = v93;
-        v152.size.height = v94;
-        CGContextDrawImage(context, v152, akCGImage);
+        *v78.i64 = v114.x - trunc(v114.x * 0.5) * 2.0;
+        v80 = round(v73 + 0.5) + -0.5;
+        v81 = round(v73);
+        if (*vbslq_s8(v76, v78, v114).i64 == 0.0)
+        {
+          v80 = v81;
+        }
+
+        [AKGeometryHelper rectWithSize:origin.x centeredAtPoint:v114.x, v79, v80];
+        v83 = v82;
+        v85 = v84;
+        v87 = v86;
+        v89 = v88;
+        v119 = v125;
+        memset(&v120, 0, sizeof(v120));
+        CGAffineTransformInvert(&v120, &v119);
+        v119 = v120;
+        v149.origin.x = v83;
+        v149.origin.y = v85;
+        v149.size.width = v87;
+        v149.size.height = v89;
+        v150 = CGRectApplyAffineTransform(v149, &v119);
+        v90 = v150.origin.x;
+        v91 = v150.origin.y;
+        v92 = v150.size.width;
+        v93 = v150.size.height;
+        if (v118 <= v116)
+        {
+          v94 = kCGInterpolationNone;
+        }
+
+        else
+        {
+          v94 = kCGInterpolationHigh;
+        }
+
+        CGContextSetInterpolationQuality(context, v94);
+        akCGImage = [v55 akCGImage];
+        v151.origin.x = v90;
+        v151.origin.y = v91;
+        v151.size.width = v92;
+        v151.size.height = v93;
+        CGContextDrawImage(context, v151, akCGImage);
       }
     }
   }

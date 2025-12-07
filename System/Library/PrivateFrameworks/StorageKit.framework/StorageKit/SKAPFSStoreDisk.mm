@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isOurContainerWithDisk:(id)disk;
 - (id)container;
+- (id)innerDescriptionWithPrivateData:(BOOL)data;
 - (id)minimalDictionaryRepresentation;
 - (void)updateWithDictionary:(id)dictionary;
 @end
@@ -73,6 +74,39 @@
   return v9;
 }
 
+- (id)innerDescriptionWithPrivateData:(BOOL)data
+{
+  v4 = MEMORY[0x277CCACA8];
+  apfsUUID = [(SKAPFSStoreDisk *)self apfsUUID];
+  if (apfsUUID)
+  {
+    apfsUUID2 = [(SKAPFSStoreDisk *)self apfsUUID];
+  }
+
+  else
+  {
+    apfsUUID2 = @"--";
+  }
+
+  apfsContainerUUID = [(SKAPFSStoreDisk *)self apfsContainerUUID];
+  if (apfsContainerUUID)
+  {
+    apfsContainerUUID2 = [(SKAPFSStoreDisk *)self apfsContainerUUID];
+    v9 = [v4 stringWithFormat:@"APFS UUID: %@, Container UUID: %@", apfsUUID2, apfsContainerUUID2];
+  }
+
+  else
+  {
+    v9 = [v4 stringWithFormat:@"APFS UUID: %@, Container UUID: %@", apfsUUID2, @"--"];
+  }
+
+  if (apfsUUID)
+  {
+  }
+
+  return v9;
+}
+
 - (BOOL)isOurContainerWithDisk:(id)disk
 {
   diskCopy = disk;
@@ -81,24 +115,13 @@
   {
     v5 = diskCopy;
     apfsContainerUUID = [(SKAPFSStoreDisk *)self apfsContainerUUID];
-    if (!apfsContainerUUID)
-    {
-      goto LABEL_4;
-    }
-
-    v7 = apfsContainerUUID;
-    apfsContainerUUID2 = [(SKAPFSStoreDisk *)self apfsContainerUUID];
-    apfsUUID = [v5 apfsUUID];
-    v10 = [apfsContainerUUID2 isEqual:apfsUUID];
-
-    if (!v10)
+    if (apfsContainerUUID && (v7 = apfsContainerUUID, -[SKAPFSStoreDisk apfsContainerUUID](self, "apfsContainerUUID"), v8 = objc_claimAutoreleasedReturnValue(), [v5 apfsUUID], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "isEqual:", v9), v9, v8, v7, !v10))
     {
       v13 = 0;
     }
 
     else
     {
-LABEL_4:
       diskIdentifier = [v5 diskIdentifier];
       apfsContainerIdentifier = [(SKAPFSStoreDisk *)self apfsContainerIdentifier];
       v13 = [diskIdentifier isEqualToString:apfsContainerIdentifier];
@@ -115,28 +138,28 @@ LABEL_4:
 
 - (id)container
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = +[SKBaseManager sharedManager];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   allDisks = [v3 allDisks];
-  v5 = [allDisks countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [allDisks countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(allDisks);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if ([(SKAPFSStoreDisk *)self isOurContainerWithDisk:v9])
         {
           v10 = v9;
@@ -144,7 +167,7 @@ LABEL_4:
         }
       }
 
-      v6 = [allDisks countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [allDisks countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -156,8 +179,6 @@ LABEL_4:
 
   v10 = 0;
 LABEL_11:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

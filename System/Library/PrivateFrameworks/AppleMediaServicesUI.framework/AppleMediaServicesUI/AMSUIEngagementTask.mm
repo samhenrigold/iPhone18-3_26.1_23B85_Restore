@@ -117,7 +117,7 @@ void __40__AMSUIEngagementTask_presentEngagement__block_invoke_2(uint64_t a1)
 
 - (void)engagementViewController:(id)controller contentViewControllerWithDictionary:(id)dictionary completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   dictionaryCopy = dictionary;
   handlerCopy = handler;
@@ -136,10 +136,10 @@ void __40__AMSUIEngagementTask_presentEngagement__block_invoke_2(uint64_t a1)
     oSLogObject = [mEMORY[0x1E698C968]2 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138543362;
-      v22 = objc_opt_class();
-      v16 = v22;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: Calling delegate to request content view controller", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = objc_opt_class();
+      v16 = v21;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: Calling delegate to request content view controller", &v20, 0xCu);
     }
 
     delegate2 = [(AMSUIEngagementTask *)self delegate];
@@ -156,17 +156,15 @@ void __40__AMSUIEngagementTask_presentEngagement__block_invoke_2(uint64_t a1)
     oSLogObject2 = [mEMORY[0x1E698C968]2 OSLogObject];
     if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      v21 = 138543362;
-      v22 = objc_opt_class();
-      v19 = v22;
-      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: Delegate does not implement contentViewControllerWithDictionary", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = objc_opt_class();
+      v19 = v21;
+      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: Delegate does not implement contentViewControllerWithDictionary", &v20, 0xCu);
     }
 
     delegate2 = AMSError();
     handlerCopy[2](handlerCopy, 0, delegate2);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)engagementViewController:(id)controller contentViewWithDictionary:(id)dictionary frame:(CGRect)frame
@@ -175,7 +173,7 @@ void __40__AMSUIEngagementTask_presentEngagement__block_invoke_2(uint64_t a1)
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   delegate = [(AMSUIEngagementTask *)self delegate];
   v12 = objc_opt_respondsToSelector();
@@ -192,10 +190,10 @@ void __40__AMSUIEngagementTask_presentEngagement__block_invoke_2(uint64_t a1)
     oSLogObject = [mEMORY[0x1E698C968]2 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 138543362;
-      v25 = objc_opt_class();
-      v16 = v25;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: Calling delegate to request content view", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = objc_opt_class();
+      v16 = v24;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: Calling delegate to request content view", &v23, 0xCu);
     }
 
     delegate2 = [(AMSUIEngagementTask *)self delegate];
@@ -213,17 +211,15 @@ void __40__AMSUIEngagementTask_presentEngagement__block_invoke_2(uint64_t a1)
     oSLogObject2 = [mEMORY[0x1E698C968]2 OSLogObject];
     if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      v24 = 138543362;
-      v25 = objc_opt_class();
-      v21 = v25;
-      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: Delegate does not implement contentViewWithDictionary", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = objc_opt_class();
+      v21 = v24;
+      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: Delegate does not implement contentViewWithDictionary", &v23, 0xCu);
     }
 
     delegate2 = AMSError();
     v19 = 0;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -295,7 +291,7 @@ void __40__AMSUIEngagementTask_presentEngagement__block_invoke_2(uint64_t a1)
 
 - (BOOL)engagementViewController:(id)controller handleDynamicDelegateAction:(id)action completionHandler:(id)handler
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   handlerCopy = handler;
   delegate = [(AMSUIEngagementTask *)self delegate];
@@ -317,22 +313,22 @@ void __40__AMSUIEngagementTask_presentEngagement__block_invoke_2(uint64_t a1)
       v15 = v14;
       identifier = [actionCopy identifier];
       *buf = 138543618;
-      v37 = v14;
-      v38 = 2114;
-      v39 = identifier;
+      v36 = v14;
+      v37 = 2114;
+      v38 = identifier;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: Calling delegate to handle delegate action (identifier: %{public}@)", buf, 0x16u);
     }
 
     delegate2 = [(AMSUIEngagementTask *)self delegate];
     taskController = [(AMSUIEngagementTask *)self taskController];
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __94__AMSUIEngagementTask_engagementViewController_handleDynamicDelegateAction_completionHandler___block_invoke;
-    v33[3] = &unk_1E7F246B8;
-    v33[4] = self;
-    v34 = actionCopy;
-    v35 = handlerCopy;
-    v19 = [delegate2 engagementTaskViewController:taskController handleDynamicDelegateAction:v34 completionHandler:v33];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __94__AMSUIEngagementTask_engagementViewController_handleDynamicDelegateAction_completionHandler___block_invoke;
+    v32[3] = &unk_1E7F246B8;
+    v32[4] = self;
+    v33 = actionCopy;
+    v34 = handlerCopy;
+    v19 = [delegate2 engagementTaskViewController:taskController handleDynamicDelegateAction:v33 completionHandler:v32];
 
     if (v19)
     {
@@ -355,9 +351,9 @@ void __40__AMSUIEngagementTask_presentEngagement__block_invoke_2(uint64_t a1)
       v23 = v22;
       identifier2 = [actionCopy identifier];
       *buf = 138543618;
-      v37 = v22;
-      v38 = 2114;
-      v39 = identifier2;
+      v36 = v22;
+      v37 = 2114;
+      v38 = identifier2;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEBUG, "%{public}@: Delegate does not implement handleDynamicDelegateAction (identifier: %{public}@)", buf, 0x16u);
     }
 
@@ -378,9 +374,9 @@ void __40__AMSUIEngagementTask_presentEngagement__block_invoke_2(uint64_t a1)
     v29 = v28;
     identifier3 = [actionCopy identifier];
     *buf = 138543618;
-    v37 = v28;
-    v38 = 2114;
-    v39 = identifier3;
+    v36 = v28;
+    v37 = 2114;
+    v38 = identifier3;
     _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_DEFAULT, "%{public}@: Delegate action not handled (identifier: %{public}@)", buf, 0x16u);
   }
 
@@ -388,77 +384,74 @@ void __40__AMSUIEngagementTask_presentEngagement__block_invoke_2(uint64_t a1)
   v20 = 0;
 LABEL_18:
 
-  v31 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 void __94__AMSUIEngagementTask_engagementViewController_handleDynamicDelegateAction_completionHandler___block_invoke(void *a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v6)
   {
     if (!v5)
     {
-      v14 = [MEMORY[0x1E698C968] sharedConfig];
-      if (!v14)
+      v13 = [MEMORY[0x1E698C968] sharedConfig];
+      if (!v13)
       {
-        v14 = [MEMORY[0x1E698C968] sharedConfig];
+        v13 = [MEMORY[0x1E698C968] sharedConfig];
       }
 
-      v15 = [v14 OSLogObject];
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v14 = [v13 OSLogObject];
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_14;
       }
 
-      v26 = a1[4];
-      v27 = objc_opt_class();
-      v28 = a1[5];
-      v19 = v27;
-      v20 = [v28 identifier];
-      v29 = 138543618;
-      v30 = v27;
-      v31 = 2114;
-      v32 = v20;
-      v21 = "%{public}@: Delegate responded with neither an error or response (identifier: %{public}@)";
-      v22 = v15;
-      v23 = OS_LOG_TYPE_ERROR;
-      v24 = 22;
+      v23 = objc_opt_class();
+      v24 = a1[5];
+      v17 = v23;
+      v18 = [v24 identifier];
+      v25 = 138543618;
+      v26 = v23;
+      v27 = 2114;
+      v28 = v18;
+      v19 = "%{public}@: Delegate responded with neither an error or response (identifier: %{public}@)";
+      v20 = v14;
+      v21 = OS_LOG_TYPE_ERROR;
+      v22 = 22;
       goto LABEL_13;
     }
 
 LABEL_9:
-    v14 = [MEMORY[0x1E698C968] sharedConfig];
-    if (!v14)
+    v13 = [MEMORY[0x1E698C968] sharedConfig];
+    if (!v13)
     {
-      v14 = [MEMORY[0x1E698C968] sharedConfig];
+      v13 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v15 = [v14 OSLogObject];
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = [v13 OSLogObject];
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_14;
     }
 
-    v16 = a1[4];
-    v17 = objc_opt_class();
-    v18 = a1[5];
-    v19 = v17;
-    v20 = [v18 identifier];
-    v29 = 138543874;
-    v30 = v17;
-    v31 = 2114;
-    v32 = v20;
-    v33 = 2114;
-    v34 = v5;
-    v21 = "%{public}@: Delegate responded with a response (identifier: %{public}@, response: %{public}@)";
-    v22 = v15;
-    v23 = OS_LOG_TYPE_DEFAULT;
-    v24 = 32;
+    v15 = objc_opt_class();
+    v16 = a1[5];
+    v17 = v15;
+    v18 = [v16 identifier];
+    v25 = 138543874;
+    v26 = v15;
+    v27 = 2114;
+    v28 = v18;
+    v29 = 2114;
+    v30 = v5;
+    v19 = "%{public}@: Delegate responded with a response (identifier: %{public}@, response: %{public}@)";
+    v20 = v14;
+    v21 = OS_LOG_TYPE_DEFAULT;
+    v22 = 32;
 LABEL_13:
-    _os_log_impl(&dword_1BB036000, v22, v23, v21, &v29, v24);
+    _os_log_impl(&dword_1BB036000, v20, v21, v19, &v25, v22);
 
 LABEL_14:
     goto LABEL_15;
@@ -473,18 +466,17 @@ LABEL_14:
   v8 = [v7 OSLogObject];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v9 = a1[4];
-    v10 = objc_opt_class();
-    v11 = a1[5];
-    v12 = v10;
-    v13 = [v11 identifier];
-    v29 = 138543874;
-    v30 = v10;
-    v31 = 2114;
-    v32 = v6;
-    v33 = 2114;
-    v34 = v13;
-    _os_log_impl(&dword_1BB036000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Delegate responded with error (identifier: %{public}@, error: %{public}@)", &v29, 0x20u);
+    v9 = objc_opt_class();
+    v10 = a1[5];
+    v11 = v9;
+    v12 = [v10 identifier];
+    v25 = 138543874;
+    v26 = v9;
+    v27 = 2114;
+    v28 = v6;
+    v29 = 2114;
+    v30 = v12;
+    _os_log_impl(&dword_1BB036000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Delegate responded with error (identifier: %{public}@, error: %{public}@)", &v25, 0x20u);
   }
 
   if (v5)
@@ -494,8 +486,6 @@ LABEL_14:
 
 LABEL_15:
   (*(a1[6] + 16))();
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_infoWithBuyParams:(id)params additionalInfo:(id)info
@@ -613,7 +603,7 @@ LABEL_15:
 
 void __48__AMSUIEngagementTask__presentEngagementLocally__block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (([*(a1 + 32) allowMultiplePresentations] & 1) == 0 && ((objc_msgSend(*(a1 + 32), "isRunning") & 1) != 0 || objc_msgSend(*(a1 + 32), "isFinished")))
   {
     v7 = [MEMORY[0x1E698C968] sharedConfig];
@@ -625,25 +615,24 @@ void __48__AMSUIEngagementTask__presentEngagementLocally__block_invoke(uint64_t 
     v8 = [v7 OSLogObject];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      v10 = objc_opt_class();
-      v11 = AMSLogKey();
-      v12 = [*(a1 + 32) isRunning];
-      v13 = [*(a1 + 32) isFinished];
+      v9 = objc_opt_class();
+      v10 = AMSLogKey();
+      v11 = [*(a1 + 32) isRunning];
+      v12 = [*(a1 + 32) isFinished];
       *buf = 138544130;
+      v22 = v9;
+      v23 = 2114;
       v24 = v10;
-      v25 = 2114;
+      v25 = 1024;
       v26 = v11;
       v27 = 1024;
       v28 = v12;
-      v29 = 1024;
-      v30 = v13;
       _os_log_impl(&dword_1BB036000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Engagement task not available. Running: %d, Finished: %d", buf, 0x22u);
     }
 
-    v14 = *(a1 + 40);
-    v15 = AMSError();
-    [v14 finishWithError:v15];
+    v13 = *(a1 + 40);
+    v14 = AMSError();
+    [v13 finishWithError:v14];
   }
 
   else
@@ -657,38 +646,36 @@ void __48__AMSUIEngagementTask__presentEngagementLocally__block_invoke(uint64_t 
     {
       v4 = [*(a1 + 32) taskController];
       v5 = [v4 requestIsSupported];
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __48__AMSUIEngagementTask__presentEngagementLocally__block_invoke_100;
-      v21[3] = &unk_1E7F24B50;
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __48__AMSUIEngagementTask__presentEngagementLocally__block_invoke_100;
+      v19[3] = &unk_1E7F24B50;
       v6 = *(a1 + 40);
-      v21[4] = *(a1 + 32);
-      v22 = v6;
-      [v5 addFinishBlock:v21];
+      v19[4] = *(a1 + 32);
+      v20 = v6;
+      [v5 addFinishBlock:v19];
     }
 
     else
     {
-      v16 = *(a1 + 40);
-      v17 = [*(a1 + 32) _presentTaskController];
-      [v16 finishWithPromise:v17];
+      v15 = *(a1 + 40);
+      v16 = [*(a1 + 32) _presentTaskController];
+      [v15 finishWithPromise:v16];
     }
 
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __48__AMSUIEngagementTask__presentEngagementLocally__block_invoke_103;
-    v20[3] = &unk_1E7F24B78;
-    v18 = *(a1 + 40);
-    v20[4] = *(a1 + 32);
-    [v18 addFinishBlock:v20];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __48__AMSUIEngagementTask__presentEngagementLocally__block_invoke_103;
+    v18[3] = &unk_1E7F24B78;
+    v17 = *(a1 + 40);
+    v18[4] = *(a1 + 32);
+    [v17 addFinishBlock:v18];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __48__AMSUIEngagementTask__presentEngagementLocally__block_invoke_100(uint64_t a1, uint64_t a2, void *a3)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (v4)
   {
@@ -701,57 +688,54 @@ void __48__AMSUIEngagementTask__presentEngagementLocally__block_invoke_100(uint6
     v6 = [v5 OSLogObject];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_class();
-      v9 = AMSLogKey();
-      v10 = [*(a1 + 32) request];
-      v11 = [v10 URL];
-      v12 = AMSLogableURL();
-      v27 = 138543874;
+      v7 = objc_opt_class();
+      v8 = AMSLogKey();
+      v9 = [*(a1 + 32) request];
+      v10 = [v9 URL];
+      v11 = AMSLogableURL();
+      v25 = 138543874;
+      v26 = v7;
+      v27 = 2114;
       v28 = v8;
       v29 = 2114;
-      v30 = v9;
-      v31 = 2114;
-      v32 = v12;
-      _os_log_impl(&dword_1BB036000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Silently failing with URL: %{public}@", &v27, 0x20u);
+      v30 = v11;
+      _os_log_impl(&dword_1BB036000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Silently failing with URL: %{public}@", &v25, 0x20u);
     }
 
-    v13 = [v4 userInfo];
-    v14 = [v13 mutableCopy];
-    v15 = v14;
-    if (v14)
+    v12 = [v4 userInfo];
+    v13 = [v12 mutableCopy];
+    v14 = v13;
+    if (v13)
     {
-      v16 = v14;
+      v15 = v13;
     }
 
     else
     {
-      v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
     }
 
-    v19 = v16;
+    v18 = v15;
 
-    v20 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 32), "presented")}];
-    [v19 setObject:v20 forKeyedSubscript:*MEMORY[0x1E698C550]];
+    v19 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 32), "presented")}];
+    [v18 setObject:v19 forKeyedSubscript:*MEMORY[0x1E698C550]];
 
-    v21 = [v4 domain];
+    v20 = [v4 domain];
     [v4 code];
-    v22 = [v4 ams_title];
-    v23 = [v4 ams_message];
-    v24 = [v4 ams_underlyingError];
-    v25 = AMSCustomError();
+    v21 = [v4 ams_title];
+    v22 = [v4 ams_message];
+    v23 = [v4 ams_underlyingError];
+    v24 = AMSCustomError();
 
-    [*(a1 + 40) finishWithError:v25];
+    [*(a1 + 40) finishWithError:v24];
   }
 
   else
   {
-    v17 = *(a1 + 40);
-    v18 = [*(a1 + 32) _presentTaskController];
-    [v17 finishWithPromise:v18];
+    v16 = *(a1 + 40);
+    v17 = [*(a1 + 32) _presentTaskController];
+    [v16 finishWithPromise:v17];
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __48__AMSUIEngagementTask__presentEngagementLocally__block_invoke_103(uint64_t a1)
@@ -766,7 +750,7 @@ void __48__AMSUIEngagementTask__presentEngagementLocally__block_invoke_103(uint6
 
 void __48__AMSUIEngagementTask__presentEngagementLocally__block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 49) = 0;
   *(*(a1 + 32) + 48) = 1;
   v2 = [MEMORY[0x1E698C968] sharedConfig];
@@ -778,20 +762,17 @@ void __48__AMSUIEngagementTask__presentEngagementLocally__block_invoke_2(uint64_
   v3 = [v2 OSLogObject];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = AMSLogKey();
-    v9 = 138543618;
+    v4 = objc_opt_class();
+    v5 = AMSLogKey();
+    v7 = 138543618;
+    v8 = v4;
+    v9 = 2114;
     v10 = v5;
-    v11 = 2114;
-    v12 = v6;
-    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dismissing AMSUIEngagementTaskViewController", &v9, 0x16u);
+    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dismissing AMSUIEngagementTaskViewController", &v7, 0x16u);
   }
 
-  v7 = [*(a1 + 32) taskController];
-  [v7 ams_dismissViewControllerAnimated:1 completion:0];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = [*(a1 + 32) taskController];
+  [v6 ams_dismissViewControllerAnimated:1 completion:0];
 }
 
 - (id)_presentEngagementRemotely
@@ -823,7 +804,7 @@ void __48__AMSUIEngagementTask__presentEngagementLocally__block_invoke_2(uint64_
 
 - (id)_presentTaskController
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E698CAD0]);
   [(AMSUIEngagementTask *)self setPresented:1];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
@@ -838,37 +819,35 @@ void __48__AMSUIEngagementTask__presentEngagementLocally__block_invoke_2(uint64_
     v6 = objc_opt_class();
     v7 = AMSLogKey();
     *buf = 138543618;
-    v18 = v6;
-    v19 = 2114;
-    v20 = v7;
+    v17 = v6;
+    v18 = 2114;
+    v19 = v7;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Presenting AMSUIEngagementTaskViewController", buf, 0x16u);
   }
 
   taskController = [(AMSUIEngagementTask *)self taskController];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __45__AMSUIEngagementTask__presentTaskController__block_invoke;
-  v15[3] = &unk_1E7F243C0;
-  v15[4] = self;
-  v16 = v3;
-  v9 = v3;
-  v10 = [(AMSUIEngagementTask *)self _presentViewController:taskController dismissBlock:v15];
-
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;
-  v14[2] = __45__AMSUIEngagementTask__presentTaskController__block_invoke_109;
-  v14[3] = &unk_1E7F24BA0;
+  v14[2] = __45__AMSUIEngagementTask__presentTaskController__block_invoke;
+  v14[3] = &unk_1E7F243C0;
   v14[4] = self;
-  v11 = [v9 catchWithBlock:v14];
+  v15 = v3;
+  v9 = v3;
+  v10 = [(AMSUIEngagementTask *)self _presentViewController:taskController dismissBlock:v14];
 
-  v12 = *MEMORY[0x1E69E9840];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __45__AMSUIEngagementTask__presentTaskController__block_invoke_109;
+  v13[3] = &unk_1E7F24BA0;
+  v13[4] = self;
+  v11 = [v9 catchWithBlock:v13];
 
   return v11;
 }
 
 void __45__AMSUIEngagementTask__presentTaskController__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E698C968] sharedConfig];
   if (!v2)
   {
@@ -878,64 +857,60 @@ void __45__AMSUIEngagementTask__presentTaskController__block_invoke(uint64_t a1)
   v3 = [v2 OSLogObject];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = AMSLogKey();
-    v18 = 138543618;
+    v4 = objc_opt_class();
+    v5 = AMSLogKey();
+    v16 = 138543618;
+    v17 = v4;
+    v18 = 2114;
     v19 = v5;
-    v20 = 2114;
-    v21 = v6;
-    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dismiss block called", &v18, 0x16u);
+    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Dismiss block called", &v16, 0x16u);
   }
 
   if (([*(a1 + 40) isFinished] & 1) == 0)
   {
-    v7 = [*(a1 + 32) error];
+    v6 = [*(a1 + 32) error];
 
-    if (v7)
+    if (v6)
     {
-      v8 = *(a1 + 40);
-      v9 = [*(a1 + 32) error];
-      v10 = v8;
+      v7 = *(a1 + 40);
+      v8 = [*(a1 + 32) error];
+      v9 = v7;
 LABEL_8:
-      [v10 finishWithError:v9];
+      [v9 finishWithError:v8];
 LABEL_15:
 
-      goto LABEL_16;
+      return;
     }
 
-    v11 = [*(a1 + 32) result];
+    v10 = [*(a1 + 32) result];
 
-    if (v11)
+    if (v10)
     {
-      v12 = *(a1 + 40);
-      v9 = [*(a1 + 32) result];
-      v13 = v12;
+      v11 = *(a1 + 40);
+      v8 = [*(a1 + 32) result];
+      v12 = v11;
     }
 
     else
     {
-      v14 = [*(a1 + 32) request];
-      v15 = [v14 failOnDismiss];
+      v13 = [*(a1 + 32) request];
+      v14 = [v13 failOnDismiss];
 
-      if (v15)
+      if (v14)
       {
-        v16 = *(a1 + 40);
-        v9 = AMSError();
-        v10 = v16;
+        v15 = *(a1 + 40);
+        v8 = AMSError();
+        v9 = v15;
         goto LABEL_8;
       }
 
-      v9 = objc_alloc_init(MEMORY[0x1E698C910]);
-      v13 = *(a1 + 40);
+      v8 = objc_alloc_init(MEMORY[0x1E698C910]);
+      v12 = *(a1 + 40);
     }
 
-    [v13 finishWithResult:v9];
+    [v12 finishWithResult:v8];
     goto LABEL_15;
   }
-
-LABEL_16:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 id __45__AMSUIEngagementTask__presentTaskController__block_invoke_109(uint64_t a1, void *a2)
@@ -1017,7 +992,7 @@ uint64_t __59__AMSUIEngagementTask__presentViewController_dismissBlock___block_i
 
 void __59__AMSUIEngagementTask__presentViewController_dismissBlock___block_invoke_2(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = [*(a1 + 32) presentingViewController];
   v4 = [v3 ams_frontmostController];
 
@@ -1034,109 +1009,106 @@ void __59__AMSUIEngagementTask__presentViewController_dismissBlock___block_invok
     {
       v7 = AMSLogKey();
       v8 = MEMORY[0x1E696AEC0];
-      v9 = *(a1 + 32);
-      v10 = objc_opt_class();
-      v11 = v10;
+      v9 = objc_opt_class();
+      v10 = v9;
       if (v7)
       {
         v1 = AMSLogKey();
-        [v8 stringWithFormat:@"%@: [%@] ", v11, v1];
+        [v8 stringWithFormat:@"%@: [%@] ", v10, v1];
       }
 
       else
       {
-        [v8 stringWithFormat:@"%@: ", v10];
+        [v8 stringWithFormat:@"%@: ", v9];
       }
-      v12 = ;
+      v11 = ;
       *buf = 138543362;
-      v34 = v12;
+      v32 = v11;
       _os_log_impl(&dword_1BB036000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Presenting view controller is nil!", buf, 0xCu);
       if (v7)
       {
 
-        v12 = v1;
+        v11 = v1;
       }
     }
   }
 
-  v13 = [*(a1 + 32) request];
-  v14 = [v13 isPresentationRequest];
+  v12 = [*(a1 + 32) request];
+  v13 = [v12 isPresentationRequest];
 
-  if (v14)
+  if (v13)
   {
-    v15 = [[AMSUIEngagementWrapperViewController alloc] initWithViewController:*(a1 + 40)];
-    [(AMSUIEngagementWrapperViewController *)v15 setDismissBlock:*(a1 + 48)];
-    -[AMSUIEngagementWrapperViewController setModalPresentationStyle:](v15, "setModalPresentationStyle:", [*(a1 + 32) _modalPresentationStyle]);
-    v16 = [(AMSUIEngagementWrapperViewController *)v15 presentationController];
-    [v16 setDelegate:v15];
+    v14 = [[AMSUIEngagementWrapperViewController alloc] initWithViewController:*(a1 + 40)];
+    [(AMSUIEngagementWrapperViewController *)v14 setDismissBlock:*(a1 + 48)];
+    -[AMSUIEngagementWrapperViewController setModalPresentationStyle:](v14, "setModalPresentationStyle:", [*(a1 + 32) _modalPresentationStyle]);
+    v15 = [(AMSUIEngagementWrapperViewController *)v14 presentationController];
+    [v15 setDelegate:v14];
 
-    v17 = [*(a1 + 32) request];
-    -[AMSUIEngagementWrapperViewController setModalInPresentation:](v15, "setModalInPresentation:", [v17 suppressInteractiveModalDismissal]);
+    v16 = [*(a1 + 32) request];
+    -[AMSUIEngagementWrapperViewController setModalInPresentation:](v14, "setModalInPresentation:", [v16 suppressInteractiveModalDismissal]);
 
-    [v4 presentViewController:v15 animated:1 completion:0];
+    [v4 presentViewController:v14 animated:1 completion:0];
   }
 
   else
   {
-    v18 = [*(a1 + 32) request];
-    v19 = [v18 presentationStyle];
+    v17 = [*(a1 + 32) request];
+    v18 = [v17 presentationStyle];
 
-    if (v19 == 4)
+    if (v18 == 4)
     {
-      v15 = [[AMSUIEngagementCardWrapperViewController alloc] initWithViewController:*(a1 + 40)];
-      v20 = [MEMORY[0x1E69C66D8] defaultConfiguration];
-      [(AMSUIEngagementWrapperViewController *)v20 setSupportsDarkMode:1];
-      v21 = [v4 presentProxCardFlowWithDelegate:*(a1 + 32) initialViewController:v15 configuration:v20];
-      v22 = [*(a1 + 32) request];
-      -[AMSUIEngagementWrapperViewController setPresentationStyle:](v15, "setPresentationStyle:", [v22 presentationStyle]);
+      v14 = [[AMSUIEngagementCardWrapperViewController alloc] initWithViewController:*(a1 + 40)];
+      v19 = [MEMORY[0x1E69C66D8] defaultConfiguration];
+      [(AMSUIEngagementWrapperViewController *)v19 setSupportsDarkMode:1];
+      v20 = [v4 presentProxCardFlowWithDelegate:*(a1 + 32) initialViewController:v14 configuration:v19];
+      v21 = [*(a1 + 32) request];
+      -[AMSUIEngagementWrapperViewController setPresentationStyle:](v14, "setPresentationStyle:", [v21 presentationStyle]);
     }
 
     else
     {
-      v15 = [*(a1 + 32) cachedNavigationController];
-      if (!v15)
+      v14 = [*(a1 + 32) cachedNavigationController];
+      if (!v14)
       {
-        v15 = [objc_alloc(MEMORY[0x1E69DCCD8]) initWithRootViewController:*(a1 + 40)];
-        -[AMSUIEngagementWrapperViewController setModalPresentationStyle:](v15, "setModalPresentationStyle:", [*(a1 + 32) _modalPresentationStyle]);
-        v23 = [*(a1 + 32) _userInterfaceStyle];
-        if (v23)
+        v14 = [objc_alloc(MEMORY[0x1E69DCCD8]) initWithRootViewController:*(a1 + 40)];
+        -[AMSUIEngagementWrapperViewController setModalPresentationStyle:](v14, "setModalPresentationStyle:", [*(a1 + 32) _modalPresentationStyle]);
+        v22 = [*(a1 + 32) _userInterfaceStyle];
+        if (v22)
         {
-          [(AMSUIEngagementWrapperViewController *)v15 setOverrideUserInterfaceStyle:v23];
+          [(AMSUIEngagementWrapperViewController *)v14 setOverrideUserInterfaceStyle:v22];
         }
 
-        [*(a1 + 32) setCachedNavigationController:v15];
+        [*(a1 + 32) setCachedNavigationController:v14];
       }
 
-      v20 = [[AMSUIEngagementWrapperViewController alloc] initWithViewController:v15];
-      -[AMSUIEngagementWrapperViewController setModalPresentationStyle:](v20, "setModalPresentationStyle:", [*(a1 + 32) _modalPresentationStyle]);
+      v19 = [[AMSUIEngagementWrapperViewController alloc] initWithViewController:v14];
+      -[AMSUIEngagementWrapperViewController setModalPresentationStyle:](v19, "setModalPresentationStyle:", [*(a1 + 32) _modalPresentationStyle]);
+      v23 = [*(a1 + 32) request];
+      -[AMSUIEngagementWrapperViewController setModalInPresentation:](v19, "setModalInPresentation:", [v23 suppressInteractiveModalDismissal]);
+
       v24 = [*(a1 + 32) request];
-      -[AMSUIEngagementWrapperViewController setModalInPresentation:](v20, "setModalInPresentation:", [v24 suppressInteractiveModalDismissal]);
+      v25 = [v24 presentationStyle];
 
-      v25 = [*(a1 + 32) request];
-      v26 = [v25 presentationStyle];
-
-      if (v26 == 5)
+      if (v25 == 5)
       {
-        v27 = [(AMSUIEngagementWrapperViewController *)v20 sheetPresentationController];
-        v28 = [MEMORY[0x1E69DCF58] _detentWithIdentifier:@"Custom" resolutionContextBlock:&__block_literal_global_6];
-        v32 = v28;
-        v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
-        [v27 setDetents:v29];
+        v26 = [(AMSUIEngagementWrapperViewController *)v19 sheetPresentationController];
+        v27 = [MEMORY[0x1E69DCF58] _detentWithIdentifier:@"Custom" resolutionContextBlock:&__block_literal_global_6];
+        v30 = v27;
+        v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+        [v26 setDetents:v28];
 
-        [v27 setPrefersEdgeAttachedInCompactHeight:1];
-        [v27 setPrefersScrollingExpandsWhenScrolledToEdge:0];
-        [v27 setPreferredCornerRadius:12.0];
+        [v26 setPrefersEdgeAttachedInCompactHeight:1];
+        [v26 setPrefersScrollingExpandsWhenScrolledToEdge:0];
+        [v26 setPreferredCornerRadius:12.0];
       }
 
-      [(AMSUIEngagementWrapperViewController *)v20 setDismissBlock:*(a1 + 56)];
-      v30 = [(AMSUIEngagementWrapperViewController *)v15 presentationController];
-      [v30 setDelegate:v20];
+      [(AMSUIEngagementWrapperViewController *)v19 setDismissBlock:*(a1 + 56)];
+      v29 = [(AMSUIEngagementWrapperViewController *)v14 presentationController];
+      [v29 setDelegate:v19];
 
-      [v4 presentViewController:v20 animated:1 completion:0];
+      [v4 presentViewController:v19 animated:1 completion:0];
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 double __59__AMSUIEngagementTask__presentViewController_dismissBlock___block_invoke_125(uint64_t a1, void *a2)
@@ -1196,7 +1168,7 @@ double __59__AMSUIEngagementTask__presentViewController_dismissBlock___block_inv
 
 - (int64_t)_userInterfaceStyle
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   request = [(AMSUIEngagementTask *)self request];
   v3 = [request URL];
   fragment = [v3 fragment];
@@ -1204,26 +1176,26 @@ double __59__AMSUIEngagementTask__presentViewController_dismissBlock___block_inv
   if (fragment)
   {
     [fragment componentsSeparatedByString:@"&"];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v5 = v18 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v5 = v17 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
-          if ([v10 hasPrefix:{@"userInterfaceStyle=", v15}])
+          v10 = *(*(&v14 + 1) + 8 * i);
+          if ([v10 hasPrefix:{@"userInterfaceStyle=", v14}])
           {
             v12 = [v10 substringFromIndex:{objc_msgSend(@"userInterfaceStyle=", "length")}];
             if ([v12 isEqualToString:@"light"])
@@ -1245,7 +1217,7 @@ double __59__AMSUIEngagementTask__presentViewController_dismissBlock___block_inv
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           continue;
@@ -1264,7 +1236,6 @@ LABEL_18:
     v11 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

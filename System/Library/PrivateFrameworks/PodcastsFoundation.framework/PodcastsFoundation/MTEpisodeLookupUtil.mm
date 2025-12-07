@@ -24,9 +24,11 @@
 
 uint64_t __37__MTEpisodeLookupUtil_sharedInstance__block_invoke()
 {
-  sharedInstance_instance_0 = objc_alloc_init(MTEpisodeLookupUtil);
+  v0 = objc_alloc_init(MTEpisodeLookupUtil);
+  v1 = sharedInstance_instance_0;
+  sharedInstance_instance_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)findEpisodeWithRequest:(id)request
@@ -90,19 +92,8 @@ uint64_t __37__MTEpisodeLookupUtil_sharedInstance__block_invoke()
 
   v17 = [(MTEpisodeLookupUtil *)self findPodcastWithFeedUrl:podcastFeedUrl];
   episodeTitle = v17;
-  if (!v17)
+  if (!v17 || ([v17 uuid], v19 = objc_claimAutoreleasedReturnValue(), +[MTEpisode predicateForEpisodeGuid:onPodcastUuid:](MTEpisode, "predicateForEpisodeGuid:onPodcastUuid:", episodeGuid, v19), v20 = objc_claimAutoreleasedReturnValue(), v19, -[MTEpisodeLookupUtil _episodeMatchFromPredicate:](self, "_episodeMatchFromPredicate:", v20), v10 = objc_claimAutoreleasedReturnValue(), v20, !v10))
   {
-    goto LABEL_11;
-  }
-
-  uuid2 = [v17 uuid];
-  v20 = [MTEpisode predicateForEpisodeGuid:episodeGuid onPodcastUuid:uuid2];
-
-  v10 = [(MTEpisodeLookupUtil *)self _episodeMatchFromPredicate:v20];
-
-  if (!v10)
-  {
-LABEL_11:
 
 LABEL_12:
     episodeTitle = [requestCopy episodeTitle];
@@ -116,8 +107,8 @@ LABEL_12:
       {
         v30 = episodeGuid;
         v32 = v23;
-        uuid3 = [v23 uuid];
-        v25 = [MTEpisode predicateForEpisodeTitle:episodeTitle onPodcastUuid:uuid3];
+        uuid2 = [v23 uuid];
+        v25 = [MTEpisode predicateForEpisodeTitle:episodeTitle onPodcastUuid:uuid2];
 
         v31 = v25;
         v10 = [(MTEpisodeLookupUtil *)self _episodeMatchFromPredicate:v25];
@@ -190,7 +181,7 @@ LABEL_27:
 
 - (id)_entityForFetchRequest:(id)request context:(id)context
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   contextCopy = context;
   if (!contextCopy)
@@ -199,37 +190,37 @@ LABEL_27:
     contextCopy = [v7 mainOrPrivateContext];
   }
 
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__9;
-  v33 = __Block_byref_object_dispose__9;
-  v34 = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__9;
-  v27 = __Block_byref_object_dispose__9;
   v28 = 0;
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __54__MTEpisodeLookupUtil__entityForFetchRequest_context___block_invoke;
-  v18 = &unk_1E856B5B8;
-  v21 = &v23;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__9;
+  v32 = __Block_byref_object_dispose__9;
+  v33 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__9;
+  v26 = __Block_byref_object_dispose__9;
+  v27 = 0;
+  v14 = MEMORY[0x1E69E9820];
+  v15 = 3221225472;
+  v16 = __54__MTEpisodeLookupUtil__entityForFetchRequest_context___block_invoke;
+  v17 = &unk_1E856B5B8;
+  v20 = &v22;
   v8 = contextCopy;
-  v19 = v8;
+  v18 = v8;
   v9 = requestCopy;
-  v20 = v9;
-  v22 = &v29;
-  [v8 performBlockAndWait:&v15];
-  if (v30[5])
+  v19 = v9;
+  v21 = &v28;
+  [v8 performBlockAndWait:&v14];
+  if (v29[5])
   {
     v10 = _MTLogCategoryDatabase();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = v30[5];
+      v11 = v29[5];
       *buf = 138412290;
-      v36 = v11;
+      v35 = v11;
       _os_log_impl(&dword_1D8CEC000, v10, OS_LOG_TYPE_DEFAULT, "Error fetching entity: %@", buf, 0xCu);
     }
 
@@ -238,13 +229,11 @@ LABEL_27:
 
   else
   {
-    firstObject = [v24[5] firstObject];
+    firstObject = [v23[5] firstObject];
   }
 
-  _Block_object_dispose(&v23, 8);
-  _Block_object_dispose(&v29, 8);
-
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v28, 8);
 
   return firstObject;
 }

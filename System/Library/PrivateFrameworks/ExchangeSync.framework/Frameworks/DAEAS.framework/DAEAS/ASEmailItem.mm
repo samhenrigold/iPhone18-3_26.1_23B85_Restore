@@ -599,7 +599,7 @@ LABEL_73:
 
 - (void)parseASParseContext:(id)context root:(id)root parent:(id)parent callbackDict:(id)dict streamCallbackDict:(id)callbackDict account:(id)account
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   rootCopy = root;
   parentCopy = parent;
@@ -622,9 +622,9 @@ LABEL_73:
     v22Parent = [v20Parent parent];
   }
 
-  v62.receiver = self;
-  v62.super_class = ASEmailItem;
-  [(ASChangedCollectionLeaf *)&v62 parseASParseContext:contextCopy root:rootCopy parent:parentCopy callbackDict:dictCopy streamCallbackDict:callbackDictCopy account:accountCopy];
+  v61.receiver = self;
+  v61.super_class = ASEmailItem;
+  [(ASChangedCollectionLeaf *)&v61 parseASParseContext:contextCopy root:rootCopy parent:parentCopy callbackDict:dictCopy streamCallbackDict:callbackDictCopy account:accountCopy];
   parsingState = self->super.super._parsingState;
   if (parsingState >= 2)
   {
@@ -634,60 +634,60 @@ LABEL_73:
       goto LABEL_8;
     }
 
-    v56 = parent;
+    v55 = parent;
     if (![(ASChangedCollectionLeaf *)self changeType]|| [(ASChangedCollectionLeaf *)self changeType]== 1 || [(ASChangedCollectionLeaf *)self changeType]== 3)
     {
-      v51 = callbackDictCopy;
-      v52 = dictCopy;
-      v53 = parentCopy;
-      v54 = rootCopy;
-      v55 = contextCopy;
+      v50 = callbackDictCopy;
+      v51 = dictCopy;
+      v52 = parentCopy;
+      v53 = rootCopy;
+      v54 = contextCopy;
       [(ASEmailItem *)self postProcessApplicationData];
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
       v59 = 0u;
+      v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
       attachments = [(ASEmailItem *)self attachments];
-      v26 = [attachments countByEnumeratingWithState:&v58 objects:v63 count:16];
-      if (v26)
+      v25 = [attachments countByEnumeratingWithState:&v57 objects:v62 count:16];
+      if (v25)
       {
-        v27 = v26;
-        v28 = *v59;
-        v29 = MEMORY[0x277CBEC38];
+        v26 = v25;
+        v27 = *v58;
+        v28 = MEMORY[0x277CBEC38];
         do
         {
-          for (i = 0; i != v27; ++i)
+          for (i = 0; i != v26; ++i)
           {
-            if (*v59 != v28)
+            if (*v58 != v27)
             {
               objc_enumerationMutation(attachments);
             }
 
-            v31 = *(*(&v58 + 1) + 8 * i);
+            v30 = *(*(&v57 + 1) + 8 * i);
             protocol = [accountCopy protocol];
             allAttachmentsAreBase64ed = [protocol allAttachmentsAreBase64ed];
 
             if (allAttachmentsAreBase64ed)
             {
-              [v31 setHasBase64Transfer:v29];
+              [v30 setHasBase64Transfer:v28];
             }
           }
 
-          v27 = [attachments countByEnumeratingWithState:&v58 objects:v63 count:16];
+          v26 = [attachments countByEnumeratingWithState:&v57 objects:v62 count:16];
         }
 
-        while (v27);
+        while (v26);
       }
 
       meetingRequest = [(ASEmailItem *)self meetingRequest];
       [meetingRequest takeValuesFromParentEmailForAccount:accountCopy];
 
-      rootCopy = v54;
-      contextCopy = v55;
-      dictCopy = v52;
-      parentCopy = v53;
-      callbackDictCopy = v51;
-      parent = v56;
+      rootCopy = v53;
+      contextCopy = v54;
+      dictCopy = v51;
+      parentCopy = v52;
+      callbackDictCopy = v50;
+      parent = v55;
     }
 
     if (![(ASEmailItem *)self _isSearchResult])
@@ -726,34 +726,34 @@ LABEL_45:
         {
           messageClass2 = [(ASEmailItem *)self messageClass];
           messageClass = 1;
-          v39 = [messageClass2 compare:@"IPM.Schedule.Meeting.Request" options:1 range:{0, objc_msgSend(@"IPM.Schedule.Meeting.Request", "length")}];
+          v38 = [messageClass2 compare:@"IPM.Schedule.Meeting.Request" options:1 range:{0, objc_msgSend(@"IPM.Schedule.Meeting.Request", "length")}];
 
-          if (v39)
+          if (v38)
           {
             messageClass3 = [(ASEmailItem *)self messageClass];
-            v41 = [messageClass3 compare:@"IPM.Schedule.Meeting.Canceled" options:1 range:{0, objc_msgSend(@"IPM.Schedule.Meeting.Canceled", "length")}];
+            v40 = [messageClass3 compare:@"IPM.Schedule.Meeting.Canceled" options:1 range:{0, objc_msgSend(@"IPM.Schedule.Meeting.Canceled", "length")}];
 
-            if (v41)
+            if (v40)
             {
               messageClass4 = [(ASEmailItem *)self messageClass];
-              v43 = [messageClass4 compare:@"IPM.Schedule.Meeting.Resp.Pos" options:1 range:{0, objc_msgSend(@"IPM.Schedule.Meeting.Resp.Pos", "length")}];
+              v42 = [messageClass4 compare:@"IPM.Schedule.Meeting.Resp.Pos" options:1 range:{0, objc_msgSend(@"IPM.Schedule.Meeting.Resp.Pos", "length")}];
 
-              if (v43)
+              if (v42)
               {
                 messageClass5 = [(ASEmailItem *)self messageClass];
-                v45 = [messageClass5 compare:@"IPM.Schedule.Meeting.Resp.Tent" options:1 range:{0, objc_msgSend(@"IPM.Schedule.Meeting.Resp.Tent", "length")}];
+                v44 = [messageClass5 compare:@"IPM.Schedule.Meeting.Resp.Tent" options:1 range:{0, objc_msgSend(@"IPM.Schedule.Meeting.Resp.Tent", "length")}];
 
-                if (v45)
+                if (v44)
                 {
                   messageClass6 = [(ASEmailItem *)self messageClass];
-                  v47 = [messageClass6 compare:@"IPM.Schedule.Meeting.Resp.Neg" options:1 range:{0, objc_msgSend(@"IPM.Schedule.Meeting.Resp.Neg", "length")}];
+                  v46 = [messageClass6 compare:@"IPM.Schedule.Meeting.Resp.Neg" options:1 range:{0, objc_msgSend(@"IPM.Schedule.Meeting.Resp.Neg", "length")}];
 
-                  if (v47)
+                  if (v46)
                   {
                     messageClass7 = [(ASEmailItem *)self messageClass];
-                    v49 = [messageClass7 compare:@"IPM.Schedule.Meeting.Notification.Forward" options:1 range:{0, objc_msgSend(@"IPM.Schedule.Meeting.Notification.Forward", "length")}];
+                    v48 = [messageClass7 compare:@"IPM.Schedule.Meeting.Notification.Forward" options:1 range:{0, objc_msgSend(@"IPM.Schedule.Meeting.Notification.Forward", "length")}];
 
-                    if (v49)
+                    if (v48)
                     {
                       messageClass = 0;
                     }
@@ -792,10 +792,10 @@ LABEL_45:
         meetingRequest3 = [(ASEmailItem *)self meetingRequest];
         [meetingRequest3 setMeetingClassType:messageClass];
 
-        parent = v56;
+        parent = v55;
         if ([accountCopy enabledForDADataclass:4])
         {
-          if ([v56 sniffableTypeForAccount:accountCopy] == 1)
+          if ([v55 sniffableTypeForAccount:accountCopy] == 1)
           {
             serverID = [(ASEmailItem *)self meetingRequestMetaData];
             [v22Parent addMeetingRequestData:serverID];
@@ -807,8 +807,6 @@ LABEL_45:
   }
 
 LABEL_8:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -945,16 +943,16 @@ LABEL_5:
 
 - (ASEmailItem)initWithCoder:(id)coder
 {
-  v50[2] = *MEMORY[0x277D85DE8];
+  v49[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if (([coderCopy allowsKeyedCoding] & 1) == 0)
   {
     [(ASEmailItem *)a2 initWithCoder:?];
   }
 
-  v49.receiver = self;
-  v49.super_class = ASEmailItem;
-  v6 = [(ASChangedCollectionLeaf *)&v49 initWithCoder:coderCopy];
+  v48.receiver = self;
+  v48.super_class = ASEmailItem;
+  v6 = [(ASChangedCollectionLeaf *)&v48 initWithCoder:coderCopy];
   if (v6)
   {
     v7 = MEMORY[0x277CBEB98];
@@ -982,9 +980,9 @@ LABEL_5:
     [(ASEmailItem *)v6 setReplyTo:v22];
 
     v23 = MEMORY[0x277CBEB98];
-    v50[0] = objc_opt_class();
-    v50[1] = objc_opt_class();
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:2];
+    v49[0] = objc_opt_class();
+    v49[1] = objc_opt_class();
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
     v25 = [v23 setWithArray:v24];
     v26 = [coderCopy decodeObjectOfClasses:v25 forKey:@"ASEDate"];
     [(ASEmailItem *)v6 setDate:v26];
@@ -1050,7 +1048,6 @@ LABEL_5:
     -[ASEmailItem setIsDraft:](v6, "setIsDraft:", [coderCopy decodeBoolForKey:@"ASEIsDraft"]);
   }
 
-  v47 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

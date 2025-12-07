@@ -42,12 +42,12 @@
 {
   if (dword_27E382FA8 <= 800 && (dword_27E382FA8 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer initNetTopoObjectLayerCommonWithStyle:andOwningView:]", 800, "%@\n", v4, v5, v6, v7, self);
+    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer initNetTopoObjectLayerCommonWithStyle:andOwningView:]", 800, "%@\n", self);
   }
 
   self->_topoStyle = style;
-  objc_msgSend_setOwningView_(self, a2, view);
-  objc_msgSend_setEdgeAntialiasingMask_(self, v11, 0);
+  objc_msgSend_setOwningView_(self, a2, view, view);
+  objc_msgSend_setEdgeAntialiasingMask_(self, v7, 0, v8);
   self->_layoutScale = 1.0;
   self->_isExpanded = 1;
   self->_smallSize = 0;
@@ -55,98 +55,79 @@
   self->_boundsSizeConstraint = *MEMORY[0x277CBF3A8];
   self->_parent = 0;
   self->_children = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v12 = *MEMORY[0x277CBF3A0];
-  v13 = *(MEMORY[0x277CBF3A0] + 16);
+  v9 = *MEMORY[0x277CBF3A0];
+  v10 = *(MEMORY[0x277CBF3A0] + 16);
   self->_imageFrame.origin = *MEMORY[0x277CBF3A0];
-  self->_imageFrame.size = v13;
-  self->_imageSelectionFrame.origin = v12;
-  self->_imageSelectionFrame.size = v13;
+  self->_imageFrame.size = v10;
+  self->_imageSelectionFrame.origin = v9;
+  self->_imageSelectionFrame.size = v10;
   self->_selectionColor = sub_23EBFD680(0.0, 0.0, 0.0, 0.3);
-  v16 = sub_23EC13544(view, v14, v15);
-  v17 = 20.0;
-  v18 = 14.0;
-  if (v16 == 1)
+  v14 = sub_23EC13544(view, v11, v12, v13);
+  v15 = 20.0;
+  v16 = 14.0;
+  if (v14 == 1)
   {
-    v17 = 14.0;
-    v18 = 10.0;
+    v15 = 14.0;
+    v16 = 10.0;
   }
 
-  self->_selectionCornerRadius = v17;
-  self->_selectionRectOutset = v18;
+  self->_selectionCornerRadius = v15;
+  self->_selectionRectOutset = v16;
   self->_labelUnselectedFillColor = sub_23EBFD680(1.0, 1.0, 1.0, 0.0);
   self->_labelSelectedFillColor = sub_23EBFD680(1.0, 1.0, 1.0, 0.0);
-  v19 = sub_23EBFD680(1.0, 1.0, 1.0, 0.0);
-  self->_labelSelectedFillColor2 = v19;
-  if (sub_23EC132F8(v19, v20, v21))
+  v17 = sub_23EBFD680(1.0, 1.0, 1.0, 0.0);
+  self->_labelSelectedFillColor2 = v17;
+  if (sub_23EC132F8(v17, v18, v19, v20))
   {
-    v24 = objc_msgSend__secondaryLabelColor(MEMORY[0x277D75348], v22, v23);
-    v27 = objc_msgSend_CGColor(v24, v25, v26);
-    v28 = CGColorRetain(v27);
+    v24 = objc_msgSend__secondaryLabelColor(MEMORY[0x277D75348], v21, v22, v23);
+    v28 = objc_msgSend_CGColor(v24, v25, v26, v27);
+    v29 = CGColorRetain(v28);
   }
 
   else
   {
-    v28 = sub_23EBFD680(0.305882353, 0.337254902, 0.423529412, 1.0);
+    v29 = sub_23EBFD680(0.305882353, 0.337254902, 0.423529412, 1.0);
   }
 
-  self->_labelUnselectedTextColor = v28;
-  v31 = objc_msgSend__tertiaryLabelColor(MEMORY[0x277D75348], v29, v30);
-  v34 = objc_msgSend_CGColor(v31, v32, v33);
-  self->_secondaryLabelUnselectedTextColor = CGColorRetain(v34);
+  self->_labelUnselectedTextColor = v29;
+  v33 = objc_msgSend__tertiaryLabelColor(MEMORY[0x277D75348], v30, v31, v32);
+  v37 = objc_msgSend_CGColor(v33, v34, v35, v36);
+  self->_secondaryLabelUnselectedTextColor = CGColorRetain(v37);
   self->_secondaryLabelSelectedTextColor = sub_23EBFD680(0.4, 0.4, 0.4, 1.0);
   self->_labelSelectedTextColor = sub_23EBFD680(1.0, 1.0, 1.0, 1.0);
-  objc_msgSend_contentsScale(self, v35, v36);
-  objc_msgSend_loadStatusImagesForScale_(self, v37, v38);
-  objc_msgSend_setZPosition_(self, v39, v40, 1000.0);
-  v43 = sub_23EC13544(view, v41, v42);
-  if (v43 == 2)
+  objc_msgSend_contentsScale(self, v38, v39, v40);
+  objc_msgSend_loadStatusImagesForScale_(self, v41, v42, v43);
+  objc_msgSend_setZPosition_(self, v44, v45, v46, 1000.0);
+  v50 = sub_23EC13544(view, v47, v48, v49);
+  if (v50 == 2)
   {
-    v46 = 292.0;
+    v54 = 292.0;
   }
 
   else
   {
-    v46 = 144.0;
+    v54 = 144.0;
   }
 
-  if (v43 == 2)
+  if (v50 == 2)
   {
-    v47 = 292.0;
+    v55 = 292.0;
   }
 
   else
   {
-    v47 = 124.0;
+    v55 = 124.0;
   }
 
-  objc_msgSend_setFrame_(self, v44, v45, 0.0, 0.0, v47, v46);
+  objc_msgSend_setFrame_(self, v51, v52, v53, 0.0, 0.0, v55, v54);
 }
 
 - (NetTopoObjectLayer)initWithUIStyle:(int)style andOwningView:(id)view
 {
-  v9 = *&style;
+  v5 = *&style;
   if (dword_27E382FA8 <= 800 && (dword_27E382FA8 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer initWithUIStyle:andOwningView:]", 800, "\n", v4, v5, v6, v7, v15.receiver);
-  }
-
-  v15.receiver = self;
-  v15.super_class = NetTopoObjectLayer;
-  v11 = [(NetTopoObjectLayer *)&v15 init];
-  v13 = v11;
-  if (v11)
-  {
-    objc_msgSend_initNetTopoObjectLayerCommonWithStyle_andOwningView_(v11, v12, v9, view);
-  }
-
-  return v13;
-}
-
-- (NetTopoObjectLayer)init
-{
-  if (dword_27E382FA8 <= 800 && (dword_27E382FA8 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
-  {
-    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer init]", 800, "\n", v2, v3, v4, v5, v11.receiver);
+    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer initWithUIStyle:andOwningView:]", 800, "\n");
   }
 
   v11.receiver = self;
@@ -155,21 +136,40 @@
   v9 = v7;
   if (v7)
   {
-    objc_msgSend_initNetTopoObjectLayerCommonWithStyle_andOwningView_(v7, v8, 0, 0);
+    objc_msgSend_initNetTopoObjectLayerCommonWithStyle_andOwningView_(v7, v8, v5, view);
   }
 
   return v9;
+}
+
+- (NetTopoObjectLayer)init
+{
+  if (dword_27E382FA8 <= 800 && (dword_27E382FA8 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
+  {
+    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer init]", 800, "\n");
+  }
+
+  v7.receiver = self;
+  v7.super_class = NetTopoObjectLayer;
+  v3 = [(NetTopoObjectLayer *)&v7 init];
+  v5 = v3;
+  if (v3)
+  {
+    objc_msgSend_initNetTopoObjectLayerCommonWithStyle_andOwningView_(v3, v4, 0, 0);
+  }
+
+  return v5;
 }
 
 - (void)dealloc
 {
   if (dword_27E382FA8 <= 800 && (dword_27E382FA8 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer dealloc]", 800, "%@\n", v2, v3, v4, v5, self);
+    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer dealloc]", 800, "%@\n", self);
   }
 
-  objc_msgSend_setObjectImage_(self, v7, 0);
-  objc_msgSend_deallocStatusImages(self, v8, v9);
+  objc_msgSend_setObjectImage_(self, v3, 0, v4);
+  objc_msgSend_deallocStatusImages(self, v5, v6, v7);
 
   CGColorRelease(self->_selectionColor);
   CGColorRelease(self->_labelUnselectedFillColor);
@@ -179,169 +179,169 @@
   CGColorRelease(self->_labelSelectedFillColor2);
   CGColorRelease(self->_secondaryLabelUnselectedTextColor);
   CGColorRelease(self->_secondaryLabelSelectedTextColor);
-  v10.receiver = self;
-  v10.super_class = NetTopoObjectLayer;
-  [(NetTopoObjectLayer *)&v10 dealloc];
+  v8.receiver = self;
+  v8.super_class = NetTopoObjectLayer;
+  [(NetTopoObjectLayer *)&v8 dealloc];
 }
 
 - (void)pickCorrectImagesForContentsScale:(double)scale
 {
   if (dword_27E382FA8 <= 800 && (dword_27E382FA8 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer pickCorrectImagesForContentsScale:]", 800, "scale = %.1f\n", v4, v5, v6, v7, *&scale);
+    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer pickCorrectImagesForContentsScale:]", 800, "scale = %.1f\n", scale);
   }
 
-  objc_msgSend_loadStatusImagesForScale_(self, a2, v3, scale);
-  v13 = objc_msgSend_statusLightMode(self, v10, v11);
+  objc_msgSend_loadStatusImagesForScale_(self, a2, v3, v4, scale);
+  v11 = objc_msgSend_statusLightMode(self, v7, v8, v9);
 
-  objc_msgSend_setStatusLightMode_(self, v12, v13);
+  objc_msgSend_setStatusLightMode_(self, v10, v11, v12);
 }
 
 - (NetTopoObjectLayer)parentDevice
 {
-  if (!objc_msgSend_parent(self, a2, v2))
+  if (!objc_msgSend_parent(self, a2, v2, v3))
   {
     return 0;
   }
 
-  objc_msgSend_parent(self, v4, v5);
-  v6 = objc_opt_class();
-  if (v6 != objc_opt_class())
+  objc_msgSend_parent(self, v5, v6, v7);
+  v8 = objc_opt_class();
+  if (v8 != objc_opt_class())
   {
     return 0;
   }
 
-  v10 = objc_msgSend_parent(self, v7, v8);
+  v13 = objc_msgSend_parent(self, v9, v10, v11);
 
-  return objc_msgSend_parent(v10, v11, v12);
+  return objc_msgSend_parent(v13, v14, v15, v16);
 }
 
 - (id)childAtIndex:(unint64_t)index
 {
   if (dword_27E382FE8 <= 800 && (dword_27E382FE8 != -1 || sub_23EB74AC8(&dword_27E382FE8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer childAtIndex:]", 800, "index %d  _children %@\n", v3, v4, v5, v6, index);
+    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer childAtIndex:]", 800, "index %d  _children %@\n", index, self->_children);
   }
 
-  if (objc_msgSend_count(self->_children, a2, index) <= index)
+  if (objc_msgSend_count(self->_children, a2, index, v3) <= index)
   {
-    v14 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v14 = objc_msgSend_objectAtIndex_(self->_children, v9, index);
+    v8 = objc_msgSend_objectAtIndex_(self->_children, v6, index, v7);
   }
 
   if (dword_27E382FE8 <= 800 && (dword_27E382FE8 != -1 || sub_23EB74AC8(&dword_27E382FE8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer childAtIndex:]", 800, "returning foundChild %@\n", v10, v11, v12, v13, v14);
+    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer childAtIndex:]", 800, "returning foundChild %@\n", v8);
   }
 
-  return v14;
+  return v8;
 }
 
 - (id)firstChild
 {
   if (dword_27E382FE8 <= 800 && (dword_27E382FE8 != -1 || sub_23EB74AC8(&dword_27E382FE8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer firstChild]", 800, "getting first child for %@\n", v2, v3, v4, v5, self);
+    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer firstChild]", 800, "getting first child for %@\n", self);
   }
 
-  v11 = objc_msgSend_childAtIndex_(self, a2, 0);
+  v4 = objc_msgSend_childAtIndex_(self, a2, 0, v2);
   if (dword_27E382FE8 <= 800 && (dword_27E382FE8 != -1 || sub_23EB74AC8(&dword_27E382FE8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer firstChild]", 800, "returning firstChild %@\n", v7, v8, v9, v10, v11);
+    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer firstChild]", 800, "returning firstChild %@\n", v4);
   }
 
-  return v11;
+  return v4;
 }
 
 - (id)lastChild
 {
   if (dword_27E382FE8 <= 800 && (dword_27E382FE8 != -1 || sub_23EB74AC8(&dword_27E382FE8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer lastChild]", 800, "getting last child for %@\n", v3, v4, v5, v6, self);
+    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer lastChild]", 800, "getting last child for %@\n", self);
   }
 
-  v8 = objc_msgSend_count(self->_children, a2, v2);
-  if (v8)
+  v5 = objc_msgSend_count(self->_children, a2, v2, v3);
+  if (v5)
   {
-    v14 = objc_msgSend_childAtIndex_(self, v9, v8 - 1);
+    v8 = objc_msgSend_childAtIndex_(self, v6, v5 - 1, v7);
   }
 
   else
   {
-    v14 = 0;
+    v8 = 0;
   }
 
   if (dword_27E382FE8 <= 800 && (dword_27E382FE8 != -1 || sub_23EB74AC8(&dword_27E382FE8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer lastChild]", 800, "returning lastChild %@\n", v10, v11, v12, v13, v14);
+    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer lastChild]", 800, "returning lastChild %@\n", v8);
   }
 
-  return v14;
+  return v8;
 }
 
 - (void)insertChild:(id)child atIndex:(unint64_t)index
 {
   if (dword_27E382FE8 <= 800 && (dword_27E382FE8 != -1 || sub_23EB74AC8(&dword_27E382FE8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer insertChild:atIndex:]", 800, "inserting child %@ at index %d\n", v4, v5, v6, v7, child);
+    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer insertChild:atIndex:]", 800, "inserting child %@ at index %d\n", child, index);
   }
 
-  if (objc_msgSend_count(self->_children, a2, child) <= index)
+  if (objc_msgSend_count(self->_children, a2, child, index) <= index)
   {
     if (dword_27E382FE8 <= 800 && (dword_27E382FE8 != -1 || sub_23EB74AC8(&dword_27E382FE8, 0x320u)))
     {
-      sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer insertChild:atIndex:]", 800, "growing child array\n", v12, v13, v14, v15, v22);
+      sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer insertChild:atIndex:]", 800, "growing child array\n");
     }
 
-    objc_msgSend_addChild_(self, v11, child);
+    objc_msgSend_addChild_(self, v7, child, v8);
   }
 
   else
   {
     if (dword_27E382FE8 <= 800 && (dword_27E382FE8 != -1 || sub_23EB74AC8(&dword_27E382FE8, 0x320u)))
     {
-      v16 = objc_msgSend_objectAtIndex_(self->_children, v11, index);
-      sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer insertChild:atIndex:]", 800, "replacing existing object %@\n", v17, v18, v19, v20, v16);
+      v9 = objc_msgSend_objectAtIndex_(self->_children, v7, index, v8);
+      sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer insertChild:atIndex:]", 800, "replacing existing object %@\n", v9);
     }
 
-    objc_msgSend_replaceObjectAtIndex_withObject_(self->_children, v11, index, child);
+    objc_msgSend_replaceObjectAtIndex_withObject_(self->_children, v7, index, child);
 
-    objc_msgSend_setParent_(child, v21, self);
+    objc_msgSend_setParent_(child, v10, self, v11);
   }
 }
 
 - (void)addChild:(id)child
 {
-  if (objc_msgSend_indexOfObjectIdenticalTo_(self->_children, a2, child) == 0x7FFFFFFFFFFFFFFFLL)
+  if (objc_msgSend_indexOfObjectIdenticalTo_(self->_children, a2, child, v3) == 0x7FFFFFFFFFFFFFFFLL)
   {
-    objc_msgSend_addObject_(self->_children, v5, child);
+    objc_msgSend_addObject_(self->_children, v6, child, v7);
 
-    objc_msgSend_setParent_(child, v10, self);
+    objc_msgSend_setParent_(child, v8, self, v9);
   }
 
   else if (dword_27E382FE8 <= 800 && (dword_27E382FE8 != -1 || sub_23EB74AC8(&dword_27E382FE8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer addChild:]", 800, "new child %@ is already in the child array\n", v6, v7, v8, v9, child);
+    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer addChild:]", 800, "new child %@ is already in the child array\n", child);
   }
 }
 
 - (void)removeChild:(id)child
 {
-  if (child && objc_msgSend_containsObject_(self->_children, a2, child))
+  if (child && objc_msgSend_containsObject_(self->_children, a2, child, v3))
   {
-    objc_msgSend_setParent_(child, v9, 0);
+    objc_msgSend_setParent_(child, v6, 0, v7);
     children = self->_children;
 
-    objc_msgSend_removeObject_(children, v10, child);
+    objc_msgSend_removeObject_(children, v8, child, v9);
   }
 
   else if (dword_27E382FE8 <= 800 && (dword_27E382FE8 != -1 || sub_23EB74AC8(&dword_27E382FE8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer removeChild:]", 800, "attempting to remove child %@ that's not in the child array\n", v3, v4, v5, v6, child);
+    sub_23EB75374(&dword_27E382FE8, "[NetTopoObjectLayer removeChild:]", 800, "attempting to remove child %@ that's not in the child array\n", child);
   }
 }
 
@@ -351,15 +351,15 @@
   width = constraint.width;
   if (dword_27E382FA8 <= 800 && (dword_27E382FA8 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer setBoundsSizeConstraint:]", 800, "constraint = (w = %.2f h = %.2f)\n", v4, v5, v6, v7, *&width);
+    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer setBoundsSizeConstraint:]", 800, "constraint = (w = %.2f h = %.2f)\n", width, height);
   }
 
   self->_boundsSizeConstraint.width = width;
   self->_boundsSizeConstraint.height = height;
-  objc_msgSend_setBoundsSizeConstraint_(self->_labelLayer, a2, v3, width, height);
-  objc_msgSend_setBoundsSizeConstraint_(self->_secondaryLabelLayer, v11, v12, width, height);
+  objc_msgSend_setBoundsSizeConstraint_(self->_labelLayer, a2, v3, v4, width, height);
+  objc_msgSend_setBoundsSizeConstraint_(self->_secondaryLabelLayer, v8, v9, v10, width, height);
 
-  objc_msgSend_setNeedsLayout(self, v13, v14);
+  objc_msgSend_setNeedsLayout(self, v11, v12, v13);
 }
 
 - (CGSize)boundsSizeConstraint
@@ -374,10 +374,10 @@
 - (void)setOwningView:(id)view
 {
   self->_owningView = view;
-  v4 = objc_msgSend_mainScreen(MEMORY[0x277D759A0], a2, view);
-  objc_msgSend_scale(v4, v5, v6);
+  v5 = objc_msgSend_mainScreen(MEMORY[0x277D759A0], a2, view, v3);
+  objc_msgSend_scale(v5, v6, v7, v8);
 
-  MEMORY[0x2821F9670](self, sel_setContentsScale_, v7);
+  MEMORY[0x2821F9670](self, sel_setContentsScale_, v9, v10);
 }
 
 - (void)setLabel:(id)label
@@ -385,11 +385,11 @@
   if (!self->_labelLayer)
   {
     v5 = [BubbleTextLayer alloc];
-    v8 = objc_msgSend_owningView(self, v6, v7);
-    self->_labelLayer = objc_msgSend_initWithOwningView_(v5, v9, v8);
-    if (objc_msgSend_smallSize(self, v10, v11))
+    v9 = objc_msgSend_owningView(self, v6, v7, v8);
+    self->_labelLayer = objc_msgSend_initWithOwningView_(v5, v10, v9, v11);
+    if (objc_msgSend_smallSize(self, v12, v13, v14))
     {
-      v14 = objc_msgSend_setFontSize_(self->_labelLayer, v12, v13, 13.0);
+      v18 = objc_msgSend_setFontSize_(self->_labelLayer, v15, v16, v17, 13.0);
     }
 
     else
@@ -400,39 +400,39 @@
         if (topoStyle)
         {
 LABEL_13:
-          objc_msgSend_setForegroundColor_(self->_labelLayer, v12, self->_labelUnselectedTextColor);
-          objc_msgSend_addSublayer_(self, v35, self->_labelLayer);
+          objc_msgSend_setForegroundColor_(self->_labelLayer, v15, self->_labelUnselectedTextColor, v17);
+          objc_msgSend_addSublayer_(self, v47, self->_labelLayer, v48);
           goto LABEL_14;
         }
 
-        objc_msgSend_setStatusLightMode_(self, v12, 0);
-        v20 = objc_msgSend_setFontSize_(self->_labelLayer, v18, v19, 17.0);
-        if (!sub_23EC132F8(v20, v21, v22))
+        objc_msgSend_setStatusLightMode_(self, v15, 0, v17);
+        v26 = objc_msgSend_setFontSize_(self->_labelLayer, v23, v24, v25, 17.0);
+        if (!sub_23EC132F8(v26, v27, v28, v29))
         {
-          objc_msgSend_setFont_(self->_labelLayer, v23, @"Helvetica-Bold");
+          objc_msgSend_setFont_(self->_labelLayer, v30, @"Helvetica-Bold", v32);
           goto LABEL_13;
         }
 
-        v25 = MEMORY[0x277D74300];
-        objc_msgSend_fontSize(self->_labelLayer, v23, v24);
-        v28 = objc_msgSend_boldSystemFontOfSize_(v25, v26, v27);
+        v33 = MEMORY[0x277D74300];
+        objc_msgSend_fontSize(self->_labelLayer, v30, v31, v32);
+        v37 = objc_msgSend_boldSystemFontOfSize_(v33, v34, v35, v36);
 LABEL_11:
-        objc_msgSend_setFont_(self->_labelLayer, v29, v28);
+        objc_msgSend_setFont_(self->_labelLayer, v38, v37, v39);
         goto LABEL_13;
       }
 
-      v14 = objc_msgSend_setFontSize_(self->_labelLayer, v12, v13, 15.0);
+      v18 = objc_msgSend_setFontSize_(self->_labelLayer, v15, v16, v17, 15.0);
     }
 
-    if (!sub_23EC132F8(v14, v15, v16))
+    if (!sub_23EC132F8(v18, v19, v20, v21))
     {
-      objc_msgSend_setFont_(self->_labelLayer, v30, @"Helvetica");
+      objc_msgSend_setFont_(self->_labelLayer, v40, @"Helvetica", v42);
       goto LABEL_13;
     }
 
-    v32 = MEMORY[0x277D74300];
-    objc_msgSend_fontSize(self->_labelLayer, v30, v31);
-    v28 = objc_msgSend_systemFontOfSize_(v32, v33, v34);
+    v43 = MEMORY[0x277D74300];
+    objc_msgSend_fontSize(self->_labelLayer, v40, v41, v42);
+    v37 = objc_msgSend_systemFontOfSize_(v43, v44, v45, v46);
     goto LABEL_11;
   }
 
@@ -440,10 +440,10 @@ LABEL_14:
   labelCopy = label;
 
   self->_labelString = label;
-  objc_msgSend_setString_(self->_labelLayer, v37, label);
-  objc_msgSend_setNeedsLayout(self->_labelLayer, v38, v39);
+  objc_msgSend_setString_(self->_labelLayer, v50, label, v51);
+  objc_msgSend_setNeedsLayout(self->_labelLayer, v52, v53, v54);
 
-  objc_msgSend_layoutSublayers(self, v40, v41);
+  objc_msgSend_layoutSublayers(self, v55, v56, v57);
 }
 
 - (void)setSecondaryLabel:(id)label
@@ -451,42 +451,42 @@ LABEL_14:
   if (!self->_secondaryLabelLayer)
   {
     v5 = [BubbleTextLayer alloc];
-    v8 = objc_msgSend_owningView(self, v6, v7);
-    self->_secondaryLabelLayer = objc_msgSend_initWithOwningView_(v5, v9, v8);
-    if (objc_msgSend_smallSize(self, v10, v11))
+    v9 = objc_msgSend_owningView(self, v6, v7, v8);
+    self->_secondaryLabelLayer = objc_msgSend_initWithOwningView_(v5, v10, v9, v11);
+    if (objc_msgSend_smallSize(self, v12, v13, v14))
     {
-      v14 = objc_msgSend_setFontSize_(self->_secondaryLabelLayer, v12, v13, 11.0);
+      v18 = objc_msgSend_setFontSize_(self->_secondaryLabelLayer, v15, v16, v17, 11.0);
     }
 
     else
     {
-      v14 = objc_msgSend_setFontSize_(self->_secondaryLabelLayer, v12, v13, 14.0);
+      v18 = objc_msgSend_setFontSize_(self->_secondaryLabelLayer, v15, v16, v17, 14.0);
     }
 
-    if (sub_23EC132F8(v14, v15, v16))
+    if (sub_23EC132F8(v18, v19, v20, v21))
     {
-      v19 = MEMORY[0x277D74300];
-      objc_msgSend_fontSize(self->_secondaryLabelLayer, v17, v18);
-      v22 = objc_msgSend_systemFontOfSize_(v19, v20, v21);
-      objc_msgSend_setFont_(self->_secondaryLabelLayer, v23, v22);
+      v25 = MEMORY[0x277D74300];
+      objc_msgSend_fontSize(self->_secondaryLabelLayer, v22, v23, v24);
+      v29 = objc_msgSend_systemFontOfSize_(v25, v26, v27, v28);
+      objc_msgSend_setFont_(self->_secondaryLabelLayer, v30, v29, v31);
     }
 
     else
     {
-      objc_msgSend_setFont_(self->_secondaryLabelLayer, v17, @"Helvetica");
+      objc_msgSend_setFont_(self->_secondaryLabelLayer, v22, @"Helvetica", v24);
     }
 
-    objc_msgSend_setForegroundColor_(self->_secondaryLabelLayer, v24, self->_secondaryLabelUnselectedTextColor);
-    objc_msgSend_addSublayer_(self, v25, self->_secondaryLabelLayer);
+    objc_msgSend_setForegroundColor_(self->_secondaryLabelLayer, v32, self->_secondaryLabelUnselectedTextColor, v33);
+    objc_msgSend_addSublayer_(self, v34, self->_secondaryLabelLayer, v35);
   }
 
   labelCopy = label;
 
   self->_secondaryLabelString = label;
-  objc_msgSend_setString_(self->_secondaryLabelLayer, v27, label);
-  objc_msgSend_setNeedsLayout(self->_secondaryLabelLayer, v28, v29);
+  objc_msgSend_setString_(self->_secondaryLabelLayer, v37, label, v38);
+  objc_msgSend_setNeedsLayout(self->_secondaryLabelLayer, v39, v40, v41);
 
-  objc_msgSend_layoutSublayers(self, v30, v31);
+  objc_msgSend_layoutSublayers(self, v42, v43, v44);
 }
 
 - (void)setTopoProgressValue:(float)value
@@ -494,18 +494,18 @@ LABEL_14:
   topoProgressBar = self->_topoProgressBar;
   if (!topoProgressBar)
   {
-    v7 = [TopoProgressBar alloc];
-    v10 = objc_msgSend_owningView(self, v8, v9);
-    v12 = objc_msgSend_initWithOwningView_(v7, v11, v10);
-    self->_topoProgressBar = v12;
-    objc_msgSend_addSublayer_(self, v13, v12);
+    v8 = [TopoProgressBar alloc];
+    v12 = objc_msgSend_owningView(self, v9, v10, v11);
+    v15 = objc_msgSend_initWithOwningView_(v8, v13, v12, v14);
+    self->_topoProgressBar = v15;
+    objc_msgSend_addSublayer_(self, v16, v15, v17);
     topoProgressBar = self->_topoProgressBar;
   }
 
-  *&v14 = value;
-  objc_msgSend_setProgressValue_(topoProgressBar, a2, v3, v14);
+  *&v18 = value;
+  objc_msgSend_setProgressValue_(topoProgressBar, a2, v3, v4, v18);
 
-  objc_msgSend_layoutSublayers(self, v15, v16);
+  objc_msgSend_layoutSublayers(self, v19, v20, v21);
 }
 
 - (void)setTopoBadgeNumber:(unint64_t)number
@@ -513,56 +513,56 @@ LABEL_14:
   topoNumberBadge = self->_topoNumberBadge;
   if (!topoNumberBadge)
   {
-    v6 = [TopoNumberBadge alloc];
-    v9 = objc_msgSend_owningView(self, v7, v8);
-    topoNumberBadge = objc_msgSend_initWithOwningView_(v6, v10, v9);
+    v7 = [TopoNumberBadge alloc];
+    v11 = objc_msgSend_owningView(self, v8, v9, v10);
+    topoNumberBadge = objc_msgSend_initWithOwningView_(v7, v12, v11, v13);
     self->_topoNumberBadge = topoNumberBadge;
   }
 
-  objc_msgSend_setCount_(topoNumberBadge, a2, number);
+  objc_msgSend_setCount_(topoNumberBadge, a2, number, v3);
   self->_topoBadgeNumber = number;
-  v11 = self->_topoNumberBadge;
+  v15 = self->_topoNumberBadge;
   labelLayer = self->_labelLayer;
 
-  MEMORY[0x2821F9670](labelLayer, sel_setRightAccessoryLayer_, v11);
+  MEMORY[0x2821F9670](labelLayer, sel_setRightAccessoryLayer_, v15, v14);
 }
 
 - (void)loadStatusImagesForScale:(double)scale
 {
   if (dword_27E382FA8 <= 800 && (dword_27E382FA8 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer loadStatusImagesForScale:]", 800, "\n", v3, v4, v5, v6, v28);
+    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer loadStatusImagesForScale:]", 800, "\n");
   }
 
   if (!self->_statusLights[0])
   {
-    v8 = MEMORY[0x277CCA8D8];
-    v9 = objc_opt_class();
-    v11 = objc_msgSend_bundleForClass_(v8, v10, v9);
-    self->_statusLights[0] = objc_msgSend_imageNamed_inBundle_(ImageStore, v12, @"StatusLightGrayOff.png", v11);
+    v4 = MEMORY[0x277CCA8D8];
+    v5 = objc_opt_class();
+    v8 = objc_msgSend_bundleForClass_(v4, v6, v5, v7);
+    self->_statusLights[0] = objc_msgSend_imageNamed_inBundle_(ImageStore, v9, @"StatusLightGrayOff.png", v8);
   }
 
   if (!self->_statusLights[1])
   {
-    v13 = MEMORY[0x277CCA8D8];
-    v14 = objc_opt_class();
-    v16 = objc_msgSend_bundleForClass_(v13, v15, v14);
-    self->_statusLights[1] = objc_msgSend_imageNamed_inBundle_(ImageStore, v17, @"StatusLightAmberOn.png", v16);
+    v10 = MEMORY[0x277CCA8D8];
+    v11 = objc_opt_class();
+    v14 = objc_msgSend_bundleForClass_(v10, v12, v11, v13);
+    self->_statusLights[1] = objc_msgSend_imageNamed_inBundle_(ImageStore, v15, @"StatusLightAmberOn.png", v14);
   }
 
   if (!self->_statusLights[2])
   {
-    v18 = MEMORY[0x277CCA8D8];
-    v19 = objc_opt_class();
-    v21 = objc_msgSend_bundleForClass_(v18, v20, v19);
-    self->_statusLights[2] = objc_msgSend_imageNamed_inBundle_(ImageStore, v22, @"StatusLightBlueOn.png", v21);
+    v16 = MEMORY[0x277CCA8D8];
+    v17 = objc_opt_class();
+    v20 = objc_msgSend_bundleForClass_(v16, v18, v17, v19);
+    self->_statusLights[2] = objc_msgSend_imageNamed_inBundle_(ImageStore, v21, @"StatusLightBlueOn.png", v20);
   }
 
   if (!self->_statusLights[3])
   {
-    v23 = MEMORY[0x277CCA8D8];
-    v24 = objc_opt_class();
-    v26 = objc_msgSend_bundleForClass_(v23, v25, v24);
+    v22 = MEMORY[0x277CCA8D8];
+    v23 = objc_opt_class();
+    v26 = objc_msgSend_bundleForClass_(v22, v24, v23, v25);
     self->_statusLights[3] = objc_msgSend_imageNamed_inBundle_(ImageStore, v27, @"StatusLightGreenOn.png", v26);
   }
 }
@@ -571,13 +571,13 @@ LABEL_14:
 {
   if (dword_27E382FA8 <= 800 && (dword_27E382FA8 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer deallocStatusImages]", 800, "\n", v3, v4, v5, v6, v10);
+    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer deallocStatusImages]", 800, "\n");
   }
 
   statusLightTimer = self->_statusLightTimer;
   if (statusLightTimer)
   {
-    objc_msgSend_invalidate(statusLightTimer, a2, v2);
+    objc_msgSend_invalidate(statusLightTimer, a2, v2, v3);
     self->_statusLightTimer = 0;
   }
 
@@ -594,28 +594,28 @@ LABEL_14:
 {
   if (dword_27E382FA8 <= 800 && (dword_27E382FA8 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer setStatusBadgeImagePriv:]", 800, "\n", v3, v4, v5, v6, v27);
+    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer setStatusBadgeImagePriv:]", 800, "\n");
   }
 
   if (!priv)
   {
-    if (!objc_msgSend_image(self->_labelLayer, a2, priv))
+    if (!objc_msgSend_image(self->_labelLayer, a2, priv, v3))
     {
       return;
     }
 
-    objc_msgSend_setImage_(self->_labelLayer, v21, 0);
+    objc_msgSend_setImage_(self->_labelLayer, v22, 0, v23);
     goto LABEL_15;
   }
 
-  objc_msgSend_contentsScale(self, a2, priv);
-  v10 = objc_msgSend_cgImageFromImage_forContentsScale_(ImageStore, v9, priv);
-  if (objc_msgSend_image(self->_labelLayer, v11, v12))
+  objc_msgSend_contentsScale(self, a2, priv, v3);
+  v8 = objc_msgSend_cgImageFromImage_forContentsScale_(ImageStore, v6, priv, v7);
+  if (objc_msgSend_image(self->_labelLayer, v9, v10, v11))
   {
-    v15 = objc_msgSend_image(self->_labelLayer, v13, v14);
+    v15 = objc_msgSend_image(self->_labelLayer, v12, v13, v14);
     Width = CGImageGetWidth(v15);
-    v19 = objc_msgSend_image(self->_labelLayer, v17, v18);
-    Height = CGImageGetHeight(v19);
+    v20 = objc_msgSend_image(self->_labelLayer, v17, v18, v19);
+    Height = CGImageGetHeight(v20);
   }
 
   else
@@ -624,14 +624,14 @@ LABEL_14:
     Height = *(MEMORY[0x277CBF3A8] + 8);
   }
 
-  objc_msgSend_setImage_(self->_labelLayer, v13, v10);
-  v24 = CGImageGetWidth(v10);
-  v25 = CGImageGetHeight(v10);
-  if (Width != v24 || Height != v25)
+  objc_msgSend_setImage_(self->_labelLayer, v12, v8, v14);
+  v27 = CGImageGetWidth(v8);
+  v28 = CGImageGetHeight(v8);
+  if (Width != v27 || Height != v28)
   {
 LABEL_15:
 
-    objc_msgSend_setNeedsLayout(self, v22, v23);
+    objc_msgSend_setNeedsLayout(self, v24, v25, v26);
   }
 }
 
@@ -639,21 +639,21 @@ LABEL_15:
 {
   if (dword_27E382FA8 <= 800 && (dword_27E382FA8 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer setStatusBadgeImage:]", 800, "\n", v3, v4, v5, v6, v11);
+    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer setStatusBadgeImage:]", 800, "\n");
   }
 
   imageCopy = image;
 
   self->_statusBadgeImage = image;
 
-  objc_msgSend_setStatusLightMode_(self, v10, 1);
+  objc_msgSend_setStatusLightMode_(self, v6, 1, v7);
 }
 
 - (void)setStatusLightStateFromMode
 {
   if (dword_27E382FA8 <= 800 && (dword_27E382FA8 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer setStatusLightStateFromMode]", 800, "entered with _statusLightMode = %d\n", v2, v3, v4, v5, self->_statusLightMode);
+    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer setStatusLightStateFromMode]", 800, "entered with _statusLightMode = %d\n", self->_statusLightMode);
   }
 
   statusLightMode = self->_statusLightMode;
@@ -663,12 +663,12 @@ LABEL_15:
     {
       if (self->_statusLightState)
       {
-        v8 = 0;
+        v5 = 0;
       }
 
       else
       {
-        v8 = 3;
+        v5 = 3;
       }
 
       goto LABEL_23;
@@ -680,30 +680,30 @@ LABEL_15:
       {
         if (self->_statusLightState == 1)
         {
-          v8 = 3;
+          v5 = 3;
         }
 
         else
         {
-          v8 = 1;
+          v5 = 1;
         }
 
         goto LABEL_23;
       }
 
 LABEL_20:
-      v8 = 0;
+      v5 = 0;
       goto LABEL_23;
     }
 
-    v8 = 2;
+    v5 = 2;
   }
 
   else
   {
     if (statusLightMode == 2)
     {
-      v8 = 1;
+      v5 = 1;
       goto LABEL_23;
     }
 
@@ -711,18 +711,18 @@ LABEL_20:
     {
       if (statusLightMode == 4)
       {
-        v8 = 3;
+        v5 = 3;
         goto LABEL_23;
       }
 
       goto LABEL_20;
     }
 
-    v8 = self->_statusLightState == 0;
+    v5 = self->_statusLightState == 0;
   }
 
 LABEL_23:
-  self->_statusLightState = v8;
+  self->_statusLightState = v5;
   if (self->_statusLightMode == 1)
   {
     p_statusBadgeImage = &self->_statusBadgeImage;
@@ -730,55 +730,54 @@ LABEL_23:
 
   else
   {
-    p_statusBadgeImage = &self->_statusLights[v8];
+    p_statusBadgeImage = &self->_statusLights[v5];
   }
 
-  v10 = *p_statusBadgeImage;
+  v7 = *p_statusBadgeImage;
 
-  MEMORY[0x2821F9670](self, sel_setStatusBadgeImagePriv_, v10);
+  MEMORY[0x2821F9670](self, sel_setStatusBadgeImagePriv_, v7, v2);
 }
 
 - (void)statusLightUpdateTimer:(id)timer
 {
   if (dword_27E382FA8 <= 800 && (dword_27E382FA8 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer statusLightUpdateTimer:]", 800, "\n", v3, v4, v5, v6, v8);
+    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer statusLightUpdateTimer:]", 800, "\n");
   }
 
-  MEMORY[0x2821F9670](self, sel_setStatusLightStateFromMode, timer);
+  MEMORY[0x2821F9670](self, sel_setStatusLightStateFromMode, timer, v3);
 }
 
 - (void)setStatusLightMode:(unsigned int)mode
 {
-  v7 = *&mode;
   if (dword_27E382FA8 <= 800 && (dword_27E382FA8 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer setStatusLightMode:]", 800, "entered with mode = %d\n", v3, v4, v5, v6, v7);
+    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer setStatusLightMode:]", 800, "entered with mode = %d\n", mode);
   }
 
   statusLightTimer = self->_statusLightTimer;
   if (statusLightTimer)
   {
-    objc_msgSend_invalidate(statusLightTimer, a2, *&mode);
+    objc_msgSend_invalidate(statusLightTimer, a2, *&mode, v3);
     self->_statusLightTimer = 0;
   }
 
-  self->_statusLightMode = v7;
-  if (v7 <= 7)
+  self->_statusLightMode = mode;
+  if (mode <= 7)
   {
-    if (((1 << v7) & 0x57) == 0)
+    if (((1 << mode) & 0x57) == 0)
     {
-      v10 = *"333?";
-      if (v7 != 7)
+      v7 = *"333?";
+      if (mode != 7)
       {
-        v10 = 1.0;
+        v7 = 1.0;
       }
 
-      self->_statusLightInterval = v10;
-      self->_statusLightTimer = objc_msgSend_scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(MEMORY[0x277CBEBB8], a2, self, sel_statusLightUpdateTimer_, 0, 1, v10);
+      self->_statusLightInterval = v7;
+      self->_statusLightTimer = objc_msgSend_scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(MEMORY[0x277CBEBB8], a2, self, sel_statusLightUpdateTimer_, 0, 1, v7);
     }
 
-    MEMORY[0x2821F9670](self, sel_setStatusLightStateFromMode, *&mode);
+    MEMORY[0x2821F9670](self, sel_setStatusLightStateFromMode, *&mode, v3);
   }
 }
 
@@ -786,192 +785,192 @@ LABEL_23:
 {
   if (dword_27E383028 <= 800 && (dword_27E383028 != -1 || sub_23EB74AC8(&dword_27E383028, 0x320u)))
   {
-    sub_23EB75374(&dword_27E383028, "[NetTopoObjectLayer layoutSublayers]", 800, "entered %@\n", v3, v4, v5, v6, self);
+    sub_23EB75374(&dword_27E383028, "[NetTopoObjectLayer layoutSublayers]", 800, "entered %@\n", self);
   }
 
   p_labelLayer = &self->_labelLayer;
   if (self->_labelLayer || self->_secondaryLabelLayer)
   {
-    objc_msgSend_bounds(self, a2, v2);
-    if (!CGRectIsEmpty(v121))
+    objc_msgSend_bounds(self, a2, v2, v3);
+    if (!CGRectIsEmpty(v129))
     {
       secondaryLabelLayer = self->_secondaryLabelLayer;
       if (secondaryLabelLayer)
       {
-        objc_msgSend_preferredFrameSize(secondaryLabelLayer, a2, v2);
-        v11 = v10;
-        v13 = v12;
-        objc_msgSend_textBaselineOffset(self->_secondaryLabelLayer, v14, v15);
-        v17 = v16;
-        objc_msgSend_bounds(self, v18, v19);
-        v20 = (CGRectGetWidth(v122) - v11) * 0.5;
-        v21 = ceilf(v20);
-        objc_msgSend_bounds(self, v22, v23);
-        v24 = CGRectGetMaxY(v123) - v13;
-        objc_msgSend_setFrame_(self->_secondaryLabelLayer, v25, v26, v21, ceilf(v24), v11, v13);
+        objc_msgSend_preferredFrameSize(secondaryLabelLayer, a2, v2, v3);
+        v8 = v7;
+        v10 = v9;
+        objc_msgSend_textBaselineOffset(self->_secondaryLabelLayer, v11, v12, v13);
+        v15 = v14;
+        objc_msgSend_bounds(self, v16, v17, v18);
+        v19 = (CGRectGetWidth(v130) - v8) * 0.5;
+        v20 = ceilf(v19);
+        objc_msgSend_bounds(self, v21, v22, v23);
+        v24 = CGRectGetMaxY(v131) - v10;
+        objc_msgSend_setFrame_(self->_secondaryLabelLayer, v25, v26, v27, v20, ceilf(v24), v8, v10);
         topoProgressBar = self->_topoProgressBar;
         if (topoProgressBar)
         {
-          objc_msgSend_preferredFrameSize(topoProgressBar, a2, v2);
-          v29 = v28;
-          v31 = v30;
-          objc_msgSend_bounds(self, v32, v33);
-          v34 = (CGRectGetWidth(v124) - v29) * 0.5;
-          v35 = ceilf(v34);
-          objc_msgSend_bounds(self, v36, v37);
-          MaxY = CGRectGetMaxY(v125);
-          objc_msgSend_setFrame_(self->_topoProgressBar, v39, v40, v35, ceilf(MaxY), v29, v31);
+          objc_msgSend_preferredFrameSize(topoProgressBar, a2, v2, v3);
+          v30 = v29;
+          v32 = v31;
+          objc_msgSend_bounds(self, v33, v34, v35);
+          v36 = (CGRectGetWidth(v132) - v30) * 0.5;
+          v37 = ceilf(v36);
+          objc_msgSend_bounds(self, v38, v39, v40);
+          MaxY = CGRectGetMaxY(v133);
+          objc_msgSend_setFrame_(self->_topoProgressBar, v42, v43, v44, v37, ceilf(MaxY), v30, v32);
         }
       }
 
       else
       {
-        v13 = *(MEMORY[0x277CBF3A8] + 8);
-        v17 = 0.0;
+        v10 = *(MEMORY[0x277CBF3A8] + 8);
+        v15 = 0.0;
       }
 
       if (*p_labelLayer)
       {
-        objc_msgSend_preferredFrameSize(*p_labelLayer, a2, v2);
-        v42 = v41;
-        v44 = v43;
-        objc_msgSend_labelPinnedHeight(self, v45, v46);
-        if (v49 != 0.0)
+        objc_msgSend_preferredFrameSize(*p_labelLayer, a2, v2, v3);
+        v46 = v45;
+        v48 = v47;
+        objc_msgSend_labelPinnedHeight(self, v49, v50, v51);
+        if (v55 != 0.0)
         {
-          objc_msgSend_labelPinnedHeight(self, v47, v48);
-          v44 = v50;
+          objc_msgSend_labelPinnedHeight(self, v52, v53, v54);
+          v48 = v56;
         }
 
-        objc_msgSend_textBaselineOffset(*p_labelLayer, v47, v48);
-        v52 = v51;
-        objc_msgSend_bounds(self, v53, v54);
-        v57 = (CGRectGetWidth(v126) - v42) * 0.5;
-        v58 = ceilf(v57);
-        v59 = 0.0;
-        if (v17 > 0.0)
+        objc_msgSend_textBaselineOffset(*p_labelLayer, v52, v53, v54);
+        v58 = v57;
+        objc_msgSend_bounds(self, v59, v60, v61);
+        v65 = (CGRectGetWidth(v134) - v46) * 0.5;
+        v66 = ceilf(v65);
+        v67 = 0.0;
+        if (v15 > 0.0)
         {
-          v60 = objc_msgSend_smallSize(self, v55, v56);
-          v61 = v17 + v44 - v52;
-          v62 = 23.0 - v61;
-          v63 = 13.0 - v61;
-          if (v60)
+          v68 = objc_msgSend_smallSize(self, v62, v63, v64);
+          v69 = v15 + v48 - v58;
+          v70 = 23.0 - v69;
+          v71 = 13.0 - v69;
+          if (v68)
           {
-            v59 = v63;
+            v67 = v71;
           }
 
           else
           {
-            v59 = v62;
+            v67 = v70;
           }
         }
 
-        objc_msgSend_bounds(self, v55, v56);
-        v64 = CGRectGetMaxY(v127) - v44 - v13 - v59;
-        objc_msgSend_setFrame_(*p_labelLayer, v65, v66, v58, ceilf(v64), v42, v44);
+        objc_msgSend_bounds(self, v62, v63, v64);
+        v72 = CGRectGetMaxY(v135) - v48 - v10 - v67;
+        objc_msgSend_setFrame_(*p_labelLayer, v73, v74, v75, v66, ceilf(v72), v46, v48);
       }
     }
   }
 
-  v67 = objc_msgSend_objectImage(self, a2, v2);
-  if (v67)
+  v76 = objc_msgSend_objectImage(self, a2, v2, v3);
+  if (v76)
   {
-    v74 = v67;
+    v80 = v76;
     if (*p_labelLayer || (p_labelLayer = &self->_secondaryLabelLayer, self->_secondaryLabelLayer))
     {
-      objc_msgSend_bounds(self, v68, v69);
-      v76 = v75;
-      objc_msgSend_frame(*p_labelLayer, v77, v78);
-      self->_imageFrame.origin.y = v76 - v79;
+      objc_msgSend_bounds(self, v77, v78, v79);
+      v82 = v81;
+      objc_msgSend_frame(*p_labelLayer, v83, v84, v85);
+      self->_imageFrame.origin.y = v82 - v86;
     }
 
-    Width = CGImageGetWidth(v74);
-    objc_msgSend_contentsScale(self, v81, v82);
-    v84 = Width / v83;
-    Height = CGImageGetHeight(v74);
-    objc_msgSend_contentsScale(self, v86, v87);
+    Width = CGImageGetWidth(v80);
+    objc_msgSend_contentsScale(self, v88, v89, v90);
+    v92 = Width / v91;
+    Height = CGImageGetHeight(v80);
+    objc_msgSend_contentsScale(self, v94, v95, v96);
     topoStyle = self->_topoStyle;
-    v92 = Height / v91;
+    v102 = Height / v101;
     if (topoStyle)
     {
       if (topoStyle == 1)
       {
-        objc_msgSend_bounds(self, v88, v89);
-        v93 = (CGRectGetWidth(v128) - v84) * 0.5;
-        self->_imageFrame.origin.x = ceilf(v93);
-        self->_imageFrame.size.width = v84;
-        self->_imageFrame.size.height = v92;
+        objc_msgSend_bounds(self, v97, v98, v99);
+        v103 = (CGRectGetWidth(v136) - v92) * 0.5;
+        self->_imageFrame.origin.x = ceilf(v103);
+        self->_imageFrame.size.width = v92;
+        self->_imageFrame.size.height = v102;
         size = self->_imageFrame.size;
         self->_imageCoreFrame.origin = self->_imageFrame.origin;
         self->_imageCoreFrame.size = size;
-        v95 = self->_imageFrame.size;
+        v105 = self->_imageFrame.size;
         self->_imageSelectionFrame.origin = self->_imageFrame.origin;
-        self->_imageSelectionFrame.size = v95;
+        self->_imageSelectionFrame.size = v105;
       }
     }
 
     else
     {
-      v96 = v84 + -60.0;
-      v97 = v92 + -60.0;
-      objc_msgSend_bounds(self, v88, v89);
-      v99 = v98 + (self->_selectionRectOutset + 2.0) * -2.0;
-      v102 = sub_23EC13544(self->_owningView, v100, v101);
-      v109 = 100.0;
-      if (v102 == 2)
+      v106 = v92 + -60.0;
+      v107 = v102 + -60.0;
+      objc_msgSend_bounds(self, v97, v98, v99);
+      v109 = v108 + (self->_selectionRectOutset + 2.0) * -2.0;
+      v113 = sub_23EC13544(self->_owningView, v110, v111, v112);
+      v117 = 100.0;
+      if (v113 == 2)
       {
-        v109 = 260.0;
+        v117 = 260.0;
       }
 
-      v110 = v99 / v109;
+      v118 = v109 / v117;
       if (dword_27E383028 <= 800 && (dword_27E383028 != -1 || sub_23EB74AC8(&dword_27E383028, 0x320u)))
       {
-        sub_23EB75374(&dword_27E383028, "[NetTopoObjectLayer layoutSublayers]", 800, "image scale set to %.4f)\n", v105, v106, v107, v108, COERCE__INT64(v110));
+        sub_23EB75374(&dword_27E383028, "[NetTopoObjectLayer layoutSublayers]", 800, "image scale set to %.4f)\n", v118);
       }
 
-      v111 = v96 * v110;
-      v112 = floorf(v111);
-      v113 = v97 * v110;
-      v114 = floorf(v113);
-      objc_msgSend_bounds(self, v103, v104);
-      v115 = (CGRectGetWidth(v129) - v112) * 0.5;
-      self->_imageFrame.origin.x = ceilf(v115);
+      v119 = v106 * v118;
+      v120 = floorf(v119);
+      v121 = v107 * v118;
+      v122 = floorf(v121);
+      objc_msgSend_bounds(self, v114, v115, v116);
+      v123 = (CGRectGetWidth(v137) - v120) * 0.5;
+      self->_imageFrame.origin.x = ceilf(v123);
       self->_imageFrame.origin.y = self->_selectionRectOutset + self->_imageFrame.origin.y;
-      self->_imageFrame.size.width = v112;
-      self->_imageFrame.size.height = v114;
-      v116 = self->_imageFrame.size;
+      self->_imageFrame.size.width = v120;
+      self->_imageFrame.size.height = v122;
+      v124 = self->_imageFrame.size;
       self->_imageCoreFrame.origin = self->_imageFrame.origin;
-      self->_imageCoreFrame.size = v116;
+      self->_imageCoreFrame.size = v124;
       x = self->_imageFrame.origin.x;
-      v116.width = self->_imageFrame.origin.y;
-      v118 = self->_imageFrame.size.width;
-      v119 = self->_imageFrame.size.height;
-      self->_imageSelectionFrame = CGRectInset(*(&v116 - 8), -self->_selectionRectOutset, -self->_selectionRectOutset);
-      v120 = ceilf(v110 * -30.0);
-      self->_imageFrame = CGRectInset(self->_imageFrame, v120, v120);
+      v124.width = self->_imageFrame.origin.y;
+      v126 = self->_imageFrame.size.width;
+      v127 = self->_imageFrame.size.height;
+      self->_imageSelectionFrame = CGRectInset(*(&v124 - 8), -self->_selectionRectOutset, -self->_selectionRectOutset);
+      v128 = ceilf(v118 * -30.0);
+      self->_imageFrame = CGRectInset(self->_imageFrame, v128, v128);
     }
   }
 
   if (dword_27E383028 <= 800 && (dword_27E383028 != -1 || sub_23EB74AC8(&dword_27E383028, 0x320u)))
   {
-    sub_23EB75374(&dword_27E383028, "[NetTopoObjectLayer layoutSublayers]", 800, "done %@\n", v70, v71, v72, v73, self);
+    sub_23EB75374(&dword_27E383028, "[NetTopoObjectLayer layoutSublayers]", 800, "done %@\n", self);
   }
 }
 
 - (void)drawInContext:(CGContext *)context
 {
-  v27.receiver = self;
-  v27.super_class = NetTopoObjectLayer;
-  [(NetTopoObjectLayer *)&v27 drawInContext:?];
+  v36.receiver = self;
+  v36.super_class = NetTopoObjectLayer;
+  [(NetTopoObjectLayer *)&v36 drawInContext:?];
   CGContextSaveGState(context);
-  if (!objc_msgSend_objectImage(self, v5, v6))
+  if (!objc_msgSend_objectImage(self, v5, v6, v7))
   {
     goto LABEL_16;
   }
 
   CGContextScaleCTM(context, 1.0, -1.0);
-  objc_msgSend_bounds(self, v7, v8);
-  CGContextTranslateCTM(context, 0.0, -v9);
-  if (objc_msgSend_isSelectable(self, v10, v11) && objc_msgSend_isSelected(self, v12, v13))
+  objc_msgSend_bounds(self, v8, v9, v10);
+  CGContextTranslateCTM(context, 0.0, -v11);
+  if (objc_msgSend_isSelectable(self, v12, v13, v14) && objc_msgSend_isSelected(self, v15, v16, v17))
   {
     sub_23EBFDA80(context, self->_imageSelectionFrame.origin.x, self->_imageSelectionFrame.origin.y, self->_imageSelectionFrame.size.width, self->_imageSelectionFrame.size.height, self->_selectionCornerRadius);
     CGContextClosePath(context);
@@ -985,9 +984,9 @@ LABEL_23:
     labelLayer = self->_labelLayer;
     if (labelLayer)
     {
-      objc_msgSend_setForegroundColor_(labelLayer, v12, self->_labelSelectedTextColor);
-      objc_msgSend_setFillColor_(self->_labelLayer, v15, self->_labelSelectedFillColor);
-      objc_msgSend_setFillColor2_(self->_labelLayer, v16, self->_labelSelectedFillColor2);
+      objc_msgSend_setForegroundColor_(labelLayer, v15, self->_labelSelectedTextColor, v17);
+      objc_msgSend_setFillColor_(self->_labelLayer, v19, self->_labelSelectedFillColor, v20);
+      objc_msgSend_setFillColor2_(self->_labelLayer, v21, self->_labelSelectedFillColor2, v22);
     }
 
     secondaryLabelLayer = self->_secondaryLabelLayer;
@@ -996,17 +995,17 @@ LABEL_23:
       goto LABEL_13;
     }
 
-    v18 = &OBJC_IVAR___NetTopoObjectLayer__secondaryLabelSelectedTextColor;
+    v24 = &OBJC_IVAR___NetTopoObjectLayer__secondaryLabelSelectedTextColor;
   }
 
   else
   {
-    v19 = self->_labelLayer;
-    if (v19)
+    v25 = self->_labelLayer;
+    if (v25)
     {
-      objc_msgSend_setForegroundColor_(v19, v12, self->_labelUnselectedTextColor);
-      objc_msgSend_setFillColor_(self->_labelLayer, v20, self->_labelUnselectedFillColor);
-      objc_msgSend_setFillColor2_(self->_labelLayer, v21, 0);
+      objc_msgSend_setForegroundColor_(v25, v15, self->_labelUnselectedTextColor, v17);
+      objc_msgSend_setFillColor_(self->_labelLayer, v26, self->_labelUnselectedFillColor, v27);
+      objc_msgSend_setFillColor2_(self->_labelLayer, v28, 0, v29);
     }
 
     secondaryLabelLayer = self->_secondaryLabelLayer;
@@ -1015,21 +1014,21 @@ LABEL_23:
       goto LABEL_13;
     }
 
-    v18 = &OBJC_IVAR___NetTopoObjectLayer__secondaryLabelUnselectedTextColor;
+    v24 = &OBJC_IVAR___NetTopoObjectLayer__secondaryLabelUnselectedTextColor;
   }
 
-  objc_msgSend_setForegroundColor_(secondaryLabelLayer, v12, *(&self->super.super.isa + *v18));
+  objc_msgSend_setForegroundColor_(secondaryLabelLayer, v15, *(&self->super.super.isa + *v24), v17);
 LABEL_13:
-  isGhosted = objc_msgSend_isGhosted(self, v12, v13);
-  v23 = 0.3;
+  isGhosted = objc_msgSend_isGhosted(self, v15, v16, v17);
+  v31 = 0.3;
   if (!isGhosted)
   {
-    v23 = 1.0;
+    v31 = 1.0;
   }
 
-  CGContextSetAlpha(context, v23);
-  v26 = objc_msgSend_objectImage(self, v24, v25);
-  CGContextDrawImage(context, self->_imageFrame, v26);
+  CGContextSetAlpha(context, v31);
+  v35 = objc_msgSend_objectImage(self, v32, v33, v34);
+  CGContextDrawImage(context, self->_imageFrame, v35);
 LABEL_16:
   CGContextRestoreGState(context);
 }
@@ -1045,11 +1044,11 @@ LABEL_16:
   y = self->_imageSelectionFrame.origin.y;
   width = self->_imageSelectionFrame.size.width;
   height = self->_imageSelectionFrame.size.height;
-  v54.origin.x = x;
-  v54.origin.y = y;
-  v54.size.width = width;
-  v54.size.height = height;
-  result = CGRectIsNull(v54);
+  v65.origin.x = x;
+  v65.origin.y = y;
+  v65.size.width = width;
+  v65.size.height = height;
+  result = CGRectIsNull(v65);
   if (result)
   {
     v11 = *MEMORY[0x277CBF348];
@@ -1063,54 +1062,54 @@ LABEL_16:
   {
     MinX = CGRectGetMinX(*p_imageSelectionFrame);
     retstr->var0.x = MinX;
-    objc_msgSend_bounds(self, v13, v14);
-    MaxY = CGRectGetMaxY(v55);
+    objc_msgSend_bounds(self, v13, v14, v15);
+    MaxY = CGRectGetMaxY(v66);
     MidY = CGRectGetMidY(*p_imageSelectionFrame);
-    v17 = MaxY - floorf(MidY);
-    v53 = MinX + CGRectGetWidth(*p_imageSelectionFrame);
-    v56.origin.x = x;
-    v56.origin.y = y;
-    v56.size.width = width;
-    v56.size.height = height;
-    MidX = CGRectGetMidX(v56);
-    v19 = floorf(MidX);
-    objc_msgSend_bounds(self, v20, v21);
-    v22 = CGRectGetMaxY(v57);
-    v58.origin.x = x;
-    v58.origin.y = y;
-    v58.size.width = width;
-    v58.size.height = height;
-    v25 = v22 - CGRectGetMaxY(v58) + -6.0;
+    v18 = MaxY - floorf(MidY);
+    v64 = MinX + CGRectGetWidth(*p_imageSelectionFrame);
+    v67.origin.x = x;
+    v67.origin.y = y;
+    v67.size.width = width;
+    v67.size.height = height;
+    MidX = CGRectGetMidX(v67);
+    v20 = floorf(MidX);
+    objc_msgSend_bounds(self, v21, v22, v23);
+    v24 = CGRectGetMaxY(v68);
+    v69.origin.x = x;
+    v69.origin.y = y;
+    v69.size.width = width;
+    v69.size.height = height;
+    v28 = v24 - CGRectGetMaxY(v69) + -6.0;
     if (self->_labelLayer || self->_secondaryLabelLayer)
     {
-      objc_msgSend_bounds(self, v23, v24);
-      v28 = CGRectGetMaxY(v59);
+      objc_msgSend_bounds(self, v25, v26, v27);
+      v32 = CGRectGetMaxY(v70);
     }
 
     else
     {
-      objc_msgSend_bounds(self, v23, v24);
-      v52 = CGRectGetMaxY(v60);
-      v28 = v52 - CGRectGetMinY(*p_imageSelectionFrame);
+      objc_msgSend_bounds(self, v25, v26, v27);
+      v63 = CGRectGetMaxY(v71);
+      v32 = v63 - CGRectGetMinY(*p_imageSelectionFrame);
     }
 
-    v29 = v28 + 4.0;
-    v30 = objc_msgSend_superlayer(self, v26, v27);
-    objc_msgSend_convertPoint_toLayer_(self, v31, v30, MinX, v17);
-    retstr->var0.x = v32;
-    retstr->var0.y = v33;
-    v36 = objc_msgSend_superlayer(self, v34, v35);
-    objc_msgSend_convertPoint_toLayer_(self, v37, v36, v53, v17);
-    retstr->var1.x = v38;
-    retstr->var1.y = v39;
-    v42 = objc_msgSend_superlayer(self, v40, v41);
-    objc_msgSend_convertPoint_toLayer_(self, v43, v42, v19, v25);
-    retstr->var2.x = v44;
-    retstr->var2.y = v45;
-    v48 = objc_msgSend_superlayer(self, v46, v47);
-    result = objc_msgSend_convertPoint_toLayer_(self, v49, v48, v19, v29);
-    retstr->var3.x = v50;
-    retstr->var3.y = v51;
+    v33 = v32 + 4.0;
+    v34 = objc_msgSend_superlayer(self, v29, v30, v31);
+    objc_msgSend_convertPoint_toLayer_(self, v35, v34, v36, MinX, v18);
+    retstr->var0.x = v37;
+    retstr->var0.y = v38;
+    v42 = objc_msgSend_superlayer(self, v39, v40, v41);
+    objc_msgSend_convertPoint_toLayer_(self, v43, v42, v44, v64, v18);
+    retstr->var1.x = v45;
+    retstr->var1.y = v46;
+    v50 = objc_msgSend_superlayer(self, v47, v48, v49);
+    objc_msgSend_convertPoint_toLayer_(self, v51, v50, v52, v20, v28);
+    retstr->var2.x = v53;
+    retstr->var2.y = v54;
+    v58 = objc_msgSend_superlayer(self, v55, v56, v57);
+    result = objc_msgSend_convertPoint_toLayer_(self, v59, v58, v60, v20, v33);
+    retstr->var3.x = v61;
+    retstr->var3.y = v62;
   }
 
   return result;
@@ -1122,41 +1121,41 @@ LABEL_16:
   y = self->_imageCoreFrame.origin.y;
   width = self->_imageCoreFrame.size.width;
   height = self->_imageCoreFrame.size.height;
-  objc_msgSend_bounds(self, a2, v2);
-  v8 = v7 - height - y;
-  v9 = x;
-  v10 = width;
-  v11 = height;
-  result.size.height = v11;
-  result.size.width = v10;
-  result.origin.y = v8;
-  result.origin.x = v9;
+  objc_msgSend_bounds(self, a2, v2, v3);
+  v9 = v8 - height - y;
+  v10 = x;
+  v11 = width;
+  v12 = height;
+  result.size.height = v12;
+  result.size.width = v11;
+  result.origin.y = v9;
+  result.origin.x = v10;
   return result;
 }
 
 - (CGRect)getFrameContainingAllSublayers
 {
-  objc_msgSend_frame(self, a2, v2);
+  objc_msgSend_frame(self, a2, v2, v3);
+  v9 = v8;
   v11 = v10;
   v13 = v12;
   v15 = v14;
-  v17 = v16;
   if (dword_27E382FA8 <= 800 && (dword_27E382FA8 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer getFrameContainingAllSublayers]", 800, "topo frame =(x = %.2f y = %.2f w = %.2f h = %.2f)\n", v6, v7, v8, v9, *&v11);
+    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer getFrameContainingAllSublayers]", 800, "topo frame =(x = %.2f y = %.2f w = %.2f h = %.2f)\n", v9, v11, v13, v15);
   }
 
   labelLayer = self->_labelLayer;
   if (labelLayer)
   {
-    objc_msgSend_frame(labelLayer, v4, v5);
-    x = v19;
-    y = v21;
-    width = v23;
-    height = v25;
+    objc_msgSend_frame(labelLayer, v5, v6, v7);
+    x = v17;
+    y = v19;
+    width = v21;
+    height = v23;
     if (dword_27E382FA8 <= 800 && (dword_27E382FA8 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
     {
-      sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer getFrameContainingAllSublayers]", 800, "label frame =(x = %.2f y = %.2f w = %.2f h = %.2f)\n", v6, v7, v8, v9, *&x);
+      sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer getFrameContainingAllSublayers]", 800, "label frame =(x = %.2f y = %.2f w = %.2f h = %.2f)\n", x, y, width, height);
     }
   }
 
@@ -1171,21 +1170,21 @@ LABEL_16:
   secondaryLabelLayer = self->_secondaryLabelLayer;
   if (secondaryLabelLayer)
   {
-    objc_msgSend_frame(secondaryLabelLayer, v4, v5);
-    v43.origin.x = v28;
-    v43.origin.y = v29;
-    v43.size.width = v30;
-    v43.size.height = v31;
-    v38.origin.x = x;
-    v38.origin.y = y;
-    v38.size.width = width;
-    v38.size.height = height;
-    v39 = CGRectUnion(v38, v43);
-    x = v39.origin.x;
-    y = v39.origin.y;
-    width = v39.size.width;
-    height = v39.size.height;
-    v32 = dword_27E382FA8;
+    objc_msgSend_frame(secondaryLabelLayer, v5, v6, v7);
+    v40.origin.x = v26;
+    v40.origin.y = v27;
+    v40.size.width = v28;
+    v40.size.height = v29;
+    v35.origin.x = x;
+    v35.origin.y = y;
+    v35.size.width = width;
+    v35.size.height = height;
+    v36 = CGRectUnion(v35, v40);
+    x = v36.origin.x;
+    y = v36.origin.y;
+    width = v36.size.width;
+    height = v36.size.height;
+    v30 = dword_27E382FA8;
     if (dword_27E382FA8 > 800)
     {
       goto LABEL_17;
@@ -1193,79 +1192,79 @@ LABEL_16:
 
     if (dword_27E382FA8 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u))
     {
-      sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer getFrameContainingAllSublayers]", 800, "label frame unioned with secondary frame =(x = %.2f y = %.2f w = %.2f h = %.2f)\n", v6, v7, v8, v9, *&x);
+      sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer getFrameContainingAllSublayers]", 800, "label frame unioned with secondary frame =(x = %.2f y = %.2f w = %.2f h = %.2f)\n", x, y, width, height);
     }
   }
 
-  v32 = dword_27E382FA8;
+  v30 = dword_27E382FA8;
 LABEL_17:
   if (x < 0.0)
   {
-    if (v32 <= 800 && (v32 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
+    if (v30 <= 800 && (v30 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
     {
-      sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer getFrameContainingAllSublayers]", 800, "label origin outside parent frame\n", v6, v7, v8, v9, v37);
+      sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer getFrameContainingAllSublayers]", 800, "label origin outside parent frame\n");
     }
 
-    v40.origin.x = v11 + x;
-    v40.origin.y = v13 + y;
-    v40.size.width = width;
-    v40.size.height = height;
-    v44.origin.x = v11;
-    v44.origin.y = v13;
-    v44.size.width = v15;
-    v44.size.height = v17;
-    v41 = CGRectUnion(v40, v44);
-    v11 = v41.origin.x;
-    v13 = v41.origin.y;
-    v15 = v41.size.width;
-    v17 = v41.size.height;
-    v32 = dword_27E382FA8;
+    v37.origin.x = v9 + x;
+    v37.origin.y = v11 + y;
+    v37.size.width = width;
+    v37.size.height = height;
+    v41.origin.x = v9;
+    v41.origin.y = v11;
+    v41.size.width = v13;
+    v41.size.height = v15;
+    v38 = CGRectUnion(v37, v41);
+    v9 = v38.origin.x;
+    v11 = v38.origin.y;
+    v13 = v38.size.width;
+    v15 = v38.size.height;
+    v30 = dword_27E382FA8;
   }
 
-  if (v32 <= 800 && (v32 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
+  if (v30 <= 800 && (v30 != -1 || sub_23EB74AC8(&dword_27E382FA8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer getFrameContainingAllSublayers]", 800, "final basic frame =(x = %.2f y = %.2f w = %.2f h = %.2f)\n", v6, v7, v8, v9, *&v11);
+    sub_23EB75374(&dword_27E382FA8, "[NetTopoObjectLayer getFrameContainingAllSublayers]", 800, "final basic frame =(x = %.2f y = %.2f w = %.2f h = %.2f)\n", v9, v11, v13, v15);
   }
 
-  v33 = v11;
-  v34 = v13;
-  v35 = v15;
-  v36 = v17;
-  result.size.height = v36;
-  result.size.width = v35;
-  result.origin.y = v34;
-  result.origin.x = v33;
+  v31 = v9;
+  v32 = v11;
+  v33 = v13;
+  v34 = v15;
+  result.size.height = v34;
+  result.size.width = v33;
+  result.origin.y = v32;
+  result.origin.x = v31;
   return result;
 }
 
 + (BOOL)needsDisplayForKey:(id)key
 {
-  if (objc_msgSend_isEqualToString_(key, a2, @"objectImage") & 1) != 0 || (objc_msgSend_isEqualToString_(key, v5, @"selected") & 1) != 0 || (objc_msgSend_isEqualToString_(key, v6, @"ghosted"))
+  if (objc_msgSend_isEqualToString_(key, a2, @"objectImage", v3) & 1) != 0 || (objc_msgSend_isEqualToString_(key, v6, @"selected", v7) & 1) != 0 || (objc_msgSend_isEqualToString_(key, v8, @"ghosted", v9))
   {
     return 1;
   }
 
-  v8.receiver = self;
-  v8.super_class = &OBJC_METACLASS___NetTopoObjectLayer;
-  return objc_msgSendSuper2(&v8, sel_needsDisplayForKey_, key);
+  v11.receiver = self;
+  v11.super_class = &OBJC_METACLASS___NetTopoObjectLayer;
+  return objc_msgSendSuper2(&v11, sel_needsDisplayForKey_, key);
 }
 
 - (id)describeOne:(id)one uiLayer:(id)layer indent:(unint64_t)indent
 {
   v7 = objc_opt_class();
   Name = class_getName(v7);
-  v11 = objc_msgSend_retainCount(layer, v9, v10);
-  v14 = objc_msgSend_row(layer, v12, v13);
-  v17 = objc_msgSend_column(layer, v15, v16);
-  objc_msgSend_appendFormat_(one, v18, @"<%s: %p retains %d> (row=%d col=%d)", Name, layer, v11, v14, v17);
+  v12 = objc_msgSend_retainCount(layer, v9, v10, v11);
+  v16 = objc_msgSend_row(layer, v13, v14, v15);
+  v20 = objc_msgSend_column(layer, v17, v18, v19);
+  objc_msgSend_appendFormat_(one, v21, @"<%s: %p retains %d> (row=%d col=%d)", v22, Name, layer, v12, v16, v20);
   return one;
 }
 
 - (id)debugDescription
 {
-  v3 = objc_msgSend_stringWithString_(MEMORY[0x277CCAB68], a2, &stru_285145FE8);
-  objc_msgSend_describeOne_uiLayer_indent_(self, v4, v3, self, 0);
-  return v3;
+  v4 = objc_msgSend_stringWithString_(MEMORY[0x277CCAB68], a2, &stru_285145FE8, v2);
+  objc_msgSend_describeOne_uiLayer_indent_(self, v5, v4, self, 0);
+  return v4;
 }
 
 - (CGPoint)layoutOrigin

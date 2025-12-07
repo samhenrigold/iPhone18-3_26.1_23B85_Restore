@@ -222,7 +222,7 @@ uint64_t __43__PIColorBalanceFilter_colorBalanceKernels__block_invoke()
     v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:5];
 
     colorBalanceKernel = [objc_opt_class() colorBalanceKernel];
-    [v13 extent];
+    objc_msgSend_extent(v13);
     v23 = [colorBalanceKernel applyWithExtent:&__block_literal_global_18868 roiCallback:v21 arguments:?];
 
     if ([(NSNumber *)self->_inputHasFace BOOLValue])
@@ -244,7 +244,7 @@ uint64_t __43__PIColorBalanceFilter_colorBalanceKernels__block_invoke()
     }
 
     v25 = v24;
-    [(CIImage *)self->_inputImage extent];
+    objc_msgSend_extent(self->_inputImage);
     v26 = [v25 imageByCroppingToRect:?];
     imageByPremultiplyingAlpha = [v26 imageByPremultiplyingAlpha];
   }
@@ -264,7 +264,7 @@ uint64_t __43__PIColorBalanceFilter_colorBalanceKernels__block_invoke()
   v8[0] = v3;
   v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   pPtogHDRKernel = [objc_opt_class() PPtogHDRKernel];
-  [v3 extent];
+  objc_msgSend_extent(v3);
   v6 = [pPtogHDRKernel applyWithExtent:&__block_literal_global_18868 roiCallback:v4 arguments:?];
 
   return v6;
@@ -277,7 +277,7 @@ uint64_t __43__PIColorBalanceFilter_colorBalanceKernels__block_invoke()
   v8[0] = v3;
   v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   gHDRtoPPKernel = [objc_opt_class() gHDRtoPPKernel];
-  [v3 extent];
+  objc_msgSend_extent(v3);
   v6 = [gHDRtoPPKernel applyWithExtent:&__block_literal_global_18868 roiCallback:v4 arguments:?];
 
   return v6;

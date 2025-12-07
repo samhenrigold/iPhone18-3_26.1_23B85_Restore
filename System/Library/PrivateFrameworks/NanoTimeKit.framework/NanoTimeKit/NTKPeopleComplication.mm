@@ -43,7 +43,7 @@
 
 + (id)_allComplicationConfigurationsWithType:(unint64_t)type
 {
-  if (NTKDeviceIsGreenTea() && ([MEMORY[0x277CBBAE8] currentDevice], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "isPaired"), v4, !v5))
+  if (NTKDeviceIsGreenTea(self, a2) && ([MEMORY[0x277CBBAE8] currentDevice], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "isPaired"), v4, !v5))
   {
     v12 = MEMORY[0x277CBEBF8];
   }

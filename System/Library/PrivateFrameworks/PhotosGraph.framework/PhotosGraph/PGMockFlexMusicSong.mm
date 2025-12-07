@@ -9,22 +9,20 @@
 
 - (NSDictionary)weightedKeywords
 {
-  v2 = *(self + OBJC_IVAR___PGMockFlexMusicSong_weightedKeywords);
   sub_22F170D8C();
 
-  v3 = sub_22F740C80();
+  v2 = sub_22F740C80();
 
-  return v3;
+  return v2;
 }
 
 - (id)regions
 {
-  v2 = *(self + OBJC_IVAR___PGMockFlexMusicSong__tagIDs);
 
-  sub_22F1B9D70(v3);
-  v4 = sub_22F741410();
+  sub_22F1B9D70(v2);
+  v3 = sub_22F741410();
 
-  return v4;
+  return v3;
 }
 
 - (PGMockFlexMusicSong)init

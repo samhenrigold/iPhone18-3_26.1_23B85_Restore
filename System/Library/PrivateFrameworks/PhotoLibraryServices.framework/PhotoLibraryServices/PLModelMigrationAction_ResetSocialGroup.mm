@@ -6,14 +6,14 @@
 
 - (int64_t)performActionWithManagedObjectContext:(id)context error:(id *)error
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v7 = [(PLModelMigrationActionCore *)self cancellableDiscreteProgressWithTotalUnitCount:1 pendingParentUnitCount:1];
   [v7 becomeCurrentWithPendingUnitCount:1];
-  v33 = 0;
-  v8 = [PLSocialGroup resetAllInContext:contextCopy error:&v33];
+  v34 = 0;
+  v8 = [PLSocialGroup resetAllInContext:contextCopy error:&v34];
 
-  v9 = v33;
+  v9 = v34;
   v10 = PLMigrationGetLog();
   v11 = v10;
   if (v8)
@@ -26,157 +26,173 @@
 
       if (logger)
       {
-        v67 = 0u;
         v68 = 0u;
-        v65 = 0u;
+        v69 = 0u;
         v66 = 0u;
-        v63 = 0u;
+        v67 = 0u;
         v64 = 0u;
-        v61 = 0u;
+        v65 = 0u;
         v62 = 0u;
-        v59 = 0u;
+        v63 = 0u;
         v60 = 0u;
-        v57 = 0u;
+        v61 = 0u;
         v58 = 0u;
-        v55 = 0u;
+        v59 = 0u;
         v56 = 0u;
-        v53 = 0u;
+        v57 = 0u;
         v54 = 0u;
-        v51 = 0u;
+        v55 = 0u;
         v52 = 0u;
-        v49 = 0u;
+        v53 = 0u;
         v50 = 0u;
-        v47 = 0u;
+        v51 = 0u;
         v48 = 0u;
-        v45 = 0u;
+        v49 = 0u;
         v46 = 0u;
-        v43 = 0u;
+        v47 = 0u;
         v44 = 0u;
-        v41 = 0u;
+        v45 = 0u;
         v42 = 0u;
-        v39 = 0u;
+        v43 = 0u;
         v40 = 0u;
+        v41 = 0u;
         memset(buf, 0, sizeof(buf));
         v14 = PLMigrationGetLog();
-        os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-        LOWORD(v34) = 0;
-        LODWORD(v32) = 2;
-        v15 = _os_log_send_and_compose_impl();
-
-        v16 = [(PLModelMigrationActionCore *)self logger:&v34];
-        [v16 logWithMessage:v15 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{376, 0}];
-
-        if (v15 != buf)
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          free(v15);
+          v15 = 3;
+        }
+
+        else
+        {
+          v15 = 2;
+        }
+
+        LOWORD(v35) = 0;
+        v16 = _os_log_send_and_compose_impl(v15, 0, buf, 512, &dword_19BF1F000, v14, 0, "Deleted all SocialGroups", &v35, 2);
+
+        logger2 = [(PLModelMigrationActionCore *)self logger];
+        [logger2 logWithMessage:v16 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{376, 0}];
+
+        if (v16 != buf)
+        {
+          free(v16);
         }
       }
 
       else
       {
-        v24 = PLMigrationGetLog();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v26 = PLMigrationGetLog();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_19BF1F000, v24, OS_LOG_TYPE_DEFAULT, "Deleted all SocialGroups", buf, 2u);
+          _os_log_impl(&dword_19BF1F000, v26, OS_LOG_TYPE_DEFAULT, "Deleted all SocialGroups", buf, 2u);
         }
       }
     }
 
     [v7 resignCurrent];
-    v25 = v9;
-    v26 = 1;
+    v27 = v9;
+    v28 = 1;
   }
 
   else
   {
-    v17 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    v18 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
 
-    if (v17)
+    if (v18)
     {
-      logger2 = [(PLModelMigrationActionCore *)self logger];
+      logger3 = [(PLModelMigrationActionCore *)self logger];
 
-      if (logger2)
+      if (logger3)
       {
-        v67 = 0u;
         v68 = 0u;
-        v65 = 0u;
+        v69 = 0u;
         v66 = 0u;
-        v63 = 0u;
+        v67 = 0u;
         v64 = 0u;
-        v61 = 0u;
+        v65 = 0u;
         v62 = 0u;
-        v59 = 0u;
+        v63 = 0u;
         v60 = 0u;
-        v57 = 0u;
+        v61 = 0u;
         v58 = 0u;
-        v55 = 0u;
+        v59 = 0u;
         v56 = 0u;
-        v53 = 0u;
+        v57 = 0u;
         v54 = 0u;
-        v51 = 0u;
+        v55 = 0u;
         v52 = 0u;
-        v49 = 0u;
+        v53 = 0u;
         v50 = 0u;
-        v47 = 0u;
+        v51 = 0u;
         v48 = 0u;
-        v45 = 0u;
+        v49 = 0u;
         v46 = 0u;
-        v43 = 0u;
+        v47 = 0u;
         v44 = 0u;
-        v41 = 0u;
+        v45 = 0u;
         v42 = 0u;
-        v39 = 0u;
+        v43 = 0u;
         v40 = 0u;
+        v41 = 0u;
         memset(buf, 0, sizeof(buf));
-        v19 = PLMigrationGetLog();
-        os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
-        v20 = objc_opt_class();
-        v21 = NSStringFromClass(v20);
-        v34 = 138543618;
-        v35 = v21;
-        v36 = 2112;
-        v37 = v9;
-        LODWORD(v32) = 22;
-        v22 = _os_log_send_and_compose_impl();
-
-        v23 = [(PLModelMigrationActionCore *)self logger:&v34];
-        [v23 logWithMessage:v22 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{379, 16}];
-
-        if (v22 != buf)
+        v20 = PLMigrationGetLog();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          free(v22);
+          v21 = 3;
+        }
+
+        else
+        {
+          v21 = 2;
+        }
+
+        v22 = objc_opt_class();
+        v23 = NSStringFromClass(v22);
+        v35 = 138543618;
+        v36 = v23;
+        v37 = 2112;
+        v38 = v9;
+        v24 = _os_log_send_and_compose_impl(v21, 0, buf, 512, &dword_19BF1F000, v20, 16, "Failed to process %{public}@. Error: %@", &v35, 22);
+
+        logger4 = [(PLModelMigrationActionCore *)self logger];
+        [logger4 logWithMessage:v24 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{379, 16}];
+
+        if (v24 != buf)
+        {
+          free(v24);
         }
       }
 
       else
       {
-        v27 = PLMigrationGetLog();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v29 = PLMigrationGetLog();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          v28 = objc_opt_class();
-          v29 = NSStringFromClass(v28);
+          v30 = objc_opt_class();
+          v31 = NSStringFromClass(v30);
           *buf = 138543618;
-          *&buf[4] = v29;
+          *&buf[4] = v31;
           *&buf[12] = 2112;
           *&buf[14] = v9;
-          _os_log_impl(&dword_19BF1F000, v27, OS_LOG_TYPE_ERROR, "Failed to process %{public}@. Error: %@", buf, 0x16u);
+          _os_log_impl(&dword_19BF1F000, v29, OS_LOG_TYPE_ERROR, "Failed to process %{public}@. Error: %@", buf, 0x16u);
         }
       }
     }
 
     [v7 resignCurrent];
-    v30 = v9;
+    v32 = v9;
     if (error)
     {
-      *error = v30;
+      *error = v32;
     }
 
-    v26 = 3;
+    v28 = 3;
   }
 
   [(PLModelMigrationActionCore *)self finalizeProgress];
-  return v26;
+  return v28;
 }
 
 @end

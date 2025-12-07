@@ -118,73 +118,86 @@ id __39__PKHeaderVerticalScrollingLayout_init__block_invoke(uint64_t a1, uint64_
   v11 = objc_opt_respondsToSelector();
   v12 = objc_opt_respondsToSelector();
   v13 = objc_opt_respondsToSelector();
-  v39 = delegate;
+  v46 = delegate;
   v14 = objc_opt_respondsToSelector();
   if (v10 < 1)
   {
-    v31 = 0;
-    goto LABEL_36;
+    v38 = 0;
+    goto LABEL_39;
   }
 
-  if ((v11 & 1) == 0 || (v15 = v14, ![v39 collectionView:collectionView layout:self isListSectionAtIndex:index]))
+  if ((v11 & 1) == 0 || (v15 = v14, ![v46 collectionView:collectionView layout:self isListSectionAtIndex:index]))
   {
     [collectionView frame];
+    v20 = v19;
     [collectionView safeAreaInsets];
-    v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v20 = 0;
-    v21 = 0.0;
+    v23 = v20 - v21 - v22;
+    v24 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v25 = 0;
+    v26 = 0.0;
     do
     {
-      v22 = [MEMORY[0x1E696AC88] indexPathForRow:v20 inSection:index];
-      [v39 collectionView:collectionView layout:self sizeForItemAtIndexPath:v22];
-      adjustedHeaderHeight = v23;
-      if (self->_useStickyHeader && [(PKHeaderVerticalScrollingLayout *)self _indexPathIsHeaderIndexPath:v22])
+      v27 = [MEMORY[0x1E696AC88] indexPathForRow:v25 inSection:index];
+      [v46 collectionView:collectionView layout:self sizeForItemAtIndexPath:v27];
+      adjustedHeaderHeight = v29.n128_f64[0];
+      if (v23 >= v28.n128_f64[0])
+      {
+        v31 = v28.n128_f64[0];
+      }
+
+      else
+      {
+        v31 = v23;
+      }
+
+      if (self->_useStickyHeader && [(PKHeaderVerticalScrollingLayout *)self _indexPathIsHeaderIndexPath:v27])
       {
         adjustedHeaderHeight = self->_adjustedHeaderHeight;
       }
 
-      PKFloatRoundToPixel();
-      v25 = [MEMORY[0x1E6995570] customItemWithFrame:?];
-      [v19 addObject:v25];
+      v28.n128_f64[0] = (v23 - v31) * 0.5;
+      PKFloatRoundToPixel(v28, v29);
+      v32 = [MEMORY[0x1E6995570] customItemWithFrame:?];
+      [v24 addObject:v32];
 
-      v21 = v21 + adjustedHeaderHeight;
-      ++v20;
+      v26 = v26 + adjustedHeaderHeight;
+      ++v25;
     }
 
-    while (v10 != v20);
-    v26 = [MEMORY[0x1E6995558] fractionalWidthDimension:1.0];
-    v27 = [MEMORY[0x1E6995558] absoluteDimension:v21];
-    v28 = [MEMORY[0x1E6995588] sizeWithWidthDimension:v26 heightDimension:v27];
-    v29 = MEMORY[0x1E6995568];
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __74__PKHeaderVerticalScrollingLayout_layoutSectionAtIndex_layoutEnvironment___block_invoke_3;
-    v40[3] = &unk_1E80139E8;
-    v16 = v19;
-    v41 = v16;
-    v30 = [v29 customGroupWithLayoutSize:v28 itemProvider:v40];
-    v31 = [MEMORY[0x1E6995580] sectionWithGroup:v30];
+    while (v10 != v25);
+    v33 = [MEMORY[0x1E6995558] fractionalWidthDimension:1.0];
+    v34 = [MEMORY[0x1E6995558] absoluteDimension:v26];
+    v35 = [MEMORY[0x1E6995588] sizeWithWidthDimension:v33 heightDimension:v34];
+    v36 = MEMORY[0x1E6995568];
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 3221225472;
+    v47[2] = __74__PKHeaderVerticalScrollingLayout_layoutSectionAtIndex_layoutEnvironment___block_invoke_3;
+    v47[3] = &unk_1E80139E8;
+    v16 = v24;
+    v48 = v16;
+    v37 = [v36 customGroupWithLayoutSize:v35 itemProvider:v47];
+    v38 = [MEMORY[0x1E6995580] sectionWithGroup:v37];
     section = [(NSIndexPath *)self->_headerIndexPath section];
-    v33 = 20.0;
+    v40 = 20.0;
     if (section == index)
     {
       titleInset = self->_titleInset;
-      v33 = 0.0;
+      v40 = 0.0;
       if (titleInset <= 2)
       {
-        v33 = dbl_1BE116368[titleInset];
+        v40 = dbl_1BE116368[titleInset];
       }
     }
 
-    [v31 setContentInsets:{0.0, 0.0, v33, 0.0}];
+    [v38 setContentInsets:{0.0, 0.0, v40, 0.0}];
 
-    goto LABEL_35;
+    goto LABEL_38;
   }
 
   v16 = [objc_alloc(MEMORY[0x1E69DC7E0]) initWithAppearance:2];
   if (v12)
   {
-    v17 = [v39 collectionView:collectionView layout:self hasHeaderForSectionAtIndex:index];
+    v17 = [v46 collectionView:collectionView layout:self hasHeaderForSectionAtIndex:index];
     if ((v13 & 1) == 0)
     {
       goto LABEL_6;
@@ -200,21 +213,21 @@ LABEL_6:
       v18 = 0;
       if (!v17)
       {
-        goto LABEL_21;
+        goto LABEL_24;
       }
 
-      goto LABEL_20;
+      goto LABEL_23;
     }
   }
 
-  v18 = [v39 collectionView:collectionView layout:self hasFooterForSectionAtIndex:index];
+  v18 = [v46 collectionView:collectionView layout:self hasFooterForSectionAtIndex:index];
   if (v17)
   {
-LABEL_20:
+LABEL_23:
     [v16 setHeaderMode:1];
   }
 
-LABEL_21:
+LABEL_24:
   if (v18)
   {
     [v16 setFooterMode:1];
@@ -223,68 +236,68 @@ LABEL_21:
   objc_initWeak(location, self);
   if (v15)
   {
-    v48[0] = MEMORY[0x1E69E9820];
-    v48[1] = 3221225472;
-    v48[2] = __74__PKHeaderVerticalScrollingLayout_layoutSectionAtIndex_layoutEnvironment___block_invoke;
-    v48[3] = &unk_1E8013B50;
-    objc_copyWeak(&v49, location);
-    [v16 setTrailingSwipeActionsConfigurationProvider:v48];
-    objc_destroyWeak(&v49);
+    v55[0] = MEMORY[0x1E69E9820];
+    v55[1] = 3221225472;
+    v55[2] = __74__PKHeaderVerticalScrollingLayout_layoutSectionAtIndex_layoutEnvironment___block_invoke;
+    v55[3] = &unk_1E8013B50;
+    objc_copyWeak(&v56, location);
+    [v16 setTrailingSwipeActionsConfigurationProvider:v55];
+    objc_destroyWeak(&v56);
   }
 
   if (_UISolariumFeatureFlagEnabled())
   {
-    v35 = 16.0;
+    v42 = 16.0;
   }
 
   else
   {
-    v35 = 0.0;
+    v42 = 0.0;
   }
 
   if (objc_opt_respondsToSelector())
   {
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __74__PKHeaderVerticalScrollingLayout_layoutSectionAtIndex_layoutEnvironment___block_invoke_2;
-    v42[3] = &unk_1E801C9C8;
-    objc_copyWeak(&v43, location);
-    v44 = xmmword_1BE0D82B0;
-    v45 = 0;
-    v46 = v35;
-    v47 = 2;
-    [v16 setItemSeparatorHandler:v42];
-    objc_destroyWeak(&v43);
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __74__PKHeaderVerticalScrollingLayout_layoutSectionAtIndex_layoutEnvironment___block_invoke_2;
+    v49[3] = &unk_1E801C9C8;
+    objc_copyWeak(&v50, location);
+    v51 = xmmword_1BE0D82B0;
+    v52 = 0;
+    v53 = v42;
+    v54 = 2;
+    [v16 setItemSeparatorHandler:v49];
+    objc_destroyWeak(&v50);
   }
 
   else
   {
-    v36 = [objc_alloc(MEMORY[0x1E69DCC38]) initWithListAppearance:2];
-    [v36 setTopSeparatorInsets:{0.0, 16.0, 0.0, v35}];
-    [v36 setBottomSeparatorInsets:{0.0, 16.0, 0.0, v35}];
-    [v16 setSeparatorConfiguration:v36];
+    v43 = [objc_alloc(MEMORY[0x1E69DCC38]) initWithListAppearance:2];
+    [v43 setTopSeparatorInsets:{0.0, 16.0, 0.0, v42}];
+    [v43 setBottomSeparatorInsets:{0.0, 16.0, 0.0, v42}];
+    [v16 setSeparatorConfiguration:v43];
   }
 
-  v31 = [MEMORY[0x1E6995580] sectionWithListConfiguration:v16 layoutEnvironment:environmentCopy];
+  v38 = [MEMORY[0x1E6995580] sectionWithListConfiguration:v16 layoutEnvironment:environmentCopy];
   if (PKIsVision())
   {
     horizontalInset = 0.0;
-    [v31 setContentInsetsReference:4];
+    [v38 setContentInsetsReference:4];
   }
 
   else
   {
-    [v31 setContentInsetsReference:2];
+    [v38 setContentInsetsReference:2];
     horizontalInset = self->_horizontalInset;
   }
 
-  [v31 setContentInsets:{0.0, horizontalInset, 20.0, horizontalInset}];
+  [v38 setContentInsets:{0.0, horizontalInset, 20.0, horizontalInset}];
   objc_destroyWeak(location);
-LABEL_35:
+LABEL_38:
 
-LABEL_36:
+LABEL_39:
 
-  return v31;
+  return v38;
 }
 
 id __74__PKHeaderVerticalScrollingLayout_layoutSectionAtIndex_layoutEnvironment___block_invoke(uint64_t a1, void *a2)

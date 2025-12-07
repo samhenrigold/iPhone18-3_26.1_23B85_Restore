@@ -220,20 +220,19 @@ void __49__MRMigrationDevice__notifyDelegateOfStateChange__block_invoke(uint64_t
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = _MRLogForCategory(7uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [(MRMigrationDevice *)self uid];
     *buf = 138543362;
-    v8 = v4;
+    v7 = v4;
     _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[MRMigrationDevice] [MRMigrationDevice]<%{public}@> Deallocating.", buf, 0xCu);
   }
 
-  v6.receiver = self;
-  v6.super_class = MRMigrationDevice;
-  [(MRMigrationDevice *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = MRMigrationDevice;
+  [(MRMigrationDevice *)&v5 dealloc];
 }
 
 - (NSString)description
@@ -248,7 +247,7 @@ void __49__MRMigrationDevice__notifyDelegateOfStateChange__block_invoke(uint64_t
 
 - (void)setDeviceState:(unint64_t)state
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = _MRLogForCategory(7uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -275,17 +274,16 @@ void __49__MRMigrationDevice__notifyDelegateOfStateChange__block_invoke(uint64_t
       v10 = off_1E769E128[state - 1];
     }
 
-    v12 = 138543874;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v10;
-    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[MRMigrationDevice] <%{public}@> changing state from %@ to %@.", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v10;
+    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[MRMigrationDevice] <%{public}@> changing state from %@ to %@.", &v11, 0x20u);
   }
 
   self->_deviceState = state;
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __28__MRMigrationDevice_prepare__block_invoke(uint64_t a1)
@@ -306,9 +304,9 @@ void __28__MRMigrationDevice_prepare__block_invoke(uint64_t a1)
   if (![(MRMigrationDevice *)self isPrepared])
   {
     v3 = [(MRMigrationDevice *)self uid];
-    v4 = [v3 isEqualToString:@"proactiveEndpoint"];
+    isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-    if ((v4 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v5 = objc_alloc_init(MRAVLightweightReconnaissanceSession);
       v6 = [(MRMigrationDevice *)self uid];

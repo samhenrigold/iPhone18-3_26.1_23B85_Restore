@@ -39,7 +39,7 @@
           v15 = v14;
           if (v11)
           {
-            [v11 preferredTransform];
+            objc_msgSend_preferredTransform(v11);
           }
 
           else

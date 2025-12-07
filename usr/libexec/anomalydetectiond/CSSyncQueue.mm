@@ -13,42 +13,35 @@
 {
   sampleCopy = sample;
   v4 = +[CSPlatformInfo sharedInstance];
-  isMDevice = [v4 isMDevice];
+  [v4 isMDevice];
 
-  v6 = &off_100410B78;
-  if (!isMDevice)
-  {
-    v6 = off_100410B70;
-  }
-
-  v7 = *v6;
   objc_opt_class();
-  v8 = [sampleCopy count];
-  if (v8)
+  v5 = [sampleCopy count];
+  if (v5)
   {
-    v9 = v8 - 1;
+    v6 = v5 - 1;
     while (1)
     {
-      v10 = [sampleCopy objectAtIndexedSubscript:v9];
+      v7 = [sampleCopy objectAtIndexedSubscript:v6];
       if (objc_opt_isKindOfClass())
       {
         break;
       }
 
-      if (--v9 == -1)
+      if (--v6 == -1)
       {
-        goto LABEL_7;
+        goto LABEL_5;
       }
     }
   }
 
   else
   {
-LABEL_7:
-    v10 = 0;
+LABEL_5:
+    v7 = 0;
   }
 
-  return v10;
+  return v7;
 }
 
 + (unint64_t)nextCheckpoint:(id)checkpoint

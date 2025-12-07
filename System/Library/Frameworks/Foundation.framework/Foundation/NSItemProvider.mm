@@ -118,7 +118,7 @@
           objc_enumerationMutation(_typeOrder);
         }
 
-        if ((off_1ED439850)(*(*(&v11 + 1) + 8 * v8), type))
+        if (off_1ED439850(*(*(&v11 + 1) + 8 * v8), type))
         {
           LOBYTE(v5) = 1;
           return v5;
@@ -394,7 +394,7 @@ uint64_t __72__NSItemProvider__addRepresentationType_preferredRepresentation_loa
           if ([v11 preferredRepresentation] == 2)
           {
             typeIdentifier = [v11 typeIdentifier];
-            if ((off_1ED439850)(typeIdentifier, typeIdentifier))
+            if (off_1ED439850(typeIdentifier, typeIdentifier))
             {
               LOBYTE(v6) = 1;
               return v6;
@@ -490,7 +490,7 @@ uint64_t __97__NSItemProvider_registerFileRepresentationForTypeIdentifier_fileOp
   return (*(v3 + 16))(v3, v5);
 }
 
-void __97__NSItemProvider_registerFileRepresentationForTypeIdentifier_fileOptions_visibility_loadHandler___block_invoke_2(uint64_t a1, void *a2, int a3, NSError *a4)
+void __97__NSItemProvider_registerFileRepresentationForTypeIdentifier_fileOptions_visibility_loadHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, NSError *a4)
 {
   v4 = a4;
   v48 = *MEMORY[0x1E69E9840];
@@ -518,6 +518,7 @@ void __97__NSItemProvider_registerFileRepresentationForTypeIdentifier_fileOption
     goto LABEL_10;
   }
 
+  v7 = a3;
   if (![a2 isFileURL])
   {
     v10 = _NSIPLogger();
@@ -547,7 +548,7 @@ void __97__NSItemProvider_registerFileRepresentationForTypeIdentifier_fileOption
   v19[4] = *(a1 + 32);
   v19[5] = &v26;
   v19[6] = &v20;
-  if (!a3)
+  if (!v7)
   {
     RepresentationError = __97__NSItemProvider_registerFileRepresentationForTypeIdentifier_fileOptions_visibility_loadHandler___block_invoke_48(v19, a2);
 LABEL_9:
@@ -603,7 +604,7 @@ LABEL_10:
     v18 = *(a1 + 32);
     if (v4)
     {
-      if (![(NSString *)[(NSError *)v4 domain:v14] isEqualToString:@"NSItemProviderErrorDomain"])
+      if ((objc_msgSend_isEqualToString_([(NSError *)v4 domain:a3]) & 1) == 0)
       {
         v4 = v16(&v14, v4);
       }
@@ -616,7 +617,7 @@ LABEL_10:
   _Block_object_dispose(&v26, 8);
 }
 
-NSError *__97__NSItemProvider_registerFileRepresentationForTypeIdentifier_fileOptions_visibility_loadHandler___block_invoke_48(uint64_t *a1, void *a2)
+NSError *__97__NSItemProvider_registerFileRepresentationForTypeIdentifier_fileOptions_visibility_loadHandler___block_invoke_48(void *a1, void *a2)
 {
   v14 = *MEMORY[0x1E69E9840];
   v8 = 0;
@@ -652,16 +653,16 @@ LABEL_3:
   return _NSIPCannotLoadRepresentationError(a1[4], 0);
 }
 
-BOOL __97__NSItemProvider_registerFileRepresentationForTypeIdentifier_fileOptions_visibility_loadHandler___block_invoke_49(uint64_t a1)
+BOOL __97__NSItemProvider_registerFileRepresentationForTypeIdentifier_fileOptions_visibility_loadHandler___block_invoke_49(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = _NSIPLogger();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = _NSIPLogger();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v4 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v4;
-    _os_log_debug_impl(&dword_18075C000, v2, OS_LOG_TYPE_DEBUG, "Removing temporary folder at %@ created for an in-place load of an item that provided a copy representation", &v5, 0xCu);
+    v5 = *(a1 + 32);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_debug_impl(&dword_18075C000, v3, OS_LOG_TYPE_DEBUG, "Removing temporary folder at %@ created for an in-place load of an item that provided a copy representation", &v6, 0xCu);
   }
 
   return [+[NSFileManager defaultManager](NSFileManager removeItemAtURL:"removeItemAtURL:error:" error:*(a1 + 32), 0];
@@ -757,7 +758,7 @@ void __76__NSItemProvider_loadDataRepresentationForTypeIdentifier_completionHand
     v16 = __76__NSItemProvider_loadDataRepresentationForTypeIdentifier_completionHandler___block_invoke_2;
     v17 = &unk_1E69F5778;
     v18 = *(a1 + 32);
-    if (([objc_msgSend(v4 "domain")] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_([v4 domain]) & 1) == 0)
     {
       v5 = v16(v15, v5);
     }
@@ -999,7 +1000,7 @@ void __76__NSItemProvider_loadFileRepresentationForTypeIdentifier_completionHand
     v33 = __76__NSItemProvider_loadFileRepresentationForTypeIdentifier_completionHandler___block_invoke_2;
     v34 = &unk_1E69F5778;
     v35 = *(a1 + 32);
-    if (([objc_msgSend(v4 "domain")] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_([v4 domain]) & 1) == 0)
     {
       v5 = v33(v32, v5);
     }
@@ -1079,7 +1080,7 @@ void __76__NSItemProvider_loadFileRepresentationForTypeIdentifier_completionHand
       v25 = &unk_1E69F5890;
       v26 = *(a1 + 32);
       v27 = v29;
-      if (v29 && ![(NSString *)[(NSError *)v29 domain] isEqualToString:@"NSItemProviderErrorDomain"])
+      if (v29 && (objc_msgSend_isEqualToString_([(NSError *)v29 domain]) & 1) == 0)
       {
         v13 = (v24)(v23, v13);
       }
@@ -1356,7 +1357,7 @@ void __83__NSItemProvider_loadInPlaceFileRepresentationForTypeIdentifier_complet
     v27 = __83__NSItemProvider_loadInPlaceFileRepresentationForTypeIdentifier_completionHandler___block_invoke_79;
     v28 = &unk_1E69F5778;
     v29 = *(a1 + 32);
-    if (v4 && ![(NSString *)[(NSError *)v4 domain] isEqualToString:@"NSItemProviderErrorDomain"])
+    if (v4 && (objc_msgSend_isEqualToString_([(NSError *)v4 domain]) & 1) == 0)
     {
       v4 = v27(v26, v4);
     }
@@ -2343,7 +2344,7 @@ void __63__NSItemProvider__loadObjectOfClass_options_completionHandler___block_i
     v19 = &unk_1E69F5890;
     v20 = *(a1 + 40);
     v21 = v4;
-    if (!v4 || ([-[NSString domain](v4 "domain")] & 1) != 0)
+    if (!v4 || (objc_msgSend_isEqualToString_([(NSString *)v4 domain]) & 1) != 0)
     {
       goto LABEL_17;
     }
@@ -2377,7 +2378,7 @@ void __63__NSItemProvider__loadObjectOfClass_options_completionHandler___block_i
     v24 = &unk_1E69F5890;
     v25 = *(a1 + 40);
     v26 = v27;
-    if (!v27 || ([-[NSString domain](v27 "domain")] & 1) != 0)
+    if (!v27 || (objc_msgSend_isEqualToString_([(NSString *)v27 domain]) & 1) != 0)
     {
       goto LABEL_17;
     }
@@ -2478,7 +2479,7 @@ void __63__NSItemProvider__loadObjectOfClass_options_completionHandler___block_i
     v19 = &unk_1E69F5890;
     v20 = *(a1 + 32);
     v21 = v4;
-    if (!v4 || ([-[NSString domain](v4 "domain")] & 1) != 0)
+    if (!v4 || (objc_msgSend_isEqualToString_([(NSString *)v4 domain]) & 1) != 0)
     {
       goto LABEL_9;
     }
@@ -2515,7 +2516,7 @@ LABEL_9:
     v24 = &unk_1E69F5890;
     v25 = *(a1 + 32);
     v26 = v4;
-    if (!v4 || ([-[NSString domain](v4 "domain")] & 1) != 0)
+    if (!v4 || (objc_msgSend_isEqualToString_([(NSString *)v4 domain]) & 1) != 0)
     {
       goto LABEL_9;
     }
@@ -2721,11 +2722,11 @@ uint64_t __63__NSItemProvider__loadObjectOfClass_options_completionHandler___blo
     if ([(NSURL *)fileURL isFileURL])
     {
       pathExtension = [(NSURL *)fileURL pathExtension];
-      v6 = _MergedGlobals_86[0]();
-      v7 = (off_1ED439858[0])(v6, pathExtension, 0);
+      v6 = _MergedGlobals_86();
+      v7 = off_1ED439858(v6, pathExtension, 0);
       if (!v7)
       {
-        v7 = off_1ED439840[0]();
+        v7 = off_1ED439840();
       }
 
       v9[0] = MEMORY[0x1E69E9820];
@@ -2820,7 +2821,7 @@ uint64_t __60__NSItemProvider_registerItemForTypeIdentifier_loadHandler___block_
 id __60__NSItemProvider_registerItemForTypeIdentifier_loadHandler___block_invoke_131(uint64_t a1, void *a2, NSError *a3)
 {
   RepresentationError = a3;
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     v6 = _NSIPLogger();
@@ -2828,8 +2829,8 @@ id __60__NSItemProvider_registerItemForTypeIdentifier_loadHandler___block_invoke
     {
       *buf = 134349314;
       Weak = objc_loadWeak((a1 + 48));
-      v28 = 2112;
-      v29 = RepresentationError;
+      v29 = 2112;
+      v30 = RepresentationError;
       _os_log_debug_impl(&dword_18075C000, v6, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Load handler failed to produce NSSecureCoding object with error: %@", buf, 0x16u);
     }
   }
@@ -2838,23 +2839,23 @@ id __60__NSItemProvider_registerItemForTypeIdentifier_loadHandler___block_invoke
   if (objc_opt_isKindOfClass())
   {
     v7 = *(a1 + 32);
-    off_1ED439848[0]();
-    v8 = off_1ED439850(v7) == 0;
-    v9 = _NSIPLogger();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
-    if (v8)
+    v8 = off_1ED439848[0]();
+    v9 = off_1ED439850(v7, v8) == 0;
+    v10 = _NSIPLogger();
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+    if (v9)
     {
-      if (v10)
+      if (v11)
       {
-        v23 = objc_loadWeak((a1 + 48));
-        v24 = *(a1 + 32);
+        v24 = objc_loadWeak((a1 + 48));
+        v25 = *(a1 + 32);
         *buf = 134349570;
-        Weak = v23;
-        v28 = 2112;
-        v29 = a2;
-        v30 = 2114;
-        v31 = v24;
-        _os_log_debug_impl(&dword_18075C000, v9, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Load handler produced the URL %@ and the type identifier '%{public}@' is not a URL; vending the URL to the contents of the data directly", buf, 0x20u);
+        Weak = v24;
+        v29 = 2112;
+        v30 = a2;
+        v31 = 2114;
+        v32 = v25;
+        _os_log_debug_impl(&dword_18075C000, v10, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Load handler produced the URL %@ and the type identifier '%{public}@' is not a URL; vending the URL to the contents of the data directly", buf, 0x20u);
       }
 
       [NSItemRepresentationLoadResult resultWithData:0 urlWrapper:[[NSSecurityScopedURLWrapper alloc] initWithURL:a2 readonly:0] cleanupHandler:0 error:0];
@@ -2863,42 +2864,42 @@ id __60__NSItemProvider_registerItemForTypeIdentifier_loadHandler___block_invoke
 
     else
     {
-      if (v10)
+      if (v11)
       {
-        v17 = objc_loadWeak((a1 + 48));
-        v18 = *(a1 + 32);
+        v18 = objc_loadWeak((a1 + 48));
+        v19 = *(a1 + 32);
         *buf = 134349570;
-        Weak = v17;
-        v28 = 2112;
-        v29 = a2;
-        v30 = 2114;
-        v31 = v18;
-        _os_log_debug_impl(&dword_18075C000, v9, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Load handler produced the URL %@ and the type identifier '%{public}@' is a URL; archiving as an NSURL archive", buf, 0x20u);
+        Weak = v18;
+        v29 = 2112;
+        v30 = a2;
+        v31 = 2114;
+        v32 = v19;
+        _os_log_debug_impl(&dword_18075C000, v10, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Load handler produced the URL %@ and the type identifier '%{public}@' is a URL; archiving as an NSURL archive", buf, 0x20u);
       }
 
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __60__NSItemProvider_registerItemForTypeIdentifier_loadHandler___block_invoke_133;
-      v25[3] = &unk_1E69F5728;
-      v11 = *(a1 + 32);
-      v25[4] = *(a1 + 40);
-      return [a2 loadDataWithTypeIdentifier:v11 forItemProviderCompletionHandler:v25];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __60__NSItemProvider_registerItemForTypeIdentifier_loadHandler___block_invoke_133;
+      v26[3] = &unk_1E69F5728;
+      v12 = *(a1 + 32);
+      v26[4] = *(a1 + 40);
+      return [a2 loadDataWithTypeIdentifier:v12 forItemProviderCompletionHandler:v26];
     }
   }
 
   else
   {
-    v13 = _NSIsNSData();
-    v14 = _NSIPLogger();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
-    if (v13)
+    v14 = _NSIsNSData();
+    v15 = _NSIPLogger();
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
+    if (v14)
     {
-      if (v15)
+      if (v16)
       {
-        v19 = objc_loadWeak((a1 + 48));
+        v20 = objc_loadWeak((a1 + 48));
         *buf = 134349056;
-        Weak = v19;
-        _os_log_debug_impl(&dword_18075C000, v14, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Load handler produced data; providing the data directly", buf, 0xCu);
+        Weak = v20;
+        _os_log_debug_impl(&dword_18075C000, v15, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Load handler produced data; providing the data directly", buf, 0xCu);
       }
 
       [NSItemRepresentationLoadResult resultWithData:a2 urlWrapper:0 cleanupHandler:0 error:0];
@@ -2907,26 +2908,26 @@ id __60__NSItemProvider_registerItemForTypeIdentifier_loadHandler___block_invoke
 
     else
     {
-      if (v15)
+      if (v16)
       {
-        v20 = objc_loadWeak((a1 + 48));
-        v21 = objc_opt_class();
-        v22 = NSStringFromClass(v21);
+        v21 = objc_loadWeak((a1 + 48));
+        v22 = objc_opt_class();
+        v23 = NSStringFromClass(v22);
         *buf = 134349314;
-        Weak = v20;
-        v28 = 2114;
-        v29 = v22;
-        _os_log_debug_impl(&dword_18075C000, v14, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Load handler produced an object of class %{public}@; archiving the object via NSKeyedArchiver and providing the archived data", buf, 0x16u);
+        Weak = v21;
+        v29 = 2114;
+        v30 = v23;
+        _os_log_debug_impl(&dword_18075C000, v15, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Load handler produced an object of class %{public}@; archiving the object via NSKeyedArchiver and providing the archived data", buf, 0x16u);
       }
 
-      v16 = [NSKeyedArchiver archivedDataWithRootObject:a2 requiringSecureCoding:1 error:0];
-      if (!v16)
+      v17 = [NSKeyedArchiver archivedDataWithRootObject:a2 requiringSecureCoding:1 error:0];
+      if (!v17)
       {
         RepresentationError = _NSIPCannotLoadRepresentationError(*(a1 + 32), 0);
-        v16 = 0;
+        v17 = 0;
       }
 
-      -[NSItemRepresentationLoadResult setArchivedObjectClass:](+[NSItemRepresentationLoadResult resultWithData:urlWrapper:cleanupHandler:error:](NSItemRepresentationLoadResult, "resultWithData:urlWrapper:cleanupHandler:error:", v16, 0, 0, RepresentationError), "setArchivedObjectClass:", [a2 classForCoder]);
+      -[NSItemRepresentationLoadResult setArchivedObjectClass:](+[NSItemRepresentationLoadResult resultWithData:urlWrapper:cleanupHandler:error:](NSItemRepresentationLoadResult, "resultWithData:urlWrapper:cleanupHandler:error:", v17, 0, 0, RepresentationError), "setArchivedObjectClass:", [a2 classForCoder]);
       return (*(*(a1 + 40) + 16))();
     }
   }
@@ -3006,15 +3007,15 @@ void __70__NSItemProvider_loadItemForTypeIdentifier_options_completionHandler___
 
 - (void)_loadItemOfClass:(Class)class forTypeIdentifier:(id)identifier options:(id)options coerceForCoding:(BOOL)coding completionHandler:(id)handler
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v12 = _NSIPLogger();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134349570;
     selfCopy7 = self;
-    v42 = 2114;
+    v43 = 2114;
     identifierCopy5 = class;
-    v44 = 2114;
+    v45 = 2114;
     identifierCopy = identifier;
     _os_log_debug_impl(&dword_18075C000, v12, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Loading item of expected class %{public}@ for type identifier '%{public}@'", buf, 0x20u);
   }
@@ -3025,59 +3026,59 @@ void __70__NSItemProvider_loadItemForTypeIdentifier_options_completionHandler___
     objc_initWeak(&location, self);
     if (![(objc_class *)class isSubclassOfClass:v13])
     {
-      v18 = [(NSItemProvider *)self _representationConformingToType:identifier];
-      if (v18)
+      v19 = [(NSItemProvider *)self _representationConformingToType:identifier];
+      if (v19)
       {
-        v19 = objc_alloc_init(_NSIPCallbackSerialization);
-        objc_initWeak(&from, v19);
-        v20 = _NSIPLogger();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v20 = objc_alloc_init(_NSIPCallbackSerialization);
+        objc_initWeak(&from, v20);
+        v21 = _NSIPLogger();
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134349056;
           selfCopy7 = self;
-          _os_log_debug_impl(&dword_18075C000, v20, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Expected class is not a URL; attempting to load the object and coerce to the expected class", buf, 0xCu);
+          _os_log_debug_impl(&dword_18075C000, v21, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Expected class is not a URL; attempting to load the object and coerce to the expected class", buf, 0xCu);
         }
 
-        v21 = [(NSItemProvider *)self _readableTypeIdentifiersForItemProviderForClass:class];
-        v30[0] = MEMORY[0x1E69E9820];
-        v30[1] = 3221225472;
-        v30[2] = __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCoding_completionHandler___block_invoke_142;
-        v30[3] = &unk_1E69F5C28;
-        objc_copyWeak(&v31, &location);
-        v30[4] = identifier;
-        v30[5] = class;
-        v30[6] = v21;
-        v30[7] = v18;
-        v30[8] = v19;
-        objc_copyWeak(&v32, &from);
-        v30[9] = self;
-        v30[10] = handler;
-        v22 = [v18 loadWithOptions_v2:options completionHandler:v30];
-        v28[0] = MEMORY[0x1E69E9820];
-        v28[1] = 3221225472;
-        v28[2] = __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCoding_completionHandler___block_invoke_3;
-        v28[3] = &unk_1E69F5868;
-        objc_copyWeak(&v29, &from);
-        v28[4] = self;
-        v28[5] = v22;
-        [(_NSIPCallbackSerialization *)v19 sendBeginBlock:v28];
+        v22 = [(NSItemProvider *)self _readableTypeIdentifiersForItemProviderForClass:class];
+        v31[0] = MEMORY[0x1E69E9820];
+        v31[1] = 3221225472;
+        v31[2] = __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCoding_completionHandler___block_invoke_142;
+        v31[3] = &unk_1E69F5C28;
+        objc_copyWeak(&v32, &location);
+        v31[4] = identifier;
+        v31[5] = class;
+        v31[6] = v22;
+        v31[7] = v19;
+        v31[8] = v20;
+        objc_copyWeak(&v33, &from);
+        v31[9] = self;
+        v31[10] = handler;
+        v23 = [v19 loadWithOptions_v2:options completionHandler:v31];
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCoding_completionHandler___block_invoke_3;
+        v29[3] = &unk_1E69F5868;
+        objc_copyWeak(&v30, &from);
+        v29[4] = self;
+        v29[5] = v23;
+        [(_NSIPCallbackSerialization *)v20 sendBeginBlock:v29];
 
-        objc_destroyWeak(&v29);
+        objc_destroyWeak(&v30);
+        objc_destroyWeak(&v33);
         objc_destroyWeak(&v32);
-        objc_destroyWeak(&v31);
         objc_destroyWeak(&from);
       }
 
       else
       {
-        v23 = _NSIPLogger();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v24 = _NSIPLogger();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134349314;
           selfCopy7 = self;
-          v42 = 2114;
+          v43 = 2114;
           identifierCopy5 = identifier;
-          _os_log_debug_impl(&dword_18075C000, v23, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Unable to find suitable representation conforming to type identifier '%{public}@'", buf, 0x16u);
+          _os_log_debug_impl(&dword_18075C000, v24, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Unable to find suitable representation conforming to type identifier '%{public}@'", buf, 0x16u);
         }
 
         block[0] = MEMORY[0x1E69E9820];
@@ -3092,64 +3093,64 @@ void __70__NSItemProvider_loadItemForTypeIdentifier_options_completionHandler___
       goto LABEL_27;
     }
 
-    off_1ED439848[0]();
-    if (off_1ED439850(identifier))
+    v14 = off_1ED439848[0]();
+    if (off_1ED439850(identifier, v14))
     {
-      v14 = _NSIPLogger();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v15 = _NSIPLogger();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134349056;
         selfCopy7 = self;
-        _os_log_debug_impl(&dword_18075C000, v14, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Expected class is a URL and the type identifier is a URL, loading the object as an NSURL", buf, 0xCu);
+        _os_log_debug_impl(&dword_18075C000, v15, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Expected class is a URL and the type identifier is a URL, loading the object as an NSURL", buf, 0xCu);
       }
 
-      v15 = objc_opt_class();
-      v37[0] = MEMORY[0x1E69E9820];
-      v37[1] = 3221225472;
-      v37[2] = __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCoding_completionHandler___block_invoke;
-      v37[3] = &unk_1E69F5B88;
-      v37[4] = identifier;
-      objc_copyWeak(&v38, &location);
-      v37[5] = handler;
-      [(NSItemProvider *)self _loadObjectOfClass:v15 options:options completionHandler:v37];
-      objc_destroyWeak(&v38);
+      v16 = objc_opt_class();
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCoding_completionHandler___block_invoke;
+      v38[3] = &unk_1E69F5B88;
+      v38[4] = identifier;
+      objc_copyWeak(&v39, &location);
+      v38[5] = handler;
+      [(NSItemProvider *)self _loadObjectOfClass:v16 options:options completionHandler:v38];
+      objc_destroyWeak(&v39);
       goto LABEL_27;
     }
 
-    v24 = [(NSItemProvider *)self _representationConformingToType:identifier];
-    if (v24)
+    v25 = [(NSItemProvider *)self _representationConformingToType:identifier];
+    if (v25)
     {
-      v25 = _NSIPLogger();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v26 = _NSIPLogger();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134349314;
         selfCopy7 = self;
-        v42 = 2114;
+        v43 = 2114;
         identifierCopy5 = identifier;
-        _os_log_debug_impl(&dword_18075C000, v25, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Expected class is a URL but the type identifier '%{public}@' is not a URL, loading the type identifier and attempting to convert to a URL", buf, 0x16u);
+        _os_log_debug_impl(&dword_18075C000, v26, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Expected class is a URL but the type identifier '%{public}@' is not a URL, loading the type identifier and attempting to convert to a URL", buf, 0x16u);
       }
 
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCoding_completionHandler___block_invoke_137;
-      v35[3] = &unk_1E69F5BB0;
-      v35[4] = v13;
-      v35[6] = handler;
-      objc_copyWeak(&v36, &location);
-      v35[5] = class;
-      [v24 loadWithOptions_v2:options completionHandler:v35];
-      objc_destroyWeak(&v36);
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCoding_completionHandler___block_invoke_137;
+      v36[3] = &unk_1E69F5BB0;
+      v36[4] = v13;
+      v36[6] = handler;
+      objc_copyWeak(&v37, &location);
+      v36[5] = class;
+      [v25 loadWithOptions_v2:options completionHandler:v36];
+      objc_destroyWeak(&v37);
       goto LABEL_27;
     }
 
-    v26 = _NSIPLogger();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    v27 = _NSIPLogger();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134349314;
       selfCopy7 = self;
-      v42 = 2114;
+      v43 = 2114;
       identifierCopy5 = identifier;
-      _os_log_debug_impl(&dword_18075C000, v26, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Unable to find suitable representation conforming to type identifier '%{public}@'", buf, 0x16u);
+      _os_log_debug_impl(&dword_18075C000, v27, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> Unable to find suitable representation conforming to type identifier '%{public}@'", buf, 0x16u);
       if (!handler)
       {
         goto LABEL_27;
@@ -3163,24 +3164,24 @@ LABEL_27:
       return;
     }
 
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCoding_completionHandler___block_invoke_141;
-    v34[3] = &unk_1E69F3910;
-    v34[4] = class;
-    v34[5] = handler;
-    _NSIPDispatchAsyncCallback(v34);
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCoding_completionHandler___block_invoke_141;
+    v35[3] = &unk_1E69F3910;
+    v35[4] = class;
+    v35[5] = handler;
+    _NSIPDispatchAsyncCallback(v35);
     goto LABEL_27;
   }
 
-  v16 = _NSIPLogger();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v17 = _NSIPLogger();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134349314;
     selfCopy7 = self;
-    v42 = 2114;
+    v43 = 2114;
     identifierCopy5 = identifier;
-    _os_log_debug_impl(&dword_18075C000, v16, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> No item found conforming to type identifier '%{public}@'", buf, 0x16u);
+    _os_log_debug_impl(&dword_18075C000, v17, OS_LOG_TYPE_DEBUG, "<NSItemProvider %{public}p> No item found conforming to type identifier '%{public}@'", buf, 0x16u);
   }
 
   RepresentationError = _NSIPCannotLoadRepresentationError(identifier, 0);
@@ -3190,7 +3191,7 @@ LABEL_27:
   }
 }
 
-void __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCoding_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCoding_completionHandler___block_invoke(uint64_t a1, uint64_t a2, NSError *a3)
 {
   v19 = *MEMORY[0x1E69E9840];
   if (a3)
@@ -3201,7 +3202,7 @@ void __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCo
     v12 = __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCoding_completionHandler___block_invoke_2;
     v13 = &unk_1E69F5778;
     v14 = *(a1 + 32);
-    if (([objc_msgSend(a3 "domain")] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_([(NSError *)a3 domain]) & 1) == 0)
     {
       v5 = v12(v11, v5);
     }
@@ -3327,7 +3328,7 @@ LABEL_14:
   _NSIPDispatchAsyncCallback(v8);
 }
 
-uint64_t __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCoding_completionHandler___block_invoke_140(uint64_t *a1)
+uint64_t __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCoding_completionHandler___block_invoke_140(void *a1)
 {
   v1 = a1[6];
   v2 = _NSIPUnexpectedValueClassError(a1[4], a1[5]);
@@ -3510,7 +3511,7 @@ LABEL_5:
     v32 = __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCoding_completionHandler___block_invoke_153;
     v33 = &unk_1E69F5778;
     v34 = *(a1 + 32);
-    if (![(NSString *)[(NSError *)v6 domain] isEqualToString:@"NSItemProviderErrorDomain"])
+    if ((objc_msgSend_isEqualToString_([(NSError *)v6 domain]) & 1) == 0)
     {
       v6 = v32(v31, v6);
     }
@@ -3555,8 +3556,8 @@ Class __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForC
 
 uint64_t __95__NSItemProvider__loadItemOfClass_forTypeIdentifier_options_coerceForCoding_completionHandler___block_invoke_2_151(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = [*(a1 + 32) typeIdentifier];
-  result = off_1ED439850(v6);
+  v7 = [*(a1 + 32) typeIdentifier];
+  result = off_1ED439850(v7, a2);
   if (result)
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;

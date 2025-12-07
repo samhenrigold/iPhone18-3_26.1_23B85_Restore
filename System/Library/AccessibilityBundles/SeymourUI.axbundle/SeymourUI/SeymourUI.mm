@@ -18,7 +18,7 @@ id accessibilityLocalizedString(void *a1)
 
 id _accessibilityStringForBurnBarPosition(unint64_t a1, int a2)
 {
-  v9[2] = *MEMORY[0x29EDCA608];
+  v8[2] = *MEMORY[0x29EDCA608];
   if (a1 > 4)
   {
     v3 = 0;
@@ -40,13 +40,12 @@ LABEL_3:
   }
 
   v5 = accessibilityLocalizedString(@"burn.bar.title");
-  v9[0] = v5;
-  v9[1] = v3;
-  v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:2];
+  v8[0] = v5;
+  v8[1] = v3;
+  v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v8 count:2];
   v4 = AXLabelForElements();
 
 LABEL_6:
-  v7 = *MEMORY[0x29EDCA608];
 
   return v4;
 }
@@ -265,9 +264,39 @@ void sub_29C319DC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_29C319E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29C319E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
+}
+
+CGRect CGRectIntersection(CGRect r1, CGRect r2)
+{
+  MEMORY[0x2A1C59B60](r1.origin, *&r1.origin.y, r1.size, *&r1.size.height, r2.origin, *&r2.origin.y, r2.size, *&r2.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
+}
+
+CGRect CGRectUnion(CGRect r1, CGRect r2)
+{
+  MEMORY[0x2A1C59BA0](r1.origin, *&r1.origin.y, r1.size, *&r1.size.height, r2.origin, *&r2.origin.y, r2.size, *&r2.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
+}
+
+CGRect UIAccessibilityConvertFrameToScreenCoordinates(CGRect rect, UIView *view)
+{
+  MEMORY[0x2A1C6A7E0](view, rect.origin, *&rect.origin.y, rect.size, *&rect.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
 }

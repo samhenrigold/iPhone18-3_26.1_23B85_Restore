@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)networkTypeAsString:(int)string;
 - (int)StringAsNetworkType:(id)type;
 - (int)networkType;
 - (unint64_t)hash;
@@ -47,6 +48,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFDF | v3;
+}
+
+- (id)networkTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278989F10[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsNetworkType:(id)type
@@ -324,14 +340,12 @@ LABEL_22:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 0x20) != 0)
   {
-    networkType = self->_networkType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -340,17 +354,15 @@ LABEL_22:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x10) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x10) != 0)
   {
-    loadedLQM = self->_loadedLQM;
     PBDataWriterWriteInt32Field();
-    v7 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v7 & 4) != 0)
+  if ((v5 & 4) != 0)
   {
-    lQM = self->_lQM;
     PBDataWriterWriteInt32Field();
   }
 
@@ -359,16 +371,15 @@ LABEL_22:
     PBDataWriterWriteStringField();
   }
 
-  v10 = self->_has;
-  if ((v10 & 0x100) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x100) != 0)
   {
-    isNetworkReliable = self->_isNetworkReliable;
     PBDataWriterWriteBOOLField();
-    v10 = self->_has;
-    if ((v10 & 2) == 0)
+    v6 = self->_has;
+    if ((v6 & 2) == 0)
     {
 LABEL_15:
-      if ((v10 & 8) == 0)
+      if ((v6 & 8) == 0)
       {
         goto LABEL_16;
       }
@@ -377,18 +388,17 @@ LABEL_15:
     }
   }
 
-  else if ((v10 & 2) == 0)
+  else if ((v6 & 2) == 0)
   {
     goto LABEL_15;
   }
 
-  dataStalls = self->_dataStalls;
   PBDataWriterWriteUint32Field();
-  v10 = self->_has;
-  if ((v10 & 8) == 0)
+  v6 = self->_has;
+  if ((v6 & 8) == 0)
   {
 LABEL_16:
-    if ((v10 & 0x80) == 0)
+    if ((v6 & 0x80) == 0)
     {
       goto LABEL_17;
     }
@@ -397,13 +407,12 @@ LABEL_16:
   }
 
 LABEL_24:
-  lastReportedRSSI = self->_lastReportedRSSI;
   PBDataWriterWriteInt32Field();
-  v10 = self->_has;
-  if ((v10 & 0x80) == 0)
+  v6 = self->_has;
+  if ((v6 & 0x80) == 0)
   {
 LABEL_17:
-    if ((v10 & 0x40) == 0)
+    if ((v6 & 0x40) == 0)
     {
       goto LABEL_19;
     }
@@ -412,12 +421,10 @@ LABEL_17:
   }
 
 LABEL_25:
-  isLowInternetUL = self->_isLowInternetUL;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_18:
-    isLowInternetDL = self->_isLowInternetDL;
     PBDataWriterWriteBOOLField();
   }
 
@@ -731,7 +738,6 @@ LABEL_14:
       goto LABEL_61;
     }
 
-    v11 = *(equalCopy + 58);
     if (self->_isNetworkReliable)
     {
       if ((*(equalCopy + 58) & 1) == 0)
@@ -784,7 +790,6 @@ LABEL_14:
       goto LABEL_61;
     }
 
-    v13 = *(equalCopy + 57);
     if (self->_isLowInternetUL)
     {
       if ((*(equalCopy + 57) & 1) == 0)
@@ -819,20 +824,20 @@ LABEL_14:
       else if (!*(equalCopy + 56))
       {
 LABEL_63:
-        v12 = 1;
+        v11 = 1;
         goto LABEL_62;
       }
     }
 
 LABEL_61:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_62;
   }
 
-  v12 = (v10 & 0x40) == 0;
+  v11 = (v10 & 0x40) == 0;
 LABEL_62:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

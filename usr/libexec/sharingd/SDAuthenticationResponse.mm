@@ -83,43 +83,41 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_sessionID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_awdlInfo)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteUint32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_aksToken)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_underlyingError)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -207,7 +205,6 @@
     goto LABEL_20;
   }
 
-  v5 = *(equalCopy + 52);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 52) & 2) == 0 || self->_version != *(equalCopy + 12))
@@ -219,7 +216,7 @@
   else if ((*(equalCopy + 52) & 2) != 0)
   {
 LABEL_20:
-    v11 = 0;
+    v9 = 0;
     goto LABEL_21;
   }
 
@@ -238,7 +235,6 @@ LABEL_20:
     }
   }
 
-  v8 = *(equalCopy + 52);
   if (*&self->_has)
   {
     if ((*(equalCopy + 52) & 1) == 0 || self->_errorCode != *(equalCopy + 6))
@@ -261,17 +257,17 @@ LABEL_20:
   underlyingError = self->_underlyingError;
   if (underlyingError | *(equalCopy + 5))
   {
-    v11 = [(NSData *)underlyingError isEqual:?];
+    v9 = [(NSData *)underlyingError isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v9 = 1;
   }
 
 LABEL_21:
 
-  return v11;
+  return v9;
 }
 
 - (unint64_t)hash

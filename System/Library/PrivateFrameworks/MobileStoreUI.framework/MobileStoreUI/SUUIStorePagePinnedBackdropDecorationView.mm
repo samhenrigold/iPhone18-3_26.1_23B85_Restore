@@ -109,7 +109,7 @@
     v21 = 0;
   }
 
-  if (groupName != v21 && ([(__CFString *)groupName isEqualToString:v21, v20]& 1) == 0)
+  if (groupName != v21 && (objc_msgSend_isEqualToString_(groupName, v20) & 1) == 0)
   {
     [(_UIBackdropView *)self->_backdropView setGroupName:v21];
   }

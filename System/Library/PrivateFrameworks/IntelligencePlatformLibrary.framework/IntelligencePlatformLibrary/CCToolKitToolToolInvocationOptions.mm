@@ -258,7 +258,7 @@ LABEL_59:
 
 LABEL_61:
           v11 = 0;
-          v54 = 20;
+          v53 = 20;
           goto LABEL_62;
         }
 
@@ -272,7 +272,6 @@ LABEL_52:
             selfCopy = self;
             errorCopy = error;
             v52 = v51 = dataCopy;
-            v53 = *&v7[*v10];
             v11 = CCSkipFieldErrorForMessage();
 
             dataCopy = v51;
@@ -332,15 +331,15 @@ LABEL_37:
 LABEL_64:
               if (*&v7[*v10])
               {
-                v55 = 1;
+                v54 = 1;
               }
 
               else
               {
-                v55 = v27 == 0;
+                v54 = v27 == 0;
               }
 
-              v32 = !v55;
+              v32 = !v54;
 LABEL_70:
               v11 = 0;
               self->_shortcutOutput = v32;
@@ -396,9 +395,9 @@ LABEL_55:
 
 LABEL_57:
           v11 = 0;
-          v54 = 24;
+          v53 = 24;
 LABEL_62:
-          *(&self->super.super.isa + v54) = v38;
+          *(&self->super.super.isa + v53) = v38;
           goto LABEL_71;
         }
 
@@ -424,22 +423,21 @@ LABEL_62:
 LABEL_74:
   if (!*&v7[*v10])
   {
-    v59 = 1;
+    v57 = 1;
     goto LABEL_78;
   }
 
 LABEL_75:
-  v56 = objc_opt_class();
-  v11 = NSStringFromClass(v56);
-  v57 = *&v7[*v10];
-  v58 = CCInvalidBufferErrorForMessage();
+  v55 = objc_opt_class();
+  v11 = NSStringFromClass(v55);
+  v56 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_76:
-  v59 = 0;
+  v57 = 0;
 LABEL_78:
 
-  return v59;
+  return v57;
 }
 
 - (CCToolKitToolToolInvocationOptions)initWithInteractionMode:(unsigned int)mode locale:(id)locale requestIdentifier:(id)identifier interfaceIdiom:(unsigned int)idiom shortcutOutput:(id)output error:(id *)error

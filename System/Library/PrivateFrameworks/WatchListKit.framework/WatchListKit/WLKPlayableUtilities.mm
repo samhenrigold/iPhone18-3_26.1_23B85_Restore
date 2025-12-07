@@ -330,7 +330,7 @@ LABEL_25:
 
 + (BOOL)_playNonITunesPlayableUsingAssociatedApp:(id)app
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   appCopy = app;
   if ([appCopy isEntitled])
   {
@@ -344,30 +344,30 @@ LABEL_25:
       v7 = v6;
       if (v6)
       {
-        v25 = v6;
-        v26 = v5;
-        v29 = 0u;
-        v30 = 0u;
-        v27 = 0u;
+        v24 = v6;
+        v25 = v5;
         v28 = 0u;
+        v29 = 0u;
+        v26 = 0u;
+        v27 = 0u;
         channelDetails = [appCopy channelDetails];
         appBundleIDs = [channelDetails appBundleIDs];
 
-        v10 = [appBundleIDs countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v10 = [appBundleIDs countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v28;
+          v12 = *v27;
 LABEL_6:
           v13 = 0;
           while (1)
           {
-            if (*v28 != v12)
+            if (*v27 != v12)
             {
               objc_enumerationMutation(appBundleIDs);
             }
 
-            v14 = *(*(&v27 + 1) + 8 * v13);
+            v14 = *(*(&v26 + 1) + 8 * v13);
             v15 = +[WLKAppLibrary defaultAppLibrary];
             allAppBundleIdentifiers = [v15 allAppBundleIdentifiers];
             v17 = [allAppBundleIdentifiers containsObject:v14];
@@ -379,7 +379,7 @@ LABEL_6:
 
             if (v11 == ++v13)
             {
-              v11 = [appBundleIDs countByEnumeratingWithState:&v27 objects:v31 count:16];
+              v11 = [appBundleIDs countByEnumeratingWithState:&v26 objects:v30 count:16];
               if (v11)
               {
                 goto LABEL_6;
@@ -399,11 +399,11 @@ LABEL_6:
           v18 = 1;
           appBundleIDs2 = WLKLaunchOptionsForPlayback(1);
           defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-          v7 = v25;
-          v22 = [defaultWorkspace operationToOpenResource:v25 usingApplication:channelDetails2 uniqueDocumentIdentifier:0 isContentManaged:0 sourceAuditToken:0 userInfo:0 options:appBundleIDs2 delegate:0];
+          v7 = v24;
+          v22 = [defaultWorkspace operationToOpenResource:v24 usingApplication:channelDetails2 uniqueDocumentIdentifier:0 isContentManaged:0 sourceAuditToken:0 userInfo:0 options:appBundleIDs2 delegate:0];
 
           [v22 main];
-          v5 = v26;
+          v5 = v25;
         }
 
         else
@@ -415,8 +415,8 @@ LABEL_17:
           appBundleIDs2 = [channelDetails2 appBundleIDs];
           NSLog(&cfstr_Wlkplayableuti_5.isa, appBundleIDs2);
           v18 = 0;
-          v7 = v25;
-          v5 = v26;
+          v7 = v24;
+          v5 = v25;
         }
       }
 
@@ -437,7 +437,6 @@ LABEL_17:
     v18 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

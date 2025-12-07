@@ -18,6 +18,7 @@
 - (void)helpTopicViewControllerShowHelpBookInfo:(id)info;
 - (void)loadHTMLString:(id)string anchor:(id)anchor;
 - (void)loadHelpTopicItem:(id)item accessType:(int64_t)type searchTerms:(id)terms anchor:(id)anchor;
+- (void)loadWithInfo:(id)info allowErrorMessage:(BOOL)message;
 - (void)logAnalyticsContentViewedWithTopicID:(id)d topicTitle:(id)title source:(id)source fromTopicID:(id)iD externalURLString:(id)string;
 - (void)registerTraitChanges;
 - (void)reloadCurrentTopic;
@@ -36,7 +37,10 @@
 - (void)updateNavigationButtons;
 - (void)updateScrollPositionForCurrentTopicItem;
 - (void)updateURLSchemeTask:(id)task URL:(id)l MIMEType:(id)type data:(id)data error:(id)error;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)webView:(id)view decidePolicyForNavigationAction:(id)action decisionHandler:(id)handler;
 - (void)webView:(id)view didFailNavigation:(id)navigation withError:(id)error;
 - (void)webView:(id)view didFinishNavigation:(id)navigation;
@@ -107,6 +111,58 @@
   [(HLPHelpTopicViewController *)self registerTraitChanges];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v14.receiver = self;
+  v14.super_class = HLPHelpTopicViewController;
+  [(HLPHelpTopicViewController *)&v14 viewWillAppear:appear];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter addObserver:self selector:sel_contentSizeCategoryDidChange_ name:*MEMORY[0x277D76810] object:0];
+
+  navigationController = [(HLPHelpTopicViewController *)self navigationController];
+  interactivePopGestureRecognizer = [navigationController interactivePopGestureRecognizer];
+  delegate = [interactivePopGestureRecognizer delegate];
+  interactivePopGestureRecognizerDelegate = self->_interactivePopGestureRecognizerDelegate;
+  self->_interactivePopGestureRecognizerDelegate = delegate;
+
+  navigationController2 = [(HLPHelpTopicViewController *)self navigationController];
+  interactivePopGestureRecognizer2 = [navigationController2 interactivePopGestureRecognizer];
+  [interactivePopGestureRecognizer2 setDelegate:self];
+
+  [(HLPHelpTopicViewController *)self updateDoneButton];
+  identifier = [(HLPHelpTopicHistoryItem *)self->_currentTopicHistoryItem identifier];
+  if ([(HLPHelpTopicViewController *)self fullBookView]&& identifier)
+  {
+    v12 = [(HLPHelpBookController *)self->_helpBookController helpTopicItemForID:identifier];
+    delegate2 = [(HLPHelpTopicViewController *)self delegate];
+    [delegate2 helpTopicViewController:self selectedHelpTopicItem:v12 accessType:0];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = HLPHelpTopicViewController;
+  [(HLPHelpTopicViewController *)&v4 viewDidAppear:appear];
+  self->_canShowTOC = 1;
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v8.receiver = self;
+  v8.super_class = HLPHelpTopicViewController;
+  [(HLPHelpTopicViewController *)&v8 viewWillDisappear:disappear];
+  [(HLPHelpTopicViewController *)self updateScrollPositionForCurrentTopicItem];
+  [(HLPHelpTopicViewController *)self saveCurrentTopicItem];
+  interactivePopGestureRecognizerDelegate = self->_interactivePopGestureRecognizerDelegate;
+  navigationController = [(HLPHelpTopicViewController *)self navigationController];
+  interactivePopGestureRecognizer = [navigationController interactivePopGestureRecognizer];
+  [interactivePopGestureRecognizer setDelegate:interactivePopGestureRecognizerDelegate];
+
+  v7 = self->_interactivePopGestureRecognizerDelegate;
+  self->_interactivePopGestureRecognizerDelegate = 0;
+}
+
 - (void)setFullBookView:(BOOL)view
 {
   if (self->_fullBookView != view)
@@ -118,7 +174,7 @@
 
 - (void)updateNavigationBar
 {
-  v34[4] = *MEMORY[0x277D85DE8];
+  v31[4] = *MEMORY[0x277D85DE8];
   if (self->_displayHelpTopicsOnly || [(HLPHelpTopicViewController *)self fullBookView])
   {
     v3 = 0;
@@ -126,8 +182,8 @@
 
   else
   {
-    v32 = [MEMORY[0x277D755B8] systemImageNamed:@"list.bullet"];
-    v4 = [objc_alloc(MEMORY[0x277D751E0]) initWithImage:v32 style:0 target:self action:sel_showTableOfContent];
+    v29 = [MEMORY[0x277D755B8] systemImageNamed:@"list.bullet"];
+    v4 = [objc_alloc(MEMORY[0x277D751E0]) initWithImage:v29 style:0 target:self action:sel_showTableOfContent];
     tocBarButtonItem = self->_tocBarButtonItem;
     self->_tocBarButtonItem = v4;
 
@@ -135,10 +191,10 @@
     v7 = [v6 localizedStringForKey:@"Show Table of Contents" value:&stru_2864756F0 table:0];
     [(UIBarButtonItem *)self->_tocBarButtonItem setAccessibilityLabel:v7];
 
-    v30 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:6 target:0 action:0];
-    [v30 setWidth:*&gHLPHelpTopicViewSpacerWidth];
-    v31 = [MEMORY[0x277D755B8] systemImageNamed:@"chevron.backward"];
-    v8 = [objc_alloc(MEMORY[0x277D751E0]) initWithImage:v31 style:0 target:self action:sel_backButtonTapped];
+    v27 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:6 target:0 action:0];
+    [v27 setWidth:*&gHLPHelpTopicViewSpacerWidth];
+    v28 = [MEMORY[0x277D755B8] systemImageNamed:@"chevron.backward"];
+    v8 = [objc_alloc(MEMORY[0x277D751E0]) initWithImage:v28 style:0 target:self action:sel_backButtonTapped];
     backBarButtonItem = self->_backBarButtonItem;
     self->_backBarButtonItem = v8;
 
@@ -167,39 +223,35 @@
     v21 = [v20 localizedStringForKey:@"Navigates forward in the history of visited topics." value:&stru_2864756F0 table:0];
     [(UIBarButtonItem *)self->_forwardBarButtonItem setAccessibilityHint:v21];
 
-    v22 = _UISolariumEnabled();
-    v23 = self->_tocBarButtonItem;
-    if (v22)
+    if (_UISolariumEnabled())
     {
-      v34[0] = self->_tocBarButtonItem;
-      v34[1] = v30;
-      v24 = self->_forwardBarButtonItem;
-      v34[2] = self->_backBarButtonItem;
-      v34[3] = v24;
-      v25 = MEMORY[0x277CBEA60];
-      v26 = v34;
-      v27 = 4;
+      v31[0] = self->_tocBarButtonItem;
+      v31[1] = v27;
+      v22 = self->_forwardBarButtonItem;
+      v31[2] = self->_backBarButtonItem;
+      v31[3] = v22;
+      v23 = MEMORY[0x277CBEA60];
+      v24 = v31;
+      v25 = 4;
     }
 
     else
     {
-      v33[0] = self->_tocBarButtonItem;
-      v33[1] = v30;
-      v33[2] = self->_backBarButtonItem;
-      v33[3] = v10;
-      v33[4] = self->_forwardBarButtonItem;
-      v25 = MEMORY[0x277CBEA60];
-      v26 = v33;
-      v27 = 5;
+      v30[0] = self->_tocBarButtonItem;
+      v30[1] = v27;
+      v30[2] = self->_backBarButtonItem;
+      v30[3] = v10;
+      v30[4] = self->_forwardBarButtonItem;
+      v23 = MEMORY[0x277CBEA60];
+      v24 = v30;
+      v25 = 5;
     }
 
-    v3 = [v25 arrayWithObjects:v26 count:v27];
+    v3 = [v23 arrayWithObjects:v24 count:v25];
   }
 
   navigationItem = [(HLPHelpTopicViewController *)self navigationItem];
   [navigationItem setLeftBarButtonItems:v3];
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (HLPHelpLoadingView)loadingView
@@ -553,6 +605,25 @@ LABEL_8:
   [(HLPHelpTopicViewController *)self _loadWithInfo:v6];
 }
 
+- (void)loadWithInfo:(id)info allowErrorMessage:(BOOL)message
+{
+  messageCopy = message;
+  topicHistory = self->_topicHistory;
+  infoCopy = info;
+  if ([(NSMutableArray *)topicHistory count])
+  {
+    [(UIBarButtonItem *)self->_tocBarButtonItem setEnabled:1];
+  }
+
+  else
+  {
+    helpTopicItem = [infoCopy helpTopicItem];
+    [(UIBarButtonItem *)self->_tocBarButtonItem setEnabled:helpTopicItem != 0];
+  }
+
+  [(HLPHelpTopicViewController *)self _loadWithInfo:infoCopy allowErrorMessage:messageCopy];
+}
+
 - (void)loadHelpTopicItem:(id)item accessType:(int64_t)type searchTerms:(id)terms anchor:(id)anchor
 {
   v7 = [HLPLoadInfo infoWithTopicItem:item accessType:type searchTerms:terms anchor:anchor];
@@ -562,7 +633,7 @@ LABEL_8:
 - (void)_loadWithInfo:(id)info allowErrorMessage:(BOOL)message
 {
   messageCopy = message;
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   helpTopicItem = [infoCopy helpTopicItem];
   obj = [infoCopy searchTerms];
@@ -572,7 +643,7 @@ LABEL_8:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v109 = helpTopicItem;
+    v108 = helpTopicItem;
     _os_log_impl(&dword_2522BC000, v7, OS_LOG_TYPE_DEFAULT, "Loading topic %@", buf, 0xCu);
   }
 
@@ -658,16 +729,16 @@ LABEL_34:
     {
       if (accessType == 2)
       {
-        v89 = [(NSMutableArray *)self->_topicHistory indexOfObject:self->_currentTopicHistoryItem]- 1;
-        if (v89 > 0x7FFFFFFFFFFFFFFDLL)
+        v88 = [(NSMutableArray *)self->_topicHistory indexOfObject:self->_currentTopicHistoryItem]- 1;
+        if (v88 > 0x7FFFFFFFFFFFFFFDLL)
         {
           goto LABEL_52;
         }
 
         [(HLPHelpTopicViewController *)self updateScrollPositionForCurrentTopicItem];
-        v90 = [(NSMutableArray *)self->_topicHistory objectAtIndexedSubscript:v89];
+        v89 = [(NSMutableArray *)self->_topicHistory objectAtIndexedSubscript:v88];
         currentTopicHistoryItem = self->_currentTopicHistoryItem;
-        self->_currentTopicHistoryItem = v90;
+        self->_currentTopicHistoryItem = v89;
 
         helpBookController = self->_helpBookController;
         identifier3 = [(HLPHelpTopicHistoryItem *)self->_currentTopicHistoryItem identifier];
@@ -757,9 +828,9 @@ LABEL_34:
       v35 = MEMORY[0x277CBEB98];
       v36 = objc_opt_class();
       v37 = [v35 setWithObjects:{v36, objc_opt_class(), 0}];
-      v107 = 0;
-      v38 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v37 fromData:v30 error:&v107];
-      v39 = v107;
+      v106 = 0;
+      v38 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v37 fromData:v30 error:&v106];
+      v39 = v106;
       v40 = self->_currentTopicHistoryItem;
       self->_currentTopicHistoryItem = v38;
     }
@@ -874,7 +945,7 @@ LABEL_67:
       if (v69)
       {
         v70 = [MEMORY[0x277CCAB70] requestWithURL:v69];
-        v95 = v69;
+        v94 = v69;
         v71 = +[HLPCommonDefines contentRequestHeaderFields];
         if (v71)
         {
@@ -884,19 +955,19 @@ LABEL_67:
 
         v72 = +[HLPJSONCacheController sharedInstance];
         identifier15 = [helpTopicItem identifier];
-        v99[0] = MEMORY[0x277D85DD0];
-        v99[1] = 3221225472;
-        v99[2] = __62__HLPHelpTopicViewController__loadWithInfo_allowErrorMessage___block_invoke_2;
-        v99[3] = &unk_2797073A8;
-        objc_copyWeak(&v102, buf);
-        v100 = helpTopicItem;
-        v101 = anchor;
-        v74 = [v72 formattedDataForRequest:v70 identifier:identifier15 completionHandler:v99];
+        v98[0] = MEMORY[0x277D85DD0];
+        v98[1] = 3221225472;
+        v98[2] = __62__HLPHelpTopicViewController__loadWithInfo_allowErrorMessage___block_invoke_2;
+        v98[3] = &unk_2797073A8;
+        objc_copyWeak(&v101, buf);
+        v99 = helpTopicItem;
+        v100 = anchor;
+        v74 = [v72 formattedDataForRequest:v70 identifier:identifier15 completionHandler:v98];
         URLSessionItem = self->_URLSessionItem;
         self->_URLSessionItem = v74;
 
-        objc_destroyWeak(&v102);
-        v69 = v95;
+        objc_destroyWeak(&v101);
+        v69 = v94;
       }
     }
 
@@ -919,18 +990,18 @@ LABEL_64:
       v69 = [MEMORY[0x277CCAD20] requestWithURL:v68];
       v79 = +[HLPStringCacheController sharedInstance];
       hrefID4 = [helpTopicItem hrefID];
-      v103[0] = MEMORY[0x277D85DD0];
-      v103[1] = 3221225472;
-      v103[2] = __62__HLPHelpTopicViewController__loadWithInfo_allowErrorMessage___block_invoke;
-      v103[3] = &unk_279707380;
-      objc_copyWeak(&v106, buf);
-      v104 = anchor;
-      v105 = helpTopicItem;
-      v81 = [v79 formattedDataForRequest:v69 identifier:hrefID4 completionHandler:v103];
+      v102[0] = MEMORY[0x277D85DD0];
+      v102[1] = 3221225472;
+      v102[2] = __62__HLPHelpTopicViewController__loadWithInfo_allowErrorMessage___block_invoke;
+      v102[3] = &unk_279707380;
+      objc_copyWeak(&v105, buf);
+      v103 = anchor;
+      v104 = helpTopicItem;
+      v81 = [v79 formattedDataForRequest:v69 identifier:hrefID4 completionHandler:v102];
       v82 = self->_URLSessionItem;
       self->_URLSessionItem = v81;
 
-      objc_destroyWeak(&v106);
+      objc_destroyWeak(&v105);
     }
 
     goto LABEL_64;
@@ -946,8 +1017,6 @@ LABEL_64:
   }
 
 LABEL_70:
-
-  v88 = *MEMORY[0x277D85DE8];
 }
 
 void __62__HLPHelpTopicViewController__loadWithInfo_allowErrorMessage___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, void *a6)
@@ -983,10 +1052,10 @@ void __62__HLPHelpTopicViewController__loadWithInfo_allowErrorMessage___block_in
 
 void __62__HLPHelpTopicViewController__loadWithInfo_allowErrorMessage___block_invoke_2(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5, void *a6)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v10 = a2;
-  v46 = a3;
-  v45 = a5;
+  v45 = a3;
+  v44 = a5;
   v11 = a6;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v13 = [WeakRetained delegate];
@@ -1004,41 +1073,41 @@ void __62__HLPHelpTopicViewController__loadWithInfo_allowErrorMessage___block_in
       v14 = [v10 objectForKeyedSubscript:@"bookResponse"];
       v15 = [v14 objectForKeyedSubscript:@"articles"];
       v16 = [v15 firstObject];
-      v43 = v14;
+      v42 = v14;
 
-      v44 = v16;
+      v43 = v16;
       v17 = [v16 objectForKeyedSubscript:@"categoryInfo"];
       v18 = [v17 objectForKeyedSubscript:@"categories"];
 
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
       v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
       v19 = v18;
-      v20 = [v19 countByEnumeratingWithState:&v47 objects:v51 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v46 objects:v50 count:16];
       if (v20)
       {
-        v21 = *v48;
+        v21 = *v47;
         while (2)
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v48 != v21)
+            if (*v47 != v21)
             {
               objc_enumerationMutation(v19);
             }
 
-            if ([*(*(&v47 + 1) + 8 * i) containsString:@"passionpoints"])
+            if ([*(*(&v46 + 1) + 8 * i) containsString:@"passionpoints"])
             {
               [*(a1 + 32) setCategories:&unk_28647D1D0];
-              v25 = [WeakRetained delegate];
-              [v25 helpTopicViewControllerCurrentTopicIsPassionPoint:WeakRetained];
+              v24 = [WeakRetained delegate];
+              [v24 helpTopicViewControllerCurrentTopicIsPassionPoint:WeakRetained];
 
               goto LABEL_16;
             }
           }
 
-          v20 = [v19 countByEnumeratingWithState:&v47 objects:v51 count:16];
+          v20 = [v19 countByEnumeratingWithState:&v46 objects:v50 count:16];
           if (v20)
           {
             continue;
@@ -1050,42 +1119,40 @@ void __62__HLPHelpTopicViewController__loadWithInfo_allowErrorMessage___block_in
 
 LABEL_16:
 
-      v26 = [v44 objectForKeyedSubscript:@"content"];
-      v42 = [v26 objectForKeyedSubscript:@"sections"];
+      v25 = [v43 objectForKeyedSubscript:@"content"];
+      v41 = [v25 objectForKeyedSubscript:@"sections"];
 
-      v41 = [v43 objectForKeyedSubscript:@"title"];
-      v27 = [v42 firstObject];
-      v40 = [v27 objectForKeyedSubscript:@"text"];
+      v40 = [v42 objectForKeyedSubscript:@"title"];
+      v26 = [v41 firstObject];
+      v39 = [v26 objectForKeyedSubscript:@"text"];
 
-      v28 = [WeakRetained helpBookController];
-      v29 = [v28 locale];
-      v30 = [v29 isoCodes];
-      v31 = [v30 firstObject];
-      v32 = v31;
-      v33 = @"en";
-      if (v31)
+      v27 = [WeakRetained helpBookController];
+      v28 = [v27 locale];
+      v29 = [v28 isoCodes];
+      v30 = [v29 firstObject];
+      v31 = v30;
+      v32 = @"en";
+      if (v30)
       {
-        v33 = v31;
+        v32 = v30;
       }
 
-      v34 = v33;
+      v33 = v32;
 
-      v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"<html lang=%@><head><meta charset=UTF-8><title>%@</title></head>", v34, v41];
-      v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@</html>", v35, v40];
+      v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"<html lang=%@><head><meta charset=UTF-8><title>%@</title></head>", v33, v40];
+      v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@</html>", v34, v39];
 
-      [WeakRetained loadHTMLString:v36 anchor:*(a1 + 40)];
-      v37 = [WeakRetained topicCache];
-      v38 = [*(a1 + 32) identifier];
-      [v37 setObject:v36 forKey:v38 cost:{objc_msgSend(v46, "length")}];
+      [WeakRetained loadHTMLString:v35 anchor:*(a1 + 40)];
+      v36 = [WeakRetained topicCache];
+      v37 = [*(a1 + 32) identifier];
+      [v36 setObject:v35 forKey:v37 cost:{objc_msgSend(v45, "length")}];
 
-      v39 = [WeakRetained delegate];
-      [v39 helpTopicViewController:WeakRetained topicLoaded:*(a1 + 32)];
+      v38 = [WeakRetained delegate];
+      [v38 helpTopicViewController:WeakRetained topicLoaded:*(a1 + 32)];
     }
   }
 
   [WeakRetained setURLSessionItem:0];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadHTMLString:(id)string anchor:(id)anchor
@@ -1565,7 +1632,7 @@ void __46__HLPHelpTopicViewController_showWebViewDelay__block_invoke(uint64_t a1
 
 - (void)webView:(id)view decidePolicyForNavigationAction:(id)action decisionHandler:(id)handler
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   actionCopy = action;
   handlerCopy = handler;
@@ -1626,16 +1693,16 @@ void __46__HLPHelpTopicViewController_showWebViewDelay__block_invoke(uint64_t a1
 
   if (![actionCopy navigationType])
   {
-    v62 = 0;
-    v63 = &v62;
-    v64 = 0x2020000000;
-    v65 = 0;
+    v61 = 0;
+    v62 = &v61;
+    v63 = 0x2020000000;
+    v64 = 0;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v67 = 0x3032000000;
-    v68 = __Block_byref_object_copy__2;
-    v69 = __Block_byref_object_dispose__2;
-    v70 = 0;
+    v66 = 0x3032000000;
+    v67 = __Block_byref_object_copy__2;
+    v68 = __Block_byref_object_dispose__2;
+    v69 = 0;
     if ([(HLPHelpBookController *)self->_helpBookController serverType]== 1)
     {
       v26 = objc_alloc(MEMORY[0x277CCACE0]);
@@ -1644,13 +1711,13 @@ void __46__HLPHelpTopicViewController_showWebViewDelay__block_invoke(uint64_t a1
       v29 = [v26 initWithString:absoluteString3];
 
       queryItems4 = [v29 queryItems];
-      v61[0] = MEMORY[0x277D85DD0];
-      v61[1] = 3221225472;
-      v61[2] = __86__HLPHelpTopicViewController_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke;
-      v61[3] = &unk_2797073D0;
-      v61[4] = &v62;
-      v61[5] = &buf;
-      [queryItems4 enumerateObjectsWithOptions:2 usingBlock:v61];
+      v60[0] = MEMORY[0x277D85DD0];
+      v60[1] = 3221225472;
+      v60[2] = __86__HLPHelpTopicViewController_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke;
+      v60[3] = &unk_2797073D0;
+      v60[4] = &v61;
+      v60[5] = &buf;
+      [queryItems4 enumerateObjectsWithOptions:2 usingBlock:v60];
     }
 
     v31 = [request URL];
@@ -1692,7 +1759,7 @@ void __46__HLPHelpTopicViewController_showWebViewDelay__block_invoke(uint64_t a1
     }
 
     mEMORY[0x277D75128]2 = [(HLPHelpBookController *)self->_helpBookController helpTopicItemForID:*(*(&buf + 1) + 40)];
-    if (mEMORY[0x277D75128]2 || *(v63 + 24) == 1 && (mEMORY[0x277D75128]2 = objc_alloc_init(HLPHelpTopicItem), [(HLPHelpItem *)mEMORY[0x277D75128]2 setIdentifier:*(*(&buf + 1) + 40)], [(HLPHelpTopicItem *)mEMORY[0x277D75128]2 setCategories:&unk_28647D1E8], [(HLPHelpBookController *)self->_helpBookController addAsideTopic:mEMORY[0x277D75128]2], mEMORY[0x277D75128]2))
+    if (mEMORY[0x277D75128]2 || *(v62 + 24) == 1 && (mEMORY[0x277D75128]2 = objc_alloc_init(HLPHelpTopicItem), [(HLPHelpItem *)mEMORY[0x277D75128]2 setIdentifier:*(*(&buf + 1) + 40)], [(HLPHelpTopicItem *)mEMORY[0x277D75128]2 setCategories:&unk_28647D1E8], [(HLPHelpBookController *)self->_helpBookController addAsideTopic:mEMORY[0x277D75128]2], mEMORY[0x277D75128]2))
     {
       hrefID = [(HLPHelpTopicItem *)mEMORY[0x277D75128]2 hrefID];
       v49 = [hrefID hasPrefix:@"http"];
@@ -1728,7 +1795,7 @@ LABEL_31:
 LABEL_33:
 
     _Block_object_dispose(&buf, 8);
-    _Block_object_dispose(&v62, 8);
+    _Block_object_dispose(&v61, 8);
 LABEL_34:
     v25 = 0;
     goto LABEL_35;
@@ -1737,8 +1804,6 @@ LABEL_34:
   v25 = 1;
 LABEL_35:
   handlerCopy[2](handlerCopy, v25);
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 void __86__HLPHelpTopicViewController_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -1836,11 +1901,11 @@ void __86__HLPHelpTopicViewController_webView_decidePolicyForNavigationAction_de
 
 - (void)webView:(id)view startURLSchemeTask:(id)task
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   viewCopy = view;
   taskCopy = task;
   request = [taskCopy request];
-  v40 = [request URL];
+  v39 = [request URL];
 
   v7 = objc_alloc(MEMORY[0x277CCACE0]);
   request2 = [taskCopy request];
@@ -1894,9 +1959,9 @@ void __86__HLPHelpTopicViewController_webView_decidePolicyForNavigationAction_de
       {
         v21 = v18;
         v24 = MEMORY[0x277CCA9B8];
-        v52 = @"URL";
-        v53[0] = value;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+        v51 = @"URL";
+        v52[0] = value;
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:&v51 count:1];
         v25 = [v24 errorWithDomain:@"file not found" code:-1 userInfo:v20];
         [taskCopy didFailWithError:v25];
       }
@@ -1911,58 +1976,58 @@ LABEL_20:
     if (v17)
     {
       webViewRequestsDataMap = [(HLPHelpTopicViewController *)self webViewRequestsDataMap];
-      absoluteString = [v40 absoluteString];
-      v37 = [webViewRequestsDataMap objectForKeyedSubscript:absoluteString];
+      absoluteString = [v39 absoluteString];
+      v36 = [webViewRequestsDataMap objectForKeyedSubscript:absoluteString];
 
-      v21 = v37;
-      if (v37)
+      v21 = v36;
+      if (v36)
       {
-        [(HLPHelpTopicViewController *)self updateURLSchemeTask:taskCopy URL:v17 MIMEType:v16 data:v37 error:0];
+        [(HLPHelpTopicViewController *)self updateURLSchemeTask:taskCopy URL:v17 MIMEType:v16 data:v36 error:0];
       }
 
       else
       {
         objc_initWeak(&location, self);
-        v27 = [MEMORY[0x277CCAB70] requestWithURL:v17];
-        v36 = +[HLPCommonDefines assetRequestHeaderFields];
-        if (v36)
+        v26 = [MEMORY[0x277CCAB70] requestWithURL:v17];
+        v35 = +[HLPCommonDefines assetRequestHeaderFields];
+        if (v35)
         {
-          [v27 setCachePolicy:1];
-          [v27 setAllHTTPHeaderFields:v36];
+          [v26 setCachePolicy:1];
+          [v26 setAllHTTPHeaderFields:v35];
         }
 
         from = 0;
-        v28 = +[HLPDataCacheController sharedInstance];
+        v27 = +[HLPDataCacheController sharedInstance];
         lastPathComponent = [v17 lastPathComponent];
-        v42[0] = MEMORY[0x277D85DD0];
-        v42[1] = 3221225472;
-        v42[2] = __57__HLPHelpTopicViewController_webView_startURLSchemeTask___block_invoke;
-        v42[3] = &unk_2797073F8;
-        objc_copyWeak(&v48, &location);
-        v34 = v40;
-        v43 = v34;
-        objc_copyWeak(&v49, &from);
+        v41[0] = MEMORY[0x277D85DD0];
+        v41[1] = 3221225472;
+        v41[2] = __57__HLPHelpTopicViewController_webView_startURLSchemeTask___block_invoke;
+        v41[3] = &unk_2797073F8;
+        objc_copyWeak(&v47, &location);
+        v33 = v39;
+        v42 = v33;
+        objc_copyWeak(&v48, &from);
         selfCopy = self;
-        v45 = taskCopy;
+        v44 = taskCopy;
         v17 = v17;
-        v46 = v17;
-        v47 = v16;
-        v29 = [v28 formattedDataForRequest:v27 identifier:lastPathComponent completionHandler:v42];
-        objc_storeWeak(&from, v29);
+        v45 = v17;
+        v46 = v16;
+        v28 = [v27 formattedDataForRequest:v26 identifier:lastPathComponent completionHandler:v41];
+        objc_storeWeak(&from, v28);
 
-        v30 = objc_loadWeakRetained(&from);
-        if (v30)
+        v29 = objc_loadWeakRetained(&from);
+        if (v29)
         {
-          v31 = +[HLPURLSessionManager defaultManager];
-          v32 = objc_loadWeakRetained(&from);
-          [v31 resumeSessionItem:v32];
+          v30 = +[HLPURLSessionManager defaultManager];
+          v31 = objc_loadWeakRetained(&from);
+          [v30 resumeSessionItem:v31];
 
-          v33 = objc_loadWeakRetained(&from);
-          [(NSMutableDictionary *)self->_webViewRequestsMap setObject:v33 forKeyedSubscript:v34];
+          v32 = objc_loadWeakRetained(&from);
+          [(NSMutableDictionary *)self->_webViewRequestsMap setObject:v32 forKeyedSubscript:v33];
         }
 
-        objc_destroyWeak(&v49);
         objc_destroyWeak(&v48);
+        objc_destroyWeak(&v47);
         objc_destroyWeak(&from);
 
         objc_destroyWeak(&location);
@@ -1972,8 +2037,6 @@ LABEL_20:
       goto LABEL_20;
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HLPHelpTopicViewController_webView_startURLSchemeTask___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, void *a6)
@@ -2012,7 +2075,7 @@ void __57__HLPHelpTopicViewController_webView_startURLSchemeTask___block_invoke(
 
 - (void)updateURLSchemeTask:(id)task URL:(id)l MIMEType:(id)type data:(id)data error:(id)error
 {
-  v49[2] = *MEMORY[0x277D85DE8];
+  v48[2] = *MEMORY[0x277D85DE8];
   taskCopy = task;
   lCopy = l;
   typeCopy = type;
@@ -2022,7 +2085,7 @@ void __57__HLPHelpTopicViewController_webView_startURLSchemeTask___block_invoke(
   v17 = [allHTTPHeaderFields objectForKey:@"Range"];
 
   selfCopy = self;
-  v45 = v17;
+  v44 = v17;
   v18 = [(HLPHelpTopicViewController *)self rangeFromData:dataCopy byteRangeString:v17];
   if (v18 == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -2032,20 +2095,20 @@ void __57__HLPHelpTopicViewController_webView_startURLSchemeTask___block_invoke(
   else
   {
     v21 = v18;
-    v41 = typeCopy;
+    v40 = typeCopy;
     v22 = v19 - v18 + 1;
-    v48[0] = @"Content-Range";
+    v47[0] = @"Content-Range";
     v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"bytes %ld-%ld/%lu", v18, v19, objc_msgSend(dataCopy, "length")];
-    v48[1] = @"Content-Length";
-    v49[0] = v23;
-    v40 = v22;
+    v47[1] = @"Content-Length";
+    v48[0] = v23;
+    v39 = v22;
     v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld", v22];
-    v49[1] = v24;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:2];
+    v48[1] = v24;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
 
     v26 = objc_alloc(MEMORY[0x277CCAA40]);
     v27 = MEMORY[0x277CBEBC0];
-    v42 = lCopy;
+    v41 = lCopy;
     absoluteString = [lCopy absoluteString];
     v29 = [v27 URLWithString:absoluteString];
     v20 = [v26 initWithURL:v29 statusCode:206 HTTPVersion:@"HTTP/1.1" headerFields:v25];
@@ -2062,20 +2125,20 @@ void __57__HLPHelpTopicViewController_webView_startURLSchemeTask___block_invoke(
       [webViewRequestsDataMap2 setObject:dataCopy forKeyedSubscript:absoluteString2];
     }
 
-    v35 = [dataCopy subdataWithRange:{v21, v40}];
+    v35 = [dataCopy subdataWithRange:{v21, v39}];
 
     dataCopy = v35;
-    typeCopy = v41;
-    lCopy = v42;
+    typeCopy = v40;
+    lCopy = v41;
   }
 
   [taskCopy didReceiveResponse:v20];
   if (error || !dataCopy)
   {
     v36 = MEMORY[0x277CCA9B8];
-    v46 = @"URL";
-    v47 = lCopy;
-    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+    v45 = @"URL";
+    v46 = lCopy;
+    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
     v38 = [v36 errorWithDomain:@"file not found" code:-1 userInfo:v37];
     [taskCopy didFailWithError:v38];
   }
@@ -2085,8 +2148,6 @@ void __57__HLPHelpTopicViewController_webView_startURLSchemeTask___block_invoke(
     [taskCopy didReceiveData:dataCopy];
     [taskCopy didFinish];
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (_NSRange)rangeFromData:(id)data byteRangeString:(id)string
@@ -2132,17 +2193,15 @@ void __57__HLPHelpTopicViewController_webView_startURLSchemeTask___block_invoke(
 
 - (void)registerTraitChanges
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v7[0] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __50__HLPHelpTopicViewController_registerTraitChanges__block_invoke;
-  v6[3] = &unk_2797069B8;
-  v6[4] = self;
-  v4 = [(HLPHelpTopicViewController *)self registerForTraitChanges:v3 withHandler:v6];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
+  v6[0] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __50__HLPHelpTopicViewController_registerTraitChanges__block_invoke;
+  v5[3] = &unk_2797069B8;
+  v5[4] = self;
+  v4 = [(HLPHelpTopicViewController *)self registerForTraitChanges:v3 withHandler:v5];
 }
 
 void __50__HLPHelpTopicViewController_registerTraitChanges__block_invoke(uint64_t a1, uint64_t a2, void *a3)

@@ -304,7 +304,7 @@ void __39__RCAssetWriter_writeFromBuffer_error___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __39__RCAssetWriter_writeFromBuffer_error___block_invoke_2(uint64_t a1)
+void *__39__RCAssetWriter_writeFromBuffer_error___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isReadyForMoreMediaData];
   if (result)

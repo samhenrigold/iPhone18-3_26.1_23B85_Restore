@@ -64,6 +64,7 @@
 - (void)restoreClientState:(id)state handler:(id)handler;
 - (void)start;
 - (void)stop;
+- (void)virtualAudioInputServer:(id)server didUpdateRecordingState:(unsigned int)state forDevice:(id)device;
 @end
 
 @implementation MRDMediaRemoteServer
@@ -1839,6 +1840,20 @@ LABEL_24:
   }
 }
 
+- (void)virtualAudioInputServer:(id)server didUpdateRecordingState:(unsigned int)state forDevice:(id)device
+{
+  v5 = *&state;
+  v10[0] = kMRVirtualVoiceInputDeviceIDUserInfoKey;
+  v7 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [device deviceID]);
+  v11[0] = v7;
+  v10[1] = kMRVirtualVoiceInputRecordingStateUserInfoKey;
+  v8 = [NSNumber numberWithUnsignedInt:v5];
+  v11[1] = v8;
+  v9 = [NSDictionary dictionaryWithObjects:v11 forKeys:v10 count:2];
+
+  [(MRDMediaRemoteServer *)self postClientNotificationNamed:kMRVirtualVoiceInputRecordingStateDidChangeNotification userInfo:v9];
+}
+
 - (void)collectDiagnostic:(id)diagnostic
 {
   diagnosticCopy = diagnostic;
@@ -1965,7 +1980,7 @@ LABEL_24:
           goto LABEL_13;
         }
 
-        [v16 auditToken];
+        objc_msgSend_auditToken(v16);
         if (audit_token_to_pidversion(&atoken) == v14)
         {
           v17 = [NSNumber numberWithInt:v13];

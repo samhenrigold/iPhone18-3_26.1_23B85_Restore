@@ -16,7 +16,7 @@
   executorCopy = executor;
   requestCopy = request;
   selfCopy = self;
-  sub_268C4DEF8();
+  sub_268C4DEF8(selfCopy, requestCopy);
 }
 
 - (void)executor:(id)executor needsActionConfirmationWithRequest:(id)request
@@ -24,7 +24,7 @@
   executorCopy = executor;
   requestCopy = request;
   selfCopy = self;
-  sub_268C4DF7C();
+  sub_268C4DF7C(selfCopy, requestCopy);
 }
 
 - (void)executor:(id)executor needsDisambiguationWithRequest:(id)request
@@ -32,7 +32,7 @@
   executorCopy = executor;
   requestCopy = request;
   selfCopy = self;
-  sub_268C4E278();
+  sub_268C4E278(selfCopy, requestCopy);
 }
 
 - (void)executor:(id)executor needsValueWithRequest:(id)request
@@ -40,7 +40,7 @@
   executorCopy = executor;
   requestCopy = request;
   selfCopy = self;
-  sub_268C4E2FC();
+  sub_268C4E2FC(selfCopy, requestCopy);
 }
 
 - (void)executor:(id)executor didFinishWithResult:(id)result error:(id)error
@@ -49,7 +49,7 @@
   resultCopy = result;
   selfCopy = self;
   errorCopy = error;
-  sub_268C4E740();
+  sub_268C4E740(errorCopy, result);
 }
 
 - (void)executor:(LNActionExecutor *)executor environmentForViewSnippetWithCompletion:(id)completion
@@ -80,7 +80,7 @@
   executorCopy = executor;
   requestCopy = request;
   selfCopy = self;
-  sub_268C4F3B8();
+  sub_268C4F3B8(selfCopy, requestCopy);
 }
 
 @end

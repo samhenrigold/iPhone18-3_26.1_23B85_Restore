@@ -62,75 +62,75 @@
       sub_1001AAD70(keyCopy);
     }
 
-    v10 = 2;
+    v9 = 2;
   }
 
   else
   {
-    if (CPLCloudKitUseGateKeeperForOperationType(type))
+    if (CPLCloudKitUseGateKeeperForOperationType())
     {
       recordID = [keyCopy recordID];
       resourceKey = [keyCopy resourceKey];
-      v13 = CPLCloudKitGateKeeperDefaultDownloadType;
+      v12 = CPLCloudKitGateKeeperDefaultDownloadType;
       filename = [keyCopy filename];
       p_timeRange = &self->_timeRange;
       hints = self->_hints;
-      v38[0] = _NSConcreteStackBlock;
-      v38[1] = 3221225472;
-      v38[2] = sub_100097E1C;
-      v38[3] = &unk_100276738;
-      v39 = handlerCopy;
-      v17 = *&p_timeRange->start.epoch;
-      v35 = *&p_timeRange->start.value;
-      v36 = v17;
-      v37 = *&p_timeRange->duration.timescale;
-      v18 = [CPLCKResourceDownloadOperation streamOperationForRecordID:recordID key:resourceKey downloadType:v13 filename:filename timeRange:&v35 mediaRequestHints:hints completionBlock:v38];
+      v37[0] = _NSConcreteStackBlock;
+      v37[1] = 3221225472;
+      v37[2] = sub_100097E1C;
+      v37[3] = &unk_100276738;
+      v38 = handlerCopy;
+      v16 = *&p_timeRange->start.epoch;
+      v34 = *&p_timeRange->start.value;
+      v35 = v16;
+      v36 = *&p_timeRange->duration.timescale;
+      v17 = [CPLCKResourceDownloadOperation streamOperationForRecordID:recordID key:resourceKey downloadType:v12 filename:filename timeRange:&v34 mediaRequestHints:hints completionBlock:v37];
 
       goto LABEL_9;
     }
 
-    v10 = 1;
+    v9 = 1;
   }
 
-  v19 = [CKPublishAssetsOperation alloc];
+  v18 = [CKPublishAssetsOperation alloc];
   recordID2 = [keyCopy recordID];
-  v42 = recordID2;
-  v21 = [NSArray arrayWithObjects:&v42 count:1];
-  v18 = [v19 initWithRecordIDs:v21];
+  v41 = recordID2;
+  v20 = [NSArray arrayWithObjects:&v41 count:1];
+  v17 = [v18 initWithRecordIDs:v20];
 
-  [v18 setURLOptions:v10];
-  *&v35 = 0;
-  *(&v35 + 1) = &v35;
-  *&v36 = 0x2020000000;
-  BYTE8(v36) = 0;
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = sub_100097EBC;
-  v31[3] = &unk_100276760;
-  v34 = &v35;
-  v22 = handlerCopy;
-  v33 = v22;
-  v23 = keyCopy;
-  v32 = v23;
-  [v18 setAssetPublishedBlock:v31];
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_10009814C;
-  v28[3] = &unk_100276788;
-  v30 = &v35;
-  v29 = v22;
-  [v18 setPublishAssetCompletionBlock:v28];
-  resourceKey2 = [v23 resourceKey];
-  v40 = resourceKey2;
-  filename2 = [v23 filename];
-  v41 = filename2;
-  v26 = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+  [v17 setURLOptions:v9];
+  *&v34 = 0;
+  *(&v34 + 1) = &v34;
+  *&v35 = 0x2020000000;
+  BYTE8(v35) = 0;
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_100097EBC;
+  v30[3] = &unk_100276760;
+  v33 = &v34;
+  v21 = handlerCopy;
+  v32 = v21;
+  v22 = keyCopy;
+  v31 = v22;
+  [v17 setAssetPublishedBlock:v30];
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_10009814C;
+  v27[3] = &unk_100276788;
+  v29 = &v34;
+  v28 = v21;
+  [v17 setPublishAssetCompletionBlock:v27];
+  resourceKey2 = [v22 resourceKey];
+  v39 = resourceKey2;
+  filename2 = [v22 filename];
+  v40 = filename2;
+  v25 = [NSDictionary dictionaryWithObjects:&v40 forKeys:&v39 count:1];
 
-  [v18 setFileNamesByAssetFieldNames:v26];
-  _Block_object_dispose(&v35, 8);
+  [v17 setFileNamesByAssetFieldNames:v25];
+  _Block_object_dispose(&v34, 8);
 LABEL_9:
 
-  return v18;
+  return v17;
 }
 
 - (BOOL)shouldRequestEncryptedStream
@@ -289,13 +289,13 @@ LABEL_9:
 
         else
         {
-          sub_1001AAE68(&self->_resource, self);
+          sub_1001AAE68(&self->_resource);
         }
       }
 
       else
       {
-        sub_1001AAF4C(&self->_resource, self);
+        sub_1001AAF4C(&self->_resource);
         v8 = *&v57[0];
       }
     }

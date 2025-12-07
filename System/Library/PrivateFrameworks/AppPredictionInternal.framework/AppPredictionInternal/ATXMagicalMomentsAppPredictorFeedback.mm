@@ -4,6 +4,10 @@
 - (id)clientModelIds;
 - (id)getCurrentABGroup;
 - (int64_t)_anchorTypeFromBundleIdToAnchorTypeMap:(id)map bundleId:(id)id;
+- (void)_handleEngagedProactiveSuggestion:(id)suggestion consumerSubType:(unsigned __int8)type bundleIdToAnchorType:(id)anchorType;
+- (void)_handleShownProactiveSuggestion:(id)suggestion consumerSubType:(unsigned __int8)type bundleIdToAnchorType:(id)anchorType;
+- (void)logEngagedMMMetricsEntryForBundle:(id)bundle consumerSubType:(unsigned __int8)type anchorType:(int64_t)anchorType abGroup:(id)group score:(double)score;
+- (void)logShownMMMetricsEntryForBundle:(id)bundle consumerSubType:(unsigned __int8)type anchorType:(int64_t)anchorType abGroup:(id)group score:(double)score;
 - (void)receiveUIFeedbackResult:(id)result;
 @end
 
@@ -44,7 +48,7 @@
 {
   v43 = *MEMORY[0x277D85DE8];
   resultCopy = result;
-  v5 = __atxlog_handle_feedback();
+  v5 = __atxlog_handle_feedback(resultCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [ATXMagicalMomentsAppPredictorFeedback receiveUIFeedbackResult:];
@@ -76,7 +80,7 @@
       objc_autoreleasePoolPop(v15);
       if (!v19 || v20)
       {
-        engagedSuggestions = __atxlog_handle_feedback();
+        engagedSuggestions = __atxlog_handle_feedback(v21);
         if (os_log_type_enabled(engagedSuggestions, OS_LOG_TYPE_ERROR))
         {
           [ATXMagicalMomentsAppPredictorFeedback receiveUIFeedbackResult:];
@@ -90,16 +94,16 @@
         v36 = 0u;
         v37 = 0u;
         shownSuggestions2 = [resultCopy shownSuggestions];
-        v22 = [shownSuggestions2 countByEnumeratingWithState:&v36 objects:v42 count:16];
-        if (v22)
+        v23 = [shownSuggestions2 countByEnumeratingWithState:&v36 objects:v42 count:16];
+        if (v23)
         {
-          v23 = v22;
-          v24 = *v37;
+          v24 = v23;
+          v25 = *v37;
           do
           {
-            for (i = 0; i != v23; ++i)
+            for (i = 0; i != v24; ++i)
             {
-              if (*v37 != v24)
+              if (*v37 != v25)
               {
                 objc_enumerationMutation(shownSuggestions2);
               }
@@ -107,10 +111,10 @@
               [(ATXMagicalMomentsAppPredictorFeedback *)self _handleShownProactiveSuggestion:*(*(&v36 + 1) + 8 * i) consumerSubType:v9 bundleIdToAnchorType:v19];
             }
 
-            v23 = [shownSuggestions2 countByEnumeratingWithState:&v36 objects:v42 count:16];
+            v24 = [shownSuggestions2 countByEnumeratingWithState:&v36 objects:v42 count:16];
           }
 
-          while (v23);
+          while (v24);
         }
 
         v34 = 0u;
@@ -118,16 +122,16 @@
         v32 = 0u;
         v33 = 0u;
         engagedSuggestions = [resultCopy engagedSuggestions];
-        v27 = [engagedSuggestions countByEnumeratingWithState:&v32 objects:v41 count:16];
-        if (v27)
+        v28 = [engagedSuggestions countByEnumeratingWithState:&v32 objects:v41 count:16];
+        if (v28)
         {
-          v28 = v27;
-          v29 = *v33;
+          v29 = v28;
+          v30 = *v33;
           do
           {
-            for (j = 0; j != v28; ++j)
+            for (j = 0; j != v29; ++j)
             {
-              if (*v33 != v29)
+              if (*v33 != v30)
               {
                 objc_enumerationMutation(engagedSuggestions);
               }
@@ -135,25 +139,161 @@
               [(ATXMagicalMomentsAppPredictorFeedback *)self _handleEngagedProactiveSuggestion:*(*(&v32 + 1) + 8 * j) consumerSubType:v9 bundleIdToAnchorType:v19];
             }
 
-            v28 = [engagedSuggestions countByEnumeratingWithState:&v32 objects:v41 count:16];
+            v29 = [engagedSuggestions countByEnumeratingWithState:&v32 objects:v41 count:16];
           }
 
-          while (v28);
+          while (v29);
         }
       }
     }
 
     else
     {
-      v20 = __atxlog_handle_feedback();
+      v20 = __atxlog_handle_feedback(consumerSubType);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [ATXMagicalMomentsAppPredictorFeedback receiveUIFeedbackResult:];
+        [ATXMagicalMomentsAppPredictorFeedback receiveUIFeedbackResult:?];
       }
     }
   }
+}
 
-  v31 = *MEMORY[0x277D85DE8];
+- (void)_handleShownProactiveSuggestion:(id)suggestion consumerSubType:(unsigned __int8)type bundleIdToAnchorType:(id)anchorType
+{
+  typeCopy = type;
+  v24 = *MEMORY[0x277D85DE8];
+  suggestionCopy = suggestion;
+  anchorTypeCopy = anchorType;
+  bundleIdExecutableObject = [suggestionCopy bundleIdExecutableObject];
+  if (bundleIdExecutableObject)
+  {
+    v11 = [(ATXMagicalMomentsAppPredictorFeedback *)self _anchorTypeFromBundleIdToAnchorTypeMap:anchorTypeCopy bundleId:bundleIdExecutableObject];
+    if ((v11 - 23) > 0xFFFFFFFFFFFFFFE9)
+    {
+      v15 = v11;
+      getCurrentABGroup = [(ATXMagicalMomentsAppPredictorFeedback *)self getCurrentABGroup];
+      scoreSpecification = [suggestionCopy scoreSpecification];
+      [scoreSpecification rawScore];
+      [(ATXMagicalMomentsAppPredictorFeedback *)self logShownMMMetricsEntryForBundle:bundleIdExecutableObject consumerSubType:typeCopy anchorType:v15 abGroup:getCurrentABGroup score:?];
+
+      goto LABEL_9;
+    }
+
+    v12 = __atxlog_handle_feedback(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      v18 = 138412802;
+      v19 = v14;
+      v20 = 2112;
+      v21 = bundleIdExecutableObject;
+      v22 = 2112;
+      v23 = anchorTypeCopy;
+      _os_log_error_impl(&dword_2263AA000, v12, OS_LOG_TYPE_ERROR, "%@ - could not find anchor type for bundleId: %@ in map: %@", &v18, 0x20u);
+    }
+  }
+
+  else
+  {
+    v12 = __atxlog_handle_feedback(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      [ATXMagicalMomentsAppPredictorFeedback _handleShownProactiveSuggestion:consumerSubType:bundleIdToAnchorType:];
+    }
+  }
+
+LABEL_9:
+}
+
+- (void)_handleEngagedProactiveSuggestion:(id)suggestion consumerSubType:(unsigned __int8)type bundleIdToAnchorType:(id)anchorType
+{
+  typeCopy = type;
+  v24 = *MEMORY[0x277D85DE8];
+  suggestionCopy = suggestion;
+  anchorTypeCopy = anchorType;
+  bundleIdExecutableObject = [suggestionCopy bundleIdExecutableObject];
+  if (!bundleIdExecutableObject)
+  {
+    v15 = __atxlog_handle_feedback(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      [ATXMagicalMomentsAppPredictorFeedback _handleShownProactiveSuggestion:consumerSubType:bundleIdToAnchorType:];
+    }
+
+    goto LABEL_8;
+  }
+
+  v11 = [(ATXMagicalMomentsAppPredictorFeedback *)self _anchorTypeFromBundleIdToAnchorTypeMap:anchorTypeCopy bundleId:bundleIdExecutableObject];
+  if (!v11)
+  {
+    v15 = __atxlog_handle_feedback(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
+      v18 = 138412802;
+      v19 = v17;
+      v20 = 2112;
+      v21 = bundleIdExecutableObject;
+      v22 = 2112;
+      v23 = anchorTypeCopy;
+      _os_log_error_impl(&dword_2263AA000, v15, OS_LOG_TYPE_ERROR, "%@ - could not find anchor type for bundleId: %@ in map: %@", &v18, 0x20u);
+    }
+
+LABEL_8:
+
+    goto LABEL_9;
+  }
+
+  v12 = v11;
+  getCurrentABGroup = [(ATXMagicalMomentsAppPredictorFeedback *)self getCurrentABGroup];
+  scoreSpecification = [suggestionCopy scoreSpecification];
+  [scoreSpecification rawScore];
+  [(ATXMagicalMomentsAppPredictorFeedback *)self logEngagedMMMetricsEntryForBundle:bundleIdExecutableObject consumerSubType:typeCopy anchorType:v12 abGroup:getCurrentABGroup score:?];
+
+LABEL_9:
+}
+
+- (void)logShownMMMetricsEntryForBundle:(id)bundle consumerSubType:(unsigned __int8)type anchorType:(int64_t)anchorType abGroup:(id)group score:(double)score
+{
+  typeCopy = type;
+  groupCopy = group;
+  bundleCopy = bundle;
+  v14 = objc_opt_new();
+  [v14 setBundleId:bundleCopy];
+
+  [v14 setAnchor:{+[ATXMMAppPredictionExpert mmAnchorTypeToMMProtobufAnchor:](ATXMMAppPredictionExpert, "mmAnchorTypeToMMProtobufAnchor:", anchorType)}];
+  [v14 setAbGroup:groupCopy];
+
+  v15 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:typeCopy];
+  [v14 setConsumerSubType:v15];
+
+  v16 = __atxlog_handle_metrics([(ATXPETEventTracker2Protocol *)self->_tracker trackDistributionForMessage:v14 value:score]);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  {
+    [ATXMagicalMomentsAppPredictorFeedback logShownMMMetricsEntryForBundle:consumerSubType:anchorType:abGroup:score:];
+  }
+}
+
+- (void)logEngagedMMMetricsEntryForBundle:(id)bundle consumerSubType:(unsigned __int8)type anchorType:(int64_t)anchorType abGroup:(id)group score:(double)score
+{
+  typeCopy = type;
+  groupCopy = group;
+  bundleCopy = bundle;
+  v14 = objc_opt_new();
+  [v14 setAnchor:{+[ATXMMAppPredictionExpert mmAnchorTypeToMMProtobufAnchor:](ATXMMAppPredictionExpert, "mmAnchorTypeToMMProtobufAnchor:", anchorType)}];
+  [v14 setBundleId:bundleCopy];
+
+  [v14 setAbGroup:groupCopy];
+  v15 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:typeCopy];
+  [v14 setConsumerSubType:v15];
+
+  v16 = __atxlog_handle_metrics([(ATXPETEventTracker2Protocol *)self->_tracker trackDistributionForMessage:v14 value:score]);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  {
+    [ATXMagicalMomentsAppPredictorFeedback logEngagedMMMetricsEntryForBundle:consumerSubType:anchorType:abGroup:score:];
+  }
 }
 
 - (id)getCurrentABGroup
@@ -194,57 +334,44 @@
 - (void)receiveUIFeedbackResult:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v8 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_14();
   OUTLINED_FUNCTION_3_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receiveUIFeedbackResult:.cold.2()
 {
   OUTLINED_FUNCTION_2_1();
-  v8 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_14();
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-- (void)receiveUIFeedbackResult:.cold.3()
+- (void)receiveUIFeedbackResult:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v7 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_handleShownProactiveSuggestion:consumerSubType:bundleIdToAnchorType:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v8 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_14();
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logShownMMMetricsEntryForBundle:consumerSubType:anchorType:abGroup:score:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = objc_opt_class();
   v2 = NSStringFromClass(v1);
   v3 = [v0 bundleId];
@@ -252,14 +379,11 @@
   OUTLINED_FUNCTION_2_12();
   OUTLINED_FUNCTION_3_3();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x1Cu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logEngagedMMMetricsEntryForBundle:consumerSubType:anchorType:abGroup:score:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = objc_opt_class();
   v2 = NSStringFromClass(v1);
   v3 = [v0 bundleId];
@@ -267,8 +391,6 @@
   OUTLINED_FUNCTION_2_12();
   OUTLINED_FUNCTION_3_3();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x1Cu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

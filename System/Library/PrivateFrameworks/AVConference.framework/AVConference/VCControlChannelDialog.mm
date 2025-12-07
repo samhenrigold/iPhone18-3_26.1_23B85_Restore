@@ -514,7 +514,7 @@ LABEL_17:
 
 - (void)checkForSignificantHandshakeDelayWithDelegate:(id)delegate
 {
-  if (self->_isHandshakeCommenced && micro() - self->_handshakeStartTime > 30.0)
+  if (self->_isHandshakeCommenced && micro(self, a2) - self->_handshakeStartTime > 30.0)
   {
     [delegate reportSignificantHandshakeDelaySymptomForParticipantID:self->_participantID];
     self->_handshakeStartTime = NAN;
@@ -747,7 +747,7 @@ uint64_t __74__VCControlChannelDialog_sendAllCachedMessagesAndDisableHandshakeWh
 {
   v26[1] = *MEMORY[0x1E69E9840];
   self->_isHandshakeCommenced = 1;
-  self->_handshakeStartTime = micro();
+  self->_handshakeStartTime = micro(self, a2);
   [(VCObject *)self reportingAgent];
   v25 = @"VCSPUUID";
   v26[0] = self->_participantUUID;
@@ -832,7 +832,7 @@ LABEL_11:
     }
   }
 
-  [(VCControlChannelDialog *)self doHandshakeWithMessage:message topic:topic afterDelay:options withOptions:0.0, *v21, *&v21[16], *v22, *&v22[16], messageCopy, *v24, *&v24[16]];
+  [(VCControlChannelDialog *)self doHandshakeWithMessage:message topic:topic afterDelay:options withOptions:0.0, *v21, *&v21[8], *v22, *&v22[16], messageCopy, *v24, *&v24[8]];
 }
 
 - (void)cacheOutgoingMessage:(id)message topic:(id)topic timeout:(id)timeout withOptions:(id)options
@@ -1509,7 +1509,7 @@ LABEL_13:
 
     _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, v13, v31, v15);
 LABEL_16:
-    [v5 confirmedTransactionByParticipantID:self->_participantID sessionID:{self->_sessionID, *v31, *&v31[16], *v32, *&v32[16], v33, v34}];
+    [v5 confirmedTransactionByParticipantID:self->_participantID sessionID:{self->_sessionID, *v31, *&v31[8], *v32, *&v32[16], v33, v34}];
 
     return;
   }

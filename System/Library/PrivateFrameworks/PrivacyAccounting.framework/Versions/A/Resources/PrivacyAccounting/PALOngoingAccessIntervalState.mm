@@ -1,4 +1,5 @@
 @interface PALOngoingAccessIntervalState
+- (PALOngoingAccessIntervalState)initWithAccess:(id)access queue:(id)queue applicationMetadataResolver:(id)resolver eligibleForMetricCollection:(BOOL)collection;
 - (PALOngoingAccessIntervalState)initWithAccess:(id)access queue:(id)queue applicationMetadataResolver:(id)resolver eligibleForMetricCollection:(BOOL)collection startTimestamp:(unint64_t)timestamp;
 - (double)intervalSinceStart;
 - (void)dealloc;
@@ -7,6 +8,17 @@
 @end
 
 @implementation PALOngoingAccessIntervalState
+
+- (PALOngoingAccessIntervalState)initWithAccess:(id)access queue:(id)queue applicationMetadataResolver:(id)resolver eligibleForMetricCollection:(BOOL)collection
+{
+  collectionCopy = collection;
+  resolverCopy = resolver;
+  queueCopy = queue;
+  accessCopy = access;
+  v13 = [(PALOngoingAccessIntervalState *)self initWithAccess:accessCopy queue:queueCopy applicationMetadataResolver:resolverCopy eligibleForMetricCollection:collectionCopy startTimestamp:mach_continuous_time()];
+
+  return v13;
+}
 
 - (PALOngoingAccessIntervalState)initWithAccess:(id)access queue:(id)queue applicationMetadataResolver:(id)resolver eligibleForMetricCollection:(BOOL)collection startTimestamp:(unint64_t)timestamp
 {

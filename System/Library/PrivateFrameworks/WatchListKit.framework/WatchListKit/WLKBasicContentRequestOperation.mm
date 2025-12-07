@@ -9,15 +9,14 @@
 
 - (WLKBasicContentRequestOperation)initWithContentID:(id)d caller:(id)caller
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v6 = MEMORY[0x277CBEA60];
   callerCopy = caller;
   dCopy2 = d;
   v9 = [v6 arrayWithObjects:&dCopy count:1];
 
-  v10 = [(WLKBasicContentRequestOperation *)self initWithContentIDs:v9 caller:callerCopy, dCopy, v14];
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = [(WLKBasicContentRequestOperation *)self initWithContentIDs:v9 caller:callerCopy, dCopy, v13];
   return v10;
 }
 

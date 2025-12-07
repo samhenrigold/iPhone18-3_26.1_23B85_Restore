@@ -48,6 +48,7 @@
 - (void)handleUpdatedModes:(id)modes availableModes:(id)availableModes;
 - (void)handleUpdatedPairSyncState:(unint64_t)state;
 - (void)handleUpdatedPhoneCallBypassSettings:(id)settings;
+- (void)handleUpdatedPreventAutoReplySetting:(BOOL)setting;
 - (void)handleUpdatedScheduleSettings:(id)settings;
 - (void)invalidate;
 - (void)invalidateActiveModeAssertionWithDetails:(id)details reasonOverride:(id)override requestDetails:(id)requestDetails completionHandler:(id)handler;
@@ -192,52 +193,50 @@ void __59__DNDSRemoteServiceProvider_initWithClientDetailsProvider___block_invok
 
 - (void)handleStateUpdate:(id)update
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   v5 = DNDSLogServiceProvider;
   if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v12 = updateCopy;
+    v11 = updateCopy;
     _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Did receive state update, will handle; stateUpdate=%{public}@", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __47__DNDSRemoteServiceProvider_handleStateUpdate___block_invoke;
-  v8[3] = &unk_278F8BE08;
-  v9 = updateCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __47__DNDSRemoteServiceProvider_handleStateUpdate___block_invoke;
+  v7[3] = &unk_278F8BE08;
+  v8 = updateCopy;
   selfCopy = self;
   v6 = updateCopy;
-  [(DNDSRemoteServiceProvider *)self _iterateClientConnectionsToSendWithHandler:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(DNDSRemoteServiceProvider *)self _iterateClientConnectionsToSendWithHandler:v7];
 }
 
 void __47__DNDSRemoteServiceProvider_handleStateUpdate___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v34 = a3;
+  v33 = a3;
   if ([v5 wantsStateUpdates])
   {
     v6 = DNDSLogServiceProvider;
     if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
     {
       v7 = v6;
-      v8 = [v34 remoteProcess];
+      v8 = [v33 remoteProcess];
       v9 = [v8 pid];
       v10 = *(a1 + 32);
       *buf = 67109634;
-      v43 = v9;
-      v44 = 2114;
-      v45 = v10;
-      v46 = 2114;
-      v47 = v34;
+      v42 = v9;
+      v43 = 2114;
+      v44 = v10;
+      v45 = 2114;
+      v46 = v33;
       _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Delivering state update: pid=%d, stateUpdate=%{public}@, connection=%{public}@", buf, 0x1Cu);
     }
 
-    v11 = [v34 remoteTarget];
+    v11 = [v33 remoteTarget];
     [v11 deliverStateUpdate:*(a1 + 32)];
   }
 
@@ -247,53 +246,53 @@ void __47__DNDSRemoteServiceProvider_handleStateUpdate___block_invoke(uint64_t a
     if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
     {
       v13 = v12;
-      v14 = [v34 remoteProcess];
+      v14 = [v33 remoteProcess];
       v15 = [v14 pid];
       v16 = [*(a1 + 32) state];
       v17 = [v16 activeModeIdentifier];
       *buf = 67109634;
-      v43 = v15;
-      v44 = 2114;
-      v45 = v17;
-      v46 = 2114;
-      v47 = v34;
+      v42 = v15;
+      v43 = 2114;
+      v44 = v17;
+      v45 = 2114;
+      v46 = v33;
       _os_log_impl(&dword_24912E000, v13, OS_LOG_TYPE_DEFAULT, "Delivering active mode update: pid=%d, activeModeIdentifier=%{public}@, connection=%{public}@", buf, 0x1Cu);
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     obj = [v5 activeAssertionUpdateClientIdentifiers];
-    v18 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v18 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (v18)
     {
       v19 = v18;
-      v32 = v5;
+      v31 = v5;
       v20 = 0;
-      v21 = *v37;
+      v21 = *v36;
       do
       {
         v22 = 0;
         v23 = v20;
         do
         {
-          if (*v37 != v21)
+          if (*v36 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v36 + 1) + 8 * v22);
+          v24 = *(*(&v35 + 1) + 8 * v22);
           v25 = [*(a1 + 40) delegate];
           v26 = *(a1 + 40);
-          v35 = v23;
-          v27 = [v25 remoteServiceProvider:v26 activeAssertionWithClientIdentifer:v24 error:&v35];
-          v20 = v35;
+          v34 = v23;
+          v27 = [v25 remoteServiceProvider:v26 activeAssertionWithClientIdentifer:v24 error:&v34];
+          v20 = v34;
 
-          v28 = [v34 remoteTarget];
+          v28 = [v33 remoteTarget];
           v29 = *(a1 + 32);
-          v40 = v24;
-          v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+          v39 = v24;
+          v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
           [v28 deliverActiveModeAssertion:v27 stateUpdate:v29 clientIdentifiers:v30];
 
           ++v22;
@@ -301,16 +300,14 @@ void __47__DNDSRemoteServiceProvider_handleStateUpdate___block_invoke(uint64_t a
         }
 
         while (v19 != v22);
-        v19 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+        v19 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
       while (v19);
 
-      v5 = v32;
+      v5 = v31;
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleModeAssertionUpdateResult:(id)result
@@ -329,7 +326,7 @@ void __47__DNDSRemoteServiceProvider_handleStateUpdate___block_invoke(uint64_t a
 
 void __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_invoke(uint64_t a1)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v2 = DNDSLogServiceProvider;
   if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
   {
@@ -341,44 +338,44 @@ void __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_inv
     v8 = [v7 count];
     v9 = *(a1 + 32);
     *buf = 134218498;
-    v63 = v6;
-    v64 = 2048;
-    v65 = v8;
-    v66 = 2114;
-    v67 = v9;
+    v62 = v6;
+    v63 = 2048;
+    v64 = v8;
+    v65 = 2114;
+    v66 = v9;
     _os_log_impl(&dword_24912E000, v4, OS_LOG_TYPE_DEFAULT, "Did receive update result with %lu assertion(s) & %lu invalidation(s), will handle; updateResult=%{public}@", buf, 0x20u);
   }
 
   v10 = [*(a1 + 32) assertions];
   v11 = [v10 mutableCopy];
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   obj = [*(a1 + 32) invalidations];
-  v12 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
+  v12 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
   if (v12)
   {
     v14 = v12;
-    v41 = *v57;
+    v40 = *v56;
     *&v13 = 138412290;
-    v39 = v13;
+    v38 = v13;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v57 != v41)
+        if (*v56 != v40)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v56 + 1) + 8 * i);
+        v16 = *(*(&v55 + 1) + 8 * i);
         v17 = DNDSLogServiceProvider;
         if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v39;
-          v63 = v16;
+          *buf = v38;
+          v62 = v16;
           _os_log_impl(&dword_24912E000, v17, OS_LOG_TYPE_DEFAULT, "Handling invalidation: %@", buf, 0xCu);
         }
 
@@ -387,63 +384,63 @@ void __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_inv
         v20 = [v19 clientIdentifier];
 
         v21 = [*(*(a1 + 40) + 32) clientDetailsForIdentifier:v20];
-        v54[0] = MEMORY[0x277D85DD0];
-        v54[1] = 3221225472;
-        v54[2] = __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_invoke_22;
-        v54[3] = &unk_278F8AEF8;
-        v54[4] = *(a1 + 40);
+        v53[0] = MEMORY[0x277D85DD0];
+        v53[1] = 3221225472;
+        v53[2] = __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_invoke_22;
+        v53[3] = &unk_278F8AEF8;
+        v53[4] = *(a1 + 40);
         v22 = v21;
-        v55 = v22;
-        v23 = [v11 bs_firstObjectPassingTest:v54];
+        v54 = v22;
+        v23 = [v11 bs_firstObjectPassingTest:v53];
         if (v23)
         {
           [v11 removeObject:v23];
         }
 
         v24 = *(a1 + 40);
-        v50[0] = MEMORY[0x277D85DD0];
-        v50[1] = 3221225472;
-        v50[2] = __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_invoke_2;
-        v50[3] = &unk_278F8BE58;
-        v51 = v22;
-        v52 = v23;
-        v53 = v16;
+        v49[0] = MEMORY[0x277D85DD0];
+        v49[1] = 3221225472;
+        v49[2] = __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_invoke_2;
+        v49[3] = &unk_278F8BE58;
+        v50 = v22;
+        v51 = v23;
+        v52 = v16;
         v25 = v23;
         v26 = v22;
-        [v24 _iterateClientConnectionsToSendWithHandler:v50];
+        [v24 _iterateClientConnectionsToSendWithHandler:v49];
       }
 
-      v14 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
+      v14 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
     }
 
     while (v14);
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
-  v42 = v11;
-  v27 = [v42 countByEnumeratingWithState:&v46 objects:v60 count:16];
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v41 = v11;
+  v27 = [v41 countByEnumeratingWithState:&v45 objects:v59 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v47;
+    v29 = *v46;
     do
     {
       for (j = 0; j != v28; ++j)
       {
-        if (*v47 != v29)
+        if (*v46 != v29)
         {
-          objc_enumerationMutation(v42);
+          objc_enumerationMutation(v41);
         }
 
-        v31 = *(*(&v46 + 1) + 8 * j);
+        v31 = *(*(&v45 + 1) + 8 * j);
         v32 = DNDSLogServiceProvider;
         if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v63 = v31;
+          v62 = v31;
           _os_log_impl(&dword_24912E000, v32, OS_LOG_TYPE_DEFAULT, "Handling assertion: %@", buf, 0xCu);
         }
 
@@ -452,23 +449,21 @@ void __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_inv
 
         v35 = [*(*(a1 + 40) + 32) clientDetailsForIdentifier:v34];
         v36 = *(a1 + 40);
-        v43[0] = MEMORY[0x277D85DD0];
-        v43[1] = 3221225472;
-        v43[2] = __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_invoke_25;
-        v43[3] = &unk_278F8BE08;
-        v44 = v35;
-        v45 = v31;
+        v42[0] = MEMORY[0x277D85DD0];
+        v42[1] = 3221225472;
+        v42[2] = __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_invoke_25;
+        v42[3] = &unk_278F8BE08;
+        v43 = v35;
+        v44 = v31;
         v37 = v35;
-        [v36 _iterateClientConnectionsToSendWithHandler:v43];
+        [v36 _iterateClientConnectionsToSendWithHandler:v42];
       }
 
-      v28 = [v42 countByEnumeratingWithState:&v46 objects:v60 count:16];
+      v28 = [v41 countByEnumeratingWithState:&v45 objects:v59 count:16];
     }
 
     while (v28);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_invoke_22(uint64_t a1, void *a2)
@@ -484,17 +479,17 @@ uint64_t __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block
 
 void __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) identifiers];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_invoke_3;
-  v15[3] = &unk_278F8BE30;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_invoke_3;
+  v14[3] = &unk_278F8BE30;
   v8 = v5;
-  v16 = v8;
-  v9 = [v7 bs_filter:v15];
+  v15 = v8;
+  v9 = [v7 bs_filter:v14];
 
   if ([v9 count])
   {
@@ -504,19 +499,17 @@ void __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_inv
       v11 = *(a1 + 40);
       v12 = *(a1 + 48);
       *buf = 138543874;
-      v18 = v11;
-      v19 = 2114;
-      v20 = v12;
-      v21 = 2114;
-      v22 = v6;
+      v17 = v11;
+      v18 = 2114;
+      v19 = v12;
+      v20 = 2114;
+      v21 = v6;
       _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Delivering assertion update with invalidation: assertion=%{public}@, invalidation=%{public}@, connection=%{public}@", buf, 0x20u);
     }
 
     v13 = [v6 remoteTarget];
     [v13 deliverActiveModeAssertionUpdate:*(a1 + 40) invalidation:*(a1 + 48) clientIdentifiers:v9];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_invoke_3(uint64_t a1, void *a2)
@@ -531,17 +524,17 @@ uint64_t __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block
 
 void __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_invoke_25(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) identifiers];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_invoke_2_26;
-  v14[3] = &unk_278F8BE30;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_invoke_2_26;
+  v13[3] = &unk_278F8BE30;
   v8 = v5;
-  v15 = v8;
-  v9 = [v7 bs_filter:v14];
+  v14 = v8;
+  v9 = [v7 bs_filter:v13];
 
   if ([v9 count])
   {
@@ -550,17 +543,15 @@ void __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_inv
     {
       v11 = *(a1 + 40);
       *buf = 138543618;
-      v17 = v11;
-      v18 = 2114;
-      v19 = v6;
+      v16 = v11;
+      v17 = 2114;
+      v18 = v6;
       _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Delivering assertion update: assertion=%{public}@, connection=%{public}@", buf, 0x16u);
     }
 
     v12 = [v6 remoteTarget];
     [v12 deliverActiveModeAssertionUpdate:*(a1 + 40) invalidation:0 clientIdentifiers:v9];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block_invoke_2_26(uint64_t a1, void *a2)
@@ -575,30 +566,28 @@ uint64_t __61__DNDSRemoteServiceProvider_handleModeAssertionUpdateResult___block
 
 - (void)handleUpdatedBehaviorSettings:(id)settings
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v5 = DNDSLogServiceProvider;
   if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v11 = settingsCopy;
+    v10 = settingsCopy;
     _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Did receive updated behavior settings, will handle; settings=%{public}@", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __59__DNDSRemoteServiceProvider_handleUpdatedBehaviorSettings___block_invoke;
-  v8[3] = &unk_278F8BE80;
-  v9 = settingsCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __59__DNDSRemoteServiceProvider_handleUpdatedBehaviorSettings___block_invoke;
+  v7[3] = &unk_278F8BE80;
+  v8 = settingsCopy;
   v6 = settingsCopy;
-  [(DNDSRemoteServiceProvider *)self _iterateClientConnectionsToSendWithHandler:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(DNDSRemoteServiceProvider *)self _iterateClientConnectionsToSendWithHandler:v7];
 }
 
 void __59__DNDSRemoteServiceProvider_handleUpdatedBehaviorSettings___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ([a2 wantsSettingsUpdates])
   {
@@ -606,46 +595,42 @@ void __59__DNDSRemoteServiceProvider_handleUpdatedBehaviorSettings___block_invok
     if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v10 = 138543618;
-      v11 = v7;
-      v12 = 2114;
-      v13 = v5;
-      _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "Delivering settings update: settings=%{public}@, connection=%{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v7;
+      v11 = 2114;
+      v12 = v5;
+      _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "Delivering settings update: settings=%{public}@, connection=%{public}@", &v9, 0x16u);
     }
 
     v8 = [v5 remoteTarget];
     [v8 deliverUpdatedBehaviorSettings:*(a1 + 32)];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUpdatedPhoneCallBypassSettings:(id)settings
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v5 = DNDSLogServiceProvider;
   if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v11 = settingsCopy;
+    v10 = settingsCopy;
     _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Did receive updated phone call bypass settings, will handle; settings=%{public}@", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __66__DNDSRemoteServiceProvider_handleUpdatedPhoneCallBypassSettings___block_invoke;
-  v8[3] = &unk_278F8BE80;
-  v9 = settingsCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __66__DNDSRemoteServiceProvider_handleUpdatedPhoneCallBypassSettings___block_invoke;
+  v7[3] = &unk_278F8BE80;
+  v8 = settingsCopy;
   v6 = settingsCopy;
-  [(DNDSRemoteServiceProvider *)self _iterateClientConnectionsToSendWithHandler:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(DNDSRemoteServiceProvider *)self _iterateClientConnectionsToSendWithHandler:v7];
 }
 
 void __66__DNDSRemoteServiceProvider_handleUpdatedPhoneCallBypassSettings___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (([v5 wantsGlobalConfigurationUpdates] & 1) != 0 || objc_msgSend(v5, "wantsSettingsUpdates"))
@@ -654,23 +639,21 @@ void __66__DNDSRemoteServiceProvider_handleUpdatedPhoneCallBypassSettings___bloc
     if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2114;
-      v14 = v6;
-      _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Delivering bypass update: settings=%{public}@, connection=%{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2114;
+      v13 = v6;
+      _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Delivering bypass update: settings=%{public}@, connection=%{public}@", &v10, 0x16u);
     }
 
     v9 = [v6 remoteTarget];
     [v9 deliverUpdatedPhoneCallBypassSettings:*(a1 + 32)];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUpdatedPairSyncState:(unint64_t)state
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = DNDSLogServiceProvider;
   if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
   {
@@ -678,22 +661,21 @@ void __66__DNDSRemoteServiceProvider_handleUpdatedPhoneCallBypassSettings___bloc
     v7 = v5;
     v8 = [v6 numberWithUnsignedInteger:state];
     *buf = 138543362;
-    v12 = v8;
+    v11 = v8;
     _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Did receive updated pair sync state, will handle; state=%{public}@", buf, 0xCu);
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __56__DNDSRemoteServiceProvider_handleUpdatedPairSyncState___block_invoke;
-  v10[3] = &__block_descriptor_40_e89_v24__0__DNDSClientConnectionDetails_8__BSServiceConnection_BSServiceConnectionContext__16l;
-  v10[4] = state;
-  [(DNDSRemoteServiceProvider *)self _iterateClientConnectionsToSendWithHandler:v10];
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __56__DNDSRemoteServiceProvider_handleUpdatedPairSyncState___block_invoke;
+  v9[3] = &__block_descriptor_40_e89_v24__0__DNDSClientConnectionDetails_8__BSServiceConnection_BSServiceConnectionContext__16l;
+  v9[4] = state;
+  [(DNDSRemoteServiceProvider *)self _iterateClientConnectionsToSendWithHandler:v9];
 }
 
 void __56__DNDSRemoteServiceProvider_handleUpdatedPairSyncState___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ([a2 wantsGlobalConfigurationUpdates])
   {
@@ -704,24 +686,45 @@ void __56__DNDSRemoteServiceProvider_handleUpdatedPairSyncState___block_invoke(u
       v8 = *(a1 + 32);
       v9 = v6;
       v10 = [v7 numberWithUnsignedInteger:v8];
-      v14 = 138543618;
-      v15 = v10;
-      v16 = 2114;
-      v17 = v5;
-      _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Delivering pair sync state: state=%{public}@, connection=%{public}@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v10;
+      v15 = 2114;
+      v16 = v5;
+      _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Delivering pair sync state: state=%{public}@, connection=%{public}@", &v13, 0x16u);
     }
 
     v11 = [v5 remoteTarget];
     v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 32)];
     [v11 deliverUpdatedPairSyncState:v12];
   }
+}
 
+- (void)handleUpdatedPreventAutoReplySetting:(BOOL)setting
+{
+  settingCopy = setting;
   v13 = *MEMORY[0x277D85DE8];
+  v5 = DNDSLogServiceProvider;
+  if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = MEMORY[0x277CCABB0];
+    v7 = v5;
+    v8 = [v6 numberWithBool:settingCopy];
+    *buf = 138543362;
+    v12 = v8;
+    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Did receive updated prevent auto reply settings, will handle; settings=%{public}@", buf, 0xCu);
+  }
+
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __66__DNDSRemoteServiceProvider_handleUpdatedPreventAutoReplySetting___block_invoke;
+  v9[3] = &__block_descriptor_33_e89_v24__0__DNDSClientConnectionDetails_8__BSServiceConnection_BSServiceConnectionContext__16l;
+  v10 = settingCopy;
+  [(DNDSRemoteServiceProvider *)self _iterateClientConnectionsToSendWithHandler:v9];
 }
 
 void __66__DNDSRemoteServiceProvider_handleUpdatedPreventAutoReplySetting___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (([v5 wantsGlobalConfigurationUpdates] & 1) != 0 || objc_msgSend(v5, "wantsSettingsUpdates"))
@@ -733,47 +736,43 @@ void __66__DNDSRemoteServiceProvider_handleUpdatedPreventAutoReplySetting___bloc
       v9 = *(a1 + 32);
       v10 = v7;
       v11 = [v8 numberWithBool:v9];
-      v15 = 138543618;
-      v16 = v11;
-      v17 = 2114;
-      v18 = v6;
-      _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Delivering prevent auto reply update: settings=%{public}@, connection=%{public}@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v11;
+      v16 = 2114;
+      v17 = v6;
+      _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Delivering prevent auto reply update: settings=%{public}@, connection=%{public}@", &v14, 0x16u);
     }
 
     v12 = [v6 remoteTarget];
     v13 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 32)];
     [v12 deliverUpdatedPreventAutoReplySetting:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUpdatedScheduleSettings:(id)settings
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v5 = DNDSLogServiceProvider;
   if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v11 = settingsCopy;
+    v10 = settingsCopy;
     _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Did receive updated schedule settings, will handle; settings=%{public}@", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __59__DNDSRemoteServiceProvider_handleUpdatedScheduleSettings___block_invoke;
-  v8[3] = &unk_278F8BE80;
-  v9 = settingsCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __59__DNDSRemoteServiceProvider_handleUpdatedScheduleSettings___block_invoke;
+  v7[3] = &unk_278F8BE80;
+  v8 = settingsCopy;
   v6 = settingsCopy;
-  [(DNDSRemoteServiceProvider *)self _iterateClientConnectionsToSendWithHandler:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(DNDSRemoteServiceProvider *)self _iterateClientConnectionsToSendWithHandler:v7];
 }
 
 void __59__DNDSRemoteServiceProvider_handleUpdatedScheduleSettings___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ([a2 wantsSettingsUpdates])
   {
@@ -781,49 +780,45 @@ void __59__DNDSRemoteServiceProvider_handleUpdatedScheduleSettings___block_invok
     if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v10 = 138543618;
-      v11 = v7;
-      v12 = 2114;
-      v13 = v5;
-      _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "Delivering settings update: settings=%{public}@, connection=%{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v7;
+      v11 = 2114;
+      v12 = v5;
+      _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "Delivering settings update: settings=%{public}@, connection=%{public}@", &v9, 0x16u);
     }
 
     v8 = [v5 remoteTarget];
     [v8 deliverUpdatedScheduleSettings:*(a1 + 32)];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUpdatedModes:(id)modes availableModes:(id)availableModes
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   modesCopy = modes;
   availableModesCopy = availableModes;
   v8 = DNDSLogServiceProvider;
   if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v16 = availableModesCopy;
+    v15 = availableModesCopy;
     _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Did receive updated available modes, will handle; modes=%{public}@", buf, 0xCu);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __63__DNDSRemoteServiceProvider_handleUpdatedModes_availableModes___block_invoke;
-  v12[3] = &unk_278F8BE08;
-  v13 = availableModesCopy;
-  v14 = modesCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __63__DNDSRemoteServiceProvider_handleUpdatedModes_availableModes___block_invoke;
+  v11[3] = &unk_278F8BE08;
+  v12 = availableModesCopy;
+  v13 = modesCopy;
   v9 = modesCopy;
   v10 = availableModesCopy;
-  [(DNDSRemoteServiceProvider *)self _iterateClientConnectionsToSendWithHandler:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(DNDSRemoteServiceProvider *)self _iterateClientConnectionsToSendWithHandler:v11];
 }
 
 void __63__DNDSRemoteServiceProvider_handleUpdatedModes_availableModes___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ([a2 wantsModeUpdates])
   {
@@ -834,13 +829,13 @@ void __63__DNDSRemoteServiceProvider_handleUpdatedModes_availableModes___block_i
       v8 = [v5 remoteProcess];
       v9 = [v8 pid];
       v10 = *(a1 + 32);
-      v19 = 67109634;
-      v20 = v9;
-      v21 = 2114;
-      v22 = v10;
-      v23 = 2114;
-      v24 = v5;
-      _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Delivering modes update: pid=%d, modes=%{public}@, connection=%{public}@", &v19, 0x1Cu);
+      v18 = 67109634;
+      v19 = v9;
+      v20 = 2114;
+      v21 = v10;
+      v22 = 2114;
+      v23 = v5;
+      _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Delivering modes update: pid=%d, modes=%{public}@, connection=%{public}@", &v18, 0x1Cu);
     }
 
     v11 = [v5 remoteTarget];
@@ -853,48 +848,44 @@ void __63__DNDSRemoteServiceProvider_handleUpdatedModes_availableModes___block_i
       v14 = [v5 remoteProcess];
       v15 = [v14 pid];
       v16 = *(a1 + 32);
-      v19 = 67109634;
-      v20 = v15;
-      v21 = 2114;
-      v22 = v16;
-      v23 = 2114;
-      v24 = v5;
-      _os_log_impl(&dword_24912E000, v13, OS_LOG_TYPE_DEFAULT, "Delivering available modes update: pid=%d, modes=%{public}@, connection=%{public}@", &v19, 0x1Cu);
+      v18 = 67109634;
+      v19 = v15;
+      v20 = 2114;
+      v21 = v16;
+      v22 = 2114;
+      v23 = v5;
+      _os_log_impl(&dword_24912E000, v13, OS_LOG_TYPE_DEFAULT, "Delivering available modes update: pid=%d, modes=%{public}@, connection=%{public}@", &v18, 0x1Cu);
     }
 
     v17 = [v5 remoteTarget];
     [v17 deliverAvailableModes:*(a1 + 32)];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAppConfigurationContextUpdateForModeIdentifier:(id)identifier
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = DNDSLogServiceProvider;
   if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v11 = identifierCopy;
+    v10 = identifierCopy;
     _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Mode did receive updated app configuration context, will handle; mode=%{public}@", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __82__DNDSRemoteServiceProvider_handleAppConfigurationContextUpdateForModeIdentifier___block_invoke;
-  v8[3] = &unk_278F8BE80;
-  v9 = identifierCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __82__DNDSRemoteServiceProvider_handleAppConfigurationContextUpdateForModeIdentifier___block_invoke;
+  v7[3] = &unk_278F8BE80;
+  v8 = identifierCopy;
   v6 = identifierCopy;
-  [(DNDSRemoteServiceProvider *)self _iterateClientConnectionsToSendWithHandler:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(DNDSRemoteServiceProvider *)self _iterateClientConnectionsToSendWithHandler:v7];
 }
 
 void __82__DNDSRemoteServiceProvider_handleAppConfigurationContextUpdateForModeIdentifier___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ([a2 wantsModeUpdates])
   {
@@ -905,25 +896,23 @@ void __82__DNDSRemoteServiceProvider_handleAppConfigurationContextUpdateForModeI
       v8 = [v5 remoteProcess];
       v9 = [v8 pid];
       v10 = *(a1 + 32);
-      v13[0] = 67109634;
-      v13[1] = v9;
-      v14 = 2114;
-      v15 = v10;
-      v16 = 2114;
-      v17 = v5;
-      _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Signaling mode app configuration context update: pid=%d, mode=%{public}@, connection=%{public}@", v13, 0x1Cu);
+      v12[0] = 67109634;
+      v12[1] = v9;
+      v13 = 2114;
+      v14 = v10;
+      v15 = 2114;
+      v16 = v5;
+      _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Signaling mode app configuration context update: pid=%d, mode=%{public}@, connection=%{public}@", v12, 0x1Cu);
     }
 
     v11 = [v5 remoteTarget];
     [v11 signalAppConfigurationContextUpdateForModeIdentifier:*(a1 + 32)];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMeDeviceStateUpdate:(id)update
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   v5 = DNDSLogServiceProvider;
   if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
@@ -933,26 +922,24 @@ void __82__DNDSRemoteServiceProvider_handleAppConfigurationContextUpdateForModeI
     v7 = DNDMeDeviceStatusToString();
     meDeviceName = [updateCopy meDeviceName];
     *buf = 138543618;
-    v14 = v7;
-    v15 = 2114;
-    v16 = meDeviceName;
+    v13 = v7;
+    v14 = 2114;
+    v15 = meDeviceName;
     _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "Did receive updated 'Me Device' state, will handle; meDeviceStatus=%{public}@, meDeviceName=%{public}@", buf, 0x16u);
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __55__DNDSRemoteServiceProvider_handleMeDeviceStateUpdate___block_invoke;
-  v11[3] = &unk_278F8BE80;
-  v12 = updateCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __55__DNDSRemoteServiceProvider_handleMeDeviceStateUpdate___block_invoke;
+  v10[3] = &unk_278F8BE80;
+  v11 = updateCopy;
   v9 = updateCopy;
-  [(DNDSRemoteServiceProvider *)self _iterateClientConnectionsToSendWithHandler:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(DNDSRemoteServiceProvider *)self _iterateClientConnectionsToSendWithHandler:v10];
 }
 
 void __55__DNDSRemoteServiceProvider_handleMeDeviceStateUpdate___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ([a2 wantsMeDeviceStateUpdates])
   {
@@ -965,41 +952,39 @@ void __55__DNDSRemoteServiceProvider_handleMeDeviceStateUpdate___block_invoke(ui
       [*(a1 + 32) meDeviceStatus];
       v10 = DNDMeDeviceStatusToString();
       v11 = [*(a1 + 32) meDeviceName];
-      v14[0] = 67109890;
-      v14[1] = v9;
-      v15 = 2114;
-      v16 = v10;
-      v17 = 2114;
-      v18 = v11;
-      v19 = 2114;
-      v20 = v5;
-      _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Delivering 'Me Device' state update: pid=%d, meDeviceStatus=%{public}@, meDeviceName=%{public}@, connection=%{public}@", v14, 0x26u);
+      v13[0] = 67109890;
+      v13[1] = v9;
+      v14 = 2114;
+      v15 = v10;
+      v16 = 2114;
+      v17 = v11;
+      v18 = 2114;
+      v19 = v5;
+      _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Delivering 'Me Device' state update: pid=%d, meDeviceStatus=%{public}@, meDeviceName=%{public}@, connection=%{public}@", v13, 0x26u);
     }
 
     v12 = [v5 remoteTarget];
     [v12 deliverMeDeviceState:*(a1 + 32)];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   contextCopy = context;
   objc_initWeak(&location, self);
   if (self->_requestListener == listenerCopy)
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __71__DNDSRemoteServiceProvider_listener_didReceiveConnection_withContext___block_invoke;
-    v17[3] = &unk_278F8A348;
-    v17[4] = self;
-    v11 = &v18;
-    objc_copyWeak(&v18, &location);
-    [connectionCopy configureConnection:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __71__DNDSRemoteServiceProvider_listener_didReceiveConnection_withContext___block_invoke;
+    v16[3] = &unk_278F8A348;
+    v16[4] = self;
+    v11 = &v17;
+    objc_copyWeak(&v17, &location);
+    [connectionCopy configureConnection:v16];
   }
 
   else
@@ -1010,14 +995,14 @@ void __55__DNDSRemoteServiceProvider_handleMeDeviceStateUpdate___block_invoke(ui
       goto LABEL_11;
     }
 
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __71__DNDSRemoteServiceProvider_listener_didReceiveConnection_withContext___block_invoke_4;
-    v15[3] = &unk_278F8A348;
-    v15[4] = self;
-    v11 = &v16;
-    objc_copyWeak(&v16, &location);
-    [connectionCopy configureConnection:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __71__DNDSRemoteServiceProvider_listener_didReceiveConnection_withContext___block_invoke_4;
+    v14[3] = &unk_278F8A348;
+    v14[4] = self;
+    v11 = &v15;
+    objc_copyWeak(&v15, &location);
+    [connectionCopy configureConnection:v14];
   }
 
   objc_destroyWeak(v11);
@@ -1029,7 +1014,7 @@ void __55__DNDSRemoteServiceProvider_handleMeDeviceStateUpdate___block_invoke(ui
     if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v21 = connectionCopy;
+      v20 = connectionCopy;
       _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_DEFAULT, "XPC connection successfully accepted: connection=%{public}@", buf, 0xCu);
     }
   }
@@ -1046,8 +1031,6 @@ void __55__DNDSRemoteServiceProvider_handleMeDeviceStateUpdate___block_invoke(ui
 
 LABEL_11:
   objc_destroyWeak(&location);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __71__DNDSRemoteServiceProvider_listener_didReceiveConnection_withContext___block_invoke(uint64_t a1, void *a2)
@@ -1181,7 +1164,7 @@ void __71__DNDSRemoteServiceProvider_listener_didReceiveConnection_withContext__
 
 - (void)takeModeAssertionWithDetails:(id)details requestDetails:(id)requestDetails completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   detailsCopy = details;
   requestDetailsCopy = requestDetails;
   handlerCopy = handler;
@@ -1196,21 +1179,21 @@ void __71__DNDSRemoteServiceProvider_listener_didReceiveConnection_withContext__
   if ([currentContext dnds_hasEntitlementsToRequestAssertionWithDetails:detailsCopy clientIdentifier:clientIdentifier])
   {
     delegate = [(DNDSRemoteServiceProvider *)self delegate];
-    v26 = 0;
-    v19 = [delegate remoteServiceProvider:self takeModeAssertionWithDetails:detailsCopy clientIdentifier:clientIdentifier error:&v26];
-    v20 = v26;
+    v25 = 0;
+    v19 = [delegate remoteServiceProvider:self takeModeAssertionWithDetails:detailsCopy clientIdentifier:clientIdentifier error:&v25];
+    v20 = v25;
 
     if (v19)
     {
       v21 = [(DNDSClientDetailsProvider *)self->_clientDetailsProvider clientDetailsForIdentifier:clientIdentifier];
       if (([v21 isPersistentAssertionClient] & 1) == 0)
       {
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __91__DNDSRemoteServiceProvider_takeModeAssertionWithDetails_requestDetails_completionHandler___block_invoke;
-        v24[3] = &unk_278F8BEE8;
-        v25 = v19;
-        [(DNDSRemoteServiceProvider *)self _registerOrMutateConnectionDetailsForClientConnection:currentContext handler:v24];
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __91__DNDSRemoteServiceProvider_takeModeAssertionWithDetails_requestDetails_completionHandler___block_invoke;
+        v23[3] = &unk_278F8BEE8;
+        v24 = v19;
+        [(DNDSRemoteServiceProvider *)self _registerOrMutateConnectionDetailsForClientConnection:currentContext handler:v23];
       }
     }
 
@@ -1223,18 +1206,16 @@ void __71__DNDSRemoteServiceProvider_listener_didReceiveConnection_withContext__
     if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v28 = requestDetailsCopy;
-      v29 = 2114;
-      v30 = currentContext;
-      v31 = 2114;
-      v32 = detailsCopy;
+      v27 = requestDetailsCopy;
+      v28 = 2114;
+      v29 = currentContext;
+      v30 = 2114;
+      v31 = detailsCopy;
       _os_log_error_impl(&dword_24912E000, v22, OS_LOG_TYPE_ERROR, "[%{public}@] XPC connection without any valid entitlements tried to take mode assertion, will invalidate: connection=%{public}@, assertionDetails=%{public}@", buf, 0x20u);
     }
 
     [currentContext invalidate];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 id __91__DNDSRemoteServiceProvider_takeModeAssertionWithDetails_requestDetails_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -2693,7 +2674,7 @@ id __103__DNDSRemoteServiceProvider_registerForGlobalConfigurationUpdatesWithReq
 
 - (void)activateModeWithDetails:(id)details withRequestDetails:(id)requestDetails completionHandler:(id)handler
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   detailsCopy = details;
   requestDetailsCopy = requestDetails;
   handlerCopy = handler;
@@ -2713,34 +2694,34 @@ id __103__DNDSRemoteServiceProvider_registerForGlobalConfigurationUpdatesWithReq
     if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v32 = detailsCopy;
-      v33 = 2112;
-      v34 = requestDetailsCopy;
+      v31 = detailsCopy;
+      v32 = 2112;
+      v33 = requestDetailsCopy;
       _os_log_impl(&dword_24912E000, v20, OS_LOG_TYPE_DEFAULT, "Activating mode %@ with details %@", buf, 0x16u);
     }
 
-    v28 = v15;
+    v27 = v15;
     delegate = [(DNDSRemoteServiceProvider *)self delegate];
     v22 = delegate;
     if (modeIdentifier)
     {
-      v30 = 0;
-      v23 = [delegate remoteServiceProvider:self takeModeAssertionWithDetails:detailsCopy clientIdentifier:clientIdentifier error:&v30];
-      v24 = v30;
+      v29 = 0;
+      v23 = [delegate remoteServiceProvider:self takeModeAssertionWithDetails:detailsCopy clientIdentifier:clientIdentifier error:&v29];
+      v24 = v29;
     }
 
     else
     {
       date = [MEMORY[0x277CBEAA8] date];
-      v29 = 0;
-      v23 = [v22 remoteServiceProvider:self invalidateAllModeAssertionsTakenBeforeDate:date forReason:2 clientIdentifier:clientIdentifier error:&v29];
-      v24 = v29;
+      v28 = 0;
+      v23 = [v22 remoteServiceProvider:self invalidateAllModeAssertionsTakenBeforeDate:date forReason:2 clientIdentifier:clientIdentifier error:&v28];
+      v24 = v28;
     }
 
     v26 = [MEMORY[0x277CCABB0] numberWithInt:v23 != 0];
     handlerCopy[2](handlerCopy, v26, v24);
 
-    v15 = v28;
+    v15 = v27;
   }
 
   else
@@ -2748,18 +2729,16 @@ id __103__DNDSRemoteServiceProvider_registerForGlobalConfigurationUpdatesWithReq
     if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v32 = requestDetailsCopy;
-      v33 = 2114;
-      v34 = currentContext;
-      v35 = 2114;
-      v36 = modeIdentifier;
+      v31 = requestDetailsCopy;
+      v32 = 2114;
+      v33 = currentContext;
+      v34 = 2114;
+      v35 = modeIdentifier;
       _os_log_error_impl(&dword_24912E000, v20, OS_LOG_TYPE_ERROR, "[%{public}@] XPC connection without any valid entitlements tried to activate a mode, will invalidate: connection=%{public}@, modeIdentifier=%{public}@", buf, 0x20u);
     }
 
     [currentContext invalidate];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activeModeAssertionWithRequestDetails:(id)details completionHandler:(id)handler
@@ -2797,7 +2776,7 @@ id __103__DNDSRemoteServiceProvider_registerForGlobalConfigurationUpdatesWithReq
 
 - (void)invalidateModeAssertionWithUUID:(id)d withRequestDetails:(id)details completionHandler:(id)handler
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   detailsCopy = details;
   handlerCopy = handler;
@@ -2816,24 +2795,24 @@ id __103__DNDSRemoteServiceProvider_registerForGlobalConfigurationUpdatesWithReq
     if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v30 = dCopy;
-      v31 = 2112;
-      v32 = detailsCopy;
+      v29 = dCopy;
+      v30 = 2112;
+      v31 = detailsCopy;
       _os_log_impl(&dword_24912E000, v19, OS_LOG_TYPE_DEFAULT, "Invalidating mode with UUID %@ with details %@", buf, 0x16u);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v28 = 0;
-    v21 = [WeakRetained remoteServiceProvider:self invalidateModeAssertionWithUUID:dCopy reason:2 reasonOverride:0 clientIdentifier:clientIdentifier error:&v28];
-    v22 = v28;
+    v27 = 0;
+    v21 = [WeakRetained remoteServiceProvider:self invalidateModeAssertionWithUUID:dCopy reason:2 reasonOverride:0 clientIdentifier:clientIdentifier error:&v27];
+    v22 = v27;
 
     if (!(v22 | v21))
     {
       v23 = MEMORY[0x277CCA9B8];
       v24 = *MEMORY[0x277D05840];
-      v35 = *MEMORY[0x277CCA450];
-      v36[0] = @"Mode assertion not found for assertion UUID.";
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+      v34 = *MEMORY[0x277CCA450];
+      v35[0] = @"Mode assertion not found for assertion UUID.";
+      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
       v22 = [v23 errorWithDomain:v24 code:1005 userInfo:v25];
     }
 
@@ -2846,18 +2825,16 @@ id __103__DNDSRemoteServiceProvider_registerForGlobalConfigurationUpdatesWithReq
     if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v30 = detailsCopy;
-      v31 = 2114;
-      v32 = currentContext;
-      v33 = 2114;
-      v34 = dCopy;
+      v29 = detailsCopy;
+      v30 = 2114;
+      v31 = currentContext;
+      v32 = 2114;
+      v33 = dCopy;
       _os_log_error_impl(&dword_24912E000, v19, OS_LOG_TYPE_ERROR, "[%{public}@] XPC connection without any valid entitlements tried to invalidate a mode, will invalidate: connection=%{public}@, assertionUUID=%{public}@", buf, 0x20u);
     }
 
     [currentContext invalidate];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForModeSelectionUpdatesWithRequestDetails:(id)details completionHandler:(id)handler
@@ -3562,41 +3539,37 @@ id __97__DNDSRemoteServiceProvider_registerForMeDeviceStateUpdatesWithRequestDet
 
 - (void)_handleClientConnectionInterrupted:(id)interrupted
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   interruptedCopy = interrupted;
   v5 = DNDSLogServiceProvider;
   if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = interruptedCopy;
-    _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Client XPC connection was interrupted: connection=%{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = interruptedCopy;
+    _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Client XPC connection was interrupted: connection=%{public}@", &v6, 0xCu);
   }
 
   [(DNDSRemoteServiceProvider *)self _unregisterConnectionDetailsForClientConnection:interruptedCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleClientConnectionInvalidated:(id)invalidated
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   invalidatedCopy = invalidated;
   v5 = DNDSLogServiceProvider;
   if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = invalidatedCopy;
-    _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Client XPC connection was invalidated: connection=%{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = invalidatedCopy;
+    _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Client XPC connection was invalidated: connection=%{public}@", &v6, 0xCu);
   }
 
   [(DNDSRemoteServiceProvider *)self _unregisterConnectionDetailsForClientConnection:invalidatedCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerOrMutateConnectionDetailsForClientConnection:(id)connection handler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   handlerCopy = handler;
   v8 = self->_clientConnectionDetailsByConnection;
@@ -3607,9 +3580,9 @@ id __97__DNDSRemoteServiceProvider_registerForMeDeviceStateUpdatesWithRequestDet
     v10 = DNDSLogServiceProvider;
     if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543362;
-      v15 = connectionCopy;
-      _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Registering new connection details for connection: connection=%{public}@", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = connectionCopy;
+      _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Registering new connection details for connection: connection=%{public}@", &v13, 0xCu);
     }
 
     v9 = objc_alloc_init(DNDSClientConnectionDetails);
@@ -3621,23 +3594,22 @@ id __97__DNDSRemoteServiceProvider_registerForMeDeviceStateUpdatesWithRequestDet
     v12 = DNDSLogServiceProvider;
     if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543618;
-      v15 = connectionCopy;
-      v16 = 2114;
-      v17 = v11;
-      _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_DEFAULT, "Updating connection details for connection: connection=%{public}@, updatedConnectionDetails=%{public}@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = connectionCopy;
+      v15 = 2114;
+      v16 = v11;
+      _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_DEFAULT, "Updating connection details for connection: connection=%{public}@, updatedConnectionDetails=%{public}@", &v13, 0x16u);
     }
 
     [(NSMapTable *)self->_clientConnectionDetailsByConnection setObject:v11 forKey:connectionCopy];
   }
 
   objc_sync_exit(v8);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_unregisterConnectionDetailsForClientConnection:(id)connection
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v5 = self->_clientConnectionDetailsByConnection;
   objc_sync_enter(v5);
@@ -3647,11 +3619,11 @@ id __97__DNDSRemoteServiceProvider_registerForMeDeviceStateUpdatesWithRequestDet
   v7 = DNDSLogServiceProvider;
   if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138543618;
-    v14 = connectionCopy;
-    v15 = 2114;
-    v16 = v6;
-    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Connection details unregistered: connection=%{public}@, clientDetails=%{public}@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = connectionCopy;
+    v14 = 2114;
+    v15 = v6;
+    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Connection details unregistered: connection=%{public}@, clientDetails=%{public}@", &v12, 0x16u);
   }
 
   interruptionInvalidationAssertionUUID = [v6 interruptionInvalidationAssertionUUID];
@@ -3660,11 +3632,11 @@ id __97__DNDSRemoteServiceProvider_registerForMeDeviceStateUpdatesWithRequestDet
     v9 = DNDSLogServiceProvider;
     if (os_log_type_enabled(DNDSLogServiceProvider, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543618;
-      v14 = connectionCopy;
-      v15 = 2114;
-      v16 = interruptionInvalidationAssertionUUID;
-      _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Invalidating assertion due to client disconnect: connection=%{public}@, UUID=%{public}@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = connectionCopy;
+      v14 = 2114;
+      v15 = interruptionInvalidationAssertionUUID;
+      _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Invalidating assertion due to client disconnect: connection=%{public}@, UUID=%{public}@", &v12, 0x16u);
     }
 
     delegate = [(DNDSRemoteServiceProvider *)self delegate];
@@ -3672,46 +3644,44 @@ id __97__DNDSRemoteServiceProvider_registerForMeDeviceStateUpdatesWithRequestDet
   }
 
   objc_sync_exit(v5);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_iterateClientConnectionsToSendWithHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = self->_clientConnectionDetailsByConnection;
   objc_sync_enter(v5);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = self->_clientConnectionDetailsByConnection;
-  v7 = [(NSMapTable *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [(NSMapTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
-        v11 = [(NSMapTable *)self->_clientConnectionDetailsByConnection objectForKey:v10, v13];
+        v10 = *(*(&v12 + 1) + 8 * i);
+        v11 = [(NSMapTable *)self->_clientConnectionDetailsByConnection objectForKey:v10, v12];
         handlerCopy[2](handlerCopy, v11, v10);
       }
 
-      v7 = [(NSMapTable *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSMapTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(v5);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_clientDetailsForClientIdentifier:(id)identifier clientConnection:(id)connection
@@ -3726,7 +3696,7 @@ id __97__DNDSRemoteServiceProvider_registerForMeDeviceStateUpdatesWithRequestDet
     v11 = auditToken;
     if (auditToken)
     {
-      [auditToken realToken];
+      objc_msgSend_realToken(auditToken);
     }
 
     else
@@ -3776,427 +3746,10 @@ id __97__DNDSRemoteServiceProvider_registerForMeDeviceStateUpdatesWithRequestDet
 
 - (void)listener:(uint64_t)a1 didReceiveConnection:(NSObject *)a2 withContext:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "XPC connection without any valid entitlements tried to connect, will reject: connection=%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)resolveBehaviorForEventDetails:requestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to process event, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)invalidateActiveModeAssertionWithDetails:reasonOverride:requestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to invalidate mode assertion, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getActiveModeAssertionWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get mode assertion, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getLatestModeAssertionInvalidationWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get mode assertion invalidation, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)invalidateAllActiveModeAssertionsWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to invalidate all mode assertions, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getAllModeAssertionsWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to request all mode assertions, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)registerForAssertionUpdatesWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to register for assertion updates, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)queryStateWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to query state, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)queryStateForUpdateWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to query state as a part of registering for updates, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)registerForStateUpdatesWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to register for state updates, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setScreenIsShared:screenIsMirrored:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to set screen sharing / mirroring settings, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getBehaviorSettingsWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get behavior settings, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setBehaviorSettings:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to set behavior settings, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getScheduleSettingsWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get schedule settings, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setScheduleSettings:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to set schedule settings, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setPreventAutoReply:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to set global configuration, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getPreventAutoReplyWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get auto reply prevention state, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getModesCanImpactAvailabilityWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get global availability state, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)registerForGlobalConfigurationUpdatesWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without valid entitlements tried to register for global configuration updates; will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getCloudSyncStateWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get cloud sync state, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setCloudSyncPreferenceEnabled:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to change cloud sync preference enabled state, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getPairSyncStateWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get pair sync state, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setPairSyncPreferenceEnabled:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to change pair sync preference enabled state, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getAccountFeatureSupportWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get supported account features, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getStateDumpWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to fetch state dump, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)didChangeFocusStatusSharingSettingForApplicationIdentifier:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to notify of focus status sharing change, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setModeConfiguration:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to set mode configuration, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)removeModeConfigurationForModeIdentifier:deletePlaceholder:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to remove mode configuration, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getModeConfigurationsWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get mode configurations, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getModeConfigurationForModeIdentifier:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get mode configuration, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getAllModesWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get all modes, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getAvailableModesWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get available modes, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)syncModeConfigurationsWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to sync modes, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getAllowedModesForContactHandle:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get silenced modes for a contact, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getUserAvailabilityInActiveModeForContactHandle:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get availability state, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)publishStatusKitAvailabilityWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to publish statuskit availability, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)activeModeAssertionWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get mode assertion, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)registerForModeSelectionUpdatesWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without valid entitlements tried to register for available mode identifiers; will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getAppInfoForBundleIdentifier:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without valid entitlements tried to fetch app info; will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)queryMeDeviceStateWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without valid entitlements tried to query 'Me Device' state; will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)registerForMeDeviceStateUpdatesWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without valid entitlements tried to register for 'Me Device' state updates; will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setAppConfigurationPredicate:forActionIdentifier:forApplicationIdentifier:modeIdentifier:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to set app predicate, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getAppConfigurationPredicateForActionIdentifier:forApplicationIdentifier:modeIdentifier:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get app predicate, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setAppConfigurationTargetContentIdentifierPrefix:forActionIdentifier:forApplicationIdentifier:modeIdentifier:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to set target content identifier prefix, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getAppConfigurationTargetContentIdentifierPrefixesForModeIdentifier:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get target content identifier prefixes, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setAppAction:forApplicationIdentifier:modeIdentifier:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to set app action, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)clearAppActionWithIdentifier:forApplicationIdentifier:modeIdentifier:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to clear app action, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getAppActionsForModeIdentifier:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get app actions, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)clearSystemActionWithIdentifier:forModeIdentifier:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to clear system action, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getSystemActionsForModeIdentifier:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to get system actions, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setSystemAction:forModeIdentifier:withRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to set system action, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)resetAppConfigurationStateWithRequestDetails:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_24912E000, v0, v1, "[%{public}@] XPC connection without any valid entitlements tried to reset app configuration state, will invalidate: connection=%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "XPC connection without any valid entitlements tried to connect, will reject: connection=%{public}@", &v2, 0xCu);
 }
 
 @end

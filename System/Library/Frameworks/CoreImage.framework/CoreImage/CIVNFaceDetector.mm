@@ -33,7 +33,7 @@
   v111 = &v110;
   v112 = 0x2020000000;
   v113 = 0;
-  v6 = ci_signpost_log_detector();
+  v6 = ci_signpost_log_detector(self, a2);
   if (&self->super.super.isa + 1 >= 2)
   {
     v11 = v6;
@@ -369,25 +369,25 @@ LABEL_62:
   *(v111 + 6) = v68;
   v69 = v76;
 LABEL_64:
-  v106(v105);
+  (v106)(v105);
   _Block_object_dispose(&v110, 8);
   return v69;
 }
 
-void __44__CIVNFaceDetector_featuresInImage_options___block_invoke(uint64_t a1)
+void __44__CIVNFaceDetector_featuresInImage_options___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_detector();
-  v3 = *(a1 + 40);
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v10 = *MEMORY[0x1E69E9840];
+  v5 = ci_signpost_log_detector(a1, a2);
+  v6 = *(a1 + 40);
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v4 = v2;
-    if (os_signpost_enabled(v2))
+    v7 = v5;
+    if (os_signpost_enabled(v5))
     {
-      v5 = *(*(*(a1 + 32) + 8) + 24);
-      v6[0] = 67109120;
-      v6[1] = v5;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "CIVNFaceDetector", "count:%d", v6, 8u);
+      v8 = *(*(*(a1 + 32) + 8) + 24);
+      v9[0] = 67109120;
+      v9[1] = v8;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v7, OS_SIGNPOST_INTERVAL_END, v6, "CIVNFaceDetector", "count:%d", v9, 8u);
     }
   }
 }

@@ -31,7 +31,9 @@
 - (int)convertSISchemaAudioInputRouteToMHRoute:(int)route withRecordingInfo:(id)info;
 - (unsigned)_audioSessionID;
 - (unsigned)fetchAudioSessionID;
+- (void)_checkIfLastEndpointHintShouldBeAccepted:(BOOL)accepted;
 - (void)_clearEndpointHint;
+- (void)_enforceEndpointHintWithMitigation:(BOOL)mitigation;
 - (void)_handleFakeTwoShotPromptCallbackWithUUID:(id)d timestamp:(double)timestamp duration:(double)duration error:(id)error;
 - (void)_handleFakeTwoShotPromptTimeoutWithUUID:(id)d;
 - (void)_hardEndpointWasDetectedWithMetrics:(id)metrics atTime:(double)time;
@@ -51,6 +53,7 @@
 - (void)_setupAudioFileWritingForSpeechController:(id)controller info:(id)info context:(id)context;
 - (void)_speechControllerDidReceiveFirstAudioRecordBufferWithHostTime:(unint64_t)time atHostTime:(unint64_t)hostTime mhUUID:(id)d;
 - (void)_speechControllerDidReceiveLastAudioRecordBuffer:(id)buffer forReason:(int64_t)reason estimatedSpeechEndHostTime:(unint64_t)time isRecordingStopped:(BOOL)stopped;
+- (void)_speechControllerDidStartRecording:(id)recording successfully:(BOOL)successfully error:(id)error;
 - (void)_speechControllerDidStopRecording:(id)recording audioDeviceInfo:(id)info forReason:(int64_t)reason estimatedSpeechEndHostTime:(unint64_t)time errorCodeOverride:(int64_t)override underlyingError:(id)error;
 - (void)_speechControllerRequestsOperation:(unint64_t)operation forReason:(unint64_t)reason completion:(id)completion;
 - (void)_stopRecordingForEndpointReason:(id)reason withEndpointMetrics:(id)metrics;
@@ -106,6 +109,7 @@
 - (void)stopSpeechCaptureForEvent:(int64_t)event suppressAlert:(BOOL)alert hostTime:(unint64_t)time;
 - (void)suppressUtteranceGradingIfRequired;
 - (void)updateASRFeatures:(id)features;
+- (void)updateEndpointHintForRC:(id)c forceAccept:(BOOL)accept completion:(id)completion;
 - (void)updateSpeechSynthesisRecord:(id)record;
 @end
 
@@ -143,28 +147,27 @@
 
 - (unsigned)_audioSessionID
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CEF0E8];
   v4 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v9 = 136315138;
-    v10 = "[CSSiriSpeechRecorder _audioSessionID]";
-    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s Fetching audio session ID...", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[CSSiriSpeechRecorder _audioSessionID]";
+    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s Fetching audio session ID...", &v8, 0xCu);
   }
 
   getAudioSessionID = [(CSAudioSessionController *)self->_audioSessionController getAudioSessionID];
   v6 = *v3;
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_INFO))
   {
-    v9 = 136315394;
-    v10 = "[CSSiriSpeechRecorder _audioSessionID]";
-    v11 = 2048;
-    v12 = getAudioSessionID;
-    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s Done fetching audio session ID %lu.", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[CSSiriSpeechRecorder _audioSessionID]";
+    v10 = 2048;
+    v11 = getAudioSessionID;
+    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s Done fetching audio session ID %lu.", &v8, 0x16u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return getAudioSessionID;
 }
 
@@ -190,7 +193,7 @@
 
 - (void)_setLanguageDetectorDelegateIfRequired
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   languageDetectionUserContext = [(CSSiriAudioActivationInfo *)self->_currentActivationInfo languageDetectionUserContext];
   v4 = _AFPreferencesDictationLanguageDetectorEnabled();
   v5 = *MEMORY[0x277CEF0E8];
@@ -199,9 +202,9 @@
   {
     if (v6)
     {
-      v8 = 136315138;
-      v9 = "[CSSiriSpeechRecorder _setLanguageDetectorDelegateIfRequired]";
-      _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s Language detection delegate is active", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[CSSiriSpeechRecorder _setLanguageDetectorDelegateIfRequired]";
+      _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s Language detection delegate is active", &v7, 0xCu);
     }
 
     [(CSSpeechController *)self->_speechController setLanguageDetectorDelegate:self];
@@ -209,21 +212,19 @@
 
   else if (v6)
   {
-    v8 = 136315650;
-    v9 = "[CSSiriSpeechRecorder _setLanguageDetectorDelegateIfRequired]";
-    v10 = 1024;
-    v11 = v4;
-    v12 = 2112;
-    v13 = languageDetectionUserContext;
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s Language detection delegate is NOT active. %d, %@", &v8, 0x1Cu);
+    v7 = 136315650;
+    v8 = "[CSSiriSpeechRecorder _setLanguageDetectorDelegateIfRequired]";
+    v9 = 1024;
+    v10 = v4;
+    v11 = 2112;
+    v12 = languageDetectionUserContext;
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s Language detection delegate is NOT active. %d, %@", &v7, 0x1Cu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setAlertsIfNeeded
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   recordingAlertsConfiguration = self->_recordingAlertsConfiguration;
   v4 = self->_speechCapturingMode & 0xFFFFFFFFFFFFFFFELL;
   v5 = MEMORY[0x277CEF0E8];
@@ -234,7 +235,7 @@
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v37 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
+      v36 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
       _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s Setting up recording alerts for Dictation.", buf, 0xCu);
     }
 
@@ -251,7 +252,7 @@
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v37 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
+      v36 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
       _os_log_impl(&dword_222E4D000, v16, OS_LOG_TYPE_INFO, "%s Done setting recording alerts for Dictation.", buf, 0xCu);
     }
   }
@@ -263,7 +264,7 @@
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v37 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
+      v36 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
       _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s Setting up recording alerts for Siri and other non-Dictation modes.", buf, 0xCu);
     }
 
@@ -276,7 +277,7 @@
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v37 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
+      v36 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
       _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s Done setting recording alerts for Siri and other non-Dictation modes.", buf, 0xCu);
     }
   }
@@ -290,7 +291,7 @@
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v37 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
+      v36 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
       _os_log_impl(&dword_222E4D000, v19, OS_LOG_TYPE_INFO, "%s Overriding record starting alert for IFD feature group one.", buf, 0xCu);
     }
 
@@ -304,9 +305,9 @@
       if (os_log_type_enabled(*v5, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v37 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
-        v38 = 2112;
-        v39 = v21;
+        v36 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
+        v37 = 2112;
+        v38 = v21;
         _os_log_impl(&dword_222E4D000, v23, OS_LOG_TYPE_INFO, "%s Done overriding record starting alert for IFD feature group one (soundURL = %@).", buf, 0x16u);
       }
 
@@ -319,7 +320,7 @@
       if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v37 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
+        v36 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
         _os_log_error_impl(&dword_222E4D000, v24, OS_LOG_TYPE_ERROR, "%s Failed overriding record starting alert for IFD feature group one.", buf, 0xCu);
       }
     }
@@ -341,9 +342,9 @@
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v37 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
-      v38 = 2112;
-      v39 = startingAlertBeepURL;
+      v36 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
+      v37 = 2112;
+      v38 = startingAlertBeepURL;
       _os_log_impl(&dword_222E4D000, v29, OS_LOG_TYPE_INFO, "%s Done overriding record starting alert from override policy (soundURL = %@).", buf, 0x16u);
     }
 
@@ -356,7 +357,7 @@
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v37 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
+      v36 = "[CSSiriSpeechRecorder _setAlertsIfNeeded]";
       _os_log_error_impl(&dword_222E4D000, v30, OS_LOG_TYPE_ERROR, "%s Failed overriding record starting alert from override policy.", buf, 0xCu);
     }
   }
@@ -364,152 +365,138 @@
   if (self->_alertPlaybackGroup)
   {
     numberOfAVVCAlertPlaybacksByType = self->_numberOfAVVCAlertPlaybacksByType;
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __42__CSSiriSpeechRecorder__setAlertsIfNeeded__block_invoke;
-    v35[3] = &unk_2784C6008;
-    v35[4] = self;
-    [(NSMutableDictionary *)numberOfAVVCAlertPlaybacksByType enumerateKeysAndObjectsUsingBlock:v35];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __42__CSSiriSpeechRecorder__setAlertsIfNeeded__block_invoke;
+    v34[3] = &unk_2784C6008;
+    v34[4] = self;
+    [(NSMutableDictionary *)numberOfAVVCAlertPlaybacksByType enumerateKeysAndObjectsUsingBlock:v34];
     alertPlaybackGroup = self->_alertPlaybackGroup;
     self->_alertPlaybackGroup = 0;
   }
 
   v33 = self->_numberOfAVVCAlertPlaybacksByType;
   self->_numberOfAVVCAlertPlaybacksByType = 0;
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionController:(id)controller didReceiveAudioSessionOwnerResetNotification:(id)notification
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[CSSiriSpeechRecorder audioSessionController:didReceiveAudioSessionOwnerResetNotification:]";
-    v9 = 2112;
-    v10 = notificationCopy;
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s userInfo = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSSiriSpeechRecorder audioSessionController:didReceiveAudioSessionOwnerResetNotification:]";
+    v8 = 2112;
+    v9 = notificationCopy;
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s userInfo = %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionController:(id)controller didReceiveAudioSessionOwnerLostNotification:(id)notification
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v6 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v13 = "[CSSiriSpeechRecorder audioSessionController:didReceiveAudioSessionOwnerLostNotification:]";
-    v14 = 2112;
-    v15 = notificationCopy;
+    v12 = "[CSSiriSpeechRecorder audioSessionController:didReceiveAudioSessionOwnerLostNotification:]";
+    v13 = 2112;
+    v14 = notificationCopy;
     _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s userInfo = %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __91__CSSiriSpeechRecorder_audioSessionController_didReceiveAudioSessionOwnerLostNotification___block_invoke;
-  v10[3] = &unk_2784C6FA8;
-  v10[4] = self;
-  v11 = notificationCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __91__CSSiriSpeechRecorder_audioSessionController_didReceiveAudioSessionOwnerLostNotification___block_invoke;
+  v9[3] = &unk_2784C6FA8;
+  v9[4] = self;
+  v10 = notificationCopy;
   v8 = notificationCopy;
-  dispatch_async(queue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v9);
 }
 
 - (void)audioSessionController:(id)controller didReceiveAudioSessionMediaServicesWereResetNotificationWithUserInfo:(id)info
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v5 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[CSSiriSpeechRecorder audioSessionController:didReceiveAudioSessionMediaServicesWereResetNotificationWithUserInfo:]";
-    v9 = 2112;
-    v10 = infoCopy;
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s userInfo = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSSiriSpeechRecorder audioSessionController:didReceiveAudioSessionMediaServicesWereResetNotificationWithUserInfo:]";
+    v8 = 2112;
+    v9 = infoCopy;
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s userInfo = %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionController:(id)controller didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo:(id)info
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v6 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v13 = "[CSSiriSpeechRecorder audioSessionController:didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo:]";
-    v14 = 2112;
-    v15 = infoCopy;
+    v12 = "[CSSiriSpeechRecorder audioSessionController:didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo:]";
+    v13 = 2112;
+    v14 = infoCopy;
     _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s userInfo = %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __115__CSSiriSpeechRecorder_audioSessionController_didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo___block_invoke;
-  v10[3] = &unk_2784C6FA8;
-  v10[4] = self;
-  v11 = infoCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __115__CSSiriSpeechRecorder_audioSessionController_didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo___block_invoke;
+  v9[3] = &unk_2784C6FA8;
+  v9[4] = self;
+  v10 = infoCopy;
   v8 = infoCopy;
-  dispatch_async(queue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v9);
 }
 
 - (void)audioSessionController:(id)controller didReceiveAudioSessionRouteChangeNotificationWithUserInfo:(id)info
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v5 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[CSSiriSpeechRecorder audioSessionController:didReceiveAudioSessionRouteChangeNotificationWithUserInfo:]";
-    v9 = 2112;
-    v10 = infoCopy;
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s userInfo = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSSiriSpeechRecorder audioSessionController:didReceiveAudioSessionRouteChangeNotificationWithUserInfo:]";
+    v8 = 2112;
+    v9 = infoCopy;
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s userInfo = %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionController:(id)controller didReceiveAudioSessionInterruptionNotificationWithUserInfo:(id)info
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v6 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v13 = "[CSSiriSpeechRecorder audioSessionController:didReceiveAudioSessionInterruptionNotificationWithUserInfo:]";
-    v14 = 2112;
-    v15 = infoCopy;
+    v12 = "[CSSiriSpeechRecorder audioSessionController:didReceiveAudioSessionInterruptionNotificationWithUserInfo:]";
+    v13 = 2112;
+    v14 = infoCopy;
     _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s userInfo = %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __106__CSSiriSpeechRecorder_audioSessionController_didReceiveAudioSessionInterruptionNotificationWithUserInfo___block_invoke;
-  v10[3] = &unk_2784C6FA8;
-  v10[4] = self;
-  v11 = infoCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __106__CSSiriSpeechRecorder_audioSessionController_didReceiveAudioSessionInterruptionNotificationWithUserInfo___block_invoke;
+  v9[3] = &unk_2784C6FA8;
+  v9[4] = self;
+  v10 = infoCopy;
   v8 = infoCopy;
-  dispatch_async(queue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v9);
 }
 
 void __106__CSSiriSpeechRecorder_audioSessionController_didReceiveAudioSessionInterruptionNotificationWithUserInfo___block_invoke(uint64_t a1)
@@ -547,15 +534,15 @@ void __106__CSSiriSpeechRecorder_audioSessionController_didReceiveAudioSessionIn
 
 - (void)speakerIdentificationDidDetectSpeakerWithScores:(id)scores
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   scoresCopy = scores;
   v5 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315395;
-    v34 = "[CSSiriSpeechRecorder speakerIdentificationDidDetectSpeakerWithScores:]";
-    v35 = 2113;
-    v36 = scoresCopy;
+    v33 = "[CSSiriSpeechRecorder speakerIdentificationDidDetectSpeakerWithScores:]";
+    v34 = 2113;
+    v35 = scoresCopy;
     _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s scores = %{private}@", buf, 0x16u);
   }
 
@@ -581,26 +568,24 @@ void __106__CSSiriSpeechRecorder_audioSessionController_didReceiveAudioSessionIn
   block[2] = __72__CSSiriSpeechRecorder_speakerIdentificationDidDetectSpeakerWithScores___block_invoke;
   block[3] = &unk_2784C6678;
   block[4] = self;
-  v25 = v9;
-  v30 = integerValue2;
-  v31 = integerValue;
-  v32 = integerValue3;
-  v26 = v16;
-  v27 = v12;
-  v28 = v13;
-  v29 = unsignedIntValue;
+  v24 = v9;
+  v29 = integerValue2;
+  v30 = integerValue;
+  v31 = integerValue3;
+  v25 = v16;
+  v26 = v12;
+  v27 = v13;
+  v28 = unsignedIntValue;
   v18 = v13;
   v19 = v12;
   v20 = v16;
   v21 = v9;
   dispatch_async(queue, block);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_startAudioPlaybackRequest:(id)request options:(unint64_t)options completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   completionCopy = completion;
   if (requestCopy)
@@ -618,35 +603,34 @@ void __106__CSSiriSpeechRecorder_audioSessionController_didReceiveAudioSessionIn
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v26 = "[CSSiriSpeechRecorder _startAudioPlaybackRequest:options:completion:]";
-      v27 = 2112;
-      v28 = requestCopy;
+      v25 = "[CSSiriSpeechRecorder _startAudioPlaybackRequest:options:completion:]";
+      v26 = 2112;
+      v27 = requestCopy;
       _os_log_impl(&dword_222E4D000, v12, OS_LOG_TYPE_INFO, "%s Starting audio playback request %@...", buf, 0x16u);
     }
 
     v13 = self->_context;
     audioPlaybackService = self->_audioPlaybackService;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __70__CSSiriSpeechRecorder__startAudioPlaybackRequest_options_completion___block_invoke;
-    v19[3] = &unk_2784C6610;
-    v20 = requestCopy;
-    v21 = v13;
-    v22 = v10;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __70__CSSiriSpeechRecorder__startAudioPlaybackRequest_options_completion___block_invoke;
+    v18[3] = &unk_2784C6610;
+    v19 = requestCopy;
+    v20 = v13;
+    v21 = v10;
     selfCopy = self;
-    v24 = completionCopy;
+    v23 = completionCopy;
     v15 = v10;
     v16 = v13;
-    [(CSSiriAudioPlaybackService *)audioPlaybackService startRequest:v20 options:options completion:v19];
+    [(CSSiriAudioPlaybackService *)audioPlaybackService startRequest:v19 options:options completion:v18];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return requestCopy != 0;
 }
 
 void __70__CSSiriSpeechRecorder__startAudioPlaybackRequest_options_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF0E8];
   if (v3)
@@ -655,11 +639,11 @@ void __70__CSSiriSpeechRecorder__startAudioPlaybackRequest_options_completion___
     {
       v5 = *(a1 + 32);
       *buf = 136315650;
-      v14 = "[CSSiriSpeechRecorder _startAudioPlaybackRequest:options:completion:]_block_invoke";
-      v15 = 2112;
-      v16 = v5;
-      v17 = 2112;
-      v18 = v3;
+      v13 = "[CSSiriSpeechRecorder _startAudioPlaybackRequest:options:completion:]_block_invoke";
+      v14 = 2112;
+      v15 = v5;
+      v16 = 2112;
+      v17 = v3;
       _os_log_error_impl(&dword_222E4D000, v4, OS_LOG_TYPE_ERROR, "%s Failed audio playback request %@ due to error %@.", buf, 0x20u);
     }
   }
@@ -670,9 +654,9 @@ void __70__CSSiriSpeechRecorder__startAudioPlaybackRequest_options_completion___
     {
       v6 = *(a1 + 32);
       *buf = 136315394;
-      v14 = "[CSSiriSpeechRecorder _startAudioPlaybackRequest:options:completion:]_block_invoke";
-      v15 = 2112;
-      v16 = v6;
+      v13 = "[CSSiriSpeechRecorder _startAudioPlaybackRequest:options:completion:]_block_invoke";
+      v14 = 2112;
+      v15 = v6;
       _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s Stopped audio playback request %@.", buf, 0x16u);
     }
 
@@ -684,28 +668,26 @@ void __70__CSSiriSpeechRecorder__startAudioPlaybackRequest_options_completion___
   if (v7)
   {
     v8 = *(*(a1 + 56) + 16);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __70__CSSiriSpeechRecorder__startAudioPlaybackRequest_options_completion___block_invoke_262;
-    v10[3] = &unk_2784C6E98;
-    v12 = v7;
-    v11 = v3;
-    dispatch_async(v8, v10);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __70__CSSiriSpeechRecorder__startAudioPlaybackRequest_options_completion___block_invoke_262;
+    v9[3] = &unk_2784C6E98;
+    v11 = v7;
+    v10 = v3;
+    dispatch_async(v8, v9);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)acousticFingerprinter:(id)fingerprinter hasFingerprint:(id)fingerprint duration:(double)duration
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fingerprintCopy = fingerprint;
   v8 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v16 = "[CSSiriSpeechRecorder acousticFingerprinter:hasFingerprint:duration:]";
-    v17 = 2048;
+    v15 = "[CSSiriSpeechRecorder acousticFingerprinter:hasFingerprint:duration:]";
+    v16 = 2048;
     durationCopy = duration;
     _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s duration %lf", buf, 0x16u);
   }
@@ -716,17 +698,15 @@ void __70__CSSiriSpeechRecorder__startAudioPlaybackRequest_options_completion___
   block[2] = __70__CSSiriSpeechRecorder_acousticFingerprinter_hasFingerprint_duration___block_invoke;
   block[3] = &unk_2784C6998;
   block[4] = self;
-  v13 = fingerprintCopy;
+  v12 = fingerprintCopy;
   durationCopy2 = duration;
   v10 = fingerprintCopy;
   dispatch_async(queue, block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performBlockAfterAlerts:(id)alerts timeout:(double)timeout
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   alertsCopy = alerts;
   if (alertsCopy)
   {
@@ -746,27 +726,27 @@ void __70__CSSiriSpeechRecorder__startAudioPlaybackRequest_options_completion___
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v29 = __Block_byref_object_copy__24773;
-      v30 = __Block_byref_object_dispose__24774;
-      v31 = 0;
+      v28 = __Block_byref_object_copy__24773;
+      v29 = __Block_byref_object_dispose__24774;
+      v30 = 0;
       v9 = objc_alloc(MEMORY[0x277CEF380]);
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __56__CSSiriSpeechRecorder_performBlockAfterAlerts_timeout___block_invoke;
-      v25[3] = &unk_2784C65E8;
-      v27 = buf;
-      v26 = alertsCopy;
-      v10 = [v9 initWithBlock:v25];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __56__CSSiriSpeechRecorder_performBlockAfterAlerts_timeout___block_invoke;
+      v24[3] = &unk_2784C65E8;
+      v26 = buf;
+      v25 = alertsCopy;
+      v10 = [v9 initWithBlock:v24];
       if (timeout > 0.0)
       {
         v11 = objc_alloc(MEMORY[0x277CEF530]);
         queue = self->_queue;
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __56__CSSiriSpeechRecorder_performBlockAfterAlerts_timeout___block_invoke_261;
-        v23[3] = &unk_2784C6FD0;
-        v24 = v10;
-        v13 = [v11 initWithTimeoutInterval:queue onQueue:v23 timeoutHandler:timeout];
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __56__CSSiriSpeechRecorder_performBlockAfterAlerts_timeout___block_invoke_261;
+        v22[3] = &unk_2784C6FD0;
+        v23 = v10;
+        v13 = [v11 initWithTimeoutInterval:queue onQueue:v22 timeoutHandler:timeout];
         v14 = *(*&buf[8] + 40);
         *(*&buf[8] + 40) = v13;
 
@@ -779,8 +759,8 @@ void __70__CSSiriSpeechRecorder__startAudioPlaybackRequest_options_completion___
       block[1] = 3221225472;
       block[2] = __56__CSSiriSpeechRecorder_performBlockAfterAlerts_timeout___block_invoke_2;
       block[3] = &unk_2784C6F30;
-      v21 = v10;
-      v22 = buf;
+      v20 = v10;
+      v21 = buf;
       v17 = v10;
       dispatch_group_notify(alertPlaybackGroup, v16, block);
 
@@ -800,13 +780,11 @@ void __70__CSSiriSpeechRecorder__startAudioPlaybackRequest_options_completion___
       (*(alertsCopy + 2))(alertsCopy, 0);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __56__CSSiriSpeechRecorder_performBlockAfterAlerts_timeout___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = *(*(*(a1 + 40) + 8) + 40);
   if (v4)
   {
@@ -822,9 +800,9 @@ void __56__CSSiriSpeechRecorder_performBlockAfterAlerts_timeout___block_invoke(u
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[CSSiriSpeechRecorder performBlockAfterAlerts:timeout:]_block_invoke";
-      _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s Watchdog timer timed out.", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[CSSiriSpeechRecorder performBlockAfterAlerts:timeout:]_block_invoke";
+      _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s Watchdog timer timed out.", &v11, 0xCu);
     }
 
     v9 = *(a1 + 32);
@@ -836,15 +814,13 @@ void __56__CSSiriSpeechRecorder_performBlockAfterAlerts_timeout___block_invoke(u
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v12 = 136315138;
-      v13 = "[CSSiriSpeechRecorder performBlockAfterAlerts:timeout:]_block_invoke";
-      _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s Done", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[CSSiriSpeechRecorder performBlockAfterAlerts:timeout:]_block_invoke";
+      _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s Done", &v11, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__CSSiriSpeechRecorder_performBlockAfterAlerts_timeout___block_invoke_2(uint64_t a1)
@@ -882,7 +858,7 @@ uint64_t __56__CSSiriSpeechRecorder_performBlockAfterAlerts_timeout___block_invo
 
 - (void)enforcePreviousEndpointHint
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   self->_serverDidEndpoint = 1;
   lastEndpointHintRC = self->_lastEndpointHintRC;
   if (lastEndpointHintRC)
@@ -894,12 +870,12 @@ uint64_t __56__CSSiriSpeechRecorder_performBlockAfterAlerts_timeout___block_invo
 
       refId = [(SASResultCandidate *)self->_lastEndpointHintRC refId];
       speechController = self->_speechController;
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __51__CSSiriSpeechRecorder_enforcePreviousEndpointHint__block_invoke;
-      v11[3] = &unk_2784C6408;
-      v11[4] = self;
-      [(CSSpeechController *)speechController getMitigationDecisionForRCId:integerValue requestId:refId completion:v11];
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __51__CSSiriSpeechRecorder_enforcePreviousEndpointHint__block_invoke;
+      v10[3] = &unk_2784C6408;
+      v10[4] = self;
+      [(CSSpeechController *)speechController getMitigationDecisionForRCId:integerValue requestId:refId completion:v10];
     }
 
     else
@@ -908,7 +884,7 @@ uint64_t __56__CSSiriSpeechRecorder_performBlockAfterAlerts_timeout___block_invo
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v13 = "[CSSiriSpeechRecorder enforcePreviousEndpointHint]";
+        v12 = "[CSSiriSpeechRecorder enforcePreviousEndpointHint]";
         _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s Processing RC for mitigation, force accept", buf, 0xCu);
       }
 
@@ -922,14 +898,12 @@ uint64_t __56__CSSiriSpeechRecorder_performBlockAfterAlerts_timeout___block_invo
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v13 = "[CSSiriSpeechRecorder enforcePreviousEndpointHint]";
+      v12 = "[CSSiriSpeechRecorder enforcePreviousEndpointHint]";
       _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s Got an enforce message without a current RC. Stop Recording", buf, 0xCu);
     }
 
     [(CSSiriSpeechRecorder *)self _enforceEndpointHintWithMitigation:0];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __51__CSSiriSpeechRecorder_enforcePreviousEndpointHint__block_invoke(uint64_t a1, char a2)
@@ -943,6 +917,49 @@ void __51__CSSiriSpeechRecorder_enforcePreviousEndpointHint__block_invoke(uint64
   v4[4] = v2;
   v5 = a2;
   dispatch_async(v3, v4);
+}
+
+- (void)_enforceEndpointHintWithMitigation:(BOOL)mitigation
+{
+  mitigationCopy = mitigation;
+  v13 = *MEMORY[0x277D85DE8];
+  [(CSSiriSpeechRecorder *)self _stopRecordingForEndpointReason:4 withEndpointMetrics:0];
+  lastEndpointHintCompletion = self->_lastEndpointHintCompletion;
+  if (lastEndpointHintCompletion)
+  {
+    lastEndpointHintCompletion[2](lastEndpointHintCompletion, 1, mitigationCopy, self->_lastEndpointHintFeatures);
+    v6 = self->_lastEndpointHintCompletion;
+    self->_lastEndpointHintCompletion = 0;
+
+    v7 = *MEMORY[0x277CEF0E8];
+    if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
+    {
+      v11 = 136315138;
+      v12 = "[CSSiriSpeechRecorder _enforceEndpointHintWithMitigation:]";
+      v8 = "%s Enforce previous endpointHint";
+LABEL_6:
+      _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, v8, &v11, 0xCu);
+    }
+  }
+
+  else
+  {
+    v7 = *MEMORY[0x277CEF0E8];
+    if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
+    {
+      v11 = 136315138;
+      v12 = "[CSSiriSpeechRecorder _enforceEndpointHintWithMitigation:]";
+      v8 = "%s Got an enforce message without a current completion. Ignoring";
+      goto LABEL_6;
+    }
+  }
+
+  lastEndpointHintRC = self->_lastEndpointHintRC;
+  self->_lastEndpointHintRC = 0;
+
+  self->_lastEndpointHintRCProcessedForMitigation = 0;
+  lastEndpointHintFeatures = self->_lastEndpointHintFeatures;
+  self->_lastEndpointHintFeatures = 0;
 }
 
 - (void)_clearEndpointHint
@@ -961,6 +978,82 @@ void __51__CSSiriSpeechRecorder_enforcePreviousEndpointHint__block_invoke(uint64
   self->_lastEndpointHintRCProcessedForMitigation = 0;
   lastEndpointHintFeatures = self->_lastEndpointHintFeatures;
   self->_lastEndpointHintFeatures = 0;
+}
+
+- (void)_checkIfLastEndpointHintShouldBeAccepted:(BOOL)accepted
+{
+  v51 = *MEMORY[0x277D85DE8];
+  lastEndpointHintRC = self->_lastEndpointHintRC;
+  if (lastEndpointHintRC)
+  {
+    acceptedCopy = accepted;
+    processedAudioDuration = [(SASResultCandidate *)lastEndpointHintRC processedAudioDuration];
+    [processedAudioDuration doubleValue];
+    v8 = v7;
+
+    if (v8 > 0.0)
+    {
+      v9 = [(CSSiriSpeechRecorder *)self _convertToAFSpeechPackage:self->_lastEndpointHintRC];
+      resultId = [(SASResultCandidate *)self->_lastEndpointHintRC resultId];
+      integerValue = [resultId integerValue];
+
+      speechRecognitionTask = [(SASResultCandidate *)self->_lastEndpointHintRC speechRecognitionTask];
+      refId = [(SASResultCandidate *)self->_lastEndpointHintRC refId];
+      latticeRnnMitigatorIsProcessed = [(SASResultCandidate *)self->_lastEndpointHintRC latticeRnnMitigatorIsProcessed];
+      bOOLValue = [latticeRnnMitigatorIsProcessed BOOLValue];
+
+      latticeMitigatorResult = [v9 latticeMitigatorResult];
+      [latticeMitigatorResult score];
+      v18 = v17;
+
+      latticeMitigatorResult2 = [v9 latticeMitigatorResult];
+      [latticeMitigatorResult2 threshold];
+      v21 = v20;
+
+      latticeMitigatorResult3 = [v9 latticeMitigatorResult];
+      [latticeMitigatorResult3 calibrationScale];
+      v24 = v23;
+
+      latticeMitigatorResult4 = [v9 latticeMitigatorResult];
+      [latticeMitigatorResult4 calibrationOffset];
+      v27 = v26;
+
+      v28 = *MEMORY[0x277CEF0E8];
+      if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
+      {
+        *buf = 136317442;
+        v32 = "[CSSiriSpeechRecorder _checkIfLastEndpointHintShouldBeAccepted:]";
+        v33 = 2048;
+        v34 = integerValue;
+        v35 = 2112;
+        v36 = refId;
+        v37 = 2048;
+        v38 = v8;
+        v39 = 1024;
+        v40 = bOOLValue;
+        v41 = 2048;
+        v42 = v18;
+        v43 = 2048;
+        v44 = v21;
+        v45 = 2048;
+        v46 = v24;
+        v47 = 2048;
+        v48 = v27;
+        v49 = 2112;
+        v50 = speechRecognitionTask;
+        _os_log_impl(&dword_222E4D000, v28, OS_LOG_TYPE_INFO, "%s rcID: %lu, requestId: %@, duration: %lf, lrnnProcessed:%d lrnnScore: %f, lrnnThreshold: %f, calibrationScale: %f, calibrationOffset: %f, taskId: %@", buf, 0x62u);
+      }
+
+      speechController = self->_speechController;
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __65__CSSiriSpeechRecorder__checkIfLastEndpointHintShouldBeAccepted___block_invoke;
+      v30[3] = &unk_2784C65C0;
+      v30[4] = self;
+      *&v30[5] = v8;
+      [(CSSpeechController *)speechController processRCWithId:integerValue requestId:refId speechPackage:v9 taskId:speechRecognitionTask forceAccept:acceptedCopy completionHandler:v30];
+    }
+  }
 }
 
 void __65__CSSiriSpeechRecorder__checkIfLastEndpointHintShouldBeAccepted___block_invoke(uint64_t a1, char a2, char a3, void *a4)
@@ -983,7 +1076,7 @@ void __65__CSSiriSpeechRecorder__checkIfLastEndpointHintShouldBeAccepted___block
 
 void __65__CSSiriSpeechRecorder__checkIfLastEndpointHintShouldBeAccepted___block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
@@ -994,17 +1087,17 @@ void __65__CSSiriSpeechRecorder__checkIfLastEndpointHintShouldBeAccepted___block
     v7 = v2;
     v8 = [v6 processedAudioDuration];
     [v8 doubleValue];
-    v15 = 136316162;
-    v16 = "[CSSiriSpeechRecorder _checkIfLastEndpointHintShouldBeAccepted:]_block_invoke_2";
-    v17 = 1024;
-    v18 = v3;
-    v19 = 1024;
-    v20 = v4;
-    v21 = 2048;
-    v22 = v5;
-    v23 = 2048;
-    v24 = v9;
-    _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s Eager results - shouldAccept: %d, isMitigated: %d Duration: %lf last duration: %lf", &v15, 0x2Cu);
+    v14 = 136316162;
+    v15 = "[CSSiriSpeechRecorder _checkIfLastEndpointHintShouldBeAccepted:]_block_invoke_2";
+    v16 = 1024;
+    v17 = v3;
+    v18 = 1024;
+    v19 = v4;
+    v20 = 2048;
+    v21 = v5;
+    v22 = 2048;
+    v23 = v9;
+    _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s Eager results - shouldAccept: %d, isMitigated: %d Duration: %lf last duration: %lf", &v14, 0x2Cu);
   }
 
   v10 = *(a1 + 48);
@@ -1021,8 +1114,50 @@ void __65__CSSiriSpeechRecorder__checkIfLastEndpointHintShouldBeAccepted___block
       [*(a1 + 32) _enforceEndpointHintWithMitigation:*(a1 + 57)];
     }
   }
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (void)updateEndpointHintForRC:(id)c forceAccept:(BOOL)accept completion:(id)completion
+{
+  acceptCopy = accept;
+  v24 = *MEMORY[0x277D85DE8];
+  cCopy = c;
+  completionCopy = completion;
+  [(CSSiriSpeechRecorder *)self _clearEndpointHint];
+  v11 = MEMORY[0x277CEF0E8];
+  v12 = *MEMORY[0x277CEF0E8];
+  if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
+  {
+    v13 = v12;
+    processedAudioDuration = [cCopy processedAudioDuration];
+    [processedAudioDuration doubleValue];
+    v20 = 136315394;
+    v21 = "[CSSiriSpeechRecorder updateEndpointHintForRC:forceAccept:completion:]";
+    v22 = 2048;
+    v23 = v15;
+    _os_log_impl(&dword_222E4D000, v13, OS_LOG_TYPE_INFO, "%s duration = %lf", &v20, 0x16u);
+  }
+
+  objc_storeStrong(&self->_lastEndpointHintRC, c);
+  v16 = MEMORY[0x223DD26C0](completionCopy);
+
+  lastEndpointHintCompletion = self->_lastEndpointHintCompletion;
+  self->_lastEndpointHintCompletion = v16;
+
+  if (self->_didDetectEndpoint && (endpointerOperationMode = self->_endpointerOperationMode, endpointerOperationMode <= 4) && ((0x19u >> endpointerOperationMode) & 1) != 0 || self->_serverDidEndpoint)
+  {
+    [(CSSiriSpeechRecorder *)self _checkIfLastEndpointHintShouldBeAccepted:acceptCopy];
+  }
+
+  else
+  {
+    v19 = *v11;
+    if (os_log_type_enabled(*v11, OS_LOG_TYPE_INFO))
+    {
+      v20 = 136315138;
+      v21 = "[CSSiriSpeechRecorder updateEndpointHintForRC:forceAccept:completion:]";
+      _os_log_impl(&dword_222E4D000, v19, OS_LOG_TYPE_INFO, "%s No endpoint yet, waiting", &v20, 0xCu);
+    }
+  }
 }
 
 - (id)_convertToAFSpeechPackage:(id)package
@@ -1058,7 +1193,7 @@ void __65__CSSiriSpeechRecorder__checkIfLastEndpointHintShouldBeAccepted___block
 
 - (void)_handleFakeTwoShotPromptCallbackWithUUID:(id)d timestamp:(double)timestamp duration:(double)duration error:(id)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dCopy = d;
   errorCopy = error;
   v12 = [(NSUUID *)self->_fakeTwoShotTTSPromptUUID isEqual:dCopy];
@@ -1067,15 +1202,15 @@ void __65__CSSiriSpeechRecorder__checkIfLastEndpointHintShouldBeAccepted___block
   {
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v18 = 136315906;
-      v19 = "[CSSiriSpeechRecorder _handleFakeTwoShotPromptCallbackWithUUID:timestamp:duration:error:]";
-      v20 = 2048;
+      v17 = 136315906;
+      v18 = "[CSSiriSpeechRecorder _handleFakeTwoShotPromptCallbackWithUUID:timestamp:duration:error:]";
+      v19 = 2048;
       timestampCopy = timestamp;
-      v22 = 2048;
+      v21 = 2048;
       durationCopy = duration;
-      v24 = 2112;
-      v25 = errorCopy;
-      _os_log_impl(&dword_222E4D000, v13, OS_LOG_TYPE_INFO, "%s Fake two shot TTS prompt called back (timestamp = %f, duration = %f, error = %@)", &v18, 0x2Au);
+      v23 = 2112;
+      v24 = errorCopy;
+      _os_log_impl(&dword_222E4D000, v13, OS_LOG_TYPE_INFO, "%s Fake two shot TTS prompt called back (timestamp = %f, duration = %f, error = %@)", &v17, 0x2Au);
     }
 
     [(AFWatchdogTimer *)self->_fakeTwoShotTTSPromptWatchdogTimer cancel];
@@ -1088,22 +1223,20 @@ void __65__CSSiriSpeechRecorder__checkIfLastEndpointHintShouldBeAccepted___block
 
   else if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
   {
-    v17 = self->_fakeTwoShotTTSPromptUUID;
-    v18 = 136315650;
-    v19 = "[CSSiriSpeechRecorder _handleFakeTwoShotPromptCallbackWithUUID:timestamp:duration:error:]";
-    v20 = 2112;
+    v16 = self->_fakeTwoShotTTSPromptUUID;
+    v17 = 136315650;
+    v18 = "[CSSiriSpeechRecorder _handleFakeTwoShotPromptCallbackWithUUID:timestamp:duration:error:]";
+    v19 = 2112;
     timestampCopy = *&dCopy;
-    v22 = 2112;
-    durationCopy = *&v17;
-    _os_log_error_impl(&dword_222E4D000, v13, OS_LOG_TYPE_ERROR, "%s Fake two shot TTS prompt callback is not handled due to context mismatch (fakeTwoShotPromptUUID = %@, _fakeTwoShotPromptUUID = %@).", &v18, 0x20u);
+    v21 = 2112;
+    durationCopy = *&v16;
+    _os_log_error_impl(&dword_222E4D000, v13, OS_LOG_TYPE_ERROR, "%s Fake two shot TTS prompt callback is not handled due to context mismatch (fakeTwoShotPromptUUID = %@, _fakeTwoShotPromptUUID = %@).", &v17, 0x20u);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFakeTwoShotPromptTimeoutWithUUID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [(NSUUID *)self->_fakeTwoShotTTSPromptUUID isEqual:dCopy];
   v6 = *MEMORY[0x277CEF0E8];
@@ -1113,11 +1246,11 @@ void __65__CSSiriSpeechRecorder__checkIfLastEndpointHintShouldBeAccepted___block
     if (v7)
     {
       fakeTwoShotTTSPromptUUID = self->_fakeTwoShotTTSPromptUUID;
-      v13 = 136315394;
-      v14 = "[CSSiriSpeechRecorder _handleFakeTwoShotPromptTimeoutWithUUID:]";
-      v15 = 2112;
-      v16 = fakeTwoShotTTSPromptUUID;
-      _os_log_error_impl(&dword_222E4D000, v6, OS_LOG_TYPE_ERROR, "%s Fake two shot TTS prompt timed out (%@).", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "[CSSiriSpeechRecorder _handleFakeTwoShotPromptTimeoutWithUUID:]";
+      v14 = 2112;
+      v15 = fakeTwoShotTTSPromptUUID;
+      _os_log_error_impl(&dword_222E4D000, v6, OS_LOG_TYPE_ERROR, "%s Fake two shot TTS prompt timed out (%@).", &v12, 0x16u);
     }
 
     [(AFWatchdogTimer *)self->_fakeTwoShotTTSPromptWatchdogTimer cancel];
@@ -1130,28 +1263,26 @@ void __65__CSSiriSpeechRecorder__checkIfLastEndpointHintShouldBeAccepted___block
 
   else if (v7)
   {
-    v12 = self->_fakeTwoShotTTSPromptUUID;
-    v13 = 136315650;
-    v14 = "[CSSiriSpeechRecorder _handleFakeTwoShotPromptTimeoutWithUUID:]";
-    v15 = 2112;
-    v16 = dCopy;
-    v17 = 2112;
-    v18 = v12;
-    _os_log_error_impl(&dword_222E4D000, v6, OS_LOG_TYPE_ERROR, "%s Fake two shot TTS prompt timeout is not handled due to context mismatch (fakeTwoShotPromptUUID = %@, _fakeTwoShotPromptUUID = %@).", &v13, 0x20u);
+    v11 = self->_fakeTwoShotTTSPromptUUID;
+    v12 = 136315650;
+    v13 = "[CSSiriSpeechRecorder _handleFakeTwoShotPromptTimeoutWithUUID:]";
+    v14 = 2112;
+    v15 = dCopy;
+    v16 = 2112;
+    v17 = v11;
+    _os_log_error_impl(&dword_222E4D000, v6, OS_LOG_TYPE_ERROR, "%s Fake two shot TTS prompt timeout is not handled due to context mismatch (fakeTwoShotPromptUUID = %@, _fakeTwoShotPromptUUID = %@).", &v12, 0x20u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_playPhaticWithCompletion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v15 = "[CSSiriSpeechRecorder _playPhaticWithCompletion:]";
+    v14 = "[CSSiriSpeechRecorder _playPhaticWithCompletion:]";
     _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -1159,15 +1290,15 @@ void __65__CSSiriSpeechRecorder__checkIfLastEndpointHintShouldBeAccepted___block
   if (v6)
   {
     v7 = self->_context;
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __50__CSSiriSpeechRecorder__playPhaticWithCompletion___block_invoke;
-    v10[3] = &unk_2784C6570;
-    v11 = v7;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __50__CSSiriSpeechRecorder__playPhaticWithCompletion___block_invoke;
+    v9[3] = &unk_2784C6570;
+    v10 = v7;
     selfCopy = self;
-    v13 = completionCopy;
+    v12 = completionCopy;
     v8 = v7;
-    [(CSSiriSpeechCapturingDelegate *)v6 speechCapturing:self performTwoShotPromptWithType:2 completion:v10];
+    [(CSSiriSpeechCapturingDelegate *)v6 speechCapturing:self performTwoShotPromptWithType:2 completion:v9];
 
 LABEL_7:
     goto LABEL_8;
@@ -1181,13 +1312,11 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __50__CSSiriSpeechRecorder__playPhaticWithCompletion___block_invoke(uint64_t a1, void *a2, double a3, double a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = *MEMORY[0x277CEF0E8];
   if (v7)
@@ -1195,9 +1324,9 @@ void __50__CSSiriSpeechRecorder__playPhaticWithCompletion___block_invoke(uint64_
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "[CSSiriSpeechRecorder _playPhaticWithCompletion:]_block_invoke";
-      v19 = 2112;
-      v20 = v7;
+      v17 = "[CSSiriSpeechRecorder _playPhaticWithCompletion:]_block_invoke";
+      v18 = 2112;
+      v19 = v7;
       _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, "%s error = %@", buf, 0x16u);
     }
   }
@@ -1207,7 +1336,7 @@ void __50__CSSiriSpeechRecorder__playPhaticWithCompletion___block_invoke(uint64_
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v18 = "[CSSiriSpeechRecorder _playPhaticWithCompletion:]_block_invoke";
+      v17 = "[CSSiriSpeechRecorder _playPhaticWithCompletion:]_block_invoke";
       _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s done", buf, 0xCu);
     }
 
@@ -1218,32 +1347,30 @@ void __50__CSSiriSpeechRecorder__playPhaticWithCompletion___block_invoke(uint64_
   if (v9)
   {
     v10 = *(*(a1 + 40) + 16);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __50__CSSiriSpeechRecorder__playPhaticWithCompletion___block_invoke_251;
-    v12[3] = &unk_2784C6548;
-    v14 = v9;
-    v15 = a3;
-    v16 = a4;
-    v13 = v7;
-    dispatch_async(v10, v12);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __50__CSSiriSpeechRecorder__playPhaticWithCompletion___block_invoke_251;
+    v11[3] = &unk_2784C6548;
+    v13 = v9;
+    v14 = a3;
+    v15 = a4;
+    v12 = v7;
+    dispatch_async(v10, v11);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performTwoShotPromptForType:(int64_t)type withOverride:(int64_t)override atTime:(double)time
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v9 = MEMORY[0x277CEF0E8];
   v10 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v61 = "[CSSiriSpeechRecorder _performTwoShotPromptForType:withOverride:atTime:]";
-    v62 = 2048;
+    v60 = "[CSSiriSpeechRecorder _performTwoShotPromptForType:withOverride:atTime:]";
+    v61 = 2048;
     typeCopy = type;
-    v64 = 2048;
+    v63 = 2048;
     timeCopy = time;
     _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s promptType = %ld, time = %f", buf, 0x20u);
   }
@@ -1259,10 +1386,10 @@ void __50__CSSiriSpeechRecorder__playPhaticWithCompletion___block_invoke(uint64_
       [mEMORY[0x277D017A0] logTwoShotStartEventWithPromptType:2 withMHUUID:v11];
 
       mEMORY[0x277CEF158] = [MEMORY[0x277CEF158] sharedAnalytics];
-      v56 = @"type";
+      v55 = @"type";
       v19 = [MEMORY[0x277CCABB0] numberWithInteger:2];
-      v57 = v19;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+      v56 = v19;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
       [mEMORY[0x277CEF158] logEventWithType:239 context:v20];
 
       v21 = objc_alloc_init(MEMORY[0x277CCAD78]);
@@ -1279,42 +1406,42 @@ void __50__CSSiriSpeechRecorder__playPhaticWithCompletion___block_invoke(uint64_
       v24 = self->_fakeTwoShotTTSPromptUUID;
       v25 = objc_alloc(MEMORY[0x277CEF530]);
       queue = self->_queue;
-      v52[0] = MEMORY[0x277D85DD0];
-      v52[1] = 3221225472;
-      v52[2] = __73__CSSiriSpeechRecorder__performTwoShotPromptForType_withOverride_atTime___block_invoke_2;
-      v52[3] = &unk_2784C64F8;
+      v51[0] = MEMORY[0x277D85DD0];
+      v51[1] = 3221225472;
+      v51[2] = __73__CSSiriSpeechRecorder__performTwoShotPromptForType_withOverride_atTime___block_invoke_2;
+      v51[3] = &unk_2784C64F8;
       v27 = v11;
-      v53 = v27;
-      objc_copyWeak(&v55, buf);
+      v52 = v27;
+      objc_copyWeak(&v54, buf);
       v28 = v24;
-      v54 = v28;
-      v29 = [v25 initWithTimeoutInterval:queue onQueue:v52 timeoutHandler:4.0];
+      v53 = v28;
+      v29 = [v25 initWithTimeoutInterval:queue onQueue:v51 timeoutHandler:4.0];
       v30 = self->_fakeTwoShotTTSPromptWatchdogTimer;
       self->_fakeTwoShotTTSPromptWatchdogTimer = v29;
 
-      v43 = MEMORY[0x277D85DD0];
-      v44 = 3221225472;
-      v45 = __73__CSSiriSpeechRecorder__performTwoShotPromptForType_withOverride_atTime___block_invoke_250;
-      v46 = &unk_2784C6520;
-      v47 = v27;
+      v42 = MEMORY[0x277D85DD0];
+      v43 = 3221225472;
+      v44 = __73__CSSiriSpeechRecorder__performTwoShotPromptForType_withOverride_atTime___block_invoke_250;
+      v45 = &unk_2784C6520;
+      v46 = v27;
       selfCopy = self;
       v31 = v28;
-      v49 = v31;
+      v48 = v31;
       overrideCopy = override;
       timeCopy2 = time;
-      [(CSSiriSpeechRecorder *)self _playPhaticWithCompletion:&v43];
+      [(CSSiriSpeechRecorder *)self _playPhaticWithCompletion:&v42];
 
-      objc_destroyWeak(&v55);
+      objc_destroyWeak(&v54);
       objc_destroyWeak(buf);
     }
 
     else if (type == 1)
     {
       mEMORY[0x277CEF158]2 = [MEMORY[0x277CEF158] sharedAnalytics];
-      v58 = @"type";
+      v57 = @"type";
       v13 = [MEMORY[0x277CCABB0] numberWithInteger:1];
-      v59 = v13;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+      v58 = v13;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
       [mEMORY[0x277CEF158]2 logEventWithType:239 context:v14];
 
       mEMORY[0x277D017A0]2 = [MEMORY[0x277D017A0] sharedLogger];
@@ -1334,8 +1461,8 @@ void __50__CSSiriSpeechRecorder__playPhaticWithCompletion___block_invoke(uint64_
       if (os_log_type_enabled(*v9, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v61 = "[CSSiriSpeechRecorder _performTwoShotPromptForType:withOverride:atTime:]";
-        v62 = 1024;
+        v60 = "[CSSiriSpeechRecorder _performTwoShotPromptForType:withOverride:atTime:]";
+        v61 = 1024;
         LODWORD(typeCopy) = v16;
         _os_log_impl(&dword_222E4D000, v34, OS_LOG_TYPE_INFO, "%s suppressesTwoShotAlert = %d", buf, 0x12u);
       }
@@ -1378,11 +1505,9 @@ void __50__CSSiriSpeechRecorder__playPhaticWithCompletion___block_invoke(uint64_
     [mEMORY[0x277D017A0]6 logTwoShotEndEventWithSuppresedAlert:0 withTimedOut:0 withMHUUID:v11];
   }
 
-  v41 = [(CSSiriSpeechRecorder *)self _currentRecordingInfo:v43];
+  v41 = [(CSSiriSpeechRecorder *)self _currentRecordingInfo:v42];
   [v41 setTriggeredTwoShotBorealis:1];
   [(CSSiriSpeechCapturingDelegate *)self->_delegate speechCapturingDidUpdateRecordingInfo:v41];
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __73__CSSiriSpeechRecorder__performTwoShotPromptForType_withOverride_atTime___block_invoke_2(uint64_t a1)
@@ -1427,34 +1552,33 @@ void __73__CSSiriSpeechRecorder__performTwoShotPromptForType_withOverride_atTime
 
 - (void)endpointer:(id)endpointer detectedTwoShotAtTime:(double)time
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v8 = 136315394;
-    v9 = "[CSSiriSpeechRecorder endpointer:detectedTwoShotAtTime:]";
-    v10 = 2048;
+    v7 = 136315394;
+    v8 = "[CSSiriSpeechRecorder endpointer:detectedTwoShotAtTime:]";
+    v9 = 2048;
     timeCopy = time;
-    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s Detected two shot at time: %f", &v8, 0x16u);
+    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s Detected two shot at time: %f", &v7, 0x16u);
   }
 
   [(CSSpeechController *)self->_speechController detectedTwoShotAtTime:time];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_hardEndpointWasDetectedWithMetrics:(id)metrics atTime:(double)time
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   v8 = MEMORY[0x277CEF0E8];
   v9 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v20 = 136315394;
-    v21 = "[CSSiriSpeechRecorder _hardEndpointWasDetectedWithMetrics:atTime:]";
-    v22 = 2112;
-    v23 = metricsCopy;
-    _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s Detected hard end-point with metrics - %@", &v20, 0x16u);
+    v19 = 136315394;
+    v20 = "[CSSiriSpeechRecorder _hardEndpointWasDetectedWithMetrics:atTime:]";
+    v21 = 2112;
+    v22 = metricsCopy;
+    _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s Detected hard end-point with metrics - %@", &v19, 0x16u);
   }
 
   if (AFIsInternalInstall())
@@ -1466,8 +1590,8 @@ void __73__CSSiriSpeechRecorder__performTwoShotPromptForType_withOverride_atTime
       v12 = v11;
       if (os_signpost_enabled(v10))
       {
-        LOWORD(v20) = 0;
-        _os_signpost_emit_with_name_impl(&dword_222E4D000, v10, OS_SIGNPOST_EVENT, v12, "SpeechRecorder", "EndpointHandled", &v20, 2u);
+        LOWORD(v19) = 0;
+        _os_signpost_emit_with_name_impl(&dword_222E4D000, v10, OS_SIGNPOST_EVENT, v12, "SpeechRecorder", "EndpointHandled", &v19, 2u);
       }
     }
   }
@@ -1486,12 +1610,12 @@ void __73__CSSiriSpeechRecorder__performTwoShotPromptForType_withOverride_atTime
     self->_didTimeout = !didFakeTwoShotWithAlert;
     if (!didFakeTwoShotWithAlert && [(CSSiriAudioActivationInfo *)self->_currentActivationInfo shouldTreatTimeoutAsHardEndpoint])
     {
-      v19 = *v8;
+      v18 = *v8;
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_INFO))
       {
-        v20 = 136315138;
-        v21 = "[CSSiriSpeechRecorder _hardEndpointWasDetectedWithMetrics:atTime:]";
-        _os_log_impl(&dword_222E4D000, v19, OS_LOG_TYPE_INFO, "%s Overriding timeout and start point on timeout", &v20, 0xCu);
+        v19 = 136315138;
+        v20 = "[CSSiriSpeechRecorder _hardEndpointWasDetectedWithMetrics:atTime:]";
+        _os_log_impl(&dword_222E4D000, v18, OS_LOG_TYPE_INFO, "%s Overriding timeout and start point on timeout", &v19, 0xCu);
       }
 
       self->_didTimeout = 0;
@@ -1514,20 +1638,18 @@ void __73__CSSiriSpeechRecorder__performTwoShotPromptForType_withOverride_atTime
     {
       v15 = v14;
       v16 = AFSpeechEndpointerOperationModeGetName();
-      v20 = 136315394;
-      v21 = "[CSSiriSpeechRecorder _hardEndpointWasDetectedWithMetrics:atTime:]";
-      v22 = 2112;
-      v23 = v16;
-      _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_INFO, "%s Ignoring hard endpoint since _endpointerOperationMode = %@", &v20, 0x16u);
+      v19 = 136315394;
+      v20 = "[CSSiriSpeechRecorder _hardEndpointWasDetectedWithMetrics:atTime:]";
+      v21 = 2112;
+      v22 = v16;
+      _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_INFO, "%s Ignoring hard endpoint since _endpointerOperationMode = %@", &v19, 0x16u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endpointer:(id)endpointer didDetectHardEndpointAtTime:(double)time withMetrics:(id)metrics eventType:(int64_t)type
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   endpointerCopy = endpointer;
   metricsCopy = metrics;
   v11 = MEMORY[0x277CEF0E8];
@@ -1535,8 +1657,8 @@ void __73__CSSiriSpeechRecorder__performTwoShotPromptForType_withOverride_atTime
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v33 = "[CSSiriSpeechRecorder endpointer:didDetectHardEndpointAtTime:withMetrics:eventType:]";
-    v34 = 2048;
+    v32 = "[CSSiriSpeechRecorder endpointer:didDetectHardEndpointAtTime:withMetrics:eventType:]";
+    v33 = 2048;
     timeCopy = time;
     _os_log_impl(&dword_222E4D000, v12, OS_LOG_TYPE_INFO, "%s time = %lf", buf, 0x16u);
   }
@@ -1558,14 +1680,14 @@ void __73__CSSiriSpeechRecorder__performTwoShotPromptForType_withOverride_atTime
 
   kdebug_trace();
   mEMORY[0x277CEF158] = [MEMORY[0x277CEF158] sharedAnalytics];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __85__CSSiriSpeechRecorder_endpointer_didDetectHardEndpointAtTime_withMetrics_eventType___block_invoke;
-  v29[3] = &unk_2784C64A8;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __85__CSSiriSpeechRecorder_endpointer_didDetectHardEndpointAtTime_withMetrics_eventType___block_invoke;
+  v28[3] = &unk_2784C64A8;
   timeCopy2 = time;
   v17 = metricsCopy;
-  v30 = v17;
-  [mEMORY[0x277CEF158] logEventWithType:220 contextProvider:v29];
+  v29 = v17;
+  [mEMORY[0x277CEF158] logEventWithType:220 contextProvider:v28];
 
   recordingWillStartGroup = self->_recordingWillStartGroup;
   v19 = dispatch_time(0, 15000000000);
@@ -1574,24 +1696,22 @@ void __73__CSSiriSpeechRecorder__performTwoShotPromptForType_withOverride_atTime
   if (os_log_type_enabled(*v11, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v33 = "[CSSiriSpeechRecorder endpointer:didDetectHardEndpointAtTime:withMetrics:eventType:]";
+    v32 = "[CSSiriSpeechRecorder endpointer:didDetectHardEndpointAtTime:withMetrics:eventType:]";
     _os_log_impl(&dword_222E4D000, v20, OS_LOG_TYPE_INFO, "%s exited _recordingWillStartGroup", buf, 0xCu);
   }
 
   queue = self->_queue;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __85__CSSiriSpeechRecorder_endpointer_didDetectHardEndpointAtTime_withMetrics_eventType___block_invoke_231;
-  v25[3] = &unk_2784C64D0;
-  v25[4] = self;
-  v26 = endpointerCopy;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __85__CSSiriSpeechRecorder_endpointer_didDetectHardEndpointAtTime_withMetrics_eventType___block_invoke_231;
+  v24[3] = &unk_2784C64D0;
+  v24[4] = self;
+  v25 = endpointerCopy;
   timeCopy3 = time;
-  v27 = v17;
+  v26 = v17;
   v22 = v17;
   v23 = endpointerCopy;
-  dispatch_sync(queue, v25);
-
-  v24 = *MEMORY[0x277D85DE8];
+  dispatch_sync(queue, v24);
 }
 
 id __85__CSSiriSpeechRecorder_endpointer_didDetectHardEndpointAtTime_withMetrics_eventType___block_invoke(uint64_t a1)
@@ -1609,83 +1729,71 @@ id __85__CSSiriSpeechRecorder_endpointer_didDetectHardEndpointAtTime_withMetrics
   return v2;
 }
 
-void __85__CSSiriSpeechRecorder_endpointer_didDetectHardEndpointAtTime_withMetrics_eventType___block_invoke_231(uint64_t a1)
+void __85__CSSiriSpeechRecorder_endpointer_didDetectHardEndpointAtTime_withMetrics_eventType___block_invoke_231(double *a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  if (*(v1 + 80) != *(a1 + 40))
+  v25 = *MEMORY[0x277D85DE8];
+  v1 = *(a1 + 4);
+  if (*(v1 + 80) != *(a1 + 5))
   {
     v2 = *MEMORY[0x277CEF0E8];
     if (!os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-LABEL_5:
-      v6 = *MEMORY[0x277D85DE8];
       return;
     }
 
-    v17 = 136315138;
-    v18 = "[CSSiriSpeechRecorder endpointer:didDetectHardEndpointAtTime:withMetrics:eventType:]_block_invoke";
+    v15 = 136315138;
+    v16 = "[CSSiriSpeechRecorder endpointer:didDetectHardEndpointAtTime:withMetrics:eventType:]_block_invoke";
     v3 = "%s Ignoring hard endpoint from stale CSEndpointAnalyzer";
     v4 = v2;
     v5 = 12;
-LABEL_4:
-    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, v3, &v17, v5);
-    goto LABEL_5;
+    goto LABEL_4;
   }
 
   [*(v1 + 440) endTimestamp];
   AFMachAbsoluteTimeGetTimeInterval();
-  v9 = *(a1 + 32);
-  if ((*(v9 + 64) & 0xFFFFFFFFFFFFFFFBLL) == 1)
+  v8 = *(a1 + 4);
+  if ((*(v8 + 64) & 0xFFFFFFFFFFFFFFFBLL) == 1 && (v9 = v7, v10 = *(v8 + 240), v10 < v7) && (v11 = a1[7], v11 < v7 - v10 + 0.5))
   {
-    v10 = v8;
-    v11 = *(v9 + 240);
-    if (v11 < v8)
+    v12 = *MEMORY[0x277CEF0E8];
+    if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v12 = *(a1 + 56);
-      if (v12 < v8 - v11 + 0.5)
-      {
-        v13 = *MEMORY[0x277CEF0E8];
-        if (!os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
-        {
-          goto LABEL_5;
-        }
-
-        v17 = 136316162;
-        v18 = "[CSSiriSpeechRecorder endpointer:didDetectHardEndpointAtTime:withMetrics:eventType:]_block_invoke";
-        v19 = 2048;
-        v20 = v12;
-        v21 = 2048;
-        v22 = v11;
-        v23 = 2048;
-        v24 = v10;
-        v25 = 2048;
-        v26 = 0x3FE0000000000000;
-        v3 = "%s Ignoring hard endpoint because (endpointTime = %f, firstBufferTimestamp = %f, mostRecentTTSEndTimestamp = %f, extendedSuppressDuration = %f).";
-        v4 = v13;
-        v5 = 52;
-        goto LABEL_4;
-      }
+      v15 = 136316162;
+      v16 = "[CSSiriSpeechRecorder endpointer:didDetectHardEndpointAtTime:withMetrics:eventType:]_block_invoke";
+      v17 = 2048;
+      v18 = v11;
+      v19 = 2048;
+      v20 = v10;
+      v21 = 2048;
+      v22 = v9;
+      v23 = 2048;
+      v24 = 0x3FE0000000000000;
+      v3 = "%s Ignoring hard endpoint because (endpointTime = %f, firstBufferTimestamp = %f, mostRecentTTSEndTimestamp = %f, extendedSuppressDuration = %f).";
+      v4 = v12;
+      v5 = 52;
+LABEL_4:
+      _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, v3, &v15, v5);
     }
   }
 
-  v14 = *(a1 + 48);
-  v15 = *(a1 + 56);
-  v16 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v13 = *(a1 + 6);
+    v14 = a1[7];
 
-  [v9 _hardEndpointWasDetectedWithMetrics:v14 atTime:v15];
+    [v8 _hardEndpointWasDetectedWithMetrics:v13 atTime:v14];
+  }
 }
 
 - (void)speechControllerDidUpdateSmartSiriVolume:(id)volume forReason:(unint64_t)reason
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   volumeCopy = volume;
   v7 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v13 = "[CSSiriSpeechRecorder speechControllerDidUpdateSmartSiriVolume:forReason:]";
-    v14 = 2048;
+    v12 = "[CSSiriSpeechRecorder speechControllerDidUpdateSmartSiriVolume:forReason:]";
+    v13 = 2048;
     reasonCopy = reason;
     _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s reason = %tu", buf, 0x16u);
   }
@@ -1701,23 +1809,21 @@ LABEL_4:
     block[4] = self;
     dispatch_async(queue, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_speechControllerRequestsOperation:(unint64_t)operation forReason:(unint64_t)reason completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v9 = MEMORY[0x277CEF0E8];
   v10 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v19 = "[CSSiriSpeechRecorder _speechControllerRequestsOperation:forReason:completion:]";
-    v20 = 2048;
+    v18 = "[CSSiriSpeechRecorder _speechControllerRequestsOperation:forReason:completion:]";
+    v19 = 2048;
     operationCopy2 = operation;
-    v22 = 2048;
+    v21 = 2048;
     reasonCopy = reason;
     _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s opType = %tu, reason = %tu", buf, 0x20u);
   }
@@ -1726,13 +1832,13 @@ LABEL_4:
   {
     if (operation == 2)
     {
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __80__CSSiriSpeechRecorder__speechControllerRequestsOperation_forReason_completion___block_invoke;
-      v16[3] = &unk_2784C6458;
-      v17 = completionCopy;
-      [(CSSiriSpeechRecorder *)self _playPhaticWithCompletion:v16];
-      v11 = v17;
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __80__CSSiriSpeechRecorder__speechControllerRequestsOperation_forReason_completion___block_invoke;
+      v15[3] = &unk_2784C6458;
+      v16 = completionCopy;
+      [(CSSiriSpeechRecorder *)self _playPhaticWithCompletion:v15];
+      v11 = v16;
     }
 
     else
@@ -1743,13 +1849,13 @@ LABEL_4:
       }
 
       [(CSSpeechController *)self->_speechController playRecordStartingAlertAndResetEndpointerWithAlertOverride:2];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __80__CSSiriSpeechRecorder__speechControllerRequestsOperation_forReason_completion___block_invoke_2;
-      v14[3] = &unk_2784C6480;
-      v15 = completionCopy;
-      [(CSSiriSpeechRecorder *)self performBlockAfterAlerts:v14 timeout:0.5];
-      v11 = v15;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __80__CSSiriSpeechRecorder__speechControllerRequestsOperation_forReason_completion___block_invoke_2;
+      v13[3] = &unk_2784C6480;
+      v14 = completionCopy;
+      [(CSSiriSpeechRecorder *)self performBlockAfterAlerts:v13 timeout:0.5];
+      v11 = v14;
     }
 
     goto LABEL_15;
@@ -1772,15 +1878,13 @@ LABEL_10:
   if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v19 = "[CSSiriSpeechRecorder _speechControllerRequestsOperation:forReason:completion:]";
-    v20 = 2048;
+    v18 = "[CSSiriSpeechRecorder _speechControllerRequestsOperation:forReason:completion:]";
+    v19 = 2048;
     operationCopy2 = operation;
     _os_log_error_impl(&dword_222E4D000, v12, OS_LOG_TYPE_ERROR, "%s Unknown CSRequestOperationType (opType = %tu).", buf, 0x16u);
   }
 
 LABEL_15:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __80__CSSiriSpeechRecorder__speechControllerRequestsOperation_forReason_completion___block_invoke(uint64_t a1)
@@ -1807,47 +1911,45 @@ uint64_t __80__CSSiriSpeechRecorder__speechControllerRequestsOperation_forReason
 
 - (void)speechControllerRequestsOperation:(unint64_t)operation forReason:(unint64_t)reason completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v9 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v19 = "[CSSiriSpeechRecorder speechControllerRequestsOperation:forReason:completion:]";
-    v20 = 2048;
+    v18 = "[CSSiriSpeechRecorder speechControllerRequestsOperation:forReason:completion:]";
+    v19 = 2048;
     operationCopy = operation;
-    v22 = 2048;
+    v21 = 2048;
     reasonCopy = reason;
     _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s opType = %tu, reason = %tu", buf, 0x20u);
   }
 
   recordingWillStartGroup = self->_recordingWillStartGroup;
   queue = self->_queue;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __79__CSSiriSpeechRecorder_speechControllerRequestsOperation_forReason_completion___block_invoke;
-  v14[3] = &unk_2784C6548;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __79__CSSiriSpeechRecorder_speechControllerRequestsOperation_forReason_completion___block_invoke;
+  v13[3] = &unk_2784C6548;
   operationCopy2 = operation;
   reasonCopy2 = reason;
-  v14[4] = self;
-  v15 = completionCopy;
+  v13[4] = self;
+  v14 = completionCopy;
   v12 = completionCopy;
-  dispatch_group_notify(recordingWillStartGroup, queue, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  dispatch_group_notify(recordingWillStartGroup, queue, v13);
 }
 
 - (void)speechControllerRequestsOperation:(unint64_t)operation forReason:(unint64_t)reason
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v13 = "[CSSiriSpeechRecorder speechControllerRequestsOperation:forReason:]";
-    v14 = 2048;
+    v12 = "[CSSiriSpeechRecorder speechControllerRequestsOperation:forReason:]";
+    v13 = 2048;
     operationCopy = operation;
-    v16 = 2048;
+    v15 = 2048;
     reasonCopy = reason;
     _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s opType = %tu, reason = %tu", buf, 0x20u);
   }
@@ -1862,40 +1964,37 @@ uint64_t __80__CSSiriSpeechRecorder__speechControllerRequestsOperation_forReason
   block[5] = operation;
   block[6] = reason;
   dispatch_group_notify(recordingWillStartGroup, queue, block);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)suppressUtteranceGradingIfRequired
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (AFIsHorseman())
   {
     v3 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v11 = "[CSSiriSpeechRecorder suppressUtteranceGradingIfRequired]";
+      v10 = "[CSSiriSpeechRecorder suppressUtteranceGradingIfRequired]";
       _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s BTLE speech controller began waiting for Myriad decision", buf, 0xCu);
     }
 
     _speechController = [(CSSiriSpeechRecorder *)self _speechController];
     [_speechController beginWaitingForMyriad];
     mEMORY[0x277D55B08] = [MEMORY[0x277D55B08] sharedMonitor];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __58__CSSiriSpeechRecorder_suppressUtteranceGradingIfRequired__block_invoke;
-    v8[3] = &unk_2784C6408;
-    v9 = _speechController;
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __58__CSSiriSpeechRecorder_suppressUtteranceGradingIfRequired__block_invoke;
+    v7[3] = &unk_2784C6408;
+    v8 = _speechController;
     v6 = _speechController;
-    [mEMORY[0x277D55B08] waitForMyriadDecisionForReason:@"Utterance Grading" withCompletion:v8];
+    [mEMORY[0x277D55B08] waitForMyriadDecisionForReason:@"Utterance Grading" withCompletion:v7];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__CSSiriSpeechRecorder_suppressUtteranceGradingIfRequired__block_invoke(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = 1;
@@ -1909,31 +2008,29 @@ uint64_t __58__CSSiriSpeechRecorder_suppressUtteranceGradingIfRequired__block_in
   v4 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[CSSiriSpeechRecorder suppressUtteranceGradingIfRequired]_block_invoke";
-    v9 = 2048;
-    v10 = v3;
-    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s BTLE speech controller end waiting for Myriad decision %lu", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSSiriSpeechRecorder suppressUtteranceGradingIfRequired]_block_invoke";
+    v8 = 2048;
+    v9 = v3;
+    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s BTLE speech controller end waiting for Myriad decision %lu", &v6, 0x16u);
   }
 
-  result = [*(a1 + 32) endWaitingForMyriadWithDecision:v3];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) endWaitingForMyriadWithDecision:v3];
 }
 
 - (void)speechControllerDidDetectVoiceTriggerTwoShot:(id)shot atTime:(double)time wantsAudibleFeedback:(BOOL)feedback
 {
   feedbackCopy = feedback;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v8 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v21 = "[CSSiriSpeechRecorder speechControllerDidDetectVoiceTriggerTwoShot:atTime:wantsAudibleFeedback:]";
-    v22 = 2048;
+    v20 = "[CSSiriSpeechRecorder speechControllerDidDetectVoiceTriggerTwoShot:atTime:wantsAudibleFeedback:]";
+    v21 = 2048;
     timeCopy = time;
-    v24 = 1024;
-    v25 = feedbackCopy;
+    v23 = 1024;
+    v24 = feedbackCopy;
     _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s time = %lf, wantsAudibleFeedback = %d", buf, 0x1Cu);
   }
 
@@ -1941,14 +2038,14 @@ uint64_t __58__CSSiriSpeechRecorder_suppressUtteranceGradingIfRequired__block_in
   v10 = [(CSSiriSpeechRecorder *)self _currentMHUUID:0];
   [mEMORY[0x277D017A0] logTwoShotDetectedWithMHUUID:v10];
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __97__CSSiriSpeechRecorder_speechControllerDidDetectVoiceTriggerTwoShot_atTime_wantsAudibleFeedback___block_invoke;
-  v18[3] = &unk_2784C63B8;
-  v18[4] = self;
-  *&v18[5] = time;
-  v19 = feedbackCopy;
-  v11 = MEMORY[0x223DD26C0](v18);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __97__CSSiriSpeechRecorder_speechControllerDidDetectVoiceTriggerTwoShot_atTime_wantsAudibleFeedback___block_invoke;
+  v17[3] = &unk_2784C63B8;
+  v17[4] = self;
+  *&v17[5] = time;
+  v18 = feedbackCopy;
+  v11 = MEMORY[0x223DD26C0](v17);
   recordingWillStartGroup = self->_recordingWillStartGroup;
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
@@ -1956,11 +2053,9 @@ uint64_t __58__CSSiriSpeechRecorder_suppressUtteranceGradingIfRequired__block_in
   block[2] = __97__CSSiriSpeechRecorder_speechControllerDidDetectVoiceTriggerTwoShot_atTime_wantsAudibleFeedback___block_invoke_2;
   block[3] = &unk_2784C6E98;
   block[4] = self;
-  v17 = v11;
+  v16 = v11;
   v14 = v11;
   dispatch_group_notify(recordingWillStartGroup, queue, block);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __97__CSSiriSpeechRecorder_speechControllerDidDetectVoiceTriggerTwoShot_atTime_wantsAudibleFeedback___block_invoke(uint64_t a1)
@@ -1996,17 +2091,17 @@ void __97__CSSiriSpeechRecorder_speechControllerDidDetectVoiceTriggerTwoShot_atT
   }
 }
 
-void __97__CSSiriSpeechRecorder_speechControllerDidDetectVoiceTriggerTwoShot_atTime_wantsAudibleFeedback___block_invoke_2(uint64_t a1)
+void __97__CSSiriSpeechRecorder_speechControllerDidDetectVoiceTriggerTwoShot_atTime_wantsAudibleFeedback___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v11 = *MEMORY[0x277D85DE8];
   if ((AFIsHorseman() & 1) != 0 || *(*(a1 + 32) + 168) == 15)
   {
-    v2 = *MEMORY[0x277CEF0E8];
+    v3 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
       v10 = "[CSSiriSpeechRecorder speechControllerDidDetectVoiceTriggerTwoShot:atTime:wantsAudibleFeedback:]_block_invoke_2";
-      _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_INFO, "%s Trigger two-shot feedback NOW", buf, 0xCu);
+      _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s Trigger two-shot feedback NOW", buf, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -2014,31 +2109,29 @@ void __97__CSSiriSpeechRecorder_speechControllerDidDetectVoiceTriggerTwoShot_atT
 
   else
   {
-    v3 = *MEMORY[0x277CEF0E8];
+    v4 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
       v10 = "[CSSiriSpeechRecorder speechControllerDidDetectVoiceTriggerTwoShot:atTime:wantsAudibleFeedback:]_block_invoke";
-      _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s BTLE waiting for Myriad to finish", buf, 0xCu);
+      _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s BTLE waiting for Myriad to finish", buf, 0xCu);
     }
 
-    v4 = [MEMORY[0x277D55B08] sharedMonitor];
+    v5 = [MEMORY[0x277D55B08] sharedMonitor];
     v7[0] = MEMORY[0x277D85DD0];
     v7[1] = 3221225472;
     v7[2] = __97__CSSiriSpeechRecorder_speechControllerDidDetectVoiceTriggerTwoShot_atTime_wantsAudibleFeedback___block_invoke_217;
     v7[3] = &unk_2784C63E0;
-    v5 = *(a1 + 40);
+    v6 = *(a1 + 40);
     v7[4] = *(a1 + 32);
-    v8 = v5;
-    [v4 waitForMyriadDecisionForReason:@"Two shot feedback" withCompletion:v7];
+    v8 = v6;
+    [v5 waitForMyriadDecisionForReason:@"Two shot feedback" withCompletion:v7];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __97__CSSiriSpeechRecorder_speechControllerDidDetectVoiceTriggerTwoShot_atTime_wantsAudibleFeedback___block_invoke_217(uint64_t a1, int a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v2 = *(*(a1 + 32) + 16);
@@ -2046,7 +2139,7 @@ void __97__CSSiriSpeechRecorder_speechControllerDidDetectVoiceTriggerTwoShot_atT
     block[1] = 3221225472;
     block[2] = __97__CSSiriSpeechRecorder_speechControllerDidDetectVoiceTriggerTwoShot_atTime_wantsAudibleFeedback___block_invoke_2_218;
     block[3] = &unk_2784C6C90;
-    v6 = *(a1 + 40);
+    v5 = *(a1 + 40);
     dispatch_async(v2, block);
   }
 
@@ -2056,61 +2149,49 @@ void __97__CSSiriSpeechRecorder_speechControllerDidDetectVoiceTriggerTwoShot_atT
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v8 = "[CSSiriSpeechRecorder speechControllerDidDetectVoiceTriggerTwoShot:atTime:wantsAudibleFeedback:]_block_invoke";
+      v7 = "[CSSiriSpeechRecorder speechControllerDidDetectVoiceTriggerTwoShot:atTime:wantsAudibleFeedback:]_block_invoke";
       _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s BTLE Myriad loss cancelled two shot feedback", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)languageDetectorDidDetectLanguageWithConfidence:(id)confidence confidence:(id)a4 isConfident:(BOOL)confident
 {
   confidentCopy = confident;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   confidenceCopy = confidence;
   v9 = a4;
   v10 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     *buf = 136315907;
-    v20 = "[CSSiriSpeechRecorder languageDetectorDidDetectLanguageWithConfidence:confidence:isConfident:]";
-    v21 = 1025;
-    v22 = confidentCopy;
-    v23 = 2113;
-    v24 = confidenceCopy;
-    v25 = 2113;
-    v26 = v9;
+    v19 = "[CSSiriSpeechRecorder languageDetectorDidDetectLanguageWithConfidence:confidence:isConfident:]";
+    v20 = 1025;
+    v21 = confidentCopy;
+    v22 = 2113;
+    v23 = confidenceCopy;
+    v24 = 2113;
+    v25 = v9;
     _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s Language detector is confident:%{private}d of the detected language:'%{private}@' with language code likelihood: %{private}@", buf, 0x26u);
   }
 
   queue = self->_queue;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __95__CSSiriSpeechRecorder_languageDetectorDidDetectLanguageWithConfidence_confidence_isConfident___block_invoke;
-  v15[3] = &unk_2784C6F80;
-  v15[4] = self;
-  v16 = confidenceCopy;
-  v17 = v9;
-  v18 = confidentCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __95__CSSiriSpeechRecorder_languageDetectorDidDetectLanguageWithConfidence_confidence_isConfident___block_invoke;
+  v14[3] = &unk_2784C6F80;
+  v14[4] = self;
+  v15 = confidenceCopy;
+  v16 = v9;
+  v17 = confidentCopy;
   v12 = v9;
   v13 = confidenceCopy;
-  dispatch_async(queue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t __95__CSSiriSpeechRecorder_languageDetectorDidDetectLanguageWithConfidence_confidence_isConfident___block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 56);
-  return [*(*(a1 + 32) + 8) speechCapturing:? didDetectLanguage:? confidenceScores:? isConfident:?];
+  dispatch_async(queue, v14);
 }
 
 - (void)_playStopAlertIfNecessaryForReason:(int64_t)reason error:(id)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   _currentRecordRoute = [(CSSiriSpeechRecorder *)self _currentRecordRoute];
   v8 = self->_speechCapturingMode == 4 && !self->_fingerprintWasRecognized;
   v9 = (reason + 11785) <= 0xFFFFFFFFFFFFFFFDLL && !self->_suppressRecordingStoppedAlert && (AFIsHorseman() & 1) == 0 && (AFIsNano() & 1) == 0 && ![(CSSiriAudioActivationInfo *)self->_currentActivationInfo shouldSuppressRecordingStopAlert]&& ([(CSSiriAudioActivationInfo *)self->_currentActivationInfo isVoiceOverTouchEnabled]|| (self->_speechCapturingMode & 0xFFFFFFFFFFFFFFFELL) == 2) || v8;
@@ -2128,9 +2209,9 @@ LABEL_12:
     v10 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v27 = 136315138;
-      v28 = "[CSSiriSpeechRecorder _playStopAlertIfNecessaryForReason:error:]";
-      _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s Not explicitly playing alert", &v27, 0xCu);
+      v26 = 136315138;
+      v27 = "[CSSiriSpeechRecorder _playStopAlertIfNecessaryForReason:error:]";
+      _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s Not explicitly playing alert", &v26, 0xCu);
     }
 
     goto LABEL_36;
@@ -2146,23 +2227,23 @@ LABEL_12:
   {
     wasCanceled = self->_wasCanceled;
     suppressRecordingStoppedAlert = self->_suppressRecordingStoppedAlert;
-    v27 = 136316930;
-    v28 = "[CSSiriSpeechRecorder _playStopAlertIfNecessaryForReason:error:]";
-    v29 = 1024;
-    *v30 = v11 == 1;
-    *&v30[4] = 2048;
-    *&v30[6] = speechEvent;
-    v31 = 1024;
-    v32 = wasCanceled;
-    v33 = 1024;
-    v34 = suppressRecordingStoppedAlert;
-    v35 = 1024;
-    v36 = isMonitoring;
-    v37 = 1024;
-    v38 = didWin;
-    v39 = 2112;
-    v40 = _currentRecordRoute;
-    _os_log_impl(&dword_222E4D000, v16, OS_LOG_TYPE_INFO, "%s isSiriMode=%d, speechEvent=%ld, wasRequestCancelled=%d, shouldSuppressAlert=%d, isMonitoringMyriadEvents=%d, didMyriadWin=%d, recordRoute=%@", &v27, 0x3Eu);
+    v26 = 136316930;
+    v27 = "[CSSiriSpeechRecorder _playStopAlertIfNecessaryForReason:error:]";
+    v28 = 1024;
+    *v29 = v11 == 1;
+    *&v29[4] = 2048;
+    *&v29[6] = speechEvent;
+    v30 = 1024;
+    v31 = wasCanceled;
+    v32 = 1024;
+    v33 = suppressRecordingStoppedAlert;
+    v34 = 1024;
+    v35 = isMonitoring;
+    v36 = 1024;
+    v37 = didWin;
+    v38 = 2112;
+    v39 = _currentRecordRoute;
+    _os_log_impl(&dword_222E4D000, v16, OS_LOG_TYPE_INFO, "%s isSiriMode=%d, speechEvent=%ld, wasRequestCancelled=%d, shouldSuppressAlert=%d, isMonitoringMyriadEvents=%d, didMyriadWin=%d, recordRoute=%@", &v26, 0x3Eu);
   }
 
   if (v11 == 1 && AFSpeechEventIsVoiceTrigger() && (v19 = self->_wasCanceled, v19 || (isMonitoring & 1) == 0 || (didWin & 1) == 0) && ((!v19 | isMonitoring) & 1) != 0)
@@ -2170,9 +2251,9 @@ LABEL_12:
     v20 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v27 = 136315138;
-      v28 = "[CSSiriSpeechRecorder _playStopAlertIfNecessaryForReason:error:]";
-      _os_log_impl(&dword_222E4D000, v20, OS_LOG_TYPE_INFO, "%s BTLE Myriad Not explicitly playing speech stop alert", &v27, 0xCu);
+      v26 = 136315138;
+      v27 = "[CSSiriSpeechRecorder _playStopAlertIfNecessaryForReason:error:]";
+      _os_log_impl(&dword_222E4D000, v20, OS_LOG_TYPE_INFO, "%s BTLE Myriad Not explicitly playing speech stop alert", &v26, 0xCu);
     }
   }
 
@@ -2188,11 +2269,11 @@ LABEL_12:
         v23 = @"AVVoice_RecordStoppedWithError";
       }
 
-      v27 = 136315394;
-      v28 = "[CSSiriSpeechRecorder _playStopAlertIfNecessaryForReason:error:]";
-      v29 = 2112;
-      *v30 = v23;
-      _os_log_impl(&dword_222E4D000, v22, OS_LOG_TYPE_INFO, "%s Explicitly playing %@ alert", &v27, 0x16u);
+      v26 = 136315394;
+      v27 = "[CSSiriSpeechRecorder _playStopAlertIfNecessaryForReason:error:]";
+      v28 = 2112;
+      *v29 = v23;
+      _os_log_impl(&dword_222E4D000, v22, OS_LOG_TYPE_INFO, "%s Explicitly playing %@ alert", &v26, 0x16u);
     }
 
     if (v21 && ![(CSSiriAudioActivationInfo *)self->_currentActivationInfo shouldSuppressRecordingErrorAlert])
@@ -2211,7 +2292,6 @@ LABEL_12:
   }
 
 LABEL_36:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldPlaySummonedToneOnTopCapInvocationOnHorseman
@@ -2240,7 +2320,7 @@ LABEL_36:
 
 - (void)speechControllerDidFinishAlertPlayback:(id)playback ofType:(int64_t)type error:(id)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   playbackCopy = playback;
   errorCopy = error;
   v10 = *MEMORY[0x277CEF0E8];
@@ -2249,11 +2329,11 @@ LABEL_36:
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v19 = "[CSSiriSpeechRecorder speechControllerDidFinishAlertPlayback:ofType:error:]";
-      v20 = 2048;
+      v18 = "[CSSiriSpeechRecorder speechControllerDidFinishAlertPlayback:ofType:error:]";
+      v19 = 2048;
       typeCopy2 = type;
-      v22 = 2112;
-      v23 = errorCopy;
+      v21 = 2112;
+      v22 = errorCopy;
       _os_log_error_impl(&dword_222E4D000, v10, OS_LOG_TYPE_ERROR, "%s type = %ld, error = %@", buf, 0x20u);
     }
   }
@@ -2261,8 +2341,8 @@ LABEL_36:
   else if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v19 = "[CSSiriSpeechRecorder speechControllerDidFinishAlertPlayback:ofType:error:]";
-    v20 = 2048;
+    v18 = "[CSSiriSpeechRecorder speechControllerDidFinishAlertPlayback:ofType:error:]";
+    v19 = 2048;
     typeCopy2 = type;
     _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s type = %ld", buf, 0x16u);
   }
@@ -2272,18 +2352,16 @@ LABEL_36:
   block[1] = 3221225472;
   block[2] = __76__CSSiriSpeechRecorder_speechControllerDidFinishAlertPlayback_ofType_error___block_invoke;
   block[3] = &unk_2784C6998;
-  v15 = errorCopy;
+  v14 = errorCopy;
   selfCopy = self;
   typeCopy3 = type;
   v12 = errorCopy;
   dispatch_async(queue, block);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __76__CSSiriSpeechRecorder_speechControllerDidFinishAlertPlayback_ofType_error___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 32) && [*(a1 + 40) _shouldEmitInstrumentation])
   {
     [*(*(a1 + 40) + 88) instrumentSiriCueForAlertType:*(a1 + 48)];
@@ -2292,18 +2370,18 @@ void __76__CSSiriSpeechRecorder_speechControllerDidFinishAlertPlayback_ofType_er
   v2 = *(*(a1 + 40) + 464);
   if (!v2)
   {
-    v11 = *MEMORY[0x277CEF0E8];
+    v10 = *MEMORY[0x277CEF0E8];
     if (!os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_21;
+      return;
     }
 
     *buf = 136315138;
-    v23 = "[CSSiriSpeechRecorder speechControllerDidFinishAlertPlayback:ofType:error:]_block_invoke";
-    v12 = "%s numberOfAVVCAlertPlaybacksByType is nil.";
+    v20 = "[CSSiriSpeechRecorder speechControllerDidFinishAlertPlayback:ofType:error:]_block_invoke";
+    v11 = "%s numberOfAVVCAlertPlaybacksByType is nil.";
 LABEL_13:
-    v13 = v11;
-    v14 = 12;
+    v12 = v10;
+    v13 = 12;
     goto LABEL_16;
   }
 
@@ -2313,23 +2391,23 @@ LABEL_13:
 
   if (!v5)
   {
-    v15 = *MEMORY[0x277CEF0E8];
+    v14 = *MEMORY[0x277CEF0E8];
     if (!os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_21;
+      return;
     }
 
-    v16 = *(a1 + 48);
+    v15 = *(a1 + 48);
     *buf = 136315394;
-    v23 = "[CSSiriSpeechRecorder speechControllerDidFinishAlertPlayback:ofType:error:]_block_invoke";
-    v24 = 2048;
-    v25 = v16;
-    v12 = "%s numberOfAVVCAlertPlaybacksByType does not have AVVC alert playbacks of type %ld.";
-    v13 = v15;
-    v14 = 22;
+    v20 = "[CSSiriSpeechRecorder speechControllerDidFinishAlertPlayback:ofType:error:]_block_invoke";
+    v21 = 2048;
+    v22 = v15;
+    v11 = "%s numberOfAVVCAlertPlaybacksByType does not have AVVC alert playbacks of type %ld.";
+    v12 = v14;
+    v13 = 22;
 LABEL_16:
-    _os_log_error_impl(&dword_222E4D000, v13, OS_LOG_TYPE_ERROR, v12, buf, v14);
-    goto LABEL_21;
+    _os_log_error_impl(&dword_222E4D000, v12, OS_LOG_TYPE_ERROR, v11, buf, v13);
+    return;
   }
 
   v6 = v5 - 1;
@@ -2342,109 +2420,100 @@ LABEL_16:
     v9 = *(*(a1 + 40) + 456);
     if (v9)
     {
-      v10 = *MEMORY[0x277D85DE8];
 
       dispatch_group_leave(v9);
       return;
     }
 
-    v11 = *MEMORY[0x277CEF0E8];
+    v10 = *MEMORY[0x277CEF0E8];
     if (!os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
-LABEL_21:
-      v20 = *MEMORY[0x277D85DE8];
       return;
     }
 
     *buf = 136315138;
-    v23 = "[CSSiriSpeechRecorder speechControllerDidFinishAlertPlayback:ofType:error:]_block_invoke";
-    v12 = "%s alertPlaybackGroup is nil.";
+    v20 = "[CSSiriSpeechRecorder speechControllerDidFinishAlertPlayback:ofType:error:]_block_invoke";
+    v11 = "%s alertPlaybackGroup is nil.";
     goto LABEL_13;
   }
 
-  v17 = *(*(a1 + 40) + 464);
-  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v6];
-  v18 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-  [v17 setObject:v21 forKey:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v16 = *(*(a1 + 40) + 464);
+  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v6];
+  v17 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
+  [v16 setObject:v18 forKey:v17];
 }
 
 - (void)speechController:(id)controller didSetAudioSessionActive:(BOOL)active
 {
   activeCopy = active;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[CSSiriSpeechRecorder speechController:didSetAudioSessionActive:]";
-    v13 = 1024;
-    v14 = activeCopy;
+    v11 = "[CSSiriSpeechRecorder speechController:didSetAudioSessionActive:]";
+    v12 = 1024;
+    v13 = activeCopy;
     _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s %d", buf, 0x12u);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __66__CSSiriSpeechRecorder_speechController_didSetAudioSessionActive___block_invoke;
-  v9[3] = &unk_2784C6390;
-  v9[4] = self;
-  v10 = activeCopy;
-  dispatch_async(queue, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __66__CSSiriSpeechRecorder_speechController_didSetAudioSessionActive___block_invoke;
+  v8[3] = &unk_2784C6390;
+  v8[4] = self;
+  v9 = activeCopy;
+  dispatch_async(queue, v8);
 }
 
 - (void)speechController:(id)controller willSetAudioSessionActive:(BOOL)active
 {
   activeCopy = active;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[CSSiriSpeechRecorder speechController:willSetAudioSessionActive:]";
-    v13 = 1024;
-    v14 = activeCopy;
+    v11 = "[CSSiriSpeechRecorder speechController:willSetAudioSessionActive:]";
+    v12 = 1024;
+    v13 = activeCopy;
     _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s %d", buf, 0x12u);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __67__CSSiriSpeechRecorder_speechController_willSetAudioSessionActive___block_invoke;
-  v9[3] = &unk_2784C6390;
-  v9[4] = self;
-  v10 = activeCopy;
-  dispatch_async(queue, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __67__CSSiriSpeechRecorder_speechController_willSetAudioSessionActive___block_invoke;
+  v8[3] = &unk_2784C6390;
+  v8[4] = self;
+  v9 = activeCopy;
+  dispatch_async(queue, v8);
 }
 
 - (void)speechControllerRecordHardwareConfigurationDidChange:(id)change toConfiguration:(int64_t)configuration
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[CSSiriSpeechRecorder speechControllerRecordHardwareConfigurationDidChange:toConfiguration:]";
-    v9 = 2048;
+    v6 = 136315394;
+    v7 = "[CSSiriSpeechRecorder speechControllerRecordHardwareConfigurationDidChange:toConfiguration:]";
+    v8 = 2048;
     configurationCopy = configuration;
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s %ld", &v7, 0x16u);
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s %ld", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speechControllerEndRecordInterruption:(id)interruption
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v9 = 136315138;
-    v10 = "[CSSiriSpeechRecorder speechControllerEndRecordInterruption:]";
-    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s ", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[CSSiriSpeechRecorder speechControllerEndRecordInterruption:]";
+    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s ", &v8, 0xCu);
   }
 
   mEMORY[0x277CEF158] = [MEMORY[0x277CEF158] sharedAnalytics];
@@ -2453,22 +2522,20 @@ LABEL_21:
   mEMORY[0x277D01738] = [MEMORY[0x277D01738] sharedLogger];
   v7 = [(CSSiriSpeechRecorder *)self _currentMHUUID:0];
   [mEMORY[0x277D01738] logMHAssistantDaemonAudioRecordingInterruptionContextWithMHUUID:v7 withStartEvent:0 withLinkID:0 withAvAudioSessionInterruptorName:0 withAVAudioSessionInterrupterType:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speechControllerBeginRecordInterruption:(id)interruption withContext:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = AFAddInterruptingAudioSessionInfoToAnalyticsContext();
   v6 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v19 = 136315394;
-    v20 = "[CSSiriSpeechRecorder speechControllerBeginRecordInterruption:withContext:]";
-    v21 = 2112;
-    v22 = v5;
-    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s context = %@", &v19, 0x16u);
+    v18 = 136315394;
+    v19 = "[CSSiriSpeechRecorder speechControllerBeginRecordInterruption:withContext:]";
+    v20 = 2112;
+    v21 = v5;
+    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s context = %@", &v18, 0x16u);
   }
 
   uUID = [MEMORY[0x277CCAD78] UUID];
@@ -2488,28 +2555,26 @@ LABEL_21:
 
   mEMORY[0x277CEF158] = [MEMORY[0x277CEF158] sharedAnalytics];
   [mEMORY[0x277CEF158] logEventWithType:226 context:v5];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_speechControllerDidReceiveLastAudioRecordBuffer:(id)buffer forReason:(int64_t)reason estimatedSpeechEndHostTime:(unint64_t)time isRecordingStopped:(BOOL)stopped
 {
   stoppedCopy = stopped;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   v11 = MEMORY[0x277CEF0E8];
   v12 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v27 = 136315906;
-    v28 = "[CSSiriSpeechRecorder _speechControllerDidReceiveLastAudioRecordBuffer:forReason:estimatedSpeechEndHostTime:isRecordingStopped:]";
-    v29 = 2048;
+    v26 = 136315906;
+    v27 = "[CSSiriSpeechRecorder _speechControllerDidReceiveLastAudioRecordBuffer:forReason:estimatedSpeechEndHostTime:isRecordingStopped:]";
+    v28 = 2048;
     reasonCopy = reason;
-    v31 = 2048;
+    v30 = 2048;
     timeCopy = time;
-    v33 = 1024;
-    v34 = stoppedCopy;
-    _os_log_impl(&dword_222E4D000, v12, OS_LOG_TYPE_INFO, "%s reason = %zd, estimatedSpeechEndHostTime = %llu, isRecordingStopped = %d", &v27, 0x26u);
+    v32 = 1024;
+    v33 = stoppedCopy;
+    _os_log_impl(&dword_222E4D000, v12, OS_LOG_TYPE_INFO, "%s reason = %zd, estimatedSpeechEndHostTime = %llu, isRecordingStopped = %d", &v26, 0x26u);
   }
 
   recordingState = self->_recordingState;
@@ -2521,15 +2586,15 @@ LABEL_21:
       goto LABEL_22;
     }
 
-    v27 = 136315394;
-    v28 = "[CSSiriSpeechRecorder _speechControllerDidReceiveLastAudioRecordBuffer:forReason:estimatedSpeechEndHostTime:isRecordingStopped:]";
-    v29 = 2048;
+    v26 = 136315394;
+    v27 = "[CSSiriSpeechRecorder _speechControllerDidReceiveLastAudioRecordBuffer:forReason:estimatedSpeechEndHostTime:isRecordingStopped:]";
+    v28 = 2048;
     reasonCopy = recordingState;
     v22 = "%s Ignoring unexpected last buffer callback while in state %ld";
     v23 = v21;
     v24 = 22;
 LABEL_16:
-    _os_log_error_impl(&dword_222E4D000, v23, OS_LOG_TYPE_ERROR, v22, &v27, v24);
+    _os_log_error_impl(&dword_222E4D000, v23, OS_LOG_TYPE_ERROR, v22, &v26, v24);
     goto LABEL_22;
   }
 
@@ -2541,8 +2606,8 @@ LABEL_16:
       goto LABEL_22;
     }
 
-    v27 = 136315138;
-    v28 = "[CSSiriSpeechRecorder _speechControllerDidReceiveLastAudioRecordBuffer:forReason:estimatedSpeechEndHostTime:isRecordingStopped:]";
+    v26 = 136315138;
+    v27 = "[CSSiriSpeechRecorder _speechControllerDidReceiveLastAudioRecordBuffer:forReason:estimatedSpeechEndHostTime:isRecordingStopped:]";
     v22 = "%s Ignoring unexpected last buffer callback without first buffer.";
     v23 = v25;
     v24 = 12;
@@ -2595,12 +2660,11 @@ LABEL_16:
   }
 
 LABEL_22:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speechControllerLPCMRecordBufferAvailable:(id)available buffer:(id)buffer recordedAt:(unint64_t)at
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   availableCopy = available;
   bufferCopy = buffer;
   queue = self->_queue;
@@ -2610,7 +2674,7 @@ LABEL_22:
   block[3] = &unk_2784C6998;
   block[4] = self;
   v11 = bufferCopy;
-  v23 = v11;
+  v22 = v11;
   atCopy = at;
   dispatch_async(queue, block);
   if (self->_needsAVVCLPCMCallbacks)
@@ -2619,13 +2683,13 @@ LABEL_22:
     {
       recordingWillStartGroup = self->_recordingWillStartGroup;
       v13 = self->_queue;
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __84__CSSiriSpeechRecorder_speechControllerLPCMRecordBufferAvailable_buffer_recordedAt___block_invoke_205;
-      v20[3] = &unk_2784C6FA8;
-      v20[4] = self;
-      v21 = v11;
-      dispatch_group_notify(recordingWillStartGroup, v13, v20);
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __84__CSSiriSpeechRecorder_speechControllerLPCMRecordBufferAvailable_buffer_recordedAt___block_invoke_205;
+      v19[3] = &unk_2784C6FA8;
+      v19[4] = self;
+      v20 = v11;
+      dispatch_group_notify(recordingWillStartGroup, v13, v19);
     }
 
     else
@@ -2641,32 +2705,30 @@ LABEL_22:
       if (!self->_hasReceivedEmptyLPCMRecordBuffer)
       {
         self->_hasReceivedEmptyLPCMRecordBuffer = 1;
-        v25 = 0;
-        v26 = &v25;
-        v27 = 0x2050000000;
+        v24 = 0;
+        v25 = &v24;
+        v26 = 0x2050000000;
         v15 = getSiriCoreSymptomsReporterClass_softClass;
-        v28 = getSiriCoreSymptomsReporterClass_softClass;
+        v27 = getSiriCoreSymptomsReporterClass_softClass;
         if (!getSiriCoreSymptomsReporterClass_softClass)
         {
           *&buf = MEMORY[0x277D85DD0];
           *(&buf + 1) = 3221225472;
-          v30 = __getSiriCoreSymptomsReporterClass_block_invoke;
-          v31 = &unk_2784C66A0;
-          v32 = &v25;
+          v29 = __getSiriCoreSymptomsReporterClass_block_invoke;
+          v30 = &unk_2784C66A0;
+          v31 = &v24;
           __getSiriCoreSymptomsReporterClass_block_invoke(&buf);
-          v15 = v26[3];
+          v15 = v25[3];
         }
 
         v16 = v15;
-        _Block_object_dispose(&v25, 8);
+        _Block_object_dispose(&v24, 8);
         sharedInstance = [v15 sharedInstance];
         processInfo = [MEMORY[0x277CCAC38] processInfo];
         [sharedInstance reportIssueForType:@"audio_recording" subType:@"empty_lpcm_record_buffer" context:0 processIdentifier:objc_msgSend(processInfo walkboutStatus:{"processIdentifier"), CSIsCarryDevice()}];
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __84__CSSiriSpeechRecorder_speechControllerLPCMRecordBufferAvailable_buffer_recordedAt___block_invoke(uint64_t a1)
@@ -2715,16 +2777,16 @@ uint64_t __84__CSSiriSpeechRecorder_speechControllerLPCMRecordBufferAvailable_bu
 
 - (id)getAudioRouteInstrumentationWithRecordingInfo:(id)info
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v5 = MEMORY[0x277CEF0E8];
   v6 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v42 = "[CSSiriSpeechRecorder getAudioRouteInstrumentationWithRecordingInfo:]";
-    v43 = 2112;
-    v44 = infoCopy;
+    v41 = "[CSSiriSpeechRecorder getAudioRouteInstrumentationWithRecordingInfo:]";
+    v42 = 2112;
+    v43 = infoCopy;
     _os_log_debug_impl(&dword_222E4D000, v6, OS_LOG_TYPE_DEBUG, "%s Getting audio route instrumentation with recording info %@...", buf, 0x16u);
   }
 
@@ -2743,7 +2805,7 @@ uint64_t __84__CSSiriSpeechRecorder_speechControllerLPCMRecordBufferAvailable_bu
 
   if ([infoCopy isBluetooth])
   {
-    v37 = infoCopy;
+    v36 = infoCopy;
     bluetoothDevice = [infoCopy bluetoothDevice];
     deviceInfo = [bluetoothDevice deviceInfo];
     vendorID = [deviceInfo vendorID];
@@ -2784,7 +2846,7 @@ uint64_t __84__CSSiriSpeechRecorder_speechControllerLPCMRecordBufferAvailable_bu
     stringValue2 = [v17 stringValue];
     [v8 setInterfaceProductID:stringValue2];
 
-    infoCopy = v37;
+    infoCopy = v36;
     goto LABEL_18;
   }
 
@@ -2813,87 +2875,87 @@ LABEL_18:
   if (([route isEqualToString:*MEMORY[0x277CB81D0]] & 1) != 0 || objc_msgSend(route, "isEqualToString:", *MEMORY[0x277CB81E0]))
   {
     bluetoothDevice = [MEMORY[0x277D26E58] sharedAVSystemController];
-    v22 = [bluetoothDevice attributeForKey:*MEMORY[0x277D26C70]];
-    v23 = [v22 objectForKey:*MEMORY[0x277D26D10]];
-    v24 = [(CSSiriSpeechRecorder *)self convertVirtualAudioSubTypeToString:1751410292];
-    if ([v23 isEqualToString:v24])
+    v21 = [bluetoothDevice attributeForKey:*MEMORY[0x277D26C70]];
+    v22 = [v21 objectForKey:*MEMORY[0x277D26D10]];
+    v23 = [(CSSiriSpeechRecorder *)self convertVirtualAudioSubTypeToString:1751410292];
+    if ([v22 isEqualToString:v23])
     {
 
       v10 = 6;
 LABEL_42:
-      v31 = *v5;
+      v30 = *v5;
       if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v42 = "[CSSiriSpeechRecorder getAudioRouteInstrumentationWithRecordingInfo:]";
-        v43 = 2112;
-        v44 = v23;
-        _os_log_debug_impl(&dword_222E4D000, v31, OS_LOG_TYPE_DEBUG, "%s routeSubtype = %@", buf, 0x16u);
-        v31 = *v5;
+        v41 = "[CSSiriSpeechRecorder getAudioRouteInstrumentationWithRecordingInfo:]";
+        v42 = 2112;
+        v43 = v22;
+        _os_log_debug_impl(&dword_222E4D000, v30, OS_LOG_TYPE_DEBUG, "%s routeSubtype = %@", buf, 0x16u);
+        v30 = *v5;
       }
 
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
-        v40 = v22;
-        v32 = infoCopy;
-        v33 = MEMORY[0x277CCABB0];
-        v34 = v31;
-        v35 = [v33 numberWithInt:v10];
+        v39 = v21;
+        v31 = infoCopy;
+        v32 = MEMORY[0x277CCABB0];
+        v33 = v30;
+        v34 = [v32 numberWithInt:v10];
         *buf = 136315394;
-        v42 = "[CSSiriSpeechRecorder getAudioRouteInstrumentationWithRecordingInfo:]";
-        v43 = 2112;
-        v44 = v35;
-        _os_log_debug_impl(&dword_222E4D000, v34, OS_LOG_TYPE_DEBUG, "%s route = %@", buf, 0x16u);
+        v41 = "[CSSiriSpeechRecorder getAudioRouteInstrumentationWithRecordingInfo:]";
+        v42 = 2112;
+        v43 = v34;
+        _os_log_debug_impl(&dword_222E4D000, v33, OS_LOG_TYPE_DEBUG, "%s route = %@", buf, 0x16u);
 
-        infoCopy = v32;
-        v22 = v40;
+        infoCopy = v31;
+        v21 = v39;
       }
 
       goto LABEL_18;
     }
 
-    v39 = v22;
-    v25 = v8;
-    v26 = [(CSSiriSpeechRecorder *)self convertVirtualAudioSubTypeToString:1214539380];
-    if ([v23 isEqualToString:v26])
+    v38 = v21;
+    v24 = v8;
+    v25 = [(CSSiriSpeechRecorder *)self convertVirtualAudioSubTypeToString:1214539380];
+    if ([v22 isEqualToString:v25])
     {
 
       v10 = 6;
-      v8 = v25;
+      v8 = v24;
 LABEL_41:
-      v22 = v39;
+      v21 = v38;
       goto LABEL_42;
     }
 
-    v38 = bluetoothDevice;
-    v27 = infoCopy;
-    v28 = [(CSSiriSpeechRecorder *)self convertVirtualAudioSubTypeToString:1752709424];
-    if ([v23 isEqualToString:v28])
+    v37 = bluetoothDevice;
+    v26 = infoCopy;
+    v27 = [(CSSiriSpeechRecorder *)self convertVirtualAudioSubTypeToString:1752709424];
+    if ([v22 isEqualToString:v27])
     {
     }
 
     else
     {
-      v29 = [(CSSiriSpeechRecorder *)self convertVirtualAudioSubTypeToString:2004367664];
-      v36 = [v23 isEqualToString:v29];
+      v28 = [(CSSiriSpeechRecorder *)self convertVirtualAudioSubTypeToString:2004367664];
+      v35 = [v22 isEqualToString:v28];
 
-      if ((v36 & 1) == 0)
+      if ((v35 & 1) == 0)
       {
         stringValue3 = [&unk_2836677A8 stringValue];
-        v8 = v25;
-        [v25 setInterfaceVendorID:stringValue3];
+        v8 = v24;
+        [v24 setInterfaceVendorID:stringValue3];
 
-        [v25 setInterfaceProductID:v23];
+        [v24 setInterfaceProductID:v22];
         v10 = 5;
         goto LABEL_40;
       }
     }
 
     v10 = 6;
-    v8 = v25;
+    v8 = v24;
 LABEL_40:
-    infoCopy = v27;
-    bluetoothDevice = v38;
+    infoCopy = v26;
+    bluetoothDevice = v37;
     goto LABEL_41;
   }
 
@@ -2904,13 +2966,11 @@ LABEL_19:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v42 = "[CSSiriSpeechRecorder getAudioRouteInstrumentationWithRecordingInfo:]";
-    v43 = 2112;
-    v44 = v7;
+    v41 = "[CSSiriSpeechRecorder getAudioRouteInstrumentationWithRecordingInfo:]";
+    v42 = 2112;
+    v43 = v7;
     _os_log_debug_impl(&dword_222E4D000, v19, OS_LOG_TYPE_DEBUG, "%s Done getting audio route instrumentation %@.", buf, 0x16u);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -2937,19 +2997,19 @@ LABEL_19:
 
 - (void)_speechControllerDidReceiveFirstAudioRecordBufferWithHostTime:(unint64_t)time atHostTime:(unint64_t)hostTime mhUUID:(id)d
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v9 = MEMORY[0x277CEF0E8];
   v10 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v22 = 136315650;
-    v23 = "[CSSiriSpeechRecorder _speechControllerDidReceiveFirstAudioRecordBufferWithHostTime:atHostTime:mhUUID:]";
-    v24 = 2048;
+    v21 = 136315650;
+    v22 = "[CSSiriSpeechRecorder _speechControllerDidReceiveFirstAudioRecordBufferWithHostTime:atHostTime:mhUUID:]";
+    v23 = 2048;
     timeCopy = time;
-    v26 = 2048;
+    v25 = 2048;
     hostTimeCopy = hostTime;
-    _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s firstBufferStartHostTime = %llu, firstBufferReceiptHostTime = %llu", &v22, 0x20u);
+    _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s firstBufferStartHostTime = %llu, firstBufferReceiptHostTime = %llu", &v21, 0x20u);
   }
 
   mEMORY[0x277CEF158] = [MEMORY[0x277CEF158] sharedAnalytics];
@@ -2981,17 +3041,15 @@ LABEL_19:
   v20 = *v9;
   if (os_log_type_enabled(*v9, OS_LOG_TYPE_INFO))
   {
-    v22 = 136315138;
-    v23 = "[CSSiriSpeechRecorder _speechControllerDidReceiveFirstAudioRecordBufferWithHostTime:atHostTime:mhUUID:]";
-    _os_log_impl(&dword_222E4D000, v20, OS_LOG_TYPE_INFO, "%s Done", &v22, 0xCu);
+    v21 = 136315138;
+    v22 = "[CSSiriSpeechRecorder _speechControllerDidReceiveFirstAudioRecordBufferWithHostTime:atHostTime:mhUUID:]";
+    _os_log_impl(&dword_222E4D000, v20, OS_LOG_TYPE_INFO, "%s Done", &v21, 0xCu);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speechControllerRecordBufferAvailable:(id)available buffers:(id)buffers durationInSec:(float)sec recordedAt:(unint64_t)at audioDeviceInfo:(id)info
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   availableCopy = available;
   buffersCopy = buffers;
   v13 = AFIsInternalInstall();
@@ -3021,38 +3079,36 @@ LABEL_19:
       v20 = v19;
       v21 = [buffersCopy count];
       *buf = 136315906;
-      v33 = "[CSSiriSpeechRecorder speechControllerRecordBufferAvailable:buffers:durationInSec:recordedAt:audioDeviceInfo:]";
-      v34 = 2048;
-      v35 = v21;
-      v36 = 2048;
+      v32 = "[CSSiriSpeechRecorder speechControllerRecordBufferAvailable:buffers:durationInSec:recordedAt:audioDeviceInfo:]";
+      v33 = 2048;
+      v34 = v21;
+      v35 = 2048;
       secCopy = sec;
-      v38 = 2048;
+      v37 = 2048;
       atCopy = at;
       _os_log_impl(&dword_222E4D000, v20, OS_LOG_TYPE_INFO, "%s buffers.count = %llu, durationInSec = %f, bufferStartHostTime = %llu", buf, 0x2Au);
     }
   }
 
   queue = self->_queue;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __111__CSSiriSpeechRecorder_speechControllerRecordBufferAvailable_buffers_durationInSec_recordedAt_audioDeviceInfo___block_invoke;
-  v26[3] = &unk_2784C6368;
-  v26[4] = self;
-  v27 = availableCopy;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __111__CSSiriSpeechRecorder_speechControllerRecordBufferAvailable_buffers_durationInSec_recordedAt_audioDeviceInfo___block_invoke;
+  v25[3] = &unk_2784C6368;
+  v25[4] = self;
+  v26 = availableCopy;
   atCopy2 = at;
-  v30 = v18;
+  v29 = v18;
   secCopy2 = sec;
-  v28 = buffersCopy;
+  v27 = buffersCopy;
   v23 = buffersCopy;
   v24 = availableCopy;
-  dispatch_async(queue, v26);
-
-  v25 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v25);
 }
 
 void __111__CSSiriSpeechRecorder_speechControllerRecordBufferAvailable_buffers_durationInSec_recordedAt_audioDeviceInfo___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = AFIsInternalInstall();
   v3 = MEMORY[0x277CEF0E8];
   if (v2)
@@ -3064,8 +3120,8 @@ void __111__CSSiriSpeechRecorder_speechControllerRecordBufferAvailable_buffers_d
       v6 = v5;
       if (os_signpost_enabled(v4))
       {
-        LOWORD(v34) = 0;
-        _os_signpost_emit_with_name_impl(&dword_222E4D000, v4, OS_SIGNPOST_EVENT, v6, "SpeechRecorder", "RecordBufferHandleBegin", &v34, 2u);
+        LOWORD(v31) = 0;
+        _os_signpost_emit_with_name_impl(&dword_222E4D000, v4, OS_SIGNPOST_EVENT, v6, "SpeechRecorder", "RecordBufferHandleBegin", &v31, 2u);
       }
     }
   }
@@ -3120,22 +3176,21 @@ void __111__CSSiriSpeechRecorder_speechControllerRecordBufferAvailable_buffers_d
     v16 = *v3;
     if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEBUG))
     {
-      v29 = *(a1 + 56);
-      v30 = v29 - *(v13 + 248);
-      v31 = v16;
+      v27 = *(a1 + 56);
+      v28 = v16;
       AFMachAbsoluteTimeGetTimeInterval();
-      v32 = *(*(a1 + 32) + 272);
-      v34 = 136316162;
-      v35 = "[CSSiriSpeechRecorder speechControllerRecordBufferAvailable:buffers:durationInSec:recordedAt:audioDeviceInfo:]_block_invoke";
-      v36 = 2048;
-      v37 = v14;
-      v38 = 2048;
-      v39 = v29;
-      v40 = 2048;
-      v41 = v33;
-      v42 = 2048;
-      v43 = v32;
-      _os_log_debug_impl(&dword_222E4D000, v31, OS_LOG_TYPE_DEBUG, "%s Dropped %f seconds of audio buffers recorded at %llu (%f seconds) due to audio recording restriction (accumulatedBufferDuration = %f seconds).", &v34, 0x34u);
+      v29 = *(*(a1 + 32) + 272);
+      v31 = 136316162;
+      v32 = "[CSSiriSpeechRecorder speechControllerRecordBufferAvailable:buffers:durationInSec:recordedAt:audioDeviceInfo:]_block_invoke";
+      v33 = 2048;
+      v34 = v14;
+      v35 = 2048;
+      v36 = v27;
+      v37 = 2048;
+      v38 = v30;
+      v39 = 2048;
+      v40 = v29;
+      _os_log_debug_impl(&dword_222E4D000, v28, OS_LOG_TYPE_DEBUG, "%s Dropped %f seconds of audio buffers recorded at %llu (%f seconds) due to audio recording restriction (accumulatedBufferDuration = %f seconds).", &v31, 0x34u);
 
       v13 = *(a1 + 32);
       v15 = *(v13 + 272) + *(a1 + 72);
@@ -3146,41 +3201,38 @@ void __111__CSSiriSpeechRecorder_speechControllerRecordBufferAvailable_buffers_d
 
   if (AFIsATV())
   {
-    v21 = *(a1 + 64);
     AFMachAbsoluteTimeGetTimeInterval();
-    if (v22 < *(*(a1 + 32) + 328))
+    if (v21 < *(*(a1 + 32) + 328))
     {
-      v23 = [MEMORY[0x277CEF158] sharedAnalytics];
-      [v23 logEventWithType:218 machAbsoluteTime:*(a1 + 64) context:0 contextNoCopy:0];
+      v22 = [MEMORY[0x277CEF158] sharedAnalytics];
+      [v22 logEventWithType:218 machAbsoluteTime:*(a1 + 64) context:0 contextNoCopy:0];
 
-      v24 = [MEMORY[0x277D01738] sharedLogger];
-      [v24 logMHAssistantDaemonAudioLateBufferDetectedWithMHUUID:v7 withBufferReceiptTimeInNs:{objc_msgSend(MEMORY[0x277D01798], "hostTimeToNs:", *(a1 + 64))}];
+      v23 = [MEMORY[0x277D01738] sharedLogger];
+      [v23 logMHAssistantDaemonAudioLateBufferDetectedWithMHUUID:v7 withBufferReceiptTimeInNs:{objc_msgSend(MEMORY[0x277D01798], "hostTimeToNs:", *(a1 + 64))}];
     }
   }
 
   if (AFIsInternalInstall())
   {
-    v25 = *v3;
-    v26 = os_signpost_id_generate(*v3);
-    if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v24 = *v3;
+    v25 = os_signpost_id_generate(*v3);
+    if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v27 = v26;
-      if (os_signpost_enabled(v25))
+      v26 = v25;
+      if (os_signpost_enabled(v24))
       {
-        LOWORD(v34) = 0;
-        _os_signpost_emit_with_name_impl(&dword_222E4D000, v25, OS_SIGNPOST_EVENT, v27, "SpeechRecorder", "RecordBufferHandleEnd", &v34, 2u);
+        LOWORD(v31) = 0;
+        _os_signpost_emit_with_name_impl(&dword_222E4D000, v24, OS_SIGNPOST_EVENT, v26, "SpeechRecorder", "RecordBufferHandleEnd", &v31, 2u);
       }
     }
   }
 
   kdebug_trace();
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_speechControllerDidStopRecording:(id)recording audioDeviceInfo:(id)info forReason:(int64_t)reason estimatedSpeechEndHostTime:(unint64_t)time errorCodeOverride:(int64_t)override underlyingError:(id)error
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   recordingCopy = recording;
   infoCopy = info;
   errorCopy = error;
@@ -3193,10 +3245,10 @@ void __111__CSSiriSpeechRecorder_speechControllerRecordBufferAvailable_buffers_d
     *&buf[14] = reason;
     *&buf[22] = 2048;
     timeCopy = time;
-    *v53 = 2048;
-    *&v53[2] = override;
-    *&v53[10] = 2112;
-    *&v53[12] = errorCopy;
+    *v52 = 2048;
+    *&v52[2] = override;
+    *&v52[10] = 2112;
+    *&v52[12] = errorCopy;
     _os_log_impl(&dword_222E4D000, v18, OS_LOG_TYPE_INFO, "%s reason = %ld, estimatedSpeechEndHostTime = %llu, errorCodeOverride = %ld, underlyingError = %@", buf, 0x34u);
   }
 
@@ -3208,12 +3260,12 @@ void __111__CSSiriSpeechRecorder_speechControllerRecordBufferAvailable_buffers_d
       [(CSSiriSpeechRecorder *)self _speechControllerDidReceiveLastAudioRecordBuffer:recordingCopy forReason:reason estimatedSpeechEndHostTime:time isRecordingStopped:1];
     }
 
-    v45 = [(CSSiriSpeechRecorder *)self _currentMHUUID:0];
+    v44 = [(CSSiriSpeechRecorder *)self _currentMHUUID:0];
     mEMORY[0x277CEF158] = [MEMORY[0x277CEF158] sharedAnalytics];
     [mEMORY[0x277CEF158] logEventWithType:215 context:0];
 
     mEMORY[0x277D01738] = [MEMORY[0x277D01738] sharedLogger];
-    [mEMORY[0x277D01738] logMHAssistantDaemonAudioRecordingContextWithMHUUID:v45 withAudioRecordingStarted:0 withAudioInputRoute:0 withAudioSource:0 withAudioInterfaceVendorId:&stru_28363DA48 withAudioInterfaceProductId:&stru_28363DA48];
+    [mEMORY[0x277D01738] logMHAssistantDaemonAudioRecordingContextWithMHUUID:v44 withAudioRecordingStarted:0 withAudioInputRoute:0 withAudioSource:0 withAudioInterfaceVendorId:&stru_28363DA48 withAudioInterfaceProductId:&stru_28363DA48];
 
     self->_estimatedSpeechEndHostTime = time;
     self->_recordingState = 0;
@@ -3289,13 +3341,13 @@ LABEL_19:
       if (AFIsHorseman())
       {
         speechController = self->_speechController;
-        v47[0] = MEMORY[0x277D85DD0];
-        v47[1] = 3221225472;
-        v47[2] = __145__CSSiriSpeechRecorder__speechControllerDidStopRecording_audioDeviceInfo_forReason_estimatedSpeechEndHostTime_errorCodeOverride_underlyingError___block_invoke;
-        v47[3] = &unk_2784C6278;
-        v47[4] = self;
-        v48 = _currentRecordingInfo;
-        [(CSSpeechController *)speechController fetchAudioMetricsWithCompletion:v47];
+        v46[0] = MEMORY[0x277D85DD0];
+        v46[1] = 3221225472;
+        v46[2] = __145__CSSiriSpeechRecorder__speechControllerDidStopRecording_audioDeviceInfo_forReason_estimatedSpeechEndHostTime_errorCodeOverride_underlyingError___block_invoke;
+        v46[3] = &unk_2784C6278;
+        v46[4] = self;
+        v47 = _currentRecordingInfo;
+        [(CSSpeechController *)speechController fetchAudioMetricsWithCompletion:v46];
       }
 
       if (self->_didDetectEndpoint || self->_serverDidEndpoint)
@@ -3339,15 +3391,15 @@ LABEL_19:
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
         timeCopy = __Block_byref_object_copy__24773;
-        *v53 = __Block_byref_object_dispose__24774;
-        *&v53[8] = audioFileWriter;
-        v46[0] = MEMORY[0x277D85DD0];
-        v46[1] = 3221225472;
-        v46[2] = __145__CSSiriSpeechRecorder__speechControllerDidStopRecording_audioDeviceInfo_forReason_estimatedSpeechEndHostTime_errorCodeOverride_underlyingError___block_invoke_189;
-        v46[3] = &unk_2784C6340;
-        v46[4] = self;
-        v46[5] = buf;
-        [*&v53[8] flushWithCompletion:v46];
+        *v52 = __Block_byref_object_dispose__24774;
+        *&v52[8] = audioFileWriter;
+        v45[0] = MEMORY[0x277D85DD0];
+        v45[1] = 3221225472;
+        v45[2] = __145__CSSiriSpeechRecorder__speechControllerDidStopRecording_audioDeviceInfo_forReason_estimatedSpeechEndHostTime_errorCodeOverride_underlyingError___block_invoke_189;
+        v45[3] = &unk_2784C6340;
+        v45[4] = self;
+        v45[5] = buf;
+        [*&v52[8] flushWithCompletion:v45];
         v32 = self->_audioFileWriter;
         self->_audioFileWriter = 0;
 
@@ -3399,9 +3451,9 @@ LABEL_19:
 LABEL_7:
       if (errorCopy)
       {
-        v49 = *MEMORY[0x277CCA7E8];
-        v50 = errorCopy;
-        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+        v48 = *MEMORY[0x277CCA7E8];
+        v49 = errorCopy;
+        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
       }
 
       else
@@ -3455,8 +3507,6 @@ LABEL_52:
   }
 
 LABEL_37:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __145__CSSiriSpeechRecorder__speechControllerDidStopRecording_audioDeviceInfo_forReason_estimatedSpeechEndHostTime_errorCodeOverride_underlyingError___block_invoke(uint64_t a1, void *a2)
@@ -3503,16 +3553,16 @@ void __145__CSSiriSpeechRecorder__speechControllerDidStopRecording_audioDeviceIn
 
 void __145__CSSiriSpeechRecorder__speechControllerDidStopRecording_audioDeviceInfo_forReason_estimatedSpeechEndHostTime_errorCodeOverride_underlyingError___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[CSSiriSpeechRecorder _speechControllerDidStopRecording:audioDeviceInfo:forReason:estimatedSpeechEndHostTime:errorCodeOverride:underlyingError:]_block_invoke_2";
-    v9 = 2112;
-    v10 = v2;
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s audioMetrics = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSSiriSpeechRecorder _speechControllerDidStopRecording:audioDeviceInfo:forReason:estimatedSpeechEndHostTime:errorCodeOverride:underlyingError:]_block_invoke_2";
+    v8 = 2112;
+    v9 = v2;
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s audioMetrics = %@", &v6, 0x16u);
   }
 
   v4 = [v2 objectForKey:*MEMORY[0x277CB8328]];
@@ -3526,13 +3576,11 @@ void __145__CSSiriSpeechRecorder__speechControllerDidStopRecording_audioDeviceIn
       [*(a1 + 40) setAudioSessionSetActiveEndHostTime:{objc_msgSend(v5, "unsignedLongLongValue")}];
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speechControllerDidStopRecording:(id)recording audioDeviceInfo:(id)info forReason:(int64_t)reason estimatedSpeechEndHostTime:(unint64_t)time
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   recordingCopy = recording;
   infoCopy = info;
   kdebug_trace();
@@ -3540,10 +3588,10 @@ void __145__CSSiriSpeechRecorder__speechControllerDidStopRecording_audioDeviceIn
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v28 = "[CSSiriSpeechRecorder speechControllerDidStopRecording:audioDeviceInfo:forReason:estimatedSpeechEndHostTime:]";
-    v29 = 2048;
+    v27 = "[CSSiriSpeechRecorder speechControllerDidStopRecording:audioDeviceInfo:forReason:estimatedSpeechEndHostTime:]";
+    v28 = 2048;
     reasonCopy = reason;
-    v31 = 2048;
+    v30 = 2048;
     timeCopy = time;
     _os_log_impl(&dword_222E4D000, v12, OS_LOG_TYPE_INFO, "%s reason = %ld, estimatedSpeechEndHostTime = %llu", buf, 0x20u);
   }
@@ -3555,45 +3603,41 @@ void __145__CSSiriSpeechRecorder__speechControllerDidStopRecording_audioDeviceIn
   block[3] = &unk_2784C6FA8;
   block[4] = self;
   v14 = recordingCopy;
-  v26 = v14;
+  v25 = v14;
   dispatch_async(queue, block);
   recordingWillStartGroup = self->_recordingWillStartGroup;
   v16 = self->_queue;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __110__CSSiriSpeechRecorder_speechControllerDidStopRecording_audioDeviceInfo_forReason_estimatedSpeechEndHostTime___block_invoke_185;
-  v20[3] = &unk_2784C62F0;
-  v20[4] = self;
-  v21 = v14;
-  v22 = infoCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __110__CSSiriSpeechRecorder_speechControllerDidStopRecording_audioDeviceInfo_forReason_estimatedSpeechEndHostTime___block_invoke_185;
+  v19[3] = &unk_2784C62F0;
+  v19[4] = self;
+  v20 = v14;
+  v21 = infoCopy;
   reasonCopy2 = reason;
   timeCopy2 = time;
   v17 = infoCopy;
   v18 = v14;
-  dispatch_group_notify(recordingWillStartGroup, v16, v20);
-
-  v19 = *MEMORY[0x277D85DE8];
+  dispatch_group_notify(recordingWillStartGroup, v16, v19);
 }
 
 void __110__CSSiriSpeechRecorder_speechControllerDidStopRecording_audioDeviceInfo_forReason_estimatedSpeechEndHostTime___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (*(v1 + 32) == *(a1 + 40) && *(v1 + 176) == 1)
   {
     v3 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315138;
-      v7 = "[CSSiriSpeechRecorder speechControllerDidStopRecording:audioDeviceInfo:forReason:estimatedSpeechEndHostTime:]_block_invoke";
-      _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s Synthesizing a didStart callback, on missing didStart", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[CSSiriSpeechRecorder speechControllerDidStopRecording:audioDeviceInfo:forReason:estimatedSpeechEndHostTime:]_block_invoke";
+      _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s Synthesizing a didStart callback, on missing didStart", &v5, 0xCu);
     }
 
     v4 = [MEMORY[0x277CEF2A0] errorWithCode:217];
     [*(a1 + 32) _speechControllerDidStartRecording:*(a1 + 40) successfully:0 error:v4];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __110__CSSiriSpeechRecorder_speechControllerDidStopRecording_audioDeviceInfo_forReason_estimatedSpeechEndHostTime___block_invoke_185(void *a1)
@@ -3626,51 +3670,317 @@ uint64_t __110__CSSiriSpeechRecorder_speechControllerDidStopRecording_audioDevic
 
 - (void)speechControllerDidDeliverLastBuffer:(id)buffer forReason:(int64_t)reason estimatedSpeechEndHostTime:(unint64_t)time
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   v9 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v19 = "[CSSiriSpeechRecorder speechControllerDidDeliverLastBuffer:forReason:estimatedSpeechEndHostTime:]";
-    v20 = 2048;
+    v18 = "[CSSiriSpeechRecorder speechControllerDidDeliverLastBuffer:forReason:estimatedSpeechEndHostTime:]";
+    v19 = 2048;
     reasonCopy = reason;
-    v22 = 2048;
+    v21 = 2048;
     timeCopy = time;
     _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s reason = %ld, estimatedSpeechEndHostTime = %llu", buf, 0x20u);
   }
 
   recordingWillStartGroup = self->_recordingWillStartGroup;
   queue = self->_queue;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __98__CSSiriSpeechRecorder_speechControllerDidDeliverLastBuffer_forReason_estimatedSpeechEndHostTime___block_invoke;
-  v14[3] = &unk_2784C62C8;
-  v14[4] = self;
-  v15 = bufferCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __98__CSSiriSpeechRecorder_speechControllerDidDeliverLastBuffer_forReason_estimatedSpeechEndHostTime___block_invoke;
+  v13[3] = &unk_2784C62C8;
+  v13[4] = self;
+  v14 = bufferCopy;
   reasonCopy2 = reason;
   timeCopy2 = time;
   v12 = bufferCopy;
-  dispatch_group_notify(recordingWillStartGroup, queue, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  dispatch_group_notify(recordingWillStartGroup, queue, v13);
 }
 
-uint64_t __98__CSSiriSpeechRecorder_speechControllerDidDeliverLastBuffer_forReason_estimatedSpeechEndHostTime___block_invoke(void *a1)
+void *__98__CSSiriSpeechRecorder_speechControllerDidDeliverLastBuffer_forReason_estimatedSpeechEndHostTime___block_invoke(void *a1)
 {
   result = a1[4];
   if ((*(result + 193) & 1) == 0)
   {
-    return [result _speechControllerDidReceiveLastAudioRecordBuffer:a1[5] forReason:a1[6] estimatedSpeechEndHostTime:a1[7] isRecordingStopped:*(result + 176) == 0];
+    return [result _speechControllerDidReceiveLastAudioRecordBuffer:a1[5] forReason:a1[6] estimatedSpeechEndHostTime:a1[7] isRecordingStopped:*(result + 22) == 0];
   }
 
   return result;
 }
 
+- (void)_speechControllerDidStartRecording:(id)recording successfully:(BOOL)successfully error:(id)error
+{
+  successfullyCopy = successfully;
+  *&v85[13] = *MEMORY[0x277D85DE8];
+  recordingCopy = recording;
+  errorCopy = error;
+  v10 = AFIsInternalInstall();
+  v11 = MEMORY[0x277CEF0E8];
+  if (v10)
+  {
+    v12 = *MEMORY[0x277CEF0E8];
+    v13 = os_signpost_id_generate(*v11);
+    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v14 = v13;
+      if (os_signpost_enabled(v12))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&dword_222E4D000, v12, OS_SIGNPOST_EVENT, v14, "SpeechRecorder", "AudioStart", buf, 2u);
+      }
+    }
+  }
+
+  kdebug_trace();
+  v15 = mach_absolute_time();
+  v16 = *v11;
+  if (os_log_type_enabled(*v11, OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315650;
+    v83 = "[CSSiriSpeechRecorder _speechControllerDidStartRecording:successfully:error:]";
+    v84 = 1024;
+    *v85 = successfullyCopy;
+    v85[2] = 2112;
+    *&v85[3] = errorCopy;
+    _os_log_impl(&dword_222E4D000, v16, OS_LOG_TYPE_INFO, "%s success = %d, error = %@", buf, 0x1Cu);
+  }
+
+  v80 = recordingCopy;
+  dispatch_group_leave(self->_recordingWillStartGroup);
+  _currentRecordingInfo = [(CSSiriSpeechRecorder *)self _currentRecordingInfo];
+  context = self->_context;
+  deviceInfo = [_currentRecordingInfo deviceInfo];
+  [(CSSiriSpeechRecordingContext *)context updateAudioRecordDeviceInfo:deviceInfo];
+
+  v20 = self->_context;
+  voiceTriggerEventInfo = [_currentRecordingInfo voiceTriggerEventInfo];
+  [(CSSiriSpeechRecordingContext *)v20 updateVoiceTriggerInfo:voiceTriggerEventInfo];
+
+  [(CSSiriSpeechRecordingContext *)self->_context updateRecordingInfo:_currentRecordingInfo];
+  if (!successfullyCopy)
+  {
+    [(CSSiriSpeechRecordingContext *)self->_context didStopRecordingWithError:errorCopy];
+  }
+
+  v81 = errorCopy;
+  v22 = [(CSSiriSpeechRecorder *)self _currentMHUUID:0];
+  mEMORY[0x277CEF158] = [MEMORY[0x277CEF158] sharedAnalytics];
+  v24 = CSAnalyticsContextCreateWithRecordingInfo(_currentRecordingInfo);
+  [mEMORY[0x277CEF158] logEventWithType:213 machAbsoluteTime:v15 context:v24];
+
+  v25 = [(CSSiriSpeechRecorder *)self getAudioRouteInstrumentationWithRecordingInfo:_currentRecordingInfo];
+  v26 = -[CSSiriSpeechRecorder convertSISchemaAudioInputRouteToMHRoute:withRecordingInfo:](self, "convertSISchemaAudioInputRouteToMHRoute:withRecordingInfo:", [v25 audioInputRoute], _currentRecordingInfo);
+  v79 = v25;
+  hardwareInterfaceVendorID = [v25 hardwareInterfaceVendorID];
+  mEMORY[0x277D01738] = [MEMORY[0x277D01738] sharedLogger];
+  mhSource = [_currentRecordingInfo mhSource];
+  interfaceVendorID = [hardwareInterfaceVendorID interfaceVendorID];
+  v78 = hardwareInterfaceVendorID;
+  interfaceProductID = [hardwareInterfaceVendorID interfaceProductID];
+  [mEMORY[0x277D01738] logMHAssistantDaemonAudioRecordingContextWithMHUUID:v22 withAudioRecordingStarted:1 withAudioInputRoute:v26 withAudioSource:mhSource withAudioInterfaceVendorId:interfaceVendorID withAudioInterfaceProductId:interfaceProductID];
+
+  codec = [_currentRecordingInfo codec];
+  voiceTriggerEventInfo2 = [_currentRecordingInfo voiceTriggerEventInfo];
+  v34 = 0.0;
+  if (voiceTriggerEventInfo2 && (v35 = voiceTriggerEventInfo2, [_currentRecordingInfo voiceTriggerEventInfo], v36 = objc_claimAutoreleasedReturnValue(), v37 = *MEMORY[0x277D01D68], objc_msgSend(v36, "objectForKeyedSubscript:", *MEMORY[0x277D01D68]), v38 = objc_claimAutoreleasedReturnValue(), v38, v36, v35, v38))
+  {
+    voiceTriggerEventInfo3 = [_currentRecordingInfo voiceTriggerEventInfo];
+    v40 = [voiceTriggerEventInfo3 objectForKeyedSubscript:v37];
+    longLongValue = [v40 longLongValue];
+
+    [MEMORY[0x277D016E0] inputRecordingSampleRate];
+    v34 = longLongValue / v42;
+  }
+
+  else
+  {
+    longLongValue = 0;
+  }
+
+  self->_skippedSamplesTimeInSec = v34;
+  mEMORY[0x277D01738]2 = [MEMORY[0x277D01738] sharedLogger];
+  [mEMORY[0x277D01738]2 logMHASRAudioConfigureStartedWithMHUUID:v22 withAudioCodecString:codec withAudioSkippedNumSamples:longLongValue];
+
+  mEMORY[0x277D01738]3 = [MEMORY[0x277D01738] sharedLogger];
+  *&v45 = v34;
+  [mEMORY[0x277D01738]3 logMHASRAudioConfigureStartedWithMHUUID:v22 withAudioCodecString:codec withAudioSkippedTimeInNs:{objc_msgSend(MEMORY[0x277D01798], "secondsToNs:", v45)}];
+
+  voiceTriggerEventInfo4 = [_currentRecordingInfo voiceTriggerEventInfo];
+  [(CSSiriSpeechRecorder *)self _logVoiceTriggerInfo:voiceTriggerEventInfo4 withMHUUID:v22];
+
+  v47 = 2;
+  if (!successfullyCopy)
+  {
+    v47 = 0;
+  }
+
+  self->_recordingState = v47;
+  self->_accumulatedBufferDuration = 0.0;
+  self->_packetCount = 0;
+  *&self->_didReceiveFirstBuffer = 0;
+  self->_didFakeTwoShotWithAlert = 0;
+  *&self->_serverDidRecognizeSpeech = 0;
+  *&self->_wasCanceled = 0;
+  self->_firstBufferHostTime = 0;
+  self->_estimatedSpeechEndHostTime = 0;
+  self->_firstBufferTimestamp = 0.0;
+  self->_isRecordingUsingBTRoute = [_currentRecordingInfo isBluetooth];
+  self->_twoShotStartTime = 0.0;
+  *&self->_didPerformTwoShotPrompt = 0;
+  fakeTwoShotTTSPromptUUID = self->_fakeTwoShotTTSPromptUUID;
+  self->_fakeTwoShotTTSPromptUUID = 0;
+
+  [(AFWatchdogTimer *)self->_fakeTwoShotTTSPromptWatchdogTimer cancel];
+  fakeTwoShotTTSPromptWatchdogTimer = self->_fakeTwoShotTTSPromptWatchdogTimer;
+  self->_fakeTwoShotTTSPromptWatchdogTimer = 0;
+
+  self->_lastAudioRecordBufferStartTime = 0;
+  self->_lastAudioRecordBufferReceiptTime = 0;
+  lastEndpointerMetrics = self->_lastEndpointerMetrics;
+  self->_lastEndpointerMetrics = 0;
+
+  self->_stopRecordingReason = 0;
+  self->_stopRecordingMachContinuousTime = 0;
+  speechRecognizedContextForServerEndpointInstrumentation = self->_speechRecognizedContextForServerEndpointInstrumentation;
+  self->_speechRecognizedContextForServerEndpointInstrumentation = 0;
+
+  if (![MEMORY[0x277D018F8] isMedocFeatureEnabled] || !self->_shouldDisableSpeechPacketGeneration)
+  {
+    v52 = [CSEndpointDelayReporter alloc];
+    uUIDString = [v22 UUIDString];
+    turnIdentifier = [(CSSiriAudioActivationInfo *)self->_currentActivationInfo turnIdentifier];
+    v55 = [(CSEndpointDelayReporter *)v52 initWithRequestMHUUID:uUIDString turnIdentifier:turnIdentifier];
+    endpointDelayReporter = self->_endpointDelayReporter;
+    self->_endpointDelayReporter = v55;
+  }
+
+  v57 = v80;
+  if (AFIsATV())
+  {
+    recordSettings = [v80 recordSettings];
+    v59 = recordSettings;
+    if (recordSettings)
+    {
+      v60 = [recordSettings objectForKey:*MEMORY[0x277CB8280]];
+      intValue = [v60 intValue];
+
+      self->_isOpus = intValue == 1869641075;
+      v62 = *MEMORY[0x277CEF0E8];
+      if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
+      {
+        v76 = @"Speex";
+        if (intValue == 1869641075)
+        {
+          v76 = @"Opus";
+        }
+
+        *buf = 136315394;
+        v83 = "[CSSiriSpeechRecorder _speechControllerDidStartRecording:successfully:error:]";
+        v84 = 2112;
+        *v85 = v76;
+        _os_log_debug_impl(&dword_222E4D000, v62, OS_LOG_TYPE_DEBUG, "%s SPELLING recordSettings codec=%@", buf, 0x16u);
+      }
+    }
+
+    v57 = v80;
+  }
+
+  if ([v81 code] == 216)
+  {
+    domain = [v81 domain];
+    v64 = [domain isEqualToString:*MEMORY[0x277CEF588]];
+
+    if (!successfullyCopy)
+    {
+LABEL_25:
+      v65 = [MEMORY[0x277CEF2A0] errorWithCode:200 description:0 underlyingError:v81];
+      goto LABEL_28;
+    }
+  }
+
+  else
+  {
+    v64 = 0;
+    if (!successfullyCopy)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  v65 = 0;
+LABEL_28:
+  v66 = *MEMORY[0x277CEF0E8];
+  if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
+  {
+    delegate = self->_delegate;
+    *buf = 136315394;
+    v83 = "[CSSiriSpeechRecorder _speechControllerDidStartRecording:successfully:error:]";
+    v84 = 2112;
+    *v85 = delegate;
+    _os_log_impl(&dword_222E4D000, v66, OS_LOG_TYPE_INFO, "%s Sending speech did start to delegate %@", buf, 0x16u);
+  }
+
+  [(CSSiriSpeechCapturingDelegate *)self->_delegate speechCapturingDidStartRecordingSuccessfully:successfullyCopy error:v65 withInfo:_currentRecordingInfo];
+  if (!(successfullyCopy | v64))
+  {
+    v68 = NSStringFromSelector(a2);
+    [(CSSiriSpeechRecorder *)self _updateAudioContextToPostVoiceForReason:v68];
+
+    if (![(CSSiriAudioActivationInfo *)self->_currentActivationInfo shouldSuppressRecordingErrorAlert])
+    {
+      [(CSSiriSpeechRecorder *)self _playAudioAlert:3];
+    }
+
+    v69 = NSStringFromSelector(a2);
+    [(CSSiriSpeechRecorder *)self _updateAudioContextWithPendingInfoForReason:v69];
+
+    if ([v81 code] != -11786 || (objc_msgSend(v81, "domain"), v70 = objc_claimAutoreleasedReturnValue(), v71 = objc_msgSend(v70, "isEqualToString:", *MEMORY[0x277CCA590]), v70, (v71 & 1) == 0))
+    {
+      v72 = *MEMORY[0x277CEF0E8];
+      if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
+      {
+        *buf = 136315138;
+        v83 = "[CSSiriSpeechRecorder _speechControllerDidStartRecording:successfully:error:]";
+        _os_log_impl(&dword_222E4D000, v72, OS_LOG_TYPE_INFO, "%s Resetting VoiceController on startRecording failure", buf, 0xCu);
+      }
+
+      [(CSSiriSpeechRecorder *)self _resetSpeechController];
+    }
+  }
+
+  [(CSSiriSpeechRecorder *)self _setupAudioFileWritingForSpeechController:v57 info:self->_currentActivationInfo context:self->_context];
+  if (CSIsWatch() && ([MEMORY[0x277D018F8] isM9Device] & 1) != 0)
+  {
+    v73 = MEMORY[0x277CEF0E8];
+    v74 = *MEMORY[0x277CEF0E8];
+    if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315138;
+      v83 = "[CSSiriSpeechRecorder _speechControllerDidStartRecording:successfully:error:]";
+      _os_log_impl(&dword_222E4D000, v74, OS_LOG_TYPE_INFO, "%s Skip bluetooth state logging for M9 watch", buf, 0xCu);
+    }
+  }
+
+  else
+  {
+    [(CSSiriSpeechRecorder *)self _logBluetoothStateWithMHUUID:v22];
+    v73 = MEMORY[0x277CEF0E8];
+  }
+
+  v75 = *v73;
+  if (os_log_type_enabled(*v73, OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315138;
+    v83 = "[CSSiriSpeechRecorder _speechControllerDidStartRecording:successfully:error:]";
+    _os_log_impl(&dword_222E4D000, v75, OS_LOG_TYPE_INFO, "%s Done", buf, 0xCu);
+  }
+}
+
 - (void)speechControllerDidStartRecording:(id)recording audioDeviceInfo:(id)info successfully:(BOOL)successfully error:(id)error
 {
   successfullyCopy = successfully;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   recordingCopy = recording;
   infoCopy = info;
   errorCopy = error;
@@ -3681,7 +3991,7 @@ uint64_t __98__CSSiriSpeechRecorder_speechControllerDidDeliverLastBuffer_forReas
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v26 = "[CSSiriSpeechRecorder speechControllerDidStartRecording:audioDeviceInfo:successfully:error:]";
+      v25 = "[CSSiriSpeechRecorder speechControllerDidStartRecording:audioDeviceInfo:successfully:error:]";
       _os_log_impl(&dword_222E4D000, v13, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
     }
   }
@@ -3689,9 +3999,9 @@ uint64_t __98__CSSiriSpeechRecorder_speechControllerDidDeliverLastBuffer_forReas
   else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v26 = "[CSSiriSpeechRecorder speechControllerDidStartRecording:audioDeviceInfo:successfully:error:]";
-    v27 = 2114;
-    v28 = errorCopy;
+    v25 = "[CSSiriSpeechRecorder speechControllerDidStartRecording:audioDeviceInfo:successfully:error:]";
+    v26 = 2114;
+    v27 = errorCopy;
     _os_log_error_impl(&dword_222E4D000, v13, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
   }
 
@@ -3701,51 +4011,43 @@ uint64_t __98__CSSiriSpeechRecorder_speechControllerDidDeliverLastBuffer_forReas
   block[2] = __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDeviceInfo_successfully_error___block_invoke;
   block[3] = &unk_2784C62A0;
   block[4] = self;
-  v21 = recordingCopy;
-  v24 = successfullyCopy;
-  v22 = errorCopy;
-  v23 = infoCopy;
+  v20 = recordingCopy;
+  v23 = successfullyCopy;
+  v21 = errorCopy;
+  v22 = infoCopy;
   v16 = infoCopy;
   v17 = errorCopy;
   v18 = recordingCopy;
   dispatch_async(queue, block);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDeviceInfo_successfully_error___block_invoke(uint64_t result)
+void *__93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDeviceInfo_successfully_error___block_invoke(void *result)
 {
   v1 = result;
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = *(result + 32);
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = result[4];
   if (v2[22] == 1)
   {
     v3 = *(result + 64);
-    v4 = *(result + 40);
-    v5 = *(result + 48);
-    v6 = *MEMORY[0x277D85DE8];
-    v7 = *(result + 32);
+    v4 = result[5];
+    v5 = result[6];
+    v6 = result[4];
 
-    return [v7 _speechControllerDidStartRecording:v4 successfully:v3 error:v5];
+    return [v6 _speechControllerDidStartRecording:v4 successfully:v3 error:v5];
   }
 
-  else
+  else if ((result[8] & 1) == 0)
   {
-    if ((*(result + 64) & 1) == 0)
+    v7 = *MEMORY[0x277CEF0E8];
+    if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
-      v8 = *MEMORY[0x277CEF0E8];
-      if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
-      {
-        v10 = 136315138;
-        v11 = "[CSSiriSpeechRecorder speechControllerDidStartRecording:audioDeviceInfo:successfully:error:]_block_invoke";
-        _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, "%s Got a speech start failure after we already got audio buffers?!", &v10, 0xCu);
-        v2 = v1[4];
-      }
-
-      result = [v2 _speechControllerDidStopRecording:v1[5] audioDeviceInfo:v1[7] forReason:0 estimatedSpeechEndHostTime:0 errorCodeOverride:200 underlyingError:v1[6]];
+      v8 = 136315138;
+      v9 = "[CSSiriSpeechRecorder speechControllerDidStartRecording:audioDeviceInfo:successfully:error:]_block_invoke";
+      _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s Got a speech start failure after we already got audio buffers?!", &v8, 0xCu);
+      v2 = v1[4];
     }
 
-    v9 = *MEMORY[0x277D85DE8];
+    return [v2 _speechControllerDidStopRecording:v1[5] audioDeviceInfo:v1[7] forReason:0 estimatedSpeechEndHostTime:0 errorCodeOverride:200 underlyingError:v1[6]];
   }
 
   return result;
@@ -3755,7 +4057,7 @@ uint64_t __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDevic
 {
   deviceInfoCopy = deviceInfo;
   infoCopy = info;
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v11 = MEMORY[0x277CEF0E8];
   v12 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
@@ -3763,17 +4065,17 @@ uint64_t __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDevic
     v13 = v12;
     v14 = AFSpeechEventGetDescription();
     *buf = 136316418;
-    v43 = "[CSSiriSpeechRecorder _recordingInfoForEvent:audioAlertStyle:includeBTInfo:includeRecordDeviceInfo:]";
-    v44 = 2048;
+    v42 = "[CSSiriSpeechRecorder _recordingInfoForEvent:audioAlertStyle:includeBTInfo:includeRecordDeviceInfo:]";
+    v43 = 2048;
     eventCopy = event;
-    v46 = 2112;
-    v47 = v14;
-    v48 = 2048;
+    v45 = 2112;
+    v46 = v14;
+    v47 = 2048;
     styleCopy = style;
-    v50 = 1024;
-    v51 = infoCopy;
-    v52 = 1024;
-    v53 = deviceInfoCopy;
+    v49 = 1024;
+    v50 = infoCopy;
+    v51 = 1024;
+    v52 = deviceInfoCopy;
     _os_log_impl(&dword_222E4D000, v13, OS_LOG_TYPE_INFO, "%s Creating recording info (speechEvent = %ld (%@), audioAlertStyle = %ld, includeBTInfo = %d, includeRecordDeviceInfo = %d)", buf, 0x36u);
   }
 
@@ -3789,7 +4091,7 @@ uint64_t __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDevic
 
   route = [_currentRecordDeviceInfo route];
   v17 = route;
-  v40 = infoCopy;
+  v39 = infoCopy;
   if (route)
   {
     _currentRecordRoute = route;
@@ -3800,7 +4102,7 @@ uint64_t __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDevic
     _currentRecordRoute = [(CSSiriSpeechRecorder *)self _currentRecordRoute];
   }
 
-  v38 = _currentRecordRoute;
+  v37 = _currentRecordRoute;
   styleCopy2 = style;
 
   _currentPlaybackRoute = [(CSSiriSpeechRecorder *)self _currentPlaybackRoute];
@@ -3811,8 +4113,8 @@ uint64_t __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDevic
   if (os_log_type_enabled(*v11, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v43 = "[CSSiriSpeechRecorder _recordingInfoForEvent:audioAlertStyle:includeBTInfo:includeRecordDeviceInfo:]";
-    v44 = 2048;
+    v42 = "[CSSiriSpeechRecorder _recordingInfoForEvent:audioAlertStyle:includeBTInfo:includeRecordDeviceInfo:]";
+    v43 = 2048;
     eventCopy = alertStartTime;
     _os_log_impl(&dword_222E4D000, v21, OS_LOG_TYPE_INFO, "%s alertStartTime = %llu", buf, 0x16u);
   }
@@ -3835,8 +4137,8 @@ uint64_t __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDevic
     voiceTriggerInfo = 0;
   }
 
-  LOBYTE(v36) = v40;
-  v32 = [(CSSiriRecordingInfo *)v24 initWithDictation:(speechCapturingMode & 0xFFFFFFFFFFFFFFFELL) == 2 fingerprintOnly:speechCapturingMode == 4 secureOfflineOnly:v27 audioAlertStyle:styleCopy2 recordSettings:recordSettings recordRoute:v38 recordDeviceInfo:v23 playbackRoute:self->_startRecordingTimestamp audioDeviceID:self->_firstBufferTimestamp audioSessionID:_currentRecordDeviceInfo voiceTriggerEventInfo:_currentPlaybackRoute activationAlertStartTimestamp:__PAIR64__(_audioSessionID startRecordingTimestamp:_audioDeviceID) firstBufferTimestamp:voiceTriggerInfo firstBufferHostTime:self->_firstBufferHostTime estimatedSpeechEndHostTime:self->_estimatedSpeechEndHostTime deviceIdentifier:self->_recordDevice includeBTInfo:v36 speechEvent:eventCopy2];
+  LOBYTE(v35) = v39;
+  v32 = [(CSSiriRecordingInfo *)v24 initWithDictation:(speechCapturingMode & 0xFFFFFFFFFFFFFFFELL) == 2 fingerprintOnly:speechCapturingMode == 4 secureOfflineOnly:v27 audioAlertStyle:styleCopy2 recordSettings:recordSettings recordRoute:v37 recordDeviceInfo:v23 playbackRoute:self->_startRecordingTimestamp audioDeviceID:self->_firstBufferTimestamp audioSessionID:_currentRecordDeviceInfo voiceTriggerEventInfo:_currentPlaybackRoute activationAlertStartTimestamp:__PAIR64__(_audioSessionID startRecordingTimestamp:_audioDeviceID) firstBufferTimestamp:voiceTriggerInfo firstBufferHostTime:self->_firstBufferHostTime estimatedSpeechEndHostTime:self->_estimatedSpeechEndHostTime deviceIdentifier:self->_recordDevice includeBTInfo:v35 speechEvent:eventCopy2];
   if (IsVoiceTrigger)
   {
   }
@@ -3845,13 +4147,11 @@ uint64_t __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDevic
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v43 = "[CSSiriSpeechRecorder _recordingInfoForEvent:audioAlertStyle:includeBTInfo:includeRecordDeviceInfo:]";
-    v44 = 2112;
+    v42 = "[CSSiriSpeechRecorder _recordingInfoForEvent:audioAlertStyle:includeBTInfo:includeRecordDeviceInfo:]";
+    v43 = 2112;
     eventCopy = v32;
     _os_log_impl(&dword_222E4D000, v33, OS_LOG_TYPE_INFO, "%s Done creating recording info %@.", buf, 0x16u);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v32;
 }
@@ -3859,7 +4159,7 @@ uint64_t __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDevic
 - (void)_updateAudioDeviceInfo:(id)info forReason:(id)reason forcesUpdate:(BOOL)update
 {
   updateCopy = update;
-  v52 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   reasonCopy = reason;
   if (infoCopy || (self->_currentAudioDeviceInfo ? (v10 = !updateCopy) : (v10 = 0), !v10))
@@ -3878,13 +4178,13 @@ uint64_t __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDevic
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315906;
-      v45 = "[CSSiriSpeechRecorder _updateAudioDeviceInfo:forReason:forcesUpdate:]";
+      v43 = "[CSSiriSpeechRecorder _updateAudioDeviceInfo:forReason:forcesUpdate:]";
+      v44 = 2112;
+      v45 = infoCopy;
       v46 = 2112;
-      v47 = infoCopy;
-      v48 = 2112;
-      v49 = reasonCopy;
-      v50 = 1024;
-      v51 = updateCopy;
+      v47 = reasonCopy;
+      v48 = 1024;
+      v49 = updateCopy;
       _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_INFO, "%s Begin updating audio device info %@. (reason = %@, forcesUpdate = %d)", buf, 0x26u);
     }
 
@@ -3901,7 +4201,7 @@ uint64_t __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDevic
       if (os_log_type_enabled(*v14, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v45 = "[CSSiriSpeechRecorder _updateAudioDeviceInfo:forReason:forcesUpdate:]";
+        v43 = "[CSSiriSpeechRecorder _updateAudioDeviceInfo:forReason:forcesUpdate:]";
         _os_log_impl(&dword_222E4D000, v18, OS_LOG_TYPE_INFO, "%s Fetching audio device info from CSSpeechController...", buf, 0xCu);
       }
 
@@ -3914,7 +4214,7 @@ uint64_t __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDevic
       if (os_log_type_enabled(*v14, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v45 = "[CSSiriSpeechRecorder _updateAudioDeviceInfo:forReason:forcesUpdate:]";
+        v43 = "[CSSiriSpeechRecorder _updateAudioDeviceInfo:forReason:forcesUpdate:]";
         _os_log_impl(&dword_222E4D000, v22, OS_LOG_TYPE_INFO, "%s Done fetching audio device info from CSSpeechController.", buf, 0xCu);
       }
     }
@@ -3927,11 +4227,11 @@ uint64_t __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDevic
       mach_absolute_time();
       AFMachAbsoluteTimeGetTimeInterval();
       *buf = 136315650;
-      v45 = "[CSSiriSpeechRecorder _updateAudioDeviceInfo:forReason:forcesUpdate:]";
-      v46 = 2112;
-      v47 = v24;
-      v48 = 2048;
-      v49 = v26;
+      v43 = "[CSSiriSpeechRecorder _updateAudioDeviceInfo:forReason:forcesUpdate:]";
+      v44 = 2112;
+      v45 = v24;
+      v46 = 2048;
+      v47 = v26;
       _os_log_impl(&dword_222E4D000, v25, OS_LOG_TYPE_INFO, "%s End updating audio device info %@. (duration = %f)", buf, 0x20u);
     }
 
@@ -3950,8 +4250,8 @@ uint64_t __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDevic
       v31 = @"Unavailable";
     }
 
-    v43[0] = v31;
-    v42[1] = @"playbackRoute";
+    v41[0] = v31;
+    v40[1] = @"playbackRoute";
     playbackRoute = [(CSFAudioDeviceInfo *)self->_currentAudioDeviceInfo playbackRoute];
     v33 = playbackRoute;
     if (playbackRoute)
@@ -3964,8 +4264,8 @@ uint64_t __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDevic
       v34 = @"Unavailable";
     }
 
-    v43[1] = v34;
-    v42[2] = @"playbackDeviceTypes";
+    v41[1] = v34;
+    v40[2] = @"playbackDeviceTypes";
     playbackDeviceTypeList = [(CSFAudioDeviceInfo *)self->_currentAudioDeviceInfo playbackDeviceTypeList];
     v36 = playbackDeviceTypeList;
     if (playbackDeviceTypeList)
@@ -3978,21 +4278,18 @@ uint64_t __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDevic
       v37 = @"Unavailable";
     }
 
-    v43[2] = v37;
-    v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:3];
+    v41[2] = v37;
+    v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:3];
     [mEMORY[0x277CEF158]2 logEventWithType:210 context:v38];
 
     mEMORY[0x277D01738]2 = [MEMORY[0x277D01738] sharedLogger];
     [mEMORY[0x277D01738]2 logMHAssistantDaemonAudioFetchRouteContextWithMHUUID:v11 withFetchRouteContextStarted:0];
 
-    delegate = self->_delegate;
     if (objc_opt_respondsToSelector())
     {
       [(CSSiriSpeechCapturingDelegate *)self->_delegate speechCapturingDidUpdateAudioDeviceInfo:self->_currentAudioDeviceInfo];
     }
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateASRFeatures:(id)features
@@ -4016,7 +4313,7 @@ uint64_t __93__CSSiriSpeechRecorder_speechControllerDidStartRecording_audioDevic
 
 void __47__CSSiriSpeechRecorder_playRecordingStartAlert__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (*(v1 + 176) == 2 && [*(v1 + 96) shouldPlayAlertIfNotPrelistening])
   {
@@ -4024,7 +4321,7 @@ void __47__CSSiriSpeechRecorder_playRecordingStartAlert__block_invoke(uint64_t a
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v13 = "[CSSiriSpeechRecorder playRecordingStartAlert]_block_invoke";
+      v12 = "[CSSiriSpeechRecorder playRecordingStartAlert]_block_invoke";
       _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
     }
 
@@ -4037,18 +4334,16 @@ void __47__CSSiriSpeechRecorder_playRecordingStartAlert__block_invoke(uint64_t a
 
     dispatch_group_enter(v4);
     v5 = *(*(a1 + 32) + 88);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __47__CSSiriSpeechRecorder_playRecordingStartAlert__block_invoke_159;
-    v9[3] = &unk_2784C6FA8;
-    v10 = v5;
-    v11 = v4;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __47__CSSiriSpeechRecorder_playRecordingStartAlert__block_invoke_159;
+    v8[3] = &unk_2784C6FA8;
+    v9 = v5;
+    v10 = v4;
     v6 = v4;
     v7 = v5;
-    AudioServicesPlaySystemSoundWithCompletion(0x57Cu, v9);
+    AudioServicesPlaySystemSoundWithCompletion(0x57Cu, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __47__CSSiriSpeechRecorder_playRecordingStartAlert__block_invoke_159(uint64_t a1)
@@ -4061,16 +4356,16 @@ void __47__CSSiriSpeechRecorder_playRecordingStartAlert__block_invoke_159(uint64
 
 - (void)setClientConfiguration:(id)configuration
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v5 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v9 = 136315394;
-    v10 = "[CSSiriSpeechRecorder setClientConfiguration:]";
-    v11 = 2112;
-    v12 = configurationCopy;
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s clientConfiguration = %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[CSSiriSpeechRecorder setClientConfiguration:]";
+    v10 = 2112;
+    v11 = configurationCopy;
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s clientConfiguration = %@", &v8, 0x16u);
   }
 
   v6 = [configurationCopy copy];
@@ -4079,25 +4374,21 @@ void __47__CSSiriSpeechRecorder_playRecordingStartAlert__block_invoke_159(uint64
 
   [(CSSiriAudioActivationInfo *)self->_currentActivationInfo setClientConfiguration:self->_currentClientConfiguration];
   [(CSSiriAudioActivationInfo *)self->_pendingActivationInfo setClientConfiguration:self->_currentClientConfiguration];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __53__CSSiriSpeechRecorder__speechRecordingEventListener__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[CSSiriSpeechRecorder _speechRecordingEventListener]_block_invoke";
-    v7 = 2114;
-    v8 = v2;
-    _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s %{public}@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[CSSiriSpeechRecorder _speechRecordingEventListener]_block_invoke";
+    v6 = 2114;
+    v7 = v2;
+    _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s %{public}@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSpeechRecordingEventListeningEndpoint:(id)endpoint
@@ -4131,17 +4422,16 @@ void __53__CSSiriSpeechRecorder__speechRecordingEventListener__block_invoke(uint
 
 - (void)forceSuccessAudioAlertOnStop
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[CSSiriSpeechRecorder forceSuccessAudioAlertOnStop]";
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSSiriSpeechRecorder forceSuccessAudioAlertOnStop]";
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", &v4, 0xCu);
   }
 
   self->_forceSuccessAlertOnStop = 1;
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFingerprintingEnabled:(BOOL)enabled
@@ -4167,39 +4457,38 @@ void __53__CSSiriSpeechRecorder__speechRecordingEventListener__block_invoke(uint
 - (void)cancelSpeechCaptureSuppressingAlert:(BOOL)alert
 {
   alertCopy = alert;
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[CSSiriSpeechRecorder cancelSpeechCaptureSuppressingAlert:]";
-    v9 = 1024;
-    v10 = alertCopy;
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s (suppressAlert = %d)", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "[CSSiriSpeechRecorder cancelSpeechCaptureSuppressingAlert:]";
+    v8 = 1024;
+    v9 = alertCopy;
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s (suppressAlert = %d)", &v6, 0x12u);
   }
 
   self->_wasCanceled = 1;
   self->_suppressRecordingStoppedAlert = alertCopy;
   [(CSSiriSpeechRecorder *)self _stopRecordingWithReason:7 hostTime:0];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopSpeechCaptureForEvent:(int64_t)event suppressAlert:(BOOL)alert hostTime:(unint64_t)time
 {
   alertCopy = alert;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v9 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v13 = 136315906;
-    v14 = "[CSSiriSpeechRecorder stopSpeechCaptureForEvent:suppressAlert:hostTime:]";
-    v15 = 2048;
+    v12 = 136315906;
+    v13 = "[CSSiriSpeechRecorder stopSpeechCaptureForEvent:suppressAlert:hostTime:]";
+    v14 = 2048;
     eventCopy = event;
-    v17 = 1024;
-    v18 = alertCopy;
-    v19 = 2048;
+    v16 = 1024;
+    v17 = alertCopy;
+    v18 = 2048;
     timeCopy = time;
-    _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s (event = %ld, suppressAlert = %d, hostTime = %llu)", &v13, 0x26u);
+    _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s (event = %ld, suppressAlert = %d, hostTime = %llu)", &v12, 0x26u);
   }
 
   if (event == 5)
@@ -4210,39 +4499,37 @@ void __53__CSSiriSpeechRecorder__speechRecordingEventListener__block_invoke(uint
   v11 = (AFIsNano() & 1) == 0 && (self->_speechCapturingMode & 0xFFFFFFFFFFFFFFFBLL) == 1 && self->_startEvent == event && ((endpointerOperationMode = self->_endpointerOperationMode, endpointerOperationMode > 4) || ((0x19u >> endpointerOperationMode) & 1) == 0) && [(CSSiriAudioActivationInfo *)self->_currentActivationInfo audioAlertStyle]== 3;
   self->_suppressRecordingStoppedAlert = alertCopy || v11;
   [(CSSiriSpeechRecorder *)self _stopRecordingWithReason:(event << 16) | 5 hostTime:time];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFingerprintWasRecognized
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[CSSiriSpeechRecorder setFingerprintWasRecognized]";
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSSiriSpeechRecorder setFingerprintWasRecognized]";
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", &v4, 0xCu);
   }
 
   self->_fingerprintWasRecognized = 1;
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSpeechWasRecognizedForElapsedTime:(double)time isFinal:(BOOL)final
 {
   finalCopy = final;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v7 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     twoShotStartTime = self->_twoShotStartTime;
-    v10 = 136315650;
-    v11 = "[CSSiriSpeechRecorder setSpeechWasRecognizedForElapsedTime:isFinal:]";
-    v12 = 2048;
+    v9 = 136315650;
+    v10 = "[CSSiriSpeechRecorder setSpeechWasRecognizedForElapsedTime:isFinal:]";
+    v11 = 2048;
     timeCopy = time;
-    v14 = 2048;
-    v15 = twoShotStartTime;
-    _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s %lf %lf", &v10, 0x20u);
+    v13 = 2048;
+    v14 = twoShotStartTime;
+    _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s %lf %lf", &v9, 0x20u);
   }
 
   self->_serverDidRecognizeSpeech = 1;
@@ -4250,13 +4537,11 @@ void __53__CSSiriSpeechRecorder__speechRecordingEventListener__block_invoke(uint
   {
     self->_serverDidEndpoint = 1;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)releaseAudioSession
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   isRecording = [(CSSpeechController *)self->_speechController isRecording];
   v4 = MEMORY[0x277CEF0E8];
   if (isRecording)
@@ -4265,7 +4550,7 @@ void __53__CSSiriSpeechRecorder__speechRecordingEventListener__block_invoke(uint
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v24 = "[CSSiriSpeechRecorder releaseAudioSession]";
+      v22 = "[CSSiriSpeechRecorder releaseAudioSession]";
       _os_log_error_impl(&dword_222E4D000, v5, OS_LOG_TYPE_ERROR, "%s Attempting to release audio session while CSSpeechController is still recording.", buf, 0xCu);
     }
 
@@ -4284,9 +4569,9 @@ void __53__CSSiriSpeechRecorder__speechRecordingEventListener__block_invoke(uint
     }
 
     *buf = 136315394;
-    v24 = "[CSSiriSpeechRecorder releaseAudioSession]";
-    v25 = 2080;
-    v26 = v8;
+    v22 = "[CSSiriSpeechRecorder releaseAudioSession]";
+    v23 = 2080;
+    v24 = v8;
     _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s releaseAudioSessionBehavior = %s", buf, 0x16u);
   }
 
@@ -4294,21 +4579,20 @@ void __53__CSSiriSpeechRecorder__speechRecordingEventListener__block_invoke(uint
   [(CSSiriSpeechRecorder *)self setSuppressInterruptionEndedNotifications:0];
   v9 = [(CSSiriSpeechRecorder *)self _currentMHUUID:0];
   speechController = self->_speechController;
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 3221225472;
-  v19 = __43__CSSiriSpeechRecorder_releaseAudioSession__block_invoke;
-  v20 = &unk_2784C6278;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __43__CSSiriSpeechRecorder_releaseAudioSession__block_invoke;
+  v18 = &unk_2784C6278;
   selfCopy = self;
   v11 = v9;
-  v22 = v11;
-  [(CSSpeechController *)speechController fetchAudioMetricsWithCompletion:&v17];
+  v20 = v11;
+  [(CSSpeechController *)speechController fetchAudioMetricsWithCompletion:&v15];
   currentAudioDeviceInfo = self->_currentAudioDeviceInfo;
   self->_currentAudioDeviceInfo = 0;
 
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
-    [(CSSiriSpeechCapturingDelegate *)self->_delegate speechCapturingDidUpdateAudioDeviceInfo:0, v17, v18, v19, v20, selfCopy];
+    [(CSSiriSpeechCapturingDelegate *)self->_delegate speechCapturingDidUpdateAudioDeviceInfo:0, v15, v16, v17, v18, selfCopy];
   }
 
   currentActivationInfo = self->_currentActivationInfo;
@@ -4318,7 +4602,6 @@ void __53__CSSiriSpeechRecorder__speechRecordingEventListener__block_invoke(uint
   self->_pendingActivationInfo = 0;
 
   [(CSAudioSessionController *)self->_audioSessionController unregisterObserver:self];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __43__CSSiriSpeechRecorder_releaseAudioSession__block_invoke(uint64_t a1, void *a2)
@@ -4340,7 +4623,7 @@ void __43__CSSiriSpeechRecorder_releaseAudioSession__block_invoke(uint64_t a1, v
 
 - (BOOL)_updateAudioContextWithPendingInfoForReason:(id)reason
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   if (!self->_pendingActivationInfo)
   {
@@ -4353,13 +4636,13 @@ void __43__CSSiriSpeechRecorder_releaseAudioSession__block_invoke(uint64_t a1, v
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     pendingActivationInfo = self->_pendingActivationInfo;
-    v14 = 136315650;
-    v15 = "[CSSiriSpeechRecorder _updateAudioContextWithPendingInfoForReason:]";
-    v16 = 2112;
-    v17 = pendingActivationInfo;
-    v18 = 2112;
-    v19 = reasonCopy;
-    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s Updating using pending info %@ for reason %@.", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[CSSiriSpeechRecorder _updateAudioContextWithPendingInfoForReason:]";
+    v15 = 2112;
+    v16 = pendingActivationInfo;
+    v17 = 2112;
+    v18 = reasonCopy;
+    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s Updating using pending info %@ for reason %@.", &v13, 0x20u);
   }
 
   if ([(CSSiriSpeechRecorder *)self _setAudioContextWithInfo:self->_pendingActivationInfo forReason:reasonCopy])
@@ -4373,11 +4656,11 @@ void __43__CSSiriSpeechRecorder_releaseAudioSession__block_invoke(uint64_t a1, v
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       currentActivationInfo = self->_currentActivationInfo;
-      v14 = 136315394;
-      v15 = "[CSSiriSpeechRecorder _updateAudioContextWithPendingInfoForReason:]";
-      v16 = 2112;
-      v17 = currentActivationInfo;
-      _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s Set pending info as current %@.", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "[CSSiriSpeechRecorder _updateAudioContextWithPendingInfoForReason:]";
+      v15 = 2112;
+      v16 = currentActivationInfo;
+      _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s Set pending info as current %@.", &v13, 0x16u);
     }
   }
 
@@ -4387,24 +4670,23 @@ LABEL_7:
     v10 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)_updateAudioContextToPostVoiceForReason:(id)reason
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   if ([(CSSiriAudioActivationInfo *)self->_currentActivationInfo needsUpdateToPostVoiceMode])
   {
     v5 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v10 = 136315394;
-      v11 = "[CSSiriSpeechRecorder _updateAudioContextToPostVoiceForReason:]";
-      v12 = 2112;
-      v13 = reasonCopy;
-      _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s Updating to post voice for reason %@.", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[CSSiriSpeechRecorder _updateAudioContextToPostVoiceForReason:]";
+      v11 = 2112;
+      v12 = reasonCopy;
+      _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s Updating to post voice for reason %@.", &v9, 0x16u);
     }
 
     beginUpdateToPostVoice = [(CSSiriAudioActivationInfo *)self->_currentActivationInfo beginUpdateToPostVoice];
@@ -4417,13 +4699,12 @@ LABEL_7:
     LOBYTE(v7) = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)_setAudioContextWithInfo:(id)info forReason:(id)reason
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   reasonCopy = reason;
   if (self->_speechController)
@@ -4434,20 +4715,20 @@ LABEL_7:
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v23 = "[CSSiriSpeechRecorder _setAudioContextWithInfo:forReason:]";
-      v24 = 2112;
-      v25 = recordContext;
-      v26 = 2112;
-      v27 = reasonCopy;
+      v22 = "[CSSiriSpeechRecorder _setAudioContextWithInfo:forReason:]";
+      v23 = 2112;
+      v24 = recordContext;
+      v25 = 2112;
+      v26 = reasonCopy;
       _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s Setting audio context %@ for reason %@.", buf, 0x20u);
     }
 
     mach_absolute_time();
     kdebug_trace();
     speechController = self->_speechController;
-    v21 = 0;
-    v12 = [(CSSpeechController *)speechController setCurrentRecordContext:recordContext error:&v21];
-    v13 = v21;
+    v20 = 0;
+    v12 = [(CSSpeechController *)speechController setCurrentRecordContext:recordContext error:&v20];
+    v13 = v20;
     kdebug_trace();
     v14 = *v9;
     if (v13 || !v12)
@@ -4461,15 +4742,15 @@ LABEL_7:
       mach_absolute_time();
       AFMachAbsoluteTimeGetTimeInterval();
       *buf = 136316162;
-      v23 = "[CSSiriSpeechRecorder _setAudioContextWithInfo:forReason:]";
-      v24 = 2112;
-      v25 = recordContext;
-      v26 = 2112;
-      v27 = reasonCopy;
-      v28 = 2114;
-      v29 = v13;
-      v30 = 2048;
-      v31 = v20;
+      v22 = "[CSSiriSpeechRecorder _setAudioContextWithInfo:forReason:]";
+      v23 = 2112;
+      v24 = recordContext;
+      v25 = 2112;
+      v26 = reasonCopy;
+      v27 = 2114;
+      v28 = v13;
+      v29 = 2048;
+      v30 = v19;
       _os_log_error_impl(&dword_222E4D000, v15, OS_LOG_TYPE_ERROR, "%s Error setting audio context %@ for reason %@ error %{public}@. (%f seconds)", buf, 0x34u);
     }
 
@@ -4486,13 +4767,13 @@ LABEL_13:
       mach_absolute_time();
       AFMachAbsoluteTimeGetTimeInterval();
       *buf = 136315906;
-      v23 = "[CSSiriSpeechRecorder _setAudioContextWithInfo:forReason:]";
-      v24 = 2112;
-      v25 = recordContext;
-      v26 = 2112;
-      v27 = reasonCopy;
-      v28 = 2048;
-      v29 = v16;
+      v22 = "[CSSiriSpeechRecorder _setAudioContextWithInfo:forReason:]";
+      v23 = 2112;
+      v24 = recordContext;
+      v25 = 2112;
+      v26 = reasonCopy;
+      v27 = 2048;
+      v28 = v16;
       _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_INFO, "%s Done setting audio context %@ for reason %@. (%f seconds)", buf, 0x2Au);
     }
 
@@ -4503,33 +4784,32 @@ LABEL_13:
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v23 = "[CSSiriSpeechRecorder _setAudioContextWithInfo:forReason:]";
+    v22 = "[CSSiriSpeechRecorder _setAudioContextWithInfo:forReason:]";
     _os_log_impl(&dword_222E4D000, v17, OS_LOG_TYPE_INFO, "%s Ignored setting audio context because there's no speech controller.", buf, 0xCu);
   }
 
   v12 = 0;
 LABEL_14:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)_updateAudioContextWithInfo:(id)info reason:(id)reason
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   reasonCopy = reason;
   v8 = MEMORY[0x277CEF0E8];
   v9 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v13 = 136315650;
-    v14 = "[CSSiriSpeechRecorder _updateAudioContextWithInfo:reason:]";
-    v15 = 2112;
-    v16 = infoCopy;
-    v17 = 2112;
-    v18 = reasonCopy;
-    _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s info = %@, reason = %@", &v13, 0x20u);
+    v12 = 136315650;
+    v13 = "[CSSiriSpeechRecorder _updateAudioContextWithInfo:reason:]";
+    v14 = 2112;
+    v15 = infoCopy;
+    v16 = 2112;
+    v17 = reasonCopy;
+    _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s info = %@, reason = %@", &v12, 0x20u);
   }
 
   pendingActivationInfo = self->_pendingActivationInfo;
@@ -4538,13 +4818,13 @@ LABEL_14:
     v11 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 136315650;
-      v14 = "[CSSiriSpeechRecorder _updateAudioContextWithInfo:reason:]";
-      v15 = 2112;
-      v16 = pendingActivationInfo;
-      v17 = 2112;
-      v18 = reasonCopy;
-      _os_log_debug_impl(&dword_222E4D000, v11, OS_LOG_TYPE_DEBUG, "%s Dropping previous pending activation info %@ for reason %@.", &v13, 0x20u);
+      v12 = 136315650;
+      v13 = "[CSSiriSpeechRecorder _updateAudioContextWithInfo:reason:]";
+      v14 = 2112;
+      v15 = pendingActivationInfo;
+      v16 = 2112;
+      v17 = reasonCopy;
+      _os_log_debug_impl(&dword_222E4D000, v11, OS_LOG_TYPE_DEBUG, "%s Dropping previous pending activation info %@ for reason %@.", &v12, 0x20u);
       pendingActivationInfo = self->_pendingActivationInfo;
     }
   }
@@ -4555,23 +4835,21 @@ LABEL_14:
   {
     [(CSSiriSpeechRecorder *)self _updateAudioContextWithPendingInfoForReason:reasonCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSpeechRequestOptions:(id)options
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v6 = MEMORY[0x277CEF0E8];
   v7 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    *v25 = 136315394;
-    *&v25[4] = "[CSSiriSpeechRecorder setSpeechRequestOptions:]";
-    *&v25[12] = 2112;
-    *&v25[14] = optionsCopy;
-    _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s %@", v25, 0x16u);
+    *v24 = 136315394;
+    *&v24[4] = "[CSSiriSpeechRecorder setSpeechRequestOptions:]";
+    *&v24[12] = 2112;
+    *&v24[14] = optionsCopy;
+    _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s %@", v24, 0x16u);
   }
 
   endpointerOperationMode = [optionsCopy endpointerOperationMode];
@@ -4580,11 +4858,11 @@ LABEL_14:
   {
     v10 = v9;
     v11 = AFSpeechEndpointerOperationModeGetName();
-    *v25 = 136315394;
-    *&v25[4] = "[CSSiriSpeechRecorder setSpeechRequestOptions:]";
-    *&v25[12] = 2112;
-    *&v25[14] = v11;
-    _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s endpointerOperationMode = %@", v25, 0x16u);
+    *v24 = 136315394;
+    *&v24[4] = "[CSSiriSpeechRecorder setSpeechRequestOptions:]";
+    *&v24[12] = 2112;
+    *&v24[14] = v11;
+    _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s endpointerOperationMode = %@", v24, 0x16u);
   }
 
   if (self->_speechCapturingMode == 4)
@@ -4599,10 +4877,10 @@ LABEL_14:
     v13 = v12;
     endpointerOperationMode = 1;
     v14 = AFSpeechEndpointerOperationModeGetName();
-    *v25 = 136315394;
-    *&v25[4] = "[CSSiriSpeechRecorder setSpeechRequestOptions:]";
-    *&v25[12] = 2112;
-    *&v25[14] = v14;
+    *v24 = 136315394;
+    *&v24[4] = "[CSSiriSpeechRecorder setSpeechRequestOptions:]";
+    *&v24[12] = 2112;
+    *&v24[14] = v14;
     v15 = "%s Fingerprinting mode, force (endpointerOperationMode = %@).";
     v16 = v13;
     v17 = 22;
@@ -4620,24 +4898,24 @@ LABEL_14:
     v13 = v18;
     endpointerOperationMode = 3;
     v14 = AFSpeechEndpointerOperationModeGetName();
-    *v25 = 136315650;
-    *&v25[4] = "[CSSiriSpeechRecorder setSpeechRequestOptions:]";
-    *&v25[12] = 1024;
-    *&v25[14] = 1;
-    *&v25[18] = 2112;
-    *&v25[20] = v14;
+    *v24 = 136315650;
+    *&v24[4] = "[CSSiriSpeechRecorder setSpeechRequestOptions:]";
+    *&v24[12] = 1024;
+    *&v24[14] = 1;
+    *&v24[18] = 2112;
+    *&v24[20] = v14;
     v15 = "%s Legacy property set (useAutomaticEndpointing = %d), override (endpointerOperationMode = %@)";
     v16 = v13;
     v17 = 28;
 LABEL_8:
-    _os_log_impl(&dword_222E4D000, v16, OS_LOG_TYPE_INFO, v15, v25, v17);
+    _os_log_impl(&dword_222E4D000, v16, OS_LOG_TYPE_INFO, v15, v24, v17);
 
     goto LABEL_15;
   }
 
   endpointerOperationMode = 3;
 LABEL_15:
-  [(CSSiriSpeechRecorder *)self _setEndpointerOperationMode:endpointerOperationMode forceUpdate:0, *v25, *&v25[16], *&v25[24]];
+  [(CSSiriSpeechRecorder *)self _setEndpointerOperationMode:endpointerOperationMode forceUpdate:0, *v24, *&v24[8], *&v24[24]];
   if ([optionsCopy activationEvent] == 21)
   {
     [(CSSiriSpeechRecorder *)self _setSpeechCapturingMode:1];
@@ -4652,8 +4930,6 @@ LABEL_15:
   v22 = [recordDeviceIdentifier copy];
   recordDevice = self->_recordDevice;
   self->_recordDevice = v22;
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_logAudioMetrics:(id)metrics mhUUID:(id)d
@@ -4733,7 +5009,7 @@ LABEL_15:
 
 - (void)_logVoiceTriggerInfo:(id)info withMHUUID:(id)d
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   dCopy = d;
   v8 = [infoCopy objectForKey:@"earlyDetectFiredMachTime"];
@@ -4765,7 +5041,7 @@ LABEL_15:
 
     if ([(CSSiriSpeechRecorder *)self _shouldEmitInstrumentation])
     {
-      v25 = dCopy;
+      v24 = dCopy;
       v16 = objc_alloc_init(MEMORY[0x277D5AB68]);
       v17 = objc_alloc_init(MEMORY[0x277D5AB78]);
       [v17 setExists:1];
@@ -4779,11 +5055,11 @@ LABEL_15:
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v27 = "[CSSiriSpeechRecorder _logVoiceTriggerInfo:withMHUUID:]";
+        v26 = "[CSSiriSpeechRecorder _logVoiceTriggerInfo:withMHUUID:]";
         _os_log_impl(&dword_222E4D000, v21, OS_LOG_TYPE_INFO, "%s logInstrumentation for VT launch started", buf, 0xCu);
       }
 
-      dCopy = v25;
+      dCopy = v24;
     }
   }
 
@@ -4795,13 +5071,11 @@ LABEL_15:
     mEMORY[0x277D017A0]2 = [MEMORY[0x277D017A0] sharedLogger];
     [mEMORY[0x277D017A0]2 logTriggerEventWithVTEI:infoCopy withMHUUID:dCopy];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_logBluetoothStateWithMHUUID:(id)d
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
   date = [MEMORY[0x277CBEAA8] date];
   v6 = [MEMORY[0x277CB83F8] retrieveSessionWithID:{-[CSSiriSpeechRecorder _audioSessionID](self, "_audioSessionID")}];
@@ -4828,9 +5102,9 @@ LABEL_15:
     v16 = v15;
     [date2 timeIntervalSinceDate:date];
     *buf = 136315394;
-    v27 = "[CSSiriSpeechRecorder _logBluetoothStateWithMHUUID:]";
-    v28 = 2050;
-    v29 = v17;
+    v26 = "[CSSiriSpeechRecorder _logBluetoothStateWithMHUUID:]";
+    v27 = 2050;
+    v28 = v17;
     _os_log_impl(&dword_222E4D000, v16, OS_LOG_TYPE_DEFAULT, "%s query picked route elapsed time = %{public}lf", buf, 0x16u);
   }
 
@@ -4846,14 +5120,14 @@ LABEL_15:
       }
 
       mEMORY[0x277CEF158] = [MEMORY[0x277CEF158] sharedAnalytics];
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __53__CSSiriSpeechRecorder__logBluetoothStateWithMHUUID___block_invoke;
-      v23[3] = &unk_2784C6250;
-      v23[4] = self;
-      v24 = dCopy;
-      v25 = v8;
-      [mEMORY[0x277CEF158] logEventWithType:242 contextResolver:v23];
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __53__CSSiriSpeechRecorder__logBluetoothStateWithMHUUID___block_invoke;
+      v22[3] = &unk_2784C6250;
+      v22[4] = self;
+      v23 = dCopy;
+      v24 = v8;
+      [mEMORY[0x277CEF158] logEventWithType:242 contextResolver:v22];
     }
 
     else
@@ -4862,8 +5136,6 @@ LABEL_15:
       [mEMORY[0x277D01738] logMHAssistantDaemonAudioBluetoothInfoWithMHUUID:dCopy withWirelessSplitterSessionState:0 withAudioDeviceCategory:v8];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __53__CSSiriSpeechRecorder__logBluetoothStateWithMHUUID___block_invoke(uint64_t a1, void *a2)
@@ -4883,18 +5155,16 @@ void __53__CSSiriSpeechRecorder__logBluetoothStateWithMHUUID___block_invoke(uint
 
 void __53__CSSiriSpeechRecorder__logBluetoothStateWithMHUUID___block_invoke_2(void *a1, uint64_t a2)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v4 = a1[6];
-  v9 = @"state";
+  v8 = @"state";
   v5 = AFBluetoothWirelessSplitterSessionStateGetName();
-  v10[0] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   (*(v4 + 16))(v4, v6);
 
   v7 = [MEMORY[0x277D01738] sharedLogger];
   [v7 logMHAssistantDaemonAudioBluetoothInfoWithMHUUID:a1[4] withWirelessSplitterSessionState:a2 withAudioDeviceCategory:a1[5]];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getFanInfoArray
@@ -4917,7 +5187,7 @@ void __53__CSSiriSpeechRecorder__logBluetoothStateWithMHUUID___block_invoke_2(vo
 
 - (void)updateSpeechSynthesisRecord:(id)record
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   beginTimestamp = [recordCopy beginTimestamp];
   if (beginTimestamp >= [(AFSpeechSynthesisRecord *)self->_mostRecentSpeechSynthesisRecord beginTimestamp])
@@ -4929,25 +5199,23 @@ void __53__CSSiriSpeechRecorder__logBluetoothStateWithMHUUID___block_invoke_2(vo
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
       {
         mostRecentSpeechSynthesisRecord = self->_mostRecentSpeechSynthesisRecord;
-        v11 = 136315650;
-        v12 = "[CSSiriSpeechRecorder updateSpeechSynthesisRecord:]";
-        v13 = 2112;
-        v14 = mostRecentSpeechSynthesisRecord;
-        v15 = 2112;
-        v16 = recordCopy;
-        _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s Updated speech synthesis record from %@ to %@.", &v11, 0x20u);
+        v10 = 136315650;
+        v11 = "[CSSiriSpeechRecorder updateSpeechSynthesisRecord:]";
+        v12 = 2112;
+        v13 = mostRecentSpeechSynthesisRecord;
+        v14 = 2112;
+        v15 = recordCopy;
+        _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s Updated speech synthesis record from %@ to %@.", &v10, 0x20u);
       }
 
       objc_storeStrong(&self->_mostRecentSpeechSynthesisRecord, record);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)startSpeechCaptureWithContext:(id)context willStartHandler:(id)handler error:(id *)error
 {
-  v135 = *MEMORY[0x277D85DE8];
+  v134 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   handlerCopy = handler;
   v12 = *MEMORY[0x277CEF0E8];
@@ -4955,11 +5223,11 @@ void __53__CSSiriSpeechRecorder__logBluetoothStateWithMHUUID___block_invoke_2(vo
   {
     currentActivationInfo = self->_currentActivationInfo;
     *buf = 136315650;
-    v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
-    v129 = 2112;
-    *v130 = contextCopy;
-    *&v130[8] = 2112;
-    *v131 = currentActivationInfo;
+    v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+    v128 = 2112;
+    *v129 = contextCopy;
+    *&v129[8] = 2112;
+    *v130 = currentActivationInfo;
     _os_log_impl(&dword_222E4D000, v12, OS_LOG_TYPE_INFO, "%s context:%@, _currentActivationInfo :%@", buf, 0x20u);
   }
 
@@ -4970,9 +5238,9 @@ void __53__CSSiriSpeechRecorder__logBluetoothStateWithMHUUID___block_invoke_2(vo
   }
 
   [contextCopy willPrepareAndStartRecordingWithAudioActivationInfo:pendingActivationInfo];
-  v126 = 0;
-  v15 = [(CSSiriSpeechRecorder *)self _prepareSpeechControllerWithOptions:9 error:&v126];
-  v16 = v126;
+  v125 = 0;
+  v15 = [(CSSiriSpeechRecorder *)self _prepareSpeechControllerWithOptions:9 error:&v125];
+  v16 = v125;
   if (!v15)
   {
     [(CSSiriSpeechRecorder *)self _logFanState];
@@ -5011,9 +5279,9 @@ void __53__CSSiriSpeechRecorder__logBluetoothStateWithMHUUID___block_invoke_2(vo
           tapToSiriAudioPlaybackRequest = [(AFClientConfiguration *)self->_currentClientConfiguration tapToSiriAudioPlaybackRequest];
           itemURL = [tapToSiriAudioPlaybackRequest itemURL];
           *buf = 136315394;
-          v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
-          v129 = 2112;
-          *v130 = itemURL;
+          v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+          v128 = 2112;
+          *v129 = itemURL;
           _os_log_impl(&dword_222E4D000, tapToSiriAudioPlaybackRequest2, OS_LOG_TYPE_INFO, "%s Playing start alert %@", buf, 0x16u);
         }
 
@@ -5025,7 +5293,7 @@ void __53__CSSiriSpeechRecorder__logBluetoothStateWithMHUUID___block_invoke_2(vo
       if (v20)
       {
         *buf = 136315138;
-        v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+        v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
         v34 = "%s Suppressing start alert";
         goto LABEL_30;
       }
@@ -5053,28 +5321,28 @@ void __53__CSSiriSpeechRecorder__logBluetoothStateWithMHUUID___block_invoke_2(vo
           if (v31)
           {
             *buf = 136315394;
-            v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
-            v129 = 2112;
-            *v130 = tapToSiriAudioPlaybackRequest2;
+            v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+            v128 = 2112;
+            *v129 = tapToSiriAudioPlaybackRequest2;
             _os_log_error_impl(&dword_222E4D000, v30, OS_LOG_TYPE_ERROR, "%s Playing start alert %@", buf, 0x16u);
           }
 
           v32 = objc_alloc(MEMORY[0x277CEF188]);
-          v124[0] = MEMORY[0x277D85DD0];
-          v124[1] = 3221225472;
-          v124[2] = __77__CSSiriSpeechRecorder_startSpeechCaptureWithContext_willStartHandler_error___block_invoke_114;
-          v124[3] = &unk_2784C6200;
-          v125 = tapToSiriAudioPlaybackRequest2;
-          v33 = [v32 initWithBuilder:v124];
+          v123[0] = MEMORY[0x277D85DD0];
+          v123[1] = 3221225472;
+          v123[2] = __77__CSSiriSpeechRecorder_startSpeechCaptureWithContext_willStartHandler_error___block_invoke_114;
+          v123[3] = &unk_2784C6200;
+          v124 = tapToSiriAudioPlaybackRequest2;
+          v33 = [v32 initWithBuilder:v123];
           [(CSSiriSpeechRecorder *)self _startAudioPlaybackRequest:v33 options:3 completion:&__block_literal_global_117];
 
-          v30 = v125;
+          v30 = v124;
         }
 
         else if (v31)
         {
           *buf = 136315138;
-          v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+          v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
           _os_log_error_impl(&dword_222E4D000, v30, OS_LOG_TYPE_ERROR, "%s No SoundID URL", buf, 0xCu);
         }
 
@@ -5085,7 +5353,7 @@ void __53__CSSiriSpeechRecorder__logBluetoothStateWithMHUUID___block_invoke_2(vo
       if (os_log_type_enabled(tapToSiriAudioPlaybackRequest2, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+        v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
         v34 = "%s No start recording alert";
 LABEL_30:
         _os_log_impl(&dword_222E4D000, tapToSiriAudioPlaybackRequest2, OS_LOG_TYPE_INFO, v34, buf, 0xCu);
@@ -5096,10 +5364,10 @@ LABEL_31:
   }
 
   obj = context;
-  v115 = v15;
+  v114 = v15;
   errorCopy = error;
-  v117 = handlerCopy;
-  v122 = contextCopy;
+  v116 = handlerCopy;
+  v121 = contextCopy;
   if (-[CSSiriAudioActivationInfo requiresBorealisConsumerCheck](self->_currentActivationInfo, "requiresBorealisConsumerCheck") && ([MEMORY[0x277D7A8D8] isLastTriggerForced] & 1) == 0)
   {
     processInfo = [MEMORY[0x277CCAC38] processInfo];
@@ -5111,7 +5379,7 @@ LABEL_31:
       if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+        v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
         _os_log_impl(&dword_222E4D000, v38, OS_LOG_TYPE_INFO, "%s Checking if VT has triggered", buf, 0xCu);
       }
 
@@ -5120,9 +5388,9 @@ LABEL_31:
       if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
-        v129 = 1024;
-        *v130 = isLastTriggerForced;
+        v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+        v128 = 1024;
+        *v129 = isLastTriggerForced;
         _os_log_impl(&dword_222E4D000, v40, OS_LOG_TYPE_INFO, "%s VT has triggered %d", buf, 0x12u);
       }
 
@@ -5139,9 +5407,9 @@ LABEL_31:
         {
           [processInfo systemUptime];
           *buf = 136315394;
-          v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
-          v129 = 2050;
-          *v130 = v113 - v37;
+          v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+          v128 = 2050;
+          *v129 = v112 - v37;
           _os_log_error_impl(&dword_222E4D000, v42, OS_LOG_TYPE_ERROR, "%s Timed out after %{public}lfs waiting for Borealis buffer to become available.", buf, 0x16u);
         }
 
@@ -5182,7 +5450,7 @@ LABEL_31:
   if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+    v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
     _os_log_impl(&dword_222E4D000, v49, OS_LOG_TYPE_INFO, "%s entering _recordingWillStartGroup", buf, 0xCu);
   }
 
@@ -5198,7 +5466,7 @@ LABEL_31:
   _currentRecordingInfo = [(CSSiriSpeechRecorder *)self _currentRecordingInfo];
   v53 = [(CSSiriAudioActivationInfo *)v51 startRecordingSettingsWithRecordRoute:_currentRecordRoute recordingInfo:_currentRecordingInfo playbackRoute:_currentPlaybackRoute];
 
-  v119 = v53;
+  v118 = v53;
   v54 = [v53 mutableCopy];
   recordDeviceInfo = [(CSFAudioDeviceInfo *)self->_currentAudioDeviceInfo recordDeviceInfo];
   if (![recordDeviceInfo isRemoteDevice])
@@ -5225,8 +5493,8 @@ LABEL_31:
 
   if (uTF8String && !uuid_parse(uTF8String, uu))
   {
-    v104 = remote_device_copy_device_with_uuid();
-    if (!v104)
+    v103 = remote_device_copy_device_with_uuid();
+    if (!v103)
     {
       v62 = contextCopy;
       v63 = *MEMORY[0x277CEF0E8];
@@ -5237,28 +5505,28 @@ LABEL_31:
 
       uUIDString2 = [recordDeviceInfo UUIDString];
       *buf = 136315394;
-      v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
-      v129 = 2112;
-      *v130 = uUIDString2;
-      v111 = "%s Failed to retrieve remote device with UUID %@";
+      v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+      v128 = 2112;
+      *v129 = uUIDString2;
+      v110 = "%s Failed to retrieve remote device with UUID %@";
 LABEL_137:
-      _os_log_error_impl(&dword_222E4D000, v63, OS_LOG_TYPE_ERROR, v111, buf, 0x16u);
+      _os_log_error_impl(&dword_222E4D000, v63, OS_LOG_TYPE_ERROR, v110, buf, 0x16u);
 
       goto LABEL_61;
     }
 
-    v105 = v104;
-    v106 = remote_device_copy_product_type();
-    if (v106)
+    v104 = v103;
+    v105 = remote_device_copy_product_type();
+    if (v105)
     {
-      v107 = v106;
+      v106 = v105;
       v62 = contextCopy;
-      v108 = [MEMORY[0x277CCACA8] stringWithUTF8String:v106];
+      v107 = [MEMORY[0x277CCACA8] stringWithUTF8String:v105];
 
-      free(v107);
-      if (v108)
+      free(v106);
+      if (v107)
       {
-        v109 = [@"AppleDisplay2 1"];
+        v108 = [@"AppleDisplay2 1"];
         goto LABEL_132;
       }
     }
@@ -5266,24 +5534,24 @@ LABEL_137:
     else
     {
       v62 = contextCopy;
-      v108 = 0;
+      v107 = 0;
     }
 
-    v109 = 1;
+    v108 = 1;
 LABEL_132:
-    v112 = *MEMORY[0x277CEF0E8];
-    if (os_log_type_enabled(v112, OS_LOG_TYPE_INFO))
+    v111 = *MEMORY[0x277CEF0E8];
+    if (os_log_type_enabled(v111, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
-      v129 = 2112;
+      v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+      v128 = 2112;
+      *v129 = v107;
+      *&v129[8] = 1024;
       *v130 = v108;
-      *&v130[8] = 1024;
-      *v131 = v109;
-      _os_log_impl(&dword_222E4D000, v112, OS_LOG_TYPE_INFO, "%s Display productType = %@, isLegacyDisplay = %d", buf, 0x1Cu);
+      _os_log_impl(&dword_222E4D000, v111, OS_LOG_TYPE_INFO, "%s Display productType = %@, isLegacyDisplay = %d", buf, 0x1Cu);
     }
 
-    if ((v109 & 1) == 0)
+    if ((v108 & 1) == 0)
     {
       goto LABEL_65;
     }
@@ -5297,10 +5565,10 @@ LABEL_132:
   {
     uUIDString2 = [recordDeviceInfo UUIDString];
     *buf = 136315394;
-    v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
-    v129 = 2112;
-    *v130 = uUIDString2;
-    v111 = "%s Failed to parse display UUID %@";
+    v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+    v128 = 2112;
+    *v129 = uUIDString2;
+    v110 = "%s Failed to parse display UUID %@";
     goto LABEL_137;
   }
 
@@ -5311,7 +5579,7 @@ LABEL_62:
   if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+    v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
     _os_log_impl(&dword_222E4D000, v64, OS_LOG_TYPE_INFO, "%s Skip start alert for legacy studio display", buf, 0xCu);
   }
 
@@ -5384,15 +5652,15 @@ LABEL_84:
   }
 
 LABEL_85:
-  v118 = [(CSSiriAudioActivationInfo *)self->_currentActivationInfo recordContextForSpeechEvent:self->_startEvent];
+  v117 = [(CSSiriAudioActivationInfo *)self->_currentActivationInfo recordContextForSpeechEvent:self->_startEvent];
   [contextCopy updateAudioRecordContext:?];
   v74 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
-    v129 = 2112;
-    *v130 = v54;
+    v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+    v128 = 2112;
+    *v129 = v54;
     _os_log_impl(&dword_222E4D000, v74, OS_LOG_TYPE_INFO, "%s Asking CSSpeechController to startRecording with settings %@", buf, 0x16u);
   }
 
@@ -5425,10 +5693,10 @@ LABEL_85:
   v83 = v50;
   kdebug_trace();
   speechController = self->_speechController;
-  v123 = 0;
-  v85 = [(CSSpeechController *)speechController startRecordingWithSettings:v54 error:&v123];
-  v86 = v123;
-  [v122 updateRecordingSettings:v54];
+  v122 = 0;
+  v85 = [(CSSpeechController *)speechController startRecordingWithSettings:v54 error:&v122];
+  v86 = v122;
+  [v121 updateRecordingSettings:v54];
   kdebug_trace();
   v87 = 0;
   if (!v85)
@@ -5447,7 +5715,7 @@ LABEL_85:
   if (os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+    v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
     _os_log_impl(&dword_222E4D000, v91, OS_LOG_TYPE_INFO, "%s Done asking CSSpeechController to startRecording", buf, 0xCu);
   }
 
@@ -5459,9 +5727,9 @@ LABEL_85:
     {
       context = self->_context;
       *buf = 136315394;
-      v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
-      v129 = 2112;
-      *v130 = context;
+      v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+      v128 = 2112;
+      *v129 = context;
       _os_log_impl(&dword_222E4D000, v92, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
     }
 
@@ -5496,7 +5764,7 @@ LABEL_85:
     if (os_log_type_enabled(v97, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+      v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
       _os_log_impl(&dword_222E4D000, v97, OS_LOG_TYPE_INFO, "%s leaving _recordingWillStartGroup", buf, 0xCu);
     }
 
@@ -5508,15 +5776,15 @@ LABEL_85:
   if (v85)
   {
     v98 = 1;
-    contextCopy = v122;
-    handlerCopy = v117;
+    contextCopy = v121;
+    handlerCopy = v116;
     goto LABEL_120;
   }
 
-  contextCopy = v122;
-  handlerCopy = v117;
+  contextCopy = v121;
+  handlerCopy = v116;
   error = errorCopy;
-  v15 = v115;
+  v15 = v114;
 LABEL_111:
   [contextCopy didStopRecordingWithError:v16];
   if (error)
@@ -5533,22 +5801,22 @@ LABEL_111:
   v100 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
   {
-    v103 = &stru_28363DA48;
+    v102 = &stru_28363DA48;
     *buf = 136316162;
-    v128 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
+    v127 = "[CSSiriSpeechRecorder startSpeechCaptureWithContext:willStartHandler:error:]";
     if (v15)
     {
-      v103 = @", playing error alert";
+      v102 = @", playing error alert";
     }
 
-    v129 = 1024;
-    *v130 = v15;
-    *&v130[4] = 1024;
-    *&v130[6] = 0;
-    *v131 = 2114;
-    *&v131[2] = v16;
-    v132 = 2114;
-    v133 = v103;
+    v128 = 1024;
+    *v129 = v15;
+    *&v129[4] = 1024;
+    *&v129[6] = 0;
+    *v130 = 2114;
+    *&v130[2] = v16;
+    v131 = 2114;
+    v132 = v102;
     _os_log_error_impl(&dword_222E4D000, v100, OS_LOG_TYPE_ERROR, "%s Could not set up recording (prepared = %d, started = %d), returning error %{public}@%{public}@ and resetting voice controller.", buf, 0x2Cu);
   }
 
@@ -5560,7 +5828,6 @@ LABEL_111:
   v98 = 0;
 LABEL_120:
 
-  v101 = *MEMORY[0x277D85DE8];
   return v98;
 }
 
@@ -5578,7 +5845,7 @@ void __77__CSSiriSpeechRecorder_startSpeechCaptureWithContext_willStartHandler_e
 
 - (void)prepareForMode:(int64_t)mode withOptions:(id)options
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v7 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
@@ -5593,17 +5860,17 @@ void __77__CSSiriSpeechRecorder_startSpeechCaptureWithContext_willStartHandler_e
       v8 = off_2784C66F8[mode - 1];
     }
 
-    *v15 = 136315650;
-    *&v15[4] = "[CSSiriSpeechRecorder prepareForMode:withOptions:]";
-    *&v15[12] = 2112;
-    *&v15[14] = v8;
-    *&v15[22] = 2112;
-    v16 = optionsCopy;
+    *v14 = 136315650;
+    *&v14[4] = "[CSSiriSpeechRecorder prepareForMode:withOptions:]";
+    *&v14[12] = 2112;
+    *&v14[14] = v8;
+    *&v14[22] = 2112;
+    v15 = optionsCopy;
     v9 = v7;
-    _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s Preparing speech capture for %@ options:%@", v15, 0x20u);
+    _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s Preparing speech capture for %@ options:%@", v14, 0x20u);
   }
 
-  [(CSSiriSpeechRecorder *)self _setSpeechCapturingMode:mode, *v15, *&v15[16], v16];
+  [(CSSiriSpeechRecorder *)self _setSpeechCapturingMode:mode, *v14, *&v14[8], v15];
   -[CSSiriSpeechRecorder _setEndpointerOperationMode:forceUpdate:](self, "_setEndpointerOperationMode:forceUpdate:", [optionsCopy endpointerOperationMode], 1);
   v10 = [(CSSiriSpeechRecorder *)self _mhUUIDFromSpeechRequestOptions:optionsCopy];
   mhUUID = self->_mhUUID;
@@ -5615,34 +5882,31 @@ void __77__CSSiriSpeechRecorder_startSpeechCaptureWithContext_willStartHandler_e
     v13 = self->_mhUUID;
     self->_mhUUID = v12;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareForMode:(int64_t)mode
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "[CSSiriSpeechRecorder prepareForMode:]";
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s ", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[CSSiriSpeechRecorder prepareForMode:]";
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s ", &v6, 0xCu);
   }
 
   [(CSSiriSpeechRecorder *)self prepareForMode:mode withOptions:0];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)currentVTSatScore
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v9 = 136315138;
-    v10 = "[CSSiriSpeechRecorder currentVTSatScore]";
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[CSSiriSpeechRecorder currentVTSatScore]";
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", &v8, 0xCu);
   }
 
   [(CSSiriAudioActivationInfo *)self->_currentActivationInfo speechEvent];
@@ -5668,25 +5932,22 @@ void __77__CSSiriSpeechRecorder_startSpeechCaptureWithContext_willStartHandler_e
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)recordingInfoForPreheatWithEvent:(int64_t)event
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v10 = 136315138;
-    v11 = "[CSSiriSpeechRecorder recordingInfoForPreheatWithEvent:]";
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s ", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[CSSiriSpeechRecorder recordingInfoForPreheatWithEvent:]";
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s ", &v9, 0xCu);
   }
 
   _speechController = [(CSSiriSpeechRecorder *)self _speechController];
   v7 = [(CSSiriSpeechRecorder *)self _recordingInfoForEvent:event audioAlertStyle:0 includeBTInfo:0 includeRecordDeviceInfo:0];
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -5727,7 +5988,7 @@ void __77__CSSiriSpeechRecorder_startSpeechCaptureWithContext_willStartHandler_e
 
 - (void)preheatWithOption:(id)option
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   pendingActivationInfo = self->_pendingActivationInfo;
   if (!pendingActivationInfo)
   {
@@ -5743,9 +6004,9 @@ void __77__CSSiriSpeechRecorder_startSpeechCaptureWithContext_willStartHandler_e
     v10 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v28 = 136315138;
-      v29 = "[CSSiriSpeechRecorder preheatWithOption:]";
-      _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s Prewarming audio session in speech controller", &v28, 0xCu);
+      v27 = 136315138;
+      v28 = "[CSSiriSpeechRecorder preheatWithOption:]";
+      _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s Prewarming audio session in speech controller", &v27, 0xCu);
     }
 
     mEMORY[0x277CEF158] = [MEMORY[0x277CEF158] sharedAnalytics];
@@ -5766,9 +6027,9 @@ void __77__CSSiriSpeechRecorder_startSpeechCaptureWithContext_willStartHandler_e
     v15 = *v9;
     if (os_log_type_enabled(*v9, OS_LOG_TYPE_INFO))
     {
-      v28 = 136315138;
-      v29 = "[CSSiriSpeechRecorder preheatWithOption:]";
-      _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_INFO, "%s Done prewarm audio session in speech controller", &v28, 0xCu);
+      v27 = 136315138;
+      v28 = "[CSSiriSpeechRecorder preheatWithOption:]";
+      _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_INFO, "%s Done prewarm audio session in speech controller", &v27, 0xCu);
     }
 
     if (AFIsHorseman())
@@ -5784,9 +6045,9 @@ void __77__CSSiriSpeechRecorder_startSpeechCaptureWithContext_willStartHandler_e
             v18 = *v9;
             if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
             {
-              v28 = 136315138;
-              v29 = "[CSSiriSpeechRecorder preheatWithOption:]";
-              _os_log_impl(&dword_222E4D000, v18, OS_LOG_TYPE_INFO, "%s Prewarming start alert", &v28, 0xCu);
+              v27 = 136315138;
+              v28 = "[CSSiriSpeechRecorder preheatWithOption:]";
+              _os_log_impl(&dword_222E4D000, v18, OS_LOG_TYPE_INFO, "%s Prewarming start alert", &v27, 0xCu);
             }
 
             [(CSSiriAudioPlaybackService *)self->_audioPlaybackService prewarmRequest:tapToSiriAudioPlaybackRequest completion:&__block_literal_global_24906];
@@ -5802,9 +6063,9 @@ void __77__CSSiriSpeechRecorder_startSpeechCaptureWithContext_willStartHandler_e
     v20 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v28 = 136315138;
-      v29 = "[CSSiriSpeechRecorder preheatWithOption:]";
-      _os_log_impl(&dword_222E4D000, v20, OS_LOG_TYPE_INFO, "%s Preparing instead of preheating since we're not in the default mode", &v28, 0xCu);
+      v27 = 136315138;
+      v28 = "[CSSiriSpeechRecorder preheatWithOption:]";
+      _os_log_impl(&dword_222E4D000, v20, OS_LOG_TYPE_INFO, "%s Preparing instead of preheating since we're not in the default mode", &v27, 0xCu);
     }
 
     v21 = NSStringFromSelector(a2);
@@ -5820,11 +6081,11 @@ void __77__CSSiriSpeechRecorder_startSpeechCaptureWithContext_willStartHandler_e
       if (os_log_type_enabled(*v19, OS_LOG_TYPE_INFO))
       {
         currentActivationInfo = self->_currentActivationInfo;
-        v28 = 136315394;
-        v29 = "[CSSiriSpeechRecorder preheatWithOption:]";
-        v30 = 2112;
-        v31 = currentActivationInfo;
-        _os_log_impl(&dword_222E4D000, v24, OS_LOG_TYPE_INFO, "%s Set pending info as current %@.", &v28, 0x16u);
+        v27 = 136315394;
+        v28 = "[CSSiriSpeechRecorder preheatWithOption:]";
+        v29 = 2112;
+        v30 = currentActivationInfo;
+        _os_log_impl(&dword_222E4D000, v24, OS_LOG_TYPE_INFO, "%s Set pending info as current %@.", &v27, 0x16u);
       }
     }
 
@@ -5835,13 +6096,11 @@ void __77__CSSiriSpeechRecorder_startSpeechCaptureWithContext_willStartHandler_e
   {
     _speechController2 = [(CSSiriSpeechRecorder *)self _speechController];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __42__CSSiriSpeechRecorder_preheatWithOption___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF0E8];
   v4 = os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR);
@@ -5849,49 +6108,46 @@ void __42__CSSiriSpeechRecorder_preheatWithOption___block_invoke(uint64_t a1, vo
   {
     if (v4)
     {
-      v9 = 136315394;
-      v10 = "[CSSiriSpeechRecorder preheatWithOption:]_block_invoke";
-      v11 = 2112;
-      v12 = v2;
+      v8 = 136315394;
+      v9 = "[CSSiriSpeechRecorder preheatWithOption:]_block_invoke";
+      v10 = 2112;
+      v11 = v2;
       v5 = "%s Failed to prewarm start alert due to %@";
       v6 = v3;
       v7 = 22;
 LABEL_7:
-      _os_log_error_impl(&dword_222E4D000, v6, OS_LOG_TYPE_ERROR, v5, &v9, v7);
+      _os_log_error_impl(&dword_222E4D000, v6, OS_LOG_TYPE_ERROR, v5, &v8, v7);
     }
   }
 
   else if (v4)
   {
-    v9 = 136315138;
-    v10 = "[CSSiriSpeechRecorder preheatWithOption:]_block_invoke";
+    v8 = 136315138;
+    v9 = "[CSSiriSpeechRecorder preheatWithOption:]_block_invoke";
     v5 = "%s Done prewarming start alert";
     v6 = v3;
     v7 = 12;
     goto LABEL_7;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)eagerlyInitializeAudioRecording
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[CSSiriSpeechRecorder eagerlyInitializeAudioRecording]";
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[CSSiriSpeechRecorder eagerlyInitializeAudioRecording]";
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", &v5, 0xCu);
   }
 
   _speechController = [(CSSiriSpeechRecorder *)self _speechController];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopRecordingForEndpointReason:(id)reason withEndpointMetrics:(id)metrics
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   recordingState = self->_recordingState;
   v8 = *MEMORY[0x277CEF0E8];
@@ -5900,9 +6156,9 @@ LABEL_7:
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v11 = 136315138;
-      v12 = "[CSSiriSpeechRecorder _stopRecordingForEndpointReason:withEndpointMetrics:]";
-      _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s ", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[CSSiriSpeechRecorder _stopRecordingForEndpointReason:withEndpointMetrics:]";
+      _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s ", &v10, 0xCu);
     }
 
     -[CSSiriSpeechRecorder _stopRecordingWithReason:hostTime:](self, "_stopRecordingWithReason:hostTime:", reason.var1, [metricsCopy endpointBufferHostTime]);
@@ -5911,19 +6167,17 @@ LABEL_7:
 
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v11 = 136315394;
-    v12 = "[CSSiriSpeechRecorder _stopRecordingForEndpointReason:withEndpointMetrics:]";
-    v13 = 2048;
-    v14 = recordingState;
-    _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, "%s Ignoring unexpected stop recording while in state %ld", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "[CSSiriSpeechRecorder _stopRecordingForEndpointReason:withEndpointMetrics:]";
+    v12 = 2048;
+    v13 = recordingState;
+    _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, "%s Ignoring unexpected stop recording while in state %ld", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupAudioFileWritingForSpeechController:(id)controller info:(id)info context:(id)context
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   infoCopy = info;
   contextCopy = context;
@@ -6043,17 +6297,17 @@ LABEL_7:
   if (self->_audioFileWriter)
   {
     recordSettings = [controllerCopy recordSettings];
-    v53 = 0;
+    v52 = 0;
     memset(buf, 0, sizeof(buf));
     _LPCMStreamASBDForSpeechControllerSettings(buf, recordSettings);
     v32 = *v11;
     if (os_log_type_enabled(*v11, OS_LOG_TYPE_INFO))
     {
-      *v46 = 136315394;
-      v47 = "[CSSiriSpeechRecorder _setupAudioFileWritingForSpeechController:info:context:]";
-      v48 = 2112;
-      v49 = recordSettings;
-      _os_log_impl(&dword_222E4D000, v32, OS_LOG_TYPE_INFO, "%s Configure _audioFileWriter with recordSettings = %@.", v46, 0x16u);
+      *v45 = 136315394;
+      v46 = "[CSSiriSpeechRecorder _setupAudioFileWritingForSpeechController:info:context:]";
+      v47 = 2112;
+      v48 = recordSettings;
+      _os_log_impl(&dword_222E4D000, v32, OS_LOG_TYPE_INFO, "%s Configure _audioFileWriter with recordSettings = %@.", v45, 0x16u);
     }
 
     [(CSSiriAudioFileWriter *)self->_audioFileWriter configureWithAudioStreamBasicDescription:buf];
@@ -6062,19 +6316,19 @@ LABEL_7:
   if ((cloudSyncEnabled | fileLoggingIsEnabled | v26))
   {
     recordSettings2 = [controllerCopy recordSettings];
-    v53 = 0;
+    v52 = 0;
     memset(buf, 0, sizeof(buf));
     _LPCMStreamASBDForSpeechControllerSettings(buf, recordSettings2);
     v34 = *v11;
     if (os_log_type_enabled(*v11, OS_LOG_TYPE_INFO))
     {
-      *v46 = 136315650;
-      v47 = "[CSSiriSpeechRecorder _setupAudioFileWritingForSpeechController:info:context:]";
-      v48 = 2112;
-      v49 = contextCopy;
-      v50 = 2112;
-      v51 = recordSettings2;
-      _os_log_impl(&dword_222E4D000, v34, OS_LOG_TYPE_INFO, "%s Ask context %@ to configure and record with recordSettings = %@.", v46, 0x20u);
+      *v45 = 136315650;
+      v46 = "[CSSiriSpeechRecorder _setupAudioFileWritingForSpeechController:info:context:]";
+      v47 = 2112;
+      v48 = contextCopy;
+      v49 = 2112;
+      v50 = recordSettings2;
+      _os_log_impl(&dword_222E4D000, v34, OS_LOG_TYPE_INFO, "%s Ask context %@ to configure and record with recordSettings = %@.", v45, 0x20u);
     }
 
     [contextCopy beginRecordingAudioWithAudioStreamBasicDescription:buf];
@@ -6090,16 +6344,16 @@ LABEL_7:
       }
 
       v38 = v37;
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __79__CSSiriSpeechRecorder__setupAudioFileWritingForSpeechController_info_context___block_invoke;
-      v43[3] = &unk_2784C61B8;
-      v43[4] = self;
-      v44 = v35;
-      v45 = v38;
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __79__CSSiriSpeechRecorder__setupAudioFileWritingForSpeechController_info_context___block_invoke;
+      v42[3] = &unk_2784C61B8;
+      v42[4] = self;
+      v43 = v35;
+      v44 = v38;
       v39 = v38;
       v40 = v35;
-      [contextCopy acquireRecordedAudioWithHandler:v43];
+      [contextCopy acquireRecordedAudioWithHandler:v42];
     }
   }
 
@@ -6110,13 +6364,11 @@ LABEL_7:
     *&buf[4] = "[CSSiriSpeechRecorder _setupAudioFileWritingForSpeechController:info:context:]";
     _os_log_impl(&dword_222E4D000, v41, OS_LOG_TYPE_INFO, "%s Done", buf, 0xCu);
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __79__CSSiriSpeechRecorder__setupAudioFileWritingForSpeechController_info_context___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = MEMORY[0x277CEF0E8];
@@ -6127,7 +6379,7 @@ void __79__CSSiriSpeechRecorder__setupAudioFileWritingForSpeechController_info_c
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v27 = "[CSSiriSpeechRecorder _setupAudioFileWritingForSpeechController:info:context:]_block_invoke";
+      v26 = "[CSSiriSpeechRecorder _setupAudioFileWritingForSpeechController:info:context:]_block_invoke";
       _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, "%s Unable to acquire recorded audio for speech logging.", buf, 0xCu);
       if (!v6)
       {
@@ -6148,9 +6400,9 @@ LABEL_19:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v27 = "[CSSiriSpeechRecorder _setupAudioFileWritingForSpeechController:info:context:]_block_invoke";
-    v28 = 2112;
-    v29 = v5;
+    v26 = "[CSSiriSpeechRecorder _setupAudioFileWritingForSpeechController:info:context:]_block_invoke";
+    v27 = 2112;
+    v28 = v5;
     _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s Acquired recorded audio for speech logging: %@", buf, 0x16u);
   }
 
@@ -6174,9 +6426,9 @@ LABEL_19:
       v17 = [v16 URLByAppendingPathComponent:v15];
 
       v18 = [MEMORY[0x277CCAA00] defaultManager];
-      v25 = 0;
-      v19 = [v18 linkItemAtURL:v5 toURL:v17 error:&v25];
-      v20 = v25;
+      v24 = 0;
+      v19 = [v18 linkItemAtURL:v5 toURL:v17 error:&v24];
+      v20 = v24;
 
       v21 = *v7;
       if (!v19 || v20)
@@ -6184,9 +6436,9 @@ LABEL_19:
         if (os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v27 = "[CSSiriSpeechRecorder _setupAudioFileWritingForSpeechController:info:context:]_block_invoke";
-          v28 = 2112;
-          v29 = v20;
+          v26 = "[CSSiriSpeechRecorder _setupAudioFileWritingForSpeechController:info:context:]_block_invoke";
+          v27 = 2112;
+          v28 = v20;
           _os_log_error_impl(&dword_222E4D000, v21, OS_LOG_TYPE_ERROR, "%s Unable to save recorded audio for speech logging due to error %@.", buf, 0x16u);
         }
       }
@@ -6194,21 +6446,21 @@ LABEL_19:
       else if (os_log_type_enabled(*v7, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v27 = "[CSSiriSpeechRecorder _setupAudioFileWritingForSpeechController:info:context:]_block_invoke";
-        v28 = 2112;
-        v29 = v17;
+        v26 = "[CSSiriSpeechRecorder _setupAudioFileWritingForSpeechController:info:context:]_block_invoke";
+        v27 = 2112;
+        v28 = v17;
         _os_log_impl(&dword_222E4D000, v21, OS_LOG_TYPE_INFO, "%s Speech Log: %@", buf, 0x16u);
       }
     }
 
     else
     {
-      v24 = *v7;
+      v23 = *v7;
       if (os_log_type_enabled(*v7, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v27 = "[CSSiriSpeechRecorder _setupAudioFileWritingForSpeechController:info:context:]_block_invoke";
-        _os_log_impl(&dword_222E4D000, v24, OS_LOG_TYPE_INFO, "%s Skipped saving recorded audio for speech logging due to audio logging limit.", buf, 0xCu);
+        v26 = "[CSSiriSpeechRecorder _setupAudioFileWritingForSpeechController:info:context:]_block_invoke";
+        _os_log_impl(&dword_222E4D000, v23, OS_LOG_TYPE_INFO, "%s Skipped saving recorded audio for speech logging due to audio logging limit.", buf, 0xCu);
       }
     }
   }
@@ -6219,7 +6471,7 @@ LABEL_19:
     if (os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v27 = "[CSSiriSpeechRecorder _setupAudioFileWritingForSpeechController:info:context:]_block_invoke";
+      v26 = "[CSSiriSpeechRecorder _setupAudioFileWritingForSpeechController:info:context:]_block_invoke";
       _os_log_error_impl(&dword_222E4D000, v22, OS_LOG_TYPE_ERROR, "%s Unable to prepare directory for speech logging.", buf, 0xCu);
     }
   }
@@ -6230,19 +6482,17 @@ LABEL_19:
   }
 
 LABEL_20:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_prepareDirectoryAtPath:(id)path
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v12 = 0;
-  if ([defaultManager fileExistsAtPath:pathCopy isDirectory:&v12])
+  v11 = 0;
+  if ([defaultManager fileExistsAtPath:pathCopy isDirectory:&v11])
   {
-    if (v12)
+    if (v11)
     {
       v5 = 1;
     }
@@ -6253,9 +6503,9 @@ LABEL_20:
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v14 = "[CSSiriSpeechRecorder _prepareDirectoryAtPath:]";
-        v15 = 2112;
-        v16 = pathCopy;
+        v13 = "[CSSiriSpeechRecorder _prepareDirectoryAtPath:]";
+        v14 = 2112;
+        v15 = pathCopy;
         _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, "%s An item already exists at path %@, but it is not a directory.", buf, 0x16u);
       }
 
@@ -6265,9 +6515,9 @@ LABEL_20:
 
   else
   {
-    v11 = 0;
-    v5 = [defaultManager createDirectoryAtPath:pathCopy withIntermediateDirectories:1 attributes:0 error:&v11];
-    v6 = v11;
+    v10 = 0;
+    v5 = [defaultManager createDirectoryAtPath:pathCopy withIntermediateDirectories:1 attributes:0 error:&v10];
+    v6 = v10;
     if (v6)
     {
       v5 = 0;
@@ -6279,23 +6529,22 @@ LABEL_20:
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v14 = "[CSSiriSpeechRecorder _prepareDirectoryAtPath:]";
-        v15 = 2112;
-        v16 = pathCopy;
-        v17 = 2112;
-        v18 = v6;
+        v13 = "[CSSiriSpeechRecorder _prepareDirectoryAtPath:]";
+        v14 = 2112;
+        v15 = pathCopy;
+        v16 = 2112;
+        v17 = v6;
         _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s Failed to create directory at path %@ due to error %@.", buf, 0x20u);
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)_checkAudioLoggingLimits:(id)limits
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   limitsCopy = limits;
   mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
   limitedAudioLoggingEnabled = [mEMORY[0x277CEF368] limitedAudioLoggingEnabled];
@@ -6329,13 +6578,13 @@ LABEL_20:
     v13 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v16 = 136315650;
-      v17 = "[CSSiriSpeechRecorder _checkAudioLoggingLimits:]";
-      v18 = 1024;
-      v19 = v10;
-      v20 = 1024;
-      v21 = v10 < 0xA;
-      _os_log_impl(&dword_222E4D000, v13, OS_LOG_TYPE_INFO, "%s Checked audio logging limits, count = %d -> %d", &v16, 0x18u);
+      v15 = 136315650;
+      v16 = "[CSSiriSpeechRecorder _checkAudioLoggingLimits:]";
+      v17 = 1024;
+      v18 = v10;
+      v19 = 1024;
+      v20 = v10 < 0xA;
+      _os_log_impl(&dword_222E4D000, v13, OS_LOG_TYPE_INFO, "%s Checked audio logging limits, count = %d -> %d", &v15, 0x18u);
     }
   }
 
@@ -6344,13 +6593,12 @@ LABEL_20:
     v12 = 1;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)_playAudioAlert:(int64_t)alert
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromSelector(a2);
   [(CSSiriSpeechRecorder *)self _updateAudioContextToPostVoiceForReason:v5];
 
@@ -6392,15 +6640,14 @@ LABEL_20:
   v16 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v18 = 136315394;
-    v19 = "[CSSiriSpeechRecorder _playAudioAlert:]";
-    v20 = 2048;
+    v17 = 136315394;
+    v18 = "[CSSiriSpeechRecorder _playAudioAlert:]";
+    v19 = 2048;
     alertCopy = alert;
-    _os_log_impl(&dword_222E4D000, v16, OS_LOG_TYPE_INFO, "%s Playing alert %ld", &v18, 0x16u);
+    _os_log_impl(&dword_222E4D000, v16, OS_LOG_TYPE_INFO, "%s Playing alert %ld", &v17, 0x16u);
   }
 
   [(CSSpeechController *)self->_speechController playAlertSoundForType:alert];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldEmitInstrumentation
@@ -6455,7 +6702,7 @@ uint64_t __60__CSSiriSpeechRecorder__reportServerEndpointMetricsIfNeeded__block_
 
 - (void)_stopRecordingWithReason:(id)reason hostTime:(unint64_t)time
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   var0 = reason.var0.var0;
   v8 = MEMORY[0x277CEF0E8];
   v9 = *MEMORY[0x277CEF0E8];
@@ -6467,14 +6714,14 @@ uint64_t __60__CSSiriSpeechRecorder__reportServerEndpointMetricsIfNeeded__block_
       v11 = v9;
       v12 = AFSpeechEventGetDescription();
       *buf = 136316162;
-      v64 = "[CSSiriSpeechRecorder _stopRecordingWithReason:hostTime:]";
-      v65 = 1024;
-      v66 = 5;
-      v67 = 2048;
+      v63 = "[CSSiriSpeechRecorder _stopRecordingWithReason:hostTime:]";
+      v64 = 1024;
+      v65 = 5;
+      v66 = 2048;
       var1 = reason.var0.var1;
-      v69 = 2112;
-      v70 = v12;
-      v71 = 2048;
+      v68 = 2112;
+      v69 = v12;
+      v70 = 2048;
       timeCopy = time;
       _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_INFO, "%s reason = %d, speechEvent = %zd (%@), hostTime = %llu", buf, 0x30u);
     }
@@ -6483,10 +6730,10 @@ uint64_t __60__CSSiriSpeechRecorder__reportServerEndpointMetricsIfNeeded__block_
   else if (v10)
   {
     *buf = 136315650;
-    v64 = "[CSSiriSpeechRecorder _stopRecordingWithReason:hostTime:]";
-    v65 = 1024;
-    v66 = var0;
-    v67 = 2048;
+    v63 = "[CSSiriSpeechRecorder _stopRecordingWithReason:hostTime:]";
+    v64 = 1024;
+    v65 = var0;
+    v66 = 2048;
     var1 = time;
     _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s reason = %d, hostTime = %llu", buf, 0x1Cu);
   }
@@ -6502,19 +6749,19 @@ LABEL_58:
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v64 = "[CSSiriSpeechRecorder _stopRecordingWithReason:hostTime:]";
+        v63 = "[CSSiriSpeechRecorder _stopRecordingWithReason:hostTime:]";
         _os_log_error_impl(&dword_222E4D000, v56, OS_LOG_TYPE_ERROR, "%s Sending stop recording immediately because CSSpeechController isn't recording", buf, 0xCu);
       }
 
       [(CSSiriSpeechCapturingDelegate *)self->_delegate speechCapturingDidStopRecordingWithError:0 endpointMode:0 totalPacketCount:self->_packetCount endpointerMetrics:0];
-      goto LABEL_61;
+      return;
     }
 
     v23 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v64 = "[CSSiriSpeechRecorder _stopRecordingWithReason:hostTime:]";
+      v63 = "[CSSiriSpeechRecorder _stopRecordingWithReason:hostTime:]";
       _os_log_impl(&dword_222E4D000, v23, OS_LOG_TYPE_INFO, "%s Someone else has already asked to stop recording.", buf, 0xCu);
     }
 
@@ -6533,19 +6780,19 @@ LABEL_58:
       [(CSEndpointDelayReporter *)endpointDelayReporter setEndpointTimeInMs:?];
       [(CSEndpointDelayReporter *)self->_endpointDelayReporter reportEndpointDelayIfNeed];
       mEMORY[0x277CEF158] = [MEMORY[0x277CEF158] sharedAnalytics];
-      v61[0] = MEMORY[0x277D85DD0];
-      v61[1] = 3221225472;
-      v61[2] = __58__CSSiriSpeechRecorder__stopRecordingWithReason_hostTime___block_invoke;
-      v61[3] = &__block_descriptor_36_e19___NSDictionary_8__0l;
-      v62 = reason.var1;
-      [mEMORY[0x277CEF158] logEventWithType:216 contextProvider:v61];
+      v60[0] = MEMORY[0x277D85DD0];
+      v60[1] = 3221225472;
+      v60[2] = __58__CSSiriSpeechRecorder__stopRecordingWithReason_hostTime___block_invoke;
+      v60[3] = &__block_descriptor_36_e19___NSDictionary_8__0l;
+      v61 = reason.var1;
+      [mEMORY[0x277CEF158] logEventWithType:216 contextProvider:v60];
 
       mEMORY[0x277D01738] = [MEMORY[0x277D01738] sharedLogger];
       [mEMORY[0x277D01738] logMHAssistantDaemonAudioStopRecordingContextWithMHUUID:v15 withStopRecordingStarted:1 withADStopRecordingEvent:reason.var0.var0];
 
       if ([(CSSiriSpeechRecorder *)self _shouldEmitInstrumentation])
       {
-        v58 = v15;
+        v57 = v15;
         v19 = objc_alloc_init(MEMORY[0x277D5A7B8]);
         v20 = v19;
         v21 = speechController;
@@ -6559,7 +6806,7 @@ LABEL_58:
           v22 = dword_222FB8598[reason.var0.var0 & 0xF];
         }
 
-        [v19 setStopReasonMajor:{v22, v58}];
+        [v19 setStopReasonMajor:{v22, v57}];
         v24 = (reason.var0.var1 - 1);
         if (v24 < 0xB)
         {
@@ -6578,7 +6825,7 @@ LABEL_58:
         [mEMORY[0x277CEF158]2 logInstrumentation:v20 machAbsoluteTime:v27 turnIdentifier:turnIdentifier];
 
         speechController = v21;
-        v15 = v59;
+        v15 = v58;
       }
 
       if (AFIsInternalInstall())
@@ -6601,7 +6848,7 @@ LABEL_58:
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v64 = "[CSSiriSpeechRecorder _stopRecordingWithReason:hostTime:]";
+        v63 = "[CSSiriSpeechRecorder _stopRecordingWithReason:hostTime:]";
         _os_log_impl(&dword_222E4D000, v32, OS_LOG_TYPE_INFO, "%s Really stopping recording", buf, 0xCu);
       }
 
@@ -6609,9 +6856,9 @@ LABEL_58:
       if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v64 = "_ADSpeechRecorderGetCSStopRecordingReason";
-        v65 = 1024;
-        v66 = var0;
+        v63 = "_ADSpeechRecorderGetCSStopRecordingReason";
+        v64 = 1024;
+        v65 = var0;
         _os_log_impl(&dword_222E4D000, v33, OS_LOG_TYPE_DEFAULT, "%s inReason.parts.event:%u", buf, 0x12u);
       }
 
@@ -6649,7 +6896,7 @@ LABEL_58:
       self->_stopRecordingMachContinuousTime = mach_continuous_time();
       if ([MEMORY[0x277D018F8] isContinuousConversationSupported] && self->_shouldDisableSpeechPacketGeneration)
       {
-        v60 = speechController;
+        v59 = speechController;
         _currentRecordRoute = [(CSSiriSpeechRecorder *)self _currentRecordRoute];
         _currentPlaybackRoute = [(CSSiriSpeechRecorder *)self _currentPlaybackRoute];
         _audioSessionID = [(CSSiriSpeechRecorder *)self _audioSessionID];
@@ -6664,7 +6911,7 @@ LABEL_58:
           if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v64 = "[CSSiriSpeechRecorder _stopRecordingWithReason:hostTime:]";
+            v63 = "[CSSiriSpeechRecorder _stopRecordingWithReason:hostTime:]";
             _os_log_impl(&dword_222E4D000, v42, OS_LOG_TYPE_DEFAULT, "%s Requesting audio stream hold until flexible followup pick up", buf, 0xCu);
           }
 
@@ -6677,7 +6924,7 @@ LABEL_58:
         }
 
         v8 = MEMORY[0x277CEF0E8];
-        speechController = v60;
+        speechController = v59;
       }
 
       else
@@ -6734,20 +6981,15 @@ LABEL_58:
       goto LABEL_58;
     }
   }
-
-LABEL_61:
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 id __58__CSSiriSpeechRecorder__stopRecordingWithReason_hostTime___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"reason";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"reason";
   v1 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%d.%d", *(a1 + 32), *(a1 + 34)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -6755,7 +6997,7 @@ id __58__CSSiriSpeechRecorder__stopRecordingWithReason_hostTime___block_invoke(u
 - (BOOL)_prepareSpeechControllerWithOptions:(unint64_t)options error:(id *)error
 {
   errorCopy = error;
-  v72[1] = *MEMORY[0x277D85DE8];
+  v71[1] = *MEMORY[0x277D85DE8];
   if (error)
   {
     *error = 0;
@@ -6775,12 +7017,12 @@ id __58__CSSiriSpeechRecorder__stopRecordingWithReason_hostTime___block_invoke(u
     {
       v11 = objc_alloc(MEMORY[0x277CEF530]);
       queue = self->_queue;
-      v61[0] = MEMORY[0x277D85DD0];
-      v61[1] = 3221225472;
-      v61[2] = __66__CSSiriSpeechRecorder__prepareSpeechControllerWithOptions_error___block_invoke;
-      v61[3] = &unk_2784C6FD0;
-      v62 = 0;
-      v13 = [v11 initWithTimeoutInterval:queue onQueue:v61 timeoutHandler:6.0];
+      v60[0] = MEMORY[0x277D85DD0];
+      v60[1] = 3221225472;
+      v60[2] = __66__CSSiriSpeechRecorder__prepareSpeechControllerWithOptions_error___block_invoke;
+      v60[3] = &unk_2784C6FD0;
+      v61 = 0;
+      v13 = [v11 initWithTimeoutInterval:queue onQueue:v60 timeoutHandler:6.0];
       [v13 start];
     }
 
@@ -6789,26 +7031,26 @@ id __58__CSSiriSpeechRecorder__stopRecordingWithReason_hostTime___block_invoke(u
       v13 = 0;
     }
 
-    v71 = @"CSSpeechRecordSettingsKey_asrOnDevice";
+    v70 = @"CSSpeechRecordSettingsKey_asrOnDevice";
     v14 = [MEMORY[0x277CCABB0] numberWithBool:self->_shouldDisableSpeechPacketGeneration];
-    v72[0] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:&v71 count:1];
+    v71[0] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:&v70 count:1];
     v16 = [(CSSiriAudioActivationInfo *)v8 recordSettingsWithOptions:options appendingSettings:v15];
 
     v17 = *v9;
     if (os_log_type_enabled(*v9, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v64 = "[CSSiriSpeechRecorder _prepareSpeechControllerWithOptions:error:]";
-      v65 = 2112;
-      v66 = v16;
+      v63 = "[CSSiriSpeechRecorder _prepareSpeechControllerWithOptions:error:]";
+      v64 = 2112;
+      v65 = v16;
       _os_log_impl(&dword_222E4D000, v17, OS_LOG_TYPE_INFO, "%s Preparing CSSpeechController with settings %@", buf, 0x16u);
     }
 
-    v60 = 0;
-    v18 = [(CSSiriSpeechRecorder *)self _speechControllerWithError:&v60];
-    v19 = v60;
-    v56 = v16;
+    v59 = 0;
+    v18 = [(CSSiriSpeechRecorder *)self _speechControllerWithError:&v59];
+    v19 = v59;
+    v55 = v16;
     if (!v18)
     {
       v25 = 0;
@@ -6820,11 +7062,11 @@ LABEL_42:
         v46 = *v9;
         if (v25)
         {
-          v47 = v56;
+          v47 = v55;
           if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
           {
             *buf = 136315138;
-            v64 = "[CSSiriSpeechRecorder _prepareSpeechControllerWithOptions:error:]";
+            v63 = "[CSSiriSpeechRecorder _prepareSpeechControllerWithOptions:error:]";
             _os_log_impl(&dword_222E4D000, v45, OS_LOG_TYPE_INFO, "%s Done preparing CSSpeechController", buf, 0xCu);
           }
 
@@ -6842,14 +7084,14 @@ LABEL_42:
           if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v64 = "[CSSiriSpeechRecorder _prepareSpeechControllerWithOptions:error:]";
-            v65 = 2114;
-            v66 = v26;
+            v63 = "[CSSiriSpeechRecorder _prepareSpeechControllerWithOptions:error:]";
+            v64 = 2114;
+            v65 = v26;
             _os_log_error_impl(&dword_222E4D000, v45, OS_LOG_TYPE_ERROR, "%s Error setting up CSSpeechController %{public}@", buf, 0x16u);
           }
 
           [(CSSiriSpeechRecorder *)self _resetSpeechController];
-          v47 = v56;
+          v47 = v55;
           if (!errorCopy)
           {
             goto LABEL_52;
@@ -6873,7 +7115,7 @@ LABEL_41:
       goto LABEL_42;
     }
 
-    v55 = errorCopy;
+    v54 = errorCopy;
     v20 = [(CSSiriSpeechRecorder *)self _currentMHUUID:0];
     mEMORY[0x277CEF158] = [MEMORY[0x277CEF158] sharedAnalytics];
     [mEMORY[0x277CEF158] logEventWithType:207 context:0];
@@ -6893,9 +7135,9 @@ LABEL_41:
       }
     }
 
-    v59 = v19;
-    v25 = [v18 prepareRecordWithSettings:v16 error:&v59];
-    v26 = v59;
+    v58 = v19;
+    v25 = [v18 prepareRecordWithSettings:v16 error:&v58];
+    v26 = v58;
 
     if (v25)
     {
@@ -6968,7 +7210,7 @@ LABEL_40:
               [mEMORY[0x277D01738]2 logMHAssistantDaemonAudioPrepareContextWithMHUUID:v20 withPrepareStarted:0];
 
               v19 = v26;
-              errorCopy = v55;
+              errorCopy = v54;
               v9 = MEMORY[0x277CEF0E8];
               if (!v13)
               {
@@ -6983,17 +7225,17 @@ LABEL_40:
             v34 = *MEMORY[0x277D015B0];
             if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_ERROR))
             {
-              v53 = v34;
+              v52 = v34;
               code3 = [(__CFString *)v26 code];
               *buf = 136315906;
-              v64 = "[CSSiriSpeechRecorder _prepareSpeechControllerWithOptions:error:]";
-              v65 = 2048;
-              v66 = code3;
-              v67 = 2112;
-              v68 = domain2;
-              v69 = 2112;
-              v70 = v33;
-              _os_log_error_impl(&dword_222E4D000, v53, OS_LOG_TYPE_ERROR, "%s Failed to prepare with Insufficient Priority(%ld), because %@ with %@ is currently active.", buf, 0x2Au);
+              v63 = "[CSSiriSpeechRecorder _prepareSpeechControllerWithOptions:error:]";
+              v64 = 2048;
+              v65 = code3;
+              v66 = 2112;
+              v67 = domain2;
+              v68 = 2112;
+              v69 = v33;
+              _os_log_error_impl(&dword_222E4D000, v52, OS_LOG_TYPE_ERROR, "%s Failed to prepare with Insufficient Priority(%ld), because %@ with %@ is currently active.", buf, 0x2Au);
             }
 
             mEMORY[0x277D01738]3 = [MEMORY[0x277D01738] sharedLogger];
@@ -7005,97 +7247,92 @@ LABEL_40:
       }
 
       mEMORY[0x277D016C8] = [MEMORY[0x277D016C8] sharedInstance];
-      v57[0] = MEMORY[0x277D85DD0];
-      v57[1] = 3221225472;
-      v57[2] = __66__CSSiriSpeechRecorder__prepareSpeechControllerWithOptions_error___block_invoke_63;
-      v57[3] = &unk_2784C6130;
-      v58 = v20;
-      [mEMORY[0x277D016C8] getConnectedBluetoothDeviceAddressesWithCompletion:v57];
+      v56[0] = MEMORY[0x277D85DD0];
+      v56[1] = 3221225472;
+      v56[2] = __66__CSSiriSpeechRecorder__prepareSpeechControllerWithOptions_error___block_invoke_63;
+      v56[3] = &unk_2784C6130;
+      v57 = v20;
+      [mEMORY[0x277D016C8] getConnectedBluetoothDeviceAddressesWithCompletion:v56];
 
-      domain = v58;
+      domain = v57;
     }
 
     goto LABEL_28;
   }
 
-  v51 = *v9;
+  v50 = *v9;
   v25 = 0;
   if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v64 = "[CSSiriSpeechRecorder _prepareSpeechControllerWithOptions:error:]";
-    _os_log_impl(&dword_222E4D000, v51, OS_LOG_TYPE_DEFAULT, "%s Skip prewarming on MacMini's mic, since it doesn't have built-in mic", buf, 0xCu);
+    v63 = "[CSSiriSpeechRecorder _prepareSpeechControllerWithOptions:error:]";
+    _os_log_impl(&dword_222E4D000, v50, OS_LOG_TYPE_DEFAULT, "%s Skip prewarming on MacMini's mic, since it doesn't have built-in mic", buf, 0xCu);
     v25 = 0;
   }
 
 LABEL_53:
 
-  v49 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 uint64_t __66__CSSiriSpeechRecorder__prepareSpeechControllerWithOptions_error___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315138;
-    v6 = "[CSSiriSpeechRecorder _prepareSpeechControllerWithOptions:error:]_block_invoke";
-    _os_log_error_impl(&dword_222E4D000, v2, OS_LOG_TYPE_ERROR, "%s CSSpeechController prepare watchdog firing", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSSiriSpeechRecorder _prepareSpeechControllerWithOptions:error:]_block_invoke";
+    _os_log_error_impl(&dword_222E4D000, v2, OS_LOG_TYPE_ERROR, "%s CSSpeechController prepare watchdog firing", &v4, 0xCu);
   }
 
   WriteStackshotReport_async();
-  result = [*(a1 + 32) cancel];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) cancel];
 }
 
 void __66__CSSiriSpeechRecorder__prepareSpeechControllerWithOptions_error___block_invoke_63(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   obj = a2;
-  v3 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
+        v7 = *(*(&v13 + 1) + 8 * v6);
         v8 = +[CSSiriBluetoothManager sharedInstance];
         v9 = [v8 deviceWithAddress:v7];
 
-        v12[0] = MEMORY[0x277D85DD0];
-        v12[1] = 3221225472;
-        v12[2] = __66__CSSiriSpeechRecorder__prepareSpeechControllerWithOptions_error___block_invoke_2;
-        v12[3] = &unk_2784C6108;
-        v13 = *(a1 + 32);
-        [v9 getDeviceInfo:v12];
+        v11[0] = MEMORY[0x277D85DD0];
+        v11[1] = 3221225472;
+        v11[2] = __66__CSSiriSpeechRecorder__prepareSpeechControllerWithOptions_error___block_invoke_2;
+        v11[3] = &unk_2784C6108;
+        v12 = *(a1 + 32);
+        [v9 getDeviceInfo:v11];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __66__CSSiriSpeechRecorder__prepareSpeechControllerWithOptions_error___block_invoke_2(uint64_t a1, void *a2)
@@ -7127,7 +7364,7 @@ void __66__CSSiriSpeechRecorder__prepareSpeechControllerWithOptions_error___bloc
     v7 = v6;
     if (v6)
     {
-      [v6 getLPCMAudioStreamBasicDescription];
+      objc_msgSend_getLPCMAudioStreamBasicDescription(v6);
     }
 
     else
@@ -7145,13 +7382,13 @@ void __66__CSSiriSpeechRecorder__prepareSpeechControllerWithOptions_error___bloc
 
 - (void)_resetSpeechController
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v11 = 136315138;
-    v12 = "[CSSiriSpeechRecorder _resetSpeechController]";
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[CSSiriSpeechRecorder _resetSpeechController]";
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", &v10, 0xCu);
   }
 
   self->_isSpeechControllerInitialized = 0;
@@ -7175,12 +7412,11 @@ void __66__CSSiriSpeechRecorder__prepareSpeechControllerWithOptions_error___bloc
   self->_mhUUID = 0;
 
   _speechController = [(CSSiriSpeechRecorder *)self _speechController];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_speechControllerWithError:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (!self->_speechController)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -7202,11 +7438,11 @@ void __66__CSSiriSpeechRecorder__prepareSpeechControllerWithOptions_error___bloc
     v9 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v30 = 136315394;
-      v31 = "[CSSiriSpeechRecorder _speechControllerWithError:]";
-      v32 = 2112;
-      v33 = recordContext;
-      _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s Initalizing speech controller with context %@", &v30, 0x16u);
+      v29 = 136315394;
+      v30 = "[CSSiriSpeechRecorder _speechControllerWithError:]";
+      v31 = 2112;
+      v32 = recordContext;
+      _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s Initalizing speech controller with context %@", &v29, 0x16u);
     }
 
     mEMORY[0x277CEF158] = [MEMORY[0x277CEF158] sharedAnalytics];
@@ -7226,11 +7462,11 @@ void __66__CSSiriSpeechRecorder__prepareSpeechControllerWithOptions_error___bloc
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_INFO))
       {
         currentActivationInfo = self->_currentActivationInfo;
-        v30 = 136315394;
-        v31 = "[CSSiriSpeechRecorder _speechControllerWithError:]";
-        v32 = 2112;
-        v33 = currentActivationInfo;
-        _os_log_impl(&dword_222E4D000, v13, OS_LOG_TYPE_INFO, "%s Set pending info as current %@.", &v30, 0x16u);
+        v29 = 136315394;
+        v30 = "[CSSiriSpeechRecorder _speechControllerWithError:]";
+        v31 = 2112;
+        v32 = currentActivationInfo;
+        _os_log_impl(&dword_222E4D000, v13, OS_LOG_TYPE_INFO, "%s Set pending info as current %@.", &v29, 0x16u);
       }
     }
 
@@ -7274,21 +7510,20 @@ void __66__CSSiriSpeechRecorder__prepareSpeechControllerWithOptions_error___bloc
     v24 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_INFO))
     {
-      v30 = 136315138;
-      v31 = "[CSSiriSpeechRecorder _speechControllerWithError:]";
-      _os_log_impl(&dword_222E4D000, v24, OS_LOG_TYPE_INFO, "%s Done initializing voice controller", &v30, 0xCu);
+      v29 = 136315138;
+      v30 = "[CSSiriSpeechRecorder _speechControllerWithError:]";
+      _os_log_impl(&dword_222E4D000, v24, OS_LOG_TYPE_INFO, "%s Done initializing voice controller", &v29, 0xCu);
     }
   }
 
   speechController = self->_speechController;
-  v26 = *MEMORY[0x277D85DE8];
 
   return speechController;
 }
 
 - (void)_updateRecordBufferDuration
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   speechController = self->_speechController;
   if (speechController)
   {
@@ -7296,11 +7531,11 @@ void __66__CSSiriSpeechRecorder__prepareSpeechControllerWithOptions_error___bloc
     v5 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v11 = 136315394;
-      v12 = "[CSSiriSpeechRecorder _updateRecordBufferDuration]";
-      v13 = 2048;
-      v14 = 0x3FA47AE147AE147BLL;
-      _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s Trying to set record buffer duration to %lf", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[CSSiriSpeechRecorder _updateRecordBufferDuration]";
+      v12 = 2048;
+      v13 = 0x3FA47AE147AE147BLL;
+      _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s Trying to set record buffer duration to %lf", &v10, 0x16u);
       speechController = self->_speechController;
     }
 
@@ -7309,19 +7544,17 @@ void __66__CSSiriSpeechRecorder__prepareSpeechControllerWithOptions_error___bloc
       v6 = *v4;
       if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
       {
-        v8 = self->_speechController;
-        v9 = v6;
-        [(CSSpeechController *)v8 getRecordBufferDuration];
-        v11 = 136315394;
-        v12 = "[CSSiriSpeechRecorder _updateRecordBufferDuration]";
-        v13 = 2050;
-        v14 = v10;
-        _os_log_error_impl(&dword_222E4D000, v9, OS_LOG_TYPE_ERROR, "%s Failed setting record buffer duration. Duration is %{public}lf", &v11, 0x16u);
+        v7 = self->_speechController;
+        v8 = v6;
+        [(CSSpeechController *)v7 getRecordBufferDuration];
+        v10 = 136315394;
+        v11 = "[CSSiriSpeechRecorder _updateRecordBufferDuration]";
+        v12 = 2050;
+        v13 = v9;
+        _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, "%s Failed setting record buffer duration. Duration is %{public}lf", &v10, 0x16u);
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __42__CSSiriSpeechRecorder__setAlertsIfNeeded__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -7337,20 +7570,20 @@ void __42__CSSiriSpeechRecorder__setAlertsIfNeeded__block_invoke(uint64_t a1, ui
 - (void)_setEndpointerOperationMode:(int64_t)mode forceUpdate:(BOOL)update
 {
   updateCopy = update;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277CEF0E8];
   v8 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     v9 = v8;
     v10 = AFSpeechEndpointerOperationModeGetName();
-    v21 = 136315650;
-    v22 = "[CSSiriSpeechRecorder _setEndpointerOperationMode:forceUpdate:]";
-    v23 = 2112;
-    v24 = v10;
-    v25 = 1024;
-    LODWORD(v26) = updateCopy;
-    _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s endpointerOperationMode = %@, forceUpdate = %d", &v21, 0x1Cu);
+    v20 = 136315650;
+    v21 = "[CSSiriSpeechRecorder _setEndpointerOperationMode:forceUpdate:]";
+    v22 = 2112;
+    v23 = v10;
+    v24 = 1024;
+    LODWORD(v25) = updateCopy;
+    _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s endpointerOperationMode = %@, forceUpdate = %d", &v20, 0x1Cu);
   }
 
   if (mode || updateCopy)
@@ -7367,11 +7600,11 @@ void __42__CSSiriSpeechRecorder__setAlertsIfNeeded__block_invoke(uint64_t a1, ui
         v19 = *v7;
         if (os_log_type_enabled(*v7, OS_LOG_TYPE_INFO))
         {
-          v21 = 136315394;
-          v22 = "[CSSiriSpeechRecorder _setEndpointerOperationMode:forceUpdate:]";
-          v23 = 1024;
-          LODWORD(v24) = v18;
-          _os_log_impl(&dword_222E4D000, v19, OS_LOG_TYPE_INFO, "%s Set Use Automatic Endpointing %d", &v21, 0x12u);
+          v20 = 136315394;
+          v21 = "[CSSiriSpeechRecorder _setEndpointerOperationMode:forceUpdate:]";
+          v22 = 1024;
+          LODWORD(v23) = v18;
+          _os_log_impl(&dword_222E4D000, v19, OS_LOG_TYPE_INFO, "%s Set Use Automatic Endpointing %d", &v20, 0x12u);
         }
 
         if (v18 && self->_didDetectEndpoint && self->_recordingState == 2)
@@ -7389,13 +7622,13 @@ void __42__CSSiriSpeechRecorder__setAlertsIfNeeded__block_invoke(uint64_t a1, ui
         v14 = v13;
         v15 = AFSpeechEndpointerOperationModeGetName();
         v16 = AFSpeechEndpointerOperationModeGetName();
-        v21 = 136315650;
-        v22 = "[CSSiriSpeechRecorder _setEndpointerOperationMode:forceUpdate:]";
-        v23 = 2112;
-        v24 = v15;
-        v25 = 2112;
-        v26 = v16;
-        _os_log_error_impl(&dword_222E4D000, v14, OS_LOG_TYPE_ERROR, "%s Ignored because endpointer operation mode can not be changed from %@ to %@.", &v21, 0x20u);
+        v20 = 136315650;
+        v21 = "[CSSiriSpeechRecorder _setEndpointerOperationMode:forceUpdate:]";
+        v22 = 2112;
+        v23 = v15;
+        v24 = 2112;
+        v25 = v16;
+        _os_log_error_impl(&dword_222E4D000, v14, OS_LOG_TYPE_ERROR, "%s Ignored because endpointer operation mode can not be changed from %@ to %@.", &v20, 0x20u);
       }
     }
   }
@@ -7405,26 +7638,24 @@ void __42__CSSiriSpeechRecorder__setAlertsIfNeeded__block_invoke(uint64_t a1, ui
     v11 = *v7;
     if (os_log_type_enabled(*v7, OS_LOG_TYPE_INFO))
     {
-      v21 = 136315138;
-      v22 = "[CSSiriSpeechRecorder _setEndpointerOperationMode:forceUpdate:]";
-      _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_INFO, "%s Ignored because endpointer operation mode is unspecified.", &v21, 0xCu);
+      v20 = 136315138;
+      v21 = "[CSSiriSpeechRecorder _setEndpointerOperationMode:forceUpdate:]";
+      _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_INFO, "%s Ignored because endpointer operation mode is unspecified.", &v20, 0xCu);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setSpeechCapturingMode:(int64_t)mode
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v8 = 136315394;
-    v9 = "[CSSiriSpeechRecorder _setSpeechCapturingMode:]";
-    v10 = 2048;
+    v7 = 136315394;
+    v8 = "[CSSiriSpeechRecorder _setSpeechCapturingMode:]";
+    v9 = 2048;
     modeCopy = mode;
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s mode = %ld", &v8, 0x16u);
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s mode = %ld", &v7, 0x16u);
   }
 
   if (self->_speechCapturingMode != mode)
@@ -7438,13 +7669,11 @@ void __42__CSSiriSpeechRecorder__setAlertsIfNeeded__block_invoke(uint64_t a1, ui
 
     [*(&self->super.isa + v6) setSpeechRecordingMode:mode];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_mhUUIDFromSpeechRequestOptions:(id)options
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v4 = optionsCopy;
   if (optionsCopy)
@@ -7476,11 +7705,11 @@ LABEL_12:
   {
     v12 = v11;
     continuousConversationInfo = [v4 continuousConversationInfo];
-    v18 = 136315394;
-    v19 = "[CSSiriSpeechRecorder _mhUUIDFromSpeechRequestOptions:]";
-    v20 = 2112;
-    v21 = continuousConversationInfo;
-    _os_log_impl(&dword_222E4D000, v12, OS_LOG_TYPE_INFO, "%s continuousConversationInfo :%@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[CSSiriSpeechRecorder _mhUUIDFromSpeechRequestOptions:]";
+    v19 = 2112;
+    v20 = continuousConversationInfo;
+    _os_log_impl(&dword_222E4D000, v12, OS_LOG_TYPE_INFO, "%s continuousConversationInfo :%@", &v17, 0x16u);
   }
 
   if ([v4 activationEvent] == 30)
@@ -7499,11 +7728,11 @@ LABEL_12:
     v15 = *v10;
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v18 = 136315394;
-      v19 = "[CSSiriSpeechRecorder _mhUUIDFromSpeechRequestOptions:]";
-      v20 = 2112;
-      v21 = continuousConversationInfo2;
-      _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_INFO, "%s requestMHUUID:%@", &v18, 0x16u);
+      v17 = 136315394;
+      v18 = "[CSSiriSpeechRecorder _mhUUIDFromSpeechRequestOptions:]";
+      v19 = 2112;
+      v20 = continuousConversationInfo2;
+      _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_INFO, "%s requestMHUUID:%@", &v17, 0x16u);
     }
 
     goto LABEL_12;
@@ -7512,14 +7741,12 @@ LABEL_12:
   continuousConversationInfo2 = 0;
 LABEL_14:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return continuousConversationInfo2;
 }
 
 - (id)_currentMHUUID:(BOOL)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   mhUUID = self->_mhUUID;
   if (mhUUID)
   {
@@ -7543,24 +7770,22 @@ LABEL_14:
     {
       v10 = @"NO";
       v11 = self->_mhUUID;
-      v15 = "[CSSiriSpeechRecorder _currentMHUUID:]";
-      v14 = 136315650;
-      v16 = 2112;
+      v14 = "[CSSiriSpeechRecorder _currentMHUUID:]";
+      v13 = 136315650;
+      v15 = 2112;
       if (dCopy)
       {
         v10 = @"YES";
       }
 
-      v17 = v11;
-      v18 = 2112;
-      v19 = v10;
-      _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s Assign new MHUUID here to %@ (force = %@)", &v14, 0x20u);
+      v16 = v11;
+      v17 = 2112;
+      v18 = v10;
+      _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s Assign new MHUUID here to %@ (force = %@)", &v13, 0x20u);
     }
 
     mhUUID = self->_mhUUID;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return mhUUID;
 }
@@ -7583,7 +7808,7 @@ LABEL_14:
 
 - (CSSiriSpeechRecorder)initWithQueue:(id)queue speechController:(id)controller audioSessionController:(id)sessionController audioPlaybackService:(id)service experimentContext:(id)context
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   controllerCopy = controller;
   sessionControllerCopy = sessionController;
@@ -7627,9 +7852,9 @@ LABEL_11:
   [currentHandler3 handleFailureInMethod:a2 object:self file:@"CSSiriSpeechRecorder.m" lineNumber:348 description:{@"Invalid parameter not satisfying: %@", @"audioPlaybackService != nil"}];
 
 LABEL_4:
-  v32.receiver = self;
-  v32.super_class = CSSiriSpeechRecorder;
-  v17 = [(CSSiriSpeechRecorder *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = CSSiriSpeechRecorder;
+  v17 = [(CSSiriSpeechRecorder *)&v31 init];
   v18 = v17;
   if (v17)
   {
@@ -7647,9 +7872,9 @@ LABEL_4:
     {
       v22 = v18->_currentActivationInfo;
       *buf = 136315394;
-      v34 = "[CSSiriSpeechRecorder initWithQueue:speechController:audioSessionController:audioPlaybackService:experimentContext:]";
-      v35 = 2112;
-      v36 = v22;
+      v33 = "[CSSiriSpeechRecorder initWithQueue:speechController:audioSessionController:audioPlaybackService:experimentContext:]";
+      v34 = 2112;
+      v35 = v22;
       _os_log_impl(&dword_222E4D000, v21, OS_LOG_TYPE_INFO, "%s Set initial info as current %@.", buf, 0x16u);
     }
 
@@ -7659,7 +7884,6 @@ LABEL_4:
     v18->_recordingWillStartGroup = v23;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

@@ -38,13 +38,12 @@
 
 - (id)transportData
 {
-  v3 = objc_alloc_init(FCCAchievementNotificationContentProtobuf);
-  achievement = self->_achievement;
-  v5 = ACHCodableFromAchievement();
-  data = [v5 data];
-  [(FCCAchievementNotificationContentProtobuf *)v3 setAchievementData:data];
+  v2 = objc_alloc_init(FCCAchievementNotificationContentProtobuf);
+  v3 = ACHCodableFromAchievement();
+  data = [v3 data];
+  [(FCCAchievementNotificationContentProtobuf *)v2 setAchievementData:data];
 
-  data2 = [(FCCAchievementNotificationContentProtobuf *)v3 data];
+  data2 = [(FCCAchievementNotificationContentProtobuf *)v2 data];
 
   return data2;
 }

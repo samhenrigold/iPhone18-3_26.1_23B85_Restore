@@ -5,7 +5,6 @@
 - (BRCItemID_v9)initWithUUIDObject:(_UUIDItemObject_OLD *)object;
 - (id)_initAsLibraryRootWithAppLibraryRowID:(id)d enclosureUUID:(id)iD;
 - (id)itemIDString;
-- (void)itemIDString;
 - (void)sqliteBind:(sqlite3_stmt *)bind index:(int)index;
 @end
 
@@ -13,19 +12,18 @@
 
 - (id)itemIDString
 {
-  v13 = *MEMORY[0x277D85DE8];
-  memset(v12, 0, sizeof(v12));
-  p_kind = &self->_kind;
+  v11 = *MEMORY[0x277D85DE8];
+  memset(v10, 0, sizeof(v10));
   kind = self->_kind;
-  v5 = @"root";
+  v4 = @"root";
   if (kind > 2)
   {
     switch(kind)
     {
       case 3:
-        v6 = brc_bread_crumbs();
-        v7 = brc_default_log();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+        v5 = brc_bread_crumbs();
+        v6 = brc_default_log();
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
         {
           [BRCItemID_v9 itemIDString];
         }
@@ -36,37 +34,36 @@
       case 4:
         goto LABEL_8;
       default:
-        v8 = brc_bread_crumbs();
-        v9 = brc_default_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+        v7 = brc_bread_crumbs();
+        v8 = brc_default_log();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
         {
-          [(BRCItemID_v9 *)p_kind itemIDString];
+          [BRCItemID_v9 itemIDString];
         }
 
         break;
     }
 
-    v5 = 0;
+    v4 = 0;
     goto LABEL_16;
   }
 
   if (!kind)
   {
 LABEL_8:
-    uuid_unparse_upper(self->_uuid, v12);
-    v5 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v12 length:36 encoding:4];
+    uuid_unparse_upper(self->_uuid, v10);
+    v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v10 length:36 encoding:4];
     goto LABEL_16;
   }
 
   if (kind != 1)
   {
-    v5 = @"documents";
+    v4 = @"documents";
   }
 
 LABEL_16:
-  v10 = *MEMORY[0x277D85DE8];
 
-  return v5;
+  return v4;
 }
 
 - (BRCItemID_v9)initWithUUID:(const char *)d
@@ -130,33 +127,33 @@ LABEL_16:
 
 + (id)newFromSqliteValue:(sqlite3_value *)value
 {
-  *&v28[13] = *MEMORY[0x277D85DE8];
+  *&v24[13] = *MEMORY[0x277D85DE8];
   v4 = sqlite3_value_type(value);
   if (v4 == 5)
   {
-    goto LABEL_10;
+    return 0;
   }
 
   v5 = v4;
   if (v4 != 4)
   {
-    v11 = sqlite3_value_text(value);
-    v12 = sqlite3_value_bytes(value);
-    v13 = brc_bread_crumbs();
-    v14 = brc_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v10 = sqlite3_value_text(value);
+    v11 = sqlite3_value_bytes(value);
+    v12 = brc_bread_crumbs();
+    v13 = brc_default_log();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      v23 = [MEMORY[0x277CBEA90] dataWithBytes:v11 length:v12];
-      v25 = 138412802;
-      v26 = v23;
-      v27 = 1024;
-      *v28 = v5;
-      v28[2] = 2112;
-      *&v28[3] = v13;
-      _os_log_fault_impl(&dword_223E7A000, v14, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: unmigrated? invalid BRCItemID (%@) - %d%@", &v25, 0x1Cu);
+      v19 = [MEMORY[0x277CBEA90] dataWithBytes:v10 length:v11];
+      v21 = 138412802;
+      v22 = v19;
+      v23 = 1024;
+      *v24 = v5;
+      v24[2] = 2112;
+      *&v24[3] = v12;
+      _os_log_fault_impl(&dword_223E7A000, v13, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: unmigrated? invalid BRCItemID (%@) - %d%@", &v21, 0x1Cu);
     }
 
-    goto LABEL_10;
+    return 0;
   }
 
   v6 = sqlite3_value_blob(value);
@@ -164,77 +161,74 @@ LABEL_16:
   if (v7 == 16)
   {
     v8 = [BRCItemID_v9 alloc];
-    v9 = *MEMORY[0x277D85DE8];
 
     return [(BRCItemID_v9 *)v8 initWithUUID:v6];
   }
 
-  v16 = v7;
+  v14 = v7;
   if (v7 != 21)
   {
     if (v7 == 5)
     {
-      v17 = [BRCItemID_v9 alloc];
-      v18 = *MEMORY[0x277D85DE8];
+      v15 = [BRCItemID_v9 alloc];
 
-      return [(BRCItemID_v9 *)v17 initWithRootObject:v6];
+      return [(BRCItemID_v9 *)v15 initWithRootObject:v6];
     }
 
-    v21 = brc_bread_crumbs();
-    v22 = brc_default_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    v17 = brc_bread_crumbs();
+    v18 = brc_default_log();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      v24 = [MEMORY[0x277CBEA90] dataWithBytes:v6 length:v16];
-      v25 = 138412546;
-      v26 = v24;
-      v27 = 2112;
-      *v28 = v21;
-      _os_log_fault_impl(&dword_223E7A000, v22, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: invalid BRCItemID (%@)%@", &v25, 0x16u);
+      v20 = [MEMORY[0x277CBEA90] dataWithBytes:v6 length:v14];
+      v21 = 138412546;
+      v22 = v20;
+      v23 = 2112;
+      *v24 = v17;
+      _os_log_fault_impl(&dword_223E7A000, v18, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: invalid BRCItemID (%@)%@", &v21, 0x16u);
     }
 
-LABEL_10:
-    v15 = *MEMORY[0x277D85DE8];
     return 0;
   }
 
-  v19 = [BRCItemID_v9 alloc];
-  v20 = *MEMORY[0x277D85DE8];
+  v16 = [BRCItemID_v9 alloc];
 
-  return [(BRCItemID_v9 *)v19 initWithUUIDObject:v6];
+  return [(BRCItemID_v9 *)v16 initWithUUIDObject:v6];
 }
 
 - (void)sqliteBind:(sqlite3_stmt *)bind index:(int)index
 {
-  v18 = *MEMORY[0x277D85DE8];
-  memset(v16, 0, 5);
-  memset(v17, 0, 21);
+  v15[3] = *MEMORY[0x277D85DE8];
+  memset(v14, 0, 5);
+  v15[0] = 0;
+  v15[1] = 0;
+  *(&v15[1] + 5) = 0;
   kind = self->_kind;
   if (kind > 2)
   {
     switch(kind)
     {
       case 3u:
-        v9 = brc_bread_crumbs();
-        v10 = brc_default_log();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+        v8 = brc_bread_crumbs();
+        v9 = brc_default_log();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
         {
           [BRCItemID_v9 itemIDString];
         }
 
         goto LABEL_19;
       case 4u:
-        v17[0] = 4;
-        *&v17[1] = [(BRCALRowID *)self->_appLibraryRowID intValue];
-        if (!*&v17[1])
+        LOBYTE(v15[0]) = 4;
+        *(v15 + 1) = [(BRCALRowID *)self->_appLibraryRowID intValue];
+        if (!*(v15 + 1))
         {
           [BRCItemID_v9 sqliteBind:index:];
         }
 
         break;
       case 5u:
-        v17[0] = 5;
-        *&v17[1] = [(BRCALRowID *)self->_appLibraryRowID intValue];
-        if (!*&v17[1])
+        LOBYTE(v15[0]) = 5;
+        *(v15 + 1) = [(BRCALRowID *)self->_appLibraryRowID intValue];
+        if (!*(v15 + 1))
         {
           [BRCItemID_v9 sqliteBind:index:];
         }
@@ -242,9 +236,9 @@ LABEL_10:
         break;
       default:
 LABEL_17:
-        v9 = brc_bread_crumbs();
-        v10 = brc_default_log();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+        v8 = brc_bread_crumbs();
+        v9 = brc_default_log();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
         {
           [BRCItemID_v9 sqliteBind:index:];
         }
@@ -252,16 +246,14 @@ LABEL_17:
 LABEL_19:
 
         sqlite3_bind_null(bind, index);
-LABEL_27:
-        v15 = *MEMORY[0x277D85DE8];
         return;
     }
 
-    *&v17[5] = *self->_uuid;
-    v11 = v17;
+    *(v15 + 5) = *self->_uuid;
+    v10 = v15;
     bindCopy2 = bind;
     indexCopy2 = index;
-    v14 = 21;
+    v13 = 21;
     goto LABEL_26;
   }
 
@@ -269,9 +261,9 @@ LABEL_27:
   {
     if (kind == 1)
     {
-      LOBYTE(v16[0]) = 1;
-      *(v16 + 1) = [(BRCALRowID *)self->_appLibraryRowID intValue];
-      if (!*(v16 + 1))
+      LOBYTE(v14[0]) = 1;
+      *(v14 + 1) = [(BRCALRowID *)self->_appLibraryRowID intValue];
+      if (!*(v14 + 1))
       {
         [BRCItemID_v9 sqliteBind:index:];
       }
@@ -281,27 +273,25 @@ LABEL_27:
 
     if (kind == 2)
     {
-      LOBYTE(v16[0]) = 2;
-      *(v16 + 1) = [(BRCALRowID *)self->_appLibraryRowID intValue];
-      if (!*(v16 + 1))
+      LOBYTE(v14[0]) = 2;
+      *(v14 + 1) = [(BRCALRowID *)self->_appLibraryRowID intValue];
+      if (!*(v14 + 1))
       {
         [BRCItemID_v9 sqliteBind:index:];
       }
 
 LABEL_22:
-      v11 = v16;
+      v10 = v14;
       bindCopy2 = bind;
       indexCopy2 = index;
-      v14 = 5;
+      v13 = 5;
 LABEL_26:
-      sqlite3_bind_blob(bindCopy2, indexCopy2, v11, v14, 0xFFFFFFFFFFFFFFFFLL);
-      goto LABEL_27;
+      sqlite3_bind_blob(bindCopy2, indexCopy2, v10, v13, 0xFFFFFFFFFFFFFFFFLL);
+      return;
     }
 
     goto LABEL_17;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   sqlite3_bind_blob(bind, index, self->_uuid, 16, 0xFFFFFFFFFFFFFFFFLL);
 }
@@ -365,18 +355,8 @@ LABEL_11:
   return v13;
 }
 
-- (void)itemIDString
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = *self;
-  OUTLINED_FUNCTION_9();
-  _os_log_fault_impl(v1, v2, OS_LOG_TYPE_FAULT, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)initWithRootObject:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -384,15 +364,12 @@ LABEL_11:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: object->item_code == 1 || object->item_code == 2%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: object->item_code == 1 || object->item_code == 2%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithUUIDObject:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -400,15 +377,12 @@ LABEL_11:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: object->item_code == 4 || object->item_code == 5%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: object->item_code == 4 || object->item_code == 5%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sqliteBind:index:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -416,15 +390,12 @@ LABEL_11:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: uio.app_lib_rowid%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: uio.app_lib_rowid%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sqliteBind:index:.cold.3()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -432,15 +403,12 @@ LABEL_11:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: uio.app_lib_rowid%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: uio.app_lib_rowid%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sqliteBind:index:.cold.4()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -448,15 +416,12 @@ LABEL_11:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: rio.app_lib_rowid%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: rio.app_lib_rowid%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sqliteBind:index:.cold.5()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -464,38 +429,23 @@ LABEL_11:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: rio.app_lib_rowid%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: rio.app_lib_rowid%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)sqliteBind:index:.cold.6()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: unknown itemID kind%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initAsLibraryRootWithAppLibraryRowID:enclosureUUID:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_15_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initAsLibraryRootWithAppLibraryRowID:enclosureUUID:.cold.2()
 {
   OUTLINED_FUNCTION_18();
-  v9 = *MEMORY[0x277D85DE8];
   v0 = brc_append_system_info_to_message();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_7(&dword_223E7A000, v1, v2, "[CRIT] %@%@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_223E7A000, v1, v2, "[CRIT] %@%@", v3, v4, v5, v6);
 }
 
 @end

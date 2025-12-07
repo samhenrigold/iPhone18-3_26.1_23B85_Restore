@@ -86,7 +86,7 @@
   if (self->_showsHeader)
   {
     v4 = objc_alloc_init(MEMORY[0x1E69DCC10]);
-    v5 = PUIBundle();
+    v5 = PUIBundle(v4);
     v6 = [v5 localizedStringForKey:@"COLOR_HEADING" value:&stru_1F1C6DED8 table:0];
     [v4 setText:v6];
 

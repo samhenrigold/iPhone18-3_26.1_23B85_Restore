@@ -510,6 +510,8 @@ LABEL_11:
 
   else
   {
+    v8 = 0;
+    v7 = 0;
     v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -533,7 +535,7 @@ LABEL_11:
   {
     [LTMStatsCompute computeInputParametersForImageWidth:calcGlobalHistOnROI:enableAntiAliasing:enableDualLTC:enableFATE:with:to:];
 LABEL_30:
-    v71 = -1;
+    v72 = -1;
     goto LABEL_27;
   }
 
@@ -579,11 +581,11 @@ LABEL_30:
   if (cCopy && ([widthCopy cropRect], v19 = v18, objc_msgSend(widthCopy, "cropRect"), v19 < v20))
   {
     [widthCopy cropRect];
-    v84 = v21;
+    v85 = v21;
     [widthCopy cropRect];
-    v82 = v22;
+    v83 = v22;
     [widthCopy cropRect];
-    v79 = v23;
+    v80 = v23;
     [widthCopy cropRect];
     v25 = v24;
     v26 = 1;
@@ -592,75 +594,75 @@ LABEL_30:
   else
   {
     [widthCopy cropRect];
-    v84 = v27;
+    v85 = v27;
     [widthCopy cropRect];
-    v82 = v28;
+    v83 = v28;
     [widthCopy cropRect];
-    v79 = v29;
+    v80 = v29;
     [widthCopy cropRect];
     v26 = 0;
   }
 
-  v30.f64[0] = v79;
+  v30.f64[0] = v80;
   v30.f64[1] = v25;
-  v31.f64[0] = v84;
-  v31.f64[1] = v82;
+  v31.f64[0] = v85;
+  v31.f64[1] = v83;
   v32 = vcvt_f32_f64(v30);
   to->var3.var0 = 1;
   __asm { FMOV            V5.2D, #0.5 }
 
   v38 = vcvtq_n_u64_f64(vrndmq_f64(vmulq_f64(vmulq_f64(vdivq_f64(vcvtq_f64_f32(v32), xmmword_1C9335C30), _Q5), _Q5)), 2uLL);
-  v78 = _Q5;
-  v80 = vmovn_s64(v38);
-  v39 = vmul_s32(v80, 0xD00000011);
+  v79 = _Q5;
+  v81 = vmovn_s64(v38);
+  v39 = vmul_s32(v81, 0xD00000011);
   v40 = vmulq_f64(vcvtq_f64_f32(vsub_f32(v32, vcvt_f32_u32(v39))), _Q5);
   *&v31.f64[0] = vmovn_s64(vcvtq_n_u64_f64(vrndmq_f64(vmulq_f64(vaddq_f64(v40, vcvtq_f64_f32(vcvt_f32_f64(v31))), _Q5)), 1uLL));
   *&v40.f64[0] = vadd_s32(v39, *&v31.f64[0]);
-  v85 = *&v31.f64[0];
-  v75 = v40;
+  v86 = *&v31.f64[0];
+  v76 = v40;
   v31.f64[1] = v40.f64[0];
   to->var3.var1 = 2;
   *&to->var3.var3 = v31;
-  v83 = vmulq_s32(vuzp1q_s32(v38, v38), xmmword_1C9335C40);
-  *&to->var3.var7 = v83;
+  v84 = vmulq_s32(vuzp1q_s32(v38, v38), xmmword_1C9335C40);
+  *&to->var3.var7 = v84;
   *&to->var3.var11 = 0x80000000000;
   to->var3.var13 = 1;
   to->var4.var9 = v26;
   if (useLowerLocalHistogramThreshold())
   {
-    v41 = 65471;
+    v42 = 65471;
   }
 
   else
   {
-    v41 = 65472;
+    v42 = 65472;
   }
 
   to->var3.var16 = 3;
-  to->var3.var14 = v41;
+  to->var3.var14 = v42;
   to->var3.var19 = 0;
   to->var3.var15 = aliasing;
   to->var3.var17 = 1;
-  AuxCompute_CalcAntiAliasingSettings(&to->var3.var17, &to->var3.var16, to->var3.var18, with);
+  AuxCompute_CalcAntiAliasingSettings(&to->var3.var17, &to->var3.var16, to->var3.var18, with, v41);
   [LTMStatsCompute rewriteAntiAliasingCoefficients:to->var3.var18];
   to->var3.var2 = ((to->var3.var10 * to->var3.var9) & 0xFFFE0000) != 0;
   to->var1.var0 = 1;
   if (!iCopy)
   {
     [widthCopy sourceRect];
-    to->var1.var2 = v46;
+    to->var1.var2 = v47;
     [widthCopy sourceRect];
-    to->var1.var3 = v47;
+    to->var1.var3 = v48;
     [widthCopy sourceRect];
-    v49 = v48;
+    v50 = v49;
     [widthCopy sourceRect];
-    to->var1.var4 = (v49 + v50);
+    to->var1.var4 = (v50 + v51);
     [widthCopy sourceRect];
-    v52 = v51;
+    v53 = v52;
     [widthCopy sourceRect];
-    var6 = (v52 + v53);
+    var6 = (v53 + v54);
 LABEL_17:
-    v45 = 48;
+    v46 = 48;
     goto LABEL_18;
   }
 
@@ -678,24 +680,24 @@ LABEL_17:
   to->var1.var3 = var3;
   to->var1.var5 = var5;
   var6 = to->var3.var6;
-  v45 = 44;
+  v46 = 44;
 LABEL_18:
-  *(&to->var0.var0 + v45) = var6;
-  [(LTMStatsCompute *)self calcExposureRatio:with, *&v75];
-  *v55.i32 = v54 * 256.0;
+  *(&to->var0.var0 + v46) = var6;
+  [(LTMStatsCompute *)self calcExposureRatio:with, *&v76];
+  *v56.i32 = v55 * 256.0;
   *&to->var1.var6[2] = 0;
   *to->var1.var6 = 0;
-  *to->var1.var7 = vdupq_lane_s32(v55, 0);
+  *to->var1.var7 = vdupq_lane_s32(v56, 0);
   if (eCopy)
   {
     numFaces = with->faceInfo.numFaces;
     to->var2.var0 = numFaces != 0;
     if (numFaces)
     {
-      v57 = (with + 16 * with->faceInfo.primaryFaceIndex);
-      v58 = v57[149];
-      *&to->var2.var2 = v58;
-      *&to->var2.var4 = vadd_s32(v57[150], v58);
+      v58 = (with + 16 * with->faceInfo.primaryFaceIndex);
+      v59 = v58[149];
+      *&to->var2.var2 = v59;
+      *&to->var2.var4 = vadd_s32(v58[150], v59);
       *to->var2.var6 = 0;
       *&to->var2.var6[2] = 0;
       memset_pattern16(to->var2.var7, &unk_1C9335C50, 0x10uLL);
@@ -708,49 +710,49 @@ LABEL_18:
     to->var2.var0 = 0;
   }
 
-  *&to->var4.var0 = v85;
-  *&to->var4.var2 = v76;
-  v59.i64[0] = v80.u32[0];
-  v59.i64[1] = v80.u32[1];
-  v77 = vmulq_f64(vcvtq_f64_u64(v59), v78);
-  *&to->var4.var6 = vmovn_s64(vcvtq_n_u64_f64(vrndmq_f64(vaddq_f64(vmulq_f64(vmulq_f64(v77, v78), v78), v78)), 1uLL));
-  to->var4.var4 = v80.i32[0] >> 1;
-  to->var4.var5 = v80.i32[1] >> 1;
-  to->var4.var10 = vcvtms_u32_f32((4295000000.0 / (v80.i32[0] >> 1)) / (v80.i32[1] >> 1));
+  *&to->var4.var0 = v86;
+  *&to->var4.var2 = v77;
+  v60.i64[0] = v81.u32[0];
+  v60.i64[1] = v81.u32[1];
+  v78 = vmulq_f64(vcvtq_f64_u64(v60), v79);
+  *&to->var4.var6 = vmovn_s64(vcvtq_n_u64_f64(vrndmq_f64(vaddq_f64(vmulq_f64(vmulq_f64(v78, v79), v79), v79)), 1uLL));
+  to->var4.var4 = v81.i32[0] >> 1;
+  to->var4.var5 = v81.i32[1] >> 1;
+  to->var4.var10 = vcvtms_u32_f32((4295000000.0 / (v81.i32[0] >> 1)) / (v81.i32[1] >> 1));
   to->var4.var8 = 1;
   [widthCopy inputTextureDownsampleRatio];
-  with->LTMGridConfig.width = (v60 * v83.u32[0]);
+  with->LTMGridConfig.width = (v61 * v84.u32[0]);
   [widthCopy inputTextureDownsampleRatio];
-  with->LTMGridConfig.height = (v61 * v83.u32[1]);
-  v62 = vadd_s32(v85, v80);
-  v81 = v62.u32[1];
-  v63 = v62.u32[0];
+  with->LTMGridConfig.height = (v62 * v84.u32[1]);
+  v63 = vadd_s32(v86, v81);
+  v82 = v63.u32[1];
+  v64 = v63.u32[0];
   [widthCopy deepZoomOrigin];
   if (v26)
   {
-    v64 = v65;
+    v65 = v66;
   }
 
-  v66 = v64 + v63;
+  v67 = v65 + v64;
   [widthCopy inputTextureDownsampleRatio];
-  with->LTMGridConfig.x = (v66 * v67);
+  with->LTMGridConfig.x = (v67 * v68);
   [widthCopy deepZoomOrigin];
   if (!v26)
   {
-    v68 = v69;
+    v69 = v70;
   }
 
-  v70 = v68 + v81;
+  v71 = v69 + v82;
   [widthCopy inputTextureDownsampleRatio];
-  v71 = 0;
-  with->LTMGridConfig.y = (v70 * v72);
-  v73.i64[0] = v85.u32[0];
-  v73.i64[1] = v85.u32[1];
-  *&with->localHistGridConfig.x = vmovn_s64(vcvtq_s64_f64(vaddq_f64(v77, vcvtq_f64_u64(v73))));
-  *&with->localHistGridConfig.width = v83.i64[0];
+  v72 = 0;
+  with->LTMGridConfig.y = (v71 * v73);
+  v74.i64[0] = v86.u32[0];
+  v74.i64[1] = v86.u32[1];
+  *&with->localHistGridConfig.x = vmovn_s64(vcvtq_s64_f64(vaddq_f64(v78, vcvtq_f64_u64(v74))));
+  *&with->localHistGridConfig.width = v84.i64[0];
 LABEL_27:
 
-  return v71;
+  return v72;
 }
 
 - (float)calcExposureRatio:(const sRefDriverInputs_SOFTISP *)ratio
@@ -779,23 +781,16 @@ LABEL_27:
     return 1.0;
   }
 
-  AuxCompute_CalcExposureRatio(ratio);
+  AuxCompute_CalcExposureRatio(ratio, a2);
   return result;
-}
-
-- (uint64_t)initWithMetalContext:.cold.2()
-{
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_8();
-  return FigSignalErrorAtGM();
 }
 
 - (uint64_t)createShaders:(_DWORD *)a1 .cold.1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -803,9 +798,9 @@ LABEL_27:
 - (uint64_t)createShaders:(_DWORD *)a1 .cold.2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -813,9 +808,9 @@ LABEL_27:
 - (uint64_t)createShaders:(_DWORD *)a1 .cold.3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -823,9 +818,9 @@ LABEL_27:
 - (uint64_t)createShaders:(_DWORD *)a1 .cold.4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -833,9 +828,9 @@ LABEL_27:
 - (uint64_t)createShaders:(_DWORD *)a1 .cold.5(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -843,9 +838,9 @@ LABEL_27:
 - (uint64_t)createShaders:(_DWORD *)a1 .cold.6(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -853,9 +848,9 @@ LABEL_27:
 - (uint64_t)createShaders:(_DWORD *)a1 .cold.7(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -863,9 +858,9 @@ LABEL_27:
 - (uint64_t)createShaders:(_DWORD *)a1 .cold.8(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -873,401 +868,576 @@ LABEL_27:
 - (void)encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:.cold.1()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: cmdEnc is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:.cold.2()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: cmdEnc is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:.cold.3()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: cmdEnc is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:.cold.4()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: cmdEnc is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:.cold.5()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: blitEncoder is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:.cold.6()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: _cmdBuf is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:.cold.7()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: localHistTmpBuffer is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:.cold.8()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: thumbnailBuffer is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:.cold.9()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: globalHistBuffer is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:.cold.10()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: localHistBuffer is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:.cold.11()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationOptimized:params:globalHistogram:globalFaceHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: _metalContext.commandQueue is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationPrecise:paramsGlobalHist:globalHistogram:localHistogram:thumbnail:.cold.1()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationPrecise:paramsGlobalHist:globalHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: cmdEnc is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationPrecise:paramsGlobalHist:globalHistogram:localHistogram:thumbnail:.cold.2()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationPrecise:paramsGlobalHist:globalHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: cmdEnc is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationPrecise:paramsGlobalHist:globalHistogram:localHistogram:thumbnail:.cold.3()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationPrecise:paramsGlobalHist:globalHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: blitEncoder is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationPrecise:paramsGlobalHist:globalHistogram:localHistogram:thumbnail:.cold.4()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationPrecise:paramsGlobalHist:globalHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: _cmdBuf is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationPrecise:paramsGlobalHist:globalHistogram:localHistogram:thumbnail:.cold.5()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationPrecise:paramsGlobalHist:globalHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: thumbnailBuffer is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationPrecise:paramsGlobalHist:globalHistogram:localHistogram:thumbnail:.cold.6()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationPrecise:paramsGlobalHist:globalHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: globalHistBuffer is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationPrecise:paramsGlobalHist:globalHistogram:localHistogram:thumbnail:.cold.7()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationPrecise:paramsGlobalHist:globalHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: localHistBuffer is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)encodeLTMStatisticsCalculationPrecise:paramsGlobalHist:globalHistogram:localHistogram:thumbnail:.cold.8()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute encodeLTMStatisticsCalculationPrecise:paramsGlobalHist:globalHistogram:localHistogram:thumbnail:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: _metalContext.commandQueue is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)computeInputParametersForImageWidth:calcGlobalHistOnROI:enableAntiAliasing:enableDualLTC:enableFATE:with:to:.cold.2()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute computeInputParametersForImageWidth:calcGlobalHistOnROI:enableAntiAliasing:enableDualLTC:enableFATE:with:to:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: outStatsParams is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)computeInputParametersForImageWidth:calcGlobalHistOnROI:enableAntiAliasing:enableDualLTC:enableFATE:with:to:.cold.3()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute computeInputParametersForImageWidth:calcGlobalHistOnROI:enableAntiAliasing:enableDualLTC:enableFATE:with:to:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: hardIspDGain is invalid", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)calcExposureRatio:.cold.1()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute calcExposureRatio:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: overflowDGain == 0", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)calcExposureRatio:.cold.2()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute calcExposureRatio:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: ev0Ratio == 0", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)calcExposureRatio:.cold.3()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute calcExposureRatio:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: gainDigi == 0", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)calcExposureRatio:.cold.4()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStatsCompute calcExposureRatio:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: hdrRatio == 0", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 @end

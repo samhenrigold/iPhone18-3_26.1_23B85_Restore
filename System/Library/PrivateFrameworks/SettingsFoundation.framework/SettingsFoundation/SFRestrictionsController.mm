@@ -10,7 +10,7 @@
 
 + (id)restrictionSpecifiers
 {
-  v2 = SFBundleForSettingsFoundationFramework();
+  v2 = SFBundleForSettingsFoundationFramework(self);
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -69,25 +69,24 @@
 
 + (id)TCCServices
 {
-  v10[11] = *MEMORY[0x277D85DE8];
+  v9[11] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D6C1E0];
-  v10[0] = *MEMORY[0x277D6C100];
-  v10[1] = v2;
+  v9[0] = *MEMORY[0x277D6C100];
+  v9[1] = v2;
   v3 = *MEMORY[0x277D6C1D0];
-  v10[2] = *MEMORY[0x277D6C118];
-  v10[3] = v3;
+  v9[2] = *MEMORY[0x277D6C118];
+  v9[3] = v3;
   v4 = *MEMORY[0x277D6C110];
-  v10[4] = *MEMORY[0x277D6C1D8];
-  v10[5] = v4;
+  v9[4] = *MEMORY[0x277D6C1D8];
+  v9[5] = v4;
   v5 = *MEMORY[0x277D6C258];
-  v10[6] = *MEMORY[0x277D6C1A8];
-  v10[7] = v5;
+  v9[6] = *MEMORY[0x277D6C1A8];
+  v9[7] = v5;
   v6 = *MEMORY[0x277D6C120];
-  v10[8] = *MEMORY[0x277D6C1B0];
-  v10[9] = v6;
-  v10[10] = *MEMORY[0x277D6C1A0];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:11];
-  v8 = *MEMORY[0x277D85DE8];
+  v9[8] = *MEMORY[0x277D6C1B0];
+  v9[9] = v6;
+  v9[10] = *MEMORY[0x277D6C1A0];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:11];
 
   return v7;
 }
@@ -125,34 +124,34 @@
 
 + (void)resetRestrictions
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v2 = +[SFRestrictionsController restrictionSpecifiers];
   mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
-  v46 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v2, "count") + 1}];
-  v47 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v2, "count")}];
+  v45 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v2, "count") + 1}];
+  v46 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v2, "count")}];
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   obj = v2;
-  v3 = [obj countByEnumeratingWithState:&v54 objects:v61 count:16];
+  v3 = [obj countByEnumeratingWithState:&v53 objects:v60 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v55;
-    v45 = *MEMORY[0x277D25D30];
-    v44 = *MEMORY[0x277D25E60];
+    v5 = *v54;
+    v44 = *MEMORY[0x277D25D30];
+    v43 = *MEMORY[0x277D25E60];
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v55 != v5)
+        if (*v54 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v54 + 1) + 8 * i);
-        v8 = [v7 objectForKey:{@"MCFeature", v44}];
+        v7 = *(*(&v53 + 1) + 8 * i);
+        v8 = [v7 objectForKey:{@"MCFeature", v43}];
         v9 = [v7 objectForKey:@"capability"];
         v10 = v9;
         if (v8)
@@ -165,12 +164,12 @@
             v13 = [mEMORY[0x277D262A0] defaultParametersForBoolSetting:v8];
             if (v13)
             {
-              [v46 setObject:v13 forKey:v8];
-              if ([v8 isEqualToString:v45])
+              [v45 setObject:v13 forKey:v8];
+              if ([v8 isEqualToString:v44])
               {
-                v14 = v46;
+                v14 = v45;
                 v15 = v13;
-                v16 = v44;
+                v16 = v43;
                 goto LABEL_14;
               }
             }
@@ -184,7 +183,7 @@
           else
           {
             v13 = [mEMORY[0x277D262A0] defaultParametersForValueSetting:v8];
-            v14 = v47;
+            v14 = v46;
             v15 = v13;
             v16 = v8;
 LABEL_14:
@@ -209,35 +208,35 @@ LABEL_14:
 LABEL_19:
       }
 
-      v4 = [obj countByEnumeratingWithState:&v54 objects:v61 count:16];
+      v4 = [obj countByEnumeratingWithState:&v53 objects:v60 count:16];
     }
 
     while (v4);
   }
 
   v19 = +[SFRestrictionsController TCCServices];
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
-  v20 = [v19 countByEnumeratingWithState:&v50 objects:v60 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v49 objects:v59 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v51;
+    v22 = *v50;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v51 != v22)
+        if (*v50 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        [SFRestrictionsController setSpringBoardCapability:*(*(&v50 + 1) + 8 * j) enabled:1];
+        [SFRestrictionsController setSpringBoardCapability:*(*(&v49 + 1) + 8 * j) enabled:1];
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v50 objects:v60 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v49 objects:v59 count:16];
     }
 
     while (v21);
@@ -245,7 +244,7 @@ LABEL_19:
 
   v24 = *MEMORY[0x277D260E0];
   v25 = [mEMORY[0x277D262A0] defaultParametersForBoolSetting:*MEMORY[0x277D260E0]];
-  [v46 setObject:v25 forKeyedSubscript:v24];
+  [v45 setObject:v25 forKeyedSubscript:v24];
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v27 = *MEMORY[0x277D260E8];
@@ -259,34 +258,32 @@ LABEL_19:
 
   v32 = *MEMORY[0x277D25D40];
   v33 = [mEMORY[0x277D262A0] defaultParametersForBoolSetting:*MEMORY[0x277D25D40]];
-  [v46 setObject:v33 forKeyedSubscript:v32];
+  [v45 setObject:v33 forKeyedSubscript:v32];
 
   v34 = *MEMORY[0x277D25D38];
   v35 = [mEMORY[0x277D262A0] defaultParametersForBoolSetting:*MEMORY[0x277D25D38]];
-  [v46 setObject:v35 forKeyedSubscript:v34];
+  [v45 setObject:v35 forKeyedSubscript:v34];
 
   v36 = *MEMORY[0x277D25D10];
   v37 = [mEMORY[0x277D262A0] defaultParametersForBoolSetting:*MEMORY[0x277D25D10]];
-  [v46 setObject:v37 forKeyedSubscript:v36];
+  [v45 setObject:v37 forKeyedSubscript:v36];
 
   v38 = *MEMORY[0x277D25DC8];
   v39 = [mEMORY[0x277D262A0] defaultParametersForBoolSetting:*MEMORY[0x277D25DC8]];
-  [v46 setObject:v39 forKeyedSubscript:v38];
+  [v45 setObject:v39 forKeyedSubscript:v38];
 
   v40 = *MEMORY[0x277D26168];
-  v58[0] = *MEMORY[0x277D26158];
-  v58[1] = v40;
-  v59[0] = v46;
-  v59[1] = v47;
+  v57[0] = *MEMORY[0x277D26158];
+  v57[1] = v40;
+  v58[0] = v45;
+  v58[1] = v46;
   v41 = *MEMORY[0x277D26198];
-  v58[2] = *MEMORY[0x277D26110];
-  v58[3] = v41;
-  v59[2] = dictionary;
-  v59[3] = dictionary2;
-  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:4];
+  v57[2] = *MEMORY[0x277D26110];
+  v57[3] = v41;
+  v58[2] = dictionary;
+  v58[3] = dictionary2;
+  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:4];
   [mEMORY[0x277D262A0] setParametersForSettingsByType:v42];
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 + (void)resetRestrictionsPassword

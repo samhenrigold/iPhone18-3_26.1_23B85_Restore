@@ -75,7 +75,7 @@ EmitterViewerSPI::ANECEluOpHandler *EmitterViewerSPI::ANECEluOpHandler::ANECEluO
   }
 
   v16 = [MEMORY[0x277CBEB18] array];
-  mlir::anec::Rsqrt::getEpsilon(&v33, &v34);
+  mlir::anec::Rsqrt::getEpsilon(&v34, &v33);
   v17 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"alpha" dataType:268435488 shape:&unk_2868AF878];
   if (v17)
   {
@@ -1255,7 +1255,7 @@ EmitterViewerSPI::ANECInstanceNormOpHandler *EmitterViewerSPI::ANECInstanceNormO
     [v16 addObject:v20];
   }
 
-  mlir::anec::InstanceNorm::getEpsilon(&v37, &v38);
+  mlir::anec::InstanceNorm::getEpsilon(&v38, &v37);
   v21 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"epsilon" dataType:268435488 shape:&unk_2868AF908];
   if (v21)
   {
@@ -1373,7 +1373,7 @@ EmitterViewerSPI::ANECInvertOpHandler *EmitterViewerSPI::ANECInvertOpHandler::AN
   }
 
   v16 = [MEMORY[0x277CBEB18] array];
-  mlir::anec::Rsqrt::getEpsilon(&v33, &v34);
+  mlir::anec::Rsqrt::getEpsilon(&v34, &v33);
   v17 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"epsilon" dataType:268435488 shape:&unk_2868AF920];
   if (v17)
   {
@@ -1661,7 +1661,7 @@ EmitterViewerSPI::ANECLayerNormOpHandler *EmitterViewerSPI::ANECLayerNormOpHandl
     [v16 addObject:v20];
   }
 
-  mlir::anec::InstanceNorm::getEpsilon(&v37, &v38);
+  mlir::anec::InstanceNorm::getEpsilon(&v38, &v37);
   v21 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"epsilon" dataType:268435488 shape:&unk_2868AF938];
   if (v21)
   {
@@ -1778,7 +1778,7 @@ EmitterViewerSPI::ANECLeakyReluOpHandler *EmitterViewerSPI::ANECLeakyReluOpHandl
   }
 
   v15 = [MEMORY[0x277CBEB18] array];
-  mlir::anec::DeQuant::getScale(&v35, &v38);
+  mlir::anec::DeQuant::getScale(&v38, &v35);
   v16 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"offset" dataType:268435488 shape:&unk_2868AF950];
   if (v16)
   {
@@ -1788,11 +1788,11 @@ EmitterViewerSPI::ANECLeakyReluOpHandler *EmitterViewerSPI::ANECLeakyReluOpHandl
     [v15 addObject:v16];
   }
 
-  mlir::anec::InstanceNorm::getEpsilon(&v35, v36);
+  mlir::anec::InstanceNorm::getEpsilon(&v36, &v35);
   v18 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"slope" dataType:268435488 shape:&unk_2868AF968];
   if (v18)
   {
-    v19 = [MEMORY[0x277CBEA90] dataWithBytes:v36 length:32];
+    v19 = [MEMORY[0x277CBEA90] dataWithBytes:&v36 length:32];
     [(MLViewerNodePropertyDataSPI *)v18 setValue:v19];
 
     [v15 addObject:v18];
@@ -1838,7 +1838,7 @@ EmitterViewerSPI::ANECLeakyReluOpHandler *EmitterViewerSPI::ANECLeakyReluOpHandl
   return this;
 }
 
-void sub_2563C5458(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+void sub_2563C5458(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
 {
   llvm::APFloat::~APFloat(&a17);
 
@@ -2069,7 +2069,7 @@ EmitterViewerSPI::ANECLog2OpHandler *EmitterViewerSPI::ANECLog2OpHandler::ANECLo
   }
 
   v16 = [MEMORY[0x277CBEB18] array];
-  mlir::anec::Rsqrt::getEpsilon(&v33, &v34);
+  mlir::anec::Rsqrt::getEpsilon(&v34, &v33);
   v17 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"epsilon" dataType:268435488 shape:&unk_2868AF980];
   if (v17)
   {
@@ -2193,7 +2193,7 @@ EmitterViewerSPI::ANECMatMulOpHandler *EmitterViewerSPI::ANECMatMulOpHandler::AN
   }
 
   v17 = [MEMORY[0x277CBEB18] array];
-  mlir::anec::MatMul::getBias(&v35, &v36);
+  mlir::anec::MatMul::getBias(&v36, &v35);
   if (v38 == 1)
   {
     v18 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"bias" dataType:268435488 shape:&unk_2868AF998];
@@ -2491,7 +2491,7 @@ EmitterViewerSPI::ANECNReluOpHandler *EmitterViewerSPI::ANECNReluOpHandler::ANEC
   }
 
   v15 = [MEMORY[0x277CBEB18] array];
-  mlir::anec::DeQuant::getScale(&v35, &v38);
+  mlir::anec::DeQuant::getScale(&v38, &v35);
   v16 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"max_value" dataType:268435488 shape:&unk_2868AF9B0];
   if (v16)
   {
@@ -2501,11 +2501,11 @@ EmitterViewerSPI::ANECNReluOpHandler *EmitterViewerSPI::ANECNReluOpHandler::ANEC
     [v15 addObject:v16];
   }
 
-  mlir::anec::InstanceNorm::getEpsilon(&v35, v36);
+  mlir::anec::InstanceNorm::getEpsilon(&v36, &v35);
   v18 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"slope" dataType:268435488 shape:&unk_2868AF9C8];
   if (v18)
   {
-    v19 = [MEMORY[0x277CBEA90] dataWithBytes:v36 length:32];
+    v19 = [MEMORY[0x277CBEA90] dataWithBytes:&v36 length:32];
     [(MLViewerNodePropertyDataSPI *)v18 setValue:v19];
 
     [v15 addObject:v18];
@@ -2551,7 +2551,7 @@ EmitterViewerSPI::ANECNReluOpHandler *EmitterViewerSPI::ANECNReluOpHandler::ANEC
   return this;
 }
 
-void sub_2563C6D34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+void sub_2563C6D34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
 {
   llvm::APFloat::~APFloat(&a17);
 
@@ -2669,7 +2669,7 @@ EmitterViewerSPI::ANECPaddingOpHandler *EmitterViewerSPI::ANECPaddingOpHandler::
     [v16 addObject:v24];
   }
 
-  mlir::anec::Padding::getBackgroundValue(&v41, &v42);
+  mlir::anec::Padding::getBackgroundValue(&v42, &v41);
   v25 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"background_value" dataType:268435488 shape:&unk_2868AF9E0];
   if (v25)
   {
@@ -3015,7 +3015,7 @@ EmitterViewerSPI::ANECQuantOpHandler *EmitterViewerSPI::ANECQuantOpHandler::ANEC
   }
 
   v16 = [MEMORY[0x277CBEB18] array];
-  mlir::anec::DeQuant::getScale(&v36, &v37);
+  mlir::anec::DeQuant::getScale(&v37, &v36);
   v17 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"scale" dataType:268435488 shape:&unk_2868AF9F8];
   if (v17)
   {
@@ -3918,7 +3918,7 @@ EmitterViewerSPI::ANECResampleOpHandler *EmitterViewerSPI::ANECResampleOpHandler
     [v15 addObject:v39];
   }
 
-  mlir::anec::Resample::getBackgroundValue(&v58, &v59);
+  mlir::anec::Resample::getBackgroundValue(&v59, &v58);
   v40 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"background_value" dataType:268435488 shape:&unk_2868AFA28];
   if (v40)
   {
@@ -4147,7 +4147,7 @@ EmitterViewerSPI::ANECResizeOpHandler *EmitterViewerSPI::ANECResizeOpHandler::AN
     [v14 addObject:v17];
   }
 
-  mlir::anec::Resize::getScaleFactorX(&v49, &v52);
+  mlir::anec::Resize::getScaleFactorX(&v52, &v49);
   v19 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"scale_factor_x" dataType:268435488 shape:&unk_2868AFA70];
   if (v19)
   {
@@ -4157,11 +4157,11 @@ EmitterViewerSPI::ANECResizeOpHandler *EmitterViewerSPI::ANECResizeOpHandler::AN
     [v14 addObject:v19];
   }
 
-  mlir::anec::Resize::getScaleFactorY(&v49, v50);
+  mlir::anec::Resize::getScaleFactorY(&v50, &v49);
   v21 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"scale_factor_y" dataType:268435488 shape:&unk_2868AFA88];
   if (v21)
   {
-    v22 = [MEMORY[0x277CBEA90] dataWithBytes:v50 length:32];
+    v22 = [MEMORY[0x277CBEA90] dataWithBytes:&v50 length:32];
     [(MLViewerNodePropertyDataSPI *)v21 setValue:v22];
 
     [v14 addObject:v21];
@@ -4245,7 +4245,7 @@ EmitterViewerSPI::ANECResizeOpHandler *EmitterViewerSPI::ANECResizeOpHandler::AN
   return this;
 }
 
-void sub_2563CA958(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
+void sub_2563CA958(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
 {
   llvm::APFloat::~APFloat(&a21);
 
@@ -4765,7 +4765,7 @@ EmitterViewerSPI::ANECRsqrtOpHandler *EmitterViewerSPI::ANECRsqrtOpHandler::ANEC
   }
 
   v16 = [MEMORY[0x277CBEB18] array];
-  mlir::anec::Rsqrt::getEpsilon(&v33, &v34);
+  mlir::anec::Rsqrt::getEpsilon(&v34, &v33);
   v17 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"epsilon" dataType:268435488 shape:&unk_2868AFAA0];
   if (v17)
   {
@@ -4895,7 +4895,7 @@ EmitterViewerSPI::ANECScaledElementWiseOpHandler *EmitterViewerSPI::ANECScaledEl
     [v14 addObject:v17];
   }
 
-  mlir::anec::ScaledElementWise::getPreScale(&v47, &v52);
+  mlir::anec::ScaledElementWise::getPreScale(&v52, &v47);
   v18 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"pre_scale" dataType:268435488 shape:&unk_2868AFAB8];
   if (v18)
   {
@@ -4905,21 +4905,21 @@ EmitterViewerSPI::ANECScaledElementWiseOpHandler *EmitterViewerSPI::ANECScaledEl
     [v14 addObject:v18];
   }
 
-  mlir::anec::ScaledElementWise::getScale(&v47, v50);
+  mlir::anec::ScaledElementWise::getScale(&v50, &v47);
   v20 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"scale" dataType:268435488 shape:&unk_2868AFAD0];
   if (v20)
   {
-    v21 = [MEMORY[0x277CBEA90] dataWithBytes:v50 length:32];
+    v21 = [MEMORY[0x277CBEA90] dataWithBytes:&v50 length:32];
     [(MLViewerNodePropertyDataSPI *)v20 setValue:v21];
 
     [v14 addObject:v20];
   }
 
-  mlir::anec::ScaledElementWise::getBias(&v47, v48);
+  mlir::anec::ScaledElementWise::getBias(&v48, &v47);
   v22 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"bias" dataType:268435488 shape:&unk_2868AFAE8];
   if (v22)
   {
-    v23 = [MEMORY[0x277CBEA90] dataWithBytes:v48 length:32];
+    v23 = [MEMORY[0x277CBEA90] dataWithBytes:&v48 length:32];
     [(MLViewerNodePropertyDataSPI *)v22 setValue:v23];
 
     [v14 addObject:v22];
@@ -4995,7 +4995,7 @@ EmitterViewerSPI::ANECScaledElementWiseOpHandler *EmitterViewerSPI::ANECScaledEl
   return this;
 }
 
-void sub_2563CC460(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, void *a11, void *a12, void *a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_2563CC460(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, void *a11, void *a12, void *a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
 {
   llvm::APFloat::~APFloat(&a22);
 

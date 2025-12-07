@@ -356,18 +356,14 @@
     }
   }
 
-  else
+  else if (([(NSString *)identifier isEqual:?]& 1) == 0)
   {
-    v8 = [(NSString *)identifier isEqual:?];
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_38;
-    }
+    goto LABEL_38;
   }
 
   currencyAmount = self->_currencyAmount;
-  v10 = itemCopy[5];
-  if (currencyAmount && v10)
+  v9 = itemCopy[5];
+  if (currencyAmount && v9)
   {
     if (![(PKCurrencyAmount *)currencyAmount isEqual:?])
     {
@@ -375,14 +371,14 @@
     }
   }
 
-  else if (currencyAmount != v10)
+  else if (currencyAmount != v9)
   {
     goto LABEL_38;
   }
 
   eligibleValue = self->_eligibleValue;
-  v12 = itemCopy[6];
-  if (eligibleValue && v12)
+  v11 = itemCopy[6];
+  if (eligibleValue && v11)
   {
     if (([(NSDecimalNumber *)eligibleValue isEqual:?]& 1) == 0)
     {
@@ -390,52 +386,52 @@
     }
   }
 
-  else if (eligibleValue != v12)
+  else if (eligibleValue != v11)
   {
     goto LABEL_38;
   }
 
-  v13 = itemCopy[8];
-  v14 = self->_promotionName;
-  v15 = v13;
-  v16 = v15;
-  if (v14 == v15)
+  v12 = itemCopy[8];
+  v13 = self->_promotionName;
+  v14 = v12;
+  v15 = v14;
+  if (v13 == v14)
   {
   }
 
   else
   {
-    if (!v14 || !v15)
+    if (!v13 || !v14)
     {
       goto LABEL_37;
     }
 
-    v17 = [(NSString *)v14 isEqualToString:v15];
+    isEqualToString = objc_msgSend_isEqualToString_(v13);
 
-    if (!v17)
+    if (!isEqualToString)
     {
       goto LABEL_38;
     }
   }
 
-  v18 = itemCopy[9];
-  v14 = self->_promotionIdentifier;
-  v19 = v18;
-  v16 = v19;
-  if (v14 == v19)
+  v17 = itemCopy[9];
+  v13 = self->_promotionIdentifier;
+  v18 = v17;
+  v15 = v18;
+  if (v13 == v18)
   {
   }
 
   else
   {
-    if (!v14 || !v19)
+    if (!v13 || !v18)
     {
       goto LABEL_37;
     }
 
-    v20 = [(NSString *)v14 isEqualToString:v19];
+    v19 = objc_msgSend_isEqualToString_(v13);
 
-    if (!v20)
+    if (!v19)
     {
       goto LABEL_38;
     }
@@ -446,17 +442,17 @@
     goto LABEL_38;
   }
 
-  v21 = itemCopy[10];
-  v14 = self->_programIdentifier;
-  v22 = v21;
-  v16 = v22;
-  if (v14 != v22)
+  v20 = itemCopy[10];
+  v13 = self->_programIdentifier;
+  v21 = v20;
+  v15 = v21;
+  if (v13 != v21)
   {
-    if (v14 && v22)
+    if (v13 && v21)
     {
-      v23 = [(NSString *)v14 isEqualToString:v22];
+      v22 = objc_msgSend_isEqualToString_(v13);
 
-      if (!v23)
+      if (!v22)
       {
         goto LABEL_38;
       }
@@ -472,15 +468,15 @@ LABEL_37:
 LABEL_41:
   if (self->_type == itemCopy[3] && self->_state == itemCopy[4])
   {
-    v24 = self->_eligibleValueUnit == itemCopy[7];
+    v23 = self->_eligibleValueUnit == itemCopy[7];
     goto LABEL_39;
   }
 
 LABEL_38:
-  v24 = 0;
+  v23 = 0;
 LABEL_39:
 
-  return v24;
+  return v23;
 }
 
 - (id)description

@@ -37,7 +37,7 @@
 
 + (id)localDBRefWithError:(id *)error
 {
-  v32[3] = *MEMORY[0x277D85DE8];
+  v31[3] = *MEMORY[0x277D85DE8];
   v5 = OSLogLogdAdminConnection();
   if (v5)
   {
@@ -60,15 +60,15 @@
           v11 = "unknown error";
         }
 
-        v31[0] = @"_OSLogErrorInternalCode";
+        v30[0] = @"_OSLogErrorInternalCode";
         v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:15];
-        v32[0] = v12;
-        v31[1] = @"_OSLogErrorXPCErrorDescription";
+        v31[0] = v12;
+        v30[1] = @"_OSLogErrorXPCErrorDescription";
         v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:v11];
-        v31[2] = *MEMORY[0x277CCA450];
-        v32[1] = v13;
-        v32[2] = @"Connection to logd failed";
-        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
+        v30[2] = *MEMORY[0x277CCA450];
+        v31[1] = v13;
+        v31[2] = @"Connection to logd failed";
+        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
 
         v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"OSLogErrorDomain" code:10 userInfo:v14];
 
@@ -107,9 +107,9 @@ LABEL_18:
     v19 = [[_OSLogDirectoryReference alloc] initWithDescriptor:v17 sandboxExtensionToken:v18];
     if (close(v17) == -1)
     {
-      v30 = *__error();
+      v29 = *__error();
       result = *__error();
-      if (v30 == 9)
+      if (v29 == 9)
       {
         qword_27DA52778 = "BUG IN CLIENT OF LIBTRACE: don't close random fds";
         qword_27DA527A8 = result;
@@ -181,8 +181,6 @@ LABEL_33:
 
   v8 = 0;
 LABEL_27:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

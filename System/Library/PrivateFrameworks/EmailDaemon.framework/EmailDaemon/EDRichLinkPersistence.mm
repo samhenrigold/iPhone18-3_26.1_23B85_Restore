@@ -23,7 +23,7 @@ void ___ef_log_EDRichLinkPersistence_block_invoke()
 
 + (id)tablesAndForeignKeysToResolve:(id *)resolve associationsToResolve:(id *)toResolve
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v5 = [EDRichLinkPersistence richLinksTableSchema:resolve];
   v6 = +[EDRichLinkPersistence messagesRichLinksTableSchema];
   v7 = [v6 columnForName:@"rich_link"];
@@ -32,55 +32,49 @@ void ___ef_log_EDRichLinkPersistence_block_invoke()
   v8 = [EDPersistenceForeignKeyPlaceholder alloc];
   v9 = [v6 columnForName:@"global_message_id"];
   v10 = [(EDPersistenceForeignKeyPlaceholder *)v8 initWithColumn:v9 tableName:@"message_global_data" onDelete:2 onUpdate:0];
-  v15[0] = v10;
-  *resolve = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v14[0] = v10;
+  *resolve = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
 
-  v14[0] = v5;
-  v14[1] = v6;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v13[0] = v5;
+  v13[1] = v6;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
 
   return v11;
 }
 
 + (id)richLinksTableSchema
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] textColumnWithName:@"title" collation:1 nullable:1];
-  v12[0] = v3;
+  v11[0] = v3;
   v4 = [MEMORY[0x1E699B8D0] textColumnWithName:@"url" collation:1 nullable:0];
-  v12[1] = v4;
+  v11[1] = v4;
   v5 = [MEMORY[0x1E699B8D0] textColumnWithName:@"hash" collation:1 nullable:0];
-  v12[2] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
+  v11[2] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
   v7 = [v2 initWithName:@"rich_links" rowIDType:2 columns:v6];
 
-  v11 = @"hash";
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
+  v10 = @"hash";
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v10 count:1];
   [v7 addUniquenessConstraintForColumns:v8 conflictResolution:1];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)messagesRichLinksTableSchema
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"global_message_id" nullable:0];
-  v11[0] = v3;
+  v10[0] = v3;
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"rich_link" nullable:0];
-  v11[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
-  v10[0] = @"global_message_id";
-  v10[1] = @"rich_link";
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v10[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v9[0] = @"global_message_id";
+  v9[1] = @"rich_link";
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
   v7 = [v2 initWithName:@"message_rich_links" columns:v5 primaryKeyColumns:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -481,7 +475,7 @@ void __65__EDRichLinkPersistence_richLinkPersistentIDsForGlobalMessageID___block
 
 uint64_t __51__EDRichLinkPersistence_richLinkURLsForMessageIDs___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_alloc(MEMORY[0x1E699B948]);
   v5 = [MEMORY[0x1E699B8C8] allColumns];
@@ -493,15 +487,15 @@ uint64_t __51__EDRichLinkPersistence_richLinkURLsForMessageIDs___block_invoke(ui
   v10 = [v8 in:*(a1 + 32)];
   [v6 setWhere:v10];
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __51__EDRichLinkPersistence_richLinkURLsForMessageIDs___block_invoke_2;
-  v18[3] = &unk_1E8250300;
-  v19 = *(a1 + 40);
-  v17 = 0;
-  [v3 executeSelectStatement:v6 withBlock:v18 error:&v17];
-  v11 = v17;
-  v12 = _ef_log_EDRichLinkPersistence();
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __51__EDRichLinkPersistence_richLinkURLsForMessageIDs___block_invoke_2;
+  v17[3] = &unk_1E8250300;
+  v18 = *(a1 + 40);
+  v16 = 0;
+  [v3 executeSelectStatement:v6 withBlock:v17 error:&v16];
+  v11 = v16;
+  v12 = _ef_log_EDRichLinkPersistence(v11);
   v13 = v12;
   if (v11)
   {
@@ -515,11 +509,10 @@ uint64_t __51__EDRichLinkPersistence_richLinkURLsForMessageIDs___block_invoke(ui
   {
     v14 = *v9;
     *buf = 138543362;
-    v21 = v14;
+    v20 = v14;
     _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Found rich link metadata for messages %{public}@", buf, 0xCu);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -535,100 +528,96 @@ void __51__EDRichLinkPersistence_richLinkURLsForMessageIDs___block_invoke_2(uint
 
 - (void)cleanUpLegacyRichLinkFilesAtBasePath:(id)path
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v4 = pathCopy;
   if (pathCopy)
   {
     v5 = [pathCopy URLByAppendingPathComponent:@"RichLinkData" isDirectory:1];
-    v18 = 0;
+    v19 = 0;
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     path = [v5 path];
-    v8 = [defaultManager fileExistsAtPath:path isDirectory:&v18];
+    v8 = [defaultManager fileExistsAtPath:path isDirectory:&v19];
 
     if (v8)
     {
-      if (v18)
+      if (v19)
       {
         defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-        v17 = 0;
-        v10 = [defaultManager2 removeItemAtURL:v5 error:&v17];
-        v11 = v17;
+        v18 = 0;
+        v11 = [defaultManager2 removeItemAtURL:v5 error:&v18];
+        v12 = v18;
 
-        v12 = _ef_log_EDRichLinkPersistence();
-        v13 = v12;
-        if (v10)
+        v14 = _ef_log_EDRichLinkPersistence(v13);
+        v15 = v14;
+        if (v11)
         {
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v20 = v5;
-            _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Successfully removed legacy RichLinkData directory at %@", buf, 0xCu);
+            v21 = v5;
+            _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEFAULT, "Successfully removed legacy RichLinkData directory at %@", buf, 0xCu);
           }
         }
 
         else
         {
-          v14 = v12;
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v16 = v14;
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
-            ef_publicDescription = [v11 ef_publicDescription];
-            [(EDRichLinkPersistence *)v5 cleanUpLegacyRichLinkFilesAtBasePath:ef_publicDescription, buf, v14];
+            ef_publicDescription = [v12 ef_publicDescription];
+            [(EDRichLinkPersistence *)v5 cleanUpLegacyRichLinkFilesAtBasePath:ef_publicDescription, buf, v16];
           }
         }
       }
 
       else
       {
-        v11 = _ef_log_EDRichLinkPersistence();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v12 = _ef_log_EDRichLinkPersistence(v9);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          [(EDRichLinkPersistence *)v5 cleanUpLegacyRichLinkFilesAtBasePath:v11];
+          [(EDRichLinkPersistence *)v5 cleanUpLegacyRichLinkFilesAtBasePath:v12];
         }
       }
     }
 
     else
     {
-      v11 = _ef_log_EDRichLinkPersistence();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v12 = _ef_log_EDRichLinkPersistence(v9);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v20 = v5;
-        _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_INFO, "RichLinkData directory does not exist at %@, no cleanup needed.", buf, 0xCu);
+        v21 = v5;
+        _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_INFO, "RichLinkData directory does not exist at %@, no cleanup needed.", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v5 = _ef_log_EDRichLinkPersistence();
+    v5 = _ef_log_EDRichLinkPersistence(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [EDRichLinkPersistence cleanUpLegacyRichLinkFilesAtBasePath:v5];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __51__EDRichLinkPersistence_richLinkURLsForMessageIDs___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch rich link metadata for messages %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch rich link metadata for messages %{public}@", &v3, 0xCu);
 }
 
 - (void)cleanUpLegacyRichLinkFilesAtBasePath:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Expected directory at %@ but found a file.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Expected directory at %@ but found a file.", &v2, 0xCu);
 }
 
 - (void)cleanUpLegacyRichLinkFilesAtBasePath:(uint8_t *)buf .cold.2(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)

@@ -8,7 +8,7 @@
 
 + (Class)layerClass
 {
-  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for AVPlayerLayer);
+  type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for AVPlayerLayer, AVPlayerLayer_ptr);
 
   return swift_getObjCClassFromMetadata();
 }

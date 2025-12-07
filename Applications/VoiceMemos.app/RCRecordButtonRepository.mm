@@ -17,11 +17,11 @@
   v5 = 0;
   v6 = 0;
   v7 = 1;
-  sub_1000C773C(&qword_1002CFD90);
+  sub_1000C773C(&qword_1002CFD90, qword_100243460);
   swift_allocObject();
   *(&self->super.isa + OBJC_IVAR____TtC10VoiceMemos24RCRecordButtonRepository_modelSubject) = CurrentValueSubject.init(_:)();
   LOBYTE(v5) = 0;
-  sub_1000C773C(&qword_1002CFD98);
+  sub_1000C773C(&qword_1002CFD98, &unk_100244A10);
   swift_allocObject();
   *(&self->super.isa + OBJC_IVAR____TtC10VoiceMemos24RCRecordButtonRepository_animationsAreDisabledSubject) = CurrentValueSubject.init(_:)();
   v4.receiver = self;

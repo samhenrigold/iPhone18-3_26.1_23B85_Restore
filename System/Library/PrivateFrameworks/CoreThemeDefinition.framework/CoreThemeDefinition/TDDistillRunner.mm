@@ -1,5 +1,6 @@
 @interface TDDistillRunner
 - (BOOL)_isDistillUnnecessaryForDocument:(id)document;
+- (BOOL)runDistillWithDocumentURL:(id)l outputURL:(id)rL attemptIncremental:(BOOL)incremental forceDistill:(BOOL)distill;
 - (TDDistillRunner)init;
 - (id)carScratchURL;
 - (void)_moveScratchToOutputPath;
@@ -24,7 +25,7 @@
 
 - (id)carScratchURL
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = self->_carScratchURL;
   if (!result)
   {
@@ -38,10 +39,9 @@
     [v7 setObject:v8 forKey:*MEMORY[0x277CCA180]];
     [defaultManager setAttributes:v7 ofItemAtPath:-[NSURL path](self->_carScratchURL error:{"path"), 0}];
     close(v4);
-    result = self->_carScratchURL;
+    return self->_carScratchURL;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -108,7 +108,171 @@
   return v8;
 }
 
-uint64_t __87__TDDistillRunner_runDistillWithDocumentURL_outputURL_attemptIncremental_forceDistill___block_invoke_2(id *a1, int a2, void *a3)
+- (BOOL)runDistillWithDocumentURL:(id)l outputURL:(id)rL attemptIncremental:(BOOL)incremental forceDistill:(BOOL)distill
+{
+  incrementalCopy = incremental;
+  v36 = *MEMORY[0x277D85DE8];
+  v33 = 0;
+  v34 = 0;
+  pathExtension = [l pathExtension];
+  v32 = 0;
+  [(TDDistillRunner *)self setOutputURL:rL];
+  [[(NSString *)NSTemporaryDirectory() stringByAppendingPathComponent:@"CoreThemeDefinitionMigrationXXXXXX"] getFileSystemRepresentation:to maxLength:1024];
+  mktemp(to);
+  v12 = copyfile_state_alloc();
+  v13 = copyfile([l fileSystemRepresentation], to, v12, 0x1000000u);
+  copyfile_state_free(v12);
+  logger = [(TDDistillRunner *)self logger];
+  fileSystemRepresentation = [l fileSystemRepresentation];
+  if (v13 < 0)
+  {
+    [(TDLogger *)logger logErrorWithFormat:@"Unable to copy '%s' to '%s' distil failed.", fileSystemRepresentation, to];
+    return 0;
+  }
+
+  [(TDLogger *)logger logInfoWithFormat:@"Distiling document '%s' to '%s.", fileSystemRepresentation, to];
+  v16 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithFileSystemRepresentation:to isDirectory:0 relativeToURL:0];
+  v17 = [[CoreThemeDocument alloc] initWithContentsOfURL:v16 ofType:pathExtension error:&v34];
+  -[CoreThemeDocument setPathToRepresentedDocument:](v17, "setPathToRepresentedDocument:", [l path]);
+  if (v17)
+  {
+    [(CoreThemeDocument *)v17 setMinimumDeploymentVersion:[(TDDistillRunner *)self minDeploymentTarget]];
+    if (![(TDDistillRunner *)self packImagesInDocument])
+    {
+      goto LABEL_17;
+    }
+
+    [(CoreThemeDocument *)v17 packRenditionsError:&v33];
+    [-[TDPersistentDocument managedObjectContext](v17 "managedObjectContext")];
+    if (v34)
+    {
+      goto LABEL_17;
+    }
+
+    v18 = v33;
+    if (!v33)
+    {
+      goto LABEL_17;
+    }
+
+    goto LABEL_15;
+  }
+
+  if (-[__CFString isEqualToString:](CoreThemeDefinitionErrorDomain[0], "isEqualToString:", [v34 domain]) && objc_msgSend(v34, "code") == 101)
+  {
+    v32 = 0;
+    v16 = [CoreThemeDocument migrateDocumentAtURL:v16 ofType:pathExtension error:&v32];
+    v19 = v16;
+    if (v16)
+    {
+      v17 = [[CoreThemeDocument alloc] initWithContentsOfURL:v16 ofType:pathExtension error:&v32];
+      if (v17)
+      {
+        -[CoreThemeDocument setPathToRepresentedDocument:](v17, "setPathToRepresentedDocument:", [l path]);
+        [(CoreThemeDocument *)v17 setMinimumDeploymentVersion:[(TDDistillRunner *)self minDeploymentTarget]];
+        if ([(TDDistillRunner *)self packImagesInDocument])
+        {
+          [(CoreThemeDocument *)v17 packRenditionsError:&v33];
+          [-[TDPersistentDocument managedObjectContext](v17 "managedObjectContext")];
+        }
+      }
+
+      v18 = v33;
+LABEL_15:
+      v34 = v18;
+      goto LABEL_17;
+    }
+
+    v17 = 0;
+  }
+
+  else
+  {
+    v17 = 0;
+    v34 = 0;
+  }
+
+LABEL_17:
+  v20 = v17;
+  v21 = v34;
+  if (!v17 || v34)
+  {
+    if (!v17)
+    {
+      -[TDLogger logErrorWithFormat:](-[TDDistillRunner logger](self, "logger"), "logErrorWithFormat:", @"Unable to open theme definition file %@.", [l path]);
+      v21 = v34;
+    }
+
+    if (v21)
+    {
+      logger2 = [(TDDistillRunner *)self logger];
+      -[TDLogger logErrorWithFormat:](logger2, "logErrorWithFormat:", @"Error: %@\n", [v34 localizedDescription]);
+      userInfo = [v34 userInfo];
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __87__TDDistillRunner_runDistillWithDocumentURL_outputURL_attemptIncremental_forceDistill___block_invoke;
+      v31[3] = &unk_278EBB608;
+      v31[4] = self;
+      [userInfo enumerateKeysAndObjectsUsingBlock:v31];
+    }
+  }
+
+  else
+  {
+    [CoreThemeDocument _addThemeDocument:v17];
+    if (!distill && [(TDDistillRunner *)self _isDistillUnnecessaryForDocument:v17])
+    {
+      [(TDLogger *)[(TDDistillRunner *)self logger] logInfoWithFormat:@"No changes to distill."];
+
+      return 1;
+    }
+
+    rLCopy = [(TDDistillRunner *)self carScratchURL];
+    v26 = rLCopy;
+    if (incrementalCopy)
+    {
+      rLCopy = rL;
+    }
+
+    path = [rLCopy path];
+
+    self->_distiller = 0;
+    v28 = [[TDDistiller alloc] initWithDocument:v17 outputPath:path attemptIncremental:incrementalCopy];
+    self->_distiller = v28;
+    if (!v28 && incrementalCopy)
+    {
+      v28 = -[TDDistiller initWithDocument:outputPath:attemptIncremental:]([TDDistiller alloc], "initWithDocument:outputPath:attemptIncremental:", v17, [v26 path], 0);
+      self->_distiller = v28;
+    }
+
+    if (v28)
+    {
+      [(TDDistiller *)v28 setDontPackRenditionsBeforeDistilling:1];
+      [(TDDistiller *)self->_distiller setAssetStoreVersionNumber:[(TDDistillRunner *)self assetStoreVersionNumber]];
+      [(TDDistiller *)self->_distiller setAssetStoreVersionString:[(TDDistillRunner *)self assetStoreVersionString]];
+      [(TDDistiller *)self->_distiller setLogger:[(TDDistillRunner *)self logger]];
+      distiller = self->_distiller;
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __87__TDDistillRunner_runDistillWithDocumentURL_outputURL_attemptIncremental_forceDistill___block_invoke_2;
+      v30[3] = &unk_278EBB630;
+      v30[4] = self;
+      v30[5] = l;
+      v30[6] = v16;
+      v30[7] = v17;
+      [(TDDistiller *)distiller saveAndDistillWithCompletionHandler:v30];
+      [(TDDistiller *)self->_distiller waitUntilFinished];
+
+      return [(TDDistiller *)self->_distiller isSuccessful];
+    }
+
+    [(TDLogger *)[(TDDistillRunner *)self logger] logErrorWithFormat:@"Error:  Aborting distillation"];
+  }
+
+  return 0;
+}
+
+void *__87__TDDistillRunner_runDistillWithDocumentURL_outputURL_attemptIncremental_forceDistill___block_invoke_2(id *a1, int a2, void *a3)
 {
   v6 = [*(a1[4] + 2) isIncremental];
   if (a2)

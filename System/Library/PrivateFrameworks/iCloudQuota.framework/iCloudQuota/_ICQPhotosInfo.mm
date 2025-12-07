@@ -37,7 +37,7 @@
 
 + (void)getInfoWithCompletion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v4 = [_ICQPhotosInfo mockCount:@"_ICQMockPhotoCount"];
   v5 = [_ICQPhotosInfo mockCount:@"_ICQMockVideoCount"];
@@ -53,16 +53,16 @@
   {
     v7 = objc_autoreleasePoolPush();
     systemLibraryURL = [MEMORY[0x277D3B238] systemLibraryURL];
-    v15 = 0;
-    v9 = [MEMORY[0x277D3AD38] newPhotoLibraryWithName:"+[_ICQPhotosInfo getInfoWithCompletion:]" loadedFromURL:systemLibraryURL options:0 error:&v15];
-    v10 = v15;
+    v14 = 0;
+    v9 = [MEMORY[0x277D3AD38] newPhotoLibraryWithName:"+[_ICQPhotosInfo getInfoWithCompletion:]" loadedFromURL:systemLibraryURL options:0 error:&v14];
+    v10 = v14;
     if (v10)
     {
       v11 = _ICQGetLogSystem();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v17 = v10;
+        v16 = v10;
         _os_log_impl(&dword_275572000, v11, OS_LOG_TYPE_DEFAULT, "Error loading PLPhotoLibrary: (%@)", buf, 0xCu);
       }
 
@@ -71,17 +71,17 @@
 
     else if (v9)
     {
-      v14 = completionCopy;
+      v13 = completionCopy;
       PLRequestCloudPhotoLibraryTransferProgressForLibrary();
     }
 
     else
     {
-      v13 = _ICQGetLogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v12 = _ICQGetLogSystem();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_275572000, v13, OS_LOG_TYPE_DEFAULT, "System Photo Library is nil, avoiding calling PLRequest on a nil PLPhotoLibrary", buf, 2u);
+        _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "System Photo Library is nil, avoiding calling PLRequest on a nil PLPhotoLibrary", buf, 2u);
       }
 
       completionCopy[2](completionCopy, 0, 0);
@@ -89,13 +89,11 @@
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)hasPhotoBulkCreation
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   v3 = _ICQGetLogSystem();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -114,8 +112,8 @@
   [librarySpecificFetchOptions setPredicate:v10];
 
   v11 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"creationDate" ascending:0];
-  v35[0] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+  v34[0] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
   [librarySpecificFetchOptions setSortDescriptors:v12];
 
   v13 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:librarySpecificFetchOptions];
@@ -132,7 +130,7 @@
 
   else
   {
-    v30 = v4;
+    v29 = v4;
     selfCopy = self;
     v16 = 29;
     while (1)
@@ -156,9 +154,9 @@
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        v32 = v17;
-        v33 = 2112;
-        v34 = v18;
+        v31 = v17;
+        v32 = 2112;
+        v33 = v18;
         _os_log_debug_impl(&dword_275572000, v26, OS_LOG_TYPE_DEBUG, "No bulk creation found for assets %@ and %@", buf, 0x16u);
       }
 
@@ -180,13 +178,12 @@
 
     v27 = 1;
 LABEL_16:
-    v4 = v30;
+    v4 = v29;
   }
 
   [self _shutDownPhotoLibrary];
 
   objc_autoreleasePoolPop(v4);
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -232,11 +229,10 @@ LABEL_16:
 
 + (void)hasPhotoBulkCreation
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = [self count];
-  _os_log_debug_impl(&dword_275572000, a2, OS_LOG_TYPE_DEBUG, "Checking for photo bulk creation with %lu assets", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = [self count];
+  _os_log_debug_impl(&dword_275572000, a2, OS_LOG_TYPE_DEBUG, "Checking for photo bulk creation with %lu assets", &v3, 0xCu);
 }
 
 @end

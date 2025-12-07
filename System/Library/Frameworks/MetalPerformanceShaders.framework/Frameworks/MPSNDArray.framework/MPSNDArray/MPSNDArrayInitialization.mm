@@ -14,11 +14,9 @@
 
 - (unint64_t)kernelDimensionalityForDestinationArray:(id)array
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = array;
-  result = -[MPSNDArrayInitialization kernelDimensionalityForSourceArrays:](self, "kernelDimensionalityForSourceArrays:", [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1]);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = array;
+  return -[MPSNDArrayInitialization kernelDimensionalityForSourceArrays:](self, "kernelDimensionalityForSourceArrays:", [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1]);
 }
 
 - (unint64_t)kernelDimensionalityForSourceArrays:(id)arrays destinationArrays:(id)destinationArrays kernelDAGObject:(id)object

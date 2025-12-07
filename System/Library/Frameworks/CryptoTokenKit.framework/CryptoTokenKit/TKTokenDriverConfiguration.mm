@@ -7,6 +7,7 @@
 - (NSDictionary)tokenConfigurations;
 - (TKTokenDriverConfiguration)initWithClassID:(id)d configurationConnection:(id)connection;
 - (id)beginTransaction;
+- (id)createTokenConfigurationWithInstanceID:(id)d persistent:(BOOL)persistent;
 - (void)removeTokenConfigurationForTokenInstanceID:(TKTokenInstanceID)instanceID;
 @end
 
@@ -97,7 +98,7 @@ uint64_t __50__TKTokenDriverConfiguration_driverConfigurations__block_invoke()
 
   else
   {
-    v6 = TK_LOG_tokencfg();
+    v6 = TK_LOG_tokencfg(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [TKTokenDriverConfiguration _driverConfigurationsWithConnection:v6];
@@ -111,28 +112,28 @@ uint64_t __50__TKTokenDriverConfiguration_driverConfigurations__block_invoke()
 
 void __66__TKTokenDriverConfiguration__driverConfigurationsWithConnection___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
+        v8 = *(*(&v10 + 1) + 8 * v7);
         v9 = [[TKTokenDriverConfiguration alloc] initWithClassID:v8 configurationConnection:*(a1 + 32)];
         [*(*(*(a1 + 40) + 8) + 40) setObject:v9 forKeyedSubscript:v8];
 
@@ -140,13 +141,11 @@ void __66__TKTokenDriverConfiguration__driverConfigurationsWithConnection___bloc
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (TKTokenDriverConfiguration)initWithClassID:(id)d configurationConnection:(id)connection
@@ -187,28 +186,28 @@ void __66__TKTokenDriverConfiguration__driverConfigurationsWithConnection___bloc
 
 void __49__TKTokenDriverConfiguration_tokenConfigurations__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       v7 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * v7);
+        v8 = *(*(&v12 + 1) + 8 * v7);
         v9 = [[TKTokenConfiguration alloc] initWithTokenID:v8 configurationConnection:*(*(a1 + 32) + 8)];
         v10 = *(a1 + 40);
         v11 = [v8 instanceID];
@@ -218,13 +217,11 @@ void __49__TKTokenDriverConfiguration_tokenConfigurations__block_invoke(uint64_t
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)beginTransaction
@@ -237,12 +234,37 @@ void __49__TKTokenDriverConfiguration_tokenConfigurations__block_invoke(uint64_t
   return v4;
 }
 
+- (id)createTokenConfigurationWithInstanceID:(id)d persistent:(BOOL)persistent
+{
+  persistentCopy = persistent;
+  dCopy = d;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__2;
+  v20 = __Block_byref_object_dispose__2;
+  v21 = 0;
+  v7 = [[TKTokenID alloc] initWithClassID:self->_classID instanceID:dCopy];
+  configurationProtocol = [(TKTokenConfigurationConnection *)self->_configurationConnection configurationProtocol];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __80__TKTokenDriverConfiguration_createTokenConfigurationWithInstanceID_persistent___block_invoke;
+  v12[3] = &unk_1E86B70D8;
+  v15 = &v16;
+  v9 = v7;
+  v13 = v9;
+  selfCopy = self;
+  [configurationProtocol createTokenID:v9 persistent:persistentCopy reply:v12];
+
+  v10 = v17[5];
+  _Block_object_dispose(&v16, 8);
+
+  return v10;
+}
+
 uint64_t __80__TKTokenDriverConfiguration_createTokenConfigurationWithInstanceID_persistent___block_invoke(void *a1)
 {
-  v2 = [[TKTokenConfiguration alloc] initWithTokenID:a1[4] configurationConnection:*(a1[5] + 8)];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [[TKTokenConfiguration alloc] initWithTokenID:a1[4] configurationConnection:*(a1[5] + 8)];
 
   return MEMORY[0x1EEE66BB8]();
 }

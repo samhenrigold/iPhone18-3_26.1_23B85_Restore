@@ -36,12 +36,12 @@
 
 - (id)_initWithMode:(id)mode commands:(id)commands
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   modeCopy = mode;
   commandsCopy = commands;
-  v24.receiver = self;
-  v24.super_class = _VOSProfileMode;
-  v9 = [(_VOSProfileMode *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = _VOSProfileMode;
+  v9 = [(_VOSProfileMode *)&v23 init];
   v10 = v9;
   if (v9)
   {
@@ -59,38 +59,37 @@
     commands = v10->_commands;
     v10->_commands = v11;
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v13 = commandsCopy;
-    v14 = [v13 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v21;
+      v16 = *v20;
       do
       {
         v17 = 0;
         do
         {
-          if (*v21 != v16)
+          if (*v20 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          [*(*(&v20 + 1) + 8 * v17++) setMode:{v10, v20}];
+          [*(*(&v19 + 1) + 8 * v17++) setMode:{v10, v19}];
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v15);
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

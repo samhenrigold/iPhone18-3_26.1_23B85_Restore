@@ -1,10 +1,13 @@
 @interface _GCAppleTVRemoteControllerProfile
 - (BOOL)ownershipClaimingElementsZero;
 - (_GCAppleTVRemoteControllerProfile)initWithController:(id)controller;
+- (void)digitizerTouchEvent:(id)event x:(double)x y:(double)y timestamp:(unint64_t)timestamp forceSkipDpadRotation:(BOOL)rotation;
+- (void)digitizerTouchUp:(id)up timestamp:(unint64_t)timestamp forceSkipDpadRotation:(BOOL)rotation;
 - (void)getPositionInSlidingWindowForRealX:(double)x realY:(double)y outXInWindow:(double *)window outYInWindow:(double *)inWindow;
 - (void)handleReport:(unsigned int)report data:(id)data;
 - (void)initCommon:(id)common;
 - (void)processOrientationData:(id)data;
+- (void)setAllowsRotation:(BOOL)rotation;
 - (void)setDeviceType:(int64_t)type;
 - (void)setDpad:(id)dpad x:(double)x y:(double)y timestamp:(unint64_t)timestamp forceSkipDpadRotation:(BOOL)rotation;
 - (void)setOwner:(unint64_t)owner;
@@ -220,6 +223,41 @@ LABEL_21:
   }
 }
 
+- (void)digitizerTouchEvent:(id)event x:(double)x y:(double)y timestamp:(unint64_t)timestamp forceSkipDpadRotation:(BOOL)rotation
+{
+  rotationCopy = rotation;
+  digitizerTouchState = self->_digitizerTouchState;
+  if (digitizerTouchState)
+  {
+    if (digitizerTouchState != 1)
+    {
+      goto LABEL_6;
+    }
+
+    v13 = 2;
+  }
+
+  else
+  {
+    v13 = 1;
+  }
+
+  self->_digitizerTouchState = v13;
+LABEL_6:
+  eventCopy = event;
+  kdebug_trace();
+  [(_GCAppleTVRemoteControllerProfile *)self setDpad:eventCopy x:timestamp y:rotationCopy timestamp:x forceSkipDpadRotation:y];
+}
+
+- (void)digitizerTouchUp:(id)up timestamp:(unint64_t)timestamp forceSkipDpadRotation:(BOOL)rotation
+{
+  rotationCopy = rotation;
+  upCopy = up;
+  kdebug_trace();
+  self->_digitizerTouchState = 0;
+  [(_GCAppleTVRemoteControllerProfile *)self setDpad:upCopy x:timestamp y:rotationCopy timestamp:0.0 forceSkipDpadRotation:0.0];
+}
+
 - (void)getPositionInSlidingWindowForRealX:(double)x realY:(double)y outXInWindow:(double *)window outYInWindow:(double *)inWindow
 {
   *window = 0.0;
@@ -414,9 +452,37 @@ LABEL_34:
   return v6;
 }
 
+- (void)setAllowsRotation:(BOOL)rotation
+{
+  rotationCopy = rotation;
+  if ([(GCMicroGamepad *)self allowsRotation]!= rotation)
+  {
+    v10.receiver = self;
+    v10.super_class = _GCAppleTVRemoteControllerProfile;
+    [(GCMicroGamepad *)&v10 setAllowsRotation:rotationCopy];
+    if (rotationCopy)
+    {
+      objc_initWeak(&location, self);
+      v7 = MEMORY[0x1E69E9820];
+      objc_copyWeak(&v8, &location);
+      v5 = [(GCPhysicalInputProfile *)self _motion:v7];
+      [v5 setInternalValueChangedHandler:&v7];
+
+      objc_destroyWeak(&v8);
+      objc_destroyWeak(&location);
+    }
+
+    else
+    {
+      _motion = [(GCPhysicalInputProfile *)self _motion];
+      [_motion setInternalValueChangedHandler:0];
+    }
+  }
+}
+
 - (void)setDeviceType:(int64_t)type
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(self, a2))
   {
     [(_GCAppleTVRemoteControllerProfile *)self setDeviceType:type];
   }
@@ -431,18 +497,16 @@ LABEL_34:
 
 - (void)setDeviceType:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = getGCLogger();
+  v9 = *MEMORY[0x1E69E9840];
+  v4 = getGCLogger(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412546;
-    v7 = a1;
-    v8 = 2048;
-    v9 = a2;
-    _os_log_impl(&dword_1D2CD5000, v4, OS_LOG_TYPE_DEFAULT, "Setting %@ device type to %ld", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = a1;
+    v7 = 2048;
+    v8 = a2;
+    _os_log_impl(&dword_1D2CD5000, v4, OS_LOG_TYPE_DEFAULT, "Setting %@ device type to %ld", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

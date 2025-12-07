@@ -153,83 +153,83 @@ void __26__UNCLocationMonitor_init__block_invoke(void *a1)
 
 void __84__UNCLocationMonitor_setMonitoredRegions_forBundleIdentifier_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v70 = *MEMORY[0x1E69E9840];
-  v56[0] = MEMORY[0x1E69E9820];
-  v56[1] = 3221225472;
-  v56[2] = __84__UNCLocationMonitor_setMonitoredRegions_forBundleIdentifier_withCompletionHandler___block_invoke_2;
-  v56[3] = &unk_1E85D7BD0;
+  v69 = *MEMORY[0x1E69E9840];
+  v55[0] = MEMORY[0x1E69E9820];
+  v55[1] = 3221225472;
+  v55[2] = __84__UNCLocationMonitor_setMonitoredRegions_forBundleIdentifier_withCompletionHandler___block_invoke_2;
+  v55[3] = &unk_1E85D7BD0;
   v2 = *(a1 + 32);
-  v57 = *(a1 + 40);
-  v3 = [v2 bs_map:v56];
+  v56 = *(a1 + 40);
+  v3 = [v2 bs_map:v55];
   v4 = [*(*(a1 + 48) + 8) monitoredRegions];
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = __84__UNCLocationMonitor_setMonitoredRegions_forBundleIdentifier_withCompletionHandler___block_invoke_3;
-  v54[3] = &unk_1E85D7BF8;
-  v55 = *(a1 + 40);
-  v5 = [v4 objectsPassingTest:v54];
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = __84__UNCLocationMonitor_setMonitoredRegions_forBundleIdentifier_withCompletionHandler___block_invoke_3;
+  v53[3] = &unk_1E85D7BF8;
+  v54 = *(a1 + 40);
+  v5 = [v4 objectsPassingTest:v53];
 
   v6 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   v7 = v3;
-  v8 = [v7 countByEnumeratingWithState:&v50 objects:v69 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v49 objects:v68 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v51;
+    v10 = *v50;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v51 != v10)
+        if (*v50 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v50 + 1) + 8 * i);
+        v12 = *(*(&v49 + 1) + 8 * i);
         if (([v5 containsObject:v12] & 1) == 0)
         {
           [v6 addObject:v12];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v50 objects:v69 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v49 objects:v68 count:16];
     }
 
     while (v9);
   }
 
   v13 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   v14 = v5;
-  v15 = [v14 countByEnumeratingWithState:&v46 objects:v68 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v45 objects:v67 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v47;
+    v17 = *v46;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v47 != v17)
+        if (*v46 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v46 + 1) + 8 * j);
+        v19 = *(*(&v45 + 1) + 8 * j);
         if (([v7 containsObject:v19] & 1) == 0)
         {
           [v13 addObject:v19];
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v46 objects:v68 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v45 objects:v67 count:16];
     }
 
     while (v16);
@@ -244,67 +244,67 @@ void __84__UNCLocationMonitor_setMonitoredRegions_forBundleIdentifier_withComple
     v24 = [v13 count];
     v25 = [v6 count];
     *buf = 138544130;
-    v61 = v21;
-    v62 = 2048;
-    v63 = v23;
-    v64 = 2048;
-    v65 = v24;
-    v66 = 2048;
-    v67 = v25;
+    v60 = v21;
+    v61 = 2048;
+    v62 = v23;
+    v63 = 2048;
+    v64 = v24;
+    v65 = 2048;
+    v66 = v25;
     _os_log_impl(&dword_1DA7A9000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] Setting %ld monitored regions [ stop: %ld start: %ld ]", buf, 0x2Au);
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v26 = v13;
-  v27 = [v26 countByEnumeratingWithState:&v42 objects:v59 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v41 objects:v58 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v43;
+    v29 = *v42;
     do
     {
       for (k = 0; k != v28; ++k)
       {
-        if (*v43 != v29)
+        if (*v42 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        [*(*(a1 + 48) + 8) stopMonitoringForRegion:*(*(&v42 + 1) + 8 * k)];
+        [*(*(a1 + 48) + 8) stopMonitoringForRegion:*(*(&v41 + 1) + 8 * k)];
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v42 objects:v59 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v41 objects:v58 count:16];
     }
 
     while (v28);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v31 = v6;
-  v32 = [v31 countByEnumeratingWithState:&v38 objects:v58 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v37 objects:v57 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v39;
+    v34 = *v38;
     do
     {
       for (m = 0; m != v33; ++m)
       {
-        if (*v39 != v34)
+        if (*v38 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        [*(*(a1 + 48) + 8) startMonitoringForRegion:{*(*(&v38 + 1) + 8 * m), v38}];
+        [*(*(a1 + 48) + 8) startMonitoringForRegion:{*(*(&v37 + 1) + 8 * m), v37}];
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v38 objects:v58 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v37 objects:v57 count:16];
     }
 
     while (v33);
@@ -315,8 +315,6 @@ void __84__UNCLocationMonitor_setMonitoredRegions_forBundleIdentifier_withComple
   {
     (*(v36 + 16))();
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 id __84__UNCLocationMonitor_setMonitoredRegions_forBundleIdentifier_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -347,24 +345,22 @@ uint64_t __84__UNCLocationMonitor_setMonitoredRegions_forBundleIdentifier_withCo
 
 - (void)locationManager:(id)manager didStartMonitoringForRegion:(id)region
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = *MEMORY[0x1E6983378];
   if (os_log_type_enabled(*MEMORY[0x1E6983378], OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
     identifier = [region identifier];
     un_logDigest = [identifier un_logDigest];
-    v10 = 138543362;
-    v11 = un_logDigest;
-    _os_log_impl(&dword_1DA7A9000, v6, OS_LOG_TYPE_DEFAULT, "Did start monitoring region %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = un_logDigest;
+    _os_log_impl(&dword_1DA7A9000, v6, OS_LOG_TYPE_DEFAULT, "Did start monitoring region %{public}@", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_triggerDidFireForRegion:(id)region
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   regionCopy = region;
   dispatch_assert_queue_V2(self->_queue);
   onBehalfOfBundleId = [regionCopy onBehalfOfBundleId];
@@ -379,18 +375,18 @@ uint64_t __84__UNCLocationMonitor_setMonitoredRegions_forBundleIdentifier_withCo
       identifier = [regionCopy identifier];
       un_logDigest = [identifier un_logDigest];
       *buf = 138543362;
-      v20 = un_logDigest;
+      v19 = un_logDigest;
       _os_log_impl(&dword_1DA7A9000, v9, OS_LOG_TYPE_DEFAULT, "Location trigger fired for region %{public}@", buf, 0xCu);
     }
 
     observable = self->_observable;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __53__UNCLocationMonitor__queue_triggerDidFireForRegion___block_invoke;
-    v17[3] = &unk_1E85D7C20;
-    v17[4] = self;
-    v18 = regionCopy;
-    [(UNCKeyedObservable *)observable notifyObserversKey:onBehalfOfBundleId usingBlock:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __53__UNCLocationMonitor__queue_triggerDidFireForRegion___block_invoke;
+    v16[3] = &unk_1E85D7C20;
+    v16[4] = self;
+    v17 = regionCopy;
+    [(UNCKeyedObservable *)observable notifyObserversKey:onBehalfOfBundleId usingBlock:v16];
   }
 
   else if (v8)
@@ -399,11 +395,9 @@ uint64_t __84__UNCLocationMonitor_setMonitoredRegions_forBundleIdentifier_withCo
     identifier2 = [regionCopy identifier];
     un_logDigest2 = [identifier2 un_logDigest];
     *buf = 138543362;
-    v20 = un_logDigest2;
+    v19 = un_logDigest2;
     _os_log_impl(&dword_1DA7A9000, v13, OS_LOG_TYPE_DEFAULT, "Location trigger fired but ignored for region %{public}@", buf, 0xCu);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __53__UNCLocationMonitor__queue_triggerDidFireForRegion___block_invoke(uint64_t a1, void *a2)
@@ -420,11 +414,10 @@ void __53__UNCLocationMonitor__queue_triggerDidFireForRegion___block_invoke(uint
 
 - (void)locationManager:(uint64_t)a1 didFailWithError:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DA7A9000, a2, OS_LOG_TYPE_ERROR, "CLLocationManager failed with error %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DA7A9000, a2, OS_LOG_TYPE_ERROR, "CLLocationManager failed with error %{public}@", &v2, 0xCu);
 }
 
 @end

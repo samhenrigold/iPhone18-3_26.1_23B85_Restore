@@ -550,8 +550,9 @@ LABEL_14:
   OUTLINED_FUNCTION_4();
   v2 = v1;
   label = [OUTLINED_FUNCTION_2_0() label];
+  v10 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_1C432B000, v4, v5, "%s Failed to create %@ pipeline state, error %@", v6, v7, v8, v9, 2u);
+  OUTLINED_FUNCTION_1(&dword_1C432B000, v4, v5, "%s Failed to create %@ pipeline state, error %@", v6, v7, v8, v9, v10);
 }
 
 - (void)_loadMetalState
@@ -818,28 +819,9 @@ LABEL_17:
 
 - (void)_loadAssets
 {
-  [(SUICOrbView *)self _createSphereBuffer];
-  [(SUICOrbView *)self _createSiriChipBuffer];
-  v3 = MEMORY[0x1E698D0A0];
-  if (!self->_siriChipGeom || !self->_sphereGeom)
-  {
-    v4 = *MEMORY[0x1E698D0A0];
-    if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_ERROR))
-    {
-      [(SUICOrbView *)v4 _loadAssets:v5];
-    }
-  }
-
-  [(SUICOrbView *)self _createSmoothStepTexture];
-  [(SUICOrbView *)self _createNoiseTexture];
-  if (!self->_smoothStepTexture || !self->_noiseTexture)
-  {
-    v12 = *v3;
-    if (os_log_type_enabled(*v3, OS_LOG_TYPE_ERROR))
-    {
-      [(SUICOrbView *)v12 _loadAssets:v13];
-    }
-  }
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SUICOrbView _loadAssets]";
+  OUTLINED_FUNCTION_0(&dword_1C432B000, self, a3, "%s Error creating Siri textures", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_updateChipsSizesForOnOff
@@ -2624,6 +2606,20 @@ LABEL_13:
   {
     self->_power = v3;
   }
+}
+
+- (void)_commonInitWithFrame:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SUICOrbView _commonInitWithFrame:]";
+  OUTLINED_FUNCTION_0(&dword_1C432B000, a1, a3, "%s Failed to get Metal device for GPU rendering", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_drawSiriFrame:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SUICOrbView _drawSiriFrame:]";
+  OUTLINED_FUNCTION_0(&dword_1C432B000, a1, a3, "%s Failed to create command buffer, dropping frame", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

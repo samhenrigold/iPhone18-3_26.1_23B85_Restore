@@ -35,9 +35,9 @@
 
     v14 = v13;
 
-    v15 = getIMUserNotificationClass[0]();
+    IMUserNotificationClass = getIMUserNotificationClass();
     stringGUID = [MEMORY[0x1E696AEC0] stringGUID];
-    v17 = [(objc_class *)v15 userNotificationWithIdentifier:stringGUID title:v10 message:v14 defaultButton:@"File Radar" alternateButton:@"Dismiss" otherButton:0];
+    v17 = [(objc_class *)IMUserNotificationClass userNotificationWithIdentifier:stringGUID title:v10 message:v14 defaultButton:@"File Radar" alternateButton:@"Dismiss" otherButton:0];
 
     if (v17)
     {
@@ -47,7 +47,7 @@
       v20[3] = __Block_byref_object_copy_;
       v20[4] = __Block_byref_object_dispose_;
       v21 = contextCopy;
-      sharedInstance = [getIMUserNotificationCenterClass[0]() sharedInstance];
+      sharedInstance = [(objc_class *)getIMUserNotificationCenterClass() sharedInstance];
       v19[0] = MEMORY[0x1E69E9820];
       v19[1] = 3221225472;
       v19[2] = __42__RPTapToRadar_launchWithRequest_context___block_invoke_144;
@@ -60,9 +60,9 @@
   }
 }
 
-uint64_t __42__RPTapToRadar_launchWithRequest_context___block_invoke()
+Class __42__RPTapToRadar_launchWithRequest_context___block_invoke()
 {
-  result = getLSApplicationWorkspaceClass[0]();
+  result = getLSApplicationWorkspaceClass();
   launchWithRequest_context__RPLSApplicationWorkspace = result;
   return result;
 }

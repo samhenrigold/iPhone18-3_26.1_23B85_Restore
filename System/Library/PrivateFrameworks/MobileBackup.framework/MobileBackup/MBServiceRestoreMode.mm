@@ -1,7 +1,9 @@
 @interface MBServiceRestoreMode
++ (MBServiceRestoreMode)restoreModeWithType:(int)type value:(id)value;
 + (id)backgroundAppGroupRestoreModeWithBundleID:(id)d;
 + (id)backgroundAppPluginRestoreModeWithBundleID:(id)d;
 + (id)backgroundAppRestoreModeWithBundleID:(id)d;
++ (id)backgroundAppRestoreModeWithBundleID:(id)d errorCode:(int)code;
 + (id)backgroundContainerRestoreModeWithContainer:(id)container;
 + (id)backgroundDataSeparatedAppRestoreModeWithBundleID:(id)d;
 + (id)backgroundFileRestoreModeWithPath:(id)path;
@@ -10,6 +12,7 @@
 + (id)foregroundRestoreMode;
 + (id)stringForErrorCode:(int)code;
 + (id)stringForType:(int)type;
++ (int)restoreTypeForContainerType:(int)type;
 - (BOOL)didFail;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)wasCancelled;
@@ -23,6 +26,47 @@
 @end
 
 @implementation MBServiceRestoreMode
+
++ (int)restoreTypeForContainerType:(int)type
+{
+  result = 1;
+  if (type > 3)
+  {
+    if ((type - 4) >= 2)
+    {
+      return result;
+    }
+
+    goto LABEL_10;
+  }
+
+  if (!type)
+  {
+LABEL_10:
+    [NSException raise:NSInvalidArgumentException format:@"Unexpected container type: %d", *&type];
+    return 0;
+  }
+
+  if (type == 3)
+  {
+    v4 = 3;
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  if (type == 2)
+  {
+    return 2;
+  }
+
+  else
+  {
+    return v4;
+  }
+}
 
 + (id)foregroundRestoreMode
 {
@@ -52,6 +96,15 @@
   v4 = [[MBServiceRestoreMode alloc] _initWithType:7 value:dCopy errorCode:0];
 
   return v4;
+}
+
++ (id)backgroundAppRestoreModeWithBundleID:(id)d errorCode:(int)code
+{
+  v4 = *&code;
+  dCopy = d;
+  v6 = [[MBServiceRestoreMode alloc] _initWithType:1 value:dCopy errorCode:v4];
+
+  return v6;
 }
 
 + (id)backgroundAppPluginRestoreModeWithBundleID:(id)d
@@ -96,6 +149,15 @@
   v4 = [[MBServiceRestoreMode alloc] _initWithType:5 values:pathsCopy errorCode:0];
 
   return v4;
+}
+
++ (MBServiceRestoreMode)restoreModeWithType:(int)type value:(id)value
+{
+  v4 = *&type;
+  valueCopy = value;
+  v6 = [[MBServiceRestoreMode alloc] _initWithType:v4 value:valueCopy errorCode:0];
+
+  return v6;
 }
 
 + (id)stringForType:(int)type

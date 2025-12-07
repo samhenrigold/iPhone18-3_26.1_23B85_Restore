@@ -562,12 +562,12 @@ void __74__PLPersistentContainer_removeSharedPersistentStoreCoordinatorWithReaso
     *(v3 + 24) = 0;
 
     v5 = [v2 persistentStores];
-    if ([v5 count] != 1)
+    if (objc_msgSend_count(v5) != 1)
     {
       v6 = PLMigrationGetLog();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = [v5 count];
+        v7 = objc_msgSend_count(v5);
         v8 = *(*(a1 + 32) + 64);
         *buf = 67109378;
         *v39 = v7;
@@ -1302,10 +1302,10 @@ LABEL_58:
     }
 
     domain = [(__CFString *)v25 domain];
-    v27 = [domain isEqualToString:*MEMORY[0x1E69BFF48]];
+    isEqualToString = objc_msgSend_isEqualToString_(domain);
 
     v18 = v73;
-    if (v27)
+    if (isEqualToString)
     {
       if ([(__CFString *)v20 code]== 46007)
       {
@@ -1671,9 +1671,9 @@ id __123__PLPersistentContainer__migrateOrRebuildDatabaseWithSharedPersistentSto
   if ([v20 code] == 134100)
   {
     domain = [v25 domain];
-    v27 = [domain isEqualToString:*MEMORY[0x1E696A250]];
+    isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-    if (v27)
+    if (isEqualToString)
     {
       v28 = *MEMORY[0x1E695D4A8];
       v103 = 0;
@@ -2320,16 +2320,16 @@ LABEL_10:
   blockCopy[2](blockCopy, v7, v8);
 }
 
-void __55__PLPersistentContainer_unsafeRemoveManagedObjectModel__block_invoke()
+void __55__PLPersistentContainer_unsafeRemoveManagedObjectModel__block_invoke(uint64_t a1)
 {
-  v0 = PLMigrationGetLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = PLMigrationGetLog();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_19BF1F000, v0, OS_LOG_TYPE_ERROR, "Removing shared managedObjectModel", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_19BF1F000, v1, OS_LOG_TYPE_ERROR, "Removing shared managedObjectModel", v3, 2u);
   }
 
-  v1 = sSharedModel;
+  v2 = sSharedModel;
   sSharedModel = 0;
 }
 

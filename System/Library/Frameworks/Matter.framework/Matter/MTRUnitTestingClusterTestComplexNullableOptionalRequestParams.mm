@@ -122,41 +122,41 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  v174 = *MEMORY[0x277D85DE8];
+  v172 = *MEMORY[0x277D85DE8];
   LOBYTE(unsignedShortValue) = 0;
+  v136 = 0;
   v137 = 0;
-  v138 = 0;
-  v140 = 0;
-  LOBYTE(v142) = 0;
+  v139 = 0;
+  LOBYTE(v141) = 0;
+  v142 = 0;
   v143 = 0;
-  v144 = 0;
-  v146 = 0;
-  LOBYTE(v149[0]) = 0;
+  v145 = 0;
+  LOBYTE(v148[0]) = 0;
+  v150 = 0;
   v151 = 0;
-  v152 = 0;
-  v155 = 0;
-  LOBYTE(v159) = 0;
-  v161 = 0;
-  v162 = 0;
-  v165 = 0;
-  v135[0] = 0;
-  v135[1] = 0;
-  v134 = v135;
+  v154 = 0;
+  LOBYTE(v158) = 0;
+  v159 = 0;
+  v160 = 0;
+  v163 = 0;
+  v134[0] = 0;
+  v134[1] = 0;
+  v133 = v134;
   nullableInt = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableInt];
   v6 = nullableInt == 0;
 
   if (v6)
   {
-    if (v137 == 1)
+    if (v136 == 1)
     {
-      v137 = 0;
+      v136 = 0;
     }
   }
 
   else
   {
     unsignedShortValue = 0;
-    v137 = 1;
+    v136 = 1;
     nullableInt2 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableInt];
     unsignedShortValue = [nullableInt2 unsignedShortValue];
   }
@@ -166,7 +166,7 @@
 
   if (!v9)
   {
-    v138 = 1;
+    v137 = 1;
     unsignedShortValue2 = 0;
     optionalInt2 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self optionalInt];
     unsignedShortValue2 = [optionalInt2 unsignedShortValue];
@@ -177,25 +177,25 @@
 
   if (!v12)
   {
-    v140 = 1;
-    v141 = 0;
+    v139 = 1;
+    v140 = 0;
     nullableOptionalInt2 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalInt];
     v14 = nullableOptionalInt2 == 0;
 
     if (v14)
     {
-      if (BYTE2(v141) == 1)
+      if (BYTE2(v140) == 1)
       {
-        BYTE2(v141) = 0;
+        BYTE2(v140) = 0;
       }
     }
 
     else
     {
-      LOWORD(v141) = 0;
-      BYTE2(v141) = 1;
+      LOWORD(v140) = 0;
+      BYTE2(v140) = 1;
       nullableOptionalInt3 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalInt];
-      LOWORD(v141) = [nullableOptionalInt3 unsignedShortValue];
+      LOWORD(v140) = [nullableOptionalInt3 unsignedShortValue];
     }
   }
 
@@ -204,21 +204,21 @@
 
   if (v17)
   {
-    if (v143 == 1)
+    if (v142 == 1)
     {
-      v143 = 0;
+      v142 = 0;
     }
   }
 
   else
   {
-    v142 = 0uLL;
-    v143 = 1;
+    v141 = 0uLL;
+    v142 = 1;
     nullableString2 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableString];
     v19 = nullableString2;
     sub_238DB9BD8(buf, [nullableString2 UTF8String], objc_msgSend(nullableString2, "lengthOfBytesUsingEncoding:", 4));
 
-    v142 = *buf;
+    v141 = *buf;
   }
 
   optionalString = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self optionalString];
@@ -226,13 +226,13 @@
 
   if (!v21)
   {
-    v144 = 1;
-    v145 = 0uLL;
+    v143 = 1;
+    v144 = 0uLL;
     optionalString2 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self optionalString];
     v23 = optionalString2;
     sub_238DB9BD8(buf, [optionalString2 UTF8String], objc_msgSend(optionalString2, "lengthOfBytesUsingEncoding:", 4));
 
-    v145 = *buf;
+    v144 = *buf;
   }
 
   nullableOptionalString = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalString];
@@ -240,29 +240,29 @@
 
   if (!v25)
   {
-    v146 = 1;
-    v148 = 0;
-    v147 = 0uLL;
+    v145 = 1;
+    v147 = 0;
+    v146 = 0uLL;
     nullableOptionalString2 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalString];
     v27 = nullableOptionalString2 == 0;
 
     if (v27)
     {
-      if (v148 == 1)
+      if (v147 == 1)
       {
-        LOBYTE(v148) = 0;
+        LOBYTE(v147) = 0;
       }
     }
 
     else
     {
-      v147 = 0uLL;
-      LOBYTE(v148) = 1;
+      v146 = 0uLL;
+      LOBYTE(v147) = 1;
       nullableOptionalString3 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalString];
       v29 = nullableOptionalString3;
       sub_238DB9BD8(buf, [nullableOptionalString3 UTF8String], objc_msgSend(nullableOptionalString3, "lengthOfBytesUsingEncoding:", 4));
 
-      v147 = *buf;
+      v146 = *buf;
     }
   }
 
@@ -271,54 +271,54 @@
 
   if (v31)
   {
-    if (v151 == 1)
+    if (v150 == 1)
     {
-      v151 = 0;
+      v150 = 0;
     }
   }
 
   else
   {
-    v150 = 0u;
-    memset(v149, 0, sizeof(v149));
-    v151 = 1;
+    v149 = 0u;
+    memset(v148, 0, sizeof(v148));
+    v150 = 1;
     nullableStruct2 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableStruct];
     v33 = [nullableStruct2 a];
-    LOBYTE(v149[0]) = [v33 unsignedCharValue];
+    LOBYTE(v148[0]) = [v33 unsignedCharValue];
 
     nullableStruct3 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableStruct];
     v35 = [nullableStruct3 b];
-    BYTE1(v149[0]) = [v35 BOOLValue];
+    BYTE1(v148[0]) = [v35 BOOLValue];
 
     nullableStruct4 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableStruct];
     v37 = [nullableStruct4 c];
-    BYTE2(v149[0]) = [v37 unsignedCharValue];
+    BYTE2(v148[0]) = [v37 unsignedCharValue];
 
     nullableStruct5 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableStruct];
     v39 = [nullableStruct5 d];
     v40 = v39;
     sub_238DB6950(buf, [v39 bytes], objc_msgSend(v39, "length"));
 
-    *&v149[1] = *buf;
+    *&v148[1] = *buf;
     nullableStruct6 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableStruct];
     v42 = [nullableStruct6 e];
     v43 = v42;
     sub_238DB9BD8(buf, [v42 UTF8String], objc_msgSend(v42, "lengthOfBytesUsingEncoding:", 4));
 
-    *&v149[3] = *buf;
+    *&v148[3] = *buf;
     nullableStruct7 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableStruct];
     v45 = [nullableStruct7 f];
-    LOBYTE(v149[5]) = [v45 unsignedCharValue];
+    LOBYTE(v148[5]) = [v45 unsignedCharValue];
 
     nullableStruct8 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableStruct];
     v47 = [nullableStruct8 g];
     [v47 floatValue];
-    HIDWORD(v149[5]) = v48;
+    HIDWORD(v148[5]) = v48;
 
     nullableStruct9 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableStruct];
     v50 = [nullableStruct9 h];
     [v50 doubleValue];
-    *&v150 = v51;
+    *&v149 = v51;
 
     nullableStruct10 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableStruct];
     v53 = [nullableStruct10 i];
@@ -326,10 +326,10 @@
 
     if ((v50 & 1) == 0)
     {
-      WORD4(v150) = 1;
+      WORD4(v149) = 1;
       nullableStruct11 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableStruct];
       v55 = [nullableStruct11 i];
-      BYTE9(v150) = [v55 unsignedCharValue];
+      BYTE9(v149) = [v55 unsignedCharValue];
     }
   }
 
@@ -338,46 +338,46 @@
 
   if (!v57)
   {
-    v152 = 1;
-    memset(v153, 0, sizeof(v153));
-    v154 = 0u;
+    v151 = 1;
+    memset(v152, 0, sizeof(v152));
+    v153 = 0u;
     optionalStruct2 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self optionalStruct];
     v59 = [optionalStruct2 a];
-    LOBYTE(v153[0]) = [v59 unsignedCharValue];
+    LOBYTE(v152[0]) = [v59 unsignedCharValue];
 
     optionalStruct3 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self optionalStruct];
     v61 = [optionalStruct3 b];
-    BYTE1(v153[0]) = [v61 BOOLValue];
+    BYTE1(v152[0]) = [v61 BOOLValue];
 
     optionalStruct4 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self optionalStruct];
     v63 = [optionalStruct4 c];
-    BYTE2(v153[0]) = [v63 unsignedCharValue];
+    BYTE2(v152[0]) = [v63 unsignedCharValue];
 
     optionalStruct5 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self optionalStruct];
     v65 = [optionalStruct5 d];
     v66 = v65;
     sub_238DB6950(buf, [v65 bytes], objc_msgSend(v65, "length"));
 
-    *(v153 + 8) = *buf;
+    *(v152 + 8) = *buf;
     optionalStruct6 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self optionalStruct];
     v68 = [optionalStruct6 e];
     v69 = v68;
     sub_238DB9BD8(buf, [v68 UTF8String], objc_msgSend(v68, "lengthOfBytesUsingEncoding:", 4));
 
-    *(&v153[1] + 8) = *buf;
+    *(&v152[1] + 8) = *buf;
     optionalStruct7 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self optionalStruct];
     v71 = [optionalStruct7 f];
-    BYTE8(v153[2]) = [v71 unsignedCharValue];
+    BYTE8(v152[2]) = [v71 unsignedCharValue];
 
     optionalStruct8 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self optionalStruct];
     v73 = [optionalStruct8 g];
     [v73 floatValue];
-    HIDWORD(v153[2]) = v74;
+    HIDWORD(v152[2]) = v74;
 
     optionalStruct9 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self optionalStruct];
     v76 = [optionalStruct9 h];
     [v76 doubleValue];
-    *&v154 = v77;
+    *&v153 = v77;
 
     optionalStruct10 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self optionalStruct];
     v79 = [optionalStruct10 i];
@@ -385,10 +385,10 @@
 
     if ((v76 & 1) == 0)
     {
-      WORD4(v154) = 1;
+      WORD4(v153) = 1;
       optionalStruct11 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self optionalStruct];
       v81 = [optionalStruct11 i];
-      BYTE9(v154) = [v81 unsignedCharValue];
+      BYTE9(v153) = [v81 unsignedCharValue];
     }
   }
 
@@ -397,63 +397,63 @@
 
   if (!v83)
   {
-    v155 = 1;
-    v157 = 0u;
-    memset(v156, 0, sizeof(v156));
-    v158 = 0;
+    v154 = 1;
+    v156 = 0u;
+    memset(v155, 0, sizeof(v155));
+    v157 = 0;
     nullableOptionalStruct2 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalStruct];
     v85 = nullableOptionalStruct2 == 0;
 
     if (v85)
     {
-      if (v158 == 1)
+      if (v157 == 1)
       {
-        LOBYTE(v158) = 0;
+        LOBYTE(v157) = 0;
       }
     }
 
     else
     {
-      v157 = 0u;
-      memset(v156, 0, sizeof(v156));
-      LOBYTE(v158) = 1;
+      v156 = 0u;
+      memset(v155, 0, sizeof(v155));
+      LOBYTE(v157) = 1;
       nullableOptionalStruct3 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalStruct];
       v87 = [nullableOptionalStruct3 a];
-      LOBYTE(v156[0]) = [v87 unsignedCharValue];
+      LOBYTE(v155[0]) = [v87 unsignedCharValue];
 
       nullableOptionalStruct4 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalStruct];
       v89 = [nullableOptionalStruct4 b];
-      BYTE1(v156[0]) = [v89 BOOLValue];
+      BYTE1(v155[0]) = [v89 BOOLValue];
 
       nullableOptionalStruct5 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalStruct];
       v91 = [nullableOptionalStruct5 c];
-      BYTE2(v156[0]) = [v91 unsignedCharValue];
+      BYTE2(v155[0]) = [v91 unsignedCharValue];
 
       nullableOptionalStruct6 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalStruct];
       v93 = [nullableOptionalStruct6 d];
       v94 = v93;
       sub_238DB6950(buf, [v93 bytes], objc_msgSend(v93, "length"));
 
-      *&v156[1] = *buf;
+      *&v155[1] = *buf;
       nullableOptionalStruct7 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalStruct];
       v96 = [nullableOptionalStruct7 e];
       v97 = v96;
       sub_238DB9BD8(buf, [v96 UTF8String], objc_msgSend(v96, "lengthOfBytesUsingEncoding:", 4));
 
-      *&v156[3] = *buf;
+      *&v155[3] = *buf;
       nullableOptionalStruct8 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalStruct];
       v99 = [nullableOptionalStruct8 f];
-      LOBYTE(v156[5]) = [v99 unsignedCharValue];
+      LOBYTE(v155[5]) = [v99 unsignedCharValue];
 
       nullableOptionalStruct9 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalStruct];
       v101 = [nullableOptionalStruct9 g];
       [v101 floatValue];
-      HIDWORD(v156[5]) = v102;
+      HIDWORD(v155[5]) = v102;
 
       nullableOptionalStruct10 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalStruct];
       v104 = [nullableOptionalStruct10 h];
       [v104 doubleValue];
-      *&v157 = v105;
+      *&v156 = v105;
 
       nullableOptionalStruct11 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalStruct];
       v107 = [nullableOptionalStruct11 i];
@@ -461,10 +461,10 @@
 
       if ((v104 & 1) == 0)
       {
-        WORD4(v157) = 1;
+        WORD4(v156) = 1;
         nullableOptionalStruct12 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalStruct];
         v109 = [nullableOptionalStruct12 i];
-        BYTE9(v157) = [v109 unsignedCharValue];
+        BYTE9(v156) = [v109 unsignedCharValue];
       }
     }
   }
@@ -474,17 +474,16 @@
 
   if (v111)
   {
-    if (v161 == 1)
+    if (v159 == 1)
     {
-      v161 = 0;
+      v159 = 0;
     }
   }
 
   else
   {
-    v159 = 0;
-    v160 = 0;
-    v161 = 1;
+    v158 = 0uLL;
+    v159 = 1;
     nullableList2 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableList];
     v113 = [nullableList2 count] == 0;
 
@@ -493,8 +492,7 @@
       operator new();
     }
 
-    v159 = 0;
-    v160 = 0;
+    v158 = 0uLL;
   }
 
   optionalList = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self optionalList];
@@ -502,9 +500,9 @@
 
   if (!v115)
   {
-    v162 = 1;
-    v163 = 0;
-    v164 = 0;
+    v160 = 1;
+    v161 = 0;
+    v162 = 0;
     optionalList2 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self optionalList];
     v117 = [optionalList2 count] == 0;
 
@@ -513,8 +511,8 @@
       operator new();
     }
 
-    v163 = 0;
-    v164 = 0;
+    v161 = 0;
+    v162 = 0;
   }
 
   nullableOptionalList = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalList];
@@ -522,26 +520,26 @@
 
   if (!v119)
   {
-    v165 = 1;
-    v167 = 0;
-    v168 = 0;
+    v163 = 1;
+    v165 = 0;
     v166 = 0;
+    v164 = 0;
     nullableOptionalList2 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalList];
     v121 = nullableOptionalList2 == 0;
 
     if (v121)
     {
-      if (v168 == 1)
+      if (v166 == 1)
       {
-        LOBYTE(v168) = 0;
+        LOBYTE(v166) = 0;
       }
     }
 
     else
     {
-      v166 = 0;
-      v167 = 0;
-      LOBYTE(v168) = 1;
+      v164 = 0;
+      v165 = 0;
+      LOBYTE(v166) = 1;
       nullableOptionalList3 = [(MTRUnitTestingClusterTestComplexNullableOptionalRequestParams *)self nullableOptionalList];
       v123 = [nullableOptionalList3 count] == 0;
 
@@ -550,40 +548,40 @@
         operator new();
       }
 
-      v166 = 0;
-      v167 = 0;
+      v164 = 0;
+      v165 = 0;
     }
   }
 
-  sub_2393D9C18(0x62FuLL, 0, &v133);
-  if (v133)
+  sub_2393D9C18(0x62FuLL, 0, &v132);
+  if (v132)
   {
     sub_2393C7B90(buf);
+    v169 = 0;
+    v170 = 0;
+    v168 = &unk_284BB83A8;
     v171 = 0;
-    v172 = 0;
-    v170 = &unk_284BB83A8;
-    v173 = 0;
-    sub_238EA16C4(&v170, &v133, 0);
-    sub_2393C7BF0(buf, &v170, 0xFFFFFFFF);
+    sub_238EA16C4(&v168, &v132, 0);
+    sub_2393C7BF0(buf, &v168, 0xFFFFFFFF);
     v124 = sub_238F30FA8(&unsignedShortValue, buf, 0x100uLL);
     v126 = v124;
-    if (v124 || (v124 = sub_238DD2EFC(buf, &v133), v126 = v124, v124))
+    if (v124 || (v124 = sub_238DD2EFC(buf, &v132), v126 = v124, v124))
     {
       v127 = v125;
     }
 
     else
     {
-      sub_238DD2F90(reader, &v133);
+      sub_238DD2F90(reader, &v132);
       v124 = sub_2393C7114(reader, 21, 256);
       v127 = v129;
       v126 = v124;
     }
 
     v128 = v124 & 0xFFFFFFFF00000000;
-    v170 = &unk_284BB83A8;
-    sub_238EA1758(&v172);
-    sub_238EA1758(&v171);
+    v168 = &unk_284BB83A8;
+    sub_238EA1758(&v170);
+    sub_238EA1758(&v169);
   }
 
   else
@@ -593,14 +591,13 @@
     v126 = 11;
   }
 
-  sub_238EA1758(&v133);
-  sub_238EA1790(&v134);
-  v130 = *MEMORY[0x277D85DE8];
-  v131 = v126 | v128;
-  v132 = v127;
-  result.mFile = v132;
-  result.mError = v131;
-  result.mLine = HIDWORD(v131);
+  sub_238EA1758(&v132);
+  sub_238EA1790(&v133);
+  v130 = v126 | v128;
+  v131 = v127;
+  result.mFile = v131;
+  result.mError = v130;
+  result.mLine = HIDWORD(v130);
   return result;
 }
 

@@ -1,4 +1,4 @@
-float mlir::copyElementsAttrData<unsigned int>(uint64_t a1, uint64_t a2, int *a3)
+float mlir::copyElementsAttrData<unsigned int>(uint64_t a1, uint64_t a2, int32x4_t *a3)
 {
   v143[5] = *MEMORY[0x1E69E9840];
   v140 = a1;
@@ -125,7 +125,7 @@ LABEL_29:
           v27 = i;
         }
 
-        a3[i] = RawData[v27];
+        a3->i32[i] = RawData[v27];
       }
 
       return *v22.i32;
@@ -147,7 +147,7 @@ LABEL_39:
           v29 = j;
         }
 
-        a3[j] = RawData[v29];
+        a3->i32[j] = RawData[v29];
       }
 
       return *v22.i32;
@@ -161,7 +161,7 @@ LABEL_52:
       {
         v32 = 0;
         v30 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v33 = a3 + 1;
+        v33 = &a3->i32[1];
         do
         {
           if (v18)
@@ -208,7 +208,7 @@ LABEL_52:
           v132 = v30;
         }
 
-        a3[v30++] = *&RawData[2 * v132];
+        a3->i32[v30++] = *&RawData[2 * v132];
 LABEL_221:
         ;
       }
@@ -225,7 +225,7 @@ LABEL_58:
       {
         v39 = 0;
         v31 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v40 = a3 + 1;
+        v40 = &a3->i32[1];
         do
         {
           if (v18)
@@ -272,7 +272,7 @@ LABEL_58:
           v133 = v31;
         }
 
-        a3[v31++] = *&RawData[2 * v133];
+        a3->i32[v31++] = *&RawData[2 * v133];
 LABEL_227:
         ;
       }
@@ -297,7 +297,7 @@ LABEL_73:
           v38 = k;
         }
 
-        a3[k] = *&RawData[4 * v38];
+        a3->i32[k] = *&RawData[4 * v38];
       }
 
       return *v22.i32;
@@ -319,7 +319,7 @@ LABEL_92:
           v45 = m;
         }
 
-        a3[m] = *&RawData[4 * v45];
+        a3->i32[m] = *&RawData[4 * v45];
       }
 
       return *v22.i32;
@@ -327,7 +327,7 @@ LABEL_92:
 
     if (mlir::Type::isUnsignedInteger(&isSplat, 64) || mlir::Type::isInteger(&isSplat, 64))
     {
-      *a3 = *RawData;
+      a3->i32[0] = *RawData;
       return *v22.i32;
     }
 
@@ -339,7 +339,7 @@ LABEL_113:
       {
         v61 = 0;
         v48 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v62 = (a3 + 1);
+        v62 = &a3->u32[1];
         do
         {
           if (v18)
@@ -388,7 +388,7 @@ LABEL_113:
         }
 
         v22.i16[0] = *&RawData[2 * v134];
-        a3[v48++] = *v22.i16;
+        a3->i32[v48++] = *v22.i16;
 LABEL_233:
         ;
       }
@@ -405,7 +405,7 @@ LABEL_125:
       {
         v78 = 0;
         v60 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v79 = (a3 + 1);
+        v79 = &a3->u32[1];
         do
         {
           if (v18)
@@ -454,7 +454,7 @@ LABEL_125:
         }
 
         v22.i32[0] = *&RawData[4 * v135];
-        a3[v60++] = *v22.i32;
+        a3->i32[v60++] = *v22.i32;
 LABEL_239:
         ;
       }
@@ -466,7 +466,7 @@ LABEL_239:
     if (mlir::Type::isF64(&isSplat))
     {
       v22.i64[0] = *RawData;
-      *a3 = *RawData;
+      a3->i32[0] = *RawData;
       return *v22.i32;
     }
 
@@ -559,7 +559,7 @@ LABEL_27:
     {
       v46 = NumElements & 0x7FFFFFFFFFFFFFF8;
       v49 = (RawData + 32);
-      v50 = (a3 + 4);
+      v50 = a3 + 1;
       v51 = NumElements & 0x7FFFFFFFFFFFFFF8;
       do
       {
@@ -589,7 +589,7 @@ LABEL_27:
 
     v56 = &RawData[8 * v46];
     v57 = NumElements - v46;
-    v58 = &a3[v46];
+    v58 = &a3->i32[v46];
     do
     {
       v59 = *v56;
@@ -613,7 +613,7 @@ LABEL_27:
     {
       v47 = NumElements & 0x7FFFFFFFFFFFFFF8;
       v66 = (RawData + 32);
-      v67 = (a3 + 4);
+      v67 = a3 + 1;
       v68 = NumElements & 0x7FFFFFFFFFFFFFF8;
       do
       {
@@ -643,7 +643,7 @@ LABEL_27:
 
     v73 = &RawData[8 * v47];
     v74 = NumElements - v47;
-    v75 = &a3[v47];
+    v75 = &a3->i32[v47];
     do
     {
       v76 = *v73;
@@ -687,7 +687,7 @@ LABEL_27:
     {
       v77 = NumElements & 0x7FFFFFFFFFFFFFF8;
       v93 = (RawData + 32);
-      v94 = (a3 + 4);
+      v94 = a3 + 1;
       v95 = NumElements & 0x7FFFFFFFFFFFFFF8;
       do
       {
@@ -717,7 +717,7 @@ LABEL_27:
 
     v100 = &RawData[8 * v77];
     v101 = NumElements - v77;
-    v102 = &a3[v77];
+    v102 = &a3->i32[v77];
     do
     {
       v103 = *v100++;
@@ -737,7 +737,7 @@ LABEL_163:
     {
       mlir::Type::getIntOrFloatBitWidth(&isSplat);
       IntOrFloatBitWidth = mlir::Type::getIntOrFloatBitWidth(&isSplat);
-      mlir::detail::unpackQuantizedData<unsigned int>(RawData, v4, a3, NumElements, IntOrFloatBitWidth);
+      mlir::detail::unpackQuantizedData<unsigned int>(RawData, v4, a3->i32, NumElements, IntOrFloatBitWidth);
       return *v22.i32;
     }
 
@@ -751,7 +751,7 @@ LABEL_163:
 
     if (v18)
     {
-      if (NumElements < 4 || v142[0] + 1 > a3 && v142[0] < &a3[NumElements])
+      if (NumElements < 4 || v142[0] + 1 > a3 && v142[0] < a3 + 4 * NumElements)
       {
         v85 = 0;
         goto LABEL_170;
@@ -764,7 +764,7 @@ LABEL_163:
         v110 = vmovl_s8(v109);
         v22 = vmovl_high_s16(v110);
         v111 = vmovl_s16(*v110.i8);
-        v112 = (a3 + 16);
+        v112 = a3 + 4;
         v113 = NumElements & 0x7FFFFFFFFFFFFFE0;
         do
         {
@@ -790,7 +790,7 @@ LABEL_163:
         {
 LABEL_170:
           v86 = NumElements - v85;
-          v87 = &a3[v85];
+          v87 = &a3->i32[v85];
           do
           {
             *v87++ = *v84;
@@ -810,7 +810,7 @@ LABEL_170:
       v114 = v85;
       v85 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
       v22 = vshrq_n_s32(vshlq_n_s32(vmovl_u16(vdup_n_s16(*v84)), 0x18uLL), 0x18uLL);
-      v115 = &a3[v114];
+      v115 = (a3 + 4 * v114);
       v116 = v114 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
       do
       {
@@ -833,7 +833,7 @@ LABEL_195:
       return *v22.i32;
     }
 
-    if (NumElements < 4 || v142[0] + NumElements > a3 && v142[0] < &a3[NumElements])
+    if (NumElements < 4 || v142[0] + NumElements > a3 && v142[0] < a3 + 4 * NumElements)
     {
       v104 = 0;
       goto LABEL_193;
@@ -843,7 +843,7 @@ LABEL_195:
     {
       v104 = NumElements & 0x7FFFFFFFFFFFFFE0;
       v117 = (v142[0] + 16);
-      v118 = (a3 + 16);
+      v118 = a3 + 4;
       v119 = NumElements & 0x7FFFFFFFFFFFFFE0;
       do
       {
@@ -879,7 +879,7 @@ LABEL_195:
 LABEL_193:
         v105 = &v84[v104];
         v106 = NumElements - v104;
-        v107 = &a3[v104];
+        v107 = &a3->i32[v104];
         do
         {
           v108 = *v105++;
@@ -900,7 +900,7 @@ LABEL_193:
     v127 = v104;
     v104 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
     v128 = &v84[v127];
-    v129 = &a3[v127];
+    v129 = (a3 + 4 * v127);
     v130 = v127 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
     do
     {
@@ -957,8 +957,8 @@ LABEL_161:
       v22.i16[0] = *&RawData[2 * v91];
       v22.i16[2] = *&RawData[2 * v92];
       *v22.i8 = vcvt_u32_f32(vshl_n_s32(*v22.i8, 0x10uLL));
-      *v90 = v22.i64[0];
-      v90 += 2;
+      v90->i64[0] = v22.i64[0];
+      v90 = (v90 + 8);
       v89 += 2;
     }
 
@@ -980,7 +980,7 @@ LABEL_161:
     }
 
     v22.i32[0] = *&RawData[2 * v136] << 16;
-    a3[v83++] = *v22.i32;
+    a3->i32[v83++] = *v22.i32;
 LABEL_245:
     ;
   }
@@ -989,7 +989,7 @@ LABEL_245:
   return *v22.i32;
 }
 
-float mlir::copyElementsAttrData<int>(uint64_t a1, uint64_t a2, int *a3)
+float mlir::copyElementsAttrData<int>(uint64_t a1, uint64_t a2, int32x4_t *a3)
 {
   v143[5] = *MEMORY[0x1E69E9840];
   v140 = a1;
@@ -1116,7 +1116,7 @@ LABEL_29:
           v27 = i;
         }
 
-        a3[i] = RawData[v27];
+        a3->i32[i] = RawData[v27];
       }
 
       return *v22.i32;
@@ -1138,7 +1138,7 @@ LABEL_39:
           v29 = j;
         }
 
-        a3[j] = RawData[v29];
+        a3->i32[j] = RawData[v29];
       }
 
       return *v22.i32;
@@ -1152,7 +1152,7 @@ LABEL_52:
       {
         v32 = 0;
         v30 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v33 = a3 + 1;
+        v33 = &a3->i32[1];
         do
         {
           if (v18)
@@ -1199,7 +1199,7 @@ LABEL_52:
           v132 = v30;
         }
 
-        a3[v30++] = *&RawData[2 * v132];
+        a3->i32[v30++] = *&RawData[2 * v132];
 LABEL_221:
         ;
       }
@@ -1216,7 +1216,7 @@ LABEL_58:
       {
         v39 = 0;
         v31 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v40 = a3 + 1;
+        v40 = &a3->i32[1];
         do
         {
           if (v18)
@@ -1263,7 +1263,7 @@ LABEL_58:
           v133 = v31;
         }
 
-        a3[v31++] = *&RawData[2 * v133];
+        a3->i32[v31++] = *&RawData[2 * v133];
 LABEL_227:
         ;
       }
@@ -1288,7 +1288,7 @@ LABEL_73:
           v38 = k;
         }
 
-        a3[k] = *&RawData[4 * v38];
+        a3->i32[k] = *&RawData[4 * v38];
       }
 
       return *v22.i32;
@@ -1310,7 +1310,7 @@ LABEL_92:
           v45 = m;
         }
 
-        a3[m] = *&RawData[4 * v45];
+        a3->i32[m] = *&RawData[4 * v45];
       }
 
       return *v22.i32;
@@ -1318,7 +1318,7 @@ LABEL_92:
 
     if (mlir::Type::isUnsignedInteger(&isSplat, 64) || mlir::Type::isInteger(&isSplat, 64))
     {
-      *a3 = *RawData;
+      a3->i32[0] = *RawData;
       return *v22.i32;
     }
 
@@ -1330,7 +1330,7 @@ LABEL_113:
       {
         v61 = 0;
         v48 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v62 = a3 + 1;
+        v62 = &a3->i32[1];
         do
         {
           if (v18)
@@ -1379,7 +1379,7 @@ LABEL_113:
         }
 
         v22.i16[0] = *&RawData[2 * v134];
-        a3[v48++] = *v22.i16;
+        a3->i32[v48++] = *v22.i16;
 LABEL_233:
         ;
       }
@@ -1396,7 +1396,7 @@ LABEL_125:
       {
         v78 = 0;
         v60 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v79 = a3 + 1;
+        v79 = &a3->i32[1];
         do
         {
           if (v18)
@@ -1445,7 +1445,7 @@ LABEL_125:
         }
 
         v22.i32[0] = *&RawData[4 * v135];
-        a3[v60++] = *v22.i32;
+        a3->i32[v60++] = *v22.i32;
 LABEL_239:
         ;
       }
@@ -1457,7 +1457,7 @@ LABEL_239:
     if (mlir::Type::isF64(&isSplat))
     {
       v22.i64[0] = *RawData;
-      *a3 = *RawData;
+      a3->i32[0] = *RawData;
       return *v22.i32;
     }
 
@@ -1550,7 +1550,7 @@ LABEL_27:
     {
       v46 = NumElements & 0x7FFFFFFFFFFFFFF8;
       v49 = (RawData + 32);
-      v50 = (a3 + 4);
+      v50 = a3 + 1;
       v51 = NumElements & 0x7FFFFFFFFFFFFFF8;
       do
       {
@@ -1580,7 +1580,7 @@ LABEL_27:
 
     v56 = &RawData[8 * v46];
     v57 = NumElements - v46;
-    v58 = &a3[v46];
+    v58 = &a3->i32[v46];
     do
     {
       v59 = *v56;
@@ -1604,7 +1604,7 @@ LABEL_27:
     {
       v47 = NumElements & 0x7FFFFFFFFFFFFFF8;
       v66 = (RawData + 32);
-      v67 = (a3 + 4);
+      v67 = a3 + 1;
       v68 = NumElements & 0x7FFFFFFFFFFFFFF8;
       do
       {
@@ -1634,7 +1634,7 @@ LABEL_27:
 
     v73 = &RawData[8 * v47];
     v74 = NumElements - v47;
-    v75 = &a3[v47];
+    v75 = &a3->i32[v47];
     do
     {
       v76 = *v73;
@@ -1678,7 +1678,7 @@ LABEL_27:
     {
       v77 = NumElements & 0x7FFFFFFFFFFFFFF8;
       v93 = (RawData + 32);
-      v94 = (a3 + 4);
+      v94 = a3 + 1;
       v95 = NumElements & 0x7FFFFFFFFFFFFFF8;
       do
       {
@@ -1708,7 +1708,7 @@ LABEL_27:
 
     v100 = &RawData[8 * v77];
     v101 = NumElements - v77;
-    v102 = &a3[v77];
+    v102 = &a3->i32[v77];
     do
     {
       v103 = *v100++;
@@ -1728,7 +1728,7 @@ LABEL_163:
     {
       mlir::Type::getIntOrFloatBitWidth(&isSplat);
       IntOrFloatBitWidth = mlir::Type::getIntOrFloatBitWidth(&isSplat);
-      mlir::detail::unpackQuantizedData<int>(RawData, v4, a3, NumElements, IntOrFloatBitWidth);
+      mlir::detail::unpackQuantizedData<int>(RawData, v4, a3->i32, NumElements, IntOrFloatBitWidth);
       return *v22.i32;
     }
 
@@ -1742,7 +1742,7 @@ LABEL_163:
 
     if (v18)
     {
-      if (NumElements < 4 || v142[0] + 1 > a3 && v142[0] < &a3[NumElements])
+      if (NumElements < 4 || v142[0] + 1 > a3 && v142[0] < a3 + 4 * NumElements)
       {
         v85 = 0;
         goto LABEL_170;
@@ -1755,19 +1755,19 @@ LABEL_163:
         v110 = vmovl_s8(v109);
         v22 = vmovl_high_s16(v110);
         v111 = vmovl_s16(*v110.i8);
-        v112 = (a3 + 16);
+        i32 = a3[4].i32;
         v113 = NumElements & 0x7FFFFFFFFFFFFFE0;
         do
         {
-          v112[-4] = v111;
-          v112[-3] = v22;
-          v112[-2] = v111;
-          v112[-1] = v22;
-          *v112 = v111;
-          v112[1] = v22;
-          v112[2] = v111;
-          v112[3] = v22;
-          v112 += 8;
+          *(i32 - 4) = v111;
+          *(i32 - 3) = v22;
+          *(i32 - 2) = v111;
+          *(i32 - 1) = v22;
+          *i32 = v111;
+          *(i32 + 1) = v22;
+          *(i32 + 2) = v111;
+          *(i32 + 3) = v22;
+          i32 += 32;
           v113 -= 32;
         }
 
@@ -1781,7 +1781,7 @@ LABEL_163:
         {
 LABEL_170:
           v86 = NumElements - v85;
-          v87 = &a3[v85];
+          v87 = &a3->i32[v85];
           do
           {
             *v87++ = *v84;
@@ -1801,11 +1801,12 @@ LABEL_170:
       v114 = v85;
       v85 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
       v22 = vshrq_n_s32(vshlq_n_s32(vmovl_u16(vdup_n_s16(*v84)), 0x18uLL), 0x18uLL);
-      v115 = &a3[v114];
+      v115 = &a3->i32[v114];
       v116 = v114 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
       do
       {
-        *v115++ = v22;
+        *v115 = v22;
+        v115 += 4;
         v116 += 4;
       }
 
@@ -1824,7 +1825,7 @@ LABEL_195:
       return *v22.i32;
     }
 
-    if (NumElements < 4 || v142[0] + NumElements > a3 && v142[0] < &a3[NumElements])
+    if (NumElements < 4 || v142[0] + NumElements > a3 && v142[0] < a3 + 4 * NumElements)
     {
       v104 = 0;
       goto LABEL_193;
@@ -1834,7 +1835,7 @@ LABEL_195:
     {
       v104 = NumElements & 0x7FFFFFFFFFFFFFE0;
       v117 = (v142[0] + 16);
-      v118 = (a3 + 16);
+      v118 = a3[4].i32;
       v119 = NumElements & 0x7FFFFFFFFFFFFFE0;
       do
       {
@@ -1843,18 +1844,18 @@ LABEL_195:
         v122 = vmovl_s8(*v120.i8);
         v123 = vmovl_high_s8(v120);
         v124 = vmovl_s8(*v117);
-        v118[-2] = vmovl_s16(*v123.i8);
-        v118[-1] = vmovl_high_s16(v123);
+        *(v118 - 2) = vmovl_s16(*v123.i8);
+        *(v118 - 1) = vmovl_high_s16(v123);
         v125 = vmovl_high_s8(v121);
         v126 = vmovl_s16(*v125.i8);
-        v118[-4] = vmovl_s16(*v122.i8);
-        v118[-3] = vmovl_high_s16(v122);
+        *(v118 - 4) = vmovl_s16(*v122.i8);
+        *(v118 - 3) = vmovl_high_s16(v122);
         v22 = vmovl_high_s16(v125);
-        v118[2] = v126;
-        v118[3] = v22;
+        *(v118 + 2) = v126;
+        *(v118 + 3) = v22;
         *v118 = vmovl_s16(*v124.i8);
-        v118[1] = vmovl_high_s16(v124);
-        v118 += 8;
+        *(v118 + 1) = vmovl_high_s16(v124);
+        v118 += 32;
         v117 += 4;
         v119 -= 32;
       }
@@ -1870,7 +1871,7 @@ LABEL_195:
 LABEL_193:
         v105 = &v84[v104];
         v106 = NumElements - v104;
-        v107 = &a3[v104];
+        v107 = &a3->i32[v104];
         do
         {
           v108 = *v105++;
@@ -1891,7 +1892,7 @@ LABEL_193:
     v127 = v104;
     v104 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
     v128 = &v84[v127];
-    v129 = &a3[v127];
+    v129 = &a3->i32[v127];
     v130 = v127 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
     do
     {
@@ -1899,7 +1900,8 @@ LABEL_193:
       v128 += 4;
       v22.i32[0] = v131;
       v22 = vmovl_s16(*&vmovl_s8(*v22.i8));
-      *v129++ = v22;
+      *v129 = v22;
+      v129 += 4;
       v130 += 4;
     }
 
@@ -1971,7 +1973,7 @@ LABEL_161:
     }
 
     v22.i32[0] = *&RawData[2 * v136] << 16;
-    a3[v83++] = *v22.i32;
+    a3->i32[v83++] = *v22.i32;
 LABEL_245:
     ;
   }
@@ -2405,7 +2407,7 @@ LABEL_135:
       {
         v76 = 0;
         v74 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v77 = &a3->u64[1];
+        v77 = &a3->i64[1];
         do
         {
           if (v18)
@@ -2471,7 +2473,7 @@ LABEL_141:
       {
         v82 = 0;
         v75 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v83 = &a3->u64[1];
+        v83 = &a3->i64[1];
         do
         {
           if (v18)
@@ -2751,7 +2753,7 @@ LABEL_128:
     {
       v81 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
       v98 = (RawData + 16);
-      v99 = &a3[1];
+      v99 = a3 + 1;
       v100 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
       do
       {
@@ -3038,7 +3040,7 @@ LABEL_171:
   {
     v93 = 0;
     v87 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-    v94 = &a3->u64[1];
+    v94 = &a3->i64[1];
     do
     {
       if (v18)
@@ -3867,7 +3869,7 @@ LABEL_128:
     {
       v81 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
       v98 = (RawData + 16);
-      v99 = &a3[1];
+      v99 = a3 + 1;
       v100 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
       do
       {
@@ -5432,7 +5434,7 @@ LABEL_289:
   return _Q0.i16[0];
 }
 
-void mlir::copyElementsAttrData<__emulated_bf16>(uint64_t a1, uint64_t a2, _WORD *a3)
+void mlir::copyElementsAttrData<__emulated_bf16>(unsigned __int8 *a1, uint64_t a2, _WORD *a3)
 {
   v95[5] = *MEMORY[0x1E69E9840];
   v92 = a1;
@@ -6184,7 +6186,7 @@ LABEL_89:
   }
 }
 
-float32_t mlir::copyElementsAttrData<float>(uint64_t a1, uint64_t a2, float *a3)
+float32_t mlir::copyElementsAttrData<float>(uint64_t a1, uint64_t a2, float32x4_t *a3)
 {
   v152[5] = *MEMORY[0x1E69E9840];
   v149 = a1;
@@ -6384,16 +6386,16 @@ LABEL_27:
 
         v67 = NumElements & 0x7FFFFFFFFFFFFFF8;
         v68 = (RawStringData + 16);
-        v69 = (a3 + 4);
+        f32 = a3[1].f32;
         v70 = NumElements & 0x7FFFFFFFFFFFFFF8;
         do
         {
           _Q0 = v68[-1];
           v71 = *v68;
-          v69[-1] = _Q0;
-          *v69 = v71;
+          *(f32 - 1) = _Q0;
+          *f32 = v71;
           v68 += 2;
-          v69 += 2;
+          f32 += 8;
           v70 -= 8;
         }
 
@@ -6404,7 +6406,7 @@ LABEL_153:
           v72 = v67;
           v73 = &RawStringData[4 * v67];
           v74 = NumElements - v67;
-          v75 = &a3[v72];
+          v75 = &a3->f32[v72];
           do
           {
             v76 = *v73;
@@ -6438,7 +6440,7 @@ LABEL_187:
       {
         mlir::Type::getIntOrFloatBitWidth(&isSplat);
         IntOrFloatBitWidth = mlir::Type::getIntOrFloatBitWidth(&isSplat);
-        mlir::detail::unpackQuantizedData<float>(RawStringData, v4, a3, NumElements, IntOrFloatBitWidth);
+        mlir::detail::unpackQuantizedData<float>(RawStringData, v4, a3->f32, NumElements, IntOrFloatBitWidth);
         return _Q0.f32[0];
       }
 
@@ -6452,7 +6454,7 @@ LABEL_187:
 
       if (v18)
       {
-        if (NumElements < 4 || v151[0] + 1 > a3 && v151[0] < &a3[NumElements])
+        if (NumElements < 4 || v151[0] + 1 > a3 && v151[0] < &a3->f32[NumElements])
         {
           v97 = 0;
           goto LABEL_194;
@@ -6468,10 +6470,10 @@ LABEL_187:
           do
           {
             *v124 = _Q0;
-            v124[1] = _Q0;
-            v124[2] = _Q0;
-            v124[3] = _Q0;
-            v124 += 4;
+            *(v124 + 1) = _Q0;
+            *(v124 + 2) = _Q0;
+            *(v124 + 3) = _Q0;
+            v124 += 16;
             v123 -= 16;
           }
 
@@ -6485,7 +6487,7 @@ LABEL_187:
           {
 LABEL_194:
             v98 = NumElements - v97;
-            v99 = &a3[v97];
+            v99 = &a3->f32[v97];
             do
             {
               _Q0.i8[0] = *v96;
@@ -6508,11 +6510,12 @@ LABEL_194:
         v125 = v97;
         v97 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
         _Q0 = vcvtq_f32_s32(vmovl_s16(vshr_n_s16(vshl_n_s16(vdup_n_s16(*v96), 8uLL), 8uLL)));
-        v126 = &a3[v125];
+        v126 = &a3->f32[v125];
         v127 = v125 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
         do
         {
-          *v126++ = _Q0;
+          *v126 = _Q0;
+          v126 += 4;
           v127 += 4;
         }
 
@@ -6531,7 +6534,7 @@ LABEL_206:
         return _Q0.f32[0];
       }
 
-      if (NumElements < 4 || v151[0] + NumElements > a3 && v151[0] < &a3[NumElements])
+      if (NumElements < 4 || v151[0] + NumElements > a3 && v151[0] < &a3->f32[NumElements])
       {
         v101 = 0;
         goto LABEL_204;
@@ -6567,7 +6570,7 @@ LABEL_206:
 LABEL_204:
           v102 = &v96[v101];
           v103 = NumElements - v101;
-          v104 = &a3[v101];
+          v104 = &a3->f32[v101];
           do
           {
             v105 = *v102++;
@@ -6589,7 +6592,7 @@ LABEL_204:
       v132 = v101;
       v101 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
       v133 = &v96[v132];
-      v134 = &a3[v132];
+      v134 = &a3->f32[v132];
       v135 = v132 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
       _Q0.i32[0] = 0xFFFFFF;
       do
@@ -6597,7 +6600,8 @@ LABEL_204:
         v136 = *v133++;
         v95.i32[0] = v136;
         v95 = vcvtq_n_f32_s32(vqtbl1q_s8(v95, xmmword_1E09845C0), 0x18uLL);
-        *v134++ = v95;
+        *v134 = v95;
+        v134 += 4;
         v135 += 4;
       }
 
@@ -6625,7 +6629,7 @@ LABEL_204:
     {
       v89 = NumElements & 0x7FFFFFFFFFFFFFF0;
       v106 = (RawStringData + 16);
-      v107 = (a3 + 8);
+      v107 = a3[2].f32;
       v108 = NumElements & 0x7FFFFFFFFFFFFFF0;
       do
       {
@@ -6637,11 +6641,11 @@ LABEL_204:
         v112 = vshll_n_s16(*v106, 0x10uLL);
         __asm { SHLL2           V1.4S, V1.8H, #0x10 }
 
-        v107[-2] = v111;
-        v107[-1] = _Q0;
+        *(v107 - 2) = v111;
+        *(v107 - 1) = _Q0;
         *v107 = v112;
-        v107[1] = _Q1;
-        v107 += 4;
+        *(v107 + 1) = _Q1;
+        v107 += 16;
         v106 += 4;
         v108 -= 16;
       }
@@ -6657,7 +6661,7 @@ LABEL_204:
 LABEL_215:
         v118 = &RawStringData[2 * v89];
         v119 = NumElements - v89;
-        v120 = &a3[v89];
+        v120 = &a3->f32[v89];
         do
         {
           v121 = *v118;
@@ -6679,13 +6683,14 @@ LABEL_215:
     v113 = v89;
     v89 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
     v114 = &RawStringData[2 * v113];
-    v115 = &a3[v113];
+    v115 = &a3->f32[v113];
     v116 = v113 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
     do
     {
       v117 = *v114++;
       _Q0 = vshll_n_s16(v117, 0x10uLL);
-      *v115++ = _Q0;
+      *v115 = _Q0;
+      v115 += 4;
       v116 += 4;
     }
 
@@ -6743,7 +6748,7 @@ LABEL_29:
 
       _Q0.i8[0] = RawStringData[v27];
       _Q0.f32[0] = _Q0.u32[0];
-      a3[i] = _Q0.f32[0];
+      a3->i32[i] = _Q0.i32[0];
     }
 
     return _Q0.f32[0];
@@ -6768,7 +6773,7 @@ LABEL_39:
       _Q0.i8[0] = RawStringData[v29];
       _Q0.i64[0] = vmovl_s16(*&vmovl_s8(*_Q0.f32)).u64[0];
       _Q0.f32[0] = _Q0.i32[0];
-      a3[j] = _Q0.f32[0];
+      a3->i32[j] = _Q0.i32[0];
     }
 
     return _Q0.f32[0];
@@ -6782,7 +6787,7 @@ LABEL_52:
     {
       v34 = 0;
       v31 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-      v35 = a3 + 1;
+      v35 = &a3->f32[1];
       do
       {
         if (v18)
@@ -6834,7 +6839,7 @@ LABEL_52:
 
       _Q0.i16[0] = *&RawStringData[2 * v137];
       _Q0.f32[0] = _Q0.u32[0];
-      a3[v31++] = _Q0.f32[0];
+      a3->i32[v31++] = _Q0.i32[0];
 LABEL_242:
       ;
     }
@@ -6851,7 +6856,7 @@ LABEL_58:
     {
       v39 = 0;
       v33 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-      v40 = a3 + 1;
+      v40 = &a3->f32[1];
       do
       {
         if (v18)
@@ -6880,8 +6885,8 @@ LABEL_58:
         v32.i16[0] = *&RawStringData[2 * v42];
         v32 = vmovl_s16(v32).u64[0];
         *v32.i32 = v32.i32[0];
-        *(v40 - 1) = _Q0.i32[0];
-        *v40 = v32.i32[0];
+        *(v40 - 1) = _Q0.f32[0];
+        *v40 = *v32.i32;
         v40 += 2;
         v39 += 2;
       }
@@ -6906,7 +6911,7 @@ LABEL_58:
       _Q0.i16[0] = *&RawStringData[2 * v138];
       _Q0.i64[0] = vmovl_s16(*_Q0.f32).u64[0];
       _Q0.f32[0] = _Q0.i32[0];
-      a3[v33++] = _Q0.f32[0];
+      a3->i32[v33++] = _Q0.i32[0];
 LABEL_248:
       ;
     }
@@ -6923,7 +6928,7 @@ LABEL_73:
     {
       v44 = 0;
       v38 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-      v45 = a3 + 1;
+      v45 = &a3->f32[1];
       do
       {
         if (v18)
@@ -6972,7 +6977,7 @@ LABEL_73:
       }
 
       _Q0.f32[0] = *&RawStringData[4 * v139];
-      a3[v38++] = _Q0.f32[0];
+      a3->i32[v38++] = _Q0.i32[0];
 LABEL_254:
       ;
     }
@@ -6989,7 +6994,7 @@ LABEL_88:
     {
       v50 = 0;
       v43 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-      v51 = a3 + 1;
+      v51 = &a3->f32[1];
       do
       {
         if (v18)
@@ -7038,7 +7043,7 @@ LABEL_88:
       }
 
       _Q0.f32[0] = *&RawStringData[4 * v140];
-      a3[v43++] = _Q0.f32[0];
+      a3->i32[v43++] = _Q0.i32[0];
 LABEL_260:
       ;
     }
@@ -7055,7 +7060,7 @@ LABEL_103:
     {
       v56 = 0;
       v49 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-      v57 = a3 + 1;
+      v57 = &a3->f32[1];
       do
       {
         if (v18)
@@ -7104,7 +7109,7 @@ LABEL_103:
       }
 
       _Q0.f32[0] = *&RawStringData[8 * v141];
-      a3[v49++] = _Q0.f32[0];
+      a3->f32[v49++] = _Q0.f32[0];
 LABEL_266:
       ;
     }
@@ -7121,7 +7126,7 @@ LABEL_118:
     {
       v62 = 0;
       v55 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-      v63 = a3 + 1;
+      v63 = &a3->f32[1];
       do
       {
         if (v18)
@@ -7170,7 +7175,7 @@ LABEL_118:
       }
 
       _Q0.f32[0] = *&RawStringData[8 * v142];
-      a3[v55++] = _Q0.f32[0];
+      a3->f32[v55++] = _Q0.f32[0];
 LABEL_272:
       ;
     }
@@ -7187,7 +7192,7 @@ LABEL_133:
     {
       v77 = 0;
       v61 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-      v78 = a3 + 1;
+      v78 = &a3->f32[1];
       do
       {
         if (v18)
@@ -7218,7 +7223,7 @@ LABEL_133:
           FCVT            S1, H1
         }
 
-        *(v78 - 1) = _Q0.i32[0];
+        *(v78 - 1) = _Q0.f32[0];
         *v78 = _S1;
         v78 += 2;
         v77 += 2;
@@ -7244,7 +7249,7 @@ LABEL_133:
       _H0 = *&RawStringData[2 * v143];
       __asm { FCVT            S0, H0 }
 
-      a3[v61++] = _Q0.f32[0];
+      a3->i32[v61++] = _Q0.i32[0];
 LABEL_278:
       ;
     }
@@ -7256,7 +7261,7 @@ LABEL_278:
   if (mlir::Type::isF32(&isSplat))
   {
     _Q0.i32[0] = *RawStringData;
-    *a3 = *RawStringData;
+    a3->i32[0] = *RawStringData;
     return _Q0.f32[0];
   }
 
@@ -7264,7 +7269,7 @@ LABEL_278:
   {
     if (mlir::Type::isBF16(&isSplat))
     {
-      *a3 = *RawStringData << 16;
+      a3->i32[0] = *RawStringData << 16;
       return _Q0.f32[0];
     }
 
@@ -7278,7 +7283,7 @@ LABEL_169:
   {
     v90 = 0;
     v88 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-    v91 = a3 + 1;
+    v91 = &a3->f32[1];
     do
     {
       if (v18)
@@ -7327,7 +7332,7 @@ LABEL_169:
     }
 
     _Q0.f32[0] = *&RawStringData[8 * v145];
-    a3[v88++] = _Q0.f32[0];
+    a3->i32[v88++] = _Q0.i32[0];
 LABEL_284:
     ;
   }
@@ -8279,14 +8284,14 @@ LABEL_186:
         do
         {
           *v124 = v122;
-          v124[1] = v119;
-          v124[2] = v117;
-          v124[3] = _Q0;
-          v124[4] = v122;
-          v124[5] = v119;
-          v124[6] = v117;
-          v124[7] = _Q0;
-          v124 += 8;
+          *(v124 + 1) = v119;
+          *(v124 + 2) = v117;
+          *(v124 + 3) = _Q0;
+          *(v124 + 4) = v122;
+          *(v124 + 5) = v119;
+          *(v124 + 6) = v117;
+          *(v124 + 7) = _Q0;
+          v124 += 16;
           v123 -= 16;
         }
 
@@ -8409,17 +8414,17 @@ LABEL_212:
         v155 = vshr_n_s32(vshl_n_s32(v153, 0x18uLL), 0x18uLL);
         v137.i64[0] = v155.i32[0];
         v137.i64[1] = v155.i32[1];
-        v131[2] = v154;
-        v131[3] = vcvtq_f64_s64(v137);
+        *(v131 + 2) = v154;
+        *(v131 + 3) = vcvtq_f64_s64(v137);
         v137.i64[0] = v150.i32[0];
         v137.i64[1] = v150.i32[1];
         *v131 = v148;
-        v131[1] = vcvtq_f64_s64(v137);
-        v131[6] = v144;
-        v131[7] = v146;
-        v131[4] = _Q0;
-        v131[5] = vcvtq_f64_s64(v140);
-        v131 += 8;
+        *(v131 + 1) = vcvtq_f64_s64(v137);
+        *(v131 + 6) = v144;
+        *(v131 + 7) = v146;
+        *(v131 + 4) = _Q0;
+        *(v131 + 5) = vcvtq_f64_s64(v140);
+        v131 += 16;
         v130 -= 16;
       }
 
@@ -8523,7 +8528,8 @@ LABEL_184:
       LOWORD(_Q0.f64[0]) = *&RawData[2 * v103];
       WORD2(_Q0.f64[0]) = *&RawData[2 * v104];
       _Q0 = vcvtq_f64_f32(vshl_n_s32(*&_Q0.f64[0], 0x10uLL));
-      *v102++ = _Q0;
+      *v102 = _Q0;
+      v102 += 2;
       v101 += 2;
     }
 
@@ -8660,16 +8666,16 @@ LABEL_286:
       {
         v43 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
         v56 = (ElementsAttrRawData + 16);
-        v57 = (a3 + 2);
+        v57 = a3 + 2;
         v58 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
         do
         {
           _Q0 = vcvtq_f64_s64(v56[-1]);
           v59 = vcvtq_f64_s64(*v56);
-          v57[-1] = _Q0;
+          *(v57 - 1) = _Q0;
           *v57 = v59;
           v56 += 2;
-          v57 += 2;
+          v57 += 4;
           v58 -= 4;
         }
 
@@ -8714,7 +8720,7 @@ LABEL_286:
         {
           v55 = NumElements & 0x7FFFFFFFFFFFFFF8;
           v100 = (ElementsAttrRawData + 16);
-          v101 = (a3 + 4);
+          v101 = a3 + 4;
           v102 = NumElements & 0x7FFFFFFFFFFFFFF8;
           do
           {
@@ -8723,11 +8729,11 @@ LABEL_286:
             _Q0 = vcvt_hight_f64_f32(v103);
             v105 = vcvtq_f64_f32(*v100);
             v106 = vcvt_hight_f64_f32(*v100->f32);
-            v101[-2] = v104;
-            v101[-1] = _Q0;
+            *(v101 - 2) = v104;
+            *(v101 - 1) = _Q0;
             *v101 = v105;
-            v101[1] = v106;
-            v101 += 4;
+            *(v101 + 1) = v106;
+            v101 += 8;
             v100 += 4;
             v102 -= 8;
           }
@@ -8776,16 +8782,16 @@ LABEL_286:
 
           v65 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
           v66 = (ElementsAttrRawData + 16);
-          v67 = (a3 + 2);
+          v67 = a3 + 2;
           v68 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
           do
           {
             _Q0 = v66[-1];
             v69 = *v66;
-            v67[-1] = _Q0;
+            *(v67 - 1) = _Q0;
             *v67 = v69;
             v66 += 2;
-            v67 += 2;
+            v67 += 4;
             v68 -= 4;
           }
 
@@ -8841,7 +8847,7 @@ LABEL_133:
     {
       v54 = NumElements & 0x7FFFFFFFFFFFFFF0;
       v80 = (ElementsAttrRawData + 16);
-      v81 = (a3 + 8);
+      v81 = a3 + 8;
       v82 = NumElements & 0x7FFFFFFFFFFFFFF0;
       do
       {
@@ -8850,18 +8856,18 @@ LABEL_133:
         v85 = vcvtq_f32_f16(*v83.i8);
         v86 = vcvt_hight_f32_f16(v83);
         v87 = vcvtq_f32_f16(*v80);
-        v81[-2] = vcvtq_f64_f32(*v86.f32);
-        v81[-1] = vcvt_hight_f64_f32(v86);
+        *(v81 - 2) = vcvtq_f64_f32(*v86.f32);
+        *(v81 - 1) = vcvt_hight_f64_f32(v86);
         v88 = vcvt_hight_f32_f16(v84);
         v89 = vcvtq_f64_f32(*v88.f32);
-        v81[-4] = vcvtq_f64_f32(*v85.f32);
-        v81[-3] = vcvt_hight_f64_f32(v85);
+        *(v81 - 4) = vcvtq_f64_f32(*v85.f32);
+        *(v81 - 3) = vcvt_hight_f64_f32(v85);
         _Q0 = vcvt_hight_f64_f32(v88);
-        v81[2] = v89;
-        v81[3] = _Q0;
+        *(v81 + 2) = v89;
+        *(v81 + 3) = _Q0;
         *v81 = vcvtq_f64_f32(*v87.f32);
-        v81[1] = vcvt_hight_f64_f32(v87);
-        v81 += 8;
+        *(v81 + 1) = vcvt_hight_f64_f32(v87);
+        v81 += 16;
         v80 += 4;
         v82 -= 16;
       }
@@ -8910,7 +8916,8 @@ LABEL_161:
       v91 += 4;
       LODWORD(_Q0.f64[0]) = v94;
       _Q0 = vcvtq_f64_f32(*&vcvtq_f32_f16(*&_Q0.f64[0]));
-      *v92++ = _Q0;
+      *v92 = _Q0;
+      v92 += 2;
       v93 += 2;
     }
 
@@ -9401,14 +9408,14 @@ LABEL_144:
         do
         {
           *v135 = v133;
-          v135[1] = v130;
-          v135[2] = v128;
-          v135[3] = _Q0;
-          v135[4] = v133;
-          v135[5] = v130;
-          v135[6] = v128;
-          v135[7] = _Q0;
-          v135 += 8;
+          *(v135 + 1) = v130;
+          *(v135 + 2) = v128;
+          *(v135 + 3) = _Q0;
+          *(v135 + 4) = v133;
+          *(v135 + 5) = v130;
+          *(v135 + 6) = v128;
+          *(v135 + 7) = _Q0;
+          v135 += 16;
           v134 -= 16;
         }
 
@@ -9451,8 +9458,8 @@ LABEL_151:
       do
       {
         *v139 = _Q0;
-        v139[1] = _Q0;
-        v139 += 2;
+        *(v139 + 1) = _Q0;
+        v139 += 4;
         v140 += 4;
       }
 
@@ -9531,17 +9538,17 @@ LABEL_186:
         v166 = vshr_n_s32(vshl_n_s32(v164, 0x18uLL), 0x18uLL);
         v148.i64[0] = v166.i32[0];
         v148.i64[1] = v166.i32[1];
-        v142[2] = v165;
-        v142[3] = vcvtq_f64_s64(v148);
+        *(v142 + 2) = v165;
+        *(v142 + 3) = vcvtq_f64_s64(v148);
         v148.i64[0] = v161.i32[0];
         v148.i64[1] = v161.i32[1];
         *v142 = v159;
-        v142[1] = vcvtq_f64_s64(v148);
-        v142[6] = v155;
-        v142[7] = v157;
-        v142[4] = _Q0;
-        v142[5] = vcvtq_f64_s64(v151);
-        v142 += 8;
+        *(v142 + 1) = vcvtq_f64_s64(v148);
+        *(v142 + 6) = v155;
+        *(v142 + 7) = v157;
+        *(v142 + 4) = _Q0;
+        *(v142 + 5) = vcvtq_f64_s64(v151);
+        v142 += 16;
         v141 -= 16;
       }
 
@@ -9595,8 +9602,8 @@ LABEL_184:
       v174.i64[1] = v172.i32[1];
       _Q0 = vcvtq_f64_s64(v174);
       *v169 = _Q0;
-      v169[1] = v175;
-      v169 += 2;
+      *(v169 + 1) = v175;
+      v169 += 4;
       v170 += 4;
     }
 
@@ -9640,7 +9647,8 @@ LABEL_142:
       LOWORD(_Q0.f64[0]) = *&ElementsAttrRawData[2 * v114];
       WORD2(_Q0.f64[0]) = *&ElementsAttrRawData[2 * v115];
       _Q0 = vcvtq_f64_f32(vshl_n_s32(*&_Q0.f64[0], 0x10uLL));
-      *v113++ = _Q0;
+      *v113 = _Q0;
+      v113 += 2;
       v112 += 2;
     }
 
@@ -9671,7 +9679,7 @@ LABEL_242:
   return _Q0.f64[0];
 }
 
-void mlir::copyElementsAttrData<char>(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
+void mlir::copyElementsAttrData<char>(uint64_t a1, uint64_t a2, int8x16_t *a3)
 {
   v117[5] = *MEMORY[0x1E69E9840];
   v114 = a1;
@@ -9831,7 +9839,7 @@ LABEL_27:
         return;
       }
 
-      if (NumElements < 8 || &RawStringData[8 * NumElements] > a3 && &a3[NumElements] > RawStringData)
+      if (NumElements < 8 || &RawStringData[8 * NumElements] > a3 && &a3->i8[NumElements] > RawStringData)
       {
         v37 = 0;
         goto LABEL_97;
@@ -9841,7 +9849,7 @@ LABEL_27:
       {
         v37 = NumElements & 0x7FFFFFFFFFFFFFE0;
         v56 = (RawStringData + 128);
-        v57 = a3 + 16;
+        v57 = &a3[1];
         v58 = NumElements & 0x7FFFFFFFFFFFFFE0;
         do
         {
@@ -9852,7 +9860,7 @@ LABEL_27:
           *(v57 - 1) = v59;
           *v57 = v60;
           v56 += 4;
-          v57 += 2;
+          v57 += 32;
           v58 -= 32;
         }
 
@@ -9867,7 +9875,7 @@ LABEL_27:
 LABEL_97:
           v38 = &RawStringData[8 * v37];
           v39 = NumElements - v37;
-          v40 = &a3[v37];
+          v40 = &a3->u8[v37];
           do
           {
             v41 = *v38;
@@ -9889,7 +9897,7 @@ LABEL_97:
       v61 = v37;
       v37 = NumElements & 0x7FFFFFFFFFFFFFF8;
       v62 = &RawStringData[8 * v61];
-      v63 = &a3[v61];
+      v63 = &a3->u8[v61];
       v64 = v61 - (NumElements & 0x7FFFFFFFFFFFFFF8);
       do
       {
@@ -9915,7 +9923,7 @@ LABEL_97:
         return;
       }
 
-      if (NumElements < 8 || &RawStringData[8 * NumElements] > a3 && &a3[NumElements] > RawStringData)
+      if (NumElements < 8 || &RawStringData[8 * NumElements] > a3 && &a3->i8[NumElements] > RawStringData)
       {
         v42 = 0;
         goto LABEL_106;
@@ -9925,7 +9933,7 @@ LABEL_97:
       {
         v42 = NumElements & 0x7FFFFFFFFFFFFFE0;
         v70 = (RawStringData + 128);
-        v71 = a3 + 16;
+        v71 = &a3[1];
         v72 = NumElements & 0x7FFFFFFFFFFFFFE0;
         do
         {
@@ -9936,7 +9944,7 @@ LABEL_97:
           *(v71 - 1) = v73;
           *v71 = v74;
           v70 += 4;
-          v71 += 2;
+          v71 += 32;
           v72 -= 32;
         }
 
@@ -9951,7 +9959,7 @@ LABEL_97:
 LABEL_106:
           v43 = &RawStringData[8 * v42];
           v44 = NumElements - v42;
-          v45 = &a3[v42];
+          v45 = &a3->u8[v42];
           do
           {
             v46 = *v43;
@@ -9973,7 +9981,7 @@ LABEL_106:
       v75 = v42;
       v42 = NumElements & 0x7FFFFFFFFFFFFFF8;
       v76 = &RawStringData[8 * v75];
-      v77 = &a3[v75];
+      v77 = &a3->u8[v75];
       v78 = v75 - (NumElements & 0x7FFFFFFFFFFFFFF8);
       do
       {
@@ -10037,7 +10045,7 @@ LABEL_156:
           v66 = i;
         }
 
-        a3[i] = COERCE_FLOAT(*&RawStringData[2 * v66] << 16);
+        a3->i8[i] = COERCE_FLOAT(*&RawStringData[2 * v66] << 16);
       }
 
       return;
@@ -10048,7 +10056,7 @@ LABEL_156:
       return;
     }
 
-    if (NumElements < 4 || &RawStringData[8 * NumElements] > a3 && &a3[NumElements] > RawStringData)
+    if (NumElements < 4 || &RawStringData[8 * NumElements] > a3 && &a3->i8[NumElements] > RawStringData)
     {
       v51 = 0;
       goto LABEL_139;
@@ -10078,7 +10086,7 @@ LABEL_156:
 LABEL_139:
         v52 = &RawStringData[8 * v51];
         v53 = NumElements - v51;
-        v54 = &a3[v51];
+        v54 = &a3->u8[v51];
         do
         {
           v55 = *v52++;
@@ -10099,7 +10107,7 @@ LABEL_139:
     v84 = v51;
     v51 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
     v85 = &RawStringData[8 * v84];
-    v86 = &a3[v84];
+    v86 = &a3->u8[v84];
     v87 = v84 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
     do
     {
@@ -10164,7 +10172,7 @@ LABEL_29:
         v26 = j;
       }
 
-      a3[j] = RawStringData[v26];
+      a3->i8[j] = RawStringData[v26];
     }
 
     return;
@@ -10186,7 +10194,7 @@ LABEL_39:
         v28 = k;
       }
 
-      a3[k] = RawStringData[v28];
+      a3->i8[k] = RawStringData[v28];
     }
 
     return;
@@ -10208,7 +10216,7 @@ LABEL_52:
         v30 = m;
       }
 
-      a3[m] = *&RawStringData[2 * v30];
+      a3->i8[m] = *&RawStringData[2 * v30];
     }
 
     return;
@@ -10230,7 +10238,7 @@ LABEL_62:
         v32 = n;
       }
 
-      a3[n] = *&RawStringData[2 * v32];
+      a3->i8[n] = *&RawStringData[2 * v32];
     }
 
     return;
@@ -10252,7 +10260,7 @@ LABEL_72:
         v34 = ii;
       }
 
-      a3[ii] = *&RawStringData[4 * v34];
+      a3->i8[ii] = *&RawStringData[4 * v34];
     }
 
     return;
@@ -10274,7 +10282,7 @@ LABEL_82:
         v36 = jj;
       }
 
-      a3[jj] = *&RawStringData[4 * v36];
+      a3->i8[jj] = *&RawStringData[4 * v36];
     }
 
     return;
@@ -10282,7 +10290,7 @@ LABEL_82:
 
   if (mlir::Type::isUnsignedInteger(&isSplat, 64) || mlir::Type::isInteger(&isSplat, 64))
   {
-    *a3 = *RawStringData;
+    a3->i8[0] = *RawStringData;
     return;
   }
 
@@ -10302,7 +10310,7 @@ LABEL_113:
         v48 = kk;
       }
 
-      a3[kk] = *&RawStringData[2 * v48];
+      a3->i8[kk] = *&RawStringData[2 * v48];
     }
 
     return;
@@ -10324,7 +10332,7 @@ LABEL_123:
         v50 = mm;
       }
 
-      a3[mm] = *&RawStringData[4 * v50];
+      a3->i8[mm] = *&RawStringData[4 * v50];
     }
 
     return;
@@ -10332,7 +10340,7 @@ LABEL_123:
 
   if (mlir::Type::isF64(&isSplat))
   {
-    *a3 = *RawStringData;
+    a3->i8[0] = *RawStringData;
     return;
   }
 
@@ -10371,7 +10379,7 @@ LABEL_162:
     {
       v80 = NumElements & 0x7FFFFFFFFFFFFFE0;
       v99 = (v116[0] + 16);
-      v100 = a3 + 16;
+      v100 = &a3[1];
       v101 = NumElements & 0x7FFFFFFFFFFFFFE0;
       do
       {
@@ -10379,7 +10387,7 @@ LABEL_162:
         *(v100 - 1) = *(v99 - 1);
         *v100 = v102;
         v99 += 2;
-        v100 += 2;
+        v100 += 32;
         v101 -= 32;
       }
 
@@ -10394,7 +10402,7 @@ LABEL_162:
 LABEL_209:
         v108 = &v67[v80];
         v109 = NumElements - v80;
-        v110 = &a3[v80];
+        v110 = &a3->u8[v80];
         do
         {
           v111 = *v108++;
@@ -10415,7 +10423,7 @@ LABEL_209:
     v103 = v80;
     v80 = NumElements & 0x7FFFFFFFFFFFFFF8;
     v104 = &v67[v103];
-    v105 = &a3[v103];
+    v105 = &a3->u8[v103];
     v106 = v103 - (NumElements & 0x7FFFFFFFFFFFFFF8);
     do
     {
@@ -10446,13 +10454,13 @@ LABEL_209:
   {
     v69 = NumElements & 0x7FFFFFFFFFFFFFE0;
     v90 = vdupq_n_s8(v68);
-    v91 = (a3 + 16);
+    v91 = &a3[1];
     v92 = NumElements & 0x7FFFFFFFFFFFFFE0;
     do
     {
-      v91[-1] = v90;
+      *(v91 - 1) = v90;
       *v91 = v90;
-      v91 += 2;
+      v91 += 32;
       v92 -= 32;
     }
 
@@ -10466,7 +10474,7 @@ LABEL_209:
     {
 LABEL_199:
       v97 = NumElements - v69;
-      v98 = &a3[v69];
+      v98 = &a3->u8[v69];
       do
       {
         *v98++ = v68;
@@ -10486,11 +10494,12 @@ LABEL_199:
   v93 = v69;
   v69 = NumElements & 0x7FFFFFFFFFFFFFF8;
   v94 = vdup_n_s8(v68);
-  v95 = &a3[v93];
+  v95 = &a3->u8[v93];
   v96 = v93 - (NumElements & 0x7FFFFFFFFFFFFFF8);
   do
   {
-    *v95++ = v94;
+    *v95 = v94;
+    v95 += 8;
     v96 += 8;
   }
 

@@ -4,6 +4,7 @@
 - (BOOL)isIPAddressInRange:(id)range;
 - (NETRBClient)_netrbClient;
 - (WLNETRBClient)init;
+- (void)_didStartDHCPWithSuccess:(BOOL)success;
 - (void)_didStopDHCPWithSuccess:(BOOL)success;
 - (void)startDHCPWithCompletion:(id)completion;
 - (void)stopDHCPWithCompletion:(id)completion;
@@ -69,6 +70,103 @@ LABEL_10:
   LOBYTE(self) = _NETRBClientStartService();
 
   return self;
+}
+
+- (void)_didStartDHCPWithSuccess:(BOOL)success
+{
+  successCopy = success;
+  v24 = *MEMORY[0x277D85DE8];
+  successCopy2 = success;
+  _WLLog();
+  v22 = 0;
+  if (getifaddrs(&v22))
+  {
+    goto LABEL_2;
+  }
+
+  v10 = v22;
+  if (!v22)
+  {
+    MEMORY[0x2743DF340](0);
+LABEL_2:
+    v5 = 0;
+    v6 = 0;
+    goto LABEL_3;
+  }
+
+  selfCopy = self;
+  v6 = 0;
+  v5 = 0;
+  do
+  {
+    ifa_addr = v10->ifa_addr;
+    if (ifa_addr->sa_family != 2)
+    {
+      goto LABEL_15;
+    }
+
+    inet_ntop(2, &ifa_addr->sa_data[2], v23, 0x100u);
+    ifa_name = v10->ifa_name;
+    _WLLog();
+    v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:{v10->ifa_name, ifa_name, v23}];
+    v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:v23];
+    v14 = [v12 isEqualToString:@"ap1"];
+    v15 = [v13 isEqualToString:@"10.17.1.199"];
+    if (v14)
+    {
+      if ((v15 & 1) == 0)
+      {
+        v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:v23];
+        v17 = v6;
+        v6 = v16;
+LABEL_13:
+      }
+    }
+
+    else if (v15)
+    {
+      v18 = v12;
+      v17 = v5;
+      v5 = v18;
+      goto LABEL_13;
+    }
+
+LABEL_15:
+    v10 = v10->ifa_next;
+  }
+
+  while (v10);
+  MEMORY[0x2743DF340](v22);
+  if (v6)
+  {
+    [v6 UTF8String];
+    _WLLog();
+  }
+
+  self = selfCopy;
+  if (v5)
+  {
+    [v5 UTF8String];
+    _WLLog();
+  }
+
+LABEL_3:
+  selfCopy2 = self;
+  objc_sync_enter(selfCopy2);
+  v8 = MEMORY[0x2743DF630](selfCopy2->_dhcpStartCompletionBlock);
+  dhcpStartCompletionBlock = selfCopy2->_dhcpStartCompletionBlock;
+  selfCopy2->_dhcpStartCompletionBlock = 0;
+
+  objc_sync_exit(selfCopy2);
+  if (v8)
+  {
+    v8[2](v8, successCopy);
+  }
+
+  else
+  {
+    _WLLog();
+  }
 }
 
 - (void)stopDHCPWithCompletion:(id)completion

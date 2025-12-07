@@ -72,30 +72,26 @@ LABEL_11:
   toCopy = to;
   if ([(_CPCBAEngagementFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPCBAEngagementFeedback *)self queryId])
   {
-    queryId = self->_queryId;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPCBAEngagementFeedback *)self cbaType])
   {
-    cbaType = self->_cbaType;
     PBDataWriterWriteInt32Field();
   }
 
-  v7 = [(_CPCBAEngagementFeedback *)self url];
+  v4 = [(_CPCBAEngagementFeedback *)self url];
 
-  v8 = toCopy;
-  if (v7)
+  v5 = toCopy;
+  if (v4)
   {
-    url = self->_url;
     PBDataWriterWriteStringField();
-    v8 = toCopy;
+    v5 = toCopy;
   }
 }
 

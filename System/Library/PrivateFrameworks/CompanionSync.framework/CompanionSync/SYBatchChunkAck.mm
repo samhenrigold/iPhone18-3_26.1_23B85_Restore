@@ -67,7 +67,6 @@
   }
 
   PBDataWriterWriteStringField();
-  chunkIndex = self->_chunkIndex;
   PBDataWriterWriteUint32Field();
   if (self->_error)
   {

@@ -72,14 +72,12 @@
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    totalBytesWritten = self->_totalBytesWritten;
     PBDataWriterWriteUint64Field();
   }
 
@@ -140,7 +138,6 @@
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 32);
     if (*&self->_has)
     {
       if ((*(equal + 32) & 1) == 0 || self->_timestamp != *(equal + 1))

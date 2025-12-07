@@ -34,12 +34,12 @@
 - (BKSplitViewController)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR___BKSplitViewController_rootBarEventSubject;
-  sub_1001F1160(&unk_100AD2090);
+  sub_1001F1160(&unk_100AD2090, &qword_10080B860);
   swift_allocObject();
   *(&self->super.super.super.super.isa + v4) = sub_10079B8D4();
   *(&self->super.super.super.super.isa + OBJC_IVAR___BKSplitViewController_cancellables) = &_swiftEmptySetSingleton;
   v5 = OBJC_IVAR___BKSplitViewController_lastCollectionCreated;
-  v6 = sub_1001F1160(&qword_100AF4D08);
+  v6 = sub_1001F1160(&qword_100AF4D08, &qword_1008425B8);
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   result = sub_1007A38A4();
   __break(1u);
@@ -64,7 +64,7 @@
 
   sub_10072C524(action, v16, v17);
 
-  sub_100007840(v16, &unk_100AD5B40);
+  sub_100007840(v16, &unk_100AD5B40, &unk_100811300);
   v8 = v18;
   if (v18)
   {
@@ -104,14 +104,14 @@
 
   v8 = sub_10072CA40(action, v10);
 
-  sub_100007840(v10, &unk_100AD5B40);
+  sub_100007840(v10, &unk_100AD5B40, &unk_100811300);
   return v8 & 1;
 }
 
 - (void)viewDidLoad
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for SplitViewController();
+  v5.super_class = type metadata accessor for SplitViewController(0);
   v2 = v5.receiver;
   [(BKSplitViewController *)&v5 viewDidLoad];
   view = [v2 view];
@@ -137,7 +137,7 @@
   selfCopy = self;
   sub_10079B8C4();
   v5.receiver = selfCopy;
-  v5.super_class = type metadata accessor for SplitViewController();
+  v5.super_class = type metadata accessor for SplitViewController(0);
   [(BKSplitViewController *)&v5 viewWillAppear:appearCopy];
 }
 
@@ -151,7 +151,7 @@
   selfCopy = self;
   sub_10079B8C4();
   v5.receiver = selfCopy;
-  v5.super_class = type metadata accessor for SplitViewController();
+  v5.super_class = type metadata accessor for SplitViewController(0);
   [(BKSplitViewController *)&v5 viewDidDisappear:disappearCopy];
 }
 
@@ -166,7 +166,7 @@
   selfCopy = self;
   sub_10079B8C4();
   v9[0].receiver = selfCopy;
-  v9[0].super_class = type metadata accessor for SplitViewController();
+  v9[0].super_class = type metadata accessor for SplitViewController(0);
   [(objc_super *)v9 viewWillTransitionToSize:coordinator withTransitionCoordinator:width, height];
   swift_unknownObjectRelease();
 }
@@ -269,7 +269,7 @@
 
   sub_10072E408(_swiftEmptyArrayStorage);
 
-  sub_100007840(v6, &unk_100AD5B40);
+  sub_100007840(v6, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_createCollectionFromSelection:(id)selection
@@ -290,7 +290,7 @@
 
   sub_10072EA3C();
 
-  sub_100007840(v6, &unk_100AD5B40);
+  sub_100007840(v6, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_addSelectionToCollection:(id)collection
@@ -311,7 +311,7 @@
 
   sub_10072F2C8(v6);
 
-  sub_100007840(v6, &unk_100AD5B40);
+  sub_100007840(v6, &unk_100AD5B40, &unk_100811300);
 }
 
 @end

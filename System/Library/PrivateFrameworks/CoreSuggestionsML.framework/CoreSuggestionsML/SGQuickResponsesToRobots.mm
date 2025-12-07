@@ -12,7 +12,7 @@
 
 + (id)repliesToRobot:(id)robot language:(id)language recipients:(id)recipients config:(id)config
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   robotCopy = robot;
   languageCopy = language;
   recipientsCopy = recipients;
@@ -62,7 +62,7 @@ LABEL_50:
     }
 
     *buf = 138412290;
-    v61 = languageCopy;
+    v60 = languageCopy;
     v45 = MEMORY[0x277D86220];
     v46 = "SGQuickResponsesToRobots: Not running replies to robots for language %@";
     v47 = 12;
@@ -84,20 +84,20 @@ LABEL_50:
     goto LABEL_64;
   }
 
-  v58 = objc_opt_new();
   v57 = objc_opt_new();
+  v56 = objc_opt_new();
   if (![v16 count])
   {
     goto LABEL_62;
   }
 
   selfCopy = self;
-  v53 = recipientsCopy;
-  v54 = robotCopy;
+  v52 = recipientsCopy;
+  v53 = robotCopy;
   v17 = 0;
   v18 = 0;
-  v19 = v58;
-  v56 = languageCopy;
+  v19 = v57;
+  v55 = languageCopy;
   do
   {
     v20 = objc_autoreleasePoolPush();
@@ -131,7 +131,7 @@ LABEL_28:
           relaxContext = [configCopy relaxContext];
           if ((v28 & 1) == 0 && (relaxContext & 1) == 0)
           {
-            v19 = v58;
+            v19 = v57;
             if (!v27)
             {
               goto LABEL_34;
@@ -141,17 +141,17 @@ LABEL_28:
           }
 
 LABEL_32:
-          v19 = v58;
+          v19 = v57;
 LABEL_33:
           v35 = [v16 objectAtIndexedSubscript:v17];
           [v19 addObject:v35];
 
           v36 = [SGQuickResponse alloc];
           v37 = [v16 objectAtIndexedSubscript:v17];
-          BYTE2(v52) = 1;
-          LOWORD(v52) = 256;
-          v38 = [SGQuickResponse initWithText:v36 lang:"initWithText:lang:replyTextId:styleGroupId:semanticClassId:modelId:categoryId:isCustomResponse:isRobotResponse:isConfident:" replyTextId:v37 styleGroupId:languageCopy semanticClassId:-1 modelId:-1 categoryId:-1 isCustomResponse:-1 isRobotResponse:-1 isConfident:v52];
-          [v57 addObject:v38];
+          BYTE2(v51) = 1;
+          LOWORD(v51) = 256;
+          v38 = [SGQuickResponse initWithText:v36 lang:"initWithText:lang:replyTextId:styleGroupId:semanticClassId:modelId:categoryId:isCustomResponse:isRobotResponse:isConfident:" replyTextId:v37 styleGroupId:languageCopy semanticClassId:-1 modelId:-1 categoryId:-1 isCustomResponse:-1 isRobotResponse:-1 isConfident:v51];
+          [v56 addObject:v38];
 
           goto LABEL_34;
         }
@@ -181,12 +181,12 @@ LABEL_33:
           v27 = 0;
 LABEL_27:
 
-          languageCopy = v56;
+          languageCopy = v55;
           goto LABEL_28;
         }
 
         useGeneralContext = [configCopy useGeneralContext];
-        if (useGeneralContext && ([configCopy generalContextWords], v55 = objc_claimAutoreleasedReturnValue(), (objc_msgSend(selfCopy, "presentInContext:context:startIdx:endIdx:", v16, v55, v17 - objc_msgSend(configCopy, "generalContextLeft"), v17) & 1) != 0))
+        if (useGeneralContext && ([configCopy generalContextWords], v54 = objc_claimAutoreleasedReturnValue(), (objc_msgSend(selfCopy, "presentInContext:context:startIdx:endIdx:", v16, v54, v17 - objc_msgSend(configCopy, "generalContextLeft"), v17) & 1) != 0))
         {
           v27 = 1;
         }
@@ -213,12 +213,12 @@ LABEL_34:
   while ([v16 count] > v17);
   if (v18)
   {
-    recipientsCopy = v53;
-    if ([v57 count])
+    recipientsCopy = v52;
+    if ([v56 count])
     {
-      if ([configCopy insignificantSender] && (objc_msgSend(selfCopy, "insignificantSender:", v53) & 1) == 0)
+      if ([configCopy insignificantSender] && (objc_msgSend(selfCopy, "insignificantSender:", v52) & 1) == 0)
       {
-        robotCopy = v54;
+        robotCopy = v53;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
@@ -235,7 +235,7 @@ LABEL_62:
       else
       {
         [configCopy capsWordsRatioMax];
-        robotCopy = v54;
+        robotCopy = v53;
         if (v39 < 1.0)
         {
           [SGQuickResponsesToRobots allCapsRatio:v16];
@@ -255,28 +255,26 @@ LABEL_62:
           }
         }
 
-        v48 = v57;
+        v48 = v56;
       }
     }
 
     else
     {
       v48 = 0;
-      robotCopy = v54;
+      robotCopy = v53;
     }
   }
 
   else
   {
     v48 = 0;
-    recipientsCopy = v53;
-    robotCopy = v54;
+    recipientsCopy = v52;
+    robotCopy = v53;
   }
 
 LABEL_64:
 LABEL_51:
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return v48;
 }
@@ -398,7 +396,7 @@ LABEL_12:
 
 + (BOOL)insignificantSender:(id)sender
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   senderCopy = sender;
   v5 = senderCopy;
   if (senderCopy && [senderCopy count] == 1)
@@ -427,12 +425,12 @@ LABEL_12:
         v14 = [MEMORY[0x277CBDA58] predicateForContactsMatchingPhoneNumber:v12];
 
 LABEL_14:
-        v31[0] = *MEMORY[0x277CBD018];
-        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+        v30[0] = *MEMORY[0x277CBD018];
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
         contactStore = [self contactStore];
-        v26 = 0;
-        v18 = [contactStore unifiedContactsMatchingPredicate:v14 keysToFetch:v16 error:&v26];
-        v19 = v26;
+        v25 = 0;
+        v18 = [contactStore unifiedContactsMatchingPredicate:v14 keysToFetch:v16 error:&v25];
+        v19 = v25;
         firstObject2 = [v18 firstObject];
 
         if (v19)
@@ -440,9 +438,9 @@ LABEL_14:
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v28 = firstObject;
-            v29 = 2112;
-            v30 = v19;
+            v27 = firstObject;
+            v28 = 2112;
+            v29 = v19;
             _os_log_error_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "SGQuickResponsesToRobots: Error fetching contact with %@: %@", buf, 0x16u);
           }
 
@@ -486,7 +484,7 @@ LABEL_24:
       }
 
       *buf = 138412290;
-      v28 = v11;
+      v27 = v11;
       v21 = MEMORY[0x277D86220];
       v22 = "Unsupported handleType: %@";
       v23 = 12;
@@ -505,7 +503,6 @@ LABEL_24:
   v15 = 0;
 LABEL_25:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

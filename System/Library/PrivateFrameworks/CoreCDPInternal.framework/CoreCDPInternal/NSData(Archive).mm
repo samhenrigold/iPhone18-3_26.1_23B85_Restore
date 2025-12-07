@@ -7,7 +7,6 @@
 
 - (id)cdp_unarchivedRoot
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:self error:0];
   v2 = MEMORY[0x277CBEB98];
   v3 = objc_opt_class();
@@ -15,7 +14,6 @@
   v5 = [v1 decodeObjectOfClasses:v4 forKey:@"root"];
 
   [v1 finishDecoding];
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

@@ -18,14 +18,14 @@
 {
   activateCopy = activate;
   selfCopy = self;
-  sub_10010CEC4(activateCopy);
+  sub_10010CEC4(activateCopy, v5);
 }
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
 {
   deactivateCopy = deactivate;
   selfCopy = self;
-  sub_10010C888(deactivateCopy);
+  sub_10010C888(deactivateCopy, selfCopy);
 }
 
 - (void)remoteAlertHandle:(id)handle didInvalidateWithError:(id)error

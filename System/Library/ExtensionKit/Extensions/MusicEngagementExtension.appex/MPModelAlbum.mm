@@ -37,7 +37,7 @@
 
 + (id)representativeTitlePropertySet
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1004F2EF0;
   *(v2 + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();

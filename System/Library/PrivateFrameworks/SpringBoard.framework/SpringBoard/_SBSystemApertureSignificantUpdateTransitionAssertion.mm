@@ -8,26 +8,26 @@
 
 - (_SBSystemApertureSignificantUpdateTransitionAssertion)initWithElement:(id)element
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   if (!elementCopy)
   {
     [_SBSystemApertureSignificantUpdateTransitionAssertion initWithElement:];
   }
 
-  v9.receiver = self;
-  v9.super_class = _SBSystemApertureSignificantUpdateTransitionAssertion;
-  v5 = [(SAAssertion *)&v9 init];
+  v10.receiver = self;
+  v10.super_class = _SBSystemApertureSignificantUpdateTransitionAssertion;
+  v5 = [(SAAssertion *)&v10 init];
   v6 = v5;
   if (v5)
   {
-    objc_storeWeak(&v5->_element, elementCopy);
-    v7 = SBLogSystemApertureController();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = objc_storeWeak(&v5->_element, elementCopy);
+    v8 = SBLogSystemApertureController(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Created significant update transition assertion: %{public}@", buf, 0xCu);
+      v12 = v6;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Created significant update transition assertion: %{public}@", buf, 0xCu);
     }
   }
 

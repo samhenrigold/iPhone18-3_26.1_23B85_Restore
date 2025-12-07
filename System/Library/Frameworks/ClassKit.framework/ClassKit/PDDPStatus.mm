@@ -1,5 +1,6 @@
 @interface PDDPStatus
 - (BOOL)isEqual:(id)equal;
+- (id)codeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -25,6 +26,229 @@
   {
     return 0;
   }
+}
+
+- (id)codeAsString:(int)string
+{
+  if (string > 299)
+  {
+    if (string <= 801)
+    {
+      if (string > 799)
+      {
+        if (string == 800)
+        {
+          v4 = @"E_NOT_APPLICABLE_TYPE";
+        }
+
+        else
+        {
+          v4 = @"E_ENTITY_NOT_FOUND";
+        }
+      }
+
+      else if (string == 300)
+      {
+        v4 = @"E_DEVICE_UNSUPPORTED";
+      }
+
+      else
+      {
+        if (string != 500)
+        {
+          goto LABEL_50;
+        }
+
+        v4 = @"E_INVALID_FIELD_VALUE";
+      }
+    }
+
+    else if (string <= 803)
+    {
+      if (string == 802)
+      {
+        v4 = @"E_ENTITY_PRIVILEGE_CHANGE";
+      }
+
+      else
+      {
+        v4 = @"E_MUST_ACCEPT_TERMS";
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 804:
+          v4 = @"E_ENTITY_EXPIRED";
+
+          break;
+        case 805:
+          v4 = @"E_NOT_ALLOWED_FEDERATED_ORGANIZATION";
+
+          break;
+        case 806:
+          v4 = @"E_DISALLOWED_EMAIL_DOMAIN";
+
+          break;
+        default:
+          goto LABEL_50;
+      }
+    }
+  }
+
+  else
+  {
+    if (string > 3)
+    {
+      switch(string)
+      {
+        case 'd':
+          v4 = @"E_BOOTSTRAP_REQUIRED";
+
+          break;
+        case 'e':
+          v4 = @"E_AUTHENTICATION_FAILED";
+
+          break;
+        case 'f':
+          v4 = @"E_NOT_AUTHORIZED";
+
+          break;
+        case 'g':
+          v4 = @"E_MESCAL_SIGNATURE_REQUIRED";
+
+          break;
+        case 'h':
+          v4 = @"E_MESCAL_BAD_SIGNATURE";
+
+          break;
+        case 'i':
+          v4 = @"E_MESCAL_PARSE_ERROR";
+
+          break;
+        case 'j':
+          v4 = @"E_BAD_REQUEST";
+
+          break;
+        case 'k':
+          v4 = @"E_BAD_PROTOCOL_VERSION";
+
+          break;
+        case 'l':
+          v4 = @"E_REQUEST_TOO_LARGE";
+
+          break;
+        case 'm':
+          v4 = @"E_REQUEST_TOO_MANY_ITEMS";
+
+          break;
+        case 'n':
+          v4 = @"E_SERVER_BUSY";
+
+          break;
+        case 'o':
+          v4 = @"E_ACCESS_DENIED";
+
+          break;
+        case 'p':
+          v4 = @"E_CONFLICT";
+
+          break;
+        case 'q':
+          v4 = @"E_INVALID_STATE";
+
+          break;
+        case 'r':
+          v4 = @"E_LOCK_TAKEN";
+
+          break;
+        case 's':
+          v4 = @"E_DOWNSTREAM_SERVICE_FAILED";
+
+          break;
+        case 't':
+          v4 = @"E_DOWNSTREAM_SERVICE_THROTTLED";
+
+          break;
+        case 'u':
+          v4 = @"E_DRIVE_USER_QUOTA_EXCEEDED";
+
+          break;
+        case 'v':
+          v4 = @"E_DRIVE_GROUP_QUOTA_EXCEEDED";
+
+          break;
+        case 'w':
+          v4 = @"E_DRIVE_ORG_QUOTA_EXCEEDED";
+
+          break;
+        case 'x':
+          v4 = @"E_RECORD_LIMIT_EXCEEDED";
+
+          break;
+        case 'y':
+          v4 = @"E_DISALLOWED_COUNTRY_CODE";
+
+          break;
+        default:
+          if (string == 4)
+          {
+            v4 = @"S_OK_HAS_MORE_DATA";
+          }
+
+          else
+          {
+            if (string != 5)
+            {
+              goto LABEL_50;
+            }
+
+            v4 = @"S_PROCESSING";
+          }
+
+          break;
+      }
+
+      return v4;
+    }
+
+    if (string > 1)
+    {
+      if (string == 2)
+      {
+        v4 = @"E_ERROR";
+      }
+
+      else
+      {
+        v4 = @"S_MIXED_RESPONSE";
+      }
+    }
+
+    else
+    {
+      if (string)
+      {
+        if (string == 1)
+        {
+          v4 = @"S_OK";
+
+          return v4;
+        }
+
+LABEL_50:
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"UNKNOWN_CODE";
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsCode:(id)code
@@ -514,7 +738,6 @@ LABEL_60:
   toCopy = to;
   if (*&self->_has)
   {
-    code = self->_code;
     PBDataWriterWriteInt32Field();
   }
 
@@ -533,36 +756,35 @@ LABEL_60:
     PBDataWriterWriteStringField();
   }
 
-  v14 = 0u;
-  v15 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v6 = self->_serverAlerts;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v7)
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_serverAlerts;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v13;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v12 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        v10 = v10 + 1;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 }
 
@@ -669,7 +891,6 @@ LABEL_60:
     goto LABEL_15;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_code != *(equalCopy + 2))
@@ -681,7 +902,7 @@ LABEL_60:
   else if (*(equalCopy + 48))
   {
 LABEL_15:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_16;
   }
 
@@ -712,17 +933,17 @@ LABEL_15:
   serverAlerts = self->_serverAlerts;
   if (serverAlerts | *(equalCopy + 5))
   {
-    v10 = [(NSMutableArray *)serverAlerts isEqual:?];
+    v9 = [(NSMutableArray *)serverAlerts isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_16:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash

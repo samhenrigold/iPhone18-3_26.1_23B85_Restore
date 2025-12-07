@@ -375,7 +375,7 @@ LABEL_35:
 
 - (void)updateShortcutItemsWithConversations:(id)conversations
 {
-  sub_1902188FC(0, &qword_1EAD466B0);
+  sub_1902188FC(0, &qword_1EAD466B0, off_1E72E4B40);
   v4 = sub_190D57180();
   selfCopy = self;
   _sSo26CKSpringBoardActionManagerC7ChatKitE19updateShortcutItems13conversationsySaySo14CKConversationCG_tF_0(v4);

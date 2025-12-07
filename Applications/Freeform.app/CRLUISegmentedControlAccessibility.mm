@@ -25,33 +25,33 @@
   {
     if (v7)
     {
-      v9 = 0;
+      v10 = 0;
       while (1)
       {
-        v26 = 0;
-        v10 = [v6 objectAtIndex:v9];
-        v11 = objc_opt_class();
-        v12 = __CRLAccessibilityCastAsClass(v11, v10, 1, &v26);
-        if (v26 == 1)
+        v28 = 0;
+        v11 = [v6 objectAtIndex:v10];
+        v12 = objc_opt_class();
+        v13 = __CRLAccessibilityCastAsClass(v12, v11, 1, &v28);
+        if (v28 == 1)
         {
           break;
         }
 
-        v13 = v12;
+        v14 = v13;
 
-        v25 = 0;
-        v14 = [descriptionsCopy objectAtIndex:v9];
-        v15 = objc_opt_class();
-        v16 = __CRLAccessibilityCastAsClass(v15, v14, 1, &v25);
-        if (v25 == 1)
+        v27 = 0;
+        v15 = [descriptionsCopy objectAtIndex:v10];
+        v16 = objc_opt_class();
+        v17 = __CRLAccessibilityCastAsClass(v16, v15, 1, &v27);
+        if (v27 == 1)
         {
           break;
         }
 
-        v17 = v16;
+        v18 = v17;
 
-        [v13 setAccessibilityLabel:v17];
-        if (v7 == ++v9)
+        [v14 setAccessibilityLabel:v18];
+        if (v7 == ++v10)
         {
           goto LABEL_10;
         }
@@ -64,11 +64,12 @@ LABEL_11:
 
   else
   {
-    v18 = v8;
-    if (CRLAccessibilityShouldPerformValidationChecks())
+    v19 = v8;
+    ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(v8, v9);
+    if (ShouldPerformValidationChecks)
     {
-      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Number of segments have changed from %lu to %lu", v20, v21, v22, v23, v24, v18))
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Number of segments have changed from %lu to %lu", v22, v23, v24, v25, v26, v19))
       {
         goto LABEL_11;
       }

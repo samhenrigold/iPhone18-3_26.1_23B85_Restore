@@ -23,7 +23,7 @@ void __53___UIDragSetDownAnimation_updateVisibleDroppedItems___block_invoke(uint
     v14 = 0.0;
     if (v6)
     {
-      [v6 velocity3D];
+      objc_msgSend_velocity3D(v6, 0.0, 0.0);
       v13 = *(&v23 + 1);
       v14 = *&v23;
     }
@@ -38,7 +38,7 @@ void __53___UIDragSetDownAnimation_updateVisibleDroppedItems___block_invoke(uint
     v17 = 0.0;
     if (v6)
     {
-      [v6 targetVelocity3D];
+      objc_msgSend_targetVelocity3D(v6, 0.0);
       v12 = *(&v21 + 1);
       v17 = *&v21;
     }
@@ -69,7 +69,7 @@ uint64_t __68___UIDragSetDownAnimation_defaultSingleItemAnimationForPlatterView_
     v12 = *(a1 + 32);
     if (v12)
     {
-      [v12 transform3D];
+      objc_msgSend_transform3D(v12);
     }
 
     else
@@ -94,7 +94,7 @@ uint64_t __68___UIDragSetDownAnimation_defaultSingleItemAnimationForPlatterView_
     v11 = *(a1 + 32);
     if (v11)
     {
-      [v11 transform3D];
+      objc_msgSend_transform3D(v11);
     }
 
     else
@@ -123,7 +123,7 @@ uint64_t __67___UIDragSetDownAnimation_defaultMultiItemAnimationForPlatterView__
   v3 = *(a1 + 32);
   if (v3)
   {
-    [v3 transform3D];
+    objc_msgSend_transform3D(v3);
   }
 
   else

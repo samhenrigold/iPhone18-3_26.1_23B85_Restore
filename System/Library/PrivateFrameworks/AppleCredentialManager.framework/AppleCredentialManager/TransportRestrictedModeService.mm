@@ -153,7 +153,7 @@
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: acmd started in BaseSystem, handing control over to kext.\n", &v4, 0x16u);
   }
 
-  v2 = ACMKernelControl(33);
+  v2 = ACMKernelControl(33, 0, 0, 0);
   if (v2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     v4 = 136315650;
@@ -173,84 +173,89 @@
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v13 = "ACMTRM-D";
-    v14 = 2080;
-    v15 = "[TransportRestrictedModeService entryPoint_onDaemonStarted]";
+    v20 = "ACMTRM-D";
+    v21 = 2080;
+    v22 = "[TransportRestrictedModeService entryPoint_onDaemonStarted]";
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: called, .\n", buf, 0x16u);
   }
 
   prepareDataDir = [(TransportRestrictedModeService *)self prepareDataDir];
   if (prepareDataDir || (prepareDataDir = [(TransportRestrictedModeService *)self purgeLegacyFiles]) != 0 || (prepareDataDir = [(TransportRestrictedModeService *)self loadFromFileAndPushToKextWithKey:1]) != 0 || (prepareDataDir = [(TransportRestrictedModeService *)self loadFromFileAndPushToKextWithKey:2]) != 0 || (prepareDataDir = [(TransportRestrictedModeService *)self loadFromFileAndPushToKextWithKey:3]) != 0 || (prepareDataDir = [(TransportRestrictedModeService *)self loadFromFileAndPushToKextWithKey:4]) != 0)
   {
-    v10 = prepareDataDir;
+    v14 = prepareDataDir;
 LABEL_20:
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v13 = "ACMTRM-D";
-      v14 = 2080;
-      v15 = "[TransportRestrictedModeService entryPoint_onDaemonStarted]";
-      v16 = 2048;
-      v17 = v10;
+      v20 = "ACMTRM-D";
+      v21 = 2080;
+      v22 = "[TransportRestrictedModeService entryPoint_onDaemonStarted]";
+      v23 = 2048;
+      v24 = v14;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
     }
 
-    return v10;
+    return v14;
   }
 
   v4 = sub_100003B2C();
-  v5 = sub_100002A38();
-  v6 = sub_100002A98();
+  v5 = v4;
+  v16 = v4;
+  v7 = sub_100002A38(v4, v6);
+  v8 = v7;
+  v17 = v7;
+  v10 = sub_100002A98(v7, v9);
+  v18 = v10;
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
-    v13 = "ACMTRM-D";
-    v7 = "YES";
+    v20 = "ACMTRM-D";
+    v11 = "YES";
     *buf = 136316418;
-    v15 = "[TransportRestrictedModeService entryPoint_onDaemonStarted]";
-    v14 = 2080;
-    if (v4)
-    {
-      v8 = "YES";
-    }
-
-    else
-    {
-      v8 = "NO";
-    }
-
-    v16 = 2080;
-    v17 = v8;
+    v22 = "[TransportRestrictedModeService entryPoint_onDaemonStarted]";
+    v21 = 2080;
     if (v5)
     {
-      v9 = "YES";
+      v12 = "YES";
     }
 
     else
     {
-      v9 = "NO";
+      v12 = "NO";
     }
 
-    v18 = 2080;
-    if (!v6)
+    v23 = 2080;
+    v24 = v12;
+    if (v8)
     {
-      v7 = "NO";
+      v13 = "YES";
     }
 
-    v19 = "NO";
-    v20 = 2080;
-    v21 = v9;
-    v22 = 2080;
-    v23 = v7;
+    else
+    {
+      v13 = "NO";
+    }
+
+    v25 = 2080;
+    if (!v10)
+    {
+      v11 = "NO";
+    }
+
+    v26 = "NO";
+    v27 = 2080;
+    v28 = v13;
+    v29 = 2080;
+    v30 = v11;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: acmd started, handing control over to kext (TRM allowed by ManagedConfiguration: %s, disabled by AppleSetup: %s, isInternalBuild: %s, isUSBTypeCSupported: %s).\n", buf, 0x3Eu);
   }
 
-  v10 = ACMKernelControl(3);
-  if (v10)
+  v14 = ACMKernelControl(3, &v16, 4, 0);
+  if (v14)
   {
     goto LABEL_20;
   }
 
-  return v10;
+  return v14;
 }
 
 - (int)entryPoint_onXPCEventWithName:(id)name
@@ -351,7 +356,7 @@ LABEL_12:
   v13 = 0;
   strncpy(buf, [nameCopy UTF8String], 0x3FuLL);
   v4 = 0;
-  if (ACMKernelControl(7))
+  if (ACMKernelControl(7, buf, 64, 0))
   {
     sub_10000B2A0(&v6);
     v4 = v6;
@@ -505,7 +510,7 @@ LABEL_15:
 
   v7 = 1;
   LOBYTE(v8) = v2;
-  result = ACMKernelControl(6);
+  result = ACMKernelControl(6, &v7, 5, 0);
   if (result)
   {
     sub_10000B35C(&v7);
@@ -549,7 +554,7 @@ LABEL_15:
   }
 
   v6 = 2;
-  result = ACMKernelControl(4);
+  result = ACMKernelControl(4, &v6, 4, 0);
   if (result)
   {
     sub_10000B418(result, &v6);
@@ -815,7 +820,7 @@ LABEL_9:
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: called, wake-up alarm triggered.\n", &v2, 0x16u);
   }
 
-  ACMKernelControl(30);
+  ACMKernelControl(30, 0, 0, 0);
 }
 
 @end

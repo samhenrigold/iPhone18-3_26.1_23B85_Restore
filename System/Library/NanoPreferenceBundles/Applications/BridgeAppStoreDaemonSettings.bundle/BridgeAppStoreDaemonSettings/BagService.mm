@@ -35,21 +35,20 @@
 - (void)warmUpCache
 {
   v3 = sub_9C94(&qword_25930, &qword_1AC60);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v11 - v5;
+  v5 = &v10 - v4;
   selfCopy = self;
   sub_188CC();
-  v8 = sub_188EC();
-  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
-  v9 = swift_allocObject();
-  v9[2] = 0;
-  v9[3] = 0;
-  v9[4] = selfCopy;
-  v10 = selfCopy;
-  sub_11944(0, 0, v6, 0, 0, &unk_1AE50, v9);
+  v7 = sub_188EC();
+  (*(*(v7 - 8) + 56))(v5, 0, 1, v7);
+  v8 = swift_allocObject();
+  v8[2] = 0;
+  v8[3] = 0;
+  v8[4] = selfCopy;
+  v9 = selfCopy;
+  sub_11944(0, 0, v5, 0, 0, &unk_1AE50, v8);
 
-  sub_13304(v6, &qword_25930, &qword_1AC60);
+  sub_13304(v5, &qword_25930, &qword_1AC60);
 }
 
 - (AMSBagProtocol)amsBag

@@ -8,6 +8,7 @@
 - (void)dealloc;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HPRFMindBreatheRateController
@@ -63,6 +64,14 @@
 
   objc_destroyWeak(&v7);
   objc_destroyWeak(&location);
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = HPRFMindBreatheRateController;
+  [(HPRFMindBreatheRateController *)&v3 viewWillAppear:appear];
+  +[HPRFMindSettingsNavigationDonation donateUserVisitForBreathRateSettings];
 }
 
 - (void)dealloc

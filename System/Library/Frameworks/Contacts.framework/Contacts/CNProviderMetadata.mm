@@ -6,6 +6,7 @@
 - (CNProviderMetadata)initWithVersion:(int64_t)version displayName:(id)name userInfo:(id)info isResetRequested:(BOOL)requested isContentEnumerated:(BOOL)enumerated itemAnchor:(id)anchor itemOffset:(int64_t)offset isMoreComing:(BOOL)self0;
 - (NSData)dataRepresentation;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)dataRepresentation;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -222,6 +223,27 @@ LABEL_8:
   }
 
   return v16;
+}
+
+- (void)initWithDataRepresentation:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_1(&dword_1954A0000, a2, a3, "Error unarchiving Core Data value into CNProviderMetadata: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithVersion:(uint64_t)a1 displayName:(NSObject *)a2 userInfo:(uint64_t)a3 isResetRequested:(uint64_t)a4 isContentEnumerated:(uint64_t)a5 itemAnchor:(uint64_t)a6 itemOffset:(uint64_t)a7 isMoreComing:(uint64_t)a8 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_1(&dword_1954A0000, a2, a3, "Provider metadata has a higher version number than we know how to handle: %ld", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)dataRepresentation
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_2_1(&dword_1954A0000, a2, a3, "Error archiving CNProviderMetadata: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

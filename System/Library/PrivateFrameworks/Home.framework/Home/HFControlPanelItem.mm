@@ -244,35 +244,35 @@ LABEL_7:
 
 - (int64_t)sortPriority
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   controlItems = [(HFControlPanelItem *)self controlItems];
-  v3 = [controlItems countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [controlItems countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     v6 = -1000;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(controlItems);
         }
 
-        sortPriority = [*(*(&v11 + 1) + 8 * i) sortPriority];
+        sortPriority = [*(*(&v10 + 1) + 8 * i) sortPriority];
         if (v6 <= sortPriority)
         {
           v6 = sortPriority;
         }
       }
 
-      v4 = [controlItems countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [controlItems countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
@@ -283,7 +283,6 @@ LABEL_7:
     v6 = -1000;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -301,34 +300,32 @@ LABEL_7:
 
 void __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invoke()
 {
-  v14[11] = *MEMORY[0x277D85DE8];
-  v13 = [[HFControlPanelItemSingleControlRule alloc] initWithFilter:&__block_literal_global_66_2 displayResultsGenerator:&__block_literal_global_71_4];
-  v14[0] = v13;
+  v13[11] = *MEMORY[0x277D85DE8];
+  v12 = [[HFControlPanelItemSingleControlRule alloc] initWithFilter:&__block_literal_global_66_2 displayResultsGenerator:&__block_literal_global_71_4];
+  v13[0] = v12;
   v0 = [[HFControlPanelItemSingleControlRule alloc] initWithFilter:&__block_literal_global_76_1 displayResultsGenerator:&__block_literal_global_78_1];
-  v14[1] = v0;
+  v13[1] = v0;
   v1 = [[HFControlPanelItemSingleControlRule alloc] initWithFilter:&__block_literal_global_83_2 displayResultsGenerator:&__block_literal_global_85_0];
-  v14[2] = v1;
+  v13[2] = v1;
   v2 = [[HFControlPanelItemSingleControlRule alloc] initWithFilter:&__block_literal_global_90 displayResultsGenerator:&__block_literal_global_92_1];
-  v14[3] = v2;
+  v13[3] = v2;
   v3 = [[HFControlPanelItemSingleControlRule alloc] initWithFilter:&__block_literal_global_97_1 displayResultsGenerator:&__block_literal_global_100_1];
-  v14[4] = v3;
+  v13[4] = v3;
   v4 = [[HFControlPanelItemSingleControlRule alloc] initWithFilter:&__block_literal_global_105_1 displayResultsGenerator:&__block_literal_global_108];
-  v14[5] = v4;
+  v13[5] = v4;
   v5 = [[HFControlPanelItemSingleControlRule alloc] initWithFilter:&__block_literal_global_113_0 displayResultsGenerator:&__block_literal_global_115_1];
-  v14[6] = v5;
+  v13[6] = v5;
   v6 = [[HFControlPanelItemSingleControlRule alloc] initWithFilter:&__block_literal_global_120_0 displayResultsGenerator:&__block_literal_global_122_1];
-  v14[7] = v6;
+  v13[7] = v6;
   v7 = [[HFControlPanelItemSingleControlRule alloc] initWithFilter:&__block_literal_global_127_3 displayResultsGenerator:&__block_literal_global_129_1];
-  v14[8] = v7;
+  v13[8] = v7;
   v8 = [[HFControlPanelItemSingleControlRule alloc] initWithFilter:&__block_literal_global_134 displayResultsGenerator:&__block_literal_global_136_0];
-  v14[9] = v8;
+  v13[9] = v8;
   v9 = [[HFControlPanelItemSingleControlRule alloc] initWithFilter:&__block_literal_global_151_1 displayResultsGenerator:&__block_literal_global_153_1];
-  v14[10] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:11];
+  v13[10] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:11];
   v11 = _MergedGlobals_284;
   _MergedGlobals_284 = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invoke_2(uint64_t a1, void *a2)
@@ -342,13 +339,11 @@ uint64_t __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invo
 
 id __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invoke_68()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"title";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"title";
   v0 = _HFLocalizedStringWithDefaultValue(@"HFServiceThermostatHumidityTitle", @"HFServiceThermostatHumidityTitle", 1);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
@@ -364,13 +359,11 @@ uint64_t __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invo
 
 id __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invoke_3()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"title";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"title";
   v0 = _HFLocalizedStringWithDefaultValue(@"HFServiceThermostatDisplayUnitsTitle", @"HFServiceThermostatDisplayUnitsTitle", 1);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
@@ -386,13 +379,11 @@ uint64_t __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invo
 
 id __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invoke_5()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"title";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"title";
   v0 = _HFLocalizedStringWithDefaultValue(@"HFCharacteristicGroupTitleHorizontalTilt", @"HFCharacteristicGroupTitleHorizontalTilt", 1);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
@@ -408,13 +399,11 @@ uint64_t __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invo
 
 id __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invoke_7()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"title";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"title";
   v0 = _HFLocalizedStringWithDefaultValue(@"HFCharacteristicGroupTitleVerticalTilt", @"HFCharacteristicGroupTitleVerticalTilt", 1);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
@@ -440,13 +429,11 @@ uint64_t __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invo
 
 id __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invoke_9()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"title";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"title";
   v0 = _HFLocalizedStringWithDefaultValue(@"HFCharacteristicGroupTitleFanMode", @"HFCharacteristicGroupTitleFanMode", 1);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
@@ -472,13 +459,11 @@ uint64_t __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invo
 
 id __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invoke_11()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"title";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"title";
   v0 = _HFLocalizedStringWithDefaultValue(@"HFCharacteristicGroupTitleFanSpeed", @"HFCharacteristicGroupTitleFanSpeed", 1);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
@@ -494,13 +479,11 @@ uint64_t __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invo
 
 id __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invoke_13()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"title";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"title";
   v0 = _HFLocalizedStringWithDefaultValue(@"HFCharacteristicGroupTitleSwingMode", @"HFCharacteristicGroupTitleSwingMode", 1);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
@@ -516,13 +499,11 @@ uint64_t __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invo
 
 id __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invoke_15()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"title";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"title";
   v0 = _HFLocalizedStringWithDefaultValue(@"HFCharacteristicGroupTitleLockPhysicalControls", @"HFCharacteristicGroupTitleLockPhysicalControls", 1);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
@@ -538,13 +519,11 @@ uint64_t __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invo
 
 id __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invoke_17()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"title";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"title";
   v0 = _HFLocalizedStringWithDefaultValue(@"HFCharacteristicGroupTitleAirPurifierState", @"HFCharacteristicGroupTitleAirPurifierState", 1);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
@@ -612,44 +591,42 @@ uint64_t __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invo
 
 id __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invoke_21()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"title";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"title";
   v0 = _HFLocalizedStringWithDefaultValue(@"HFCharacteristicGroupTitleSetDuration", @"HFCharacteristicGroupTitleSetDuration", 1);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
 
 + (id)standardControlPanelItemsForControlItems:(id)items
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [items na_filter:&__block_literal_global_159];
   v4 = [MEMORY[0x277CBEB58] set];
   v5 = [v3 mutableCopy];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   _controlPanelItemRules = [objc_opt_class() _controlPanelItemRules];
-  v7 = [_controlPanelItemRules countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [_controlPanelItemRules countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(_controlPanelItemRules);
         }
 
         v11 = 0;
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         do
         {
           v13 = v11;
@@ -668,13 +645,11 @@ id __56__HFControlPanelItem_Generating___controlPanelItemRules__block_invoke_21(
         while ([v5 count]);
       }
 
-      v8 = [_controlPanelItemRules countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [_controlPanelItemRules countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

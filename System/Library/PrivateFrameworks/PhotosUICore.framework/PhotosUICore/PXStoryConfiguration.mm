@@ -33,8 +33,8 @@
 - (BOOL)isEmbeddedInCollectionDetail
 {
   swift_getKeyPath();
-  sub_1A405BC4C();
-  sub_1A405BC98(&qword_1EB1269C8, sub_1A405BC4C);
+  sub_1A405BC4C(0, v3);
+  sub_1A405BC98(&qword_1EB1269C8, sub_1A405BC4C, &protocol conformance descriptor for PXStoryConfiguration);
   selfCopy = self;
   sub_1A52457F4();
 }
@@ -161,7 +161,7 @@ void __63__PXStoryConfiguration_Synthetic__initWithSyntheticAssetCount___block_i
   autoCurationProducer = [configurationCopy autoCurationProducer];
   [(PXStoryConfiguration *)self setAutoCurationProducer:autoCurationProducer];
 
-  -[PXStoryConfiguration setOptions:](self, "setOptions:", [configurationCopy options]);
+  [(PXStoryConfiguration *)self setOptions:objc_msgSend_options(configurationCopy)];
   launchType = [configurationCopy launchType];
   [(PXStoryConfiguration *)self setLaunchType:launchType];
 
@@ -198,7 +198,7 @@ void __63__PXStoryConfiguration_Synthetic__initWithSyntheticAssetCount___block_i
   appleMusicStatusProvider = [configurationCopy appleMusicStatusProvider];
   [(PXStoryConfiguration *)self setAppleMusicStatusProvider:appleMusicStatusProvider];
 
-  [configurationCopy fixedSegmentDuration];
+  objc_msgSend_fixedSegmentDuration(configurationCopy);
   v26 = v28;
   v27 = v29;
   [(PXStoryConfiguration *)self setFixedSegmentDuration:&v26];
@@ -368,7 +368,7 @@ LABEL_6:
 - (id)copyWithAdditionalOptions:(unint64_t)options
 {
   v4 = [(PXStoryConfiguration *)self copy];
-  [v4 setOptions:{objc_msgSend(v4, "options") | options}];
+  [v4 setOptions:objc_msgSend_options(v4) | options];
   return v4;
 }
 

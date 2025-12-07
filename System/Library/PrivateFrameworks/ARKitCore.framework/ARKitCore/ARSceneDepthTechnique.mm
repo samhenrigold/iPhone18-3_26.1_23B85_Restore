@@ -22,7 +22,7 @@
 
 + (BOOL)isSupported
 {
-  v2 = ARDeviceSupportsJasper();
+  v2 = ARDeviceSupportsJasper(self, a2);
   if (v2)
   {
 
@@ -48,7 +48,7 @@
 
 - (void)_prepareOnce
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = +[ARBKSAccelerometer sharedWeakAccelerometerHandle];
   currentOrientation = [v3 currentOrientation];
   if ((currentOrientation - 3) >= 2)
@@ -71,9 +71,10 @@
     v6 = qword_1C25C8B68[currentOrientation - 1];
   }
 
-  v18 = 0;
-  [(ARSceneDepthTechnique *)self _prepareOnDimensionsChange:v6 outputRotation:&v18 error:v5];
-  v7 = v18;
+  v19 = 0;
+  [(ARSceneDepthTechnique *)self _prepareOnDimensionsChange:v6 outputRotation:&v19 error:v5];
+  v7 = v19;
+  v8 = v7;
   if (v7)
   {
     if (ARShouldUseLogTypeError_onceToken_16 != -1)
@@ -81,47 +82,47 @@
       [ARSceneDepthTechnique _prepareOnce];
     }
 
-    v8 = ARShouldUseLogTypeError_internalOSVersion_16;
-    v9 = _ARLogTechnique_12();
-    v10 = v9;
-    if (v8 == 1)
+    v9 = ARShouldUseLogTypeError_internalOSVersion_16;
+    v10 = _ARLogTechnique_12(v7);
+    v11 = v10;
+    if (v9 == 1)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
         *buf = 138543874;
-        v20 = v12;
-        v21 = 2048;
+        v21 = v13;
+        v22 = 2048;
         selfCopy2 = self;
-        v23 = 2112;
-        v24 = v7;
-        v13 = "%{public}@ <%p>: Failed preparing scene depth: %@";
-        v14 = v10;
-        v15 = OS_LOG_TYPE_ERROR;
+        v24 = 2112;
+        v25 = v8;
+        v14 = "%{public}@ <%p>: Failed preparing scene depth: %@";
+        v15 = v11;
+        v16 = OS_LOG_TYPE_ERROR;
 LABEL_15:
-        _os_log_impl(&dword_1C241C000, v14, v15, v13, buf, 0x20u);
+        _os_log_impl(&dword_1C241C000, v15, v16, v14, buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v16 = objc_opt_class();
-      v12 = NSStringFromClass(v16);
+      v17 = objc_opt_class();
+      v13 = NSStringFromClass(v17);
       *buf = 138543874;
-      v20 = v12;
-      v21 = 2048;
+      v21 = v13;
+      v22 = 2048;
       selfCopy2 = self;
-      v23 = 2112;
-      v24 = v7;
-      v13 = "Error: %{public}@ <%p>: Failed preparing scene depth: %@";
-      v14 = v10;
-      v15 = OS_LOG_TYPE_INFO;
+      v24 = 2112;
+      v25 = v8;
+      v14 = "Error: %{public}@ <%p>: Failed preparing scene depth: %@";
+      v15 = v11;
+      v16 = OS_LOG_TYPE_INFO;
       goto LABEL_15;
     }
 
     delegate = [(ARTechnique *)self delegate];
-    [delegate technique:self didFailWithError:v7];
+    [delegate technique:self didFailWithError:v8];
   }
 }
 
@@ -149,7 +150,7 @@ LABEL_15:
     v6->_startedPrepare = 0;
     v6->_deterministic = 0;
     v6->_prepLock._os_unfair_lock_opaque = 0;
-    v8 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.scenedepthtechnique");
+    v8 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.scenedepthtechnique", 0xFFFFFFFFLL);
     depthProcessingQueue = v7->_depthProcessingQueue;
     v7->_depthProcessingQueue = v8;
 
@@ -346,42 +347,42 @@ LABEL_17:
 
 - (id)_generateDepthForDownscaledImageData:(id)data error:(id *)error
 {
-  v174 = *MEMORY[0x1E69E9840];
+  v175 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v162 = 0;
-  v163 = &v162;
-  v164 = 0x2020000000;
+  v163 = 0;
+  v164 = &v163;
+  v165 = 0x2020000000;
   p_inputDimensions = &self->_inputDimensions;
-  v165 = ARCreateCVPixelBufferFromPool(&self->_outputDepthPixelBufferPool, 1717855600, self, @"Depth Output", self->_inputDimensions.width, self->_inputDimensions.height);
-  v158 = 0;
-  v159 = &v158;
-  v160 = 0x2020000000;
-  v161 = ARCreateCVPixelBufferFromPool(&self->_outputConfidencePixelBufferPool, 1717855600, self, @"Confidence Output", self->_inputDimensions.width, self->_inputDimensions.height);
-  v154 = 0;
-  v155 = &v154;
-  v156 = 0x2020000000;
-  v157 = ARCreateCVPixelBufferFromPool(&self->_outputSingleFrameDepthPixelBufferPool, 1717855600, self, @"single frame Depth Output", self->_inputDimensions.width, self->_inputDimensions.height);
-  v150 = 0;
-  v151 = &v150;
-  v152 = 0x2020000000;
-  v153 = ARCreateCVPixelBufferFromPool(&self->_outputSingleFrameConfidencePixelBufferPool, 1717855600, self, @"single frame Confidence Output", self->_inputDimensions.width, self->_inputDimensions.height);
-  v146 = 0;
-  v147 = &v146;
-  v148 = 0x2020000000;
-  v149 = ARCreateCVPixelBufferFromPool(&self->_outputConfidenceMapPixelBufferPool, 1278226488, self, @"Confidence Map Output", self->_inputDimensions.width, self->_inputDimensions.height);
-  v138[0] = MEMORY[0x1E69E9820];
-  v138[1] = 3221225472;
-  v139 = __68__ARSceneDepthTechnique__generateDepthForDownscaledImageData_error___block_invoke;
-  v140 = &unk_1E817C768;
-  v141 = &v162;
-  v142 = &v158;
-  v143 = &v154;
-  v144 = &v150;
-  v145 = &v146;
-  if (!v163[3] || !v159[3] || !v155[3] || !v151[3] || !v147[3])
+  v166 = ARCreateCVPixelBufferFromPool(&self->_outputDepthPixelBufferPool, 1717855600, self, @"Depth Output", self->_inputDimensions.width, self->_inputDimensions.height);
+  v159 = 0;
+  v160 = &v159;
+  v161 = 0x2020000000;
+  v162 = ARCreateCVPixelBufferFromPool(&self->_outputConfidencePixelBufferPool, 1717855600, self, @"Confidence Output", self->_inputDimensions.width, self->_inputDimensions.height);
+  v155 = 0;
+  v156 = &v155;
+  v157 = 0x2020000000;
+  v158 = ARCreateCVPixelBufferFromPool(&self->_outputSingleFrameDepthPixelBufferPool, 1717855600, self, @"single frame Depth Output", self->_inputDimensions.width, self->_inputDimensions.height);
+  v151 = 0;
+  v152 = &v151;
+  v153 = 0x2020000000;
+  v154 = ARCreateCVPixelBufferFromPool(&self->_outputSingleFrameConfidencePixelBufferPool, 1717855600, self, @"single frame Confidence Output", self->_inputDimensions.width, self->_inputDimensions.height);
+  v147 = 0;
+  v148 = &v147;
+  v149 = 0x2020000000;
+  v150 = ARCreateCVPixelBufferFromPool(&self->_outputConfidenceMapPixelBufferPool, 1278226488, self, @"Confidence Map Output", self->_inputDimensions.width, self->_inputDimensions.height);
+  v139[0] = MEMORY[0x1E69E9820];
+  v139[1] = 3221225472;
+  v140 = __68__ARSceneDepthTechnique__generateDepthForDownscaledImageData_error___block_invoke;
+  v141 = &unk_1E817C768;
+  v142 = &v163;
+  v143 = &v159;
+  v144 = &v155;
+  v145 = &v151;
+  v146 = &v147;
+  if (!v164[3] || !v160[3] || !v156[3] || !v152[3] || !v148[3])
   {
     _createAllocationError();
-    *error = v46 = 0;
+    *error = v47 = 0;
     goto LABEL_12;
   }
 
@@ -389,10 +390,10 @@ LABEL_17:
   originalImageData = [dataCopy originalImageData];
   [originalImageData visionTransform];
   [v6 transformMetersToMillimiters:?];
-  v134 = v8;
-  v135 = v9;
-  v136 = v10;
-  v137 = v11;
+  v135 = v8;
+  v136 = v9;
+  v137 = v10;
+  v138 = v11;
 
   v12 = [dataCopy rotationOfResultTensor] * 3.14159265 / -180.0;
   v13 = __sincosf_stret(v12 * 0.5);
@@ -427,30 +428,30 @@ LABEL_17:
   __asm { FMLS            S5, S3, V2.S[1] }
 
   v33.i64[1] = _S5;
-  v166 = v134;
   v167 = v135;
   v168 = v136;
   v169 = v137;
+  v170 = v138;
   memset(buf, 0, sizeof(buf));
-  v172 = 0u;
   v173 = 0u;
+  v174 = 0u;
   do
   {
     _Q0.f32[2] = -(v22 - (_Q2.f32[0] * _Q2.f32[2])) - (v22 - (_Q2.f32[0] * _Q2.f32[2]));
-    *&buf[v14] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(_Q0, COERCE_FLOAT(*(&v166 + v14))), v29, *(&v166 + v14), 1), v33, *(&v166 + v14), 2), xmmword_1C25C8560, *(&v166 + v14), 3);
+    *&buf[v14] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(_Q0, COERCE_FLOAT(*(&v167 + v14))), v29, *(&v167 + v14), 1), v33, *(&v167 + v14), 2), xmmword_1C25C8560, *(&v167 + v14), 3);
     v14 += 16;
   }
 
   while (v14 != 64);
-  v134 = *buf;
-  v135 = *&buf[16];
-  v136 = v172;
+  v135 = *buf;
+  v136 = *&buf[16];
   v137 = v173;
+  v138 = v174;
   originalImageData2 = [dataCopy originalImageData];
-  v107 = -[ARSceneDepthTechnique _getCameraCalibration:rotation:inputDimensions:](self, "_getCameraCalibration:rotation:inputDimensions:", originalImageData2, [dataCopy rotationOfResultTensor], p_inputDimensions->width, self->_inputDimensions.height);
+  v108 = -[ARSceneDepthTechnique _getCameraCalibration:rotation:inputDimensions:](self, "_getCameraCalibration:rotation:inputDimensions:", originalImageData2, [dataCopy rotationOfResultTensor], p_inputDimensions->width, self->_inputDimensions.height);
 
   originalImageData3 = [dataCopy originalImageData];
-  v106 = [(ARSceneDepthTechnique *)self _getCameraCalibration:originalImageData3 rotation:0 inputDimensions:*MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)];
+  v107 = [(ARSceneDepthTechnique *)self _getCameraCalibration:originalImageData3 rotation:0 inputDimensions:*MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)];
 
   originalImageData4 = [dataCopy originalImageData];
   pointCloud = [originalImageData4 pointCloud];
@@ -463,32 +464,32 @@ LABEL_17:
       [ARSceneDepthTechnique _prepareOnce];
     }
 
-    v48 = ARShouldUseLogTypeError_internalOSVersion_16;
-    v49 = _ARLogTechnique_12();
-    v50 = v49;
-    if (v48 == 1)
+    v49 = ARShouldUseLogTypeError_internalOSVersion_16;
+    v50 = _ARLogTechnique_12(v39);
+    v51 = v50;
+    if (v49 == 1)
     {
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
       {
-        v51 = objc_opt_class();
-        v52 = NSStringFromClass(v51);
+        v52 = objc_opt_class();
+        v53 = NSStringFromClass(v52);
         *buf = 138543618;
-        *&buf[4] = v52;
+        *&buf[4] = v53;
         *&buf[12] = 2048;
         *&buf[14] = self;
-        _os_log_impl(&dword_1C241C000, v50, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed generating depth: missing point cloud", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v51, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed generating depth: missing point cloud", buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
     {
-      v57 = objc_opt_class();
-      v58 = NSStringFromClass(v57);
+      v58 = objc_opt_class();
+      v59 = NSStringFromClass(v58);
       *buf = 138543618;
-      *&buf[4] = v58;
+      *&buf[4] = v59;
       *&buf[12] = 2048;
       *&buf[14] = self;
-      _os_log_impl(&dword_1C241C000, v50, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Failed generating depth: missing point cloud", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v51, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Failed generating depth: missing point cloud", buf, 0x16u);
     }
 
     goto LABEL_26;
@@ -496,22 +497,22 @@ LABEL_17:
 
   executor = self->_executor;
   downScalingResults = [dataCopy downScalingResults];
-  v41 = [downScalingResults objectAtIndexedSubscript:0];
-  pixelBuffer = [v41 pixelBuffer];
-  v170 = depthPointCloud;
-  v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v170 count:1];
-  v44 = [(ADJasperColorExecutor *)executor executeWithColor:pixelBuffer colorCameraCalibration:v107 colorWorldToPlatformTransform:v43 pointClouds:v106 lidarCameraCalibration:&v134 pointCloudWorldToPlatformTransforms:v163 + 3 outDepthMap:*&v134 outConfMap:*&v135 outNonTemporalyConsistentDepthMap:*&v136 outNonTemporalyConsistentConfMap:*&v137 outConfidenceLevels:v159 + 3, v155[3], v151[3], 0];
+  v42 = [downScalingResults objectAtIndexedSubscript:0];
+  pixelBuffer = [v42 pixelBuffer];
+  v171 = depthPointCloud;
+  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v171 count:1];
+  v45 = [(ADJasperColorExecutor *)executor executeWithColor:pixelBuffer colorCameraCalibration:v108 colorWorldToPlatformTransform:v44 pointClouds:v107 lidarCameraCalibration:&v135 pointCloudWorldToPlatformTransforms:v164 + 3 outDepthMap:*&v135 outConfMap:*&v136 outNonTemporalyConsistentDepthMap:*&v137 outNonTemporalyConsistentConfMap:*&v138 outConfidenceLevels:v160 + 3, v156[3], v152[3], 0];
 
-  if (!v44)
+  if (!v45)
   {
-    v53 = [(ADJasperColorExecutor *)self->_executor getIntermediateWithName:@"Unprocessed Conf"];
+    v54 = [(ADJasperColorExecutor *)self->_executor getIntermediateWithName:@"Unprocessed Conf"];
     pipeline = [(ADJasperColorExecutor *)self->_executor pipeline];
-    v55 = [pipeline postProcessConfidence:v53 confidenceOutput:v147[3] confidenceUnits:1];
+    v56 = [pipeline postProcessConfidence:v54 confidenceOutput:v148[3] confidenceUnits:1];
 
-    if (v55)
+    if (v56)
     {
-      v56 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed compute confidence levels with error: %li", v55];
-      *error = _createADError(v56);
+      v57 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed compute confidence levels with error: %li", v56];
+      *error = _createADError(v57);
 
       goto LABEL_26;
     }
@@ -519,165 +520,165 @@ LABEL_17:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000uLL;
-    *&v166 = 0;
-    *(&v166 + 1) = &v166;
-    v167 = 0x2020000000uLL;
+    *&v167 = 0;
+    *(&v167 + 1) = &v167;
+    v168 = 0x2020000000uLL;
+    v131 = 0;
+    v132 = &v131;
+    v133 = 0x2020000000;
+    v134 = 0;
+    v127 = 0;
+    v128 = &v127;
+    v129 = 0x2020000000;
     v130 = 0;
-    v131 = &v130;
-    v132 = 0x2020000000;
-    v133 = 0;
+    v123 = 0;
+    v124 = &v123;
+    v125 = 0x2020000000;
     v126 = 0;
-    v127 = &v126;
-    v128 = 0x2020000000;
-    v129 = 0;
-    v122 = 0;
-    v123 = &v122;
-    v124 = 0x2020000000;
-    v125 = 0;
-    v114[0] = MEMORY[0x1E69E9820];
-    v114[1] = 3221225472;
-    v115 = __68__ARSceneDepthTechnique__generateDepthForDownscaledImageData_error___block_invoke_38;
-    v116 = &unk_1E817C768;
-    v117 = buf;
-    v118 = &v166;
-    v119 = &v130;
-    v120 = &v126;
-    v121 = &v122;
+    v115[0] = MEMORY[0x1E69E9820];
+    v115[1] = 3221225472;
+    v116 = __68__ARSceneDepthTechnique__generateDepthForDownscaledImageData_error___block_invoke_38;
+    v117 = &unk_1E817C768;
+    v118 = buf;
+    v119 = &v167;
+    v120 = &v131;
+    v121 = &v127;
+    v122 = &v123;
     downScalingResults2 = [dataCopy downScalingResults];
-    v60 = [downScalingResults2 objectAtIndexedSubscript:0];
-    [v60 regionOfInterest];
-    v62 = v61;
-    v64 = v63;
+    v61 = [downScalingResults2 objectAtIndexedSubscript:0];
+    [v61 regionOfInterest];
+    v63 = v62;
+    v65 = v64;
 
-    _ZF = p_inputDimensions->width == v62 && self->_inputDimensions.height == v64;
-    v66 = _ZF;
+    _ZF = p_inputDimensions->width == v63 && self->_inputDimensions.height == v65;
+    v67 = _ZF;
     if (!_ZF)
     {
-      v74 = ARCreateCVPixelBufferFromPool(&self->_outputScaledDepthPixelBufferPool, 1717855600, self, @"Scaled Depth Output", v62, v64);
-      *(*&buf[8] + 24) = v74;
-      v75 = ARCreateCVPixelBufferFromPool(&self->_outputScaledConfidencePixelBufferPool, 1717855600, self, @"Scaled Confidence Output", v62, v64);
-      *(*(&v166 + 1) + 24) = v75;
-      v76 = ARCreateCVPixelBufferFromPool(&self->_outputScaledSingleFrameDepthPixelBufferPool, 1717855600, self, @"Scaled single frame Depth Output", v62, v64);
-      v131[3] = v76;
-      v77 = ARCreateCVPixelBufferFromPool(&self->_outputScaledSingleFrameConfidencePixelBufferPool, 1717855600, self, @"Scaled single frame Confidence Output", v62, v64);
-      v127[3] = v77;
-      v78 = ARCreateCVPixelBufferFromPool(&self->_outputScaledConfidenceMapPixelBufferPool, 1278226488, self, @"Scaled Confidence Map Output", v62, v64);
-      v123[3] = v78;
-      v79 = *(*&buf[8] + 24);
-      if (!v79 || !*(*(&v166 + 1) + 24) || !v131[3] || !v127[3] || !v78)
+      v75 = ARCreateCVPixelBufferFromPool(&self->_outputScaledDepthPixelBufferPool, 1717855600, self, @"Scaled Depth Output", v63, v65);
+      *(*&buf[8] + 24) = v75;
+      v76 = ARCreateCVPixelBufferFromPool(&self->_outputScaledConfidencePixelBufferPool, 1717855600, self, @"Scaled Confidence Output", v63, v65);
+      *(*(&v167 + 1) + 24) = v76;
+      v77 = ARCreateCVPixelBufferFromPool(&self->_outputScaledSingleFrameDepthPixelBufferPool, 1717855600, self, @"Scaled single frame Depth Output", v63, v65);
+      v132[3] = v77;
+      v78 = ARCreateCVPixelBufferFromPool(&self->_outputScaledSingleFrameConfidencePixelBufferPool, 1717855600, self, @"Scaled single frame Confidence Output", v63, v65);
+      v128[3] = v78;
+      v79 = ARCreateCVPixelBufferFromPool(&self->_outputScaledConfidenceMapPixelBufferPool, 1278226488, self, @"Scaled Confidence Map Output", v63, v65);
+      v124[3] = v79;
+      v80 = *(*&buf[8] + 24);
+      if (!v80 || !*(*(&v167 + 1) + 24) || !v132[3] || !v128[3] || !v79)
       {
-        v81 = _createAllocationError();
+        v82 = _createAllocationError();
 LABEL_56:
-        v46 = 0;
-        *error = v81;
+        v47 = 0;
+        *error = v82;
 LABEL_70:
-        v115(v114);
-        _Block_object_dispose(&v122, 8);
-        _Block_object_dispose(&v126, 8);
-        _Block_object_dispose(&v130, 8);
-        _Block_object_dispose(&v166, 8);
+        v116(v115);
+        _Block_object_dispose(&v123, 8);
+        _Block_object_dispose(&v127, 8);
+        _Block_object_dispose(&v131, 8);
+        _Block_object_dispose(&v167, 8);
         _Block_object_dispose(buf, 8);
         goto LABEL_27;
       }
 
-      v80 = ARResizeBufferWithNearestNeighbors(v163[3], v79, 4uLL);
-      if (v80 || (v80 = ARResizeBufferWithNearestNeighbors(v159[3], *(*(&v166 + 1) + 24), 4uLL)) != 0 || self->_temporalConsistencyMethod && ((v80 = ARResizeBufferWithNearestNeighbors(v155[3], v131[3], 4uLL)) != 0 || (v80 = ARResizeBufferWithNearestNeighbors(v151[3], v127[3], 4uLL)) != 0) || (v80 = ARResizeBufferWithNearestNeighbors(v147[3], v123[3], 1uLL)) != 0)
+      v81 = ARResizeBufferWithNearestNeighbors(v164[3], v80, 4uLL);
+      if (v81 || (v81 = ARResizeBufferWithNearestNeighbors(v160[3], *(*(&v167 + 1) + 24), 4uLL)) != 0 || self->_temporalConsistencyMethod && ((v81 = ARResizeBufferWithNearestNeighbors(v156[3], v132[3], 4uLL)) != 0 || (v81 = ARResizeBufferWithNearestNeighbors(v152[3], v128[3], 4uLL)) != 0) || (v81 = ARResizeBufferWithNearestNeighbors(v148[3], v124[3], 1uLL)) != 0)
       {
-        v81 = _createResamplingError(v80);
+        v82 = _createResamplingError(v81);
         goto LABEL_56;
       }
     }
 
     rotationOfResultTensor = [dataCopy rotationOfResultTensor];
-    v68 = buf;
-    if (v66)
+    v69 = buf;
+    if (v67)
     {
-      v68 = &v162;
+      v69 = &v163;
     }
 
-    v105 = [(ARSceneDepthTechnique *)self _rotatedPixelBufferImageData:*(*(v68 + 1) + 24) rotationAngle:rotationOfResultTensor];
-    v69 = &v166;
-    if (v66)
+    v106 = [(ARSceneDepthTechnique *)self _rotatedPixelBufferImageData:*(*(v69 + 1) + 24) rotationAngle:rotationOfResultTensor];
+    v70 = &v167;
+    if (v67)
     {
-      v69 = &v158;
+      v70 = &v159;
     }
 
-    v104 = [(ARSceneDepthTechnique *)self _rotatedPixelBufferImageData:*(v69[1] + 24) rotationAngle:rotationOfResultTensor];
-    v70 = &v122;
-    if (v66)
+    v105 = [(ARSceneDepthTechnique *)self _rotatedPixelBufferImageData:*(v70[1] + 24) rotationAngle:rotationOfResultTensor];
+    v71 = &v123;
+    if (v67)
     {
-      v70 = &v146;
+      v71 = &v147;
     }
 
-    v71 = [(ARSceneDepthTechnique *)self _rotatedPixelBufferImageData:*(v70[1] + 24) rotationAngle:rotationOfResultTensor];
+    v72 = [(ARSceneDepthTechnique *)self _rotatedPixelBufferImageData:*(v71[1] + 24) rotationAngle:rotationOfResultTensor];
     if (self->_temporalConsistencyMethod)
     {
-      v72 = &v130;
-      if (v66)
+      v73 = &v131;
+      if (v67)
       {
-        v72 = &v154;
+        v73 = &v155;
       }
 
-      v103 = [(ARSceneDepthTechnique *)self _rotatedPixelBufferImageData:*(v72[1] + 24) rotationAngle:rotationOfResultTensor];
-      v73 = &v126;
-      if (v66)
+      v104 = [(ARSceneDepthTechnique *)self _rotatedPixelBufferImageData:*(v73[1] + 24) rotationAngle:rotationOfResultTensor];
+      v74 = &v127;
+      if (v67)
       {
-        v73 = &v150;
+        v74 = &v151;
       }
 
-      v102 = [(ARSceneDepthTechnique *)self _rotatedPixelBufferImageData:*(v73[1] + 24) rotationAngle:rotationOfResultTensor];
+      v103 = [(ARSceneDepthTechnique *)self _rotatedPixelBufferImageData:*(v74[1] + 24) rotationAngle:rotationOfResultTensor];
     }
 
     else
     {
-      v102 = 0;
       v103 = 0;
+      v104 = 0;
     }
 
-    v82 = [ARMLDepthData alloc];
+    v83 = [ARMLDepthData alloc];
     originalImageData5 = [dataCopy originalImageData];
-    [originalImageData5 timestamp];
-    v85 = -[ARMLDepthData initWithTimestamp:depthBuffer:confidenceBuffer:source:](v82, "initWithTimestamp:depthBuffer:confidenceBuffer:source:", [v105 pixelBuffer], objc_msgSend(v104, "pixelBuffer"), 2, v84);
+    objc_msgSend_timestamp(originalImageData5);
+    v86 = -[ARMLDepthData initWithTimestamp:depthBuffer:confidenceBuffer:source:](v83, "initWithTimestamp:depthBuffer:confidenceBuffer:source:", [v106 pixelBuffer], objc_msgSend(v105, "pixelBuffer"), 2, v85);
 
-    -[ARMLDepthData setConfidenceMap:](v85, "setConfidenceMap:", [v71 pixelBuffer]);
+    -[ARMLDepthData setConfidenceMap:](v86, "setConfidenceMap:", [v72 pixelBuffer]);
     originalImageData6 = [dataCopy originalImageData];
-    [(ARMLDepthData *)v85 setSourceImageData:originalImageData6];
+    [(ARMLDepthData *)v86 setSourceImageData:originalImageData6];
 
     if (self->_temporalConsistencyMethod)
     {
-      -[ARMLDepthData setSingleFrameDepthBuffer:](v85, "setSingleFrameDepthBuffer:", [v103 pixelBuffer]);
-      -[ARMLDepthData setSingleFrameConfidenceBuffer:](v85, "setSingleFrameConfidenceBuffer:", [v102 pixelBuffer]);
+      -[ARMLDepthData setSingleFrameDepthBuffer:](v86, "setSingleFrameDepthBuffer:", [v104 pixelBuffer]);
+      -[ARMLDepthData setSingleFrameConfidenceBuffer:](v86, "setSingleFrameConfidenceBuffer:", [v103 pixelBuffer]);
     }
 
-    if (self->_computeNormals && ((Width = CVPixelBufferGetWidth(-[ARMLDepthData depthBuffer](v85, "depthBuffer")), Height = CVPixelBufferGetHeight(-[ARMLDepthData depthBuffer](v85, "depthBuffer")), v89 = ARCreateCVPixelBufferFromPool(&self->_outputNormalsInOriginalImageRotationPixelBufferPool, 1380410945, self, @"Normals Map", Width, Height), v110[0] = MEMORY[0x1E69E9820], v110[1] = 3221225472, v111 = __68__ARSceneDepthTechnique__generateDepthForDownscaledImageData_error___block_invoke_2, v112 = &__block_descriptor_40_e5_v8__0l, (v113 = v89) == 0) ? (_createAllocationError(), v96 = 0, *error = objc_claimAutoreleasedReturnValue()) : (([dataCopy originalImageData], v90 = objc_claimAutoreleasedReturnValue(), -[ARSceneDepthTechnique _getCameraCalibration:rotation:inputDimensions:](self, "_getCameraCalibration:rotation:inputDimensions:", v90, 0, Width, Height), v91 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v91, "intrinsicMatrix"), v100 = v93, v101 = v92, v91, v90, (v94 = objc_msgSend(MEMORY[0x1E698C138], "normalsFromDepth:focalLength:principalPoint:normalsOutput:withHelperBuffer:", -[ARMLDepthData depthBuffer](v85, "depthBuffer"), v89, self->_normalsHelperBuffer, v101, *&v100, *(&v100 + 1))) == 0) ? (-[ADJasperColorExecutor executorParameters](self->_executor, "executorParameters"), v97 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v97, "logger"), v98 = objc_claimAutoreleasedReturnValue(), objc_msgSend(dataCopy, "originalImageData"), v99 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v99, "timestamp"), objc_msgSend(v98, "logPixelBuffer:name:timestamp:", v89, "normals"), v99, v98, v97, -[ARMLDepthData setNormalsBuffer:](v85, "setNormalsBuffer:", v89), v96 = 1) : (objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Unable to generate normal map: %li", v94), v95 = objc_claimAutoreleasedReturnValue(), _createADError(v95), *error = objc_claimAutoreleasedReturnValue(), v95, v96 = 0)), v111(v110), (v96 & 1) == 0))
+    if (self->_computeNormals && ((Width = CVPixelBufferGetWidth(-[ARMLDepthData depthBuffer](v86, "depthBuffer")), Height = CVPixelBufferGetHeight(-[ARMLDepthData depthBuffer](v86, "depthBuffer")), v90 = ARCreateCVPixelBufferFromPool(&self->_outputNormalsInOriginalImageRotationPixelBufferPool, 1380410945, self, @"Normals Map", Width, Height), v111[0] = MEMORY[0x1E69E9820], v111[1] = 3221225472, v112 = __68__ARSceneDepthTechnique__generateDepthForDownscaledImageData_error___block_invoke_2, v113 = &__block_descriptor_40_e5_v8__0l, (v114 = v90) == 0) ? (_createAllocationError(), v97 = 0, *error = objc_claimAutoreleasedReturnValue()) : (([dataCopy originalImageData], v91 = objc_claimAutoreleasedReturnValue(), -[ARSceneDepthTechnique _getCameraCalibration:rotation:inputDimensions:](self, "_getCameraCalibration:rotation:inputDimensions:", v91, 0, Width, Height), v92 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v92, "intrinsicMatrix"), v101 = v94, v102 = v93, v92, v91, (v95 = objc_msgSend(MEMORY[0x1E698C138], "normalsFromDepth:focalLength:principalPoint:normalsOutput:withHelperBuffer:", -[ARMLDepthData depthBuffer](v86, "depthBuffer"), v90, self->_normalsHelperBuffer, v102, *&v101, *(&v101 + 1))) == 0) ? (-[ADJasperColorExecutor executorParameters](self->_executor, "executorParameters"), v98 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v98, "logger"), v99 = objc_claimAutoreleasedReturnValue(), objc_msgSend(dataCopy, "originalImageData"), v100 = objc_claimAutoreleasedReturnValue(), objc_msgSend_timestamp(v100), objc_msgSend(v99, "logPixelBuffer:name:timestamp:", v90, "normals"), v100, v99, v98, -[ARMLDepthData setNormalsBuffer:](v86, "setNormalsBuffer:", v90), v97 = 1) : (objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Unable to generate normal map: %li", v95), v96 = objc_claimAutoreleasedReturnValue(), _createADError(v96), *error = objc_claimAutoreleasedReturnValue(), v96, v97 = 0)), v112(v111), (v97 & 1) == 0))
     {
-      v46 = 0;
+      v47 = 0;
     }
 
     else
     {
-      v46 = v85;
+      v47 = v86;
     }
 
     goto LABEL_70;
   }
 
-  v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed generating depth with AD error %li", v44];
-  *error = _createADError(v45);
+  v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed generating depth with AD error %li", v45];
+  *error = _createADError(v46);
 
 LABEL_26:
-  v46 = 0;
+  v47 = 0;
 LABEL_27:
 
 LABEL_12:
-  v139(v138);
-  _Block_object_dispose(&v146, 8);
-  _Block_object_dispose(&v150, 8);
-  _Block_object_dispose(&v154, 8);
-  _Block_object_dispose(&v158, 8);
-  _Block_object_dispose(&v162, 8);
+  v140(v139);
+  _Block_object_dispose(&v147, 8);
+  _Block_object_dispose(&v151, 8);
+  _Block_object_dispose(&v155, 8);
+  _Block_object_dispose(&v159, 8);
+  _Block_object_dispose(&v163, 8);
 
-  return v46;
+  return v47;
 }
 
 void __68__ARSceneDepthTechnique__generateDepthForDownscaledImageData_error___block_invoke(void *a1)
@@ -712,142 +713,144 @@ void __68__ARSceneDepthTechnique__generateDepthForDownscaledImageData_error___bl
 
 - (id)_safeProcessData:(id)data
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v48.receiver = self;
-  v48.super_class = ARSceneDepthTechnique;
-  v5 = [(ARImageBasedTechnique *)&v48 processData:dataCopy];
+  v51.receiver = self;
+  v51.super_class = ARSceneDepthTechnique;
+  v5 = [(ARImageBasedTechnique *)&v51 processData:dataCopy];
   if (!self->_prepared)
   {
-    v12 = 0;
+    v13 = 0;
     goto LABEL_41;
   }
 
-  if (![dataCopy isDroppedData])
+  isDroppedData = [dataCopy isDroppedData];
+  if (!isDroppedData)
   {
     downScalingResults = [dataCopy downScalingResults];
-    v14 = [downScalingResults count];
+    v15 = [downScalingResults count];
 
-    if (!v14)
+    if (!v15)
     {
       if (ARShouldUseLogTypeError_onceToken_16 != -1)
       {
         [ARSceneDepthTechnique _prepareOnce];
       }
 
-      v29 = ARShouldUseLogTypeError_internalOSVersion_16;
-      v30 = _ARLogGeneral_6();
-      v6 = v30;
-      if (v29 == 1)
+      v31 = ARShouldUseLogTypeError_internalOSVersion_16;
+      v32 = _ARLogGeneral_6(v16);
+      v7 = v32;
+      if (v31 == 1)
       {
-        if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_7;
         }
 
-        v31 = objc_opt_class();
-        v8 = NSStringFromClass(v31);
+        v33 = objc_opt_class();
+        v9 = NSStringFromClass(v33);
         *buf = 138543618;
-        v50 = v8;
-        v51 = 2048;
+        v53 = v9;
+        v54 = 2048;
         selfCopy7 = self;
-        v9 = "%{public}@ <%p>: Received unexpected data, downScalingResults is empty.";
-        v10 = v6;
-        v11 = OS_LOG_TYPE_ERROR;
+        v10 = "%{public}@ <%p>: Received unexpected data, downScalingResults is empty.";
+        v11 = v7;
+        v12 = OS_LOG_TYPE_ERROR;
         goto LABEL_6;
       }
 
-      if (!os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
         goto LABEL_7;
       }
 
-      v42 = objc_opt_class();
-      v8 = NSStringFromClass(v42);
+      v45 = objc_opt_class();
+      v9 = NSStringFromClass(v45);
       *buf = 138543618;
-      v50 = v8;
-      v51 = 2048;
+      v53 = v9;
+      v54 = 2048;
       selfCopy7 = self;
-      v9 = "Error: %{public}@ <%p>: Received unexpected data, downScalingResults is empty.";
+      v10 = "Error: %{public}@ <%p>: Received unexpected data, downScalingResults is empty.";
 LABEL_5:
-      v10 = v6;
-      v11 = OS_LOG_TYPE_INFO;
+      v11 = v7;
+      v12 = OS_LOG_TYPE_INFO;
 LABEL_6:
-      _os_log_impl(&dword_1C241C000, v10, v11, v9, buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v11, v12, v10, buf, 0x16u);
 
       goto LABEL_7;
     }
 
     downScalingResults2 = [dataCopy downScalingResults];
-    v16 = [downScalingResults2 objectAtIndexedSubscript:0];
-    pixelBuffer = [v16 pixelBuffer];
+    v18 = [downScalingResults2 objectAtIndexedSubscript:0];
+    pixelBuffer = [v18 pixelBuffer];
 
     rotationOfResultTensor = [dataCopy rotationOfResultTensor];
     Width = CVPixelBufferGetWidth(pixelBuffer);
-    v47 = 0;
-    [(ARSceneDepthTechnique *)self _prepareOnDimensionsChange:rotationOfResultTensor outputRotation:&v47 error:Width, CVPixelBufferGetHeight(pixelBuffer)];
-    v20 = v47;
-    if (v20)
+    v50 = 0;
+    [(ARSceneDepthTechnique *)self _prepareOnDimensionsChange:rotationOfResultTensor outputRotation:&v50 error:Width, CVPixelBufferGetHeight(pixelBuffer)];
+    v22 = v50;
+    if (v22)
     {
-      v6 = v20;
+      v7 = v22;
       if (ARShouldUseLogTypeError_onceToken_16 != -1)
       {
         [ARSceneDepthTechnique _prepareOnce];
       }
 
-      v21 = ARShouldUseLogTypeError_internalOSVersion_16;
-      v22 = _ARLogTechnique_12();
-      v23 = v22;
-      if (v21 == 1)
+      v23 = ARShouldUseLogTypeError_internalOSVersion_16;
+      v24 = _ARLogTechnique_12(v22);
+      v25 = v24;
+      if (v23 == 1)
       {
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          v24 = objc_opt_class();
-          v25 = NSStringFromClass(v24);
+          v26 = objc_opt_class();
+          v27 = NSStringFromClass(v26);
           *buf = 138543874;
-          v50 = v25;
-          v51 = 2048;
+          v53 = v27;
+          v54 = 2048;
           selfCopy7 = self;
-          v53 = 2112;
-          v54 = v6;
-          v26 = "%{public}@ <%p>: Failed preparing scene depth: %@";
-          v27 = v23;
-          v28 = OS_LOG_TYPE_ERROR;
+          v56 = 2112;
+          v57 = v7;
+          v28 = "%{public}@ <%p>: Failed preparing scene depth: %@";
+          v29 = v25;
+          v30 = OS_LOG_TYPE_ERROR;
 LABEL_29:
-          _os_log_impl(&dword_1C241C000, v27, v28, v26, buf, 0x20u);
+          _os_log_impl(&dword_1C241C000, v29, v30, v28, buf, 0x20u);
         }
       }
 
-      else if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
-        v41 = objc_opt_class();
-        v25 = NSStringFromClass(v41);
+        v44 = objc_opt_class();
+        v27 = NSStringFromClass(v44);
         *buf = 138543874;
-        v50 = v25;
-        v51 = 2048;
+        v53 = v27;
+        v54 = 2048;
         selfCopy7 = self;
-        v53 = 2112;
-        v54 = v6;
-        v26 = "Error: %{public}@ <%p>: Failed preparing scene depth: %@";
-        v27 = v23;
-        v28 = OS_LOG_TYPE_INFO;
+        v56 = 2112;
+        v57 = v7;
+        v28 = "Error: %{public}@ <%p>: Failed preparing scene depth: %@";
+        v29 = v25;
+        v30 = OS_LOG_TYPE_INFO;
         goto LABEL_29;
       }
 
       delegate = [(ARTechnique *)self delegate];
-      [delegate technique:self didFailWithError:v6];
+      [delegate technique:self didFailWithError:v7];
 LABEL_38:
-      v12 = 0;
+      v13 = 0;
       goto LABEL_39;
     }
 
-    v46 = 0;
-    delegate = [(ARSceneDepthTechnique *)self _generateDepthForDownscaledImageData:dataCopy error:&v46];
-    v6 = v46;
-    if (!v6)
+    v49 = 0;
+    delegate = [(ARSceneDepthTechnique *)self _generateDepthForDownscaledImageData:dataCopy error:&v49];
+    v35 = v49;
+    v7 = v35;
+    if (!v35)
     {
       delegate = delegate;
-      v12 = delegate;
+      v13 = delegate;
 LABEL_39:
 
       goto LABEL_40;
@@ -858,71 +861,71 @@ LABEL_39:
       [ARSceneDepthTechnique _prepareOnce];
     }
 
-    v33 = ARShouldUseLogTypeError_internalOSVersion_16;
-    v34 = _ARLogTechnique_12();
-    v35 = v34;
-    if (v33 == 1)
+    v36 = ARShouldUseLogTypeError_internalOSVersion_16;
+    v37 = _ARLogTechnique_12(v35);
+    v38 = v37;
+    if (v36 == 1)
     {
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
-        v36 = objc_opt_class();
-        v37 = NSStringFromClass(v36);
+        v39 = objc_opt_class();
+        v40 = NSStringFromClass(v39);
         *buf = 138543874;
-        v50 = v37;
-        v51 = 2048;
+        v53 = v40;
+        v54 = 2048;
         selfCopy7 = self;
-        v53 = 2112;
-        v54 = v6;
-        v38 = "%{public}@ <%p>: Failed running scene depth frame: %@";
-        v39 = v35;
-        v40 = OS_LOG_TYPE_ERROR;
+        v56 = 2112;
+        v57 = v7;
+        v41 = "%{public}@ <%p>: Failed running scene depth frame: %@";
+        v42 = v38;
+        v43 = OS_LOG_TYPE_ERROR;
 LABEL_36:
-        _os_log_impl(&dword_1C241C000, v39, v40, v38, buf, 0x20u);
+        _os_log_impl(&dword_1C241C000, v42, v43, v41, buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
     {
-      v43 = objc_opt_class();
-      v37 = NSStringFromClass(v43);
+      v46 = objc_opt_class();
+      v40 = NSStringFromClass(v46);
       *buf = 138543874;
-      v50 = v37;
-      v51 = 2048;
+      v53 = v40;
+      v54 = 2048;
       selfCopy7 = self;
-      v53 = 2112;
-      v54 = v6;
-      v38 = "Error: %{public}@ <%p>: Failed running scene depth frame: %@";
-      v39 = v35;
-      v40 = OS_LOG_TYPE_INFO;
+      v56 = 2112;
+      v57 = v7;
+      v41 = "Error: %{public}@ <%p>: Failed running scene depth frame: %@";
+      v42 = v38;
+      v43 = OS_LOG_TYPE_INFO;
       goto LABEL_36;
     }
 
     delegate2 = [(ARTechnique *)self delegate];
-    [delegate2 technique:self didFailWithError:v6];
+    [delegate2 technique:self didFailWithError:v7];
 
     goto LABEL_38;
   }
 
-  v6 = _ARLogGeneral_6();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = _ARLogGeneral_6(isDroppedData);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     *buf = 138543618;
-    v50 = v8;
-    v51 = 2048;
+    v53 = v9;
+    v54 = 2048;
     selfCopy7 = self;
-    v9 = "%{public}@ <%p>: Downscaled data is dropped, the downscaling technique is not prepared yet.";
+    v10 = "%{public}@ <%p>: Downscaled data is dropped, the downscaling technique is not prepared yet.";
     goto LABEL_5;
   }
 
 LABEL_7:
-  v12 = 0;
+  v13 = 0;
 LABEL_40:
 
 LABEL_41:
 
-  return v12;
+  return v13;
 }
 
 - (id)processData:(id)data
@@ -950,10 +953,10 @@ void __37__ARSceneDepthTechnique_processData___block_invoke(uint64_t a1)
   v6[1] = *MEMORY[0x1E69E9840];
   dispatch_semaphore_wait(*(*(a1 + 32) + 280), 0xFFFFFFFFFFFFFFFFLL);
   v2 = *(a1 + 40);
-  [v2 timestamp];
+  objc_msgSend_timestamp(v2);
   kdebug_trace();
   v3 = [*(a1 + 32) _safeProcessData:v2];
-  [v2 timestamp];
+  objc_msgSend_timestamp(v2);
   kdebug_trace();
   dispatch_semaphore_signal(*(*(a1 + 32) + 280));
   v4 = *(a1 + 32);
@@ -961,13 +964,13 @@ void __37__ARSceneDepthTechnique_processData___block_invoke(uint64_t a1)
   {
     v6[0] = v3;
     v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-    [v2 timestamp];
+    objc_msgSend_timestamp(v2);
     [v4 pushResultData:v5 forTimestamp:?];
   }
 
   else
   {
-    [v2 timestamp];
+    objc_msgSend_timestamp(v2);
     [v4 pushResultData:MEMORY[0x1E695E0F0] forTimestamp:?];
   }
 }
@@ -981,7 +984,7 @@ void __37__ARSceneDepthTechnique_processData___block_invoke(uint64_t a1)
   v11 = change.width == self->_inputDimensions.width && change.height == self->_inputDimensions.height;
   if (!v11 || self->_outputRotation != rotation)
   {
-    v12 = _ARLogTechnique_12();
+    v12 = _ARLogTechnique_12(self);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = objc_opt_class();

@@ -107,41 +107,39 @@
 
 void __50__CPLaneGuidance_CPAccNavUpdate__accNavParameters__block_invoke()
 {
-  v28[4] = *MEMORY[0x277D85DE8];
-  v21 = NSStringFromSelector(sel_componentID);
-  v23 = [CPAccNavParamKey paramKey:0];
-  v22 = [v23 copySettingIsIntegerValue:1];
-  v27 = v22;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
-  v19 = [CPAccNavParam paramWithProperty:v21 keys:v20];
-  v28[0] = v19;
-  v16 = NSStringFromSelector(sel_index);
-  v18 = [CPAccNavParamKey paramKey:1];
-  v17 = [v18 copySettingIsIntegerValue:1];
-  v26 = v17;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
-  v14 = [CPAccNavParam paramWithProperty:v16 keys:v15];
-  v28[1] = v14;
-  v13 = NSStringFromSelector(sel_lanes);
-  v12 = [CPAccNavParamKey paramKey:2];
-  v25 = v12;
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
-  v1 = [CPAccNavParam paramWithProperty:v13 keys:v0];
+  v27[4] = *MEMORY[0x277D85DE8];
+  v20 = NSStringFromSelector(sel_componentID);
+  v22 = [CPAccNavParamKey paramKey:0];
+  v21 = [v22 copySettingIsIntegerValue:1];
+  v26 = v21;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+  v18 = [CPAccNavParam paramWithProperty:v20 keys:v19];
+  v27[0] = v18;
+  v15 = NSStringFromSelector(sel_index);
+  v17 = [CPAccNavParamKey paramKey:1];
+  v16 = [v17 copySettingIsIntegerValue:1];
+  v25 = v16;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+  v13 = [CPAccNavParam paramWithProperty:v15 keys:v14];
+  v27[1] = v13;
+  v12 = NSStringFromSelector(sel_lanes);
+  v11 = [CPAccNavParamKey paramKey:2];
+  v24 = v11;
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+  v1 = [CPAccNavParam paramWithProperty:v12 keys:v0];
   v2 = [v1 copySettingCollectionGeneric:objc_opt_class()];
-  v28[2] = v2;
+  v27[2] = v2;
   v3 = NSStringFromSelector(sel_instructionVariants);
   v4 = [CPAccNavParamKey paramKey:3];
   v5 = [v4 copySettingHasVariants:1];
-  v24 = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+  v23 = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
   v7 = [CPAccNavParam paramWithProperty:v3 keys:v6];
   v8 = [v7 copySettingCollectionGeneric:objc_opt_class()];
-  v28[3] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
+  v27[3] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:4];
   v10 = accNavParameters__accNavParameters_3;
   accNavParameters__accNavParameters_3 = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (NSDictionary)accNavParametersIndexed

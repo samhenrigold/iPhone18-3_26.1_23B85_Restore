@@ -3,7 +3,7 @@
 
 @implementation WDMultiSelectManualEntryItem
 
-uint64_t __46___WDMultiSelectManualEntryItem_generateValue__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__46___WDMultiSelectManualEntryItem_generateValue__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 accessoryType];
   if (result == 3)

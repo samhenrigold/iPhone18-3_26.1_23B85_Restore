@@ -25,13 +25,13 @@
 
 - (void)setReserved:(unsigned int)reserved
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:reserved];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (unsigned)reserved
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"reserved"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   unsignedIntegerValue = [v2 unsignedIntegerValue];
 
   return unsignedIntegerValue;
@@ -39,13 +39,13 @@
 
 - (void)setBits_per_channel:(unsigned int)bits_per_channel
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:bits_per_channel];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (unsigned)bits_per_channel
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"bits_per_channel"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   unsignedIntegerValue = [v2 unsignedIntegerValue];
 
   return unsignedIntegerValue;
@@ -53,13 +53,13 @@
 
 - (void)setChannels_per_frame:(unsigned int)channels_per_frame
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:channels_per_frame];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (unsigned)channels_per_frame
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"channels_per_frame"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   unsignedIntegerValue = [v2 unsignedIntegerValue];
 
   return unsignedIntegerValue;
@@ -67,13 +67,13 @@
 
 - (void)setBytes_per_frame:(unsigned int)bytes_per_frame
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:bytes_per_frame];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (unsigned)bytes_per_frame
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"bytes_per_frame"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   unsignedIntegerValue = [v2 unsignedIntegerValue];
 
   return unsignedIntegerValue;
@@ -81,13 +81,13 @@
 
 - (void)setFrames_per_packet:(unsigned int)frames_per_packet
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:frames_per_packet];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (unsigned)frames_per_packet
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"frames_per_packet"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   unsignedIntegerValue = [v2 unsignedIntegerValue];
 
   return unsignedIntegerValue;
@@ -95,13 +95,13 @@
 
 - (void)setBytes_per_packet:(unsigned int)bytes_per_packet
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:bytes_per_packet];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (unsigned)bytes_per_packet
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"bytes_per_packet"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   unsignedIntegerValue = [v2 unsignedIntegerValue];
 
   return unsignedIntegerValue;
@@ -109,13 +109,13 @@
 
 - (void)setFormat_flags:(unsigned int)format_flags
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:format_flags];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (unsigned)format_flags
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"format_flags"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   unsignedIntegerValue = [v2 unsignedIntegerValue];
 
   return unsignedIntegerValue;
@@ -123,13 +123,13 @@
 
 - (void)setFormat_id:(unsigned int)format_id
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:format_id];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (unsigned)format_id
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"format_id"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   unsignedIntegerValue = [v2 unsignedIntegerValue];
 
   return unsignedIntegerValue;
@@ -137,13 +137,13 @@
 
 - (void)setSample_rate:(double)sample_rate
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithDouble:sample_rate];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithDouble:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (double)sample_rate
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"sample_rate"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   [v2 doubleValue];
   v4 = v3;
 
@@ -152,7 +152,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  v4 = [objc_msgSend(objc_opt_class() "allocWithZone:"init"")];
   v5 = [(NSMutableDictionary *)self->super._storage copy];
   v6 = v4[1];
   v4[1] = v5;

@@ -86,7 +86,6 @@
 - (void)cleanUpCardState;
 - (void)parameter_CHARSET:(id)t;
 - (void)parameter_ENCODING:(id)g;
-- (void)parseLine;
 - (void)processExtensionValues;
 - (void)reportMultiValueLines:(id)lines forProperty:(id)property;
 - (void)reportValue:(id)value forProperty:(id)property;
@@ -1191,7 +1190,6 @@ void __28__CNVCardParser_parse_PHOTO__block_invoke(uint64_t a1, void *a2, void *
   uid = self->_uid;
   self->_uid = v4;
 
-  v6 = self->_uid;
   return (*(*MEMORY[0x277CFBD30] + 16))() ^ 1;
 }
 
@@ -1479,20 +1477,16 @@ void __28__CNVCardParser_parse_PHOTO__block_invoke(uint64_t a1, void *a2, void *
 {
   extensionCopy = extension;
   parseArrayValue = [(CNVCardParser *)self parseArrayValue];
-  if (parseArrayValue)
+  if (parseArrayValue && ((*(*MEMORY[0x277CFBD30] + 16))() & 1) == 0)
   {
-    grouping = self->_grouping;
-    if (((*(*MEMORY[0x277CFBD30] + 16))() & 1) == 0)
+    dictionary = [(NSMutableDictionary *)self->_extensions objectForKey:self->_grouping];
+    if (!dictionary)
     {
-      dictionary = [(NSMutableDictionary *)self->_extensions objectForKey:self->_grouping];
-      if (!dictionary)
-      {
-        dictionary = [MEMORY[0x277CBEB38] dictionary];
-        [(NSMutableDictionary *)self->_extensions setObject:dictionary forKey:self->_grouping];
-      }
-
-      [dictionary setObject:parseArrayValue forKey:extensionCopy];
+      dictionary = [MEMORY[0x277CBEB38] dictionary];
+      [(NSMutableDictionary *)self->_extensions setObject:dictionary forKey:self->_grouping];
     }
+
+    [dictionary setObject:parseArrayValue forKey:extensionCopy];
   }
 
   return 1;
@@ -1595,29 +1589,29 @@ uint64_t __40__CNVCardParser_firstParameterWithName___block_invoke(uint64_t a1, 
 
 - (id)parameterValuesForName:(id)name
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   array = [MEMORY[0x277CBEB18] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = self->_itemParameters;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         name = [v11 name];
         v13 = [name _cn_caseInsensitiveIsEqual:nameCopy];
 
@@ -1628,13 +1622,11 @@ uint64_t __40__CNVCardParser_firstParameterWithName___block_invoke(uint64_t a1, 
         }
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1947,37 +1939,37 @@ LABEL_6:
 
 - (void)reportMultiValueLines:(id)lines forProperty:(id)property
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   linesCopy = lines;
   propertyCopy = property;
   if ([linesCopy count])
   {
-    v24 = propertyCopy;
+    v23 = propertyCopy;
     array = [MEMORY[0x277CBEB18] array];
     array2 = [MEMORY[0x277CBEB18] array];
     array3 = [MEMORY[0x277CBEB18] array];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    v23 = linesCopy;
+    v22 = linesCopy;
     obj = linesCopy;
-    v8 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v30;
+      v10 = *v29;
       v11 = *MEMORY[0x277CFBD30];
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v30 != v10)
+          if (*v29 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v29 + 1) + 8 * i);
+          v13 = *(*(&v28 + 1) + 8 * i);
           value = [v13 value];
           if (![(CNVCardParser *)self valueIsEmpty:value])
           {
@@ -1993,7 +1985,7 @@ LABEL_6:
 
             if ([(CNVCardParser *)self valueIsEmpty:v16])
             {
-              v18 = [(CNVCardParser *)self fallbackLabelForProperty:v24];
+              v18 = [(CNVCardParser *)self fallbackLabelForProperty:v23];
 
               v16 = v18;
             }
@@ -2018,19 +2010,17 @@ LABEL_6:
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v9 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v9);
     }
 
-    propertyCopy = v24;
-    [(CNVCardParsedResultBuilder *)self->_resultBuilder setValues:array labels:array2 isPrimaries:array3 forProperty:v24];
+    propertyCopy = v23;
+    [(CNVCardParsedResultBuilder *)self->_resultBuilder setValues:array labels:array2 isPrimaries:array3 forProperty:v23];
 
-    linesCopy = v23;
+    linesCopy = v22;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)valueIsEmpty:(id)empty
@@ -2057,7 +2047,7 @@ LABEL_6:
 
 - (id)genericLabelForProperty:(id)property
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   if ([propertyCopy isEqualToString:@"Phone"])
   {
@@ -2067,26 +2057,26 @@ LABEL_6:
   else
   {
     [(CNVCardParser *)self typeParameters];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v6 = v21 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = v20 = 0u;
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v19;
+      v9 = *v18;
       selfCopy = self;
 LABEL_5:
       v10 = 0;
       while (1)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * v10);
+        v11 = *(*(&v17 + 1) + 8 * v10);
         if ([v11 _cn_caseInsensitiveIsEqual:@"HOME"])
         {
           break;
@@ -2112,7 +2102,7 @@ LABEL_5:
 
         if (v8 == ++v10)
         {
-          v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
           self = selfCopy;
           if (v8)
           {
@@ -2148,8 +2138,6 @@ LABEL_14:
 LABEL_23:
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return phoneLabel;
 }
 
@@ -2169,13 +2157,13 @@ LABEL_23:
 
 - (id)phoneLabel
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   [(CNVCardParser *)self typeParameters];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v3 = v23 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v3 = v22 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (!v4)
   {
 
@@ -2201,17 +2189,17 @@ LABEL_18:
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  v10 = *v21;
+  v10 = *v20;
   while (2)
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v21 != v10)
+      if (*v20 != v10)
       {
         objc_enumerationMutation(v3);
       }
 
-      v12 = *(*(&v20 + 1) + 8 * i);
+      v12 = *(*(&v19 + 1) + 8 * i);
       if ([v12 _cn_caseInsensitiveIsEqual:@"IPHONE"])
       {
         v16 = CNVCardLabelPhoneiPhone;
@@ -2251,7 +2239,7 @@ LABEL_27:
       v7 |= [v12 _cn_caseInsensitiveIsEqual:@"FAX"];
     }
 
-    v5 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v5 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v5)
     {
       continue;
@@ -2311,8 +2299,6 @@ LABEL_39:
 LABEL_41:
   v17 = *v13;
 LABEL_28:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -2459,22 +2445,6 @@ uint64_t __51__CNVCardParser_firstCustomLabelForProperty_types___block_invoke(ui
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)parseLine
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)parameter_CHARSET:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -31,10 +31,10 @@
 
 - (id)urlRequest
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v30.receiver = self;
-  v30.super_class = AASetupAssistantTermsFetchRequest;
-  urlRequest = [(AARequest *)&v30 urlRequest];
+  v32 = *MEMORY[0x1E69E9840];
+  v29.receiver = self;
+  v29.super_class = AASetupAssistantTermsFetchRequest;
+  urlRequest = [(AARequest *)&v29 urlRequest];
   v4 = [urlRequest mutableCopy];
 
   [v4 setHTTPMethod:@"POST"];
@@ -75,8 +75,7 @@
     v22 = [v15 base64EncodedStringWithOptions:0];
 
     v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"X-MobileMe-AuthToken %@", v22];
-    [v4 addValue:v23 forHTTPHeaderField:@"Authorization"];
-    v24 = _AALogSystem();
+    v24 = _AALogSystem([v4 addValue:v23 forHTTPHeaderField:@"Authorization"]);
     if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_14;
@@ -96,12 +95,11 @@
   v22 = [v21 base64EncodedStringWithOptions:0];
 
   v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Basic %@", v22];
-  [v4 addValue:v23 forHTTPHeaderField:@"Authorization"];
-  v24 = _AALogSystem();
+  v24 = _AALogSystem([v4 addValue:v23 forHTTPHeaderField:@"Authorization"]);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v32 = v8;
+    v31 = v8;
     v16 = "Using password auth - username: %@";
     v17 = v24;
     v18 = 12;
@@ -111,17 +109,14 @@ LABEL_13:
 
 LABEL_14:
 
-  [v4 addValue:@"application/xml" forHTTPHeaderField:@"Content-Type"];
-  v26 = _AALogSystem();
+  v26 = _AALogSystem([v4 addValue:@"application/xml" forHTTPHeaderField:@"Content-Type"]);
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     v27 = [v4 description];
     *buf = 138412290;
-    v32 = v27;
+    v31 = v27;
     _os_log_impl(&dword_1B6F6A000, v26, OS_LOG_TYPE_DEFAULT, "request is: %@", buf, 0xCu);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

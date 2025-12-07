@@ -41,7 +41,7 @@
     [v2 setObject:seatingType2 forKeyedSubscript:@"seatingType"];
   }
 
-  if ([v2 count] < 2)
+  if (objc_msgSend_count(v2) < 2)
   {
     v11 = 0;
   }

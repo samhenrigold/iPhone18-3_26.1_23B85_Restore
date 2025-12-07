@@ -48,7 +48,7 @@
 
 - (void)serviceMatched:(id)matched
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   matchedCopy = matched;
   v5 = objc_autoreleasePoolPush();
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -56,38 +56,31 @@
     uTF8String = [(NSString *)self->super._identifier UTF8String];
     v7 = [(NSMutableArray *)self->_matchNotificationsArray count];
     *buf = 136315394;
-    v20 = uTF8String;
-    v21 = 1024;
-    v22 = v7;
+    v14 = uTF8String;
+    v15 = 1024;
+    v16 = v7;
     _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDKextNotifier serviceMatched %s matchedCount dispatching notifications to %d registered", buf, 0x12u);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
   v8 = self->_matchNotificationsArray;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [NSMutableArray countByEnumeratingWithState:v8 objects:"countByEnumeratingWithState:objects:count:" count:0];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = MEMORY[0];
     do
     {
-      v12 = 0;
-      do
+      for (i = 0; i != v10; i = (i + 1))
       {
-        if (*v15 != v11)
+        if (MEMORY[0] != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        (*(*(*(&v14 + 1) + 8 * v12) + 16))(*(*(&v14 + 1) + 8 * v12));
-        ++v12;
+        (*(*(8 * i) + 16))();
       }
 
-      while (v10 != v12);
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [NSMutableArray countByEnumeratingWithState:v8 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v10);
@@ -95,13 +88,11 @@
 
   [(NSMutableArray *)self->_matchNotificationsArray removeAllObjects];
   objc_autoreleasePoolPop(v5);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)serviceTerminated:(id)terminated
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   terminatedCopy = terminated;
   if ([(_TSF_TSDIOKServiceMatcher *)self getMatchedCount]<= 0)
   {
@@ -110,39 +101,32 @@
       uTF8String = [(NSString *)self->super._identifier UTF8String];
       v6 = [(NSMutableArray *)self->_terminateNotificationsArray count];
       *buf = 136315394;
-      v20 = uTF8String;
-      v21 = 1024;
-      v22 = v6;
+      v14 = uTF8String;
+      v15 = 1024;
+      v16 = v6;
       _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDKextNotifier serviceTerminated %s, dispatching notifications to %d registered", buf, 0x12u);
     }
 
     v7 = objc_autoreleasePoolPush();
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0u;
     v8 = self->_terminateNotificationsArray;
-    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v9 = [NSMutableArray countByEnumeratingWithState:v8 objects:"countByEnumeratingWithState:objects:count:" count:0];
     if (v9)
     {
       v10 = v9;
-      v11 = *v15;
+      v11 = MEMORY[0];
       do
       {
-        v12 = 0;
-        do
+        for (i = 0; i != v10; i = (i + 1))
         {
-          if (*v15 != v11)
+          if (MEMORY[0] != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          (*(*(*(&v14 + 1) + 8 * v12) + 16))(*(*(&v14 + 1) + 8 * v12));
-          ++v12;
+          (*(*(8 * i) + 16))();
         }
 
-        while (v10 != v12);
-        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v10 = [NSMutableArray countByEnumeratingWithState:v8 objects:"countByEnumeratingWithState:objects:count:" count:?];
       }
 
       while (v10);
@@ -151,8 +135,6 @@
     [(NSMutableArray *)self->_terminateNotificationsArray removeAllObjects];
     objc_autoreleasePoolPop(v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyWhenServiceIsAvailable:(id)available
@@ -221,41 +203,35 @@
 
 - (void)init
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyWhenServiceIsAvailable:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyWhenServiceIsUnavailable:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

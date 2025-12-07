@@ -15,79 +15,68 @@
 + (void)_accessibilityPerformValidations:(id)validations
 {
   validationsCopy = validations;
-  [validationsCopy validateClass:@"BTSFitTestController" hasInstanceMethod:@"startFitTest" withFullSignature:{"v", 0}];
-  [validationsCopy validateClass:@"BTSFitTestController" hasInstanceMethod:@"inEarStatusChanged:" withFullSignature:{"v", "@", 0}];
-  [validationsCopy validateClass:@"BTSFitTestController" hasInstanceMethod:@"sealValueChanged:" withFullSignature:{"v", "@", 0}];
-  [validationsCopy validateClass:@"BTSFitTestController" hasInstanceVariable:@"_playButton" withType:"OBTrayButton"];
-  [validationsCopy validateClass:@"BTSFitTestController" hasInstanceVariable:@"_testActive" withType:"B"];
-  [validationsCopy validateClass:@"BTSFitTestController" hasInstanceVariable:@"_budsInEar" withType:"B"];
-  [validationsCopy validateClass:@"OBTrayButton" isKindOfClass:@"UIButton"];
-  [validationsCopy validateClass:@"OBWelcomeController" hasInstanceMethod:@"headerView" withFullSignature:{"@", 0}];
-  [validationsCopy validateClass:@"OBHeaderView" hasInstanceMethod:@"headerLabel" withFullSignature:{"@", 0}];
-  [validationsCopy validateClass:@"OBTemplateLabel" isKindOfClass:@"UILabel"];
-  [validationsCopy validateClass:@"BTSFitTestController" hasInstanceVariable:@"_leftBudResultLabel" withType:"UILabel"];
-  [validationsCopy validateClass:@"BTSFitTestController" hasInstanceVariable:@"_rightBudResultLabel" withType:"UILabel"];
-  [validationsCopy validateClass:@"BTSFitTestController" hasInstanceVariable:@"_fitTestController" withType:"OBWelcomeController"];
-  [validationsCopy validateClass:@"OBWelcomeController" isKindOfClass:@"UIViewController"];
-  [validationsCopy validateClass:@"OBWelcomeController" hasInstanceMethod:@"contentView" withFullSignature:{"@", 0}];
-  [validationsCopy validateClass:@"BTSFitTestController" hasInstanceVariable:@"currentDevice" withType:"BluetoothDevice"];
+  [validationsCopy validateClass:0 hasInstanceMethod:? withFullSignature:?];
+  [validationsCopy validateClass:"@" hasInstanceMethod:0 withFullSignature:?];
+  [validationsCopy validateClass:"@" hasInstanceMethod:0 withFullSignature:?];
+  [validationsCopy validateClass:? hasInstanceVariable:? withType:?];
+  [validationsCopy validateClass:? hasInstanceVariable:? withType:?];
+  [validationsCopy validateClass:? hasInstanceVariable:? withType:?];
+  [validationsCopy validateClass:? isKindOfClass:?];
+  [validationsCopy validateClass:0 hasInstanceMethod:? withFullSignature:?];
+  [validationsCopy validateClass:0 hasInstanceMethod:? withFullSignature:?];
+  [validationsCopy validateClass:? isKindOfClass:?];
+  [validationsCopy validateClass:? hasInstanceVariable:? withType:?];
+  [validationsCopy validateClass:? hasInstanceVariable:? withType:?];
+  [validationsCopy validateClass:? hasInstanceVariable:? withType:?];
+  [validationsCopy validateClass:? isKindOfClass:?];
+  [validationsCopy validateClass:0 hasInstanceMethod:? withFullSignature:?];
+  [validationsCopy validateClass:? hasInstanceVariable:? withType:?];
 }
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v24.receiver = self;
-  v24.super_class = BTSFitTestControllerAccessibility;
-  [(BTSFitTestControllerAccessibility *)&v24 _accessibilityLoadAccessibilityInformation];
+  v19.receiver = self;
+  v19.super_class = BTSFitTestControllerAccessibility;
+  [(BTSFitTestControllerAccessibility *)&v19 _accessibilityLoadAccessibilityInformation];
   objc_initWeak(&location, self);
   objc_opt_class();
-  v3 = [(BTSFitTestControllerAccessibility *)self safeValueForKey:@"_playButton"];
+  v3 = [(BTSFitTestControllerAccessibility *)self safeValueForKey:?];
   v4 = __UIAccessibilityCastAsClass();
 
   objc_opt_class();
-  v5 = [(BTSFitTestControllerAccessibility *)self safeValueForKey:@"_leftBudResultLabel"];
+  v5 = [(BTSFitTestControllerAccessibility *)self safeValueForKey:?];
   v6 = __UIAccessibilityCastAsClass();
 
   objc_opt_class();
-  v7 = [(BTSFitTestControllerAccessibility *)self safeValueForKey:@"_rightBudResultLabel"];
+  v7 = [(BTSFitTestControllerAccessibility *)self safeValueForKey:?];
   v8 = __UIAccessibilityCastAsClass();
 
   objc_opt_class();
-  v9 = [(BTSFitTestControllerAccessibility *)self safeValueForKey:@"_fitTestController"];
+  v9 = [(BTSFitTestControllerAccessibility *)self safeValueForKey:?];
   v10 = __UIAccessibilityCastAsClass();
 
-  v22 = 0;
+  v17 = 0;
   objc_opt_class();
-  v11 = [v10 safeValueForKey:@"contentView"];
+  v11 = [v10 safeValueForKey:?];
   v12 = __UIAccessibilityCastAsClass();
 
-  v20[0] = MEMORY[0x29EDCA5F8];
-  v20[1] = 3221225472;
-  v20[2] = __79__BTSFitTestControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke;
-  v20[3] = &unk_29F2C2048;
-  objc_copyWeak(&v21, &location);
-  [v4 _setAccessibilityTraitsBlock:v20];
-  v18[0] = MEMORY[0x29EDCA5F8];
-  v18[1] = 3221225472;
-  v18[2] = __79__BTSFitTestControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_2;
-  v18[3] = &unk_29F2C2070;
-  objc_copyWeak(&v19, &location);
-  [v4 _setAccessibilityLabelBlock:v18];
-  [v12 setIsAccessibilityElement:1];
-  [v12 setAccessibilityTraits:*MEMORY[0x29EDC7F88]];
-  [v12 _accessibilitySetUserDefinedMediaAnalysisOptions:&unk_2A21AEDB8];
-  v15[0] = MEMORY[0x29EDCA5F8];
-  v15[1] = 3221225472;
-  v15[2] = __79__BTSFitTestControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_367;
-  v15[3] = &unk_29F2C2098;
-  v15[4] = self;
+  v15[1] = MEMORY[0x29EDCA5F8];
+  v15[2] = 3221225472;
+  v15[3] = __79__BTSFitTestControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke;
+  v15[4] = &unk_29F2C2048;
+  objc_copyWeak(&v16, &location);
+  [v4 _setAccessibilityTraitsBlock:?];
+  objc_copyWeak(v15, &location);
+  [v4 _setAccessibilityLabelBlock:?];
+  [v12 setIsAccessibilityElement:?];
+  [v12 setAccessibilityTraits:?];
+  [v12 _accessibilitySetUserDefinedMediaAnalysisOptions:?];
   v13 = v6;
-  v16 = v13;
   v14 = v8;
-  v17 = v14;
-  [v12 _setAccessibilityLabelBlock:v15];
+  [v12 _setAccessibilityLabelBlock:?];
 
-  objc_destroyWeak(&v19);
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(v15);
+  objc_destroyWeak(&v16);
 
   objc_destroyWeak(&location);
 }
@@ -96,7 +85,7 @@ uint64_t __79__BTSFitTestControllerAccessibility__accessibilityLoadAccessibility
 {
   v1 = *MEMORY[0x29EDC7F70];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = [WeakRetained safeBoolForKey:@"_budsInEar"];
+  v3 = [WeakRetained safeBoolForKey:?];
 
   v4 = *MEMORY[0x29EDC7FA8];
   if (v3)
@@ -111,7 +100,7 @@ id __79__BTSFitTestControllerAccessibility__accessibilityLoadAccessibilityInform
 {
   objc_opt_class();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = [WeakRetained safeValueForKey:@"_playButton"];
+  v3 = [WeakRetained safeValueForKey:?];
   v4 = __UIAccessibilityCastAsClass();
 
   v5 = [v4 titleLabel];
@@ -128,7 +117,7 @@ id __79__BTSFitTestControllerAccessibility__accessibilityLoadAccessibilityInform
   {
     v8 = accessibilityLocalizedStringForB298(@"fit.test.button.play");
     v10 = objc_loadWeakRetained((a1 + 32));
-    v11 = [v10 safeBoolForKey:@"_testActive"];
+    v11 = [v10 safeBoolForKey:?];
 
     if (!v11)
     {
@@ -149,7 +138,7 @@ LABEL_6:
 id __79__BTSFitTestControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_367(id *a1)
 {
   objc_opt_class();
-  v2 = [a1[4] safeValueForKey:@"currentDevice"];
+  v2 = [a1[4] safeValueForKey:?];
   v3 = __UIAccessibilityCastAsClass();
 
   LODWORD(v2) = [v3 productId];
@@ -172,8 +161,8 @@ id __79__BTSFitTestControllerAccessibility__accessibilityLoadAccessibilityInform
 
 - (void)updateFocus
 {
-  v3 = [(BTSFitTestControllerAccessibility *)self safeBoolForKey:@"_testActive"];
-  if (![(BTSFitTestControllerAccessibility *)self safeBoolForKey:@"_budsInEar"]|| (v3 & 1) != 0)
+  v3 = [(BTSFitTestControllerAccessibility *)self safeBoolForKey:?];
+  if (![(BTSFitTestControllerAccessibility *)self safeBoolForKey:?]|| (v3 & 1) != 0)
   {
 
     [(BTSFitTestControllerAccessibility *)self focusHeader];
@@ -189,7 +178,7 @@ id __79__BTSFitTestControllerAccessibility__accessibilityLoadAccessibilityInform
 - (void)focusPlayButton
 {
   objc_opt_class();
-  v3 = [(BTSFitTestControllerAccessibility *)self safeValueForKey:@"_playButton"];
+  v3 = [(BTSFitTestControllerAccessibility *)self safeValueForKey:?];
   v4 = __UIAccessibilityCastAsClass();
 
   UIAccessibilityPostNotification(*MEMORY[0x29EDC7F10], v4);
@@ -197,10 +186,10 @@ id __79__BTSFitTestControllerAccessibility__accessibilityLoadAccessibilityInform
 
 - (void)focusHeader
 {
-  v2 = [(BTSFitTestControllerAccessibility *)self safeValueForKey:@"_fitTestController"];
-  v3 = [v2 safeValueForKey:@"headerView"];
+  v2 = [(BTSFitTestControllerAccessibility *)self safeValueForKey:?];
+  v3 = [v2 safeValueForKey:?];
   objc_opt_class();
-  v4 = [v3 safeValueForKey:@"headerLabel"];
+  v4 = [v3 safeValueForKey:?];
   v5 = __UIAccessibilityCastAsClass();
 
   if ([v5 accessibilityElementIsFocused])

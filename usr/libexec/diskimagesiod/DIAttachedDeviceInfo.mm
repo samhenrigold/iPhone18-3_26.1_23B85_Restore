@@ -481,8 +481,8 @@ LABEL_8:
 + (id)copyAllMountPoints
 {
   v2 = +[NSMutableDictionary dictionary];
-  v15 = 0;
-  v3 = getmntinfo_r_np(&v15, 2);
+  v20 = 0;
+  v3 = getmntinfo_r_np(&v20, 2);
   if (v3)
   {
     if (v3 >= 1)
@@ -491,8 +491,8 @@ LABEL_8:
       v5 = 2168 * v3;
       do
       {
-        v6 = [DIHelpers copyDevicePathWithStatfs:&v15[v4 / 0x878]];
-        v7 = [NSString stringWithUTF8String:v15[v4 / 0x878].f_mntonname];
+        v6 = [DIHelpers copyDevicePathWithStatfs:&v20[v4 / 0x878]];
+        v7 = [NSString stringWithUTF8String:v20[v4 / 0x878].f_mntonname];
         if (v6)
         {
           if ([v6 hasPrefix:@"/dev/disk"])
@@ -518,39 +518,51 @@ LABEL_8:
       while (v5 != v4);
     }
 
-    free(v15);
+    free(v20);
   }
 
   else
   {
     v10 = *__error();
-    if (sub_1000E95F0())
+    v11 = sub_1000E95F0();
+    if (v11)
     {
-      v11 = sub_1000E957C();
-      os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
-      *buf = 68157954;
-      v17 = 42;
-      v18 = 2080;
-      v19 = "+[DIAttachedDeviceInfo copyAllMountPoints]";
-      v12 = _os_log_send_and_compose_impl();
-
-      if (v12)
+      v19 = 0;
+      v13 = sub_1000E957C(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        fprintf(__stderrp, "%s\n", v12);
-        free(v12);
+        v14 = 3;
+      }
+
+      else
+      {
+        v14 = 2;
+      }
+
+      *buf = 68157954;
+      v22 = 42;
+      v23 = 2080;
+      v24 = "+[DIAttachedDeviceInfo copyAllMountPoints]";
+      LODWORD(v18) = 18;
+      v15 = _os_log_send_and_compose_impl(v14, &v19, 0, 0, &_mh_execute_header, v13, 16, "%.*s: Failed getting mounts list", buf, v18);
+
+      if (v15)
+      {
+        fprintf(__stderrp, "%s\n", v15);
+        free(v15);
       }
     }
 
     else
     {
-      v13 = sub_1000E957C();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = sub_1000E957C(v11, v12);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 68157954;
-        v17 = 42;
-        v18 = 2080;
-        v19 = "+[DIAttachedDeviceInfo copyAllMountPoints]";
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%.*s: Failed getting mounts list", buf, 0x12u);
+        v22 = 42;
+        v23 = 2080;
+        v24 = "+[DIAttachedDeviceInfo copyAllMountPoints]";
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%.*s: Failed getting mounts list", buf, 0x12u);
       }
     }
 

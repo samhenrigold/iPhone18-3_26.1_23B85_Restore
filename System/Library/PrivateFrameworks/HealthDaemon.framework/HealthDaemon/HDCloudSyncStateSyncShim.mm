@@ -70,13 +70,12 @@
 uint64_t __84__HDCloudSyncStateSyncShim_mergeStateDataWithStore_domain_configuration_completion___block_invoke(void *a1, void *a2, void *a3)
 {
   v5 = a2;
-  v6 = a1[6];
   if (objc_opt_respondsToSelector())
   {
-    v7 = a1[6];
-    v8 = a1[4];
+    v6 = a1[6];
+    v7 = a1[4];
     WeakRetained = objc_loadWeakRetained((a1[5] + 8));
-    v10 = [v7 updateDataWithStateStorage:v8 profile:WeakRetained transaction:v5 error:a3];
+    v9 = [v6 updateDataWithStateStorage:v7 profile:WeakRetained transaction:v5 error:a3];
   }
 
   else
@@ -86,7 +85,7 @@ uint64_t __84__HDCloudSyncStateSyncShim_mergeStateDataWithStore_domain_configura
     {
       if (a3)
       {
-        v11 = WeakRetained;
+        v10 = WeakRetained;
         *a3 = WeakRetained;
       }
 
@@ -96,10 +95,10 @@ uint64_t __84__HDCloudSyncStateSyncShim_mergeStateDataWithStore_domain_configura
       }
     }
 
-    v10 = 0;
+    v9 = 0;
   }
 
-  return v10;
+  return v9;
 }
 
 - (void)syncDidFinishWithResult:(BOOL)result domain:(id)domain stateStore:(id)store completion:(id)completion

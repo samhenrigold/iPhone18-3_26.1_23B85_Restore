@@ -32,7 +32,7 @@
 
   v8 = qword_100590238;
   groupIdentifier = [commandCopy groupIdentifier];
-  v10 = [v8 objectForKey:groupIdentifier];
+  v10 = objc_msgSend_objectForKey_(v8);
   if (!v10)
   {
 
@@ -41,7 +41,7 @@
 
   v11 = v10;
   groupIdentifier2 = [commandCopy groupIdentifier];
-  v13 = [v8 objectForKey:groupIdentifier2];
+  v13 = objc_msgSend_objectForKey_(v8);
   encodedClassName = [commandCopy encodedClassName];
   v15 = [v13 containsObject:encodedClassName];
 

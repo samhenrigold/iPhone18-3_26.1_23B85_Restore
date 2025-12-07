@@ -10,7 +10,6 @@
 - (void)dealloc;
 - (void)registerOnBagChange:(id)change;
 - (void)resetValuesCache;
-- (void)unregisterOnBagChange;
 - (void)updateValues;
 @end
 
@@ -116,7 +115,7 @@
 
 - (void)updateValues
 {
-  v3 = JSALog();
+  v3 = JSALog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -171,42 +170,42 @@
 
 - (void)addKeyEntries:(id)entries
 {
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 0;
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v9 = sub_E97C;
-  v10 = &unk_B2840;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v10 = sub_E97C;
+  v11 = &unk_B2840;
   selfCopy = self;
   entriesCopy = entries;
-  v12 = entriesCopy;
-  v13 = &v14;
-  v5 = v8;
+  v13 = entriesCopy;
+  v14 = &v15;
+  v5 = v9;
   os_unfair_lock_lock(&self->_lock);
-  v9(v5);
+  v10(v5);
   os_unfair_lock_unlock(&self->_lock);
 
-  if (*(v15 + 24) == 1)
+  if (*(v16 + 24) == 1)
   {
-    v6 = JSALog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = JSALog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "JSAProfileBagManager: scheduling to update values as new keys are registered", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "JSAProfileBagManager: scheduling to update values as new keys are registered", v8, 2u);
     }
 
     sub_DFA8(self);
   }
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v15, 8);
 }
 
 - (void)registerOnBagChange:(id)change
 {
   changeCopy = change;
-  v5 = JSALog();
+  v5 = JSALog(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136446210;
@@ -220,16 +219,9 @@
   self->_bagChangeHandler = v6;
 }
 
-- (void)unregisterOnBagChange
-{
-  bagChangeHandler = self->_bagChangeHandler;
-  self->_bagChangeHandler = 0;
-  _objc_release_x1();
-}
-
 - (void)_bagDidUpdate:(id)update
 {
-  v4 = JSALog();
+  v4 = JSALog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -248,89 +240,90 @@
 
 + (id)valuesFromOfflineCache
 {
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = +[JSAOfflineCache cacheFileCandidatesForBag];
-  v2 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v2 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v31;
+    v4 = *v34;
     v5 = &swift_once_ptr;
-    v25 = *v31;
+    v28 = *v34;
     while (2)
     {
       v6 = 0;
-      v26 = v3;
+      v29 = v3;
       do
       {
-        if (*v31 != v4)
+        if (*v34 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v30 + 1) + 8 * v6);
+        v7 = *(*(&v33 + 1) + 8 * v6);
         defaultManager = [v5[127] defaultManager];
         v9 = [defaultManager fileExistsAtPath:v7];
 
         if (v9)
         {
-          v29 = 0;
-          v10 = [NSData dataWithContentsOfFile:v7 options:0 error:&v29];
-          v11 = v29;
+          v32 = 0;
+          v10 = [NSData dataWithContentsOfFile:v7 options:0 error:&v32];
+          v11 = v32;
+          v12 = v11;
           if (v10)
           {
-            v12 = objc_opt_class();
             v13 = objc_opt_class();
             v14 = objc_opt_class();
             v15 = objc_opt_class();
             v16 = objc_opt_class();
-            v17 = [NSSet setWithObjects:v12, v13, v14, v15, v16, objc_opt_class(), 0];
-            v28 = v11;
-            v18 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v17 fromData:v10 error:&v28];
-            v19 = v28;
+            v17 = objc_opt_class();
+            v18 = [NSSet setWithObjects:v13, v14, v15, v16, v17, objc_opt_class(), 0];
+            v31 = v12;
+            v19 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v18 fromData:v10 error:&v31];
+            v20 = v31;
 
-            v20 = JSALog();
-            v21 = v20;
-            if (v18)
+            v22 = JSALog(v21);
+            v23 = v22;
+            if (v19)
             {
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v35 = v7;
-                _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Using offline cache for bag from %{public}@", buf, 0xCu);
+                v38 = v7;
+                _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Using offline cache for bag from %{public}@", buf, 0xCu);
               }
 
               goto LABEL_25;
             }
 
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              v35 = v7;
-              v36 = 2114;
-              v37 = v19;
-              _os_log_error_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "Could not unarchive bag cache at %{public}@ (error): %{public}@", buf, 0x16u);
+              v38 = v7;
+              v39 = 2114;
+              v40 = v20;
+              _os_log_error_impl(&dword_0, v23, OS_LOG_TYPE_ERROR, "Could not unarchive bag cache at %{public}@ (error): %{public}@", buf, 0x16u);
             }
 
-            v3 = v26;
+            v3 = v29;
             v5 = &swift_once_ptr;
-            v4 = v25;
+            v4 = v28;
           }
 
           else
           {
-            v17 = JSALog();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            v18 = JSALog(v11);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v35 = v7;
-              _os_log_error_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "Could not read bag cache file from disk: %{public}@", buf, 0xCu);
+              v38 = v7;
+              _os_log_error_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "Could not read bag cache file from disk: %{public}@", buf, 0xCu);
             }
 
-            v19 = v11;
+            v20 = v12;
           }
         }
 
@@ -338,7 +331,7 @@
       }
 
       while (v3 != v6);
-      v3 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v3 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
       if (v3)
       {
         continue;
@@ -348,26 +341,26 @@
     }
   }
 
-  v23 = +[JSAOfflineCache cacheFileCandidatesForBag];
+  v26 = +[JSAOfflineCache cacheFileCandidatesForBag];
   BUReportAssertionFailureWithMessage();
 
   BUCrashBreakpoint();
   result = BUIsRunningTests();
   if (result)
   {
-    v24 = +[JSAOfflineCache cacheFileCandidatesForBag];
+    v27 = +[JSAOfflineCache cacheFileCandidatesForBag];
     BUCrashFinalThrow();
 
-    obj = JSALog();
+    obj = JSALog(v25);
     if (os_log_type_enabled(obj, OS_LOG_TYPE_FAULT))
     {
       sub_80614(obj);
     }
 
-    v18 = &off_BA730;
+    v19 = &off_BA730;
 LABEL_25:
 
-    return v18;
+    return v19;
   }
 
   else
@@ -380,7 +373,7 @@ LABEL_25:
 
 - (void)_saveOfflineCache:(id)cache
 {
-  v4 = JSALog();
+  v4 = JSALog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -392,34 +385,34 @@ LABEL_25:
   [v5 createDirectoryAtPath:v6 withIntermediateDirectories:1 attributes:0 error:0];
 
   values = self->_values;
-  v16 = 0;
-  v8 = [NSKeyedArchiver archivedDataWithRootObject:values requiringSecureCoding:1 error:&v16];
-  v9 = v16;
+  v18 = 0;
+  v8 = [NSKeyedArchiver archivedDataWithRootObject:values requiringSecureCoding:1 error:&v18];
+  v9 = v18;
   v10 = +[JSAOfflineCache cacheFileCandidatesForBag];
   v11 = [v10 objectAtIndexedSubscript:0];
 
   if (!v8 || !v11)
   {
-    v14 = JSALog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = JSALog(v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_80658(v11, v14);
+      sub_80658(v11, v16);
     }
 
-    v13 = v9;
+    v14 = v9;
     goto LABEL_11;
   }
 
-  v15 = v9;
-  v12 = [v8 writeToFile:v11 options:1 error:&v15];
-  v13 = v15;
+  v17 = v9;
+  v13 = [v8 writeToFile:v11 options:1 error:&v17];
+  v14 = v17;
 
-  if ((v12 & 1) == 0)
+  if ((v13 & 1) == 0)
   {
-    v14 = JSALog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = JSALog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_806D0(v13, v14);
+      sub_806D0(v14, v16);
     }
 
 LABEL_11:

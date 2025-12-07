@@ -85,7 +85,7 @@
 
 - (id)objectForTypeSpecificMetadataKey:(id)key ofClass:(Class)class
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   typeSpecificMetadata = [(WFLinkActionParameterDefinition *)self typeSpecificMetadata];
   v8 = [typeSpecificMetadata objectForKey:keyCopy];
@@ -96,15 +96,15 @@
     v11 = getWFGeneralLogObject();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      v15 = 136315906;
-      v16 = "WFEnforceClass";
-      v17 = 2114;
-      v18 = v9;
-      v19 = 2114;
-      v20 = objc_opt_class();
-      v21 = 2114;
+      v14 = 136315906;
+      v15 = "WFEnforceClass";
+      v16 = 2114;
+      v17 = v9;
+      v18 = 2114;
+      v19 = objc_opt_class();
+      v20 = 2114;
       classCopy = class;
-      v12 = v20;
+      v12 = v19;
     }
 
     v10 = 0;
@@ -114,8 +114,6 @@
   {
     v10 = v9;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -172,7 +170,7 @@
 
 - (id)linkValueWithValue:(id)value
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   if (!valueCopy)
   {
@@ -247,12 +245,12 @@
         if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
         {
           valueType3 = [(WFLinkActionParameterDefinition *)self valueType];
-          v29 = 136315650;
-          v30 = "[WFLinkActionParameterDefinition linkValueWithValue:]";
-          v31 = 2112;
-          v32 = v14;
-          v33 = 2112;
-          v34 = valueType3;
+          v28 = 136315650;
+          v29 = "[WFLinkActionParameterDefinition linkValueWithValue:]";
+          v30 = 2112;
+          v31 = v14;
+          v32 = 2112;
+          v33 = valueType3;
         }
       }
 
@@ -262,9 +260,9 @@
         v25 = getWFAppIntentsLogObject();
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
-          v29 = 136315138;
-          v30 = "[WFLinkActionParameterDefinition linkValueWithValue:]";
-          _os_log_impl(&dword_1CA256000, v25, OS_LOG_TYPE_DEBUG, "%s Temporarily returning nil for a NSDictionary used to initialize a LNValue", &v29, 0xCu);
+          v28 = 136315138;
+          v29 = "[WFLinkActionParameterDefinition linkValueWithValue:]";
+          _os_log_impl(&dword_1CA256000, v25, OS_LOG_TYPE_DEBUG, "%s Temporarily returning nil for a NSDictionary used to initialize a LNValue", &v28, 0xCu);
         }
 
         v5 = 0;
@@ -284,7 +282,6 @@ LABEL_28:
 LABEL_29:
 
 LABEL_30:
-  v27 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

@@ -66,10 +66,6 @@
 
 - (_GLKVector4)color
 {
-  x = self->_color.x;
-  y = self->_color.y;
-  z = self->_color.z;
-  w = self->_color.w;
   *&result.v[2] = a2;
   *&result.x = self;
   return result;

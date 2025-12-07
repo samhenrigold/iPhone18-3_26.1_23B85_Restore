@@ -67,7 +67,7 @@ LABEL_4:
 {
   controllerCopy = controller;
   selfCopy = self;
-  sub_1004580FC(controller);
+  sub_1004580FC(controller, selfCopy);
 }
 
 - (_TtC5Music37LibraryArtistsContainerViewController)initWithNibName:(id)name bundle:(id)bundle

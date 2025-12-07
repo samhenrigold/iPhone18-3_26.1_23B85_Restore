@@ -67,7 +67,7 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if (([coderCopy allowsKeyedCoding] & 1) == 0)
   {
@@ -75,37 +75,37 @@
   }
 
   v5 = objc_opt_new();
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v6 = self->_linearClassInfos;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v7)
   {
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       v9 = 0;
       do
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * v9);
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = __35__VMUClassInfoMap_encodeWithCoder___block_invoke;
-        v26[3] = &unk_1E827A030;
-        v26[4] = self;
-        [v10 enumerateTypeFieldsWithBlock:v26];
+        v10 = *(*(&v26 + 1) + 8 * v9);
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = __35__VMUClassInfoMap_encodeWithCoder___block_invoke;
+        v25[3] = &unk_1E827A030;
+        v25[4] = self;
+        [v10 enumerateTypeFieldsWithBlock:v25];
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v7);
@@ -115,30 +115,30 @@
   [v5 serialize32:{-[VMUClassInfoMap count](self, "count")}];
   version = [objc_opt_class() version];
   [v5 serialize32:version];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v12 = self->_linearFieldInfos;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v22 objects:v31 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v30 count:16];
   if (v13)
   {
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       v15 = 0;
       do
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        [*(*(&v22 + 1) + 8 * v15++) serializeWithClassMap:self simpleSerializer:v5 version:{version, v22}];
+        [*(*(&v21 + 1) + 8 * v15++) serializeWithClassMap:self simpleSerializer:v5 version:{version, v21}];
       }
 
       while (v13 != v15);
-      v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v22 objects:v31 count:16];
+      v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v30 count:16];
     }
 
     while (v13);
@@ -164,11 +164,9 @@
   {
     [coderCopy encodeObject:v16 forKey:@"classInfosDerivedFromStackBacktraces"];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __35__VMUClassInfoMap_encodeWithCoder___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__35__VMUClassInfoMap_encodeWithCoder___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) addFieldInfo:a2];
   *a4 = 0;
@@ -236,7 +234,7 @@ LABEL_15:
             [(NSMutableArray *)v5->_linearFieldInfos addObject:v23];
             remoteIsa = v23;
             v44 = v20 + 1;
-            std::__hash_table<std::__hash_value_type<VMUFieldInfo * {__strong},unsigned int>,std::__unordered_map_hasher<VMUFieldInfo * {__strong},std::__hash_value_type<VMUFieldInfo * {__strong},unsigned int>,std::hash<VMUFieldInfo * {__strong}>,std::equal_to<VMUFieldInfo * {__strong}>,true>,std::__unordered_map_equal<VMUFieldInfo * {__strong},std::__hash_value_type<VMUFieldInfo * {__strong},unsigned int>,std::equal_to<VMUFieldInfo * {__strong}>,std::hash<VMUFieldInfo * {__strong}>,true>,std::allocator<std::__hash_value_type<VMUFieldInfo * {__strong},unsigned int>>>::__emplace_unique_key_args<VMUFieldInfo * {__strong},std::pair<VMUFieldInfo * {__strong},unsigned int>>(&v5->_fieldInfoToIndexMap.__table_.__bucket_list_.__ptr_, &remoteIsa);
+            std::__hash_table<std::__hash_value_type<VMUFieldInfo * {__strong},unsigned int>,std::__unordered_map_hasher<VMUFieldInfo * {__strong},std::__hash_value_type<VMUFieldInfo * {__strong},unsigned int>,std::hash<VMUFieldInfo * {__strong}>,std::equal_to<VMUFieldInfo * {__strong}>,true>,std::__unordered_map_equal<VMUFieldInfo * {__strong},std::__hash_value_type<VMUFieldInfo * {__strong},unsigned int>,std::equal_to<VMUFieldInfo * {__strong}>,std::hash<VMUFieldInfo * {__strong}>,true>,std::allocator<std::__hash_value_type<VMUFieldInfo * {__strong},unsigned int>>>::__emplace_unique_key_args<VMUFieldInfo * {__strong},std::pair<VMUFieldInfo * {__strong},unsigned int>>(&v5->_fieldInfoToIndexMap.__table_.__bucket_list_.__ptr_, &remoteIsa, &remoteIsa);
 
             if (v46)
             {
@@ -278,13 +276,13 @@ LABEL_15:
             v31 = v30;
             remoteIsa = v31;
             v44 = v27;
-            std::__hash_table<std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::__unordered_map_hasher<VMUClassInfo * {__strong},std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::hash<VMUClassInfo * {__strong}>,std::equal_to<VMUClassInfo * {__strong}>,true>,std::__unordered_map_equal<VMUClassInfo * {__strong},std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::equal_to<VMUClassInfo * {__strong}>,std::hash<VMUClassInfo * {__strong}>,true>,std::allocator<std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>>>::__emplace_unique_key_args<VMUClassInfo * {__strong},std::pair<VMUClassInfo * {__strong},unsigned int>>(&v5->_classInfoToIndexMap.__table_.__bucket_list_.__ptr_, &remoteIsa);
+            std::__hash_table<std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::__unordered_map_hasher<VMUClassInfo * {__strong},std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::hash<VMUClassInfo * {__strong}>,std::equal_to<VMUClassInfo * {__strong}>,true>,std::__unordered_map_equal<VMUClassInfo * {__strong},std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::equal_to<VMUClassInfo * {__strong}>,std::hash<VMUClassInfo * {__strong}>,true>,std::allocator<std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>>>::__emplace_unique_key_args<VMUClassInfo * {__strong},std::pair<VMUClassInfo * {__strong},unsigned int>>(&v5->_classInfoToIndexMap.__table_.__bucket_list_.__ptr_, &remoteIsa, &remoteIsa);
 
             if ([(VMUClassInfo *)v31 remoteIsa])
             {
               remoteIsa = [(VMUClassInfo *)v31 remoteIsa];
               v44 = v27;
-              std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,unsigned int>>(&v5->_isaAddressToIndexMap.__table_.__bucket_list_.__ptr_, &remoteIsa);
+              std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,unsigned int>>(&v5->_isaAddressToIndexMap.__table_.__bucket_list_.__ptr_, &remoteIsa, &remoteIsa);
             }
           }
 
@@ -389,10 +387,10 @@ void __33__VMUClassInfoMap_initWithCoder___block_invoke_2(uint64_t a1, void *a2,
       v12[4] = self;
       [infoCopy enumerateTypeFieldsWithBlock:v12];
       v13 = [(VMUClassInfoMap *)self count]+ 1;
-      v13 = *(std::__hash_table<std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::__unordered_map_hasher<VMUClassInfo * {__strong},std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::hash<VMUClassInfo * {__strong}>,std::equal_to<VMUClassInfo * {__strong}>,true>,std::__unordered_map_equal<VMUClassInfo * {__strong},std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::equal_to<VMUClassInfo * {__strong}>,std::hash<VMUClassInfo * {__strong}>,true>,std::allocator<std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>>>::__emplace_unique_key_args<VMUClassInfo * {__strong},VMUClassInfo * {__strong}&,unsigned int &>(&self->_classInfoToIndexMap.__table_.__bucket_list_.__ptr_, &infoCopy) + 6);
+      v13 = *(std::__hash_table<std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::__unordered_map_hasher<VMUClassInfo * {__strong},std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::hash<VMUClassInfo * {__strong}>,std::equal_to<VMUClassInfo * {__strong}>,true>,std::__unordered_map_equal<VMUClassInfo * {__strong},std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::equal_to<VMUClassInfo * {__strong}>,std::hash<VMUClassInfo * {__strong}>,true>,std::allocator<std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>>>::__emplace_unique_key_args<VMUClassInfo * {__strong},VMUClassInfo * {__strong}&,unsigned int &>(&self->_classInfoToIndexMap.__table_.__bucket_list_.__ptr_, &infoCopy, &infoCopy, &v13) + 6);
       if (addressCopy)
       {
-        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,unsigned int &>(&self->_isaAddressToIndexMap.__table_.__bucket_list_.__ptr_, &addressCopy);
+        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,unsigned int &>(&self->_isaAddressToIndexMap.__table_.__bucket_list_.__ptr_, &addressCopy, &addressCopy, &v13);
       }
 
       [(NSMutableArray *)self->_linearClassInfos addObject:infoCopy];
@@ -403,7 +401,7 @@ void __33__VMUClassInfoMap_initWithCoder___block_invoke_2(uint64_t a1, void *a2,
     v13 = v7;
     if (address)
     {
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,unsigned int &>(&self->_isaAddressToIndexMap.__table_.__bucket_list_.__ptr_, &addressCopy);
+      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,unsigned int &>(&self->_isaAddressToIndexMap.__table_.__bucket_list_.__ptr_, &addressCopy, &addressCopy, &v13);
 LABEL_11:
       v7 = v13;
     }
@@ -559,86 +557,84 @@ LABEL_16:
 
 - (id)_retainedLinearArrayWithReturnedCount:(unsigned int *)count
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = [(NSMutableArray *)self->_linearClassInfos count]+ 1;
   v6 = malloc_type_calloc(v5, 8uLL, 0x80040B8603338uLL);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v7 = self->_linearClassInfos;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
-    v9 = *v15;
+    v9 = *v14;
     v10 = 1;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        objc_storeStrong(&v6[v10++], *(*(&v14 + 1) + 8 * v11++));
+        objc_storeStrong(&v6[v10++], *(*(&v13 + 1) + 8 * v11++));
       }
 
       while (v8 != v11);
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
   *count = v5;
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (unsigned)addFieldInfo:(id)info
 {
   v18 = *MEMORY[0x1E69E9840];
-  v16[0] = info;
-  v16[2] = v16;
-  v4 = std::__hash_table<std::__hash_value_type<VMUFieldInfo * {__strong},unsigned int>,std::__unordered_map_hasher<VMUFieldInfo * {__strong},std::__hash_value_type<VMUFieldInfo * {__strong},unsigned int>,std::hash<VMUFieldInfo * {__strong}>,std::equal_to<VMUFieldInfo * {__strong}>,true>,std::__unordered_map_equal<VMUFieldInfo * {__strong},std::__hash_value_type<VMUFieldInfo * {__strong},unsigned int>,std::equal_to<VMUFieldInfo * {__strong}>,std::hash<VMUFieldInfo * {__strong}>,true>,std::allocator<std::__hash_value_type<VMUFieldInfo * {__strong},unsigned int>>>::__emplace_unique_key_args<VMUFieldInfo * {__strong},std::piecewise_construct_t const&,std::tuple<VMUFieldInfo * const {__strong}&>,std::tuple<>>(&self->_fieldInfoToIndexMap.__table_.__bucket_list_.__ptr_, v16);
+  infoCopy = info;
+  v16 = &infoCopy;
+  v4 = std::__hash_table<std::__hash_value_type<VMUFieldInfo * {__strong},unsigned int>,std::__unordered_map_hasher<VMUFieldInfo * {__strong},std::__hash_value_type<VMUFieldInfo * {__strong},unsigned int>,std::hash<VMUFieldInfo * {__strong}>,std::equal_to<VMUFieldInfo * {__strong}>,true>,std::__unordered_map_equal<VMUFieldInfo * {__strong},std::__hash_value_type<VMUFieldInfo * {__strong},unsigned int>,std::equal_to<VMUFieldInfo * {__strong}>,std::hash<VMUFieldInfo * {__strong}>,true>,std::allocator<std::__hash_value_type<VMUFieldInfo * {__strong},unsigned int>>>::__emplace_unique_key_args<VMUFieldInfo * {__strong},std::piecewise_construct_t const&,std::tuple<VMUFieldInfo * const {__strong}&>,std::tuple<>>(&self->_fieldInfoToIndexMap.__table_.__bucket_list_.__ptr_, &infoCopy, &std::piecewise_construct, &v16);
   v5 = *(v4 + 6);
   if (!v5)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
-    subFieldArray = [v16[0] subFieldArray];
-    v7 = [subFieldArray countByEnumeratingWithState:&v12 objects:v17 count:16];
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    subFieldArray = [infoCopy subFieldArray];
+    v7 = [subFieldArray countByEnumeratingWithState:&v11 objects:v17 count:16];
     if (v7)
     {
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(subFieldArray);
           }
 
-          [(VMUClassInfoMap *)self addFieldInfo:*(*(&v12 + 1) + 8 * i)];
+          [(VMUClassInfoMap *)self addFieldInfo:*(*(&v11 + 1) + 8 * i)];
         }
 
-        v7 = [subFieldArray countByEnumeratingWithState:&v12 objects:v17 count:16];
+        v7 = [subFieldArray countByEnumeratingWithState:&v11 objects:v17 count:16];
       }
 
       while (v7);
     }
 
-    [(NSMutableArray *)self->_linearFieldInfos addObject:v16[0]];
+    [(NSMutableArray *)self->_linearFieldInfos addObject:infoCopy];
     v5 = [(NSMutableArray *)self->_linearFieldInfos count];
     *(v4 + 6) = v5;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -749,8 +745,8 @@ LABEL_16:
   }
 
   v13 = [(VMUClassInfoMap *)self addFieldInfo:fieldCopy];
-  v19 = &v15;
-  *(std::__hash_table<std::__hash_value_type<SwiftFieldKey,unsigned int>,std::__unordered_map_hasher<SwiftFieldKey,std::__hash_value_type<SwiftFieldKey,unsigned int>,std::hash<SwiftFieldKey>,std::equal_to<SwiftFieldKey>,true>,std::__unordered_map_equal<SwiftFieldKey,std::__hash_value_type<SwiftFieldKey,unsigned int>,std::equal_to<SwiftFieldKey>,std::hash<SwiftFieldKey>,true>,std::allocator<std::__hash_value_type<SwiftFieldKey,unsigned int>>>::__emplace_unique_key_args<SwiftFieldKey,std::piecewise_construct_t const&,std::tuple<SwiftFieldKey const&>,std::tuple<>>(&self->_swiftFieldToIndexMap.__table_.__bucket_list_.__ptr_, &v15) + 16) = v13;
+  v20 = &v15;
+  *(std::__hash_table<std::__hash_value_type<SwiftFieldKey,unsigned int>,std::__unordered_map_hasher<SwiftFieldKey,std::__hash_value_type<SwiftFieldKey,unsigned int>,std::hash<SwiftFieldKey>,std::equal_to<SwiftFieldKey>,true>,std::__unordered_map_equal<SwiftFieldKey,std::__hash_value_type<SwiftFieldKey,unsigned int>,std::equal_to<SwiftFieldKey>,std::hash<SwiftFieldKey>,true>,std::allocator<std::__hash_value_type<SwiftFieldKey,unsigned int>>>::__emplace_unique_key_args<SwiftFieldKey,std::piecewise_construct_t const&,std::tuple<SwiftFieldKey const&>,std::tuple<>>(&self->_swiftFieldToIndexMap.__table_.__bucket_list_.__ptr_, &v15, &std::piecewise_construct, &v20, &v19) + 16) = v13;
   if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v15.__r_.__value_.__l.__data_);
@@ -774,7 +770,7 @@ LABEL_16:
   return v2;
 }
 
-uint64_t __58__VMUClassInfoMap_hasClassInfosDerivedFromStackBacktraces__block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, _BYTE *a5)
+void *__58__VMUClassInfoMap_hasClassInfosDerivedFromStackBacktraces__block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, _BYTE *a5)
 {
   result = [a3 isDerivedFromStackBacktrace];
   if (result)
@@ -788,49 +784,47 @@ uint64_t __58__VMUClassInfoMap_hasClassInfosDerivedFromStackBacktraces__block_in
 
 - (void)_applyTypeOverlayRules:(void *)rules toMutableInfo:
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   rulesCopy = rules;
   if (self)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          (*(*(*(&v13 + 1) + 8 * v10++) + 16))();
+          (*(*(*(&v12 + 1) + 8 * v10++) + 16))();
         }
 
         while (v8 != v10);
-        v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
     }
 
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __56__VMUClassInfoMap__applyTypeOverlayRules_toMutableInfo___block_invoke;
-    v12[3] = &unk_1E827A030;
-    v12[4] = self;
-    [rulesCopy enumerateTypeFieldsWithBlock:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __56__VMUClassInfoMap__applyTypeOverlayRules_toMutableInfo___block_invoke;
+    v11[3] = &unk_1E827A030;
+    v11[4] = self;
+    [rulesCopy enumerateTypeFieldsWithBlock:v11];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __56__VMUClassInfoMap__applyTypeOverlayRules_toMutableInfo___block_invoke(uint64_t a1, void *a2)
@@ -848,11 +842,11 @@ void __56__VMUClassInfoMap__applyTypeOverlayRules_toMutableInfo___block_invoke(u
 
 - (void)_applyTypeOverlay:(id)overlay
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   overlayCopy = overlay;
   if (overlayCopy)
   {
-    v27 = overlayCopy;
+    v26 = overlayCopy;
     refinementRules = [overlayCopy refinementRules];
     if ([refinementRules count])
     {
@@ -861,39 +855,39 @@ void __56__VMUClassInfoMap__applyTypeOverlayRules_toMutableInfo___block_invoke(u
       v8 = v7 + 1;
       v9 = malloc_type_calloc(v7 + 1, 8uLL, 0x80040B8603338uLL);
       context = v6;
-      v30 = 0u;
       v31 = 0u;
-      v28 = 0u;
+      v32 = 0u;
       v29 = 0u;
+      v30 = 0u;
       v10 = self->_linearClassInfos;
-      v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (v11)
       {
-        v12 = *v29;
+        v12 = *v30;
         v13 = 1;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v29 != v12)
+            if (*v30 != v12)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = [*(*(&v28 + 1) + 8 * i) mutableCopy];
+            v15 = [*(*(&v29 + 1) + 8 * i) mutableCopy];
             v16 = v9[v13];
             v9[v13] = v15;
 
             ++v13;
           }
 
-          v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
         }
 
         while (v11);
       }
 
-      v26 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:v9 + 1 count:v7];
+      v25 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:v9 + 1 count:v7];
       if (v8 >= 2)
       {
         v17 = 1;
@@ -920,23 +914,22 @@ void __56__VMUClassInfoMap__applyTypeOverlayRules_toMutableInfo___block_invoke(u
           if (!--v18)
           {
             std::__hash_table<std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::__unordered_map_hasher<VMUClassInfo * {__strong},std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::hash<VMUClassInfo * {__strong}>,std::equal_to<VMUClassInfo * {__strong}>,true>,std::__unordered_map_equal<VMUClassInfo * {__strong},std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::equal_to<VMUClassInfo * {__strong}>,std::hash<VMUClassInfo * {__strong}>,true>,std::allocator<std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>>>::clear(&self->_classInfoToIndexMap);
-            v9[1];
-            std::__hash_table<std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::__unordered_map_hasher<VMUClassInfo * {__strong},std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::hash<VMUClassInfo * {__strong}>,std::equal_to<VMUClassInfo * {__strong}>,true>,std::__unordered_map_equal<VMUClassInfo * {__strong},std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::equal_to<VMUClassInfo * {__strong}>,std::hash<VMUClassInfo * {__strong}>,true>,std::allocator<std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>>>::__emplace_unique_impl<std::pair<VMUMutableClassInfo * {__strong},unsigned int>>();
+            v27 = v9[1];
+            v28 = 1;
+            std::__hash_table<std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::__unordered_map_hasher<VMUClassInfo * {__strong},std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::hash<VMUClassInfo * {__strong}>,std::equal_to<VMUClassInfo * {__strong}>,true>,std::__unordered_map_equal<VMUClassInfo * {__strong},std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::equal_to<VMUClassInfo * {__strong}>,std::hash<VMUClassInfo * {__strong}>,true>,std::allocator<std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>>>::__emplace_unique_impl<std::pair<VMUMutableClassInfo * {__strong},unsigned int>>(&self->_classInfoToIndexMap, &v27);
           }
         }
       }
 
       std::__hash_table<std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::__unordered_map_hasher<VMUClassInfo * {__strong},std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::hash<VMUClassInfo * {__strong}>,std::equal_to<VMUClassInfo * {__strong}>,true>,std::__unordered_map_equal<VMUClassInfo * {__strong},std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>,std::equal_to<VMUClassInfo * {__strong}>,std::hash<VMUClassInfo * {__strong}>,true>,std::allocator<std::__hash_value_type<VMUClassInfo * {__strong},unsigned int>>>::clear(&self->_classInfoToIndexMap);
-      objc_storeStrong(&self->_linearClassInfos, v26);
+      objc_storeStrong(&self->_linearClassInfos, v25);
       free(v9);
 
       objc_autoreleasePoolPop(context);
     }
 
-    overlayCopy = v27;
+    overlayCopy = v26;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id).cxx_construct

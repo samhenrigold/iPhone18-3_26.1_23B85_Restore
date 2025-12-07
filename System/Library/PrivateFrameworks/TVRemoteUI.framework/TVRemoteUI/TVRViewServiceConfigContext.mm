@@ -28,11 +28,11 @@
 
 - (id)_initWithUserInfo:(id)info
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  v31.receiver = self;
-  v31.super_class = TVRViewServiceConfigContext;
-  v5 = [(TVRViewServiceConfigContext *)&v31 init];
+  v38.receiver = self;
+  v38.super_class = TVRViewServiceConfigContext;
+  v5 = [(TVRViewServiceConfigContext *)&v38 init];
   v6 = v5;
   if (v5)
   {
@@ -41,81 +41,86 @@
     deviceIdentifier = v6->_deviceIdentifier;
     v6->_deviceIdentifier = v7;
 
-    v9 = _TVRUIViewServiceLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _TVRUIViewServiceLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v6->_deviceIdentifier;
+      v11 = v6->_deviceIdentifier;
       *buf = 138412290;
-      v33 = v10;
-      _os_log_impl(&dword_26CFEB000, v9, OS_LOG_TYPE_DEFAULT, "Received device id %@", buf, 0xCu);
+      v40 = v11;
+      _os_log_impl(&dword_26CFEB000, v10, OS_LOG_TYPE_DEFAULT, "Received device id %@", buf, 0xCu);
     }
 
-    v11 = [infoCopy objectForKeyedSubscript:@"deviceIdentifierType"];
-    v6->_deviceIdentifierType = [v11 integerValue];
-    v12 = _TVRUIViewServiceLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v12 = [infoCopy objectForKeyedSubscript:@"deviceIdentifierType"];
+    integerValue = [v12 integerValue];
+    v6->_deviceIdentifierType = integerValue;
+    v14 = _TVRUIViewServiceLog(integerValue);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       deviceIdentifierType = v6->_deviceIdentifierType;
       *buf = 134217984;
-      v33 = deviceIdentifierType;
-      _os_log_impl(&dword_26CFEB000, v12, OS_LOG_TYPE_DEFAULT, "Received device id type %ld", buf, 0xCu);
+      v40 = deviceIdentifierType;
+      _os_log_impl(&dword_26CFEB000, v14, OS_LOG_TYPE_DEFAULT, "Received device id type %ld", buf, 0xCu);
     }
 
-    v14 = [infoCopy objectForKeyedSubscript:@"deviceType"];
-    v6->_deviceType = [v14 integerValue];
-    v15 = _TVRUIViewServiceLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = [infoCopy objectForKeyedSubscript:@"deviceType"];
+    integerValue2 = [v16 integerValue];
+    v6->_deviceType = integerValue2;
+    v18 = _TVRUIViewServiceLog(integerValue2);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       deviceType = v6->_deviceType;
       *buf = 134217984;
-      v33 = deviceType;
-      _os_log_impl(&dword_26CFEB000, v15, OS_LOG_TYPE_DEFAULT, "Received device type %ld", buf, 0xCu);
+      v40 = deviceType;
+      _os_log_impl(&dword_26CFEB000, v18, OS_LOG_TYPE_DEFAULT, "Received device type %ld", buf, 0xCu);
     }
 
-    v17 = [infoCopy objectForKeyedSubscript:@"launchContext"];
-    v6->_launchContext = [v17 integerValue];
-    v18 = _TVRUIViewServiceLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = [infoCopy objectForKeyedSubscript:@"launchContext"];
+    integerValue3 = [v20 integerValue];
+    v6->_launchContext = integerValue3;
+    v22 = _TVRUIViewServiceLog(integerValue3);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       launchContext = v6->_launchContext;
       *buf = 134217984;
-      v33 = launchContext;
-      _os_log_impl(&dword_26CFEB000, v18, OS_LOG_TYPE_DEFAULT, "Received lauch context %ld", buf, 0xCu);
+      v40 = launchContext;
+      _os_log_impl(&dword_26CFEB000, v22, OS_LOG_TYPE_DEFAULT, "Received lauch context %ld", buf, 0xCu);
     }
 
-    v20 = [infoCopy objectForKeyedSubscript:@"dismissalType"];
-    v6->_dismissalType = [v20 unsignedIntegerValue];
-    v21 = _TVRUIViewServiceLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v24 = [infoCopy objectForKeyedSubscript:@"dismissalType"];
+    unsignedIntegerValue = [v24 unsignedIntegerValue];
+    v6->_dismissalType = unsignedIntegerValue;
+    v26 = _TVRUIViewServiceLog(unsignedIntegerValue);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       dismissalType = v6->_dismissalType;
       *buf = 134217984;
-      v33 = dismissalType;
-      _os_log_impl(&dword_26CFEB000, v21, OS_LOG_TYPE_DEFAULT, "Received dismissal type %ld", buf, 0xCu);
+      v40 = dismissalType;
+      _os_log_impl(&dword_26CFEB000, v26, OS_LOG_TYPE_DEFAULT, "Received dismissal type %ld", buf, 0xCu);
     }
 
-    v23 = [infoCopy objectForKeyedSubscript:@"lastActiveIdentifier"];
+    v28 = [infoCopy objectForKeyedSubscript:@"lastActiveIdentifier"];
     lastActiveEndpointIdentifier = v6->_lastActiveEndpointIdentifier;
-    v6->_lastActiveEndpointIdentifier = v23;
+    v6->_lastActiveEndpointIdentifier = v28;
 
-    v25 = _TVRUIViewServiceLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v31 = _TVRUIViewServiceLog(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = v6->_lastActiveEndpointIdentifier;
+      v32 = v6->_lastActiveEndpointIdentifier;
       *buf = 138412290;
-      v33 = v26;
-      _os_log_impl(&dword_26CFEB000, v25, OS_LOG_TYPE_DEFAULT, "Received last active endpoint id %@", buf, 0xCu);
+      v40 = v32;
+      _os_log_impl(&dword_26CFEB000, v31, OS_LOG_TYPE_DEFAULT, "Received last active endpoint id %@", buf, 0xCu);
     }
 
-    v27 = [infoCopy objectForKeyedSubscript:@"launchMethod"];
-    v6->_launchMethod = [v27 integerValue];
-    v28 = _TVRUIViewServiceLog();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v33 = [infoCopy objectForKeyedSubscript:@"launchMethod"];
+    integerValue4 = [v33 integerValue];
+    v6->_launchMethod = integerValue4;
+    v35 = _TVRUIViewServiceLog(integerValue4);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       launchMethod = v6->_launchMethod;
       *buf = 134217984;
-      v33 = launchMethod;
-      _os_log_impl(&dword_26CFEB000, v28, OS_LOG_TYPE_DEFAULT, "Received launch method %ld", buf, 0xCu);
+      v40 = launchMethod;
+      _os_log_impl(&dword_26CFEB000, v35, OS_LOG_TYPE_DEFAULT, "Received launch method %ld", buf, 0xCu);
     }
   }
 

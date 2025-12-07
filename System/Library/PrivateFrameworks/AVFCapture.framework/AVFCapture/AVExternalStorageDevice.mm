@@ -112,15 +112,15 @@
 
 - (BOOL)isConnected
 {
-  v8 = 0;
+  v10 = 0;
   externalStorageDeviceManager = self->_externalStorageDeviceManager;
   if (externalStorageDeviceManager && (figExternalStorageDeviceUUID = self->_figExternalStorageDeviceUUID, (v4 = *(*(CMBaseObjectGetVTable() + 16) + 32)) != 0))
   {
-    v4(externalStorageDeviceManager, figExternalStorageDeviceUUID, *MEMORY[0x1E69909A8], *MEMORY[0x1E695E480], &v8);
-    v5 = v8 == *MEMORY[0x1E695E4D0];
-    if (v8)
+    v4(externalStorageDeviceManager, figExternalStorageDeviceUUID, *MEMORY[0x1E69909A8], *MEMORY[0x1E695E480], &v10);
+    v5 = v10 == *MEMORY[0x1E695E4D0];
+    if (v10)
     {
-      CFRelease(v8);
+      CFRelease(v10);
     }
   }
 
@@ -131,6 +131,8 @@
 
   if (dword_1EB385998)
   {
+    v9 = 0;
+    v8 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -148,7 +150,7 @@
 
 - (NSArray)nextAvailableURLsWithPathExtensions:(NSArray *)extensionArray error:(NSError *)outError
 {
-  v31[0] = 0;
+  v29[0] = 0;
   nextAvailableURLArray = self->_nextAvailableURLArray;
   if (nextAvailableURLArray)
   {
@@ -173,29 +175,29 @@ LABEL_20:
     v11 = *(*(CMBaseObjectGetVTable() + 16) + 24);
     if (v11)
     {
-      v12 = v11(externalStorageDeviceManager, 0, figExternalStorageDeviceUUID, extensionArray, v31);
+      v12 = v11(externalStorageDeviceManager, 0, figExternalStorageDeviceUUID, extensionArray, v29);
       if (!v12)
       {
-        v29 = 0u;
-        v30 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v13 = v31[0];
-        v14 = [v31[0] countByEnumeratingWithState:&v27 objects:v26 count:16];
+        v25 = 0u;
+        v26 = 0u;
+        v13 = v29[0];
+        v14 = [v29[0] countByEnumeratingWithState:&v25 objects:v24 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v28;
+          v16 = *v26;
 LABEL_9:
           v17 = 0;
           while (1)
           {
-            if (*v28 != v16)
+            if (*v26 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:*(*(&v27 + 1) + 8 * v17) error:outError];
+            v18 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:*(*(&v25 + 1) + 8 * v17) error:outError];
             if (!v18)
             {
               goto LABEL_20;
@@ -204,7 +206,7 @@ LABEL_9:
             CFArrayAppendValue(self->_nextAvailableURLArray, [v18 url]);
             if (v15 == ++v17)
             {
-              v15 = [v13 countByEnumeratingWithState:&v27 objects:v26 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v25 objects:v24 count:16];
               if (v15)
               {
                 goto LABEL_9;
@@ -225,21 +227,21 @@ LABEL_9:
     }
 
 LABEL_21:
-    [(AVExternalStorageDevice *)v12 nextAvailableURLsWithPathExtensions:&v23 error:?];
-    return v23;
+    [(AVExternalStorageDevice *)v12 nextAvailableURLsWithPathExtensions:&v21 error:?];
+    return v21;
   }
 
 LABEL_15:
   if (dword_1EB385998)
   {
-    v25 = 0;
+    v23 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return [(__CFArray *)self->_nextAvailableURLArray copy:v21];
+  return [(__CFArray *)self->_nextAvailableURLArray copy];
 }
 
 - (void)updateExternalStorageDeviceManager:(OpaqueFigExternalStorageDeviceManager *)manager andFigExternalStorageDeviceUUID:(id)d
@@ -336,7 +338,7 @@ LABEL_15:
     if (OUTLINED_FUNCTION_3(v8))
     {
       OUTLINED_FUNCTION_0_0();
-      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_4(v9, v10, v15, v11, &dword_1A917C000, v12, v13, "<<<< AVExternalStorageDevice >>>> %s: [%@] Returning display name %@ for uuid %{private}@");
     }
 
     OUTLINED_FUNCTION_1_0();
@@ -347,6 +349,7 @@ LABEL_15:
 
 - (NSInteger)freeSize
 {
+  v14 = 0;
   if (self->_externalStorageDeviceManager && *(*(CMBaseObjectGetVTable() + 16) + 32))
   {
     v2 = OUTLINED_FUNCTION_10();
@@ -374,7 +377,7 @@ LABEL_15:
     {
       OUTLINED_FUNCTION_8();
       OUTLINED_FUNCTION_2_0();
-      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_4(v7, v8, v13, v9, &dword_1A917C000, v10, v11, "<<<< AVExternalStorageDevice >>>> %s: [%@] Returning freeSize %ld for uuid %{private}@");
     }
 
     OUTLINED_FUNCTION_1_0();
@@ -385,6 +388,7 @@ LABEL_15:
 
 - (NSInteger)totalSize
 {
+  v14 = 0;
   if (self->_externalStorageDeviceManager && *(*(CMBaseObjectGetVTable() + 16) + 32))
   {
     v2 = OUTLINED_FUNCTION_10();
@@ -412,7 +416,7 @@ LABEL_15:
     {
       OUTLINED_FUNCTION_8();
       OUTLINED_FUNCTION_2_0();
-      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_4(v7, v8, v13, v9, &dword_1A917C000, v10, v11, "<<<< AVExternalStorageDevice >>>> %s: [%@] Returning totalSize %ld for uuid %{private}@");
     }
 
     OUTLINED_FUNCTION_1_0();
@@ -444,7 +448,7 @@ LABEL_15:
     if (OUTLINED_FUNCTION_3(v8))
     {
       OUTLINED_FUNCTION_0_0();
-      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_4(v9, v10, v15, v11, &dword_1A917C000, v12, v13, "<<<< AVExternalStorageDevice >>>> %s: [%@] Returning uniqueIdentifier %@ for uuid %{private}@");
     }
 
     OUTLINED_FUNCTION_1_0();
@@ -455,24 +459,23 @@ LABEL_15:
 
 - (BOOL)isNotRecommendedForCaptureUse
 {
-  v16 = 0;
+  v22 = 0;
   baseURL = self->_baseURL;
-  v4 = *MEMORY[0x1E695DEA0];
-  v15 = *MEMORY[0x1E695DEA0];
-  v5 = -[__CFURL resourceValuesForKeys:error:](baseURL, "resourceValuesForKeys:error:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1], 0);
-  if (!v5)
+  v21 = *MEMORY[0x1E695DEA0];
+  v4 = -[__CFURL resourceValuesForKeys:error:](baseURL, "resourceValuesForKeys:error:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1], 0);
+  if (!v4)
   {
     goto LABEL_11;
   }
 
-  v6 = [v5 objectForKeyedSubscript:v4];
-  externalStorageDeviceManager = v6;
-  if (!v6)
+  v5 = objc_msgSend_objectForKeyedSubscript_(v4);
+  externalStorageDeviceManager = v5;
+  if (!v5)
   {
     goto LABEL_12;
   }
 
-  if (![(OpaqueFigExternalStorageDeviceManager *)v6 caseInsensitiveCompare:@"msdos"]|| ![(OpaqueFigExternalStorageDeviceManager *)externalStorageDeviceManager caseInsensitiveCompare:@"apfs"])
+  if (![(OpaqueFigExternalStorageDeviceManager *)v5 caseInsensitiveCompare:@"msdos"]|| ![(OpaqueFigExternalStorageDeviceManager *)externalStorageDeviceManager caseInsensitiveCompare:@"apfs"])
   {
     LOBYTE(externalStorageDeviceManager) = 1;
     goto LABEL_12;
@@ -486,14 +489,14 @@ LABEL_15:
 
   if (*(*(CMBaseObjectGetVTable() + 16) + 32))
   {
-    v8 = OUTLINED_FUNCTION_10();
-    v10 = v9(v8);
-    v11 = v16;
-    if (!v10)
+    v7 = OUTLINED_FUNCTION_10();
+    v9 = v8(v7);
+    v10 = v22;
+    if (!v9)
     {
       LOBYTE(externalStorageDeviceManager) = FigCFEqual() != 0;
-      v11 = v16;
-      if (!v16)
+      v10 = v22;
+      if (!v22)
       {
         goto LABEL_12;
       }
@@ -502,10 +505,10 @@ LABEL_15:
     }
 
     LOBYTE(externalStorageDeviceManager) = 0;
-    if (v16)
+    if (v22)
     {
 LABEL_9:
-      CFRelease(v11);
+      CFRelease(v10);
     }
   }
 
@@ -518,13 +521,15 @@ LABEL_11:
 LABEL_12:
   if (dword_1EB385998)
   {
+    v20 = 0;
+    v19[128] = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v13 = os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    if (OUTLINED_FUNCTION_3(v13))
+    v12 = os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    if (OUTLINED_FUNCTION_3(v12))
     {
       OUTLINED_FUNCTION_8();
       OUTLINED_FUNCTION_2_0();
-      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_4(v13, v14, v19, v15, &dword_1A917C000, v16, v17, "<<<< AVExternalStorageDevice >>>> %s: [%@] Returning isNotRecommendedForCaptureUse : %@ for uuid %{private}@");
     }
 
     OUTLINED_FUNCTION_1_0();
@@ -538,8 +543,8 @@ LABEL_12:
   p_baseURL = &self->_baseURL;
   if (!self->_baseURL && self->_externalStorageDeviceManager && *(*(CMBaseObjectGetVTable() + 16) + 32))
   {
-    v5 = OUTLINED_FUNCTION_9();
-    v6(v5);
+    v10 = OUTLINED_FUNCTION_9();
+    v11(v10);
   }
 
   if (dword_1EB385998)
@@ -549,7 +554,7 @@ LABEL_12:
     if (OUTLINED_FUNCTION_3(v4))
     {
       OUTLINED_FUNCTION_0_0();
-      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_4(v5, v6, v13, v7, &dword_1A917C000, v8, v9, "<<<< AVExternalStorageDevice >>>> %s: [%@] Returning device base URL %@ for uuid %{private}@");
     }
 
     OUTLINED_FUNCTION_1_0();
@@ -558,7 +563,7 @@ LABEL_12:
   return [(__CFURL *)*p_baseURL copy];
 }
 
-- (uint64_t)nextAvailableURLsWithPathExtensions:(void *)a3 error:.cold.2(uint64_t result, uint64_t *a2, void *a3)
+- (void)nextAvailableURLsWithPathExtensions:(void *)a3 error:.cold.2(void *result, void *a2, void *a3)
 {
   if (a2)
   {

@@ -263,7 +263,7 @@
 
 - (void)navigation:(id)navigation accessoryAttached:(id)attached
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   navigationCopy = navigation;
   attachedCopy = attached;
   if (gLogObjects)
@@ -298,34 +298,32 @@
     iap2server = self->_iap2server;
     navigationProvider = self->_navigationProvider;
     *buf = 138413314;
-    v21 = navigationCopy;
-    v22 = 2112;
-    v23 = attachedCopy;
-    v24 = 2112;
-    v25 = navigationProvider;
-    v26 = 2112;
-    v27 = navigationShim;
-    v28 = 2112;
-    v29 = iap2server;
+    v20 = navigationCopy;
+    v21 = 2112;
+    v22 = attachedCopy;
+    v23 = 2112;
+    v24 = navigationProvider;
+    v25 = 2112;
+    v26 = navigationShim;
+    v27 = 2112;
+    v28 = iap2server;
     _os_log_impl(&dword_2335F7000, v10, OS_LOG_TYPE_DEFAULT, "[#Navigation] navigation: %@ accessoryAttached: %@, _navigationProvider=%@ _navigationShim=%@ _iap2server=%@", buf, 0x34u);
   }
 
   navigationQueue = self->_navigationQueue;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __59__ACCNavigationFeaturePlugin_navigation_accessoryAttached___block_invoke;
-  v17[3] = &unk_2789E42E8;
-  v18 = attachedCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __59__ACCNavigationFeaturePlugin_navigation_accessoryAttached___block_invoke;
+  v16[3] = &unk_2789E42E8;
+  v17 = attachedCopy;
   selfCopy = self;
   v15 = attachedCopy;
-  dispatch_async(navigationQueue, v17);
-
-  v16 = *MEMORY[0x277D85DE8];
+  dispatch_async(navigationQueue, v16);
 }
 
 void __59__ACCNavigationFeaturePlugin_navigation_accessoryAttached___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CE84E0]);
   v3 = [*(a1 + 32) accessoryUID];
   v4 = [v2 initWithUID:v3 keyTag:@"Navigation" features:0];
@@ -411,22 +409,20 @@ void __59__ACCNavigationFeaturePlugin_navigation_accessoryAttached___block_invok
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v11 = *(*(a1 + 40) + 40);
-      v16 = 138412290;
-      v17 = v11;
-      _os_log_impl(&dword_2335F7000, v9, OS_LOG_TYPE_INFO, "[#Navigation] Invalid _navigationShim(%@)", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v11;
+      _os_log_impl(&dword_2335F7000, v9, OS_LOG_TYPE_INFO, "[#Navigation] Invalid _navigationShim(%@)", &v15, 0xCu);
     }
   }
 
   v13 = *(*(a1 + 40) + 48);
   v14 = [v4 connectionIDObj];
   [v13 setObject:v7 forKey:v14];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)navigation:(id)navigation accessoryDetached:(id)detached
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   navigationCopy = navigation;
   detachedCopy = detached;
   if (gLogObjects)
@@ -461,109 +457,103 @@ void __59__ACCNavigationFeaturePlugin_navigation_accessoryAttached___block_invok
     iap2server = self->_iap2server;
     navigationProvider = self->_navigationProvider;
     *buf = 138413314;
-    v20 = navigationCopy;
-    v21 = 2112;
-    v22 = detachedCopy;
-    v23 = 2112;
-    v24 = navigationProvider;
-    v25 = 2112;
-    v26 = navigationShim;
-    v27 = 2112;
-    v28 = iap2server;
+    v19 = navigationCopy;
+    v20 = 2112;
+    v21 = detachedCopy;
+    v22 = 2112;
+    v23 = navigationProvider;
+    v24 = 2112;
+    v25 = navigationShim;
+    v26 = 2112;
+    v27 = iap2server;
     _os_log_impl(&dword_2335F7000, v10, OS_LOG_TYPE_DEFAULT, "[#Navigation] navigation: %@ accessoryDetached: %@, _navigationProvider=%@ _navigationShim=%@ _iap2server=%@", buf, 0x34u);
   }
 
   navigationQueue = self->_navigationQueue;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __59__ACCNavigationFeaturePlugin_navigation_accessoryDetached___block_invoke;
-  v17[3] = &unk_2789E42E8;
-  v17[4] = self;
-  v18 = detachedCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __59__ACCNavigationFeaturePlugin_navigation_accessoryDetached___block_invoke;
+  v16[3] = &unk_2789E42E8;
+  v16[4] = self;
+  v17 = detachedCopy;
   v15 = detachedCopy;
-  dispatch_async(navigationQueue, v17);
-
-  v16 = *MEMORY[0x277D85DE8];
+  dispatch_async(navigationQueue, v16);
 }
 
 void __59__ACCNavigationFeaturePlugin_navigation_accessoryDetached___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 40) && (objc_opt_respondsToSelector() & 1) != 0)
   {
     v2 = *(*(a1 + 32) + 16);
     v3 = [*(a1 + 40) accessoryUID];
-    v17 = [v2 findAccessoryForAccessoryUID:v3 andKeyTag:@"Navigation"];
+    v15 = [v2 findAccessoryForAccessoryUID:v3 andKeyTag:@"Navigation"];
 
-    v4 = v17;
-    if (v17)
+    v4 = v15;
+    if (v15)
     {
-      [v17 setContext:0];
+      [v15 setContext:0];
       v5 = *(*(a1 + 32) + 48);
-      v6 = [v17 connectionIDObj];
+      v6 = [v15 connectionIDObj];
       v7 = [v5 objectForKey:v6];
 
       [*(*(a1 + 32) + 40) accessoryDetached:v7];
       v8 = *(*(a1 + 32) + 48);
-      v9 = [v17 connectionIDObj];
+      v9 = [v15 connectionIDObj];
       [v8 removeObjectForKey:v9];
 
-      [*(*(a1 + 32) + 16) removeAccessory:v17];
+      [*(*(a1 + 32) + 16) removeAccessory:v15];
       [v7 setIap2ShimAccessory:0];
       [v7 setNavigationAccessory:0];
 
-      v4 = v17;
+      v4 = v15;
     }
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     if (gLogObjects)
     {
-      v11 = gNumLogObjects < 1;
+      v10 = gNumLogObjects < 1;
     }
 
     else
     {
-      v11 = 1;
+      v10 = 1;
     }
 
-    if (v11)
+    if (v10)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         [ACCNavigationShimAccessory create_xpc_representation];
       }
 
-      v13 = MEMORY[0x277D86220];
       v12 = MEMORY[0x277D86220];
+      v11 = MEMORY[0x277D86220];
     }
 
     else
     {
-      v13 = *gLogObjects;
+      v12 = *gLogObjects;
     }
 
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v14 = *(a1 + 40);
-      v15 = *(*(a1 + 32) + 40);
+      v13 = *(a1 + 40);
+      v14 = *(*(a1 + 32) + 40);
       *buf = 138412546;
+      v17 = v13;
+      v18 = 2112;
       v19 = v14;
-      v20 = 2112;
-      v21 = v15;
-      _os_log_impl(&dword_2335F7000, v13, OS_LOG_TYPE_INFO, "[#Navigation] Invalid accessory(%@) or _navigationShim(%@)", buf, 0x16u);
+      _os_log_impl(&dword_2335F7000, v12, OS_LOG_TYPE_INFO, "[#Navigation] Invalid accessory(%@) or _navigationShim(%@)", buf, 0x16u);
     }
-
-    v16 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)navigation:(id)navigation startRouteGuidance:(id)guidance componentList:(id)list
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   navigationCopy = navigation;
   guidanceCopy = guidance;
   listCopy = list;
@@ -599,17 +589,17 @@ void __59__ACCNavigationFeaturePlugin_navigation_accessoryDetached___block_invok
     iap2server = self->_iap2server;
     navigationProvider = self->_navigationProvider;
     *buf = 138413570;
-    v25 = navigationCopy;
-    v26 = 2112;
-    v27 = guidanceCopy;
-    v28 = 2112;
-    v29 = listCopy;
-    v30 = 2112;
-    v31 = navigationProvider;
-    v32 = 2112;
-    v33 = navigationShim;
-    v34 = 2112;
-    v35 = iap2server;
+    v24 = navigationCopy;
+    v25 = 2112;
+    v26 = guidanceCopy;
+    v27 = 2112;
+    v28 = listCopy;
+    v29 = 2112;
+    v30 = navigationProvider;
+    v31 = 2112;
+    v32 = navigationShim;
+    v33 = 2112;
+    v34 = iap2server;
     _os_log_impl(&dword_2335F7000, v13, OS_LOG_TYPE_DEFAULT, "[#Navigation] navigation: %@ startRouteGuidance: %@ componentList: %@, _navigationProvider=%@ _navigationShim=%@ _iap2server=%@", buf, 0x3Eu);
   }
 
@@ -619,78 +609,73 @@ void __59__ACCNavigationFeaturePlugin_navigation_accessoryDetached___block_invok
   block[2] = __74__ACCNavigationFeaturePlugin_navigation_startRouteGuidance_componentList___block_invoke;
   block[3] = &unk_2789E4310;
   block[4] = self;
-  v22 = guidanceCopy;
-  v23 = listCopy;
+  v21 = guidanceCopy;
+  v22 = listCopy;
   v18 = listCopy;
   v19 = guidanceCopy;
   dispatch_async(navigationQueue, block);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __74__ACCNavigationFeaturePlugin_navigation_startRouteGuidance_componentList___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 40) && (objc_opt_respondsToSelector() & 1) != 0)
   {
     v2 = *(*(a1 + 32) + 16);
     v3 = [*(a1 + 40) accessoryUID];
-    v14 = [v2 findAccessoryForAccessoryUID:v3 andKeyTag:@"Navigation"];
+    v12 = [v2 findAccessoryForAccessoryUID:v3 andKeyTag:@"Navigation"];
 
     v4 = *(*(a1 + 32) + 48);
-    v5 = [v14 connectionIDObj];
+    v5 = [v12 connectionIDObj];
     v6 = [v4 objectForKey:v5];
 
     [*(*(a1 + 32) + 40) accessoryStartRouteGuidance:v6 componentList:*(a1 + 48)];
-    v7 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     if (gLogObjects)
     {
-      v8 = gNumLogObjects < 1;
+      v7 = gNumLogObjects < 1;
     }
 
     else
     {
-      v8 = 1;
+      v7 = 1;
     }
 
-    if (v8)
+    if (v7)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         [ACCNavigationShimAccessory create_xpc_representation];
       }
 
-      v10 = MEMORY[0x277D86220];
       v9 = MEMORY[0x277D86220];
+      v8 = MEMORY[0x277D86220];
     }
 
     else
     {
-      v10 = *gLogObjects;
+      v9 = *gLogObjects;
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v11 = *(a1 + 40);
-      v12 = *(*(a1 + 32) + 40);
+      v10 = *(a1 + 40);
+      v11 = *(*(a1 + 32) + 40);
       *buf = 138412546;
+      v14 = v10;
+      v15 = 2112;
       v16 = v11;
-      v17 = 2112;
-      v18 = v12;
-      _os_log_impl(&dword_2335F7000, v10, OS_LOG_TYPE_INFO, "[#Navigation] Invalid accessory(%@) or _navigationShim(%@)", buf, 0x16u);
+      _os_log_impl(&dword_2335F7000, v9, OS_LOG_TYPE_INFO, "[#Navigation] Invalid accessory(%@) or _navigationShim(%@)", buf, 0x16u);
     }
-
-    v13 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)navigation:(id)navigation stopRouteGuidance:(id)guidance componentList:(id)list
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   navigationCopy = navigation;
   guidanceCopy = guidance;
   listCopy = list;
@@ -726,17 +711,17 @@ void __74__ACCNavigationFeaturePlugin_navigation_startRouteGuidance_componentLis
     iap2server = self->_iap2server;
     navigationProvider = self->_navigationProvider;
     *buf = 138413570;
-    v25 = navigationCopy;
-    v26 = 2112;
-    v27 = guidanceCopy;
-    v28 = 2112;
-    v29 = listCopy;
-    v30 = 2112;
-    v31 = navigationProvider;
-    v32 = 2112;
-    v33 = navigationShim;
-    v34 = 2112;
-    v35 = iap2server;
+    v24 = navigationCopy;
+    v25 = 2112;
+    v26 = guidanceCopy;
+    v27 = 2112;
+    v28 = listCopy;
+    v29 = 2112;
+    v30 = navigationProvider;
+    v31 = 2112;
+    v32 = navigationShim;
+    v33 = 2112;
+    v34 = iap2server;
     _os_log_impl(&dword_2335F7000, v13, OS_LOG_TYPE_DEFAULT, "[#Navigation] navigation: %@ startRouteGuidance: %@ componentList: %@, _navigationProvider=%@ _navigationShim=%@ _iap2server=%@", buf, 0x3Eu);
   }
 
@@ -746,72 +731,67 @@ void __74__ACCNavigationFeaturePlugin_navigation_startRouteGuidance_componentLis
   block[2] = __73__ACCNavigationFeaturePlugin_navigation_stopRouteGuidance_componentList___block_invoke;
   block[3] = &unk_2789E4310;
   block[4] = self;
-  v22 = guidanceCopy;
-  v23 = listCopy;
+  v21 = guidanceCopy;
+  v22 = listCopy;
   v18 = listCopy;
   v19 = guidanceCopy;
   dispatch_async(navigationQueue, block);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __73__ACCNavigationFeaturePlugin_navigation_stopRouteGuidance_componentList___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 40) && (objc_opt_respondsToSelector() & 1) != 0)
   {
     v2 = *(*(a1 + 32) + 16);
     v3 = [*(a1 + 40) accessoryUID];
-    v14 = [v2 findAccessoryForAccessoryUID:v3 andKeyTag:@"Navigation"];
+    v12 = [v2 findAccessoryForAccessoryUID:v3 andKeyTag:@"Navigation"];
 
     v4 = *(*(a1 + 32) + 48);
-    v5 = [v14 connectionIDObj];
+    v5 = [v12 connectionIDObj];
     v6 = [v4 objectForKey:v5];
 
     [*(*(a1 + 32) + 40) accessoryStopRouteGuidance:v6 componentList:*(a1 + 48)];
-    v7 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     if (gLogObjects)
     {
-      v8 = gNumLogObjects < 1;
+      v7 = gNumLogObjects < 1;
     }
 
     else
     {
-      v8 = 1;
+      v7 = 1;
     }
 
-    if (v8)
+    if (v7)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         [ACCNavigationShimAccessory create_xpc_representation];
       }
 
-      v10 = MEMORY[0x277D86220];
       v9 = MEMORY[0x277D86220];
+      v8 = MEMORY[0x277D86220];
     }
 
     else
     {
-      v10 = *gLogObjects;
+      v9 = *gLogObjects;
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v11 = *(a1 + 40);
-      v12 = *(*(a1 + 32) + 40);
+      v10 = *(a1 + 40);
+      v11 = *(*(a1 + 32) + 40);
       *buf = 138412546;
+      v14 = v10;
+      v15 = 2112;
       v16 = v11;
-      v17 = 2112;
-      v18 = v12;
-      _os_log_impl(&dword_2335F7000, v10, OS_LOG_TYPE_INFO, "[#Navigation] Invalid accessory(%@) or _navigationShim(%@)", buf, 0x16u);
+      _os_log_impl(&dword_2335F7000, v9, OS_LOG_TYPE_INFO, "[#Navigation] Invalid accessory(%@) or _navigationShim(%@)", buf, 0x16u);
     }
-
-    v13 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -840,10 +820,7 @@ void __73__ACCNavigationFeaturePlugin_navigation_stopRouteGuidance_componentList
 
 uint64_t __69__ACCNavigationFeaturePlugin_navigationShimAccessoryForConnectionID___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _navigationShimAccessoryForConnectionIDNoLock:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _navigationShimAccessoryForConnectionIDNoLock:*(a1 + 48)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -862,7 +839,7 @@ uint64_t __69__ACCNavigationFeaturePlugin_navigationShimAccessoryForConnectionID
 
 - (void)updateRouteGuidanceInfo:(id)info componentIdList:(id)list accessory:(id)accessory
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   listCopy = list;
   accessoryCopy = accessory;
@@ -897,46 +874,44 @@ uint64_t __69__ACCNavigationFeaturePlugin_navigationShimAccessoryForConnectionID
     navigationProvider = self->_navigationProvider;
     navigationShim = self->_navigationShim;
     *buf = 138413314;
-    v26 = infoCopy;
-    v27 = 2112;
-    v28 = listCopy;
-    v29 = 2112;
-    v30 = accessoryCopy;
-    v31 = 2112;
-    v32 = navigationProvider;
-    v33 = 2112;
-    v34 = navigationShim;
+    v25 = infoCopy;
+    v26 = 2112;
+    v27 = listCopy;
+    v28 = 2112;
+    v29 = accessoryCopy;
+    v30 = 2112;
+    v31 = navigationProvider;
+    v32 = 2112;
+    v33 = navigationShim;
     _os_log_impl(&dword_2335F7000, v13, OS_LOG_TYPE_INFO, "[#Navigation] navigation updateRouteGuidanceInfo: %@ componentIdList: %@ accessory: %@, _navigationProvider=%@ _navigationShim=%@", buf, 0x34u);
   }
 
   navigationQueue = self->_navigationQueue;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __80__ACCNavigationFeaturePlugin_updateRouteGuidanceInfo_componentIdList_accessory___block_invoke;
-  v21[3] = &unk_2789E4360;
-  v21[4] = self;
-  v22 = accessoryCopy;
-  v23 = listCopy;
-  v24 = infoCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __80__ACCNavigationFeaturePlugin_updateRouteGuidanceInfo_componentIdList_accessory___block_invoke;
+  v20[3] = &unk_2789E4360;
+  v20[4] = self;
+  v21 = accessoryCopy;
+  v22 = listCopy;
+  v23 = infoCopy;
   v17 = infoCopy;
   v18 = listCopy;
   v19 = accessoryCopy;
-  dispatch_async(navigationQueue, v21);
-
-  v20 = *MEMORY[0x277D85DE8];
+  dispatch_async(navigationQueue, v20);
 }
 
 void __80__ACCNavigationFeaturePlugin_updateRouteGuidanceInfo_componentIdList_accessory___block_invoke(void *a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (*(a1[4] + 24) && (v2 = a1[5]) != 0)
   {
     v3 = [v2 navigationAccessory];
-    v14 = v3;
+    v12 = v3;
     if (a1[6])
     {
       v4 = [v3 componentListForIdList:?];
-      v3 = v14;
+      v3 = v12;
     }
 
     else
@@ -945,8 +920,6 @@ void __80__ACCNavigationFeaturePlugin_updateRouteGuidanceInfo_componentIdList_ac
     }
 
     [v3 updateRouteGuidanceInfo:a1[7] componentList:v4];
-
-    v13 = *MEMORY[0x277D85DE8];
   }
 
   else
@@ -984,25 +957,23 @@ void __80__ACCNavigationFeaturePlugin_updateRouteGuidanceInfo_componentIdList_ac
       v10 = a1[5];
       v11 = *(a1[4] + 24);
       *buf = 138413314;
-      v16 = v8;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
       v17 = 2112;
-      v18 = v9;
+      v18 = v10;
       v19 = 2112;
-      v20 = v10;
+      v20 = v11;
       v21 = 2112;
-      v22 = v11;
-      v23 = 2112;
-      v24 = v10;
+      v22 = v10;
       _os_log_impl(&dword_2335F7000, v7, OS_LOG_TYPE_DEFAULT, "[#Navigation] navigation updateRouteGuidanceInfo: %@ componentIdList: %@ accessory: %@, skip processing, _navigationProvider(%@) or navigationShimAccessory(%@) nil", buf, 0x34u);
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)updateManeuverInfo:(id)info componentIdList:(id)list accessory:(id)accessory
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   listCopy = list;
   accessoryCopy = accessory;
@@ -1037,46 +1008,44 @@ void __80__ACCNavigationFeaturePlugin_updateRouteGuidanceInfo_componentIdList_ac
     navigationProvider = self->_navigationProvider;
     navigationShim = self->_navigationShim;
     *buf = 138413314;
-    v26 = infoCopy;
-    v27 = 2112;
-    v28 = listCopy;
-    v29 = 2112;
-    v30 = accessoryCopy;
-    v31 = 2112;
-    v32 = navigationProvider;
-    v33 = 2112;
-    v34 = navigationShim;
+    v25 = infoCopy;
+    v26 = 2112;
+    v27 = listCopy;
+    v28 = 2112;
+    v29 = accessoryCopy;
+    v30 = 2112;
+    v31 = navigationProvider;
+    v32 = 2112;
+    v33 = navigationShim;
     _os_log_impl(&dword_2335F7000, v13, OS_LOG_TYPE_INFO, "[#Navigation] navigation updateManeuverInfo: %@ componentIdList: %@ accessory: %@, _navigationProvider=%@ _navigationShim=%@", buf, 0x34u);
   }
 
   navigationQueue = self->_navigationQueue;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __75__ACCNavigationFeaturePlugin_updateManeuverInfo_componentIdList_accessory___block_invoke;
-  v21[3] = &unk_2789E4360;
-  v21[4] = self;
-  v22 = accessoryCopy;
-  v23 = listCopy;
-  v24 = infoCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __75__ACCNavigationFeaturePlugin_updateManeuverInfo_componentIdList_accessory___block_invoke;
+  v20[3] = &unk_2789E4360;
+  v20[4] = self;
+  v21 = accessoryCopy;
+  v22 = listCopy;
+  v23 = infoCopy;
   v17 = infoCopy;
   v18 = listCopy;
   v19 = accessoryCopy;
-  dispatch_async(navigationQueue, v21);
-
-  v20 = *MEMORY[0x277D85DE8];
+  dispatch_async(navigationQueue, v20);
 }
 
 void __75__ACCNavigationFeaturePlugin_updateManeuverInfo_componentIdList_accessory___block_invoke(void *a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (*(a1[4] + 24) && (v2 = a1[5]) != 0)
   {
     v3 = [v2 navigationAccessory];
-    v14 = v3;
+    v12 = v3;
     if (a1[6])
     {
       v4 = [v3 componentListForIdList:?];
-      v3 = v14;
+      v3 = v12;
     }
 
     else
@@ -1085,8 +1054,6 @@ void __75__ACCNavigationFeaturePlugin_updateManeuverInfo_componentIdList_accesso
     }
 
     [v3 updateManeuverInfo:a1[7] componentList:v4];
-
-    v13 = *MEMORY[0x277D85DE8];
   }
 
   else
@@ -1124,19 +1091,17 @@ void __75__ACCNavigationFeaturePlugin_updateManeuverInfo_componentIdList_accesso
       v10 = a1[5];
       v11 = *(a1[4] + 24);
       *buf = 138413314;
-      v16 = v8;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
       v17 = 2112;
-      v18 = v9;
+      v18 = v10;
       v19 = 2112;
-      v20 = v10;
+      v20 = v11;
       v21 = 2112;
-      v22 = v11;
-      v23 = 2112;
-      v24 = v10;
+      v22 = v10;
       _os_log_impl(&dword_2335F7000, v7, OS_LOG_TYPE_DEFAULT, "[#Navigation] navigation updateManeuverInfo: %@ componentIdList: %@ accessory: %@, skip processing, _navigationProvider(%@) or navigationShimAccessory(%@) nil", buf, 0x34u);
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -1158,22 +1123,20 @@ void __75__ACCNavigationFeaturePlugin_updateManeuverInfo_componentIdList_accesso
 
 void __59__ACCNavigationFeaturePlugin_navigation_accessoryAttached___block_invoke_cold_2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_2335F7000, a2, OS_LOG_TYPE_DEBUG, "[#Navigation] accessoryAttached: accessory=%@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_2335F7000, a2, OS_LOG_TYPE_DEBUG, "[#Navigation] accessoryAttached: accessory=%@", &v3, 0xCu);
 }
 
 void __59__ACCNavigationFeaturePlugin_navigation_accessoryAttached___block_invoke_cold_4(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_2335F7000, a2, OS_LOG_TYPE_DEBUG, "[#Navigation] accessoryAttached: call shim accessoryAttached: navigationAccessory=%@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_2335F7000, a2, OS_LOG_TYPE_DEBUG, "[#Navigation] accessoryAttached: call shim accessoryAttached: navigationAccessory=%@", &v3, 0xCu);
 }
 
 @end

@@ -2,7 +2,7 @@
 + (id)sharedInstance;
 - (BOOL)shouldScreenTimeSuppressNotificationsForBundleIdentifier:(id)identifier;
 - (SBCommunicationPolicyManager)init;
-- (uint64_t)_communicationPolicyForBundleIdentifier:(uint64_t)result;
+- (id)_communicationPolicyForBundleIdentifier:(id *)result;
 - (void)_setPoliciesByBundleIdentifier:(uint64_t)identifier;
 - (void)dealloc;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
@@ -86,7 +86,7 @@ void __79__SBCommunicationPolicyManager_observeValueForKeyPath_ofObject_change_c
 {
   identifierCopy = identifier;
   BSDispatchQueueAssertMain();
-  v5 = [(SBCommunicationPolicyManager *)self _communicationPolicyForBundleIdentifier:identifierCopy];
+  v5 = [(SBCommunicationPolicyManager *)&self->super.isa _communicationPolicyForBundleIdentifier:identifierCopy];
 
   return v5 != 0;
 }
@@ -191,11 +191,11 @@ void __79__SBCommunicationPolicyManager_observeValueForKeyPath_ofObject_change_c
   }
 }
 
-- (uint64_t)_communicationPolicyForBundleIdentifier:(uint64_t)result
+- (id)_communicationPolicyForBundleIdentifier:(id *)result
 {
   if (result)
   {
-    v2 = [*(result + 8) objectForKey:a2];
+    v2 = [result[1] objectForKey:a2];
     unsignedIntegerValue = [v2 unsignedIntegerValue];
 
     return unsignedIntegerValue;

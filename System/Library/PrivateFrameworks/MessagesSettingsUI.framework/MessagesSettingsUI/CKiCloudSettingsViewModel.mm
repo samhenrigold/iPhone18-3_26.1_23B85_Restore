@@ -50,107 +50,107 @@
   [(CKKeepMessagesPreferenceManager *)self->_keepMessagesPreferenceManager addSyncedSettingObserver:self selector:sel__syncedSettingsDidChange_ key:0];
   objc_initWeak(&location, self);
   v5 = [CKiCloudSettingsSyncController alloc];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __42__CKiCloudSettingsViewModel__internalInit__block_invoke;
-  v25[3] = &unk_2798C4AD0;
-  objc_copyWeak(&v26, &location);
-  v6 = [(CKiCloudSettingsSyncController *)v5 initWithSyncStatusHandler:v25];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __42__CKiCloudSettingsViewModel__internalInit__block_invoke;
+  v27[3] = &unk_2798C4AD0;
+  objc_copyWeak(&v28, &location);
+  v6 = [(CKiCloudSettingsSyncController *)v5 initWithSyncStatusHandler:v27];
   syncController = self->_syncController;
   self->_syncController = v6;
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
   v9 = getICQCurrentInAppMessageChangedNotificationSymbolLoc_ptr;
-  v36 = getICQCurrentInAppMessageChangedNotificationSymbolLoc_ptr;
+  v38 = getICQCurrentInAppMessageChangedNotificationSymbolLoc_ptr;
   if (!getICQCurrentInAppMessageChangedNotificationSymbolLoc_ptr)
   {
-    v28 = MEMORY[0x277D85DD0];
-    v29 = 3221225472;
-    v30 = __getICQCurrentInAppMessageChangedNotificationSymbolLoc_block_invoke;
-    v31 = &unk_2798C4908;
-    v32 = &v33;
+    v30 = MEMORY[0x277D85DD0];
+    v31 = 3221225472;
+    v32 = __getICQCurrentInAppMessageChangedNotificationSymbolLoc_block_invoke;
+    v33 = &unk_2798C4908;
+    v34 = &v35;
     v10 = iCloudQuotaUILibrary();
     v11 = dlsym(v10, "ICQCurrentInAppMessageChangedNotification");
-    *(v32[1] + 24) = v11;
-    getICQCurrentInAppMessageChangedNotificationSymbolLoc_ptr = *(v32[1] + 24);
-    v9 = v34[3];
+    *(v34[1] + 24) = v11;
+    getICQCurrentInAppMessageChangedNotificationSymbolLoc_ptr = *(v34[1] + 24);
+    v9 = v36[3];
   }
 
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v35, 8);
   if (v9)
   {
     v12 = *v9;
     mainQueue = [MEMORY[0x277CCABD8] mainQueue];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __42__CKiCloudSettingsViewModel__internalInit__block_invoke_2;
-    v23[3] = &unk_2798C4AF8;
-    objc_copyWeak(&v24, &location);
-    v14 = [defaultCenter addObserverForName:v12 object:0 queue:mainQueue usingBlock:v23];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __42__CKiCloudSettingsViewModel__internalInit__block_invoke_2;
+    v25[3] = &unk_2798C4AF8;
+    objc_copyWeak(&v26, &location);
+    v14 = [defaultCenter addObserverForName:v12 object:0 queue:mainQueue usingBlock:v25];
     iCloudMessagingObserverToken = self->_iCloudMessagingObserverToken;
     self->_iCloudMessagingObserverToken = v14;
 
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x2050000000;
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x2050000000;
     v16 = getICQInAppMessagingClass_softClass;
-    v36 = getICQInAppMessagingClass_softClass;
+    v38 = getICQInAppMessagingClass_softClass;
     if (!getICQInAppMessagingClass_softClass)
     {
-      v28 = MEMORY[0x277D85DD0];
-      v29 = 3221225472;
-      v30 = __getICQInAppMessagingClass_block_invoke;
-      v31 = &unk_2798C4908;
-      v32 = &v33;
-      __getICQInAppMessagingClass_block_invoke(&v28);
-      v16 = v34[3];
+      v30 = MEMORY[0x277D85DD0];
+      v31 = 3221225472;
+      v32 = __getICQInAppMessagingClass_block_invoke;
+      v33 = &unk_2798C4908;
+      v34 = &v35;
+      __getICQInAppMessagingClass_block_invoke(&v30);
+      v16 = v36[3];
     }
 
     v17 = v16;
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v35, 8);
     shared = [v16 shared];
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x2020000000;
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x2020000000;
     v19 = getICQUIMessagePlacementInSettingsAppDetailSymbolLoc_ptr;
-    v36 = getICQUIMessagePlacementInSettingsAppDetailSymbolLoc_ptr;
+    v38 = getICQUIMessagePlacementInSettingsAppDetailSymbolLoc_ptr;
     if (!getICQUIMessagePlacementInSettingsAppDetailSymbolLoc_ptr)
     {
-      v28 = MEMORY[0x277D85DD0];
-      v29 = 3221225472;
-      v30 = __getICQUIMessagePlacementInSettingsAppDetailSymbolLoc_block_invoke;
-      v31 = &unk_2798C4908;
-      v32 = &v33;
+      v30 = MEMORY[0x277D85DD0];
+      v31 = 3221225472;
+      v32 = __getICQUIMessagePlacementInSettingsAppDetailSymbolLoc_block_invoke;
+      v33 = &unk_2798C4908;
+      v34 = &v35;
       v20 = iCloudQuotaUILibrary();
       v21 = dlsym(v20, "ICQUIMessagePlacementInSettingsAppDetail");
-      *(v32[1] + 24) = v21;
-      getICQUIMessagePlacementInSettingsAppDetailSymbolLoc_ptr = *(v32[1] + 24);
-      v19 = v34[3];
+      *(v34[1] + 24) = v21;
+      getICQUIMessagePlacementInSettingsAppDetailSymbolLoc_ptr = *(v34[1] + 24);
+      v19 = v36[3];
     }
 
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v35, 8);
     if (v19)
     {
       v22 = *v19;
       [shared observeUpdatesForBundleID:@"com.apple.MobileSMS" placement:v22];
 
-      objc_destroyWeak(&v24);
       objc_destroyWeak(&v26);
+      objc_destroyWeak(&v28);
       objc_destroyWeak(&location);
       return;
     }
 
-    dlerror();
-    abort_report_np();
+    v24 = dlerror();
+    abort_report_np("%s", v24);
   }
 
   else
   {
-    dlerror();
-    abort_report_np();
+    v23 = dlerror();
+    abort_report_np("%s", v23);
   }
 
   __break(1u);
@@ -791,9 +791,9 @@ LABEL_11:
 
 uint64_t __42__CKiCloudSettingsViewModel__internalInit__block_invoke_2_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return __getICQInAppMessagingClass_block_invoke_cold_1(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  return __getICQInAppMessagingClass_block_invoke_cold_1();
 }
 
 @end

@@ -778,9 +778,9 @@ void __42__WXSection_chapterNumberSeparatorEnumMap__block_invoke()
   else
   {
     v96 = +[WXCommon strictTextDirectionEnumMap];
-    v97 = readEnumProperty<WDTextDirection>(properties, "textDirection", "val", v96, &v134, stateCopy);
+    Enum = readEnumProperty<WDTextDirection>(properties, "textDirection", "val", v96, &v134, stateCopy);
 
-    if (!v97)
+    if (!Enum)
     {
       goto LABEL_54;
     }

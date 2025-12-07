@@ -70,7 +70,7 @@
 
 - (BOOL)isValidFilter
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   itemIdentifiers = [(PUPickerItemIdentifiersFilter *)self itemIdentifiers];
   v3 = [itemIdentifiers count];
   if (!v3)
@@ -78,13 +78,12 @@
     v4 = PLPickerGetLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 134217984;
-      v8 = [itemIdentifiers count];
-      _os_log_impl(&dword_1D2128000, v4, OS_LOG_TYPE_ERROR, "PUPickerItemIdentifiersFilter: invalid asset identifier count: %ld", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = [itemIdentifiers count];
+      _os_log_impl(&dword_1D2128000, v4, OS_LOG_TYPE_ERROR, "PUPickerItemIdentifiersFilter: invalid asset identifier count: %ld", &v6, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v3 != 0;
 }
 

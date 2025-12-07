@@ -329,7 +329,7 @@ uint64_t __73__PSISuggestionQueryUtilities_suggestionPairingTypeForSuggestionOpt
   groupsCopy = groups;
   categoriesCopy = categories;
   indexCategoriesCopy = indexCategories;
-  if ([categoriesCopy count] || objc_msgSend(indexCategoriesCopy, "count"))
+  if (objc_msgSend_count(categoriesCopy) || objc_msgSend_count(indexCategoriesCopy))
   {
     v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v19 = 0u;
@@ -352,7 +352,7 @@ uint64_t __73__PSISuggestionQueryUtilities_suggestionPairingTypeForSuggestionOpt
           }
 
           v16 = *(*(&v19 + 1) + 8 * i);
-          if ((![categoriesCopy count] || (objc_msgSend(categoriesCopy, "containsIndex:", objc_msgSend(v16, "category")) & 1) == 0) && (!objc_msgSend(indexCategoriesCopy, "count") || objc_msgSend(indexCategoriesCopy, "containsIndex:", objc_msgSend(v16, "category"))))
+          if ((!objc_msgSend_count(categoriesCopy, v19) || ([categoriesCopy containsIndex:{objc_msgSend(v16, "category")}] & 1) == 0) && (!objc_msgSend_count(indexCategoriesCopy) || objc_msgSend(indexCategoriesCopy, "containsIndex:", objc_msgSend(v16, "category"))))
           {
             [v10 addObject:v16];
           }
@@ -380,7 +380,7 @@ uint64_t __73__PSISuggestionQueryUtilities_suggestionPairingTypeForSuggestionOpt
   v34 = *MEMORY[0x1E69E9840];
   textsCopy = texts;
   completionCopy = completion;
-  if ([textsCopy count])
+  if (objc_msgSend_count(textsCopy))
   {
     v30 = 0u;
     v31 = 0u;
@@ -423,7 +423,7 @@ uint64_t __73__PSISuggestionQueryUtilities_suggestionPairingTypeForSuggestionOpt
       v10 = 0;
     }
 
-    if ([v7 count] >= 2 && objc_msgSend(v10, "length"))
+    if (objc_msgSend_count(v7) >= 2 && [v10 length])
     {
       v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
       v24 = 0u;
@@ -446,7 +446,7 @@ uint64_t __73__PSISuggestionQueryUtilities_suggestionPairingTypeForSuggestionOpt
             }
 
             v22 = *(*(&v24 + 1) + 8 * j);
-            if (([v22 isEqualToString:{v10, v24}] & 1) == 0)
+            if ((objc_msgSend_isEqualToString_(v22, v24) & 1) == 0)
             {
               [v16 addObject:v22];
             }
@@ -562,7 +562,7 @@ void __105__PSISuggestionQueryUtilities_searchIndexCategoriesIndexSetFromPLSearc
   }
 
   v11 = [v27[5] substringWithRange:{location, length}];
-  if ([v11 isEqualToString:v27[5]])
+  if (objc_msgSend_isEqualToString_(v11))
   {
     localizedLowercaseString = [textCopy localizedLowercaseString];
     localizedLowercaseString2 = [v27[5] localizedLowercaseString];
@@ -760,9 +760,9 @@ void __86__PSISuggestionQueryUtilities_dedupedSuggestionComponentsFromSuggestion
 {
   v10[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
-    if ([v4 count] == 1)
+    if (objc_msgSend_count(v4) == 1)
     {
       [*(a1 + 32) addObjectsFromArray:v4];
     }
@@ -789,10 +789,10 @@ void __86__PSISuggestionQueryUtilities_dedupedSuggestionComponentsFromSuggestion
   componentsCopy = components;
   queryCopy = query;
   storeCopy = store;
-  v15 = [componentsCopy count];
+  v15 = objc_msgSend_count(componentsCopy);
   if (storeCopy && queryCopy && ids && v15 && location != 0x7FFFFFFFFFFFFFFFLL)
   {
-    if ([componentsCopy count])
+    if (objc_msgSend_count(componentsCopy))
     {
       v16 = [componentsCopy objectAtIndexedSubscript:0];
     }
@@ -802,7 +802,7 @@ void __86__PSISuggestionQueryUtilities_dedupedSuggestionComponentsFromSuggestion
       v16 = 0;
     }
 
-    if ([componentsCopy count] < 2)
+    if (objc_msgSend_count(componentsCopy) < 2)
     {
       v18 = 0;
     }
@@ -1138,7 +1138,7 @@ LABEL_57:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v38 = [v24 count];
+      v38 = objc_msgSend_count(v24);
       v39 = 2112;
       v40 = textCopy;
       _os_log_impl(&dword_19BF1F000, v25, OS_LOG_TYPE_DEFAULT, "Found %tu groups for suggestion text: %@.", buf, 0x16u);
@@ -1338,7 +1338,7 @@ LABEL_22:
   contentString = [generationCopy contentString];
   v13 = [contentString length];
 
-  v14 = [categoriesCopy count];
+  v14 = objc_msgSend_count(categoriesCopy);
   category = [generationCopy category];
   if (v14)
   {
@@ -1616,7 +1616,7 @@ void __91__PSISuggestionQueryUtilities_suggestionCandidatesByContentStringFromSu
 + (id)suggestionCandidatesBySuggestionCategoriesTypeFromSuggestionComponents:(id)components assetIds:(__CFArray *)ids collectionIds:(__CFArray *)collectionIds wantsSuggestionCounts:(BOOL)counts
 {
   componentsCopy = components;
-  if ([componentsCopy count])
+  if (objc_msgSend_count(componentsCopy))
   {
     v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
     v21[0] = MEMORY[0x1E69E9820];
@@ -1718,8 +1718,8 @@ void __147__PSISuggestionQueryUtilities_suggestionCandidatesBySuggestionCategori
     goto LABEL_5;
   }
 
-  v15 = [v5 count] == 1;
-  if ([v5 count] < 2)
+  v15 = objc_msgSend_count(v5) == 1;
+  if (objc_msgSend_count(v5) < 2)
   {
 LABEL_5:
     v86 = 0;

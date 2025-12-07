@@ -35,9 +35,9 @@
   serverCopy = server;
   proxyCopy = proxy;
   intentProxyCopy = intentProxy;
-  v28.receiver = self;
-  v28.super_class = _GCAgentClientProxy;
-  v15 = [(_GCAgentClientProxy *)&v28 init];
+  v30.receiver = self;
+  v30.super_class = _GCAgentClientProxy;
+  v15 = [(_GCAgentClientProxy *)&v30 init];
   v16 = v15;
   if (v15)
   {
@@ -54,7 +54,7 @@
     aBlock[2] = __84___GCAgentClientProxy__initWithConnection_server_userDefaultsProxy_gameIntentProxy___block_invoke;
     aBlock[3] = &unk_1E8418C28;
     v19 = v16;
-    v27 = v19;
+    v29 = v19;
     v20 = _Block_copy(aBlock);
     v21 = [(_GCIPCIncomingConnection *)v16->_connection addInvalidationHandler:v20];
     connectionInvalidationRegistration = v19->_connectionInvalidationRegistration;
@@ -64,7 +64,7 @@
     connectionInterruptedRegistration = v19->_connectionInterruptedRegistration;
     v19->_connectionInterruptedRegistration = v23;
 
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v25, v26))
     {
       [_GCAgentClientProxy _initWithConnection:v19 server:? userDefaultsProxy:? gameIntentProxy:?];
     }
@@ -161,16 +161,14 @@
 
 - (void)_invalidate
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = getGCLogger();
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = getGCLogger(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v4 = 138412290;
+    v3 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_INFO, "Agent client proxy invalidated: %@", &v4, 0xCu);
+    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_INFO, "Agent client proxy invalidated: %@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pingWithReply:(id)reply
@@ -257,16 +255,14 @@
 
 - (void)_initWithConnection:(uint64_t)a1 server:userDefaultsProxy:gameIntentProxy:.cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = getGCLogger();
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = getGCLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v4 = 138412290;
-    v5 = a1;
-    _os_log_debug_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_DEBUG, "Agent client proxy created: %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = a1;
+    _os_log_debug_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_DEBUG, "Agent client proxy created: %@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 @end

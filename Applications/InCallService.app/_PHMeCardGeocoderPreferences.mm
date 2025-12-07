@@ -24,9 +24,9 @@
 
 - (_PHMeCardGeocoderPreferences)init
 {
-  v13.receiver = self;
-  v13.super_class = _PHMeCardGeocoderPreferences;
-  v2 = [(_PHMeCardGeocoderPreferences *)&v13 init];
+  v15.receiver = self;
+  v15.super_class = _PHMeCardGeocoderPreferences;
+  v2 = [(_PHMeCardGeocoderPreferences *)&v15 init];
   if (v2)
   {
     v3 = [NSBundle bundleForClass:objc_opt_class()];
@@ -34,25 +34,25 @@
 
     if (v4)
     {
-      v5 = sub_100004F84();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_100004F84(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v15 = v4;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Loading default PHMeCardGeocoder preferences from file: %@", buf, 0xCu);
+        v17 = v4;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Loading default PHMeCardGeocoder preferences from file: %@", buf, 0xCu);
       }
 
-      v6 = [[NSDictionary alloc] initWithContentsOfFile:v4];
+      v7 = [[NSDictionary alloc] initWithContentsOfFile:v4];
       defaultValues = v2->_defaultValues;
-      v2->_defaultValues = v6;
+      v2->_defaultValues = v7;
 
-      v8 = sub_100004F84();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100004F84(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = v2->_defaultValues;
+        v11 = v2->_defaultValues;
         *buf = 138412290;
-        v15 = v9;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Default values = %@", buf, 0xCu);
+        v17 = v11;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Default values = %@", buf, 0xCu);
       }
     }
 
@@ -132,23 +132,24 @@
 - (void)setActivelyUsing:(BOOL)using
 {
   usingCopy = using;
-  if ([(_PHMeCardGeocoderPreferences *)self isActivelyUsing]!= using)
+  isActivelyUsing = [(_PHMeCardGeocoderPreferences *)self isActivelyUsing];
+  if (isActivelyUsing != usingCopy)
   {
-    v4 = sub_100004F84();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004F84(isActivelyUsing);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = @"NO";
+      v6 = @"NO";
       if (usingCopy)
       {
-        v5 = @"YES";
+        v6 = @"YES";
       }
 
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Setting geocoder actively used value to %@", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Setting geocoder actively used value to %@", &v8, 0xCu);
     }
 
-    v6 = [NSNumber numberWithBool:usingCopy];
+    v7 = [NSNumber numberWithBool:usingCopy];
     PHPreferencesSetValueInDomain();
   }
 }

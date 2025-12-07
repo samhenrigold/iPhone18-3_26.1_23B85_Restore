@@ -10,6 +10,8 @@
 - (void)provideNavigationDonations;
 - (void)saveConfiguration;
 - (void)setLocalNetworkEnabled:(id)enabled specifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PUINetworkController
@@ -97,9 +99,17 @@ void __28__PUINetworkController_init__block_invoke_3(uint64_t a1)
   }
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PUINetworkController;
+  [(PUINetworkController *)&v4 viewDidAppear:appear];
+  [(PUINetworkController *)self provideNavigationDonations];
+}
+
 - (void)provideNavigationDonations
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   bundleURL = [v3 bundleURL];
 
@@ -111,12 +121,10 @@ void __28__PUINetworkController_init__block_invoke_3(uint64_t a1)
   currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
   v10 = [v8 initWithKey:@"PRIVACY" table:@"Privacy" locale:currentLocale2 bundleURL:bundleURL];
 
-  v14[0] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v12 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.PrivacyAndSecurity/LOCAL_NETWORK"];
   [(PUINetworkController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.internet-sharing" title:v7 localizedNavigationComponents:v11 deepLink:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dnsConfigurationChanged:(id)changed
@@ -164,23 +172,22 @@ void __41__PUINetworkController_saveConfiguration__block_invoke(uint64_t a1, voi
 {
   v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _PUILoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _PUILoggingFacility(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
+      v6 = *(a1 + 32);
       v7 = 136446722;
       v8 = "[PUINetworkController saveConfiguration]_block_invoke";
       v9 = 2114;
-      v10 = v3;
+      v10 = v4;
       v11 = 2114;
-      v12 = v5;
-      _os_log_impl(&dword_2657FE000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: Save error %{public}@ for %{public}@", &v7, 0x20u);
+      v12 = v6;
+      _os_log_impl(&dword_2657FE000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Save error %{public}@ for %{public}@", &v7, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadConfigurationsForceRefresh:(BOOL)refresh completionHandler:(id)handler
@@ -222,50 +229,51 @@ void __73__PUINetworkController_loadConfigurationsForceRefresh_completionHandler
   v34 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _PUILoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _PUILoggingFacility(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
       v31 = "[PUINetworkController loadConfigurationsForceRefresh:completionHandler:]_block_invoke";
       v32 = 2114;
-      v33 = v6;
-      _os_log_impl(&dword_2657FE000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: Failed to load with error %{public}@", buf, 0x16u);
+      v33 = v7;
+      _os_log_impl(&dword_2657FE000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: Failed to load with error %{public}@", buf, 0x16u);
     }
   }
 
-  v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  [*(a1 + 32) setDnsConfigurations:v8];
+  v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  [*(a1 + 32) setDnsConfigurations:v9];
 
   v27 = 0u;
   v28 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v9 = v5;
-  v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
-  if (v10)
+  v10 = v5;
+  v11 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v26;
+    v12 = v11;
+    v13 = *v26;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v26 != v12)
+        if (*v26 != v13)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v25 + 1) + 8 * i);
-        v15 = [v14 name];
-        if ([v15 isEqualToString:@"com.apple.preferences.networkprivacy"])
+        v15 = *(*(&v25 + 1) + 8 * i);
+        v16 = [v15 name];
+        if ([v16 isEqualToString:@"com.apple.preferences.networkprivacy"])
         {
-          v16 = [v14 pathController];
+          v17 = [v15 pathController];
 
-          if (v16)
+          if (v17)
           {
-            [*(a1 + 32) setPathControllerConfiguration:v14];
+            [*(a1 + 32) setPathControllerConfiguration:v15];
             continue;
           }
         }
@@ -274,68 +282,66 @@ void __73__PUINetworkController_loadConfigurationsForceRefresh_completionHandler
         {
         }
 
-        v17 = [v14 dnsSettings];
-        if (v17)
+        v18 = [v15 dnsSettings];
+        if (v18)
         {
-          v18 = v17;
-          v19 = [v14 grade];
+          v19 = v18;
+          v20 = [v15 grade];
 
-          if (v19 == 2)
+          if (v20 == 2)
           {
-            v20 = [*(a1 + 32) dnsConfigurations];
-            [v20 addObject:v14];
+            v21 = [*(a1 + 32) dnsConfigurations];
+            [v21 addObject:v15];
           }
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 
-  v21 = [*(a1 + 32) dnsConfigurations];
-  v22 = [v21 count];
+  v22 = [*(a1 + 32) dnsConfigurations];
+  v23 = [v22 count];
 
-  if (v22)
+  if (v23)
   {
-    v23 = [*(a1 + 32) dnsConfigurations];
-    [v23 sortUsingFunction:compareConfigurationNames context:0];
+    v24 = [*(a1 + 32) dnsConfigurations];
+    [v24 sortUsingFunction:compareConfigurationNames context:0];
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)eligibleApplications
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
   pathControllerConfiguration = [(PUINetworkController *)self pathControllerConfiguration];
   pathController = [pathControllerConfiguration pathController];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   pathRules = [pathController pathRules];
-  v8 = [pathRules countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v8 = [pathRules countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v27;
+    v10 = *v26;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(pathRules);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
+        v12 = *(*(&v25 + 1) + 8 * i);
         if ([v12 multicastPreferenceSet])
         {
           matchSigningIdentifier = [v12 matchSigningIdentifier];
@@ -343,7 +349,7 @@ void __73__PUINetworkController_loadConfigurationsForceRefresh_completionHandler
         }
       }
 
-      v9 = [pathRules countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v9 = [pathRules countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v9);
@@ -351,14 +357,14 @@ void __73__PUINetworkController_loadConfigurationsForceRefresh_completionHandler
 
   if ([v4 count])
   {
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __44__PUINetworkController_eligibleApplications__block_invoke;
-    v23 = &unk_279BA1EE0;
-    v24 = v4;
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __44__PUINetworkController_eligibleApplications__block_invoke;
+    v22 = &unk_279BA1EE0;
+    v23 = v4;
     v14 = v3;
-    v25 = v14;
-    v15 = _Block_copy(&v20);
+    v24 = v14;
+    v15 = _Block_copy(&v19);
     defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
     [defaultWorkspace enumerateApplicationsOfType:0 block:v15];
     [defaultWorkspace enumerateApplicationsOfType:1 block:v15];
@@ -369,8 +375,6 @@ void __73__PUINetworkController_loadConfigurationsForceRefresh_completionHandler
 
     v17 = v14;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -415,42 +419,42 @@ void __44__PUINetworkController_eligibleApplications__block_invoke(uint64_t a1, 
 
 - (id)specifiers
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v23 = *MEMORY[0x277D3FC48];
+    v22 = *MEMORY[0x277D3FC48];
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
     emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
     v6 = PUI_LocalizedStringForPrivacy(@"LOCAL_NETWORK_FOOTER");
     [emptyGroupSpecifier setProperty:v6 forKey:*MEMORY[0x277D3FF88]];
 
-    v25 = v4;
-    v22 = emptyGroupSpecifier;
+    v24 = v4;
+    v21 = emptyGroupSpecifier;
     [v4 addObject:emptyGroupSpecifier];
     selfCopy = self;
     [(PUINetworkController *)self eligibleApplications];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    obj = v30 = 0u;
-    v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+    obj = v29 = 0u;
+    v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v28;
+      v9 = *v27;
       v10 = *MEMORY[0x277D40020];
       v11 = *MEMORY[0x277D40008];
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v28 != v9)
+          if (*v27 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v27 + 1) + 8 * i);
+          v13 = *(*(&v26 + 1) + 8 * i);
           bundleIdentifier = [v13 bundleIdentifier];
           v15 = MEMORY[0x277D3FAD8];
           localizedName = [v13 localizedName];
@@ -461,22 +465,20 @@ void __44__PUINetworkController_eligibleApplications__block_invoke(uint64_t a1, 
 
           [v17 setProperty:bundleIdentifier forKey:v11];
           [v17 setProperty:bundleIdentifier forKey:@"PUINetworkApplicationKey"];
-          [v25 addObject:v17];
+          [v24 addObject:v17];
         }
 
-        v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v8);
     }
 
-    v19 = *(&selfCopy->super.super.super.super.super.isa + v23);
-    *(&selfCopy->super.super.super.super.super.isa + v23) = v25;
+    v19 = *(&selfCopy->super.super.super.super.super.isa + v22);
+    *(&selfCopy->super.super.super.super.super.isa + v22) = v24;
 
-    v3 = *(&selfCopy->super.super.super.super.super.isa + v23);
+    v3 = *(&selfCopy->super.super.super.super.super.isa + v22);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -484,31 +486,31 @@ void __44__PUINetworkController_eligibleApplications__block_invoke(uint64_t a1, 
 - (id)pathRuleForBundleID:(id)d create:(BOOL)create
 {
   createCopy = create;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
   pathControllerConfiguration = [(PUINetworkController *)self pathControllerConfiguration];
   pathController = [pathControllerConfiguration pathController];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   pathRules = [pathController pathRules];
-  v10 = [pathRules countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v10 = [pathRules countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(pathRules);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v21 + 1) + 8 * i);
         matchSigningIdentifier = [v14 matchSigningIdentifier];
         v16 = [matchSigningIdentifier isEqualToString:dCopy];
 
@@ -519,7 +521,7 @@ void __44__PUINetworkController_eligibleApplications__block_invoke(uint64_t a1, 
         }
       }
 
-      v11 = [pathRules countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v11 = [pathRules countByEnumeratingWithState:&v21 objects:v26 count:16];
       if (v11)
       {
         continue;
@@ -543,8 +545,8 @@ void __44__PUINetworkController_eligibleApplications__block_invoke(uint64_t a1, 
 
     else
     {
-      v26 = v17;
-      pathRules = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+      v25 = v17;
+      pathRules = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
       [pathController setPathRules:pathRules];
     }
 
@@ -555,8 +557,6 @@ LABEL_13:
   {
     v17 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -581,6 +581,13 @@ LABEL_13:
   v6 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:{objc_msgSend(v5, "denyMulticast") ^ 1}];
 
   return v6;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = PUINetworkController;
+  [(PUINetworkController *)&v3 viewWillAppear:appear];
 }
 
 @end

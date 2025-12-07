@@ -48,8 +48,8 @@
   latestValue = [(MTRAccessControlClusterAccessControlEntryChangedEvent *)self latestValue];
   [(MTRAccessControlClusterAccessControlEntryChangedEvent *)v4 setLatestValue:latestValue];
 
-  fabricIndex = [(MTRAccessControlClusterAccessControlEntryChangedEvent *)self fabricIndex];
-  [(MTRAccessControlClusterAccessControlEntryChangedEvent *)v4 setFabricIndex:fabricIndex];
+  v9 = objc_msgSend_fabricIndex(self);
+  [(MTRAccessControlClusterAccessControlEntryChangedEvent *)v4 setFabricIndex:v9];
 
   return v4;
 }

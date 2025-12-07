@@ -16,7 +16,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_248259BD4();
+  sub_248259BD4(selfCopy);
 }
 
 - (_TtC9DashBoard20LayoutViewController)initWithNibName:(id)name bundle:(id)bundle

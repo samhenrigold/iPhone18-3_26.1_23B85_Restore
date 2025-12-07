@@ -50,11 +50,11 @@
   return v2;
 }
 
-void __41__MADVectorDatabaseManager_sharedManager__block_invoke()
+void __41__MADVectorDatabaseManager_sharedManager__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = +[MADVectorDatabaseManager sharedManager]::instance;
-  +[MADVectorDatabaseManager sharedManager]::instance = v0;
+  v2 = objc_alloc_init(objc_opt_class());
+  v3 = +[MADVectorDatabaseManager sharedManager]::instance;
+  +[MADVectorDatabaseManager sharedManager]::instance = v2;
 }
 
 - (id)sharedDatabaseWithPhotoLibrary:(id)library

@@ -18,7 +18,7 @@
     objc_storeStrong(&v9->_configuration, configuration);
     objc_storeStrong(&v10->_productIdentifier, identifier);
     [(PKPaymentCredential *)v10 setDeletable:1];
-    if ([identifierCopy isEqualToString:@"carKey"])
+    if (objc_msgSend_isEqualToString_(identifierCopy))
     {
       [(PKPaymentCredential *)v10 setCredentialType:301];
     }

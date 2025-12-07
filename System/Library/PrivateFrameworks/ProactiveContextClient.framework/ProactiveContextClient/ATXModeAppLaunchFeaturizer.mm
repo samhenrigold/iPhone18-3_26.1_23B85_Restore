@@ -143,7 +143,7 @@ void __55__ATXModeAppLaunchFeaturizer__latestAppLaunchBundleIds__block_invoke(ui
 {
   v2 = a2;
   v3 = [v2 state];
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(v3);
   v5 = v4;
   if (v3)
   {
@@ -200,7 +200,7 @@ LABEL_5:
 
 - (id)_provideFeaturesWithBundleIds:(id)ids
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
   v5 = objc_alloc_init(ATXModeFeatureSet);
   state = [(ATXModeAppLaunchFeaturizer *)self state];
@@ -233,13 +233,12 @@ LABEL_5:
       v11 = 1;
     }
 
-    [(ATXModeAppLaunchFeaturizer *)self setState:v11];
-    v12 = __atxlog_handle_modes();
+    v12 = __atxlog_handle_modes([(ATXModeAppLaunchFeaturizer *)self setState:v11]);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 134217984;
+      v14 = 134217984;
       state2 = [(ATXModeAppLaunchFeaturizer *)self state];
-      _os_log_impl(&dword_260C9F000, v12, OS_LOG_TYPE_DEFAULT, "ATXModeAppLaunchFeaturizer: Initial state: %ld", &v15, 0xCu);
+      _os_log_impl(&dword_260C9F000, v12, OS_LOG_TYPE_DEFAULT, "ATXModeAppLaunchFeaturizer: Initial state: %ld", &v14, 0xCu);
     }
   }
 
@@ -254,8 +253,6 @@ LABEL_5:
     [(ATXModeFeatureSet *)v5 setNullForFeatureType:16];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
@@ -263,8 +260,7 @@ LABEL_5:
 {
   if ([(ATXModeAppLaunchFeaturizer *)self state]== 4)
   {
-    [(ATXModeAppLaunchFeaturizer *)self setState:1];
-    v3 = __atxlog_handle_modes();
+    v3 = __atxlog_handle_modes([(ATXModeAppLaunchFeaturizer *)self setState:1]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v7 = 0;
@@ -282,8 +278,7 @@ LABEL_5:
 {
   if ([(ATXModeAppLaunchFeaturizer *)self state]== 2)
   {
-    [(ATXModeAppLaunchFeaturizer *)self setState:3];
-    v3 = __atxlog_handle_modes();
+    v3 = __atxlog_handle_modes([(ATXModeAppLaunchFeaturizer *)self setState:3]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v7 = 0;
@@ -318,35 +313,36 @@ LABEL_5:
 - (void)_processActiveApps:(id)apps
 {
   appsCopy = apps;
-  v5 = __atxlog_handle_modes();
+  v5 = __atxlog_handle_modes(appsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [ATXModeAppLaunchFeaturizer _processActiveApps:];
   }
 
   state = [(ATXModeAppLaunchFeaturizer *)self state];
-  if ([appsCopy count])
+  v7 = [appsCopy count];
+  if (v7)
   {
     expectedGenreId = [(ATXModeAppLaunchFeaturizer *)self expectedGenreId];
     additionalAllowedBundleIds = [(ATXModeAppLaunchFeaturizer *)self additionalAllowedBundleIds];
-    v9 = activeBundleForBundleIds(appsCopy, expectedGenreId, additionalAllowedBundleIds);
-    if (v9)
+    v10 = activeBundleForBundleIds(appsCopy, expectedGenreId, additionalAllowedBundleIds);
+    if (v10)
     {
-      v10 = 3;
+      v11 = 3;
     }
 
     else
     {
-      v10 = 1;
+      v11 = 1;
     }
   }
 
   else
   {
-    v10 = 1;
+    v11 = 1;
   }
 
-  if (state != v10)
+  if (state != v11)
   {
     if (state <= 1)
     {
@@ -355,16 +351,16 @@ LABEL_5:
         goto LABEL_45;
       }
 
-      if (state != 1 || v10 != 3)
+      if (state != 1 || v11 != 3)
       {
         goto LABEL_34;
       }
 
-      v14 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = __atxlog_handle_modes(v7);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        *v28 = 0;
-        _os_log_impl(&dword_260C9F000, v14, OS_LOG_TYPE_DEFAULT, "ATXModeAppLaunchFeaturizer: Entering ease in period before entering state", v28, 2u);
+        *v29 = 0;
+        _os_log_impl(&dword_260C9F000, v15, OS_LOG_TYPE_DEFAULT, "ATXModeAppLaunchFeaturizer: Entering ease in period before entering state", v29, 2u);
       }
 
       [(ATXModeAppLaunchFeaturizer *)self setState:2];
@@ -376,14 +372,14 @@ LABEL_5:
     {
       if (state == 2)
       {
-        v11 = __atxlog_handle_modes();
-        v17 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-        if (v10 != 3)
+        v12 = __atxlog_handle_modes(v7);
+        v18 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+        if (v11 != 3)
         {
-          if (v17)
+          if (v18)
           {
-            *v26 = 0;
-            _os_log_impl(&dword_260C9F000, v11, OS_LOG_TYPE_DEFAULT, "ATXModeAppLaunchFeaturizer: Going back to inactive state since user quit prematurely", v26, 2u);
+            *v27 = 0;
+            _os_log_impl(&dword_260C9F000, v12, OS_LOG_TYPE_DEFAULT, "ATXModeAppLaunchFeaturizer: Going back to inactive state since user quit prematurely", v27, 2u);
           }
 
           [(ATXModeAppLaunchFeaturizer *)self setState:1];
@@ -391,13 +387,13 @@ LABEL_5:
           goto LABEL_40;
         }
 
-        if (v17)
+        if (v18)
         {
-          v27 = 0;
-          v18 = "ATXModeAppLaunchFeaturizer: Already easing in and still not in state";
-          v19 = &v27;
+          v28 = 0;
+          v19 = "ATXModeAppLaunchFeaturizer: Already easing in and still not in state";
+          v20 = &v28;
 LABEL_43:
-          _os_log_impl(&dword_260C9F000, v11, OS_LOG_TYPE_DEFAULT, v18, v19, 2u);
+          _os_log_impl(&dword_260C9F000, v12, OS_LOG_TYPE_DEFAULT, v19, v20, 2u);
         }
 
 LABEL_44:
@@ -409,14 +405,14 @@ LABEL_44:
       {
         if (state == 4)
         {
-          v11 = __atxlog_handle_modes();
-          v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-          if (v10 == 3)
+          v12 = __atxlog_handle_modes(v7);
+          v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+          if (v11 == 3)
           {
-            if (v12)
+            if (v13)
             {
               *buf = 0;
-              _os_log_impl(&dword_260C9F000, v11, OS_LOG_TYPE_DEFAULT, "ATXModeAppLaunchFeaturizer: Going back to proper state", buf, 2u);
+              _os_log_impl(&dword_260C9F000, v12, OS_LOG_TYPE_DEFAULT, "ATXModeAppLaunchFeaturizer: Going back to proper state", buf, 2u);
             }
 
             [(ATXModeAppLaunchFeaturizer *)self setState:3];
@@ -426,11 +422,11 @@ LABEL_40:
             goto LABEL_45;
           }
 
-          if (v12)
+          if (v13)
           {
-            v23 = 0;
-            v18 = "ATXModeAppLaunchFeaturizer: Already cooling down and still not in state";
-            v19 = &v23;
+            v24 = 0;
+            v19 = "ATXModeAppLaunchFeaturizer: Already cooling down and still not in state";
+            v20 = &v24;
             goto LABEL_43;
           }
 
@@ -440,11 +436,11 @@ LABEL_40:
         goto LABEL_34;
       }
 
-      if (v10 != 1)
+      if (v11 != 1)
       {
 LABEL_34:
-        v22 = __atxlog_handle_modes();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+        v23 = __atxlog_handle_modes(v7);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
         {
           [ATXModeAppLaunchFeaturizer _processActiveApps:];
         }
@@ -452,11 +448,11 @@ LABEL_34:
         goto LABEL_45;
       }
 
-      v20 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = __atxlog_handle_modes(v7);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        *v25 = 0;
-        _os_log_impl(&dword_260C9F000, v20, OS_LOG_TYPE_DEFAULT, "ATXModeAppLaunchFeaturizer: Entering cool down period before exiting state", v25, 2u);
+        *v26 = 0;
+        _os_log_impl(&dword_260C9F000, v21, OS_LOG_TYPE_DEFAULT, "ATXModeAppLaunchFeaturizer: Entering cool down period before exiting state", v26, 2u);
       }
 
       [(ATXModeAppLaunchFeaturizer *)self setState:4];
@@ -464,13 +460,13 @@ LABEL_34:
       easeInTimerIsEnabled = self->_cooldownTimerIsEnabled;
     }
 
-    v21 = 300.0;
+    v22 = 300.0;
     if (!easeInTimerIsEnabled)
     {
-      v21 = 0.0;
+      v22 = 0.0;
     }
 
-    [(_PASSimpleCoalescingTimer *)easeInTimer runAfterDelaySeconds:1 coalescingBehavior:v21];
+    [(_PASSimpleCoalescingTimer *)easeInTimer runAfterDelaySeconds:1 coalescingBehavior:v22];
   }
 
 LABEL_45:
@@ -561,7 +557,7 @@ void __44__ATXModeAppLaunchFeaturizer_beginListening__block_invoke_3(uint64_t a1
 {
   v2 = a2;
   v3 = [v2 state];
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(v3);
   v5 = v4;
   if (v3)
   {
@@ -597,40 +593,32 @@ void __44__ATXModeAppLaunchFeaturizer_beginListening__block_invoke_3(uint64_t a1
 
 void __55__ATXModeAppLaunchFeaturizer__latestAppLaunchBundleIds__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_0_0(&dword_260C9F000, v2, v3, "ATXModeAppLaunchFeaturizer: error fetching last app launch event: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_260C9F000, v2, v3, "ATXModeAppLaunchFeaturizer: error fetching last app launch event: %@", v4, v5, v6, v7);
 }
 
 - (void)_processActiveApps:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(&dword_260C9F000, v0, OS_LOG_TYPE_DEBUG, "ATXModeAppLaunchFeaturizer: Processing active apps: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_260C9F000, v0, OS_LOG_TYPE_DEBUG, "ATXModeAppLaunchFeaturizer: Processing active apps: %@", v1, 0xCu);
 }
 
 - (void)_processActiveApps:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  v4 = 2048;
-  v5 = v0;
-  _os_log_fault_impl(&dword_260C9F000, v1, OS_LOG_TYPE_FAULT, "ATXModeAppLaunchFeaturizer: Unexpected state %ld %ld", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2048;
+  v4 = v0;
+  _os_log_fault_impl(&dword_260C9F000, v1, OS_LOG_TYPE_FAULT, "ATXModeAppLaunchFeaturizer: Unexpected state %ld %ld", v2, 0x16u);
 }
 
 void __44__ATXModeAppLaunchFeaturizer_beginListening__block_invoke_3_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_0_0(&dword_260C9F000, v2, v3, "ATXModeAppLaunchFeaturizer: error listening to app launch events: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_260C9F000, v2, v3, "ATXModeAppLaunchFeaturizer: error listening to app launch events: %@", v4, v5, v6, v7);
 }
 
 @end

@@ -4,6 +4,7 @@
 - (void)userDidAcceptWithKeyboardCamera:(id)camera;
 - (void)userDidCancelWithKeyboardCamera:(id)camera;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation VKKeyboardCameraServiceViewController
@@ -53,6 +54,22 @@
   [NSLayoutConstraint activateConstraints:v15];
 
   MSNMonitorBeginException();
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = VKKeyboardCameraServiceViewController;
+  [(VKKeyboardCameraServiceViewController *)&v6 viewWillDisappear:disappear];
+  [(VKKeyboardCameraViewController *)self->_keyboardCamera willMoveToParentViewController:0];
+  [(VKKeyboardCameraViewController *)self->_keyboardCamera removeFromParentViewController];
+  view = [(VKKeyboardCameraViewController *)self->_keyboardCamera view];
+  [view removeFromSuperview];
+
+  keyboardCamera = self->_keyboardCamera;
+  self->_keyboardCamera = 0;
+
+  MSNMonitorEndException();
 }
 
 - (void)setTextContentType:(id)type

@@ -45,7 +45,7 @@ void __47__PRAppIntentsHandshakeAction_initWithHandler___block_invoke(uint64_t a
 
   v8 = *(a1 + 32);
   v9 = [v3 objectForSetting:2];
-  v10 = [v11 auditToken];
+  v10 = objc_msgSend_auditToken(v11);
   (*(v8 + 16))(v8, v9, v10, v7);
 }
 

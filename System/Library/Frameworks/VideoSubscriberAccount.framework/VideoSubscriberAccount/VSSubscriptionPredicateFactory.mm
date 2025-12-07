@@ -34,9 +34,11 @@
 
 uint64_t __80__VSSubscriptionPredicateFactory__subscriptionSourceKindPredicateTemplateValues__block_invoke()
 {
-  _subscriptionSourceKindPredicateTemplateValues___vs_lazy_init_variable = __80__VSSubscriptionPredicateFactory__subscriptionSourceKindPredicateTemplateValues__block_invoke_2();
+  v0 = __80__VSSubscriptionPredicateFactory__subscriptionSourceKindPredicateTemplateValues__block_invoke_2();
+  v1 = _subscriptionSourceKindPredicateTemplateValues___vs_lazy_init_variable;
+  _subscriptionSourceKindPredicateTemplateValues___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id __80__VSSubscriptionPredicateFactory__subscriptionSourceKindPredicateTemplateValues__block_invoke_2()
@@ -64,9 +66,11 @@ id __80__VSSubscriptionPredicateFactory__subscriptionSourceKindPredicateTemplate
 
 uint64_t __76__VSSubscriptionPredicateFactory__subscriptionSourcePredicateTemplateValues__block_invoke()
 {
-  _subscriptionSourcePredicateTemplateValues___vs_lazy_init_variable = __76__VSSubscriptionPredicateFactory__subscriptionSourcePredicateTemplateValues__block_invoke_2();
+  v0 = __76__VSSubscriptionPredicateFactory__subscriptionSourcePredicateTemplateValues__block_invoke_2();
+  v1 = _subscriptionSourcePredicateTemplateValues___vs_lazy_init_variable;
+  _subscriptionSourcePredicateTemplateValues___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id __76__VSSubscriptionPredicateFactory__subscriptionSourcePredicateTemplateValues__block_invoke_2()
@@ -255,7 +259,7 @@ LABEL_7:
 
   else
   {
-    v5 = VSErrorLogObject();
+    v5 = VSErrorLogObject(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [VSSubscriptionPredicateFactory _predicateTemplateForSourceOfTask:v5];

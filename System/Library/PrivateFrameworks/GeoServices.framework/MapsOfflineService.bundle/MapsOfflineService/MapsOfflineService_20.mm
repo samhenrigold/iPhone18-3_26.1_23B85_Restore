@@ -9810,259 +9810,259 @@ double sub_177700(uint64_t a1)
   return result;
 }
 
-uint64_t sub_177778(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t sub_177778(uint64_t a1, uint64_t *a2, _DWORD *a3)
 {
   switch(*a3)
   {
     case 1:
-      sub_177D88();
+      sub_177D88(*(a1 + 8), a2);
     case 2:
-      sub_177E84();
+      sub_177E84(*(a1 + 8), a2);
     case 3:
-      sub_177F80();
+      sub_177F80(*(a1 + 8), a2);
     case 4:
-      sub_17807C();
+      sub_17807C(*(a1 + 8), a2);
     case 5:
-      sub_178178();
+      sub_178178(*(a1 + 8), a2);
     case 6:
-      sub_178274();
+      sub_178274(*(a1 + 8), a2);
     case 7:
-      sub_178370();
+      sub_178370(*(a1 + 8), a2);
     case 8:
-      sub_17846C();
+      sub_17846C(*(a1 + 8), a2);
     case 9:
-      sub_178568();
+      sub_178568(*(a1 + 8), a2);
     case 0xA:
-      sub_178664();
+      sub_178664(*(a1 + 8), a2);
     case 0xB:
-      sub_178760();
+      sub_178760(*(a1 + 8), a2);
     case 0xC:
-      sub_17885C();
+      sub_17885C(*(a1 + 8), a2);
     case 0xD:
-      sub_178958();
+      sub_178958(*(a1 + 8), a2);
     case 0xE:
-      sub_178A54();
+      sub_178A54(*(a1 + 8), a2);
     case 0xF:
-      sub_178B50();
+      sub_178B50(*(a1 + 8), a2);
     case 0x10:
-      sub_178C4C();
+      sub_178C4C(*(a1 + 8), a2);
     case 0x11:
-      sub_178D48();
+      sub_178D48(*(a1 + 8), a2);
     case 0x12:
-      sub_178E44();
+      sub_178E44(*(a1 + 8), a2);
     case 0x13:
-      sub_178F40();
+      sub_178F40(*(a1 + 8), a2);
     case 0x14:
-      sub_17903C();
+      sub_17903C(*(a1 + 8), a2);
     case 0x15:
-      sub_179138();
+      sub_179138(*(a1 + 8), a2);
     case 0x16:
-      sub_179234();
+      sub_179234(*(a1 + 8), a2);
     case 0x17:
-      sub_179330();
+      sub_179330(*(a1 + 8), a2);
     case 0x18:
-      sub_17942C();
+      sub_17942C(*(a1 + 8), a2);
     case 0x19:
-      sub_179528();
+      sub_179528(*(a1 + 8), a2);
     case 0x1A:
-      sub_179624();
+      sub_179624(*(a1 + 8), a2);
     case 0x1B:
-      sub_179720();
+      sub_179720(*(a1 + 8), a2);
     case 0x1C:
-      sub_17981C();
+      sub_17981C(*(a1 + 8), a2);
     case 0x1D:
-      sub_179918();
+      sub_179918(*(a1 + 8), a2);
     case 0x1E:
-      sub_179A14();
+      sub_179A14(*(a1 + 8), a2);
     case 0x1F:
-      sub_179B10();
+      sub_179B10(*(a1 + 8), a2);
     case 0x20:
-      sub_179C0C();
+      sub_179C0C(*(a1 + 8), a2);
     case 0x21:
-      sub_179D08();
+      sub_179D08(*(a1 + 8), a2);
     case 0x22:
-      sub_179E04();
+      sub_179E04(*(a1 + 8), a2);
     case 0x23:
-      sub_179F00();
+      sub_179F00(*(a1 + 8), a2);
     case 0x24:
-      sub_179FFC();
+      sub_179FFC(*(a1 + 8), a2);
     case 0x25:
-      sub_17A0F8();
+      sub_17A0F8(*(a1 + 8), a2);
     case 0x26:
-      sub_17A1F4();
+      sub_17A1F4(*(a1 + 8), a2);
     case 0x27:
-      sub_17A2F0();
+      sub_17A2F0(*(a1 + 8), a2);
     case 0x28:
-      sub_17A3EC();
+      sub_17A3EC(*(a1 + 8), a2);
     case 0x29:
-      sub_17A4E8();
+      sub_17A4E8(*(a1 + 8), a2);
     case 0x2A:
-      sub_17A5E4();
+      sub_17A5E4(*(a1 + 8), a2);
     case 0x2B:
-      sub_17A6E0();
+      sub_17A6E0(*(a1 + 8), a2);
     case 0x2C:
-      sub_17A7DC();
+      sub_17A7DC(*(a1 + 8), a2);
     case 0x2D:
-      sub_17A8D8();
+      sub_17A8D8(*(a1 + 8), a2);
     case 0x2E:
-      sub_17A9D4();
+      sub_17A9D4(*(a1 + 8), a2);
     case 0x2F:
-      sub_17AAD0();
+      sub_17AAD0(*(a1 + 8), a2);
     case 0x30:
-      sub_17ABCC();
+      sub_17ABCC(*(a1 + 8), a2);
     case 0x31:
-      sub_17ACC8();
+      sub_17ACC8(*(a1 + 8), a2);
     case 0x32:
-      sub_17ADC4();
+      sub_17ADC4(*(a1 + 8), a2);
     case 0x33:
-      sub_17AEC0();
+      sub_17AEC0(*(a1 + 8), a2);
     case 0x34:
-      sub_17AFBC();
+      sub_17AFBC(*(a1 + 8), a2);
     case 0x35:
-      sub_17B0B8();
+      sub_17B0B8(*(a1 + 8), a2);
     case 0x36:
-      sub_17B1B4();
+      sub_17B1B4(*(a1 + 8), a2);
     case 0x37:
-      sub_17B2B0();
+      sub_17B2B0(*(a1 + 8), a2);
     case 0x38:
-      sub_17B3AC();
+      sub_17B3AC(*(a1 + 8), a2);
     case 0x39:
-      sub_17B4A8();
+      sub_17B4A8(*(a1 + 8), a2);
     case 0x3A:
-      sub_17B5A4();
+      sub_17B5A4(*(a1 + 8), a2);
     case 0x3B:
-      sub_17B6A0();
+      sub_17B6A0(*(a1 + 8), a2);
     case 0x3C:
-      sub_17B79C();
+      sub_17B79C(*(a1 + 8), a2);
     default:
       return 0;
   }
 }
 
-uint64_t sub_177A80(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t sub_177A80(uint64_t a1, uint64_t *a2, _DWORD *a3)
 {
   switch(*a3)
   {
     case 1:
-      sub_181280();
+      sub_181280(*(a1 + 8), a2);
     case 2:
-      sub_18137C();
+      sub_18137C(*(a1 + 8), a2);
     case 3:
-      sub_181478();
+      sub_181478(*(a1 + 8), a2);
     case 4:
-      sub_181574();
+      sub_181574(*(a1 + 8), a2);
     case 5:
-      sub_181670();
+      sub_181670(*(a1 + 8), a2);
     case 6:
-      sub_18176C();
+      sub_18176C(*(a1 + 8), a2);
     case 7:
-      sub_181868();
+      sub_181868(*(a1 + 8), a2);
     case 8:
-      sub_181964();
+      sub_181964(*(a1 + 8), a2);
     case 9:
-      sub_181A60();
+      sub_181A60(*(a1 + 8), a2);
     case 0xA:
-      sub_181B5C();
+      sub_181B5C(*(a1 + 8), a2);
     case 0xB:
-      sub_181C58();
+      sub_181C58(*(a1 + 8), a2);
     case 0xC:
-      sub_181D54();
+      sub_181D54(*(a1 + 8), a2);
     case 0xD:
-      sub_181E50();
+      sub_181E50(*(a1 + 8), a2);
     case 0xE:
-      sub_181F4C();
+      sub_181F4C(*(a1 + 8), a2);
     case 0xF:
-      sub_182048();
+      sub_182048(*(a1 + 8), a2);
     case 0x10:
-      sub_182144();
+      sub_182144(*(a1 + 8), a2);
     case 0x11:
-      sub_182240();
+      sub_182240(*(a1 + 8), a2);
     case 0x12:
-      sub_18233C();
+      sub_18233C(*(a1 + 8), a2);
     case 0x13:
-      sub_182438();
+      sub_182438(*(a1 + 8), a2);
     case 0x14:
-      sub_182534();
+      sub_182534(*(a1 + 8), a2);
     case 0x15:
-      sub_182630();
+      sub_182630(*(a1 + 8), a2);
     case 0x16:
-      sub_18272C();
+      sub_18272C(*(a1 + 8), a2);
     case 0x17:
-      sub_182828();
+      sub_182828(*(a1 + 8), a2);
     case 0x18:
-      sub_182924();
+      sub_182924(*(a1 + 8), a2);
     case 0x19:
-      sub_182A20();
+      sub_182A20(*(a1 + 8), a2);
     case 0x1A:
-      sub_182B1C();
+      sub_182B1C(*(a1 + 8), a2);
     case 0x1B:
-      sub_182C18();
+      sub_182C18(*(a1 + 8), a2);
     case 0x1C:
-      sub_182D14();
+      sub_182D14(*(a1 + 8), a2);
     case 0x1D:
-      sub_182E10();
+      sub_182E10(*(a1 + 8), a2);
     case 0x1E:
-      sub_182F0C();
+      sub_182F0C(*(a1 + 8), a2);
     case 0x1F:
-      sub_183008();
+      sub_183008(*(a1 + 8), a2);
     case 0x20:
-      sub_183104();
+      sub_183104(*(a1 + 8), a2);
     case 0x21:
-      sub_183200();
+      sub_183200(*(a1 + 8), a2);
     case 0x22:
-      sub_1832FC();
+      sub_1832FC(*(a1 + 8), a2);
     case 0x23:
-      sub_1833F8();
+      sub_1833F8(*(a1 + 8), a2);
     case 0x24:
-      sub_1834F4();
+      sub_1834F4(*(a1 + 8), a2);
     case 0x25:
-      sub_1835F0();
+      sub_1835F0(*(a1 + 8), a2);
     case 0x26:
-      sub_1836EC();
+      sub_1836EC(*(a1 + 8), a2);
     case 0x27:
-      sub_1837E8();
+      sub_1837E8(*(a1 + 8), a2);
     case 0x28:
-      sub_1838E4();
+      sub_1838E4(*(a1 + 8), a2);
     case 0x29:
-      sub_1839E0();
+      sub_1839E0(*(a1 + 8), a2);
     case 0x2A:
-      sub_183ADC();
+      sub_183ADC(*(a1 + 8), a2);
     case 0x2B:
-      sub_183BD8();
+      sub_183BD8(*(a1 + 8), a2);
     case 0x2C:
-      sub_183CD4();
+      sub_183CD4(*(a1 + 8), a2);
     case 0x2D:
-      sub_183DD0();
+      sub_183DD0(*(a1 + 8), a2);
     case 0x2E:
-      sub_183ECC();
+      sub_183ECC(*(a1 + 8), a2);
     case 0x2F:
-      sub_183FC8();
+      sub_183FC8(*(a1 + 8), a2);
     case 0x30:
-      sub_1840C4();
+      sub_1840C4(*(a1 + 8), a2);
     case 0x31:
-      sub_1841C0();
+      sub_1841C0(*(a1 + 8), a2);
     case 0x32:
-      sub_1842BC();
+      sub_1842BC(*(a1 + 8), a2);
     case 0x33:
-      sub_1843B8();
+      sub_1843B8(*(a1 + 8), a2);
     case 0x34:
-      sub_1844B4();
+      sub_1844B4(*(a1 + 8), a2);
     case 0x35:
-      sub_1845B0();
+      sub_1845B0(*(a1 + 8), a2);
     case 0x36:
-      sub_1846AC();
+      sub_1846AC(*(a1 + 8), a2);
     case 0x37:
-      sub_1847A8();
+      sub_1847A8(*(a1 + 8), a2);
     case 0x38:
-      sub_1848A4();
+      sub_1848A4(*(a1 + 8), a2);
     case 0x39:
-      sub_1849A0();
+      sub_1849A0(*(a1 + 8), a2);
     case 0x3A:
-      sub_184A9C();
+      sub_184A9C(*(a1 + 8), a2);
     case 0x3B:
-      sub_184B98();
+      sub_184B98(*(a1 + 8), a2);
     case 0x3C:
-      sub_184C94();
+      sub_184C94(*(a1 + 8), a2);
     default:
       return 0;
   }

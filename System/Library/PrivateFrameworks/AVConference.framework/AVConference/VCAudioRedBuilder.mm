@@ -316,7 +316,7 @@ LABEL_56:
 
 LABEL_58:
   v39 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"Max RED payload size overflow. outputPayloadBufferLength=%ld, lastRedPayloadBufferLength=%d, maxPayloadLength=%zu, remainingLength=%d", v14 - self->_redPayloadToSend.buffer, v31, 1472, v16);
-  VCTerminateProcess(v39, @"VCAudioRedBuilder", 0);
+  VCTerminateProcess(v39, @"VCAudioRedBuilder", 0, 1);
   if (v39)
   {
     CFRelease(v39);
@@ -1065,10 +1065,10 @@ LABEL_33:
 
 - (VCAudioRedBuilder)initWithRedPayloadType:(int)type sampleRate:(unsigned int)rate samplesPerFrame:(unsigned int)frame numPayloads:(unsigned int)payloads maxDelay:(unsigned int)delay includeSequenceOffset:(BOOL)offset
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v23.receiver = self;
-  v23.super_class = VCAudioRedBuilder;
-  v14 = [(VCAudioRedBuilder *)&v23 init];
+  v26 = *MEMORY[0x1E69E9840];
+  v25.receiver = self;
+  v25.super_class = VCAudioRedBuilder;
+  v14 = [(VCAudioRedBuilder *)&v25 init];
   v15 = v14;
   if (v14)
   {
@@ -1091,26 +1091,27 @@ LABEL_33:
     v14->_maxREDPayloadSize = 1280;
     v17 = 1;
     v14->_historyCount = 1;
-    v14->_selectedRedPayloads = [objc_alloc(MEMORY[0x1E696AE08]) initWithOptions:258];
-    v18 = VCFeatureFlagManager_UseShortREDWithACC24();
-    v19 = v18;
-    if (v18)
+    v18 = [objc_alloc(MEMORY[0x1E696AE08]) initWithOptions:258];
+    v15->_selectedRedPayloads = v18;
+    v20 = VCFeatureFlagManager_UseShortREDWithACC24(v18, v19);
+    v21 = v20;
+    if (v20)
     {
       v17 = 2;
     }
 
     for (i = 360; ; i += 344)
     {
-      v21 = malloc_type_calloc(9uLL, 0x5C0uLL, 0x737C9F51uLL);
-      *(&v15->super.isa + i) = v21;
-      if (!v21)
+      v23 = malloc_type_calloc(9uLL, 0x5C0uLL, 0x737C9F51uLL);
+      *(&v15->super.isa + i) = v23;
+      if (!v23)
       {
         break;
       }
 
       if (!--v17)
       {
-        if ((v19 & 1) == 0)
+        if ((v21 & 1) == 0)
         {
           v15->_history[1].payloadBufferHistory = 0;
         }
@@ -1328,7 +1329,7 @@ LABEL_33:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCAudioRedBuilder [%s] %s:%d Failed to allocate red payload buffer history", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCAudioRedBuilder [%s] %s:%d Failed to allocate red payload buffer history", v2, v3, v4, v5);
 }
 
 @end

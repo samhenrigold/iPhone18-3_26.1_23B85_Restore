@@ -85,8 +85,8 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v13[3] = *MEMORY[0x277D85DE8];
-  v12[0] = @"image";
+  v12[3] = *MEMORY[0x277D85DE8];
+  v11[0] = @"image";
   image = [(CAFUserVisibleDetailedDescription *)self image];
   null = image;
   if (!image)
@@ -94,8 +94,8 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"languageCode";
+  v12[0] = null;
+  v11[1] = @"languageCode";
   languageCode = [(CAFUserVisibleDetailedDescription *)self languageCode];
   null2 = languageCode;
   if (!languageCode)
@@ -103,8 +103,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"text";
+  v12[1] = null2;
+  v11[2] = @"text";
   text = [(CAFUserVisibleDetailedDescription *)self text];
   null3 = text;
   if (!text)
@@ -112,8 +112,8 @@
     null3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v13[2] = null3;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = null3;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
   if (!text)
   {
   }
@@ -125,8 +125,6 @@
   if (!image)
   {
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

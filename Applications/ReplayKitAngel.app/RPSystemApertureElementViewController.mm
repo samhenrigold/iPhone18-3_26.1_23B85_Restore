@@ -149,21 +149,20 @@
 
 - (NSString)associatedAppBundleIdentifier
 {
-  v2 = (self + OBJC_IVAR____TtC14ReplayKitAngel37RPSystemApertureElementViewController_associatedAppBundleIdentifier);
+  v2 = self + OBJC_IVAR____TtC14ReplayKitAngel37RPSystemApertureElementViewController_associatedAppBundleIdentifier;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = String._bridgeToObjectiveC()();
+    v3 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)setAssociatedAppBundleIdentifier:(id)identifier
@@ -182,15 +181,14 @@
 
   v7 = (self + OBJC_IVAR____TtC14ReplayKitAngel37RPSystemApertureElementViewController_associatedAppBundleIdentifier);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
 
 - (NSURL)launchURL
 {
-  v3 = (*(*(sub_10000B62C(&qword_100068DF0, qword_100047E90) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v3 = sub_10000B62C(&qword_100068DF0, qword_100047E90);
+  __chkstk_darwin(v3 - 8);
   v5 = &v14 - v4;
   v6 = OBJC_IVAR____TtC14ReplayKitAngel37RPSystemApertureElementViewController_launchURL;
   swift_beginAccess();
@@ -212,8 +210,8 @@
 
 - (void)setLaunchURL:(id)l
 {
-  v5 = (*(*(sub_10000B62C(&qword_100068DF0, qword_100047E90) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v5 = sub_10000B62C(&qword_100068DF0, qword_100047E90);
+  __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   if (l)
   {
@@ -271,27 +269,26 @@
 {
   v7 = type metadata accessor for URL();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   __chkstk_darwin(v7);
-  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   if (identifier)
   {
-    v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    identifier = v13;
+    v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    identifier = v12;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v16 = v15;
+  v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v15 = v14;
   selfCopy = self;
-  sub_100022D48(v11, v12, identifier, v14, v16);
+  sub_100022D48(v10, v11, identifier, v13, v15);
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (void)startRecording

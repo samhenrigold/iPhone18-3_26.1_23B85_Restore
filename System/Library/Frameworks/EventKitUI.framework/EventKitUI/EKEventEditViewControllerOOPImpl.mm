@@ -43,12 +43,12 @@
 
 - (CGSize)preferredContentSize
 {
-  v2 = EKUIContainedControllerIdealWidth();
+  EKUIContainedControllerIdealWidth();
   EKUIContainedControllerIdealHeight();
 
-  v4 = CGSizeMake(v3, v2);
-  result.height = v5;
-  result.width = v4;
+  CGSizeMake();
+  result.height = v3;
+  result.width = v2;
   return result;
 }
 

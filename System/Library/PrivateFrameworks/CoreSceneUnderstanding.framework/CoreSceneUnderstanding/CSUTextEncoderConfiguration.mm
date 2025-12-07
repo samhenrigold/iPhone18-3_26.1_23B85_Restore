@@ -193,7 +193,7 @@ LABEL_20:
 {
   if ((self->_revision - 11) <= 1)
   {
-    v3 = sub_1AC090E50();
+    v3 = sub_1AC090E50(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1AC11F8DC();
@@ -208,7 +208,7 @@ LABEL_20:
   self->_contextLength = length;
   if (self->_systemSearchTextEncoderConfig)
   {
-    v5 = sub_1AC090E50();
+    v5 = sub_1AC090E50(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AC11F910();
@@ -220,45 +220,45 @@ LABEL_20:
     textEncoderE5MLConfig = self->_textEncoderE5MLConfig;
     if (textEncoderE5MLConfig)
     {
-      objc_msgSend_setContextLength_(textEncoderE5MLConfig, a2, length, v3, v4);
+      v8 = objc_msgSend_setContextLength_(textEncoderE5MLConfig, a2, length, v3, v4);
       revision = self->_revision;
       if (revision == 11)
       {
         contextLength = self->_contextLength;
-        v10 = sub_1AC090E50();
-        v11 = v10;
+        v11 = sub_1AC090E50(v8);
+        v12 = v11;
         if (contextLength == 512)
         {
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
           {
-            *v41 = 0;
-            _os_log_impl(&dword_1AC05D000, v11, OS_LOG_TYPE_INFO, "Setting e5Function to be used as main_ctx_512", v41, 2u);
+            *v42 = 0;
+            _os_log_impl(&dword_1AC05D000, v12, OS_LOG_TYPE_INFO, "Setting e5Function to be used as main_ctx_512", v42, 2u);
           }
 
-          objc_msgSend_setE5function_(self->_textEncoderE5MLConfig, v15, @"main_ctx_512", v16, v17);
+          v8 = objc_msgSend_setE5function_(self->_textEncoderE5MLConfig, v16, @"main_ctx_512", v17, v18);
         }
 
         else if (contextLength == 77)
         {
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_1AC05D000, v11, OS_LOG_TYPE_INFO, "Setting e5Function to be used as main_ctx_77", buf, 2u);
+            _os_log_impl(&dword_1AC05D000, v12, OS_LOG_TYPE_INFO, "Setting e5Function to be used as main_ctx_77", buf, 2u);
           }
 
-          objc_msgSend_setE5function_(self->_textEncoderE5MLConfig, v12, @"main_ctx_77", v13, v14);
+          v8 = objc_msgSend_setE5function_(self->_textEncoderE5MLConfig, v13, @"main_ctx_77", v14, v15);
         }
 
         else
         {
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             sub_1AC11F944();
           }
 
-          objc_msgSend_setE5function_(self->_textEncoderE5MLConfig, v18, @"main_ctx_77", v19, v20);
+          objc_msgSend_setE5function_(self->_textEncoderE5MLConfig, v19, @"main_ctx_77", v20, v21);
           self->_contextLength = 77;
-          objc_msgSend_setContextLength_(self->_textEncoderE5MLConfig, v21, 77, v22, v23);
+          v8 = objc_msgSend_setContextLength_(self->_textEncoderE5MLConfig, v22, 77, v23, v24);
         }
 
         revision = self->_revision;
@@ -266,41 +266,41 @@ LABEL_20:
 
       if (revision == 12)
       {
-        v24 = self->_contextLength;
-        v25 = sub_1AC090E50();
-        v26 = v25;
-        if (v24 == 128)
+        v25 = self->_contextLength;
+        v26 = sub_1AC090E50(v8);
+        v27 = v26;
+        if (v25 == 128)
         {
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
-          {
-            *v39 = 0;
-            _os_log_impl(&dword_1AC05D000, v26, OS_LOG_TYPE_INFO, "Setting e5Function to be used as main_ctx_128", v39, 2u);
-          }
-
-          objc_msgSend_setE5function_(self->_textEncoderE5MLConfig, v30, @"main_ctx_128", v31, v32);
-        }
-
-        else if (v24 == 77)
-        {
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
           {
             *v40 = 0;
-            _os_log_impl(&dword_1AC05D000, v26, OS_LOG_TYPE_INFO, "Setting e5Function to be used as main_ctx_77", v40, 2u);
+            _os_log_impl(&dword_1AC05D000, v27, OS_LOG_TYPE_INFO, "Setting e5Function to be used as main_ctx_128", v40, 2u);
           }
 
-          objc_msgSend_setE5function_(self->_textEncoderE5MLConfig, v27, @"main_ctx_77", v28, v29);
+          objc_msgSend_setE5function_(self->_textEncoderE5MLConfig, v31, @"main_ctx_128", v32, v33);
+        }
+
+        else if (v25 == 77)
+        {
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+          {
+            *v41 = 0;
+            _os_log_impl(&dword_1AC05D000, v27, OS_LOG_TYPE_INFO, "Setting e5Function to be used as main_ctx_77", v41, 2u);
+          }
+
+          objc_msgSend_setE5function_(self->_textEncoderE5MLConfig, v28, @"main_ctx_77", v29, v30);
         }
 
         else
         {
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             sub_1AC11F978();
           }
 
-          objc_msgSend_setE5function_(self->_textEncoderE5MLConfig, v33, @"main_ctx_128", v34, v35);
+          objc_msgSend_setE5function_(self->_textEncoderE5MLConfig, v34, @"main_ctx_128", v35, v36);
           self->_contextLength = 128;
-          objc_msgSend_setContextLength_(self->_textEncoderE5MLConfig, v36, 128, v37, v38);
+          objc_msgSend_setContextLength_(self->_textEncoderE5MLConfig, v37, 128, v38, v39);
         }
       }
     }

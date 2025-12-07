@@ -54,53 +54,54 @@ void __49__ATXDefaultWidgetSuggesterServer_sharedInstance__block_invoke()
   connectionCopy = connection;
   v6 = *MEMORY[0x277CEBA80];
   v7 = [connectionCopy valueForEntitlement:*MEMORY[0x277CEBA80]];
-  if (v7 && (objc_opt_respondsToSelector() & 1) != 0 && ([v7 BOOLValue] & 1) != 0)
+  v8 = v7;
+  if (v7 && (v7 = objc_opt_respondsToSelector(), (v7 & 1) != 0) && (v7 = [v8 BOOLValue], (v7 & 1) != 0))
   {
-    v8 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = __atxlog_handle_home_screen(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [(ATXDefaultWidgetSuggesterServer *)v8 listener:v9 shouldAcceptNewConnection:v10, v11, v12, v13, v14, v15];
+      [(ATXDefaultWidgetSuggesterServer *)v9 listener:v10 shouldAcceptNewConnection:v11, v12, v13, v14, v15, v16];
     }
 
-    v16 = ATXDefaultWidgetSuggesterInterface();
-    [connectionCopy setExportedInterface:v16];
+    v17 = ATXDefaultWidgetSuggesterInterface();
+    [connectionCopy setExportedInterface:v17];
 
     [connectionCopy setExportedObject:self];
     [connectionCopy setInterruptionHandler:&__block_literal_global_21_5];
     [connectionCopy setInvalidationHandler:&__block_literal_global_24_4];
     [connectionCopy resume];
-    v17 = 1;
+    v18 = 1;
   }
 
   else
   {
-    v18 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = __atxlog_handle_home_screen(v7);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [(ATXNotificationDigestRankerServer *)connectionCopy listener:v6 shouldAcceptNewConnection:v18];
+      [(ATXNotificationDigestRankerServer *)connectionCopy listener:v6 shouldAcceptNewConnection:v19];
     }
 
-    v17 = 0;
+    v18 = 0;
   }
 
-  return v17;
+  return v18;
 }
 
-void __70__ATXDefaultWidgetSuggesterServer_listener_shouldAcceptNewConnection___block_invoke()
+void __70__ATXDefaultWidgetSuggesterServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = __atxlog_handle_home_screen(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __70__ATXDefaultWidgetSuggesterServer_listener_shouldAcceptNewConnection___block_invoke_cold_1(v0, v1, v2, v3, v4, v5, v6, v7);
+    __70__ATXDefaultWidgetSuggesterServer_listener_shouldAcceptNewConnection___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
   }
 }
 
-void __70__ATXDefaultWidgetSuggesterServer_listener_shouldAcceptNewConnection___block_invoke_22()
+void __70__ATXDefaultWidgetSuggesterServer_listener_shouldAcceptNewConnection___block_invoke_22(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = __atxlog_handle_home_screen(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __70__ATXDefaultWidgetSuggesterServer_listener_shouldAcceptNewConnection___block_invoke_22_cold_1(v0, v1, v2, v3, v4, v5, v6, v7);
+    __70__ATXDefaultWidgetSuggesterServer_listener_shouldAcceptNewConnection___block_invoke_22_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
   }
 }
 

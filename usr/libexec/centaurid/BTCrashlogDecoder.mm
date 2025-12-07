@@ -340,27 +340,27 @@ LABEL_10:
     v16 = 0;
     v15 = 0;
 LABEL_14:
-    v18 = 0;
+    v19 = 0;
     goto LABEL_5;
   }
 
   v14 = [v12 objectForKeyedSubscript:sectionCopy];
   if (!v14)
   {
-    v21 = sub_100025204();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = sub_100025204(0);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v23 = [objc_opt_class() description];
-      v24 = NSStringFromSelector(a2);
-      v27 = 138544130;
-      v28 = v23;
-      v29 = 2114;
-      v30 = v24;
-      v31 = 2112;
-      v32 = sectionCopy;
-      v33 = 2112;
-      v34 = coreCopy;
-      _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: unsupported section %@ for core %@", &v27, 0x2Au);
+      v24 = [objc_opt_class() description];
+      v25 = NSStringFromSelector(a2);
+      v28 = 138544130;
+      v29 = v24;
+      v30 = 2114;
+      v31 = v25;
+      v32 = 2112;
+      v33 = sectionCopy;
+      v34 = 2112;
+      v35 = coreCopy;
+      _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: unsupported section %@ for core %@", &v28, 0x2Au);
     }
 
     goto LABEL_10;
@@ -369,36 +369,37 @@ LABEL_14:
   v15 = v14;
   v16 = [v14 objectForKeyedSubscript:@"size"];
   v17 = [dataCopy length];
-  if (v17 < [v16 unsignedIntegerValue])
+  unsignedIntegerValue = [v16 unsignedIntegerValue];
+  if (v17 < unsignedIntegerValue)
   {
-    v22 = sub_100025204();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = sub_100025204(unsignedIntegerValue);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v25 = [objc_opt_class() description];
-      v26 = NSStringFromSelector(a2);
-      v27 = 138544642;
-      v28 = v25;
-      v29 = 2114;
-      v30 = v26;
-      v31 = 2048;
-      v32 = [dataCopy length];
-      v33 = 2112;
-      v34 = coreCopy;
-      v35 = 2112;
-      v36 = sectionCopy;
-      v37 = 2048;
-      unsignedIntegerValue = [v16 unsignedIntegerValue];
-      _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: unexpected size %lu for %@:%@, expected %lu", &v27, 0x3Eu);
+      v26 = [objc_opt_class() description];
+      v27 = NSStringFromSelector(a2);
+      v28 = 138544642;
+      v29 = v26;
+      v30 = 2114;
+      v31 = v27;
+      v32 = 2048;
+      v33 = [dataCopy length];
+      v34 = 2112;
+      v35 = coreCopy;
+      v36 = 2112;
+      v37 = sectionCopy;
+      v38 = 2048;
+      unsignedIntegerValue2 = [v16 unsignedIntegerValue];
+      _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: unexpected size %lu for %@:%@, expected %lu", &v28, 0x3Eu);
     }
 
     goto LABEL_14;
   }
 
-  v18 = [(BTCrashlogDecoder *)self decodeData:dataCopy withSchema:v15];
+  v19 = [(BTCrashlogDecoder *)self decodeData:dataCopy withSchema:v15];
 LABEL_5:
-  v19 = v18;
+  v20 = v19;
 
-  return v18;
+  return v19;
 }
 
 @end

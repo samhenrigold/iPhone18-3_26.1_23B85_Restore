@@ -244,7 +244,7 @@ LABEL_9:
 
 - (int64_t)checkedIndications
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [SUCoreErrorInformation allIndicationsForError:self];
   checkedDepthCount = [self checkedDepthCount];
   if (checkedDepthCount >= 1)
@@ -264,7 +264,7 @@ LABEL_9:
 
       if (!v5)
       {
-        goto LABEL_9;
+        return v2;
       }
     }
 
@@ -274,18 +274,16 @@ LABEL_9:
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
       checkedDescription = [self checkedDescription];
-      v12[0] = 67109634;
-      v12[1] = v4;
-      v13 = 1024;
-      v14 = v5;
-      v15 = 2114;
-      v16 = checkedDescription;
-      _os_log_error_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_ERROR, "[CORE_ERROR] {checkedIndications} error with depthCount=%d yet no stack-error at checked depth(%d) | cannot determine if generic failure for error: %{public}@", v12, 0x18u);
+      v11[0] = 67109634;
+      v11[1] = v4;
+      v12 = 1024;
+      v13 = v5;
+      v14 = 2114;
+      v15 = checkedDescription;
+      _os_log_error_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_ERROR, "[CORE_ERROR] {checkedIndications} error with depthCount=%d yet no stack-error at checked depth(%d) | cannot determine if generic failure for error: %{public}@", v11, 0x18u);
     }
   }
 
-LABEL_9:
-  v9 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -372,7 +370,7 @@ LABEL_9:
 
 - (int64_t)checkedIndicationsMatchingMask:()SUCoreError
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = [SUCoreErrorInformation indicationsForError:self matchingMask:a3];
   checkedDepthCount = [self checkedDepthCount];
   if (checkedDepthCount >= 1)
@@ -392,7 +390,7 @@ LABEL_9:
 
       if (!v8)
       {
-        goto LABEL_9;
+        return v5;
       }
     }
 
@@ -402,18 +400,16 @@ LABEL_9:
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
       checkedDescription = [self checkedDescription];
-      v15[0] = 67109634;
-      v15[1] = v7;
-      v16 = 1024;
-      v17 = v8;
-      v18 = 2114;
-      v19 = checkedDescription;
-      _os_log_error_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_ERROR, "[CORE_ERROR] {checkedIndicationsMatchingMask} error with depthCount=%d yet no stack-error at checked depth(%d) | cannot determine if generic failure for error: %{public}@", v15, 0x18u);
+      v14[0] = 67109634;
+      v14[1] = v7;
+      v15 = 1024;
+      v16 = v8;
+      v17 = 2114;
+      v18 = checkedDescription;
+      _os_log_error_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_ERROR, "[CORE_ERROR] {checkedIndicationsMatchingMask} error with depthCount=%d yet no stack-error at checked depth(%d) | cannot determine if generic failure for error: %{public}@", v14, 0x18u);
     }
   }
 
-LABEL_9:
-  v12 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -723,7 +719,7 @@ LABEL_13:
 
 - (int64_t)_checkedIndicationsMatching:()SUCoreError
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = [SUCoreErrorInformation indicationsForError:self matchingMask:a3];
   checkedDepthCount = [self checkedDepthCount];
   if (checkedDepthCount >= 1)
@@ -743,7 +739,7 @@ LABEL_13:
 
       if (!v8)
       {
-        goto LABEL_9;
+        return v5;
       }
     }
 
@@ -753,18 +749,16 @@ LABEL_13:
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
       checkedDescription = [self checkedDescription];
-      v15[0] = 67109634;
-      v15[1] = v7;
-      v16 = 1024;
-      v17 = v8;
-      v18 = 2114;
-      v19 = checkedDescription;
-      _os_log_error_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_ERROR, "[CORE_ERROR] {_checkedIndicationsMatching} error with depthCount=%d yet no stack-error at checked depth(%d) | cannot determine all indications for error: %{public}@", v15, 0x18u);
+      v14[0] = 67109634;
+      v14[1] = v7;
+      v15 = 1024;
+      v16 = v8;
+      v17 = 2114;
+      v18 = checkedDescription;
+      _os_log_error_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_ERROR, "[CORE_ERROR] {_checkedIndicationsMatching} error with depthCount=%d yet no stack-error at checked depth(%d) | cannot determine all indications for error: %{public}@", v14, 0x18u);
     }
   }
 
-LABEL_9:
-  v12 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -962,22 +956,19 @@ LABEL_9:
 
 - (void)checkedSystemPartitionSize
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   checkedDescription = [self checkedDescription];
-  v5 = 138543362;
-  v6 = checkedDescription;
-  _os_log_error_impl(&dword_1E0F71000, a2, OS_LOG_TYPE_ERROR, "[CORE_ERROR] {checkedSystemPartitionSize} system partition size error attribute not yet implemented | cannot provide system partition size for error: %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = checkedDescription;
+  _os_log_error_impl(&dword_1E0F71000, a2, OS_LOG_TYPE_ERROR, "[CORE_ERROR] {checkedSystemPartitionSize} system partition size error attribute not yet implemented | cannot provide system partition size for error: %{public}@", &v4, 0xCu);
 }
 
 + (void)buildAndLogCheckedSUCoreError:()SUCoreError underlying:description:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1E0F71000, a2, OS_LOG_TYPE_ERROR, "Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1E0F71000, a2, OS_LOG_TYPE_ERROR, "Error: %@", &v2, 0xCu);
 }
 
 @end

@@ -17,6 +17,7 @@
 - (id)_createRefreshAccountInformationTaskForAccountWithIdentifier:(id)identifier;
 - (id)_newAccountIdentifierAfterReplacingAccountWithIdentifier:(id)identifier usingCredentialWithPersistentID:(id)d error:(id *)error;
 - (id)_savePatientMismatchedCredentialFromAuthResponse:(id)response requestedScope:(id)scope error:(id *)error;
+- (id)accountEntityForRecord:(id)record createIfNecessary:(BOOL)necessary error:(id *)error;
 - (id)accountForSource:(id)source error:(id *)error;
 - (id)accountWithIdentifier:(id)identifier error:(id *)error;
 - (id)accountsForGatewaysWithExternalIDs:(id)ds errorOut:(id *)out;
@@ -56,6 +57,7 @@
 - (void)_performIngestionForNewCredentialsWithReason:(id)reason accountIdentifier:(id)identifier;
 - (void)_requestChangesCloudSyncForProfile:(id)profile reason:(id)reason;
 - (void)dealloc;
+- (void)didCompleteFetchForAccount:(id)account wasFullFetch:(BOOL)fetch;
 - (void)didRefreshCredentialForAccount:(id)account refreshResult:(id)result;
 - (void)endLoginSessionWithState:(id)state code:(id)code completion:(id)completion;
 - (void)failedToCompleteFetchForAccount:(id)account mustLimitFutureRequests:(BOOL)requests;
@@ -1660,6 +1662,67 @@ LABEL_53:
   return v18;
 }
 
+- (void)didCompleteFetchForAccount:(id)account wasFullFetch:(BOOL)fetch
+{
+  fetchCopy = fetch;
+  accountCopy = account;
+  v7 = +[NSDate date];
+  if (fetchCopy)
+  {
+    [accountCopy lastFullFetchDate];
+  }
+
+  else
+  {
+    [accountCopy lastFetchDate];
+  }
+  v8 = ;
+  profile = [(HDClinicalAccountManager *)self profile];
+  database = [profile database];
+
+  identifier = [accountCopy identifier];
+  WeakRetained = objc_loadWeakRetained(&self->_profile);
+  v26 = 0;
+  v13 = [HDClinicalAccountEntity updateAccountLastFetchDate:v7 wasFullFetch:fetchCopy identifier:identifier profile:WeakRetained healthDatabase:database error:&v26];
+  v14 = v26;
+
+  _HKInitializeLogging();
+  v15 = HKLogHealthRecords;
+  if (v13)
+  {
+    if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_INFO))
+    {
+      log = v15;
+      identifier2 = [accountCopy identifier];
+      v17 = identifier2;
+      v18 = "";
+      if (fetchCopy)
+      {
+        v18 = "Full";
+      }
+
+      v24 = identifier2;
+      hk_truncateToDay = [v8 hk_truncateToDay];
+      v20 = HDDiagnosticStringFromDate();
+      hk_truncateToDay2 = [v7 hk_truncateToDay];
+      v22 = HDDiagnosticStringFromDate();
+      *buf = 138544130;
+      v28 = v17;
+      v29 = 2080;
+      v30 = v23;
+      v31 = 2114;
+      v32 = v20;
+      v33 = 2114;
+      v34 = v22;
+    }
+  }
+
+  else if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
+  {
+    sub_A0A8C();
+  }
+}
+
 - (void)failedToCompleteFetchForAccount:(id)account mustLimitFutureRequests:(BOOL)requests
 {
   requestsCopy = requests;
@@ -2616,6 +2679,18 @@ LABEL_3:
 LABEL_4:
 
   return error;
+}
+
+- (id)accountEntityForRecord:(id)record createIfNecessary:(BOOL)necessary error:(id *)error
+{
+  necessaryCopy = necessary;
+  recordCopy = record;
+  issuerIdentifier = [recordCopy issuerIdentifier];
+  sourceType = [recordCopy sourceType];
+
+  v11 = [(HDClinicalAccountManager *)self _accountEntityForIssuerIdentifier:issuerIdentifier label:0 createIfNecessary:necessaryCopy wellKnown:sourceType == &dword_0 + 1 error:error];
+
+  return v11;
 }
 
 - (id)_accountEntityForIssuerIdentifier:(id)identifier label:(id)label createIfNecessary:(BOOL)necessary wellKnown:(BOOL)known error:(id *)error

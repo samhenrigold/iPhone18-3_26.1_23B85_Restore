@@ -118,11 +118,11 @@ uint64_t ___UIStatusBarDefaultAnimation_block_invoke_3(uint64_t a1, void *a2, vo
 
 uint64_t ___UIStatusBarDefaultAnimation_block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = [a2 region];
-  v4 = [v3 identifier];
-  v5 = [v4 isEqual:*(*(*(a1 + 32) + 8) + 40)];
+  v2 = [a2 region];
+  v3 = [v2 identifier];
+  isEqual = objc_msgSend_isEqual_(v3);
 
-  return v5;
+  return isEqual;
 }
 
 @end

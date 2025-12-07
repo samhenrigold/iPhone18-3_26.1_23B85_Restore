@@ -2,43 +2,41 @@ void sub_2658943D0()
 {
   v1 = v0;
   ObjectType = swift_getObjectType();
-  v3 = *(*(sub_2658949E4() - 8) + 64);
+  sub_2658949E4();
   MEMORY[0x28223BE20]();
-  v18.receiver = v1;
-  v18.super_class = ObjectType;
-  objc_msgSendSuper2(&v18, sel_viewDidLoad);
-  v4 = *&v1[OBJC_IVAR____TtC20SettingsUIKitPrivate38SUIKPApplicationSettingsViewController_applicationBundleIdentifier];
-  v5 = *&v1[OBJC_IVAR____TtC20SettingsUIKitPrivate38SUIKPApplicationSettingsViewController_applicationBundleIdentifier + 8];
+  v15.receiver = v1;
+  v15.super_class = ObjectType;
+  objc_msgSendSuper2(&v15, sel_viewDidLoad);
 
   sub_2658949D4();
-  v6 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_280028020, &qword_265894CA8));
-  v7 = sub_2658949F4();
-  v8 = [v7 view];
-  if (!v8)
+  v3 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_280028020, &qword_265894CA8));
+  v4 = sub_2658949F4();
+  v5 = [v4 view];
+  if (!v5)
   {
-    v9 = v7;
+    v6 = v4;
     goto LABEL_6;
   }
 
-  v9 = v8;
-  v10 = [v1 view];
-  if (v10)
+  v6 = v5;
+  v7 = [v1 view];
+  if (v7)
   {
-    v11 = v10;
-    [v10 addSubview_];
+    v8 = v7;
+    [v7 addSubview_];
 
-    v12 = [v1 view];
-    if (v12)
+    v9 = [v1 view];
+    if (v9)
     {
-      v13 = v12;
-      [v12 bounds];
-      v15 = v14;
-      v17 = v16;
+      v10 = v9;
+      [v9 bounds];
+      v12 = v11;
+      v14 = v13;
 
-      [v9 setFrame_];
-      [v9 setAutoresizingMask_];
+      [v6 setFrame_];
+      [v6 setAutoresizingMask_];
       [v1 addChildViewController_];
-      [v7 didMoveToParentViewController_];
+      [v4 didMoveToParentViewController_];
 
 LABEL_6:
       return;
@@ -65,7 +63,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -87,11 +84,11 @@ id _ControllerFactory.init()()
   return objc_msgSendSuper2(&v2, sel_init);
 }
 
-id _ControllerFactory.__deallocating_deinit()
+id _ControllerFactory.__deallocating_deinit(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for _ControllerFactory();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for _ControllerFactory();
+  return objc_msgSendSuper2(&v4, sel_dealloc);
 }
 
 id _s20SettingsUIKitPrivate18_ControllerFactoryC010thirdPartyaD12ForSpecifier9specifierSo06UIViewD0CSo11PSSpecifierC_tFZ_0(void *a1)

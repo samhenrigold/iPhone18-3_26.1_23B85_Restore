@@ -6,11 +6,11 @@
 
 - (_MUVariableBlurView)initWithRadius:(double)radius maskImage:(id)image
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   imageCopy = image;
-  v20.receiver = self;
-  v20.super_class = _MUVariableBlurView;
-  v8 = [(_MUVariableBlurView *)&v20 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+  v19.receiver = self;
+  v19.super_class = _MUVariableBlurView;
+  v8 = [(_MUVariableBlurView *)&v19 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
   if (v8)
   {
     clearColor = [MEMORY[0x1E69DC888] clearColor];
@@ -35,8 +35,8 @@
       v12 = MUGetMUVariableBlurViewLog_log;
       if (os_log_type_enabled(MUGetMUVariableBlurViewLog_log, OS_LOG_TYPE_FAULT))
       {
-        *v19 = 0;
-        _os_log_impl(&dword_1C5620000, v12, OS_LOG_TYPE_FAULT, "The maskImage being passed is nil, this is a programming error.", v19, 2u);
+        *v18 = 0;
+        _os_log_impl(&dword_1C5620000, v12, OS_LOG_TYPE_FAULT, "The maskImage being passed is nil, this is a programming error.", v18, 2u);
       }
     }
 
@@ -50,14 +50,13 @@
     backdropLayer = [(_MUVariableBlurView *)v8 backdropLayer];
     [backdropLayer setAllowsHitTesting:0];
     [backdropLayer setScale:0.5];
-    v21[0] = v10;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+    v20[0] = v10;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
     [backdropLayer setFilters:v16];
 
     [backdropLayer setMasksToBounds:1];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

@@ -48,7 +48,7 @@ LABEL_6:
 
 - (id)actionPickerItems
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   extraPreviewText = [(BCSAction *)self extraPreviewText];
   v4 = [BCSURLActionPickerItem alloc];
   v5 = _BCSLocalizedString(@"Search Web", &_BCSLocalizableStringsBundleOnceToken, &_BCSLocalizableStringsBundle);
@@ -56,11 +56,9 @@ LABEL_6:
   v7 = [(BCSURLActionPickerItem *)v4 initWithLabel:v5 action:self url:v6 applicationRecord:0];
 
   v8 = [[BCSCopyActionPickerItem alloc] initWithAction:self textToCopy:extraPreviewText];
-  v12[0] = v7;
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[0] = v7;
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }

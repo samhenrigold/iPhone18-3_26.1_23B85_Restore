@@ -1,5 +1,6 @@
 @interface ATXUserNotificationBiomeStream
 - (ATXUserNotificationBiomeStream)initWithStoreConfig:(id)config;
+- (id)publisherFromStartTime:(id)time endTime:(id)endTime maxEvents:(unint64_t)events lastN:(unint64_t)n reversed:(BOOL)reversed;
 - (id)source;
 - (void)sendEvent:(id)event;
 - (void)sendEvent:(int64_t)event notification:(id)notification deliveryReason:(unint64_t)reason interactionUI:(unint64_t)i;
@@ -52,6 +53,20 @@
   }
 
   return v5;
+}
+
+- (id)publisherFromStartTime:(id)time endTime:(id)endTime maxEvents:(unint64_t)events lastN:(unint64_t)n reversed:(BOOL)reversed
+{
+  reversedCopy = reversed;
+  inner = self->_inner;
+  v12 = MEMORY[0x277CF1A50];
+  endTimeCopy = endTime;
+  timeCopy = time;
+  v15 = [[v12 alloc] initWithStartDate:timeCopy endDate:endTimeCopy maxEvents:events lastN:n reversed:reversedCopy];
+
+  v16 = [(BMStoreStream *)inner publisherWithOptions:v15];
+
+  return v16;
 }
 
 - (void)sendEvent:(id)event

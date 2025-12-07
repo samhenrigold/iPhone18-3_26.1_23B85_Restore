@@ -767,7 +767,7 @@ LABEL_17:
     v246 = 0u;
     v244 = 0u;
     memset(buf, 0, sizeof(buf));
-    [(CarManeuverView *)self primaryMetrics];
+    objc_msgSend_primaryMetrics(self);
     leadingAnchor8 = [(NavSignLaneGuidanceView *)self->_laneGuidanceView leadingAnchor];
     leadingAnchor9 = [(CarManeuverView *)self leadingAnchor];
     v205 = [leadingAnchor8 constraintEqualToAnchor:leadingAnchor9 constant:*(&v252 + 1)];
@@ -1009,14 +1009,14 @@ LABEL_25:
     }
 
     v11 = v10;
-    *v89 = 138413058;
-    *&v89[4] = v6;
-    *&v89[12] = 2048;
-    *&v89[14] = self;
-    v90 = 2048;
-    v91 = variant2;
-    v92 = 2112;
-    v93 = v11;
+    LODWORD(v89[0]) = 138413058;
+    *(v89 + 4) = v6;
+    WORD2(v89[1]) = 2048;
+    *(&v89[1] + 6) = self;
+    HIWORD(v89[2]) = 2048;
+    v89[3] = variant2;
+    v90 = 2112;
+    v91 = v11;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%@ maneuverView: %p, _updateConstraints. variant: %lu, shouldShowLaneGuidance: %@", v89, 0x2Au);
   }
 
@@ -1068,21 +1068,21 @@ LABEL_25:
   {
     LODWORD(v14) = 1148829696;
     [(CarManeuverView *)self setContentCompressionResistancePriority:1 forAxis:v14];
-    v101 = 0;
-    memset(v100, 0, sizeof(v100));
-    v98 = 0u;
-    v99 = 0u;
+    v99 = 0;
+    memset(v98, 0, sizeof(v98));
     v96 = 0u;
     v97 = 0u;
     v94 = 0u;
     v95 = 0u;
-    [(CarManeuverView *)self primaryMetrics:0];
+    v92 = 0u;
+    v93 = 0u;
+    objc_msgSend_primaryMetrics(self, 0, 0, 0, 0, 0, 0, 0);
     shouldShowLaneGuidance2 = [(CarManeuverView *)self shouldShowLaneGuidance];
     dynamicConstraints3 = [(CarManeuverView *)self dynamicConstraints];
     v17 = dynamicConstraints3;
     if (shouldShowLaneGuidance2)
     {
-      v18 = v100;
+      v18 = v98;
       v19 = [dynamicConstraints3 objectForKeyedSubscript:@"PrimaryManeuverView"];
       allValues = [v19 allValues];
       [NSLayoutConstraint deactivateConstraints:allValues];
@@ -1092,7 +1092,7 @@ LABEL_25:
       allValues2 = [v22 allValues];
       [NSLayoutConstraint activateConstraints:allValues2];
 
-      v24 = *&v95;
+      v24 = *&v93;
       dynamicConstraints5 = [(CarManeuverView *)self dynamicConstraints];
       v26 = [dynamicConstraints5 objectForKeyedSubscript:@"PrimaryLabelsBaselines"];
       topAnchor = [(UIImageView *)self->_shieldView topAnchor];
@@ -1100,7 +1100,7 @@ LABEL_25:
       v29 = [v26 objectForKeyedSubscript:maps_uniqueKey3];
       [v29 setConstant:v24];
 
-      v30 = *&v96;
+      v30 = *&v94;
       dynamicConstraints6 = [(CarManeuverView *)self dynamicConstraints];
       v32 = [dynamicConstraints6 objectForKeyedSubscript:@"PrimaryLabelsBaselines"];
       firstBaselineAnchor2 = [(NavSignLabel *)self->_distanceLabel firstBaselineAnchor];
@@ -1108,7 +1108,7 @@ LABEL_25:
       v35 = [v32 objectForKeyedSubscript:maps_uniqueKey4];
       [v35 setConstant:v30];
 
-      v36 = *(&v97 + 1);
+      v36 = *(&v95 + 1);
       p_instructionsLabel = &self->_instructionsLabel;
       [(NavSignLabel *)self->_instructionsLabel inlineShieldFirstBaselineTopOffset];
       v39 = v38 + v36;
@@ -1116,7 +1116,7 @@ LABEL_25:
 
     else
     {
-      v18 = &v99 + 1;
+      v18 = &v97 + 1;
       v56 = [dynamicConstraints3 objectForKeyedSubscript:@"PrimaryNoManeuverView"];
       allValues3 = [v56 allValues];
       [NSLayoutConstraint deactivateConstraints:allValues3];
@@ -1126,7 +1126,7 @@ LABEL_25:
       allValues4 = [v59 allValues];
       [NSLayoutConstraint activateConstraints:allValues4];
 
-      v61 = *(&v94 + 1);
+      v61 = *(&v92 + 1);
       dynamicConstraints8 = [(CarManeuverView *)self dynamicConstraints];
       v63 = [dynamicConstraints8 objectForKeyedSubscript:@"PrimaryLabelsBaselines"];
       topAnchor2 = [(UIImageView *)self->_shieldView topAnchor];
@@ -1135,10 +1135,10 @@ LABEL_25:
       [v66 setConstant:v61];
 
       _shieldImage = [(CarManeuverView *)self _shieldImage];
-      v68 = &v96 + 1;
+      v68 = &v94 + 1;
       if (!_shieldImage)
       {
-        v68 = &v95 + 1;
+        v68 = &v93 + 1;
       }
 
       v69 = *v68;
@@ -1151,7 +1151,7 @@ LABEL_25:
 
       p_instructionsLabel = &self->_instructionsLabel;
       [(NavSignLabel *)self->_instructionsLabel inlineShieldFirstBaselineTopOffset];
-      v39 = *&v97 + v75;
+      v39 = *&v95 + v75;
     }
 
     dynamicConstraints10 = [(CarManeuverView *)self dynamicConstraints];
@@ -1183,10 +1183,10 @@ LABEL_25:
   memset(__src, 0, sizeof(__src));
   if (style)
   {
-    [style arrowMetrics];
+    objc_msgSend_arrowMetrics(style);
     MKGuidanceManeuverArrowMetricsApplyScale();
     memset(v16, 0, sizeof(v16));
-    [style junctionArrowMetrics];
+    objc_msgSend_junctionArrowMetrics(style);
   }
 
   else

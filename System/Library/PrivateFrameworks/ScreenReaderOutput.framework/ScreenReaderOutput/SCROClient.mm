@@ -1,7 +1,10 @@
 @interface SCROClient
 + (BOOL)isClientTrustedWithPortToken:(id *)token;
 + (id)addClientGetIdentifier:(unsigned int *)identifier token:(id *)token getPort:(unsigned int *)port;
++ (id)callbacksForClientIdentifier:(unsigned int)identifier;
++ (int64_t)removeClientWithPort:(unsigned int)port;
 + (void)initialize;
++ (void)registerCallbackWithKey:(int)key forClientIdentifier:(unsigned int)identifier;
 + (void)sendCallback:(id)callback;
 - (BOOL)_wantsCallback:(id)callback;
 - (SCROClient)init;
@@ -64,11 +67,46 @@
   return v8;
 }
 
++ (int64_t)removeClientWithPort:(unsigned int)port
+{
+  v3 = *&port;
+  [_Lock lock];
+  v4 = _ClientPortDictionary;
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  v6 = [v4 objectForKey:v5];
+
+  if (v6)
+  {
+    v7 = _ClientIdentifierDictionary;
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6[4]];
+    [v7 removeObjectForKey:v8];
+
+    v9 = _ClientPortDictionary;
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6[5]];
+    [v9 removeObjectForKey:v10];
+
+    v11 = _ClientTrustDictionary;
+    v12 = [MEMORY[0x277CCABB0] numberWithInt:v6[6]];
+    [v11 removeObjectForKey:v12];
+  }
+
+  v13 = [_ClientPortDictionary count];
+  [_Lock unlock];
+  if (v6)
+  {
+    [v6 _lock];
+    [v6 _invalidate];
+    [v6 _unlock];
+  }
+
+  return v13;
+}
+
 + (BOOL)isClientTrustedWithPortToken:(id *)token
 {
   MEMORY[0x28223BE20](self, a2, token);
   v4 = v3;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = v3[1];
   *atoken.val = *v3;
   *&atoken.val[4] = v5;
@@ -115,7 +153,6 @@
 
   [_Lock unlock];
 
-  v18 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -158,18 +195,19 @@
 
         v10 = [v6 objectForKey:*(*(&v16 + 1) + 8 * i)];
         [v10 _lock];
-        if ([v10 _wantsCallback:callbackCopy])
+        v11 = [v10 _wantsCallback:callbackCopy];
+        if (v11)
         {
           if ([callbackCopy isAtomic])
           {
-            v11 = [callbackCopy key];
-            if (CFSetContainsValue(Mutable, v11))
+            v12 = [callbackCopy key];
+            if (CFSetContainsValue(Mutable, v12))
             {
-              v12 = 0;
+              v13 = 0;
               goto LABEL_18;
             }
 
-            CFSetSetValue(Mutable, v11);
+            CFSetSetValue(Mutable, v12);
           }
 
           [v10 _sendCallback:callbackCopy];
@@ -177,19 +215,19 @@
 
         else
         {
-          v13 = _SCROD_LOG();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v14 = _SCROD_LOG(v11);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *v15 = 0;
-            _os_log_impl(&dword_26490B000, v13, OS_LOG_TYPE_DEFAULT, "+[SCROClient sendCallback:]: client doesn't want callback.", v15, 2u);
+            _os_log_impl(&dword_26490B000, v14, OS_LOG_TYPE_DEFAULT, "+[SCROClient sendCallback:]: client doesn't want callback.", v15, 2u);
           }
         }
 
-        v12 = 1;
+        v13 = 1;
 LABEL_18:
         [v10 _unlock];
 
-        if (!v12)
+        if (!v13)
         {
           goto LABEL_21;
         }
@@ -207,15 +245,57 @@ LABEL_21:
   }
 
 LABEL_23:
+}
 
-  v14 = *MEMORY[0x277D85DE8];
++ (id)callbacksForClientIdentifier:(unsigned int)identifier
+{
+  v3 = *&identifier;
+  [_Lock lock];
+  v4 = _ClientIdentifierDictionary;
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  v6 = [v4 objectForKey:v5];
+
+  [_Lock unlock];
+  if (v6)
+  {
+    [v6 _lock];
+    _dequeueCallbacks = [v6 _dequeueCallbacks];
+    [v6 _unlock];
+  }
+
+  else
+  {
+    _dequeueCallbacks = 0;
+  }
+
+  return _dequeueCallbacks;
+}
+
++ (void)registerCallbackWithKey:(int)key forClientIdentifier:(unsigned int)identifier
+{
+  v4 = *&identifier;
+  v5 = *&key;
+  [_Lock lock];
+  v6 = _ClientIdentifierDictionary;
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+  v9 = [v6 objectForKey:v7];
+
+  [_Lock unlock];
+  v8 = v9;
+  if (v9)
+  {
+    [v9 _lock];
+    [v9 _registerCallbackWithKey:v5];
+    [v9 _unlock];
+    v8 = v9;
+  }
 }
 
 - (SCROClient)init
 {
-  v12.receiver = self;
-  v12.super_class = SCROClient;
-  v2 = [(SCROClient *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = SCROClient;
+  v2 = [(SCROClient *)&v13 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277CCAAF8]);
@@ -223,19 +303,19 @@ LABEL_23:
     v2->_lock = v3;
 
     v5 = *MEMORY[0x277D85F48];
-    v11 = 1;
+    v12 = 1;
     mach_port_allocate(v5, 1u, &v2->_port);
     mach_port_insert_right(v5, v2->_port, v2->_port, 0x14u);
-    MEMORY[0x266746020](v5, v2->_port, 1, &v11, 4);
+    MEMORY[0x266746020](v5, v2->_port, 1, &v12, 4);
     v6 = os_transaction_create();
     scrodTransaction = v2->_scrodTransaction;
     v2->_scrodTransaction = v6;
 
-    v8 = _SCROD_LOG();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _SCROD_LOG(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_26490B000, v8, OS_LOG_TYPE_DEFAULT, "Storing a transaction com.apple.ScreenReaderOutput", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_26490B000, v9, OS_LOG_TYPE_DEFAULT, "Storing a transaction com.apple.ScreenReaderOutput", v11, 2u);
     }
   }
 
@@ -259,17 +339,17 @@ LABEL_23:
   scrodTransaction = self->_scrodTransaction;
   self->_scrodTransaction = 0;
 
-  v6 = _SCROD_LOG();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _SCROD_LOG(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_26490B000, v6, OS_LOG_TYPE_DEFAULT, "Releasing a transaction com.apple.ScreenReaderOutput", buf, 2u);
+    _os_log_impl(&dword_26490B000, v7, OS_LOG_TYPE_DEFAULT, "Releasing a transaction com.apple.ScreenReaderOutput", buf, 2u);
   }
 
   [(SCROClient *)self _invalidate];
-  v7.receiver = self;
-  v7.super_class = SCROClient;
-  [(SCROClient *)&v7 dealloc];
+  v8.receiver = self;
+  v8.super_class = SCROClient;
+  [(SCROClient *)&v8 dealloc];
 }
 
 - (void)_invalidate
@@ -317,29 +397,28 @@ LABEL_23:
   if (callbackSet && CFSetContainsValue(callbackSet, [callbackCopy key]))
   {
     queue = self->_queue;
-    if (!queue || CFArrayGetCount(queue) < 51)
+    if (!queue || (Count = CFArrayGetCount(queue), Count < 51))
     {
-      v10 = 1;
+      v11 = 1;
       goto LABEL_10;
     }
 
-    v8 = _SCROD_LOG();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _SCROD_LOG(Count);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      Count = CFArrayGetCount(self->_queue);
+      v10 = CFArrayGetCount(self->_queue);
       v13 = 134218240;
-      v14 = Count;
+      v14 = v10;
       v15 = 1024;
       v16 = 50;
-      _os_log_impl(&dword_26490B000, v8, OS_LOG_TYPE_DEFAULT, "SCRO Queue is flooded: queue size (%ld) > max size (%d)", &v13, 0x12u);
+      _os_log_impl(&dword_26490B000, v9, OS_LOG_TYPE_DEFAULT, "SCRO Queue is flooded: queue size (%ld) > max size (%d)", &v13, 0x12u);
     }
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_10:
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 - (void)_sendCallback:(id)callback

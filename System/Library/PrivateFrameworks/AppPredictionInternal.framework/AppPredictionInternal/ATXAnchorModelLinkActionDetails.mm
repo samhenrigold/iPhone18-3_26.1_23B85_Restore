@@ -48,29 +48,29 @@
 {
   actionCopy = action;
   v4 = objc_autoreleasePoolPush();
-  v11 = 0;
-  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:actionCopy requiringSecureCoding:1 error:&v11];
-  v6 = v11;
+  v12 = 0;
+  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:actionCopy requiringSecureCoding:1 error:&v12];
+  v6 = v12;
   v7 = v5;
   objc_autoreleasePoolPop(v4);
 
   if (v6)
   {
-    v8 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_anchor(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       +[ATXAnchorModelLinkActionDetails encodedStringForLinkAction:];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v9 = [v7 base64EncodedStringWithOptions:0];
+    v10 = [v7 base64EncodedStringWithOptions:0];
   }
 
-  return v9;
+  return v10;
 }
 
 + (id)linkActionFromEncodedString:(id)string
@@ -80,55 +80,39 @@
   if (v4)
   {
     v5 = objc_autoreleasePoolPush();
-    v11 = 0;
-    v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v4 error:&v11];
-    v7 = v11;
+    v12 = 0;
+    v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v4 error:&v12];
+    v7 = v12;
     objc_autoreleasePoolPop(v5);
     if (v7)
     {
-      v8 = __atxlog_handle_anchor();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = __atxlog_handle_anchor(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         +[ATXAnchorModelLinkActionDetails linkActionFromEncodedString:];
       }
 
-      v9 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v9 = v6;
+      v10 = v6;
     }
   }
 
   else
   {
-    v7 = __atxlog_handle_anchor();
+    v7 = __atxlog_handle_anchor(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       +[ATXAnchorModelLinkActionDetails linkActionFromEncodedString:];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
-}
-
-+ (void)encodedStringForLinkAction:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Unable to serialize Link action: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)linkActionFromEncodedString:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Unable to decode data from encoded Link action encoded string: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  return v10;
 }
 
 @end

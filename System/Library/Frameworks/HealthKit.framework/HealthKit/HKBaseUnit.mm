@@ -27,7 +27,7 @@
 + (id)unitFromString:(id)string
 {
   stringCopy = string;
-  v4 = _HKBaseUnitGrammar();
+  v4 = _HKBaseUnitGrammar(stringCopy);
   v5 = [v4 parseTreeForString:stringCopy];
 
   if (!v5)
@@ -270,10 +270,10 @@ LABEL_11:
 
   if (prefixingCopy)
   {
-    v12 = _Prefixes();
-    v13 = [v12 objectForKey:prefixingCopy];
+    v13 = _Prefixes(v12);
+    v14 = [v13 objectForKey:prefixingCopy];
 
-    if (!v13)
+    if (!v14)
     {
       [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"Invalid unit prefix: %@", prefixingCopy}];
     }
@@ -281,34 +281,34 @@ LABEL_11:
 
   else
   {
-    v13 = &unk_1F0684A10;
+    v14 = &unk_1F0684A10;
   }
 
   if (constantCopy)
   {
-    v14 = constantCopy;
+    v15 = constantCopy;
   }
 
   else
   {
-    v14 = &unk_1F0684A10;
+    v15 = &unk_1F0684A10;
   }
 
-  v15 = v14;
+  v16 = v15;
 
-  [(__CFString *)v15 doubleValue];
-  v17 = v16;
-  [v13 doubleValue];
-  v19 = v17 * v18;
-  *(_init + 80) = v19 * self->_proportionalSize;
-  *(_init + 8) = self->super._scaleOffset / v19;
-  v20 = [prefixingCopy copy];
-  v21 = *(_init + 56);
-  *(_init + 56) = v20;
+  [(__CFString *)v16 doubleValue];
+  v18 = v17;
+  [v14 doubleValue];
+  v20 = v18 * v19;
+  *(_init + 80) = v20 * self->_proportionalSize;
+  *(_init + 8) = self->super._scaleOffset / v20;
+  v21 = [prefixingCopy copy];
+  v22 = *(_init + 56);
+  *(_init + 56) = v21;
 
-  v22 = [(NSString *)self->_unitString copy];
-  v23 = *(_init + 64);
-  *(_init + 64) = v22;
+  v23 = [(NSString *)self->_unitString copy];
+  v24 = *(_init + 64);
+  *(_init + 64) = v23;
 
   return _init;
 }
@@ -364,49 +364,50 @@ LABEL_11:
       if (selfCopy->_root)
       {
         v8 = [HKBaseUnit _uniquedRootUnit:?];
+        v9 = v8;
         prefix = v6->_prefix;
         if (prefix)
         {
-          v10 = _Prefixes();
-          v11 = [v10 objectForKey:v6->_prefix];
-          [v11 doubleValue];
-          v13 = v12;
+          v11 = _Prefixes(v8);
+          v12 = [v11 objectForKey:v6->_prefix];
+          [v12 doubleValue];
+          v14 = v13;
 
           LOBYTE(prefix) = v6->_prefix != 0;
         }
 
         else
         {
-          v13 = 1.0;
+          v14 = 1.0;
         }
 
-        v14 = fabs(v6->_proportionalSize / v13 + -1.0);
-        if ((prefix & 1) != 0 || v14 > 0.00000011920929)
+        v15 = fabs(v6->_proportionalSize / v14 + -1.0);
+        if ((prefix & 1) != 0 || v15 > 0.00000011920929)
         {
-          if (v14 <= 0.00000011920929)
+          if (v15 <= 0.00000011920929)
           {
-            v15 = 0;
+            v16 = 0;
           }
 
           else
           {
-            v15 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+            v16 = [MEMORY[0x1E696AD98] numberWithDouble:?];
           }
 
-          v7 = [HKBaseUnit _uniquedUnitWithPrefix:v6->_prefix conversionConstant:v15 rootUnit:v8];
+          v7 = [HKBaseUnit _uniquedUnitWithPrefix:v6->_prefix conversionConstant:v16 rootUnit:v9];
         }
 
         else
         {
-          v7 = v8;
-          v15 = v6;
+          v7 = v9;
+          v16 = v6;
         }
       }
 
       else
       {
         v7 = [HKBaseUnit _uniquedRootUnit:selfCopy->_unitString];
-        v8 = v6;
+        v9 = v6;
       }
     }
   }

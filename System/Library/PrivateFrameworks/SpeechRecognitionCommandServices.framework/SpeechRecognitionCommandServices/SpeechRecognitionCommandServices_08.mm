@@ -1,8 +1,186 @@
-void sub_26B533688(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_26B533094(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+{
+  if (a13)
+  {
+    (*(*a13 + 8))(a13, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+int *fst::RemoveWeight<fst::ArcTpl<fst::TropicalWeightTpl<float>>>(uint64_t a1, _DWORD *a2, int a3)
+{
+  result = fst::TropicalWeightTpl<float>::One(a1, a2);
+  LODWORD(v28) = *a2;
+  LODWORD(v26) = *result;
+  if (*&v28 == *&v26)
+  {
+    return result;
+  }
+
+  result = fst::TropicalWeightTpl<float>::Zero(result, v7);
+  LODWORD(v28) = *a2;
+  LODWORD(v26) = *result;
+  v8 = *&v28;
+  if (*&v28 == *&v26)
+  {
+    return result;
+  }
+
+  if (a3)
+  {
+    v28 = 0;
+    v29 = 0.0;
+    v31 = 0;
+    (*(*a1 + 112))(a1, &v28, v8);
+    while (1)
+    {
+      result = v28;
+      if (!v28)
+      {
+        break;
+      }
+
+      v9 = (*(*v28 + 16))(v28);
+      result = v28;
+      if (v9)
+      {
+        if (v28)
+        {
+          return (*(*v28 + 8))();
+        }
+
+        return result;
+      }
+
+      if (!v28)
+      {
+        goto LABEL_11;
+      }
+
+      v10 = (*(*v28 + 24))();
+      if (v28)
+      {
+        v11 = (*(*v28 + 24))(v28);
+      }
+
+      else
+      {
+        v11 = v31;
+      }
+
+LABEL_12:
+      v12 = (*(*a1 + 24))(&v27, a1, v11);
+      if (v27 == -INFINITY || (v14 = *a2, *a2 >= -INFINITY) && *a2 <= -INFINITY)
+      {
+        v15 = *fst::TropicalWeightTpl<float>::NoWeight(v12, v13);
+      }
+
+      else
+      {
+        v15 = v27 - v14;
+        if (v27 == INFINITY)
+        {
+          v15 = INFINITY;
+        }
+
+        if (v14 == INFINITY)
+        {
+          v15 = NAN;
+        }
+      }
+
+      *&v26 = v15;
+      (*(*a1 + 160))(a1, v10, &v26);
+      if (v28)
+      {
+        (*(*v28 + 32))(v28);
+      }
+
+      else
+      {
+        ++v31;
+      }
+    }
+
+    if (v31 >= SLODWORD(v29))
+    {
+      return result;
+    }
+
+LABEL_11:
+    v10 = v31;
+    v11 = v31;
+    goto LABEL_12;
+  }
+
+  v16 = (*(*a1 + 16))(a1, *&v28);
+  (*(*a1 + 272))(a1, v16, &v26);
+  while (!(*(*v26 + 16))(v26))
+  {
+    v17 = (*(*v26 + 24))(v26);
+    v28 = *v17;
+    v19 = *(v17 + 8);
+    v29 = v19;
+    v30 = *(v17 + 12);
+    if (v19 == -INFINITY || (v20 = *a2, *a2 >= -INFINITY) && *a2 <= -INFINITY)
+    {
+      v21 = *fst::TropicalWeightTpl<float>::NoWeight(v17, v18);
+    }
+
+    else if (v20 == INFINITY)
+    {
+      v21 = NAN;
+    }
+
+    else
+    {
+      v21 = INFINITY;
+      if (v19 != INFINITY)
+      {
+        v21 = v19 - v20;
+      }
+    }
+
+    v29 = v21;
+    (*(*v26 + 80))(v26, &v28);
+    (*(*v26 + 32))(v26);
+  }
+
+  if (v26)
+  {
+    (*(*v26 + 8))(v26);
+  }
+
+  v22 = (*(*a1 + 24))(&v26, a1, v16);
+  if (*&v26 == -INFINITY || (v24 = *a2, *a2 >= -INFINITY) && *a2 <= -INFINITY)
+  {
+    v25 = *fst::TropicalWeightTpl<float>::NoWeight(v22, v23);
+  }
+
+  else
+  {
+    v25 = *&v26 - v24;
+    if (*&v26 == INFINITY)
+    {
+      v25 = INFINITY;
+    }
+
+    if (v24 == INFINITY)
+    {
+      v25 = NAN;
+    }
+  }
+
+  *&v28 = v25;
+  return (*(*a1 + 160))(a1, v16, &v28);
+}
+
+void sub_26B533688(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -92,7 +270,7 @@ void CMDPNormalizer::normalize(CFLocaleRef *a1@<X0>, const char *a2@<X1>, std::s
   if (MutableCopy)
   {
 
-    cmdp_string::CreateCppStringFromCFString(MutableCopy, 1, a3);
+    cmdp_string::CreateCppStringFromCFString(a3, MutableCopy, 1);
   }
 
   else if (v3[23] < 0)
@@ -110,31 +288,28 @@ void CMDPNormalizer::normalize(CFLocaleRef *a1@<X0>, const char *a2@<X1>, std::s
   }
 }
 
-void cmdp_string::CreateCppStringFromCFString(const __CFString *this@<X0>, const __CFString *a2@<X1>, _BYTE *a3@<X8>)
+void cmdp_string::CreateCppStringFromCFString(void *__return_ptr a1@<X8>, const __CFString *this@<X0>, const __CFString *a3@<X1>)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   if (this)
   {
-    v4 = a2;
+    v4 = a3;
     Length = CFStringGetLength(this);
-    CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-    v7 = MEMORY[0x28223BE20]();
-    v9 = v12 - v8;
-    CFStringGetCString(this, v12 - v8, v7 + 1, 0x8000100u);
-    std::string::basic_string[abi:ne200100]<0>(a3, v9);
+    MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
+    v11 = MEMORY[0x28223BE20](MaximumSizeForEncoding, v8, v9, v10);
+    v13 = v14 - v12;
+    CFStringGetCString(this, v14 - v12, v11 + 1, 0x8000100u);
+    std::string::basic_string[abi:ne200100]<0>(a1, v13);
     if (v4)
     {
       CFRelease(this);
     }
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v11 = *MEMORY[0x277D85DE8];
 
-    std::string::basic_string[abi:ne200100]<0>(a3, 0);
+    std::string::basic_string[abi:ne200100]<0>(a1, 0);
   }
 }
 
@@ -153,7 +328,6 @@ std::string *CMDPNormalizer::homonymize(uint64_t a1, uint64_t a2, uint64_t a3, u
   MEMORY[0x28223BE20](a1, a2, a3, a4);
   v5 = v4;
   v7 = v6;
-  v12 = *MEMORY[0x277D85DE8];
   {
     operator new();
   }
@@ -164,24 +338,23 @@ std::string *CMDPNormalizer::homonymize(uint64_t a1, uint64_t a2, uint64_t a3, u
   if (CMDPNormalizer::homonymize(std::string const&)const::homonym_map + 8 != v8)
   {
     v10 = std::map<std::string,std::string>::at(CMDPNormalizer::homonymize(std::string const&)const::homonym_map, v5);
-    result = std::string::operator=(v7, v10);
+    return std::string::operator=(v7, v10);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void sub_26B53858C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, uint64_t a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, uint64_t a53, int a54, __int16 a55, char a56, char a57, uint64_t a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
 {
-  v87 = -8208;
-  v88 = v82;
+  v81 = -8208;
+  v82 = v76;
   do
   {
-    v88 = std::pair<std::string const,std::string>::~pair(v88) - 48;
-    v87 += 48;
+    v82 = std::pair<std::string const,std::string>::~pair(v82) - 48;
+    v81 += 48;
   }
 
-  while (v87);
+  while (v81);
   if (a21 < 0)
   {
     operator delete(__p);
@@ -214,1685 +387,1685 @@ void sub_26B53858C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   if (a57 < 0)
   {
-    operator delete(*(v84 + 24));
+    operator delete(*(v78 + 24));
   }
 
   if (a51 < 0)
   {
-    operator delete(*v84);
+    operator delete(*v78);
   }
 
-  if (a69 < 0)
+  if (a65 < 0)
   {
-    operator delete(*(v84 + 72));
+    operator delete(*(v78 + 72));
   }
 
   if (a63 < 0)
   {
-    operator delete(*(v84 + 48));
+    operator delete(*(v78 + 48));
+  }
+
+  if (a67 < 0)
+  {
+    operator delete(*(v78 + 120));
+  }
+
+  if (a66 < 0)
+  {
+    operator delete(*(v78 + 96));
+  }
+
+  if (a69 < 0)
+  {
+    operator delete(*(v78 + 168));
+  }
+
+  if (a68 < 0)
+  {
+    operator delete(*(v78 + 144));
+  }
+
+  if (a71 < 0)
+  {
+    operator delete(*(v78 + 216));
+  }
+
+  if (a70 < 0)
+  {
+    operator delete(*(v78 + 192));
   }
 
   if (a73 < 0)
   {
-    operator delete(*(v84 + 120));
+    operator delete(*(v78 + 264));
   }
 
   if (a72 < 0)
   {
-    operator delete(*(v84 + 96));
+    operator delete(*(v78 + 240));
   }
 
   if (a75 < 0)
   {
-    operator delete(*(v84 + 168));
+    operator delete(*(v78 + 312));
   }
 
   if (a74 < 0)
   {
-    operator delete(*(v84 + 144));
-  }
-
-  if (a77 < 0)
-  {
-    operator delete(*(v84 + 216));
-  }
-
-  if (a76 < 0)
-  {
-    operator delete(*(v84 + 192));
-  }
-
-  if (a79 < 0)
-  {
-    operator delete(*(v84 + 264));
-  }
-
-  if (a78 < 0)
-  {
-    operator delete(*(v84 + 240));
-  }
-
-  if (a81 < 0)
-  {
-    operator delete(*(v84 + 312));
-  }
-
-  if (a80 < 0)
-  {
-    operator delete(*(v84 + 288));
+    operator delete(*(v78 + 288));
   }
 
   if (SLOBYTE(STACK[0x217]) < 0)
   {
-    operator delete(*(v84 + 360));
+    operator delete(*(v78 + 360));
   }
 
-  if (a82 < 0)
+  if (a76 < 0)
   {
-    operator delete(*(v84 + 336));
+    operator delete(*(v78 + 336));
   }
 
   if (SLOBYTE(STACK[0x247]) < 0)
   {
-    operator delete(*(v84 + 408));
+    operator delete(*(v78 + 408));
   }
 
   if (SLOBYTE(STACK[0x22F]) < 0)
   {
-    operator delete(*(v84 + 384));
+    operator delete(*(v78 + 384));
   }
 
   if (SLOBYTE(STACK[0x277]) < 0)
   {
-    operator delete(*(v84 + 456));
+    operator delete(*(v78 + 456));
   }
 
   if (SLOBYTE(STACK[0x25F]) < 0)
   {
-    operator delete(*(v84 + 432));
+    operator delete(*(v78 + 432));
   }
 
   if (SLOBYTE(STACK[0x2A7]) < 0)
   {
-    operator delete(*(v84 + 504));
+    operator delete(*(v78 + 504));
   }
 
   if (SLOBYTE(STACK[0x28F]) < 0)
   {
-    operator delete(*(v84 + 480));
+    operator delete(*(v78 + 480));
   }
 
   if (SLOBYTE(STACK[0x2D7]) < 0)
   {
-    operator delete(*(v84 + 552));
+    operator delete(*(v78 + 552));
   }
 
   if (SLOBYTE(STACK[0x2BF]) < 0)
   {
-    operator delete(*(v84 + 528));
+    operator delete(*(v78 + 528));
   }
 
   if (SLOBYTE(STACK[0x307]) < 0)
   {
-    operator delete(*(v84 + 600));
+    operator delete(*(v78 + 600));
   }
 
   if (SLOBYTE(STACK[0x2EF]) < 0)
   {
-    operator delete(*(v84 + 576));
+    operator delete(*(v78 + 576));
   }
 
   if (SLOBYTE(STACK[0x337]) < 0)
   {
-    operator delete(*(v84 + 648));
+    operator delete(*(v78 + 648));
   }
 
   if (SLOBYTE(STACK[0x31F]) < 0)
   {
-    operator delete(*(v84 + 624));
+    operator delete(*(v78 + 624));
   }
 
   if (SLOBYTE(STACK[0x367]) < 0)
   {
-    operator delete(*(v84 + 696));
+    operator delete(*(v78 + 696));
   }
 
   if (SLOBYTE(STACK[0x34F]) < 0)
   {
-    operator delete(*(v84 + 672));
+    operator delete(*(v78 + 672));
   }
 
   if (SLOBYTE(STACK[0x397]) < 0)
   {
-    operator delete(*(v84 + 744));
+    operator delete(*(v78 + 744));
   }
 
   if (SLOBYTE(STACK[0x37F]) < 0)
   {
-    operator delete(*(v84 + 720));
+    operator delete(*(v78 + 720));
   }
 
   if (SLOBYTE(STACK[0x3C7]) < 0)
   {
-    operator delete(*(v84 + 792));
+    operator delete(*(v78 + 792));
   }
 
   if (SLOBYTE(STACK[0x3AF]) < 0)
   {
-    operator delete(*(v84 + 768));
+    operator delete(*(v78 + 768));
   }
 
   if (SLOBYTE(STACK[0x3F7]) < 0)
   {
-    operator delete(*(v84 + 840));
+    operator delete(*(v78 + 840));
   }
 
   if (SLOBYTE(STACK[0x3DF]) < 0)
   {
-    operator delete(*(v84 + 816));
+    operator delete(*(v78 + 816));
   }
 
   if (SLOBYTE(STACK[0x427]) < 0)
   {
-    operator delete(*(v84 + 888));
+    operator delete(*(v78 + 888));
   }
 
   if (SLOBYTE(STACK[0x40F]) < 0)
   {
-    operator delete(*(v84 + 864));
+    operator delete(*(v78 + 864));
   }
 
   if (SLOBYTE(STACK[0x457]) < 0)
   {
-    operator delete(*(v84 + 936));
+    operator delete(*(v78 + 936));
   }
 
   if (SLOBYTE(STACK[0x43F]) < 0)
   {
-    operator delete(*(v84 + 912));
+    operator delete(*(v78 + 912));
   }
 
   if (SLOBYTE(STACK[0x487]) < 0)
   {
-    operator delete(*(v84 + 984));
+    operator delete(*(v78 + 984));
   }
 
   if (SLOBYTE(STACK[0x46F]) < 0)
   {
-    operator delete(*(v84 + 960));
+    operator delete(*(v78 + 960));
   }
 
   if (SLOBYTE(STACK[0x4B7]) < 0)
   {
-    operator delete(*(v84 + 1032));
+    operator delete(*(v78 + 1032));
   }
 
   if (SLOBYTE(STACK[0x49F]) < 0)
   {
-    operator delete(*(v84 + 1008));
+    operator delete(*(v78 + 1008));
   }
 
   if (SLOBYTE(STACK[0x4E7]) < 0)
   {
-    operator delete(*(v84 + 1080));
+    operator delete(*(v78 + 1080));
   }
 
   if (SLOBYTE(STACK[0x4CF]) < 0)
   {
-    operator delete(*(v84 + 1056));
+    operator delete(*(v78 + 1056));
   }
 
   if (SLOBYTE(STACK[0x517]) < 0)
   {
-    operator delete(*(v84 + 1128));
+    operator delete(*(v78 + 1128));
   }
 
   if (SLOBYTE(STACK[0x4FF]) < 0)
   {
-    operator delete(*(v84 + 1104));
+    operator delete(*(v78 + 1104));
   }
 
   if (SLOBYTE(STACK[0x547]) < 0)
   {
-    operator delete(*(v84 + 1176));
+    operator delete(*(v78 + 1176));
   }
 
   if (SLOBYTE(STACK[0x52F]) < 0)
   {
-    operator delete(*(v84 + 1152));
+    operator delete(*(v78 + 1152));
   }
 
   if (SLOBYTE(STACK[0x577]) < 0)
   {
-    operator delete(*(v84 + 1224));
+    operator delete(*(v78 + 1224));
   }
 
   if (SLOBYTE(STACK[0x55F]) < 0)
   {
-    operator delete(*(v84 + 1200));
+    operator delete(*(v78 + 1200));
   }
 
   if (SLOBYTE(STACK[0x5A7]) < 0)
   {
-    operator delete(*(v84 + 1272));
+    operator delete(*(v78 + 1272));
   }
 
   if (SLOBYTE(STACK[0x58F]) < 0)
   {
-    operator delete(*(v84 + 1248));
+    operator delete(*(v78 + 1248));
   }
 
   if (SLOBYTE(STACK[0x5D7]) < 0)
   {
-    operator delete(*(v84 + 1320));
+    operator delete(*(v78 + 1320));
   }
 
   if (SLOBYTE(STACK[0x5BF]) < 0)
   {
-    operator delete(*(v84 + 1296));
+    operator delete(*(v78 + 1296));
   }
 
   if (SLOBYTE(STACK[0x607]) < 0)
   {
-    operator delete(*(v84 + 1368));
+    operator delete(*(v78 + 1368));
   }
 
   if (SLOBYTE(STACK[0x5EF]) < 0)
   {
-    operator delete(*(v84 + 1344));
+    operator delete(*(v78 + 1344));
   }
 
   if (SLOBYTE(STACK[0x637]) < 0)
   {
-    operator delete(*(v84 + 1416));
+    operator delete(*(v78 + 1416));
   }
 
   if (SLOBYTE(STACK[0x61F]) < 0)
   {
-    operator delete(*(v84 + 1392));
+    operator delete(*(v78 + 1392));
   }
 
   if (SLOBYTE(STACK[0x667]) < 0)
   {
-    operator delete(*(v84 + 1464));
+    operator delete(*(v78 + 1464));
   }
 
   if (SLOBYTE(STACK[0x64F]) < 0)
   {
-    operator delete(*(v84 + 1440));
+    operator delete(*(v78 + 1440));
   }
 
   if (SLOBYTE(STACK[0x697]) < 0)
   {
-    operator delete(*(v84 + 1512));
+    operator delete(*(v78 + 1512));
   }
 
   if (SLOBYTE(STACK[0x67F]) < 0)
   {
-    operator delete(*(v84 + 1488));
+    operator delete(*(v78 + 1488));
   }
 
   if (SLOBYTE(STACK[0x6C7]) < 0)
   {
-    operator delete(*(v84 + 1560));
+    operator delete(*(v78 + 1560));
   }
 
   if (SLOBYTE(STACK[0x6AF]) < 0)
   {
-    operator delete(*(v84 + 1536));
+    operator delete(*(v78 + 1536));
   }
 
   if (SLOBYTE(STACK[0x6F7]) < 0)
   {
-    operator delete(*(v84 + 1608));
+    operator delete(*(v78 + 1608));
   }
 
   if (SLOBYTE(STACK[0x6DF]) < 0)
   {
-    operator delete(*(v84 + 1584));
+    operator delete(*(v78 + 1584));
   }
 
   if (SLOBYTE(STACK[0x727]) < 0)
   {
-    operator delete(*(v84 + 1656));
+    operator delete(*(v78 + 1656));
   }
 
   if (SLOBYTE(STACK[0x70F]) < 0)
   {
-    operator delete(*(v84 + 1632));
+    operator delete(*(v78 + 1632));
   }
 
   if (SLOBYTE(STACK[0x757]) < 0)
   {
-    operator delete(*(v84 + 1704));
+    operator delete(*(v78 + 1704));
   }
 
   if (SLOBYTE(STACK[0x73F]) < 0)
   {
-    operator delete(*(v84 + 1680));
+    operator delete(*(v78 + 1680));
   }
 
   if (SLOBYTE(STACK[0x787]) < 0)
   {
-    operator delete(*(v84 + 1752));
+    operator delete(*(v78 + 1752));
   }
 
   if (SLOBYTE(STACK[0x76F]) < 0)
   {
-    operator delete(*(v84 + 1728));
+    operator delete(*(v78 + 1728));
   }
 
   if (SLOBYTE(STACK[0x7B7]) < 0)
   {
-    operator delete(*(v84 + 1800));
+    operator delete(*(v78 + 1800));
   }
 
   if (SLOBYTE(STACK[0x79F]) < 0)
   {
-    operator delete(*(v84 + 1776));
+    operator delete(*(v78 + 1776));
   }
 
   if (SLOBYTE(STACK[0x7E7]) < 0)
   {
-    operator delete(*(v84 + 1848));
+    operator delete(*(v78 + 1848));
   }
 
   if (SLOBYTE(STACK[0x7CF]) < 0)
   {
-    operator delete(*(v84 + 1824));
+    operator delete(*(v78 + 1824));
   }
 
   if (SLOBYTE(STACK[0x817]) < 0)
   {
-    operator delete(*(v84 + 1896));
+    operator delete(*(v78 + 1896));
   }
 
   if (SLOBYTE(STACK[0x7FF]) < 0)
   {
-    operator delete(*(v84 + 1872));
+    operator delete(*(v78 + 1872));
   }
 
   if (SLOBYTE(STACK[0x847]) < 0)
   {
-    operator delete(*(v84 + 1944));
+    operator delete(*(v78 + 1944));
   }
 
   if (SLOBYTE(STACK[0x82F]) < 0)
   {
-    operator delete(*(v84 + 1920));
+    operator delete(*(v78 + 1920));
   }
 
   if (SLOBYTE(STACK[0x877]) < 0)
   {
-    operator delete(*(v84 + 1992));
+    operator delete(*(v78 + 1992));
   }
 
   if (SLOBYTE(STACK[0x85F]) < 0)
   {
-    operator delete(*(v84 + 1968));
+    operator delete(*(v78 + 1968));
   }
 
   if (SLOBYTE(STACK[0x8A7]) < 0)
   {
-    operator delete(*(v84 + 2040));
+    operator delete(*(v78 + 2040));
   }
 
   if (SLOBYTE(STACK[0x88F]) < 0)
   {
-    operator delete(*(v84 + 2016));
+    operator delete(*(v78 + 2016));
   }
 
   if (SLOBYTE(STACK[0x8D7]) < 0)
   {
-    operator delete(*(v84 + 2088));
+    operator delete(*(v78 + 2088));
   }
 
   if (SLOBYTE(STACK[0x8BF]) < 0)
   {
-    operator delete(*(v84 + 2064));
+    operator delete(*(v78 + 2064));
   }
 
   if (SLOBYTE(STACK[0x907]) < 0)
   {
-    operator delete(*(v84 + 2136));
+    operator delete(*(v78 + 2136));
   }
 
   if (SLOBYTE(STACK[0x8EF]) < 0)
   {
-    operator delete(*(v84 + 2112));
+    operator delete(*(v78 + 2112));
   }
 
   if (SLOBYTE(STACK[0x937]) < 0)
   {
-    operator delete(*(v84 + 2184));
+    operator delete(*(v78 + 2184));
   }
 
   if (SLOBYTE(STACK[0x91F]) < 0)
   {
-    operator delete(*(v84 + 2160));
+    operator delete(*(v78 + 2160));
   }
 
   if (SLOBYTE(STACK[0x967]) < 0)
   {
-    operator delete(*(v84 + 2232));
+    operator delete(*(v78 + 2232));
   }
 
   if (SLOBYTE(STACK[0x94F]) < 0)
   {
-    operator delete(*(v84 + 2208));
+    operator delete(*(v78 + 2208));
   }
 
   if (SLOBYTE(STACK[0x997]) < 0)
   {
-    operator delete(*(v84 + 2280));
+    operator delete(*(v78 + 2280));
   }
 
   if (SLOBYTE(STACK[0x97F]) < 0)
   {
-    operator delete(*(v84 + 2256));
+    operator delete(*(v78 + 2256));
   }
 
   if (SLOBYTE(STACK[0x9C7]) < 0)
   {
-    operator delete(*(v84 + 2328));
+    operator delete(*(v78 + 2328));
   }
 
   if (SLOBYTE(STACK[0x9AF]) < 0)
   {
-    operator delete(*(v84 + 2304));
+    operator delete(*(v78 + 2304));
   }
 
   if (SLOBYTE(STACK[0x9F7]) < 0)
   {
-    operator delete(*(v84 + 2376));
+    operator delete(*(v78 + 2376));
   }
 
   if (SLOBYTE(STACK[0x9DF]) < 0)
   {
-    operator delete(*(v84 + 2352));
+    operator delete(*(v78 + 2352));
   }
 
   if (SLOBYTE(STACK[0xA27]) < 0)
   {
-    operator delete(*(v84 + 2424));
+    operator delete(*(v78 + 2424));
   }
 
   if (SLOBYTE(STACK[0xA0F]) < 0)
   {
-    operator delete(*(v84 + 2400));
+    operator delete(*(v78 + 2400));
   }
 
   if (SLOBYTE(STACK[0xA57]) < 0)
   {
-    operator delete(*(v84 + 2472));
+    operator delete(*(v78 + 2472));
   }
 
   if (SLOBYTE(STACK[0xA3F]) < 0)
   {
-    operator delete(*(v84 + 2448));
+    operator delete(*(v78 + 2448));
   }
 
   if (SLOBYTE(STACK[0xA87]) < 0)
   {
-    operator delete(*(v84 + 2520));
+    operator delete(*(v78 + 2520));
   }
 
   if (SLOBYTE(STACK[0xA6F]) < 0)
   {
-    operator delete(*(v84 + 2496));
+    operator delete(*(v78 + 2496));
   }
 
   if (SLOBYTE(STACK[0xAB7]) < 0)
   {
-    operator delete(*(v84 + 2568));
+    operator delete(*(v78 + 2568));
   }
 
   if (SLOBYTE(STACK[0xA9F]) < 0)
   {
-    operator delete(*(v84 + 2544));
+    operator delete(*(v78 + 2544));
   }
 
   if (SLOBYTE(STACK[0xAE7]) < 0)
   {
-    operator delete(*(v84 + 2616));
+    operator delete(*(v78 + 2616));
   }
 
   if (SLOBYTE(STACK[0xACF]) < 0)
   {
-    operator delete(*(v84 + 2592));
+    operator delete(*(v78 + 2592));
   }
 
   if (SLOBYTE(STACK[0xB17]) < 0)
   {
-    operator delete(*(v84 + 2664));
+    operator delete(*(v78 + 2664));
   }
 
   if (SLOBYTE(STACK[0xAFF]) < 0)
   {
-    operator delete(*(v84 + 2640));
+    operator delete(*(v78 + 2640));
   }
 
   if (SLOBYTE(STACK[0xB47]) < 0)
   {
-    operator delete(*(v84 + 2712));
+    operator delete(*(v78 + 2712));
   }
 
   if (SLOBYTE(STACK[0xB2F]) < 0)
   {
-    operator delete(*(v84 + 2688));
+    operator delete(*(v78 + 2688));
   }
 
   if (SLOBYTE(STACK[0xB77]) < 0)
   {
-    operator delete(*(v84 + 2760));
+    operator delete(*(v78 + 2760));
   }
 
   if (SLOBYTE(STACK[0xB5F]) < 0)
   {
-    operator delete(*(v84 + 2736));
+    operator delete(*(v78 + 2736));
   }
 
   if (SLOBYTE(STACK[0xBA7]) < 0)
   {
-    operator delete(*(v84 + 2808));
+    operator delete(*(v78 + 2808));
   }
 
   if (SLOBYTE(STACK[0xB8F]) < 0)
   {
-    operator delete(*(v84 + 2784));
+    operator delete(*(v78 + 2784));
   }
 
   if (SLOBYTE(STACK[0xBD7]) < 0)
   {
-    operator delete(*(v84 + 2856));
+    operator delete(*(v78 + 2856));
   }
 
   if (SLOBYTE(STACK[0xBBF]) < 0)
   {
-    operator delete(*(v84 + 2832));
+    operator delete(*(v78 + 2832));
   }
 
   if (SLOBYTE(STACK[0xC07]) < 0)
   {
-    operator delete(*(v84 + 2904));
+    operator delete(*(v78 + 2904));
   }
 
   if (SLOBYTE(STACK[0xBEF]) < 0)
   {
-    operator delete(*(v84 + 2880));
+    operator delete(*(v78 + 2880));
   }
 
   if (SLOBYTE(STACK[0xC37]) < 0)
   {
-    operator delete(*(v84 + 2952));
+    operator delete(*(v78 + 2952));
   }
 
   if (SLOBYTE(STACK[0xC1F]) < 0)
   {
-    operator delete(*(v84 + 2928));
+    operator delete(*(v78 + 2928));
   }
 
   if (SLOBYTE(STACK[0xC67]) < 0)
   {
-    operator delete(*(v84 + 3000));
+    operator delete(*(v78 + 3000));
   }
 
   if (SLOBYTE(STACK[0xC4F]) < 0)
   {
-    operator delete(*(v84 + 2976));
+    operator delete(*(v78 + 2976));
   }
 
   if (SLOBYTE(STACK[0xC97]) < 0)
   {
-    operator delete(*(v84 + 3048));
+    operator delete(*(v78 + 3048));
   }
 
   if (SLOBYTE(STACK[0xC7F]) < 0)
   {
-    operator delete(*(v84 + 3024));
+    operator delete(*(v78 + 3024));
   }
 
   if (SLOBYTE(STACK[0xCC7]) < 0)
   {
-    operator delete(*(v84 + 3096));
+    operator delete(*(v78 + 3096));
   }
 
   if (SLOBYTE(STACK[0xCAF]) < 0)
   {
-    operator delete(*(v84 + 3072));
+    operator delete(*(v78 + 3072));
   }
 
   if (SLOBYTE(STACK[0xCF7]) < 0)
   {
-    operator delete(*(v84 + 3144));
+    operator delete(*(v78 + 3144));
   }
 
   if (SLOBYTE(STACK[0xCDF]) < 0)
   {
-    operator delete(*(v84 + 3120));
+    operator delete(*(v78 + 3120));
   }
 
   if (SLOBYTE(STACK[0xD27]) < 0)
   {
-    operator delete(*(v84 + 3192));
+    operator delete(*(v78 + 3192));
   }
 
   if (SLOBYTE(STACK[0xD0F]) < 0)
   {
-    operator delete(*(v84 + 3168));
+    operator delete(*(v78 + 3168));
   }
 
   if (SLOBYTE(STACK[0xD57]) < 0)
   {
-    operator delete(*(v84 + 3240));
+    operator delete(*(v78 + 3240));
   }
 
   if (SLOBYTE(STACK[0xD3F]) < 0)
   {
-    operator delete(*(v84 + 3216));
+    operator delete(*(v78 + 3216));
   }
 
   if (SLOBYTE(STACK[0xD87]) < 0)
   {
-    operator delete(*(v84 + 3288));
+    operator delete(*(v78 + 3288));
   }
 
   if (SLOBYTE(STACK[0xD6F]) < 0)
   {
-    operator delete(*(v84 + 3264));
+    operator delete(*(v78 + 3264));
   }
 
   if (SLOBYTE(STACK[0xDB7]) < 0)
   {
-    operator delete(*(v84 + 3336));
+    operator delete(*(v78 + 3336));
   }
 
   if (SLOBYTE(STACK[0xD9F]) < 0)
   {
-    operator delete(*(v84 + 3312));
+    operator delete(*(v78 + 3312));
   }
 
   if (SLOBYTE(STACK[0xDE7]) < 0)
   {
-    operator delete(*(v84 + 3384));
+    operator delete(*(v78 + 3384));
   }
 
   if (SLOBYTE(STACK[0xDCF]) < 0)
   {
-    operator delete(*(v84 + 3360));
+    operator delete(*(v78 + 3360));
   }
 
   if (SLOBYTE(STACK[0xE17]) < 0)
   {
-    operator delete(*(v84 + 3432));
+    operator delete(*(v78 + 3432));
   }
 
   if (SLOBYTE(STACK[0xDFF]) < 0)
   {
-    operator delete(*(v84 + 3408));
+    operator delete(*(v78 + 3408));
   }
 
   if (SLOBYTE(STACK[0xE47]) < 0)
   {
-    operator delete(*(v84 + 3480));
+    operator delete(*(v78 + 3480));
   }
 
   if (SLOBYTE(STACK[0xE2F]) < 0)
   {
-    operator delete(*(v84 + 3456));
+    operator delete(*(v78 + 3456));
   }
 
   if (SLOBYTE(STACK[0xE77]) < 0)
   {
-    operator delete(*(v84 + 3528));
+    operator delete(*(v78 + 3528));
   }
 
   if (SLOBYTE(STACK[0xE5F]) < 0)
   {
-    operator delete(*(v84 + 3504));
+    operator delete(*(v78 + 3504));
   }
 
   if (SLOBYTE(STACK[0xEA7]) < 0)
   {
-    operator delete(*(v84 + 3576));
+    operator delete(*(v78 + 3576));
   }
 
   if (SLOBYTE(STACK[0xE8F]) < 0)
   {
-    operator delete(*(v84 + 3552));
+    operator delete(*(v78 + 3552));
   }
 
   if (SLOBYTE(STACK[0xED7]) < 0)
   {
-    operator delete(*(v84 + 3624));
+    operator delete(*(v78 + 3624));
   }
 
   if (SLOBYTE(STACK[0xEBF]) < 0)
   {
-    operator delete(*(v84 + 3600));
+    operator delete(*(v78 + 3600));
   }
 
   if (SLOBYTE(STACK[0xF07]) < 0)
   {
-    operator delete(*(v84 + 3672));
+    operator delete(*(v78 + 3672));
   }
 
   if (SLOBYTE(STACK[0xEEF]) < 0)
   {
-    operator delete(*(v84 + 3648));
+    operator delete(*(v78 + 3648));
   }
 
   if (SLOBYTE(STACK[0xF37]) < 0)
   {
-    operator delete(*(v84 + 3720));
+    operator delete(*(v78 + 3720));
   }
 
   if (SLOBYTE(STACK[0xF1F]) < 0)
   {
-    operator delete(*(v84 + 3696));
+    operator delete(*(v78 + 3696));
   }
 
   if (SLOBYTE(STACK[0xF67]) < 0)
   {
-    operator delete(*(v84 + 3768));
+    operator delete(*(v78 + 3768));
   }
 
   if (SLOBYTE(STACK[0xF4F]) < 0)
   {
-    operator delete(*(v84 + 3744));
+    operator delete(*(v78 + 3744));
   }
 
-  if (*(v84 + 3839) < 0)
+  if (*(v78 + 3839) < 0)
   {
-    operator delete(*(v84 + 3816));
+    operator delete(*(v78 + 3816));
   }
 
   if (SLOBYTE(STACK[0xF7F]) < 0)
   {
-    operator delete(*(v84 + 3792));
+    operator delete(*(v78 + 3792));
   }
 
-  if (*(v84 + 3887) < 0)
+  if (*(v78 + 3887) < 0)
   {
-    operator delete(*(v84 + 3864));
+    operator delete(*(v78 + 3864));
   }
 
-  if (*(v84 + 3863) < 0)
+  if (*(v78 + 3863) < 0)
   {
-    operator delete(*(v84 + 3840));
+    operator delete(*(v78 + 3840));
   }
 
-  if (*(v84 + 3935) < 0)
+  if (*(v78 + 3935) < 0)
   {
-    operator delete(*(v84 + 3912));
+    operator delete(*(v78 + 3912));
   }
 
-  if (*(v84 + 3911) < 0)
+  if (*(v78 + 3911) < 0)
   {
-    operator delete(*(v84 + 3888));
+    operator delete(*(v78 + 3888));
   }
 
-  if (*(v84 + 3983) < 0)
+  if (*(v78 + 3983) < 0)
   {
-    operator delete(*(v84 + 3960));
+    operator delete(*(v78 + 3960));
   }
 
-  if (*(v84 + 3959) < 0)
+  if (*(v78 + 3959) < 0)
   {
-    operator delete(*(v84 + 3936));
+    operator delete(*(v78 + 3936));
   }
 
-  if (*(v84 + 4031) < 0)
+  if (*(v78 + 4031) < 0)
   {
-    operator delete(*(v84 + 4008));
+    operator delete(*(v78 + 4008));
   }
 
-  if (*(v84 + 4007) < 0)
+  if (*(v78 + 4007) < 0)
   {
-    operator delete(*(v84 + 3984));
+    operator delete(*(v78 + 3984));
   }
 
-  if (*(v84 + 4079) < 0)
+  if (*(v78 + 4079) < 0)
   {
-    operator delete(*(v84 + 4056));
+    operator delete(*(v78 + 4056));
   }
 
-  if (*(v84 + 4055) < 0)
+  if (*(v78 + 4055) < 0)
   {
-    operator delete(*(v84 + 4032));
+    operator delete(*(v78 + 4032));
   }
 
-  if (*(v83 + 47) < 0)
+  if (*(v77 + 47) < 0)
   {
-    operator delete(*(v83 + 24));
+    operator delete(*(v77 + 24));
   }
 
-  if (*(v83 + 23) < 0)
+  if (*(v77 + 23) < 0)
   {
-    operator delete(*v83);
+    operator delete(*v77);
   }
 
-  if (*(v83 + 95) < 0)
+  if (*(v77 + 95) < 0)
   {
-    operator delete(*(v83 + 72));
+    operator delete(*(v77 + 72));
   }
 
-  if (*(v83 + 71) < 0)
+  if (*(v77 + 71) < 0)
   {
-    operator delete(*(v83 + 48));
+    operator delete(*(v77 + 48));
   }
 
-  if (*(v83 + 143) < 0)
+  if (*(v77 + 143) < 0)
   {
-    operator delete(*(v83 + 120));
+    operator delete(*(v77 + 120));
   }
 
-  if (*(v83 + 119) < 0)
+  if (*(v77 + 119) < 0)
   {
-    operator delete(*(v83 + 96));
+    operator delete(*(v77 + 96));
   }
 
-  if (*(v83 + 191) < 0)
+  if (*(v77 + 191) < 0)
   {
-    operator delete(*(v83 + 168));
+    operator delete(*(v77 + 168));
   }
 
-  if (*(v83 + 167) < 0)
+  if (*(v77 + 167) < 0)
   {
-    operator delete(*(v83 + 144));
+    operator delete(*(v77 + 144));
   }
 
-  if (*(v83 + 239) < 0)
+  if (*(v77 + 239) < 0)
   {
-    operator delete(*(v83 + 216));
+    operator delete(*(v77 + 216));
   }
 
-  if (*(v83 + 215) < 0)
+  if (*(v77 + 215) < 0)
   {
-    operator delete(*(v83 + 192));
+    operator delete(*(v77 + 192));
   }
 
-  if (*(v83 + 287) < 0)
+  if (*(v77 + 287) < 0)
   {
-    operator delete(*(v83 + 264));
+    operator delete(*(v77 + 264));
   }
 
-  if (*(v83 + 263) < 0)
+  if (*(v77 + 263) < 0)
   {
-    operator delete(*(v83 + 240));
+    operator delete(*(v77 + 240));
   }
 
-  if (*(v83 + 335) < 0)
+  if (*(v77 + 335) < 0)
   {
-    operator delete(*(v83 + 312));
+    operator delete(*(v77 + 312));
   }
 
-  if (*(v83 + 311) < 0)
+  if (*(v77 + 311) < 0)
   {
-    operator delete(*(v83 + 288));
+    operator delete(*(v77 + 288));
   }
 
-  if (*(v83 + 383) < 0)
+  if (*(v77 + 383) < 0)
   {
-    operator delete(*(v83 + 360));
+    operator delete(*(v77 + 360));
   }
 
-  if (*(v83 + 359) < 0)
+  if (*(v77 + 359) < 0)
   {
-    operator delete(*(v83 + 336));
+    operator delete(*(v77 + 336));
   }
 
-  if (*(v83 + 431) < 0)
+  if (*(v77 + 431) < 0)
   {
-    operator delete(*(v83 + 408));
+    operator delete(*(v77 + 408));
   }
 
-  if (*(v83 + 407) < 0)
+  if (*(v77 + 407) < 0)
   {
-    operator delete(*(v83 + 384));
+    operator delete(*(v77 + 384));
   }
 
-  if (*(v83 + 479) < 0)
+  if (*(v77 + 479) < 0)
   {
-    operator delete(*(v83 + 456));
+    operator delete(*(v77 + 456));
   }
 
-  if (*(v83 + 455) < 0)
+  if (*(v77 + 455) < 0)
   {
-    operator delete(*(v83 + 432));
+    operator delete(*(v77 + 432));
   }
 
-  if (*(v83 + 527) < 0)
+  if (*(v77 + 527) < 0)
   {
-    operator delete(*(v83 + 504));
+    operator delete(*(v77 + 504));
   }
 
-  if (*(v83 + 503) < 0)
+  if (*(v77 + 503) < 0)
   {
-    operator delete(*(v83 + 480));
+    operator delete(*(v77 + 480));
   }
 
-  if (*(v83 + 575) < 0)
+  if (*(v77 + 575) < 0)
   {
-    operator delete(*(v83 + 552));
+    operator delete(*(v77 + 552));
   }
 
-  if (*(v83 + 551) < 0)
+  if (*(v77 + 551) < 0)
   {
-    operator delete(*(v83 + 528));
+    operator delete(*(v77 + 528));
   }
 
-  if (*(v83 + 623) < 0)
+  if (*(v77 + 623) < 0)
   {
-    operator delete(*(v83 + 600));
+    operator delete(*(v77 + 600));
   }
 
-  if (*(v83 + 599) < 0)
+  if (*(v77 + 599) < 0)
   {
-    operator delete(*(v83 + 576));
+    operator delete(*(v77 + 576));
   }
 
-  if (*(v83 + 671) < 0)
+  if (*(v77 + 671) < 0)
   {
-    operator delete(*(v83 + 648));
+    operator delete(*(v77 + 648));
   }
 
-  if (*(v83 + 647) < 0)
+  if (*(v77 + 647) < 0)
   {
-    operator delete(*(v83 + 624));
+    operator delete(*(v77 + 624));
   }
 
-  if (*(v83 + 719) < 0)
+  if (*(v77 + 719) < 0)
   {
-    operator delete(*(v83 + 696));
+    operator delete(*(v77 + 696));
   }
 
-  if (*(v83 + 695) < 0)
+  if (*(v77 + 695) < 0)
   {
-    operator delete(*(v83 + 672));
+    operator delete(*(v77 + 672));
   }
 
-  if (*(v83 + 767) < 0)
+  if (*(v77 + 767) < 0)
   {
-    operator delete(*(v83 + 744));
+    operator delete(*(v77 + 744));
   }
 
-  if (*(v83 + 743) < 0)
+  if (*(v77 + 743) < 0)
   {
-    operator delete(*(v83 + 720));
+    operator delete(*(v77 + 720));
   }
 
-  if (*(v83 + 815) < 0)
+  if (*(v77 + 815) < 0)
   {
-    operator delete(*(v83 + 792));
+    operator delete(*(v77 + 792));
   }
 
-  if (*(v83 + 791) < 0)
+  if (*(v77 + 791) < 0)
   {
-    operator delete(*(v83 + 768));
+    operator delete(*(v77 + 768));
   }
 
-  if (*(v83 + 863) < 0)
+  if (*(v77 + 863) < 0)
   {
-    operator delete(*(v83 + 840));
+    operator delete(*(v77 + 840));
   }
 
-  if (*(v83 + 839) < 0)
+  if (*(v77 + 839) < 0)
   {
-    operator delete(*(v83 + 816));
+    operator delete(*(v77 + 816));
   }
 
-  if (*(v83 + 911) < 0)
+  if (*(v77 + 911) < 0)
   {
-    operator delete(*(v83 + 888));
+    operator delete(*(v77 + 888));
   }
 
-  if (*(v83 + 887) < 0)
+  if (*(v77 + 887) < 0)
   {
-    operator delete(*(v83 + 864));
+    operator delete(*(v77 + 864));
   }
 
-  if (*(v83 + 959) < 0)
+  if (*(v77 + 959) < 0)
   {
-    operator delete(*(v83 + 936));
+    operator delete(*(v77 + 936));
   }
 
-  if (*(v83 + 935) < 0)
+  if (*(v77 + 935) < 0)
   {
-    operator delete(*(v83 + 912));
+    operator delete(*(v77 + 912));
   }
 
-  if (*(v83 + 1007) < 0)
+  if (*(v77 + 1007) < 0)
   {
-    operator delete(*(v83 + 984));
+    operator delete(*(v77 + 984));
   }
 
-  if (*(v83 + 983) < 0)
+  if (*(v77 + 983) < 0)
   {
-    operator delete(*(v83 + 960));
+    operator delete(*(v77 + 960));
   }
 
-  if (*(v83 + 1055) < 0)
+  if (*(v77 + 1055) < 0)
   {
-    operator delete(*(v83 + 1032));
+    operator delete(*(v77 + 1032));
   }
 
-  if (*(v83 + 1031) < 0)
+  if (*(v77 + 1031) < 0)
   {
-    operator delete(*(v83 + 1008));
+    operator delete(*(v77 + 1008));
   }
 
-  if (*(v83 + 1103) < 0)
+  if (*(v77 + 1103) < 0)
   {
-    operator delete(*(v83 + 1080));
+    operator delete(*(v77 + 1080));
   }
 
-  if (*(v83 + 1079) < 0)
+  if (*(v77 + 1079) < 0)
   {
-    operator delete(*(v83 + 1056));
+    operator delete(*(v77 + 1056));
   }
 
-  if (*(v83 + 1151) < 0)
+  if (*(v77 + 1151) < 0)
   {
-    operator delete(*(v83 + 1128));
+    operator delete(*(v77 + 1128));
   }
 
-  if (*(v83 + 1127) < 0)
+  if (*(v77 + 1127) < 0)
   {
-    operator delete(*(v83 + 1104));
+    operator delete(*(v77 + 1104));
   }
 
-  if (*(v83 + 1199) < 0)
+  if (*(v77 + 1199) < 0)
   {
-    operator delete(*(v83 + 1176));
+    operator delete(*(v77 + 1176));
   }
 
-  if (*(v83 + 1175) < 0)
+  if (*(v77 + 1175) < 0)
   {
-    operator delete(*(v83 + 1152));
+    operator delete(*(v77 + 1152));
   }
 
-  if (*(v83 + 1247) < 0)
+  if (*(v77 + 1247) < 0)
   {
-    operator delete(*(v83 + 1224));
+    operator delete(*(v77 + 1224));
   }
 
-  if (*(v83 + 1223) < 0)
+  if (*(v77 + 1223) < 0)
   {
-    operator delete(*(v83 + 1200));
+    operator delete(*(v77 + 1200));
   }
 
-  if (*(v83 + 1295) < 0)
+  if (*(v77 + 1295) < 0)
   {
-    operator delete(*(v83 + 1272));
+    operator delete(*(v77 + 1272));
   }
 
-  if (*(v83 + 1271) < 0)
+  if (*(v77 + 1271) < 0)
   {
-    operator delete(*(v83 + 1248));
+    operator delete(*(v77 + 1248));
   }
 
-  if (*(v83 + 1343) < 0)
+  if (*(v77 + 1343) < 0)
   {
-    operator delete(*(v83 + 1320));
+    operator delete(*(v77 + 1320));
   }
 
-  if (*(v83 + 1319) < 0)
+  if (*(v77 + 1319) < 0)
   {
-    operator delete(*(v83 + 1296));
+    operator delete(*(v77 + 1296));
   }
 
-  if (*(v83 + 1391) < 0)
+  if (*(v77 + 1391) < 0)
   {
-    operator delete(*(v83 + 1368));
+    operator delete(*(v77 + 1368));
   }
 
-  if (*(v83 + 1367) < 0)
+  if (*(v77 + 1367) < 0)
   {
-    operator delete(*(v83 + 1344));
+    operator delete(*(v77 + 1344));
   }
 
-  if (*(v83 + 1439) < 0)
+  if (*(v77 + 1439) < 0)
   {
-    operator delete(*(v83 + 1416));
+    operator delete(*(v77 + 1416));
   }
 
-  if (*(v83 + 1415) < 0)
+  if (*(v77 + 1415) < 0)
   {
-    operator delete(*(v83 + 1392));
+    operator delete(*(v77 + 1392));
   }
 
-  if (*(v83 + 1487) < 0)
+  if (*(v77 + 1487) < 0)
   {
-    operator delete(*(v83 + 1464));
+    operator delete(*(v77 + 1464));
   }
 
-  if (*(v83 + 1463) < 0)
+  if (*(v77 + 1463) < 0)
   {
-    operator delete(*(v83 + 1440));
+    operator delete(*(v77 + 1440));
   }
 
-  if (*(v83 + 1535) < 0)
+  if (*(v77 + 1535) < 0)
   {
-    operator delete(*(v83 + 1512));
+    operator delete(*(v77 + 1512));
   }
 
-  if (*(v83 + 1511) < 0)
+  if (*(v77 + 1511) < 0)
   {
-    operator delete(*(v83 + 1488));
+    operator delete(*(v77 + 1488));
   }
 
-  if (*(v83 + 1583) < 0)
+  if (*(v77 + 1583) < 0)
   {
-    operator delete(*(v83 + 1560));
+    operator delete(*(v77 + 1560));
   }
 
-  if (*(v83 + 1559) < 0)
+  if (*(v77 + 1559) < 0)
   {
-    operator delete(*(v83 + 1536));
+    operator delete(*(v77 + 1536));
   }
 
-  if (*(v83 + 1631) < 0)
+  if (*(v77 + 1631) < 0)
   {
-    operator delete(*(v83 + 1608));
+    operator delete(*(v77 + 1608));
   }
 
-  if (*(v83 + 1607) < 0)
+  if (*(v77 + 1607) < 0)
   {
-    operator delete(*(v83 + 1584));
+    operator delete(*(v77 + 1584));
   }
 
-  if (*(v83 + 1679) < 0)
+  if (*(v77 + 1679) < 0)
   {
-    operator delete(*(v83 + 1656));
+    operator delete(*(v77 + 1656));
   }
 
-  if (*(v83 + 1655) < 0)
+  if (*(v77 + 1655) < 0)
   {
-    operator delete(*(v83 + 1632));
+    operator delete(*(v77 + 1632));
   }
 
-  if (*(v83 + 1727) < 0)
+  if (*(v77 + 1727) < 0)
   {
-    operator delete(*(v83 + 1704));
+    operator delete(*(v77 + 1704));
   }
 
-  if (*(v83 + 1703) < 0)
+  if (*(v77 + 1703) < 0)
   {
-    operator delete(*(v83 + 1680));
+    operator delete(*(v77 + 1680));
   }
 
-  if (*(v83 + 1775) < 0)
+  if (*(v77 + 1775) < 0)
   {
-    operator delete(*(v83 + 1752));
+    operator delete(*(v77 + 1752));
   }
 
-  if (*(v83 + 1751) < 0)
+  if (*(v77 + 1751) < 0)
   {
-    operator delete(*(v83 + 1728));
+    operator delete(*(v77 + 1728));
   }
 
-  if (*(v83 + 1823) < 0)
+  if (*(v77 + 1823) < 0)
   {
-    operator delete(*(v83 + 1800));
+    operator delete(*(v77 + 1800));
   }
 
-  if (*(v83 + 1799) < 0)
+  if (*(v77 + 1799) < 0)
   {
-    operator delete(*(v83 + 1776));
+    operator delete(*(v77 + 1776));
   }
 
-  if (*(v83 + 1871) < 0)
+  if (*(v77 + 1871) < 0)
   {
-    operator delete(*(v83 + 1848));
+    operator delete(*(v77 + 1848));
   }
 
-  if (*(v83 + 1847) < 0)
+  if (*(v77 + 1847) < 0)
   {
-    operator delete(*(v83 + 1824));
+    operator delete(*(v77 + 1824));
   }
 
-  if (*(v83 + 1919) < 0)
+  if (*(v77 + 1919) < 0)
   {
-    operator delete(*(v83 + 1896));
+    operator delete(*(v77 + 1896));
   }
 
-  if (*(v83 + 1895) < 0)
+  if (*(v77 + 1895) < 0)
   {
-    operator delete(*(v83 + 1872));
+    operator delete(*(v77 + 1872));
   }
 
-  if (*(v83 + 1967) < 0)
+  if (*(v77 + 1967) < 0)
   {
-    operator delete(*(v83 + 1944));
+    operator delete(*(v77 + 1944));
   }
 
-  if (*(v83 + 1943) < 0)
+  if (*(v77 + 1943) < 0)
   {
-    operator delete(*(v83 + 1920));
+    operator delete(*(v77 + 1920));
   }
 
-  if (*(v83 + 2015) < 0)
+  if (*(v77 + 2015) < 0)
   {
-    operator delete(*(v83 + 1992));
+    operator delete(*(v77 + 1992));
   }
 
-  if (*(v83 + 1991) < 0)
+  if (*(v77 + 1991) < 0)
   {
-    operator delete(*(v83 + 1968));
+    operator delete(*(v77 + 1968));
   }
 
-  if (*(v83 + 2063) < 0)
+  if (*(v77 + 2063) < 0)
   {
-    operator delete(*(v83 + 2040));
+    operator delete(*(v77 + 2040));
   }
 
-  if (*(v83 + 2039) < 0)
+  if (*(v77 + 2039) < 0)
   {
-    operator delete(*(v83 + 2016));
+    operator delete(*(v77 + 2016));
   }
 
-  if (*(v83 + 2111) < 0)
+  if (*(v77 + 2111) < 0)
   {
-    operator delete(*(v83 + 2088));
+    operator delete(*(v77 + 2088));
   }
 
-  if (*(v83 + 2087) < 0)
+  if (*(v77 + 2087) < 0)
   {
-    operator delete(*(v83 + 2064));
+    operator delete(*(v77 + 2064));
   }
 
-  if (*(v83 + 2159) < 0)
+  if (*(v77 + 2159) < 0)
   {
-    operator delete(*(v83 + 2136));
+    operator delete(*(v77 + 2136));
   }
 
-  if (*(v83 + 2135) < 0)
+  if (*(v77 + 2135) < 0)
   {
-    operator delete(*(v83 + 2112));
+    operator delete(*(v77 + 2112));
   }
 
-  if (*(v83 + 2207) < 0)
+  if (*(v77 + 2207) < 0)
   {
-    operator delete(*(v83 + 2184));
+    operator delete(*(v77 + 2184));
   }
 
-  if (*(v83 + 2183) < 0)
+  if (*(v77 + 2183) < 0)
   {
-    operator delete(*(v83 + 2160));
+    operator delete(*(v77 + 2160));
   }
 
-  if (*(v83 + 2255) < 0)
+  if (*(v77 + 2255) < 0)
   {
-    operator delete(*(v83 + 2232));
+    operator delete(*(v77 + 2232));
   }
 
-  if (*(v83 + 2231) < 0)
+  if (*(v77 + 2231) < 0)
   {
-    operator delete(*(v83 + 2208));
+    operator delete(*(v77 + 2208));
   }
 
-  if (*(v83 + 2303) < 0)
+  if (*(v77 + 2303) < 0)
   {
-    operator delete(*(v83 + 2280));
+    operator delete(*(v77 + 2280));
   }
 
-  if (*(v83 + 2279) < 0)
+  if (*(v77 + 2279) < 0)
   {
-    operator delete(*(v83 + 2256));
+    operator delete(*(v77 + 2256));
   }
 
-  if (*(v83 + 2351) < 0)
+  if (*(v77 + 2351) < 0)
   {
-    operator delete(*(v83 + 2328));
+    operator delete(*(v77 + 2328));
   }
 
-  if (*(v83 + 2327) < 0)
+  if (*(v77 + 2327) < 0)
   {
-    operator delete(*(v83 + 2304));
+    operator delete(*(v77 + 2304));
   }
 
-  if (*(v83 + 2399) < 0)
+  if (*(v77 + 2399) < 0)
   {
-    operator delete(*(v83 + 2376));
+    operator delete(*(v77 + 2376));
   }
 
-  if (*(v83 + 2375) < 0)
+  if (*(v77 + 2375) < 0)
   {
-    operator delete(*(v83 + 2352));
+    operator delete(*(v77 + 2352));
   }
 
-  if (*(v83 + 2447) < 0)
+  if (*(v77 + 2447) < 0)
   {
-    operator delete(*(v83 + 2424));
+    operator delete(*(v77 + 2424));
   }
 
-  if (*(v83 + 2423) < 0)
+  if (*(v77 + 2423) < 0)
   {
-    operator delete(*(v83 + 2400));
+    operator delete(*(v77 + 2400));
   }
 
-  if (*(v83 + 2495) < 0)
+  if (*(v77 + 2495) < 0)
   {
-    operator delete(*(v83 + 2472));
+    operator delete(*(v77 + 2472));
   }
 
-  if (*(v83 + 2471) < 0)
+  if (*(v77 + 2471) < 0)
   {
-    operator delete(*(v83 + 2448));
+    operator delete(*(v77 + 2448));
   }
 
-  if (*(v83 + 2543) < 0)
+  if (*(v77 + 2543) < 0)
   {
-    operator delete(*(v83 + 2520));
+    operator delete(*(v77 + 2520));
   }
 
-  if (*(v83 + 2519) < 0)
+  if (*(v77 + 2519) < 0)
   {
-    operator delete(*(v83 + 2496));
+    operator delete(*(v77 + 2496));
   }
 
-  if (*(v83 + 2591) < 0)
+  if (*(v77 + 2591) < 0)
   {
-    operator delete(*(v83 + 2568));
+    operator delete(*(v77 + 2568));
   }
 
-  if (*(v83 + 2567) < 0)
+  if (*(v77 + 2567) < 0)
   {
-    operator delete(*(v83 + 2544));
+    operator delete(*(v77 + 2544));
   }
 
-  if (*(v83 + 2639) < 0)
+  if (*(v77 + 2639) < 0)
   {
-    operator delete(*(v83 + 2616));
+    operator delete(*(v77 + 2616));
   }
 
-  if (*(v83 + 2615) < 0)
+  if (*(v77 + 2615) < 0)
   {
-    operator delete(*(v83 + 2592));
+    operator delete(*(v77 + 2592));
   }
 
-  if (*(v83 + 2687) < 0)
+  if (*(v77 + 2687) < 0)
   {
-    operator delete(*(v83 + 2664));
+    operator delete(*(v77 + 2664));
   }
 
-  if (*(v83 + 2663) < 0)
+  if (*(v77 + 2663) < 0)
   {
-    operator delete(*(v83 + 2640));
+    operator delete(*(v77 + 2640));
   }
 
-  if (*(v83 + 2735) < 0)
+  if (*(v77 + 2735) < 0)
   {
-    operator delete(*(v83 + 2712));
+    operator delete(*(v77 + 2712));
   }
 
-  if (*(v83 + 2711) < 0)
+  if (*(v77 + 2711) < 0)
   {
-    operator delete(*(v83 + 2688));
+    operator delete(*(v77 + 2688));
   }
 
-  if (*(v83 + 2783) < 0)
+  if (*(v77 + 2783) < 0)
   {
-    operator delete(*(v83 + 2760));
+    operator delete(*(v77 + 2760));
   }
 
-  if (*(v83 + 2759) < 0)
+  if (*(v77 + 2759) < 0)
   {
-    operator delete(*(v83 + 2736));
+    operator delete(*(v77 + 2736));
   }
 
-  if (*(v83 + 2831) < 0)
+  if (*(v77 + 2831) < 0)
   {
-    operator delete(*(v83 + 2808));
+    operator delete(*(v77 + 2808));
   }
 
-  if (*(v83 + 2807) < 0)
+  if (*(v77 + 2807) < 0)
   {
-    operator delete(*(v83 + 2784));
+    operator delete(*(v77 + 2784));
   }
 
-  if (*(v83 + 2879) < 0)
+  if (*(v77 + 2879) < 0)
   {
-    operator delete(*(v83 + 2856));
+    operator delete(*(v77 + 2856));
   }
 
-  if (*(v83 + 2855) < 0)
+  if (*(v77 + 2855) < 0)
   {
-    operator delete(*(v83 + 2832));
+    operator delete(*(v77 + 2832));
   }
 
-  if (*(v83 + 2927) < 0)
+  if (*(v77 + 2927) < 0)
   {
-    operator delete(*(v83 + 2904));
+    operator delete(*(v77 + 2904));
   }
 
-  if (*(v83 + 2903) < 0)
+  if (*(v77 + 2903) < 0)
   {
-    operator delete(*(v83 + 2880));
+    operator delete(*(v77 + 2880));
   }
 
-  if (*(v83 + 2975) < 0)
+  if (*(v77 + 2975) < 0)
   {
-    operator delete(*(v83 + 2952));
+    operator delete(*(v77 + 2952));
   }
 
-  if (*(v83 + 2951) < 0)
+  if (*(v77 + 2951) < 0)
   {
-    operator delete(*(v83 + 2928));
+    operator delete(*(v77 + 2928));
   }
 
-  if (*(v83 + 3023) < 0)
+  if (*(v77 + 3023) < 0)
   {
-    operator delete(*(v83 + 3000));
+    operator delete(*(v77 + 3000));
   }
 
-  if (*(v83 + 2999) < 0)
+  if (*(v77 + 2999) < 0)
   {
-    operator delete(*(v83 + 2976));
+    operator delete(*(v77 + 2976));
   }
 
-  if (*(v83 + 3071) < 0)
+  if (*(v77 + 3071) < 0)
   {
-    operator delete(*(v83 + 3048));
+    operator delete(*(v77 + 3048));
   }
 
-  if (*(v83 + 3047) < 0)
+  if (*(v77 + 3047) < 0)
   {
-    operator delete(*(v83 + 3024));
+    operator delete(*(v77 + 3024));
   }
 
-  if (*(v83 + 3119) < 0)
+  if (*(v77 + 3119) < 0)
   {
-    operator delete(*(v83 + 3096));
+    operator delete(*(v77 + 3096));
   }
 
-  if (*(v83 + 3095) < 0)
+  if (*(v77 + 3095) < 0)
   {
-    operator delete(*(v83 + 3072));
+    operator delete(*(v77 + 3072));
   }
 
-  if (*(v83 + 3167) < 0)
+  if (*(v77 + 3167) < 0)
   {
-    operator delete(*(v83 + 3144));
+    operator delete(*(v77 + 3144));
   }
 
-  if (*(v83 + 3143) < 0)
+  if (*(v77 + 3143) < 0)
   {
-    operator delete(*(v83 + 3120));
+    operator delete(*(v77 + 3120));
   }
 
-  if (*(v83 + 3215) < 0)
+  if (*(v77 + 3215) < 0)
   {
-    operator delete(*(v83 + 3192));
+    operator delete(*(v77 + 3192));
   }
 
-  if (*(v83 + 3191) < 0)
+  if (*(v77 + 3191) < 0)
   {
-    operator delete(*(v83 + 3168));
+    operator delete(*(v77 + 3168));
   }
 
-  if (*(v83 + 3263) < 0)
+  if (*(v77 + 3263) < 0)
   {
-    operator delete(*(v83 + 3240));
+    operator delete(*(v77 + 3240));
   }
 
-  if (*(v83 + 3239) < 0)
+  if (*(v77 + 3239) < 0)
   {
-    operator delete(*(v83 + 3216));
+    operator delete(*(v77 + 3216));
   }
 
-  if (*(v83 + 3311) < 0)
+  if (*(v77 + 3311) < 0)
   {
-    operator delete(*(v83 + 3288));
+    operator delete(*(v77 + 3288));
   }
 
-  if (*(v83 + 3287) < 0)
+  if (*(v77 + 3287) < 0)
   {
-    operator delete(*(v83 + 3264));
+    operator delete(*(v77 + 3264));
   }
 
-  if (*(v83 + 3359) < 0)
+  if (*(v77 + 3359) < 0)
   {
-    operator delete(*(v83 + 3336));
+    operator delete(*(v77 + 3336));
   }
 
-  if (*(v83 + 3335) < 0)
+  if (*(v77 + 3335) < 0)
   {
-    operator delete(*(v83 + 3312));
+    operator delete(*(v77 + 3312));
   }
 
-  if (*(v83 + 3407) < 0)
+  if (*(v77 + 3407) < 0)
   {
-    operator delete(*(v83 + 3384));
+    operator delete(*(v77 + 3384));
   }
 
-  if (*(v83 + 3383) < 0)
+  if (*(v77 + 3383) < 0)
   {
-    operator delete(*(v83 + 3360));
+    operator delete(*(v77 + 3360));
   }
 
-  if (*(v83 + 3455) < 0)
+  if (*(v77 + 3455) < 0)
   {
-    operator delete(*(v83 + 3432));
+    operator delete(*(v77 + 3432));
   }
 
-  if (*(v83 + 3431) < 0)
+  if (*(v77 + 3431) < 0)
   {
-    operator delete(*(v83 + 3408));
+    operator delete(*(v77 + 3408));
   }
 
-  if (*(v83 + 3503) < 0)
+  if (*(v77 + 3503) < 0)
   {
-    operator delete(*(v83 + 3480));
+    operator delete(*(v77 + 3480));
   }
 
-  if (*(v83 + 3479) < 0)
+  if (*(v77 + 3479) < 0)
   {
-    operator delete(*(v83 + 3456));
+    operator delete(*(v77 + 3456));
   }
 
-  if (*(v83 + 3551) < 0)
+  if (*(v77 + 3551) < 0)
   {
-    operator delete(*(v83 + 3528));
+    operator delete(*(v77 + 3528));
   }
 
-  if (*(v83 + 3527) < 0)
+  if (*(v77 + 3527) < 0)
   {
-    operator delete(*(v83 + 3504));
+    operator delete(*(v77 + 3504));
   }
 
-  if (*(v83 + 3599) < 0)
+  if (*(v77 + 3599) < 0)
   {
-    operator delete(*(v83 + 3576));
+    operator delete(*(v77 + 3576));
   }
 
-  if (*(v83 + 3575) < 0)
+  if (*(v77 + 3575) < 0)
   {
-    operator delete(*(v83 + 3552));
+    operator delete(*(v77 + 3552));
   }
 
-  if (*(v83 + 3647) < 0)
+  if (*(v77 + 3647) < 0)
   {
-    operator delete(*(v83 + 3624));
+    operator delete(*(v77 + 3624));
   }
 
-  if (*(v83 + 3623) < 0)
+  if (*(v77 + 3623) < 0)
   {
-    operator delete(*(v83 + 3600));
+    operator delete(*(v77 + 3600));
   }
 
-  if (*(v83 + 3695) < 0)
+  if (*(v77 + 3695) < 0)
   {
-    operator delete(*(v83 + 3672));
+    operator delete(*(v77 + 3672));
   }
 
-  if (*(v83 + 3671) < 0)
+  if (*(v77 + 3671) < 0)
   {
-    operator delete(*(v83 + 3648));
+    operator delete(*(v77 + 3648));
   }
 
-  if (*(v83 + 3743) < 0)
+  if (*(v77 + 3743) < 0)
   {
-    operator delete(*(v83 + 3720));
+    operator delete(*(v77 + 3720));
   }
 
-  if (*(v83 + 3719) < 0)
+  if (*(v77 + 3719) < 0)
   {
-    operator delete(*(v83 + 3696));
+    operator delete(*(v77 + 3696));
   }
 
-  if (*(v83 + 3791) < 0)
+  if (*(v77 + 3791) < 0)
   {
-    operator delete(*(v83 + 3768));
+    operator delete(*(v77 + 3768));
   }
 
-  if (*(v83 + 3767) < 0)
+  if (*(v77 + 3767) < 0)
   {
-    operator delete(*(v83 + 3744));
+    operator delete(*(v77 + 3744));
   }
 
-  if (*(v83 + 3839) < 0)
+  if (*(v77 + 3839) < 0)
   {
-    operator delete(*(v83 + 3816));
+    operator delete(*(v77 + 3816));
   }
 
-  if (*(v83 + 3815) < 0)
+  if (*(v77 + 3815) < 0)
   {
-    operator delete(*(v83 + 3792));
+    operator delete(*(v77 + 3792));
   }
 
-  if (*(v83 + 3887) < 0)
+  if (*(v77 + 3887) < 0)
   {
-    operator delete(*(v83 + 3864));
+    operator delete(*(v77 + 3864));
   }
 
-  if (*(v83 + 3863) < 0)
+  if (*(v77 + 3863) < 0)
   {
-    operator delete(*(v83 + 3840));
+    operator delete(*(v77 + 3840));
   }
 
-  if (*(v83 + 3935) < 0)
+  if (*(v77 + 3935) < 0)
   {
-    operator delete(*(v83 + 3912));
+    operator delete(*(v77 + 3912));
   }
 
-  if (*(v83 + 3911) < 0)
+  if (*(v77 + 3911) < 0)
   {
-    operator delete(*(v83 + 3888));
+    operator delete(*(v77 + 3888));
   }
 
-  if (*(v83 + 3983) < 0)
+  if (*(v77 + 3983) < 0)
   {
-    operator delete(*(v83 + 3960));
+    operator delete(*(v77 + 3960));
   }
 
-  if (*(v83 + 3959) < 0)
+  if (*(v77 + 3959) < 0)
   {
-    operator delete(*(v83 + 3936));
+    operator delete(*(v77 + 3936));
   }
 
-  MEMORY[0x26D6787B0](v85, 0x1020C4062D53EE8);
+  MEMORY[0x26D6787B0](v79, 0x1020C4062D53EE8);
   _Unwind_Resume(a1);
 }
 
@@ -1997,8 +2170,7 @@ uint64_t std::pair<std::string const,std::string>::pair[abi:ne200100]<std::strin
   v4 = *a2;
   *(a1 + 16) = *(a2 + 2);
   *a1 = v4;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   std::string::basic_string[abi:ne200100]<0>((a1 + 24), __s);
   return a1;
@@ -2019,8 +2191,7 @@ uint64_t std::pair<std::string const,std::string>::pair[abi:ne200100]<std::strin
   v4 = *a2;
   *(a1 + 16) = *(a2 + 2);
   *a1 = v4;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   std::string::basic_string[abi:ne200100]<0>((a1 + 24), __s);
   return a1;
@@ -2046,18 +2217,18 @@ void ___ZL25RDGetLegitimateCharactersv_block_invoke()
   RDGetLegitimateCharacters(void)::s_legit_chars = MutableCopy;
 }
 
-void *std::map<std::string,std::string>::map[abi:ne200100](void *a1, const void **a2, uint64_t a3)
+uint64_t **std::map<std::string,std::string>::map[abi:ne200100](uint64_t **a1, const void **a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = (a1 + 1);
+  v4 = a1 + 1;
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 48 * a3;
     do
     {
-      std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, v4, a2, a2);
       a2 += 6;
       v6 -= 48;
     }
@@ -2068,34 +2239,34 @@ void *std::map<std::string,std::string>::map[abi:ne200100](void *a1, const void 
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(void *a1, uint64_t a2, const void **a3)
+void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(uint64_t **a1, void *a2, const void **a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::pair<std::string const,std::string> const&>();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, const void **a5)
+uint64_t *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(void *a1, void *a2, uint64_t *a3, uint64_t *a4, const void **a5)
 {
-  v9 = (a1 + 1);
-  if (a1 + 1 != a2 && !std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>::operator()[abi:ne200100](a1, a5, (a2 + 32)))
+  v9 = a1 + 1;
+  if (a1 + 1 != a2 && !std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>::operator()[abi:ne200100](a1, a5, a2 + 4))
   {
-    if (!std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>::operator()[abi:ne200100](a1, (a2 + 32), a5))
+    if (!std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>::operator()[abi:ne200100](a1, a2 + 4, a5))
     {
       *a3 = a2;
       *a4 = a2;
       return a4;
     }
 
-    a4 = (a2 + 8);
-    v13 = *(a2 + 8);
+    a4 = a2 + 1;
+    v13 = a2[1];
     if (v13)
     {
-      v14 = *(a2 + 8);
+      v14 = a2[1];
       do
       {
         v15 = v14;
@@ -2149,7 +2320,7 @@ LABEL_16:
     if (*a2)
     {
       *a3 = v12;
-      return v12 + 8;
+      return v12 + 1;
     }
 
     else
@@ -2165,7 +2336,7 @@ LABEL_16:
     do
     {
       v12 = v11;
-      v11 = *(v11 + 8);
+      v11 = v11[1];
     }
 
     while (v11);
@@ -2176,7 +2347,7 @@ LABEL_16:
     v16 = a2;
     do
     {
-      v12 = *(v16 + 16);
+      v12 = v16[2];
       v17 = *v12 == v16;
       v16 = v12;
     }
@@ -2184,7 +2355,7 @@ LABEL_16:
     while (v17);
   }
 
-  if (std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>::operator()[abi:ne200100](a1, (v12 + 32), a5))
+  if (std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>::operator()[abi:ne200100](a1, v12 + 4, a5))
   {
     goto LABEL_16;
   }
@@ -2194,7 +2365,7 @@ LABEL_28:
   return std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, a3, a5);
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -2455,12 +2626,12 @@ void cmdp_sausage_util::mergeTokens(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v19, *a1, *(a1 + 8));
+    std::string::__init_copy_ctor_external(&v9, *a1, *(a1 + 8));
   }
 
   else
   {
-    v19 = *a1;
+    v9 = *a1;
   }
 
   if (*(a2 + 23) < 0)
@@ -2493,12 +2664,9 @@ void cmdp_sausage_util::mergeTokens(uint64_t a1, uint64_t a2)
     size = __p.__r_.__value_.__l.__size_;
   }
 
-  v6 = std::string::append(&v19, p_p, size);
-  v7 = v6->__r_.__value_.__r.__words[0];
-  v8 = v6->__r_.__value_.__l.__size_;
-  v18[0] = v6->__r_.__value_.__r.__words[2];
-  *(v18 + 3) = *(&v6->__r_.__value_.__r.__words[2] + 3);
-  v9 = SHIBYTE(v6->__r_.__value_.__r.__words[2]);
+  v6 = std::string::append(&v9, p_p, size);
+  v8[0] = v6->__r_.__value_.__r.__words[2];
+  *(v8 + 3) = *(&v6->__r_.__value_.__r.__words[2] + 3);
   v6->__r_.__value_.__l.__size_ = 0;
   v6->__r_.__value_.__r.__words[2] = 0;
   v6->__r_.__value_.__r.__words[0] = 0;
@@ -2507,41 +2675,34 @@ void cmdp_sausage_util::mergeTokens(uint64_t a1, uint64_t a2)
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v19.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
   }
 
-  v10 = *(a1 + 24);
-  v11 = *(a2 + 32);
-  v12 = *(a1 + 40);
-  v13 = *(a1 + 48);
-  v14 = *(a2 + 48);
-  v15 = *(a2 + 56);
-  v16 = *(a1 + 57);
   operator new();
 }
 
-void sub_26B53BACC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_26B53BACC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   if (a21 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x26D6787B0](v22, 0x1012C408B718000);
+  MEMORY[0x26D6787B0](v22, 0x1012C408B718000, a3, a4, a5, a6, a7, a8);
   operator delete(v21);
   _Unwind_Resume(a1);
 }
 
-void cmdp_sausage_util::sanitizeTokenSausage(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+void cmdp_sausage_util::sanitizeTokenSausage(uint64_t ***a1@<X0>, uint64_t a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   v2 = *a1;
-  v22 = a1[1];
-  if (*a1 == v22)
+  v15 = a1[1];
+  if (*a1 == v15)
   {
     return;
   }
@@ -2549,22 +2710,22 @@ void cmdp_sausage_util::sanitizeTokenSausage(uint64_t *a1@<X0>, uint64_t a2@<X8>
   alloc = *MEMORY[0x277CBECE8];
   do
   {
-    v34 = 0;
-    v35 = 0;
-    v36 = 0;
+    v24 = 0;
+    v25 = 0;
+    v26 = 0;
     v3 = *v2;
-    v23 = v2;
-    v24 = v2[1];
-    if (*v2 == v24)
+    v16 = v2;
+    v17 = v2[1];
+    if (*v2 == v17)
     {
       goto LABEL_33;
     }
 
     do
     {
-      v32 = 0;
-      v33 = 0;
-      v31 = 0;
+      v22 = 0;
+      v23 = 0;
+      v21 = 0;
       v4 = *v3;
       if (v3[1] == *v3)
       {
@@ -2577,24 +2738,24 @@ void cmdp_sausage_util::sanitizeTokenSausage(uint64_t *a1@<X0>, uint64_t a2@<X8>
         v6 = *(v4 + 8 * v5);
         if (*(v6 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&v30, *v6, *(v6 + 1));
+          std::string::__init_copy_ctor_external(&v20, *v6, *(v6 + 1));
         }
 
         else
         {
           v7 = *v6;
-          v30.__r_.__value_.__r.__words[2] = *(v6 + 2);
-          *&v30.__r_.__value_.__l.__data_ = v7;
+          v20.__r_.__value_.__r.__words[2] = *(v6 + 2);
+          *&v20.__r_.__value_.__l.__data_ = v7;
         }
 
-        if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v8 = &v30;
+          v8 = &v20;
         }
 
         else
         {
-          v8 = v30.__r_.__value_.__r.__words[0];
+          v8 = v20.__r_.__value_.__r.__words[0];
         }
 
         v9 = CFStringCreateWithCString(0, v8, 0x8000100u);
@@ -2620,43 +2781,33 @@ LABEL_16:
 LABEL_17:
         if (!ArrayBySeparatingStrings || CFArrayGetCount(ArrayBySeparatingStrings) < 2)
         {
-          v16 = *(v4 + 8 * v5);
-          if (*(v16 + 23) < 0)
+          v12 = *(v4 + 8 * v5);
+          if (*(v12 + 23) < 0)
           {
-            std::string::__init_copy_ctor_external(&v37, *v16, *(v16 + 1));
+            std::string::__init_copy_ctor_external(&v27, *v12, *(v12 + 1));
           }
 
           else
           {
-            v17 = *v16;
-            v37.__r_.__value_.__r.__words[2] = *(v16 + 2);
-            *&v37.__r_.__value_.__l.__data_ = v17;
+            v13 = *v12;
+            v27.__r_.__value_.__r.__words[2] = *(v12 + 2);
+            *&v27.__r_.__value_.__l.__data_ = v13;
           }
 
-          v18 = *(v4 + 8 * v5);
-          v26 = *(v18 + 24);
-          v28 = *(v18 + 40);
-          v19 = *(v18 + 56);
-          v20 = *(v18 + 57);
           operator new();
         }
 
-        v11 = *(v4 + 8 * v5);
-        v12 = *(v11 + 40);
-        v27 = *(v11 + 24);
-        v13 = *(v11 + 57);
-        v14 = *(v11 + 56);
         if (CFArrayGetCount(ArrayBySeparatingStrings) > 0)
         {
           ValueAtIndex = CFArrayGetValueAtIndex(ArrayBySeparatingStrings, 0);
-          cmdp_string::CreateCppStringFromCFString(ValueAtIndex, 0, __p);
+          cmdp_string::CreateCppStringFromCFString(__p, ValueAtIndex, 0);
           operator new();
         }
 
         CFRelease(ArrayBySeparatingStrings);
-        if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v30.__r_.__value_.__l.__data_);
+          operator delete(v20.__r_.__value_.__l.__data_);
         }
 
         ++v5;
@@ -2664,30 +2815,30 @@ LABEL_17:
       }
 
       while (v5 < (v3[1] - *v3) >> 3);
-      if (v31 != v32)
+      if (v21 != v22)
       {
-        std::vector<std::vector<std::unique_ptr<CMDPToken>>>::push_back[abi:ne200100](&v34, &v31);
+        std::vector<std::vector<std::unique_ptr<CMDPToken>>>::push_back[abi:ne200100](&v24, &v21);
       }
 
 LABEL_30:
-      v37.__r_.__value_.__r.__words[0] = &v31;
-      std::vector<std::unique_ptr<CMDPToken>>::__destroy_vector::operator()[abi:ne200100](&v37);
+      v27.__r_.__value_.__r.__words[0] = &v21;
+      std::vector<std::unique_ptr<CMDPToken>>::__destroy_vector::operator()[abi:ne200100](&v27);
       v3 += 3;
     }
 
-    while (v3 != v24);
-    if (v34 != v35)
+    while (v3 != v17);
+    if (v24 != v25)
     {
-      std::vector<std::vector<std::vector<std::unique_ptr<CMDPToken>>>>::push_back[abi:ne200100](a2, &v34);
+      std::vector<std::vector<std::vector<std::unique_ptr<CMDPToken>>>>::push_back[abi:ne200100](a2, &v24);
     }
 
 LABEL_33:
-    v37.__r_.__value_.__r.__words[0] = &v34;
-    std::vector<std::vector<std::unique_ptr<CMDPToken>>>::__destroy_vector::operator()[abi:ne200100](&v37);
-    v2 = v23 + 3;
+    v27.__r_.__value_.__r.__words[0] = &v24;
+    std::vector<std::vector<std::unique_ptr<CMDPToken>>>::__destroy_vector::operator()[abi:ne200100](&v27);
+    v2 = v16 + 3;
   }
 
-  while (v23 + 3 != v22);
+  while (v16 + 3 != v15);
 }
 
 void sub_26B53BF84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, uint64_t a33)
@@ -2699,7 +2850,7 @@ void sub_26B53BF84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void cmdp_sausage_util::addArcToFst(uint64_t a1, int a2, int a3, int a4, const char *a5, int a6, uint64_t a7, CFLocaleRef *a8)
+void cmdp_sausage_util::addArcToFst(uint64_t a1, int a2, int a3, int a4, const char *a5, int a6, uint64_t **a7, CFLocaleRef *a8)
 {
   CMDPNormalizer::normalize(a8, a5, &__p);
   std::to_string(&v20, a4);
@@ -2709,7 +2860,7 @@ void cmdp_sausage_util::addArcToFst(uint64_t a1, int a2, int a3, int a4, const c
     operator delete(v20.__r_.__value_.__l.__data_);
   }
 
-  std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a7, &__p.__r_.__value_.__l.__data_);
+  std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a7, &__p.__r_.__value_.__l.__data_, &__p);
   CMDPNormalizer::homonymize(a8, &__p, v15, v16);
   size = HIBYTE(v20.__r_.__value_.__r.__words[2]);
   v18 = HIBYTE(v20.__r_.__value_.__r.__words[2]);
@@ -2727,7 +2878,7 @@ void cmdp_sausage_util::addArcToFst(uint64_t a1, int a2, int a3, int a4, const c
       operator delete(v19.__r_.__value_.__l.__data_);
     }
 
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a7, &v20.__r_.__value_.__l.__data_);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a7, &v20.__r_.__value_.__l.__data_, &v20);
     v18 = HIBYTE(v20.__r_.__value_.__r.__words[2]);
   }
 
@@ -3012,18 +3163,18 @@ void sub_26B53C504(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void cmdp_sausage_util::fstFromSausage(uint64_t *a1@<X0>, void *a2@<X8>)
+void cmdp_sausage_util::fstFromSausage(uint64_t ***a1@<X0>, void *a6@<X8>)
 {
-  cmdp_sausage_util::sanitizeTokenSausage(a1, v4);
-  if (v4[0] != v4[1])
+  cmdp_sausage_util::sanitizeTokenSausage(a1, v8);
+  if (v8[0] != v8[1])
   {
-    memset(v3, 0, sizeof(v3));
+    memset(v7, 0, sizeof(v7));
     operator new();
   }
 
-  *a2 = 0;
-  v3[0] = v4;
-  std::vector<std::vector<std::vector<std::unique_ptr<CMDPToken>>>>::__destroy_vector::operator()[abi:ne200100](v3);
+  *a6 = 0;
+  v7[0] = v8;
+  std::vector<std::vector<std::vector<std::unique_ptr<CMDPToken>>>>::__destroy_vector::operator()[abi:ne200100](v7);
 }
 
 void sub_26B53CCD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, void *__p, uint64_t a33)
@@ -3048,9 +3199,9 @@ uint64_t std::function<unsigned int ()(CMDPToken const*)>::operator()(uint64_t a
   return (*(*v2 + 48))(v2, &v4);
 }
 
-uint64_t std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t a1, const void **a2)
+void *std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t **a1, const void **a2, uint64_t a3)
 {
-  result = *std::__tree<std::string>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
   if (!result)
   {
     std::__tree<std::string>::__construct_node<std::string const&>();
@@ -3225,7 +3376,7 @@ void std::__throw_bad_function_call[abi:ne200100]()
   __cxa_throw(exception, MEMORY[0x277D82728], MEMORY[0x277D82660]);
 }
 
-void std::vector<cmdp_sausage_util::SausageArc>::__emplace_back_slow_path<int &,int &,CMDPToken *,BOOL,int>(void *a1, int *a2, int *a3, uint64_t *a4, char *a5, int *a6)
+void std::vector<cmdp_sausage_util::SausageArc>::__emplace_back_slow_path<int &,int &,CMDPToken *,BOOL,int>(unint64_t *a1, unsigned int *a2, unsigned int *a3, uint64_t *a4, char *a5, int *a6)
 {
   v6 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3) + 1;
   if (v6 <= 0xAAAAAAAAAAAAAAALL)
@@ -3256,9 +3407,9 @@ void std::vector<cmdp_sausage_util::SausageArc>::__emplace_back_slow_path<int &,
   std::vector<std::pair<std::string,std::unique_ptr<fst::VectorFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>>>::__throw_length_error[abi:ne200100]();
 }
 
-void sub_26B53D2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26B53D2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<cmdp_sausage_util::SausageArc>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3434,9 +3585,9 @@ void std::vector<cmdp_sausage_util::SausageArc>::__emplace_back_slow_path<int &,
   std::vector<std::pair<std::string,std::unique_ptr<fst::VectorFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>>>::__throw_length_error[abi:ne200100]();
 }
 
-void sub_26B53D728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26B53D728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<cmdp_sausage_util::SausageArc>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3456,9 +3607,9 @@ void std::shared_ptr<fst::internal::SymbolTableImpl>::shared_ptr[abi:ne200100]<f
   operator new();
 }
 
-void sub_26B53E0A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26B53E0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<fst::internal::SymbolTableImpl>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3549,9 +3700,9 @@ fst::internal::DenseSymbolMap *fst::internal::DenseSymbolMap::DenseSymbolMap(fst
   return this;
 }
 
-void sub_26B53E28C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26B53E28C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3562,18 +3713,18 @@ fst::internal::DenseSymbolMap *fst::internal::DenseSymbolMap::DenseSymbolMap(fst
   *(this + 1) = 0;
   *(this + 2) = 0;
   *(this + 3) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 8, *(a2 + 1), *(a2 + 2), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 2) - *(a2 + 1)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 1, *(a2 + 1), *(a2 + 2), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 2) - *(a2 + 1)) >> 3));
   *(this + 5) = 0;
   *(this + 6) = 0;
   *(this + 7) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(this + 40, *(a2 + 5), *(a2 + 6), (*(a2 + 6) - *(a2 + 5)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(this + 5, *(a2 + 5), *(a2 + 6), (*(a2 + 6) - *(a2 + 5)) >> 3);
   *(this + 8) = *(a2 + 8);
   return this;
 }
 
-void sub_26B53E33C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26B53E33C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3749,9 +3900,9 @@ void fst::internal::DenseSymbolMap::Rehash(fst::internal::DenseSymbolMap *this, 
   }
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -3766,7 +3917,7 @@ unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64
   return std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](&v5, a2, v3);
 }
 
-uint64_t fst::internal::DenseSymbolMap::Find(uint64_t *a1, uint64_t a2)
+uint64_t fst::internal::DenseSymbolMap::Find(uint64_t *a1, uint64_t *a2)
 {
   v2 = a2;
   v4 = std::__string_hash<char>::operator()[abi:ne200100]((a1 + 4), a2);
@@ -3781,15 +3932,15 @@ uint64_t fst::internal::DenseSymbolMap::Find(uint64_t *a1, uint64_t a2)
   }
 
   v10 = a1[1];
-  v11 = v2[23];
+  v11 = *(v2 + 23);
   if (v11 >= 0)
   {
-    v12 = v2[23];
+    v12 = *(v2 + 23);
   }
 
   else
   {
-    v12 = *(v2 + 1);
+    v12 = v2[1];
   }
 
   if (v11 < 0)
@@ -3827,20 +3978,20 @@ uint64_t fst::internal::DenseSymbolMap::Find(uint64_t *a1, uint64_t a2)
   return v9;
 }
 
-void std::vector<long long>::resize(void *a1, unint64_t a2)
+void std::vector<long long>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<long long>::__append(a1, a2 - v2);
+    std::vector<long long>::__append(result, a2 - v2);
   }
 }
 
@@ -3937,13 +4088,13 @@ uint64_t fst::internal::SymbolTableImpl::AddSymbol(uint64_t a1, uint64_t a2, uin
       else
       {
         *v11 = a3;
-        v12 = v11 + 1;
+        v12 = v11 + 8;
       }
 
       *(a1 + 120) = v12;
       v33 = -1 - 0x5555555555555555 * ((*(a1 + 56) - *(a1 + 48)) >> 3);
       __p[0] = &v37;
-      std::__tree<std::__value_type<long long,long long>,std::__map_value_compare<long long,std::__value_type<long long,long long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,long long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(a1 + 136, &v37)[5] = v33;
+      std::__tree<std::__value_type<long long,long long>,std::__map_value_compare<long long,std::__value_type<long long,long long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,long long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(a1 + 136, &v37, &std::piecewise_construct, __p)[5] = v33;
       v8 = v37;
     }
 
@@ -4441,9 +4592,9 @@ uint64_t std::ostringstream::~ostringstream(uint64_t a1)
   return a1;
 }
 
-unint64_t fst::internal::SymbolTableImpl::GetNthKey(fst::internal::SymbolTableImpl *this, unint64_t a2)
+int64_t fst::internal::SymbolTableImpl::GetNthKey(fst::internal::SymbolTableImpl *this, int64_t a2)
 {
-  if ((a2 & 0x8000000000000000) != 0)
+  if (a2 < 0)
   {
     return -1;
   }
@@ -4456,7 +4607,7 @@ unint64_t fst::internal::SymbolTableImpl::GetNthKey(fst::internal::SymbolTableIm
 
   if (*(this + 4) <= a2)
   {
-    v4 = fst::internal::DenseSymbolMap::Find(this + 5, v3 + 24 * a2);
+    v4 = fst::internal::DenseSymbolMap::Find(this + 5, (v3 + 24 * a2));
     a2 = v4;
     if (v4 != -1)
     {
@@ -4578,18 +4729,18 @@ LABEL_11:
 
           else
           {
-            v27[0] = a2 + 1;
+            v27 = a2 + 1;
             if (a2 + 1 < v14)
             {
               v15 = a2;
               do
               {
-                v27[2] = v27;
-                std::__tree<std::__value_type<long long,long long>,std::__map_value_compare<long long,std::__value_type<long long,long long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,long long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(this + 136, v27)[5] = v15;
-                v15 = v27[0]++;
+                v28 = &v27;
+                std::__tree<std::__value_type<long long,long long>,std::__map_value_compare<long long,std::__value_type<long long,long long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,long long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(this + 136, &v27, &std::piecewise_construct, &v28)[5] = v15;
+                v15 = v27++;
               }
 
-              while (v27[0] < *(this + 4));
+              while (v27 < *(this + 4));
             }
 
             std::vector<long long>::resize(this + 14, 0xAAAAAAAAAAAAAAABLL * ((*(this + 7) - *(this + 6)) >> 3) - a2);
@@ -4647,75 +4798,57 @@ BOOL fst::internal::SymbolTableImpl::Write(uint64_t *a1, void *a2)
 
   LODWORD(__p[0]) = v4;
   std::ostream::write();
-  if (*(a1 + 23) < 0)
-  {
-    v5 = *a1;
-  }
-
   std::ostream::write();
   __p[0] = a1[3];
   std::ostream::write();
-  v6 = a1[7] - a1[6];
-  v7 = 0xAAAAAAAAAAAAAAABLL * (v6 >> 3);
-  __p[0] = v7;
+  v5 = a1[7] - a1[6];
+  v6 = 0xAAAAAAAAAAAAAAABLL * (v5 >> 3);
+  __p[0] = v6;
   std::ostream::write();
-  if (v6 >= 1)
+  if (v5 >= 1)
   {
+    v7 = 0;
     v8 = 0;
-    v9 = 0;
-    if (v7 <= 1)
+    if (v6 <= 1)
     {
-      v7 = 1;
+      v6 = 1;
     }
 
     do
     {
-      v10 = a1[4];
-      v11 = v9;
-      if (v9 >= v10)
+      v9 = a1[4];
+      v10 = v8;
+      if (v8 >= v9)
       {
-        v11 = *(a1[14] - 8 * v10 + 8 * v9);
-      }
-
-      v12 = (a1[6] + v8);
-      LODWORD(v13) = *(v12 + 23);
-      if ((v13 & 0x80u) != 0)
-      {
-        v13 = v12[1];
-      }
-
-      LODWORD(__p[0]) = v13;
-      std::ostream::write();
-      if (*(v12 + 23) < 0)
-      {
-        v14 = *v12;
+        v10 = *(a1[14] - 8 * v9 + 8 * v8);
       }
 
       std::ostream::write();
-      __p[0] = v11;
       std::ostream::write();
-      ++v9;
-      v8 += 24;
+      __p[0] = v10;
+      std::ostream::write();
+      ++v8;
+      v7 += 24;
     }
 
-    while (v7 != v9);
+    while (v6 != v8);
   }
 
   std::ostream::flush();
-  v15 = *(a2 + *(*a2 - 24) + 32) & 5;
-  if (v15)
+  v11 = *(a2 + *(*a2 - 24) + 32) & 5;
+  if (v11)
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "ERROR");
-    LogMessage::LogMessage(&v19, __p);
+    LogMessage::LogMessage(&v15, __p);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82670], "SymbolTable::Write: Write failed", 32);
-    LogMessage::~LogMessage(&v19);
-    if (v18 < 0)
+    LogMessage::~LogMessage(&v15);
+    if (v14 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  return v15 == 0;
+  return v11 == 0;
 }
 
 void sub_26B53F9DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18)
@@ -5067,7 +5200,7 @@ uint64_t fst::SymbolTable::CheckSum(fst::SymbolTable *this)
   return v1 + 168;
 }
 
-uint64_t fst::SymbolTable::Find(uint64_t a1, uint64_t a2)
+uint64_t fst::SymbolTable::Find(uint64_t a1, uint64_t *a2)
 {
   v2 = *(a1 + 8);
   result = fst::internal::DenseSymbolMap::Find(v2 + 5, a2);
@@ -5092,7 +5225,7 @@ uint64_t fst::SymbolTable::LabeledCheckSum(fst::SymbolTable *this)
   return v1 + 192;
 }
 
-BOOL fst::SymbolTable::Member(uint64_t a1, uint64_t a2)
+BOOL fst::SymbolTable::Member(uint64_t a1, uint64_t *a2)
 {
   v2 = *(a1 + 8);
   v3 = fst::internal::DenseSymbolMap::Find(v2 + 5, a2);
@@ -5125,12 +5258,12 @@ std::string *fst::SymbolTable::SetName(uint64_t a1, const std::string *a2)
 
 uint64_t fst::SymbolTable::Write(uint64_t a1, uint64_t a2)
 {
-  v16[19] = *MEMORY[0x277D85DE8];
-  std::ofstream::basic_ofstream(&v14, a2);
-  if (*&v15[*(v14 - 24) + 24])
+  v15[19] = *MEMORY[0x277D85DE8];
+  std::ofstream::basic_ofstream(&v13, a2, 20);
+  if (*&v14[*(v13 - 24) + 24])
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "ERROR");
-    LogMessage::LogMessage(&v13, __p);
+    LogMessage::LogMessage(&v12, __p);
     v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82670], "SymbolTable::Write: Can't open file ", 36);
     v5 = *(a2 + 23);
     if (v5 >= 0)
@@ -5154,8 +5287,8 @@ uint64_t fst::SymbolTable::Write(uint64_t a1, uint64_t a2)
     }
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v6, v7);
-    LogMessage::~LogMessage(&v13);
-    if (v12 < 0)
+    LogMessage::~LogMessage(&v12);
+    if (v11 < 0)
     {
       operator delete(__p[0]);
     }
@@ -5165,26 +5298,25 @@ uint64_t fst::SymbolTable::Write(uint64_t a1, uint64_t a2)
 
   else
   {
-    v8 = (*(*a1 + 144))(a1, &v14);
+    v8 = (*(*a1 + 144))(a1, &v13);
   }
 
-  v14 = *MEMORY[0x277D82810];
-  *&v15[*(v14 - 24) - 8] = *(MEMORY[0x277D82810] + 24);
-  MEMORY[0x26D6785E0](v15);
+  v13 = *MEMORY[0x277D82810];
+  *&v14[*(v13 - 24) - 8] = *(MEMORY[0x277D82810] + 24);
+  MEMORY[0x26D6785E0](v14);
   std::ostream::~ostream();
-  MEMORY[0x26D678750](v16);
-  v9 = *MEMORY[0x277D85DE8];
+  MEMORY[0x26D678750](v15);
   return v8;
 }
 
 uint64_t fst::SymbolTable::WriteText(uint64_t a1, uint64_t a2)
 {
-  v18[19] = *MEMORY[0x277D85DE8];
-  std::ofstream::basic_ofstream(&v16, a2);
-  if (*&v17[*(v16 - 24) + 24])
+  v17[19] = *MEMORY[0x277D85DE8];
+  std::ofstream::basic_ofstream(&v15, a2, 16);
+  if (*&v16[*(v15 - 24) + 24])
   {
     std::string::basic_string[abi:ne200100]<0>(&__p, "ERROR");
-    LogMessage::LogMessage(&v15, &__p);
+    LogMessage::LogMessage(&v14, &__p);
     v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82670], "SymbolTable::WriteText: Can't open file ", 40);
     v5 = *(a2 + 23);
     if (v5 >= 0)
@@ -5208,8 +5340,8 @@ uint64_t fst::SymbolTable::WriteText(uint64_t a1, uint64_t a2)
     }
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v6, v7);
-    LogMessage::~LogMessage(&v15);
-    if (v13 < 0)
+    LogMessage::~LogMessage(&v14);
+    if (v12 < 0)
     {
       operator delete(__p);
     }
@@ -5220,20 +5352,19 @@ uint64_t fst::SymbolTable::WriteText(uint64_t a1, uint64_t a2)
   else
   {
     LOBYTE(__p) = 0;
-    std::string::basic_string[abi:ne200100]<0>(&v12, FLAGS_fst_field_separator);
-    v8 = (*(*a1 + 160))(a1, &v16, &__p);
-    if (v14 < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v11, FLAGS_fst_field_separator);
+    v8 = (*(*a1 + 160))(a1, &v15, &__p);
+    if (v13 < 0)
     {
-      operator delete(v12);
+      operator delete(v11);
     }
   }
 
-  v16 = *MEMORY[0x277D82810];
-  *&v17[*(v16 - 24) - 8] = *(MEMORY[0x277D82810] + 24);
-  MEMORY[0x26D6785E0](v17);
+  v15 = *MEMORY[0x277D82810];
+  *&v16[*(v15 - 24) - 8] = *(MEMORY[0x277D82810] + 24);
+  MEMORY[0x26D6785E0](v16);
   std::ostream::~ostream();
-  MEMORY[0x26D678750](v18);
-  v9 = *MEMORY[0x277D85DE8];
+  MEMORY[0x26D678750](v17);
   return v8;
 }
 
@@ -5349,7 +5480,7 @@ uint64_t std::map<long long,long long>::insert[abi:ne200100]<std::__map_const_it
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<long long,long long>,std::__map_value_compare<long long,std::__value_type<long long,long long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,long long>>>::__emplace_hint_unique_key_args<long long,std::pair<long long const,long long> const&>(v5, v5 + 1, v4 + 4);
+      result = std::__tree<std::__value_type<long long,long long>,std::__map_value_compare<long long,std::__value_type<long long,long long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,long long>>>::__emplace_hint_unique_key_args<long long,std::pair<long long const,long long> const&>(v5, (v5 + 8), v4 + 4, v4 + 2);
       v6 = v4[1];
       if (v6)
       {
@@ -5383,15 +5514,15 @@ uint64_t std::map<long long,long long>::insert[abi:ne200100]<std::__map_const_it
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<long long,long long>,std::__map_value_compare<long long,std::__value_type<long long,long long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,long long>>>::__emplace_hint_unique_key_args<long long,std::pair<long long const,long long> const&>(void *a1, void *a2, uint64_t *a3)
+uint64_t std::__tree<std::__value_type<long long,long long>,std::__map_value_compare<long long,std::__value_type<long long,long long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,long long>>>::__emplace_hint_unique_key_args<long long,std::pair<long long const,long long> const&>(uint64_t **a1, void *a2, uint64_t *a3, _OWORD *a4)
 {
-  v3 = *std::__tree<std::__value_type<long long,long long>,std::__map_value_compare<long long,std::__value_type<long long,long long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,long long>>>::__find_equal<long long>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<long long,long long>,std::__map_value_compare<long long,std::__value_type<long long,long long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,long long>>>::__find_equal<long long>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 void *std::__tree<std::__value_type<long long,long long>,std::__map_value_compare<long long,std::__value_type<long long,long long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,long long>>>::__find_equal<long long>(void *a1, void *a2, void *a3, void *a4, uint64_t *a5)
@@ -5661,7 +5792,7 @@ BOOL fst::internal::SymbolTableImpl::Member(fst::internal::SymbolTableImpl *this
   return v2;
 }
 
-uint64_t std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5683,17 +5814,17 @@ void sub_26B54117C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<long long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<long long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<fst::ReplaceStackPrefix<int,int>::PrefixTuple,std::allocator<fst::ReplaceStackPrefix<int,int>::PrefixTuple>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<fst::ReplaceStackPrefix<int,int>::PrefixTuple,std::allocator<fst::ReplaceStackPrefix<int,int>::PrefixTuple>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_26B5411F4(_Unwind_Exception *exception_object)
@@ -5708,7 +5839,7 @@ void sub_26B5411F4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5725,7 +5856,7 @@ void sub_26B541278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -6053,41 +6184,41 @@ void sub_26B541AC8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::__value_type<long long,long long>,std::__map_value_compare<long long,std::__value_type<long long,long long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,long long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(uint64_t a1, uint64_t *a2)
+void *std::__tree<std::__value_type<long long,long long>,std::__map_value_compare<long long,std::__value_type<long long,long long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,long long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(uint64_t a1, uint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -6224,31 +6355,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -6257,177 +6387,177 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
-uint64_t CMDPOSLog(void)
+uint64_t CMDPOSLog(uint64_t a1, uint64_t a2)
 {
   if (CMDPOSLog(void)::onceToken != -1)
   {
@@ -6444,42 +6574,18 @@ os_log_t ___Z9CMDPOSLogv_block_invoke()
   return result;
 }
 
-uint64_t fst::FstHeader::Write(uint64_t a1)
+uint64_t fst::FstHeader::Write(uint64_t a1, uint64_t a2)
 {
   std::ostream::write();
-  if (*(a1 + 31) < 0)
-  {
-    v2 = *(a1 + 16);
-  }
-
   std::ostream::write();
-  if (*(a1 + 31) < 0)
-  {
-    v3 = *(a1 + 8);
-  }
-
   std::ostream::write();
-  if (*(a1 + 55) < 0)
-  {
-    v4 = *(a1 + 40);
-  }
-
   std::ostream::write();
-  v5 = *(a1 + 55);
-  v7 = *(a1 + 32);
-  v6 = a1 + 32;
   std::ostream::write();
-  v9 = *(v6 + 24);
   std::ostream::write();
-  v10 = *(v6 + 28);
   std::ostream::write();
-  v11 = *(v6 + 32);
   std::ostream::write();
-  v12 = *(v6 + 40);
   std::ostream::write();
-  v13 = *(v6 + 48);
   std::ostream::write();
-  v14 = *(v6 + 56);
   std::ostream::write();
   return 1;
 }
@@ -6511,7 +6617,7 @@ unint64_t fst::ComposeProperties(unint64_t this, uint64_t a2)
   }
 }
 
-unint64_t fst::DeterminizeProperties(unint64_t this, int a2, int a3)
+uint64_t fst::DeterminizeProperties(unint64_t this, int a2, int a3)
 {
   if ((this & 0x10000) != 0)
   {

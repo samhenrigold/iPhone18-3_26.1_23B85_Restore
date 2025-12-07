@@ -8,9 +8,9 @@
 
 - (ConversationSearchHandler)init
 {
-  v20.receiver = self;
-  v20.super_class = ConversationSearchHandler;
-  v2 = [(ConversationSearchHandler *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = ConversationSearchHandler;
+  v2 = [(ConversationSearchHandler *)&v21 init];
   if (v2)
   {
     v3 = [EFScheduler serialDispatchQueueSchedulerWithName:@"com.apple.mail.conversationsearchHandlerQueue" qualityOfService:33];
@@ -48,12 +48,12 @@
     v17 = *(v2 + 20);
     *(v2 + 20) = v16;
 
-    v18 = sub_100053E68();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_100053E68(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v22 = v2;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Created handler: %p", buf, 0xCu);
+      v23 = v2;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Created handler: %p", buf, 0xCu);
     }
   }
 

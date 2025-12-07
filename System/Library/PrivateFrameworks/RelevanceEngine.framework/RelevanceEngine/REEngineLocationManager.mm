@@ -56,9 +56,9 @@
   return v9;
 }
 
-uint64_t __67__REEngineLocationManager_initWithRelevanceEngine_locationManager___block_invoke()
+uint64_t __67__REEngineLocationManager_initWithRelevanceEngine_locationManager___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = _REGetIsInternalBuild();
+  result = _REGetIsInternalBuild(a1, a2);
   _isInternalDevice_4 = result;
   return result;
 }
@@ -217,12 +217,12 @@ void __49__REEngineLocationManager__handleLocationUpdate___block_invoke(uint64_t
   dispatch_async(queue, block);
 }
 
-uint64_t __41__REEngineLocationManager__beginTraining__block_invoke(uint64_t a1)
+void *__41__REEngineLocationManager__beginTraining__block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
   if (*(result + 64) == 1)
   {
-    [result _stopMonitoringLocationForManager:*(result + 40)];
+    [result _stopMonitoringLocationForManager:*(result + 5)];
     v3 = *(a1 + 32);
     v4 = v3[6];
 
@@ -243,12 +243,12 @@ uint64_t __41__REEngineLocationManager__beginTraining__block_invoke(uint64_t a1)
   dispatch_async(queue, block);
 }
 
-uint64_t __39__REEngineLocationManager__endTraining__block_invoke(uint64_t a1)
+void *__39__REEngineLocationManager__endTraining__block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
   if (*(result + 64) == 1)
   {
-    [result _stopMonitoringLocationForManager:*(result + 48)];
+    [result _stopMonitoringLocationForManager:*(result + 6)];
     v3 = *(a1 + 32);
     v4 = v3[5];
 
@@ -328,11 +328,10 @@ void __62__REEngineLocationManager__beginMonitoringLocationForManager___block_in
 
 void __62__REEngineLocationManager__beginMonitoringLocationForManager___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Unable to get location: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Unable to get location: %@", &v2, 0xCu);
 }
 
 @end

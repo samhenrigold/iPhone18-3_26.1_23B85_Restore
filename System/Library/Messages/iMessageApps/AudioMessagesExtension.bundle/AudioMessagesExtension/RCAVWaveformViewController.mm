@@ -445,17 +445,8 @@
 
     waveformViewController = [(RCAVWaveformViewController *)self waveformViewController];
     [waveformViewController duration];
-    if (v4 >= v7)
-    {
-      v8 = v7;
-    }
-
-    else
-    {
-      v8 = v4;
-    }
-
-    [waveformViewController setSelectedTimeRange:RCTimeRangeMake(0.0 animationDuration:v8)];
+    RCTimeRangeMake();
+    [waveformViewController setSelectedTimeRange:? animationDuration:?];
   }
 }
 
@@ -737,22 +728,23 @@
   [waveformViewController setScrubbingEnabled:1];
   activeTimeController = [(RCAVWaveformViewController *)self activeTimeController];
   [activeTimeController currentDuration];
-  [activeTimeController setAllowedTimeRange:{RCTimeRangeMake(0.0, v12)}];
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_21228;
-  v17[3] = &unk_6D7A0;
-  v18 = waveformViewController;
-  v19 = v10;
-  v20 = v5;
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_21284;
-  v15[3] = &unk_6D840;
-  v16 = blockCopy;
-  v13 = blockCopy;
-  v14 = waveformViewController;
-  [UIView animateWithDuration:0x20000 delay:v17 options:v15 animations:v5 completion:0.0];
+  RCTimeRangeMake();
+  [activeTimeController setAllowedTimeRange:?];
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_21228;
+  v16[3] = &unk_6D7A0;
+  v17 = waveformViewController;
+  v18 = v10;
+  v19 = v5;
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_21284;
+  v14[3] = &unk_6D840;
+  v15 = blockCopy;
+  v12 = blockCopy;
+  v13 = waveformViewController;
+  [UIView animateWithDuration:0x20000 delay:v16 options:v14 animations:v5 completion:0.0];
 }
 
 - (id)_selectionOverlay

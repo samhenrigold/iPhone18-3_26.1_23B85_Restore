@@ -133,18 +133,16 @@ void __45__NUArticlePrefetcher__revisitSuspendedState__block_invoke(uint64_t a1)
 
   if (!v9)
   {
-    v14 = NUSharedLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = NUSharedLog(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 138543362;
       v17 = dCopy;
-      _os_log_impl(&dword_25C2D6000, v14, OS_LOG_TYPE_DEFAULT, "added prefetch interest in article ID %{public}@", &v16, 0xCu);
+      _os_log_impl(&dword_25C2D6000, v15, OS_LOG_TYPE_DEFAULT, "added prefetch interest in article ID %{public}@", &v16, 0xCu);
     }
 
     [(NUArticlePrefetcher *)self _didChangeInterestedArticleIDs];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removePrefetchInterestInArticleID:(id)d
@@ -167,18 +165,16 @@ void __45__NUArticlePrefetcher__revisitSuspendedState__block_invoke(uint64_t a1)
 
   if (v6 == 1)
   {
-    v11 = NUSharedLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = NUSharedLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = 138543362;
       v14 = dCopy;
-      _os_log_impl(&dword_25C2D6000, v11, OS_LOG_TYPE_DEFAULT, "removed prefetch interest in article ID %{public}@", &v13, 0xCu);
+      _os_log_impl(&dword_25C2D6000, v12, OS_LOG_TYPE_DEFAULT, "removed prefetch interest in article ID %{public}@", &v13, 0xCu);
     }
 
     [(NUArticlePrefetcher *)self _didChangeInterestedArticleIDs];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prefetchArticleID:(id)d headline:(id)headline completion:(id)completion
@@ -382,39 +378,37 @@ void __61__NUArticlePrefetcher_prefetchArticleID_headline_completion___block_inv
 
 void __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = NUSharedLog();
+  v4 = NUSharedLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 138543362;
-    v17 = v5;
+    v16 = v5;
     _os_log_impl(&dword_25C2D6000, v4, OS_LOG_TYPE_DEFAULT, "will prefetch contents of article ID %{public}@", buf, 0xCu);
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___block_invoke_32;
-  v10[3] = &unk_2799A45E0;
-  v11 = *(a1 + 32);
-  v12 = *(a1 + 40);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___block_invoke_32;
+  v9[3] = &unk_2799A45E0;
+  v10 = *(a1 + 32);
+  v11 = *(a1 + 40);
   v6 = *(a1 + 56);
   v7 = *(a1 + 48);
-  v13 = v3;
-  v14 = v7;
-  v15 = v6;
+  v12 = v3;
+  v13 = v7;
+  v14 = v6;
   v8 = v3;
-  [v8 loadContextWithCompletionBlock:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [v8 loadContextWithCompletionBlock:v9];
 }
 
 void __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___block_invoke_32(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a4;
-  v6 = NUSharedLog();
+  v6 = NUSharedLog(v5);
   v7 = v6;
   if (v5)
   {
@@ -423,25 +417,25 @@ void __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___b
       __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___block_invoke_32_cold_1(a1, v7);
     }
 
-    v18 = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___block_invoke_34;
-    v21 = &unk_2799A4468;
-    v8 = v22;
+    v17 = MEMORY[0x277D85DD0];
+    v18 = 3221225472;
+    v19 = __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___block_invoke_34;
+    v20 = &unk_2799A4468;
+    v8 = v21;
     v9 = *(a1 + 48);
     v10 = *(a1 + 56);
-    v22[0] = v9;
-    v22[1] = v10;
-    v23 = *(a1 + 32);
+    v21[0] = v9;
+    v21[1] = v10;
+    v22 = *(a1 + 32);
     FCPerformBlockOnMainThread();
     v11 = *(a1 + 40);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___block_invoke_2;
-    v15[3] = &unk_2799A4440;
-    v17 = *(a1 + 64);
-    v16 = v5;
-    [v11 executeOnce:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___block_invoke_2;
+    v14[3] = &unk_2799A4440;
+    v16 = *(a1 + 64);
+    v15 = v5;
+    [v11 executeOnce:v14];
   }
 
   else
@@ -450,21 +444,19 @@ void __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___b
     {
       v12 = *(a1 + 32);
       *buf = 138543362;
-      v27 = v12;
+      v26 = v12;
       _os_log_impl(&dword_25C2D6000, v7, OS_LOG_TYPE_DEFAULT, "did prefetch contents of article ID %{public}@", buf, 0xCu);
     }
 
     v13 = *(a1 + 40);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___block_invoke_33;
-    v24[3] = &unk_2799A3148;
-    v8 = &v25;
-    v25 = *(a1 + 64);
-    [v13 executeOnce:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___block_invoke_33;
+    v23[3] = &unk_2799A3148;
+    v8 = &v24;
+    v24 = *(a1 + 64);
+    [v13 executeOnce:v23];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___block_invoke_34(uint64_t a1)
@@ -482,7 +474,7 @@ void __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___b
 
 void __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___block_invoke_3(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) articleFactory];
   v4 = v3;
@@ -493,20 +485,16 @@ void __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___b
 
   else
   {
-    v14[0] = *(a1 + 48);
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v11[0] = *(a1 + 48);
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     v7 = [v4 createArticlesForArticleIDs:v6];
     v5 = [v7 firstObject];
   }
 
-  v13 = *(a1 + 64);
-  v10 = *(a1 + 40);
-  v11 = *(a1 + 48);
-  v12 = *(a1 + 56);
+  v9 = *(a1 + 48);
+  v10 = *(a1 + 56);
   v8 = v5;
   FCPerformBlockOnMainThread();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___block_invoke_4(uint64_t a1)
@@ -575,7 +563,7 @@ void __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___b
 
 - (void)_flushUnusedDataProvidersIfNeeded
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CCACC8] isMainThread];
   articleDataProviderCache = [(NUArticlePrefetcher *)self articleDataProviderCache];
   v4 = [articleDataProviderCache count];
@@ -584,27 +572,27 @@ void __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___b
   if (v4 > highWaterMark)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     articleDataProviderCache2 = [(NUArticlePrefetcher *)self articleDataProviderCache];
-    v8 = [articleDataProviderCache2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v8 = [articleDataProviderCache2 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v24;
+      v10 = *v23;
       do
       {
         v11 = 0;
         do
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(articleDataProviderCache2);
           }
 
-          v12 = *(*(&v23 + 1) + 8 * v11);
+          v12 = *(*(&v22 + 1) + 8 * v11);
           interestedArticleIDs = [(NUArticlePrefetcher *)self interestedArticleIDs];
           v14 = [interestedArticleIDs countForObject:v12];
 
@@ -617,18 +605,18 @@ void __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___b
         }
 
         while (v9 != v11);
-        v9 = [articleDataProviderCache2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v9 = [articleDataProviderCache2 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v9);
     }
 
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __56__NUArticlePrefetcher__flushUnusedDataProvidersIfNeeded__block_invoke;
-    v22[3] = &unk_2799A4680;
-    v22[4] = self;
-    [array sortUsingComparator:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __56__NUArticlePrefetcher__flushUnusedDataProvidersIfNeeded__block_invoke;
+    v21[3] = &unk_2799A4680;
+    v21[4] = self;
+    [array sortUsingComparator:v21];
     while ([array count])
     {
       articleDataProviderCache3 = [(NUArticlePrefetcher *)self articleDataProviderCache];
@@ -648,8 +636,6 @@ void __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___b
       [failedArticleIDs removeObject:fc_popFirstObject];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__NUArticlePrefetcher__flushUnusedDataProvidersIfNeeded__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -669,29 +655,26 @@ uint64_t __56__NUArticlePrefetcher__flushUnusedDataProvidersIfNeeded__block_invo
 
 void __61__NUArticlePrefetcher_prefetchArticleID_headline_completion___block_invoke_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v1 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"prefetch unexpectedly cancelled for article ID %@", *(a1 + 32)];
   *buf = 136315906;
-  v4 = "[NUArticlePrefetcher prefetchArticleID:headline:completion:]_block_invoke";
-  v5 = 2080;
-  v6 = "NUArticlePrefetcher.m";
-  v7 = 1024;
-  v8 = 141;
-  v9 = 2114;
-  v10 = v1;
+  v3 = "[NUArticlePrefetcher prefetchArticleID:headline:completion:]_block_invoke";
+  v4 = 2080;
+  v5 = "NUArticlePrefetcher.m";
+  v6 = 1024;
+  v7 = 141;
+  v8 = 2114;
+  v9 = v1;
   _os_log_error_impl(&dword_25C2D6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __69__NUArticlePrefetcher__prefetchDataProviderWithArticleID_completion___block_invoke_32_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_25C2D6000, a2, OS_LOG_TYPE_ERROR, "failed to prefetch contents of article ID %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_25C2D6000, a2, OS_LOG_TYPE_ERROR, "failed to prefetch contents of article ID %{public}@", &v3, 0xCu);
 }
 
 @end

@@ -604,7 +604,7 @@ void __123__QLExtensionManagerCache_extensionWithMatchingAttributes_allowExtensi
 
 + (id)bestMatchingExtensionsFromSupportingExtensions:(id)extensions includingExtensionsWithSupportingParentTypes:(BOOL)types byContentType:(id)type
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   extensionsCopy = extensions;
   typeCopy = type;
   lowercaseString = [typeCopy lowercaseString];
@@ -613,28 +613,28 @@ void __123__QLExtensionManagerCache_extensionWithMatchingAttributes_allowExtensi
 
   if (!types)
   {
+    v62 = 0u;
+    v63 = 0u;
     v60 = 0u;
     v61 = 0u;
-    v58 = 0u;
-    v59 = 0u;
-    v49 = extensionsCopy;
-    v29 = [v49 countByEnumeratingWithState:&v58 objects:v70 count:16];
+    v51 = extensionsCopy;
+    v29 = [v51 countByEnumeratingWithState:&v60 objects:v72 count:16];
     if (v29)
     {
       v30 = v29;
       v12 = 0;
-      v31 = *v59;
+      v31 = *v61;
 LABEL_30:
       v32 = 0;
       v33 = v12;
       while (1)
       {
-        if (*v59 != v31)
+        if (*v61 != v31)
         {
-          objc_enumerationMutation(v49);
+          objc_enumerationMutation(v51);
         }
 
-        v12 = *(*(&v58 + 1) + 8 * v32);
+        v12 = *(*(&v60 + 1) + 8 * v32);
 
         extension = [v12 extension];
         v35 = v10;
@@ -658,7 +658,7 @@ LABEL_30:
         v33 = v12;
         if (v30 == v32)
         {
-          v30 = [v49 countByEnumeratingWithState:&v58 objects:v70 count:16];
+          v30 = [v51 countByEnumeratingWithState:&v60 objects:v72 count:16];
           if (v30)
           {
             goto LABEL_30;
@@ -677,54 +677,54 @@ LABEL_30:
     goto LABEL_42;
   }
 
-  v49 = objc_opt_new();
-  v54 = 0u;
-  v55 = 0u;
+  v51 = objc_opt_new();
   v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   v11 = extensionsCopy;
-  v48 = [v11 countByEnumeratingWithState:&v54 objects:v69 count:16];
-  if (v48)
+  v50 = [v11 countByEnumeratingWithState:&v56 objects:v71 count:16];
+  if (v50)
   {
     obj = v11;
-    v42 = extensionsCopy;
+    v44 = extensionsCopy;
     v12 = 0;
-    v47 = *v55;
-    v45 = v10;
-    v46 = v10 ^ 1;
+    v49 = *v57;
+    v47 = v10;
+    v48 = v10 ^ 1;
     while (2)
     {
-      for (i = 0; i != v48; ++i)
+      for (i = 0; i != v50; ++i)
       {
-        if (*v55 != v47)
+        if (*v57 != v49)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v54 + 1) + 8 * i);
+        v14 = *(*(&v56 + 1) + 8 * i);
         extension3 = [v14 extension];
-        v50 = 0u;
-        v51 = 0u;
         v52 = 0u;
         v53 = 0u;
+        v54 = 0u;
+        v55 = 0u;
         attributes = [extension3 attributes];
         v17 = [attributes objectForKeyedSubscript:@"QLSupportedContentTypes"];
 
-        v18 = [v17 countByEnumeratingWithState:&v50 objects:v68 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v52 objects:v70 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v51;
+          v20 = *v53;
           while (2)
           {
             for (j = 0; j != v19; ++j)
             {
-              if (*v51 != v20)
+              if (*v53 != v20)
               {
                 objc_enumerationMutation(v17);
               }
 
-              lowercaseString2 = [*(*(&v50 + 1) + 8 * j) lowercaseString];
+              lowercaseString2 = [*(*(&v52 + 1) + 8 * j) lowercaseString];
               if ([lowercaseString2 isEqualToString:lowercaseString])
               {
                 v24 = v14;
@@ -735,19 +735,19 @@ LABEL_30:
 
               if (!v12)
               {
-                v23 = [v49 objectForKeyedSubscript:lowercaseString2];
+                v23 = [v51 objectForKeyedSubscript:lowercaseString2];
                 if (v23)
                 {
                 }
 
                 else if ([extension3 QL_isAppleExtension])
                 {
-                  [v49 setObject:v14 forKeyedSubscript:lowercaseString2];
+                  [v51 setObject:v14 forKeyedSubscript:lowercaseString2];
                 }
               }
             }
 
-            v19 = [v17 countByEnumeratingWithState:&v50 objects:v68 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v52 objects:v70 count:16];
             if (v19)
             {
               continue;
@@ -757,7 +757,7 @@ LABEL_30:
           }
 
 LABEL_22:
-          LOBYTE(v10) = v45;
+          LOBYTE(v10) = v47;
         }
 
         extension4 = [v12 extension];
@@ -772,14 +772,14 @@ LABEL_22:
         extension5 = [v12 extension];
         qL_isAppleExtension3 = [extension5 QL_isAppleExtension];
 
-        if (((qL_isAppleExtension3 | v46) & 1) == 0)
+        if (((qL_isAppleExtension3 | v48) & 1) == 0)
         {
           goto LABEL_41;
         }
       }
 
-      v48 = [obj countByEnumeratingWithState:&v54 objects:v69 count:16];
-      if (v48)
+      v50 = [obj countByEnumeratingWithState:&v56 objects:v71 count:16];
+      if (v50)
       {
         continue;
       }
@@ -789,11 +789,11 @@ LABEL_22:
 
 LABEL_41:
 
-    extensionsCopy = v42;
+    extensionsCopy = v44;
     if (v12)
     {
 LABEL_42:
-      v39 = typeCopy;
+      v41 = typeCopy;
       goto LABEL_48;
     }
   }
@@ -802,26 +802,26 @@ LABEL_42:
   {
   }
 
-  v40 = _qlsLogHandle;
+  v42 = _qlsLogHandle;
   if (!_qlsLogHandle)
   {
-    QLSInitLogging();
-    v40 = _qlsLogHandle;
+    QLSInitLogging(v39, v40);
+    v42 = _qlsLogHandle;
   }
 
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
   {
     *buf = 138412802;
-    v63 = @"extension";
-    v64 = 2112;
-    v65 = typeCopy;
-    v66 = 2048;
-    v67 = v49;
-    _os_log_impl(&dword_2615AE000, v40, OS_LOG_TYPE_INFO, "Retrieving %@ for type %@ from dictionary %p #UTI", buf, 0x20u);
+    v65 = @"extension";
+    v66 = 2112;
+    v67 = typeCopy;
+    v68 = 2048;
+    v69 = v51;
+    _os_log_impl(&dword_2615AE000, v42, OS_LOG_TYPE_INFO, "Retrieving %@ for type %@ from dictionary %p #UTI", buf, 0x20u);
   }
 
-  v39 = typeCopy;
-  v12 = [QLUTIManager valueInTypeKeyedDictionary:v49 forType:typeCopy];
+  v41 = typeCopy;
+  v12 = [QLUTIManager valueInTypeKeyedDictionary:v51 forType:typeCopy];
 LABEL_48:
 
   return v12;

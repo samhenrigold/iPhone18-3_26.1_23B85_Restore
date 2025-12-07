@@ -39,42 +39,7 @@
     name2 = [v5 name];
     v8 = [name isEqual:name2];
 
-    if (!v8)
-    {
-      goto LABEL_7;
-    }
-
-    name3 = [(CPContactEntity *)self name];
-    name4 = [v5 name];
-    v11 = [name3 isEqual:name4];
-
-    if (!v11)
-    {
-      goto LABEL_7;
-    }
-
-    subtitle = [(CPContactEntity *)self subtitle];
-    subtitle2 = [v5 subtitle];
-    v14 = [subtitle isEqual:subtitle2];
-
-    if (!v14)
-    {
-      goto LABEL_7;
-    }
-
-    informativeText = [(CPContactEntity *)self informativeText];
-    informativeText2 = [v5 informativeText];
-    v17 = [informativeText isEqual:informativeText2];
-
-    if (!v17)
-    {
-      goto LABEL_7;
-    }
-
-    imageSet = [(CPContactEntity *)self imageSet];
-    imageSet2 = [v5 imageSet];
-
-    if (imageSet == imageSet2)
+    if (v8 && (-[CPContactEntity name](self, "name"), v9 = objc_claimAutoreleasedReturnValue(), [v5 name], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "isEqual:", v10), v10, v9, v11) && (-[CPContactEntity subtitle](self, "subtitle"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "subtitle"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v12, "isEqual:", v13), v13, v12, v14) && (-[CPContactEntity informativeText](self, "informativeText"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "informativeText"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqual:", v16), v16, v15, v17) && (-[CPContactEntity imageSet](self, "imageSet"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "imageSet"), v19 = objc_claimAutoreleasedReturnValue(), v19, v18, v18 == v19))
     {
       actionButtons = [(CPContactEntity *)self actionButtons];
       actionButtons2 = [v5 actionButtons];
@@ -83,7 +48,6 @@
 
     else
     {
-LABEL_7:
       v20 = 0;
     }
   }
@@ -170,27 +134,27 @@ LABEL_7:
 
 - (id)objectForIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   actionButtons = [(CPContactEntity *)self actionButtons];
-  v6 = [actionButtons countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [actionButtons countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(actionButtons);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
         v11 = [identifier isEqual:identifierCopy];
 
@@ -201,7 +165,7 @@ LABEL_7:
         }
       }
 
-      v6 = [actionButtons countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [actionButtons countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -212,8 +176,6 @@ LABEL_7:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

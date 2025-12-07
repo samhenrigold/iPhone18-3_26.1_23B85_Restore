@@ -96,30 +96,30 @@
 
   if (v7)
   {
-    v8 = sub_1000A98C0();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = sub_1000A98C0(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v9)
+    if (v10)
     {
-      v10 = sub_1000A98C0();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_1000A98C0(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = objc_loadWeakRetained(&self->_delegate);
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
-        v14 = objc_loadWeakRetained(&self->_delegate);
-        v16 = 138412802;
-        v17 = displayableCopy;
-        v18 = 2112;
-        v19 = v13;
-        v20 = 2048;
-        v21 = v14;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling discoverer:deviceDidBecomeDisplayable: with device %@ on object %@[%p]", &v16, 0x20u);
+        v13 = objc_loadWeakRetained(&self->_delegate);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v16 = objc_loadWeakRetained(&self->_delegate);
+        v18 = 138412802;
+        v19 = displayableCopy;
+        v20 = 2112;
+        v21 = v15;
+        v22 = 2048;
+        v23 = v16;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Calling discoverer:deviceDidBecomeDisplayable: with device %@ on object %@[%p]", &v18, 0x20u);
       }
     }
 
-    v15 = objc_loadWeakRetained(&self->_delegate);
-    [v15 discoverer:self deviceDidBecomeDisplayable:displayableCopy];
+    v17 = objc_loadWeakRetained(&self->_delegate);
+    [v17 discoverer:self deviceDidBecomeDisplayable:displayableCopy];
   }
 }
 
@@ -131,30 +131,30 @@
 
   if (v7)
   {
-    v8 = sub_1000A98C0();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = sub_1000A98C0(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v9)
+    if (v10)
     {
-      v10 = sub_1000A98C0();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_1000A98C0(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = objc_loadWeakRetained(&self->_delegate);
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
-        v14 = objc_loadWeakRetained(&self->_delegate);
-        v16 = 138412802;
-        v17 = proximateCopy;
-        v18 = 2112;
-        v19 = v13;
-        v20 = 2048;
-        v21 = v14;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling discoverer:deviceDidBecomeProximate: with device %@ on object %@[%p]", &v16, 0x20u);
+        v13 = objc_loadWeakRetained(&self->_delegate);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v16 = objc_loadWeakRetained(&self->_delegate);
+        v18 = 138412802;
+        v19 = proximateCopy;
+        v20 = 2112;
+        v21 = v15;
+        v22 = 2048;
+        v23 = v16;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Calling discoverer:deviceDidBecomeProximate: with device %@ on object %@[%p]", &v18, 0x20u);
       }
     }
 
-    v15 = objc_loadWeakRetained(&self->_delegate);
-    [v15 discoverer:self deviceDidBecomeProximate:proximateCopy];
+    v17 = objc_loadWeakRetained(&self->_delegate);
+    [v17 discoverer:self deviceDidBecomeProximate:proximateCopy];
   }
 }
 
@@ -166,30 +166,30 @@
 
   if (v7)
   {
-    v8 = sub_1000A98C0();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = sub_1000A98C0(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v9)
+    if (v10)
     {
-      v10 = sub_1000A98C0();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_1000A98C0(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = objc_loadWeakRetained(&self->_delegate);
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
-        v14 = objc_loadWeakRetained(&self->_delegate);
-        v16 = 138412802;
-        v17 = updateCopy;
-        v18 = 2112;
-        v19 = v13;
-        v20 = 2048;
-        v21 = v14;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling discoverer:deviceDidUpdate: with device %@ on object %@[%p]", &v16, 0x20u);
+        v13 = objc_loadWeakRetained(&self->_delegate);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v16 = objc_loadWeakRetained(&self->_delegate);
+        v18 = 138412802;
+        v19 = updateCopy;
+        v20 = 2112;
+        v21 = v15;
+        v22 = 2048;
+        v23 = v16;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Calling discoverer:deviceDidUpdate: with device %@ on object %@[%p]", &v18, 0x20u);
       }
     }
 
-    v15 = objc_loadWeakRetained(&self->_delegate);
-    [v15 discoverer:self deviceDidUpdate:updateCopy];
+    v17 = objc_loadWeakRetained(&self->_delegate);
+    [v17 discoverer:self deviceDidUpdate:updateCopy];
   }
 }
 
@@ -214,30 +214,30 @@
 
   if (v7)
   {
-    v8 = sub_1000A98C0();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = sub_1000A98C0(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v9)
+    if (v10)
     {
-      v10 = sub_1000A98C0();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_1000A98C0(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = objc_loadWeakRetained(&self->_delegate);
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
-        v14 = objc_loadWeakRetained(&self->_delegate);
-        v16 = 138412802;
-        v17 = undisplayableCopy;
-        v18 = 2112;
-        v19 = v13;
-        v20 = 2048;
-        v21 = v14;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling discoverer:deviceDidBecomeUndisplayable: with device %@ on object %@[%p]", &v16, 0x20u);
+        v13 = objc_loadWeakRetained(&self->_delegate);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v16 = objc_loadWeakRetained(&self->_delegate);
+        v18 = 138412802;
+        v19 = undisplayableCopy;
+        v20 = 2112;
+        v21 = v15;
+        v22 = 2048;
+        v23 = v16;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Calling discoverer:deviceDidBecomeUndisplayable: with device %@ on object %@[%p]", &v18, 0x20u);
       }
     }
 
-    v15 = objc_loadWeakRetained(&self->_delegate);
-    [v15 discoverer:self deviceDidBecomeUndisplayable:undisplayableCopy];
+    v17 = objc_loadWeakRetained(&self->_delegate);
+    [v17 discoverer:self deviceDidBecomeUndisplayable:undisplayableCopy];
   }
 }
 
@@ -249,30 +249,30 @@
 
   if (v7)
   {
-    v8 = sub_1000A98C0();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = sub_1000A98C0(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v9)
+    if (v10)
     {
-      v10 = sub_1000A98C0();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_1000A98C0(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = objc_loadWeakRetained(&self->_delegate);
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
-        v14 = objc_loadWeakRetained(&self->_delegate);
-        v16 = 138412802;
-        v17 = unproximateCopy;
-        v18 = 2112;
-        v19 = v13;
-        v20 = 2048;
-        v21 = v14;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling discoverer:deviceDidBecomeUnproximate: with device %@ on object %@[%p]", &v16, 0x20u);
+        v13 = objc_loadWeakRetained(&self->_delegate);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v16 = objc_loadWeakRetained(&self->_delegate);
+        v18 = 138412802;
+        v19 = unproximateCopy;
+        v20 = 2112;
+        v21 = v15;
+        v22 = 2048;
+        v23 = v16;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Calling discoverer:deviceDidBecomeUnproximate: with device %@ on object %@[%p]", &v18, 0x20u);
       }
     }
 
-    v15 = objc_loadWeakRetained(&self->_delegate);
-    [v15 discoverer:self deviceDidBecomeUnproximate:unproximateCopy];
+    v17 = objc_loadWeakRetained(&self->_delegate);
+    [v17 discoverer:self deviceDidBecomeUnproximate:unproximateCopy];
   }
 }
 
@@ -283,28 +283,28 @@
 
   if (v5)
   {
-    v6 = sub_1000A98C0();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v7 = sub_1000A98C0(v6);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-    if (v7)
+    if (v8)
     {
-      v8 = sub_1000A98C0();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_1000A98C0(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = objc_loadWeakRetained(&self->_delegate);
-        v10 = objc_opt_class();
-        v11 = NSStringFromClass(v10);
-        v12 = objc_loadWeakRetained(&self->_delegate);
-        v14 = 138412546;
-        v15 = v11;
-        v16 = 2048;
-        v17 = v12;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Calling discovererBluetoothMayHaveFailed: on object %@[%p]", &v14, 0x16u);
+        v11 = objc_loadWeakRetained(&self->_delegate);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
+        v14 = objc_loadWeakRetained(&self->_delegate);
+        v16 = 138412546;
+        v17 = v13;
+        v18 = 2048;
+        v19 = v14;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling discovererBluetoothMayHaveFailed: on object %@[%p]", &v16, 0x16u);
       }
     }
 
-    v13 = objc_loadWeakRetained(&self->_delegate);
-    [v13 discovererBluetoothMayHaveFailed:self];
+    v15 = objc_loadWeakRetained(&self->_delegate);
+    [v15 discovererBluetoothMayHaveFailed:self];
   }
 }
 
@@ -315,28 +315,28 @@
 
   if (v5)
   {
-    v6 = sub_1000A98C0();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v7 = sub_1000A98C0(v6);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-    if (v7)
+    if (v8)
     {
-      v8 = sub_1000A98C0();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_1000A98C0(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = objc_loadWeakRetained(&self->_delegate);
-        v10 = objc_opt_class();
-        v11 = NSStringFromClass(v10);
-        v12 = objc_loadWeakRetained(&self->_delegate);
-        v14 = 138412546;
-        v15 = v11;
-        v16 = 2048;
-        v17 = v12;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Calling discovererBluetoothIsWorking: on object %@[%p]", &v14, 0x16u);
+        v11 = objc_loadWeakRetained(&self->_delegate);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
+        v14 = objc_loadWeakRetained(&self->_delegate);
+        v16 = 138412546;
+        v17 = v13;
+        v18 = 2048;
+        v19 = v14;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling discovererBluetoothIsWorking: on object %@[%p]", &v16, 0x16u);
       }
     }
 
-    v13 = objc_loadWeakRetained(&self->_delegate);
-    [v13 discovererBluetoothIsWorking:self];
+    v15 = objc_loadWeakRetained(&self->_delegate);
+    [v15 discovererBluetoothIsWorking:self];
   }
 }
 

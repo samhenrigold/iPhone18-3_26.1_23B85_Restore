@@ -14,15 +14,15 @@
   v11 = [(HDIDSInvitation *)&v19 init];
   if (v11)
   {
-    v12 = [dCopy copy];
+    v12 = objc_msgSend_copy(dCopy);
     UUID = v11->_UUID;
     v11->_UUID = v12;
 
-    v14 = [iDCopy copy];
+    v14 = objc_msgSend_copy(iDCopy);
     fromID = v11->_fromID;
     v11->_fromID = v14;
 
-    v16 = [objectCopy copy];
+    v16 = objc_msgSend_copy(objectCopy);
     codableObject = v11->_codableObject;
     v11->_codableObject = v16;
   }

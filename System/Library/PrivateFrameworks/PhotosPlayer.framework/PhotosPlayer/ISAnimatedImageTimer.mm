@@ -3,6 +3,7 @@
 - (ISAnimatedImageTimer)init;
 - (void)_animationTimerFired:(id)fired;
 - (void)_fireTimerWithInterval:(double)interval;
+- (void)_iosUpdateDisplayLink;
 - (void)_setTimestamp:(double)timestamp;
 - (void)_updateDisplayLink;
 - (void)dealloc;
@@ -16,6 +17,33 @@
   [fired timestamp];
 
   [(ISAnimatedImageTimer *)self _fireTimerWithInterval:?];
+}
+
+- (void)_iosUpdateDisplayLink
+{
+  displayLink = self->_displayLink;
+  if (displayLink || (v4 = [(ISObservable *)self hasObservers], displayLink = self->_displayLink, !v4))
+  {
+    [(CADisplayLink *)displayLink invalidate];
+    v5 = self->_displayLink;
+    self->_displayLink = 0;
+  }
+
+  else if (!displayLink)
+  {
+    v6 = [MEMORY[0x277CD9E48] displayLinkWithTarget:self->_displayLinkProxy selector:sel__displayLinkFire_];
+    v7 = self->_displayLink;
+    self->_displayLink = v6;
+
+    v8 = self->_displayLink;
+    mainRunLoop = [MEMORY[0x277CBEB88] mainRunLoop];
+    [(CADisplayLink *)v8 addToRunLoop:mainRunLoop forMode:*MEMORY[0x277CBE738]];
+
+    v10 = self->_displayLink;
+    v12 = CAFrameRateRangeMake(60.0, 60.0, 60.0);
+
+    [(CADisplayLink *)v10 setPreferredFrameRateRange:*&v12.minimum, *&v12.maximum, *&v12.preferred];
+  }
 }
 
 - (void)_setTimestamp:(double)timestamp

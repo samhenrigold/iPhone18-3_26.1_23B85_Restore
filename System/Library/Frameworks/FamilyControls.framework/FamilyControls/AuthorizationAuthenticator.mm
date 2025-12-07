@@ -12,7 +12,7 @@
 {
   activateCopy = activate;
   selfCopy = self;
-  sub_100010D34(activateCopy);
+  sub_100010D34(activateCopy, v5, v6);
 }
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
@@ -27,7 +27,7 @@
   handleCopy = handle;
   selfCopy = self;
   errorCopy = error;
-  sub_100010ECC(handleCopy, error);
+  sub_100010ECC(handleCopy, error, v8);
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -35,9 +35,9 @@
   listenerCopy = listener;
   connectionCopy = connection;
   selfCopy = self;
-  v9 = sub_100010184(listenerCopy, connectionCopy);
+  v10 = sub_100010184(listenerCopy, connectionCopy, v9);
 
-  return v9 & 1;
+  return v10 & 1;
 }
 
 - (void)didCompleteAuthenticationRequestWithStatus:(id)status error:(id)error

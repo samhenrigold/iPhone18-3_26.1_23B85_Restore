@@ -26,7 +26,7 @@
   if (v7)
   {
     v7->_generation = generation;
-    v9 = [anchorCopy copy];
+    v9 = objc_msgSend_copy(anchorCopy);
     anchor = v8->_anchor;
     v8->_anchor = v9;
   }

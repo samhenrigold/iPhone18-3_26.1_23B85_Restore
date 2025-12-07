@@ -10,9 +10,11 @@
 - (MicaPlayerDelegate)delegate;
 - (double)playbackTime;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)publishedLayerWithKey:(id)key required:(BOOL)required;
 - (id)publishedObjectWithKey:(id)key required:(BOOL)required;
 - (void)addToLayer:(id)layer onTop:(BOOL)top gravity:(id)gravity;
 - (void)dealloc;
+- (void)moveAndResizeWithinParentLayer:(id)layer usingGravity:(id)gravity animate:(BOOL)animate;
 - (void)notifyDelegateDidChangePlaybackTime;
 - (void)notifyDelegateDidStartPlaying;
 - (void)notifyDelegateDidStopPlaying;
@@ -195,7 +197,7 @@ LABEL_7:
 
 + (id)updatePublishedObjects:(id)objects toReferenceLayersInTree:(id)tree ratherThanLayersInTree:(id)inTree
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   treeCopy = tree;
   inTreeCopy = inTree;
@@ -203,30 +205,30 @@ LABEL_7:
   if (objectsCopy && [objectsCopy count])
   {
     mp_allLayersInTree = [inTreeCopy mp_allLayersInTree];
-    v25 = inTreeCopy;
+    v24 = inTreeCopy;
     mp_allAnimationsInTree = [inTreeCopy mp_allAnimationsInTree];
     mp_allLayersInTree2 = [treeCopy mp_allLayersInTree];
     mp_allAnimationsInTree2 = [treeCopy mp_allAnimationsInTree];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     obj = [objectsCopy allKeys];
-    v12 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v12 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v31;
+      v14 = *v30;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v31 != v14)
+          if (*v30 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v30 + 1) + 8 * i);
+          v16 = *(*(&v29 + 1) + 8 * i);
           v17 = [objectsCopy objectForKeyedSubscript:v16];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
@@ -239,16 +241,14 @@ LABEL_7:
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v13 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v13);
     }
 
-    inTreeCopy = v25;
+    inTreeCopy = v24;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -289,6 +289,32 @@ LABEL_7:
 
     [(CALayer *)rootLayer removeFromSuperlayer];
   }
+}
+
+- (void)moveAndResizeWithinParentLayer:(id)layer usingGravity:(id)gravity animate:(BOOL)animate
+{
+  animateCopy = animate;
+  rootLayer = self->_rootLayer;
+  gravityCopy = gravity;
+  layerCopy = layer;
+  [(MicaPlayer *)self retinaScale];
+  [(CALayer *)rootLayer mp_moveAndResizeWithinParentLayer:layerCopy usingGravity:gravityCopy geometryFlipped:1 retinaScale:animateCopy animate:?];
+}
+
+- (id)publishedLayerWithKey:(id)key required:(BOOL)required
+{
+  v4 = [(MicaPlayer *)self publishedObjectWithKey:key required:required];
+  if (v4)
+  {
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+
+      v4 = 0;
+    }
+  }
+
+  return v4;
 }
 
 - (id)publishedObjectWithKey:(id)key required:(BOOL)required

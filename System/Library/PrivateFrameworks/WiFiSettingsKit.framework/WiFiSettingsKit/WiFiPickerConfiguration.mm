@@ -32,43 +32,43 @@
 
 - (WiFiPickerConfiguration)initWithNetworks:(id)networks currentNetwork:(id)network
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   networksCopy = networks;
   networkCopy = network;
-  v26.receiver = self;
-  v26.super_class = WiFiPickerConfiguration;
-  v8 = [(WiFiPickerConfiguration *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = WiFiPickerConfiguration;
+  v8 = [(WiFiPickerConfiguration *)&v25 init];
   if (v8)
   {
     v9 = objc_opt_new();
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v10 = networksCopy;
-    v11 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v23;
+      v13 = *v22;
       do
       {
         v14 = 0;
         do
         {
-          if (*v23 != v13)
+          if (*v22 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          wifiNetworkSwift = [*(*(&v22 + 1) + 8 * v14) wifiNetworkSwift];
+          wifiNetworkSwift = [*(*(&v21 + 1) + 8 * v14) wifiNetworkSwift];
           [v9 addObject:wifiNetworkSwift];
 
           ++v14;
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
       while (v12);
@@ -81,7 +81,6 @@
     v8->_pickerConfigurationSwift = v18;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

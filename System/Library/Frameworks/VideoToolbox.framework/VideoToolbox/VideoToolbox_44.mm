@@ -14,28 +14,28 @@ uint64_t VTCompressionSessionCopyProperty(uint64_t a1, const void *a2, uint64_t 
   *a4 = 0;
   if (!a1)
   {
-    VTCompressionSessionCopyProperty_cold_2(&v28);
-    return v28;
+    VTCompressionSessionCopyProperty_cold_2(&v30);
+    return v30;
   }
 
   if (*(a1 + 16) == 2)
   {
-    VTCompressionSessionCopyProperty_cold_1(&v28);
-    return v28;
+    VTCompressionSessionCopyProperty_cold_1(&v30);
+    return v30;
   }
 
-  v8 = *(a1 + 24);
-  if (v8)
+  v9 = *(a1 + 24);
+  if (v9)
   {
 
-    return VTCompressionSessionRemote_CopyProperty(v8);
+    return VTCompressionSessionRemote_CopyProperty(v9, a2, a3, a4);
   }
 
   if (*(a1 + 850) && vtCompressionSessionIsPropertyHandledByRateControl(a1, a2))
   {
-    v10 = *(a1 + 856);
+    v11 = *(a1 + 856);
 
-    return VTRateControlSessionCopyProperty(v10, a2, a3, a4);
+    return VTRateControlSessionCopyProperty(v11, a2, a3, a4);
   }
 
   if (!vtCompressionSessionIsPropertyHandledByVideoToolbox(a2))
@@ -45,14 +45,14 @@ uint64_t VTCompressionSessionCopyProperty(uint64_t a1, const void *a2, uint64_t 
       return 4294954396;
     }
 
-    v11 = *(a1 + 472);
-    v12 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (!v12)
+    v12 = *(a1 + 472);
+    v13 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (!v13)
     {
       return 4294954514;
     }
 
-    return v12(v11, a2, a3, a4);
+    return v13(v12, a2, a3, a4);
   }
 
   if (CFEqual(@"NumberOfPendingFrames", a2))
@@ -67,48 +67,48 @@ LABEL_24:
   if (CFEqual(@"PixelBufferPoolIsShared", a2))
   {
     FigSimpleMutexLock();
-    v14 = vtCompressionSessionEnsurePixelBufferPoolsAreUpToDate(a1, 0, 0);
+    v15 = vtCompressionSessionEnsurePixelBufferPoolsAreUpToDate(a1, 0, 0);
     FigSimpleMutexUnlock();
-    if (v14)
+    if (v15)
     {
-      return v14;
+      return v15;
     }
 
     if (*(a1 + 528) == *(a1 + 536))
     {
-      v16 = MEMORY[0x1E695E4D0];
+      v17 = MEMORY[0x1E695E4D0];
     }
 
     else
     {
-      v16 = MEMORY[0x1E695E4C0];
+      v17 = MEMORY[0x1E695E4C0];
     }
 
-    v17 = CFRetain(*v16);
+    v18 = CFRetain(*v17);
 LABEL_60:
-    *a4 = v17;
-    return v14;
+    *a4 = v18;
+    return v15;
   }
 
   if (CFEqual(@"VideoEncoderPixelBufferAttributes", a2))
   {
     FigSimpleMutexLock();
-    v13 = *(a1 + 512);
-    if (!v13)
+    v14 = *(a1 + 512);
+    if (!v14)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    *a4 = CFRetain(v13);
+    *a4 = CFRetain(v14);
     goto LABEL_24;
   }
 
   if (CFEqual(@"PoolPixelBufferAttributesSeed", a2))
   {
     FigSimpleMutexLock();
-    v14 = vtCompressionSessionEnsurePixelBufferPoolsAreUpToDate(a1, 0, 0);
-    if (!v14)
+    v15 = vtCompressionSessionEnsurePixelBufferPoolsAreUpToDate(a1, 0, 0);
+    if (!v15)
     {
       PixelBufferAttributes = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, (a1 + 524));
 LABEL_54:
@@ -117,22 +117,22 @@ LABEL_54:
 
 LABEL_55:
     FigSimpleMutexUnlock();
-    return v14;
+    return v15;
   }
 
   if (CFEqual(@"PoolPixelBufferAttributes", a2))
   {
     FigSimpleMutexLock();
-    v14 = vtCompressionSessionEnsurePixelBufferPoolsAreUpToDate(a1, 0, 0);
-    if (!v14)
+    v15 = vtCompressionSessionEnsurePixelBufferPoolsAreUpToDate(a1, 0, 0);
+    if (!v15)
     {
-      v19 = *(a1 + 536);
-      if (!v19)
+      v20 = *(a1 + 536);
+      if (!v20)
       {
-        v19 = *(a1 + 528);
+        v20 = *(a1 + 528);
       }
 
-      PixelBufferAttributes = CVPixelBufferPoolGetPixelBufferAttributes(v19);
+      PixelBufferAttributes = CVPixelBufferPoolGetPixelBufferAttributes(v20);
       if (PixelBufferAttributes)
       {
         PixelBufferAttributes = CFRetain(PixelBufferAttributes);
@@ -147,8 +147,8 @@ LABEL_55:
   if (CFEqual(@"PixelTransferProperties", a2))
   {
     FigSimpleMutexLock();
-    v13 = *(a1 + 560);
-    if (!v13)
+    v14 = *(a1 + 560);
+    if (!v14)
     {
       goto LABEL_24;
     }
@@ -158,10 +158,10 @@ LABEL_55:
 
   if (CFEqual(@"MaximizePowerEfficiency", a2))
   {
-    v15 = MEMORY[0x1E695E4D0];
+    v16 = MEMORY[0x1E695E4D0];
     if (*(a1 + 569) != 1)
     {
-      v15 = MEMORY[0x1E695E4C0];
+      v16 = MEMORY[0x1E695E4C0];
     }
 
     goto LABEL_57;
@@ -171,20 +171,20 @@ LABEL_55:
   {
     if (*(a1 + 848) == 1 || !*(a1 + 849))
     {
-      v15 = MEMORY[0x1E695E4C0];
+      v16 = MEMORY[0x1E695E4C0];
     }
 
     else
     {
-      v15 = MEMORY[0x1E695E4D0];
+      v16 = MEMORY[0x1E695E4D0];
     }
 
 LABEL_57:
-    v17 = *v15;
+    v18 = *v16;
 LABEL_58:
-    v17 = CFRetain(v17);
+    v18 = CFRetain(v18);
 LABEL_59:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_60;
   }
 
@@ -192,8 +192,8 @@ LABEL_59:
   {
     if (CFEqual(@"RealTime", a2))
     {
-      v17 = *(a1 + 584);
-      if (!v17)
+      v18 = *(a1 + 584);
+      if (!v18)
       {
         goto LABEL_59;
       }
@@ -205,16 +205,16 @@ LABEL_59:
     {
       if (*(a1 + 568))
       {
-        v26 = MEMORY[0x1E695E4D0];
+        v28 = MEMORY[0x1E695E4D0];
       }
 
       else
       {
-        v26 = MEMORY[0x1E695E4C0];
+        v28 = MEMORY[0x1E695E4C0];
       }
 
-      v17 = *v26;
-      if (!*v26)
+      v18 = *v28;
+      if (!*v28)
       {
         goto LABEL_59;
       }
@@ -224,8 +224,8 @@ LABEL_59:
 
     if (CFEqual(@"EncoderID", a2))
     {
-      v17 = *(a1 + 496);
-      if (!v17)
+      v18 = *(a1 + 496);
+      if (!v18)
       {
         goto LABEL_59;
       }
@@ -238,36 +238,36 @@ LABEL_59:
       return 0;
     }
 
-    v14 = 0;
+    v15 = 0;
     if (*(a1 + 592))
     {
-      v27 = MEMORY[0x1E695E4D0];
+      v29 = MEMORY[0x1E695E4D0];
     }
 
     else
     {
-      v27 = MEMORY[0x1E695E4C0];
+      v29 = MEMORY[0x1E695E4C0];
     }
 
-    v22 = *v27;
+    v23 = *v29;
 LABEL_149:
-    *a4 = v22;
-    return v14;
+    *a4 = v23;
+    return v15;
   }
 
   if (!*(a1 + 96) && FigVideoCodecTypeIsHEVCFlavor(*(a1 + 48)) && (CFEqual(@"ColorPrimaries", a2) || CFEqual(@"TransferFunction", a2) || CFEqual(@"YCbCrMatrix", a2)))
   {
     if (!vtCompressionSessionIsIPT(a1))
     {
-      if ((!CFEqual(@"ColorPrimaries", a2) || (v17 = *(a1 + 176)) == 0) && (!CFEqual(@"TransferFunction", a2) || (v17 = *(a1 + 184)) == 0))
+      if ((!CFEqual(@"ColorPrimaries", a2) || (v18 = *(a1 + 176)) == 0) && (!CFEqual(@"TransferFunction", a2) || (v18 = *(a1 + 184)) == 0))
       {
         if (!CFEqual(@"YCbCrMatrix", a2))
         {
           return 0;
         }
 
-        v17 = *(a1 + 200);
-        if (!v17)
+        v18 = *(a1 + 200);
+        if (!v18)
         {
           return 0;
         }
@@ -281,15 +281,15 @@ LABEL_149:
 
   if (vtCompressionSessionIsPropertyHandledByVideoEncoder(a1, a2))
   {
-    v20 = *(a1 + 472);
+    v21 = *(a1 + 472);
 
-    return VTVideoEncoderCopyProperty(v20, a2, a3, a4);
+    return VTVideoEncoderCopyProperty(v21, a2, a3, a4);
   }
 
   if (CFEqual(@"PixelAspectRatio", a2))
   {
-    v17 = *(a1 + 136);
-    if (!v17)
+    v18 = *(a1 + 136);
+    if (!v18)
     {
       return 0;
     }
@@ -299,8 +299,8 @@ LABEL_149:
 
   if (CFEqual(@"CleanAperture", a2))
   {
-    v17 = *(a1 + 144);
-    if (!v17)
+    v18 = *(a1 + 144);
+    if (!v18)
     {
       return 0;
     }
@@ -310,8 +310,8 @@ LABEL_149:
 
   if (CFEqual(@"FieldCount", a2))
   {
-    v17 = *(a1 + 152);
-    if (!v17)
+    v18 = *(a1 + 152);
+    if (!v18)
     {
       return 0;
     }
@@ -321,8 +321,8 @@ LABEL_149:
 
   if (CFEqual(@"FieldDetail", a2))
   {
-    v17 = *(a1 + 160);
-    if (!v17)
+    v18 = *(a1 + 160);
+    if (!v18)
     {
       return 0;
     }
@@ -332,8 +332,8 @@ LABEL_149:
 
   if (CFEqual(@"ComponentRange", a2))
   {
-    v17 = *(a1 + 168);
-    if (!v17)
+    v18 = *(a1 + 168);
+    if (!v18)
     {
       return 0;
     }
@@ -350,14 +350,14 @@ LABEL_149:
 
     if (!vtCompressionSessionIsIPT(a1))
     {
-      v17 = *(a1 + 176);
+      v18 = *(a1 + 176);
       goto LABEL_58;
     }
 
 LABEL_105:
-    v14 = 0;
+    v15 = 0;
     *a4 = 0;
-    return v14;
+    return v15;
   }
 
   if (CFEqual(@"TransferFunction", a2))
@@ -369,7 +369,7 @@ LABEL_105:
 
     if (!vtCompressionSessionIsIPT(a1))
     {
-      v17 = *(a1 + 184);
+      v18 = *(a1 + 184);
       goto LABEL_58;
     }
 
@@ -378,8 +378,8 @@ LABEL_105:
 
   if (CFEqual(@"GammaLevel", a2))
   {
-    v17 = *(a1 + 192);
-    if (!v17)
+    v18 = *(a1 + 192);
+    if (!v18)
     {
       return 0;
     }
@@ -396,7 +396,7 @@ LABEL_105:
 
     if (!vtCompressionSessionIsIPT(a1))
     {
-      v17 = *(a1 + 200);
+      v18 = *(a1 + 200);
       goto LABEL_58;
     }
 
@@ -405,8 +405,8 @@ LABEL_105:
 
   if (CFEqual(@"AmbientViewingEnvironment", a2))
   {
-    v17 = *(a1 + 704);
-    if (!v17)
+    v18 = *(a1 + 704);
+    if (!v18)
     {
       return 0;
     }
@@ -416,23 +416,23 @@ LABEL_105:
 
   if (CFEqual(@"CurrentHDRMetadataGenerationState", a2))
   {
-    v21 = *(a1 + 656);
-    if (!v21)
+    v22 = *(a1 + 656);
+    if (!v22)
     {
       return 0;
     }
 
-    v28 = 0;
-    VTHDRMetadataGenerationSessionCopySessionState(v21, &v28);
-    v14 = 0;
-    v22 = v28;
+    v30 = 0;
+    VTHDRMetadataGenerationSessionCopySessionState(v22, &v30);
+    v15 = 0;
+    v23 = v30;
     goto LABEL_149;
   }
 
   if (CFEqual(@"ICCProfile", a2))
   {
-    v17 = *(a1 + 208);
-    if (!v17)
+    v18 = *(a1 + 208);
+    if (!v18)
     {
       return 0;
     }
@@ -442,8 +442,8 @@ LABEL_105:
 
   if (CFEqual(@"MasteringDisplayColorVolume", a2))
   {
-    v17 = *(a1 + 216);
-    if (!v17)
+    v18 = *(a1 + 216);
+    if (!v18)
     {
       return 0;
     }
@@ -453,8 +453,8 @@ LABEL_105:
 
   if (CFEqual(@"ContentLightLevelInfo", a2))
   {
-    v17 = *(a1 + 224);
-    if (!v17)
+    v18 = *(a1 + 224);
+    if (!v18)
     {
       return 0;
     }
@@ -466,8 +466,8 @@ LABEL_105:
   {
     if (CFEqual(@"AuxiliaryTypeInfo", a2))
     {
-      v17 = *(a1 + 232);
-      if (!v17)
+      v18 = *(a1 + 232);
+      if (!v18)
       {
         return 0;
       }
@@ -477,8 +477,8 @@ LABEL_105:
 
     if (CFEqual(@"ChromaLocationTopField", a2))
     {
-      v17 = *(a1 + 240);
-      if (!v17)
+      v18 = *(a1 + 240);
+      if (!v18)
       {
         return 0;
       }
@@ -488,8 +488,8 @@ LABEL_105:
 
     if (CFEqual(@"ChromaLocationBottomField", a2))
     {
-      v17 = *(a1 + 248);
-      if (!v17)
+      v18 = *(a1 + 248);
+      if (!v18)
       {
         return 0;
       }
@@ -499,20 +499,20 @@ LABEL_105:
 
     if (CFEqual(@"HasLeftStereoEyeView", a2))
     {
-      v15 = MEMORY[0x1E695E4D0];
-      v23 = *(a1 + 736);
+      v16 = MEMORY[0x1E695E4D0];
+      v25 = *(a1 + 736);
     }
 
     else if (CFEqual(@"HasRightStereoEyeView", a2))
     {
-      v15 = MEMORY[0x1E695E4D0];
-      v23 = *(a1 + 737);
+      v16 = MEMORY[0x1E695E4D0];
+      v25 = *(a1 + 737);
     }
 
     else if (CFEqual(@"HasEyeViewsReversed", a2))
     {
-      v15 = MEMORY[0x1E695E4D0];
-      v23 = *(a1 + 738);
+      v16 = MEMORY[0x1E695E4D0];
+      v25 = *(a1 + 738);
     }
 
     else
@@ -521,8 +521,8 @@ LABEL_105:
       {
         if (CFEqual(@"HeroEye", a2))
         {
-          v17 = *(a1 + 744);
-          if (!v17)
+          v18 = *(a1 + 744);
+          if (!v18)
           {
             goto LABEL_59;
           }
@@ -532,8 +532,8 @@ LABEL_105:
 
         if (CFEqual(@"ProjectionKind", a2))
         {
-          v17 = *(a1 + 752);
-          if (!v17)
+          v18 = *(a1 + 752);
+          if (!v18)
           {
             goto LABEL_59;
           }
@@ -543,8 +543,8 @@ LABEL_105:
 
         if (CFEqual(@"ViewPackingKind", a2))
         {
-          v17 = *(a1 + 760);
-          if (!v17)
+          v18 = *(a1 + 760);
+          if (!v18)
           {
             goto LABEL_59;
           }
@@ -559,16 +559,16 @@ LABEL_105:
             return 0;
           }
 
-          v24 = *MEMORY[0x1E695E480];
-          v25 = (a1 + 772);
+          v26 = *MEMORY[0x1E695E480];
+          v27 = (a1 + 772);
         }
 
         else
         {
           if (CFEqual(@"WarpKind", a2))
           {
-            v17 = *(a1 + 776);
-            if (!v17)
+            v18 = *(a1 + 776);
+            if (!v18)
             {
               goto LABEL_59;
             }
@@ -583,8 +583,8 @@ LABEL_105:
               return 0;
             }
 
-            v24 = *MEMORY[0x1E695E480];
-            v25 = (a1 + 788);
+            v26 = *MEMORY[0x1E695E480];
+            v27 = (a1 + 788);
           }
 
           else
@@ -593,8 +593,8 @@ LABEL_105:
             {
               if (CFEqual(@"CameraCalibrationDataLensCollection", a2))
               {
-                v17 = *(a1 + 800);
-                if (!v17)
+                v18 = *(a1 + 800);
+                if (!v18)
                 {
                   goto LABEL_59;
                 }
@@ -602,8 +602,8 @@ LABEL_105:
 
               else if (CFEqual(@"HorizontalFieldOfView", a2))
               {
-                v17 = *(a1 + 264);
-                if (!v17)
+                v18 = *(a1 + 264);
+                if (!v18)
                 {
                   return 0;
                 }
@@ -616,8 +616,8 @@ LABEL_105:
                   return 0;
                 }
 
-                v17 = *(a1 + 872);
-                if (!v17)
+                v18 = *(a1 + 872);
+                if (!v18)
                 {
                   goto LABEL_59;
                 }
@@ -631,30 +631,30 @@ LABEL_105:
               return 0;
             }
 
-            v24 = *MEMORY[0x1E695E480];
-            v25 = (a1 + 796);
+            v26 = *MEMORY[0x1E695E480];
+            v27 = (a1 + 796);
           }
         }
 
-        v17 = CFNumberCreate(v24, kCFNumberSInt32Type, v25);
+        v18 = CFNumberCreate(v26, kCFNumberSInt32Type, v27);
         goto LABEL_59;
       }
 
-      v15 = MEMORY[0x1E695E4D0];
-      v23 = *(a1 + 739);
+      v16 = MEMORY[0x1E695E4D0];
+      v25 = *(a1 + 739);
     }
 
-    if (!v23)
+    if (!v25)
     {
-      v15 = MEMORY[0x1E695E4C0];
+      v16 = MEMORY[0x1E695E4C0];
     }
 
     goto LABEL_57;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954396, "<<<< VT-CS >>>>", 4778, v4);
 }
 
 void vtRateControlReactionObserverCallback(uint64_t a1, int a2)
@@ -686,122 +686,122 @@ void vtRateControlReactionObserverCallback(uint64_t a1, int a2)
   }
 }
 
-uint64_t VTCompressionSessionCopySupportedPropertyDictionary(uint64_t a1, void *a2)
+uint64_t VTCompressionSessionCopySupportedPropertyDictionary(uint64_t a1, const __CFDictionary **a2)
 {
-  v20[2] = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v17 = 0;
-  cf = 0;
+  v23[2] = *MEMORY[0x1E69E9840];
   v19 = 0;
-  v20[0] = 0;
-  v20[1] = 0;
+  v20 = 0;
+  cf = 0;
+  v22 = 0;
+  v23[0] = 0;
+  v23[1] = 0;
   *a2 = 0;
   if (!a1)
   {
-    VTCompressionSessionCopySupportedPropertyDictionary_cold_3(&v18);
-LABEL_36:
-    v14 = v18;
-    goto LABEL_27;
+    VTCompressionSessionCopySupportedPropertyDictionary_cold_3(&v21);
+LABEL_35:
+    v16 = v21;
+    goto LABEL_26;
   }
 
   if (*(a1 + 16) == 2)
   {
-    VTCompressionSessionCopySupportedPropertyDictionary_cold_2(&v18);
-    goto LABEL_36;
+    VTCompressionSessionCopySupportedPropertyDictionary_cold_2(&v21);
+    goto LABEL_35;
   }
 
-  v4 = *(a1 + 24);
-  if (v4)
+  v5 = *(a1 + 24);
+  if (v5)
   {
 
-    return VTCompressionSessionRemote_CopySupportedPropertyDictionary(v4);
+    return VTCompressionSessionRemote_CopySupportedPropertyDictionary(v5, a2);
   }
 
-  v6 = *(a1 + 472);
-  v7 = *(*(CMBaseObjectGetVTable() + 16) + 32);
-  if (!v7 || ((v8 = v7(v6, &v17), v8 != -12782) ? (v9 = v8 == 0) : (v9 = 1), v9))
+  v7 = *(a1 + 472);
+  v8 = *(*(CMBaseObjectGetVTable() + 16) + 32);
+  if (!v8 || ((v9 = v8(v7, &v20), v9 != -12782) ? (v10 = v9 == 0) : (v10 = 1), v10))
   {
     if (!*(a1 + 850))
     {
       goto LABEL_18;
     }
 
-    v10 = VTRateControlSessionCopySupportedPropertyDictionary(*(a1 + 856), &cf);
-    if (v10)
+    v11 = VTRateControlSessionCopySupportedPropertyDictionary(*(a1 + 856), &cf);
+    if (v11)
     {
-      v14 = v10;
-      fig_log_get_emitter();
+      v16 = v11;
+      emitter = fig_log_get_emitter();
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v16, "<<<< VT-CS >>>>", 2975, v2);
       goto LABEL_26;
     }
 
     if (cf)
     {
-      v11 = v20;
-      v19 = cf;
-      v12 = 1;
+      v13 = v23;
+      v22 = cf;
+      v14 = 1;
     }
 
     else
     {
 LABEL_18:
-      v12 = 0;
-      v11 = &v19;
+      v14 = 0;
+      v13 = &v22;
     }
 
-    v13 = vtCompressionSessionCopyPropertiesHandledByVideoToolbox(&v16);
-    if (v13)
+    v15 = vtCompressionSessionCopyPropertiesHandledByVideoToolbox(&v19);
+    if (v15)
     {
-      goto LABEL_37;
+      goto LABEL_36;
     }
 
-    if (v17)
+    if (v20)
     {
-      ++v12;
-      *v11 = v17;
+      ++v14;
+      *v13 = v20;
     }
 
-    if (v16)
+    if (v19)
     {
-      v20[v12 - 1] = v16;
+      v23[v14 - 1] = v19;
     }
 
-    v13 = FigCFCreateCombinedDictionary();
-    if (v13)
+    v15 = FigCFCreateCombinedDictionary();
+    if (v15)
     {
-LABEL_37:
-      v14 = v13;
+LABEL_36:
+      v16 = v15;
     }
 
     else
     {
-      v14 = 0;
+      v16 = 0;
       *a2 = 0;
     }
 
-    goto LABEL_27;
+    goto LABEL_26;
   }
 
-  v14 = v8;
-  fig_log_get_emitter();
+  v16 = v9;
+  v17 = fig_log_get_emitter();
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v17, v16, "<<<< VT-CS >>>>", 2966, v2);
 LABEL_26:
-  FigSignalErrorAtGM();
-LABEL_27:
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v17)
+  if (v20)
   {
-    CFRelease(v17);
+    CFRelease(v20);
   }
 
-  if (v16)
+  if (v19)
   {
-    CFRelease(v16);
+    CFRelease(v19);
   }
 
-  return v14;
+  return v16;
 }
 
 uint64_t vtCompressionSessionCopyPropertiesHandledByVideoToolbox(CFTypeRef *a1)
@@ -815,9 +815,9 @@ uint64_t vtCompressionSessionCopyPropertiesHandledByVideoToolbox(CFTypeRef *a1)
 
   else
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954392, "<<<< VT-CS >>>>", 2903, v1);
   }
 }
 
@@ -887,50 +887,60 @@ BOOL vtCompressionSessionIsPropertyHandledByVideoToolbox(const void *a1)
   return v2;
 }
 
-uint64_t vtCompressionSessionValidatePixelAspectRatio(uint64_t result)
+const __CFDictionary *vtCompressionSessionValidatePixelAspectRatio(const __CFDictionary *result)
 {
   if (result)
   {
-    v1 = result;
+    v2 = result;
     TypeID = CFDictionaryGetTypeID();
-    if (TypeID == CFGetTypeID(v1))
+    if (TypeID == CFGetTypeID(v2))
     {
-      Value = CFDictionaryGetValue(v1, *MEMORY[0x1E6965EF0]);
-      v4 = CFDictionaryGetValue(v1, *MEMORY[0x1E6965F00]);
+      Value = CFDictionaryGetValue(v2, *MEMORY[0x1E6965EF0]);
+      v5 = CFDictionaryGetValue(v2, *MEMORY[0x1E6965F00]);
       valuePtr = 0;
-      if (Value && (v5 = v4, v6 = CFNumberGetTypeID(), v6 == CFGetTypeID(Value)))
+      if (Value && (v6 = v5, v7 = CFNumberGetTypeID(), v7 == CFGetTypeID(Value)))
       {
         CFNumberGetValue(Value, kCFNumberIntType, &valuePtr + 4);
-        if (SHIDWORD(valuePtr) > 0 && v5 && (v7 = CFNumberGetTypeID(), v7 == CFGetTypeID(v5)))
+        if (SHIDWORD(valuePtr) <= 0)
         {
-          CFNumberGetValue(v5, kCFNumberIntType, &valuePtr);
-          if (valuePtr > 0)
+          emitter = fig_log_get_emitter();
+          return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3105, v1);
+        }
+
+        else if (v6 && (v8 = CFNumberGetTypeID(), v8 == CFGetTypeID(v6)))
+        {
+          CFNumberGetValue(v6, kCFNumberIntType, &valuePtr);
+          if (valuePtr <= 0)
+          {
+            v13 = fig_log_get_emitter();
+            return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v13, 4294954394, "<<<< VT-CS >>>>", 3112, v1);
+          }
+
+          else
           {
             return 0;
           }
-
-          fig_log_get_emitter();
         }
 
         else
         {
-          fig_log_get_emitter();
+          v11 = fig_log_get_emitter();
+          return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v11, 4294954394, "<<<< VT-CS >>>>", 3109, v1);
         }
       }
 
       else
       {
-        fig_log_get_emitter();
+        v10 = fig_log_get_emitter();
+        return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v10, 4294954394, "<<<< VT-CS >>>>", 3102, v1);
       }
-
-      return FigSignalErrorAtGM();
     }
 
     else
     {
-      fig_log_get_emitter();
+      v9 = fig_log_get_emitter();
 
-      return FigSignalErrorAtGM();
+      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v9, 4294954394, "<<<< VT-CS >>>>", 3093, v1);
     }
   }
 
@@ -947,31 +957,31 @@ uint64_t vtCompressionSessionValidateCleanAperture(uint64_t a1, const __CFDictio
   TypeID = CFDictionaryGetTypeID();
   if (TypeID == CFGetTypeID(a2))
   {
+    v14 = 0;
+    v15 = 0;
     v12 = 0;
     v13 = 0;
-    v10 = 0;
-    v11 = 0;
-    vtReadRationalOrIntegerFromDictionary(a2, *MEMORY[0x1E6960110], *MEMORY[0x1E6965D80], &v13 + 4, &v13);
-    vtReadRationalOrIntegerFromDictionary(a2, *MEMORY[0x1E69600F8], *MEMORY[0x1E6965D60], &v12 + 4, &v12);
-    vtReadRationalOrIntegerFromDictionary(a2, *MEMORY[0x1E6960100], *MEMORY[0x1E6965D68], &v11 + 4, &v11);
-    vtReadRationalOrIntegerFromDictionary(a2, *MEMORY[0x1E6960108], *MEMORY[0x1E6965D78], &v10 + 4, &v10);
-    if (SHIDWORD(v13) >= 1 && SHIDWORD(v12) >= 1)
+    vtReadRationalOrIntegerFromDictionary(a2, *MEMORY[0x1E6960110], *MEMORY[0x1E6965D80], &v15 + 4, &v15);
+    vtReadRationalOrIntegerFromDictionary(a2, *MEMORY[0x1E69600F8], *MEMORY[0x1E6965D60], &v14 + 4, &v14);
+    vtReadRationalOrIntegerFromDictionary(a2, *MEMORY[0x1E6960100], *MEMORY[0x1E6965D68], &v13 + 4, &v13);
+    vtReadRationalOrIntegerFromDictionary(a2, *MEMORY[0x1E6960108], *MEMORY[0x1E6965D78], &v12 + 4, &v12);
+    if (SHIDWORD(v15) >= 1 && SHIDWORD(v14) >= 1)
     {
-      if (v13)
+      if (v15)
       {
-        if (v12)
+        if (v14)
         {
-          if (v11)
+          if (v13)
           {
-            if (v10)
+            if (v12)
             {
-              v5 = *(a1 + 40) * v13 - HIDWORD(v13);
-              v6 = SHIDWORD(v11) * (2 * v13);
-              if (v6 <= (v11 * v5) && v6 >= -(v11 * v5))
+              v6 = *(a1 + 40) * v15 - HIDWORD(v15);
+              v7 = SHIDWORD(v13) * (2 * v15);
+              if (v7 <= (v13 * v6) && v7 >= -(v13 * v6))
               {
-                v7 = *(a1 + 44) * v12 - HIDWORD(v12);
-                v8 = SHIDWORD(v10) * (2 * v12);
-                if (v8 <= (v10 * v7) && v8 >= -(v10 * v7))
+                v8 = *(a1 + 44) * v14 - HIDWORD(v14);
+                v9 = SHIDWORD(v12) * (2 * v14);
+                if (v9 <= (v12 * v8) && v9 >= -(v12 * v8))
                 {
                   return 0;
                 }
@@ -983,28 +993,28 @@ uint64_t vtCompressionSessionValidateCleanAperture(uint64_t a1, const __CFDictio
     }
 
     fig_log_get_emitter();
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v12, v13, v14);
   }
 
   else
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3160, v2);
   }
 }
 
-uint64_t vtCompressionSessionValidateFieldCount(uint64_t result)
+const __CFNumber *vtCompressionSessionValidateFieldCount(const __CFNumber *result)
 {
   if (result)
   {
-    v1 = result;
+    v2 = result;
     TypeID = CFNumberGetTypeID();
-    if (TypeID == CFGetTypeID(v1))
+    if (TypeID == CFGetTypeID(v2))
     {
-      valuePtr = 0;
-      CFNumberGetValue(v1, kCFNumberIntType, &valuePtr);
-      if ((valuePtr - 3) > 0xFFFFFFFD)
+      valuePtr[0] = 0;
+      CFNumberGetValue(v2, kCFNumberIntType, valuePtr);
+      if ((valuePtr[0] - 3) > 0xFFFFFFFD)
       {
         return 0;
       }
@@ -1012,15 +1022,15 @@ uint64_t vtCompressionSessionValidateFieldCount(uint64_t result)
       else
       {
         fig_log_get_emitter();
-        return FigSignalErrorAtGM();
+        return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v6, valuePtr[1]);
       }
     }
 
     else
     {
-      fig_log_get_emitter();
+      emitter = fig_log_get_emitter();
 
-      return FigSignalErrorAtGM();
+      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3229, v1);
     }
   }
 
@@ -1034,9 +1044,9 @@ uint64_t vtCompressionSessionValidateFieldDetail(const void *a1)
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3265, v1);
 }
 
 uint64_t vtCompressionSessionValidatePixelFormatComponentRange(const void *a1)
@@ -1046,9 +1056,9 @@ uint64_t vtCompressionSessionValidatePixelFormatComponentRange(const void *a1)
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3278, v1);
 }
 
 uint64_t vtCompressionSessionValidateColorPrimaries(const void *a1)
@@ -1058,9 +1068,9 @@ uint64_t vtCompressionSessionValidateColorPrimaries(const void *a1)
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3295, v1);
 }
 
 uint64_t vtCompressionSessionValidateTransferFunction(const void *a1)
@@ -1070,25 +1080,25 @@ uint64_t vtCompressionSessionValidateTransferFunction(const void *a1)
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3314, v1);
 }
 
-uint64_t vtCompressionSessionValidateGammaLevel(uint64_t result)
+const __CFNumber *vtCompressionSessionValidateGammaLevel(const __CFNumber *result)
 {
   if (result)
   {
-    v1 = result;
+    v2 = result;
     TypeID = CFNumberGetTypeID();
-    if (TypeID == CFGetTypeID(v1))
+    if (TypeID == CFGetTypeID(v2))
     {
       valuePtr = 0.0;
-      CFNumberGetValue(v1, kCFNumberDoubleType, &valuePtr);
+      CFNumberGetValue(v2, kCFNumberDoubleType, &valuePtr);
       if (valuePtr <= 0.0)
       {
         fig_log_get_emitter();
-        return FigSignalErrorAtGM();
+        return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, LODWORD(valuePtr), v7);
       }
 
       else
@@ -1099,9 +1109,9 @@ uint64_t vtCompressionSessionValidateGammaLevel(uint64_t result)
 
     else
     {
-      fig_log_get_emitter();
+      emitter = fig_log_get_emitter();
 
-      return FigSignalErrorAtGM();
+      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3246, v1);
     }
   }
 
@@ -1115,9 +1125,9 @@ uint64_t vtCompressionSessionValidateYCbCrMatrix(const void *a1)
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3332, v1);
 }
 
 uint64_t vtCompressionSessionValidateICCProfile(const void *a1)
@@ -1133,12 +1143,12 @@ uint64_t vtCompressionSessionValidateICCProfile(const void *a1)
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3360, v1);
 }
 
-uint64_t vtCompressionSessionValidateMasteringDisplayColorVolume(const void *a1)
+uint64_t vtCompressionSessionValidateMasteringDisplayColorVolume(const __CFData *a1)
 {
   if (!a1)
   {
@@ -1146,17 +1156,27 @@ uint64_t vtCompressionSessionValidateMasteringDisplayColorVolume(const void *a1)
   }
 
   TypeID = CFDataGetTypeID();
-  if (TypeID == CFGetTypeID(a1) && CFDataGetLength(a1) == 24)
+  if (TypeID == CFGetTypeID(a1))
   {
-    return 0;
+    if (CFDataGetLength(a1) == 24)
+    {
+      return 0;
+    }
+
+    v5 = 3384;
   }
 
-  fig_log_get_emitter();
+  else
+  {
+    v5 = 3382;
+  }
 
-  return FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", v5, v1);
 }
 
-uint64_t vtCompressionSessionValidateContentLightLevelInfo(const void *a1)
+uint64_t vtCompressionSessionValidateContentLightLevelInfo(const __CFData *a1)
 {
   if (!a1)
   {
@@ -1164,17 +1184,27 @@ uint64_t vtCompressionSessionValidateContentLightLevelInfo(const void *a1)
   }
 
   TypeID = CFDataGetTypeID();
-  if (TypeID == CFGetTypeID(a1) && CFDataGetLength(a1) == 4)
+  if (TypeID == CFGetTypeID(a1))
   {
-    return 0;
+    if (CFDataGetLength(a1) == 4)
+    {
+      return 0;
+    }
+
+    v5 = 3397;
   }
 
-  fig_log_get_emitter();
+  else
+  {
+    v5 = 3395;
+  }
 
-  return FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", v5, v1);
 }
 
-uint64_t vtCompressionSessionValidateAmbientViewingEnvironment(const void *a1)
+uint64_t vtCompressionSessionValidateAmbientViewingEnvironment(const __CFData *a1)
 {
   if (!a1)
   {
@@ -1182,14 +1212,24 @@ uint64_t vtCompressionSessionValidateAmbientViewingEnvironment(const void *a1)
   }
 
   TypeID = CFDataGetTypeID();
-  if (TypeID == CFGetTypeID(a1) && CFDataGetLength(a1) == 8)
+  if (TypeID == CFGetTypeID(a1))
   {
-    return 0;
+    if (CFDataGetLength(a1) == 8)
+    {
+      return 0;
+    }
+
+    v5 = 3410;
   }
 
-  fig_log_get_emitter();
+  else
+  {
+    v5 = 3408;
+  }
 
-  return FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", v5, v1);
 }
 
 uint64_t vtCompressionSessionValidateMultiPassStorage(const void *a1)
@@ -1205,9 +1245,9 @@ uint64_t vtCompressionSessionValidateMultiPassStorage(const void *a1)
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3422, v1);
 }
 
 uint64_t vtCompressionSessionValidateAuxiliaryTypeInfo(const void *a1)
@@ -1223,9 +1263,9 @@ uint64_t vtCompressionSessionValidateAuxiliaryTypeInfo(const void *a1)
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3434, v1);
 }
 
 uint64_t vtCompressionSessionValidateChromaLocation(const void *a1)
@@ -1235,9 +1275,9 @@ uint64_t vtCompressionSessionValidateChromaLocation(const void *a1)
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3349, v1);
 }
 
 uint64_t vtCompressionSessionValidatePrepareEncodedSampleBuffersForPaddedWrites(const void *a1)
@@ -1253,9 +1293,9 @@ uint64_t vtCompressionSessionValidatePrepareEncodedSampleBuffersForPaddedWrites(
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3371, v1);
 }
 
 uint64_t vtCompressionSessionValidateHasLeftStereoEyeView(const void *a1)
@@ -1265,15 +1305,15 @@ uint64_t vtCompressionSessionValidateHasLeftStereoEyeView(const void *a1)
     return 4294954394;
   }
 
-  v1 = CFGetTypeID(a1);
-  if (v1 == CFBooleanGetTypeID())
+  v2 = CFGetTypeID(a1);
+  if (v2 == CFBooleanGetTypeID())
   {
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3446, v1);
 }
 
 uint64_t vtCompressionSessionValidateHasRightStereoEyeView(const void *a1)
@@ -1283,15 +1323,15 @@ uint64_t vtCompressionSessionValidateHasRightStereoEyeView(const void *a1)
     return 4294954394;
   }
 
-  v1 = CFGetTypeID(a1);
-  if (v1 == CFBooleanGetTypeID())
+  v2 = CFGetTypeID(a1);
+  if (v2 == CFBooleanGetTypeID())
   {
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3457, v1);
 }
 
 uint64_t vtCompressionSessionValidateHasEyeViewsReversed(const void *a1)
@@ -1301,15 +1341,15 @@ uint64_t vtCompressionSessionValidateHasEyeViewsReversed(const void *a1)
     return 4294954394;
   }
 
-  v1 = CFGetTypeID(a1);
-  if (v1 == CFBooleanGetTypeID())
+  v2 = CFGetTypeID(a1);
+  if (v2 == CFBooleanGetTypeID())
   {
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3468, v1);
 }
 
 uint64_t vtCompressionSessionValidateHasAdditionalViews(const void *a1)
@@ -1319,15 +1359,15 @@ uint64_t vtCompressionSessionValidateHasAdditionalViews(const void *a1)
     return 4294954394;
   }
 
-  v1 = CFGetTypeID(a1);
-  if (v1 == CFBooleanGetTypeID())
+  v2 = CFGetTypeID(a1);
+  if (v2 == CFBooleanGetTypeID())
   {
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3479, v1);
 }
 
 uint64_t vtCompressionSessionValidateHeroEye(const void *a1)
@@ -1337,15 +1377,15 @@ uint64_t vtCompressionSessionValidateHeroEye(const void *a1)
     return 0;
   }
 
-  v1 = CFGetTypeID(a1);
-  if (v1 == CFStringGetTypeID())
+  v2 = CFGetTypeID(a1);
+  if (v2 == CFStringGetTypeID())
   {
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3490, v1);
 }
 
 uint64_t vtCompressionSessionValidateProjectionKind(const void *a1)
@@ -1355,15 +1395,15 @@ uint64_t vtCompressionSessionValidateProjectionKind(const void *a1)
     return 0;
   }
 
-  v1 = CFGetTypeID(a1);
-  if (v1 == CFStringGetTypeID())
+  v2 = CFGetTypeID(a1);
+  if (v2 == CFStringGetTypeID())
   {
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3501, v1);
 }
 
 uint64_t vtCompressionSessionValidateViewPackingKind(const void *a1)
@@ -1373,15 +1413,15 @@ uint64_t vtCompressionSessionValidateViewPackingKind(const void *a1)
     return 0;
   }
 
-  v1 = CFGetTypeID(a1);
-  if (v1 == CFStringGetTypeID())
+  v2 = CFGetTypeID(a1);
+  if (v2 == CFStringGetTypeID())
   {
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3512, v1);
 }
 
 uint64_t vtCompressionSessionValidateTransportIdentifier(const void *a1)
@@ -1391,15 +1431,15 @@ uint64_t vtCompressionSessionValidateTransportIdentifier(const void *a1)
     return 0;
   }
 
-  v1 = CFGetTypeID(a1);
-  if (v1 == CFNumberGetTypeID())
+  v2 = CFGetTypeID(a1);
+  if (v2 == CFNumberGetTypeID())
   {
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3523, v1);
 }
 
 uint64_t vtCompressionSessionValidateWarpKind(const void *a1)
@@ -1409,15 +1449,15 @@ uint64_t vtCompressionSessionValidateWarpKind(const void *a1)
     return 0;
   }
 
-  v1 = CFGetTypeID(a1);
-  if (v1 == CFStringGetTypeID())
+  v2 = CFGetTypeID(a1);
+  if (v2 == CFStringGetTypeID())
   {
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3534, v1);
 }
 
 uint64_t vtCompressionSessionValidateBaselineValue(const void *a1)
@@ -1427,15 +1467,15 @@ uint64_t vtCompressionSessionValidateBaselineValue(const void *a1)
     return 0;
   }
 
-  v1 = CFGetTypeID(a1);
-  if (v1 == CFNumberGetTypeID())
+  v2 = CFGetTypeID(a1);
+  if (v2 == CFNumberGetTypeID())
   {
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3545, v1);
 }
 
 uint64_t vtCompressionSessionValidateDisparityAdjustment(const void *a1)
@@ -1445,15 +1485,15 @@ uint64_t vtCompressionSessionValidateDisparityAdjustment(const void *a1)
     return 0;
   }
 
-  v1 = CFGetTypeID(a1);
-  if (v1 == CFNumberGetTypeID())
+  v2 = CFGetTypeID(a1);
+  if (v2 == CFNumberGetTypeID())
   {
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3556, v1);
 }
 
 uint64_t vtCompressionSessionValidateCameraCalibrationDataLensCollection(const void *a1)
@@ -1463,43 +1503,79 @@ uint64_t vtCompressionSessionValidateCameraCalibrationDataLensCollection(const v
     return 0;
   }
 
-  v2 = CFGetTypeID(a1);
-  if (v2 == CFArrayGetTypeID())
+  v3 = CFGetTypeID(a1);
+  if (v3 == CFArrayGetTypeID())
   {
     if (CFArrayGetCount(a1) >= 1)
     {
-      v3 = 0;
+      v4 = 0;
+      v5 = 3572;
       while (1)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(a1, v3);
+        ValueAtIndex = CFArrayGetValueAtIndex(a1, v4);
         if (!ValueAtIndex)
         {
-          break;
+          goto LABEL_16;
         }
 
-        v5 = ValueAtIndex;
-        v6 = CFGetTypeID(ValueAtIndex);
-        if (v6 != CFDictionaryGetTypeID() || !CFDictionaryContainsKey(v5, @"LensAlgorithmKind") || !CFDictionaryContainsKey(v5, @"LensRole") || !CFDictionaryContainsKey(v5, @"LensIdentifier") || !CFDictionaryContainsKey(v5, @"LensDomain") || !CFDictionaryContainsKey(v5, @"IntrinsicMatrix") || !CFDictionaryContainsKey(v5, @"IntrinsicMatrixReferenceDimensions"))
+        v7 = ValueAtIndex;
+        v8 = CFGetTypeID(ValueAtIndex);
+        if (v8 != CFDictionaryGetTypeID())
         {
-          break;
+          goto LABEL_16;
         }
 
-        if (++v3 >= CFArrayGetCount(a1))
+        if (!CFDictionaryContainsKey(v7, @"LensAlgorithmKind"))
+        {
+          v5 = 3574;
+          goto LABEL_16;
+        }
+
+        if (!CFDictionaryContainsKey(v7, @"LensRole"))
+        {
+          v5 = 3576;
+          goto LABEL_16;
+        }
+
+        if (!CFDictionaryContainsKey(v7, @"LensIdentifier"))
+        {
+          v5 = 3578;
+          goto LABEL_16;
+        }
+
+        if (!CFDictionaryContainsKey(v7, @"LensDomain"))
+        {
+          v5 = 3580;
+          goto LABEL_16;
+        }
+
+        if (!CFDictionaryContainsKey(v7, @"IntrinsicMatrix"))
+        {
+          v5 = 3582;
+          goto LABEL_16;
+        }
+
+        if (!CFDictionaryContainsKey(v7, @"IntrinsicMatrixReferenceDimensions"))
+        {
+          v5 = 3584;
+          goto LABEL_16;
+        }
+
+        if (++v4 >= CFArrayGetCount(a1))
         {
           return 0;
         }
       }
-
-      goto LABEL_15;
     }
 
     return 0;
   }
 
-LABEL_15:
-  fig_log_get_emitter();
+  v5 = 3567;
+LABEL_16:
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", v5, v1);
 }
 
 uint64_t vtCompressionSessionValidateHorizontalFieldOfView(const void *a1)
@@ -1509,15 +1585,15 @@ uint64_t vtCompressionSessionValidateHorizontalFieldOfView(const void *a1)
     return 0;
   }
 
-  v1 = CFGetTypeID(a1);
-  if (v1 == CFNumberGetTypeID())
+  v2 = CFGetTypeID(a1);
+  if (v2 == CFNumberGetTypeID())
   {
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3597, v1);
 }
 
 uint64_t vtCompressionSessionValidatePowerLogSessionID(const void *a1)
@@ -1527,30 +1603,30 @@ uint64_t vtCompressionSessionValidatePowerLogSessionID(const void *a1)
     return 4294954394;
   }
 
-  v1 = CFGetTypeID(a1);
-  if (v1 == CFStringGetTypeID())
+  v2 = CFGetTypeID(a1);
+  if (v2 == CFStringGetTypeID())
   {
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3609, v1);
 }
 
 uint64_t vtCompressionSessionValidateInputQueueMaxCount(const void *a1)
 {
-  valuePtr = 0;
+  valuePtr[0] = 0;
   if (!a1)
   {
     return 4294954394;
   }
 
-  v2 = CFGetTypeID(a1);
-  if (v2 == CFNumberGetTypeID())
+  v3 = CFGetTypeID(a1);
+  if (v3 == CFNumberGetTypeID())
   {
-    CFNumberGetValue(a1, kCFNumberIntType, &valuePtr);
-    if (valuePtr > -2)
+    CFNumberGetValue(a1, kCFNumberIntType, valuePtr);
+    if (valuePtr[0] > -2)
     {
       return 0;
     }
@@ -1558,15 +1634,15 @@ uint64_t vtCompressionSessionValidateInputQueueMaxCount(const void *a1)
     else
     {
       fig_log_get_emitter();
-      return FigSignalErrorAtGM();
+      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v6, v7, valuePtr[1]);
     }
   }
 
   else
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3623, v1);
   }
 }
 
@@ -1628,131 +1704,139 @@ uint64_t vtCompressionSessionValidateHDRMetadata(uint64_t a1, const void *a2)
   }
 
   TypeID = CFStringGetTypeID();
-  if (TypeID != CFGetTypeID(a2) || !FigCFEqual() && !FigCFEqual() && !FigCFEqual())
+  if (TypeID != CFGetTypeID(a2))
   {
-    goto LABEL_12;
+    v7 = 3651;
+    goto LABEL_13;
   }
 
-  v5 = *(a1 + 48);
-  if (v5 > 1685481520)
+  if (!FigCFEqual() && !FigCFEqual() && !FigCFEqual())
   {
-    if (v5 > 1869117026)
+    v7 = 3655;
+    goto LABEL_13;
+  }
+
+  v6 = *(a1 + 48);
+  v7 = 3658;
+  if (v6 > 1685481520)
+  {
+    if (v6 > 1869117026)
     {
-      if (v5 <= 1902407031)
+      if (v6 <= 1902407031)
       {
-        if (v5 == 1869117027 || v5 == 1902405681)
+        if (v6 == 1869117027 || v6 == 1902405681)
         {
           return 0;
         }
 
-        v8 = 1902405733;
-        goto LABEL_45;
+        v11 = 1902405733;
+        goto LABEL_46;
       }
 
-      if (v5 > 1902671458)
+      if (v6 > 1902671458)
       {
-        if (v5 != 1902671459)
+        if (v6 != 1902671459)
         {
-          v8 = 1902998904;
-          goto LABEL_45;
+          v11 = 1902998904;
+          goto LABEL_46;
         }
       }
 
-      else if (v5 != 1902407032)
+      else if (v6 != 1902407032)
       {
-        v8 = 1902667126;
-        goto LABEL_45;
+        v11 = 1902667126;
+        goto LABEL_46;
       }
     }
 
     else
     {
-      if (v5 <= 1718908527)
+      if (v6 <= 1718908527)
       {
-        if (v5 == 1685481521 || v5 == 1685481573)
+        if (v6 == 1685481521 || v6 == 1685481573)
         {
           return 0;
         }
 
-        v8 = 1718908520;
-        goto LABEL_45;
+        v11 = 1718908520;
+        goto LABEL_46;
       }
 
-      if (v5 > 1752589104)
+      if (v6 > 1752589104)
       {
-        if (v5 != 1752589105)
+        if (v6 != 1752589105)
         {
-          v8 = 1836415073;
-          goto LABEL_45;
+          v11 = 1836415073;
+          goto LABEL_46;
         }
       }
 
-      else if (v5 != 1718908528)
+      else if (v6 != 1718908528)
       {
-        v8 = 1751479857;
-        goto LABEL_45;
+        v11 = 1751479857;
+        goto LABEL_46;
       }
     }
 
     return 0;
   }
 
-  if (v5 > 1634759271)
+  if (v6 > 1634759271)
   {
-    if (v5 <= 1667524656)
+    if (v6 <= 1667524656)
     {
-      v9 = v5 - 1634759272;
-      if (v9 <= 6 && ((1 << v9) & 0x51) != 0)
+      v12 = v6 - 1634759272;
+      if (v12 <= 6 && ((1 << v12) & 0x51) != 0)
       {
         return 0;
       }
 
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    if (v5 == 1667524657 || v5 == 1667790435)
+    if (v6 == 1667524657 || v6 == 1667790435)
     {
       return 0;
     }
 
-    v8 = 1684895096;
+    v11 = 1684895096;
   }
 
   else
   {
-    if (v5 > 1634743415)
+    if (v6 > 1634743415)
     {
-      if ((v5 - 1634755432) <= 0xB && ((1 << (v5 - 104)) & 0x8C1) != 0)
+      if ((v6 - 1634755432) <= 0xB && ((1 << (v6 - 104)) & 0x8C1) != 0)
       {
         return 0;
       }
 
-      v6 = 13432;
+      v8 = 13432;
     }
 
     else
     {
-      if (v5 == 1634742376 || v5 == 1634742888)
+      if (v6 == 1634742376 || v6 == 1634742888)
       {
         return 0;
       }
 
-      v6 = 13416;
+      v8 = 13416;
     }
 
-    v8 = v6 | 0x61700000;
+    v11 = v8 | 0x61700000;
   }
 
-LABEL_45:
-  if (v5 == v8)
+LABEL_46:
+  if (v6 == v11)
   {
     return 0;
   }
 
-LABEL_12:
-  fig_log_get_emitter();
+LABEL_13:
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", v7, v2);
 }
 
 uint64_t vtCompressionSessionValidateInitialHDRMetadataState(const void *a1)
@@ -1762,40 +1846,40 @@ uint64_t vtCompressionSessionValidateInitialHDRMetadataState(const void *a1)
     return 0;
   }
 
-  v1 = CFGetTypeID(a1);
-  if (v1 == CFDictionaryGetTypeID())
+  v2 = CFGetTypeID(a1);
+  if (v2 == CFDictionaryGetTypeID())
   {
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3638, v1);
 }
 
 uint64_t vtCompressionSessionUpdateAmbientViewingEnvironment(uint64_t a1, CFTypeRef cf)
 {
   if (cf)
   {
-    v4 = CFGetTypeID(cf);
-    if (v4 == CFDataGetTypeID())
+    v5 = CFGetTypeID(cf);
+    if (v5 == CFDataGetTypeID())
     {
-      v5 = *(a1 + 704);
+      v6 = *(a1 + 704);
       *(a1 + 704) = cf;
       CFRetain(cf);
-      if (v5)
+      if (v6)
       {
-        CFRelease(v5);
+        CFRelease(v6);
       }
 
       Length = CFDataGetLength(cf);
       CFDataGetBytePtr(cf);
-      if (Length == 8 || vtCompressionSessionUpdateAmbientViewingEnvironment_cold_1(&v11))
+      if (Length == 8 || vtCompressionSessionUpdateAmbientViewingEnvironment_cold_1(&v13))
       {
-        v7 = *(a1 + 712);
-        if (v7)
+        v8 = *(a1 + 712);
+        if (v8)
         {
-          CFRelease(v7);
+          CFRelease(v8);
         }
 
         result = FigHEVCBridge_CreateAmbientViewingEnvironmentSEINAL();
@@ -1807,31 +1891,31 @@ uint64_t vtCompressionSessionUpdateAmbientViewingEnvironment(uint64_t a1, CFType
 
       else
       {
-        return v11;
+        return v13;
       }
     }
 
     else
     {
-      fig_log_get_emitter();
+      emitter = fig_log_get_emitter();
 
-      return FigSignalErrorAtGM();
+      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 3688, v2);
     }
   }
 
   else
   {
-    v9 = *(a1 + 704);
-    if (v9)
-    {
-      CFRelease(v9);
-      *(a1 + 704) = 0;
-    }
-
-    v10 = *(a1 + 712);
+    v10 = *(a1 + 704);
     if (v10)
     {
       CFRelease(v10);
+      *(a1 + 704) = 0;
+    }
+
+    v11 = *(a1 + 712);
+    if (v11)
+    {
+      CFRelease(v11);
       *(a1 + 712) = 0;
     }
 
@@ -1881,7 +1965,7 @@ uint64_t VTCompressionSessionCopySerializableProperties(uint64_t a1, uint64_t a2
     {
       v5 = *(a1 + 24);
 
-      return VTCompressionSessionRemote_CopySerializableProperties(v5);
+      return VTCompressionSessionRemote_CopySerializableProperties(v5, a2, a3);
     }
 
     else
@@ -2287,7 +2371,7 @@ LABEL_71:
   return v1;
 }
 
-uint64_t vtCompressionSessionEncodeFrameCommon(uint64_t a1, __CVBuffer *a2, OpaqueCMTaggedBufferGroup *a3, uint64_t a4, __int128 *a5, const void *a6, uint64_t a7, uint64_t a8, _DWORD *a9)
+uint64_t vtCompressionSessionEncodeFrameCommon(uint64_t a1, __CVBuffer *a2, OpaqueCMTaggedBufferGroup *a3, __int128 *a4, __int128 *a5, const void *a6, uint64_t a7, uint64_t a8, _DWORD *a9)
 {
   *&v126 = a8;
   v144 = *MEMORY[0x1E69E9840];
@@ -2342,7 +2426,7 @@ LABEL_107:
   }
 
   v133 = *a4;
-  v134 = *(a4 + 16);
+  v134 = *(a4 + 2);
   v131 = *a5;
   v132 = *(a5 + 2);
   context = 0;
@@ -3399,7 +3483,7 @@ OSStatus VTCompressionSessionEncodeMultiImageFrameWithOutputHandler(VTCompressio
   return vtCompressionSessionEncodeFrameCommon(session, 0, taggedBufferGroup, &v18, &v16, frameProperties, outputHandler, 0, infoFlagsOut);
 }
 
-uint64_t vtCompressionSessionPipelineCreateContext(_BYTE *a1, const void *a2, const void *a3, const void *a4, const void *a5, const void *a6, __int128 *a7, __int128 *a8, const void *a9, uint64_t a10, void *a11)
+CFTypeRef vtCompressionSessionPipelineCreateContext(_BYTE *a1, const void *a2, const void *a3, const void *a4, const void *a5, const void *a6, __int128 *a7, __int128 *a8, const void *a9, uint64_t a10, void *a11)
 {
   v19 = malloc_type_calloc(1uLL, 0x78uLL, 0x10600404BA76C06uLL);
   if (v19)
@@ -3621,14 +3705,14 @@ uint64_t VTVideoEncoderGetTypeID()
   return CMBaseClassGetCFTypeID();
 }
 
-void vtCompressionSessionCopyFallbackVideoFormatDescriptionExtensions(uint64_t cf, const __CFDictionary *a2, __CFDictionary **a3)
+void vtCompressionSessionCopyFallbackVideoFormatDescriptionExtensions(unsigned int *cf, const __CFDictionary *a2, __CFDictionary **a3)
 {
   if (*(cf + 256))
   {
     vtCompressionSessionConfirmSpatialAndColorProperties(cf);
   }
 
-  if (*(cf + 136) || *(cf + 144) || *(cf + 152) || *(cf + 160) || *(cf + 176) || *(cf + 184) || *(cf + 192) || *(cf + 200) || *(cf + 208) || *(cf + 216) || *(cf + 224) || *(cf + 232) || *(cf + 704) || *(cf + 736) || *(cf + 737) || *(cf + 738) || *(cf + 739) || *(cf + 744) || *(cf + 752) || *(cf + 760) || *(cf + 768) || *(cf + 776) || *(cf + 784) || *(cf + 792) || *(cf + 800) || *(cf + 264) || *(cf + 936))
+  if (*(cf + 17) || *(cf + 18) || *(cf + 19) || *(cf + 20) || *(cf + 22) || *(cf + 23) || *(cf + 24) || *(cf + 25) || *(cf + 26) || *(cf + 27) || *(cf + 28) || *(cf + 29) || *(cf + 88) || *(cf + 736) || *(cf + 737) || *(cf + 738) || *(cf + 739) || *(cf + 93) || *(cf + 94) || *(cf + 95) || *(cf + 768) || *(cf + 97) || *(cf + 784) || *(cf + 792) || *(cf + 100) || *(cf + 33) || *(cf + 117))
   {
     v6 = CFGetAllocator(cf);
     if (a2)
@@ -3642,123 +3726,123 @@ void vtCompressionSessionCopyFallbackVideoFormatDescriptionExtensions(uint64_t c
     }
 
     v8 = MutableCopy;
-    if (*(cf + 136))
+    if (*(cf + 17))
     {
       v9 = *MEMORY[0x1E6965EF8];
       if (!CFDictionaryContainsKey(MutableCopy, *MEMORY[0x1E6965EF8]))
       {
-        CFDictionarySetValue(v8, v9, *(cf + 136));
+        CFDictionarySetValue(v8, v9, *(cf + 17));
       }
     }
 
-    if (*(cf + 144))
+    if (*(cf + 18))
     {
       v10 = *MEMORY[0x1E6965D70];
       if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E6965D70]))
       {
-        CFDictionarySetValue(v8, v10, *(cf + 144));
+        CFDictionarySetValue(v8, v10, *(cf + 18));
       }
     }
 
-    if (*(cf + 152))
+    if (*(cf + 19))
     {
       v11 = *MEMORY[0x1E6965E50];
       if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E6965E50]))
       {
-        CFDictionarySetValue(v8, v11, *(cf + 152));
+        CFDictionarySetValue(v8, v11, *(cf + 19));
       }
     }
 
-    if (*(cf + 160))
+    if (*(cf + 20))
     {
       v12 = *MEMORY[0x1E6965E58];
       if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E6965E58]))
       {
-        CFDictionarySetValue(v8, v12, *(cf + 160));
+        CFDictionarySetValue(v8, v12, *(cf + 20));
       }
     }
 
     if (!vtCompressionSessionIsIPT(cf))
     {
-      if (*(cf + 176))
+      if (*(cf + 22))
       {
         v32 = *MEMORY[0x1E6965D88];
         if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E6965D88]))
         {
-          CFDictionarySetValue(v8, v32, *(cf + 176));
+          CFDictionarySetValue(v8, v32, *(cf + 22));
         }
       }
 
-      if (*(cf + 184))
+      if (*(cf + 23))
       {
         v33 = *MEMORY[0x1E6965F30];
         if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E6965F30]))
         {
-          CFDictionarySetValue(v8, v33, *(cf + 184));
+          CFDictionarySetValue(v8, v33, *(cf + 23));
         }
       }
 
-      if (*(cf + 192))
+      if (*(cf + 24))
       {
         v34 = *MEMORY[0x1E6965E80];
         if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E6965E80]))
         {
-          CFDictionarySetValue(v8, v34, *(cf + 192));
+          CFDictionarySetValue(v8, v34, *(cf + 24));
         }
       }
 
-      if (*(cf + 200))
+      if (*(cf + 25))
       {
         v35 = *MEMORY[0x1E6965F98];
         if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E6965F98]))
         {
-          CFDictionarySetValue(v8, v35, *(cf + 200));
+          CFDictionarySetValue(v8, v35, *(cf + 25));
         }
       }
 
-      if (*(cf + 208))
+      if (*(cf + 26))
       {
         v36 = *MEMORY[0x1E6960070];
         if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E6960070]))
         {
-          CFDictionarySetValue(v8, v36, *(cf + 208));
+          CFDictionarySetValue(v8, v36, *(cf + 26));
         }
       }
     }
 
-    if (*(cf + 216))
+    if (*(cf + 27))
     {
       v13 = *MEMORY[0x1E6960080];
       if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E6960080]))
       {
-        CFDictionarySetValue(v8, v13, *(cf + 216));
+        CFDictionarySetValue(v8, v13, *(cf + 27));
       }
     }
 
-    if (*(cf + 224))
+    if (*(cf + 28))
     {
       v14 = *MEMORY[0x1E6960020];
       if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E6960020]))
       {
-        CFDictionarySetValue(v8, v14, *(cf + 224));
+        CFDictionarySetValue(v8, v14, *(cf + 28));
       }
     }
 
-    if (*(cf + 232))
+    if (*(cf + 29))
     {
       v15 = *MEMORY[0x1E695FFF8];
       if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E695FFF8]))
       {
-        CFDictionarySetValue(v8, v15, *(cf + 232));
+        CFDictionarySetValue(v8, v15, *(cf + 29));
       }
     }
 
-    if (*(cf + 704))
+    if (*(cf + 88))
     {
       v16 = *MEMORY[0x1E695FFF0];
       if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E695FFF0]))
       {
-        CFDictionarySetValue(v8, v16, *(cf + 704));
+        CFDictionarySetValue(v8, v16, *(cf + 88));
       }
     }
 
@@ -3822,30 +3906,30 @@ void vtCompressionSessionCopyFallbackVideoFormatDescriptionExtensions(uint64_t c
       }
     }
 
-    if (*(cf + 744))
+    if (*(cf + 93))
     {
       v25 = *MEMORY[0x1E6962798];
       if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E6962798]))
       {
-        CFDictionarySetValue(v8, v25, *(cf + 744));
+        CFDictionarySetValue(v8, v25, *(cf + 93));
       }
     }
 
-    if (*(cf + 752))
+    if (*(cf + 94))
     {
       v26 = *MEMORY[0x1E69627B0];
       if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E69627B0]))
       {
-        CFDictionarySetValue(v8, v26, *(cf + 752));
+        CFDictionarySetValue(v8, v26, *(cf + 94));
       }
     }
 
-    if (*(cf + 760))
+    if (*(cf + 95))
     {
       v27 = *MEMORY[0x1E69627D0];
       if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E69627D0]))
       {
-        CFDictionarySetValue(v8, v27, *(cf + 760));
+        CFDictionarySetValue(v8, v27, *(cf + 95));
       }
     }
 
@@ -3854,12 +3938,12 @@ void vtCompressionSessionCopyFallbackVideoFormatDescriptionExtensions(uint64_t c
       FigCFDictionarySetInt32();
     }
 
-    if (*(cf + 776))
+    if (*(cf + 97))
     {
       v28 = *MEMORY[0x1E69627D8];
       if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E69627D8]))
       {
-        CFDictionarySetValue(v8, v28, *(cf + 776));
+        CFDictionarySetValue(v8, v28, *(cf + 97));
       }
     }
 
@@ -3873,30 +3957,30 @@ void vtCompressionSessionCopyFallbackVideoFormatDescriptionExtensions(uint64_t c
       FigCFDictionarySetInt32();
     }
 
-    if (*(cf + 800))
+    if (*(cf + 100))
     {
       v29 = *MEMORY[0x1E6962750];
       if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E6962750]))
       {
-        CFDictionarySetValue(v8, v29, *(cf + 800));
+        CFDictionarySetValue(v8, v29, *(cf + 100));
       }
     }
 
-    if (*(cf + 264))
+    if (*(cf + 33))
     {
       v30 = *MEMORY[0x1E6960068];
       if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E6960068]))
       {
-        CFDictionarySetValue(v8, v30, *(cf + 264));
+        CFDictionarySetValue(v8, v30, *(cf + 33));
       }
     }
 
-    if (*(cf + 936))
+    if (*(cf + 117))
     {
       v31 = *MEMORY[0x1E6960078];
       if (!CFDictionaryContainsKey(v8, *MEMORY[0x1E6960078]))
       {
-        CFDictionarySetValue(v8, v31, *(cf + 936));
+        CFDictionarySetValue(v8, v31, *(cf + 117));
       }
     }
   }
@@ -4147,14 +4231,14 @@ void vtCompressionSessionSetHDRFormatAndInitializeMetadataGeneration(uint64_t a1
       }
     }
 
-    if (vtCompressionSessionIsPQ())
+    if (vtCompressionSessionIsPQ(a1))
     {
       v15 = 3;
     }
 
     else
     {
-      if (!vtCompressionSessionIsHLG())
+      if (!vtCompressionSessionIsHLG(a1))
       {
         return;
       }
@@ -4166,7 +4250,7 @@ void vtCompressionSessionSetHDRFormatAndInitializeMetadataGeneration(uint64_t a1
     return;
   }
 
-  IsHLG = vtCompressionSessionIsHLG();
+  IsHLG = vtCompressionSessionIsHLG(a1);
   v5 = MEMORY[0x1E695E4D0];
   if (IsHLG)
   {
@@ -4263,7 +4347,7 @@ LABEL_67:
     goto LABEL_16;
   }
 
-  if (vtCompressionSessionIsPQ())
+  if (vtCompressionSessionIsPQ(a1))
   {
     *(a1 + 720) = 3;
     if ((*(a1 + 624) || *(a1 + 616) == *v5) && a2 && *(a1 + 693))
@@ -4272,7 +4356,7 @@ LABEL_67:
       if (!*(a1 + 693))
       {
         fig_log_get_emitter();
-        FigSignalErrorAtGM();
+        FigSignalErrorAtGM("%s signalled err=%d at <>:%d", cf, v21, *bytes);
         return;
       }
 
@@ -4290,58 +4374,59 @@ LABEL_67:
   }
 }
 
-uint64_t VTEncoderSessionCreateVideoFormatDescriptionFromHEVCParameterSets(uint64_t *a1, size_t a2, const void *a3, const void *a4, int a5, const __CFDictionary *a6, CMFormatDescriptionRef *a7)
+uint64_t VTEncoderSessionCreateVideoFormatDescriptionFromHEVCParameterSets(unsigned int **a1, size_t a2, const void *a3, const void *a4, uint64_t a5, const __CFDictionary *a6, CMFormatDescriptionRef *a7)
 {
   desc = 0;
-  v28 = 0;
+  v30 = 0;
   if (a1)
   {
-    v7 = *a1;
+    v8 = *a1;
     if (*a1)
     {
-      if (*(v7 + 16) != 2)
+      if (v8[4] != 2)
       {
-        vtCompressionSessionCopyFallbackVideoFormatDescriptionExtensions(*a1, a6, &v28);
-        Mutable = v28;
-        if (v28)
+        v11 = a5;
+        vtCompressionSessionCopyFallbackVideoFormatDescriptionExtensions(*a1, a6, &v30);
+        Mutable = v30;
+        if (v30)
         {
-          v15 = v28;
+          v16 = v30;
         }
 
         else
         {
-          v15 = a6;
+          v16 = a6;
         }
 
-        v16 = vtCreateVideoFomatDescriptionFromHEVCParameterSets(v7, a2, a3, a4, a5, v15, &desc);
-        if (v16)
+        v17 = vtCreateVideoFomatDescriptionFromHEVCParameterSets(v8, a2, a3, a4, v11, v16, &desc);
+        if (v17)
         {
 LABEL_27:
-          v24 = v16;
+          v25 = v17;
 LABEL_34:
-          v25 = desc;
+          v26 = desc;
           goto LABEL_35;
         }
 
-        if (!*(v7 + 724))
+        if (!*(v8 + 724))
         {
           goto LABEL_17;
         }
 
-        v17 = *MEMORY[0x1E69600A0];
+        v18 = *MEMORY[0x1E69600A0];
         Extension = CMFormatDescriptionGetExtension(desc, *MEMORY[0x1E69600A0]);
-        if (!Extension || (v19 = Extension, v20 = CFGetTypeID(Extension), v20 != CFDictionaryGetTypeID()))
+        if (!Extension || (v20 = Extension, v21 = CFGetTypeID(Extension), v21 != CFDictionaryGetTypeID()))
         {
-          v24 = 4294954384;
+          v25 = 4294954384;
           goto LABEL_34;
         }
 
-        if (Mutable || (Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]), (v28 = Mutable) != 0))
+        if (Mutable || (Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]), (v30 = Mutable) != 0))
         {
-          CFDictionarySetValue(Mutable, v17, v19);
+          CFDictionarySetValue(Mutable, v18, v20);
           Dimensions = CMVideoFormatDescriptionGetDimensions(desc);
-          v16 = vtCompressionSessionAddDolbyVisionVideoFormatDescriptionExtensions(v7, Dimensions.width, Dimensions.height, Mutable);
-          if (!v16)
+          v17 = vtCompressionSessionAddDolbyVisionVideoFormatDescriptionExtensions(v8, Dimensions.width, Dimensions.height, Mutable);
+          if (!v17)
           {
             if (desc)
             {
@@ -4349,28 +4434,28 @@ LABEL_34:
               desc = 0;
             }
 
-            v16 = vtCreateVideoFomatDescriptionFromHEVCParameterSets(v7, a2, a3, a4, a5, Mutable, &desc);
-            if (!v16)
+            v17 = vtCreateVideoFomatDescriptionFromHEVCParameterSets(v8, a2, a3, a4, v11, Mutable, &desc);
+            if (!v17)
             {
 LABEL_17:
-              v22 = *(v7 + 32);
-              v23 = desc;
-              *(v7 + 32) = desc;
+              v23 = *(v8 + 4);
+              v24 = desc;
+              *(v8 + 4) = desc;
+              if (v24)
+              {
+                CFRetain(v24);
+              }
+
               if (v23)
               {
-                CFRetain(v23);
+                CFRelease(v23);
               }
 
-              if (v22)
-              {
-                CFRelease(v22);
-              }
-
-              v24 = 0;
-              v25 = desc;
+              v25 = 0;
+              v26 = desc;
               if (a7 && desc)
               {
-                v24 = 0;
+                v25 = 0;
                 *a7 = desc;
                 desc = 0;
 LABEL_37:
@@ -4379,13 +4464,13 @@ LABEL_37:
                   CFRelease(Mutable);
                 }
 
-                return v24;
+                return v25;
               }
 
 LABEL_35:
-              if (v25)
+              if (v26)
               {
-                CFRelease(v25);
+                CFRelease(v26);
               }
 
               goto LABEL_37;
@@ -4395,27 +4480,27 @@ LABEL_35:
           goto LABEL_27;
         }
 
-        VTEncoderSessionCreateVideoFormatDescriptionFromHEVCParameterSets_cold_1(&v29);
+        VTEncoderSessionCreateVideoFormatDescriptionFromHEVCParameterSets_cold_1(&v31);
 LABEL_33:
-        v24 = v29;
+        v25 = v31;
         goto LABEL_34;
       }
 
-      VTEncoderSessionCreateVideoFormatDescriptionFromHEVCParameterSets_cold_2(&v29);
+      VTEncoderSessionCreateVideoFormatDescriptionFromHEVCParameterSets_cold_2(&v31);
     }
 
     else
     {
-      VTEncoderSessionCreateVideoFormatDescriptionFromHEVCParameterSets_cold_3(&v29);
+      VTEncoderSessionCreateVideoFormatDescriptionFromHEVCParameterSets_cold_3(&v31);
     }
 
     Mutable = 0;
     goto LABEL_33;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 9084, v7);
 }
 
 uint64_t vtCreateVideoFomatDescriptionFromHEVCParameterSets(CFDataRef *cf, size_t a2, const void *a3, const void *a4, int a5, const __CFDictionary *a6, CMFormatDescriptionRef *a7)
@@ -4463,31 +4548,31 @@ LABEL_6:
   return v17;
 }
 
-uint64_t VTEncoderSessionCreateMVHEVCThreeDimensionalReferenceDisplaysInfoSEIWithDefaults(uint64_t a1, __int16 a2, __int16 a3)
+uint64_t VTEncoderSessionCreateMVHEVCThreeDimensionalReferenceDisplaysInfoSEIWithDefaults(uint64_t a1, __int16 a2, __int16 a3, uint64_t a4, uint64_t a5)
 {
-  v6 = FigHEVCBridge_AllocThreeDimensionalReferenceDisplaysInfo();
-  v7 = v6;
-  if (!v6)
+  v9 = FigHEVCBridge_AllocThreeDimensionalReferenceDisplaysInfo();
+  v10 = v9;
+  if (!v9)
   {
-    VTEncoderSessionCreateMVHEVCThreeDimensionalReferenceDisplaysInfoSEIWithDefaults_cold_1(&v10);
-    ThreeDimensionalReferenceDisplaysInfoSEI = v10;
+    VTEncoderSessionCreateMVHEVCThreeDimensionalReferenceDisplaysInfoSEIWithDefaults_cold_1(&v14);
+    ThreeDimensionalReferenceDisplaysInfoSEI = v14;
     goto LABEL_4;
   }
 
   if (a1)
   {
-    *v6 = 31;
-    *(v6 + 8) = a2;
-    *(v6 + 10) = a3;
+    *v9 = 31;
+    *(v9 + 8) = a2;
+    *(v9 + 10) = a3;
     ThreeDimensionalReferenceDisplaysInfoSEI = FigHEVCBridge_CreateThreeDimensionalReferenceDisplaysInfoSEI();
 LABEL_4:
-    free(v7);
+    free(v10);
     return ThreeDimensionalReferenceDisplaysInfoSEI;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 9159, v5);
 }
 
 void *vtTimeStampRetain(uint64_t a1, __int128 *a2)
@@ -4504,7 +4589,7 @@ void *vtTimeStampRetain(uint64_t a1, __int128 *a2)
   else
   {
     fig_log_get_emitter();
-    FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v7, v8, v9);
   }
 
   return v4;
@@ -4534,27 +4619,36 @@ uint64_t VTEncoderSessionTeardown(uint64_t a1)
 
 uint64_t VTEncoderSessionEnqueuePresentationTimeStamp(uint64_t a1, _DWORD *a2)
 {
-  if (a1 && (a2[3] & 0x1D) == 1)
+  if (a1)
   {
-    FigSimpleMutexLock();
-    CFArrayAppendValue(*(a1 + 16), a2);
-    FigSimpleMutexUnlock();
-    return 0;
+    if ((a2[3] & 0x1D) == 1)
+    {
+      FigSimpleMutexLock();
+      CFArrayAppendValue(*(a1 + 16), a2);
+      FigSimpleMutexUnlock();
+      return 0;
+    }
+
+    emitter = fig_log_get_emitter();
+    v7 = v2;
+    v8 = 9402;
   }
 
   else
   {
-    fig_log_get_emitter();
-
-    return FigSignalErrorAtGM();
+    emitter = fig_log_get_emitter();
+    v7 = v2;
+    v8 = 9399;
   }
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", v8, v7);
 }
 
 uint64_t VTEncoderSessionCreateCMBlockBuffer(uint64_t a1, uint64_t a2, void *a3)
 {
   if (a1)
   {
-    if (*(a1 + 8) || (v5 = FigCopyCommonMemoryPool(), (*(a1 + 8) = v5) != 0))
+    if (*(a1 + 8) || (v6 = FigCopyCommonMemoryPool(), (*(a1 + 8) = v6) != 0))
     {
       result = MEMORY[0x193AE28D0]();
       if (result)
@@ -4567,15 +4661,15 @@ uint64_t VTEncoderSessionCreateCMBlockBuffer(uint64_t a1, uint64_t a2, void *a3)
         goto LABEL_7;
       }
 
-      VTEncoderSessionCreateCMBlockBuffer_cold_1(&v7);
+      VTEncoderSessionCreateCMBlockBuffer_cold_1(&v9);
     }
 
     else
     {
-      VTEncoderSessionCreateCMBlockBuffer_cold_2(&v7);
+      VTEncoderSessionCreateCMBlockBuffer_cold_2(&v9);
     }
 
-    result = v7;
+    result = v9;
     if (!a3)
     {
       return result;
@@ -4586,24 +4680,24 @@ LABEL_7:
     return result;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 9425, v3);
 }
 
 uint64_t VTEncoderSessionDequeueDecodeTimeStamp(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E6960C70];
-  v9 = *(MEMORY[0x1E6960C70] + 16);
+  v10 = *MEMORY[0x1E6960C70];
+  v12 = *(MEMORY[0x1E6960C70] + 16);
   if (a1)
   {
     FigSimpleMutexLock();
     if (CFArrayGetCount(*(a1 + 16)) < 1)
     {
       fig_log_get_emitter();
-      v7 = FigSignalErrorAtGM();
+      v9 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v10, DWORD2(v10), v12);
       FigSimpleMutexUnlock();
-      return v7;
+      return v9;
     }
 
     else
@@ -4611,34 +4705,34 @@ uint64_t VTEncoderSessionDequeueDecodeTimeStamp(uint64_t a1, uint64_t a2)
       ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 16), 0);
       if (ValueAtIndex)
       {
-        v5 = 0;
-        v8 = *ValueAtIndex;
-        v9 = ValueAtIndex[2];
+        v6 = 0;
+        v11 = *ValueAtIndex;
+        v13 = ValueAtIndex[2];
       }
 
       else
       {
         fig_log_get_emitter();
-        v5 = FigSignalErrorAtGM();
+        v6 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v10, DWORD2(v10), v12);
       }
 
       CFArrayRemoveValueAtIndex(*(a1 + 16), 0);
       FigSimpleMutexUnlock();
       if (a2)
       {
-        *a2 = v8;
-        *(a2 + 16) = v9;
+        *a2 = v11;
+        *(a2 + 16) = v13;
       }
 
-      return v5;
+      return v6;
     }
   }
 
   else
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954394, "<<<< VT-CS >>>>", 9459, v2);
   }
 }
 
@@ -4661,7 +4755,7 @@ OSStatus VTCompressionSessionBeginPass(VTCompressionSessionRef session, VTCompre
   {
     v5 = *(session + 3);
 
-    return VTCompressionSessionRemote_BeginPass(v5, beginPassFlags, reserved);
+    return VTCompressionSessionRemote_BeginPass(v5, *&beginPassFlags, reserved);
   }
 
   if (!*(session + 102))
@@ -5046,144 +5140,144 @@ uint64_t vtCoreAnalyticsSaveTrackedVideoEncoderSpecificationProperty(void *value
 
 void vtCompressionSessionCreatePropertiesHandledByVideoToolbox()
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v19 = 0;
-  v9 = 0u;
-  v8 = 0u;
-  v7 = 0u;
-  v6 = 0u;
-  v5 = 0u;
-  v4 = 0u;
-  v0 = *MEMORY[0x1E695E480];
-  v1 = CFDictionaryCreate(*MEMORY[0x1E695E480], 0, 0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  if (v1)
+  v62 = *MEMORY[0x1E69E9840];
+  v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v61 = 0;
+  v51 = 0u;
+  v50 = 0u;
+  v49 = 0u;
+  v48 = 0u;
+  v47 = 0u;
+  v46 = 0u;
+  v1 = *MEMORY[0x1E695E480];
+  v2 = CFDictionaryCreate(*MEMORY[0x1E695E480], 0, 0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  if (v2)
   {
-    v2 = v1;
+    v3 = v2;
     keys[0] = @"PixelBufferPoolIsShared";
     keys[1] = @"VideoEncoderPixelBufferAttributes";
-    values[0] = v1;
-    values[1] = v1;
+    values = v2;
+    v7 = v2;
     keys[2] = @"PoolPixelBufferAttributesSeed";
     keys[3] = @"PoolPixelBufferAttributes";
-    values[2] = v1;
-    values[3] = v1;
+    v8 = v2;
+    v9 = v2;
     keys[4] = @"NumberOfPendingFrames";
     keys[5] = @"PixelTransferProperties";
-    values[4] = v1;
-    values[5] = v1;
+    v10 = v2;
+    v11 = v2;
     keys[6] = @"PixelAspectRatio";
     keys[7] = @"CleanAperture";
-    values[6] = v1;
-    values[7] = v1;
+    v12 = v2;
+    v13 = v2;
     keys[8] = @"FieldCount";
     keys[9] = @"FieldDetail";
-    values[8] = v1;
-    values[9] = v1;
+    v14 = v2;
+    v15 = v2;
     keys[10] = @"ComponentRange";
     keys[11] = @"ColorPrimaries";
-    values[10] = v1;
-    values[11] = v1;
+    v16 = v2;
+    v17 = v2;
     keys[12] = @"TransferFunction";
     keys[13] = @"GammaLevel";
-    values[12] = v1;
-    values[13] = v1;
+    v18 = v2;
+    v19 = v2;
     keys[14] = @"YCbCrMatrix";
     keys[15] = @"ICCProfile";
-    values[14] = v1;
-    values[15] = v1;
+    v20 = v2;
+    v21 = v2;
     keys[16] = @"MasteringDisplayColorVolume";
     keys[17] = @"ContentLightLevelInfo";
-    values[16] = v1;
-    values[17] = v1;
+    v22 = v2;
+    v23 = v2;
     keys[18] = @"FigThreadPriority";
     keys[19] = @"ClientPID";
-    values[18] = v1;
-    values[19] = v1;
+    v24 = v2;
+    v25 = v2;
     keys[20] = @"MultiPassStorage";
     keys[21] = @"RealTime";
-    values[20] = v1;
-    values[21] = v1;
+    v26 = v2;
+    v27 = v2;
     keys[22] = @"AllowPixelTransfer";
     keys[23] = @"EncoderID";
-    values[22] = v1;
-    values[23] = v1;
+    v28 = v2;
+    v29 = v2;
     keys[24] = @"MaximizePowerEfficiency";
     keys[25] = @"AuxiliaryTypeInfo";
-    values[24] = v1;
-    values[25] = v1;
+    v30 = v2;
+    v31 = v2;
     keys[26] = @"ChromaLocationTopField";
     keys[27] = @"ChromaLocationBottomField";
-    values[26] = v1;
-    values[27] = v1;
+    v32 = v2;
+    v33 = v2;
     keys[28] = @"HDRMetadataInsertionMode";
     keys[29] = @"PreserveDynamicHDRMetadata";
-    values[28] = v1;
-    values[29] = v1;
+    v34 = v2;
+    v35 = v2;
     keys[30] = @"AmbientViewingEnvironment";
     keys[31] = @"PrepareEncodedSampleBuffersForPaddedWrites";
-    values[30] = v1;
-    values[31] = v1;
+    v36 = v2;
+    v37 = v2;
     keys[32] = @"AllowCompressedPixelFormats";
     keys[33] = @"HasLeftStereoEyeView";
-    values[32] = v1;
-    values[33] = v1;
+    v38 = v2;
+    v39 = v2;
     keys[34] = @"HasRightStereoEyeView";
-    *&v11 = @"HasEyeViewsReversed";
-    values[34] = v1;
-    values[35] = v1;
-    *(&v11 + 1) = @"HasAdditionalViews";
-    *&v12 = @"HeroEye";
-    values[36] = v1;
-    values[37] = v1;
-    *(&v12 + 1) = @"ProjectionKind";
-    *&v13 = @"ViewPackingKind";
-    values[38] = v1;
-    values[39] = v1;
-    *(&v13 + 1) = @"TransportIdentifier";
-    *&v14 = @"WarpKind";
-    *&v4 = v1;
-    *(&v4 + 1) = v1;
-    *(&v14 + 1) = @"StereoCameraBaseline";
-    *&v15 = @"HorizontalDisparityAdjustment";
-    *&v5 = v1;
-    *(&v5 + 1) = v1;
-    *(&v15 + 1) = @"CameraCalibrationDataLensCollection";
-    *&v16 = @"HorizontalFieldOfView";
-    *&v6 = v1;
-    *(&v6 + 1) = v1;
-    *(&v16 + 1) = @"PowerLogSessionID";
-    *&v17 = @"LowMemory";
-    *&v7 = v1;
-    *(&v7 + 1) = v1;
-    *(&v17 + 1) = @"InputQueueMaxCount";
-    *&v18 = @"CurrentHDRMetadataGenerationState";
-    *&v8 = v1;
-    *(&v8 + 1) = v1;
-    *(&v18 + 1) = @"InitialHDRMetadataGenerationState";
-    *&v9 = v1;
-    sVTCompressionSessionPropertiesHandledByVideoToolbox = CFDictionaryCreate(v0, keys, values, 51, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    *&v53 = @"HasEyeViewsReversed";
+    v40 = v2;
+    v41 = v2;
+    *(&v53 + 1) = @"HasAdditionalViews";
+    *&v54 = @"HeroEye";
+    v42 = v2;
+    v43 = v2;
+    *(&v54 + 1) = @"ProjectionKind";
+    *&v55 = @"ViewPackingKind";
+    v44 = v2;
+    v45 = v2;
+    *(&v55 + 1) = @"TransportIdentifier";
+    *&v56 = @"WarpKind";
+    *&v46 = v2;
+    *(&v46 + 1) = v2;
+    *(&v56 + 1) = @"StereoCameraBaseline";
+    *&v57 = @"HorizontalDisparityAdjustment";
+    *&v47 = v2;
+    *(&v47 + 1) = v2;
+    *(&v57 + 1) = @"CameraCalibrationDataLensCollection";
+    *&v58 = @"HorizontalFieldOfView";
+    *&v48 = v2;
+    *(&v48 + 1) = v2;
+    *(&v58 + 1) = @"PowerLogSessionID";
+    *&v59 = @"LowMemory";
+    *&v49 = v2;
+    *(&v49 + 1) = v2;
+    *(&v59 + 1) = @"InputQueueMaxCount";
+    *&v60 = @"CurrentHDRMetadataGenerationState";
+    *&v50 = v2;
+    *(&v50 + 1) = v2;
+    *(&v60 + 1) = @"InitialHDRMetadataGenerationState";
+    *&v51 = v2;
+    sVTCompressionSessionPropertiesHandledByVideoToolbox = CFDictionaryCreate(v1, keys, &values, 51, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
     if (!sVTCompressionSessionPropertiesHandledByVideoToolbox)
     {
       fig_log_get_emitter();
-      FigSignalErrorAtGM();
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, values, v7);
     }
 
-    CFRelease(v2);
+    CFRelease(v3);
   }
 
   else
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
 
-    FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954392, "<<<< VT-CS >>>>", 2709, v0);
   }
 }
 
@@ -5332,14 +5426,14 @@ uint64_t vtEncoderSetOneProperty(uint64_t a1, uint64_t a2, uint64_t *a3)
 
 void *__vtCompressionSessionSendConfigToCoreAnalytics_block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 56);
   v4 = *(v2 + 48);
   v5 = *(v2 + 44);
   v6 = *(v2 + 40);
   v7 = *(v2 + 816);
-  v27 = 0;
+  v29 = 0;
   propertyValueOut = 0;
   empty = xpc_dictionary_create_empty();
   v9 = empty;
@@ -5352,12 +5446,12 @@ void *__vtCompressionSessionSendConfigToCoreAnalytics_block_invoke(uint64_t a1)
     {
       if (FigCFDictionaryGetBooleanIfPresent())
       {
-        xpc_dictionary_set_BOOL(v9, "EnableHardware", HIBYTE(v27) != 0);
+        xpc_dictionary_set_BOOL(v9, "EnableHardware", HIBYTE(v29) != 0);
       }
 
       if (FigCFDictionaryGetBooleanIfPresent())
       {
-        xpc_dictionary_set_BOOL(v9, "RequireHardware", v27 != 0);
+        xpc_dictionary_set_BOOL(v9, "RequireHardware", v29 != 0);
       }
 
       if (FigCFDictionaryGetValue())
@@ -5447,12 +5541,12 @@ void *__vtCompressionSessionSendConfigToCoreAnalytics_block_invoke(uint64_t a1)
       xpc_dictionary_set_uint64(v9, "OutputBitDepth", 0);
     }
 
-    v25 = v7;
+    v27 = v7;
     v10 = *MEMORY[0x1E695E480];
     if (VTSessionCopyProperty(*(a1 + 32), @"EncoderID", *MEMORY[0x1E695E480], &propertyValueOut) || !propertyValueOut)
     {
       fig_log_get_emitter();
-      FigSignalErrorAtGM();
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v25, v26, v7);
     }
 
     else
@@ -5503,7 +5597,7 @@ void *__vtCompressionSessionSendConfigToCoreAnalytics_block_invoke(uint64_t a1)
       FigXPCMessageSetCFString();
     }
 
-    if (v25)
+    if (v27)
     {
       xpc_dictionary_set_BOOL(v9, "Multipass", 1);
     }
@@ -5527,12 +5621,12 @@ void *__vtCompressionSessionSendConfigToCoreAnalytics_block_invoke(uint64_t a1)
         BytesFromCFString = FigCreateBytesFromCFString();
         if (*len)
         {
-          v30.tv_sec = 0;
-          *&v30.tv_usec = 0;
-          memset(&v29, 0, sizeof(v29));
-          gettimeofday(&v30, 0);
-          localtime_r(&v30.tv_sec, &v29);
-          data = v29.tm_yday + 366 * v29.tm_year;
+          v32.tv_sec = 0;
+          *&v32.tv_usec = 0;
+          memset(&v31, 0, sizeof(v31));
+          gettimeofday(&v32, 0);
+          localtime_r(&v32.tv_sec, &v31);
+          data = v31.tm_yday + 366 * v31.tm_year;
           memset(&__str, 0, sizeof(__str));
           CC_SHA256_Init(&__str);
           CC_SHA256_Update(&__str, BytesFromCFString, len[0]);
@@ -6275,7 +6369,7 @@ uint64_t vtIsPixelAspectRatioSquare(const __CFDictionary *a1)
   return FigCFEqual();
 }
 
-uint64_t vtCompressionSessionPipelineContextPerformNextWork(uint64_t *a1, int a2)
+uint64_t vtCompressionSessionPipelineContextPerformNextWork(unsigned __int8 *a1, int a2)
 {
   v2 = *a1;
   if (*a1)
@@ -6331,7 +6425,7 @@ void vtCompressionSessionPipelineContextSetBuffer(uint64_t a1, CFTypeRef cf, CFT
   }
 }
 
-uint64_t vtIsPixelBufferCompatibleWithColorPropertiesAndDoesPixelBufferHaveDesiredColorRange(void *a1, const void *a2, const void *a3, const void *a4, const void *a5, CGColorSpaceRef *a6, uint64_t a7)
+uint64_t vtIsPixelBufferCompatibleWithColorPropertiesAndDoesPixelBufferHaveDesiredColorRange(__CVBuffer *a1, const void *a2, const void *a3, const void *a4, const void *a5, CGColorSpaceRef *a6, uint64_t a7)
 {
   result = VTIsPixelBufferCompatibleWithColorProperties(a1, a2, a3, a4, a5, a6);
   if (result)
@@ -6376,21 +6470,21 @@ void OUTLINED_FUNCTION_18_0(uint64_t a1, const void *a2)
   CFDictionarySetValue(v3, a2, v2);
 }
 
-uint64_t VTCompressionSessionServerStart()
+uint64_t VTCompressionSessionServerStart(uint64_t a1, uint64_t a2)
 {
-  ShouldUseSeparateCodecProcessForEncode = VTVideoCodecService_ShouldUseSeparateCodecProcessForEncode();
-  v1 = ShouldUseSeparateCodecProcessForEncode != 0;
+  ShouldUseSeparateCodecProcessForEncode = VTVideoCodecService_ShouldUseSeparateCodecProcessForEncode(a1, a2);
+  v3 = ShouldUseSeparateCodecProcessForEncode != 0;
   if (ShouldUseSeparateCodecProcessForEncode)
   {
-    v2 = "com.apple.coremedia.videocodecd.compressionsession";
+    v4 = "com.apple.coremedia.videocodecd.compressionsession";
   }
 
   else
   {
-    v2 = "com.apple.coremedia.compressionsession";
+    v4 = "com.apple.coremedia.compressionsession";
   }
 
-  return MEMORY[0x1EEDBDA60](v2, 1184, v1, &VTCompressionSessionServerStart_subsystems, 1, VTCompressionSessionRemoteServer_Destroy, 0, &gVTCompressionServerState);
+  return MEMORY[0x1EEDBDA60](v4, 1184, v3, &VTCompressionSessionServerStart_subsystems, 1, VTCompressionSessionRemoteServer_Destroy, 0, &gVTCompressionServerState);
 }
 
 uint64_t VTCompressionSessionRemoteServer_Destroy(uint64_t a1)
@@ -6411,9 +6505,9 @@ uint64_t vtcss_compressionSessionClientRecordCreate()
   return _CFRuntimeCreateInstance();
 }
 
-void CompressionOutputCallback(uint64_t a1, uint64_t a2, int a3, int a4, const void *a5)
+void CompressionOutputCallback(uint64_t result, uint64_t a2, int a3, int a4, const void *a5)
 {
-  if (!*(a1 + 200))
+  if (!*(result + 200))
   {
     v10 = malloc_type_calloc(1uLL, 0x48uLL, 0x10E0040003D4157uLL);
     if (v10)
@@ -6436,7 +6530,7 @@ void CompressionOutputCallback(uint64_t a1, uint64_t a2, int a3, int a4, const v
       *(v11 + 56) = v12;
       *(v11 + 64) = 0;
 
-      vtcss_enqueueFrame(a1, v11);
+      vtcss_enqueueFrame(result, v11);
     }
 
     else
@@ -6573,28 +6667,28 @@ void vtcss_finalizeClient(uint64_t a1)
 
     if (v2)
     {
-      VTTileCompressionSessionInvalidate(v2);
+      VTTileCompressionSessionInvalidate(v2, v7, v8, v9);
     }
 
     if (v6)
     {
-      VTMotionEstimationSessionInvalidate(v6);
+      VTMotionEstimationSessionInvalidate(v6, v7, v8, v9, v10, v11, v12, v13);
     }
 
     if (v5)
     {
-      VTTemporalFilterSessionInvalidate(v5);
+      VTTemporalFilterSessionInvalidate(v5, v7, v8, v9);
     }
 
-    v7 = *(a1 + 160);
-    if (v7)
+    v14 = *(a1 + 160);
+    if (v14)
     {
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 0x40000000;
       block[2] = __vtcss_finalizeClient_block_invoke;
       block[3] = &__block_descriptor_tmp_60;
       block[4] = a1;
-      dispatch_sync(v7, block);
+      dispatch_sync(v14, block);
     }
 
     CFRelease(a1);
@@ -6629,9 +6723,9 @@ void vtcss_freeQueuedFrame(void *a1)
   }
 }
 
-void TileCompressionOutputCallback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, const void *a7)
+void TileCompressionOutputCallback(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, const void *a7)
 {
-  if (!*(a1 + 200))
+  if (!*(result + 200))
   {
     v12 = malloc_type_calloc(1uLL, 0x48uLL, 0x10E0040003D4157uLL);
     if (v12)
@@ -6654,7 +6748,7 @@ void TileCompressionOutputCallback(uint64_t a1, uint64_t a2, uint64_t a3, uint64
       *(v13 + 56) = v14;
       *(v13 + 64) = 0;
 
-      vtcss_enqueueFrame(a1, v13);
+      vtcss_enqueueFrame(result, v13);
     }
 
     else
@@ -6922,12 +7016,12 @@ void __vtcss_appStateChangeListener_block_invoke_2(uint64_t a1)
 void __vtcss_appStateChangeListener_block_invoke_3(uint64_t a1)
 {
   VTCompressionSessionInvalidate(*(*(a1 + 32) + 24));
-  VTTileCompressionSessionInvalidate(*(*(a1 + 32) + 32));
-  v2 = *(a1 + 32);
-  if (v2)
+  VTTileCompressionSessionInvalidate(*(*(a1 + 32) + 32), v2, v3, v4);
+  v5 = *(a1 + 32);
+  if (v5)
   {
 
-    CFRelease(v2);
+    CFRelease(v5);
   }
 }
 
@@ -9015,6 +9109,7 @@ uint64_t vt_Copy_32BGRA_yuvfITU2020(unint64_t a1, uint64_t a2, uint64_t *a3, voi
 
 uint64_t vt_Copy_420vf_TRC_Tone_Mat_TRC_420vf_neon_fp16(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, unint64_t *a8, void *a9)
 {
+  v13 = a3;
   v72 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -9040,7 +9135,7 @@ LABEL_75:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v58 - v21);
     bzero(&v58 - v21, v22);
   }
@@ -9178,7 +9273,7 @@ LABEL_75:
   v46 = v43 + v27;
   v47 = v43 + v27 + v45 * *a4 > *a5;
   v63 = a9;
-  v64 = a3;
+  v64 = v13;
   v61 = v28;
   v62 = v29;
   v59 = v30;
@@ -9195,7 +9290,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v44 + v37 + 1) / 2 - 1) > a5[1])
+  if (*(v13 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v44 + v37 + 1) / 2 - 1) > a5[1])
   {
     v48 = a5;
     v49 = a8;
@@ -9203,7 +9298,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 16) && v46 + a4[2] * v45 > a5[2])
+  if (*(v13 + 16) && v46 + a4[2] * v45 > a5[2])
   {
     v48 = a5;
     v49 = a8;
@@ -9236,12 +9331,12 @@ LABEL_75:
     v50 = v15;
 LABEL_68:
     fig_log_get_emitter();
-    v20 = FigSignalErrorAtGM();
+    v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v58, v59, v60);
     v15 = v50;
     a8 = v49;
     a5 = v48;
     v23 = v63;
-    a3 = v64;
+    v13 = v64;
     v28 = v61;
     v29 = v62;
     v30 = v59;
@@ -9267,7 +9362,7 @@ LABEL_68:
   v19[12] = v43;
   v19[13] = v44;
   v19[14] = v28;
-  v19[7] = a3;
+  v19[7] = v13;
   v19[8] = a4;
   v19[9] = a5;
   v19[10] = v29;
@@ -9339,18 +9434,18 @@ float32x2_t *vt_Copy_420vf_TRC_Tone_Mat_TRC_420vf_neon_fp16_GCD(float32x2_t *res
     v25 = v18[1];
     v26 = *v20;
     v27 = v20[1];
-    v28 = v23[17].u16[2];
-    v29 = v23[17].u16[3];
-    v30.i32[0] = v23[3].i32[1];
-    v31 = v23[18].u16[0];
-    v32 = v23[18].u16[1];
-    v33 = v23[18].u16[2];
-    v34 = v23[18].u16[3];
-    v35 = v23[19].u16[0];
-    v36 = 8191.0 / v23[16].u32[0];
+    v28 = *(*&v23 + 140);
+    v29 = *(*&v23 + 142);
+    v30.i32[0] = *(*&v23 + 28);
+    v31 = *(*&v23 + 144);
+    v32 = *(*&v23 + 146);
+    v33 = *(*&v23 + 148);
+    v34 = *(*&v23 + 150);
+    v35 = *(*&v23 + 152);
+    v36 = 8191.0 / *(*&v23 + 128);
     v37 = v28;
     v38 = v29;
-    _S29 = v36 * v23->f32[0];
+    _S29 = v36 * **v23.f32;
     v307 = v31;
     v40 = v32;
     v342 = v33;
@@ -9361,31 +9456,31 @@ float32x2_t *vt_Copy_420vf_TRC_Tone_Mat_TRC_420vf_neon_fp16_GCD(float32x2_t *res
 
     *&a5 = v28;
     v47 = vdupq_lane_s16(*&a5, 0);
-    v30.i32[1] = v23[1].i32[0];
-    _D2.i32[0] = v23[6].i32[0];
-    v346 = v23[5].f32[1];
-    _D3.i32[0] = v23[6].i32[1];
-    _D5.i32[0] = v23[7].i32[0];
+    v30.i32[1] = *(*&v23 + 8);
+    _D2.i32[0] = *(*&v23 + 48);
+    v346 = *(*&v23 + 44);
+    _D3.i32[0] = *(*&v23 + 52);
+    _D5.i32[0] = *(*&v23 + 56);
     v51 = v29;
     *v5.f32 = vmul_n_f32(v30, v36);
-    result = (v23 + 16548);
+    result = (*&v23 + 16548);
     v52 = v13 & 0xFFFFFFFE;
-    v53 = &v23[20] + 4;
-    v54 = &v23[4116] + 4;
+    v53 = *&v23 + 164;
+    v54 = *&v23 + 32932;
     v55 = vdupq_lane_s32(vcvt_f16_f32(v5), 0);
-    *v9.f32 = vmul_n_f32(v23[2], v36);
+    *v9.f32 = vmul_n_f32(*(*&v23 + 16), v36);
     v56 = vdupq_lane_s32(vcvt_f16_f32(v9), 0);
     v57 = vmulq_n_f16(v55, -v51);
     v58 = vmulq_n_f16(v56, -v51);
-    _D2.i32[1] = v23[7].i32[1];
+    _D2.i32[1] = *(*&v23 + 60);
     __asm { FMOV            V0.2S, #0.25 }
 
     *v8.f32 = vmul_f32(_D2, _D0);
     v60 = vdupq_lane_s32(vcvt_f16_f32(v8), 0);
-    _D3.i32[1] = v23[8].i32[0];
+    _D3.i32[1] = *(*&v23 + 64);
     *v7.f32 = vmul_f32(_D3, _D0);
     v338 = vdupq_lane_s32(vcvt_f16_f32(v7), 0);
-    _D5.i32[1] = v23[8].i32[1];
+    _D5.i32[1] = *(*&v23 + 68);
     *v6.f32 = vmul_f32(_D5, _D0);
     v61 = vdupq_lane_s32(vcvt_f16_f32(v6), 0);
     v300 = v61;
@@ -9409,52 +9504,52 @@ float32x2_t *vt_Copy_420vf_TRC_Tone_Mat_TRC_420vf_neon_fp16_GCD(float32x2_t *res
     v68 = (v66 + v26 * v15 + *&v11);
     v69 = (v17[1] + v25 * (v289 / 2) + v290);
     v70 = (*v17 + v24 * v289 + v290);
-    _D21.i32[0] = v23[10].i32[0];
-    v344 = v23[4].f32[1];
+    _D21.i32[0] = *(*&v23 + 80);
+    v344 = *(*&v23 + 36);
     __asm { FCVT            H15, S4 }
 
     v318 = _H15;
-    v343 = v23[5].f32[0];
+    v343 = *(*&v23 + 40);
     __asm { FCVT            H15, S6 }
 
     _S4 = v346;
     __asm { FCVT            H6, S4 }
 
-    v321 = v23[13].f32[1];
+    v321 = *(*&v23 + 108);
     __asm { FCVT            H0, S0 }
 
     v317 = *_Q0.i16;
-    v320 = v23[14].f32[0];
+    v320 = *(*&v23 + 112);
     __asm { FCVT            H0, S1 }
 
     v316 = *_Q0.i16;
-    v319 = v23[14].f32[1];
+    v319 = *(*&v23 + 116);
     __asm { FCVT            H0, S2 }
 
     v315 = *_Q0.i16;
-    v351 = v23[15].f32[0];
+    v351 = *(*&v23 + 120);
     __asm { FCVT            H0, S3 }
 
     v314 = *_Q0.i16;
-    v331 = v23[9].f32[0];
+    v331 = *(*&v23 + 72);
     __asm { FCVT            H0, S5 }
 
     v313 = *_Q0.i16;
-    v330 = v23[9].f32[1];
+    v330 = *(*&v23 + 76);
     __asm { FCVT            H2, S7 }
 
     v329 = *_D21.i32;
     __asm { FCVT            H3, S21 }
 
-    v328 = v23[10].f32[1];
+    v328 = *(*&v23 + 84);
     __asm { FCVT            H5, S9 }
 
     v76 = _H6;
-    v327 = v23[11].f32[0];
+    v327 = *(*&v23 + 88);
     __asm { FCVT            H7, S11 }
 
-    _Q0.i32[0] = v23[12].i32[0];
-    v325 = v23[11].f32[1];
+    _Q0.i32[0] = *(*&v23 + 96);
+    v325 = *(*&v23 + 92);
     __asm { FCVT            H4, S12 }
 
     v299 = *&_S4;
@@ -9462,11 +9557,11 @@ float32x2_t *vt_Copy_420vf_TRC_Tone_Mat_TRC_420vf_neon_fp16_GCD(float32x2_t *res
     v308 = *_Q0.i32;
     __asm { FCVT            H11, S0 }
 
-    v306 = v23[12].f32[1];
+    v306 = *(*&v23 + 100);
     __asm { FCVT            H0, S1 }
 
     v350 = _Q0;
-    v323 = v23[13].f32[0];
+    v323 = *(*&v23 + 104);
     __asm { FCVT            H0, S14 }
 
     v80 = v57;
@@ -9544,59 +9639,59 @@ float32x2_t *vt_Copy_420vf_TRC_Tone_Mat_TRC_420vf_neon_fp16_GCD(float32x2_t *res
           v108 = vmlaq_n_f16(v97, v102, _H8);
           v109 = vmlaq_n_f16(v97, v103, _H8);
           v110 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(v104, 0), v85));
-          v104.i16[0] = *&v53[2 * v110.u16[0]];
-          v104.i16[1] = *&v53[2 * v110.u16[1]];
-          v104.i16[2] = *&v53[2 * v110.u16[2]];
-          v104.i16[3] = *&v53[2 * v110.u16[3]];
-          v104.i16[4] = *&v53[2 * v110.u16[4]];
-          v104.i16[5] = *&v53[2 * v110.u16[5]];
-          v104.i16[6] = *&v53[2 * v110.u16[6]];
-          v104.i16[7] = *&v53[2 * v110.u16[7]];
+          v104.i16[0] = *(v53 + 2 * v110.u16[0]);
+          v104.i16[1] = *(v53 + 2 * v110.u16[1]);
+          v104.i16[2] = *(v53 + 2 * v110.u16[2]);
+          v104.i16[3] = *(v53 + 2 * v110.u16[3]);
+          v104.i16[4] = *(v53 + 2 * v110.u16[4]);
+          v104.i16[5] = *(v53 + 2 * v110.u16[5]);
+          v104.i16[6] = *(v53 + 2 * v110.u16[6]);
+          v104.i16[7] = *(v53 + 2 * v110.u16[7]);
           v111 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(v106, 0), v85));
-          v102.i16[0] = *&v53[2 * v111.u16[0]];
-          v102.i16[1] = *&v53[2 * v111.u16[1]];
-          v102.i16[2] = *&v53[2 * v111.u16[2]];
-          v102.i16[3] = *&v53[2 * v111.u16[3]];
-          v102.i16[4] = *&v53[2 * v111.u16[4]];
-          v102.i16[5] = *&v53[2 * v111.u16[5]];
-          v102.i16[6] = *&v53[2 * v111.u16[6]];
-          v102.i16[7] = *&v53[2 * v111.u16[7]];
+          v102.i16[0] = *(v53 + 2 * v111.u16[0]);
+          v102.i16[1] = *(v53 + 2 * v111.u16[1]);
+          v102.i16[2] = *(v53 + 2 * v111.u16[2]);
+          v102.i16[3] = *(v53 + 2 * v111.u16[3]);
+          v102.i16[4] = *(v53 + 2 * v111.u16[4]);
+          v102.i16[5] = *(v53 + 2 * v111.u16[5]);
+          v102.i16[6] = *(v53 + 2 * v111.u16[6]);
+          v102.i16[7] = *(v53 + 2 * v111.u16[7]);
           v112 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(v108, 0), v85));
-          v108.i16[0] = *&v53[2 * v112.u16[0]];
-          v108.i16[1] = *&v53[2 * v112.u16[1]];
-          v108.i16[2] = *&v53[2 * v112.u16[2]];
-          v108.i16[3] = *&v53[2 * v112.u16[3]];
-          v108.i16[4] = *&v53[2 * v112.u16[4]];
-          v108.i16[5] = *&v53[2 * v112.u16[5]];
-          v108.i16[6] = *&v53[2 * v112.u16[6]];
-          v108.i16[7] = *&v53[2 * v112.u16[7]];
+          v108.i16[0] = *(v53 + 2 * v112.u16[0]);
+          v108.i16[1] = *(v53 + 2 * v112.u16[1]);
+          v108.i16[2] = *(v53 + 2 * v112.u16[2]);
+          v108.i16[3] = *(v53 + 2 * v112.u16[3]);
+          v108.i16[4] = *(v53 + 2 * v112.u16[4]);
+          v108.i16[5] = *(v53 + 2 * v112.u16[5]);
+          v108.i16[6] = *(v53 + 2 * v112.u16[6]);
+          v108.i16[7] = *(v53 + 2 * v112.u16[7]);
           v113 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(v105, 0), v85));
-          v105.i16[0] = *&v53[2 * v113.u16[0]];
-          v105.i16[1] = *&v53[2 * v113.u16[1]];
-          v105.i16[2] = *&v53[2 * v113.u16[2]];
-          v105.i16[3] = *&v53[2 * v113.u16[3]];
-          v105.i16[4] = *&v53[2 * v113.u16[4]];
-          v105.i16[5] = *&v53[2 * v113.u16[5]];
-          v105.i16[6] = *&v53[2 * v113.u16[6]];
-          v105.i16[7] = *&v53[2 * v113.u16[7]];
+          v105.i16[0] = *(v53 + 2 * v113.u16[0]);
+          v105.i16[1] = *(v53 + 2 * v113.u16[1]);
+          v105.i16[2] = *(v53 + 2 * v113.u16[2]);
+          v105.i16[3] = *(v53 + 2 * v113.u16[3]);
+          v105.i16[4] = *(v53 + 2 * v113.u16[4]);
+          v105.i16[5] = *(v53 + 2 * v113.u16[5]);
+          v105.i16[6] = *(v53 + 2 * v113.u16[6]);
+          v105.i16[7] = *(v53 + 2 * v113.u16[7]);
           v114 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(v107, 0), v85));
-          v107.i16[0] = *&v53[2 * v114.u16[0]];
-          v107.i16[1] = *&v53[2 * v114.u16[1]];
-          v107.i16[2] = *&v53[2 * v114.u16[2]];
-          v107.i16[3] = *&v53[2 * v114.u16[3]];
-          v107.i16[4] = *&v53[2 * v114.u16[4]];
-          v107.i16[5] = *&v53[2 * v114.u16[5]];
-          v107.i16[6] = *&v53[2 * v114.u16[6]];
-          v107.i16[7] = *&v53[2 * v114.u16[7]];
+          v107.i16[0] = *(v53 + 2 * v114.u16[0]);
+          v107.i16[1] = *(v53 + 2 * v114.u16[1]);
+          v107.i16[2] = *(v53 + 2 * v114.u16[2]);
+          v107.i16[3] = *(v53 + 2 * v114.u16[3]);
+          v107.i16[4] = *(v53 + 2 * v114.u16[4]);
+          v107.i16[5] = *(v53 + 2 * v114.u16[5]);
+          v107.i16[6] = *(v53 + 2 * v114.u16[6]);
+          v107.i16[7] = *(v53 + 2 * v114.u16[7]);
           v115 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(v109, 0), v85));
-          v109.i16[0] = *&v53[2 * v115.u16[0]];
-          v109.i16[1] = *&v53[2 * v115.u16[1]];
-          v109.i16[2] = *&v53[2 * v115.u16[2]];
-          v109.i16[3] = *&v53[2 * v115.u16[3]];
-          v109.i16[4] = *&v53[2 * v115.u16[4]];
-          v109.i16[5] = *&v53[2 * v115.u16[5]];
-          v109.i16[6] = *&v53[2 * v115.u16[6]];
-          v109.i16[7] = *&v53[2 * v115.u16[7]];
+          v109.i16[0] = *(v53 + 2 * v115.u16[0]);
+          v109.i16[1] = *(v53 + 2 * v115.u16[1]);
+          v109.i16[2] = *(v53 + 2 * v115.u16[2]);
+          v109.i16[3] = *(v53 + 2 * v115.u16[3]);
+          v109.i16[4] = *(v53 + 2 * v115.u16[4]);
+          v109.i16[5] = *(v53 + 2 * v115.u16[5]);
+          v109.i16[6] = *(v53 + 2 * v115.u16[6]);
+          v109.i16[7] = *(v53 + 2 * v115.u16[7]);
           v116 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(vmlaq_n_f16(vmlaq_n_f16(vmlaq_n_f16(vmulq_n_f16(v104, v317), v102, v316), v108, v315), vmaxq_f16(vmaxq_f16(v104, v102), v108), v314), 0), v85));
           v117.i16[0] = result->i16[v116.u16[0]];
           v117.i16[1] = result->i16[v116.u16[1]];
@@ -9630,69 +9725,69 @@ float32x2_t *vt_Copy_420vf_TRC_Tone_Mat_TRC_420vf_neon_fp16_GCD(float32x2_t *res
           v128 = vmlaq_n_f16(vmlaq_n_f16(vmulq_n_f16(v122, v313), v123, v312), v124, v311);
           v129 = vmlaq_n_f16(vmlaq_n_f16(vmulq_n_f16(v122, v310), v123, v309), v124, v299);
           v130 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(v125, 0), v117));
-          v109.i16[0] = *&v54[2 * v130.u16[0]];
-          v109.i16[1] = *&v54[2 * v130.u16[1]];
-          v109.i16[2] = *&v54[2 * v130.u16[2]];
-          v109.i16[3] = *&v54[2 * v130.u16[3]];
-          v109.i16[4] = *&v54[2 * v130.u16[4]];
-          v109.i16[5] = *&v54[2 * v130.u16[5]];
-          v109.i16[6] = *&v54[2 * v130.u16[6]];
+          v109.i16[0] = *(v54 + 2 * v130.u16[0]);
+          v109.i16[1] = *(v54 + 2 * v130.u16[1]);
+          v109.i16[2] = *(v54 + 2 * v130.u16[2]);
+          v109.i16[3] = *(v54 + 2 * v130.u16[3]);
+          v109.i16[4] = *(v54 + 2 * v130.u16[4]);
+          v109.i16[5] = *(v54 + 2 * v130.u16[5]);
+          v109.i16[6] = *(v54 + 2 * v130.u16[6]);
           v131 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(v126, 0), v117));
-          v117.i16[0] = *&v54[2 * v131.u16[0]];
-          v117.i16[1] = *&v54[2 * v131.u16[1]];
-          v117.i16[2] = *&v54[2 * v131.u16[2]];
-          v117.i16[3] = *&v54[2 * v131.u16[3]];
-          v117.i16[4] = *&v54[2 * v131.u16[4]];
-          v117.i16[5] = *&v54[2 * v131.u16[5]];
-          v117.i16[6] = *&v54[2 * v131.u16[6]];
+          v117.i16[0] = *(v54 + 2 * v131.u16[0]);
+          v117.i16[1] = *(v54 + 2 * v131.u16[1]);
+          v117.i16[2] = *(v54 + 2 * v131.u16[2]);
+          v117.i16[3] = *(v54 + 2 * v131.u16[3]);
+          v117.i16[4] = *(v54 + 2 * v131.u16[4]);
+          v117.i16[5] = *(v54 + 2 * v131.u16[5]);
+          v117.i16[6] = *(v54 + 2 * v131.u16[6]);
           v132 = vuzp1q_s16(v109, v117);
-          v109.i16[7] = *&v54[2 * v130.u16[7]];
-          v117.i16[7] = *&v54[2 * v131.u16[7]];
+          v109.i16[7] = *(v54 + 2 * v130.u16[7]);
+          v117.i16[7] = *(v54 + 2 * v131.u16[7]);
           v102.i16[7] = v350.i16[7];
           v133 = vmulq_n_f16(v124, v349);
           v85.i64[0] = 0x9000900090009000;
           v85.i64[1] = 0x9000900090009000;
           v134 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(v127, 0), v85));
           v135 = vmlaq_n_f16(v133, v123, *v350.i16);
-          v102.i16[0] = *&v54[2 * v134.u16[0]];
-          v102.i16[1] = *&v54[2 * v134.u16[1]];
-          v102.i16[2] = *&v54[2 * v134.u16[2]];
-          v102.i16[3] = *&v54[2 * v134.u16[3]];
-          v102.i16[4] = *&v54[2 * v134.u16[4]];
-          v102.i16[5] = *&v54[2 * v134.u16[5]];
-          v102.i16[6] = *&v54[2 * v134.u16[6]];
+          v102.i16[0] = *(v54 + 2 * v134.u16[0]);
+          v102.i16[1] = *(v54 + 2 * v134.u16[1]);
+          v102.i16[2] = *(v54 + 2 * v134.u16[2]);
+          v102.i16[3] = *(v54 + 2 * v134.u16[3]);
+          v102.i16[4] = *(v54 + 2 * v134.u16[4]);
+          v102.i16[5] = *(v54 + 2 * v134.u16[5]);
+          v102.i16[6] = *(v54 + 2 * v134.u16[6]);
           v136 = v102;
-          v136.i16[7] = *&v54[2 * v134.u16[7]];
+          v136.i16[7] = *(v54 + 2 * v134.u16[7]);
           v137 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(v128, 0), v85));
-          v128.i16[0] = *&v54[2 * v137.u16[0]];
-          v128.i16[1] = *&v54[2 * v137.u16[1]];
-          v128.i16[2] = *&v54[2 * v137.u16[2]];
-          v128.i16[3] = *&v54[2 * v137.u16[3]];
-          v128.i16[4] = *&v54[2 * v137.u16[4]];
-          v128.i16[5] = *&v54[2 * v137.u16[5]];
-          v128.i16[6] = *&v54[2 * v137.u16[6]];
-          v138 = &v54[2 * v137.u16[7]];
+          v128.i16[0] = *(v54 + 2 * v137.u16[0]);
+          v128.i16[1] = *(v54 + 2 * v137.u16[1]);
+          v128.i16[2] = *(v54 + 2 * v137.u16[2]);
+          v128.i16[3] = *(v54 + 2 * v137.u16[3]);
+          v128.i16[4] = *(v54 + 2 * v137.u16[4]);
+          v128.i16[5] = *(v54 + 2 * v137.u16[5]);
+          v128.i16[6] = *(v54 + 2 * v137.u16[6]);
+          v138 = (v54 + 2 * v137.u16[7]);
           v139 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(v129, 0), v85));
-          v129.i16[0] = *&v54[2 * v139.u16[0]];
-          v129.i16[1] = *&v54[2 * v139.u16[1]];
-          v129.i16[2] = *&v54[2 * v139.u16[2]];
-          v129.i16[3] = *&v54[2 * v139.u16[3]];
-          v129.i16[4] = *&v54[2 * v139.u16[4]];
-          v129.i16[5] = *&v54[2 * v139.u16[5]];
-          v129.i16[6] = *&v54[2 * v139.u16[6]];
+          v129.i16[0] = *(v54 + 2 * v139.u16[0]);
+          v129.i16[1] = *(v54 + 2 * v139.u16[1]);
+          v129.i16[2] = *(v54 + 2 * v139.u16[2]);
+          v129.i16[3] = *(v54 + 2 * v139.u16[3]);
+          v129.i16[4] = *(v54 + 2 * v139.u16[4]);
+          v129.i16[5] = *(v54 + 2 * v139.u16[5]);
+          v129.i16[6] = *(v54 + 2 * v139.u16[6]);
           v140 = vuzp1q_s16(v128, v129);
           v128.i16[7] = *v138;
-          v129.i16[7] = *&v54[2 * v139.u16[7]];
+          v129.i16[7] = *(v54 + 2 * v139.u16[7]);
           v141 = vmlaq_n_f16(v135, v122, v303);
           v142 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(v141, 0), v85));
-          v141.i16[0] = *&v54[2 * v142.u16[0]];
-          v141.i16[1] = *&v54[2 * v142.u16[1]];
-          v141.i16[2] = *&v54[2 * v142.u16[2]];
-          v141.i16[3] = *&v54[2 * v142.u16[3]];
-          v141.i16[4] = *&v54[2 * v142.u16[4]];
-          v141.i16[5] = *&v54[2 * v142.u16[5]];
-          v141.i16[6] = *&v54[2 * v142.u16[6]];
-          v143 = &v54[2 * v142.u16[7]];
+          v141.i16[0] = *(v54 + 2 * v142.u16[0]);
+          v141.i16[1] = *(v54 + 2 * v142.u16[1]);
+          v141.i16[2] = *(v54 + 2 * v142.u16[2]);
+          v141.i16[3] = *(v54 + 2 * v142.u16[3]);
+          v141.i16[4] = *(v54 + 2 * v142.u16[4]);
+          v141.i16[5] = *(v54 + 2 * v142.u16[5]);
+          v141.i16[6] = *(v54 + 2 * v142.u16[6]);
+          v143 = (v54 + 2 * v142.u16[7]);
           _Q0 = v141;
           _Q0.i16[7] = *v143;
           *v68++ = vmovn_s16(vcvtq_u16_f16(vminq_f16(vmaxq_f16(vmlaq_n_f16(vmlaq_n_f16(vmlaq_n_f16(v82, v109, v318), v117, _H15), v136, v76), v82), v334)));
@@ -9861,24 +9956,24 @@ float32x2_t *vt_Copy_420vf_TRC_Tone_Mat_TRC_420vf_neon_fp16_GCD(float32x2_t *res
           }
         }
 
-        _H1 = *&v53[2 * llroundf(fminf(fmaxf(v153, 0.0), 8191.0))];
+        _H1 = *(v53 + 2 * llroundf(fminf(fmaxf(v153, 0.0), 8191.0)));
         __asm { FCVT            S1, H1 }
 
-        _H2 = *&v53[2 * llroundf(fminf(fmaxf(v156, 0.0), 8191.0))];
+        _H2 = *(v53 + 2 * llroundf(fminf(fmaxf(v156, 0.0), 8191.0)));
         __asm { FCVT            S2, H2 }
 
-        _H3 = *&v53[2 * llroundf(fminf(fmaxf(v159, 0.0), 8191.0))];
+        _H3 = *(v53 + 2 * llroundf(fminf(fmaxf(v159, 0.0), 8191.0)));
         __asm { FCVT            S3, H3 }
 
-        _H21 = *&v53[2 * llroundf(fminf(fmaxf(v161, 0.0), 8191.0))];
-        _H11 = *&v53[2 * llroundf(fminf(fmaxf(v162, 0.0), 8191.0))];
-        _H22 = *&v53[2 * llroundf(fminf(fmaxf(v164, 0.0), 8191.0))];
-        _H18 = *&v53[2 * llroundf(fminf(fmaxf(v166, 0.0), 8191.0))];
-        _H20 = *&v53[2 * llroundf(fminf(fmaxf(v167, 0.0), 8191.0))];
-        _H10 = *&v53[2 * llroundf(fminf(fmaxf(v169, 0.0), 8191.0))];
-        _H5 = *&v53[2 * llroundf(fminf(fmaxf(v173, 0.0), 8191.0))];
-        _H7 = *&v53[2 * llroundf(fminf(fmaxf(v175, 0.0), 8191.0))];
-        _H16 = *&v53[2 * llroundf(fminf(fmaxf(v177, 0.0), 8191.0))];
+        _H21 = *(v53 + 2 * llroundf(fminf(fmaxf(v161, 0.0), 8191.0)));
+        _H11 = *(v53 + 2 * llroundf(fminf(fmaxf(v162, 0.0), 8191.0)));
+        _H22 = *(v53 + 2 * llroundf(fminf(fmaxf(v164, 0.0), 8191.0)));
+        _H18 = *(v53 + 2 * llroundf(fminf(fmaxf(v166, 0.0), 8191.0)));
+        _H20 = *(v53 + 2 * llroundf(fminf(fmaxf(v167, 0.0), 8191.0)));
+        _H10 = *(v53 + 2 * llroundf(fminf(fmaxf(v169, 0.0), 8191.0)));
+        _H5 = *(v53 + 2 * llroundf(fminf(fmaxf(v173, 0.0), 8191.0)));
+        _H7 = *(v53 + 2 * llroundf(fminf(fmaxf(v175, 0.0), 8191.0)));
+        _H16 = *(v53 + 2 * llroundf(fminf(fmaxf(v177, 0.0), 8191.0)));
         v193 = (((v320 * _S2) + (v321 * _S1)) + (v319 * _S3)) + (v351 * fmaxf(_S1, fmaxf(_S2, _S3)));
         v194 = 8191.0;
         if (v193 <= 8191.0)
@@ -9982,40 +10077,40 @@ float32x2_t *vt_Copy_420vf_TRC_Tone_Mat_TRC_420vf_neon_fp16_GCD(float32x2_t *res
         v241 = ((v330 * v230) + (v229 * v331)) + (_S17 * v329);
         v242 = ((v327 * v230) + (v229 * v328)) + (_S17 * v325);
         _S21 = ((v306 * v230) + (v229 * v308)) + (_S17 * v323);
-        _H1 = *&v54[2 * llroundf(fminf(fmaxf(v232, 0.0), 8191.0))];
+        _H1 = *(v54 + 2 * llroundf(fminf(fmaxf(v232, 0.0), 8191.0)));
         __asm { FCVT            S3, H1 }
 
-        _H1 = *&v54[2 * llroundf(fminf(fmaxf(v233, 0.0), 8191.0))];
+        _H1 = *(v54 + 2 * llroundf(fminf(fmaxf(v233, 0.0), 8191.0)));
         __asm { FCVT            S1, H1 }
 
-        _H2 = *&v54[2 * llroundf(fminf(fmaxf(_S16, 0.0), 8191.0))];
+        _H2 = *(v54 + 2 * llroundf(fminf(fmaxf(_S16, 0.0), 8191.0)));
         __asm { FCVT            S2, H2 }
 
-        _H5 = *&v54[2 * llroundf(fminf(fmaxf(v235, 0.0), 8191.0))];
+        _H5 = *(v54 + 2 * llroundf(fminf(fmaxf(v235, 0.0), 8191.0)));
         __asm { FCVT            S5, H5 }
 
-        LOWORD(_S16) = *&v54[2 * llroundf(fminf(fmaxf(v236, 0.0), 8191.0))];
-        LOWORD(_S7) = *&v54[2 * llroundf(fminf(fmaxf(_S7, 0.0), 8191.0))];
+        LOWORD(_S16) = *(v54 + 2 * llroundf(fminf(fmaxf(v236, 0.0), 8191.0)));
+        LOWORD(_S7) = *(v54 + 2 * llroundf(fminf(fmaxf(_S7, 0.0), 8191.0)));
         __asm
         {
           FCVT            S16, H16
           FCVT            S7, H7
         }
 
-        LOWORD(_S17) = *&v54[2 * llroundf(fminf(fmaxf(v238, 0.0), 8191.0))];
+        LOWORD(_S17) = *(v54 + 2 * llroundf(fminf(fmaxf(v238, 0.0), 8191.0)));
         __asm { FCVT            S20, H17 }
 
-        LOWORD(_S17) = *&v54[2 * llroundf(fminf(fmaxf(v239, 0.0), 8191.0))];
+        LOWORD(_S17) = *(v54 + 2 * llroundf(fminf(fmaxf(v239, 0.0), 8191.0)));
         __asm { FCVT            S18, H17 }
 
-        LOWORD(_S0) = *&v54[2 * llroundf(fminf(fmaxf(_S0, 0.0), 8191.0))];
+        LOWORD(_S0) = *(v54 + 2 * llroundf(fminf(fmaxf(_S0, 0.0), 8191.0)));
         __asm { FCVT            S17, H0 }
 
-        LOWORD(_S0) = *&v54[2 * llroundf(fminf(fmaxf(v241, 0.0), 8191.0))];
+        LOWORD(_S0) = *(v54 + 2 * llroundf(fminf(fmaxf(v241, 0.0), 8191.0)));
         __asm { FCVT            S11, H0 }
 
-        LOWORD(_S0) = *&v54[2 * llroundf(fminf(fmaxf(v242, 0.0), 8191.0))];
-        LOWORD(_S21) = *&v54[2 * llroundf(fminf(fmaxf(_S21, 0.0), 8191.0))];
+        LOWORD(_S0) = *(v54 + 2 * llroundf(fminf(fmaxf(v242, 0.0), 8191.0)));
+        LOWORD(_S21) = *(v54 + 2 * llroundf(fminf(fmaxf(_S21, 0.0), 8191.0)));
         __asm
         {
           FCVT            S22, H0

@@ -49,7 +49,7 @@
 
 + (void)requestStatusForClientConfig:(id)config options:(unint64_t)options dispatchQueue:(id)queue completionHandler:(id)handler
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   handlerCopy = handler;
   configCopy = config;
@@ -59,9 +59,9 @@
   aBlock[2] = __89__CMLUseCaseStatus_requestStatusForClientConfig_options_dispatchQueue_completionHandler___block_invoke;
   aBlock[3] = &unk_2785418E8;
   v14 = handlerCopy;
-  v31 = v14;
+  v30 = v14;
   v15 = v13;
-  v30 = v15;
+  v29 = v15;
   v16 = _Block_copy(aBlock);
   v17 = [CMLXPC asyncProxyToConnection:v15 dispatchQueue:queueCopy errorHandler:v16];
   v18 = +[CMLLog client];
@@ -69,24 +69,22 @@
   {
     v19 = NSStringFromSelector(a2);
     *buf = 138543362;
-    v33 = v19;
+    v32 = v19;
     _os_log_impl(&dword_224E26000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ Sending XPC request", buf, 0xCu);
   }
 
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __89__CMLUseCaseStatus_requestStatusForClientConfig_options_dispatchQueue_completionHandler___block_invoke_3;
-  v24[3] = &unk_278541938;
-  v27 = v14;
-  v28 = a2;
-  v25 = queueCopy;
-  v26 = v15;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __89__CMLUseCaseStatus_requestStatusForClientConfig_options_dispatchQueue_completionHandler___block_invoke_3;
+  v23[3] = &unk_278541938;
+  v26 = v14;
+  v27 = a2;
+  v24 = queueCopy;
+  v25 = v15;
   v20 = v15;
   v21 = v14;
   v22 = queueCopy;
-  [v17 queryStatusForClientConfig:configCopy options:options reply:v24];
-
-  v23 = *MEMORY[0x277D85DE8];
+  [v17 queryStatusForClientConfig:configCopy options:options reply:v23];
 }
 
 uint64_t __89__CMLUseCaseStatus_requestStatusForClientConfig_options_dispatchQueue_completionHandler___block_invoke(uint64_t a1)
@@ -99,7 +97,7 @@ uint64_t __89__CMLUseCaseStatus_requestStatusForClientConfig_options_dispatchQue
 
 void __89__CMLUseCaseStatus_requestStatusForClientConfig_options_dispatchQueue_completionHandler___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[CMLLog client];
@@ -107,11 +105,11 @@ void __89__CMLUseCaseStatus_requestStatusForClientConfig_options_dispatchQueue_c
   {
     v8 = NSStringFromSelector(*(a1 + 56));
     *buf = 138543874;
-    v20 = v8;
-    v21 = 1024;
-    v22 = v5 != 0;
-    v23 = 2114;
-    v24 = v6;
+    v19 = v8;
+    v20 = 1024;
+    v21 = v5 != 0;
+    v22 = 2114;
+    v23 = v6;
     _os_log_impl(&dword_224E26000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ XPC request complete, status(%d) error:%{public}@", buf, 0x1Cu);
   }
 
@@ -126,73 +124,69 @@ void __89__CMLUseCaseStatus_requestStatusForClientConfig_options_dispatchQueue_c
   }
 
   v10 = *(a1 + 32);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __89__CMLUseCaseStatus_requestStatusForClientConfig_options_dispatchQueue_completionHandler___block_invoke_6;
-  v14[3] = &unk_278541910;
-  v18 = *(a1 + 48);
-  v15 = v5;
-  v16 = v9;
-  v17 = *(a1 + 40);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __89__CMLUseCaseStatus_requestStatusForClientConfig_options_dispatchQueue_completionHandler___block_invoke_6;
+  v13[3] = &unk_278541910;
+  v17 = *(a1 + 48);
+  v14 = v5;
+  v15 = v9;
+  v16 = *(a1 + 40);
   v11 = v9;
   v12 = v5;
-  dispatch_async(v10, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  dispatch_async(v10, v13);
 }
 
-uint64_t __89__CMLUseCaseStatus_requestStatusForClientConfig_options_dispatchQueue_completionHandler___block_invoke_6(void *a1)
+uint64_t __89__CMLUseCaseStatus_requestStatusForClientConfig_options_dispatchQueue_completionHandler___block_invoke_6(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 invalidate];
+  return [v2 invalidate];
 }
 
 + (id)statusForClientConfig:(id)config options:(unint64_t)options error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   configCopy = config;
   v9 = +[CMLXPC createConnection];
-  v34 = 0;
-  v10 = [CMLXPC syncProxyToConnection:v9 error:&v34];
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy_;
-  v32 = __Block_byref_object_dispose_;
   v33 = 0;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy_;
-  v26 = __Block_byref_object_dispose_;
+  v10 = [CMLXPC syncProxyToConnection:v9 error:&v33];
   v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy_;
+  v31 = __Block_byref_object_dispose_;
+  v32 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy_;
+  v25 = __Block_byref_object_dispose_;
+  v26 = 0;
   v11 = +[CMLLog client];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = NSStringFromSelector(a2);
     *buf = 138543362;
-    v36 = v12;
+    v35 = v12;
     _os_log_impl(&dword_224E26000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ Sending XPC request", buf, 0xCu);
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __56__CMLUseCaseStatus_statusForClientConfig_options_error___block_invoke;
-  v21[3] = &unk_278541960;
-  v21[4] = &v22;
-  v21[5] = &v28;
-  v21[6] = a2;
-  [v10 queryStatusForClientConfig:configCopy options:options reply:v21];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __56__CMLUseCaseStatus_statusForClientConfig_options_error___block_invoke;
+  v20[3] = &unk_278541960;
+  v20[4] = &v21;
+  v20[5] = &v27;
+  v20[6] = a2;
+  [v10 queryStatusForClientConfig:configCopy options:options reply:v20];
   if (error)
   {
-    v13 = v34;
-    if (!v34)
+    v13 = v33;
+    if (!v33)
     {
-      v13 = v29[5];
+      v13 = v28[5];
     }
 
     *error = v13;
@@ -202,43 +196,42 @@ uint64_t __89__CMLUseCaseStatus_requestStatusForClientConfig_options_dispatchQue
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v15 = NSStringFromSelector(a2);
-    v16 = v23[5] != 0;
-    v17 = v29[5];
+    v16 = v22[5] != 0;
+    v17 = v28[5];
     *buf = 138543874;
-    v36 = v15;
-    v37 = 1024;
-    v38 = v16;
-    v39 = 2114;
-    v40 = v17;
+    v35 = v15;
+    v36 = 1024;
+    v37 = v16;
+    v38 = 2114;
+    v39 = v17;
     _os_log_impl(&dword_224E26000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ Request complete, status(%d) error:%{public}@", buf, 0x1Cu);
   }
 
   [v9 invalidate];
-  v18 = v23[5];
-  _Block_object_dispose(&v22, 8);
+  v18 = v22[5];
+  _Block_object_dispose(&v21, 8);
 
-  _Block_object_dispose(&v28, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v27, 8);
 
   return v18;
 }
 
 void __56__CMLUseCaseStatus_statusForClientConfig_options_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   v8 = +[CMLLog client];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = NSStringFromSelector(*(a1 + 48));
-    v14 = 138543874;
-    v15 = v9;
-    v16 = 1024;
-    v17 = v6 != 0;
-    v18 = 2114;
-    v19 = v7;
-    _os_log_impl(&dword_224E26000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ XPC request complete, status(%d), error:%{public}@", &v14, 0x1Cu);
+    v13 = 138543874;
+    v14 = v9;
+    v15 = 1024;
+    v16 = v6 != 0;
+    v17 = 2114;
+    v18 = v7;
+    _os_log_impl(&dword_224E26000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ XPC request complete, status(%d), error:%{public}@", &v13, 0x1Cu);
   }
 
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
@@ -249,8 +242,6 @@ void __56__CMLUseCaseStatus_statusForClientConfig_options_error___block_invoke(u
     v12 = *(v11 + 40);
     *(v11 + 40) = v10;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (CMLUseCaseStatus)initWithCoder:(id)coder

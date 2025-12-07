@@ -181,7 +181,6 @@
 
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v38;
 }
 
@@ -243,7 +242,6 @@
   objc_storeStrong(v22, 0);
   objc_storeStrong(&v23, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v4 = v26;
 
   return v4;
@@ -327,7 +325,6 @@ LABEL_12:
   objc_storeStrong(&v22, 0);
   objc_storeStrong(&lastObject, 0);
   objc_storeStrong(&defaultManager, 0);
-  *MEMORY[0x277D85DE8];
   v7 = v28;
 
   return v7;
@@ -400,7 +397,6 @@ LABEL_12:
   v14 = 1;
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -486,7 +482,6 @@ LABEL_12:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v4 = v26;
 
   return v4;
@@ -587,7 +582,6 @@ LABEL_16:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v4 = v26;
 
   return v4;
@@ -707,7 +701,6 @@ LABEL_20:
 
   objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v5 = v30;
 
   return v5;
@@ -773,7 +766,6 @@ LABEL_20:
   v5 = MEMORY[0x277D82BE0](v20);
   objc_storeStrong(&v20, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -877,7 +869,6 @@ LABEL_14:
   objc_storeStrong(&v20, 0);
   objc_storeStrong(&v30, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1015,7 +1006,6 @@ LABEL_14:
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v45, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v48;
 
   return v6;
@@ -1156,7 +1146,6 @@ LABEL_14:
   objc_storeStrong(&v45, 0);
   objc_storeStrong(&v47, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v8 = v49;
 
   return v8;
@@ -1351,7 +1340,6 @@ LABEL_33:
   objc_storeStrong(&v57, 0);
   objc_storeStrong(&v59, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v11 = v62;
 
   return v11;
@@ -1503,7 +1491,6 @@ LABEL_33:
   objc_storeStrong(&v48, 0);
   objc_storeStrong(&v49, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1635,7 +1622,6 @@ LABEL_33:
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v10 = v46;
 
   return v10;
@@ -1733,7 +1719,6 @@ LABEL_33:
   objc_storeStrong(&v30, 0);
   objc_storeStrong(&v31, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1886,7 +1871,6 @@ LABEL_33:
   objc_storeStrong(&v38, 0);
   objc_storeStrong(&v40, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v7 = v43;
 
   return v7;
@@ -2045,7 +2029,6 @@ LABEL_16:
   objc_storeStrong(v52, 0);
   objc_storeStrong(&v53, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)pushFullSyncDataFrom:(id)from withDeviceData:(id)data error:(id *)error
@@ -2353,7 +2336,6 @@ LABEL_16:
   objc_storeStrong(&v73, 0);
   objc_storeStrong(&v75, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)ingestEventsIntoCoreData:(id)data withPreviousCheckpoint:(id *)checkpoint andStreamCheckpointDict:(id)dict error:(id *)error
@@ -2470,7 +2452,6 @@ LABEL_16:
   objc_storeStrong(&v36, 0);
   objc_storeStrong(&v39, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v7 = v42;
 
   return v7;
@@ -2634,7 +2615,6 @@ LABEL_16:
   objc_storeStrong(&v48, 0);
   objc_storeStrong(&v50, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v9 = v52;
 
   return v9;
@@ -3104,7 +3084,6 @@ LABEL_77:
   objc_storeStrong(v100, 0);
   objc_storeStrong(&v101, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)performDataReplicationPayloadUpdates:(id)updates withDeviceRegistry:(id)registry error:(id *)error
@@ -3420,7 +3399,6 @@ LABEL_55:
   objc_storeStrong(&v80, 0);
   objc_storeStrong(&v82, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v15 = v85;
 
   return v15;
@@ -3561,7 +3539,6 @@ LABEL_55:
   objc_storeStrong(&v33, 0);
   objc_storeStrong(&v34, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v8 = v37;
 
   return v8;

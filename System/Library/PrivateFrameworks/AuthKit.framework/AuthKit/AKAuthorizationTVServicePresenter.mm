@@ -32,7 +32,6 @@
   v6[0] = v3;
   v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   MEMORY[0x1E69E5920](v3);
-  *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -45,7 +44,6 @@
   v6[0] = v3;
   v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   MEMORY[0x1E69E5920](v3);
-  *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -58,7 +56,6 @@
   v6[0] = v3;
   v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   MEMORY[0x1E69E5920](v3);
-  *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -89,7 +86,6 @@
   objc_storeStrong(v5, 0);
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v6;
 }

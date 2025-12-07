@@ -46,18 +46,16 @@ void __61__TPSTravelESimEligibilityValidation_validateWithCompletion___block_inv
 
 void __61__TPSTravelESimEligibilityValidation_validateWithCompletion___block_invoke_cold_1(id *a1, char a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = [*a1 name];
   v7 = [*a1 targetContext];
-  v9 = 138412802;
-  v10 = v6;
-  v11 = 2112;
-  v12 = v7;
-  v13 = 1024;
-  v14 = a2 & 1;
-  _os_log_debug_impl(&dword_232D6F000, a3, OS_LOG_TYPE_DEBUG, "%@ - targetContext: %@. Valid: %d", &v9, 0x1Cu);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412802;
+  v9 = v6;
+  v10 = 2112;
+  v11 = v7;
+  v12 = 1024;
+  v13 = a2 & 1;
+  _os_log_debug_impl(&dword_232D6F000, a3, OS_LOG_TYPE_DEBUG, "%@ - targetContext: %@. Valid: %d", &v8, 0x1Cu);
 }
 
 @end

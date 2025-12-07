@@ -9,7 +9,7 @@
   v8.receiver = self;
   v8.super_class = VNABPKPipelineWrapper;
   v2 = [(VNABPKPipelineWrapper *)&v8 init];
-  if (v2 && AltruisticBodyPoseKitLibraryCore())
+  if (v2 && AltruisticBodyPoseKitLibraryCore(0))
   {
     v10 = 0;
     v11 = &v10;

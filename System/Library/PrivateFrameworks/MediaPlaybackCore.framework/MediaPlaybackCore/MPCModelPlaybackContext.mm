@@ -7,6 +7,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)descriptionComponents;
 - (id)getSharedListeningTracklistWithCompletion:(id)completion;
+- (void)clearStartItem;
 - (void)encodeWithCoder:(id)coder;
 - (void)getRemotePlaybackQueueRepresentationWithCompletion:(id)completion;
 - (void)setPlaybackRequestEnvironment:(id)environment;
@@ -238,6 +239,13 @@
   }
 
   return v9;
+}
+
+- (void)clearStartItem
+{
+  startItemIdentifiers = self->_startItemIdentifiers;
+  self->_startItemIdentifiers = 0;
+  MEMORY[0x1EEE66BB8](self, startItemIdentifiers);
 }
 
 - (BOOL)isSupported
@@ -707,7 +715,7 @@ LABEL_35:
 LABEL_36:
 }
 
-void __89__MPCModelPlaybackContext_MPCSharedListening__getSharedListeningTracklistWithCompletion___block_invoke_79(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __89__MPCModelPlaybackContext_MPCSharedListening__getSharedListeningTracklistWithCompletion___block_invoke_79(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   v64 = *MEMORY[0x1E69E9840];
   v7 = a2;

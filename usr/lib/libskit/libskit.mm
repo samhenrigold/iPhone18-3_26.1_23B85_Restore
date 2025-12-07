@@ -1,10 +1,10 @@
-void skit::ContextV2::ContextV2()
+void skit::ContextV2::ContextV2(void *a1, uint64_t a2, uint64_t *a3)
 {
-  std::allocate_shared[abi:ne200100]<skit::internal::ContextImpl,std::allocator<skit::internal::ContextImpl>,std::__fs::filesystem::path const&,std::basic_string<char16_t>,0>();
+  std::allocate_shared[abi:ne200100]<skit::internal::ContextImpl,std::allocator<skit::internal::ContextImpl>,std::__fs::filesystem::path const&,std::basic_string<char16_t>,0>(a1, a2, a3);
 }
 
 {
-  std::allocate_shared[abi:ne200100]<skit::internal::ContextImpl,std::allocator<skit::internal::ContextImpl>,std::__fs::filesystem::path const&,std::basic_string<char16_t>,0>();
+  std::allocate_shared[abi:ne200100]<skit::internal::ContextImpl,std::allocator<skit::internal::ContextImpl>,std::__fs::filesystem::path const&,std::basic_string<char16_t>,0>(a1, a2, a3);
 }
 
 void sub_2998C6C78(_Unwind_Exception *a1)
@@ -37,12 +37,12 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-__int128 **skit::ContextV2::index_reader@<X0>(__int128 **result@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, void *a4@<X8>)
+__int128 **skit::ContextV2::index_reader@<X0>(__int128 **a1@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, void *a4@<X8>)
 {
   *a4 = 0;
   a4[1] = 0;
-  v4 = *result;
-  if (*result)
+  v4 = *a1;
+  if (*a1)
   {
     v5 = *(v4 + 55);
     if ((v5 & 0x8000000000000000) != 0)
@@ -56,32 +56,32 @@ __int128 **skit::ContextV2::index_reader@<X0>(__int128 **result@<X0>, unint64_t 
       v6 = (v4 + 2);
     }
 
-    v11[0] = v6;
-    v11[1] = v5;
-    v10[0] = a2;
-    v10[1] = a3;
+    v12[0] = v6;
+    v12[1] = v5;
+    v11[0] = a2;
+    v11[1] = a3;
     if (*(v4 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v9, *v4, *(v4 + 1));
+      std::string::__init_copy_ctor_external(&v10, *v4, *(v4 + 1));
     }
 
     else
     {
       v7 = *v4;
-      v9.__r_.__value_.__r.__words[2] = *(v4 + 2);
-      *&v9.__r_.__value_.__l.__data_ = v7;
+      v10.__r_.__value_.__r.__words[2] = *(v4 + 2);
+      *&v10.__r_.__value_.__l.__data_ = v7;
     }
 
-    std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v9, v11);
-    std::string::append(&v9, ".ctx", 4uLL);
-    std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v9, v10);
-    std::string::append(&v9, ".idx", 4uLL);
-    __p = v9;
-    memset(&v9, 0, sizeof(v9));
-    std::allocate_shared[abi:ne200100]<skit::internal::IndexReaderImpl,std::allocator<skit::internal::IndexReaderImpl>,std::__fs::filesystem::path,0>();
+    std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v10, v12);
+    std::string::append(&v10, ".ctx", 4uLL);
+    std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(&v10, v11);
+    std::string::append(&v10, ".idx", 4uLL);
+    __p = v10;
+    memset(&v10, 0, sizeof(v10));
+    std::allocate_shared[abi:ne200100]<skit::internal::IndexReaderImpl,std::allocator<skit::internal::IndexReaderImpl>,std::__fs::filesystem::path,0>(&v8, &__p);
   }
 
-  return result;
+  return a1;
 }
 
 std::__fs::filesystem::path *std::__fs::filesystem::path::append[abi:ne200100]<std::u16string_view>(std::__fs::filesystem::path *this, unint64_t *a2)
@@ -112,47 +112,45 @@ std::__fs::filesystem::path *std::__fs::filesystem::path::append[abi:ne200100]<s
 
 uint64_t std::__fs::filesystem::_PathCVT<char16_t>::__append_range[abi:ne200100](std::string *a1, unint64_t a2, unint64_t a3)
 {
-  v15 = *MEMORY[0x29EDCA608];
-  v10[0] = MEMORY[0x29EDC9578] + 16;
-  v10[1] = 0;
+  v14 = *MEMORY[0x29EDCA608];
+  v9[0] = MEMORY[0x29EDC9578] + 16;
+  v9[1] = 0;
   if (a2 < a3)
   {
     v4 = a2;
     do
     {
-      v11 = v4;
-      if ((*(v10[0] + 24))(v10, v14, v4, a3, &v11, v13, v14, &v12) == 2 || v11 == v4)
+      v10 = v4;
+      if ((*(v9[0] + 24))(v9, v13, v4, a3, &v10, v12, v13, &v11) == 2 || v10 == v4)
       {
         std::__throw_runtime_error("locale not supported");
         __break(1u);
       }
 
-      v4 = v11;
-      if (v13 < v12)
+      v4 = v10;
+      if (v12 < v11)
       {
-        v7 = v13;
+        v7 = v12;
         do
         {
           std::string::push_back(a1, *v7++);
         }
 
-        while (v7 < v12);
-        v4 = v11;
+        while (v7 < v11);
+        v4 = v10;
       }
     }
 
     while (v4 < a3);
   }
 
-  result = MEMORY[0x29C2A30D0](v10);
-  v9 = *MEMORY[0x29EDCA608];
-  return result;
+  return MEMORY[0x29C2A30D0](v9);
 }
 
-void sub_2998C7064(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2998C7064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x29C2A30D0](va);
+  va_start(va, a3);
+  MEMORY[0x29C2A30D0](va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -166,11 +164,11 @@ void sub_2998C71FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void skit::Alias::Alias(skit::Alias *this, std::__fs::filesystem::path *a2, std::__fs::filesystem::path *a3)
 {
-  std::allocate_shared[abi:ne200100]<skit::internal::AliasImpl,std::allocator<skit::internal::AliasImpl>,std::__fs::filesystem::path,std::__fs::filesystem::path,0>();
+  std::allocate_shared[abi:ne200100]<skit::internal::AliasImpl,std::allocator<skit::internal::AliasImpl>,std::__fs::filesystem::path,std::__fs::filesystem::path,0>(this, a2, a3);
 }
 
 {
-  std::allocate_shared[abi:ne200100]<skit::internal::AliasImpl,std::allocator<skit::internal::AliasImpl>,std::__fs::filesystem::path,std::__fs::filesystem::path,0>();
+  std::allocate_shared[abi:ne200100]<skit::internal::AliasImpl,std::allocator<skit::internal::AliasImpl>,std::__fs::filesystem::path,std::__fs::filesystem::path,0>(this, a2, a3);
 }
 
 std::string *std::string::append[abi:ne200100]<char const*,0>(std::string *this, std::string *__src, std::string *a3)
@@ -293,8 +291,7 @@ uint64_t skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>
   v5 = *a2;
   *(a1 + 16) = *(a2 + 2);
   *a1 = v5;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   *(a1 + 56) = 0u;
   *(a1 + 40) = 0u;
@@ -385,22 +382,22 @@ skit::internal::MultiIndexV2 *skit::internal::MultiIndexV2::MultiIndexV2(skit::i
   return this;
 }
 
-void sub_2998C77E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2998C77E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v4 = v3;
-  v6 = *v4;
-  if (*v4)
+  va_start(va, a3);
+  v5 = v4;
+  v7 = *v5;
+  if (*v5)
   {
-    *(v2 + 152) = v6;
-    operator delete(v6);
+    *(v3 + 152) = v7;
+    operator delete(v7);
   }
 
-  std::__hash_table<std::__hash_value_type<skit::internal::Term,skit::internal::PostingListMemImplV2>,std::__unordered_map_hasher<skit::internal::Term,std::__hash_value_type<skit::internal::Term,skit::internal::PostingListMemImplV2>,std::hash<skit::internal::Term>,std::equal_to<skit::internal::Term>,true>,std::__unordered_map_equal<skit::internal::Term,std::__hash_value_type<skit::internal::Term,skit::internal::PostingListMemImplV2>,std::equal_to<skit::internal::Term>,std::hash<skit::internal::Term>,true>,std::allocator<std::__hash_value_type<skit::internal::Term,skit::internal::PostingListMemImplV2>>>::~__hash_table(v2 + 48);
+  std::__hash_table<std::__hash_value_type<skit::internal::Term,skit::internal::PostingListMemImplV2>,std::__unordered_map_hasher<skit::internal::Term,std::__hash_value_type<skit::internal::Term,skit::internal::PostingListMemImplV2>,std::hash<skit::internal::Term>,std::equal_to<skit::internal::Term>,true>,std::__unordered_map_equal<skit::internal::Term,std::__hash_value_type<skit::internal::Term,skit::internal::PostingListMemImplV2>,std::equal_to<skit::internal::Term>,std::hash<skit::internal::Term>,true>,std::allocator<std::__hash_value_type<skit::internal::Term,skit::internal::PostingListMemImplV2>>>::~__hash_table(v3 + 48);
   std::vector<std::unique_ptr<skit::internal::IndexDiskImplV2>>::__destroy_vector::operator()[abi:ne200100](va);
-  if (*(v2 + 23) < 0)
+  if (*(v3 + 23) < 0)
   {
-    operator delete(*v2);
+    operator delete(*v3);
   }
 
   _Unwind_Resume(a1);
@@ -474,19 +471,16 @@ void std::__shared_ptr_emplace<skit::internal::AliasImpl>::__on_zero_shared(uint
 
 uint64_t skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::mmap_data_file(uint64_t a1)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 72);
   if (*(a1 + 120) == v1 || v1 == 0)
   {
-    result = 0;
-    goto LABEL_14;
+    return 0;
   }
 
   if (skit::internal::BlobFile::flush_internal_cache((a1 + 40)))
   {
-LABEL_8:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_14;
+    return 0xFFFFFFFFLL;
   }
 
   v6 = mmap(0, *(a1 + 72), 1, *(a1 + 136) | 1u, *(a1 + 64), 0);
@@ -497,17 +491,17 @@ LABEL_8:
     {
     }
 
-    v11 = skit::internal::get_logging_context(void)::logger;
+    v10 = skit::internal::get_logging_context(void)::logger;
     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_22;
+      goto LABEL_21;
     }
 
-    v12 = *__error();
-    v15 = 67109120;
-    v16 = v12;
-    v13 = "KvStore::mmap_data_file : mmap of data file failed %{darwin.errno}d";
-    goto LABEL_25;
+    v11 = *__error();
+    v14 = 67109120;
+    v15 = v11;
+    v12 = "KvStore::mmap_data_file : mmap of data file failed %{darwin.errno}d";
+    goto LABEL_24;
   }
 
   if (madvise(v6, *(a1 + 72), *(a1 + 140) | 1))
@@ -516,25 +510,25 @@ LABEL_8:
     {
     }
 
-    v11 = skit::internal::get_logging_context(void)::logger;
+    v10 = skit::internal::get_logging_context(void)::logger;
     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_22;
+      goto LABEL_21;
     }
 
-    v14 = *__error();
-    v15 = 67109120;
-    v16 = v14;
-    v13 = "KvStore::mmap_data_file : madvise for data file failed %{darwin.errno}d";
-LABEL_25:
-    _os_log_error_impl(&dword_2998C6000, v11, OS_LOG_TYPE_ERROR, v13, &v15, 8u);
-LABEL_22:
+    v13 = *__error();
+    v14 = 67109120;
+    v15 = v13;
+    v12 = "KvStore::mmap_data_file : madvise for data file failed %{darwin.errno}d";
+LABEL_24:
+    _os_log_error_impl(&dword_2998C6000, v10, OS_LOG_TYPE_ERROR, v12, &v14, 8u);
+LABEL_21:
     if (v7 + 1 >= 2)
     {
       munmap(v7, *(a1 + 72));
     }
 
-    goto LABEL_8;
+    return 0xFFFFFFFFLL;
   }
 
   v8 = *(a1 + 112);
@@ -547,69 +541,69 @@ LABEL_22:
   v9 = *(a1 + 72);
   *(a1 + 112) = v7;
   *(a1 + 120) = v9;
-LABEL_14:
-  v10 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t skit::internal::BlobFile::flush_internal_cache(skit::internal::BlobFile *this)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v1 = *(this + 6);
-  if (v1 && (v3 = *(this + 7)) != 0)
+  if (!v1)
   {
-    v4 = write(*(this + 6), v1, v3);
-    if (v4 == *(this + 7))
-    {
-      result = 0;
-      *(this + 7) = 0;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v11 = v4;
-      if (skit::internal::get_logging_context(void)::once != -1)
-      {
-      }
+  v3 = *(this + 7);
+  if (!v3)
+  {
+    return 0;
+  }
 
-      v7 = skit::internal::get_logging_context(void)::logger;
-      if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
-      {
-        v8 = this;
-        if (*(this + 23) < 0)
-        {
-          v8 = *this;
-        }
-
-        v9 = *(this + 7);
-        v10 = *__error();
-        *buf = 136446978;
-        v13 = v8;
-        v14 = 2048;
-        v15 = v11;
-        v16 = 2048;
-        v17 = v9;
-        v18 = 1024;
-        v19 = v10;
-        _os_log_error_impl(&dword_2998C6000, v7, OS_LOG_TYPE_ERROR, "BlobFile::write_internal_cache : blob write failed @ %{public}s : %li < %lu : %{darwin.errno}d", buf, 0x26u);
-      }
-
-      result = 0xFFFFFFFFLL;
-    }
+  v4 = write(*(this + 6), v1, v3);
+  if (v4 == *(this + 7))
+  {
+    result = 0;
+    *(this + 7) = 0;
   }
 
   else
   {
-    result = 0;
+    v10 = v4;
+    if (skit::internal::get_logging_context(void)::once != -1)
+    {
+    }
+
+    v6 = skit::internal::get_logging_context(void)::logger;
+    if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
+    {
+      v7 = this;
+      if (*(this + 23) < 0)
+      {
+        v7 = *this;
+      }
+
+      v8 = *(this + 7);
+      v9 = *__error();
+      *buf = 136446978;
+      v12 = v7;
+      v13 = 2048;
+      v14 = v10;
+      v15 = 2048;
+      v16 = v8;
+      v17 = 1024;
+      v18 = v9;
+      _os_log_error_impl(&dword_2998C6000, v6, OS_LOG_TYPE_ERROR, "BlobFile::write_internal_cache : blob write failed @ %{public}s : %li < %lu : %{darwin.errno}d", buf, 0x26u);
+    }
+
+    return 0xFFFFFFFFLL;
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void *skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::create_mmap(uint64_t a1, int a2, size_t a3)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v6 = mmap(0, a3, 3, *(a1 + 56) | 1u, a2, 0);
   if (v6 == -1)
   {
@@ -617,21 +611,21 @@ void *skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashP
     {
     }
 
-    v10 = skit::internal::get_logging_context(void)::logger;
+    v9 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      v11 = (a1 + 24);
+      v10 = (a1 + 24);
       if (*(a1 + 47) < 0)
       {
-        v11 = *v11;
+        v10 = *v10;
       }
 
-      v12 = *__error();
-      v19 = 136446466;
-      v20 = v11;
-      v21 = 1024;
-      v22 = v12;
-      _os_log_error_impl(&dword_2998C6000, v10, OS_LOG_TYPE_ERROR, "FlatSetDisk::create_mmap : mmap failed @ %{public}s : %{darwin.errno}d", &v19, 0x12u);
+      v11 = *__error();
+      v18 = 136446466;
+      v19 = v10;
+      v20 = 1024;
+      v21 = v11;
+      _os_log_error_impl(&dword_2998C6000, v9, OS_LOG_TYPE_ERROR, "FlatSetDisk::create_mmap : mmap failed @ %{public}s : %{darwin.errno}d", &v18, 0x12u);
     }
   }
 
@@ -647,21 +641,21 @@ void *skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashP
     {
     }
 
-    v14 = skit::internal::get_logging_context(void)::logger;
+    v13 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      v17 = (a1 + 24);
+      v16 = (a1 + 24);
       if (*(a1 + 47) < 0)
       {
-        v17 = *v17;
+        v16 = *v16;
       }
 
-      v18 = *__error();
-      v19 = 136446466;
-      v20 = v17;
-      v21 = 1024;
-      v22 = v18;
-      _os_log_error_impl(&dword_2998C6000, v14, OS_LOG_TYPE_ERROR, "FlatSetDisk::create_mmap : madvise failed @ %{public}s : %{darwin.errno}d", &v19, 0x12u);
+      v17 = *__error();
+      v18 = 136446466;
+      v19 = v16;
+      v20 = 1024;
+      v21 = v17;
+      _os_log_error_impl(&dword_2998C6000, v13, OS_LOG_TYPE_ERROR, "FlatSetDisk::create_mmap : madvise failed @ %{public}s : %{darwin.errno}d", &v18, 0x12u);
     }
 
     munmap(v7, a3);
@@ -675,34 +669,33 @@ LABEL_3:
     {
     }
 
-    v13 = skit::internal::get_logging_context(void)::logger;
+    v12 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      v15 = (a1 + 24);
+      v14 = (a1 + 24);
       if (*(a1 + 47) < 0)
       {
-        v15 = *v15;
+        v14 = *v14;
       }
 
-      v16 = *__error();
-      v19 = 136446466;
-      v20 = v15;
-      v21 = 1024;
-      v22 = v16;
-      _os_log_error_impl(&dword_2998C6000, v13, OS_LOG_TYPE_ERROR, "FlatSetDisk::create_mmap : close failed @ %{public}s : %{darwin.errno}d", &v19, 0x12u);
+      v15 = *__error();
+      v18 = 136446466;
+      v19 = v14;
+      v20 = 1024;
+      v21 = v15;
+      _os_log_error_impl(&dword_2998C6000, v12, OS_LOG_TYPE_ERROR, "FlatSetDisk::create_mmap : close failed @ %{public}s : %{darwin.errno}d", &v18, 0x12u);
     }
 
     munmap(v7, a3);
-    v7 = 0;
+    return 0;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
 uint64_t skit::internal::IndexDiskImplV2::open(skit::internal::IndexDiskImplV2 *this)
 {
-  v124 = *MEMORY[0x29EDCA608];
+  v123 = *MEMORY[0x29EDCA608];
   if (!skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::open(this))
   {
     if (*(this + 191) < 0)
@@ -713,7 +706,7 @@ uint64_t skit::internal::IndexDiskImplV2::open(skit::internal::IndexDiskImplV2 *
         goto LABEL_68;
       }
 
-      std::string::__init_copy_ctor_external(&v123, *(this + 21), v3);
+      std::string::__init_copy_ctor_external(&v122, *(this + 21), v3);
     }
 
     else
@@ -723,64 +716,64 @@ uint64_t skit::internal::IndexDiskImplV2::open(skit::internal::IndexDiskImplV2 *
         goto LABEL_68;
       }
 
-      *&v123.st_dev = *(this + 168);
-      *&v123.st_uid = *(this + 23);
+      *&v122.st_dev = *(this + 168);
+      *&v122.st_uid = *(this + 23);
     }
 
-    std::string::append[abi:ne200100]<char const*,0>(&v123, ".ms", "");
-    if (SHIBYTE(v123.st_gid) < 0)
+    std::string::append[abi:ne200100]<char const*,0>(&v122, ".ms", "");
+    if (SHIBYTE(v122.st_gid) < 0)
     {
-      std::string::__init_copy_ctor_external(&v116, *&v123.st_dev, v123.st_ino);
-      if (SHIBYTE(v123.st_gid) < 0)
+      std::string::__init_copy_ctor_external(&v115, *&v122.st_dev, v122.st_ino);
+      if (SHIBYTE(v122.st_gid) < 0)
       {
-        operator delete(*&v123.st_dev);
+        operator delete(*&v122.st_dev);
       }
     }
 
     else
     {
-      *&v116.__r_.__value_.__l.__data_ = *&v123.st_dev;
-      v116.__r_.__value_.__r.__words[2] = *&v123.st_uid;
+      *&v115.__r_.__value_.__l.__data_ = *&v122.st_dev;
+      v115.__r_.__value_.__r.__words[2] = *&v122.st_uid;
     }
 
     if (*(this + 191) < 0)
     {
-      std::string::__init_copy_ctor_external(&v123, *(this + 21), *(this + 22));
+      std::string::__init_copy_ctor_external(&v122, *(this + 21), *(this + 22));
     }
 
     else
     {
-      *&v123.st_dev = *(this + 168);
-      *&v123.st_uid = *(this + 23);
+      *&v122.st_dev = *(this + 168);
+      *&v122.st_uid = *(this + 23);
     }
 
-    std::string::append[abi:ne200100]<char const*,0>(&v123, ".ids", "");
-    if (SHIBYTE(v123.st_gid) < 0)
+    std::string::append[abi:ne200100]<char const*,0>(&v122, ".ids", "");
+    if (SHIBYTE(v122.st_gid) < 0)
     {
-      std::string::__init_copy_ctor_external(&v115, *&v123.st_dev, v123.st_ino);
-      if (SHIBYTE(v123.st_gid) < 0)
+      std::string::__init_copy_ctor_external(&v114, *&v122.st_dev, v122.st_ino);
+      if (SHIBYTE(v122.st_gid) < 0)
       {
-        operator delete(*&v123.st_dev);
+        operator delete(*&v122.st_dev);
       }
     }
 
     else
     {
-      *&v115.__r_.__value_.__l.__data_ = *&v123.st_dev;
-      v115.__r_.__value_.__r.__words[2] = *&v123.st_uid;
+      *&v114.__r_.__value_.__l.__data_ = *&v122.st_dev;
+      v114.__r_.__value_.__r.__words[2] = *&v122.st_uid;
     }
 
-    if ((v116.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v115.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v4 = &v116;
+      v4 = &v115;
     }
 
     else
     {
-      v4 = v116.__r_.__value_.__r.__words[0];
+      v4 = v115.__r_.__value_.__r.__words[0];
     }
 
-    if (skit::internal::MmapFile::open((this + 192), v4, 2, -1, 0, 416, 3, 1025, 5, 0xFFFFFFFFFFFFFFFFLL, 0))
+    if (skit::internal::MmapFile::open(this + 24, v4, 2, -1, 0, 416, 3, 1025, 5, 0xFFFFFFFFFFFFFFFFLL, 0))
     {
       goto LABEL_23;
     }
@@ -795,17 +788,17 @@ uint64_t skit::internal::IndexDiskImplV2::open(skit::internal::IndexDiskImplV2 *
         {
         }
 
-        v58 = skit::internal::get_logging_context(void)::logger;
+        v57 = skit::internal::get_logging_context(void)::logger;
         if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_23;
         }
 
-        LOWORD(v123.st_dev) = 0;
-        v57 = "MetaStoreHeader::validate_ms : meta store cookie is not magic";
-        v59 = v58;
-        v60 = 2;
-        goto LABEL_154;
+        LOWORD(v122.st_dev) = 0;
+        v56 = "MetaStoreHeader::validate_ms : meta store cookie is not magic";
+        v58 = v57;
+        v59 = 2;
+        goto LABEL_153;
       }
 
       v11 = *(v10 + 12);
@@ -815,25 +808,25 @@ uint64_t skit::internal::IndexDiskImplV2::open(skit::internal::IndexDiskImplV2 *
         {
         }
 
-        v61 = skit::internal::get_logging_context(void)::logger;
+        v60 = skit::internal::get_logging_context(void)::logger;
         if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_23;
         }
 
-        v62 = *(v10 + 12);
-        v63 = *(v10 + 32);
-        v64 = *(v10 + 40);
-        v123.st_dev = 67109632;
-        *&v123.st_mode = v62;
-        LOWORD(v123.st_ino) = 2048;
-        *(&v123.st_ino + 2) = v63;
-        HIWORD(v123.st_uid) = 2048;
-        *&v123.st_gid = v64;
-        v57 = "MetaStoreHeader::validate : meta store delete count is greater than records count : %u != [%lli,%lli)";
-        v59 = v61;
-        v60 = 28;
-        goto LABEL_154;
+        v61 = *(v10 + 12);
+        v62 = *(v10 + 32);
+        v63 = *(v10 + 40);
+        v122.st_dev = 67109632;
+        *&v122.st_mode = v61;
+        LOWORD(v122.st_ino) = 2048;
+        *(&v122.st_ino + 2) = v62;
+        HIWORD(v122.st_uid) = 2048;
+        *&v122.st_gid = v63;
+        v56 = "MetaStoreHeader::validate : meta store delete count is greater than records count : %u != [%lli,%lli)";
+        v58 = v60;
+        v59 = 28;
+        goto LABEL_153;
       }
 
       if (*(v10 + 16) > v11)
@@ -842,19 +835,19 @@ uint64_t skit::internal::IndexDiskImplV2::open(skit::internal::IndexDiskImplV2 *
         {
         }
 
-        v65 = skit::internal::get_logging_context(void)::logger;
+        v64 = skit::internal::get_logging_context(void)::logger;
         if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_23;
         }
 
-        v67 = *(v10 + 12);
-        v66 = *(v10 + 16);
-        v123.st_dev = 67109376;
-        *&v123.st_mode = v66;
-        LOWORD(v123.st_ino) = 1024;
-        *(&v123.st_ino + 2) = v67;
-        v57 = "MetaStoreHeader::validate : meta store delete count is greater than records count : %u > %u";
+        v66 = *(v10 + 12);
+        v65 = *(v10 + 16);
+        v122.st_dev = 67109376;
+        *&v122.st_mode = v65;
+        LOWORD(v122.st_ino) = 1024;
+        *(&v122.st_ino + 2) = v66;
+        v56 = "MetaStoreHeader::validate : meta store delete count is greater than records count : %u > %u";
       }
 
       else
@@ -923,28 +916,28 @@ uint64_t skit::internal::IndexDiskImplV2::open(skit::internal::IndexDiskImplV2 *
                   {
                   }
 
-                  v78 = skit::internal::get_logging_context(void)::logger;
+                  v77 = skit::internal::get_logging_context(void)::logger;
                   if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                   {
-                    v79 = *(this + 263);
-                    v80 = *(this + 30);
-                    v81 = __error();
-                    if (v79 >= 0)
+                    v78 = *(this + 263);
+                    v79 = *(this + 30);
+                    v80 = __error();
+                    if (v78 >= 0)
                     {
-                      v82 = this + 240;
+                      v81 = this + 240;
                     }
 
                     else
                     {
-                      v82 = v80;
+                      v81 = v79;
                     }
 
-                    v83 = *v81;
+                    v82 = *v80;
                     *buf = 136446466;
-                    *&buf[4] = v82;
+                    *&buf[4] = v81;
                     *&buf[12] = 1024;
-                    *&buf[14] = v83;
-                    _os_log_error_impl(&dword_2998C6000, v78, OS_LOG_TYPE_ERROR, "FlatSetDisk::create_file : file open failed @ %{public}s : %{darwin.errno}d", buf, 0x12u);
+                    *&buf[14] = v82;
+                    _os_log_error_impl(&dword_2998C6000, v77, OS_LOG_TYPE_ERROR, "FlatSetDisk::create_file : file open failed @ %{public}s : %{darwin.errno}d", buf, 0x12u);
                   }
                 }
 
@@ -956,28 +949,28 @@ uint64_t skit::internal::IndexDiskImplV2::open(skit::internal::IndexDiskImplV2 *
                     {
                     }
 
-                    v84 = skit::internal::get_logging_context(void)::logger;
+                    v83 = skit::internal::get_logging_context(void)::logger;
                     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                     {
-                      v98 = *(this + 263);
-                      v99 = *(this + 30);
-                      v100 = __error();
-                      if (v98 >= 0)
+                      v97 = *(this + 263);
+                      v98 = *(this + 30);
+                      v99 = __error();
+                      if (v97 >= 0)
                       {
-                        v101 = this + 240;
+                        v100 = this + 240;
                       }
 
                       else
                       {
-                        v101 = v99;
+                        v100 = v98;
                       }
 
-                      v102 = *v100;
+                      v101 = *v99;
                       *buf = 136446466;
-                      *&buf[4] = v101;
+                      *&buf[4] = v100;
                       *&buf[12] = 1024;
-                      *&buf[14] = v102;
-                      _os_log_error_impl(&dword_2998C6000, v84, OS_LOG_TYPE_ERROR, "FlatSetDisk::create_file : file resize failed @ %{public}s : %{darwin.errno}d", buf, 0x12u);
+                      *&buf[14] = v101;
+                      _os_log_error_impl(&dword_2998C6000, v83, OS_LOG_TYPE_ERROR, "FlatSetDisk::create_file : file resize failed @ %{public}s : %{darwin.errno}d", buf, 0x12u);
                     }
 
                     close(v21);
@@ -997,15 +990,15 @@ uint64_t skit::internal::IndexDiskImplV2::open(skit::internal::IndexDiskImplV2 *
                       *(v24 + 16 + v25 - 1) = -1;
                       *buf = 0;
                       *&buf[8] = v18;
-                      *&v123.st_dev = v24;
-                      v123.st_ino = v18;
-                      v123.st_uid = 0;
+                      *&v122.st_dev = v24;
+                      v122.st_ino = v18;
+                      v122.st_uid = 0;
                       std::unique_ptr<skit::internal::FlatSetImpl<std::pair<skit::Uuid,unsigned int>>,skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::Deleter>::reset[abi:ne200100](buf, 0);
-                      *&v123.st_dev = 0;
+                      *&v122.st_dev = 0;
                       std::unique_ptr<skit::internal::FlatSetImpl<std::pair<skit::Uuid,unsigned int>>,skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::Deleter>::reset[abi:ne200100](this + 224, v24);
                       *(this + 29) = v18;
                       v26 = *(this + 28);
-                      std::unique_ptr<skit::internal::FlatSetImpl<std::pair<skit::Uuid,unsigned int>>,skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::Deleter>::reset[abi:ne200100](&v123, 0);
+                      std::unique_ptr<skit::internal::FlatSetImpl<std::pair<skit::Uuid,unsigned int>>,skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::Deleter>::reset[abi:ne200100](&v122, 0);
                       if (!v26)
                       {
                         goto LABEL_23;
@@ -1041,8 +1034,8 @@ LABEL_23:
 LABEL_59:
                       if (*(v10 + 24))
                       {
-                        v28 = (v115.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v115 : v115.__r_.__value_.__r.__words[0];
-                        if ((skit::internal::MmapFile::open((this + 288), v28, 2, -1, 0, 416, 3, 1025, 5, 0xFFFFFFFFFFFFFFFFLL, 0) & 0x80000000) != 0 || *(this + 36) && *(this + 37) != *(*(this + 24) + 24))
+                        v28 = (v114.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v114 : v114.__r_.__value_.__r.__words[0];
+                        if ((skit::internal::MmapFile::open(this + 36, v28, 2, -1, 0, 416, 3, 1025, 5, 0xFFFFFFFFFFFFFFFFLL, 0) & 0x80000000) != 0 || *(this + 36) && *(this + 37) != *(*(this + 24) + 24))
                         {
                           goto LABEL_23;
                         }
@@ -1050,25 +1043,23 @@ LABEL_59:
 
                       v7 = 1;
 LABEL_28:
+                      if (SHIBYTE(v114.__r_.__value_.__r.__words[2]) < 0)
+                      {
+                        operator delete(v114.__r_.__value_.__l.__data_);
+                      }
+
                       if (SHIBYTE(v115.__r_.__value_.__r.__words[2]) < 0)
                       {
                         operator delete(v115.__r_.__value_.__l.__data_);
-                      }
-
-                      if (SHIBYTE(v116.__r_.__value_.__r.__words[2]) < 0)
-                      {
-                        operator delete(v116.__r_.__value_.__l.__data_);
                         if (v7)
                         {
-                          goto LABEL_32;
+                          return 0;
                         }
                       }
 
                       else if (v7)
                       {
-LABEL_32:
-                        result = 0;
-                        goto LABEL_74;
+                        return 0;
                       }
 
 LABEL_68:
@@ -1079,31 +1070,31 @@ LABEL_68:
 
                   if (*(this + 263) >= 0)
                   {
-                    v85 = (this + 240);
+                    v84 = (this + 240);
                   }
 
                   else
                   {
-                    v85 = *(this + 30);
+                    v84 = *(this + 30);
                   }
 
-                  remove(v85, v23);
+                  remove(v84, v23);
                 }
 
                 *buf = 0;
                 *&buf[8] = 0;
-                *&v123.st_dev = 0uLL;
-                v123.st_uid = -1;
+                *&v122.st_dev = 0uLL;
+                v122.st_uid = -1;
                 std::unique_ptr<skit::internal::FlatSetImpl<std::pair<skit::Uuid,unsigned int>>,skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::Deleter>::reset[abi:ne200100](buf, 0);
-                v54 = &v123;
-                goto LABEL_117;
+                v53 = &v122;
+                goto LABEL_116;
               }
 
               if (skit::internal::get_logging_context(void)::once != -1)
               {
               }
 
-              v76 = skit::internal::get_logging_context(void)::logger;
+              v75 = skit::internal::get_logging_context(void)::logger;
               if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_23;
@@ -1114,331 +1105,331 @@ LABEL_68:
                 v14 = *v14;
               }
 
-              v77 = *__error();
-              v123.st_dev = 136446466;
-              *&v123.st_mode = v14;
-              WORD2(v123.st_ino) = 1024;
-              *(&v123.st_ino + 6) = v77;
-              v57 = "FlatSetDisk::open : stat failed @ %{public}s : %{darwin.errno}d";
-              v59 = v76;
-              v60 = 18;
-LABEL_154:
-              _os_log_error_impl(&dword_2998C6000, v59, OS_LOG_TYPE_ERROR, v57, &v123, v60);
+              v76 = *__error();
+              v122.st_dev = 136446466;
+              *&v122.st_mode = v14;
+              WORD2(v122.st_ino) = 1024;
+              *(&v122.st_ino + 6) = v76;
+              v56 = "FlatSetDisk::open : stat failed @ %{public}s : %{darwin.errno}d";
+              v58 = v75;
+              v59 = 18;
+LABEL_153:
+              _os_log_error_impl(&dword_2998C6000, v58, OS_LOG_TYPE_ERROR, v56, &v122, v59);
               goto LABEL_23;
             }
 
             if (*(this + 263) >= 0)
             {
-              v31 = this + 240;
+              v30 = this + 240;
             }
 
             else
             {
-              v31 = *(this + 30);
+              v30 = *(this + 30);
             }
 
-            v32 = open_dprotected_np(v31, 2, -1, 0);
-            v33 = v32;
-            if (v32 < 0)
+            v31 = open_dprotected_np(v30, 2, -1, 0);
+            v32 = v31;
+            if (v31 < 0)
             {
               if (skit::internal::get_logging_context(void)::once != -1)
               {
               }
 
-              v86 = skit::internal::get_logging_context(void)::logger;
+              v85 = skit::internal::get_logging_context(void)::logger;
               if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
               {
-                v103 = *(this + 263);
-                v104 = *(this + 30);
-                v105 = __error();
-                if (v103 >= 0)
+                v102 = *(this + 263);
+                v103 = *(this + 30);
+                v104 = __error();
+                if (v102 >= 0)
                 {
-                  v106 = this + 240;
+                  v105 = this + 240;
                 }
 
                 else
                 {
-                  v106 = v104;
+                  v105 = v103;
                 }
 
-                v107 = *v105;
-                v123.st_dev = 136446466;
-                *&v123.st_mode = v106;
-                WORD2(v123.st_ino) = 1024;
-                *(&v123.st_ino + 6) = v107;
-                _os_log_error_impl(&dword_2998C6000, v86, OS_LOG_TYPE_ERROR, "FlatSetDisk::open_existing_file : file open failed @ %{public}s : %{darwin.errno}d", &v123, 0x12u);
+                v106 = *v104;
+                v122.st_dev = 136446466;
+                *&v122.st_mode = v105;
+                WORD2(v122.st_ino) = 1024;
+                *(&v122.st_ino + 6) = v106;
+                _os_log_error_impl(&dword_2998C6000, v85, OS_LOG_TYPE_ERROR, "FlatSetDisk::open_existing_file : file open failed @ %{public}s : %{darwin.errno}d", &v122, 0x12u);
               }
 
-              *&v123.st_dev = 0uLL;
-              v117 = 0;
+              *&v122.st_dev = 0uLL;
+              v116 = 0;
               st_size = 0;
-              v119 = -1;
-              v87 = &v123;
+              v118 = -1;
+              v86 = &v122;
             }
 
             else
             {
-              memset(&v123, 0, sizeof(v123));
-              if (fstat(v32, &v123))
+              memset(&v122, 0, sizeof(v122));
+              if (fstat(v31, &v122))
               {
                 if (skit::internal::get_logging_context(void)::once != -1)
                 {
                 }
 
-                v88 = skit::internal::get_logging_context(void)::logger;
+                v87 = skit::internal::get_logging_context(void)::logger;
                 if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                 {
-                  v108 = *(this + 263);
-                  v109 = *(this + 30);
-                  v110 = __error();
-                  if (v108 >= 0)
+                  v107 = *(this + 263);
+                  v108 = *(this + 30);
+                  v109 = __error();
+                  if (v107 >= 0)
                   {
-                    v111 = this + 240;
+                    v110 = this + 240;
                   }
 
                   else
                   {
-                    v111 = v109;
+                    v110 = v108;
                   }
 
-                  v112 = *v110;
+                  v111 = *v109;
                   *buf = 136446466;
-                  *&buf[4] = v111;
+                  *&buf[4] = v110;
                   *&buf[12] = 1024;
-                  *&buf[14] = v112;
-                  _os_log_error_impl(&dword_2998C6000, v88, OS_LOG_TYPE_ERROR, "FlatSetDisk::open_existing_file : fstat failed @ %{public}s : %{darwin.errno}d", buf, 0x12u);
+                  *&buf[14] = v111;
+                  _os_log_error_impl(&dword_2998C6000, v87, OS_LOG_TYPE_ERROR, "FlatSetDisk::open_existing_file : fstat failed @ %{public}s : %{darwin.errno}d", buf, 0x12u);
                 }
 
-                close(v33);
+                close(v32);
               }
 
               else
               {
-                *(this + 66) = fcntl(v33, 63);
-                *(this + 134) = v123.st_mode & 0x1FF;
-                v34 = skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::create_mmap(this + 216, v33, v123.st_size);
-                v35 = v34;
-                if (v34)
+                *(this + 66) = fcntl(v32, 63);
+                *(this + 134) = v122.st_mode & 0x1FF;
+                v33 = skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::create_mmap(this + 216, v32, v122.st_size);
+                v34 = v33;
+                if (v33)
                 {
-                  if (v123.st_size <= 351)
+                  if (v122.st_size <= 351)
                   {
                     if (skit::internal::get_logging_context(void)::once != -1)
                     {
                     }
 
-                    v89 = skit::internal::get_logging_context(void)::logger;
+                    v88 = skit::internal::get_logging_context(void)::logger;
                     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                     {
                       if (*(this + 263) >= 0)
                       {
-                        v90 = this + 240;
+                        v89 = this + 240;
                       }
 
                       else
                       {
-                        v90 = *(this + 30);
+                        v89 = *(this + 30);
                       }
 
                       *buf = 136446722;
-                      *&buf[4] = v90;
+                      *&buf[4] = v89;
                       *&buf[12] = 2048;
-                      *&buf[14] = v123.st_size;
-                      v121 = 2048;
-                      v122 = 352;
-                      _os_log_error_impl(&dword_2998C6000, v89, OS_LOG_TYPE_ERROR, "FlatSetDisk::open_existing_file : file size is too small @ %{public}s : %lli < %lli", buf, 0x20u);
+                      *&buf[14] = v122.st_size;
+                      v120 = 2048;
+                      v121 = 352;
+                      _os_log_error_impl(&dword_2998C6000, v88, OS_LOG_TYPE_ERROR, "FlatSetDisk::open_existing_file : file size is too small @ %{public}s : %lli < %lli", buf, 0x20u);
                     }
                   }
 
                   else
                   {
-                    if (v123.st_size == 336 * v34[1] + 16)
+                    if (v122.st_size == 336 * v33[1] + 16)
                     {
                       *buf = 0;
-                      *&buf[8] = v123.st_size;
-                      v117 = v34;
-                      st_size = v123.st_size;
-                      v119 = 0;
+                      *&buf[8] = v122.st_size;
+                      v116 = v33;
+                      st_size = v122.st_size;
+                      v118 = 0;
                       std::unique_ptr<skit::internal::FlatSetImpl<std::pair<skit::Uuid,unsigned int>>,skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::Deleter>::reset[abi:ne200100](buf, 0);
-                      if ((v35[3] - 16) <= 0xFFFFFFF0)
+                      if ((v34[3] - 16) <= 0xFFFFFFF0)
                       {
                         if (skit::internal::get_logging_context(void)::once != -1)
                         {
                         }
 
-                        v92 = skit::internal::get_logging_context(void)::logger;
+                        v91 = skit::internal::get_logging_context(void)::logger;
                         if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                         {
-                          goto LABEL_115;
+                          goto LABEL_114;
                         }
 
-                        v93 = v35[3];
-                        *&v123.st_dev = 0xF04000200;
-                        LOWORD(v123.st_ino) = 1024;
-                        *(&v123.st_ino + 2) = v93;
-                        v50 = "FlatSetImpl::verify : invalid max load : [1,%u] %u";
+                        v92 = v34[3];
+                        *&v122.st_dev = 0xF04000200;
+                        LOWORD(v122.st_ino) = 1024;
+                        *(&v122.st_ino + 2) = v92;
+                        v49 = "FlatSetImpl::verify : invalid max load : [1,%u] %u";
                       }
 
                       else
                       {
-                        v36 = v35[2];
-                        v37 = 16 * v35[1];
-                        v38 = v37 - 1;
-                        if (v36 < v37 - 1)
+                        v35 = v34[2];
+                        v36 = 16 * v34[1];
+                        v37 = v36 - 1;
+                        if (v35 < v36 - 1)
                         {
-                          if (*(v35 + v38 + 16) != 255)
+                          if (*(v34 + v37 + 16) != 255)
                           {
                             if (skit::internal::get_logging_context(void)::once != -1)
                             {
                             }
 
-                            v95 = skit::internal::get_logging_context(void)::logger;
+                            v94 = skit::internal::get_logging_context(void)::logger;
                             if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                             {
-                              goto LABEL_115;
+                              goto LABEL_114;
                             }
 
-                            v123.st_dev = 67109120;
-                            *&v123.st_mode = v38;
-                            v50 = "FlatSetImpl::verify : sentinel marker not found : %u";
-                            v51 = v95;
-                            v52 = 8;
-                            goto LABEL_113;
+                            v122.st_dev = 67109120;
+                            *&v122.st_mode = v37;
+                            v49 = "FlatSetImpl::verify : sentinel marker not found : %u";
+                            v50 = v94;
+                            v51 = 8;
+                            goto LABEL_112;
                           }
 
+                          v38 = 0;
                           v39 = 0;
                           v40 = 0;
                           v41 = 0;
-                          v42 = 0;
-                          v43 = -15 - (v37 - 16);
-LABEL_87:
-                          v44 = 0;
-                          v45 = 16;
-                          v46 = -1;
+                          v42 = -15 - (v36 - 16);
+LABEL_86:
+                          v43 = 0;
+                          v44 = 16;
+                          v45 = -1;
                           while (1)
                           {
-                            v47 = *(&v35[v42 / 4 + 4] + v44);
-                            if (v47 == 128)
+                            v46 = *(&v34[v41 / 4 + 4] + v43);
+                            if (v46 == 128)
                             {
-                              ++v41;
-                              if (v44 < v45)
+                              ++v40;
+                              if (v43 < v44)
                               {
-                                v45 = v44;
+                                v44 = v43;
                               }
 
-                              goto LABEL_101;
+                              goto LABEL_100;
                             }
 
-                            if (v47 == 254)
+                            if (v46 == 254)
                             {
                               break;
                             }
 
-                            v48 = v42 + v44;
-                            if (v47 != 255)
+                            v47 = v41 + v43;
+                            if (v46 != 255)
                             {
-                              if (v47 < 0)
+                              if (v46 < 0)
                               {
                                 if (skit::internal::get_logging_context(void)::once != -1)
                                 {
                                 }
 
-                                v49 = skit::internal::get_logging_context(void)::logger;
+                                v48 = skit::internal::get_logging_context(void)::logger;
                                 if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                                 {
-                                  goto LABEL_115;
+                                  goto LABEL_114;
                                 }
 
-                                v123.st_dev = 67109376;
-                                *&v123.st_mode = v48;
-                                LOWORD(v123.st_ino) = 1024;
-                                *(&v123.st_ino + 2) = v38;
-                                v50 = "FlatSetImpl::verify : invalid ctrl marker : %u of %u";
-LABEL_111:
-                                v51 = v49;
-                                goto LABEL_112;
+                                v122.st_dev = 67109376;
+                                *&v122.st_mode = v47;
+                                LOWORD(v122.st_ino) = 1024;
+                                *(&v122.st_ino + 2) = v37;
+                                v49 = "FlatSetImpl::verify : invalid ctrl marker : %u of %u";
+LABEL_110:
+                                v50 = v48;
+                                goto LABEL_111;
                               }
 
-                              ++v39;
-                              goto LABEL_99;
+                              ++v38;
+                              goto LABEL_98;
                             }
 
-                            if (v43 + v42 + v44)
+                            if (v42 + v41 + v43)
                             {
                               if (skit::internal::get_logging_context(void)::once != -1)
                               {
                               }
 
-                              v49 = skit::internal::get_logging_context(void)::logger;
+                              v48 = skit::internal::get_logging_context(void)::logger;
                               if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                               {
-                                goto LABEL_115;
+                                goto LABEL_114;
                               }
 
-                              v123.st_dev = 67109376;
-                              *&v123.st_mode = v48;
-                              LOWORD(v123.st_ino) = 1024;
-                              *(&v123.st_ino + 2) = v38;
-                              v50 = "FlatSetImpl::verify : bad sentinel marker found : %u of %u";
-                              goto LABEL_111;
+                              v122.st_dev = 67109376;
+                              *&v122.st_mode = v47;
+                              LOWORD(v122.st_ino) = 1024;
+                              *(&v122.st_ino + 2) = v37;
+                              v49 = "FlatSetImpl::verify : bad sentinel marker found : %u of %u";
+                              goto LABEL_110;
                             }
 
-LABEL_101:
-                            if (++v44 == 16)
+LABEL_100:
+                            if (++v43 == 16)
                             {
-                              if (v46 < v45)
+                              if (v45 < v44)
                               {
-                                v42 += 16;
-                                if (v42 < v38)
+                                v41 += 16;
+                                if (v41 < v37)
                                 {
-                                  goto LABEL_87;
+                                  goto LABEL_86;
                                 }
 
-                                if (v39 == v36)
+                                if (v38 == v35)
                                 {
-                                  if (v40 + v36 + v41 == v38)
+                                  if (v39 + v35 + v40 == v37)
                                   {
-                                    v117 = 0;
-                                    std::unique_ptr<skit::internal::FlatSetImpl<std::pair<skit::Uuid,unsigned int>>,skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::Deleter>::reset[abi:ne200100](this + 224, v35);
+                                    v116 = 0;
+                                    std::unique_ptr<skit::internal::FlatSetImpl<std::pair<skit::Uuid,unsigned int>>,skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::Deleter>::reset[abi:ne200100](this + 224, v34);
                                     *(this + 29) = st_size;
-                                    std::unique_ptr<skit::internal::FlatSetImpl<std::pair<skit::Uuid,unsigned int>>,skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::Deleter>::reset[abi:ne200100](&v117, 0);
+                                    std::unique_ptr<skit::internal::FlatSetImpl<std::pair<skit::Uuid,unsigned int>>,skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::Deleter>::reset[abi:ne200100](&v116, 0);
                                     goto LABEL_57;
                                   }
 
-                                  v96 = v35[2];
+                                  v95 = v34[2];
                                   if (skit::internal::get_logging_context(void)::once != -1)
                                   {
                                   }
 
-                                  v92 = skit::internal::get_logging_context(void)::logger;
+                                  v91 = skit::internal::get_logging_context(void)::logger;
                                   if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                                   {
-LABEL_218:
-                                    v97 = v35[2];
-                                    v123.st_dev = 67109376;
-                                    *&v123.st_mode = v96;
-                                    LOWORD(v123.st_ino) = 1024;
-                                    *(&v123.st_ino + 2) = v97;
-                                    v50 = "FlatSetImpl::verify : invalid header entry count : %u != %u";
-                                    goto LABEL_210;
+LABEL_217:
+                                    v96 = v34[2];
+                                    v122.st_dev = 67109376;
+                                    *&v122.st_mode = v95;
+                                    LOWORD(v122.st_ino) = 1024;
+                                    *(&v122.st_ino + 2) = v96;
+                                    v49 = "FlatSetImpl::verify : invalid header entry count : %u != %u";
+                                    goto LABEL_209;
                                   }
                                 }
 
                                 else
                                 {
-                                  v96 = v39;
+                                  v95 = v38;
                                   if (skit::internal::get_logging_context(void)::once != -1)
                                   {
                                   }
 
-                                  v92 = skit::internal::get_logging_context(void)::logger;
+                                  v91 = skit::internal::get_logging_context(void)::logger;
                                   if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                                   {
-                                    goto LABEL_218;
+                                    goto LABEL_217;
                                   }
                                 }
 
-LABEL_115:
-                                v53 = skit::internal::get_logging_context(void)::logger;
+LABEL_114:
+                                v52 = skit::internal::get_logging_context(void)::logger;
                                 if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                                 {
                                   if (*(this + 263) < 0)
@@ -1446,202 +1437,202 @@ LABEL_115:
                                     v14 = *v14;
                                   }
 
-                                  v123.st_dev = 136446210;
-                                  *&v123.st_mode = v14;
-                                  _os_log_error_impl(&dword_2998C6000, v53, OS_LOG_TYPE_ERROR, "FlatSetDisk::open : verification failed for @ %{public}s", &v123, 0xCu);
+                                  v122.st_dev = 136446210;
+                                  *&v122.st_mode = v14;
+                                  _os_log_error_impl(&dword_2998C6000, v52, OS_LOG_TYPE_ERROR, "FlatSetDisk::open : verification failed for @ %{public}s", &v122, 0xCu);
                                 }
 
+LABEL_115:
+                                v53 = &v116;
 LABEL_116:
-                                v54 = &v117;
-LABEL_117:
-                                std::unique_ptr<skit::internal::FlatSetImpl<std::pair<skit::Uuid,unsigned int>>,skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::Deleter>::reset[abi:ne200100](v54, 0);
+                                std::unique_ptr<skit::internal::FlatSetImpl<std::pair<skit::Uuid,unsigned int>>,skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::Deleter>::reset[abi:ne200100](v53, 0);
                                 goto LABEL_23;
                               }
 
-                              v73 = v46;
-                              v74 = v45;
+                              v72 = v45;
+                              v73 = v44;
                               if (skit::internal::get_logging_context(void)::once != -1)
                               {
                               }
 
-                              v75 = skit::internal::get_logging_context(void)::logger;
+                              v74 = skit::internal::get_logging_context(void)::logger;
                               if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                               {
-                                goto LABEL_115;
+                                goto LABEL_114;
                               }
 
-                              v123.st_dev = 67109632;
-                              *&v123.st_mode = v42;
-                              LOWORD(v123.st_ino) = 1024;
-                              *(&v123.st_ino + 2) = v73;
-                              HIWORD(v123.st_ino) = 1024;
-                              v123.st_uid = v74;
-                              v50 = "FlatSetImpl::verify : invalid empty slot found in bucket %u : %u >= %u";
-                              v51 = v75;
-                              v52 = 20;
-LABEL_113:
-                              _os_log_error_impl(&dword_2998C6000, v51, OS_LOG_TYPE_ERROR, v50, &v123, v52);
+                              v122.st_dev = 67109632;
+                              *&v122.st_mode = v41;
+                              LOWORD(v122.st_ino) = 1024;
+                              *(&v122.st_ino + 2) = v72;
+                              HIWORD(v122.st_ino) = 1024;
+                              v122.st_uid = v73;
+                              v49 = "FlatSetImpl::verify : invalid empty slot found in bucket %u : %u >= %u";
+                              v50 = v74;
+                              v51 = 20;
+LABEL_112:
+                              _os_log_error_impl(&dword_2998C6000, v50, OS_LOG_TYPE_ERROR, v49, &v122, v51);
                               if (skit::internal::get_logging_context(void)::once != -1)
                               {
                               }
 
-                              goto LABEL_115;
+                              goto LABEL_114;
                             }
                           }
 
-                          ++v40;
-LABEL_99:
-                          if (v46 <= v44)
+                          ++v39;
+LABEL_98:
+                          if (v45 <= v43)
                           {
-                            v46 = v44;
+                            v45 = v43;
                           }
 
-                          goto LABEL_101;
+                          goto LABEL_100;
                         }
 
                         if (skit::internal::get_logging_context(void)::once != -1)
                         {
                         }
 
-                        v92 = skit::internal::get_logging_context(void)::logger;
+                        v91 = skit::internal::get_logging_context(void)::logger;
                         if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                         {
-                          goto LABEL_115;
+                          goto LABEL_114;
                         }
 
-                        v94 = v35[2];
-                        v123.st_dev = 67109376;
-                        *&v123.st_mode = v94;
-                        LOWORD(v123.st_ino) = 1024;
-                        *(&v123.st_ino + 2) = v38;
-                        v50 = "FlatSetImpl::verify : entry count is greater than available slots : %u > %u";
+                        v93 = v34[2];
+                        v122.st_dev = 67109376;
+                        *&v122.st_mode = v93;
+                        LOWORD(v122.st_ino) = 1024;
+                        *(&v122.st_ino + 2) = v37;
+                        v49 = "FlatSetImpl::verify : entry count is greater than available slots : %u > %u";
                       }
 
-LABEL_210:
-                      v51 = v92;
-LABEL_112:
-                      v52 = 14;
-                      goto LABEL_113;
+LABEL_209:
+                      v50 = v91;
+LABEL_111:
+                      v51 = 14;
+                      goto LABEL_112;
                     }
 
                     if (skit::internal::get_logging_context(void)::once != -1)
                     {
                     }
 
-                    v91 = skit::internal::get_logging_context(void)::logger;
+                    v90 = skit::internal::get_logging_context(void)::logger;
                     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                     {
                       if (*(this + 263) >= 0)
                       {
-                        v113 = this + 240;
+                        v112 = this + 240;
                       }
 
                       else
                       {
-                        v113 = *(this + 30);
+                        v112 = *(this + 30);
                       }
 
-                      v114 = (336 * v35[1] + 16);
+                      v113 = (336 * v34[1] + 16);
                       *buf = 136446722;
-                      *&buf[4] = v113;
+                      *&buf[4] = v112;
                       *&buf[12] = 2048;
-                      *&buf[14] = v123.st_size;
-                      v121 = 2048;
-                      v122 = v114;
-                      _os_log_error_impl(&dword_2998C6000, v91, OS_LOG_TYPE_ERROR, "FlatSetDisk::open_existing_file : file size does not match expected file size @ %{public}s : %lli != %lu", buf, 0x20u);
+                      *&buf[14] = v122.st_size;
+                      v120 = 2048;
+                      v121 = v113;
+                      _os_log_error_impl(&dword_2998C6000, v90, OS_LOG_TYPE_ERROR, "FlatSetDisk::open_existing_file : file size does not match expected file size @ %{public}s : %lli != %lu", buf, 0x20u);
                     }
 
-                    munmap(v35, v123.st_size);
+                    munmap(v34, v122.st_size);
                   }
                 }
               }
 
               *buf = 0;
               *&buf[8] = 0;
-              v117 = 0;
+              v116 = 0;
               st_size = 0;
-              v119 = -1;
-              v87 = buf;
+              v118 = -1;
+              v86 = buf;
             }
 
-            std::unique_ptr<skit::internal::FlatSetImpl<std::pair<skit::Uuid,unsigned int>>,skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::Deleter>::reset[abi:ne200100](v87, 0);
-            goto LABEL_116;
+            std::unique_ptr<skit::internal::FlatSetImpl<std::pair<skit::Uuid,unsigned int>>,skit::FlatSetDisk<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::Deleter>::reset[abi:ne200100](v86, 0);
+            goto LABEL_115;
           }
 
           if (skit::internal::get_logging_context(void)::once != -1)
           {
           }
 
-          v55 = skit::internal::get_logging_context(void)::logger;
+          v54 = skit::internal::get_logging_context(void)::logger;
           if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_23;
           }
 
-          v70 = *(this + 25);
-          v71 = *(*(this + 24) + 12);
-          if (v71)
+          v69 = *(this + 25);
+          v70 = *(*(this + 24) + 12);
+          if (v70)
           {
-            v72 = 10 * v71 + 48;
+            v71 = 10 * v70 + 48;
           }
 
           else
           {
-            v72 = 0;
+            v71 = 0;
           }
 
-          v123.st_dev = 134218240;
-          *&v123.st_mode = v70;
-          WORD2(v123.st_ino) = 2048;
-          *(&v123.st_ino + 6) = v72;
-          v57 = "DiskMetaStore::open : meta store file size does not match the expected size : %lu != %lu";
-LABEL_153:
-          v59 = v55;
-          v60 = 22;
-          goto LABEL_154;
+          v122.st_dev = 134218240;
+          *&v122.st_mode = v69;
+          WORD2(v122.st_ino) = 2048;
+          *(&v122.st_ino + 6) = v71;
+          v56 = "DiskMetaStore::open : meta store file size does not match the expected size : %lu != %lu";
+LABEL_152:
+          v58 = v54;
+          v59 = 22;
+          goto LABEL_153;
         }
 
         if (skit::internal::get_logging_context(void)::once != -1)
         {
         }
 
-        v65 = skit::internal::get_logging_context(void)::logger;
+        v64 = skit::internal::get_logging_context(void)::logger;
         if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_23;
         }
 
-        v68 = *(v10 + 28);
-        v69 = *(v10 + 12);
-        v123.st_dev = 67109376;
-        *&v123.st_mode = v68;
-        LOWORD(v123.st_ino) = 1024;
-        *(&v123.st_ino + 2) = v69;
-        v57 = "MetaStoreHeader::validate : meta store xid count is greater than records count : %u > %u";
+        v67 = *(v10 + 28);
+        v68 = *(v10 + 12);
+        v122.st_dev = 67109376;
+        *&v122.st_mode = v67;
+        LOWORD(v122.st_ino) = 1024;
+        *(&v122.st_ino + 2) = v68;
+        v56 = "MetaStoreHeader::validate : meta store xid count is greater than records count : %u > %u";
       }
 
-      v59 = v65;
-      v60 = 14;
-      goto LABEL_154;
+      v58 = v64;
+      v59 = 14;
+      goto LABEL_153;
     }
 
     if (skit::internal::get_logging_context(void)::once != -1)
     {
     }
 
-    v55 = skit::internal::get_logging_context(void)::logger;
+    v54 = skit::internal::get_logging_context(void)::logger;
     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_23;
     }
 
-    v56 = *(this + 25);
-    v123.st_dev = 134218240;
-    *&v123.st_mode = v56;
-    WORD2(v123.st_ino) = 2048;
-    *(&v123.st_ino + 6) = 48;
-    v57 = "DiskMetaStore::open : meta store file is too small : %lu < %lu";
-    goto LABEL_153;
+    v55 = *(this + 25);
+    v122.st_dev = 134218240;
+    *&v122.st_mode = v55;
+    WORD2(v122.st_ino) = 2048;
+    *(&v122.st_ino + 6) = 48;
+    v56 = "DiskMetaStore::open : meta store file is too small : %lu < %lu";
+    goto LABEL_152;
   }
 
   v2 = "term index";
@@ -1653,15 +1644,12 @@ LABEL_69:
   v29 = skit::internal::get_logging_context(void)::logger;
   if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
   {
-    v123.st_dev = 136446210;
-    *&v123.st_mode = v2;
-    _os_log_error_impl(&dword_2998C6000, v29, OS_LOG_TYPE_ERROR, "IndexDiskImplV2::open : opening %{public}s failed", &v123, 0xCu);
+    v122.st_dev = 136446210;
+    *&v122.st_mode = v2;
+    _os_log_error_impl(&dword_2998C6000, v29, OS_LOG_TYPE_ERROR, "IndexDiskImplV2::open : opening %{public}s failed", &v122, 0xCu);
   }
 
-  result = 0xFFFFFFFFLL;
-LABEL_74:
-  v30 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
 void sub_2998C94C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, int a35, __int16 a36, char a37, char a38)
@@ -1679,15 +1667,15 @@ void sub_2998C94C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t skit::internal::MmapFile::open(skit::internal::MmapFile *this, const char *a2, int a3, int a4, int a5, uint64_t a6, int a7, int a8, int a9, size_t a10, unint64_t a11)
+uint64_t skit::internal::MmapFile::open(size_t *this, const char *a2, int a3, int a4, int a5, uint64_t a6, int a7, int a8, int a9, size_t a10, unint64_t a11)
 {
-  v34 = *MEMORY[0x29EDCA608];
-  memset(&v25, 0, sizeof(v25));
+  v33 = *MEMORY[0x29EDCA608];
+  memset(&v24, 0, sizeof(v24));
   if (!a2)
   {
     v16 = -1;
-    v21 = 10;
-    v22 = "path check";
+    v20 = 10;
+    v21 = "path check";
     goto LABEL_18;
   }
 
@@ -1695,20 +1683,20 @@ uint64_t skit::internal::MmapFile::open(skit::internal::MmapFile *this, const ch
   v16 = v15;
   if (v15 < 0)
   {
-    v21 = 4;
-    v22 = "open";
+    v20 = 4;
+    v21 = "open";
     goto LABEL_18;
   }
 
-  if (fstat(v15, &v25))
+  if (fstat(v15, &v24))
   {
-    v21 = 5;
-    v22 = "fstat";
+    v20 = 5;
+    v21 = "fstat";
     goto LABEL_18;
   }
 
-  v17 = v25.st_size - a11;
-  if (v25.st_size < a11)
+  v17 = v24.st_size - a11;
+  if (v24.st_size < a11)
   {
     v17 = 0;
   }
@@ -1723,60 +1711,59 @@ uint64_t skit::internal::MmapFile::open(skit::internal::MmapFile *this, const ch
     v18 = a10;
   }
 
-  if (!skit::internal::MmapFile::open(this, v16, a7, a8, a9, v18, a11))
+  if (skit::internal::MmapFile::open(this, v16, a7, a8, a9, v18, a11))
   {
-    result = close(v16);
-    if (!result)
-    {
-      goto LABEL_13;
-    }
+LABEL_10:
+    close(v16);
+    return 0xFFFFFFFFLL;
+  }
 
-    v21 = 5;
-    v22 = "close";
+  result = close(v16);
+  if (result)
+  {
+    v20 = 5;
+    v21 = "close";
 LABEL_18:
     if (skit::internal::get_logging_context(void)::once != -1)
     {
     }
 
-    v23 = skit::internal::get_logging_context(void)::logger;
+    v22 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      v24 = *__error();
+      v23 = *__error();
       *buf = 68158466;
-      v27 = v21;
-      v28 = 2082;
-      v29 = v22;
-      v30 = 2082;
-      v31 = a2;
-      v32 = 1024;
-      v33 = v24;
-      _os_log_error_impl(&dword_2998C6000, v23, OS_LOG_TYPE_ERROR, "MmapFile::open : %{public}.*s failed @ %{public}s : %{darwin.errno}d", buf, 0x22u);
+      v26 = v20;
+      v27 = 2082;
+      v28 = v21;
+      v29 = 2082;
+      v30 = a2;
+      v31 = 1024;
+      v32 = v23;
+      _os_log_error_impl(&dword_2998C6000, v22, OS_LOG_TYPE_ERROR, "MmapFile::open : %{public}.*s failed @ %{public}s : %{darwin.errno}d", buf, 0x22u);
     }
 
     if (*this)
     {
-      munmap(*this, *(this + 1));
+      munmap(*this, this[1]);
     }
 
     *this = 0;
-    *(this + 1) = 0;
+    this[1] = 0;
     if (v16 == -1)
     {
-      goto LABEL_11;
+      return 0xFFFFFFFFLL;
     }
+
+    goto LABEL_10;
   }
 
-  close(v16);
-LABEL_11:
-  result = 0xFFFFFFFFLL;
-LABEL_13:
-  v20 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t skit::internal::MmapFile::open(skit::internal::MmapFile *this, int a2, int a3, int a4, int a5, size_t a6, off_t a7)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   v11 = mmap(0, a6, a3, a4, a2, a7);
   v12 = v11;
   if (v11 == -1)
@@ -1792,7 +1779,7 @@ uint64_t skit::internal::MmapFile::open(skit::internal::MmapFile *this, int a2, 
     {
       *this = v12;
       *(this + 1) = a6;
-      goto LABEL_12;
+      return result;
     }
 
     v13 = 7;
@@ -1800,9 +1787,9 @@ uint64_t skit::internal::MmapFile::open(skit::internal::MmapFile *this, int a2, 
   }
 
   v15 = *__error();
-  if (fcntl(a2, 50, v27) == -1)
+  if (fcntl(a2, 50, v26) == -1)
   {
-    v27[0] = 0;
+    v26[0] = 0;
   }
 
   if (skit::internal::get_logging_context(void)::once != -1)
@@ -1813,13 +1800,13 @@ uint64_t skit::internal::MmapFile::open(skit::internal::MmapFile *this, int a2, 
   if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
   {
     *buf = 68158466;
-    v20 = v13;
-    v21 = 2082;
-    v22 = v14;
-    v23 = 2082;
-    v24 = v27;
-    v25 = 1024;
-    v26 = v15;
+    v19 = v13;
+    v20 = 2082;
+    v21 = v14;
+    v22 = 2082;
+    v23 = v26;
+    v24 = 1024;
+    v25 = v15;
     _os_log_error_impl(&dword_2998C6000, v16, OS_LOG_TYPE_ERROR, "MmapFile::open : %{public}.*s failed @ %{public}s : %{darwin.errno}d", buf, 0x22u);
   }
 
@@ -1828,10 +1815,7 @@ uint64_t skit::internal::MmapFile::open(skit::internal::MmapFile *this, int a2, 
     munmap(v12, a6);
   }
 
-  result = 0xFFFFFFFFLL;
-LABEL_12:
-  v18 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
 double std::__fs::filesystem::path::stem[abi:ne200100](uint64_t a1, std::__fs::filesystem::path *this)
@@ -1874,23 +1858,23 @@ void *std::unique_ptr<skit::internal::FlatSetImpl<std::pair<skit::Uuid,unsigned 
 
 uint64_t skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::open(uint64_t a1)
 {
-  v46 = *MEMORY[0x29EDCA608];
+  v45 = *MEMORY[0x29EDCA608];
   v1 = a1 + 24;
   if (!*(a1 + 24))
   {
     if (*(a1 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v40, *a1, *(a1 + 8));
+      std::string::__init_copy_ctor_external(&v39, *a1, *(a1 + 8));
     }
 
     else
     {
-      *&v40.st_dev = *a1;
-      *&v40.st_uid = *(a1 + 16);
+      *&v39.st_dev = *a1;
+      *&v39.st_uid = *(a1 + 16);
     }
 
     std::__fs::filesystem::path::path[abi:ne200100]<char [5],void>(&__replacement, ".dat");
-    v3 = std::__fs::filesystem::path::replace_extension(&v40, &__replacement);
+    v3 = std::__fs::filesystem::path::replace_extension(&v39, &__replacement);
     if (SHIBYTE(v3->__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
       std::string::__init_copy_ctor_external(&pn, v3->__pn_.__r_.__value_.__l.__data_, v3->__pn_.__r_.__value_.__l.__size_);
@@ -1925,12 +1909,12 @@ uint64_t skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>
       operator delete(*&__replacement.st_dev);
     }
 
-    if (SHIBYTE(v40.st_gid) < 0)
+    if (SHIBYTE(v39.st_gid) < 0)
     {
-      operator delete(*&v40.st_dev);
+      operator delete(*&v39.st_dev);
     }
 
-    memset(&v40, 0, sizeof(v40));
+    memset(&v39, 0, sizeof(v39));
     memset(&__replacement, 0, sizeof(__replacement));
     v5 = a1;
     if (*(a1 + 23) < 0)
@@ -1963,14 +1947,14 @@ uint64_t skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>
       {
       }
 
-      v35 = skit::internal::get_logging_context(void)::logger;
+      v34 = skit::internal::get_logging_context(void)::logger;
       if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_64;
+        return 0xFFFFFFFFLL;
       }
 
       *buf = 0;
-      v36 = "KvStore::open : data file is missing";
+      v35 = "KvStore::open : data file is missing";
     }
 
     else
@@ -1986,14 +1970,14 @@ uint64_t skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>
         {
         }
 
-        v35 = skit::internal::get_logging_context(void)::logger;
+        v34 = skit::internal::get_logging_context(void)::logger;
         if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_64;
+          return 0xFFFFFFFFLL;
         }
 
         *buf = 0;
-        v36 = "KvStore::open : table file is missing";
+        v35 = "KvStore::open : table file is missing";
       }
 
       else if ((__replacement.st_mode & 0x124) != 0)
@@ -2017,57 +2001,57 @@ LABEL_29:
               {
               }
 
-              v23 = skit::internal::get_logging_context(void)::logger;
+              v22 = skit::internal::get_logging_context(void)::logger;
               if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
               {
-                v24 = *__error();
+                v23 = *__error();
                 *buf = 67109120;
-                *v43 = v24;
-                _os_log_error_impl(&dword_2998C6000, v23, OS_LOG_TYPE_ERROR, "KvStore::open : table file open failed : %{darwin.errno}d", buf, 8u);
+                *v42 = v23;
+                _os_log_error_impl(&dword_2998C6000, v22, OS_LOG_TYPE_ERROR, "KvStore::open : table file open failed : %{darwin.errno}d", buf, 8u);
               }
 
               goto LABEL_52;
             }
 
-            if (fstat(v12, &v40) == -1)
+            if (fstat(v12, &v39) == -1)
             {
               if (skit::internal::get_logging_context(void)::once != -1)
               {
               }
 
-              v25 = skit::internal::get_logging_context(void)::logger;
+              v24 = skit::internal::get_logging_context(void)::logger;
               if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_151;
               }
 
               *buf = 0;
-              v26 = "KvStore::open : failed to get table file stats";
+              v25 = "KvStore::open : failed to get table file stats";
             }
 
-            else if ((v40.st_mode & 0x124) != 0)
+            else if ((v39.st_mode & 0x124) != 0)
             {
-              if ((v40.st_mode & 0x92) != 0)
+              if ((v39.st_mode & 0x92) != 0)
               {
-                if ((v40.st_mode & 0x8000) != 0)
+                if ((v39.st_mode & 0x8000) != 0)
                 {
-                  if (!v6 && v40.st_size <= 39)
+                  if (!v6 && v39.st_size <= 39)
                   {
                     if (skit::internal::get_logging_context(void)::once != -1)
                     {
                     }
 
-                    v27 = skit::internal::get_logging_context(void)::logger;
+                    v26 = skit::internal::get_logging_context(void)::logger;
                     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                     {
                       goto LABEL_151;
                     }
 
                     *buf = 134217984;
-                    *v43 = v40.st_size;
-                    v26 = "KvStore::open : table file is too small, %lli";
-                    v28 = v27;
-                    v29 = 12;
+                    *v42 = v39.st_size;
+                    v25 = "KvStore::open : table file is too small, %lli";
+                    v27 = v26;
+                    v28 = 12;
                     goto LABEL_150;
                   }
 
@@ -2078,7 +2062,7 @@ LABEL_29:
 
                   else
                   {
-                    st_size = v40.st_size;
+                    st_size = v39.st_size;
                   }
 
                   *(a1 + 32) = st_size;
@@ -2090,16 +2074,16 @@ LABEL_29:
                     {
                     }
 
-                    v30 = skit::internal::get_logging_context(void)::logger;
+                    v29 = skit::internal::get_logging_context(void)::logger;
                     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                     {
                       goto LABEL_151;
                     }
 
-                    v31 = *__error();
+                    v30 = *__error();
                     *buf = 67109120;
-                    *v43 = v31;
-                    v26 = "KvStore::open : mmap of table file failed : %{darwin.errno}d";
+                    *v42 = v30;
+                    v25 = "KvStore::open : mmap of table file failed : %{darwin.errno}d";
                     goto LABEL_115;
                   }
 
@@ -2109,16 +2093,16 @@ LABEL_29:
                     {
                     }
 
-                    v30 = skit::internal::get_logging_context(void)::logger;
+                    v29 = skit::internal::get_logging_context(void)::logger;
                     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                     {
                       goto LABEL_151;
                     }
 
-                    v32 = *__error();
+                    v31 = *__error();
                     *buf = 67109120;
-                    *v43 = v32;
-                    v26 = "KvStore::open : madvise for table file failed : %{darwin.errno}d";
+                    *v42 = v31;
+                    v25 = "KvStore::open : madvise for table file failed : %{darwin.errno}d";
                     goto LABEL_115;
                   }
 
@@ -2141,16 +2125,14 @@ LABEL_49:
                           skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::calculate_checksums(a1);
                         }
 
-LABEL_68:
-                        result = 0;
-                        goto LABEL_65;
+                        return 0;
                       }
 
                       if (skit::internal::get_logging_context(void)::once != -1)
                       {
                       }
 
-                      v30 = skit::internal::get_logging_context(void)::logger;
+                      v29 = skit::internal::get_logging_context(void)::logger;
                       if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                       {
 LABEL_151:
@@ -2193,13 +2175,13 @@ LABEL_52:
                           remove(v4, v17);
                         }
 
-                        goto LABEL_64;
+                        return 0xFFFFFFFFLL;
                       }
 
-                      v33 = *__error();
+                      v32 = *__error();
                       *buf = 67109120;
-                      *v43 = v33;
-                      v26 = "KvStore::open : table file close failed : %{darwin.errno}d";
+                      *v42 = v32;
+                      v25 = "KvStore::open : table file close failed : %{darwin.errno}d";
                       goto LABEL_115;
                     }
 
@@ -2207,49 +2189,49 @@ LABEL_52:
                     {
                     }
 
-                    v30 = skit::internal::get_logging_context(void)::logger;
+                    v29 = skit::internal::get_logging_context(void)::logger;
                     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                     {
                       goto LABEL_151;
                     }
 
-                    v34 = *__error();
+                    v33 = *__error();
                     *buf = 67109120;
-                    *v43 = v34;
-                    v26 = "KvStore::open : ftruncate on table file failed : %{darwin.errno}d";
+                    *v42 = v33;
+                    v25 = "KvStore::open : ftruncate on table file failed : %{darwin.errno}d";
 LABEL_115:
-                    v28 = v30;
-                    v29 = 8;
+                    v27 = v29;
+                    v28 = 8;
 LABEL_150:
-                    _os_log_error_impl(&dword_2998C6000, v28, OS_LOG_TYPE_ERROR, v26, buf, v29);
+                    _os_log_error_impl(&dword_2998C6000, v27, OS_LOG_TYPE_ERROR, v25, buf, v28);
                     goto LABEL_151;
                   }
 
                   v16 = *v1;
                   if (**v1 == 410583828)
                   {
-                    if (((v16[4] << 9) | 0x28) != v40.st_size)
+                    if (((v16[4] << 9) | 0x28) != v39.st_size)
                     {
                       if (skit::internal::get_logging_context(void)::once != -1)
                       {
                       }
 
-                      v37 = skit::internal::get_logging_context(void)::logger;
+                      v36 = skit::internal::get_logging_context(void)::logger;
                       if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                       {
                         goto LABEL_151;
                       }
 
-                      v38 = *(*v1 + 16);
+                      v37 = *(*v1 + 16);
                       *buf = 67109632;
-                      *v43 = v38;
-                      *&v43[4] = 2048;
-                      *&v43[6] = (v38 << 9) | 0x28;
-                      v44 = 2048;
-                      v45 = v40.st_size;
-                      v26 = "KvStore::open : table file validation failed, bucket count does not match file size : bucket_cnt=%u, expected_size=%lu, actual_size=%lli";
-                      v28 = v37;
-                      v29 = 28;
+                      *v42 = v37;
+                      *&v42[4] = 2048;
+                      *&v42[6] = (v37 << 9) | 0x28;
+                      v43 = 2048;
+                      v44 = v39.st_size;
+                      v25 = "KvStore::open : table file validation failed, bucket count does not match file size : bucket_cnt=%u, expected_size=%lu, actual_size=%lli";
+                      v27 = v36;
+                      v28 = 28;
                       goto LABEL_150;
                     }
 
@@ -2262,14 +2244,14 @@ LABEL_150:
                     {
                     }
 
-                    v25 = skit::internal::get_logging_context(void)::logger;
+                    v24 = skit::internal::get_logging_context(void)::logger;
                     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                     {
                       goto LABEL_151;
                     }
 
                     *buf = 0;
-                    v26 = "KvStore::open : table file validation failed, data file size mismatch";
+                    v25 = "KvStore::open : table file validation failed, data file size mismatch";
                   }
 
                   else
@@ -2278,14 +2260,14 @@ LABEL_150:
                     {
                     }
 
-                    v25 = skit::internal::get_logging_context(void)::logger;
+                    v24 = skit::internal::get_logging_context(void)::logger;
                     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                     {
                       goto LABEL_151;
                     }
 
                     *buf = 0;
-                    v26 = "KvStore::open : table file validation failed, magic cookie not found";
+                    v25 = "KvStore::open : table file validation failed, magic cookie not found";
                   }
                 }
 
@@ -2295,14 +2277,14 @@ LABEL_150:
                   {
                   }
 
-                  v25 = skit::internal::get_logging_context(void)::logger;
+                  v24 = skit::internal::get_logging_context(void)::logger;
                   if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                   {
                     goto LABEL_151;
                   }
 
                   *buf = 0;
-                  v26 = "KvStore::open : table file is not a regular file";
+                  v25 = "KvStore::open : table file is not a regular file";
                 }
               }
 
@@ -2312,14 +2294,14 @@ LABEL_150:
                 {
                 }
 
-                v25 = skit::internal::get_logging_context(void)::logger;
+                v24 = skit::internal::get_logging_context(void)::logger;
                 if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_151;
                 }
 
                 *buf = 0;
-                v26 = "KvStore::open : table file does not have write permission";
+                v25 = "KvStore::open : table file does not have write permission";
               }
             }
 
@@ -2329,18 +2311,18 @@ LABEL_150:
               {
               }
 
-              v25 = skit::internal::get_logging_context(void)::logger;
+              v24 = skit::internal::get_logging_context(void)::logger;
               if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_151;
               }
 
               *buf = 0;
-              v26 = "KvStore::open : table file does not have read permission";
+              v25 = "KvStore::open : table file does not have read permission";
             }
 
-            v28 = v25;
-            v29 = 2;
+            v27 = v24;
+            v28 = 2;
             goto LABEL_150;
           }
 
@@ -2348,14 +2330,14 @@ LABEL_150:
           {
           }
 
-          v35 = skit::internal::get_logging_context(void)::logger;
+          v34 = skit::internal::get_logging_context(void)::logger;
           if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_64;
+            return 0xFFFFFFFFLL;
           }
 
           *buf = 0;
-          v36 = "KvStore::open : data file is not a regular file";
+          v35 = "KvStore::open : data file is not a regular file";
         }
 
         else
@@ -2364,14 +2346,14 @@ LABEL_150:
           {
           }
 
-          v35 = skit::internal::get_logging_context(void)::logger;
+          v34 = skit::internal::get_logging_context(void)::logger;
           if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_64;
+            return 0xFFFFFFFFLL;
           }
 
           *buf = 0;
-          v36 = "KvStore::open : data file does not have write permission";
+          v35 = "KvStore::open : data file does not have write permission";
         }
       }
 
@@ -2381,38 +2363,34 @@ LABEL_150:
         {
         }
 
-        v35 = skit::internal::get_logging_context(void)::logger;
+        v34 = skit::internal::get_logging_context(void)::logger;
         if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_64;
+          return 0xFFFFFFFFLL;
         }
 
         *buf = 0;
-        v36 = "KvStore::open : data file does not have read permission";
+        v35 = "KvStore::open : data file does not have read permission";
       }
     }
 
-    _os_log_error_impl(&dword_2998C6000, v35, OS_LOG_TYPE_ERROR, v36, buf, 2u);
-LABEL_64:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_65;
+    _os_log_error_impl(&dword_2998C6000, v34, OS_LOG_TYPE_ERROR, v35, buf, 2u);
+    return 0xFFFFFFFFLL;
   }
 
   if (skit::internal::get_logging_context(void)::once != -1)
   {
   }
 
-  v22 = skit::internal::get_logging_context(void)::logger;
+  v21 = skit::internal::get_logging_context(void)::logger;
   result = os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_INFO);
   if (result)
   {
-    LOWORD(v40.st_dev) = 0;
-    _os_log_impl(&dword_2998C6000, v22, OS_LOG_TYPE_INFO, "KvStore::open : already open", &v40, 2u);
-    goto LABEL_68;
+    LOWORD(v39.st_dev) = 0;
+    _os_log_impl(&dword_2998C6000, v21, OS_LOG_TYPE_INFO, "KvStore::open : already open", &v39, 2u);
+    return 0;
   }
 
-LABEL_65:
-  v21 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -2429,7 +2407,7 @@ void sub_2998CA6E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t skit::internal::MultiIndexV2::open(const std::__fs::filesystem::path *this)
 {
   v1 = this;
-  v55 = *MEMORY[0x29EDCA608];
+  v54 = *MEMORY[0x29EDCA608];
   std::__fs::filesystem::__status(this, 0);
   if (__ec[0] == 255 || __ec[0] == 0)
   {
@@ -2439,75 +2417,73 @@ uint64_t skit::internal::MultiIndexV2::open(const std::__fs::filesystem::path *t
     {
       v3 = 0;
       v1[12].__pn_.__r_.__value_.__s.__data_[0] = 1;
-      goto LABEL_14;
+      return v3;
     }
 
-LABEL_13:
-    v3 = 0xFFFFFFFFLL;
-    goto LABEL_14;
+    return 0xFFFFFFFFLL;
   }
 
   *__ec = 0;
   v4 = std::system_category();
   *&__ec[8] = v4;
   std::__fs::filesystem::__status(v1, __ec);
-  if (v48.__r_.__value_.__s.__data_[0] != 2)
+  if (v47.__r_.__value_.__s.__data_[0] != 2)
   {
-    goto LABEL_13;
+    return 0xFFFFFFFFLL;
   }
 
-  v51 = 0;
-  v52 = v4;
-  MEMORY[0x29C2A3120](&v49, v1, &v51, 2);
-  if (!v51)
+  v50 = 0;
+  v51 = v4;
+  MEMORY[0x29C2A3120](&v48, v1, &v50, 2);
+  if (!v50)
   {
-    std::__fs::filesystem::path::path[abi:ne200100]<char [5],void>(&v48, ".tbl");
-    v46 = 0;
-    v47 = 0uLL;
-    v5 = v49;
-    v6 = v50;
-    if (v50)
+    std::__fs::filesystem::path::path[abi:ne200100]<char [5],void>(&v47, ".tbl");
+    v45 = 0;
+    v46 = 0uLL;
+    v5 = v48;
+    v6 = v49;
+    if (v49)
     {
-      atomic_fetch_add_explicit(&v50->__shared_owners_, 1uLL, memory_order_relaxed);
-      v7 = v50;
-      v43.__imp_.__ptr_ = v5;
-      v43.__imp_.__cntrl_ = v6;
-      if (v50)
+      atomic_fetch_add_explicit(&v49->__shared_owners_, 1uLL, memory_order_relaxed);
+      v7 = v49;
+      v42.__imp_.__ptr_ = v5;
+      v42.__imp_.__cntrl_ = v6;
+      if (v49)
       {
-        atomic_fetch_add_explicit(&v50->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v49->__shared_owners_, 1uLL, memory_order_relaxed);
         std::__shared_weak_count::__release_shared[abi:ne200100](v7);
       }
     }
 
     else
     {
-      v43.__imp_.__ptr_ = v49;
-      v43.__imp_.__cntrl_ = 0;
+      v42.__imp_.__ptr_ = v48;
+      v42.__imp_.__cntrl_ = 0;
     }
 
     while (1)
     {
-      if (!v43.__imp_.__ptr_)
+      if (!v42.__imp_.__ptr_)
       {
-        if (v43.__imp_.__cntrl_)
+        if (v42.__imp_.__cntrl_)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v43.__imp_.__cntrl_);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v42.__imp_.__cntrl_);
         }
 
-        v35.__data_ = v47;
-        v36 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v47 - v46) >> 3));
-        if (v47 == v46)
+        v34.__data_ = v46;
+        v35 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v46 - v45) >> 3));
+        if (v46 == v45)
         {
-          v35.__size_ = 0;
+          v34.__size_ = 0;
         }
 
         else
         {
-          v35.__size_ = v36;
+          v34.__size_ = v35;
         }
 
-        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__fs::filesystem::path *,false>(v46, v35, 1);
-        if (v46 != v47)
+        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__fs::filesystem::path *,false>(v45, v34, 1);
+        if (v45 != v46)
         {
           operator new();
         }
@@ -2515,86 +2491,86 @@ LABEL_13:
         size = v1[1].__pn_.__r_.__value_.__l.__size_;
         if (v1[1].__pn_.__r_.__value_.__r.__words[0] != size)
         {
-          v39 = (*(*(size - 8) + 192) + 32);
-          v38 = *v39;
-          v40 = v39[1] - 1;
-          if (v40 > *v39)
+          v38 = (*(*(size - 8) + 192) + 32);
+          v37 = *v38;
+          v39 = v38[1] - 1;
+          if (v39 > *v38)
           {
-            v38 = v40;
+            v37 = v39;
           }
 
-          skit::internal::MetaStoreHeader::base_id(&v1[4], v38 + 1);
+          skit::internal::MetaStoreHeader::base_id(&v1[4], v37 + 1);
         }
 
         v3 = 0;
         v1[12].__pn_.__r_.__value_.__s.__data_[0] = 1;
-        *__ec = &v46;
+        *__ec = &v45;
         std::vector<std::__fs::filesystem::path>::__destroy_vector::operator()[abi:ne200100](__ec);
-        if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v48.__r_.__value_.__l.__data_);
+          operator delete(v47.__r_.__value_.__l.__data_);
         }
 
         goto LABEL_79;
       }
 
-      v10 = std::__fs::filesystem::directory_iterator::__dereference(&v43);
-      v11 = v10;
-      if (((1 << v10[3].__pn_.__r_.__value_.__s.__data_[1]) & 0x53) != 0)
+      v9 = std::__fs::filesystem::directory_iterator::__dereference(&v42);
+      v10 = v9;
+      if (((1 << v9[3].__pn_.__r_.__value_.__s.__data_[1]) & 0x53) != 0)
       {
-        std::__fs::filesystem::__status(v10, 0);
-        v12 = __ec[0];
+        std::__fs::filesystem::__status(v9, 0);
+        v11 = __ec[0];
       }
 
       else
       {
-        v12 = v10[3].__pn_.__r_.__value_.__s.__data_[0];
+        v11 = v9[3].__pn_.__r_.__value_.__s.__data_[0];
       }
 
-      if (v12 == 1)
+      if (v11 == 1)
       {
-        std::__fs::filesystem::path::extension[abi:ne200100](__ec, v11);
-        if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::__fs::filesystem::path::extension[abi:ne200100](__ec, v10);
+        if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v13.__data_ = &v48;
+          v12.__data_ = &v47;
         }
 
         else
         {
-          v13.__data_ = v48.__r_.__value_.__r.__words[0];
+          v12.__data_ = v47.__r_.__value_.__r.__words[0];
         }
 
-        if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v13.__size_ = HIBYTE(v48.__r_.__value_.__r.__words[2]);
+          v12.__size_ = HIBYTE(v47.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v13.__size_ = v48.__r_.__value_.__l.__size_;
+          v12.__size_ = v47.__r_.__value_.__l.__size_;
         }
 
-        v14 = std::__fs::filesystem::path::__compare(__ec, v13);
-        v15 = v14;
+        v13 = std::__fs::filesystem::path::__compare(__ec, v12);
+        v14 = v13;
         if ((__ec[23] & 0x80000000) != 0)
         {
           operator delete(*__ec);
-          if (v15)
+          if (v14)
           {
             goto LABEL_65;
           }
         }
 
-        else if (v14)
+        else if (v13)
         {
           goto LABEL_65;
         }
 
-        std::__fs::filesystem::path::stem[abi:ne200100](__p, v11);
-        v16 = v45;
-        if (v45 < 0)
+        std::__fs::filesystem::path::stem[abi:ne200100](__p, v10);
+        v15 = v44;
+        if (v44 < 0)
         {
-          v17 = __p[0];
+          v16 = __p[0];
           if (__p[1] <= 6)
           {
             goto LABEL_64;
@@ -2603,57 +2579,57 @@ LABEL_13:
 
         else
         {
-          if (v45 < 7u)
+          if (v44 < 7u)
           {
             goto LABEL_65;
           }
 
-          v17 = __p;
+          v16 = __p;
         }
 
-        if (strncmp(v17, "index-", 6uLL))
+        if (strncmp(v16, "index-", 6uLL))
         {
-          if ((v16 & 0x80) == 0)
+          if ((v15 & 0x80) == 0)
           {
             goto LABEL_65;
           }
 
 LABEL_63:
-          v17 = __p[0];
+          v16 = __p[0];
 LABEL_64:
-          operator delete(v17);
+          operator delete(v16);
           goto LABEL_65;
         }
 
-        v18 = v47;
-        if (v47 >= *(&v47 + 1))
+        v17 = v46;
+        if (v46 >= *(&v46 + 1))
         {
-          v20 = 0xAAAAAAAAAAAAAAABLL * ((v47 - v46) >> 3);
-          v21 = v20 + 1;
-          if (v20 + 1 > 0xAAAAAAAAAAAAAAALL)
+          v19 = 0xAAAAAAAAAAAAAAABLL * ((v46 - v45) >> 3);
+          v20 = v19 + 1;
+          if (v19 + 1 > 0xAAAAAAAAAAAAAAALL)
           {
             std::vector<skit::Token>::__throw_length_error[abi:ne200100]();
           }
 
-          if (0x5555555555555556 * ((*(&v47 + 1) - v46) >> 3) > v21)
+          if (0x5555555555555556 * ((*(&v46 + 1) - v45) >> 3) > v20)
           {
-            v21 = 0x5555555555555556 * ((*(&v47 + 1) - v46) >> 3);
+            v20 = 0x5555555555555556 * ((*(&v46 + 1) - v45) >> 3);
           }
 
-          if (0xAAAAAAAAAAAAAAABLL * ((*(&v47 + 1) - v46) >> 3) >= 0x555555555555555)
+          if (0xAAAAAAAAAAAAAAABLL * ((*(&v46 + 1) - v45) >> 3) >= 0x555555555555555)
           {
-            v22 = 0xAAAAAAAAAAAAAAALL;
+            v21 = 0xAAAAAAAAAAAAAAALL;
           }
 
           else
           {
-            v22 = v21;
+            v21 = v20;
           }
 
-          v54 = &v46;
-          if (v22)
+          v53 = &v45;
+          if (v21)
           {
-            if (v22 <= 0xAAAAAAAAAAAAAAALL)
+            if (v21 <= 0xAAAAAAAAAAAAAAALL)
             {
               operator new();
             }
@@ -2661,100 +2637,100 @@ LABEL_64:
             std::__throw_bad_array_new_length[abi:ne200100]();
           }
 
-          v24 = (8 * ((v47 - v46) >> 3));
+          v23 = (8 * ((v46 - v45) >> 3));
           *__ec = 0;
-          *&__ec[8] = v24;
-          *&__ec[16] = v24;
+          *&__ec[8] = v23;
+          *&__ec[16] = v23;
           *&__ec[24] = 0;
-          if (SHIBYTE(v11->__pn_.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v10->__pn_.__r_.__value_.__r.__words[2]) < 0)
           {
-            std::string::__init_copy_ctor_external(v24, v11->__pn_.__r_.__value_.__l.__data_, v11->__pn_.__r_.__value_.__l.__size_);
-            v24 = *&__ec[8];
-            v26 = *&__ec[16];
+            std::string::__init_copy_ctor_external(v23, v10->__pn_.__r_.__value_.__l.__data_, v10->__pn_.__r_.__value_.__l.__size_);
+            v23 = *&__ec[8];
+            v25 = *&__ec[16];
           }
 
           else
           {
-            v25 = *&v11->__pn_.__r_.__value_.__l.__data_;
-            *(8 * ((v47 - v46) >> 3) + 0x10) = *(&v11->__pn_.__r_.__value_.__l + 2);
-            *&v24->__r_.__value_.__l.__data_ = v25;
-            v26 = 24 * v20;
+            v24 = *&v10->__pn_.__r_.__value_.__l.__data_;
+            *(8 * ((v46 - v45) >> 3) + 0x10) = *(&v10->__pn_.__r_.__value_.__l + 2);
+            *&v23->__r_.__value_.__l.__data_ = v24;
+            v25 = 24 * v19;
           }
 
-          *&__ec[16] = v26 + 24;
-          v28 = v46;
-          v27 = v47;
-          v29 = (v46 + v24 - v47);
-          if (v46 != v47)
+          *&__ec[16] = v25 + 24;
+          v27 = v45;
+          v26 = v46;
+          v28 = (v45 + v23 - v46);
+          if (v45 != v46)
           {
-            v30 = v46;
-            v31 = v46 + v24 - v47;
+            v29 = v45;
+            v30 = v45 + v23 - v46;
             do
             {
-              v32 = *&v30->__pn_.__r_.__value_.__l.__data_;
-              *(v31 + 2) = *(&v30->__pn_.__r_.__value_.__l + 2);
-              *v31 = v32;
-              v31 += 24;
-              v30->__pn_.__r_.__value_.__l.__size_ = 0;
-              v30->__pn_.__r_.__value_.__r.__words[2] = 0;
-              v30->__pn_.__r_.__value_.__r.__words[0] = 0;
-              ++v30;
+              v31 = *&v29->__pn_.__r_.__value_.__l.__data_;
+              *(v30 + 2) = *(&v29->__pn_.__r_.__value_.__l + 2);
+              *v30 = v31;
+              v30 += 24;
+              v29->__pn_.__r_.__value_.__l.__size_ = 0;
+              v29->__pn_.__r_.__value_.__r.__words[2] = 0;
+              v29->__pn_.__r_.__value_.__r.__words[0] = 0;
+              ++v29;
             }
 
-            while (v30 != v27);
+            while (v29 != v26);
             do
             {
-              if (SHIBYTE(v28->__pn_.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v27->__pn_.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v28->__pn_.__r_.__value_.__l.__data_);
+                operator delete(v27->__pn_.__r_.__value_.__l.__data_);
               }
 
-              ++v28;
+              ++v27;
             }
 
-            while (v28 != v27);
+            while (v27 != v26);
           }
 
-          v33 = v46;
-          v34 = *(&v47 + 1);
-          v46 = v29;
-          v42 = *&__ec[16];
-          v47 = *&__ec[16];
-          *&__ec[16] = v33;
-          *&__ec[24] = v34;
-          *__ec = v33;
-          *&__ec[8] = v33;
+          v32 = v45;
+          v33 = *(&v46 + 1);
+          v45 = v28;
+          v41 = *&__ec[16];
+          v46 = *&__ec[16];
+          *&__ec[16] = v32;
+          *&__ec[24] = v33;
+          *__ec = v32;
+          *&__ec[8] = v32;
           std::__split_buffer<std::__fs::filesystem::path>::~__split_buffer(__ec);
-          v23 = v42;
-          v16 = v45;
+          v22 = v41;
+          v15 = v44;
         }
 
         else
         {
-          if (SHIBYTE(v11->__pn_.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v10->__pn_.__r_.__value_.__r.__words[2]) < 0)
           {
-            std::string::__init_copy_ctor_external(v47, v11->__pn_.__r_.__value_.__l.__data_, v11->__pn_.__r_.__value_.__l.__size_);
+            std::string::__init_copy_ctor_external(v46, v10->__pn_.__r_.__value_.__l.__data_, v10->__pn_.__r_.__value_.__l.__size_);
           }
 
           else
           {
-            v19 = *&v11->__pn_.__r_.__value_.__l.__data_;
-            *(v47 + 16) = *(&v11->__pn_.__r_.__value_.__l + 2);
-            *v18 = v19;
+            v18 = *&v10->__pn_.__r_.__value_.__l.__data_;
+            *(v46 + 16) = *(&v10->__pn_.__r_.__value_.__l + 2);
+            *v17 = v18;
           }
 
-          v23 = v18 + 24;
+          v22 = v17 + 24;
         }
 
-        *&v47 = v23;
-        if ((v16 & 0x80) != 0)
+        *&v46 = v22;
+        if ((v15 & 0x80) != 0)
         {
           goto LABEL_63;
         }
       }
 
 LABEL_65:
-      std::__fs::filesystem::directory_iterator::__increment(&v43, 0);
+      std::__fs::filesystem::directory_iterator::__increment(&v42, 0);
     }
   }
 
@@ -2762,7 +2738,7 @@ LABEL_65:
   {
   }
 
-  v41 = skit::internal::get_logging_context(void)::logger;
+  v40 = skit::internal::get_logging_context(void)::logger;
   if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
   {
     if (SHIBYTE(v1->__pn_.__r_.__value_.__r.__words[2]) < 0)
@@ -2773,19 +2749,17 @@ LABEL_65:
     *__ec = 136446466;
     *&__ec[4] = v1;
     *&__ec[12] = 1024;
-    *&__ec[14] = v51;
-    _os_log_error_impl(&dword_2998C6000, v41, OS_LOG_TYPE_ERROR, "MultiIndexV2::open : failed to construct directory iterator %{public}s : %{darwin.errno}d", __ec, 0x12u);
+    *&__ec[14] = v50;
+    _os_log_error_impl(&dword_2998C6000, v40, OS_LOG_TYPE_ERROR, "MultiIndexV2::open : failed to construct directory iterator %{public}s : %{darwin.errno}d", __ec, 0x12u);
   }
 
   v3 = 0xFFFFFFFFLL;
 LABEL_79:
-  if (v50)
+  if (v49)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v50);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v49);
   }
 
-LABEL_14:
-  v8 = *MEMORY[0x29EDCA608];
   return v3;
 }
 
@@ -2874,7 +2848,7 @@ void sub_2998CB168(_Unwind_Exception *exception_object)
 
 skit::internal::IndexDiskImplV2 *skit::internal::IndexDiskImplV2::IndexDiskImplV2(skit::internal::IndexDiskImplV2 *this, std::__fs::filesystem::path *a2)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   if (SHIBYTE(a2->__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
     std::string::__init_copy_ctor_external(&__p, a2->__pn_.__r_.__value_.__l.__data_, a2->__pn_.__r_.__value_.__l.__size_);
@@ -2891,59 +2865,58 @@ skit::internal::IndexDiskImplV2 *skit::internal::IndexDiskImplV2::IndexDiskImplV
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  *&v13[7] = *(&a2->__pn_.__r_.__value_.__r.__words[1] + 7);
+  *&v12[7] = *(&a2->__pn_.__r_.__value_.__r.__words[1] + 7);
   v4 = a2->__pn_.__r_.__value_.__r.__words[0];
-  *v13 = a2->__pn_.__r_.__value_.__l.__size_;
-  v5 = *v13;
+  *v12 = a2->__pn_.__r_.__value_.__l.__size_;
+  v5 = *v12;
   v6 = SHIBYTE(a2->__pn_.__r_.__value_.__r.__words[2]);
   a2->__pn_.__r_.__value_.__l.__size_ = 0;
   a2->__pn_.__r_.__value_.__r.__words[2] = 0;
   a2->__pn_.__r_.__value_.__r.__words[0] = 0;
   *(this + 21) = v4;
   *(this + 22) = v5;
-  *(this + 183) = *&v13[7];
+  *(this + 183) = *&v12[7];
   *(this + 191) = v6;
   *(this + 24) = 0;
   *(this + 25) = 0;
   *(this + 26) = 0;
   if (v6 < 0)
   {
-    std::string::__init_copy_ctor_external(&v11, v4, *(this + 22));
+    std::string::__init_copy_ctor_external(&v10, v4, *(this + 22));
   }
 
   else
   {
-    v11 = *(this + 7);
+    v10 = *(this + 7);
   }
 
-  std::string::append[abi:ne200100]<char const*,0>(&v11, ".xid", "");
-  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
+  std::string::append[abi:ne200100]<char const*,0>(&v10, ".xid", "");
+  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v12, v11.__r_.__value_.__l.__data_, v11.__r_.__value_.__l.__size_);
-    v7 = (v11.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0;
+    std::string::__init_copy_ctor_external(&v11, v10.__r_.__value_.__l.__data_, v10.__r_.__value_.__l.__size_);
+    v7 = (v10.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0;
   }
 
   else
   {
     v7 = 0;
-    v12 = v11;
+    v11 = v10;
   }
 
   *(this + 28) = 0;
   *(this + 29) = 0;
-  *(this + 10) = v12;
+  *(this + 10) = v11;
   *(this + 66) = -1;
   *(this + 134) = 416;
   *(this + 34) = 0x500000400;
   *(this + 35) = 10485760;
   if (v7)
   {
-    operator delete(v11.__r_.__value_.__l.__data_);
+    operator delete(v10.__r_.__value_.__l.__data_);
   }
 
   *(this + 36) = 0;
   *(this + 37) = 0;
-  v8 = *MEMORY[0x29EDCA608];
   return this;
 }
 
@@ -2961,122 +2934,115 @@ void sub_2998CB338(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t skit::internal::BlobFile::open(skit::internal::BlobFile *this, int a2, int a3, uint64_t a4)
 {
-  v22 = *MEMORY[0x29EDCA608];
-  if (*(this + 6) == -1)
+  v21 = *MEMORY[0x29EDCA608];
+  if (*(this + 6) != -1)
   {
-    v4 = this;
-    if (*(this + 23) < 0)
+    return 0;
+  }
+
+  v4 = this;
+  if (*(this + 23) < 0)
+  {
+    if (!*(this + 1))
     {
-      if (!*(this + 1))
-      {
-LABEL_14:
-        if (skit::internal::get_logging_context(void)::once != -1)
-        {
-        }
-
-        v8 = skit::internal::get_logging_context(void)::logger;
-        if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_21;
-        }
-
-        LOWORD(v21.st_dev) = 0;
-        v9 = "BlobFile::open : file path not set";
-        v10 = v8;
-        v11 = 2;
-LABEL_29:
-        _os_log_error_impl(&dword_2998C6000, v10, OS_LOG_TYPE_ERROR, v9, &v21, v11);
-LABEL_21:
-        result = 0xFFFFFFFFLL;
-        goto LABEL_12;
-      }
-
-      this = *this;
-    }
-
-    else if (!*(this + 23))
-    {
-      goto LABEL_14;
-    }
-
-    v5 = open_dprotected_np(this, a2, a3, 0, a4);
-    *(v4 + 6) = v5;
-    if (v5 < 0)
-    {
+LABEL_13:
       if (skit::internal::get_logging_context(void)::once != -1)
       {
       }
 
-      v12 = skit::internal::get_logging_context(void)::logger;
+      v7 = skit::internal::get_logging_context(void)::logger;
       if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_21;
+        return 0xFFFFFFFFLL;
       }
 
+      LOWORD(v20.st_dev) = 0;
+      v8 = "BlobFile::open : file path not set";
+      v9 = v7;
+      v10 = 2;
+LABEL_28:
+      _os_log_error_impl(&dword_2998C6000, v9, OS_LOG_TYPE_ERROR, v8, &v20, v10);
+      return 0xFFFFFFFFLL;
+    }
+
+    this = *this;
+  }
+
+  else if (!*(this + 23))
+  {
+    goto LABEL_13;
+  }
+
+  v5 = open_dprotected_np(this, a2, a3, 0, a4);
+  *(v4 + 6) = v5;
+  if (v5 < 0)
+  {
+    if (skit::internal::get_logging_context(void)::once != -1)
+    {
+    }
+
+    v11 = skit::internal::get_logging_context(void)::logger;
+    if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
+    {
+      return 0xFFFFFFFFLL;
+    }
+
+    if (*(v4 + 23) < 0)
+    {
+      v4 = *v4;
+    }
+
+    v13 = *__error();
+    v20.st_dev = 136446466;
+    *&v20.st_mode = v4;
+    WORD2(v20.st_ino) = 1024;
+    *(&v20.st_ino + 6) = v13;
+    v8 = "BlobFile::open : open blob file failed @ %{public}s : %{darwin.errno}d";
+    v9 = v11;
+    v10 = 18;
+    goto LABEL_28;
+  }
+
+  memset(&v20, 0, sizeof(v20));
+  if (fstat(v5, &v20))
+  {
+    if (skit::internal::get_logging_context(void)::once != -1)
+    {
+    }
+
+    v12 = skit::internal::get_logging_context(void)::logger;
+    if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
+    {
+      v14 = v4;
       if (*(v4 + 23) < 0)
       {
-        v4 = *v4;
+        v14 = *v4;
       }
 
-      v14 = *__error();
-      v21.st_dev = 136446466;
-      *&v21.st_mode = v4;
-      WORD2(v21.st_ino) = 1024;
-      *(&v21.st_ino + 6) = v14;
-      v9 = "BlobFile::open : open blob file failed @ %{public}s : %{darwin.errno}d";
-      v10 = v12;
-      v11 = 18;
-      goto LABEL_29;
+      v15 = *__error();
+      *buf = 136446466;
+      v17 = v14;
+      v18 = 1024;
+      v19 = v15;
+      _os_log_error_impl(&dword_2998C6000, v12, OS_LOG_TYPE_ERROR, "BlobFile::open : stat blob file failed @ %{public}s : %{darwin.errno}d", buf, 0x12u);
     }
 
-    memset(&v21, 0, sizeof(v21));
-    if (fstat(v5, &v21))
-    {
-      if (skit::internal::get_logging_context(void)::once != -1)
-      {
-      }
-
-      v13 = skit::internal::get_logging_context(void)::logger;
-      if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
-      {
-        v15 = v4;
-        if (*(v4 + 23) < 0)
-        {
-          v15 = *v4;
-        }
-
-        v16 = *__error();
-        *buf = 136446466;
-        v18 = v15;
-        v19 = 1024;
-        v20 = v16;
-        _os_log_error_impl(&dword_2998C6000, v13, OS_LOG_TYPE_ERROR, "BlobFile::open : stat blob file failed @ %{public}s : %{darwin.errno}d", buf, 0x12u);
-      }
-
-      close(*(v4 + 6));
-      result = 0xFFFFFFFFLL;
-      *(v4 + 6) = -1;
-    }
-
-    else
-    {
-      if (*(v4 + 8))
-      {
-        operator new[]();
-      }
-
-      result = 0;
-      *(v4 + 4) = v21.st_size;
-    }
+    close(*(v4 + 6));
+    result = 0xFFFFFFFFLL;
+    *(v4 + 6) = -1;
   }
 
   else
   {
+    if (*(v4 + 8))
+    {
+      operator new[]();
+    }
+
     result = 0;
+    *(v4 + 4) = v20.st_size;
   }
 
-LABEL_12:
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -3108,16 +3074,15 @@ void sub_2998CB7BC(_Unwind_Exception *exception_object)
 
 uint64_t skit::internal::MultiIndexV2::flush(skit::internal::MultiIndexV2 *this)
 {
-  v39 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   if (*(this + 27) == *(this + 28))
   {
-    v1 = 0;
-    goto LABEL_68;
+    return 0;
   }
 
   snprintf(__str, 0xFuLL, "index-%08x", *(this + 68));
   std::__fs::filesystem::path::path[abi:ne200100]<char [15],void>(&__p, __str);
-  std::__fs::filesystem::operator/[abi:ne200100](&v25, this, &__p);
+  std::__fs::filesystem::operator/[abi:ne200100](&v24, this, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -3130,10 +3095,10 @@ uint64_t skit::internal::MultiIndexV2::flush(skit::internal::MultiIndexV2 *this)
   v3 = skit::internal::get_logging_context(void)::logger;
   if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_INFO))
   {
-    v4 = &v25;
-    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v4 = &v24;
+    if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v4 = v25.__r_.__value_.__r.__words[0];
+      v4 = v24.__r_.__value_.__r.__words[0];
     }
 
     LODWORD(__p.__r_.__value_.__l.__data_) = 136446210;
@@ -3146,14 +3111,14 @@ uint64_t skit::internal::MultiIndexV2::flush(skit::internal::MultiIndexV2 *this)
     goto LABEL_63;
   }
 
-  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v24, v25.__r_.__value_.__l.__data_, v25.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v23, v24.__r_.__value_.__l.__data_, v24.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v24 = v25;
+    v23 = v24;
   }
 
   v5 = *(this + 73);
@@ -3170,33 +3135,33 @@ uint64_t skit::internal::MultiIndexV2::flush(skit::internal::MultiIndexV2 *this)
     _os_log_impl(&dword_2998C6000, v8, OS_LOG_TYPE_INFO, "IndexMemImplV2::make_disk_impl : writing index segment", &__p, 2u);
   }
 
-  v31 = 0;
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+  v30 = 0;
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v30, v24.__r_.__value_.__l.__data_, v24.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v29, v23.__r_.__value_.__l.__data_, v23.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v30 = v24;
+    v29 = v23;
   }
 
-  skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::KvStore(&__p, &v30, skit::default_kv_store_config, unk_2A14C0D80);
-  if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+  skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::KvStore(&__p, &v29, skit::default_kv_store_config, unk_2A14C0D80);
+  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v30.__r_.__value_.__l.__data_);
+    operator delete(v29.__r_.__value_.__l.__data_);
   }
 
   skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::set_dp_class(&__p, v5);
-  v38 = v6 & 0x1FF;
-  if (v36 == -1)
+  v37 = v6 & 0x1FF;
+  if (v35 == -1)
   {
-    v37 = v7;
+    v36 = v7;
   }
 
-  if (v35)
+  if (v34)
   {
-    v9 = *(v35 + 28);
+    v9 = *(v34 + 28);
   }
 
   else
@@ -3222,10 +3187,10 @@ LABEL_50:
     v17 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      v19 = &v24;
-      if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v19 = &v23;
+      if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v19 = v24.__r_.__value_.__r.__words[0];
+        v19 = v23.__r_.__value_.__r.__words[0];
       }
 
       *buf = 136446466;
@@ -3251,17 +3216,17 @@ LABEL_50:
     }
 
     v13 = *(v12 + 8);
-    v26.__r_.__value_.__r.__words[0] = *(v12 + 7);
-    v26.__r_.__value_.__l.__size_ = 16;
-    v26.__r_.__value_.__r.__words[2] = v13;
+    v25.__r_.__value_.__r.__words[0] = *(v12 + 7);
+    v25.__r_.__value_.__l.__size_ = 16;
+    v25.__r_.__value_.__r.__words[2] = v13;
     v14 = *(v12 + 9);
-    v27 = 8 * *(v26.__r_.__value_.__r.__words[0] + 8);
-    v28 = v14;
-    v29 = 6 * *(v26.__r_.__value_.__r.__words[0] + 12);
+    v26 = 8 * *(v25.__r_.__value_.__r.__words[0] + 8);
+    v27 = v14;
+    v28 = 6 * *(v25.__r_.__value_.__r.__words[0] + 12);
     v15 = *(v12 + 6) >> 1;
     *buf = *(v12 + 2);
     *&buf[8] = v15;
-    if ((skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::put(&__p, buf, &v26) & 0x80000000) != 0)
+    if ((skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::put(&__p, buf, &v25) & 0x80000000) != 0)
     {
       goto LABEL_50;
     }
@@ -3279,20 +3244,20 @@ LABEL_50:
     goto LABEL_50;
   }
 
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v26, v24.__r_.__value_.__l.__data_, v24.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v25, v23.__r_.__value_.__l.__data_, v23.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v26 = v24;
+    v25 = v23;
   }
 
-  v16 = skit::internal::MemMetaStore::write((this + 96), &v26, v5, v6);
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
+  v16 = skit::internal::MemMetaStore::write((this + 96), &v25, v5, v6);
+  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v26.__r_.__value_.__l.__data_);
+    operator delete(v25.__r_.__value_.__l.__data_);
   }
 
   if (v16)
@@ -3304,8 +3269,8 @@ LABEL_50:
   v18 = 1;
 LABEL_54:
   skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::~KvStore(&__p);
-  std::unique_ptr<skit::internal::IndexDiskImplV2>::~unique_ptr[abi:ne200100](&v31);
-  if ((SHIBYTE(v24.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  std::unique_ptr<skit::internal::IndexDiskImplV2>::~unique_ptr[abi:ne200100](&v30);
+  if ((SHIBYTE(v23.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if ((v18 & 1) == 0)
     {
@@ -3316,7 +3281,7 @@ LABEL_58:
     operator new();
   }
 
-  operator delete(v24.__r_.__value_.__l.__data_);
+  operator delete(v23.__r_.__value_.__l.__data_);
   if (v18)
   {
     goto LABEL_58;
@@ -3330,29 +3295,27 @@ LABEL_63:
   v20 = skit::internal::get_logging_context(void)::logger;
   if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
   {
-    v23 = &v25;
-    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v22 = &v24;
+    if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v23 = v25.__r_.__value_.__r.__words[0];
+      v22 = v24.__r_.__value_.__r.__words[0];
     }
 
     LODWORD(__p.__r_.__value_.__l.__data_) = 136446210;
-    *(__p.__r_.__value_.__r.__words + 4) = v23;
+    *(__p.__r_.__value_.__r.__words + 4) = v22;
     _os_log_error_impl(&dword_2998C6000, v20, OS_LOG_TYPE_ERROR, "MultiIndexV2::flush : flush failed @ %{public}s", &__p, 0xCu);
   }
 
   v1 = 0xFFFFFFFFLL;
-  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v25.__r_.__value_.__l.__data_);
+    operator delete(v24.__r_.__value_.__l.__data_);
   }
 
-LABEL_68:
-  v21 = *MEMORY[0x29EDCA608];
   return v1;
 }
 
-void sub_2998CBF18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, void **a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, int a54, __int16 a55, char a56, char a57)
+void sub_2998CBF18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, int a54, __int16 a55, char a56, char a57)
 {
   skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::~KvStore(&a52);
   std::unique_ptr<skit::internal::IndexDiskImplV2>::~unique_ptr[abi:ne200100](&a45);
@@ -3401,7 +3364,7 @@ void std::vector<std::unique_ptr<skit::internal::IndexDiskImplV2>>::__destroy_ve
   }
 }
 
-uint64_t skit::internal::MultiIndexV2::close(void ****this)
+uint64_t *skit::internal::MultiIndexV2::close(void ****this)
 {
   skit::internal::MultiIndexV2::flush(this);
   v3 = this[3];
@@ -3411,7 +3374,7 @@ uint64_t skit::internal::MultiIndexV2::close(void ****this)
   this[4] = v3;
   skit::internal::IndexMemImplV2::clear((this + 6));
   *(this + 68) = 0;
-  result = std::vector<std::unique_ptr<skit::internal::IndexDiskImplV2>>::shrink_to_fit((this + 3));
+  result = std::vector<std::unique_ptr<skit::internal::IndexDiskImplV2>>::shrink_to_fit(this + 3);
   *(this + 288) = 0;
   return result;
 }
@@ -3606,11 +3569,11 @@ uint64_t skit::internal::BlobFile::clear(skit::internal::BlobFile *this, std::er
   return result;
 }
 
-uint64_t std::vector<std::unique_ptr<skit::internal::IndexDiskImplV2>>::shrink_to_fit(uint64_t result)
+uint64_t *std::vector<std::unique_ptr<skit::internal::IndexDiskImplV2>>::shrink_to_fit(uint64_t *result)
 {
-  v1 = *(result + 8);
+  v1 = result[1];
   v2 = *result;
-  v3 = *(result + 16) - *result;
+  v3 = result[2] - *result;
   v4 = v1 - *result;
   if (v3 > v4)
   {
@@ -3629,7 +3592,7 @@ uint64_t std::vector<std::unique_ptr<skit::internal::IndexDiskImplV2>>::shrink_t
     v15 = 0;
     if (v3 >> 3)
     {
-      v8 = *(result + 8) - v2;
+      v8 = result[1] - v2;
       v9 = v7 - v8;
       memcpy((v7 - v8), v2, v8);
       v10 = *v5;
@@ -3702,64 +3665,60 @@ uint64_t skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>
 
 uint64_t skit::internal::BlobFile::close(skit::internal::BlobFile *this)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   if ((*(this + 6) & 0x80000000) != 0)
   {
-    v2 = 0;
+    return 0;
+  }
+
+  v2 = skit::internal::BlobFile::flush_internal_cache(this);
+  if (close(*(this + 6)))
+  {
+    if (skit::internal::get_logging_context(void)::once != -1)
+    {
+    }
+
+    v5 = skit::internal::get_logging_context(void)::logger;
+    if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
+    {
+      v6 = this;
+      if (*(this + 23) < 0)
+      {
+        v6 = *this;
+      }
+
+      v7 = *__error();
+      v8 = 136446466;
+      v9 = v6;
+      v10 = 1024;
+      v11 = v7;
+      _os_log_error_impl(&dword_2998C6000, v5, OS_LOG_TYPE_ERROR, "BlobFile::close : blob file close failed @ %{public}s : %{darwin.errno}d", &v8, 0x12u);
+    }
+
+    v2 = 0xFFFFFFFFLL;
+  }
+
+  v3 = *(this + 6);
+  *(this + 6) = 0;
+  if (v3)
+  {
+    MEMORY[0x29C2A31E0](v3, 0x1000C8077774924);
+  }
+
+  *(this + 6) = -1;
+  *(this + 4) = 0;
+  if (*(this + 23) < 0)
+  {
+    **this = 0;
+    *(this + 1) = 0;
   }
 
   else
   {
-    v2 = skit::internal::BlobFile::flush_internal_cache(this);
-    if (close(*(this + 6)))
-    {
-      if (skit::internal::get_logging_context(void)::once != -1)
-      {
-      }
-
-      v6 = skit::internal::get_logging_context(void)::logger;
-      if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
-      {
-        v7 = this;
-        if (*(this + 23) < 0)
-        {
-          v7 = *this;
-        }
-
-        v8 = *__error();
-        v9 = 136446466;
-        v10 = v7;
-        v11 = 1024;
-        v12 = v8;
-        _os_log_error_impl(&dword_2998C6000, v6, OS_LOG_TYPE_ERROR, "BlobFile::close : blob file close failed @ %{public}s : %{darwin.errno}d", &v9, 0x12u);
-      }
-
-      v2 = 0xFFFFFFFFLL;
-    }
-
-    v3 = *(this + 6);
-    *(this + 6) = 0;
-    if (v3)
-    {
-      MEMORY[0x29C2A31E0](v3, 0x1000C8077774924);
-    }
-
-    *(this + 6) = -1;
-    *(this + 4) = 0;
-    if (*(this + 23) < 0)
-    {
-      **this = 0;
-      *(this + 1) = 0;
-    }
-
-    else
-    {
-      *this = 0;
-      *(this + 23) = 0;
-    }
+    *this = 0;
+    *(this + 23) = 0;
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
@@ -3851,7 +3810,7 @@ uint64_t std::__split_buffer<std::unique_ptr<skit::internal::IndexDiskImplV2>>::
   return a1;
 }
 
-void std::vector<std::__fs::filesystem::path>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::__fs::filesystem::path>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -3908,12 +3867,10 @@ void skit::internal::MetaStoreHeader::base_id(skit::internal::MetaStoreHeader *t
 
 uint64_t skit::IndexReader::open(skit::IndexReader *this)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v1 = *this;
   if (!*this)
   {
-LABEL_12:
-    v8 = *MEMORY[0x29EDCA608];
     return 0xFFFFFFFFLL;
   }
 
@@ -3930,7 +3887,7 @@ LABEL_12:
     {
     }
 
-    v7 = skit::internal::get_logging_context(void)::logger;
+    v6 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
       if (*(v1 + 191) < 0)
@@ -3938,28 +3895,25 @@ LABEL_12:
         v2 = *v2;
       }
 
-      v9 = 136446210;
-      v10 = v2;
-      _os_log_error_impl(&dword_2998C6000, v7, OS_LOG_TYPE_ERROR, "IndexReaderImpl::open : index does not exist @ %{public}s", &v9, 0xCu);
+      v7 = 136446210;
+      v8 = v2;
+      _os_log_error_impl(&dword_2998C6000, v6, OS_LOG_TYPE_ERROR, "IndexReaderImpl::open : index does not exist @ %{public}s", &v7, 0xCu);
     }
 
-    goto LABEL_12;
+    return 0xFFFFFFFFLL;
   }
 
   v4 = skit::internal::MultiIndexV2::open((v1 + 168));
   LODWORD(result) = skit::KvStore<std::u16string_view,64u,skit::Hash32<std::u16string_view>,std::equal_to<void>>::open(v1);
   if (result >= v4)
   {
-    result = v4;
+    return v4;
   }
 
   else
   {
-    result = result;
+    return result;
   }
-
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 void skit::to_u16string(std::basic_string<char16_t> *this, uint64_t a2, std::basic_string<char16_t>::size_type __requested_capacity)
@@ -4261,10 +4215,10 @@ unint64_t skit::strip_bidi(const __int16 *a1)
   v5 = *(v1 + 23);
   if ((v5 & 0x8000000000000000) != 0)
   {
-    v5 = *(v1 + 1);
+    v5 = v1[1];
     if (v5 >= result)
     {
-      *(v1 + 1) = result;
+      v1[1] = result;
       v1 = *v1;
       goto LABEL_12;
     }
@@ -4274,7 +4228,7 @@ unint64_t skit::strip_bidi(const __int16 *a1)
   {
     *(v1 + 23) = result;
 LABEL_12:
-    v1[result] = 0;
+    *(v1 + result) = 0;
     return result;
   }
 
@@ -4346,7 +4300,7 @@ LABEL_14:
   return v3;
 }
 
-__n128 skit::Analyzer::dedup@<Q0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+__n128 skit::Analyzer::dedup@<Q0>(unsigned __int16 ***a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = *a1;
   v5 = a1[1];
@@ -4370,15 +4324,15 @@ __n128 skit::Analyzer::dedup@<Q0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 LABEL_24:
     if (v10 != v8)
     {
-      v19 = v10 + 6;
+      v19 = (v10 + 48);
 LABEL_26:
       if (v19 != v8)
       {
-        v20 = *(v10 + 23);
+        v20 = v10[23];
         v21 = v20;
         if (v20 < 0)
         {
-          v20 = v10[1];
+          v20 = *(v10 + 1);
         }
 
         do
@@ -4416,7 +4370,7 @@ LABEL_26:
             v26 = v20;
             while (*v24 == *v25)
             {
-              ++v25;
+              v25 += 2;
               ++v24;
               v26 = (v26 - 1);
               if (!v26)
@@ -4453,11 +4407,11 @@ LABEL_41:
       {
         do
         {
-          v28 = *(v10 + 23);
+          v28 = v10[23];
           v29 = v28;
           if (v28 < 0)
           {
-            v28 = v10[1];
+            v28 = *(v10 + 1);
           }
 
           v30 = *(v19 + 23);
@@ -4496,7 +4450,7 @@ LABEL_41:
 
             while (*v32 == *v33)
             {
-              ++v33;
+              v33 += 2;
               ++v32;
               v28 = (v28 - 1);
               if (!v28)
@@ -4506,23 +4460,23 @@ LABEL_41:
             }
           }
 
-          v34 = (v10 + 6);
-          if (*(v10 + 71) < 0)
+          v34 = (v10 + 48);
+          if (v10[71] < 0)
           {
             operator delete(*v34);
           }
 
           v35 = *v19;
-          v10[8] = v19[2];
+          *(v10 + 8) = v19[2];
           *v34 = v35;
           *(v19 + 23) = 0;
           *v19 = 0;
           v36 = *(v19 + 3);
-          v10[11] = v19[5];
-          *(v10 + 9) = v36;
+          *(v10 + 11) = v19[5];
+          *(v10 + 72) = v36;
           v19 += 6;
           v8 = a1[1];
-          v10 += 6;
+          v10 += 48;
         }
 
         while (v19 != v8);
@@ -4536,24 +4490,24 @@ LABEL_41:
   else
   {
     v11 = (v9 + 48);
-    if ((v9 + 48) != v8)
+    if (v9 + 48 != v8)
     {
       v10 = *a1;
       do
       {
         v12 = v11;
-        v13 = *(v10 + 23);
+        v13 = v10[23];
         v14 = v13;
-        if (v13 < 0)
+        if ((v13 & 0x80u) != 0)
         {
-          v13 = v10[1];
+          v13 = *(v10 + 1);
         }
 
-        v15 = *(v10 + 71);
+        v15 = v10[71];
         v16 = v15;
-        if (v15 < 0)
+        if ((v15 & 0x80u) != 0)
         {
-          v15 = v10[7];
+          v15 = *(v10 + 7);
         }
 
         if (v13 == v15)
@@ -4585,10 +4539,9 @@ LABEL_41:
 
           while (*v17 == *v18)
           {
-            ++v18;
+            v18 += 2;
             ++v17;
-            v13 = (v13 - 1);
-            if (!v13)
+            if (!--v13)
             {
               goto LABEL_24;
             }
@@ -4613,10 +4566,10 @@ LABEL_41:
   return result;
 }
 
-uint64_t skit::internal::AliasImpl::span_match_alias(uint64_t a1, uint64_t a2, uint64_t *a3, unsigned int a4, unsigned int a5, uint64_t a6, uint64_t a7)
+uint64_t skit::internal::AliasImpl::span_match_alias(uint64_t a1, __int128 **a2, uint64_t *a3, unsigned int a4, unsigned int a5, uint64_t a6, void **a7)
 {
-  v65[2] = *MEMORY[0x29EDCA608];
-  v54 = a4;
+  v63[2] = *MEMORY[0x29EDCA608];
+  v52 = a4;
   v9 = *a3 + 48 * a4;
   v10 = *(v9 + 23);
   if (v10 < 0)
@@ -4625,7 +4578,7 @@ uint64_t skit::internal::AliasImpl::span_match_alias(uint64_t a1, uint64_t a2, u
     v10 = *(*a3 + 48 * a4 + 8);
   }
 
-  v56 = 2 * v10;
+  v54 = 2 * v10;
   marisa::Agent::set_query(a6, v9);
   if (a5 <= a4 + 1)
   {
@@ -4637,14 +4590,14 @@ uint64_t skit::internal::AliasImpl::span_match_alias(uint64_t a1, uint64_t a2, u
     v11 = a5;
   }
 
-  v55 = v11;
+  v53 = v11;
 LABEL_7:
   while (1)
   {
     result = marisa::Trie::predictive_search((a1 + 56), a6);
     if (!result)
     {
-      break;
+      return result;
     }
 
     v13 = *(a6 + 32);
@@ -4654,7 +4607,7 @@ LABEL_7:
     }
 
     v14 = *(a6 + 24);
-    v15 = (v14 + v56);
+    v15 = (v14 + v54);
     v16 = *a3;
     v17 = v14 + v13;
     v18 = a4;
@@ -4721,53 +4674,52 @@ LABEL_17:
       }
     }
 
-    v19 = v55;
+    v19 = v53;
     if (*v15)
     {
       continue;
     }
 
 LABEL_25:
-    v27 = *(a2 + 8);
-    v28 = (v15 + 4);
+    v27 = *(a2 + 2);
+    v28 = v15 + 4;
     v29 = v14 + v13;
     if ((v15 + 4) < v29)
     {
       v30 = *(v15 + 1);
-      v31 = v54 | (v19 << 32);
+      v31 = v52 | (v19 << 32);
       do
       {
-        v32 = *v28;
         marisa::Agent::set_query(a7);
         marisa::Trie::reverse_lookup((a1 + 48), a7);
-        std::basic_string<char16_t>::basic_string[abi:ne200100](&__p, *(a7 + 24), *(a7 + 32) >> 1);
-        v33 = __p;
-        v64[0] = v63;
-        *(v64 + 7) = *(&v63 + 7);
-        v34 = HIBYTE(v63);
+        std::basic_string<char16_t>::basic_string[abi:ne200100](&__p, a7[3], *(a7 + 8) >> 1);
+        v32 = __p;
+        v62[0] = v61;
+        *(v62 + 7) = *(&v61 + 7);
+        v33 = HIBYTE(v61);
         __p = 0;
-        v63 = 0uLL;
-        v35 = *(a2 + 8);
-        if (v35 == *(a2 + 12))
+        v61 = 0uLL;
+        v34 = *(a2 + 2);
+        if (v34 == *(a2 + 3))
         {
-          skit::SmallVector<skit::AliasMatch,2u,true>::_reserve_more(a2, v35 + (v35 >> 1) + 1);
-          v35 = *(a2 + 8);
+          skit::SmallVector<skit::AliasMatch,2u,true>::_reserve_more(a2, v34 + (v34 >> 1) + 1);
+          v34 = *(a2 + 2);
         }
 
-        v36 = *a2 + 40 * v35;
-        v65[0] = v64[0];
-        *(v65 + 7) = *(v64 + 7);
-        v64[0] = 0;
-        *(v64 + 7) = 0;
-        v37 = v65[0];
-        *v36 = v33;
-        *(v36 + 8) = v37;
-        *(v36 + 15) = *(v65 + 7);
-        *(v36 + 23) = v34;
-        *(v36 + 24) = v31;
-        *(v36 + 32) = v30;
-        ++*(a2 + 8);
-        if (SHIBYTE(v63) < 0)
+        v35 = *a2 + 40 * v34;
+        v63[0] = v62[0];
+        *(v63 + 7) = *(v62 + 7);
+        v62[0] = 0;
+        *(v62 + 7) = 0;
+        v36 = v63[0];
+        *v35 = v32;
+        *(v35 + 8) = v36;
+        *(v35 + 15) = *(v63 + 7);
+        *(v35 + 23) = v33;
+        *(v35 + 24) = v31;
+        *(v35 + 32) = v30;
+        ++*(a2 + 2);
+        if (SHIBYTE(v61) < 0)
         {
           operator delete(__p);
         }
@@ -4780,99 +4732,96 @@ LABEL_25:
 
     if (v27)
     {
-      v38 = 0;
-      v39 = (*a2 + 28);
+      v37 = 0;
+      v38 = *a2 + 7;
       while (1)
       {
-        v40 = *v39;
-        v39 += 10;
-        if (v40 > a4)
+        v39 = *v38;
+        v38 += 10;
+        if (v39 > a4)
         {
           break;
         }
 
-        if (v27 == ++v38)
+        if (v27 == ++v37)
         {
           goto LABEL_7;
         }
       }
 
-      v41 = v38;
+      v40 = v37;
       while (1)
       {
         while (1)
         {
-          LODWORD(v42) = *(a2 + 8);
-          if (v27 < v42)
+          LODWORD(v41) = *(a2 + 2);
+          if (v27 < v41)
           {
             break;
           }
 
 LABEL_57:
-          if (++v41 >= v27)
+          if (++v40 >= v27)
           {
             goto LABEL_7;
           }
         }
 
-        v43 = v27;
+        v42 = v27;
         while (1)
         {
           while (1)
           {
-            v44 = *a2 + 40 * v41;
-            v45 = *a2 + 40 * v43;
-            if (*(v44 + 32) != *(v45 + 32))
+            v43 = *a2 + 40 * v40;
+            v44 = *a2 + 40 * v42;
+            if (*(v43 + 32) != *(v44 + 32))
             {
               goto LABEL_56;
             }
 
-            v46 = *(v44 + 24);
-            v47 = *(v44 + 28);
-            v48 = *(v45 + 24);
-            v49 = *(v45 + 28);
-            if (v46 == v48 && v47 == v49)
+            v45 = *(v43 + 24);
+            v46 = *(v43 + 28);
+            v47 = *(v44 + 24);
+            v48 = *(v44 + 28);
+            if (v45 == v47 && v46 == v48)
             {
               goto LABEL_56;
             }
 
-            if (v48 < v46 || v49 > v47)
+            if (v47 < v45 || v48 > v46)
             {
               break;
             }
 
-            skit::SmallVector<skit::AliasMatch,2u,true>::erase(a2, *a2 + 40 * v43);
-            v42 = *(a2 + 8);
-            if (v43 >= v42)
+            skit::SmallVector<skit::AliasMatch,2u,true>::erase(a2, *a2 + 40 * v42);
+            v41 = *(a2 + 2);
+            if (v42 >= v41)
             {
               goto LABEL_57;
             }
           }
 
-          if (v46 >= v48 && v47 <= v49)
+          if (v45 >= v47 && v46 <= v48)
           {
             break;
           }
 
 LABEL_56:
-          if (++v43 >= v42)
+          if (++v42 >= v41)
           {
             goto LABEL_57;
           }
         }
 
-        skit::SmallVector<skit::AliasMatch,2u,true>::erase(a2, v44);
+        skit::SmallVector<skit::AliasMatch,2u,true>::erase(a2, v43);
         v27 = (v27 - 1);
-        if (v41 == v27)
+        if (v40 == v27)
         {
           goto LABEL_7;
         }
       }
     }
   }
-
-  v53 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 void sub_2998CD898(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -4890,7 +4839,7 @@ void sub_2998CD898(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::basic_string<char16_t>::basic_string[abi:ne200100](_BYTE *__dst, void *__src, unint64_t a3)
+void *std::basic_string<char16_t>::basic_string[abi:ne200100](void *__dst, void *__src, unint64_t a3)
 {
   if (a3 >= 0xB)
   {
@@ -4907,13 +4856,13 @@ _BYTE *std::basic_string<char16_t>::basic_string[abi:ne200100](_BYTE *__dst, voi
     std::__allocate_at_least[abi:ne200100]<std::allocator<char16_t>>(v6);
   }
 
-  __dst[23] = a3;
+  *(__dst + 23) = a3;
   if (a3)
   {
     memmove(__dst, __src, 2 * a3);
   }
 
-  *&__dst[2 * a3] = 0;
+  *(__dst + a3) = 0;
   return __dst;
 }
 
@@ -4937,19 +4886,19 @@ size_t skit::SmallVector<skit::AliasMatch,2u,true>::_reserve_more(__int128 **a1,
     do
     {
       v9 = *v8;
-      *(v7 + 2) = *(v8 + 2);
+      *(v7 + 2) = *(v8 + 16);
       *v7 = v9;
-      *(v8 + 1) = 0;
-      *(v8 + 2) = 0;
+      *(v8 + 8) = 0;
+      *(v8 + 16) = 0;
       *v8 = 0;
-      v10 = *(v8 + 3);
-      *(v7 + 16) = *(v8 + 16);
+      v10 = *(v8 + 24);
+      *(v7 + 16) = *(v8 + 32);
       *(v7 + 3) = v10;
       v7 = (v7 + 40);
-      v8 = (v8 + 40);
+      v8 += 40;
     }
 
-    while (v8 != (v5 + 40 * v6));
+    while (v8 != v5 + 40 * v6);
     v11 = 40 * v6;
     do
     {
@@ -4958,7 +4907,7 @@ size_t skit::SmallVector<skit::AliasMatch,2u,true>::_reserve_more(__int128 **a1,
         operator delete(*v5);
       }
 
-      v5 = (v5 + 40);
+      v5 += 40;
       v11 -= 40;
     }
 
@@ -4966,7 +4915,7 @@ size_t skit::SmallVector<skit::AliasMatch,2u,true>::_reserve_more(__int128 **a1,
     v5 = *a1;
   }
 
-  if (v5 != (a1 + 2))
+  if (v5 != a1 + 2)
   {
     free(v5);
   }
@@ -5006,7 +4955,7 @@ void sub_2998CDAFC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t skit::IndexWriter::append(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, iovec *a5, int a6, float a7)
+uint64_t skit::IndexWriter::append(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, iovec *a5, uint64_t a6, float a7)
 {
   v7 = *a1;
   if (!*a1)
@@ -5153,11 +5102,11 @@ LABEL_13:
   return (0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v4 ^ ((0x9DDFEA08EB382D69 * (v4 ^ *a1)) >> 47) ^ (0x9DDFEA08EB382D69 * (v4 ^ *a1)))) ^ ((0x9DDFEA08EB382D69 * (v4 ^ ((0x9DDFEA08EB382D69 * (v4 ^ *a1)) >> 47) ^ (0x9DDFEA08EB382D69 * (v4 ^ *a1)))) >> 47))) ^ v3;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,false>(uint64_t a1, void **a2, uint64_t a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,false>(char *a1, void **a2, uint64_t a3, char a4)
 {
-  v376[2] = *MEMORY[0x29EDCA608];
+  v371[2] = *MEMORY[0x29EDCA608];
 LABEL_2:
-  v369 = a2 - 6;
+  v364 = (a2 - 6);
   v7 = a1;
   while (1)
   {
@@ -5170,19 +5119,16 @@ LABEL_2:
       switch(v9)
       {
         case 3:
-          v170 = *MEMORY[0x29EDCA608];
 
-          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, a1 + 48, v369);
+          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, a1 + 24, v364);
           return;
         case 4:
-          v175 = *MEMORY[0x29EDCA608];
 
-          std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, a1 + 48, a1 + 96, v369);
+          std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, a1 + 24, a1 + 48, v364);
           return;
         case 5:
-          v174 = *MEMORY[0x29EDCA608];
 
-          std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, a1 + 48, a1 + 96, a1 + 144, v369);
+          std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, a1 + 24, a1 + 48, a1 + 72, v364);
           return;
       }
 
@@ -5191,7 +5137,7 @@ LABEL_2:
 
     if (v9 < 2)
     {
-      goto LABEL_619;
+      return;
     }
 
     if (v9 == 2)
@@ -5206,468 +5152,468 @@ LABEL_10:
       {
         if (a1 == a2)
         {
-          goto LABEL_619;
+          return;
         }
 
-        v176 = a1 + 48;
-        if ((a1 + 48) == a2)
+        v172 = a1 + 48;
+        if (a1 + 48 == a2)
         {
-          goto LABEL_619;
+          return;
         }
 
-        v177 = a1;
+        v173 = a1;
         while (1)
         {
-          v178 = v177;
-          v177 = v176;
-          v179 = v178[42];
-          v180 = v178[18];
-          if (v179 < v180)
+          v174 = v173;
+          v173 = v172;
+          v175 = *(v174 + 42);
+          v176 = *(v174 + 18);
+          if (v175 < v176)
           {
             goto LABEL_306;
           }
 
-          if (v179 <= v180)
+          if (v175 <= v176)
           {
-            v195 = *(v178 + 23);
-            v196 = v195;
-            if ((v195 & 0x80u) != 0)
+            v191 = v174[23];
+            v192 = v191;
+            if ((v191 & 0x80u) != 0)
             {
-              v195 = *(v178 + 1);
+              v191 = *(v174 + 1);
             }
 
-            v197 = *(v178 + 71);
-            v198 = v197;
-            if ((v197 & 0x80u) != 0)
+            v193 = v174[71];
+            v194 = v193;
+            if ((v193 & 0x80u) != 0)
             {
-              v197 = *(v178 + 7);
+              v193 = *(v174 + 7);
             }
 
-            if (v195 >= v197)
+            if (v191 >= v193)
             {
-              v199 = v197;
+              v195 = v193;
             }
 
             else
             {
-              v199 = v195;
+              v195 = v191;
             }
 
-            if (v199)
+            if (v195)
             {
-              if (v198 >= 0)
+              if (v194 >= 0)
               {
-                v200 = v177;
+                v196 = v173;
               }
 
               else
               {
-                v200 = *v177;
+                v196 = *v173;
               }
 
-              if (v196 >= 0)
+              if (v192 >= 0)
               {
-                v201 = v178;
+                v197 = v174;
               }
 
               else
               {
-                v201 = *v178;
+                v197 = *v174;
               }
 
               while (1)
               {
-                v202 = *v200;
-                v203 = *v201;
-                if (v202 < v203)
+                v198 = *v196;
+                v199 = *v197;
+                if (v198 < v199)
                 {
                   break;
                 }
 
-                if (v203 < v202)
+                if (v199 < v198)
                 {
                   goto LABEL_359;
                 }
 
-                ++v200;
-                ++v201;
-                if (!--v199)
+                v196 += 2;
+                v197 += 2;
+                if (!--v195)
                 {
                   goto LABEL_352;
                 }
               }
 
 LABEL_306:
-              v181 = *v177;
-              v371 = *(v177 + 2);
-              v370 = v181;
-              *(v177 + 1) = 0;
-              *(v177 + 2) = 0;
-              *v177 = 0;
-              v372 = *(v178 + 36);
-              v373 = *(v178 + 11);
-              v182 = WORD6(v372);
-              if (v371 >= 0)
+              v177 = *v173;
+              v366 = *(v173 + 2);
+              v365 = v177;
+              *(v173 + 1) = 0;
+              *(v173 + 2) = 0;
+              *v173 = 0;
+              v367 = *(v174 + 72);
+              v368 = *(v174 + 11);
+              v178 = WORD6(v367);
+              if (v366 >= 0)
               {
-                v183 = HIBYTE(v371);
+                v179 = HIBYTE(v366);
               }
 
               else
               {
-                v183 = *(&v370 + 1);
+                v179 = *(&v365 + 1);
               }
 
-              if (v371 >= 0)
+              if (v366 >= 0)
               {
-                v184 = &v370;
+                v180 = &v365;
               }
 
               else
               {
-                v184 = v370;
+                v180 = v365;
               }
 
-              v185 = v177;
+              v181 = v173;
               while (1)
               {
-                v186 = v178;
-                if (*(v185 + 23) < 0)
+                v182 = v174;
+                if (v181[23] < 0)
                 {
-                  operator delete(*v185);
+                  operator delete(*v181);
                 }
 
-                *v185 = *v186;
-                *(v185 + 2) = *(v186 + 2);
-                *(v186 + 23) = 0;
-                *v186 = 0;
-                *(v185 + 12) = *(v186 + 12);
-                *(v185 + 5) = *(v186 + 5);
-                if (v186 == a1)
+                *v181 = *v182;
+                *(v181 + 2) = *(v182 + 2);
+                v182[23] = 0;
+                *v182 = 0;
+                *(v181 + 24) = *(v182 + 24);
+                *(v181 + 5) = *(v182 + 5);
+                if (v182 == a1)
                 {
                   break;
                 }
 
-                v178 = v186 - 24;
-                v187 = *(v186 - 6);
-                v185 = v186;
-                if (v182 >= v187)
+                v174 = v182 - 48;
+                v183 = *(v182 - 6);
+                v181 = v182;
+                if (v178 >= v183)
                 {
-                  if (v182 > v187)
+                  if (v178 > v183)
                   {
                     goto LABEL_354;
                   }
 
-                  v188 = *(v186 - 25);
-                  v189 = v188;
-                  if ((v188 & 0x80u) != 0)
+                  v184 = *(v182 - 25);
+                  v185 = v184;
+                  if ((v184 & 0x80u) != 0)
                   {
-                    v188 = *(v186 - 5);
+                    v184 = *(v182 - 5);
                   }
 
-                  if (v188 >= v183)
+                  if (v184 >= v179)
                   {
-                    v190 = v183;
+                    v186 = v179;
                   }
 
                   else
                   {
-                    v190 = v188;
+                    v186 = v184;
                   }
 
-                  if (v190)
+                  if (v186)
                   {
-                    if (v189 >= 0)
+                    if (v185 >= 0)
                     {
-                      v191 = v186 - 24;
+                      v187 = v182 - 48;
                     }
 
                     else
                     {
-                      v191 = *v178;
+                      v187 = *v174;
                     }
 
-                    v192 = v184;
+                    v188 = v180;
                     while (1)
                     {
-                      v193 = *v192;
-                      v194 = *v191;
-                      if (v193 < v194)
+                      v189 = *v188;
+                      v190 = *v187;
+                      if (v189 < v190)
                       {
                         break;
                       }
 
-                      if (v194 < v193)
+                      if (v190 < v189)
                       {
                         goto LABEL_354;
                       }
 
-                      ++v192;
-                      ++v191;
-                      if (!--v190)
+                      ++v188;
+                      v187 += 2;
+                      if (!--v186)
                       {
                         goto LABEL_331;
                       }
                     }
 
-                    v185 = v186;
+                    v181 = v182;
                   }
 
                   else
                   {
 LABEL_331:
-                    v185 = v186;
-                    if (v183 >= v188)
+                    v181 = v182;
+                    if (v179 >= v184)
                     {
 LABEL_354:
-                      v204 = v186;
+                      v200 = v182;
                       goto LABEL_356;
                     }
                   }
                 }
               }
 
-              v204 = a1;
+              v200 = a1;
 LABEL_356:
-              if (*(v204 + 23) < 0)
+              if (v200[23] < 0)
               {
-                operator delete(*v204);
+                operator delete(*v200);
               }
 
-              v205 = v370;
-              *(v204 + 16) = v371;
-              *v204 = v205;
-              v206 = v372;
-              *(v186 + 5) = v373;
-              *(v186 + 12) = v206;
+              v201 = v365;
+              *(v200 + 2) = v366;
+              *v200 = v201;
+              v202 = v367;
+              *(v182 + 5) = v368;
+              *(v182 + 24) = v202;
               goto LABEL_359;
             }
 
 LABEL_352:
-            if (v197 < v195)
+            if (v193 < v191)
             {
               goto LABEL_306;
             }
           }
 
 LABEL_359:
-          v176 = (v177 + 24);
-          if (v177 + 24 == a2)
+          v172 = v173 + 48;
+          if (v173 + 48 == a2)
           {
-            goto LABEL_619;
+            return;
           }
         }
       }
 
       if (a1 == a2)
       {
-        goto LABEL_619;
+        return;
       }
 
-      v338 = a1 + 48;
-      if ((a1 + 48) == a2)
+      v334 = a1 + 48;
+      if (a1 + 48 == a2)
       {
-        goto LABEL_619;
+        return;
       }
 
       while (1)
       {
-        v339 = a1;
-        a1 = v338;
-        v340 = v339[42];
-        v341 = v339[18];
-        if (v340 < v341)
+        v335 = a1;
+        a1 = v334;
+        v336 = *(v335 + 42);
+        v337 = *(v335 + 18);
+        if (v336 < v337)
         {
           goto LABEL_569;
         }
 
-        if (v340 <= v341)
+        if (v336 <= v337)
         {
-          v358 = *(v339 + 23);
-          v359 = v358;
-          if ((v358 & 0x80u) != 0)
+          v354 = v335[23];
+          v355 = v354;
+          if ((v354 & 0x80u) != 0)
           {
-            v358 = *(v339 + 1);
+            v354 = *(v335 + 1);
           }
 
-          v360 = *(v339 + 71);
-          v361 = v360;
-          if ((v360 & 0x80u) != 0)
+          v356 = v335[71];
+          v357 = v356;
+          if ((v356 & 0x80u) != 0)
           {
-            v360 = *(v339 + 7);
+            v356 = *(v335 + 7);
           }
 
-          if (v358 >= v360)
+          if (v354 >= v356)
           {
-            v362 = v360;
+            v358 = v356;
           }
 
           else
           {
-            v362 = v358;
+            v358 = v354;
           }
 
-          if (v362)
+          if (v358)
           {
-            if (v361 >= 0)
+            if (v357 >= 0)
             {
-              v363 = a1;
+              v359 = a1;
             }
 
             else
             {
-              v363 = *a1;
+              v359 = *a1;
             }
 
-            if (v359 >= 0)
+            if (v355 >= 0)
             {
-              v364 = v339;
+              v360 = v335;
             }
 
             else
             {
-              v364 = *v339;
+              v360 = *v335;
             }
 
             while (1)
             {
-              v365 = *v363;
-              v366 = *v364;
-              if (v365 < v366)
+              v361 = *v359;
+              v362 = *v360;
+              if (v361 < v362)
               {
                 break;
               }
 
-              if (v366 < v365)
+              if (v362 < v361)
               {
                 goto LABEL_618;
               }
 
-              ++v363;
-              ++v364;
-              if (!--v362)
+              v359 += 2;
+              v360 += 2;
+              if (!--v358)
               {
                 goto LABEL_617;
               }
             }
 
 LABEL_569:
-            v342 = *a1;
-            v371 = *(a1 + 16);
-            v370 = v342;
-            *(a1 + 8) = 0;
-            *(a1 + 16) = 0;
+            v338 = *a1;
+            v366 = *(a1 + 2);
+            v365 = v338;
+            *(a1 + 1) = 0;
+            *(a1 + 2) = 0;
             *a1 = 0;
-            v372 = *(v339 + 36);
-            v373 = *(v339 + 11);
-            v343 = WORD6(v372);
-            if (v371 >= 0)
+            v367 = *(v335 + 72);
+            v368 = *(v335 + 11);
+            v339 = WORD6(v367);
+            if (v366 >= 0)
             {
-              v344 = HIBYTE(v371);
+              v340 = HIBYTE(v366);
             }
 
             else
             {
-              v344 = *(&v370 + 1);
+              v340 = *(&v365 + 1);
             }
 
-            if (v371 >= 0)
+            if (v366 >= 0)
             {
-              v345 = &v370;
+              v341 = &v365;
             }
 
             else
             {
-              v345 = v370;
+              v341 = v365;
             }
 
-            v346 = a1;
+            v342 = a1;
             while (1)
             {
               do
               {
-                v347 = v339;
-                if (*(v346 + 23) < 0)
+                v343 = v335;
+                if (v342[23] < 0)
                 {
-                  operator delete(*v346);
+                  operator delete(*v342);
                 }
 
-                *v346 = *v347;
-                *(v346 + 16) = *(v347 + 2);
-                *(v347 + 23) = 0;
-                *v347 = 0;
-                *(v346 + 24) = *(v347 + 12);
-                *(v346 + 40) = *(v347 + 5);
-                v339 = v347 - 24;
-                v348 = *(v347 - 6);
-                v346 = v347;
+                *v342 = *v343;
+                *(v342 + 2) = *(v343 + 2);
+                v343[23] = 0;
+                *v343 = 0;
+                *(v342 + 24) = *(v343 + 24);
+                *(v342 + 5) = *(v343 + 5);
+                v335 = v343 - 48;
+                v344 = *(v343 - 6);
+                v342 = v343;
               }
 
-              while (v343 < v348);
-              if (v343 > v348)
+              while (v339 < v344);
+              if (v339 > v344)
               {
                 break;
               }
 
-              v349 = *(v347 - 25);
-              v350 = v349;
-              if ((v349 & 0x80u) != 0)
+              v345 = *(v343 - 25);
+              v346 = v345;
+              if ((v345 & 0x80u) != 0)
               {
-                v349 = *(v347 - 5);
+                v345 = *(v343 - 5);
               }
 
-              if (v349 >= v344)
+              if (v345 >= v340)
               {
-                v351 = v344;
+                v347 = v340;
               }
 
               else
               {
-                v351 = v349;
+                v347 = v345;
               }
 
-              if (v351)
+              if (v347)
               {
-                if (v350 >= 0)
+                if (v346 >= 0)
                 {
-                  v352 = v347 - 24;
+                  v348 = v343 - 48;
                 }
 
                 else
                 {
-                  v352 = *v339;
+                  v348 = *v335;
                 }
 
-                v353 = v345;
+                v349 = v341;
                 while (1)
                 {
-                  v354 = *v353;
-                  v355 = *v352;
-                  if (v354 < v355)
+                  v350 = *v349;
+                  v351 = *v348;
+                  if (v350 < v351)
                   {
                     break;
                   }
 
-                  if (v355 < v354)
+                  if (v351 < v350)
                   {
                     goto LABEL_596;
                   }
 
-                  ++v353;
-                  ++v352;
-                  if (!--v351)
+                  ++v349;
+                  v348 += 2;
+                  if (!--v347)
                   {
                     goto LABEL_593;
                   }
                 }
 
-                v346 = v347;
+                v342 = v343;
               }
 
               else
               {
 LABEL_593:
-                v346 = v347;
-                if (v344 >= v349)
+                v342 = v343;
+                if (v340 >= v345)
                 {
                   break;
                 }
@@ -5675,941 +5621,936 @@ LABEL_593:
             }
 
 LABEL_596:
-            if (*(v347 + 23) < 0)
+            if (v343[23] < 0)
             {
-              operator delete(*v347);
+              operator delete(*v343);
             }
 
-            v356 = v370;
-            *(v347 + 2) = v371;
-            *v347 = v356;
-            v357 = v372;
-            *(v347 + 5) = v373;
-            *(v347 + 12) = v357;
+            v352 = v365;
+            *(v343 + 2) = v366;
+            *v343 = v352;
+            v353 = v367;
+            *(v343 + 5) = v368;
+            *(v343 + 24) = v353;
             goto LABEL_618;
           }
 
 LABEL_617:
-          if (v360 < v358)
+          if (v356 < v354)
           {
             goto LABEL_569;
           }
         }
 
 LABEL_618:
-        v338 = a1 + 48;
-        if ((a1 + 48) == a2)
+        v334 = a1 + 48;
+        if (a1 + 48 == a2)
         {
-          goto LABEL_619;
+          return;
         }
       }
     }
 
     if (!a3)
     {
-      if (a1 != a2)
+      if (a1 == a2)
       {
-        v207 = v10 >> 1;
-        v208 = v10 >> 1;
-        while (1)
+        return;
+      }
+
+      v203 = v10 >> 1;
+      v204 = v10 >> 1;
+      while (1)
+      {
+        v205 = v204;
+        if (v203 < v204)
         {
-          v209 = v208;
-          if (v207 < v208)
+          goto LABEL_456;
+        }
+
+        v206 = (2 * v204) | 1;
+        v207 = &a1[48 * v206];
+        if (2 * v205 + 2 < v9)
+        {
+          v208 = *(v207 + 18);
+          v209 = *(v207 + 42);
+          if (v208 < v209)
           {
-            goto LABEL_456;
+            goto LABEL_366;
           }
 
-          v210 = (2 * v208) | 1;
-          v211 = (a1 + 48 * v210);
-          if (2 * v209 + 2 < v9)
+          if (v208 <= v209)
           {
-            v212 = v211[18];
-            v213 = v211[42];
-            if (v212 < v213)
+            v210 = v207[71];
+            v211 = v210;
+            if ((v210 & 0x80u) != 0)
             {
-              goto LABEL_366;
+              v210 = *(v207 + 7);
             }
 
-            if (v212 <= v213)
+            v212 = v207[23];
+            v213 = v212;
+            if ((v212 & 0x80u) != 0)
             {
-              v214 = *(v211 + 71);
-              v215 = v214;
-              if ((v214 & 0x80u) != 0)
-              {
-                v214 = *(v211 + 7);
-              }
-
-              v216 = *(v211 + 23);
-              v217 = v216;
-              if ((v216 & 0x80u) != 0)
-              {
-                v216 = *(v211 + 1);
-              }
-
-              if (v214 >= v216)
-              {
-                v218 = v216;
-              }
-
-              else
-              {
-                v218 = v214;
-              }
-
-              if (v218)
-              {
-                if (v217 >= 0)
-                {
-                  v219 = (a1 + 48 * v210);
-                }
-
-                else
-                {
-                  v219 = *v211;
-                }
-
-                if (v215 >= 0)
-                {
-                  v220 = v211 + 24;
-                }
-
-                else
-                {
-                  v220 = *(v211 + 6);
-                }
-
-                while (1)
-                {
-                  v221 = *v219;
-                  v222 = *v220;
-                  if (v221 < v222)
-                  {
-                    break;
-                  }
-
-                  if (v222 < v221)
-                  {
-                    goto LABEL_386;
-                  }
-
-                  ++v219;
-                  ++v220;
-                  if (!--v218)
-                  {
-                    goto LABEL_385;
-                  }
-                }
-
-LABEL_366:
-                v211 += 24;
-                v210 = 2 * v209 + 2;
-                goto LABEL_386;
-              }
-
-LABEL_385:
-              if (v216 < v214)
-              {
-                goto LABEL_366;
-              }
-            }
-          }
-
-LABEL_386:
-          v223 = (a1 + 48 * v209);
-          v224 = v211[18];
-          v225 = *(v223 + 18);
-          if (v224 < v225)
-          {
-            goto LABEL_456;
-          }
-
-          if (v224 <= v225)
-          {
-            v226 = *(v223 + 23);
-            v227 = v226;
-            if (v226 < 0)
-            {
-              v226 = v223[1];
+              v212 = *(v207 + 1);
             }
 
-            v228 = *(v211 + 23);
-            v229 = v228;
-            if ((v228 & 0x80u) != 0)
+            if (v210 >= v212)
             {
-              v228 = *(v211 + 1);
-            }
-
-            if (v226 >= v228)
-            {
-              v230 = v228;
+              v214 = v212;
             }
 
             else
             {
-              v230 = v226;
+              v214 = v210;
             }
 
-            if (v230)
+            if (v214)
             {
-              if (v229 >= 0)
+              if (v213 >= 0)
               {
-                v231 = v211;
+                v215 = &a1[48 * v206];
               }
 
               else
               {
-                v231 = *v211;
+                v215 = *v207;
               }
 
-              if (v227 >= 0)
+              if (v211 >= 0)
               {
-                v232 = (a1 + 48 * v209);
+                v216 = (v207 + 48);
               }
 
               else
               {
-                v232 = *v223;
+                v216 = *(v207 + 6);
               }
 
               while (1)
               {
-                v233 = *v231;
-                v234 = *v232;
-                if (v233 < v234)
-                {
-                  goto LABEL_456;
-                }
-
-                if (v234 < v233)
+                v217 = *v215;
+                v218 = *v216;
+                if (v217 < v218)
                 {
                   break;
                 }
 
-                ++v231;
-                ++v232;
-                v230 = (v230 - 1);
-                if (!v230)
+                if (v218 < v217)
                 {
-                  goto LABEL_405;
+                  goto LABEL_386;
+                }
+
+                v215 += 2;
+                ++v216;
+                if (!--v214)
+                {
+                  goto LABEL_385;
                 }
               }
+
+LABEL_366:
+              v207 += 48;
+              v206 = 2 * v205 + 2;
+              goto LABEL_386;
+            }
+
+LABEL_385:
+            if (v212 < v210)
+            {
+              goto LABEL_366;
+            }
+          }
+        }
+
+LABEL_386:
+        v219 = &a1[48 * v205];
+        v220 = *(v207 + 18);
+        v221 = *(v219 + 18);
+        if (v220 < v221)
+        {
+          goto LABEL_456;
+        }
+
+        if (v220 <= v221)
+        {
+          v222 = v219[23];
+          v223 = v222;
+          if ((v222 & 0x80u) != 0)
+          {
+            v222 = *(v219 + 1);
+          }
+
+          v224 = v207[23];
+          v225 = v224;
+          if ((v224 & 0x80u) != 0)
+          {
+            v224 = *(v207 + 1);
+          }
+
+          if (v222 >= v224)
+          {
+            v226 = v224;
+          }
+
+          else
+          {
+            v226 = v222;
+          }
+
+          if (v226)
+          {
+            if (v225 >= 0)
+            {
+              v227 = v207;
             }
 
             else
             {
-LABEL_405:
-              if (v228 < v226)
+              v227 = *v207;
+            }
+
+            if (v223 >= 0)
+            {
+              v228 = &a1[48 * v205];
+            }
+
+            else
+            {
+              v228 = *v219;
+            }
+
+            while (1)
+            {
+              v229 = *v227;
+              v230 = *v228;
+              if (v229 < v230)
               {
                 goto LABEL_456;
+              }
+
+              if (v230 < v229)
+              {
+                break;
+              }
+
+              v227 += 2;
+              v228 += 2;
+              if (!--v226)
+              {
+                goto LABEL_405;
               }
             }
           }
 
-          v235 = *v223;
-          v371 = v223[2];
-          v370 = v235;
-          v223[1] = 0;
-          v223[2] = 0;
-          *v223 = 0;
-          v236 = *(v223 + 3);
-          v373 = v223[5];
-          v372 = v236;
-          while (1)
+          else
           {
-            v237 = v211;
-            if (*(v223 + 23) < 0)
+LABEL_405:
+            if (v224 < v222)
             {
-              operator delete(*v223);
+              goto LABEL_456;
             }
+          }
+        }
 
-            v238 = *v237;
-            v223[2] = v237[2];
-            *v223 = v238;
-            *(v237 + 23) = 0;
-            *v237 = 0;
-            v239 = *(v237 + 3);
-            v223[5] = v237[5];
-            *(v223 + 3) = v239;
-            if (v207 < v210)
-            {
-              break;
-            }
+        v231 = *v219;
+        v366 = *(v219 + 2);
+        v365 = v231;
+        *(v219 + 1) = 0;
+        *(v219 + 2) = 0;
+        *v219 = 0;
+        v232 = *(v219 + 24);
+        v368 = *(v219 + 5);
+        v367 = v232;
+        while (1)
+        {
+          v233 = v207;
+          if (v219[23] < 0)
+          {
+            operator delete(*v219);
+          }
 
-            v240 = 2 * v210;
-            v210 = (2 * v210) | 1;
-            v211 = (a1 + 48 * v210);
-            v241 = v240 + 2;
-            if (v241 < v9)
+          v234 = *v233;
+          *(v219 + 2) = *(v233 + 2);
+          *v219 = v234;
+          v233[23] = 0;
+          *v233 = 0;
+          v235 = *(v233 + 24);
+          *(v219 + 5) = *(v233 + 5);
+          *(v219 + 24) = v235;
+          if (v203 < v206)
+          {
+            break;
+          }
+
+          v236 = 2 * v206;
+          v206 = (2 * v206) | 1;
+          v207 = &a1[48 * v206];
+          v237 = v236 + 2;
+          if (v237 < v9)
+          {
+            v238 = *(v207 + 18);
+            v239 = *(v207 + 42);
+            if (v238 >= v239)
             {
-              v242 = v211[18];
-              v243 = v211[42];
-              if (v242 >= v243)
+              if (v238 > v239)
               {
-                if (v242 > v243)
-                {
-                  goto LABEL_432;
-                }
-
-                v244 = *(v211 + 71);
-                v245 = v244;
-                if ((v244 & 0x80u) != 0)
-                {
-                  v244 = *(v211 + 7);
-                }
-
-                v246 = *(v211 + 23);
-                v247 = v246;
-                if ((v246 & 0x80u) != 0)
-                {
-                  v246 = *(v211 + 1);
-                }
-
-                if (v244 >= v246)
-                {
-                  v248 = v246;
-                }
-
-                else
-                {
-                  v248 = v244;
-                }
-
-                if (v248)
-                {
-                  if (v247 >= 0)
-                  {
-                    v249 = (a1 + 48 * v210);
-                  }
-
-                  else
-                  {
-                    v249 = *v211;
-                  }
-
-                  if (v245 >= 0)
-                  {
-                    v250 = v211 + 24;
-                  }
-
-                  else
-                  {
-                    v250 = *(v211 + 6);
-                  }
-
-                  while (1)
-                  {
-                    v251 = *v249;
-                    v252 = *v250;
-                    if (v251 < v252)
-                    {
-                      break;
-                    }
-
-                    if (v252 < v251)
-                    {
-                      goto LABEL_432;
-                    }
-
-                    ++v249;
-                    ++v250;
-                    if (!--v248)
-                    {
-                      goto LABEL_431;
-                    }
-                  }
-                }
-
-                else
-                {
-LABEL_431:
-                  if (v246 >= v244)
-                  {
-                    goto LABEL_432;
-                  }
-                }
+                goto LABEL_432;
               }
 
-              v211 += 24;
-              v210 = v241;
-            }
-
-LABEL_432:
-            v253 = v211[18];
-            if (v253 < WORD6(v372))
-            {
-              break;
-            }
-
-            v223 = v237;
-            if (v253 <= WORD6(v372))
-            {
-              v254 = HIBYTE(v371);
-              if (v371 < 0)
+              v240 = v207[71];
+              v241 = v240;
+              if ((v240 & 0x80u) != 0)
               {
-                v254 = *(&v370 + 1);
+                v240 = *(v207 + 7);
               }
 
-              v255 = *(v211 + 23);
-              v256 = v255;
-              if ((v255 & 0x80u) != 0)
+              v242 = v207[23];
+              v243 = v242;
+              if ((v242 & 0x80u) != 0)
               {
-                v255 = *(v211 + 1);
+                v242 = *(v207 + 1);
               }
 
-              if (v254 >= v255)
+              if (v240 >= v242)
               {
-                v257 = v255;
+                v244 = v242;
               }
 
               else
               {
-                v257 = v254;
+                v244 = v240;
               }
 
-              if (v257)
+              if (v244)
               {
-                if (v256 >= 0)
+                if (v243 >= 0)
                 {
-                  v258 = v211;
+                  v245 = &a1[48 * v206];
                 }
 
                 else
                 {
-                  v258 = *v211;
+                  v245 = *v207;
                 }
 
-                v259 = &v370;
-                if (v371 < 0)
+                if (v241 >= 0)
                 {
-                  v259 = v370;
+                  v246 = (v207 + 48);
+                }
+
+                else
+                {
+                  v246 = *(v207 + 6);
                 }
 
                 while (1)
                 {
-                  v260 = *v258;
-                  v261 = *v259;
-                  if (v260 < v261)
-                  {
-                    goto LABEL_453;
-                  }
-
-                  if (v261 < v260)
+                  v247 = *v245;
+                  v248 = *v246;
+                  if (v247 < v248)
                   {
                     break;
                   }
 
-                  ++v258;
-                  ++v259;
-                  if (!--v257)
+                  if (v248 < v247)
                   {
-                    goto LABEL_450;
+                    goto LABEL_432;
+                  }
+
+                  v245 += 2;
+                  ++v246;
+                  if (!--v244)
+                  {
+                    goto LABEL_431;
                   }
                 }
-
-                v223 = v237;
               }
 
               else
               {
-LABEL_450:
-                v223 = v237;
-                if (v255 < v254)
+LABEL_431:
+                if (v242 >= v240)
                 {
-                  break;
+                  goto LABEL_432;
                 }
               }
             }
+
+            v207 += 48;
+            v206 = v237;
           }
 
-LABEL_453:
-          if (*(v237 + 23) < 0)
+LABEL_432:
+          v249 = *(v207 + 18);
+          if (v249 < WORD6(v367))
           {
-            operator delete(*v237);
+            break;
           }
 
-          v262 = v370;
-          v237[2] = v371;
-          *v237 = v262;
-          v263 = v372;
-          v237[5] = v373;
-          *(v237 + 3) = v263;
-LABEL_456:
-          v208 = v209 - 1;
-          if (!v209)
+          v219 = v233;
+          if (v249 <= WORD6(v367))
           {
-            v264 = 0xAAAAAAAAAAAAAAABLL * (v8 >> 4);
-            while (1)
+            v250 = HIBYTE(v366);
+            if (v366 < 0)
             {
-              v265 = 0;
-              v266 = a2;
-              v267 = *a1;
-              v376[0] = *(a1 + 8);
-              *(v376 + 7) = *(a1 + 15);
-              v268 = *(a1 + 23);
-              *(a1 + 8) = 0;
-              *(a1 + 16) = 0;
-              *a1 = 0;
-              v269 = *(a1 + 24);
-              v375 = *(a1 + 40);
-              v270 = a1;
-              v374 = v269;
-              do
+              v250 = *(&v365 + 1);
+            }
+
+            v251 = v207[23];
+            v252 = v251;
+            if ((v251 & 0x80u) != 0)
+            {
+              v251 = *(v207 + 1);
+            }
+
+            if (v250 >= v251)
+            {
+              v253 = v251;
+            }
+
+            else
+            {
+              v253 = v250;
+            }
+
+            if (v253)
+            {
+              if (v252 >= 0)
               {
-                v271 = v270 + 48 * v265;
-                v272 = (v271 + 48);
-                v273 = 2 * v265;
-                v265 = (2 * v265) | 1;
-                v274 = v273 + 2;
-                if (v274 >= v264)
-                {
-                  goto LABEL_481;
-                }
-
-                v275 = (v271 + 96);
-                v276 = *(v271 + 84);
-                v277 = *(v271 + 132);
-                if (v276 < v277)
-                {
-                  goto LABEL_461;
-                }
-
-                if (v276 <= v277)
-                {
-                  v278 = *(v271 + 119);
-                  v279 = v278;
-                  if ((v278 & 0x80u) != 0)
-                  {
-                    v278 = *(v271 + 104);
-                  }
-
-                  v280 = *(v271 + 71);
-                  v281 = v280;
-                  v282 = *(v271 + 56);
-                  if ((v280 & 0x80u) == 0)
-                  {
-                    v282 = v280;
-                  }
-
-                  if (v278 >= v282)
-                  {
-                    v283 = v282;
-                  }
-
-                  else
-                  {
-                    v283 = v278;
-                  }
-
-                  if (v283)
-                  {
-                    if (v281 >= 0)
-                    {
-                      v284 = v272;
-                    }
-
-                    else
-                    {
-                      v284 = *v272;
-                    }
-
-                    if (v279 >= 0)
-                    {
-                      v285 = v275;
-                    }
-
-                    else
-                    {
-                      v285 = *v275;
-                    }
-
-                    while (1)
-                    {
-                      v286 = *v284;
-                      v287 = *v285;
-                      if (v286 < v287)
-                      {
-                        break;
-                      }
-
-                      if (v287 < v286)
-                      {
-                        goto LABEL_481;
-                      }
-
-                      ++v284;
-                      ++v285;
-                      if (!--v283)
-                      {
-                        goto LABEL_480;
-                      }
-                    }
-
-LABEL_461:
-                    v272 = v275;
-                    v265 = v274;
-                    goto LABEL_481;
-                  }
-
-LABEL_480:
-                  if (v282 < v278)
-                  {
-                    goto LABEL_461;
-                  }
-                }
-
-LABEL_481:
-                if (*(v270 + 23) < 0)
-                {
-                  operator delete(*v270);
-                }
-
-                v288 = *v272;
-                *(v270 + 16) = v272[2];
-                *v270 = v288;
-                *(v272 + 23) = 0;
-                *v272 = 0;
-                v289 = *(v272 + 3);
-                *(v270 + 40) = v272[5];
-                *(v270 + 24) = v289;
-                v270 = v272;
-              }
-
-              while (v265 <= ((v264 - 2) >> 1));
-              a2 -= 6;
-              v290 = *(v272 + 23);
-              if (v272 == v266 - 6)
-              {
-                if (v290 < 0)
-                {
-                  operator delete(*v272);
-                }
-
-                *v272 = v267;
-                *(v272 + 15) = *(v376 + 7);
-                v272[1] = v376[0];
-                *(v272 + 23) = v268;
-                *(v272 + 3) = v374;
-                v272[5] = v375;
+                v254 = v207;
               }
 
               else
               {
-                if (v290 < 0)
+                v254 = *v207;
+              }
+
+              v255 = &v365;
+              if (v366 < 0)
+              {
+                v255 = v365;
+              }
+
+              while (1)
+              {
+                v256 = *v254;
+                v257 = *v255;
+                if (v256 < v257)
                 {
-                  operator delete(*v272);
+                  goto LABEL_453;
                 }
 
-                v291 = *a2;
-                v272[2] = *(v266 - 4);
-                *v272 = v291;
-                *(v266 - 25) = 0;
-                *(v266 - 24) = 0;
-                v292 = *(v266 - 3);
-                v272[5] = *(v266 - 1);
-                *(v272 + 3) = v292;
-                if (*(v266 - 25) < 0)
+                if (v257 < v256)
                 {
-                  operator delete(*a2);
+                  break;
                 }
 
-                v293 = v266 - 3;
-                *(v266 - 6) = v267;
-                v294 = v376[0];
-                *(v266 - 33) = *(v376 + 7);
-                *(v266 - 5) = v294;
-                *(v266 - 25) = v268;
-                v295 = v374;
-                v293[2] = v375;
-                *v293 = v295;
-                v296 = v272 - a1 + 48;
-                if (v296 >= 49)
+                v254 += 2;
+                ++v255;
+                if (!--v253)
                 {
-                  v297 = (-2 - 0x5555555555555555 * (v296 >> 4)) >> 1;
-                  v298 = (a1 + 48 * v297);
-                  v299 = *(v298 + 18);
-                  v300 = *(v272 + 18);
-                  if (v299 < v300)
-                  {
-                    goto LABEL_491;
-                  }
-
-                  if (v299 <= v300)
-                  {
-                    v319 = *(v272 + 23);
-                    v320 = v319;
-                    if ((v319 & 0x80u) != 0)
-                    {
-                      v319 = v272[1];
-                    }
-
-                    v321 = *(v298 + 23);
-                    v322 = v321;
-                    if (v321 < 0)
-                    {
-                      v321 = v298[1];
-                    }
-
-                    if (v319 >= v321)
-                    {
-                      v323 = v321;
-                    }
-
-                    else
-                    {
-                      v323 = v319;
-                    }
-
-                    if (v323)
-                    {
-                      if (v322 >= 0)
-                      {
-                        v324 = (a1 + 48 * v297);
-                      }
-
-                      else
-                      {
-                        v324 = *v298;
-                      }
-
-                      if (v320 >= 0)
-                      {
-                        v325 = v272;
-                      }
-
-                      else
-                      {
-                        v325 = *v272;
-                      }
-
-                      while (1)
-                      {
-                        v326 = *v324;
-                        v327 = *v325;
-                        if (v326 < v327)
-                        {
-                          break;
-                        }
-
-                        if (v327 < v326)
-                        {
-                          goto LABEL_543;
-                        }
-
-                        ++v324;
-                        ++v325;
-                        v323 = (v323 - 1);
-                        if (!v323)
-                        {
-                          goto LABEL_542;
-                        }
-                      }
-
-LABEL_491:
-                      v301 = *v272;
-                      v371 = v272[2];
-                      v370 = v301;
-                      v272[1] = 0;
-                      v272[2] = 0;
-                      *v272 = 0;
-                      v302 = v272[5];
-                      v372 = *(v272 + 3);
-                      v373 = v302;
-                      v303 = WORD6(v372);
-                      if (v371 >= 0)
-                      {
-                        v304 = HIBYTE(v371);
-                      }
-
-                      else
-                      {
-                        v304 = *(&v370 + 1);
-                      }
-
-                      if (v371 >= 0)
-                      {
-                        v305 = &v370;
-                      }
-
-                      else
-                      {
-                        v305 = v370;
-                      }
-
-                      while (1)
-                      {
-                        v306 = v298;
-                        if (*(v272 + 23) < 0)
-                        {
-                          operator delete(*v272);
-                        }
-
-                        v307 = *v306;
-                        v272[2] = *(v306 + 2);
-                        *v272 = v307;
-                        *(v306 + 23) = 0;
-                        *v306 = 0;
-                        v308 = *(v306 + 12);
-                        v272[5] = *(v306 + 5);
-                        *(v272 + 3) = v308;
-                        if (!v297)
-                        {
-                          break;
-                        }
-
-                        v297 = (v297 - 1) >> 1;
-                        v298 = (a1 + 48 * v297);
-                        v309 = *(v298 + 18);
-                        v272 = v306;
-                        if (v309 >= v303)
-                        {
-                          if (v309 > v303)
-                          {
-                            break;
-                          }
-
-                          v310 = *(v298 + 23);
-                          v311 = v310;
-                          if (v310 < 0)
-                          {
-                            v310 = v298[1];
-                          }
-
-                          if (v304 >= v310)
-                          {
-                            v312 = v310;
-                          }
-
-                          else
-                          {
-                            v312 = v304;
-                          }
-
-                          if (v312)
-                          {
-                            if (v311 >= 0)
-                            {
-                              v313 = (a1 + 48 * v297);
-                            }
-
-                            else
-                            {
-                              v313 = *v298;
-                            }
-
-                            v314 = v305;
-                            while (1)
-                            {
-                              v315 = *v313;
-                              v316 = *v314;
-                              if (v315 < v316)
-                              {
-                                break;
-                              }
-
-                              if (v316 < v315)
-                              {
-                                goto LABEL_521;
-                              }
-
-                              ++v313;
-                              ++v314;
-                              v312 = (v312 - 1);
-                              if (!v312)
-                              {
-                                goto LABEL_515;
-                              }
-                            }
-
-                            v272 = v306;
-                          }
-
-                          else
-                          {
-LABEL_515:
-                            v272 = v306;
-                            if (v310 >= v304)
-                            {
-                              break;
-                            }
-                          }
-                        }
-                      }
-
-LABEL_521:
-                      if (*(v306 + 23) < 0)
-                      {
-                        operator delete(*v306);
-                      }
-
-                      v317 = v370;
-                      *(v306 + 2) = v371;
-                      *v306 = v317;
-                      v318 = v372;
-                      *(v306 + 5) = v373;
-                      *(v306 + 12) = v318;
-                    }
-
-                    else
-                    {
-LABEL_542:
-                      if (v321 < v319)
-                      {
-                        goto LABEL_491;
-                      }
-                    }
-                  }
+                  goto LABEL_450;
                 }
               }
 
-LABEL_543:
-              if (v264-- <= 2)
+              v219 = v233;
+            }
+
+            else
+            {
+LABEL_450:
+              v219 = v233;
+              if (v251 < v250)
               {
-                goto LABEL_619;
+                break;
               }
             }
           }
         }
-      }
 
-LABEL_619:
-      v367 = *MEMORY[0x29EDCA608];
-      return;
+LABEL_453:
+        if (v233[23] < 0)
+        {
+          operator delete(*v233);
+        }
+
+        v258 = v365;
+        *(v233 + 2) = v366;
+        *v233 = v258;
+        v259 = v367;
+        *(v233 + 5) = v368;
+        *(v233 + 24) = v259;
+LABEL_456:
+        v204 = v205 - 1;
+        if (!v205)
+        {
+          v260 = 0xAAAAAAAAAAAAAAABLL * (v8 >> 4);
+          while (1)
+          {
+            v261 = 0;
+            v262 = a2;
+            v263 = *a1;
+            v371[0] = *(a1 + 1);
+            *(v371 + 7) = *(a1 + 15);
+            v264 = a1[23];
+            *(a1 + 1) = 0;
+            *(a1 + 2) = 0;
+            *a1 = 0;
+            v265 = *(a1 + 24);
+            v370 = *(a1 + 5);
+            v266 = a1;
+            v369 = v265;
+            do
+            {
+              v267 = &v266[48 * v261];
+              v268 = v267 + 48;
+              v269 = 2 * v261;
+              v261 = (2 * v261) | 1;
+              v270 = v269 + 2;
+              if (v270 >= v260)
+              {
+                goto LABEL_481;
+              }
+
+              v271 = (v267 + 96);
+              v272 = *(v267 + 42);
+              v273 = *(v267 + 66);
+              if (v272 < v273)
+              {
+                goto LABEL_461;
+              }
+
+              if (v272 <= v273)
+              {
+                v274 = v267[119];
+                v275 = v274;
+                if ((v274 & 0x80u) != 0)
+                {
+                  v274 = *(v267 + 13);
+                }
+
+                v276 = v267[71];
+                v277 = v276;
+                v278 = *(v267 + 7);
+                if ((v276 & 0x80u) == 0)
+                {
+                  v278 = v276;
+                }
+
+                if (v274 >= v278)
+                {
+                  v279 = v278;
+                }
+
+                else
+                {
+                  v279 = v274;
+                }
+
+                if (v279)
+                {
+                  if (v277 >= 0)
+                  {
+                    v280 = v268;
+                  }
+
+                  else
+                  {
+                    v280 = *v268;
+                  }
+
+                  if (v275 >= 0)
+                  {
+                    v281 = v271;
+                  }
+
+                  else
+                  {
+                    v281 = *v271;
+                  }
+
+                  while (1)
+                  {
+                    v282 = *v280;
+                    v283 = *v281;
+                    if (v282 < v283)
+                    {
+                      break;
+                    }
+
+                    if (v283 < v282)
+                    {
+                      goto LABEL_481;
+                    }
+
+                    v280 += 2;
+                    ++v281;
+                    if (!--v279)
+                    {
+                      goto LABEL_480;
+                    }
+                  }
+
+LABEL_461:
+                  v268 = v271;
+                  v261 = v270;
+                  goto LABEL_481;
+                }
+
+LABEL_480:
+                if (v278 < v274)
+                {
+                  goto LABEL_461;
+                }
+              }
+
+LABEL_481:
+              if (v266[23] < 0)
+              {
+                operator delete(*v266);
+              }
+
+              v284 = *v268;
+              *(v266 + 2) = *(v268 + 2);
+              *v266 = v284;
+              v268[23] = 0;
+              *v268 = 0;
+              v285 = *(v268 + 24);
+              *(v266 + 5) = *(v268 + 5);
+              *(v266 + 24) = v285;
+              v266 = v268;
+            }
+
+            while (v261 <= ((v260 - 2) >> 1));
+            a2 -= 6;
+            v286 = v268[23];
+            if (v268 == (v262 - 6))
+            {
+              if (v286 < 0)
+              {
+                operator delete(*v268);
+              }
+
+              *v268 = v263;
+              *(v268 + 15) = *(v371 + 7);
+              *(v268 + 1) = v371[0];
+              v268[23] = v264;
+              *(v268 + 24) = v369;
+              *(v268 + 5) = v370;
+            }
+
+            else
+            {
+              if (v286 < 0)
+              {
+                operator delete(*v268);
+              }
+
+              v287 = *a2;
+              *(v268 + 2) = *(v262 - 4);
+              *v268 = v287;
+              *(v262 - 25) = 0;
+              *(v262 - 24) = 0;
+              v288 = *(v262 - 3);
+              *(v268 + 5) = *(v262 - 1);
+              *(v268 + 24) = v288;
+              if (*(v262 - 25) < 0)
+              {
+                operator delete(*a2);
+              }
+
+              v289 = v262 - 3;
+              *(v262 - 6) = v263;
+              v290 = v371[0];
+              *(v262 - 33) = *(v371 + 7);
+              *(v262 - 5) = v290;
+              *(v262 - 25) = v264;
+              v291 = v369;
+              v289[2] = v370;
+              *v289 = v291;
+              v292 = v268 + 48 - a1;
+              if (v292 >= 49)
+              {
+                v293 = (-2 - 0x5555555555555555 * (v292 >> 4)) >> 1;
+                v294 = &a1[48 * v293];
+                v295 = *(v294 + 18);
+                v296 = *(v268 + 18);
+                if (v295 < v296)
+                {
+                  goto LABEL_491;
+                }
+
+                if (v295 <= v296)
+                {
+                  v315 = v268[23];
+                  v316 = v315;
+                  if ((v315 & 0x80u) != 0)
+                  {
+                    v315 = *(v268 + 1);
+                  }
+
+                  v317 = v294[23];
+                  v318 = v317;
+                  if ((v317 & 0x80u) != 0)
+                  {
+                    v317 = *(v294 + 1);
+                  }
+
+                  if (v315 >= v317)
+                  {
+                    v319 = v317;
+                  }
+
+                  else
+                  {
+                    v319 = v315;
+                  }
+
+                  if (v319)
+                  {
+                    if (v318 >= 0)
+                    {
+                      v320 = &a1[48 * v293];
+                    }
+
+                    else
+                    {
+                      v320 = *v294;
+                    }
+
+                    if (v316 >= 0)
+                    {
+                      v321 = v268;
+                    }
+
+                    else
+                    {
+                      v321 = *v268;
+                    }
+
+                    while (1)
+                    {
+                      v322 = *v320;
+                      v323 = *v321;
+                      if (v322 < v323)
+                      {
+                        break;
+                      }
+
+                      if (v323 < v322)
+                      {
+                        goto LABEL_543;
+                      }
+
+                      v320 += 2;
+                      v321 += 2;
+                      if (!--v319)
+                      {
+                        goto LABEL_542;
+                      }
+                    }
+
+LABEL_491:
+                    v297 = *v268;
+                    v366 = *(v268 + 2);
+                    v365 = v297;
+                    *(v268 + 1) = 0;
+                    *(v268 + 2) = 0;
+                    *v268 = 0;
+                    v298 = *(v268 + 5);
+                    v367 = *(v268 + 24);
+                    v368 = v298;
+                    v299 = WORD6(v367);
+                    if (v366 >= 0)
+                    {
+                      v300 = HIBYTE(v366);
+                    }
+
+                    else
+                    {
+                      v300 = *(&v365 + 1);
+                    }
+
+                    if (v366 >= 0)
+                    {
+                      v301 = &v365;
+                    }
+
+                    else
+                    {
+                      v301 = v365;
+                    }
+
+                    while (1)
+                    {
+                      v302 = v294;
+                      if (v268[23] < 0)
+                      {
+                        operator delete(*v268);
+                      }
+
+                      v303 = *v302;
+                      *(v268 + 2) = *(v302 + 2);
+                      *v268 = v303;
+                      v302[23] = 0;
+                      *v302 = 0;
+                      v304 = *(v302 + 24);
+                      *(v268 + 5) = *(v302 + 5);
+                      *(v268 + 24) = v304;
+                      if (!v293)
+                      {
+                        break;
+                      }
+
+                      v293 = (v293 - 1) >> 1;
+                      v294 = &a1[48 * v293];
+                      v305 = *(v294 + 18);
+                      v268 = v302;
+                      if (v305 >= v299)
+                      {
+                        if (v305 > v299)
+                        {
+                          break;
+                        }
+
+                        v306 = v294[23];
+                        v307 = v306;
+                        if ((v306 & 0x80u) != 0)
+                        {
+                          v306 = *(v294 + 1);
+                        }
+
+                        if (v300 >= v306)
+                        {
+                          v308 = v306;
+                        }
+
+                        else
+                        {
+                          v308 = v300;
+                        }
+
+                        if (v308)
+                        {
+                          if (v307 >= 0)
+                          {
+                            v309 = &a1[48 * v293];
+                          }
+
+                          else
+                          {
+                            v309 = *v294;
+                          }
+
+                          v310 = v301;
+                          while (1)
+                          {
+                            v311 = *v309;
+                            v312 = *v310;
+                            if (v311 < v312)
+                            {
+                              break;
+                            }
+
+                            if (v312 < v311)
+                            {
+                              goto LABEL_521;
+                            }
+
+                            v309 += 2;
+                            ++v310;
+                            if (!--v308)
+                            {
+                              goto LABEL_515;
+                            }
+                          }
+
+                          v268 = v302;
+                        }
+
+                        else
+                        {
+LABEL_515:
+                          v268 = v302;
+                          if (v306 >= v300)
+                          {
+                            break;
+                          }
+                        }
+                      }
+                    }
+
+LABEL_521:
+                    if (v302[23] < 0)
+                    {
+                      operator delete(*v302);
+                    }
+
+                    v313 = v365;
+                    *(v302 + 2) = v366;
+                    *v302 = v313;
+                    v314 = v367;
+                    *(v302 + 5) = v368;
+                    *(v302 + 24) = v314;
+                  }
+
+                  else
+                  {
+LABEL_542:
+                    if (v317 < v315)
+                    {
+                      goto LABEL_491;
+                    }
+                  }
+                }
+              }
+            }
+
+LABEL_543:
+            if (v260-- <= 2)
+            {
+              return;
+            }
+          }
+        }
+      }
     }
 
-    v11 = a1 + 48 * (v9 >> 1);
+    v11 = &a1[48 * (v9 >> 1)];
     if (v8 < 0x1801)
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(v11, a1, v369);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(v11, a1, v364);
     }
 
     else
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, v11, v369);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>((a1 + 48), v11 - 48, (a2 - 12));
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>((a1 + 96), v11 + 48, (a2 - 18));
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>((v11 - 48), v11, v11 + 48);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1, v11, v364);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1 + 24, v11 - 24, a2 - 48);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(a1 + 48, v11 + 24, a2 - 72);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *,0>(v11 - 24, v11, v11 + 24);
       v12 = *a1;
-      *&v374 = *(a1 + 8);
-      *(&v374 + 7) = *(a1 + 15);
-      v13 = *(a1 + 23);
-      *(a1 + 8) = 0;
-      *(a1 + 16) = 0;
+      *&v369 = *(a1 + 1);
+      *(&v369 + 7) = *(a1 + 15);
+      v13 = a1[23];
+      *(a1 + 1) = 0;
+      *(a1 + 2) = 0;
       *a1 = 0;
-      v370 = *(a1 + 24);
-      v371 = *(a1 + 40);
-      v14 = *(v11 + 16);
+      v365 = *(a1 + 24);
+      v366 = *(a1 + 5);
+      v14 = *(v11 + 2);
       *a1 = *v11;
-      *(a1 + 16) = v14;
+      *(a1 + 2) = v14;
       v15 = *(v11 + 24);
-      *(a1 + 40) = *(v11 + 40);
+      *(a1 + 5) = *(v11 + 5);
       *(a1 + 24) = v15;
       *v11 = v12;
-      v16 = v374;
-      *(v11 + 15) = *(&v374 + 7);
-      *(v11 + 8) = v16;
-      *(v11 + 23) = v13;
-      v17 = v370;
-      *(v11 + 40) = v371;
+      v16 = v369;
+      *(v11 + 15) = *(&v369 + 7);
+      *(v11 + 1) = v16;
+      v11[23] = v13;
+      v17 = v365;
+      *(v11 + 5) = v366;
       *(v11 + 24) = v17;
     }
 
@@ -6619,9 +6560,9 @@ LABEL_619:
       goto LABEL_35;
     }
 
-    v18 = (a1 - 48);
-    v19 = *(a1 - 12);
-    v20 = *(a1 + 36);
+    v18 = a1 - 48;
+    v19 = *(a1 - 6);
+    v20 = *(a1 + 18);
     if (v19 < v20)
     {
       goto LABEL_35;
@@ -6632,18 +6573,18 @@ LABEL_619:
       goto LABEL_149;
     }
 
-    v21 = *(a1 + 23);
+    v21 = a1[23];
     v22 = v21;
     if ((v21 & 0x80u) != 0)
     {
-      v21 = *(a1 + 8);
+      v21 = *(a1 + 1);
     }
 
     v23 = *(a1 - 25);
     v24 = v23;
     if ((v23 & 0x80u) != 0)
     {
-      v23 = *(a1 - 40);
+      v23 = *(a1 - 5);
     }
 
     if (v21 >= v23)
@@ -6660,7 +6601,7 @@ LABEL_619:
     {
       if (v24 < 0)
       {
-        v18 = *(a1 - 48);
+        v18 = *(a1 - 6);
       }
 
       if (v22 >= 0)
@@ -6687,8 +6628,8 @@ LABEL_619:
           goto LABEL_149;
         }
 
-        ++v18;
-        ++v26;
+        v18 += 2;
+        v26 += 2;
       }
 
       while (--v25);
@@ -6698,33 +6639,33 @@ LABEL_619:
     {
 LABEL_35:
       v29 = *a1;
-      v371 = *(a1 + 16);
-      v370 = v29;
-      *(a1 + 8) = 0;
-      *(a1 + 16) = 0;
+      v366 = *(a1 + 2);
+      v365 = v29;
+      *(a1 + 1) = 0;
+      *(a1 + 2) = 0;
       *a1 = 0;
-      v30 = *(a1 + 40);
-      v372 = *(a1 + 24);
-      v373 = v30;
-      v31 = WORD6(v372);
-      if (v371 >= 0)
+      v30 = *(a1 + 5);
+      v367 = *(a1 + 24);
+      v368 = v30;
+      v31 = WORD6(v367);
+      if (v366 >= 0)
       {
-        v32 = HIBYTE(v371);
+        v32 = HIBYTE(v366);
       }
 
       else
       {
-        v32 = *(&v370 + 1);
+        v32 = *(&v365 + 1);
       }
 
-      if (v371 >= 0)
+      if (v366 >= 0)
       {
-        v33 = &v370;
+        v33 = &v365;
       }
 
       else
       {
-        v33 = v370;
+        v33 = v365;
       }
 
       v34 = a1;
@@ -6733,21 +6674,21 @@ LABEL_35:
         do
         {
           v35 = v34;
-          v34 += 6;
+          v34 += 48;
           v36 = *(v35 + 42);
         }
 
-        while (v36 < WORD6(v372));
-        if (v36 > WORD6(v372))
+        while (v36 < WORD6(v367));
+        if (v36 > WORD6(v367))
         {
           break;
         }
 
-        v37 = *(v35 + 71);
+        v37 = v35[71];
         v38 = v37;
         if ((v37 & 0x80u) != 0)
         {
-          v37 = v35[7];
+          v37 = *(v35 + 7);
         }
 
         if (v32 >= v37)
@@ -6787,7 +6728,7 @@ LABEL_35:
               goto LABEL_58;
             }
 
-            ++v40;
+            v40 += 2;
             ++v41;
             if (!--v39)
             {
@@ -6812,11 +6753,11 @@ LABEL_58:
         v44 = *(a2 - 6);
         v45 = a2 - 6;
         v46 = a2;
-        while (v44 >= WORD6(v372))
+        while (v44 >= WORD6(v367))
         {
           v47 = v46;
           v46 = v45;
-          if (v44 <= WORD6(v372))
+          if (v44 <= WORD6(v367))
           {
             v48 = *(v47 - 25);
             v49 = v48;
@@ -6892,7 +6833,7 @@ LABEL_76:
 
       v56 = *(a2 - 6);
       v45 = a2 - 6;
-      if (v56 < WORD6(v372))
+      if (v56 < WORD6(v367))
       {
         goto LABEL_103;
       }
@@ -6902,7 +6843,7 @@ LABEL_76:
       while (1)
       {
         v46 = v45;
-        if (v56 > WORD6(v372))
+        if (v56 > WORD6(v367))
         {
 LABEL_81:
           if (v34 >= v45)
@@ -6937,7 +6878,7 @@ LABEL_100:
         v45 -= 6;
         v56 = *(v46 - 6);
         v57 = v46;
-        if (v56 < WORD6(v372))
+        if (v56 < WORD6(v367))
         {
           goto LABEL_103;
         }
@@ -6991,7 +6932,7 @@ LABEL_103:
             do
             {
               v68 = v7;
-              v7 += 6;
+              v7 += 48;
               v69 = *(v68 + 42);
             }
 
@@ -7001,9 +6942,9 @@ LABEL_103:
               break;
             }
 
-            v70 = *(v68 + 71);
+            v70 = v68[71];
             v71 = v70;
-            v72 = v68[7];
+            v72 = *(v68 + 7);
             if ((v70 & 0x80u) == 0)
             {
               v72 = v70;
@@ -7046,7 +6987,7 @@ LABEL_103:
                   goto LABEL_122;
                 }
 
-                ++v74;
+                v74 += 2;
                 ++v75;
                 if (!--v73)
                 {
@@ -7068,7 +7009,7 @@ LABEL_121:
 LABEL_122:
           while (1)
           {
-            v78 = (v67 - 6);
+            v78 = v67 - 6;
             v79 = *(v67 - 6);
             if (v79 < v31)
             {
@@ -7146,21 +7087,21 @@ LABEL_136:
         while (v7 < v78);
       }
 
-      v88 = (v7 - 6);
-      if (v7 - 6 != a1)
+      v88 = (v7 - 48);
+      if (v7 - 48 != a1)
       {
-        if (*(a1 + 23) < 0)
+        if (a1[23] < 0)
         {
           operator delete(*a1);
         }
 
         v89 = *v88;
-        *(a1 + 16) = *(v7 - 4);
+        *(a1 + 2) = *(v7 - 4);
         *a1 = v89;
         *(v7 - 25) = 0;
         *(v7 - 24) = 0;
-        v90 = *(v7 - 3);
-        *(a1 + 40) = *(v7 - 1);
+        v90 = *(v7 - 24);
+        *(a1 + 5) = *(v7 - 1);
         *(a1 + 24) = v90;
       }
 
@@ -7169,12 +7110,12 @@ LABEL_136:
         operator delete(*v88);
       }
 
-      v91 = v370;
-      *(v7 - 4) = v371;
+      v91 = v365;
+      *(v7 - 4) = v366;
       *v88 = v91;
-      v92 = v372;
-      *(v7 - 1) = v373;
-      *(v7 - 3) = v92;
+      v92 = v367;
+      *(v7 - 1) = v368;
+      *(v7 - 24) = v92;
       if (v34 < v45)
       {
 LABEL_148:
@@ -7187,10 +7128,10 @@ LABEL_148:
         v93 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *>(a1, v7 - 24);
         if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,skit::Analyzer::dedup(skit::TokenStream)::$_0 &,skit::Token *>(v7, a2))
         {
-          a2 = (v7 - 6);
+          a2 = (v7 - 48);
           if (v93)
           {
-            goto LABEL_619;
+            return;
           }
 
           goto LABEL_2;
@@ -7207,19 +7148,19 @@ LABEL_148:
     {
 LABEL_149:
       v94 = *a1;
-      v371 = *(a1 + 16);
-      v370 = v94;
-      *(a1 + 8) = 0;
-      *(a1 + 16) = 0;
+      v366 = *(a1 + 2);
+      v365 = v94;
+      *(a1 + 1) = 0;
+      *(a1 + 2) = 0;
       *a1 = 0;
       v95 = *(a1 + 24);
-      v373 = *(a1 + 40);
-      v372 = v95;
+      v368 = *(a1 + 5);
+      v367 = v95;
       v96 = WORD6(v95);
       v97 = *(a2 - 6);
       if (WORD6(v95) >= v97)
       {
-        if (WORD6(v372) > v97)
+        if (WORD6(v367) > v97)
         {
           goto LABEL_191;
         }
@@ -7231,10 +7172,10 @@ LABEL_149:
           v111 = *(a2 - 5);
         }
 
-        v113 = HIBYTE(v371);
-        if (v371 < 0)
+        v113 = HIBYTE(v366);
+        if (v366 < 0)
         {
-          v113 = *(&v370 + 1);
+          v113 = *(&v365 + 1);
         }
 
         if (v111 >= v113)
@@ -7249,14 +7190,14 @@ LABEL_149:
 
         if (v114)
         {
-          if (v371 >= 0)
+          if (v366 >= 0)
           {
-            v115 = &v370;
+            v115 = &v365;
           }
 
           else
           {
-            v115 = v370;
+            v115 = v365;
           }
 
           if (v112 >= 0)
@@ -7266,7 +7207,7 @@ LABEL_149:
 
           else
           {
-            v116 = *v369;
+            v116 = *v364;
           }
 
           while (1)
@@ -7298,22 +7239,22 @@ LABEL_190:
           if (v113 >= v111)
           {
 LABEL_191:
-            v7 = (a1 + 48);
+            v7 = a1 + 48;
             if (a1 + 48 >= a2)
             {
               goto LABEL_215;
             }
 
-            v119 = HIBYTE(v371);
-            if (v371 >= 0)
+            v119 = HIBYTE(v366);
+            if (v366 >= 0)
             {
-              v120 = &v370;
+              v120 = &v365;
             }
 
             else
             {
-              v119 = *(&v370 + 1);
-              v120 = v370;
+              v119 = *(&v365 + 1);
+              v120 = v365;
             }
 
             v101 = a1;
@@ -7321,7 +7262,7 @@ LABEL_191:
             {
               v121 = v101;
               v101 = v7;
-              v122 = *(v121 + 84);
+              v122 = *(v121 + 42);
               if (WORD6(v95) < v122)
               {
                 goto LABEL_214;
@@ -7329,9 +7270,9 @@ LABEL_191:
 
               if (WORD6(v95) <= v122)
               {
-                v123 = *(v121 + 71);
+                v123 = v121[71];
                 v124 = v123;
-                v125 = *(v121 + 56);
+                v125 = *(v121 + 7);
                 if ((v123 & 0x80u) == 0)
                 {
                   v125 = v123;
@@ -7375,7 +7316,7 @@ LABEL_191:
                     }
 
                     ++v128;
-                    ++v127;
+                    v127 += 2;
                     if (!--v126)
                     {
                       goto LABEL_211;
@@ -7393,7 +7334,7 @@ LABEL_211:
                 }
               }
 
-              v7 += 6;
+              v7 += 48;
               if (v101 + 48 >= a2)
               {
                 goto LABEL_215;
@@ -7403,23 +7344,23 @@ LABEL_211:
         }
       }
 
-      v7 = (a1 + 48);
-      v98 = *(a1 + 84);
+      v7 = a1 + 48;
+      v98 = *(a1 + 42);
       if (WORD6(v95) < v98)
       {
         goto LABEL_215;
       }
 
-      v99 = HIBYTE(v371);
-      if (v371 >= 0)
+      v99 = HIBYTE(v366);
+      if (v366 >= 0)
       {
-        v100 = &v370;
+        v100 = &v365;
       }
 
       else
       {
-        v99 = *(&v370 + 1);
-        v100 = v370;
+        v99 = *(&v365 + 1);
+        v100 = v365;
       }
 
       v101 = a1;
@@ -7433,17 +7374,17 @@ LABEL_211:
         }
 
 LABEL_170:
-        v7 += 6;
-        v98 = *(v101 + 84);
+        v7 += 48;
+        v98 = *(v101 + 42);
         if (WORD6(v95) < v98)
         {
           goto LABEL_215;
         }
       }
 
-      v103 = *(v102 + 71);
+      v103 = v102[71];
       v104 = v103;
-      v105 = *(v102 + 56);
+      v105 = *(v102 + 7);
       if ((v103 & 0x80u) != 0)
       {
         v103 = v105;
@@ -7496,7 +7437,7 @@ LABEL_169:
         }
 
         ++v108;
-        ++v107;
+        v107 += 2;
         if (!--v106)
         {
           goto LABEL_169;
@@ -7509,21 +7450,21 @@ LABEL_215:
       v131 = a2;
       if (v7 < a2)
       {
-        v132 = HIBYTE(v371);
-        if (v371 >= 0)
+        v132 = HIBYTE(v366);
+        if (v366 >= 0)
         {
-          v133 = &v370;
+          v133 = &v365;
         }
 
         else
         {
-          v132 = *(&v370 + 1);
-          v133 = v370;
+          v132 = *(&v365 + 1);
+          v133 = v365;
         }
 
         for (i = a2; ; i -= 6)
         {
-          v131 = (i - 6);
+          v131 = i - 6;
           if (WORD6(v95) >= v97)
           {
             if (WORD6(v95) > v97)
@@ -7604,31 +7545,31 @@ LABEL_237:
         goto LABEL_279;
       }
 
-      if (v371 >= 0)
+      if (v366 >= 0)
       {
-        v142 = HIBYTE(v371);
+        v142 = HIBYTE(v366);
       }
 
       else
       {
-        v142 = *(&v370 + 1);
+        v142 = *(&v365 + 1);
       }
 
-      if (v371 >= 0)
+      if (v366 >= 0)
       {
-        v143 = &v370;
+        v143 = &v365;
       }
 
       else
       {
-        v143 = v370;
+        v143 = v365;
       }
 
       while (2)
       {
         v144 = v7;
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::Token *&,skit::Token *&>(v7, v131);
-        v7 += 6;
+        v7 += 48;
         while (2)
         {
           v145 = *(v144 + 42);
@@ -7644,9 +7585,9 @@ LABEL_237:
             goto LABEL_261;
           }
 
-          v147 = *(v146 + 71);
+          v147 = v146[71];
           v148 = v147;
-          v149 = v146[7];
+          v149 = *(v146 + 7);
           if ((v147 & 0x80u) != 0)
           {
             v147 = v149;
@@ -7690,7 +7631,7 @@ LABEL_237:
               }
 
               ++v152;
-              ++v151;
+              v151 += 2;
             }
 
             while (--v150);
@@ -7699,7 +7640,7 @@ LABEL_237:
           if (v142 >= v147)
           {
 LABEL_261:
-            v7 += 6;
+            v7 += 48;
             continue;
           }
 
@@ -7796,21 +7737,21 @@ LABEL_278:
       }
 
 LABEL_279:
-      v165 = (v7 - 6);
-      if (v7 - 6 != a1)
+      v165 = (v7 - 48);
+      if (v7 - 48 != a1)
       {
-        if (*(a1 + 23) < 0)
+        if (a1[23] < 0)
         {
           operator delete(*a1);
         }
 
         v166 = *v165;
-        *(a1 + 16) = *(v7 - 4);
+        *(a1 + 2) = *(v7 - 4);
         *a1 = v166;
         *(v7 - 25) = 0;
         *(v7 - 24) = 0;
-        v167 = *(v7 - 3);
-        *(a1 + 40) = *(v7 - 1);
+        v167 = *(v7 - 24);
+        *(a1 + 5) = *(v7 - 1);
         *(a1 + 24) = v167;
       }
 
@@ -7820,108 +7761,106 @@ LABEL_279:
       }
 
       a4 = 0;
-      v168 = v370;
-      *(v7 - 4) = v371;
+      v168 = v365;
+      *(v7 - 4) = v366;
       *v165 = v168;
-      v169 = v372;
-      *(v7 - 1) = v373;
-      *(v7 - 3) = v169;
+      v169 = v367;
+      *(v7 - 1) = v368;
+      *(v7 - 24) = v169;
     }
   }
 
-  v171 = *(a2 - 6);
-  v172 = *(a1 + 36);
-  if (v171 < v172)
+  v170 = *(a2 - 6);
+  v171 = *(a1 + 18);
+  if (v170 < v171)
   {
     goto LABEL_292;
   }
 
-  if (v171 > v172)
+  if (v170 <= v171)
   {
-    goto LABEL_619;
-  }
-
-  v329 = *(a1 + 23);
-  v330 = v329;
-  if ((v329 & 0x80u) != 0)
-  {
-    v329 = *(a1 + 8);
-  }
-
-  v331 = *(a2 - 25);
-  v332 = v331;
-  if ((v331 & 0x80u) != 0)
-  {
-    v331 = *(a2 - 5);
-  }
-
-  if (v329 >= v331)
-  {
-    v333 = v331;
-  }
-
-  else
-  {
-    v333 = v329;
-  }
-
-  if (!v333)
-  {
-LABEL_564:
-    if (v331 < v329)
+    v325 = a1[23];
+    v326 = v325;
+    if ((v325 & 0x80u) != 0)
     {
-      goto LABEL_292;
+      v325 = *(a1 + 1);
     }
 
-    goto LABEL_619;
-  }
-
-  if (v332 >= 0)
-  {
-    v334 = a2 - 6;
-  }
-
-  else
-  {
-    v334 = *v369;
-  }
-
-  if (v330 >= 0)
-  {
-    v335 = a1;
-  }
-
-  else
-  {
-    v335 = *a1;
-  }
-
-  while (1)
-  {
-    v336 = *v334;
-    v337 = *v335;
-    if (v336 < v337)
+    v327 = *(a2 - 25);
+    v328 = v327;
+    if ((v327 & 0x80u) != 0)
     {
-      break;
+      v327 = *(a2 - 5);
     }
 
-    if (v337 < v336)
+    if (v325 >= v327)
     {
-      goto LABEL_619;
+      v329 = v327;
     }
 
-    v334 = (v334 + 2);
-    ++v335;
-    if (!--v333)
+    else
     {
-      goto LABEL_564;
+      v329 = v325;
     }
-  }
+
+    if (v329)
+    {
+      if (v328 >= 0)
+      {
+        v330 = a2 - 6;
+      }
+
+      else
+      {
+        v330 = *v364;
+      }
+
+      if (v326 >= 0)
+      {
+        v331 = a1;
+      }
+
+      else
+      {
+        v331 = *a1;
+      }
+
+      while (1)
+      {
+        v332 = *v330;
+        v333 = *v331;
+        if (v332 < v333)
+        {
+          break;
+        }
+
+        if (v333 < v332)
+        {
+          return;
+        }
+
+        v330 = (v330 + 2);
+        v331 += 2;
+        if (!--v329)
+        {
+          goto LABEL_564;
+        }
+      }
 
 LABEL_292:
-  v173 = *MEMORY[0x29EDCA608];
 
-  std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::Token *&,skit::Token *&>(a1, v369);
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<skit::Token *&,skit::Token *&>(a1, v364);
+    }
+
+    else
+    {
+LABEL_564:
+      if (v327 < v325)
+      {
+        goto LABEL_292;
+      }
+    }
+  }
 }
 
 void std::vector<skit::Token>::resize(uint64_t *a1, unint64_t a2)
@@ -7993,28 +7932,26 @@ void std::vector<skit::Token>::resize(uint64_t *a1, unint64_t a2)
   }
 }
 
-void skit::Alias::match(uint64_t *a1, uint64_t a2, uint64_t *a3)
+void skit::Alias::match(uint64_t *a1, __int128 **a2, uint64_t *a3)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v9[7] = *MEMORY[0x29EDCA608];
   v3 = *a1;
   if (*a1 && *(v3 + 64) == 1)
   {
+    marisa::Agent::Agent(v8);
     marisa::Agent::Agent(v9);
-    marisa::Agent::Agent(v10);
     v6 = -1431655765 * ((a3[1] - *a3) >> 4);
     if (v6)
     {
       for (i = 0; i != v6; ++i)
       {
-        skit::internal::AliasImpl::span_match_alias(v3, a2, a3, i, v6, v9, v10);
+        skit::internal::AliasImpl::span_match_alias(v3, a2, a3, i, v6, v8, v9);
       }
     }
 
-    marisa::Agent::~Agent(v10);
     marisa::Agent::~Agent(v9);
+    marisa::Agent::~Agent(v8);
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2998CFAEC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, __int128 buf)
@@ -8045,12 +7982,12 @@ void sub_2998CFAEC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
 uint64_t skit::internal::MultiIndexV2::append(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, iovec *a6, int a7, int a8, float _S0)
 {
-  v154 = *MEMORY[0x29EDCA608];
+  v153 = *MEMORY[0x29EDCA608];
   *uu = a4;
   *&uu[8] = a5;
   if (a2 == a3)
   {
-    goto LABEL_153;
+    return 0;
   }
 
   v9 = _S0;
@@ -8059,7 +7996,7 @@ uint64_t skit::internal::MultiIndexV2::append(uint64_t a1, uint64_t a2, uint64_t
   v13 = 0;
   __asm { FCVT            H9, S0 }
 
-  v146 = *(a1 + 108);
+  v145 = *(a1 + 108);
   do
   {
     if ((*(v11 + 40) & 1) == 0)
@@ -8068,7 +8005,7 @@ uint64_t skit::internal::MultiIndexV2::append(uint64_t a1, uint64_t a2, uint64_t
     }
 
     v18 = *(v11 + 23);
-    v147 = v13;
+    v146 = v13;
     if (v18 < 0)
     {
       v19 = *v11;
@@ -8156,7 +8093,7 @@ LABEL_23:
 
     v10 = a3;
     _S12 = *(v11 + 32);
-    if (*(v29 + 20) >= v146 && *(v29 + 23))
+    if (*(v29 + 20) >= v145 && *(v29 + 23))
     {
       v42 = 0;
     }
@@ -8254,7 +8191,7 @@ LABEL_39:
         }
 
         v54 = 6 * v50;
-        *(6 * v50) = v146;
+        *(6 * v50) = v145;
         if (_S12 <= 65504.0)
         {
           v55 = _S12;
@@ -8295,7 +8232,7 @@ LABEL_39:
 
       else
       {
-        *v35 = v146;
+        *v35 = v145;
         if (_S12 <= 65504.0)
         {
           v44 = _S12;
@@ -8327,9 +8264,9 @@ LABEL_39:
       *(v29 + 23) = -1431655765 * ((v47 - v60) >> 1);
       v29[9] = v60;
       v61 = *(v29 + 20);
-      if (v61 <= v146)
+      if (v61 <= v145)
       {
-        v61 = v146;
+        v61 = v145;
       }
 
       *(v29 + 20) = v61;
@@ -8357,9 +8294,9 @@ LABEL_39:
       *(v29 + 43) = _H0;
       v67 = v29[13];
       v68 = *(v67 - 8);
-      if (v68 <= v146)
+      if (v68 <= v145)
       {
-        v68 = v146;
+        v68 = v145;
       }
 
       *(v67 - 8) = v68;
@@ -8389,7 +8326,7 @@ LABEL_39:
       free(buf.__r_.__value_.__l.__data_);
     }
 
-    v13 = v147 + 1;
+    v13 = v146 + 1;
 LABEL_81:
     v11 += 48;
   }
@@ -8397,9 +8334,7 @@ LABEL_81:
   while (v11 != v10);
   if (!v13)
   {
-LABEL_153:
-    v91 = 0;
-    goto LABEL_152;
+    return 0;
   }
 
   if (v9 <= 65504.0)
@@ -8498,7 +8433,7 @@ LABEL_153:
   *(a1 + 136) = v91 + 1;
   if (v91 < 1)
   {
-    goto LABEL_152;
+    return v91;
   }
 
   if (uuid_is_null(uu))
@@ -8514,21 +8449,21 @@ LABEL_153:
     {
     }
 
-    v126 = skit::internal::get_logging_context(void)::logger;
+    v125 = skit::internal::get_logging_context(void)::logger;
     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_151;
+      return -1;
     }
 
-    v130 = *(a1 + 128);
-    v131 = *(a1 + 136);
+    v129 = *(a1 + 128);
+    v130 = *(a1 + 136);
     LODWORD(buf.__r_.__value_.__l.__data_) = 134218496;
-    *(buf.__r_.__value_.__r.__words + 4) = v130;
+    *(buf.__r_.__value_.__r.__words + 4) = v129;
     WORD2(buf.__r_.__value_.__r.__words[1]) = 2048;
-    *(&buf.__r_.__value_.__r.__words[1] + 6) = v131;
+    *(&buf.__r_.__value_.__r.__words[1] + 6) = v130;
     HIWORD(buf.__r_.__value_.__r.__words[2]) = 2048;
-    v153 = v91;
-    v129 = "MemMetaStore::set_external_id : invalid document id : [%lli, %lli], %lli";
+    v152 = v91;
+    v128 = "MemMetaStore::set_external_id : invalid document id : [%lli, %lli], %lli";
     goto LABEL_166;
   }
 
@@ -8548,56 +8483,56 @@ LABEL_153:
   v99 = v96[3];
   if (v97 + 1 > v99 * v98 - 1)
   {
-    v135 = (*(a1 + 176) - 16) / 0x150uLL;
-    if (v98 != v135)
+    v134 = (*(a1 + 176) - 16) / 0x150uLL;
+    if (v98 != v134)
     {
-      v136 = v98 + (v98 >> 1);
-      v137 = (v97 + v99) / v99;
-      if (v136 + 1 < v135)
+      v135 = v98 + (v98 >> 1);
+      v136 = (v97 + v99) / v99;
+      if (v135 + 1 < v134)
       {
-        v138 = v136 + 1;
+        v137 = v135 + 1;
       }
 
       else
       {
-        v138 = (*(a1 + 176) - 16) / 0x150uLL;
+        v137 = (*(a1 + 176) - 16) / 0x150uLL;
       }
 
-      if (v136 + 1 >= v137)
+      if (v135 + 1 >= v136)
       {
-        v139 = v138;
+        v138 = v137;
       }
 
       else
       {
-        v139 = v137;
+        v138 = v136;
       }
 
-      if (!skit::FlatSet<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::rehash(a1 + 168, v139))
+      if (!skit::FlatSet<std::pair<skit::Uuid,unsigned int>,skit::internal::HashPairAdapter<skit::Hash32<skit::Uuid>>,skit::internal::CmpPairAdapter<std::equal_to<skit::Uuid>>>::rehash(a1 + 168, v138))
       {
         v96 = *(a1 + 184);
         v98 = v96[1];
         goto LABEL_111;
       }
 
-      goto LABEL_151;
+      return -1;
     }
 
     if (skit::internal::get_logging_context(void)::once != -1)
     {
     }
 
-    v141 = skit::internal::get_logging_context(void)::logger;
+    v140 = skit::internal::get_logging_context(void)::logger;
     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_151;
+      return -1;
     }
 
     LOWORD(__p.__r_.__value_.__l.__data_) = 0;
-    v129 = "FlatSetBase::ensure_capacity : required capacity exceeded the maximum";
+    v128 = "FlatSetBase::ensure_capacity : required capacity exceeded the maximum";
     p_p = &__p;
-    v133 = v141;
-    v134 = 2;
+    v132 = v140;
+    v133 = 2;
     goto LABEL_167;
   }
 
@@ -8687,18 +8622,18 @@ LABEL_130:
 
       if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v148, buf.__r_.__value_.__l.__data_, buf.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v147, buf.__r_.__value_.__l.__data_, buf.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v148 = buf;
+        v147 = buf;
       }
 
-      v140 = skit::internal::IndexMemImplV2::open_doc_store((a1 + 48), &v148, *(a1 + 292), *(a1 + 296), *(a1 + 312));
-      if (SHIBYTE(v148.__r_.__value_.__r.__words[2]) < 0)
+      v139 = skit::internal::IndexMemImplV2::open_doc_store((a1 + 48), &v147, *(a1 + 292), *(a1 + 296), *(a1 + 312));
+      if (SHIBYTE(v147.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v148.__r_.__value_.__l.__data_);
+        operator delete(v147.__r_.__value_.__l.__data_);
       }
 
       if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
@@ -8707,9 +8642,9 @@ LABEL_130:
       }
 
       v116 = a7;
-      if (v140)
+      if (v139)
       {
-        goto LABEL_151;
+        return -1;
       }
     }
 
@@ -8726,37 +8661,35 @@ LABEL_130:
         goto LABEL_137;
       }
 
-LABEL_151:
-      v91 = -1;
-      goto LABEL_152;
+      return -1;
     }
 
     if (skit::internal::get_logging_context(void)::once != -1)
     {
     }
 
-    v126 = skit::internal::get_logging_context(void)::logger;
+    v125 = skit::internal::get_logging_context(void)::logger;
     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_151;
+      return -1;
     }
 
-    v127 = *(a1 + 128);
-    v128 = *(a1 + 136);
+    v126 = *(a1 + 128);
+    v127 = *(a1 + 136);
     LODWORD(buf.__r_.__value_.__l.__data_) = 134218496;
-    *(buf.__r_.__value_.__r.__words + 4) = v127;
+    *(buf.__r_.__value_.__r.__words + 4) = v126;
     WORD2(buf.__r_.__value_.__r.__words[1]) = 2048;
-    *(&buf.__r_.__value_.__r.__words[1] + 6) = v128;
+    *(&buf.__r_.__value_.__r.__words[1] + 6) = v127;
     HIWORD(buf.__r_.__value_.__r.__words[2]) = 2048;
-    v153 = v91;
-    v129 = "MemMetaStore::set_document : invalid document id : [%lli, %lli], %lli";
+    v152 = v91;
+    v128 = "MemMetaStore::set_document : invalid document id : [%lli, %lli], %lli";
 LABEL_166:
     p_p = &buf;
-    v133 = v126;
-    v134 = 32;
+    v132 = v125;
+    v133 = 32;
 LABEL_167:
-    _os_log_error_impl(&dword_2998C6000, v133, OS_LOG_TYPE_ERROR, v129, p_p, v134);
-    goto LABEL_151;
+    _os_log_error_impl(&dword_2998C6000, v132, OS_LOG_TYPE_ERROR, v128, p_p, v133);
+    return -1;
   }
 
 LABEL_137:
@@ -8765,7 +8698,7 @@ LABEL_137:
   {
     if (v119 != -2)
     {
-      goto LABEL_152;
+      return v91;
     }
   }
 
@@ -8790,17 +8723,15 @@ LABEL_137:
 
     if ((*(a1 + 88) + 14 * *(a1 + 72) + v121 + *(a1 + 232) + v122 + 40) <= *(a1 + 280) && v119 != -2)
     {
-      goto LABEL_152;
+      return v91;
     }
   }
 
   if ((skit::internal::MultiIndexV2::flush(a1) & 0x80000000) != 0)
   {
-    goto LABEL_151;
+    return -1;
   }
 
-LABEL_152:
-  v124 = *MEMORY[0x29EDCA608];
   return v91;
 }
 
@@ -8973,9 +8904,9 @@ uint64_t skit::internal::DiskMetaStore::set_doc_wgt(void *a1, skit::internal *th
   return 1;
 }
 
-void skit::internal::BlobFile::append(skit::internal::BlobFile *this, const iovec *a2, iovec *a3, unsigned int a4)
+void skit::internal::BlobFile::append(skit::internal::BlobFile *this, const iovec *a2, iovec *a3, int a4)
 {
-  v51 = *MEMORY[0x29EDCA608];
+  v50 = *MEMORY[0x29EDCA608];
   *this = 0;
   *(this + 1) = 0;
   *(this + 4) = -1;
@@ -8993,7 +8924,7 @@ void skit::internal::BlobFile::append(skit::internal::BlobFile *this, const iove
         {
         }
 
-        v34 = skit::internal::get_logging_context(void)::logger;
+        v33 = skit::internal::get_logging_context(void)::logger;
         if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
@@ -9001,7 +8932,7 @@ void skit::internal::BlobFile::append(skit::internal::BlobFile *this, const iove
           goto LABEL_35;
         }
 
-        goto LABEL_30;
+        return;
       }
 
       iov_len = v9->iov_len;
@@ -9011,19 +8942,19 @@ void skit::internal::BlobFile::append(skit::internal::BlobFile *this, const iove
         {
         }
 
-        v37 = skit::internal::get_logging_context(void)::logger;
+        v36 = skit::internal::get_logging_context(void)::logger;
         if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
         {
-          v38 = v9->iov_len;
+          v37 = v9->iov_len;
           *buf = 134217984;
-          v44 = v38;
+          v43 = v37;
           v24 = "BlobFile::append : invalid iov_len : %lu";
-          v35 = v37;
-          v36 = 12;
+          v34 = v36;
+          v35 = 12;
           goto LABEL_40;
         }
 
-        goto LABEL_30;
+        return;
       }
 
       v7 += iov_len;
@@ -9034,7 +8965,7 @@ void skit::internal::BlobFile::append(skit::internal::BlobFile *this, const iove
     while (v10);
     if (a2[2].iov_base + v7 > a2[2].iov_len)
     {
-      goto LABEL_30;
+      return;
     }
 
     iov_base = a2[3].iov_base;
@@ -9064,12 +8995,12 @@ LABEL_29:
         *(this + 1) = v7;
         *(this + 4) = 0;
         a2[2].iov_base = &v32[v7];
-        goto LABEL_30;
+        return;
       }
 
       if (v13)
       {
-        v25 = a4 + 1;
+        v25 = (a4 + 1);
       }
 
       else
@@ -9077,7 +9008,7 @@ LABEL_29:
         v25 = a4;
       }
 
-      MEMORY[0x2A1C7C4A8]();
+      MEMORY[0x2A1C7C4A8](this, 16 * v25);
       v26 = &buf[-16 * v25];
       bzero(v26, v27);
       if (v13)
@@ -9106,7 +9037,7 @@ LABEL_29:
         goto LABEL_28;
       }
 
-      v39 = v31;
+      v38 = v31;
       if (skit::internal::get_logging_context(void)::once != -1)
       {
       }
@@ -9114,26 +9045,26 @@ LABEL_29:
       v20 = skit::internal::get_logging_context(void)::logger;
       if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
       {
-        v40 = a2;
+        v39 = a2;
         if (SHIBYTE(a2[1].iov_base) < 0)
         {
-          v40 = a2->iov_base;
+          v39 = a2->iov_base;
         }
 
-        v41 = a2[3].iov_len;
-        v42 = *__error();
+        v40 = a2[3].iov_len;
+        v41 = *__error();
         *buf = 136446978;
-        v44 = v40;
-        v45 = 2048;
-        v46 = v39;
-        v47 = 2048;
-        v48 = v41;
-        v49 = 1024;
-        v50 = v42;
+        v43 = v39;
+        v44 = 2048;
+        v45 = v38;
+        v46 = 2048;
+        v47 = v40;
+        v48 = 1024;
+        v49 = v41;
         v24 = "BlobFile::append : blob write failed @ %{public}s : %li < %lu : %{darwin.errno}d";
 LABEL_51:
-        v35 = v20;
-        v36 = 38;
+        v34 = v20;
+        v35 = 38;
         goto LABEL_40;
       }
     }
@@ -9163,13 +9094,13 @@ LABEL_51:
         v22 = a2[3].iov_len;
         v23 = *__error();
         *buf = 136446978;
-        v44 = v21;
-        v45 = 2048;
-        v46 = v19;
-        v47 = 2048;
-        v48 = v22;
-        v49 = 1024;
-        v50 = v23;
+        v43 = v21;
+        v44 = 2048;
+        v45 = v19;
+        v46 = 2048;
+        v47 = v22;
+        v48 = 1024;
+        v49 = v23;
         v24 = "BlobFile::append : blob write failed @ %{public}s : %li < %lu : %{darwin.errno}d";
         goto LABEL_51;
       }
@@ -9182,96 +9113,91 @@ LABEL_51:
     {
     }
 
-    v34 = skit::internal::get_logging_context(void)::logger;
+    v33 = skit::internal::get_logging_context(void)::logger;
     if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
       v24 = "BlobFile::append : invalid iov pointer";
 LABEL_35:
-      v35 = v34;
-      v36 = 2;
+      v34 = v33;
+      v35 = 2;
 LABEL_40:
-      _os_log_error_impl(&dword_2998C6000, v35, OS_LOG_TYPE_ERROR, v24, buf, v36);
+      _os_log_error_impl(&dword_2998C6000, v34, OS_LOG_TYPE_ERROR, v24, buf, v35);
     }
   }
-
-LABEL_30:
-  v33 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t skit::internal::BlobFile::flush(skit::internal::BlobFile *this, char a2)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   if ((*(this + 6) & 0x80000000) != 0)
   {
     if (skit::internal::get_logging_context(void)::once != -1)
     {
     }
 
-    v8 = skit::internal::get_logging_context(void)::logger;
+    v7 = skit::internal::get_logging_context(void)::logger;
     if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_3;
+      return 0xFFFFFFFFLL;
     }
 
-    v19[0] = 0;
-    v9 = "BlobFile::flush : file is not open";
-    v10 = v19;
-    v11 = v8;
-    v12 = 2;
-    goto LABEL_20;
+    v18[0] = 0;
+    v8 = "BlobFile::flush : file is not open";
+    v9 = v18;
+    v10 = v7;
+    v11 = 2;
+LABEL_19:
+    _os_log_error_impl(&dword_2998C6000, v10, OS_LOG_TYPE_ERROR, v8, v9, v11);
+    return 0xFFFFFFFFLL;
   }
 
-  if (!skit::internal::BlobFile::flush_internal_cache(this))
+  if (skit::internal::BlobFile::flush_internal_cache(this))
   {
-    v5 = *(this + 6);
-    if (a2)
-    {
-      v6 = fcntl(v5, 51);
-    }
+    return 0xFFFFFFFFLL;
+  }
 
-    else
-    {
-      v6 = fsync(v5);
-    }
+  v5 = *(this + 6);
+  if (a2)
+  {
+    v6 = fcntl(v5, 51);
+  }
 
-    if ((v6 & 0x80000000) == 0)
-    {
-      result = 0;
-      goto LABEL_9;
-    }
+  else
+  {
+    v6 = fsync(v5);
+  }
 
-    v13 = *__error();
-    if (fcntl(*(this + 6), 50, v19) == -1)
+  if (v6 < 0)
+  {
+    v12 = *__error();
+    if (fcntl(*(this + 6), 50, v18) == -1)
     {
-      LOBYTE(v19[0]) = 0;
+      LOBYTE(v18[0]) = 0;
     }
 
     if (skit::internal::get_logging_context(void)::once != -1)
     {
     }
 
-    v14 = skit::internal::get_logging_context(void)::logger;
-    if (os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
+    v13 = skit::internal::get_logging_context(void)::logger;
+    if (!os_log_type_enabled(skit::internal::get_logging_context(void)::logger, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136446466;
-      v16 = v19;
-      v17 = 1024;
-      v18 = v13;
-      v9 = "BlobFile::flush : file sync failed @ %{public}s : %{darwin.errno}d";
-      v10 = buf;
-      v11 = v14;
-      v12 = 18;
-LABEL_20:
-      _os_log_error_impl(&dword_2998C6000, v11, OS_LOG_TYPE_ERROR, v9, v10, v12);
+      return 0xFFFFFFFFLL;
     }
+
+    *buf = 136446466;
+    v15 = v18;
+    v16 = 1024;
+    v17 = v12;
+    v8 = "BlobFile::flush : file sync failed @ %{public}s : %{darwin.errno}d";
+    v9 = buf;
+    v10 = v13;
+    v11 = 18;
+    goto LABEL_19;
   }
 
-LABEL_3:
-  result = 0xFFFFFFFFLL;
-LABEL_9:
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
 void skit::ContextV2::~ContextV2(skit::ContextV2 *this)
@@ -9363,1130 +9289,1134 @@ uint64_t std::__split_buffer<std::__fs::filesystem::path>::~__split_buffer(uint6
   return a1;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__fs::filesystem::path *,false>(std::__fs::filesystem::path *a1, std::__fs::filesystem::path::__string_view a2, char a3)
+void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__fs::filesystem::path *,false>(std::__fs::filesystem::path *a1, std::__fs::filesystem::path::__string_view a2, char a4)
 {
   size = a2.__size_;
   data = a2.__data_;
-  v204 = *MEMORY[0x29EDCA608];
-LABEL_2:
-  v7 = (data - 24);
-  v199 = (data - 48);
-  v8 = (data - 72);
-  v9 = a1;
-  while (1)
+  v202 = *MEMORY[0x29EDCA608];
+  while (2)
   {
-    a1 = v9;
-    v10 = data - v9;
-    v11 = 0xAAAAAAAAAAAAAAABLL * ((data - v9) >> 3);
-    v12 = v11 - 2;
-    if (v11 <= 2)
+    v7 = (data - 24);
+    v197 = (data - 48);
+    v8 = (data - 72);
+    v9 = a1;
+    while (1)
     {
-      if (v11 < 2)
+      while (1)
       {
-        goto LABEL_202;
-      }
-
-      if (v11 == 2)
-      {
-        a2.__data_ = a1;
-        if (!std::__fs::filesystem::operator<[abi:ne200100](data - 1, a2))
+        while (1)
         {
-          goto LABEL_202;
-        }
+          a1 = v9;
+          v10 = data - v9;
+          v11 = 0xAAAAAAAAAAAAAAABLL * ((data - v9) >> 3);
+          v12 = v11 - 2;
+          if (v11 > 2)
+          {
+            switch(v11)
+            {
+              case 3:
+                a2.__data_ = a1;
+                v133 = std::__fs::filesystem::operator<[abi:ne200100](a1 + 1, a2);
+                v212.__data_ = &a1[1];
+                v134 = std::__fs::filesystem::operator<[abi:ne200100](data - 1, v212);
+                if (v133)
+                {
+                  if (v134)
+                  {
+                    goto LABEL_116;
+                  }
 
-LABEL_116:
-        v135 = *&a1->__pn_.__r_.__value_.__l.__data_;
-        v202.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
-        *&v202.__pn_.__r_.__value_.__l.__data_ = v135;
-        v136 = *v7;
-        a1->__pn_.__r_.__value_.__r.__words[2] = *(data - 1);
-        *&a1->__pn_.__r_.__value_.__l.__data_ = v136;
-        v137 = *&v202.__pn_.__r_.__value_.__l.__data_;
-        v138 = v202.__pn_.__r_.__value_.__r.__words[2];
+                  v194 = *&a1->__pn_.__r_.__value_.__l.__data_;
+                  v200.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
+                  *&v200.__pn_.__r_.__value_.__l.__data_ = v194;
+                  *&a1->__pn_.__r_.__value_.__l.__data_ = *&a1[1].__pn_.__r_.__value_.__l.__data_;
+                  a1->__pn_.__r_.__value_.__r.__words[2] = a1[1].__pn_.__r_.__value_.__r.__words[2];
+                  a1[1] = v200;
+                  v129.__data_ = &a1[1];
+                  if (!std::__fs::filesystem::operator<[abi:ne200100](data - 1, v129))
+                  {
+                    return;
+                  }
+
+                  v137 = *&a1[1].__pn_.__r_.__value_.__l.__data_;
+                  *&v200.__pn_.__r_.__value_.__l.__data_ = v137;
+                  v138 = a1[1].__pn_.__r_.__value_.__r.__words[2];
+                  v200.__pn_.__r_.__value_.__r.__words[2] = v138;
+                  v195 = *(data - 1);
+                  *&a1[1].__pn_.__r_.__value_.__l.__data_ = *v7;
+                  a1[1].__pn_.__r_.__value_.__r.__words[2] = v195;
 LABEL_117:
-        *(data - 1) = v138;
-        *v7 = v137;
-        goto LABEL_202;
-      }
+                  *(data - 1) = v138;
+                  *v7 = v137;
+                  return;
+                }
 
-      goto LABEL_10;
-    }
+                if (!v134)
+                {
+                  return;
+                }
 
-    if (v11 == 3)
-    {
-      a2.__data_ = a1;
-      v133 = std::__fs::filesystem::operator<[abi:ne200100](a1 + 1, a2);
-      v214.__data_ = &a1[1];
-      v134 = std::__fs::filesystem::operator<[abi:ne200100](data - 1, v214);
-      if (v133)
-      {
-        if (v134)
-        {
-          goto LABEL_116;
-        }
-
-        v195 = *&a1->__pn_.__r_.__value_.__l.__data_;
-        v202.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
-        *&v202.__pn_.__r_.__value_.__l.__data_ = v195;
-        *&a1->__pn_.__r_.__value_.__l.__data_ = *&a1[1].__pn_.__r_.__value_.__l.__data_;
-        a1->__pn_.__r_.__value_.__r.__words[2] = a1[1].__pn_.__r_.__value_.__r.__words[2];
-        a1[1] = v202;
-        v129.__data_ = &a1[1];
-        if (std::__fs::filesystem::operator<[abi:ne200100](data - 1, v129))
-        {
-          v137 = *&a1[1].__pn_.__r_.__value_.__l.__data_;
-          *&v202.__pn_.__r_.__value_.__l.__data_ = v137;
-          v138 = a1[1].__pn_.__r_.__value_.__r.__words[2];
-          v202.__pn_.__r_.__value_.__r.__words[2] = v138;
-          v196 = *(data - 1);
-          *&a1[1].__pn_.__r_.__value_.__l.__data_ = *v7;
-          a1[1].__pn_.__r_.__value_.__r.__words[2] = v196;
-          goto LABEL_117;
-        }
-
-LABEL_202:
-        v197 = *MEMORY[0x29EDCA608];
-        return;
-      }
-
-      if (!v134)
-      {
-        goto LABEL_202;
-      }
-
-      v202 = a1[1];
-      v185 = *&v202.__pn_.__r_.__value_.__l.__data_;
-      v186 = v202.__pn_.__r_.__value_.__r.__words[2];
-      v187 = *(data - 1);
-      *&a1[1].__pn_.__r_.__value_.__l.__data_ = *v7;
-      a1[1].__pn_.__r_.__value_.__r.__words[2] = v187;
-      *(data - 1) = v186;
-      *v7 = v185;
+                v200 = a1[1];
+                v184 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                v185 = v200.__pn_.__r_.__value_.__r.__words[2];
+                v186 = *(data - 1);
+                *&a1[1].__pn_.__r_.__value_.__l.__data_ = *v7;
+                a1[1].__pn_.__r_.__value_.__r.__words[2] = v186;
+                *(data - 1) = v185;
+                *v7 = v184;
 LABEL_186:
-      v129.__data_ = a1;
-      if (std::__fs::filesystem::operator<[abi:ne200100](a1 + 1, v129))
-      {
-        v188 = *&a1->__pn_.__r_.__value_.__l.__data_;
-        v202.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
-        *&v202.__pn_.__r_.__value_.__l.__data_ = v188;
-        *&a1->__pn_.__r_.__value_.__l.__data_ = *&a1[1].__pn_.__r_.__value_.__l.__data_;
-        a1->__pn_.__r_.__value_.__r.__words[2] = a1[1].__pn_.__r_.__value_.__r.__words[2];
-        a1[1] = v202;
-      }
-
-      goto LABEL_202;
-    }
-
-    if (v11 == 4)
-    {
-      break;
-    }
-
-    if (v11 == 5)
-    {
-      v212.__data_ = &a1[1];
-      v212.__size_ = &a1[2];
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__fs::filesystem::path *,0>(a1, v212, a1 + 3);
-      v213.__data_ = &a1[3];
-      if (!std::__fs::filesystem::operator<[abi:ne200100](data - 1, v213))
-      {
-        goto LABEL_202;
-      }
-
-      v202 = a1[3];
-      v123 = *&v202.__pn_.__r_.__value_.__l.__data_;
-      v124 = v202.__pn_.__r_.__value_.__r.__words[2];
-      v125 = *(data - 1);
-      *&a1[3].__pn_.__r_.__value_.__l.__data_ = *v7;
-      a1[3].__pn_.__r_.__value_.__r.__words[2] = v125;
-      *(data - 1) = v124;
-      *v7 = v123;
-      v122.__data_ = &a1[2];
-      if (!std::__fs::filesystem::operator<[abi:ne200100](a1 + 3, v122))
-      {
-        goto LABEL_202;
-      }
-
-      v127 = a1[2].__pn_.__r_.__value_.__r.__words[2];
-      v128 = *&a1[2].__pn_.__r_.__value_.__l.__data_;
-      *&a1[2].__pn_.__r_.__value_.__l.__data_ = *&a1[3].__pn_.__r_.__value_.__l.__data_;
-      a1[2].__pn_.__r_.__value_.__r.__words[2] = a1[3].__pn_.__r_.__value_.__r.__words[2];
-      *&a1[3].__pn_.__r_.__value_.__l.__data_ = v128;
-      a1[3].__pn_.__r_.__value_.__r.__words[2] = v127;
-      v126.__data_ = &a1[1];
-      if (!std::__fs::filesystem::operator<[abi:ne200100](a1 + 2, v126))
-      {
-        goto LABEL_202;
-      }
-
-      v130 = a1[1].__pn_.__r_.__value_.__r.__words[2];
-      v131 = *&a1[1].__pn_.__r_.__value_.__l.__data_;
-      *&a1[1].__pn_.__r_.__value_.__l.__data_ = *&a1[2].__pn_.__r_.__value_.__l.__data_;
-      a1[1].__pn_.__r_.__value_.__r.__words[2] = a1[2].__pn_.__r_.__value_.__r.__words[2];
-      *&a1[2].__pn_.__r_.__value_.__l.__data_ = v131;
-      a1[2].__pn_.__r_.__value_.__r.__words[2] = v130;
-      goto LABEL_186;
-    }
-
-LABEL_10:
-    if (v10 <= 575)
-    {
-      v140 = a1 + 1;
-      v142 = a1 == data || v140 == data;
-      if (a3)
-      {
-        if (!v142)
-        {
-          v143 = 0;
-          v144 = a1;
-          do
-          {
-            a2.__data_ = v144;
-            v144 = v140;
-            if (std::__fs::filesystem::operator<[abi:ne200100](v140, a2))
-            {
-              v145 = data;
-              v146 = *&v144->__pn_.__r_.__value_.__l.__data_;
-              v202.__pn_.__r_.__value_.__r.__words[2] = v144->__pn_.__r_.__value_.__r.__words[2];
-              *&v202.__pn_.__r_.__value_.__l.__data_ = v146;
-              v144->__pn_.__r_.__value_.__l.__size_ = 0;
-              v144->__pn_.__r_.__value_.__r.__words[2] = 0;
-              v144->__pn_.__r_.__value_.__r.__words[0] = 0;
-              v147 = v143;
-              do
-              {
-                v148 = (&a1->__pn_.__r_.__value_.__l.__data_ + v147);
-                if (*(&a1[1].__pn_.__r_.__value_.__r.__words[2] + v147 + 7) < 0)
+                v129.__data_ = a1;
+                if (std::__fs::filesystem::operator<[abi:ne200100](a1 + 1, v129))
                 {
-                  operator delete(v148[3]);
+                  v187 = *&a1->__pn_.__r_.__value_.__l.__data_;
+                  v200.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
+                  *&v200.__pn_.__r_.__value_.__l.__data_ = v187;
+                  *&a1->__pn_.__r_.__value_.__l.__data_ = *&a1[1].__pn_.__r_.__value_.__l.__data_;
+                  a1->__pn_.__r_.__value_.__r.__words[2] = a1[1].__pn_.__r_.__value_.__r.__words[2];
+                  a1[1] = v200;
                 }
 
-                *(v148 + 3) = *v148;
-                v148[5] = v148[2];
-                *(v148 + 23) = 0;
-                *v148 = 0;
-                if (!v147)
+                return;
+              case 4:
+
+                v213.__data_ = &a1[1];
+                v213.__size_ = &a1[2];
+                std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__fs::filesystem::path *,0>(a1, v213, data - 1);
+                return;
+              case 5:
+                v210.__data_ = &a1[1];
+                v210.__size_ = &a1[2];
+                std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__fs::filesystem::path *,0>(a1, v210, a1 + 3);
+                v211.__data_ = &a1[3];
+                if (!std::__fs::filesystem::operator<[abi:ne200100](data - 1, v211))
                 {
-                  v149 = a1;
-                  goto LABEL_139;
+                  return;
                 }
 
-                v147 -= 24;
-                a2.__data_ = a1 + v147;
-              }
-
-              while ((std::__fs::filesystem::operator<[abi:ne200100](&v202, a2) & 1) != 0);
-              v149 = &a1[1] + v147;
-              if (*(&a1[1].__pn_.__r_.__value_.__r.__words[2] + v147 + 7) < 0)
-              {
-                operator delete(*v149);
-              }
-
-LABEL_139:
-              data = v145;
-              v150 = *&v202.__pn_.__r_.__value_.__l.__data_;
-              *(v149 + 16) = *(&v202.__pn_.__r_.__value_.__l + 2);
-              *v149 = v150;
-            }
-
-            v140 = v144 + 1;
-            v143 += 24;
-          }
-
-          while (&v144[1] != data);
-        }
-      }
-
-      else if (!v142)
-      {
-        v189 = &a1[1].__pn_.__r_.__value_.__r.__words[2] + 7;
-        do
-        {
-          a2.__data_ = a1;
-          a1 = v140;
-          if (std::__fs::filesystem::operator<[abi:ne200100](v140, a2))
-          {
-            v190 = *&a1->__pn_.__r_.__value_.__l.__data_;
-            v202.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
-            *&v202.__pn_.__r_.__value_.__l.__data_ = v190;
-            a1->__pn_.__r_.__value_.__l.__size_ = 0;
-            a1->__pn_.__r_.__value_.__r.__words[2] = 0;
-            a1->__pn_.__r_.__value_.__r.__words[0] = 0;
-            v191 = v189;
-            do
-            {
-              v192 = (v191 - 23);
-              if (*v191 < 0)
-              {
-                operator delete(*v192);
-              }
-
-              *v192 = *(v191 - 47);
-              *(v191 - 7) = *(v191 - 31);
-              *(v191 - 47) = 0;
-              v193 = v191 - 47;
-              v193[23] = 0;
-              v191 -= 24;
-              a2.__data_ = v193 - 24;
-            }
-
-            while ((std::__fs::filesystem::operator<[abi:ne200100](&v202, a2) & 1) != 0);
-            if (v193[23] < 0)
-            {
-              operator delete(*v193);
-            }
-
-            v194 = *&v202.__pn_.__r_.__value_.__l.__data_;
-            *(v193 + 2) = *(&v202.__pn_.__r_.__value_.__l + 2);
-            *v193 = v194;
-          }
-
-          v140 = a1 + 1;
-          v189 += 24;
-        }
-
-        while (&a1[1] != data);
-      }
-
-      goto LABEL_202;
-    }
-
-    if (!size)
-    {
-      if (a1 != data)
-      {
-        v200 = data;
-        v151 = v12 >> 1;
-        v152 = v12 >> 1;
-        do
-        {
-          v153 = v152;
-          if (v151 >= v152)
-          {
-            v154 = (2 * v152) | 1;
-            v155 = &a1[v154];
-            if (2 * v152 + 2 < v11)
-            {
-              a2.__data_ = &v155[1];
-              if (std::__fs::filesystem::operator<[abi:ne200100](&a1[v154], a2))
-              {
-                ++v155;
-                v154 = 2 * v153 + 2;
-              }
-            }
-
-            v156 = &a1[v153];
-            a2.__data_ = v156;
-            if ((std::__fs::filesystem::operator<[abi:ne200100](v155, a2) & 1) == 0)
-            {
-              v157 = *&v156->__pn_.__r_.__value_.__l.__data_;
-              v202.__pn_.__r_.__value_.__r.__words[2] = v156->__pn_.__r_.__value_.__r.__words[2];
-              *&v202.__pn_.__r_.__value_.__l.__data_ = v157;
-              v156->__pn_.__r_.__value_.__l.__size_ = 0;
-              v156->__pn_.__r_.__value_.__r.__words[2] = 0;
-              v156->__pn_.__r_.__value_.__r.__words[0] = 0;
-              while (1)
-              {
-                v158 = v155;
-                if (SHIBYTE(v156->__pn_.__r_.__value_.__r.__words[2]) < 0)
+                v200 = a1[3];
+                v123 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                v124 = v200.__pn_.__r_.__value_.__r.__words[2];
+                v125 = *(data - 1);
+                *&a1[3].__pn_.__r_.__value_.__l.__data_ = *v7;
+                a1[3].__pn_.__r_.__value_.__r.__words[2] = v125;
+                *(data - 1) = v124;
+                *v7 = v123;
+                v122.__data_ = &a1[2];
+                if (!std::__fs::filesystem::operator<[abi:ne200100](a1 + 3, v122))
                 {
-                  operator delete(v156->__pn_.__r_.__value_.__l.__data_);
+                  return;
                 }
 
-                v159 = *&v155->__pn_.__r_.__value_.__l.__data_;
-                v156->__pn_.__r_.__value_.__r.__words[2] = v155->__pn_.__r_.__value_.__r.__words[2];
-                *&v156->__pn_.__r_.__value_.__l.__data_ = v159;
-                *(&v155->__pn_.__r_.__value_.__s + 23) = 0;
-                v155->__pn_.__r_.__value_.__s.__data_[0] = 0;
-                if (v151 < v154)
+                v127 = a1[2].__pn_.__r_.__value_.__r.__words[2];
+                v128 = *&a1[2].__pn_.__r_.__value_.__l.__data_;
+                *&a1[2].__pn_.__r_.__value_.__l.__data_ = *&a1[3].__pn_.__r_.__value_.__l.__data_;
+                a1[2].__pn_.__r_.__value_.__r.__words[2] = a1[3].__pn_.__r_.__value_.__r.__words[2];
+                *&a1[3].__pn_.__r_.__value_.__l.__data_ = v128;
+                a1[3].__pn_.__r_.__value_.__r.__words[2] = v127;
+                v126.__data_ = &a1[1];
+                if (!std::__fs::filesystem::operator<[abi:ne200100](a1 + 2, v126))
                 {
-                  break;
+                  return;
                 }
 
-                v160 = (2 * v154) | 1;
-                v155 = &a1[v160];
-                v161 = 2 * v154 + 2;
-                if (v161 < v11)
-                {
-                  a2.__data_ = &v155[1];
-                  if (std::__fs::filesystem::operator<[abi:ne200100](&a1[v160], a2))
-                  {
-                    ++v155;
-                    v160 = v161;
-                  }
-                }
-
-                a2.__data_ = &v202;
-                v156 = v158;
-                v154 = v160;
-                if (std::__fs::filesystem::operator<[abi:ne200100](v155, a2))
-                {
-                  if (SHIBYTE(v158->__pn_.__r_.__value_.__r.__words[2]) < 0)
-                  {
-                    operator delete(v158->__pn_.__r_.__value_.__l.__data_);
-                  }
-
-                  break;
-                }
-              }
-
-              v162 = *&v202.__pn_.__r_.__value_.__l.__data_;
-              v158->__pn_.__r_.__value_.__r.__words[2] = v202.__pn_.__r_.__value_.__r.__words[2];
-              *&v158->__pn_.__r_.__value_.__l.__data_ = v162;
+                v130 = a1[1].__pn_.__r_.__value_.__r.__words[2];
+                v131 = *&a1[1].__pn_.__r_.__value_.__l.__data_;
+                *&a1[1].__pn_.__r_.__value_.__l.__data_ = *&a1[2].__pn_.__r_.__value_.__l.__data_;
+                a1[1].__pn_.__r_.__value_.__r.__words[2] = a1[2].__pn_.__r_.__value_.__r.__words[2];
+                *&a1[2].__pn_.__r_.__value_.__l.__data_ = v131;
+                a1[2].__pn_.__r_.__value_.__r.__words[2] = v130;
+                goto LABEL_186;
             }
-          }
-
-          v152 = v153 - 1;
-        }
-
-        while (v153);
-        v163 = 0xAAAAAAAAAAAAAAABLL * (v10 >> 3);
-        v164 = v200;
-        do
-        {
-          v165 = v164;
-          v166 = 0;
-          v198 = a1->__pn_.__r_.__value_.__r.__words[0];
-          v203.__pn_.__r_.__value_.__r.__words[0] = a1->__pn_.__r_.__value_.__l.__size_;
-          *(v203.__pn_.__r_.__value_.__r.__words + 7) = *(&a1->__pn_.__r_.__value_.__r.__words[1] + 7);
-          v201 = HIBYTE(a1->__pn_.__r_.__value_.__r.__words[2]);
-          a1->__pn_.__r_.__value_.__l.__size_ = 0;
-          a1->__pn_.__r_.__value_.__r.__words[2] = 0;
-          a1->__pn_.__r_.__value_.__r.__words[0] = 0;
-          v167 = a1;
-          do
-          {
-            v168 = v167;
-            v169 = &v167[v166];
-            v167 = &v169[1];
-            v170 = 2 * v166;
-            v166 = (2 * v166) | 1;
-            v171 = v170 + 2;
-            if (v170 + 2 < v163)
-            {
-              v172 = v169 + 2;
-              a2.__data_ = &v169[2];
-              if (std::__fs::filesystem::operator<[abi:ne200100](v169 + 1, a2))
-              {
-                v167 = v172;
-                v166 = v171;
-              }
-
-              if (SHIBYTE(v168->__pn_.__r_.__value_.__r.__words[2]) < 0)
-              {
-                operator delete(v168->__pn_.__r_.__value_.__l.__data_);
-              }
-            }
-
-            v173 = *&v167->__pn_.__r_.__value_.__l.__data_;
-            v168->__pn_.__r_.__value_.__r.__words[2] = v167->__pn_.__r_.__value_.__r.__words[2];
-            *&v168->__pn_.__r_.__value_.__l.__data_ = v173;
-            *(&v167->__pn_.__r_.__value_.__s + 23) = 0;
-            v167->__pn_.__r_.__value_.__s.__data_[0] = 0;
-          }
-
-          while (v166 <= (v163 - 2) / 2);
-          if (v167 == (v164 - 24))
-          {
-            v164 -= 24;
-            v167->__pn_.__r_.__value_.__r.__words[0] = v198;
-            v183 = *(v203.__pn_.__r_.__value_.__r.__words + 7);
-            v167->__pn_.__r_.__value_.__l.__size_ = v203.__pn_.__r_.__value_.__r.__words[0];
-            *(&v167->__pn_.__r_.__value_.__r.__words[1] + 7) = v183;
-            *(&v167->__pn_.__r_.__value_.__s + 23) = v201;
           }
 
           else
           {
-            v174 = *(v164 - 24);
-            v164 -= 24;
-            v167->__pn_.__r_.__value_.__r.__words[2] = *(v165 - 1);
-            *&v167->__pn_.__r_.__value_.__l.__data_ = v174;
-            *(v165 - 3) = v198;
-            v175 = v203.__pn_.__r_.__value_.__r.__words[0];
-            *(v165 - 9) = *(v203.__pn_.__r_.__value_.__r.__words + 7);
-            *(v165 - 2) = v175;
-            *(v165 - 1) = v201;
-            v176 = v167 - a1 + 24;
-            if (v176 >= 25)
+            if (v11 < 2)
             {
-              v177 = (-2 - 0x5555555555555555 * (v176 >> 3)) >> 1;
-              v178 = &a1[v177];
-              a2.__data_ = v167;
-              if (std::__fs::filesystem::operator<[abi:ne200100](v178, a2))
+              return;
+            }
+
+            if (v11 == 2)
+            {
+              a2.__data_ = a1;
+              if (!std::__fs::filesystem::operator<[abi:ne200100](data - 1, a2))
               {
-                v179 = *&v167->__pn_.__r_.__value_.__l.__data_;
-                v202.__pn_.__r_.__value_.__r.__words[2] = v167->__pn_.__r_.__value_.__r.__words[2];
-                *&v202.__pn_.__r_.__value_.__l.__data_ = v179;
-                v167->__pn_.__r_.__value_.__l.__size_ = 0;
-                v167->__pn_.__r_.__value_.__r.__words[2] = 0;
-                v167->__pn_.__r_.__value_.__r.__words[0] = 0;
-                while (1)
+                return;
+              }
+
+LABEL_116:
+              v135 = *&a1->__pn_.__r_.__value_.__l.__data_;
+              v200.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
+              *&v200.__pn_.__r_.__value_.__l.__data_ = v135;
+              v136 = *v7;
+              a1->__pn_.__r_.__value_.__r.__words[2] = *(data - 1);
+              *&a1->__pn_.__r_.__value_.__l.__data_ = v136;
+              v137 = *&v200.__pn_.__r_.__value_.__l.__data_;
+              v138 = v200.__pn_.__r_.__value_.__r.__words[2];
+              goto LABEL_117;
+            }
+          }
+
+          if (v10 <= 575)
+          {
+            v139 = a1 + 1;
+            v141 = a1 == data || v139 == data;
+            if (a4)
+            {
+              if (!v141)
+              {
+                v142 = 0;
+                v143 = a1;
+                do
                 {
-                  v180 = v178;
-                  if (SHIBYTE(v167->__pn_.__r_.__value_.__r.__words[2]) < 0)
+                  a2.__data_ = v143;
+                  v143 = v139;
+                  if (std::__fs::filesystem::operator<[abi:ne200100](v139, a2))
                   {
-                    operator delete(v167->__pn_.__r_.__value_.__l.__data_);
-                  }
-
-                  v181 = *&v178->__pn_.__r_.__value_.__l.__data_;
-                  v167->__pn_.__r_.__value_.__r.__words[2] = v178->__pn_.__r_.__value_.__r.__words[2];
-                  *&v167->__pn_.__r_.__value_.__l.__data_ = v181;
-                  *(&v178->__pn_.__r_.__value_.__s + 23) = 0;
-                  v178->__pn_.__r_.__value_.__s.__data_[0] = 0;
-                  if (!v177)
-                  {
-                    break;
-                  }
-
-                  v177 = (v177 - 1) >> 1;
-                  v178 = &a1[v177];
-                  a2.__data_ = &v202;
-                  v167 = v180;
-                  if ((std::__fs::filesystem::operator<[abi:ne200100](v178, a2) & 1) == 0)
-                  {
-                    if (SHIBYTE(v180->__pn_.__r_.__value_.__r.__words[2]) < 0)
+                    v144 = data;
+                    v145 = *v143;
+                    v200.__pn_.__r_.__value_.__r.__words[2] = *(v143 + 16);
+                    *&v200.__pn_.__r_.__value_.__l.__data_ = v145;
+                    *(v143 + 8) = 0;
+                    *(v143 + 16) = 0;
+                    *v143 = 0;
+                    v146 = v142;
+                    do
                     {
-                      operator delete(v180->__pn_.__r_.__value_.__l.__data_);
+                      v147 = (&a1->__pn_.__r_.__value_.__l.__data_ + v146);
+                      if (*(&a1[1].__pn_.__r_.__value_.__r.__words[2] + v146 + 7) < 0)
+                      {
+                        operator delete(v147[3]);
+                      }
+
+                      *(v147 + 3) = *v147;
+                      v147[5] = v147[2];
+                      *(v147 + 23) = 0;
+                      *v147 = 0;
+                      if (!v146)
+                      {
+                        v148 = a1;
+                        goto LABEL_139;
+                      }
+
+                      v146 -= 24;
+                      a2.__data_ = a1 + v146;
                     }
 
-                    break;
+                    while ((std::__fs::filesystem::operator<[abi:ne200100](&v200, a2) & 1) != 0);
+                    v148 = &a1[1] + v146;
+                    if (*(&a1[1].__pn_.__r_.__value_.__r.__words[2] + v146 + 7) < 0)
+                    {
+                      operator delete(*v148);
+                    }
+
+LABEL_139:
+                    data = v144;
+                    v149 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                    *(v148 + 16) = *(&v200.__pn_.__r_.__value_.__l + 2);
+                    *v148 = v149;
+                  }
+
+                  v139 = (v143 + 24);
+                  v142 += 24;
+                }
+
+                while ((v143 + 24) != data);
+              }
+            }
+
+            else if (!v141)
+            {
+              v188 = &a1[1].__pn_.__r_.__value_.__r.__words[2] + 7;
+              do
+              {
+                a2.__data_ = a1;
+                a1 = v139;
+                if (std::__fs::filesystem::operator<[abi:ne200100](v139, a2))
+                {
+                  v189 = *&a1->__pn_.__r_.__value_.__l.__data_;
+                  v200.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
+                  *&v200.__pn_.__r_.__value_.__l.__data_ = v189;
+                  a1->__pn_.__r_.__value_.__l.__size_ = 0;
+                  a1->__pn_.__r_.__value_.__r.__words[2] = 0;
+                  a1->__pn_.__r_.__value_.__r.__words[0] = 0;
+                  v190 = v188;
+                  do
+                  {
+                    v191 = (v190 - 23);
+                    if (*v190 < 0)
+                    {
+                      operator delete(*v191);
+                    }
+
+                    *v191 = *(v190 - 47);
+                    *(v190 - 7) = *(v190 - 31);
+                    *(v190 - 47) = 0;
+                    v192 = v190 - 47;
+                    v192[23] = 0;
+                    v190 -= 24;
+                    a2.__data_ = v192 - 24;
+                  }
+
+                  while ((std::__fs::filesystem::operator<[abi:ne200100](&v200, a2) & 1) != 0);
+                  if (v192[23] < 0)
+                  {
+                    operator delete(*v192);
+                  }
+
+                  v193 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                  *(v192 + 2) = *(&v200.__pn_.__r_.__value_.__l + 2);
+                  *v192 = v193;
+                }
+
+                v139 = a1 + 1;
+                v188 += 24;
+              }
+
+              while (&a1[1] != data);
+            }
+
+            return;
+          }
+
+          if (!size)
+          {
+            if (a1 != data)
+            {
+              v198 = data;
+              v150 = v12 >> 1;
+              v151 = v12 >> 1;
+              do
+              {
+                v152 = v151;
+                if (v150 >= v151)
+                {
+                  v153 = (2 * v151) | 1;
+                  v154 = &a1[v153];
+                  if (2 * v151 + 2 < v11)
+                  {
+                    a2.__data_ = &v154[1];
+                    if (std::__fs::filesystem::operator<[abi:ne200100](&a1[v153], a2))
+                    {
+                      ++v154;
+                      v153 = 2 * v152 + 2;
+                    }
+                  }
+
+                  v155 = &a1[v152];
+                  a2.__data_ = v155;
+                  if ((std::__fs::filesystem::operator<[abi:ne200100](v154, a2) & 1) == 0)
+                  {
+                    v156 = *&v155->__pn_.__r_.__value_.__l.__data_;
+                    v200.__pn_.__r_.__value_.__r.__words[2] = v155->__pn_.__r_.__value_.__r.__words[2];
+                    *&v200.__pn_.__r_.__value_.__l.__data_ = v156;
+                    v155->__pn_.__r_.__value_.__l.__size_ = 0;
+                    v155->__pn_.__r_.__value_.__r.__words[2] = 0;
+                    v155->__pn_.__r_.__value_.__r.__words[0] = 0;
+                    while (1)
+                    {
+                      v157 = v154;
+                      if (SHIBYTE(v155->__pn_.__r_.__value_.__r.__words[2]) < 0)
+                      {
+                        operator delete(v155->__pn_.__r_.__value_.__l.__data_);
+                      }
+
+                      v158 = *&v154->__pn_.__r_.__value_.__l.__data_;
+                      v155->__pn_.__r_.__value_.__r.__words[2] = v154->__pn_.__r_.__value_.__r.__words[2];
+                      *&v155->__pn_.__r_.__value_.__l.__data_ = v158;
+                      *(&v154->__pn_.__r_.__value_.__s + 23) = 0;
+                      v154->__pn_.__r_.__value_.__s.__data_[0] = 0;
+                      if (v150 < v153)
+                      {
+                        break;
+                      }
+
+                      v159 = (2 * v153) | 1;
+                      v154 = &a1[v159];
+                      v160 = 2 * v153 + 2;
+                      if (v160 < v11)
+                      {
+                        a2.__data_ = &v154[1];
+                        if (std::__fs::filesystem::operator<[abi:ne200100](&a1[v159], a2))
+                        {
+                          ++v154;
+                          v159 = v160;
+                        }
+                      }
+
+                      a2.__data_ = &v200;
+                      v155 = v157;
+                      v153 = v159;
+                      if (std::__fs::filesystem::operator<[abi:ne200100](v154, a2))
+                      {
+                        if (SHIBYTE(v157->__pn_.__r_.__value_.__r.__words[2]) < 0)
+                        {
+                          operator delete(v157->__pn_.__r_.__value_.__l.__data_);
+                        }
+
+                        break;
+                      }
+                    }
+
+                    v161 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                    v157->__pn_.__r_.__value_.__r.__words[2] = v200.__pn_.__r_.__value_.__r.__words[2];
+                    *&v157->__pn_.__r_.__value_.__l.__data_ = v161;
                   }
                 }
 
-                v182 = *&v202.__pn_.__r_.__value_.__l.__data_;
-                v180->__pn_.__r_.__value_.__r.__words[2] = v202.__pn_.__r_.__value_.__r.__words[2];
-                *&v180->__pn_.__r_.__value_.__l.__data_ = v182;
+                v151 = v152 - 1;
+              }
+
+              while (v152);
+              v162 = 0xAAAAAAAAAAAAAAABLL * (v10 >> 3);
+              v163 = v198;
+              do
+              {
+                v164 = v163;
+                v165 = 0;
+                v196 = a1->__pn_.__r_.__value_.__r.__words[0];
+                v201.__pn_.__r_.__value_.__r.__words[0] = a1->__pn_.__r_.__value_.__l.__size_;
+                *(v201.__pn_.__r_.__value_.__r.__words + 7) = *(&a1->__pn_.__r_.__value_.__r.__words[1] + 7);
+                v199 = HIBYTE(a1->__pn_.__r_.__value_.__r.__words[2]);
+                a1->__pn_.__r_.__value_.__l.__size_ = 0;
+                a1->__pn_.__r_.__value_.__r.__words[2] = 0;
+                a1->__pn_.__r_.__value_.__r.__words[0] = 0;
+                v166 = a1;
+                do
+                {
+                  v167 = v166;
+                  v168 = (v166 + 24 * v165);
+                  v166 = &v168[1];
+                  v169 = 2 * v165;
+                  v165 = (2 * v165) | 1;
+                  v170 = v169 + 2;
+                  if (v169 + 2 < v162)
+                  {
+                    v171 = v168 + 2;
+                    a2.__data_ = &v168[2];
+                    if (std::__fs::filesystem::operator<[abi:ne200100](v168 + 1, a2))
+                    {
+                      v166 = v171;
+                      v165 = v170;
+                    }
+
+                    if (*(v167 + 23) < 0)
+                    {
+                      operator delete(*v167);
+                    }
+                  }
+
+                  v172 = *v166;
+                  *(v167 + 16) = *(v166 + 16);
+                  *v167 = v172;
+                  *(v166 + 23) = 0;
+                  *v166 = 0;
+                }
+
+                while (v165 <= (v162 - 2) / 2);
+                if (v166 == v163 - 24)
+                {
+                  v163 -= 24;
+                  *v166 = v196;
+                  v182 = *(v201.__pn_.__r_.__value_.__r.__words + 7);
+                  *(v166 + 8) = v201.__pn_.__r_.__value_.__r.__words[0];
+                  *(v166 + 15) = v182;
+                  *(v166 + 23) = v199;
+                }
+
+                else
+                {
+                  v173 = *(v163 - 24);
+                  v163 -= 24;
+                  *(v166 + 16) = *(v164 - 1);
+                  *v166 = v173;
+                  *(v164 - 3) = v196;
+                  v174 = v201.__pn_.__r_.__value_.__r.__words[0];
+                  *(v164 - 9) = *(v201.__pn_.__r_.__value_.__r.__words + 7);
+                  *(v164 - 2) = v174;
+                  *(v164 - 1) = v199;
+                  v175 = v166 - a1 + 24;
+                  if (v175 >= 25)
+                  {
+                    v176 = (-2 - 0x5555555555555555 * (v175 >> 3)) >> 1;
+                    v177 = &a1[v176];
+                    a2.__data_ = v166;
+                    if (std::__fs::filesystem::operator<[abi:ne200100](v177, a2))
+                    {
+                      v178 = *v166;
+                      v200.__pn_.__r_.__value_.__r.__words[2] = *(v166 + 16);
+                      *&v200.__pn_.__r_.__value_.__l.__data_ = v178;
+                      *(v166 + 8) = 0;
+                      *(v166 + 16) = 0;
+                      *v166 = 0;
+                      while (1)
+                      {
+                        v179 = v177;
+                        if (*(v166 + 23) < 0)
+                        {
+                          operator delete(*v166);
+                        }
+
+                        v180 = *&v177->__pn_.__r_.__value_.__l.__data_;
+                        *(v166 + 16) = *(&v177->__pn_.__r_.__value_.__l + 2);
+                        *v166 = v180;
+                        *(&v177->__pn_.__r_.__value_.__s + 23) = 0;
+                        v177->__pn_.__r_.__value_.__s.__data_[0] = 0;
+                        if (!v176)
+                        {
+                          break;
+                        }
+
+                        v176 = (v176 - 1) >> 1;
+                        v177 = &a1[v176];
+                        a2.__data_ = &v200;
+                        v166 = v179;
+                        if ((std::__fs::filesystem::operator<[abi:ne200100](v177, a2) & 1) == 0)
+                        {
+                          if (*(v179 + 23) < 0)
+                          {
+                            operator delete(*v179);
+                          }
+
+                          break;
+                        }
+                      }
+
+                      v181 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                      *(v179 + 16) = *(&v200.__pn_.__r_.__value_.__l + 2);
+                      *v179 = v181;
+                    }
+                  }
+                }
+              }
+
+              while (v162-- > 2);
+            }
+
+            return;
+          }
+
+          v13 = v11 >> 1;
+          v14 = &a1[v11 >> 1];
+          if (v10 >= 0xC01)
+          {
+            a2.__data_ = a1;
+            v15 = std::__fs::filesystem::operator<[abi:ne200100](v14, a2);
+            v204.__data_ = v14;
+            v16 = std::__fs::filesystem::operator<[abi:ne200100](data - 1, v204);
+            if (v15)
+            {
+              if (v16)
+              {
+                v18 = *&a1->__pn_.__r_.__value_.__l.__data_;
+                v200.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
+                *&v200.__pn_.__r_.__value_.__l.__data_ = v18;
+                v19 = *v7;
+                a1->__pn_.__r_.__value_.__r.__words[2] = *(data - 1);
+                *&a1->__pn_.__r_.__value_.__l.__data_ = v19;
+              }
+
+              else
+              {
+                v37 = *&a1->__pn_.__r_.__value_.__l.__data_;
+                v200.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
+                *&v200.__pn_.__r_.__value_.__l.__data_ = v37;
+                v38 = *&v14->__pn_.__r_.__value_.__l.__data_;
+                a1->__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
+                *&a1->__pn_.__r_.__value_.__l.__data_ = v38;
+                v39 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                v14->__pn_.__r_.__value_.__r.__words[2] = v200.__pn_.__r_.__value_.__r.__words[2];
+                *&v14->__pn_.__r_.__value_.__l.__data_ = v39;
+                v17.__data_ = v14;
+                if (!std::__fs::filesystem::operator<[abi:ne200100](data - 1, v17))
+                {
+                  goto LABEL_28;
+                }
+
+                v40 = *&v14->__pn_.__r_.__value_.__l.__data_;
+                v200.__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
+                *&v200.__pn_.__r_.__value_.__l.__data_ = v40;
+                v41 = *v7;
+                v14->__pn_.__r_.__value_.__r.__words[2] = *(data - 1);
+                *&v14->__pn_.__r_.__value_.__l.__data_ = v41;
+              }
+
+              v42 = *&v200.__pn_.__r_.__value_.__l.__data_;
+              *(data - 1) = *(&v200.__pn_.__r_.__value_.__l + 2);
+              *v7 = v42;
+            }
+
+            else if (v16)
+            {
+              v25 = *&v14->__pn_.__r_.__value_.__l.__data_;
+              v200.__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
+              *&v200.__pn_.__r_.__value_.__l.__data_ = v25;
+              v26 = *v7;
+              v14->__pn_.__r_.__value_.__r.__words[2] = *(data - 1);
+              *&v14->__pn_.__r_.__value_.__l.__data_ = v26;
+              v27 = *&v200.__pn_.__r_.__value_.__l.__data_;
+              *(data - 1) = *(&v200.__pn_.__r_.__value_.__l + 2);
+              *v7 = v27;
+              v17.__data_ = a1;
+              if (std::__fs::filesystem::operator<[abi:ne200100](v14, v17))
+              {
+                v28 = *&a1->__pn_.__r_.__value_.__l.__data_;
+                v200.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
+                *&v200.__pn_.__r_.__value_.__l.__data_ = v28;
+                v29 = *&v14->__pn_.__r_.__value_.__l.__data_;
+                a1->__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
+                *&a1->__pn_.__r_.__value_.__l.__data_ = v29;
+                v30 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                v14->__pn_.__r_.__value_.__r.__words[2] = v200.__pn_.__r_.__value_.__r.__words[2];
+                *&v14->__pn_.__r_.__value_.__l.__data_ = v30;
               }
             }
-          }
-        }
-
-        while (v163-- > 2);
-      }
-
-      goto LABEL_202;
-    }
-
-    v13 = v11 >> 1;
-    v14 = &a1[v11 >> 1];
-    if (v10 >= 0xC01)
-    {
-      a2.__data_ = a1;
-      v15 = std::__fs::filesystem::operator<[abi:ne200100](v14, a2);
-      v206.__data_ = v14;
-      v16 = std::__fs::filesystem::operator<[abi:ne200100](data - 1, v206);
-      if (v15)
-      {
-        if (v16)
-        {
-          v18 = *&a1->__pn_.__r_.__value_.__l.__data_;
-          v202.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
-          *&v202.__pn_.__r_.__value_.__l.__data_ = v18;
-          v19 = *v7;
-          a1->__pn_.__r_.__value_.__r.__words[2] = *(data - 1);
-          *&a1->__pn_.__r_.__value_.__l.__data_ = v19;
-        }
-
-        else
-        {
-          v37 = *&a1->__pn_.__r_.__value_.__l.__data_;
-          v202.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
-          *&v202.__pn_.__r_.__value_.__l.__data_ = v37;
-          v38 = *&v14->__pn_.__r_.__value_.__l.__data_;
-          a1->__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
-          *&a1->__pn_.__r_.__value_.__l.__data_ = v38;
-          v39 = *&v202.__pn_.__r_.__value_.__l.__data_;
-          v14->__pn_.__r_.__value_.__r.__words[2] = v202.__pn_.__r_.__value_.__r.__words[2];
-          *&v14->__pn_.__r_.__value_.__l.__data_ = v39;
-          v17.__data_ = v14;
-          if (!std::__fs::filesystem::operator<[abi:ne200100](data - 1, v17))
-          {
-            goto LABEL_28;
-          }
-
-          v40 = *&v14->__pn_.__r_.__value_.__l.__data_;
-          v202.__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
-          *&v202.__pn_.__r_.__value_.__l.__data_ = v40;
-          v41 = *v7;
-          v14->__pn_.__r_.__value_.__r.__words[2] = *(data - 1);
-          *&v14->__pn_.__r_.__value_.__l.__data_ = v41;
-        }
-
-        v42 = *&v202.__pn_.__r_.__value_.__l.__data_;
-        *(data - 1) = *(&v202.__pn_.__r_.__value_.__l + 2);
-        *v7 = v42;
-      }
-
-      else if (v16)
-      {
-        v25 = *&v14->__pn_.__r_.__value_.__l.__data_;
-        v202.__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
-        *&v202.__pn_.__r_.__value_.__l.__data_ = v25;
-        v26 = *v7;
-        v14->__pn_.__r_.__value_.__r.__words[2] = *(data - 1);
-        *&v14->__pn_.__r_.__value_.__l.__data_ = v26;
-        v27 = *&v202.__pn_.__r_.__value_.__l.__data_;
-        *(data - 1) = *(&v202.__pn_.__r_.__value_.__l + 2);
-        *v7 = v27;
-        v17.__data_ = a1;
-        if (std::__fs::filesystem::operator<[abi:ne200100](v14, v17))
-        {
-          v28 = *&a1->__pn_.__r_.__value_.__l.__data_;
-          v202.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
-          *&v202.__pn_.__r_.__value_.__l.__data_ = v28;
-          v29 = *&v14->__pn_.__r_.__value_.__l.__data_;
-          a1->__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
-          *&a1->__pn_.__r_.__value_.__l.__data_ = v29;
-          v30 = *&v202.__pn_.__r_.__value_.__l.__data_;
-          v14->__pn_.__r_.__value_.__r.__words[2] = v202.__pn_.__r_.__value_.__r.__words[2];
-          *&v14->__pn_.__r_.__value_.__l.__data_ = v30;
-        }
-      }
 
 LABEL_28:
-      v43 = &a1[v13 - 1];
-      v17.__data_ = &a1[1];
-      v44 = std::__fs::filesystem::operator<[abi:ne200100](v43, v17);
-      v208.__data_ = v43;
-      v45 = std::__fs::filesystem::operator<[abi:ne200100](v199, v208);
-      if (v44)
-      {
-        if (v45)
-        {
-          v202 = a1[1];
-          v47 = *&v202.__pn_.__r_.__value_.__l.__data_;
-          v48 = v202.__pn_.__r_.__value_.__r.__words[2];
-          v49 = *(data - 4);
-          *&a1[1].__pn_.__r_.__value_.__l.__data_ = *&v199->__pn_.__r_.__value_.__l.__data_;
-          a1[1].__pn_.__r_.__value_.__r.__words[2] = v49;
-          *(data - 4) = v48;
-          *&v199->__pn_.__r_.__value_.__l.__data_ = v47;
-        }
+            v43 = &a1[v13 - 1];
+            v17.__data_ = &a1[1];
+            v44 = std::__fs::filesystem::operator<[abi:ne200100](v43, v17);
+            v206.__data_ = v43;
+            v45 = std::__fs::filesystem::operator<[abi:ne200100](v197, v206);
+            if (v44)
+            {
+              if (v45)
+              {
+                v200 = a1[1];
+                v47 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                v48 = v200.__pn_.__r_.__value_.__r.__words[2];
+                v49 = *(data - 4);
+                *&a1[1].__pn_.__r_.__value_.__l.__data_ = *&v197->__pn_.__r_.__value_.__l.__data_;
+                a1[1].__pn_.__r_.__value_.__r.__words[2] = v49;
+                *(data - 4) = v48;
+                *&v197->__pn_.__r_.__value_.__l.__data_ = v47;
+              }
 
-        else
-        {
-          v202 = a1[1];
-          v62 = *&v202.__pn_.__r_.__value_.__l.__data_;
-          v63 = v202.__pn_.__r_.__value_.__r.__words[2];
-          v64 = a1[v13 - 1].__pn_.__r_.__value_.__r.__words[2];
-          *&a1[1].__pn_.__r_.__value_.__l.__data_ = *&v43->__pn_.__r_.__value_.__l.__data_;
-          a1[1].__pn_.__r_.__value_.__r.__words[2] = v64;
-          a1[v13 - 1].__pn_.__r_.__value_.__r.__words[2] = v63;
-          *&v43->__pn_.__r_.__value_.__l.__data_ = v62;
-          v46.__data_ = &a1[v13 - 1];
-          if (std::__fs::filesystem::operator<[abi:ne200100](v199, v46))
-          {
-            v65 = *&v43->__pn_.__r_.__value_.__l.__data_;
-            v202.__pn_.__r_.__value_.__r.__words[2] = a1[v13 - 1].__pn_.__r_.__value_.__r.__words[2];
-            *&v202.__pn_.__r_.__value_.__l.__data_ = v65;
-            v66 = *&v199->__pn_.__r_.__value_.__l.__data_;
-            a1[v13 - 1].__pn_.__r_.__value_.__r.__words[2] = *(data - 4);
-            *&v43->__pn_.__r_.__value_.__l.__data_ = v66;
-            v67 = *&v202.__pn_.__r_.__value_.__l.__data_;
-            *(data - 4) = *(&v202.__pn_.__r_.__value_.__l + 2);
-            *&v199->__pn_.__r_.__value_.__l.__data_ = v67;
-          }
-        }
-      }
+              else
+              {
+                v200 = a1[1];
+                v62 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                v63 = v200.__pn_.__r_.__value_.__r.__words[2];
+                v64 = a1[v13 - 1].__pn_.__r_.__value_.__r.__words[2];
+                *&a1[1].__pn_.__r_.__value_.__l.__data_ = *&v43->__pn_.__r_.__value_.__l.__data_;
+                a1[1].__pn_.__r_.__value_.__r.__words[2] = v64;
+                a1[v13 - 1].__pn_.__r_.__value_.__r.__words[2] = v63;
+                *&v43->__pn_.__r_.__value_.__l.__data_ = v62;
+                v46.__data_ = &a1[v13 - 1];
+                if (std::__fs::filesystem::operator<[abi:ne200100](v197, v46))
+                {
+                  v65 = *&v43->__pn_.__r_.__value_.__l.__data_;
+                  v200.__pn_.__r_.__value_.__r.__words[2] = a1[v13 - 1].__pn_.__r_.__value_.__r.__words[2];
+                  *&v200.__pn_.__r_.__value_.__l.__data_ = v65;
+                  v66 = *&v197->__pn_.__r_.__value_.__l.__data_;
+                  a1[v13 - 1].__pn_.__r_.__value_.__r.__words[2] = *(data - 4);
+                  *&v43->__pn_.__r_.__value_.__l.__data_ = v66;
+                  v67 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                  *(data - 4) = *(&v200.__pn_.__r_.__value_.__l + 2);
+                  *&v197->__pn_.__r_.__value_.__l.__data_ = v67;
+                }
+              }
+            }
 
-      else if (v45)
-      {
-        v50 = *&v43->__pn_.__r_.__value_.__l.__data_;
-        v202.__pn_.__r_.__value_.__r.__words[2] = a1[v13 - 1].__pn_.__r_.__value_.__r.__words[2];
-        *&v202.__pn_.__r_.__value_.__l.__data_ = v50;
-        v51 = *&v199->__pn_.__r_.__value_.__l.__data_;
-        a1[v13 - 1].__pn_.__r_.__value_.__r.__words[2] = *(data - 4);
-        *&v43->__pn_.__r_.__value_.__l.__data_ = v51;
-        v52 = *&v202.__pn_.__r_.__value_.__l.__data_;
-        *(data - 4) = *(&v202.__pn_.__r_.__value_.__l + 2);
-        *&v199->__pn_.__r_.__value_.__l.__data_ = v52;
-        v46.__data_ = &a1[1];
-        if (std::__fs::filesystem::operator<[abi:ne200100](v43, v46))
-        {
-          v202 = a1[1];
-          v53 = *&v202.__pn_.__r_.__value_.__l.__data_;
-          v54 = v202.__pn_.__r_.__value_.__r.__words[2];
-          v55 = a1[v13 - 1].__pn_.__r_.__value_.__r.__words[2];
-          *&a1[1].__pn_.__r_.__value_.__l.__data_ = *&v43->__pn_.__r_.__value_.__l.__data_;
-          a1[1].__pn_.__r_.__value_.__r.__words[2] = v55;
-          a1[v13 - 1].__pn_.__r_.__value_.__r.__words[2] = v54;
-          *&v43->__pn_.__r_.__value_.__l.__data_ = v53;
-        }
-      }
+            else if (v45)
+            {
+              v50 = *&v43->__pn_.__r_.__value_.__l.__data_;
+              v200.__pn_.__r_.__value_.__r.__words[2] = a1[v13 - 1].__pn_.__r_.__value_.__r.__words[2];
+              *&v200.__pn_.__r_.__value_.__l.__data_ = v50;
+              v51 = *&v197->__pn_.__r_.__value_.__l.__data_;
+              a1[v13 - 1].__pn_.__r_.__value_.__r.__words[2] = *(data - 4);
+              *&v43->__pn_.__r_.__value_.__l.__data_ = v51;
+              v52 = *&v200.__pn_.__r_.__value_.__l.__data_;
+              *(data - 4) = *(&v200.__pn_.__r_.__value_.__l + 2);
+              *&v197->__pn_.__r_.__value_.__l.__data_ = v52;
+              v46.__data_ = &a1[1];
+              if (std::__fs::filesystem::operator<[abi:ne200100](v43, v46))
+              {
+                v200 = a1[1];
+                v53 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                v54 = v200.__pn_.__r_.__value_.__r.__words[2];
+                v55 = a1[v13 - 1].__pn_.__r_.__value_.__r.__words[2];
+                *&a1[1].__pn_.__r_.__value_.__l.__data_ = *&v43->__pn_.__r_.__value_.__l.__data_;
+                a1[1].__pn_.__r_.__value_.__r.__words[2] = v55;
+                a1[v13 - 1].__pn_.__r_.__value_.__r.__words[2] = v54;
+                *&v43->__pn_.__r_.__value_.__l.__data_ = v53;
+              }
+            }
 
-      v68 = &a1[v13];
-      v46.__data_ = &a1[2];
-      v69 = std::__fs::filesystem::operator<[abi:ne200100](v68 + 1, v46);
-      v209.__data_ = &v68[1];
-      v70 = std::__fs::filesystem::operator<[abi:ne200100](data - 3, v209);
-      if (v69)
-      {
-        if (v70)
-        {
-          v72 = *&a1[2].__pn_.__r_.__value_.__l.__data_;
-          *&v202.__pn_.__r_.__value_.__l.__data_ = v72;
-          v73 = a1[2].__pn_.__r_.__value_.__r.__words[2];
-          v202.__pn_.__r_.__value_.__r.__words[2] = v73;
-          v74 = *(data - 7);
-          *&a1[2].__pn_.__r_.__value_.__l.__data_ = *v8;
-          a1[2].__pn_.__r_.__value_.__r.__words[2] = v74;
-        }
+            v68 = &a1[v13];
+            v46.__data_ = &a1[2];
+            v69 = std::__fs::filesystem::operator<[abi:ne200100](v68 + 1, v46);
+            v207.__data_ = &v68[1];
+            v70 = std::__fs::filesystem::operator<[abi:ne200100](data - 3, v207);
+            if (v69)
+            {
+              if (v70)
+              {
+                v72 = *&a1[2].__pn_.__r_.__value_.__l.__data_;
+                *&v200.__pn_.__r_.__value_.__l.__data_ = v72;
+                v73 = a1[2].__pn_.__r_.__value_.__r.__words[2];
+                v200.__pn_.__r_.__value_.__r.__words[2] = v73;
+                v74 = *(data - 7);
+                *&a1[2].__pn_.__r_.__value_.__l.__data_ = *v8;
+                a1[2].__pn_.__r_.__value_.__r.__words[2] = v74;
+              }
 
-        else
-        {
-          v202 = a1[2];
-          v81 = *&v202.__pn_.__r_.__value_.__l.__data_;
-          v82 = v202.__pn_.__r_.__value_.__r.__words[2];
-          v83 = v68[1].__pn_.__r_.__value_.__r.__words[2];
-          *&a1[2].__pn_.__r_.__value_.__l.__data_ = *&v68[1].__pn_.__r_.__value_.__l.__data_;
-          a1[2].__pn_.__r_.__value_.__r.__words[2] = v83;
-          v68[1].__pn_.__r_.__value_.__r.__words[2] = v82;
-          *&v68[1].__pn_.__r_.__value_.__l.__data_ = v81;
-          v71.__data_ = &v68[1];
-          if (!std::__fs::filesystem::operator<[abi:ne200100](data - 3, v71))
-          {
-            goto LABEL_48;
-          }
+              else
+              {
+                v200 = a1[2];
+                v81 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                v82 = v200.__pn_.__r_.__value_.__r.__words[2];
+                v83 = v68[1].__pn_.__r_.__value_.__r.__words[2];
+                *&a1[2].__pn_.__r_.__value_.__l.__data_ = *&v68[1].__pn_.__r_.__value_.__l.__data_;
+                a1[2].__pn_.__r_.__value_.__r.__words[2] = v83;
+                v68[1].__pn_.__r_.__value_.__r.__words[2] = v82;
+                *&v68[1].__pn_.__r_.__value_.__l.__data_ = v81;
+                v71.__data_ = &v68[1];
+                if (!std::__fs::filesystem::operator<[abi:ne200100](data - 3, v71))
+                {
+                  goto LABEL_48;
+                }
 
-          v84 = *&v68[1].__pn_.__r_.__value_.__l.__data_;
-          v202.__pn_.__r_.__value_.__r.__words[2] = v68[1].__pn_.__r_.__value_.__r.__words[2];
-          *&v202.__pn_.__r_.__value_.__l.__data_ = v84;
-          v85 = *v8;
-          v68[1].__pn_.__r_.__value_.__r.__words[2] = *(data - 7);
-          *&v68[1].__pn_.__r_.__value_.__l.__data_ = v85;
-          v72 = *&v202.__pn_.__r_.__value_.__l.__data_;
-          v73 = v202.__pn_.__r_.__value_.__r.__words[2];
-        }
+                v84 = *&v68[1].__pn_.__r_.__value_.__l.__data_;
+                v200.__pn_.__r_.__value_.__r.__words[2] = v68[1].__pn_.__r_.__value_.__r.__words[2];
+                *&v200.__pn_.__r_.__value_.__l.__data_ = v84;
+                v85 = *v8;
+                v68[1].__pn_.__r_.__value_.__r.__words[2] = *(data - 7);
+                *&v68[1].__pn_.__r_.__value_.__l.__data_ = v85;
+                v72 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                v73 = v200.__pn_.__r_.__value_.__r.__words[2];
+              }
 
-        *(data - 7) = v73;
-        *v8 = v72;
-      }
+              *(data - 7) = v73;
+              *v8 = v72;
+            }
 
-      else if (v70)
-      {
-        v75 = *&v68[1].__pn_.__r_.__value_.__l.__data_;
-        v202.__pn_.__r_.__value_.__r.__words[2] = v68[1].__pn_.__r_.__value_.__r.__words[2];
-        *&v202.__pn_.__r_.__value_.__l.__data_ = v75;
-        v76 = *v8;
-        v68[1].__pn_.__r_.__value_.__r.__words[2] = *(data - 7);
-        *&v68[1].__pn_.__r_.__value_.__l.__data_ = v76;
-        v77 = *&v202.__pn_.__r_.__value_.__l.__data_;
-        *(data - 7) = *(&v202.__pn_.__r_.__value_.__l + 2);
-        *v8 = v77;
-        v71.__data_ = &a1[2];
-        if (std::__fs::filesystem::operator<[abi:ne200100](v68 + 1, v71))
-        {
-          v202 = a1[2];
-          v78 = *&v202.__pn_.__r_.__value_.__l.__data_;
-          v79 = v202.__pn_.__r_.__value_.__r.__words[2];
-          v80 = v68[1].__pn_.__r_.__value_.__r.__words[2];
-          *&a1[2].__pn_.__r_.__value_.__l.__data_ = *&v68[1].__pn_.__r_.__value_.__l.__data_;
-          a1[2].__pn_.__r_.__value_.__r.__words[2] = v80;
-          v68[1].__pn_.__r_.__value_.__r.__words[2] = v79;
-          *&v68[1].__pn_.__r_.__value_.__l.__data_ = v78;
-        }
-      }
+            else if (v70)
+            {
+              v75 = *&v68[1].__pn_.__r_.__value_.__l.__data_;
+              v200.__pn_.__r_.__value_.__r.__words[2] = v68[1].__pn_.__r_.__value_.__r.__words[2];
+              *&v200.__pn_.__r_.__value_.__l.__data_ = v75;
+              v76 = *v8;
+              v68[1].__pn_.__r_.__value_.__r.__words[2] = *(data - 7);
+              *&v68[1].__pn_.__r_.__value_.__l.__data_ = v76;
+              v77 = *&v200.__pn_.__r_.__value_.__l.__data_;
+              *(data - 7) = *(&v200.__pn_.__r_.__value_.__l + 2);
+              *v8 = v77;
+              v71.__data_ = &a1[2];
+              if (std::__fs::filesystem::operator<[abi:ne200100](v68 + 1, v71))
+              {
+                v200 = a1[2];
+                v78 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                v79 = v200.__pn_.__r_.__value_.__r.__words[2];
+                v80 = v68[1].__pn_.__r_.__value_.__r.__words[2];
+                *&a1[2].__pn_.__r_.__value_.__l.__data_ = *&v68[1].__pn_.__r_.__value_.__l.__data_;
+                a1[2].__pn_.__r_.__value_.__r.__words[2] = v80;
+                v68[1].__pn_.__r_.__value_.__r.__words[2] = v79;
+                *&v68[1].__pn_.__r_.__value_.__l.__data_ = v78;
+              }
+            }
 
 LABEL_48:
-      v71.__data_ = v43;
-      v86 = std::__fs::filesystem::operator<[abi:ne200100](v14, v71);
-      v210.__data_ = v14;
-      v87 = std::__fs::filesystem::operator<[abi:ne200100](v68 + 1, v210);
-      if ((v86 & 1) == 0)
-      {
-        if (v87)
-        {
-          v89 = *&v14->__pn_.__r_.__value_.__l.__data_;
-          v202.__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
-          *&v202.__pn_.__r_.__value_.__l.__data_ = v89;
-          *&v14->__pn_.__r_.__value_.__l.__data_ = *&v68[1].__pn_.__r_.__value_.__l.__data_;
-          v14->__pn_.__r_.__value_.__r.__words[2] = v68[1].__pn_.__r_.__value_.__r.__words[2];
-          v90 = *&v202.__pn_.__r_.__value_.__l.__data_;
-          v68[1].__pn_.__r_.__value_.__r.__words[2] = v202.__pn_.__r_.__value_.__r.__words[2];
-          *&v68[1].__pn_.__r_.__value_.__l.__data_ = v90;
-          v22.__data_ = v43;
-          if (std::__fs::filesystem::operator<[abi:ne200100](v14, v22))
-          {
-            v91 = *&v43->__pn_.__r_.__value_.__l.__data_;
-            v202.__pn_.__r_.__value_.__r.__words[2] = v43->__pn_.__r_.__value_.__r.__words[2];
-            *&v202.__pn_.__r_.__value_.__l.__data_ = v91;
-            *&v43->__pn_.__r_.__value_.__l.__data_ = *&v14->__pn_.__r_.__value_.__l.__data_;
-            v43->__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
-            v92 = *&v202.__pn_.__r_.__value_.__l.__data_;
-            v14->__pn_.__r_.__value_.__r.__words[2] = v202.__pn_.__r_.__value_.__r.__words[2];
-            *&v14->__pn_.__r_.__value_.__l.__data_ = v92;
-          }
-        }
+            v71.__data_ = v43;
+            v86 = std::__fs::filesystem::operator<[abi:ne200100](v14, v71);
+            v208.__data_ = v14;
+            v87 = std::__fs::filesystem::operator<[abi:ne200100](v68 + 1, v208);
+            if ((v86 & 1) == 0)
+            {
+              if (v87)
+              {
+                v89 = *&v14->__pn_.__r_.__value_.__l.__data_;
+                v200.__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
+                *&v200.__pn_.__r_.__value_.__l.__data_ = v89;
+                *&v14->__pn_.__r_.__value_.__l.__data_ = *&v68[1].__pn_.__r_.__value_.__l.__data_;
+                v14->__pn_.__r_.__value_.__r.__words[2] = v68[1].__pn_.__r_.__value_.__r.__words[2];
+                v90 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                v68[1].__pn_.__r_.__value_.__r.__words[2] = v200.__pn_.__r_.__value_.__r.__words[2];
+                *&v68[1].__pn_.__r_.__value_.__l.__data_ = v90;
+                v22.__data_ = v43;
+                if (std::__fs::filesystem::operator<[abi:ne200100](v14, v22))
+                {
+                  v91 = *&v43->__pn_.__r_.__value_.__l.__data_;
+                  v200.__pn_.__r_.__value_.__r.__words[2] = v43->__pn_.__r_.__value_.__r.__words[2];
+                  *&v200.__pn_.__r_.__value_.__l.__data_ = v91;
+                  *&v43->__pn_.__r_.__value_.__l.__data_ = *&v14->__pn_.__r_.__value_.__l.__data_;
+                  v43->__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
+                  v92 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                  v14->__pn_.__r_.__value_.__r.__words[2] = v200.__pn_.__r_.__value_.__r.__words[2];
+                  *&v14->__pn_.__r_.__value_.__l.__data_ = v92;
+                }
+              }
 
-        goto LABEL_57;
-      }
+              goto LABEL_57;
+            }
 
-      if (v87)
-      {
-        v88 = *&v43->__pn_.__r_.__value_.__l.__data_;
-        v202.__pn_.__r_.__value_.__r.__words[2] = v43->__pn_.__r_.__value_.__r.__words[2];
-        *&v202.__pn_.__r_.__value_.__l.__data_ = v88;
-        *&v43->__pn_.__r_.__value_.__l.__data_ = *&v68[1].__pn_.__r_.__value_.__l.__data_;
-        v43->__pn_.__r_.__value_.__r.__words[2] = v68[1].__pn_.__r_.__value_.__r.__words[2];
-      }
+            if (v87)
+            {
+              v88 = *&v43->__pn_.__r_.__value_.__l.__data_;
+              v200.__pn_.__r_.__value_.__r.__words[2] = v43->__pn_.__r_.__value_.__r.__words[2];
+              *&v200.__pn_.__r_.__value_.__l.__data_ = v88;
+              *&v43->__pn_.__r_.__value_.__l.__data_ = *&v68[1].__pn_.__r_.__value_.__l.__data_;
+              v43->__pn_.__r_.__value_.__r.__words[2] = v68[1].__pn_.__r_.__value_.__r.__words[2];
+            }
 
-      else
-      {
-        v93 = *&v43->__pn_.__r_.__value_.__l.__data_;
-        v202.__pn_.__r_.__value_.__r.__words[2] = v43->__pn_.__r_.__value_.__r.__words[2];
-        *&v202.__pn_.__r_.__value_.__l.__data_ = v93;
-        *&v43->__pn_.__r_.__value_.__l.__data_ = *&v14->__pn_.__r_.__value_.__l.__data_;
-        v43->__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
-        v94 = *&v202.__pn_.__r_.__value_.__l.__data_;
-        v14->__pn_.__r_.__value_.__r.__words[2] = v202.__pn_.__r_.__value_.__r.__words[2];
-        *&v14->__pn_.__r_.__value_.__l.__data_ = v94;
-        v22.__data_ = v14;
-        if (!std::__fs::filesystem::operator<[abi:ne200100](v68 + 1, v22))
-        {
+            else
+            {
+              v93 = *&v43->__pn_.__r_.__value_.__l.__data_;
+              v200.__pn_.__r_.__value_.__r.__words[2] = v43->__pn_.__r_.__value_.__r.__words[2];
+              *&v200.__pn_.__r_.__value_.__l.__data_ = v93;
+              *&v43->__pn_.__r_.__value_.__l.__data_ = *&v14->__pn_.__r_.__value_.__l.__data_;
+              v43->__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
+              v94 = *&v200.__pn_.__r_.__value_.__l.__data_;
+              v14->__pn_.__r_.__value_.__r.__words[2] = v200.__pn_.__r_.__value_.__r.__words[2];
+              *&v14->__pn_.__r_.__value_.__l.__data_ = v94;
+              v22.__data_ = v14;
+              if (!std::__fs::filesystem::operator<[abi:ne200100](v68 + 1, v22))
+              {
 LABEL_57:
-          v97 = *&a1->__pn_.__r_.__value_.__l.__data_;
-          v202.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
-          *&v202.__pn_.__r_.__value_.__l.__data_ = v97;
-          v98 = *&v14->__pn_.__r_.__value_.__l.__data_;
-          a1->__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
-          *&a1->__pn_.__r_.__value_.__l.__data_ = v98;
-          v99 = *&v202.__pn_.__r_.__value_.__l.__data_;
-          v14->__pn_.__r_.__value_.__r.__words[2] = v202.__pn_.__r_.__value_.__r.__words[2];
-          *&v14->__pn_.__r_.__value_.__l.__data_ = v99;
-          goto LABEL_58;
-        }
+                v97 = *&a1->__pn_.__r_.__value_.__l.__data_;
+                v200.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
+                *&v200.__pn_.__r_.__value_.__l.__data_ = v97;
+                v98 = *&v14->__pn_.__r_.__value_.__l.__data_;
+                a1->__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
+                *&a1->__pn_.__r_.__value_.__l.__data_ = v98;
+                v99 = *&v200.__pn_.__r_.__value_.__l.__data_;
+                v14->__pn_.__r_.__value_.__r.__words[2] = v200.__pn_.__r_.__value_.__r.__words[2];
+                *&v14->__pn_.__r_.__value_.__l.__data_ = v99;
+                goto LABEL_58;
+              }
 
-        v95 = *&v14->__pn_.__r_.__value_.__l.__data_;
-        v202.__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
-        *&v202.__pn_.__r_.__value_.__l.__data_ = v95;
-        *&v14->__pn_.__r_.__value_.__l.__data_ = *&v68[1].__pn_.__r_.__value_.__l.__data_;
-        v14->__pn_.__r_.__value_.__r.__words[2] = v68[1].__pn_.__r_.__value_.__r.__words[2];
-      }
+              v95 = *&v14->__pn_.__r_.__value_.__l.__data_;
+              v200.__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
+              *&v200.__pn_.__r_.__value_.__l.__data_ = v95;
+              *&v14->__pn_.__r_.__value_.__l.__data_ = *&v68[1].__pn_.__r_.__value_.__l.__data_;
+              v14->__pn_.__r_.__value_.__r.__words[2] = v68[1].__pn_.__r_.__value_.__r.__words[2];
+            }
 
-      v96 = *&v202.__pn_.__r_.__value_.__l.__data_;
-      v68[1].__pn_.__r_.__value_.__r.__words[2] = v202.__pn_.__r_.__value_.__r.__words[2];
-      *&v68[1].__pn_.__r_.__value_.__l.__data_ = v96;
-      goto LABEL_57;
-    }
+            v96 = *&v200.__pn_.__r_.__value_.__l.__data_;
+            v68[1].__pn_.__r_.__value_.__r.__words[2] = v200.__pn_.__r_.__value_.__r.__words[2];
+            *&v68[1].__pn_.__r_.__value_.__l.__data_ = v96;
+            goto LABEL_57;
+          }
 
-    a2.__data_ = v14;
-    v20 = std::__fs::filesystem::operator<[abi:ne200100](a1, a2);
-    v207.__data_ = a1;
-    v21 = std::__fs::filesystem::operator<[abi:ne200100](data - 1, v207);
-    if ((v20 & 1) == 0)
-    {
-      if (v21)
-      {
-        v31 = *&a1->__pn_.__r_.__value_.__l.__data_;
-        v202.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
-        *&v202.__pn_.__r_.__value_.__l.__data_ = v31;
-        v32 = *v7;
-        a1->__pn_.__r_.__value_.__r.__words[2] = *(data - 1);
-        *&a1->__pn_.__r_.__value_.__l.__data_ = v32;
-        v33 = *&v202.__pn_.__r_.__value_.__l.__data_;
-        *(data - 1) = *(&v202.__pn_.__r_.__value_.__l + 2);
-        *v7 = v33;
-        v22.__data_ = v14;
-        if (std::__fs::filesystem::operator<[abi:ne200100](a1, v22))
-        {
-          v34 = *&v14->__pn_.__r_.__value_.__l.__data_;
-          v202.__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
-          *&v202.__pn_.__r_.__value_.__l.__data_ = v34;
-          v35 = *&a1->__pn_.__r_.__value_.__l.__data_;
-          v14->__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
-          *&v14->__pn_.__r_.__value_.__l.__data_ = v35;
-          v36 = *&v202.__pn_.__r_.__value_.__l.__data_;
-          a1->__pn_.__r_.__value_.__r.__words[2] = v202.__pn_.__r_.__value_.__r.__words[2];
-          *&a1->__pn_.__r_.__value_.__l.__data_ = v36;
-        }
-      }
+          a2.__data_ = v14;
+          v20 = std::__fs::filesystem::operator<[abi:ne200100](a1, a2);
+          v205.__data_ = a1;
+          v21 = std::__fs::filesystem::operator<[abi:ne200100](data - 1, v205);
+          if (v20)
+          {
+            if (v21)
+            {
+              v23 = *&v14->__pn_.__r_.__value_.__l.__data_;
+              v200.__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
+              *&v200.__pn_.__r_.__value_.__l.__data_ = v23;
+              v24 = *v7;
+              v14->__pn_.__r_.__value_.__r.__words[2] = *(data - 1);
+              *&v14->__pn_.__r_.__value_.__l.__data_ = v24;
+LABEL_36:
+              v61 = *&v200.__pn_.__r_.__value_.__l.__data_;
+              *(data - 1) = *(&v200.__pn_.__r_.__value_.__l + 2);
+              *v7 = v61;
+              goto LABEL_58;
+            }
 
-      goto LABEL_58;
-    }
+            v56 = *&v14->__pn_.__r_.__value_.__l.__data_;
+            v200.__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
+            *&v200.__pn_.__r_.__value_.__l.__data_ = v56;
+            v57 = *&a1->__pn_.__r_.__value_.__l.__data_;
+            v14->__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
+            *&v14->__pn_.__r_.__value_.__l.__data_ = v57;
+            v58 = *&v200.__pn_.__r_.__value_.__l.__data_;
+            a1->__pn_.__r_.__value_.__r.__words[2] = v200.__pn_.__r_.__value_.__r.__words[2];
+            *&a1->__pn_.__r_.__value_.__l.__data_ = v58;
+            v22.__data_ = a1;
+            if (std::__fs::filesystem::operator<[abi:ne200100](data - 1, v22))
+            {
+              v59 = *&a1->__pn_.__r_.__value_.__l.__data_;
+              v200.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
+              *&v200.__pn_.__r_.__value_.__l.__data_ = v59;
+              v60 = *v7;
+              a1->__pn_.__r_.__value_.__r.__words[2] = *(data - 1);
+              *&a1->__pn_.__r_.__value_.__l.__data_ = v60;
+              goto LABEL_36;
+            }
+          }
 
-    if (v21)
-    {
-      v23 = *&v14->__pn_.__r_.__value_.__l.__data_;
-      v202.__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
-      *&v202.__pn_.__r_.__value_.__l.__data_ = v23;
-      v24 = *v7;
-      v14->__pn_.__r_.__value_.__r.__words[2] = *(data - 1);
-      *&v14->__pn_.__r_.__value_.__l.__data_ = v24;
-    }
+          else if (v21)
+          {
+            v31 = *&a1->__pn_.__r_.__value_.__l.__data_;
+            v200.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
+            *&v200.__pn_.__r_.__value_.__l.__data_ = v31;
+            v32 = *v7;
+            a1->__pn_.__r_.__value_.__r.__words[2] = *(data - 1);
+            *&a1->__pn_.__r_.__value_.__l.__data_ = v32;
+            v33 = *&v200.__pn_.__r_.__value_.__l.__data_;
+            *(data - 1) = *(&v200.__pn_.__r_.__value_.__l + 2);
+            *v7 = v33;
+            v22.__data_ = v14;
+            if (std::__fs::filesystem::operator<[abi:ne200100](a1, v22))
+            {
+              v34 = *&v14->__pn_.__r_.__value_.__l.__data_;
+              v200.__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
+              *&v200.__pn_.__r_.__value_.__l.__data_ = v34;
+              v35 = *&a1->__pn_.__r_.__value_.__l.__data_;
+              v14->__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
+              *&v14->__pn_.__r_.__value_.__l.__data_ = v35;
+              v36 = *&v200.__pn_.__r_.__value_.__l.__data_;
+              a1->__pn_.__r_.__value_.__r.__words[2] = v200.__pn_.__r_.__value_.__r.__words[2];
+              *&a1->__pn_.__r_.__value_.__l.__data_ = v36;
+            }
+          }
 
-    else
-    {
-      v56 = *&v14->__pn_.__r_.__value_.__l.__data_;
-      v202.__pn_.__r_.__value_.__r.__words[2] = v14->__pn_.__r_.__value_.__r.__words[2];
-      *&v202.__pn_.__r_.__value_.__l.__data_ = v56;
-      v57 = *&a1->__pn_.__r_.__value_.__l.__data_;
-      v14->__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
-      *&v14->__pn_.__r_.__value_.__l.__data_ = v57;
-      v58 = *&v202.__pn_.__r_.__value_.__l.__data_;
-      a1->__pn_.__r_.__value_.__r.__words[2] = v202.__pn_.__r_.__value_.__r.__words[2];
-      *&a1->__pn_.__r_.__value_.__l.__data_ = v58;
-      v22.__data_ = a1;
-      if (!std::__fs::filesystem::operator<[abi:ne200100](data - 1, v22))
-      {
-        goto LABEL_58;
-      }
-
-      v59 = *&a1->__pn_.__r_.__value_.__l.__data_;
-      v202.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
-      *&v202.__pn_.__r_.__value_.__l.__data_ = v59;
-      v60 = *v7;
-      a1->__pn_.__r_.__value_.__r.__words[2] = *(data - 1);
-      *&a1->__pn_.__r_.__value_.__l.__data_ = v60;
-    }
-
-    v61 = *&v202.__pn_.__r_.__value_.__l.__data_;
-    *(data - 1) = *(&v202.__pn_.__r_.__value_.__l + 2);
-    *v7 = v61;
 LABEL_58:
-    --size;
-    if (a3 & 1) != 0 || (v22.__data_ = a1, (std::__fs::filesystem::operator<[abi:ne200100](a1 - 1, v22)))
-    {
-      v100 = *&a1->__pn_.__r_.__value_.__l.__data_;
-      v203.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
-      *&v203.__pn_.__r_.__value_.__l.__data_ = v100;
-      a1->__pn_.__r_.__value_.__l.__size_ = 0;
-      a1->__pn_.__r_.__value_.__r.__words[2] = 0;
-      a1->__pn_.__r_.__value_.__r.__words[0] = 0;
-      v101 = a1;
-      do
-      {
-        v102 = v101++;
-        v22.__data_ = &v203;
-      }
-
-      while ((std::__fs::filesystem::operator<[abi:ne200100](v101, v22) & 1) != 0);
-      v103 = data;
-      if (v102 == a1)
-      {
-        v103 = data;
-        do
-        {
-          if (v101 >= v103)
+          --size;
+          if (a4)
           {
             break;
           }
 
-          --v103;
-          v22.__data_ = &v203;
-        }
-
-        while ((std::__fs::filesystem::operator<[abi:ne200100](v103, v22) & 1) == 0);
-      }
-
-      else
-      {
-        do
-        {
-          --v103;
-          v22.__data_ = &v203;
-        }
-
-        while (!std::__fs::filesystem::operator<[abi:ne200100](v103, v22));
-      }
-
-      v9 = v101;
-      if (v101 < v103)
-      {
-        v104 = v103;
-        do
-        {
-          v202 = *v9;
-          v105 = *&v202.__pn_.__r_.__value_.__l.__data_;
-          v106 = v202.__pn_.__r_.__value_.__r.__words[2];
-          v107 = v104->__pn_.__r_.__value_.__r.__words[2];
-          *&v9->__pn_.__r_.__value_.__l.__data_ = *&v104->__pn_.__r_.__value_.__l.__data_;
-          v9->__pn_.__r_.__value_.__r.__words[2] = v107;
-          v104->__pn_.__r_.__value_.__r.__words[2] = v106;
-          *&v104->__pn_.__r_.__value_.__l.__data_ = v105;
-          do
+          v22.__data_ = a1;
+          if (std::__fs::filesystem::operator<[abi:ne200100](a1 - 1, v22))
           {
-            ++v9;
-            v22.__data_ = &v203;
+            break;
           }
 
-          while ((std::__fs::filesystem::operator<[abi:ne200100](v9, v22) & 1) != 0);
-          do
+          v112 = *&a1->__pn_.__r_.__value_.__l.__data_;
+          v201.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
+          *&v201.__pn_.__r_.__value_.__l.__data_ = v112;
+          a1->__pn_.__r_.__value_.__l.__size_ = 0;
+          a1->__pn_.__r_.__value_.__r.__words[2] = 0;
+          a1->__pn_.__r_.__value_.__r.__words[0] = 0;
+          v22.__data_ = data - 24;
+          if (std::__fs::filesystem::operator<[abi:ne200100](&v201, v22))
           {
-            --v104;
-            v22.__data_ = &v203;
+            v9 = a1;
+            do
+            {
+              a2.__data_ = ++v9;
+            }
+
+            while ((std::__fs::filesystem::operator<[abi:ne200100](&v201, a2) & 1) == 0);
           }
 
-          while (!std::__fs::filesystem::operator<[abi:ne200100](v104, v22));
+          else
+          {
+            v113 = &a1[1];
+            do
+            {
+              v9 = v113;
+              if (v113 >= data)
+              {
+                break;
+              }
+
+              a2.__data_ = v113;
+              v114 = std::__fs::filesystem::operator<[abi:ne200100](&v201, a2);
+              v113 = &v9[1];
+            }
+
+            while (!v114);
+          }
+
+          v115 = data;
+          if (v9 < data)
+          {
+            v115 = data;
+            do
+            {
+              v115 -= 24;
+              a2.__data_ = v115;
+            }
+
+            while ((std::__fs::filesystem::operator<[abi:ne200100](&v201, a2) & 1) != 0);
+          }
+
+          while (v9 < v115)
+          {
+            v116 = *&v9->__pn_.__r_.__value_.__l.__data_;
+            v200.__pn_.__r_.__value_.__r.__words[2] = v9->__pn_.__r_.__value_.__r.__words[2];
+            *&v200.__pn_.__r_.__value_.__l.__data_ = v116;
+            v117 = *v115;
+            v9->__pn_.__r_.__value_.__r.__words[2] = *(v115 + 2);
+            *&v9->__pn_.__r_.__value_.__l.__data_ = v117;
+            v118 = *&v200.__pn_.__r_.__value_.__l.__data_;
+            *(v115 + 2) = *(&v200.__pn_.__r_.__value_.__l + 2);
+            *v115 = v118;
+            do
+            {
+              a2.__data_ = ++v9;
+            }
+
+            while (!std::__fs::filesystem::operator<[abi:ne200100](&v201, a2));
+            do
+            {
+              v115 -= 24;
+              a2.__data_ = v115;
+            }
+
+            while ((std::__fs::filesystem::operator<[abi:ne200100](&v201, a2) & 1) != 0);
+          }
+
+          p_data = &v9[-1].__pn_.__r_.__value_.__l.__data_;
+          if (&v9[-1] == a1)
+          {
+            if (SHIBYTE(v9[-1].__pn_.__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(*p_data);
+            }
+          }
+
+          else
+          {
+            if (SHIBYTE(a1->__pn_.__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(a1->__pn_.__r_.__value_.__l.__data_);
+            }
+
+            v120 = *p_data;
+            a1->__pn_.__r_.__value_.__r.__words[2] = v9[-1].__pn_.__r_.__value_.__r.__words[2];
+            *&a1->__pn_.__r_.__value_.__l.__data_ = v120;
+            *(&v9[-1].__pn_.__r_.__value_.__s + 23) = 0;
+            v9[-1].__pn_.__r_.__value_.__s.__data_[0] = 0;
+          }
+
+          a4 = 0;
+          v121 = *&v201.__pn_.__r_.__value_.__l.__data_;
+          v9[-1].__pn_.__r_.__value_.__r.__words[2] = v201.__pn_.__r_.__value_.__r.__words[2];
+          *p_data = v121;
         }
 
-        while (v9 < v104);
-      }
-
-      p_data = &v9[-1].__pn_.__r_.__value_.__l.__data_;
-      if (&v9[-1] == a1)
-      {
-        if (SHIBYTE(v9[-1].__pn_.__r_.__value_.__r.__words[2]) < 0)
+        v100 = *&a1->__pn_.__r_.__value_.__l.__data_;
+        v201.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
+        *&v201.__pn_.__r_.__value_.__l.__data_ = v100;
+        a1->__pn_.__r_.__value_.__l.__size_ = 0;
+        a1->__pn_.__r_.__value_.__r.__words[2] = 0;
+        a1->__pn_.__r_.__value_.__r.__words[0] = 0;
+        v101 = a1;
+        do
         {
-          operator delete(*p_data);
+          v102 = v101++;
+          v22.__data_ = &v201;
         }
-      }
 
-      else
-      {
-        if (SHIBYTE(a1->__pn_.__r_.__value_.__r.__words[2]) < 0)
+        while ((std::__fs::filesystem::operator<[abi:ne200100](v101, v22) & 1) != 0);
+        v103 = data;
+        if (v102 == a1)
         {
-          operator delete(a1->__pn_.__r_.__value_.__l.__data_);
+          v103 = data;
+          do
+          {
+            if (v101 >= v103)
+            {
+              break;
+            }
+
+            --v103;
+            v22.__data_ = &v201;
+          }
+
+          while ((std::__fs::filesystem::operator<[abi:ne200100](v103, v22) & 1) == 0);
         }
 
-        v109 = *p_data;
-        a1->__pn_.__r_.__value_.__r.__words[2] = v9[-1].__pn_.__r_.__value_.__r.__words[2];
-        *&a1->__pn_.__r_.__value_.__l.__data_ = v109;
-        *(&v9[-1].__pn_.__r_.__value_.__s + 23) = 0;
-        v9[-1].__pn_.__r_.__value_.__s.__data_[0] = 0;
-      }
+        else
+        {
+          do
+          {
+            --v103;
+            v22.__data_ = &v201;
+          }
 
-      v110 = *&v203.__pn_.__r_.__value_.__l.__data_;
-      v9[-1].__pn_.__r_.__value_.__r.__words[2] = v203.__pn_.__r_.__value_.__r.__words[2];
-      *p_data = v110;
-      if (v101 < v103)
-      {
-        goto LABEL_83;
+          while (!std::__fs::filesystem::operator<[abi:ne200100](v103, v22));
+        }
+
+        v9 = v101;
+        if (v101 < v103)
+        {
+          v104 = v103;
+          do
+          {
+            v200 = *v9;
+            v105 = *&v200.__pn_.__r_.__value_.__l.__data_;
+            v106 = v200.__pn_.__r_.__value_.__r.__words[2];
+            v107 = v104->__pn_.__r_.__value_.__r.__words[2];
+            *&v9->__pn_.__r_.__value_.__l.__data_ = *&v104->__pn_.__r_.__value_.__l.__data_;
+            v9->__pn_.__r_.__value_.__r.__words[2] = v107;
+            v104->__pn_.__r_.__value_.__r.__words[2] = v106;
+            *&v104->__pn_.__r_.__value_.__l.__data_ = v105;
+            do
+            {
+              ++v9;
+              v22.__data_ = &v201;
+            }
+
+            while ((std::__fs::filesystem::operator<[abi:ne200100](v9, v22) & 1) != 0);
+            do
+            {
+              --v104;
+              v22.__data_ = &v201;
+            }
+
+            while (!std::__fs::filesystem::operator<[abi:ne200100](v104, v22));
+          }
+
+          while (v9 < v104);
+        }
+
+        v108 = &v9[-1].__pn_.__r_.__value_.__l.__data_;
+        if (&v9[-1] == a1)
+        {
+          if (SHIBYTE(v9[-1].__pn_.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(*v108);
+          }
+        }
+
+        else
+        {
+          if (SHIBYTE(a1->__pn_.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(a1->__pn_.__r_.__value_.__l.__data_);
+          }
+
+          v109 = *v108;
+          a1->__pn_.__r_.__value_.__r.__words[2] = v9[-1].__pn_.__r_.__value_.__r.__words[2];
+          *&a1->__pn_.__r_.__value_.__l.__data_ = v109;
+          *(&v9[-1].__pn_.__r_.__value_.__s + 23) = 0;
+          v9[-1].__pn_.__r_.__value_.__s.__data_[0] = 0;
+        }
+
+        v110 = *&v201.__pn_.__r_.__value_.__l.__data_;
+        v9[-1].__pn_.__r_.__value_.__r.__words[2] = v201.__pn_.__r_.__value_.__r.__words[2];
+        *v108 = v110;
+        if (v101 >= v103)
+        {
+          break;
+        }
+
+LABEL_83:
+        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__fs::filesystem::path *,false>(a1, &v9[-1], size, a4 & 1);
+        a4 = 0;
       }
 
       v22.__data_ = &v9[-1];
       v111 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__fs::filesystem::path *>(a1, v22);
-      v211.__data_ = data;
-      if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__fs::filesystem::path *>(v9, v211))
+      v209.__data_ = data;
+      if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__fs::filesystem::path *>(v9, v209))
       {
-        data = &v9[-1];
-        if (!v111)
-        {
-          goto LABEL_2;
-        }
-
-        goto LABEL_202;
+        break;
       }
 
       if (!v111)
       {
-LABEL_83:
-        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__fs::filesystem::path *,false>(a1, &v9[-1], size, a3 & 1);
-        a3 = 0;
+        goto LABEL_83;
       }
     }
 
-    else
+    data = &v9[-1];
+    if (!v111)
     {
-      v112 = *&a1->__pn_.__r_.__value_.__l.__data_;
-      v203.__pn_.__r_.__value_.__r.__words[2] = a1->__pn_.__r_.__value_.__r.__words[2];
-      *&v203.__pn_.__r_.__value_.__l.__data_ = v112;
-      a1->__pn_.__r_.__value_.__l.__size_ = 0;
-      a1->__pn_.__r_.__value_.__r.__words[2] = 0;
-      a1->__pn_.__r_.__value_.__r.__words[0] = 0;
-      v22.__data_ = data - 24;
-      if (std::__fs::filesystem::operator<[abi:ne200100](&v203, v22))
-      {
-        v9 = a1;
-        do
-        {
-          a2.__data_ = ++v9;
-        }
-
-        while ((std::__fs::filesystem::operator<[abi:ne200100](&v203, a2) & 1) == 0);
-      }
-
-      else
-      {
-        v113 = &a1[1];
-        do
-        {
-          v9 = v113;
-          if (v113 >= data)
-          {
-            break;
-          }
-
-          a2.__data_ = v113;
-          v114 = std::__fs::filesystem::operator<[abi:ne200100](&v203, a2);
-          v113 = &v9[1];
-        }
-
-        while (!v114);
-      }
-
-      v115 = data;
-      if (v9 < data)
-      {
-        v115 = data;
-        do
-        {
-          v115 -= 24;
-          a2.__data_ = v115;
-        }
-
-        while ((std::__fs::filesystem::operator<[abi:ne200100](&v203, a2) & 1) != 0);
-      }
-
-      while (v9 < v115)
-      {
-        v116 = *&v9->__pn_.__r_.__value_.__l.__data_;
-        v202.__pn_.__r_.__value_.__r.__words[2] = v9->__pn_.__r_.__value_.__r.__words[2];
-        *&v202.__pn_.__r_.__value_.__l.__data_ = v116;
-        v117 = *v115;
-        v9->__pn_.__r_.__value_.__r.__words[2] = *(v115 + 2);
-        *&v9->__pn_.__r_.__value_.__l.__data_ = v117;
-        v118 = *&v202.__pn_.__r_.__value_.__l.__data_;
-        *(v115 + 2) = *(&v202.__pn_.__r_.__value_.__l + 2);
-        *v115 = v118;
-        do
-        {
-          a2.__data_ = ++v9;
-        }
-
-        while (!std::__fs::filesystem::operator<[abi:ne200100](&v203, a2));
-        do
-        {
-          v115 -= 24;
-          a2.__data_ = v115;
-        }
-
-        while ((std::__fs::filesystem::operator<[abi:ne200100](&v203, a2) & 1) != 0);
-      }
-
-      v119 = &v9[-1].__pn_.__r_.__value_.__l.__data_;
-      if (&v9[-1] == a1)
-      {
-        if (SHIBYTE(v9[-1].__pn_.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(*v119);
-        }
-      }
-
-      else
-      {
-        if (SHIBYTE(a1->__pn_.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(a1->__pn_.__r_.__value_.__l.__data_);
-        }
-
-        v120 = *v119;
-        a1->__pn_.__r_.__value_.__r.__words[2] = v9[-1].__pn_.__r_.__value_.__r.__words[2];
-        *&a1->__pn_.__r_.__value_.__l.__data_ = v120;
-        *(&v9[-1].__pn_.__r_.__value_.__s + 23) = 0;
-        v9[-1].__pn_.__r_.__value_.__s.__data_[0] = 0;
-      }
-
-      a3 = 0;
-      v121 = *&v203.__pn_.__r_.__value_.__l.__data_;
-      v9[-1].__pn_.__r_.__value_.__r.__words[2] = v203.__pn_.__r_.__value_.__r.__words[2];
-      *v119 = v121;
+      continue;
     }
+
+    break;
   }
-
-  v139 = *MEMORY[0x29EDCA608];
-
-  v215.__data_ = &a1[1];
-  v215.__size_ = &a1[2];
-  std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__fs::filesystem::path *,0>(a1, v215, data - 1);
 }

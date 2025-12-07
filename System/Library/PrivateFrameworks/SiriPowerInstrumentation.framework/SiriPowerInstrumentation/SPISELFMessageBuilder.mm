@@ -2,7 +2,9 @@
 - (SPISELFMessageBuilder)init;
 - (id)buildMessage;
 - (void)addContext:(id)context;
+- (void)addProcess:(unsigned __int8)process;
 - (void)addProcessUsage:(SPIResourceUsage *)usage;
+- (void)addRequestLinkInfoForComponent:(int)component identifier:(id)identifier;
 @end
 
 @implementation SPISELFMessageBuilder
@@ -24,6 +26,13 @@
   return v3;
 }
 
+- (void)addProcess:(unsigned __int8)process
+{
+  processCopy = process;
+  usageMsg = [(SPISELFMessageBuilder *)self usageMsg];
+  [usageMsg setProcess:{+[SPISELFProcessAdapter translateProcess:](SPISELFProcessAdapter, "translateProcess:", processCopy)}];
+}
+
 - (void)addProcessUsage:(SPIResourceUsage *)usage
 {
   v6 = objc_alloc_init(POWSchemaProvisionalPOWProcessUsage);
@@ -39,6 +48,20 @@
   contextCopy = context;
   usageMsg = [(SPISELFMessageBuilder *)self usageMsg];
   [contextCopy setContextForUsage:usageMsg];
+}
+
+- (void)addRequestLinkInfoForComponent:(int)component identifier:(id)identifier
+{
+  v4 = *&component;
+  v6 = MEMORY[0x277D5A9E0];
+  identifierCopy = identifier;
+  v10 = objc_alloc_init(v6);
+  [v10 setComponent:v4];
+  v8 = [objc_alloc(MEMORY[0x277D5AC78]) initWithNSUUID:identifierCopy];
+
+  [v10 setUuid:v8];
+  powClientEventMsg = [(SPISELFMessageBuilder *)self powClientEventMsg];
+  [powClientEventMsg setLink:v10];
 }
 
 - (id)buildMessage

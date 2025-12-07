@@ -7,13 +7,13 @@
 
 - (SPUILockScreenFooterView)init
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
-  v14[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  v13.receiver = self;
-  v13.super_class = SPUILockScreenFooterView;
-  v5 = [(NUIContainerBoxView *)&v13 initWithArrangedSubviews:v4];
+  v13[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12.receiver = self;
+  v12.super_class = SPUILockScreenFooterView;
+  v5 = [(NUIContainerBoxView *)&v12 initWithArrangedSubviews:v4];
 
   if (v5)
   {
@@ -41,7 +41,6 @@
     [(SPUILockScreenFooterView *)v5 updateTitle];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

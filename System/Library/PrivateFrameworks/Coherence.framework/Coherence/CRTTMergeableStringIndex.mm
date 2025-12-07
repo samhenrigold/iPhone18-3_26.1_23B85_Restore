@@ -1,6 +1,5 @@
 @interface CRTTMergeableStringIndex
 - (BOOL)isEqual:(id)equal;
-- (BOOL)needToFinalizeTimestamps;
 - (_TtC9Coherence24CRTTMergeableStringIndex)initWithTimestamp:(id)timestamp affinity:(unint64_t)affinity renameGeneration:(int64_t)generation;
 - (_TtC9Coherence24CRTTMergeableStringIndex)initWithTopoID:(TopoID *)d affinity:(unint64_t)affinity renameGeneration:(int64_t)generation maxCounter:(int64_t)counter;
 - (id).cxx_construct;
@@ -37,14 +36,14 @@
 
 - (_TtC9Coherence24CRTTMergeableStringIndex)initWithTimestamp:(id)timestamp affinity:(unint64_t)affinity renameGeneration:(int64_t)generation
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   timestampCopy = timestamp;
-  v13.receiver = self;
-  v13.super_class = _TtC9Coherence24CRTTMergeableStringIndex;
-  v9 = [(CRTTMergeableStringIndex *)&v13 init];
-  Coherence_namespace::TopoID::TopoID(&v14, timestampCopy);
-  *v9->_index.replica.uuid = v14;
-  *&v9->_index.replica.index = v15;
+  v12.receiver = self;
+  v12.super_class = _TtC9Coherence24CRTTMergeableStringIndex;
+  v9 = [(CRTTMergeableStringIndex *)&v12 init];
+  Coherence_namespace::TopoID::TopoID(&v13, timestampCopy);
+  *v9->_index.replica.uuid = v13;
+  *&v9->_index.replica.index = v14;
   v9->_renameGeneration = generation;
   v9->_maxCounter = -1;
   v9->_affinity = affinity;
@@ -54,33 +53,22 @@
     [_TtC9Coherence19CRGlobalContextObjC retainObjCSequence:_objCRenameSequence];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (void)dealloc
 {
-  v7 = *MEMORY[0x1E69E9840];
-  [(CRTTMergeableStringIndex *)self index];
-  if (v6)
+  v6 = *MEMORY[0x1E69E9840];
+  objc_msgSend_index(self, a2);
+  if (v5)
   {
     _objCRenameSequence = [(CRTTMergeableStringIndex *)self _objCRenameSequence];
     [_TtC9Coherence19CRGlobalContextObjC releaseObjCSequence:_objCRenameSequence];
   }
 
-  v5.receiver = self;
-  v5.super_class = _TtC9Coherence24CRTTMergeableStringIndex;
-  [(CRTTMergeableStringIndex *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-- (BOOL)needToFinalizeTimestamps
-{
-  v5 = *MEMORY[0x1E69E9840];
-  [(CRTTMergeableStringIndex *)self index];
-  result = v4 != 0;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v4.receiver = self;
+  v4.super_class = _TtC9Coherence24CRTTMergeableStringIndex;
+  [(CRTTMergeableStringIndex *)&v4 dealloc];
 }
 
 - (id)finalizedInContext:(id)context
@@ -103,7 +91,7 @@
 
 - (id)renamed:(id)renamed
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   renamedCopy = renamed;
   if (-[CRTTMergeableStringIndex needToFinalizeTimestamps](self, "needToFinalizeTimestamps") && ((v5 = -[CRTTMergeableStringIndex renameGeneration](self, "renameGeneration"), v5 < [renamedCopy generation]) || (objc_msgSend(renamedCopy, "hasLocalRenames") & 1) != 0))
   {
@@ -113,8 +101,8 @@
     if (v7)
     {
       v8 = [_TtC9Coherence24CRTTMergeableStringIndex alloc];
-      Coherence_namespace::TopoID::TopoID(v13, v7);
-      selfCopy = -[CRTTMergeableStringIndex initWithTopoID:affinity:renameGeneration:maxCounter:](v8, "initWithTopoID:affinity:renameGeneration:maxCounter:", v13, self->_affinity, [renamedCopy generation], self->_maxCounter);
+      Coherence_namespace::TopoID::TopoID(v12, v7);
+      selfCopy = -[CRTTMergeableStringIndex initWithTopoID:affinity:renameGeneration:maxCounter:](v8, "initWithTopoID:affinity:renameGeneration:maxCounter:", v12, self->_affinity, [renamedCopy generation], self->_maxCounter);
     }
 
     else
@@ -130,8 +118,6 @@
     selfCopy2 = self;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return selfCopy2;
 }
 
@@ -146,42 +132,42 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    [(CRTTMergeableStringIndex *)self index];
+    objc_msgSend_index(self);
     if (v5)
     {
-      [v5 index];
-      if ((v20 == 0) != (v17 != 0))
+      objc_msgSend_index(v5);
+      if ((v19 == 0) != (v16 != 0))
       {
 LABEL_4:
-        [(CRTTMergeableStringIndex *)self index];
+        objc_msgSend_index(self);
         if (v5)
         {
-          [v5 index];
-          v6 = HIDWORD(v17);
+          objc_msgSend_index(v5);
+          v6 = HIDWORD(v16);
         }
 
         else
         {
           v6 = 0;
           *uu2 = 0;
+          v15 = 0;
           v16 = 0;
-          v17 = 0;
         }
 
-        v7 = v20 == __PAIR64__(v6, v17) && uuid_compare(uu1, uu2) == 0;
+        v7 = v19 == __PAIR64__(v6, v16) && uuid_compare(uu1, uu2) == 0;
 LABEL_21:
 
         goto LABEL_22;
       }
     }
 
-    else if (!v20)
+    else if (!v19)
     {
       goto LABEL_4;
     }
@@ -192,14 +178,14 @@ LABEL_21:
     v11 = v10;
     if (v9)
     {
-      [v9 index];
+      objc_msgSend_index(v9);
       if (v11)
       {
 LABEL_10:
-        [v11 index];
-        v12 = HIDWORD(v17);
+        objc_msgSend_index(v11);
+        v12 = HIDWORD(v16);
 LABEL_13:
-        v7 = v20 == __PAIR64__(v12, v17) && uuid_compare(uu1, uu2) == 0;
+        v7 = v19 == __PAIR64__(v12, v16) && uuid_compare(uu1, uu2) == 0;
 
         goto LABEL_21;
       }
@@ -208,8 +194,8 @@ LABEL_13:
     else
     {
       *uu1 = 0;
+      v18 = 0;
       v19 = 0;
-      v20 = 0;
       if (v10)
       {
         goto LABEL_10;
@@ -218,15 +204,14 @@ LABEL_13:
 
     v12 = 0;
     *uu2 = 0;
+    v15 = 0;
     v16 = 0;
-    v17 = 0;
     goto LABEL_13;
   }
 
   v7 = 0;
 LABEL_22:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

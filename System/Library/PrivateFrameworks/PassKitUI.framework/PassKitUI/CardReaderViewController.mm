@@ -40,8 +40,9 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1BD377830(appear);
+  sub_1BD377830(appearCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
@@ -61,8 +62,9 @@
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_1BD377A30(disappear);
+  sub_1BD377A30(disappearCopy);
 }
 
 - (void)viewWillLayoutSubviews
@@ -74,7 +76,7 @@
 - (void)applicationWillResignActive
 {
   selfCopy = self;
-  sub_1BD377FBC();
+  sub_1BD377FBC(selfCopy, v2, v3, v4, v5, v6, v7, v8);
 }
 
 - (void)didBecomeActiveNotification
@@ -112,7 +114,7 @@
   if (v8)
   {
     v9 = swift_allocObject();
-    *(v9 + 16) = v8;
+    v9[2] = v8;
     v8 = sub_1BD166E88;
   }
 
@@ -124,7 +126,7 @@
   controllerCopy = controller;
   selfCopy = self;
   sub_1BD378794(controllerCopy, animated, v8, v9);
-  sub_1BD0D4744(v8);
+  sub_1BD0D4744(v8, v9, v11, v12, v13, v14, v15, v16);
 }
 
 - (_TtC9PassKitUI24CardReaderViewController)initWithWebService:(id)service context:(int64_t)context setupDelegate:(id)delegate setupFieldsModel:(id)model
@@ -145,14 +147,20 @@
 
     if (visibleSetupFieldIdentifiers)
     {
-      sub_1BE052744();
+      v6 = sub_1BE052744();
 
       selfCopy = visibleSetupFieldIdentifiers;
     }
 
-    v6 = sub_1BE052724();
+    else
+    {
+      v6 = MEMORY[0x1E69E7CC0];
+    }
 
-    return v6;
+    v7 = sub_1BE052724();
+    v6, v8, v9, v10, v11, v12, v13, v14;
+
+    return v7;
   }
 
   else
@@ -195,10 +203,14 @@
   v2 = *((*MEMORY[0x1E69E7D40] & self->super.super.super.super.super.isa) + 0x260);
   selfCopy = self;
   v2();
+  v5 = v4;
+  v7 = v6;
 
-  v4 = sub_1BE052404();
+  v7, v8, v9, v10, v11, v12, v13, v14;
+  v15 = sub_1BE052404();
+  v5, v16, v17, v18, v19, v20, v21, v22;
 
-  return v4;
+  return v15;
 }
 
 - (id)defaultHeaderViewSubTitle
@@ -207,18 +219,21 @@
   selfCopy = self;
   v2();
   v5 = v4;
+  v7 = v6;
 
-  if (v5)
+  v5, v8, v9, v10, v11, v12, v13, v14;
+  if (v7)
   {
-    v6 = sub_1BE052404();
+    v15 = sub_1BE052404();
+    v7, v16, v17, v18, v19, v20, v21, v22;
   }
 
   else
   {
-    v6 = 0;
+    v15 = 0;
   }
 
-  return v6;
+  return v15;
 }
 
 - (id)defaultFields
@@ -230,7 +245,7 @@
 
 - (id)pk_childrenForAppearance
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBD39F80);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBD39F80, &unk_1BE0B8CF0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1BE0B7020;
   selfCopy = self;
@@ -239,8 +254,9 @@
   {
     *(v3 + 32) = result;
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBD434C0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBD434C0, qword_1BE0CF9A8);
     v6 = sub_1BE052724();
+    v3, v7, v8, v9, v10, v11, v12, v13;
 
     return v6;
   }

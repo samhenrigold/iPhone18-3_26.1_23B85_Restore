@@ -33,40 +33,39 @@
 - (void)setOrResetCleanupTimer
 {
   v16 = *MEMORY[0x277D85DE8];
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       messageIdentifier = self->_messageIdentifier;
       *buf = 138412290;
       v15 = messageIdentifier;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Setting or resetting cleanup timer for message with identifier %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Setting or resetting cleanup timer for message with identifier %@", buf, 0xCu);
     }
   }
 
   [(NPKIDVRemoteDeviceConnectionCoordinatorOutstandingRequestItem *)self invalidateCleanupTimer];
-  v7 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_timeoutQueue);
-  v8 = dispatch_time(0, 30000000000);
-  dispatch_source_set_timer(v7, v8, 0xFFFFFFFFFFFFFFFFLL, 0);
+  v8 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_timeoutQueue);
+  v9 = dispatch_time(0, 30000000000);
+  dispatch_source_set_timer(v8, v9, 0xFFFFFFFFFFFFFFFFLL, 0);
   objc_initWeak(buf, self);
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __87__NPKIDVRemoteDeviceConnectionCoordinatorOutstandingRequestItem_setOrResetCleanupTimer__block_invoke;
   handler[3] = &unk_279945030;
   objc_copyWeak(&v13, buf);
-  dispatch_source_set_event_handler(v7, handler);
+  dispatch_source_set_event_handler(v8, handler);
   timeoutTimer = self->_timeoutTimer;
-  self->_timeoutTimer = v7;
-  v10 = v7;
+  self->_timeoutTimer = v8;
+  v11 = v8;
 
-  dispatch_resume(v10);
+  dispatch_resume(v11);
   objc_destroyWeak(&v13);
   objc_destroyWeak(buf);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __87__NPKIDVRemoteDeviceConnectionCoordinatorOutstandingRequestItem_setOrResetCleanupTimer__block_invoke(uint64_t a1)

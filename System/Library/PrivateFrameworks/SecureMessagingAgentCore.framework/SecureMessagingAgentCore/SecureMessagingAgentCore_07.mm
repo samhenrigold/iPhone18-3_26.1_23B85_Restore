@@ -1,5740 +1,172 @@
-uint64_t MLSDaemon.updateClientID(swiftMLSClientID:for:with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v5[5] = a4;
-  v5[6] = v4;
-  v5[3] = a2;
-  v5[4] = a3;
-  v5[2] = a1;
-  v6 = type metadata accessor for XPCUtils.XPCError.ErrorType();
-  v5[7] = v6;
-  v7 = *(v6 - 8);
-  v5[8] = v7;
-  v8 = *(v7 + 64) + 15;
-  v5[9] = swift_task_alloc();
-  Client = type metadata accessor for KDSRegistration.GetClientIDError.ErrorType();
-  v5[10] = Client;
-  v10 = *(Client - 8);
-  v5[11] = v10;
-  v11 = *(v10 + 64) + 15;
-  v5[12] = swift_task_alloc();
-  v12 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR) - 8) + 64) + 15;
-  v5[13] = swift_task_alloc();
-  v13 = type metadata accessor for UUID();
-  v5[14] = v13;
-  v14 = *(v13 - 8);
-  v5[15] = v14;
-  v15 = *(v14 + 64) + 15;
-  v5[16] = swift_task_alloc();
-  v16 = type metadata accessor for MLS.SwiftMLSClientPicker();
-  v5[17] = v16;
-  v17 = *(v16 - 8);
-  v5[18] = v17;
-  v18 = *(v17 + 64) + 15;
-  v5[19] = swift_task_alloc();
-  v5[20] = swift_task_alloc();
-  v19 = *(*(type metadata accessor for RegClientIdentifier() - 8) + 64) + 15;
-  v5[21] = swift_task_alloc();
-  v5[22] = swift_task_alloc();
-  v5[23] = swift_task_alloc();
-  v20 = type metadata accessor for URI();
-  v5[24] = v20;
-  v21 = *(v20 - 8);
-  v5[25] = v21;
-  v22 = *(v21 + 64) + 15;
-  v5[26] = swift_task_alloc();
-  v5[27] = swift_task_alloc();
-  v5[28] = swift_task_alloc();
-  v23 = type metadata accessor for MLS.ClientIdentifier();
-  v5[29] = v23;
-  v24 = *(v23 - 8);
-  v5[30] = v24;
-  v25 = *(v24 + 64) + 15;
-  v5[31] = swift_task_alloc();
-  v26 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v5[32] = v26;
-  v27 = *(v26 - 8);
-  v5[33] = v27;
-  v28 = *(v27 + 64) + 15;
-  v5[34] = swift_task_alloc();
-
-  return MEMORY[0x2822009F8](MLSDaemon.updateClientID(swiftMLSClientID:for:with:), 0, 0);
-}
-
-uint64_t MLSDaemon.updateClientID(swiftMLSClientID:for:with:)()
-{
-  v42 = v0;
-  v1 = v0[34];
-  v2 = v0[28];
-  v3 = v0[27];
-  v4 = v0[24];
-  v5 = v0[25];
-  v36 = v3;
-  v38 = v0[23];
-  v6 = v0[5];
-  v8 = v0[3];
-  v7 = v0[4];
-  (*(v0[30] + 16))(v0[31], v6, v0[29]);
-  v9 = *(v5 + 16);
-  v0[35] = v9;
-  v0[36] = (v5 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v9(v2, v7, v4);
-  MLS.UniqueClientIdentifier.init(clientIdentifier:clientURI:)();
-  v0[37] = OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_logger;
-  v9(v36, v7, v4);
-  outlined init with copy of RegClientIdentifier(v6, v38);
-
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v10, v11))
-  {
-    v40 = v11;
-    v12 = v0[27];
-    v14 = v0[24];
-    v13 = v0[25];
-    v15 = v0[22];
-    v37 = v0[23];
-    v16 = v0[2];
-    v17 = v0[3];
-    v18 = swift_slowAlloc();
-    v39 = swift_slowAlloc();
-    v41 = v39;
-    *v18 = 136315650;
-    *(v18 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v16, v17, &v41);
-    *(v18 + 12) = 2080;
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type URI and conformance URI, MEMORY[0x277D4D258]);
-    v19 = dispatch thunk of CustomStringConvertible.description.getter();
-    v21 = v20;
-    v22 = *(v13 + 8);
-    v22(v12, v14);
-    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v21, &v41);
-
-    *(v18 + 14) = v23;
-    *(v18 + 22) = 2080;
-    outlined init with copy of RegClientIdentifier(v37, v15);
-    v24 = MLS.ClientIdentifier.description.getter();
-    v26 = v25;
-    outlined destroy of RegClientIdentifier(v15);
-    outlined destroy of RegClientIdentifier(v37);
-    v27 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v26, &v41);
-
-    *(v18 + 24) = v27;
-    _os_log_impl(&dword_26524C000, v10, v40, "MLSDaemon updateClientID called { swiftMLSClientID: %s, uri: %s, clientIdentifier: %s }", v18, 0x20u);
-    swift_arrayDestroy();
-    MEMORY[0x2667577B0](v39, -1, -1);
-    MEMORY[0x2667577B0](v18, -1, -1);
-  }
-
-  else
-  {
-    v28 = v0[27];
-    v29 = v0[24];
-    v30 = v0[25];
-    v31 = v0[23];
-
-    outlined destroy of RegClientIdentifier(v31);
-    v22 = *(v30 + 8);
-    v22(v28, v29);
-  }
-
-  v0[38] = v22;
-  v32 = swift_task_alloc();
-  v0[39] = v32;
-  *v32 = v0;
-  v32[1] = MLSDaemon.updateClientID(swiftMLSClientID:for:with:);
-  v33 = v0[34];
-  v34 = v0[6];
-
-  return MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:)(v33);
-}
-
-{
-  v2 = *(*v1 + 312);
-  v5 = *v1;
-  *(*v1 + 320) = v0;
-
-  if (v0)
-  {
-    v3 = MLSDaemon.updateClientID(swiftMLSClientID:for:with:);
-  }
-
-  else
-  {
-    v3 = MLSDaemon.updateClientID(swiftMLSClientID:for:with:);
-  }
-
-  return MEMORY[0x2822009F8](v3, 0, 0);
-}
-
-{
-  v1 = v0[6];
-  v2 = (*MEMORY[0x277D85000] & *v1) + 136;
-  v0[41] = *((*MEMORY[0x277D85000] & *v1) + 0x88);
-  v0[42] = v2 & 0xFFFFFFFFFFFFLL | 0x2693000000000000;
-  type metadata accessor for MLSActor();
-  v0[43] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
-  v4 = dispatch thunk of Actor.unownedExecutor.getter();
-
-  return MEMORY[0x2822009F8](MLSDaemon.updateClientID(swiftMLSClientID:for:with:), v4, v3);
-}
-
-{
-  v2 = v0[42];
-  v1 = v0[43];
-  v3 = v0[41];
-  v4 = v0[6];
-
-  v0[44] = v3(v5);
-
-  return MEMORY[0x2822009F8](MLSDaemon.updateClientID(swiftMLSClientID:for:with:), 0, 0);
-}
-
-{
-  v80 = v0;
-  if (!*(v0[44] + 16) || (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[34]), (v2 & 1) == 0))
-  {
-    v17 = v0[36];
-    v18 = v0[35];
-    v19 = v0[26];
-    v20 = v0[24];
-    v21 = v0[21];
-    v22 = v0[5];
-    log = v0[6];
-    v77 = v0[37];
-    v24 = v0[3];
-    v23 = v0[4];
-
-    v18(v19, v23, v20);
-    outlined init with copy of RegClientIdentifier(v22, v21);
-
-    v25 = Logger.logObject.getter();
-    v26 = static os_log_type_t.error.getter();
-
-    v27 = os_log_type_enabled(v25, v26);
-    v28 = v0[38];
-    v29 = v0[25];
-    v30 = v0[26];
-    v31 = v0[24];
-    if (v27)
-    {
-      v32 = v0[22];
-      v71 = v0[21];
-      v33 = v0[2];
-      v34 = v0[3];
-      loga = v25;
-      v35 = swift_slowAlloc();
-      v78 = swift_slowAlloc();
-      v79[0] = v78;
-      *v35 = 136315650;
-      *(v35 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33, v34, v79);
-      *(v35 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type URI and conformance URI, MEMORY[0x277D4D258]);
-      v36 = dispatch thunk of CustomStringConvertible.description.getter();
-      v38 = v37;
-      v28(v30, v31);
-      v39 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v36, v38, v79);
-
-      *(v35 + 14) = v39;
-      *(v35 + 22) = 2080;
-      outlined init with copy of RegClientIdentifier(v71, v32);
-      v40 = MLS.ClientIdentifier.description.getter();
-      v42 = v41;
-      outlined destroy of RegClientIdentifier(v32);
-      outlined destroy of RegClientIdentifier(v71);
-      v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v42, v79);
-
-      *(v35 + 24) = v43;
-      _os_log_impl(&dword_26524C000, loga, v26, "MLSDaemon updateClientID has no clientXPCProxy { swiftMLSClientID: %s, uri: %s, clientIdentifier: %s }", v35, 0x20u);
-      swift_arrayDestroy();
-      MEMORY[0x2667577B0](v78, -1, -1);
-      MEMORY[0x2667577B0](v35, -1, -1);
-    }
-
-    else
-    {
-      v44 = v0[21];
-
-      outlined destroy of RegClientIdentifier(v44);
-      v28(v30, v31);
-    }
-
-    (*(v0[8] + 104))(v0[9], *MEMORY[0x277D4D2B0], v0[7]);
-    type metadata accessor for XPCUtils.XPCError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0]);
-    swift_allocError();
-    XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
-    swift_willThrow();
-    goto LABEL_9;
-  }
-
-  v4 = v0[19];
-  v3 = v0[20];
-  v5 = v0[17];
-  v6 = v0[18];
-  v7 = v0[15];
-  v76 = v0[14];
-  v8 = v0[13];
-  v10 = v0[2];
-  v9 = v0[3];
-  (*(v6 + 16))(v4, *(v0[44] + 56) + *(v6 + 72) * v1, v5);
-
-  (*(v6 + 32))(v3, v4, v5);
-  UUID.init(uuidString:)();
-  if ((*(v7 + 48))(v8, 1, v76) == 1)
-  {
-    v11 = v0[20];
-    v12 = v0[17];
-    v13 = v0[18];
-    v14 = v0[12];
-    v15 = v0[10];
-    v16 = v0[11];
-    outlined destroy of MLS.KeyPackageProvider?(v0[13], &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    (*(v16 + 104))(v14, *MEMORY[0x277D4C9A8], v15);
-    type metadata accessor for KDSRegistration.GetClientIDError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type KDSRegistration.GetClientIDError and conformance KDSRegistration.GetClientIDError, MEMORY[0x277D4C9B0]);
-    swift_allocError();
-    KDSRegistration.GetClientIDError.init(type:underlyingErrorDescription:)();
-    swift_willThrow();
-    (*(v13 + 8))(v11, v12);
-LABEL_9:
-    v45 = v0[31];
-    v47 = v0[27];
-    v46 = v0[28];
-    v48 = v0[26];
-    v50 = v0[22];
-    v49 = v0[23];
-    v51 = v0[20];
-    v52 = v0[21];
-    v68 = v0[19];
-    v69 = v0[16];
-    v70 = v0[13];
-    v72 = v0[12];
-    logb = v0[9];
-    (*(v0[33] + 8))(v0[34], v0[32]);
-
-    v53 = v0[1];
-
-    return v53();
-  }
-
-  v55 = v0[34];
-  v56 = v0[32];
-  v57 = v0[20];
-  v58 = v0[16];
-  v59 = v0[6];
-  (*(v0[15] + 32))(v58, v0[13], v0[14]);
-  v60 = *(v59 + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_persister);
-  _StringGuts.grow(_:)(17);
-
-  v79[0] = 0x6C43657461647075;
-  v79[1] = 0xEF2D4449746E6569;
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-  v61 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x266756A70](v61);
-
-  v0[45] = 0xEF2D4449746E6569;
-  v62 = swift_task_alloc();
-  v0[46] = v62;
-  v62[2] = v57;
-  v62[3] = v58;
-  v62[4] = v59;
-  v62[5] = v55;
-  v63 = *(MEMORY[0x277D4D240] + 4);
-  v64 = swift_task_alloc();
-  v0[47] = v64;
-  v65 = type metadata accessor for DaemonPersister();
-  v66 = _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type DaemonPersister and conformance DaemonPersister, type metadata accessor for DaemonPersister);
-  *v64 = v0;
-  v64[1] = MLSDaemon.updateClientID(swiftMLSClientID:for:with:);
-  v67 = MEMORY[0x277D84F78] + 8;
-
-  return MEMORY[0x2821ACB80](v66, 0x6C43657461647075, 0xEF2D4449746E6569, &async function pointer to partial apply for closure #1 in MLSDaemon.updateClientID(swiftMLSClientID:for:with:), v62, v65, v67, v66);
-}
-
-{
-  v2 = *v1;
-  v3 = *(*v1 + 376);
-  v8 = *v1;
-  *(*v1 + 384) = v0;
-
-  if (v0)
-  {
-    v4 = MLSDaemon.updateClientID(swiftMLSClientID:for:with:);
-  }
-
-  else
-  {
-    v5 = *(v2 + 360);
-    v6 = *(v2 + 368);
-
-    v4 = MLSDaemon.updateClientID(swiftMLSClientID:for:with:);
-  }
-
-  return MEMORY[0x2822009F8](v4, 0, 0);
-}
-
-{
-  v1 = v0[33];
-  v2 = v0[34];
-  v3 = v0[31];
-  v4 = v0[32];
-  v5 = v0[28];
-  v11 = v0[27];
-  v12 = v0[26];
-  v13 = v0[23];
-  v14 = v0[22];
-  v6 = v0[20];
-  v7 = v0[18];
-  v15 = v0[21];
-  v16 = v0[19];
-  v8 = v0[17];
-  v17 = v0[13];
-  v18 = v0[12];
-  v19 = v0[9];
-  (*(v0[15] + 8))(v0[16], v0[14]);
-  (*(v7 + 8))(v6, v8);
-  (*(v1 + 8))(v2, v4);
-
-  v9 = v0[1];
-
-  return v9();
-}
-
-{
-  v16 = v0[40];
-  v1 = v0[31];
-  v3 = v0[27];
-  v2 = v0[28];
-  v4 = v0[26];
-  v6 = v0[22];
-  v5 = v0[23];
-  v8 = v0[20];
-  v7 = v0[21];
-  v11 = v0[19];
-  v12 = v0[16];
-  v13 = v0[13];
-  v14 = v0[12];
-  v15 = v0[9];
-  (*(v0[33] + 8))(v0[34], v0[32]);
-
-  v9 = v0[1];
-
-  return v9();
-}
-
-{
-  v1 = v0[45];
-  v2 = v0[46];
-  v3 = v0[20];
-  v4 = v0[17];
-  v5 = v0[18];
-  v7 = v0[15];
-  v6 = v0[16];
-  v8 = v0[14];
-
-  (*(v7 + 8))(v6, v8);
-  (*(v5 + 8))(v3, v4);
-  v24 = v0[48];
-  v9 = v0[31];
-  v11 = v0[27];
-  v10 = v0[28];
-  v12 = v0[26];
-  v14 = v0[22];
-  v13 = v0[23];
-  v16 = v0[20];
-  v15 = v0[21];
-  v19 = v0[19];
-  v20 = v0[16];
-  v21 = v0[13];
-  v22 = v0[12];
-  v23 = v0[9];
-  (*(v0[33] + 8))(v0[34], v0[32]);
-
-  v17 = v0[1];
-
-  return v17();
-}
-
-uint64_t MLSDaemon.getCredential(uri:with:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4[9] = a3;
-  v4[10] = v3;
-  v4[7] = a1;
-  v4[8] = a2;
-  v5 = type metadata accessor for XPCUtils.XPCError.ErrorType();
-  v4[11] = v5;
-  v6 = *(v5 - 8);
-  v4[12] = v6;
-  v7 = *(v6 + 64) + 15;
-  v4[13] = swift_task_alloc();
-  Credential = type metadata accessor for KDSRegistration.GetCredentialError.ErrorType();
-  v4[14] = Credential;
-  v9 = *(Credential - 8);
-  v4[15] = v9;
-  v10 = *(v9 + 64) + 15;
-  v4[16] = swift_task_alloc();
-  v11 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s8SwiftMLS0B0O8IdentityO10CredentialOSgMd, &_s8SwiftMLS0B0O8IdentityO10CredentialOSgMR) - 8) + 64) + 15;
-  v4[17] = swift_task_alloc();
-  v12 = type metadata accessor for MLS.SwiftMLSClientPicker();
-  v4[18] = v12;
-  v13 = *(v12 - 8);
-  v4[19] = v13;
-  v14 = *(v13 + 64) + 15;
-  v4[20] = swift_task_alloc();
-  v4[21] = swift_task_alloc();
-  v15 = type metadata accessor for URI();
-  v4[22] = v15;
-  v16 = *(v15 - 8);
-  v4[23] = v16;
-  v17 = *(v16 + 64) + 15;
-  v4[24] = swift_task_alloc();
-  v4[25] = swift_task_alloc();
-  v4[26] = swift_task_alloc();
-  v4[27] = swift_task_alloc();
-  v18 = type metadata accessor for MLS.ClientIdentifier();
-  v4[28] = v18;
-  v19 = *(v18 - 8);
-  v4[29] = v19;
-  v20 = *(v19 + 64) + 15;
-  v4[30] = swift_task_alloc();
-  v21 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v4[31] = v21;
-  v22 = *(v21 - 8);
-  v4[32] = v22;
-  v23 = *(v22 + 64) + 15;
-  v4[33] = swift_task_alloc();
-  v4[34] = swift_task_alloc();
-  v4[35] = swift_task_alloc();
-  v4[36] = swift_task_alloc();
-
-  return MEMORY[0x2822009F8](MLSDaemon.getCredential(uri:with:), 0, 0);
-}
-
-uint64_t MLSDaemon.getCredential(uri:with:)()
-{
-  v43 = v0;
-  v1 = v0[36];
-  v2 = v0[32];
-  v38 = v0[31];
-  v40 = v0[35];
-  v3 = v0[27];
-  v4 = v0[26];
-  v6 = v0[22];
-  v5 = v0[23];
-  log = v0[10];
-  v7 = v0[8];
-  (*(v0[29] + 16))(v0[30], v0[9], v0[28]);
-  v8 = *(v5 + 16);
-  v0[37] = v8;
-  v0[38] = (v5 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v8(v3, v7, v6);
-  MLS.UniqueClientIdentifier.init(clientIdentifier:clientURI:)();
-  v0[39] = OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_logger;
-  v8(v4, v7, v6);
-  v9 = *(v2 + 16);
-  v0[40] = v9;
-  v0[41] = (v2 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v9(v40, v1, v38);
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.default.getter();
-  v12 = os_log_type_enabled(v10, v11);
-  v13 = v0[35];
-  v15 = v0[31];
-  v14 = v0[32];
-  v16 = v0[26];
-  v18 = v0[22];
-  v17 = v0[23];
-  if (v12)
-  {
-    v39 = v11;
-    v19 = swift_slowAlloc();
-    v41 = swift_slowAlloc();
-    v42 = v41;
-    *v19 = 136315394;
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type URI and conformance URI, MEMORY[0x277D4D258]);
-    v20 = dispatch thunk of CustomStringConvertible.description.getter();
-    v35 = v15;
-    loga = v10;
-    v21 = v13;
-    v23 = v22;
-    v24 = *(v17 + 8);
-    v24(v16, v18);
-    v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v23, &v42);
-
-    *(v19 + 4) = v25;
-    *(v19 + 12) = 2080;
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-    v26 = dispatch thunk of CustomStringConvertible.description.getter();
-    v28 = v27;
-    v29 = *(v14 + 8);
-    v29(v21, v35);
-    v30 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v26, v28, &v42);
-
-    *(v19 + 14) = v30;
-    _os_log_impl(&dword_26524C000, loga, v39, "MLSDaemon getCredential called { uri: %s, clientIdentifier: %s }", v19, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x2667577B0](v41, -1, -1);
-    MEMORY[0x2667577B0](v19, -1, -1);
-  }
-
-  else
-  {
-
-    v29 = *(v14 + 8);
-    v29(v13, v15);
-    v24 = *(v17 + 8);
-    v24(v16, v18);
-  }
-
-  v0[42] = v24;
-  v0[43] = v29;
-  v31 = swift_task_alloc();
-  v0[44] = v31;
-  *v31 = v0;
-  v31[1] = MLSDaemon.getCredential(uri:with:);
-  v32 = v0[36];
-  v33 = v0[10];
-
-  return MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:)(v32);
-}
-
-{
-  v2 = *(*v1 + 352);
-  v5 = *v1;
-  *(*v1 + 360) = v0;
-
-  if (v0)
-  {
-    v3 = MLSDaemon.getCredential(uri:with:);
-  }
-
-  else
-  {
-    v3 = MLSDaemon.getCredential(uri:with:);
-  }
-
-  return MEMORY[0x2822009F8](v3, 0, 0);
-}
-
-{
-  v1 = v0[10];
-  v2 = (*MEMORY[0x277D85000] & *v1) + 136;
-  v0[46] = *((*MEMORY[0x277D85000] & *v1) + 0x88);
-  v0[47] = v2 & 0xFFFFFFFFFFFFLL | 0x2693000000000000;
-  type metadata accessor for MLSActor();
-  v0[48] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
-  v4 = dispatch thunk of Actor.unownedExecutor.getter();
-
-  return MEMORY[0x2822009F8](MLSDaemon.getCredential(uri:with:), v4, v3);
-}
-
-{
-  v2 = v0[47];
-  v1 = v0[48];
-  v3 = v0[46];
-  v4 = v0[10];
-
-  v0[49] = v3(v5);
-
-  return MEMORY[0x2822009F8](MLSDaemon.getCredential(uri:with:), 0, 0);
-}
-
-{
-  v136 = v0;
-  if (!*(v0[49] + 16) || (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[36]), (v2 & 1) == 0))
-  {
-    log = v0[40];
-    v126 = v0[41];
-    v25 = v0[38];
-    v131 = v0[39];
-    v26 = v0[36];
-    v27 = v0[37];
-    v28 = v0[33];
-    v29 = v0[31];
-    v30 = v0[24];
-    v31 = v0[22];
-    v115 = v0[10];
-    v32 = v0[8];
-
-    v27(v30, v32, v31);
-    (log)(v28, v26, v29);
-    v33 = Logger.logObject.getter();
-    v34 = static os_log_type_t.error.getter();
-    v35 = os_log_type_enabled(v33, v34);
-    v36 = v0[42];
-    v132 = v0[43];
-    v38 = v0[32];
-    v37 = v0[33];
-    v39 = v0[31];
-    v40 = v0[23];
-    v41 = v0[24];
-    v42 = v0[22];
-    if (v35)
-    {
-      loga = v33;
-      v43 = swift_slowAlloc();
-      v127 = swift_slowAlloc();
-      v135[0] = v127;
-      *v43 = 136315394;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type URI and conformance URI, MEMORY[0x277D4D258]);
-      v44 = dispatch thunk of CustomStringConvertible.description.getter();
-      v116 = v34;
-      v46 = v45;
-      v36(v41, v42);
-      v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v44, v46, v135);
-
-      *(v43 + 4) = v47;
-      *(v43 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v48 = dispatch thunk of CustomStringConvertible.description.getter();
-      v50 = v49;
-      v132(v37, v39);
-      v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v50, v135);
-
-      *(v43 + 14) = v51;
-      _os_log_impl(&dword_26524C000, loga, v116, "MLSDaemon getCredential has no clientXPCProxy { uri: %s, uniqueClientIdentifier: %s }", v43, 0x16u);
-      swift_arrayDestroy();
-      MEMORY[0x2667577B0](v127, -1, -1);
-      MEMORY[0x2667577B0](v43, -1, -1);
-    }
-
-    else
-    {
-
-      v132(v37, v39);
-      v36(v41, v42);
-    }
-
-    v52 = v0[43];
-    v53 = v0[36];
-    v54 = v0[31];
-    (*(v0[12] + 104))(v0[13], *MEMORY[0x277D4D2B0], v0[11]);
-    type metadata accessor for XPCUtils.XPCError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0]);
-    swift_allocError();
-    XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
-    swift_willThrow();
-    v52(v53, v54);
-    goto LABEL_10;
-  }
-
-  v4 = v0[20];
-  v3 = v0[21];
-  v5 = v0[18];
-  v6 = v0[19];
-  v7 = *(v6 + 16);
-  v7(v3, *(v0[49] + 56) + *(v6 + 72) * v1, v5);
-
-  v7(v4, v3, v5);
-  v8 = (*(v6 + 88))(v4, v5);
-  if (v8 == *MEMORY[0x277D4CFC0])
-  {
-    v9 = v0[20];
-    v10 = v0[17];
-    (*(v0[19] + 96))(v9, v0[18]);
-    outlined init with take of MLS.SwiftMLSPersisterProtocol(v9, (v0 + 2));
-    v11 = v0[6];
-    __swift_project_boxed_opaque_existential_1(v0 + 2, v0[5]);
-    v12 = *(v11 + 8);
-    dispatch thunk of MLS.SwiftMLSClientProtocol.credential.getter();
-    v13 = type metadata accessor for MLS.Identity.Credential();
-    v14 = *(v13 - 8);
-    v15 = (*(v14 + 48))(v10, 1, v13);
-    v125 = v0[43];
-    v16 = v0[36];
-    if (v15 != 1)
-    {
-      v94 = v0[35];
-      v95 = v0[32];
-      v107 = v0[34];
-      v108 = v0[33];
-      v96 = v0[31];
-      v109 = v0[30];
-      v110 = v0[27];
-      v111 = v0[26];
-      v112 = v0[25];
-      v114 = v0[24];
-      v119 = v0[20];
-      v97 = v0[17];
-      logd = v0[16];
-      v134 = v0[13];
-      v98 = v0[7];
-      (*(v0[19] + 8))(v0[21], v0[18]);
-      v125(v16, v96);
-      (*(v14 + 32))(v98, v97, v13);
-      __swift_destroy_boxed_opaque_existential_1Tm(v0 + 2);
-
-      v65 = v0[1];
-      goto LABEL_11;
-    }
-
-    v17 = v0[31];
-    v18 = v0[32];
-    v19 = v0[21];
-    v20 = v0[18];
-    v21 = v0[19];
-    v22 = v0[16];
-    v23 = v0[14];
-    v24 = v0[15];
-    outlined destroy of MLS.KeyPackageProvider?(v0[17], &_s8SwiftMLS0B0O8IdentityO10CredentialOSgMd, &_s8SwiftMLS0B0O8IdentityO10CredentialOSgMR);
-    (*(v24 + 104))(v22, *MEMORY[0x277D4CA50], v23);
-    type metadata accessor for KDSRegistration.GetCredentialError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type KDSRegistration.GetCredentialError and conformance KDSRegistration.GetCredentialError, MEMORY[0x277D4CA60]);
-    swift_allocError();
-    KDSRegistration.GetClientIDError.init(type:underlyingErrorDescription:)();
-    swift_willThrow();
-    (*(v21 + 8))(v19, v20);
-    v125(v16, v17);
-    __swift_destroy_boxed_opaque_existential_1Tm(v0 + 2);
-LABEL_10:
-    v56 = v0[35];
-    v55 = v0[36];
-    v58 = v0[33];
-    v57 = v0[34];
-    v59 = v0[30];
-    v61 = v0[26];
-    v60 = v0[27];
-    v63 = v0[24];
-    v62 = v0[25];
-    v64 = v0[21];
-    v113 = v0[20];
-    v117 = v0[17];
-    logb = v0[16];
-    v128 = v0[13];
-
-    v65 = v0[1];
-LABEL_11:
-
-    return v65();
-  }
-
-  if (v8 == *MEMORY[0x277D4CFC8])
-  {
-    v68 = v0[40];
-    v67 = v0[41];
-    v69 = v0[38];
-    v70 = v0[39];
-    v71 = v0[36];
-    v72 = v0[34];
-    v73 = v0[31];
-    v74 = v0[10];
-    (v0[37])(v0[25], v0[8], v0[22]);
-    v68(v72, v71, v73);
-    v75 = Logger.logObject.getter();
-    v76 = static os_log_type_t.error.getter();
-    v77 = os_log_type_enabled(v75, v76);
-    v78 = v0[42];
-    v133 = v0[43];
-    v79 = v0[34];
-    v80 = v0[31];
-    v81 = v0[32];
-    v82 = v0[25];
-    v84 = v0[22];
-    v83 = v0[23];
-    if (v77)
-    {
-      logc = v75;
-      v85 = swift_slowAlloc();
-      v129 = swift_slowAlloc();
-      v135[0] = v129;
-      *v85 = 136315394;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type URI and conformance URI, MEMORY[0x277D4D258]);
-      v86 = dispatch thunk of CustomStringConvertible.description.getter();
-      v118 = v76;
-      v88 = v87;
-      v78(v82, v84);
-      v89 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v86, v88, v135);
-
-      *(v85 + 4) = v89;
-      *(v85 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v90 = dispatch thunk of CustomStringConvertible.description.getter();
-      v92 = v91;
-      v133(v79, v80);
-      v93 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v90, v92, v135);
-
-      *(v85 + 14) = v93;
-      _os_log_impl(&dword_26524C000, logc, v118, "MLSDaemon getCredential called on invalid swiftMLSClient { uri: %s, uniqueClientIdentifier: %s }", v85, 0x16u);
-      swift_arrayDestroy();
-      MEMORY[0x2667577B0](v129, -1, -1);
-      MEMORY[0x2667577B0](v85, -1, -1);
-    }
-
-    else
-    {
-
-      v133(v79, v80);
-      v78(v82, v84);
-    }
-
-    v130 = v0[43];
-    v100 = v0[36];
-    v101 = v0[31];
-    v102 = v0[20];
-    v103 = v0[21];
-    v104 = v0[18];
-    v105 = v0[19];
-    (*(v0[15] + 104))(v0[16], *MEMORY[0x277D4CA58], v0[14]);
-    type metadata accessor for KDSRegistration.GetCredentialError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type KDSRegistration.GetCredentialError and conformance KDSRegistration.GetCredentialError, MEMORY[0x277D4CA60]);
-    swift_allocError();
-    KDSRegistration.GetClientIDError.init(type:underlyingErrorDescription:)();
-    swift_willThrow();
-    v106 = *(v105 + 8);
-    v106(v103, v104);
-    v130(v100, v101);
-    v106(v102, v104);
-    goto LABEL_10;
-  }
-
-  v99 = v0[18];
-
-  return MEMORY[0x2821FDEB8](v99, v99);
-}
-
-{
-  v1 = *(v0 + 256) + 8;
-  (*(v0 + 344))(*(v0 + 288), *(v0 + 248));
-  v3 = *(v0 + 280);
-  v2 = *(v0 + 288);
-  v5 = *(v0 + 264);
-  v4 = *(v0 + 272);
-  v6 = *(v0 + 240);
-  v8 = *(v0 + 208);
-  v7 = *(v0 + 216);
-  v10 = *(v0 + 192);
-  v9 = *(v0 + 200);
-  v11 = *(v0 + 168);
-  v14 = *(v0 + 160);
-  v15 = *(v0 + 136);
-  v16 = *(v0 + 128);
-  v17 = *(v0 + 104);
-  v18 = *(v0 + 360);
-
-  v12 = *(v0 + 8);
-
-  return v12();
-}
-
-uint64_t MLSDaemon.signWithParticipantKey(nonce:for:with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v5[10] = a4;
-  v5[11] = v4;
-  v5[8] = a2;
-  v5[9] = a3;
-  v5[7] = a1;
-  v6 = type metadata accessor for XPCUtils.XPCError.ErrorType();
-  v5[12] = v6;
-  v7 = *(v6 - 8);
-  v5[13] = v7;
-  v8 = *(v7 + 64) + 15;
-  v5[14] = swift_task_alloc();
-  v9 = type metadata accessor for KDSRegistration.SignWithParticipantKeyError.ErrorType();
-  v5[15] = v9;
-  v10 = *(v9 - 8);
-  v5[16] = v10;
-  v11 = *(v10 + 64) + 15;
-  v5[17] = swift_task_alloc();
-  v12 = type metadata accessor for MLS.RCSClient.SignNonceOutput();
-  v5[18] = v12;
-  v13 = *(v12 - 8);
-  v5[19] = v13;
-  v14 = *(v13 + 64) + 15;
-  v5[20] = swift_task_alloc();
-  v5[21] = swift_task_alloc();
-  v15 = type metadata accessor for MLS.RCSClient.SignNonceInput();
-  v5[22] = v15;
-  v16 = *(v15 - 8);
-  v5[23] = v16;
-  v17 = *(v16 + 64) + 15;
-  v5[24] = swift_task_alloc();
-  v18 = type metadata accessor for MLS.SwiftMLSClientPicker();
-  v5[25] = v18;
-  v19 = *(v18 - 8);
-  v5[26] = v19;
-  v20 = *(v19 + 64) + 15;
-  v5[27] = swift_task_alloc();
-  v5[28] = swift_task_alloc();
-  v21 = type metadata accessor for URI();
-  v5[29] = v21;
-  v22 = *(v21 - 8);
-  v5[30] = v22;
-  v23 = *(v22 + 64) + 15;
-  v5[31] = swift_task_alloc();
-  v5[32] = swift_task_alloc();
-  v5[33] = swift_task_alloc();
-  v5[34] = swift_task_alloc();
-  v24 = type metadata accessor for MLS.ClientIdentifier();
-  v5[35] = v24;
-  v25 = *(v24 - 8);
-  v5[36] = v25;
-  v26 = *(v25 + 64) + 15;
-  v5[37] = swift_task_alloc();
-  v27 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v5[38] = v27;
-  v28 = *(v27 - 8);
-  v5[39] = v28;
-  v29 = *(v28 + 64) + 15;
-  v5[40] = swift_task_alloc();
-  v5[41] = swift_task_alloc();
-  v5[42] = swift_task_alloc();
-  v5[43] = swift_task_alloc();
-
-  return MEMORY[0x2822009F8](MLSDaemon.signWithParticipantKey(nonce:for:with:), 0, 0);
-}
-
-uint64_t MLSDaemon.signWithParticipantKey(nonce:for:with:)()
-{
-  v48 = v0;
-  v1 = v0[43];
-  v2 = v0[39];
-  v41 = v0[38];
-  log = v0[42];
-  v3 = v0[34];
-  v5 = v0[29];
-  v4 = v0[30];
-  v45 = v0[11];
-  v6 = v0[9];
-  v38 = v0[33];
-  v39 = v0[8];
-  v7 = v0[7];
-  (*(v0[36] + 16))(v0[37], v0[10], v0[35]);
-  v8 = *(v4 + 16);
-  v0[44] = v8;
-  v0[45] = (v4 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v8(v3, v6, v5);
-  MLS.UniqueClientIdentifier.init(clientIdentifier:clientURI:)();
-  v0[46] = OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_logger;
-  v8(v38, v6, v5);
-  v9 = *(v2 + 16);
-  v0[47] = v9;
-  v0[48] = (v2 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v9(log, v1, v41);
-  outlined copy of Data._Representation(v7, v39);
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.default.getter();
-  outlined consume of Data._Representation(v7, v39);
-  v12 = os_log_type_enabled(v10, v11);
-  v13 = v0[42];
-  v15 = v0[38];
-  v14 = v0[39];
-  v16 = v0[33];
-  v18 = v0[29];
-  v17 = v0[30];
-  if (v12)
-  {
-    v42 = v0[42];
-    v19 = v0[7];
-    v20 = v0[8];
-    loga = v10;
-    v21 = swift_slowAlloc();
-    v46 = swift_slowAlloc();
-    v47 = v46;
-    *v21 = 136315650;
-    v22 = Data.base64EncodedString(options:)(0);
-    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22._countAndFlagsBits, v22._object, &v47);
-
-    *(v21 + 4) = v23;
-    *(v21 + 12) = 2080;
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type URI and conformance URI, MEMORY[0x277D4D258]);
-    v24 = dispatch thunk of CustomStringConvertible.description.getter();
-    v26 = v25;
-    v40 = v11;
-    v27 = *(v17 + 8);
-    v27(v16, v18);
-    v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v26, &v47);
-
-    *(v21 + 14) = v28;
-    *(v21 + 22) = 2080;
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-    v29 = dispatch thunk of CustomStringConvertible.description.getter();
-    v31 = v30;
-    v32 = *(v14 + 8);
-    v32(v42, v15);
-    v33 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v31, &v47);
-
-    *(v21 + 24) = v33;
-    _os_log_impl(&dword_26524C000, loga, v40, "MLSDaemon signWithParticipantKey called. { nonce: %s, uri: %s, clientIdentifier: %s}", v21, 0x20u);
-    swift_arrayDestroy();
-    MEMORY[0x2667577B0](v46, -1, -1);
-    MEMORY[0x2667577B0](v21, -1, -1);
-  }
-
-  else
-  {
-
-    v32 = *(v14 + 8);
-    v32(v13, v15);
-    v27 = *(v17 + 8);
-    v27(v16, v18);
-  }
-
-  v0[49] = v27;
-  v0[50] = v32;
-  v34 = swift_task_alloc();
-  v0[51] = v34;
-  *v34 = v0;
-  v34[1] = MLSDaemon.signWithParticipantKey(nonce:for:with:);
-  v35 = v0[43];
-  v36 = v0[11];
-
-  return MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:)(v35);
-}
-
-{
-  v2 = *(*v1 + 408);
-  v5 = *v1;
-  *(*v1 + 416) = v0;
-
-  if (v0)
-  {
-    v3 = MLSDaemon.signWithParticipantKey(nonce:for:with:);
-  }
-
-  else
-  {
-    v3 = MLSDaemon.signWithParticipantKey(nonce:for:with:);
-  }
-
-  return MEMORY[0x2822009F8](v3, 0, 0);
-}
-
-{
-  v1 = v0[11];
-  v2 = (*MEMORY[0x277D85000] & *v1) + 136;
-  v0[53] = *((*MEMORY[0x277D85000] & *v1) + 0x88);
-  v0[54] = v2 & 0xFFFFFFFFFFFFLL | 0x2693000000000000;
-  type metadata accessor for MLSActor();
-  v0[55] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
-  v4 = dispatch thunk of Actor.unownedExecutor.getter();
-
-  return MEMORY[0x2822009F8](MLSDaemon.signWithParticipantKey(nonce:for:with:), v4, v3);
-}
-
-{
-  v2 = v0[54];
-  v1 = v0[55];
-  v3 = v0[53];
-  v4 = v0[11];
-
-  v0[56] = v3(v5);
-
-  return MEMORY[0x2822009F8](MLSDaemon.signWithParticipantKey(nonce:for:with:), 0, 0);
-}
-
-{
-  v118 = v0;
-  if (!*(v0[56] + 16) || (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[43]), (v2 & 1) == 0))
-  {
-    log = v0[47];
-    v109 = v0[48];
-    v21 = v0[45];
-    v114 = v0[46];
-    v22 = v0[43];
-    v23 = v0[44];
-    v24 = v0[40];
-    v25 = v0[38];
-    v26 = v0[31];
-    v27 = v0[29];
-    v101 = v0[11];
-    v28 = v0[9];
-
-    v23(v26, v28, v27);
-    (log)(v24, v22, v25);
-    v29 = Logger.logObject.getter();
-    v30 = static os_log_type_t.error.getter();
-    v31 = os_log_type_enabled(v29, v30);
-    v32 = v0[49];
-    v115 = v0[50];
-    v34 = v0[39];
-    v33 = v0[40];
-    v35 = v0[38];
-    v36 = v0[30];
-    v37 = v0[31];
-    v38 = v0[29];
-    if (v31)
-    {
-      loga = v29;
-      v39 = swift_slowAlloc();
-      v110 = swift_slowAlloc();
-      v117[0] = v110;
-      *v39 = 136315394;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type URI and conformance URI, MEMORY[0x277D4D258]);
-      v40 = dispatch thunk of CustomStringConvertible.description.getter();
-      v102 = v30;
-      v42 = v41;
-      v32(v37, v38);
-      v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v42, v117);
-
-      *(v39 + 4) = v43;
-      *(v39 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v44 = dispatch thunk of CustomStringConvertible.description.getter();
-      v46 = v45;
-      v115(v33, v35);
-      v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v44, v46, v117);
-
-      *(v39 + 14) = v47;
-      _os_log_impl(&dword_26524C000, loga, v102, "MLSDaemon signWithParticipantKey has no clientXPCProxy { uri: %s, uniqueClientIdentifier: %s }", v39, 0x16u);
-      swift_arrayDestroy();
-      MEMORY[0x2667577B0](v110, -1, -1);
-      MEMORY[0x2667577B0](v39, -1, -1);
-    }
-
-    else
-    {
-
-      v115(v33, v35);
-      v32(v37, v38);
-    }
-
-    v48 = v0[50];
-    v49 = v0[43];
-    v50 = v0[38];
-    (*(v0[13] + 104))(v0[14], *MEMORY[0x277D4D2B0], v0[12]);
-    type metadata accessor for XPCUtils.XPCError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0]);
-    swift_allocError();
-    XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
-    swift_willThrow();
-    v48(v49, v50);
-    goto LABEL_11;
-  }
-
-  v4 = v0[27];
-  v3 = v0[28];
-  v5 = v0[25];
-  v6 = v0[26];
-  v7 = *(v6 + 16);
-  v7(v3, *(v0[56] + 56) + *(v6 + 72) * v1, v5);
-
-  v7(v4, v3, v5);
-  v8 = (*(v6 + 88))(v4, v5);
-  if (v8 == *MEMORY[0x277D4CFC0])
-  {
-    v9 = v0[27];
-    v10 = v0[24];
-    v12 = v0[8];
-    v11 = v0[9];
-    v13 = v0[7];
-    (*(v0[26] + 96))(v9, v0[25]);
-    outlined init with take of MLS.SwiftMLSPersisterProtocol(v9, (v0 + 2));
-    v14 = outlined copy of Data._Representation(v13, v12);
-    MEMORY[0x266756630](v14);
-    MLS.RCSClient.SignNonceInput.init(nonce:telURI:)();
-    v15 = v0[5];
-    v16 = v0[6];
-    __swift_project_boxed_opaque_existential_1(v0 + 2, v15);
-    v17 = *(MEMORY[0x277D4D118] + 4);
-    v18 = swift_task_alloc();
-    v0[57] = v18;
-    *v18 = v0;
-    v18[1] = MLSDaemon.signWithParticipantKey(nonce:for:with:);
-    v19 = v0[24];
-    v20 = v0[21];
-
-    return MEMORY[0x2821ACAA0](v20, v19, v15, v16);
-  }
-
-  if (v8 == *MEMORY[0x277D4CFC8])
-  {
-    v63 = v0[47];
-    v62 = v0[48];
-    v64 = v0[45];
-    v65 = v0[46];
-    v66 = v0[43];
-    v67 = v0[41];
-    v68 = v0[38];
-    v69 = v0[11];
-    (v0[44])(v0[32], v0[9], v0[29]);
-    v63(v67, v66, v68);
-    v70 = Logger.logObject.getter();
-    v71 = static os_log_type_t.error.getter();
-    v72 = os_log_type_enabled(v70, v71);
-    v73 = v0[49];
-    v116 = v0[50];
-    v74 = v0[41];
-    v75 = v0[38];
-    v76 = v0[39];
-    v77 = v0[32];
-    v79 = v0[29];
-    v78 = v0[30];
-    if (v72)
-    {
-      logc = v70;
-      v80 = swift_slowAlloc();
-      v112 = swift_slowAlloc();
-      v117[0] = v112;
-      *v80 = 136315394;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type URI and conformance URI, MEMORY[0x277D4D258]);
-      v81 = dispatch thunk of CustomStringConvertible.description.getter();
-      v104 = v71;
-      v83 = v82;
-      v73(v77, v79);
-      v84 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v81, v83, v117);
-
-      *(v80 + 4) = v84;
-      *(v80 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v85 = dispatch thunk of CustomStringConvertible.description.getter();
-      v87 = v86;
-      v116(v74, v75);
-      v88 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v85, v87, v117);
-
-      *(v80 + 14) = v88;
-      _os_log_impl(&dword_26524C000, logc, v104, "MLSDaemon signWithParticipantKey called on invalid swiftMLSClient { uri: %s, uniqueClientIdentifier: %s }", v80, 0x16u);
-      swift_arrayDestroy();
-      MEMORY[0x2667577B0](v112, -1, -1);
-      MEMORY[0x2667577B0](v80, -1, -1);
-    }
-
-    else
-    {
-
-      v116(v74, v75);
-      v73(v77, v79);
-    }
-
-    v113 = v0[50];
-    v90 = v0[43];
-    v91 = v0[38];
-    v92 = v0[27];
-    v93 = v0[28];
-    v94 = v0[25];
-    v95 = v0[26];
-    (*(v0[16] + 104))(v0[17], *MEMORY[0x277D4CBB8], v0[15]);
-    type metadata accessor for KDSRegistration.SignWithParticipantKeyError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type KDSRegistration.SignWithParticipantKeyError and conformance KDSRegistration.SignWithParticipantKeyError, MEMORY[0x277D4CBC8]);
-    swift_allocError();
-    KDSRegistration.IsRegisteredError.init(type:underlyingErrorDescription:)();
-    swift_willThrow();
-    v96 = *(v95 + 8);
-    v96(v93, v94);
-    v113(v90, v91);
-    v96(v92, v94);
-LABEL_11:
-    v52 = v0[42];
-    v51 = v0[43];
-    v54 = v0[40];
-    v53 = v0[41];
-    v55 = v0[37];
-    v57 = v0[33];
-    v56 = v0[34];
-    v58 = v0[31];
-    v59 = v0[32];
-    v60 = v0[28];
-    v98 = v0[27];
-    v99 = v0[24];
-    v100 = v0[21];
-    v103 = v0[20];
-    logb = v0[17];
-    v111 = v0[14];
-
-    v61 = v0[1];
-
-    return v61();
-  }
-
-  v89 = v0[25];
-
-  return MEMORY[0x2821FDEB8](v89, v89);
-}
-
-{
-  v2 = *(*v1 + 456);
-  v5 = *v1;
-  *(*v1 + 464) = v0;
-
-  if (v0)
-  {
-    v3 = MLSDaemon.signWithParticipantKey(nonce:for:with:);
-  }
-
-  else
-  {
-    v3 = MLSDaemon.signWithParticipantKey(nonce:for:with:);
-  }
-
-  return MEMORY[0x2822009F8](v3, 0, 0);
-}
-
-{
-  v47 = v0;
-  v1 = v0[46];
-  v2 = v0[11];
-  (*(v0[19] + 16))(v0[20], v0[21], v0[18]);
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
-  v5 = os_log_type_enabled(v3, v4);
-  v7 = v0[19];
-  v6 = v0[20];
-  v8 = v0[18];
-  if (v5)
-  {
-    v9 = swift_slowAlloc();
-    v43 = swift_slowAlloc();
-    v46 = v43;
-    *v9 = 136315138;
-    v10 = MLS.RCSClient.SignNonceOutput.signature.getter();
-    v12 = v11;
-    v13 = Data.base64EncodedString(options:)(0);
-    outlined consume of Data._Representation(v10, v12);
-    v45 = *(v7 + 8);
-    v45(v6, v8);
-    v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13._countAndFlagsBits, v13._object, &v46);
-
-    *(v9 + 4) = v14;
-    _os_log_impl(&dword_26524C000, v3, v4, "MLSDaemon signWithParticipantKey got nonce signature. { signature: %s }", v9, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v43);
-    MEMORY[0x2667577B0](v43, -1, -1);
-    MEMORY[0x2667577B0](v9, -1, -1);
-  }
-
-  else
-  {
-
-    v45 = *(v7 + 8);
-    v45(v6, v8);
-  }
-
-  v15 = v0[43];
-  v30 = v0[50];
-  v31 = v0[42];
-  v32 = v0[41];
-  v33 = v0[40];
-  v28 = v0[39];
-  v29 = v0[38];
-  v34 = v0[37];
-  v35 = v0[34];
-  v36 = v0[33];
-  v37 = v0[32];
-  v27 = v0[28];
-  v38 = v0[31];
-  v39 = v0[27];
-  v16 = v0[25];
-  v17 = v0[26];
-  v19 = v0[23];
-  v18 = v0[24];
-  v21 = v0[21];
-  v20 = v0[22];
-  v40 = v0[20];
-  v22 = v0[18];
-  v41 = v0[17];
-  v42 = v0[14];
-  v23 = MLS.RCSClient.SignNonceOutput.signature.getter();
-  v44 = v24;
-  v45(v21, v22);
-  (*(v19 + 8))(v18, v20);
-  (*(v17 + 8))(v27, v16);
-  v30(v15, v29);
-  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 2);
-
-  v25 = v0[1];
-
-  return v25(v23, v44);
-}
-
-{
-  v1 = *(v0 + 312) + 8;
-  (*(v0 + 400))(*(v0 + 344), *(v0 + 304));
-  v20 = *(v0 + 416);
-  v3 = *(v0 + 336);
-  v2 = *(v0 + 344);
-  v5 = *(v0 + 320);
-  v4 = *(v0 + 328);
-  v6 = *(v0 + 296);
-  v8 = *(v0 + 264);
-  v7 = *(v0 + 272);
-  v10 = *(v0 + 248);
-  v9 = *(v0 + 256);
-  v11 = *(v0 + 224);
-  v14 = *(v0 + 216);
-  v15 = *(v0 + 192);
-  v16 = *(v0 + 168);
-  v17 = *(v0 + 160);
-  v18 = *(v0 + 136);
-  v19 = *(v0 + 112);
-
-  v12 = *(v0 + 8);
-
-  return v12();
-}
-
-{
-  v1 = v0[50];
-  v2 = v0[43];
-  v3 = v0[38];
-  v4 = v0[39];
-  v5 = v0[28];
-  v6 = v0[25];
-  v7 = v0[26];
-  (*(v0[23] + 8))(v0[24], v0[22]);
-  (*(v7 + 8))(v5, v6);
-  v1(v2, v3);
-  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 2);
-  v26 = v0[58];
-  v9 = v0[42];
-  v8 = v0[43];
-  v11 = v0[40];
-  v10 = v0[41];
-  v12 = v0[37];
-  v14 = v0[33];
-  v13 = v0[34];
-  v16 = v0[31];
-  v15 = v0[32];
-  v17 = v0[28];
-  v20 = v0[27];
-  v21 = v0[24];
-  v22 = v0[21];
-  v23 = v0[20];
-  v24 = v0[17];
-  v25 = v0[14];
-
-  v18 = v0[1];
-
-  return v18();
-}
-
-uint64_t MLSDaemon.xpcLogger.getter@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = *a1;
-  v5 = type metadata accessor for Logger();
-  v6 = *(*(v5 - 8) + 16);
-
-  return v6(a2, v2 + v4, v5);
-}
-
-uint64_t MLSDaemon.swiftMLSClientByClientID.getter(uint64_t *a1)
-{
-  v2 = *a1;
-  swift_beginAccess();
-  v3 = *(v1 + v2);
-}
-
-uint64_t MLSDaemon.swiftMLSClientByClientID.setter(uint64_t a1, uint64_t *a2)
-{
-  v4 = *a2;
-  swift_beginAccess();
-  v5 = *(v2 + v4);
-  *(v2 + v4) = a1;
-}
-
-id MLSDaemon.__allocating_init()()
-{
-  v1 = objc_allocWithZone(v0);
-
-  return [v1 init];
-}
-
-id MLSDaemon.init()()
-{
-  v1 = v0;
-  v2 = type metadata accessor for SMAFeatureFlagsStore();
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v32 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for LogCategory();
-  v7 = *(v6 - 8);
-  v8 = v7[8];
-  MEMORY[0x28223BE20](v6);
-  v10 = &v32 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = v7[13];
-  v11(v10, *MEMORY[0x277D4C8F0], v6);
-  secureMessagingLogger(category:)();
-  v12 = v7[1];
-  v12(v10, v6);
-  v11(v10, *MEMORY[0x277D4C930], v6);
-  secureMessagingLogger(category:)();
-  v12(v10, v6);
-  v13 = OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_persister;
-  v33 = 0;
-  v34 = 0xE000000000000000;
-  _StringGuts.grow(_:)(27);
-
-  v14 = NSHomeDirectory();
-  v15 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v17 = v16;
-
-  v33 = v15;
-  v34 = v17;
-  MEMORY[0x266756A70](0xD000000000000019, 0x80000002653491A0);
-  v18 = v33;
-  v19 = v34;
-  default argument 0 of SMAFeatureFlagsStore.init(overrides:)();
-  SMAFeatureFlagsStore.init(overrides:)();
-  v20 = type metadata accessor for DaemonPersister();
-  v21 = *(v20 + 48);
-  v22 = *(v20 + 52);
-  swift_allocObject();
-  *&v1[v13] = DaemonPersister.init(fileDir:dbFileName:featureFlagStore:)(v18, v19, 0x65726F7453534C4DLL, 0xEB0000000062642ELL, v5);
-  v23 = OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_clientXPCServer;
-  type metadata accessor for ClientXPCServer();
-  v24 = swift_allocObject();
-  v25 = MEMORY[0x277D84F90];
-  *(v24 + 16) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC15SecureMessaging3MLSO22UniqueClientIdentifierV_0cD9AgentCore0G8XPCProxyVTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-  *&v1[v23] = v24;
-  v26 = OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_regClientServer;
-  type metadata accessor for RegistrationClientServer();
-  v27 = swift_allocObject();
-  *(v27 + 16) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC24SecureMessagingAgentCore19RegClientIdentifierV_AC012RegistrationH5ProxyVTt0g5Tf4g_n(v25);
-  *&v1[v26] = v27;
-  v28 = OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_swiftMLSClientByClientID;
-  *&v1[v28] = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC15SecureMessaging3MLSO22UniqueClientIdentifierV_AE20SwiftMLSClientPickerOTt0g5Tf4g_n(v25);
-  v29 = OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_keyPackageProviderByClientID;
-  *&v1[v29] = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC15SecureMessaging3MLSO22UniqueClientIdentifierV_AE18KeyPackageProviderVTt0g5Tf4g_n(v25);
-  v30 = type metadata accessor for MLSDaemon();
-  v32.receiver = v1;
-  v32.super_class = v30;
-  return objc_msgSendSuper2(&v32, sel_init);
-}
-
-uint64_t MLSDaemon.start()()
-{
-  v1[2] = v0;
-  v2 = type metadata accessor for SMAFeatureFlagsKey();
-  v1[3] = v2;
-  v3 = *(v2 - 8);
-  v1[4] = v3;
-  v4 = *(v3 + 64) + 15;
-  v1[5] = swift_task_alloc();
-
-  return MEMORY[0x2822009F8](MLSDaemon.start(), 0, 0);
-}
-
-{
-  v44 = v0;
-  v1 = &unk_280016000;
-  if (os_variant_has_internal_content())
-  {
-    v2 = v42[2] + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_logger;
-    v3 = Logger.logObject.getter();
-    v4 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v3, v4))
-    {
-      v5 = swift_slowAlloc();
-      *v5 = 0;
-      _os_log_impl(&dword_26524C000, v3, v4, "We're an internal install.", v5, 2u);
-      MEMORY[0x2667577B0](v5, -1, -1);
-    }
-  }
-
-  v6 = static SMAFeatureFlagsKey.allCases.getter();
-  v7 = *(v6 + 16);
-  if (v7)
-  {
-    v8 = v42[4];
-    v43 = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v7, 0);
-    v9 = v43;
-    v10 = *(v8 + 16);
-    v8 += 16;
-    v11 = v6 + ((*(v8 + 64) + 32) & ~*(v8 + 64));
-    v39 = *(v8 + 56);
-    v40 = v10;
-    v38 = (v8 - 8);
-    do
-    {
-      v12 = v42[5];
-      v13 = v42[3];
-      v40(v12, v11, v13);
-      v14 = SMAFeatureFlagsKey.feature.getter();
-      v16 = v15;
-      v18 = v17;
-      v19 = SMAFeatureFlagsKey.isEnabled.getter();
-      (*v38)(v12, v13);
-      v43 = v9;
-      v21 = *(v9 + 16);
-      v20 = *(v9 + 24);
-      if (v21 >= v20 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v20 > 1), v21 + 1, 1);
-        v9 = v43;
-      }
-
-      *(v9 + 16) = v21 + 1;
-      v22 = v9 + 24 * v21;
-      *(v22 + 32) = v14;
-      *(v22 + 40) = v16;
-      *(v22 + 48) = v18;
-      *(v22 + 49) = v19 & 1;
-      v11 += v39;
-      --v7;
-    }
-
-    while (v7);
-
-    v1 = &unk_280016000;
-  }
-
-  else
-  {
-
-    v9 = MEMORY[0x277D84F90];
-  }
-
-  v23 = v42[2];
-  v24 = v1[288];
-
-  v25 = Logger.logObject.getter();
-  v26 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v25, v26))
-  {
-    v27 = swift_slowAlloc();
-    v28 = swift_slowAlloc();
-    v43 = v28;
-    *v27 = 136315138;
-    v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss12StaticStringV_SbtMd, &_ss12StaticStringV_SbtMR);
-    v30 = MEMORY[0x266756AF0](v9, v29);
-    v32 = v31;
-
-    v33 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v30, v32, &v43);
-
-    *(v27 + 4) = v33;
-    _os_log_impl(&dword_26524C000, v25, v26, "MLSDaemon start { enabledFeatureFlags: %s }", v27, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v28);
-    MEMORY[0x2667577B0](v28, -1, -1);
-    MEMORY[0x2667577B0](v27, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  v34 = *(**(v42[2] + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_persister) + 280);
-  v41 = (v34 + *v34);
-  v35 = v34[1];
-  v36 = swift_task_alloc();
-  v42[6] = v36;
-  *v36 = v42;
-  v36[1] = MLSDaemon.start();
-
-  return v41();
-}
-
-{
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 40);
-  v5 = *v0;
-
-  v3 = *(v5 + 8);
-
-  return v3();
-}
-
-Swift::Void __swiftcall MLSDaemon.setupXPCNotificationPoster()()
-{
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v2 = *(*(v1 - 8) + 64);
-  MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = type metadata accessor for TaskPriority();
-  (*(*(v5 - 8) + 56))(v4, 1, 1, v5);
-  type metadata accessor for MLSActor();
-  v6 = v0;
-  v7 = static MLSActor.shared.getter();
-  v8 = _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
-  v9 = swift_allocObject();
-  v9[2] = v7;
-  v9[3] = v8;
-  v9[4] = v6;
-  _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v4, &async function pointer to partial apply for closure #1 in MLSDaemon.setupXPCNotificationPoster(), v9);
-}
-
-uint64_t closure #1 in MLSDaemon.setupXPCNotificationPoster()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v4[2] = a4;
-  v5 = type metadata accessor for URI();
-  v4[3] = v5;
-  v6 = *(v5 - 8);
-  v4[4] = v6;
-  v7 = *(v6 + 64) + 15;
-  v4[5] = swift_task_alloc();
-  v8 = type metadata accessor for MLS.ClientIdentifier();
-  v4[6] = v8;
-  v9 = *(v8 - 8);
-  v4[7] = v9;
-  v10 = *(v9 + 64) + 15;
-  v4[8] = swift_task_alloc();
-  v11 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v4[9] = v11;
-  v12 = *(v11 - 8);
-  v4[10] = v12;
-  v13 = *(v12 + 64) + 15;
-  v4[11] = swift_task_alloc();
-  v4[12] = swift_task_alloc();
-  type metadata accessor for MLSActor();
-  v4[13] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
-  v15 = dispatch thunk of Actor.unownedExecutor.getter();
-  v4[14] = v15;
-  v4[15] = v14;
-
-  return MEMORY[0x2822009F8](closure #1 in MLSDaemon.setupXPCNotificationPoster(), v15, v14);
-}
-
-uint64_t closure #1 in MLSDaemon.setupXPCNotificationPoster()()
-{
-  v1 = *(v0 + 16) + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_logger;
-  v2 = Logger.logObject.getter();
-  v3 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v2, v3))
-  {
-    v4 = swift_slowAlloc();
-    *v4 = 0;
-    _os_log_impl(&dword_26524C000, v2, v3, "MLSDaemon loading persisted client identifiers", v4, 2u);
-    MEMORY[0x2667577B0](v4, -1, -1);
-  }
-
-  v5 = *(v0 + 16);
-
-  v9 = (**(v5 + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_persister) + 464);
-  v10 = (*v9 + **v9);
-  v6 = (*v9)[1];
-  v7 = swift_task_alloc();
-  *(v0 + 128) = v7;
-  *v7 = v0;
-  v7[1] = closure #1 in MLSDaemon.setupXPCNotificationPoster();
-
-  return v10();
-}
-
-{
-  v48 = v0;
-  v1 = v0[17];
-  v2 = v0[13];
-
-  v3 = *(v1 + 16);
-  if (v3)
-  {
-    v4 = v0[10];
-    v43 = v0[2];
-    v5 = *(v4 + 16);
-    v4 += 16;
-    v42 = v5;
-    v6 = v0[17] + ((*(v4 + 64) + 32) & ~*(v4 + 64));
-    v41 = *(v4 + 56);
-    v39 = (v0[7] + 8);
-    v38 = (v0[4] + 8);
-    v40 = (v4 - 8);
-    do
-    {
-      v46 = v3;
-      v24 = v0[11];
-      v23 = v0[12];
-      v25 = v0[9];
-      v42(v23, v6, v25);
-      v42(v24, v23, v25);
-      v26 = Logger.logObject.getter();
-      v27 = static os_log_type_t.default.getter();
-      v28 = os_log_type_enabled(v26, v27);
-      v29 = v0[11];
-      v30 = v0[9];
-      if (v28)
-      {
-        v7 = swift_slowAlloc();
-        v8 = swift_slowAlloc();
-        v47[0] = v8;
-        *v7 = 136315138;
-        _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-        v9 = dispatch thunk of CustomStringConvertible.description.getter();
-        v11 = v10;
-        v45 = *v40;
-        (*v40)(v29, v30);
-        v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v11, v47);
-
-        *(v7 + 4) = v12;
-        _os_log_impl(&dword_26524C000, v26, v27, "MLSDaemon pinging client to reconnect { uniqueClientIdentifier: %s }", v7, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1Tm(v8);
-        MEMORY[0x2667577B0](v8, -1, -1);
-        MEMORY[0x2667577B0](v7, -1, -1);
-      }
-
-      else
-      {
-
-        v45 = *v40;
-        (*v40)(v29, v30);
-      }
-
-      v13 = v0[12];
-      v14 = v0[8];
-      v44 = v0[9];
-      v16 = v0[5];
-      v15 = v0[6];
-      v17 = v0[3];
-      v47[0] = static XPCUtils.XPCNotifyPoster.DeliveryPostIdentifierPrefix.getter();
-      v47[1] = v18;
-      MEMORY[0x266756A70](45, 0xE100000000000000);
-      MLS.UniqueClientIdentifier.clientIdentifier.getter();
-      v19 = MLS.ClientIdentifier.rawValue.getter();
-      v21 = v20;
-      (*v39)(v14, v15);
-      MEMORY[0x266756A70](v19, v21);
-
-      MEMORY[0x266756A70](45, 0xE100000000000000);
-      MLS.UniqueClientIdentifier.clientURI.getter();
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type URI and conformance URI, MEMORY[0x277D4D258]);
-      v22 = dispatch thunk of CustomStringConvertible.description.getter();
-      MEMORY[0x266756A70](v22);
-
-      (*v38)(v16, v17);
-      static XPCUtils.XPCNotifyPoster.post(postIdentifier:)();
-
-      v45(v13, v44);
-      v6 += v41;
-      v3 = v46 - 1;
-    }
-
-    while (v46 != 1);
-  }
-
-  v31 = v0[17];
-
-  v33 = v0[11];
-  v32 = v0[12];
-  v34 = v0[8];
-  v35 = v0[5];
-
-  v36 = v0[1];
-
-  return v36();
-}
-
-{
-  v2 = v0[12];
-  v1 = v0[13];
-  v3 = v0[11];
-  v4 = v0[8];
-  v5 = v0[5];
-
-  v6 = v0[1];
-  v7 = v0[18];
-
-  return v6();
-}
-
-uint64_t closure #1 in MLSDaemon.setupXPCNotificationPoster()(uint64_t a1)
-{
-  v3 = *v2;
-  v4 = *v2;
-  v5 = *(*v2 + 128);
-  v6 = *v2;
-  *(v4 + 136) = a1;
-  *(v4 + 144) = v1;
-
-  v7 = *(v3 + 120);
-  v8 = *(v3 + 112);
-  if (v1)
-  {
-    v9 = closure #1 in MLSDaemon.setupXPCNotificationPoster();
-  }
-
-  else
-  {
-    v9 = closure #1 in MLSDaemon.setupXPCNotificationPoster();
-  }
-
-  return MEMORY[0x2822009F8](v9, v8, v7);
-}
-
-uint64_t _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = v24 - v10;
-  outlined init with copy of (MLS.UniqueClientIdentifier, MLS.KeyPackageProvider)(a3, v24 - v10, &_sScPSgMd, &_sScPSgMR);
-  v12 = type metadata accessor for TaskPriority();
-  v13 = *(v12 - 8);
-  v14 = (*(v13 + 48))(v11, 1, v12);
-
-  if (v14 == 1)
-  {
-    outlined destroy of MLS.KeyPackageProvider?(v11, &_sScPSgMd, &_sScPSgMR);
-  }
-
-  else
-  {
-    TaskPriority.rawValue.getter();
-    (*(v13 + 8))(v11, v12);
-  }
-
-  v16 = *(a5 + 16);
-  v15 = *(a5 + 24);
-  swift_unknownObjectRetain();
-
-  if (v16)
-  {
-    swift_getObjectType();
-    v17 = dispatch thunk of Actor.unownedExecutor.getter();
-    v19 = v18;
-    swift_unknownObjectRelease();
-    if (a2)
-    {
-LABEL_6:
-      v20 = String.utf8CString.getter() + 32;
-
-      if (v19 | v17)
-      {
-        v25[0] = 0;
-        v25[1] = 0;
-        v21 = v25;
-        v25[2] = v17;
-        v25[3] = v19;
-      }
-
-      else
-      {
-        v21 = 0;
-      }
-
-      v24[1] = 7;
-      v24[2] = v21;
-      v24[3] = v20;
-      v22 = swift_task_create();
-
-      outlined destroy of MLS.KeyPackageProvider?(a3, &_sScPSgMd, &_sScPSgMR);
-
-      return v22;
-    }
-  }
-
-  else
-  {
-    v17 = 0;
-    v19 = 0;
-    if (a2)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  outlined destroy of MLS.KeyPackageProvider?(a3, &_sScPSgMd, &_sScPSgMR);
-  if (v19 | v17)
-  {
-    v25[4] = 0;
-    v25[5] = 0;
-    v25[6] = v17;
-    v25[7] = v19;
-  }
-
-  return swift_task_create();
-}
-
-id MLSDaemon.__deallocating_deinit()
-{
-  v1 = v0;
-  v2 = type metadata accessor for Logger();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v3 + 16))(v6, v1 + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_logger, v2);
-  v7 = Logger.logObject.getter();
-  v8 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v7, v8))
-  {
-    v9 = swift_slowAlloc();
-    *v9 = 0;
-    _os_log_impl(&dword_26524C000, v7, v8, "MLSDaemon deinit", v9, 2u);
-    MEMORY[0x2667577B0](v9, -1, -1);
-  }
-
-  (*(v3 + 8))(v6, v2);
-  v10 = type metadata accessor for MLSDaemon();
-  v12.receiver = v1;
-  v12.super_class = v10;
-  return objc_msgSendSuper2(&v12, sel_dealloc);
-}
-
-uint64_t MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:)(uint64_t a1)
-{
-  v2[2] = a1;
-  v2[3] = v1;
-  v3 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v2[4] = v3;
-  v4 = *(v3 - 8);
-  v2[5] = v4;
-  v5 = *(v4 + 64) + 15;
-  v2[6] = swift_task_alloc();
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO20SwiftMLSClientPickerOSgMd, &_s15SecureMessaging3MLSO20SwiftMLSClientPickerOSgMR) - 8) + 64) + 15;
-  v2[7] = swift_task_alloc();
-  type metadata accessor for MLSActor();
-  v2[8] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
-  v8 = dispatch thunk of Actor.unownedExecutor.getter();
-  v2[9] = v8;
-  v2[10] = v7;
-
-  return MEMORY[0x2822009F8](MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:), v8, v7);
-}
-
-uint64_t MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:)()
-{
-  v45 = v0;
-  v1 = (*((*MEMORY[0x277D85000] & **(v0 + 24)) + 0x88))();
-  if (*(v1 + 16) && (v2 = specialized __RawDictionaryStorage.find<A>(_:)(*(v0 + 16)), (v3 & 1) != 0))
-  {
-    v4 = v2;
-    v6 = *(v0 + 56);
-    v5 = *(v0 + 64);
-    v7 = *(v0 + 40);
-    v8 = *(v0 + 32);
-    v42 = *(v0 + 48);
-    v43 = *(v0 + 24);
-    v9 = *(v0 + 16);
-
-    v10 = *(v1 + 56);
-    v11 = type metadata accessor for MLS.SwiftMLSClientPicker();
-    v12 = *(v11 - 8);
-    (*(v12 + 16))(v6, v10 + *(v12 + 72) * v4, v11);
-
-    (*(v12 + 56))(v6, 0, 1, v11);
-    outlined destroy of MLS.KeyPackageProvider?(v6, &_s15SecureMessaging3MLSO20SwiftMLSClientPickerOSgMd, &_s15SecureMessaging3MLSO20SwiftMLSClientPickerOSgMR);
-    (*(v7 + 16))(v42, v9, v8);
-    v13 = Logger.logObject.getter();
-    v14 = static os_log_type_t.default.getter();
-    v15 = os_log_type_enabled(v13, v14);
-    v17 = *(v0 + 40);
-    v16 = *(v0 + 48);
-    v18 = *(v0 + 32);
-    if (v15)
-    {
-      v19 = swift_slowAlloc();
-      v20 = swift_slowAlloc();
-      v44[0] = v20;
-      *v19 = 136315138;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v21 = dispatch thunk of CustomStringConvertible.description.getter();
-      v23 = v22;
-      (*(v17 + 8))(v16, v18);
-      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v23, v44);
-
-      *(v19 + 4) = v24;
-      _os_log_impl(&dword_26524C000, v13, v14, "MLSDaemon already created SwiftMLSClient { clientIdentifier: %s }", v19, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v20);
-      MEMORY[0x2667577B0](v20, -1, -1);
-      MEMORY[0x2667577B0](v19, -1, -1);
-    }
-
-    else
-    {
-
-      (*(v17 + 8))(v16, v18);
-    }
-
-    v39 = *(v0 + 48);
-    v38 = *(v0 + 56);
-
-    v40 = *(v0 + 8);
-
-    return v40();
-  }
-
-  else
-  {
-    v25 = *(v0 + 56);
-    v27 = *(v0 + 24);
-    v26 = *(v0 + 32);
-    v28 = *(v0 + 16);
-
-    v29 = type metadata accessor for MLS.SwiftMLSClientPicker();
-    (*(*(v29 - 8) + 56))(v25, 1, 1, v29);
-    outlined destroy of MLS.KeyPackageProvider?(v25, &_s15SecureMessaging3MLSO20SwiftMLSClientPickerOSgMd, &_s15SecureMessaging3MLSO20SwiftMLSClientPickerOSgMR);
-    v30 = *(v27 + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_persister);
-    _StringGuts.grow(_:)(21);
-
-    v44[0] = 0xD000000000000013;
-    v44[1] = 0x800000026534BBC0;
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-    v31 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x266756A70](v31);
-
-    *(v0 + 88) = 0x800000026534BBC0;
-    v32 = swift_task_alloc();
-    *(v0 + 96) = v32;
-    *(v32 + 16) = v27;
-    *(v32 + 24) = v28;
-    v33 = *(MEMORY[0x277D4D240] + 4);
-    v34 = swift_task_alloc();
-    *(v0 + 104) = v34;
-    v35 = type metadata accessor for DaemonPersister();
-    v36 = _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type DaemonPersister and conformance DaemonPersister, type metadata accessor for DaemonPersister);
-    *v34 = v0;
-    v34[1] = MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:);
-    v37 = MEMORY[0x277D84F78] + 8;
-
-    return MEMORY[0x2821ACB80](v36, 0xD000000000000013, 0x800000026534BBC0, &async function pointer to partial apply for closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:), v32, v35, v37, v36);
-  }
-}
-
-{
-  v2 = *v1;
-  v3 = *(*v1 + 104);
-  v10 = *v1;
-  *(*v1 + 112) = v0;
-
-  if (v0)
-  {
-    v4 = v2[9];
-    v5 = v2[10];
-    v6 = MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:);
-  }
-
-  else
-  {
-    v7 = v2[11];
-    v8 = v2[12];
-
-    v4 = v2[9];
-    v5 = v2[10];
-    v6 = MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:);
-  }
-
-  return MEMORY[0x2822009F8](v6, v4, v5);
-}
-
-{
-  v1 = v0[8];
-
-  v3 = v0[6];
-  v2 = v0[7];
-
-  v4 = v0[1];
-
-  return v4();
-}
-
-{
-  v1 = v0[11];
-  v2 = v0[12];
-  v4 = v0[7];
-  v3 = v0[8];
-  v5 = v0[6];
-
-  v6 = v0[1];
-  v7 = v0[14];
-
-  return v6();
-}
-
-uint64_t closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3[10] = a2;
-  v3[11] = a3;
-  v4 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO18KeyPackageProviderVSgMd, &_s15SecureMessaging3MLSO18KeyPackageProviderVSgMR) - 8) + 64) + 15;
-  v3[12] = swift_task_alloc();
-  v5 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO20SwiftMLSClientPickerOSgMd, &_s15SecureMessaging3MLSO20SwiftMLSClientPickerOSgMR) - 8) + 64) + 15;
-  v3[13] = swift_task_alloc();
-  v6 = type metadata accessor for XPCUtils.XPCError.ErrorType();
-  v3[14] = v6;
-  v7 = *(v6 - 8);
-  v3[15] = v7;
-  v8 = *(v7 + 64) + 15;
-  v3[16] = swift_task_alloc();
-  v9 = type metadata accessor for UUID();
-  v3[17] = v9;
-  v10 = *(v9 - 8);
-  v3[18] = v10;
-  v11 = *(v10 + 64) + 15;
-  v3[19] = swift_task_alloc();
-  v3[20] = swift_task_alloc();
-  v3[21] = swift_task_alloc();
-  v3[22] = swift_task_alloc();
-  v12 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v3[23] = v12;
-  v13 = *(v12 - 8);
-  v3[24] = v13;
-  v14 = *(v13 + 64) + 15;
-  v3[25] = swift_task_alloc();
-  v3[26] = swift_task_alloc();
-  v3[27] = swift_task_alloc();
-  v3[28] = swift_task_alloc();
-  v3[29] = swift_task_alloc();
-  v15 = type metadata accessor for MLS.ClientIdentifier();
-  v3[30] = v15;
-  v16 = *(v15 - 8);
-  v3[31] = v16;
-  v17 = *(v16 + 64) + 15;
-  v3[32] = swift_task_alloc();
-  v18 = type metadata accessor for MLS.SwiftMLSClientPicker();
-  v3[33] = v18;
-  v19 = *(v18 - 8);
-  v3[34] = v19;
-  v20 = *(v19 + 64) + 15;
-  v3[35] = swift_task_alloc();
-  v3[36] = swift_task_alloc();
-  v21 = type metadata accessor for MLS.Client.Configuration();
-  v3[37] = v21;
-  v22 = *(v21 - 8);
-  v3[38] = v22;
-  v23 = *(v22 + 64) + 15;
-  v3[39] = swift_task_alloc();
-  v3[40] = swift_task_alloc();
-  v3[41] = swift_task_alloc();
-  v24 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR) - 8) + 64) + 15;
-  v3[42] = swift_task_alloc();
-  v3[43] = swift_task_alloc();
-  v3[44] = swift_task_alloc();
-  type metadata accessor for MLSActor();
-  v3[45] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
-  v26 = dispatch thunk of Actor.unownedExecutor.getter();
-  v3[46] = v26;
-  v3[47] = v25;
-
-  return MEMORY[0x2822009F8](closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:), v26, v25);
-}
-
-uint64_t closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:)()
-{
-  v1 = *(v0[10] + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_persister);
-  v0[48] = v1;
-  v2 = *(*v1 + 320);
-  v8 = (v2 + *v2);
-  v3 = v2[1];
-  v4 = swift_task_alloc();
-  v0[49] = v4;
-  *v4 = v0;
-  v4[1] = closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:);
-  v5 = v0[44];
-  v6 = v0[11];
-
-  return v8(v5, v6);
-}
-
-{
-  v2 = *(*v1 + 392);
-  v3 = *v1;
-  v3[50] = v0;
-
-  if (v0)
-  {
-    v4 = v3[46];
-    v5 = v3[47];
-
-    return MEMORY[0x2822009F8](closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:), v4, v5);
-  }
-
-  else
-  {
-    v6 = _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type DaemonPersister and conformance DaemonPersister, type metadata accessor for DaemonPersister);
-    v3[51] = v6;
-    v7 = *(MEMORY[0x277D4CFE0] + 4);
-    v8 = swift_task_alloc();
-    v3[52] = v8;
-    *v8 = v3;
-    v8[1] = closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:);
-    v9 = v3[48];
-    v10 = v3[41];
-    v11 = v3[11];
-
-    return MEMORY[0x2821AC9F8](v10, v11, v9, v6, 0);
-  }
-}
-
-{
-  v2 = *v1;
-  v3 = *(*v1 + 416);
-  v4 = *v1;
-  *(*v1 + 424) = v0;
-
-  v5 = *(v2 + 376);
-  v6 = *(v2 + 368);
-  if (v0)
-  {
-    v7 = closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:);
-  }
-
-  else
-  {
-    v7 = closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:);
-  }
-
-  return MEMORY[0x2822009F8](v7, v6, v5);
-}
-
-{
-  v56 = v0;
-  v2 = v0[31];
-  v1 = v0[32];
-  v3 = v0[30];
-  v4 = v0[11];
-  MLS.UniqueClientIdentifier.clientIdentifier.getter();
-  if ((*(v2 + 88))(v1, v3) == *MEMORY[0x277D4CD40])
-  {
-    v5 = v0[29];
-    v6 = v0[23];
-    v7 = v0[24];
-    v9 = v0[10];
-    v8 = v0[11];
-    v0[54] = OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_logger;
-    v10 = *(v7 + 16);
-    v0[55] = v10;
-    v0[56] = (v7 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-    v10(v5, v8, v6);
-    v11 = Logger.logObject.getter();
-    v12 = static os_log_type_t.default.getter();
-    v13 = os_log_type_enabled(v11, v12);
-    v14 = v0[29];
-    v15 = v0[23];
-    v16 = v0[24];
-    if (v13)
-    {
-      v17 = swift_slowAlloc();
-      v54 = swift_slowAlloc();
-      v55 = v54;
-      *v17 = 136315138;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v18 = dispatch thunk of CustomStringConvertible.description.getter();
-      v20 = v19;
-      v21 = *(v16 + 8);
-      v21(v14, v15);
-      v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, &v55);
-
-      *(v17 + 4) = v22;
-      _os_log_impl(&dword_26524C000, v11, v12, "MLSDaemon creating RCSSwiftMLSClient { clientIdentifier: %s }", v17, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v54);
-      MEMORY[0x2667577B0](v54, -1, -1);
-      MEMORY[0x2667577B0](v17, -1, -1);
-    }
-
-    else
-    {
-
-      v21 = *(v16 + 8);
-      v21(v14, v15);
-    }
-
-    v0[57] = v21;
-    v24 = v0[43];
-    v25 = v0[17];
-    v26 = v0[18];
-    outlined init with copy of (MLS.UniqueClientIdentifier, MLS.KeyPackageProvider)(v0[44], v24, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    v27 = (*(v26 + 48))(v24, 1, v25);
-    v28 = v0[43];
-    if (v27 == 1)
-    {
-      v29 = v0[41];
-      v30 = v0[42];
-      v31 = v0[40];
-      v32 = v0[37];
-      v33 = v0[38];
-      v34 = v0[17];
-      v35 = v0[18];
-      outlined destroy of MLS.KeyPackageProvider?(v0[43], &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-      v0[58] = type metadata accessor for MLS.RCSClient();
-      (*(v33 + 16))(v31, v29, v32);
-      (*(v35 + 56))(v30, 1, 1, v34);
-      v36 = *(MEMORY[0x277D6AC20] + 4);
-      v37 = swift_task_alloc();
-      v0[59] = v37;
-      *v37 = v0;
-      v37[1] = closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:);
-      v38 = v0[42];
-      v39 = v0[40];
-
-      return MEMORY[0x2821D00D8](v39, v38);
-    }
-
-    else
-    {
-      v40 = v0[41];
-      v42 = v0[38];
-      v41 = v0[39];
-      v43 = v0[37];
-      v45 = v0[21];
-      v44 = v0[22];
-      v46 = v0[17];
-      v47 = v0[18];
-      (*(v47 + 32))(v44, v0[43], v46);
-      v0[62] = type metadata accessor for MLS.RCSClient();
-      (*(v42 + 16))(v41, v40, v43);
-      v48 = *(v47 + 16);
-      v0[63] = v48;
-      v0[64] = (v47 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-      v48(v45, v44, v46);
-      v49 = *(MEMORY[0x277D6AC28] + 4);
-      v50 = swift_task_alloc();
-      v0[65] = v50;
-      *v50 = v0;
-      v50[1] = closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:);
-      v51 = v0[39];
-      v52 = v0[21];
-
-      return MEMORY[0x2821D00E0](v51, v52);
-    }
-  }
-
-  else
-  {
-    v23 = v0[30];
-
-    return MEMORY[0x2821FDEB8](v23, v23);
-  }
-}
-
-{
-  v132 = v0;
-  v1 = v0[66];
-  v2 = v0[45];
-
-  if (v1)
-  {
-    v3 = v0[66];
-    v123 = v0[63];
-    v127 = v0[64];
-    v4 = v0[55];
-    v5 = v0[56];
-    v119 = v0[54];
-    v6 = v0[36];
-    v7 = v0[33];
-    v8 = v0[34];
-    v9 = v0[27];
-    v11 = v0[22];
-    v10 = v0[23];
-    v12 = v0[20];
-    v13 = v0[17];
-    v15 = v0[10];
-    v14 = v0[11];
-    v16 = MEMORY[0x277D4D2D0];
-    v6[3] = v0[62];
-    v6[4] = v16;
-    *v6 = v3;
-    v17 = *MEMORY[0x277D4CFC0];
-    (*(v8 + 104))();
-    v4(v9, v14, v10);
-    v123(v12, v11, v13);
-    v18 = Logger.logObject.getter();
-    v128 = static os_log_type_t.default.getter();
-    v19 = os_log_type_enabled(v18, v128);
-    v20 = v0[57];
-    v21 = v0[27];
-    v23 = v0[23];
-    v22 = v0[24];
-    v24 = v0[22];
-    v25 = v0[20];
-    v27 = v0[17];
-    v26 = v0[18];
-    if (v19)
-    {
-      v124 = v0[22];
-      v28 = swift_slowAlloc();
-      v120 = swift_slowAlloc();
-      v131[0] = v120;
-      *v28 = 136315394;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v113 = v27;
-      v116 = v18;
-      v29 = dispatch thunk of CustomStringConvertible.description.getter();
-      v31 = v30;
-      v20(v21, v23);
-      v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v31, v131);
-
-      *(v28 + 4) = v32;
-      *(v28 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
-      v33 = dispatch thunk of CustomStringConvertible.description.getter();
-      v35 = v34;
-      v36 = *(v26 + 8);
-      v36(v25, v113);
-      v37 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33, v35, v131);
-
-      *(v28 + 14) = v37;
-      _os_log_impl(&dword_26524C000, v116, v128, "MLSDaemon loaded old RCSSwiftMLSClient { clientIdentifier: %s, persistedClientUUID: %s }", v28, 0x16u);
-      swift_arrayDestroy();
-      MEMORY[0x2667577B0](v120, -1, -1);
-      MEMORY[0x2667577B0](v28, -1, -1);
-
-      v36(v124, v113);
-    }
-
-    else
-    {
-
-      v54 = *(v26 + 8);
-      v54(v25, v27);
-      v20(v21, v23);
-      v54(v24, v27);
-    }
-
-    v87 = v0[56];
-    v88 = v0[55];
-    v91 = v0[48];
-    v92 = v0[51];
-    v96 = v0[44];
-    v97 = v0[43];
-    v98 = v0[42];
-    v95 = v0[41];
-    v99 = v0[40];
-    v101 = v0[39];
-    v93 = v0[38];
-    v94 = v0[37];
-    v55 = v0[36];
-    v85 = v55;
-    v90 = v0[35];
-    v57 = v0[33];
-    v56 = v0[34];
-    v103 = v0[32];
-    v105 = v0[29];
-    v107 = v0[28];
-    v109 = v0[27];
-    v111 = v0[26];
-    v84 = v0[25];
-    v86 = v0[23];
-    v114 = v0[22];
-    v117 = v0[21];
-    v121 = v0[20];
-    v125 = v0[19];
-    v130 = v0[16];
-    v58 = v0[13];
-    v89 = v0[12];
-    v59 = v0[10];
-    v60 = v0[11];
-    v88();
-    v61 = *(v56 + 16);
-    v61(v58, v55, v57);
-    (*(v56 + 56))(v58, 0, 1, v57);
-    v62 = (*((*MEMORY[0x277D85000] & *v59) + 0x98))(v0 + 2);
-    specialized Dictionary.subscript.setter(v58, v84);
-    v62(v0 + 2, 0);
-    (v88)(v84, v60, v86);
-    v61(v90, v85, v57);
-
-    MLS.KeyPackageProvider.init(swiftMLSClient:persister:)();
-    v63 = type metadata accessor for MLS.KeyPackageProvider();
-    (*(*(v63 - 8) + 56))(v89, 0, 1, v63);
-    v64 = (*((*MEMORY[0x277D85000] & *v59) + 0xB0))(v0 + 6);
-    specialized Dictionary.subscript.setter(v89, v84);
-    v64(v0 + 6, 0);
-    (*(v93 + 8))(v95, v94);
-    outlined destroy of MLS.KeyPackageProvider?(v96, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    (*(v56 + 8))(v85, v57);
-
-    v65 = v0[1];
-  }
-
-  else
-  {
-    v38 = v0[56];
-    v39 = v0[54];
-    v40 = v0[10];
-    (v0[55])(v0[28], v0[11], v0[23]);
-    v41 = Logger.logObject.getter();
-    v42 = static os_log_type_t.error.getter();
-    v43 = os_log_type_enabled(v41, v42);
-    v44 = v0[57];
-    v45 = v0[28];
-    v46 = v0[23];
-    v47 = v0[24];
-    if (v43)
-    {
-      v129 = v0[57];
-      v48 = swift_slowAlloc();
-      v49 = swift_slowAlloc();
-      v131[0] = v49;
-      *v48 = 136315138;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v50 = dispatch thunk of CustomStringConvertible.description.getter();
-      v52 = v51;
-      v129(v45, v46);
-      v53 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v50, v52, v131);
-
-      *(v48 + 4) = v53;
-      _os_log_impl(&dword_26524C000, v41, v42, "MLSDaemon failed creating RCSSwiftMLSClient { clientIdentifier: %s }", v48, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v49);
-      MEMORY[0x2667577B0](v49, -1, -1);
-      MEMORY[0x2667577B0](v48, -1, -1);
-    }
-
-    else
-    {
-
-      v44(v45, v46);
-    }
-
-    v66 = v0[44];
-    v67 = v0[41];
-    v68 = v0[37];
-    v69 = v0[38];
-    v70 = v0[22];
-    v71 = v0[17];
-    v72 = v0[18];
-    (*(v0[15] + 104))(v0[16], *MEMORY[0x277D4D2B8], v0[14]);
-    type metadata accessor for XPCUtils.XPCError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0]);
-    swift_allocError();
-    XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
-    swift_willThrow();
-    (*(v72 + 8))(v70, v71);
-    (*(v69 + 8))(v67, v68);
-    outlined destroy of MLS.KeyPackageProvider?(v66, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    v74 = v0[43];
-    v73 = v0[44];
-    v76 = v0[41];
-    v75 = v0[42];
-    v78 = v0[39];
-    v77 = v0[40];
-    v80 = v0[35];
-    v79 = v0[36];
-    v81 = v0[32];
-    v82 = v0[29];
-    v100 = v0[28];
-    v102 = v0[27];
-    v104 = v0[26];
-    v106 = v0[25];
-    v108 = v0[22];
-    v110 = v0[21];
-    v112 = v0[20];
-    v115 = v0[19];
-    v118 = v0[16];
-    v122 = v0[13];
-    v126 = v0[12];
-
-    v65 = v0[1];
-  }
-
-  return v65();
-}
-
-{
-  v1 = v0[60];
-  v2 = v0[48];
-  v3 = v0[19];
-
-  dispatch thunk of MLS.Client.Client.clientUUID.getter();
-
-  v10 = (*v2 + 312);
-  v11 = (*v10 + **v10);
-  v4 = (*v10)[1];
-  v5 = swift_task_alloc();
-  v0[68] = v5;
-  *v5 = v0;
-  v5[1] = closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:);
-  v6 = v0[48];
-  v7 = v0[19];
-  v8 = v0[11];
-
-  return v11(v7, v8);
-}
-
-{
-  v2 = *v1;
-  v3 = *(*v1 + 544);
-  v4 = *(*v1 + 152);
-  v5 = *(*v1 + 144);
-  v6 = *(*v1 + 136);
-  v7 = *v1;
-  *(*v1 + 552) = v0;
-
-  (*(v5 + 8))(v4, v6);
-  v8 = *(v2 + 376);
-  v9 = *(v2 + 368);
-  if (v0)
-  {
-    v10 = closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:);
-  }
-
-  else
-  {
-    v10 = closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:);
-  }
-
-  return MEMORY[0x2822009F8](v10, v9, v8);
-}
-
-{
-  v71 = v0;
-  v1 = v0[60];
-  v2 = v0[58];
-  v62 = v0[55];
-  v64 = v0[56];
-  v67 = v0[54];
-  v3 = v0[45];
-  v4 = v0[36];
-  v5 = v0[33];
-  v6 = v0[34];
-  v7 = v0[26];
-  v8 = v0[23];
-  v10 = v0[10];
-  v9 = v0[11];
-
-  v11 = MEMORY[0x277D4D2D0];
-  v4[3] = v2;
-  v4[4] = v11;
-  *v4 = v1;
-  (*(v6 + 104))(v4, *MEMORY[0x277D4CFC0], v5);
-  v62(v7, v9, v8);
-
-  v12 = Logger.logObject.getter();
-  v13 = static os_log_type_t.default.getter();
-  v14 = os_log_type_enabled(v12, v13);
-  v15 = v0[57];
-  v16 = v0[26];
-  v18 = v0[23];
-  v17 = v0[24];
-  if (v14)
-  {
-    v68 = v0[60];
-    v65 = v0[57];
-    v19 = swift_slowAlloc();
-    v20 = swift_slowAlloc();
-    v70 = v20;
-    *v19 = 136315138;
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-    v21 = dispatch thunk of CustomStringConvertible.description.getter();
-    v23 = v22;
-    v65(v16, v18);
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v23, &v70);
-
-    *(v19 + 4) = v24;
-    _os_log_impl(&dword_26524C000, v12, v13, "MLSDaemon created new RCSSwiftMLSClient { clientIdentifier: %s }", v19, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v20);
-    MEMORY[0x2667577B0](v20, -1, -1);
-    MEMORY[0x2667577B0](v19, -1, -1);
-  }
-
-  else
-  {
-    v25 = v0[60];
-
-    v15(v16, v18);
-  }
-
-  v41 = v0[56];
-  v42 = v0[55];
-  v45 = v0[48];
-  v46 = v0[51];
-  v50 = v0[44];
-  v51 = v0[43];
-  v52 = v0[42];
-  v49 = v0[41];
-  v53 = v0[40];
-  v54 = v0[39];
-  v47 = v0[38];
-  v48 = v0[37];
-  v26 = v0[36];
-  v39 = v26;
-  v44 = v0[35];
-  v28 = v0[33];
-  v27 = v0[34];
-  v55 = v0[32];
-  v56 = v0[29];
-  v57 = v0[28];
-  v58 = v0[27];
-  v59 = v0[26];
-  v38 = v0[25];
-  v40 = v0[23];
-  v60 = v0[22];
-  v61 = v0[21];
-  v63 = v0[20];
-  v66 = v0[19];
-  v69 = v0[16];
-  v29 = v0[13];
-  v43 = v0[12];
-  v30 = v0[10];
-  v31 = v0[11];
-  v42();
-  v32 = *(v27 + 16);
-  v32(v29, v26, v28);
-  (*(v27 + 56))(v29, 0, 1, v28);
-  v33 = (*((*MEMORY[0x277D85000] & *v30) + 0x98))(v0 + 2);
-  specialized Dictionary.subscript.setter(v29, v38);
-  v33(v0 + 2, 0);
-  (v42)(v38, v31, v40);
-  v32(v44, v39, v28);
-
-  MLS.KeyPackageProvider.init(swiftMLSClient:persister:)();
-  v34 = type metadata accessor for MLS.KeyPackageProvider();
-  (*(*(v34 - 8) + 56))(v43, 0, 1, v34);
-  v35 = (*((*MEMORY[0x277D85000] & *v30) + 0xB0))(v0 + 6);
-  specialized Dictionary.subscript.setter(v43, v38);
-  v35(v0 + 6, 0);
-  (*(v47 + 8))(v49, v48);
-  outlined destroy of MLS.KeyPackageProvider?(v50, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  (*(v27 + 8))(v39, v28);
-
-  v36 = v0[1];
-
-  return v36();
-}
-
-{
-  v1 = v0[45];
-
-  v25 = v0[50];
-  v3 = v0[43];
-  v2 = v0[44];
-  v5 = v0[41];
-  v4 = v0[42];
-  v7 = v0[39];
-  v6 = v0[40];
-  v9 = v0[35];
-  v8 = v0[36];
-  v10 = v0[32];
-  v11 = v0[29];
-  v14 = v0[28];
-  v15 = v0[27];
-  v16 = v0[26];
-  v17 = v0[25];
-  v18 = v0[22];
-  v19 = v0[21];
-  v20 = v0[20];
-  v21 = v0[19];
-  v22 = v0[16];
-  v23 = v0[13];
-  v24 = v0[12];
-
-  v12 = v0[1];
-
-  return v12();
-}
-
-{
-  v2 = v0[44];
-  v1 = v0[45];
-
-  outlined destroy of MLS.KeyPackageProvider?(v2, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v26 = v0[53];
-  v4 = v0[43];
-  v3 = v0[44];
-  v6 = v0[41];
-  v5 = v0[42];
-  v8 = v0[39];
-  v7 = v0[40];
-  v10 = v0[35];
-  v9 = v0[36];
-  v11 = v0[32];
-  v12 = v0[29];
-  v15 = v0[28];
-  v16 = v0[27];
-  v17 = v0[26];
-  v18 = v0[25];
-  v19 = v0[22];
-  v20 = v0[21];
-  v21 = v0[20];
-  v22 = v0[19];
-  v23 = v0[16];
-  v24 = v0[13];
-  v25 = v0[12];
-
-  v13 = v0[1];
-
-  return v13();
-}
-
-{
-  v2 = v0[44];
-  v1 = v0[45];
-  v3 = v0[41];
-  v4 = v0[37];
-  v5 = v0[38];
-  v6 = v0[22];
-  v7 = v0[17];
-  v8 = v0[18];
-
-  (*(v8 + 8))(v6, v7);
-  (*(v5 + 8))(v3, v4);
-  outlined destroy of MLS.KeyPackageProvider?(v2, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v32 = v0[67];
-  v10 = v0[43];
-  v9 = v0[44];
-  v12 = v0[41];
-  v11 = v0[42];
-  v14 = v0[39];
-  v13 = v0[40];
-  v16 = v0[35];
-  v15 = v0[36];
-  v17 = v0[32];
-  v18 = v0[29];
-  v21 = v0[28];
-  v22 = v0[27];
-  v23 = v0[26];
-  v24 = v0[25];
-  v25 = v0[22];
-  v26 = v0[21];
-  v27 = v0[20];
-  v28 = v0[19];
-  v29 = v0[16];
-  v30 = v0[13];
-  v31 = v0[12];
-
-  v19 = v0[1];
-
-  return v19();
-}
-
-{
-  v2 = v0[44];
-  v1 = v0[45];
-  v3 = v0[41];
-  v4 = v0[37];
-  v5 = v0[38];
-
-  (*(v5 + 8))(v3, v4);
-  outlined destroy of MLS.KeyPackageProvider?(v2, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v29 = v0[61];
-  v7 = v0[43];
-  v6 = v0[44];
-  v9 = v0[41];
-  v8 = v0[42];
-  v11 = v0[39];
-  v10 = v0[40];
-  v13 = v0[35];
-  v12 = v0[36];
-  v14 = v0[32];
-  v15 = v0[29];
-  v18 = v0[28];
-  v19 = v0[27];
-  v20 = v0[26];
-  v21 = v0[25];
-  v22 = v0[22];
-  v23 = v0[21];
-  v24 = v0[20];
-  v25 = v0[19];
-  v26 = v0[16];
-  v27 = v0[13];
-  v28 = v0[12];
-
-  v16 = v0[1];
-
-  return v16();
-}
-
-{
-  v1 = v0[60];
-  v3 = v0[44];
-  v2 = v0[45];
-  v4 = v0[41];
-  v5 = v0[37];
-  v6 = v0[38];
-
-  (*(v6 + 8))(v4, v5);
-  outlined destroy of MLS.KeyPackageProvider?(v3, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v30 = v0[69];
-  v8 = v0[43];
-  v7 = v0[44];
-  v10 = v0[41];
-  v9 = v0[42];
-  v12 = v0[39];
-  v11 = v0[40];
-  v14 = v0[35];
-  v13 = v0[36];
-  v15 = v0[32];
-  v16 = v0[29];
-  v19 = v0[28];
-  v20 = v0[27];
-  v21 = v0[26];
-  v22 = v0[25];
-  v23 = v0[22];
-  v24 = v0[21];
-  v25 = v0[20];
-  v26 = v0[19];
-  v27 = v0[16];
-  v28 = v0[13];
-  v29 = v0[12];
-
-  v17 = v0[1];
-
-  return v17();
-}
-
-uint64_t closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:)(uint64_t a1)
-{
-  v3 = *v2;
-  v4 = *v2;
-  v5 = *(*v2 + 472);
-  v6 = *v2;
-  *(v4 + 480) = a1;
-  *(v4 + 488) = v1;
-
-  v7 = *(v3 + 376);
-  v8 = *(v3 + 368);
-  if (v1)
-  {
-    v9 = closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:);
-  }
-
-  else
-  {
-    v9 = closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:);
-  }
-
-  return MEMORY[0x2822009F8](v9, v8, v7);
-}
-
-{
-  v3 = *v2;
-  v4 = *v2;
-  v5 = *(*v2 + 520);
-  v6 = *v2;
-  *(v4 + 528) = a1;
-  *(v4 + 536) = v1;
-
-  v7 = *(v3 + 376);
-  v8 = *(v3 + 368);
-  if (v1)
-  {
-    v9 = closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:);
-  }
-
-  else
-  {
-    v9 = closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:);
-  }
-
-  return MEMORY[0x2822009F8](v9, v8, v7);
-}
-
-uint64_t MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5)
-{
-  v8 = a3;
-  outlined copy of Data._Representation(a2, a3);
-  v27 = v5;
-  v11 = Logger.logObject.getter();
-  v12 = static os_log_type_t.default.getter();
-  outlined consume of Data._Representation(a2, v8);
-  if (os_log_type_enabled(v11, v12))
-  {
-    v13 = swift_slowAlloc();
-    v14 = swift_slowAlloc();
-    v28 = v14;
-    *v13 = 136315138;
-    v15 = Data.description.getter();
-    v17 = v8;
-    v18 = a4;
-    v19 = a5;
-    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, &v28);
-
-    *(v13 + 4) = v20;
-    a5 = v19;
-    a4 = v18;
-    v8 = v17;
-    _os_log_impl(&dword_26524C000, v11, v12, "MLSDaemon setupXPCConnection called { uniqueClientIdentifier: %s }", v13, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v14);
-    MEMORY[0x2667577B0](v14, -1, -1);
-    MEMORY[0x2667577B0](v13, -1, -1);
-  }
-
-  type metadata accessor for MLS.ClientCreationError();
-  v21 = swift_allocObject();
-  v21[2] = a2;
-  v21[3] = v8;
-  v21[4] = a4;
-  v21[5] = a5;
-  v21[6] = v27;
-  v22 = swift_allocObject();
-  *(v22 + 16) = a1;
-  *(v22 + 24) = v27;
-  v23 = swift_allocObject();
-  *(v23 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:);
-  *(v23 + 24) = v22;
-  v24 = v27;
-  outlined copy of Data._Representation(a2, v8);
-  v25 = v24;
-  outlined copy of Data._Representation(a4, a5);
-  swift_unknownObjectRetain();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC9AllMemberOtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC9AllMemberOtMR);
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.ClientCreationError and conformance MLS.ClientCreationError, MEMORY[0x277D4CF48]);
-  static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
-}
-
-uint64_t closure #1 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:)@<X0>(_DWORD *a1@<X2>, uint64_t *a2@<X3>, uint64_t a3@<X4>, uint64_t a4@<X8>)
-{
-  v49 = a2;
-  v44[1] = a3;
-  v45 = a4;
-  v48 = a1;
-  v4 = type metadata accessor for MLS.AllMember();
-  v46 = *(v4 - 8);
-  v5 = *(v46 + 64);
-  MEMORY[0x28223BE20](v4);
-  v7 = v44 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v47 = *(v8 - 8);
-  v9 = *(v47 + 64);
-  v10 = MEMORY[0x28223BE20](v8);
-  v12 = v44 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v14 = v44 - v13;
-  v15 = type metadata accessor for JSONDecoder();
-  v16 = *(v15 + 48);
-  v17 = *(v15 + 52);
-  swift_allocObject();
-  JSONDecoder.init()();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-  v18 = v50;
-  dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-
-  if (!v18)
-  {
-    v20 = v12;
-    v50 = v14;
-    v21 = v47;
-    v22 = *(v15 + 48);
-    v23 = *(v15 + 52);
-    swift_allocObject();
-    JSONDecoder.init()();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.AllMember and conformance MLS.AllMember, MEMORY[0x277D4D218]);
-    dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-
-    v24 = v21;
-    v25 = *(v21 + 16);
-    v26 = v20;
-    v27 = v8;
-    v25(v20, v50, v8);
-    v28 = Logger.logObject.getter();
-    v29 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v28, v29))
-    {
-      v30 = swift_slowAlloc();
-      v48 = v30;
-      v49 = swift_slowAlloc();
-      v51 = v49;
-      *v30 = 136315138;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v31 = dispatch thunk of CustomStringConvertible.description.getter();
-      v32 = v26;
-      v33 = v24;
-      v34 = v7;
-      v36 = v35;
-      (*(v33 + 8))(v32, v27);
-      v37 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v31, v36, &v51);
-      v7 = v34;
-
-      v38 = v48;
-      *(v48 + 1) = v37;
-      v39 = v38;
-      _os_log_impl(&dword_26524C000, v28, v29, "MLSDaemon setupXPCConnection decoded { uniqueClientIdentifier: %s }", v38, 0xCu);
-      v40 = v49;
-      __swift_destroy_boxed_opaque_existential_1Tm(v49);
-      MEMORY[0x2667577B0](v40, -1, -1);
-      MEMORY[0x2667577B0](v39, -1, -1);
-
-      v41 = v45;
-    }
-
-    else
-    {
-
-      (*(v24 + 8))(v26, v27);
-      v41 = v45;
-      v33 = v24;
-    }
-
-    v42 = v46;
-    v43 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC9AllMemberOtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC9AllMemberOtMR) + 48);
-    (*(v33 + 32))(v41, v50, v27);
-    return (*(v42 + 32))(v41 + v43, v7, v4);
-  }
-
-  return result;
-}
-
-uint64_t closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v4[39] = a3;
-  v4[40] = a4;
-  v4[37] = a1;
-  v4[38] = a2;
-  v5 = *(*(type metadata accessor for SMAFeatureFlagsStore() - 8) + 64) + 15;
-  v4[41] = swift_task_alloc();
-  v6 = type metadata accessor for MLS.AllMember();
-  v4[42] = v6;
-  v7 = *(v6 - 8);
-  v4[43] = v7;
-  v8 = *(v7 + 64) + 15;
-  v4[44] = swift_task_alloc();
-  v9 = *(*(type metadata accessor for RegClientIdentifier() - 8) + 64) + 15;
-  v4[45] = swift_task_alloc();
-  v10 = type metadata accessor for MLS.ClientIdentifier();
-  v4[46] = v10;
-  v11 = *(v10 - 8);
-  v4[47] = v11;
-  v12 = *(v11 + 64) + 15;
-  v4[48] = swift_task_alloc();
-  v4[49] = swift_task_alloc();
-  v13 = type metadata accessor for MLS.KeyPackageProvider();
-  v4[50] = v13;
-  v14 = *(v13 - 8);
-  v4[51] = v14;
-  v15 = *(v14 + 64) + 15;
-  v4[52] = swift_task_alloc();
-  v4[53] = swift_task_alloc();
-  v16 = type metadata accessor for MLS.SwiftMLSClientPicker();
-  v4[54] = v16;
-  v17 = *(v16 - 8);
-  v4[55] = v17;
-  v18 = *(v17 + 64) + 15;
-  v4[56] = swift_task_alloc();
-  v4[57] = swift_task_alloc();
-  v19 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v4[58] = v19;
-  v20 = *(v19 - 8);
-  v4[59] = v20;
-  v21 = *(v20 + 64) + 15;
-  v4[60] = swift_task_alloc();
-  v4[61] = swift_task_alloc();
-  v4[62] = swift_task_alloc();
-  v4[63] = swift_task_alloc();
-  v4[64] = swift_task_alloc();
-  v4[65] = swift_task_alloc();
-  v4[66] = swift_task_alloc();
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), 0, 0);
-}
-
-uint64_t closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:)()
-{
-  v44 = v0;
-  v1 = v0[58];
-  v2 = v0[59];
-  v3 = v0[40];
-  v4 = v0[37];
-  if (v0[39])
-  {
-    v5 = v0[65];
-    v6 = *(v2 + 16);
-    v0[67] = v6;
-    v0[68] = (v2 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-    v6(v5, v4, v1);
-    swift_unknownObjectRetain();
-    v7 = Logger.logObject.getter();
-    v8 = static os_log_type_t.default.getter();
-    v9 = os_log_type_enabled(v7, v8);
-    v10 = v0[65];
-    v11 = v0[58];
-    v12 = v0[59];
-    if (v9)
-    {
-      v13 = swift_slowAlloc();
-      v41 = swift_slowAlloc();
-      v43 = v41;
-      *v13 = 136315138;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v14 = dispatch thunk of CustomStringConvertible.description.getter();
-      v16 = v15;
-      v17 = *(v12 + 8);
-      v17(v10, v11);
-      v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v16, &v43);
-
-      *(v13 + 4) = v18;
-      _os_log_impl(&dword_26524C000, v7, v8, "MLSDaemon adding clientXPCProxy { uniqueClientIdentifier: %s }", v13, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v41);
-      MEMORY[0x2667577B0](v41, -1, -1);
-      MEMORY[0x2667577B0](v13, -1, -1);
-    }
-
-    else
-    {
-
-      v17 = *(v12 + 8);
-      v17(v10, v11);
-    }
-
-    v0[70] = v17;
-    v33 = swift_task_alloc();
-    v0[71] = v33;
-    *v33 = v0;
-    v33[1] = closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:);
-    v34 = v0[40];
-    v35 = v0[37];
-
-    return MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:)(v35);
-  }
-
-  else
-  {
-    v19 = v0[66];
-    v20 = *(v2 + 16);
-    v0[69] = v20;
-    v20(v19, v4, v1);
-    v21 = Logger.logObject.getter();
-    v22 = static os_log_type_t.default.getter();
-    v23 = os_log_type_enabled(v21, v22);
-    v24 = v0[66];
-    v25 = v0[58];
-    v26 = v0[59];
-    if (v23)
-    {
-      v27 = swift_slowAlloc();
-      v42 = swift_slowAlloc();
-      v43 = v42;
-      *v27 = 136315138;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v28 = dispatch thunk of CustomStringConvertible.description.getter();
-      v30 = v29;
-      v31 = *(v26 + 8);
-      v31(v24, v25);
-      v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v28, v30, &v43);
-
-      *(v27 + 4) = v32;
-      _os_log_impl(&dword_26524C000, v21, v22, "MLSDaemon removing clientXPCProxy { uniqueClientIdentifier: %s }", v27, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v42);
-      MEMORY[0x2667577B0](v42, -1, -1);
-      MEMORY[0x2667577B0](v27, -1, -1);
-    }
-
-    else
-    {
-
-      v31 = *(v26 + 8);
-      v31(v24, v25);
-    }
-
-    v0[114] = v31;
-    v37 = *(v0[40] + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_clientXPCServer);
-    v0[115] = v37;
-    v38 = *v37 + 120;
-    v0[116] = *v38;
-    v0[117] = v38 & 0xFFFFFFFFFFFFLL | 0xB4A8000000000000;
-    type metadata accessor for MLSActor();
-    v0[118] = static MLSActor.shared.getter();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
-    v40 = dispatch thunk of Actor.unownedExecutor.getter();
-
-    return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), v40, v39);
-  }
-}
-
-{
-  v2 = *(*v1 + 568);
-  v5 = *v1;
-  *(*v1 + 576) = v0;
-
-  if (v0)
-  {
-    v3 = closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:);
-  }
-
-  else
-  {
-    v3 = closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:);
-  }
-
-  return MEMORY[0x2822009F8](v3, 0, 0);
-}
-
-{
-  v1 = v0[40];
-  v2 = (*MEMORY[0x277D85000] & *v1) + 136;
-  v0[73] = *((*MEMORY[0x277D85000] & *v1) + 0x88);
-  v0[74] = v2 & 0xFFFFFFFFFFFFLL | 0x2693000000000000;
-  v0[75] = type metadata accessor for MLSActor();
-  v0[76] = static MLSActor.shared.getter();
-  v0[77] = _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
-  v4 = dispatch thunk of Actor.unownedExecutor.getter();
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), v4, v3);
-}
-
-{
-  v1 = v0[76];
-  v2 = v0[74];
-  v3 = v0[73];
-  v4 = v0[40];
-
-  v0[78] = v3(v5);
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), 0, 0);
-}
-
-{
-  v54 = v0;
-  if (*(v0[78] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[37]), (v2 & 1) != 0))
-  {
-    v3 = v0[77];
-    v4 = v0[75];
-    v5 = v0[57];
-    v6 = v0[54];
-    v7 = v0[55];
-    v8 = v0[40];
-    v9 = *(v7 + 16);
-    v7 += 16;
-    v10 = *(v0[78] + 56) + *(v7 + 56) * v1;
-    v0[79] = v9;
-    v0[80] = v7 & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-    v9(v5, v10, v6);
-
-    v11 = (*MEMORY[0x277D85000] & *v8) + 160;
-    v0[81] = *((*MEMORY[0x277D85000] & *v8) + 0xA0);
-    v0[82] = v11 & 0xFFFFFFFFFFFFLL | 0x475000000000000;
-    v0[83] = static MLSActor.shared.getter();
-    v13 = dispatch thunk of Actor.unownedExecutor.getter();
-
-    return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), v13, v12);
-  }
-
-  else
-  {
-    v14 = v0[68];
-    v15 = v0[67];
-    v16 = v0[64];
-    v17 = v0[58];
-    v18 = v0[40];
-    v19 = v0[37];
-
-    v15(v16, v19, v17);
-    v20 = Logger.logObject.getter();
-    v21 = static os_log_type_t.error.getter();
-    v22 = os_log_type_enabled(v20, v21);
-    v23 = v0[70];
-    v24 = v0[64];
-    v26 = v0[58];
-    v25 = v0[59];
-    if (v22)
-    {
-      v51 = v0[39];
-      v27 = swift_slowAlloc();
-      v49 = v23;
-      v28 = swift_slowAlloc();
-      v53 = v28;
-      *v27 = 136315138;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v29 = dispatch thunk of CustomStringConvertible.description.getter();
-      v31 = v30;
-      v49(v24, v26);
-      v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v31, &v53);
-
-      *(v27 + 4) = v32;
-      _os_log_impl(&dword_26524C000, v20, v21, "MLSDaemon error setting up swift mls client { uniqueClientIdentifier: %s }", v27, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v28);
-      MEMORY[0x2667577B0](v28, -1, -1);
-      MEMORY[0x2667577B0](v27, -1, -1);
-      swift_unknownObjectRelease();
-    }
-
-    else
-    {
-
-      swift_unknownObjectRelease();
-      v23(v24, v26);
-    }
-
-    v33 = v0[66];
-    v34 = v0[65];
-    v36 = v0[63];
-    v35 = v0[64];
-    v38 = v0[61];
-    v37 = v0[62];
-    v39 = v0[60];
-    v40 = v0[56];
-    v41 = v0[57];
-    v42 = v0[53];
-    v45 = v0[52];
-    v46 = v0[49];
-    v47 = v0[48];
-    v48 = v0[45];
-    v50 = v0[44];
-    v52 = v0[41];
-
-    v43 = v0[1];
-
-    return v43(0);
-  }
-}
-
-{
-  v1 = v0[83];
-  v2 = v0[82];
-  v3 = v0[81];
-  v4 = v0[40];
-
-  v0[84] = v3(v5);
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), 0, 0);
-}
-
-{
-  v70 = v0;
-  if (*(v0[84] + 16) && (v1 = v0[84], v2 = specialized __RawDictionaryStorage.find<A>(_:)(v0[37]), (v3 & 1) != 0))
-  {
-    v4 = v0[53];
-    v5 = v0[50];
-    v6 = v0[51];
-    v7 = v0[49];
-    v8 = v0[46];
-    v9 = v0[47];
-    v10 = v0[37];
-    v11 = *(v6 + 16);
-    v6 += 16;
-    v12 = *(v0[84] + 56) + *(v6 + 56) * v2;
-    v0[85] = v11;
-    v0[86] = v6 & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-    v11(v4, v12, v5);
-
-    MLS.UniqueClientIdentifier.clientIdentifier.getter();
-    v13 = (*(v9 + 88))(v7, v8);
-    if (v13 == *MEMORY[0x277D4CD40])
-    {
-      v14 = v13;
-      v15 = v0[77];
-      v16 = v0[75];
-      v17 = v0[46];
-      v18 = v0[47];
-      v19 = v0[45];
-      v20 = *(v0[40] + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_regClientServer);
-      v0[87] = v20;
-      (*(v18 + 104))(v19, v14, v17);
-      v21 = *v20 + 88;
-      v0[88] = *v21;
-      v0[89] = v21 & 0xFFFFFFFFFFFFLL | 0x5C72000000000000;
-      v0[90] = static MLSActor.shared.getter();
-      v23 = dispatch thunk of Actor.unownedExecutor.getter();
-
-      return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), v23, v22);
-    }
-
-    else
-    {
-      v56 = v0[46];
-
-      return MEMORY[0x2821FDEB8](v56, v56);
-    }
-  }
-
-  else
-  {
-    v24 = v0[68];
-    v25 = v0[67];
-    v26 = v0[63];
-    v27 = v0[58];
-    v28 = v0[40];
-    v29 = v0[37];
-
-    v25(v26, v29, v27);
-    v30 = Logger.logObject.getter();
-    v31 = static os_log_type_t.error.getter();
-    v32 = os_log_type_enabled(v30, v31);
-    v67 = v0[70];
-    v33 = v0[63];
-    v35 = v0[58];
-    v34 = v0[59];
-    v36 = v0[57];
-    v37 = v0[54];
-    v38 = v0[55];
-    if (v32)
-    {
-      v65 = v0[39];
-      v39 = swift_slowAlloc();
-      v59 = v31;
-      v40 = swift_slowAlloc();
-      v69 = v40;
-      *v39 = 136315138;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v61 = v37;
-      v63 = v36;
-      v41 = dispatch thunk of CustomStringConvertible.description.getter();
-      v43 = v42;
-      v67(v33, v35);
-      v44 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v41, v43, &v69);
-
-      *(v39 + 4) = v44;
-      _os_log_impl(&dword_26524C000, v30, v59, "MLSDaemon error setting up key package provider { uniqueClientIdentifier: %s }", v39, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v40);
-      MEMORY[0x2667577B0](v40, -1, -1);
-      MEMORY[0x2667577B0](v39, -1, -1);
-
-      swift_unknownObjectRelease();
-      (*(v38 + 8))(v63, v61);
-    }
-
-    else
-    {
-
-      swift_unknownObjectRelease();
-      v67(v33, v35);
-      (*(v38 + 8))(v36, v37);
-    }
-
-    v45 = v0[66];
-    v46 = v0[65];
-    v48 = v0[63];
-    v47 = v0[64];
-    v50 = v0[61];
-    v49 = v0[62];
-    v51 = v0[60];
-    v52 = v0[56];
-    v53 = v0[57];
-    v54 = v0[53];
-    v58 = v0[52];
-    v60 = v0[49];
-    v62 = v0[48];
-    v64 = v0[45];
-    v66 = v0[44];
-    v68 = v0[41];
-
-    v55 = v0[1];
-
-    return v55(0);
-  }
-}
-
-{
-  v1 = v0[90];
-  v2 = v0[89];
-  v3 = v0[88];
-  v4 = v0[87];
-
-  v0[91] = v3(v5);
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), 0, 0);
-}
-
-{
-  v60 = v0;
-  if (*(*(v0 + 728) + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(*(v0 + 360)), (v2 & 1) != 0))
-  {
-    v3 = *(v0 + 616);
-    v4 = *(v0 + 600);
-    v5 = *(v0 + 360);
-    outlined init with copy of RegistrationClientProxy(*(*(v0 + 728) + 56) + 56 * v1, v0 + 72);
-    outlined destroy of RegClientIdentifier(v5);
-
-    v6 = *(v0 + 104);
-    *(v0 + 64) = *(v0 + 120);
-    v7 = *(v0 + 88);
-    *(v0 + 16) = *(v0 + 72);
-    *(v0 + 32) = v7;
-    *(v0 + 48) = v6;
-    *(v0 + 736) = *(v0 + 56);
-    swift_unknownObjectRetain_n();
-    *(v0 + 752) = static MLSActor.shared.getter();
-    v9 = dispatch thunk of Actor.unownedExecutor.getter();
-
-    return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), v9, v8);
-  }
-
-  else
-  {
-    v10 = *(v0 + 544);
-    v11 = *(v0 + 536);
-    v12 = *(v0 + 496);
-    v13 = *(v0 + 464);
-    v14 = *(v0 + 360);
-    v15 = *(v0 + 320);
-    v16 = *(v0 + 296);
-
-    outlined destroy of RegClientIdentifier(v14);
-    v11(v12, v16, v13);
-    v17 = Logger.logObject.getter();
-    v51 = static os_log_type_t.error.getter();
-    v18 = os_log_type_enabled(v17, v51);
-    v19 = *(v0 + 496);
-    v20 = *(v0 + 464);
-    v53 = *(v0 + 472);
-    v55 = *(v0 + 560);
-    v21 = *(v0 + 456);
-    v22 = *(v0 + 432);
-    v23 = *(v0 + 440);
-    v24 = *(v0 + 424);
-    v26 = *(v0 + 400);
-    v25 = *(v0 + 408);
-    v57 = *(v0 + 312);
-    if (v18)
-    {
-      v49 = *(v0 + 400);
-      v27 = swift_slowAlloc();
-      v47 = v21;
-      v28 = swift_slowAlloc();
-      v59 = v28;
-      *v27 = 136315138;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v45 = v24;
-      v46 = v22;
-      v29 = dispatch thunk of CustomStringConvertible.description.getter();
-      v31 = v30;
-      v55(v19, v20);
-      v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v31, &v59);
-
-      *(v27 + 4) = v32;
-      _os_log_impl(&dword_26524C000, v17, v51, "MLSDaemon error setting up key package exchanger { uniqueClientIdentifier: %s }", v27, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v28);
-      MEMORY[0x2667577B0](v28, -1, -1);
-      MEMORY[0x2667577B0](v27, -1, -1);
-
-      swift_unknownObjectRelease();
-      (*(v25 + 8))(v45, v49);
-      (*(v23 + 8))(v47, v46);
-    }
-
-    else
-    {
-
-      swift_unknownObjectRelease();
-      v55(v19, v20);
-      (*(v25 + 8))(v24, v26);
-      (*(v23 + 8))(v21, v22);
-    }
-
-    v33 = *(v0 + 528);
-    v34 = *(v0 + 520);
-    v36 = *(v0 + 504);
-    v35 = *(v0 + 512);
-    v38 = *(v0 + 488);
-    v37 = *(v0 + 496);
-    v39 = *(v0 + 480);
-    v40 = *(v0 + 448);
-    v41 = *(v0 + 456);
-    v42 = *(v0 + 424);
-    v48 = *(v0 + 416);
-    v50 = *(v0 + 392);
-    v52 = *(v0 + 384);
-    v54 = *(v0 + 360);
-    v56 = *(v0 + 352);
-    v58 = *(v0 + 328);
-
-    v43 = *(v0 + 8);
-
-    return v43(0);
-  }
-}
-
-{
-  v1 = v0[94];
-
-  v2 = type metadata accessor for MLS.EncryptedRCSCredentialProvider();
-  v0[95] = v2;
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 52);
-  swift_allocObject();
-  v0[96] = MLS.EncryptedRCSCredentialProvider.init()();
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), 0, 0);
-}
-
-{
-  v1 = v0[96];
-  v2 = v0[77];
-  v3 = v0[75];
-  v4 = v0[39];
-  v5 = MEMORY[0x277D4D1A0];
-  v0[25] = v0[95];
-  v0[26] = v5;
-  v0[22] = v1;
-  outlined destroy of RegistrationClientProxy((v0 + 2));
-  swift_unknownObjectRetain();
-  v0[97] = static MLSActor.shared.getter();
-  v7 = dispatch thunk of Actor.unownedExecutor.getter();
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), v7, v6);
-}
-
-{
-  v1 = v0[97];
-  v2 = v0[39];
-
-  v0[98] = type metadata accessor for CommunicatorBroadcaster();
-  v3 = swift_allocObject();
-  v0[99] = v3;
-  *(v3 + 16) = v2;
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), 0, 0);
-}
-
-{
-  v1 = v0[77];
-  v2 = v0[75];
-  v3 = v0[39];
-  swift_unknownObjectRetain();
-  v0[100] = static MLSActor.shared.getter();
-  v5 = dispatch thunk of Actor.unownedExecutor.getter();
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), v5, v4);
-}
-
-{
-  v1 = v0[100];
-  v2 = v0[39];
-
-  v0[101] = type metadata accessor for DelegateBroadcaster();
-  v3 = swift_allocObject();
-  v0[102] = v3;
-  *(v3 + 16) = v2;
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), 0, 0);
-}
-
-{
-  v1 = v0[102];
-  v2 = v0[99];
-  v3 = v0[92];
-  v4 = v0[77];
-  v5 = v0[75];
-  v0[103] = swift_getObjectType();
-  v0[104] = type metadata accessor for MLS.DaemonClientEventDeliverer();
-
-  v0[105] = static MLSActor.shared.getter();
-  v7 = dispatch thunk of Actor.unownedExecutor.getter();
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), v7, v6);
-}
-
-{
-  v1 = v0[105];
-  v2 = v0[104];
-  v3 = v0[103];
-  v4 = v0[102];
-  v5 = v0[101];
-  v6 = v0[99];
-  v7 = v0[98];
-  v8 = v0[93];
-  v9 = v0[92];
-
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type CommunicatorBroadcaster and conformance CommunicatorBroadcaster, type metadata accessor for CommunicatorBroadcaster);
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type DelegateBroadcaster and conformance DelegateBroadcaster, type metadata accessor for DelegateBroadcaster);
-  v0[106] = MLS.DaemonClientEventDeliverer.__allocating_init<A, B, C>(communicator:delegate:keyPackageExchanger:)();
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), 0, 0);
-}
-
-{
-  v31 = v0[106];
-  v30 = v0[80];
-  v28 = v0[86];
-  v29 = v0[79];
-  v1 = v0[56];
-  v2 = v0[53];
-  v3 = v0[54];
-  v4 = v0[52];
-  v5 = v0[50];
-  v6 = v0[48];
-  v7 = v0[43];
-  v26 = v0[44];
-  v27 = v0[57];
-  v24 = v0[85];
-  v25 = v0[42];
-  v35 = v0[41];
-  v8 = v0[40];
-  v9 = v0[37];
-  v10 = v0[38];
-  MLS.UniqueClientIdentifier.clientIdentifier.getter();
-  v11 = *(v8 + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_persister);
-  v12 = _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type DaemonPersister and conformance DaemonPersister, type metadata accessor for DaemonPersister);
-  outlined init with copy of SMAUserDefaultsProtocol((v0 + 22), (v0 + 27));
-  v24(v4, v2, v5);
-  v29(v1, v27, v3);
-  (*(v7 + 16))(v26, v10, v25);
-
-  static ServerBag.mlsBag.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.AllMember and conformance MLS.AllMember, MEMORY[0x277D4D218]);
-  lazy protocol witness table accessor for type Data and conformance Data();
-  default argument 7 of MLS.SwiftMLSClientCoordinator.init(clientIdentifier:clientEventDeliverer:persister:credentialProvider:keyPackageProvider:swiftMLSClient:selfMember:featureFlagsStore:bag:)();
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO25SwiftMLSClientCoordinatorCy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO25SwiftMLSClientCoordinatorCy_AC9AllMemberO10Foundation4DataVGMR);
-  v14 = *(v13 + 48);
-  v15 = *(v13 + 52);
-  swift_allocObject();
-  v16 = *(MEMORY[0x277D4D0B8] + 4);
-  v17 = swift_task_alloc();
-  v0[107] = v17;
-  *v17 = v0;
-  v17[1] = closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:);
-  v18 = v0[106];
-  v19 = v0[56];
-  v20 = v0[52];
-  v21 = v0[48];
-  v34 = v0[41];
-  v33 = v0[44];
-  v22 = MEMORY[0x277D4D128];
-
-  return MEMORY[0x2821ACA88](v21, v18, v22, v11, v12, v0 + 27, v20, v19);
-}
-
-{
-  v1 = *(v0 + 864);
-  v2 = *(v0 + 816);
-  v3 = *(v0 + 792);
-  v4 = *(v0 + 616);
-  v5 = *(v0 + 600);
-  v6 = *(v0 + 320);
-  *(v0 + 128) = *(v0 + 312);
-  *(v0 + 136) = v1;
-  *(v0 + 144) = v3;
-  *(v0 + 152) = v2;
-  *(v0 + 160) = *(v0 + 736);
-  v7 = *(v6 + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_clientXPCServer);
-  *(v0 + 880) = v7;
-  v8 = *v7 + 112;
-  *(v0 + 888) = *v8;
-  *(v0 + 896) = v8 & 0xFFFFFFFFFFFFLL | 0x3176000000000000;
-  *(v0 + 904) = static MLSActor.shared.getter();
-  v10 = dispatch thunk of Actor.unownedExecutor.getter();
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), v10, v9);
-}
-
-{
-  v1 = v0[113];
-  v2 = v0[112];
-  v3 = v0[111];
-  v4 = v0[110];
-  v5 = v0[37];
-
-  v3(v0 + 16, v5);
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), 0, 0);
-}
-
-{
-  v64 = v0;
-  v1 = *(v0 + 544);
-  v2 = *(v0 + 320);
-  (*(v0 + 536))(*(v0 + 488), *(v0 + 296), *(v0 + 464));
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
-  log = v3;
-  v5 = os_log_type_enabled(v3, v4);
-  v49 = *(v0 + 792);
-  v50 = *(v0 + 816);
-  v51 = *(v0 + 736);
-  v53 = *(v0 + 848);
-  v6 = *(v0 + 488);
-  v8 = *(v0 + 464);
-  v7 = *(v0 + 472);
-  v9 = *(v0 + 456);
-  v11 = *(v0 + 432);
-  v10 = *(v0 + 440);
-  v12 = *(v0 + 408);
-  v55 = *(v0 + 400);
-  v57 = *(v0 + 424);
-  v48 = *(v0 + 312);
-  if (v5)
-  {
-    v45 = *(v0 + 864);
-    v47 = *(v0 + 456);
-    v13 = swift_slowAlloc();
-    v46 = v11;
-    v14 = swift_slowAlloc();
-    v63 = v14;
-    *v13 = 136315138;
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-    v15 = dispatch thunk of CustomStringConvertible.description.getter();
-    v44 = v10;
-    v17 = v16;
-    v61 = *(v7 + 8);
-    v61(v6, v8);
-    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v17, &v63);
-
-    *(v13 + 4) = v18;
-    _os_log_impl(&dword_26524C000, log, v4, "MLSDaemon setup SwiftMLSClientCoordinator { uniqueClientIdentifier: %s }", v13, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v14);
-    MEMORY[0x2667577B0](v14, -1, -1);
-    MEMORY[0x2667577B0](v13, -1, -1);
-    swift_unknownObjectRelease();
-
-    swift_unknownObjectRelease();
-
-    (*(v12 + 8))(v57, v55);
-    (*(v44 + 8))(v47, v46);
-  }
-
-  else
-  {
-
-    swift_unknownObjectRelease();
-
-    swift_unknownObjectRelease();
-    v61 = *(v7 + 8);
-    v61(v6, v8);
-    (*(v12 + 8))(v57, v55);
-    (*(v10 + 8))(v9, v11);
-  }
-
-  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 176));
-  v19 = *(v0 + 320);
-  (*(*(v0 + 472) + 16))(*(v0 + 480), *(v0 + 296), *(v0 + 464));
-  v20 = Logger.logObject.getter();
-  v21 = static os_log_type_t.default.getter();
-  v22 = os_log_type_enabled(v20, v21);
-  v24 = *(v0 + 472);
-  v23 = *(v0 + 480);
-  v25 = *(v0 + 464);
-  if (v22)
-  {
-    v26 = swift_slowAlloc();
-    v27 = swift_slowAlloc();
-    v63 = v27;
-    *v26 = 136315138;
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-    v28 = dispatch thunk of CustomStringConvertible.description.getter();
-    v30 = v29;
-    v61(v23, v25);
-    v31 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v28, v30, &v63);
-
-    *(v26 + 4) = v31;
-    _os_log_impl(&dword_26524C000, v20, v21, "MLSDaemon setupXPCConnection replying with success { uniqueClientIdentifier: %s }", v26, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v27);
-    MEMORY[0x2667577B0](v27, -1, -1);
-    MEMORY[0x2667577B0](v26, -1, -1);
-  }
-
-  else
-  {
-
-    v61(v23, v25);
-  }
-
-  v32 = *(v0 + 528);
-  v33 = *(v0 + 520);
-  v35 = *(v0 + 504);
-  v34 = *(v0 + 512);
-  v37 = *(v0 + 488);
-  v36 = *(v0 + 496);
-  v38 = *(v0 + 480);
-  v39 = *(v0 + 448);
-  v40 = *(v0 + 456);
-  v41 = *(v0 + 424);
-  v52 = *(v0 + 416);
-  v54 = *(v0 + 392);
-  v56 = *(v0 + 384);
-  v58 = *(v0 + 360);
-  loga = *(v0 + 352);
-  v62 = *(v0 + 328);
-
-  v42 = *(v0 + 8);
-
-  return v42(1);
-}
-
-{
-  v1 = v0[106];
-  v2 = v0[102];
-  v3 = v0[99];
-  v4 = v0[92];
-  v29 = v0[57];
-  v5 = v0[54];
-  v6 = v0[55];
-  v7 = v0[53];
-  v9 = v0[50];
-  v8 = v0[51];
-  v10 = v0[39];
-  swift_unknownObjectRelease();
-
-  swift_unknownObjectRelease();
-  (*(v8 + 8))(v7, v9);
-  (*(v6 + 8))(v29, v5);
-  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 22);
-  v30 = v0[109];
-  v11 = v0[66];
-  v12 = v0[65];
-  v14 = v0[63];
-  v13 = v0[64];
-  v16 = v0[61];
-  v15 = v0[62];
-  v17 = v0[60];
-  v19 = v0[56];
-  v18 = v0[57];
-  v20 = v0[53];
-  v23 = v0[52];
-  v24 = v0[49];
-  v25 = v0[48];
-  v26 = v0[45];
-  v27 = v0[44];
-  v28 = v0[41];
-
-  v21 = v0[1];
-
-  return v21(0);
-}
-
-{
-  v1 = v0[118];
-  v2 = v0[117];
-  v3 = v0[116];
-  v4 = v0[115];
-  v5 = v0[37];
-
-  v3(v5);
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:), 0, 0);
-}
-
-{
-  v36 = v0;
-  v1 = *(v0 + 912);
-  v2 = *(v0 + 472) + 16;
-  v3 = *(v0 + 320);
-  (*(v0 + 552))(*(v0 + 480), *(v0 + 296), *(v0 + 464));
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.default.getter();
-  v6 = os_log_type_enabled(v4, v5);
-  v8 = *(v0 + 472);
-  v7 = *(v0 + 480);
-  v9 = *(v0 + 464);
-  if (v6)
-  {
-    v33 = v1;
-    v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    v35 = v11;
-    *v10 = 136315138;
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-    v12 = dispatch thunk of CustomStringConvertible.description.getter();
-    v14 = v13;
-    v33(v7, v9);
-    v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v14, &v35);
-
-    *(v10 + 4) = v15;
-    _os_log_impl(&dword_26524C000, v4, v5, "MLSDaemon setupXPCConnection replying with success { uniqueClientIdentifier: %s }", v10, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v11);
-    MEMORY[0x2667577B0](v11, -1, -1);
-    MEMORY[0x2667577B0](v10, -1, -1);
-  }
-
-  else
-  {
-
-    v1(v7, v9);
-  }
-
-  v16 = *(v0 + 528);
-  v17 = *(v0 + 520);
-  v19 = *(v0 + 504);
-  v18 = *(v0 + 512);
-  v21 = *(v0 + 488);
-  v20 = *(v0 + 496);
-  v22 = *(v0 + 480);
-  v23 = *(v0 + 448);
-  v24 = *(v0 + 456);
-  v25 = *(v0 + 424);
-  v28 = *(v0 + 416);
-  v29 = *(v0 + 392);
-  v30 = *(v0 + 384);
-  v31 = *(v0 + 360);
-  v32 = *(v0 + 352);
-  v34 = *(v0 + 328);
-
-  v26 = *(v0 + 8);
-
-  return v26(1);
-}
-
-{
-  v1 = v0[39];
-  swift_unknownObjectRelease();
-  v20 = v0[72];
-  v2 = v0[66];
-  v3 = v0[65];
-  v5 = v0[63];
-  v4 = v0[64];
-  v7 = v0[61];
-  v6 = v0[62];
-  v8 = v0[60];
-  v10 = v0[56];
-  v9 = v0[57];
-  v11 = v0[53];
-  v14 = v0[52];
-  v15 = v0[49];
-  v16 = v0[48];
-  v17 = v0[45];
-  v18 = v0[44];
-  v19 = v0[41];
-
-  v12 = v0[1];
-
-  return v12(0);
-}
-
-uint64_t closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:)(uint64_t a1)
-{
-  v3 = *v2;
-  v4 = *(*v2 + 856);
-  v7 = *v2;
-  *(v3 + 864) = a1;
-  *(v3 + 872) = v1;
-
-  if (v1)
-  {
-    v5 = closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:);
-  }
-
-  else
-  {
-    v5 = closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:);
-  }
-
-  return MEMORY[0x2822009F8](v5, 0, 0);
-}
-
-uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.AllMember) -> (@unowned Bool, @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
-{
-  *(v3 + 16) = a1;
-  v6 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC9AllMemberOtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC9AllMemberOtMR) + 48);
-  v10 = (a3 + *a3);
-  v7 = a3[1];
-  v8 = swift_task_alloc();
-  *(v3 + 24) = v8;
-  *v8 = v3;
-  v8[1] = thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.AllMember) -> (@unowned Bool, @error @owned Error);
-
-  return v10(a2, a2 + v6);
-}
-
-uint64_t MLSDaemon.selfKeyPackage(uniqueClientIdentifier:completion:)(uint64_t a1, unint64_t a2)
-{
-  v3 = v2;
-  outlined copy of Data._Representation(a1, a2);
-  v6 = Logger.logObject.getter();
-  v7 = static os_log_type_t.default.getter();
-  outlined consume of Data._Representation(a1, a2);
-  if (os_log_type_enabled(v6, v7))
-  {
-    v8 = swift_slowAlloc();
-    v9 = swift_slowAlloc();
-    v17 = v9;
-    *v8 = 136315138;
-    v10 = Data.description.getter();
-    v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, &v17);
-
-    *(v8 + 4) = v12;
-    _os_log_impl(&dword_26524C000, v6, v7, "MLSDaemon selfKeyPackage called { uniqueClientIdentifier: %s }", v8, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v9);
-    MEMORY[0x2667577B0](v9, -1, -1);
-    MEMORY[0x2667577B0](v8, -1, -1);
-  }
-
-  type metadata accessor for MLS.SelfKeyPackageError();
-  v13 = swift_allocObject();
-  v13[2] = a1;
-  v13[3] = a2;
-  v13[4] = v3;
-  *(swift_allocObject() + 16) = v3;
-  v14 = v3;
-  outlined copy of Data._Representation(a1, a2);
-  type metadata accessor for MLS.UniqueClientIdentifier();
-  type metadata accessor for MLS.KeyPackageInfo();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.SelfKeyPackageError and conformance MLS.SelfKeyPackageError, MEMORY[0x277D4CF90]);
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.KeyPackageInfo and conformance MLS.KeyPackageInfo, MEMORY[0x277D4CCE8]);
-  v15 = v14;
-  static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
-}
-
-void closure #1 in MLSDaemon.selfKeyPackage(uniqueClientIdentifier:completion:)(uint64_t a1@<X8>)
-{
-  v3 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3);
-  v7 = &v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for JSONDecoder();
-  v9 = *(v8 + 48);
-  v10 = *(v8 + 52);
-  swift_allocObject();
-  JSONDecoder.init()();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-  dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-
-  if (!v1)
-  {
-    (*(v4 + 16))(v7, a1, v3);
-    v11 = Logger.logObject.getter();
-    v12 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v11, v12))
-    {
-      v13 = swift_slowAlloc();
-      v20 = swift_slowAlloc();
-      v21 = v20;
-      *v13 = 136315138;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v14 = dispatch thunk of CustomStringConvertible.description.getter();
-      v16 = v15;
-      (*(v4 + 8))(v7, v3);
-      v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v16, &v21);
-
-      *(v13 + 4) = v17;
-      _os_log_impl(&dword_26524C000, v11, v12, "MLSDaemon selfKeyPackage decoded { uniqueClientIdentifier: %s }", v13, 0xCu);
-      v18 = v20;
-      __swift_destroy_boxed_opaque_existential_1Tm(v20);
-      MEMORY[0x2667577B0](v18, -1, -1);
-      MEMORY[0x2667577B0](v13, -1, -1);
-    }
-
-    else
-    {
-
-      (*(v4 + 8))(v7, v3);
-    }
-  }
-}
-
-uint64_t closure #2 in MLSDaemon.selfKeyPackage(uniqueClientIdentifier:completion:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3[3] = a2;
-  v3[4] = a3;
-  v3[2] = a1;
-  v4 = type metadata accessor for XPCUtils.XPCError.ErrorType();
-  v3[5] = v4;
-  v5 = *(v4 - 8);
-  v3[6] = v5;
-  v6 = *(v5 + 64) + 15;
-  v3[7] = swift_task_alloc();
-  v7 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v3[8] = v7;
-  v8 = *(v7 - 8);
-  v3[9] = v8;
-  v9 = *(v8 + 64) + 15;
-  v3[10] = swift_task_alloc();
-  v3[11] = swift_task_alloc();
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.selfKeyPackage(uniqueClientIdentifier:completion:), 0, 0);
-}
-
-uint64_t closure #2 in MLSDaemon.selfKeyPackage(uniqueClientIdentifier:completion:)()
-{
-  v1 = *(v0[4] + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_clientXPCServer);
-  v0[12] = v1;
-  v2 = *v1 + 88;
-  v0[13] = *v2;
-  v0[14] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
-  type metadata accessor for MLSActor();
-  v0[15] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
-  v4 = dispatch thunk of Actor.unownedExecutor.getter();
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.selfKeyPackage(uniqueClientIdentifier:completion:), v4, v3);
-}
-
-{
-  v2 = v0[14];
-  v1 = v0[15];
-  v3 = v0[12];
-  v4 = v0[13];
-
-  v0[16] = v4(v5);
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.selfKeyPackage(uniqueClientIdentifier:completion:), 0, 0);
-}
-
-{
-  v48 = v0;
-  if (*(v0[16] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[3]), (v2 & 1) != 0))
-  {
-    v3 = v0[9];
-    v4 = v0[10];
-    v5 = v0[8];
-    v6 = v0[3];
-    v45 = v0[4];
-    v7 = (*(v0[16] + 56) + 48 * v1);
-    v0[17] = *v7;
-    v0[18] = v7[1];
-    v0[19] = v7[2];
-    v0[20] = v7[3];
-    v0[21] = v7[4];
-    swift_unknownObjectRetain();
-
-    swift_unknownObjectRetain();
-
-    (*(v3 + 16))(v4, v6, v5);
-    v8 = Logger.logObject.getter();
-    v9 = static os_log_type_t.default.getter();
-    v10 = os_log_type_enabled(v8, v9);
-    v11 = v0[9];
-    v12 = v0[10];
-    v13 = v0[8];
-    if (v10)
-    {
-      v14 = swift_slowAlloc();
-      v15 = swift_slowAlloc();
-      v47[0] = v15;
-      *v14 = 136315138;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v16 = dispatch thunk of CustomStringConvertible.description.getter();
-      v18 = v17;
-      (*(v11 + 8))(v12, v13);
-      v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v16, v18, v47);
-
-      *(v14 + 4) = v19;
-      _os_log_impl(&dword_26524C000, v8, v9, "MLSDaemon selfKeyPackage calling SwiftMLS { uniqueClientIdentifier: %s }", v14, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v15);
-      MEMORY[0x2667577B0](v15, -1, -1);
-      MEMORY[0x2667577B0](v14, -1, -1);
-    }
-
-    else
-    {
-
-      (*(v11 + 8))(v12, v13);
-    }
-
-    v42 = *(MEMORY[0x277D4D070] + 4);
-    v46 = (*MEMORY[0x277D4D070] + MEMORY[0x277D4D070]);
-    v43 = swift_task_alloc();
-    v0[22] = v43;
-    *v43 = v0;
-    v43[1] = closure #2 in MLSDaemon.selfKeyPackage(uniqueClientIdentifier:completion:);
-    v44 = v0[2];
-
-    return v46(v44);
-  }
-
-  else
-  {
-    v20 = v0[11];
-    v21 = v0[8];
-    v22 = v0[9];
-    v23 = v0[3];
-    v24 = v0[4];
-
-    (*(v22 + 16))(v20, v23, v21);
-    v25 = Logger.logObject.getter();
-    v26 = static os_log_type_t.error.getter();
-    v27 = os_log_type_enabled(v25, v26);
-    v28 = v0[11];
-    v29 = v0[8];
-    v30 = v0[9];
-    if (v27)
-    {
-      v31 = swift_slowAlloc();
-      v32 = swift_slowAlloc();
-      v47[0] = v32;
-      *v31 = 136315138;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v33 = dispatch thunk of CustomStringConvertible.description.getter();
-      v35 = v34;
-      (*(v30 + 8))(v28, v29);
-      v36 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33, v35, v47);
-
-      *(v31 + 4) = v36;
-      _os_log_impl(&dword_26524C000, v25, v26, "MLSDaemon selfKeyPackage has no clientXPCProxy { uniqueClientIdentifier: %s }", v31, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v32);
-      MEMORY[0x2667577B0](v32, -1, -1);
-      MEMORY[0x2667577B0](v31, -1, -1);
-    }
-
-    else
-    {
-
-      (*(v30 + 8))(v28, v29);
-    }
-
-    (*(v0[6] + 104))(v0[7], *MEMORY[0x277D4D2B0], v0[5]);
-    type metadata accessor for XPCUtils.XPCError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0]);
-    swift_allocError();
-    XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
-    swift_willThrow();
-    v38 = v0[10];
-    v37 = v0[11];
-    v39 = v0[7];
-
-    v40 = v0[1];
-
-    return v40();
-  }
-}
-
-{
-  v2 = *(*v1 + 176);
-  v5 = *v1;
-  *(*v1 + 184) = v0;
-
-  if (v0)
-  {
-    v3 = closure #2 in MLSDaemon.selfKeyPackage(uniqueClientIdentifier:completion:);
-  }
-
-  else
-  {
-    v3 = closure #2 in MLSDaemon.selfKeyPackage(uniqueClientIdentifier:completion:);
-  }
-
-  return MEMORY[0x2822009F8](v3, 0, 0);
-}
-
-{
-  v1 = v0[20];
-  v2 = v0[21];
-  v4 = v0[18];
-  v3 = v0[19];
-  v5 = v0[17];
-  v7 = v0[10];
-  v6 = v0[11];
-  v8 = v0[7];
-  swift_unknownObjectRelease();
-
-  swift_unknownObjectRelease();
-
-  v9 = v0[1];
-
-  return v9();
-}
-
-{
-  v1 = v0[20];
-  v2 = v0[21];
-  v4 = v0[18];
-  v3 = v0[19];
-  v5 = v0[17];
-  swift_unknownObjectRelease();
-
-  swift_unknownObjectRelease();
-  v6 = v0[23];
-  v8 = v0[10];
-  v7 = v0[11];
-  v9 = v0[7];
-
-  v10 = v0[1];
-
-  return v10();
-}
-
-uint64_t MLSDaemon.createGroup(uniqueClientIdentifier:identifier:otherMembers:groupCreationContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, unint64_t a8)
-{
-  outlined copy of Data._Representation(a1, a2);
-  v29 = v8;
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.default.getter();
-  outlined consume of Data._Representation(a1, a2);
-  if (os_log_type_enabled(v14, v15))
-  {
-    v28 = a3;
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v33 = v17;
-    *v16 = 136315138;
-    v18 = Data.description.getter();
-    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v19, &v33);
-
-    *(v16 + 4) = v20;
-    _os_log_impl(&dword_26524C000, v14, v15, "MLSDaemon createGroup called { uniqueClientIdentifier: %s }", v16, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v17);
-    MEMORY[0x2667577B0](v17, -1, -1);
-    v21 = v16;
-    a3 = v28;
-    MEMORY[0x2667577B0](v21, -1, -1);
-  }
-
-  type metadata accessor for MLS.GroupCreationError();
-  v22 = swift_allocObject();
-  v22[2] = a1;
-  v22[3] = a2;
-  v22[4] = a5;
-  v22[5] = a6;
-  v22[6] = a7;
-  v22[7] = a8;
-  v22[8] = v29;
-  v23 = swift_allocObject();
-  v23[2] = v29;
-  v23[3] = a3;
-  v23[4] = a4;
-  v24 = swift_allocObject();
-  *(v24 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.createGroup(uniqueClientIdentifier:identifier:otherMembers:groupCreationContext:completion:);
-  *(v24 + 24) = v23;
-  v25 = v29;
-  outlined copy of Data._Representation(a1, a2);
-  v26 = v25;
-  outlined copy of Data._Representation(a5, a6);
-  outlined copy of Data._Representation(a7, a8);
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC20GroupCreationContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC20GroupCreationContextVy_10Foundation4DataVGtMR);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMR);
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupCreationError and conformance MLS.GroupCreationError, MEMORY[0x277D4CF00]);
-  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupCreationProcessedContext<Data> and conformance MLS.GroupCreationProcessedContext<A>, &_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMR);
-  static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
-}
-
-uint64_t closure #1 in MLSDaemon.createGroup(uniqueClientIdentifier:identifier:otherMembers:groupCreationContext:completion:)@<X0>(uint64_t a1@<X1>, char *a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X8>)
-{
-  v72 = a1;
-  v64 = a6;
-  v65 = a7;
-  v67 = a4;
-  v68 = a5;
-  v69 = a2;
-  v70 = a3;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-  v66 = *(v7 - 8);
-  v8 = *(v66 + 64);
-  v9 = MEMORY[0x28223BE20](v7);
-  v11 = &v62 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v9);
-  v13 = &v62 - v12;
-  v14 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v71 = *(v14 - 8);
-  v15 = *(v71 + 64);
-  v16 = MEMORY[0x28223BE20](v14);
-  v18 = &v62 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v16);
-  v20 = &v62 - v19;
-  v21 = type metadata accessor for JSONDecoder();
-  v22 = *(v21 + 48);
-  v23 = *(v21 + 52);
-  swift_allocObject();
-  JSONDecoder.init()();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-  v24 = v73;
-  dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-
-  if (!v24)
-  {
-    v63 = v11;
-    v72 = v7;
-    v73 = v20;
-    v26 = *(v21 + 48);
-    v27 = *(v21 + 52);
-    swift_allocObject();
-    JSONDecoder.init()();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay15SecureMessaging3MLSO9AllMemberOGMd, &_sSay15SecureMessaging3MLSO9AllMemberOGMR);
-    lazy protocol witness table accessor for type [MLS.AllMember] and conformance <A> [A]();
-    dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-
-    v28 = v74;
-    v29 = *(v21 + 48);
-    v30 = *(v21 + 52);
-    swift_allocObject();
-    JSONDecoder.init()();
-    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupCreationContext<Data> and conformance MLS.GroupCreationContext<A>, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-    v31 = v13;
-    v32 = v72;
-    dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-    v33 = v71;
-    v34 = v14;
-    v35 = v73;
-    v70 = v28;
-    v36 = v34;
-
-    v37 = v66;
-    v38 = *(v66 + 16);
-    v39 = v31;
-    v40 = v63;
-    v69 = v39;
-    v38(v63);
-    v41 = v35;
-    v42 = v36;
-    (*(v33 + 16))(v18, v41, v36);
-    v43 = Logger.logObject.getter();
-    v44 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v43, v44))
-    {
-      v45 = swift_slowAlloc();
-      v46 = swift_slowAlloc();
-      v74 = v46;
-      *v45 = 136315394;
-      LODWORD(v68) = v44;
-      v47 = MLS.SigningContext.identifier.getter();
-      v49 = v48;
-      (*(v66 + 8))(v40, v72);
-      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, &v74);
-
-      *(v45 + 4) = v50;
-      *(v45 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v51 = dispatch thunk of CustomStringConvertible.description.getter();
-      v53 = v52;
-      (*(v71 + 8))(v18, v42);
-      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, &v74);
-      v32 = v72;
-
-      *(v45 + 14) = v54;
-      _os_log_impl(&dword_26524C000, v43, v68, "MLSDaemon createGroup decoded { identifier: %s, uniqueClientIdentifier: %s }", v45, 0x16u);
-      swift_arrayDestroy();
-      v55 = v46;
-      v33 = v71;
-      MEMORY[0x2667577B0](v55, -1, -1);
-      v56 = v45;
-      v37 = v66;
-      MEMORY[0x2667577B0](v56, -1, -1);
-    }
-
-    else
-    {
-
-      (*(v33 + 8))(v18, v42);
-      (*(v37 + 8))(v40, v32);
-    }
-
-    v57 = v65;
-    v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC20GroupCreationContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC20GroupCreationContextVy_10Foundation4DataVGtMR);
-    v59 = *(v58 + 48);
-    v60 = *(v58 + 64);
-    (*(v33 + 32))(v57, v73, v42);
-    v61 = v69;
-    *(v57 + v59) = v70;
-    return (*(v37 + 32))(v57 + v60, v61, v32);
-  }
-
-  return result;
-}
-
-uint64_t closure #2 in MLSDaemon.createGroup(uniqueClientIdentifier:identifier:otherMembers:groupCreationContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v7[11] = a6;
-  v7[12] = a7;
-  v7[9] = a4;
-  v7[10] = a5;
-  v7[7] = a2;
-  v7[8] = a3;
-  v7[6] = a1;
-  v8 = type metadata accessor for XPCUtils.XPCError.ErrorType();
-  v7[13] = v8;
-  v9 = *(v8 - 8);
-  v7[14] = v9;
-  v10 = *(v9 + 64) + 15;
-  v7[15] = swift_task_alloc();
-  v11 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v7[16] = v11;
-  v12 = *(v11 - 8);
-  v7[17] = v12;
-  v13 = *(v12 + 64) + 15;
-  v7[18] = swift_task_alloc();
-  v7[19] = swift_task_alloc();
-  v14 = type metadata accessor for Metric();
-  v7[20] = v14;
-  v15 = *(v14 - 8);
-  v7[21] = v15;
-  v16 = *(v15 + 64) + 15;
-  v7[22] = swift_task_alloc();
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-  v7[23] = v17;
-  v18 = *(v17 - 8);
-  v7[24] = v18;
-  v19 = *(v18 + 64) + 15;
-  v7[25] = swift_task_alloc();
-  v7[26] = swift_task_alloc();
-  v7[27] = swift_task_alloc();
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.createGroup(uniqueClientIdentifier:identifier:otherMembers:groupCreationContext:completion:), 0, 0);
-}
-
-uint64_t closure #2 in MLSDaemon.createGroup(uniqueClientIdentifier:identifier:otherMembers:groupCreationContext:completion:)()
-{
-  v1 = *(v0[10] + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_clientXPCServer);
-  v0[28] = v1;
-  v2 = *v1 + 88;
-  v0[29] = *v2;
-  v0[30] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
-  type metadata accessor for MLSActor();
-  v0[31] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
-  v4 = dispatch thunk of Actor.unownedExecutor.getter();
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.createGroup(uniqueClientIdentifier:identifier:otherMembers:groupCreationContext:completion:), v4, v3);
-}
-
-{
-  v2 = v0[30];
-  v1 = v0[31];
-  v3 = v0[28];
-  v4 = v0[29];
-
-  v0[32] = v4(v5);
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.createGroup(uniqueClientIdentifier:identifier:otherMembers:groupCreationContext:completion:), 0, 0);
-}
-
-{
-  v90 = v0;
-  if (*(v0[32] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[7]), (v2 & 1) != 0))
-  {
-    v3 = v0[27];
-    v4 = v0[24];
-    v84 = v0[23];
-    v5 = v0[21];
-    v72 = v0[22];
-    v6 = v0[20];
-    v74 = v0[17];
-    v75 = v0[26];
-    v76 = v0[16];
-    log = v0[19];
-    v80 = v0[10];
-    v71 = v0[9];
-    v73 = v0[7];
-    v7 = (*(v0[32] + 56) + 48 * v1);
-    v0[33] = *v7;
-    v0[34] = v7[1];
-    v0[35] = v7[2];
-    v0[36] = v7[3];
-    v0[37] = v7[4];
-    swift_unknownObjectRetain();
-
-    swift_unknownObjectRetain();
-
-    v8 = *(v4 + 16);
-    v8(v3, v71, v84);
-    (*(v5 + 104))(v72, *MEMORY[0x277D4D278], v6);
-    v9 = MLS.GroupCreationContext.metricCollector.modify();
-    MetricCollector.end(metric:)();
-    (*(v5 + 8))(v72, v6);
-    v9(v0 + 2, 0);
-    v8(v75, v71, v84);
-    (*(v74 + 16))(log, v73, v76);
-    v10 = Logger.logObject.getter();
-    v11 = static os_log_type_t.default.getter();
-    v12 = os_log_type_enabled(v10, v11);
-    v13 = v0[26];
-    v14 = v0[23];
-    v15 = v0[24];
-    v16 = v0[19];
-    v18 = v0[16];
-    v17 = v0[17];
-    if (v12)
-    {
-      v81 = v11;
-      v19 = swift_slowAlloc();
-      v85 = swift_slowAlloc();
-      v89[0] = v85;
-      *v19 = 136315394;
-      v20 = MLS.SigningContext.identifier.getter();
-      v77 = v16;
-      loga = v10;
-      v22 = v21;
-      v23 = *(v15 + 8);
-      v23(v13, v14);
-      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v89);
-
-      *(v19 + 4) = v24;
-      *(v19 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v25 = dispatch thunk of CustomStringConvertible.description.getter();
-      v27 = v26;
-      (*(v17 + 8))(v77, v18);
-      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v89);
-
-      *(v19 + 14) = v28;
-      _os_log_impl(&dword_26524C000, loga, v81, "MLSDaemon createGroup calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
-      swift_arrayDestroy();
-      MEMORY[0x2667577B0](v85, -1, -1);
-      MEMORY[0x2667577B0](v19, -1, -1);
-    }
-
-    else
-    {
-
-      (*(v17 + 8))(v16, v18);
-      v23 = *(v15 + 8);
-      v23(v13, v14);
-    }
-
-    v0[38] = v23;
-    v64 = *(MEMORY[0x277D4D078] + 4);
-    v88 = (*MEMORY[0x277D4D078] + MEMORY[0x277D4D078]);
-    v65 = swift_task_alloc();
-    v0[39] = v65;
-    *v65 = v0;
-    v65[1] = closure #2 in MLSDaemon.createGroup(uniqueClientIdentifier:identifier:otherMembers:groupCreationContext:completion:);
-    v66 = v0[27];
-    v67 = v0[11];
-    v68 = v0[12];
-    v69 = v0[8];
-    v70 = v0[6];
-
-    return v88(v70, v67, v68, v69, v66);
-  }
-
-  else
-  {
-    v30 = v0[24];
-    v29 = v0[25];
-    v31 = v0[23];
-    v33 = v0[17];
-    v32 = v0[18];
-    v34 = v0[16];
-    v35 = v0[9];
-    v86 = v0[10];
-    v36 = v0[7];
-
-    (*(v30 + 16))(v29, v35, v31);
-    (*(v33 + 16))(v32, v36, v34);
-    v37 = Logger.logObject.getter();
-    v38 = static os_log_type_t.error.getter();
-    v39 = os_log_type_enabled(v37, v38);
-    v40 = v0[24];
-    v41 = v0[25];
-    v42 = v0[23];
-    v43 = v0[17];
-    v44 = v0[18];
-    v45 = v0[16];
-    if (v39)
-    {
-      v83 = v37;
-      v46 = swift_slowAlloc();
-      v87 = swift_slowAlloc();
-      v89[0] = v87;
-      *v46 = 136315394;
-      v47 = MLS.SigningContext.identifier.getter();
-      v82 = v38;
-      v49 = v48;
-      (*(v40 + 8))(v41, v42);
-      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v89);
-
-      *(v46 + 4) = v50;
-      *(v46 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v51 = dispatch thunk of CustomStringConvertible.description.getter();
-      v53 = v52;
-      (*(v43 + 8))(v44, v45);
-      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v89);
-
-      *(v46 + 14) = v54;
-      _os_log_impl(&dword_26524C000, v83, v82, "MLSDaemon createGroup has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
-      swift_arrayDestroy();
-      MEMORY[0x2667577B0](v87, -1, -1);
-      MEMORY[0x2667577B0](v46, -1, -1);
-    }
-
-    else
-    {
-
-      (*(v43 + 8))(v44, v45);
-      (*(v40 + 8))(v41, v42);
-    }
-
-    (*(v0[14] + 104))(v0[15], *MEMORY[0x277D4D2B0], v0[13]);
-    type metadata accessor for XPCUtils.XPCError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0]);
-    swift_allocError();
-    XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
-    swift_willThrow();
-    v56 = v0[26];
-    v55 = v0[27];
-    v57 = v0[25];
-    v58 = v0[22];
-    v60 = v0[18];
-    v59 = v0[19];
-    v61 = v0[15];
-
-    v62 = v0[1];
-
-    return v62();
-  }
-}
-
-{
-  v2 = *(*v1 + 312);
-  v5 = *v1;
-  *(*v1 + 320) = v0;
-
-  if (v0)
-  {
-    v3 = closure #2 in MLSDaemon.createGroup(uniqueClientIdentifier:identifier:otherMembers:groupCreationContext:completion:);
-  }
-
-  else
-  {
-    v3 = closure #2 in MLSDaemon.createGroup(uniqueClientIdentifier:identifier:otherMembers:groupCreationContext:completion:);
-  }
-
-  return MEMORY[0x2822009F8](v3, 0, 0);
-}
-
-{
-  v1 = v0[37];
-  v2 = v0[38];
-  v4 = v0[35];
-  v3 = v0[36];
-  v5 = v0[33];
-  v6 = v0[34];
-  v8 = v0[26];
-  v7 = v0[27];
-  v9 = v0[24];
-  v10 = v0[23];
-  v13 = v0[25];
-  v14 = v0[22];
-  v15 = v0[19];
-  v16 = v0[18];
-  v17 = v0[15];
-  swift_unknownObjectRelease();
-
-  swift_unknownObjectRelease();
-  v2(v7, v10);
-
-  v11 = v0[1];
-
-  return v11();
-}
-
-{
-  v1 = v0[37];
-  v2 = v0[38];
-  v4 = v0[35];
-  v3 = v0[36];
-  v5 = v0[33];
-  v6 = v0[34];
-  v7 = v0[27];
-  v8 = v0[23];
-  v9 = v0[24];
-  swift_unknownObjectRelease();
-
-  swift_unknownObjectRelease();
-  v2(v7, v8);
-  v10 = v0[40];
-  v12 = v0[26];
-  v11 = v0[27];
-  v13 = v0[25];
-  v14 = v0[22];
-  v16 = v0[18];
-  v15 = v0[19];
-  v17 = v0[15];
-
-  v18 = v0[1];
-
-  return v18();
-}
-
-uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @guaranteed [MLS.AllMember], @in_guaranteed MLS.GroupCreationContext<Data>) -> (@out MLS.GroupCreationProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
-{
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC20GroupCreationContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC20GroupCreationContextVy_10Foundation4DataVGtMR);
-  v8 = *(a2 + *(v7 + 48));
-  v9 = *(v7 + 64);
-  v13 = (a3 + *a3);
-  v10 = a3[1];
-  v11 = swift_task_alloc();
-  *(v3 + 16) = v11;
-  *v11 = v3;
-  v11[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
-
-  return v13(a1, a2, v8, a2 + v9);
-}
-
-uint64_t MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, unint64_t a10)
-{
-  outlined copy of Data._Representation(a1, a2);
-  v16 = v10;
-  v17 = a2;
-  v18 = Logger.logObject.getter();
-  v19 = static os_log_type_t.default.getter();
-  outlined consume of Data._Representation(a1, v17);
-  if (os_log_type_enabled(v18, v19))
-  {
-    v33 = a3;
-    v20 = swift_slowAlloc();
-    v21 = swift_slowAlloc();
-    v38 = v21;
-    *v20 = 136315138;
-    v22 = Data.description.getter();
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, &v38);
-
-    *(v20 + 4) = v24;
-    _os_log_impl(&dword_26524C000, v18, v19, "MLSDaemon joinGroup called { uniqueClientIdentifier: %s }", v20, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v21);
-    MEMORY[0x2667577B0](v21, -1, -1);
-    v25 = v20;
-    a3 = v33;
-    MEMORY[0x2667577B0](v25, -1, -1);
-  }
-
-  type metadata accessor for MLS.GroupCreationError();
-  v26 = swift_allocObject();
-  v26[2] = a1;
-  v26[3] = v17;
-  v26[4] = a5;
-  v26[5] = a6;
-  v26[6] = a7;
-  v32 = v17;
-  v27 = a8;
-  v26[7] = a8;
-  v26[8] = a9;
-  v26[9] = a10;
-  v26[10] = v16;
-  v28 = swift_allocObject();
-  v28[2] = v16;
-  v28[3] = a3;
-  v28[4] = a4;
-  v34 = swift_allocObject();
-  *(v34 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:);
-  *(v34 + 24) = v28;
-  v29 = v16;
-  outlined copy of Data._Representation(a1, v32);
-  v30 = v29;
-  outlined copy of Data._Representation(a5, a6);
-  outlined copy of Data._Representation(a7, v27);
-  outlined copy of Data._Representation(a9, a10);
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC15IncomingMessageVy_AGGAC20GroupCreationContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC15IncomingMessageVy_AGGAC20GroupCreationContextVy_10Foundation4DataVGtMR);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMR);
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupCreationError and conformance MLS.GroupCreationError, MEMORY[0x277D4CF00]);
-  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupCreationProcessedContext<Data> and conformance MLS.GroupCreationProcessedContext<A>, &_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO29GroupCreationProcessedContextVy_10Foundation4DataVGMR);
-  static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
-}
-
-uint64_t closure #1 in MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:)@<X0>(char *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, NSObject *a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X7>, uint64_t a8@<X8>)
-{
-  v74 = a6;
-  v75 = a7;
-  v77 = a4;
-  v78 = a5;
-  v81 = a2;
-  v82 = a3;
-  v86 = a1;
-  v80 = a8;
-  v79 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-  v85 = *(v79 - 8);
-  v9 = *(v85 + 64);
-  v10 = MEMORY[0x28223BE20](v79);
-  v73 = &v69 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v84 = &v69 - v12;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMR);
-  v76 = *(v13 - 8);
-  v14 = *(v76 + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v69 - v15;
-  v17 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v83 = *(v17 - 8);
-  v18 = *(v83 + 64);
-  v19 = MEMORY[0x28223BE20](v17);
-  v21 = &v69 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v19);
-  v23 = &v69 - v22;
-  v24 = type metadata accessor for JSONDecoder();
-  v25 = *(v24 + 48);
-  v26 = *(v24 + 52);
-  swift_allocObject();
-  JSONDecoder.init()();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-  dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-
-  if (!v8)
-  {
-    v69 = v21;
-    v70 = v13;
-    v86 = v23;
-    v71 = v16;
-    v72 = v17;
-    v28 = v84;
-    v29 = v85;
-    v30 = v79;
-    v31 = v80;
-    v32 = *(v24 + 48);
-    v33 = *(v24 + 52);
-    swift_allocObject();
-    JSONDecoder.init()();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay15SecureMessaging3MLSO9AllMemberOGMd, &_sSay15SecureMessaging3MLSO9AllMemberOGMR);
-    lazy protocol witness table accessor for type [MLS.AllMember] and conformance <A> [A]();
-    dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-
-    v34 = v87;
-    v35 = *(v24 + 48);
-    v36 = *(v24 + 52);
-    swift_allocObject();
-    JSONDecoder.init()();
-    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingMessage<MLS.AllMember> and conformance MLS.IncomingMessage<A>, &_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMR);
-    dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-    v82 = v34;
-
-    v37 = *(v24 + 48);
-    v38 = *(v24 + 52);
-    swift_allocObject();
-    JSONDecoder.init()();
-    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupCreationContext<Data> and conformance MLS.GroupCreationContext<A>, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-    v39 = v30;
-    dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-    v81 = 0;
-
-    v40 = v73;
-    (*(v29 + 16))(v73, v28, v30);
-    v41 = v83;
-    v42 = v69;
-    v43 = v72;
-    (*(v83 + 16))(v69, v86, v72);
-    v44 = Logger.logObject.getter();
-    v45 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v44, v45))
-    {
-      v46 = swift_slowAlloc();
-      v77 = v44;
-      v47 = v46;
-      v78 = swift_slowAlloc();
-      v87 = v78;
-      *v47 = 136315394;
-      LODWORD(v75) = v45;
-      v48 = MLS.SigningContext.identifier.getter();
-      v49 = v43;
-      v50 = v41;
-      v52 = v51;
-      (*(v85 + 8))(v40, v30);
-      v53 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v52, &v87);
-
-      *(v47 + 4) = v53;
-      *(v47 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v54 = v49;
-      v55 = dispatch thunk of CustomStringConvertible.description.getter();
-      v57 = v56;
-      (*(v50 + 8))(v42, v49);
-      v58 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v55, v57, &v87);
-      v39 = v30;
-      v59 = v54;
-
-      *(v47 + 14) = v58;
-      v60 = v77;
-      _os_log_impl(&dword_26524C000, v77, v75, "MLSDaemon joinGroup decoded { identifier: %s, uniqueClientIdentifier: %s }", v47, 0x16u);
-      v61 = v78;
-      swift_arrayDestroy();
-      MEMORY[0x2667577B0](v61, -1, -1);
-      MEMORY[0x2667577B0](v47, -1, -1);
-
-      v62 = v85;
-    }
-
-    else
-    {
-
-      (*(v41 + 8))(v42, v43);
-      v63 = v85;
-      (*(v85 + 8))(v40, v30);
-      v59 = v43;
-      v50 = v41;
-      v62 = v63;
-    }
-
-    v64 = v71;
-    v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC15IncomingMessageVy_AGGAC20GroupCreationContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC15IncomingMessageVy_AGGAC20GroupCreationContextVy_10Foundation4DataVGtMR);
-    v66 = v65[12];
-    v67 = v65[16];
-    v68 = v65[20];
-    (*(v50 + 32))(v31, v86, v59);
-    *(v31 + v66) = v82;
-    (*(v76 + 32))(v31 + v67, v64, v70);
-    return (*(v62 + 32))(v31 + v68, v84, v39);
-  }
-
-  return result;
-}
-
-uint64_t closure #2 in MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8[12] = a7;
-  v8[13] = a8;
-  v8[10] = a5;
-  v8[11] = a6;
-  v8[8] = a3;
-  v8[9] = a4;
-  v8[6] = a1;
-  v8[7] = a2;
-  v9 = type metadata accessor for XPCUtils.XPCError.ErrorType();
-  v8[14] = v9;
-  v10 = *(v9 - 8);
-  v8[15] = v10;
-  v11 = *(v10 + 64) + 15;
-  v8[16] = swift_task_alloc();
-  v12 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v8[17] = v12;
-  v13 = *(v12 - 8);
-  v8[18] = v13;
-  v14 = *(v13 + 64) + 15;
-  v8[19] = swift_task_alloc();
-  v8[20] = swift_task_alloc();
-  v15 = type metadata accessor for Metric();
-  v8[21] = v15;
-  v16 = *(v15 - 8);
-  v8[22] = v16;
-  v17 = *(v16 + 64) + 15;
-  v8[23] = swift_task_alloc();
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupCreationContextVy_10Foundation4DataVGMR);
-  v8[24] = v18;
-  v19 = *(v18 - 8);
-  v8[25] = v19;
-  v20 = *(v19 + 64) + 15;
-  v8[26] = swift_task_alloc();
-  v8[27] = swift_task_alloc();
-  v8[28] = swift_task_alloc();
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:), 0, 0);
-}
-
-uint64_t closure #2 in MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:)()
-{
-  v1 = *(v0[11] + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_clientXPCServer);
-  v0[29] = v1;
-  v2 = *v1 + 88;
-  v0[30] = *v2;
-  v0[31] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
-  type metadata accessor for MLSActor();
-  v0[32] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
-  v4 = dispatch thunk of Actor.unownedExecutor.getter();
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:), v4, v3);
-}
-
-{
-  v2 = v0[31];
-  v1 = v0[32];
-  v3 = v0[29];
-  v4 = v0[30];
-
-  v0[33] = v4(v5);
-
-  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:), 0, 0);
-}
-
-{
-  v91 = v0;
-  if (*(v0[33] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[7]), (v2 & 1) != 0))
-  {
-    v3 = v0[28];
-    v4 = v0[25];
-    v85 = v0[24];
-    v5 = v0[22];
-    v73 = v0[23];
-    v6 = v0[21];
-    v75 = v0[18];
-    v76 = v0[27];
-    v77 = v0[17];
-    log = v0[20];
-    v81 = v0[11];
-    v72 = v0[10];
-    v74 = v0[7];
-    v7 = (*(v0[33] + 56) + 48 * v1);
-    v0[34] = *v7;
-    v0[35] = v7[1];
-    v0[36] = v7[2];
-    v0[37] = v7[3];
-    v0[38] = v7[4];
-    swift_unknownObjectRetain();
-
-    swift_unknownObjectRetain();
-
-    v8 = *(v4 + 16);
-    v8(v3, v72, v85);
-    (*(v5 + 104))(v73, *MEMORY[0x277D4D278], v6);
-    v9 = MLS.GroupCreationContext.metricCollector.modify();
-    MetricCollector.end(metric:)();
-    (*(v5 + 8))(v73, v6);
-    v9(v0 + 2, 0);
-    v8(v76, v72, v85);
-    (*(v75 + 16))(log, v74, v77);
-    v10 = Logger.logObject.getter();
-    v11 = static os_log_type_t.default.getter();
-    v12 = os_log_type_enabled(v10, v11);
-    v13 = v0[27];
-    v14 = v0[24];
-    v15 = v0[25];
-    v16 = v0[20];
-    v18 = v0[17];
-    v17 = v0[18];
-    if (v12)
-    {
-      v82 = v11;
-      v19 = swift_slowAlloc();
-      v86 = swift_slowAlloc();
-      v90[0] = v86;
-      *v19 = 136315394;
-      v20 = MLS.SigningContext.identifier.getter();
-      v78 = v16;
-      loga = v10;
-      v22 = v21;
-      v23 = *(v15 + 8);
-      v23(v13, v14);
-      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v90);
-
-      *(v19 + 4) = v24;
-      *(v19 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v25 = dispatch thunk of CustomStringConvertible.description.getter();
-      v27 = v26;
-      (*(v17 + 8))(v78, v18);
-      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v90);
-
-      *(v19 + 14) = v28;
-      _os_log_impl(&dword_26524C000, loga, v82, "MLSDaemon joinGroup calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
-      swift_arrayDestroy();
-      MEMORY[0x2667577B0](v86, -1, -1);
-      MEMORY[0x2667577B0](v19, -1, -1);
-    }
-
-    else
-    {
-
-      (*(v17 + 8))(v16, v18);
-      v23 = *(v15 + 8);
-      v23(v13, v14);
-    }
-
-    v0[39] = v23;
-    v64 = *(MEMORY[0x277D4D108] + 4);
-    v89 = (*MEMORY[0x277D4D108] + MEMORY[0x277D4D108]);
-    v65 = swift_task_alloc();
-    v0[40] = v65;
-    *v65 = v0;
-    v65[1] = closure #2 in MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:);
-    v66 = v0[28];
-    v67 = v0[12];
-    v68 = v0[13];
-    v69 = v0[8];
-    v70 = v0[9];
-    v71 = v0[6];
-
-    return v89(v71, v67, v68, v69, v70, v66);
-  }
-
-  else
-  {
-    v30 = v0[25];
-    v29 = v0[26];
-    v31 = v0[24];
-    v33 = v0[18];
-    v32 = v0[19];
-    v34 = v0[17];
-    v35 = v0[10];
-    v87 = v0[11];
-    v36 = v0[7];
-
-    (*(v30 + 16))(v29, v35, v31);
-    (*(v33 + 16))(v32, v36, v34);
-    v37 = Logger.logObject.getter();
-    v38 = static os_log_type_t.error.getter();
-    v39 = os_log_type_enabled(v37, v38);
-    v40 = v0[25];
-    v41 = v0[26];
-    v42 = v0[24];
-    v43 = v0[18];
-    v44 = v0[19];
-    v45 = v0[17];
-    if (v39)
-    {
-      v84 = v37;
-      v46 = swift_slowAlloc();
-      v88 = swift_slowAlloc();
-      v90[0] = v88;
-      *v46 = 136315394;
-      v47 = MLS.SigningContext.identifier.getter();
-      v83 = v38;
-      v49 = v48;
-      (*(v40 + 8))(v41, v42);
-      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v90);
-
-      *(v46 + 4) = v50;
-      *(v46 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v51 = dispatch thunk of CustomStringConvertible.description.getter();
-      v53 = v52;
-      (*(v43 + 8))(v44, v45);
-      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v90);
-
-      *(v46 + 14) = v54;
-      _os_log_impl(&dword_26524C000, v84, v83, "MLSDaemon joinGroup has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
-      swift_arrayDestroy();
-      MEMORY[0x2667577B0](v88, -1, -1);
-      MEMORY[0x2667577B0](v46, -1, -1);
-    }
-
-    else
-    {
-
-      (*(v43 + 8))(v44, v45);
-      (*(v40 + 8))(v41, v42);
-    }
-
-    (*(v0[15] + 104))(v0[16], *MEMORY[0x277D4D2B0], v0[14]);
-    type metadata accessor for XPCUtils.XPCError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0]);
-    swift_allocError();
-    XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
-    swift_willThrow();
-    v56 = v0[27];
-    v55 = v0[28];
-    v57 = v0[26];
-    v58 = v0[23];
-    v60 = v0[19];
-    v59 = v0[20];
-    v61 = v0[16];
-
-    v62 = v0[1];
-
-    return v62();
-  }
-}
-
-{
-  v2 = *(*v1 + 320);
-  v5 = *v1;
-  *(*v1 + 328) = v0;
-
-  if (v0)
-  {
-    v3 = closure #2 in MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:);
-  }
-
-  else
-  {
-    v3 = closure #2 in MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:);
-  }
-
-  return MEMORY[0x2822009F8](v3, 0, 0);
-}
-
 uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @guaranteed [MLS.AllMember], @in_guaranteed MLS.IncomingMessage<MLS.AllMember>, @in_guaranteed MLS.GroupCreationContext<Data>) -> (@out MLS.GroupCreationProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC15IncomingMessageVy_AGGAC20GroupCreationContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC15IncomingMessageVy_AGGAC20GroupCreationContextVy_10Foundation4DataVGtMR);
   v8 = *(a2 + v7[12]);
   v9 = v7[16];
   v10 = v7[20];
-  v14 = (a3 + *a3);
-  v11 = a3[1];
-  v12 = swift_task_alloc();
-  *(v3 + 16) = v12;
-  *v12 = v3;
-  v12[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+  v13 = (a3 + *a3);
+  v11 = swift_task_alloc();
+  *(v3 + 16) = v11;
+  *v11 = v3;
+  v11[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
 
-  return v14(a1, a2, v8, a2 + v9, a2 + v10);
+  return v13(a1, a2, v8, a2 + v9, a2 + v10);
 }
 
-uint64_t MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
+uint64_t MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v7 = v6;
-  v11 = a2;
-  v12 = a1;
+  v9 = v8;
+  v13 = a2;
+  v14 = a1;
   outlined copy of Data._Representation(a1, a2);
-  v13 = Logger.logObject.getter();
-  v14 = static os_log_type_t.default.getter();
-  outlined consume of Data._Representation(v12, v11);
-  if (os_log_type_enabled(v13, v14))
+  v15 = Logger.logObject.getter();
+  v16 = static os_log_type_t.default.getter();
+  outlined consume of Data._Representation(v14, v13);
+  if (os_log_type_enabled(v15, v16))
   {
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
+    v17 = swift_slowAlloc();
+    v18 = swift_slowAlloc();
+    v35 = v18;
+    *v17 = 136315138;
+    v19 = Data.description.getter();
     v33 = v16;
-    *v15 = 136315138;
-    v17 = Data.description.getter();
-    v31 = v14;
-    v19 = v12;
-    v20 = v11;
-    v21 = a3;
-    v22 = v7;
-    v23 = a6;
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v18, &v33);
+    v21 = v14;
+    v22 = v13;
+    v23 = a3;
+    v24 = v9;
+    v25 = a6;
+    v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v20, &v35);
 
-    *(v15 + 4) = v24;
-    a6 = v23;
-    v7 = v22;
-    a3 = v21;
-    v11 = v20;
-    v12 = v19;
-    _os_log_impl(&dword_26524C000, v13, v31, "MLSDaemon delete called { uniqueClientIdentifier: %s }", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v16);
-    MEMORY[0x2667577B0](v16, -1, -1);
-    MEMORY[0x2667577B0](v15, -1, -1);
+    *(v17 + 4) = v26;
+    a6 = v25;
+    v9 = v24;
+    a3 = v23;
+    v13 = v22;
+    v14 = v21;
+    _os_log_impl(&dword_26524C000, v15, v33, "MLSDaemon delete called { uniqueClientIdentifier: %s }", v17, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v18);
+    MEMORY[0x2667577B0](v18, -1, -1);
+    MEMORY[0x2667577B0](v17, -1, -1);
   }
 
   type metadata accessor for MLS.GroupDeletionError();
-  v25 = swift_allocObject();
-  v25[2] = v12;
-  v25[3] = v11;
-  v25[4] = a5;
-  v25[5] = a6;
-  v25[6] = v7;
-  v26 = swift_allocObject();
-  v26[2] = v7;
-  v26[3] = a3;
-  v26[4] = a4;
   v27 = swift_allocObject();
-  *(v27 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:);
-  *(v27 + 24) = v26;
-  v28 = v7;
-  outlined copy of Data._Representation(v12, v11);
-  v29 = v28;
+  v27[2] = v14;
+  v27[3] = v13;
+  v27[4] = a5;
+  v27[5] = a6;
+  v27[6] = v9;
+  v28 = swift_allocObject();
+  v28[2] = v9;
+  v28[3] = a3;
+  v28[4] = a4;
+  v29 = swift_allocObject();
+  *(v29 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:);
+  *(v29 + 24) = v28;
+  v30 = v9;
+  outlined copy of Data._Representation(v14, v13);
+  v31 = v30;
   outlined copy of Data._Representation(a5, a6);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC20GroupDeletionContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC20GroupDeletionContextVy_10Foundation4DataVGtMR);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO29GroupDeletionProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO29GroupDeletionProcessedContextVy_10Foundation4DataVGMR);
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupDeletionError and conformance MLS.GroupDeletionError, MEMORY[0x277D4CF10]);
-  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupDeletionProcessedContext<Data> and conformance MLS.GroupDeletionProcessedContext<A>, &_s15SecureMessaging3MLSO29GroupDeletionProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO29GroupDeletionProcessedContextVy_10Foundation4DataVGMR);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupDeletionError and conformance MLS.GroupDeletionError, MEMORY[0x277D4CF10], MEMORY[0x277D4CF08]);
+  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupDeletionProcessedContext<Data> and conformance MLS.GroupDeletionProcessedContext<A>, &_s15SecureMessaging3MLSO29GroupDeletionProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO29GroupDeletionProcessedContextVy_10Foundation4DataVGMR, MEMORY[0x277D4D198]);
   static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
 }
 
-uint64_t closure #1 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:)@<X0>(uint64_t a1@<X2>, char *a2@<X3>, uint64_t a3@<X4>, uint64_t a4@<X8>)
+uint64_t closure #1 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:)@<X0>(uint64_t a3@<X2>, char *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v51 = a3;
-  v52 = a4;
-  v55 = a1;
-  v56 = a2;
-  v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO20GroupDeletionContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupDeletionContextVy_10Foundation4DataVGMR);
-  v53 = *(v57 - 8);
-  v4 = *(v53 + 64);
-  v5 = MEMORY[0x28223BE20](v57);
-  v7 = &v49 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v49 - v8;
-  v10 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v54 = *(v10 - 8);
-  v11 = *(v54 + 64);
-  v12 = MEMORY[0x28223BE20](v10);
-  v14 = &v49 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v49 - v15;
-  v17 = type metadata accessor for JSONDecoder();
-  v18 = *(v17 + 48);
-  v19 = *(v17 + 52);
+  v50 = a5;
+  v51 = a6;
+  v54 = a3;
+  v55 = a4;
+  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO20GroupDeletionContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupDeletionContextVy_10Foundation4DataVGMR);
+  v52 = *(v56 - 8);
+  v7 = MEMORY[0x28223BE20](v56, v6);
+  v9 = &v48 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7, v10);
+  v12 = &v48 - v11;
+  v13 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v53 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13, v14);
+  v17 = &v48 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15, v18);
+  v20 = &v48 - v19;
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-  v20 = v58;
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D020]);
+  v21 = v57;
   dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-  if (!v20)
+  if (!v21)
   {
-    v58 = v7;
-    v22 = v54;
-    v23 = *(v17 + 48);
-    v24 = *(v17 + 52);
+    v57 = v9;
+    v23 = v53;
     swift_allocObject();
     JSONDecoder.init()();
-    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupDeletionContext<Data> and conformance MLS.GroupDeletionContext<A>, &_s15SecureMessaging3MLSO20GroupDeletionContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupDeletionContextVy_10Foundation4DataVGMR);
-    v25 = v57;
+    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupDeletionContext<Data> and conformance MLS.GroupDeletionContext<A>, &_s15SecureMessaging3MLSO20GroupDeletionContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupDeletionContextVy_10Foundation4DataVGMR, MEMORY[0x277D4CFA0]);
+    v24 = v56;
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-    v26 = v53;
-    v27 = *(v53 + 16);
-    v56 = v9;
-    v27(v58, v9, v25);
-    v28 = v16;
-    (*(v22 + 16))(v14, v16, v10);
-    v29 = Logger.logObject.getter();
-    v30 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v29, v30))
+    v25 = v52;
+    v26 = *(v52 + 16);
+    v55 = v12;
+    v26(v57, v12, v24);
+    v27 = v20;
+    (*(v23 + 16))(v17, v20, v13);
+    v28 = Logger.logObject.getter();
+    v29 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v28, v29))
     {
-      v31 = swift_slowAlloc();
-      v55 = swift_slowAlloc();
-      v59 = v55;
-      *v31 = 136315394;
-      LODWORD(v51) = v30;
-      v32 = v58;
-      v33 = MLS.SigningContext.identifier.getter();
-      v50 = v29;
-      v34 = v28;
-      v35 = v33;
-      v37 = v36;
-      (*(v53 + 8))(v32, v57);
-      v38 = v35;
-      v28 = v34;
-      v39 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v38, v37, &v59);
+      v30 = swift_slowAlloc();
+      v54 = swift_slowAlloc();
+      v58 = v54;
+      *v30 = 136315394;
+      LODWORD(v50) = v29;
+      v31 = v57;
+      v32 = MLS.SigningContext.identifier.getter();
+      v49 = v28;
+      v33 = v27;
+      v34 = v32;
+      v36 = v35;
+      (*(v52 + 8))(v31, v56);
+      v37 = v34;
+      v27 = v33;
+      v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v37, v36, &v58);
 
-      *(v31 + 4) = v39;
-      *(v31 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v40 = dispatch thunk of CustomStringConvertible.description.getter();
-      v42 = v41;
-      (*(v22 + 8))(v14, v10);
-      v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v42, &v59);
-      v25 = v57;
+      *(v30 + 4) = v38;
+      *(v30 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v39 = dispatch thunk of CustomStringConvertible.description.getter();
+      v41 = v40;
+      (*(v23 + 8))(v17, v13);
+      v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v39, v41, &v58);
+      v24 = v56;
 
-      *(v31 + 14) = v43;
-      v44 = v50;
-      _os_log_impl(&dword_26524C000, v50, v51, "MLSDaemon delete decoded { identifier: %s, uniqueClientIdentifier: %s }", v31, 0x16u);
-      v45 = v55;
+      *(v30 + 14) = v42;
+      v43 = v49;
+      _os_log_impl(&dword_26524C000, v49, v50, "MLSDaemon delete decoded { identifier: %s, uniqueClientIdentifier: %s }", v30, 0x16u);
+      v44 = v54;
       swift_arrayDestroy();
+      MEMORY[0x2667577B0](v44, -1, -1);
+      v45 = v30;
+      v25 = v52;
       MEMORY[0x2667577B0](v45, -1, -1);
-      v46 = v31;
-      v26 = v53;
-      MEMORY[0x2667577B0](v46, -1, -1);
     }
 
     else
     {
 
-      (*(v22 + 8))(v14, v10);
-      (*(v26 + 8))(v58, v25);
+      (*(v23 + 8))(v17, v13);
+      (*(v25 + 8))(v57, v24);
     }
 
-    v47 = v52;
-    v48 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC20GroupDeletionContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC20GroupDeletionContextVy_10Foundation4DataVGtMR) + 48);
-    (*(v22 + 32))(v47, v28, v10);
-    return (*(v26 + 32))(v47 + v48, v56, v25);
+    v46 = v51;
+    v47 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC20GroupDeletionContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC20GroupDeletionContextVy_10Foundation4DataVGtMR) + 48);
+    (*(v23 + 32))(v46, v27, v13);
+    return (*(v25 + 32))(v46 + v47, v55, v24);
   }
 
   return result;
@@ -5750,22 +182,16 @@ uint64_t closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeleti
   v6[3] = a2;
   v7 = type metadata accessor for XPCUtils.XPCError.ErrorType();
   v6[8] = v7;
-  v8 = *(v7 - 8);
-  v6[9] = v8;
-  v9 = *(v8 + 64) + 15;
+  v6[9] = *(v7 - 8);
   v6[10] = swift_task_alloc();
-  v10 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v6[11] = v10;
-  v11 = *(v10 - 8);
-  v6[12] = v11;
-  v12 = *(v11 + 64) + 15;
+  v8 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v6[11] = v8;
+  v6[12] = *(v8 - 8);
   v6[13] = swift_task_alloc();
   v6[14] = swift_task_alloc();
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO20GroupDeletionContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupDeletionContextVy_10Foundation4DataVGMR);
-  v6[15] = v13;
-  v14 = *(v13 - 8);
-  v6[16] = v14;
-  v15 = *(v14 + 64) + 15;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO20GroupDeletionContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO20GroupDeletionContextVy_10Foundation4DataVGMR);
+  v6[15] = v9;
+  v6[16] = *(v9 - 8);
   v6[17] = swift_task_alloc();
   v6[18] = swift_task_alloc();
 
@@ -5781,36 +207,32 @@ uint64_t closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeleti
   v0[21] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
   type metadata accessor for MLSActor();
   v0[22] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
   v4 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:), v4, v3);
 }
 
 {
-  v2 = v0[21];
-  v1 = v0[22];
-  v3 = v0[19];
-  v4 = v0[20];
+  v1 = *(v0 + 160);
 
-  v0[23] = v4(v5);
+  *(v0 + 184) = v1(v2);
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:), 0, 0);
 }
 
 {
-  v79 = v0;
+  v71 = v0;
   if (*(v0[23] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[3]), (v2 & 1) != 0))
   {
     v3 = v0[15];
     v4 = v0[16];
     v5 = v0[12];
     log = v0[11];
-    v69 = v0[14];
+    v63 = v0[14];
     v6 = v0[4];
-    v72 = v0[5];
-    v65 = v0[18];
-    v66 = v0[3];
+    v59 = v0[18];
+    v60 = v0[3];
     v7 = (*(v0[23] + 56) + 48 * v1);
     v0[24] = *v7;
     v0[25] = v7[1];
@@ -5821,8 +243,8 @@ uint64_t closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeleti
 
     swift_unknownObjectRetain();
 
-    (*(v4 + 16))(v65, v6, v3);
-    (*(v5 + 16))(v69, v66, log);
+    (*(v4 + 16))(v59, v6, v3);
+    (*(v5 + 16))(v63, v60, log);
     v8 = Logger.logObject.getter();
     v9 = static os_log_type_t.default.getter();
     v10 = os_log_type_enabled(v8, v9);
@@ -5834,29 +256,29 @@ uint64_t closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeleti
     v15 = v0[12];
     if (v10)
     {
-      v70 = v9;
+      v64 = v9;
       v17 = swift_slowAlloc();
-      v73 = swift_slowAlloc();
-      v78[0] = v73;
+      v66 = swift_slowAlloc();
+      v70[0] = v66;
       *v17 = 136315394;
       loga = v8;
       v18 = MLS.SigningContext.identifier.getter();
       v20 = v19;
       (*(v12 + 8))(v11, v13);
-      v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, v78);
+      v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, v70);
 
       *(v17 + 4) = v21;
       *(v17 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v22 = dispatch thunk of CustomStringConvertible.description.getter();
       v24 = v23;
       (*(v15 + 8))(v14, v16);
-      v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v24, v78);
+      v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v24, v70);
 
       *(v17 + 14) = v25;
-      _os_log_impl(&dword_26524C000, loga, v70, "MLSDaemon delete calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v17, 0x16u);
+      _os_log_impl(&dword_26524C000, loga, v64, "MLSDaemon delete calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v17, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v73, -1, -1);
+      MEMORY[0x2667577B0](v66, -1, -1);
       MEMORY[0x2667577B0](v17, -1, -1);
     }
 
@@ -5867,18 +289,17 @@ uint64_t closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeleti
       (*(v12 + 8))(v11, v13);
     }
 
-    v59 = *(MEMORY[0x277D4D0F0] + 4);
-    v75 = (*MEMORY[0x277D4D0F0] + MEMORY[0x277D4D0F0]);
-    v60 = swift_task_alloc();
-    v0[29] = v60;
-    *v60 = v0;
-    v60[1] = closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:);
-    v61 = v0[6];
-    v62 = v0[7];
-    v63 = v0[4];
-    v64 = v0[2];
+    v68 = (*MEMORY[0x277D4D0F0] + MEMORY[0x277D4D0F0]);
+    v54 = swift_task_alloc();
+    v0[29] = v54;
+    *v54 = v0;
+    v54[1] = closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:);
+    v55 = v0[6];
+    v56 = v0[7];
+    v57 = v0[4];
+    v58 = v0[2];
 
-    return (v75)(v64, v61, v62, v63);
+    return (v68)(v58, v55, v56, v57);
   }
 
   else
@@ -5890,7 +311,6 @@ uint64_t closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeleti
     v29 = v0[13];
     v31 = v0[11];
     v32 = v0[4];
-    v76 = v0[5];
     v33 = v0[3];
 
     (*(v27 + 16))(v26, v32, v28);
@@ -5906,29 +326,29 @@ uint64_t closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeleti
     v42 = v0[11];
     if (v36)
     {
-      v74 = v34;
+      v67 = v34;
       v43 = swift_slowAlloc();
-      v77 = swift_slowAlloc();
-      v78[0] = v77;
+      v69 = swift_slowAlloc();
+      v70[0] = v69;
       *v43 = 136315394;
       v44 = MLS.SigningContext.identifier.getter();
-      v71 = v35;
+      v65 = v35;
       v46 = v45;
       (*(v37 + 8))(v38, v39);
-      v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v44, v46, v78);
+      v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v44, v46, v70);
 
       *(v43 + 4) = v47;
       *(v43 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v48 = dispatch thunk of CustomStringConvertible.description.getter();
       v50 = v49;
       (*(v40 + 8))(v41, v42);
-      v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v50, v78);
+      v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v50, v70);
 
       *(v43 + 14) = v51;
-      _os_log_impl(&dword_26524C000, v74, v71, "MLSDaemon delete has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v43, 0x16u);
+      _os_log_impl(&dword_26524C000, v67, v65, "MLSDaemon delete has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v43, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v77, -1, -1);
+      MEMORY[0x2667577B0](v69, -1, -1);
       MEMORY[0x2667577B0](v43, -1, -1);
     }
 
@@ -5941,213 +361,199 @@ uint64_t closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeleti
 
     (*(v0[9] + 104))(v0[10], *MEMORY[0x277D4D2B0], v0[8]);
     type metadata accessor for XPCUtils.XPCError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0]);
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0], MEMORY[0x277D4D2C8]);
     swift_allocError();
     XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
     swift_willThrow();
-    v53 = v0[17];
-    v52 = v0[18];
-    v55 = v0[13];
-    v54 = v0[14];
-    v56 = v0[10];
 
-    v57 = v0[1];
+    v52 = v0[1];
 
-    return v57();
+    return v52();
   }
 }
 
 {
-  v2 = *(*v1 + 232);
-  v5 = *v1;
   *(*v1 + 240) = v0;
 
   if (v0)
   {
-    v3 = closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:);
+    v2 = closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:);
   }
 
   else
   {
-    v3 = closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:);
+    v2 = closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:);
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupDeletionContext<Data>) -> (@out MLS.GroupDeletionProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
 {
   v7 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC20GroupDeletionContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC20GroupDeletionContextVy_10Foundation4DataVGtMR) + 48);
-  v11 = (a3 + *a3);
-  v8 = a3[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+  v10 = (a3 + *a3);
+  v8 = swift_task_alloc();
+  *(v3 + 16) = v8;
+  *v8 = v3;
+  v8[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
 
-  return v11(a1, a2, a2 + v7);
+  return v10(a1, a2, a2 + v7);
 }
 
-uint64_t MLSDaemon.group(uniqueClientIdentifier:identifier:context:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
+uint64_t MLSDaemon.group(uniqueClientIdentifier:identifier:context:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v7 = v6;
-  v11 = a2;
-  v12 = a1;
+  v9 = v8;
+  v13 = a2;
+  v14 = a1;
   outlined copy of Data._Representation(a1, a2);
-  v13 = Logger.logObject.getter();
-  v14 = static os_log_type_t.default.getter();
-  outlined consume of Data._Representation(v12, v11);
-  if (os_log_type_enabled(v13, v14))
+  v15 = Logger.logObject.getter();
+  v16 = static os_log_type_t.default.getter();
+  outlined consume of Data._Representation(v14, v13);
+  if (os_log_type_enabled(v15, v16))
   {
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
+    v17 = swift_slowAlloc();
+    v18 = swift_slowAlloc();
+    v35 = v18;
+    *v17 = 136315138;
+    v19 = Data.description.getter();
     v33 = v16;
-    *v15 = 136315138;
-    v17 = Data.description.getter();
-    v31 = v14;
-    v19 = v12;
-    v20 = v11;
-    v21 = a3;
-    v22 = v7;
-    v23 = a6;
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v18, &v33);
+    v21 = v14;
+    v22 = v13;
+    v23 = a3;
+    v24 = v9;
+    v25 = a6;
+    v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v20, &v35);
 
-    *(v15 + 4) = v24;
-    a6 = v23;
-    v7 = v22;
-    a3 = v21;
-    v11 = v20;
-    v12 = v19;
-    _os_log_impl(&dword_26524C000, v13, v31, "MLSDaemon group called { uniqueClientIdentifier: %s }", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v16);
-    MEMORY[0x2667577B0](v16, -1, -1);
-    MEMORY[0x2667577B0](v15, -1, -1);
+    *(v17 + 4) = v26;
+    a6 = v25;
+    v9 = v24;
+    a3 = v23;
+    v13 = v22;
+    v14 = v21;
+    _os_log_impl(&dword_26524C000, v15, v33, "MLSDaemon group called { uniqueClientIdentifier: %s }", v17, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v18);
+    MEMORY[0x2667577B0](v18, -1, -1);
+    MEMORY[0x2667577B0](v17, -1, -1);
   }
 
   type metadata accessor for MLS.GroupFetchError();
-  v25 = swift_allocObject();
-  v25[2] = v12;
-  v25[3] = v11;
-  v25[4] = a5;
-  v25[5] = a6;
-  v25[6] = v7;
-  v26 = swift_allocObject();
-  v26[2] = v7;
-  v26[3] = a3;
-  v26[4] = a4;
   v27 = swift_allocObject();
-  *(v27 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context:completion:);
-  *(v27 + 24) = v26;
-  v28 = v7;
-  outlined copy of Data._Representation(v12, v11);
-  v29 = v28;
+  v27[2] = v14;
+  v27[3] = v13;
+  v27[4] = a5;
+  v27[5] = a6;
+  v27[6] = v9;
+  v28 = swift_allocObject();
+  v28[2] = v9;
+  v28[3] = a3;
+  v28[4] = a4;
+  v29 = swift_allocObject();
+  *(v29 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context:completion:);
+  *(v29 + 24) = v28;
+  v30 = v9;
+  outlined copy of Data._Representation(v14, v13);
+  v31 = v30;
   outlined copy of Data._Representation(a5, a6);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC17GroupFetchContextVtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC17GroupFetchContextVtMR);
   type metadata accessor for MLS.Group();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupFetchError and conformance MLS.GroupFetchError, MEMORY[0x277D4CD18]);
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.Group and conformance MLS.Group, MEMORY[0x277D4D1E0]);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupFetchError and conformance MLS.GroupFetchError, MEMORY[0x277D4CD18], MEMORY[0x277D4CD10]);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.Group and conformance MLS.Group, MEMORY[0x277D4D1E0], MEMORY[0x277D4D1E8]);
   static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
 }
 
-uint64_t closure #1 in MLSDaemon.group(uniqueClientIdentifier:identifier:context:completion:)@<X0>(uint64_t a1@<X2>, char *a2@<X3>, uint64_t a3@<X4>, uint64_t a4@<X8>)
+uint64_t closure #1 in MLSDaemon.group(uniqueClientIdentifier:identifier:context:completion:)@<X0>(uint64_t a3@<X2>, char *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v51 = a3;
-  v52 = a4;
-  v55 = a1;
-  v56 = a2;
+  v50 = a5;
+  v51 = a6;
+  v54 = a3;
+  v55 = a4;
   Context = type metadata accessor for MLS.GroupFetchContext();
-  v53 = *(Context - 8);
-  v4 = *(v53 + 64);
-  v5 = MEMORY[0x28223BE20](Context);
-  v7 = &v49 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v49 - v8;
-  v10 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v54 = *(v10 - 8);
-  v11 = *(v54 + 64);
-  v12 = MEMORY[0x28223BE20](v10);
-  v14 = &v49 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v49 - v15;
-  v17 = type metadata accessor for JSONDecoder();
-  v18 = *(v17 + 48);
-  v19 = *(v17 + 52);
+  v52 = *(Context - 8);
+  v7 = MEMORY[0x28223BE20](Context, v6);
+  v9 = &v48 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7, v10);
+  v12 = &v48 - v11;
+  v13 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v53 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13, v14);
+  v17 = &v48 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15, v18);
+  v20 = &v48 - v19;
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-  v20 = v58;
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D020]);
+  v21 = v57;
   dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-  if (!v20)
+  if (!v21)
   {
-    v58 = v7;
-    v22 = v54;
-    v23 = *(v17 + 48);
-    v24 = *(v17 + 52);
+    v57 = v9;
+    v23 = v53;
     swift_allocObject();
     JSONDecoder.init()();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupFetchContext and conformance MLS.GroupFetchContext, MEMORY[0x277D4CDB8]);
-    v25 = Context;
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupFetchContext and conformance MLS.GroupFetchContext, MEMORY[0x277D4CDB8], MEMORY[0x277D4CDC0]);
+    v24 = Context;
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-    v26 = v53;
-    v27 = *(v53 + 16);
-    v56 = v9;
-    v27(v58, v9, v25);
-    v28 = v16;
-    (*(v22 + 16))(v14, v16, v10);
-    v29 = Logger.logObject.getter();
-    v30 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v29, v30))
+    v25 = v52;
+    v26 = *(v52 + 16);
+    v55 = v12;
+    v26(v57, v12, v24);
+    v27 = v20;
+    (*(v23 + 16))(v17, v20, v13);
+    v28 = Logger.logObject.getter();
+    v29 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v28, v29))
     {
-      v31 = swift_slowAlloc();
-      v55 = swift_slowAlloc();
-      v59 = v55;
-      *v31 = 136315394;
-      LODWORD(v51) = v30;
-      v32 = v58;
-      v33 = MLS.GroupFetchContext.identifier.getter();
-      v50 = v29;
-      v34 = v28;
-      v35 = v33;
-      v37 = v36;
-      (*(v53 + 8))(v32, Context);
-      v38 = v35;
-      v28 = v34;
-      v39 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v38, v37, &v59);
+      v30 = swift_slowAlloc();
+      v54 = swift_slowAlloc();
+      v58 = v54;
+      *v30 = 136315394;
+      LODWORD(v50) = v29;
+      v31 = v57;
+      v32 = MLS.GroupFetchContext.identifier.getter();
+      v49 = v28;
+      v33 = v27;
+      v34 = v32;
+      v36 = v35;
+      (*(v52 + 8))(v31, Context);
+      v37 = v34;
+      v27 = v33;
+      v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v37, v36, &v58);
 
-      *(v31 + 4) = v39;
-      *(v31 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v40 = dispatch thunk of CustomStringConvertible.description.getter();
-      v42 = v41;
-      (*(v22 + 8))(v14, v10);
-      v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v42, &v59);
-      v25 = Context;
+      *(v30 + 4) = v38;
+      *(v30 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v39 = dispatch thunk of CustomStringConvertible.description.getter();
+      v41 = v40;
+      (*(v23 + 8))(v17, v13);
+      v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v39, v41, &v58);
+      v24 = Context;
 
-      *(v31 + 14) = v43;
-      v44 = v50;
-      _os_log_impl(&dword_26524C000, v50, v51, "MLSDaemon group decoded { identifier: %s, uniqueClientIdentifier: %s }", v31, 0x16u);
-      v45 = v55;
+      *(v30 + 14) = v42;
+      v43 = v49;
+      _os_log_impl(&dword_26524C000, v49, v50, "MLSDaemon group decoded { identifier: %s, uniqueClientIdentifier: %s }", v30, 0x16u);
+      v44 = v54;
       swift_arrayDestroy();
+      MEMORY[0x2667577B0](v44, -1, -1);
+      v45 = v30;
+      v25 = v52;
       MEMORY[0x2667577B0](v45, -1, -1);
-      v46 = v31;
-      v26 = v53;
-      MEMORY[0x2667577B0](v46, -1, -1);
     }
 
     else
     {
 
-      (*(v22 + 8))(v14, v10);
-      (*(v26 + 8))(v58, v25);
+      (*(v23 + 8))(v17, v13);
+      (*(v25 + 8))(v57, v24);
     }
 
-    v47 = v52;
-    v48 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC17GroupFetchContextVtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC17GroupFetchContextVtMR) + 48);
-    (*(v22 + 32))(v47, v28, v10);
-    return (*(v26 + 32))(v47 + v48, v56, v25);
+    v46 = v51;
+    v47 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC17GroupFetchContextVtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC17GroupFetchContextVtMR) + 48);
+    (*(v23 + 32))(v46, v27, v13);
+    return (*(v25 + 32))(v46 + v47, v55, v24);
   }
 
   return result;
@@ -6163,22 +569,16 @@ uint64_t closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context
   v6[3] = a2;
   v7 = type metadata accessor for XPCUtils.XPCError.ErrorType();
   v6[8] = v7;
-  v8 = *(v7 - 8);
-  v6[9] = v8;
-  v9 = *(v8 + 64) + 15;
+  v6[9] = *(v7 - 8);
   v6[10] = swift_task_alloc();
-  v10 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v6[11] = v10;
-  v11 = *(v10 - 8);
-  v6[12] = v11;
-  v12 = *(v11 + 64) + 15;
+  v8 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v6[11] = v8;
+  v6[12] = *(v8 - 8);
   v6[13] = swift_task_alloc();
   v6[14] = swift_task_alloc();
   Context = type metadata accessor for MLS.GroupFetchContext();
   v6[15] = Context;
-  v14 = *(Context - 8);
-  v6[16] = v14;
-  v15 = *(v14 + 64) + 15;
+  v6[16] = *(Context - 8);
   v6[17] = swift_task_alloc();
   v6[18] = swift_task_alloc();
 
@@ -6194,36 +594,32 @@ uint64_t closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context
   v0[21] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
   type metadata accessor for MLSActor();
   v0[22] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
   v4 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context:completion:), v4, v3);
 }
 
 {
-  v2 = v0[21];
-  v1 = v0[22];
-  v3 = v0[19];
-  v4 = v0[20];
+  v1 = *(v0 + 160);
 
-  v0[23] = v4(v5);
+  *(v0 + 184) = v1(v2);
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context:completion:), 0, 0);
 }
 
 {
-  v79 = v0;
+  v71 = v0;
   if (*(v0[23] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[3]), (v2 & 1) != 0))
   {
     v3 = v0[15];
     v4 = v0[16];
     v5 = v0[12];
     log = v0[11];
-    v69 = v0[14];
+    v63 = v0[14];
     v6 = v0[4];
-    v72 = v0[5];
-    v65 = v0[18];
-    v66 = v0[3];
+    v59 = v0[18];
+    v60 = v0[3];
     v7 = (*(v0[23] + 56) + 48 * v1);
     v0[24] = *v7;
     v0[25] = v7[1];
@@ -6234,8 +630,8 @@ uint64_t closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context
 
     swift_unknownObjectRetain();
 
-    (*(v4 + 16))(v65, v6, v3);
-    (*(v5 + 16))(v69, v66, log);
+    (*(v4 + 16))(v59, v6, v3);
+    (*(v5 + 16))(v63, v60, log);
     v8 = Logger.logObject.getter();
     v9 = static os_log_type_t.default.getter();
     v10 = os_log_type_enabled(v8, v9);
@@ -6247,29 +643,29 @@ uint64_t closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context
     v15 = v0[12];
     if (v10)
     {
-      v70 = v9;
+      v64 = v9;
       v17 = swift_slowAlloc();
-      v73 = swift_slowAlloc();
-      v78[0] = v73;
+      v66 = swift_slowAlloc();
+      v70[0] = v66;
       *v17 = 136315394;
       loga = v8;
       v18 = MLS.GroupFetchContext.identifier.getter();
       v20 = v19;
       (*(v12 + 8))(v11, v13);
-      v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, v78);
+      v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, v70);
 
       *(v17 + 4) = v21;
       *(v17 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v22 = dispatch thunk of CustomStringConvertible.description.getter();
       v24 = v23;
       (*(v15 + 8))(v14, v16);
-      v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v24, v78);
+      v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v24, v70);
 
       *(v17 + 14) = v25;
-      _os_log_impl(&dword_26524C000, loga, v70, "MLSDaemon group calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v17, 0x16u);
+      _os_log_impl(&dword_26524C000, loga, v64, "MLSDaemon group calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v17, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v73, -1, -1);
+      MEMORY[0x2667577B0](v66, -1, -1);
       MEMORY[0x2667577B0](v17, -1, -1);
     }
 
@@ -6280,18 +676,17 @@ uint64_t closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context
       (*(v12 + 8))(v11, v13);
     }
 
-    v59 = *(MEMORY[0x277D4D0E0] + 4);
-    v75 = (*MEMORY[0x277D4D0E0] + MEMORY[0x277D4D0E0]);
-    v60 = swift_task_alloc();
-    v0[29] = v60;
-    *v60 = v0;
-    v60[1] = closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context:completion:);
-    v61 = v0[6];
-    v62 = v0[7];
-    v63 = v0[4];
-    v64 = v0[2];
+    v68 = (*MEMORY[0x277D4D0E0] + MEMORY[0x277D4D0E0]);
+    v54 = swift_task_alloc();
+    v0[29] = v54;
+    *v54 = v0;
+    v54[1] = closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context:completion:);
+    v55 = v0[6];
+    v56 = v0[7];
+    v57 = v0[4];
+    v58 = v0[2];
 
-    return (v75)(v64, v61, v62, v63);
+    return (v68)(v58, v55, v56, v57);
   }
 
   else
@@ -6303,7 +698,6 @@ uint64_t closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context
     v29 = v0[13];
     v31 = v0[11];
     v32 = v0[4];
-    v76 = v0[5];
     v33 = v0[3];
 
     (*(v27 + 16))(v26, v32, v28);
@@ -6319,29 +713,29 @@ uint64_t closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context
     v42 = v0[11];
     if (v36)
     {
-      v74 = v34;
+      v67 = v34;
       v43 = swift_slowAlloc();
-      v77 = swift_slowAlloc();
-      v78[0] = v77;
+      v69 = swift_slowAlloc();
+      v70[0] = v69;
       *v43 = 136315394;
       v44 = MLS.GroupFetchContext.identifier.getter();
-      v71 = v35;
+      v65 = v35;
       v46 = v45;
       (*(v37 + 8))(v38, v39);
-      v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v44, v46, v78);
+      v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v44, v46, v70);
 
       *(v43 + 4) = v47;
       *(v43 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v48 = dispatch thunk of CustomStringConvertible.description.getter();
       v50 = v49;
       (*(v40 + 8))(v41, v42);
-      v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v50, v78);
+      v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v50, v70);
 
       *(v43 + 14) = v51;
-      _os_log_impl(&dword_26524C000, v74, v71, "MLSDaemon group has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v43, 0x16u);
+      _os_log_impl(&dword_26524C000, v67, v65, "MLSDaemon group has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v43, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v77, -1, -1);
+      MEMORY[0x2667577B0](v69, -1, -1);
       MEMORY[0x2667577B0](v43, -1, -1);
     }
 
@@ -6354,95 +748,69 @@ uint64_t closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context
 
     (*(v0[9] + 104))(v0[10], *MEMORY[0x277D4D2B0], v0[8]);
     type metadata accessor for XPCUtils.XPCError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0]);
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0], MEMORY[0x277D4D2C8]);
     swift_allocError();
     XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
     swift_willThrow();
-    v53 = v0[17];
-    v52 = v0[18];
-    v55 = v0[13];
-    v54 = v0[14];
-    v56 = v0[10];
 
-    v57 = v0[1];
+    v52 = v0[1];
 
-    return v57();
+    return v52();
   }
 }
 
 {
-  v2 = *(*v1 + 232);
-  v5 = *v1;
   *(*v1 + 240) = v0;
 
   if (v0)
   {
-    v3 = closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context:completion:);
+    v2 = closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context:completion:);
   }
 
   else
   {
-    v3 = closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context:completion:);
+    v2 = closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context:completion:);
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
+}
+
+uint64_t closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context:completion:)(uint64_t a1, const char *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
+{
+  v9 = *(v8 + 224);
+  swift_unknownObjectRelease(*(v8 + 192), a2, a3, a4, a5, a6, a7, a8);
+
+  swift_unknownObjectRelease(v9, v10, v11, v12, v13, v14, v15, v16);
+
+  v17 = *(v8 + 8);
+
+  return v17();
 }
 
 {
-  v1 = v0[27];
-  v2 = v0[28];
-  v4 = v0[25];
-  v3 = v0[26];
-  v5 = v0[24];
-  v7 = v0[17];
-  v6 = v0[18];
-  v9 = v0[13];
-  v8 = v0[14];
-  v10 = v0[10];
-  swift_unknownObjectRelease();
+  v9 = *(v8 + 224);
+  swift_unknownObjectRelease(*(v8 + 192), a2, a3, a4, a5, a6, a7, a8);
 
-  swift_unknownObjectRelease();
+  swift_unknownObjectRelease(v9, v10, v11, v12, v13, v14, v15, v16);
 
-  v11 = v0[1];
+  v17 = *(v8 + 8);
 
-  return v11();
-}
-
-{
-  v1 = v0[27];
-  v2 = v0[28];
-  v4 = v0[25];
-  v3 = v0[26];
-  v5 = v0[24];
-  swift_unknownObjectRelease();
-
-  swift_unknownObjectRelease();
-  v6 = v0[30];
-  v8 = v0[17];
-  v7 = v0[18];
-  v10 = v0[13];
-  v9 = v0[14];
-  v11 = v0[10];
-
-  v12 = v0[1];
-
-  return v12();
+  return v17();
 }
 
 uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupFetchContext) -> (@out MLS.Group, @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
 {
   v7 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC17GroupFetchContextVtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC17GroupFetchContextVtMR) + 48);
-  v11 = (a3 + *a3);
-  v8 = a3[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+  v10 = (a3 + *a3);
+  v8 = swift_task_alloc();
+  *(v3 + 16) = v8;
+  *v8 = v3;
+  v8[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
 
-  return v11(a1, a2, a2 + v7);
+  return v10(a1, a2, a2 + v7);
 }
 
-void @objc MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:)(void *a1, int a2, void *a3, void *a4, void *a5, void *aBlock, int a7, uint64_t a8, void (*a9)(uint64_t, unint64_t, uint64_t, uint64_t, uint64_t, unint64_t, uint64_t, uint64_t))
+void @objc MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:)(void *a1, int a2, void *a3, void *a4, void *a5, void *aBlock, uint64_t a7, uint64_t a8, void (*a9)(uint64_t, unint64_t, uint64_t, uint64_t, uint64_t, unint64_t, uint64_t, uint64_t))
 {
   v13 = _Block_copy(aBlock);
   v14 = a3;
@@ -6467,157 +835,151 @@ void @objc MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:co
   outlined consume of Data._Representation(v17, v19);
 }
 
-uint64_t MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   outlined copy of Data._Representation(a1, a2);
-  v26 = v6;
-  v12 = Logger.logObject.getter();
-  v13 = static os_log_type_t.default.getter();
+  v28 = v8;
+  v14 = Logger.logObject.getter();
+  v15 = static os_log_type_t.default.getter();
   outlined consume of Data._Representation(a1, a2);
-  if (os_log_type_enabled(v12, v13))
+  if (os_log_type_enabled(v14, v15))
   {
-    v14 = swift_slowAlloc();
-    v15 = swift_slowAlloc();
-    v28 = v15;
-    *v14 = 136315138;
-    v16 = Data.description.getter();
-    v18 = a5;
-    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v16, v17, &v28);
+    v16 = swift_slowAlloc();
+    v17 = swift_slowAlloc();
+    v30 = v17;
+    *v16 = 136315138;
+    v18 = Data.description.getter();
+    v20 = a5;
+    v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v19, &v30);
 
-    *(v14 + 4) = v19;
-    a5 = v18;
-    _os_log_impl(&dword_26524C000, v12, v13, "MLSDaemon updateGroupDetails called { uniqueClientIdentifier: %s }", v14, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v15);
-    MEMORY[0x2667577B0](v15, -1, -1);
-    MEMORY[0x2667577B0](v14, -1, -1);
+    *(v16 + 4) = v21;
+    a5 = v20;
+    _os_log_impl(&dword_26524C000, v14, v15, "MLSDaemon updateGroupDetails called { uniqueClientIdentifier: %s }", v16, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v17);
+    MEMORY[0x2667577B0](v17, -1, -1);
+    MEMORY[0x2667577B0](v16, -1, -1);
   }
 
   type metadata accessor for MLS.GroupUpdateError();
-  v20 = swift_allocObject();
-  v20[2] = a1;
-  v20[3] = a2;
-  v20[4] = a3;
-  v20[5] = a4;
-  v20[6] = v26;
-  v20[7] = a5;
-  v20[8] = a6;
-  v21 = swift_allocObject();
-  v21[2] = v26;
-  v21[3] = a5;
-  v21[4] = a6;
   v22 = swift_allocObject();
-  *(v22 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:);
-  *(v22 + 24) = v21;
-  v23 = v26;
+  v22[2] = a1;
+  v22[3] = a2;
+  v22[4] = a3;
+  v22[5] = a4;
+  v22[6] = v28;
+  v22[7] = a5;
+  v22[8] = a6;
+  v23 = swift_allocObject();
+  v23[2] = v28;
+  v23[3] = a5;
+  v23[4] = a6;
+  v24 = swift_allocObject();
+  *(v24 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:);
+  *(v24 + 24) = v23;
+  v25 = v28;
 
   outlined copy of Data._Representation(a1, a2);
-  v24 = v23;
+  v26 = v25;
 
   outlined copy of Data._Representation(a3, a4);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC12GroupDetailsVtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC12GroupDetailsVtMR);
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupUpdateError and conformance MLS.GroupUpdateError, MEMORY[0x277D4CD90]);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupUpdateError and conformance MLS.GroupUpdateError, MEMORY[0x277D4CD90], MEMORY[0x277D4CD88]);
   static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
 }
 
-uint64_t closure #1 in MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:)@<X0>(uint64_t a1@<X2>, unint64_t a2@<X3>, uint64_t a3@<X4>, uint64_t a4@<X5>, unint64_t a5@<X6>, uint64_t a6@<X8>)
+uint64_t closure #1 in MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:)@<X0>(uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
 {
-  v58 = a2;
-  v56 = a5;
-  v57 = a1;
-  v51 = a4;
-  v52 = a3;
-  v53 = a6;
-  v6 = type metadata accessor for MLS.GroupDetails();
-  v54 = *(v6 - 8);
-  v7 = *(v54 + 64);
-  MEMORY[0x28223BE20](v6);
-  v9 = &v48 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v55 = *(v10 - 8);
-  v11 = *(v55 + 64);
-  v12 = MEMORY[0x28223BE20](v10);
-  v14 = &v48 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v48 - v15;
-  v17 = type metadata accessor for JSONDecoder();
-  v18 = *(v17 + 48);
-  v19 = *(v17 + 52);
+  v56 = a4;
+  v54 = a7;
+  v55 = a3;
+  v49 = a6;
+  v50 = a5;
+  v51 = a8;
+  v8 = type metadata accessor for MLS.GroupDetails();
+  v52 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8, v9);
+  v11 = &v46 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v53 = *(v12 - 8);
+  v14 = MEMORY[0x28223BE20](v12, v13);
+  v16 = &v46 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14, v17);
+  v19 = &v46 - v18;
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-  v20 = v59;
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D020]);
+  v20 = v57;
   dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
   if (!v20)
   {
-    v59 = v16;
-    v22 = v55;
-    v23 = v56;
-    v24 = *(v17 + 48);
-    v25 = *(v17 + 52);
+    v57 = v19;
+    v22 = v53;
+    v23 = v54;
     swift_allocObject();
     JSONDecoder.init()();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupDetails and conformance MLS.GroupDetails, MEMORY[0x277D4CC68]);
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupDetails and conformance MLS.GroupDetails, MEMORY[0x277D4CC68], MEMORY[0x277D4CC70]);
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-    v49 = v9;
-    v50 = v6;
+    v47 = v11;
+    v48 = v8;
 
-    v26 = v22;
-    v27 = *(v22 + 16);
-    v28 = v14;
-    v48 = v10;
-    v27(v14, v59, v10);
+    v24 = v22;
+    v25 = *(v22 + 16);
+    v26 = v16;
+    v46 = v12;
+    v25(v16, v57, v12);
 
-    v30 = v57;
-    v29 = v58;
-    outlined copy of Data._Representation(v57, v58);
-    v31 = v23;
-    v32 = Logger.logObject.getter();
-    v33 = static os_log_type_t.default.getter();
+    v28 = v55;
+    v27 = v56;
+    outlined copy of Data._Representation(v55, v56);
+    v29 = v23;
+    v30 = Logger.logObject.getter();
+    v31 = static os_log_type_t.default.getter();
 
-    outlined consume of Data._Representation(v30, v29);
-    if (os_log_type_enabled(v32, v33))
+    outlined consume of Data._Representation(v28, v27);
+    if (os_log_type_enabled(v30, v31))
     {
-      v34 = swift_slowAlloc();
-      v52 = swift_slowAlloc();
-      v60 = v52;
-      *v34 = 136315650;
-      *(v34 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v31, &v60);
-      *(v34 + 12) = 2080;
-      v35 = Data.description.getter();
-      v37 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35, v36, &v60);
+      v32 = swift_slowAlloc();
+      v50 = swift_slowAlloc();
+      v58 = v50;
+      *v32 = 136315650;
+      *(v32 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49, v29, &v58);
+      *(v32 + 12) = 2080;
+      v33 = Data.description.getter();
+      v35 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33, v34, &v58);
 
-      *(v34 + 14) = v37;
-      *(v34 + 22) = 2080;
-      v26 = v22;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v38 = v48;
-      v39 = dispatch thunk of CustomStringConvertible.description.getter();
-      v41 = v40;
-      (*(v26 + 8))(v28, v38);
-      v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v39, v41, &v60);
+      *(v32 + 14) = v35;
+      *(v32 + 22) = 2080;
+      v24 = v22;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v36 = v46;
+      v37 = dispatch thunk of CustomStringConvertible.description.getter();
+      v39 = v38;
+      (*(v24 + 8))(v26, v36);
+      v40 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v37, v39, &v58);
 
-      *(v34 + 24) = v42;
-      _os_log_impl(&dword_26524C000, v32, v33, "MLSDaemon updateGroupDetails decoded { group: %s, groupDetails: %s, uniqueClientIdentifier: %s }", v34, 0x20u);
-      v43 = v52;
+      *(v32 + 24) = v40;
+      _os_log_impl(&dword_26524C000, v30, v31, "MLSDaemon updateGroupDetails decoded { group: %s, groupDetails: %s, uniqueClientIdentifier: %s }", v32, 0x20u);
+      v41 = v50;
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v43, -1, -1);
-      MEMORY[0x2667577B0](v34, -1, -1);
+      MEMORY[0x2667577B0](v41, -1, -1);
+      MEMORY[0x2667577B0](v32, -1, -1);
     }
 
     else
     {
 
-      v44 = *(v22 + 8);
-      v38 = v48;
-      v44(v28, v48);
+      v42 = *(v22 + 8);
+      v36 = v46;
+      v42(v26, v46);
     }
 
-    v45 = v53;
-    v46 = v54;
-    v47 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC12GroupDetailsVtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC12GroupDetailsVtMR) + 48);
-    (*(v26 + 32))(v45, v59, v38);
-    return (*(v46 + 32))(v45 + v47, v49, v50);
+    v43 = v51;
+    v44 = v52;
+    v45 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC12GroupDetailsVtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC12GroupDetailsVtMR) + 48);
+    (*(v24 + 32))(v43, v57, v36);
+    return (*(v44 + 32))(v43 + v45, v47, v48);
   }
 
   return result;
@@ -6632,15 +994,11 @@ uint64_t closure #2 in MLSDaemon.update(uniqueClientIdentifier:groupDetails:forG
   v5[2] = a1;
   v6 = type metadata accessor for XPCUtils.XPCError.ErrorType();
   v5[7] = v6;
-  v7 = *(v6 - 8);
-  v5[8] = v7;
-  v8 = *(v7 + 64) + 15;
+  v5[8] = *(v6 - 8);
   v5[9] = swift_task_alloc();
-  v9 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v5[10] = v9;
-  v10 = *(v9 - 8);
-  v5[11] = v10;
-  v11 = *(v10 + 64) + 15;
+  v7 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v5[10] = v7;
+  v5[11] = *(v7 - 8);
   v5[12] = swift_task_alloc();
   v5[13] = swift_task_alloc();
 
@@ -6656,386 +1014,352 @@ uint64_t closure #2 in MLSDaemon.update(uniqueClientIdentifier:groupDetails:forG
   v0[16] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
   type metadata accessor for MLSActor();
   v0[17] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
   v4 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:), v4, v3);
 }
 
 {
-  v2 = v0[16];
-  v1 = v0[17];
-  v3 = v0[14];
-  v4 = v0[15];
+  v1 = *(v0 + 120);
 
-  v0[18] = v4(v5);
+  *(v0 + 144) = v1(v2);
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:), 0, 0);
 }
 
 {
-  v56 = v0;
+  v48 = v0;
   if (*(v0[18] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[2]), (v2 & 1) != 0))
   {
     v4 = v0[10];
     v3 = v0[11];
-    v5 = v0[6];
-    v52 = v0[13];
-    v53 = v0[4];
-    v6 = v0[2];
-    v7 = (*(v0[18] + 56) + 48 * v1);
-    v0[19] = *v7;
-    v0[20] = v7[1];
-    v0[21] = v7[2];
-    v0[22] = v7[3];
-    v0[23] = v7[4];
+    v45 = v0[13];
+    v5 = v0[2];
+    v6 = (*(v0[18] + 56) + 48 * v1);
+    v0[19] = *v6;
+    v0[20] = v6[1];
+    v0[21] = v6[2];
+    v0[22] = v6[3];
+    v0[23] = v6[4];
     swift_unknownObjectRetain();
 
     swift_unknownObjectRetain();
 
-    (*(v3 + 16))(v52, v6, v4);
+    (*(v3 + 16))(v45, v5, v4);
 
-    v8 = Logger.logObject.getter();
-    v9 = static os_log_type_t.default.getter();
+    v7 = Logger.logObject.getter();
+    v8 = static os_log_type_t.default.getter();
 
-    v10 = os_log_type_enabled(v8, v9);
-    v11 = v0[13];
-    v13 = v0[10];
-    v12 = v0[11];
-    if (v10)
+    v9 = os_log_type_enabled(v7, v8);
+    v10 = v0[13];
+    v12 = v0[10];
+    v11 = v0[11];
+    if (v9)
     {
-      v15 = v0[5];
-      v14 = v0[6];
+      v14 = v0[5];
+      v13 = v0[6];
+      v15 = swift_slowAlloc();
       v16 = swift_slowAlloc();
-      v17 = swift_slowAlloc();
-      v55[0] = v17;
-      *v16 = 136315394;
-      *(v16 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v14, v55);
-      *(v16 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v18 = dispatch thunk of CustomStringConvertible.description.getter();
-      v20 = v19;
-      (*(v12 + 8))(v11, v13);
-      v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, v55);
+      v47[0] = v16;
+      *v15 = 136315394;
+      *(v15 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v13, v47);
+      *(v15 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v17 = dispatch thunk of CustomStringConvertible.description.getter();
+      v19 = v18;
+      (*(v11 + 8))(v10, v12);
+      v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v19, v47);
 
-      *(v16 + 14) = v21;
-      _os_log_impl(&dword_26524C000, v8, v9, "MLSDaemon updateGroupDetails calling SwiftMLS { group: %s, uniqueClientIdentifier: %s }", v16, 0x16u);
+      *(v15 + 14) = v20;
+      _os_log_impl(&dword_26524C000, v7, v8, "MLSDaemon updateGroupDetails calling SwiftMLS { group: %s, uniqueClientIdentifier: %s }", v15, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v17, -1, -1);
       MEMORY[0x2667577B0](v16, -1, -1);
+      MEMORY[0x2667577B0](v15, -1, -1);
     }
 
     else
     {
 
-      (*(v12 + 8))(v11, v13);
+      (*(v11 + 8))(v10, v12);
     }
 
-    v47 = *(MEMORY[0x277D4D0F8] + 4);
-    v54 = (*MEMORY[0x277D4D0F8] + MEMORY[0x277D4D0F8]);
-    v48 = swift_task_alloc();
-    v0[24] = v48;
-    *v48 = v0;
-    v48[1] = closure #2 in MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:);
-    v49 = v0[5];
-    v50 = v0[6];
-    v51 = v0[3];
+    v46 = (*MEMORY[0x277D4D0F8] + MEMORY[0x277D4D0F8]);
+    v41 = swift_task_alloc();
+    v0[24] = v41;
+    *v41 = v0;
+    v41[1] = closure #2 in MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:);
+    v42 = v0[5];
+    v43 = v0[6];
+    v44 = v0[3];
 
-    return v54(v51, v49, v50);
+    return v46(v44, v42, v43);
   }
 
   else
   {
-    v23 = v0[11];
-    v22 = v0[12];
-    v24 = v0[10];
-    v25 = v0[6];
-    v26 = v0[4];
-    v27 = v0[2];
+    v22 = v0[11];
+    v21 = v0[12];
+    v23 = v0[10];
+    v24 = v0[2];
 
-    (*(v23 + 16))(v22, v27, v24);
+    (*(v22 + 16))(v21, v24, v23);
 
-    v28 = Logger.logObject.getter();
-    v29 = static os_log_type_t.error.getter();
+    v25 = Logger.logObject.getter();
+    v26 = static os_log_type_t.error.getter();
 
-    v30 = os_log_type_enabled(v28, v29);
-    v32 = v0[11];
-    v31 = v0[12];
-    v33 = v0[10];
-    if (v30)
+    v27 = os_log_type_enabled(v25, v26);
+    v29 = v0[11];
+    v28 = v0[12];
+    v30 = v0[10];
+    if (v27)
     {
-      v35 = v0[5];
-      v34 = v0[6];
-      v36 = swift_slowAlloc();
-      v37 = swift_slowAlloc();
-      v55[0] = v37;
-      *v36 = 136315394;
-      *(v36 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35, v34, v55);
-      *(v36 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v38 = dispatch thunk of CustomStringConvertible.description.getter();
-      v40 = v39;
-      (*(v32 + 8))(v31, v33);
-      v41 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v38, v40, v55);
+      v32 = v0[5];
+      v31 = v0[6];
+      v33 = swift_slowAlloc();
+      v34 = swift_slowAlloc();
+      v47[0] = v34;
+      *v33 = 136315394;
+      *(v33 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v32, v31, v47);
+      *(v33 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v35 = dispatch thunk of CustomStringConvertible.description.getter();
+      v37 = v36;
+      (*(v29 + 8))(v28, v30);
+      v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35, v37, v47);
 
-      *(v36 + 14) = v41;
-      _os_log_impl(&dword_26524C000, v28, v29, "MLSDaemon updateGroupDetails has no clientXPCProxy { group: %s, uniqueClientIdentifier: %s }", v36, 0x16u);
+      *(v33 + 14) = v38;
+      _os_log_impl(&dword_26524C000, v25, v26, "MLSDaemon updateGroupDetails has no clientXPCProxy { group: %s, uniqueClientIdentifier: %s }", v33, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v37, -1, -1);
-      MEMORY[0x2667577B0](v36, -1, -1);
+      MEMORY[0x2667577B0](v34, -1, -1);
+      MEMORY[0x2667577B0](v33, -1, -1);
     }
 
     else
     {
 
-      (*(v32 + 8))(v31, v33);
+      (*(v29 + 8))(v28, v30);
     }
 
     (*(v0[8] + 104))(v0[9], *MEMORY[0x277D4D2B0], v0[7]);
     type metadata accessor for XPCUtils.XPCError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0]);
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0], MEMORY[0x277D4D2C8]);
     swift_allocError();
     XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
     swift_willThrow();
-    v43 = v0[12];
-    v42 = v0[13];
-    v44 = v0[9];
 
-    v45 = v0[1];
+    v39 = v0[1];
 
-    return v45(0);
+    return v39(0);
   }
 }
 
 {
-  v2 = *(*v1 + 192);
-  v5 = *v1;
   *(*v1 + 200) = v0;
 
   if (v0)
   {
-    v3 = closure #2 in MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:);
+    v2 = closure #2 in MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:);
   }
 
   else
   {
-    v3 = closure #2 in MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:);
+    v2 = closure #2 in MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:);
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
+}
+
+uint64_t closure #2 in MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:)(uint64_t a1, const char *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
+{
+  v9 = *(v8 + 184);
+  swift_unknownObjectRelease(*(v8 + 152), a2, a3, a4, a5, a6, a7, a8);
+
+  swift_unknownObjectRelease(v9, v10, v11, v12, v13, v14, v15, v16);
+
+  v17 = *(v8 + 8);
+
+  return v17(1);
 }
 
 {
-  v1 = v0[22];
-  v2 = v0[23];
-  v4 = v0[20];
-  v3 = v0[21];
-  v5 = v0[19];
-  v7 = v0[12];
-  v6 = v0[13];
-  v8 = v0[9];
-  swift_unknownObjectRelease();
+  v9 = *(v8 + 184);
+  swift_unknownObjectRelease(*(v8 + 152), a2, a3, a4, a5, a6, a7, a8);
 
-  swift_unknownObjectRelease();
+  swift_unknownObjectRelease(v9, v10, v11, v12, v13, v14, v15, v16);
 
-  v9 = v0[1];
+  v17 = *(v8 + 8);
 
-  return v9(1);
-}
-
-{
-  v1 = v0[22];
-  v2 = v0[23];
-  v4 = v0[20];
-  v3 = v0[21];
-  v5 = v0[19];
-  swift_unknownObjectRelease();
-
-  swift_unknownObjectRelease();
-  v6 = v0[25];
-  v8 = v0[12];
-  v7 = v0[13];
-  v9 = v0[9];
-
-  v10 = v0[1];
-
-  return v10(0);
+  return v17(0);
 }
 
 uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupDetails) -> (@unowned Bool, @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
 {
   *(v3 + 16) = a1;
   v6 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC12GroupDetailsVtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC12GroupDetailsVtMR) + 48);
-  v10 = (a3 + *a3);
-  v7 = a3[1];
-  v8 = swift_task_alloc();
-  *(v3 + 24) = v8;
-  *v8 = v3;
-  v8[1] = thunk for @escaping @callee_guaranteed @Sendable @async (@guaranteed String, @guaranteed String, @in_guaranteed KDSRegistration.URISupportedState, @in_guaranteed KDSRegistration.UniqueClientIdentifier) -> (@unowned Bool, @error @owned Error);
+  v9 = (a3 + *a3);
+  v7 = swift_task_alloc();
+  *(v3 + 24) = v7;
+  *v7 = v3;
+  v7[1] = thunk for @escaping @callee_guaranteed @Sendable @async (@guaranteed String, @guaranteed String, @in_guaranteed KDSRegistration.URISupportedState, @in_guaranteed KDSRegistration.UniqueClientIdentifier) -> (@unowned Bool, @error @owned Error);
 
-  return v10(a2, a2 + v6);
+  return v9(a2, a2 + v6);
 }
 
-uint64_t MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
+uint64_t MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v7 = v6;
-  v11 = a2;
-  v12 = a1;
+  v9 = v8;
+  v13 = a2;
+  v14 = a1;
   outlined copy of Data._Representation(a1, a2);
-  v13 = Logger.logObject.getter();
-  v14 = static os_log_type_t.default.getter();
-  outlined consume of Data._Representation(v12, v11);
-  if (os_log_type_enabled(v13, v14))
+  v15 = Logger.logObject.getter();
+  v16 = static os_log_type_t.default.getter();
+  outlined consume of Data._Representation(v14, v13);
+  if (os_log_type_enabled(v15, v16))
   {
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
+    v17 = swift_slowAlloc();
+    v18 = swift_slowAlloc();
+    v35 = v18;
+    *v17 = 136315138;
+    v19 = Data.description.getter();
     v33 = v16;
-    *v15 = 136315138;
-    v17 = Data.description.getter();
-    v31 = v14;
-    v19 = v12;
-    v20 = v11;
-    v21 = a3;
-    v22 = v7;
-    v23 = a6;
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v18, &v33);
+    v21 = v14;
+    v22 = v13;
+    v23 = a3;
+    v24 = v9;
+    v25 = a6;
+    v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v20, &v35);
 
-    *(v15 + 4) = v24;
-    a6 = v23;
-    v7 = v22;
-    a3 = v21;
-    v11 = v20;
-    v12 = v19;
-    _os_log_impl(&dword_26524C000, v13, v31, "MLSDaemon members called { uniqueClientIdentifier: %s }", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v16);
-    MEMORY[0x2667577B0](v16, -1, -1);
-    MEMORY[0x2667577B0](v15, -1, -1);
+    *(v17 + 4) = v26;
+    a6 = v25;
+    v9 = v24;
+    a3 = v23;
+    v13 = v22;
+    v14 = v21;
+    _os_log_impl(&dword_26524C000, v15, v33, "MLSDaemon members called { uniqueClientIdentifier: %s }", v17, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v18);
+    MEMORY[0x2667577B0](v18, -1, -1);
+    MEMORY[0x2667577B0](v17, -1, -1);
   }
 
   type metadata accessor for MLS.GroupMembersError();
-  v25 = swift_allocObject();
-  v25[2] = v12;
-  v25[3] = v11;
-  v25[4] = a5;
-  v25[5] = a6;
-  v25[6] = v7;
-  v26 = swift_allocObject();
-  v26[2] = v7;
-  v26[3] = a3;
-  v26[4] = a4;
   v27 = swift_allocObject();
-  *(v27 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:);
-  *(v27 + 24) = v26;
-  v28 = v7;
-  outlined copy of Data._Representation(v12, v11);
-  v29 = v28;
+  v27[2] = v14;
+  v27[3] = v13;
+  v27[4] = a5;
+  v27[5] = a6;
+  v27[6] = v9;
+  v28 = swift_allocObject();
+  v28[2] = v9;
+  v28[3] = a3;
+  v28[4] = a4;
+  v29 = swift_allocObject();
+  *(v29 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:);
+  *(v29 + 24) = v28;
+  v30 = v9;
+  outlined copy of Data._Representation(v14, v13);
+  v31 = v30;
   outlined copy of Data._Representation(a5, a6);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC19GroupMembersContextVtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC19GroupMembersContextVtMR);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sShy15SecureMessaging3MLSO9AllMemberOGMd, &_sShy15SecureMessaging3MLSO9AllMemberOGMR);
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupMembersError and conformance MLS.GroupMembersError, MEMORY[0x277D4CDD0]);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupMembersError and conformance MLS.GroupMembersError, MEMORY[0x277D4CDD0], MEMORY[0x277D4CDC8]);
   lazy protocol witness table accessor for type Set<MLS.AllMember> and conformance <> Set<A>();
   static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
 }
 
-uint64_t closure #1 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:)@<X0>(uint64_t a1@<X2>, char *a2@<X3>, uint64_t a3@<X4>, uint64_t a4@<X8>)
+uint64_t closure #1 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:)@<X0>(uint64_t a3@<X2>, char *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v51 = a3;
-  v52 = a4;
-  v55 = a1;
-  v56 = a2;
-  v57 = type metadata accessor for MLS.GroupMembersContext();
-  v53 = *(v57 - 8);
-  v4 = *(v53 + 64);
-  v5 = MEMORY[0x28223BE20](v57);
-  v7 = &v49 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v49 - v8;
-  v10 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v54 = *(v10 - 8);
-  v11 = *(v54 + 64);
-  v12 = MEMORY[0x28223BE20](v10);
-  v14 = &v49 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v49 - v15;
-  v17 = type metadata accessor for JSONDecoder();
-  v18 = *(v17 + 48);
-  v19 = *(v17 + 52);
+  v50 = a5;
+  v51 = a6;
+  v54 = a3;
+  v55 = a4;
+  v56 = type metadata accessor for MLS.GroupMembersContext();
+  v52 = *(v56 - 8);
+  v7 = MEMORY[0x28223BE20](v56, v6);
+  v9 = &v48 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7, v10);
+  v12 = &v48 - v11;
+  v13 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v53 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13, v14);
+  v17 = &v48 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15, v18);
+  v20 = &v48 - v19;
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-  v20 = v58;
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D020]);
+  v21 = v57;
   dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-  if (!v20)
+  if (!v21)
   {
-    v58 = v7;
-    v22 = v54;
-    v23 = *(v17 + 48);
-    v24 = *(v17 + 52);
+    v57 = v9;
+    v23 = v53;
     swift_allocObject();
     JSONDecoder.init()();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupMembersContext and conformance MLS.GroupMembersContext, MEMORY[0x277D4CF50]);
-    v25 = v57;
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupMembersContext and conformance MLS.GroupMembersContext, MEMORY[0x277D4CF50], MEMORY[0x277D4CF58]);
+    v24 = v56;
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-    v26 = v53;
-    v27 = *(v53 + 16);
-    v56 = v9;
-    v27(v58, v9, v25);
-    v28 = v16;
-    (*(v22 + 16))(v14, v16, v10);
-    v29 = Logger.logObject.getter();
-    v30 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v29, v30))
+    v25 = v52;
+    v26 = *(v52 + 16);
+    v55 = v12;
+    v26(v57, v12, v24);
+    v27 = v20;
+    (*(v23 + 16))(v17, v20, v13);
+    v28 = Logger.logObject.getter();
+    v29 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v28, v29))
     {
-      v31 = swift_slowAlloc();
-      v55 = swift_slowAlloc();
-      v59 = v55;
-      *v31 = 136315394;
-      LODWORD(v51) = v30;
-      v32 = v58;
-      v33 = MLS.GroupMembersContext.identifier.getter();
-      v50 = v29;
-      v34 = v28;
-      v35 = v33;
-      v37 = v36;
-      (*(v53 + 8))(v32, v57);
-      v38 = v35;
-      v28 = v34;
-      v39 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v38, v37, &v59);
+      v30 = swift_slowAlloc();
+      v54 = swift_slowAlloc();
+      v58 = v54;
+      *v30 = 136315394;
+      LODWORD(v50) = v29;
+      v31 = v57;
+      v32 = MLS.GroupMembersContext.identifier.getter();
+      v49 = v28;
+      v33 = v27;
+      v34 = v32;
+      v36 = v35;
+      (*(v52 + 8))(v31, v56);
+      v37 = v34;
+      v27 = v33;
+      v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v37, v36, &v58);
 
-      *(v31 + 4) = v39;
-      *(v31 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v40 = dispatch thunk of CustomStringConvertible.description.getter();
-      v42 = v41;
-      (*(v22 + 8))(v14, v10);
-      v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v42, &v59);
-      v25 = v57;
+      *(v30 + 4) = v38;
+      *(v30 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v39 = dispatch thunk of CustomStringConvertible.description.getter();
+      v41 = v40;
+      (*(v23 + 8))(v17, v13);
+      v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v39, v41, &v58);
+      v24 = v56;
 
-      *(v31 + 14) = v43;
-      v44 = v50;
-      _os_log_impl(&dword_26524C000, v50, v51, "MLSDaemon members decoded { identifier: %s, uniqueClientIdentifier: %s }", v31, 0x16u);
-      v45 = v55;
+      *(v30 + 14) = v42;
+      v43 = v49;
+      _os_log_impl(&dword_26524C000, v49, v50, "MLSDaemon members decoded { identifier: %s, uniqueClientIdentifier: %s }", v30, 0x16u);
+      v44 = v54;
       swift_arrayDestroy();
+      MEMORY[0x2667577B0](v44, -1, -1);
+      v45 = v30;
+      v25 = v52;
       MEMORY[0x2667577B0](v45, -1, -1);
-      v46 = v31;
-      v26 = v53;
-      MEMORY[0x2667577B0](v46, -1, -1);
     }
 
     else
     {
 
-      (*(v22 + 8))(v14, v10);
-      (*(v26 + 8))(v58, v25);
+      (*(v23 + 8))(v17, v13);
+      (*(v25 + 8))(v57, v24);
     }
 
-    v47 = v52;
-    v48 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC19GroupMembersContextVtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC19GroupMembersContextVtMR) + 48);
-    (*(v22 + 32))(v47, v28, v10);
-    return (*(v26 + 32))(v47 + v48, v56, v25);
+    v46 = v51;
+    v47 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC19GroupMembersContextVtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC19GroupMembersContextVtMR) + 48);
+    (*(v23 + 32))(v46, v27, v13);
+    return (*(v25 + 32))(v46 + v47, v55, v24);
   }
 
   return result;
@@ -7050,22 +1374,16 @@ uint64_t closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:conte
   v5[2] = a1;
   v6 = type metadata accessor for XPCUtils.XPCError.ErrorType();
   v5[7] = v6;
-  v7 = *(v6 - 8);
-  v5[8] = v7;
-  v8 = *(v7 + 64) + 15;
+  v5[8] = *(v6 - 8);
   v5[9] = swift_task_alloc();
-  v9 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v5[10] = v9;
-  v10 = *(v9 - 8);
-  v5[11] = v10;
-  v11 = *(v10 + 64) + 15;
+  v7 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v5[10] = v7;
+  v5[11] = *(v7 - 8);
   v5[12] = swift_task_alloc();
   v5[13] = swift_task_alloc();
-  v12 = type metadata accessor for MLS.GroupMembersContext();
-  v5[14] = v12;
-  v13 = *(v12 - 8);
-  v5[15] = v13;
-  v14 = *(v13 + 64) + 15;
+  v8 = type metadata accessor for MLS.GroupMembersContext();
+  v5[14] = v8;
+  v5[15] = *(v8 - 8);
   v5[16] = swift_task_alloc();
   v5[17] = swift_task_alloc();
 
@@ -7081,36 +1399,32 @@ uint64_t closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:conte
   v0[20] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
   type metadata accessor for MLSActor();
   v0[21] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
   v4 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:), v4, v3);
 }
 
 {
-  v2 = v0[20];
-  v1 = v0[21];
-  v3 = v0[18];
-  v4 = v0[19];
+  v1 = *(v0 + 152);
 
-  v0[22] = v4(v5);
+  *(v0 + 176) = v1(v2);
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:), 0, 0);
 }
 
 {
-  v78 = v0;
+  v70 = v0;
   if (*(v0[22] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[2]), (v2 & 1) != 0))
   {
     v3 = v0[14];
     v4 = v0[15];
     v5 = v0[11];
     log = v0[10];
-    v68 = v0[13];
+    v62 = v0[13];
     v6 = v0[3];
-    v71 = v0[4];
-    v64 = v0[17];
-    v65 = v0[2];
+    v58 = v0[17];
+    v59 = v0[2];
     v7 = (*(v0[22] + 56) + 48 * v1);
     v0[23] = *v7;
     v0[24] = v7[1];
@@ -7121,8 +1435,8 @@ uint64_t closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:conte
 
     swift_unknownObjectRetain();
 
-    (*(v4 + 16))(v64, v6, v3);
-    (*(v5 + 16))(v68, v65, log);
+    (*(v4 + 16))(v58, v6, v3);
+    (*(v5 + 16))(v62, v59, log);
     v8 = Logger.logObject.getter();
     v9 = static os_log_type_t.default.getter();
     v10 = os_log_type_enabled(v8, v9);
@@ -7134,29 +1448,29 @@ uint64_t closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:conte
     v15 = v0[11];
     if (v10)
     {
-      v69 = v9;
+      v63 = v9;
       v17 = swift_slowAlloc();
-      v72 = swift_slowAlloc();
-      v77[0] = v72;
+      v65 = swift_slowAlloc();
+      v69[0] = v65;
       *v17 = 136315394;
       loga = v8;
       v18 = MLS.GroupMembersContext.identifier.getter();
       v20 = v19;
       (*(v12 + 8))(v11, v13);
-      v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, v77);
+      v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, v69);
 
       *(v17 + 4) = v21;
       *(v17 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v22 = dispatch thunk of CustomStringConvertible.description.getter();
       v24 = v23;
       (*(v15 + 8))(v14, v16);
-      v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v24, v77);
+      v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v24, v69);
 
       *(v17 + 14) = v25;
-      _os_log_impl(&dword_26524C000, loga, v69, "MLSDaemon members calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v17, 0x16u);
+      _os_log_impl(&dword_26524C000, loga, v63, "MLSDaemon members calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v17, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v72, -1, -1);
+      MEMORY[0x2667577B0](v65, -1, -1);
       MEMORY[0x2667577B0](v17, -1, -1);
     }
 
@@ -7167,17 +1481,16 @@ uint64_t closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:conte
       (*(v12 + 8))(v11, v13);
     }
 
-    v59 = *(MEMORY[0x277D4D080] + 4);
-    v74 = (*MEMORY[0x277D4D080] + MEMORY[0x277D4D080]);
-    v60 = swift_task_alloc();
-    v0[28] = v60;
-    *v60 = v0;
-    v60[1] = closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:);
-    v62 = v0[5];
-    v61 = v0[6];
-    v63 = v0[3];
+    v67 = (*MEMORY[0x277D4D080] + MEMORY[0x277D4D080]);
+    v54 = swift_task_alloc();
+    v0[28] = v54;
+    *v54 = v0;
+    v54[1] = closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:);
+    v56 = v0[5];
+    v55 = v0[6];
+    v57 = v0[3];
 
-    return (v74)(v62, v61, v63);
+    return (v67)(v56, v55, v57);
   }
 
   else
@@ -7189,7 +1502,6 @@ uint64_t closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:conte
     v29 = v0[12];
     v31 = v0[10];
     v32 = v0[3];
-    v75 = v0[4];
     v33 = v0[2];
 
     (*(v27 + 16))(v26, v32, v28);
@@ -7205,29 +1517,29 @@ uint64_t closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:conte
     v42 = v0[10];
     if (v36)
     {
-      v73 = v34;
+      v66 = v34;
       v43 = swift_slowAlloc();
-      v76 = swift_slowAlloc();
-      v77[0] = v76;
+      v68 = swift_slowAlloc();
+      v69[0] = v68;
       *v43 = 136315394;
       v44 = MLS.GroupMembersContext.identifier.getter();
-      v70 = v35;
+      v64 = v35;
       v46 = v45;
       (*(v37 + 8))(v38, v39);
-      v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v44, v46, v77);
+      v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v44, v46, v69);
 
       *(v43 + 4) = v47;
       *(v43 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v48 = dispatch thunk of CustomStringConvertible.description.getter();
       v50 = v49;
       (*(v40 + 8))(v41, v42);
-      v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v50, v77);
+      v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v50, v69);
 
       *(v43 + 14) = v51;
-      _os_log_impl(&dword_26524C000, v73, v70, "MLSDaemon members has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v43, 0x16u);
+      _os_log_impl(&dword_26524C000, v66, v64, "MLSDaemon members has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v43, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v76, -1, -1);
+      MEMORY[0x2667577B0](v68, -1, -1);
       MEMORY[0x2667577B0](v43, -1, -1);
     }
 
@@ -7240,167 +1552,140 @@ uint64_t closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:conte
 
     (*(v0[8] + 104))(v0[9], *MEMORY[0x277D4D2B0], v0[7]);
     type metadata accessor for XPCUtils.XPCError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0]);
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0], MEMORY[0x277D4D2C8]);
     swift_allocError();
     XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
     swift_willThrow();
-    v53 = v0[16];
-    v52 = v0[17];
-    v55 = v0[12];
-    v54 = v0[13];
-    v56 = v0[9];
 
-    v57 = v0[1];
+    v52 = v0[1];
 
-    return v57();
+    return v52();
   }
-}
-
-{
-  v1 = v0[26];
-  v2 = v0[27];
-  v4 = v0[24];
-  v3 = v0[25];
-  v5 = v0[23];
-  v7 = v0[16];
-  v6 = v0[17];
-  v9 = v0[12];
-  v8 = v0[13];
-  v10 = v0[9];
-  swift_unknownObjectRelease();
-
-  swift_unknownObjectRelease();
-
-  v11 = v0[1];
-  v12 = v0[30];
-
-  return v11(v12);
-}
-
-{
-  v1 = v0[26];
-  v2 = v0[27];
-  v4 = v0[24];
-  v3 = v0[25];
-  v5 = v0[23];
-  swift_unknownObjectRelease();
-
-  swift_unknownObjectRelease();
-  v6 = v0[29];
-  v8 = v0[16];
-  v7 = v0[17];
-  v10 = v0[12];
-  v9 = v0[13];
-  v11 = v0[9];
-
-  v12 = v0[1];
-
-  return v12();
 }
 
 uint64_t closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:)(uint64_t a1)
 {
   v4 = *v2;
-  v5 = *(*v2 + 224);
-  v6 = *v2;
   *(*v2 + 232) = v1;
 
   if (v1)
   {
-    v7 = closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:);
+    v5 = closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:);
   }
 
   else
   {
     *(v4 + 240) = a1;
-    v7 = closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:);
+    v5 = closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:);
   }
 
-  return MEMORY[0x2822009F8](v7, 0, 0);
+  return MEMORY[0x2822009F8](v5, 0, 0);
+}
+
+uint64_t closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:)(uint64_t a1, const char *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
+{
+  v9 = *(v8 + 216);
+  swift_unknownObjectRelease(*(v8 + 184), a2, a3, a4, a5, a6, a7, a8);
+
+  swift_unknownObjectRelease(v9, v10, v11, v12, v13, v14, v15, v16);
+
+  v17 = *(v8 + 8);
+  v18 = *(v8 + 240);
+
+  return v17(v18);
+}
+
+{
+  v9 = *(v8 + 216);
+  swift_unknownObjectRelease(*(v8 + 184), a2, a3, a4, a5, a6, a7, a8);
+
+  swift_unknownObjectRelease(v9, v10, v11, v12, v13, v14, v15, v16);
+
+  v17 = *(v8 + 8);
+
+  return v17();
 }
 
 uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupMembersContext) -> (@owned Set<MLS.AllMember>, @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
 {
   *(v3 + 16) = a1;
   v6 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC19GroupMembersContextVtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC19GroupMembersContextVtMR) + 48);
-  v10 = (a3 + *a3);
-  v7 = a3[1];
-  v8 = swift_task_alloc();
-  *(v3 + 24) = v8;
-  *v8 = v3;
-  v8[1] = thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupMembersContext) -> (@owned Set<MLS.AllMember>, @error @owned Error);
+  v9 = (a3 + *a3);
+  v7 = swift_task_alloc();
+  *(v3 + 24) = v7;
+  *v7 = v3;
+  v7[1] = thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupMembersContext) -> (@owned Set<MLS.AllMember>, @error @owned Error);
 
-  return v10(a2, a2 + v6);
+  return v9(a2, a2 + v6);
 }
 
 uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupMembersContext) -> (@owned Set<MLS.AllMember>, @error @owned Error)(uint64_t a1)
 {
   v4 = *v2;
-  v5 = *(*v2 + 24);
-  v6 = *v2;
+  v5 = *v2;
 
   if (!v1)
   {
     **(v4 + 16) = a1;
   }
 
-  v7 = *(v6 + 8);
+  v6 = *(v5 + 8);
 
-  return v7();
+  return v6();
 }
 
-uint64_t MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8)
+uint64_t MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, uint64_t a10)
 {
   outlined copy of Data._Representation(a1, a2);
-  v29 = v8;
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.default.getter();
+  v31 = v10;
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.default.getter();
   outlined consume of Data._Representation(a1, a2);
-  if (os_log_type_enabled(v14, v15))
+  if (os_log_type_enabled(v16, v17))
   {
-    v16 = a5;
-    v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v33 = v18;
-    *v17 = 136315138;
-    v19 = Data.description.getter();
-    v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v20, &v33);
+    v18 = a5;
+    v19 = swift_slowAlloc();
+    v20 = swift_slowAlloc();
+    v35 = v20;
+    *v19 = 136315138;
+    v21 = Data.description.getter();
+    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v22, &v35);
 
-    *(v17 + 4) = v21;
-    _os_log_impl(&dword_26524C000, v14, v15, "MLSDaemon add called { uniqueClientIdentifier: %s }", v17, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v18);
-    MEMORY[0x2667577B0](v18, -1, -1);
-    v22 = v17;
-    a5 = v16;
-    MEMORY[0x2667577B0](v22, -1, -1);
+    *(v19 + 4) = v23;
+    _os_log_impl(&dword_26524C000, v16, v17, "MLSDaemon add called { uniqueClientIdentifier: %s }", v19, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v20);
+    MEMORY[0x2667577B0](v20, -1, -1);
+    v24 = v19;
+    a5 = v18;
+    MEMORY[0x2667577B0](v24, -1, -1);
   }
 
   type metadata accessor for MLS.GroupOperationError();
-  v23 = swift_allocObject();
-  v23[2] = a1;
-  v23[3] = a2;
-  v23[4] = a3;
-  v23[5] = a4;
-  v23[6] = a7;
-  v23[7] = a8;
-  v23[8] = v29;
-  v24 = swift_allocObject();
-  v24[2] = v29;
-  v24[3] = a5;
-  v24[4] = a6;
   v25 = swift_allocObject();
-  *(v25 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:);
-  *(v25 + 24) = v24;
-  v26 = v29;
+  v25[2] = a1;
+  v25[3] = a2;
+  v25[4] = a3;
+  v25[5] = a4;
+  v25[6] = a7;
+  v25[7] = a8;
+  v25[8] = v31;
+  v26 = swift_allocObject();
+  v26[2] = v31;
+  v26[3] = a5;
+  v26[4] = a6;
+  v27 = swift_allocObject();
+  *(v27 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:);
+  *(v27 + 24) = v26;
+  v28 = v31;
   outlined copy of Data._Representation(a1, a2);
-  v27 = v26;
+  v29 = v28;
   outlined copy of Data._Representation(a3, a4);
   outlined copy of Data._Representation(a7, a8);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC21GroupOperationContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC21GroupOperationContextVy_10Foundation4DataVGtMR);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR);
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupOperationError and conformance MLS.GroupOperationError, MEMORY[0x277D4CF68]);
-  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupOperationProcessedContext<Data> and conformance MLS.GroupOperationProcessedContext<A>, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupOperationError and conformance MLS.GroupOperationError, MEMORY[0x277D4CF68], MEMORY[0x277D4CF60]);
+  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupOperationProcessedContext<Data> and conformance MLS.GroupOperationProcessedContext<A>, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR, MEMORY[0x277D4D1A8]);
   static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
 }
 
@@ -7415,28 +1700,20 @@ uint64_t closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:grou
   v7[6] = a1;
   v8 = type metadata accessor for XPCUtils.XPCError.ErrorType();
   v7[13] = v8;
-  v9 = *(v8 - 8);
-  v7[14] = v9;
-  v10 = *(v9 + 64) + 15;
+  v7[14] = *(v8 - 8);
   v7[15] = swift_task_alloc();
-  v11 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v7[16] = v11;
-  v12 = *(v11 - 8);
-  v7[17] = v12;
-  v13 = *(v12 + 64) + 15;
+  v9 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v7[16] = v9;
+  v7[17] = *(v9 - 8);
   v7[18] = swift_task_alloc();
   v7[19] = swift_task_alloc();
-  v14 = type metadata accessor for Metric();
-  v7[20] = v14;
-  v15 = *(v14 - 8);
-  v7[21] = v15;
-  v16 = *(v15 + 64) + 15;
+  v10 = type metadata accessor for Metric();
+  v7[20] = v10;
+  v7[21] = *(v10 - 8);
   v7[22] = swift_task_alloc();
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMR);
-  v7[23] = v17;
-  v18 = *(v17 - 8);
-  v7[24] = v18;
-  v19 = *(v18 + 64) + 15;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMR);
+  v7[23] = v11;
+  v7[24] = *(v11 - 8);
   v7[25] = swift_task_alloc();
   v7[26] = swift_task_alloc();
   v7[27] = swift_task_alloc();
@@ -7453,40 +1730,36 @@ uint64_t closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:grou
   v0[30] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
   type metadata accessor for MLSActor();
   v0[31] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
   v4 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:), v4, v3);
 }
 
 {
-  v2 = v0[30];
-  v1 = v0[31];
-  v3 = v0[28];
-  v4 = v0[29];
+  v1 = *(v0 + 232);
 
-  v0[32] = v4(v5);
+  *(v0 + 256) = v1(v2);
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:), 0, 0);
 }
 
 {
-  v90 = v0;
+  v80 = v0;
   if (*(v0[32] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[7]), (v2 & 1) != 0))
   {
     v3 = v0[27];
     v4 = v0[24];
-    v84 = v0[23];
+    v75 = v0[23];
     v5 = v0[21];
-    v72 = v0[22];
+    v64 = v0[22];
     v6 = v0[20];
-    v74 = v0[17];
-    v75 = v0[26];
-    v76 = v0[16];
+    v66 = v0[17];
+    v67 = v0[26];
+    v68 = v0[16];
     log = v0[19];
-    v80 = v0[10];
-    v71 = v0[9];
-    v73 = v0[7];
+    v63 = v0[9];
+    v65 = v0[7];
     v7 = (*(v0[32] + 56) + 48 * v1);
     v0[33] = *v7;
     v0[34] = v7[1];
@@ -7498,14 +1771,14 @@ uint64_t closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:grou
     swift_unknownObjectRetain();
 
     v8 = *(v4 + 16);
-    v8(v3, v71, v84);
-    (*(v5 + 104))(v72, *MEMORY[0x277D4D278], v6);
+    v8(v3, v63, v75);
+    (*(v5 + 104))(v64, *MEMORY[0x277D4D278], v6);
     v9 = MLS.GroupOperationContext.metricCollector.modify();
     MetricCollector.end(metric:)();
-    (*(v5 + 8))(v72, v6);
+    (*(v5 + 8))(v64, v6);
     v9(v0 + 2, 0);
-    v8(v75, v71, v84);
-    (*(v74 + 16))(log, v73, v76);
+    v8(v67, v63, v75);
+    (*(v66 + 16))(log, v65, v68);
     v10 = Logger.logObject.getter();
     v11 = static os_log_type_t.default.getter();
     v12 = os_log_type_enabled(v10, v11);
@@ -7517,31 +1790,31 @@ uint64_t closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:grou
     v17 = v0[17];
     if (v12)
     {
-      v81 = v11;
+      v72 = v11;
       v19 = swift_slowAlloc();
-      v85 = swift_slowAlloc();
-      v89[0] = v85;
+      v76 = swift_slowAlloc();
+      v79[0] = v76;
       *v19 = 136315394;
       v20 = MLS.SigningContext.identifier.getter();
-      v77 = v16;
+      v69 = v16;
       loga = v10;
       v22 = v21;
       v23 = *(v15 + 8);
       v23(v13, v14);
-      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v89);
+      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v79);
 
       *(v19 + 4) = v24;
       *(v19 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v25 = dispatch thunk of CustomStringConvertible.description.getter();
       v27 = v26;
-      (*(v17 + 8))(v77, v18);
-      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v89);
+      (*(v17 + 8))(v69, v18);
+      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v79);
 
       *(v19 + 14) = v28;
-      _os_log_impl(&dword_26524C000, loga, v81, "MLSDaemon add calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
+      _os_log_impl(&dword_26524C000, loga, v72, "MLSDaemon add calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v85, -1, -1);
+      MEMORY[0x2667577B0](v76, -1, -1);
       MEMORY[0x2667577B0](v19, -1, -1);
     }
 
@@ -7554,19 +1827,18 @@ uint64_t closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:grou
     }
 
     v0[38] = v23;
-    v64 = *(MEMORY[0x277D4D0D0] + 4);
-    v88 = (*MEMORY[0x277D4D0D0] + MEMORY[0x277D4D0D0]);
-    v65 = swift_task_alloc();
-    v0[39] = v65;
-    *v65 = v0;
-    v65[1] = closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:);
-    v66 = v0[27];
-    v67 = v0[11];
-    v68 = v0[12];
-    v69 = v0[8];
-    v70 = v0[6];
+    v78 = (*MEMORY[0x277D4D0D0] + MEMORY[0x277D4D0D0]);
+    v57 = swift_task_alloc();
+    v0[39] = v57;
+    *v57 = v0;
+    v57[1] = closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:);
+    v58 = v0[27];
+    v59 = v0[11];
+    v60 = v0[12];
+    v61 = v0[8];
+    v62 = v0[6];
 
-    return v88(v70, v69, v67, v68, v66);
+    return v78(v62, v61, v59, v60, v58);
   }
 
   else
@@ -7578,7 +1850,6 @@ uint64_t closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:grou
     v32 = v0[18];
     v34 = v0[16];
     v35 = v0[9];
-    v86 = v0[10];
     v36 = v0[7];
 
     (*(v30 + 16))(v29, v35, v31);
@@ -7594,29 +1865,29 @@ uint64_t closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:grou
     v45 = v0[16];
     if (v39)
     {
-      v83 = v37;
+      v74 = v37;
       v46 = swift_slowAlloc();
-      v87 = swift_slowAlloc();
-      v89[0] = v87;
+      v77 = swift_slowAlloc();
+      v79[0] = v77;
       *v46 = 136315394;
       v47 = MLS.SigningContext.identifier.getter();
-      v82 = v38;
+      v73 = v38;
       v49 = v48;
       (*(v40 + 8))(v41, v42);
-      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v89);
+      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v79);
 
       *(v46 + 4) = v50;
       *(v46 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v51 = dispatch thunk of CustomStringConvertible.description.getter();
       v53 = v52;
       (*(v43 + 8))(v44, v45);
-      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v89);
+      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v79);
 
       *(v46 + 14) = v54;
-      _os_log_impl(&dword_26524C000, v83, v82, "MLSDaemon add has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
+      _os_log_impl(&dword_26524C000, v74, v73, "MLSDaemon add has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v87, -1, -1);
+      MEMORY[0x2667577B0](v77, -1, -1);
       MEMORY[0x2667577B0](v46, -1, -1);
     }
 
@@ -7629,40 +1900,31 @@ uint64_t closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:grou
 
     (*(v0[14] + 104))(v0[15], *MEMORY[0x277D4D2B0], v0[13]);
     type metadata accessor for XPCUtils.XPCError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0]);
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0], MEMORY[0x277D4D2C8]);
     swift_allocError();
     XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
     swift_willThrow();
-    v56 = v0[26];
-    v55 = v0[27];
-    v57 = v0[25];
-    v58 = v0[22];
-    v60 = v0[18];
-    v59 = v0[19];
-    v61 = v0[15];
 
-    v62 = v0[1];
+    v55 = v0[1];
 
-    return v62();
+    return v55();
   }
 }
 
 {
-  v2 = *(*v1 + 312);
-  v5 = *v1;
   *(*v1 + 320) = v0;
 
   if (v0)
   {
-    v3 = closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:);
+    v2 = closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:);
   }
 
   else
   {
-    v3 = closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:);
+    v2 = closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:);
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @guaranteed [MLS.AllMember], @in_guaranteed MLS.GroupOperationContext<Data>) -> (@out MLS.GroupOperationProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
@@ -7670,192 +1932,183 @@ uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC21GroupOperationContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC21GroupOperationContextVy_10Foundation4DataVGtMR);
   v8 = *(a2 + *(v7 + 48));
   v9 = *(v7 + 64);
-  v13 = (a3 + *a3);
-  v10 = a3[1];
-  v11 = swift_task_alloc();
-  *(v3 + 16) = v11;
-  *v11 = v3;
-  v11[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+  v12 = (a3 + *a3);
+  v10 = swift_task_alloc();
+  *(v3 + 16) = v10;
+  *v10 = v3;
+  v10[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
 
-  return v13(a1, a2, v8, a2 + v9);
+  return v12(a1, a2, v8, a2 + v9);
 }
 
-uint64_t MLSDaemon.kick(uniqueClientIdentifier:members:fromGroup:groupOperationContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8)
+uint64_t MLSDaemon.kick(uniqueClientIdentifier:members:fromGroup:groupOperationContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, uint64_t a10)
 {
   outlined copy of Data._Representation(a1, a2);
-  v29 = v8;
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.default.getter();
+  v31 = v10;
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.default.getter();
   outlined consume of Data._Representation(a1, a2);
-  if (os_log_type_enabled(v14, v15))
+  if (os_log_type_enabled(v16, v17))
   {
-    v16 = a5;
-    v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v33 = v18;
-    *v17 = 136315138;
-    v19 = Data.description.getter();
-    v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v20, &v33);
+    v18 = a5;
+    v19 = swift_slowAlloc();
+    v20 = swift_slowAlloc();
+    v35 = v20;
+    *v19 = 136315138;
+    v21 = Data.description.getter();
+    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v22, &v35);
 
-    *(v17 + 4) = v21;
-    _os_log_impl(&dword_26524C000, v14, v15, "MLSDaemon kick called { uniqueClientIdentifier: %s }", v17, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v18);
-    MEMORY[0x2667577B0](v18, -1, -1);
-    v22 = v17;
-    a5 = v16;
-    MEMORY[0x2667577B0](v22, -1, -1);
+    *(v19 + 4) = v23;
+    _os_log_impl(&dword_26524C000, v16, v17, "MLSDaemon kick called { uniqueClientIdentifier: %s }", v19, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v20);
+    MEMORY[0x2667577B0](v20, -1, -1);
+    v24 = v19;
+    a5 = v18;
+    MEMORY[0x2667577B0](v24, -1, -1);
   }
 
   type metadata accessor for MLS.GroupOperationError();
-  v23 = swift_allocObject();
-  v23[2] = a1;
-  v23[3] = a2;
-  v23[4] = a3;
-  v23[5] = a4;
-  v23[6] = a7;
-  v23[7] = a8;
-  v23[8] = v29;
-  v24 = swift_allocObject();
-  v24[2] = v29;
-  v24[3] = a5;
-  v24[4] = a6;
   v25 = swift_allocObject();
-  *(v25 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.kick(uniqueClientIdentifier:members:fromGroup:groupOperationContext:completion:);
-  *(v25 + 24) = v24;
-  v26 = v29;
+  v25[2] = a1;
+  v25[3] = a2;
+  v25[4] = a3;
+  v25[5] = a4;
+  v25[6] = a7;
+  v25[7] = a8;
+  v25[8] = v31;
+  v26 = swift_allocObject();
+  v26[2] = v31;
+  v26[3] = a5;
+  v26[4] = a6;
+  v27 = swift_allocObject();
+  *(v27 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.kick(uniqueClientIdentifier:members:fromGroup:groupOperationContext:completion:);
+  *(v27 + 24) = v26;
+  v28 = v31;
   outlined copy of Data._Representation(a1, a2);
-  v27 = v26;
+  v29 = v28;
   outlined copy of Data._Representation(a3, a4);
   outlined copy of Data._Representation(a7, a8);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC21GroupOperationContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC21GroupOperationContextVy_10Foundation4DataVGtMR);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR);
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupOperationError and conformance MLS.GroupOperationError, MEMORY[0x277D4CF68]);
-  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupOperationProcessedContext<Data> and conformance MLS.GroupOperationProcessedContext<A>, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupOperationError and conformance MLS.GroupOperationError, MEMORY[0x277D4CF68], MEMORY[0x277D4CF60]);
+  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupOperationProcessedContext<Data> and conformance MLS.GroupOperationProcessedContext<A>, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR, MEMORY[0x277D4D1A8]);
   static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
 }
 
-uint64_t closure #1 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, NSObject *a6@<X6>, const char *a7@<X7>, uint64_t a8@<X8>)
+uint64_t closure #1 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:)@<X0>(uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, NSObject *a7@<X6>, const char *a8@<X7>, uint64_t a9@<X8>)
 {
-  v65 = a7;
-  v66 = a6;
-  v74 = a1;
-  v68 = a4;
-  v69 = a5;
-  v72 = a2;
-  v73 = a3;
-  v67 = a8;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMR);
-  v71 = *(v8 - 8);
-  v9 = *(v71 + 64);
-  v10 = MEMORY[0x28223BE20](v8);
-  v12 = &v62 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v62 - v13;
-  v15 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v70 = *(v15 - 8);
-  v16 = *(v70 + 64);
-  v17 = MEMORY[0x28223BE20](v15);
-  v19 = &v62 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v17);
-  v21 = &v62 - v20;
-  v22 = type metadata accessor for JSONDecoder();
-  v23 = *(v22 + 48);
-  v24 = *(v22 + 52);
+  v61 = a8;
+  v62 = a7;
+  v70 = a2;
+  v64 = a5;
+  v65 = a6;
+  v68 = a3;
+  v69 = a4;
+  v63 = a9;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMR);
+  v67 = *(v9 - 8);
+  v11 = MEMORY[0x28223BE20](v9, v10);
+  v13 = &v58 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v11, v14);
+  v16 = &v58 - v15;
+  v17 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v66 = *(v17 - 8);
+  v19 = MEMORY[0x28223BE20](v17, v18);
+  v21 = &v58 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v19, v22);
+  v24 = &v58 - v23;
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-  v25 = v75;
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D020]);
+  v25 = v71;
   dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
   if (!v25)
   {
-    v62 = v12;
-    v63 = v19;
-    v74 = v15;
-    v75 = v21;
-    v28 = v70;
-    v27 = v71;
-    v64 = v8;
-    v29 = *(v22 + 48);
-    v30 = *(v22 + 52);
+    v58 = v13;
+    v59 = v21;
+    v70 = v17;
+    v71 = v24;
+    v28 = v66;
+    v27 = v67;
+    v60 = v9;
     swift_allocObject();
     JSONDecoder.init()();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay15SecureMessaging3MLSO9AllMemberOGMd, &_sSay15SecureMessaging3MLSO9AllMemberOGMR);
     lazy protocol witness table accessor for type [MLS.AllMember] and conformance <A> [A]();
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-    v31 = v76;
-    v32 = *(v22 + 48);
-    v33 = *(v22 + 52);
+    v29 = v72;
     swift_allocObject();
     JSONDecoder.init()();
-    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupOperationContext<Data> and conformance MLS.GroupOperationContext<A>, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMR);
-    v34 = v64;
+    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupOperationContext<Data> and conformance MLS.GroupOperationContext<A>, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMR, MEMORY[0x277D4CFD8]);
+    v30 = v60;
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-    v36 = v74;
-    v35 = v75;
-    v73 = 0;
-    v72 = v31;
+    v32 = v70;
+    v31 = v71;
+    v69 = 0;
+    v68 = v29;
 
-    v37 = v27;
-    v38 = v62;
-    (*(v27 + 16))(v62, v14, v34);
-    v39 = v28;
-    v40 = *(v28 + 16);
-    v41 = v63;
-    v40(v63, v35, v36);
-    v42 = Logger.logObject.getter();
-    v43 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v42, v43))
+    v33 = v27;
+    v34 = v58;
+    (*(v27 + 16))(v58, v16, v30);
+    v35 = v28;
+    v36 = *(v28 + 16);
+    v37 = v59;
+    v36(v59, v31, v32);
+    v38 = Logger.logObject.getter();
+    v39 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v38, v39))
     {
-      v44 = v41;
-      v45 = v37;
-      v46 = swift_slowAlloc();
-      v69 = swift_slowAlloc();
-      v76 = v69;
-      *v46 = 136315394;
-      LODWORD(v68) = v43;
-      v47 = MLS.SigningContext.identifier.getter();
-      v66 = v42;
-      v48 = v47;
+      v40 = v37;
+      v41 = v33;
+      v42 = swift_slowAlloc();
+      v65 = swift_slowAlloc();
+      v72 = v65;
+      *v42 = 136315394;
+      LODWORD(v64) = v39;
+      v43 = MLS.SigningContext.identifier.getter();
+      v62 = v38;
+      v44 = v43;
+      v46 = v45;
+      (*(v41 + 8))(v34, v60);
+      v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v44, v46, &v72);
+
+      *(v42 + 4) = v47;
+      *(v42 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v48 = dispatch thunk of CustomStringConvertible.description.getter();
       v50 = v49;
-      (*(v45 + 8))(v38, v64);
-      v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v50, &v76);
+      (*(v35 + 8))(v40, v32);
+      v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v50, &v72);
 
-      *(v46 + 4) = v51;
-      *(v46 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v52 = dispatch thunk of CustomStringConvertible.description.getter();
-      v54 = v53;
-      (*(v39 + 8))(v44, v36);
-      v55 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v52, v54, &v76);
-
-      *(v46 + 14) = v55;
-      v56 = v66;
-      _os_log_impl(&dword_26524C000, v66, v68, v65, v46, 0x16u);
-      v57 = v69;
+      *(v42 + 14) = v51;
+      v52 = v62;
+      _os_log_impl(&dword_26524C000, v62, v64, v61, v42, 0x16u);
+      v53 = v65;
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v57, -1, -1);
-      v34 = v64;
-      MEMORY[0x2667577B0](v46, -1, -1);
+      MEMORY[0x2667577B0](v53, -1, -1);
+      v30 = v60;
+      MEMORY[0x2667577B0](v42, -1, -1);
     }
 
     else
     {
 
-      (*(v39 + 8))(v41, v36);
-      (*(v37 + 8))(v38, v34);
-      v45 = v37;
+      (*(v35 + 8))(v37, v32);
+      (*(v33 + 8))(v34, v30);
+      v41 = v33;
     }
 
-    v58 = v67;
-    v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC21GroupOperationContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC21GroupOperationContextVy_10Foundation4DataVGtMR);
-    v60 = *(v59 + 48);
-    v61 = *(v59 + 64);
-    (*(v39 + 32))(v58, v75, v36);
-    *(v58 + v60) = v72;
-    return (*(v45 + 32))(v58 + v61, v14, v34);
+    v54 = v63;
+    v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC21GroupOperationContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_SayAC9AllMemberOGAC21GroupOperationContextVy_10Foundation4DataVGtMR);
+    v56 = *(v55 + 48);
+    v57 = *(v55 + 64);
+    (*(v35 + 32))(v54, v71, v32);
+    *(v54 + v56) = v68;
+    return (*(v41 + 32))(v54 + v57, v16, v30);
   }
 
   return result;
@@ -7872,28 +2125,20 @@ uint64_t closure #2 in MLSDaemon.kick(uniqueClientIdentifier:members:fromGroup:g
   v7[6] = a1;
   v8 = type metadata accessor for XPCUtils.XPCError.ErrorType();
   v7[13] = v8;
-  v9 = *(v8 - 8);
-  v7[14] = v9;
-  v10 = *(v9 + 64) + 15;
+  v7[14] = *(v8 - 8);
   v7[15] = swift_task_alloc();
-  v11 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v7[16] = v11;
-  v12 = *(v11 - 8);
-  v7[17] = v12;
-  v13 = *(v12 + 64) + 15;
+  v9 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v7[16] = v9;
+  v7[17] = *(v9 - 8);
   v7[18] = swift_task_alloc();
   v7[19] = swift_task_alloc();
-  v14 = type metadata accessor for Metric();
-  v7[20] = v14;
-  v15 = *(v14 - 8);
-  v7[21] = v15;
-  v16 = *(v15 + 64) + 15;
+  v10 = type metadata accessor for Metric();
+  v7[20] = v10;
+  v7[21] = *(v10 - 8);
   v7[22] = swift_task_alloc();
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMR);
-  v7[23] = v17;
-  v18 = *(v17 - 8);
-  v7[24] = v18;
-  v19 = *(v18 + 64) + 15;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMR);
+  v7[23] = v11;
+  v7[24] = *(v11 - 8);
   v7[25] = swift_task_alloc();
   v7[26] = swift_task_alloc();
   v7[27] = swift_task_alloc();
@@ -7910,40 +2155,36 @@ uint64_t closure #2 in MLSDaemon.kick(uniqueClientIdentifier:members:fromGroup:g
   v0[30] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
   type metadata accessor for MLSActor();
   v0[31] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
   v4 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.kick(uniqueClientIdentifier:members:fromGroup:groupOperationContext:completion:), v4, v3);
 }
 
 {
-  v2 = v0[30];
-  v1 = v0[31];
-  v3 = v0[28];
-  v4 = v0[29];
+  v1 = *(v0 + 232);
 
-  v0[32] = v4(v5);
+  *(v0 + 256) = v1(v2);
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.kick(uniqueClientIdentifier:members:fromGroup:groupOperationContext:completion:), 0, 0);
 }
 
 {
-  v90 = v0;
+  v80 = v0;
   if (*(v0[32] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[7]), (v2 & 1) != 0))
   {
     v3 = v0[27];
     v4 = v0[24];
-    v84 = v0[23];
+    v75 = v0[23];
     v5 = v0[21];
-    v72 = v0[22];
+    v64 = v0[22];
     v6 = v0[20];
-    v74 = v0[17];
-    v75 = v0[26];
-    v76 = v0[16];
+    v66 = v0[17];
+    v67 = v0[26];
+    v68 = v0[16];
     log = v0[19];
-    v80 = v0[10];
-    v71 = v0[9];
-    v73 = v0[7];
+    v63 = v0[9];
+    v65 = v0[7];
     v7 = (*(v0[32] + 56) + 48 * v1);
     v0[33] = *v7;
     v0[34] = v7[1];
@@ -7955,14 +2196,14 @@ uint64_t closure #2 in MLSDaemon.kick(uniqueClientIdentifier:members:fromGroup:g
     swift_unknownObjectRetain();
 
     v8 = *(v4 + 16);
-    v8(v3, v71, v84);
-    (*(v5 + 104))(v72, *MEMORY[0x277D4D278], v6);
+    v8(v3, v63, v75);
+    (*(v5 + 104))(v64, *MEMORY[0x277D4D278], v6);
     v9 = MLS.GroupOperationContext.metricCollector.modify();
     MetricCollector.end(metric:)();
-    (*(v5 + 8))(v72, v6);
+    (*(v5 + 8))(v64, v6);
     v9(v0 + 2, 0);
-    v8(v75, v71, v84);
-    (*(v74 + 16))(log, v73, v76);
+    v8(v67, v63, v75);
+    (*(v66 + 16))(log, v65, v68);
     v10 = Logger.logObject.getter();
     v11 = static os_log_type_t.default.getter();
     v12 = os_log_type_enabled(v10, v11);
@@ -7974,31 +2215,31 @@ uint64_t closure #2 in MLSDaemon.kick(uniqueClientIdentifier:members:fromGroup:g
     v17 = v0[17];
     if (v12)
     {
-      v81 = v11;
+      v72 = v11;
       v19 = swift_slowAlloc();
-      v85 = swift_slowAlloc();
-      v89[0] = v85;
+      v76 = swift_slowAlloc();
+      v79[0] = v76;
       *v19 = 136315394;
       v20 = MLS.SigningContext.identifier.getter();
-      v77 = v16;
+      v69 = v16;
       loga = v10;
       v22 = v21;
       v23 = *(v15 + 8);
       v23(v13, v14);
-      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v89);
+      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v79);
 
       *(v19 + 4) = v24;
       *(v19 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v25 = dispatch thunk of CustomStringConvertible.description.getter();
       v27 = v26;
-      (*(v17 + 8))(v77, v18);
-      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v89);
+      (*(v17 + 8))(v69, v18);
+      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v79);
 
       *(v19 + 14) = v28;
-      _os_log_impl(&dword_26524C000, loga, v81, "MLSDaemon kick calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
+      _os_log_impl(&dword_26524C000, loga, v72, "MLSDaemon kick calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v85, -1, -1);
+      MEMORY[0x2667577B0](v76, -1, -1);
       MEMORY[0x2667577B0](v19, -1, -1);
     }
 
@@ -8011,19 +2252,18 @@ uint64_t closure #2 in MLSDaemon.kick(uniqueClientIdentifier:members:fromGroup:g
     }
 
     v0[38] = v23;
-    v64 = *(MEMORY[0x277D4D0D8] + 4);
-    v88 = (*MEMORY[0x277D4D0D8] + MEMORY[0x277D4D0D8]);
-    v65 = swift_task_alloc();
-    v0[39] = v65;
-    *v65 = v0;
-    v65[1] = closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:);
-    v66 = v0[27];
-    v67 = v0[11];
-    v68 = v0[12];
-    v69 = v0[8];
-    v70 = v0[6];
+    v78 = (*MEMORY[0x277D4D0D8] + MEMORY[0x277D4D0D8]);
+    v57 = swift_task_alloc();
+    v0[39] = v57;
+    *v57 = v0;
+    v57[1] = closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:);
+    v58 = v0[27];
+    v59 = v0[11];
+    v60 = v0[12];
+    v61 = v0[8];
+    v62 = v0[6];
 
-    return v88(v70, v69, v67, v68, v66);
+    return v78(v62, v61, v59, v60, v58);
   }
 
   else
@@ -8035,7 +2275,6 @@ uint64_t closure #2 in MLSDaemon.kick(uniqueClientIdentifier:members:fromGroup:g
     v32 = v0[18];
     v34 = v0[16];
     v35 = v0[9];
-    v86 = v0[10];
     v36 = v0[7];
 
     (*(v30 + 16))(v29, v35, v31);
@@ -8051,29 +2290,29 @@ uint64_t closure #2 in MLSDaemon.kick(uniqueClientIdentifier:members:fromGroup:g
     v45 = v0[16];
     if (v39)
     {
-      v83 = v37;
+      v74 = v37;
       v46 = swift_slowAlloc();
-      v87 = swift_slowAlloc();
-      v89[0] = v87;
+      v77 = swift_slowAlloc();
+      v79[0] = v77;
       *v46 = 136315394;
       v47 = MLS.SigningContext.identifier.getter();
-      v82 = v38;
+      v73 = v38;
       v49 = v48;
       (*(v40 + 8))(v41, v42);
-      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v89);
+      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v79);
 
       *(v46 + 4) = v50;
       *(v46 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v51 = dispatch thunk of CustomStringConvertible.description.getter();
       v53 = v52;
       (*(v43 + 8))(v44, v45);
-      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v89);
+      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v79);
 
       *(v46 + 14) = v54;
-      _os_log_impl(&dword_26524C000, v83, v82, "MLSDaemon kick has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
+      _os_log_impl(&dword_26524C000, v74, v73, "MLSDaemon kick has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v87, -1, -1);
+      MEMORY[0x2667577B0](v77, -1, -1);
       MEMORY[0x2667577B0](v46, -1, -1);
     }
 
@@ -8086,25 +2325,18 @@ uint64_t closure #2 in MLSDaemon.kick(uniqueClientIdentifier:members:fromGroup:g
 
     (*(v0[14] + 104))(v0[15], *MEMORY[0x277D4D2B0], v0[13]);
     type metadata accessor for XPCUtils.XPCError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0]);
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0], MEMORY[0x277D4D2C8]);
     swift_allocError();
     XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
     swift_willThrow();
-    v56 = v0[26];
-    v55 = v0[27];
-    v57 = v0[25];
-    v58 = v0[22];
-    v60 = v0[18];
-    v59 = v0[19];
-    v61 = v0[15];
 
-    v62 = v0[1];
+    v55 = v0[1];
 
-    return v62();
+    return v55();
   }
 }
 
-void @objc MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:)(void *a1, int a2, void *a3, void *a4, void *a5, void *a6, void *aBlock, int a8, uint64_t a9, void (*a10)(uint64_t, unint64_t, uint64_t, unint64_t, uint64_t, uint64_t, uint64_t, unint64_t, uint64_t, uint64_t))
+void @objc MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:)(void *a1, int a2, void *a3, void *a4, void *a5, void *a6, void *aBlock, uint64_t a8, uint64_t a9, void (*a10)(uint64_t, unint64_t, uint64_t, unint64_t, uint64_t, uint64_t, uint64_t, unint64_t, uint64_t, uint64_t))
 {
   v15 = _Block_copy(aBlock);
   v16 = a3;
@@ -8134,166 +2366,160 @@ void @objc MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationCo
   outlined consume of Data._Representation(v20, v22);
 }
 
-uint64_t MLSDaemon.leave(uniqueClientIdentifier:group:groupOperationContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
+uint64_t MLSDaemon.leave(uniqueClientIdentifier:group:groupOperationContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v7 = v6;
-  v11 = a2;
-  v12 = a1;
+  v9 = v8;
+  v13 = a2;
+  v14 = a1;
   outlined copy of Data._Representation(a1, a2);
-  v13 = Logger.logObject.getter();
-  v14 = static os_log_type_t.default.getter();
-  outlined consume of Data._Representation(v12, v11);
-  if (os_log_type_enabled(v13, v14))
+  v15 = Logger.logObject.getter();
+  v16 = static os_log_type_t.default.getter();
+  outlined consume of Data._Representation(v14, v13);
+  if (os_log_type_enabled(v15, v16))
   {
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
+    v17 = swift_slowAlloc();
+    v18 = swift_slowAlloc();
+    v35 = v18;
+    *v17 = 136315138;
+    v19 = Data.description.getter();
     v33 = v16;
-    *v15 = 136315138;
-    v17 = Data.description.getter();
-    v31 = v14;
-    v19 = v12;
-    v20 = v11;
-    v21 = a3;
-    v22 = v7;
-    v23 = a6;
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v18, &v33);
+    v21 = v14;
+    v22 = v13;
+    v23 = a3;
+    v24 = v9;
+    v25 = a6;
+    v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v20, &v35);
 
-    *(v15 + 4) = v24;
-    a6 = v23;
-    v7 = v22;
-    a3 = v21;
-    v11 = v20;
-    v12 = v19;
-    _os_log_impl(&dword_26524C000, v13, v31, "MLSDaemon leave called { uniqueClientIdentifier: %s }", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v16);
-    MEMORY[0x2667577B0](v16, -1, -1);
-    MEMORY[0x2667577B0](v15, -1, -1);
+    *(v17 + 4) = v26;
+    a6 = v25;
+    v9 = v24;
+    a3 = v23;
+    v13 = v22;
+    v14 = v21;
+    _os_log_impl(&dword_26524C000, v15, v33, "MLSDaemon leave called { uniqueClientIdentifier: %s }", v17, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v18);
+    MEMORY[0x2667577B0](v18, -1, -1);
+    MEMORY[0x2667577B0](v17, -1, -1);
   }
 
   type metadata accessor for MLS.GroupOperationError();
-  v25 = swift_allocObject();
-  v25[2] = v12;
-  v25[3] = v11;
-  v25[4] = a5;
-  v25[5] = a6;
-  v25[6] = v7;
-  v26 = swift_allocObject();
-  v26[2] = v7;
-  v26[3] = a3;
-  v26[4] = a4;
   v27 = swift_allocObject();
-  *(v27 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperationContext:completion:);
-  *(v27 + 24) = v26;
-  v28 = v7;
-  outlined copy of Data._Representation(v12, v11);
-  v29 = v28;
+  v27[2] = v14;
+  v27[3] = v13;
+  v27[4] = a5;
+  v27[5] = a6;
+  v27[6] = v9;
+  v28 = swift_allocObject();
+  v28[2] = v9;
+  v28[3] = a3;
+  v28[4] = a4;
+  v29 = swift_allocObject();
+  *(v29 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperationContext:completion:);
+  *(v29 + 24) = v28;
+  v30 = v9;
+  outlined copy of Data._Representation(v14, v13);
+  v31 = v30;
   outlined copy of Data._Representation(a5, a6);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC21GroupOperationContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC21GroupOperationContextVy_10Foundation4DataVGtMR);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR);
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupOperationError and conformance MLS.GroupOperationError, MEMORY[0x277D4CF68]);
-  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupOperationProcessedContext<Data> and conformance MLS.GroupOperationProcessedContext<A>, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.GroupOperationError and conformance MLS.GroupOperationError, MEMORY[0x277D4CF68], MEMORY[0x277D4CF60]);
+  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupOperationProcessedContext<Data> and conformance MLS.GroupOperationProcessedContext<A>, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO30GroupOperationProcessedContextVy_10Foundation4DataVGMR, MEMORY[0x277D4D1A8]);
   static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
 }
 
-uint64_t closure #1 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperationContext:completion:)@<X0>(uint64_t a1@<X2>, char *a2@<X3>, uint64_t a3@<X4>, uint64_t a4@<X8>)
+uint64_t closure #1 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperationContext:completion:)@<X0>(uint64_t a3@<X2>, char *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v51 = a3;
-  v52 = a4;
-  v55 = a1;
-  v56 = a2;
-  v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMR);
-  v53 = *(v57 - 8);
-  v4 = *(v53 + 64);
-  v5 = MEMORY[0x28223BE20](v57);
-  v7 = &v49 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v49 - v8;
-  v10 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v54 = *(v10 - 8);
-  v11 = *(v54 + 64);
-  v12 = MEMORY[0x28223BE20](v10);
-  v14 = &v49 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v49 - v15;
-  v17 = type metadata accessor for JSONDecoder();
-  v18 = *(v17 + 48);
-  v19 = *(v17 + 52);
+  v50 = a5;
+  v51 = a6;
+  v54 = a3;
+  v55 = a4;
+  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMR);
+  v52 = *(v56 - 8);
+  v7 = MEMORY[0x28223BE20](v56, v6);
+  v9 = &v48 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7, v10);
+  v12 = &v48 - v11;
+  v13 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v53 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13, v14);
+  v17 = &v48 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15, v18);
+  v20 = &v48 - v19;
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-  v20 = v58;
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D020]);
+  v21 = v57;
   dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-  if (!v20)
+  if (!v21)
   {
-    v58 = v7;
-    v22 = v54;
-    v23 = *(v17 + 48);
-    v24 = *(v17 + 52);
+    v57 = v9;
+    v23 = v53;
     swift_allocObject();
     JSONDecoder.init()();
-    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupOperationContext<Data> and conformance MLS.GroupOperationContext<A>, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMR);
-    v25 = v57;
+    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupOperationContext<Data> and conformance MLS.GroupOperationContext<A>, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMR, MEMORY[0x277D4CFD8]);
+    v24 = v56;
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-    v26 = v53;
-    v27 = *(v53 + 16);
-    v56 = v9;
-    v27(v58, v9, v25);
-    v28 = v16;
-    (*(v22 + 16))(v14, v16, v10);
-    v29 = Logger.logObject.getter();
-    v30 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v29, v30))
+    v25 = v52;
+    v26 = *(v52 + 16);
+    v55 = v12;
+    v26(v57, v12, v24);
+    v27 = v20;
+    (*(v23 + 16))(v17, v20, v13);
+    v28 = Logger.logObject.getter();
+    v29 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v28, v29))
     {
-      v31 = swift_slowAlloc();
-      v55 = swift_slowAlloc();
-      v59 = v55;
-      *v31 = 136315394;
-      LODWORD(v51) = v30;
-      v32 = v58;
-      v33 = MLS.SigningContext.identifier.getter();
-      v50 = v29;
-      v34 = v28;
-      v35 = v33;
-      v37 = v36;
-      (*(v53 + 8))(v32, v57);
-      v38 = v35;
-      v28 = v34;
-      v39 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v38, v37, &v59);
+      v30 = swift_slowAlloc();
+      v54 = swift_slowAlloc();
+      v58 = v54;
+      *v30 = 136315394;
+      LODWORD(v50) = v29;
+      v31 = v57;
+      v32 = MLS.SigningContext.identifier.getter();
+      v49 = v28;
+      v33 = v27;
+      v34 = v32;
+      v36 = v35;
+      (*(v52 + 8))(v31, v56);
+      v37 = v34;
+      v27 = v33;
+      v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v37, v36, &v58);
 
-      *(v31 + 4) = v39;
-      *(v31 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v40 = dispatch thunk of CustomStringConvertible.description.getter();
-      v42 = v41;
-      (*(v22 + 8))(v14, v10);
-      v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v42, &v59);
-      v25 = v57;
+      *(v30 + 4) = v38;
+      *(v30 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v39 = dispatch thunk of CustomStringConvertible.description.getter();
+      v41 = v40;
+      (*(v23 + 8))(v17, v13);
+      v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v39, v41, &v58);
+      v24 = v56;
 
-      *(v31 + 14) = v43;
-      v44 = v50;
-      _os_log_impl(&dword_26524C000, v50, v51, "MLSDaemon leave decoded { identifier: %s, uniqueClientIdentifier: %s }", v31, 0x16u);
-      v45 = v55;
+      *(v30 + 14) = v42;
+      v43 = v49;
+      _os_log_impl(&dword_26524C000, v49, v50, "MLSDaemon leave decoded { identifier: %s, uniqueClientIdentifier: %s }", v30, 0x16u);
+      v44 = v54;
       swift_arrayDestroy();
+      MEMORY[0x2667577B0](v44, -1, -1);
+      v45 = v30;
+      v25 = v52;
       MEMORY[0x2667577B0](v45, -1, -1);
-      v46 = v31;
-      v26 = v53;
-      MEMORY[0x2667577B0](v46, -1, -1);
     }
 
     else
     {
 
-      (*(v22 + 8))(v14, v10);
-      (*(v26 + 8))(v58, v25);
+      (*(v23 + 8))(v17, v13);
+      (*(v25 + 8))(v57, v24);
     }
 
-    v47 = v52;
-    v48 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC21GroupOperationContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC21GroupOperationContextVy_10Foundation4DataVGtMR) + 48);
-    (*(v22 + 32))(v47, v28, v10);
-    return (*(v26 + 32))(v47 + v48, v56, v25);
+    v46 = v51;
+    v47 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC21GroupOperationContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC21GroupOperationContextVy_10Foundation4DataVGtMR) + 48);
+    (*(v23 + 32))(v46, v27, v13);
+    return (*(v25 + 32))(v46 + v47, v55, v24);
   }
 
   return result;
@@ -8309,28 +2535,20 @@ uint64_t closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperati
   v6[7] = a2;
   v7 = type metadata accessor for XPCUtils.XPCError.ErrorType();
   v6[12] = v7;
-  v8 = *(v7 - 8);
-  v6[13] = v8;
-  v9 = *(v8 + 64) + 15;
+  v6[13] = *(v7 - 8);
   v6[14] = swift_task_alloc();
-  v10 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v6[15] = v10;
-  v11 = *(v10 - 8);
-  v6[16] = v11;
-  v12 = *(v11 + 64) + 15;
+  v8 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v6[15] = v8;
+  v6[16] = *(v8 - 8);
   v6[17] = swift_task_alloc();
   v6[18] = swift_task_alloc();
-  v13 = type metadata accessor for Metric();
-  v6[19] = v13;
-  v14 = *(v13 - 8);
-  v6[20] = v14;
-  v15 = *(v14 + 64) + 15;
+  v9 = type metadata accessor for Metric();
+  v6[19] = v9;
+  v6[20] = *(v9 - 8);
   v6[21] = swift_task_alloc();
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMR);
-  v6[22] = v16;
-  v17 = *(v16 - 8);
-  v6[23] = v17;
-  v18 = *(v17 + 64) + 15;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO21GroupOperationContextVy_10Foundation4DataVGMR);
+  v6[22] = v10;
+  v6[23] = *(v10 - 8);
   v6[24] = swift_task_alloc();
   v6[25] = swift_task_alloc();
   v6[26] = swift_task_alloc();
@@ -8347,40 +2565,36 @@ uint64_t closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperati
   v0[29] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
   type metadata accessor for MLSActor();
   v0[30] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
   v4 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperationContext:completion:), v4, v3);
 }
 
 {
-  v2 = v0[29];
-  v1 = v0[30];
-  v3 = v0[27];
-  v4 = v0[28];
+  v1 = *(v0 + 224);
 
-  v0[31] = v4(v5);
+  *(v0 + 248) = v1(v2);
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperationContext:completion:), 0, 0);
 }
 
 {
-  v89 = v0;
+  v79 = v0;
   if (*(v0[31] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[7]), (v2 & 1) != 0))
   {
     v3 = v0[26];
     v4 = v0[23];
-    v83 = v0[22];
+    v74 = v0[22];
     v5 = v0[20];
-    v71 = v0[21];
+    v63 = v0[21];
     v6 = v0[19];
-    v73 = v0[16];
-    v74 = v0[25];
-    v75 = v0[15];
+    v65 = v0[16];
+    v66 = v0[25];
+    v67 = v0[15];
     log = v0[18];
-    v79 = v0[9];
-    v70 = v0[8];
-    v72 = v0[7];
+    v62 = v0[8];
+    v64 = v0[7];
     v7 = (*(v0[31] + 56) + 48 * v1);
     v0[32] = *v7;
     v0[33] = v7[1];
@@ -8392,14 +2606,14 @@ uint64_t closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperati
     swift_unknownObjectRetain();
 
     v8 = *(v4 + 16);
-    v8(v3, v70, v83);
-    (*(v5 + 104))(v71, *MEMORY[0x277D4D278], v6);
+    v8(v3, v62, v74);
+    (*(v5 + 104))(v63, *MEMORY[0x277D4D278], v6);
     v9 = MLS.GroupOperationContext.metricCollector.modify();
     MetricCollector.end(metric:)();
-    (*(v5 + 8))(v71, v6);
+    (*(v5 + 8))(v63, v6);
     v9(v0 + 2, 0);
-    v8(v74, v70, v83);
-    (*(v73 + 16))(log, v72, v75);
+    v8(v66, v62, v74);
+    (*(v65 + 16))(log, v64, v67);
     v10 = Logger.logObject.getter();
     v11 = static os_log_type_t.default.getter();
     v12 = os_log_type_enabled(v10, v11);
@@ -8411,31 +2625,31 @@ uint64_t closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperati
     v17 = v0[16];
     if (v12)
     {
-      v80 = v11;
+      v71 = v11;
       v19 = swift_slowAlloc();
-      v84 = swift_slowAlloc();
-      v88[0] = v84;
+      v75 = swift_slowAlloc();
+      v78[0] = v75;
       *v19 = 136315394;
       v20 = MLS.SigningContext.identifier.getter();
-      v76 = v16;
+      v68 = v16;
       loga = v10;
       v22 = v21;
       v23 = *(v15 + 8);
       v23(v13, v14);
-      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v88);
+      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v78);
 
       *(v19 + 4) = v24;
       *(v19 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v25 = dispatch thunk of CustomStringConvertible.description.getter();
       v27 = v26;
-      (*(v17 + 8))(v76, v18);
-      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v88);
+      (*(v17 + 8))(v68, v18);
+      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v78);
 
       *(v19 + 14) = v28;
-      _os_log_impl(&dword_26524C000, loga, v80, "MLSDaemon leave calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
+      _os_log_impl(&dword_26524C000, loga, v71, "MLSDaemon leave calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v84, -1, -1);
+      MEMORY[0x2667577B0](v75, -1, -1);
       MEMORY[0x2667577B0](v19, -1, -1);
     }
 
@@ -8448,18 +2662,17 @@ uint64_t closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperati
     }
 
     v0[37] = v23;
-    v64 = *(MEMORY[0x277D4D0E8] + 4);
-    v87 = (*MEMORY[0x277D4D0E8] + MEMORY[0x277D4D0E8]);
-    v65 = swift_task_alloc();
-    v0[38] = v65;
-    *v65 = v0;
-    v65[1] = closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperationContext:completion:);
-    v66 = v0[26];
-    v67 = v0[10];
-    v68 = v0[11];
-    v69 = v0[6];
+    v77 = (*MEMORY[0x277D4D0E8] + MEMORY[0x277D4D0E8]);
+    v57 = swift_task_alloc();
+    v0[38] = v57;
+    *v57 = v0;
+    v57[1] = closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperationContext:completion:);
+    v58 = v0[26];
+    v59 = v0[10];
+    v60 = v0[11];
+    v61 = v0[6];
 
-    return v87(v69, v67, v68, v66);
+    return v77(v61, v59, v60, v58);
   }
 
   else
@@ -8471,7 +2684,6 @@ uint64_t closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperati
     v32 = v0[17];
     v34 = v0[15];
     v35 = v0[8];
-    v85 = v0[9];
     v36 = v0[7];
 
     (*(v30 + 16))(v29, v35, v31);
@@ -8487,29 +2699,29 @@ uint64_t closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperati
     v45 = v0[15];
     if (v39)
     {
-      v82 = v37;
+      v73 = v37;
       v46 = swift_slowAlloc();
-      v86 = swift_slowAlloc();
-      v88[0] = v86;
+      v76 = swift_slowAlloc();
+      v78[0] = v76;
       *v46 = 136315394;
       v47 = MLS.SigningContext.identifier.getter();
-      v81 = v38;
+      v72 = v38;
       v49 = v48;
       (*(v40 + 8))(v41, v42);
-      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v88);
+      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v78);
 
       *(v46 + 4) = v50;
       *(v46 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v51 = dispatch thunk of CustomStringConvertible.description.getter();
       v53 = v52;
       (*(v43 + 8))(v44, v45);
-      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v88);
+      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v78);
 
       *(v46 + 14) = v54;
-      _os_log_impl(&dword_26524C000, v82, v81, "MLSDaemon leave has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
+      _os_log_impl(&dword_26524C000, v73, v72, "MLSDaemon leave has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v86, -1, -1);
+      MEMORY[0x2667577B0](v76, -1, -1);
       MEMORY[0x2667577B0](v46, -1, -1);
     }
 
@@ -8522,269 +2734,230 @@ uint64_t closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperati
 
     (*(v0[13] + 104))(v0[14], *MEMORY[0x277D4D2B0], v0[12]);
     type metadata accessor for XPCUtils.XPCError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0]);
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0], MEMORY[0x277D4D2C8]);
     swift_allocError();
     XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
     swift_willThrow();
-    v56 = v0[25];
-    v55 = v0[26];
-    v57 = v0[24];
-    v58 = v0[21];
-    v60 = v0[17];
-    v59 = v0[18];
-    v61 = v0[14];
 
-    v62 = v0[1];
+    v55 = v0[1];
 
-    return v62();
+    return v55();
   }
 }
 
 {
-  v2 = *(*v1 + 304);
-  v5 = *v1;
   *(*v1 + 312) = v0;
 
   if (v0)
   {
-    v3 = closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperationContext:completion:);
+    v2 = closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperationContext:completion:);
   }
 
   else
   {
-    v3 = closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperationContext:completion:);
+    v2 = closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperationContext:completion:);
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
+}
+
+uint64_t closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperationContext:completion:)(uint64_t a1, const char *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
+{
+  v9 = *(v8 + 288);
+  v10 = *(v8 + 296);
+  v11 = *(v8 + 208);
+  v12 = *(v8 + 176);
+  swift_unknownObjectRelease(*(v8 + 256), a2, a3, a4, a5, a6, a7, a8);
+
+  swift_unknownObjectRelease(v9, v13, v14, v15, v16, v17, v18, v19);
+  v10(v11, v12);
+
+  v20 = *(v8 + 8);
+
+  return v20();
 }
 
 {
-  v1 = v0[36];
-  v2 = v0[37];
-  v4 = v0[34];
-  v3 = v0[35];
-  v5 = v0[32];
-  v6 = v0[33];
-  v8 = v0[25];
-  v7 = v0[26];
-  v9 = v0[23];
-  v10 = v0[22];
-  v13 = v0[24];
-  v14 = v0[21];
-  v15 = v0[18];
-  v16 = v0[17];
-  v17 = v0[14];
-  swift_unknownObjectRelease();
+  v9 = *(v8 + 288);
+  v10 = *(v8 + 296);
+  v11 = *(v8 + 208);
+  v12 = *(v8 + 176);
+  swift_unknownObjectRelease(*(v8 + 256), a2, a3, a4, a5, a6, a7, a8);
 
-  swift_unknownObjectRelease();
-  v2(v7, v10);
+  swift_unknownObjectRelease(v9, v13, v14, v15, v16, v17, v18, v19);
+  v10(v11, v12);
 
-  v11 = v0[1];
+  v20 = *(v8 + 8);
 
-  return v11();
-}
-
-{
-  v1 = v0[36];
-  v2 = v0[37];
-  v4 = v0[34];
-  v3 = v0[35];
-  v5 = v0[32];
-  v6 = v0[33];
-  v7 = v0[26];
-  v8 = v0[22];
-  v9 = v0[23];
-  swift_unknownObjectRelease();
-
-  swift_unknownObjectRelease();
-  v2(v7, v8);
-  v10 = v0[39];
-  v12 = v0[25];
-  v11 = v0[26];
-  v13 = v0[24];
-  v14 = v0[21];
-  v16 = v0[17];
-  v15 = v0[18];
-  v17 = v0[14];
-
-  v18 = v0[1];
-
-  return v18();
+  return v20();
 }
 
 uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupOperationContext<Data>) -> (@out MLS.GroupOperationProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
 {
   v7 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC21GroupOperationContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC21GroupOperationContextVy_10Foundation4DataVGtMR) + 48);
-  v11 = (a3 + *a3);
-  v8 = a3[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+  v10 = (a3 + *a3);
+  v8 = swift_task_alloc();
+  *(v3 + 16) = v8;
+  *v8 = v3;
+  v8[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
 
-  return v11(a1, a2, a2 + v7);
+  return v10(a1, a2, a2 + v7);
 }
 
-uint64_t MLSDaemon.downgrade(uniqueClientIdentifier:group:downgradeContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
+uint64_t MLSDaemon.downgrade(uniqueClientIdentifier:group:downgradeContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v7 = v6;
-  v11 = a2;
-  v12 = a1;
+  v9 = v8;
+  v13 = a2;
+  v14 = a1;
   outlined copy of Data._Representation(a1, a2);
-  v13 = Logger.logObject.getter();
-  v14 = static os_log_type_t.default.getter();
-  outlined consume of Data._Representation(v12, v11);
-  if (os_log_type_enabled(v13, v14))
+  v15 = Logger.logObject.getter();
+  v16 = static os_log_type_t.default.getter();
+  outlined consume of Data._Representation(v14, v13);
+  if (os_log_type_enabled(v15, v16))
   {
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
+    v17 = swift_slowAlloc();
+    v18 = swift_slowAlloc();
+    v35 = v18;
+    *v17 = 136315138;
+    v19 = Data.description.getter();
     v33 = v16;
-    *v15 = 136315138;
-    v17 = Data.description.getter();
-    v31 = v14;
-    v19 = v12;
-    v20 = v11;
-    v21 = a3;
-    v22 = v7;
-    v23 = a6;
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v18, &v33);
+    v21 = v14;
+    v22 = v13;
+    v23 = a3;
+    v24 = v9;
+    v25 = a6;
+    v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v20, &v35);
 
-    *(v15 + 4) = v24;
-    a6 = v23;
-    v7 = v22;
-    a3 = v21;
-    v11 = v20;
-    v12 = v19;
-    _os_log_impl(&dword_26524C000, v13, v31, "MLSDaemon downgrade called { uniqueClientIdentifier: %s }", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v16);
-    MEMORY[0x2667577B0](v16, -1, -1);
-    MEMORY[0x2667577B0](v15, -1, -1);
+    *(v17 + 4) = v26;
+    a6 = v25;
+    v9 = v24;
+    a3 = v23;
+    v13 = v22;
+    v14 = v21;
+    _os_log_impl(&dword_26524C000, v15, v33, "MLSDaemon downgrade called { uniqueClientIdentifier: %s }", v17, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v18);
+    MEMORY[0x2667577B0](v18, -1, -1);
+    MEMORY[0x2667577B0](v17, -1, -1);
   }
 
   type metadata accessor for MLS.DowngradeError();
-  v25 = swift_allocObject();
-  v25[2] = v12;
-  v25[3] = v11;
-  v25[4] = a5;
-  v25[5] = a6;
-  v25[6] = v7;
-  v26 = swift_allocObject();
-  v26[2] = v7;
-  v26[3] = a3;
-  v26[4] = a4;
   v27 = swift_allocObject();
-  *(v27 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgradeContext:completion:);
-  *(v27 + 24) = v26;
-  v28 = v7;
-  outlined copy of Data._Representation(v12, v11);
-  v29 = v28;
+  v27[2] = v14;
+  v27[3] = v13;
+  v27[4] = a5;
+  v27[5] = a6;
+  v27[6] = v9;
+  v28 = swift_allocObject();
+  v28[2] = v9;
+  v28[3] = a3;
+  v28[4] = a4;
+  v29 = swift_allocObject();
+  *(v29 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgradeContext:completion:);
+  *(v29 + 24) = v28;
+  v30 = v9;
+  outlined copy of Data._Representation(v14, v13);
+  v31 = v30;
   outlined copy of Data._Representation(a5, a6);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC16DowngradeContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC16DowngradeContextVy_10Foundation4DataVGtMR);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO25DowngradeProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO25DowngradeProcessedContextVy_10Foundation4DataVGMR);
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.DowngradeError and conformance MLS.DowngradeError, MEMORY[0x277D4CCE0]);
-  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.DowngradeProcessedContext<Data> and conformance MLS.DowngradeProcessedContext<A>, &_s15SecureMessaging3MLSO25DowngradeProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO25DowngradeProcessedContextVy_10Foundation4DataVGMR);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.DowngradeError and conformance MLS.DowngradeError, MEMORY[0x277D4CCE0], MEMORY[0x277D4CCD8]);
+  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.DowngradeProcessedContext<Data> and conformance MLS.DowngradeProcessedContext<A>, &_s15SecureMessaging3MLSO25DowngradeProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO25DowngradeProcessedContextVy_10Foundation4DataVGMR, MEMORY[0x277D4D058]);
   static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
 }
 
-uint64_t closure #1 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgradeContext:completion:)@<X0>(uint64_t a1@<X2>, char *a2@<X3>, uint64_t a3@<X4>, uint64_t a4@<X8>)
+uint64_t closure #1 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgradeContext:completion:)@<X0>(uint64_t a3@<X2>, char *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v51 = a3;
-  v52 = a4;
-  v55 = a1;
-  v56 = a2;
-  v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO16DowngradeContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO16DowngradeContextVy_10Foundation4DataVGMR);
-  v53 = *(v57 - 8);
-  v4 = *(v53 + 64);
-  v5 = MEMORY[0x28223BE20](v57);
-  v7 = &v49 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v49 - v8;
-  v10 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v54 = *(v10 - 8);
-  v11 = *(v54 + 64);
-  v12 = MEMORY[0x28223BE20](v10);
-  v14 = &v49 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v49 - v15;
-  v17 = type metadata accessor for JSONDecoder();
-  v18 = *(v17 + 48);
-  v19 = *(v17 + 52);
+  v50 = a5;
+  v51 = a6;
+  v54 = a3;
+  v55 = a4;
+  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO16DowngradeContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO16DowngradeContextVy_10Foundation4DataVGMR);
+  v52 = *(v56 - 8);
+  v7 = MEMORY[0x28223BE20](v56, v6);
+  v9 = &v48 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7, v10);
+  v12 = &v48 - v11;
+  v13 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v53 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13, v14);
+  v17 = &v48 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15, v18);
+  v20 = &v48 - v19;
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-  v20 = v58;
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D020]);
+  v21 = v57;
   dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-  if (!v20)
+  if (!v21)
   {
-    v58 = v7;
-    v22 = v54;
-    v23 = *(v17 + 48);
-    v24 = *(v17 + 52);
+    v57 = v9;
+    v23 = v53;
     swift_allocObject();
     JSONDecoder.init()();
-    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.DowngradeContext<Data> and conformance MLS.DowngradeContext<A>, &_s15SecureMessaging3MLSO16DowngradeContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO16DowngradeContextVy_10Foundation4DataVGMR);
-    v25 = v57;
+    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.DowngradeContext<Data> and conformance MLS.DowngradeContext<A>, &_s15SecureMessaging3MLSO16DowngradeContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO16DowngradeContextVy_10Foundation4DataVGMR, MEMORY[0x277D4CD70]);
+    v24 = v56;
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-    v26 = v53;
-    v27 = *(v53 + 16);
-    v56 = v9;
-    v27(v58, v9, v25);
-    v28 = v16;
-    (*(v22 + 16))(v14, v16, v10);
-    v29 = Logger.logObject.getter();
-    v30 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v29, v30))
+    v25 = v52;
+    v26 = *(v52 + 16);
+    v55 = v12;
+    v26(v57, v12, v24);
+    v27 = v20;
+    (*(v23 + 16))(v17, v20, v13);
+    v28 = Logger.logObject.getter();
+    v29 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v28, v29))
     {
-      v31 = swift_slowAlloc();
-      v55 = swift_slowAlloc();
-      v59 = v55;
-      *v31 = 136315394;
-      LODWORD(v51) = v30;
-      v32 = v58;
-      v33 = MLS.SigningContext.identifier.getter();
-      v50 = v29;
-      v34 = v28;
-      v35 = v33;
-      v37 = v36;
-      (*(v53 + 8))(v32, v57);
-      v38 = v35;
-      v28 = v34;
-      v39 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v38, v37, &v59);
+      v30 = swift_slowAlloc();
+      v54 = swift_slowAlloc();
+      v58 = v54;
+      *v30 = 136315394;
+      LODWORD(v50) = v29;
+      v31 = v57;
+      v32 = MLS.SigningContext.identifier.getter();
+      v49 = v28;
+      v33 = v27;
+      v34 = v32;
+      v36 = v35;
+      (*(v52 + 8))(v31, v56);
+      v37 = v34;
+      v27 = v33;
+      v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v37, v36, &v58);
 
-      *(v31 + 4) = v39;
-      *(v31 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v40 = dispatch thunk of CustomStringConvertible.description.getter();
-      v42 = v41;
-      (*(v22 + 8))(v14, v10);
-      v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v42, &v59);
-      v25 = v57;
+      *(v30 + 4) = v38;
+      *(v30 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v39 = dispatch thunk of CustomStringConvertible.description.getter();
+      v41 = v40;
+      (*(v23 + 8))(v17, v13);
+      v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v39, v41, &v58);
+      v24 = v56;
 
-      *(v31 + 14) = v43;
-      v44 = v50;
-      _os_log_impl(&dword_26524C000, v50, v51, "MLSDaemon downgrade decoded { identifier: %s, uniqueClientIdentifier: %s }", v31, 0x16u);
-      v45 = v55;
+      *(v30 + 14) = v42;
+      v43 = v49;
+      _os_log_impl(&dword_26524C000, v49, v50, "MLSDaemon downgrade decoded { identifier: %s, uniqueClientIdentifier: %s }", v30, 0x16u);
+      v44 = v54;
       swift_arrayDestroy();
+      MEMORY[0x2667577B0](v44, -1, -1);
+      v45 = v30;
+      v25 = v52;
       MEMORY[0x2667577B0](v45, -1, -1);
-      v46 = v31;
-      v26 = v53;
-      MEMORY[0x2667577B0](v46, -1, -1);
     }
 
     else
     {
 
-      (*(v22 + 8))(v14, v10);
-      (*(v26 + 8))(v58, v25);
+      (*(v23 + 8))(v17, v13);
+      (*(v25 + 8))(v57, v24);
     }
 
-    v47 = v52;
-    v48 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC16DowngradeContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC16DowngradeContextVy_10Foundation4DataVGtMR) + 48);
-    (*(v22 + 32))(v47, v28, v10);
-    return (*(v26 + 32))(v47 + v48, v56, v25);
+    v46 = v51;
+    v47 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC16DowngradeContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC16DowngradeContextVy_10Foundation4DataVGtMR) + 48);
+    (*(v23 + 32))(v46, v27, v13);
+    return (*(v25 + 32))(v46 + v47, v55, v24);
   }
 
   return result;
@@ -8800,28 +2973,20 @@ uint64_t closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgrad
   v6[7] = a2;
   v7 = type metadata accessor for XPCUtils.XPCError.ErrorType();
   v6[12] = v7;
-  v8 = *(v7 - 8);
-  v6[13] = v8;
-  v9 = *(v8 + 64) + 15;
+  v6[13] = *(v7 - 8);
   v6[14] = swift_task_alloc();
-  v10 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v6[15] = v10;
-  v11 = *(v10 - 8);
-  v6[16] = v11;
-  v12 = *(v11 + 64) + 15;
+  v8 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v6[15] = v8;
+  v6[16] = *(v8 - 8);
   v6[17] = swift_task_alloc();
   v6[18] = swift_task_alloc();
-  v13 = type metadata accessor for Metric();
-  v6[19] = v13;
-  v14 = *(v13 - 8);
-  v6[20] = v14;
-  v15 = *(v14 + 64) + 15;
+  v9 = type metadata accessor for Metric();
+  v6[19] = v9;
+  v6[20] = *(v9 - 8);
   v6[21] = swift_task_alloc();
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO16DowngradeContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO16DowngradeContextVy_10Foundation4DataVGMR);
-  v6[22] = v16;
-  v17 = *(v16 - 8);
-  v6[23] = v17;
-  v18 = *(v17 + 64) + 15;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO16DowngradeContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO16DowngradeContextVy_10Foundation4DataVGMR);
+  v6[22] = v10;
+  v6[23] = *(v10 - 8);
   v6[24] = swift_task_alloc();
   v6[25] = swift_task_alloc();
   v6[26] = swift_task_alloc();
@@ -8838,40 +3003,36 @@ uint64_t closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgrad
   v0[29] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
   type metadata accessor for MLSActor();
   v0[30] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
   v4 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgradeContext:completion:), v4, v3);
 }
 
 {
-  v2 = v0[29];
-  v1 = v0[30];
-  v3 = v0[27];
-  v4 = v0[28];
+  v1 = *(v0 + 224);
 
-  v0[31] = v4(v5);
+  *(v0 + 248) = v1(v2);
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgradeContext:completion:), 0, 0);
 }
 
 {
-  v89 = v0;
+  v79 = v0;
   if (*(v0[31] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[7]), (v2 & 1) != 0))
   {
     v3 = v0[26];
     v4 = v0[23];
-    v83 = v0[22];
+    v74 = v0[22];
     v5 = v0[20];
-    v71 = v0[21];
+    v63 = v0[21];
     v6 = v0[19];
-    v73 = v0[16];
-    v74 = v0[25];
-    v75 = v0[15];
+    v65 = v0[16];
+    v66 = v0[25];
+    v67 = v0[15];
     log = v0[18];
-    v79 = v0[9];
-    v70 = v0[8];
-    v72 = v0[7];
+    v62 = v0[8];
+    v64 = v0[7];
     v7 = (*(v0[31] + 56) + 48 * v1);
     v0[32] = *v7;
     v0[33] = v7[1];
@@ -8883,14 +3044,14 @@ uint64_t closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgrad
     swift_unknownObjectRetain();
 
     v8 = *(v4 + 16);
-    v8(v3, v70, v83);
-    (*(v5 + 104))(v71, *MEMORY[0x277D4D278], v6);
+    v8(v3, v62, v74);
+    (*(v5 + 104))(v63, *MEMORY[0x277D4D278], v6);
     v9 = MLS.DowngradeContext.metricCollector.modify();
     MetricCollector.end(metric:)();
-    (*(v5 + 8))(v71, v6);
+    (*(v5 + 8))(v63, v6);
     v9(v0 + 2, 0);
-    v8(v74, v70, v83);
-    (*(v73 + 16))(log, v72, v75);
+    v8(v66, v62, v74);
+    (*(v65 + 16))(log, v64, v67);
     v10 = Logger.logObject.getter();
     v11 = static os_log_type_t.default.getter();
     v12 = os_log_type_enabled(v10, v11);
@@ -8902,31 +3063,31 @@ uint64_t closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgrad
     v17 = v0[16];
     if (v12)
     {
-      v80 = v11;
+      v71 = v11;
       v19 = swift_slowAlloc();
-      v84 = swift_slowAlloc();
-      v88[0] = v84;
+      v75 = swift_slowAlloc();
+      v78[0] = v75;
       *v19 = 136315394;
       v20 = MLS.SigningContext.identifier.getter();
-      v76 = v16;
+      v68 = v16;
       loga = v10;
       v22 = v21;
       v23 = *(v15 + 8);
       v23(v13, v14);
-      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v88);
+      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v78);
 
       *(v19 + 4) = v24;
       *(v19 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v25 = dispatch thunk of CustomStringConvertible.description.getter();
       v27 = v26;
-      (*(v17 + 8))(v76, v18);
-      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v88);
+      (*(v17 + 8))(v68, v18);
+      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v78);
 
       *(v19 + 14) = v28;
-      _os_log_impl(&dword_26524C000, loga, v80, "MLSDaemon downgrade calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
+      _os_log_impl(&dword_26524C000, loga, v71, "MLSDaemon downgrade calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v84, -1, -1);
+      MEMORY[0x2667577B0](v75, -1, -1);
       MEMORY[0x2667577B0](v19, -1, -1);
     }
 
@@ -8939,18 +3100,17 @@ uint64_t closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgrad
     }
 
     v0[37] = v23;
-    v64 = *(MEMORY[0x277D4D100] + 4);
-    v87 = (*MEMORY[0x277D4D100] + MEMORY[0x277D4D100]);
-    v65 = swift_task_alloc();
-    v0[38] = v65;
-    *v65 = v0;
-    v65[1] = closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgradeContext:completion:);
-    v66 = v0[26];
-    v67 = v0[10];
-    v68 = v0[11];
-    v69 = v0[6];
+    v77 = (*MEMORY[0x277D4D100] + MEMORY[0x277D4D100]);
+    v57 = swift_task_alloc();
+    v0[38] = v57;
+    *v57 = v0;
+    v57[1] = closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgradeContext:completion:);
+    v58 = v0[26];
+    v59 = v0[10];
+    v60 = v0[11];
+    v61 = v0[6];
 
-    return v87(v69, v67, v68, v66);
+    return v77(v61, v59, v60, v58);
   }
 
   else
@@ -8962,7 +3122,6 @@ uint64_t closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgrad
     v32 = v0[17];
     v34 = v0[15];
     v35 = v0[8];
-    v85 = v0[9];
     v36 = v0[7];
 
     (*(v30 + 16))(v29, v35, v31);
@@ -8978,29 +3137,29 @@ uint64_t closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgrad
     v45 = v0[15];
     if (v39)
     {
-      v82 = v37;
+      v73 = v37;
       v46 = swift_slowAlloc();
-      v86 = swift_slowAlloc();
-      v88[0] = v86;
+      v76 = swift_slowAlloc();
+      v78[0] = v76;
       *v46 = 136315394;
       v47 = MLS.SigningContext.identifier.getter();
-      v81 = v38;
+      v72 = v38;
       v49 = v48;
       (*(v40 + 8))(v41, v42);
-      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v88);
+      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v78);
 
       *(v46 + 4) = v50;
       *(v46 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v51 = dispatch thunk of CustomStringConvertible.description.getter();
       v53 = v52;
       (*(v43 + 8))(v44, v45);
-      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v88);
+      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v78);
 
       *(v46 + 14) = v54;
-      _os_log_impl(&dword_26524C000, v82, v81, "MLSDaemon downgrade has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
+      _os_log_impl(&dword_26524C000, v73, v72, "MLSDaemon downgrade has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v86, -1, -1);
+      MEMORY[0x2667577B0](v76, -1, -1);
       MEMORY[0x2667577B0](v46, -1, -1);
     }
 
@@ -9013,208 +3172,192 @@ uint64_t closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgrad
 
     (*(v0[13] + 104))(v0[14], *MEMORY[0x277D4D2B0], v0[12]);
     type metadata accessor for XPCUtils.XPCError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0]);
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0], MEMORY[0x277D4D2C8]);
     swift_allocError();
     XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
     swift_willThrow();
-    v56 = v0[25];
-    v55 = v0[26];
-    v57 = v0[24];
-    v58 = v0[21];
-    v60 = v0[17];
-    v59 = v0[18];
-    v61 = v0[14];
 
-    v62 = v0[1];
+    v55 = v0[1];
 
-    return v62();
+    return v55();
   }
 }
 
 {
-  v2 = *(*v1 + 304);
-  v5 = *v1;
   *(*v1 + 312) = v0;
 
   if (v0)
   {
-    v3 = closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgradeContext:completion:);
+    v2 = closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgradeContext:completion:);
   }
 
   else
   {
-    v3 = closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgradeContext:completion:);
+    v2 = closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgradeContext:completion:);
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.DowngradeContext<Data>) -> (@out MLS.DowngradeProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
 {
   v7 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC16DowngradeContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC16DowngradeContextVy_10Foundation4DataVGtMR) + 48);
-  v11 = (a3 + *a3);
-  v8 = a3[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+  v10 = (a3 + *a3);
+  v8 = swift_task_alloc();
+  *(v3 + 16) = v8;
+  *v8 = v3;
+  v8[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
 
-  return v11(a1, a2, a2 + v7);
+  return v10(a1, a2, a2 + v7);
 }
 
-uint64_t MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:withGroup:encryptionContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8)
+uint64_t MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:withGroup:encryptionContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, uint64_t a10)
 {
   outlined copy of Data._Representation(a1, a2);
-  v29 = v8;
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.default.getter();
+  v31 = v10;
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.default.getter();
   outlined consume of Data._Representation(a1, a2);
-  if (os_log_type_enabled(v14, v15))
+  if (os_log_type_enabled(v16, v17))
   {
-    v16 = a5;
-    v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v33 = v18;
-    *v17 = 136315138;
-    v19 = Data.description.getter();
-    v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v20, &v33);
+    v18 = a5;
+    v19 = swift_slowAlloc();
+    v20 = swift_slowAlloc();
+    v35 = v20;
+    *v19 = 136315138;
+    v21 = Data.description.getter();
+    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v22, &v35);
 
-    *(v17 + 4) = v21;
-    _os_log_impl(&dword_26524C000, v14, v15, "MLSDaemon applicationEncrypt called { uniqueClientIdentifier: %s }", v17, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v18);
-    MEMORY[0x2667577B0](v18, -1, -1);
-    v22 = v17;
-    a5 = v16;
-    MEMORY[0x2667577B0](v22, -1, -1);
+    *(v19 + 4) = v23;
+    _os_log_impl(&dword_26524C000, v16, v17, "MLSDaemon applicationEncrypt called { uniqueClientIdentifier: %s }", v19, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v20);
+    MEMORY[0x2667577B0](v20, -1, -1);
+    v24 = v19;
+    a5 = v18;
+    MEMORY[0x2667577B0](v24, -1, -1);
   }
 
   type metadata accessor for MLS.EncryptionError();
-  v23 = swift_allocObject();
-  v23[2] = a1;
-  v23[3] = a2;
-  v23[4] = a7;
-  v23[5] = a8;
-  v23[6] = v29;
-  v24 = swift_allocObject();
-  v24[2] = v29;
-  v24[3] = a3;
-  v24[4] = a4;
-  v24[5] = a5;
-  v24[6] = a6;
   v25 = swift_allocObject();
-  *(v25 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:withGroup:encryptionContext:completion:);
-  *(v25 + 24) = v24;
-  v26 = v29;
+  v25[2] = a1;
+  v25[3] = a2;
+  v25[4] = a7;
+  v25[5] = a8;
+  v25[6] = v31;
+  v26 = swift_allocObject();
+  v26[2] = v31;
+  v26[3] = a3;
+  v26[4] = a4;
+  v26[5] = a5;
+  v26[6] = a6;
+  v27 = swift_allocObject();
+  *(v27 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:withGroup:encryptionContext:completion:);
+  *(v27 + 24) = v26;
+  v28 = v31;
   outlined copy of Data._Representation(a1, a2);
-  v27 = v26;
+  v29 = v28;
   outlined copy of Data._Representation(a7, a8);
   outlined copy of Data._Representation(a3, a4);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGtMR);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO26EncryptionProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO26EncryptionProcessedContextVy_10Foundation4DataVGMR);
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.EncryptionError and conformance MLS.EncryptionError, MEMORY[0x277D4CD08]);
-  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.EncryptionProcessedContext<Data> and conformance MLS.EncryptionProcessedContext<A>, &_s15SecureMessaging3MLSO26EncryptionProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO26EncryptionProcessedContextVy_10Foundation4DataVGMR);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.EncryptionError and conformance MLS.EncryptionError, MEMORY[0x277D4CD08], MEMORY[0x277D4CD00]);
+  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.EncryptionProcessedContext<Data> and conformance MLS.EncryptionProcessedContext<A>, &_s15SecureMessaging3MLSO26EncryptionProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO26EncryptionProcessedContextVy_10Foundation4DataVGMR, MEMORY[0x277D4D130]);
   static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
 }
 
-uint64_t closure #1 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:withGroup:encryptionContext:completion:)@<X0>(uint64_t a1@<X2>, char *a2@<X3>, uint64_t a3@<X4>, uint64_t a4@<X8>)
+uint64_t closure #1 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:withGroup:encryptionContext:completion:)@<X0>(uint64_t a3@<X2>, char *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v51 = a3;
-  v52 = a4;
-  v55 = a1;
-  v56 = a2;
-  v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR);
-  v53 = *(v57 - 8);
-  v4 = *(v53 + 64);
-  v5 = MEMORY[0x28223BE20](v57);
-  v7 = &v49 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v49 - v8;
-  v10 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v54 = *(v10 - 8);
-  v11 = *(v54 + 64);
-  v12 = MEMORY[0x28223BE20](v10);
-  v14 = &v49 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v49 - v15;
-  v17 = type metadata accessor for JSONDecoder();
-  v18 = *(v17 + 48);
-  v19 = *(v17 + 52);
+  v50 = a5;
+  v51 = a6;
+  v54 = a3;
+  v55 = a4;
+  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR);
+  v52 = *(v56 - 8);
+  v7 = MEMORY[0x28223BE20](v56, v6);
+  v9 = &v48 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7, v10);
+  v12 = &v48 - v11;
+  v13 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v53 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13, v14);
+  v17 = &v48 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15, v18);
+  v20 = &v48 - v19;
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-  v20 = v58;
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D020]);
+  v21 = v57;
   dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-  if (!v20)
+  if (!v21)
   {
-    v58 = v7;
-    v22 = v54;
-    v23 = *(v17 + 48);
-    v24 = *(v17 + 52);
+    v57 = v9;
+    v23 = v53;
     swift_allocObject();
     JSONDecoder.init()();
-    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.EncryptionContext<MLS.AllMember, Data> and conformance MLS.EncryptionContext<A, B>, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR);
-    v25 = v57;
+    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.EncryptionContext<MLS.AllMember, Data> and conformance MLS.EncryptionContext<A, B>, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR, MEMORY[0x277D4CDA0]);
+    v24 = v56;
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-    v26 = v53;
-    v27 = *(v53 + 16);
-    v56 = v9;
-    v27(v58, v9, v25);
-    v28 = v16;
-    (*(v22 + 16))(v14, v16, v10);
-    v29 = Logger.logObject.getter();
-    v30 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v29, v30))
+    v25 = v52;
+    v26 = *(v52 + 16);
+    v55 = v12;
+    v26(v57, v12, v24);
+    v27 = v20;
+    (*(v23 + 16))(v17, v20, v13);
+    v28 = Logger.logObject.getter();
+    v29 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v28, v29))
     {
-      v31 = swift_slowAlloc();
-      v55 = swift_slowAlloc();
-      v59 = v55;
-      *v31 = 136315394;
-      LODWORD(v51) = v30;
-      v32 = v58;
-      v33 = MLS.SigningContext.identifier.getter();
-      v50 = v29;
-      v34 = v28;
-      v35 = v33;
-      v37 = v36;
-      (*(v53 + 8))(v32, v57);
-      v38 = v35;
-      v28 = v34;
-      v39 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v38, v37, &v59);
+      v30 = swift_slowAlloc();
+      v54 = swift_slowAlloc();
+      v58 = v54;
+      *v30 = 136315394;
+      LODWORD(v50) = v29;
+      v31 = v57;
+      v32 = MLS.SigningContext.identifier.getter();
+      v49 = v28;
+      v33 = v27;
+      v34 = v32;
+      v36 = v35;
+      (*(v52 + 8))(v31, v56);
+      v37 = v34;
+      v27 = v33;
+      v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v37, v36, &v58);
 
-      *(v31 + 4) = v39;
-      *(v31 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v40 = dispatch thunk of CustomStringConvertible.description.getter();
-      v42 = v41;
-      (*(v22 + 8))(v14, v10);
-      v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v42, &v59);
-      v25 = v57;
+      *(v30 + 4) = v38;
+      *(v30 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v39 = dispatch thunk of CustomStringConvertible.description.getter();
+      v41 = v40;
+      (*(v23 + 8))(v17, v13);
+      v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v39, v41, &v58);
+      v24 = v56;
 
-      *(v31 + 14) = v43;
-      v44 = v50;
-      _os_log_impl(&dword_26524C000, v50, v51, "MLSDaemon applicationEncrypt decoded { identifier: %s, uniqueClientIdentifier: %s }", v31, 0x16u);
-      v45 = v55;
+      *(v30 + 14) = v42;
+      v43 = v49;
+      _os_log_impl(&dword_26524C000, v49, v50, "MLSDaemon applicationEncrypt decoded { identifier: %s, uniqueClientIdentifier: %s }", v30, 0x16u);
+      v44 = v54;
       swift_arrayDestroy();
+      MEMORY[0x2667577B0](v44, -1, -1);
+      v45 = v30;
+      v25 = v52;
       MEMORY[0x2667577B0](v45, -1, -1);
-      v46 = v31;
-      v26 = v53;
-      MEMORY[0x2667577B0](v46, -1, -1);
     }
 
     else
     {
 
-      (*(v22 + 8))(v14, v10);
-      (*(v26 + 8))(v58, v25);
+      (*(v23 + 8))(v17, v13);
+      (*(v25 + 8))(v57, v24);
     }
 
-    v47 = v52;
-    v48 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGtMR) + 48);
-    (*(v22 + 32))(v47, v28, v10);
-    return (*(v26 + 32))(v47 + v48, v56, v25);
+    v46 = v51;
+    v47 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGtMR) + 48);
+    (*(v23 + 32))(v46, v27, v13);
+    return (*(v25 + 32))(v46 + v47, v55, v24);
   }
 
   return result;
@@ -9232,28 +3375,20 @@ uint64_t closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:
   v8[7] = a2;
   v9 = type metadata accessor for XPCUtils.XPCError.ErrorType();
   v8[14] = v9;
-  v10 = *(v9 - 8);
-  v8[15] = v10;
-  v11 = *(v10 + 64) + 15;
+  v8[15] = *(v9 - 8);
   v8[16] = swift_task_alloc();
-  v12 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v8[17] = v12;
-  v13 = *(v12 - 8);
-  v8[18] = v13;
-  v14 = *(v13 + 64) + 15;
+  v10 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v8[17] = v10;
+  v8[18] = *(v10 - 8);
   v8[19] = swift_task_alloc();
   v8[20] = swift_task_alloc();
-  v15 = type metadata accessor for Metric();
-  v8[21] = v15;
-  v16 = *(v15 - 8);
-  v8[22] = v16;
-  v17 = *(v16 + 64) + 15;
+  v11 = type metadata accessor for Metric();
+  v8[21] = v11;
+  v8[22] = *(v11 - 8);
   v8[23] = swift_task_alloc();
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR);
-  v8[24] = v18;
-  v19 = *(v18 - 8);
-  v8[25] = v19;
-  v20 = *(v19 + 64) + 15;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR);
+  v8[24] = v12;
+  v8[25] = *(v12 - 8);
   v8[26] = swift_task_alloc();
   v8[27] = swift_task_alloc();
   v8[28] = swift_task_alloc();
@@ -9270,40 +3405,36 @@ uint64_t closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:
   v0[31] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
   type metadata accessor for MLSActor();
   v0[32] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
   v4 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:withGroup:encryptionContext:completion:), v4, v3);
 }
 
 {
-  v2 = v0[31];
-  v1 = v0[32];
-  v3 = v0[29];
-  v4 = v0[30];
+  v1 = *(v0 + 240);
 
-  v0[33] = v4(v5);
+  *(v0 + 264) = v1(v2);
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:withGroup:encryptionContext:completion:), 0, 0);
 }
 
 {
-  v91 = v0;
+  v81 = v0;
   if (*(v0[33] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[7]), (v2 & 1) != 0))
   {
     v3 = v0[28];
     v4 = v0[25];
-    v85 = v0[24];
+    v76 = v0[24];
     v5 = v0[22];
-    v73 = v0[23];
+    v65 = v0[23];
     v6 = v0[21];
-    v75 = v0[18];
-    v76 = v0[27];
-    v77 = v0[17];
+    v67 = v0[18];
+    v68 = v0[27];
+    v69 = v0[17];
     log = v0[20];
-    v81 = v0[9];
-    v72 = v0[8];
-    v74 = v0[7];
+    v64 = v0[8];
+    v66 = v0[7];
     v7 = (*(v0[33] + 56) + 48 * v1);
     v0[34] = *v7;
     v0[35] = v7[1];
@@ -9315,14 +3446,14 @@ uint64_t closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:
     swift_unknownObjectRetain();
 
     v8 = *(v4 + 16);
-    v8(v3, v72, v85);
-    (*(v5 + 104))(v73, *MEMORY[0x277D4D278], v6);
+    v8(v3, v64, v76);
+    (*(v5 + 104))(v65, *MEMORY[0x277D4D278], v6);
     v9 = MLS.EncryptionContext.metricCollector.modify();
     MetricCollector.end(metric:)();
-    (*(v5 + 8))(v73, v6);
+    (*(v5 + 8))(v65, v6);
     v9(v0 + 2, 0);
-    v8(v76, v72, v85);
-    (*(v75 + 16))(log, v74, v77);
+    v8(v68, v64, v76);
+    (*(v67 + 16))(log, v66, v69);
     v10 = Logger.logObject.getter();
     v11 = static os_log_type_t.default.getter();
     v12 = os_log_type_enabled(v10, v11);
@@ -9334,31 +3465,31 @@ uint64_t closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:
     v17 = v0[18];
     if (v12)
     {
-      v82 = v11;
+      v73 = v11;
       v19 = swift_slowAlloc();
-      v86 = swift_slowAlloc();
-      v90[0] = v86;
+      v77 = swift_slowAlloc();
+      v80[0] = v77;
       *v19 = 136315394;
       v20 = MLS.SigningContext.identifier.getter();
-      v78 = v16;
+      v70 = v16;
       loga = v10;
       v22 = v21;
       v23 = *(v15 + 8);
       v23(v13, v14);
-      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v90);
+      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v80);
 
       *(v19 + 4) = v24;
       *(v19 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v25 = dispatch thunk of CustomStringConvertible.description.getter();
       v27 = v26;
-      (*(v17 + 8))(v78, v18);
-      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v90);
+      (*(v17 + 8))(v70, v18);
+      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v80);
 
       *(v19 + 14) = v28;
-      _os_log_impl(&dword_26524C000, loga, v82, "MLSDaemon applicationEncrypt calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
+      _os_log_impl(&dword_26524C000, loga, v73, "MLSDaemon applicationEncrypt calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v86, -1, -1);
+      MEMORY[0x2667577B0](v77, -1, -1);
       MEMORY[0x2667577B0](v19, -1, -1);
     }
 
@@ -9371,20 +3502,19 @@ uint64_t closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:
     }
 
     v0[39] = v23;
-    v64 = *(MEMORY[0x277D4D0C0] + 4);
-    v89 = (*MEMORY[0x277D4D0C0] + MEMORY[0x277D4D0C0]);
-    v65 = swift_task_alloc();
-    v0[40] = v65;
-    *v65 = v0;
-    v65[1] = closure #2 in MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:);
-    v66 = v0[28];
-    v67 = v0[12];
-    v68 = v0[13];
-    v69 = v0[10];
-    v70 = v0[11];
-    v71 = v0[6];
+    v79 = (*MEMORY[0x277D4D0C0] + MEMORY[0x277D4D0C0]);
+    v57 = swift_task_alloc();
+    v0[40] = v57;
+    *v57 = v0;
+    v57[1] = closure #2 in MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:);
+    v58 = v0[28];
+    v59 = v0[12];
+    v60 = v0[13];
+    v61 = v0[10];
+    v62 = v0[11];
+    v63 = v0[6];
 
-    return v89(v71, v69, v70, v67, v68, v66);
+    return v79(v63, v61, v62, v59, v60, v58);
   }
 
   else
@@ -9396,7 +3526,6 @@ uint64_t closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:
     v32 = v0[19];
     v34 = v0[17];
     v35 = v0[8];
-    v87 = v0[9];
     v36 = v0[7];
 
     (*(v30 + 16))(v29, v35, v31);
@@ -9412,29 +3541,29 @@ uint64_t closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:
     v45 = v0[17];
     if (v39)
     {
-      v84 = v37;
+      v75 = v37;
       v46 = swift_slowAlloc();
-      v88 = swift_slowAlloc();
-      v90[0] = v88;
+      v78 = swift_slowAlloc();
+      v80[0] = v78;
       *v46 = 136315394;
       v47 = MLS.SigningContext.identifier.getter();
-      v83 = v38;
+      v74 = v38;
       v49 = v48;
       (*(v40 + 8))(v41, v42);
-      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v90);
+      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v80);
 
       *(v46 + 4) = v50;
       *(v46 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v51 = dispatch thunk of CustomStringConvertible.description.getter();
       v53 = v52;
       (*(v43 + 8))(v44, v45);
-      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v90);
+      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v80);
 
       *(v46 + 14) = v54;
-      _os_log_impl(&dword_26524C000, v84, v83, "MLSDaemon applicationEncrypt has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
+      _os_log_impl(&dword_26524C000, v75, v74, "MLSDaemon applicationEncrypt has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v88, -1, -1);
+      MEMORY[0x2667577B0](v78, -1, -1);
       MEMORY[0x2667577B0](v46, -1, -1);
     }
 
@@ -9447,211 +3576,194 @@ uint64_t closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:
 
     (*(v0[15] + 104))(v0[16], *MEMORY[0x277D4D2B0], v0[14]);
     type metadata accessor for XPCUtils.XPCError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0]);
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0], MEMORY[0x277D4D2C8]);
     swift_allocError();
     XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
     swift_willThrow();
-    v56 = v0[27];
-    v55 = v0[28];
-    v57 = v0[26];
-    v58 = v0[23];
-    v60 = v0[19];
-    v59 = v0[20];
-    v61 = v0[16];
 
-    v62 = v0[1];
+    v55 = v0[1];
 
-    return v62();
+    return v55();
   }
 }
 
 uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.EncryptionContext<MLS.AllMember, Data>) -> (@out MLS.EncryptionProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
 {
   v7 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC17EncryptionContextVy_AC9AllMemberO10Foundation4DataVGtMR) + 48);
-  v11 = (a3 + *a3);
-  v8 = a3[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+  v10 = (a3 + *a3);
+  v8 = swift_task_alloc();
+  *(v3 + 16) = v8;
+  *v8 = v3;
+  v8[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
 
-  return v11(a1, a2, a2 + v7);
+  return v10(a1, a2, a2 + v7);
 }
 
-uint64_t MLSDaemon.applicationSign(uniqueClientIdentifier:input:withGroup:signingContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8)
+uint64_t MLSDaemon.applicationSign(uniqueClientIdentifier:input:withGroup:signingContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, uint64_t a10)
 {
   outlined copy of Data._Representation(a1, a2);
-  v29 = v8;
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.default.getter();
+  v31 = v10;
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.default.getter();
   outlined consume of Data._Representation(a1, a2);
-  if (os_log_type_enabled(v14, v15))
+  if (os_log_type_enabled(v16, v17))
   {
-    v16 = a5;
-    v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v33 = v18;
-    *v17 = 136315138;
-    v19 = Data.description.getter();
-    v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v20, &v33);
+    v18 = a5;
+    v19 = swift_slowAlloc();
+    v20 = swift_slowAlloc();
+    v35 = v20;
+    *v19 = 136315138;
+    v21 = Data.description.getter();
+    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v22, &v35);
 
-    *(v17 + 4) = v21;
-    _os_log_impl(&dword_26524C000, v14, v15, "MLSDaemon applicationSign called { uniqueClientIdentifier: %s }", v17, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v18);
-    MEMORY[0x2667577B0](v18, -1, -1);
-    v22 = v17;
-    a5 = v16;
-    MEMORY[0x2667577B0](v22, -1, -1);
+    *(v19 + 4) = v23;
+    _os_log_impl(&dword_26524C000, v16, v17, "MLSDaemon applicationSign called { uniqueClientIdentifier: %s }", v19, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v20);
+    MEMORY[0x2667577B0](v20, -1, -1);
+    v24 = v19;
+    a5 = v18;
+    MEMORY[0x2667577B0](v24, -1, -1);
   }
 
   type metadata accessor for MLS.SigningError();
-  v23 = swift_allocObject();
-  v23[2] = a1;
-  v23[3] = a2;
-  v23[4] = a3;
-  v23[5] = a4;
-  v23[6] = a7;
-  v23[7] = a8;
-  v23[8] = v29;
-  v24 = swift_allocObject();
-  v24[2] = v29;
-  v24[3] = a5;
-  v24[4] = a6;
   v25 = swift_allocObject();
-  *(v25 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.applicationSign(uniqueClientIdentifier:input:withGroup:signingContext:completion:);
-  *(v25 + 24) = v24;
-  v26 = v29;
+  v25[2] = a1;
+  v25[3] = a2;
+  v25[4] = a3;
+  v25[5] = a4;
+  v25[6] = a7;
+  v25[7] = a8;
+  v25[8] = v31;
+  v26 = swift_allocObject();
+  v26[2] = v31;
+  v26[3] = a5;
+  v26[4] = a6;
+  v27 = swift_allocObject();
+  *(v27 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.applicationSign(uniqueClientIdentifier:input:withGroup:signingContext:completion:);
+  *(v27 + 24) = v26;
+  v28 = v31;
   outlined copy of Data._Representation(a1, a2);
-  v27 = v26;
+  v29 = v28;
   outlined copy of Data._Representation(a3, a4);
   outlined copy of Data._Representation(a7, a8);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC12SigningInputVAC0G7ContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC12SigningInputVAC0G7ContextVy_10Foundation4DataVGtMR);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO23SigningProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO23SigningProcessedContextVy_10Foundation4DataVGMR);
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.SigningError and conformance MLS.SigningError, MEMORY[0x277D4CCA8]);
-  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.SigningProcessedContext<Data> and conformance MLS.SigningProcessedContext<A>, &_s15SecureMessaging3MLSO23SigningProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO23SigningProcessedContextVy_10Foundation4DataVGMR);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.SigningError and conformance MLS.SigningError, MEMORY[0x277D4CCA8], MEMORY[0x277D4CCA0]);
+  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.SigningProcessedContext<Data> and conformance MLS.SigningProcessedContext<A>, &_s15SecureMessaging3MLSO23SigningProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO23SigningProcessedContextVy_10Foundation4DataVGMR, MEMORY[0x277D4D030]);
   static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
 }
 
-uint64_t closure #1 in MLSDaemon.applicationSign(uniqueClientIdentifier:input:withGroup:signingContext:completion:)@<X0>(char *a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X8>)
+uint64_t closure #1 in MLSDaemon.applicationSign(uniqueClientIdentifier:input:withGroup:signingContext:completion:)@<X0>(char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
 {
+  v60 = a7;
+  v63 = a5;
   v64 = a6;
-  v67 = a4;
-  v68 = a5;
-  v73 = a2;
-  v74 = a3;
-  v76 = a1;
-  v66 = a7;
-  v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO14SigningContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO14SigningContextVy_10Foundation4DataVGMR);
-  v72 = *(v70 - 8);
-  v8 = *(v72 + 64);
-  v9 = MEMORY[0x28223BE20](v70);
-  v65 = &v61 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v9);
-  v12 = &v61 - v11;
-  v13 = type metadata accessor for MLS.SigningInput();
-  v69 = *(v13 - 8);
-  v14 = *(v69 + 64);
-  MEMORY[0x28223BE20](v13);
-  v75 = &v61 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v71 = *(v16 - 8);
-  v17 = *(v71 + 64);
-  v18 = MEMORY[0x28223BE20](v16);
-  v20 = &v61 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v61 - v21;
-  v23 = type metadata accessor for JSONDecoder();
-  v24 = *(v23 + 48);
-  v25 = *(v23 + 52);
+  v69 = a3;
+  v70 = a4;
+  v72 = a2;
+  v62 = a8;
+  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO14SigningContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO14SigningContextVy_10Foundation4DataVGMR);
+  v68 = *(v66 - 8);
+  v10 = MEMORY[0x28223BE20](v66, v9);
+  v61 = &v57 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10, v12);
+  v14 = &v57 - v13;
+  v15 = type metadata accessor for MLS.SigningInput();
+  v65 = *(v15 - 8);
+  MEMORY[0x28223BE20](v15, v16);
+  v71 = &v57 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v67 = *(v18 - 8);
+  v20 = MEMORY[0x28223BE20](v18, v19);
+  v22 = &v57 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20, v23);
+  v25 = &v57 - v24;
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D020]);
   dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-  if (!v7)
+  if (!v8)
   {
-    v62 = v12;
-    v63 = v16;
-    v61 = v20;
-    v76 = v22;
-    v28 = v71;
-    v27 = v72;
-    v29 = *(v23 + 48);
-    v30 = *(v23 + 52);
+    v58 = v14;
+    v59 = v18;
+    v57 = v22;
+    v72 = v25;
+    v28 = v67;
+    v27 = v68;
     swift_allocObject();
     JSONDecoder.init()();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.SigningInput and conformance MLS.SigningInput, MEMORY[0x277D4CCB0]);
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.SigningInput and conformance MLS.SigningInput, MEMORY[0x277D4CCB0], MEMORY[0x277D4CCB8]);
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-    v31 = *(v23 + 48);
-    v32 = *(v23 + 52);
     swift_allocObject();
     JSONDecoder.init()();
-    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.SigningContext<Data> and conformance MLS.SigningContext<A>, &_s15SecureMessaging3MLSO14SigningContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO14SigningContextVy_10Foundation4DataVGMR);
-    v33 = v62;
-    v34 = v70;
+    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.SigningContext<Data> and conformance MLS.SigningContext<A>, &_s15SecureMessaging3MLSO14SigningContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO14SigningContextVy_10Foundation4DataVGMR, MEMORY[0x277D4CCF8]);
+    v29 = v58;
+    v30 = v66;
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-    v73 = 0;
-    v74 = v13;
+    v69 = 0;
+    v70 = v15;
 
-    v35 = v63;
-    v36 = v27;
-    v37 = v65;
-    (*(v27 + 16))(v65, v33, v34);
-    v38 = v28;
-    v39 = *(v28 + 16);
-    v40 = v61;
-    v39(v61, v76, v35);
-    v41 = Logger.logObject.getter();
-    v42 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v41, v42))
+    v31 = v59;
+    v32 = v27;
+    v33 = v61;
+    (*(v27 + 16))(v61, v29, v30);
+    v34 = v28;
+    v35 = *(v28 + 16);
+    v36 = v57;
+    v35(v57, v72, v31);
+    v37 = Logger.logObject.getter();
+    v38 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v37, v38))
     {
-      v43 = swift_slowAlloc();
-      LODWORD(v67) = v42;
+      v39 = swift_slowAlloc();
+      LODWORD(v63) = v38;
+      v40 = v39;
+      v64 = swift_slowAlloc();
+      v73 = v64;
+      *v40 = 136315394;
+      v41 = MLS.SigningContext.identifier.getter();
+      v42 = v33;
       v44 = v43;
-      v68 = swift_slowAlloc();
-      v77 = v68;
-      *v44 = 136315394;
-      v45 = MLS.SigningContext.identifier.getter();
-      v46 = v37;
+      (*(v32 + 8))(v42, v66);
+      v45 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v41, v44, &v73);
+
+      *(v40 + 4) = v45;
+      *(v40 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v46 = dispatch thunk of CustomStringConvertible.description.getter();
       v48 = v47;
-      (*(v36 + 8))(v46, v70);
-      v49 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v45, v48, &v77);
+      (*(v34 + 8))(v36, v31);
+      v49 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v46, v48, &v73);
+      v30 = v66;
 
-      *(v44 + 4) = v49;
-      *(v44 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
-      v50 = dispatch thunk of CustomStringConvertible.description.getter();
-      v52 = v51;
-      (*(v38 + 8))(v40, v35);
-      v53 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v50, v52, &v77);
-      v34 = v70;
-
-      *(v44 + 14) = v53;
-      _os_log_impl(&dword_26524C000, v41, v67, "MLSDaemon applicationSign decoded { identifier: %s, uniqueClientIdentifier: %s }", v44, 0x16u);
-      v54 = v68;
+      *(v40 + 14) = v49;
+      _os_log_impl(&dword_26524C000, v37, v63, "MLSDaemon applicationSign decoded { identifier: %s, uniqueClientIdentifier: %s }", v40, 0x16u);
+      v50 = v64;
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v54, -1, -1);
-      MEMORY[0x2667577B0](v44, -1, -1);
+      MEMORY[0x2667577B0](v50, -1, -1);
+      MEMORY[0x2667577B0](v40, -1, -1);
     }
 
     else
     {
 
-      (*(v38 + 8))(v40, v35);
-      (*(v36 + 8))(v37, v34);
+      (*(v34 + 8))(v36, v31);
+      (*(v32 + 8))(v33, v30);
     }
 
-    v55 = v66;
-    v56 = v38;
-    v57 = v69;
-    v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC12SigningInputVAC0G7ContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC12SigningInputVAC0G7ContextVy_10Foundation4DataVGtMR);
-    v59 = *(v58 + 48);
-    v60 = *(v58 + 64);
-    (*(v56 + 32))(v55, v76, v35);
-    (*(v57 + 32))(v55 + v59, v75, v74);
-    return (*(v36 + 32))(v55 + v60, v62, v34);
+    v51 = v62;
+    v52 = v34;
+    v53 = v65;
+    v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC12SigningInputVAC0G7ContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC12SigningInputVAC0G7ContextVy_10Foundation4DataVGtMR);
+    v55 = *(v54 + 48);
+    v56 = *(v54 + 64);
+    (*(v52 + 32))(v51, v72, v31);
+    (*(v53 + 32))(v51 + v55, v71, v70);
+    return (*(v32 + 32))(v51 + v56, v58, v30);
   }
 
   return result;
@@ -9668,28 +3780,20 @@ uint64_t closure #2 in MLSDaemon.applicationSign(uniqueClientIdentifier:input:wi
   v7[6] = a1;
   v8 = type metadata accessor for XPCUtils.XPCError.ErrorType();
   v7[13] = v8;
-  v9 = *(v8 - 8);
-  v7[14] = v9;
-  v10 = *(v9 + 64) + 15;
+  v7[14] = *(v8 - 8);
   v7[15] = swift_task_alloc();
-  v11 = type metadata accessor for MLS.UniqueClientIdentifier();
-  v7[16] = v11;
-  v12 = *(v11 - 8);
-  v7[17] = v12;
-  v13 = *(v12 + 64) + 15;
+  v9 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v7[16] = v9;
+  v7[17] = *(v9 - 8);
   v7[18] = swift_task_alloc();
   v7[19] = swift_task_alloc();
-  v14 = type metadata accessor for Metric();
-  v7[20] = v14;
-  v15 = *(v14 - 8);
-  v7[21] = v15;
-  v16 = *(v15 + 64) + 15;
+  v10 = type metadata accessor for Metric();
+  v7[20] = v10;
+  v7[21] = *(v10 - 8);
   v7[22] = swift_task_alloc();
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO14SigningContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO14SigningContextVy_10Foundation4DataVGMR);
-  v7[23] = v17;
-  v18 = *(v17 - 8);
-  v7[24] = v18;
-  v19 = *(v18 + 64) + 15;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO14SigningContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO14SigningContextVy_10Foundation4DataVGMR);
+  v7[23] = v11;
+  v7[24] = *(v11 - 8);
   v7[25] = swift_task_alloc();
   v7[26] = swift_task_alloc();
   v7[27] = swift_task_alloc();
@@ -9706,40 +3810,36 @@ uint64_t closure #2 in MLSDaemon.applicationSign(uniqueClientIdentifier:input:wi
   v0[30] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
   type metadata accessor for MLSActor();
   v0[31] = static MLSActor.shared.getter();
-  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280]);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
   v4 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.applicationSign(uniqueClientIdentifier:input:withGroup:signingContext:completion:), v4, v3);
 }
 
 {
-  v2 = v0[30];
-  v1 = v0[31];
-  v3 = v0[28];
-  v4 = v0[29];
+  v1 = *(v0 + 232);
 
-  v0[32] = v4(v5);
+  *(v0 + 256) = v1(v2);
 
   return MEMORY[0x2822009F8](closure #2 in MLSDaemon.applicationSign(uniqueClientIdentifier:input:withGroup:signingContext:completion:), 0, 0);
 }
 
 {
-  v90 = v0;
+  v80 = v0;
   if (*(v0[32] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[7]), (v2 & 1) != 0))
   {
     v3 = v0[27];
     v4 = v0[24];
-    v84 = v0[23];
+    v75 = v0[23];
     v5 = v0[21];
-    v72 = v0[22];
+    v64 = v0[22];
     v6 = v0[20];
-    v74 = v0[17];
-    v75 = v0[26];
-    v76 = v0[16];
+    v66 = v0[17];
+    v67 = v0[26];
+    v68 = v0[16];
     log = v0[19];
-    v80 = v0[10];
-    v71 = v0[9];
-    v73 = v0[7];
+    v63 = v0[9];
+    v65 = v0[7];
     v7 = (*(v0[32] + 56) + 48 * v1);
     v0[33] = *v7;
     v0[34] = v7[1];
@@ -9751,14 +3851,14 @@ uint64_t closure #2 in MLSDaemon.applicationSign(uniqueClientIdentifier:input:wi
     swift_unknownObjectRetain();
 
     v8 = *(v4 + 16);
-    v8(v3, v71, v84);
-    (*(v5 + 104))(v72, *MEMORY[0x277D4D278], v6);
+    v8(v3, v63, v75);
+    (*(v5 + 104))(v64, *MEMORY[0x277D4D278], v6);
     v9 = MLS.SigningContext.metricCollector.modify();
     MetricCollector.end(metric:)();
-    (*(v5 + 8))(v72, v6);
+    (*(v5 + 8))(v64, v6);
     v9(v0 + 2, 0);
-    v8(v75, v71, v84);
-    (*(v74 + 16))(log, v73, v76);
+    v8(v67, v63, v75);
+    (*(v66 + 16))(log, v65, v68);
     v10 = Logger.logObject.getter();
     v11 = static os_log_type_t.default.getter();
     v12 = os_log_type_enabled(v10, v11);
@@ -9770,31 +3870,31 @@ uint64_t closure #2 in MLSDaemon.applicationSign(uniqueClientIdentifier:input:wi
     v17 = v0[17];
     if (v12)
     {
-      v81 = v11;
+      v72 = v11;
       v19 = swift_slowAlloc();
-      v85 = swift_slowAlloc();
-      v89[0] = v85;
+      v76 = swift_slowAlloc();
+      v79[0] = v76;
       *v19 = 136315394;
       v20 = MLS.SigningContext.identifier.getter();
-      v77 = v16;
+      v69 = v16;
       loga = v10;
       v22 = v21;
       v23 = *(v15 + 8);
       v23(v13, v14);
-      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v89);
+      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v79);
 
       *(v19 + 4) = v24;
       *(v19 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v25 = dispatch thunk of CustomStringConvertible.description.getter();
       v27 = v26;
-      (*(v17 + 8))(v77, v18);
-      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v89);
+      (*(v17 + 8))(v69, v18);
+      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v79);
 
       *(v19 + 14) = v28;
-      _os_log_impl(&dword_26524C000, loga, v81, "MLSDaemon applicationSign calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
+      _os_log_impl(&dword_26524C000, loga, v72, "MLSDaemon applicationSign calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v85, -1, -1);
+      MEMORY[0x2667577B0](v76, -1, -1);
       MEMORY[0x2667577B0](v19, -1, -1);
     }
 
@@ -9807,19 +3907,18 @@ uint64_t closure #2 in MLSDaemon.applicationSign(uniqueClientIdentifier:input:wi
     }
 
     v0[38] = v23;
-    v64 = *(MEMORY[0x277D4D088] + 4);
-    v88 = (*MEMORY[0x277D4D088] + MEMORY[0x277D4D088]);
-    v65 = swift_task_alloc();
-    v0[39] = v65;
-    *v65 = v0;
-    v65[1] = closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:);
-    v66 = v0[27];
-    v67 = v0[11];
-    v68 = v0[12];
-    v69 = v0[8];
-    v70 = v0[6];
+    v78 = (*MEMORY[0x277D4D088] + MEMORY[0x277D4D088]);
+    v57 = swift_task_alloc();
+    v0[39] = v57;
+    *v57 = v0;
+    v57[1] = closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:);
+    v58 = v0[27];
+    v59 = v0[11];
+    v60 = v0[12];
+    v61 = v0[8];
+    v62 = v0[6];
 
-    return v88(v70, v69, v67, v68, v66);
+    return v78(v62, v61, v59, v60, v58);
   }
 
   else
@@ -9831,7 +3930,6 @@ uint64_t closure #2 in MLSDaemon.applicationSign(uniqueClientIdentifier:input:wi
     v32 = v0[18];
     v34 = v0[16];
     v35 = v0[9];
-    v86 = v0[10];
     v36 = v0[7];
 
     (*(v30 + 16))(v29, v35, v31);
@@ -9847,29 +3945,29 @@ uint64_t closure #2 in MLSDaemon.applicationSign(uniqueClientIdentifier:input:wi
     v45 = v0[16];
     if (v39)
     {
-      v83 = v37;
+      v74 = v37;
       v46 = swift_slowAlloc();
-      v87 = swift_slowAlloc();
-      v89[0] = v87;
+      v77 = swift_slowAlloc();
+      v79[0] = v77;
       *v46 = 136315394;
       v47 = MLS.SigningContext.identifier.getter();
-      v82 = v38;
+      v73 = v38;
       v49 = v48;
       (*(v40 + 8))(v41, v42);
-      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v89);
+      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v79);
 
       *(v46 + 4) = v50;
       *(v46 + 12) = 2080;
-      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000]);
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
       v51 = dispatch thunk of CustomStringConvertible.description.getter();
       v53 = v52;
       (*(v43 + 8))(v44, v45);
-      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v89);
+      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v79);
 
       *(v46 + 14) = v54;
-      _os_log_impl(&dword_26524C000, v83, v82, "MLSDaemon applicationSign has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
+      _os_log_impl(&dword_26524C000, v74, v73, "MLSDaemon applicationSign has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x2667577B0](v87, -1, -1);
+      MEMORY[0x2667577B0](v77, -1, -1);
       MEMORY[0x2667577B0](v46, -1, -1);
     }
 
@@ -9882,20 +3980,6072 @@ uint64_t closure #2 in MLSDaemon.applicationSign(uniqueClientIdentifier:input:wi
 
     (*(v0[14] + 104))(v0[15], *MEMORY[0x277D4D2B0], v0[13]);
     type metadata accessor for XPCUtils.XPCError();
-    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0]);
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0], MEMORY[0x277D4D2C8]);
     swift_allocError();
     XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
     swift_willThrow();
-    v56 = v0[26];
-    v55 = v0[27];
-    v57 = v0[25];
-    v58 = v0[22];
-    v60 = v0[18];
-    v59 = v0[19];
-    v61 = v0[15];
 
-    v62 = v0[1];
+    v55 = v0[1];
 
-    return v62();
+    return v55();
   }
+}
+
+uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.SigningInput, @in_guaranteed MLS.SigningContext<Data>) -> (@out MLS.SigningProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
+{
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC12SigningInputVAC0G7ContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC12SigningInputVAC0G7ContextVy_10Foundation4DataVGtMR);
+  v8 = *(v7 + 48);
+  v9 = *(v7 + 64);
+  v12 = (a3 + *a3);
+  v10 = swift_task_alloc();
+  *(v3 + 16) = v10;
+  *v10 = v3;
+  v10[1] = protocol witness for MLS.KeyPackageExchanger.retrieveKeyPackage(members:context:) in conformance KDSRegistrationKeyPackageExchanger;
+
+  return v12(a1, a2, a2 + v8, a2 + v9);
+}
+
+uint64_t MLSDaemon.applicationEncrypt(uniqueClientIdentifier:groupName:withGroup:groupNameEncryptionContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, uint64_t a10)
+{
+  outlined copy of Data._Representation(a1, a2);
+  v35 = v10;
+  v17 = Logger.logObject.getter();
+  v18 = static os_log_type_t.default.getter();
+  outlined consume of Data._Representation(a1, a2);
+  if (os_log_type_enabled(v17, v18))
+  {
+    v33 = a5;
+    v19 = swift_slowAlloc();
+    v20 = swift_slowAlloc();
+    v37 = v20;
+    *v19 = 136315138;
+    v21 = Data.description.getter();
+    v23 = a3;
+    v24 = a7;
+    v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v22, &v37);
+
+    *(v19 + 4) = v25;
+    a7 = v24;
+    a3 = v23;
+    _os_log_impl(&dword_26524C000, v17, v18, "MLSDaemon applicationEncrypt groupName called { uniqueClientIdentifier: %s }", v19, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v20);
+    MEMORY[0x2667577B0](v20, -1, -1);
+    v26 = v19;
+    a5 = v33;
+    MEMORY[0x2667577B0](v26, -1, -1);
+  }
+
+  type metadata accessor for MLS.EncryptionError();
+  v27 = swift_allocObject();
+  v27[2] = a1;
+  v27[3] = a2;
+  v27[4] = a7;
+  v27[5] = a8;
+  v27[6] = v35;
+  v28 = swift_allocObject();
+  v28[2] = v35;
+  v28[3] = a3;
+  v28[4] = a4;
+  v28[5] = a5;
+  v28[6] = a6;
+  v29 = swift_allocObject();
+  *(v29 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:groupName:withGroup:groupNameEncryptionContext:completion:);
+  *(v29 + 24) = v28;
+  v30 = v35;
+  outlined copy of Data._Representation(a1, a2);
+  v31 = v30;
+  outlined copy of Data._Representation(a7, a8);
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC26GroupNameEncryptionContextVy_AC9AllMemberO10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC26GroupNameEncryptionContextVy_AC9AllMemberO10Foundation4DataVGtMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO35GroupNameEncryptionProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO35GroupNameEncryptionProcessedContextVy_10Foundation4DataVGMR);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.EncryptionError and conformance MLS.EncryptionError, MEMORY[0x277D4CD08], MEMORY[0x277D4CD00]);
+  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupNameEncryptionProcessedContext<Data> and conformance MLS.GroupNameEncryptionProcessedContext<A>, &_s15SecureMessaging3MLSO35GroupNameEncryptionProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO35GroupNameEncryptionProcessedContextVy_10Foundation4DataVGMR, MEMORY[0x277D4D1C8]);
+  static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
+}
+
+uint64_t closure #1 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:groupName:withGroup:groupNameEncryptionContext:completion:)@<X0>(uint64_t a3@<X2>, char *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+{
+  v50 = a5;
+  v51 = a6;
+  v54 = a3;
+  v55 = a4;
+  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO26GroupNameEncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO26GroupNameEncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR);
+  v52 = *(v56 - 8);
+  v7 = MEMORY[0x28223BE20](v56, v6);
+  v9 = &v48 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7, v10);
+  v12 = &v48 - v11;
+  v13 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v53 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13, v14);
+  v17 = &v48 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15, v18);
+  v20 = &v48 - v19;
+  type metadata accessor for JSONDecoder();
+  swift_allocObject();
+  JSONDecoder.init()();
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D020]);
+  v21 = v57;
+  dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+
+  if (!v21)
+  {
+    v57 = v9;
+    v23 = v53;
+    swift_allocObject();
+    JSONDecoder.init()();
+    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.GroupNameEncryptionContext<MLS.AllMember, Data> and conformance MLS.GroupNameEncryptionContext<A, B>, &_s15SecureMessaging3MLSO26GroupNameEncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO26GroupNameEncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR, MEMORY[0x277D4D138]);
+    v24 = v56;
+    dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+
+    v25 = v52;
+    v26 = *(v52 + 16);
+    v55 = v12;
+    v26(v57, v12, v24);
+    v27 = v20;
+    (*(v23 + 16))(v17, v20, v13);
+    v28 = Logger.logObject.getter();
+    v29 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v28, v29))
+    {
+      v30 = swift_slowAlloc();
+      v54 = swift_slowAlloc();
+      v58 = v54;
+      *v30 = 136315394;
+      LODWORD(v50) = v29;
+      v31 = v57;
+      v32 = MLS.SigningContext.identifier.getter();
+      v49 = v28;
+      v33 = v27;
+      v34 = v32;
+      v36 = v35;
+      (*(v52 + 8))(v31, v56);
+      v37 = v34;
+      v27 = v33;
+      v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v37, v36, &v58);
+
+      *(v30 + 4) = v38;
+      *(v30 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v39 = dispatch thunk of CustomStringConvertible.description.getter();
+      v41 = v40;
+      (*(v23 + 8))(v17, v13);
+      v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v39, v41, &v58);
+      v24 = v56;
+
+      *(v30 + 14) = v42;
+      v43 = v49;
+      _os_log_impl(&dword_26524C000, v49, v50, "MLSDaemon applicationEncrypt groupName decoded { identifier: %s, uniqueClientIdentifier: %s }", v30, 0x16u);
+      v44 = v54;
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v44, -1, -1);
+      v45 = v30;
+      v25 = v52;
+      MEMORY[0x2667577B0](v45, -1, -1);
+    }
+
+    else
+    {
+
+      (*(v23 + 8))(v17, v13);
+      (*(v25 + 8))(v57, v24);
+    }
+
+    v46 = v51;
+    v47 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC26GroupNameEncryptionContextVy_AC9AllMemberO10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC26GroupNameEncryptionContextVy_AC9AllMemberO10Foundation4DataVGtMR) + 48);
+    (*(v23 + 32))(v46, v27, v13);
+    return (*(v25 + 32))(v46 + v47, v55, v24);
+  }
+
+  return result;
+}
+
+uint64_t closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:groupName:withGroup:groupNameEncryptionContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v8[12] = a7;
+  v8[13] = a8;
+  v8[10] = a5;
+  v8[11] = a6;
+  v8[8] = a3;
+  v8[9] = a4;
+  v8[6] = a1;
+  v8[7] = a2;
+  v9 = type metadata accessor for XPCUtils.XPCError.ErrorType();
+  v8[14] = v9;
+  v8[15] = *(v9 - 8);
+  v8[16] = swift_task_alloc();
+  v10 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v8[17] = v10;
+  v8[18] = *(v10 - 8);
+  v8[19] = swift_task_alloc();
+  v8[20] = swift_task_alloc();
+  v11 = type metadata accessor for Metric();
+  v8[21] = v11;
+  v8[22] = *(v11 - 8);
+  v8[23] = swift_task_alloc();
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO26GroupNameEncryptionContextVy_AC9AllMemberO10Foundation4DataVGMd, &_s15SecureMessaging3MLSO26GroupNameEncryptionContextVy_AC9AllMemberO10Foundation4DataVGMR);
+  v8[24] = v12;
+  v8[25] = *(v12 - 8);
+  v8[26] = swift_task_alloc();
+  v8[27] = swift_task_alloc();
+  v8[28] = swift_task_alloc();
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:groupName:withGroup:groupNameEncryptionContext:completion:), 0, 0);
+}
+
+uint64_t closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:groupName:withGroup:groupNameEncryptionContext:completion:)()
+{
+  v1 = *(v0[9] + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_clientXPCServer);
+  v0[29] = v1;
+  v2 = *v1 + 88;
+  v0[30] = *v2;
+  v0[31] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
+  type metadata accessor for MLSActor();
+  v0[32] = static MLSActor.shared.getter();
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
+  v4 = dispatch thunk of Actor.unownedExecutor.getter();
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:groupName:withGroup:groupNameEncryptionContext:completion:), v4, v3);
+}
+
+{
+  v1 = *(v0 + 240);
+
+  *(v0 + 264) = v1(v2);
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:groupName:withGroup:groupNameEncryptionContext:completion:), 0, 0);
+}
+
+{
+  v81 = v0;
+  if (*(v0[33] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[7]), (v2 & 1) != 0))
+  {
+    v3 = v0[28];
+    v4 = v0[25];
+    v76 = v0[24];
+    v5 = v0[22];
+    v65 = v0[23];
+    v6 = v0[21];
+    v67 = v0[18];
+    v68 = v0[27];
+    v69 = v0[17];
+    log = v0[20];
+    v64 = v0[8];
+    v66 = v0[7];
+    v7 = (*(v0[33] + 56) + 48 * v1);
+    v0[34] = *v7;
+    v0[35] = v7[1];
+    v0[36] = v7[2];
+    v0[37] = v7[3];
+    v0[38] = v7[4];
+    swift_unknownObjectRetain();
+
+    swift_unknownObjectRetain();
+
+    v8 = *(v4 + 16);
+    v8(v3, v64, v76);
+    (*(v5 + 104))(v65, *MEMORY[0x277D4D278], v6);
+    v9 = MLS.GroupNameEncryptionContext.metricCollector.modify();
+    MetricCollector.end(metric:)();
+    (*(v5 + 8))(v65, v6);
+    v9(v0 + 2, 0);
+    v8(v68, v64, v76);
+    (*(v67 + 16))(log, v66, v69);
+    v10 = Logger.logObject.getter();
+    v11 = static os_log_type_t.default.getter();
+    v12 = os_log_type_enabled(v10, v11);
+    v13 = v0[27];
+    v14 = v0[24];
+    v15 = v0[25];
+    v16 = v0[20];
+    v18 = v0[17];
+    v17 = v0[18];
+    if (v12)
+    {
+      v73 = v11;
+      v19 = swift_slowAlloc();
+      v77 = swift_slowAlloc();
+      v80[0] = v77;
+      *v19 = 136315394;
+      v20 = MLS.SigningContext.identifier.getter();
+      v70 = v16;
+      loga = v10;
+      v22 = v21;
+      v23 = *(v15 + 8);
+      v23(v13, v14);
+      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v80);
+
+      *(v19 + 4) = v24;
+      *(v19 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v25 = dispatch thunk of CustomStringConvertible.description.getter();
+      v27 = v26;
+      (*(v17 + 8))(v70, v18);
+      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v80);
+
+      *(v19 + 14) = v28;
+      _os_log_impl(&dword_26524C000, loga, v73, "MLSDaemon applicationEncrypt groupName calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v77, -1, -1);
+      MEMORY[0x2667577B0](v19, -1, -1);
+    }
+
+    else
+    {
+
+      (*(v17 + 8))(v16, v18);
+      v23 = *(v15 + 8);
+      v23(v13, v14);
+    }
+
+    v0[39] = v23;
+    v79 = (*MEMORY[0x277D4D0C8] + MEMORY[0x277D4D0C8]);
+    v57 = swift_task_alloc();
+    v0[40] = v57;
+    *v57 = v0;
+    v57[1] = closure #2 in MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:);
+    v58 = v0[28];
+    v59 = v0[12];
+    v60 = v0[13];
+    v61 = v0[10];
+    v62 = v0[11];
+    v63 = v0[6];
+
+    return v79(v63, v61, v62, v59, v60, v58);
+  }
+
+  else
+  {
+    v30 = v0[25];
+    v29 = v0[26];
+    v31 = v0[24];
+    v33 = v0[18];
+    v32 = v0[19];
+    v34 = v0[17];
+    v35 = v0[8];
+    v36 = v0[7];
+
+    (*(v30 + 16))(v29, v35, v31);
+    (*(v33 + 16))(v32, v36, v34);
+    v37 = Logger.logObject.getter();
+    v38 = static os_log_type_t.error.getter();
+    v39 = os_log_type_enabled(v37, v38);
+    v40 = v0[25];
+    v41 = v0[26];
+    v42 = v0[24];
+    v43 = v0[18];
+    v44 = v0[19];
+    v45 = v0[17];
+    if (v39)
+    {
+      v75 = v37;
+      v46 = swift_slowAlloc();
+      v78 = swift_slowAlloc();
+      v80[0] = v78;
+      *v46 = 136315394;
+      v47 = MLS.SigningContext.identifier.getter();
+      v74 = v38;
+      v49 = v48;
+      (*(v40 + 8))(v41, v42);
+      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v80);
+
+      *(v46 + 4) = v50;
+      *(v46 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v51 = dispatch thunk of CustomStringConvertible.description.getter();
+      v53 = v52;
+      (*(v43 + 8))(v44, v45);
+      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v80);
+
+      *(v46 + 14) = v54;
+      _os_log_impl(&dword_26524C000, v75, v74, "MLSDaemon applicationEncrypt groupName has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v78, -1, -1);
+      MEMORY[0x2667577B0](v46, -1, -1);
+    }
+
+    else
+    {
+
+      (*(v43 + 8))(v44, v45);
+      (*(v40 + 8))(v41, v42);
+    }
+
+    (*(v0[15] + 104))(v0[16], *MEMORY[0x277D4D2B0], v0[14]);
+    type metadata accessor for XPCUtils.XPCError();
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0], MEMORY[0x277D4D2C8]);
+    swift_allocError();
+    XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
+    swift_willThrow();
+
+    v55 = v0[1];
+
+    return v55();
+  }
+}
+
+uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupNameEncryptionContext<MLS.AllMember, Data>) -> (@out MLS.GroupNameEncryptionProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
+{
+  v7 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC26GroupNameEncryptionContextVy_AC9AllMemberO10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC26GroupNameEncryptionContextVy_AC9AllMemberO10Foundation4DataVGtMR) + 48);
+  v10 = (a3 + *a3);
+  v8 = swift_task_alloc();
+  *(v3 + 16) = v8;
+  *v8 = v3;
+  v8[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return v10(a1, a2, a2 + v7);
+}
+
+uint64_t MLSDaemon.processIncoming(uniqueClientIdentifier:groupName:forGroup:incomingGroupNameContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, uint64_t a10)
+{
+  outlined copy of Data._Representation(a1, a2);
+  v31 = v10;
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.default.getter();
+  outlined consume of Data._Representation(a1, a2);
+  if (os_log_type_enabled(v16, v17))
+  {
+    v18 = a5;
+    v19 = swift_slowAlloc();
+    v20 = swift_slowAlloc();
+    v35 = v20;
+    *v19 = 136315138;
+    v21 = Data.description.getter();
+    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v22, &v35);
+
+    *(v19 + 4) = v23;
+    _os_log_impl(&dword_26524C000, v16, v17, "MLSDaemon processIncoming groupName called { uniqueClientIdentifier: %s }", v19, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v20);
+    MEMORY[0x2667577B0](v20, -1, -1);
+    v24 = v19;
+    a5 = v18;
+    MEMORY[0x2667577B0](v24, -1, -1);
+  }
+
+  type metadata accessor for MLS.IncomingMessageError();
+  v25 = swift_allocObject();
+  v25[2] = a1;
+  v25[3] = a2;
+  v25[4] = a7;
+  v25[5] = a8;
+  v25[6] = v31;
+  v26 = swift_allocObject();
+  v26[2] = v31;
+  v26[3] = a3;
+  v26[4] = a4;
+  v26[5] = a5;
+  v26[6] = a6;
+  v27 = swift_allocObject();
+  *(v27 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:groupName:forGroup:incomingGroupNameContext:completion:);
+  *(v27 + 24) = v26;
+  v28 = v31;
+  outlined copy of Data._Representation(a1, a2);
+  v29 = v28;
+  outlined copy of Data._Representation(a7, a8);
+  outlined copy of Data._Representation(a3, a4);
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC24IncomingGroupNameContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC24IncomingGroupNameContextVy_10Foundation4DataVGtMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO33IncomingGroupNameProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO33IncomingGroupNameProcessedContextVy_10Foundation4DataVGMR);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.IncomingMessageError and conformance MLS.IncomingMessageError, MEMORY[0x277D4CFB8], MEMORY[0x277D4CFB0]);
+  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingGroupNameProcessedContext<Data> and conformance MLS.IncomingGroupNameProcessedContext<A>, &_s15SecureMessaging3MLSO33IncomingGroupNameProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO33IncomingGroupNameProcessedContextVy_10Foundation4DataVGMR, MEMORY[0x277D4D1C0]);
+  static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
+}
+
+uint64_t closure #1 in MLSDaemon.processIncoming(uniqueClientIdentifier:groupName:forGroup:incomingGroupNameContext:completion:)@<X0>(uint64_t a3@<X2>, char *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+{
+  v50 = a5;
+  v51 = a6;
+  v54 = a3;
+  v55 = a4;
+  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO24IncomingGroupNameContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO24IncomingGroupNameContextVy_10Foundation4DataVGMR);
+  v52 = *(v56 - 8);
+  v7 = MEMORY[0x28223BE20](v56, v6);
+  v9 = &v48 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7, v10);
+  v12 = &v48 - v11;
+  v13 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v53 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13, v14);
+  v17 = &v48 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15, v18);
+  v20 = &v48 - v19;
+  type metadata accessor for JSONDecoder();
+  swift_allocObject();
+  JSONDecoder.init()();
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D020]);
+  v21 = v57;
+  dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+
+  if (!v21)
+  {
+    v57 = v9;
+    v23 = v53;
+    swift_allocObject();
+    JSONDecoder.init()();
+    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingGroupNameContext<Data> and conformance MLS.IncomingGroupNameContext<A>, &_s15SecureMessaging3MLSO24IncomingGroupNameContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO24IncomingGroupNameContextVy_10Foundation4DataVGMR, MEMORY[0x277D4D040]);
+    v24 = v56;
+    dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+
+    v25 = v52;
+    v26 = *(v52 + 16);
+    v55 = v12;
+    v26(v57, v12, v24);
+    v27 = v20;
+    (*(v23 + 16))(v17, v20, v13);
+    v28 = Logger.logObject.getter();
+    v29 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v28, v29))
+    {
+      v30 = swift_slowAlloc();
+      v54 = swift_slowAlloc();
+      v58 = v54;
+      *v30 = 136315394;
+      LODWORD(v50) = v29;
+      v31 = v57;
+      v32 = MLS.SigningContext.identifier.getter();
+      v49 = v28;
+      v33 = v27;
+      v34 = v32;
+      v36 = v35;
+      (*(v52 + 8))(v31, v56);
+      v37 = v34;
+      v27 = v33;
+      v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v37, v36, &v58);
+
+      *(v30 + 4) = v38;
+      *(v30 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v39 = dispatch thunk of CustomStringConvertible.description.getter();
+      v41 = v40;
+      (*(v23 + 8))(v17, v13);
+      v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v39, v41, &v58);
+      v24 = v56;
+
+      *(v30 + 14) = v42;
+      v43 = v49;
+      _os_log_impl(&dword_26524C000, v49, v50, "MLSDaemon processIncoming groupName decoded { identifier: %s, uniqueClientIdentifier: %s }", v30, 0x16u);
+      v44 = v54;
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v44, -1, -1);
+      v45 = v30;
+      v25 = v52;
+      MEMORY[0x2667577B0](v45, -1, -1);
+    }
+
+    else
+    {
+
+      (*(v23 + 8))(v17, v13);
+      (*(v25 + 8))(v57, v24);
+    }
+
+    v46 = v51;
+    v47 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC24IncomingGroupNameContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC24IncomingGroupNameContextVy_10Foundation4DataVGtMR) + 48);
+    (*(v23 + 32))(v46, v27, v13);
+    return (*(v25 + 32))(v46 + v47, v55, v24);
+  }
+
+  return result;
+}
+
+uint64_t closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:groupName:forGroup:incomingGroupNameContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v8[12] = a7;
+  v8[13] = a8;
+  v8[10] = a5;
+  v8[11] = a6;
+  v8[8] = a3;
+  v8[9] = a4;
+  v8[6] = a1;
+  v8[7] = a2;
+  v9 = type metadata accessor for XPCUtils.XPCError.ErrorType();
+  v8[14] = v9;
+  v8[15] = *(v9 - 8);
+  v8[16] = swift_task_alloc();
+  v10 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v8[17] = v10;
+  v8[18] = *(v10 - 8);
+  v8[19] = swift_task_alloc();
+  v8[20] = swift_task_alloc();
+  v11 = type metadata accessor for Metric();
+  v8[21] = v11;
+  v8[22] = *(v11 - 8);
+  v8[23] = swift_task_alloc();
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO24IncomingGroupNameContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO24IncomingGroupNameContextVy_10Foundation4DataVGMR);
+  v8[24] = v12;
+  v8[25] = *(v12 - 8);
+  v8[26] = swift_task_alloc();
+  v8[27] = swift_task_alloc();
+  v8[28] = swift_task_alloc();
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:groupName:forGroup:incomingGroupNameContext:completion:), 0, 0);
+}
+
+uint64_t closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:groupName:forGroup:incomingGroupNameContext:completion:)()
+{
+  v1 = *(v0[9] + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_clientXPCServer);
+  v0[29] = v1;
+  v2 = *v1 + 88;
+  v0[30] = *v2;
+  v0[31] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
+  type metadata accessor for MLSActor();
+  v0[32] = static MLSActor.shared.getter();
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
+  v4 = dispatch thunk of Actor.unownedExecutor.getter();
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:groupName:forGroup:incomingGroupNameContext:completion:), v4, v3);
+}
+
+{
+  v1 = *(v0 + 240);
+
+  *(v0 + 264) = v1(v2);
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:groupName:forGroup:incomingGroupNameContext:completion:), 0, 0);
+}
+
+{
+  v81 = v0;
+  if (*(v0[33] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[7]), (v2 & 1) != 0))
+  {
+    v3 = v0[28];
+    v4 = v0[25];
+    v76 = v0[24];
+    v5 = v0[22];
+    v65 = v0[23];
+    v6 = v0[21];
+    v67 = v0[18];
+    v68 = v0[27];
+    v69 = v0[17];
+    log = v0[20];
+    v64 = v0[8];
+    v66 = v0[7];
+    v7 = (*(v0[33] + 56) + 48 * v1);
+    v0[34] = *v7;
+    v0[35] = v7[1];
+    v0[36] = v7[2];
+    v0[37] = v7[3];
+    v0[38] = v7[4];
+    swift_unknownObjectRetain();
+
+    swift_unknownObjectRetain();
+
+    v8 = *(v4 + 16);
+    v8(v3, v64, v76);
+    (*(v5 + 104))(v65, *MEMORY[0x277D4D278], v6);
+    v9 = MLS.IncomingGroupNameContext.metricCollector.modify();
+    MetricCollector.end(metric:)();
+    (*(v5 + 8))(v65, v6);
+    v9(v0 + 2, 0);
+    v8(v68, v64, v76);
+    (*(v67 + 16))(log, v66, v69);
+    v10 = Logger.logObject.getter();
+    v11 = static os_log_type_t.default.getter();
+    v12 = os_log_type_enabled(v10, v11);
+    v13 = v0[27];
+    v14 = v0[24];
+    v15 = v0[25];
+    v16 = v0[20];
+    v18 = v0[17];
+    v17 = v0[18];
+    if (v12)
+    {
+      v73 = v11;
+      v19 = swift_slowAlloc();
+      v77 = swift_slowAlloc();
+      v80[0] = v77;
+      *v19 = 136315394;
+      v20 = MLS.SigningContext.identifier.getter();
+      v70 = v16;
+      loga = v10;
+      v22 = v21;
+      v23 = *(v15 + 8);
+      v23(v13, v14);
+      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v80);
+
+      *(v19 + 4) = v24;
+      *(v19 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v25 = dispatch thunk of CustomStringConvertible.description.getter();
+      v27 = v26;
+      (*(v17 + 8))(v70, v18);
+      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v80);
+
+      *(v19 + 14) = v28;
+      _os_log_impl(&dword_26524C000, loga, v73, "MLSDaemon processIncoming groupName calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v77, -1, -1);
+      MEMORY[0x2667577B0](v19, -1, -1);
+    }
+
+    else
+    {
+
+      (*(v17 + 8))(v16, v18);
+      v23 = *(v15 + 8);
+      v23(v13, v14);
+    }
+
+    v0[39] = v23;
+    v79 = (*MEMORY[0x277D4D0B0] + MEMORY[0x277D4D0B0]);
+    v57 = swift_task_alloc();
+    v0[40] = v57;
+    *v57 = v0;
+    v57[1] = closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:groupName:forGroup:incomingGroupNameContext:completion:);
+    v58 = v0[28];
+    v59 = v0[12];
+    v60 = v0[13];
+    v61 = v0[10];
+    v62 = v0[11];
+    v63 = v0[6];
+
+    return v79(v63, v61, v62, v59, v60, v58);
+  }
+
+  else
+  {
+    v30 = v0[25];
+    v29 = v0[26];
+    v31 = v0[24];
+    v33 = v0[18];
+    v32 = v0[19];
+    v34 = v0[17];
+    v35 = v0[8];
+    v36 = v0[7];
+
+    (*(v30 + 16))(v29, v35, v31);
+    (*(v33 + 16))(v32, v36, v34);
+    v37 = Logger.logObject.getter();
+    v38 = static os_log_type_t.error.getter();
+    v39 = os_log_type_enabled(v37, v38);
+    v40 = v0[25];
+    v41 = v0[26];
+    v42 = v0[24];
+    v43 = v0[18];
+    v44 = v0[19];
+    v45 = v0[17];
+    if (v39)
+    {
+      v75 = v37;
+      v46 = swift_slowAlloc();
+      v78 = swift_slowAlloc();
+      v80[0] = v78;
+      *v46 = 136315394;
+      v47 = MLS.SigningContext.identifier.getter();
+      v74 = v38;
+      v49 = v48;
+      (*(v40 + 8))(v41, v42);
+      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v80);
+
+      *(v46 + 4) = v50;
+      *(v46 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v51 = dispatch thunk of CustomStringConvertible.description.getter();
+      v53 = v52;
+      (*(v43 + 8))(v44, v45);
+      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v80);
+
+      *(v46 + 14) = v54;
+      _os_log_impl(&dword_26524C000, v75, v74, "MLSDaemon processIncoming groupName has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v78, -1, -1);
+      MEMORY[0x2667577B0](v46, -1, -1);
+    }
+
+    else
+    {
+
+      (*(v43 + 8))(v44, v45);
+      (*(v40 + 8))(v41, v42);
+    }
+
+    (*(v0[15] + 104))(v0[16], *MEMORY[0x277D4D2B0], v0[14]);
+    type metadata accessor for XPCUtils.XPCError();
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0], MEMORY[0x277D4D2C8]);
+    swift_allocError();
+    XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
+    swift_willThrow();
+
+    v55 = v0[1];
+
+    return v55();
+  }
+}
+
+{
+  *(*v1 + 328) = v0;
+
+  if (v0)
+  {
+    v2 = closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:groupName:forGroup:incomingGroupNameContext:completion:);
+  }
+
+  else
+  {
+    v2 = closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:groupName:forGroup:incomingGroupNameContext:completion:);
+  }
+
+  return MEMORY[0x2822009F8](v2, 0, 0);
+}
+
+uint64_t closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:groupName:forGroup:incomingGroupNameContext:completion:)(uint64_t a1, const char *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
+{
+  v9 = *(v8 + 304);
+  v10 = *(v8 + 312);
+  v11 = *(v8 + 224);
+  v12 = *(v8 + 192);
+  swift_unknownObjectRelease(*(v8 + 272), a2, a3, a4, a5, a6, a7, a8);
+
+  swift_unknownObjectRelease(v9, v13, v14, v15, v16, v17, v18, v19);
+  v10(v11, v12);
+
+  v20 = *(v8 + 8);
+
+  return v20();
+}
+
+{
+  v9 = *(v8 + 304);
+  v10 = *(v8 + 312);
+  v11 = *(v8 + 224);
+  v12 = *(v8 + 192);
+  swift_unknownObjectRelease(*(v8 + 272), a2, a3, a4, a5, a6, a7, a8);
+
+  swift_unknownObjectRelease(v9, v13, v14, v15, v16, v17, v18, v19);
+  v10(v11, v12);
+
+  v20 = *(v8 + 8);
+
+  return v20();
+}
+
+uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.IncomingGroupNameContext<Data>) -> (@out MLS.IncomingGroupNameProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
+{
+  v7 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC24IncomingGroupNameContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC24IncomingGroupNameContextVy_10Foundation4DataVGtMR) + 48);
+  v10 = (a3 + *a3);
+  v8 = swift_task_alloc();
+  *(v3 + 16) = v8;
+  *v8 = v3;
+  v8[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return v10(a1, a2, a2 + v7);
+}
+
+uint64_t MLSDaemon.processIncoming(uniqueClientIdentifier:message:forGroup:incomingMessageContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, uint64_t a10)
+{
+  outlined copy of Data._Representation(a1, a2);
+  v34 = v10;
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.default.getter();
+  outlined consume of Data._Representation(a1, a2);
+  if (os_log_type_enabled(v16, v17))
+  {
+    v18 = swift_slowAlloc();
+    v32 = a8;
+    v19 = swift_slowAlloc();
+    v37 = v19;
+    *v18 = 136315138;
+    v20 = Data.description.getter();
+    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v21, &v37);
+
+    *(v18 + 4) = v22;
+    _os_log_impl(&dword_26524C000, v16, v17, "MLSDaemon processIncoming called { uniqueClientIdentifier: %s }", v18, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v19);
+    a8 = v32;
+    MEMORY[0x2667577B0](v19, -1, -1);
+    MEMORY[0x2667577B0](v18, -1, -1);
+  }
+
+  type metadata accessor for MLS.IncomingMessageError();
+  v23 = swift_allocObject();
+  v23[2] = a1;
+  v23[3] = a2;
+  v23[4] = a3;
+  v23[5] = a4;
+  v24 = a4;
+  v23[6] = a7;
+  v23[7] = a8;
+  v31 = a2;
+  v25 = a8;
+  v23[8] = v34;
+  v23[9] = a5;
+  v23[10] = a6;
+  v26 = swift_allocObject();
+  v26[2] = v34;
+  v26[3] = a5;
+  v26[4] = a6;
+  v27 = swift_allocObject();
+  *(v27 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:forGroup:incomingMessageContext:completion:);
+  *(v27 + 24) = v26;
+  v28 = v34;
+
+  outlined copy of Data._Representation(a1, v31);
+  v29 = v28;
+
+  outlined copy of Data._Representation(a3, v24);
+  outlined copy of Data._Representation(a7, v25);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC15IncomingMessageVy_AC9AllMemberOGAC0gH7ContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC15IncomingMessageVy_AC9AllMemberOGAC0gH7ContextVy_10Foundation4DataVGtMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMR);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.IncomingMessageError and conformance MLS.IncomingMessageError, MEMORY[0x277D4CFB8], MEMORY[0x277D4CFB0]);
+  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingMessageProcessedContext<Data> and conformance MLS.IncomingMessageProcessedContext<A>, &_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMR, MEMORY[0x277D4D1B8]);
+  static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
+}
+
+uint64_t closure #1 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:forGroup:incomingMessageContext:completion:)@<X0>(char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X3>, unint64_t a5@<X4>, char *a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, unint64_t a10)
+{
+  v69 = a2;
+  v57 = a8;
+  v58 = a7;
+  v62 = a5;
+  v63 = a6;
+  v66 = a3;
+  v67 = a4;
+  v60 = a9;
+  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
+  v61 = *(v65 - 8);
+  v11 = MEMORY[0x28223BE20](v65, v10);
+  v59 = &v57 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v11, v13);
+  v15 = &v57 - v14;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMR);
+  v64 = *(v16 - 8);
+  MEMORY[0x28223BE20](v16, v17);
+  v19 = &v57 - v18;
+  v20 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v68 = *(v20 - 8);
+  v22 = MEMORY[0x28223BE20](v20, v21);
+  v24 = &v57 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v22, v25);
+  v27 = &v57 - v26;
+  type metadata accessor for JSONDecoder();
+  swift_allocObject();
+  JSONDecoder.init()();
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D020]);
+  v28 = v70;
+  dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+
+  if (!v28)
+  {
+    v69 = v24;
+    v70 = v27;
+    v30 = v65;
+    swift_allocObject();
+    JSONDecoder.init()();
+    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingMessage<MLS.AllMember> and conformance MLS.IncomingMessage<A>, &_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMR, MEMORY[0x277D4CD20]);
+    dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+    v31 = v16;
+
+    swift_allocObject();
+    JSONDecoder.init()();
+    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingMessageContext<Data> and conformance MLS.IncomingMessageContext<A>, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR, MEMORY[0x277D4CFE8]);
+    v32 = v15;
+    v33 = v30;
+    dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+    v63 = v19;
+    v67 = v31;
+
+    v34 = v59;
+    (*(v61 + 16))(v59, v32, v30);
+    (*(v68 + 16))(v69, v70, v20);
+
+    v35 = Logger.logObject.getter();
+    v36 = static os_log_type_t.default.getter();
+    v62 = a10;
+
+    v37 = os_log_type_enabled(v35, v36);
+    v66 = v32;
+    if (v37)
+    {
+      v38 = v35;
+      v39 = swift_slowAlloc();
+      v40 = swift_slowAlloc();
+      v71 = v40;
+      *v39 = 136315650;
+      LODWORD(v58) = v36;
+      v41 = MLS.SigningContext.identifier.getter();
+      v43 = v42;
+      (*(v61 + 8))(v34, v30);
+      v44 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v41, v43, &v71);
+
+      *(v39 + 4) = v44;
+      *(v39 + 12) = 2080;
+      *(v39 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v57, v62, &v71);
+      *(v39 + 22) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v45 = v69;
+      v46 = dispatch thunk of CustomStringConvertible.description.getter();
+      v48 = v47;
+      (*(v68 + 8))(v45, v20);
+      v49 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v46, v48, &v71);
+      v33 = v30;
+
+      *(v39 + 24) = v49;
+      _os_log_impl(&dword_26524C000, v38, v58, "MLSDaemon processIncoming decoded { identifier: %s, group: %s, uniqueClientIdentifier: %s }", v39, 0x20u);
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v40, -1, -1);
+      MEMORY[0x2667577B0](v39, -1, -1);
+
+      v50 = v60;
+      v51 = v61;
+    }
+
+    else
+    {
+
+      (*(v68 + 8))(v69, v20);
+      v51 = v61;
+      (*(v61 + 8))(v34, v33);
+      v50 = v60;
+    }
+
+    v53 = v63;
+    v52 = v64;
+    v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC15IncomingMessageVy_AC9AllMemberOGAC0gH7ContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC15IncomingMessageVy_AC9AllMemberOGAC0gH7ContextVy_10Foundation4DataVGtMR);
+    v55 = *(v54 + 48);
+    v56 = *(v54 + 64);
+    (*(v68 + 32))(v50, v70, v20);
+    (*(v52 + 32))(v50 + v55, v53, v67);
+    return (*(v51 + 32))(v50 + v56, v66, v33);
+  }
+
+  return result;
+}
+
+uint64_t closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:forGroup:incomingMessageContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v7[11] = a6;
+  v7[12] = a7;
+  v7[9] = a4;
+  v7[10] = a5;
+  v7[7] = a2;
+  v7[8] = a3;
+  v7[6] = a1;
+  v8 = type metadata accessor for XPCUtils.XPCError.ErrorType();
+  v7[13] = v8;
+  v7[14] = *(v8 - 8);
+  v7[15] = swift_task_alloc();
+  v9 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v7[16] = v9;
+  v7[17] = *(v9 - 8);
+  v7[18] = swift_task_alloc();
+  v7[19] = swift_task_alloc();
+  v10 = type metadata accessor for Metric();
+  v7[20] = v10;
+  v7[21] = *(v10 - 8);
+  v7[22] = swift_task_alloc();
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
+  v7[23] = v11;
+  v7[24] = *(v11 - 8);
+  v7[25] = swift_task_alloc();
+  v7[26] = swift_task_alloc();
+  v7[27] = swift_task_alloc();
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:forGroup:incomingMessageContext:completion:), 0, 0);
+}
+
+uint64_t closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:forGroup:incomingMessageContext:completion:)()
+{
+  v1 = *(v0[10] + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_clientXPCServer);
+  v0[28] = v1;
+  v2 = *v1 + 88;
+  v0[29] = *v2;
+  v0[30] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
+  type metadata accessor for MLSActor();
+  v0[31] = static MLSActor.shared.getter();
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
+  v4 = dispatch thunk of Actor.unownedExecutor.getter();
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:forGroup:incomingMessageContext:completion:), v4, v3);
+}
+
+{
+  v1 = *(v0 + 232);
+
+  *(v0 + 256) = v1(v2);
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:forGroup:incomingMessageContext:completion:), 0, 0);
+}
+
+{
+  v80 = v0;
+  if (*(v0[32] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[7]), (v2 & 1) != 0))
+  {
+    v3 = v0[27];
+    v4 = v0[24];
+    v75 = v0[23];
+    v5 = v0[21];
+    v64 = v0[22];
+    v6 = v0[20];
+    v66 = v0[17];
+    v67 = v0[26];
+    v68 = v0[16];
+    log = v0[19];
+    v63 = v0[9];
+    v65 = v0[7];
+    v7 = (*(v0[32] + 56) + 48 * v1);
+    v0[33] = *v7;
+    v0[34] = v7[1];
+    v0[35] = v7[2];
+    v0[36] = v7[3];
+    v0[37] = v7[4];
+    swift_unknownObjectRetain();
+
+    swift_unknownObjectRetain();
+
+    v8 = *(v4 + 16);
+    v8(v3, v63, v75);
+    (*(v5 + 104))(v64, *MEMORY[0x277D4D278], v6);
+    v9 = MLS.IncomingMessageContext.metricCollector.modify();
+    MetricCollector.end(metric:)();
+    (*(v5 + 8))(v64, v6);
+    v9(v0 + 2, 0);
+    v8(v67, v63, v75);
+    (*(v66 + 16))(log, v65, v68);
+    v10 = Logger.logObject.getter();
+    v11 = static os_log_type_t.default.getter();
+    v12 = os_log_type_enabled(v10, v11);
+    v13 = v0[26];
+    v14 = v0[23];
+    v15 = v0[24];
+    v16 = v0[19];
+    v18 = v0[16];
+    v17 = v0[17];
+    if (v12)
+    {
+      v72 = v11;
+      v19 = swift_slowAlloc();
+      v76 = swift_slowAlloc();
+      v79[0] = v76;
+      *v19 = 136315394;
+      v20 = MLS.SigningContext.identifier.getter();
+      v69 = v16;
+      loga = v10;
+      v22 = v21;
+      v23 = *(v15 + 8);
+      v23(v13, v14);
+      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v79);
+
+      *(v19 + 4) = v24;
+      *(v19 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v25 = dispatch thunk of CustomStringConvertible.description.getter();
+      v27 = v26;
+      (*(v17 + 8))(v69, v18);
+      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v79);
+
+      *(v19 + 14) = v28;
+      _os_log_impl(&dword_26524C000, loga, v72, "MLSDaemon processIncoming calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v76, -1, -1);
+      MEMORY[0x2667577B0](v19, -1, -1);
+    }
+
+    else
+    {
+
+      (*(v17 + 8))(v16, v18);
+      v23 = *(v15 + 8);
+      v23(v13, v14);
+    }
+
+    v0[38] = v23;
+    v78 = (*MEMORY[0x277D4D0A8] + MEMORY[0x277D4D0A8]);
+    v57 = swift_task_alloc();
+    v0[39] = v57;
+    *v57 = v0;
+    v57[1] = closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:);
+    v58 = v0[27];
+    v59 = v0[11];
+    v60 = v0[12];
+    v61 = v0[8];
+    v62 = v0[6];
+
+    return v78(v62, v61, v59, v60, v58);
+  }
+
+  else
+  {
+    v30 = v0[24];
+    v29 = v0[25];
+    v31 = v0[23];
+    v33 = v0[17];
+    v32 = v0[18];
+    v34 = v0[16];
+    v35 = v0[9];
+    v36 = v0[7];
+
+    (*(v30 + 16))(v29, v35, v31);
+    (*(v33 + 16))(v32, v36, v34);
+    v37 = Logger.logObject.getter();
+    v38 = static os_log_type_t.error.getter();
+    v39 = os_log_type_enabled(v37, v38);
+    v40 = v0[24];
+    v41 = v0[25];
+    v42 = v0[23];
+    v43 = v0[17];
+    v44 = v0[18];
+    v45 = v0[16];
+    if (v39)
+    {
+      v74 = v37;
+      v46 = swift_slowAlloc();
+      v77 = swift_slowAlloc();
+      v79[0] = v77;
+      *v46 = 136315394;
+      v47 = MLS.SigningContext.identifier.getter();
+      v73 = v38;
+      v49 = v48;
+      (*(v40 + 8))(v41, v42);
+      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v79);
+
+      *(v46 + 4) = v50;
+      *(v46 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v51 = dispatch thunk of CustomStringConvertible.description.getter();
+      v53 = v52;
+      (*(v43 + 8))(v44, v45);
+      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v79);
+
+      *(v46 + 14) = v54;
+      _os_log_impl(&dword_26524C000, v74, v73, "MLSDaemon processIncoming has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v77, -1, -1);
+      MEMORY[0x2667577B0](v46, -1, -1);
+    }
+
+    else
+    {
+
+      (*(v43 + 8))(v44, v45);
+      (*(v40 + 8))(v41, v42);
+    }
+
+    (*(v0[14] + 104))(v0[15], *MEMORY[0x277D4D2B0], v0[13]);
+    type metadata accessor for XPCUtils.XPCError();
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0], MEMORY[0x277D4D2C8]);
+    swift_allocError();
+    XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
+    swift_willThrow();
+
+    v55 = v0[1];
+
+    return v55();
+  }
+}
+
+uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.IncomingMessage<MLS.AllMember>, @in_guaranteed MLS.IncomingMessageContext<Data>) -> (@out MLS.IncomingMessageProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
+{
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC15IncomingMessageVy_AC9AllMemberOGAC0gH7ContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC15IncomingMessageVy_AC9AllMemberOGAC0gH7ContextVy_10Foundation4DataVGtMR);
+  v8 = *(v7 + 48);
+  v9 = *(v7 + 64);
+  v12 = (a3 + *a3);
+  v10 = swift_task_alloc();
+  *(v3 + 16) = v10;
+  *v10 = v3;
+  v10[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return v12(a1, a2, a2 + v8, a2 + v9);
+}
+
+uint64_t MLSDaemon.processIncoming(uniqueClientIdentifier:message:incomingMessageContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8)
+{
+  outlined copy of Data._Representation(a1, a2);
+  v29 = v8;
+  v14 = Logger.logObject.getter();
+  v15 = static os_log_type_t.default.getter();
+  outlined consume of Data._Representation(a1, a2);
+  if (os_log_type_enabled(v14, v15))
+  {
+    v16 = swift_slowAlloc();
+    v17 = swift_slowAlloc();
+    v31 = v17;
+    *v16 = 136315138;
+    v18 = Data.description.getter();
+    v20 = a3;
+    v21 = a5;
+    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v19, &v31);
+
+    *(v16 + 4) = v22;
+    a5 = v21;
+    a3 = v20;
+    _os_log_impl(&dword_26524C000, v14, v15, "MLSDaemon processIncoming called { uniqueClientIdentifier: %s }", v16, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v17);
+    MEMORY[0x2667577B0](v17, -1, -1);
+    MEMORY[0x2667577B0](v16, -1, -1);
+  }
+
+  type metadata accessor for MLS.IncomingMessageError();
+  v23 = swift_allocObject();
+  v23[2] = a1;
+  v23[3] = a2;
+  v23[4] = a3;
+  v23[5] = a4;
+  v23[6] = a5;
+  v23[7] = a6;
+  v23[8] = v29;
+  v24 = swift_allocObject();
+  *(v24 + 16) = v29;
+  v25 = swift_allocObject();
+  *(v25 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:incomingMessageContext:completion:);
+  *(v25 + 24) = v24;
+  v26 = v29;
+  outlined copy of Data._Representation(a1, a2);
+  v27 = v26;
+  outlined copy of Data._Representation(a3, a4);
+  outlined copy of Data._Representation(a5, a6);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC15IncomingMessageVy_AC9AllMemberOGAC0gH7ContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC15IncomingMessageVy_AC9AllMemberOGAC0gH7ContextVy_10Foundation4DataVGtMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMR);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.IncomingMessageError and conformance MLS.IncomingMessageError, MEMORY[0x277D4CFB8], MEMORY[0x277D4CFB0]);
+  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingMessageProcessedContext<Data> and conformance MLS.IncomingMessageProcessedContext<A>, &_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingMessageProcessedContextVy_10Foundation4DataVGMR, MEMORY[0x277D4D1B8]);
+  static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
+}
+
+uint64_t closure #1 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:incomingMessageContext:completion:)@<X0>(char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
+{
+  v61 = a7;
+  v62 = a8;
+  v63 = a5;
+  v64 = a6;
+  v70 = a3;
+  v71 = a4;
+  v73 = a2;
+  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
+  v69 = *(v66 - 8);
+  v10 = MEMORY[0x28223BE20](v66, v9);
+  v68 = &v58 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10, v12);
+  v14 = &v58 - v13;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMR);
+  v65 = *(v15 - 8);
+  MEMORY[0x28223BE20](v15, v16);
+  v72 = &v58 - v17;
+  v18 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v67 = *(v18 - 8);
+  v20 = MEMORY[0x28223BE20](v18, v19);
+  v22 = &v58 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20, v23);
+  v25 = &v58 - v24;
+  type metadata accessor for JSONDecoder();
+  swift_allocObject();
+  JSONDecoder.init()();
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D020]);
+  dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+
+  if (!v8)
+  {
+    v59 = v14;
+    v60 = v18;
+    v58 = v22;
+    v73 = v25;
+    v28 = v67;
+    v27 = v68;
+    v29 = v69;
+    swift_allocObject();
+    JSONDecoder.init()();
+    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingMessage<MLS.AllMember> and conformance MLS.IncomingMessage<A>, &_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO15IncomingMessageVy_AC9AllMemberOGMR, MEMORY[0x277D4CD20]);
+    dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+
+    swift_allocObject();
+    JSONDecoder.init()();
+    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingMessageContext<Data> and conformance MLS.IncomingMessageContext<A>, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR, MEMORY[0x277D4CFE8]);
+    v30 = v59;
+    v31 = v66;
+    dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+    v70 = 0;
+    v71 = v15;
+
+    v32 = v29;
+    v33 = v27;
+    v34 = v60;
+    (*(v29 + 16))(v33, v30, v31);
+    v35 = v28;
+    v36 = *(v28 + 16);
+    v37 = v58;
+    v36(v58, v73, v34);
+    v38 = Logger.logObject.getter();
+    v39 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v38, v39))
+    {
+      v40 = swift_slowAlloc();
+      LODWORD(v63) = v39;
+      v41 = v40;
+      v64 = swift_slowAlloc();
+      v74 = v64;
+      *v41 = 136315394;
+      v42 = MLS.SigningContext.identifier.getter();
+      v43 = v33;
+      v45 = v44;
+      (*(v32 + 8))(v43, v66);
+      v46 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v42, v45, &v74);
+
+      *(v41 + 4) = v46;
+      *(v41 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v47 = dispatch thunk of CustomStringConvertible.description.getter();
+      v49 = v48;
+      (*(v35 + 8))(v37, v34);
+      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, &v74);
+      v31 = v66;
+
+      *(v41 + 14) = v50;
+      _os_log_impl(&dword_26524C000, v38, v63, "MLSDaemon processIncoming decoded { identifier: %s, uniqueClientIdentifier: %s }", v41, 0x16u);
+      v51 = v64;
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v51, -1, -1);
+      MEMORY[0x2667577B0](v41, -1, -1);
+    }
+
+    else
+    {
+
+      (*(v35 + 8))(v37, v34);
+      (*(v32 + 8))(v33, v31);
+    }
+
+    v52 = v62;
+    v53 = v35;
+    v54 = v65;
+    v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC15IncomingMessageVy_AC9AllMemberOGAC0gH7ContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC15IncomingMessageVy_AC9AllMemberOGAC0gH7ContextVy_10Foundation4DataVGtMR);
+    v56 = *(v55 + 48);
+    v57 = *(v55 + 64);
+    (*(v53 + 32))(v52, v73, v34);
+    (*(v54 + 32))(v52 + v56, v72, v71);
+    return (*(v32 + 32))(v52 + v57, v59, v31);
+  }
+
+  return result;
+}
+
+uint64_t closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:incomingMessageContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v5[9] = a4;
+  v5[10] = a5;
+  v5[7] = a2;
+  v5[8] = a3;
+  v5[6] = a1;
+  v6 = type metadata accessor for XPCUtils.XPCError.ErrorType();
+  v5[11] = v6;
+  v5[12] = *(v6 - 8);
+  v5[13] = swift_task_alloc();
+  v7 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v5[14] = v7;
+  v5[15] = *(v7 - 8);
+  v5[16] = swift_task_alloc();
+  v5[17] = swift_task_alloc();
+  v8 = type metadata accessor for Metric();
+  v5[18] = v8;
+  v5[19] = *(v8 - 8);
+  v5[20] = swift_task_alloc();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO22IncomingMessageContextVy_10Foundation4DataVGMR);
+  v5[21] = v9;
+  v5[22] = *(v9 - 8);
+  v5[23] = swift_task_alloc();
+  v5[24] = swift_task_alloc();
+  v5[25] = swift_task_alloc();
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:incomingMessageContext:completion:), 0, 0);
+}
+
+uint64_t closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:incomingMessageContext:completion:)()
+{
+  v1 = *(v0[10] + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_clientXPCServer);
+  v0[26] = v1;
+  v2 = *v1 + 88;
+  v0[27] = *v2;
+  v0[28] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
+  type metadata accessor for MLSActor();
+  v0[29] = static MLSActor.shared.getter();
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
+  v4 = dispatch thunk of Actor.unownedExecutor.getter();
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:incomingMessageContext:completion:), v4, v3);
+}
+
+{
+  v1 = *(v0 + 216);
+
+  *(v0 + 240) = v1(v2);
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:incomingMessageContext:completion:), 0, 0);
+}
+
+{
+  v78 = v0;
+  if (*(v0[30] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[7]), (v2 & 1) != 0))
+  {
+    v3 = v0[25];
+    v4 = v0[22];
+    v73 = v0[21];
+    v5 = v0[19];
+    v62 = v0[20];
+    v6 = v0[18];
+    v64 = v0[15];
+    v65 = v0[24];
+    v66 = v0[14];
+    log = v0[17];
+    v61 = v0[9];
+    v63 = v0[7];
+    v7 = (*(v0[30] + 56) + 48 * v1);
+    v0[31] = *v7;
+    v0[32] = v7[1];
+    v0[33] = v7[2];
+    v0[34] = v7[3];
+    v0[35] = v7[4];
+    swift_unknownObjectRetain();
+
+    swift_unknownObjectRetain();
+
+    v8 = *(v4 + 16);
+    v8(v3, v61, v73);
+    (*(v5 + 104))(v62, *MEMORY[0x277D4D278], v6);
+    v9 = MLS.IncomingMessageContext.metricCollector.modify();
+    MetricCollector.end(metric:)();
+    (*(v5 + 8))(v62, v6);
+    v9(v0 + 2, 0);
+    v8(v65, v61, v73);
+    (*(v64 + 16))(log, v63, v66);
+    v10 = Logger.logObject.getter();
+    v11 = static os_log_type_t.default.getter();
+    v12 = os_log_type_enabled(v10, v11);
+    v13 = v0[24];
+    v14 = v0[21];
+    v15 = v0[22];
+    v16 = v0[17];
+    v18 = v0[14];
+    v17 = v0[15];
+    if (v12)
+    {
+      v70 = v11;
+      v19 = swift_slowAlloc();
+      v74 = swift_slowAlloc();
+      v77[0] = v74;
+      *v19 = 136315394;
+      v20 = MLS.SigningContext.identifier.getter();
+      v67 = v16;
+      loga = v10;
+      v22 = v21;
+      v23 = *(v15 + 8);
+      v23(v13, v14);
+      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v77);
+
+      *(v19 + 4) = v24;
+      *(v19 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v25 = dispatch thunk of CustomStringConvertible.description.getter();
+      v27 = v26;
+      (*(v17 + 8))(v67, v18);
+      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v77);
+
+      *(v19 + 14) = v28;
+      _os_log_impl(&dword_26524C000, loga, v70, "MLSDaemon processIncoming calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v74, -1, -1);
+      MEMORY[0x2667577B0](v19, -1, -1);
+    }
+
+    else
+    {
+
+      (*(v17 + 8))(v16, v18);
+      v23 = *(v15 + 8);
+      v23(v13, v14);
+    }
+
+    v0[36] = v23;
+    v76 = (*MEMORY[0x277D4D0A0] + MEMORY[0x277D4D0A0]);
+    v57 = swift_task_alloc();
+    v0[37] = v57;
+    *v57 = v0;
+    v57[1] = closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:incomingMessageContext:completion:);
+    v58 = v0[25];
+    v59 = v0[8];
+    v60 = v0[6];
+
+    return v76(v60, v59, v58);
+  }
+
+  else
+  {
+    v30 = v0[22];
+    v29 = v0[23];
+    v31 = v0[21];
+    v33 = v0[15];
+    v32 = v0[16];
+    v34 = v0[14];
+    v35 = v0[9];
+    v36 = v0[7];
+
+    (*(v30 + 16))(v29, v35, v31);
+    (*(v33 + 16))(v32, v36, v34);
+    v37 = Logger.logObject.getter();
+    v38 = static os_log_type_t.error.getter();
+    v39 = os_log_type_enabled(v37, v38);
+    v40 = v0[22];
+    v41 = v0[23];
+    v42 = v0[21];
+    v43 = v0[15];
+    v44 = v0[16];
+    v45 = v0[14];
+    if (v39)
+    {
+      v72 = v37;
+      v46 = swift_slowAlloc();
+      v75 = swift_slowAlloc();
+      v77[0] = v75;
+      *v46 = 136315394;
+      v47 = MLS.SigningContext.identifier.getter();
+      v71 = v38;
+      v49 = v48;
+      (*(v40 + 8))(v41, v42);
+      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v77);
+
+      *(v46 + 4) = v50;
+      *(v46 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v51 = dispatch thunk of CustomStringConvertible.description.getter();
+      v53 = v52;
+      (*(v43 + 8))(v44, v45);
+      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v77);
+
+      *(v46 + 14) = v54;
+      _os_log_impl(&dword_26524C000, v72, v71, "MLSDaemon processIncoming has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v75, -1, -1);
+      MEMORY[0x2667577B0](v46, -1, -1);
+    }
+
+    else
+    {
+
+      (*(v43 + 8))(v44, v45);
+      (*(v40 + 8))(v41, v42);
+    }
+
+    (*(v0[12] + 104))(v0[13], *MEMORY[0x277D4D2B0], v0[11]);
+    type metadata accessor for XPCUtils.XPCError();
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0], MEMORY[0x277D4D2C8]);
+    swift_allocError();
+    XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
+    swift_willThrow();
+
+    v55 = v0[1];
+
+    return v55();
+  }
+}
+
+{
+  *(*v1 + 304) = v0;
+
+  if (v0)
+  {
+    v2 = closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:incomingMessageContext:completion:);
+  }
+
+  else
+  {
+    v2 = closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:incomingMessageContext:completion:);
+  }
+
+  return MEMORY[0x2822009F8](v2, 0, 0);
+}
+
+uint64_t closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:incomingMessageContext:completion:)(uint64_t a1, const char *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
+{
+  v9 = *(v8 + 280);
+  v10 = *(v8 + 288);
+  v11 = *(v8 + 200);
+  v12 = *(v8 + 168);
+  swift_unknownObjectRelease(*(v8 + 248), a2, a3, a4, a5, a6, a7, a8);
+
+  swift_unknownObjectRelease(v9, v13, v14, v15, v16, v17, v18, v19);
+  v10(v11, v12);
+
+  v20 = *(v8 + 8);
+
+  return v20();
+}
+
+{
+  v9 = *(v8 + 280);
+  v10 = *(v8 + 288);
+  v11 = *(v8 + 200);
+  v12 = *(v8 + 168);
+  swift_unknownObjectRelease(*(v8 + 248), a2, a3, a4, a5, a6, a7, a8);
+
+  swift_unknownObjectRelease(v9, v13, v14, v15, v16, v17, v18, v19);
+  v10(v11, v12);
+
+  v20 = *(v8 + 8);
+
+  return v20();
+}
+
+uint64_t MLSDaemon.processIncoming(uniqueClientIdentifier:failureToDecrypt:withGroup:incomingFailureToDecryptContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, uint64_t a10)
+{
+  outlined copy of Data._Representation(a1, a2);
+  v31 = v10;
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.default.getter();
+  outlined consume of Data._Representation(a1, a2);
+  if (os_log_type_enabled(v16, v17))
+  {
+    v18 = a5;
+    v19 = swift_slowAlloc();
+    v20 = swift_slowAlloc();
+    v35 = v20;
+    *v19 = 136315138;
+    v21 = Data.description.getter();
+    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v22, &v35);
+
+    *(v19 + 4) = v23;
+    _os_log_impl(&dword_26524C000, v16, v17, "MLSDaemon processIncomingFTD called { uniqueClientIdentifier: %s }", v19, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v20);
+    MEMORY[0x2667577B0](v20, -1, -1);
+    v24 = v19;
+    a5 = v18;
+    MEMORY[0x2667577B0](v24, -1, -1);
+  }
+
+  type metadata accessor for MLS.IncomingMessageError();
+  v25 = swift_allocObject();
+  v25[2] = a1;
+  v25[3] = a2;
+  v25[4] = a3;
+  v25[5] = a4;
+  v25[6] = a7;
+  v25[7] = a8;
+  v25[8] = v31;
+  v26 = swift_allocObject();
+  v26[2] = v31;
+  v26[3] = a5;
+  v26[4] = a6;
+  v27 = swift_allocObject();
+  *(v27 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:failureToDecrypt:withGroup:incomingFailureToDecryptContext:completion:);
+  *(v27 + 24) = v26;
+  v28 = v31;
+  outlined copy of Data._Representation(a1, a2);
+  v29 = v28;
+  outlined copy of Data._Representation(a3, a4);
+  outlined copy of Data._Representation(a7, a8);
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC24IncomingFailureToDecryptVy_AC9AllMemberOGAC0ghiJ7ContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC24IncomingFailureToDecryptVy_AC9AllMemberOGAC0ghiJ7ContextVy_10Foundation4DataVGtMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO40IncomingFailureToDecryptProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO40IncomingFailureToDecryptProcessedContextVy_10Foundation4DataVGMR);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.IncomingMessageError and conformance MLS.IncomingMessageError, MEMORY[0x277D4CFB8], MEMORY[0x277D4CFB0]);
+  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingFailureToDecryptProcessedContext<Data> and conformance MLS.IncomingFailureToDecryptProcessedContext<A>, &_s15SecureMessaging3MLSO40IncomingFailureToDecryptProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO40IncomingFailureToDecryptProcessedContextVy_10Foundation4DataVGMR, MEMORY[0x277D4D1D8]);
+  static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
+}
+
+uint64_t closure #1 in MLSDaemon.processIncoming(uniqueClientIdentifier:failureToDecrypt:withGroup:incomingFailureToDecryptContext:completion:)@<X0>(char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
+{
+  v61 = a7;
+  v62 = a8;
+  v63 = a5;
+  v64 = a6;
+  v70 = a3;
+  v71 = a4;
+  v73 = a2;
+  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMR);
+  v69 = *(v66 - 8);
+  v10 = MEMORY[0x28223BE20](v66, v9);
+  v68 = &v58 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10, v12);
+  v14 = &v58 - v13;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO24IncomingFailureToDecryptVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO24IncomingFailureToDecryptVy_AC9AllMemberOGMR);
+  v65 = *(v15 - 8);
+  MEMORY[0x28223BE20](v15, v16);
+  v72 = &v58 - v17;
+  v18 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v67 = *(v18 - 8);
+  v20 = MEMORY[0x28223BE20](v18, v19);
+  v22 = &v58 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20, v23);
+  v25 = &v58 - v24;
+  type metadata accessor for JSONDecoder();
+  swift_allocObject();
+  JSONDecoder.init()();
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D020]);
+  dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+
+  if (!v8)
+  {
+    v59 = v14;
+    v60 = v18;
+    v58 = v22;
+    v73 = v25;
+    v28 = v67;
+    v27 = v68;
+    v29 = v69;
+    swift_allocObject();
+    JSONDecoder.init()();
+    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingFailureToDecrypt<MLS.AllMember> and conformance MLS.IncomingFailureToDecrypt<A>, &_s15SecureMessaging3MLSO24IncomingFailureToDecryptVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO24IncomingFailureToDecryptVy_AC9AllMemberOGMR, MEMORY[0x277D4D038]);
+    dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+
+    swift_allocObject();
+    JSONDecoder.init()();
+    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingFailureToDecryptContext<Data> and conformance MLS.IncomingFailureToDecryptContext<A>, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMR, MEMORY[0x277D4D1B0]);
+    v30 = v59;
+    v31 = v66;
+    dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+    v70 = 0;
+    v71 = v15;
+
+    v32 = v29;
+    v33 = v27;
+    v34 = v60;
+    (*(v29 + 16))(v33, v30, v31);
+    v35 = v28;
+    v36 = *(v28 + 16);
+    v37 = v58;
+    v36(v58, v73, v34);
+    v38 = Logger.logObject.getter();
+    v39 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v38, v39))
+    {
+      v40 = swift_slowAlloc();
+      LODWORD(v63) = v39;
+      v41 = v40;
+      v64 = swift_slowAlloc();
+      v74 = v64;
+      *v41 = 136315394;
+      v42 = MLS.SigningContext.identifier.getter();
+      v43 = v33;
+      v45 = v44;
+      (*(v32 + 8))(v43, v66);
+      v46 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v42, v45, &v74);
+
+      *(v41 + 4) = v46;
+      *(v41 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v47 = dispatch thunk of CustomStringConvertible.description.getter();
+      v49 = v48;
+      (*(v35 + 8))(v37, v34);
+      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, &v74);
+      v31 = v66;
+
+      *(v41 + 14) = v50;
+      _os_log_impl(&dword_26524C000, v38, v63, "MLSDaemon processIncomingFTD decoded { identifier: %s, uniqueClientIdentifier: %s }", v41, 0x16u);
+      v51 = v64;
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v51, -1, -1);
+      MEMORY[0x2667577B0](v41, -1, -1);
+    }
+
+    else
+    {
+
+      (*(v35 + 8))(v37, v34);
+      (*(v32 + 8))(v33, v31);
+    }
+
+    v52 = v62;
+    v53 = v35;
+    v54 = v65;
+    v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC24IncomingFailureToDecryptVy_AC9AllMemberOGAC0ghiJ7ContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC24IncomingFailureToDecryptVy_AC9AllMemberOGAC0ghiJ7ContextVy_10Foundation4DataVGtMR);
+    v56 = *(v55 + 48);
+    v57 = *(v55 + 64);
+    (*(v53 + 32))(v52, v73, v34);
+    (*(v54 + 32))(v52 + v56, v72, v71);
+    return (*(v32 + 32))(v52 + v57, v59, v31);
+  }
+
+  return result;
+}
+
+uint64_t closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:failureToDecrypt:withGroup:incomingFailureToDecryptContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v7[11] = a6;
+  v7[12] = a7;
+  v7[9] = a4;
+  v7[10] = a5;
+  v7[7] = a2;
+  v7[8] = a3;
+  v7[6] = a1;
+  v8 = type metadata accessor for XPCUtils.XPCError.ErrorType();
+  v7[13] = v8;
+  v7[14] = *(v8 - 8);
+  v7[15] = swift_task_alloc();
+  v9 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v7[16] = v9;
+  v7[17] = *(v9 - 8);
+  v7[18] = swift_task_alloc();
+  v7[19] = swift_task_alloc();
+  v10 = type metadata accessor for Metric();
+  v7[20] = v10;
+  v7[21] = *(v10 - 8);
+  v7[22] = swift_task_alloc();
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO31IncomingFailureToDecryptContextVy_10Foundation4DataVGMR);
+  v7[23] = v11;
+  v7[24] = *(v11 - 8);
+  v7[25] = swift_task_alloc();
+  v7[26] = swift_task_alloc();
+  v7[27] = swift_task_alloc();
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:failureToDecrypt:withGroup:incomingFailureToDecryptContext:completion:), 0, 0);
+}
+
+uint64_t closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:failureToDecrypt:withGroup:incomingFailureToDecryptContext:completion:)()
+{
+  v1 = *(v0[10] + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_clientXPCServer);
+  v0[28] = v1;
+  v2 = *v1 + 88;
+  v0[29] = *v2;
+  v0[30] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
+  type metadata accessor for MLSActor();
+  v0[31] = static MLSActor.shared.getter();
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
+  v4 = dispatch thunk of Actor.unownedExecutor.getter();
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:failureToDecrypt:withGroup:incomingFailureToDecryptContext:completion:), v4, v3);
+}
+
+{
+  v1 = *(v0 + 232);
+
+  *(v0 + 256) = v1(v2);
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:failureToDecrypt:withGroup:incomingFailureToDecryptContext:completion:), 0, 0);
+}
+
+{
+  v80 = v0;
+  if (*(v0[32] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[7]), (v2 & 1) != 0))
+  {
+    v3 = v0[27];
+    v4 = v0[24];
+    v75 = v0[23];
+    v5 = v0[21];
+    v64 = v0[22];
+    v6 = v0[20];
+    v66 = v0[17];
+    v67 = v0[26];
+    v68 = v0[16];
+    log = v0[19];
+    v63 = v0[9];
+    v65 = v0[7];
+    v7 = (*(v0[32] + 56) + 48 * v1);
+    v0[33] = *v7;
+    v0[34] = v7[1];
+    v0[35] = v7[2];
+    v0[36] = v7[3];
+    v0[37] = v7[4];
+    swift_unknownObjectRetain();
+
+    swift_unknownObjectRetain();
+
+    v8 = *(v4 + 16);
+    v8(v3, v63, v75);
+    (*(v5 + 104))(v64, *MEMORY[0x277D4D278], v6);
+    v9 = MLS.IncomingFailureToDecryptContext.metricCollector.modify();
+    MetricCollector.end(metric:)();
+    (*(v5 + 8))(v64, v6);
+    v9(v0 + 2, 0);
+    v8(v67, v63, v75);
+    (*(v66 + 16))(log, v65, v68);
+    v10 = Logger.logObject.getter();
+    v11 = static os_log_type_t.default.getter();
+    v12 = os_log_type_enabled(v10, v11);
+    v13 = v0[26];
+    v14 = v0[23];
+    v15 = v0[24];
+    v16 = v0[19];
+    v18 = v0[16];
+    v17 = v0[17];
+    if (v12)
+    {
+      v72 = v11;
+      v19 = swift_slowAlloc();
+      v76 = swift_slowAlloc();
+      v79[0] = v76;
+      *v19 = 136315394;
+      v20 = MLS.SigningContext.identifier.getter();
+      v69 = v16;
+      loga = v10;
+      v22 = v21;
+      v23 = *(v15 + 8);
+      v23(v13, v14);
+      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v79);
+
+      *(v19 + 4) = v24;
+      *(v19 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v25 = dispatch thunk of CustomStringConvertible.description.getter();
+      v27 = v26;
+      (*(v17 + 8))(v69, v18);
+      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v79);
+
+      *(v19 + 14) = v28;
+      _os_log_impl(&dword_26524C000, loga, v72, "MLSDaemon processIncomingFTD calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v76, -1, -1);
+      MEMORY[0x2667577B0](v19, -1, -1);
+    }
+
+    else
+    {
+
+      (*(v17 + 8))(v16, v18);
+      v23 = *(v15 + 8);
+      v23(v13, v14);
+    }
+
+    v0[38] = v23;
+    v78 = (*MEMORY[0x277D4D098] + MEMORY[0x277D4D098]);
+    v57 = swift_task_alloc();
+    v0[39] = v57;
+    *v57 = v0;
+    v57[1] = closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:);
+    v58 = v0[27];
+    v59 = v0[11];
+    v60 = v0[12];
+    v61 = v0[8];
+    v62 = v0[6];
+
+    return v78(v62, v61, v59, v60, v58);
+  }
+
+  else
+  {
+    v30 = v0[24];
+    v29 = v0[25];
+    v31 = v0[23];
+    v33 = v0[17];
+    v32 = v0[18];
+    v34 = v0[16];
+    v35 = v0[9];
+    v36 = v0[7];
+
+    (*(v30 + 16))(v29, v35, v31);
+    (*(v33 + 16))(v32, v36, v34);
+    v37 = Logger.logObject.getter();
+    v38 = static os_log_type_t.error.getter();
+    v39 = os_log_type_enabled(v37, v38);
+    v40 = v0[24];
+    v41 = v0[25];
+    v42 = v0[23];
+    v43 = v0[17];
+    v44 = v0[18];
+    v45 = v0[16];
+    if (v39)
+    {
+      v74 = v37;
+      v46 = swift_slowAlloc();
+      v77 = swift_slowAlloc();
+      v79[0] = v77;
+      *v46 = 136315394;
+      v47 = MLS.SigningContext.identifier.getter();
+      v73 = v38;
+      v49 = v48;
+      (*(v40 + 8))(v41, v42);
+      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v79);
+
+      *(v46 + 4) = v50;
+      *(v46 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v51 = dispatch thunk of CustomStringConvertible.description.getter();
+      v53 = v52;
+      (*(v43 + 8))(v44, v45);
+      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v79);
+
+      *(v46 + 14) = v54;
+      _os_log_impl(&dword_26524C000, v74, v73, "MLSDaemon processIncomingFTD has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v77, -1, -1);
+      MEMORY[0x2667577B0](v46, -1, -1);
+    }
+
+    else
+    {
+
+      (*(v43 + 8))(v44, v45);
+      (*(v40 + 8))(v41, v42);
+    }
+
+    (*(v0[14] + 104))(v0[15], *MEMORY[0x277D4D2B0], v0[13]);
+    type metadata accessor for XPCUtils.XPCError();
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0], MEMORY[0x277D4D2C8]);
+    swift_allocError();
+    XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
+    swift_willThrow();
+
+    v55 = v0[1];
+
+    return v55();
+  }
+}
+
+uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.IncomingFailureToDecrypt<MLS.AllMember>, @in_guaranteed MLS.IncomingFailureToDecryptContext<Data>) -> (@out MLS.IncomingFailureToDecryptProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
+{
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC24IncomingFailureToDecryptVy_AC9AllMemberOGAC0ghiJ7ContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC24IncomingFailureToDecryptVy_AC9AllMemberOGAC0ghiJ7ContextVy_10Foundation4DataVGtMR);
+  v8 = *(v7 + 48);
+  v9 = *(v7 + 64);
+  v12 = (a3 + *a3);
+  v10 = swift_task_alloc();
+  *(v3 + 16) = v10;
+  *v10 = v3;
+  v10[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return v12(a1, a2, a2 + v8, a2 + v9);
+}
+
+uint64_t MLSDaemon.processIncoming(uniqueClientIdentifier:errorMessage:withGroup:incomingErrorMessageContext:completion:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, uint64_t a10)
+{
+  outlined copy of Data._Representation(a1, a2);
+  v31 = v10;
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.default.getter();
+  outlined consume of Data._Representation(a1, a2);
+  if (os_log_type_enabled(v16, v17))
+  {
+    v18 = a5;
+    v19 = swift_slowAlloc();
+    v20 = swift_slowAlloc();
+    v35 = v20;
+    *v19 = 136315138;
+    v21 = Data.description.getter();
+    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v22, &v35);
+
+    *(v19 + 4) = v23;
+    _os_log_impl(&dword_26524C000, v16, v17, "MLSDaemon processIncoming errorMessage called { uniqueClientIdentifier: %s }", v19, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v20);
+    MEMORY[0x2667577B0](v20, -1, -1);
+    v24 = v19;
+    a5 = v18;
+    MEMORY[0x2667577B0](v24, -1, -1);
+  }
+
+  type metadata accessor for MLS.IncomingMessageError();
+  v25 = swift_allocObject();
+  v25[2] = a1;
+  v25[3] = a2;
+  v25[4] = a3;
+  v25[5] = a4;
+  v25[6] = a7;
+  v25[7] = a8;
+  v25[8] = v31;
+  v26 = swift_allocObject();
+  v26[2] = v31;
+  v26[3] = a5;
+  v26[4] = a6;
+  v27 = swift_allocObject();
+  *(v27 + 16) = &async function pointer to partial apply for closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:errorMessage:withGroup:incomingErrorMessageContext:completion:);
+  *(v27 + 24) = v26;
+  v28 = v31;
+  outlined copy of Data._Representation(a1, a2);
+  v29 = v28;
+  outlined copy of Data._Representation(a3, a4);
+  outlined copy of Data._Representation(a7, a8);
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC20IncomingErrorMessageVy_AC9AllMemberOGAC0ghI7ContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC20IncomingErrorMessageVy_AC9AllMemberOGAC0ghI7ContextVy_10Foundation4DataVGtMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO36IncomingErrorMessageProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO36IncomingErrorMessageProcessedContextVy_10Foundation4DataVGMR);
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.IncomingMessageError and conformance MLS.IncomingMessageError, MEMORY[0x277D4CFB8], MEMORY[0x277D4CFB0]);
+  lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingErrorMessageProcessedContext<Data> and conformance MLS.IncomingErrorMessageProcessedContext<A>, &_s15SecureMessaging3MLSO36IncomingErrorMessageProcessedContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO36IncomingErrorMessageProcessedContextVy_10Foundation4DataVGMR, MEMORY[0x277D4D1D0]);
+  static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
+}
+
+uint64_t closure #1 in MLSDaemon.processIncoming(uniqueClientIdentifier:errorMessage:withGroup:incomingErrorMessageContext:completion:)@<X0>(char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
+{
+  v61 = a7;
+  v62 = a8;
+  v63 = a5;
+  v64 = a6;
+  v70 = a3;
+  v71 = a4;
+  v73 = a2;
+  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO27IncomingErrorMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO27IncomingErrorMessageContextVy_10Foundation4DataVGMR);
+  v69 = *(v66 - 8);
+  v10 = MEMORY[0x28223BE20](v66, v9);
+  v68 = &v58 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10, v12);
+  v14 = &v58 - v13;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO20IncomingErrorMessageVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO20IncomingErrorMessageVy_AC9AllMemberOGMR);
+  v65 = *(v15 - 8);
+  MEMORY[0x28223BE20](v15, v16);
+  v72 = &v58 - v17;
+  v18 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v67 = *(v18 - 8);
+  v20 = MEMORY[0x28223BE20](v18, v19);
+  v22 = &v58 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20, v23);
+  v25 = &v58 - v24;
+  type metadata accessor for JSONDecoder();
+  swift_allocObject();
+  JSONDecoder.init()();
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D020]);
+  dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+
+  if (!v8)
+  {
+    v59 = v14;
+    v60 = v18;
+    v58 = v22;
+    v73 = v25;
+    v28 = v67;
+    v27 = v68;
+    v29 = v69;
+    swift_allocObject();
+    JSONDecoder.init()();
+    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingErrorMessage<MLS.AllMember> and conformance MLS.IncomingErrorMessage<A>, &_s15SecureMessaging3MLSO20IncomingErrorMessageVy_AC9AllMemberOGMd, &_s15SecureMessaging3MLSO20IncomingErrorMessageVy_AC9AllMemberOGMR, MEMORY[0x277D4CFA8]);
+    dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+
+    swift_allocObject();
+    JSONDecoder.init()();
+    lazy protocol witness table accessor for type MLS.FetchMemberResult<MLS.AllMember> and conformance MLS.FetchMemberResult<A>(&lazy protocol witness table cache variable for type MLS.IncomingErrorMessageContext<Data> and conformance MLS.IncomingErrorMessageContext<A>, &_s15SecureMessaging3MLSO27IncomingErrorMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO27IncomingErrorMessageContextVy_10Foundation4DataVGMR, MEMORY[0x277D4D160]);
+    v30 = v59;
+    v31 = v66;
+    dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+    v70 = 0;
+    v71 = v15;
+
+    v32 = v29;
+    v33 = v27;
+    v34 = v60;
+    (*(v29 + 16))(v33, v30, v31);
+    v35 = v28;
+    v36 = *(v28 + 16);
+    v37 = v58;
+    v36(v58, v73, v34);
+    v38 = Logger.logObject.getter();
+    v39 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v38, v39))
+    {
+      v40 = swift_slowAlloc();
+      LODWORD(v63) = v39;
+      v41 = v40;
+      v64 = swift_slowAlloc();
+      v74 = v64;
+      *v41 = 136315394;
+      v42 = MLS.IncomingErrorMessageContext.identifier.getter();
+      v43 = v33;
+      v45 = v44;
+      (*(v32 + 8))(v43, v66);
+      v46 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v42, v45, &v74);
+
+      *(v41 + 4) = v46;
+      *(v41 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v47 = dispatch thunk of CustomStringConvertible.description.getter();
+      v49 = v48;
+      (*(v35 + 8))(v37, v34);
+      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, &v74);
+      v31 = v66;
+
+      *(v41 + 14) = v50;
+      _os_log_impl(&dword_26524C000, v38, v63, "MLSDaemon processIncoming errorMessage decoded { identifier: %s, uniqueClientIdentifier: %s }", v41, 0x16u);
+      v51 = v64;
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v51, -1, -1);
+      MEMORY[0x2667577B0](v41, -1, -1);
+    }
+
+    else
+    {
+
+      (*(v35 + 8))(v37, v34);
+      (*(v32 + 8))(v33, v31);
+    }
+
+    v52 = v62;
+    v53 = v35;
+    v54 = v65;
+    v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC20IncomingErrorMessageVy_AC9AllMemberOGAC0ghI7ContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC20IncomingErrorMessageVy_AC9AllMemberOGAC0ghI7ContextVy_10Foundation4DataVGtMR);
+    v56 = *(v55 + 48);
+    v57 = *(v55 + 64);
+    (*(v53 + 32))(v52, v73, v34);
+    (*(v54 + 32))(v52 + v56, v72, v71);
+    return (*(v32 + 32))(v52 + v57, v59, v31);
+  }
+
+  return result;
+}
+
+uint64_t closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:errorMessage:withGroup:incomingErrorMessageContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v7[11] = a6;
+  v7[12] = a7;
+  v7[9] = a4;
+  v7[10] = a5;
+  v7[7] = a2;
+  v7[8] = a3;
+  v7[6] = a1;
+  v8 = type metadata accessor for XPCUtils.XPCError.ErrorType();
+  v7[13] = v8;
+  v7[14] = *(v8 - 8);
+  v7[15] = swift_task_alloc();
+  v9 = type metadata accessor for MLS.UniqueClientIdentifier();
+  v7[16] = v9;
+  v7[17] = *(v9 - 8);
+  v7[18] = swift_task_alloc();
+  v7[19] = swift_task_alloc();
+  v10 = type metadata accessor for Metric();
+  v7[20] = v10;
+  v7[21] = *(v10 - 8);
+  v7[22] = swift_task_alloc();
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO27IncomingErrorMessageContextVy_10Foundation4DataVGMd, &_s15SecureMessaging3MLSO27IncomingErrorMessageContextVy_10Foundation4DataVGMR);
+  v7[23] = v11;
+  v7[24] = *(v11 - 8);
+  v7[25] = swift_task_alloc();
+  v7[26] = swift_task_alloc();
+  v7[27] = swift_task_alloc();
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:errorMessage:withGroup:incomingErrorMessageContext:completion:), 0, 0);
+}
+
+uint64_t closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:errorMessage:withGroup:incomingErrorMessageContext:completion:)()
+{
+  v1 = *(v0[10] + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_clientXPCServer);
+  v0[28] = v1;
+  v2 = *v1 + 88;
+  v0[29] = *v2;
+  v0[30] = v2 & 0xFFFFFFFFFFFFLL | 0xB098000000000000;
+  type metadata accessor for MLSActor();
+  v0[31] = static MLSActor.shared.getter();
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
+  v4 = dispatch thunk of Actor.unownedExecutor.getter();
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:errorMessage:withGroup:incomingErrorMessageContext:completion:), v4, v3);
+}
+
+{
+  v1 = *(v0 + 232);
+
+  *(v0 + 256) = v1(v2);
+
+  return MEMORY[0x2822009F8](closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:errorMessage:withGroup:incomingErrorMessageContext:completion:), 0, 0);
+}
+
+{
+  v80 = v0;
+  if (*(v0[32] + 16) && (v1 = specialized __RawDictionaryStorage.find<A>(_:)(v0[7]), (v2 & 1) != 0))
+  {
+    v3 = v0[27];
+    v4 = v0[24];
+    v75 = v0[23];
+    v5 = v0[21];
+    v64 = v0[22];
+    v6 = v0[20];
+    v66 = v0[17];
+    v67 = v0[26];
+    v68 = v0[16];
+    log = v0[19];
+    v63 = v0[9];
+    v65 = v0[7];
+    v7 = (*(v0[32] + 56) + 48 * v1);
+    v0[33] = *v7;
+    v0[34] = v7[1];
+    v0[35] = v7[2];
+    v0[36] = v7[3];
+    v0[37] = v7[4];
+    swift_unknownObjectRetain();
+
+    swift_unknownObjectRetain();
+
+    v8 = *(v4 + 16);
+    v8(v3, v63, v75);
+    (*(v5 + 104))(v64, *MEMORY[0x277D4D278], v6);
+    v9 = MLS.IncomingErrorMessageContext.metricCollector.modify();
+    MetricCollector.end(metric:)();
+    (*(v5 + 8))(v64, v6);
+    v9(v0 + 2, 0);
+    v8(v67, v63, v75);
+    (*(v66 + 16))(log, v65, v68);
+    v10 = Logger.logObject.getter();
+    v11 = static os_log_type_t.default.getter();
+    v12 = os_log_type_enabled(v10, v11);
+    v13 = v0[26];
+    v14 = v0[23];
+    v15 = v0[24];
+    v16 = v0[19];
+    v18 = v0[16];
+    v17 = v0[17];
+    if (v12)
+    {
+      v72 = v11;
+      v19 = swift_slowAlloc();
+      v76 = swift_slowAlloc();
+      v79[0] = v76;
+      *v19 = 136315394;
+      v20 = MLS.IncomingErrorMessageContext.identifier.getter();
+      v69 = v16;
+      loga = v10;
+      v22 = v21;
+      v23 = *(v15 + 8);
+      v23(v13, v14);
+      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v79);
+
+      *(v19 + 4) = v24;
+      *(v19 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v25 = dispatch thunk of CustomStringConvertible.description.getter();
+      v27 = v26;
+      (*(v17 + 8))(v69, v18);
+      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, v79);
+
+      *(v19 + 14) = v28;
+      _os_log_impl(&dword_26524C000, loga, v72, "MLSDaemon processIncoming errorMessage calling SwiftMLS { identifier: %s, uniqueClientIdentifier: %s }", v19, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v76, -1, -1);
+      MEMORY[0x2667577B0](v19, -1, -1);
+    }
+
+    else
+    {
+
+      (*(v17 + 8))(v16, v18);
+      v23 = *(v15 + 8);
+      v23(v13, v14);
+    }
+
+    v0[38] = v23;
+    v78 = (*MEMORY[0x277D4D090] + MEMORY[0x277D4D090]);
+    v57 = swift_task_alloc();
+    v0[39] = v57;
+    *v57 = v0;
+    v57[1] = closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:);
+    v58 = v0[27];
+    v59 = v0[11];
+    v60 = v0[12];
+    v61 = v0[8];
+    v62 = v0[6];
+
+    return v78(v62, v61, v59, v60, v58);
+  }
+
+  else
+  {
+    v30 = v0[24];
+    v29 = v0[25];
+    v31 = v0[23];
+    v33 = v0[17];
+    v32 = v0[18];
+    v34 = v0[16];
+    v35 = v0[9];
+    v36 = v0[7];
+
+    (*(v30 + 16))(v29, v35, v31);
+    (*(v33 + 16))(v32, v36, v34);
+    v37 = Logger.logObject.getter();
+    v38 = static os_log_type_t.error.getter();
+    v39 = os_log_type_enabled(v37, v38);
+    v40 = v0[24];
+    v41 = v0[25];
+    v42 = v0[23];
+    v43 = v0[17];
+    v44 = v0[18];
+    v45 = v0[16];
+    if (v39)
+    {
+      v74 = v37;
+      v46 = swift_slowAlloc();
+      v77 = swift_slowAlloc();
+      v79[0] = v77;
+      *v46 = 136315394;
+      v47 = MLS.IncomingErrorMessageContext.identifier.getter();
+      v73 = v38;
+      v49 = v48;
+      (*(v40 + 8))(v41, v42);
+      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v79);
+
+      *(v46 + 4) = v50;
+      *(v46 + 12) = 2080;
+      _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.UniqueClientIdentifier and conformance MLS.UniqueClientIdentifier, MEMORY[0x277D4D000], MEMORY[0x277D4D028]);
+      v51 = dispatch thunk of CustomStringConvertible.description.getter();
+      v53 = v52;
+      (*(v43 + 8))(v44, v45);
+      v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v79);
+
+      *(v46 + 14) = v54;
+      _os_log_impl(&dword_26524C000, v74, v73, "MLSDaemon processIncoming errorMessage has no clientXPCProxy { identifier: %s, uniqueClientIdentifier: %s }", v46, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x2667577B0](v77, -1, -1);
+      MEMORY[0x2667577B0](v46, -1, -1);
+    }
+
+    else
+    {
+
+      (*(v43 + 8))(v44, v45);
+      (*(v40 + 8))(v41, v42);
+    }
+
+    (*(v0[14] + 104))(v0[15], *MEMORY[0x277D4D2B0], v0[13]);
+    type metadata accessor for XPCUtils.XPCError();
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type XPCUtils.XPCError and conformance XPCUtils.XPCError, MEMORY[0x277D4D2C0], MEMORY[0x277D4D2C8]);
+    swift_allocError();
+    XPCUtils.XPCError.init(type:underlyingErrorDescription:)();
+    swift_willThrow();
+
+    v55 = v0[1];
+
+    return v55();
+  }
+}
+
+uint64_t thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.IncomingErrorMessage<MLS.AllMember>, @in_guaranteed MLS.IncomingErrorMessageContext<Data>) -> (@out MLS.IncomingErrorMessageProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2, int *a3)
+{
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC20IncomingErrorMessageVy_AC9AllMemberOGAC0ghI7ContextVy_10Foundation4DataVGtMd, &_s15SecureMessaging3MLSO22UniqueClientIdentifierV_AC20IncomingErrorMessageVy_AC9AllMemberOGAC0ghI7ContextVy_10Foundation4DataVGtMR);
+  v8 = *(v7 + 48);
+  v9 = *(v7 + 64);
+  v12 = (a3 + *a3);
+  v10 = swift_task_alloc();
+  *(v3 + 16) = v10;
+  *v10 = v3;
+  v10[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return v12(a1, a2, a2 + v8, a2 + v9);
+}
+
+uint64_t closure #1 in MLSDaemon.getKeyPackage(for:with:)(uint64_t a1, uint64_t a2)
+{
+  v2[7] = a1;
+  v2[8] = a2;
+  type metadata accessor for MLSActor();
+  v2[9] = static MLSActor.shared.getter();
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
+  v4 = dispatch thunk of Actor.unownedExecutor.getter();
+  v2[10] = v4;
+  v2[11] = v3;
+
+  return MEMORY[0x2822009F8](closure #1 in MLSDaemon.getKeyPackage(for:with:), v4, v3);
+}
+
+uint64_t closure #1 in MLSDaemon.getKeyPackage(for:with:)(uint64_t a1)
+{
+  MLS.SwiftMLSClientPicker.client.getter();
+  v2 = v1[5];
+  v3 = v1[6];
+  __swift_project_boxed_opaque_existential_1(v1 + 2, v2);
+  v4 = swift_task_alloc();
+  v1[12] = v4;
+  *v4 = v1;
+  v4[1] = closure #1 in MLSDaemon.getKeyPackage(for:with:);
+  v5 = v1[7];
+
+  return MEMORY[0x2821ACA28](v5, v2, v3);
+}
+
+uint64_t closure #1 in MLSDaemon.getKeyPackage(for:with:)()
+{
+  v2 = *v1;
+  *(*v1 + 104) = v0;
+
+  v3 = *(v2 + 88);
+  v4 = *(v2 + 80);
+  if (v0)
+  {
+    v5 = closure #1 in MLSDaemon.getKeyPackage(for:with:);
+  }
+
+  else
+  {
+    v5 = closure #1 in MLSDaemon.getKeyPackage(for:with:);
+  }
+
+  return MEMORY[0x2822009F8](v5, v4, v3);
+}
+
+{
+
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+{
+
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t closure #1 in MLSDaemon.loadCredential(credential:uri:with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4[3] = a3;
+  v4[4] = a4;
+  v4[2] = a2;
+  type metadata accessor for MLSActor();
+  v4[5] = static MLSActor.shared.getter();
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
+  v6 = dispatch thunk of Actor.unownedExecutor.getter();
+  v4[6] = v6;
+  v4[7] = v5;
+
+  return MEMORY[0x2822009F8](closure #1 in MLSDaemon.loadCredential(credential:uri:with:), v6, v5);
+}
+
+uint64_t closure #1 in MLSDaemon.loadCredential(credential:uri:with:)()
+{
+  v1 = v0[2];
+  v2 = v1[3];
+  v3 = v1[4];
+  __swift_project_boxed_opaque_existential_1(v1, v2);
+  v4 = MEMORY[0x266756630]();
+  v6 = v5;
+  v0[8] = v5;
+  v7 = swift_task_alloc();
+  v0[9] = v7;
+  *v7 = v0;
+  v7[1] = closure #1 in MLSDaemon.loadCredential(credential:uri:with:);
+  v8 = v0[3];
+
+  return MEMORY[0x2821ACA98](v8, v4, v6, v2, v3);
+}
+
+{
+  v2 = *v1;
+  *(*v1 + 80) = v0;
+
+  if (v0)
+  {
+    v3 = *(v2 + 48);
+    v4 = *(v2 + 56);
+    v5 = closure #1 in MLSDaemon.loadCredential(credential:uri:with:);
+  }
+
+  else
+  {
+
+    v3 = *(v2 + 48);
+    v4 = *(v2 + 56);
+    v5 = closure #1 in MLSDaemon.loadCredential(credential:uri:with:);
+  }
+
+  return MEMORY[0x2822009F8](v5, v3, v4);
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t closure #1 in MLSDaemon.updateClientID(swiftMLSClientID:for:with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v5[14] = a4;
+  v5[15] = a5;
+  v5[12] = a2;
+  v5[13] = a3;
+  v6 = type metadata accessor for UUID();
+  v5[16] = v6;
+  v5[17] = *(v6 - 8);
+  v5[18] = swift_task_alloc();
+  type metadata accessor for MLSActor();
+  v5[19] = static MLSActor.shared.getter();
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
+  v8 = dispatch thunk of Actor.unownedExecutor.getter();
+  v5[20] = v8;
+  v5[21] = v7;
+
+  return MEMORY[0x2822009F8](closure #1 in MLSDaemon.updateClientID(swiftMLSClientID:for:with:), v8, v7);
+}
+
+uint64_t closure #1 in MLSDaemon.updateClientID(swiftMLSClientID:for:with:)(uint64_t a1)
+{
+  MLS.SwiftMLSClientPicker.client.getter();
+  v2 = v1[5];
+  v3 = v1[6];
+  __swift_project_boxed_opaque_existential_1(v1 + 2, v2);
+  v4 = swift_task_alloc();
+  v1[22] = v4;
+  *v4 = v1;
+  v4[1] = closure #1 in MLSDaemon.updateClientID(swiftMLSClientID:for:with:);
+  v5 = v1[13];
+
+  return MEMORY[0x2821ACA20](v5, v2, v3);
+}
+
+uint64_t closure #1 in MLSDaemon.updateClientID(swiftMLSClientID:for:with:)()
+{
+  v2 = *v1;
+  *(*v1 + 184) = v0;
+
+  v3 = *(v2 + 168);
+  v4 = *(v2 + 160);
+  if (v0)
+  {
+    v5 = closure #1 in MLSDaemon.updateClientID(swiftMLSClientID:for:with:);
+  }
+
+  else
+  {
+    v5 = closure #1 in MLSDaemon.updateClientID(swiftMLSClientID:for:with:);
+  }
+
+  return MEMORY[0x2822009F8](v5, v4, v3);
+}
+
+{
+  v1 = v0[14];
+  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 2);
+  v2 = *(v1 + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_persister);
+  MLS.SwiftMLSClientPicker.client.getter();
+  __swift_project_boxed_opaque_existential_1(v0 + 7, v0[10]);
+  dispatch thunk of MLS.SwiftMLSClientProtocol.clientUUID.getter();
+  v7 = (*(*v2 + 312) + **(*v2 + 312));
+  v3 = swift_task_alloc();
+  v0[24] = v3;
+  *v3 = v0;
+  v3[1] = closure #1 in MLSDaemon.updateClientID(swiftMLSClientID:for:with:);
+  v4 = v0[18];
+  v5 = v0[15];
+
+  return v7(v4, v5);
+}
+
+{
+  v2 = *v1;
+  v3 = *(*v1 + 144);
+  v4 = *(*v1 + 136);
+  v5 = *(*v1 + 128);
+  *(*v1 + 200) = v0;
+
+  (*(v4 + 8))(v3, v5);
+  if (v0)
+  {
+    v6 = v2[20];
+    v7 = v2[21];
+    v8 = closure #1 in MLSDaemon.updateClientID(swiftMLSClientID:for:with:);
+  }
+
+  else
+  {
+    __swift_destroy_boxed_opaque_existential_1Tm(v2 + 7);
+    v6 = v2[20];
+    v7 = v2[21];
+    v8 = closure #1 in MLSDaemon.updateClientID(swiftMLSClientID:for:with:);
+  }
+
+  return MEMORY[0x2822009F8](v8, v6, v7);
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+{
+
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+{
+
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 56));
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t protocol witness for MLSDaemonProtocol.setupInternalConnection(mlsDaemonClient:regClientKeyPackageExchanger:identifier:) in conformance MLSDaemon(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5[5] = a4;
+  v5[6] = v4;
+  v5[3] = a2;
+  v5[4] = a3;
+  v5[2] = a1;
+  type metadata accessor for MLSActor();
+  v5[7] = static MLSActor.shared.getter();
+  _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLSActor and conformance MLSActor, MEMORY[0x277D4D280], MEMORY[0x277D4D288]);
+  v7 = dispatch thunk of Actor.unownedExecutor.getter();
+
+  return MEMORY[0x2822009F8](protocol witness for MLSDaemonProtocol.setupInternalConnection(mlsDaemonClient:regClientKeyPackageExchanger:identifier:) in conformance MLSDaemon, v7, v6);
+}
+
+uint64_t protocol witness for MLSDaemonProtocol.setupInternalConnection(mlsDaemonClient:regClientKeyPackageExchanger:identifier:) in conformance MLSDaemon()
+{
+  v1 = v0[6];
+  v2 = v0[4];
+  v3 = v0[5];
+  v5 = v0[2];
+  v4 = v0[3];
+
+  v6 = *v1;
+  v7 = v5[3];
+  v8 = v5[4];
+  v9 = __swift_project_boxed_opaque_existential_1(v5, v7);
+  ObjectType = swift_getObjectType();
+  specialized MLSDaemon.setupInternalConnection(mlsDaemonClient:regClientKeyPackageExchanger:identifier:)(v9, v4, v3, v6, v7, ObjectType, v8, v2);
+  v11 = v0[1];
+
+  return v11();
+}
+
+uint64_t protocol witness for MLSDaemonProtocol.getKeyPackage(for:with:) in conformance MLSDaemon(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return MLSDaemon.getKeyPackage(for:with:)(a1, a2, a3);
+}
+
+uint64_t protocol witness for MLSDaemonProtocol.credentialSigningRequest(for:with:) in conformance MLSDaemon(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return MLSDaemon.credentialSigningRequest(for:with:)(a1, a2, a3);
+}
+
+uint64_t protocol witness for MLSDaemonProtocol.publicSigningKey(for:with:) in conformance MLSDaemon(uint64_t a1, uint64_t a2)
+{
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = protocol witness for MLS.Persister.loadSecureMessagingGroupID(swiftMLSGroupID:clientIdentifier:) in conformance DaemonPersister;
+
+  return MLSDaemon.publicSigningKey(for:with:)(a1, a2);
+}
+
+uint64_t protocol witness for MLSDaemonProtocol.loadCredential(credential:uri:with:) in conformance MLSDaemon(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return MLSDaemon.loadCredential(credential:uri:with:)(a1, a2, a3);
+}
+
+uint64_t protocol witness for MLSDaemonProtocol.getCredential(uri:with:) in conformance MLSDaemon(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return MLSDaemon.getCredential(uri:with:)(a1, a2, a3);
+}
+
+uint64_t protocol witness for MLSDaemonProtocol.updateClientID(swiftMLSClientID:for:with:) in conformance MLSDaemon(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return MLSDaemon.updateClientID(swiftMLSClientID:for:with:)(a1, a2, a3, a4);
+}
+
+uint64_t protocol witness for MLSDaemonProtocol.signWithParticipantKey(nonce:for:with:) in conformance MLSDaemon(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = protocol witness for MLS.Persister.loadSwiftMLSGroupID(identifier:clientIdentifier:) in conformance DaemonPersister;
+
+  return MLSDaemon.signWithParticipantKey(nonce:for:with:)(a1, a2, a3, a4);
+}
+
+uint64_t specialized MLSDaemon.setupInternalConnection(mlsDaemonClient:regClientKeyPackageExchanger:identifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v36 = a8;
+  v14 = type metadata accessor for RegClientIdentifier(0);
+  v16 = MEMORY[0x28223BE20](v14 - 8, v15);
+  v18 = &v35 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v16, v19);
+  v21 = &v35 - v20;
+  v38[3] = a5;
+  v38[4] = a7;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v38);
+  (*(*(a5 - 8) + 16))(boxed_opaque_existential_1, a1, a5);
+  outlined init with copy of RegClientIdentifier(a3, v21);
+  v23 = Logger.logObject.getter();
+  v24 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v23, v24))
+  {
+    v25 = swift_slowAlloc();
+    v35 = a3;
+    v26 = v25;
+    v27 = swift_slowAlloc();
+    v37[0] = v27;
+    *v26 = 136315138;
+    outlined init with copy of RegClientIdentifier(v21, v18);
+    v28 = MLS.ClientIdentifier.description.getter();
+    v30 = v29;
+    outlined destroy of RegClientIdentifier(v18);
+    outlined destroy of RegClientIdentifier(v21);
+    v31 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v28, v30, v37);
+
+    *(v26 + 4) = v31;
+    _os_log_impl(&dword_26524C000, v23, v24, "MLSDaemon setupInternalConnection called { clientIdentifier: %s }", v26, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v27);
+    MEMORY[0x2667577B0](v27, -1, -1);
+    v32 = v26;
+    a3 = v35;
+    MEMORY[0x2667577B0](v32, -1, -1);
+  }
+
+  else
+  {
+
+    outlined destroy of RegClientIdentifier(v21);
+  }
+
+  outlined init with copy of SMAUserDefaultsProtocol(v38, v37);
+  v37[5] = a2;
+  v37[6] = v36;
+  v33 = *(**(a4 + OBJC_IVAR____TtC24SecureMessagingAgentCore9MLSDaemon_regClientServer) + 112);
+  swift_unknownObjectRetain();
+  v33(v37, a3);
+  outlined destroy of RegistrationClientProxy(v37);
+  return __swift_destroy_boxed_opaque_existential_1Tm(v38);
+}
+
+uint64_t partial apply for closure #1 in MLSDaemon.getKeyPackage(for:with:)(uint64_t a1)
+{
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #1 in MLSDaemon.getKeyPackage(for:with:)(a1, v4);
+}
+
+uint64_t partial apply for closure #1 in MLSDaemon.loadCredential(credential:uri:with:)(uint64_t a1)
+{
+  v4 = v1[2];
+  v5 = v1[3];
+  v6 = v1[4];
+  v7 = swift_task_alloc();
+  *(v2 + 16) = v7;
+  *v7 = v2;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #1 in MLSDaemon.loadCredential(credential:uri:with:)(a1, v4, v5, v6);
+}
+
+uint64_t partial apply for closure #1 in MLSDaemon.updateClientID(swiftMLSClientID:for:with:)(uint64_t a1)
+{
+  v4 = v1[2];
+  v5 = v1[3];
+  v7 = v1[4];
+  v6 = v1[5];
+  v8 = swift_task_alloc();
+  *(v2 + 16) = v8;
+  *v8 = v2;
+  v8[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #1 in MLSDaemon.updateClientID(swiftMLSClientID:for:with:)(a1, v4, v5, v7, v6);
+}
+
+uint64_t type metadata accessor for MLSDaemon(uint64_t a1)
+{
+  result = type metadata singleton initialization cache for MLSDaemon;
+  if (!type metadata singleton initialization cache for MLSDaemon)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+uint64_t sub_265308F94(uint64_t a1, const char *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
+{
+  swift_unknownObjectRelease(*(v8 + 16), a2, a3, a4, a5, a6, a7, a8);
+
+  return MEMORY[0x2821FE8E8](v8, 40, 7);
+}
+
+uint64_t partial apply for closure #1 in MLSDaemon.setupXPCNotificationPoster()(uint64_t a1)
+{
+  v4 = v1[2];
+  v5 = v1[3];
+  v6 = v1[4];
+  v7 = swift_task_alloc();
+  *(v2 + 16) = v7;
+  *v7 = v2;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #1 in MLSDaemon.setupXPCNotificationPoster()(a1, v4, v5, v6);
+}
+
+uint64_t sub_2653090B4(uint64_t a1, const char *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
+{
+  swift_unknownObjectRelease(*(v8 + 16), a2, a3, a4, a5, a6, a7, a8);
+
+  return MEMORY[0x2821FE8E8](v8, 32, 7);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:)(uint64_t a1, uint64_t a2)
+{
+  v7 = *(v2 + 16);
+  v6 = *(v2 + 24);
+  v8 = swift_task_alloc();
+  *(v3 + 16) = v8;
+  *v8 = v3;
+  v8[1] = dispatch thunk of DaemonPersister.loadGroupMembers(identifier:includePendingMembers:clientIdentifier:);
+
+  return closure #2 in MLSDaemon.setupXPCConnection(client:uniqueClientIdentifier:selfMember:completion:)(a1, a2, v7, v6);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.AllMember) -> (@unowned Bool, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.AllMember) -> (@unowned Bool, @error @owned Error)(a1, a2, v6);
+}
+
+uint64_t sub_26530926C()
+{
+  outlined consume of Data._Representation(*(v0 + 16), *(v0 + 24));
+
+  return MEMORY[0x2821FE8E8](v0, 40, 7);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.selfKeyPackage(uniqueClientIdentifier:completion:)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #2 in MLSDaemon.selfKeyPackage(uniqueClientIdentifier:completion:)(a1, a2, v6);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.createGroup(uniqueClientIdentifier:identifier:otherMembers:groupCreationContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v10 = v4[2];
+  v11 = v4[3];
+  v12 = v4[4];
+  v13 = swift_task_alloc();
+  *(v5 + 16) = v13;
+  *v13 = v5;
+  v13[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #2 in MLSDaemon.createGroup(uniqueClientIdentifier:identifier:otherMembers:groupCreationContext:completion:)(a1, a2, a3, a4, v10, v11, v12);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @guaranteed [MLS.AllMember], @in_guaranteed MLS.GroupCreationContext<Data>) -> (@out MLS.GroupCreationProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @guaranteed [MLS.AllMember], @in_guaranteed MLS.GroupCreationContext<Data>) -> (@out MLS.GroupCreationProcessedContext<Data>, @error @owned Error)(a1, a2, v6);
+}
+
+uint64_t sub_26530954C()
+{
+  outlined consume of Data._Representation(*(v0 + 16), *(v0 + 24));
+  outlined consume of Data._Representation(*(v0 + 32), *(v0 + 40));
+  outlined consume of Data._Representation(*(v0 + 48), *(v0 + 56));
+  outlined consume of Data._Representation(*(v0 + 64), *(v0 + 72));
+
+  return MEMORY[0x2821FE8E8](v0, 88, 7);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v12 = v5[2];
+  v13 = v5[3];
+  v14 = v5[4];
+  v15 = swift_task_alloc();
+  *(v6 + 16) = v15;
+  *v15 = v6;
+  v15[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #2 in MLSDaemon.joinGroup(uniqueClientIdentifier:identifier:otherMembers:welcome:groupCreationContext:completion:)(a1, a2, a3, a4, a5, v12, v13, v14);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @guaranteed [MLS.AllMember], @in_guaranteed MLS.IncomingMessage<MLS.AllMember>, @in_guaranteed MLS.GroupCreationContext<Data>) -> (@out MLS.GroupCreationProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @guaranteed [MLS.AllMember], @in_guaranteed MLS.IncomingMessage<MLS.AllMember>, @in_guaranteed MLS.GroupCreationContext<Data>) -> (@out MLS.GroupCreationProcessedContext<Data>, @error @owned Error)(a1, a2, v6);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v8 = v3[2];
+  v9 = v3[3];
+  v10 = v3[4];
+  v11 = swift_task_alloc();
+  *(v4 + 16) = v11;
+  *v11 = v4;
+  v11[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #2 in MLSDaemon.delete(uniqueClientIdentifier:group:groupDeletionContext:completion:)(a1, a2, a3, v8, v9, v10);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupDeletionContext<Data>) -> (@out MLS.GroupDeletionProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupDeletionContext<Data>) -> (@out MLS.GroupDeletionProcessedContext<Data>, @error @owned Error)(a1, a2, v6);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context:completion:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v8 = v3[2];
+  v9 = v3[3];
+  v10 = v3[4];
+  v11 = swift_task_alloc();
+  *(v4 + 16) = v11;
+  *v11 = v4;
+  v11[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #2 in MLSDaemon.group(uniqueClientIdentifier:identifier:context:completion:)(a1, a2, a3, v8, v9, v10);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupFetchContext) -> (@out MLS.Group, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupFetchContext) -> (@out MLS.Group, @error @owned Error)(a1, a2, v6);
+}
+
+uint64_t sub_265309B28()
+{
+  outlined consume of Data._Representation(*(v0 + 16), *(v0 + 24));
+  outlined consume of Data._Representation(*(v0 + 32), *(v0 + 40));
+
+  return MEMORY[0x2821FE8E8](v0, 72, 7);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:)(uint64_t a1, uint64_t a2)
+{
+  v6 = v2[2];
+  v7 = v2[3];
+  v8 = v2[4];
+  v9 = swift_task_alloc();
+  *(v3 + 16) = v9;
+  *v9 = v3;
+  v9[1] = dispatch thunk of DaemonPersister.loadClientIdentifiersWithEvents();
+
+  return closure #2 in MLSDaemon.update(uniqueClientIdentifier:groupDetails:forGroup:completion:)(a1, a2, v6, v7, v8);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupDetails) -> (@unowned Bool, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = protocol witness for MLS.KeyPackageExchanger.retrieveKeyPackage(members:context:) in conformance KDSRegistrationKeyPackageExchanger;
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupDetails) -> (@unowned Bool, @error @owned Error)(a1, a2, v6);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:)(uint64_t a1, uint64_t a2)
+{
+  v6 = v2[2];
+  v7 = v2[3];
+  v8 = v2[4];
+  v9 = swift_task_alloc();
+  *(v3 + 16) = v9;
+  *v9 = v3;
+  v9[1] = dispatch thunk of DaemonPersister.loadGroupMembers(identifier:includePendingMembers:clientIdentifier:);
+
+  return closure #2 in MLSDaemon.otherMembers(uniqueClientIdentifier:group:context:completion:)(a1, a2, v6, v7, v8);
+}
+
+uint64_t sub_265309E20()
+{
+
+  return MEMORY[0x2821FE8E8](v0, 32, 7);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupMembersContext) -> (@owned Set<MLS.AllMember>, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupMembersContext) -> (@owned Set<MLS.AllMember>, @error @owned Error)(a1, a2, v6);
+}
+
+unint64_t lazy protocol witness table accessor for type Set<MLS.AllMember> and conformance <> Set<A>()
+{
+  result = lazy protocol witness table cache variable for type Set<MLS.AllMember> and conformance <> Set<A>;
+  if (!lazy protocol witness table cache variable for type Set<MLS.AllMember> and conformance <> Set<A>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sShy15SecureMessaging3MLSO9AllMemberOGMd, &_sShy15SecureMessaging3MLSO9AllMemberOGMR);
+    _s15SecureMessaging8MLSActorCACScAAAWlTm_3(&lazy protocol witness table cache variable for type MLS.AllMember and conformance MLS.AllMember, MEMORY[0x277D4D218], MEMORY[0x277D4D220]);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Set<MLS.AllMember> and conformance <> Set<A>);
+  }
+
+  return result;
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v10 = v4[2];
+  v11 = v4[3];
+  v12 = v4[4];
+  v13 = swift_task_alloc();
+  *(v5 + 16) = v13;
+  *v13 = v5;
+  v13[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #2 in MLSDaemon.add(uniqueClientIdentifier:members:toGroup:groupOperationContext:completion:)(a1, a2, a3, a4, v10, v11, v12);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @guaranteed [MLS.AllMember], @in_guaranteed MLS.GroupOperationContext<Data>) -> (@out MLS.GroupOperationProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @guaranteed [MLS.AllMember], @in_guaranteed MLS.GroupOperationContext<Data>) -> (@out MLS.GroupOperationProcessedContext<Data>, @error @owned Error)(a1, a2, v6);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.kick(uniqueClientIdentifier:members:fromGroup:groupOperationContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v10 = v4[2];
+  v11 = v4[3];
+  v12 = v4[4];
+  v13 = swift_task_alloc();
+  *(v5 + 16) = v13;
+  *v13 = v5;
+  v13[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #2 in MLSDaemon.kick(uniqueClientIdentifier:members:fromGroup:groupOperationContext:completion:)(a1, a2, a3, a4, v10, v11, v12);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperationContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v8 = v3[2];
+  v9 = v3[3];
+  v10 = v3[4];
+  v11 = swift_task_alloc();
+  *(v4 + 16) = v11;
+  *v11 = v4;
+  v11[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #2 in MLSDaemon.leave(uniqueClientIdentifier:group:groupOperationContext:completion:)(a1, a2, a3, v8, v9, v10);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupOperationContext<Data>) -> (@out MLS.GroupOperationProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupOperationContext<Data>) -> (@out MLS.GroupOperationProcessedContext<Data>, @error @owned Error)(a1, a2, v6);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgradeContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v8 = v3[2];
+  v9 = v3[3];
+  v10 = v3[4];
+  v11 = swift_task_alloc();
+  *(v4 + 16) = v11;
+  *v11 = v4;
+  v11[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #2 in MLSDaemon.downgrade(uniqueClientIdentifier:group:downgradeContext:completion:)(a1, a2, a3, v8, v9, v10);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.DowngradeContext<Data>) -> (@out MLS.DowngradeProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.DowngradeContext<Data>) -> (@out MLS.DowngradeProcessedContext<Data>, @error @owned Error)(a1, a2, v6);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:withGroup:encryptionContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v8 = v3[2];
+  v9 = v3[3];
+  v10 = v3[4];
+  v11 = v3[5];
+  v12 = v3[6];
+  v13 = swift_task_alloc();
+  *(v4 + 16) = v13;
+  *v13 = v4;
+  v13[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:data:withGroup:encryptionContext:completion:)(a1, a2, a3, v8, v9, v10, v11, v12);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.EncryptionContext<MLS.AllMember, Data>) -> (@out MLS.EncryptionProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.EncryptionContext<MLS.AllMember, Data>) -> (@out MLS.EncryptionProcessedContext<Data>, @error @owned Error)(a1, a2, v6);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.applicationSign(uniqueClientIdentifier:input:withGroup:signingContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v10 = v4[2];
+  v11 = v4[3];
+  v12 = v4[4];
+  v13 = swift_task_alloc();
+  *(v5 + 16) = v13;
+  *v13 = v5;
+  v13[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #2 in MLSDaemon.applicationSign(uniqueClientIdentifier:input:withGroup:signingContext:completion:)(a1, a2, a3, a4, v10, v11, v12);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.SigningInput, @in_guaranteed MLS.SigningContext<Data>) -> (@out MLS.SigningProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.SigningInput, @in_guaranteed MLS.SigningContext<Data>) -> (@out MLS.SigningProcessedContext<Data>, @error @owned Error)(a1, a2, v6);
+}
+
+uint64_t sub_26530AA18()
+{
+
+  return MEMORY[0x2821FE8E8](v0, 56, 7);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:groupName:withGroup:groupNameEncryptionContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v8 = v3[2];
+  v9 = v3[3];
+  v10 = v3[4];
+  v11 = v3[5];
+  v12 = v3[6];
+  v13 = swift_task_alloc();
+  *(v4 + 16) = v13;
+  *v13 = v4;
+  v13[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #2 in MLSDaemon.applicationEncrypt(uniqueClientIdentifier:groupName:withGroup:groupNameEncryptionContext:completion:)(a1, a2, a3, v8, v9, v10, v11, v12);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupNameEncryptionContext<MLS.AllMember, Data>) -> (@out MLS.GroupNameEncryptionProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.GroupNameEncryptionContext<MLS.AllMember, Data>) -> (@out MLS.GroupNameEncryptionProcessedContext<Data>, @error @owned Error)(a1, a2, v6);
+}
+
+uint64_t objectdestroy_27Tm()
+{
+  outlined consume of Data._Representation(*(v0 + 16), *(v0 + 24));
+  outlined consume of Data._Representation(*(v0 + 32), *(v0 + 40));
+
+  return MEMORY[0x2821FE8E8](v0, 56, 7);
+}
+
+uint64_t objectdestroy_159Tm()
+{
+  outlined consume of Data._Representation(*(v0 + 24), *(v0 + 32));
+
+  return MEMORY[0x2821FE8E8](v0, 56, 7);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:groupName:forGroup:incomingGroupNameContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v8 = v3[2];
+  v9 = v3[3];
+  v10 = v3[4];
+  v11 = v3[5];
+  v12 = v3[6];
+  v13 = swift_task_alloc();
+  *(v4 + 16) = v13;
+  *v13 = v4;
+  v13[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:groupName:forGroup:incomingGroupNameContext:completion:)(a1, a2, a3, v8, v9, v10, v11, v12);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.IncomingGroupNameContext<Data>) -> (@out MLS.IncomingGroupNameProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.IncomingGroupNameContext<Data>) -> (@out MLS.IncomingGroupNameProcessedContext<Data>, @error @owned Error)(a1, a2, v6);
+}
+
+uint64_t sub_26530AE6C()
+{
+  outlined consume of Data._Representation(*(v0 + 16), *(v0 + 24));
+  outlined consume of Data._Representation(*(v0 + 32), *(v0 + 40));
+  outlined consume of Data._Representation(*(v0 + 48), *(v0 + 56));
+
+  return MEMORY[0x2821FE8E8](v0, 88, 7);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:forGroup:incomingMessageContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v10 = v4[2];
+  v11 = v4[3];
+  v12 = v4[4];
+  v13 = swift_task_alloc();
+  *(v5 + 16) = v13;
+  *v13 = v5;
+  v13[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:forGroup:incomingMessageContext:completion:)(a1, a2, a3, a4, v10, v11, v12);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.IncomingMessage<MLS.AllMember>, @in_guaranteed MLS.IncomingMessageContext<Data>) -> (@out MLS.IncomingMessageProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.IncomingMessage<MLS.AllMember>, @in_guaranteed MLS.IncomingMessageContext<Data>) -> (@out MLS.IncomingMessageProcessedContext<Data>, @error @owned Error)(a1, a2, v6);
+}
+
+uint64_t sub_26530B100()
+{
+
+  return MEMORY[0x2821FE8E8](v0, 24, 7);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:incomingMessageContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v10 = *(v4 + 16);
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:message:incomingMessageContext:completion:)(a1, a2, a3, a4, v10);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:failureToDecrypt:withGroup:incomingFailureToDecryptContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v10 = v4[2];
+  v11 = v4[3];
+  v12 = v4[4];
+  v13 = swift_task_alloc();
+  *(v5 + 16) = v13;
+  *v13 = v5;
+  v13[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:failureToDecrypt:withGroup:incomingFailureToDecryptContext:completion:)(a1, a2, a3, a4, v10, v11, v12);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.IncomingFailureToDecrypt<MLS.AllMember>, @in_guaranteed MLS.IncomingFailureToDecryptContext<Data>) -> (@out MLS.IncomingFailureToDecryptProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.IncomingFailureToDecrypt<MLS.AllMember>, @in_guaranteed MLS.IncomingFailureToDecryptContext<Data>) -> (@out MLS.IncomingFailureToDecryptProcessedContext<Data>, @error @owned Error)(a1, a2, v6);
+}
+
+uint64_t objectdestroy_45Tm()
+{
+  outlined consume of Data._Representation(*(v0 + 16), *(v0 + 24));
+  outlined consume of Data._Representation(*(v0 + 32), *(v0 + 40));
+  outlined consume of Data._Representation(*(v0 + 48), *(v0 + 56));
+
+  return MEMORY[0x2821FE8E8](v0, 72, 7);
+}
+
+uint64_t objectdestroy_48Tm()
+{
+
+  return MEMORY[0x2821FE8E8](v0, 40, 7);
+}
+
+uint64_t partial apply for closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:errorMessage:withGroup:incomingErrorMessageContext:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v10 = v4[2];
+  v11 = v4[3];
+  v12 = v4[4];
+  v13 = swift_task_alloc();
+  *(v5 + 16) = v13;
+  *v13 = v5;
+  v13[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #2 in MLSDaemon.processIncoming(uniqueClientIdentifier:errorMessage:withGroup:incomingErrorMessageContext:completion:)(a1, a2, a3, a4, v10, v11, v12);
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.IncomingErrorMessage<MLS.AllMember>, @in_guaranteed MLS.IncomingErrorMessageContext<Data>) -> (@out MLS.IncomingErrorMessageProcessedContext<Data>, @error @owned Error)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 16);
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return thunk for @escaping @callee_guaranteed @Sendable @async (@in_guaranteed MLS.UniqueClientIdentifier, @in_guaranteed MLS.IncomingErrorMessage<MLS.AllMember>, @in_guaranteed MLS.IncomingErrorMessageContext<Data>) -> (@out MLS.IncomingErrorMessageProcessedContext<Data>, @error @owned Error)(a1, a2, v6);
+}
+
+uint64_t sub_26530B660@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
+{
+  result = (*((*MEMORY[0x277D85000] & **a1) + 0x88))();
+  *a2 = result;
+  return result;
+}
+
+uint64_t sub_26530B6BC(void *a1, void **a2)
+{
+  v2 = *((*MEMORY[0x277D85000] & **a2) + 0x90);
+
+  return v2(v3);
+}
+
+uint64_t sub_26530B720@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
+{
+  result = (*((*MEMORY[0x277D85000] & **a1) + 0xA0))();
+  *a2 = result;
+  return result;
+}
+
+uint64_t sub_26530B77C(void *a1, void **a2)
+{
+  v2 = *((*MEMORY[0x277D85000] & **a2) + 0xA8);
+
+  return v2(v3);
+}
+
+uint64_t type metadata completion function for MLSDaemon(uint64_t a1)
+{
+  result = type metadata accessor for Logger();
+  if (v2 <= 0x3F)
+  {
+    result = swift_updateClassMetadata2();
+    if (!result)
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t dispatch thunk of MLSDaemon.start()()
+{
+  v2 = *((*MEMORY[0x277D85000] & *v0) + 0xB8);
+  v5 = (v2 + *v2);
+  v3 = swift_task_alloc();
+  *(v1 + 16) = v3;
+  *v3 = v1;
+  v3[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return v5();
+}
+
+uint64_t dispatch thunk of MLSDaemonProtocol.setupInternalConnection(mlsDaemonClient:regClientKeyPackageExchanger:identifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v15 = (*(a6 + 8) + **(a6 + 8));
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return v15(a1, a2, a3, a4, a5, a6);
+}
+
+uint64_t dispatch thunk of MLSDaemonProtocol.getKeyPackage(for:with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v13 = (*(a5 + 16) + **(a5 + 16));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return v13(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLSDaemonProtocol.credentialSigningRequest(for:with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v13 = (*(a5 + 24) + **(a5 + 24));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return v13(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLSDaemonProtocol.publicSigningKey(for:with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11 = (*(a4 + 32) + **(a4 + 32));
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = dispatch thunk of DaemonPersister.loadSecureMessagingGroupID(swiftMLSGroupID:clientIdentifier:);
+
+  return v11(a1, a2, a3, a4);
+}
+
+uint64_t dispatch thunk of MLSDaemonProtocol.loadCredential(credential:uri:with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v13 = (*(a5 + 40) + **(a5 + 40));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return v13(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLSDaemonProtocol.getCredential(uri:with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v13 = (*(a5 + 48) + **(a5 + 48));
+  v11 = swift_task_alloc();
+  *(v5 + 16) = v11;
+  *v11 = v5;
+  v11[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return v13(a1, a2, a3, a4, a5);
+}
+
+uint64_t dispatch thunk of MLSDaemonProtocol.updateClientID(swiftMLSClientID:for:with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v15 = (*(a6 + 56) + **(a6 + 56));
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return v15(a1, a2, a3, a4, a5, a6);
+}
+
+uint64_t dispatch thunk of MLSDaemonProtocol.signWithParticipantKey(nonce:for:with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v15 = (*(a6 + 64) + **(a6 + 64));
+  v13 = swift_task_alloc();
+  *(v6 + 16) = v13;
+  *v13 = v6;
+  v13[1] = dispatch thunk of DaemonPersister.loadSwiftMLSGroupID(identifier:clientIdentifier:);
+
+  return v15(a1, a2, a3, a4, a5, a6);
+}
+
+uint64_t sub_26530C554()
+{
+  _Block_release(*(v0 + 16));
+
+  return MEMORY[0x2821FE8E8](v0, 24, 7);
+}
+
+uint64_t partial apply for closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:)(uint64_t a1)
+{
+  v5 = *(v1 + 16);
+  v4 = *(v1 + 24);
+  v6 = swift_task_alloc();
+  *(v2 + 16) = v6;
+  *v6 = v2;
+  v6[1] = partial apply for closure #1 in KDSRegistrationPushHandler.handler(_:didReceiveMessage:forTopic:fromID:messageContext:);
+
+  return closure #1 in MLSDaemon.updateSwiftMLSClientMapIfNeeded(with:)(a1, v5, v4);
+}
+
+uint64_t _s15SecureMessaging8MLSActorCACScAAAWlTm_3(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t RegistrationClientXPCServer.__allocating_init()()
+{
+  v0 = swift_allocObject();
+  *(v0 + 16) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC15SecureMessaging15KDSRegistrationO22UniqueClientIdentifierV_0cD9AgentCore0eG0VTt0g5Tf4g_n(MEMORY[0x277D84F90]);
+  return v0;
+}
+
+uint64_t RegistrationClientXPCServer.clientProxyByUUID.setter(uint64_t a1)
+{
+  swift_beginAccess();
+  *(v1 + 16) = a1;
+}
+
+uint64_t RegistrationClientXPCServer.addClientXPCProxy(clientProxy:with:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v7 = *(*v3 + 104);
+  swift_unknownObjectRetain();
+
+  v8 = v7(v14);
+  v10 = v9;
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v13 = *v10;
+  *v10 = 0x8000000000000000;
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(a1, a2, a3, isUniquelyReferenced_nonNull_native);
+  *v10 = v13;
+  return v8(v14, 0);
+}
+
+uint64_t RegistrationClientXPCServer.removeClientXPCProxy(for:)(uint64_t a1)
+{
+  v3 = type metadata accessor for KDSRegistration.UniqueClientIdentifier();
+  MEMORY[0x28223BE20](v3, v4);
+  v6 = &v10[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  (*(v7 + 16))(v6, a1);
+  v8 = (*(*v1 + 104))(v10);
+  specialized Dictionary.subscript.setter(0, 0, v6);
+  return v8(v10, 0);
+}
+
+uint64_t RegistrationClientXPCServer.__deallocating_deinit()
+{
+
+  return MEMORY[0x2821FE8D8](v0, 24, 7);
+}
+
+uint64_t sub_26530CBF8@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+{
+  result = (*(**a1 + 88))();
+  *a2 = result;
+  return result;
+}
+
+uint64_t sub_26530CC44(void *a1, uint64_t a2)
+{
+  v2 = *(**a2 + 96);
+
+  return v2(v3);
+}
+
+uint64_t getEnumTagSinglePayload for KDSRegistrationClient(uint64_t *a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 16))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for KDSRegistrationClient(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *result = a2 & 0x7FFFFFFF;
+    *(result + 8) = 0;
+    if (a3 < 0)
+    {
+      *(result + 16) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *result = (a2 - 1);
+      return result;
+    }
+
+    *(result + 16) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t QueryKeyPackageRequest.init(recipients:pushTokenForTesting:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+{
+  *a4 = result;
+  a4[1] = a2;
+  a4[2] = a3;
+  return result;
+}
+
+BOOL static QueryRecipient.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  if (a1 == a4 && a2 == a5)
+  {
+    return a3 == a6;
+  }
+
+  v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  result = 0;
+  if (v8)
+  {
+    return a3 == a6;
+  }
+
+  return result;
+}
+
+Swift::Int QueryRecipient.hashValue.getter(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+  MEMORY[0x266756F60](a3);
+  return Hasher._finalize()();
+}
+
+BOOL protocol witness for static Equatable.== infix(_:_:) in conformance QueryRecipient(uint64_t *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a2[2];
+  if (*a1 == *a2 && a1[1] == a2[1])
+  {
+    return v2 == v3;
+  }
+
+  v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  result = 0;
+  if (v5)
+  {
+    return v2 == v3;
+  }
+
+  return result;
+}
+
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance QueryRecipient()
+{
+  v1 = *(v0 + 16);
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+  MEMORY[0x266756F60](v1);
+  return Hasher._finalize()();
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance QueryRecipient(uint64_t a1)
+{
+  v2 = *(v1 + 16);
+  String.hash(into:)();
+  return MEMORY[0x266756F60](v2);
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance QueryRecipient(uint64_t a1)
+{
+  v2 = *(v1 + 16);
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+  MEMORY[0x266756F60](v2);
+  return Hasher._finalize()();
+}
+
+uint64_t QueryKeyPackageRequest.pushTokenForTesting.getter()
+{
+  v1 = *(v0 + 8);
+  outlined copy of Data?(v1, *(v0 + 16));
+  return v1;
+}
+
+void QueryKeyPackageRequest.pushTokenForTesting.setter(uint64_t a1, uint64_t a2)
+{
+  outlined consume of Data?(*(v2 + 8), *(v2 + 16));
+  *(v2 + 8) = a1;
+  *(v2 + 16) = a2;
+}
+
+void *QueryKeyPackageRequest.toIDSMessage(with:)(uint64_t a1)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy24SecureMessagingAgentCore8Response_ps5Error_pGMd, &_sScCy24SecureMessagingAgentCore8Response_ps5Error_pGMR);
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3, v5);
+  v7 = aBlock - v6;
+  v9 = *v1;
+  v8 = v1[1];
+  v10 = v1[2];
+  KeyPackageMessage = type metadata accessor for QueryKeyPackageMessage();
+  v12 = objc_allocWithZone(KeyPackageMessage);
+  *&v12[OBJC_IVAR____TtC24SecureMessagingAgentCore22QueryKeyPackageMessage_pushTokenForTesting] = xmmword_2653419D0;
+  *&v12[OBJC_IVAR____TtC24SecureMessagingAgentCore22QueryKeyPackageMessage_recipients] = v9;
+  v21.receiver = v12;
+  v21.super_class = KeyPackageMessage;
+
+  v13 = objc_msgSendSuper2(&v21, sel_init);
+  if (os_variant_has_internal_content())
+  {
+    v14 = *((*MEMORY[0x277D85000] & *v13) + 0x70);
+    outlined copy of Data?(v8, v10);
+    v14(v8, v10);
+  }
+
+  (*(v4 + 16))(v7, a1, v3);
+  v15 = (*(v4 + 80) + 16) & ~*(v4 + 80);
+  v16 = swift_allocObject();
+  (*(v4 + 32))(v16 + v15, v7, v3);
+  aBlock[4] = partial apply for closure #1 in QueryKeyPackageRequest.toIDSMessage(with:);
+  aBlock[5] = v16;
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 1107296256;
+  aBlock[2] = thunk for @escaping @callee_guaranteed (@guaranteed IDSBaseMessage?, @guaranteed Error?, @unowned Int, @guaranteed [AnyHashable : Any]?) -> ();
+  aBlock[3] = &block_descriptor_9;
+  v17 = _Block_copy(aBlock);
+  v18 = v13;
+
+  [v18 setCompletionBlock_];
+  _Block_release(v17);
+
+  return v18;
+}
+
+id QueryKeyPackageMessage.__allocating_init(recipients:)(uint64_t a1)
+{
+  v3 = objc_allocWithZone(v1);
+  *&v3[OBJC_IVAR____TtC24SecureMessagingAgentCore22QueryKeyPackageMessage_pushTokenForTesting] = xmmword_2653419D0;
+  *&v3[OBJC_IVAR____TtC24SecureMessagingAgentCore22QueryKeyPackageMessage_recipients] = a1;
+  v5.receiver = v3;
+  v5.super_class = v1;
+  return objc_msgSendSuper2(&v5, sel_init);
+}
+
+uint64_t closure #1 in QueryKeyPackageRequest.toIDSMessage(with:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v8 = type metadata accessor for LogCategory();
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8, v10);
+  v12 = &v64 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for Logger();
+  v14 = *(v13 - 8);
+  MEMORY[0x28223BE20](v13, v15);
+  v17 = &v64 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (a2)
+  {
+    v89[0] = a2;
+    v18 = a2;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy24SecureMessagingAgentCore8Response_ps5Error_pGMd, &_sScCy24SecureMessagingAgentCore8Response_ps5Error_pGMR);
+    return CheckedContinuation.resume(throwing:)();
+  }
+
+  if (!a4)
+  {
+    v90 = &type metadata for QueryKeyPackageResponse;
+    v91 = &protocol witness table for QueryKeyPackageResponse;
+    v62 = swift_allocObject();
+    v89[0] = v62;
+    *(v62 + 16) = 0;
+    *(v62 + 24) = 1;
+    *(v62 + 32) = 0u;
+    *(v62 + 48) = 0u;
+    *(v62 + 64) = 0;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy24SecureMessagingAgentCore8Response_ps5Error_pGMd, &_sScCy24SecureMessagingAgentCore8Response_ps5Error_pGMR);
+    return CheckedContinuation.resume(returning:)();
+  }
+
+  v88 = 1;
+  v85 = 0x737574617473;
+  v86 = 0xE600000000000000;
+  AnyHashable.init<A>(_:)();
+  if (!*(a4 + 16) || (v20 = specialized __RawDictionaryStorage.find<A>(_:)(v89), (v21 & 1) == 0))
+  {
+    outlined destroy of AnyHashable(v89);
+    goto LABEL_9;
+  }
+
+  outlined init with copy of Any(*(a4 + 56) + 32 * v20, v87);
+  outlined destroy of AnyHashable(v89);
+  if ((swift_dynamicCast() & 1) == 0)
+  {
+LABEL_9:
+    v75 = 0;
+    v22 = 1;
+    goto LABEL_10;
+  }
+
+  v22 = 0;
+  v75 = v85;
+  v88 = 0;
+LABEL_10:
+  v85 = 0x746E69682D7478;
+  v86 = 0xE700000000000000;
+  AnyHashable.init<A>(_:)();
+  if (!*(a4 + 16) || (v23 = specialized __RawDictionaryStorage.find<A>(_:)(v89), (v24 & 1) == 0))
+  {
+    outlined destroy of AnyHashable(v89);
+    goto LABEL_15;
+  }
+
+  outlined init with copy of Any(*(a4 + 56) + 32 * v23, v87);
+  outlined destroy of AnyHashable(v89);
+  if ((swift_dynamicCast() & 1) == 0)
+  {
+LABEL_15:
+    v74 = 0;
+    v77 = 0;
+    goto LABEL_16;
+  }
+
+  v74 = v85;
+  v77 = v86;
+LABEL_16:
+  v85 = 0x6567617373656DLL;
+  v86 = 0xE700000000000000;
+  AnyHashable.init<A>(_:)();
+  if (!*(a4 + 16) || (v25 = specialized __RawDictionaryStorage.find<A>(_:)(v89), (v26 & 1) == 0))
+  {
+    outlined destroy of AnyHashable(v89);
+    goto LABEL_21;
+  }
+
+  outlined init with copy of Any(*(a4 + 56) + 32 * v25, v87);
+  outlined destroy of AnyHashable(v89);
+  if ((swift_dynamicCast() & 1) == 0)
+  {
+LABEL_21:
+    v73 = 0;
+    v76 = 0;
+    goto LABEL_22;
+  }
+
+  v73 = v85;
+  v76 = v86;
+LABEL_22:
+  v85 = 0x6E65697069636572;
+  v86 = 0xEA00000000007374;
+  AnyHashable.init<A>(_:)();
+  if (!*(a4 + 16) || (v27 = specialized __RawDictionaryStorage.find<A>(_:)(v89), (v28 & 1) == 0))
+  {
+    outlined destroy of AnyHashable(v89);
+    goto LABEL_62;
+  }
+
+  outlined init with copy of Any(*(a4 + 56) + 32 * v27, v87);
+  outlined destroy of AnyHashable(v89);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySDySSypGGMd, &_sSaySDySSypGGMR);
+  if ((swift_dynamicCast() & 1) == 0)
+  {
+LABEL_62:
+    v63 = 0;
+LABEL_63:
+    v90 = &type metadata for QueryKeyPackageResponse;
+    v91 = &protocol witness table for QueryKeyPackageResponse;
+    v59 = swift_allocObject();
+    v89[0] = v59;
+    *(v59 + 16) = v75;
+    *(v59 + 24) = v22;
+    v61 = v76;
+    v60 = v77;
+    *(v59 + 32) = v74;
+    *(v59 + 40) = v60;
+    *(v59 + 48) = v73;
+    *(v59 + 56) = v61;
+    *(v59 + 64) = v63;
+
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy24SecureMessagingAgentCore8Response_ps5Error_pGMd, &_sScCy24SecureMessagingAgentCore8Response_ps5Error_pGMR);
+    CheckedContinuation.resume(returning:)();
+  }
+
+  result = v85;
+  v84 = *(v85 + 16);
+  if (!v84)
+  {
+
+    v63 = MEMORY[0x277D84F90];
+    goto LABEL_63;
+  }
+
+  v29 = 0;
+  v83 = v85 + 32;
+  v82 = *MEMORY[0x277D4C900];
+  v80 = (v9 + 8);
+  v81 = (v9 + 104);
+  v78 = (v14 + 8);
+  v68 = MEMORY[0x277D84F90];
+  v71 = v13;
+  v79 = v85;
+  while (1)
+  {
+    if (v29 >= *(result + 16))
+    {
+      __break(1u);
+      goto LABEL_68;
+    }
+
+    v30 = *(v83 + 8 * v29);
+    (*v81)(v12, v82, v8);
+
+    secureMessagingLogger(category:)();
+    (*v80)(v12, v8);
+    v31 = Logger.logObject.getter();
+    v32 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v31, v32))
+    {
+      v33 = swift_slowAlloc();
+      *v33 = 0;
+      _os_log_impl(&dword_26524C000, v31, v32, "QueryKeyPackageResponse - parsing recipients", v33, 2u);
+      v34 = v33;
+      v13 = v71;
+      MEMORY[0x2667577B0](v34, -1, -1);
+    }
+
+    if (!*(v30 + 16))
+    {
+      goto LABEL_48;
+    }
+
+    v35 = specialized __RawDictionaryStorage.find<A>(_:)(0x616B63615079656BLL, 0xEB00000000736567);
+    if ((v36 & 1) == 0)
+    {
+      goto LABEL_48;
+    }
+
+    outlined init with copy of Any(*(v30 + 56) + 32 * v35, v89);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+    if ((swift_dynamicCast() & 1) == 0)
+    {
+      goto LABEL_52;
+    }
+
+    v37 = v87[0];
+    if (*(v30 + 16))
+    {
+      v38 = specialized __RawDictionaryStorage.find<A>(_:)(0x6E65697069636572, 0xE900000000000074);
+      if (v39)
+      {
+        break;
+      }
+    }
+
+LABEL_48:
+
+    (*v78)(v17, v13);
+LABEL_49:
+    result = v79;
+LABEL_50:
+    if (++v29 == v84)
+    {
+
+      v22 = v88;
+      v63 = v68;
+      goto LABEL_63;
+    }
+  }
+
+  outlined init with copy of Any(*(v30 + 56) + 32 * v38, v89);
+
+  if ((swift_dynamicCast() & 1) == 0)
+  {
+LABEL_52:
+    (*v78)(v17, v13);
+
+    goto LABEL_49;
+  }
+
+  v70 = v37;
+  v65 = v87[0];
+  v67 = v87[1];
+  v40 = Logger.logObject.getter();
+  v41 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v40, v41))
+  {
+    v42 = swift_slowAlloc();
+    *v42 = 0;
+    _os_log_impl(&dword_26524C000, v40, v41, "QueryKeyPackageResponse - parsing recipient.", v42, 2u);
+    MEMORY[0x2667577B0](v42, -1, -1);
+  }
+
+  v66 = a5;
+
+  result = v70;
+  v69 = *(v70 + 16);
+  if (!v69)
+  {
+    v72 = MEMORY[0x277D84F90];
+LABEL_56:
+
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+      v68 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v68 + 2) + 1, 1, v68);
+    }
+
+    v13 = v71;
+    v52 = v79;
+    v53 = v67;
+    v55 = *(v68 + 2);
+    v54 = *(v68 + 3);
+    if (v55 >= v54 >> 1)
+    {
+      v68 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v54 > 1), v55 + 1, 1, v68);
+    }
+
+    (*v78)(v17, v13);
+    v56 = v68;
+    *(v68 + 2) = v55 + 1;
+    v57 = &v56[24 * v55];
+    v58 = v65;
+    *(v57 + 4) = v72;
+    *(v57 + 5) = v58;
+    *(v57 + 6) = v53;
+    a5 = v66;
+    result = v52;
+    goto LABEL_50;
+  }
+
+  v43 = 0;
+  v44 = v70 + 40;
+  v72 = MEMORY[0x277D84F90];
+  while (v43 < *(result + 16))
+  {
+
+    v45 = Data.init(base64Encoded:options:)();
+    v47 = v46;
+
+    if (v47 >> 60 == 15)
+    {
+
+      (*v78)(v17, v71);
+    }
+
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+      v72 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v72 + 2) + 1, 1, v72);
+    }
+
+    v49 = *(v72 + 2);
+    v48 = *(v72 + 3);
+    if (v49 >= v48 >> 1)
+    {
+      v72 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v48 > 1), v49 + 1, 1, v72);
+    }
+
+    ++v43;
+    v50 = v72;
+    *(v72 + 2) = v49 + 1;
+    v51 = &v50[16 * v49];
+    *(v51 + 4) = v45;
+    *(v51 + 5) = v47;
+    v44 += 16;
+    result = v70;
+    if (v69 == v43)
+    {
+      goto LABEL_56;
+    }
+  }
+
+LABEL_68:
+  __break(1u);
+  return result;
+}
+
+void __swiftcall QueryKeyPackageResponse.init()(SecureMessagingAgentCore::QueryKeyPackageResponse *__return_ptr retstr)
+{
+  retstr->status.value = 0;
+  retstr->status.is_nil = 1;
+  retstr->splunkHint = 0u;
+  retstr->message = 0u;
+  retstr->recipientKeyPackages.value._rawValue = 0;
+}
+
+uint64_t RecipientKeyPackages.init(keyPackages:uri:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+{
+  *a4 = result;
+  a4[1] = a2;
+  a4[2] = a3;
+  return result;
+}
+
+uint64_t QueryKeyPackageMessage.pushTokenForTesting.getter()
+{
+  v1 = v0 + OBJC_IVAR____TtC24SecureMessagingAgentCore22QueryKeyPackageMessage_pushTokenForTesting;
+  swift_beginAccess();
+  v2 = *v1;
+  outlined copy of Data?(*v1, *(v1 + 8));
+  return v2;
+}
+
+void QueryKeyPackageMessage.pushTokenForTesting.setter(uint64_t a1, uint64_t a2)
+{
+  v5 = (v2 + OBJC_IVAR____TtC24SecureMessagingAgentCore22QueryKeyPackageMessage_pushTokenForTesting);
+  swift_beginAccess();
+  v6 = *v5;
+  v7 = v5[1];
+  *v5 = a1;
+  v5[1] = a2;
+  outlined consume of Data?(v6, v7);
+}
+
+id QueryKeyPackageMessage.init(recipients:)(uint64_t a1)
+{
+  *&v1[OBJC_IVAR____TtC24SecureMessagingAgentCore22QueryKeyPackageMessage_pushTokenForTesting] = xmmword_2653419D0;
+  *&v1[OBJC_IVAR____TtC24SecureMessagingAgentCore22QueryKeyPackageMessage_recipients] = a1;
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for QueryKeyPackageMessage();
+  return objc_msgSendSuper2(&v3, sel_init);
+}
+
+uint64_t sub_26530E174()
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy24SecureMessagingAgentCore8Response_ps5Error_pGMd, &_sScCy24SecureMessagingAgentCore8Response_ps5Error_pGMR);
+  v2 = *(v1 - 8);
+  v3 = *(v2 + 80);
+  v4 = (v3 + 16) & ~v3;
+  v5 = *(v2 + 64);
+  (*(v2 + 8))(v0 + v4, v1);
+
+  return MEMORY[0x2821FE8E8](v0, v4 + v5, v3 | 7);
+}
+
+uint64_t partial apply for closure #1 in QueryKeyPackageRequest.toIDSMessage(with:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+{
+  v9 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy24SecureMessagingAgentCore8Response_ps5Error_pGMd, &_sScCy24SecureMessagingAgentCore8Response_ps5Error_pGMR) - 8);
+  v10 = v4 + ((*(v9 + 80) + 16) & ~*(v9 + 80));
+
+  return closure #1 in QueryKeyPackageRequest.toIDSMessage(with:)(a1, a2, a3, a4, v10);
+}
+
+uint64_t block_copy_helper_9(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 40);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = v2;
+}
+
+double QueryKeyPackageMessage.requiredKeys.getter()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
+  v0 = swift_allocObject();
+  *&result = 1;
+  *(v0 + 16) = xmmword_2653419E0;
+  *(v0 + 56) = MEMORY[0x277D837D0];
+  *(v0 + 32) = 0x6E65697069636572;
+  *(v0 + 40) = 0xEA00000000007374;
+  return result;
+}
+
+unint64_t QueryKeyPackageMessage.messageBody.getter()
+{
+  v1 = *(v0 + OBJC_IVAR____TtC24SecureMessagingAgentCore22QueryKeyPackageMessage_recipients);
+  v2 = *(v1 + 16);
+  if (v2)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
+    v3 = (v1 + 48);
+    v4 = MEMORY[0x277D84F90];
+    while (1)
+    {
+      v5 = *(v3 - 2);
+      v6 = *(v3 - 1);
+      v7 = *v3;
+      v30[0] = 0x53444B656D6F68;
+      v30[1] = 0xE700000000000000;
+      v30[2] = v7;
+      v30[5] = MEMORY[0x277D83B88];
+      v31[0] = 0x6E65697069636572;
+      v31[1] = 0xE900000000000074;
+      v31[5] = MEMORY[0x277D837D0];
+      v31[2] = v5;
+      v31[3] = v6;
+      v8 = static _DictionaryStorage.allocate(capacity:)();
+      outlined init with copy of (String, Any)(v30, &v27);
+      v9 = v27;
+      v10 = v28;
+
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v9, v10);
+      if (v12)
+      {
+        break;
+      }
+
+      *(v8 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v13 = (v8[6] + 16 * result);
+      *v13 = v9;
+      v13[1] = v10;
+      result = outlined init with take of Any(v29, (v8[7] + 32 * result));
+      v14 = v8[2];
+      v15 = __OFADD__(v14, 1);
+      v16 = v14 + 1;
+      if (v15)
+      {
+        goto LABEL_16;
+      }
+
+      v8[2] = v16;
+      outlined init with copy of (String, Any)(v31, &v27);
+      v17 = v27;
+      v18 = v28;
+      result = specialized __RawDictionaryStorage.find<A>(_:)(v27, v28);
+      if (v19)
+      {
+        goto LABEL_17;
+      }
+
+      *(v8 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v20 = (v8[6] + 16 * result);
+      *v20 = v17;
+      v20[1] = v18;
+      result = outlined init with take of Any(v29, (v8[7] + 32 * result));
+      v21 = v8[2];
+      v15 = __OFADD__(v21, 1);
+      v22 = v21 + 1;
+      if (v15)
+      {
+        goto LABEL_18;
+      }
+
+      v8[2] = v22;
+
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
+      swift_arrayDestroy();
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v4[2] + 1, 1, v4);
+      }
+
+      v24 = v4[2];
+      v23 = v4[3];
+      if (v24 >= v23 >> 1)
+      {
+        v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v24 + 1, 1, v4);
+      }
+
+      v3 += 3;
+      v4[2] = v24 + 1;
+      v4[v24 + 4] = v8;
+      if (!--v2)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    __break(1u);
+LABEL_16:
+    __break(1u);
+LABEL_17:
+    __break(1u);
+LABEL_18:
+    __break(1u);
+  }
+
+  else
+  {
+    v4 = MEMORY[0x277D84F90];
+LABEL_14:
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMd, &_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMR);
+    inited = swift_initStackObject();
+    *(inited + 16) = xmmword_2653419E0;
+    v27 = 0x6E65697069636572;
+    v28 = 0xEA00000000007374;
+    AnyHashable.init<A>(_:)();
+    *(inited + 96) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySDySSypGGMd, &_sSaySDySSypGGMR);
+    *(inited + 72) = v4;
+    v26 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCs11AnyHashableV_ypTt0g5Tf4g_n(inited);
+    swift_setDeallocating();
+    outlined destroy of (AnyHashable, Any)(inited + 32);
+    return v26;
+  }
+
+  return result;
+}
+
+id QueryKeyPackageMessage.__allocating_init()()
+{
+  v1 = objc_allocWithZone(v0);
+
+  return [v1 init];
+}
+
+id QueryKeyPackageMessage.__deallocating_deinit()
+{
+  v2.receiver = v0;
+  v2.super_class = type metadata accessor for QueryKeyPackageMessage();
+  return objc_msgSendSuper2(&v2, sel_dealloc);
+}
+
+uint64_t RecipientKeyPackages.uri.getter()
+{
+  v1 = *(v0 + 8);
+
+  return v1;
+}
+
+uint64_t QueryKeyPackageResponse.status.setter(uint64_t result, char a2)
+{
+  *v2 = result;
+  *(v2 + 8) = a2 & 1;
+  return result;
+}
+
+uint64_t QueryKeyPackageResponse.splunkHint.getter()
+{
+  v1 = *(v0 + 16);
+
+  return v1;
+}
+
+uint64_t QueryKeyPackageResponse.splunkHint.setter(uint64_t a1, uint64_t a2)
+{
+
+  *(v2 + 16) = a1;
+  *(v2 + 24) = a2;
+  return result;
+}
+
+uint64_t QueryKeyPackageResponse.message.getter()
+{
+  v1 = *(v0 + 32);
+
+  return v1;
+}
+
+uint64_t QueryKeyPackageResponse.message.setter(uint64_t a1, uint64_t a2)
+{
+
+  *(v2 + 32) = a1;
+  *(v2 + 40) = a2;
+  return result;
+}
+
+uint64_t QueryKeyPackageResponse.recipientKeyPackages.setter(uint64_t a1)
+{
+
+  *(v1 + 48) = a1;
+  return result;
+}
+
+void __swiftcall QueryKeyPackageResponse.init(status:splunkHint:message:recipientKeyPackages:)(SecureMessagingAgentCore::QueryKeyPackageResponse *__return_ptr retstr, Swift::Int_optional status, Swift::String_optional splunkHint, Swift::String_optional message, Swift::OpaquePointer_optional recipientKeyPackages)
+{
+  retstr->status.value = status.value;
+  retstr->status.is_nil = status.is_nil;
+  retstr->splunkHint = splunkHint;
+  retstr->message = message;
+  retstr->recipientKeyPackages.value._rawValue = recipientKeyPackages.value._rawValue;
+}
+
+uint64_t outlined init with copy of (String, Any)(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
+}
+
+unint64_t lazy protocol witness table accessor for type QueryRecipient and conformance QueryRecipient()
+{
+  result = lazy protocol witness table cache variable for type QueryRecipient and conformance QueryRecipient;
+  if (!lazy protocol witness table cache variable for type QueryRecipient and conformance QueryRecipient)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type QueryRecipient and conformance QueryRecipient);
+  }
+
+  return result;
+}
+
+uint64_t sub_26530EBDC@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
+{
+  result = (*((*MEMORY[0x277D85000] & **a1) + 0x68))();
+  *a2 = result;
+  a2[1] = v4;
+  return result;
+}
+
+uint64_t sub_26530EC38(uint64_t *a1, void **a2)
+{
+  v2 = *a1;
+  v3 = a1[1];
+  v4 = *((*MEMORY[0x277D85000] & **a2) + 0x70);
+  outlined copy of Data?(*a1, v3);
+  return v4(v2, v3);
+}
+
+uint64_t getEnumTagSinglePayload for QueryRecipient(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 24))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 8);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for QueryRecipient(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 8) = 0;
+    *(result + 16) = 0;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 24) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 8) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 24) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for QueryKeyPackageRequest(uint64_t *a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 24))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for QueryKeyPackageRequest(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 8) = 0;
+    *(result + 16) = 0;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 24) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *result = (a2 - 1);
+      return result;
+    }
+
+    *(result + 24) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for QueryKeyPackageResponse(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0x7FFFFFFF && *(a1 + 56))
+  {
+    return (*a1 + 0x7FFFFFFF);
+  }
+
+  v3 = *(a1 + 24);
+  if (v3 >= 0xFFFFFFFF)
+  {
+    LODWORD(v3) = -1;
+  }
+
+  v4 = v3 - 1;
+  if (v4 < 0)
+  {
+    v4 = -1;
+  }
+
+  return (v4 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for QueryKeyPackageResponse(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0x7FFFFFFE)
+  {
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 - 0x7FFFFFFF;
+    if (a3 >= 0x7FFFFFFF)
+    {
+      *(result + 56) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0x7FFFFFFF)
+    {
+      *(result + 56) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 24) = a2;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_26530EF90()
+{
+
+  return MEMORY[0x2821FE8E8](v0, 72, 7);
+}
+
+sqlite3_stmt *ClientStateModel.insertStatement(_:)(sqlite3 *a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
+{
+  ppStmt[1] = *MEMORY[0x277D85DE8];
+  ppStmt[0] = 0;
+  v8 = strdup("INSERT OR REPLACE INTO Client_State_Table (client_id, client_state_data) VALUES (?, ?);");
+  if (!v8)
+  {
+LABEL_48:
+    __break(1u);
+  }
+
+  if (sqlite3_prepare_v2(a1, v8, -1, ppStmt, 0))
+  {
+LABEL_3:
+    *&v31 = 0x726F7272456C7173;
+    *(&v31 + 1) = 0xE90000000000003ALL;
+LABEL_8:
+    v13 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x266756A70](v13);
+
+    v14 = v31;
+    lazy protocol witness table accessor for type SqliteError and conformance SqliteError();
+    swift_allocError();
+    *v15 = 0;
+    *(v15 + 8) = v14;
+    return swift_willThrow();
+  }
+
+  v9 = ppStmt[0];
+  if (one-time initialization token for SQLITE_TRANSIENT != -1)
+  {
+    swift_once();
+  }
+
+  v10 = SQLITE_TRANSIENT;
+  v11 = String.utf8CString.getter();
+  v12 = sqlite3_bind_text(v9, 1, (v11 + 32), -1, v10);
+
+  if (v12)
+  {
+    *&v31 = 0x726F7272456C7173;
+    *(&v31 + 1) = 0xE90000000000003ALL;
+    goto LABEL_8;
+  }
+
+  v17 = a5 >> 62;
+  if ((a5 >> 62) > 1)
+  {
+    if (v17 != 2)
+    {
+LABEL_37:
+      *(&v31 + 6) = 0;
+      *&v31 = 0;
+      v19 = ppStmt[0];
+      v20 = &v31;
+      LODWORD(v18) = 0;
+      goto LABEL_40;
+    }
+
+    v21 = *(a4 + 16);
+    v22 = *(a4 + 24);
+    v23 = __DataStorage._bytes.getter();
+    if (v23)
+    {
+      v24 = __DataStorage._offset.getter();
+      if (__OFSUB__(v21, v24))
+      {
+LABEL_46:
+        __break(1u);
+        goto LABEL_47;
+      }
+
+      v23 += v21 - v24;
+    }
+
+    v25 = __OFSUB__(v22, v21);
+    v26 = v22 - v21;
+    if (v25)
+    {
+      goto LABEL_44;
+    }
+
+    a4 = a5 & 0x3FFFFFFFFFFFFFFFLL;
+    v27 = MEMORY[0x2667557A0]();
+    if (v27 >= v26)
+    {
+      v28 = v26;
+    }
+
+    else
+    {
+      v28 = v27;
+    }
+
+    if (v23)
+    {
+      v18 = v28;
+    }
+
+    else
+    {
+      v18 = 0;
+    }
+
+    if (v18 < 0xFFFFFFFF80000000)
+    {
+      goto LABEL_45;
+    }
+
+    if (v18 <= 0x7FFFFFFF)
+    {
+      goto LABEL_39;
+    }
+
+    __break(1u);
+  }
+
+  else if (!v17)
+  {
+    *&v31 = a4;
+    WORD4(v31) = a5;
+    BYTE10(v31) = BYTE2(a5);
+    BYTE11(v31) = BYTE3(a5);
+    BYTE12(v31) = BYTE4(a5);
+    BYTE13(v31) = BYTE5(a5);
+    LODWORD(v18) = BYTE6(a5);
+    v19 = ppStmt[0];
+    v20 = &v31;
+    goto LABEL_40;
+  }
+
+  if (a4 >> 32 < a4)
+  {
+LABEL_43:
+    __break(1u);
+LABEL_44:
+    __break(1u);
+LABEL_45:
+    __break(1u);
+    goto LABEL_46;
+  }
+
+  v23 = __DataStorage._bytes.getter();
+  if (v23)
+  {
+    v29 = __DataStorage._offset.getter();
+    if (__OFSUB__(a4, v29))
+    {
+LABEL_47:
+      __break(1u);
+      goto LABEL_48;
+    }
+
+    v23 += a4 - v29;
+  }
+
+  v30 = MEMORY[0x2667557A0]();
+  if (v30 >= (a4 >> 32) - a4)
+  {
+    v18 = (a4 >> 32) - a4;
+  }
+
+  else
+  {
+    v18 = v30;
+  }
+
+  if (!v23)
+  {
+    LODWORD(v18) = 0;
+    goto LABEL_39;
+  }
+
+  if (v18 < 0xFFFFFFFF80000000)
+  {
+    __break(1u);
+    goto LABEL_43;
+  }
+
+  if (v18 > 0x7FFFFFFF)
+  {
+    __break(1u);
+    goto LABEL_37;
+  }
+
+LABEL_39:
+  v19 = ppStmt[0];
+  v20 = v23;
+LABEL_40:
+  if (sqlite3_bind_blob(v19, 2, v20, v18, v10))
+  {
+    goto LABEL_3;
+  }
+
+  return ppStmt[0];
+}
+
+sqlite3_stmt *ClientStateModel.updateStatement(_:)(sqlite3 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  ppStmt[1] = *MEMORY[0x277D85DE8];
+  ppStmt[0] = 0;
+  v8 = strdup("UPDATE Client_State_Table SET\n    client_state_data = ?\nWHERE\n    client_id = ?;");
+  if (!v8)
+  {
+LABEL_55:
+    __break(1u);
+  }
+
+  v9 = sqlite3_prepare_v2(a1, v8, -1, ppStmt, 0);
+  if (v9)
+  {
+LABEL_40:
+    *&v32 = 0x726F7272456C7173;
+    *(&v32 + 1) = 0xE90000000000003ALL;
+LABEL_41:
+    v22 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x266756A70](v22);
+
+    v23 = v32;
+    lazy protocol witness table accessor for type SqliteError and conformance SqliteError();
+    swift_allocError();
+    *v24 = 0;
+    *(v24 + 8) = v23;
+    return swift_willThrow();
+  }
+
+  v10 = a5 >> 62;
+  if ((a5 >> 62) > 1)
+  {
+    if (v10 != 2)
+    {
+      goto LABEL_32;
+    }
+
+    v13 = *(a4 + 16);
+    v14 = *(a4 + 24);
+    v15 = __DataStorage._bytes.getter();
+    if (v15)
+    {
+      v16 = __DataStorage._offset.getter();
+      if (__OFSUB__(v13, v16))
+      {
+        goto LABEL_53;
+      }
+
+      v15 += v13 - v16;
+    }
+
+    v17 = __OFSUB__(v14, v13);
+    v18 = v14 - v13;
+    if (v17)
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      a4 = a5 & 0x3FFFFFFFFFFFFFFFLL;
+      v9 = MEMORY[0x2667557A0]();
+      if (v9 >= v18)
+      {
+        v19 = v18;
+      }
+
+      else
+      {
+        v19 = v9;
+      }
+
+      if (v15)
+      {
+        a5 = v19;
+      }
+
+      else
+      {
+        a5 = 0;
+      }
+
+      if (a5 >= 0xFFFFFFFF80000000)
+      {
+        if (a5 <= 0x7FFFFFFF)
+        {
+          goto LABEL_35;
+        }
+
+        __break(1u);
+        goto LABEL_21;
+      }
+    }
+
+    __break(1u);
+LABEL_53:
+    __break(1u);
+LABEL_54:
+    __break(1u);
+    goto LABEL_55;
+  }
+
+  if (v10)
+  {
+LABEL_21:
+    if (a4 >> 32 < a4)
+    {
+      __break(1u);
+      goto LABEL_50;
+    }
+
+    v15 = __DataStorage._bytes.getter();
+    if (!v15)
+    {
+LABEL_25:
+      v9 = MEMORY[0x2667557A0]();
+      if (v9 >= (a4 >> 32) - a4)
+      {
+        a5 = (a4 >> 32) - a4;
+      }
+
+      else
+      {
+        a5 = v9;
+      }
+
+      if (v15)
+      {
+        if (a5 < 0xFFFFFFFF80000000)
+        {
+          __break(1u);
+          goto LABEL_48;
+        }
+
+        if (a5 > 0x7FFFFFFF)
+        {
+          __break(1u);
+LABEL_32:
+          *(&v32 + 6) = 0;
+          *&v32 = 0;
+          v9 = ppStmt[0];
+          if (one-time initialization token for SQLITE_TRANSIENT == -1)
+          {
+LABEL_33:
+            v11 = SQLITE_TRANSIENT;
+            v12 = &v32;
+            v21 = 0;
+            goto LABEL_39;
+          }
+
+LABEL_50:
+          v31 = v9;
+          swift_once();
+          v9 = v31;
+          goto LABEL_33;
+        }
+      }
+
+      else
+      {
+        LODWORD(a5) = 0;
+      }
+
+LABEL_35:
+      v9 = ppStmt[0];
+      if (one-time initialization token for SQLITE_TRANSIENT != -1)
+      {
+        v29 = ppStmt[0];
+        swift_once();
+        v9 = v29;
+      }
+
+      v11 = SQLITE_TRANSIENT;
+      v12 = v15;
+      goto LABEL_38;
+    }
+
+    v20 = __DataStorage._offset.getter();
+    if (!__OFSUB__(a4, v20))
+    {
+      v15 += a4 - v20;
+      goto LABEL_25;
+    }
+
+    goto LABEL_54;
+  }
+
+  *&v32 = a4;
+  WORD4(v32) = a5;
+  BYTE10(v32) = BYTE2(a5);
+  BYTE11(v32) = BYTE3(a5);
+  BYTE12(v32) = BYTE4(a5);
+  BYTE13(v32) = BYTE5(a5);
+  v9 = ppStmt[0];
+  LODWORD(a5) = BYTE6(a5);
+  if (one-time initialization token for SQLITE_TRANSIENT != -1)
+  {
+LABEL_48:
+    v30 = v9;
+    swift_once();
+    v9 = v30;
+  }
+
+  v11 = SQLITE_TRANSIENT;
+  v12 = &v32;
+LABEL_38:
+  v21 = a5;
+LABEL_39:
+  if (sqlite3_bind_blob(v9, 1, v12, v21, v11))
+  {
+    goto LABEL_40;
+  }
+
+  v26 = ppStmt[0];
+  if (one-time initialization token for SQLITE_TRANSIENT != -1)
+  {
+    swift_once();
+  }
+
+  v27 = String.utf8CString.getter();
+  v28 = sqlite3_bind_text(v26, 2, (v27 + 32), -1, v11);
+
+  if (v28)
+  {
+    *&v32 = 0x726F7272456C7173;
+    *(&v32 + 1) = 0xE90000000000003ALL;
+    goto LABEL_41;
+  }
+
+  return ppStmt[0];
+}
+
+sqlite3_stmt *ClientStateModel.deleteStatement(_:)(sqlite3 *a1, uint64_t a2, uint64_t a3)
+{
+  ppStmt[1] = *MEMORY[0x277D85DE8];
+  ppStmt[0] = 0;
+  v4 = strdup("DELETE FROM Client_State_Table WHERE client_id = ?;");
+  if (!v4)
+  {
+    __break(1u);
+  }
+
+  if (!sqlite3_prepare_v2(a1, v4, -1, ppStmt, 0))
+  {
+    v5 = ppStmt[0];
+    if (one-time initialization token for SQLITE_TRANSIENT != -1)
+    {
+      swift_once();
+    }
+
+    v6 = SQLITE_TRANSIENT;
+    v7 = String.utf8CString.getter();
+    v8 = sqlite3_bind_text(v5, 1, (v7 + 32), -1, v6);
+
+    if (!v8)
+    {
+      return ppStmt[0];
+    }
+  }
+
+  v9 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x266756A70](v9);
+
+  lazy protocol witness table accessor for type SqliteError and conformance SqliteError();
+  swift_allocError();
+  *v10 = 0;
+  *(v10 + 8) = 0x726F7272456C7173;
+  *(v10 + 16) = 0xE90000000000003ALL;
+  return swift_willThrow();
+}
+
+uint64_t closure #1 in variable initialization expression of static ClientStateModel.converter(sqlite3_stmt *a1)
+{
+  if (sqlite3_column_type(a1, 0) == 5 || !sqlite3_column_text(a1, 0))
+  {
+    goto LABEL_7;
+  }
+
+  v1 = String.init(cString:)();
+  if (sqlite3_column_type(a1, 1) == 5 || (v3 = sqlite3_column_blob(a1, 1)) == 0)
+  {
+
+LABEL_7:
+    lazy protocol witness table accessor for type SqliteError and conformance SqliteError();
+    swift_allocError();
+    *v6 = 3;
+    *(v6 + 8) = 0;
+    *(v6 + 16) = 0;
+    swift_willThrow();
+    return v1;
+  }
+
+  v4 = v3;
+  v5 = sqlite3_column_bytes(a1, 1);
+  specialized Data.init(bytes:count:)(v4, v5);
+  return v1;
+}
+
+uint64_t (*static ClientStateModel.converter.getter())()
+{
+  swift_beginAccess();
+  v0 = static ClientStateModel.converter;
+
+  return v0;
+}
+
+uint64_t static ClientStateModel.converter.setter(uint64_t (*a1)(), uint64_t a2)
+{
+  swift_beginAccess();
+  static ClientStateModel.converter = a1;
+  qword_281EF87B0 = a2;
+}
+
+uint64_t key path getter for static ClientStateModel.converter : ClientStateModel.Type@<X0>(void *a1@<X8>)
+{
+  swift_beginAccess();
+  v3 = static ClientStateModel.converter;
+  v2 = qword_281EF87B0;
+  v4 = swift_allocObject();
+  *(v4 + 16) = v3;
+  *(v4 + 24) = v2;
+  *a1 = thunk for @escaping @callee_guaranteed (@unowned OpaquePointer) -> (@owned ClientStateModel?, @error @owned Error)partial apply;
+  a1[1] = v4;
+}
+
+uint64_t key path setter for static ClientStateModel.converter : ClientStateModel.Type(uint64_t *a1)
+{
+  v2 = *a1;
+  v1 = a1[1];
+  v3 = swift_allocObject();
+  *(v3 + 16) = v2;
+  *(v3 + 24) = v1;
+  swift_beginAccess();
+  static ClientStateModel.converter = thunk for @escaping @callee_guaranteed (@in_guaranteed OpaquePointer) -> (@out ClientStateModel?, @error @owned Error)partial apply;
+  qword_281EF87B0 = v3;
+}
+
+uint64_t (*protocol witness for static SqlSchema.converter.getter in conformance ClientStateModel())@<X0>(uint64_t *a1@<X8>)
+{
+  swift_beginAccess();
+  v1 = static ClientStateModel.converter;
+  v0 = qword_281EF87B0;
+  v2 = swift_allocObject();
+  *(v2 + 16) = v1;
+  *(v2 + 24) = v0;
+
+  return thunk for @escaping @callee_guaranteed (@unowned OpaquePointer) -> (@owned ClientStateModel?, @error @owned Error)partial apply;
+}
+
+uint64_t *ClientStateQuery.converter.unsafeMutableAddressor()
+{
+  if (one-time initialization token for converter != -1)
+  {
+    swift_once();
+  }
+
+  return &static ClientStateQuery.converter;
+}
+
+uint64_t static ClientStateQuery.converter.getter()
+{
+  if (one-time initialization token for converter != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  v0 = static ClientStateQuery.converter;
+
+  return v0;
+}
+
+uint64_t static ClientStateQuery.converter.setter(uint64_t a1, uint64_t a2)
+{
+  if (one-time initialization token for converter != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  static ClientStateQuery.converter = a1;
+  qword_280016948 = a2;
+}
+
+uint64_t (*static ClientStateQuery.converter.modify(uint64_t a1))()
+{
+  if (one-time initialization token for converter != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  return static StateMachineQuery.converter.modify;
+}
+
+uint64_t key path getter for static ClientStateQuery.converter : ClientStateQuery.Type@<X0>(void *a1@<X8>)
+{
+  if (one-time initialization token for converter != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  v3 = static ClientStateQuery.converter;
+  v2 = qword_280016948;
+  v4 = swift_allocObject();
+  *(v4 + 16) = v3;
+  *(v4 + 24) = v2;
+  *a1 = partial apply for thunk for @escaping @callee_guaranteed (@unowned OpaquePointer) -> (@owned ClientStateModel?, @error @owned Error);
+  a1[1] = v4;
+}
+
+uint64_t key path setter for static ClientStateQuery.converter : ClientStateQuery.Type(uint64_t *a1)
+{
+  v2 = *a1;
+  v1 = a1[1];
+  v3 = swift_allocObject();
+  *(v3 + 16) = v2;
+  *(v3 + 24) = v1;
+  v4 = one-time initialization token for converter;
+
+  if (v4 != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  static ClientStateQuery.converter = partial apply for thunk for @escaping @callee_guaranteed (@in_guaranteed OpaquePointer) -> (@out ClientStateModel?, @error @owned Error);
+  qword_280016948 = v3;
+}
+
+sqlite3_stmt *ClientStateQuery.queryStatement(_:)(sqlite3 *a1, uint64_t a2, uint64_t a3)
+{
+  ppStmt[1] = *MEMORY[0x277D85DE8];
+  ppStmt[0] = 0;
+  v4 = strdup("SELECT * FROM Client_State_Table WHERE client_id = ? LIMIT 1;");
+  if (!v4)
+  {
+    __break(1u);
+  }
+
+  if (!sqlite3_prepare_v2(a1, v4, -1, ppStmt, 0))
+  {
+    v5 = ppStmt[0];
+    if (one-time initialization token for SQLITE_TRANSIENT != -1)
+    {
+      swift_once();
+    }
+
+    v6 = SQLITE_TRANSIENT;
+    v7 = String.utf8CString.getter();
+    v8 = sqlite3_bind_text(v5, 1, (v7 + 32), -1, v6);
+
+    if (!v8)
+    {
+      return ppStmt[0];
+    }
+  }
+
+  v9 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x266756A70](v9);
+
+  lazy protocol witness table accessor for type SqliteError and conformance SqliteError();
+  swift_allocError();
+  *v10 = 0;
+  *(v10 + 8) = 0x726F7272456C7173;
+  *(v10 + 16) = 0xE90000000000003ALL;
+  return swift_willThrow();
+}
+
+uint64_t (*protocol witness for static SqlQuery.converter.getter in conformance ClientStateQuery())@<X0>(uint64_t *a1@<X8>)
+{
+  if (one-time initialization token for converter != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  v1 = static ClientStateQuery.converter;
+  v0 = qword_280016948;
+  v2 = swift_allocObject();
+  *(v2 + 16) = v1;
+  *(v2 + 24) = v0;
+
+  return partial apply for thunk for @escaping @callee_guaranteed (@unowned OpaquePointer) -> (@owned ClientStateModel?, @error @owned Error);
+}
+
+sqlite3_stmt *specialized static ClientStateModel.createStatement(_:)(sqlite3 *a1)
+{
+  ppStmt[1] = *MEMORY[0x277D85DE8];
+  ppStmt[0] = 0;
+  v2 = strdup("CREATE TABLE IF NOT EXISTS Client_State_Table (\n    client_id TEXT PRIMARY KEY NOT NULL,\n    client_state_data BLOB NOT NULL\n);");
+  if (!v2)
+  {
+    __break(1u);
+  }
+
+  if (!sqlite3_prepare_v2(a1, v2, -1, ppStmt, 0))
+  {
+    return ppStmt[0];
+  }
+
+  v3 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x266756A70](v3);
+
+  lazy protocol witness table accessor for type SqliteError and conformance SqliteError();
+  swift_allocError();
+  *v4 = 0;
+  *(v4 + 8) = 0x726F7272456C7173;
+  *(v4 + 16) = 0xE90000000000003ALL;
+  return swift_willThrow();
+}
+
+sqlite3_stmt *specialized static ClientStateModel.dropStatement(_:)(sqlite3 *a1)
+{
+  ppStmt[1] = *MEMORY[0x277D85DE8];
+  ppStmt[0] = 0;
+  v2 = strdup("DROP TABLE IF EXISTS Client_State_Table");
+  if (!v2)
+  {
+    __break(1u);
+  }
+
+  if (!sqlite3_prepare_v2(a1, v2, -1, ppStmt, 0))
+  {
+    return ppStmt[0];
+  }
+
+  v3 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x266756A70](v3);
+
+  lazy protocol witness table accessor for type SqliteError and conformance SqliteError();
+  swift_allocError();
+  *v4 = 0;
+  *(v4 + 8) = 0x726F7272456C7173;
+  *(v4 + 16) = 0xE90000000000003ALL;
+  return swift_willThrow();
+}
+
+uint64_t getEnumTagSinglePayload for ClientStateQuery(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 16))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 8);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for ClientStateQuery(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *result = a2 & 0x7FFFFFFF;
+    *(result + 8) = 0;
+    if (a3 < 0)
+    {
+      *(result + 16) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 8) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 16) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_2653107D4()
+{
+
+  return MEMORY[0x2821FE8E8](v0, 32, 7);
+}
+
+void *partial apply for thunk for @escaping @callee_guaranteed (@in_guaranteed OpaquePointer) -> (@out ClientStateModel?, @error @owned Error)(uint64_t a1)
+{
+  return partial apply for thunk for @escaping @callee_guaranteed (@in_guaranteed OpaquePointer) -> (@out ClientStateModel?, @error @owned Error)(a1);
+}
+
+{
+  v3 = *(v1 + 16);
+  v6 = a1;
+  result = v3(&v5, &v6);
+  if (!v2)
+  {
+    return v5;
+  }
+
+  return result;
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed (@unowned OpaquePointer) -> (@owned ClientStateModel?, @error @owned Error)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
+{
+  return partial apply for thunk for @escaping @callee_guaranteed (@unowned OpaquePointer) -> (@owned ClientStateModel?, @error @owned Error)(a1, a2);
+}
+
+{
+  result = (*(v2 + 16))(*a1);
+  if (!v3)
+  {
+    *a2 = result;
+    a2[1] = v6;
+    a2[2] = v7;
+    a2[3] = v8;
+  }
+
+  return result;
+}
+
+uint64_t partial apply for thunk for @escaping @callee_guaranteed (@unowned OpaquePointer) -> (@owned ClientStateModel?, @error @owned Error)@<X0>(uint64_t *a1@<X8>)
+{
+  return partial apply for thunk for @escaping @callee_guaranteed (@unowned OpaquePointer) -> (@owned ClientStateModel?, @error @owned Error)(a1);
+}
+
+{
+  result = (*(v1 + 16))();
+  if (!v2)
+  {
+    *a1 = result;
+    a1[1] = v5;
+    a1[2] = v6;
+    a1[3] = v7;
+  }
+
+  return result;
+}
+
+sqlite3_stmt *KeyPackageModel.insertStatement(_:)(sqlite3 *a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5)
+{
+  ppStmt[1] = *MEMORY[0x277D85DE8];
+  ppStmt[0] = 0;
+  v10 = strdup("INSERT OR REPLACE INTO Key_Package_Table (client_id, key_package) VALUES (?, ?);");
+  if (!v10)
+  {
+LABEL_95:
+    __break(1u);
+  }
+
+  v11 = sqlite3_prepare_v2(a1, v10, -1, ppStmt, 0);
+  if (v11)
+  {
+LABEL_76:
+    *&v45 = 0x726F7272456C7173;
+    *(&v45 + 1) = 0xE90000000000003ALL;
+    v35 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x266756A70](v35);
+
+    v36 = v45;
+    lazy protocol witness table accessor for type SqliteError and conformance SqliteError();
+    swift_allocError();
+    *v37 = 0;
+    *(v37 + 8) = v36;
+    return swift_willThrow();
+  }
+
+  v12 = a3 >> 62;
+  if ((a3 >> 62) > 1)
+  {
+    if (v12 != 2)
+    {
+      goto LABEL_32;
+    }
+
+    v14 = *(a2 + 16);
+    v15 = *(a2 + 24);
+    LODWORD(a2) = a3;
+    v11 = __DataStorage._bytes.getter();
+    v16 = v11;
+    if (v11)
+    {
+      LODWORD(a2) = a3;
+      v11 = __DataStorage._offset.getter();
+      if (__OFSUB__(v14, v11))
+      {
+        __break(1u);
+        goto LABEL_86;
+      }
+
+      v16 += v14 - v11;
+    }
+
+    v17 = __OFSUB__(v15, v14);
+    v18 = v15 - v14;
+    if (v17)
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      v11 = MEMORY[0x2667557A0]();
+      if (v11 >= v18)
+      {
+        v19 = v18;
+      }
+
+      else
+      {
+        v19 = v11;
+      }
+
+      if (v16)
+      {
+        a2 = v19;
+      }
+
+      else
+      {
+        a2 = 0;
+      }
+
+      if (a2 >= 0xFFFFFFFF80000000)
+      {
+        if (a2 <= 0x7FFFFFFF)
+        {
+          goto LABEL_35;
+        }
+
+        __break(1u);
+        goto LABEL_21;
+      }
+    }
+
+    __break(1u);
+    goto LABEL_84;
+  }
+
+  if (v12)
+  {
+LABEL_21:
+    v20 = a2;
+    v21 = (a2 >> 32) - a2;
+    if (a2 >> 32 < a2)
+    {
+      __break(1u);
+      goto LABEL_81;
+    }
+
+    v16 = __DataStorage._bytes.getter();
+    if (!v16)
+    {
+LABEL_25:
+      v11 = MEMORY[0x2667557A0]();
+      if (v11 >= v21)
+      {
+        a2 = v21;
+      }
+
+      else
+      {
+        a2 = v11;
+      }
+
+      if (v16)
+      {
+        if (a2 < 0xFFFFFFFF80000000)
+        {
+          __break(1u);
+          goto LABEL_79;
+        }
+
+        if (a2 > 0x7FFFFFFF)
+        {
+          __break(1u);
+LABEL_32:
+          *(&v45 + 6) = 0;
+          *&v45 = 0;
+          v11 = ppStmt[0];
+          if (one-time initialization token for SQLITE_TRANSIENT == -1)
+          {
+LABEL_33:
+            a3 = SQLITE_TRANSIENT;
+            v13 = &v45;
+            v22 = 0;
+            goto LABEL_39;
+          }
+
+LABEL_81:
+          v41 = v11;
+          swift_once();
+          v11 = v41;
+          goto LABEL_33;
+        }
+      }
+
+      else
+      {
+        LODWORD(a2) = 0;
+      }
+
+LABEL_35:
+      v11 = ppStmt[0];
+      if (one-time initialization token for SQLITE_TRANSIENT != -1)
+      {
+        v39 = ppStmt[0];
+        swift_once();
+        v11 = v39;
+      }
+
+      a3 = SQLITE_TRANSIENT;
+      v13 = v16;
+      goto LABEL_38;
+    }
+
+    LODWORD(a2) = a3;
+    v11 = __DataStorage._offset.getter();
+    if (!__OFSUB__(v20, v11))
+    {
+      v16 += v20 - v11;
+      goto LABEL_25;
+    }
+
+LABEL_86:
+    __break(1u);
+    goto LABEL_87;
+  }
+
+  *&v45 = a2;
+  WORD4(v45) = a3;
+  BYTE10(v45) = BYTE2(a3);
+  BYTE11(v45) = BYTE3(a3);
+  BYTE12(v45) = BYTE4(a3);
+  BYTE13(v45) = BYTE5(a3);
+  v11 = ppStmt[0];
+  LODWORD(a2) = BYTE6(a3);
+  if (one-time initialization token for SQLITE_TRANSIENT != -1)
+  {
+LABEL_79:
+    v40 = v11;
+    swift_once();
+    v11 = v40;
+  }
+
+  a3 = SQLITE_TRANSIENT;
+  v13 = &v45;
+LABEL_38:
+  v22 = a2;
+LABEL_39:
+  v11 = sqlite3_bind_blob(v11, 1, v13, v22, a3);
+  if (v11)
+  {
+    goto LABEL_76;
+  }
+
+  v23 = a5 >> 62;
+  if ((a5 >> 62) > 1)
+  {
+    if (v23 != 2)
+    {
+      goto LABEL_68;
+    }
+
+    v25 = *(a4 + 16);
+    v26 = *(a4 + 24);
+    a4 = __DataStorage._bytes.getter();
+    if (a4)
+    {
+      v27 = __DataStorage._offset.getter();
+      if (__OFSUB__(v25, v27))
+      {
+        goto LABEL_92;
+      }
+
+      a4 += v25 - v27;
+    }
+
+    v17 = __OFSUB__(v26, v25);
+    v28 = v26 - v25;
+    if (v17)
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      v11 = MEMORY[0x2667557A0]();
+      if (v11 >= v28)
+      {
+        v29 = v28;
+      }
+
+      else
+      {
+        v29 = v11;
+      }
+
+      if (a4)
+      {
+        a2 = v29;
+      }
+
+      else
+      {
+        a2 = 0;
+      }
+
+      if (a2 >= 0xFFFFFFFF80000000)
+      {
+        if (a2 <= 0x7FFFFFFF)
+        {
+          goto LABEL_72;
+        }
+
+        __break(1u);
+        goto LABEL_58;
+      }
+    }
+
+    __break(1u);
+LABEL_92:
+    __break(1u);
+    goto LABEL_93;
+  }
+
+  if (v23)
+  {
+LABEL_58:
+    v30 = a4;
+    v31 = (a4 >> 32) - a4;
+    if (a4 >> 32 < a4)
+    {
+      __break(1u);
+      goto LABEL_89;
+    }
+
+    a4 = __DataStorage._bytes.getter();
+    if (!a4)
+    {
+      goto LABEL_62;
+    }
+
+    v32 = __DataStorage._offset.getter();
+    if (!__OFSUB__(v30, v32))
+    {
+      a4 += v30 - v32;
+LABEL_62:
+      v33 = MEMORY[0x2667557A0]();
+      if (v33 >= v31)
+      {
+        a2 = v31;
+      }
+
+      else
+      {
+        a2 = v33;
+      }
+
+      if (!a4)
+      {
+        LODWORD(a2) = 0;
+        goto LABEL_72;
+      }
+
+      if (a2 < 0xFFFFFFFF80000000)
+      {
+        __break(1u);
+LABEL_68:
+        *(&v45 + 6) = 0;
+        *&v45 = 0;
+        v11 = ppStmt[0];
+        if (one-time initialization token for SQLITE_TRANSIENT == -1)
+        {
+LABEL_69:
+          v24 = &v45;
+          v34 = 0;
+          goto LABEL_75;
+        }
+
+LABEL_89:
+        v44 = v11;
+        swift_once();
+        v11 = v44;
+        goto LABEL_69;
+      }
+
+      if (a2 <= 0x7FFFFFFF)
+      {
+LABEL_72:
+        v11 = ppStmt[0];
+        if (one-time initialization token for SQLITE_TRANSIENT == -1)
+        {
+LABEL_73:
+          v24 = a4;
+          goto LABEL_74;
+        }
+
+LABEL_84:
+        v42 = v11;
+        swift_once();
+        v11 = v42;
+        goto LABEL_73;
+      }
+
+      goto LABEL_94;
+    }
+
+LABEL_93:
+    __break(1u);
+LABEL_94:
+    __break(1u);
+    goto LABEL_95;
+  }
+
+  *&v45 = a4;
+  WORD4(v45) = a5;
+  BYTE10(v45) = BYTE2(a5);
+  BYTE11(v45) = BYTE3(a5);
+  BYTE12(v45) = BYTE4(a5);
+  BYTE13(v45) = BYTE5(a5);
+  v11 = ppStmt[0];
+  LODWORD(a2) = BYTE6(a5);
+  if (one-time initialization token for SQLITE_TRANSIENT != -1)
+  {
+LABEL_87:
+    v43 = v11;
+    swift_once();
+    v11 = v43;
+  }
+
+  v24 = &v45;
+LABEL_74:
+  v34 = a2;
+LABEL_75:
+  if (sqlite3_bind_blob(v11, 2, v24, v34, a3))
+  {
+    goto LABEL_76;
+  }
+
+  return ppStmt[0];
 }

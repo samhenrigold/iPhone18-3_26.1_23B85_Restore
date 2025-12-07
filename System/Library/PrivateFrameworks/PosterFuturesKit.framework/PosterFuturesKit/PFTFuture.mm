@@ -45,15 +45,14 @@
 
 - (BOOL)cancel
 {
-  impl = self->_impl;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return 1;
   }
 
-  v4 = self->_impl;
+  impl = self->_impl;
 
-  return [(PFTFutureImpl *)v4 cancel];
+  return [(PFTFutureImpl *)impl cancel];
 }
 
 + (id)promiseFuture
@@ -231,11 +230,10 @@ void __71__PFTFuture_flatMap_withBlock_continuationScheduler_schedulerProvider__
 
 void __71__PFTFuture_flatMap_withBlock_continuationScheduler_schedulerProvider___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v4 = (*(*(a1 + 48) + 16))();
-  [*(a1 + 56) finishPromise:*(a1 + 40) withFuture:v4];
-  v3 = [*(a1 + 40) future];
-  [v3 addCalculationDependency:v4];
+  v3 = (*(*(a1 + 48) + 16))();
+  [*(a1 + 56) finishPromise:*(a1 + 40) withFuture:v3];
+  v2 = [*(a1 + 40) future];
+  [v2 addCalculationDependency:v3];
 }
 
 + (id)recover:(id)recover withBlock:(id)block onErrorScheduler:(id)scheduler schedulerProvider:(id)provider
@@ -305,9 +303,8 @@ void __66__PFTFuture_recover_withBlock_onErrorScheduler_schedulerProvider___bloc
 
 void __66__PFTFuture_recover_withBlock_onErrorScheduler_schedulerProvider___block_invoke_3(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = (*(*(a1 + 48) + 16))();
-  [*(a1 + 56) finishPromise:*(a1 + 40) withFuture:v3];
+  v2 = (*(*(a1 + 48) + 16))();
+  [*(a1 + 56) finishPromise:*(a1 + 40) withFuture:v2];
 }
 
 + (void)finishPromise:(id)promise withFuture:(id)future
@@ -387,7 +384,7 @@ id __19__PFTFuture_chain___block_invoke(uint64_t a1, void *a2)
 
 + (id)sequence:(id)sequence
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   sequenceCopy = sequence;
   if (off_2870E41C0(&__block_literal_global_4, sequenceCopy))
   {
@@ -398,60 +395,58 @@ id __19__PFTFuture_chain___block_invoke(uint64_t a1, void *a2)
   {
     array = [MEMORY[0x277CBEB18] array];
     firstObject = [sequenceCopy firstObject];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v17 = sequenceCopy;
+    v16 = sequenceCopy;
     pft_tail = [sequenceCopy pft_tail];
-    v8 = [pft_tail countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v8 = [pft_tail countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v24;
+      v10 = *v23;
       do
       {
         v11 = 0;
         v12 = firstObject;
         do
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(pft_tail);
           }
 
-          v13 = *(*(&v23 + 1) + 8 * v11);
-          v20[0] = MEMORY[0x277D85DD0];
-          v20[1] = 3221225472;
-          v20[2] = __22__PFTFuture_sequence___block_invoke;
-          v20[3] = &unk_279A535F8;
-          v21 = array;
-          v22 = v13;
-          firstObject = [v12 flatMap:v20];
+          v13 = *(*(&v22 + 1) + 8 * v11);
+          v19[0] = MEMORY[0x277D85DD0];
+          v19[1] = 3221225472;
+          v19[2] = __22__PFTFuture_sequence___block_invoke;
+          v19[3] = &unk_279A535F8;
+          v20 = array;
+          v21 = v13;
+          firstObject = [v12 flatMap:v19];
 
           ++v11;
           v12 = firstObject;
         }
 
         while (v9 != v11);
-        v9 = [pft_tail countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v9 = [pft_tail countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v9);
     }
 
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __22__PFTFuture_sequence___block_invoke_2;
-    v18[3] = &unk_279A53620;
-    v19 = array;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __22__PFTFuture_sequence___block_invoke_2;
+    v17[3] = &unk_279A53620;
+    v18 = array;
     v14 = array;
-    v4 = [firstObject flatMap:v18];
+    v4 = [firstObject flatMap:v17];
 
-    sequenceCopy = v17;
+    sequenceCopy = v16;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -501,21 +496,19 @@ PFTFuture *__22__PFTFuture_sequence___block_invoke_2(uint64_t a1, uint64_t a2)
 
 id __22__PFTFuture__joinOne___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = a2;
+  v8 = *MEMORY[0x277D85DE8];
+  v7 = a2;
   v2 = MEMORY[0x277CBEA60];
   v3 = a2;
-  v4 = [v2 arrayWithObjects:&v8 count:1];
-  v5 = [PFTFuture futureWithResult:v4, v8, v9];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v4 = [v2 arrayWithObjects:&v7 count:1];
+  v5 = [PFTFuture futureWithResult:v4, v7, v8];
 
   return v5;
 }
 
 + (id)_joinMany:(id)many
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   manyCopy = many;
   v4 = objc_alloc_init(PFTPromise);
   v5 = [PFTScheduler synchronousSerialDispatchQueueWithName:@"com.apple.PosterFuturesKit.future.join"];
@@ -527,49 +520,47 @@ id __22__PFTFuture__joinOne___block_invoke(uint64_t a1, void *a2)
   }
 
   v9 = [manyCopy mutableCopy];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __23__PFTFuture__joinMany___block_invoke;
-  v26[3] = &unk_279A536E0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __23__PFTFuture__joinMany___block_invoke;
+  v25[3] = &unk_279A536E0;
   v10 = v9;
-  v27 = v10;
+  v26 = v10;
   v11 = i;
-  v28 = v11;
+  v27 = v11;
   v12 = v4;
-  v29 = v12;
+  v28 = v12;
   v13 = v5;
-  v30 = v13;
-  [manyCopy enumerateObjectsUsingBlock:v26];
+  v29 = v13;
+  [manyCopy enumerateObjectsUsingBlock:v25];
   future = [(PFTPromise *)v12 future];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v15 = manyCopy;
-  v16 = [v15 countByEnumeratingWithState:&v22 objects:v31 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v21 objects:v30 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v23;
+    v18 = *v22;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v23 != v18)
+        if (*v22 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        [future addCalculationDependency:{*(*(&v22 + 1) + 8 * j), v22}];
+        [future addCalculationDependency:{*(*(&v21 + 1) + 8 * j), v21}];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v22 objects:v31 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v21 objects:v30 count:16];
     }
 
     while (v17);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return future;
 }
@@ -622,52 +613,50 @@ void __23__PFTFuture__joinMany___block_invoke_2(uint64_t a1, void *a2)
 
 void __23__PFTFuture__joinMany___block_invoke_3(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CBEB18] array];
   v5 = *(a1 + 32);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __23__PFTFuture__joinMany___block_invoke_4;
-  v16[3] = &unk_279A53690;
-  objc_copyWeak(&v19, (a1 + 56));
-  v17 = *(a1 + 40);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __23__PFTFuture__joinMany___block_invoke_4;
+  v15[3] = &unk_279A53690;
+  objc_copyWeak(&v18, (a1 + 56));
+  v16 = *(a1 + 40);
   v6 = v4;
-  v18 = v6;
-  [v5 performBlock:v16];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
+  v17 = v6;
+  [v5 performBlock:v15];
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v11 objects:v19 count:16];
   if (v8)
   {
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) cancel];
+        [*(*(&v11 + 1) + 8 * v10++) cancel];
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v11 objects:v19 count:16];
     }
 
     while (v8);
   }
 
   [*(a1 + 48) finishWithError:v3];
-  objc_destroyWeak(&v19);
-
-  v11 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v18);
 }
 
 void __23__PFTFuture__joinMany___block_invoke_4(id *a1)
@@ -813,14 +802,14 @@ void __44__PFTFuture_timeoutAfter_scheduler_cleanup___block_invoke(uint64_t a1)
   resultCopy = result;
   if (!resultCopy)
   {
-    v5 = PFTLogFutures();
+    v5 = PFTLogFutures(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [PFTFuture finishWithResult:v5];
     }
 
-    v6 = PFTLogFutures();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = PFTLogFutures(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [PFTFuture finishWithResult:];
     }
@@ -828,9 +817,9 @@ void __44__PFTFuture_timeoutAfter_scheduler_cleanup___block_invoke(uint64_t a1)
     PFTFutureThrowProtocolExceptionWithReason(@"result must be non-nil", 0);
   }
 
-  v7 = [(PFTFuture *)self finishWithResult:resultCopy error:0];
+  v8 = [(PFTFuture *)self finishWithResult:resultCopy error:0];
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)finishWithError:(id)error
@@ -838,14 +827,14 @@ void __44__PFTFuture_timeoutAfter_scheduler_cleanup___block_invoke(uint64_t a1)
   errorCopy = error;
   if (!errorCopy)
   {
-    v5 = PFTLogFutures();
+    v5 = PFTLogFutures(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [PFTFuture finishWithError:v5];
     }
 
-    v6 = PFTLogFutures();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = PFTLogFutures(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [PFTFuture finishWithResult:];
     }
@@ -853,21 +842,21 @@ void __44__PFTFuture_timeoutAfter_scheduler_cleanup___block_invoke(uint64_t a1)
     PFTFutureThrowProtocolExceptionWithReason(@"error must be non-nil", 0);
   }
 
-  v7 = [(PFTFuture *)self finishWithResult:0 error:errorCopy];
+  v8 = [(PFTFuture *)self finishWithResult:0 error:errorCopy];
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)cancelWithReason:(id)reason
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v5 = reasonCopy;
   if (reasonCopy)
   {
-    v11 = *MEMORY[0x277CCA470];
-    v12[0] = reasonCopy;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA470];
+    v11[0] = reasonCopy;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   }
 
   else
@@ -878,7 +867,6 @@ void __44__PFTFuture_timeoutAfter_scheduler_cleanup___block_invoke(uint64_t a1)
   v7 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA050] code:3072 userInfo:v6];
   v8 = [(PFTFuture *)self finishWithError:v7];
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1075,22 +1063,20 @@ void __39__PFTFuture_addFailureBlock_scheduler___block_invoke(uint64_t a1, void 
 
 - (void)_flushCompletionBlocks
 {
-  impl = self->_impl;
   if (objc_opt_respondsToSelector())
   {
-    v4 = self->_impl;
+    impl = self->_impl;
 
-    [(PFTFutureImpl *)v4 _flushCompletionBlocks];
+    [(PFTFutureImpl *)impl _flushCompletionBlocks];
   }
 }
 
 - (void)finishWithResult:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCACC8] callStackSymbols];
-  OUTLINED_FUNCTION_4(&dword_25ED8F000, v1, v2, "Call stack: %{public}@", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 138543362;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_4(&dword_25ED8F000, v1, v2, "Call stack: %{public}@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

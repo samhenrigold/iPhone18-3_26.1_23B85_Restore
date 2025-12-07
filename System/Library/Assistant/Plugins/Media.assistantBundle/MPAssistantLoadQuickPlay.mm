@@ -8,9 +8,9 @@
 {
   v4 = MEMORY[0x277D47208];
   completionCopy = completion;
-  v7 = objc_alloc_init(v4);
-  dictionary = [v7 dictionary];
-  (*(completion + 2))(completionCopy, dictionary);
+  v11 = objc_alloc_init(v4);
+  v10 = objc_msgSend_dictionary(v11, v6, v7, v8, v9);
+  (*(completion + 2))(completionCopy, v10);
 }
 
 @end

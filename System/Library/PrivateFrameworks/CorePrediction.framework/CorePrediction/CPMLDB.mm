@@ -10,13 +10,22 @@
 - (BOOL)logNSDictionary:(id)dictionary;
 - (BOOL)logNSObjectV:(id)v;
 - (BOOL)reset;
+- (CPMLDB)initWithDBName:(id)name dataFromFile:(id)file withConfiguration:(id)configuration withWriteOptions:(int)options;
+- (CPMLDB)initWithDBName:(id)name dataFromFile:(id)file withPlistPath:(id)path withWriteOptions:(int)options;
+- (CPMLDB)initWithDBName:(id)name withConfiguration:(id)configuration withWriteOptions:(int)options;
+- (CPMLDB)initWithDBName:(id)name withPlistPath:(id)path withWriteOptions:(int)options;
 - (double)columnQueryFor:(unsigned int)for withQuery:(id)query;
+- (double)getMaxFor:(unsigned int)for;
+- (double)getMeanFor:(unsigned int)for;
+- (double)getMinFor:(unsigned int)for;
+- (double)getStdDevFor:(unsigned int)for;
 - (double)updateStatisticsString:(id)string colPosition:(unint64_t)position;
 - (id)addValues:(int)values;
 - (id)extractRow:(id)row;
 - (id)fileProtectionClassRequest:(id)request;
 - (id)prepInsertStatementForMainTable;
 - (unint64_t)getCardinality:(unsigned int)cardinality;
+- (unint64_t)getCombinedRemapTableCardinality:(unsigned int)cardinality;
 - (unint64_t)getRowCount;
 - (void)addColumnToTable:(id)table withNewColumn:(id)column;
 - (void)createTable:(id)table withSchema:(id)schema withExistingTable:(BOOL)existingTable;
@@ -24,6 +33,8 @@
 - (void)deleteAllRows:(id)rows;
 - (void)deleteRow:(id)row whereMatch:(id)match;
 - (void)doInitCommon:(id)common withDict:(id)dict withFileExists:(BOOL *)exists withWriteOptions:(int)options;
+- (void)doInitialize:(id)initialize withConfiguration:(id)configuration withWriteOptions:(int)options;
+- (void)doInitializeWithDataFile:(id)file dataFromFile:(id)fromFile withConfiguration:(id)configuration withWriteOptions:(int)options;
 - (void)dropCommands:(id)commands;
 - (void)execSQLCommand:(id)command;
 - (void)flushDB;
@@ -80,6 +91,58 @@
 LABEL_6:
 
   return v5;
+}
+
+- (CPMLDB)initWithDBName:(id)name withPlistPath:(id)path withWriteOptions:(int)options
+{
+  v5 = *&options;
+  nameCopy = name;
+  pathCopy = path;
+  v17.receiver = self;
+  v17.super_class = CPMLDB;
+  v11 = [(CPMLDB *)&v17 init];
+  if (v11)
+  {
+    v12 = [CPMLDB getConfigurationFromPlist:pathCopy];
+    if (!v12)
+    {
+      v15 = 0;
+      goto LABEL_6;
+    }
+
+    cInfo = v11->_cInfo;
+    v11->_cInfo = v12;
+    v14 = v12;
+
+    v11->_openCPMLDBOptions = v5;
+    objc_storeStrong(&v11->_trainingModelFileAndPath, name);
+    [(CPMLDB *)v11 doInitialize:nameCopy withConfiguration:v14 withWriteOptions:v5];
+  }
+
+  v15 = v11;
+LABEL_6:
+
+  return v15;
+}
+
+- (CPMLDB)initWithDBName:(id)name withConfiguration:(id)configuration withWriteOptions:(int)options
+{
+  v5 = *&options;
+  nameCopy = name;
+  configurationCopy = configuration;
+  v14.receiver = self;
+  v14.super_class = CPMLDB;
+  v11 = [(CPMLDB *)&v14 init];
+  v12 = v11;
+  if (v11)
+  {
+    objc_storeStrong(&v11->_cInfo, configuration);
+    v12->_openCPMLDBOptions = v5;
+    objc_storeStrong(&v12->_trainingModelFileAndPath, name);
+    [(CPMLDB *)v12 doInitialize:nameCopy withConfiguration:configurationCopy withWriteOptions:v5];
+  }
+
+  return v12;
 }
 
 - (void)doInitCommon:(id)common withDict:(id)dict withFileExists:(BOOL *)exists withWriteOptions:(int)options
@@ -186,6 +249,279 @@ LABEL_6:
 
     [(CPMLDB *)self loadTables];
   }
+}
+
+- (void)doInitialize:(id)initialize withConfiguration:(id)configuration withWriteOptions:(int)options
+{
+  v5 = *&options;
+  initializeCopy = initialize;
+  configurationCopy = configuration;
+  v24 = 0;
+  [(CPMLDB *)self doInitCommon:initializeCopy withDict:configurationCopy withFileExists:&v24 withWriteOptions:v5];
+  v10 = [configurationCopy objectForKey:@"FileProtection"];
+  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  v23 = 0;
+  v12 = [defaultManager attributesOfItemAtPath:initializeCopy error:&v23];
+  v13 = v23;
+
+  v14 = *MEMORY[0x277CCA1B0];
+  v15 = [v12 objectForKey:*MEMORY[0x277CCA1B0]];
+  v16 = [(CPMLDB *)self fileProtectionClassRequest:v10];
+  if ([v15 isEqualToString:v16] && (v24 & 1) != 0 || !v16)
+  {
+    v20 = v13;
+  }
+
+  else
+  {
+    v21 = v10;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v16 forKey:v14];
+    defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
+    v22 = v13;
+    v19 = [defaultManager2 setAttributes:v17 ofItemAtPath:initializeCopy error:&v22];
+    v20 = v22;
+
+    if ((v19 & 1) == 0)
+    {
+      NSLog(&cfstr_SCouldNotSetFi.isa, "[CPMLDB doInitialize:withConfiguration:withWriteOptions:]");
+    }
+
+    v10 = v21;
+  }
+}
+
+- (CPMLDB)initWithDBName:(id)name dataFromFile:(id)file withPlistPath:(id)path withWriteOptions:(int)options
+{
+  v6 = *&options;
+  nameCopy = name;
+  fileCopy = file;
+  pathCopy = path;
+  v20.receiver = self;
+  v20.super_class = CPMLDB;
+  v14 = [(CPMLDB *)&v20 init];
+  if (v14)
+  {
+    v15 = [CPMLDB getConfigurationFromPlist:pathCopy];
+    if (!v15)
+    {
+      v18 = 0;
+      goto LABEL_6;
+    }
+
+    cInfo = v14->_cInfo;
+    v14->_cInfo = v15;
+    v17 = v15;
+
+    objc_storeStrong(&v14->_trainingFile, file);
+    v14->_openCPMLDBOptions = v6;
+    objc_storeStrong(&v14->_trainingModelFileAndPath, name);
+    [(CPMLDB *)v14 doInitializeWithDataFile:nameCopy dataFromFile:fileCopy withConfiguration:v17 withWriteOptions:v6];
+  }
+
+  v18 = v14;
+LABEL_6:
+
+  return v18;
+}
+
+- (CPMLDB)initWithDBName:(id)name dataFromFile:(id)file withConfiguration:(id)configuration withWriteOptions:(int)options
+{
+  v6 = *&options;
+  nameCopy = name;
+  fileCopy = file;
+  configurationCopy = configuration;
+  v17.receiver = self;
+  v17.super_class = CPMLDB;
+  v14 = [(CPMLDB *)&v17 init];
+  v15 = v14;
+  if (v14)
+  {
+    objc_storeStrong(&v14->_cInfo, configuration);
+    objc_storeStrong(&v15->_trainingFile, file);
+    v15->_openCPMLDBOptions = v6;
+    objc_storeStrong(&v15->_trainingModelFileAndPath, name);
+    [(CPMLDB *)v15 doInitializeWithDataFile:nameCopy dataFromFile:fileCopy withConfiguration:configurationCopy withWriteOptions:v6];
+  }
+
+  return v15;
+}
+
+- (void)doInitializeWithDataFile:(id)file dataFromFile:(id)fromFile withConfiguration:(id)configuration withWriteOptions:(int)options
+{
+  v6 = *&options;
+  fileCopy = file;
+  fromFileCopy = fromFile;
+  configurationCopy = configuration;
+  v61[0] = 0;
+  v46 = fileCopy;
+  [(CPMLDB *)self doInitCommon:fileCopy withDict:configurationCopy withFileExists:v61 withWriteOptions:v6];
+  v48 = [configurationCopy objectForKey:@"csvType"];
+  v12 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:fromFileCopy encoding:4 error:0];
+  v13 = [v12 stringByReplacingOccurrencesOfString:@"\r" withString:@"\n"];
+
+  v45 = v13;
+  v49 = [v13 componentsSeparatedByString:@"\n"];
+  prepInsertStatementForMainTable = [(CPMLDB *)self prepInsertStatementForMainTable];
+  v51 = 0;
+  v52 = configurationCopy;
+  while ([v49 count] - 1 > v51)
+  {
+    ppStmt = 0;
+    v14 = sqlite3_prepare_v2(self->db, [prepInsertStatementForMainTable UTF8String], objc_msgSend(prepInsertStatementForMainTable, "length"), &ppStmt, 0);
+    if (v14)
+    {
+      NSLog(&cfstr_SPrepareFailRe.isa, "[CPMLDB doInitializeWithDataFile:dataFromFile:withConfiguration:withWriteOptions:]", v14);
+    }
+
+    if ([v48 isEqualToString:@"TAB"])
+    {
+      v15 = [v49 objectAtIndex:v51];
+      v16 = [v15 componentsSeparatedByString:@"\t"];
+LABEL_9:
+      v17 = v16;
+
+      goto LABEL_11;
+    }
+
+    if ([v48 isEqualToString:@"COMMA"])
+    {
+      v15 = [v49 objectAtIndex:v51];
+      v16 = [v15 componentsSeparatedByString:{@", "}];
+      goto LABEL_9;
+    }
+
+    v17 = 0;
+LABEL_11:
+    v18 = [v17 count];
+    if (v18 != [(CPMLSchema *)self->cpSchema getTotalAttributes])
+    {
+      NSLog(&cfstr_SIncorrectAttr.isa, "-[CPMLDB doInitializeWithDataFile:dataFromFile:withConfiguration:withWriteOptions:]", -[CPMLSchema getTotalAttributes](self->cpSchema, "getTotalAttributes"), [v17 count]);
+
+      goto LABEL_46;
+    }
+
+    v19 = 0;
+    v53 = v17;
+    while (v19 < [v17 count])
+    {
+      v20 = [v17 objectAtIndex:v19];
+      v21 = [(CPMLSchema *)self->cpSchema matchSubstituteValue:v19 theValue:v20];
+      if (v20)
+      {
+        v22 = v21;
+      }
+
+      else
+      {
+        v22 = 1;
+      }
+
+      if ((v22 & 1) != 0 || [v20 isEqualToString:&stru_2859288F8])
+      {
+        v23 = [(CPMLSchema *)self->cpSchema getSubstituteValue:v19];
+
+        v20 = v23;
+      }
+
+      if ([(CPMLSchema *)self->cpSchema isStringType:v19])
+      {
+        sqlite3_bind_text(ppStmt, v19 + 1, [v20 UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
+      }
+
+      else if ([(CPMLSchema *)self->cpSchema isVectorType:v19])
+      {
+        v59 = 83;
+        v24 = objc_alloc_init(MEMORY[0x277CBEB28]);
+        v54 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"key%d", v19];
+        v25 = [(NSMutableDictionary *)self->vectorListCardinality objectForKey:v54];
+        [v24 appendBytes:&v59 length:1];
+        if (!v25)
+        {
+          v25 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          [NSMutableDictionary setObject:"setObject:forKey:" forKey:?];
+        }
+
+        v26 = [v20 componentsSeparatedByString:{@", "}];
+        v58 = [v26 count];
+        [v24 appendBytes:&v58 length:8];
+        for (i = 0; i < [v26 count]; ++i)
+        {
+          v28 = [v26 objectAtIndex:i];
+          v29 = [v25 objectForKey:v28];
+          if (!v29)
+          {
+            v30 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:1];
+            [v25 setObject:v30 forKey:v28];
+          }
+
+          v57 = [v28 length] + 1;
+          [v24 appendBytes:&v57 length:8];
+          uTF8String = [v28 UTF8String];
+          [v24 appendBytes:uTF8String length:v57];
+        }
+
+        sqlite3_bind_blob(ppStmt, v19 + 1, [v24 mutableBytes], objc_msgSend(v24, "length"), 0xFFFFFFFFFFFFFFFFLL);
+
+        configurationCopy = v52;
+        v17 = v53;
+      }
+
+      else
+      {
+        [(CPMLDB *)self updateStatisticsString:v20 colPosition:v19];
+        sqlite3_bind_double(ppStmt, v19 + 1, v32);
+      }
+
+      ++v19;
+    }
+
+    v33 = sqlite3_step(ppStmt);
+    if (v33 == 101)
+    {
+      ++self->rowCount;
+    }
+
+    else
+    {
+      NSLog(&cfstr_SErrorIteratin.isa, "[CPMLDB doInitializeWithDataFile:dataFromFile:withConfiguration:withWriteOptions:]", v33);
+    }
+
+    sqlite3_finalize(ppStmt);
+
+    ++v51;
+  }
+
+  [(CPMLDB *)self initStatisticsTable];
+  [(CPMLDB *)self updateStatistics];
+  v34 = [configurationCopy objectForKey:@"FileProtection"];
+  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  v56 = 0;
+  v36 = [defaultManager attributesOfItemAtPath:v46 error:&v56];
+  v37 = v56;
+
+  v38 = *MEMORY[0x277CCA1B0];
+  v39 = [v36 objectForKey:*MEMORY[0x277CCA1B0]];
+  v40 = [(CPMLDB *)self fileProtectionClassRequest:v34];
+  if ([v39 isEqualToString:v40] && (v61[0] & 1) != 0 || !v40)
+  {
+    v44 = v37;
+  }
+
+  else
+  {
+    v41 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v40 forKey:v38];
+    defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
+    v55 = v37;
+    v43 = [defaultManager2 setAttributes:v41 ofItemAtPath:v46 error:&v55];
+    v44 = v55;
+
+    if ((v43 & 1) == 0)
+    {
+      NSLog(&cfstr_SCouldNotSetFi.isa, "[CPMLDB doInitializeWithDataFile:dataFromFile:withConfiguration:withWriteOptions:]");
+    }
+  }
+
+LABEL_46:
 }
 
 - (void)loadTables
@@ -508,26 +844,26 @@ LABEL_10:
 
 - (BOOL)logBatchNSArray:(id)array
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   arrayCopy = array;
-  v5 = [arrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [arrayCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(arrayCopy);
         }
 
-        if (![(CPMLDB *)self logNSArray:*(*(&v11 + 1) + 8 * i)])
+        if (![(CPMLDB *)self logNSArray:*(*(&v10 + 1) + 8 * i)])
         {
           NSLog(&cfstr_SFailedToBatch.isa, "[CPMLDB logBatchNSArray:]");
           v8 = 0;
@@ -535,7 +871,7 @@ LABEL_10:
         }
       }
 
-      v5 = [arrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [arrayCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -548,7 +884,6 @@ LABEL_10:
   v8 = 1;
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -810,26 +1145,26 @@ void __26__CPMLDB_logNSDictionary___block_invoke_2(uint64_t a1, void *a2, void *
 
 - (BOOL)logBatchNSDictionary:(id)dictionary
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   dictionaryCopy = dictionary;
-  v5 = [dictionaryCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [dictionaryCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(dictionaryCopy);
         }
 
-        if (![(CPMLDB *)self logNSDictionary:*(*(&v11 + 1) + 8 * i)])
+        if (![(CPMLDB *)self logNSDictionary:*(*(&v10 + 1) + 8 * i)])
         {
           NSLog(&cfstr_SFailedToBatch.isa, "[CPMLDB logBatchNSDictionary:]");
           v8 = 0;
@@ -837,7 +1172,7 @@ void __26__CPMLDB_logNSDictionary___block_invoke_2(uint64_t a1, void *a2, void *
         }
       }
 
-      v5 = [dictionaryCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [dictionaryCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -850,7 +1185,6 @@ void __26__CPMLDB_logNSDictionary___block_invoke_2(uint64_t a1, void *a2, void *
   v8 = 1;
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -886,7 +1220,7 @@ void __25__CPMLDB_logNSDataFloat___block_invoke(uint64_t a1, _DWORD *a2, double 
   {
     v5 = *(a1 + 32);
     LODWORD(a3) = *a2;
-    v6 = [MEMORY[0x277CCABB0] numberWithFloat:a3];
+    v6 = [MEMORY[0x277CCABB0] numberWithFloat:{a4, a3}];
     [v5 addObject:?];
   }
 }
@@ -922,7 +1256,7 @@ void __26__CPMLDB_logNSDataDouble___block_invoke(uint64_t a1, double *a2, uint64
   if ((a4 & 7) == 0)
   {
     v4 = *(a1 + 32);
-    v5 = [MEMORY[0x277CCABB0] numberWithDouble:*a2];
+    v5 = [MEMORY[0x277CCABB0] numberWithDouble:{a3, *a2}];
     [v4 addObject:?];
   }
 }
@@ -1025,6 +1359,82 @@ void __25__CPMLDB_execSQLCommand___block_invoke(uint64_t a1)
   commandsCopy = commands;
   commandsCopy = [objc_alloc(MEMORY[0x277CCAB68]) initWithFormat:@" DROP TABLE IF EXISTS %@ ;", commandsCopy];
   [(CPMLDB *)self execSQLCommand:commandsCopy];
+}
+
+- (unint64_t)getCombinedRemapTableCardinality:(unsigned int)cardinality
+{
+  v3 = *&cardinality;
+  v28 = *MEMORY[0x277D85DE8];
+  nsRemapTable = [(CPMLSchema *)self->cpSchema nsRemapTable];
+  v6 = [nsRemapTable count];
+  v7 = v3;
+
+  if (v6 >= v3)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    NSLog(&cfstr_SAttributePosG.isa, "[CPMLDB getCombinedRemapTableCardinality:]");
+    v8 = [(CPMLDB *)self getCardinality:v3];
+  }
+
+  v9 = objc_opt_new();
+  nsRemapTable2 = [(CPMLSchema *)self->cpSchema nsRemapTable];
+  v11 = [nsRemapTable2 objectAtIndexedSubscript:v7];
+
+  for (i = 0; ; ++i)
+  {
+    nsRemapTable3 = [(CPMLSchema *)self->cpSchema nsRemapTable];
+    v14 = [nsRemapTable3 count];
+
+    if (v14 <= i)
+    {
+      break;
+    }
+
+    nsRemapTable4 = [(CPMLSchema *)self->cpSchema nsRemapTable];
+    v16 = [nsRemapTable4 objectAtIndexedSubscript:i];
+
+    LODWORD(nsRemapTable4) = [v11 intValue];
+    if (nsRemapTable4 == [v16 intValue])
+    {
+      v17 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:i];
+      [v9 addObject:v17];
+    }
+  }
+
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v18 = v9;
+  v19 = [v18 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (v19)
+  {
+    v20 = *v24;
+    do
+    {
+      v21 = 0;
+      do
+      {
+        if (*v24 != v20)
+        {
+          objc_enumerationMutation(v18);
+        }
+
+        v8 += -[CPMLDB getCardinality:](self, "getCardinality:", [*(*(&v23 + 1) + 8 * v21++) intValue]);
+      }
+
+      while (v19 != v21);
+      v19 = [v18 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    }
+
+    while (v19);
+  }
+
+  return v8;
 }
 
 - (unint64_t)getCardinality:(unsigned int)cardinality
@@ -1145,6 +1555,58 @@ uint64_t __21__CPMLDB_getRowCount__block_invoke(uint64_t a1)
   }
 
   return sqlite3_finalize(ppStmt);
+}
+
+- (double)getMeanFor:(unsigned int)for
+{
+  v3 = *&for;
+  attribute = [(CPMLSchema *)self->cpSchema attribute];
+  v6 = [attribute objectAtIndex:v3];
+
+  v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT AVG (%@) FROM MAIN_TABLE;", v6];
+  [(CPMLDB *)self columnQueryFor:v3 withQuery:v7];
+  v9 = v8;
+
+  return v9;
+}
+
+- (double)getStdDevFor:(unsigned int)for
+{
+  v3 = *&for;
+  attribute = [(CPMLSchema *)self->cpSchema attribute];
+  v6 = [attribute objectAtIndex:v3];
+
+  v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT AVG((MAIN_TABLE.%@-sub.a)*(MAIN_TABLE.%@-sub.a)) as var from MAIN_TABLE, (SELECT AVG(%@) AS a FROM MAIN_TABLE) AS sub;", v6, v6, v6];
+  [(CPMLDB *)self columnQueryFor:v3 withQuery:v7];
+  v9 = sqrt(v8);
+
+  return v9;
+}
+
+- (double)getMinFor:(unsigned int)for
+{
+  v3 = *&for;
+  attribute = [(CPMLSchema *)self->cpSchema attribute];
+  v6 = [attribute objectAtIndex:v3];
+
+  v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT MIN(%@) from MAIN_TABLE;", v6];
+  [(CPMLDB *)self columnQueryFor:v3 withQuery:v7];
+  v9 = v8;
+
+  return v9;
+}
+
+- (double)getMaxFor:(unsigned int)for
+{
+  v3 = *&for;
+  attribute = [(CPMLSchema *)self->cpSchema attribute];
+  v6 = [attribute objectAtIndex:v3];
+
+  v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT MAX(%@) from MAIN_TABLE;", v6];
+  [(CPMLDB *)self columnQueryFor:v3 withQuery:v7];
+  v9 = v8;
+
+  return v9;
 }
 
 - (double)columnQueryFor:(unsigned int)for withQuery:(id)query
@@ -1355,12 +1817,8 @@ void __28__CPMLDB_loadStatisticTable__block_invoke(uint64_t a1)
         self->cardinality[v3] = [(CPMLDB *)self getCardinality:v3];
       }
 
-      v8 = objc_alloc(MEMORY[0x277CCACA8]);
-      v9 = self->mean[v3];
-      v10 = self->sumOfXX[v3];
-      v11 = self->min[v3];
-      v12 = [v8 initWithFormat:@" (cardinality, mean, sumofX, sumofXX, sigma, min, max) VALUES (%lf, %lf, %lf, %lf, %lf, %lf, %lf) ", *&self->cardinality[v3], *&v9, *&self->sumOfX[v3], *&v10, *&self->sigma[v3], *&v11, *&self->max[v3]];
-      [(CPMLDB *)self insertIntoTable:@"STATISTICS" withTuple:v12];
+      v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@" (cardinality, mean, sumofX, sumofXX, sigma, min, max) VALUES (%lf, %lf, %lf, %lf, %lf, %lf, %lf) ", *&self->cardinality[v3], *&self->mean[v3], *&self->sumOfX[v3], *&self->sumOfXX[v3], *&self->sigma[v3], *&self->min[v3], *&self->max[v3]];
+      [(CPMLDB *)self insertIntoTable:@"STATISTICS" withTuple:v8];
 
       ++v3;
     }
@@ -1545,7 +2003,7 @@ sqlite3_stmt *__21__CPMLDB_extractRow___block_invoke(void *a1)
   ppStmt[0] = 0;
   v5 = *(a1[5] + 192);
   v6 = strlen(v3);
-  v31 = v4;
+  v30 = v4;
   sqlite3_prepare_v2(v5, v4, v6, ppStmt, 0);
   v7 = sqlite3_step(ppStmt[0]);
   if ((v7 - 100) >= 2 && v7 != 0)
@@ -1595,7 +2053,7 @@ sqlite3_stmt *__21__CPMLDB_extractRow___block_invoke(void *a1)
         v13 = objc_opt_new();
         v18 = sqlite3_column_blob(ppStmt[0], i);
         v19 = sqlite3_column_bytes(ppStmt[0], i);
-        v20 = &v30 - ((v19 + 15) & 0x1FFFFFFF0);
+        v20 = &v29 - ((v19 + 15) & 0x1FFFFFFF0);
         v21 = *v18;
         if (v21 == 83)
         {
@@ -1636,18 +2094,17 @@ sqlite3_stmt *__21__CPMLDB_extractRow___block_invoke(void *a1)
   }
 
 LABEL_28:
-  if (v31)
+  if (v30)
   {
-    sqlite3_free(v31);
+    sqlite3_free(v30);
   }
 
   result = ppStmt[0];
   if (ppStmt[0])
   {
-    result = sqlite3_finalize(ppStmt[0]);
+    return sqlite3_finalize(ppStmt[0]);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return result;
 }
 

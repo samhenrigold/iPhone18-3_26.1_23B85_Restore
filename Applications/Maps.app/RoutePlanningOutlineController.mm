@@ -588,9 +588,9 @@ LABEL_14:
 - (void)_removeHeaderLayoutItem
 {
   collectionViewLayout = [(RoutePlanningOutlineController *)self collectionViewLayout];
-  configuration = [collectionViewLayout configuration];
-  [configuration setBoundarySupplementaryItems:&__NSArray0__struct];
-  [collectionViewLayout setConfiguration:configuration];
+  v2 = objc_msgSend_configuration(collectionViewLayout);
+  [v2 setBoundarySupplementaryItems:&__NSArray0__struct];
+  [collectionViewLayout setConfiguration:v2];
 }
 
 - (void)_reloadHeaderLayoutItem
@@ -614,8 +614,8 @@ LABEL_14:
     }
 
     collectionViewLayout = [(RoutePlanningOutlineController *)self collectionViewLayout];
-    configuration = [collectionViewLayout configuration];
-    boundarySupplementaryItems = [configuration boundarySupplementaryItems];
+    v10 = objc_msgSend_configuration(collectionViewLayout);
+    boundarySupplementaryItems = [v10 boundarySupplementaryItems];
     firstObject = [boundarySupplementaryItems firstObject];
 
     if (!firstObject || ([firstObject layoutSize], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "heightDimension"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "dimension"), v16 = vabdd_f64(v15, v8), v14, v13, v16 > 2.22044605e-16))
@@ -627,9 +627,9 @@ LABEL_14:
       v20 = [NSCollectionLayoutBoundarySupplementaryItem boundarySupplementaryItemWithLayoutSize:v19 elementKind:@"RoutePlanningOutlineHeaderView" alignment:1 absoluteOffset:0.0, -16.0];
       v22 = v20;
       v21 = [NSArray arrayWithObjects:&v22 count:1];
-      [configuration setBoundarySupplementaryItems:v21];
+      [v10 setBoundarySupplementaryItems:v21];
 
-      [collectionViewLayout setConfiguration:configuration];
+      [collectionViewLayout setConfiguration:v10];
     }
   }
 }

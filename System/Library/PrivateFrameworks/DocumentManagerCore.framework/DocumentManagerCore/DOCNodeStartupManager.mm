@@ -20,9 +20,11 @@
 
 uint64_t __31__DOCNodeStartupManager_shared__block_invoke()
 {
-  shared_shared = objc_alloc_init(DOCNodeStartupManager);
+  v0 = objc_alloc_init(DOCNodeStartupManager);
+  v1 = shared_shared;
+  shared_shared = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)startIfNeeded
@@ -47,8 +49,8 @@ uint64_t __31__DOCNodeStartupManager_shared__block_invoke()
   if (v3 - 1 > 0xFFFFFFFFFFFFFFFDLL)
   {
 
-    StartFINode();
-    v7 = v5;
+    StartFINode(v9, v10);
+    v11 = v5;
   }
 
   else
@@ -59,12 +61,12 @@ uint64_t __31__DOCNodeStartupManager_shared__block_invoke()
       _os_signpost_emit_with_name_impl(&dword_249340000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "Files-FINode.start", "", buf, 2u);
     }
 
-    StartFINode();
-    v6 = v5;
-    if (os_signpost_enabled(v6))
+    StartFINode(v6, v7);
+    v8 = v5;
+    if (os_signpost_enabled(v8))
     {
-      *v8 = 0;
-      _os_signpost_emit_with_name_impl(&dword_249340000, v6, OS_SIGNPOST_INTERVAL_END, v3, "Files-FINode.start", "", v8, 2u);
+      *v12 = 0;
+      _os_signpost_emit_with_name_impl(&dword_249340000, v8, OS_SIGNPOST_INTERVAL_END, v3, "Files-FINode.start", "", v12, 2u);
     }
   }
 }

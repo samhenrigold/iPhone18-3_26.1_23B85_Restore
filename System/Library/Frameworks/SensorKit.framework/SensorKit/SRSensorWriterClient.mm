@@ -2,6 +2,7 @@
 + (id)sensorWriterClientWithWriter:(id)writer;
 - (SRSensorWriterClient)initWithWriter:(id)writer;
 - (void)resetDatastoreFiles:(id)files;
+- (void)setMonitoring:(BOOL)monitoring withRequestedConfigurations:(id)configurations;
 @end
 
 @implementation SRSensorWriterClient
@@ -32,6 +33,15 @@
   writer = [(SRSensorWriterClient *)self writer];
 
   [(SRSensorWriter *)writer daemonForcedResetDatastoreFiles:files];
+}
+
+- (void)setMonitoring:(BOOL)monitoring withRequestedConfigurations:(id)configurations
+{
+  monitoringCopy = monitoring;
+  writer = [(SRSensorWriterClient *)self writer];
+  [(SRSensorWriter *)writer set_requestedConfigurations:configurations];
+
+  [(SRSensorWriter *)writer setMonitoring:monitoringCopy];
 }
 
 @end

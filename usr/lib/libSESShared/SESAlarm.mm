@@ -66,7 +66,7 @@ uint64_t __24__SESAlarm_sharedObject__block_invoke()
 
 - (void)_handleAlarmFired:(id)fired
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   queue = self->queue;
   firedCopy = fired;
   dispatch_assert_queue_V2(queue);
@@ -84,11 +84,11 @@ uint64_t __24__SESAlarm_sharedObject__block_invoke()
       v10 = SESDefaultLogObject();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v12 = 138412546;
-        v13 = v8;
-        v14 = 1024;
-        v15 = v9 == 0;
-        _os_log_impl(&dword_1E0FCB000, v10, OS_LOG_TYPE_INFO, "Handling alarm %@ pended %d", &v12, 0x12u);
+        v11 = 138412546;
+        v12 = v8;
+        v13 = 1024;
+        v14 = v9 == 0;
+        _os_log_impl(&dword_1E0FCB000, v10, OS_LOG_TYPE_INFO, "Handling alarm %@ pended %d", &v11, 0x12u);
       }
 
       if (v9)
@@ -102,53 +102,50 @@ uint64_t __24__SESAlarm_sharedObject__block_invoke()
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)registerAlarm:(id)alarm handler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   handlerCopy = handler;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
   v7 = +[SESAlarm sharedObject];
   dispatch_assert_queue_not_V2(v7[1]);
   v8 = v7[1];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __34__SESAlarm_registerAlarm_handler___block_invoke;
-  v17[3] = &unk_1E86FFAB0;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __34__SESAlarm_registerAlarm_handler___block_invoke;
+  v16[3] = &unk_1E86FFAB0;
   v9 = v7;
-  v18 = v9;
+  v17 = v9;
   v10 = handlerCopy;
-  v19 = v10;
+  v18 = v10;
   v11 = alarmCopy;
-  v20 = v11;
-  v21 = &v22;
-  dispatch_sync(v8, v17);
+  v19 = v11;
+  v20 = &v21;
+  dispatch_sync(v8, v16);
   v12 = SESDefaultLogObject();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v13 = *(v23 + 24);
+    v13 = *(v22 + 24);
     *buf = 138412546;
-    v27 = v11;
-    v28 = 1024;
-    v29 = v13;
+    v26 = v11;
+    v27 = 1024;
+    v28 = v13;
     _os_log_impl(&dword_1E0FCB000, v12, OS_LOG_TYPE_INFO, "Registered alarm %@ wasPending %d", buf, 0x12u);
   }
 
-  v14 = *(v23 + 24);
-  _Block_object_dispose(&v22, 8);
+  v14 = *(v22 + 24);
+  _Block_object_dispose(&v21, 8);
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14 & 1;
 }
 
-uint64_t __34__SESAlarm_registerAlarm_handler___block_invoke(void *a1)
+void *__34__SESAlarm_registerAlarm_handler___block_invoke(void *a1)
 {
   [*(a1[4] + 16) setObject:a1[5] forKey:a1[6]];
   result = [*(a1[4] + 24) containsObject:a1[6]];
@@ -163,29 +160,27 @@ uint64_t __34__SESAlarm_registerAlarm_handler___block_invoke(void *a1)
 
 + (void)deregisterAlarm:(id)alarm
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   v4 = +[SESAlarm sharedObject];
   dispatch_assert_queue_not_V2(v4[1]);
   v5 = v4[1];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __28__SESAlarm_deregisterAlarm___block_invoke;
-  v10[3] = &unk_1E86FFAD8;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __28__SESAlarm_deregisterAlarm___block_invoke;
+  v9[3] = &unk_1E86FFAD8;
   v6 = alarmCopy;
-  v11 = v6;
-  v12 = v4;
+  v10 = v6;
+  v11 = v4;
   v7 = v4;
-  dispatch_sync(v5, v10);
+  dispatch_sync(v5, v9);
   v8 = SESDefaultLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v14 = v6;
+    v13 = v6;
     _os_log_impl(&dword_1E0FCB000, v8, OS_LOG_TYPE_INFO, "Deregistered alarm %@", buf, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __28__SESAlarm_deregisterAlarm___block_invoke(uint64_t a1)
@@ -201,29 +196,27 @@ uint64_t __28__SESAlarm_deregisterAlarm___block_invoke(uint64_t a1)
 
 + (void)clearAlarm:(id)alarm
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   v4 = +[SESAlarm sharedObject];
   dispatch_assert_queue_not_V2(v4[1]);
   v5 = v4[1];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __23__SESAlarm_clearAlarm___block_invoke;
-  v10[3] = &unk_1E86FFAD8;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __23__SESAlarm_clearAlarm___block_invoke;
+  v9[3] = &unk_1E86FFAD8;
   v6 = alarmCopy;
-  v11 = v6;
-  v12 = v4;
+  v10 = v6;
+  v11 = v4;
   v7 = v4;
-  dispatch_sync(v5, v10);
+  dispatch_sync(v5, v9);
   v8 = SESDefaultLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v14 = v6;
+    v13 = v6;
     _os_log_impl(&dword_1E0FCB000, v8, OS_LOG_TYPE_INFO, "Cleared alarm %@", buf, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __23__SESAlarm_clearAlarm___block_invoke(uint64_t a1)
@@ -238,30 +231,28 @@ uint64_t __23__SESAlarm_clearAlarm___block_invoke(uint64_t a1)
 
 + (void)setAlarm:(id)alarm secondsFromNow:(double)now
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   v6 = +[SESAlarm sharedObject];
   dispatch_assert_queue_not_V2(v6[1]);
   v7 = v6[1];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __36__SESAlarm_setAlarm_secondsFromNow___block_invoke;
-  v11[3] = &unk_1E86FFB00;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __36__SESAlarm_setAlarm_secondsFromNow___block_invoke;
+  v10[3] = &unk_1E86FFB00;
   nowCopy = now;
   v8 = alarmCopy;
-  v12 = v8;
-  dispatch_sync(v7, v11);
+  v11 = v8;
+  dispatch_sync(v7, v10);
   v9 = SESDefaultLogObject();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v15 = v8;
-    v16 = 2048;
+    v14 = v8;
+    v15 = 2048;
     nowCopy2 = now;
     _os_log_impl(&dword_1E0FCB000, v9, OS_LOG_TYPE_INFO, "Event %@ scheduled in %lld seconds", buf, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __36__SESAlarm_setAlarm_secondsFromNow___block_invoke(uint64_t a1)

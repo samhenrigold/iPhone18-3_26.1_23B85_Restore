@@ -1155,7 +1155,7 @@ void __49__PXFeedSectionInfosManager__rebuildSectionInfos__block_invoke(uint64_t
   return v5;
 }
 
-uint64_t __69__PXFeedSectionInfosManager_indexesOfInvitationsReceivedSectionInfos__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__69__PXFeedSectionInfosManager_indexesOfInvitationsReceivedSectionInfos__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 sectionType];
   if (result == 2)
@@ -1369,7 +1369,7 @@ void __55__PXFeedSectionInfosManager_loadSectionInfosAtIndexes___block_invoke(ui
   return v8;
 }
 
-uint64_t __68__PXFeedSectionInfosManager_indexesOfUnloadedSectionInfosAtIndexes___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__68__PXFeedSectionInfosManager_indexesOfUnloadedSectionInfosAtIndexes___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 isLoaded];
   if ((result & 1) == 0)

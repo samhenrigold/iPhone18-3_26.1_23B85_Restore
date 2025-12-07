@@ -40,18 +40,17 @@ uint64_t sub_100001170()
 {
   v0 = sub_1000012E4();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin();
-  v4 = &v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1000012B4();
-  v5 = sub_1000012D4();
-  v6 = sub_1000012F4();
-  if (os_log_type_enabled(v5, v6))
+  v4 = sub_1000012D4();
+  v5 = sub_1000012F4();
+  if (os_log_type_enabled(v4, v5))
   {
-    v7 = swift_slowAlloc();
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v5, v6, "PhoneAppIntentsExtension initialized", v7, 2u);
+    v6 = swift_slowAlloc();
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v4, v5, "PhoneAppIntentsExtension initialized", v6, 2u);
   }
 
-  return (*(v1 + 8))(v4, v0);
+  return (*(v1 + 8))(v3, v0);
 }

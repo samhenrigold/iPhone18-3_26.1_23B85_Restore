@@ -361,7 +361,7 @@
   v9 = dataSource;
   if (dataSource)
   {
-    [dataSource indexPathForAssetReference:initialAssetReference];
+    objc_msgSend_indexPathForAssetReference_(dataSource);
   }
 
   else
@@ -406,12 +406,11 @@ LABEL_6:
   {
     _oneUpPresentation = [(PUPXOneUpPresentationImplementation *)self _oneUpPresentation];
     initialAssetReference = [_oneUpPresentation initialAssetReference];
-    v39 = initialAssetReference;
-    v38 = v6;
+    v36 = v6;
     if (!initialAssetReference)
     {
       v6 = _oneUpPresentation;
-      v13 = 0;
+      v11 = 0;
 LABEL_17:
       _helper = [(PUPXOneUpPresentationImplementation *)self _helper];
       isAnimated = [v5 isAnimated];
@@ -419,65 +418,64 @@ LABEL_17:
       pu_activity = [v5 pu_activity];
       isNavigationSourceWidget = [v5 isNavigationSourceWidget];
       activityCompletion = [v5 activityCompletion];
-      [_helper presentOneUpViewControllerFromAssetAtIndexPath:v13 animated:isAnimated interactiveMode:pu_interactiveMode activity:pu_activity isNavigationSourceWidget:isNavigationSourceWidget editActivityCompletion:activityCompletion];
+      [_helper presentOneUpViewControllerFromAssetAtIndexPath:v11 animated:isAnimated interactiveMode:pu_interactiveMode activity:pu_activity isNavigationSourceWidget:isNavigationSourceWidget editActivityCompletion:activityCompletion];
 
-      LOBYTE(v6) = v38;
+      LOBYTE(v6) = v36;
       goto LABEL_18;
     }
 
-    v9 = initialAssetReference;
     dataSourceManager = [_oneUpPresentation dataSourceManager];
     dataSource = [dataSourceManager dataSource];
-    v12 = dataSource;
+    v10 = dataSource;
     if (dataSource)
     {
-      [dataSource indexPathForAssetReference:v9];
+      objc_msgSend_indexPathForAssetReference_(dataSource);
     }
 
     if (!*MEMORY[0x1E69C4880])
     {
-      v13 = 0;
+      v11 = 0;
 LABEL_16:
       v6 = _oneUpPresentation;
       goto LABEL_17;
     }
 
-    v14 = PXIndexPathFromSimpleIndexPath();
+    v12 = PXIndexPathFromSimpleIndexPath();
     _helper2 = [(PUPXOneUpPresentationImplementation *)self _helper];
     browsingSession = [_helper2 browsingSession];
     viewModel = [browsingSession viewModel];
     assetsDataSource = [viewModel assetsDataSource];
 
-    section = [v14 section];
+    section = [v12 section];
     pu_rootIndexPath = [MEMORY[0x1E696AC88] pu_rootIndexPath];
-    v37 = assetsDataSource;
+    v35 = assetsDataSource;
     if (section >= [assetsDataSource numberOfSubItemsAtIndexPath:pu_rootIndexPath])
     {
 
-      v13 = v14;
+      v11 = v12;
     }
 
     else
     {
-      item = [v14 item];
-      v21 = [MEMORY[0x1E696AC88] indexPathWithIndex:{objc_msgSend(v14, "section")}];
-      v22 = [assetsDataSource numberOfSubItemsAtIndexPath:v21];
+      item = [v12 item];
+      v19 = [MEMORY[0x1E696AC88] indexPathWithIndex:{objc_msgSend(v12, "section")}];
+      v20 = [assetsDataSource numberOfSubItemsAtIndexPath:v19];
 
-      v13 = v14;
-      if (item < v22)
+      v11 = v12;
+      if (item < v20)
       {
         goto LABEL_15;
       }
     }
 
-    v23 = [[PUPXAssetReference alloc] initWithPXAssetReference:v39 dataSourceIdentifier:0];
+    v21 = [[PUPXAssetReference alloc] initWithPXAssetReference:initialAssetReference dataSourceIdentifier:0];
     _helper3 = [(PUPXOneUpPresentationImplementation *)self _helper];
     browsingSession2 = [_helper3 browsingSession];
     viewModel2 = [browsingSession2 viewModel];
     assetsDataSource2 = [viewModel2 assetsDataSource];
-    v34 = [assetsDataSource2 indexPathForAssetReference:v23];
+    v32 = objc_msgSend_indexPathForAssetReference_(assetsDataSource2);
 
-    v13 = v34;
+    v11 = v32;
 LABEL_15:
 
     goto LABEL_16;

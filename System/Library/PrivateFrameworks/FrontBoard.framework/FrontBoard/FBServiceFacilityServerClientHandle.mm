@@ -1,33 +1,17 @@
 @interface FBServiceFacilityServerClientHandle
 - (FBServiceFacilityServerClientHandle)initWithFacilityID:(id)d connection:(id)connection;
 - (NSString)description;
-- (id)prettyProcessDescription;
 - (void)setContext:(id)context;
 @end
 
 @implementation FBServiceFacilityServerClientHandle
 
-- (id)prettyProcessDescription
-{
-  if (!self->_process)
-  {
-    processHandle = self->_processHandle;
-  }
-
-  return FBSProcessPrettyDescription();
-}
-
 - (NSString)description
 {
   v3 = [MEMORY[0x1E698E680] builderWithObject:self];
   v4 = [v3 appendObject:self->_facilityID withName:0 skipIfNil:1];
-  if (!self->_process)
-  {
-    processHandle = self->_processHandle;
-  }
-
-  v6 = FBSProcessPrettyDescription();
-  v7 = [v3 appendObject:@"remote" withName:v6 skipIfNil:1];
+  v5 = FBSProcessPrettyDescription();
+  v6 = [v3 appendObject:@"remote" withName:v5 skipIfNil:1];
 
   build = [v3 build];
 
@@ -40,13 +24,13 @@
   connectionCopy = connection;
   if (!dCopy)
   {
-    [FBServiceFacilityServerClientHandle initWithFacilityID:a2 connection:?];
+    [FBServiceFacilityServerClientHandle initWithFacilityID:a2 connection:self];
   }
 
   v9 = connectionCopy;
   if (!connectionCopy)
   {
-    [FBServiceFacilityServerClientHandle initWithFacilityID:a2 connection:?];
+    [FBServiceFacilityServerClientHandle initWithFacilityID:a2 connection:self];
   }
 
   v22.receiver = self;
@@ -64,11 +48,11 @@
     v10->_processHandle = remoteProcess;
 
     v15 = +[FBProcessManager sharedInstance];
-    auditToken = [(BSProcessHandle *)v10->_processHandle auditToken];
-    v17 = auditToken;
-    if (auditToken)
+    v16 = objc_msgSend_auditToken(v10->_processHandle);
+    v17 = v16;
+    if (v16)
     {
-      [auditToken realToken];
+      objc_msgSend_realToken(v16);
     }
 
     else
@@ -98,46 +82,46 @@
   }
 }
 
-- (void)initWithFacilityID:(const char *)a1 connection:.cold.1(const char *a1)
+- (void)initWithFacilityID:(const char *)a1 connection:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"connection"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"connection"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1();
-    v8 = @"FBServiceFacilityServerClientHandle.m";
-    v9 = 1024;
-    v10 = 30;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"FBServiceFacilityServerClientHandle.m";
+    v10 = 1024;
+    v11 = 30;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1A89DD000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initWithFacilityID:(const char *)a1 connection:.cold.2(const char *a1)
+- (void)initWithFacilityID:(const char *)a1 connection:(uint64_t)a2 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"facilityID"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"facilityID"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1();
-    v8 = @"FBServiceFacilityServerClientHandle.m";
-    v9 = 1024;
-    v10 = 29;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"FBServiceFacilityServerClientHandle.m";
+    v10 = 1024;
+    v11 = 29;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1A89DD000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

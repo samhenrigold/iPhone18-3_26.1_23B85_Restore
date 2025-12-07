@@ -74,7 +74,7 @@
 
 - (void)notifyNetworkStateChange
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   callbackQueue = [(SPNetworkMonitor *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
 
@@ -88,7 +88,7 @@
     }
 
     *buf = 138412290;
-    v9 = v5;
+    v8 = v5;
     _os_log_impl(&dword_2643D0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Network state changed: %@", buf, 0xCu);
   }
 
@@ -98,34 +98,31 @@
   activity_block[3] = &unk_279B58AE8;
   activity_block[4] = self;
   _os_activity_initiate(&dword_2643D0000, "Network state changed", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __44__SPNetworkMonitor_notifyNetworkStateChange__block_invoke(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) block];
 
   if (v2)
   {
     v3 = *(a1 + 32);
     v4 = *(v3 + 32);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __44__SPNetworkMonitor_notifyNetworkStateChange__block_invoke_2;
-    v9[3] = &unk_279B58AE8;
-    v9[4] = v3;
-    dispatch_async(v4, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __44__SPNetworkMonitor_notifyNetworkStateChange__block_invoke_2;
+    v8[3] = &unk_279B58AE8;
+    v8[4] = v3;
+    dispatch_async(v4, v8);
   }
 
   v5 = [MEMORY[0x277CCAB98] defaultCenter];
-  v10 = @"IsNetworkAvailable";
+  v9 = @"IsNetworkAvailable";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "cachedIsNetworkUp")}];
-  v11[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   [v5 postNotificationName:@"com.apple.icloud.SPOwner.SPNetworkMonitor.networkChanged" object:0 userInfo:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __44__SPNetworkMonitor_notifyNetworkStateChange__block_invoke_2(uint64_t a1)

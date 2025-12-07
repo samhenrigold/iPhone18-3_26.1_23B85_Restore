@@ -473,14 +473,14 @@ void __118__SBSUIRemoteAlertSceneHostComponent_didTransitionToAttachedToWindowed
 
 - (void)scene:(id)scene didPrepareUpdateWithContext:(id)context
 {
-  transitionContext = [context transitionContext];
-  [(SBSUIRemoteAlertSceneHostComponent *)self _flushPendingTransitionersWithContext:transitionContext];
+  v5 = objc_msgSend_transitionContext(context, a2, scene);
+  [(SBSUIRemoteAlertSceneHostComponent *)self _flushPendingTransitionersWithContext:v5];
 }
 
 - (void)scene:(id)scene willUpdateSettings:(id)settings
 {
-  transitionContext = [settings transitionContext];
-  [(SBSUIRemoteAlertSceneHostComponent *)self _flushPendingTransitionersWithContext:transitionContext];
+  v5 = objc_msgSend_transitionContext(settings, a2, scene);
+  [(SBSUIRemoteAlertSceneHostComponent *)self _flushPendingTransitionersWithContext:v5];
 }
 
 - (void)_flushPendingTransitionersWithContext:(id)context
@@ -533,17 +533,17 @@ void __118__SBSUIRemoteAlertSceneHostComponent_didTransitionToAttachedToWindowed
   settingsCopy = settings;
   settingsDiff = [settingsCopy settingsDiff];
   previousSettings = [settingsCopy previousSettings];
-  transitionContext = [settingsCopy transitionContext];
+  v10 = objc_msgSend_transitionContext(settingsCopy);
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  if ([transitionContext wantsInvalidation])
+  if ([v10 wantsInvalidation])
   {
     [WeakRetained remoteAlertSceneHostComponentDidInvalidate:self];
   }
 
   else
   {
-    if ([transitionContext wantsDeactivation])
+    if ([v10 wantsDeactivation])
     {
       [WeakRetained remoteAlertSceneHostComponentDidDeactivate:self];
     }
@@ -570,14 +570,14 @@ void __118__SBSUIRemoteAlertSceneHostComponent_didTransitionToAttachedToWindowed
 
     if ([settingsDiff containsProperty:sel_backgroundActivitiesToSuppress])
     {
-      animationSettings = [transitionContext animationSettings];
+      animationSettings = [v10 animationSettings];
       [WeakRetained remoteAlertSceneHostComponent:self didChangeBackgroundActivitiesToSuppressWithAnimationSettings:animationSettings];
     }
 
-    wantsIdleTimerDisabledReason = [transitionContext wantsIdleTimerDisabledReason];
+    wantsIdleTimerDisabledReason = [v10 wantsIdleTimerDisabledReason];
     if (wantsIdleTimerDisabledReason)
     {
-      [WeakRetained remoteAlertSceneHostComponent:self didSetIdleTimerDisabled:objc_msgSend(transitionContext forReason:{"wantsIdleTimerDisabled"), wantsIdleTimerDisabledReason}];
+      [WeakRetained remoteAlertSceneHostComponent:self didSetIdleTimerDisabled:objc_msgSend(v10 forReason:{"wantsIdleTimerDisabled"), wantsIdleTimerDisabledReason}];
     }
 
     if ([settingsDiff containsProperty:sel_desiredAutoLockDuration])
@@ -636,14 +636,14 @@ void __118__SBSUIRemoteAlertSceneHostComponent_didTransitionToAttachedToWindowed
       statusBarHidden = [v18 statusBarHidden];
       if (statusBarHidden != [v19 statusBarHidden] || (v23 = objc_msgSend(v18, "statusBarStyle"), v23 != objc_msgSend(v19, "statusBarStyle")) || (v24 = objc_msgSend(v18, "contentOverlaysStatusBar"), v24 != objc_msgSend(v19, "contentOverlaysStatusBar")))
       {
-        animationSettings2 = [transitionContext animationSettings];
+        animationSettings2 = [v10 animationSettings];
         [WeakRetained remoteAlertSceneHostComponent:self didChangePreferredStatusBarVisibilityWithAnimationSettings:animationSettings2];
       }
 
       backgroundStyle = [v18 backgroundStyle];
       if (backgroundStyle != [v19 backgroundStyle])
       {
-        animationSettings3 = [transitionContext animationSettings];
+        animationSettings3 = [v10 animationSettings];
         [WeakRetained remoteAlertSceneHostComponent:self didChangeWallpaperStyleWithAnimationSettings:animationSettings3];
       }
     }

@@ -46,14 +46,14 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for FMAirTagEducationalVideoViewController();
-  v4 = v5.receiver;
-  [(FMAirTagEducationalVideoViewController *)&v5 viewDidAppear:appearCopy];
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for FMAirTagEducationalVideoViewController();
+  v4 = v8.receiver;
+  v5 = [(FMAirTagEducationalVideoViewController *)&v8 viewDidAppear:appearCopy];
   if (v4[OBJC_IVAR____TtC6FindMy38FMAirTagEducationalVideoViewController_animating] & 1) == 0 && (v4[OBJC_IVAR____TtC6FindMy38FMAirTagEducationalVideoViewController_shouldAnimate])
   {
     v4[OBJC_IVAR____TtC6FindMy38FMAirTagEducationalVideoViewController_animating] = 1;
-    sub_1002C3040();
+    sub_1002C3040(v5, v6, v7);
   }
 }
 
@@ -83,7 +83,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_1002C2978(change);
+  sub_1002C2978(change, selfCopy);
 }
 
 - (void)scrollViewDidScroll:(id)scroll
@@ -94,10 +94,11 @@
   v5 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC6FindMy38FMAirTagEducationalVideoViewController_scrollHandler);
   if (v5)
   {
+    v6 = *&selfCopy->scrollHandler[OBJC_IVAR____TtC6FindMy38FMAirTagEducationalVideoViewController_scrollHandler];
 
     v5(scrollCopy);
 
-    sub_10001835C(v5);
+    sub_10001835C(v5, v6);
   }
 
   else
@@ -120,7 +121,7 @@
 
 - (void)actionTriggered
 {
-  v0 = sub_10007EBC0(&unk_1006B0120);
+  v0 = sub_10007EBC0(&unk_1006B0120, &qword_100552B60);
   __chkstk_darwin(v0 - 8);
   v2 = v23 - v1;
   v3 = type metadata accessor for URL();
@@ -156,7 +157,7 @@
 
   if ((*(v4 + 48))(v2, 1, v3) == 1)
   {
-    sub_100012DF0(v2, &unk_1006B0120);
+    sub_100012DF0(v2, &unk_1006B0120, &qword_100552B60);
     v15 = Logger.logObject.getter();
     v16 = static os_log_type_t.error.getter();
     if (os_log_type_enabled(v15, v16))
@@ -175,7 +176,7 @@
     v21 = v20;
     sub_10015391C(_swiftEmptyArrayStorage);
     type metadata accessor for OpenExternalURLOptionsKey(0);
-    sub_10000A270(&qword_1006AF360, type metadata accessor for OpenExternalURLOptionsKey);
+    sub_10000A270(&qword_1006AF360, type metadata accessor for OpenExternalURLOptionsKey, &unk_100551F4C);
     isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
     [sharedApplication openURL:v21 options:isa completionHandler:0];

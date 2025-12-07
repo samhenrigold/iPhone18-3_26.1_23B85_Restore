@@ -160,17 +160,17 @@
 
   v16 = (v13 + v14 * -0.2) * 222.43;
   v17 = (v13 + v14 * 5.0) * 127.955;
-  v18 = metadataPropertyWithDouble(v4);
+  v18 = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"FaceBalanceOrigI", v4);
   if (v16 <= 10.0)
   {
     v22 = v18;
-    v23 = metadataPropertyWithDouble(v6);
-    v24 = metadataPropertyWithDouble(v8);
-    v25 = metadataPropertyWithDouble(v10);
-    v26 = metadataPropertyWithDouble(v16);
-    v27 = metadataPropertyWithDouble(v17);
-    v28 = metadataPropertyWithBool();
-    v29 = metadataPropertyWithBool();
+    v23 = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"FaceBalanceOrigQ", v6);
+    v24 = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"FaceBalanceStrength", v8);
+    v25 = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"FaceBalanceWarmth", v10);
+    v26 = metadataPropertyWithDouble(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"IncrementalTemperature", v16);
+    v27 = metadataPropertyWithDouble(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"IncrementalTint", v17);
+    v28 = metadataPropertyWithBool(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"HasSettings", 1);
+    v29 = metadataPropertyWithBool(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"AlreadyApplied", 0);
     v19 = MEMORY[0x1E695DEC8];
     v20 = &v22;
     v21 = 8;
@@ -179,14 +179,14 @@
   else
   {
     v30 = v18;
-    v31 = metadataPropertyWithDouble(v6);
-    v32 = metadataPropertyWithDouble(v8);
-    v33 = metadataPropertyWithDouble(v10);
-    v34 = metadataPropertyWithDouble(v16);
-    v35 = metadataPropertyWithDouble(v17);
-    v36 = metadataPropertyWithBool();
-    v37 = metadataPropertyWithBool();
-    v38 = metadataPropertyWithDouble(fmax(v16 + -10.0, 0.0) / 1.5);
+    v31 = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"FaceBalanceOrigQ", v6);
+    v32 = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"FaceBalanceStrength", v8);
+    v33 = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"FaceBalanceWarmth", v10);
+    v34 = metadataPropertyWithDouble(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"IncrementalTemperature", v16);
+    v35 = metadataPropertyWithDouble(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"IncrementalTint", v17);
+    v36 = metadataPropertyWithBool(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"HasSettings", 1);
+    v37 = metadataPropertyWithBool(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"AlreadyApplied", 0);
+    v38 = metadataPropertyWithDouble(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"Shadows", fmax(v16 + -10.0, 0.0) / 1.5);
     v19 = MEMORY[0x1E695DEC8];
     v20 = &v30;
     v21 = 9;

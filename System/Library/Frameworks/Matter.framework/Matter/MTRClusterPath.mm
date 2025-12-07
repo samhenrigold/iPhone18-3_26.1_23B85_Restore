@@ -83,14 +83,16 @@
 
 - (MTRClusterPath)initWithCoder:(id)coder
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v19.receiver = self;
-  v19.super_class = MTRClusterPath;
-  v5 = [(MTRClusterPath *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = MTRClusterPath;
+  v5 = [(MTRClusterPath *)&v18 init];
   if (!v5)
   {
-    goto LABEL_15;
+LABEL_15:
+    v12 = 0;
+    goto LABEL_16;
   }
 
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"endpointKey"];
@@ -103,31 +105,26 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v12 = sub_2393D9044(0);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sub_2393D9044(0);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v13 = *p_endpoint;
+        v14 = *p_endpoint;
         *buf = 138412290;
-        v21 = v13;
-        _os_log_impl(&dword_238DAE000, v12, OS_LOG_TYPE_ERROR, "MTRClusterPath decoded %@ for endpoint, not NSNumber.", buf, 0xCu);
+        v20 = v14;
+        _os_log_impl(&dword_238DAE000, v13, OS_LOG_TYPE_ERROR, "MTRClusterPath decoded %@ for endpoint, not NSNumber.", buf, 0xCu);
       }
 
-      if (!sub_2393D5398(1u))
+      if (sub_2393D5398(1u))
       {
-        goto LABEL_15;
+        sub_2393D5320(0, 1, "MTRClusterPath decoded %@ for endpoint, not NSNumber.", *p_endpoint);
       }
 
-LABEL_14:
-      v18 = *p_endpoint;
-      sub_2393D5320(0, 1);
-LABEL_15:
-      v11 = 0;
-      goto LABEL_16;
+      goto LABEL_15;
     }
   }
 
   v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"clusterKey"];
-  p_endpoint = &v5->_cluster;
+  p_cluster = &v5->_cluster;
   cluster = v5->_cluster;
   v5->_cluster = v9;
 
@@ -136,29 +133,28 @@ LABEL_15:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v14 = sub_2393D9044(0);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = sub_2393D9044(0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v15 = *p_endpoint;
+        v16 = *p_cluster;
         *buf = 138412290;
-        v21 = v15;
-        _os_log_impl(&dword_238DAE000, v14, OS_LOG_TYPE_ERROR, "MTRClusterPath decoded %@ for cluster, not NSNumber.", buf, 0xCu);
+        v20 = v16;
+        _os_log_impl(&dword_238DAE000, v15, OS_LOG_TYPE_ERROR, "MTRClusterPath decoded %@ for cluster, not NSNumber.", buf, 0xCu);
       }
 
-      if (!sub_2393D5398(1u))
+      if (sub_2393D5398(1u))
       {
-        goto LABEL_15;
+        sub_2393D5320(0, 1, "MTRClusterPath decoded %@ for cluster, not NSNumber.", *p_cluster);
       }
 
-      goto LABEL_14;
+      goto LABEL_15;
     }
   }
 
-  v11 = v5;
+  v12 = v5;
 LABEL_16:
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -12,11 +12,11 @@
     +[UIActivityItemProvider(SKUIExtensions) activityTypeShouldProvideImage:];
   }
 
-  v4 = [v3 isEqualToString:*MEMORY[0x277D54710]];
-  v5 = v4 | [v3 isEqualToString:*MEMORY[0x277D54720]];
-  v6 = [v3 isEqualToString:*MEMORY[0x277D54738]];
-  v7 = v5 | v6 | [v3 isEqualToString:*MEMORY[0x277D54748]];
-  v8 = [v3 isEqualToString:*MEMORY[0x277D54770]];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
+  v5 = isEqualToString | objc_msgSend_isEqualToString_(v3);
+  v6 = objc_msgSend_isEqualToString_(v3);
+  v7 = v5 | v6 | objc_msgSend_isEqualToString_(v3);
+  v8 = objc_msgSend_isEqualToString_(v3);
 
   return (v7 | v8) ^ 1u;
 }

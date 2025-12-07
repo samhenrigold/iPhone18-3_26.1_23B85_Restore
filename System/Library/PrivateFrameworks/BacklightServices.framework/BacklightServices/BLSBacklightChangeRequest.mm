@@ -169,7 +169,7 @@ LABEL_16:
 
   else
   {
-    v13 = bls_backlight_log();
+    v13 = bls_backlight_log(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       [(BLSBacklightChangeRequest *)dictionaryCopy initWithXPCDictionary:v13];
@@ -189,34 +189,14 @@ LABEL_16:
     {
       v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:v17];
       v20 = NSClassFromString(v19);
-      if (!v20)
-      {
-        goto LABEL_12;
-      }
-
-      v21 = v20;
-      +[BLSBacklightChangeRequest validMetadataClasses];
-      v32 = v15;
-      v22 = v14;
-      v23 = v19;
-      v24 = int64;
-      v26 = v25 = self;
-      v27 = [v26 containsObject:v21];
-
-      self = v25;
-      int64 = v24;
-      v19 = v23;
-      v14 = v22;
-      v15 = v32;
-      if (v27)
+      if (v20 && (v21 = v20, +[BLSBacklightChangeRequest validMetadataClasses](BLSBacklightChangeRequest), v32 = v15, v22 = v14, v23 = v19, v24 = int64, v25 = self, v26 = objc_claimAutoreleasedReturnValue(), v27 = [v26 containsObject:v21], v26, self = v25, int64 = v24, v19 = v23, v14 = v22, v15 = v32, v27))
       {
         v28 = [[v21 alloc] initWithXPCDictionary:v18];
       }
 
       else
       {
-LABEL_12:
-        v29 = bls_backlight_log();
+        v29 = bls_backlight_log(v20);
         if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
         {
           [(BLSBacklightChangeRequest *)v19 initWithXPCDictionary:v18, v29];
@@ -250,9 +230,9 @@ LABEL_12:
     +[BLSBacklightChangeRequest validMetadataClasses];
   }
 
-  v0 = validMetadataClasses_metaDataClasses;
+  v1 = validMetadataClasses_metaDataClasses;
 
-  return v0;
+  return v1;
 }
 
 - (void)encodeWithXPCDictionary:(id)dictionary
@@ -271,26 +251,24 @@ LABEL_12:
   if (self->_sourceEventMetadata)
   {
     v11 = +[BLSBacklightChangeRequest validMetadataClasses];
-    v12 = *p_sourceEventMetadata;
-    v13 = [v11 containsObject:objc_opt_class()];
+    v12 = [v11 containsObject:objc_opt_class()];
 
-    if (v13)
+    if (v12)
     {
-      v14 = *p_sourceEventMetadata;
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      xpc_dictionary_set_string(dictionaryCopy, "metadataClass", [v16 UTF8String]);
-      v17 = xpc_dictionary_create(0, 0, 0);
-      [*p_sourceEventMetadata encodeWithXPCDictionary:v17];
-      xpc_dictionary_set_value(dictionaryCopy, uTF8String5, v17);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      xpc_dictionary_set_string(dictionaryCopy, "metadataClass", [v15 UTF8String]);
+      v16 = xpc_dictionary_create(0, 0, 0);
+      [(BLSBacklightChangeSourceEventMetadata *)*p_sourceEventMetadata encodeWithXPCDictionary:v16];
+      xpc_dictionary_set_value(dictionaryCopy, uTF8String5, v16);
     }
 
     else
     {
-      v18 = bls_backlight_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      v17 = bls_backlight_log(v13);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
-        [(BLSBacklightChangeRequest *)self encodeWithXPCDictionary:v18];
+        [(BLSBacklightChangeRequest *)self encodeWithXPCDictionary:v17];
       }
     }
   }
@@ -298,18 +276,16 @@ LABEL_12:
 
 void __49__BLSBacklightChangeRequest_validMetadataClasses__block_invoke()
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
   v2 = [v0 setWithArray:v1];
   v3 = validMetadataClasses_metaDataClasses;
   validMetadataClasses_metaDataClasses = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BLSBacklightChangeRequest)initWithCoder:(id)coder
@@ -334,10 +310,9 @@ void __49__BLSBacklightChangeRequest_validMetadataClasses__block_invoke()
   [coderCopy encodeInt64:self->_timestamp forKey:@"timestamp"];
   [coderCopy encodeInteger:self->_sourceEvent forKey:@"source"];
   v4 = +[BLSBacklightChangeRequest validMetadataClasses];
-  sourceEventMetadata = self->_sourceEventMetadata;
-  v6 = [v4 containsObject:objc_opt_class()];
+  v5 = [v4 containsObject:objc_opt_class()];
 
-  if (v6)
+  if (v5)
   {
     [coderCopy encodeObject:self->_sourceEventMetadata forKey:@"metadata"];
   }
@@ -345,40 +320,35 @@ void __49__BLSBacklightChangeRequest_validMetadataClasses__block_invoke()
 
 - (void)initWithXPCDictionary:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_21FE25000, a2, OS_LOG_TYPE_FAULT, "failed to decode explanation from %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_21FE25000, a2, OS_LOG_TYPE_FAULT, "failed to decode explanation from %{public}@", &v2, 0xCu);
 }
 
 - (void)initWithXPCDictionary:(os_log_t)log .cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_fault_impl(&dword_21FE25000, log, OS_LOG_TYPE_FAULT, "unknown %@ class cannot init with %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_fault_impl(&dword_21FE25000, log, OS_LOG_TYPE_FAULT, "unknown %@ class cannot init with %@", &v3, 0x16u);
 }
 
 - (void)encodeWithXPCDictionary:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t *a2, NSObject *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v6 = *a2;
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v9 = *a2;
-  v11 = 134218498;
-  v12 = a1;
+  v15 = *MEMORY[0x277D85DE8];
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v8 = *a2;
+  v9 = 134218498;
+  v10 = a1;
+  v11 = 2114;
+  v12 = v7;
   v13 = 2114;
   v14 = v8;
-  v15 = 2114;
-  v16 = v9;
-  _os_log_fault_impl(&dword_21FE25000, a3, OS_LOG_TYPE_FAULT, "%p unknown class:%{public}@ cannot encode %{public}@", &v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_21FE25000, a3, OS_LOG_TYPE_FAULT, "%p unknown class:%{public}@ cannot encode %{public}@", &v9, 0x20u);
 }
 
 @end

@@ -249,13 +249,13 @@ LABEL_11:
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __86__PKExpressPassesViewController_paymentPassWithUniqueIdentifier_didReceivePlanUpdate___block_invoke(uint64_t result)
+id *__86__PKExpressPassesViewController_paymentPassWithUniqueIdentifier_didReceivePlanUpdate___block_invoke(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    if (*(result + 40))
+    if (result[5])
     {
-      return [*(result + 48) _updateBalancesWithServerBalances:0 transitPassProperties:0 commutePlans:? forPassWithUniqueIdentifier:?];
+      return [result[6] _updateBalancesWithServerBalances:0 transitPassProperties:0 commutePlans:? forPassWithUniqueIdentifier:?];
     }
   }
 
@@ -278,13 +278,13 @@ uint64_t __86__PKExpressPassesViewController_paymentPassWithUniqueIdentifier_did
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __100__PKExpressPassesViewController_paymentPassWithUniqueIdentifier_didUpdateWithTransitPassProperties___block_invoke(uint64_t result)
+id *__100__PKExpressPassesViewController_paymentPassWithUniqueIdentifier_didUpdateWithTransitPassProperties___block_invoke(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    if (*(result + 40))
+    if (result[5])
     {
-      return [*(result + 48) _updateBalancesWithServerBalances:0 transitPassProperties:? commutePlans:? forPassWithUniqueIdentifier:?];
+      return [result[6] _updateBalancesWithServerBalances:0 transitPassProperties:? commutePlans:? forPassWithUniqueIdentifier:?];
     }
   }
 
@@ -307,13 +307,13 @@ uint64_t __100__PKExpressPassesViewController_paymentPassWithUniqueIdentifier_di
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __89__PKExpressPassesViewController_paymentPassWithUniqueIdentifier_didReceiveBalanceUpdate___block_invoke(uint64_t result)
+id *__89__PKExpressPassesViewController_paymentPassWithUniqueIdentifier_didReceiveBalanceUpdate___block_invoke(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    if (*(result + 40))
+    if (result[5])
     {
-      return [*(result + 48) _updateBalancesWithServerBalances:? transitPassProperties:? commutePlans:? forPassWithUniqueIdentifier:?];
+      return [result[6] _updateBalancesWithServerBalances:? transitPassProperties:? commutePlans:? forPassWithUniqueIdentifier:?];
     }
   }
 

@@ -15,6 +15,7 @@
 - (NSArray)selectedEntryIndices;
 - (NSString)userVisibleDescription;
 - (id)name;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)setSelectedEntryIndices:(id)indices;
 - (void)unregisterObserver:(id)observer;
@@ -248,6 +249,102 @@
   v3 = userVisibleDescriptionCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000036000024"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    selectSettingEntryListCharacteristic = [(CAFMultipleSelectSetting *)self selectSettingEntryListCharacteristic];
+    uniqueIdentifier2 = [selectSettingEntryListCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      selectSettingEntryList = [(CAFMultipleSelectSetting *)self selectSettingEntryList];
+      [observers multipleSelectSettingService:self didUpdateSelectSettingEntryList:selectSettingEntryList];
+LABEL_16:
+
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000036000062"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    selectedEntryIndicesCharacteristic = [(CAFMultipleSelectSetting *)self selectedEntryIndicesCharacteristic];
+    uniqueIdentifier4 = [selectedEntryIndicesCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      selectSettingEntryList = [(CAFMultipleSelectSetting *)self selectedEntryIndices];
+      [observers multipleSelectSettingService:self didUpdateSelectedEntryIndices:selectSettingEntryList];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000036000029"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    userVisibleDetailedDescriptionCharacteristic = [(CAFMultipleSelectSetting *)self userVisibleDetailedDescriptionCharacteristic];
+    uniqueIdentifier6 = [userVisibleDetailedDescriptionCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      selectSettingEntryList = [(CAFMultipleSelectSetting *)self userVisibleDetailedDescription];
+      [observers multipleSelectSettingService:self didUpdateUserVisibleDetailedDescription:selectSettingEntryList];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000030000005"])
+  {
+LABEL_17:
+
+    goto LABEL_18;
+  }
+
+  uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+  userVisibleDescriptionCharacteristic = [(CAFMultipleSelectSetting *)self userVisibleDescriptionCharacteristic];
+  uniqueIdentifier8 = [userVisibleDescriptionCharacteristic uniqueIdentifier];
+  v27 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+  if (v27)
+  {
+    observers = [(CAFService *)self observers];
+    selectSettingEntryList = [(CAFMultipleSelectSetting *)self userVisibleDescription];
+    [observers multipleSelectSettingService:self didUpdateUserVisibleDescription:selectSettingEntryList];
+    goto LABEL_16;
+  }
+
+LABEL_18:
+  v28.receiver = self;
+  v28.super_class = CAFMultipleSelectSetting;
+  [(CAFAutomakerSetting *)&v28 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForSelectSettingEntryList

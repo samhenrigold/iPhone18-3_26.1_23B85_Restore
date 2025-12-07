@@ -19,7 +19,7 @@
     baseBackendXPC = v7->_baseBackendXPC;
     if (baseBackendXPC)
     {
-      [baseBackendXPC backend];
+      objc_msgSend_backend(baseBackendXPC);
     }
 
     sub_1000DF618();
@@ -43,7 +43,7 @@
     v8 = v5->_baseBackendXPC;
     if (v8)
     {
-      [(BackendXPC *)v8 backend];
+      objc_msgSend_backend(v8);
     }
 
     sub_1000DF794();

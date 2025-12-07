@@ -24,6 +24,7 @@
 - (void)setFollowup:(id)followup;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)userDidCancel;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
@@ -47,27 +48,40 @@
 - (void)awakeFromNib
 {
   selfCopy = self;
-  sub_10005D634();
+  sub_10005D634(selfCopy, v2);
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10005D740();
+  sub_10005D740(selfCopy, v2);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for FBAFollowupResponseViewController(self, a2);
+  v4 = v6.receiver;
+  v5 = [(FBAFollowupResponseViewController *)&v6 viewDidAppear:appearCopy];
+  v4[OBJC_IVAR____TtC18Feedback_Assistant33FBAFollowupResponseViewController_didAppear] = 1;
+  if (!*&v4[OBJC_IVAR____TtC18Feedback_Assistant33FBAFollowupResponseViewController_devicesController] && *&v4[OBJC_IVAR____TtC18Feedback_Assistant33FBAFollowupResponseViewController_followup])
+  {
+    sub_1000644F8(v5);
+  }
 }
 
 - (void)dealloc
 {
   selfCopy = self;
-  static os_log_type_t.info.getter();
-  v3 = *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant33FBAFollowupResponseViewController_log);
-  os_log(_:dso:log:_:_:)();
+  v3 = static os_log_type_t.info.getter();
+  os_log(_:dso:log:_:_:)(v3, &_mh_execute_header, *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant33FBAFollowupResponseViewController_log), "Removing observers", 18, 2, _swiftEmptyArrayStorage);
   defaultCenter = [objc_opt_self() defaultCenter];
   [defaultCenter removeObserver:selfCopy];
 
-  v5.receiver = selfCopy;
-  v5.super_class = type metadata accessor for FBAFollowupResponseViewController();
-  [(FBAFollowupResponseViewController *)&v5 dealloc];
+  v7.receiver = selfCopy;
+  v7.super_class = type metadata accessor for FBAFollowupResponseViewController(v5, v6);
+  [(FBAFollowupResponseViewController *)&v7 dealloc];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -75,7 +89,7 @@
   height = size.height;
   width = size.width;
   v10.receiver = self;
-  v10.super_class = type metadata accessor for FBAFollowupResponseViewController();
+  v10.super_class = type metadata accessor for FBAFollowupResponseViewController(self, a2);
   swift_unknownObjectRetain();
   v7 = v10.receiver;
   [(FBAFollowupResponseViewController *)&v10 viewWillTransitionToSize:coordinator withTransitionCoordinator:width, height];
@@ -126,56 +140,53 @@
 - (void)userDidCancel
 {
   selfCopy = self;
-  sub_10005F8DC();
+  sub_10005F8DC(selfCopy);
 }
 
 - (void)cancelAndDismissFollowupResponseController
 {
   selfCopy = self;
-  sub_10005FB8C();
+  sub_10005FB8C(selfCopy);
 }
 
 - (id)tableView:(id)view trailingSwipeActionsConfigurationForRowAtIndexPath:(id)path
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_100067768();
+  v12 = sub_100067768(v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_10006787C();
+  sub_10006787C(v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (double)tableView:(id)view heightForRowAtIndexPath:(id)path
 {
   v4 = type metadata accessor for IndexPath();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
   return UITableViewAutomaticDimension;
 }
 
@@ -183,7 +194,27 @@
 {
   notificationCopy = notification;
   selfCopy = self;
-  static os_log_type_t.debug.getter();
+  v5 = static os_log_type_t.debug.getter();
+  v6 = *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant33FBAFollowupResponseViewController_log);
+  sub_100041AA0(&unk_100109860, qword_1000C2DA0);
+  v7 = swift_allocObject();
+  *(v7 + 16) = xmmword_1000C29F0;
+  *(v7 + 56) = &type metadata for String;
+  *(v7 + 64) = sub_100047484();
+  *(v7 + 32) = 0xD00000000000001FLL;
+  *(v7 + 40) = 0x80000001000CC8B0;
+  os_log(_:dso:log:_:_:)(v5, &_mh_execute_header, v6, "%s", v9);
+
+  NSNotification.keyboardAttributes.getter(v11);
+  v8 = v12;
+
+  *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant33FBAFollowupResponseViewController_keyboardHeight) = v8;
+}
+
+- (void)keyboardWillHideWithNotification:(id)notification
+{
+  selfCopy = self;
+  v4 = static os_log_type_t.debug.getter();
   v5 = *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant33FBAFollowupResponseViewController_log);
   sub_100041AA0(&unk_100109860, qword_1000C2DA0);
   v6 = swift_allocObject();
@@ -191,28 +222,8 @@
   *(v6 + 56) = &type metadata for String;
   *(v6 + 64) = sub_100047484();
   *(v6 + 32) = 0xD00000000000001FLL;
-  *(v6 + 40) = 0x80000001000CC8B0;
-  os_log(_:dso:log:_:_:)();
-
-  NSNotification.keyboardAttributes.getter(v9);
-  v7 = v10;
-
-  *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant33FBAFollowupResponseViewController_keyboardHeight) = v7;
-}
-
-- (void)keyboardWillHideWithNotification:(id)notification
-{
-  selfCopy = self;
-  static os_log_type_t.debug.getter();
-  v4 = *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant33FBAFollowupResponseViewController_log);
-  sub_100041AA0(&unk_100109860, qword_1000C2DA0);
-  v5 = swift_allocObject();
-  *(v5 + 16) = xmmword_1000C29F0;
-  *(v5 + 56) = &type metadata for String;
-  *(v5 + 64) = sub_100047484();
-  *(v5 + 32) = 0xD00000000000001FLL;
-  *(v5 + 40) = 0x80000001000CC890;
-  os_log(_:dso:log:_:_:)();
+  *(v6 + 40) = 0x80000001000CC890;
+  os_log(_:dso:log:_:_:)(v4, &_mh_execute_header, v5, "%s", v7);
 }
 
 - (_TtC18Feedback_Assistant33FBAFollowupResponseViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -235,7 +246,7 @@
 
 - (void)deviceDiagnosticsController:(id)controller didFailToAttach:(id)attach toDevice:(id)device error:(id)error
 {
-  type metadata accessor for FBAAddAttachmentsController();
+  type metadata accessor for FBAAddAttachmentsController(0);
   controllerCopy = controller;
   attachCopy = attach;
   errorCopy = error;
@@ -294,27 +305,26 @@
 - (BOOL)isReadyForDropSessionFromController:(id)controller tableView:(id)view dropSessionDidUpdate:(id)update withDestinationIndexPath:(id)path
 {
   v8 = sub_100041AA0(&qword_100109880, &qword_1000C2C98);
-  v9 = *(*(v8 - 8) + 64);
   __chkstk_darwin(v8 - 8);
-  v11 = &v17 - v10;
+  v10 = &v16 - v9;
   if (path)
   {
     static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-    v12 = type metadata accessor for IndexPath();
-    (*(*(v12 - 8) + 56))(v11, 0, 1, v12);
+    v11 = type metadata accessor for IndexPath();
+    (*(*(v11 - 8) + 56))(v10, 0, 1, v11);
   }
 
   else
   {
-    v13 = type metadata accessor for IndexPath();
-    (*(*(v13 - 8) + 56))(v11, 1, 1, v13);
+    v12 = type metadata accessor for IndexPath();
+    (*(*(v12 - 8) + 56))(v10, 1, 1, v12);
   }
 
   selfCopy = self;
-  sub_1000454C8(v11, &qword_100109880, &qword_1000C2C98);
-  v15 = *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant33FBAFollowupResponseViewController_readinessState);
+  sub_1000454C8(v10, &qword_100109880, &qword_1000C2C98);
+  v14 = *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant33FBAFollowupResponseViewController_readinessState);
 
-  return v15 != 5;
+  return v14 != 5;
 }
 
 - (void)attachmentsAlert:(id)alert needsDeviceDiagnosticsController:(id)controller

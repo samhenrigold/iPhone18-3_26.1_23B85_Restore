@@ -8,7 +8,7 @@
 
 + (id)loadImageWithIdentifier:(id)identifier orPath:(id)path principalClass:(Class *)class error:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   pathCopy = path;
   if (identifierCopy && ([MEMORY[0x1E696AAE8] bundleWithIdentifier:identifierCopy], (v11 = objc_claimAutoreleasedReturnValue()) != 0))
@@ -37,15 +37,15 @@ LABEL_12:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v21 = v12;
+    v20 = v12;
     _os_log_impl(&dword_19159B000, v13, OS_LOG_TYPE_INFO, "Loading resource: %@", buf, 0xCu);
   }
 
   if (([v12 isLoaded] & 1) == 0)
   {
-    v19 = 0;
-    [v12 loadAndReturnError:&v19];
-    v15 = v19;
+    v18 = 0;
+    [v12 loadAndReturnError:&v18];
+    v15 = v18;
     goto LABEL_12;
   }
 
@@ -62,8 +62,6 @@ LABEL_14:
     v16 = v14;
     *error = v14;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -86,7 +84,7 @@ LABEL_14:
 
 + (void)_path:(id *)_path bundleID:(id *)d forRescource:(unint64_t)rescource
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   if (rescource == 1)
   {
     goto LABEL_7;
@@ -98,9 +96,9 @@ LABEL_14:
     {
       v7 = MEMORY[0x1E696AEC0];
       v8 = AXAccessibilityBundlesDirectory();
-      v15[0] = v8;
-      v15[1] = @"QuickSpeak.bundle";
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+      v14[0] = v8;
+      v14[1] = @"QuickSpeak.bundle";
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
       v10 = [v7 pathWithComponents:v9];
 
       v11 = @"com.apple.QuickSpeak";
@@ -132,8 +130,8 @@ LABEL_7:
 
   else
   {
-    v14 = AXAccessibilityPrivateFrameworksDirectory();
-    v10 = [v14 stringByAppendingPathComponent:@"AXSpringBoardServerInstance.framework"];
+    v13 = AXAccessibilityPrivateFrameworksDirectory();
+    v10 = [v13 stringByAppendingPathComponent:@"AXSpringBoardServerInstance.framework"];
   }
 
   v11 = 0;
@@ -147,8 +145,6 @@ LABEL_12:
   {
     *d = v11;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

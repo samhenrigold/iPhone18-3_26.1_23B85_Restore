@@ -33,17 +33,16 @@
 - (void)profileConnectionDidReceiveRestrictionChangedNotification:(id)notification userInfo:(id)info
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CDB5790, &qword_21BE32800);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v12 - v7;
-  v9 = sub_21BE28DAC();
-  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
-  v10 = swift_allocObject();
-  v10[2] = 0;
-  v10[3] = 0;
-  v10[4] = self;
+  v7 = &v11 - v6;
+  v8 = sub_21BE28DAC();
+  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
+  v9 = swift_allocObject();
+  v9[2] = 0;
+  v9[3] = 0;
+  v9[4] = self;
   selfCopy = self;
-  sub_21BBA932C(0, 0, v8, &unk_21BE4BC00, v10);
+  sub_21BBA932C(0, 0, v7, &unk_21BE4BC00, v9);
 }
 
 @end

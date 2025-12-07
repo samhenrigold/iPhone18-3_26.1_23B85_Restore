@@ -100,18 +100,18 @@
 
   if (!axLabel)
   {
-    [attributesCopy floatForAttribute:164 node:node.var0];
-    v17 = v16;
-    v18 = TUIBundle();
-    v19 = [v18 localizedStringForKey:@"Rating" value:&stru_264550 table:@"TemplateUILocalizable"];
+    v16 = [attributesCopy floatForAttribute:164 node:node.var0];
+    v18 = v17;
+    v19 = TUIBundle(v16);
+    v20 = [v19 localizedStringForKey:@"Rating" value:&stru_264550 table:@"TemplateUILocalizable"];
 
-    v20 = TUIBundle();
-    v21 = [v20 localizedStringForKey:@"%lu stars" value:&stru_264550 table:@"TemplateUILocalizable"];
-    v22 = v17 / 0.2;
-    v23 = [NSString localizedStringWithFormat:v21, vcvtas_u32_f32(v22)];
+    v22 = TUIBundle(v21);
+    v23 = [v22 localizedStringForKey:@"%lu stars" value:&stru_264550 table:@"TemplateUILocalizable"];
+    v24 = v18 / 0.2;
+    v25 = [NSString localizedStringWithFormat:v23, vcvtas_u32_f32(v24)];
 
-    [boxCopy setAxLabel:v19];
-    [boxCopy setAxValue:v23];
+    [boxCopy setAxLabel:v20];
+    [boxCopy setAxValue:v25];
   }
 }
 

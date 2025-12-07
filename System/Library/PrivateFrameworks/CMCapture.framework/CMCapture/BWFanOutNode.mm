@@ -173,7 +173,7 @@
 
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
 
     [(BWFanOutNode *)self didSelectFormat:format forInput:input];
@@ -511,7 +511,7 @@
   if ([keys count])
   {
     v7 = [(NSArray *)[(BWNode *)self outputs] objectAtIndexedSubscript:v4];
-    v15 = OUTLINED_FUNCTION_2_0(v7, v8, v9, v10, v11, v12, v13, v14, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, 0);
+    v15 = OUTLINED_FUNCTION_2_0(v7, v8, v9, v10, v11, v12, v13, v14, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59);
     if (v15)
     {
       v16 = v15;
@@ -531,7 +531,7 @@
           v21 = [v7 setMediaConfiguration:v20 forAttachedMediaKey:v19];
         }
 
-        v16 = OUTLINED_FUNCTION_2_0(v21, v22, v23, v24, v25, v26, v27, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v61);
+        v16 = OUTLINED_FUNCTION_2_0(v21, v22, v23, v24, v25, v26, v27, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60);
       }
 
       while (v16);

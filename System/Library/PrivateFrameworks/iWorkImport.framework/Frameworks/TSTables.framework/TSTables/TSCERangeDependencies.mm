@@ -127,15 +127,15 @@
 - (BOOL)addRangeReference:(const TSCEInternalCellReference *)reference toRange:(const TSCERangeCoordinate *)range
 {
   TSCERangeCoordinate::asCellRect(range);
-  v20[0] = v6;
-  v20[1] = v7;
-  objc_msgSend_RTreeInsert_fromCellRef_(self, v7, v20, reference, v8);
-  v12 = objc_msgSend_dgl_rangeDependenciesForOwnerID_(self->_dependencyTracker, v9, reference->tableID, v10, v11);
-  v15 = v12;
-  if (v12)
+  v16[0] = v6;
+  v16[1] = v7;
+  objc_msgSend_RTreeInsert_fromCellRef_(self, v7, v16, reference);
+  v10 = objc_msgSend_dgl_rangeDependenciesForOwnerID_(self->_dependencyTracker, v8, reference->tableID, v9);
+  v12 = v10;
+  if (v10)
   {
-    v16 = objc_msgSend_findTileForToOwnerId_createIfMissing_(v12, v13, self->_internalOwnerID, 1, v14);
-    objc_msgSend_addRect_fromCoord_(v16, v17, v20, reference, v18);
+    v13 = objc_msgSend_findTileForToOwnerId_createIfMissing_(v10, v11, self->_internalOwnerID, 1);
+    objc_msgSend_addRect_fromCoord_(v13, v14, v16, reference);
   }
 
   return 1;
@@ -143,173 +143,173 @@
 
 - (void)deleteRangeReferencesForFromCell:(const TSUCellCoord *)cell
 {
-  v44[0] = 0;
-  v44[1] = v44;
-  v44[2] = 0x3032000000;
-  v44[3] = sub_221495868;
-  v44[4] = sub_221495878;
-  v45 = 0;
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = sub_221495880;
-  v43[3] = &unk_278465B28;
-  v43[4] = self;
-  v43[5] = v44;
-  objc_msgSend_enumerateAllRangesForFromCoord_block_(self, a2, cell, v43, v3);
-  __src = 0;
+  v40[0] = 0;
+  v40[1] = v40;
+  v40[2] = 0x3032000000;
+  v40[3] = sub_221495868;
+  v40[4] = sub_221495878;
   v41 = 0;
-  v42 = 0;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = sub_221495880;
+  v39[3] = &unk_278465B28;
+  v39[4] = self;
+  v39[5] = v40;
+  objc_msgSend_enumerateAllRangesForFromCoord_block_(self, a2, cell, v39);
+  __src = 0;
+  v37 = 0;
+  v38 = 0;
   begin = self->_rangePrecedentsTiles.__begin_;
   var0 = self->_rangePrecedentsTiles.var0;
   if (begin != var0)
   {
+    v7 = 0;
     v8 = 0;
-    v9 = 0;
     do
     {
-      v10 = begin[v9];
-      if (objc_msgSend_containsFromCoord_(v10, v11, cell, v12, v13))
+      v9 = begin[v8];
+      if (objc_msgSend_containsFromCoord_(v9, v10, cell, v11))
       {
-        objc_msgSend_removeRectsForFromCoord_(v10, v14, cell, v15, v16);
-        if (objc_msgSend_isEmpty(v10, v17, v18, v19, v20))
+        objc_msgSend_removeRectsForFromCoord_(v9, v12, cell, v13);
+        if (objc_msgSend_isEmpty(v9, v14, v15, v16))
         {
-          v21 = v41;
-          if (v41 >= v42)
+          v17 = v37;
+          if (v37 >= v38)
           {
-            v23 = __src;
-            v24 = v41 - __src;
-            v25 = (v41 - __src) >> 3;
-            v26 = v25 + 1;
-            if ((v25 + 1) >> 61)
+            v19 = __src;
+            v20 = v37 - __src;
+            v21 = (v37 - __src) >> 3;
+            v22 = v21 + 1;
+            if ((v21 + 1) >> 61)
             {
               sub_22107C148();
             }
 
-            v27 = v42 - __src;
-            if ((v42 - __src) >> 2 > v26)
+            v23 = v38 - __src;
+            if ((v38 - __src) >> 2 > v22)
             {
-              v26 = v27 >> 2;
+              v22 = v23 >> 2;
             }
 
-            v28 = v27 >= 0x7FFFFFFFFFFFFFF8;
-            v29 = 0x1FFFFFFFFFFFFFFFLL;
-            if (!v28)
+            v24 = v23 >= 0x7FFFFFFFFFFFFFF8;
+            v25 = 0x1FFFFFFFFFFFFFFFLL;
+            if (!v24)
             {
-              v29 = v26;
+              v25 = v22;
             }
 
-            if (v29)
+            if (v25)
             {
-              sub_2210874C4(&__src, v29);
+              sub_2210874C4(&__src, v25);
             }
 
-            *(8 * v25) = v9;
-            v22 = 8 * v25 + 8;
-            memcpy(0, v23, v24);
-            v30 = __src;
+            *(8 * v21) = v8;
+            v18 = 8 * v21 + 8;
+            memcpy(0, v19, v20);
+            v26 = __src;
             __src = 0;
-            v41 = v22;
-            v42 = 0;
-            if (v30)
+            v37 = v18;
+            v38 = 0;
+            if (v26)
             {
-              operator delete(v30);
+              operator delete(v26);
             }
           }
 
           else
           {
-            *v41 = v9;
-            v22 = (v21 + 8);
+            *v37 = v8;
+            v18 = (v17 + 8);
           }
 
-          v41 = v22;
+          v37 = v18;
         }
       }
 
-      ++v9;
-
       ++v8;
+
+      ++v7;
     }
 
-    while (&begin[v8] != var0);
-    v31 = __src;
-    v32 = v41;
-    if (__src != v41)
+    while (&begin[v7] != var0);
+    v27 = __src;
+    v28 = v37;
+    if (__src != v37)
     {
-      v33 = self->_rangePrecedentsTiles.var0;
+      v29 = self->_rangePrecedentsTiles.var0;
       do
       {
-        v34 = *(v32 - 1);
-        v32 -= 8;
-        v35 = &self->_rangePrecedentsTiles.__begin_[v34];
-        v36 = v35 + 1;
-        if (v35 + 1 == v33)
+        v30 = *(v28 - 1);
+        v28 -= 8;
+        v31 = &self->_rangePrecedentsTiles.__begin_[v30];
+        v32 = v31 + 1;
+        if (v31 + 1 == v29)
         {
-          v38 = v33;
-          v33 = v35;
+          v34 = v29;
+          v29 = v31;
         }
 
         else
         {
           do
           {
-            v37 = *(v36 - 1);
-            *(v36 - 1) = *v36;
-            *v36 = 0;
+            v33 = *(v32 - 1);
+            *(v32 - 1) = *v32;
+            *v32 = 0;
 
-            ++v36;
+            ++v32;
           }
 
-          while (v36 != v33);
-          v38 = self->_rangePrecedentsTiles.var0;
-          v33 = v36 - 1;
+          while (v32 != v29);
+          v34 = self->_rangePrecedentsTiles.var0;
+          v29 = v32 - 1;
         }
 
-        while (v38 != v33)
+        while (v34 != v29)
         {
-          v39 = *--v38;
+          v35 = *--v34;
         }
 
-        self->_rangePrecedentsTiles.var0 = v33;
-        v31 = __src;
+        self->_rangePrecedentsTiles.var0 = v29;
+        v27 = __src;
       }
 
-      while (v32 != __src);
+      while (v28 != __src);
     }
 
-    if (v31)
+    if (v27)
     {
-      v41 = v31;
-      operator delete(v31);
+      v37 = v27;
+      operator delete(v27);
     }
   }
 
-  _Block_object_dispose(v44, 8);
+  _Block_object_dispose(v40, 8);
 }
 
 - (void)deleteAllReferencesFromThisTable
 {
-  v9[0] = 0;
-  v9[1] = v9;
-  v9[2] = 0x3032000000;
-  v9[3] = sub_221495868;
-  v9[4] = sub_221495878;
-  v10 = 0;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = sub_221495A40;
-  v8[3] = &unk_278465B28;
-  v8[4] = self;
-  v8[5] = v9;
-  objc_msgSend_enumerateAllRanges_(self, a2, v8, v2, v3);
+  v8[0] = 0;
+  v8[1] = v8;
+  v8[2] = 0x3032000000;
+  v8[3] = sub_221495868;
+  v8[4] = sub_221495878;
+  v9 = 0;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = sub_221495A40;
+  v7[3] = &unk_278465B28;
+  v7[4] = self;
+  v7[5] = v8;
+  objc_msgSend_enumerateAllRanges_(self, a2, v7, v2);
   begin = self->_rangePrecedentsTiles.__begin_;
   for (i = self->_rangePrecedentsTiles.var0; i != begin; --i)
   {
-    v7 = *(i - 1);
+    v6 = *(i - 1);
   }
 
   self->_rangePrecedentsTiles.var0 = begin;
-  _Block_object_dispose(v9, 8);
+  _Block_object_dispose(v8, 8);
 }
 
 - (void)pushDependents:(const TSUCellCoord *)dependents outDependents:(id)outDependents referencingCellIsInACycle:(BOOL)cycle
@@ -318,178 +318,178 @@
   outDependentsCopy = outDependents;
   v9 = outDependentsCopy;
   v10 = *dependents;
-  v28[0] = *dependents;
-  v28[1] = 0x100000001;
+  v26[0] = *dependents;
+  v26[1] = 0x100000001;
   if (cycleCopy)
   {
-    v26[0] = 0;
-    v26[1] = v26;
-    v26[2] = 0x3032000000;
-    v26[3] = sub_221495868;
-    v26[4] = sub_221495878;
-    v27 = 0;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = sub_221495CB0;
-    v22[3] = &unk_278465B50;
-    v24 = v26;
-    v22[4] = self;
-    v23 = outDependentsCopy;
+    v24[0] = 0;
+    v24[1] = v24;
+    v24[2] = 0x3032000000;
+    v24[3] = sub_221495868;
+    v24[4] = sub_221495878;
+    v25 = 0;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = sub_221495CB0;
+    v20[3] = &unk_278465B50;
+    v22 = v24;
+    v20[4] = self;
+    v21 = outDependentsCopy;
     dependentsCopy = dependents;
-    objc_msgSend_RTreeSearchWithBlock_block_(self, v11, v28, v22, v12);
+    objc_msgSend_RTreeSearchWithBlock_block_(self, v11, v26, v20);
 
-    _Block_object_dispose(v26, 8);
-    v13 = v27;
+    _Block_object_dispose(v24, 8);
+    v12 = v25;
   }
 
   else
   {
     internalOwnerID = self->_internalOwnerID;
-    v15 = *&v10 & 0xFFFFFFFFFFFFLL;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = sub_221495D6C;
-    v18[3] = &unk_278465B78;
-    v19 = outDependentsCopy;
-    v20 = v15;
-    v21 = internalOwnerID;
-    objc_msgSend_RTreeSearchWithBlock_block_(self, v16, v28, v18, v17);
-    v13 = v19;
+    v14 = *&v10 & 0xFFFFFFFFFFFFLL;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = sub_221495D6C;
+    v16[3] = &unk_278465B78;
+    v17 = outDependentsCopy;
+    v18 = v14;
+    v19 = internalOwnerID;
+    objc_msgSend_RTreeSearchWithBlock_block_(self, v15, v26, v16);
+    v12 = v17;
   }
 }
 
 - (void)dirtyAllReferencingFormulas
 {
-  v4 = xmmword_2217E1EB0;
-  v3[0] = MEMORY[0x277D85DD0];
-  v3[1] = 3221225472;
-  v3[2] = sub_221495DFC;
-  v3[3] = &unk_278461180;
-  v3[4] = self;
-  objc_msgSend_RTreeSearchWithBlock_block_(self, a2, &v4, v3, v2);
+  v3 = xmmword_2217E1EB0;
+  v2[0] = MEMORY[0x277D85DD0];
+  v2[1] = 3221225472;
+  v2[2] = sub_221495DFC;
+  v2[3] = &unk_278461180;
+  v2[4] = self;
+  objc_msgSend_RTreeSearchWithBlock_block_(self, a2, &v3, v2);
 }
 
 - (void)dirtyAllFormulasReferencingRange:(TSCERangeCoordinate)range
 {
   rangeCopy = range;
   TSCERangeCoordinate::asCellRect(&rangeCopy);
-  v8[0] = v4;
-  v8[1] = v5;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = sub_221495EA8;
-  v7[3] = &unk_278461180;
-  v7[4] = self;
-  objc_msgSend_RTreeSearchWithBlock_block_(self, v5, v8, v7, v6);
+  v7[0] = v4;
+  v7[1] = v5;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = sub_221495EA8;
+  v6[3] = &unk_278461180;
+  v6[4] = self;
+  objc_msgSend_RTreeSearchWithBlock_block_(self, v5, v7, v6);
 }
 
 - (void)formulaCoordsReferencingRange:(TSCERangeCoordinate)range inOwnerID:(unsigned __int16)d outFormulaCells:(void *)cells
 {
   rangeCopy = range;
   TSCERangeCoordinate::asCellRect(&rangeCopy);
-  v13[0] = v8;
-  v13[1] = v9;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = sub_221495F64;
-  v11[3] = &unk_278465B98;
+  v12[0] = v8;
+  v12[1] = v9;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = sub_221495F64;
+  v10[3] = &unk_278465B98;
   dCopy = d;
-  v11[4] = cells;
-  objc_msgSend_RTreeSearchWithBlock_block_(self, v9, v13, v11, v10);
+  v10[4] = cells;
+  objc_msgSend_RTreeSearchWithBlock_block_(self, v9, v12, v10);
 }
 
 - (void)decrementReferringDirtyCountAndPushNextLeaves:(const TSCECellToEvaluate *)leaves referencingCellIsInACycle:(BOOL)cycle
 {
-  v23[0] = leaves->var0.coordinate;
-  v23[1] = 0x100000001;
-  v21[0] = 0;
-  v21[1] = v21;
-  v21[2] = 0x3032000000;
-  v21[3] = sub_221495868;
-  v21[4] = sub_221495878;
+  v20[0] = leaves->var0.coordinate;
+  v20[1] = 0x100000001;
+  v18[0] = 0;
+  v18[1] = v18;
+  v18[2] = 0x3032000000;
+  v18[3] = sub_221495868;
+  v18[4] = sub_221495878;
   v6 = leaves->var1;
-  v22 = objc_msgSend_cellDependencies(v6, v7, v8, v9, v10);
+  v19 = objc_msgSend_cellDependencies(v6, v7, v8, v9);
 
-  v15 = objc_msgSend_currentCellBeingModified(self->_dependencyTracker, v11, v12, v13, v14);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = sub_221496190;
-  v18[3] = &unk_278465BC0;
-  v19 = v16;
-  v18[5] = v21;
-  v18[6] = v15;
-  v18[4] = self;
+  v13 = objc_msgSend_currentCellBeingModified(self->_dependencyTracker, v10, v11, v12);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_221496190;
+  v15[3] = &unk_278465BC0;
+  v16 = v14;
+  v15[5] = v18;
+  v15[6] = v13;
+  v15[4] = self;
   cycleCopy = cycle;
-  objc_msgSend_RTreeSearchWithBlock_block_(self, v16, v23, v18, v17);
-  _Block_object_dispose(v21, 8);
+  objc_msgSend_RTreeSearchWithBlock_block_(self, v14, v20, v15);
+  _Block_object_dispose(v18, 8);
 }
 
 - (BOOL)hasDependentsAtCoord:(const TSUCellCoord *)coord
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v11 = 0;
-  v7[0] = *coord;
-  v7[1] = 0x100000001;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = sub_221496444;
-  v6[3] = &unk_278465BE8;
-  v6[4] = &v8;
-  objc_msgSend_RTreeSearchWithBlock_block_(self, a2, v7, v6, v3);
-  v4 = *(v9 + 24);
-  _Block_object_dispose(&v8, 8);
-  return v4;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
+  v10 = 0;
+  v6[0] = *coord;
+  v6[1] = 0x100000001;
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = sub_221496444;
+  v5[3] = &unk_278465BE8;
+  v5[4] = &v7;
+  objc_msgSend_RTreeSearchWithBlock_block_(self, a2, v6, v5);
+  v3 = *(v8 + 24);
+  _Block_object_dispose(&v7, 8);
+  return v3;
 }
 
 - (void)processDependentsForDFS:(id)s coord:(const TSUCellCoord *)coord outCells:(void *)cells
 {
   sCopy = s;
-  v15[0] = *coord;
-  v15[1] = 0x100000001;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = sub_221496528;
-  v12[3] = &unk_278465C10;
-  v13 = sCopy;
+  v14[0] = *coord;
+  v14[1] = 0x100000001;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = sub_221496528;
+  v11[3] = &unk_278465C10;
+  v12 = sCopy;
   cellsCopy = cells;
   v9 = sCopy;
-  objc_msgSend_RTreeSearchWithBlock_block_(self, v10, v15, v12, v11);
+  objc_msgSend_RTreeSearchWithBlock_block_(self, v10, v14, v11);
 }
 
 - (unint64_t)computedNumberOfDirtyPrecedents:(TSUCellCoord)precedents cellIsInACycle:(BOOL)cycle
 {
-  v14 = 0;
+  v13 = 0;
   precedentsCopy = precedents;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v9[0] = 0;
-  v9[1] = v9;
-  v9[2] = 0x3032000000;
-  v9[3] = sub_221495868;
-  v9[4] = sub_221495878;
   v10 = 0;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = sub_221496664;
-  v7[3] = &unk_278465C38;
-  v7[4] = self;
-  v7[5] = v9;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v8[0] = 0;
+  v8[1] = v8;
+  v8[2] = 0x3032000000;
+  v8[3] = sub_221495868;
+  v8[4] = sub_221495878;
+  v9 = 0;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = sub_221496664;
+  v6[3] = &unk_278465C38;
+  v6[4] = self;
+  v6[5] = v8;
   cycleCopy = cycle;
-  v7[6] = &v11;
-  objc_msgSend_enumerateAllRangesForFromCoord_block_(self, a2, &precedentsCopy, v7, v4);
-  v5 = v12[3];
-  _Block_object_dispose(v9, 8);
+  v6[6] = &v10;
+  objc_msgSend_enumerateAllRangesForFromCoord_block_(self, a2, &precedentsCopy, v6);
+  v4 = v11[3];
+  _Block_object_dispose(v8, 8);
 
-  _Block_object_dispose(&v11, 8);
-  return v5;
+  _Block_object_dispose(&v10, 8);
+  return v4;
 }
 
 - (id)explainDirtyPrecedentCount:(TSUCellCoord)count cellIsInACycle:(BOOL)cycle
 {
-  objc_msgSend_stringWithFormat_(MEMORY[0x277CCAB68], a2, @"Range dependencies:\n", cycle, v4);
+  objc_msgSend_stringWithFormat_(MEMORY[0x277CCAB68], a2, @"Range dependencies:\n", cycle);
 
   return 0;
 }
@@ -498,33 +498,61 @@
 {
   v4 = MEMORY[0x277CCAB68];
   v5 = NSStringFromTSUCellCoord();
-  v9 = objc_msgSend_stringWithFormat_(v4, v6, @"%@: Range precedents:\n", v7, v8, v5);
+  v8 = objc_msgSend_stringWithFormat_(v4, v6, @"%@: Range precedents:\n", v7, v5);
 
-  return v9;
+  return v8;
 }
 
 - (void)cellRefsForCycleCellsReferringToCell:(const TSUCellCoord *)cell outCellRefs:(void *)refs
 {
-  v8[0] = *cell;
-  v8[1] = 0x100000001;
-  v6[0] = 0;
-  v6[1] = v6;
-  v6[2] = 0x3032000000;
-  v6[3] = sub_221495868;
-  v6[4] = sub_221495878;
-  v7 = 0;
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = sub_2214968CC;
-  v5[3] = &unk_278465C60;
-  v5[4] = self;
-  v5[5] = v6;
-  v5[6] = refs;
-  objc_msgSend_RTreeSearchWithBlock_block_(self, a2, v8, v5, v4);
-  _Block_object_dispose(v6, 8);
+  v7[0] = *cell;
+  v7[1] = 0x100000001;
+  v5[0] = 0;
+  v5[1] = v5;
+  v5[2] = 0x3032000000;
+  v5[3] = sub_221495868;
+  v5[4] = sub_221495878;
+  v6 = 0;
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = sub_2214968CC;
+  v4[3] = &unk_278465C60;
+  v4[4] = self;
+  v4[5] = v5;
+  v4[6] = refs;
+  objc_msgSend_RTreeSearchWithBlock_block_(self, a2, v7, v4);
+  _Block_object_dispose(v5, 8);
 }
 
 - (BOOL)hasPrecedentsAtCoord:(const TSUCellCoord *)coord
+{
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v9 = 0;
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = sub_221496A38;
+  v5[3] = &unk_278465C88;
+  v5[4] = &v6;
+  objc_msgSend_enumerateAllRangesForFromCoord_block_(self, a2, coord, v5);
+  v3 = *(v7 + 24);
+  _Block_object_dispose(&v6, 8);
+  return v3;
+}
+
+- (void)addPrecedentsAtCoord:(const TSUCellCoord *)coord toReferenceSet:(void *)set
+{
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = sub_221496AC0;
+  v4[3] = &unk_278465CB0;
+  v4[4] = self;
+  v4[5] = set;
+  objc_msgSend_enumerateAllRangesForFromCoord_block_(self, a2, coord, v4);
+}
+
+- (BOOL)cellHasDeepPrecedentInRange:(const TSUCellCoord *)range cellRange:(const TSCEInternalRangeReference *)cellRange
 {
   v7 = 0;
   v8 = &v7;
@@ -532,96 +560,68 @@
   v10 = 0;
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
-  v6[2] = sub_221496A38;
-  v6[3] = &unk_278465C88;
+  v6[2] = sub_221496BEC;
+  v6[3] = &unk_278465CD8;
   v6[4] = &v7;
-  objc_msgSend_enumerateAllRangesForFromCoord_block_(self, a2, coord, v6, v3);
+  v6[5] = cellRange;
+  objc_msgSend_enumerateAllRangesForFromCoord_block_(self, a2, range, v6);
   v4 = *(v8 + 24);
   _Block_object_dispose(&v7, 8);
   return v4;
 }
 
-- (void)addPrecedentsAtCoord:(const TSUCellCoord *)coord toReferenceSet:(void *)set
-{
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = sub_221496AC0;
-  v5[3] = &unk_278465CB0;
-  v5[4] = self;
-  v5[5] = set;
-  objc_msgSend_enumerateAllRangesForFromCoord_block_(self, a2, coord, v5, v4);
-}
-
-- (BOOL)cellHasDeepPrecedentInRange:(const TSUCellCoord *)range cellRange:(const TSCEInternalRangeReference *)cellRange
-{
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v11 = 0;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = sub_221496BEC;
-  v7[3] = &unk_278465CD8;
-  v7[4] = &v8;
-  v7[5] = cellRange;
-  objc_msgSend_enumerateAllRangesForFromCoord_block_(self, a2, range, v7, v4);
-  v5 = *(v9 + 24);
-  _Block_object_dispose(&v8, 8);
-  return v5;
-}
-
 - (void)formulaCellsReferencingRange:(const TSCERangeCoordinate *)range outFormulaCells:(void *)cells
 {
   TSCERangeCoordinate::asCellRect(range);
-  v21.origin = v6;
-  v21.size = v7;
-  v20[0] = TSUCellRect::nonSpanningCellRectWithTableRange(&v21, &unk_2217E1ED0);
-  v20[1] = v8;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x5812000000;
-  v15 = sub_221496DF8;
-  v16 = sub_221496E04;
-  v17 = &unk_22188E88F;
-  memset(v18, 0, sizeof(v18));
-  v19 = 1065353216;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = sub_221496E0C;
-  v11[3] = &unk_278465D00;
-  v11[4] = &v12;
-  objc_msgSend_RTreeSearchWithBlock_block_(self, v8, v20, v11, v9);
-  if (!sub_2212E0280((v13 + 6)))
+  v20.origin = v6;
+  v20.size = v7;
+  v19[0] = TSUCellRect::nonSpanningCellRectWithTableRange(&v20, &unk_2217E1ED0);
+  v19[1] = v8;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x5812000000;
+  v14 = sub_221496DF8;
+  v15 = sub_221496E04;
+  v16 = &unk_22188E88F;
+  memset(v17, 0, sizeof(v17));
+  v18 = 1065353216;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = sub_221496E0C;
+  v10[3] = &unk_278465D00;
+  v10[4] = &v11;
+  objc_msgSend_RTreeSearchWithBlock_block_(self, v8, v19, v10);
+  if (!sub_2212E0280((v12 + 6)))
   {
-    sub_2212E0430((v13 + 6), self->_dependencyTracker, &v10);
-    TSCECellRefSet::addCellRefs(cells, &v10);
-    sub_22107C800(&v10, v10._coordsForOwnerUid.__tree_.__end_node_.__left_);
+    sub_2212E0430((v12 + 6), self->_dependencyTracker, &v9);
+    TSCECellRefSet::addCellRefs(cells, &v9);
+    sub_22107C800(&v9, v9._coordsForOwnerUid.__tree_.__end_node_.__left_);
   }
 
-  _Block_object_dispose(&v12, 8);
-  sub_221122744(v18);
+  _Block_object_dispose(&v11, 8);
+  sub_221122744(v17);
 }
 
 - (void)formulaCellsReferencingIndexes:(id)indexes rowIndexes:(id)rowIndexes outFormulaCells:(void *)cells
 {
   rowIndexesCopy = rowIndexes;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = sub_221496EE0;
-  v13[3] = &unk_278463340;
-  v14 = rowIndexesCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = sub_221496EE0;
+  v12[3] = &unk_278463340;
+  v13 = rowIndexesCopy;
   selfCopy = self;
   cellsCopy = cells;
   v9 = rowIndexesCopy;
-  objc_msgSend_enumerateRangesUsingBlock_(indexes, v10, v13, v11, v12);
+  objc_msgSend_enumerateRangesUsingBlock_(indexes, v10, v12, v11);
 }
 
 - (void)formulaCellsReferencingRangesAffectedByRewriteSpec:(id)spec outFormulaCells:(void *)cells
 {
   specCopy = spec;
-  v13[0] = objc_msgSend_affectedRange(specCopy, v7, v8, v9, v10);
-  v13[1] = v11;
-  objc_msgSend_formulaCellsReferencingRange_outFormulaCells_(self, v11, v13, cells, v12);
+  v11[0] = objc_msgSend_affectedRange(specCopy, v7, v8, v9);
+  v11[1] = v10;
+  objc_msgSend_formulaCellsReferencingRange_outFormulaCells_(self, v10, v11, cells);
 }
 
 - (BOOL)isEmpty
@@ -639,9 +639,9 @@
 
 - (TSKUIDStruct)ownerUID
 {
-  v4 = objc_msgSend_formulaOwnerUIDForInternalFormulaOwnerID_(self->_dependencyTracker, a2, self->_internalOwnerID, v2, v3);
-  result._upper = v5;
-  result._lower = v4;
+  v3 = objc_msgSend_formulaOwnerUIDForInternalFormulaOwnerID_(self->_dependencyTracker, a2, self->_internalOwnerID, v2);
+  result._upper = v4;
+  result._lower = v3;
   return result;
 }
 
@@ -649,152 +649,152 @@
 {
   if (id == 0xFFFF)
   {
-    v22 = 0;
+    v19 = 0;
     goto LABEL_21;
   }
 
   missingCopy = missing;
   idCopy = id;
-  v45 = 0;
+  v38 = 0;
   p_rangePrecedentsTiles = &self->_rangePrecedentsTiles;
-  v9 = 0;
-  v10 = self->_rangePrecedentsTiles.var0 - self->_rangePrecedentsTiles.__begin_;
-  if (!v10)
+  v8 = 0;
+  v9 = self->_rangePrecedentsTiles.var0 - self->_rangePrecedentsTiles.__begin_;
+  if (!v9)
   {
     goto LABEL_12;
   }
 
-  v11 = v10 >> 3;
+  v10 = v9 >> 3;
   while (1)
   {
-    v12 = v9 + ((v11 - v9) >> 1);
-    v13 = p_rangePrecedentsTiles->__begin_[v12];
-    if (objc_msgSend_toInternalOwnerID(v13, v14, v15, v16, v17) >= idCopy)
+    v11 = v8 + ((v10 - v8) >> 1);
+    v12 = p_rangePrecedentsTiles->__begin_[v11];
+    if (objc_msgSend_toInternalOwnerID(v12, v13, v14, v15) >= idCopy)
     {
       break;
     }
 
-    v9 = v12 + 1;
+    v8 = v11 + 1;
 LABEL_8:
 
-    if (v9 >= v11)
+    if (v8 >= v10)
     {
       goto LABEL_12;
     }
   }
 
-  if (objc_msgSend_toInternalOwnerID(v13, v18, v19, v20, v21) > idCopy)
+  if (objc_msgSend_toInternalOwnerID(v12, v16, v17, v18) > idCopy)
   {
-    v11 = v9 + ((v11 - v9) >> 1);
+    v10 = v8 + ((v10 - v8) >> 1);
     goto LABEL_8;
   }
 
-  v45 = v13;
-  if (!v13)
+  v38 = v12;
+  if (!v12)
   {
 LABEL_12:
     if (missingCopy)
     {
       if (!self->_dependencyTracker)
       {
-        v23 = MEMORY[0x277D81150];
-        v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCERangeDependencies findTileForToOwnerId:createIfMissing:]", missing, v4);
-        v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERangeDependencies.mm", v26, v27);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v29, v24, v28, 479, 0, "invalid nil value for '%{public}s'", "_dependencyTracker", v45);
+        v20 = MEMORY[0x277D81150];
+        v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCERangeDependencies findTileForToOwnerId:createIfMissing:]", missing);
+        v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERangeDependencies.mm", v23);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v25, v21, v24, 479, 0, "invalid nil value for '%{public}s'", "_dependencyTracker", v38);
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31, v32, v33);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28);
       }
 
-      v34 = [TSCERangePrecedentsTile alloc];
-      v39 = objc_msgSend_objectContext(self->_dependencyTracker, v35, v36, v37, v38);
-      v45 = objc_msgSend_initWithOwnerId_context_(v34, v40, idCopy, v39, v41);
+      v29 = [TSCERangePrecedentsTile alloc];
+      v33 = objc_msgSend_objectContext(self->_dependencyTracker, v30, v31, v32);
+      v38 = objc_msgSend_initWithOwnerId_context_(v29, v34, idCopy, v33);
 
       begin = self->_rangePrecedentsTiles.__begin_;
-      v43 = self->_rangePrecedentsTiles.var0 - begin;
-      if (v9 == v43 >> 3)
+      v36 = self->_rangePrecedentsTiles.var0 - begin;
+      if (v8 == v36 >> 3)
       {
-        sub_2214972D4(p_rangePrecedentsTiles, &v45);
+        sub_2214972D4(p_rangePrecedentsTiles, &v38);
       }
 
       else
       {
-        if (v9 + 1 < v43 >> 3)
+        if (v8 + 1 < v36 >> 3)
         {
           begin = p_rangePrecedentsTiles->__begin_;
         }
 
-        sub_2214973C8(p_rangePrecedentsTiles, &begin[v9], &v45);
+        sub_2214973C8(p_rangePrecedentsTiles, &begin[v8], &v38);
       }
     }
   }
 
-  v22 = v45;
+  v19 = v38;
 
 LABEL_21:
 
-  return v22;
+  return v19;
 }
 
 - (void)enumerateAllRangesForFromCoord:(const TSUCellCoord *)coord block:(id)block
 {
   blockCopy = block;
-  v22[0] = 0;
-  v22[1] = v22;
-  v22[2] = 0x2020000000;
-  v23 = 0;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x2020000000;
+  v21 = 0;
   begin = self->_rangePrecedentsTiles.__begin_;
   for (i = self->_rangePrecedentsTiles.var0; begin != i; ++begin)
   {
-    v13 = *begin;
-    v14 = objc_msgSend_toInternalOwnerID(*begin, v6, v7, v8, v9);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = sub_22149764C;
-    v18[3] = &unk_278465D50;
-    v15 = blockCopy;
-    v21 = v14;
-    v19 = v15;
-    v20 = v22;
-    objc_msgSend_enumerateAllRangesForFromCoord_usingBlock_(v13, v16, coord, v18, v17);
+    v12 = *begin;
+    v13 = objc_msgSend_toInternalOwnerID(*begin, v6, v7, v8);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = sub_22149764C;
+    v16[3] = &unk_278465D50;
+    v14 = blockCopy;
+    v19 = v13;
+    v17 = v14;
+    v18 = v20;
+    objc_msgSend_enumerateAllRangesForFromCoord_usingBlock_(v12, v15, coord, v16);
   }
 
-  _Block_object_dispose(v22, 8);
+  _Block_object_dispose(v20, 8);
 }
 
 - (void)enumerateAllRanges:(id)ranges
 {
   rangesCopy = ranges;
-  v21[0] = 0;
-  v21[1] = v21;
-  v21[2] = 0x2020000000;
-  v22 = 0;
+  v19[0] = 0;
+  v19[1] = v19;
+  v19[2] = 0x2020000000;
+  v20 = 0;
   begin = self->_rangePrecedentsTiles.__begin_;
   for (i = self->_rangePrecedentsTiles.var0; begin != i; ++begin)
   {
-    v11 = *begin;
-    v12 = objc_msgSend_toInternalOwnerID(*begin, v4, v5, v6, v7);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = sub_2214977E4;
-    v17[3] = &unk_278465D50;
-    v13 = rangesCopy;
-    v20 = v12;
-    v18 = v13;
-    v19 = v21;
-    objc_msgSend_enumerateAllRanges_(v11, v14, v17, v15, v16);
+    v10 = *begin;
+    v11 = objc_msgSend_toInternalOwnerID(*begin, v4, v5, v6);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = sub_2214977E4;
+    v15[3] = &unk_278465D50;
+    v12 = rangesCopy;
+    v18 = v11;
+    v16 = v12;
+    v17 = v19;
+    objc_msgSend_enumerateAllRanges_(v10, v13, v15, v14);
   }
 
-  _Block_object_dispose(v21, 8);
+  _Block_object_dispose(v19, 8);
 }
 
 - (void)encodeToArchive:(void *)archive
 {
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = sub_2214978B0;
-  v5[3] = &unk_278465D70;
-  v5[4] = archive;
-  objc_msgSend_enumerateAllRanges_(self, a2, v5, v3, v4);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = sub_2214978B0;
+  v4[3] = &unk_278465D70;
+  v4[4] = archive;
+  objc_msgSend_enumerateAllRanges_(self, a2, v4, v3);
 }
 
 - (void)readFromArchive:(const void *)archive
@@ -802,20 +802,20 @@ LABEL_21:
   v3 = *(archive + 6);
   if (v3 >= 1)
   {
-    v68 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
+    v57 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
     v6 = 8;
     v7 = 0x277D81000uLL;
-    v8 = &TSCE::_InternalRangeReferenceArchive_default_instance_;
+    v8 = TSCE::_InternalRangeReferenceArchive_default_instance_;
     while (1)
     {
-      TSCE::RangeBackDependencyArchive::RangeBackDependencyArchive(v76, *(*(archive + 4) + v6));
-      if (!(v81 >> 15) && (v80 & 0x80000000) == 0)
+      TSCE::RangeBackDependencyArchive::RangeBackDependencyArchive(v65, *(*(archive + 4) + v6));
+      if (!(v70 >> 15) && (v69 & 0x80000000) == 0)
       {
         break;
       }
 
 LABEL_31:
-      TSCE::RangeBackDependencyArchive::~RangeBackDependencyArchive(v76);
+      TSCE::RangeBackDependencyArchive::~RangeBackDependencyArchive(v65);
       v6 += 8;
       if (!--v3)
       {
@@ -823,101 +823,101 @@ LABEL_31:
       }
     }
 
-    v75 = v80 | (v81 << 32);
-    v73 = v68;
-    v74 = 0xFFFF;
-    if (v77)
+    v64 = v69 | (v70 << 32);
+    v62 = v57;
+    v63 = 0xFFFF;
+    if (v66)
     {
-      TSCERangeRefFromArchive(v78, &v71._topLeft);
+      TSCERangeRefFromArchive(v67, &v60._topLeft);
       dependencyTracker = self->_dependencyTracker;
       if (dependencyTracker)
       {
-        objc_msgSend_internalRangeReferenceForRangeRef_(dependencyTracker, v33, &v71, v28, v29);
-        v73 = v69;
-        v74 = v70;
+        objc_msgSend_internalRangeReferenceForRangeRef_(dependencyTracker, v29, &v60, v25);
+        v62 = v58;
+        v63 = v59;
       }
     }
 
     else
     {
-      if ((v77 & 2) == 0)
+      if ((v66 & 2) == 0)
       {
-        v12 = *(v7 + 336);
-        v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSCERangeDependencies readFromArchive:]", v10, v11);
-        v14 = v8;
-        v15 = v7;
-        v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERangeDependencies.mm", v17, v18);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v20, v13, v19, 565, 0, "corrupted range dependencies archive");
+        v11 = *(v7 + 336);
+        v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSCERangeDependencies readFromArchive:]", v10);
+        v13 = v8;
+        v14 = v7;
+        v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERangeDependencies.mm", v16);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v18, v12, v17, 565, 0, "corrupted range dependencies archive");
 
-        v7 = v15;
-        objc_msgSend_logBacktraceThrottled(*(v15 + 336), v21, v22, v23, v24);
-        v8 = v14;
+        v7 = v14;
+        objc_msgSend_logBacktraceThrottled(*(v14 + 336), v19, v20, v21);
+        v8 = v13;
       }
 
-      if (v79)
+      if (v68)
       {
-        v25 = v79;
+        v22 = v68;
       }
 
       else
       {
-        v25 = v8;
+        v22 = v8;
       }
 
-      sub_2212F4E1C(v25, &v71);
-      v73 = v71;
-      v74 = v72;
-      v30 = self->_dependencyTracker;
-      if (v30)
+      sub_2212F4E1C(v22, &v60);
+      v62 = v60;
+      v63 = v61;
+      v26 = self->_dependencyTracker;
+      if (v26)
       {
-        v31 = objc_msgSend_idMap(v30, v26, v27, v28, v29);
-        v32 = v74;
-        if (*(v31 + 144))
+        v27 = objc_msgSend_idMap(v26, v23, v24, v25);
+        v28 = v63;
+        if (*(v27 + 144))
         {
-          v32 = sub_2212602C8(v31, v74);
+          v28 = sub_2212602C8(v27, v63);
         }
 
-        LOWORD(v74) = v32;
+        LOWORD(v63) = v28;
         goto LABEL_18;
       }
     }
 
-    v32 = v74;
+    v28 = v63;
 LABEL_18:
-    if (v32 != 0xFFFF && v73._topLeft.row != 0x7FFFFFFF && (*&v73._topLeft & 0xFFFF00000000) != 0x7FFF00000000 && v73._bottomRight.row != 0x7FFFFFFF && (*&v73._bottomRight & 0xFFFF00000000) != 0x7FFF00000000 && v73._topLeft.column <= v73._bottomRight.column && v73._topLeft.row <= v73._bottomRight.row)
+    if (v28 != 0xFFFF && v62._topLeft.row != 0x7FFFFFFF && (*&v62._topLeft & 0xFFFF00000000) != 0x7FFF00000000 && v62._bottomRight.row != 0x7FFFFFFF && (*&v62._bottomRight & 0xFFFF00000000) != 0x7FFF00000000 && v62._topLeft.column <= v62._bottomRight.column && v62._topLeft.row <= v62._bottomRight.row)
     {
       if (!self->_dependencyTracker)
       {
-        v35 = *(v7 + 336);
-        v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "[TSCERangeDependencies readFromArchive:]", v28, v29);
-        v37 = v8;
-        v38 = v7;
-        v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERangeDependencies.mm", v40, v41);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v35, v43, v36, v42, 574, 0, "invalid nil value for '%{public}s'", "_dependencyTracker");
+        v31 = *(v7 + 336);
+        v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "[TSCERangeDependencies readFromArchive:]", v25);
+        v33 = v8;
+        v34 = v7;
+        v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERangeDependencies.mm", v36);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v38, v32, v37, 574, 0, "invalid nil value for '%{public}s'", "_dependencyTracker");
 
-        v7 = v38;
-        objc_msgSend_logBacktraceThrottled(*(v38 + 336), v44, v45, v46, v47);
-        v8 = v37;
-        v32 = v74;
+        v7 = v34;
+        objc_msgSend_logBacktraceThrottled(*(v34 + 336), v39, v40, v41);
+        v8 = v33;
+        v28 = v63;
       }
 
-      v48 = objc_msgSend_findTileForToOwnerId_createIfMissing_(self, v32, v32, 1, v29);
-      objc_msgSend_willModifyForUpgrade(v48, v49, v50, v51, v52);
-      TSCERangeCoordinate::asCellRect(&v73);
-      v71._topLeft = v53;
-      v71._bottomRight = v54;
-      objc_msgSend_addRect_fromCoord_(v48, v54, &v71, &v75, v55);
-      v60 = objc_msgSend_dgl_rangeDependenciesForOwnerID_(self->_dependencyTracker, v56, v74, v57, v58);
-      if (v60 || (objc_msgSend_dgl_registerOwnerID_owner_ownerIndex_(self->_dependencyTracker, v59, v74, 0, 0), objc_msgSend_dgl_rangeDependenciesForOwnerID_(self->_dependencyTracker, v61, v74, v62, v63), (v60 = objc_claimAutoreleasedReturnValue()) != 0))
+      v42 = objc_msgSend_findTileForToOwnerId_createIfMissing_(self, v28, v28, 1);
+      objc_msgSend_willModifyForUpgrade(v42, v43, v44, v45);
+      TSCERangeCoordinate::asCellRect(&v62);
+      v60._topLeft = v46;
+      v60._bottomRight = v47;
+      objc_msgSend_addRect_fromCoord_(v42, v47, &v60, &v64);
+      v51 = objc_msgSend_dgl_rangeDependenciesForOwnerID_(self->_dependencyTracker, v48, v63, v49);
+      if (v51 || (objc_msgSend_dgl_registerOwnerID_owner_ownerIndex_(self->_dependencyTracker, v50, v63, 0, 0), objc_msgSend_dgl_rangeDependenciesForOwnerID_(self->_dependencyTracker, v52, v63, v53), (v51 = objc_claimAutoreleasedReturnValue()) != 0))
       {
-        v71 = 0;
-        TSCERangeCoordinate::asCellRect(&v73);
-        v71._topLeft = v64;
-        v71._bottomRight = v65;
+        v60 = 0;
+        TSCERangeCoordinate::asCellRect(&v62);
+        v60._topLeft = v54;
+        v60._bottomRight = v55;
         internalOwnerID = self->_internalOwnerID;
-        v69._topLeft = (v75 & 0xFFFFFFFFFFFFLL);
-        v69._bottomRight.row = internalOwnerID;
-        objc_msgSend_RTreeInsert_fromCellRef_(v60, v65, &v71, &v69, v67);
+        v58._topLeft = (v64 & 0xFFFFFFFFFFFFLL);
+        v58._bottomRight.row = internalOwnerID;
+        objc_msgSend_RTreeInsert_fromCellRef_(v51, v55, &v60, &v58);
       }
     }
 
@@ -932,58 +932,58 @@ LABEL_18:
   {
     v5 = 8;
     v6 = 0x277D81000uLL;
-    v7 = &TSCE::_InternalRangeReferenceArchive_default_instance_;
+    v7 = TSCE::_InternalRangeReferenceArchive_default_instance_;
     do
     {
-      TSCE::RangeBackDependencyArchive::RangeBackDependencyArchive(v39, *(*(archive + 4) + v5));
-      v11 = v42;
-      if (!(v42 >> 15))
+      TSCE::RangeBackDependencyArchive::RangeBackDependencyArchive(v35, *(*(archive + 4) + v5));
+      v10 = v38;
+      if (!(v38 >> 15))
       {
-        v12 = v41;
-        if ((v41 & 0x80000000) == 0)
+        v11 = v37;
+        if ((v37 & 0x80000000) == 0)
         {
-          if ((v39[16] & 2) == 0)
+          if ((v35[16] & 2) == 0)
           {
-            v13 = *(v6 + 336);
-            v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSCERangeDependencies readFromExpandedArchive:]", v9, v10);
-            v15 = v7;
-            v16 = v6;
-            v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERangeDependencies.mm", v18, v19);
-            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v21, v14, v20, 609, 0, "corrupted range dependencies archive");
+            v12 = *(v6 + 336);
+            v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSCERangeDependencies readFromExpandedArchive:]", v9);
+            v14 = v7;
+            v15 = v6;
+            v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERangeDependencies.mm", v17);
+            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v19, v13, v18, 609, 0, "corrupted range dependencies archive");
 
-            v6 = v16;
-            objc_msgSend_logBacktraceThrottled(*(v16 + 336), v22, v23, v24, v25);
-            v7 = v15;
+            v6 = v15;
+            objc_msgSend_logBacktraceThrottled(*(v15 + 336), v20, v21, v22);
+            v7 = v14;
           }
 
-          v37._topLeft = 0;
-          v37._bottomRight = 0;
-          v38 = 0;
-          if (v40)
+          v33._topLeft = 0;
+          v33._bottomRight = 0;
+          v34 = 0;
+          if (v36)
           {
-            v26 = v40;
+            v23 = v36;
           }
 
           else
           {
-            v26 = v7;
+            v23 = v7;
           }
 
-          sub_2212F4E1C(v26, &v37);
-          v27 = v38;
-          if (v38 != 0xFFFF && v37._topLeft.row != 0x7FFFFFFF && (*&v37._topLeft & 0xFFFF00000000) != 0x7FFF00000000 && v37._bottomRight.row != 0x7FFFFFFF && (*&v37._bottomRight & 0xFFFF00000000) != 0x7FFF00000000 && v37._topLeft.column <= v37._bottomRight.column && v37._topLeft.row <= v37._bottomRight.row)
+          sub_2212F4E1C(v23, &v33);
+          v24 = v34;
+          if (v34 != 0xFFFF && v33._topLeft.row != 0x7FFFFFFF && (*&v33._topLeft & 0xFFFF00000000) != 0x7FFF00000000 && v33._bottomRight.row != 0x7FFFFFFF && (*&v33._bottomRight & 0xFFFF00000000) != 0x7FFF00000000 && v33._topLeft.column <= v33._bottomRight.column && v33._topLeft.row <= v33._bottomRight.row)
           {
-            TSCERangeCoordinate::asCellRect(&v37);
-            v33 = v12 | (v11 << 32);
-            v34 = v27;
-            v35 = v28;
-            v36 = v29;
-            objc_msgSend_addUnarchivedPrecedent_(self, v29, &v33, v30, v31);
+            TSCERangeCoordinate::asCellRect(&v33);
+            v29 = v11 | (v10 << 32);
+            v30 = v24;
+            v31 = v25;
+            v32 = v26;
+            objc_msgSend_addUnarchivedPrecedent_(self, v26, &v29, v27);
           }
         }
       }
 
-      TSCE::RangeBackDependencyArchive::~RangeBackDependencyArchive(v39);
+      TSCE::RangeBackDependencyArchive::~RangeBackDependencyArchive(v35);
       v5 += 8;
       --v3;
     }
@@ -996,21 +996,21 @@ LABEL_18:
 {
   archiverCopy = archiver;
   v6 = objc_alloc(MEMORY[0x277CBEB18]);
-  v12 = objc_msgSend_initWithCapacity_(v6, v7, self->_rangePrecedentsTiles.var0 - self->_rangePrecedentsTiles.__begin_, v8, v9);
+  v10 = objc_msgSend_initWithCapacity_(v6, v7, self->_rangePrecedentsTiles.var0 - self->_rangePrecedentsTiles.__begin_, v8);
   begin = self->_rangePrecedentsTiles.__begin_;
   var0 = self->_rangePrecedentsTiles.var0;
   while (begin != var0)
   {
-    v15 = *begin;
-    if ((objc_msgSend_isEmpty(v15, v16, v17, v18, v19) & 1) == 0)
+    v13 = *begin;
+    if ((objc_msgSend_isEmpty(v13, v14, v15, v16) & 1) == 0)
     {
-      objc_msgSend_addObject_(v12, v20, v15, v21, v22);
+      objc_msgSend_addObject_(v10, v17, v13, v18);
     }
 
     ++begin;
   }
 
-  objc_msgSend_setStrongReferenceArray_message_(archiverCopy, v10, v12, archive + 16, v11);
+  objc_msgSend_setStrongReferenceArray_message_(archiverCopy, v9, v10, archive + 16);
 }
 
 - (void)readFromTiledArchive:(const void *)archive unarchiver:(id)unarchiver ownerDepends:(id)depends
@@ -1037,9 +1037,9 @@ LABEL_18:
     p_var2 = &begin->var2;
     do
     {
-      v7 = objc_msgSend_findTileForToOwnerId_createIfMissing_(self, a2, *(p_var2 - 4), 1, v2);
-      objc_msgSend_willModifyForUpgrade(v7, v8, v9, v10, v11);
-      objc_msgSend_addRect_fromCoord_(v7, v12, p_var2, p_var2 - 12, v13);
+      v6 = objc_msgSend_findTileForToOwnerId_createIfMissing_(self, a2, *(p_var2 - 4), 1);
+      objc_msgSend_willModifyForUpgrade(v6, v7, v8, v9);
+      objc_msgSend_addRect_fromCoord_(v6, v10, p_var2, p_var2 - 12);
       p_var2 += 28;
     }
 
@@ -1048,43 +1048,43 @@ LABEL_18:
   }
 
   self->_unarchivedPrecedentList.__end_ = begin;
-  v14 = self->_rangePrecedentsTiles.__begin_;
+  v11 = self->_rangePrecedentsTiles.__begin_;
   var0 = self->_rangePrecedentsTiles.var0;
-  if (v14 != var0)
+  if (v11 != var0)
   {
-    v16 = 0;
+    v13 = 0;
     do
     {
-      v17 = *v14;
-      v26 = objc_msgSend_toInternalOwnerID(v17, v18, v19, v20, v21);
-      if (v16 && objc_msgSend_internalOwnerID(v16, v22, v23, v24, v25) == v26 || (objc_msgSend_dgl_rangeDependenciesForOwnerID_(self->_dependencyTracker, v22, v26, v24, v25), v27 = objc_claimAutoreleasedReturnValue(), v16, (v16 = v27) != 0) || (objc_msgSend_dgl_registerOwnerID_owner_ownerIndex_(self->_dependencyTracker, v28, v26, 0, 0), objc_msgSend_dgl_rangeDependenciesForOwnerID_(self->_dependencyTracker, v29, v26, v30, v31), (v16 = objc_claimAutoreleasedReturnValue()) != 0))
+      v14 = *v11;
+      v21 = objc_msgSend_toInternalOwnerID(v14, v15, v16, v17);
+      if (v13 && objc_msgSend_internalOwnerID(v13, v18, v19, v20) == v21 || (objc_msgSend_dgl_rangeDependenciesForOwnerID_(self->_dependencyTracker, v18, v21, v20), v22 = objc_claimAutoreleasedReturnValue(), v13, (v13 = v22) != 0) || (objc_msgSend_dgl_registerOwnerID_owner_ownerIndex_(self->_dependencyTracker, v23, v21, 0, 0), objc_msgSend_dgl_rangeDependenciesForOwnerID_(self->_dependencyTracker, v24, v21, v25), (v13 = objc_claimAutoreleasedReturnValue()) != 0))
       {
         internalOwnerID = self->_internalOwnerID;
-        v50[0] = MEMORY[0x277D85DD0];
-        v50[1] = 3221225472;
-        v50[2] = sub_22149859C;
-        v50[3] = &unk_278465D98;
-        v52 = internalOwnerID;
-        v16 = v16;
-        v51 = v16;
-        objc_msgSend_enumerateAllRanges_(v17, v36, v50, v37, v38);
+        v40[0] = MEMORY[0x277D85DD0];
+        v40[1] = 3221225472;
+        v40[2] = sub_22149859C;
+        v40[3] = &unk_278465D98;
+        v42 = internalOwnerID;
+        v13 = v13;
+        v41 = v13;
+        objc_msgSend_enumerateAllRanges_(v14, v29, v40, v30);
       }
 
       else
       {
-        v39 = MEMORY[0x277D81150];
-        v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "[TSCERangeDependencies unpackAfterUnarchive]", v33, v34);
-        v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERangeDependencies.mm", v42, v43);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v39, v45, v40, v44, 669, 0, "invalid nil value for '%{public}s'", "precedentRangeDependencies");
+        v31 = MEMORY[0x277D81150];
+        v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "[TSCERangeDependencies unpackAfterUnarchive]", v27);
+        v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERangeDependencies.mm", v34);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v36, v32, v35, 669, 0, "invalid nil value for '%{public}s'", "precedentRangeDependencies");
 
-        v16 = 0;
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v46, v47, v48, v49);
+        v13 = 0;
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v37, v38, v39);
       }
 
-      ++v14;
+      ++v11;
     }
 
-    while (v14 != var0);
+    while (v11 != var0);
   }
 }
 

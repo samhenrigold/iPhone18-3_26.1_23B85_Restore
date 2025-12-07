@@ -5,6 +5,7 @@
 - (id)createAudioFromUIAudioData:(id)data;
 - (id)createLocaleFromLanguageCode:(id)code;
 - (id)createPhaticPrompt;
+- (id)getLocaleWithAllowsFallback:(BOOL)fallback preferences:(id)preferences;
 - (id)getOutputVoiceInfoWithAllowsFallback:(BOOL)fallback preferences:(id)preferences;
 - (int64_t)getGenderFromVoiceGender:(int64_t)gender;
 @end
@@ -13,7 +14,7 @@
 
 - (id)createPhaticPrompt
 {
-  v2 = [[SVXSpeechSynthesisRequest alloc] initWithPriority:2 options:0 speakableText:@"\x1B\\mrk=play=phat\\"" speakableContext:0 localizationKey:0 presynthesizedAudio:0 streamID:0];
+  v2 = [[SVXSpeechSynthesisRequest alloc] initWithPriority:2 options:0 speakableText:@"\x1B\\mrk=play=phat\" speakableContext:0 localizationKey:0 presynthesizedAudio:0 streamID:0];
 
   return v2;
 }
@@ -64,13 +65,13 @@
 - (id)getOutputVoiceInfoWithAllowsFallback:(BOOL)fallback preferences:(id)preferences
 {
   fallbackCopy = fallback;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   preferencesCopy = preferences;
   if (!preferencesCopy)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[SVXSpeechSynthesisUtils getOutputVoiceInfoWithAllowsFallback:preferences:]"];
-    [currentHandler handleFailureInFunction:v23 file:@"SVXSpeechSynthesisUtils.m" lineNumber:109 description:{@"Invalid parameter not satisfying: %@", @"preferences != nil"}];
+    v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[SVXSpeechSynthesisUtils getOutputVoiceInfoWithAllowsFallback:preferences:]"];
+    [currentHandler handleFailureInFunction:v22 file:@"SVXSpeechSynthesisUtils.m" lineNumber:109 description:{@"Invalid parameter not satisfying: %@", @"preferences != nil"}];
   }
 
   outputVoice = [preferencesCopy outputVoice];
@@ -87,7 +88,7 @@
       if (v12)
       {
         *buf = 136315138;
-        v25 = "[SVXSpeechSynthesisUtils getOutputVoiceInfoWithAllowsFallback:preferences:]";
+        v24 = "[SVXSpeechSynthesisUtils getOutputVoiceInfoWithAllowsFallback:preferences:]";
         v13 = "%s Output voice info does not have language code.";
         goto LABEL_17;
       }
@@ -96,7 +97,7 @@
     else if (v12)
     {
       *buf = 136315138;
-      v25 = "[SVXSpeechSynthesisUtils getOutputVoiceInfoWithAllowsFallback:preferences:]";
+      v24 = "[SVXSpeechSynthesisUtils getOutputVoiceInfoWithAllowsFallback:preferences:]";
       v13 = "%s Output voice info is nil.";
 LABEL_17:
       _os_log_error_impl(&dword_2695B9000, v11, OS_LOG_TYPE_ERROR, v13, buf, 0xCu);
@@ -125,9 +126,9 @@ LABEL_9:
     if (os_log_type_enabled(*v10, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v25 = "[SVXSpeechSynthesisUtils getOutputVoiceInfoWithAllowsFallback:preferences:]";
-      v26 = 2112;
-      v27 = v14;
+      v24 = "[SVXSpeechSynthesisUtils getOutputVoiceInfoWithAllowsFallback:preferences:]";
+      v25 = 2112;
+      v26 = v14;
       _os_log_impl(&dword_2695B9000, v15, OS_LOG_TYPE_INFO, "%s Siri language code is %@.", buf, 0x16u);
     }
 
@@ -136,9 +137,9 @@ LABEL_9:
     if (os_log_type_enabled(*v10, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v25 = "[SVXSpeechSynthesisUtils getOutputVoiceInfoWithAllowsFallback:preferences:]";
-      v26 = 2112;
-      v27 = v16;
+      v24 = "[SVXSpeechSynthesisUtils getOutputVoiceInfoWithAllowsFallback:preferences:]";
+      v25 = 2112;
+      v26 = v16;
       _os_log_impl(&dword_2695B9000, v17, OS_LOG_TYPE_INFO, "%s Output voice language code is %@.", buf, 0x16u);
     }
 
@@ -148,9 +149,9 @@ LABEL_9:
     if (os_log_type_enabled(*v10, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v25 = "[SVXSpeechSynthesisUtils getOutputVoiceInfoWithAllowsFallback:preferences:]";
-      v26 = 2112;
-      v27 = v18;
+      v24 = "[SVXSpeechSynthesisUtils getOutputVoiceInfoWithAllowsFallback:preferences:]";
+      v25 = 2112;
+      v26 = v18;
       _os_log_impl(&dword_2695B9000, v19, OS_LOG_TYPE_INFO, "%s Resolved output voice info is %@.", buf, 0x16u);
     }
 
@@ -159,14 +160,77 @@ LABEL_9:
 
 LABEL_20:
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return outputVoice;
+}
+
+- (id)getLocaleWithAllowsFallback:(BOOL)fallback preferences:(id)preferences
+{
+  fallbackCopy = fallback;
+  v22 = *MEMORY[0x277D85DE8];
+  preferencesCopy = preferences;
+  if (!preferencesCopy)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[SVXSpeechSynthesisUtils getLocaleWithAllowsFallback:preferences:]"];
+    [currentHandler handleFailureInFunction:v17 file:@"SVXSpeechSynthesisUtils.m" lineNumber:95 description:{@"Invalid parameter not satisfying: %@", @"preferences != nil"}];
+  }
+
+  v7 = [(SVXSessionUtils *)self->_sessionUtils getLanguageCodeWithAllowsFallback:fallbackCopy preferences:preferencesCopy];
+  currentLocale = [(SVXSpeechSynthesisUtils *)self createLocaleFromLanguageCode:v7];
+  if (!currentLocale)
+  {
+    v9 = MEMORY[0x277CEF098];
+    v10 = *MEMORY[0x277CEF098];
+    if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
+    {
+      v12 = v10;
+      v13 = [(__CFString *)v7 length];
+      v14 = @"nil";
+      if (v13)
+      {
+        v14 = v7;
+      }
+
+      *buf = 136315394;
+      v19 = "[SVXSpeechSynthesisUtils getLocaleWithAllowsFallback:preferences:]";
+      v20 = 2112;
+      v21 = v14;
+      _os_log_error_impl(&dword_2695B9000, v12, OS_LOG_TYPE_ERROR, "%s Locale is nil. (Siri language code is %@)", buf, 0x16u);
+
+      if (fallbackCopy)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    else if (fallbackCopy)
+    {
+LABEL_6:
+      currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+      v11 = *v9;
+      if (os_log_type_enabled(*v9, OS_LOG_TYPE_INFO))
+      {
+        *buf = 136315394;
+        v19 = "[SVXSpeechSynthesisUtils getLocaleWithAllowsFallback:preferences:]";
+        v20 = 2112;
+        v21 = currentLocale;
+        _os_log_impl(&dword_2695B9000, v11, OS_LOG_TYPE_INFO, "%s Resolved locale is %@.", buf, 0x16u);
+      }
+
+      goto LABEL_12;
+    }
+
+    currentLocale = 0;
+  }
+
+LABEL_12:
+
+  return currentLocale;
 }
 
 - (id)createLocaleFromLanguageCode:(id)code
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   if ([codeCopy length])
   {
@@ -182,11 +246,11 @@ LABEL_20:
       v10 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
       {
-        v13 = 136315394;
-        v14 = "[SVXSpeechSynthesisUtils createLocaleFromLanguageCode:]";
-        v15 = 2112;
-        v16 = codeCopy;
-        _os_log_error_impl(&dword_2695B9000, v10, OS_LOG_TYPE_ERROR, "%s Canonical locale identifier is nil, fallback to use language code %@ directly.", &v13, 0x16u);
+        v12 = 136315394;
+        v13 = "[SVXSpeechSynthesisUtils createLocaleFromLanguageCode:]";
+        v14 = 2112;
+        v15 = codeCopy;
+        _os_log_error_impl(&dword_2695B9000, v10, OS_LOG_TYPE_ERROR, "%s Canonical locale identifier is nil, fallback to use language code %@ directly.", &v12, 0x16u);
       }
 
       localeFactory = self->_localeFactory;
@@ -201,15 +265,13 @@ LABEL_20:
     v8 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315138;
-      v14 = "[SVXSpeechSynthesisUtils createLocaleFromLanguageCode:]";
-      _os_log_error_impl(&dword_2695B9000, v8, OS_LOG_TYPE_ERROR, "%s No language code.", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "[SVXSpeechSynthesisUtils createLocaleFromLanguageCode:]";
+      _os_log_error_impl(&dword_2695B9000, v8, OS_LOG_TYPE_ERROR, "%s No language code.", &v12, 0xCu);
     }
 
     v9 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

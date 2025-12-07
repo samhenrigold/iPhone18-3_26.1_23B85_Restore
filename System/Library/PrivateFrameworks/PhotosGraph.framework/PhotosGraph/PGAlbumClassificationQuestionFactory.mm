@@ -6,18 +6,18 @@
 
 - (id)generateQuestionsWithLimit:(unint64_t)limit progressBlock:(id)block
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v30 = _Block_copy(block);
-  if (v30)
+  v40 = *MEMORY[0x277D85DE8];
+  v29 = _Block_copy(block);
+  if (v29)
   {
     Current = CFAbsoluteTimeGetCurrent();
     v7 = 0.0;
     if (Current >= 0.01)
     {
       v8 = Current;
-      v35 = 0;
-      v30[2](v30, &v35, 0.0);
-      if (v35 == 1)
+      v34 = 0;
+      v29[2](v29, &v34, 0.0);
+      if (v34 == 1)
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
@@ -27,9 +27,9 @@ LABEL_36:
         }
 
         *buf = 67109378;
-        v38 = 33;
-        v39 = 2080;
-        v40 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/AlbumClassification/PGAlbumClassificationQuestionFactory.m";
+        v37 = 33;
+        v38 = 2080;
+        v39 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/AlbumClassification/PGAlbumClassificationQuestionFactory.m";
         v9 = MEMORY[0x277D86220];
 LABEL_35:
         _os_log_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -46,17 +46,17 @@ LABEL_35:
         goto LABEL_36;
       }
 
-      v35 = 0;
-      v30[2](v30, &v35, 1.0);
-      if (!v35 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+      v34 = 0;
+      v29[2](v29, &v34, 1.0);
+      if (!v34 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         goto LABEL_36;
       }
 
       *buf = 67109378;
-      v38 = 36;
-      v39 = 2080;
-      v40 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/AlbumClassification/PGAlbumClassificationQuestionFactory.m";
+      v37 = 36;
+      v38 = 2080;
+      v39 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/AlbumClassification/PGAlbumClassificationQuestionFactory.m";
       v9 = MEMORY[0x277D86220];
       goto LABEL_35;
     }
@@ -80,25 +80,25 @@ LABEL_35:
   [librarySpecificFetchOptions setPredicate:v14];
 
   [MEMORY[0x277CD97B8] fetchAssetCollectionsWithType:1 subtype:2 options:librarySpecificFetchOptions];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  obj = v34 = 0u;
-  v15 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+  obj = v33 = 0u;
+  v15 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v32;
+    v17 = *v31;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v32 != v17)
+        if (*v31 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v31 + 1) + 8 * i);
+        v19 = *(*(&v30 + 1) + 8 * i);
         v20 = [PGAlbumClassificationQuestion alloc];
         uuid = [v19 uuid];
         v22 = [(PGAlbumClassificationQuestion *)v20 initWithAlbumUUID:uuid localFactoryScore:1.0];
@@ -107,22 +107,22 @@ LABEL_35:
         {
           [v10 addObject:v22];
           v23 = [v10 count];
-          if (v30)
+          if (v29)
           {
             v24 = v23;
             v25 = CFAbsoluteTimeGetCurrent();
             if (v25 - v7 >= 0.01)
             {
-              v35 = 0;
-              v30[2](v30, &v35, (v24 / limit));
-              if (v35)
+              v34 = 0;
+              v29[2](v29, &v34, (v24 / limit));
+              if (v34)
               {
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                 {
                   *buf = 67109378;
-                  v38 = 50;
-                  v39 = 2080;
-                  v40 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/AlbumClassification/PGAlbumClassificationQuestionFactory.m";
+                  v37 = 50;
+                  v38 = 2080;
+                  v39 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/AlbumClassification/PGAlbumClassificationQuestionFactory.m";
                   _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                 }
 
@@ -141,7 +141,7 @@ LABEL_35:
         }
       }
 
-      v16 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v16 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
       if (v16)
       {
         continue;
@@ -153,14 +153,14 @@ LABEL_35:
 
 LABEL_25:
 
-  if (v30 && CFAbsoluteTimeGetCurrent() - v7 >= 0.01 && (v35 = 0, v30[2](v30, &v35, 1.0), v35))
+  if (v29 && CFAbsoluteTimeGetCurrent() - v7 >= 0.01 && (v34 = 0, v29[2](v29, &v34, 1.0), v34))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v38 = 57;
-      v39 = 2080;
-      v40 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/AlbumClassification/PGAlbumClassificationQuestionFactory.m";
+      v37 = 57;
+      v38 = 2080;
+      v39 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/AlbumClassification/PGAlbumClassificationQuestionFactory.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -174,7 +174,6 @@ LABEL_40:
   }
 
 LABEL_42:
-  v27 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }

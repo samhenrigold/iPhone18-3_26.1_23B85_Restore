@@ -7,6 +7,11 @@
 - (NSURL)subscriptionURL;
 - (double)refreshInterval;
 - (id)properties;
+- (void)setHasAlarmFilter:(BOOL)filter;
+- (void)setHasAttachmentFilter:(BOOL)filter;
+- (void)setHasTaskFilter:(BOOL)filter;
+- (void)setIsManagedByServer:(BOOL)server;
+- (void)setIsTaskContainer:(BOOL)container;
 - (void)setRefreshInterval:(double)interval;
 - (void)setSubscriptionURL:(id)l;
 - (void)setTitle:(id)title;
@@ -73,6 +78,13 @@
   v7 = self->_properties;
 
   return v7;
+}
+
+- (void)setIsTaskContainer:(BOOL)container
+{
+  isEventContainer = [(MobileCalDAVCalendar *)self isEventContainer];
+
+  [(MobileCalDAVCalendar *)self _setSupportsEvents:isEventContainer supportsTodos:0];
 }
 
 - (void)setTitle:(id)title
@@ -149,6 +161,25 @@ LABEL_4:
   return bOOLValue;
 }
 
+- (void)setHasAlarmFilter:(BOOL)filter
+{
+  filterCopy = filter;
+  if ([(MobileCalDAVSubscribedCalendar *)self hasAlarmFilter]!= filter)
+  {
+    properties = self->_properties;
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:filterCopy];
+    subCalFilterAlarmsKey = [MEMORY[0x277D03970] SubCalFilterAlarmsKey];
+    [(NSMutableDictionary *)properties setValue:v6 forKey:subCalFilterAlarmsKey];
+
+    if ([(MobileCalDAVCalendar *)self getCalCalendar])
+    {
+      CalCalendarSetStripAlarms();
+    }
+
+    [(MobileCalDAVCalendar *)self setIsDirty:1];
+  }
+}
+
 - (BOOL)hasAttachmentFilter
 {
   v2 = [(NSMutableDictionary *)self->_properties objectForKeyedSubscript:*MEMORY[0x277CF7AC8]];
@@ -157,12 +188,43 @@ LABEL_4:
   return bOOLValue;
 }
 
+- (void)setHasAttachmentFilter:(BOOL)filter
+{
+  filterCopy = filter;
+  if ([(MobileCalDAVSubscribedCalendar *)self hasAttachmentFilter]!= filter)
+  {
+    properties = self->_properties;
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:filterCopy];
+    [(NSMutableDictionary *)properties setValue:v6 forKey:*MEMORY[0x277CF7AC8]];
+
+    if ([(MobileCalDAVCalendar *)self getCalCalendar])
+    {
+      CalCalendarSetStripAttachments();
+    }
+
+    [(MobileCalDAVCalendar *)self setIsDirty:1];
+  }
+}
+
 - (BOOL)hasTaskFilter
 {
   v2 = [(NSMutableDictionary *)self->_properties objectForKeyedSubscript:*MEMORY[0x277CF7AD0]];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setHasTaskFilter:(BOOL)filter
+{
+  filterCopy = filter;
+  if ([(MobileCalDAVSubscribedCalendar *)self hasTaskFilter]!= filter)
+  {
+    properties = self->_properties;
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:filterCopy];
+    [(NSMutableDictionary *)properties setValue:v6 forKey:*MEMORY[0x277CF7AD0]];
+
+    [(MobileCalDAVCalendar *)self setIsDirty:1];
+  }
 }
 
 - (double)refreshInterval
@@ -198,6 +260,19 @@ LABEL_4:
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setIsManagedByServer:(BOOL)server
+{
+  serverCopy = server;
+  if ([(MobileCalDAVSubscribedCalendar *)self isManagedByServer]!= server)
+  {
+    properties = self->_properties;
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:serverCopy];
+    [(NSMutableDictionary *)properties setValue:v6 forKey:*MEMORY[0x277CF7AE0]];
+
+    [(MobileCalDAVCalendar *)self setIsDirty:1];
+  }
 }
 
 - (void)updatePropertiesFromCalCalendar

@@ -1,7 +1,7 @@
 @interface FCAVAssetPrewarmer
 - (FCAVAssetPrewarmer)init;
 - (id)keyedOperationQueue:(id)queue performAsyncOperationForKey:(id)key completion:(id)completion;
-- (uint64_t)_didChangeInterestedAssets;
+- (void)_didChangeInterestedAssets;
 - (void)_reprocessInterestedAssets;
 - (void)_revisitSuspendedState;
 - (void)addInterestInAsset:(id)asset;
@@ -70,7 +70,7 @@ void __44__FCAVAssetPrewarmer__revisitSuspendedState__block_invoke(uint64_t a1)
 
 - (void)addInterestInAsset:(id)asset
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   [MEMORY[0x1E696AF00] isMainThread];
   if (self)
@@ -108,28 +108,26 @@ void __44__FCAVAssetPrewarmer__revisitSuspendedState__block_invoke(uint64_t a1)
     {
       v12 = v11;
       identifier = [assetCopy identifier];
-      v15 = 138543362;
-      v16 = identifier;
-      _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "added prewarm interest in AV asset %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = identifier;
+      _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "added prewarm interest in AV asset %{public}@", &v14, 0xCu);
     }
 
     [(FCAVAssetPrewarmer *)self _didChangeInterestedAssets];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)_didChangeInterestedAssets
+- (void)_didChangeInterestedAssets
 {
   if (result)
   {
     v1 = result;
     result = [MEMORY[0x1E696AF00] isMainThread];
-    if (!*(v1 + 56))
+    if (!v1[7])
     {
       v2 = [MEMORY[0x1E695DFF0] scheduledTimerWithTimeInterval:v1 target:sel__reprocessInterestedAssets selector:0 userInfo:0 repeats:0.01];
-      v3 = *(v1 + 56);
-      *(v1 + 56) = v2;
+      v3 = v1[7];
+      v1[7] = v2;
 
       return MEMORY[0x1EEE66BB8](v2, v3);
     }
@@ -140,7 +138,7 @@ void __44__FCAVAssetPrewarmer__revisitSuspendedState__block_invoke(uint64_t a1)
 
 - (void)removeInterestInAsset:(id)asset
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   [MEMORY[0x1E696AF00] isMainThread];
   if (self)
@@ -178,20 +176,18 @@ void __44__FCAVAssetPrewarmer__revisitSuspendedState__block_invoke(uint64_t a1)
     {
       v12 = v11;
       identifier = [assetCopy identifier];
-      v15 = 138543362;
-      v16 = identifier;
-      _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "removed prewarm interest in AV asset %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = identifier;
+      _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "removed prewarm interest in AV asset %{public}@", &v14, 0xCu);
     }
 
     [(FCAVAssetPrewarmer *)self _didChangeInterestedAssets];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)keyedOperationQueue:(id)queue performAsyncOperationForKey:(id)key completion:(id)completion
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   completionCopy = completion;
   [MEMORY[0x1E696AF00] isMainThread];
@@ -206,18 +202,18 @@ void __44__FCAVAssetPrewarmer__revisitSuspendedState__block_invoke(uint64_t a1)
     _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "will prewarm AV asset %{public}@", &buf, 0xCu);
   }
 
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v36 = __81__FCAVAssetPrewarmer_keyedOperationQueue_performAsyncOperationForKey_completion___block_invoke;
-  v37 = &unk_1E7C401B0;
-  v38 = keyCopy;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v35 = __81__FCAVAssetPrewarmer_keyedOperationQueue_performAsyncOperationForKey_completion___block_invoke;
+  v36 = &unk_1E7C401B0;
+  v37 = keyCopy;
   selfCopy = self;
   v13 = v9;
-  v40 = v13;
+  v39 = v13;
   v14 = completionCopy;
-  v41 = v14;
+  v40 = v14;
   v15 = keyCopy;
-  v16 = v35;
+  v16 = v34;
   if (self)
   {
     if (v15)
@@ -250,12 +246,12 @@ void __44__FCAVAssetPrewarmer__revisitSuspendedState__block_invoke(uint64_t a1)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v43 = __54__FCAVAssetPrewarmer__prewarmAsset_completionHandler___block_invoke;
-      v44 = &unk_1E7C37778;
+      v42 = __54__FCAVAssetPrewarmer__prewarmAsset_completionHandler___block_invoke;
+      v43 = &unk_1E7C37778;
       v23 = v16;
-      v46 = v23;
-      v45 = v19;
-      (v36)(v23, v45, 0);
+      v45 = v23;
+      v44 = v19;
+      (v35)(v23, v44, 0);
     }
 
     else
@@ -275,25 +271,23 @@ void __44__FCAVAssetPrewarmer__revisitSuspendedState__block_invoke(uint64_t a1)
       v26 = v25;
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v43 = __54__FCAVAssetPrewarmer__prewarmAsset_completionHandler___block_invoke_2;
-      v44 = &unk_1E7C401D8;
-      v46 = v16;
-      v45 = v15;
+      v42 = __54__FCAVAssetPrewarmer__prewarmAsset_completionHandler___block_invoke_2;
+      v43 = &unk_1E7C401D8;
+      v45 = v16;
+      v44 = v15;
       [v24 prefetchMasterPlaylistForAssetURL:v26 completionHandler:&buf];
     }
   }
 
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __81__FCAVAssetPrewarmer_keyedOperationQueue_performAsyncOperationForKey_completion___block_invoke_2_12;
-  v32[3] = &unk_1E7C37BC0;
-  v33 = v13;
-  v34 = v14;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __81__FCAVAssetPrewarmer_keyedOperationQueue_performAsyncOperationForKey_completion___block_invoke_2_12;
+  v31[3] = &unk_1E7C37BC0;
+  v32 = v13;
+  v33 = v14;
   v27 = v14;
   v28 = v13;
-  v29 = [FCCancelHandler cancelHandlerWithBlock:v32];
-
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = [FCCancelHandler cancelHandlerWithBlock:v31];
 
   return v29;
 }
@@ -321,7 +315,7 @@ void __81__FCAVAssetPrewarmer_keyedOperationQueue_performAsyncOperationForKey_co
 
 void __81__FCAVAssetPrewarmer_keyedOperationQueue_performAsyncOperationForKey_completion___block_invoke_2(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = FCAVAssetLog;
   v4 = os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_DEFAULT);
@@ -333,7 +327,7 @@ void __81__FCAVAssetPrewarmer_keyedOperationQueue_performAsyncOperationForKey_co
       v6 = v3;
       v7 = [v5 identifier];
       *buf = 138543362;
-      v38 = v7;
+      v37 = v7;
       _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "successfully prewarmed AV asset %{public}@", buf, 0xCu);
     }
 
@@ -360,44 +354,44 @@ void __81__FCAVAssetPrewarmer_keyedOperationQueue_performAsyncOperationForKey_co
       if (v12 > v13)
       {
         v14 = [MEMORY[0x1E695DF70] array];
-        v35 = 0u;
-        v36 = 0u;
-        v33 = 0u;
         v34 = 0u;
+        v35 = 0u;
+        v32 = 0u;
+        v33 = 0u;
         v15 = *(v10 + 40);
-        v16 = [v15 countByEnumeratingWithState:&v33 objects:buf count:16];
+        v16 = [v15 countByEnumeratingWithState:&v32 objects:buf count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v34;
+          v18 = *v33;
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v34 != v18)
+              if (*v33 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v20 = *(*(&v33 + 1) + 8 * i);
+              v20 = *(*(&v32 + 1) + 8 * i);
               if (![*(v10 + 24) countForObject:v20])
               {
                 [v14 addObject:v20];
               }
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v33 objects:buf count:16];
+            v17 = [v15 countByEnumeratingWithState:&v32 objects:buf count:16];
           }
 
           while (v17);
         }
 
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __36__FCAVAssetPrewarmer__flushIfNeeded__block_invoke;
-        v32[3] = &unk_1E7C40200;
-        v32[4] = v10;
-        [v14 sortUsingComparator:v32];
+        v31[0] = MEMORY[0x1E69E9820];
+        v31[1] = 3221225472;
+        v31[2] = __36__FCAVAssetPrewarmer__flushIfNeeded__block_invoke;
+        v31[3] = &unk_1E7C40200;
+        v31[4] = v10;
+        [v14 sortUsingComparator:v31];
         while ([v14 count])
         {
           v21 = *(v10 + 40);
@@ -427,21 +421,19 @@ void __81__FCAVAssetPrewarmer_keyedOperationQueue_performAsyncOperationForKey_co
     v14 = v3;
     v27 = [v26 identifier];
     *buf = 138543362;
-    v38 = v27;
+    v37 = v27;
     _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_DEFAULT, "failed to prewarm AV asset %{public}@", buf, 0xCu);
 
 LABEL_23:
   }
 
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __81__FCAVAssetPrewarmer_keyedOperationQueue_performAsyncOperationForKey_completion___block_invoke_9;
-  v30[3] = &unk_1E7C379C8;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __81__FCAVAssetPrewarmer_keyedOperationQueue_performAsyncOperationForKey_completion___block_invoke_9;
+  v29[3] = &unk_1E7C379C8;
   v28 = *(a1 + 56);
-  v31 = *(a1 + 64);
-  [v28 executeOnce:v30];
-
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *(a1 + 64);
+  [v28 executeOnce:v29];
 }
 
 void __81__FCAVAssetPrewarmer_keyedOperationQueue_performAsyncOperationForKey_completion___block_invoke_2_12(uint64_t a1)

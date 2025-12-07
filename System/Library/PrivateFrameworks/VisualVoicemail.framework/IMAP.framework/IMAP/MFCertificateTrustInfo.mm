@@ -110,7 +110,7 @@
   {
     if (v6)
     {
-      v9 = vm_imap_log();
+      v9 = vm_imap_log(v6);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [(MFCertificateTrustInfo *)p_sender keychainStatus];
@@ -141,16 +141,14 @@
 
 - (void)keychainStatus
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *self;
   vf_publicDescription = [a2 vf_publicDescription];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2114;
-  v10 = vf_publicDescription;
-  _os_log_error_impl(&dword_2720B1000, a3, OS_LOG_TYPE_ERROR, "#SMIMEErrors Error when retrieving encryption certificate for %@: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2114;
+  v9 = vf_publicDescription;
+  _os_log_error_impl(&dword_2720B1000, a3, OS_LOG_TYPE_ERROR, "#SMIMEErrors Error when retrieving encryption certificate for %@: %{public}@", &v6, 0x16u);
 }
 
 @end

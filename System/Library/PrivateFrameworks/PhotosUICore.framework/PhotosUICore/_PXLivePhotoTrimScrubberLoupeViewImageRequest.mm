@@ -35,7 +35,7 @@
     {
       videoComposition = [(_PXLivePhotoTrimScrubberLoupeViewImageRequest *)self videoComposition];
       videoComposition2 = [v5 videoComposition];
-      if ([videoComposition isEqual:videoComposition2] && (-[_PXLivePhotoTrimScrubberLoupeViewImageRequest sourceTime](self, "sourceTime"), objc_msgSend(v5, "sourceTime"), !CMTimeCompare(&time1, &v18)))
+      if ([videoComposition isEqual:videoComposition2] && (objc_msgSend_sourceTime(self), objc_msgSend_sourceTime(v5), !CMTimeCompare(&time1, &v18)))
       {
         [(_PXLivePhotoTrimScrubberLoupeViewImageRequest *)self imageSize];
         v13 = v12;
@@ -67,7 +67,7 @@
 - (BOOL)isValid
 {
   asset = [(_PXLivePhotoTrimScrubberLoupeViewImageRequest *)self asset];
-  if (asset && ([(_PXLivePhotoTrimScrubberLoupeViewImageRequest *)self sourceTime], (v8 & 1) != 0))
+  if (asset && (objc_msgSend_sourceTime(self), (v8 & 1) != 0))
   {
     [(_PXLivePhotoTrimScrubberLoupeViewImageRequest *)self imageSize];
     v4 = v6 != *(MEMORY[0x1E695F060] + 8) || v5 != *MEMORY[0x1E695F060];

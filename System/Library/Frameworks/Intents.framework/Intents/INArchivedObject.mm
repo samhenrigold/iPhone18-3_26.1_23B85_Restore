@@ -13,8 +13,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v11[2] = *MEMORY[0x1E69E9840];
-  v10[0] = @"typeName";
+  v10[2] = *MEMORY[0x1E69E9840];
+  v9[0] = @"typeName";
   typeName = self->_typeName;
   null = typeName;
   if (!typeName)
@@ -22,8 +22,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v10[1] = @"messageData";
-  v11[0] = null;
+  v9[1] = @"messageData";
+  v10[0] = null;
   messageData = self->_messageData;
   null2 = messageData;
   if (!messageData)
@@ -31,8 +31,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (messageData)
   {
     if (typeName)
@@ -51,7 +51,6 @@
   }
 
 LABEL_7:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

@@ -31,91 +31,88 @@
 
 - (IMSuggestionsService)init
 {
-  v45.receiver = self;
-  v45.super_class = IMSuggestionsService;
-  v4 = [(IMSuggestionsService *)&v45 init];
-  if (v4)
+  v31.receiver = self;
+  v31.super_class = IMSuggestionsService;
+  v2 = [(IMSuggestionsService *)&v31 init];
+  if (v2)
   {
     if (qword_1EB2EA020 != -1)
     {
       sub_1A8241E0C();
     }
 
-    v5 = qword_1EB2EA018;
+    v3 = qword_1EB2EA018;
     if (!qword_1EB2EA018)
     {
-      v46 = xmmword_1E7810690;
-      v47 = *off_1E78106A0;
-      v48 = 32;
-      v6 = MEMORY[0x1E696AEC0];
-      v7 = IMFileLocationTrimFileName();
-      v8 = v48;
-      v10 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v9, &stru_1F1B76F98);
-      v12 = objc_msgSend_stringWithFormat_(v6, v11, @"Unexpected nil '%@' in %s at %s:%d. %@", @"suggestionsServiceClass", "NSObject<SGSuggestionsServiceContactsProtocol> *_IMDSuggestionsNewConnection(void)", v7, v8, v10);
+      v32 = xmmword_1E7810690;
+      v33 = *off_1E78106A0;
+      v34 = 32;
+      v4 = MEMORY[0x1E696AEC0];
+      v5 = IMFileLocationTrimFileName();
+      v6 = v34;
+      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:&stru_1F1B76F98];
+      v8 = [v4 stringWithFormat:@"Unexpected nil '%@' in %s at %s:%d. %@", @"suggestionsServiceClass", "NSObject<SGSuggestionsServiceContactsProtocol> *_IMDSuggestionsNewConnection(void)", v5, v6, v7];
 
-      v13 = IMGetAssertionFailureHandler();
-      if (v13)
+      v9 = IMGetAssertionFailureHandler();
+      if (v9)
       {
-        v13(v12);
+        v9(v8);
       }
 
       else
       {
-        v16 = objc_msgSend_warning(MEMORY[0x1E69A6138], v14, v15);
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        warning = [MEMORY[0x1E69A6138] warning];
+        if (os_log_type_enabled(warning, OS_LOG_TYPE_ERROR))
         {
-          sub_1A84DF284(v12, v16);
+          sub_1A84DF284(v8, warning);
         }
       }
 
-      v5 = qword_1EB2EA018;
+      v3 = qword_1EB2EA018;
     }
 
-    v17 = objc_msgSend_serviceForContacts(v5, v2, v3);
-    objc_msgSend_setQueuesRequestsIfBusy_(v17, v18, 1);
-    connection = v4->_connection;
-    v4->_connection = v17;
+    serviceForContacts = [v3 serviceForContacts];
+    [serviceForContacts setQueuesRequestsIfBusy:1];
+    connection = v2->_connection;
+    v2->_connection = serviceForContacts;
+
+    v13 = objc_opt_new();
+    cache = v2->_cache;
+    v2->_cache = v13;
+
+    v15 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    v18 = dispatch_queue_create([v17 UTF8String], v15);
+    queue = v2->_queue;
+    v2->_queue = v18;
 
     v20 = objc_opt_new();
-    cache = v4->_cache;
-    v4->_cache = v20;
+    pending = v2->_pending;
+    v2->_pending = v20;
 
-    v22 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-    v23 = objc_opt_class();
-    v24 = NSStringFromClass(v23);
-    v25 = v24;
-    v28 = objc_msgSend_UTF8String(v25, v26, v27);
-    v29 = dispatch_queue_create(v28, v22);
-    queue = v4->_queue;
-    v4->_queue = v29;
+    v22 = [objc_alloc(MEMORY[0x1E696AC70]) initWithOptions:517 capacity:0];
+    handlesToRetry = v2->_handlesToRetry;
+    v2->_handlesToRetry = v22;
 
-    v31 = objc_opt_new();
-    pending = v4->_pending;
-    v4->_pending = v31;
-
-    v33 = objc_alloc(MEMORY[0x1E696AC70]);
-    v35 = objc_msgSend_initWithOptions_capacity_(v33, v34, 517, 0);
-    handlesToRetry = v4->_handlesToRetry;
-    v4->_handlesToRetry = v35;
-
-    v37 = v4->_connection;
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = sub_1A8286FB8;
-    v43[3] = &unk_1E7810560;
-    v38 = v4;
-    v44 = v38;
-    v40 = objc_msgSend_registerContactsChangeObserver_(v37, v39, v43);
-    newContactNotificationToken = v38->_newContactNotificationToken;
-    v38->_newContactNotificationToken = v40;
+    v24 = v2->_connection;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = sub_1A8286FB8;
+    v29[3] = &unk_1E7810560;
+    v25 = v2;
+    v30 = v25;
+    v26 = [(SGSuggestionsServiceContactsProtocol *)v24 registerContactsChangeObserver:v29];
+    newContactNotificationToken = v25->_newContactNotificationToken;
+    v25->_newContactNotificationToken = v26;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)dealloc
 {
-  objc_msgSend_deregisterContactsChangeObserverWithToken_(self->_connection, a2, self->_newContactNotificationToken);
+  [(SGSuggestionsServiceContactsProtocol *)self->_connection deregisterContactsChangeObserverWithToken:self->_newContactNotificationToken];
   v3.receiver = self;
   v3.super_class = IMSuggestionsService;
   [(IMSuggestionsService *)&v3 dealloc];
@@ -151,16 +148,16 @@
   cacheCopy = cache;
   if (cacheCopy)
   {
-    v10 = objc_msgSend_objectForKey_(self->_cache, v6, cacheCopy);
-    v11 = v10 != 0;
-    if (!v10 || (objc_msgSend_null(MEMORY[0x1E695DFB0], v8, v9), v12 = objc_claimAutoreleasedReturnValue(), v12, v10 == v12))
+    v7 = [(NSCache *)self->_cache objectForKey:cacheCopy];
+    v8 = v7 != 0;
+    if (!v7 || ([MEMORY[0x1E695DFB0] null], v9 = objc_claimAutoreleasedReturnValue(), v9, v7 == v9))
     {
-      v13 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v13 = v10;
+      v10 = v7;
     }
 
     if (found)
@@ -171,16 +168,16 @@
 
   else
   {
-    v13 = 0;
-    v11 = 0;
+    v10 = 0;
+    v8 = 0;
     if (found)
     {
 LABEL_7:
-      *found = v11;
+      *found = v8;
     }
   }
 
-  return v13;
+  return v10;
 }
 
 - (void)fetchUncachedSuggestedRealNameForDisplayName:(id)name prependMaybe:(BOOL)maybe queue:(id)queue block:(id)block
@@ -190,21 +187,21 @@ LABEL_7:
   blockCopy = block;
   if (blockCopy && self->_connection)
   {
-    if (nameCopy && ((objc_msgSend__maybePhoneNumber_(self, v12, nameCopy) & 1) != 0 || (objc_msgSend__maybeEmailAddress_(self, v14, nameCopy) & 1) != 0 || (objc_msgSend_isBusiness_(self, v15, nameCopy) & 1) != 0))
+    if (nameCopy && ([(IMSuggestionsService *)self _maybePhoneNumber:nameCopy]|| [(IMSuggestionsService *)self _maybeEmailAddress:nameCopy]|| [(IMSuggestionsService *)self isBusiness:nameCopy]))
     {
       queue = self->_queue;
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = sub_1A8287664;
-      v19[3] = &unk_1E78105B0;
-      v19[4] = self;
-      v20 = nameCopy;
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = sub_1A8287664;
+      v16[3] = &unk_1E78105B0;
+      v16[4] = self;
+      v17 = nameCopy;
       maybeCopy = maybe;
-      v21 = queueCopy;
-      v22 = blockCopy;
-      dispatch_async(queue, v19);
+      v18 = queueCopy;
+      v19 = blockCopy;
+      dispatch_async(queue, v16);
 
-      v17 = v20;
+      v14 = v17;
     }
 
     else
@@ -213,19 +210,19 @@ LABEL_7:
       block[1] = 3221225472;
       block[2] = sub_1A8287650;
       block[3] = &unk_1E780FE90;
-      v25 = blockCopy;
+      v22 = blockCopy;
       dispatch_async(queueCopy, block);
-      v17 = v25;
+      v14 = v22;
     }
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v18 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v15 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A823F000, v18, OS_LOG_TYPE_INFO, "Unexpectedly nil parameter in fetchSuggestedRealNameForDisplayName", buf, 2u);
+      _os_log_impl(&dword_1A823F000, v15, OS_LOG_TYPE_INFO, "Unexpectedly nil parameter in fetchSuggestedRealNameForDisplayName", buf, 2u);
     }
   }
 }
@@ -238,58 +235,58 @@ LABEL_7:
   blockCopy = block;
   if (blockCopy && self->_connection)
   {
-    if (nameCopy && ((objc_msgSend__maybePhoneNumber_(self, v13, nameCopy) & 1) != 0 || (objc_msgSend__maybeEmailAddress_(self, v15, nameCopy) & 1) != 0 || (objc_msgSend_isBusiness_(self, v15, nameCopy) & 1) != 0))
+    if (nameCopy && ([(IMSuggestionsService *)self _maybePhoneNumber:nameCopy]|| [(IMSuggestionsService *)self _maybeEmailAddress:nameCopy]|| [(IMSuggestionsService *)self isBusiness:nameCopy]))
     {
-      v16 = objc_msgSend_objectForKey_(self->_cache, v15, nameCopy);
-      if (v16)
+      v14 = [(NSCache *)self->_cache objectForKey:nameCopy];
+      if (v14)
       {
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = sub_1A8287C54;
         block[3] = &unk_1E7810230;
-        v26 = blockCopy;
-        v25 = v16;
+        v24 = blockCopy;
+        v23 = v14;
         dispatch_async(queueCopy, block);
 
-        v17 = v26;
+        v15 = v24;
       }
 
       else
       {
         queue = self->_queue;
-        v19[0] = MEMORY[0x1E69E9820];
-        v19[1] = 3221225472;
-        v19[2] = sub_1A8287CD4;
-        v19[3] = &unk_1E78105D8;
-        v19[4] = self;
-        v20 = nameCopy;
-        v21 = queueCopy;
-        v23 = blockCopy;
-        v22 = dCopy;
-        dispatch_async(queue, v19);
+        v17[0] = MEMORY[0x1E69E9820];
+        v17[1] = 3221225472;
+        v17[2] = sub_1A8287CD4;
+        v17[3] = &unk_1E78105D8;
+        v17[4] = self;
+        v18 = nameCopy;
+        v19 = queueCopy;
+        v21 = blockCopy;
+        v20 = dCopy;
+        dispatch_async(queue, v17);
 
-        v17 = v20;
+        v15 = v18;
       }
 
 LABEL_15:
       goto LABEL_16;
     }
 
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = sub_1A8287C40;
-    v27[3] = &unk_1E780FE90;
-    v28 = blockCopy;
-    dispatch_async(queueCopy, v27);
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = sub_1A8287C40;
+    v25[3] = &unk_1E780FE90;
+    v26 = blockCopy;
+    dispatch_async(queueCopy, v25);
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v16 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v14 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A823F000, v16, OS_LOG_TYPE_INFO, "Unexpectedly nil parameter in fetchSuggestedRealNameForDisplayName", buf, 2u);
+      _os_log_impl(&dword_1A823F000, v14, OS_LOG_TYPE_INFO, "Unexpectedly nil parameter in fetchSuggestedRealNameForDisplayName", buf, 2u);
     }
 
     goto LABEL_15;
@@ -306,23 +303,23 @@ LABEL_16:
   if (nameCopy)
   {
     connection = self->_connection;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = sub_1A8288028;
-    v14[3] = &unk_1E7810600;
-    v15 = nameCopy;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = sub_1A8288028;
+    v13[3] = &unk_1E7810600;
+    v14 = nameCopy;
     selfCopy = self;
-    v17 = queueCopy;
-    objc_msgSend_namesForDetail_limitTo_prependMaybe_withCompletion_(connection, v12, v15, 1, 1, v14);
+    v16 = queueCopy;
+    [(SGSuggestionsServiceContactsProtocol *)connection namesForDetail:v14 limitTo:1 prependMaybe:1 withCompletion:v13];
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v13 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v12 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A823F000, v13, OS_LOG_TYPE_INFO, "displayName paramater was unexpectedly nil in _startRequestForDisplayName", buf, 2u);
+      _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "displayName paramater was unexpectedly nil in _startRequestForDisplayName", buf, 2u);
     }
   }
 }
@@ -363,114 +360,113 @@ LABEL_16:
 
 - (id)_contactForSGContactMatch:(id)match
 {
-  v3 = objc_msgSend_sortedArrayUsingComparator_(match, a2, &unk_1F1B6DDE0);
-  v6 = objc_msgSend_firstObject(v3, v4, v5);
-  v7 = MEMORY[0x1E695CD58];
-  v10 = objc_msgSend_contact(v6, v8, v9);
-  v12 = objc_msgSend_contactFromSuggestion_(v7, v11, v10);
+  v3 = [match sortedArrayUsingComparator:&unk_1F1B6DDE0];
+  firstObject = [v3 firstObject];
+  v5 = MEMORY[0x1E695CD58];
+  contact = [firstObject contact];
+  v7 = [v5 contactFromSuggestion:contact];
 
-  return v12;
+  return v7;
 }
 
 - (id)fetchCNContactForSuggestedHandle:(id)handle
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
-  v7 = handleCopy;
-  if (!handleCopy || !objc_msgSend_length(handleCopy, v5, v6))
+  v5 = handleCopy;
+  if (!handleCopy || ![handleCopy length])
   {
-    v19 = 0;
+    v12 = 0;
     goto LABEL_22;
   }
 
   if (IMOSLoggingEnabled())
   {
-    v9 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v6 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v30 = v7;
-      _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "Fetching a suggested CNContact for displayName %@", buf, 0xCu);
+      v20 = v5;
+      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Fetching a suggested CNContact for displayName %@", buf, 0xCu);
     }
   }
 
-  v10 = objc_msgSend__maybePhoneNumber_(self, v8, v7);
-  v12 = objc_msgSend__maybeEmailAddress_(self, v11, v7);
-  if (v10)
+  v7 = [(IMSuggestionsService *)self _maybePhoneNumber:v5];
+  v8 = [(IMSuggestionsService *)self _maybeEmailAddress:v5];
+  if (v7)
   {
-    v15 = objc_msgSend_serviceConnection(self, v13, v14);
-    v28 = 0;
-    v17 = objc_msgSend_contactMatchesByPhoneNumber_error_(v15, v16, v7, &v28);
-    v18 = &v28;
+    serviceConnection = [(IMSuggestionsService *)self serviceConnection];
+    v18 = 0;
+    v10 = [serviceConnection contactMatchesByPhoneNumber:v5 error:&v18];
+    v11 = &v18;
   }
 
   else
   {
-    if (!v12)
+    if (!v8)
     {
-      v21 = 0;
-      v17 = 0;
+      v13 = 0;
+      v10 = 0;
       goto LABEL_14;
     }
 
-    v15 = objc_msgSend_serviceConnection(self, v13, v14);
-    v27 = 0;
-    v17 = objc_msgSend_contactMatchesByEmailAddress_error_(v15, v20, v7, &v27);
-    v18 = &v27;
+    serviceConnection = [(IMSuggestionsService *)self serviceConnection];
+    v17 = 0;
+    v10 = [serviceConnection contactMatchesByEmailAddress:v5 error:&v17];
+    v11 = &v17;
   }
 
-  v21 = *v18;
+  v13 = *v11;
 
 LABEL_14:
-  if (objc_msgSend_count(v17, v13, v14))
+  if ([v10 count])
   {
-    v23 = objc_msgSend__contactForSGContactMatch_(self, v22, v17);
+    v14 = [(IMSuggestionsService *)self _contactForSGContactMatch:v10];
   }
 
   else
   {
-    v23 = 0;
+    v14 = 0;
   }
 
   if (IMOSLoggingEnabled())
   {
-    v24 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v15 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v30 = v23;
-      _os_log_impl(&dword_1A823F000, v24, OS_LOG_TYPE_INFO, "Found suggested contact %@ with error", buf, 0xCu);
+      v20 = v14;
+      _os_log_impl(&dword_1A823F000, v15, OS_LOG_TYPE_INFO, "Found suggested contact %@ with error", buf, 0xCu);
     }
   }
 
-  v19 = v23;
+  v12 = v14;
 
 LABEL_22:
-  v25 = *MEMORY[0x1E69E9840];
 
-  return v19;
+  return v12;
 }
 
 - (id)personNameComponentsForHandle:(id)handle
 {
-  v4 = objc_msgSend_displayID(handle, a2, handle);
-  v6 = objc_msgSend_fetchCNContactForSuggestedHandle_(self, v5, v4);
+  displayID = [handle displayID];
+  v5 = [(IMSuggestionsService *)self fetchCNContactForSuggestedHandle:displayID];
 
-  v8 = objc_msgSend_firstNameForCNContact_(MEMORY[0x1E69A7FD0], v7, v6);
-  v10 = objc_msgSend_lastNameForCNContact_(MEMORY[0x1E69A7FD0], v9, v6);
-  v11 = objc_alloc_init(MEMORY[0x1E696ADF0]);
-  v13 = v11;
-  if (v8)
+  v6 = [MEMORY[0x1E69A7FD0] firstNameForCNContact:v5];
+  v7 = [MEMORY[0x1E69A7FD0] lastNameForCNContact:v5];
+  v8 = objc_alloc_init(MEMORY[0x1E696ADF0]);
+  v9 = v8;
+  if (v6)
   {
-    objc_msgSend_setGivenName_(v11, v12, v8);
+    [v8 setGivenName:v6];
   }
 
-  if (v10)
+  if (v7)
   {
-    objc_msgSend_setFamilyName_(v13, v12, v10);
+    [v9 setFamilyName:v7];
   }
 
-  return v13;
+  return v9;
 }
 
 @end

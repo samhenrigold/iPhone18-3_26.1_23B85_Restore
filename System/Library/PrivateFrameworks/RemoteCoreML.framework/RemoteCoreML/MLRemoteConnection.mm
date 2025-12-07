@@ -117,30 +117,23 @@ void __66___MLRemoteConnection_sendDataAndWaitForAcknowledgementOrTimeout___bloc
 
 void __39___MLRemoteConnection_initWithOptions___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(a1 + 40));
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __39___MLRemoteConnection_initWithOptions___block_invoke_cold_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(a1 + 40));
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __71___MLRemoteConnection_predictionFromURL_features_output_options_error___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = NSStringFromSelector(*(v1 + 48));
   v3 = [*v0 packet];
   v4 = [v3 buffer];
@@ -148,32 +141,23 @@ void __71___MLRemoteConnection_predictionFromURL_features_output_options_error__
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v5, v6, OS_LOG_TYPE_ERROR, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __66___MLRemoteConnection_sendDataAndWaitForAcknowledgementOrTimeout___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = NSStringFromSelector(*(v1 + 56));
-  v3 = *(*(*v0 + 8) + 24);
+  v1 = NSStringFromSelector(*(v0 + 56));
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
 void __66___MLRemoteConnection_sendDataAndWaitForAcknowledgementOrTimeout___block_invoke_cold_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(a1 + 56));
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

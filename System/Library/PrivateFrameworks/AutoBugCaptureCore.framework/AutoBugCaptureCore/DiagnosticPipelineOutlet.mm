@@ -26,17 +26,17 @@ void __57__DiagnosticPipelineOutlet_publishReportForCase_options___block_invoke(
 
   if (v14 || !v13)
   {
-    v15 = casemanagementLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = casemanagementLogHandle(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v16 = [v8 path];
+      v17 = [v8 path];
       *buf = 138412546;
-      v25 = v16;
+      v25 = v17;
       v26 = 2112;
       v27 = v14;
-      v17 = " Failed to create DRClientLog object representing %@: %@";
-      v18 = v15;
-      v19 = 22;
+      v18 = " Failed to create DRClientLog object representing %@: %@";
+      v19 = v16;
+      v20 = 22;
       goto LABEL_8;
     }
   }
@@ -49,29 +49,27 @@ void __57__DiagnosticPipelineOutlet_publishReportForCase_options___block_invoke(
       goto LABEL_11;
     }
 
-    v15 = casemanagementLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = casemanagementLogHandle(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v16 = [v8 path];
+      v17 = [v8 path];
       *buf = 138412290;
-      v25 = v16;
-      v17 = " Log file at %@ is privacy sensitive and requires user consent for automatic upload";
-      v18 = v15;
-      v19 = 12;
+      v25 = v17;
+      v18 = " Log file at %@ is privacy sensitive and requires user consent for automatic upload";
+      v19 = v16;
+      v20 = 12;
 LABEL_8:
-      _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_ERROR, v17, buf, v19);
+      _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_ERROR, v18, buf, v20);
     }
   }
 
   *(*(*(a1 + 40) + 8) + 24) = 0;
-  v20 = *(*(a1 + 48) + 8);
-  v21 = *(v20 + 40);
-  *(v20 + 40) = 0;
+  v21 = *(*(a1 + 48) + 8);
+  v22 = *(v21 + 40);
+  *(v21 + 40) = 0;
 
   *a4 = 1;
 LABEL_11:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)logRequiresUploadConsent:(id)consent
@@ -302,251 +300,253 @@ LABEL_11:
 
 - (uint64_t)shouldPublishReportForCase:(uint64_t)case
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!case)
   {
-    v13 = 0;
+    v15 = 0;
     goto LABEL_13;
   }
 
   v4 = +[ABCAdministrator sharedInstance];
   configurationManager = [v4 configurationManager];
 
-  if (![configurationManager submitToDiagnosticPipeline])
+  submitToDiagnosticPipeline = [configurationManager submitToDiagnosticPipeline];
+  if (!submitToDiagnosticPipeline)
   {
-    v6 = casemanagementLogHandle();
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v8 = casemanagementLogHandle(submitToDiagnosticPipeline);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       goto LABEL_11;
     }
 
-    LOWORD(v34) = 0;
+    LOWORD(v39) = 0;
 LABEL_8:
     OUTLINED_FUNCTION_0_2();
     goto LABEL_9;
   }
 
-  if (![v3 dampeningType])
+  dampeningType = [v3 dampeningType];
+  if (!dampeningType)
   {
     attachments = [v3 attachments];
-    v17 = [attachments count];
+    v18 = [attachments count];
 
-    if (v17)
+    if (v18)
     {
-      [configurationManager diagnosticPipelineSubmissionRate];
-      v19 = (v18 * 100.0);
-      if (v19 > 0x63)
+      diagnosticPipelineSubmissionRate = [configurationManager diagnosticPipelineSubmissionRate];
+      v22 = (v21 * 100.0);
+      if (v22 > 0x63)
       {
-        v6 = casemanagementLogHandle();
-        v13 = 1;
-        if (!os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+        v8 = casemanagementLogHandle(diagnosticPipelineSubmissionRate);
+        v15 = 1;
+        if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
           goto LABEL_12;
         }
 
-        LOWORD(v34) = 0;
+        LOWORD(v39) = 0;
         OUTLINED_FUNCTION_0_2();
-        v33 = 2;
+        v38 = 2;
       }
 
       else
       {
-        v20 = arc4random_uniform(0x64u);
-        v21 = casemanagementLogHandle();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v23 = arc4random_uniform(0x64u);
+        v24 = v23;
+        v25 = casemanagementLogHandle(v23);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
-          v34 = 67109376;
-          v35 = 100;
-          v36 = 1024;
-          v37 = v19;
+          v39 = 67109376;
+          v40 = 100;
+          v41 = 1024;
+          v42 = v22;
           OUTLINED_FUNCTION_0_2();
-          _os_log_impl(v22, v23, v24, v25, v26, 0xEu);
+          _os_log_impl(v26, v27, v28, v29, v30, 0xEu);
         }
 
-        v27 = casemanagementLogHandle();
-        v6 = v27;
-        if (v20 >= v19)
+        v32 = casemanagementLogHandle(v31);
+        v8 = v32;
+        if (v24 >= v22)
         {
-          if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+          if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_11;
           }
 
-          v34 = 67109632;
-          v35 = 100;
-          v36 = 1024;
-          v37 = v19;
-          v38 = 1024;
-          v39 = v20;
-          v7 = &dword_241804000;
-          v8 = "Failed to pass probability check (%u to %u against). Will not submit this case to DiagnosticPipeline. [%d]";
-          v9 = &v34;
-          v10 = v6;
-          v11 = OS_LOG_TYPE_DEFAULT;
-          v12 = 20;
+          v39 = 67109632;
+          v40 = 100;
+          v41 = 1024;
+          v42 = v22;
+          v43 = 1024;
+          v44 = v24;
+          v9 = &dword_241804000;
+          v10 = "Failed to pass probability check (%u to %u against). Will not submit this case to DiagnosticPipeline. [%d]";
+          v11 = &v39;
+          v12 = v8;
+          v13 = OS_LOG_TYPE_DEFAULT;
+          v14 = 20;
           goto LABEL_10;
         }
 
-        v13 = 1;
-        if (!os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+        v15 = 1;
+        if (!os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
           goto LABEL_12;
         }
 
-        v34 = 67109120;
-        v35 = v20;
+        v39 = 67109120;
+        v40 = v24;
         OUTLINED_FUNCTION_0_2();
-        v33 = 8;
+        v38 = 8;
       }
 
-      _os_log_impl(v28, v29, v30, v31, v32, v33);
+      _os_log_impl(v33, v34, v35, v36, v37, v38);
       goto LABEL_12;
     }
 
-    v6 = casemanagementLogHandle();
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v8 = casemanagementLogHandle(v19);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       goto LABEL_11;
     }
 
-    LOWORD(v34) = 0;
+    LOWORD(v39) = 0;
     goto LABEL_8;
   }
 
-  v6 = casemanagementLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v8 = casemanagementLogHandle(dampeningType);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v34) = 0;
-    v7 = &dword_241804000;
-    v8 = "Dampened cases will not be submitted to DP";
-    v9 = &v34;
-    v10 = v6;
-    v11 = OS_LOG_TYPE_DEBUG;
+    LOWORD(v39) = 0;
+    v9 = &dword_241804000;
+    v10 = "Dampened cases will not be submitted to DP";
+    v11 = &v39;
+    v12 = v8;
+    v13 = OS_LOG_TYPE_DEBUG;
 LABEL_9:
-    v12 = 2;
+    v14 = 2;
 LABEL_10:
-    _os_log_impl(v7, v10, v11, v8, v9, v12);
+    _os_log_impl(v9, v12, v13, v10, v11, v14);
   }
 
 LABEL_11:
-  v13 = 0;
+  v15 = 0;
 LABEL_12:
 
 LABEL_13:
-  v14 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v15;
 }
 
 - (BOOL)publishReportForCase:(id)case options:(id)options
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   caseCopy = case;
   optionsCopy = options;
-  if ([(DiagnosticPipelineOutlet *)self shouldPublishReportForCase:caseCopy])
+  v8 = [(DiagnosticPipelineOutlet *)self shouldPublishReportForCase:caseCopy];
+  if (v8)
   {
     caseDomain = [caseCopy caseDomain];
-    v9 = [(DiagnosticPipelineOutlet *)self issueDescriptionFromCase:caseCopy];
-    v10 = [(DiagnosticPipelineOutlet *)self contextDictionaryFromCase:caseCopy];
-    v11 = +[ABCAdministrator sharedInstance];
-    configurationManager = [v11 configurationManager];
+    v10 = [(DiagnosticPipelineOutlet *)self issueDescriptionFromCase:caseCopy];
+    v11 = [(DiagnosticPipelineOutlet *)self contextDictionaryFromCase:caseCopy];
+    v12 = +[ABCAdministrator sharedInstance];
+    configurationManager = [v12 configurationManager];
     cloudKitEnabled = [configurationManager cloudKitEnabled];
 
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x2020000000;
-    v44 = 1;
+    v42 = 0;
+    v43 = &v42;
+    v44 = 0x2020000000;
+    v45 = 1;
     *buf = 0;
-    v36 = buf;
-    v37 = 0x3032000000;
-    v38 = __Block_byref_object_copy__1;
-    v39 = __Block_byref_object_dispose__1;
-    v40 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v37 = buf;
+    v38 = 0x3032000000;
+    v39 = __Block_byref_object_copy__1;
+    v40 = __Block_byref_object_dispose__1;
+    v41 = objc_alloc_init(MEMORY[0x277CBEB18]);
     attachments = [caseCopy attachments];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __57__DiagnosticPipelineOutlet_publishReportForCase_options___block_invoke;
-    v33[3] = &unk_278CF0C18;
-    v34 = cloudKitEnabled ^ 1;
-    v33[4] = self;
-    v33[5] = &v41;
-    v33[6] = buf;
-    [attachments enumerateObjectsUsingBlock:v33];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __57__DiagnosticPipelineOutlet_publishReportForCase_options___block_invoke;
+    v34[3] = &unk_278CF0C18;
+    v35 = cloudKitEnabled ^ 1;
+    v34[4] = self;
+    v34[5] = &v42;
+    v34[6] = buf;
+    [attachments enumerateObjectsUsingBlock:v34];
 
-    if (*(v42 + 24) == 1)
+    if (*(v43 + 24) == 1)
     {
-      v15 = casemanagementLogHandle();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = casemanagementLogHandle(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         caseId = [caseCopy caseId];
         uUIDString = [caseId UUIDString];
-        *v45 = 138543362;
-        v46 = uUIDString;
-        OUTLINED_FUNCTION_4_0(&dword_241804000, v18, v19, "Submitting case id %{public}@ to DiagnosticPipeline");
+        *v46 = 138543362;
+        v47 = uUIDString;
+        OUTLINED_FUNCTION_4_0(&dword_241804000, v20, v21, "Submitting case id %{public}@ to DiagnosticPipeline");
       }
 
-      v20 = *(v36 + 5);
-      v21 = DRSubmitLogs();
-      v22 = 0;
-      if (v21)
+      v22 = DRSubmitLogs();
+      v23 = 0;
+      v24 = v23;
+      if (v22)
       {
-        v23 = 1;
+        v25 = 1;
       }
 
       else
       {
-        v30 = casemanagementLogHandle();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v32 = casemanagementLogHandle(v23);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
-          *v45 = 138412546;
-          v46 = v22;
-          v47 = 2112;
-          v48 = caseCopy;
-          _os_log_impl(&dword_241804000, v30, OS_LOG_TYPE_DEFAULT, "Error occurred when submitting case to DiagnosticPipeline: %@ (case: %@)", v45, 0x16u);
+          *v46 = 138412546;
+          v47 = v24;
+          v48 = 2112;
+          v49 = caseCopy;
+          _os_log_impl(&dword_241804000, v32, OS_LOG_TYPE_DEFAULT, "Error occurred when submitting case to DiagnosticPipeline: %@ (case: %@)", v46, 0x16u);
         }
 
-        v23 = 4;
+        v25 = 4;
       }
 
-      [caseCopy setDPSubmissionState:v23];
+      [caseCopy setDPSubmissionState:v25];
     }
 
     else
     {
-      v25 = casemanagementLogHandle();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v27 = casemanagementLogHandle(v16);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         caseId2 = [caseCopy caseId];
         uUIDString2 = [caseId2 UUIDString];
-        *v45 = 138543362;
-        v46 = uUIDString2;
-        OUTLINED_FUNCTION_4_0(&dword_241804000, v28, v29, "Skipping submission of case id %{public}@ to DiagnosticPipeline due to preflight errors");
+        *v46 = 138543362;
+        v47 = uUIDString2;
+        OUTLINED_FUNCTION_4_0(&dword_241804000, v30, v31, "Skipping submission of case id %{public}@ to DiagnosticPipeline due to preflight errors");
       }
 
       [caseCopy setDPSubmissionState:3];
-      v21 = 0;
+      v22 = 0;
     }
 
     _Block_object_dispose(buf, 8);
 
-    _Block_object_dispose(&v41, 8);
+    _Block_object_dispose(&v42, 8);
   }
 
   else
   {
-    v24 = casemanagementLogHandle();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v26 = casemanagementLogHandle(v8);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v24, OS_LOG_TYPE_DEFAULT, "Case not eligible for submission to DiagnosticPipeline", buf, 2u);
+      _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_DEFAULT, "Case not eligible for submission to DiagnosticPipeline", buf, 2u);
     }
 
     [caseCopy setDPSubmissionState:2];
-    v21 = 0;
+    v22 = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-  return v21;
+  return v22;
 }
 
 @end

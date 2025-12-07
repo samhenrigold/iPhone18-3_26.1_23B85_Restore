@@ -384,7 +384,7 @@
 {
   [(SBRootFolderView *)self _minimumHomeScreenScale];
   v4 = v3;
-  [(SBRootFolderView *)self bounds];
+  objc_msgSend_bounds(self);
   v6 = v5;
   v8 = v7;
   v10 = v9;
@@ -574,10 +574,10 @@
 
 - (SBHRootFolderVisualConfiguration)rootFolderVisualConfiguration
 {
-  rootListLayout = [(SBRootFolderView *)self rootListLayout];
+  v2 = objc_msgSend_rootListLayout(self, a2);
   if (objc_opt_respondsToSelector())
   {
-    rootFolderVisualConfiguration = [rootListLayout rootFolderVisualConfiguration];
+    rootFolderVisualConfiguration = [v2 rootFolderVisualConfiguration];
   }
 
   else
@@ -821,7 +821,7 @@
   [searchGesture updateForRotation];
 
   searchPresentableView = [(SBRootFolderView *)self searchPresentableView];
-  [(SBRootFolderView *)self bounds];
+  objc_msgSend_bounds(self);
   [searchPresentableView setFrame:?];
 }
 
@@ -1148,11 +1148,11 @@ LABEL_6:
 
 - (SBRootFolderView)initWithConfiguration:(id)configuration
 {
-  v118 = *MEMORY[0x1E69E9840];
+  v120 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  v114.receiver = self;
-  v114.super_class = SBRootFolderView;
-  v5 = [(SBFolderView *)&v114 initWithConfiguration:configurationCopy];
+  v116.receiver = self;
+  v116.super_class = SBRootFolderView;
+  v5 = [(SBFolderView *)&v116 initWithConfiguration:configurationCopy];
   if (!v5)
   {
     goto LABEL_64;
@@ -1174,10 +1174,10 @@ LABEL_6:
   folder = [(SBFolderView *)v5 folder];
   isForSnapshot = [v8 isForSnapshot];
   v5->_dockEdge = 4;
-  v102 = v8;
-  v103 = v5;
-  v100 = configurationCopy;
-  v101 = folder;
+  v104 = v8;
+  v105 = v5;
+  v102 = configurationCopy;
+  v103 = folder;
   if ([v8 isDockExternal])
   {
     v5->_dockExternal = 1;
@@ -1188,37 +1188,37 @@ LABEL_6:
     dock = [folder dock];
     dockIconLocation = [(SBRootFolderView *)v5 dockIconLocation];
     v13 = [SBDockIconListView alloc];
-    listLayoutProvider = [(SBFolderView *)v103 listLayoutProvider];
-    orientation = [(SBFolderView *)v103 orientation];
-    iconViewProvider = [(SBFolderView *)v103 iconViewProvider];
+    listLayoutProvider = [(SBFolderView *)v105 listLayoutProvider];
+    orientation = [(SBFolderView *)v105 orientation];
+    iconViewProvider = [(SBFolderView *)v105 iconViewProvider];
     v17 = [(SBDockIconListView *)v13 initWithModel:dock layoutProvider:listLayoutProvider iconLocation:dockIconLocation orientation:orientation iconViewProvider:iconViewProvider];
-    dockListView = v103->_dockListView;
-    v103->_dockListView = v17;
+    dockListView = v105->_dockListView;
+    v105->_dockListView = v17;
 
-    v8 = v102;
-    [(SBIconListView *)v103->_dockListView setLayoutInsetsMode:2];
-    [(SBIconListView *)v103->_dockListView setAutomaticallyAdjustsLayoutMetricsToFit:0];
-    [(SBIconListView *)v103->_dockListView setAdjustsColumnPositionsForFullScreenWidth:1];
-    [(SBIconListView *)v103->_dockListView setIconGlassGroupingBehavior:2];
-    [(SBIconListView *)v103->_dockListView setIconViewBackdropGroupName:@"SBRootFolder"];
-    v19 = v103->_dockListView;
-    folderIconImageCache = [(SBFolderView *)v103 folderIconImageCache];
+    v8 = v104;
+    [(SBIconListView *)v105->_dockListView setLayoutInsetsMode:2];
+    [(SBIconListView *)v105->_dockListView setAutomaticallyAdjustsLayoutMetricsToFit:0];
+    [(SBIconListView *)v105->_dockListView setAdjustsColumnPositionsForFullScreenWidth:1];
+    [(SBIconListView *)v105->_dockListView setIconGlassGroupingBehavior:2];
+    [(SBIconListView *)v105->_dockListView setIconViewBackdropGroupName:@"SBRootFolder"];
+    v19 = v105->_dockListView;
+    folderIconImageCache = [(SBFolderView *)v105 folderIconImageCache];
     [(SBIconListView *)v19 setFolderIconImageCache:folderIconImageCache];
 
-    v21 = v103->_dockListView;
-    iconImageCache = [(SBFolderView *)v103 iconImageCache];
+    v21 = v105->_dockListView;
+    v22 = objc_msgSend_iconImageCache(v105);
     v23 = v21;
-    v5 = v103;
-    [(SBIconListView *)v23 setIconImageCache:iconImageCache];
+    v5 = v105;
+    [(SBIconListView *)v23 setIconImageCache:v22];
 
     [(SBIconListView *)v5->_dockListView setLayoutDelegate:v5];
     [(SBIconListView *)v5->_dockListView setDragDelegate:v5];
     [(SBFolderView *)v5 _configureIconListView:v5->_dockListView];
-    v24 = [[SBDockView alloc] initWithDockListView:v103->_dockListView forSnapshot:isForSnapshot];
-    dockView = v103->_dockView;
-    v103->_dockView = v24;
+    v24 = [[SBDockView alloc] initWithDockListView:v105->_dockListView forSnapshot:isForSnapshot];
+    dockView = v105->_dockView;
+    v105->_dockView = v24;
 
-    [(SBDockView *)v103->_dockView setDelegate:v103];
+    [(SBDockView *)v105->_dockView setDelegate:v105];
   }
 
   scalingView = [(SBFolderView *)v5 scalingView];
@@ -1259,24 +1259,24 @@ LABEL_6:
   v5->_scrollAccessoryBackgroundView = scrollAccessoryBackgroundView;
 
   [scalingView addSubview:v5->_scrollAccessoryView];
-  [(SBRootFolderView *)v5 updatePageControlConfiguration];
+  updatePageControlConfiguration = [(SBRootFolderView *)v5 updatePageControlConfiguration];
   if (isForSnapshot)
   {
-    v40 = [(SBRootFolderView *)v5 requirePageDotsVisibilityForReason:@"snapshot"];
-    [(SBRootFolderView *)v5 setConfiguredForSnapshotPageDotsVisibilityAssertion:v40];
+    v42 = [(SBRootFolderView *)v5 requirePageDotsVisibilityForReason:@"snapshot"];
+    [(SBRootFolderView *)v5 setConfiguredForSnapshotPageDotsVisibilityAssertion:v42];
   }
 
-  if (!SBHHardwareSupportsHomeScreenSearchAffordance())
+  if (!SBHHardwareSupportsHomeScreenSearchAffordance(updatePageControlConfiguration, v41))
   {
-    v41 = [(SBRootFolderView *)v5 requirePageDotsVisibilityForReason:@"hardware-unsupported"];
-    [(SBRootFolderView *)v5 setSearchButtonUnsupportedHardwarePageDotsVisibilityAssertion:v41];
+    v43 = [(SBRootFolderView *)v5 requirePageDotsVisibilityForReason:@"hardware-unsupported"];
+    [(SBRootFolderView *)v5 setSearchButtonUnsupportedHardwarePageDotsVisibilityAssertion:v43];
     goto LABEL_20;
   }
 
   if (!v5->_scrollAccessoryAuxiliaryView)
   {
-    v41 = [(SBRootFolderView *)v5 requirePageDotsVisibilityForReason:@"feature-disabled"];
-    [(SBRootFolderView *)v5 setSearchButtonDisabledPageDotsVisibilityAssertion:v41];
+    v43 = [(SBRootFolderView *)v5 requirePageDotsVisibilityForReason:@"feature-disabled"];
+    [(SBRootFolderView *)v5 setSearchButtonDisabledPageDotsVisibilityAssertion:v43];
 LABEL_20:
   }
 
@@ -1288,221 +1288,221 @@ LABEL_20:
   }
 
   leadingCustomViewControllers = [v8 leadingCustomViewControllers];
-  v43 = [leadingCustomViewControllers copy];
+  v45 = [leadingCustomViewControllers copy];
   leadingCustomViewControllers = v5->_leadingCustomViewControllers;
-  v5->_leadingCustomViewControllers = v43;
+  v5->_leadingCustomViewControllers = v45;
 
-  v96 = v33;
+  v98 = v33;
   if ([(NSArray *)v5->_leadingCustomViewControllers count])
   {
-    v104 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v106 = objc_alloc_init(MEMORY[0x1E695DF70]);
   }
 
   else
   {
-    v104 = 0;
+    v106 = 0;
   }
 
-  v98 = headerView;
-  v99 = scalingView;
+  v100 = headerView;
+  v101 = scalingView;
+  v114 = 0u;
+  v115 = 0u;
   v112 = 0u;
   v113 = 0u;
-  v110 = 0u;
-  v111 = 0u;
-  v45 = v5->_leadingCustomViewControllers;
-  v46 = [(NSArray *)v45 countByEnumeratingWithState:&v110 objects:v117 count:16];
-  if (v46)
+  v47 = v5->_leadingCustomViewControllers;
+  v48 = [(NSArray *)v47 countByEnumeratingWithState:&v112 objects:v119 count:16];
+  if (v48)
   {
-    v47 = v46;
-    v48 = 0;
-    v49 = *v111;
+    v49 = v48;
+    v50 = 0;
+    v51 = *v113;
     do
     {
-      for (i = 0; i != v47; ++i)
+      for (i = 0; i != v49; ++i)
       {
-        if (*v111 != v49)
+        if (*v113 != v51)
         {
-          objc_enumerationMutation(v45);
+          objc_enumerationMutation(v47);
         }
 
-        view = [*(*(&v110 + 1) + 8 * i) view];
+        view = [*(*(&v112 + 1) + 8 * i) view];
         if (view)
         {
-          v52 = objc_alloc_init(_SBRootFolderLayoutWrapperView);
-          [(_SBRootFolderLayoutWrapperView *)v52 setWrappedView:view];
-          [scrollView addSubview:v52];
-          [v104 addObject:v52];
+          v54 = objc_alloc_init(_SBRootFolderLayoutWrapperView);
+          [(_SBRootFolderLayoutWrapperView *)v54 setWrappedView:view];
+          [scrollView addSubview:v54];
+          [v106 addObject:v54];
 
-          v48 = 1;
+          v50 = 1;
         }
 
         else
         {
-          v103->_leadingCustomViewPageHidden = 1;
+          v105->_leadingCustomViewPageHidden = 1;
         }
       }
 
-      v47 = [(NSArray *)v45 countByEnumeratingWithState:&v110 objects:v117 count:16];
+      v49 = [(NSArray *)v47 countByEnumeratingWithState:&v112 objects:v119 count:16];
     }
 
-    while (v47);
+    while (v49);
   }
 
   else
   {
-    v48 = 0;
+    v50 = 0;
   }
 
-  v53 = [v104 copy];
-  v5 = v103;
-  searchableLeadingCustomWrapperViews = v103->_searchableLeadingCustomWrapperViews;
-  v103->_searchableLeadingCustomWrapperViews = v53;
+  v55 = [v106 copy];
+  v5 = v105;
+  searchableLeadingCustomWrapperViews = v105->_searchableLeadingCustomWrapperViews;
+  v105->_searchableLeadingCustomWrapperViews = v55;
 
-  trailingCustomViewControllers = [v102 trailingCustomViewControllers];
-  v56 = [trailingCustomViewControllers copy];
-  trailingCustomViewControllers = v103->_trailingCustomViewControllers;
-  v103->_trailingCustomViewControllers = v56;
+  trailingCustomViewControllers = [v104 trailingCustomViewControllers];
+  v58 = [trailingCustomViewControllers copy];
+  trailingCustomViewControllers = v105->_trailingCustomViewControllers;
+  v105->_trailingCustomViewControllers = v58;
 
-  if ([(NSArray *)v103->_trailingCustomViewControllers count])
+  if ([(NSArray *)v105->_trailingCustomViewControllers count])
   {
-    v58 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v60 = objc_alloc_init(MEMORY[0x1E695DF70]);
   }
 
   else
   {
-    v58 = 0;
+    v60 = 0;
   }
 
+  v110 = 0u;
+  v111 = 0u;
   v108 = 0u;
   v109 = 0u;
-  v106 = 0u;
-  v107 = 0u;
-  v59 = v103->_trailingCustomViewControllers;
-  v60 = [(NSArray *)v59 countByEnumeratingWithState:&v106 objects:v116 count:16];
-  if (v60)
+  v61 = v105->_trailingCustomViewControllers;
+  v62 = [(NSArray *)v61 countByEnumeratingWithState:&v108 objects:v118 count:16];
+  if (v62)
   {
-    v61 = v60;
-    v62 = *v107;
+    v63 = v62;
+    v64 = *v109;
     do
     {
-      for (j = 0; j != v61; ++j)
+      for (j = 0; j != v63; ++j)
       {
-        if (*v107 != v62)
+        if (*v109 != v64)
         {
-          objc_enumerationMutation(v59);
+          objc_enumerationMutation(v61);
         }
 
-        view2 = [*(*(&v106 + 1) + 8 * j) view];
+        view2 = [*(*(&v108 + 1) + 8 * j) view];
         if (view2)
         {
-          v65 = objc_alloc_init(_SBRootFolderLayoutWrapperView);
-          [(_SBRootFolderLayoutWrapperView *)v65 setWrappedView:view2];
-          [scrollView addSubview:v65];
-          [v58 addObject:v65];
+          v67 = objc_alloc_init(_SBRootFolderLayoutWrapperView);
+          [(_SBRootFolderLayoutWrapperView *)v67 setWrappedView:view2];
+          [scrollView addSubview:v67];
+          [v60 addObject:v67];
 
-          v48 = 1;
+          v50 = 1;
         }
       }
 
-      v61 = [(NSArray *)v59 countByEnumeratingWithState:&v106 objects:v116 count:16];
+      v63 = [(NSArray *)v61 countByEnumeratingWithState:&v108 objects:v118 count:16];
     }
 
-    while (v61);
+    while (v63);
   }
 
-  v66 = [v58 copy];
-  searchableTrailingCustomWrapperViews = v103->_searchableTrailingCustomWrapperViews;
-  v103->_searchableTrailingCustomWrapperViews = v66;
+  v68 = [v60 copy];
+  searchableTrailingCustomWrapperViews = v105->_searchableTrailingCustomWrapperViews;
+  v105->_searchableTrailingCustomWrapperViews = v68;
 
-  if (v48)
+  if (v50)
   {
-    v68 = objc_alloc_init(SBHMinusPageStepper);
-    customPageAnimationStepper = v103->_customPageAnimationStepper;
-    v103->_customPageAnimationStepper = v68;
+    v70 = objc_alloc_init(SBHMinusPageStepper);
+    customPageAnimationStepper = v105->_customPageAnimationStepper;
+    v105->_customPageAnimationStepper = v70;
   }
 
-  searchPresenter = [v102 searchPresenter];
-  searchPresenter = v103->_searchPresenter;
-  v103->_searchPresenter = searchPresenter;
+  searchPresenter = [v104 searchPresenter];
+  searchPresenter = v105->_searchPresenter;
+  v105->_searchPresenter = searchPresenter;
 
-  if (v103->_searchPresenter)
+  if (v105->_searchPresenter)
   {
-    searchPresentableViewController = [v102 searchPresentableViewController];
+    searchPresentableViewController = [v104 searchPresentableViewController];
     view3 = [searchPresentableViewController view];
-    searchPresentableView = v103->_searchPresentableView;
-    v103->_searchPresentableView = view3;
+    searchPresentableView = v105->_searchPresentableView;
+    v105->_searchPresentableView = view3;
 
-    v75 = v103->_searchPresentableView;
-    [(SBRootFolderView *)v103 bounds];
-    [(UIView *)v75 setFrame:?];
-    [(UIView *)v103->_searchPresentableView setHidden:1];
-    [(SBRootFolderView *)v103 addSubview:v103->_searchPresentableView];
+    v77 = v105->_searchPresentableView;
+    objc_msgSend_bounds(v105);
+    [(UIView *)v77 setFrame:?];
+    [(UIView *)v105->_searchPresentableView setHidden:1];
+    [(SBRootFolderView *)v105 addSubview:v105->_searchPresentableView];
   }
 
-  pullDownSearchViewController = [v102 pullDownSearchViewController];
+  pullDownSearchViewController = [v104 pullDownSearchViewController];
   view4 = [pullDownSearchViewController view];
 
-  configurationCopy = v100;
-  if (view4 || v103->_searchPresenter)
+  configurationCopy = v102;
+  if (view4 || v105->_searchPresenter)
   {
-    v78 = objc_alloc_init(_SBRootFolderLayoutWrapperView);
-    searchPulldownWrapperView = v103->_searchPulldownWrapperView;
-    v103->_searchPulldownWrapperView = v78;
+    v80 = objc_alloc_init(_SBRootFolderLayoutWrapperView);
+    searchPulldownWrapperView = v105->_searchPulldownWrapperView;
+    v105->_searchPulldownWrapperView = v80;
 
     if (view4)
     {
-      [(_SBRootFolderLayoutWrapperView *)v103->_searchPulldownWrapperView setWrappedView:view4];
+      [(_SBRootFolderLayoutWrapperView *)v105->_searchPulldownWrapperView setWrappedView:view4];
     }
 
-    [(_SBRootFolderLayoutWrapperView *)v103->_searchPulldownWrapperView setHidden:1];
-    [(SBRootFolderView *)v103 addSubview:v103->_searchPulldownWrapperView];
+    [(_SBRootFolderLayoutWrapperView *)v105->_searchPulldownWrapperView setHidden:1];
+    [(SBRootFolderView *)v105 addSubview:v105->_searchPulldownWrapperView];
   }
 
-  v80 = +[SBHHomeScreenDomain rootSettings];
-  v103->_ignoresOverscrollOnFirstPageOrientations = [v102 ignoresOverscrollOnFirstPageOrientations];
-  ignoresOverscrollOnLastPageOrientations = [v102 ignoresOverscrollOnLastPageOrientations];
-  v103->_ignoresOverscrollOnLastPageOrientations = ignoresOverscrollOnLastPageOrientations;
-  if (v103->_ignoresOverscrollOnFirstPageOrientations | ignoresOverscrollOnLastPageOrientations)
+  v82 = +[SBHHomeScreenDomain rootSettings];
+  v105->_ignoresOverscrollOnFirstPageOrientations = [v104 ignoresOverscrollOnFirstPageOrientations];
+  ignoresOverscrollOnLastPageOrientations = [v104 ignoresOverscrollOnLastPageOrientations];
+  v105->_ignoresOverscrollOnLastPageOrientations = ignoresOverscrollOnLastPageOrientations;
+  if (v105->_ignoresOverscrollOnFirstPageOrientations | ignoresOverscrollOnLastPageOrientations)
   {
     panGestureRecognizer = [scrollView panGestureRecognizer];
-    [panGestureRecognizer addTarget:v103 action:sel__overscrollScrollPanGestureRecognizerDidUpdate_];
+    [panGestureRecognizer addTarget:v105 action:sel__overscrollScrollPanGestureRecognizerDidUpdate_];
   }
 
   weakObjectsHashTable = [MEMORY[0x1E696AC70] weakObjectsHashTable];
-  dockOffscreenProgressSettingClients = v103->_dockOffscreenProgressSettingClients;
-  v103->_dockOffscreenProgressSettingClients = weakObjectsHashTable;
+  dockOffscreenProgressSettingClients = v105->_dockOffscreenProgressSettingClients;
+  v105->_dockOffscreenProgressSettingClients = weakObjectsHashTable;
 
-  iconSettings = [v80 iconSettings];
+  iconSettings = [v82 iconSettings];
   iconParallaxSettings = [iconSettings iconParallaxSettings];
-  parallaxSettings = v103->_parallaxSettings;
-  v103->_parallaxSettings = iconParallaxSettings;
+  parallaxSettings = v105->_parallaxSettings;
+  v105->_parallaxSettings = iconParallaxSettings;
 
-  [(SBFParallaxSettings *)v103->_parallaxSettings addKeyObserver:v103];
-  [(SBRootFolderView *)v103 _updateParallaxSettings];
-  homeScreenPullToSearchSettings = [v80 homeScreenPullToSearchSettings];
-  pullToSearchSettings = v103->_pullToSearchSettings;
-  v103->_pullToSearchSettings = homeScreenPullToSearchSettings;
+  [(SBFParallaxSettings *)v105->_parallaxSettings addKeyObserver:v105];
+  [(SBRootFolderView *)v105 _updateParallaxSettings];
+  homeScreenPullToSearchSettings = [v82 homeScreenPullToSearchSettings];
+  pullToSearchSettings = v105->_pullToSearchSettings;
+  v105->_pullToSearchSettings = homeScreenPullToSearchSettings;
 
-  [(PTSettings *)v103->_pullToSearchSettings addKeyObserver:v103];
-  [(SBRootFolderView *)v103 _updatePullToSearchSettings];
-  rootFolderSettings = [v80 rootFolderSettings];
-  folderSettings = v103->_folderSettings;
-  v103->_folderSettings = rootFolderSettings;
+  [(PTSettings *)v105->_pullToSearchSettings addKeyObserver:v105];
+  [(SBRootFolderView *)v105 _updatePullToSearchSettings];
+  rootFolderSettings = [v82 rootFolderSettings];
+  folderSettings = v105->_folderSettings;
+  v105->_folderSettings = rootFolderSettings;
 
-  [(SBRootFolderView *)v103 _resetSearchScrollTrackingState];
-  v103->_allowsAutoscrollToLeadingCustomView = 1;
-  v103->_folderPageManagementAllowedOrientations = [v102 folderPageManagementAllowedOrientations];
-  [(SBRootFolderView *)v103 _setupIdleTextPrivacyDisclosures];
-  [(SBRootFolderView *)v103 _setupStateDumper];
-  v103->_titledButtonsAlpha = 1.0;
+  [(SBRootFolderView *)v105 _resetSearchScrollTrackingState];
+  v105->_allowsAutoscrollToLeadingCustomView = 1;
+  v105->_folderPageManagementAllowedOrientations = [v104 folderPageManagementAllowedOrientations];
+  [(SBRootFolderView *)v105 _setupIdleTextPrivacyDisclosures];
+  [(SBRootFolderView *)v105 _setupStateDumper];
+  v105->_titledButtonsAlpha = 1.0;
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  [defaultCenter addObserver:v103 selector:sel__reduceMotionStatusDidChange_ name:*MEMORY[0x1E69DD918] object:0];
+  [defaultCenter addObserver:v105 selector:sel__reduceMotionStatusDidChange_ name:*MEMORY[0x1E69DD918] object:0];
 
-  if (v103->_scrollAccessoryAuxiliaryView)
+  if (v105->_scrollAccessoryAuxiliaryView)
   {
-    v115 = objc_opt_class();
-    v93 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v115 count:1];
-    v94 = [(SBRootFolderView *)v103 registerForTraitChanges:v93 withAction:sel__forceLayoutPageControl];
+    v117 = objc_opt_class();
+    v95 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v117 count:1];
+    v96 = [(SBRootFolderView *)v105 registerForTraitChanges:v95 withAction:sel__forceLayoutPageControl];
   }
 
 LABEL_64:
@@ -1577,39 +1577,30 @@ LABEL_64:
   v5 = [(SBFolderView *)self typeForPage:?];
   if (v5 == 2)
   {
-    v9 = [(SBFolderView *)self trailingCustomPageIndexForPageIndex:index];
-    if (v9 != 0x7FFFFFFFFFFFFFFFLL)
+    if ([(SBFolderView *)self trailingCustomPageIndexForPageIndex:index]!= 0x7FFFFFFFFFFFFFFFLL)
     {
-      v7 = v9;
       trailingCustomViewControllers = [(SBRootFolderView *)self trailingCustomViewControllers];
       goto LABEL_8;
     }
 
 LABEL_6:
-    v10 = 0;
+    v7 = 0;
     goto LABEL_9;
   }
 
-  if (v5)
+  if (v5 || [(SBFolderView *)self leadingCustomPageIndexForPageIndex:index]== 0x7FFFFFFFFFFFFFFFLL)
   {
     goto LABEL_6;
   }
 
-  v6 = [(SBFolderView *)self leadingCustomPageIndexForPageIndex:index];
-  if (v6 == 0x7FFFFFFFFFFFFFFFLL)
-  {
-    goto LABEL_6;
-  }
-
-  v7 = v6;
   trailingCustomViewControllers = [(SBRootFolderView *)self leadingCustomViewControllers];
 LABEL_8:
-  v11 = trailingCustomViewControllers;
-  v10 = [trailingCustomViewControllers objectAtIndex:v7];
+  v8 = trailingCustomViewControllers;
+  v7 = objc_msgSend_objectAtIndex_(trailingCustomViewControllers);
 
 LABEL_9:
 
-  return v10;
+  return v7;
 }
 
 - (void)setContentVisibility:(unint64_t)visibility
@@ -1762,7 +1753,7 @@ LABEL_9:
     }
 
     [(SBRootFolderView *)self setHiddenLeadingCustomPageIndexes:v10];
-    v11 = [(NSArray *)self->_searchableLeadingCustomWrapperViews objectAtIndex:index];
+    v11 = objc_msgSend_objectAtIndex_(self->_searchableLeadingCustomWrapperViews);
     v12 = v11;
     if (hiddenCopy)
     {
@@ -1828,7 +1819,7 @@ uint64_t __51__SBRootFolderView_setListLayoutProvider_animated___block_invoke(ui
 
 - (void)willMoveToWindow:(id)window
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   windowCopy = window;
   window = [(SBRootFolderView *)self window];
   if (window)
@@ -1876,7 +1867,7 @@ uint64_t __51__SBRootFolderView_setListLayoutProvider_animated___block_invoke(ui
 
     if (v13 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v14 = SBLogCommon();
+      v14 = SBLogCommon(currentPageIndex);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
@@ -1884,39 +1875,39 @@ uint64_t __51__SBRootFolderView_setListLayoutProvider_animated___block_invoke(ui
         _os_log_impl(&dword_1BEB18000, v14, OS_LOG_TYPE_DEFAULT, "SBRootFolderView current state: %{public}@", buf, 0xCu);
       }
 
-      v15 = SBLogCommon();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = SBLogCommon(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134349056;
         selfCopy = v13;
-        _os_log_impl(&dword_1BEB18000, v15, OS_LOG_TYPE_DEFAULT, "SBRootFolderView is moving to page: %{public}lu", buf, 0xCu);
+        _os_log_impl(&dword_1BEB18000, v16, OS_LOG_TYPE_DEFAULT, "SBRootFolderView is moving to page: %{public}lu", buf, 0xCu);
       }
 
-      v16 = SBLogCommon();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = SBLogCommon(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
         selfCopy = windowCopy;
-        _os_log_impl(&dword_1BEB18000, v16, OS_LOG_TYPE_DEFAULT, "SBRootFolderView is moving to window: %{public}@", buf, 0xCu);
+        _os_log_impl(&dword_1BEB18000, v18, OS_LOG_TYPE_DEFAULT, "SBRootFolderView is moving to window: %{public}@", buf, 0xCu);
       }
 
-      v17 = SBLogCommon();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v20 = SBLogCommon(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
         *buf = 138543874;
         selfCopy = windowCopy;
-        v21 = 2114;
+        v24 = 2114;
         selfCopy2 = self;
-        v23 = 2050;
-        v24 = v13;
-        _os_log_fault_impl(&dword_1BEB18000, v17, OS_LOG_TYPE_FAULT, "SBRootFolderView is moving to window '%{public}@' state: %{public}@; will trigger setCurrentPageIndex:'%{public}lu' animated:NO", buf, 0x20u);
+        v26 = 2050;
+        v27 = v13;
+        _os_log_fault_impl(&dword_1BEB18000, v20, OS_LOG_TYPE_FAULT, "SBRootFolderView is moving to window '%{public}@' state: %{public}@; will trigger setCurrentPageIndex:'%{public}lu' animated:NO", buf, 0x20u);
       }
     }
   }
 
-  v18.receiver = self;
-  v18.super_class = SBRootFolderView;
-  [(SBFolderView *)&v18 willMoveToWindow:windowCopy];
+  v21.receiver = self;
+  v21.super_class = SBRootFolderView;
+  [(SBFolderView *)&v21 willMoveToWindow:windowCopy];
 }
 
 - (void)setOrientation:(int64_t)orientation
@@ -2031,7 +2022,7 @@ uint64_t __51__SBRootFolderView_setListLayoutProvider_animated___block_invoke(ui
   metrics->var1.size = 0u;
   metrics->var0.origin = 0u;
   metrics->var0.size = 0u;
-  [(SBRootFolderView *)self bounds];
+  objc_msgSend_bounds(self, a2);
   v8 = v7;
   v10 = v9;
   v12 = v11;
@@ -2039,7 +2030,7 @@ uint64_t __51__SBRootFolderView_setListLayoutProvider_animated___block_invoke(ui
   [(SBRootFolderView *)self safeAreaInsets];
   rootWithWidgetsListLayout = [(SBRootFolderView *)self rootWithWidgetsListLayout];
   rootWithWidgetsListLayout2 = [(SBRootFolderView *)self rootWithWidgetsListLayout];
-  [rootWithWidgetsListLayout2 iconImageInfo];
+  objc_msgSend_iconImageInfo(rootWithWidgetsListLayout2);
   v18 = v17;
 
   IsZero = BSFloatIsZero();
@@ -2511,7 +2502,7 @@ LABEL_47:
   v12 = v11;
   v13 = SBHIconListLayoutLargestExtraIconImageSizeInDomain(rootWithWidgetsListLayout, orientation, gridSizeClassDomain);
   v35 = v14;
-  [(SBRootFolderView *)self bounds];
+  objc_msgSend_bounds(self, v13);
   v16 = v15;
   v18 = v17;
   v20 = v19;
@@ -2856,7 +2847,7 @@ uint64_t __46__SBRootFolderView_layoutDockViewWithMetrics___block_invoke(uint64_
 {
   v10 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
-  v5 = SBLogCommon();
+  v5 = SBLogCommon(reasonCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v8 = 138543362;
@@ -2874,7 +2865,7 @@ uint64_t __46__SBRootFolderView_layoutDockViewWithMetrics___block_invoke(uint64_
 {
   v9 = *MEMORY[0x1E69E9840];
   clientCopy = client;
-  v5 = SBLogCommon();
+  v5 = SBLogCommon(clientCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     reason = [clientCopy reason];
@@ -3034,10 +3025,10 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v7 = SBLogCommon();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = SBLogCommon(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    [(SBRootFolderView *)invalidateCopy elementBorrowedAssertionDidInvalidate:v7];
+    [(SBRootFolderView *)invalidateCopy elementBorrowedAssertionDidInvalidate:v8];
   }
 
 LABEL_12:
@@ -3563,7 +3554,7 @@ LABEL_6:
         v14 = [(SBRootFolderView *)self makeTitledButtonOfClass:objc_opt_class()];
         [v14 addTarget:self action:sel_doneButtonTriggered_ forControlEvents:0x2000];
         [(SBRootFolderView *)self setDoneButton:v14];
-        [(SBRootFolderView *)self bounds];
+        objc_msgSend_bounds(self);
         [v14 sizeThatFits:{v15, v16}];
         v18 = v17;
         v20 = v19;
@@ -3667,13 +3658,13 @@ uint64_t __48__SBRootFolderView_setShowsDoneButton_animated___block_invoke_4(uin
   return [v2 setTransform:&v4];
 }
 
-uint64_t __48__SBRootFolderView_setShowsDoneButton_animated___block_invoke_5(uint64_t result, int a2)
+id *__48__SBRootFolderView_setShowsDoneButton_animated___block_invoke_5(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) removeFromSuperview];
-    v3 = *(v2 + 40);
+    [result[4] removeFromSuperview];
+    v3 = v2[5];
 
     return [v3 setDoneButton:0];
   }
@@ -3705,7 +3696,7 @@ uint64_t __48__SBRootFolderView_setShowsDoneButton_animated___block_invoke_5(uin
         [v13 setMenu:editMenu];
         [v13 setShowsMenuAsPrimaryAction:1];
         [(SBRootFolderView *)self setWidgetButton:v13];
-        [(SBRootFolderView *)self bounds];
+        objc_msgSend_bounds(self);
         [v13 sizeThatFits:{v15, v16}];
         v18 = v17;
         v20 = v19;
@@ -3809,13 +3800,13 @@ uint64_t __53__SBRootFolderView_setShowsAddWidgetButton_animated___block_invoke_
   return [v2 setTransform:&v4];
 }
 
-uint64_t __53__SBRootFolderView_setShowsAddWidgetButton_animated___block_invoke_5(uint64_t result, int a2)
+id *__53__SBRootFolderView_setShowsAddWidgetButton_animated___block_invoke_5(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) removeFromSuperview];
-    v3 = *(v2 + 40);
+    [result[4] removeFromSuperview];
+    v3 = v2[5];
 
     return [v3 setWidgetButton:0];
   }
@@ -3891,18 +3882,18 @@ uint64_t __53__SBRootFolderView_setShowsAddWidgetButton_animated___block_invoke_
 
 - (id)editMenu
 {
-  v46[4] = *MEMORY[0x1E69E9840];
-  objc_initWeak(&location, self);
-  v3 = MEMORY[0x1E69DC628];
-  v4 = SBHBundle();
-  v5 = [v4 localizedStringForKey:@"EDIT_MENU_ADD_WIDGET" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-  v6 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"widget.small.badge.plus"];
-  v43[0] = MEMORY[0x1E69E9820];
-  v43[1] = 3221225472;
-  v43[2] = __28__SBRootFolderView_editMenu__block_invoke;
-  v43[3] = &unk_1E808B348;
-  objc_copyWeak(&v44, &location);
-  v36 = [v3 actionWithTitle:v5 image:v6 identifier:@"addwidget" handler:v43];
+  v49[4] = *MEMORY[0x1E69E9840];
+  inited = objc_initWeak(&location, self);
+  v4 = MEMORY[0x1E69DC628];
+  v5 = SBHBundle(inited);
+  v6 = [v5 localizedStringForKey:@"EDIT_MENU_ADD_WIDGET" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+  v7 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"widget.small.badge.plus"];
+  v46[0] = MEMORY[0x1E69E9820];
+  v46[1] = 3221225472;
+  v46[2] = __28__SBRootFolderView_editMenu__block_invoke;
+  v46[3] = &unk_1E808B348;
+  objc_copyWeak(&v47, &location);
+  v39 = [v4 actionWithTitle:v6 image:v7 identifier:@"addwidget" handler:v46];
 
   isRTL = [(SBFolderView *)self isRTL];
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
@@ -3912,105 +3903,105 @@ uint64_t __53__SBRootFolderView_setShowsAddWidgetButton_animated___block_invoke_
   {
     if (([(SBFolderView *)self orientation]- 3) > 1)
     {
-      v10 = @"apps.ipad.badge.paintbrush";
-      v11 = !isRTL;
+      v11 = @"apps.ipad.badge.paintbrush";
+      v12 = !isRTL;
       if (isRTL)
       {
-        v10 = @"apps.ipad.badge.paintbrush.rtl";
+        v11 = @"apps.ipad.badge.paintbrush.rtl";
       }
 
-      v12 = @"apps.ipad.on.rectangle.portraint";
-      v13 = @"apps.ipad.on.rectangle.portraint.rtl";
+      v13 = @"apps.ipad.on.rectangle.portraint";
+      v14 = @"apps.ipad.on.rectangle.portraint.rtl";
     }
 
     else
     {
-      v10 = @"apps.ipad.landscape.badge.paintbrush";
-      v11 = !isRTL;
+      v11 = @"apps.ipad.landscape.badge.paintbrush";
+      v12 = !isRTL;
       if (isRTL)
       {
-        v10 = @"apps.ipad.landscape.badge.paintbrush.rtl";
+        v11 = @"apps.ipad.landscape.badge.paintbrush.rtl";
       }
 
-      v12 = @"apps.ipad.landscape.on.rectangle";
-      v13 = @"apps.ipad.landscape.on.rectangle.rtl";
+      v13 = @"apps.ipad.landscape.on.rectangle";
+      v14 = @"apps.ipad.landscape.on.rectangle.rtl";
     }
   }
 
   else
   {
-    v10 = @"apps.iphone.badge.paintbrush";
-    v11 = !isRTL;
+    v11 = @"apps.iphone.badge.paintbrush";
+    v12 = !isRTL;
     if (isRTL)
     {
-      v10 = @"apps.iphone.badge.paintbrush.rtl";
+      v11 = @"apps.iphone.badge.paintbrush.rtl";
     }
 
-    v12 = @"apps.iphone.on.rectangle.portrait";
-    v13 = @"apps.iphone.on.rectangle.portrait.rtl";
+    v13 = @"apps.iphone.on.rectangle.portrait";
+    v14 = @"apps.iphone.on.rectangle.portrait.rtl";
   }
 
-  if (v11)
+  if (v12)
   {
-    v14 = v12;
+    v15 = v13;
   }
 
   else
   {
-    v14 = v13;
+    v15 = v14;
   }
 
-  v15 = v10;
-  v16 = v14;
-  v17 = MEMORY[0x1E69DC628];
-  v18 = SBHBundle();
-  v19 = [v18 localizedStringForKey:@"EDIT_MENU_CUSTOMIZE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-  v20 = [MEMORY[0x1E69DCAB8] _systemImageNamed:v15];
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = __28__SBRootFolderView_editMenu__block_invoke_2;
-  v41[3] = &unk_1E808B348;
-  objc_copyWeak(&v42, &location);
-  v21 = [v17 actionWithTitle:v19 image:v20 identifier:@"customize" handler:v41];
+  v16 = v11;
+  v17 = v15;
+  v18 = MEMORY[0x1E69DC628];
+  v19 = SBHBundle(v17);
+  v20 = [v19 localizedStringForKey:@"EDIT_MENU_CUSTOMIZE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+  v21 = [MEMORY[0x1E69DCAB8] _systemImageNamed:v16];
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __28__SBRootFolderView_editMenu__block_invoke_2;
+  v44[3] = &unk_1E808B348;
+  objc_copyWeak(&v45, &location);
+  v22 = [v18 actionWithTitle:v20 image:v21 identifier:@"customize" handler:v44];
 
-  v22 = MEMORY[0x1E69DC628];
-  v23 = SBHBundle();
-  v24 = [v23 localizedStringForKey:@"EDIT_MENU_EDIT_PAGES" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-  v25 = [MEMORY[0x1E69DCAB8] _systemImageNamed:v16];
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __28__SBRootFolderView_editMenu__block_invoke_3;
-  v39[3] = &unk_1E808B348;
-  objc_copyWeak(&v40, &location);
-  v26 = [v22 actionWithTitle:v24 image:v25 identifier:@"pageManagement" handler:v39];
+  v23 = MEMORY[0x1E69DC628];
+  v25 = SBHBundle(v24);
+  v26 = [v25 localizedStringForKey:@"EDIT_MENU_EDIT_PAGES" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+  v27 = [MEMORY[0x1E69DCAB8] _systemImageNamed:v17];
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __28__SBRootFolderView_editMenu__block_invoke_3;
+  v42[3] = &unk_1E808B348;
+  objc_copyWeak(&v43, &location);
+  v28 = [v23 actionWithTitle:v26 image:v27 identifier:@"pageManagement" handler:v42];
 
-  v27 = MEMORY[0x1E69DC628];
-  v28 = SBHBundle();
-  v29 = [v28 localizedStringForKey:@"EDIT_MENU_EDIT_WALLPAPER" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-  v30 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"apple.photos"];
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __28__SBRootFolderView_editMenu__block_invoke_4;
-  v37[3] = &unk_1E808B348;
-  objc_copyWeak(&v38, &location);
-  v31 = [v27 actionWithTitle:v29 image:v30 identifier:@"editWallpaper" handler:v37];
+  v29 = MEMORY[0x1E69DC628];
+  v31 = SBHBundle(v30);
+  v32 = [v31 localizedStringForKey:@"EDIT_MENU_EDIT_WALLPAPER" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+  v33 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"apple.photos"];
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __28__SBRootFolderView_editMenu__block_invoke_4;
+  v40[3] = &unk_1E808B348;
+  objc_copyWeak(&v41, &location);
+  v34 = [v29 actionWithTitle:v32 image:v33 identifier:@"editWallpaper" handler:v40];
 
-  v32 = MEMORY[0x1E69DCC60];
-  v46[0] = v36;
-  v46[1] = v21;
-  v46[2] = v31;
-  v46[3] = v26;
-  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:4];
-  v34 = [v32 menuWithChildren:v33];
+  v35 = MEMORY[0x1E69DCC60];
+  v49[0] = v39;
+  v49[1] = v22;
+  v49[2] = v34;
+  v49[3] = v28;
+  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:4];
+  v37 = [v35 menuWithChildren:v36];
 
-  objc_destroyWeak(&v38);
-  objc_destroyWeak(&v40);
+  objc_destroyWeak(&v41);
+  objc_destroyWeak(&v43);
 
-  objc_destroyWeak(&v42);
-  objc_destroyWeak(&v44);
+  objc_destroyWeak(&v45);
+  objc_destroyWeak(&v47);
   objc_destroyWeak(&location);
 
-  return v34;
+  return v37;
 }
 
 void __28__SBRootFolderView_editMenu__block_invoke(uint64_t a1, void *a2)
@@ -4437,7 +4428,7 @@ uint64_t __62__SBRootFolderView_setSpecialLayoutManager_completionHandler___bloc
   return result;
 }
 
-uint64_t __62__SBRootFolderView_setSpecialLayoutManager_completionHandler___block_invoke_3(uint64_t result, int a2)
+void *__62__SBRootFolderView_setSpecialLayoutManager_completionHandler___block_invoke_3(void *result, int a2)
 {
   if (a2)
   {
@@ -4446,11 +4437,11 @@ uint64_t __62__SBRootFolderView_setSpecialLayoutManager_completionHandler___bloc
     {
       if (objc_opt_respondsToSelector())
       {
-        v3 = [*(v2 + 40) userInfo];
-        [*(v2 + 32) rootFolderView:*(v2 + 48) didDismissPageManagementWithLayoutManager:*(v2 + 40) context:v3];
+        v3 = [v2[5] userInfo];
+        [v2[4] rootFolderView:v2[6] didDismissPageManagementWithLayoutManager:v2[5] context:v3];
       }
 
-      v4 = *(v2 + 40);
+      v4 = v2[5];
 
       return [v4 setUserInfo:0];
     }
@@ -4543,7 +4534,7 @@ uint64_t __62__SBRootFolderView_setSpecialLayoutManager_completionHandler___bloc
 
 - (CGRect)enterEditingTouchRect
 {
-  [(SBRootFolderView *)self bounds];
+  objc_msgSend_bounds(self, a2);
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -4682,7 +4673,7 @@ uint64_t __62__SBRootFolderView_setSpecialLayoutManager_completionHandler___bloc
   if (!v6)
   {
     dockListView = self->_dockListView;
-    [(SBDockIconListView *)dockListView bounds];
+    objc_msgSend_bounds(dockListView);
     [(SBDockIconListView *)dockListView convertRect:self toView:?];
     v20.x = x;
     v20.y = y;
@@ -4736,16 +4727,14 @@ uint64_t __62__SBRootFolderView_setSpecialLayoutManager_completionHandler___bloc
 {
   if ([(SBFolderView *)self _isValidPageIndex:?])
   {
-    v5 = [(SBFolderView *)self leadingCustomPageIndexForPageIndex:index];
-    if (v5 != 0x7FFFFFFFFFFFFFFFLL)
+    if ([(SBFolderView *)self leadingCustomPageIndexForPageIndex:index]!= 0x7FFFFFFFFFFFFFFFLL)
     {
-      v6 = v5;
       leadingCustomViewControllers = [(SBRootFolderView *)self leadingCustomViewControllers];
-      v8 = [leadingCustomViewControllers objectAtIndex:v6];
+      v6 = objc_msgSend_objectAtIndex_(leadingCustomViewControllers);
 
       if (objc_opt_respondsToSelector())
       {
-        rootIconListView = [v8 rootIconListView];
+        rootIconListView = [v6 rootIconListView];
 
         if (rootIconListView)
         {
@@ -4758,16 +4747,14 @@ uint64_t __62__SBRootFolderView_setSpecialLayoutManager_completionHandler___bloc
       }
     }
 
-    v10 = [(SBFolderView *)self trailingCustomPageIndexForPageIndex:index];
-    if (v10 != 0x7FFFFFFFFFFFFFFFLL)
+    if ([(SBFolderView *)self trailingCustomPageIndexForPageIndex:index]!= 0x7FFFFFFFFFFFFFFFLL)
     {
-      v11 = v10;
       trailingCustomViewControllers = [(SBRootFolderView *)self trailingCustomViewControllers];
-      v13 = [trailingCustomViewControllers objectAtIndex:v11];
+      v9 = objc_msgSend_objectAtIndex_(trailingCustomViewControllers);
 
       if (objc_opt_respondsToSelector())
       {
-        rootIconListView = [v13 rootIconListView];
+        rootIconListView = [v9 rootIconListView];
 
         if (rootIconListView)
         {
@@ -4781,9 +4768,9 @@ uint64_t __62__SBRootFolderView_setSpecialLayoutManager_completionHandler___bloc
     }
   }
 
-  v15.receiver = self;
-  v15.super_class = SBRootFolderView;
-  rootIconListView = [(SBFolderView *)&v15 iconListViewForPageIndex:index];
+  v11.receiver = self;
+  v11.super_class = SBRootFolderView;
+  rootIconListView = [(SBFolderView *)&v11 iconListViewForPageIndex:index];
 LABEL_13:
 
   return rootIconListView;
@@ -5236,21 +5223,22 @@ void __41__SBRootFolderView_setIdleText_animated___block_invoke_2(uint64_t a1)
 
 - (void)iconScrollViewDidCancelTouchTracking:(id)tracking
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = SBRootFolderView;
-  [(SBFolderView *)&v8 iconScrollViewDidCancelTouchTracking:tracking];
+  v12 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = SBRootFolderView;
+  [(SBFolderView *)&v9 iconScrollViewDidCancelTouchTracking:tracking];
   [(SBRootFolderView *)self leadingCustomViewVisibilityProgress];
   v5 = v4;
-  if ([(SBFolderView *)self currentPageIndex]< 0 && v5 <= 0.0)
+  currentPageIndex = [(SBFolderView *)self currentPageIndex];
+  if (currentPageIndex < 0 && v5 <= 0.0)
   {
-    v6 = SBLogIcon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = SBLogIcon(currentPageIndex);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = _SBFLoggingMethodProem();
+      v8 = _SBFLoggingMethodProem();
       *buf = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_INFO, "%{public}@ Home Screen page mismatch, forcing page zero", buf, 0xCu);
+      v11 = v8;
+      _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_INFO, "%{public}@ Home Screen page mismatch, forcing page zero", buf, 0xCu);
     }
 
     [(SBFolderView *)self setCurrentPageIndex:[(SBFolderView *)self defaultPageIndex] animated:1];
@@ -5734,7 +5722,7 @@ LABEL_6:
   }
 
   searchPresenter = [(SBRootFolderView *)self searchPresenter];
-  [(SBRootFolderView *)self bounds];
+  objc_msgSend_bounds(self);
   v49 = v12;
   v50 = v11;
   v47 = v14;
@@ -6062,7 +6050,7 @@ uint64_t __63__SBRootFolderView__animateViewsForPullingToSearchWithMetrics___blo
   {
     v6 = self->_searchPulldownWrapperView;
     v3 = [SBSearchBackdropView alloc];
-    [(_SBRootFolderLayoutWrapperView *)v6 bounds];
+    objc_msgSend_bounds(v6);
     v4 = [(SBSearchBackdropView *)v3 initWithFrame:0 style:?];
     searchBackdropView = self->_searchBackdropView;
     self->_searchBackdropView = v4;
@@ -6168,7 +6156,7 @@ id __37__SBRootFolderView__setupStateDumper__block_invoke(uint64_t a1)
   v55[5] = @"transform";
   if (dockView)
   {
-    [dockView transform];
+    objc_msgSend_transform(dockView);
   }
 
   else

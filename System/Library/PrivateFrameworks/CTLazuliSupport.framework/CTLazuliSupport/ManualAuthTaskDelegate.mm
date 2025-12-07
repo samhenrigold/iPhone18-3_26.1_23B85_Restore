@@ -16,8 +16,7 @@
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(id)handler
 {
   v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECBAE78, &qword_242739D30);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
+  MEMORY[0x28223BE20](v11 - 8, v12);
   v14 = &v24 - v13;
   v15 = _Block_copy(handler);
   v16 = swift_allocObject();

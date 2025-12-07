@@ -16,7 +16,7 @@
   v5 = v4;
   if (v4)
   {
-    contentView = [(EKUIConferenceRoomSearchResultCell *)v4 contentView];
+    v6 = objc_msgSend_contentView(v4);
     v7 = objc_alloc_init(MEMORY[0x1E69DCC10]);
     title = v5->_title;
     v5->_title = v7;
@@ -30,7 +30,7 @@
     textColor = [textLabel2 textColor];
     [(UILabel *)v5->_title setTextColor:textColor];
 
-    [contentView addSubview:v5->_title];
+    [v6 addSubview:v5->_title];
     v13 = objc_alloc_init(MEMORY[0x1E69DCAE0]);
     image = v5->_image;
     v5->_image = v13;
@@ -39,55 +39,55 @@
     [(UIImageView *)v5->_image setPreferredSymbolConfiguration:v15];
 
     [(UIImageView *)v5->_image setTranslatesAutoresizingMaskIntoConstraints:0];
-    [contentView addSubview:v5->_image];
+    [v6 addSubview:v5->_image];
     v16 = [objc_alloc(MEMORY[0x1E69DC638]) initWithActivityIndicatorStyle:100];
     spinner = v5->_spinner;
     v5->_spinner = v16;
 
     [(UIActivityIndicatorView *)v5->_spinner setTranslatesAutoresizingMaskIntoConstraints:0];
-    [contentView addSubview:v5->_spinner];
+    [v6 addSubview:v5->_spinner];
     v42 = MEMORY[0x1E696ACD8];
     topAnchor = [(UILabel *)v5->_title topAnchor];
-    layoutMarginsGuide = [contentView layoutMarginsGuide];
+    layoutMarginsGuide = [v6 layoutMarginsGuide];
     topAnchor2 = [layoutMarginsGuide topAnchor];
     v51 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:4.0];
     v56[0] = v51;
     bottomAnchor = [(UILabel *)v5->_title bottomAnchor];
-    layoutMarginsGuide2 = [contentView layoutMarginsGuide];
+    layoutMarginsGuide2 = [v6 layoutMarginsGuide];
     bottomAnchor2 = [layoutMarginsGuide2 bottomAnchor];
     v47 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-4.0];
     v56[1] = v47;
     leadingAnchor = [(UILabel *)v5->_title leadingAnchor];
-    layoutMarginsGuide3 = [contentView layoutMarginsGuide];
+    layoutMarginsGuide3 = [v6 layoutMarginsGuide];
     leadingAnchor2 = [layoutMarginsGuide3 leadingAnchor];
     v43 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:45.0];
     v56[2] = v43;
     trailingAnchor = [(UILabel *)v5->_title trailingAnchor];
-    layoutMarginsGuide4 = [contentView layoutMarginsGuide];
+    layoutMarginsGuide4 = [v6 layoutMarginsGuide];
     trailingAnchor2 = [layoutMarginsGuide4 trailingAnchor];
     v38 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
     v56[3] = v38;
     centerXAnchor = [(UIImageView *)v5->_image centerXAnchor];
-    layoutMarginsGuide5 = [contentView layoutMarginsGuide];
+    layoutMarginsGuide5 = [v6 layoutMarginsGuide];
     leadingAnchor3 = [layoutMarginsGuide5 leadingAnchor];
     v34 = [centerXAnchor constraintEqualToAnchor:leadingAnchor3 constant:17.0];
     v56[4] = v34;
     centerYAnchor = [(UIImageView *)v5->_image centerYAnchor];
-    layoutMarginsGuide6 = [contentView layoutMarginsGuide];
+    layoutMarginsGuide6 = [v6 layoutMarginsGuide];
     centerYAnchor2 = [layoutMarginsGuide6 centerYAnchor];
     v30 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
     v56[5] = v30;
     centerXAnchor2 = [(UIActivityIndicatorView *)v5->_spinner centerXAnchor];
-    layoutMarginsGuide7 = [contentView layoutMarginsGuide];
+    layoutMarginsGuide7 = [v6 layoutMarginsGuide];
     leadingAnchor4 = [layoutMarginsGuide7 leadingAnchor];
     v18 = [centerXAnchor2 constraintEqualToAnchor:leadingAnchor4 constant:17.0];
     v56[6] = v18;
     centerYAnchor3 = [(UIActivityIndicatorView *)v5->_spinner centerYAnchor];
-    layoutMarginsGuide8 = [contentView layoutMarginsGuide];
+    layoutMarginsGuide8 = [v6 layoutMarginsGuide];
     centerYAnchor4 = [layoutMarginsGuide8 centerYAnchor];
     v22 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
     v56[7] = v22;
-    heightAnchor = [contentView heightAnchor];
+    heightAnchor = [v6 heightAnchor];
     v24 = [heightAnchor constraintGreaterThanOrEqualToConstant:EKUITableRowHeightDefault()];
     v56[8] = v24;
     v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:9];
@@ -116,7 +116,7 @@
 
 - (void)updateSeparatorInset
 {
-  CalInterfaceIsLeftToRight();
+  CalInterfaceIsLeftToRight(self, a2);
   [(EKUIConferenceRoomSearchResultCell *)self safeAreaInsets];
   [(EKUIConferenceRoomSearchResultCell *)self separatorInset];
 

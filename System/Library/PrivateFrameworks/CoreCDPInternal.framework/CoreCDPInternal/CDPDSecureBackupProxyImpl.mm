@@ -392,7 +392,7 @@
 
 - (void)accountInfoWithInfo:(id)info completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   infoCopy = info;
   v8 = _CDPSignpostLogSystem();
@@ -411,7 +411,7 @@
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v25 = v9;
+    v24 = v9;
     _os_log_impl(&dword_24510B000, v14, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: AccountInfoWithInfo  enableTelemetry=YES ", buf, 0xCu);
   }
 
@@ -419,22 +419,20 @@
 
   v16 = objc_alloc_init(_TtC15CoreCDPInternal28CDPExponentialRetryScheduler);
   cdpContext = self->_cdpContext;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __60__CDPDSecureBackupProxyImpl_accountInfoWithInfo_completion___block_invoke;
-  v20[3] = &unk_278E24C00;
-  v22 = v9;
-  v23 = v11;
-  v21 = completionCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __60__CDPDSecureBackupProxyImpl_accountInfoWithInfo_completion___block_invoke;
+  v19[3] = &unk_278E24C00;
+  v21 = v9;
+  v22 = v11;
+  v20 = completionCopy;
   v18 = completionCopy;
-  [(CDPExponentialRetryScheduler *)v16 retryFetchAccountInfo:v15 cdpContext:cdpContext completionHandler:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [(CDPExponentialRetryScheduler *)v16 retryFetchAccountInfo:v15 cdpContext:cdpContext completionHandler:v19];
 }
 
 void __60__CDPDSecureBackupProxyImpl_accountInfoWithInfo_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = _CDPLogSystem();
@@ -443,67 +441,63 @@ void __60__CDPDSecureBackupProxyImpl_accountInfoWithInfo_completion___block_invo
     __60__CDPDSecureBackupProxyImpl_accountInfoWithInfo_completion___block_invoke_cold_1();
   }
 
-  v8 = a1[5];
-  v9 = a1[6];
   Nanoseconds = _CDPSignpostGetNanoseconds();
-  v11 = _CDPSignpostLogSystem();
-  v12 = v11;
-  v13 = a1[5];
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v9 = _CDPSignpostLogSystem();
+  v10 = v9;
+  v11 = a1[5];
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
-    v23 = 67240192;
-    LODWORD(v24) = [v6 code];
-    _os_signpost_emit_with_name_impl(&dword_24510B000, v12, OS_SIGNPOST_INTERVAL_END, v13, "AccountInfoWithInfo", " error=%{public,signpost.telemetry:number1,name=error}d ", &v23, 8u);
+    v20 = 67240192;
+    LODWORD(v21) = [v6 code];
+    _os_signpost_emit_with_name_impl(&dword_24510B000, v10, OS_SIGNPOST_INTERVAL_END, v11, "AccountInfoWithInfo", " error=%{public,signpost.telemetry:number1,name=error}d ", &v20, 8u);
   }
 
-  v14 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v12 = _CDPSignpostLogSystem();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = Nanoseconds / 1000000000.0;
-    v16 = a1[5];
-    v17 = [v6 code];
-    v23 = 134218496;
-    v24 = v16;
-    v25 = 2048;
-    v26 = v15;
-    v27 = 1026;
-    v28 = v17;
-    _os_log_impl(&dword_24510B000, v14, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: AccountInfoWithInfo  error=%{public,signpost.telemetry:number1,name=error}d ", &v23, 0x1Cu);
+    v13 = Nanoseconds / 1000000000.0;
+    v14 = a1[5];
+    v15 = [v6 code];
+    v20 = 134218496;
+    v21 = v14;
+    v22 = 2048;
+    v23 = v13;
+    v24 = 1026;
+    v25 = v15;
+    _os_log_impl(&dword_24510B000, v12, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: AccountInfoWithInfo  error=%{public,signpost.telemetry:number1,name=error}d ", &v20, 0x1Cu);
   }
 
   if (!v5 || v6)
   {
-    v20 = _CDPLogSystem();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v18 = _CDPLogSystem();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       __60__CDPDSecureBackupProxyImpl_accountInfoWithInfo_completion___block_invoke_cold_2();
     }
 
-    v21 = a1[4];
-    if (v21)
+    v19 = a1[4];
+    if (v19)
     {
-      v19 = *(v21 + 16);
+      v17 = *(v19 + 16);
       goto LABEL_16;
     }
   }
 
   else
   {
-    v18 = a1[4];
-    if (v18)
+    v16 = a1[4];
+    if (v16)
     {
-      v19 = *(v18 + 16);
+      v17 = *(v16 + 16);
 LABEL_16:
-      v19();
+      v17();
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)accountInfoWithInfo:(id)info error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v7 = _CDPSignpostLogSystem();
   v8 = _CDPSignpostCreate();
@@ -520,15 +514,15 @@ LABEL_16:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v26 = v8;
+    v25 = v8;
     _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: AccountInfoWithInfo  enableTelemetry=YES ", buf, 0xCu);
   }
 
   v12 = [(CDPDSecureBackupProxyImpl *)self secureBackupContextWithInfo:infoCopy];
 
-  v24 = 0;
-  v13 = [v12 getAccountInfoWithError:&v24];
-  v14 = v24;
+  v23 = 0;
+  v13 = [v12 getAccountInfoWithError:&v23];
+  v14 = v23;
 
   if (error)
   {
@@ -543,7 +537,7 @@ LABEL_16:
   {
     code = [v14 code];
     *buf = 67240192;
-    LODWORD(v26) = code;
+    LODWORD(v25) = code;
     _os_signpost_emit_with_name_impl(&dword_24510B000, v18, OS_SIGNPOST_INTERVAL_END, v8, "AccountInfoWithInfo", " error=%{public,signpost.telemetry:number1,name=error}d ", buf, 8u);
   }
 
@@ -552,22 +546,20 @@ LABEL_16:
   {
     code2 = [v14 code];
     *buf = 134218496;
-    v26 = v8;
-    v27 = 2048;
-    v28 = Nanoseconds / 1000000000.0;
-    v29 = 1026;
-    v30 = code2;
+    v25 = v8;
+    v26 = 2048;
+    v27 = Nanoseconds / 1000000000.0;
+    v28 = 1026;
+    v29 = code2;
     _os_log_impl(&dword_24510B000, v20, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: AccountInfoWithInfo  error=%{public,signpost.telemetry:number1,name=error}d ", buf, 0x1Cu);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (BOOL)enableWithInfo:(id)info error:(id *)error
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v7 = *MEMORY[0x277CFD930];
   v8 = [MEMORY[0x277CE44D8] analyticsEventWithContext:self->_cdpContext eventName:*MEMORY[0x277CFD700] category:*MEMORY[0x277CFD930]];
@@ -586,13 +578,13 @@ LABEL_16:
 
     if (!v12)
     {
-      v40 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277CFB360]];
+      v39 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277CFB360]];
 
-      if (v40)
+      if (v39)
       {
-        v41 = [MEMORY[0x277CE44D8] analyticsEventWithContext:self->_cdpContext eventName:*MEMORY[0x277CFD7B0] category:v7];
+        v40 = [MEMORY[0x277CE44D8] analyticsEventWithContext:self->_cdpContext eventName:*MEMORY[0x277CFD7B0] category:v7];
 
-        v9 = v41;
+        v9 = v40;
         goto LABEL_7;
       }
 
@@ -615,7 +607,7 @@ LABEL_6:
 LABEL_7:
   v16 = _CDPSignpostLogSystem();
   v17 = _CDPSignpostCreate();
-  v42 = v18;
+  v41 = v18;
 
   v19 = _CDPSignpostLogSystem();
   v20 = v19;
@@ -629,7 +621,7 @@ LABEL_7:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v45 = v17;
+    v44 = v17;
     _os_log_impl(&dword_24510B000, v21, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: EnableBackupWithInfo  enableTelemetry=YES ", buf, 0xCu);
   }
 
@@ -638,9 +630,9 @@ LABEL_7:
   [rtcAnalyticsReporter sendEvent:v8];
 
   v24 = [(CDPDSecureBackupProxyImpl *)self secureBackupContextWithInfo:infoCopy];
-  v43 = 0;
-  v25 = [v24 enableWithError:&v43];
-  v26 = v43;
+  v42 = 0;
+  v25 = [v24 enableWithError:&v42];
+  v26 = v42;
 
   if (error)
   {
@@ -676,7 +668,7 @@ LABEL_7:
   {
     code = [v26 code];
     *buf = 67240192;
-    LODWORD(v45) = code;
+    LODWORD(v44) = code;
     _os_signpost_emit_with_name_impl(&dword_24510B000, v32, OS_SIGNPOST_INTERVAL_END, v17, "EnableBackupWithInfo", " error=%{public,signpost.telemetry:number1,name=error}d ", buf, 8u);
   }
 
@@ -685,11 +677,11 @@ LABEL_7:
   {
     code2 = [v26 code];
     *buf = 134218496;
-    v45 = v17;
-    v46 = 2048;
-    v47 = Nanoseconds / 1000000000.0;
-    v48 = 1026;
-    v49 = code2;
+    v44 = v17;
+    v45 = 2048;
+    v46 = Nanoseconds / 1000000000.0;
+    v47 = 1026;
+    v48 = code2;
     _os_log_impl(&dword_24510B000, v34, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: EnableBackupWithInfo  error=%{public,signpost.telemetry:number1,name=error}d ", buf, 0x1Cu);
   }
 
@@ -704,13 +696,12 @@ LABEL_7:
   rtcAnalyticsReporter2 = [MEMORY[0x277CFD490] rtcAnalyticsReporter];
   [rtcAnalyticsReporter2 sendEvent:v9];
 
-  v38 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 - (id)recoverWithInfo:(id)info error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v7 = _CDPSignpostLogSystem();
   v8 = _CDPSignpostCreate();
@@ -727,15 +718,15 @@ LABEL_7:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v26 = v8;
+    v25 = v8;
     _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RecoverBackupWithInfo  enableTelemetry=YES ", buf, 0xCu);
   }
 
   v12 = [(CDPDSecureBackupProxyImpl *)self secureBackupContextWithInfo:infoCopy];
 
-  v24 = 0;
-  v13 = [v12 recoverWithError:&v24];
-  v14 = v24;
+  v23 = 0;
+  v13 = [v12 recoverWithError:&v23];
+  v14 = v23;
 
   if (error)
   {
@@ -750,7 +741,7 @@ LABEL_7:
   {
     code = [v14 code];
     *buf = 67240192;
-    LODWORD(v26) = code;
+    LODWORD(v25) = code;
     _os_signpost_emit_with_name_impl(&dword_24510B000, v18, OS_SIGNPOST_INTERVAL_END, v8, "RecoverBackupWithInfo", " error=%{public,signpost.telemetry:number1,name=error}d ", buf, 8u);
   }
 
@@ -759,22 +750,20 @@ LABEL_7:
   {
     code2 = [v14 code];
     *buf = 134218496;
-    v26 = v8;
-    v27 = 2048;
-    v28 = Nanoseconds / 1000000000.0;
-    v29 = 1026;
-    v30 = code2;
+    v25 = v8;
+    v26 = 2048;
+    v27 = Nanoseconds / 1000000000.0;
+    v28 = 1026;
+    v29 = code2;
     _os_log_impl(&dword_24510B000, v20, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RecoverBackupWithInfo  error=%{public,signpost.telemetry:number1,name=error}d ", buf, 0x1Cu);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (BOOL)disableWithInfo:(id)info error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v7 = [MEMORY[0x277CE44D8] analyticsEventWithContext:self->_cdpContext eventName:*MEMORY[0x277CFD708] category:*MEMORY[0x277CFD930]];
   v8 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277CFB3D8]];
@@ -816,14 +805,14 @@ LABEL_7:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v37 = v15;
+    v36 = v15;
     _os_log_impl(&dword_24510B000, v18, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: DisableBackupWithInfo  enableTelemetry=YES ", buf, 0xCu);
   }
 
   v19 = [(CDPDSecureBackupProxyImpl *)self secureBackupContextWithInfo:v9];
-  v35 = 0;
-  v20 = [v19 disableWithError:&v35];
-  v21 = v35;
+  v34 = 0;
+  v20 = [v19 disableWithError:&v34];
+  v21 = v34;
 
   if (error)
   {
@@ -853,7 +842,7 @@ LABEL_7:
   {
     code = [v21 code];
     *buf = 67240192;
-    LODWORD(v37) = code;
+    LODWORD(v36) = code;
     _os_signpost_emit_with_name_impl(&dword_24510B000, v27, OS_SIGNPOST_INTERVAL_END, v15, "DisableBackupWithInfo", " enableError=%{public,signpost.telemetry:number1,name=enableError}d ", buf, 8u);
   }
 
@@ -862,11 +851,11 @@ LABEL_7:
   {
     code2 = [v21 code];
     *buf = 134218496;
-    v37 = v15;
-    v38 = 2048;
-    v39 = Nanoseconds / 1000000000.0;
-    v40 = 1026;
-    v41 = code2;
+    v36 = v15;
+    v37 = 2048;
+    v38 = Nanoseconds / 1000000000.0;
+    v39 = 1026;
+    v40 = code2;
     _os_log_impl(&dword_24510B000, v29, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: DisableBackupWithInfo  enableError=%{public,signpost.telemetry:number1,name=enableError}d ", buf, 0x1Cu);
   }
 
@@ -881,7 +870,6 @@ LABEL_7:
   rtcAnalyticsReporter = [MEMORY[0x277CFD490] rtcAnalyticsReporter];
   [rtcAnalyticsReporter sendEvent:v7];
 
-  v33 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -952,10 +940,46 @@ void __62__CDPDSecureBackupProxyImpl_cacheRecoveryKey_completionBlock___block_in
 
 - (void)_cleanUpPostEscrowCreationStates
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Saving account failed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  defaultStore = [MEMORY[0x277CB8F48] defaultStore];
+  aa_primaryAppleAccount = [defaultStore aa_primaryAppleAccount];
+  v5 = _CDPLogSystem();
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  if (aa_primaryAppleAccount)
+  {
+    if (v6)
+    {
+      *buf = 0;
+      _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "reset missing escrow debounce timer since securebackup is enabled", buf, 2u);
+    }
+
+    [aa_primaryAppleAccount setAccountProperty:0 forKey:@"escrowRecordHealthCheckFailureCount"];
+    v13 = 0;
+    v7 = [defaultStore saveVerifiedAccount:aa_primaryAppleAccount error:&v13];
+    v5 = v13;
+    if ((v7 & 1) == 0)
+    {
+      v8 = _CDPLogSystem();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        [CDPDSecureBackupProxyImpl _cleanUpPostEscrowCreationStates];
+      }
+    }
+  }
+
+  else if (v6)
+  {
+    *v15 = 0;
+    _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "No primary account found to reset missing escrow debounce timer", v15, 2u);
+  }
+
+  v9 = [CDPDLocalSecretFollowUpProviderImpl alloc];
+  altDSID = [(CDPContext *)self->_cdpContext altDSID];
+  telemetryFlowID = [(CDPContext *)self->_cdpContext telemetryFlowID];
+  v12 = [(CDPDLocalSecretFollowUpProviderImpl *)v9 initWithAltDSID:altDSID telemetryFlowID:telemetryFlowID];
+
+  [(CDPDLocalSecretFollowUpProviderImpl *)v12 deleteLocalSecretChangeFollowUp];
+  [(CDPDLocalSecretFollowUpProviderImpl *)v12 deleteConfirmExistingSecretFollowUp];
+  [(CDPDLocalSecretFollowUpProviderImpl *)v12 deleteCreatePasscodeFollowUp];
 }
 
 - (BOOL)isRecoveryKeySet:(id *)set
@@ -1030,7 +1054,7 @@ void __62__CDPDSecureBackupProxyImpl_cacheRecoveryKey_completionBlock___block_in
     v15 = _CDPLogSystem();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [CDPDSecureBackupProxyImpl setRecoveryKeyInSOS:? error:?];
+      [CDPDSecureBackupProxyImpl setRecoveryKeyInSOS:error:];
     }
 
     if (error)
@@ -1070,7 +1094,7 @@ void __62__CDPDSecureBackupProxyImpl_cacheRecoveryKey_completionBlock___block_in
 
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        [CDPDSecureBackupProxyImpl setRecoveryKeyInSOS:? error:?];
+        [CDPDSecureBackupProxyImpl setRecoveryKeyInSOS:error:];
       }
 
       if (error)
@@ -1089,7 +1113,7 @@ void __62__CDPDSecureBackupProxyImpl_cacheRecoveryKey_completionBlock___block_in
       v26 = _CDPLogSystem();
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        [CDPDSecureBackupProxyImpl setRecoveryKeyInSOS:? error:?];
+        [CDPDSecureBackupProxyImpl setRecoveryKeyInSOS:error:];
       }
 
       if (error)
@@ -1207,114 +1231,44 @@ LABEL_41:
 
 void __60__CDPDSecureBackupProxyImpl_accountInfoWithInfo_completion___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_24510B000, v0, OS_LOG_TYPE_DEBUG, "Fetched account info: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24510B000, v0, OS_LOG_TYPE_DEBUG, "Fetched account info: %@", v1, 0xCu);
 }
 
-void __60__CDPDSecureBackupProxyImpl_accountInfoWithInfo_completion___block_invoke_cold_2()
+- (void)setRecoveryKeyInSOS:error:.cold.5()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Fetched account info error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)enableWithInfo:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to enable SecureBackup: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)disableWithInfo:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to disable SecureBackup with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __62__CDPDSecureBackupProxyImpl_cacheRecoveryKey_completionBlock___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to cache recovery key with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)isRecoveryKeySet:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Received error while checking if RK is set in SOS: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)verifyRecoveryKey:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to verify recovery key with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setRecoveryKeyInSOS:error:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "failed to perform backup: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setRecoveryKeyInSOS:(uint64_t *)a1 error:.cold.5(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v1, v2, "SOSCCCopyMyPeerWithNewDeviceRecoverySecret() failed: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "SOSCCCopyMyPeerWithNewDeviceRecoverySecret() failed: %@", v2, v3, v4, v5);
 }
 
-- (void)setRecoveryKeyInSOS:(uint64_t *)a1 error:.cold.6(uint64_t *a1)
+- (void)setRecoveryKeyInSOS:error:.cold.6()
 {
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v1, v2, "SecPasswordGenerate() failed: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "SecPasswordGenerate() failed: %@", v2, v3, v4, v5);
 }
 
-- (void)setRecoveryKeyInSOS:(uint64_t *)a1 error:.cold.7(uint64_t *a1)
+- (void)setRecoveryKeyInSOS:error:.cold.7()
 {
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v1, v2, "SOSCCCopyMyPeerInfo() failed: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "SOSCCCopyMyPeerInfo() failed: %@", v2, v3, v4, v5);
 }
 
-- (void)_createAndRegisterBackupPublicKeyInSOS:error:.cold.1()
+- (void)_createAndRegisterBackupPublicKeyInSOS:error:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to create SOS RK for copying RK into SOS with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_createAndRegisterBackupPublicKeyInSOS:(uint64_t *)a1 error:.cold.2(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v1, v2, "Failed to register RK into SOS: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to register RK into SOS: %@", v2, v3, v4, v5);
 }
 
-- (void)removeRecoveryKeyFromSOS:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)removeRecoveryKeyFromSOS:.cold.1()
 {
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v1, v2, "Failed to remove RK from SOS: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to remove RK from SOS: %@", v2, v3, v4, v5);
 }
 
 @end

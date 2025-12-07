@@ -27,16 +27,16 @@
 - (void)dealloc
 {
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v4 = SUUIMediaPlayerFramework();
-  [defaultCenter removeObserver:self name:*SUUIWeakLinkedSymbolForString("MPMoviePlayerDidExitFullscreenNotification" object:{v4), 0}];
-  v5 = SUUIMediaPlayerFramework();
-  [defaultCenter removeObserver:self name:*SUUIWeakLinkedSymbolForString("MPMoviePlayerPlaybackDidFinishNotification" object:{v5), 0}];
-  v6 = SUUIMediaPlayerFramework();
-  [defaultCenter removeObserver:self name:*SUUIWeakLinkedSymbolForString("MPMoviePlayerPlaybackStateDidChangeNotification" object:{v6), 0}];
+  v5 = SUUIMediaPlayerFramework(defaultCenter, v4);
+  v6 = [defaultCenter removeObserver:self name:*SUUIWeakLinkedSymbolForString("MPMoviePlayerDidExitFullscreenNotification" object:{v5), 0}];
+  v8 = SUUIMediaPlayerFramework(v6, v7);
+  v9 = [defaultCenter removeObserver:self name:*SUUIWeakLinkedSymbolForString("MPMoviePlayerPlaybackDidFinishNotification" object:{v8), 0}];
+  v11 = SUUIMediaPlayerFramework(v9, v10);
+  [defaultCenter removeObserver:self name:*SUUIWeakLinkedSymbolForString("MPMoviePlayerPlaybackStateDidChangeNotification" object:{v11), 0}];
 
-  v7.receiver = self;
-  v7.super_class = SUUIEmbeddedMediaView;
-  [(SUUIEmbeddedMediaView *)&v7 dealloc];
+  v12.receiver = self;
+  v12.super_class = SUUIEmbeddedMediaView;
+  [(SUUIEmbeddedMediaView *)&v12 dealloc];
 }
 
 - (void)beginInlinePlaybackWithURL:(id)l
@@ -418,18 +418,18 @@ uint64_t __45__SUUIEmbeddedMediaView_endPlaybackAnimated___block_invoke(uint64_t
 - (id)_newMoviePlayerControllerWithURL:(id)l
 {
   lCopy = l;
-  v5 = SUUIMediaPlayerFramework();
-  v6 = [objc_alloc(SUUIWeakLinkedClassForString(&cfstr_Mpmovieplayerc.isa v5))];
+  v6 = SUUIMediaPlayerFramework(lCopy, v5);
+  v7 = [objc_alloc(SUUIWeakLinkedClassForString(&cfstr_Mpmovieplayerc.isa v6))];
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v8 = SUUIMediaPlayerFramework();
-  [defaultCenter addObserver:self selector:sel__didExitFullscreen_ name:*SUUIWeakLinkedSymbolForString("MPMoviePlayerDidExitFullscreenNotification" object:{v8), v6}];
-  v9 = SUUIMediaPlayerFramework();
-  [defaultCenter addObserver:self selector:sel__didFinishPlayback_ name:*SUUIWeakLinkedSymbolForString("MPMoviePlayerPlaybackDidFinishNotification" object:{v9), v6}];
-  v10 = SUUIMediaPlayerFramework();
-  [defaultCenter addObserver:self selector:sel__playbackStateChanged_ name:*SUUIWeakLinkedSymbolForString("MPMoviePlayerPlaybackStateDidChangeNotification" object:{v10), v6}];
+  v10 = SUUIMediaPlayerFramework(defaultCenter, v9);
+  v11 = [defaultCenter addObserver:self selector:sel__didExitFullscreen_ name:*SUUIWeakLinkedSymbolForString("MPMoviePlayerDidExitFullscreenNotification" object:{v10), v7}];
+  v13 = SUUIMediaPlayerFramework(v11, v12);
+  v14 = [defaultCenter addObserver:self selector:sel__didFinishPlayback_ name:*SUUIWeakLinkedSymbolForString("MPMoviePlayerPlaybackDidFinishNotification" object:{v13), v7}];
+  v16 = SUUIMediaPlayerFramework(v14, v15);
+  [defaultCenter addObserver:self selector:sel__playbackStateChanged_ name:*SUUIWeakLinkedSymbolForString("MPMoviePlayerPlaybackStateDidChangeNotification" object:{v16), v7}];
 
-  return v6;
+  return v7;
 }
 
 - (void)_sendPlaybackStateChanged
@@ -471,11 +471,11 @@ uint64_t __45__SUUIEmbeddedMediaView_endPlaybackAnimated___block_invoke(uint64_t
     [view removeFromSuperview];
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v5 = SUUIMediaPlayerFramework();
-    [defaultCenter removeObserver:self name:*SUUIWeakLinkedSymbolForString("MPMoviePlayerDidExitFullscreenNotification" object:{v5), self->_moviePlayer}];
-    v6 = SUUIMediaPlayerFramework();
-    [defaultCenter removeObserver:self name:*SUUIWeakLinkedSymbolForString("MPMoviePlayerPlaybackDidFinishNotification" object:{v6), self->_moviePlayer}];
-    v7 = self->_moviePlayer;
+    v6 = SUUIMediaPlayerFramework(defaultCenter, v5);
+    v7 = [defaultCenter removeObserver:self name:*SUUIWeakLinkedSymbolForString("MPMoviePlayerDidExitFullscreenNotification" object:{v6), self->_moviePlayer}];
+    v9 = SUUIMediaPlayerFramework(v7, v8);
+    [defaultCenter removeObserver:self name:*SUUIWeakLinkedSymbolForString("MPMoviePlayerPlaybackDidFinishNotification" object:{v9), self->_moviePlayer}];
+    v10 = self->_moviePlayer;
     self->_moviePlayer = 0;
   }
 }

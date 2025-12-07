@@ -1,6 +1,7 @@
 @interface CATRemoteConnectionTrustDecision
 - (CATRemoteConnectionTrustDecision)initWithConnection:(id)connection trust:(__SecTrust *)trust;
 - (void)dealloc;
+- (void)respondWithDecisionToAllowUntrustedConnection:(BOOL)connection;
 @end
 
 @implementation CATRemoteConnectionTrustDecision
@@ -32,6 +33,18 @@
   }
 
   return v8;
+}
+
+- (void)respondWithDecisionToAllowUntrustedConnection:(BOOL)connection
+{
+  v4 = 0;
+  atomic_compare_exchange_strong(&self->mHasResponded, &v4, 1u);
+  if (!v4)
+  {
+    connectionCopy = connection;
+    WeakRetained = objc_loadWeakRetained(&self->mConnection);
+    [WeakRetained trustDecisionDidRespondWithDecisionToAllowUntrustedConnection:connectionCopy];
+  }
 }
 
 @end

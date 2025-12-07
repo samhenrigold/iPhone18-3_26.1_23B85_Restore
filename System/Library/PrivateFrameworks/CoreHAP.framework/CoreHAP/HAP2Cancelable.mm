@@ -74,9 +74,8 @@
   return v2;
 }
 
-uint64_t __24__HAP2Cancelable_ignore__block_invoke(uint64_t a1)
+uint64_t __24__HAP2Cancelable_ignore__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   ignore_cancelable = [objc_alloc(objc_opt_class()) initWithBlock:0];
 
   return MEMORY[0x2821F96F8]();

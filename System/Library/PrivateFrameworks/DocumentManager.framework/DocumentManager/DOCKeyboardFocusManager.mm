@@ -36,11 +36,13 @@
   return v2;
 }
 
-uint64_t __40__DOCKeyboardFocusManager_sharedManager__block_invoke()
+uint64_t __40__DOCKeyboardFocusManager_sharedManager__block_invoke(uint64_t a1)
 {
-  sharedManager__sharedInstance = objc_opt_new();
+  v1 = objc_opt_new();
+  v2 = sharedManager__sharedInstance;
+  sharedManager__sharedInstance = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (DOCKeyboardFocusManager)init

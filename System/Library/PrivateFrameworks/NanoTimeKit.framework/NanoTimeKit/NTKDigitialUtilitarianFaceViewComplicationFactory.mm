@@ -514,46 +514,46 @@ void __138__NTKDigitialUtilitarianFaceViewComplicationFactory_createComplication
   }
 }
 
-void __138__NTKDigitialUtilitarianFaceViewComplicationFactory_createComplicationContentSpecificAttributesAnimationWithAttributes_faceView_forSlots___block_invoke_2(uint64_t a1)
+void __138__NTKDigitialUtilitarianFaceViewComplicationFactory_createComplicationContentSpecificAttributesAnimationWithAttributes_faceView_forSlots___block_invoke_2(uint64_t a1, double a2)
 {
   if (*(a1 + 72) == 1)
   {
-    v2 = *(a1 + 32);
-    v3 = NTKInterpolateBetweenColors();
-    [v2 setTextColor:v3];
+    v3 = *(a1 + 32);
+    v4 = NTKInterpolateBetweenColors(a2);
+    [v3 setTextColor:v4];
   }
 
   if (*(a1 + 73) == 1)
   {
-    v4 = *(a1 + 32);
+    v5 = *(a1 + 32);
     CLKInterpolateBetweenFloatsUnclipped();
 
-    [v4 setAlpha:?];
+    [v5 setAlpha:?];
   }
 }
 
-void __138__NTKDigitialUtilitarianFaceViewComplicationFactory_createComplicationContentSpecificAttributesAnimationWithAttributes_faceView_forSlots___block_invoke_3(uint64_t a1)
+void __138__NTKDigitialUtilitarianFaceViewComplicationFactory_createComplicationContentSpecificAttributesAnimationWithAttributes_faceView_forSlots___block_invoke_3(uint64_t a1, double a2)
 {
   if (*(a1 + 88) == 1)
   {
-    v2 = *(a1 + 32);
-    v3 = NTKInterpolateBetweenColors();
-    [v2 setForegroundColor:v3];
+    v4 = *(a1 + 32);
+    v5 = NTKInterpolateBetweenColors(a2);
+    [v4 setForegroundColor:v5];
   }
 
   if (*(a1 + 89) == 1)
   {
-    v4 = *(a1 + 32);
-    v5 = NTKInterpolateBetweenColors();
-    [v4 setShadowColor:v5];
+    v6 = *(a1 + 32);
+    v7 = NTKInterpolateBetweenColors(a2);
+    [v6 setShadowColor:v7];
   }
 
   if (*(a1 + 90) == 1)
   {
-    v6 = *(a1 + 32);
+    v8 = *(a1 + 32);
     CLKInterpolateBetweenFloatsUnclipped();
 
-    [v6 setAlpha:?];
+    [v8 setAlpha:?];
   }
 }
 

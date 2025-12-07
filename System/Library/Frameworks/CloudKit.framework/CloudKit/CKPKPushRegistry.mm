@@ -69,7 +69,7 @@
 
 - (void)pushRegistry:(id)registry didReceiveIncomingPushWithPayload:(id)payload forType:(id)type withCompletionHandler:(id)handler
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   registryCopy = registry;
   payloadCopy = payload;
   typeCopy = type;
@@ -83,35 +83,35 @@
   if (objc_msgSend_count(v17, v18, v19))
   {
     v20 = dispatch_group_create();
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     v21 = v17;
-    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v38, v42, 16);
+    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v37, v41, 16);
     if (v23)
     {
-      v24 = *v39;
+      v24 = *v38;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v39 != v24)
+          if (*v38 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = *(*(&v38 + 1) + 8 * i);
+          v26 = *(*(&v37 + 1) + 8 * i);
           dispatch_group_enter(v20);
-          v36[0] = MEMORY[0x1E69E9820];
-          v36[1] = 3221225472;
-          v36[2] = sub_18864B6B8;
-          v36[3] = &unk_1E70BC388;
-          v37 = v20;
-          objc_msgSend_didReceiveIncomingPushWithPayload_withCompletionHandler_(v26, v27, payloadCopy, v36);
+          v35[0] = MEMORY[0x1E69E9820];
+          v35[1] = 3221225472;
+          v35[2] = sub_18864B6B8;
+          v35[3] = &unk_1E70BC388;
+          v36 = v20;
+          objc_msgSend_didReceiveIncomingPushWithPayload_withCompletionHandler_(v26, v27, payloadCopy, v35);
         }
 
-        v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v28, &v38, v42, 16);
+        v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v28, &v37, v41, 16);
       }
 
       while (v23);
@@ -122,7 +122,7 @@
     block[1] = 3221225472;
     block[2] = sub_18864B6C0;
     block[3] = &unk_1E70BC2C0;
-    v35 = handlerCopy;
+    v34 = handlerCopy;
     dispatch_group_notify(v20, v29, block);
   }
 
@@ -130,8 +130,6 @@
   {
     handlerCopy[2]();
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 @end

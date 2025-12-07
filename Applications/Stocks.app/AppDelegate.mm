@@ -23,15 +23,15 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_10000402C(&qword_10004F080, 255, type metadata accessor for LaunchOptionsKey);
+    sub_10000402C(&qword_10004F080, 255, type metadata accessor for LaunchOptionsKey, &unk_10003ED80);
     optionsCopy = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   applicationCopy = application;
   selfCopy = self;
-  v9 = sub_100002AF4(optionsCopy);
+  v10 = sub_100002AF4(optionsCopy, v9);
 
-  return v9 & 1;
+  return v10 & 1;
 }
 
 - (BOOL)application:(id)application didFinishLaunchingWithOptions:(id)options
@@ -40,7 +40,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_10000402C(&qword_10004F080, 255, type metadata accessor for LaunchOptionsKey);
+    sub_10000402C(&qword_10004F080, 255, type metadata accessor for LaunchOptionsKey, &unk_10003ED80);
     optionsCopy = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -58,9 +58,9 @@
   sub_10000F96C(v5, v6);
 
   sub_10000557C(0, &qword_10004F060, OS_os_log_ptr);
-  v7 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v8 = static OS_os_log.default.getter();
+  v7 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("successfully registered for remote notifications", 48, 2, &_mh_execute_header, v8, v7, &_swiftEmptyArrayStorage);
 }
 
 - (void)applicationWillTerminate:(id)terminate
@@ -107,7 +107,7 @@
   applicationCopy = application;
   errorCopy = error;
   selfCopy = self;
-  sub_100015CB4();
+  sub_100015CB4(errorCopy);
 }
 
 - (void)application:(id)application performFetchWithCompletionHandler:(id)handler
@@ -164,35 +164,34 @@ LABEL_4:
 - (id)forwardingTargetForSelector:(SEL)selector
 {
   selfCopy = self;
-  sub_1000149D4(selector, v13);
+  sub_1000149D4(selector, v12);
 
-  v5 = v14;
-  if (v14)
+  v5 = v13;
+  if (v13)
   {
-    v6 = sub_1000045D8(v13, v14);
+    v6 = sub_1000045D8(v12, v13);
     v7 = *(v5 - 8);
-    v8 = *(v7 + 64);
     __chkstk_darwin(v6);
-    v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v7 + 16))(v10);
-    v11 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v7 + 8))(v10, v5);
-    sub_10000461C(v13);
+    v9 = v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v7 + 16))(v9);
+    v10 = _bridgeAnythingToObjectiveC<A>(_:)();
+    (*(v7 + 8))(v9, v5);
+    sub_10000461C(v12);
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)validateCommand:(id)command
 {
   commandCopy = command;
   selfCopy = self;
-  sub_100014C24();
+  sub_100014C24(commandCopy);
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender

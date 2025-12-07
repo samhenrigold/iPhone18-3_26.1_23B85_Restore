@@ -115,18 +115,16 @@
 
 - (id)sr_dictionaryRepresentation
 {
-  v7[3] = *MEMORY[0x1E69E9840];
-  v6[0] = @"duration";
+  v6[3] = *MEMORY[0x1E69E9840];
+  v5[0] = @"duration";
   v3 = MEMORY[0x1E696AD98];
   [(SRTextInputSession *)self duration];
-  v7[0] = [v3 numberWithDouble:?];
-  v6[1] = @"textInputSessionType";
-  v7[1] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRTextInputSession sessionType](self, "sessionType")}];
-  v6[2] = @"sessionIdentifier";
-  v7[2] = [(SRTextInputSession *)self sessionIdentifier];
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:3];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  v6[0] = [v3 numberWithDouble:?];
+  v5[1] = @"textInputSessionType";
+  v6[1] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRTextInputSession sessionType](self, "sessionType")}];
+  v5[2] = @"sessionIdentifier";
+  v6[2] = [(SRTextInputSession *)self sessionIdentifier];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:3];
 }
 
 @end

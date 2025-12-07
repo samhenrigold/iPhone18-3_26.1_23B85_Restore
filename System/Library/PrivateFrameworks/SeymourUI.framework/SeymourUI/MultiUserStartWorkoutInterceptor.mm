@@ -19,7 +19,7 @@
   resultCopy = result;
   selfCopy = self;
   errorCopy = error;
-  sub_20BCB53F4(error);
+  sub_20BCB53F4(error, v11);
 }
 
 - (void)dynamicViewController:(id)controller didFinishPurchaseWithResult:(id)result error:(id)error

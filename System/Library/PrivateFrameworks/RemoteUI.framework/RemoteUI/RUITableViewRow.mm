@@ -1482,22 +1482,22 @@ LABEL_9:
 
 - (id)tableCell
 {
-  v146 = *MEMORY[0x277D85DE8];
+  v152 = *MEMORY[0x277D85DE8];
   if (self->_tableCell)
   {
     goto LABEL_155;
   }
 
   attributes = [(RUIElement *)self attributes];
-  v135 = [attributes objectForKey:@"class"];
+  v141 = [attributes objectForKey:@"class"];
 
   v4 = [objc_alloc(-[RUITableViewRow tableCellClass](self "tableCellClass"))];
   tableCell = self->_tableCell;
   self->_tableCell = v4;
 
   [(RUITableViewRow *)self setBadgeInTableCell:self->_tableCell];
-  v6 = v135;
-  if (([v135 isEqualToString:@"editableText"] & 1) != 0 || objc_msgSend(v135, "isEqualToString:", @"numberPicker"))
+  v6 = v141;
+  if (([v141 isEqualToString:@"editableText"] & 1) != 0 || objc_msgSend(v141, "isEqualToString:", @"numberPicker"))
   {
     ruiEditableTextField = [(UITableViewCell *)self->_tableCell ruiEditableTextField];
     attributes2 = [(RUIElement *)self attributes];
@@ -1514,29 +1514,29 @@ LABEL_9:
 
       if ([v13 isEqualToString:@"phoneNumber"] && (objc_msgSend(MEMORY[0x277D75418], "currentDevice"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "userInterfaceIdiom"), v14, !v15))
       {
-        v138 = 0;
-        v139 = &v138;
-        v140 = 0x2020000000;
-        v35 = getCTSettingCopyMyPhoneNumberSymbolLoc_ptr;
-        v141 = getCTSettingCopyMyPhoneNumberSymbolLoc_ptr;
+        v144 = 0;
+        v145 = &v144;
+        v146 = 0x2020000000;
+        v38 = getCTSettingCopyMyPhoneNumberSymbolLoc_ptr;
+        v147 = getCTSettingCopyMyPhoneNumberSymbolLoc_ptr;
         if (!getCTSettingCopyMyPhoneNumberSymbolLoc_ptr)
         {
           *&buf = MEMORY[0x277D85DD0];
           *(&buf + 1) = 3221225472;
-          v143 = __getCTSettingCopyMyPhoneNumberSymbolLoc_block_invoke;
-          v144 = &unk_2782E8258;
-          v145 = &v138;
+          v149 = __getCTSettingCopyMyPhoneNumberSymbolLoc_block_invoke;
+          v150 = &unk_2782E8258;
+          v151 = &v144;
           __getCTSettingCopyMyPhoneNumberSymbolLoc_block_invoke(&buf);
-          v35 = v139[3];
+          v38 = v145[3];
         }
 
-        _Block_object_dispose(&v138, 8);
-        if (!v35)
+        _Block_object_dispose(&v144, 8);
+        if (!v38)
         {
           [RUITableViewRow tableCell];
         }
 
-        v11 = v35();
+        v11 = v38();
       }
 
       else
@@ -1614,38 +1614,38 @@ LABEL_9:
     [ruiEditableTextField2 setKeyboardType:v23];
 LABEL_63:
     attributes6 = [(RUIElement *)self attributes];
-    v47 = [attributes6 objectForKey:@"autocapitalizationType"];
+    v50 = [attributes6 objectForKey:@"autocapitalizationType"];
 
-    if ([v47 isEqualToString:@"none"])
+    if ([v50 isEqualToString:@"none"])
     {
-      v48 = 0;
+      v51 = 0;
     }
 
-    else if ([v47 isEqualToString:@"words"])
+    else if ([v50 isEqualToString:@"words"])
     {
-      v48 = 1;
+      v51 = 1;
     }
 
-    else if ([v47 isEqualToString:@"sentences"])
+    else if ([v50 isEqualToString:@"sentences"])
     {
-      v48 = 2;
+      v51 = 2;
     }
 
     else
     {
-      if (![v47 isEqualToString:@"allCharacters"])
+      if (![v50 isEqualToString:@"allCharacters"])
       {
         goto LABEL_72;
       }
 
-      v48 = 3;
+      v51 = 3;
     }
 
-    [ruiEditableTextField2 setAutocapitalizationType:v48];
+    [ruiEditableTextField2 setAutocapitalizationType:v51];
 LABEL_72:
     attributes7 = [(RUIElement *)self attributes];
-    v50 = [attributes7 objectForKey:@"secure"];
-    bOOLValue = [v50 BOOLValue];
+    v53 = [attributes7 objectForKey:@"secure"];
+    bOOLValue = [v53 BOOLValue];
 
     if (bOOLValue)
     {
@@ -1656,8 +1656,8 @@ LABEL_72:
     {
 LABEL_76:
       attributes8 = [(RUIElement *)self attributes];
-      v53 = [attributes8 objectForKey:@"disableAutocorrection"];
-      bOOLValue2 = [v53 BOOLValue];
+      v56 = [attributes8 objectForKey:@"disableAutocorrection"];
+      bOOLValue2 = [v56 BOOLValue];
 
       if (bOOLValue2)
       {
@@ -1666,29 +1666,29 @@ LABEL_76:
       }
 
       attributes9 = [(RUIElement *)self attributes];
-      v56 = [attributes9 objectForKey:@"disableAutocapitalization"];
+      v59 = [attributes9 objectForKey:@"disableAutocapitalization"];
 
-      if (v56)
+      if (v59)
       {
         NSLog(&cfstr_WarningRemoteu.isa);
-        if ([v56 BOOLValue])
+        if ([v59 BOOLValue])
         {
           [ruiEditableTextField2 setAutocapitalizationType:0];
         }
       }
 
       attributes10 = [(RUIElement *)self attributes];
-      v58 = [attributes10 objectForKey:@"suffix"];
+      v61 = [attributes10 objectForKey:@"suffix"];
 
-      if ([v58 length])
+      if ([v61 length])
       {
-        v59 = [(RUITableViewRow *)self textColorForAttributeName:@"suffixColor"];
-        [ruiEditableTextField2 _setSuffix:v58 withColor:v59];
+        v62 = [(RUITableViewRow *)self textColorForAttributeName:@"suffixColor"];
+        [ruiEditableTextField2 _setSuffix:v61 withColor:v62];
       }
 
       ruiEditableTextField3 = [(UITableViewCell *)self->_tableCell ruiEditableTextField];
-      v61 = [(RUITableViewRow *)self textColorForAttributeName:@"textColor"];
-      [ruiEditableTextField3 setTextColor:v61];
+      v64 = [(RUITableViewRow *)self textColorForAttributeName:@"textColor"];
+      [ruiEditableTextField3 setTextColor:v64];
 
       goto LABEL_84;
     }
@@ -1698,43 +1698,45 @@ LABEL_76:
     goto LABEL_76;
   }
 
-  if ([v135 isEqualToString:@"switch"])
+  if ([v141 isEqualToString:@"switch"])
   {
-    if (+[RUIPlatform isAppleTV])
+    v24 = +[RUIPlatform isAppleTV];
+    if (v24)
     {
-      if (_isInternalInstall())
+      isInternalInstall = _isInternalInstall(v24, v25);
+      if (isInternalInstall)
       {
-        v24 = _RUILoggingFacility();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v27 = _RUILoggingFacility(isInternalInstall);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(buf) = 0;
-          _os_log_impl(&dword_21B93D000, v24, OS_LOG_TYPE_DEFAULT, "AppleTV does not support switchRow", &buf, 2u);
+          _os_log_impl(&dword_21B93D000, v27, OS_LOG_TYPE_DEFAULT, "AppleTV does not support switchRow", &buf, 2u);
         }
       }
     }
 
     else if (!self->_switchControl)
     {
-      v25 = objc_alloc(MEMORY[0x277D75AE8]);
-      v26 = [v25 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
+      v28 = objc_alloc(MEMORY[0x277D75AE8]);
+      v29 = [v28 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
       switchControl = self->_switchControl;
-      self->_switchControl = v26;
+      self->_switchControl = v29;
 
       [(UISwitch *)self->_switchControl addTarget:self action:sel__switchFlipped_ forControlEvents:4096];
     }
 
     [(RemoteUITableViewCell *)self->_tableCell setRemoteUIAccessoryView:self->_switchControl];
     attributes11 = [(RUIElement *)self attributes];
-    v29 = [attributes11 objectForKey:@"on"];
-    if ([v29 BOOLValue])
+    v32 = [attributes11 objectForKey:@"on"];
+    if ([v32 BOOLValue])
     {
     }
 
     else
     {
       attributes12 = [(RUIElement *)self attributes];
-      v33 = [attributes12 objectForKey:@"value"];
-      bOOLValue3 = [v33 BOOLValue];
+      v36 = [attributes12 objectForKey:@"value"];
+      bOOLValue3 = [v36 BOOLValue];
 
       if (!bOOLValue3)
       {
@@ -1748,31 +1750,31 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  if ([v135 isEqualToString:@"datePicker"])
+  if ([v141 isEqualToString:@"datePicker"])
   {
     [(RUITableViewRow *)self setupDatePickerWithCell:self->_tableCell];
     goto LABEL_84;
   }
 
-  if ([v135 isEqualToString:@"select"])
+  if ([v141 isEqualToString:@"select"])
   {
     attributes13 = [(RUIElement *)self attributes];
-    v31 = [attributes13 objectForKey:@"value"];
-    [(RUITableViewRow *)self setSelectRowValue:v31];
+    v34 = [attributes13 objectForKey:@"value"];
+    [(RUITableViewRow *)self setSelectRowValue:v34];
 
 LABEL_51:
     goto LABEL_84;
   }
 
-  if ([v135 hasPrefix:@"html"] && -[NSData length](self->_data, "length"))
+  if ([v141 hasPrefix:@"html"] && -[NSData length](self->_data, "length"))
   {
-    if (([v135 isEqualToString:@"htmlLabel"] & 1) == 0)
+    if (([v141 isEqualToString:@"htmlLabel"] & 1) == 0)
     {
       webContainerView = [(RemoteUITableViewCell *)self->_tableCell webContainerView];
       webView = [webContainerView webView];
       [webView setUserInteractionEnabled:0];
 
-      v6 = v135;
+      v6 = v141;
     }
 
     if ([v6 isEqualToString:@"htmlLink"])
@@ -1781,14 +1783,14 @@ LABEL_51:
       [contentView setUserInteractionEnabled:0];
     }
 
-    v39 = self->_tableCell;
+    v42 = self->_tableCell;
     data = self->_data;
     attributes13 = [(RUIElement *)self sourceURL];
-    [(RemoteUITableViewCell *)v39 setHTMLData:data sourceURL:attributes13 delegate:self];
+    [(RemoteUITableViewCell *)v42 setHTMLData:data sourceURL:attributes13 delegate:self];
     goto LABEL_51;
   }
 
-  if ([v135 isEqualToString:@"linkedOption"])
+  if ([v141 isEqualToString:@"linkedOption"])
   {
     attributes13 = [(UITableViewCell *)self->_tableCell ruiTextLabel];
     [attributes13 setLineBreakMode:0];
@@ -1796,7 +1798,7 @@ LABEL_51:
     goto LABEL_51;
   }
 
-  if ([v135 isEqualToString:@"selectPage"])
+  if ([v141 isEqualToString:@"selectPage"])
   {
     ruiTextLabel = [(UITableViewCell *)self->_tableCell ruiTextLabel];
     [ruiTextLabel setLineBreakMode:0];
@@ -1805,14 +1807,14 @@ LABEL_51:
     [ruiDetailTextLabel setLineBreakMode:0];
     [ruiDetailTextLabel setNumberOfLines:0];
     attributes14 = [(RUIElement *)self attributes];
-    v44 = [attributes14 objectForKeyedSubscript:@"align"];
+    v47 = [attributes14 objectForKeyedSubscript:@"align"];
 
-    if (v44)
+    if (v47)
     {
-      v45 = self->_tableCell;
-      if (![RUIParser textAlignmentForString:v44])
+      v48 = self->_tableCell;
+      if (![RUIParser textAlignmentForString:v47])
       {
-        [(RemoteUITableViewCell *)v45 setLeftAlignDetailLabel:1];
+        [(RemoteUITableViewCell *)v48 setLeftAlignDetailLabel:1];
       }
     }
 
@@ -1821,32 +1823,32 @@ LABEL_51:
 
 LABEL_84:
   attributes15 = [(RUIElement *)self attributes];
-  v134 = [attributes15 objectForKey:@"label"];
+  v140 = [attributes15 objectForKey:@"label"];
 
-  if ([v134 length])
+  if ([v140 length])
   {
     ruiTextLabel2 = [(UITableViewCell *)self->_tableCell ruiTextLabel];
-    [ruiTextLabel2 setText:v134];
+    [ruiTextLabel2 setText:v140];
 
     attributes16 = [(RUIElement *)self attributes];
-    v65 = [attributes16 objectForKeyedSubscript:@"labelNumberOfLines"];
+    v68 = [attributes16 objectForKeyedSubscript:@"labelNumberOfLines"];
 
-    if (v65)
+    if (v68)
     {
-      integerValue = [v65 integerValue];
+      integerValue = [v68 integerValue];
       ruiTextLabel3 = [(UITableViewCell *)self->_tableCell ruiTextLabel];
       [ruiTextLabel3 setNumberOfLines:integerValue];
     }
 
     attributes17 = [(RUIElement *)self attributes];
-    v69 = [attributes17 objectForKeyedSubscript:@"labelTextStyle"];
-    v70 = [(RUIElement *)self textStyleWithString:v69];
+    v72 = [attributes17 objectForKeyedSubscript:@"labelTextStyle"];
+    v73 = [(RUIElement *)self textStyleWithString:v72];
 
-    if (v70)
+    if (v73)
     {
-      v71 = [MEMORY[0x277D74300] preferredFontForTextStyle:v70];
+      v74 = [MEMORY[0x277D74300] preferredFontForTextStyle:v73];
       ruiTextLabel4 = [(UITableViewCell *)self->_tableCell ruiTextLabel];
-      [ruiTextLabel4 setFont:v71];
+      [ruiTextLabel4 setFont:v74];
 
       ruiTextLabel5 = [(UITableViewCell *)self->_tableCell ruiTextLabel];
       [ruiTextLabel5 setAdjustsFontForContentSizeCategory:1];
@@ -1854,14 +1856,14 @@ LABEL_84:
   }
 
   attributes18 = [(RUIElement *)self attributes];
-  v75 = [attributes18 objectForKey:@"indentation"];
+  v78 = [attributes18 objectForKey:@"indentation"];
 
-  if ([v75 length])
+  if ([v78 length])
   {
     [(RemoteUITableViewCell *)self->_tableCell setIndentationLevel:1];
-    v76 = self->_tableCell;
-    [v75 floatValue];
-    [(RemoteUITableViewCell *)v76 setIndentationWidth:v77];
+    v79 = self->_tableCell;
+    [v78 floatValue];
+    [(RemoteUITableViewCell *)v79 setIndentationWidth:v80];
   }
 
   textLabel = [(RemoteUITableViewCell *)self->_tableCell textLabel];
@@ -1874,17 +1876,17 @@ LABEL_84:
   }
 
   attributes19 = [(RUIElement *)self attributes];
-  v81 = [attributes19 objectForKey:@"subLabel"];
-  if ([v81 length])
+  v84 = [attributes19 objectForKey:@"subLabel"];
+  if ([v84 length])
   {
   }
 
   else
   {
     htmlSubLabelData = [(RUITableViewRow *)self htmlSubLabelData];
-    v83 = [htmlSubLabelData length] == 0;
+    v86 = [htmlSubLabelData length] == 0;
 
-    if (v83)
+    if (v86)
     {
       goto LABEL_117;
     }
@@ -1893,87 +1895,87 @@ LABEL_84:
   ruiDetailTextLabel3 = [(UITableViewCell *)self->_tableCell ruiDetailTextLabel];
   ruiValueLabel = [(UITableViewCell *)self->_tableCell ruiValueLabel];
   attributes20 = [(RUIElement *)self attributes];
-  v87 = [attributes20 objectForKey:@"subLabel"];
+  v90 = [attributes20 objectForKey:@"subLabel"];
 
   attributes21 = [(RUIElement *)self attributes];
-  v89 = [attributes21 objectForKey:@"detailLabel"];
+  v92 = [attributes21 objectForKey:@"detailLabel"];
 
-  v90 = self->_tableCell;
+  v93 = self->_tableCell;
   htmlSubLabelData2 = [(RUITableViewRow *)self htmlSubLabelData];
   sourceURL = [(RUIElement *)self sourceURL];
-  [(RemoteUITableViewCell *)v90 setHTMLSubLabelData:htmlSubLabelData2 sourceURL:sourceURL delegate:self];
+  [(RemoteUITableViewCell *)v93 setHTMLSubLabelData:htmlSubLabelData2 sourceURL:sourceURL delegate:self];
 
-  if ([v87 length])
+  if ([v90 length])
   {
     attributes22 = [(RUIElement *)self attributes];
-    v94 = [attributes22 objectForKeyedSubscript:@"subLabelNumberOfLines"];
-
-    if (v94)
-    {
-      [ruiDetailTextLabel3 setNumberOfLines:{objc_msgSend(v94, "integerValue")}];
-    }
-
-    attributes23 = [(RUIElement *)self attributes];
-    v96 = [attributes23 objectForKeyedSubscript:@"subLabelTextStyle"];
-    v97 = [(RUIElement *)self textStyleWithString:v96];
+    v97 = [attributes22 objectForKeyedSubscript:@"subLabelNumberOfLines"];
 
     if (v97)
     {
-      v98 = [MEMORY[0x277D74300] preferredFontForTextStyle:v97];
-      [ruiDetailTextLabel3 setFont:v98];
+      [ruiDetailTextLabel3 setNumberOfLines:{objc_msgSend(v97, "integerValue")}];
+    }
+
+    attributes23 = [(RUIElement *)self attributes];
+    v99 = [attributes23 objectForKeyedSubscript:@"subLabelTextStyle"];
+    v100 = [(RUIElement *)self textStyleWithString:v99];
+
+    if (v100)
+    {
+      v101 = [MEMORY[0x277D74300] preferredFontForTextStyle:v100];
+      [ruiDetailTextLabel3 setFont:v101];
 
       [ruiDetailTextLabel3 setAdjustsFontForContentSizeCategory:1];
     }
 
-    [ruiDetailTextLabel3 setMarkdown:v87 baseURL:0];
+    [ruiDetailTextLabel3 setMarkdown:v90 baseURL:0];
   }
 
-  if ([v89 length])
+  if ([v92 length])
   {
-    [ruiValueLabel setText:v89];
-    v99 = [(RUITableViewRow *)self textColorForAttributeName:@"detailLabelColor"];
-    [ruiValueLabel setTextColor:v99];
+    [ruiValueLabel setText:v92];
+    v102 = [(RUITableViewRow *)self textColorForAttributeName:@"detailLabelColor"];
+    [ruiValueLabel setTextColor:v102];
   }
 
   style = [(RUIElement *)self style];
-  v101 = +[RUIStyle osloStyle];
+  v104 = +[RUIStyle osloStyle];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     attributes24 = [(RUIElement *)self attributes];
-    v103 = [attributes24 objectForKeyedSubscript:@"detailLabel"];
-    v104 = v103 == 0;
+    v106 = [attributes24 objectForKeyedSubscript:@"detailLabel"];
+    v107 = v106 == 0;
 
-    if (!v104)
+    if (!v107)
     {
-      if ([v89 length])
+      if ([v92 length])
       {
         attributes25 = [(RUIElement *)self attributes];
-        v106 = [attributes25 objectForKey:@"detailLinkURL"];
+        v109 = [attributes25 objectForKey:@"detailLinkURL"];
 
-        if (v106)
+        if (v109)
         {
           objc_initWeak(&buf, self);
-          v107 = self->_tableCell;
-          v136[0] = MEMORY[0x277D85DD0];
-          v136[1] = 3221225472;
-          v136[2] = __28__RUITableViewRow_tableCell__block_invoke;
-          v136[3] = &unk_2782E9178;
-          objc_copyWeak(&v137, &buf);
-          [(RemoteUITableViewCell *)v107 setDetailLinkText:v89 handler:v136];
-          objc_destroyWeak(&v137);
+          v110 = self->_tableCell;
+          v142[0] = MEMORY[0x277D85DD0];
+          v142[1] = 3221225472;
+          v142[2] = __28__RUITableViewRow_tableCell__block_invoke;
+          v142[3] = &unk_2782E9178;
+          objc_copyWeak(&v143, &buf);
+          [(RemoteUITableViewCell *)v110 setDetailLinkText:v92 handler:v142];
+          objc_destroyWeak(&v143);
           objc_destroyWeak(&buf);
         }
 
         else
         {
-          [ruiDetailTextLabel3 setText:v89];
+          [ruiDetailTextLabel3 setText:v92];
         }
       }
 
-      if ([v87 length])
+      if ([v90 length])
       {
-        [ruiValueLabel setMarkdown:v87 baseURL:0];
+        [ruiValueLabel setMarkdown:v90 baseURL:0];
       }
     }
   }
@@ -1985,8 +1987,8 @@ LABEL_84:
 LABEL_117:
   [(RUITableViewRow *)self _updateDetailLabel];
   attributes26 = [(RUIElement *)self attributes];
-  v109 = [attributes26 objectForKey:@"invalid"];
-  bOOLValue4 = [v109 BOOLValue];
+  v112 = [attributes26 objectForKey:@"invalid"];
+  bOOLValue4 = [v112 BOOLValue];
 
   if (bOOLValue4)
   {
@@ -2001,33 +2003,33 @@ LABEL_117:
   [(RemoteUITableViewCell *)self->_tableCell setRowInvalid:1];
 LABEL_121:
   attributes27 = [(RUIElement *)self attributes];
-  v112 = [attributes27 objectForKey:@"accessory"];
+  v115 = [attributes27 objectForKey:@"accessory"];
 
   detailButton = [(RUITableViewRow *)self detailButton];
 
   if (!detailButton)
   {
-    if (([v112 isEqualToString:@"disclosure"] & 1) != 0 || objc_msgSend(v135, "isEqualToString:", @"selectPage"))
+    if (([v115 isEqualToString:@"disclosure"] & 1) != 0 || objc_msgSend(v141, "isEqualToString:", @"selectPage"))
     {
       [(RemoteUITableViewCell *)self->_tableCell setRemoteUIAccessoryType:1];
     }
 
-    else if ([v112 isEqualToString:@"detailDisclosure"])
+    else if ([v115 isEqualToString:@"detailDisclosure"])
     {
       [(RemoteUITableViewCell *)self->_tableCell setRemoteUIAccessoryType:2];
     }
 
-    else if ([v112 isEqualToString:@"checkmark"])
+    else if ([v115 isEqualToString:@"checkmark"])
     {
       [(RemoteUITableViewCell *)self->_tableCell setRemoteUIAccessoryType:3];
     }
 
-    else if ([v112 isEqualToString:@"none"])
+    else if ([v115 isEqualToString:@"none"])
     {
       [(RemoteUITableViewCell *)self->_tableCell setRemoteUIAccessoryType:0];
     }
 
-    else if ([v112 isEqualToString:@"spinner"])
+    else if ([v115 isEqualToString:@"spinner"])
     {
       [(RemoteUITableViewCell *)self->_tableCell setActivityIndicatorVisible:1];
     }
@@ -2035,14 +2037,19 @@ LABEL_121:
     goto LABEL_138;
   }
 
-  if ([v112 length] && _isInternalInstall())
+  v117 = [v115 length];
+  if (v117)
   {
-    v114 = _RUILoggingFacility();
-    if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
+    v119 = _isInternalInstall(v117, v118);
+    if (v119)
     {
-      LODWORD(buf) = 138412290;
-      *(&buf + 4) = v135;
-      _os_log_impl(&dword_21B93D000, v114, OS_LOG_TYPE_DEFAULT, "%@ has a detail button and an accessory. Ignoring accessory.", &buf, 0xCu);
+      v120 = _RUILoggingFacility(v119);
+      if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
+      {
+        LODWORD(buf) = 138412290;
+        *(&buf + 4) = v141;
+        _os_log_impl(&dword_21B93D000, v120, OS_LOG_TYPE_DEFAULT, "%@ has a detail button and an accessory. Ignoring accessory.", &buf, 0xCu);
+      }
     }
   }
 
@@ -2054,9 +2061,9 @@ LABEL_121:
   else
   {
     detailButton3 = [(RUITableViewRow *)self detailButton];
-    v117 = [detailButton3 visibility] == 0;
+    v123 = [detailButton3 visibility] == 0;
 
-    if (!v117)
+    if (!v123)
     {
       goto LABEL_134;
     }
@@ -2074,9 +2081,9 @@ LABEL_137:
   }
 
   detailButton5 = [(RUITableViewRow *)self detailButton];
-  v120 = [detailButton5 visibility] == 0;
+  v126 = [detailButton5 visibility] == 0;
 
-  if (v120)
+  if (v126)
   {
     goto LABEL_137;
   }
@@ -2091,11 +2098,11 @@ LABEL_138:
     [ruiTextLabel6 setTextColor:radioGroupSelectedColor];
   }
 
-  if ([v112 isEqualToString:@"checkmark.circle"])
+  if ([v115 isEqualToString:@"checkmark.circle"])
   {
     [(RemoteUITableViewCell *)self->_tableCell setRemoteUIAccessoryType:0];
-    v124 = [(RUITableViewRow *)self _checkmarkAccessoryViewWithSelected:[(RUITableViewRow *)self isSelected]];
-    [(RemoteUITableViewCell *)self->_tableCell setRemoteUIAccessoryView:v124];
+    v130 = [(RUITableViewRow *)self _checkmarkAccessoryViewWithSelected:[(RUITableViewRow *)self isSelected]];
+    [(RemoteUITableViewCell *)self->_tableCell setRemoteUIAccessoryView:v130];
   }
 
   [(RUITableViewRow *)self updateDatePickerCell];
@@ -2106,34 +2113,34 @@ LABEL_138:
 
   [(RUITableViewRow *)self loadAccessoryImage];
   attributes28 = [(RUIElement *)self attributes];
-  v126 = [attributes28 objectForKey:@"firstResponder"];
+  v132 = [attributes28 objectForKey:@"firstResponder"];
 
-  if ([v126 BOOLValue])
+  if ([v132 BOOLValue])
   {
-    if (([v135 isEqualToString:@"editableText"] & 1) != 0 || (objc_msgSend(v135, "isEqualToString:", @"numberPicker") & 1) != 0 || (objc_msgSend(v135, "isEqualToString:", @"select") & 1) != 0 || objc_msgSend(v135, "isEqualToString:", @"datePicker"))
+    if (([v141 isEqualToString:@"editableText"] & 1) != 0 || (objc_msgSend(v141, "isEqualToString:", @"numberPicker") & 1) != 0 || (objc_msgSend(v141, "isEqualToString:", @"select") & 1) != 0 || objc_msgSend(v141, "isEqualToString:", @"datePicker"))
     {
-      v127 = objc_loadWeakRetained(&self->_delegate);
-      [v127 rowIsFirstResponder:self];
+      v133 = objc_loadWeakRetained(&self->_delegate);
+      [v133 rowIsFirstResponder:self];
     }
 
     else
     {
-      NSLog(&cfstr_WarningFirstre.isa, v135);
+      NSLog(&cfstr_WarningFirstre.isa, v141);
     }
   }
 
   attributes29 = [(RUIElement *)self attributes];
-  v129 = [attributes29 objectForKey:@"forceFullSizeDetailLabel"];
+  v135 = [attributes29 objectForKey:@"forceFullSizeDetailLabel"];
 
-  if ([v129 BOOLValue])
+  if ([v135 BOOLValue])
   {
     [(RemoteUITableViewCell *)self->_tableCell setForceFullSizeDetailLabel:1];
   }
 
   attributes30 = [(RUIElement *)self attributes];
-  v131 = [attributes30 objectForKey:@"leftAlignDetailLabel"];
+  v137 = [attributes30 objectForKey:@"leftAlignDetailLabel"];
 
-  if ([v131 BOOLValue])
+  if ([v137 BOOLValue])
   {
     [(RemoteUITableViewCell *)self->_tableCell setLeftAlignDetailLabel:1];
   }
@@ -2145,9 +2152,9 @@ LABEL_155:
   [(RUITableViewRow *)self _drawCustomImage:[(RUITableViewRow *)self isSelected]];
   [(RUITableViewRow *)self _setBackgroundColor];
   [(RUITableViewRow *)self _updateDetailLabel];
-  v132 = self->_tableCell;
+  v138 = self->_tableCell;
 
-  return v132;
+  return v138;
 }
 
 void __28__RUITableViewRow_tableCell__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2472,7 +2479,7 @@ LABEL_6:
   return v7 & 1;
 }
 
-uint64_t __47__RUITableViewRow__matchesSearchTermComponent___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__47__RUITableViewRow__matchesSearchTermComponent___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 localizedStandardContainsString:*(a1 + 32)];
   if (result)
@@ -2507,7 +2514,7 @@ uint64_t __47__RUITableViewRow__matchesSearchTermComponent___block_invoke(uint64
   return self;
 }
 
-uint64_t __37__RUITableViewRow_matchesSearchTerm___block_invoke(uint64_t a1, uint64_t a2)
+void *__37__RUITableViewRow_matchesSearchTerm___block_invoke(uint64_t a1, uint64_t a2)
 {
   v2 = *(*(a1 + 40) + 8);
   if (*(v2 + 24) == 1)
@@ -2699,7 +2706,7 @@ LABEL_18:
 - (void)setValueFromString:(id)string notify:(BOOL)notify
 {
   notifyCopy = notify;
-  v25 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   attributes = [(RUIElement *)self attributes];
   v8 = [attributes objectForKey:@"class"];
@@ -2741,9 +2748,11 @@ LABEL_18:
       goto LABEL_13;
     }
 
-    if ([v8 isEqualToString:@"selectPage"])
+    v20 = [v8 isEqualToString:@"selectPage"];
+    if (v20)
     {
-      if ([(RUITableViewRow *)self setSelectPageRowValue:stringCopy])
+      v22 = [(RUITableViewRow *)self setSelectPageRowValue:stringCopy];
+      if (v22)
       {
 LABEL_13:
         if (notifyCopy)
@@ -2758,61 +2767,64 @@ LABEL_14:
         goto LABEL_15;
       }
 
-      if (!_isInternalInstall())
+      isInternalInstall = _isInternalInstall(v22, v23);
+      if (!isInternalInstall)
       {
         goto LABEL_15;
       }
 
-      v19 = _RUILoggingFacility();
-      if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v25 = _RUILoggingFacility(isInternalInstall);
+      if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_31;
       }
 
-      v23 = 138412290;
-      v24 = stringCopy;
-      v20 = "Warning: No selectPageRow linkedOption found with value '%@'";
+      v31 = 138412290;
+      v32 = stringCopy;
+      v26 = "Warning: No selectPageRow linkedOption found with value '%@'";
     }
 
     else
     {
-      if (!_isInternalInstall())
+      v30 = _isInternalInstall(v20, v21);
+      if (!v30)
       {
         goto LABEL_15;
       }
 
-      v19 = _RUILoggingFacility();
-      if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v25 = _RUILoggingFacility(v30);
+      if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_31;
       }
 
-      v23 = 138412290;
-      v24 = v8;
-      v20 = "Warning: Attempt to set value on row with class '%@' which is not settable";
+      v31 = 138412290;
+      v32 = v8;
+      v26 = "Warning: Attempt to set value on row with class '%@' which is not settable";
     }
 
-    v21 = v19;
-    v22 = 12;
+    v28 = v25;
+    v29 = 12;
     goto LABEL_30;
   }
 
   if (![stringCopy length])
   {
-    if (!_isInternalInstall())
+    v27 = _isInternalInstall(0, v14);
+    if (!v27)
     {
       goto LABEL_15;
     }
 
-    v19 = _RUILoggingFacility();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v25 = _RUILoggingFacility(v27);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v23) = 0;
-      v20 = "Warning: Ignoring empty date value";
-      v21 = v19;
-      v22 = 2;
+      LOWORD(v31) = 0;
+      v26 = "Warning: Ignoring empty date value";
+      v28 = v25;
+      v29 = 2;
 LABEL_30:
-      _os_log_impl(&dword_21B93D000, v21, OS_LOG_TYPE_DEFAULT, v20, &v23, v22);
+      _os_log_impl(&dword_21B93D000, v28, OS_LOG_TYPE_DEFAULT, v26, &v31, v29);
     }
 
 LABEL_31:
@@ -2820,15 +2832,15 @@ LABEL_31:
     goto LABEL_15;
   }
 
-  v14 = +[RUITableViewRow _formatterForDateYMD];
-  v15 = [v14 dateFromString:stringCopy];
+  v15 = +[RUITableViewRow _formatterForDateYMD];
+  v16 = [v15 dateFromString:stringCopy];
 
   date = [(RUITableViewRow *)self date];
-  v17 = [date isEqual:v15];
+  v18 = [date isEqual:v16];
 
-  if (!v17)
+  if (!v18)
   {
-    [(RUITableViewRow *)self setDate:v15];
+    [(RUITableViewRow *)self setDate:v16];
 
     if (!notifyCopy)
     {

@@ -26,8 +26,8 @@
 
 - (id)toDict
 {
-  v16[3] = *MEMORY[0x277D85DE8];
-  v15[0] = @"isExistingTag";
+  v15[3] = *MEMORY[0x277D85DE8];
+  v14[0] = @"isExistingTag";
   isExistingTag = [(ICASTagAddData *)self isExistingTag];
   if (isExistingTag)
   {
@@ -40,8 +40,8 @@
   }
 
   v5 = isExistingTag2;
-  v16[0] = isExistingTag2;
-  v15[1] = @"tagAddApproach";
+  v15[0] = isExistingTag2;
+  v14[1] = @"tagAddApproach";
   tagAddApproach = [(ICASTagAddData *)self tagAddApproach];
   if (tagAddApproach)
   {
@@ -54,8 +54,8 @@
   }
 
   v8 = tagAddApproach2;
-  v16[1] = tagAddApproach2;
-  v15[2] = @"isAutoConversionEnabled";
+  v15[1] = tagAddApproach2;
+  v14[2] = @"isAutoConversionEnabled";
   isAutoConversionEnabled = [(ICASTagAddData *)self isAutoConversionEnabled];
   if (isAutoConversionEnabled)
   {
@@ -68,10 +68,8 @@
   }
 
   v11 = isAutoConversionEnabled2;
-  v16[2] = isAutoConversionEnabled2;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[2] = isAutoConversionEnabled2;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   return v12;
 }

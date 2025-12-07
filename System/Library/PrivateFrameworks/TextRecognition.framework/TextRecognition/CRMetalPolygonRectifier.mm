@@ -287,9 +287,9 @@ void __43__CRMetalPolygonRectifier__setSourceImage___block_invoke(uint64_t a1)
     v33 = 1;
     if (imageCopy)
     {
-      [imageCopy vImage];
+      objc_msgSend_vImage(imageCopy);
       v15 = v26;
-      [imageCopy vImage];
+      objc_msgSend_vImage(imageCopy);
       v16 = *(&v25 + 1);
     }
 

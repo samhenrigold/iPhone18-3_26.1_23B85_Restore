@@ -469,7 +469,7 @@ void __69__CNiOSAddressBook_performSynchronousWorkWithInvalidatedAddressBook___b
   return v7;
 }
 
-uint64_t __70__CNiOSAddressBook_performAsynchronousWorkWithInvalidatedAddressBook___block_invoke(uint64_t a1)
+void *__70__CNiOSAddressBook_performAsynchronousWorkWithInvalidatedAddressBook___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) popAddressBook];
   *(*(*(a1 + 40) + 8) + 24) = result;

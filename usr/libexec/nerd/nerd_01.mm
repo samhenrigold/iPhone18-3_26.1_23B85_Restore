@@ -1,119 +1,3 @@
-uint64_t format_partition(const char *a1, char *__s1, uint64_t a3, uint64_t a4, int a5)
-{
-  v38 = 0;
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v33 = 0u;
-  *__str = 0;
-  v32 = "/sbin/newfs_apfs";
-  if (!strcmp(__s1, "System"))
-  {
-    v16 = 115;
-  }
-
-  else if (!strcmp(__s1, "Data"))
-  {
-    v16 = 100;
-  }
-
-  else if (!strcmp(__s1, "User"))
-  {
-    v16 = 117;
-  }
-
-  else if (!strcmp(__s1, "Preboot"))
-  {
-    v16 = 98;
-  }
-
-  else if (!strcmp(__s1, "Baseband Data"))
-  {
-    v16 = 97;
-  }
-
-  else if (!strcmp(__s1, "Logs"))
-  {
-    v16 = 105;
-  }
-
-  else if (!strcmp(__s1, "xART"))
-  {
-    v16 = 120;
-  }
-
-  else if (!strcmp(__s1, "Scratch"))
-  {
-    v16 = 110;
-  }
-
-  else if (!strcmp(__s1, "Hardware"))
-  {
-    v16 = 104;
-  }
-
-  else if (!strcmp(__s1, "Update"))
-  {
-    v16 = 112;
-  }
-
-  else
-  {
-    if (strcmp(__s1, "Recovery"))
-    {
-      v15 = 1;
-      goto LABEL_25;
-    }
-
-    v16 = 114;
-  }
-
-  *&v33 = "-o";
-  snprintf(__str, 8uLL, "role=%c", v16);
-  *(&v33 + 1) = __str;
-  v15 = 3;
-LABEL_25:
-  (&v32)[v15] = "-A";
-  (&v32)[v15 + 1] = "-v";
-  v17 = v15 + 3;
-  (&v32)[v15 + 2] = __s1;
-  if (a5 == 1)
-  {
-    (&v32)[v17] = "-P";
-    v17 = v15 | 4;
-  }
-
-  (&v32)[v17] = a1;
-  (&v32)[v17 + 1] = 0;
-  v18 = "/sbin/newfs_apfs";
-  v19 = 1;
-  do
-  {
-    _partition_log("%s ", v8, v9, v10, v11, v12, v13, v14, v18);
-    v18 = (&v32)[v19++];
-  }
-
-  while (v18);
-  _partition_log("\n", v8, v9, v10, v11, v12, v13, v14, v30);
-  if (!_executeCommandPtr)
-  {
-    v27 = 0xFFFFFFFFLL;
-    v28 = "/sbin/newfs_apfs";
-    goto LABEL_33;
-  }
-
-  v27 = _executeCommandPtr(&v32, _partition_execution_log, 0);
-  if (v27)
-  {
-    v28 = v32;
-LABEL_33:
-    _partition_log("%s returned %d", v20, v21, v22, v23, v24, v25, v26, v28);
-  }
-
-  return v27;
-}
-
 uint64_t _mount_filesystem(uint64_t a1, char *a2)
 {
   v12[0] = "/sbin/mount";
@@ -153,28 +37,28 @@ const char *mount_recovery_boot(const char *a1, uint64_t a2, uint64_t a3, uint64
       _partition_log("%s: no device node found for recovery volume\n", v17, v18, v19, v20, v21, v22, v23, "mount_recovery_boot");
     }
 
-    bzero(&v55, 0x878uLL);
-    if (!statfs(a1, &v55) && !strcmp(v55.f_mntonname, a1) && !strcmp(v55.f_mntfromname, &recovery_os_volume_device_node_path))
+    bzero(&v54, 0x878uLL);
+    if (!statfs(a1, &v54) && !strcmp(v54.f_mntonname, a1) && !strcmp(v54.f_mntfromname, &recovery_os_volume_device_node_path))
     {
       _partition_log("%s: Recovery device already mounted at %s\n", v24, v25, v26, v27, v28, v29, v30, "mount_recovery_boot");
       return a1;
     }
 
-    if (!statfs("/", &v55) && !strcmp(v55.f_mntfromname, &recovery_os_volume_device_node_path))
+    if (!statfs("/", &v54) && !strcmp(v54.f_mntfromname, &recovery_os_volume_device_node_path))
     {
       _partition_log("%s: Recovery device already mounted at %s\n", v31, v32, v33, v34, v35, v36, v37, "mount_recovery_boot");
       return "/";
     }
 
-    v54[0] = 0;
-    v54[1] = &recovery_os_volume_device_node_path;
-    if (!mount("apfs", a1, 0x20000000, v54))
+    v53[0] = 0;
+    v53[1] = &recovery_os_volume_device_node_path;
+    if (!mount("apfs", a1, 0x20000000, v53))
     {
       _partition_log("%s: Successfully mounted recovery boot at %s", v38, v39, v40, v41, v42, v43, v44, "mount_recovery_boot");
       return a1;
     }
 
-    v53 = *__error();
+    __error();
     _partition_log("%s: Recovery boot failed to mount at %s: %d, errno %d\n", v45, v46, v47, v48, v49, v50, v51, "mount_recovery_boot");
   }
 
@@ -201,17 +85,17 @@ uint64_t mount_update_partition_if_exists(const char *a1, uint64_t a2, uint64_t 
     return 0xFFFFFFFFLL;
   }
 
-  v63 = 0;
+  v62 = 0;
   v24 = realpath_DARWIN_EXTSN(a1, 0);
   if (!v24)
   {
-    v62 = *__error();
+    __error();
     _partition_log("Failed to realpath(%s). errno=%d", v37, v38, v39, v40, v41, v42, v43, a1);
     return 0xFFFFFFFFLL;
   }
 
   v25 = v24;
-  v26 = getmntinfo_r_np(&v63, 2);
+  v26 = getmntinfo_r_np(&v62, 2);
   if (v26 < 1)
   {
     _partition_log("Failed to get mount info for all mounted file systems", v27, v28, v29, v30, v31, v32, v33, v61);
@@ -220,7 +104,7 @@ uint64_t mount_update_partition_if_exists(const char *a1, uint64_t a2, uint64_t 
 
   else
   {
-    v34 = v63;
+    v34 = v62;
     v35 = v26;
     v36 = 1112;
     while (strcmp(v34 + v36, &update_device_node_path))
@@ -240,7 +124,7 @@ uint64_t mount_update_partition_if_exists(const char *a1, uint64_t a2, uint64_t 
     }
 
     _partition_log("unmounting %s at %s", v45, v46, v47, v48, v49, v50, v51, v34 + v36);
-    _unmount_filesystem(v63 + v36 - 1024);
+    _unmount_filesystem(v62 + v36 - 1024);
 LABEL_16:
     v44 = _mount_filesystem(&update_device_node_path, v25);
     v59 = "Failed to mount";
@@ -253,9 +137,9 @@ LABEL_16:
   }
 
 LABEL_19:
-  if (v63)
+  if (v62)
   {
-    free(v63);
+    free(v62);
   }
 
   free(v25);
@@ -555,7 +439,6 @@ CFStringRef checkpoint_nvram_encode_id_string(uint64_t a1, unsigned int *a2)
   }
 
   v4 = strlen(*(a2 + 1));
-  v5 = *a2;
   if (v4 > 0xF2)
   {
     return CFStringCreateWithFormat(0, 0, @"{0x%08X:~%s}", *a2, v3 + v4 - 241);
@@ -585,34 +468,34 @@ CFStringRef checkpoint_nvram_encode_by_boot(uint64_t a1, const __CFString *a2)
   v2 = a2;
   if (a2)
   {
-    v16 = 0;
-    asprintf(&v16, "{");
-    v8 = v16;
-    if (v16)
+    v10 = 0;
+    asprintf(&v10, "{");
+    v3 = v10;
+    if (v10)
     {
+      v4 = 0;
       v9 = 0;
-      v15 = 0;
-      v10 = 1;
+      v5 = 1;
       do
       {
-        v11 = v10;
-        v12 = *(&v2->isa + v9);
-        if (v12)
+        v6 = v5;
+        v7 = *(&v2->isa + v4);
+        if (v7)
         {
-          v8 = checkpoint_append_and_free_key_v(v8, checkpoint_boot_type_name[v9], v12, &v15);
-          v16 = v8;
+          v3 = checkpoint_append_and_free_key_v(v3, checkpoint_boot_type_name[v4], v7, &v9);
+          v10 = v3;
         }
 
-        v10 = 0;
-        v9 = 1;
+        v5 = 0;
+        v4 = 1;
       }
 
-      while ((v11 & 1) != 0);
-      v16 = checkpoint_append_and_free(v8, "}", v12, v3, v4, v5, v6, v7, v14);
-      v2 = CFStringCreateWithFormat(0, 0, @"%s", v16);
-      if (v16)
+      while ((v6 & 1) != 0);
+      v10 = checkpoint_append_and_free(v3, "}");
+      v2 = CFStringCreateWithFormat(0, 0, @"%s", v10);
+      if (v10)
       {
-        free(v16);
+        free(v10);
       }
     }
 
@@ -630,33 +513,32 @@ CFStringRef checkpoint_nvram_encode_by_id(uint64_t a1, const __CFString *a2)
   v2 = a2;
   if (a2)
   {
-    v15 = 0;
-    asprintf(&v15, "{");
-    v8 = v15;
-    if (v15)
+    v8 = 0;
+    asprintf(&v8, "{");
+    v3 = v8;
+    if (v8)
     {
-      v14 = 0;
+      v7 = 0;
       p_info = &v2->info;
-      v10 = 8;
+      v5 = 8;
       do
       {
-        v11 = *p_info;
         if (*p_info)
         {
-          v8 = checkpoint_append_and_free_id_v(v8, *(p_info - 2), v11, &v14);
-          v15 = v8;
+          v3 = checkpoint_append_and_free_id_v(v3, *(p_info - 2), *p_info, &v7);
+          v8 = v3;
         }
 
         p_info += 2;
-        --v10;
+        --v5;
       }
 
-      while (v10);
-      v15 = checkpoint_append_and_free(v8, "}", v11, v3, v4, v5, v6, v7, v13);
-      v2 = CFStringCreateWithFormat(0, 0, @"%s", v15);
-      if (v15)
+      while (v5);
+      v8 = checkpoint_append_and_free(v3, "}");
+      v2 = CFStringCreateWithFormat(0, 0, @"%s", v8);
+      if (v8)
       {
-        free(v15);
+        free(v8);
       }
     }
 
@@ -669,44 +551,43 @@ CFStringRef checkpoint_nvram_encode_by_id(uint64_t a1, const __CFString *a2)
   return v2;
 }
 
-int *checkpoint_nvram_encode_by_id_int(uint64_t a1, int *a2)
+CFStringRef checkpoint_nvram_encode_by_id_int(uint64_t a1, const __CFString *a2)
 {
   v2 = a2;
   if (a2)
   {
-    v14 = 0;
-    asprintf(&v14, "{");
-    if (v14)
+    v7 = 0;
+    asprintf(&v7, "{");
+    if (v7)
     {
-      v13 = 0;
-      v9 = 8;
+      v6 = 0;
+      v3 = 8;
       do
       {
-        if (*v2)
+        if (LODWORD(v2->isa))
         {
-          v12 = 0;
-          asprintf(&v12, "%d", v2[1]);
-          v3 = v12;
-          if (v12)
+          v5 = 0;
+          asprintf(&v5, "%d", HIDWORD(v2->isa));
+          if (v5)
           {
-            v14 = checkpoint_append_and_free_id_v(v14, *v2, v12, &v13);
-            if (v12)
+            v7 = checkpoint_append_and_free_id_v(v7, v2->isa, v5, &v6);
+            if (v5)
             {
-              free(v12);
+              free(v5);
             }
           }
         }
 
-        v2 += 2;
-        --v9;
+        v2 = (v2 + 8);
+        --v3;
       }
 
-      while (v9);
-      v14 = checkpoint_append_and_free(v14, "}", v3, v4, v5, v6, v7, v8, v11);
-      v2 = CFStringCreateWithFormat(0, 0, @"%s", v14);
-      if (v14)
+      while (v3);
+      v7 = checkpoint_append_and_free(v7, "}");
+      v2 = CFStringCreateWithFormat(0, 0, @"%s", v7);
+      if (v7)
       {
-        free(v14);
+        free(v7);
       }
     }
 
@@ -724,66 +605,65 @@ CFStringRef checkpoint_nvram_encode_by_id_try(uint64_t a1, const __CFString *a2)
   v2 = a2;
   if (a2)
   {
-    v19 = 0;
-    asprintf(&v19, "{");
-    if (v19)
+    v12 = 0;
+    asprintf(&v12, "{");
+    if (v12)
     {
-      v9 = 0;
-      v18 = 0;
+      v3 = 0;
+      v11 = 0;
       p_info = &v2->info;
       do
       {
-        v11 = v2 + 18 * v9;
-        if (*v11)
+        v5 = v2 + 18 * v3;
+        if (*v5)
         {
-          v22 = 0;
-          asprintf(&v22, "{");
-          if (v22)
+          v15 = 0;
+          asprintf(&v15, "{");
+          if (v15)
           {
-            v12 = 0;
-            v21 = 0;
+            v6 = 0;
+            v14 = 0;
             do
             {
-              v13 = p_info[v12];
-              if (v13)
+              v7 = p_info[v6];
+              if (v7)
               {
-                v20 = 0;
-                asprintf(&v20, "%s", v13);
-                v3 = v20;
-                if (v20)
+                v13 = 0;
+                asprintf(&v13, "%s", v7);
+                if (v13)
                 {
-                  v22 = checkpoint_append_and_free_try_v(v22, v12, v20, &v21);
-                  if (v20)
+                  v15 = checkpoint_append_and_free_try_v(v15, v6, v13, &v14);
+                  if (v13)
                   {
-                    free(v20);
+                    free(v13);
                   }
                 }
               }
 
-              ++v12;
+              ++v6;
             }
 
-            while (v12 != 8);
-            v14 = checkpoint_append_and_free(v22, "}", v3, v4, v5, v6, v7, v8, v17);
-            if (v14)
+            while (v6 != 8);
+            v8 = checkpoint_append_and_free(v15, "}");
+            if (v8)
             {
-              v15 = v14;
-              v19 = checkpoint_append_and_free_id_v(v19, *v11, v14, &v18);
-              free(v15);
+              v9 = v8;
+              v12 = checkpoint_append_and_free_id_v(v12, *v5, v8, &v11);
+              free(v9);
             }
           }
         }
 
-        ++v9;
+        ++v3;
         p_info += 9;
       }
 
-      while (v9 != 8);
-      v19 = checkpoint_append_and_free(v19, "}", v3, v4, v5, v6, v7, v8, v17);
-      v2 = CFStringCreateWithFormat(0, 0, @"%s", v19);
-      if (v19)
+      while (v3 != 8);
+      v12 = checkpoint_append_and_free(v12, "}");
+      v2 = CFStringCreateWithFormat(0, 0, @"%s", v12);
+      if (v12)
       {
-        free(v19);
+        free(v12);
       }
     }
 
@@ -801,65 +681,64 @@ CFStringRef checkpoint_nvram_encode_by_id_try_int(uint64_t a1, const __CFString 
   v2 = a2;
   if (a2)
   {
-    v18 = 0;
-    asprintf(&v18, "{");
-    if (v18)
+    v11 = 0;
+    asprintf(&v11, "{");
+    if (v11)
     {
-      v9 = 0;
-      v17 = 0;
-      v10 = v2;
+      v3 = 0;
+      v10 = 0;
+      v4 = v2;
       do
       {
-        v11 = v2 + 11 * v9;
-        if (*v11)
+        v5 = v2 + 11 * v3;
+        if (*v5)
         {
-          v21 = 0;
-          asprintf(&v21, "{");
-          if (v21)
+          v14 = 0;
+          asprintf(&v14, "{");
+          if (v14)
           {
-            v12 = 0;
-            v20 = 0;
+            v6 = 0;
+            v13 = 0;
             do
             {
-              if (*(&v10[1].isa + v12 + 4))
+              if (*(&v4[1].isa + v6 + 4))
               {
-                v19 = 0;
-                asprintf(&v19, "%d", *(&v10->isa + v12 + 1));
-                v3 = v19;
-                if (v19)
+                v12 = 0;
+                asprintf(&v12, "%d", *(&v4->isa + v6 + 1));
+                if (v12)
                 {
-                  v21 = checkpoint_append_and_free_try_v(v21, v12, v19, &v20);
-                  if (v19)
+                  v14 = checkpoint_append_and_free_try_v(v14, v6, v12, &v13);
+                  if (v12)
                   {
-                    free(v19);
+                    free(v12);
                   }
                 }
               }
 
-              ++v12;
+              ++v6;
             }
 
-            while (v12 != 8);
-            v13 = checkpoint_append_and_free(v21, "}", v3, v4, v5, v6, v7, v8, v16);
-            if (v13)
+            while (v6 != 8);
+            v7 = checkpoint_append_and_free(v14, "}");
+            if (v7)
             {
-              v14 = v13;
-              v18 = checkpoint_append_and_free_id_v(v18, *v11, v13, &v17);
-              free(v14);
+              v8 = v7;
+              v11 = checkpoint_append_and_free_id_v(v11, *v5, v7, &v10);
+              free(v8);
             }
           }
         }
 
-        ++v9;
-        v10 = (v10 + 44);
+        ++v3;
+        v4 = (v4 + 44);
       }
 
-      while (v9 != 8);
-      v18 = checkpoint_append_and_free(v18, "}", v3, v4, v5, v6, v7, v8, v16);
-      v2 = CFStringCreateWithFormat(0, 0, @"%s", v18);
-      if (v18)
+      while (v3 != 8);
+      v11 = checkpoint_append_and_free(v11, "}");
+      v2 = CFStringCreateWithFormat(0, 0, @"%s", v11);
+      if (v11)
       {
-        free(v18);
+        free(v11);
       }
     }
 
@@ -872,25 +751,24 @@ CFStringRef checkpoint_nvram_encode_by_id_try_int(uint64_t a1, const __CFString 
   return v2;
 }
 
-uint64_t checkpoint_nvram_is_available(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t checkpoint_nvram_is_available(uint64_t a1, int a2, int a3)
 {
-  v8 = a3;
-  v10 = *(a1 + 688);
-  if (!v10)
+  v5 = *(a1 + 688);
+  if (!v5)
   {
     goto LABEL_155;
   }
 
-  if (v10 == 1)
+  if (v5 == 1)
   {
-    v11 = 1;
+    v6 = 1;
     goto LABEL_20;
   }
 
-  v11 = 0;
+  v6 = 0;
   if (a2)
   {
-    if (v10 == 2)
+    if (v5 == 2)
     {
 LABEL_155:
       if (ramrod_check_NVRAM_access())
@@ -900,15 +778,15 @@ LABEL_155:
           if (!*(a1 + 2297))
           {
 LABEL_24:
-            v17 = *(a1 + 688);
+            v11 = *(a1 + 688);
             if (*(a1 + 693))
             {
 LABEL_148:
-              v11 = 1;
+              v6 = 1;
               *(a1 + 688) = 1;
-              if (!v8)
+              if (!a3)
               {
-                if (v17)
+                if (v11)
                 {
                   checkpoint_history_add(a1, 2, 1, 0, 256, "NVRAM access has become available", 0, 0, 0);
                 }
@@ -922,115 +800,115 @@ LABEL_148:
               goto LABEL_20;
             }
 
-            v18 = *a1 == 1 && v17 == 2;
-            v19 = 696;
-            if (v18)
+            v12 = *a1 == 1 && v11 == 2;
+            v13 = 696;
+            if (v12)
             {
-              v19 = 1088;
+              v13 = 1088;
             }
 
-            v20 = (a1 + v19);
-            if (*(a1 + v19 + 4))
+            v14 = a1 + v13;
+            if (*(a1 + v13 + 4))
             {
-              ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): first available indication when already collected\n", v12, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_handle_first_available");
+              ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): first available indication when already collected\n", "checkpoint_nvram_handle_first_available");
             }
 
             else
             {
-              checkpoint_nvram_collect(a1, v20, a3, a4, a5, a6, a7, a8);
+              checkpoint_nvram_collect(a1, v14);
             }
 
             if (*a1 == 1)
             {
-              v28 = *(a1 + 88);
+              v15 = *(a1 + 88);
               if (*(a1 + 96))
               {
-                if (v28 == 2)
+                if (v15 == 2)
                 {
-                  v38 = &checkpoint_nvram_ota_monitor_aware_awoken;
+                  v19 = &checkpoint_nvram_ota_monitor_aware_awoken;
                 }
 
                 else
                 {
-                  v38 = &checkpoint_nvram_restore_monitor_aware_awoken;
+                  v19 = &checkpoint_nvram_restore_monitor_aware_awoken;
                 }
               }
 
               else
               {
-                if (v28 == 2)
+                if (v15 == 2)
                 {
-                  v30 = checkpoint_nvram_check_collection(a1, v20, checkpoint_nvram_ota_monitor_aware_init, v23, v24, v25, v26, v27);
-                  checkpoint_nvram_delete_var_if_matches(a1, v20);
+                  v17 = checkpoint_nvram_check_collection(a1, v14, checkpoint_nvram_ota_monitor_aware_init);
+                  checkpoint_nvram_delete_var_if_matches(a1, v14);
                   goto LABEL_53;
                 }
 
-                v38 = &checkpoint_nvram_restore_monitor_aware_init;
+                v19 = &checkpoint_nvram_restore_monitor_aware_init;
               }
 
-              v30 = checkpoint_nvram_check_collection(a1, v20, v38, v23, v24, v25, v26, v27);
+              v17 = checkpoint_nvram_check_collection(a1, v14, v19);
 LABEL_53:
-              if (!v20[6])
+              if (!*(v14 + 48))
               {
                 goto LABEL_111;
               }
 
-              outcome_type = checkpoint_get_outcome_type(a1, v20, v32, v33, v34, v35, v36, v37);
+              outcome_type = checkpoint_get_outcome_type(a1, v14);
               if (outcome_type < 0x22)
               {
-                v50 = &checkpoint_outcome_attributes[3 * outcome_type];
+                v25 = &checkpoint_outcome_attributes[3 * outcome_type];
               }
 
               else
               {
-                ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid outcome=%d\n", v43, v44, v45, v46, v47, v48, v49, "checkpoint_get_outcome_attributes");
-                v50 = checkpoint_outcome_attributes;
+                ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid outcome=%d\n", "checkpoint_get_outcome_attributes", outcome_type);
+                v25 = checkpoint_outcome_attributes;
               }
 
-              v51 = v20[6];
-              bzero(v82, 0x400uLL);
-              if (*v50 == 2)
+              v26 = *(v14 + 48);
+              bzero(v49, 0x400uLL);
+              if (*v25 == 2)
               {
-                v52 = *(v50 + 8);
-                if (*(v50 + 8))
+                v27 = *(v25 + 8);
+                if (*(v25 + 8))
                 {
                   *(a1 + 106) = 1;
                 }
 
-                if (*(v50 + 7))
+                if (*(v25 + 7))
                 {
-                  v30 = 0;
+                  v17 = 0;
                   *(a1 + 102) = 1;
                 }
 
-                if (!*(v50 + 5))
+                if (!*(v25 + 5))
                 {
-                  if (!*(v50 + 4) || !*(v50 + 6))
+                  if (!*(v25 + 4) || !*(v25 + 6))
                   {
                     goto LABEL_111;
                   }
 
-                  if (v52)
+                  if (v27)
                   {
                     *(a1 + 101) = 1;
                     goto LABEL_111;
                   }
 
-                  if (!v20[8])
+                  if (!*(v14 + 64))
                   {
                     goto LABEL_111;
                   }
 
 LABEL_97:
-                  v67 = v20[7];
+                  v35 = *(v14 + 56);
                   *(a1 + 101) = 1;
-                  if (!v67 || CFStringCompare(v67, @"true", 0))
+                  if (!v35 || CFStringCompare(v35, @"true", 0))
                   {
                     goto LABEL_99;
                   }
 
                   *(a1 + 100) = 1;
-                  if (*(v50 + 5))
+                  if (*(v25 + 5))
                   {
                     *(a1 + 104) = 257;
                   }
@@ -1041,22 +919,22 @@ LABEL_97:
                   }
 
 LABEL_111:
-                  if (v30 && !*(a1 + 106) && !*(a1 + 100) && !*(a1 + 104))
+                  if (v17 && !*(a1 + 106) && !*(a1 + 100) && !*(a1 + 104))
                   {
-                    checkpoint_nvram_store_anomaly(a1, v31, "[monitor_aware]pre-existing NVRAM implied reboot-retry but values were inconsistent");
+                    checkpoint_nvram_store_anomaly(a1, v18, "[monitor_aware]pre-existing NVRAM implied reboot-retry but values were inconsistent");
                   }
 
                   goto LABEL_116;
                 }
 
-                if (v52)
+                if (v27)
                 {
                   *(a1 + 101) = 1;
                   *(a1 + 104) = 257;
                   goto LABEL_111;
                 }
 
-                if (v20[8])
+                if (*(v14 + 64))
                 {
                   goto LABEL_97;
                 }
@@ -1064,58 +942,58 @@ LABEL_111:
 
               else
               {
-                if (!*(v50 + 5))
+                if (!*(v25 + 5))
                 {
                   goto LABEL_111;
                 }
 
-                if (!v20[8])
+                if (!*(v14 + 64))
                 {
-                  checkpoint_get_nvram_value_string(v51, v82);
-                  checkpoint_nvram_store_anomaly(a1, v69, "[monitor_aware]outcome=%s(reboot_retry_not_in_zone)");
+                  checkpoint_get_nvram_value_string(v26, v49);
+                  checkpoint_nvram_store_anomaly(a1, v37, "[monitor_aware]outcome=%s(reboot_retry_not_in_zone)");
                   goto LABEL_116;
                 }
 
-                v53 = v20[7];
-                if (!v53 || CFStringCompare(v53, @"true", 0))
+                v28 = *(v14 + 56);
+                if (!v28 || CFStringCompare(v28, @"true", 0))
                 {
 LABEL_99:
-                  checkpoint_get_nvram_value_string(v51, v82);
-                  checkpoint_nvram_store_anomaly(a1, v68, "[monitor_aware]outcome=%s(reboot_retry_disabled)");
+                  checkpoint_get_nvram_value_string(v26, v49);
+                  checkpoint_nvram_store_anomaly(a1, v36, "[monitor_aware]outcome=%s(reboot_retry_disabled)");
 LABEL_116:
                   if (*(a1 + 104))
                   {
-                    if (v17 == 2)
+                    if (v11 == 2)
                     {
-                      v71 = 0;
-                      v72 = (a1 + 1520);
-                      v73 = &dword_100099DD0;
+                      v39 = 0;
+                      v40 = (a1 + 1520);
+                      v41 = &dword_100099DD0;
                       do
                       {
-                        v75 = *v73;
-                        v73 += 8;
-                        v74 = v75;
-                        if (v71 != v75)
+                        v43 = *v41;
+                        v41 += 8;
+                        v42 = v43;
+                        if (v39 != v43)
                         {
-                          v76 = a1 + 1512 + 16 * v74;
-                          *(v76 + 4) = *(v72 - 4);
-                          *(v72 - 4) = 0;
-                          v77 = *v72;
-                          *v72 = *(v76 + 8);
-                          *(v76 + 8) = v77;
+                          v44 = a1 + 1512 + 16 * v42;
+                          *(v44 + 4) = *(v40 - 4);
+                          *(v40 - 4) = 0;
+                          v45 = *v40;
+                          *v40 = *(v44 + 8);
+                          *(v44 + 8) = v45;
                         }
 
-                        ++v71;
-                        v72 += 2;
+                        ++v39;
+                        v40 += 2;
                       }
 
-                      while (v71 != 48);
+                      while (v39 != 48);
                     }
                   }
 
                   else if (*a1 != 1 && *(a1 + 88) == 2)
                   {
-                    ramrod_log_msg("%s\n", v31, v32, v33, v34, v35, v36, v37, "void clear_stale_ota_nvram(void)");
+                    ramrod_log_msg("%s\n", "void clear_stale_ota_nvram(void)");
                     checkpoint_nvram_delete_var_raw(@"boot-breadcrumbs");
                     checkpoint_nvram_delete_var_raw(@"OTA-pre-conversion");
                     checkpoint_nvram_delete_var_raw(@"OTA-post-conversion");
@@ -1125,9 +1003,9 @@ LABEL_116:
                     checkpoint_nvram_delete_var_raw(@"OTA-migrator-metrics");
                     for (i = 0; i != 28; ++i)
                     {
-                      v79 = &checkpoint_nvram_map[4 * dword_100082BA8[i]];
-                      checkpoint_nvram_delete_var_raw(v79[1]);
-                      checkpoint_nvram_delete_var_raw(*v79);
+                      v47 = &checkpoint_nvram_map[4 * dword_100082BA8[i]];
+                      checkpoint_nvram_delete_var_raw(v47[1]);
+                      checkpoint_nvram_delete_var_raw(*v47);
                     }
                   }
 
@@ -1139,33 +1017,33 @@ LABEL_116:
                       {
                         if (*(a1 + 106))
                         {
-                          v80 = 9;
+                          v48 = 9;
                         }
 
                         else if (*(a1 + 105))
                         {
-                          v80 = 12;
+                          v48 = 12;
                         }
 
                         else if (*(a1 + 100))
                         {
-                          v80 = 10;
+                          v48 = 10;
                         }
 
                         else
                         {
-                          v80 = 11;
+                          v48 = 11;
                         }
                       }
 
                       else if (*(a1 + 103))
                       {
-                        v80 = 10;
+                        v48 = 10;
                       }
 
                       else
                       {
-                        v80 = 3;
+                        v48 = 3;
                       }
                     }
 
@@ -1173,26 +1051,26 @@ LABEL_116:
                     {
                       if (*(a1 + 104))
                       {
-                        v80 = 7;
+                        v48 = 7;
                       }
 
                       else
                       {
-                        v80 = 6;
+                        v48 = 6;
                       }
                     }
 
                     else
                     {
-                      v80 = 2;
+                      v48 = 2;
                     }
 
-                    checkpoint_outcome_progress(a1, v80, v32, v33, v34, v35, v36, v37);
+                    checkpoint_outcome_progress(a1, v48);
                   }
 
                   else
                   {
-                    checkpoint_outcome_init(a1, 1, v32, v33, v34, v35, v36, v37);
+                    checkpoint_outcome_init(a1, 1);
                   }
 
                   *(a1 + 693) = 1;
@@ -1204,95 +1082,95 @@ LABEL_116:
               goto LABEL_111;
             }
 
-            v29 = v20[7];
-            if (v29 && CFStringCompare(v29, @"true", 0) == kCFCompareEqualTo)
+            v16 = *(v14 + 56);
+            if (v16 && CFStringCompare(v16, @"true", 0) == kCFCompareEqualTo)
             {
               *(a1 + 100) = 1;
             }
 
             else
             {
-              ramrod_log_msg("AP nonce will not be touched\n", v21, v22, v23, v24, v25, v26, v27, v81);
+              ramrod_log_msg("AP nonce will not be touched\n");
             }
 
-            v39 = *(a1 + 88);
+            v20 = *(a1 + 88);
             if (*(a1 + 96))
             {
-              if (v39 == 2)
+              if (v20 == 2)
               {
-                v40 = checkpoint_nvram_check_collection(a1, v20, checkpoint_nvram_ota_engine_aware_step, v23, v24, v25, v26, v27);
-                checkpoint_nvram_delete_var_if_matches(a1, v20);
+                v21 = checkpoint_nvram_check_collection(a1, v14, checkpoint_nvram_ota_engine_aware_step);
+                checkpoint_nvram_delete_var_if_matches(a1, v14);
                 goto LABEL_71;
               }
 
-              v41 = &checkpoint_nvram_restore_engine_aware_step;
+              v23 = &checkpoint_nvram_restore_engine_aware_step;
             }
 
-            else if (v39 == 2)
+            else if (v20 == 2)
             {
-              v41 = &checkpoint_nvram_ota_engine_aware_init;
+              v23 = &checkpoint_nvram_ota_engine_aware_init;
             }
 
             else
             {
-              v41 = &checkpoint_nvram_restore_engine_aware_init;
+              v23 = &checkpoint_nvram_restore_engine_aware_init;
             }
 
-            v40 = checkpoint_nvram_check_collection(a1, v20, v41, v23, v24, v25, v26, v27);
+            v21 = checkpoint_nvram_check_collection(a1, v14, v23);
 LABEL_71:
-            if (!v20[6])
+            if (!*(v14 + 48))
             {
               *(a1 + 1480) = 1;
               *(a1 + 1488) = "access now enabled";
               if (*(a1 + 88) == 2)
               {
-                if (v20[8])
+                if (*(v14 + 64))
                 {
-                  checkpoint_nvram_delete_var(a1, 7, 0, 0, v34, v35, v36, v37);
+                  checkpoint_nvram_delete_var(a1, 7u, 0, 0);
                 }
 
-                v63 = v20[3];
-                if (v63 && CFStringCompare(v63, @"recover", 0))
+                v31 = *(v14 + 24);
+                if (v31 && CFStringCompare(v31, @"recover", 0))
                 {
-                  checkpoint_nvram_delete_var(a1, 2, 1, 0, v34, v35, v36, v37);
+                  checkpoint_nvram_delete_var(a1, 2u, 1, 0);
                 }
 
-                if (v20[4])
+                if (*(v14 + 32))
                 {
-                  checkpoint_nvram_delete_var(a1, 3, 1, 0, v34, v35, v36, v37);
+                  checkpoint_nvram_delete_var(a1, 3u, 1, 0);
                 }
               }
 
               goto LABEL_103;
             }
 
-            v54 = checkpoint_get_outcome_type(a1, v20, v32, v33, v34, v35, v36, v37);
-            if (v54 < 0x22)
+            v29 = checkpoint_get_outcome_type(a1, v14);
+            if (v29 < 0x22)
             {
-              v62 = &checkpoint_outcome_attributes[3 * v54];
+              v30 = &checkpoint_outcome_attributes[3 * v29];
             }
 
             else
             {
-              ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid outcome=%d\n", v55, v56, v57, v58, v59, v60, v61, "checkpoint_get_outcome_attributes");
-              v62 = checkpoint_outcome_attributes;
+              ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid outcome=%d\n", "checkpoint_get_outcome_attributes", v29);
+              v30 = checkpoint_outcome_attributes;
             }
 
-            v64 = v20[6];
-            bzero(v82, 0x400uLL);
-            if (*v62 != 1)
+            v32 = *(v14 + 48);
+            bzero(v49, 0x400uLL);
+            if (*v30 != 1)
             {
-              if (*(v62 + 6))
+              if (*(v30 + 6))
               {
-                if (v20[8])
+                if (*(v14 + 64))
                 {
-                  checkpoint_reboot_retry_chassis_aware(a1, v64, v32, v33, v34, v35, v36, v37, v81);
+                  checkpoint_reboot_retry_chassis_aware(a1, v32);
                 }
 
                 else
                 {
-                  checkpoint_get_nvram_value_string(v64, v82);
-                  checkpoint_nvram_store_anomaly(a1, v70, "[chassis_aware]outcome=%s(pre_existing_reboot_retry_not_in_zone)", v82);
+                  checkpoint_get_nvram_value_string(v32, v49);
+                  checkpoint_nvram_store_anomaly(a1, v38, "[chassis_aware]outcome=%s(pre_existing_reboot_retry_not_in_zone)", v49);
                 }
               }
 
@@ -1301,29 +1179,29 @@ LABEL_71:
               goto LABEL_103;
             }
 
-            v65 = v20[8];
-            if (*(v62 + 5))
+            v33 = *(v14 + 64);
+            if (*(v30 + 5))
             {
-              if (!v65)
+              if (!v33)
               {
-                checkpoint_get_nvram_value_string(v64, v82);
-                checkpoint_nvram_store_anomaly(a1, v66, "[chassis_aware]outcome=%s(pre_existing_reboot_retry_not_in_zone)", v82);
+                checkpoint_get_nvram_value_string(v32, v49);
+                checkpoint_nvram_store_anomaly(a1, v34, "[chassis_aware]outcome=%s(pre_existing_reboot_retry_not_in_zone)", v49);
 LABEL_103:
-                if (v40 && !*(a1 + 104))
+                if (v21 && !*(a1 + 104))
                 {
-                  checkpoint_nvram_store_anomaly(a1, v31, "[chassis_aware]pre-existing NVRAM implied reboot-retry but values were inconsistent");
+                  checkpoint_nvram_store_anomaly(a1, v22, "[chassis_aware]pre-existing NVRAM implied reboot-retry but values were inconsistent");
                 }
 
                 goto LABEL_116;
               }
             }
 
-            else if (!v65)
+            else if (!v33)
             {
               goto LABEL_103;
             }
 
-            checkpoint_reboot_retry_chassis_aware(a1, v64, v32, v33, v34, v35, v36, v37, v81);
+            checkpoint_reboot_retry_chassis_aware(a1, v32);
             goto LABEL_103;
           }
         }
@@ -1339,43 +1217,43 @@ LABEL_103:
 
           if (*a1 == 2)
           {
-            checkpoint_nvram_delete_var(a1, 47, 0, 0, a5, a6, a7, a8);
+            checkpoint_nvram_delete_var(a1, 0x2Fu, 0, 0);
           }
 
           *(a1 + 2297) = 1;
           *(a1 + 692) = 0;
-          v13 = (a1 + 1016);
-          v14 = -4;
+          v7 = (a1 + 1016);
+          v8 = -4;
           do
           {
-            checkpoint_nvram_collect_var(a1, 1u, v14 + 43, v13++);
+            checkpoint_nvram_collect_var(a1, 1u, v8 + 43, v7++);
           }
 
-          while (!__CFADD__(v14++, 1));
+          while (!__CFADD__(v8++, 1));
           *(a1 + 2296) = 1;
         }
       }
 
       *(a1 + 688) = 2;
-      if (!v8)
+      if (!a3)
       {
         checkpoint_history_add(a1, 2, 1, 0, 256, "NVRAM access is not currently available", 0, 0, 0);
       }
 
-      v11 = 0;
+      v6 = 0;
     }
   }
 
 LABEL_20:
   if (!*(a1 + 96))
   {
-    checkpoint_outcome_init(a1, v11, a3, a4, a5, a6, a7, a8);
+    checkpoint_outcome_init(a1, v6);
   }
 
-  return v11;
+  return v6;
 }
 
-void *checkpoint_history_add(uint64_t a1, int a2, int a3, int a4, int a5, const char *a6, int a7, int a8, const void *a9)
+void *checkpoint_history_add(int *a1, int a2, int a3, int a4, int a5, const char *a6, int a7, int a8, const void *a9)
 {
   v17 = calloc(1uLL, 0x78uLL);
   if (!v17)
@@ -1383,9 +1261,9 @@ void *checkpoint_history_add(uint64_t a1, int a2, int a3, int a4, int a5, const 
     return v17;
   }
 
-  v145 = 0;
-  asprintf(&v145, "%s", a6);
-  if (!v145)
+  v94 = 0;
+  asprintf(&v94, "%s", a6);
+  if (!v94)
   {
     free(v17);
     return 0;
@@ -1399,7 +1277,7 @@ void *checkpoint_history_add(uint64_t a1, int a2, int a3, int a4, int a5, const 
   *(v17 + 12) = a3;
   *(v17 + 13) = a4;
   *(v17 + 14) = a5;
-  v17[8] = v145;
+  v17[8] = v94;
   *(v17 + 18) = a7;
   *(v17 + 19) = a8;
   if (a9)
@@ -1410,178 +1288,178 @@ void *checkpoint_history_add(uint64_t a1, int a2, int a3, int a4, int a5, const 
   }
 
   *(v17 + 22) = a5 | (*(v17 + 2) << 16) | 0x11000000;
-  *v149 = 0x1500000001;
-  v146[0] = 0;
-  v146[1] = 0;
-  v147 = 16;
-  if (sysctl(v149, 2u, v146, &v147, 0, 0))
+  *v98 = 0x1500000001;
+  v95[0] = 0;
+  v95[1] = 0;
+  v96 = 16;
+  if (sysctl(v98, 2u, v95, &v96, 0, 0))
   {
-    v25 = -1;
+    v18 = -1;
   }
 
   else
   {
-    v25 = v17[2] - v146[0];
+    v18 = v17[2] - v95[0];
   }
 
-  v26 = *(v17 + 2);
-  if (v26 <= 0x21)
+  v19 = *(v17 + 2);
+  if (v19 <= 0x21)
   {
-    if (((1 << v26) & 0x100000090) != 0)
+    if (((1 << v19) & 0x100000090) != 0)
     {
-      checkpoint_nvram_store_by_id_try_int(a1, 13, *(v17 + 14) | 0x11070000u, *(v17 + 18), *(v17 + 19), v22, v23, v24);
-      v28 = v17[10];
-      if (v28)
+      checkpoint_nvram_store_by_id_try_int(a1, 0xDu, *(v17 + 14) | 0x11070000, *(v17 + 18), *(v17 + 19));
+      v22 = v17[10];
+      if (v22)
       {
-        Code = CFErrorGetCode(v28);
+        Code = CFErrorGetCode(v22);
         Domain = CFErrorGetDomain(v17[10]);
-        v31 = checkpoint_cferror_alloc_string(v17[10]);
-        checkpoint_nvram_store_by_id_try_int(a1, 15, *(v17 + 22), *(v17 + 18), Code, v32, v33, v34);
+        v25 = checkpoint_cferror_alloc_string(v17[10]);
+        checkpoint_nvram_store_by_id_try_int(a1, 0xFu, *(v17 + 22), *(v17 + 18), Code);
         if (Domain)
         {
           bzero(buffer, 0x400uLL);
           CFStringGetCString(Domain, buffer, 1024, 0x8000100u);
-          checkpoint_nvram_store_by_id_try(a1, 16, *(v17 + 22), *(v17 + 18), buffer, v35, v36, v37);
+          checkpoint_nvram_store_by_id_try(a1, 0x10u, *(v17 + 22), *(v17 + 18), buffer);
         }
 
-        if (v31)
+        if (v25)
         {
-          checkpoint_nvram_store_by_id(a1, 17, *(v17 + 22), v31, v21, v22, v23, v24);
-          free(v31);
+          checkpoint_nvram_store_by_id(a1, 0x11u, *(v17 + 22), v25);
+          free(v25);
         }
       }
 
       goto LABEL_76;
     }
 
-    if (((1 << v26) & 0x200000020) != 0)
+    if (((1 << v19) & 0x200000020) != 0)
     {
       v20 = *(v17 + 18);
-      v27 = *(v17 + 14);
+      v21 = *(v17 + 14);
       if (v20)
       {
-        checkpoint_nvram_store_by_id_try_int(a1, 13, v27 | 0x11070000u, v20, 0, v22, v23, v24);
+        checkpoint_nvram_store_by_id_try_int(a1, 0xDu, v21 | 0x11070000, v20, 0);
         goto LABEL_76;
       }
 
-      v47 = a1 + 1512;
-      v48 = 368;
+      v35 = a1 + 378;
+      v36 = 92;
       if (!*(a1 + 104))
       {
-        v48 = 176;
+        v36 = 44;
       }
 
-      v49 = v47 + v48;
-      v50 = *(v49 + 8);
-      if (v50)
+      v37 = &v35[v36];
+      v38 = *(v37 + 1);
+      if (v38)
       {
-        v51 = v27 | 0x11030000;
-        if (*v50 == v51)
+        v39 = v21 | 0x11030000;
+        if (*v38 == v39)
         {
-          v52 = 0;
-          *v50 = 0;
+          v40 = 0;
+          *v38 = 0;
 LABEL_41:
-          v53 = &v50[v52 + 1];
-          v54 = v52 - 7;
+          v41 = &v38[v40 + 1];
+          v42 = v40 - 7;
           do
           {
-            *(v53 - 1) = *v53;
-            ++v53;
-            v55 = __CFADD__(v54++, 1);
+            *(v41 - 1) = *v41;
+            ++v41;
+            v43 = __CFADD__(v42++, 1);
           }
 
-          while (!v55);
+          while (!v43);
 LABEL_44:
-          v50[7] = 0;
-          *(v49 + 4) = 1;
+          v38[7] = 0;
+          *(v37 + 4) = 1;
           goto LABEL_53;
         }
 
-        v56 = v50 + 1;
-        v57 = -1;
-        while (v57 != 6)
+        v44 = v38 + 1;
+        v45 = -1;
+        while (v45 != 6)
         {
-          v58 = *v56;
-          v56 += 2;
-          ++v57;
-          if (v58 == v51)
+          v46 = *v44;
+          v44 += 2;
+          ++v45;
+          if (v46 == v39)
           {
-            *(v56 - 1) = 0;
-            if (v57 > 5)
+            *(v44 - 1) = 0;
+            if (v45 > 5)
             {
               goto LABEL_44;
             }
 
-            v52 = v57 + 1;
+            v40 = v45 + 1;
             goto LABEL_41;
           }
         }
       }
 
-      v59 = *(a1 + 1504);
-      if (!v59)
+      v47 = a1[376];
+      if (!v47)
       {
-        ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on remove [%s]\n", v18, v19, v20, v21, v22, v23, v24, "checkpoint_nvram_remove_lost");
-        v59 = *(a1 + 1504);
+        ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on remove [%s]\n", "checkpoint_nvram_remove_lost", "checkpoint_nvram_remove_by_id_int", "not removed");
+        v47 = a1[376];
       }
 
-      *(a1 + 1504) = v59 + 1;
+      a1[376] = v47 + 1;
 LABEL_53:
-      v60 = 24;
+      v48 = 24;
       if (!*(a1 + 104))
       {
-        v60 = 12;
+        v48 = 12;
       }
 
-      if ((0x1001100uLL >> v60))
+      if ((0x1001100uLL >> v48))
       {
-        v61 = v47 + 16 * v60;
-        v62 = *(v61 + 8);
-        if (v62)
+        v49 = &v35[4 * v48];
+        v50 = *(v49 + 1);
+        if (v50)
         {
-          v63 = *(v17 + 14) | 0x11030000;
-          v64 = v62 + 28;
-          if (*v62 == v63)
+          v51 = *(v17 + 14) | 0x11030000;
+          v52 = v50 + 28;
+          if (*v50 == v51)
           {
-            v65 = 0;
+            v53 = 0;
 LABEL_66:
-            v69 = &v62[4 * v65];
-            v70 = v69[1];
-            if (v70)
+            v57 = &v50[4 * v53];
+            v58 = v57[1];
+            if (v58)
             {
-              free(v70);
+              free(v58);
             }
 
-            *v69 = 0;
-            v69[1] = 0;
-            if (v65 <= 6)
+            *v57 = 0;
+            v57[1] = 0;
+            if (v53 <= 6)
             {
-              v71 = v69 + 2;
-              v72 = v65 - 7;
+              v59 = v57 + 2;
+              v60 = v53 - 7;
               do
               {
-                *(v71 - 1) = *v71;
-                ++v71;
-                v55 = __CFADD__(v72++, 1);
+                *(v59 - 1) = *v59;
+                ++v59;
+                v43 = __CFADD__(v60++, 1);
               }
 
-              while (!v55);
+              while (!v43);
             }
 
-            *v64 = 0;
-            v64[1] = 0;
-            *(v61 + 4) = 1;
+            *v52 = 0;
+            v52[1] = 0;
+            *(v49 + 4) = 1;
             goto LABEL_76;
           }
 
-          v65 = 0;
-          v67 = v62 + 4;
-          while (v65 != 7)
+          v53 = 0;
+          v55 = v50 + 4;
+          while (v53 != 7)
           {
-            ++v65;
-            v68 = *v67;
-            v67 += 4;
-            if (v68 == v63)
+            ++v53;
+            v56 = *v55;
+            v55 += 4;
+            if (v56 == v51)
             {
               goto LABEL_66;
             }
@@ -1589,314 +1467,298 @@ LABEL_66:
         }
       }
 
-      v73 = *(a1 + 1504);
-      if (!v73)
+      v61 = a1[376];
+      if (!v61)
       {
-        ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on remove [%s]\n", v18, v19, v20, v21, v22, v23, v24, "checkpoint_nvram_remove_lost");
-        v73 = *(a1 + 1504);
+        ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on remove [%s]\n", "checkpoint_nvram_remove_lost", "checkpoint_nvram_remove_by_id", "not removed");
+        v61 = a1[376];
       }
 
-      *(a1 + 1504) = v73 + 1;
+      a1[376] = v61 + 1;
 LABEL_76:
-      checkpoint_nvram_store_long(a1, 18, v25, v20, v21, v22, v23, v24);
-      checkpoint_nvram_store_long(a1, 21, *(v17 + 14), v74, v75, v76, v77, v78);
+      checkpoint_nvram_store_long(a1, 0x12u, v18);
+      checkpoint_nvram_store_long(a1, 0x15u, *(v17 + 14));
       goto LABEL_77;
     }
 
-    if (v26 == 6)
+    if (v19 == 6)
     {
-      checkpoint_nvram_store_by_id_try(a1, 14, *(v17 + 22), *(v17 + 18), v17[8], v22, v23, v24);
+      checkpoint_nvram_store_by_id_try(a1, 0xEu, *(v17 + 22), *(v17 + 18), v17[8]);
       goto LABEL_77;
     }
   }
 
-  if (v26 == 3)
+  if (v19 == 3)
   {
     if (!*(v17 + 18))
     {
-      v38 = *(a1 + 1496) + 1;
-      *(a1 + 1496) = v38;
-      v39 = *(v17 + 22);
-      v40 = 368;
+      v26 = a1[374] + 1;
+      a1[374] = v26;
+      v27 = *(v17 + 22);
+      v28 = 92;
       if (!*(a1 + 104))
       {
-        v40 = 176;
+        v28 = 44;
       }
 
-      v41 = a1 + v40;
-      v42 = *(v41 + 1520);
-      if (!v42)
+      v29 = &a1[v28];
+      v30 = *(v29 + 190);
+      if (!v30)
       {
         goto LABEL_59;
       }
 
-      v43 = 0;
-      v44 = *(v41 + 1520);
+      v31 = 0;
+      v32 = *(v29 + 190);
       do
       {
-        v45 = *v44;
-        v44 += 2;
-        if (v45)
+        v33 = *v32;
+        v32 += 2;
+        if (v33)
         {
-          v46 = 0;
+          v34 = 0;
         }
 
         else
         {
-          v46 = v42;
+          v34 = v30;
         }
 
-        if (v43 > 6)
+        if (v31 > 6)
         {
           break;
         }
 
-        ++v43;
-        v42 = v44;
+        ++v31;
+        v30 = v32;
       }
 
-      while (!v46);
-      if (v46)
+      while (!v34);
+      if (v34)
       {
-        *v46 = v39;
-        v46[1] = v38;
-        *(v41 + 1516) = 1;
+        *v34 = v27;
+        v34[1] = v26;
+        *(v29 + 1516) = 1;
       }
 
       else
       {
 LABEL_59:
-        v66 = *(a1 + 1500);
-        if (!v66)
+        v54 = a1[375];
+        if (!v54)
         {
-          ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on store [%s]\n", v18, v39, v20, v21, v22, v23, v24, "checkpoint_nvram_store_lost");
-          v66 = *(a1 + 1500);
-          v39 = *(v17 + 22);
+          ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on store [%s]\n", "checkpoint_nvram_store_lost", "checkpoint_nvram_store_by_id_int", "dest_store == NULL");
+          v54 = a1[375];
+          v27 = *(v17 + 22);
         }
 
-        *(a1 + 1500) = v66 + 1;
+        a1[375] = v54 + 1;
       }
 
-      checkpoint_nvram_store_by_id(a1, 12, v39, v17[8], v21, v22, v23, v24);
+      checkpoint_nvram_store_by_id(a1, 0xCu, v27, v17[8]);
     }
 
     goto LABEL_76;
   }
 
-  if (v26 == 1)
+  if (v19 == 1)
   {
-    checkpoint_nvram_store_by_id(a1, 10, *(v17 + 22), v17[8], v21, v22, v23, v24);
+    checkpoint_nvram_store_by_id(a1, 0xAu, *(v17 + 22), v17[8]);
   }
 
 LABEL_77:
   *v17 = 0;
-  **(a1 + 216) = v17;
-  *(a1 + 216) = v17;
-  v79 = *(a1 + 224) + 1;
-  *(a1 + 224) = v79;
-  if (v79 >= 0x201)
+  **(a1 + 27) = v17;
+  *(a1 + 27) = v17;
+  v62 = a1[56] + 1;
+  a1[56] = v62;
+  if (v62 >= 0x201)
   {
-    v80 = (a1 + 208);
+    v63 = a1 + 52;
     do
     {
-      v81 = *v80;
-      v82 = **v80;
-      *v80 = v82;
-      if (!v82)
+      v64 = *v63;
+      v65 = **v63;
+      *v63 = v65;
+      if (!v65)
       {
-        *(a1 + 216) = v80;
+        *(a1 + 27) = v63;
       }
 
-      *(a1 + 224) = v79 - 1;
-      v83 = v81[8];
-      if (v83)
+      a1[56] = v62 - 1;
+      v66 = v64[8];
+      if (v66)
       {
-        free(v83);
-        v81[8] = 0;
+        free(v66);
+        v64[8] = 0;
       }
 
-      v84 = v81[10];
-      if (v84)
+      v67 = v64[10];
+      if (v67)
       {
-        CFRelease(v84);
+        CFRelease(v67);
       }
 
-      free(v81);
-      v79 = *(a1 + 224);
+      free(v64);
+      v62 = a1[56];
     }
 
-    while (v79 > 0x200);
+    while (v62 > 0x200);
   }
 
   memset(buffer, 0, 56);
-  v146[0] = 0;
+  v95[0] = 0;
   gmtime_r(v17 + 2, buffer);
-  v85 = *(v17 + 2);
-  if (v85 > 0x21)
+  v68 = *(v17 + 2);
+  if (v68 > 0x21)
   {
-    v86 = "GENERAL";
+    v69 = "GENERAL";
   }
 
   else
   {
-    v86 = checkpoint_history_type_name[v85];
+    v69 = checkpoint_history_type_name[v68];
   }
 
-  asprintf(v146, "[%02u:%02u:%02u.%04u-GMT]{%u>%u} CHECKPOINT %s", buffer[0].tm_hour, buffer[0].tm_min, buffer[0].tm_sec, *(v17 + 8) / 1000, *(v17 + 11), *(v17 + 10), v86);
-  v87 = v146[0];
+  asprintf(v95, "[%02u:%02u:%02u.%04u-GMT]{%u>%u} CHECKPOINT %s", buffer[0].tm_hour, buffer[0].tm_min, buffer[0].tm_sec, *(v17 + 8) / 1000, *(v17 + 11), *(v17 + 10), v69);
+  v70 = v95[0];
   *&buffer[0].tm_sec = 0;
   if (*(v17 + 19))
   {
-    v138 = *(v17 + 19);
     asprintf(buffer, "(FAILURE:%d) ");
   }
 
   else
   {
-    v94 = *(v17 + 2);
-    if (v94 <= 0x1C && ((1 << v94) & 0x18000080) != 0)
+    v71 = *(v17 + 2);
+    if (v71 <= 0x1C && ((1 << v71) & 0x18000080) != 0)
     {
-      asprintf(buffer, "(SUCCESS) ", v137);
+      asprintf(buffer, "(SUCCESS) ", v92);
     }
 
     else
     {
-      asprintf(buffer, " ", v137);
+      asprintf(buffer, " ", v92);
     }
   }
 
-  v95 = *&buffer[0].tm_sec;
-  if (!v87 || !*&buffer[0].tm_sec)
+  v72 = *&buffer[0].tm_sec;
+  if (!v70 || !*&buffer[0].tm_sec)
   {
-    goto LABEL_160;
+    goto LABEL_158;
   }
 
   *&buffer[0].tm_sec = 0;
   if (*(v17 + 14))
   {
-    v96 = *(v17 + 2);
-    if (v96 == 28 || v96 == 1)
+    v73 = *(v17 + 2);
+    if (v73 == 28 || v73 == 1)
     {
-      v139 = *(v17 + 14);
-      v141 = v17[8];
       asprintf(buffer, "[0x%04X] %s");
+    }
+
+    else if (*(v17 + 12) == 1)
+    {
+      asprintf(buffer, "%s");
     }
 
     else
     {
-      v119 = *(v17 + 12);
-      if (v119 == 1)
-      {
-        v120 = v17[8];
-        asprintf(buffer, "%s");
-      }
-
-      else
-      {
-        if (v119 <= 0x1C)
-        {
-          v121 = checkpoint_engine_name[v119];
-        }
-
-        v142 = *(v17 + 14);
-        v143 = v17[8];
-        asprintf(buffer, "%s:[0x%04X] %s");
-      }
+      asprintf(buffer, "%s:[0x%04X] %s");
     }
 
-    v97 = *&buffer[0].tm_sec;
+    v74 = *&buffer[0].tm_sec;
   }
 
   else
   {
-    v97 = 0;
+    v74 = 0;
   }
 
-  v146[0] = 0;
-  v98 = *(v17 + 2);
-  if (v98 == 28)
+  v95[0] = 0;
+  v75 = *(v17 + 2);
+  if (v75 == 28)
   {
     *&buffer[0].tm_sec = 0;
     if (!*(v17 + 19))
     {
-      *(a1 + 1368);
       asprintf(buffer, "... %s");
-      goto LABEL_133;
+      goto LABEL_131;
     }
 
-    v101 = checkpoint_nvram_copy_encode_c_string(a1, 9, v88, v89, v90, v91, v92, v93);
-    v107 = checkpoint_nvram_copy_string(a1, a1 + 1088, 12, v102, v103, v104, v105, v106);
-    v108 = v107;
-    v109 = *(a1 + 108);
-    if (v109 > 6)
+    v78 = checkpoint_nvram_copy_encode_c_string(a1, 9);
+    v79 = checkpoint_nvram_copy_string(a1, (a1 + 272), 0xCu);
+    v80 = v79;
+    v81 = a1[27];
+    if (v81 > 6)
     {
-      v110 = "GENERAL";
+      v82 = "GENERAL";
     }
 
     else
     {
-      v110 = checkpoint_failure_type_name[v109];
+      v82 = checkpoint_failure_type_name[v81];
     }
 
-    if (v101)
+    if (v78)
     {
-      if (!v107)
+      if (!v79)
       {
-        asprintf(buffer, "[%s] %s", v110, v101);
-        v122 = v101;
-        goto LABEL_132;
+        asprintf(buffer, "[%s] %s", v82, v78);
+        v84 = v78;
+        goto LABEL_130;
       }
 
-      asprintf(buffer, "[%s] %s %s", v110, v107, v101);
-      free(v101);
+      asprintf(buffer, "[%s] %s %s", v82, v79, v78);
+      free(v78);
     }
 
     else
     {
-      if (!v107)
+      if (!v79)
       {
         asprintf(buffer, "[%s]");
-LABEL_133:
-        v100 = *&buffer[0].tm_sec;
-        if (v97)
+LABEL_131:
+        v77 = *&buffer[0].tm_sec;
+        if (v74)
         {
           goto LABEL_115;
         }
 
-LABEL_134:
-        if (v100)
+LABEL_132:
+        if (v77)
         {
-          asprintf(v146, "%s:%s %s", v87, v95, v100);
-LABEL_137:
-          v118 = 1;
-          goto LABEL_138;
+          asprintf(v95, "%s:%s %s", v70, v72, v77);
+LABEL_135:
+          v83 = 1;
+          goto LABEL_136;
         }
 
-LABEL_136:
-        asprintf(v146, "%s:%s", v87, v95);
-        v100 = 0;
-        goto LABEL_137;
+LABEL_134:
+        asprintf(v95, "%s:%s", v70, v72);
+        v77 = 0;
+        goto LABEL_135;
       }
 
-      asprintf(buffer, "[%s] %s", v110, v107);
+      asprintf(buffer, "[%s] %s", v82, v79);
     }
 
-    v122 = v108;
-LABEL_132:
-    free(v122);
-    goto LABEL_133;
+    v84 = v80;
+LABEL_130:
+    free(v84);
+    goto LABEL_131;
   }
 
-  if (v98 == 27)
+  if (v75 == 27)
   {
-    v99 = checkpoint_nvram_copy_encode_c_string(a1, 13, v88, v89, v90, v91, v92, v93);
-    v100 = v99;
-    if (*v99 == 123 && v99[1] == 125 && !v99[2])
+    v76 = checkpoint_nvram_copy_encode_c_string(a1, 13);
+    v77 = v76;
+    if (*v76 == 123 && v76[1] == 125 && !v76[2])
     {
-      free(v99);
-      if (!v97)
+      free(v76);
+      if (!v74)
       {
-        goto LABEL_136;
+        goto LABEL_134;
       }
 
       goto LABEL_117;
@@ -1905,280 +1767,281 @@ LABEL_132:
 
   else
   {
-    v100 = checkpoint_cferror_alloc_string(v17[10]);
+    v77 = checkpoint_cferror_alloc_string(v17[10]);
   }
 
-  if (!v97)
+  if (!v74)
   {
-    goto LABEL_134;
+    goto LABEL_132;
   }
 
 LABEL_115:
-  if (!v100)
+  if (!v77)
   {
 LABEL_117:
-    asprintf(v146, "%s:%s%s", v87, v95, v97);
-    v118 = 0;
-    v100 = 0;
-    goto LABEL_138;
+    asprintf(v95, "%s:%s%s", v70, v72, v74);
+    v83 = 0;
+    v77 = 0;
+    goto LABEL_136;
   }
 
-  asprintf(v146, "%s:%s%s %s", v87, v95, v97, v100);
-  v118 = 0;
-LABEL_138:
-  v123 = v146[0];
-  if (v146[0])
+  asprintf(v95, "%s:%s%s %s", v70, v72, v74, v77);
+  v83 = 0;
+LABEL_136:
+  v85 = v95[0];
+  if (v95[0])
   {
-    v144 = v118;
+    v93 = v83;
     if (*(v17 + 2) == 28)
     {
-      if (*(a1 + 88) == 2)
+      if (a1[22] == 2)
       {
-        v124 = 1;
+        v86 = 1;
       }
 
       else
       {
-        v124 = 3;
+        v86 = 3;
       }
     }
 
     else
     {
-      v124 = 1;
+      v86 = 1;
     }
 
     while (1)
     {
-      ramrod_log_msg("%s\n", v111, v112, v113, v114, v115, v116, v117, v123);
+      ramrod_log_msg("%s\n", v85);
       if (*(v17 + 2) == 28)
       {
-        ramrod_log_msg("\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n", v125, v126, v127, v128, v129, v130, v131, v140);
+        ramrod_log_msg("\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n");
       }
 
-      if (v124 < 2)
+      if (v86 < 2)
       {
         break;
       }
 
-      --v124;
+      --v86;
       sleep(1u);
     }
 
-    v132 = v146[0];
-    v133 = calloc(1uLL, 0x10uLL);
-    if (v133)
+    v87 = v95[0];
+    v88 = calloc(1uLL, 0x10uLL);
+    if (v88)
     {
-      v134 = v133;
-      v133[1] = v132;
+      v89 = v88;
+      v88[1] = v87;
       if (*a1 == 1)
       {
-        *v133 = 0;
-        **(a1 + 504) = v133;
-        *(a1 + 504) = v133;
+        *v88 = 0;
+        **(a1 + 63) = v88;
+        *(a1 + 63) = v88;
       }
 
       else
       {
-        pthread_mutex_lock((a1 + 256));
-        v135 = *a1;
-        *v134 = 0;
-        **(a1 + 504) = v134;
-        *(a1 + 504) = v134;
-        if (v135 != 1)
+        pthread_mutex_lock(a1 + 4);
+        v90 = *a1;
+        *v89 = 0;
+        **(a1 + 63) = v89;
+        *(a1 + 63) = v89;
+        if (v90 != 1)
         {
-          pthread_mutex_unlock((a1 + 256));
+          pthread_mutex_unlock(a1 + 4);
         }
       }
 
       *(a1 + 232) = 1;
-      v118 = v144;
+      v83 = v93;
     }
 
-    else if (v132)
+    else if (v87)
     {
-      free(v132);
+      free(v87);
     }
   }
 
-  if ((v118 & 1) == 0)
+  if ((v83 & 1) == 0)
   {
-    free(v97);
+    free(v74);
   }
 
-  if (v100)
+  if (v77)
   {
-    free(v100);
+    free(v77);
   }
 
-LABEL_160:
-  if (v87)
+LABEL_158:
+  if (v70)
   {
-    free(v87);
+    free(v70);
   }
 
-  if (v95)
+  if (v72)
   {
-    free(v95);
+    free(v72);
   }
 
   return v17;
 }
 
-void checkpoint_nvram_collect(int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void checkpoint_nvram_collect(int *a1, unsigned int *a2)
 {
   if (*(a2 + 4))
   {
-    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): first available indication when already collected\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_collect");
+    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): first available indication when already collected\n", "checkpoint_nvram_collect");
     return;
   }
 
-  v10 = 0;
-  v11 = 0;
-  v12 = a2 + 8;
+  v4 = 0;
+  v5 = 0;
+  v6 = a2 + 2;
   do
   {
-    checkpoint_nvram_collect_var(a1, *a2, v11, (v12 + v10));
-    v17 = *a1;
-    if ((v11 - 39) <= 3 && v17 == 2)
+    checkpoint_nvram_collect_var(a1, *a2, v5, &v6[v4]);
+    v7 = *a1;
+    if ((v5 - 39) <= 3 && v7 == 2)
     {
-      if (*(v12 + 8 * v11))
+      if (*&v6[2 * v5])
       {
         goto LABEL_13;
       }
     }
 
-    else if (v11 >= 0x2B && v11 != 47 && v17 == 2)
+    else if (v5 >= 0x2B && v5 != 47 && v7 == 2)
     {
-      v18 = *(v12 + 8 * v11);
-      if (v18)
+      v8 = *&v6[2 * v5];
+      if (v8)
       {
-        bzero(v24, 0x400uLL);
-        checkpoint_get_nvram_value_string(v18, v24);
-        checkpoint_nvram_store_string(a1, (v11 - 4), v24, v19, v20, v21, v22, v23);
+        bzero(v9, 0x400uLL);
+        checkpoint_get_nvram_value_string(v8, v9);
+        checkpoint_nvram_store_string(a1, v5 - 4, v9);
 LABEL_13:
-        checkpoint_nvram_delete_var(a1, v11, 0, 0, v13, v14, v15, v16);
+        checkpoint_nvram_delete_var(a1, v5, 0, 0);
       }
     }
 
-    ++v11;
-    v10 += 8;
+    ++v5;
+    v4 += 2;
   }
 
-  while (v11 != 48);
+  while (v5 != 48);
   *(a2 + 4) = 1;
 }
 
-uint64_t checkpoint_get_outcome_type(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t checkpoint_get_outcome_type(uint64_t a1, uint64_t a2)
 {
-  v8 = checkpoint_nvram_copy_string(a1, a2, 5, a4, a5, a6, a7, a8);
-  if (!v8)
+  v2 = checkpoint_nvram_copy_string(a1, a2, 5u);
+  if (!v2)
   {
     return 0;
   }
 
-  v9 = v8;
-  v10 = 0;
+  v3 = v2;
+  v4 = 0;
   do
   {
-    if (!strcmp(v9, checkpoint_outcome_names[v10]))
+    if (!strcmp(v3, checkpoint_outcome_names[v4]))
     {
-      v11 = v10;
+      v5 = v4;
     }
 
     else
     {
-      v11 = 0;
+      v5 = 0;
     }
 
-    if (v11)
+    if (v5)
     {
       break;
     }
   }
 
-  while (v10++ < 0x21);
-  free(v9);
-  return v11;
+  while (v4++ < 0x21);
+  free(v3);
+  return v5;
 }
 
-void checkpoint_nvram_store_anomaly(uint64_t a1, uint64_t a2, char *a3, ...)
+void checkpoint_nvram_store_anomaly(int *a1, uint64_t a2, char *a3, ...)
 {
   va_start(va, a3);
-  v8[0] = 0;
-  va_copy(&v8[1], va);
-  vasprintf(v8, a3, va);
-  if (v8[0])
+  v4[0] = 0;
+  va_copy(&v4[1], va);
+  vasprintf(v4, a3, va);
+  if (v4[0])
   {
-    checkpoint_history_add(a1, 30, 1, 0, 260, v8[0], 0, 0, 0);
-    checkpoint_nvram_store_by_id(a1, 8, *(a1 + 120), v8[0], v4, v5, v6, v7);
-    if (v8[0])
+    checkpoint_history_add(a1, 30, 1, 0, 260, v4[0], 0, 0, 0);
+    checkpoint_nvram_store_by_id(a1, 8u, a1[30], v4[0]);
+    if (v4[0])
     {
-      free(v8[0]);
-      v8[0] = 0;
+      free(v4[0]);
+      v4[0] = 0;
     }
   }
 
-  ++*(a1 + 120);
+  ++a1[30];
 }
 
-void checkpoint_outcome_progress(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void checkpoint_outcome_progress(uint64_t result, uint64_t a2)
 {
-  v8 = *(a1 + 96);
-  v9 = *(&checkpoint_outcome_progress_table + v8);
-  if (*(v9 + 4 * a2))
+  v2 = *(result + 96);
+  v3 = *(&checkpoint_outcome_progress_table + v2);
+  if (*(v3 + 4 * a2))
   {
-    *(a1 + 92) = v8;
-    v12 = *(v9 + 4 * a2);
-    *(a1 + 96) = v12;
-    if (v12 > 0x21)
+    v4 = a2;
+    *(result + 92) = v2;
+    v6 = *(v3 + 4 * a2);
+    *(result + 96) = v6;
+    if (v6 > 0x21)
     {
-      v13 = "unknown";
+      v7 = "unknown";
     }
 
     else
     {
-      v13 = checkpoint_outcome_names[v12];
+      v7 = checkpoint_outcome_names[v6];
     }
 
-    checkpoint_nvram_store_string(a1, 5, v13, a4, a5, a6, a7, a8);
+    checkpoint_nvram_store_string(result, 5u, v7);
 
-    checkpoint_log_progress(a1, a2);
+    checkpoint_log_progress(result, v4);
   }
 }
 
-void checkpoint_nvram_delete_var(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void checkpoint_nvram_delete_var(uint64_t a1, unsigned int a2, int a3, uint64_t a4)
 {
   if (a2 < 0x30)
   {
-    v9 = &checkpoint_nvram_map[4 * a2];
-    if (a3 || (*(v9 + 6) - 5) < 0xFFFFFFFD)
+    v5 = &checkpoint_nvram_map[4 * a2];
+    if (a3 || (*(v5 + 6) - 5) < 0xFFFFFFFD)
     {
       bzero(buffer, 0x400uLL);
       if (*(a1 + 88) == 1)
       {
-        v10 = v9;
+        v6 = v5;
       }
 
       else
       {
-        v10 = (v9 + 1);
+        v6 = (v5 + 1);
       }
 
-      v11 = *v10;
-      CFStringGetCString(*v10, buffer, 1024, 0x8000100u);
-      checkpoint_nvram_delete_var_raw(v11);
+      v7 = *v6;
+      CFStringGetCString(*v6, buffer, 1024, 0x8000100u);
+      checkpoint_nvram_delete_var_raw(v7);
     }
 
     else
     {
-      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid delete of BOOT-CONTROL NVRAM ID %u\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_delete_var");
+      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid delete of BOOT-CONTROL NVRAM ID %u\n");
     }
   }
 
   else
   {
-    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid delete of NVRAM ID %u\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_delete_var");
+    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid delete of NVRAM ID %u\n");
   }
 }
 
@@ -2197,19 +2060,19 @@ char *checkpoint_get_nvram_value_string(const __CFString *a1, char *a2)
   return a2;
 }
 
-void checkpoint_nvram_store_string(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void checkpoint_nvram_store_string(uint64_t result, unsigned int a2, const char *a3)
 {
-  if (*(a1 + 104))
+  if (*(result + 104))
   {
     if (a2 > 0x2F)
     {
-      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable ID=%d\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_adjust_id");
-      v10 = 0;
-      v11 = a1 + 1512;
+      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable ID=%d\n", "checkpoint_nvram_adjust_id", a2);
+      v5 = 0;
+      v6 = result + 1512;
       goto LABEL_7;
     }
 
-    a2 = LODWORD(checkpoint_nvram_map[4 * a2 + 2]);
+    a2 = checkpoint_nvram_map[4 * a2 + 2];
   }
 
   if (a2 > 0x2F)
@@ -2217,70 +2080,70 @@ void checkpoint_nvram_store_string(uint64_t a1, uint64_t a2, const char *a3, uin
     goto LABEL_12;
   }
 
-  v10 = a2;
-  v11 = a1 + 16 * a2 + 1512;
+  v5 = a2;
+  v6 = result + 16 * a2 + 1512;
 LABEL_7:
-  if ((0xFFFC000000FEuLL >> v10))
+  if ((0xFFFC000000FEuLL >> v5))
   {
-    v12 = *(v11 + 8);
-    if (v12)
+    v7 = *(v6 + 8);
+    if (v7)
     {
-      if (*v12)
+      if (*v7)
       {
-        free(*v12);
-        *v12 = 0;
+        free(*v7);
+        *v7 = 0;
       }
 
-      checkpoint_nvram_store_set_string(a1 + 1480, v12, a3, a4, a5, a6, a7, a8);
-      *(v11 + 4) = 1;
+      checkpoint_nvram_store_set_string(result + 1480, v7, a3);
+      *(v6 + 4) = 1;
       return;
     }
   }
 
 LABEL_12:
-  v13 = *(a1 + 1500);
-  if (!v13)
+  v8 = *(result + 1500);
+  if (!v8)
   {
-    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on store [%s]\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_store_lost");
-    v13 = *(a1 + 1500);
+    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on store [%s]\n", "checkpoint_nvram_store_lost", "checkpoint_nvram_store_string", "wrong type or internalStore.string == NULL");
+    v8 = *(result + 1500);
   }
 
-  *(a1 + 1500) = v13 + 1;
+  *(result + 1500) = v8 + 1;
 }
 
-void checkpoint_access_obtain(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void checkpoint_access_obtain(_DWORD *result)
 {
-  if (a1)
+  if (result)
   {
-    if (*a1 != 1)
+    if (*result != 1)
     {
-      v9 = (a1 + 2);
+      v2 = (result + 2);
 
-      pthread_mutex_lock(v9);
+      pthread_mutex_lock(v2);
     }
   }
 
   else
   {
-    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): checkpoint context not initialized\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_access_obtain");
+    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): checkpoint context not initialized\n", "checkpoint_access_obtain");
   }
 }
 
-void checkpoint_access_yield(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void checkpoint_access_yield(_DWORD *result)
 {
-  if (a1)
+  if (result)
   {
-    if (*a1 != 1)
+    if (*result != 1)
     {
-      v9 = (a1 + 2);
+      v2 = (result + 2);
 
-      pthread_mutex_unlock(v9);
+      pthread_mutex_unlock(v2);
     }
   }
 
   else
   {
-    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): checkpoint context not initialized\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_access_yield");
+    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): checkpoint context not initialized\n", "checkpoint_access_yield");
   }
 }
 
@@ -2325,55 +2188,56 @@ timeval *checkpoint_closure_context_set_end_time(uint64_t a1)
   return result;
 }
 
-void checkpoint_closure_context_set_encountered_async_error(uint64_t a1, int a2, __CFError *a3)
+void checkpoint_closure_context_set_encountered_async_error(_DWORD *result, uint64_t a2, __CFError *a3)
 {
   if (a3)
   {
+    v4 = a2;
     v6 = checkpoint_chassis_context;
     if (!checkpoint_error_is_cancel_error(a3))
     {
-      v13 = *(a1 + 8);
-      if (!v13 || (*(v13 + 36) & 3) == 0 || !checkpoint_tolerated_treat_as_success_minimized(v6, v13))
+      v7 = *(result + 1);
+      if (!v7 || (*(v7 + 36) & 3) == 0 || !checkpoint_tolerated_treat_as_success_minimized(v6, v7))
       {
-        checkpoint_access_obtain(v6, v13, v7, v8, v9, v10, v11, v12);
-        v21 = (v6 + 48);
-        v22 = (v6 + 48);
+        checkpoint_access_obtain(v6);
+        v8 = (v6 + 48);
+        v9 = (v6 + 48);
         while (1)
         {
-          v22 = *v22;
-          if (!v22)
+          v9 = *v9;
+          if (!v9)
           {
             break;
           }
 
-          if (*(v22 + 32) == *(a1 + 76))
+          if (*(v9 + 32) == result[19])
           {
             goto LABEL_12;
           }
         }
 
-        v22 = *v21;
-        if (!*v21)
+        v9 = *v8;
+        if (!*v8)
         {
-          checkpoint_chassis_set_global_async_error(v6, a2, a3, *(a1 + 8));
+          checkpoint_chassis_set_global_async_error(v6, v4, a3, *(result + 1));
           goto LABEL_19;
         }
 
 LABEL_12:
-        if (!*(v22 + 144) && !*(v22 + 137))
+        if (!*(v9 + 144) && !*(v9 + 137))
         {
-          checkpoint_engine_set_async_error(v22, a2, a3, *(a1 + 8));
-          for (i = *v21; i != v22; i = *i)
+          checkpoint_engine_set_async_error(v9, v4, a3, *(result + 1));
+          for (i = *v8; i != v9; i = *i)
           {
             checkpoint_engine_cancel(i);
           }
 
-          checkpoint_engine_cancel(v22);
+          checkpoint_engine_cancel(v9);
         }
 
 LABEL_19:
 
-        checkpoint_access_yield(v6, v14, v15, v16, v17, v18, v19, v20);
+        checkpoint_access_yield(v6);
       }
     }
   }
@@ -2587,21 +2451,21 @@ char *checkpoint_cferror_alloc_string(CFErrorRef err)
   do
   {
     v4 = CFErrorCopyUserInfo(v1);
-    v2 = checkpoint_append_and_free(v2, "[%d]", v5, v6, v7, v8, v9, v10, v3);
+    v2 = checkpoint_append_and_free(v2, "[%d]", v3);
     if (!v4)
     {
       break;
     }
 
-    v22 = 0;
+    v16 = 0;
     Value = CFDictionaryGetValue(v4, kCFErrorLocalizedRecoverySuggestionKey);
-    v12 = checkpoint_cferror_append(v2, "RS", Value, &v22);
-    v13 = CFDictionaryGetValue(v4, kCFErrorLocalizedDescriptionKey);
-    v14 = checkpoint_cferror_append(v12, "LD", v13, &v22);
-    v15 = CFDictionaryGetValue(v4, kCFErrorDescriptionKey);
-    v16 = checkpoint_cferror_append(v14, "D", v15, &v22);
-    v17 = CFDictionaryGetValue(v4, kCFErrorLocalizedFailureReasonKey);
-    v2 = checkpoint_cferror_append(v16, "FR", v17, &v22);
+    v6 = checkpoint_cferror_append(v2, "RS", Value, &v16);
+    v7 = CFDictionaryGetValue(v4, kCFErrorLocalizedDescriptionKey);
+    v8 = checkpoint_cferror_append(v6, "LD", v7, &v16);
+    v9 = CFDictionaryGetValue(v4, kCFErrorDescriptionKey);
+    v10 = checkpoint_cferror_append(v8, "D", v9, &v16);
+    v11 = CFDictionaryGetValue(v4, kCFErrorLocalizedFailureReasonKey);
+    v2 = checkpoint_cferror_append(v10, "FR", v11, &v16);
     v1 = CFDictionaryGetValue(v4, kCFErrorUnderlyingErrorKey);
     CFRelease(v4);
     if (!v1)
@@ -2611,17 +2475,17 @@ char *checkpoint_cferror_alloc_string(CFErrorRef err)
   }
 
   while (v3++ < 0xF);
-  v19 = strlen(v2);
-  if (v19 >= 0xF3)
+  v13 = strlen(v2);
+  if (v13 >= 0xF3)
   {
-    v21 = 0;
-    asprintf(&v21, "%s", &v2[v19 - 242]);
+    v15 = 0;
+    asprintf(&v15, "%s", &v2[v13 - 242]);
     if (v2)
     {
       free(v2);
     }
 
-    return v21;
+    return v15;
   }
 
   return v2;
@@ -2649,48 +2513,47 @@ uint64_t checkpoint_closure_context_should_retry(uint64_t result)
   return result;
 }
 
-uint64_t checkpoint_closure_context_handle_simulator_actions(uint64_t *a1, uint64_t a2, int *a3, __CFError **a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t checkpoint_closure_context_handle_simulator_actions(uint64_t *a1, uint64_t a2, int *a3, __CFError **a4)
 {
   if (!a1)
   {
-    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): closure context is NULL\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_closure_context_handle_simulator_actions");
+    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): closure context is NULL\n", a2);
     return a2;
   }
 
   if (!checkpoint_chassis_context)
   {
-    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): %s called too early, checkpoint_chassis_context == NULL\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_closure_context_handle_simulator_actions");
+    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): %s called too early, checkpoint_chassis_context == NULL\n", a2, a3);
     return a2;
   }
 
-  v9 = *a1;
-  v10 = checkpoint_chassis_context;
+  v5 = *a1;
+  v6 = checkpoint_chassis_context;
 
-  return checkpoint_simulator_action(v10, v9, a2, a3, a4, a6, a7, a8);
+  return checkpoint_simulator_action(v6, v5, a2, a3, a4);
 }
 
-uint64_t checkpoint_simulator_action(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, __CFError **a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t checkpoint_simulator_action(uint64_t a1, uint64_t a2, unsigned int a3, int *a4, __CFError **a5)
 {
-  v10 = a3;
   if (a5 && checkpoint_error_is_cancel_error(*a5))
   {
     return 0;
   }
 
-  v14 = v10;
-  checkpoint_access_obtain(a1, a2, a3, a4, a5, a6, a7, a8);
-  checkpoint_simulator_configure(a1, v15, v16, v17, v18, v19, v20, v21);
+  v11 = a3;
+  checkpoint_access_obtain(a1);
+  checkpoint_simulator_configure(a1);
   if (!*(a1 + 2300) || !*(a1 + 2312))
   {
     goto LABEL_17;
   }
 
-  v29 = CFStringCreateWithCString(kCFAllocatorDefault, *(a2 + 8), 0x8000100u);
+  v12 = CFStringCreateWithCString(kCFAllocatorDefault, *(a2 + 8), 0x8000100u);
   Count = CFArrayGetCount(*(a1 + 2312));
   if (Count < 1)
   {
-    v37 = 0;
-    if (!v29)
+    v20 = 0;
+    if (!v12)
     {
       goto LABEL_13;
     }
@@ -2698,102 +2561,101 @@ uint64_t checkpoint_simulator_action(uint64_t a1, uint64_t a2, uint64_t a3, int 
     goto LABEL_12;
   }
 
-  v31 = Count;
+  v14 = Count;
   ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 2312), 0);
-  if (CFStringCompare(v29, ValueAtIndex, 0) == kCFCompareEqualTo)
+  if (CFStringCompare(v12, ValueAtIndex, 0) == kCFCompareEqualTo)
   {
-    v37 = 1;
-    if (!v29)
+    v20 = 1;
+    if (!v12)
     {
       goto LABEL_13;
     }
 
 LABEL_12:
-    CFRelease(v29);
+    CFRelease(v12);
     goto LABEL_13;
   }
 
-  v33 = 1;
+  v16 = 1;
   do
   {
-    v34 = v33;
-    if (v31 == v33)
+    v17 = v16;
+    if (v14 == v16)
     {
       break;
     }
 
-    v35 = CFArrayGetValueAtIndex(*(a1 + 2312), v33);
-    v36 = CFStringCompare(v29, v35, 0);
-    v33 = v34 + 1;
+    v18 = CFArrayGetValueAtIndex(*(a1 + 2312), v16);
+    v19 = CFStringCompare(v12, v18, 0);
+    v16 = v17 + 1;
   }
 
-  while (v36);
-  v37 = v34 < v31;
-  if (v29)
+  while (v19);
+  v20 = v17 < v14;
+  if (v12)
   {
     goto LABEL_12;
   }
 
 LABEL_13:
-  if (v37)
+  if (v20)
   {
-    v38 = *(a1 + 2308);
-    if (!v38)
+    v21 = *(a1 + 2308);
+    if (!v21)
     {
-      if (v10)
+      if (a3)
       {
         checkpoint_history_add(a1, *(a1 + 2300), 1, 0, *a2, *(a2 + 8), *(a1 + 2304), *a4, *a5);
       }
 
-      checkpoint_access_yield(a1, v22, v23, v24, v25, v26, v27, v28);
-      v47 = 0;
-      v39 = 0;
+      checkpoint_access_yield(a1);
+      v26 = 0;
+      v22 = 0;
       switch(*(a1 + 2300))
       {
         case 9:
           goto LABEL_77;
         case 0xA:
-          if (*(a1 + 2299) == v10)
+          if (*(a1 + 2299) == a3)
           {
             *a4 = 181;
-            ramrod_create_error_cf(a5, @"CheckpointErrorDomain", 181, 0, @"checkpoint simulator error", v44, v45, v46, v92);
+            ramrod_create_error_cf(a5, @"CheckpointErrorDomain", 181, 0, @"checkpoint simulator error", v23, v24, v25, v35);
           }
 
           goto LABEL_73;
         case 0xB:
-          if (*(a1 + 2299) == v10)
+          if (*(a1 + 2299) == a3)
           {
             abort();
           }
 
           goto LABEL_73;
         case 0xC:
-          if (*(a1 + 2299) == v10)
+          if (*(a1 + 2299) == a3)
           {
             exit(182);
           }
 
           goto LABEL_73;
         case 0xD:
-          if (*(a1 + 2299) == v10)
+          if (*(a1 + 2299) == a3)
           {
             _exit(183);
           }
 
           goto LABEL_73;
         case 0xE:
-          if (*(a1 + 2299) == v10)
+          if (*(a1 + 2299) == a3)
           {
             for (i = 0; ; ++i)
             {
-              v97 = *i;
-              ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): simulator signal executing after dereference of %p [%d]\n", v40, v41, v42, v43, v44, v45, v46, "checkpoint_simulator_action");
+              ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): simulator signal executing after dereference of %p [%d]\n", "checkpoint_simulator_action", i, *i);
             }
           }
 
           goto LABEL_73;
         case 0xF:
-          if (*(a1 + 2299) == v10)
+          if (*(a1 + 2299) == a3)
           {
               ;
             }
@@ -2801,283 +2663,280 @@ LABEL_13:
 
           goto LABEL_73;
         case 0x10:
-          if (*(a1 + 2299) == v10)
+          if (*(a1 + 2299) == a3)
           {
-            memset(&v99, 0, sizeof(v99));
-            v98.__sig = 0;
-            *v98.__opaque = 0;
-            pthread_mutexattr_init(&v98);
-            pthread_mutex_init(&v99, &v98);
-            pthread_mutex_lock(&v99);
-            pthread_mutex_lock(&v99);
+            memset(&v37, 0, sizeof(v37));
+            v36.__sig = 0;
+            *v36.__opaque = 0;
+            pthread_mutexattr_init(&v36);
+            pthread_mutex_init(&v37, &v36);
+            pthread_mutex_lock(&v37);
+            pthread_mutex_lock(&v37);
           }
 
           goto LABEL_73;
         case 0x11:
-          if (*(a1 + 2299) != v10)
+          if (*(a1 + 2299) != a3)
           {
             goto LABEL_73;
           }
 
-          v66 = mach_host_self();
-          v67 = 0;
+          v30 = mach_host_self();
+          v31 = 0;
           goto LABEL_72;
         case 0x12:
           goto LABEL_51;
         case 0x13:
-          ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): simulator PAUSE not supported\n", v40, v41, v42, v43, v44, v45, v46, "checkpoint_simulator_action");
+          ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): simulator PAUSE not supported\n");
           goto LABEL_73;
         case 0x14:
-          ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): simulator RESUME not supported\n", v40, v41, v42, v43, v44, v45, v46, "checkpoint_simulator_action");
+          ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): simulator RESUME not supported\n");
           goto LABEL_73;
         case 0x15:
-          if (*(a1 + 2299) != v10)
+          if (*(a1 + 2299) != a3)
           {
             goto LABEL_73;
           }
 
           __break(1u);
 LABEL_51:
-          if (*(a1 + 2299) != v10)
+          if (*(a1 + 2299) != a3)
           {
             goto LABEL_73;
           }
 
-          v66 = mach_host_self();
-          v67 = 4096;
+          v30 = mach_host_self();
+          v31 = 4096;
 LABEL_72:
-          host_reboot(v66, v67);
+          host_reboot(v30, v31);
 LABEL_73:
-          v39 = 0;
+          v22 = 0;
 LABEL_74:
-          v47 = v10;
+          v26 = a3;
 LABEL_75:
-          if (!v10)
+          if (!a3)
           {
             goto LABEL_77;
           }
 
-          v14 = v47;
-          if (!v47)
+          v11 = v26;
+          if (!v26)
           {
             goto LABEL_77;
           }
 
           goto LABEL_18;
         case 0x16:
-          v39 = v10 == 0;
+          v22 = a3 == 0;
           goto LABEL_74;
         case 0x17:
-          v39 = 0;
-          if (*(a1 + 2299) == v10)
+          v22 = 0;
+          if (*(a1 + 2299) == a3)
           {
-            v47 = 0;
+            v26 = 0;
           }
 
           else
           {
-            v47 = v10;
+            v26 = a3;
           }
 
-          if (v10 || *(a1 + 2299))
+          if (a3 || *(a1 + 2299))
           {
             goto LABEL_75;
           }
 
-          v56 = *(a2 + 8);
           if (*a4)
           {
-            v93 = *(a2 + 8);
-            ramrod_log_msg("CHECKPOINT_SIMULATOR_NOTICE(%s): checkpoint simulator ignoring error on step %s result: %d\n", v40, v41, v42, v43, v44, v45, v46, "checkpoint_simulator_action");
+            ramrod_log_msg("CHECKPOINT_SIMULATOR_NOTICE(%s): checkpoint simulator ignoring error on step %s result: %d\n", "checkpoint_simulator_action", *(a2 + 8), *a4);
             *a4 = 0;
             if (*a5)
             {
-              v57 = checkpoint_cferror_alloc_string(*a5);
-              if (v57)
+              v28 = checkpoint_cferror_alloc_string(*a5);
+              if (v28)
               {
-                v65 = v57;
-                v94 = *(a2 + 8);
-                ramrod_log_msg("CHECKPOINT_SIMULATOR_NOTICE(%s): checkpoint simulator ignoring error on step %s error: %s\n", v58, v59, v60, v61, v62, v63, v64, "checkpoint_simulator_action");
-                free(v65);
+                v29 = v28;
+                ramrod_log_msg("CHECKPOINT_SIMULATOR_NOTICE(%s): checkpoint simulator ignoring error on step %s error: %s\n", "checkpoint_simulator_action", *(a2 + 8), v28);
+                free(v29);
               }
 
               CFRelease(*a5);
-              v47 = 0;
-              v39 = 0;
+              v26 = 0;
+              v22 = 0;
               *a5 = 0;
 LABEL_77:
-              v76 = *(a1 + 2304);
-              if (v76)
+              v33 = *(a1 + 2304);
+              if (v33)
               {
-                v77 = v76 - 1;
-                *(a1 + 2304) = v77;
-                if (!v77)
+                v34 = v33 - 1;
+                *(a1 + 2304) = v34;
+                if (!v34)
                 {
                   *(a1 + 2300) = 0;
                 }
               }
 
-              v14 = v47;
+              v11 = v26;
               goto LABEL_18;
             }
           }
 
           else
           {
-            ramrod_log_msg("CHECKPOINT_SIMULATOR_NOTICE(%s): checkpoint simulator to ignore error on step %s, but step was successful\n", v40, v41, v42, v43, v44, v45, v46, "checkpoint_simulator_action");
+            ramrod_log_msg("CHECKPOINT_SIMULATOR_NOTICE(%s): checkpoint simulator to ignore error on step %s, but step was successful\n", "checkpoint_simulator_action", *(a2 + 8));
           }
 
-          v47 = 0;
-          v39 = 0;
+          v26 = 0;
+          v22 = 0;
           goto LABEL_77;
         case 0x18:
-          if (*(a1 + 2299) == v10)
+          if (*(a1 + 2299) == a3)
           {
             checkpoint_simulator_jetsam();
-            ramrod_log_msg("CHECKPOINT_SIMULATOR_NOTICE(%s): returned from checkpoint jetsam attempt; continuing engine\n", v68, v69, v70, v71, v72, v73, v74, "checkpoint_simulator_action");
+            ramrod_log_msg("CHECKPOINT_SIMULATOR_NOTICE(%s): returned from checkpoint jetsam attempt; continuing engine\n");
           }
 
           goto LABEL_73;
         case 0x19:
-          if (*(a1 + 2299) == v10)
+          if (*(a1 + 2299) == a3)
           {
-            v48 = fork();
-            if (v48 < 1)
+            v27 = fork();
+            if (v27 < 1)
             {
-              if (!v48)
+              if (!v27)
               {
                 checkpoint_simulator_jetsam();
                 exit(0);
               }
 
-              v95 = *__error();
-              ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): error %d attempting to fork jetsam child\n", v78, v79, v80, v81, v82, v83, v84, "checkpoint_simulator_action");
+              __error();
+              ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): error %d attempting to fork jetsam child\n");
             }
 
             else
             {
-              LODWORD(v99.__sig) = 0;
-              if (waitpid(v48, &v99, 0) < 0)
+              LODWORD(v37.__sig) = 0;
+              if (waitpid(v27, &v37, 0) < 0)
               {
-                v96 = *__error();
-                ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): error %d waiting for jetsam child\n", v85, v86, v87, v88, v89, v90, v91, "checkpoint_simulator_action");
+                __error();
+                ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): error %d waiting for jetsam child\n");
               }
 
-              else if ((v99.__sig & 0x7F) == 0x7F)
+              else if ((v37.__sig & 0x7F) == 0x7F)
               {
-                ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): unexpected status of jetsam child: %d\n", v49, v50, v51, v52, v53, v54, v55, "checkpoint_simulator_action");
+                ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): unexpected status of jetsam child: %d\n");
               }
 
-              else if ((v99.__sig & 0x7F) != 0)
+              else if ((v37.__sig & 0x7F) != 0)
               {
-                ramrod_log_msg("CHECKPOINT_SIMULATOR_NOTICE(%s): jetsam child signalled: %d\n", v49, v50, v51, v52, v53, v54, v55, "checkpoint_simulator_action");
+                ramrod_log_msg("CHECKPOINT_SIMULATOR_NOTICE(%s): jetsam child signalled: %d\n");
               }
 
               else
               {
-                ramrod_log_msg("CHECKPOINT_SIMULATOR_NOTICE(%s): jetsam child exited: %d\n", v49, v50, v51, v52, v53, v54, v55, "checkpoint_simulator_action");
+                ramrod_log_msg("CHECKPOINT_SIMULATOR_NOTICE(%s): jetsam child exited: %d\n");
               }
             }
           }
 
           goto LABEL_73;
         default:
-          ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): unknown simulator command ignored\n", v40, v41, v42, v43, v44, v45, v46, "checkpoint_simulator_action");
-          v39 = 0;
-          v47 = 1;
+          ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): unknown simulator command ignored\n", "checkpoint_simulator_action");
+          v22 = 0;
+          v26 = 1;
           goto LABEL_75;
       }
     }
 
-    if (!v10)
+    if (!a3)
     {
-      *(a1 + 2308) = v38 - 1;
+      *(a1 + 2308) = v21 - 1;
     }
   }
 
 LABEL_17:
-  checkpoint_access_yield(a1, v22, v23, v24, v25, v26, v27, v28);
-  v39 = 0;
+  checkpoint_access_yield(a1);
+  v22 = 0;
 LABEL_18:
-  if (v10)
+  if (a3)
   {
-    return v14;
+    return v11;
   }
 
   else
   {
-    return v39;
+    return v22;
   }
 }
 
-uint64_t checkpoint_closure_context_handle_simulator_match_name(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t checkpoint_closure_context_handle_simulator_match_name(uint64_t *a1)
 {
   if (!a1)
   {
-    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): closure context is NULL\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_closure_context_handle_simulator_match_name");
+    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): closure context is NULL\n");
     return 0;
   }
 
   if (!checkpoint_chassis_context)
   {
-    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): %s called too early, checkpoint_chassis_context == NULL\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_closure_context_handle_simulator_match_name");
+    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): %s called too early, checkpoint_chassis_context == NULL\n");
     return 0;
   }
 
-  v8 = *a1;
-  v9 = checkpoint_chassis_context;
+  v1 = *a1;
+  v2 = checkpoint_chassis_context;
 
-  return checkpoint_simulator_action_match(v9, v8, a3, a4, a5, a6, a7, a8);
+  return checkpoint_simulator_action_match(v2, v1);
 }
 
-uint64_t checkpoint_simulator_action_match(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t checkpoint_simulator_action_match(uint64_t a1, uint64_t a2)
 {
-  checkpoint_access_obtain(a1, a2, a3, a4, a5, a6, a7, a8);
-  checkpoint_simulator_configure(a1, v10, v11, v12, v13, v14, v15, v16);
+  checkpoint_access_obtain(a1);
+  checkpoint_simulator_configure(a1);
   if (*(a1 + 2300))
   {
     Count = CFArrayGetCount(*(a1 + 2312));
-    v32 = CFStringCreateWithCString(kCFAllocatorDefault, *(a2 + 8), 0x8000100u);
+    v5 = CFStringCreateWithCString(kCFAllocatorDefault, *(a2 + 8), 0x8000100u);
     if (Count < 1)
     {
 LABEL_6:
-      v35 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v33 = 0;
+      v6 = 0;
       while (1)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 2312), v33);
-        if (CFStringCompare(v32, ValueAtIndex, 0) == kCFCompareEqualTo)
+        ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 2312), v6);
+        if (CFStringCompare(v5, ValueAtIndex, 0) == kCFCompareEqualTo)
         {
           break;
         }
 
-        if (Count == ++v33)
+        if (Count == ++v6)
         {
           goto LABEL_6;
         }
       }
 
-      v35 = 1;
+      v8 = 1;
     }
 
-    checkpoint_access_yield(a1, v25, v26, v27, v28, v29, v30, v31);
-    if (v32)
+    checkpoint_access_yield(a1);
+    if (v5)
     {
-      CFRelease(v32);
+      CFRelease(v5);
     }
   }
 
   else
   {
-    checkpoint_access_yield(a1, v17, v18, v19, v20, v21, v22, v23);
+    checkpoint_access_yield(a1);
     return 0;
   }
 
-  return v35;
+  return v8;
 }
 
 char *checkpoint_append_and_free_key_v(char *a1, const char *a2, const char *a3, int *a4)
@@ -3133,40 +2992,41 @@ LABEL_13:
   return v11;
 }
 
-char *checkpoint_append_and_free(char *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+char *checkpoint_append_and_free(char *a1, const char *a2, ...)
 {
-  v11 = 0;
-  v12[0] = 0;
-  v12[1] = &a9;
-  vasprintf(v12, a2, &a9);
-  if (!v12[0])
+  va_start(va, a2);
+  v4 = 0;
+  v5[0] = 0;
+  va_copy(&v5[1], va);
+  vasprintf(v5, a2, va);
+  if (!v5[0])
   {
     return a1;
   }
 
   if (!a1)
   {
-    return v12[0];
+    return v5[0];
   }
 
-  asprintf(&v11, "%s%s", a1, v12[0]);
-  if (v11)
+  asprintf(&v4, "%s%s", a1, v5[0]);
+  if (v4)
   {
     free(a1);
   }
 
   else
   {
-    v11 = a1;
+    v4 = a1;
   }
 
-  if (v12[0])
+  if (v5[0])
   {
-    free(v12[0]);
-    v12[0] = 0;
+    free(v5[0]);
+    v5[0] = 0;
   }
 
-  return v11;
+  return v4;
 }
 
 char *checkpoint_append_and_free_id_v(char *a1, int a2, const char *a3, int *a4)
@@ -3201,7 +3061,7 @@ char *checkpoint_append_and_free_try_v(char *a1, int a2, const char *a3, int *a4
   return a1;
 }
 
-void checkpoint_outcome_init(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void checkpoint_outcome_init(uint64_t a1, int a2)
 {
   if (*a1 == 1)
   {
@@ -3209,18 +3069,18 @@ void checkpoint_outcome_init(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint
     {
       if (*(a1 + 104))
       {
-        v9 = 17;
+        v3 = 17;
         goto LABEL_14;
       }
 
-      v10 = *(a1 + 101) == 0;
-      v9 = 5;
+      v4 = *(a1 + 101) == 0;
+      v3 = 5;
     }
 
     else
     {
-      v10 = *(a1 + 88) == 2;
-      v9 = 1;
+      v4 = *(a1 + 88) == 2;
+      v3 = 1;
     }
   }
 
@@ -3228,155 +3088,148 @@ void checkpoint_outcome_init(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint
   {
     if (*(a1 + 104))
     {
-      v9 = 19;
+      v3 = 19;
       goto LABEL_14;
     }
 
-    v10 = *(a1 + 101) == 0;
-    v9 = 7;
+    v4 = *(a1 + 101) == 0;
+    v3 = 7;
   }
 
   else
   {
-    v10 = *(a1 + 88) == 2;
-    v9 = 3;
+    v4 = *(a1 + 88) == 2;
+    v3 = 3;
   }
 
-  if (!v10)
+  if (!v4)
   {
-    ++v9;
+    ++v3;
   }
 
 LABEL_14:
-  *(a1 + 96) = v9;
-  checkpoint_nvram_store_string(a1, 5, checkpoint_outcome_names[v9], a4, a5, a6, a7, a8);
+  *(a1 + 96) = v3;
+  checkpoint_nvram_store_string(a1, 5u, checkpoint_outcome_names[v3]);
 
   checkpoint_log_progress(a1, 1);
 }
 
-void checkpoint_nvram_collect_var(uint64_t a1, unsigned int a2, unsigned int a3, const __CFString **a4)
+void checkpoint_nvram_collect_var(int *a1, unsigned int a2, unsigned int a3, const __CFString **a4)
 {
   cf = 0;
   bzero(buffer, 0x400uLL);
-  bzero(v54, 0x400uLL);
+  bzero(v19, 0x400uLL);
   if (a3 < 0x30)
   {
-    if (*(a1 + 88) == 1)
+    if (a1[22] == 1)
     {
-      v16 = &checkpoint_nvram_map[4 * a3];
+      v9 = &checkpoint_nvram_map[4 * a3];
     }
 
     else
     {
-      v16 = &checkpoint_nvram_map[4 * a3 + 1];
+      v9 = &checkpoint_nvram_map[4 * a3 + 1];
     }
 
-    v17 = *v16;
-    CFStringGetCString(*v16, buffer, 1024, 0x8000100u);
-    v18 = ramrod_copy_NVRAM_variable(v17, &cf);
-    if (!v18)
+    v10 = *v9;
+    CFStringGetCString(*v9, buffer, 1024, 0x8000100u);
+    v11 = ramrod_copy_NVRAM_variable(v10);
+    if (!v11)
     {
-      if (!cf)
-      {
-        return;
-      }
-
-      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): failed to read %s\n", v19, v20, v21, v22, v23, v24, v25, "checkpoint_nvram_collect_var");
-      goto LABEL_3;
+      return;
     }
 
-    v15 = v18;
-    v26 = CFGetTypeID(v18);
-    if (v26 == CFStringGetTypeID())
+    v8 = v11;
+    v12 = CFGetTypeID(v11);
+    if (v12 == CFStringGetTypeID())
     {
-      CFStringGetCString(v15, v54, 1024, 0x8000100u);
-      *a4 = v15;
-      v15 = 0;
-      goto LABEL_24;
+      CFStringGetCString(v8, v19, 1024, 0x8000100u);
+      *a4 = v8;
+      v8 = 0;
+      goto LABEL_22;
     }
 
-    if (v26 == CFNumberGetTypeID())
+    if (v12 == CFNumberGetTypeID())
     {
       LODWORD(valuePtr) = 0;
-      if (!CFNumberGetValue(v15, kCFNumberIntType, &valuePtr))
+      if (!CFNumberGetValue(v8, kCFNumberIntType, &valuePtr))
       {
-        v35 = "CHECKPOINT_INTERNAL_ERROR(%s): number that is not an int %s\n";
-        goto LABEL_31;
+        v14 = "CHECKPOINT_INTERNAL_ERROR(%s): number that is not an int %s\n";
+        goto LABEL_29;
       }
 
-      v34 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%d", valuePtr);
-      if (!v34)
+      v13 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%d", valuePtr);
+      if (!v13)
       {
-        v35 = "CHECKPOINT_INTERNAL_ERROR(%s): failed to get valid number for %s\n";
-LABEL_31:
-        ramrod_log_msg(v35, v27, v28, v29, v30, v31, v32, v33, "checkpoint_nvram_collect_var");
-        goto LABEL_4;
+        v14 = "CHECKPOINT_INTERNAL_ERROR(%s): failed to get valid number for %s\n";
+LABEL_29:
+        ramrod_log_msg(v14, "checkpoint_nvram_collect_var", buffer);
+        goto LABEL_3;
       }
     }
 
     else
     {
-      if (v26 != CFDataGetTypeID())
+      if (v12 != CFDataGetTypeID())
       {
-        ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): unsupported nvram variable type for %s\n", v36, v37, v38, v39, v40, v41, v42, "checkpoint_nvram_collect_var");
-        goto LABEL_4;
+        ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): unsupported nvram variable type for %s\n");
+        goto LABEL_3;
       }
 
-      v34 = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, v15, 0x8000100u);
-      if (!v34)
+      v13 = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, v8, 0x8000100u);
+      if (!v13)
       {
-        ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): failed to get string from data %s\n", v43, v44, v45, v46, v47, v48, v49, "checkpoint_nvram_collect_var");
-        goto LABEL_4;
+        ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): failed to get string from data %s\n");
+        goto LABEL_3;
       }
     }
 
-    v50 = v34;
-    CFStringGetCString(v34, v54, 1024, 0x8000100u);
-    *a4 = v50;
-LABEL_24:
+    v15 = v13;
+    CFStringGetCString(v13, v19, 1024, 0x8000100u);
+    *a4 = v15;
+LABEL_22:
     valuePtr = 0;
     if (a2 > 2)
     {
-      v51 = "Unknown";
+      v16 = "Unknown";
     }
 
     else
     {
-      v51 = checkpoint_nvram_collection_name[a2];
+      v16 = checkpoint_nvram_collection_name[a2];
     }
 
-    asprintf(&valuePtr, "%s NVRAM variable: %s=%s", v51, buffer, v54);
+    asprintf(&valuePtr, "%s NVRAM variable: %s=%s", v16, buffer, v19);
     if (valuePtr)
     {
       checkpoint_history_add(a1, 2, 1, 0, 257, valuePtr, 0, 0, 0);
       free(valuePtr);
     }
 
-    goto LABEL_4;
+    goto LABEL_3;
   }
 
-  ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable id=%u\n", v8, v9, v10, v11, v12, v13, v14, "checkpoint_nvram_collect_var");
+  ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable id=%u\n");
+  v8 = 0;
 LABEL_3:
-  v15 = 0;
-LABEL_4:
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v15)
+  if (v8)
   {
-    CFRelease(v15);
+    CFRelease(v8);
   }
 }
 
-uint64_t checkpoint_nvram_adjust_id(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t checkpoint_nvram_adjust_id(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 104))
   {
     if (a2 > 0x2F)
     {
-      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable ID=%d\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_adjust_id");
+      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable ID=%d\n", "checkpoint_nvram_adjust_id", a2);
       return 0;
     }
 
@@ -3389,109 +3242,109 @@ uint64_t checkpoint_nvram_adjust_id(uint64_t a1, uint64_t a2, uint64_t a3, uint6
   return a2;
 }
 
-uint64_t checkpoint_nvram_check_collection(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t checkpoint_nvram_check_collection(int *a1, uint64_t a2, unsigned int *a3)
 {
-  memset(v39, 0, sizeof(v39));
-  v9 = *a3;
-  v10 = 1;
-  v11 = 0;
-  if (v9)
+  memset(v23, 0, sizeof(v23));
+  v4 = *a3;
+  v5 = 1;
+  v6 = 0;
+  if (*a3)
   {
-    v12 = 0;
-    v36 = a2;
-    v13 = a2 + 8;
-    v14 = a3 + 2;
+    v7 = 0;
+    v20 = a2;
+    v8 = a2 + 8;
+    v9 = a3 + 2;
     do
     {
-      *(v39 + v9) = 1;
-      if (*(v13 + 8 * v9))
+      *(v23 + v4) = 1;
+      if (*(v8 + 8 * v4))
       {
-        if (*(v14 - 3))
+        if (*(v9 - 3))
         {
-          v11 = 1;
+          v6 = 1;
         }
 
-        if (*(v14 - 2))
+        if (*(v9 - 2))
         {
-          v12 = 1;
+          v7 = 1;
         }
 
-        if (*(v14 - 1))
+        if (*(v9 - 1))
         {
-          v15 = v9 <= 0x2F && (LODWORD(checkpoint_nvram_map[4 * v9 + 3]) - 2) < 3;
-          checkpoint_nvram_delete_var(a1, v9, v15, 1, a5, a6, a7, a8);
+          v10 = v4 <= 0x2F && (LODWORD(checkpoint_nvram_map[4 * v4 + 3]) - 2) < 3;
+          checkpoint_nvram_delete_var(a1, v4, v10, 1);
         }
       }
 
-      else if (*(v14 - 4))
+      else if (*(v9 - 4))
       {
         bzero(buffer, 0x400uLL);
-        if (v9 >= 0x30)
+        if (v4 >= 0x30)
         {
-          ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable ID=%d\n", v16, v17, v18, v19, v20, v21, v22, "checkpoint_get_nvram_name");
-          LODWORD(v9) = 0;
+          ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable ID=%d\n", "checkpoint_get_nvram_name", v4);
+          v4 = 0;
         }
 
-        if (*(a1 + 88) == 1)
+        if (a1[22] == 1)
         {
-          v23 = &checkpoint_nvram_map[4 * v9];
+          v11 = &checkpoint_nvram_map[4 * v4];
         }
 
         else
         {
-          v23 = &checkpoint_nvram_map[4 * v9 + 1];
+          v11 = &checkpoint_nvram_map[4 * v4 + 1];
         }
 
-        CFStringGetCString(*v23, buffer, 1024, 0x8000100u);
-        checkpoint_nvram_store_anomaly(a1, v24, "[check_collection]%s(does_not_exist)", buffer);
+        CFStringGetCString(*v11, buffer, 1024, 0x8000100u);
+        checkpoint_nvram_store_anomaly(a1, v12, "[check_collection]%s(does_not_exist)", buffer);
       }
 
-      v25 = *v14;
-      v14 += 2;
-      v9 = v25;
+      v13 = *v9;
+      v9 += 2;
+      v4 = v13;
     }
 
-    while (v25);
-    v10 = v12 == 0;
-    a2 = v36;
+    while (v13);
+    v5 = v7 == 0;
+    a2 = v20;
   }
 
-  v26 = 0;
-  v27 = a2 + 16;
-  v28 = off_100099DE0;
+  v14 = 0;
+  v15 = a2 + 16;
+  v16 = off_100099DE0;
   do
   {
-    if (!*(v39 + v26 + 1) && *(v27 + 8 * v26))
+    if (!*(v23 + v14 + 1) && *(v15 + 8 * v14))
     {
       bzero(buffer, 0x400uLL);
-      bzero(v37, 0x400uLL);
-      if (*(a1 + 88) == 1)
+      bzero(v21, 0x400uLL);
+      if (a1[22] == 1)
       {
-        v29 = v28;
+        v17 = v16;
       }
 
       else
       {
-        v29 = (v28 + 1);
+        v17 = (v16 + 1);
       }
 
-      CFStringGetCString(*v29, buffer, 1024, 0x8000100u);
-      checkpoint_get_nvram_value_string(*(v27 + 8 * v26), v37);
-      checkpoint_nvram_store_anomaly(a1, v30, "[check_collection]%s=%s(exists_when_not_expected)", buffer, v37);
-      checkpoint_nvram_delete_var(a1, (v26 + 1), 0, 1, v31, v32, v33, v34);
+      CFStringGetCString(*v17, buffer, 1024, 0x8000100u);
+      checkpoint_get_nvram_value_string(*(v15 + 8 * v14), v21);
+      checkpoint_nvram_store_anomaly(a1, v18, "[check_collection]%s=%s(exists_when_not_expected)", buffer, v21);
+      checkpoint_nvram_delete_var(a1, v14 + 1, 0, 1);
     }
 
-    ++v26;
-    v28 += 4;
+    ++v14;
+    v16 += 4;
   }
 
-  while (v26 != 47);
-  if (!v10)
+  while (v14 != 47);
+  if (!v5)
   {
     checkpoint_history_add(a1, 2, 1, 0, 262, "Old restore failure indication(s)", 0, 0, 0);
   }
 
-  return v11;
+  return v6;
 }
 
 void checkpoint_nvram_delete_var_if_matches(uint64_t a1, uint64_t a2)
@@ -3500,25 +3353,25 @@ void checkpoint_nvram_delete_var_if_matches(uint64_t a1, uint64_t a2)
   if (v3 && CFStringCompare(v3, @"upgrade", 0) == kCFCompareEqualTo)
   {
 
-    checkpoint_nvram_delete_var(a1, 2, 1, 0, v4, v5, v6, v7);
+    checkpoint_nvram_delete_var(a1, 2u, 1, 0);
   }
 }
 
-void checkpoint_reboot_retry_chassis_aware(_BYTE *a1, const __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void checkpoint_reboot_retry_chassis_aware(int *a1, const __CFString *a2)
 {
-  if (a1[100])
+  if (*(a1 + 100))
   {
-    a1[104] = 1;
-    a1[101] = 1;
+    *(a1 + 104) = 1;
+    *(a1 + 101) = 1;
 
-    ramrod_log_msg("AP nonce will not be touched\n", a2, a3, a4, a5, a6, a7, a8, a9);
+    ramrod_log_msg("AP nonce will not be touched\n", a2);
   }
 
   else
   {
-    bzero(v12, 0x400uLL);
-    checkpoint_get_nvram_value_string(a2, v12);
-    checkpoint_nvram_store_anomaly(a1, v11, "[reboot_retry_chassis]outcome=%s(pre_existing_reboot_retry_disabled)", v12);
+    bzero(v5, 0x400uLL);
+    checkpoint_get_nvram_value_string(a2, v5);
+    checkpoint_nvram_store_anomaly(a1, v4, "[reboot_retry_chassis]outcome=%s(pre_existing_reboot_retry_disabled)", v5);
   }
 }
 
@@ -3565,39 +3418,38 @@ void checkpoint_log_progress(uint64_t a1, int a2)
   }
 }
 
-uint64_t checkpoint_nvram_alloc_encode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t checkpoint_nvram_alloc_encode(uint64_t a1, uint64_t a2)
 {
-  v9 = checkpoint_nvram_adjust_id(a1, a2, a3, a4, a5, a6, a7, a8);
-  if (v9 > 0x2F)
+  v3 = checkpoint_nvram_adjust_id(a1, a2);
+  if (v3 > 0x2F)
   {
-    v10 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v10 = HIDWORD(checkpoint_nvram_map[4 * v9 + 2]);
+    v4 = HIDWORD(checkpoint_nvram_map[4 * v3 + 2]);
   }
 
-  v11 = checkpoint_nvram_encoder[v10];
-  v12 = *(a1 + 16 * v9 + 1520);
+  v5 = checkpoint_nvram_encoder[v4];
+  v6 = *(a1 + 16 * v3 + 1520);
 
-  return (v11)(a1, v12);
+  return (v5)(a1, v6);
 }
 
-void checkpoint_nvram_store_by_id(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void checkpoint_nvram_store_by_id(uint64_t result, unsigned int a2, int a3, const char *a4)
 {
-  v9 = a3;
-  if (*(a1 + 104))
+  if (*(result + 104))
   {
     if (a2 > 0x2F)
     {
-      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable ID=%d\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_adjust_id");
-      v11 = 0;
-      v12 = a1 + 1512;
+      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable ID=%d\n", "checkpoint_nvram_adjust_id", a2);
+      v7 = 0;
+      v8 = result + 1512;
       goto LABEL_7;
     }
 
-    a2 = LODWORD(checkpoint_nvram_map[4 * a2 + 2]);
+    a2 = checkpoint_nvram_map[4 * a2 + 2];
   }
 
   if (a2 > 0x2F)
@@ -3605,79 +3457,79 @@ void checkpoint_nvram_store_by_id(uint64_t a1, uint64_t a2, uint64_t a3, const c
     goto LABEL_18;
   }
 
-  v11 = a2;
-  v12 = a1 + 16 * a2 + 1512;
+  v7 = a2;
+  v8 = result + 16 * a2 + 1512;
 LABEL_7:
-  if ((0x20420400uLL >> v11))
+  if ((0x20420400uLL >> v7))
   {
-    a2 = *(v12 + 8);
-    if (a2)
+    v9 = *(v8 + 8);
+    if (v9)
     {
       goto LABEL_21;
     }
   }
 
-  if ((0x1001100uLL >> v11))
+  if ((0x1001100uLL >> v7))
   {
-    v13 = *(v12 + 8);
-    if (v13)
+    v10 = *(v8 + 8);
+    if (v10)
     {
-      v14 = 0;
-      a2 = v13 - 16;
+      v11 = 0;
+      v9 = v10 - 16;
       do
       {
-        v16 = *(a2 + 16);
-        a2 += 16;
-        v15 = v16;
-        if (v16)
+        v13 = *(v9 + 16);
+        v9 += 16;
+        v12 = v13;
+        if (v13)
         {
-          v17 = v14 >= 7;
+          v14 = v11 >= 7;
         }
 
         else
         {
-          v17 = 1;
+          v14 = 1;
         }
 
-        ++v14;
+        ++v11;
       }
 
-      while (!v17);
-      if (!v15)
+      while (!v14);
+      if (!v12)
       {
 LABEL_21:
-        *a2 = v9;
-        checkpoint_nvram_store_set_string(a1 + 1480, (a2 + 8), a4, a4, a5, a6, a7, a8);
-        *(v12 + 4) = 1;
+        *v9 = a3;
+        checkpoint_nvram_store_set_string(result + 1480, (v9 + 8), a4);
+        *(v8 + 4) = 1;
         return;
       }
     }
   }
 
 LABEL_18:
-  v18 = *(a1 + 1500);
-  if (!v18)
+  v15 = *(result + 1500);
+  if (!v15)
   {
-    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on store [%s]\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_store_lost");
-    v18 = *(a1 + 1500);
+    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on store [%s]\n", "checkpoint_nvram_store_lost", "checkpoint_nvram_store_by_id", "dest_store == NULL");
+    v15 = *(result + 1500);
   }
 
-  *(a1 + 1500) = v18 + 1;
+  *(result + 1500) = v15 + 1;
 }
 
-void checkpoint_nvram_store_long(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void checkpoint_nvram_store_long(uint64_t result, unsigned int a2, uint64_t a3)
 {
-  if (*(a1 + 104))
+  if (*(result + 104))
   {
     if (a2 > 0x2F)
     {
-      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable ID=%d\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_adjust_id");
-      v10 = 0;
-      v11 = a1 + 1512;
+      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable ID=%d\n", "checkpoint_nvram_adjust_id", a2);
+      v5 = 0;
+      v6 = result + 1512;
       goto LABEL_7;
     }
 
-    a2 = LODWORD(checkpoint_nvram_map[4 * a2 + 2]);
+    a2 = checkpoint_nvram_map[4 * a2 + 2];
   }
 
   if (a2 > 0x2F)
@@ -3685,47 +3537,44 @@ void checkpoint_nvram_store_long(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
     goto LABEL_10;
   }
 
-  v10 = a2;
-  v11 = a1 + 16 * a2 + 1512;
+  v5 = a2;
+  v6 = result + 16 * a2 + 1512;
 LABEL_7:
-  if ((0x3C03C0000uLL >> v10))
+  if ((0x3C03C0000uLL >> v5))
   {
-    v12 = *(v11 + 8);
-    if (v12)
+    v7 = *(v6 + 8);
+    if (v7)
     {
-      *v12 = a3;
-      *(v11 + 4) = 1;
+      *v7 = a3;
+      *(v6 + 4) = 1;
       return;
     }
   }
 
 LABEL_10:
-  v13 = *(a1 + 1500);
-  if (!v13)
+  v8 = *(result + 1500);
+  if (!v8)
   {
-    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on store [%s]\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_store_lost");
-    v13 = *(a1 + 1500);
+    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on store [%s]\n", "checkpoint_nvram_store_lost", "checkpoint_nvram_store_long", "wrong type or internalStore.longVal == NULL");
+    v8 = *(result + 1500);
   }
 
-  *(a1 + 1500) = v13 + 1;
+  *(result + 1500) = v8 + 1;
 }
 
-void checkpoint_nvram_store_by_id_try_int(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void checkpoint_nvram_store_by_id_try_int(uint64_t result, unsigned int a2, int a3, int a4, int a5)
 {
-  v8 = a5;
-  v9 = a4;
-  v10 = a3;
-  if (*(a1 + 104))
+  if (*(result + 104))
   {
     if (a2 > 0x2F)
     {
-      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable ID=%d\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_adjust_id");
-      v12 = 0;
-      v13 = a1 + 1512;
+      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable ID=%d\n", "checkpoint_nvram_adjust_id", a2);
+      v9 = 0;
+      v10 = result + 1512;
       goto LABEL_7;
     }
 
-    a2 = LODWORD(checkpoint_nvram_map[4 * a2 + 2]);
+    a2 = checkpoint_nvram_map[4 * a2 + 2];
   }
 
   if (a2 > 0x2F)
@@ -3733,105 +3582,103 @@ void checkpoint_nvram_store_by_id_try_int(uint64_t a1, uint64_t a2, uint64_t a3,
     goto LABEL_8;
   }
 
-  v12 = a2;
-  v13 = a1 + 16 * a2 + 1512;
+  v9 = a2;
+  v10 = result + 16 * a2 + 1512;
 LABEL_7:
-  if (((0xA00A000uLL >> v12) & 1) != 0 && v9 <= 7)
+  if (((0xA00A000uLL >> v9) & 1) != 0 && a4 <= 7)
   {
-    v15 = *(v13 + 8);
-    if (v15)
+    v12 = *(v10 + 8);
+    if (v12)
     {
-      v16 = 0;
-      v17 = 0;
-      v18 = *(v13 + 8);
+      v13 = 0;
+      v14 = 0;
+      v15 = *(v10 + 8);
       do
       {
-        v20 = *v18;
-        v18 += 11;
-        v19 = v20;
+        v17 = *v15;
+        v15 += 11;
+        v16 = v17;
+        if (v17)
+        {
+          v18 = v14;
+        }
+
+        else
+        {
+          v18 = v12;
+        }
+
+        v19 = v16 == a3;
+        if (v16 == a3)
+        {
+          v20 = v12;
+        }
+
+        else
+        {
+          v20 = 0;
+        }
+
+        if (!v19)
+        {
+          v14 = v18;
+        }
+
         if (v20)
         {
-          v21 = v17;
+          v21 = 1;
         }
 
         else
         {
-          v21 = v15;
+          v21 = v13 >= 7;
         }
 
-        v22 = v19 == v10;
-        if (v19 == v10)
-        {
-          v23 = v15;
-        }
-
-        else
-        {
-          v23 = 0;
-        }
-
-        if (!v22)
-        {
-          v17 = v21;
-        }
-
-        if (v23)
-        {
-          v24 = 1;
-        }
-
-        else
-        {
-          v24 = v16 >= 7;
-        }
-
-        ++v16;
-        v15 = v18;
+        ++v13;
+        v12 = v15;
       }
 
-      while (!v24);
-      if (v23)
+      while (!v21);
+      if (v20)
       {
-        v17 = v23;
+        v14 = v20;
       }
 
-      if (v17)
+      if (v14)
       {
-        *v17 = v10;
-        v17[v9 + 1] = v8;
-        *(v17 + v9 + 36) = 1;
-        *(v13 + 4) = 1;
+        *v14 = a3;
+        v14[a4 + 1] = a5;
+        *(v14 + a4 + 36) = 1;
+        *(v10 + 4) = 1;
         return;
       }
     }
   }
 
 LABEL_8:
-  v14 = *(a1 + 1500);
-  if (!v14)
+  v11 = *(result + 1500);
+  if (!v11)
   {
-    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on store [%s]\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_store_lost");
-    v14 = *(a1 + 1500);
+    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on store [%s]\n", "checkpoint_nvram_store_lost", "checkpoint_nvram_store_by_id_try_int", "dest_store == NULL");
+    v11 = *(result + 1500);
   }
 
-  *(a1 + 1500) = v14 + 1;
+  *(result + 1500) = v11 + 1;
 }
 
-void checkpoint_nvram_store_by_id_try(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void checkpoint_nvram_store_by_id_try(uint64_t result, unsigned int a2, int a3, int a4, const char *a5)
 {
-  v9 = a4;
-  v10 = a3;
-  if (*(a1 + 104))
+  if (*(result + 104))
   {
     if (a2 > 0x2F)
     {
-      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable ID=%d\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_adjust_id");
-      v12 = 0;
-      v13 = a1 + 1512;
+      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable ID=%d\n", "checkpoint_nvram_adjust_id", a2);
+      v9 = 0;
+      v10 = result + 1512;
       goto LABEL_7;
     }
 
-    a2 = LODWORD(checkpoint_nvram_map[4 * a2 + 2]);
+    a2 = checkpoint_nvram_map[4 * a2 + 2];
   }
 
   if (a2 > 0x2F)
@@ -3839,90 +3686,90 @@ void checkpoint_nvram_store_by_id_try(uint64_t a1, uint64_t a2, uint64_t a3, uin
     goto LABEL_8;
   }
 
-  v12 = a2;
-  v13 = a1 + 16 * a2 + 1512;
+  v9 = a2;
+  v10 = result + 16 * a2 + 1512;
 LABEL_7:
-  if (((0x14014000uLL >> v12) & 1) != 0 && v9 <= 7)
+  if (((0x14014000uLL >> v9) & 1) != 0 && a4 <= 7)
   {
-    v15 = *(v13 + 8);
-    if (v15)
+    v12 = *(v10 + 8);
+    if (v12)
     {
-      v16 = 0;
-      v17 = 0;
-      v18 = *(v13 + 8);
+      v13 = 0;
+      v14 = 0;
+      v15 = *(v10 + 8);
       do
       {
-        v20 = *v18;
-        v18 += 18;
-        v19 = v20;
+        v17 = *v15;
+        v15 += 18;
+        v16 = v17;
+        if (v17)
+        {
+          v18 = v14;
+        }
+
+        else
+        {
+          v18 = v12;
+        }
+
+        v19 = v16 == a3;
+        if (v16 == a3)
+        {
+          v20 = v12;
+        }
+
+        else
+        {
+          v20 = 0;
+        }
+
+        if (!v19)
+        {
+          v14 = v18;
+        }
+
         if (v20)
         {
-          v21 = v17;
+          v21 = 1;
         }
 
         else
         {
-          v21 = v15;
+          v21 = v13 >= 7;
         }
 
-        v22 = v19 == v10;
-        if (v19 == v10)
-        {
-          v23 = v15;
-        }
-
-        else
-        {
-          v23 = 0;
-        }
-
-        if (!v22)
-        {
-          v17 = v21;
-        }
-
-        if (v23)
-        {
-          v24 = 1;
-        }
-
-        else
-        {
-          v24 = v16 >= 7;
-        }
-
-        ++v16;
-        v15 = v18;
+        ++v13;
+        v12 = v15;
       }
 
-      while (!v24);
-      if (v23)
+      while (!v21);
+      if (v20)
       {
-        v17 = v23;
+        v14 = v20;
       }
 
-      if (v17)
+      if (v14)
       {
-        *v17 = v10;
-        checkpoint_nvram_store_set_string(a1 + 1480, &v17[2 * v9 + 2], a5, a4, a5, a6, a7, a8);
-        *(v13 + 4) = 1;
+        *v14 = a3;
+        checkpoint_nvram_store_set_string(result + 1480, &v14[2 * a4 + 2], a5);
+        *(v10 + 4) = 1;
         return;
       }
     }
   }
 
 LABEL_8:
-  v14 = *(a1 + 1500);
-  if (!v14)
+  v11 = *(result + 1500);
+  if (!v11)
   {
-    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on store [%s]\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_store_lost");
-    v14 = *(a1 + 1500);
+    ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on store [%s]\n", "checkpoint_nvram_store_lost", "checkpoint_nvram_store_by_id_try", "dest_store == NULL");
+    v11 = *(result + 1500);
   }
 
-  *(a1 + 1500) = v14 + 1;
+  *(result + 1500) = v11 + 1;
 }
 
-void checkpoint_nvram_store_set_string(uint64_t a1, char **a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void checkpoint_nvram_store_set_string(uint64_t a1, char **a2, const char *a3)
 {
   if (a2)
   {
@@ -3940,61 +3787,61 @@ void checkpoint_nvram_store_set_string(uint64_t a1, char **a2, const char *a3, u
 
   else
   {
-    v11 = *(a1 + 20);
-    if (!v11)
+    v6 = *(a1 + 20);
+    if (!v6)
     {
-      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on store [%s]\n", 0, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_store_lost");
-      v11 = *(a1 + 20);
+      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): {%s} tracking information lost on store [%s]\n", "checkpoint_nvram_store_lost", "checkpoint_nvram_store_set_string", "dest == NULL");
+      v6 = *(a1 + 20);
     }
 
-    *(a1 + 20) = v11 + 1;
+    *(a1 + 20) = v6 + 1;
   }
 }
 
-char *checkpoint_nvram_copy_encode_c_string(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *checkpoint_nvram_copy_encode_c_string(uint64_t a1, uint64_t a2)
 {
-  result = checkpoint_nvram_alloc_encode(a1, a2, a3, a4, a5, a6, a7, a8);
-  v10 = 0;
+  result = checkpoint_nvram_alloc_encode(a1, a2);
+  v4 = 0;
   if (result)
   {
-    v9 = result;
+    v3 = result;
     bzero(buffer, 0x400uLL);
-    CFStringGetCString(v9, buffer, 1024, 0x8000100u);
-    asprintf(&v10, "%s", buffer);
-    CFRelease(v9);
-    return v10;
+    CFStringGetCString(v3, buffer, 1024, 0x8000100u);
+    asprintf(&v4, "%s", buffer);
+    CFRelease(v3);
+    return v4;
   }
 
   return result;
 }
 
-char *checkpoint_nvram_copy_string(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *checkpoint_nvram_copy_string(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v11 = 0;
+  v6 = 0;
   if (*(a1 + 104))
   {
     if (a3 > 0x2F)
     {
-      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable ID=%d\n", a2, a3, a4, a5, a6, a7, a8, "checkpoint_nvram_adjust_id");
-      LODWORD(a3) = 0;
+      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): invalid variable ID=%d\n", "checkpoint_nvram_adjust_id", a3);
+      a3 = 0;
     }
 
     else
     {
-      LODWORD(a3) = checkpoint_nvram_map[4 * a3 + 2];
+      a3 = checkpoint_nvram_map[4 * a3 + 2];
     }
   }
 
-  v9 = *(a2 + 8 * a3 + 8);
-  if (!v9)
+  v4 = *(a2 + 8 * a3 + 8);
+  if (!v4)
   {
     return 0;
   }
 
   bzero(buffer, 0x400uLL);
-  CFStringGetCString(v9, buffer, 1024, 0x8000100u);
-  asprintf(&v11, "%s", buffer);
-  return v11;
+  CFStringGetCString(v4, buffer, 1024, 0x8000100u);
+  asprintf(&v6, "%s", buffer);
+  return v6;
 }
 
 const __CFDictionary *checkpoint_tolerated_get_failed_entry(const __CFDictionary *a1, uint64_t a2)
@@ -4006,7 +3853,7 @@ const __CFDictionary *checkpoint_tolerated_get_failed_entry(const __CFDictionary
     v3 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt64Type, &valuePtr);
     if (v3)
     {
-      v11 = v3;
+      v4 = v3;
       Value = CFDictionaryGetValue(v2, v3);
       if (Value)
       {
@@ -4018,12 +3865,12 @@ const __CFDictionary *checkpoint_tolerated_get_failed_entry(const __CFDictionary
         v2 = 0;
       }
 
-      CFRelease(v11);
+      CFRelease(v4);
     }
 
     else
     {
-      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): unable to create step ID number for tolerated failure lookup\n", v4, v5, v6, v7, v8, v9, v10, "checkpoint_tolerated_get_failed_entry");
+      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): unable to create step ID number for tolerated failure lookup\n", "checkpoint_tolerated_get_failed_entry");
       return 0;
     }
   }
@@ -4031,7 +3878,7 @@ const __CFDictionary *checkpoint_tolerated_get_failed_entry(const __CFDictionary
   return v2;
 }
 
-char *checkpoint_cferror_append(char *a1, char a2, const __CFString *a3, _BYTE *a4)
+char *checkpoint_cferror_append(char *a1, uint64_t a2, const __CFString *a3, _BYTE *a4)
 {
   if (a3)
   {
@@ -4039,98 +3886,98 @@ char *checkpoint_cferror_append(char *a1, char a2, const __CFString *a3, _BYTE *
     CFStringGetCString(a3, buffer, 1024, 0x8000100u);
     if (*a4)
     {
-      v14 = "|%s(%s)";
+      v7 = checkpoint_append_and_free(a1, "|%s(%s)");
     }
 
     else
     {
-      v14 = "%s(%s)";
+      v7 = checkpoint_append_and_free(a1, "%s(%s)");
     }
 
-    a1 = checkpoint_append_and_free(a1, v14, v8, v9, v10, v11, v12, v13, a2);
+    a1 = v7;
     *a4 = 1;
   }
 
   return a1;
 }
 
-void checkpoint_simulator_configure(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void checkpoint_simulator_configure(uint64_t result)
 {
-  if (!*(a1 + 2298) && checkpoint_nvram_is_available(a1, 0, 0, a4, a5, a6, a7, a8))
+  if (!*(result + 2298) && checkpoint_nvram_is_available(result, 0, 0))
   {
-    if (!*(a1 + 1016))
+    if (!*(result + 1016))
     {
       goto LABEL_23;
     }
 
     bzero(__s, 0x400uLL);
-    bzero(v27, 0x400uLL);
-    *(a1 + 2300) = 0;
-    *(a1 + 2312) = 0;
+    bzero(v14, 0x400uLL);
+    *(result + 2300) = 0;
+    *(result + 2312) = 0;
     __strlcpy_chk();
-    v9 = strlen(__s);
-    CFStringGetCString(*(a1 + 1016), &__s[v9], 1024 - v9, 0x8000100u);
+    v2 = strlen(__s);
+    CFStringGetCString(*(result + 1016), &__s[v2], 1024 - v2, 0x8000100u);
     __strlcpy_chk();
-    v10 = strlen(v27);
-    CFStringGetCString(*(a1 + 1016), &v27[v10], 1024 - v10, 0x8000100u);
-    v11 = 0;
+    v3 = strlen(v14);
+    CFStringGetCString(*(result + 1016), &v14[v3], 1024 - v3, 0x8000100u);
+    v4 = 0;
     while (1)
     {
-      v12 = checkpoint_history_type_name[v11];
-      if (!strncasecmp(__s, v12, 0x400uLL))
+      v5 = checkpoint_history_type_name[v4];
+      if (!strncasecmp(__s, v5, 0x400uLL))
       {
-        *(a1 + 2300) = v11;
+        *(result + 2300) = v4;
         goto LABEL_11;
       }
 
-      if (!strncasecmp(v27, v12, 0x400uLL))
+      if (!strncasecmp(v14, v5, 0x400uLL))
       {
         break;
       }
 
-      if (++v11 == 34)
+      if (++v4 == 34)
       {
-        LODWORD(v11) = *(a1 + 2300);
+        LODWORD(v4) = *(result + 2300);
         goto LABEL_11;
       }
     }
 
-    *(a1 + 2300) = v11;
-    *(a1 + 2299) = 1;
+    *(result + 2300) = v4;
+    *(result + 2299) = 1;
 LABEL_11:
-    if (!v11)
+    if (!v4)
     {
       goto LABEL_23;
     }
 
-    v19 = *(a1 + 1040);
-    if (v19)
+    v6 = *(result + 1040);
+    if (v6)
     {
-      ArrayBySeparatingStrings = CFStringCreateArrayBySeparatingStrings(kCFAllocatorDefault, v19, @",");
-      *(a1 + 2312) = ArrayBySeparatingStrings;
+      ArrayBySeparatingStrings = CFStringCreateArrayBySeparatingStrings(kCFAllocatorDefault, v6, @",");
+      *(result + 2312) = ArrayBySeparatingStrings;
       if (ArrayBySeparatingStrings)
       {
         Count = CFArrayGetCount(ArrayBySeparatingStrings);
         if (Count >= 1)
         {
-          v22 = Count;
-          for (i = 0; i != v22; ++i)
+          v9 = Count;
+          for (i = 0; i != v9; ++i)
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 2312), i);
+            ValueAtIndex = CFArrayGetValueAtIndex(*(result + 2312), i);
             CFStringGetCStringPtr(ValueAtIndex, 0x8000100u);
           }
         }
 
-        v25 = *(a1 + 1024);
-        if (v25)
+        v12 = *(result + 1024);
+        if (v12)
         {
-          *(a1 + 2304) = CFStringGetIntValue(v25);
+          *(result + 2304) = CFStringGetIntValue(v12);
         }
 
-        v26 = *(a1 + 1032);
-        if (v26)
+        v13 = *(result + 1032);
+        if (v13)
         {
-          *(a1 + 2308) = CFStringGetIntValue(v26);
+          *(result + 2308) = CFStringGetIntValue(v13);
         }
 
         goto LABEL_23;
@@ -4139,12 +3986,12 @@ LABEL_11:
 
     else
     {
-      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): simulator command without stepName\n", 0, v13, v14, v15, v16, v17, v18, "checkpoint_simulator_configure");
+      ramrod_log_msg("CHECKPOINT_INTERNAL_ERROR(%s): simulator command without stepName\n", "checkpoint_simulator_configure");
     }
 
-    *(a1 + 2300) = 0;
+    *(result + 2300) = 0;
 LABEL_23:
-    *(a1 + 2298) = 1;
+    *(result + 2298) = 1;
   }
 }
 
@@ -4196,68 +4043,67 @@ void ramrod_execute_config_free(const void **a1)
   free(a1);
 }
 
-uint64_t ramrod_execute_command_with_config(uint64_t *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ramrod_execute_command_with_config(const char **a1, void *a2)
 {
-  v126 = 0;
-  ramrod_log_msg("entering ramrod_execute_command_with_config: %s\n", a2, a3, a4, a5, a6, a7, a8, *a1);
-  *v132 = -1;
-  *v133 = -1;
-  ramrod_log_msg("executing %s", v10, v11, v12, v13, v14, v15, v16, *a1);
-  v24 = a1[1];
-  if (v24)
+  v37 = 0;
+  ramrod_log_msg("entering ramrod_execute_command_with_config: %s\n", *a1);
+  *v43 = -1;
+  *v44 = -1;
+  ramrod_log_msg("executing %s", *a1);
+  v4 = a1[1];
+  if (v4)
   {
-    v25 = a1 + 2;
-    v26 = 1;
+    v5 = a1 + 2;
+    v6 = 1;
     do
     {
-      ramrod_log_msg(" %s", v17, v18, v19, v20, v21, v22, v23, v24);
-      if (v26 > 8)
+      ramrod_log_msg(" %s", v4);
+      if (v6 > 8)
       {
         break;
       }
 
-      ++v26;
-      v27 = *v25++;
-      LOBYTE(v24) = v27;
+      ++v6;
+      v7 = *v5++;
+      v4 = v7;
     }
 
-    while (v27);
+    while (v7);
   }
 
-  ramrod_log_msg("\n", v17, v18, v19, v20, v21, v22, v23, v122);
-  if (pipe(v133) == -1)
+  ramrod_log_msg("\n");
+  if (pipe(v44) == -1)
   {
-    v39 = *a1;
-    v40 = __error();
-    strerror(*v40);
-    ramrod_log_msg("pipe failed while preparing to execute %s: %s\n", v41, v42, v43, v44, v45, v46, v47, v39);
-    v48 = 0;
-    v49 = -1;
+    v13 = *a1;
+    v14 = __error();
+    v15 = strerror(*v14);
+    ramrod_log_msg("pipe failed while preparing to execute %s: %s\n", v13, v15);
+    v16 = 0;
+    v17 = -1;
     goto LABEL_43;
   }
 
-  if (pipe(v132) == -1)
+  if (pipe(v43) == -1)
   {
-    v50 = *a1;
-    v51 = __error();
-    strerror(*v51);
-    ramrod_log_msg("pipe failed while preparing to execute %s: %s\n", v52, v53, v54, v55, v56, v57, v58, v50);
-    v37 = 0xFFFFFFFFLL;
-    v38 = -1;
+    v18 = *a1;
+    v19 = __error();
+    v20 = strerror(*v19);
+    ramrod_log_msg("pipe failed while preparing to execute %s: %s\n", v18, v20);
+    v11 = 0xFFFFFFFFLL;
+    v12 = -1;
   }
 
   else
   {
-    v123 = 1;
-    fcntl(v132[1], 73);
-    v128 = 0;
-    posix_spawn_file_actions_init(&v128);
-    posix_spawn_file_actions_adddup2(&v128, v132[0], 0);
-    posix_spawn_file_actions_adddup2(&v128, v133[1], 1);
-    posix_spawn_file_actions_adddup2(&v128, 2, 2);
-    v127 = 0;
-    posix_spawnattr_init(&v127);
-    posix_spawnattr_setflags(&v127, 0x4000);
+    fcntl(v43[1], 73, 1);
+    v39 = 0;
+    posix_spawn_file_actions_init(&v39);
+    posix_spawn_file_actions_adddup2(&v39, v43[0], 0);
+    posix_spawn_file_actions_adddup2(&v39, v44[1], 1);
+    posix_spawn_file_actions_adddup2(&v39, 2, 2);
+    v38 = 0;
+    posix_spawnattr_init(&v38);
+    posix_spawnattr_setflags(&v38, 0x4000);
     if (*(a2 + 8))
     {
       posix_spawnattr_set_qos_clamp_np();
@@ -4265,153 +4111,153 @@ uint64_t ramrod_execute_command_with_config(uint64_t *a1, void *a2, uint64_t a3,
 
     if (*a2)
     {
-      (*(*a2 + 16))(*a2, &v128);
+      (*(*a2 + 16))(*a2, &v39);
     }
 
-    v28 = posix_spawn(&v126, *a1, &v128, &v127, a1, 0);
-    if (v28)
+    v8 = posix_spawn(&v37, *a1, &v39, &v38, a1, 0);
+    if (v8)
     {
-      v29 = *a1;
-      strerror(v28);
-      ramrod_log_msg("posix_spawn %s failed: %s\n", v30, v31, v32, v33, v34, v35, v36, v29);
-      close(v133[0]);
-      close(v132[1]);
-      v37 = 0xFFFFFFFFLL;
-      v38 = -1;
+      v9 = *a1;
+      v10 = strerror(v8);
+      ramrod_log_msg("posix_spawn %s failed: %s\n", v9, v10);
+      close(v44[0]);
+      close(v43[1]);
+      v11 = 0xFFFFFFFFLL;
+      v12 = -1;
     }
 
     else
     {
-      v37 = v132[1];
-      v38 = v133[0];
-      v60 = v126;
-      if (v126 != -1)
+      v11 = v43[1];
+      v12 = v44[0];
+      v22 = v37;
+      if (v37 != -1)
       {
-        v61 = realpath_DARWIN_EXTSN(*a1, 0);
-        if (v61)
+        v23 = realpath_DARWIN_EXTSN(*a1, 0);
+        if (v23)
         {
-          v62 = v61;
-          bzero(v135, 0x400uLL);
-          v63 = basename_r(v62, v135);
-          if (v63 && ((v64 = v63, v131 = 256, _get_image_exec_options_bootargs) || !sysctlbyname("kern.bootargs", &_get_image_exec_options_bootargs, &v131, 0, 0)) && (bzero(__str, 0x400uLL), v129 = 0, v130 = 0, snprintf(__str, 0x3FFuLL, "\\bramrod_exec-\\Q%s\\E=((0[0-7]+)|(([+-])?[[:digit:]]+)|(0[xX][[:xdigit:]]+))", v64), _find_tagged_regex(&_get_image_exec_options_bootargs, v131, __str, &v130, &v129)))
+          v24 = v23;
+          bzero(v46, 0x400uLL);
+          v25 = basename_r(v24, v46);
+          if (v25 && ((v26 = v25, v42 = 256, _get_image_exec_options_bootargs) || !sysctlbyname("kern.bootargs", &_get_image_exec_options_bootargs, &v42, 0, 0)) && (bzero(__str, 0x400uLL), v40 = 0, v41 = 0, snprintf(__str, 0x3FFuLL, "\\bramrod_exec-\\Q%s\\E=((0[0-7]+)|(([+-])?[[:digit:]]+)|(0[xX][[:xdigit:]]+))", v26), _find_tagged_regex(&_get_image_exec_options_bootargs, v42, __str, &v41, &v40)))
           {
-            ramrod_log_msg("found ramrod_execute_command option in boot-args: ramrod_exec-%s=%.*s\n", v65, v66, v67, v68, v69, v70, v71, v64);
-            v72 = strtol(v130, 0, 0);
-            free(v62);
-            v80 = v72 & 0x1F;
-            if ((v72 & 0x1F) != 0)
+            ramrod_log_msg("found ramrod_execute_command option in boot-args: ramrod_exec-%s=%.*s\n", v26, v40, v41);
+            v27 = strtol(v41, 0, 0);
+            free(v24);
+            v28 = v27 & 0x1F;
+            if ((v27 & 0x1F) != 0)
             {
-              ramrod_log_msg("sending signal %d to process %d in %d millisecond(s)...\n", v73, v74, v75, v76, v77, v78, v79, v80);
-              usleep(1000 * (v72 >> 8));
-              if (kill(v60, v80) == -1)
+              v29 = (v27 >> 8);
+              ramrod_log_msg("sending signal %d to process %d in %d millisecond(s)...\n", v28, v22, v29);
+              usleep(1000 * v29);
+              if (kill(v22, v28) == -1)
               {
-                v125 = *__error();
-                ramrod_log_msg("could not send signal %d to process %d: error %d\n", v81, v82, v83, v84, v85, v86, v87, v80);
+                v30 = __error();
+                ramrod_log_msg("could not send signal %d to process %d: error %d\n", v28, v22, *v30);
               }
             }
           }
 
           else
           {
-            free(v62);
+            free(v24);
           }
         }
 
-        v121 = a2[3];
-        if (v121)
+        v36 = a2[3];
+        if (v36)
         {
-          (*(v121 + 16))(v121, v126);
+          (*(v36 + 16))(v36, v37);
         }
       }
     }
 
-    posix_spawnattr_destroy(&v127);
-    posix_spawn_file_actions_destroy(&v128);
-    close(v132[0]);
+    posix_spawnattr_destroy(&v38);
+    posix_spawn_file_actions_destroy(&v39);
+    close(v43[0]);
   }
 
-  close(v133[1]);
-  v48 = 0;
-  v49 = -1;
-  if (v38 != -1 && v37 != -1)
+  close(v44[1]);
+  v16 = 0;
+  v17 = -1;
+  if (v12 != -1 && v11 != -1)
   {
-    bzero(v135, 0x400uLL);
-    v59 = a2[1];
-    if (v59)
+    bzero(v46, 0x400uLL);
+    v21 = a2[1];
+    if (v21)
     {
-      v48 = (*(v59 + 16))(v59, v37) != 0;
+      v16 = (*(v21 + 16))(v21, v11) != 0;
     }
 
     else
     {
-      v48 = 0;
+      v16 = 0;
     }
 
-    close(v37);
-    v88 = read(v38, v135, 0x3FFuLL);
-    if (v88 >= 1)
+    close(v11);
+    v31 = read(v12, v46, 0x3FFuLL);
+    if (v31 >= 1)
     {
-      for (i = v88; i > 0; i = read(v38, v135, 0x3FFuLL))
+      for (i = v31; i > 0; i = read(v12, v46, 0x3FFuLL))
       {
-        v135[i] = 0;
-        v96 = a2[2];
-        if (v96)
+        v46[i] = 0;
+        v33 = a2[2];
+        if (v33)
         {
-          (*(v96 + 16))(v96, v135);
+          (*(v33 + 16))(v33, v46);
         }
       }
     }
 
-    ramrod_log_msg("waiting for child to exit\n", v89, i, v91, v92, v93, v94, v95, v123);
+    ramrod_log_msg("waiting for child to exit\n");
     *__str = 0;
-    if (waitpid(v126, __str, 0) == -1)
+    if (waitpid(v37, __str, 0) == -1)
     {
-      v111 = *a1;
-      v112 = __error();
-      strerror(*v112);
-      ramrod_log_msg("waitpid failed for %s: %s\n", v113, v114, v115, v116, v117, v118, v119, v111);
+      v34 = __error();
+      strerror(*v34);
+      ramrod_log_msg("waitpid failed for %s: %s\n");
     }
 
     else
     {
-      ramrod_log_msg("child exited\n", v97, v98, v99, v100, v101, v102, v103, v124);
+      ramrod_log_msg("child exited\n");
       if ((__str[0] & 0x7F) == 0x7F)
       {
-        ramrod_log_msg("%s was stopped by signal %d\n", v104, v105, v106, v107, v108, v109, v110, *a1);
+        ramrod_log_msg("%s was stopped by signal %d\n");
       }
 
       else
       {
         if ((__str[0] & 0x7F) == 0)
         {
-          ramrod_log_msg("exit status: %d\n", v104, v105, v106, v107, v108, v109, v110, __str[1]);
-          v49 = __str[1];
+          ramrod_log_msg("exit status: %d\n", __str[1]);
+          v17 = __str[1];
 LABEL_42:
-          close(v38);
+          close(v12);
           goto LABEL_43;
         }
 
-        ramrod_log_msg("%s was terminated by signal %d\n", v104, v105, v106, v107, v108, v109, v110, *a1);
+        ramrod_log_msg("%s was terminated by signal %d\n");
       }
     }
 
-    v49 = -1;
+    v17 = -1;
     goto LABEL_42;
   }
 
 LABEL_43:
-  if (v49 == 0 && v48)
+  if (v17 == 0 && v16)
   {
     return 0xFFFFFFFFLL;
   }
 
   else
   {
-    return v49;
+    return v17;
   }
 }
 
-uint64_t _ramrod_execute_command_with_input_data_output_block(uint64_t *a1, uint64_t a2, uint64_t a3, char a4, const void *a5)
+uint64_t _ramrod_execute_command_with_input_data_output_block(const char **a1, uint64_t a2, uint64_t a3, char a4, const void *a5)
 {
   v10 = calloc(1uLL, 0x30uLL);
   *(v10 + 18) = 0;
@@ -4420,28 +4266,28 @@ uint64_t _ramrod_execute_command_with_input_data_output_block(uint64_t *a1, uint
   aBlock[1] = 3221225472;
   aBlock[2] = ___ramrod_execute_command_with_input_data_output_block_block_invoke;
   aBlock[3] = &__block_descriptor_33_e10_i16__0__v8l;
-  v24 = a4;
+  v18 = a4;
   v11 = _Block_copy(aBlock);
   _Block_release(*v10);
   *v10 = v11;
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = ___ramrod_execute_command_with_input_data_output_block_block_invoke_2;
-  v22[3] = &__block_descriptor_48_e8_i12__0i8l;
-  v22[4] = a2;
-  v22[5] = a3;
-  v12 = _Block_copy(v22);
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = ___ramrod_execute_command_with_input_data_output_block_block_invoke_2;
+  v16[3] = &__block_descriptor_48_e8_i12__0i8l;
+  v16[4] = a2;
+  v16[5] = a3;
+  v12 = _Block_copy(v16);
   _Block_release(v10[1]);
   v10[1] = v12;
   v13 = _Block_copy(a5);
   _Block_release(v10[2]);
   v10[2] = v13;
-  v20 = ramrod_execute_command_with_config(a1, v10, v14, v15, v16, v17, v18, v19);
+  v14 = ramrod_execute_command_with_config(a1, v10);
   ramrod_execute_config_free(v10);
-  return v20;
+  return v14;
 }
 
-uint64_t ramrod_execute_command(uint64_t *a1)
+uint64_t ramrod_execute_command(const char **a1)
 {
   v2[0] = _NSConcreteStackBlock;
   v2[1] = 3221225472;
@@ -4452,64 +4298,62 @@ uint64_t ramrod_execute_command(uint64_t *a1)
   return _ramrod_execute_command_with_input_data_output_block(a1, 0, 0, 1, v2);
 }
 
-uint64_t wait_for_device(char *a1, char *a2, size_t a3, CFErrorRef *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t wait_for_device(char *a1, char *a2, size_t a3, CFErrorRef *a4)
 {
-  ramrod_log_msg("entering %s: '%s'\n", a2, a3, a4, a5, a6, a7, a8, "wait_for_device");
+  ramrod_log_msg("entering %s: '%s'\n", "wait_for_device", a1);
   if (!a1)
   {
-    wait_for_device_cold_4(a4, v12, v13, v14, v15, v16, v17, v18);
+    wait_for_device_cold_4(a4, v8, v9, v10, v11, v12, v13, v14);
     return 0;
   }
 
   if (!a2)
   {
-    wait_for_device_cold_3(a4, v12, v13, v14, v15, v16, v17, v18);
+    wait_for_device_cold_3(a4, v8, v9, v10, v11, v12, v13, v14);
     return 0;
   }
 
   embedded_storage_service_query_dict = create_embedded_storage_service_query_dict(a1);
   if (!embedded_storage_service_query_dict)
   {
-    wait_for_device_cold_2(a4, v20, v21, v22, v23, v24, v25, v26);
+    wait_for_device_cold_2(a4, v16, v17, v18, v19, v20, v21, v22);
     return 0;
   }
 
-  v27 = wait_for_io_service_matching_dict(embedded_storage_service_query_dict, 0x1Eu);
-  if (!v27)
+  v23 = wait_for_io_service_matching_dict(embedded_storage_service_query_dict, 0x1Eu);
+  if (!v23)
   {
-    wait_for_device_cold_1(a4, a1, v28, v29, v30, v31, v32, v33);
+    wait_for_device_cold_1(a4, a1, v24, v25, v26, v27, v28, v29);
     return 0;
   }
 
-  v34 = v27;
-  v99 = a4;
-  IOObjectRetain(v27);
-  v35 = v34;
+  v30 = v23;
+  v68 = a4;
+  IOObjectRetain(v23);
+  v31 = v30;
   do
   {
     iterator.st_dev = 0;
-    if (IORegistryEntryGetChildIterator(v35, "IOService", &iterator))
+    if (IORegistryEntryGetChildIterator(v31, "IOService", &iterator))
     {
-      v78 = "Could not create child iterator\n";
+      ramrod_log_msg("Could not create child iterator\n");
 LABEL_30:
-      ramrod_log_msg(v78, v36, v37, v38, v39, v40, v41, v42, v98);
-      st_dev = v35;
+      st_dev = v31;
 LABEL_35:
       IOObjectRelease(st_dev);
-      ramrod_create_error_cf(v99, @"RamrodErrorDomain", 4, 0, @"%s: failed to lookup whole node for IO service for %s", v80, v81, v82, "wait_for_device");
-      v83 = 0;
+      ramrod_create_error_cf(v68, @"RamrodErrorDomain", 4, 0, @"%s: failed to lookup whole node for IO service for %s", v56, v57, v58, "wait_for_device");
+      v59 = 0;
       goto LABEL_36;
     }
 
-    v43 = IOIteratorNext(iterator.st_dev);
-    v44 = 0;
-    if (!v43)
+    v32 = IOIteratorNext(iterator.st_dev);
+    v33 = 0;
+    if (!v32)
     {
       st_dev = iterator.st_dev;
 LABEL_29:
       IOObjectRelease(st_dev);
-      v98 = v44;
-      v78 = "Found %d child nodes (expected 1)\n";
+      ramrod_log_msg("Found %d child nodes (expected 1)\n");
       goto LABEL_30;
     }
 
@@ -4518,74 +4362,73 @@ LABEL_29:
     {
       if (st_dev)
       {
-        IOObjectRelease(v43);
+        IOObjectRelease(v32);
       }
 
       else
       {
-        st_dev = v43;
+        st_dev = v32;
       }
 
-      v43 = IOIteratorNext(iterator.st_dev);
-      ++v44;
+      v32 = IOIteratorNext(iterator.st_dev);
+      ++v33;
     }
 
-    while (v43);
+    while (v32);
     IOObjectRelease(iterator.st_dev);
-    if (v44 != 1)
+    if (v33 != 1)
     {
       goto LABEL_29;
     }
 
-    IOObjectRelease(v35);
-    v35 = st_dev;
+    IOObjectRelease(v31);
+    v31 = st_dev;
   }
 
   while (!IOObjectConformsTo(st_dev, "IOMedia"));
   CFProperty = IORegistryEntryCreateCFProperty(st_dev, @"Whole", kCFAllocatorDefault, 0);
-  v54 = CFProperty;
+  v36 = CFProperty;
   if (!CFProperty)
   {
-    v79 = "Did not find Whole property on IOMedia class\n";
+    ramrod_log_msg("Did not find Whole property on IOMedia class\n");
 LABEL_34:
-    ramrod_log_msg(v79, v47, v48, v49, v50, v51, v52, v53, v98);
-    CFRelease(v54);
+    CFRelease(v36);
     goto LABEL_35;
   }
 
-  v55 = CFGetTypeID(CFProperty);
-  if (v55 != CFBooleanGetTypeID())
+  v37 = CFGetTypeID(CFProperty);
+  if (v37 != CFBooleanGetTypeID())
   {
-    v79 = "Expected Whole to be BOOLean\n";
+    ramrod_log_msg("Expected Whole to be BOOLean\n");
     goto LABEL_34;
   }
 
-  if (!CFBooleanGetValue(v54))
+  if (!CFBooleanGetValue(v36))
   {
-    v79 = "Expected Whole=true\n";
+    ramrod_log_msg("Expected Whole=true\n");
     goto LABEL_34;
   }
 
-  CFRelease(v54);
-  v56 = IORegistryEntryCreateCFProperty(st_dev, @"BSD Name", kCFAllocatorDefault, 0);
-  if (v56)
+  CFRelease(v36);
+  v38 = IORegistryEntryCreateCFProperty(st_dev, @"BSD Name", kCFAllocatorDefault, 0);
+  if (v38)
   {
-    v60 = v56;
-    v61 = CFGetTypeID(v56);
-    if (v61 == CFStringGetTypeID())
+    v42 = v38;
+    v43 = CFGetTypeID(v38);
+    if (v43 == CFStringGetTypeID())
     {
       strlcpy(a2, "/dev/", a3);
-      v65 = strlen(a2);
-      if (CFStringGetCString(v60, &a2[v65], a3 - v65, 0x8000100u))
+      v47 = strlen(a2);
+      if (CFStringGetCString(v42, &a2[v47], a3 - v47, 0x8000100u))
       {
-        ramrod_log_msg("Using device path %s for %s\n", v66, v67, v68, v69, v70, v71, v72, a2);
-        v73 = -10;
+        ramrod_log_msg("Using device path %s for %s\n", a2, a1);
+        v51 = -10;
         while (1)
         {
           memset(&iterator, 0, sizeof(iterator));
           if (!stat(a2, &iterator))
           {
-            v83 = 1;
+            v59 = 1;
             goto LABEL_45;
           }
 
@@ -4595,56 +4438,56 @@ LABEL_34:
           }
 
           sleep(3u);
-          if (__CFADD__(v73++, 1))
+          if (__CFADD__(v51++, 1))
           {
             goto LABEL_43;
           }
         }
 
-        v85 = __error();
-        strerror(*v85);
-        ramrod_log_msg("stat error while waiting for device '%s': %s\n", v86, v87, v88, v89, v90, v91, v92, a2);
-        v93 = *__error();
-        v94 = __error();
-        strerror(*v94);
-        ramrod_create_error_cf(v99, kCFErrorDomainPOSIX, v93, 0, @"%s: stat error while waiting for device '%s': %s", v95, v96, v97, "wait_for_device");
+        v61 = __error();
+        v62 = strerror(*v61);
+        ramrod_log_msg("stat error while waiting for device '%s': %s\n", a2, v62);
+        v63 = *__error();
+        v64 = __error();
+        strerror(*v64);
+        ramrod_create_error_cf(v68, kCFErrorDomainPOSIX, v63, 0, @"%s: stat error while waiting for device '%s': %s", v65, v66, v67, "wait_for_device");
 LABEL_43:
-        ramrod_create_error_cf(v99, @"RamrodErrorDomain", 4, 0, @"%s: timeout waiting for %s", v74, v75, v76, "wait_for_device");
+        ramrod_create_error_cf(v68, @"RamrodErrorDomain", 4, 0, @"%s: timeout waiting for %s", v52, v53, v54, "wait_for_device");
       }
 
       else
       {
-        ramrod_create_error_cf(v99, @"RamrodErrorDomain", 5, 0, @"%s: failed to create C string from BSD name", v70, v71, v72, "wait_for_device");
+        ramrod_create_error_cf(v68, @"RamrodErrorDomain", 5, 0, @"%s: failed to create C string from BSD name", v48, v49, v50, "wait_for_device");
       }
     }
 
     else
     {
-      ramrod_create_error_cf(v99, @"RamrodErrorDomain", 3, 0, @"%s: returnbed BSD device name for service %s is wrong type", v62, v63, v64, "wait_for_device");
+      ramrod_create_error_cf(v68, @"RamrodErrorDomain", 3, 0, @"%s: returnbed BSD device name for service %s is wrong type", v44, v45, v46, "wait_for_device");
     }
 
-    v83 = 0;
+    v59 = 0;
 LABEL_45:
-    CFRelease(v60);
+    CFRelease(v42);
   }
 
   else
   {
-    ramrod_create_error_cf(v99, @"RamrodErrorDomain", 4, 0, @"%s: no BSD device name for service %s", v57, v58, v59, "wait_for_device");
-    v83 = 0;
+    ramrod_create_error_cf(v68, @"RamrodErrorDomain", 4, 0, @"%s: no BSD device name for service %s", v39, v40, v41, "wait_for_device");
+    v59 = 0;
   }
 
   IOObjectRelease(st_dev);
 LABEL_36:
-  IOObjectRelease(v34);
-  return v83;
+  IOObjectRelease(v30);
+  return v59;
 }
 
-uint64_t ramrod_probe_media_internal(uint64_t a1, CFTypeRef *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ramrod_probe_media_internal(uint64_t a1, CFTypeRef *a2)
 {
   cf = 0;
   iterator = 0;
-  ramrod_log_msg("entering %s\n", a2, a3, a4, a5, a6, a7, a8, "ramrod_probe_media_internal");
+  ramrod_log_msg("entering %s\n", "ramrod_probe_media_internal");
   storage_device_node_path_0 = 0;
   apfs_container_device_node_path_0 = 0;
   apfs_recovery_os_container_device_node_path_0 = 0;
@@ -4679,110 +4522,110 @@ uint64_t ramrod_probe_media_internal(uint64_t a1, CFTypeRef *a2, uint64_t a3, ui
   Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
   if (!Mutable)
   {
-    ramrod_probe_media_internal_cold_2(&cf, v10, v11, v12, v13, v14, v15, v16);
-    v25 = 0;
+    ramrod_probe_media_internal_cold_2(&cf, v4, v5, v6, v7, v8, v9, v10);
+    v19 = 0;
     goto LABEL_12;
   }
 
-  v25 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-  if (!v25)
+  v19 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
+  if (!v19)
   {
-    ramrod_probe_media_internal_cold_1(&cf, v18, v19, v20, v21, v22, v23, v24);
+    ramrod_probe_media_internal_cold_1(&cf, v12, v13, v14, v15, v16, v17, v18);
     goto LABEL_12;
   }
 
-  if (!wait_for_device("EmbeddedDeviceTypeRoot", &storage_device_node_path_0, 0x20uLL, &cf, v21, v22, v23, v24))
+  if (!wait_for_device("EmbeddedDeviceTypeRoot", &storage_device_node_path_0, 0x20uLL, &cf))
   {
-    ramrod_log_msg("Unable to find storage device node for service named: %s", v26, v27, v28, v29, v30, v31, v32, "EmbeddedDeviceTypeRoot");
+    ramrod_log_msg("Unable to find storage device node for service named: %s", "EmbeddedDeviceTypeRoot");
 LABEL_12:
-    v47 = 0;
-    v42 = 0;
+    v27 = 0;
+    v22 = 0;
     goto LABEL_13;
   }
 
-  v33 = IOBSDNameMatching(kIOMasterPortDefault, 0, byte_1000B54CD);
-  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v33);
-  v42 = MatchingService;
+  v20 = IOBSDNameMatching(kIOMasterPortDefault, 0, byte_1000B54CD);
+  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v20);
+  v22 = MatchingService;
   if (!MatchingService)
   {
-    ramrod_log_msg("unable to find service for %s\n", v35, v36, v37, v38, v39, v40, v41, byte_1000B54CD);
+    ramrod_log_msg("unable to find service for %s\n", byte_1000B54CD);
 LABEL_19:
-    v47 = 0;
+    v27 = 0;
     goto LABEL_20;
   }
 
   IOServiceWaitQuiet(MatchingService, 0);
-  v43 = IORegistryEntryCreateIterator(v42, "IOService", 1u, &iterator);
-  if (v43)
+  v23 = IORegistryEntryCreateIterator(v22, "IOService", 1u, &iterator);
+  if (v23)
   {
-    ramrod_create_error_cf(&cf, kCFErrorDomainMach, v43, 0, @"%s: unable to create child iterator", v44, v45, v46, "ramrod_probe_media_internal");
-    v47 = 0;
+    ramrod_create_error_cf(&cf, kCFErrorDomainMach, v23, 0, @"%s: unable to create child iterator", v24, v25, v26, "ramrod_probe_media_internal");
+    v27 = 0;
 LABEL_13:
-    v48 = 0;
+    v28 = 0;
     goto LABEL_14;
   }
 
-  v160 = a1;
-  v51 = IOIteratorNext(iterator);
-  if (v51)
+  v95 = a1;
+  v31 = IOIteratorNext(iterator);
+  if (v31)
   {
-    v47 = v51;
-    LOBYTE(v52) = 0;
-    v161 = 0;
-    v53 = 0;
-    v148 = 0;
-    v149 = 0;
-    v150 = 0;
-    v151 = 0;
-    v152 = 0;
-    v153 = 0;
-    v154 = 0;
-    v155 = 0;
-    v156 = 0;
-    v157 = 0;
-    v158 = 0;
+    v27 = v31;
+    LOBYTE(v32) = 0;
+    v96 = 0;
+    v33 = 0;
+    v83 = 0;
+    v84 = 0;
+    v85 = 0;
+    v86 = 0;
+    v87 = 0;
+    v88 = 0;
+    v89 = 0;
+    v90 = 0;
+    v91 = 0;
+    v92 = 0;
+    v93 = 0;
     __s2 = 0;
     do
     {
-      if (!IOObjectConformsTo(v47, "IOMedia"))
+      if (!IOObjectConformsTo(v27, "IOMedia"))
       {
-        if (IOObjectConformsTo(v47, "IOPartitionScheme"))
+        if (IOObjectConformsTo(v27, "IOPartitionScheme"))
         {
-          if (IOObjectConformsTo(v47, "IOGUIDPartitionScheme"))
+          if (IOObjectConformsTo(v27, "IOGUIDPartitionScheme"))
           {
-            ramrod_log_msg("device partitioning scheme is GPT\n", v102, v103, v104, v105, v106, v107, v108, v144);
-            v158 = "Data";
+            ramrod_log_msg("device partitioning scheme is GPT\n");
+            v93 = "Data";
             __s2 = "System";
-            v156 = "Update";
-            v157 = "User";
-            v154 = "Logs";
-            v155 = "Baseband Data";
-            v152 = "Hardware";
-            v153 = "xART";
-            v151 = "Scratch";
+            v91 = "Update";
+            v92 = "User";
+            v89 = "Logs";
+            v90 = "Baseband Data";
+            v87 = "Hardware";
+            v88 = "xART";
+            v86 = "Scratch";
           }
 
           else
           {
-            if (!IOObjectConformsTo(v47, "AppleAPFSContainer"))
+            if (!IOObjectConformsTo(v27, "AppleAPFSContainer"))
             {
-              ramrod_create_error_cf(&cf, kCFErrorDomainMach, -536870201, 0, @"%s: unrecognized partitioning scheme", v124, v125, v126, "ramrod_probe_media_internal");
+              ramrod_create_error_cf(&cf, kCFErrorDomainMach, -536870201, 0, @"%s: unrecognized partitioning scheme", v61, v62, v63, "ramrod_probe_media_internal");
               goto LABEL_13;
             }
 
-            ramrod_log_msg("device is APFS formatted\n", v120, v121, v122, v123, v124, v125, v126, v144);
-            v158 = "Data";
+            ramrod_log_msg("device is APFS formatted\n");
+            v93 = "Data";
             __s2 = "System";
-            v156 = "Update";
-            v157 = "User";
-            v154 = "Logs";
-            v155 = "Baseband Data";
-            v152 = "Hardware";
-            v153 = "xART";
-            v150 = "Preboot";
-            v151 = "Scratch";
-            v148 = "Recovery";
-            v149 = "iSCPreboot";
+            v91 = "Update";
+            v92 = "User";
+            v89 = "Logs";
+            v90 = "Baseband Data";
+            v87 = "Hardware";
+            v88 = "xART";
+            v85 = "Preboot";
+            v86 = "Scratch";
+            v83 = "Recovery";
+            v84 = "iSCPreboot";
           }
         }
 
@@ -4791,112 +4634,111 @@ LABEL_13:
 
       properties = 0;
       memset(name, 0, sizeof(name));
-      v54 = IORegistryEntryGetName(v47, name);
-      if (v54)
+      v34 = IORegistryEntryGetName(v27, name);
+      if (v34)
       {
-        v138 = kCFErrorDomainMach;
-        v139 = v54;
-        v140 = @"%s: unable to get name for media registry entry";
+        v75 = kCFErrorDomainMach;
+        v76 = v34;
+        v77 = @"%s: unable to get name for media registry entry";
 LABEL_169:
-        ramrod_create_error_cf(&cf, v138, v139, 0, v140, v55, v56, v57, "ramrod_probe_media_internal");
+        ramrod_create_error_cf(&cf, v75, v76, 0, v77, v35, v36, v37, "ramrod_probe_media_internal");
         goto LABEL_170;
       }
 
-      v58 = IORegistryEntryCreateCFProperties(v47, &properties, kCFAllocatorDefault, 0);
-      if (v58)
+      v38 = IORegistryEntryCreateCFProperties(v27, &properties, kCFAllocatorDefault, 0);
+      if (v38)
       {
-        v138 = kCFErrorDomainMach;
-        v139 = v58;
-        v140 = @"%s: unable to get properties for media registry entry";
+        v75 = kCFErrorDomainMach;
+        v76 = v38;
+        v77 = @"%s: unable to get properties for media registry entry";
         goto LABEL_169;
       }
 
-      if (v52)
+      if (v32)
       {
-        v52 = 1;
+        v32 = 1;
       }
 
       else
       {
         *buffer = 0u;
-        v166 = 0u;
+        v101 = 0u;
         Value = CFDictionaryGetValue(properties, @"BSD Name");
-        v52 = Value && (v60 = Value, v61 = CFGetTypeID(Value), v61 == CFStringGetTypeID()) && CFStringGetCString(v60, buffer, 32, 0x600u) && (v62 = strlen(byte_1000B54CD), !strncmp(buffer, byte_1000B54CD, v62)) && strcmp("s1s1", &buffer[v62]) == 0;
+        v32 = Value && (v40 = Value, v41 = CFGetTypeID(Value), v41 == CFStringGetTypeID()) && CFStringGetCString(v40, buffer, 32, 0x600u) && (v42 = strlen(byte_1000B54CD), !strncmp(buffer, byte_1000B54CD, v42)) && strcmp("s1s1", &buffer[v42]) == 0;
       }
 
-      v63 = CFDictionaryGetValue(properties, @"Content Hint");
-      if (!v63 || (v71 = v63, !CFEqual(v63, @"7C3457EF-0000-11AA-AA11-00306543ECAC")) && !CFEqual(v71, @"52637672-7900-11AA-AA11-00306543ECAC") && !CFEqual(v71, @"69646961-6700-11AA-AA11-00306543ECAC") && !CFEqual(v71, @"EF57347C-0000-11AA-AA11-00306543ECAC"))
+      v43 = CFDictionaryGetValue(properties, @"Content Hint");
+      if (!v43 || (v44 = v43, !CFEqual(v43, @"7C3457EF-0000-11AA-AA11-00306543ECAC")) && !CFEqual(v44, @"52637672-7900-11AA-AA11-00306543ECAC") && !CFEqual(v44, @"69646961-6700-11AA-AA11-00306543ECAC") && !CFEqual(v44, @"EF57347C-0000-11AA-AA11-00306543ECAC"))
       {
         if (__s2 && (!strcmp(name, __s2) || strstr(name, "OS") || strstr(name, "System")))
         {
-          if (!v52)
+          if (!v32)
           {
-            v145 = name;
-            ramrod_log_msg("found system volume not at %ss1s1: %s\n", v64, v65, v66, v67, v68, v69, v70, &storage_device_node_path_0);
+            ramrod_log_msg("found system volume not at %ss1s1: %s\n");
           }
 
           goto LABEL_84;
         }
 
-        if (v158 && !strcmp(name, v158))
+        if (v93 && !strcmp(name, v93))
         {
-          v109 = &data_device_node_path_0;
+          v50 = &data_device_node_path_0;
           goto LABEL_85;
         }
 
-        if (v157 && !strcmp(name, v157))
+        if (v92 && !strcmp(name, v92))
         {
-          v109 = &user_device_node_path_0;
+          v50 = &user_device_node_path_0;
           goto LABEL_85;
         }
 
-        if (v156 && !strcmp(name, v156))
+        if (v91 && !strcmp(name, v91))
         {
-          v109 = &update_device_node_path_0;
+          v50 = &update_device_node_path_0;
           goto LABEL_85;
         }
 
-        if (v155 && !strcmp(name, v155))
+        if (v90 && !strcmp(name, v90))
         {
-          v109 = &baseband_data_partition_device_node_path_0;
+          v50 = &baseband_data_partition_device_node_path_0;
           goto LABEL_85;
         }
 
-        if (v154 && !strcmp(name, v154))
+        if (v89 && !strcmp(name, v89))
         {
-          v109 = &log_partition_device_node_path;
+          v50 = &log_partition_device_node_path;
           goto LABEL_85;
         }
 
-        if (v153 && !strcmp(name, v153))
+        if (v88 && !strcmp(name, v88))
         {
           if (!xart_partition_node_path || !ramrod_should_have_xart_partition())
           {
-            v110 = 0;
+            v51 = 0;
             theArray = &xart_partition_node_path;
             goto LABEL_87;
           }
 
-          v142 = kCFErrorDomainMach;
+          v79 = kCFErrorDomainMach;
 LABEL_178:
-          v143 = @"%s: encountered second '%s' partition; original was '%s'";
+          v80 = @"%s: encountered second '%s' partition; original was '%s'";
 LABEL_179:
-          ramrod_create_error_cf(&cf, v142, -536870911, 0, v143, v68, v69, v70, "ramrod_probe_media_internal");
+          ramrod_create_error_cf(&cf, v79, -536870911, 0, v80, v47, v48, v49, "ramrod_probe_media_internal");
 LABEL_173:
-          v141 = 0;
+          v78 = 0;
 LABEL_174:
-          v48 = 0;
-          if (v160 >= 1 && v141)
+          v28 = 0;
+          if (v95 >= 1 && v78)
           {
             sleep(1u);
-            v48 = ramrod_probe_media_internal(v160 - 1, 0);
+            v28 = ramrod_probe_media_internal(v95 - 1, 0);
           }
 
 LABEL_14:
-          v49 = cf;
-          if (a2 && !v48 && cf)
+          v29 = cf;
+          if (a2 && !v28 && cf)
           {
-            v48 = 0;
+            v28 = 0;
             *a2 = CFRetain(cf);
             goto LABEL_21;
           }
@@ -4904,295 +4746,291 @@ LABEL_14:
           goto LABEL_22;
         }
 
-        if (v152 && !strcmp(name, v152))
+        if (v87 && !strcmp(name, v87))
         {
-          v109 = &hardware_partition_node_path;
+          v50 = &hardware_partition_node_path;
           goto LABEL_85;
         }
 
-        if (v151 && !strcmp(name, v151))
+        if (v86 && !strcmp(name, v86))
         {
-          v109 = &scratch_partition_node_path;
+          v50 = &scratch_partition_node_path;
           goto LABEL_85;
         }
 
-        if (v150 && !strcmp(name, v150))
+        if (v85 && !strcmp(name, v85))
         {
-          if (v161 != 1)
+          if (v96 != 1)
           {
-            if (v161 == 2)
+            if (v96 == 2)
             {
-              ramrod_log_msg("Captured preboot partition on main OS container %d\n", v64, v65, v66, v67, v68, v69, v70, 2);
-              v109 = &preboot_partition_device_node_path_0;
+              ramrod_log_msg("Captured preboot partition on main OS container %d\n", 2);
+              v50 = &preboot_partition_device_node_path_0;
             }
 
             else
             {
-              if (v161 != 3)
+              if (v96 != 3)
               {
                 goto LABEL_155;
               }
 
-              ramrod_log_msg("Captured preboot partition on recovery container %d\n", v64, v65, v66, v67, v68, v69, v70, 3);
-              v109 = &recovery_preboot_partition_device_node_path;
+              ramrod_log_msg("Captured preboot partition on recovery container %d\n", 3);
+              v50 = &recovery_preboot_partition_device_node_path;
             }
 
             goto LABEL_85;
           }
 
-          v134 = 1;
+          v71 = 1;
         }
 
         else
         {
-          if (!v149 || strcmp(name, v149))
+          if (!v84 || strcmp(name, v84))
           {
-            if (v148 && !strcmp(name, v148))
+            if (v83 && !strcmp(name, v83))
             {
-              v109 = &recovery_os_volume_device_node_path_0;
+              v50 = &recovery_os_volume_device_node_path_0;
             }
 
             else
             {
-              if (!v52 || system_device_node_path_0)
+              if (!v32 || system_device_node_path_0)
               {
-                ramrod_log_msg("unexpected partition '%s' - skipping\n", v64, v65, v66, v67, v68, v69, v70, name);
+                ramrod_log_msg("unexpected partition '%s' - skipping\n", name);
 LABEL_155:
                 theArray = 0;
-                v110 = 1;
+                v51 = 1;
                 goto LABEL_87;
               }
 
-              ramrod_log_msg("looking for a system volume, and found unknown volume '%s'. using it as the system volume.\n", v64, v65, v66, v67, v68, v69, v70, name);
+              ramrod_log_msg("looking for a system volume, and found unknown volume '%s'. using it as the system volume.\n");
 LABEL_84:
-              LOBYTE(v52) = 1;
-              v109 = &system_device_node_path_0;
+              LOBYTE(v32) = 1;
+              v50 = &system_device_node_path_0;
             }
 
 LABEL_85:
-            if (*v109)
+            if (*v50)
             {
-              v142 = kCFErrorDomainMach;
+              v79 = kCFErrorDomainMach;
               goto LABEL_178;
             }
 
-            theArray = v109;
-            v110 = 0;
+            theArray = v50;
+            v51 = 0;
 LABEL_87:
             while (1)
             {
-              v111 = CFDictionaryGetValue(properties, @"Leaf");
-              if (v111)
+              v52 = CFDictionaryGetValue(properties, @"Leaf");
+              if (v52)
               {
-                if (CFBooleanGetValue(v111) == 1)
+                if (CFBooleanGetValue(v52) == 1)
                 {
                   break;
                 }
               }
 
-              IOObjectRelease(v47);
+              IOObjectRelease(v27);
               CFRelease(properties);
-              v112 = IOIteratorNext(iterator);
-              if (!v112)
+              v53 = IOIteratorNext(iterator);
+              if (!v53)
               {
 LABEL_172:
-                ramrod_create_error_cf(&cf, kCFErrorDomainMach, -536870911, 0, @"%s: ran out of registry entries without finding a leaf media object", v113, v114, v115, "ramrod_probe_media_internal");
-                v47 = 0;
+                ramrod_create_error_cf(&cf, kCFErrorDomainMach, -536870911, 0, @"%s: ran out of registry entries without finding a leaf media object", v54, v55, v56, "ramrod_probe_media_internal");
+                v27 = 0;
                 goto LABEL_173;
               }
 
-              v47 = v112;
-              while (!IOObjectConformsTo(v47, "IOMedia"))
+              v27 = v53;
+              while (!IOObjectConformsTo(v27, "IOMedia"))
               {
-                IOObjectRelease(v47);
-                v47 = IOIteratorNext(iterator);
-                if (!v47)
+                IOObjectRelease(v27);
+                v27 = IOIteratorNext(iterator);
+                if (!v27)
                 {
                   goto LABEL_172;
                 }
               }
 
-              v116 = IORegistryEntryCreateCFProperties(v47, &properties, kCFAllocatorDefault, 0);
-              if (v116)
+              v57 = IORegistryEntryCreateCFProperties(v27, &properties, kCFAllocatorDefault, 0);
+              if (v57)
               {
-                ramrod_create_error_cf(&cf, kCFErrorDomainMach, v116, 0, @"%s: unable to get properties for media registry entry", v117, v118, v119, "ramrod_probe_media_internal");
+                ramrod_create_error_cf(&cf, kCFErrorDomainMach, v57, 0, @"%s: unable to get properties for media registry entry", v58, v59, v60, "ramrod_probe_media_internal");
                 goto LABEL_173;
               }
             }
 
-            if (v110)
+            if (v51)
             {
               if (CFDictionaryGetValue(properties, @"Encrypted") == kCFBooleanTrue)
               {
-                v127 = CFDictionaryGetValue(properties, @"BSD Name");
-                if (v127)
+                v64 = CFDictionaryGetValue(properties, @"BSD Name");
+                if (v64)
                 {
-                  v128 = v127;
+                  v65 = v64;
                   *buffer = 0;
-                  v129 = CFDictionaryGetValue(properties, @"RoleValue");
-                  if (v129)
+                  v66 = CFDictionaryGetValue(properties, @"RoleValue");
+                  if (v66)
                   {
-                    CFNumberGetValue(v129, kCFNumberSInt16Type, buffer);
+                    CFNumberGetValue(v66, kCFNumberSInt16Type, buffer);
                   }
 
                   if (*buffer == 576)
                   {
-                    v130 = @"Found additional enterprise volume at %@\n";
+                    v67 = @"Found additional enterprise volume at %@\n";
                   }
 
                   else
                   {
-                    v130 = @"Found additional encrypted volume at %@\n";
+                    v67 = @"Found additional encrypted volume at %@\n";
                   }
 
                   if (*buffer == 576)
                   {
-                    v131 = Mutable;
+                    v68 = Mutable;
                   }
 
                   else
                   {
-                    v131 = v25;
+                    v68 = v19;
                   }
 
-                  theArraya = v131;
-                  ramrod_log_msg_cf(v130, v128, v145);
-                  v144 = "/dev/";
-                  v145 = v128;
-                  v132 = CFStringCreateWithFormat(0, 0, @"%s%@");
-                  CFArrayAppendValue(theArraya, v132);
-                  CFRelease(v132);
+                  theArraya = v68;
+                  ramrod_log_msg_cf(v67, v65);
+                  v69 = CFStringCreateWithFormat(0, 0, @"%s%@", "/dev/", v65);
+                  CFArrayAppendValue(theArraya, v69);
+                  CFRelease(v69);
                 }
               }
             }
 
             else
             {
-              v133 = CFDictionaryGetValue(properties, @"BSD Name");
-              if (!v133)
+              v70 = CFDictionaryGetValue(properties, @"BSD Name");
+              if (!v70)
               {
-                v142 = kCFErrorDomainMach;
-                v143 = @"%s: leaf media object with no bsd name";
+                v79 = kCFErrorDomainMach;
+                v80 = @"%s: leaf media object with no bsd name";
                 goto LABEL_179;
               }
 
               *buffer = 0u;
-              v166 = 0u;
-              CFStringGetCString(v133, buffer, 32, 0x8000100u);
+              v101 = 0u;
+              CFStringGetCString(v70, buffer, 32, 0x8000100u);
               snprintf(theArray, 0x20uLL, "%s%s", "/dev/", buffer);
             }
 
             CFRelease(properties);
 LABEL_124:
-            IOObjectRelease(v47);
+            IOObjectRelease(v27);
             goto LABEL_73;
           }
 
-          v134 = v161;
+          v71 = v96;
         }
 
-        ramrod_log_msg("Captured preboot partition on ISC %d\n", v64, v65, v66, v67, v68, v69, v70, v134);
-        v109 = &isc_preboot_partition_device_node_path;
+        ramrod_log_msg("Captured preboot partition on ISC %d\n", v71);
+        v50 = &isc_preboot_partition_device_node_path;
         goto LABEL_85;
       }
 
-      v72 = CFDictionaryGetValue(properties, @"BSD Name");
-      if (!v72)
+      v45 = CFDictionaryGetValue(properties, @"BSD Name");
+      if (!v45)
       {
-        ramrod_log_msg("APFS Container object with no bsd name", v73, v74, v75, v76, v77, v78, v79, v144);
+        ramrod_log_msg("APFS Container object with no bsd name");
         goto LABEL_173;
       }
 
       *buffer = 0u;
-      v166 = 0u;
-      CFStringGetCString(v72, buffer, 32, 0x8000100u);
-      if (CFEqual(v71, @"7C3457EF-0000-11AA-AA11-00306543ECAC") == 1)
+      v101 = 0u;
+      CFStringGetCString(v45, buffer, 32, 0x8000100u);
+      if (CFEqual(v44, @"7C3457EF-0000-11AA-AA11-00306543ECAC") == 1)
       {
         if (strstr(name, "RecoveryOSContainer"))
         {
-          v161 = 3;
-          v53 = &apfs_recovery_os_container_device_node_path_0;
+          v96 = 3;
+          v33 = &apfs_recovery_os_container_device_node_path_0;
         }
 
         else
         {
           if (*name ^ 0x737953746F6F4269 | *&name[8] ^ 0x61746E6F436D6574 | *&name[13] ^ 0x72656E6961746ELL)
           {
-            v53 = &apfs_container_device_node_path_0;
+            v33 = &apfs_container_device_node_path_0;
           }
 
           else
           {
-            v53 = &iboot_system_container_device_node_path_0;
+            v33 = &iboot_system_container_device_node_path_0;
           }
 
           if (*name ^ 0x737953746F6F4269 | *&name[8] ^ 0x61746E6F436D6574 | *&name[13] ^ 0x72656E6961746ELL)
           {
-            v87 = 2;
+            v46 = 2;
           }
 
           else
           {
-            v87 = 1;
+            v46 = 1;
           }
 
-          v161 = v87;
+          v96 = v46;
         }
 
-        snprintf(v53, 0x20uLL, "%s%s", "/dev/", buffer);
-        v145 = v53;
-        ramrod_log_msg("APFS Container '%s' %s\n", v88, v89, v90, v91, v92, v93, v94, name);
+        snprintf(v33, 0x20uLL, "%s%s", "/dev/", buffer);
+        ramrod_log_msg("APFS Container '%s' %s\n", name, v33);
 LABEL_70:
-        if (!*v53)
+        if (!*v33)
         {
-          snprintf(v53, 0x20uLL, "%s%s", "/dev/", buffer);
-          v145 = v53;
-          ramrod_log_msg("APFS Container '%s' %s\n", v95, v96, v97, v98, v99, v100, v101, name);
+          snprintf(v33, 0x20uLL, "%s%s", "/dev/", buffer);
+          ramrod_log_msg("APFS Container '%s' %s\n", name, v33);
         }
 
         goto LABEL_72;
       }
 
-      if (CFEqual(v71, @"EF57347C-0000-11AA-AA11-00306543ECAC") == 1)
+      if (CFEqual(v44, @"EF57347C-0000-11AA-AA11-00306543ECAC") == 1)
       {
-        if (v53 && *v53)
+        if (v33 && *v33)
         {
-          ramrod_log_msg("Found synthesized APFS container. Using %s instead of %s\n", v80, v81, v82, v83, v84, v85, v86, buffer);
-          snprintf(v53, 0x20uLL, "%s%s", "/dev/", buffer);
-          v53 = 0;
+          ramrod_log_msg("Found synthesized APFS container. Using %s instead of %s\n", buffer, v33);
+          snprintf(v33, 0x20uLL, "%s%s", "/dev/", buffer);
+          v33 = 0;
           goto LABEL_72;
         }
 
-        ramrod_log_msg("found synthesized container without original device node\n", v80, v81, v82, v83, v84, v85, v86, v144);
+        ramrod_log_msg("found synthesized container without original device node\n");
       }
 
-      if (v53)
+      if (v33)
       {
         goto LABEL_70;
       }
 
 LABEL_72:
-      IOObjectRelease(v47);
+      IOObjectRelease(v27);
       CFRelease(properties);
 LABEL_73:
-      v47 = IOIteratorNext(iterator);
+      v27 = IOIteratorNext(iterator);
     }
 
-    while (v47);
+    while (v27);
   }
 
   if (!IOIteratorIsValid(iterator))
   {
-    ramrod_create_error_cf(&cf, kCFErrorDomainMach, -536870165, 0, @"%s: media iterator invalidated", v135, v136, v137, "ramrod_probe_media_internal");
-    v47 = 0;
+    ramrod_create_error_cf(&cf, kCFErrorDomainMach, -536870165, 0, @"%s: media iterator invalidated", v72, v73, v74, "ramrod_probe_media_internal");
+    v27 = 0;
 LABEL_170:
-    v141 = 1;
+    v78 = 1;
     goto LABEL_174;
   }
 
-  if (CFArrayGetCount(v25) >= 1)
+  if (CFArrayGetCount(v19) >= 1)
   {
-    additional_encrypted_volume_node_paths = CFRetain(v25);
+    additional_encrypted_volume_node_paths = CFRetain(v19);
   }
 
   if (CFArrayGetCount(Mutable) < 1)
@@ -5200,21 +5038,21 @@ LABEL_170:
     goto LABEL_19;
   }
 
-  v47 = 0;
+  v27 = 0;
   additional_eds_volume_node_paths = CFRetain(Mutable);
 LABEL_20:
-  v48 = 1;
+  v28 = 1;
 LABEL_21:
-  v49 = cf;
+  v29 = cf;
 LABEL_22:
-  if (v49)
+  if (v29)
   {
-    CFRelease(v49);
+    CFRelease(v29);
   }
 
-  if (v47)
+  if (v27)
   {
-    IOObjectRelease(v47);
+    IOObjectRelease(v27);
   }
 
   if (iterator)
@@ -5222,14 +5060,14 @@ LABEL_22:
     IOObjectRelease(iterator);
   }
 
-  if (v42)
+  if (v22)
   {
-    IOObjectRelease(v42);
+    IOObjectRelease(v22);
   }
 
-  if (v25)
+  if (v19)
   {
-    CFRelease(v25);
+    CFRelease(v19);
   }
 
   if (Mutable)
@@ -5237,7 +5075,7 @@ LABEL_22:
     CFRelease(Mutable);
   }
 
-  return v48;
+  return v28;
 }
 
 uint64_t ramrod_get_apfs_container_device_node(char *a1, size_t __size)
@@ -5262,19 +5100,19 @@ uint64_t ramrod_get_system_partition_device_node(char *a1, size_t __size)
   return 1;
 }
 
-uint64_t ramrod_get_gestalt_BOOLean_answer()
+uint64_t ramrod_get_gestalt_BOOLean_answer(uint64_t a1)
 {
-  v0 = MGCopyAnswer();
-  if (!v0)
+  v1 = MGCopyAnswer();
+  if (!v1)
   {
     return 0;
   }
 
-  v1 = v0;
-  v2 = CFGetTypeID(v0);
-  if (v2 == CFBooleanGetTypeID())
+  v2 = v1;
+  v3 = CFGetTypeID(v1);
+  if (v3 == CFBooleanGetTypeID())
   {
-    Value = CFBooleanGetValue(v1);
+    Value = CFBooleanGetValue(v2);
   }
 
   else
@@ -5282,135 +5120,136 @@ uint64_t ramrod_get_gestalt_BOOLean_answer()
     Value = 0;
   }
 
-  CFRelease(v1);
+  CFRelease(v2);
   return Value;
 }
 
 uint64_t ramrod_should_have_xart_partition()
 {
-  v7 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/arm-io/sep/iop-sep-nub/xART");
-  if (v7)
+  v0 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/arm-io/sep/iop-sep-nub/xART");
+  if (v0)
   {
-    ramrod_log_msg("IODeviceTree:/arm-io/sep/iop-sep-nub/xART found\n", v0, v1, v2, v3, v4, v5, v6, v47);
-    IOObjectRelease(v7);
-    v7 = 1;
+    ramrod_log_msg("IODeviceTree:/arm-io/sep/iop-sep-nub/xART found\n");
+    IOObjectRelease(v0);
+    v0 = 1;
   }
 
-  v8 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/chosen/has-xart");
-  if (v8)
+  v1 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/chosen/has-xart");
+  if (v1)
   {
-    v16 = v8;
-    ramrod_log_msg("IODeviceTree:/chosen/has-xart found\n", v9, v10, v11, v12, v13, v14, v15, v47);
-    IOObjectRelease(v16);
-    v7 = 1;
+    v2 = v1;
+    ramrod_log_msg("IODeviceTree:/chosen/has-xart found\n");
+    IOObjectRelease(v2);
+    v0 = 1;
   }
 
-  v17 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/defaults");
-  if (!v17)
+  v3 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/defaults");
+  if (v3)
   {
-    ramrod_log_msg("Failed to read IODeviceTree:/defaults\n", v18, v19, v20, v21, v22, v23, v24, v47);
-    goto LABEL_22;
-  }
-
-  v25 = v17;
-  CFProperty = IORegistryEntryCreateCFProperty(v17, @"has-xart", kCFAllocatorDefault, 0);
-  if (CFProperty)
-  {
-    v27 = CFProperty;
-    v28 = CFGetTypeID(CFProperty);
-    if (v28 == CFNumberGetTypeID())
+    v4 = v3;
+    CFProperty = IORegistryEntryCreateCFProperty(v3, @"has-xart", kCFAllocatorDefault, 0);
+    if (CFProperty)
     {
-      valuePtr = 0;
-      CFNumberGetValue(v27, kCFNumberSInt32Type, &valuePtr);
-      if (valuePtr)
+      v6 = CFProperty;
+      v7 = CFGetTypeID(CFProperty);
+      if (v7 == CFNumberGetTypeID())
       {
-        v36 = "IODeviceTree:/defaults/has-xart found\n";
-      }
-
-      else
-      {
-        v36 = "IODeviceTree:/defaults/has-xart found but is zero\n";
-      }
-
-      if (valuePtr)
-      {
-        v7 = 1;
-      }
-
-      else
-      {
-        v7 = v7;
-      }
-    }
-
-    else
-    {
-      v44 = CFGetTypeID(v27);
-      if (v44 != CFDataGetTypeID())
-      {
-        goto LABEL_20;
-      }
-
-      *buffer = 0;
-      if (CFDataGetLength(v27) == 4)
-      {
-        v50.location = 0;
-        v50.length = 4;
-        CFDataGetBytes(v27, v50, buffer);
-        if (*buffer)
+        valuePtr = 0;
+        CFNumberGetValue(v6, kCFNumberSInt32Type, &valuePtr);
+        if (valuePtr)
         {
-          ramrod_log_msg("IODeviceTree:/defaults/has-xart found\n", v29, v30, v31, v32, v33, v34, v35, v47);
-          v7 = 1;
-          goto LABEL_20;
+          v8 = "IODeviceTree:/defaults/has-xart found\n";
         }
 
-        v36 = "IODeviceTree:/defaults/has-xart found but is zero\n";
+        else
+        {
+          v8 = "IODeviceTree:/defaults/has-xart found but is zero\n";
+        }
+
+        if (valuePtr)
+        {
+          v0 = 1;
+        }
+
+        else
+        {
+          v0 = v0;
+        }
+
+        ramrod_log_msg(v8);
       }
 
       else
       {
-        v36 = "IODeviceTree:/defaults/has-xart found but is not int sized\n";
+        v9 = CFGetTypeID(v6);
+        if (v9 == CFDataGetTypeID())
+        {
+          *buffer = 0;
+          if (CFDataGetLength(v6) == 4)
+          {
+            v13.location = 0;
+            v13.length = 4;
+            CFDataGetBytes(v6, v13, buffer);
+            if (*buffer)
+            {
+              ramrod_log_msg("IODeviceTree:/defaults/has-xart found\n");
+              v0 = 1;
+            }
+
+            else
+            {
+              ramrod_log_msg("IODeviceTree:/defaults/has-xart found but is zero\n");
+            }
+          }
+
+          else
+          {
+            ramrod_log_msg("IODeviceTree:/defaults/has-xart found but is not int sized\n");
+          }
+        }
       }
+
+      CFRelease(v6);
     }
 
-    ramrod_log_msg(v36, v29, v30, v31, v32, v33, v34, v35, v47);
-LABEL_20:
-    CFRelease(v27);
-  }
-
-  IOObjectRelease(v25);
-LABEL_22:
-  if (v7)
-  {
-    v45 = "We should have an xART partition.\n";
+    IOObjectRelease(v4);
   }
 
   else
   {
-    v45 = "We should not have an xART partition.\n";
+    ramrod_log_msg("Failed to read IODeviceTree:/defaults\n");
   }
 
-  ramrod_log_msg(v45, v37, v38, v39, v40, v41, v42, v43, v47);
-  return v7;
+  if (v0)
+  {
+    ramrod_log_msg("We should have an xART partition.\n");
+  }
+
+  else
+  {
+    ramrod_log_msg("We should not have an xART partition.\n");
+  }
+
+  return v0;
 }
 
-uint64_t ramrod_mount_filesystem_no_fsck_opt_err(uint64_t a1, char *a2, int a3, CFErrorRef *a4)
+uint64_t ramrod_mount_filesystem_no_fsck_opt_err(const char *a1, char *a2, int a3, CFErrorRef *a4)
 {
-  bzero(v51, 0x400uLL);
-  v50 = 0u;
-  v49 = 0u;
-  v48 = 0u;
-  v47 = 0u;
-  v46 = 0u;
-  v45 = 0u;
-  v44 = 0u;
-  v43[0] = "/sbin/mount_apfs";
-  v43[1] = "-R";
+  bzero(v22, 0x400uLL);
+  v21 = 0u;
+  v20 = 0u;
+  v19 = 0u;
+  v18 = 0u;
+  v17 = 0u;
+  v16 = 0u;
+  v15 = 0u;
+  v14[0] = "/sbin/mount_apfs";
+  v14[1] = "-R";
   if (a3)
   {
-    *&v44 = "-o";
-    *(&v44 + 1) = "rdonly";
-    v15 = 4;
+    *&v15 = "-o";
+    *(&v15 + 1) = "rdonly";
+    v8 = 4;
     if (a2)
     {
       goto LABEL_7;
@@ -5419,73 +5258,73 @@ uint64_t ramrod_mount_filesystem_no_fsck_opt_err(uint64_t a1, char *a2, int a3, 
 
   else
   {
-    v15 = 2;
+    v8 = 2;
     if (a2)
     {
       goto LABEL_7;
     }
   }
 
-  ramrod_log_msg("Creating temporary mount point to mount %s\n", v8, v9, v10, v11, v12, v13, v14, a1);
-  a2 = v51;
+  ramrod_log_msg("Creating temporary mount point to mount %s\n", a1);
+  a2 = v22;
   __strlcpy_chk();
-  if (!mkdtemp(v51))
+  if (!mkdtemp(v22))
   {
-    v16 = __error();
-    ramrod_log_msg("unable to create temporary mount directory (%d). Using %s instead\n", v17, v18, v19, v20, v21, v22, v23, *v16);
-    a2 = v51;
+    v9 = __error();
+    ramrod_log_msg("unable to create temporary mount directory (%d). Using %s instead\n", *v9, "/mnt5");
+    a2 = v22;
     __strlcpy_chk();
   }
 
 LABEL_7:
-  v43[v15] = a1;
-  v43[v15 | 1u] = a2;
-  v43[v15 + 2] = 0;
+  v14[v8] = a1;
+  v14[v8 | 1u] = a2;
+  v14[v8 + 2] = 0;
   mkdir(a2, 0x1C0u);
-  if (ramrod_execute_command(v43))
+  if (ramrod_execute_command(v14))
   {
-    ramrod_log_msg("mounting %s on %s failed\n", v24, v25, v26, v27, v28, v29, v30, a1);
-    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 7, 0, @"%s: mounting %s on %s failed", v31, v32, v33, "ramrod_mount_filesystem_no_fsck_opt_err");
-    ramrod_dump_mounted_filesystem_info(v34, v35, v36, v37, v38, v39, v40, v41);
+    ramrod_log_msg("mounting %s on %s failed\n", a1, a2);
+    ramrod_create_error_cf(a4, @"RamrodErrorDomain", 7, 0, @"%s: mounting %s on %s failed", v10, v11, v12, "ramrod_mount_filesystem_no_fsck_opt_err");
+    ramrod_dump_mounted_filesystem_info();
     return 0xFFFFFFFFLL;
   }
 
   else
   {
-    ramrod_log_msg("%s mounted on %s\n", v24, v25, v26, v27, v28, v29, v30, a1);
+    ramrod_log_msg("%s mounted on %s\n", a1, a2);
     return 0;
   }
 }
 
-void ramrod_dump_mounted_filesystem_info(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ramrod_dump_mounted_filesystem_info()
 {
-  ramrod_log_msg("%s:**********DUMPING MOUNTED FILESYSTEMS********\n", a2, a3, a4, a5, a6, a7, a8, "ramrod_dump_mounted_filesystem_info");
-  v26 = 0;
-  v8 = getmntinfo(&v26, 2);
-  ramrod_log_msg("%s: %d filesystems are mounted\n", v9, v10, v11, v12, v13, v14, v15, "ramrod_dump_mounted_filesystem_info");
-  if (v26)
+  ramrod_log_msg("%s:**********DUMPING MOUNTED FILESYSTEMS********\n", "ramrod_dump_mounted_filesystem_info");
+  v3 = 0;
+  v0 = getmntinfo(&v3, 2);
+  ramrod_log_msg("%s: %d filesystems are mounted\n", "ramrod_dump_mounted_filesystem_info", v0);
+  if (v3)
   {
-    if (v8 >= 1)
+    if (v0 >= 1)
     {
-      v23 = v8 + 1;
-      v24 = 2168 * v8 - 2080;
+      v1 = v0 + 1;
+      v2 = 2168 * v0 - 2080;
       do
       {
-        ramrod_log_msg("%s is mounted at %s\n", v16, v17, v18, v19, v20, v21, v22, v26 + v24);
-        --v23;
-        v24 -= 2168;
+        ramrod_log_msg("%s is mounted at %s\n", &v3->f_mntonname[v2 + 936], v3 + v2);
+        --v1;
+        v2 -= 2168;
       }
 
-      while (v23 > 1);
+      while (v1 > 1);
     }
   }
 
   else
   {
-    ramrod_log_msg("Failed to get info regarding mounted filesystems\n", v16, v17, v18, v19, v20, v21, v22, v25);
+    ramrod_log_msg("Failed to get info regarding mounted filesystems\n");
   }
 
-  ramrod_log_msg("%s: *********DONE DUMPING MOUNTED FILESYSTEMS********\n", v16, v17, v18, v19, v20, v21, v22, "ramrod_dump_mounted_filesystem_info");
+  ramrod_log_msg("%s: *********DONE DUMPING MOUNTED FILESYSTEMS********\n", "ramrod_dump_mounted_filesystem_info");
 }
 
 BOOL _find_tagged_regex(const char *a1, regoff_t a2, char *a3, void *a4, void *a5)
@@ -5500,52 +5339,52 @@ BOOL _find_tagged_regex(const char *a1, regoff_t a2, char *a3, void *a4, void *a
     *a5 = 0;
   }
 
-  memset(&v20, 0, sizeof(v20));
-  v9 = regcomp(&v20, a3, 265);
+  memset(&v13, 0, sizeof(v13));
+  v9 = regcomp(&v13, a3, 265);
   if (v9)
   {
-    v27 = 0uLL;
-    v28 = 0uLL;
-    v25 = 0uLL;
-    v26 = 0uLL;
-    v23 = 0uLL;
-    v24 = 0uLL;
+    v20 = 0uLL;
+    v21 = 0uLL;
+    v18 = 0uLL;
+    v19 = 0uLL;
+    v16 = 0uLL;
+    v17 = 0uLL;
     __pmatch = 0;
-    v22 = 0uLL;
-    regerror(v9, &v20, &__pmatch, 0x80uLL);
-    ramrod_log_msg("regcomp failed: %s\n", v13, v14, v15, v16, v17, v18, v19, &__pmatch);
+    v15 = 0uLL;
+    regerror(v9, &v13, &__pmatch, 0x80uLL);
+    ramrod_log_msg("regcomp failed: %s\n", &__pmatch);
     return 0;
   }
 
   else
   {
-    v29 = 0uLL;
-    v30 = 0uLL;
-    v27 = 0uLL;
-    v28 = 0uLL;
-    v25 = 0uLL;
-    v26 = 0uLL;
-    v23 = 0uLL;
-    v24 = 0uLL;
-    __pmatch.rm_so = 0;
     v22 = 0uLL;
+    v23 = 0uLL;
+    v20 = 0uLL;
+    v21 = 0uLL;
+    v18 = 0uLL;
+    v19 = 0uLL;
+    v16 = 0uLL;
+    v17 = 0uLL;
+    __pmatch.rm_so = 0;
+    v15 = 0uLL;
     __pmatch.rm_eo = a2;
-    v10 = regexec(&v20, a1, 0xAuLL, &__pmatch, 7);
+    v10 = regexec(&v13, a1, 0xAuLL, &__pmatch, 7);
     v11 = v10 == 0;
     if (!v10)
     {
       if (a4)
       {
-        *a4 = &a1[v22];
+        *a4 = &a1[v15];
       }
 
       if (a5)
       {
-        *a5 = *(&v22 + 1) - v22;
+        *a5 = *(&v15 + 1) - v15;
       }
     }
 
-    regfree(&v20);
+    regfree(&v13);
   }
 
   return v11;
@@ -5586,13 +5425,13 @@ uint64_t ___ramrod_execute_command_with_input_data_output_block_block_invoke_2(u
 
     v7 = __error();
     v8 = strerror(*v7);
-    ramrod_log_msg("write failed for subprocess: %s\n", v9, v10, v11, v12, v13, v14, v15, v8);
+    ramrod_log_msg("write failed for subprocess: %s\n", v8);
   }
 
   return 0;
 }
 
-void OUTLINED_FUNCTION_0_0(CFErrorRef *a1@<X0>, const __CFString *a2@<X1>, const __CFString *a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X6>, uint64_t a6@<X7>, char a7@<W8>)
+void OUTLINED_FUNCTION_0_0(CFErrorRef *a1@<X0>, const __CFString *a2@<X1>, const __CFString *a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X6>, uint64_t a6@<X7>, uint64_t a7@<X8>)
 {
 
   ramrod_create_error_cf(a1, a2, 6, 0, a3, a4, a5, a6, a7);
@@ -5602,14 +5441,20 @@ BOOL ramrod_device_has_centauri()
 {
   v0 = IOServiceNameMatching("centauri");
   MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v0);
-  v9 = MatchingService;
+  v2 = MatchingService;
   if (MatchingService)
   {
     IOObjectRelease(MatchingService);
+    v3 = "yes";
   }
 
-  ramrod_log_msg("%s: %s\n", v2, v3, v4, v5, v6, v7, v8, "ramrod_device_has_centauri");
-  return v9 != 0;
+  else
+  {
+    v3 = "no";
+  }
+
+  ramrod_log_msg("%s: %s\n", "ramrod_device_has_centauri", v3);
+  return v2 != 0;
 }
 
 uint64_t __os_cleanup_iorelease(unsigned int *a1)
@@ -5678,6 +5523,13 @@ BOOL _ioreg_property_exists(const __CFString *a1)
   return v3 != 0;
 }
 
+void sub_100031C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
+{
+  va_start(va, a33);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 CFTypeRef _ioreg_copy_property(char *path, const __CFString *a2)
 {
   v3 = IORegistryEntryFromPath(kIOMasterPortDefault, path);
@@ -5724,7 +5576,7 @@ uint64_t OUTLINED_FUNCTION_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   return __os_log_send_and_compose_impl(a1, v6, v5, 80, a5, v7, 16);
 }
 
-void OUTLINED_FUNCTION_2(CFErrorRef *a1@<X0>, const __CFString *a2@<X1>, const __CFString *a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X6>, uint64_t a6@<X7>, char a7@<W8>)
+void OUTLINED_FUNCTION_2(CFErrorRef *a1@<X0>, const __CFString *a2@<X1>, const __CFString *a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X6>, uint64_t a6@<X7>, uint64_t a7@<X8>)
 {
 
   ramrod_create_error_cf(a1, a2, 2, 0, a3, a4, a5, a6, a7);
@@ -5847,51 +5699,48 @@ uint64_t __os_cleanup_iorelease_1(unsigned int *a1)
   return result;
 }
 
-uint64_t AMSupportX509DecodeVerifyCertIssuer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMSupportX509DecodeVerifyCertIssuer(uint64_t a1, uint64_t a2)
 {
-  v8 = *(a2 + 136);
-  if (v8 != *(a1 + 104) || memcmp(*(a2 + 128), *(a1 + 96), v8))
+  v2 = *(a2 + 136);
+  if (v2 != *(a1 + 104) || memcmp(*(a2 + 128), *(a1 + 96), v2))
   {
-    AMSupportLogInternal(3, "AMSupportX509DecodeVerifyCertIssuer", "PKI: cert was not issued by issuer (subject != issuer)", a4, a5, a6, a7, a8, v24);
+    AMSupportLogInternal(3, "AMSupportX509DecodeVerifyCertIssuer", "PKI: cert was not issued by issuer (subject != issuer)");
     return 18;
   }
 
-  memset(v28, 0, sizeof(v28));
-  v27 = 0;
-  v25 = 0;
-  v26 = 0;
-  if (DERParseSequenceContent((a1 + 16), DERNumAlgorithmIdItemSpecs, &DERAlgorithmIdItemSpecs, v28, 0x20uLL))
+  memset(v9, 0, sizeof(v9));
+  v8 = 0;
+  v6 = 0;
+  v7 = 0;
+  if (DERParseSequenceContent((a1 + 16), DERNumAlgorithmIdItemSpecs, &DERAlgorithmIdItemSpecs, v9, 0x20uLL))
   {
-    v17 = "decodeAlgId failed";
-LABEL_12:
-    AMSupportLogInternal(3, "AMSupportX509DecodeVerifyCertIssuer", v17, v12, v13, v14, v15, v16, v24);
+    AMSupportLogInternal(3, "AMSupportX509DecodeVerifyCertIssuer", "decodeAlgId failed");
     return 19;
   }
 
-  if (DERParseBitString(a1 + 32, &v25, &v27))
+  if (DERParseBitString(a1 + 32, &v6, &v8))
   {
-    v17 = "DERParseBitString(sig) failed";
-    goto LABEL_12;
+    AMSupportLogInternal(3, "AMSupportX509DecodeVerifyCertIssuer", "DERParseBitString(sig) failed");
+    return 19;
   }
 
-  if (v27)
+  if (v8)
   {
-    v17 = "numUnused != 0";
-    goto LABEL_12;
+    AMSupportLogInternal(3, "AMSupportX509DecodeVerifyCertIssuer", "numUnused != 0");
+    return 19;
   }
 
-  v18 = _AMSupportX509DecodeRsaVerifySignatureDataWithOid(*(a2 + 208), *(a2 + 216), v25, v26, *a1, *(a1 + 8), *&v28[0], DWORD2(v28[0]));
-  if (!v18)
+  if (!_AMSupportX509DecodeRsaVerifySignatureDataWithOid(*(a2 + 208), *(a2 + 216), v6, v7, *a1, *(a1 + 8), *&v9[0], DWORD2(v9[0])))
   {
-    AMSupportLogInternal(7, "AMSupportX509DecodeVerifyCertIssuer", "PKI: verify cert was issued and signed by issuer (success)", v19, v20, v21, v22, v23, v24);
+    AMSupportLogInternal(7, "AMSupportX509DecodeVerifyCertIssuer", "PKI: verify cert was issued and signed by issuer (success)");
     return 0;
   }
 
-  AMSupportLogInternal(3, "AMSupportX509DecodeVerifyCertIssuer", "PKI: cert signature validation with issuer pubkey failed amstatus=%d", v19, v20, v21, v22, v23, v18);
+  AMSupportLogInternal(3, "AMSupportX509DecodeVerifyCertIssuer", "PKI: cert signature validation with issuer pubkey failed amstatus=%d");
   return 18;
 }
 
-uint64_t _AMSupportX509DecodeRsaVerifySignatureDataWithOid(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned int a8)
+uint64_t _AMSupportX509DecodeRsaVerifySignatureDataWithOid(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, uint64_t a5, unsigned int a6, uint64_t a7, unsigned int a8)
 {
   v10[0] = a7;
   v10[1] = a8;
@@ -5935,51 +5784,51 @@ uint64_t _AMSupportX509DecodeRsaVerifySignatureDataWithOid(uint64_t a1, uint64_t
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_3_0(uint64_t a1, uint64_t a2, uint64_t a3, ...)
+uint64_t OUTLINED_FUNCTION_3_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va2, a4);
+  va_start(va1, a4);
+  va_start(va, a4);
+  v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   va_copy(va2, va1);
-  v8 = va_arg(va2, void);
-  v10 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
+  v11 = va_arg(va2, void);
 
   return verify_pkcs1_sig(va2, a2, va, va1);
 }
 
-uint64_t verify_pkcs1_sig(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+uint64_t verify_pkcs1_sig(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v23[199] = 0;
-  v23[200] = 0;
-  bzero(v23, 0x638uLL);
-  v22 = 64;
-  v7 = *(a1 + 8);
-  v21[0] = *a1;
-  v21[1] = v7;
-  memset(v20, 0, sizeof(v20));
-  if (DERParseSequence(v21, DERNumRSAPubKeyPKCS1ItemSpecs, &DERRSAPubKeyPKCS1ItemSpecs, v20, 0x20uLL))
+  v13[199] = 0;
+  v13[200] = 0;
+  bzero(v13, 0x638uLL);
+  v12 = 64;
+  v5 = *(a1 + 8);
+  v11[0] = *a1;
+  v11[1] = v5;
+  memset(v10, 0, sizeof(v10));
+  if (DERParseSequence(v11, DERNumRSAPubKeyPKCS1ItemSpecs, &DERRSAPubKeyPKCS1ItemSpecs, v10, 0x20uLL))
   {
     return 0xFFFFFFFFLL;
   }
 
-  v8 = *(&v20[0] + 1);
-  v9 = *&v20[0];
-  if (*(&v20[0] + 1))
+  v6 = *(&v10[0] + 1);
+  v7 = *&v10[0];
+  if (*(&v10[0] + 1))
   {
-    v10 = 7;
-    while (!*v9)
+    v8 = 7;
+    while (!*v7)
     {
-      ++v9;
-      if (!--v8)
+      ++v7;
+      if (!--v6)
       {
         goto LABEL_10;
       }
     }
 
-    v10 = v8 + 7;
-    if ((v8 + 7) >= 0x208)
+    v8 = v6 + 7;
+    if ((v6 + 7) >= 0x208)
     {
       return 0xFFFFFFFFLL;
     }
@@ -5987,20 +5836,16 @@ uint64_t verify_pkcs1_sig(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 
   else
   {
-    v10 = 7;
+    v8 = 7;
   }
 
 LABEL_10:
-  v22 = v10 >> 3;
+  v12 = v8 >> 3;
   result = ccrsa_make_pub();
   if (!result)
   {
     if (&CCRSA_PKCS1_FAULT_CANARY && &_ccrsa_verify_pkcs1v15_digest)
     {
-      v13 = *a3;
-      v12 = a3[1];
-      v15 = *a4;
-      v14 = a4[1];
       result = ccrsa_verify_pkcs1v15_digest();
       if (result)
       {
@@ -6011,13 +5856,9 @@ LABEL_10:
       return 0;
     }
 
-    LOBYTE(v20[0]) = 0;
-    v17 = *a3;
-    v16 = a3[1];
-    v19 = *a4;
-    v18 = a4[1];
+    LOBYTE(v10[0]) = 0;
     result = ccrsa_verify_pkcs1v15();
-    if (!result && (v20[0] & 1) != 0)
+    if (!result && (v10[0] & 1) != 0)
     {
       return 0;
     }
@@ -6042,26 +5883,26 @@ void AMSupportSafeFree(void *a1)
   }
 }
 
-CFURLRef AMSupportCreateURLFromString(const __CFAllocator *a1, const __CFString *cf, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CFURLRef AMSupportCreateURLFromString(const __CFAllocator *a1, const __CFString *cf)
 {
   if (!cf)
   {
-    AMSupportLogInternal(3, "AMSupportCreateURLFromString", "%s: theString is NULL", a4, a5, a6, a7, a8, "AMSupportCreateURLFromString");
+    AMSupportLogInternal(3, "AMSupportCreateURLFromString", "%s: theString is NULL");
     return 0;
   }
 
-  v10 = CFGetTypeID(cf);
-  if (v10 == CFURLGetTypeID())
+  v4 = CFGetTypeID(cf);
+  if (v4 == CFURLGetTypeID())
   {
-    AMSupportLogInternal(4, "AMSupportCreateURLFromString", "%s: CFURLRef passed, retaining copy", v11, v12, v13, v14, v15, "AMSupportCreateURLFromString");
+    AMSupportLogInternal(4, "AMSupportCreateURLFromString", "%s: CFURLRef passed, retaining copy", "AMSupportCreateURLFromString");
 
     return CFRetain(cf);
   }
 
-  v17 = CFGetTypeID(cf);
-  if (v17 != CFStringGetTypeID())
+  v6 = CFGetTypeID(cf);
+  if (v6 != CFStringGetTypeID())
   {
-    AMSupportLogInternal(3, "AMSupportCreateURLFromString", "%s: invalid string", v18, v19, v20, v21, v22, "AMSupportCreateURLFromString");
+    AMSupportLogInternal(3, "AMSupportCreateURLFromString", "%s: invalid string");
     return 0;
   }
 
@@ -6078,37 +5919,37 @@ CFURLRef AMSupportCreateURLFromString(const __CFAllocator *a1, const __CFString 
   }
 }
 
-const __CFDictionary *AMSupportGetValueForKeyPathInDict(const __CFAllocator *a1, uint64_t a2, CFStringRef theString, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+const __CFDictionary *AMSupportGetValueForKeyPathInDict(const __CFAllocator *a1, const __CFDictionary *a2, CFStringRef theString)
 {
   Value = a2;
   if (!a2)
   {
-    AMSupportGetValueForKeyPathInDict_cold_4(a1, 0, theString, a4, a5, a6, a7, a8, v30);
+    AMSupportGetValueForKeyPathInDict_cold_4(a1);
     return Value;
   }
 
   if (!theString)
   {
-    AMSupportGetValueForKeyPathInDict_cold_3(a1, a2, 0, a4, a5, a6, a7, a8, v30);
+    AMSupportGetValueForKeyPathInDict_cold_3(a1);
     return 0;
   }
 
   ArrayBySeparatingStrings = CFStringCreateArrayBySeparatingStrings(a1, theString, @".");
   if (!ArrayBySeparatingStrings)
   {
-    AMSupportGetValueForKeyPathInDict_cold_2(0, v10, v11, v12, v13, v14, v15, v16, v30);
+    AMSupportGetValueForKeyPathInDict_cold_2(0);
     return 0;
   }
 
-  v17 = ArrayBySeparatingStrings;
+  v5 = ArrayBySeparatingStrings;
   Count = CFArrayGetCount(ArrayBySeparatingStrings);
   if (Count >= 1)
   {
-    v19 = Count;
-    v20 = 0;
+    v7 = Count;
+    v8 = 0;
     while (1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(v17, v20);
+      ValueAtIndex = CFArrayGetValueAtIndex(v5, v8);
       if (!ValueAtIndex)
       {
         break;
@@ -6117,7 +5958,7 @@ const __CFDictionary *AMSupportGetValueForKeyPathInDict(const __CFAllocator *a1,
       Value = CFDictionaryGetValue(Value, ValueAtIndex);
       if (Value)
       {
-        if (v19 != ++v20)
+        if (v7 != ++v8)
         {
           continue;
         }
@@ -6126,12 +5967,12 @@ const __CFDictionary *AMSupportGetValueForKeyPathInDict(const __CFAllocator *a1,
       goto LABEL_9;
     }
 
-    AMSupportGetValueForKeyPathInDict_cold_1(0, v22, v23, v24, v25, v26, v27, v28, v30);
+    AMSupportGetValueForKeyPathInDict_cold_1(0);
     Value = 0;
   }
 
 LABEL_9:
-  CFRelease(v17);
+  CFRelease(v5);
   return Value;
 }
 
@@ -6160,43 +6001,35 @@ uint64_t _AMSupportPlatformWriteDataToFileURLInternal(const __CFData *a1, const 
 uint64_t AMSupportHttpCopyProxySettings(uint64_t a1, const void *a2)
 {
   v3 = dispatch_semaphore_create(0);
-  v11 = v3;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2000000000;
-  v41 = 0;
+  v4 = v3;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2000000000;
+  v14 = 0;
   if (!&_RPCopyProxyDictionaryWithOptions || !&_RPRegistrationInvalidate || !&_RPRegisterForAvailability || !&_RPRegistrationResume)
   {
-    AMSupportHttpCopyProxySettings_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
-    v17 = 0;
-    goto LABEL_15;
+    AMSupportHttpCopyProxySettings_cold_2();
+    v5 = 0;
+    goto LABEL_12;
   }
 
-  v17 = RPRegisterForAvailability();
-  if (!v17)
+  v10 = v3;
+  v5 = RPRegisterForAvailability();
+  if (!v5)
   {
-    v20 = "failed to register for reverse proxy availability";
-LABEL_14:
-    AMSupportLogInternal(3, "AMSupportHttpCopyProxySettings", v20, v12, v13, v14, v15, v16, v37);
-LABEL_15:
+    AMSupportLogInternal(3, "AMSupportHttpCopyProxySettings", "failed to register for reverse proxy availability");
+LABEL_12:
     Mutable = 0;
-    goto LABEL_16;
+    goto LABEL_13;
   }
 
   RPRegistrationResume();
-  v18 = dispatch_semaphore_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
+  dispatch_semaphore_wait(v4, 0xFFFFFFFFFFFFFFFFLL);
   RPRegistrationInvalidate();
-  if ((v39[3] & 1) == 0)
+  if ((v12[3] & 1) == 0)
   {
-    v21 = " after 5 seconds";
-    if (!v18)
-    {
-      v21 = "";
-    }
-
-    v37 = v21;
-    v20 = "No proxy available%s";
-    goto LABEL_14;
+    AMSupportLogInternal(3, "AMSupportHttpCopyProxySettings", "No proxy available%s");
+    goto LABEL_12;
   }
 
   if (a2)
@@ -6204,46 +6037,46 @@ LABEL_15:
     Mutable = CFRetain(a2);
     if (CFDictionaryContainsKey(a2, @"TestReachability"))
     {
-      goto LABEL_20;
+      goto LABEL_17;
     }
 
-    goto LABEL_19;
+    goto LABEL_16;
   }
 
   Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (Mutable)
   {
-LABEL_19:
-    CFDictionaryAddValue(Mutable, @"TestReachability", kCFBooleanFalse);
-LABEL_20:
-    v30 = RPCopyProxyDictionaryWithOptions();
-    v22 = v30;
-    if (v30)
-    {
-      AMSupportLogInternal(6, "AMSupportHttpCopyProxySettings", "proxyInfo = %@", v31, v32, v33, v34, v35, v30);
-    }
-
-    if (v11)
-    {
-      goto LABEL_23;
-    }
-
-    goto LABEL_24;
-  }
-
-  AMSupportHttpCopyProxySettings_cold_1(0, v23, v24, v25, v26, v27, v28, v29);
 LABEL_16:
-  v22 = 0;
-  if (v11)
-  {
-LABEL_23:
-    dispatch_release(v11);
+    CFDictionaryAddValue(Mutable, @"TestReachability", kCFBooleanFalse);
+LABEL_17:
+    v8 = RPCopyProxyDictionaryWithOptions();
+    v7 = v8;
+    if (v8)
+    {
+      AMSupportLogInternal(6, "AMSupportHttpCopyProxySettings", "proxyInfo = %@", v8, _NSConcreteStackBlock, 1107296256, __AMSupportHttpCopyProxySettings_block_invoke, &__block_descriptor_tmp_2, &v11, v10, v11);
+    }
+
+    if (v4)
+    {
+      goto LABEL_20;
+    }
+
+    goto LABEL_21;
   }
 
-LABEL_24:
-  if (v17)
+  AMSupportHttpCopyProxySettings_cold_1();
+LABEL_13:
+  v7 = 0;
+  if (v4)
   {
-    CFRelease(v17);
+LABEL_20:
+    dispatch_release(v4);
+  }
+
+LABEL_21:
+  if (v5)
+  {
+    CFRelease(v5);
   }
 
   if (Mutable)
@@ -6251,202 +6084,201 @@ LABEL_24:
     CFRelease(Mutable);
   }
 
-  _Block_object_dispose(&v38, 8);
-  return v22;
+  _Block_object_dispose(&v11, 8);
+  return v7;
 }
 
-intptr_t __AMSupportHttpCopyProxySettings_block_invoke(intptr_t result, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+intptr_t __AMSupportHttpCopyProxySettings_block_invoke(intptr_t result, int a2)
 {
-  v8 = result;
+  v2 = result;
   switch(a2)
   {
     case 3:
-      v9 = "AMSupportHttpCopyProxySettings: RPNotificationAborted";
+      AMSupportLogInternal(6, "AMSupportHttpCopyProxySettings_block_invoke", "AMSupportHttpCopyProxySettings: RPNotificationAborted");
       break;
     case 2:
-      v9 = "AMSupportHttpCopyProxySettings: RPNotificationProxyUnavailable";
+      AMSupportLogInternal(6, "AMSupportHttpCopyProxySettings_block_invoke", "AMSupportHttpCopyProxySettings: RPNotificationProxyUnavailable");
       break;
     case 1:
-      AMSupportLogInternal(6, "AMSupportHttpCopyProxySettings_block_invoke", "Proxy available", a4, a5, a6, a7, a8, v11);
-      *(*(*(v8 + 32) + 8) + 24) = 1;
-      v9 = "AMSupportHttpCopyProxySettings: RPNotificationProxyAvailable";
+      AMSupportLogInternal(6, "AMSupportHttpCopyProxySettings_block_invoke", "Proxy available");
+      *(*(*(v2 + 32) + 8) + 24) = 1;
+      AMSupportLogInternal(6, "AMSupportHttpCopyProxySettings_block_invoke", "AMSupportHttpCopyProxySettings: RPNotificationProxyAvailable");
       break;
     default:
       return result;
   }
 
-  AMSupportLogInternal(6, "AMSupportHttpCopyProxySettings_block_invoke", v9, a4, a5, a6, a7, a8, v11);
-  v10 = *(v8 + 40);
+  v3 = *(v2 + 40);
 
-  return dispatch_semaphore_signal(v10);
+  return dispatch_semaphore_signal(v3);
 }
 
 uint64_t AMSupportHttpURLSessionSendSync(void *a1, uint64_t a2, CFTypeRef *a3, CFTypeRef *a4, uint64_t *a5)
 {
   v7 = objc_autoreleasePoolPush();
   context = v7;
-  v61 = 1;
+  v31 = 1;
   valuePtr = 1;
   if (!a1)
   {
-    AMSupportHttpURLSessionSendSync_cold_3(v7, v8, v9, v10, v11, v12, v13, v14, v55);
+    AMSupportHttpURLSessionSendSync_cold_3(v7);
 LABEL_62:
-    v43 = 2;
+    v19 = 2;
     goto LABEL_58;
   }
 
   if (!a2)
   {
-    AMSupportHttpURLSessionSendSync_cold_2(v7, v8, v9, v10, v11, v12, v13, v14, v55);
+    AMSupportHttpURLSessionSendSync_cold_2(v7);
     goto LABEL_62;
   }
 
-  v15 = [a1 options];
-  Value = CFDictionaryGetValue(v15, @"ValidResponses");
+  v8 = [a1 options];
+  Value = CFDictionaryGetValue(v8, @"ValidResponses");
   if (Value)
   {
     TypeID = CFSetGetTypeID();
-    v18 = CFGetTypeID(Value);
-    if (TypeID != v18)
+    v11 = CFGetTypeID(Value);
+    if (TypeID != v11)
     {
-      AMSupportHttpURLSessionSendSync_cold_1(v18, v19, v20, v21, v22, v23, v24, v25, v55);
-      v43 = 16;
+      AMSupportHttpURLSessionSendSync_cold_1(v11);
+      v19 = 16;
       goto LABEL_58;
     }
   }
 
-  v60 = a2;
-  v26 = 0;
-  v27 = 0;
-  v28 = 1;
+  v30 = a2;
+  v12 = 0;
+  v13 = 0;
+  v14 = 1;
   do
   {
-    if (v27)
+    if (v13)
     {
-      CFRelease(v27);
+      CFRelease(v13);
     }
 
-    if (v26)
+    if (v12)
     {
-      CFRelease(v26);
+      CFRelease(v12);
     }
 
-    v29 = CFDictionaryGetValue(v15, @"Backoff");
-    if (!v29 || !CFNumberGetValue(v29, kCFNumberSInt32Type, &valuePtr))
+    v15 = CFDictionaryGetValue(v8, @"Backoff");
+    if (!v15 || !CFNumberGetValue(v15, kCFNumberSInt32Type, &valuePtr))
     {
       valuePtr = 1;
     }
 
-    v30 = CFDictionaryGetValue(v15, @"MaxAttempts");
-    if (!v30 || !CFNumberGetValue(v30, kCFNumberSInt32Type, &v61))
+    v16 = CFDictionaryGetValue(v8, @"MaxAttempts");
+    if (!v16 || !CFNumberGetValue(v16, kCFNumberSInt32Type, &v31))
     {
-      v61 = 1;
+      v31 = 1;
     }
 
-    v80 = 0;
-    v81 = &v80;
-    v82 = 0x3052000000;
-    v83 = __Block_byref_object_copy__0;
-    v84 = __Block_byref_object_dispose__0;
-    v85 = 0;
-    v74 = 0;
-    v75 = &v74;
-    v76 = 0x3052000000;
-    v77 = __Block_byref_object_copy__0;
-    v78 = __Block_byref_object_dispose__0;
-    v79 = 0;
-    v68 = 0;
-    v69 = &v68;
-    v70 = 0x3052000000;
-    v71 = __Block_byref_object_copy__0;
-    v72 = __Block_byref_object_dispose__0;
-    v73 = 0;
-    v64 = 0;
-    v65 = &v64;
-    v66 = 0x2020000000;
-    v67 = 0;
-    v31 = dispatch_semaphore_create(0);
-    v37 = v31;
-    if (!v31)
+    v50 = 0;
+    v51 = &v50;
+    v52 = 0x3052000000;
+    v53 = __Block_byref_object_copy__0;
+    v54 = __Block_byref_object_dispose__0;
+    v55 = 0;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x3052000000;
+    v47 = __Block_byref_object_copy__0;
+    v48 = __Block_byref_object_dispose__0;
+    v49 = 0;
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x3052000000;
+    v41 = __Block_byref_object_copy__0;
+    v42 = __Block_byref_object_dispose__0;
+    v43 = 0;
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x2020000000;
+    v37 = 0;
+    v17 = dispatch_semaphore_create(0);
+    v18 = v17;
+    if (!v17)
     {
-      AMSupportLogInternal(3, "_AMSupportHttpURLSessionSendSyncNoRetry", "Failed to create semaphore", v32, v33, v34, v35, v36, v55);
-      v27 = 0;
-      v26 = 0;
-      v43 = 2;
+      AMSupportLogInternal(3, "_AMSupportHttpURLSessionSendSyncNoRetry", "Failed to create semaphore");
+      v13 = 0;
+      v12 = 0;
+      v19 = 2;
 LABEL_21:
-      v44 = -1;
+      v20 = -1;
       goto LABEL_24;
     }
 
-    v63[0] = _NSConcreteStackBlock;
-    v63[1] = 3254779904;
-    v63[2] = ___AMSupportHttpURLSessionSendSyncNoRetry_block_invoke;
-    v63[3] = &__block_descriptor_72_e8_32o40r48r56r64r_e46_v32__0__NSData_8__NSURLResponse_16__NSError_24l;
-    v63[6] = &v74;
-    v63[7] = &v68;
-    v63[8] = &v64;
-    v63[4] = v31;
-    v63[5] = &v80;
-    [a1 sendRequest:v60 completion:v63];
-    dispatch_semaphore_wait(v37, 0xFFFFFFFFFFFFFFFFLL);
-    if (v69[5])
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 3254779904;
+    v33[2] = ___AMSupportHttpURLSessionSendSyncNoRetry_block_invoke;
+    v33[3] = &__block_descriptor_72_e8_32o40r48r56r64r_e46_v32__0__NSData_8__NSURLResponse_16__NSError_24l;
+    v33[6] = &v44;
+    v33[7] = &v38;
+    v33[8] = &v34;
+    v33[4] = v17;
+    v33[5] = &v50;
+    [a1 sendRequest:v30 completion:v33];
+    dispatch_semaphore_wait(v18, 0xFFFFFFFFFFFFFFFFLL);
+    if (v39[5])
     {
-      AMSupportLogInternal(3, "_AMSupportHttpURLSessionSendSyncNoRetry", "HTTP request failed with error %@", v38, v39, v40, v41, v42, v69[5]);
-      v27 = 0;
-      v26 = 0;
+      AMSupportLogInternal(3, "_AMSupportHttpURLSessionSendSyncNoRetry", "HTTP request failed with error %@", v39[5]);
+      v13 = 0;
+      v12 = 0;
       if ([a1 sslEvalFailed])
       {
-        v43 = 23;
+        v19 = 23;
       }
 
       else
       {
-        v43 = 16;
+        v19 = 16;
       }
 
       goto LABEL_21;
     }
 
-    v45 = v81[5];
-    if (!v45)
+    v21 = v51[5];
+    if (!v21)
     {
-      AMSupportLogInternal(3, "_AMSupportHttpURLSessionSendSyncNoRetry", "HTTP request provided no response data", v38, v39, v40, v41, v42, v55);
-      v27 = 0;
-      v26 = 0;
-      v43 = 16;
+      AMSupportLogInternal(3, "_AMSupportHttpURLSessionSendSyncNoRetry", "HTTP request provided no response data");
+      v13 = 0;
+      v12 = 0;
+      v19 = 16;
       goto LABEL_21;
     }
 
-    v27 = v45;
-    v26 = v75[5];
-    v43 = 0;
-    v44 = *(v65 + 6);
+    v13 = v21;
+    v12 = v45[5];
+    v19 = 0;
+    v20 = *(v35 + 6);
 LABEL_24:
 
-    if (v37)
+    if (v18)
     {
-      dispatch_release(v37);
+      dispatch_release(v18);
     }
 
-    _Block_object_dispose(&v64, 8);
-    _Block_object_dispose(&v68, 8);
-    _Block_object_dispose(&v74, 8);
-    _Block_object_dispose(&v80, 8);
-    if (v43)
+    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v44, 8);
+    _Block_object_dispose(&v50, 8);
+    if (v19)
     {
-      if (v43 == 23)
+      if (v19 == 23)
       {
-        AMSupportLogInternal(3, "AMSupportHttpURLSessionSendSync", "SSL trust evaluation failed", v46, v47, v48, v49, v50, v55);
+        AMSupportLogInternal(3, "AMSupportHttpURLSessionSendSync", "SSL trust evaluation failed");
         goto LABEL_54;
       }
 
-      AMSupportLogInternal(3, "AMSupportHttpURLSessionSendSync", "HTTP request failed (status=%d)", v46, v47, v48, v49, v50, v43);
-      v51 = 1;
-      if (!v27)
+      AMSupportLogInternal(3, "AMSupportHttpURLSessionSendSync", "HTTP request failed (status=%d)", v19);
+      v22 = 1;
+      if (!v13)
       {
 LABEL_29:
-        AMSupportLogInternal(3, "AMSupportHttpURLSessionSendSync", "HTTP request failed, httpResponseData is NULL", v46, v47, v48, v49, v50, v55);
-        v51 = 1;
+        AMSupportLogInternal(3, "AMSupportHttpURLSessionSendSync", "HTTP request failed, httpResponseData is NULL");
+        v22 = 1;
         if (!Value)
         {
           goto LABEL_34;
@@ -6458,8 +6290,8 @@ LABEL_29:
 
     else
     {
-      v51 = 0;
-      if (!v27)
+      v22 = 0;
+      if (!v13)
       {
         goto LABEL_29;
       }
@@ -6471,74 +6303,75 @@ LABEL_29:
     }
 
 LABEL_33:
-    if (![Value member:{+[NSNumber numberWithLong:](NSNumber, "numberWithLong:", v44)}])
+    if (![Value member:{+[NSNumber numberWithLong:](NSNumber, "numberWithLong:", v20)}])
     {
-      AMSupportLogInternal(3, "AMSupportHttpURLSessionSendSync", "HTTP server returned unexpected HTTP response code %ld", v46, v47, v48, v49, v50, v44);
+      AMSupportLogInternal(3, "AMSupportHttpURLSessionSendSync", "HTTP server returned unexpected HTTP response code %ld", v20);
       goto LABEL_37;
     }
 
 LABEL_34:
-    if (!v51)
+    if (!v22)
     {
-      if (a3 && v27)
+      if (a3 && v13)
       {
-        *a3 = CFRetain(v27);
+        *a3 = CFRetain(v13);
       }
 
-      if (a4 && v26)
+      if (a4 && v12)
       {
-        *a4 = CFRetain(v26);
+        *a4 = CFRetain(v12);
       }
 
-      if (a5 && v44)
+      if (a5 && v20)
       {
-        *a5 = v44;
+        *a5 = v20;
       }
 
       goto LABEL_54;
     }
 
 LABEL_37:
-    v52 = v61;
-    if (v28 < v61)
+    v23 = v31;
+    if (v14 < v31)
     {
-      v53 = valuePtr * v28;
-      AMSupportLogInternal(3, "AMSupportHttpURLSessionSendSync", "-------------------- Attempt %d of %d failed, sleeping for %d seconds --------------------", v46, v47, v48, v49, v50, v28);
-      sleep(v53);
-      v52 = v61;
+      v24 = valuePtr * v14;
+      AMSupportLogInternal(3, "AMSupportHttpURLSessionSendSync", "-------------------- Attempt %d of %d failed, sleeping for %d seconds --------------------", v14, v31, valuePtr * v14);
+      sleep(v24);
+      v23 = v31;
     }
 
-    ++v28;
+    ++v14;
   }
 
-  while (v28 <= v52);
-  if (v52 >= 2)
+  while (v14 <= v23);
+  if (v23 >= 2)
   {
-    AMSupportLogInternal(3, "AMSupportHttpURLSessionSendSync", "!!!!!!!!!!!!!!!!!!!!!!!!!! Retries exhausted on attempt %d !!!!!!!!!!!!!!!!!!!!!!!!!!", v46, v47, v48, v49, v50, v52);
+    AMSupportLogInternal(3, "AMSupportHttpURLSessionSendSync", "!!!!!!!!!!!!!!!!!!!!!!!!!! Retries exhausted on attempt %d !!!!!!!!!!!!!!!!!!!!!!!!!!", v23);
   }
 
 LABEL_54:
-  if (v27)
+  if (v13)
   {
-    CFRelease(v27);
+    CFRelease(v13);
   }
 
-  if (v26)
+  if (v12)
   {
-    CFRelease(v26);
+    CFRelease(v12);
   }
 
 LABEL_58:
   objc_autoreleasePoolPop(context);
-  return v43;
+  return v19;
 }
 
-void sub_100039C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_100039C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
+  va_start(va, a38);
   _Block_object_dispose(&a35, 8);
-  _Block_object_dispose(&a39, 8);
-  _Block_object_dispose((v39 - 224), 8);
-  _Block_object_dispose((v39 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v38 - 224), 8);
+  _Block_object_dispose((v38 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6575,91 +6408,92 @@ void __destroy_helper_block_e8_32o40r48r56r64r(uint64_t a1)
   _Block_object_dispose(v2, 3);
 }
 
-void AMSupportLogInternal(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void AMSupportLogInternal(uint64_t a1, uint64_t a2, const char *a3, ...)
 {
-  v9 = __chkstk_darwin();
-  v11 = v10;
-  v13 = v12;
-  v14 = v9;
+  va_start(va, a3);
+  v3 = __chkstk_darwin(a1, a2, a3);
+  v5 = v4;
+  v7 = v6;
+  v8 = v3;
   bzero(__str, 0x1000uLL);
-  v15 = "";
-  if (v13)
+  v9 = "";
+  if (v7)
   {
-    v15 = v13;
+    v9 = v7;
   }
 
-  v16 = snprintf(__str, 0x1000uLL, "%s: ", v15);
-  v17 = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, v11, 0x8000100u, kCFAllocatorNull);
-  if (!v17)
+  v10 = snprintf(__str, 0x1000uLL, "%s: ", v9);
+  v11 = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, v5, 0x8000100u, kCFAllocatorNull);
+  if (!v11)
   {
-    v19 = 0;
+    v13 = 0;
     goto LABEL_9;
   }
 
-  v18 = CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, 0, v17, &a9);
-  v19 = v18;
-  if (!v18)
+  v12 = CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, 0, v11, va);
+  v13 = v12;
+  if (!v12)
   {
 LABEL_9:
-    v27 = 0;
-    v26 = 0;
+    v21 = 0;
+    v20 = 0;
     goto LABEL_14;
   }
 
-  v20 = v16;
-  v21 = 4096 - v16;
-  Length = CFStringGetLength(v18);
-  v23 = Length;
-  if (4096 - v16 < Length && (v24 = malloc(v16 + Length + 1)) != 0)
+  v14 = v10;
+  v15 = 4096 - v10;
+  Length = CFStringGetLength(v12);
+  v17 = Length;
+  if (4096 - v10 < Length && (v18 = malloc(v10 + Length + 1)) != 0)
   {
-    v25 = v24;
-    v21 = v23 + 1;
-    memcpy(v24, __str, v16);
-    v26 = v25;
+    v19 = v18;
+    v15 = v17 + 1;
+    memcpy(v18, __str, v10);
+    v20 = v19;
   }
 
   else
   {
-    v26 = 0;
-    v25 = __str;
+    v20 = 0;
+    v19 = __str;
   }
 
-  if (CFStringGetCString(v19, &v25[v20], v21, 0x8000100u))
+  if (CFStringGetCString(v13, &v19[v14], v15, 0x8000100u))
   {
-    v27 = v25;
+    v21 = v19;
   }
 
   else
   {
-    v27 = 0;
+    v21 = 0;
   }
 
 LABEL_14:
-  if (v27)
+  if (v21)
   {
-    v28 = v27;
+    v22 = v21;
   }
 
   else
   {
-    v28 = "failed to format log message";
+    v22 = "failed to format log message";
   }
 
-  _logHandler(v14, v28);
-  AMSupportSafeRelease(v17);
-  AMSupportSafeRelease(v19);
-  AMSupportSafeFree(v26);
+  _logHandler(v8, v22);
+  AMSupportSafeRelease(v11);
+  AMSupportSafeRelease(v13);
+  AMSupportSafeFree(v20);
 }
 
 uint64_t AMSupportPlatformCopyURLToNewTempDirectory(const __CFAllocator *a1, const char *a2, CFURLRef *a3)
 {
-  bzero(v17, 0x400uLL);
+  bzero(v13, 0x400uLL);
   bzero(__str, 0x400uLL);
   result = 1;
   if (a2 && a3)
   {
-    _AMSupportPlatformTempDirCString(v17);
-    v7 = snprintf(__str, 0x400uLL, "%s/%s", v17, a2);
+    _AMSupportPlatformTempDirCString(v13);
+    v7 = snprintf(__str, 0x400uLL, "%s/%s", v13, a2);
     if (mkdtemp(__str))
     {
       v8 = CFURLCreateFromFileSystemRepresentation(a1, __str, v7, 1u);
@@ -6680,8 +6514,8 @@ uint64_t AMSupportPlatformCopyURLToNewTempDirectory(const __CFAllocator *a1, con
     else
     {
       v10 = __error();
-      strerror(*v10);
-      AMSupportLogInternal(3, "AMSupportPlatformCopyURLToNewTempDirectory", "failed to create %s: %s", v11, v12, v13, v14, v15, __str);
+      v11 = strerror(*v10);
+      AMSupportLogInternal(3, "AMSupportPlatformCopyURLToNewTempDirectory", "failed to create %s: %s", __str, v11);
       return 4;
     }
   }
@@ -6689,7 +6523,7 @@ uint64_t AMSupportPlatformCopyURLToNewTempDirectory(const __CFAllocator *a1, con
   return result;
 }
 
-uint64_t _AMSupportPlatformTempDirCString(char *a1)
+size_t _AMSupportPlatformTempDirCString(char *a1)
 {
   v2 = getenv("TMPDIR");
   if (!v2 || (v3 = strlcpy(a1, v2, 0x400uLL), v3 - 1024 < 0xFFFFFFFFFFFFFC01) || (v4 = v3, access(a1, 7)))
@@ -6721,206 +6555,223 @@ FILE *AMSupportPlatformOpenFileStreamWithURL(const __CFURL *a1, const char *a2)
     return fopen(buffer, a2);
   }
 
-  AMSupportLogInternal(3, "AMSupportPlatformOpenFileStreamWithURL", "failed to convert url to file system representation", v4, v5, v6, v7, v8, v15);
-  AMSupportLogInternal(8, "AMSupportPlatformOpenFileStreamWithURL", "%@", v10, v11, v12, v13, v14, a1);
+  AMSupportLogInternal(3, "AMSupportPlatformOpenFileStreamWithURL", "failed to convert url to file system representation");
+  AMSupportLogInternal(8, "AMSupportPlatformOpenFileStreamWithURL", "%@", a1);
   return 0;
 }
 
-uint64_t AMSupportX509ChainEvaluateTrust(__SecTrust *a1, CFArrayRef theArray, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMSupportX509ChainEvaluateTrust(__SecTrust *a1, CFArrayRef theArray, _DWORD *a3)
 {
-  v83 = 0;
-  v84 = 0;
+  v42 = 0;
+  v43 = 0;
   *__s1 = 0u;
-  v82 = 0u;
-  memset(v80, 0, sizeof(v80));
+  v41 = 0u;
+  memset(v39, 0, sizeof(v39));
   *__s2 = 0u;
-  v79 = 0u;
-  memset(v77, 0, sizeof(v77));
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   if (!a1)
   {
-    AMSupportX509ChainEvaluateTrust_cold_3(0, theArray, a3, a4, a5, a6, a7, a8, v73);
+    AMSupportX509ChainEvaluateTrust_cold_3(0);
 LABEL_37:
-    v42 = 4294967292;
+    v13 = 4294967292;
     goto LABEL_13;
   }
 
   if (!theArray)
   {
-    AMSupportX509ChainEvaluateTrust_cold_2(a1, 0, a3, a4, a5, a6, a7, a8, v73);
+    AMSupportX509ChainEvaluateTrust_cold_2(a1);
     goto LABEL_37;
   }
 
   if (!a3)
   {
-    AMSupportX509ChainEvaluateTrust_cold_1(a1, theArray, 0, a4, a5, a6, a7, a8, v73);
+    AMSupportX509ChainEvaluateTrust_cold_1(a1);
     goto LABEL_37;
   }
 
   if (CFArrayGetCount(theArray) <= 0)
   {
-    AMSupportLogInternal(3, "AMSupportX509ChainEvaluateTrust", "trustedRootArray must be non NULL and have at least one element", v11, v12, v13, v14, v15, v73);
-    v42 = 4294966387;
+    AMSupportLogInternal(3, "AMSupportX509ChainEvaluateTrust", "trustedRootArray must be non NULL and have at least one element");
+    v13 = 4294966387;
     goto LABEL_13;
   }
 
   Count = CFArrayGetCount(theArray);
-  AMSupportLogInternal(7, "AMSupportX509ChainEvaluateTrust", "Number of trusted roots: %d", v17, v18, v19, v20, v21, Count);
+  AMSupportLogInternal(7, "AMSupportX509ChainEvaluateTrust", "Number of trusted roots: %d", Count);
   CertificateCount = SecTrustGetCertificateCount(a1);
   if (CertificateCount <= 0)
   {
-    v74 = 0;
-    v40 = "Array index of root server cert out of range. (%d)";
-    v41 = 7;
+    v19 = 0;
+    v11 = "Array index of root server cert out of range. (%d)";
+    v12 = 7;
 LABEL_11:
-    AMSupportLogInternal(v41, "AMSupportX509ChainEvaluateTrust", v40, v23, v24, v25, v26, v27, v74);
+    AMSupportLogInternal(v12, "AMSupportX509ChainEvaluateTrust", v11, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36);
     *a3 = 6;
 LABEL_12:
-    v42 = 4294967246;
+    v13 = 4294967246;
     goto LABEL_13;
   }
 
-  AMSupportLogInternal(7, "AMSupportX509ChainEvaluateTrust", "Number of server certificates: %d", v23, v24, v25, v26, v27, CertificateCount);
-  AMSupportLogInternal(7, "AMSupportX509ChainEvaluateTrust", "Checking server certificate %d of %d", v28, v29, v30, v31, v32, 0);
+  v8 = CertificateCount;
+  AMSupportLogInternal(7, "AMSupportX509ChainEvaluateTrust", "Number of server certificates: %d", CertificateCount);
+  AMSupportLogInternal(7, "AMSupportX509ChainEvaluateTrust", "Checking server certificate %d of %d", 0, v8);
   CertificateAtIndex = SecTrustGetCertificateAtIndex(a1, 0);
-  v39 = _SecCertificateCopyAMSupportCert(CertificateAtIndex, v77, &v84, v34, v35, v36, v37, v38);
-  if (v39)
+  v10 = _SecCertificateCopyAMSupportCert(CertificateAtIndex, &v21, &v43);
+  if (v10)
   {
-    v74 = v39;
-    v40 = "PKI: decoding top-level server cert failed with error 0x%08X";
+    v19 = v10;
+    v11 = "PKI: decoding top-level server cert failed with error 0x%08X";
 LABEL_8:
-    v41 = 3;
+    v12 = 3;
     goto LABEL_11;
   }
 
-  AMSupportLogInternal(7, "AMSupportX509ChainEvaluateTrust", "First server cert length %d", v23, v24, v25, v26, v27, __s2[1]);
+  AMSupportLogInternal(7, "AMSupportX509ChainEvaluateTrust", "First server cert length %d", LODWORD(__s2[1]));
   if (CFArrayGetCount(theArray) < 1)
   {
 LABEL_27:
-    AMSupportLogInternal(3, "AMSupportX509ChainEvaluateTrust", "Root cert not signed by any trusted roots.", v44, v45, v46, v47, v48, v75);
-    v42 = 0;
+    AMSupportLogInternal(3, "AMSupportX509ChainEvaluateTrust", "Root cert not signed by any trusted roots.");
+    v13 = 0;
     *a3 = 3;
   }
 
   else
   {
-    v49 = 0;
+    v15 = 0;
     while (1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(theArray, v49);
-      if (_SecCertificateCopyAMSupportCert(ValueAtIndex, v80, &v83, v51, v52, v53, v54, v55))
+      ValueAtIndex = CFArrayGetValueAtIndex(theArray, v15);
+      v17 = _SecCertificateCopyAMSupportCert(ValueAtIndex, v39, &v42);
+      if (v17)
       {
-        AMSupportLogInternal(3, "AMSupportX509ChainEvaluateTrust", "PKI: decoding trusted root %d failed with error 0x%08X", v56, v57, v58, v59, v60, v49);
+        AMSupportLogInternal(3, "AMSupportX509ChainEvaluateTrust", "PKI: decoding trusted root %d failed with error 0x%08X", v15, v17);
         goto LABEL_12;
       }
 
-      AMSupportLogInternal(7, "AMSupportX509ChainEvaluateTrust", "Trusted root #%d has length %d", v56, v57, v58, v59, v60, v49);
-      v66 = __s1[1];
+      AMSupportLogInternal(7, "AMSupportX509ChainEvaluateTrust", "Trusted root #%d has length %d", v15, LODWORD(__s1[1]));
       if (__s1[1] == __s2[1] && !memcmp(__s1[0], __s2[0], __s1[1]))
       {
-        AMSupportLogInternal(7, "AMSupportX509ChainEvaluateTrust", "PKI: Root cert is identical to trusted root. (success)", v61, v62, v63, v64, v65, v75);
+        AMSupportLogInternal(7, "AMSupportX509ChainEvaluateTrust", "PKI: Root cert is identical to trusted root. (success)");
         goto LABEL_33;
       }
 
-      v67 = AMSupportX509DecodeVerifyCertIssuer(v77, v80, v66, v61, v62, v63, v64, v65);
-      if (v67 != 18)
+      v18 = AMSupportX509DecodeVerifyCertIssuer(&v21, v39);
+      if (v18 != 18)
       {
         break;
       }
 
-      if (v83)
+      if (v42)
       {
-        CFRelease(v83);
+        CFRelease(v42);
       }
 
-      v83 = 0;
-      if (++v49 >= CFArrayGetCount(theArray))
+      v42 = 0;
+      if (++v15 >= CFArrayGetCount(theArray))
       {
         goto LABEL_27;
       }
     }
 
-    if (v67)
+    if (v18)
     {
-      v74 = v49;
-      v40 = "PKI: verify cert was issued by trusted root %d failed with error 0x%08X";
+      v19 = v15;
+      v20 = v18;
+      v11 = "PKI: verify cert was issued by trusted root %d failed with error 0x%08X";
       goto LABEL_8;
     }
 
-    AMSupportLogInternal(7, "AMSupportX509ChainEvaluateTrust", "PKI: verify cert was issued by trusted root %d (success)", v23, v24, v25, v26, v27, v49);
+    AMSupportLogInternal(7, "AMSupportX509ChainEvaluateTrust", "PKI: verify cert was issued by trusted root %d (success)");
 LABEL_33:
-    AMSupportLogInternal(7, "AMSupportX509ChainEvaluateTrust", "PKI: Chain validation complete. (success)", v68, v69, v70, v71, v72, v76);
-    v42 = 0;
+    AMSupportLogInternal(7, "AMSupportX509ChainEvaluateTrust", "PKI: Chain validation complete. (success)");
+    v13 = 0;
     *a3 = 1;
   }
 
 LABEL_13:
-  if (v84)
+  if (v43)
   {
-    CFRelease(v84);
-    v84 = 0;
+    CFRelease(v43);
+    v43 = 0;
   }
 
-  if (v83)
+  if (v42)
   {
-    CFRelease(v83);
+    CFRelease(v42);
   }
 
-  return v42;
+  return v13;
 }
 
-uint64_t _SecCertificateCopyAMSupportCert(__SecCertificate *a1, unint64_t *a2, CFTypeRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _SecCertificateCopyAMSupportCert(__SecCertificate *a1, unint64_t *a2, CFTypeRef *a3)
 {
   if (!a3)
   {
-    _SecCertificateCopyAMSupportCert_cold_4(a1, a2, 0, a4, a5, a6, a7, a8, v34);
+    _SecCertificateCopyAMSupportCert_cold_4(a1);
     return 99;
   }
 
   if (!a2)
   {
-    _SecCertificateCopyAMSupportCert_cold_3(a1, 0, a3, a4, a5, a6, a7, a8, v34);
+    _SecCertificateCopyAMSupportCert_cold_3(a1);
     return 99;
   }
 
   if (!a1)
   {
-    _SecCertificateCopyAMSupportCert_cold_2(0, a2, a3, a4, a5, a6, a7, a8, v34);
+    _SecCertificateCopyAMSupportCert_cold_2(0);
     return 99;
   }
 
-  v10 = SecCertificateCopyData(a1);
-  if (!v10)
+  v5 = SecCertificateCopyData(a1);
+  if (!v5)
   {
-    _SecCertificateCopyAMSupportCert_cold_1(0, v11, v12, v13, v14, v15, v16, v17, v34);
+    _SecCertificateCopyAMSupportCert_cold_1(0);
     return 99;
   }
 
-  v18 = v10;
-  BytePtr = CFDataGetBytePtr(v10);
-  Length = CFDataGetLength(v18);
+  v6 = v5;
+  BytePtr = CFDataGetBytePtr(v5);
+  Length = CFDataGetLength(v6);
   if (BytePtr && Length)
   {
-    v26 = AMSupportX509DecodeCertificate(a2, BytePtr, Length);
-    v32 = v26;
-    if (v26)
+    v9 = AMSupportX509DecodeCertificate(a2, BytePtr, Length);
+    v10 = v9;
+    if (v9)
     {
-      AMSupportLogInternal(7, "_SecCertificateCopyAMSupportCert", "PKI: decoding cert failed with error 0x%08X", v27, v28, v29, v30, v31, v26);
+      AMSupportLogInternal(7, "_SecCertificateCopyAMSupportCert", "PKI: decoding cert failed with error 0x%08X", v9);
     }
 
     else
     {
-      *a3 = CFRetain(v18);
+      *a3 = CFRetain(v6);
     }
   }
 
   else
   {
-    AMSupportLogInternal(3, "_SecCertificateCopyAMSupportCert", "chain_blob must be non NULL and chain_blob_length must be non 0", v21, v22, v23, v24, v25, v34);
-    v32 = 99;
+    AMSupportLogInternal(3, "_SecCertificateCopyAMSupportCert", "chain_blob must be non NULL and chain_blob_length must be non 0");
+    v10 = 99;
   }
 
-  CFRelease(v18);
-  return v32;
+  CFRelease(v6);
+  return v10;
 }
 
 void _AMAuthInstallFinalize(uint64_t a1)
@@ -7023,7 +6874,7 @@ LABEL_42:
           CFRelease(v7);
           if (!Value)
           {
-            AMAuthInstallLog(7, "AMAuthInstallGetLocalizedStatusString", "no cached text for tss error code %d", v8, v9, v10, v11, v12, valuePtr);
+            AMAuthInstallLog(7, "AMAuthInstallGetLocalizedStatusString", "no cached text for tss error code %d", valuePtr);
           }
         }
       }
@@ -7281,38 +7132,38 @@ __CFString *AMAuthInstallApCopyDescription(uint64_t a1)
   return Mutable;
 }
 
-void AMAuthInstallApFinalize(uint64_t a1)
+void AMAuthInstallApFinalize(void *a1)
 {
-  v2 = *(a1 + 16);
+  v2 = a1[2];
   if (v2)
   {
     SafeRelease(*(v2 + 24));
-    SafeRelease(*(*(a1 + 16) + 32));
-    SafeRelease(*(*(a1 + 16) + 48));
-    SafeRelease(*(*(a1 + 16) + 56));
-    SafeRelease(*(*(a1 + 16) + 104));
-    SafeRelease(*(*(a1 + 16) + 120));
-    SafeRelease(*(*(a1 + 16) + 136));
-    SafeRelease(*(*(a1 + 16) + 144));
-    SafeRelease(*(*(a1 + 16) + 152));
-    SafeRelease(*(*(a1 + 16) + 176));
-    SafeRelease(*(*(a1 + 16) + 184));
-    SafeRelease(*(*(a1 + 16) + 192));
-    SafeRelease(*(*(a1 + 16) + 200));
-    SafeRelease(*(*(a1 + 16) + 208));
-    SafeRelease(*(*(a1 + 16) + 64));
-    SafeRelease(*(*(a1 + 16) + 72));
-    SafeFree(*(a1 + 16));
-    *(a1 + 16) = 0;
+    SafeRelease(*(a1[2] + 32));
+    SafeRelease(*(a1[2] + 48));
+    SafeRelease(*(a1[2] + 56));
+    SafeRelease(*(a1[2] + 104));
+    SafeRelease(*(a1[2] + 120));
+    SafeRelease(*(a1[2] + 136));
+    SafeRelease(*(a1[2] + 144));
+    SafeRelease(*(a1[2] + 152));
+    SafeRelease(*(a1[2] + 176));
+    SafeRelease(*(a1[2] + 184));
+    SafeRelease(*(a1[2] + 192));
+    SafeRelease(*(a1[2] + 200));
+    SafeRelease(*(a1[2] + 208));
+    SafeRelease(*(a1[2] + 64));
+    SafeRelease(*(a1[2] + 72));
+    SafeFree(a1[2]);
+    a1[2] = 0;
   }
 
-  SafeRelease(*(a1 + 24));
-  SafeRelease(*(a1 + 528));
-  *(a1 + 24) = 0;
-  *(a1 + 528) = 0;
+  SafeRelease(a1[3]);
+  SafeRelease(a1[66]);
+  a1[3] = 0;
+  a1[66] = 0;
 }
 
-CFStringRef AMAuthInstallApImg4GetTypeForEntryName(CFStringRef theString1)
+__CFString *AMAuthInstallApImg4GetTypeForEntryName(CFStringRef theString1)
 {
   v2 = off_10009AAB8;
   v3 = 218;
@@ -7341,147 +7192,146 @@ LABEL_6:
 
 uint64_t AMAuthInstallApImg4EncodeRestoreInfo(const __CFData *a1, CFDictionaryRef theDict, CFDataRef *a3)
 {
-  v52[0] = 0;
-  v52[1] = 0;
-  v51 = 0;
-  v50 = 0;
-  v48 = 0;
+  v32[0] = 0;
+  v32[1] = 0;
+  v31 = 0;
+  v30 = 0;
+  v28 = 0;
   bytes = 0;
-  v46 = 0;
+  v26 = 0;
   length = 0;
-  v44 = 0;
-  v45 = 0;
-  v43 = 0;
+  v24 = 0;
+  v25 = 0;
+  v23 = 0;
   if (!a1 || !theDict || (Count = CFDictionaryGetCount(theDict), !a3) || Count < 1)
   {
     Mutable = 0;
     if (!a3)
     {
-      v22 = 3;
-      v27 = 0;
-      v25 = 0;
+      v11 = 3;
+      v15 = 0;
+      v13 = 0;
       goto LABEL_20;
     }
 
-    v25 = 0;
-    v27 = 0;
+    v13 = 0;
+    v15 = 0;
     goto LABEL_33;
   }
 
-  v51 = CFDataGetLength(a1);
+  v7 = CFDataGetLength(a1);
+  v31 = v7;
   BytePtr = CFDataGetBytePtr(a1);
-  if (DERDecoderInitialize(v52, BytePtr, &v51, v51))
+  if (DERDecoderInitialize(v32, BytePtr, &v31, v7))
   {
-    v40 = "DERDecoderInitialize top level failed";
+    v21 = "DERDecoderInitialize top level failed";
     goto LABEL_32;
   }
 
-  if (DERDecoderGetDataWithTag(v52, 0, 0x10u, 1, &bytes, &length + 1, &v50))
+  if (DERDecoderGetDataWithTag(v32, 0, 0x10u, 1, &bytes, &length + 1, &v30))
   {
-    v40 = "could not find im4p top level sequence";
+    v21 = "could not find im4p top level sequence";
     goto LABEL_32;
   }
 
-  if (DERDecoderInitialize(v52, bytes, &length + 1, HIDWORD(length)))
+  if (DERDecoderInitialize(v32, bytes, &length + 1, HIDWORD(length)))
   {
-    v40 = "DERDecoderInitialize sequence failed";
+    v21 = "DERDecoderInitialize sequence failed";
     goto LABEL_32;
   }
 
-  v50 = 3;
-  EncodingWithTag = DERDecoderGetEncodingWithTag(v52, 2u, 1u, 1, &v48, &length, &v50);
+  v30 = 3;
+  EncodingWithTag = DERDecoderGetEncodingWithTag(v32, 2u, 1u, 1, &v28, &length, &v30);
   if (EncodingWithTag)
   {
-    if (!AMAuthInstallApImg4EncodeRestoreDict(theDict, &v44, &v46 + 1))
+    if (!AMAuthInstallApImg4EncodeRestoreDict(theDict, &v24, &v26 + 1))
     {
       Mutable = 0;
       goto LABEL_15;
     }
 
-    v40 = "AMAuthInstallApImg4EncodeRestoreDict failed";
+    v21 = "AMAuthInstallApImg4EncodeRestoreDict failed";
 LABEL_32:
-    AMAuthInstallApImg4EncodeRestoreInfo_cold_1(v40, v8, v9, v10, v11, v12, v13, v14);
+    AMAuthInstallApImg4EncodeRestoreInfo_cold_1(v21);
     Mutable = 0;
-    v25 = 0;
-    v27 = 0;
+    v13 = 0;
+    v15 = 0;
     goto LABEL_33;
   }
 
   HIDWORD(length) -= length;
   Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  v45 = Mutable;
-  if (AMAuthInstallApImg4DecodeRestoreInfo(a1, &v45))
+  v25 = Mutable;
+  if (AMAuthInstallApImg4DecodeRestoreInfo(a1, &v25))
   {
-    v32 = AMAuthInstallApImg4EncodeRestoreDict(theDict, &v44, &v46 + 1);
-    if (v32)
+    v20 = AMAuthInstallApImg4EncodeRestoreDict(theDict, &v24, &v26 + 1);
+    if (v20)
     {
-      v22 = v32;
-      AMAuthInstallApImg4EncodeRestoreInfo_cold_2(v32, v33, v34, v35, v36, v37, v38, v39);
-LABEL_36:
-      v27 = 0;
-      v25 = 0;
-      goto LABEL_20;
+      v11 = v20;
+      AMAuthInstallApImg4EncodeRestoreInfo_cold_2();
+      goto LABEL_35;
     }
   }
 
   else
   {
-    v42 = 0;
-    AMSupportCreateMergedDictionary(kCFAllocatorDefault, Mutable, theDict, &v42);
-    if (!v42)
+    v22 = 0;
+    AMSupportCreateMergedDictionary(kCFAllocatorDefault, Mutable, theDict, &v22);
+    if (!v22)
     {
-      v22 = 0;
-      v23 = "failed to create merged restore Info dictionary";
+      v11 = 0;
+      AMAuthInstallLog(3, "AMAuthInstallApImg4EncodeRestoreInfo", "failed to create merged restore Info dictionary");
       goto LABEL_35;
     }
 
-    v22 = AMAuthInstallApImg4EncodeRestoreDict(v42, &v44, &v46 + 1);
-    SafeRelease(v42);
-    if (v22)
+    v11 = AMAuthInstallApImg4EncodeRestoreDict(v22, &v24, &v26 + 1);
+    SafeRelease(v22);
+    if (v11)
     {
-      v23 = "AMAuthInstallApImg4EncodeRestoreDict merged restoreInfo failed";
+      AMAuthInstallLog(3, "AMAuthInstallApImg4EncodeRestoreInfo", "AMAuthInstallApImg4EncodeRestoreDict merged restoreInfo failed");
 LABEL_35:
-      AMAuthInstallLog(3, "AMAuthInstallApImg4EncodeRestoreInfo", v23, v17, v18, v19, v20, v21, v41);
-      goto LABEL_36;
+      v15 = 0;
+      v13 = 0;
+      goto LABEL_20;
     }
   }
 
 LABEL_15:
-  v24 = CFDataCreateMutable(0, 0);
-  v25 = v24;
-  if (!v24 || (CFDataAppendBytes(v24, bytes, HIDWORD(length)), CFDataAppendBytes(v25, v44, HIDWORD(v46)), (v26 = DEREncoderCreate(0)) == 0))
+  v12 = CFDataCreateMutable(0, 0);
+  v13 = v12;
+  if (!v12 || (CFDataAppendBytes(v12, bytes, HIDWORD(length)), CFDataAppendBytes(v13, v24, HIDWORD(v26)), (v14 = DEREncoderCreate(0)) == 0))
   {
-    v27 = 0;
+    v15 = 0;
     if (!EncodingWithTag)
     {
-      v22 = 2;
+      v11 = 2;
       goto LABEL_20;
     }
 
 LABEL_33:
     *a3 = 0;
-    v22 = 3;
+    v11 = 3;
     goto LABEL_20;
   }
 
-  v27 = v26;
-  v28 = CFDataGetBytePtr(v25);
-  v29 = CFDataGetLength(v25);
-  if (DEREncoderAddData(v27, 0, 0x10u, v28, v29, 1) || DEREncoderCreateEncodedBuffer(v27, &v43, &v46))
+  v15 = v14;
+  v16 = CFDataGetBytePtr(v13);
+  v17 = CFDataGetLength(v13);
+  if (DEREncoderAddData(v15, 0, 16, v16, v17, 1) || DEREncoderCreateEncodedBuffer(v15, &v23, &v26))
   {
     goto LABEL_33;
   }
 
-  v30 = CFDataCreate(0, v43, v46);
-  *a3 = v30;
-  v22 = 2 * (v30 == 0);
+  v18 = CFDataCreate(0, v23, v26);
+  *a3 = v18;
+  v11 = 2 * (v18 == 0);
 LABEL_20:
   SafeRelease(Mutable);
-  SafeFree(v44);
-  SafeFree(v43);
-  SafeRelease(v25);
-  DEREncoderDestroy(v27);
-  return v22;
+  SafeFree(v24);
+  SafeFree(v23);
+  SafeRelease(v13);
+  DEREncoderDestroy(v15);
+  return v11;
 }
 
 BOOL AMAuthInstallApImg4SupportsLocalSigning(uint64_t a1)
@@ -7523,9 +7373,9 @@ uint64_t AMAuthInstallApImg4GetTagAsInteger(CFStringRef theString)
   return bswap32(v4);
 }
 
-uint64_t AMAuthInstallApImg4AddInteger32Property(uint64_t *a1, const __CFString *a2, const __CFNumber *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMAuthInstallApImg4AddInteger32Property(uint64_t *a1, const __CFString *a2, const __CFNumber *a3)
 {
-  v8 = 0;
+  v3 = 0;
   valuePtr = 0;
   if (!a1)
   {
@@ -7542,8 +7392,8 @@ uint64_t AMAuthInstallApImg4AddInteger32Property(uint64_t *a1, const __CFString 
     goto LABEL_17;
   }
 
-  v8 = DEREncoderCreate(0);
-  if (!v8)
+  v3 = DEREncoderCreate(0);
+  if (!v3)
   {
     goto LABEL_17;
   }
@@ -7551,52 +7401,51 @@ uint64_t AMAuthInstallApImg4AddInteger32Property(uint64_t *a1, const __CFString 
   CString = CFStringGetCString(a2, buffer, 256, 0x8000100u);
   if (CString)
   {
-    v13 = strlen(buffer);
-    if (DEREncoderAddData(v8, 0, 0x16u, buffer, v13, 0))
+    v8 = strlen(buffer);
+    if (DEREncoderAddData(v3, 0, 22, buffer, v8, 0))
     {
-      AMAuthInstallLog(3, "AMAuthInstallApImg4AddInteger32Property", "failed to add %@ string", v14, v15, v16, v17, v18, a2);
+      AMAuthInstallLog(3, "AMAuthInstallApImg4AddInteger32Property", "failed to add %@ string", a2);
       goto LABEL_17;
     }
   }
 
   if (!CFNumberGetValue(a3, kCFNumberSInt32Type, &valuePtr))
   {
-    AMAuthInstallLog(3, "AMAuthInstallApImg4AddInteger32Property", "%s: invalid datatype", v19, v20, v21, v22, v23, "AMAuthInstallApImg4AddInteger32Property");
+    AMAuthInstallLog(3, "AMAuthInstallApImg4AddInteger32Property", "%s: invalid datatype", "AMAuthInstallApImg4AddInteger32Property");
     if (CString)
     {
-      v38 = 1;
+      v10 = 1;
       goto LABEL_11;
     }
 
 LABEL_17:
-    v38 = 3;
-    AMAuthInstallLog(3, "AMAuthInstallApImg4AddInteger32Property", "%s failed to create DER file", a4, a5, a6, a7, a8, "AMAuthInstallApImg4AddInteger32Property");
+    v10 = 3;
+    AMAuthInstallLog(3, "AMAuthInstallApImg4AddInteger32Property", "%s failed to create DER file", "AMAuthInstallApImg4AddInteger32Property");
     goto LABEL_11;
   }
 
-  if (DEREncoderAddUInt32(v8, 0, 2u, valuePtr))
+  if (DEREncoderAddUInt32(v3, 0, 2u, valuePtr))
   {
-    AMAuthInstallLog(3, "AMAuthInstallApImg4AddInteger32Property", "failed to add %@ value", v24, v25, v26, v27, v28, a2);
+    AMAuthInstallLog(3, "AMAuthInstallApImg4AddInteger32Property", "failed to add %@ value", a2);
     goto LABEL_17;
   }
 
   TagAsInteger = AMAuthInstallApImg4GetTagAsInteger(a2);
-  v30 = DEREncoderAddPrivateFromEncoder(v8, a1, TagAsInteger);
-  if (v30)
+  if (DEREncoderAddPrivateFromEncoder(v3, a1, TagAsInteger))
   {
-    AMAuthInstallApImg4AddInteger32Property_cold_1(v30, v31, v32, v33, v34, v35, v36, v37);
+    AMAuthInstallApImg4AddInteger32Property_cold_1();
     goto LABEL_17;
   }
 
-  v38 = 0;
+  v10 = 0;
 LABEL_11:
-  DEREncoderDestroy(v8);
-  return v38;
+  DEREncoderDestroy(v3);
+  return v10;
 }
 
-uint64_t AMAuthInstallApImg4AddInteger64Property(uint64_t *a1, const __CFString *a2, const __CFNumber *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMAuthInstallApImg4AddInteger64Property(uint64_t *a1, const __CFString *a2, const __CFNumber *a3)
 {
-  v8 = 0;
+  v3 = 0;
   valuePtr = 0;
   if (!a1)
   {
@@ -7613,8 +7462,8 @@ uint64_t AMAuthInstallApImg4AddInteger64Property(uint64_t *a1, const __CFString 
     goto LABEL_17;
   }
 
-  v8 = DEREncoderCreate(0);
-  if (!v8)
+  v3 = DEREncoderCreate(0);
+  if (!v3)
   {
     goto LABEL_17;
   }
@@ -7622,63 +7471,62 @@ uint64_t AMAuthInstallApImg4AddInteger64Property(uint64_t *a1, const __CFString 
   CString = CFStringGetCString(a2, buffer, 256, 0x8000100u);
   if (CString)
   {
-    v13 = strlen(buffer);
-    if (DEREncoderAddData(v8, 0, 0x16u, buffer, v13, 0))
+    v8 = strlen(buffer);
+    if (DEREncoderAddData(v3, 0, 22, buffer, v8, 0))
     {
-      AMAuthInstallLog(3, "AMAuthInstallApImg4AddInteger64Property", "failed to add %@ string", v14, v15, v16, v17, v18, a2);
+      AMAuthInstallLog(3, "AMAuthInstallApImg4AddInteger64Property", "failed to add %@ string", a2);
       goto LABEL_17;
     }
   }
 
   if (!CFNumberGetValue(a3, kCFNumberSInt64Type, &valuePtr))
   {
-    AMAuthInstallLog(3, "AMAuthInstallApImg4AddInteger64Property", "%s: invalid datatype", v19, v20, v21, v22, v23, "AMAuthInstallApImg4AddInteger64Property");
+    AMAuthInstallLog(3, "AMAuthInstallApImg4AddInteger64Property", "%s: invalid datatype", "AMAuthInstallApImg4AddInteger64Property");
     if (CString)
     {
-      v38 = 1;
+      v10 = 1;
       goto LABEL_11;
     }
 
 LABEL_17:
-    v38 = 3;
-    AMAuthInstallLog(3, "AMAuthInstallApImg4AddInteger64Property", "%s failed to create DER file", a4, a5, a6, a7, a8, "AMAuthInstallApImg4AddInteger64Property");
+    v10 = 3;
+    AMAuthInstallLog(3, "AMAuthInstallApImg4AddInteger64Property", "%s failed to create DER file", "AMAuthInstallApImg4AddInteger64Property");
     goto LABEL_11;
   }
 
-  if (DEREncoderAddUInt64(v8, 0, 2u, valuePtr))
+  if (DEREncoderAddUInt64(v3, 0, 2u, valuePtr))
   {
-    AMAuthInstallLog(3, "AMAuthInstallApImg4AddInteger64Property", "failed to add %@ value", v24, v25, v26, v27, v28, a2);
+    AMAuthInstallLog(3, "AMAuthInstallApImg4AddInteger64Property", "failed to add %@ value", a2);
     goto LABEL_17;
   }
 
   TagAsInteger = AMAuthInstallApImg4GetTagAsInteger(a2);
-  v30 = DEREncoderAddPrivateFromEncoder(v8, a1, TagAsInteger);
-  if (v30)
+  if (DEREncoderAddPrivateFromEncoder(v3, a1, TagAsInteger))
   {
-    AMAuthInstallApImg4AddInteger64Property_cold_1(v30, v31, v32, v33, v34, v35, v36, v37);
+    AMAuthInstallApImg4AddInteger64Property_cold_1();
     goto LABEL_17;
   }
 
-  v38 = 0;
+  v10 = 0;
 LABEL_11:
-  DEREncoderDestroy(v8);
-  return v38;
+  DEREncoderDestroy(v3);
+  return v10;
 }
 
-uint64_t AMAuthInstallApImg4AddBooleanProperty(uint64_t *a1, const __CFString *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMAuthInstallApImg4AddBooleanProperty(uint64_t *a1, const __CFString *a2, int a3)
 {
-  v8 = 0;
+  v3 = 0;
   if (a3)
   {
-    v9 = -1;
+    v4 = -1;
   }
 
   else
   {
-    v9 = 0;
+    v4 = 0;
   }
 
-  v37 = v9;
+  v11 = v4;
   if (!a1)
   {
     goto LABEL_16;
@@ -7689,49 +7537,47 @@ uint64_t AMAuthInstallApImg4AddBooleanProperty(uint64_t *a1, const __CFString *a
     goto LABEL_16;
   }
 
-  v8 = DEREncoderCreate(0);
-  if (!v8)
+  v3 = DEREncoderCreate(0);
+  if (!v3)
   {
     goto LABEL_16;
   }
 
   if (CFStringGetCString(a2, buffer, 256, 0x8000100u))
   {
-    v12 = strlen(buffer);
-    if (DEREncoderAddData(v8, 0, 0x16u, buffer, v12, 0))
+    v7 = strlen(buffer);
+    if (DEREncoderAddData(v3, 0, 22, buffer, v7, 0))
     {
-      AMAuthInstallLog(3, "AMAuthInstallApImg4AddBooleanProperty", "failed to add %@ string", v13, v14, v15, v16, v17, a2);
+      AMAuthInstallLog(3, "AMAuthInstallApImg4AddBooleanProperty", "failed to add %@ string", a2);
       goto LABEL_16;
     }
   }
 
-  v18 = DEREncoderAddData(v8, 0, 1u, &v37, 1u, 0);
-  if (v18)
+  if (DEREncoderAddData(v3, 0, 1, &v11, 1, 0))
   {
-    AMAuthInstallApImg4AddBooleanProperty_cold_1(v18, v19, v20, v21, v22, v23, v24, v25);
+    AMAuthInstallApImg4AddBooleanProperty_cold_1();
 LABEL_16:
-    v35 = 3;
-    AMAuthInstallLog(3, "AMAuthInstallApImg4AddBooleanProperty", "%s failed to create DER file", a4, a5, a6, a7, a8, "AMAuthInstallApImg4AddBooleanProperty");
+    v9 = 3;
+    AMAuthInstallLog(3, "AMAuthInstallApImg4AddBooleanProperty", "%s failed to create DER file", "AMAuthInstallApImg4AddBooleanProperty");
     goto LABEL_12;
   }
 
   TagAsInteger = AMAuthInstallApImg4GetTagAsInteger(a2);
-  v27 = DEREncoderAddPrivateFromEncoder(v8, a1, TagAsInteger);
-  if (v27)
+  if (DEREncoderAddPrivateFromEncoder(v3, a1, TagAsInteger))
   {
-    AMAuthInstallApImg4AddBooleanProperty_cold_2(v27, v28, v29, v30, v31, v32, v33, v34);
+    AMAuthInstallApImg4AddBooleanProperty_cold_2();
     goto LABEL_16;
   }
 
-  v35 = 0;
+  v9 = 0;
 LABEL_12:
-  DEREncoderDestroy(v8);
-  return v35;
+  DEREncoderDestroy(v3);
+  return v9;
 }
 
-uint64_t AMAuthInstallApImg4AddDataProperty(uint64_t *a1, const __CFString *a2, const __CFData *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMAuthInstallApImg4AddDataProperty(uint64_t *a1, const __CFString *a2, const __CFData *a3)
 {
-  v8 = 0;
+  v3 = 0;
   if (!a1)
   {
     goto LABEL_14;
@@ -7747,50 +7593,49 @@ uint64_t AMAuthInstallApImg4AddDataProperty(uint64_t *a1, const __CFString *a2, 
     goto LABEL_14;
   }
 
-  v8 = DEREncoderCreate(0);
-  if (!v8)
+  v3 = DEREncoderCreate(0);
+  if (!v3)
   {
     goto LABEL_14;
   }
 
   if (CFStringGetCString(a2, buffer, 256, 0x8000100u))
   {
-    v12 = strlen(buffer);
-    if (DEREncoderAddData(v8, 0, 0x16u, buffer, v12, 0))
+    v7 = strlen(buffer);
+    if (DEREncoderAddData(v3, 0, 22, buffer, v7, 0))
     {
-      AMAuthInstallLog(3, "AMAuthInstallApImg4AddDataProperty", "failed to add %@ string", v13, v14, v15, v16, v17, a2);
+      AMAuthInstallLog(3, "AMAuthInstallApImg4AddDataProperty", "failed to add %@ string", a2);
       goto LABEL_14;
     }
   }
 
   BytePtr = CFDataGetBytePtr(a3);
   Length = CFDataGetLength(a3);
-  if (DEREncoderAddData(v8, 0, 4u, BytePtr, Length, 0))
+  if (DEREncoderAddData(v3, 0, 4, BytePtr, Length, 0))
   {
-    AMAuthInstallLog(3, "AMAuthInstallApImg4AddDataProperty", "failed to add %@ data", v20, v21, v22, v23, v24, a2);
+    AMAuthInstallLog(3, "AMAuthInstallApImg4AddDataProperty", "failed to add %@ data", a2);
 LABEL_14:
-    v34 = 3;
-    AMAuthInstallLog(3, "AMAuthInstallApImg4AddDataProperty", "%s failed to create DER file", a4, a5, a6, a7, a8, "AMAuthInstallApImg4AddDataProperty");
+    v11 = 3;
+    AMAuthInstallLog(3, "AMAuthInstallApImg4AddDataProperty", "%s failed to create DER file", "AMAuthInstallApImg4AddDataProperty");
     goto LABEL_10;
   }
 
   TagAsInteger = AMAuthInstallApImg4GetTagAsInteger(a2);
-  v26 = DEREncoderAddPrivateFromEncoder(v8, a1, TagAsInteger);
-  if (v26)
+  if (DEREncoderAddPrivateFromEncoder(v3, a1, TagAsInteger))
   {
-    AMAuthInstallApImg4AddDataProperty_cold_1(v26, v27, v28, v29, v30, v31, v32, v33);
+    AMAuthInstallApImg4AddDataProperty_cold_1();
     goto LABEL_14;
   }
 
-  v34 = 0;
+  v11 = 0;
 LABEL_10:
-  DEREncoderDestroy(v8);
-  return v34;
+  DEREncoderDestroy(v3);
+  return v11;
 }
 
-uint64_t AMAuthInstallApImg4AddDictionaryProperty(uint64_t **a1, uint64_t *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMAuthInstallApImg4AddDictionaryProperty(uint64_t **a1, uint64_t *a2, const __CFString *a3)
 {
-  v8 = 0;
+  v3 = 0;
   if (!a1)
   {
     goto LABEL_14;
@@ -7806,481 +7651,299 @@ uint64_t AMAuthInstallApImg4AddDictionaryProperty(uint64_t **a1, uint64_t *a2, c
     goto LABEL_14;
   }
 
-  v8 = DEREncoderCreate(0);
-  if (!v8)
+  v3 = DEREncoderCreate(0);
+  if (!v3)
   {
     goto LABEL_14;
   }
 
   if (CFStringGetCString(a3, buffer, 256, 0x8000100u))
   {
-    v12 = strlen(buffer);
-    if (DEREncoderAddData(v8, 0, 0x16u, buffer, v12, 0))
+    v7 = strlen(buffer);
+    if (DEREncoderAddData(v3, 0, 22, buffer, v7, 0))
     {
-      AMAuthInstallLog(3, "AMAuthInstallApImg4AddDictionaryProperty", "failed to add %@ string", v13, v14, v15, v16, v17, a3);
+      AMAuthInstallLog(3, "AMAuthInstallApImg4AddDictionaryProperty", "failed to add %@ string", a3);
       goto LABEL_14;
     }
   }
 
-  v18 = DEREncoderAddSetFromEncoder(a1, v8);
-  if (v18)
+  if (DEREncoderAddSetFromEncoder(a1, v3))
   {
-    AMAuthInstallApImg4AddDictionaryProperty_cold_1(v18, v19, v20, v21, v22, v23, v24, v25);
+    AMAuthInstallApImg4AddDictionaryProperty_cold_1();
 LABEL_14:
-    v35 = 3;
-    AMAuthInstallLog(3, "AMAuthInstallApImg4AddDictionaryProperty", "%s failed to create DER file", a4, a5, a6, a7, a8, "AMAuthInstallApImg4AddDictionaryProperty");
+    v9 = 3;
+    AMAuthInstallLog(3, "AMAuthInstallApImg4AddDictionaryProperty", "%s failed to create DER file", "AMAuthInstallApImg4AddDictionaryProperty");
     goto LABEL_10;
   }
 
   TagAsInteger = AMAuthInstallApImg4GetTagAsInteger(a3);
-  v27 = DEREncoderAddPrivateFromEncoder(v8, a2, TagAsInteger);
-  if (v27)
+  if (DEREncoderAddPrivateFromEncoder(v3, a2, TagAsInteger))
   {
-    AMAuthInstallApImg4AddDictionaryProperty_cold_2(v27, v28, v29, v30, v31, v32, v33, v34);
+    AMAuthInstallApImg4AddDictionaryProperty_cold_2();
     goto LABEL_14;
   }
 
-  v35 = 0;
+  v9 = 0;
 LABEL_10:
-  DEREncoderDestroy(v8);
-  return v35;
+  DEREncoderDestroy(v3);
+  return v9;
 }
 
-uint64_t AMAuthInstallApImg4LocalCreateManifestBody(uint64_t a1, CFTypeRef a2, CFTypeRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMAuthInstallApImg4LocalCreateManifestBody(CFURLRef *a1, CFTypeRef a2, CFDataRef *a3)
 {
   LODWORD(length) = 0;
   bytes = 0;
   if (!a1 || !a2 || !a3)
   {
-    v171 = 3;
-    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalCreateManifestBody", "%s DER operation failed", a4, a5, a6, a7, a8, "AMAuthInstallApImg4LocalCreateManifestBody");
-    v160 = 0;
+    v67 = 3;
+    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalCreateManifestBody", "%s DER operation failed", "AMAuthInstallApImg4LocalCreateManifestBody");
+    v63 = 0;
     if (!a3)
     {
-      v158 = 0;
-      v144 = 0;
-      v16 = 0;
-      v18 = 0;
+      v61 = 0;
+      v57 = 0;
+      v6 = 0;
+      v8 = 0;
       goto LABEL_68;
     }
 
-    v18 = 0;
-    v16 = 0;
-    v144 = 0;
-    v158 = 0;
-LABEL_90:
+    v8 = 0;
+    v6 = 0;
+    v57 = 0;
+    v61 = 0;
+LABEL_89:
     SafeRelease(*a3);
-    v171 = 3;
+    v67 = 3;
     goto LABEL_68;
   }
 
   AMAuthInstallDebugWriteObject(a1, a2, @"tss-request", 2);
-  v16 = DEREncoderCreate(1);
-  if (!v16)
+  v6 = DEREncoderCreate(1);
+  if (!v6)
   {
-    v18 = 0;
-    goto LABEL_88;
+    v8 = 0;
+    goto LABEL_87;
   }
 
-  v17 = CFGetAllocator(a1);
-  v18 = CFNumberCreate(v17, kCFNumberIntType, (*(a1 + 16) + 84));
-  if (!v18)
+  v7 = CFGetAllocator(a1);
+  v8 = CFNumberCreate(v7, kCFNumberIntType, a1[2] + 84);
+  if (!v8)
   {
-    goto LABEL_88;
+    goto LABEL_87;
   }
 
-  if (AMAuthInstallApImg4AddInteger32Property(v16, @"CEPO", v18, v11, v12, v13, v14, v15))
+  if (AMAuthInstallApImg4AddInteger32Property(v6, @"CEPO", v8))
   {
-    goto LABEL_88;
+    goto LABEL_87;
   }
 
   Value = CFDictionaryGetValue(a2, @"ApChipID");
   if (Value)
   {
-    v20 = Value;
-    v21 = CFGetTypeID(Value);
-    if (v21 == CFNumberGetTypeID())
+    v10 = Value;
+    v11 = CFGetTypeID(Value);
+    if (v11 == CFNumberGetTypeID())
     {
-      if (AMAuthInstallApImg4AddInteger32Property(v16, @"CHIP", v20, v22, v23, v24, v25, v26))
+      if (AMAuthInstallApImg4AddInteger32Property(v6, @"CHIP", v10))
       {
-        goto LABEL_88;
+        goto LABEL_87;
       }
     }
   }
 
-  v27 = CFDictionaryGetValue(a2, @"ApBoardID");
-  if (v27)
+  v12 = CFDictionaryGetValue(a2, @"ApBoardID");
+  if (v12)
   {
-    v28 = v27;
-    v29 = CFGetTypeID(v27);
-    if (v29 == CFNumberGetTypeID())
+    v13 = v12;
+    v14 = CFGetTypeID(v12);
+    if (v14 == CFNumberGetTypeID())
     {
-      if (AMAuthInstallApImg4AddInteger32Property(v16, @"BORD", v28, v30, v31, v32, v33, v34))
+      if (AMAuthInstallApImg4AddInteger32Property(v6, @"BORD", v13))
       {
-        goto LABEL_88;
+        goto LABEL_87;
       }
     }
   }
 
-  v35 = CFDictionaryGetValue(a2, @"ApECID");
-  if (v35)
+  v15 = CFDictionaryGetValue(a2, @"ApECID");
+  if (v15)
   {
-    v36 = v35;
-    v37 = CFGetTypeID(v35);
-    if (v37 == CFNumberGetTypeID())
+    v16 = v15;
+    v17 = CFGetTypeID(v15);
+    if (v17 == CFNumberGetTypeID())
     {
-      v43 = AMAuthInstallApImg4AddInteger64Property(v16, @"ECID", v36, v38, v39, v40, v41, v42);
-      if (!v43)
+      v18 = AMAuthInstallApImg4AddInteger64Property(v6, @"ECID", v16);
+      if (!v18)
       {
-        v51 = 1;
+        v19 = 1;
         goto LABEL_18;
       }
 
-      AMAuthInstallApImg4LocalCreateManifestBody_cold_1(v43, v44, v45, v46, v47, v48, v49, v50, v174);
-LABEL_88:
-      v144 = 0;
-      v158 = 0;
-      v160 = 0;
-      goto LABEL_89;
+      AMAuthInstallApImg4LocalCreateManifestBody_cold_1(v18);
+LABEL_87:
+      v57 = 0;
+      v61 = 0;
+      v63 = 0;
+      goto LABEL_88;
     }
   }
 
-  v51 = 0;
+  v19 = 0;
 LABEL_18:
-  v52 = CFDictionaryGetValue(a2, @"ApSecurityDomain");
-  if (v52)
+  v20 = CFDictionaryGetValue(a2, @"ApSecurityDomain");
+  if (v20 && (v21 = v20, v22 = CFGetTypeID(v20), v22 == CFNumberGetTypeID()) && (v23 = AMAuthInstallApImg4AddInteger32Property(v6, @"SDOM", v21), v23) || ((v24 = CFDictionaryGetValue(a2, @"ApProductionMode")) == 0 || (v25 = v24, v26 = CFGetTypeID(v24), v26 != CFBooleanGetTypeID()) || !CFBooleanGetValue(v25) ? (v27 = 0) : (v27 = 1), (v23 = AMAuthInstallApImg4AddBooleanProperty(v6, @"CPRO", v27), v23) || ((v28 = CFDictionaryGetValue(a2, @"ApSecurityMode")) == 0 || (v29 = v28, v30 = CFGetTypeID(v28), v30 != CFBooleanGetTypeID()) || !CFBooleanGetValue(v29) ? (v31 = 0) : (v31 = 1), (v23 = AMAuthInstallApImg4AddBooleanProperty(v6, @"CSEC", v31), v23) || (v32 = CFDictionaryGetValue(a2, @"ApLocalNonceHash")) != 0 && (v33 = v32, v34 = CFGetTypeID(v32), v34 == CFDataGetTypeID()) && (v23 = AMAuthInstallApImg4AddDataProperty(v6, @"LNCH", v33), v23) || (v35 = CFDictionaryGetValue(a2, @"ApNonce")) != 0 && (v36 = v35, v37 = CFGetTypeID(v35), v37 == CFDataGetTypeID()) && (v23 = AMAuthInstallApImg4AddDataProperty(v6, @"BNCH", v36), v23) || (v38 = CFDictionaryGetValue(a2, @"SepNonce")) != 0 && (v39 = v38, v40 = CFGetTypeID(v38), v40 == CFDataGetTypeID()) && (v23 = AMAuthInstallApImg4AddDataProperty(v6, @"snon", v39), v23) || (v41 = CFDictionaryGetValue(a2, @"ApAllowMixAndMatch")) != 0 && (v42 = v41, v43 = CFGetTypeID(v41), v43 == CFBooleanGetTypeID()) && CFBooleanGetValue(v42) && (v23 = AMAuthInstallApImg4AddBooleanProperty(v6, @"AMNM", 1), v23) || (v44 = CFDictionaryGetValue(a2, @"Ap,NextStageIM4MHash")) != 0 && (v45 = v44, v46 = CFGetTypeID(v44), v46 == CFDataGetTypeID()) && (v23 = AMAuthInstallApImg4AddDataProperty(v6, @"nsih", v45), v23) || (v47 = CFDictionaryGetValue(a2, @"Ap,RecoveryOSPolicyNonceHash")) != 0 && (v48 = v47, v49 = CFGetTypeID(v47), v49 == CFDataGetTypeID()) && (v23 = AMAuthInstallApImg4AddDataProperty(v6, @"ronh", v48), v23) || (v50 = CFDictionaryGetValue(a2, @"Ap,VolumeUUID")) != 0 && (v51 = v50, v52 = CFGetTypeID(v50), v52 == CFDataGetTypeID()) && (v23 = AMAuthInstallApImg4AddDataProperty(v6, @"vuid", v51), v23) || (v53 = CFDictionaryGetValue(a2, @"Ap,LocalBoot")) != 0 && (v54 = v53, v55 = CFGetTypeID(v53), v55 == CFBooleanGetTypeID()) && (v56 = CFBooleanGetValue(v54), v23 = AMAuthInstallApImg4AddBooleanProperty(v6, @"lobo", v56), v23))))
   {
-    v53 = v52;
-    v54 = CFGetTypeID(v52);
-    if (v54 == CFNumberGetTypeID())
-    {
-      v60 = AMAuthInstallApImg4AddInteger32Property(v16, @"SDOM", v53, v55, v56, v57, v58, v59);
-      if (v60)
-      {
-        goto LABEL_69;
-      }
-    }
-  }
-
-  v61 = CFDictionaryGetValue(a2, @"ApProductionMode");
-  v69 = 0;
-  if (v61)
-  {
-    v67 = v61;
-    v68 = CFGetTypeID(v61);
-    if (v68 == CFBooleanGetTypeID())
-    {
-      if (CFBooleanGetValue(v67))
-      {
-        v69 = 1;
-      }
-    }
-  }
-
-  v60 = AMAuthInstallApImg4AddBooleanProperty(v16, @"CPRO", v69, v62, v63, v64, v65, v66);
-  if (v60)
-  {
-    goto LABEL_69;
-  }
-
-  v70 = CFDictionaryGetValue(a2, @"ApSecurityMode");
-  v78 = 0;
-  if (v70)
-  {
-    v76 = v70;
-    v77 = CFGetTypeID(v70);
-    if (v77 == CFBooleanGetTypeID())
-    {
-      if (CFBooleanGetValue(v76))
-      {
-        v78 = 1;
-      }
-    }
-  }
-
-  v60 = AMAuthInstallApImg4AddBooleanProperty(v16, @"CSEC", v78, v71, v72, v73, v74, v75);
-  if (v60)
-  {
-    goto LABEL_69;
-  }
-
-  v79 = CFDictionaryGetValue(a2, @"ApLocalNonceHash");
-  if (v79)
-  {
-    v80 = v79;
-    v81 = CFGetTypeID(v79);
-    if (v81 == CFDataGetTypeID())
-    {
-      v60 = AMAuthInstallApImg4AddDataProperty(v16, @"LNCH", v80, v82, v83, v84, v85, v86);
-      if (v60)
-      {
-        goto LABEL_69;
-      }
-    }
-  }
-
-  v87 = CFDictionaryGetValue(a2, @"ApNonce");
-  if (v87)
-  {
-    v88 = v87;
-    v89 = CFGetTypeID(v87);
-    if (v89 == CFDataGetTypeID())
-    {
-      v60 = AMAuthInstallApImg4AddDataProperty(v16, @"BNCH", v88, v90, v91, v92, v93, v94);
-      if (v60)
-      {
-        goto LABEL_69;
-      }
-    }
-  }
-
-  v95 = CFDictionaryGetValue(a2, @"SepNonce");
-  if (v95)
-  {
-    v96 = v95;
-    v97 = CFGetTypeID(v95);
-    if (v97 == CFDataGetTypeID())
-    {
-      v60 = AMAuthInstallApImg4AddDataProperty(v16, @"snon", v96, v98, v99, v100, v101, v102);
-      if (v60)
-      {
-        goto LABEL_69;
-      }
-    }
-  }
-
-  v103 = CFDictionaryGetValue(a2, @"ApAllowMixAndMatch");
-  if (v103)
-  {
-    v104 = v103;
-    v105 = CFGetTypeID(v103);
-    if (v105 == CFBooleanGetTypeID())
-    {
-      if (CFBooleanGetValue(v104))
-      {
-        v60 = AMAuthInstallApImg4AddBooleanProperty(v16, @"AMNM", 1, v106, v107, v108, v109, v110);
-        if (v60)
-        {
-          goto LABEL_69;
-        }
-      }
-    }
-  }
-
-  v111 = CFDictionaryGetValue(a2, @"Ap,NextStageIM4MHash");
-  if (v111)
-  {
-    v112 = v111;
-    v113 = CFGetTypeID(v111);
-    if (v113 == CFDataGetTypeID())
-    {
-      v60 = AMAuthInstallApImg4AddDataProperty(v16, @"nsih", v112, v114, v115, v116, v117, v118);
-      if (v60)
-      {
-        goto LABEL_69;
-      }
-    }
-  }
-
-  v119 = CFDictionaryGetValue(a2, @"Ap,RecoveryOSPolicyNonceHash");
-  if (v119)
-  {
-    v120 = v119;
-    v121 = CFGetTypeID(v119);
-    if (v121 == CFDataGetTypeID())
-    {
-      v60 = AMAuthInstallApImg4AddDataProperty(v16, @"ronh", v120, v122, v123, v124, v125, v126);
-      if (v60)
-      {
-        goto LABEL_69;
-      }
-    }
-  }
-
-  v127 = CFDictionaryGetValue(a2, @"Ap,VolumeUUID");
-  if (v127)
-  {
-    v128 = v127;
-    v129 = CFGetTypeID(v127);
-    if (v129 == CFDataGetTypeID())
-    {
-      v60 = AMAuthInstallApImg4AddDataProperty(v16, @"vuid", v128, v130, v131, v132, v133, v134);
-      if (v60)
-      {
-        goto LABEL_69;
-      }
-    }
-  }
-
-  v135 = CFDictionaryGetValue(a2, @"Ap,LocalBoot");
-  if (v135)
-  {
-    v136 = v135;
-    v137 = CFGetTypeID(v135);
-    if (v137 == CFBooleanGetTypeID())
-    {
-      v138 = CFBooleanGetValue(v136);
-      v60 = AMAuthInstallApImg4AddBooleanProperty(v16, @"lobo", v138, v139, v140, v141, v142, v143);
-      if (v60)
-      {
-LABEL_69:
-        v171 = v60;
-        v144 = 0;
+    v67 = v23;
+    v57 = 0;
 LABEL_70:
-        v158 = 0;
-LABEL_82:
-        v160 = 0;
-        goto LABEL_83;
-      }
-    }
-  }
-
-  v144 = DEREncoderCreate(1);
-  if (!v144)
-  {
-    v158 = 0;
-    goto LABEL_76;
-  }
-
-  v145 = AMAuthInstallApImg4AddDictionaryProperty(v16, v144, @"MANP", v11, v12, v13, v14, v15);
-  if (v145)
-  {
-    v171 = v145;
-    goto LABEL_70;
-  }
-
-  v146 = CFGetAllocator(a1);
-  v152 = AMAuthInstallApImg4LocalAddImages(v146, a2, v144, v147, v148, v149, v150, v151);
-  if (v152)
-  {
-    v171 = v152;
-    v158 = 0;
-    v173 = "failed to add img objects to the manifest body";
+    v61 = 0;
 LABEL_81:
-    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalCreateManifestBody", v173, v153, v154, v155, v156, v157, v174);
+    v63 = 0;
     goto LABEL_82;
   }
 
-  v158 = DEREncoderCreate(0);
-  if (!v158)
+  v57 = DEREncoderCreate(1);
+  if (!v57)
   {
-LABEL_76:
-    v160 = 0;
-    goto LABEL_77;
+    v61 = 0;
+    goto LABEL_76;
   }
 
-  v159 = AMAuthInstallApImg4AddDictionaryProperty(v144, v158, @"MANB", v11, v12, v13, v14, v15);
-  if (v159)
+  v58 = AMAuthInstallApImg4AddDictionaryProperty(v6, v57, @"MANP");
+  if (v58)
   {
-    v171 = v159;
-    v173 = "failed to create the signed section";
+    v67 = v58;
+    goto LABEL_70;
+  }
+
+  v59 = CFGetAllocator(a1);
+  v60 = AMAuthInstallApImg4LocalAddImages(v59, a2, v57);
+  if (v60)
+  {
+    v67 = v60;
+    v61 = 0;
+    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalCreateManifestBody", "failed to add img objects to the manifest body");
     goto LABEL_81;
   }
 
-  v160 = DEREncoderCreate(0);
-  if (!v160)
+  v61 = DEREncoderCreate(0);
+  if (!v61)
   {
-LABEL_77:
-    v171 = 2;
-    goto LABEL_83;
+LABEL_76:
+    v63 = 0;
+    goto LABEL_77;
   }
 
-  v161 = DEREncoderAddSetFromEncoder(v158, v160);
-  if (v161)
+  v62 = AMAuthInstallApImg4AddDictionaryProperty(v57, v61, @"MANB");
+  if (v62)
   {
-    v171 = v161;
-LABEL_83:
-    if (v51)
+    v67 = v62;
+    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalCreateManifestBody", "failed to create the signed section");
+    goto LABEL_81;
+  }
+
+  v63 = DEREncoderCreate(0);
+  if (!v63)
+  {
+LABEL_77:
+    v67 = 2;
+    goto LABEL_82;
+  }
+
+  v64 = DEREncoderAddSetFromEncoder(v61, v63);
+  if (v64)
+  {
+    v67 = v64;
+LABEL_82:
+    if (v19)
     {
       goto LABEL_68;
     }
 
+    goto LABEL_88;
+  }
+
+  if (DEREncoderCreateEncodedBuffer(v63, &bytes, &length))
+  {
+LABEL_88:
+    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalCreateManifestBody", "%s DER operation failed", "AMAuthInstallApImg4LocalCreateManifestBody");
     goto LABEL_89;
   }
 
-  if (DEREncoderCreateEncodedBuffer(v160, &bytes, &length))
+  v65 = CFGetAllocator(a1);
+  v66 = CFDataCreate(v65, bytes, length);
+  *a3 = v66;
+  if (v66)
   {
-LABEL_89:
-    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalCreateManifestBody", "%s DER operation failed", v11, v12, v13, v14, v15, "AMAuthInstallApImg4LocalCreateManifestBody");
-    goto LABEL_90;
-  }
-
-  v162 = CFGetAllocator(a1);
-  v163 = CFDataCreate(v162, bytes, length);
-  *a3 = v163;
-  if (v163)
-  {
-    v171 = 0;
+    v67 = 0;
   }
 
   else
   {
-    AMAuthInstallApImg4LocalCreateManifestBody_cold_2(0, v164, v165, v166, v167, v168, v169, v170);
-    v171 = 2;
+    AMAuthInstallApImg4LocalCreateManifestBody_cold_2();
+    v67 = 2;
   }
 
 LABEL_68:
   SafeFree(bytes);
-  DEREncoderDestroy(v16);
-  DEREncoderDestroy(v144);
-  DEREncoderDestroy(v158);
-  DEREncoderDestroy(v160);
-  SafeRelease(v18);
-  return v171;
+  DEREncoderDestroy(v6);
+  DEREncoderDestroy(v57);
+  DEREncoderDestroy(v61);
+  DEREncoderDestroy(v63);
+  SafeRelease(v8);
+  return v67;
 }
 
-CFDataRef AMAuthInstallApImg4LocalCreateEncodedTag(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CFDataRef AMAuthInstallApImg4LocalCreateEncodedTag(const __CFString *a1)
 {
-  length = 0;
+  *length = 0;
   bytes = 0;
   if (!a1)
   {
-    AMAuthInstallApImg4LocalCreateEncodedTag_cold_2(0, a2, a3, a4, a5, a6, a7, a8);
+    AMAuthInstallApImg4LocalCreateEncodedTag_cold_2();
     goto LABEL_9;
   }
 
-  v8 = a1;
-  CString = CFStringGetCString(a1, length_4, 256, 0x8000100u);
-  if (!CString)
+  if (!CFStringGetCString(a1, &length[4], 256, 0x8000100u))
   {
-    AMAuthInstallApImg4LocalCreateEncodedTag_cold_3(CString, v10, v11, v12, v13, v14, v15, v16);
+    AMAuthInstallApImg4LocalCreateEncodedTag_cold_3();
 LABEL_9:
-    v17 = 0;
+    v2 = 0;
     goto LABEL_10;
   }
 
-  v17 = DEREncoderCreate(0);
-  if (!v17)
+  v2 = DEREncoderCreate(0);
+  if (!v2)
   {
 LABEL_10:
     SafeRelease(0);
-    v32 = 0;
+    v4 = 0;
     goto LABEL_7;
   }
 
-  v18 = strlen(length_4);
-  if (DEREncoderAddData(v17, 0, 0x16u, length_4, v18, 0))
+  v3 = strlen(&length[4]);
+  if (DEREncoderAddData(v2, 0, 22, &length[4], v3, 0))
   {
-    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalCreateEncodedTag", "failed to add %@ string", v19, v20, v21, v22, v23, v8);
+    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalCreateEncodedTag", "failed to add %@ string", a1, bytes);
     goto LABEL_10;
   }
 
-  v24 = DEREncoderCreateEncodedBuffer(v17, &bytes, &length);
-  if (v24)
+  if (DEREncoderCreateEncodedBuffer(v2, &bytes, length))
   {
-    AMAuthInstallApImg4LocalCreateEncodedTag_cold_1(v24, v25, v26, v27, v28, v29, v30, v31);
+    AMAuthInstallApImg4LocalCreateEncodedTag_cold_1();
     goto LABEL_10;
   }
 
-  v32 = CFDataCreate(0, bytes, length);
+  v4 = CFDataCreate(0, bytes, *length);
 LABEL_7:
   SafeFree(bytes);
-  DEREncoderDestroy(v17);
-  return v32;
+  DEREncoderDestroy(v2);
+  return v4;
 }
 
-CFDataRef AMAuthInstallApImg4LocalCreateEncodedVersion(unsigned int a1)
+CFDataRef AMAuthInstallApImg4LocalCreateEncodedVersion(uint64_t a1)
 {
+  v1 = a1;
   LODWORD(length) = 0;
   bytes = 0;
   v2 = DEREncoderCreate(0);
@@ -8290,28 +7953,27 @@ CFDataRef AMAuthInstallApImg4LocalCreateEncodedVersion(unsigned int a1)
     goto LABEL_8;
   }
 
-  v4 = DEREncoderAddUInt32(v2, 0, 2u, a1);
+  v4 = DEREncoderAddUInt32(v2, 0, 2u, v1);
   if (v4)
   {
-    AMAuthInstallApImg4LocalCreateEncodedVersion_cold_1(v4, v5, v6, v7, v8, v9, v10, v11, bytes);
+    AMAuthInstallApImg4LocalCreateEncodedVersion_cold_1(v4);
 LABEL_8:
     SafeRelease(0);
-    v20 = 0;
+    v5 = 0;
     goto LABEL_5;
   }
 
-  v12 = DEREncoderCreateEncodedBuffer(v3, &bytes, &length);
-  if (v12)
+  if (DEREncoderCreateEncodedBuffer(v3, &bytes, &length))
   {
-    AMAuthInstallApImg4LocalCreateEncodedVersion_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
+    AMAuthInstallApImg4LocalCreateEncodedVersion_cold_2();
     goto LABEL_8;
   }
 
-  v20 = CFDataCreate(0, bytes, length);
+  v5 = CFDataCreate(0, bytes, length);
 LABEL_5:
   SafeFree(bytes);
   DEREncoderDestroy(v3);
-  return v20;
+  return v5;
 }
 
 CFDataRef AMAuthInstallApImg4LocalCreateEncodedData(const __CFData *a1)
@@ -8326,286 +7988,276 @@ CFDataRef AMAuthInstallApImg4LocalCreateEncodedData(const __CFData *a1)
 
   BytePtr = CFDataGetBytePtr(a1);
   v4 = CFDataGetLength(a1);
-  v5 = DEREncoderAddData(v2, 0, 4u, BytePtr, v4, 0);
-  if (v5)
+  if (DEREncoderAddData(v2, 0, 4, BytePtr, v4, 0))
   {
-    AMAuthInstallApImg4LocalCreateEncodedData_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+    AMAuthInstallApImg4LocalCreateEncodedData_cold_1();
 LABEL_8:
     SafeRelease(0);
-    v21 = 0;
+    v5 = 0;
     goto LABEL_5;
   }
 
-  v13 = DEREncoderCreateEncodedBuffer(v2, &bytes, &length);
-  if (v13)
+  if (DEREncoderCreateEncodedBuffer(v2, &bytes, &length))
   {
-    AMAuthInstallApImg4LocalCreateEncodedData_cold_2(v13, v14, v15, v16, v17, v18, v19, v20);
+    AMAuthInstallApImg4LocalCreateEncodedData_cold_2();
     goto LABEL_8;
   }
 
-  v21 = CFDataCreate(0, bytes, length);
+  v5 = CFDataCreate(0, bytes, length);
 LABEL_5:
   SafeFree(bytes);
   DEREncoderDestroy(v2);
-  return v21;
+  return v5;
 }
 
-uint64_t _AMAuthInstallApImg4LocalCreateSignedManifest(void *a1, const void *a2, const void *a3, const void *a4, uint64_t a5, CFTypeRef *a6, uint64_t a7, uint64_t a8)
+uint64_t _AMAuthInstallApImg4LocalCreateSignedManifest(void *a1, const void *a2, const void *a3, const void *a4, const void *a5, CFDataRef *a6, int a7)
 {
   LODWORD(length) = 0;
-  v115 = 0;
+  v46 = 0;
   theData = 0;
   bytes = 0;
-  v114 = 0;
+  v45 = 0;
   if (!a1 || !a2 || !a6)
   {
-    v59 = 3;
-    AMAuthInstallLog(3, "_AMAuthInstallApImg4LocalCreateSignedManifest", "%s failed to create DER file", a4, a5, a6, a7, a8, "_AMAuthInstallApImg4LocalCreateSignedManifest");
-    v70 = 0;
-    v69 = 0;
-    v43 = 0;
-    v32 = 0;
+    v25 = 3;
+    AMAuthInstallLog(3, "_AMAuthInstallApImg4LocalCreateSignedManifest", "%s failed to create DER file", "_AMAuthInstallApImg4LocalCreateSignedManifest");
+    v29 = 0;
+    v28 = 0;
+    v21 = 0;
+    v17 = 0;
     Mutable = 0;
     if (!a6)
     {
       goto LABEL_16;
     }
 
-    goto LABEL_41;
+    goto LABEL_40;
   }
 
-  v10 = a7;
-  v15 = CFGetAllocator(a1);
-  Mutable = CFDataCreateMutable(v15, 0);
+  v14 = CFGetAllocator(a1);
+  Mutable = CFDataCreateMutable(v14, 0);
   if (!Mutable)
   {
-    v32 = 0;
-LABEL_49:
-    v43 = 0;
-    goto LABEL_38;
+    v17 = 0;
+LABEL_48:
+    v21 = 0;
+    goto LABEL_37;
   }
 
-  EncodedTag = AMAuthInstallApImg4LocalCreateEncodedTag(@"IM4M", v16, v17, v18, v19, v20, v21, v22);
-  v32 = EncodedTag;
+  EncodedTag = AMAuthInstallApImg4LocalCreateEncodedTag(@"IM4M");
+  v17 = EncodedTag;
   if (!EncodedTag)
   {
-    _AMAuthInstallApImg4LocalCreateSignedManifest_cold_9(0, v25, v26, v27, v28, v29, v30, v31);
-    goto LABEL_49;
+    _AMAuthInstallApImg4LocalCreateSignedManifest_cold_9();
+    goto LABEL_48;
   }
 
   BytePtr = CFDataGetBytePtr(EncodedTag);
-  v34 = CFDataGetLength(v32);
-  CFDataAppendBytes(Mutable, BytePtr, v34);
+  v19 = CFDataGetLength(v17);
+  CFDataAppendBytes(Mutable, BytePtr, v19);
   EncodedVersion = AMAuthInstallApImg4LocalCreateEncodedVersion(0);
-  v43 = EncodedVersion;
+  v21 = EncodedVersion;
   if (!EncodedVersion)
   {
-    _AMAuthInstallApImg4LocalCreateSignedManifest_cold_8(0, v36, v37, v38, v39, v40, v41, v42);
-    goto LABEL_38;
+    _AMAuthInstallApImg4LocalCreateSignedManifest_cold_8();
+    goto LABEL_37;
   }
 
   cf = a5;
-  v44 = CFDataGetBytePtr(EncodedVersion);
-  v45 = CFDataGetLength(v43);
-  CFDataAppendBytes(Mutable, v44, v45);
+  v22 = CFDataGetBytePtr(EncodedVersion);
+  v23 = CFDataGetLength(v21);
+  CFDataAppendBytes(Mutable, v22, v23);
   if (a3)
   {
-    v51 = CFRetain(a3);
-    theData = v51;
-    v59 = 99;
-    if (v51)
+    v24 = CFRetain(a3);
+    theData = v24;
+    v25 = 99;
+    if (v24)
     {
       goto LABEL_9;
     }
 
 LABEL_19:
-    _AMAuthInstallApImg4LocalCreateSignedManifest_cold_7(v51, v52, v53, v54, v55, v56, v57, v58);
-    goto LABEL_38;
+    _AMAuthInstallApImg4LocalCreateSignedManifest_cold_7();
+    goto LABEL_37;
   }
 
-  ManifestBody = AMAuthInstallApImg4LocalCreateManifestBody(a1, a2, &theData, v46, v47, v48, v49, v50);
-  if (ManifestBody)
+  if (AMAuthInstallApImg4LocalCreateManifestBody(a1, a2, &theData))
   {
-    _AMAuthInstallApImg4LocalCreateSignedManifest_cold_1(ManifestBody, v52, v53, v54, v55, v56, v57, v58);
-    goto LABEL_38;
+    _AMAuthInstallApImg4LocalCreateSignedManifest_cold_1();
+    goto LABEL_37;
   }
 
-  v59 = 0;
-  v51 = theData;
+  v25 = 0;
+  v24 = theData;
   if (!theData)
   {
     goto LABEL_19;
   }
 
 LABEL_9:
-  v60 = CFDataGetBytePtr(v51);
-  v61 = CFDataGetLength(theData);
-  CFDataAppendBytes(Mutable, v60, v61);
-  if (!v10)
+  v26 = CFDataGetBytePtr(v24);
+  v27 = CFDataGetLength(theData);
+  CFDataAppendBytes(Mutable, v26, v27);
+  if (!a7)
   {
-    if (!AMAuthInstallApImg4LocalRegisterKeys(a1, v62, v63, v64, v65, v66, v67, v68))
+    if (!AMAuthInstallApImg4LocalRegisterKeys(a1))
     {
       if (a4)
       {
-        v84 = CFRetain(a4);
-        v115 = v84;
-        if (v84)
+        v35 = CFRetain(a4);
+        v46 = v35;
+        if (v35)
         {
-          EncodedData = AMAuthInstallApImg4LocalCreateEncodedData(v84);
-          v69 = EncodedData;
+          EncodedData = AMAuthInstallApImg4LocalCreateEncodedData(v35);
+          v28 = EncodedData;
           if (EncodedData)
           {
-            v95 = CFDataGetBytePtr(EncodedData);
-            v96 = CFDataGetLength(v69);
-            CFDataAppendBytes(Mutable, v95, v96);
+            v37 = CFDataGetBytePtr(EncodedData);
+            v38 = CFDataGetLength(v28);
+            CFDataAppendBytes(Mutable, v37, v38);
             if (cf)
             {
-              v97 = CFRetain(cf);
-              v114 = v97;
-              if (v97)
+              v39 = CFRetain(cf);
+              v45 = v39;
+              if (v39)
               {
 LABEL_26:
-                v105 = CFDataGetBytePtr(v97);
-                v106 = CFDataGetLength(v114);
-                CFDataAppendBytes(Mutable, v105, v106);
-                v59 = 0;
+                v40 = CFDataGetBytePtr(v39);
+                v41 = CFDataGetLength(v45);
+                CFDataAppendBytes(Mutable, v40, v41);
+                v25 = 0;
                 goto LABEL_11;
               }
             }
 
             else
             {
-              EncodedCertificateChain = AMAuthInstallApImg4LocalCreateEncodedCertificateChain(a1, &v114);
-              if (EncodedCertificateChain)
+              if (AMAuthInstallApImg4LocalCreateEncodedCertificateChain(a1, &v45))
               {
-                _AMAuthInstallApImg4LocalCreateSignedManifest_cold_2(EncodedCertificateChain, v98, v99, v100, v101, v102, v103, v104);
-                goto LABEL_39;
+                _AMAuthInstallApImg4LocalCreateSignedManifest_cold_2();
+                goto LABEL_38;
               }
 
-              v97 = v114;
-              if (v114)
+              v39 = v45;
+              if (v45)
               {
                 goto LABEL_26;
               }
             }
 
-            _AMAuthInstallApImg4LocalCreateSignedManifest_cold_4(v97, v98, v99, v100, v101, v102, v103, v104);
+            _AMAuthInstallApImg4LocalCreateSignedManifest_cold_4();
           }
 
           else
           {
-            _AMAuthInstallApImg4LocalCreateSignedManifest_cold_5(0, v88, v89, v90, v91, v92, v93, v94);
+            _AMAuthInstallApImg4LocalCreateSignedManifest_cold_5();
           }
 
+LABEL_38:
+          v29 = 0;
 LABEL_39:
-          v70 = 0;
+          AMAuthInstallLog(3, "_AMAuthInstallApImg4LocalCreateSignedManifest", "%s failed to create DER file", "_AMAuthInstallApImg4LocalCreateSignedManifest");
 LABEL_40:
-          AMAuthInstallLog(3, "_AMAuthInstallApImg4LocalCreateSignedManifest", "%s failed to create DER file", v18, v19, v20, v21, v22, "_AMAuthInstallApImg4LocalCreateSignedManifest");
-LABEL_41:
           SafeRelease(*a6);
           *a6 = 0;
-          v59 = 3;
+          v25 = 3;
           goto LABEL_16;
         }
 
-        goto LABEL_36;
+        goto LABEL_35;
       }
 
-      v107 = *(a1[2] + 128);
-      if (v107 != 384)
+      v42 = *(a1[2] + 128);
+      if (v42 != 384)
       {
-        if (v107 == 256)
+        if (v42 == 256)
         {
-          v109 = a1[49];
           CFDataGetBytePtr(theData);
           CFDataGetLength(theData);
           if (AMAuthInstallCryptoCreateRsaSignature_SHA256())
           {
-            goto LABEL_38;
+            goto LABEL_37;
           }
         }
 
         else
         {
-          if (v107 != 1)
+          if (v42 != 1)
           {
-            AMAuthInstallLog(3, "_AMAuthInstallApImg4LocalCreateSignedManifest", "Unsupported digest type: %d", v18, v19, v20, v21, v22, *(a1[2] + 128));
-            goto LABEL_38;
+            AMAuthInstallLog(3, "_AMAuthInstallApImg4LocalCreateSignedManifest", "Unsupported digest type: %d", *(a1[2] + 128));
+            goto LABEL_37;
           }
 
-          v108 = a1[49];
           CFDataGetBytePtr(theData);
           CFDataGetLength(theData);
           if (AMAuthInstallCryptoCreateRsaSignature())
           {
-            goto LABEL_38;
+            goto LABEL_37;
           }
         }
 
         goto LABEL_35;
       }
 
-      v110 = a1[49];
       CFDataGetBytePtr(theData);
       CFDataGetLength(theData);
       if (!AMAuthInstallCryptoCreateRsaSignature_SHA384())
       {
 LABEL_35:
-        v84 = v115;
-LABEL_36:
-        _AMAuthInstallApImg4LocalCreateSignedManifest_cold_6(v84, v85, v86, v18, v19, v20, v21, v22);
+        _AMAuthInstallApImg4LocalCreateSignedManifest_cold_6();
       }
     }
 
-LABEL_38:
-    v69 = 0;
+LABEL_37:
+    v28 = 0;
+    goto LABEL_38;
+  }
+
+  v28 = 0;
+LABEL_11:
+  v29 = DEREncoderCreate(0);
+  if (!v29)
+  {
     goto LABEL_39;
   }
 
-  v69 = 0;
-LABEL_11:
-  v70 = DEREncoderCreate(0);
-  if (!v70)
+  v30 = CFDataGetBytePtr(Mutable);
+  v31 = CFDataGetLength(Mutable);
+  if (DEREncoderAddData(v29, 0, 16, v30, v31, 1) || DEREncoderCreateEncodedBuffer(v29, &bytes, &length))
   {
-    goto LABEL_40;
+    goto LABEL_39;
   }
 
-  v71 = CFDataGetBytePtr(Mutable);
-  v72 = CFDataGetLength(Mutable);
-  if (DEREncoderAddData(v70, 0, 0x10u, v71, v72, 1) || DEREncoderCreateEncodedBuffer(v70, &bytes, &length))
+  v32 = CFGetAllocator(a1);
+  v33 = CFDataCreate(v32, bytes, length);
+  *a6 = v33;
+  if (!v33)
   {
-    goto LABEL_40;
-  }
-
-  v73 = CFGetAllocator(a1);
-  v74 = CFDataCreate(v73, bytes, length);
-  *a6 = v74;
-  if (!v74)
-  {
-    _AMAuthInstallApImg4LocalCreateSignedManifest_cold_3(0, v75, v76, v77, v78, v79, v80, v81);
-    v59 = 2;
+    _AMAuthInstallApImg4LocalCreateSignedManifest_cold_3();
+    v25 = 2;
   }
 
 LABEL_16:
   SafeRelease(Mutable);
-  SafeRelease(v32);
-  SafeRelease(v43);
+  SafeRelease(v17);
+  SafeRelease(v21);
   SafeRelease(theData);
-  SafeRelease(v115);
-  SafeRelease(v69);
-  SafeRelease(v114);
+  SafeRelease(v46);
+  SafeRelease(v28);
+  SafeRelease(v45);
   SafeFree(bytes);
-  DEREncoderDestroy(v70);
-  return v59;
+  DEREncoderDestroy(v29);
+  return v25;
 }
 
-uint64_t OUTLINED_FUNCTION_1_3()
+uint64_t OUTLINED_FUNCTION_1_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   return AMAuthInstallCryptoRegisterKeysFromPEMBuffer();
 }
 
-void _AMAuthInstallBasebandParametersFinalize(CFTypeRef *a1)
+void _AMAuthInstallBasebandParametersFinalize(void *a1)
 {
   if (a1)
   {
@@ -8677,41 +8329,41 @@ __CFString *AMAuthInstallBasebandCopyDescription(uint64_t a1)
   return Mutable;
 }
 
-void AMAuthInstallBundleFinalize(uint64_t a1)
+void AMAuthInstallBundleFinalize(uint64_t result)
 {
-  v1 = *(a1 + 128);
+  v1 = *(result + 128);
   if (v1)
   {
     SafeRelease(*v1);
-    SafeRelease(*(*(a1 + 128) + 8));
-    SafeRelease(*(*(a1 + 128) + 16));
-    SafeRelease(*(*(a1 + 128) + 24));
-    SafeRelease(*(*(a1 + 128) + 32));
-    SafeRelease(*(*(a1 + 128) + 40));
-    SafeFree(*(a1 + 128));
-    *(a1 + 128) = 0;
+    SafeRelease(*(*(result + 128) + 8));
+    SafeRelease(*(*(result + 128) + 16));
+    SafeRelease(*(*(result + 128) + 24));
+    SafeRelease(*(*(result + 128) + 32));
+    SafeRelease(*(*(result + 128) + 40));
+    SafeFree(*(result + 128));
+    *(result + 128) = 0;
   }
 }
 
 uint64_t AMAuthInstallHttpMessageSendSyncNew(CFAllocatorRef allocator, uint64_t a2, CFTypeRef *a3, _DWORD *a4, CFDictionaryRef theDict, double a6)
 {
   valuePtr = a6;
-  v45 = 0;
+  v18 = 0;
   cf = 0;
-  v44 = -1;
+  v17 = -1;
   if (theDict)
   {
     Count = CFDictionaryGetCount(theDict);
     MutableCopy = CFDictionaryCreateMutableCopy(allocator, Count, theDict);
     if (CFDictionaryContainsKey(MutableCopy, @"SocksProxySettings"))
     {
-      AMAuthInstallLog(7, "AMAuthInstallHttpMessageSendSyncNew", "Options dictionary contains proxy information. Will attempt to use a proxy.", v13, v14, v15, v16, v17, v43);
+      AMAuthInstallLog(7, "AMAuthInstallHttpMessageSendSyncNew", "Options dictionary contains proxy information. Will attempt to use a proxy.");
     }
 
     Mutable = CFDictionaryContainsKey(MutableCopy, @"TrustedServerCAs");
     if (Mutable)
     {
-      AMAuthInstallLog(7, "AMAuthInstallHttpMessageSendSyncNew", "Options dictionary contains trusted server CAs. Will authenticate SSL against CAs.", v21, v22, v23, v24, v25, v43);
+      AMAuthInstallLog(7, "AMAuthInstallHttpMessageSendSyncNew", "Options dictionary contains trusted server CAs. Will authenticate SSL against CAs.");
     }
   }
 
@@ -8723,33 +8375,33 @@ uint64_t AMAuthInstallHttpMessageSendSyncNew(CFAllocatorRef allocator, uint64_t 
 
   if (!MutableCopy)
   {
-    AMAuthInstallHttpMessageSendSyncNew_cold_3(Mutable, v19, v20, v21, v22, v23, v24, v25, v43);
-    v33 = 0;
+    AMAuthInstallHttpMessageSendSyncNew_cold_3(Mutable);
+    v14 = 0;
 LABEL_18:
-    v41 = 2;
+    v15 = 2;
     goto LABEL_15;
   }
 
-  v33 = CFNumberCreate(allocator, kCFNumberDoubleType, &valuePtr);
-  if (!v33)
+  v14 = CFNumberCreate(allocator, kCFNumberDoubleType, &valuePtr);
+  if (!v14)
   {
-    AMAuthInstallHttpMessageSendSyncNew_cold_2(0, v26, v27, v28, v29, v30, v31, v32);
+    AMAuthInstallHttpMessageSendSyncNew_cold_2();
     goto LABEL_18;
   }
 
-  CFDictionarySetValue(MutableCopy, @"Timeout", v33);
-  AMSupportHttpSendSync(a2, MutableCopy, &cf, 0, &v44);
-  if (v45)
+  CFDictionarySetValue(MutableCopy, @"Timeout", v14);
+  AMSupportHttpSendSync(a2, MutableCopy, &cf, 0, &v17);
+  if (v18)
   {
-    AMAuthInstallLog(3, "AMAuthInstallHttpMessageSendSyncNew", "HTTP request failed with error %@", v36, v37, v38, v39, v40, v45);
+    AMAuthInstallLog(3, "AMAuthInstallHttpMessageSendSyncNew", "HTTP request failed with error %@", v18);
 LABEL_21:
-    v41 = 16;
+    v15 = 16;
     goto LABEL_15;
   }
 
   if (!cf)
   {
-    AMAuthInstallHttpMessageSendSyncNew_cold_1(0, v34, v35, v36, v37, v38, v39, v40);
+    AMAuthInstallHttpMessageSendSyncNew_cold_1();
     goto LABEL_21;
   }
 
@@ -8758,20 +8410,20 @@ LABEL_21:
     *a3 = CFRetain(cf);
   }
 
-  v41 = 0;
+  v15 = 0;
   if (a4)
   {
-    *a4 = v44;
+    *a4 = v17;
   }
 
 LABEL_15:
   AMSupportSafeRelease(cf);
   AMSupportSafeRelease(MutableCopy);
-  AMSupportSafeRelease(v33);
-  return v41;
+  AMSupportSafeRelease(v14);
+  return v15;
 }
 
-uint64_t AMAuthInstallLockCreate()
+uint64_t AMAuthInstallLockCreate(uint64_t a1)
 {
   pthread_once(&_AMAuthInstallLockClassInitializeOnce, _AMAuthInstallLockClassInitialize);
   result = _CFRuntimeCreateInstance();
@@ -8806,7 +8458,7 @@ void (*AMAuthInstallLogSetHandler(void (*result)(int a1, uint64_t a2)))(int a1, 
   return result;
 }
 
-void _DefaultLogHandler_0(int a1, uint64_t a2)
+void _DefaultLogHandler_0(unsigned int a1, uint64_t a2)
 {
   if (_DefaultLogHandler_once != -1)
   {
@@ -8880,81 +8532,82 @@ LABEL_15:
   }
 }
 
-void AMAuthInstallLog(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void AMAuthInstallLog(uint64_t a1, uint64_t a2, const char *a3, ...)
 {
-  v9 = __chkstk_darwin();
-  v12 = v11;
-  v13 = v9;
-  v14 = "";
-  if (v10)
+  va_start(va, a3);
+  v3 = __chkstk_darwin(a1, a2, a3);
+  v6 = v5;
+  v7 = v3;
+  v8 = "";
+  if (v4)
   {
-    v14 = v10;
+    v8 = v4;
   }
 
-  v15 = snprintf(__str, 0x1000uLL, "%s: ", v14);
-  v16 = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, v12, 0x8000100u, kCFAllocatorNull);
-  if (!v16)
+  v9 = snprintf(__str, 0x1000uLL, "%s: ", v8);
+  v10 = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, v6, 0x8000100u, kCFAllocatorNull);
+  if (!v10)
   {
-    v18 = 0;
+    v12 = 0;
     goto LABEL_9;
   }
 
-  v17 = CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, 0, v16, &a9);
-  v18 = v17;
-  if (!v17)
+  v11 = CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, 0, v10, va);
+  v12 = v11;
+  if (!v11)
   {
 LABEL_9:
-    v26 = 0;
-    v25 = 0;
+    v20 = 0;
+    v19 = 0;
     goto LABEL_14;
   }
 
-  v19 = v15;
-  v20 = 4096 - v15;
-  Length = CFStringGetLength(v17);
-  v22 = Length;
-  if (4096 - v15 < Length && (v23 = malloc(v15 + Length + 1)) != 0)
+  v13 = v9;
+  v14 = 4096 - v9;
+  Length = CFStringGetLength(v11);
+  v16 = Length;
+  if (4096 - v9 < Length && (v17 = malloc(v9 + Length + 1)) != 0)
   {
-    v24 = v23;
-    v20 = v22 + 1;
-    memcpy(v23, __str, v15);
-    v25 = v24;
+    v18 = v17;
+    v14 = v16 + 1;
+    memcpy(v17, __str, v9);
+    v19 = v18;
   }
 
   else
   {
-    v25 = 0;
-    v24 = __str;
+    v19 = 0;
+    v18 = __str;
   }
 
-  if (CFStringGetCString(v18, &v24[v19], v20, 0x8000100u))
+  if (CFStringGetCString(v12, &v18[v13], v14, 0x8000100u))
   {
-    v26 = v24;
+    v20 = v18;
   }
 
   else
   {
-    v26 = 0;
+    v20 = 0;
   }
 
 LABEL_14:
-  if (v26)
+  if (v20)
   {
-    v27 = v26;
+    v21 = v20;
   }
 
   else
   {
-    v27 = "failed to format log message";
+    v21 = "failed to format log message";
   }
 
-  _logHandler_0(v13, v27);
-  SafeRelease(v16);
-  SafeRelease(v18);
-  SafeFree(v25);
+  _logHandler_0(v7, v21);
+  SafeRelease(v10);
+  SafeRelease(v12);
+  SafeFree(v19);
 }
 
-uint64_t AMAuthInstallDebugWriteObject(char *cf, CFTypeRef a2, uint64_t a3, int a4)
+uint64_t AMAuthInstallDebugWriteObject(CFURLRef *cf, CFTypeRef a2, uint64_t a3, int a4)
 {
   cfa = 0;
   if (!cf)
@@ -8962,7 +8615,7 @@ uint64_t AMAuthInstallDebugWriteObject(char *cf, CFTypeRef a2, uint64_t a3, int 
     goto LABEL_19;
   }
 
-  if ((*(cf + 86) & a4) == 0)
+  if ((cf[43] & a4) == 0)
   {
     v14 = 0;
 LABEL_16:
@@ -8970,14 +8623,14 @@ LABEL_16:
     goto LABEL_20;
   }
 
-  if (!*(cf + 42))
+  if (!cf[42])
   {
-    v29 = CFGetAllocator(cf);
-    v30 = AMAuthInstallSupportCopyURLToNewTempDirectory(v29, "amai-debug.XXXXXX", cf + 336);
-    if (v30)
+    v19 = CFGetAllocator(cf);
+    v20 = AMAuthInstallSupportCopyURLToNewTempDirectory(v19, "amai-debug.XXXXXX", cf + 42);
+    if (v20)
     {
-      v14 = v30;
-      AMAuthInstallLog(3, "AMAuthInstallDebugWriteObject", "failed to create debug output directory", v31, v32, v33, v34, v35, v42);
+      v14 = v20;
+      AMAuthInstallLog(3, "AMAuthInstallDebugWriteObject", "failed to create debug output directory");
       goto LABEL_16;
     }
   }
@@ -8997,14 +8650,14 @@ LABEL_13:
     goto LABEL_20;
   }
 
-  v21 = CFGetTypeID(a2);
-  if (v21 != CFDictionaryGetTypeID())
+  v16 = CFGetTypeID(a2);
+  if (v16 != CFDictionaryGetTypeID())
   {
-    v22 = CFGetTypeID(a2);
-    if (v22 != CFArrayGetTypeID())
+    v17 = CFGetTypeID(a2);
+    if (v17 != CFArrayGetTypeID())
     {
-      AMAuthInstallLog(3, "AMAuthInstallDebugWriteObject", "can't prepare data for output to file", v23, v24, v25, v26, v27, v42);
-      AMAuthInstallLog(8, "AMAuthInstallDebugWriteObject", "%@", v36, v37, v38, v39, v40, a2);
+      AMAuthInstallLog(3, "AMAuthInstallDebugWriteObject", "can't prepare data for output to file");
+      AMAuthInstallLog(8, "AMAuthInstallDebugWriteObject", "%@", a2);
 LABEL_19:
       Data = 0;
       v14 = 1;
@@ -9012,8 +8665,8 @@ LABEL_19:
     }
   }
 
-  v28 = CFGetAllocator(cf);
-  Data = CFPropertyListCreateData(v28, a2, kCFPropertyListXMLFormat_v1_0, 0, 0);
+  v18 = CFGetAllocator(cf);
+  Data = CFPropertyListCreateData(v18, a2, kCFPropertyListXMLFormat_v1_0, 0, 0);
   v9 = ".plist";
   if (!Data)
   {
@@ -9027,13 +8680,13 @@ LABEL_6:
   {
     v12 = v11;
     v13 = CFGetAllocator(cf);
-    v14 = AMAuthInstallSupportCopyURLWithAppendedComponent(v13, *(cf + 42), v12, 0, &cfa);
+    v14 = AMAuthInstallSupportCopyURLWithAppendedComponent(v13, cf[42], v12, 0, &cfa);
     CFRelease(v12);
     if (!v14)
     {
       v15 = CFGetAllocator(cf);
       v14 = AMAuthInstallSupportWriteDataToFileURL(v15, Data, cfa, 0);
-      AMAuthInstallLog(8, "AMAuthInstallDebugWriteObject", "debug object written: %@", v16, v17, v18, v19, v20, cfa);
+      AMAuthInstallLog(8, "AMAuthInstallDebugWriteObject", "debug object written: %@", cfa);
     }
   }
 
@@ -9050,7 +8703,6 @@ LABEL_20:
 
 uint64_t AMAuthInstallPlatformRemoveFile(const __CFURL *a1)
 {
-  v1 = a1;
   if (!CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1024))
   {
     return 3;
@@ -9061,8 +8713,8 @@ uint64_t AMAuthInstallPlatformRemoveFile(const __CFURL *a1)
   {
     v4 = __error();
     v5 = strerror(*v4);
-    AMAuthInstallLog(3, "AMAuthInstallPlatformRemoveFile", "failed to file: %s", v6, v7, v8, v9, v10, v5);
-    AMAuthInstallLog(7, "AMAuthInstallPlatformRemoveFile", "url=%@, path=%s", v11, v12, v13, v14, v15, v1);
+    AMAuthInstallLog(3, "AMAuthInstallPlatformRemoveFile", "failed to file: %s", v5);
+    AMAuthInstallLog(7, "AMAuthInstallPlatformRemoveFile", "url=%@, path=%s", a1, buffer);
     return 4;
   }
 
@@ -9100,49 +8752,48 @@ void _ApplyTagPrefix(const __CFString *a1, const void *a2, CFMutableDictionaryRe
 {
   MutableCopy = kCFAllocatorDefault;
   v7 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%@,", *(*(*a3 + 2) + 160));
-  v20 = *(*a3 + 11);
-  v15 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"@%@");
-  if (v15 && (MutableCopy = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, a1)) != 0)
+  v8 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"@%@", *(*a3 + 11));
+  if (v8 && (MutableCopy = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, a1)) != 0)
   {
     if (CFStringHasPrefix(a1, @"Ap,"))
     {
-      v16 = MutableCopy;
-      v17.location = 0;
-      v17.length = 3;
+      v9 = MutableCopy;
+      v10.location = 0;
+      v10.length = 3;
 LABEL_7:
-      CFStringReplace(v16, v17, v7);
-      v18 = a3[1];
-      v19 = MutableCopy;
+      CFStringReplace(v9, v10, v7);
+      v11 = a3[1];
+      v12 = MutableCopy;
 LABEL_8:
-      CFDictionarySetValue(v18, v19, a2);
+      CFDictionarySetValue(v11, v12, a2);
       CFDictionaryRemoveValue(a3[1], a1);
       goto LABEL_9;
     }
 
     if (CFStringHasPrefix(a1, @"Ap"))
     {
-      v16 = MutableCopy;
-      v17.location = 0;
-      v17.length = 2;
+      v9 = MutableCopy;
+      v10.location = 0;
+      v10.length = 2;
       goto LABEL_7;
     }
 
     if (CFStringCompare(a1, @"@ApImg4Ticket", 0) == kCFCompareEqualTo)
     {
-      v18 = a3[1];
-      v19 = v15;
+      v11 = a3[1];
+      v12 = v8;
       goto LABEL_8;
     }
   }
 
   else
   {
-    _ApplyTagPrefix_cold_1(0, v8, v9, v10, v11, v12, v13, v14, v20);
+    _ApplyTagPrefix_cold_1(0);
   }
 
 LABEL_9:
   SafeRelease(v7);
-  SafeRelease(v15);
+  SafeRelease(v8);
 
   SafeRelease(MutableCopy);
 }
@@ -9201,67 +8852,66 @@ void SafeFree(void *a1)
   }
 }
 
-uint64_t AMAuthInstallSupportBase64Encode(const __CFAllocator *a1, CFDataRef theData, CFTypeRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMAuthInstallSupportBase64Encode(const __CFAllocator *a1, CFDataRef theData, CFTypeRef *a3)
 {
   if (!theData)
   {
-    AMAuthInstallSupportBase64Encode_cold_2(a1, 0, a3, a4, a5, a6, a7, a8, v38);
+    AMAuthInstallSupportBase64Encode_cold_2(a1);
     return 1;
   }
 
   Length = CFDataGetLength(theData);
   if (!Length)
   {
-    AMAuthInstallLog(3, "AMAuthInstallSupportBase64Encode", "value length == 0: '%@'", v14, v15, v16, v17, v18, theData);
+    AMAuthInstallLog(3, "AMAuthInstallSupportBase64Encode", "value length == 0: '%@'", theData);
     return 1;
   }
 
   if (!a3)
   {
-    AMAuthInstallSupportBase64Encode_cold_1(Length, v12, v13, v14, v15, v16, v17, v18, v38);
+    AMAuthInstallSupportBase64Encode_cold_1(Length);
     return 1;
   }
 
   BytePtr = CFDataGetBytePtr(theData);
-  v20 = CFDataGetLength(theData);
-  v21 = b64encode(BytePtr, v20);
-  if (v21)
+  v8 = CFDataGetLength(theData);
+  v9 = b64encode(BytePtr, v8);
+  if (v9)
   {
-    v27 = v21;
-    v28 = strlen(v21);
-    if (v28)
+    v10 = v9;
+    v11 = strlen(v9);
+    if (v11)
     {
-      v34 = CFStringCreateWithBytes(a1, v27, v28, 0x8000100u, 0);
-      if (v34)
+      v12 = CFStringCreateWithBytes(a1, v10, v11, 0x8000100u, 0);
+      if (v12)
       {
-        v35 = v34;
-        *a3 = CFRetain(v34);
-        free(v27);
-        CFRelease(v35);
+        v13 = v12;
+        *a3 = CFRetain(v12);
+        free(v10);
+        CFRelease(v13);
         return 0;
       }
 
-      v37 = "encodedValue == NULL: '%@'";
+      AMAuthInstallLog(3, "AMAuthInstallSupportBase64Encode", "encodedValue == NULL: '%@'", theData);
     }
 
     else
     {
-      v37 = "encodedLength == 0: '%@'";
+      AMAuthInstallLog(3, "AMAuthInstallSupportBase64Encode", "encodedLength == 0: '%@'", theData);
     }
 
-    AMAuthInstallLog(3, "AMAuthInstallSupportBase64Encode", v37, v29, v30, v31, v32, v33, theData);
-    free(v27);
+    free(v10);
   }
 
   else
   {
-    AMAuthInstallLog(3, "AMAuthInstallSupportBase64Encode", "encodedBuffer == NULL: '%@'", v22, v23, v24, v25, v26, theData);
+    AMAuthInstallLog(3, "AMAuthInstallSupportBase64Encode", "encodedBuffer == NULL: '%@'", theData);
   }
 
   return 99;
 }
 
-uint64_t DERDecoderInitialize(uint64_t a1, unsigned __int8 *a2, unsigned int *a3, unsigned int a4)
+uint64_t DERDecoderInitialize(uint64_t a1, unsigned __int8 *a2, unsigned int *a3, uint64_t a4)
 {
   if (!a1)
   {
@@ -9278,11 +8928,12 @@ uint64_t DERDecoderInitialize(uint64_t a1, unsigned __int8 *a2, unsigned int *a3
     DERDecoderInitialize_cold_1();
   }
 
+  v6 = a4;
   v8 = *a3;
   if (*a3)
   {
 LABEL_5:
-    if (v8 > a4)
+    if (v8 > v6)
     {
       return 2;
     }
@@ -9301,7 +8952,7 @@ LABEL_5:
   if (!result)
   {
     v10 = v11;
-    result = _DERDecodeLength(&a2[v11], a4 - v11, &v13 + 1, &v11);
+    result = _DERDecodeLength(&a2[v11], v6 - v11, &v13 + 1, &v11);
     if (!result)
     {
       v8 = v10 + v11 + HIDWORD(v13);
@@ -9359,7 +9010,7 @@ uint64_t _DERDecodeTag(unsigned __int8 *a1, int a2, unsigned int *a3, int *a4, i
     v10 = 0;
     *a5 = (v7 >> 5) & 1;
     v11 = a2 - 1;
-    v12 = (a1 + 1);
+    v12 = a1 + 1;
     while (v11)
     {
       v13 = *v12;
@@ -9396,7 +9047,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t _DERDecodeLength(unsigned __int8 *a1, int a2, int *a3, _DWORD *a4)
+uint64_t _DERDecodeLength(char *a1, int a2, int *a3, _DWORD *a4)
 {
   if (!a1)
   {
@@ -9446,7 +9097,7 @@ LABEL_6:
   v9 = 0;
   v10 = 0;
   v4 = 0;
-  v11 = a1 + 1;
+  v11 = (a1 + 1);
   while (1)
   {
     v12 = *v11++;
@@ -9744,13 +9395,13 @@ LABEL_16:
   return 0xFFFFFFFFLL;
 }
 
-_BYTE *b64encode(unsigned __int8 *a1, unsigned int a2)
+_BYTE *b64encode(unsigned __int8 *a1, int a2)
 {
   v2 = 0;
   if (a1 && a2 >= 1)
   {
-    v5 = a2 / 3;
-    if (a2 != 3 * (a2 / 3))
+    v5 = a2 / 3u;
+    if (a2 != 3 * (a2 / 3u))
     {
       ++v5;
     }
@@ -9764,4 +9415,765 @@ _BYTE *b64encode(unsigned __int8 *a1, unsigned int a2)
   }
 
   return v2;
+}
+
+const __CFString *tss_lookup_error(int a1)
+{
+  v1 = off_1000B4810;
+  if (off_1000B4810)
+  {
+    if (tss_err_map == a1)
+    {
+      return CFStringCreateWithCString(kCFAllocatorDefault, v1, 0x8000100u);
+    }
+
+    for (i = &off_1000B4820; ; i += 2)
+    {
+      v1 = *i;
+      if (!*i)
+      {
+        break;
+      }
+
+      v3 = *(i - 2);
+      if (v3 == a1)
+      {
+        return CFStringCreateWithCString(kCFAllocatorDefault, v1, 0x8000100u);
+      }
+    }
+  }
+
+  return @"Unknown";
+}
+
+void *tss_create_session(const void *a1, const void *a2)
+{
+  v4 = malloc(0x60uLL);
+  v5 = v4;
+  if (!v4)
+  {
+    goto LABEL_7;
+  }
+
+  v4[4] = 0u;
+  v4[5] = 0u;
+  v4[2] = 0u;
+  v4[3] = 0u;
+  *v4 = 0u;
+  v4[1] = 0u;
+  if (!a2)
+  {
+    AMAuthInstallLog(3, "tss_create_session", "signingServerURL is NULL");
+    goto LABEL_10;
+  }
+
+  v6 = CFGetTypeID(a2);
+  if (v6 != CFURLGetTypeID())
+  {
+    AMAuthInstallLog(3, "tss_create_session", "signingServerURL is malformed");
+    goto LABEL_10;
+  }
+
+  v5[1] = CFRetain(a2);
+  *(v5 + 10) = 256;
+  if (a1)
+  {
+    CFRetain(a1);
+  }
+
+  *v5 = a1;
+  Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  v5[3] = Mutable;
+  if (!Mutable)
+  {
+LABEL_7:
+    AMAuthInstallLog(3, "tss_create_session", "out of memory");
+LABEL_10:
+    free(v5);
+    return 0;
+  }
+
+  return v5;
+}
+
+uint64_t tss_close_session(void *a1)
+{
+  v2 = tss_reset_session(a1);
+  if (!v2)
+  {
+    free(a1);
+  }
+
+  return v2;
+}
+
+uint64_t tss_reset_session(uint64_t a1)
+{
+  if (a1)
+  {
+    v2 = *a1;
+    if (v2)
+    {
+      CFRelease(v2);
+    }
+
+    v3 = *(a1 + 24);
+    if (v3)
+    {
+      CFRelease(v3);
+    }
+
+    v4 = *(a1 + 40);
+    if (v4)
+    {
+      CFRelease(v4);
+    }
+
+    v5 = *(a1 + 8);
+    if (v5)
+    {
+      CFRelease(v5);
+    }
+
+    v6 = *(a1 + 32);
+    if (v6)
+    {
+      CFRelease(v6);
+    }
+
+    v7 = *(a1 + 72);
+    if (v7)
+    {
+      CFRelease(v7);
+      *(a1 + 72) = 0;
+    }
+
+    v8 = *(a1 + 56);
+    if (v8)
+    {
+      free(v8);
+    }
+
+    result = 0;
+    *(a1 + 64) = 0u;
+    *(a1 + 80) = 0u;
+    *(a1 + 32) = 0u;
+    *(a1 + 48) = 0u;
+    *a1 = 0u;
+    *(a1 + 16) = 0u;
+  }
+
+  else
+  {
+    AMAuthInstallLog(3, "tss_reset_session", "NULL session");
+    return 10009;
+  }
+
+  return result;
+}
+
+uint64_t tss_submit(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (!a1)
+  {
+    AMAuthInstallLog(3, "tss_submit", "NULL session");
+    return 10009;
+  }
+
+  if (!*(a1 + 24))
+  {
+    AMAuthInstallLog(3, "tss_submit", "NULL request in session");
+    v5 = 10008;
+    v6 = a1;
+    v7 = 10008;
+LABEL_10:
+    tss_set_last_error(v6, v7);
+    return v5;
+  }
+
+  if (!*(a1 + 48))
+  {
+    tss_submit_job_with_retry(a1, a2, a3);
+    return *(a1 + 64);
+  }
+
+  v4 = malloc(8uLL);
+  *(a1 + 56) = v4;
+  if (!v4)
+  {
+    AMAuthInstallLog(3, "tss_submit_non_block", "out of memory");
+    v5 = 10006;
+    v6 = a1;
+    v7 = 10006;
+    goto LABEL_10;
+  }
+
+  pthread_create(v4, 0, tss_submit_job_with_retry, a1);
+  return 0;
+}
+
+const __CFString *tss_set_last_error(const __CFString *result, int a2)
+{
+  if (result)
+  {
+    v3 = result;
+    LODWORD(result[2].isa) = a2;
+    info = result[2].info;
+    if (info)
+    {
+      CFRelease(info);
+    }
+
+    result = tss_lookup_error(a2);
+    v3[2].info = result;
+  }
+
+  return result;
+}
+
+uint64_t tss_submit_job_with_retry(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = __chkstk_darwin(a1, a2, a3);
+  v4 = v3;
+  if (v3)
+  {
+    if (*(v3 + 16) <= 1u)
+    {
+      v5 = 1;
+    }
+
+    else
+    {
+      v5 = *(v3 + 16);
+    }
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  v6 = 0;
+  v7 = kCFAllocatorDefault;
+  key = _kCFSystemVersionBuildVersionKey;
+  do
+  {
+    AMAuthInstallLog(6, "tss_submit_job_with_retry", "TSS Connection attempt %d of %d.  (Will retry if TSS_ERR_SERVER_NOT_REACHABLE.)", ++v6, v5);
+    error = 0;
+    bzero(v87, 0x19000uLL);
+    if (!*(v4 + 8))
+    {
+      AMAuthInstallLog(3, "tss_submit_job", "no server URL");
+      v23 = 10008;
+LABEL_25:
+      tss_set_last_error(v4, v23);
+      v24 = 0;
+      v13 = 0;
+      v25 = 0;
+      v18 = 0;
+      Request = 0;
+      v11 = 0;
+      *(v4 + 64) = v23;
+      goto LABEL_35;
+    }
+
+    v8 = CFPropertyListCreateData(v7, *(v4 + 24), kCFPropertyListXMLFormat_v1_0, 0, &error);
+    if (!v8)
+    {
+      AMAuthInstallLog(3, "tss_submit_job", "CFPropertyListCreateXMLData failed %@", error);
+      v23 = 10036;
+      goto LABEL_25;
+    }
+
+    v9 = v8;
+    Length = CFDataGetLength(v8);
+    v11 = CFURLCreateWithString(v7, @"TSS/controller?action=2", *(v4 + 8));
+    if (!v11)
+    {
+      AMAuthInstallLog(3, "tss_submit_job", "CFURLCreateCopyAppendingPathComponent() failed");
+      v26 = 10041;
+      tss_set_last_error(v4, 10041);
+      v24 = 0;
+      v13 = 0;
+      v18 = 0;
+      Request = 0;
+LABEL_34:
+      *(v4 + 64) = v26;
+      CFRelease(v9);
+      v25 = 0;
+      goto LABEL_35;
+    }
+
+    Request = CFHTTPMessageCreateRequest(v7, @"POST", v11, kCFHTTPVersion1_1);
+    if (!Request)
+    {
+      AMAuthInstallLog(3, "tss_submit_job", "CFHTTPMessageCreateRequest failed");
+      v26 = 10041;
+      tss_set_last_error(v4, 10041);
+      v24 = 0;
+      v13 = 0;
+      v18 = 0;
+      goto LABEL_34;
+    }
+
+    v13 = CFStringCreateWithFormat(v7, 0, @"%d", Length);
+    CFHTTPMessageSetHeaderFieldValue(Request, @"Proxy-Connection", @"Keep-Alive");
+    CFHTTPMessageSetHeaderFieldValue(Request, @"Pragma", @"no-cache");
+    CFHTTPMessageSetHeaderFieldValue(Request, @"Content-Type", @"text/xml; charset=utf-8");
+    CFHTTPMessageSetHeaderFieldValue(Request, @"Content-Length", v13);
+    v14 = _CFCopySystemVersionDictionary();
+    if (v14)
+    {
+      v15 = v14;
+      Value = CFDictionaryGetValue(v14, key);
+      CFHTTPMessageSetHeaderFieldValue(Request, @"X-OS-Version", Value);
+      CFRelease(v15);
+    }
+
+    if (*(v4 + 32))
+    {
+      AMAuthInstallLog(7, "tss_submit_job", "Attempting to add additional entries to HTTP header");
+      CFDictionaryApplyFunction(*(v4 + 32), _AMAuthInstallUpdateHTTPHeaderWithEntry, Request);
+      AMAuthInstallLog(7, "tss_submit_job", "Done adding additional fields to HTTP header");
+    }
+
+    CFHTTPMessageSetBody(Request, v9);
+    Mutable = CFDictionaryCreateMutable(v7, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    v18 = Mutable;
+    v19 = *(v4 + 80);
+    if (v19)
+    {
+      CFDictionaryAddValue(Mutable, @"SocksProxySettings", v19);
+      AMAuthInstallLog(7, "tss_submit_job", "Found a SOCKS proxy setting. Will attempt to use it.");
+    }
+
+    v20 = *(v4 + 88);
+    if (v20)
+    {
+      CFDictionaryAddValue(v18, @"TrustedServerCAs", v20);
+      AMAuthInstallLog(7, "tss_submit_job", "Found a trusted server CA. Will attempt to use it.");
+    }
+
+    theData[0] = 0;
+    v21 = CFURLCopyScheme(*(v4 + 8));
+    if (!v21)
+    {
+      AMAuthInstallLog(3, "tss_submit_job", "Invalid scheme in url");
+      goto LABEL_31;
+    }
+
+    v22 = v21;
+    *__s = 10000;
+    if (CFStringCompare(v21, @"https", 1uLL) && CFStringCompare(v22, @"http", 1uLL))
+    {
+      CFRelease(v22);
+      AMAuthInstallLog(3, "tss_submit_job", "unsupported URL scheme");
+LABEL_31:
+      v26 = 10008;
+      v27 = v4;
+      v28 = 10008;
+      goto LABEL_32;
+    }
+
+    CFRelease(v22);
+    if (AMAuthInstallHttpMessageSendSyncNew(v7, Request, theData, __s, v18, 300.0))
+    {
+      AMAuthInstallLog(3, "tss_submit_job", "failed to send http request");
+      v26 = 10002;
+      v27 = v4;
+      v28 = 10002;
+LABEL_32:
+      tss_set_last_error(v27, v28);
+LABEL_33:
+      v24 = @"Content-Length";
+      goto LABEL_34;
+    }
+
+    v26 = *__s;
+    if (*__s != 200)
+    {
+      AMAuthInstallLog(3, "tss_submit_job", "SendHttpRequest failed %d", *__s);
+      if (*__s == -1)
+      {
+        v26 = 10002;
+      }
+
+      v30 = v4;
+      v31 = v26;
+      goto LABEL_61;
+    }
+
+    if (CFDataGetLength(theData[0]) > 0x19000)
+    {
+      AMAuthInstallLog(3, "tss_submit_job", "Response too large");
+      v26 = 10052;
+      v30 = v4;
+      v31 = 10052;
+LABEL_61:
+      tss_set_last_error(v30, v31);
+      CFRelease(theData[0]);
+      goto LABEL_33;
+    }
+
+    CFDataGetBytePtr(theData[0]);
+    CFDataGetLength(theData[0]);
+    __memcpy_chk();
+    v32 = CFDataGetLength(theData[0]);
+    CFRelease(theData[0]);
+    v33 = v32;
+    *v85 = 0;
+    *__s = 0u;
+    v70 = 0u;
+    v71 = 0u;
+    v72 = 0u;
+    v73 = 0u;
+    v74 = 0u;
+    v75 = 0u;
+    v76 = 0u;
+    v77 = 0u;
+    v78 = 0u;
+    v79 = 0u;
+    v80 = 0u;
+    v81 = 0u;
+    v82 = 0u;
+    v83 = 0u;
+    v84 = 0u;
+    v57 = v32;
+    if (v32 < 1)
+    {
+      v37 = 0;
+      v62 = 0;
+      cfb = 0;
+      goto LABEL_108;
+    }
+
+    v34 = 0;
+    v35 = 0;
+    v36 = 0;
+    v37 = 0;
+    v38 = v87;
+    do
+    {
+      if (v36)
+      {
+        if (v35)
+        {
+          goto LABEL_66;
+        }
+      }
+
+      else if (v37 + 7 >= v33)
+      {
+        v36 = 0;
+        if (v35)
+        {
+          goto LABEL_66;
+        }
+      }
+
+      else
+      {
+        v61 = v35;
+        cf = v34;
+        if (!strncmp(v38, "STATUS", 6uLL))
+        {
+          v39 = 0;
+          v36 = v38 + 7;
+          v34 = cf;
+          do
+          {
+            v40 = v38[v39 + 7];
+            if (v40 == 38)
+            {
+              break;
+            }
+
+            v85[v39++] = v40;
+          }
+
+          while (v39 != 8);
+          v85[7] = 0;
+          v33 = v57;
+        }
+
+        else
+        {
+          v36 = 0;
+          v33 = v57;
+          v34 = cf;
+        }
+
+        v35 = v61;
+        if (v61)
+        {
+LABEL_66:
+          if (v34)
+          {
+            goto LABEL_98;
+          }
+
+          goto LABEL_67;
+        }
+      }
+
+      if (v37 + 8 >= v33)
+      {
+        v35 = 0;
+        if (v34)
+        {
+          goto LABEL_98;
+        }
+      }
+
+      else
+      {
+        v59 = v36;
+        cfa = v34;
+        if (!strncmp(v38, "MESSAGE", 7uLL))
+        {
+          v41 = 0;
+          v35 = v38 + 8;
+          v34 = cfa;
+          v36 = v59;
+          do
+          {
+            v42 = v38[v41 + 8];
+            if (v42 == 10)
+            {
+              break;
+            }
+
+            if (v42 == 38)
+            {
+              break;
+            }
+
+            __s[v41++] = v42;
+          }
+
+          while (v41 != 256);
+          HIBYTE(v84) = 0;
+          v33 = v57;
+          if (cfa)
+          {
+            goto LABEL_98;
+          }
+        }
+
+        else
+        {
+          v35 = 0;
+          v33 = v57;
+          v36 = v59;
+          v34 = cfa;
+          if (cfa)
+          {
+            goto LABEL_98;
+          }
+        }
+      }
+
+LABEL_67:
+      if (v37 + 15 >= v33)
+      {
+        v34 = 0;
+        goto LABEL_98;
+      }
+
+      v58 = v36;
+      v60 = v35;
+      if (strncmp(v38, "REQUEST_STRING", 0xEuLL))
+      {
+        v34 = 0;
+        v33 = v57;
+        v36 = v58;
+LABEL_97:
+        v35 = v60;
+        goto LABEL_98;
+      }
+
+      v34 = v38 + 15;
+      v36 = v58;
+      if (!v58)
+      {
+        v33 = v57;
+        goto LABEL_97;
+      }
+
+      v33 = v57;
+      v35 = v60;
+      if (v60)
+      {
+        goto LABEL_100;
+      }
+
+LABEL_98:
+      ++v38;
+      ++v37;
+    }
+
+    while (v37 != v33);
+    v37 = v33;
+LABEL_100:
+    cfb = v34;
+    if (v36)
+    {
+      v43 = v35 == 0;
+    }
+
+    else
+    {
+      v43 = 1;
+    }
+
+    v44 = !v43;
+    v62 = v44;
+LABEL_108:
+    AMAuthInstallLog(8, "tss_submit_job", "----Begin request");
+    AMAuthInstallLog(8, "tss_submit_job", "%@", *(v4 + 24));
+    AMAuthInstallLog(8, "tss_submit_job", "----End request");
+    AMAuthInstallLog(8, "tss_submit_job", "----Begin response");
+    AMAuthInstallLog(8, "tss_submit_job", "%s", v87);
+    AMAuthInstallLog(8, "tss_submit_job", "----End response");
+    if ((v62 & 1) == 0)
+    {
+      AMAuthInstallLog(3, "tss_submit_job", "invalid response");
+      v46 = 10052;
+      v50 = v4;
+      v51 = 10052;
+      goto LABEL_115;
+    }
+
+    v45 = atoi(v85);
+    if (!v45)
+    {
+      if (cfb)
+      {
+        __memcpy_chk();
+        v52 = CFDataCreate(kCFAllocatorDefault, theData, v57 - v37 - 15);
+        if (v52)
+        {
+          v53 = v52;
+          if (error)
+          {
+            CFRelease(error);
+          }
+
+          cfc = v53;
+          v25 = CFPropertyListCreateWithData(kCFAllocatorDefault, v53, 0, 0, &error);
+          if (v25)
+          {
+            Copy = CFDictionaryCreateCopy(kCFAllocatorDefault, v25);
+            *(v4 + 40) = Copy;
+            if (Copy)
+            {
+              v55 = 0;
+LABEL_130:
+              *(v4 + 64) = v55;
+              CFRelease(v9);
+              CFRelease(cfc);
+              goto LABEL_117;
+            }
+
+            AMAuthInstallLog(3, "tss_submit_job", "CFDictionaryCreateCopy failed");
+            v55 = 10056;
+          }
+
+          else
+          {
+            AMAuthInstallLog(3, "tss_submit_job", "CFPropertyListCreateFromXMLData failed (%@)", error);
+            v55 = 10055;
+          }
+
+          tss_set_last_error(v4, v55);
+          goto LABEL_130;
+        }
+
+        AMAuthInstallLog(3, "tss_submit_job", "CFDataCreate failed");
+        v46 = 10054;
+        v50 = v4;
+        v51 = 10054;
+      }
+
+      else
+      {
+        AMAuthInstallLog(3, "tss_submit_job", "no data in response");
+        v46 = 10053;
+        v50 = v4;
+        v51 = 10053;
+      }
+
+LABEL_115:
+      tss_set_last_error(v50, v51);
+      goto LABEL_116;
+    }
+
+    v46 = v45;
+    AMAuthInstallLog(3, "tss_submit_job", "error from server=%d (%s)", v45, __s);
+    v47 = *(v4 + 72);
+    if (v47)
+    {
+      CFRelease(v47);
+    }
+
+    v48 = strlen(__s);
+    v49 = CFStringCreateWithBytes(kCFAllocatorDefault, __s, v48, 0x8000100u, 0);
+    *(v4 + 72) = v49;
+    if (!v49)
+    {
+      AMAuthInstallLog(3, "tss_submit_job", "Server message failed to convert: %d", v46);
+    }
+
+LABEL_116:
+    *(v4 + 64) = v46;
+    CFRelease(v9);
+    v25 = 0;
+LABEL_117:
+    v24 = @"Content-Length";
+LABEL_35:
+    if (error)
+    {
+      CFRelease(error);
+    }
+
+    if (v11)
+    {
+      CFRelease(v11);
+    }
+
+    if (Request)
+    {
+      CFRelease(Request);
+    }
+
+    if (v24)
+    {
+      CFRelease(v24);
+    }
+
+    if (v13)
+    {
+      CFRelease(v13);
+    }
+
+    v7 = kCFAllocatorDefault;
+    if (v25)
+    {
+      CFRelease(v25);
+    }
+
+    if (v18)
+    {
+      CFRelease(v18);
+    }
+
+    v29 = *(v4 + 48);
+    if (v29)
+    {
+      v29(v4);
+    }
+  }
+
+  while (v4 && v6 < v5 && *(v4 + 64) == 10002);
+  return 0;
 }

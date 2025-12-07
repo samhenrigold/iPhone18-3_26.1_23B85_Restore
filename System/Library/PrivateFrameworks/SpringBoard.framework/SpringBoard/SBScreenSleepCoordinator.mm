@@ -49,30 +49,30 @@
 
 - (void)sleepAndLockUIFromSource:(int)source lockOptions:(id)options completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   completionCopy = completion;
   _shouldPresentAmbientOnSleepAndLock = [(SBScreenSleepCoordinator *)self _shouldPresentAmbientOnSleepAndLock];
   if (_shouldPresentAmbientOnSleepAndLock)
   {
     _ambientPresentationController = [(SBScreenSleepCoordinator *)self _ambientPresentationController];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __76__SBScreenSleepCoordinator_sleepAndLockUIFromSource_lockOptions_completion___block_invoke;
-    v27[3] = &unk_2783A9C70;
-    v23 = &v28;
-    v28 = completionCopy;
-    v12 = [_ambientPresentationController presentIfAllowedAndLockWithCompletion:v27];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __76__SBScreenSleepCoordinator_sleepAndLockUIFromSource_lockOptions_completion___block_invoke;
+    v28[3] = &unk_2783A9C70;
+    v24 = &v29;
+    v29 = completionCopy;
+    v12 = [_ambientPresentationController presentIfAllowedAndLockWithCompletion:v28];
 
     if (v12)
     {
-      v13 = SBLogBacklight();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = SBLogBacklight(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = NSStringFromLockSource();
+        v15 = NSStringFromLockSource();
         *buf = 138412290;
-        v30 = v14;
-        _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "ScreenSleepCoordinator: presented ambient for source %@", buf, 0xCu);
+        v31 = v15;
+        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "ScreenSleepCoordinator: presented ambient for source %@", buf, 0xCu);
       }
 
 LABEL_9:
@@ -80,33 +80,33 @@ LABEL_9:
     }
   }
 
-  v15 = SBUIConvertLockSourceToBacklightChangeSource();
-  v16 = SBLogBacklight();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v16 = SBUIConvertLockSourceToBacklightChangeSource();
+  v17 = SBLogBacklight(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = NSStringFromLockSource();
+    v18 = NSStringFromLockSource();
     *buf = 138412290;
-    v30 = v17;
-    _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "ScreenSleepCoordinator: beginning sleep for source %@", buf, 0xCu);
+    v31 = v18;
+    _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "ScreenSleepCoordinator: beginning sleep for source %@", buf, 0xCu);
   }
 
   self->_didLock = 0;
   self->_lastLockSource = source;
-  v18 = [optionsCopy copy];
+  v19 = [optionsCopy copy];
   lastLockOptions = self->_lastLockOptions;
-  self->_lastLockOptions = v18;
+  self->_lastLockOptions = v19;
 
   screenWakeAnimationController = self->_screenWakeAnimationController;
   lockScreenEnvironment = [(SBLockScreenManager *)self->_lockScreenManager lockScreenEnvironment];
   screenWakeAnimationTarget = [lockScreenEnvironment screenWakeAnimationTarget];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __76__SBScreenSleepCoordinator_sleepAndLockUIFromSource_lockOptions_completion___block_invoke_3;
-  v24[3] = &unk_2783C1010;
-  v24[4] = self;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __76__SBScreenSleepCoordinator_sleepAndLockUIFromSource_lockOptions_completion___block_invoke_3;
+  v25[3] = &unk_2783C1010;
+  v25[4] = self;
   sourceCopy = source;
-  v25 = completionCopy;
-  [(SBScreenWakeAnimationController *)screenWakeAnimationController sleepForSource:v15 target:screenWakeAnimationTarget completion:v24];
+  v26 = completionCopy;
+  [(SBScreenWakeAnimationController *)screenWakeAnimationController sleepForSource:v16 target:screenWakeAnimationTarget completion:v25];
 
   if (_shouldPresentAmbientOnSleepAndLock)
   {
@@ -132,12 +132,12 @@ uint64_t __76__SBScreenSleepCoordinator_sleepAndLockUIFromSource_lockOptions_com
 
 uint64_t __76__SBScreenSleepCoordinator_sleepAndLockUIFromSource_lockOptions_completion___block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = SBLogBacklight();
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = SBLogBacklight(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v10[0]) = 0;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "ScreenSleepCoordinator: sleep completed", v10, 2u);
+    LOWORD(v11[0]) = 0;
+    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "ScreenSleepCoordinator: sleep completed", v11, 2u);
   }
 
   v3 = [*(*(a1 + 32) + 16) lockScreenEnvironment];
@@ -146,26 +146,27 @@ uint64_t __76__SBScreenSleepCoordinator_sleepAndLockUIFromSource_lockOptions_com
 
   v5 = [*(*(a1 + 32) + 24) screenIsOn];
   v6 = [*(*(a1 + 32) + 8) isWakeAnimationInProgress];
-  v7 = SBLogBacklight();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-  if (v5 & 1) != 0 || (v6)
+  v7 = v6;
+  v8 = SBLogBacklight(v6);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  if (v5 & 1) != 0 || (v7)
   {
-    if (v8)
+    if (v9)
     {
-      v10[0] = 67109376;
-      v10[1] = v5;
-      v11 = 1024;
-      v12 = v6;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "ScreenSleepCoordinator: skipping UI lock (screen on = %{BOOL}u wakeInProgress = %{BOOL}u)", v10, 0xEu);
+      v11[0] = 67109376;
+      v11[1] = v5;
+      v12 = 1024;
+      v13 = v7;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "ScreenSleepCoordinator: skipping UI lock (screen on = %{BOOL}u wakeInProgress = %{BOOL}u)", v11, 0xEu);
     }
   }
 
   else
   {
-    if (v8)
+    if (v9)
     {
-      LOWORD(v10[0]) = 0;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "ScreenSleepCoordinator: beginning UI lock", v10, 2u);
+      LOWORD(v11[0]) = 0;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "ScreenSleepCoordinator: beginning UI lock", v11, 2u);
     }
 
     [*(a1 + 32) _performLock];
@@ -363,7 +364,7 @@ uint64_t __76__SBScreenSleepCoordinator__setTransitionWindowVisible_animated_com
   completionCopy = completion;
   v12 = (self->_transitionGeneration + 1);
   self->_transitionGeneration = v12;
-  v13 = SBLogBacklight();
+  v13 = SBLogBacklight(completionCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
@@ -536,76 +537,78 @@ LABEL_32:
 
 void __88__SBScreenSleepCoordinator_transitionToVisualState_fromVisualState_animated_completion___block_invoke(uint64_t a1)
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CD9FF0];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __88__SBScreenSleepCoordinator_transitionToVisualState_fromVisualState_animated_completion___block_invoke_2;
-  v13[3] = &unk_2783A8C18;
-  v14 = *(a1 + 32);
-  [v2 bs_performAfterSynchronizedCommit:v13];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __88__SBScreenSleepCoordinator_transitionToVisualState_fromVisualState_animated_completion___block_invoke_2;
+  v14[3] = &unk_2783A8C18;
+  v15 = *(a1 + 32);
+  [v2 bs_performAfterSynchronizedCommit:v14];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v4 = *(*(a1 + 40) + 88);
-    v5 = *(a1 + 72);
-    v6 = SBLogBacklight();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-    if (v4 == v5)
+    v5 = *(*(a1 + 40) + 88);
+    v6 = *(a1 + 72);
+    v7 = SBLogBacklight(WeakRetained);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    if (v5 == v6)
     {
-      if (v7)
+      if (v8)
       {
-        v8 = *(a1 + 72);
+        v9 = *(a1 + 72);
         *buf = 134217984;
-        v16 = v8;
-        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "ScreenSleepCoordinator: Performing lock UI for inactive transition generation %lu", buf, 0xCu);
+        v17 = v9;
+        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "ScreenSleepCoordinator: Performing lock UI for inactive transition generation %lu", buf, 0xCu);
       }
 
-      [WeakRetained _performLockAnimated:0];
+      [v4 _performLockAnimated:0];
       if (*(a1 + 80) != 1)
       {
         goto LABEL_10;
       }
 
-      v9 = WeakRetained[2];
-      v19[0] = @"SBUIUnlockOptionsOnlyWakeToActionsKey";
-      v19[1] = @"SBUIUnlockOptionsNoBacklightChangesKey";
-      v20[0] = MEMORY[0x277CBEC38];
-      v20[1] = MEMORY[0x277CBEC38];
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
-      [v9 unlockUIFromSource:32 withOptions:v6];
+      v10 = v4[2];
+      v20[0] = @"SBUIUnlockOptionsOnlyWakeToActionsKey";
+      v20[1] = @"SBUIUnlockOptionsNoBacklightChangesKey";
+      v21[0] = MEMORY[0x277CBEC38];
+      v21[1] = MEMORY[0x277CBEC38];
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+      [v10 unlockUIFromSource:32 withOptions:v7];
     }
 
-    else if (v7)
+    else if (v8)
     {
-      v10 = *(a1 + 72);
-      v11 = *(*(a1 + 40) + 88);
+      v11 = *(a1 + 72);
+      v12 = *(*(a1 + 40) + 88);
       *buf = 134218240;
-      v16 = v10;
-      v17 = 2048;
-      v18 = v11;
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "ScreenSleepCoordinator: Skipping lock UI for inactive transition generation %lu as we are now on generation %lu", buf, 0x16u);
+      v17 = v11;
+      v18 = 2048;
+      v19 = v12;
+      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "ScreenSleepCoordinator: Skipping lock UI for inactive transition generation %lu as we are now on generation %lu", buf, 0x16u);
     }
 
 LABEL_10:
-    [WeakRetained[7] setForceAlertsToPend:0 forReason:*(a1 + 48)];
+    [v4[7] setForceAlertsToPend:0 forReason:*(a1 + 48)];
   }
 
-  v12 = *(a1 + 56);
-  if (v12)
+  v13 = *(a1 + 56);
+  if (v13)
   {
-    (*(v12 + 16))();
+    (*(v13 + 16))();
   }
 }
 
 uint64_t __88__SBScreenSleepCoordinator_transitionToVisualState_fromVisualState_animated_completion___block_invoke_13(uint64_t a1, void *a2)
 {
-  if ([a2 isFailed])
+  v3 = [a2 isFailed];
+  if (v3)
   {
-    v3 = SBLogBacklight();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = SBLogBacklight(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      __88__SBScreenSleepCoordinator_transitionToVisualState_fromVisualState_animated_completion___block_invoke_13_cold_1(v3);
+      __88__SBScreenSleepCoordinator_transitionToVisualState_fromVisualState_animated_completion___block_invoke_13_cold_1(v4);
     }
   }
 

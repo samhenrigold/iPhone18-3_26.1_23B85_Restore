@@ -27,12 +27,12 @@
 + (id)materialShadowViewWithRecipe:(int64_t)recipe configuration:(int64_t)configuration initialWeighting:(double)weighting scaleAdjustment:(id)adjustment
 {
   adjustmentCopy = adjustment;
-  v11 = [self alloc];
-  v12 = [MTMaterialView materialViewWithRecipe:recipe configuration:configuration initialWeighting:adjustmentCopy scaleAdjustment:weighting];
+  v8 = [self alloc];
+  v9 = [MTMaterialView materialViewWithRecipe:"materialViewWithRecipe:configuration:initialWeighting:scaleAdjustment:" configuration:? initialWeighting:? scaleAdjustment:?];
 
-  v13 = [v11 initWithMaterialView:v12];
+  v10 = [v8 initWithMaterialView:?];
 
-  return v13;
+  return v10;
 }
 
 + (id)materialShadowViewWithRecipeNamed:(id)named inBundle:(id)bundle configuration:(int64_t)configuration initialWeighting:(double)weighting scaleAdjustment:(id)adjustment
@@ -40,12 +40,12 @@
   adjustmentCopy = adjustment;
   bundleCopy = bundle;
   namedCopy = named;
-  v15 = [self alloc];
-  v16 = [MTMaterialView materialViewWithRecipeNamed:namedCopy inBundle:bundleCopy configuration:configuration initialWeighting:adjustmentCopy scaleAdjustment:weighting];
+  v13 = [self alloc];
+  v14 = [MTMaterialView materialViewWithRecipeNamed:"materialViewWithRecipeNamed:inBundle:configuration:initialWeighting:scaleAdjustment:" inBundle:? configuration:? initialWeighting:? scaleAdjustment:?];
 
-  v17 = [v15 initWithMaterialView:v16];
+  v15 = [v13 initWithMaterialView:?];
 
-  return v17;
+  return v15;
 }
 
 + (id)materialShadowViewWithRecipeNamesByTraitCollection:(id)collection inBundle:(id)bundle configuration:(int64_t)configuration initialWeighting:(double)weighting scaleAdjustment:(id)adjustment
@@ -53,12 +53,12 @@
   adjustmentCopy = adjustment;
   bundleCopy = bundle;
   collectionCopy = collection;
-  v15 = [self alloc];
-  v16 = [MTMaterialView materialViewWithRecipeNamesByTraitCollection:collectionCopy compatibleWithTraitCollection:0 bundle:bundleCopy configuration:configuration initialWeighting:adjustmentCopy scaleAdjustment:weighting];
+  v13 = [self alloc];
+  v14 = [MTMaterialView materialViewWithRecipeNamesByTraitCollection:"materialViewWithRecipeNamesByTraitCollection:compatibleWithTraitCollection:bundle:configuration:initialWeighting:scaleAdjustment:" compatibleWithTraitCollection:? bundle:? configuration:? initialWeighting:? scaleAdjustment:?];
 
-  v17 = [v15 initWithMaterialView:v16];
+  v15 = [v13 initWithMaterialView:?];
 
-  return v17;
+  return v15;
 }
 
 - (MTMaterialShadowView)initWithMaterialView:(id)view
@@ -76,22 +76,22 @@
   v8 = v7;
   if (v7)
   {
-    [(MTMaterialShadowView *)v7 setAutoresizesSubviews:1];
+    [(MTMaterialShadowView *)v7 setAutoresizesSubviews:?];
     objc_storeStrong(&v8->_materialView, view);
     groupNameBase = [(MTMaterialView *)v8->_materialView groupNameBase];
 
     if (!groupNameBase)
     {
       materialView = v8->_materialView;
-      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%p", objc_opt_class(), v8];
-      [(MTMaterialView *)materialView setGroupNameBase:v11];
+      v11 = [MEMORY[0x277CCACA8] stringWithFormat:objc_opt_class(), v8];
+      [(MTMaterialView *)materialView setGroupNameBase:?];
     }
 
-    [(MTMaterialView *)v8->_materialView _addObserver:v8];
+    [(MTMaterialView *)v8->_materialView _addObserver:?];
     [(MTMaterialView *)v8->_materialView frame];
     [(MTMaterialShadowView *)v8 setBounds:?];
-    [(MTMaterialShadowView *)v8 addSubview:v8->_materialView];
-    [(MTMaterialView *)v8->_materialView setAutoresizingMask:18];
+    [(MTMaterialShadowView *)v8 addSubview:?];
+    [(MTMaterialView *)v8->_materialView setAutoresizingMask:?];
   }
 
   return v8;
@@ -104,7 +104,8 @@
   {
     v3 = MEMORY[0x277D75348];
     layer = [(UIView *)shadowView layer];
-    v5 = [v3 colorWithCGColor:{objc_msgSend(layer, "shadowColor")}];
+    [layer shadowColor];
+    v5 = [v3 colorWithCGColor:?];
   }
 
   else
@@ -120,9 +121,9 @@
   colorCopy = color;
   [(MTMaterialShadowView *)self _configureShadowViewIfNecessary];
   layer = [(UIView *)self->_shadowView layer];
-  cGColor = [colorCopy CGColor];
+  [colorCopy CGColor];
 
-  [layer setShadowColor:cGColor];
+  [layer setShadowColor:?];
 }
 
 - (double)shadowOpacity
@@ -138,8 +139,7 @@
 {
   [(MTMaterialShadowView *)self _configureShadowViewIfNecessary];
   layer = [(UIView *)self->_shadowView layer];
-  *&v5 = opacity;
-  [layer setShadowOpacity:v5];
+  [layer setShadowOpacity:?];
 }
 
 - (CGSize)shadowOffset
@@ -158,11 +158,9 @@
 
 - (void)setShadowOffset:(CGSize)offset
 {
-  height = offset.height;
-  width = offset.width;
   [(MTMaterialShadowView *)self _configureShadowViewIfNecessary];
   layer = [(UIView *)self->_shadowView layer];
-  [layer setShadowOffset:{width, height}];
+  [layer setShadowOffset:?];
 }
 
 - (double)shadowRadius
@@ -178,7 +176,7 @@
 {
   [(MTMaterialShadowView *)self _configureShadowViewIfNecessary];
   layer = [(UIView *)self->_shadowView layer];
-  [layer setShadowRadius:radius];
+  [layer setShadowRadius:?];
 }
 
 - (BOOL)shadowPathIsBounds
@@ -191,10 +189,9 @@
 
 - (void)setShadowPathIsBounds:(BOOL)bounds
 {
-  boundsCopy = bounds;
   [(MTMaterialShadowView *)self _configureShadowViewIfNecessary];
   layer = [(UIView *)self->_shadowView layer];
-  [layer setShadowPathIsBounds:boundsCopy];
+  [layer setShadowPathIsBounds:?];
 }
 
 - (void)layoutSubviews
@@ -208,17 +205,17 @@
 - (void)_setContinuousCornerRadius:(double)radius
 {
   [(MTMaterialView *)self->_materialView _setContinuousCornerRadius:?];
-  [(UIView *)self->_shadowView _setContinuousCornerRadius:radius];
+  [(UIView *)self->_shadowView _setContinuousCornerRadius:?];
   captureOnlyMaterialView = self->_captureOnlyMaterialView;
 
-  [(MTMaterialView *)captureOnlyMaterialView _setContinuousCornerRadius:radius];
+  [(MTMaterialView *)captureOnlyMaterialView _setContinuousCornerRadius:?];
 }
 
 - (void)recipeNameDidChangeForMaterialView:(id)view
 {
   captureOnlyMaterialView = self->_captureOnlyMaterialView;
   recipeName = [view recipeName];
-  [(MTMaterialView *)captureOnlyMaterialView setRecipeName:recipeName];
+  [(MTMaterialView *)captureOnlyMaterialView setRecipeName:?];
 }
 
 - (void)weightingDidChangeForMaterialView:(id)view
@@ -233,7 +230,7 @@
 {
   captureOnlyMaterialView = self->_captureOnlyMaterialView;
   groupNameBase = [view groupNameBase];
-  [(MTMaterialView *)captureOnlyMaterialView setGroupNameBase:groupNameBase];
+  [(MTMaterialView *)captureOnlyMaterialView setGroupNameBase:?];
 }
 
 - (void)_configureShadowViewIfNecessary
@@ -247,15 +244,15 @@
     self->_shadowView = v4;
 
     layer = [(UIView *)self->_shadowView layer];
-    [layer setShadowPathIsBounds:1];
+    [layer setShadowPathIsBounds:?];
 
     v7 = self->_shadowView;
     [(MTMaterialView *)self->_materialView _continuousCornerRadius];
     [(UIView *)v7 _setContinuousCornerRadius:?];
-    [(MTMaterialShadowView *)self insertSubview:self->_shadowView belowSubview:self->_materialView];
+    [MTMaterialShadowView insertSubview:"insertSubview:belowSubview:" belowSubview:?];
     v8 = self->_shadowView;
 
-    [(UIView *)v8 setAutoresizingMask:18];
+    [(UIView *)v8 setAutoresizingMask:?];
   }
 }
 
@@ -267,25 +264,25 @@
     captureOnlyMaterialView = self->_captureOnlyMaterialView;
     self->_captureOnlyMaterialView = v3;
 
-    [(MTMaterialView *)self->_captureOnlyMaterialView setCaptureOnly:1];
+    [(MTMaterialView *)self->_captureOnlyMaterialView setCaptureOnly:?];
     v5 = self->_captureOnlyMaterialView;
     groupNameBase = [(MTMaterialView *)self->_materialView groupNameBase];
-    [(MTMaterialView *)v5 setGroupNameBase:groupNameBase];
+    [(MTMaterialView *)v5 setGroupNameBase:?];
 
     v7 = self->_captureOnlyMaterialView;
     [(MTMaterialShadowView *)self bounds];
     [(MTMaterialView *)v7 setFrame:?];
-    [(MTMaterialShadowView *)self insertSubview:self->_captureOnlyMaterialView belowSubview:self->_shadowView];
+    [MTMaterialShadowView insertSubview:"insertSubview:belowSubview:" belowSubview:?];
     v8 = self->_captureOnlyMaterialView;
 
-    [(MTMaterialView *)v8 setAutoresizingMask:18];
+    [(MTMaterialView *)v8 setAutoresizingMask:?];
   }
 }
 
 - (void)initWithMaterialView:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v4 = [MEMORY[0x277CCA890] currentHandler];
-  [v4 handleFailureInMethod:a1 object:a2 file:@"MTMaterialShadowView.m" lineNumber:54 description:{@"Invalid parameter not satisfying: %@", @"materialView"}];
+  v2 = [MEMORY[0x277CCA890] currentHandler];
+  [v2 handleFailureInMethod:@"materialView" object:? file:? lineNumber:? description:?];
 }
 
 @end

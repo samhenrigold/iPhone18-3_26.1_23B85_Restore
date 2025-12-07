@@ -34,13 +34,13 @@
 
   if (titleCopy)
   {
-    [v8 setTitle:titleCopy];
+    objc_msgSend_setTitle_(v8);
   }
 
   else
   {
     v9 = [SPUISUtilities localizedStringForKey:@"SEARCH_IN_APP_BUTTON_TITLE"];
-    [v8 setTitle:v9];
+    objc_msgSend_setTitle_(v8);
   }
 
   [v8 setImage:v7];
@@ -50,21 +50,19 @@
 
 + (id)supportedBundleIds
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   supportedBundleId = [self supportedBundleId];
   if (supportedBundleId)
   {
     supportedBundleId2 = [self supportedBundleId];
-    v8[0] = supportedBundleId2;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = supportedBundleId2;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -124,14 +122,14 @@
 {
   queryContext = [(SPUISSectionBuilder *)self queryContext];
   searchEntities = [queryContext searchEntities];
-  v4 = [searchEntities count] != 0;
+  v4 = objc_msgSend_count(searchEntities) != 0;
 
   return v4;
 }
 
 - (id)buildSection
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   if ([(SPUISSectionBuilder *)self shouldSkipSection])
   {
     v3 = 0;
@@ -140,28 +138,28 @@
 
   section = [(SPUISSectionBuilder *)self section];
   results = [section results];
-  v6 = [results count];
+  v6 = objc_msgSend_count(results);
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   results2 = [section results];
-  v8 = [results2 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v8 = [results2 countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v37;
+    v10 = *v36;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v37 != v10)
+        if (*v36 != v10)
         {
           objc_enumerationMutation(results2);
         }
 
-        v12 = *(*(&v36 + 1) + 8 * i);
+        v12 = *(*(&v35 + 1) + 8 * i);
         compactCard = [v12 compactCard];
         if (compactCard)
         {
@@ -179,7 +177,7 @@
         }
       }
 
-      v9 = [results2 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v9 = [results2 countByEnumeratingWithState:&v35 objects:v40 count:16];
       if (v9)
       {
         continue;
@@ -227,7 +225,7 @@ LABEL_16:
     if ([bundleIdentifier isEqual:@"com.apple.spotlight.tophits"])
     {
       results3 = [section results];
-      v23 = [results3 count];
+      v23 = objc_msgSend_count(results3);
 
       if (v23 >= 2)
       {
@@ -271,21 +269,21 @@ LABEL_28:
           [buildBridgedResult setSectionBundleIdentifier:bundleIdentifier3];
         }
 
-        title = [v17 title];
-        if (title)
+        v28 = objc_msgSend_title(v17);
+        if (v28)
         {
-          [v17 setTitle:title];
+          objc_msgSend_setTitle_(v17);
         }
 
         else
         {
           buildTitle = [(SPUISSectionBuilder *)self buildTitle];
           text = [buildTitle text];
-          [v17 setTitle:text];
+          objc_msgSend_setTitle_(v17);
         }
 
-        v40 = buildBridgedResult;
-        v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+        v39 = buildBridgedResult;
+        v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
         [v17 setResults:v31];
 
         buildButtonItem = [(SPUISSectionBuilder *)self buildButtonItem];
@@ -310,14 +308,13 @@ LABEL_40:
 LABEL_41:
 
 LABEL_42:
-  v34 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)buildBridgedResult
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   queryContext = [(SPUISSectionBuilder *)self queryContext];
   queryIdent = [queryContext queryIdent];
 
@@ -349,13 +346,13 @@ LABEL_42:
   }
 
   cardSections3 = [firstObject2 cardSections];
-  v17 = [cardSections3 count];
+  v17 = objc_msgSend_count(cardSections3);
 
   if (v17)
   {
     v18 = objc_opt_new();
-    v31[0] = firstObject2;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+    v30[0] = firstObject2;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
     [v18 setCardSections:v19];
 
     [v18 setQueryId:queryIdent];
@@ -410,8 +407,6 @@ LABEL_42:
   {
     v22 = 0;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -487,10 +482,10 @@ LABEL_42:
 + (id)visibleTextForCardSection:(id)section includeDescriptions:(BOOL)descriptions
 {
   descriptionsCopy = descriptions;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = [self detailedRowCardSectionForCardSection:section];
-  title = [v5 title];
-  text = [title text];
+  v6 = objc_msgSend_title(v5);
+  text = [v6 text];
 
   v8 = objc_alloc(MEMORY[0x277CCAB68]);
   if (text)
@@ -506,26 +501,26 @@ LABEL_42:
   v10 = [v8 initWithString:v9];
   if (descriptionsCopy)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     descriptions = [v5 descriptions];
-    v12 = [descriptions countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v12 = [descriptions countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v23;
+      v14 = *v22;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v23 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(descriptions);
           }
 
-          v16 = *(*(&v22 + 1) + 8 * i);
+          v16 = *(*(&v21 + 1) + 8 * i);
           text2 = [v16 text];
 
           if (text2)
@@ -535,7 +530,7 @@ LABEL_42:
           }
         }
 
-        v13 = [descriptions countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v13 = [descriptions countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v13);
@@ -544,14 +539,12 @@ LABEL_42:
 
   v19 = [v10 copy];
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (id)buildCollectionCardSection
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   section = [(SPUISSectionBuilder *)self section];
   button = [section button];
   v5 = button;
@@ -573,7 +566,7 @@ LABEL_42:
 
   [v8 setButtonItem:v7];
   buildTitle = [(SPUISSectionBuilder *)self buildTitle];
-  [v8 setTitle:buildTitle];
+  objc_msgSend_setTitle_(v8);
 
   collectionStyle = [v8 collectionStyle];
   initiallyVisibleCardSectionCount = [collectionStyle initiallyVisibleCardSectionCount];
@@ -582,12 +575,12 @@ LABEL_42:
   v14 = buildCardSections;
   if (initiallyVisibleCardSectionCount)
   {
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v15 = buildCardSections;
-    v16 = [v15 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (!v16)
     {
       v20 = v15;
@@ -595,26 +588,26 @@ LABEL_42:
     }
 
     v17 = v16;
-    v32 = v14;
-    v33 = v8;
-    v34 = v7;
+    v31 = v14;
+    v32 = v8;
+    v33 = v7;
     v18 = 0;
     v19 = 0;
     v20 = 0;
-    v21 = *v37;
+    v21 = *v36;
     while (2)
     {
       v22 = 0;
       v23 = v18;
-      v35 = v18 + v17;
+      v34 = v18 + v17;
       do
       {
-        if (*v37 != v21)
+        if (*v36 != v21)
         {
           objc_enumerationMutation(v15);
         }
 
-        spotlightBackingResult = [*(*(&v36 + 1) + 8 * v22) spotlightBackingResult];
+        spotlightBackingResult = [*(*(&v35 + 1) + 8 * v22) spotlightBackingResult];
         identifier = [spotlightBackingResult identifier];
 
         if (([v20 isEqualToString:identifier] & 1) == 0)
@@ -638,8 +631,8 @@ LABEL_42:
       }
 
       while (v17 != v22);
-      v17 = [v15 countByEnumeratingWithState:&v36 objects:v40 count:16];
-      v18 = v35;
+      v17 = [v15 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v18 = v34;
       if (v17)
       {
         continue;
@@ -650,21 +643,21 @@ LABEL_42:
 
 LABEL_17:
 
-    v7 = v34;
-    v14 = v32;
-    v8 = v33;
+    v7 = v33;
+    v14 = v31;
+    v8 = v32;
     if (v20)
     {
-      collectionStyle2 = [v33 collectionStyle];
+      collectionStyle2 = [v32 collectionStyle];
       [collectionStyle2 setInitiallyVisibleCardSectionCount:v18];
 
 LABEL_20:
     }
   }
 
-  if ([v14 count])
+  if (objc_msgSend_count(v14))
   {
-    if (v7 && initiallyVisibleCardSectionCount && [v14 count] > initiallyVisibleCardSectionCount)
+    if (v7 && initiallyVisibleCardSectionCount && objc_msgSend_count(v14) > initiallyVisibleCardSectionCount)
     {
       v28 = [v14 subarrayWithRange:{0, initiallyVisibleCardSectionCount}];
 
@@ -681,20 +674,18 @@ LABEL_20:
     v29 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
 - (id)buildTitle
 {
   section = [(SPUISSectionBuilder *)self section];
-  title = [section title];
-  if ([title length])
+  v3 = objc_msgSend_title(section);
+  if ([v3 length])
   {
     v4 = MEMORY[0x277D4C598];
-    title2 = [section title];
-    v6 = [v4 textWithString:title2];
+    v5 = objc_msgSend_title(section);
+    v6 = [v4 textWithString:v5];
   }
 
   else
@@ -712,7 +703,7 @@ LABEL_20:
   resultSet = [section resultSet];
   array = [resultSet array];
 
-  v27 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(array, "count")}];
+  v27 = [MEMORY[0x277CBEB18] arrayWithCapacity:objc_msgSend_count(array)];
   if ([(SPUISSectionBuilder *)self maxCardSections]< 1)
   {
     buildMaxInitiallyVisibleResults = [(SPUISSectionBuilder *)self buildMaxInitiallyVisibleResults];
@@ -778,9 +769,9 @@ LABEL_20:
 
 void __40__SPUISSectionBuilder_buildCardSections__block_invoke(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v7 = a2;
-  if ([*(a1 + 32) count] > a3)
+  if (objc_msgSend_count(*(a1 + 32)) > a3)
   {
     v8 = [*(a1 + 32) objectAtIndexedSubscript:a3];
     objc_opt_class();
@@ -810,51 +801,49 @@ void __40__SPUISSectionBuilder_buildCardSections__block_invoke(uint64_t a1, void
   [v17 setQueryContext:*(a1 + 48)];
   [v17 setIsTopHit:v16];
   v18 = [*(a1 + 56) buildCardSectionsWithResult:v7 resultBuilder:v17];
-  if ([v18 count])
+  if (objc_msgSend_count(v18))
   {
     [*(a1 + 64) addObjectsFromArray:v18];
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v19 = v18;
-    v20 = [v19 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v26;
+      v22 = *v25;
       do
       {
         v23 = 0;
         do
         {
-          if (*v26 != v22)
+          if (*v25 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          [*(*(&v25 + 1) + 8 * v23++) setSpotlightBackingResult:{v7, v25}];
+          [*(*(&v24 + 1) + 8 * v23++) setSpotlightBackingResult:{v7, v24}];
         }
 
         while (v21 != v23);
-        v21 = [v19 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v21);
     }
   }
 
-  if (*(a1 + 80) == 1 && *(a1 + 72) >= 1 && [*(a1 + 64) count] >= *(a1 + 72))
+  if (*(a1 + 80) == 1 && *(a1 + 72) >= 1 && objc_msgSend_count(*(a1 + 64)) >= *(a1 + 72))
   {
     *a4 = 1;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)buildCardSectionsWithResult:(id)result resultBuilder:(id)builder
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   resultCopy = result;
   builderCopy = builder;
   buildHorizontallyScrollingCardSection = [(SPUISSectionBuilder *)self buildCardSectionWithResult:resultCopy resultBuilder:builderCopy];
@@ -869,51 +858,48 @@ void __40__SPUISSectionBuilder_buildCardSections__block_invoke(uint64_t a1, void
 LABEL_4:
     v9 = buildHorizontallyScrollingCardSection;
     cardSections = 0;
-    goto LABEL_5;
+LABEL_5:
+    v11 = objc_msgSend_count(cardSections);
+    goto LABEL_6;
   }
 
   inlineCard = [resultCopy inlineCard];
   cardSections = [inlineCard cardSections];
 
-  if ([cardSections count])
+  if (objc_msgSend_count(cardSections))
   {
     v9 = 0;
+    goto LABEL_5;
   }
 
-  else
-  {
-    buildInlineCardSections = [builderCopy buildInlineCardSections];
+  buildInlineCardSections = [builderCopy buildInlineCardSections];
 
-    v9 = 0;
-    cardSections = buildInlineCardSections;
-  }
-
-LABEL_5:
-  v11 = [cardSections count];
+  v9 = 0;
+  cardSections = buildInlineCardSections;
+  v11 = objc_msgSend_count(buildInlineCardSections);
+LABEL_6:
   v12 = cardSections;
   if (v11)
   {
-LABEL_6:
+LABEL_7:
     v13 = v12;
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
   if (!v9)
   {
     v12 = 0;
-    goto LABEL_6;
+    goto LABEL_7;
   }
 
-  v21[0] = v9;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
-LABEL_9:
+  v20[0] = v9;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+LABEL_10:
   v14 = v13;
 
   buildPreviewButtonItems = [builderCopy buildPreviewButtonItems];
   firstObject = [v14 firstObject];
   [firstObject setPreviewButtonItems:buildPreviewButtonItems];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -941,7 +927,7 @@ LABEL_9:
   {
     queryContext = [(SPUISSectionBuilder *)self queryContext];
     searchEntities = [queryContext searchEntities];
-    v13 = [searchEntities count];
+    v13 = objc_msgSend_count(searchEntities);
     queryContext2 = [(SPUISSectionBuilder *)self queryContext];
     v15 = queryContext2;
     if (v13)

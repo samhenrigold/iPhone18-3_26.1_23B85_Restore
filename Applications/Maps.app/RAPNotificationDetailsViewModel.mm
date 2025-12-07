@@ -11,7 +11,7 @@
 
 - (NSArray)mapItems
 {
-  sub_100014C84(0, &unk_101918390);
+  sub_100014C84(0, &unk_101918390, MKMapItem_ptr);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -46,7 +46,7 @@
 
 - (_TtC4Maps31RAPNotificationDetailsViewModel)initWithDescriptionInfo:(id)info displayStyle:(int64_t)style mapType:(int)type mapRegion:(id)region mapItems:(id)items reportId:(id)id updatedLabel:(id)label hasButton:(BOOL)self0 button:(id)self1 rapRecord:(id)self2
 {
-  sub_100014C84(0, &unk_101918390);
+  sub_100014C84(0, &unk_101918390, MKMapItem_ptr);
   v15 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v18 = v17;

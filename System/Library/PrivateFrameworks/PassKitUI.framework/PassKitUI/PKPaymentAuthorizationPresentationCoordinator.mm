@@ -194,57 +194,57 @@ void __54__PKPaymentAuthorizationPresentationCoordinator_start__block_invoke(uin
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __54__PKPaymentAuthorizationPresentationCoordinator_start__block_invoke_2(uint64_t a1)
+void __54__PKPaymentAuthorizationPresentationCoordinator_start__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (*(a1 + 48))
   {
-    v2 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v10 = *(a1 + 40);
-      v11 = 138412290;
-      v12 = v10;
-      _os_log_debug_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEBUG, "Retrieved payment listener endpoint: %@", &v11, 0xCu);
+      v11 = *(a1 + 40);
+      v12 = 138412290;
+      v13 = v11;
+      _os_log_debug_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEBUG, "Retrieved payment listener endpoint: %@", &v12, 0xCu);
     }
 
-    v3 = *(a1 + 32);
-    if (v3[32] == 1)
+    v4 = *(a1 + 32);
+    if (v4[32] == 1)
     {
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "PKPaymentAuthorizationPresentationCoordinator invalidated, discarding endpoint.", &v11, 2u);
+        LOWORD(v12) = 0;
+        _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKPaymentAuthorizationPresentationCoordinator invalidated, discarding endpoint.", &v12, 2u);
       }
     }
 
     else
     {
-      v5 = [v3 createConnectionToEndpoint:*(a1 + 40)];
-      v6 = *(a1 + 32);
-      v7 = *(v6 + 64);
-      *(v6 + 64) = v5;
+      v6 = [v4 createConnectionToEndpoint:*(a1 + 40)];
+      v7 = *(a1 + 32);
+      v8 = *(v7 + 64);
+      *(v7 + 64) = v6;
 
       [*(a1 + 32) openConnection:*(*(a1 + 32) + 64)];
-      v8 = [MEMORY[0x1E69BC740] userIntentStyle];
-      v9 = *(a1 + 32);
-      if (v8 == -1)
+      v9 = [MEMORY[0x1E69BC740] userIntentStyle];
+      v10 = *(a1 + 32);
+      if (v9 == -1)
       {
-        [v9 _presentEnrollAccessibilityIntentAlert];
+        [v10 _presentEnrollAccessibilityIntentAlert];
       }
 
       else
       {
-        [v9 _presentNextStepDismissingCurrentInterface:0 withDefaultPassID:0];
+        [v10 _presentNextStepDismissingCurrentInterface:0 withDefaultPassID:0];
       }
     }
   }
 
   else
   {
-    v4 = *(a1 + 32);
+    v5 = *(a1 + 32);
 
-    [v4 invalidate];
+    [v5 invalidate];
   }
 }
 
@@ -341,26 +341,28 @@ void __54__PKPaymentAuthorizationPresentationCoordinator_start__block_invoke_2(u
   }
 }
 
-void __91__PKPaymentAuthorizationPresentationCoordinator_startAllowingAdditionalPaymentPresentation__block_invoke(uint64_t a1, int a2)
+void __91__PKPaymentAuthorizationPresentationCoordinator_startAllowingAdditionalPaymentPresentation__block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v5 = *MEMORY[0x1E69E9840];
   v3 = PKLogFacilityTypeGetObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4[0] = 67109120;
-    v4[1] = a2;
+    v4[1] = v2;
     _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Registered for additional payment presentations with success: %d", v4, 8u);
   }
 }
 
-void __90__PKPaymentAuthorizationPresentationCoordinator_stopAllowingAdditionalPaymentPresentation__block_invoke(uint64_t a1, int a2)
+void __90__PKPaymentAuthorizationPresentationCoordinator_stopAllowingAdditionalPaymentPresentation__block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v5 = *MEMORY[0x1E69E9840];
   v3 = PKLogFacilityTypeGetObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4[0] = 67109120;
-    v4[1] = a2;
+    v4[1] = v2;
     _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Unregistered for additional payment presentations with success: %d", v4, 8u);
   }
 }
@@ -401,22 +403,22 @@ void __90__PKPaymentAuthorizationPresentationCoordinator_stopAllowingAdditionalP
   return v5;
 }
 
-void __76__PKPaymentAuthorizationPresentationCoordinator_createConnectionToEndpoint___block_invoke(uint64_t a1)
+void __76__PKPaymentAuthorizationPresentationCoordinator_createConnectionToEndpoint___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "PKPaymentAuthorizationPresentationCoordinator connection interrupted", buf, 2u);
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKPaymentAuthorizationPresentationCoordinator connection interrupted", buf, 2u);
   }
 
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __76__PKPaymentAuthorizationPresentationCoordinator_createConnectionToEndpoint___block_invoke_84;
   block[3] = &unk_1E8010998;
-  objc_copyWeak(&v4, (a1 + 32));
+  objc_copyWeak(&v5, (a1 + 32));
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  objc_destroyWeak(&v4);
+  objc_destroyWeak(&v5);
 }
 
 void __76__PKPaymentAuthorizationPresentationCoordinator_createConnectionToEndpoint___block_invoke_84(uint64_t a1)
@@ -425,22 +427,22 @@ void __76__PKPaymentAuthorizationPresentationCoordinator_createConnectionToEndpo
   [WeakRetained invalidate];
 }
 
-void __76__PKPaymentAuthorizationPresentationCoordinator_createConnectionToEndpoint___block_invoke_2(uint64_t a1)
+void __76__PKPaymentAuthorizationPresentationCoordinator_createConnectionToEndpoint___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "PKPaymentAuthorizationPresentationCoordinator connection invalidated", buf, 2u);
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKPaymentAuthorizationPresentationCoordinator connection invalidated", buf, 2u);
   }
 
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __76__PKPaymentAuthorizationPresentationCoordinator_createConnectionToEndpoint___block_invoke_85;
   block[3] = &unk_1E8010998;
-  objc_copyWeak(&v4, (a1 + 32));
+  objc_copyWeak(&v5, (a1 + 32));
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  objc_destroyWeak(&v4);
+  objc_destroyWeak(&v5);
 }
 
 void __76__PKPaymentAuthorizationPresentationCoordinator_createConnectionToEndpoint___block_invoke_85(uint64_t a1)
@@ -1072,17 +1074,17 @@ LABEL_60:
   [(PKPaymentAuthorizationPresentationCoordinator *)selfCopy _checkEligibilityForDynamicButtonWithCompletion:v153];
 }
 
-void __77__PKPaymentAuthorizationPresentationCoordinator__reportPaymentRequestDetails__block_invoke(uint64_t a1)
+void __77__PKPaymentAuthorizationPresentationCoordinator__reportPaymentRequestDetails__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PKAnalyticsReportSwitchToggleResultValue();
-  [*(a1 + 32) setObject:v2 forKeyedSubscript:*MEMORY[0x1E69BA658]];
+  v3 = PKAnalyticsReportSwitchToggleResultValue();
+  [*(a1 + 32) setObject:v3 forKeyedSubscript:*MEMORY[0x1E69BA658]];
 
   [*(a1 + 32) setObject:*MEMORY[0x1E69BA7C0] forKeyedSubscript:*MEMORY[0x1E69BA680]];
   [*(a1 + 32) setObject:*MEMORY[0x1E69BB128] forKeyedSubscript:*MEMORY[0x1E69BABE8]];
-  v3 = MEMORY[0x1E69B8540];
-  v4 = *(a1 + 40);
-  v5 = [*(a1 + 32) copy];
-  [v3 subject:v4 sendEvent:v5];
+  v4 = MEMORY[0x1E69B8540];
+  v5 = *(a1 + 40);
+  v6 = [*(a1 + 32) copy];
+  [v4 subject:v5 sendEvent:v6];
 }
 
 - (void)_endAnalyticsReporting
@@ -1331,36 +1333,36 @@ void __90__PKPaymentAuthorizationPresentationCoordinator__startSuppressingNotifi
   objc_destroyWeak(&v12);
 }
 
-void __90__PKPaymentAuthorizationPresentationCoordinator__startSuppressingNotificationsIfNecessary__block_invoke_2(uint64_t a1)
+void __90__PKPaymentAuthorizationPresentationCoordinator__startSuppressingNotificationsIfNecessary__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  if (v1)
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    v2 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v9 = v1;
-      _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Error acquiring notification suppression assertion: %@", buf, 0xCu);
+      v10 = v2;
+      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Error acquiring notification suppression assertion: %@", buf, 0xCu);
     }
   }
 
   else
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
-    v2 = WeakRetained;
+    v3 = WeakRetained;
     if (WeakRetained)
     {
       objc_storeStrong(&WeakRetained[2].isa, *(a1 + 40));
-      v5 = *(a1 + 40);
-      v6[0] = MEMORY[0x1E69E9820];
-      v6[1] = 3221225472;
-      v6[2] = __90__PKPaymentAuthorizationPresentationCoordinator__startSuppressingNotificationsIfNecessary__block_invoke_106;
-      v6[3] = &unk_1E8010998;
-      objc_copyWeak(&v7, (a1 + 48));
-      [v5 setInvalidationHandler:v6];
-      objc_destroyWeak(&v7);
+      v6 = *(a1 + 40);
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = __90__PKPaymentAuthorizationPresentationCoordinator__startSuppressingNotificationsIfNecessary__block_invoke_106;
+      v7[3] = &unk_1E8010998;
+      objc_copyWeak(&v8, (a1 + 48));
+      [v6 setInvalidationHandler:v7];
+      objc_destroyWeak(&v8);
     }
   }
 }
@@ -1641,7 +1643,7 @@ void __110__PKPaymentAuthorizationPresentationCoordinator__presentNextStepDismis
         }
 
 LABEL_28:
-        [(PKPaymentAuthorizationPresentationCoordinator *)self _presentPaymentAuthorizationWithRelevantUniqueID:dCopy, *v31];
+        [(PKPaymentAuthorizationPresentationCoordinator *)self _presentPaymentAuthorizationWithRelevantUniqueID:dCopy, *v31, *&v31[8]];
         if (!v13)
         {
           goto LABEL_71;
@@ -2011,7 +2013,7 @@ uint64_t __85__PKPaymentAuthorizationPresentationCoordinator__presentPaymentInte
   [(PKPeerPaymentIdentityVerificationInterface *)v6 preflightWithCompletion:v7];
 }
 
-void __88__PKPaymentAuthorizationPresentationCoordinator__presentPeerPaymentIdentityVerification__block_invoke(uint64_t a1, int a2)
+void __88__PKPaymentAuthorizationPresentationCoordinator__presentPeerPaymentIdentityVerification__block_invoke(uint64_t a1, uint64_t a2)
 {
   v11 = *MEMORY[0x1E69E9840];
   if (a2)
@@ -2109,17 +2111,17 @@ void __88__PKPaymentAuthorizationPresentationCoordinator__presentPeerPaymentIden
   }
 }
 
-void __98__PKPaymentAuthorizationPresentationCoordinator__presentPaymentAuthorizationWithRelevantUniqueID___block_invoke(uint64_t a1)
+void __98__PKPaymentAuthorizationPresentationCoordinator__presentPaymentAuthorizationWithRelevantUniqueID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  v3 = os_signpost_id_make_with_pointer(v2, *(a1 + 32));
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v3 = PKLogFacilityTypeGetObject();
+  v4 = os_signpost_id_make_with_pointer(v3, *(a1 + 32));
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v4 = v3;
-    if (os_signpost_enabled(v2))
+    v5 = v4;
+    if (os_signpost_enabled(v3))
     {
-      *v5 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1BD026000, v2, OS_SIGNPOST_INTERVAL_END, v4, "present:paymentSheet", "", v5, 2u);
+      *v6 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1BD026000, v3, OS_SIGNPOST_INTERVAL_END, v5, "present:paymentSheet", "", v6, 2u);
     }
   }
 }
@@ -2484,9 +2486,9 @@ void __69__PKPaymentAuthorizationPresentationCoordinator__presentInvalidAlert__b
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __69__PKPaymentAuthorizationPresentationCoordinator__presentInvalidAlert__block_invoke_2(uint64_t a1)
+void __69__PKPaymentAuthorizationPresentationCoordinator__presentInvalidAlert__block_invoke_2(void *a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   if (v2 && ([v2 state] - 2) <= 2)
   {
     v7 = PKLocalizedFeatureString();
@@ -2500,7 +2502,7 @@ void __69__PKPaymentAuthorizationPresentationCoordinator__presentInvalidAlert__b
   }
 
   v4 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E69BBBC8] code:-2016 userInfo:0];
-  v5 = *(a1 + 40);
+  v5 = a1[5];
   if (v7 && v3)
   {
     v6 = PKLocalizedString(&cfstr_OkButtonTitle.isa);
@@ -3104,18 +3106,18 @@ void __99__PKPaymentAuthorizationPresentationCoordinator_dismissSecondaryViewCon
   [(PKPaymentAuthorizationPresentationCoordinator *)self dismissBothPresentationsAnimated:1 completion:v3];
 }
 
-void __96__PKPaymentAuthorizationPresentationCoordinator_presentPaymentProvisioningDismissingAfterwards___block_invoke(uint64_t a1)
+void __96__PKPaymentAuthorizationPresentationCoordinator_presentPaymentProvisioningDismissingAfterwards___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  if (*(v1 + 40) == 1)
+  v12 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 32);
+  if (*(v2 + 40) == 1)
   {
-    v2 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134349056;
-      v10 = v1;
-      _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "PKPaymentAuthorizationPresentationCoordinator (%{public}p): Asked to show provisioning flow but payment setup already in progress. Ignoring request", &v9, 0xCu);
+      v10 = 134349056;
+      v11 = v2;
+      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKPaymentAuthorizationPresentationCoordinator (%{public}p): Asked to show provisioning flow but payment setup already in progress. Ignoring request", &v10, 0xCu);
     }
   }
 
@@ -3123,26 +3125,26 @@ void __96__PKPaymentAuthorizationPresentationCoordinator_presentPaymentProvision
   {
     MEMORY[0x1BFB41980](*MEMORY[0x1E69BA018], 0);
     *(*(a1 + 32) + 40) = 1;
-    v2 = [*(a1 + 32) _createPaymentInterfaceConfigurationWithRelevantPassID:0];
-    v4 = [[PKPaymentAuthorizationProvisioningInterface alloc] initWithConfiguration:v2 delegate:*(a1 + 32)];
-    v5 = v4;
-    if (v4)
+    v3 = [*(a1 + 32) _createPaymentInterfaceConfigurationWithRelevantPassID:0];
+    v5 = [[PKPaymentAuthorizationProvisioningInterface alloc] initWithConfiguration:v3 delegate:*(a1 + 32)];
+    v6 = v5;
+    if (v5)
     {
-      v6 = [(PKPaymentAuthorizationProvisioningInterface *)v4 primaryViewController];
-      [v6 setModalPresentationStyle:2];
+      v7 = [(PKPaymentAuthorizationProvisioningInterface *)v5 primaryViewController];
+      [v7 setModalPresentationStyle:2];
 
-      [*(a1 + 32) _presentPaymentInterface:v5 completion:0];
+      [*(a1 + 32) _presentPaymentInterface:v6 completion:0];
     }
 
     else
     {
-      v7 = PKLogFacilityTypeGetObject();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = PKLogFacilityTypeGetObject();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 32);
-        v9 = 134349056;
-        v10 = v8;
-        _os_log_impl(&dword_1BD026000, v7, OS_LOG_TYPE_DEFAULT, "PKPaymentAuthorizationPresentationCoordinator (%{public}p): cannot create provisioning interface - dismissing", &v9, 0xCu);
+        v9 = *(a1 + 32);
+        v10 = 134349056;
+        v11 = v9;
+        _os_log_impl(&dword_1BD026000, v8, OS_LOG_TYPE_DEFAULT, "PKPaymentAuthorizationPresentationCoordinator (%{public}p): cannot create provisioning interface - dismissing", &v10, 0xCu);
       }
 
       [*(a1 + 32) dismissWithReason:1 completion:0];

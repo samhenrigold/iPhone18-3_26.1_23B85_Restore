@@ -24,7 +24,7 @@
 
 - (void)uiBridgeServiceReceivedShowAssetsDownloadPrompt
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_client);
 
   if (WeakRetained)
@@ -45,12 +45,10 @@
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v10 = "[AFUIBridgeServiceProxy uiBridgeServiceReceivedShowAssetsDownloadPrompt]";
+      v9 = "[AFUIBridgeServiceProxy uiBridgeServiceReceivedShowAssetsDownloadPrompt]";
       _os_log_debug_impl(&dword_1912FE000, v6, OS_LOG_TYPE_DEBUG, "%s UIBridgeClient deallocated, dropping XPC message", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __73__AFUIBridgeServiceProxy_uiBridgeServiceReceivedShowAssetsDownloadPrompt__block_invoke(uint64_t a1)
@@ -68,20 +66,20 @@ void __73__AFUIBridgeServiceProxy_uiBridgeServiceReceivedShowAssetsDownloadPromp
 
 - (void)uiBridgeServiceReceivedSpeechMitigationResult:(unint64_t)result
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_client);
 
   if (WeakRetained)
   {
     v6 = objc_loadWeakRetained(&self->_client);
     delegateQueue = [v6 delegateQueue];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __72__AFUIBridgeServiceProxy_uiBridgeServiceReceivedSpeechMitigationResult___block_invoke;
-    v10[3] = &unk_1E7348498;
-    v10[4] = self;
-    v10[5] = result;
-    dispatch_async(delegateQueue, v10);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __72__AFUIBridgeServiceProxy_uiBridgeServiceReceivedSpeechMitigationResult___block_invoke;
+    v9[3] = &unk_1E7348498;
+    v9[4] = self;
+    v9[5] = result;
+    dispatch_async(delegateQueue, v9);
   }
 
   else
@@ -90,12 +88,10 @@ void __73__AFUIBridgeServiceProxy_uiBridgeServiceReceivedShowAssetsDownloadPromp
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v12 = "[AFUIBridgeServiceProxy uiBridgeServiceReceivedSpeechMitigationResult:]";
+      v11 = "[AFUIBridgeServiceProxy uiBridgeServiceReceivedSpeechMitigationResult:]";
       _os_log_debug_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEBUG, "%s UIBridgeClient deallocated, dropping XPC message", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __72__AFUIBridgeServiceProxy_uiBridgeServiceReceivedSpeechMitigationResult___block_invoke(uint64_t a1)
@@ -113,20 +109,20 @@ void __72__AFUIBridgeServiceProxy_uiBridgeServiceReceivedSpeechMitigationResult_
 
 - (void)uiBridgeServiceDetectedSpeechStart:(BOOL)start
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_client);
 
   if (WeakRetained)
   {
     v6 = objc_loadWeakRetained(&self->_client);
     delegateQueue = [v6 delegateQueue];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __61__AFUIBridgeServiceProxy_uiBridgeServiceDetectedSpeechStart___block_invoke;
-    v10[3] = &unk_1E7347F98;
-    v10[4] = self;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __61__AFUIBridgeServiceProxy_uiBridgeServiceDetectedSpeechStart___block_invoke;
+    v9[3] = &unk_1E7347F98;
+    v9[4] = self;
     startCopy = start;
-    dispatch_async(delegateQueue, v10);
+    dispatch_async(delegateQueue, v9);
   }
 
   else
@@ -135,12 +131,10 @@ void __72__AFUIBridgeServiceProxy_uiBridgeServiceReceivedSpeechMitigationResult_
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v13 = "[AFUIBridgeServiceProxy uiBridgeServiceDetectedSpeechStart:]";
+      v12 = "[AFUIBridgeServiceProxy uiBridgeServiceDetectedSpeechStart:]";
       _os_log_debug_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEBUG, "%s UIBridgeClient deallocated, dropping XPC message", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __61__AFUIBridgeServiceProxy_uiBridgeServiceDetectedSpeechStart___block_invoke(uint64_t a1)
@@ -158,7 +152,7 @@ void __61__AFUIBridgeServiceProxy_uiBridgeServiceDetectedSpeechStart___block_inv
 
 - (void)uiBridgeServiceDetectedSpeechStart
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_client);
 
   if (WeakRetained)
@@ -179,12 +173,10 @@ void __61__AFUIBridgeServiceProxy_uiBridgeServiceDetectedSpeechStart___block_inv
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v10 = "[AFUIBridgeServiceProxy uiBridgeServiceDetectedSpeechStart]";
+      v9 = "[AFUIBridgeServiceProxy uiBridgeServiceDetectedSpeechStart]";
       _os_log_debug_impl(&dword_1912FE000, v6, OS_LOG_TYPE_DEBUG, "%s UIBridgeClient deallocated, dropping XPC message", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __60__AFUIBridgeServiceProxy_uiBridgeServiceDetectedSpeechStart__block_invoke(uint64_t a1)
@@ -202,7 +194,7 @@ void __60__AFUIBridgeServiceProxy_uiBridgeServiceDetectedSpeechStart__block_invo
 
 - (void)uiBridgeServiceDetectedSiriDirectedSpeech
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_client);
 
   if (WeakRetained)
@@ -223,12 +215,10 @@ void __60__AFUIBridgeServiceProxy_uiBridgeServiceDetectedSpeechStart__block_invo
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v10 = "[AFUIBridgeServiceProxy uiBridgeServiceDetectedSiriDirectedSpeech]";
+      v9 = "[AFUIBridgeServiceProxy uiBridgeServiceDetectedSiriDirectedSpeech]";
       _os_log_debug_impl(&dword_1912FE000, v6, OS_LOG_TYPE_DEBUG, "%s UIBridgeClient deallocated, dropping XPC message", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __67__AFUIBridgeServiceProxy_uiBridgeServiceDetectedSiriDirectedSpeech__block_invoke(uint64_t a1)
@@ -246,20 +236,20 @@ void __67__AFUIBridgeServiceProxy_uiBridgeServiceDetectedSiriDirectedSpeech__blo
 
 - (void)uiBridgeServiceDidStopAttendingUnexpectedlyWithReason:(unint64_t)reason
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_client);
 
   if (WeakRetained)
   {
     v6 = objc_loadWeakRetained(&self->_client);
     delegateQueue = [v6 delegateQueue];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __80__AFUIBridgeServiceProxy_uiBridgeServiceDidStopAttendingUnexpectedlyWithReason___block_invoke;
-    v10[3] = &unk_1E7348498;
-    v10[4] = self;
-    v10[5] = reason;
-    dispatch_async(delegateQueue, v10);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __80__AFUIBridgeServiceProxy_uiBridgeServiceDidStopAttendingUnexpectedlyWithReason___block_invoke;
+    v9[3] = &unk_1E7348498;
+    v9[4] = self;
+    v9[5] = reason;
+    dispatch_async(delegateQueue, v9);
   }
 
   else
@@ -268,12 +258,10 @@ void __67__AFUIBridgeServiceProxy_uiBridgeServiceDetectedSiriDirectedSpeech__blo
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v12 = "[AFUIBridgeServiceProxy uiBridgeServiceDidStopAttendingUnexpectedlyWithReason:]";
+      v11 = "[AFUIBridgeServiceProxy uiBridgeServiceDidStopAttendingUnexpectedlyWithReason:]";
       _os_log_debug_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEBUG, "%s UIBridgeClient deallocated, dropping XPC message", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __80__AFUIBridgeServiceProxy_uiBridgeServiceDidStopAttendingUnexpectedlyWithReason___block_invoke(uint64_t a1)
@@ -291,7 +279,7 @@ void __80__AFUIBridgeServiceProxy_uiBridgeServiceDidStopAttendingUnexpectedlyWit
 
 - (void)uiBridgeServiceDidStartAttendingWithRootRequestId:(id)id
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   idCopy = id;
   WeakRetained = objc_loadWeakRetained(&self->_client);
 
@@ -299,13 +287,13 @@ void __80__AFUIBridgeServiceProxy_uiBridgeServiceDidStopAttendingUnexpectedlyWit
   {
     v6 = objc_loadWeakRetained(&self->_client);
     delegateQueue = [v6 delegateQueue];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __76__AFUIBridgeServiceProxy_uiBridgeServiceDidStartAttendingWithRootRequestId___block_invoke;
-    v10[3] = &unk_1E7349860;
-    v10[4] = self;
-    v11 = idCopy;
-    dispatch_async(delegateQueue, v10);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __76__AFUIBridgeServiceProxy_uiBridgeServiceDidStartAttendingWithRootRequestId___block_invoke;
+    v9[3] = &unk_1E7349860;
+    v9[4] = self;
+    v10 = idCopy;
+    dispatch_async(delegateQueue, v9);
   }
 
   else
@@ -314,12 +302,10 @@ void __80__AFUIBridgeServiceProxy_uiBridgeServiceDidStopAttendingUnexpectedlyWit
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v13 = "[AFUIBridgeServiceProxy uiBridgeServiceDidStartAttendingWithRootRequestId:]";
+      v12 = "[AFUIBridgeServiceProxy uiBridgeServiceDidStartAttendingWithRootRequestId:]";
       _os_log_debug_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEBUG, "%s UIBridgeClient deallocated, dropping XPC message", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __76__AFUIBridgeServiceProxy_uiBridgeServiceDidStartAttendingWithRootRequestId___block_invoke(uint64_t a1)
@@ -337,7 +323,7 @@ void __76__AFUIBridgeServiceProxy_uiBridgeServiceDidStartAttendingWithRootReques
 
 - (void)uiBridgeServiceDidStartAttending
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_client);
 
   if (WeakRetained)
@@ -358,12 +344,10 @@ void __76__AFUIBridgeServiceProxy_uiBridgeServiceDidStartAttendingWithRootReques
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v10 = "[AFUIBridgeServiceProxy uiBridgeServiceDidStartAttending]";
+      v9 = "[AFUIBridgeServiceProxy uiBridgeServiceDidStartAttending]";
       _os_log_debug_impl(&dword_1912FE000, v6, OS_LOG_TYPE_DEBUG, "%s UIBridgeClient deallocated, dropping XPC message", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __58__AFUIBridgeServiceProxy_uiBridgeServiceDidStartAttending__block_invoke(uint64_t a1)
@@ -381,7 +365,7 @@ void __58__AFUIBridgeServiceProxy_uiBridgeServiceDidStartAttending__block_invoke
 
 - (void)uiBridgeServiceDidStart
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_client);
 
   if (WeakRetained)
@@ -402,12 +386,10 @@ void __58__AFUIBridgeServiceProxy_uiBridgeServiceDidStartAttending__block_invoke
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v10 = "[AFUIBridgeServiceProxy uiBridgeServiceDidStart]";
+      v9 = "[AFUIBridgeServiceProxy uiBridgeServiceDidStart]";
       _os_log_debug_impl(&dword_1912FE000, v6, OS_LOG_TYPE_DEBUG, "%s UIBridgeClient deallocated, dropping XPC message", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __49__AFUIBridgeServiceProxy_uiBridgeServiceDidStart__block_invoke(uint64_t a1)
@@ -425,7 +407,7 @@ void __49__AFUIBridgeServiceProxy_uiBridgeServiceDidStart__block_invoke(uint64_t
 
 - (void)uiBridgeServiceWillStartAttending
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_client);
 
   if (WeakRetained)
@@ -446,12 +428,10 @@ void __49__AFUIBridgeServiceProxy_uiBridgeServiceDidStart__block_invoke(uint64_t
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v10 = "[AFUIBridgeServiceProxy uiBridgeServiceWillStartAttending]";
+      v9 = "[AFUIBridgeServiceProxy uiBridgeServiceWillStartAttending]";
       _os_log_debug_impl(&dword_1912FE000, v6, OS_LOG_TYPE_DEBUG, "%s UIBridgeClient deallocated, dropping XPC message", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __59__AFUIBridgeServiceProxy_uiBridgeServiceWillStartAttending__block_invoke(uint64_t a1)

@@ -7,7 +7,7 @@
 
 + (id)insertDataObject:(id)object withProvenance:(id)provenance inDatabase:(id)database persistentID:(id)d error:(id *)error
 {
-  v28[13] = *MEMORY[0x277D85DE8];
+  v27[13] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   dCopy = d;
   databaseCopy = database;
@@ -18,29 +18,29 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"HDMedicationRecordEntity.m" lineNumber:73 description:{@"Subclasses must override %s", "+[HDMedicationRecordEntity insertDataObject:withProvenance:inDatabase:persistentID:error:]"}];
   }
 
-  v28[0] = @"data_id";
-  v28[1] = @"medication_coding_collection";
-  v28[2] = @"assertion_type";
-  v28[3] = @"asserter";
-  v28[4] = @"assertion_date";
-  v28[5] = @"status_coding";
-  v28[6] = @"dosages";
-  v28[7] = @"earliest_dosage_date";
-  v28[8] = @"reason_for_use_coding_collections";
-  v28[9] = @"not_taken";
-  v28[10] = @"reasons_not_taken_coding_collections";
-  v28[11] = @"effective_start_date";
-  v28[12] = @"effective_end_date";
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:13];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __90__HDMedicationRecordEntity_insertDataObject_withProvenance_inDatabase_persistentID_error___block_invoke;
-  v25[3] = &unk_278613DE8;
-  v26 = dCopy;
-  v27 = objectCopy;
+  v27[0] = @"data_id";
+  v27[1] = @"medication_coding_collection";
+  v27[2] = @"assertion_type";
+  v27[3] = @"asserter";
+  v27[4] = @"assertion_date";
+  v27[5] = @"status_coding";
+  v27[6] = @"dosages";
+  v27[7] = @"earliest_dosage_date";
+  v27[8] = @"reason_for_use_coding_collections";
+  v27[9] = @"not_taken";
+  v27[10] = @"reasons_not_taken_coding_collections";
+  v27[11] = @"effective_start_date";
+  v27[12] = @"effective_end_date";
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:13];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __90__HDMedicationRecordEntity_insertDataObject_withProvenance_inDatabase_persistentID_error___block_invoke;
+  v24[3] = &unk_278613DE8;
+  v25 = dCopy;
+  v26 = objectCopy;
   v17 = objectCopy;
   v18 = dCopy;
-  v19 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v16 error:error bindingHandler:v25];
+  v19 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v16 error:error bindingHandler:v24];
 
   if (v19)
   {
@@ -54,7 +54,6 @@
 
   v21 = v20;
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

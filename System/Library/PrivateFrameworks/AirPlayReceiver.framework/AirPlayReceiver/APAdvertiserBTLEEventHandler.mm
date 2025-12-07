@@ -3,55 +3,66 @@
 
 @implementation APAdvertiserBTLEEventHandler
 
-void ___APAdvertiserBTLEEventHandler_block_invoke(uint64_t a1)
+void ___APAdvertiserBTLEEventHandler_block_invoke(uint64_t result)
 {
-  v1 = *(a1 + 40);
-  if (v1 <= 1)
+  v2 = *(result + 40);
+  if (v2 <= 1)
   {
-    if (!v1)
+    if (!v2)
     {
-      v2 = *(a1 + 32);
-      v3 = 1;
+      v3 = *(result + 32);
+      v4 = 1;
       goto LABEL_12;
     }
 
-    if (v1 == 1)
+    if (v2 == 1)
     {
-      v2 = *(a1 + 32);
-      v3 = 0;
+      v3 = *(result + 32);
+      v4 = 0;
 LABEL_12:
 
-      _APAdvertiserHandleSourceDeviceNearbyEvent(v2, v3);
+      _APAdvertiserHandleSourceDeviceNearbyEvent(v3, v4);
       return;
     }
 
-    goto LABEL_8;
+LABEL_8:
+    if (gLogCategory_APAdvertiser > 60)
+    {
+      return;
+    }
+
+    if (gLogCategory_APAdvertiser == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        return;
+      }
+
+      v2 = *(result + 40);
+    }
+
+    LogPrintF(&gLogCategory_APAdvertiser, "void _APAdvertiserBTLEEventHandler(APAdvertiserBTLEManagerRef, APAdvertiserBTLEEventType, void *)_block_invoke", 33554492, "Unrecognized BTLE event %d.", v2);
+    return;
   }
 
-  if (v1 == 2)
+  if (v2 == 2)
   {
-    v4 = *(a1 + 32);
-    v5 = 1;
+    v5 = *(result + 32);
+    v6 = 1;
   }
 
   else
   {
-    if (v1 != 3)
+    if (v2 != 3)
     {
-LABEL_8:
-      if (gLogCategory_APAdvertiser <= 60 && (gLogCategory_APAdvertiser != -1 || _LogCategory_Initialize()))
-      {
-        LogPrintF();
-      }
-
-      return;
+      goto LABEL_8;
     }
 
-    v4 = *(a1 + 32);
-    v5 = 0;
+    v5 = *(result + 32);
+    v6 = 0;
   }
 
-  _APAdvertiserSetNeedsNIRangingSession(v4, v5);
+  _APAdvertiserSetNeedsNIRangingSession(v5, v6);
 }
 
 @end

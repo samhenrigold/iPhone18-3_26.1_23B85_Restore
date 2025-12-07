@@ -22,10 +22,9 @@
 
 - (LACEvaluationRequest)evaluationRequest
 {
-  v2 = *(self + OBJC_IVAR___LACCompanionAuthenticationRequest_evaluationRequest);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (BOOL)isFallbackAvailable

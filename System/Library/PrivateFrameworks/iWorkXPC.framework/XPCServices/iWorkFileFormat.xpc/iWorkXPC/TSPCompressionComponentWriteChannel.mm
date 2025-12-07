@@ -1,10 +1,35 @@
 @interface TSPCompressionComponentWriteChannel
+- (TSPCompressionComponentWriteChannel)initWithWriteChannel:(id)channel compressionAlgorithm:(int)algorithm operation:(int)operation;
 - (void)close;
 - (void)dealloc;
 - (void)writeData:(id)data;
 @end
 
 @implementation TSPCompressionComponentWriteChannel
+
+- (TSPCompressionComponentWriteChannel)initWithWriteChannel:(id)channel compressionAlgorithm:(int)algorithm operation:(int)operation
+{
+  v5 = *&operation;
+  v6 = *&algorithm;
+  channelCopy = channel;
+  v17.receiver = self;
+  v17.super_class = TSPCompressionComponentWriteChannel;
+  v10 = [(TSPCompressionComponentWriteChannel *)&v17 init];
+  if (v10)
+  {
+    v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v12 = dispatch_queue_create("TSPCompressionComponentWriteChannel.Write", v11);
+    writeQueue = v10->_writeQueue;
+    v10->_writeQueue = v12;
+
+    objc_storeStrong(&v10->_writeChannel, channel);
+    v14 = [[TSUStreamCompression alloc] initWithAlgorithm:v6 operation:v5];
+    compressor = v10->_compressor;
+    v10->_compressor = v14;
+  }
+
+  return v10;
+}
 
 - (void)dealloc
 {

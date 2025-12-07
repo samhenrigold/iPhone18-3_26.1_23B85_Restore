@@ -63,7 +63,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  quasar::SpeechRecognizer::getPauseDurations(ptr, __p);
+  quasar::SpeechRecognizer::getPauseDurations(__p, ptr);
   v6 = EARHelpers::VectorToArray<float>(__p);
   v7 = self->_pauseDurations;
   self->_pauseDurations = v6;

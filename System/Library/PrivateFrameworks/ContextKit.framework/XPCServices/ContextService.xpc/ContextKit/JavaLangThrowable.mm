@@ -61,14 +61,19 @@
       }
 
       lastObject = [v4 lastObject];
-      if ([objc_msgSend(lastObject "getClassName")] && objc_msgSend(objc_msgSend(lastObject, "getMethodName"), "isEqualToString:", @"invoke"))
+      removeLastObject = [objc_msgSend(lastObject "getClassName")];
+      if (removeLastObject)
       {
-        [v4 removeLastObject];
+        removeLastObject = [objc_msgSend(lastObject "getMethodName")];
+        if (removeLastObject)
+        {
+          removeLastObject = [v4 removeLastObject];
+        }
       }
 
-      v10 = [IOSObjectArray arrayWithNSArray:v4 type:JavaLangStackTraceElement_class_()];
+      v12 = [IOSObjectArray arrayWithNSArray:v4 type:JavaLangStackTraceElement_class_(removeLastObject, v11)];
       v3 = &OBJC_IVAR___LibcoreUtilMutableInt_value_;
-      self->stackTrace = v10;
+      self->stackTrace = v12;
       free(self->rawCallStack);
       self->rawCallStack = 0;
     }

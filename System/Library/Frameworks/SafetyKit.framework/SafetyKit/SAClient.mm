@@ -7,9 +7,7 @@
 - (id)serverProxy;
 - (void)callAuthenticationRequestHandlerWithError;
 - (void)callAuthenticationRequestHandlerWithStatus:(int64_t)status error:(id)error;
-- (void)connection;
 - (void)dialVoiceCallToPhoneNumber:(id)number completionHandler:(id)handler;
-- (void)init;
 - (void)requestCrashDetectionAuthorization:(id)authorization;
 - (void)requestMostRecentCrashDetectionEvent;
 - (void)setConnection:(id)connection;
@@ -38,7 +36,6 @@
 
 uint64_t __26__SAClient_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_sSAClient = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -46,31 +43,41 @@ uint64_t __26__SAClient_sharedInstance__block_invoke(uint64_t a1)
 
 - (SAClient)init
 {
-  v7.receiver = self;
-  v7.super_class = SAClient;
-  v2 = [(SAClient *)&v7 init];
+  v8.receiver = self;
+  v8.super_class = SAClient;
+  v2 = [(SAClient *)&v8 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sa_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = sa_default_log(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       [SAClient init];
     }
 
-    v4 = dispatch_queue_create("com.apple.SafetyKit.SAClient", 0);
-    messageQueue = v2->_messageQueue;
-    v2->_messageQueue = v4;
+    v5 = dispatch_queue_create("com.apple.SafetyKit.SAClient", 0);
+    messageQueue = v3->_messageQueue;
+    v3->_messageQueue = v5;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)requestMostRecentCrashDetectionEvent
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = sa_default_log(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [SAClient requestMostRecentCrashDetectionEvent];
+  }
+
+  messageQueue = self->_messageQueue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __48__SAClient_requestMostRecentCrashDetectionEvent__block_invoke;
+  block[3] = &unk_278B67C88;
+  block[4] = self;
+  dispatch_async(messageQueue, block);
 }
 
 void __48__SAClient_requestMostRecentCrashDetectionEvent__block_invoke(uint64_t a1)
@@ -82,31 +89,31 @@ void __48__SAClient_requestMostRecentCrashDetectionEvent__block_invoke(uint64_t 
 - (void)requestCrashDetectionAuthorization:(id)authorization
 {
   authorizationCopy = authorization;
-  v5 = sa_default_log();
+  v5 = sa_default_log(authorizationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SAClient requestCrashDetectionAuthorization:];
   }
 
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v7 = objc_sync_enter(selfCopy);
   if (selfCopy->_authenticationRequestHandler)
   {
-    v7 = sa_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sa_default_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [SAClient requestCrashDetectionAuthorization:v7];
+      [SAClient requestCrashDetectionAuthorization:v8];
     }
 
-    v8 = [SAError errorWithCode:4];
-    authorizationCopy[2](authorizationCopy, 0, v8);
+    v9 = [SAError errorWithCode:4];
+    authorizationCopy[2](authorizationCopy, 0, v9);
   }
 
   else
   {
-    v9 = MEMORY[0x23EE91E30](authorizationCopy);
+    v10 = MEMORY[0x23EE91E30](authorizationCopy);
     authenticationRequestHandler = selfCopy->_authenticationRequestHandler;
-    selfCopy->_authenticationRequestHandler = v9;
+    selfCopy->_authenticationRequestHandler = v10;
 
     objc_initWeak(&location, selfCopy);
     messageQueue = selfCopy->_messageQueue;
@@ -115,9 +122,9 @@ void __48__SAClient_requestMostRecentCrashDetectionEvent__block_invoke(uint64_t 
     block[2] = __47__SAClient_requestCrashDetectionAuthorization___block_invoke;
     block[3] = &unk_278B67CD8;
     block[4] = selfCopy;
-    objc_copyWeak(&v13, &location);
+    objc_copyWeak(&v14, &location);
     dispatch_async(messageQueue, block);
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(&location);
   }
 
@@ -169,7 +176,7 @@ void __47__SAClient_requestCrashDetectionAuthorization___block_invoke_2(uint64_t
 - (void)updateMostRecentCrashDetectionEvent:(id)event
 {
   eventCopy = event;
-  v5 = sa_default_log();
+  v5 = sa_default_log(eventCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SAClient updateMostRecentCrashDetectionEvent:];
@@ -183,7 +190,7 @@ void __47__SAClient_requestCrashDetectionAuthorization___block_invoke_2(uint64_t
 
   else
   {
-    crashDetectionClientDelegate = sa_default_log();
+    crashDetectionClientDelegate = sa_default_log(v6);
     if (os_log_type_enabled(crashDetectionClientDelegate, OS_LOG_TYPE_ERROR))
     {
       [SAClient updateMostRecentCrashDetectionEvent:crashDetectionClientDelegate];
@@ -195,7 +202,7 @@ void __47__SAClient_requestCrashDetectionAuthorization___block_invoke_2(uint64_t
 {
   numberCopy = number;
   handlerCopy = handler;
-  v8 = sa_default_log();
+  v8 = sa_default_log(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [SAClient dialVoiceCallToPhoneNumber:completionHandler:];
@@ -222,7 +229,7 @@ void __57__SAClient_dialVoiceCallToPhoneNumber_completionHandler___block_invoke(
 
 - (void)updateVoiceCallStatus:(int64_t)status
 {
-  v5 = sa_default_log();
+  v5 = sa_default_log(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SAClient updateVoiceCallStatus:];
@@ -244,7 +251,7 @@ void __57__SAClient_dialVoiceCallToPhoneNumber_completionHandler___block_invoke(
 void __23__SAClient_serverProxy__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = sa_default_log();
+  v3 = sa_default_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __23__SAClient_serverProxy__block_invoke_cold_1();
@@ -277,7 +284,7 @@ void __23__SAClient_serverProxy__block_invoke(uint64_t a1, void *a2)
   connection = self->_connection;
   if (!connection)
   {
-    v4 = sa_default_log();
+    v4 = sa_default_log(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       [SAClient connection];
@@ -321,7 +328,7 @@ void __23__SAClient_serverProxy__block_invoke(uint64_t a1, void *a2)
 
 void __22__SAClient_connection__block_invoke(uint64_t a1)
 {
-  v2 = sa_default_log();
+  v2 = sa_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -335,7 +342,7 @@ void __22__SAClient_connection__block_invoke(uint64_t a1)
 
 void __22__SAClient_connection__block_invoke_5(uint64_t a1)
 {
-  v2 = sa_default_log();
+  v2 = sa_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -374,72 +381,34 @@ uint64_t __22__SAClient_connection__block_invoke_6(uint64_t a1)
   return WeakRetained;
 }
 
-- (void)init
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)requestCrashDetectionAuthorization:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)requestCrashDetectionAuthorization:(os_log_t)log .cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[SAClient requestCrashDetectionAuthorization:]";
-  _os_log_error_impl(&dword_23AA4D000, log, OS_LOG_TYPE_ERROR, "%s - Unable to request authorization because there is already an active request.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[SAClient requestCrashDetectionAuthorization:]";
+  _os_log_error_impl(&dword_23AA4D000, log, OS_LOG_TYPE_ERROR, "%s - Unable to request authorization because there is already an active request.", &v1, 0xCu);
 }
 
 - (void)updateMostRecentCrashDetectionEvent:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dialVoiceCallToPhoneNumber:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateVoiceCallStatus:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __23__SAClient_serverProxy__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_23AA4D000, v0, OS_LOG_TYPE_ERROR, "%s - unable to get serverProxy, error: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)connection
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23AA4D000, v0, OS_LOG_TYPE_ERROR, "%s - unable to get serverProxy, error: %@", v1, 0x16u);
 }
 
 @end

@@ -109,151 +109,176 @@
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
+  }
+
+  v59 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v58 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v58, &v59, "%@", v5);
+    v6 = v58;
   }
 
   identifier = self->_identifier;
   if (identifier)
   {
-    v32 = identifier;
-    CUAppendF();
-    v6 = v4;
+    v57 = v6;
+    v8 = identifier;
+    CUAppendF(&v57, &v59, "ID %@", v8);
+    v9 = v57;
 
-    v4 = v6;
+    v6 = v9;
   }
 
   name = self->_name;
   if (name)
   {
-    v33 = name;
-    CUAppendF();
-    v8 = v4;
+    v56 = v6;
+    v11 = name;
+    CUAppendF(&v56, &v59, "name '%@'", v11);
+    v12 = v56;
 
-    v4 = v8;
+    v6 = v12;
   }
 
   protocolTypeString = self->_protocolTypeString;
   if (protocolTypeString)
   {
-    v34 = protocolTypeString;
-    CUAppendF();
-    v10 = v4;
+    v55 = v6;
+    v14 = protocolTypeString;
+    CUAppendF(&v55, &v59, "protocol %@", v14);
+    v15 = v55;
 
-    v4 = v10;
+    v6 = v15;
   }
 
   if (self->_selected)
   {
-    CUAppendF();
-    v11 = v4;
+    v54 = v6;
+    CUAppendF(&v54, &v59, "selected");
+    v16 = v54;
 
-    v4 = v11;
+    v6 = v16;
   }
 
   if (self->_missing)
   {
-    CUAppendF();
-    v12 = v4;
+    v53 = v6;
+    CUAppendF(&v53, &v59, "missing");
+    v17 = v53;
 
-    v4 = v12;
+    v6 = v17;
   }
 
   airplayDeviceID = self->_airplayDeviceID;
   if (airplayDeviceID)
   {
-    v35 = airplayDeviceID;
-    CUAppendF();
-    v14 = v4;
+    v52 = v6;
+    v19 = airplayDeviceID;
+    CUAppendF(&v52, &v59, "apID %@", v19);
+    v20 = v52;
 
-    v4 = v14;
+    v6 = v20;
   }
 
   bonjourFullName = self->_bonjourFullName;
   if (bonjourFullName)
   {
-    v36 = bonjourFullName;
-    CUAppendF();
-    v16 = v4;
+    v51 = v6;
+    v22 = bonjourFullName;
+    CUAppendF(&v51, &v59, "bjFN '%@'", v22);
+    v23 = v51;
 
-    v4 = v16;
+    v6 = v23;
   }
 
   bonjourHostname = self->_bonjourHostname;
   if (bonjourHostname)
   {
-    v37 = bonjourHostname;
-    CUAppendF();
-    v18 = v4;
+    v50 = v6;
+    v25 = bonjourHostname;
+    CUAppendF(&v50, &v59, "bjHN '%@'", v25);
+    v26 = v50;
 
-    v4 = v18;
+    v6 = v26;
   }
 
   bonjourName = self->_bonjourName;
   if (bonjourName)
   {
-    v38 = bonjourName;
-    CUAppendF();
-    v20 = v4;
+    v49 = v6;
+    v28 = bonjourName;
+    CUAppendF(&v49, &v59, "bjNm '%@'", v28);
+    v29 = v49;
 
-    v4 = v20;
+    v6 = v29;
   }
 
   bonjourType = self->_bonjourType;
   if (bonjourType)
   {
-    v39 = bonjourType;
-    CUAppendF();
-    v22 = v4;
+    v48 = v6;
+    v31 = bonjourType;
+    CUAppendF(&v48, &v59, "bjST %@", v31);
+    v32 = v48;
 
-    v4 = v22;
+    v6 = v32;
   }
 
-  if (self->_bonjourInterfaceIndex)
+  bonjourInterfaceIndex = self->_bonjourInterfaceIndex;
+  if (bonjourInterfaceIndex)
   {
-    bonjourInterfaceIndex = self->_bonjourInterfaceIndex;
-    CUAppendF();
-    v23 = v4;
+    v47 = v6;
+    CUAppendF(&v47, &v59, "bjII %u", bonjourInterfaceIndex);
+    v34 = v47;
 
-    v4 = v23;
+    v6 = v34;
   }
 
   ipv4String = self->_ipv4String;
   if (ipv4String)
   {
-    v25 = ipv4String;
-    v41 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v26 = v4;
+    v46 = v6;
+    v36 = ipv4String;
+    v37 = CUPrintNSObjectOneLine();
+    CUAppendF(&v46, &v59, "IPv4 %@", v37);
+    v38 = v46;
 
-    v4 = v26;
+    v6 = v38;
   }
 
   underlyingDADevice = self->_underlyingDADevice;
   if (underlyingDADevice)
   {
-    v42 = underlyingDADevice;
-    CUAppendF();
-    v28 = v4;
+    v45 = v6;
+    v40 = underlyingDADevice;
+    CUAppendF(&v45, &v59, "daDv %@", v40);
+    v41 = v45;
 
-    v4 = v28;
+    v6 = v41;
   }
 
-  v29 = &stru_285B4C350;
-  if (v4)
+  v42 = &stru_285B4C350;
+  if (v6)
   {
-    v29 = v4;
+    v42 = v6;
   }
 
-  v30 = v29;
+  v43 = v42;
 
-  return v30;
+  return v43;
 }
 
 - (BOOL)matchesSelectedEndpoint:(id)endpoint allowName:(BOOL)name

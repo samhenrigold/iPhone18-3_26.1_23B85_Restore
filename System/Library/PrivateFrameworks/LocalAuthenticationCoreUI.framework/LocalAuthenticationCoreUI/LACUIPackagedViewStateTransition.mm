@@ -1,5 +1,6 @@
 @interface LACUIPackagedViewStateTransition
 - (LACUIPackagedViewStateTransition)initWithFromState:(id)state toState:(id)toState completion:(id)completion;
+- (void)complete:(BOOL)complete;
 - (void)dealloc;
 @end
 
@@ -32,6 +33,20 @@
   v3.receiver = self;
   v3.super_class = LACUIPackagedViewStateTransition;
   [(LACUIPackagedViewStateTransition *)&v3 dealloc];
+}
+
+- (void)complete:(BOOL)complete
+{
+  handler = self->_handler;
+  if (handler)
+  {
+    completeCopy = complete;
+    v7 = [handler copy];
+    v6 = self->_handler;
+    self->_handler = 0;
+
+    v7[2](v7, completeCopy);
+  }
 }
 
 @end

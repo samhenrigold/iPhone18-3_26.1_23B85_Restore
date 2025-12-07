@@ -21,133 +21,130 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v39 = *MEMORY[0x29EDCA608];
-  v37.receiver = self;
-  v37.super_class = VUIMediaTagsViewAccessibility;
-  [(VUIMediaTagsViewAccessibility *)&v37 _accessibilityLoadAccessibilityInformation];
-  v36 = 0;
+  v36 = *MEMORY[0x29EDCA608];
+  v34.receiver = self;
+  v34.super_class = VUIMediaTagsViewAccessibility;
+  [(VUIMediaTagsViewAccessibility *)&v34 _accessibilityLoadAccessibilityInformation];
+  v33 = 0;
   objc_opt_class();
   v3 = [(VUIMediaTagsViewAccessibility *)self safeValueForKey:@"viewsMap"];
   v4 = __UIAccessibilityCastAsClass();
 
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
   allKeys = [v4 allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v32 objects:v38 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v33;
-    v30 = allKeys;
-    v31 = *MEMORY[0x29EDC7FA0];
-    v9 = 0x29EDBA000uLL;
+    v8 = *v30;
+    v27 = allKeys;
+    v28 = *MEMORY[0x29EDC7FA0];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v33 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
-        v12 = *(v9 + 248);
+        v10 = *(*(&v29 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          if ([v11 isEqualToString:@"VUIMediaTagKeySeparator"])
+          if ([v10 isEqualToString:@"VUIMediaTagKeySeparator"])
           {
-            v13 = [v4 objectForKey:@"VUIMediaTagKeySeparator"];
-            [v13 setIsAccessibilityElement:0];
+            v11 = [v4 objectForKey:@"VUIMediaTagKeySeparator"];
+            [v11 setIsAccessibilityElement:0];
             goto LABEL_38;
           }
 
-          if ([v11 isEqualToString:@"VUIMediaTagKeyBrandLinkButton"])
+          if ([v10 isEqualToString:@"VUIMediaTagKeyBrandLinkButton"])
           {
-            v13 = [v4 objectForKey:v11];
-            [v13 setAccessibilityIdentifier:@"BrandLinkButton"];
+            v11 = [v4 objectForKey:v10];
+            [v11 setAccessibilityIdentifier:@"BrandLinkButton"];
             goto LABEL_38;
           }
 
-          if (([v11 isEqualToString:@"VUIMediaTagKeyRatingImage"] & 1) != 0 || (objc_msgSend(v11, "isEqualToString:", @"VUIMediaTagKeyClosedCaptionImage") & 1) != 0 || (objc_msgSend(v11, "isEqualToString:", @"VUIMediaTagKeyVideoResolutionImage") & 1) != 0 || (objc_msgSend(v11, "isEqualToString:", @"VUIMediaTagKeyVideoDynamicRangeImage") & 1) != 0 || (objc_msgSend(v11, "isEqualToString:", @"VUIMediaTagKeyADLocalesImage") & 1) != 0 || (objc_msgSend(v11, "isEqualToString:", @"VUIMediaTagKeySDHLocalesImage") & 1) != 0 || (objc_msgSend(v11, "isEqualToString:", @"VUIMediaTagKeyDolbyAtmosImage") & 1) != 0 || (objc_msgSend(v11, "isEqualToString:", @"VUIMediaTagKeyAvailabilityImage") & 1) != 0 || (objc_msgSend(v11, "isEqualToString:", @"VUIMediaTagKeyItunesExtras") & 1) != 0 || (objc_msgSend(v11, "isEqualToString:", @"VUIMediaTagKeyCommonSenseImage") & 1) != 0 || objc_msgSend(v11, "isEqualToString:", @"VUIMediaTagKeyTomatoFreshnessImage"))
+          if (([v10 isEqualToString:@"VUIMediaTagKeyRatingImage"] & 1) != 0 || (objc_msgSend(v10, "isEqualToString:", @"VUIMediaTagKeyClosedCaptionImage") & 1) != 0 || (objc_msgSend(v10, "isEqualToString:", @"VUIMediaTagKeyVideoResolutionImage") & 1) != 0 || (objc_msgSend(v10, "isEqualToString:", @"VUIMediaTagKeyVideoDynamicRangeImage") & 1) != 0 || (objc_msgSend(v10, "isEqualToString:", @"VUIMediaTagKeyADLocalesImage") & 1) != 0 || (objc_msgSend(v10, "isEqualToString:", @"VUIMediaTagKeySDHLocalesImage") & 1) != 0 || (objc_msgSend(v10, "isEqualToString:", @"VUIMediaTagKeyDolbyAtmosImage") & 1) != 0 || (objc_msgSend(v10, "isEqualToString:", @"VUIMediaTagKeyAvailabilityImage") & 1) != 0 || (objc_msgSend(v10, "isEqualToString:", @"VUIMediaTagKeyItunesExtras") & 1) != 0 || (objc_msgSend(v10, "isEqualToString:", @"VUIMediaTagKeyCommonSenseImage") & 1) != 0 || objc_msgSend(v10, "isEqualToString:", @"VUIMediaTagKeyTomatoFreshnessImage"))
           {
-            v13 = [v4 objectForKey:v11];
+            v11 = [v4 objectForKey:v10];
             MEMORY[0x29ED3FF70](@"VUIImageView");
             if (objc_opt_isKindOfClass())
             {
-              v14 = [v13 safeValueForKey:@"image"];
+              v12 = [v11 safeValueForKey:@"image"];
             }
 
             else
             {
-              v36 = 0;
+              v33 = 0;
               objc_opt_class();
-              v14 = __UIAccessibilityCastAsClass();
-              if (v36 == 1)
+              v12 = __UIAccessibilityCastAsClass();
+              if (v33 == 1)
               {
                 goto LABEL_42;
               }
             }
 
-            v15 = v14;
-            accessibilityIdentifier = [v14 accessibilityIdentifier];
+            v13 = v12;
+            accessibilityIdentifier = [v12 accessibilityIdentifier];
 
             mEMORY[0x29EDBDDF0] = [MEMORY[0x29EDBDDF0] sharedInstance];
-            v18 = [mEMORY[0x29EDBDDF0] accessibilityLabelForID:accessibilityIdentifier];
+            v16 = [mEMORY[0x29EDBDDF0] accessibilityLabelForID:accessibilityIdentifier];
 
-            [v13 setAccessibilityTraits:v31];
-            if ([v11 isEqualToString:@"VUIMediaTagKeyCommonSenseImage"])
+            [v11 setAccessibilityTraits:v28];
+            if ([v10 isEqualToString:@"VUIMediaTagKeyCommonSenseImage"])
             {
-              v36 = 0;
+              v33 = 0;
               objc_opt_class();
-              v19 = v4;
-              v20 = @"VUIMediaTagKeyCommonSenseRating";
+              v17 = v4;
+              v18 = @"VUIMediaTagKeyCommonSenseRating";
               goto LABEL_30;
             }
 
-            if ([v11 isEqualToString:@"VUIMediaTagKeyTomatoFreshnessImage"])
+            if ([v10 isEqualToString:@"VUIMediaTagKeyTomatoFreshnessImage"])
             {
-              v36 = 0;
+              v33 = 0;
               objc_opt_class();
-              v19 = v4;
-              v20 = @"VUIMediaTagKeyTomatoPercentage";
+              v17 = v4;
+              v18 = @"VUIMediaTagKeyTomatoPercentage";
 LABEL_30:
-              v21 = [v19 objectForKey:v20];
-              v22 = __UIAccessibilityCastAsClass();
+              v19 = [v17 objectForKey:v18];
+              v20 = __UIAccessibilityCastAsClass();
 
-              if (v36 == 1)
+              if (v33 == 1)
               {
 LABEL_42:
                 abort();
               }
 
-              text = [v22 text];
-              v24 = __UIAXStringForVariables();
-              [v22 setAccessibilityLabel:{v24, text, @"__AXStringForVariablesSentinel"}];
+              text = [v20 text];
+              v22 = __UIAXStringForVariables();
+              [v20 setAccessibilityLabel:{v22, text, @"__AXStringForVariablesSentinel"}];
             }
 
             else
             {
-              if ([v11 isEqualToString:@"VUIMediaTagKeyAvailabilityImage"] && (objc_msgSend(v13, "accessibilityIdentifier"), v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v25, "isEqualToString:", @"Punchout"), v25, v26))
+              if ([v10 isEqualToString:@"VUIMediaTagKeyAvailabilityImage"] && (objc_msgSend(v11, "accessibilityIdentifier"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "isEqualToString:", @"Punchout"), v23, v24))
               {
-                v27 = v13;
-                v28 = 0;
+                v25 = v11;
+                v26 = 0;
               }
 
               else
               {
-                [v13 setAccessibilityLabel:v18];
-                v27 = v13;
-                v28 = 1;
+                [v11 setAccessibilityLabel:v16];
+                v25 = v11;
+                v26 = 1;
               }
 
-              [v27 setIsAccessibilityElement:v28];
+              [v25 setIsAccessibilityElement:v26];
             }
 
-            allKeys = v30;
-            v9 = 0x29EDBA000;
+            allKeys = v27;
 LABEL_38:
 
             continue;
@@ -155,13 +152,11 @@ LABEL_38:
         }
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v7);
   }
-
-  v29 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_accessibilityUpdateAccessibilityInformation

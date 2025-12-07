@@ -78,43 +78,37 @@
   }
 }
 
-uint64_t __32__CPLPowerAssertion_enableSleep__block_invoke(uint64_t result)
+void *__32__CPLPowerAssertion_enableSleep__block_invoke(void *result)
 {
   v1 = result;
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (!_powerAssertionCount)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v3 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
-        v6 = NSStringFromSelector(*(v1 + 32));
+        v4 = NSStringFromSelector(v1[4]);
         *buf = 138412290;
-        v13 = v6;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "%@ has been called too many times", buf, 0xCu);
+        v11 = v4;
+        _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_ERROR, "%@ has been called too many times", buf, 0xCu);
       }
     }
 
-    v7 = [MEMORY[0x1E696AAA8] currentHandler];
-    v8 = *(v1 + 32);
-    v9 = *(v1 + 40);
-    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLPowerAssertion.m"];
-    v11 = NSStringFromSelector(*(v1 + 32));
-    [v7 handleFailureInMethod:v8 object:v9 file:v10 lineNumber:132 description:{@"%@ has been called too many times", v11}];
+    v5 = [MEMORY[0x1E696AAA8] currentHandler];
+    v6 = v1[4];
+    v7 = v1[5];
+    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLPowerAssertion.m"];
+    v9 = NSStringFromSelector(v1[4]);
+    [v5 handleFailureInMethod:v6 object:v7 file:v8 lineNumber:132 description:{@"%@ has been called too many times", v9}];
 
     abort();
   }
 
-  if (--_powerAssertionCount || _hasPower != 1)
+  if (!--_powerAssertionCount && _hasPower == 1)
   {
-    v4 = *MEMORY[0x1E69E9840];
-  }
-
-  else
-  {
-    v2 = *(result + 40);
-    v3 = *MEMORY[0x1E69E9840];
+    v2 = result[5];
 
     return [v2 _releaseAssertion];
   }
@@ -132,12 +126,12 @@ uint64_t __32__CPLPowerAssertion_enableSleep__block_invoke(uint64_t result)
   [self _doProtected:v2];
 }
 
-uint64_t __33__CPLPowerAssertion_disableSleep__block_invoke(uint64_t result)
+id *__33__CPLPowerAssertion_disableSleep__block_invoke(id *result)
 {
   v1 = _powerAssertionCount++;
   if (!v1 && _hasPower == 1)
   {
-    return [*(result + 32) _retainAssertion];
+    return [result[4] _retainAssertion];
   }
 
   return result;
@@ -145,7 +139,7 @@ uint64_t __33__CPLPowerAssertion_disableSleep__block_invoke(uint64_t result)
 
 + (void)_retainAssertion
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ((_invalidPowerAssertion & 1) == 0 && !_powerAssertionId)
   {
     v2 = IOPMAssertionCreateWithDescription(@"PreventUserIdleSystemSleep", @"cloudphotod", 0, @"Photos syncing iCloud Photos", 0, 3600.0, @"TimeoutActionTurnOff", &_powerAssertionId);
@@ -157,9 +151,9 @@ uint64_t __33__CPLPowerAssertion_disableSleep__block_invoke(uint64_t result)
         v4 = __CPLGenericOSLogDomain();
         if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
         {
-          v6 = 134217984;
-          v7 = v3;
-          _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Failed to create a power assertion: %ld", &v6, 0xCu);
+          v5 = 134217984;
+          v6 = v3;
+          _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Failed to create a power assertion: %ld", &v5, 0xCu);
         }
       }
 
@@ -176,7 +170,6 @@ uint64_t __33__CPLPowerAssertion_disableSleep__block_invoke(uint64_t result)
   }
 
   ++_powerAssertionAge;
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (id)powerAssertionStatus
@@ -201,7 +194,7 @@ uint64_t __33__CPLPowerAssertion_disableSleep__block_invoke(uint64_t result)
   return v2;
 }
 
-uint64_t __41__CPLPowerAssertion_powerAssertionStatus__block_invoke(uint64_t result)
+void *__41__CPLPowerAssertion_powerAssertionStatus__block_invoke(void *result)
 {
   v1 = result;
   v2 = *&_powerAssertionStartTime;
@@ -220,6 +213,8 @@ uint64_t __41__CPLPowerAssertion_powerAssertionStatus__block_invoke(uint64_t res
     v10 = *(v1[4] + 8);
     v11 = *(v10 + 40);
     *(v10 + 40) = v9;
+
+    v13 = v20;
   }
 
   else
@@ -258,12 +253,12 @@ uint64_t __41__CPLPowerAssertion_powerAssertionStatus__block_invoke(uint64_t res
       [v4 stringWithFormat:@"Power assertion held for %0.1fs", *&v5];
     }
     v12 = ;
-    v13 = *(v1[4] + 8);
-    v14 = *(v13 + 40);
-    *(v13 + 40) = v12;
+    v14 = *(v1[4] + 8);
+    v13 = *(v14 + 40);
+    *(v14 + 40) = v12;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v12, v13);
 }
 
 + (void)setHasEnoughPower:(BOOL)power
@@ -277,15 +272,15 @@ uint64_t __41__CPLPowerAssertion_powerAssertionStatus__block_invoke(uint64_t res
   [self _doProtected:v3];
 }
 
-uint64_t __39__CPLPowerAssertion_setHasEnoughPower___block_invoke(uint64_t result)
+_BYTE *__39__CPLPowerAssertion_setHasEnoughPower___block_invoke(_BYTE *result)
 {
-  v1 = *(result + 40);
+  v1 = result[40];
   if (v1 != _hasPower)
   {
-    _hasPower = *(result + 40);
+    _hasPower = result[40];
     if (_powerAssertionCount)
     {
-      v2 = *(result + 32);
+      v2 = *(result + 4);
       if (v1)
       {
         return [v2 _retainAssertion];

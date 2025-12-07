@@ -66,55 +66,50 @@
 
 - (id)valueWithRegistry:(uint64_t)registry
 {
-  v16[1] = *MEMORY[0x1E69E9840];
-  if (registry)
+  v15[1] = *MEMORY[0x1E69E9840];
+  if (!registry)
   {
-    os_unfair_lock_lock((registry + 8));
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v12 = __48__PFFaultingTransformedValue_valueWithRegistry___block_invoke;
-    v13 = &unk_1E6EC16F0;
-    registryCopy = registry;
-    if (object_getClass(registry) == PFFaultingTransformedValue_Encoded)
+    return 0;
+  }
+
+  os_unfair_lock_lock((registry + 8));
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v11 = __48__PFFaultingTransformedValue_valueWithRegistry___block_invoke;
+  v12 = &unk_1E6EC16F0;
+  registryCopy = registry;
+  if (object_getClass(registry) == PFFaultingTransformedValue_Encoded)
+  {
+    if ([*(registry + 24) attributeType] == 2200)
     {
-      if ([*(registry + 24) attributeType] == 2200)
+      v9 = 0;
+      v4 = [*(registry + 24) decode:*(registry + 16) withRegistry:a2 error:&v9];
+      if (!v4)
       {
-        v10 = 0;
-        v4 = [*(registry + 24) decode:*(registry + 16) withRegistry:a2 error:&v10];
-        if (!v4)
-        {
-          v5 = MEMORY[0x1E695DF30];
-          v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode for %@: %@", *(registry + 24), v10];
-          v15 = *MEMORY[0x1E696AA08];
-          v16[0] = v10;
-          v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-          objc_exception_throw([v5 exceptionWithName:*MEMORY[0x1E695D940] reason:v6 userInfo:v7]);
-        }
+        v5 = MEMORY[0x1E695DF30];
+        v6 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], *(registry + 24), v9);
+        v14 = *MEMORY[0x1E696AA08];
+        v15[0] = v9;
+        v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+        objc_exception_throw([v5 exceptionWithName:*MEMORY[0x1E695D940] reason:v6 userInfo:v7]);
       }
-
-      else
-      {
-        v4 = [_PFRoutines retainedDecodeValue:*(registry + 24) forTransformableAttribute:?];
-      }
-
-      *(registry + 16) = v4;
-      object_setClass(registry, PFFaultingTransformedValue_Decoded);
     }
 
     else
     {
-      v4 = *(registry + 16);
+      v4 = [_PFRoutines retainedDecodeValue:*(registry + 24) forTransformableAttribute:?];
     }
 
-    v12(v11);
+    *(registry + 16) = v4;
+    object_setClass(registry, PFFaultingTransformedValue_Decoded);
   }
 
   else
   {
-    v4 = 0;
+    v4 = *(registry + 16);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
+  v11(v10);
   return v4;
 }
 

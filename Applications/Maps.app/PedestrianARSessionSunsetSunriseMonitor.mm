@@ -143,7 +143,7 @@ LABEL_15:
     }
   }
 
-  [(PedestrianARSessionMonitor *)self setShouldShowPedestrianAR:v5, *v8];
+  [(PedestrianARSessionMonitor *)self setShouldShowPedestrianAR:v5, *v8, *&v8[8]];
 }
 
 - (void)dealloc

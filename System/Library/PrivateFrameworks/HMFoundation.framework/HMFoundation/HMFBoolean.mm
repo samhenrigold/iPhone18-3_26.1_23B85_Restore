@@ -2,6 +2,7 @@
 + (id)BOOLeanWithBool:(BOOL)bool;
 + (id)allocWithZone:(_NSZone *)zone;
 - (BOOL)BOOLValue;
+- (HMFBoolean)initWithBool:(BOOL)bool;
 - (id)description;
 - (int64_t)compare:(id)compare;
 - (void)encodeWithCoder:(id)coder;
@@ -29,16 +30,16 @@
 
 + (id)BOOLeanWithBool:(BOOL)bool
 {
-  v3 = off_2786E6500;
-  if (!bool)
-  {
-    v3 = off_2786E64F8;
-  }
+  v3 = objc_opt_new();
 
-  v4 = *v3;
-  v5 = objc_opt_new();
+  return v3;
+}
 
-  return v5;
+- (HMFBoolean)initWithBool:(BOOL)bool
+{
+  v4.receiver = self;
+  v4.super_class = HMFBoolean;
+  return [(HMFBoolean *)&v4 init];
 }
 
 - (id)description

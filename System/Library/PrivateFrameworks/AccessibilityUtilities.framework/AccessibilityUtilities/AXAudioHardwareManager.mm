@@ -33,9 +33,11 @@
 
 uint64_t __39__AXAudioHardwareManager_sharedManager__block_invoke()
 {
-  sharedManager_Manager = objc_alloc_init(AXAudioHardwareManager);
+  v0 = objc_alloc_init(AXAudioHardwareManager);
+  v1 = sharedManager_Manager;
+  sharedManager_Manager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (AXAudioHardwareManager)init

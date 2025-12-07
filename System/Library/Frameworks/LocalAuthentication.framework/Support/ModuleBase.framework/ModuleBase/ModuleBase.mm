@@ -5,16 +5,16 @@ void sub_238BC3200(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id LA_LOG()
+id LA_LOG(uint64_t a1)
 {
   if (LA_LOG_once != -1)
   {
     LA_LOG_cold_1();
   }
 
-  v1 = LA_LOG_log;
+  v2 = LA_LOG_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t AuthenticationPriorityForPolicy(uint64_t a1, void *a2)
@@ -50,16 +50,16 @@ void sub_238BC4A0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id LA_LOG_AuthenticationManager()
+id LA_LOG_AuthenticationManager(uint64_t a1)
 {
   if (LA_LOG_AuthenticationManager_once != -1)
   {
     LA_LOG_AuthenticationManager_cold_1();
   }
 
-  v1 = LA_LOG_AuthenticationManager_log;
+  v2 = LA_LOG_AuthenticationManager_log;
 
-  return v1;
+  return v2;
 }
 
 void sub_238BC598C(_Unwind_Exception *a1)
@@ -70,14 +70,14 @@ void sub_238BC598C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id LA_LOG_MechanismManager()
+id LA_LOG_MechanismManager(uint64_t a1)
 {
   if (LA_LOG_MechanismManager_once != -1)
   {
     LA_LOG_MechanismManager_cold_1();
   }
 
-  v1 = LA_LOG_MechanismManager_log;
+  v2 = LA_LOG_MechanismManager_log;
 
-  return v1;
+  return v2;
 }

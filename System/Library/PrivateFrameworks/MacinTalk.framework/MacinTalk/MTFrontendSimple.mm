@@ -18,12 +18,12 @@
 
 - (MTFrontendSimple)initWithStringAndLocale:(id)locale locale:(id)a4
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   localeCopy = locale;
   v7 = a4;
-  v14.receiver = self;
-  v14.super_class = MTFrontendSimple;
-  v9 = [(MTFrontendSimple *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = MTFrontendSimple;
+  v9 = [(MTFrontendSimple *)&v13 init];
   if (v9)
   {
     [(MTFrontendSimple *)v9 setFDictLookup:SLDictLookup::Create(v7, v8)];
@@ -32,7 +32,6 @@
     operator new();
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

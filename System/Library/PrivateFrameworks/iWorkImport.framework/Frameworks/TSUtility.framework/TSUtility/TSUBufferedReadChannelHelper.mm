@@ -61,7 +61,7 @@
   v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/TSUBufferedReadChannel.m"];
   [TSUAssertionHandler handleFailureInFunction:v11 file:v12 lineNumber:397 isFatal:1 description:"TSUBufferedReadChannel should not call readWithHandlerAndWait on TSUBufferedReadChannelHelper"];
 
-  TSUCrashBreakpoint(v13);
+  TSUCrashBreakpoint();
   abort();
 }
 

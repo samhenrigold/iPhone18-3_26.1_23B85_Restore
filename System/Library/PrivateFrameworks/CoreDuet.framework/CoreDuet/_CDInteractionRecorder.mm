@@ -87,11 +87,11 @@
 - (BOOL)recordInteractions:(id)interactions synchronous:(BOOL)synchronous completionHandler:(id)handler
 {
   synchronousCopy = synchronous;
-  v48 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   interactionsCopy = interactions;
   handlerCopy = handler;
-  v25 = interactionsCopy;
-  v23 = [(_CDInteractionPolicies *)self->_policies filterAndModifyInteractionsWithPolicies:interactionsCopy enforceDataLimits:[(_CDInteractionRecorder *)self enforceDataLimits] enforcePrivacy:[(_CDInteractionRecorder *)self enforcePrivacy]];
+  v22 = interactionsCopy;
+  v20 = [(_CDInteractionPolicies *)self->_policies filterAndModifyInteractionsWithPolicies:interactionsCopy enforceDataLimits:[(_CDInteractionRecorder *)self enforceDataLimits] enforcePrivacy:[(_CDInteractionRecorder *)self enforcePrivacy]];
   if (recordInteractions_synchronous_completionHandler___pasOnceToken5 != -1)
   {
     [_CDInteractionRecorder recordInteractions:synchronous:completionHandler:];
@@ -122,16 +122,16 @@
       _os_log_impl(&dword_191750000, v10, OS_LOG_TYPE_DEFAULT, "[sync path] beginning recordInteractions (%tu interactions)", &buf, 0xCu);
     }
 
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x2020000000;
     v37 = 0;
-    v38 = &v37;
-    v39 = 0x2020000000;
-    v40 = 0;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v44 = 0x3032000000;
-    v45 = __Block_byref_object_copy__22;
-    v46 = __Block_byref_object_dispose__22;
-    v47 = 0;
+    v41 = 0x3032000000;
+    v42 = __Block_byref_object_copy__22;
+    v43 = __Block_byref_object_dispose__22;
+    v44 = 0;
     v12 = recordInteractions_synchronous_completionHandler__queue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
@@ -139,18 +139,18 @@
     block[3] = &unk_1E736A578;
     block[4] = self;
     p_buf = &buf;
-    v34 = v23;
-    v36 = &v37;
+    v31 = v20;
+    v33 = &v34;
     dispatch_sync(v12, block);
-    if (*(v38 + 24) == 1)
+    if (*(v35 + 24) == 1)
     {
       v13 = +[_CDLogging interactionChannel];
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         v14 = [interactionsCopy count];
-        *v41 = 134217984;
-        v42 = v14;
-        _os_log_impl(&dword_191750000, v13, OS_LOG_TYPE_DEFAULT, "[sync path] successfully sent %tu interactions to coreduet daemon", v41, 0xCu);
+        *v38 = 134217984;
+        v39 = v14;
+        _os_log_impl(&dword_191750000, v13, OS_LOG_TYPE_DEFAULT, "[sync path] successfully sent %tu interactions to coreduet daemon", v38, 0xCu);
       }
     }
 
@@ -159,45 +159,43 @@
       v13 = +[_CDLogging interactionChannel];
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        -[_CDInteractionRecorder recordInteractions:synchronous:completionHandler:].cold.2(&buf + 8, v41, [interactionsCopy count], v13);
+        -[_CDInteractionRecorder recordInteractions:synchronous:completionHandler:].cold.2(&buf + 8, v38, [interactionsCopy count], v13);
       }
     }
 
     if (handlerCopy)
     {
-      v19 = *(v38 + 24);
-      v20 = *(*(&buf + 1) + 40);
       handlerCopy[2]();
     }
 
-    v18 = *(v38 + 24);
+    v18 = *(v35 + 24);
 
     _Block_object_dispose(&buf, 8);
-    _Block_object_dispose(&v37, 8);
+    _Block_object_dispose(&v34, 8);
   }
 
   else
   {
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __75___CDInteractionRecorder_recordInteractions_synchronous_completionHandler___block_invoke_24;
-    v31[3] = &unk_1E736A5A0;
-    v32 = handlerCopy;
-    v15 = [v31 copy];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __75___CDInteractionRecorder_recordInteractions_synchronous_completionHandler___block_invoke_24;
+    v28[3] = &unk_1E736A5A0;
+    v29 = handlerCopy;
+    v15 = [v28 copy];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v44 = 0x2050000000;
-    v45 = 0;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __75___CDInteractionRecorder_recordInteractions_synchronous_completionHandler___block_invoke_2_26;
-    v26[3] = &unk_1E736A5C8;
-    v30 = &buf;
-    v27 = interactionsCopy;
+    v41 = 0x2050000000;
+    v42 = 0;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __75___CDInteractionRecorder_recordInteractions_synchronous_completionHandler___block_invoke_2_26;
+    v23[3] = &unk_1E736A5C8;
+    v27 = &buf;
+    v24 = interactionsCopy;
     v16 = v15;
     selfCopy = self;
-    v29 = v16;
-    v17 = [v26 copy];
+    v26 = v16;
+    v17 = [v23 copy];
     *(*(&buf + 1) + 24) = v17;
     v17[2]();
 
@@ -205,20 +203,18 @@
     v18 = 1;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v18 & 1;
 }
 
 - (BOOL)recordInteraction:(id)interaction
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   interactionCopy = interaction;
   v4 = MEMORY[0x1E695DEC8];
   interactionCopy2 = interaction;
   v6 = [v4 arrayWithObjects:&interactionCopy count:1];
 
-  LOBYTE(self) = [(_CDInteractionRecorder *)self recordInteractions:v6, interactionCopy, v10];
-  v7 = *MEMORY[0x1E69E9840];
+  LOBYTE(self) = [(_CDInteractionRecorder *)self recordInteractions:v6, interactionCopy, v9];
   return self;
 }
 

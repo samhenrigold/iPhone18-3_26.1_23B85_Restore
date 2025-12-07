@@ -21,17 +21,17 @@
 
 - (void)sendToDestinations:(id)destinations options:(id)options
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   optionsCopy = options;
-  v31.receiver = self;
-  v31.super_class = WFRemoteExecutionIncomingAceCommandSession;
-  [(WFRemoteExecutionSession *)&v31 sendToDestinations:destinationsCopy options:optionsCopy];
+  v30.receiver = self;
+  v30.super_class = WFRemoteExecutionIncomingAceCommandSession;
+  [(WFRemoteExecutionSession *)&v30 sendToDestinations:destinationsCopy options:optionsCopy];
   v8 = objc_alloc_init(MEMORY[0x1E69C65C0]);
   response = [(WFRemoteExecutionIncomingAceCommandSession *)self response];
-  v30 = 0;
-  v10 = [response writeTo:v8 error:&v30];
-  v11 = v30;
+  v29 = 0;
+  v10 = [response writeTo:v8 error:&v29];
+  v11 = v29;
 
   if (v10)
   {
@@ -45,18 +45,18 @@
       response2 = [(WFRemoteExecutionIncomingAceCommandSession *)self response];
       identifier = [response2 identifier];
       *buf = 136315394;
-      v33 = "[WFRemoteExecutionIncomingAceCommandSession sendToDestinations:options:]";
-      v34 = 2114;
+      v32 = "[WFRemoteExecutionIncomingAceCommandSession sendToDestinations:options:]";
+      v33 = 2114;
       selfCopy = identifier;
       _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_INFO, "%s <%{public}@> sending ace command response", buf, 0x16u);
     }
 
     service = [(WFRemoteExecutionSession *)self service];
+    v27 = 0;
     v28 = 0;
-    v29 = 0;
-    v19 = [service sendProtobuf:v14 toDestinations:destinationsCopy priority:300 options:optionsCopy identifier:&v29 error:&v28];
-    v20 = v29;
-    v21 = v28;
+    v19 = [service sendProtobuf:v14 toDestinations:destinationsCopy priority:300 options:optionsCopy identifier:&v28 error:&v27];
+    v20 = v28;
+    v21 = v27;
 
     if (v19)
     {
@@ -70,11 +70,11 @@
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v33 = "[WFRemoteExecutionIncomingAceCommandSession sendToDestinations:options:]";
-        v34 = 2114;
+        v32 = "[WFRemoteExecutionIncomingAceCommandSession sendToDestinations:options:]";
+        v33 = 2114;
         selfCopy = self;
-        v36 = 2114;
-        v37 = v21;
+        v35 = 2114;
+        v36 = v21;
         _os_log_impl(&dword_1CA256000, v26, OS_LOG_TYPE_ERROR, "%s %{public}@ failed to send with error: %{public}@", buf, 0x20u);
       }
 
@@ -93,32 +93,30 @@
       response3 = [(WFRemoteExecutionIncomingAceCommandSession *)self response];
       identifier2 = [response3 identifier];
       *buf = 136315650;
-      v33 = "[WFRemoteExecutionIncomingAceCommandSession sendToDestinations:options:]";
-      v34 = 2114;
+      v32 = "[WFRemoteExecutionIncomingAceCommandSession sendToDestinations:options:]";
+      v33 = 2114;
       selfCopy = identifier2;
-      v36 = 2114;
-      v37 = v11;
+      v35 = 2114;
+      v36 = v11;
       _os_log_impl(&dword_1CA256000, v23, OS_LOG_TYPE_FAULT, "%s <%{public}@> failed to write protobuf with error: %{public}@", buf, 0x20u);
     }
 
     [(WFRemoteExecutionSession *)self setState:1];
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleIncomingProtobuf:(id)protobuf destinations:(id)destinations options:(id)options
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
   destinationsCopy = destinations;
   optionsCopy = options;
   [(WFRemoteExecutionSession *)self setState:200];
   v11 = [WFRemoteExecutionAceCommandRequest alloc];
   data = [protobufCopy data];
-  v35 = 0;
-  v13 = [(WFRemoteExecutionAceCommandRequest *)v11 initWithData:data error:&v35];
-  v14 = v35;
+  v34 = 0;
+  v13 = [(WFRemoteExecutionAceCommandRequest *)v11 initWithData:data error:&v34];
+  v14 = v34;
 
   if (v13)
   {
@@ -128,15 +126,15 @@
 
     if (v17)
     {
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __90__WFRemoteExecutionIncomingAceCommandSession_handleIncomingProtobuf_destinations_options___block_invoke;
-      v30[3] = &unk_1E837F9B0;
-      v30[4] = self;
-      v31 = v13;
-      v32 = destinationsCopy;
-      v33 = optionsCopy;
-      WFPerformACECommand(v17, 0, v30);
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __90__WFRemoteExecutionIncomingAceCommandSession_handleIncomingProtobuf_destinations_options___block_invoke;
+      v29[3] = &unk_1E837F9B0;
+      v29[4] = self;
+      v30 = v13;
+      v31 = destinationsCopy;
+      v32 = optionsCopy;
+      WFPerformACECommand(v17, 0, v29);
     }
 
     else
@@ -145,7 +143,7 @@
       if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v37 = "[WFRemoteExecutionIncomingAceCommandSession handleIncomingProtobuf:destinations:options:]";
+        v36 = "[WFRemoteExecutionIncomingAceCommandSession handleIncomingProtobuf:destinations:options:]";
         _os_log_impl(&dword_1CA256000, v26, OS_LOG_TYPE_FAULT, "%s unable to create ace command from dictionary representation", buf, 0xCu);
       }
 
@@ -168,15 +166,15 @@
       if (v20)
       {
         *buf = 136315138;
-        v37 = "[WFRemoteExecutionIncomingAceCommandSession handleIncomingProtobuf:destinations:options:]";
+        v36 = "[WFRemoteExecutionIncomingAceCommandSession handleIncomingProtobuf:destinations:options:]";
         _os_log_impl(&dword_1CA256000, v19, OS_LOG_TYPE_FAULT, "%s Encountered unsupported version of ace command request", buf, 0xCu);
       }
 
       [(WFRemoteExecutionSession *)self setState:2];
       data2 = [protobufCopy data];
-      v34 = 0;
-      v22 = [WFRemoteExecutionRequest identifierFromData:data2 error:&v34];
-      v23 = v34;
+      v33 = 0;
+      v22 = [WFRemoteExecutionRequest identifierFromData:data2 error:&v33];
+      v23 = v33;
 
       v24 = getWFRemoteExecutionLogObject();
       v25 = v24;
@@ -185,7 +183,7 @@
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v37 = "[WFRemoteExecutionIncomingAceCommandSession handleIncomingProtobuf:destinations:options:]";
+          v36 = "[WFRemoteExecutionIncomingAceCommandSession handleIncomingProtobuf:destinations:options:]";
           _os_log_impl(&dword_1CA256000, v25, OS_LOG_TYPE_DEFAULT, "%s Sending unsupported ace command request error back", buf, 0xCu);
         }
 
@@ -197,9 +195,9 @@
         if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315394;
-          v37 = "[WFRemoteExecutionIncomingAceCommandSession handleIncomingProtobuf:destinations:options:]";
-          v38 = 2112;
-          v39 = v23;
+          v36 = "[WFRemoteExecutionIncomingAceCommandSession handleIncomingProtobuf:destinations:options:]";
+          v37 = 2112;
+          v38 = v23;
           _os_log_impl(&dword_1CA256000, v25, OS_LOG_TYPE_FAULT, "%s Unable to read identifier from base request: %@, so unable to send unsupported version error back", buf, 0x16u);
         }
       }
@@ -210,9 +208,9 @@
       if (v20)
       {
         *buf = 136315394;
-        v37 = "[WFRemoteExecutionIncomingAceCommandSession handleIncomingProtobuf:destinations:options:]";
-        v38 = 2114;
-        v39 = v14;
+        v36 = "[WFRemoteExecutionIncomingAceCommandSession handleIncomingProtobuf:destinations:options:]";
+        v37 = 2114;
+        v38 = v14;
         _os_log_impl(&dword_1CA256000, v19, OS_LOG_TYPE_FAULT, "%s failed to read incoming ace command request from data, error: %{public}@", buf, 0x16u);
       }
 
@@ -220,8 +218,6 @@
       [(WFRemoteExecutionSession *)self finish];
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __90__WFRemoteExecutionIncomingAceCommandSession_handleIncomingProtobuf_destinations_options___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)

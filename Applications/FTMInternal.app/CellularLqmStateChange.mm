@@ -1,8 +1,11 @@
 @interface CellularLqmStateChange
 - (BOOL)isEqual:(id)equal;
+- (id)congestionReasonAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)hiPowerEventAsString:(int)string;
+- (id)hiPowerExitReasonAsString:(int)string;
 - (int)StringAsCongestionReason:(id)reason;
 - (int)StringAsHiPowerEvent:(id)event;
 - (int)StringAsHiPowerExitReason:(id)reason;
@@ -172,6 +175,88 @@
   *&self->_has = *&self->_has & 0xFFEF | v3;
 }
 
+- (id)hiPowerEventAsString:(int)string
+{
+  if (string > 4)
+  {
+    if (string <= 6)
+    {
+      if (string == 5)
+      {
+        v4 = @"LQM_EVENT_LTE_POOR_SIGNAL_CONDITION";
+      }
+
+      else
+      {
+        v4 = @"LQM_EVENT_WCDMA_POOR_SIGNAL_CONDITION";
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 7:
+          v4 = @"LQM_EVENT_WCDMA_RACH_FAILURE";
+
+          break;
+        case 8:
+          v4 = @"LQM_EVENT_EXCESSIVE_IRAT";
+
+          break;
+        case 255:
+          v4 = @"LQM_EVENT_MAX";
+
+          break;
+        default:
+LABEL_42:
+          v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+          return v4;
+      }
+    }
+  }
+
+  else
+  {
+    if (string > 1)
+    {
+      if (string == 2)
+      {
+        v4 = @"LQM_EVENT_LTE_PHY_ABORT";
+      }
+
+      else if (string == 3)
+      {
+        v4 = @"LQM_EVENT_LTE_HI_POWER";
+      }
+
+      else
+      {
+        v4 = @"LQM_EVENT_WCDMA_HI_POWER";
+      }
+
+      return v4;
+    }
+
+    if (string)
+    {
+      if (string == 1)
+      {
+        v4 = @"LQM_EVENT_RACH_FAILURE";
+
+        return v4;
+      }
+
+      goto LABEL_42;
+    }
+
+    v4 = @"LQM_EVENT_RLC_MAX_RETX";
+  }
+
+  return v4;
+}
+
 - (int)StringAsHiPowerEvent:(id)event
 {
   eventCopy = event;
@@ -276,6 +361,49 @@
   *&self->_has = *&self->_has & 0xFFDF | v3;
 }
 
+- (id)hiPowerExitReasonAsString:(int)string
+{
+  if (string > 1)
+  {
+    if (string == 2)
+    {
+      v4 = @"LQM_HPM_EXIT_REASON_USER_ACTIVITY";
+    }
+
+    else
+    {
+      if (string != 255)
+      {
+LABEL_12:
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"LQM_HPM_EXIT_REASON_MAX";
+    }
+  }
+
+  else
+  {
+    if (string)
+    {
+      if (string == 1)
+      {
+        v4 = @"LQM_HPM_EXIT_REASON_SIGNAL_IMPROVEMENT";
+
+        return v4;
+      }
+
+      goto LABEL_12;
+    }
+
+    v4 = @"LQM_HPM_EXIT_REASON_GUARD_TIMER_EXPIRY";
+  }
+
+  return v4;
+}
+
 - (int)StringAsHiPowerExitReason:(id)reason
 {
   reasonCopy = reason;
@@ -333,6 +461,75 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFB | v3;
+}
+
+- (id)congestionReasonAsString:(int)string
+{
+  if (string > 3)
+  {
+    if (string > 5)
+    {
+      if (string == 6)
+      {
+        v4 = @"LQM_CONGESTION_REASON_POOR_SIGNAL_CONDITIONS";
+      }
+
+      else
+      {
+        if (string != 255)
+        {
+LABEL_34:
+          v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+          return v4;
+        }
+
+        v4 = @"LQM_CONGESTION_REASON_MAX";
+      }
+    }
+
+    else if (string == 4)
+    {
+      v4 = @"LQM_CONGESTION_REASON_TRICKLING_GRANT";
+    }
+
+    else
+    {
+      v4 = @"LQM_CONGESTION_REASON_RLC_MAX_RETX";
+    }
+  }
+
+  else if (string > 1)
+  {
+    if (string == 2)
+    {
+      v4 = @"LQM_CONGESTION_REASON_ACCESS_BARRED";
+    }
+
+    else
+    {
+      v4 = @"LQM_CONGESTION_REASON_RACH_FAILURES";
+    }
+  }
+
+  else
+  {
+    if (string)
+    {
+      if (string == 1)
+      {
+        v4 = @"LQM_CONGESTION_REASON_NAS_REJECT";
+
+        return v4;
+      }
+
+      goto LABEL_34;
+    }
+
+    v4 = @"LQM_CONGESTION_REASON_RRC_REJECT";
+  }
+
+  return v4;
 }
 
 - (int)StringAsCongestionReason:(id)reason
@@ -942,7 +1139,6 @@ LABEL_38:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -962,7 +1158,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  durationSec = self->_durationSec;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -977,7 +1172,6 @@ LABEL_4:
   }
 
 LABEL_37:
-  lqmType = self->_lqmType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -992,12 +1186,10 @@ LABEL_5:
   }
 
 LABEL_38:
-  sysMode = self->_sysMode;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x2000) != 0)
   {
 LABEL_6:
-    isScreenOn = self->_isScreenOn;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1007,74 +1199,71 @@ LABEL_7:
     PBDataWriterWriteSubmessage();
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v7 = self->_lteChanInfos;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v38 objects:v43 count:16];
-  if (v8)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v6 = self->_lteChanInfos;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v39;
+    v8 = v7;
+    v9 = *v22;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v39 != v10)
+        if (*v22 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v38 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v13 = self->_umtsChanInfos;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v34 objects:v42 count:16];
-  if (v14)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v11 = self->_umtsChanInfos;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v12)
   {
-    v15 = v14;
-    v16 = *v35;
+    v13 = v12;
+    v14 = *v18;
     do
     {
-      for (j = 0; j != v15; j = j + 1)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v35 != v16)
+        if (*v18 != v14)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v11);
         }
 
-        v18 = *(*(&v34 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v15);
+    while (v13);
   }
 
-  v19 = self->_has;
-  if ((v19 & 0x800) != 0)
+  v16 = self->_has;
+  if ((v16 & 0x800) != 0)
   {
-    bbInHiPowerState = self->_bbInHiPowerState;
     PBDataWriterWriteBOOLField();
-    v19 = self->_has;
-    if ((v19 & 0x10) == 0)
+    v16 = self->_has;
+    if ((v16 & 0x10) == 0)
     {
 LABEL_25:
-      if ((v19 & 0x4000) == 0)
+      if ((v16 & 0x4000) == 0)
       {
         goto LABEL_26;
       }
@@ -1083,18 +1272,17 @@ LABEL_25:
     }
   }
 
-  else if ((v19 & 0x10) == 0)
+  else if ((v16 & 0x10) == 0)
   {
     goto LABEL_25;
   }
 
-  hiPowerEvent = self->_hiPowerEvent;
   PBDataWriterWriteInt32Field();
-  v19 = self->_has;
-  if ((v19 & 0x4000) == 0)
+  v16 = self->_has;
+  if ((v16 & 0x4000) == 0)
   {
 LABEL_26:
-    if ((v19 & 0x20) == 0)
+    if ((v16 & 0x20) == 0)
     {
       goto LABEL_27;
     }
@@ -1103,13 +1291,12 @@ LABEL_26:
   }
 
 LABEL_42:
-  swimWorkoutActive = self->_swimWorkoutActive;
   PBDataWriterWriteBOOLField();
-  v19 = self->_has;
-  if ((v19 & 0x20) == 0)
+  v16 = self->_has;
+  if ((v16 & 0x20) == 0)
   {
 LABEL_27:
-    if ((v19 & 4) == 0)
+    if ((v16 & 4) == 0)
     {
       goto LABEL_28;
     }
@@ -1118,13 +1305,12 @@ LABEL_27:
   }
 
 LABEL_43:
-  hiPowerExitReason = self->_hiPowerExitReason;
   PBDataWriterWriteInt32Field();
-  v19 = self->_has;
-  if ((v19 & 4) == 0)
+  v16 = self->_has;
+  if ((v16 & 4) == 0)
   {
 LABEL_28:
-    if ((v19 & 2) == 0)
+    if ((v16 & 2) == 0)
     {
       goto LABEL_29;
     }
@@ -1133,13 +1319,12 @@ LABEL_28:
   }
 
 LABEL_44:
-  congestionReason = self->_congestionReason;
   PBDataWriterWriteInt32Field();
-  v19 = self->_has;
-  if ((v19 & 2) == 0)
+  v16 = self->_has;
+  if ((v16 & 2) == 0)
   {
 LABEL_29:
-    if ((v19 & 0x200) == 0)
+    if ((v16 & 0x200) == 0)
     {
       goto LABEL_30;
     }
@@ -1148,13 +1333,12 @@ LABEL_29:
   }
 
 LABEL_45:
-  cellId = self->_cellId;
   PBDataWriterWriteUint32Field();
-  v19 = self->_has;
-  if ((v19 & 0x200) == 0)
+  v16 = self->_has;
+  if ((v16 & 0x200) == 0)
   {
 LABEL_30:
-    if ((v19 & 0x80) == 0)
+    if ((v16 & 0x80) == 0)
     {
       goto LABEL_31;
     }
@@ -1163,19 +1347,17 @@ LABEL_30:
   }
 
 LABEL_46:
-  numMncDigits = self->_numMncDigits;
   PBDataWriterWriteUint32Field();
-  v19 = self->_has;
-  if ((v19 & 0x80) == 0)
+  v16 = self->_has;
+  if ((v16 & 0x80) == 0)
   {
 LABEL_31:
-    if ((v19 & 0x100) == 0)
+    if ((v16 & 0x100) == 0)
     {
       goto LABEL_32;
     }
 
 LABEL_48:
-    mnc = self->_mnc;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x1000) == 0)
     {
@@ -1186,19 +1368,17 @@ LABEL_48:
   }
 
 LABEL_47:
-  mcc = self->_mcc;
   PBDataWriterWriteUint32Field();
-  v19 = self->_has;
-  if ((v19 & 0x100) != 0)
+  v16 = self->_has;
+  if ((v16 & 0x100) != 0)
   {
     goto LABEL_48;
   }
 
 LABEL_32:
-  if ((v19 & 0x1000) != 0)
+  if ((v16 & 0x1000) != 0)
   {
 LABEL_33:
-    fgAppActiveDuringCongestion = self->_fgAppActiveDuringCongestion;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1785,7 +1965,6 @@ LABEL_31:
       goto LABEL_36;
     }
 
-    v14 = *(equalCopy + 90);
     if (self->_isScreenOn)
     {
       if ((*(equalCopy + 90) & 1) == 0)
@@ -1838,7 +2017,6 @@ LABEL_31:
       goto LABEL_36;
     }
 
-    v15 = *(equalCopy + 88);
     if (self->_bbInHiPowerState)
     {
       if ((*(equalCopy + 88) & 1) == 0)
@@ -1878,7 +2056,6 @@ LABEL_31:
       goto LABEL_36;
     }
 
-    v16 = *(equalCopy + 91);
     if (self->_swimWorkoutActive)
     {
       if ((*(equalCopy + 91) & 1) == 0)

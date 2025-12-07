@@ -301,9 +301,11 @@
 
 uint64_t __23__SUState_currentState__block_invoke()
 {
-  currentState___instance = objc_alloc_init(SUState);
+  v0 = objc_alloc_init(SUState);
+  v1 = currentState___instance;
+  currentState___instance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)resetDownloadAndScanHistory
@@ -672,10 +674,10 @@ void __15__SUState_save__block_invoke(uint64_t a1)
 
 - (void)persistFailedPatchBuildVersions
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v13[0] = @"SUFailedPatchBuildVersionOneKey";
-  v13[1] = @"SUFailedPatchBuildVersionTwoKey";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[2] = *MEMORY[0x277D85DE8];
+  v12[0] = @"SUFailedPatchBuildVersionOneKey";
+  v12[1] = @"SUFailedPatchBuildVersionTwoKey";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   failedPatchBuildVersions = self->_failedPatchBuildVersions;
   if (failedPatchBuildVersions)
   {
@@ -715,61 +717,58 @@ void __15__SUState_save__block_invoke(uint64_t a1)
 
     while ([v3 count] > v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadPersistedFailedPatchBuildVersions
 {
-  v22[2] = *MEMORY[0x277D85DE8];
-  v22[0] = @"SUFailedPatchBuildVersionOneKey";
-  v22[1] = @"SUFailedPatchBuildVersionTwoKey";
-  [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[2] = *MEMORY[0x277D85DE8];
+  v21[0] = @"SUFailedPatchBuildVersionOneKey";
+  v21[1] = @"SUFailedPatchBuildVersionTwoKey";
+  [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v3 = v20 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = v19 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       v7 = 0;
       do
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [(SUCorePersistedState *)self->_persistedState stringForKey:*(*(&v17 + 1) + 8 * v7)];
+        v8 = [(SUCorePersistedState *)self->_persistedState stringForKey:*(*(&v16 + 1) + 8 * v7)];
         [(SUState *)self _queue_addFailedPatchBuildVersion:v8];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v5);
   }
 
   SULogInfo(@"Loaded failed patch build versions: %@", v9, v10, v11, v12, v13, v14, v15, self->_failedPatchBuildVersions);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)persistRolledBackBuildVersions
 {
-  v9[5] = *MEMORY[0x277D85DE8];
-  v9[0] = @"RolledBackBuildVersionsOne";
-  v9[1] = @"RolledBackBuildVersionsTwo";
-  v9[2] = @"RolledBackBuildVersionsThree";
-  v9[3] = @"RolledBackBuildVersionsFour";
-  v9[4] = @"RolledBackBuildVersionsFive";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:5];
+  v8[5] = *MEMORY[0x277D85DE8];
+  v8[0] = @"RolledBackBuildVersionsOne";
+  v8[1] = @"RolledBackBuildVersionsTwo";
+  v8[2] = @"RolledBackBuildVersionsThree";
+  v8[3] = @"RolledBackBuildVersionsFour";
+  v8[4] = @"RolledBackBuildVersionsFive";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:5];
   if ([(NSMutableArray *)self->_rolledBackBuildVersions count])
   {
     v4 = 0;
@@ -790,13 +789,11 @@ void __15__SUState_save__block_invoke(uint64_t a1)
 
     while ([(NSMutableArray *)self->_rolledBackBuildVersions count]> v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadRolledBackBuildVersions
 {
-  v24[5] = *MEMORY[0x277D85DE8];
+  v23[5] = *MEMORY[0x277D85DE8];
   if (!self->_rolledBackBuildVersions)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -804,46 +801,45 @@ void __15__SUState_save__block_invoke(uint64_t a1)
     self->_rolledBackBuildVersions = v3;
   }
 
-  v24[0] = @"RolledBackBuildVersionsOne";
-  v24[1] = @"RolledBackBuildVersionsTwo";
-  v24[2] = @"RolledBackBuildVersionsThree";
-  v24[3] = @"RolledBackBuildVersionsFour";
-  v24[4] = @"RolledBackBuildVersionsFive";
-  [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:5];
+  v23[0] = @"RolledBackBuildVersionsOne";
+  v23[1] = @"RolledBackBuildVersionsTwo";
+  v23[2] = @"RolledBackBuildVersionsThree";
+  v23[3] = @"RolledBackBuildVersionsFour";
+  v23[4] = @"RolledBackBuildVersionsFive";
+  [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:5];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v5 = v22 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = v21 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       v9 = 0;
       do
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [(SUCorePersistedState *)self->_persistedState stringForKey:*(*(&v19 + 1) + 8 * v9)];
+        v10 = [(SUCorePersistedState *)self->_persistedState stringForKey:*(*(&v18 + 1) + 8 * v9)];
         [(SUState *)self queue_addRolledBackBuildVersion:v10];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
 
   SULogInfo(@"Loaded rolled back build versions: %@", v11, v12, v13, v14, v15, v16, v17, self->_rolledBackBuildVersions);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -1877,22 +1873,29 @@ void __15__SUState_save__block_invoke(uint64_t a1)
 {
   versionCopy = version;
   dispatch_assert_queue_V2(self->_stateQueue);
-  if (versionCopy && ([(NSMutableArray *)self->_rolledBackBuildVersions containsObject:versionCopy]& 1) == 0)
+  v5 = versionCopy;
+  if (versionCopy)
   {
-    if ([(NSMutableArray *)self->_rolledBackBuildVersions count]>= 5)
+    v4 = [(NSMutableArray *)self->_rolledBackBuildVersions containsObject:versionCopy];
+    v5 = versionCopy;
+    if ((v4 & 1) == 0)
     {
-      do
+      if ([(NSMutableArray *)self->_rolledBackBuildVersions count]>= 5)
       {
-        [(NSMutableArray *)self->_rolledBackBuildVersions removeObjectAtIndex:0];
+        do
+        {
+          [(NSMutableArray *)self->_rolledBackBuildVersions removeObjectAtIndex:0];
+        }
+
+        while ([(NSMutableArray *)self->_rolledBackBuildVersions count]> 4);
       }
 
-      while ([(NSMutableArray *)self->_rolledBackBuildVersions count]> 4);
+      v4 = [(NSMutableArray *)self->_rolledBackBuildVersions addObject:versionCopy];
+      v5 = versionCopy;
     }
-
-    [(NSMutableArray *)self->_rolledBackBuildVersions addObject:versionCopy];
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, v5);
 }
 
 - (NSMutableArray)rolledBackBuildVersions

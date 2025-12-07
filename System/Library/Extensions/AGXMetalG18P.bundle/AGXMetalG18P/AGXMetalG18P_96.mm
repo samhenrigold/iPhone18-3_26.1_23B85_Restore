@@ -3132,9 +3132,9 @@ LABEL_104:
             {
               v91 = __dst;
 LABEL_111:
-              v92 = (v91 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v91, v88, v89, a11));
-              v93 = (v92 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v92, v88 + 1, (v89 + v150), a11));
-              v94 = (v93 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v93, v88 + 2, v89 + 8, a11));
+              v92 = &v91[AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v91, v88, v89, a11)];
+              v93 = v92 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v92, v88 + 1, (v89 + v150), a11);
+              v94 = v93 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v93, v88 + 2, v89 + 8, a11);
               v95 = v88 + 3;
               v96 = (v89 + v150 + 128);
               v97 = a11;
@@ -3178,7 +3178,7 @@ LABEL_111:
             goto LABEL_114;
           }
 
-          v98 = v91->u64 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v182, 256, v91, *v88);
+          v98 = &v91[AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v182, 256, v91, *v88)];
           v99 = v98 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v184, 256, v98, v88[1]);
           v100 = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v183, 256, v99, v88[2]);
           AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v185, 256, v99 + v100, v88[3]);
@@ -3209,7 +3209,7 @@ LABEL_111:
               v113 = v106 < &v173[v178].i8[v174 * (v177 - 1)] && v173 < &__dst[256 * v177 + 1792 + 256 * v175 + 16 * v178 + v105];
               v114 = v109 & 0x1FFFFFFE0;
               v115 = v111 | (v174 < 0) | v113;
-              v116 = (&v182[1] + v104 + v105);
+              v116 = &v182[1].i8[v104 + v105];
               v117 = v173 + 1;
               v118 = v106;
               v119 = v173;
@@ -3250,9 +3250,9 @@ LABEL_139:
                   do
                   {
                     v134 = *v131;
-                    v132[-1] = v131[-1];
+                    *(v132 - 1) = v131[-1];
                     *v132 = v134;
-                    v132 += 2;
+                    v132 += 32;
                     v131 += 2;
                     v133 -= 32;
                   }
@@ -3284,7 +3284,7 @@ LABEL_139:
                 while (v109 > v123++);
 LABEL_131:
                 ++v103;
-                v116 += 16;
+                v116 += 256;
                 v117 = (v117 + v108);
                 v119 = (v119 + v108);
                 v118 += 256;
@@ -3300,7 +3300,7 @@ LABEL_131:
           v138 = v180;
           if (v179 && v180)
           {
-            v136 = (v136 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v171, v172, v182, 256));
+            v136 += AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v171, v172, v182, 256);
             if (!v137)
             {
               goto LABEL_155;
@@ -3318,7 +3318,7 @@ LABEL_131:
 
           if (v138 >= 5)
           {
-            v136 = (v136 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v136, v135 + 1, v184, 256));
+            v136 += AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v136, v135 + 1, v184, 256);
             if (v137 < 9)
             {
               goto LABEL_158;
@@ -3347,7 +3347,7 @@ LABEL_158:
             goto LABEL_159;
           }
 
-          v136 = (v136 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v136, v135 + 2, v183, 256));
+          v136 += AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v136, v135 + 2, v183, 256);
 LABEL_159:
           if (v138 < 5)
           {
@@ -3397,7 +3397,7 @@ uint64_t AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL30
   v359 = v22;
   v418 = v23;
   v24 = v12;
-  v455 = *MEMORY[0x29EDCA608];
+  v451 = *MEMORY[0x29EDCA608];
   AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getStride<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)0,(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::Units)0,(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::Op)0>(v12, 0);
   v422 = v14;
   v361 = v14 + a10 - 1;
@@ -4131,9 +4131,9 @@ LABEL_160:
           }
 
           v208 = v95->n128_u64 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v450, 256, v95, *v89);
-          v209 = v208 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v453, 256, v208, v89[1]);
-          v210 = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v452, 256, v209, v89[2]);
-          AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v454, 256, v209 + v210, v89[3]);
+          v209 = v208 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(&v450[64], 256, v208, v89[1]);
+          v210 = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(&v450[8], 256, v209, v89[2]);
+          AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(&v450[72], 256, v209 + v210, v89[3]);
           v211 = v445;
           if (v445)
           {
@@ -4160,8 +4160,8 @@ LABEL_160:
               v222 = v215 < (&v441[v446] + v442 * (v445 - 1)) && v441 < &__dst[256 * v445 + 1792 + 256 * v443 + 16 * v446 + v214 * 16];
               v223 = v218 & 0x1FFFFFFE0;
               v224 = v220 | (v442 < 0) | v222;
-              v225 = &v451[16 * v443 + v214];
-              v226 = &v441[1];
+              v225 = &v450[16 * v443 + 1 + v214];
+              v226 = v441 + 1;
               v227 = v215;
               v228 = v441;
               do
@@ -4199,7 +4199,7 @@ LABEL_137:
                   do
                   {
                     v243 = *v240;
-                    *(v241 - 1) = *(v240 - 1);
+                    v241[-1] = v240[-1];
                     *v241 = v243;
                     v241 += 2;
                     v240 += 2;
@@ -4255,37 +4255,37 @@ LABEL_129:
             v91 = v96;
             if (v448)
             {
-              v249 = v451[0];
-              v250 = v451[3];
-              v251 = v451[4];
-              v252 = v451[5];
-              v253 = v451[6];
-              v396 = v452[12];
-              v400 = v452[13];
-              v403 = v452[14];
-              v410 = v452[15];
-              v254 = v452[24];
-              v255 = v452[25];
-              v256 = v452[26];
-              v257 = v452[27];
-              v258 = v452[40];
-              v259 = v452[41];
-              v260 = v452[42];
-              v261 = v452[43];
-              v262 = v451[1];
-              v263 = v451[2];
-              v264 = v452[28];
-              v265 = v452[29];
-              v266 = v452[30];
-              v267 = v452[31];
-              v388 = v452[10];
-              v392 = v452[11];
-              v268 = v452[8];
-              v269 = v452[9];
-              v270 = v452[44];
-              v271 = v452[45];
-              v272 = v452[46];
-              v273 = v452[47];
+              v249 = v450[1];
+              v250 = v450[4];
+              v251 = v450[5];
+              v252 = v450[6];
+              v253 = v450[7];
+              v396 = v450[20];
+              v400 = v450[21];
+              v403 = v450[22];
+              v410 = v450[23];
+              v254 = v450[32];
+              v255 = v450[33];
+              v256 = v450[34];
+              v257 = v450[35];
+              v258 = v450[48];
+              v259 = v450[49];
+              v260 = v450[50];
+              v261 = v450[51];
+              v262 = v450[2];
+              v263 = v450[3];
+              v264 = v450[36];
+              v265 = v450[37];
+              v266 = v450[38];
+              v267 = v450[39];
+              v388 = v450[18];
+              v392 = v450[19];
+              v268 = v450[16];
+              v269 = v450[17];
+              v270 = v450[52];
+              v271 = v450[53];
+              v272 = v450[54];
+              v273 = v450[55];
               *v439 = v450[0];
               v245[1] = v249;
               v245[2] = v268;
@@ -4337,38 +4337,38 @@ LABEL_129:
           *v246 = v244;
           if (v247 && v248 >= 5)
           {
-            v275 = v453[1];
-            v276 = v453[4];
-            v277 = v453[5];
-            v278 = v453[6];
-            v279 = v453[7];
-            v425 = v454[12];
-            v428 = v454[13];
-            v431 = v454[14];
-            v434 = v454[15];
-            v280 = v454[24];
-            v281 = v454[25];
-            v282 = v454[26];
-            v283 = v454[27];
-            v284 = v454[40];
-            v285 = v454[41];
-            v286 = v454[42];
-            v287 = v454[43];
-            v288 = v453[2];
-            v289 = v453[3];
-            v290 = v454[28];
-            v291 = v454[29];
-            v292 = v454[30];
-            v293 = v454[31];
-            v404 = v454[10];
-            v411 = v454[11];
-            v294 = v454[8];
-            v295 = v454[9];
-            v296 = v454[44];
-            v297 = v454[45];
-            v298 = v454[46];
-            v299 = v454[47];
-            *v245 = v453[0];
+            v275 = v450[65];
+            v276 = v450[68];
+            v277 = v450[69];
+            v278 = v450[70];
+            v279 = v450[71];
+            v425 = v450[84];
+            v428 = v450[85];
+            v431 = v450[86];
+            v434 = v450[87];
+            v280 = v450[96];
+            v281 = v450[97];
+            v282 = v450[98];
+            v283 = v450[99];
+            v284 = v450[112];
+            v285 = v450[113];
+            v286 = v450[114];
+            v287 = v450[115];
+            v288 = v450[66];
+            v289 = v450[67];
+            v290 = v450[100];
+            v291 = v450[101];
+            v292 = v450[102];
+            v293 = v450[103];
+            v404 = v450[82];
+            v411 = v450[83];
+            v294 = v450[80];
+            v295 = v450[81];
+            v296 = v450[116];
+            v297 = v450[117];
+            v298 = v450[118];
+            v299 = v450[119];
+            *v245 = v450[64];
             v245[1] = v275;
             v245[2] = v294;
             v245[3] = v295;
@@ -4408,38 +4408,38 @@ LABEL_129:
           v246[1] = v274;
           if (v247 >= 9 && v248)
           {
-            v301 = v452[1];
-            v302 = v452[4];
-            v303 = v452[5];
-            v304 = v452[6];
-            v305 = v452[7];
-            v426 = v452[20];
-            v429 = v452[21];
-            v432 = v452[22];
-            v435 = v452[23];
-            v306 = v452[32];
-            v307 = v452[33];
-            v308 = v452[34];
-            v309 = v452[35];
-            v310 = v452[48];
-            v311 = v452[49];
-            v312 = v452[50];
-            v313 = v452[51];
-            v314 = v452[2];
-            v315 = v452[3];
-            v316 = v452[36];
-            v317 = v452[37];
-            v318 = v452[38];
-            v319 = v452[39];
-            v405 = v452[18];
-            v412 = v452[19];
-            v320 = v452[16];
-            v321 = v452[17];
-            v322 = v452[52];
-            v323 = v452[53];
-            v324 = v452[54];
-            v325 = v452[55];
-            *v245 = v452[0];
+            v301 = v450[9];
+            v302 = v450[12];
+            v303 = v450[13];
+            v304 = v450[14];
+            v305 = v450[15];
+            v426 = v450[28];
+            v429 = v450[29];
+            v432 = v450[30];
+            v435 = v450[31];
+            v306 = v450[40];
+            v307 = v450[41];
+            v308 = v450[42];
+            v309 = v450[43];
+            v310 = v450[56];
+            v311 = v450[57];
+            v312 = v450[58];
+            v313 = v450[59];
+            v314 = v450[10];
+            v315 = v450[11];
+            v316 = v450[44];
+            v317 = v450[45];
+            v318 = v450[46];
+            v319 = v450[47];
+            v405 = v450[26];
+            v412 = v450[27];
+            v320 = v450[24];
+            v321 = v450[25];
+            v322 = v450[60];
+            v323 = v450[61];
+            v324 = v450[62];
+            v325 = v450[63];
+            *v245 = v450[8];
             v245[1] = v301;
             v245[2] = v320;
             v245[3] = v321;
@@ -4479,38 +4479,38 @@ LABEL_129:
           v246[2] = v300;
           if (v247 >= 9 && v248 >= 5)
           {
-            v327 = v454[1];
-            v328 = v454[4];
-            v329 = v454[5];
-            v330 = v454[6];
-            v331 = v454[7];
-            v427 = v454[20];
-            v430 = v454[21];
-            v433 = v454[22];
-            v436 = v454[23];
-            v332 = v454[32];
-            v333 = v454[33];
-            v334 = v454[34];
-            v335 = v454[35];
-            v336 = v454[48];
-            v337 = v454[49];
-            v338 = v454[50];
-            v339 = v454[51];
-            v340 = v454[2];
-            v341 = v454[3];
-            v342 = v454[36];
-            v343 = v454[37];
-            v344 = v454[38];
-            v345 = v454[39];
-            v406 = v454[18];
-            v413 = v454[19];
-            v346 = v454[16];
-            v347 = v454[17];
-            v348 = v454[52];
-            v349 = v454[53];
-            v350 = v454[54];
-            v351 = v454[55];
-            *v245 = v454[0];
+            v327 = v450[73];
+            v328 = v450[76];
+            v329 = v450[77];
+            v330 = v450[78];
+            v331 = v450[79];
+            v427 = v450[92];
+            v430 = v450[93];
+            v433 = v450[94];
+            v436 = v450[95];
+            v332 = v450[104];
+            v333 = v450[105];
+            v334 = v450[106];
+            v335 = v450[107];
+            v336 = v450[120];
+            v337 = v450[121];
+            v338 = v450[122];
+            v339 = v450[123];
+            v340 = v450[74];
+            v341 = v450[75];
+            v342 = v450[108];
+            v343 = v450[109];
+            v344 = v450[110];
+            v345 = v450[111];
+            v406 = v450[90];
+            v413 = v450[91];
+            v346 = v450[88];
+            v347 = v450[89];
+            v348 = v450[124];
+            v349 = v450[125];
+            v350 = v450[126];
+            v351 = v450[127];
+            *v245 = v450[72];
             v245[1] = v327;
             v245[2] = v346;
             v245[3] = v347;
@@ -5028,9 +5028,9 @@ LABEL_78:
             {
               v86 = __dst;
 LABEL_86:
-              v88 = (v86 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v86, v80, v81, a11));
-              v89 = (v88 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v88, v80 + 1, (v81 + v156), a11));
-              v90 = (v89 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v89, v80 + 2, v81 + 8, a11));
+              v88 = &v86[AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v86, v80, v81, a11)];
+              v89 = v88 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v88, v80 + 1, (v81 + v156), a11);
+              v90 = v89 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v89, v80 + 2, v81 + 8, a11);
               v91 = v80 + 3;
               v92 = (v81 + v156 + 128);
               v93 = a11;
@@ -5086,7 +5086,7 @@ LABEL_88:
             goto LABEL_26;
           }
 
-          v94 = v86->u64 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v188, 256, v86, *v80);
+          v94 = &v86[AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v188, 256, v86, *v80)];
           v95 = v94 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v190, 256, v94, v80[1]);
           v96 = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v189, 256, v95, v80[2]);
           AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v191, 256, v95 + v96, v80[3]);
@@ -5117,7 +5117,7 @@ LABEL_88:
               v109 = v102 < &v179[v184].i8[v180 * (v183 - 1)] && v179 < &__dst[256 * v183 + 1792 + 256 * v181 + 16 * v184 + v101];
               v110 = v105 & 0x1FFFFFFE0;
               v111 = v107 | (v180 < 0) | v109;
-              v112 = (&v188[1] + v100 + v101);
+              v112 = &v188[1].i8[v100 + v101];
               v113 = v179 + 1;
               v114 = v102;
               v115 = v179;
@@ -5158,9 +5158,9 @@ LABEL_112:
                   do
                   {
                     v130 = *v127;
-                    v128[-1] = v127[-1];
+                    *(v128 - 1) = v127[-1];
                     *v128 = v130;
-                    v128 += 2;
+                    v128 += 32;
                     v127 += 2;
                     v129 -= 32;
                   }
@@ -5192,7 +5192,7 @@ LABEL_112:
                 while (v105 > v119++);
 LABEL_104:
                 ++v99;
-                v112 += 16;
+                v112 += 256;
                 v113 = (v113 + v104);
                 v115 = (v115 + v104);
                 v114 += 256;
@@ -5208,7 +5208,7 @@ LABEL_104:
           v134 = v186;
           if (v185 && v186)
           {
-            v132 = (v132 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v177, v178, v188, 256));
+            v132 += AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v177, v178, v188, 256);
             if (!v133)
             {
               goto LABEL_128;
@@ -5226,7 +5226,7 @@ LABEL_104:
 
           if (v134 >= 5)
           {
-            v132 = (v132 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v132, v131 + 1, v190, 256));
+            v132 += AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v132, v131 + 1, v190, 256);
             if (v133 < 9)
             {
               goto LABEL_131;
@@ -5255,7 +5255,7 @@ LABEL_131:
             goto LABEL_132;
           }
 
-          v132 = (v132 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v132, v131 + 2, v189, 256));
+          v132 += AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v132, v131 + 2, v189, 256);
 LABEL_132:
           if (v134 >= 5)
           {
@@ -5309,7 +5309,7 @@ void AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::C
   v361 = v22;
   v417 = v23;
   v24 = v12;
-  v455 = *MEMORY[0x29EDCA608];
+  v451 = *MEMORY[0x29EDCA608];
   AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getStride<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)0,(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::Units)0,(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::Op)0>(v12, 0);
   v422 = v14;
   v25 = v14 >> 3;
@@ -6099,9 +6099,9 @@ LABEL_134:
           }
 
           v197 = v85->n128_u64 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v450, 256, v85, *v78);
-          v198 = v197 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v453, 256, v197, v78[1]);
-          v199 = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v452, 256, v198, v78[2]);
-          AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v454, 256, v198 + v199, v78[3]);
+          v198 = v197 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(&v450[64], 256, v197, v78[1]);
+          v199 = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(&v450[8], 256, v198, v78[2]);
+          AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(&v450[72], 256, v198 + v199, v78[3]);
           v200 = v445;
           v16 = v414;
           if (v445)
@@ -6129,8 +6129,8 @@ LABEL_134:
               v211 = v204 < (&v441[v446] + v442 * (v445 - 1)) && v441 < &__dst[256 * v445 + 1792 + 256 * v443 + 16 * v446 + v203 * 16];
               v212 = v207 & 0x1FFFFFFE0;
               v213 = v209 | (v442 < 0) | v211;
-              v214 = &v451[16 * v443 + v203];
-              v215 = &v441[1];
+              v214 = &v450[16 * v443 + 1 + v203];
+              v215 = v441 + 1;
               v216 = v204;
               v217 = v441;
               do
@@ -6168,7 +6168,7 @@ LABEL_111:
                   do
                   {
                     v232 = *v229;
-                    *(v230 - 1) = *(v229 - 1);
+                    v230[-1] = v229[-1];
                     *v230 = v232;
                     v230 += 2;
                     v229 += 2;
@@ -6224,37 +6224,37 @@ LABEL_103:
             v80 = v413;
             if (v448)
             {
-              v238 = v451[0];
-              v239 = v451[3];
-              v240 = v451[4];
-              v241 = v451[5];
-              v242 = v451[6];
-              v395 = v452[12];
-              v399 = v452[13];
-              v402 = v452[14];
-              v409 = v452[15];
-              v243 = v452[24];
-              v244 = v452[25];
-              v245 = v452[26];
-              v246 = v452[27];
-              v247 = v452[40];
-              v248 = v452[41];
-              v249 = v452[42];
-              v250 = v452[43];
-              v251 = v451[1];
-              v252 = v451[2];
-              v253 = v452[28];
-              v254 = v452[29];
-              v255 = v452[30];
-              v256 = v452[31];
-              v387 = v452[10];
-              v391 = v452[11];
-              v257 = v452[8];
-              v258 = v452[9];
-              v259 = v452[44];
-              v260 = v452[45];
-              v261 = v452[46];
-              v262 = v452[47];
+              v238 = v450[1];
+              v239 = v450[4];
+              v240 = v450[5];
+              v241 = v450[6];
+              v242 = v450[7];
+              v395 = v450[20];
+              v399 = v450[21];
+              v402 = v450[22];
+              v409 = v450[23];
+              v243 = v450[32];
+              v244 = v450[33];
+              v245 = v450[34];
+              v246 = v450[35];
+              v247 = v450[48];
+              v248 = v450[49];
+              v249 = v450[50];
+              v250 = v450[51];
+              v251 = v450[2];
+              v252 = v450[3];
+              v253 = v450[36];
+              v254 = v450[37];
+              v255 = v450[38];
+              v256 = v450[39];
+              v387 = v450[18];
+              v391 = v450[19];
+              v257 = v450[16];
+              v258 = v450[17];
+              v259 = v450[52];
+              v260 = v450[53];
+              v261 = v450[54];
+              v262 = v450[55];
               *v439 = v450[0];
               v234[1] = v238;
               v234[2] = v257;
@@ -6305,38 +6305,38 @@ LABEL_103:
           *v235 = v233;
           if (v236 && v237 >= 5)
           {
-            v264 = v453[1];
-            v265 = v453[4];
-            v266 = v453[5];
-            v267 = v453[6];
-            v268 = v453[7];
-            v425 = v454[12];
-            v428 = v454[13];
-            v431 = v454[14];
-            v434 = v454[15];
-            v269 = v454[24];
-            v270 = v454[25];
-            v271 = v454[26];
-            v272 = v454[27];
-            v273 = v454[40];
-            v274 = v454[41];
-            v275 = v454[42];
-            v276 = v454[43];
-            v277 = v453[2];
-            v278 = v453[3];
-            v279 = v454[28];
-            v280 = v454[29];
-            v281 = v454[30];
-            v282 = v454[31];
-            v403 = v454[10];
-            v410 = v454[11];
-            v283 = v454[8];
-            v284 = v454[9];
-            v285 = v454[44];
-            v286 = v454[45];
-            v287 = v454[46];
-            v288 = v454[47];
-            *v234 = v453[0];
+            v264 = v450[65];
+            v265 = v450[68];
+            v266 = v450[69];
+            v267 = v450[70];
+            v268 = v450[71];
+            v425 = v450[84];
+            v428 = v450[85];
+            v431 = v450[86];
+            v434 = v450[87];
+            v269 = v450[96];
+            v270 = v450[97];
+            v271 = v450[98];
+            v272 = v450[99];
+            v273 = v450[112];
+            v274 = v450[113];
+            v275 = v450[114];
+            v276 = v450[115];
+            v277 = v450[66];
+            v278 = v450[67];
+            v279 = v450[100];
+            v280 = v450[101];
+            v281 = v450[102];
+            v282 = v450[103];
+            v403 = v450[82];
+            v410 = v450[83];
+            v283 = v450[80];
+            v284 = v450[81];
+            v285 = v450[116];
+            v286 = v450[117];
+            v287 = v450[118];
+            v288 = v450[119];
+            *v234 = v450[64];
             v234[1] = v264;
             v234[2] = v283;
             v234[3] = v284;
@@ -6376,38 +6376,38 @@ LABEL_103:
           v235[1] = v263;
           if (v236 >= 9 && v237)
           {
-            v290 = v452[1];
-            v291 = v452[4];
-            v292 = v452[5];
-            v293 = v452[6];
-            v294 = v452[7];
-            v426 = v452[20];
-            v429 = v452[21];
-            v432 = v452[22];
-            v435 = v452[23];
-            v295 = v452[32];
-            v296 = v452[33];
-            v297 = v452[34];
-            v298 = v452[35];
-            v299 = v452[48];
-            v300 = v452[49];
-            v301 = v452[50];
-            v302 = v452[51];
-            v303 = v452[2];
-            v304 = v452[3];
-            v305 = v452[36];
-            v306 = v452[37];
-            v307 = v452[38];
-            v308 = v452[39];
-            v404 = v452[18];
-            v411 = v452[19];
-            v309 = v452[16];
-            v310 = v452[17];
-            v311 = v452[52];
-            v312 = v452[53];
-            v313 = v452[54];
-            v314 = v452[55];
-            *v234 = v452[0];
+            v290 = v450[9];
+            v291 = v450[12];
+            v292 = v450[13];
+            v293 = v450[14];
+            v294 = v450[15];
+            v426 = v450[28];
+            v429 = v450[29];
+            v432 = v450[30];
+            v435 = v450[31];
+            v295 = v450[40];
+            v296 = v450[41];
+            v297 = v450[42];
+            v298 = v450[43];
+            v299 = v450[56];
+            v300 = v450[57];
+            v301 = v450[58];
+            v302 = v450[59];
+            v303 = v450[10];
+            v304 = v450[11];
+            v305 = v450[44];
+            v306 = v450[45];
+            v307 = v450[46];
+            v308 = v450[47];
+            v404 = v450[26];
+            v411 = v450[27];
+            v309 = v450[24];
+            v310 = v450[25];
+            v311 = v450[60];
+            v312 = v450[61];
+            v313 = v450[62];
+            v314 = v450[63];
+            *v234 = v450[8];
             v234[1] = v290;
             v234[2] = v309;
             v234[3] = v310;
@@ -6447,38 +6447,38 @@ LABEL_103:
           v235[2] = v289;
           if (v236 >= 9 && v237 >= 5)
           {
-            v316 = v454[1];
-            v317 = v454[4];
-            v318 = v454[5];
-            v319 = v454[6];
-            v320 = v454[7];
-            v427 = v454[20];
-            v430 = v454[21];
-            v433 = v454[22];
-            v436 = v454[23];
-            v321 = v454[32];
-            v322 = v454[33];
-            v323 = v454[34];
-            v324 = v454[35];
-            v325 = v454[48];
-            v326 = v454[49];
-            v327 = v454[50];
-            v328 = v454[51];
-            v329 = v454[2];
-            v330 = v454[3];
-            v331 = v454[36];
-            v332 = v454[37];
-            v333 = v454[38];
-            v334 = v454[39];
-            v405 = v454[18];
-            v412 = v454[19];
-            v335 = v454[16];
-            v336 = v454[17];
-            v337 = v454[52];
-            v338 = v454[53];
-            v339 = v454[54];
-            v340 = v454[55];
-            *v234 = v454[0];
+            v316 = v450[73];
+            v317 = v450[76];
+            v318 = v450[77];
+            v319 = v450[78];
+            v320 = v450[79];
+            v427 = v450[92];
+            v430 = v450[93];
+            v433 = v450[94];
+            v436 = v450[95];
+            v321 = v450[104];
+            v322 = v450[105];
+            v323 = v450[106];
+            v324 = v450[107];
+            v325 = v450[120];
+            v326 = v450[121];
+            v327 = v450[122];
+            v328 = v450[123];
+            v329 = v450[74];
+            v330 = v450[75];
+            v331 = v450[108];
+            v332 = v450[109];
+            v333 = v450[110];
+            v334 = v450[111];
+            v405 = v450[90];
+            v412 = v450[91];
+            v335 = v450[88];
+            v336 = v450[89];
+            v337 = v450[124];
+            v338 = v450[125];
+            v339 = v450[126];
+            v340 = v450[127];
+            *v234 = v450[72];
             v234[1] = v316;
             v234[2] = v335;
             v234[3] = v336;
@@ -6685,7 +6685,7 @@ _OWORD *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7C
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressMacroblock(v41, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE20ELj1ELh0ELNS7_13SubblockOrderE3EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+int32x4_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE20ELj1ELh0ELNS7_13SubblockOrderE3EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v45 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -6987,7 +6987,7 @@ _OWORD *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7C
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressMacroblock(v41, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE20ELj1ELh0ELNS7_13SubblockOrderE3EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+int32x4_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE20ELj1ELh0ELNS7_13SubblockOrderE3EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v45 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -8476,7 +8476,7 @@ LABEL_71:
   return result;
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE12ELj1ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+int64x2_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE12ELj1ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v64 = *MEMORY[0x29EDCA608];
   AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)12,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::decompressMacroblock(v63, *(a1 + 40), *(a1 + 48));
@@ -8489,17 +8489,17 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v4 = *(a1 + 72);
       v5 = v4 << 6;
       v6 = 4 * *(a1 + 76);
-      v7 = &v63[64 * v4 + v6];
+      v7 = &v63[4 * v4].i8[v6];
       v9 = *(a1 + 56);
       v8 = *(a1 + 64);
       v10 = 4 * v3;
-      v11 = &v63[64 * v2 - 64 + 64 * v4 + 4 * v3 + v6];
-      v14 = v7 < v9 + 4 * v3 + v8 * (v2 - 1) && v9 < v11 || v8 < 0;
+      v11 = &v63[4 * v2 - 4 + 4 * v4].i8[4 * v3 + v6];
+      v14 = v7 < &v9[4 * v3 + v8 * (v2 - 1)] && v9 < v11 || v8 < 0;
       if (v3 == 1)
       {
         for (i = 0; i != v2; ++i)
         {
-          v16 = v9 + v8 * i;
+          v16 = &v9[v8 * i];
           v17 = &v7[64 * i];
           v18 = -1;
           do
@@ -8520,13 +8520,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v23 = 0;
           do
           {
-            v7[v23] = *(v9 + v23);
+            v7[v23] = v9[v23];
             ++v23;
           }
 
           while (v10 > v23);
           v7 += 64;
-          v9 = (v9 + v8);
+          v9 += v8;
         }
       }
 
@@ -8537,13 +8537,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v21 = 0;
           do
           {
-            v7[v21] = *(v9 + v21);
+            v7[v21] = v9[v21];
             ++v21;
           }
 
           while (v10 > v21);
           v7 += 64;
-          v9 = (v9 + v8);
+          v9 += v8;
         }
       }
 
@@ -8556,8 +8556,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           if (v10 == (v10 & 0x1FFFFFFE0))
           {
             v32 = 0;
-            v33 = &v63[v5 + 16 + v6];
-            v34 = (v9 + 2);
+            v33 = &v63[1].i8[v5 + v6];
+            v34 = (v9 + 16);
             do
             {
               v35 = v34;
@@ -8568,7 +8568,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v38 = *v35;
                 *(v36 - 1) = *(v35 - 1);
                 *v36 = v38;
-                v36 += 2;
+                v36 += 32;
                 v35 += 2;
                 v37 -= 32;
               }
@@ -8586,10 +8586,10 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           {
             v47 = 0;
             v48 = v3 & 6;
-            v49 = &v63[v5 + v6];
-            v50 = &v63[v5 + 16 + v6];
-            v51 = (v9 + 2);
-            v52 = (v9 + v31);
+            v49 = &v63[0].i8[v5 + v6];
+            v50 = &v63[1].i8[v5 + v6];
+            v51 = (v9 + 16);
+            v52 = &v9[v31];
             v53 = &v49[v31];
             do
             {
@@ -8601,7 +8601,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v57 = *v54;
                 *(v55 - 1) = *(v54 - 1);
                 *v55 = v57;
-                v55 += 2;
+                v55 += 32;
                 v54 += 2;
                 v56 -= 32;
               }
@@ -8619,7 +8619,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               do
               {
                 v62 = *v60++;
-                *v59++ = v62;
+                *v59 = v62;
+                v59 += 8;
                 v61 -= 8;
               }
 
@@ -8630,7 +8631,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 LABEL_63:
                 do
                 {
-                  v7[v58] = *(v9 + v58);
+                  v7[v58] = v9[v58];
                   ++v58;
                 }
 
@@ -8640,10 +8641,10 @@ LABEL_63:
               ++v47;
               v50 += 64;
               v51 = (v51 + v8);
-              v52 = (v52 + v8);
-              v53 += 8;
+              v52 += v8;
+              v53 += 64;
               v7 += 64;
-              v9 = (v9 + v8);
+              v9 += v8;
             }
 
             while (v47 != v2);
@@ -8659,13 +8660,15 @@ LABEL_63:
             v29 = v10;
             do
             {
-              v30 = *v28++;
-              *v27++ = v30;
+              v30 = *v28;
+              v28 += 8;
+              *v27 = v30;
+              v27 += 8;
               v29 -= 8;
             }
 
             while (v29);
-            v9 = (v9 + v8);
+            v9 += v8;
             v7 += 64;
           }
         }
@@ -8682,8 +8685,10 @@ LABEL_63:
             v44 = v10 & 0x1FFFFFFF8;
             do
             {
-              v45 = *v43++;
-              *v42++ = v45;
+              v45 = *v43;
+              v43 += 8;
+              *v42 = v45;
+              v42 += 8;
               v44 -= 8;
             }
 
@@ -8691,13 +8696,13 @@ LABEL_63:
             v46 = v10 & 0x1FFFFFFF8;
             do
             {
-              *v41++ = *(v9 + v46++);
+              *v41++ = v9[v46++];
             }
 
             while (v10 > v46);
             ++v39;
-            v9 = (v9 + v8);
-            v40 += 8;
+            v9 += v8;
+            v40 += 64;
           }
 
           while (v39 != v2);
@@ -8993,7 +8998,7 @@ LABEL_71:
   return result;
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE12ELj1ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+int64x2_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE12ELj1ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v64 = *MEMORY[0x29EDCA608];
   AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)12,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::decompressMacroblock(v63, *(a1 + 40), *(a1 + 48));
@@ -9006,17 +9011,17 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v4 = *(a1 + 72);
       v5 = v4 << 6;
       v6 = 4 * *(a1 + 76);
-      v7 = &v63[64 * v4 + v6];
+      v7 = &v63[4 * v4].i8[v6];
       v9 = *(a1 + 56);
       v8 = *(a1 + 64);
       v10 = 4 * v3;
-      v11 = &v63[64 * v2 - 64 + 64 * v4 + 4 * v3 + v6];
-      v14 = v7 < v9 + 4 * v3 + v8 * (v2 - 1) && v9 < v11 || v8 < 0;
+      v11 = &v63[4 * v2 - 4 + 4 * v4].i8[4 * v3 + v6];
+      v14 = v7 < &v9[4 * v3 + v8 * (v2 - 1)] && v9 < v11 || v8 < 0;
       if (v3 == 1)
       {
         for (i = 0; i != v2; ++i)
         {
-          v16 = v9 + v8 * i;
+          v16 = &v9[v8 * i];
           v17 = &v7[64 * i];
           v18 = -1;
           do
@@ -9037,13 +9042,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v23 = 0;
           do
           {
-            v7[v23] = *(v9 + v23);
+            v7[v23] = v9[v23];
             ++v23;
           }
 
           while (v10 > v23);
           v7 += 64;
-          v9 = (v9 + v8);
+          v9 += v8;
         }
       }
 
@@ -9054,13 +9059,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v21 = 0;
           do
           {
-            v7[v21] = *(v9 + v21);
+            v7[v21] = v9[v21];
             ++v21;
           }
 
           while (v10 > v21);
           v7 += 64;
-          v9 = (v9 + v8);
+          v9 += v8;
         }
       }
 
@@ -9073,8 +9078,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           if (v10 == (v10 & 0x1FFFFFFE0))
           {
             v32 = 0;
-            v33 = &v63[v5 + 16 + v6];
-            v34 = (v9 + 2);
+            v33 = &v63[1].i8[v5 + v6];
+            v34 = (v9 + 16);
             do
             {
               v35 = v34;
@@ -9085,7 +9090,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v38 = *v35;
                 *(v36 - 1) = *(v35 - 1);
                 *v36 = v38;
-                v36 += 2;
+                v36 += 32;
                 v35 += 2;
                 v37 -= 32;
               }
@@ -9103,10 +9108,10 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           {
             v47 = 0;
             v48 = v3 & 6;
-            v49 = &v63[v5 + v6];
-            v50 = &v63[v5 + 16 + v6];
-            v51 = (v9 + 2);
-            v52 = (v9 + v31);
+            v49 = &v63[0].i8[v5 + v6];
+            v50 = &v63[1].i8[v5 + v6];
+            v51 = (v9 + 16);
+            v52 = &v9[v31];
             v53 = &v49[v31];
             do
             {
@@ -9118,7 +9123,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v57 = *v54;
                 *(v55 - 1) = *(v54 - 1);
                 *v55 = v57;
-                v55 += 2;
+                v55 += 32;
                 v54 += 2;
                 v56 -= 32;
               }
@@ -9136,7 +9141,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               do
               {
                 v62 = *v60++;
-                *v59++ = v62;
+                *v59 = v62;
+                v59 += 8;
                 v61 -= 8;
               }
 
@@ -9147,7 +9153,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 LABEL_63:
                 do
                 {
-                  v7[v58] = *(v9 + v58);
+                  v7[v58] = v9[v58];
                   ++v58;
                 }
 
@@ -9157,10 +9163,10 @@ LABEL_63:
               ++v47;
               v50 += 64;
               v51 = (v51 + v8);
-              v52 = (v52 + v8);
-              v53 += 8;
+              v52 += v8;
+              v53 += 64;
               v7 += 64;
-              v9 = (v9 + v8);
+              v9 += v8;
             }
 
             while (v47 != v2);
@@ -9176,13 +9182,15 @@ LABEL_63:
             v29 = v10;
             do
             {
-              v30 = *v28++;
-              *v27++ = v30;
+              v30 = *v28;
+              v28 += 8;
+              *v27 = v30;
+              v27 += 8;
               v29 -= 8;
             }
 
             while (v29);
-            v9 = (v9 + v8);
+            v9 += v8;
             v7 += 64;
           }
         }
@@ -9199,8 +9207,10 @@ LABEL_63:
             v44 = v10 & 0x1FFFFFFF8;
             do
             {
-              v45 = *v43++;
-              *v42++ = v45;
+              v45 = *v43;
+              v43 += 8;
+              *v42 = v45;
+              v42 += 8;
               v44 -= 8;
             }
 
@@ -9208,13 +9218,13 @@ LABEL_63:
             v46 = v10 & 0x1FFFFFFF8;
             do
             {
-              *v41++ = *(v9 + v46++);
+              *v41++ = v9[v46++];
             }
 
             while (v10 > v46);
             ++v39;
-            v9 = (v9 + v8);
-            v40 += 8;
+            v9 += v8;
+            v40 += 64;
           }
 
           while (v39 != v2);
@@ -9226,7 +9236,7 @@ LABEL_63:
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)12,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(v63, 64, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-float32x2x2_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE9ELj1ELh1ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+int32x4_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE9ELj1ELh1ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v69 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -9294,11 +9304,11 @@ float32x2x2_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008Encoders
       v16 = *(a1 + 72);
       v17 = 2 * v16;
       v18 = 2 * *(a1 + 76);
-      v19 = &v68[2 * v16] + v18;
+      v19 = &v68[2 * v16].i8[v18];
       v21 = *(a1 + 56);
       v20 = *(a1 + 64);
       v22 = 2 * v15;
-      v23 = &v68[2 * v14 - 2 + 2 * v16] + 2 * v15 + v18;
+      v23 = &v68[2 * v14 - 2 + 2 * v16].i8[2 * v15 + v18];
       v26 = v19 < v21 + v20 * (v14 - 1) + 2 * v15 && v21 < v23 || v20 < 0;
       if (v15 > 3)
       {
@@ -9345,7 +9355,7 @@ float32x2x2_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008Encoders
             if (v22 == (v22 & 0x1FFFFFFE0))
             {
               v38 = 0;
-              v39 = &v68[v17 + 1] + v18;
+              v39 = &v68[v17 + 1].i8[v18];
               v40 = (v21 + 16);
               do
               {
@@ -9357,7 +9367,7 @@ float32x2x2_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008Encoders
                   v44 = *v41;
                   *(v42 - 1) = *(v41 - 1);
                   *v42 = v44;
-                  v42 += 2;
+                  v42 += 32;
                   v41 += 2;
                   v43 -= 32;
                 }
@@ -9375,8 +9385,8 @@ float32x2x2_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008Encoders
             {
               v52 = 0;
               v53 = v15 & 0xC;
-              v54 = &v68[v17] + v18;
-              v55 = &v68[v17 + 1] + v18;
+              v54 = &v68[v17].i8[v18];
+              v55 = &v68[v17 + 1].i8[v18];
               v56 = (v21 + 16);
               v57 = (v21 + v37);
               v58 = &v54[v37];
@@ -9390,7 +9400,7 @@ float32x2x2_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008Encoders
                   v62 = *v59;
                   *(v60 - 1) = *(v59 - 1);
                   *v60 = v62;
-                  v60 += 2;
+                  v60 += 32;
                   v59 += 2;
                   v61 -= 32;
                 }
@@ -9443,21 +9453,21 @@ LABEL_73:
           else if (v22 == v34)
           {
             v35 = (v21 + 16);
-            v36 = (&v68[v17 + 1] + v18);
+            v36 = (v68[v17 + 1].i64 + v18);
             do
             {
-              v36[-1].val[0] = v35[-2];
+              *(v36 - 2) = *(v35 - 2);
               if (v15 != 4)
               {
-                v36[-1].val[1] = v35[-1];
+                *(v36 - 1) = *(v35 - 1);
                 if (v15 != 8)
                 {
-                  v36->val[0] = *v35;
+                  *v36 = *v35;
                 }
               }
 
               v35 = (v35 + v20);
-              v36 += 2;
+              v36 += 4;
               --v14;
             }
 
@@ -9518,7 +9528,7 @@ LABEL_73:
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)4,1u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(v68, 32, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE9ELj1ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+int32x4_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE9ELj1ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v69 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -9527,7 +9537,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   v5 = 16;
   do
   {
-    v8 = &v68[128 * *v4 + 16 * *(v4 - 1)];
+    v8 = &v68[8 * *v4 + *(v4 - 1)];
     v9 = *v3;
     if (v9 == 63)
     {
@@ -9584,13 +9594,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
     if (v15)
     {
       v16 = *(a1 + 72);
-      v17 = 32 * v16;
+      v17 = 2 * v16;
       v18 = 2 * *(a1 + 76);
-      v19 = &v68[32 * v16 + v18];
+      v19 = &v68[2 * v16].i8[v18];
       v21 = *(a1 + 56);
       v20 = *(a1 + 64);
       v22 = 2 * v15;
-      v23 = &v68[32 * v14 - 32 + 32 * v16 + 2 * v15 + v18];
+      v23 = &v68[2 * v14 - 2 + 2 * v16].i8[2 * v15 + v18];
       v26 = v19 < v21 + v20 * (v14 - 1) + 2 * v15 && v21 < v23 || v20 < 0;
       if (v15 > 3)
       {
@@ -9637,7 +9647,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
             if (v22 == (v22 & 0x1FFFFFFE0))
             {
               v38 = 0;
-              v39 = &v68[v17 + 16 + v18];
+              v39 = &v68[v17 + 1].i8[v18];
               v40 = (v21 + 16);
               do
               {
@@ -9649,7 +9659,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                   v44 = *v41;
                   *(v42 - 1) = *(v41 - 1);
                   *v42 = v44;
-                  v42 += 2;
+                  v42 += 32;
                   v41 += 2;
                   v43 -= 32;
                 }
@@ -9667,8 +9677,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
             {
               v52 = 0;
               v53 = v15 & 0xC;
-              v54 = &v68[v17 + v18];
-              v55 = &v68[v17 + 16 + v18];
+              v54 = &v68[v17].i8[v18];
+              v55 = &v68[v17 + 1].i8[v18];
               v56 = (v21 + 16);
               v57 = (v21 + v37);
               v58 = &v54[v37];
@@ -9682,7 +9692,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                   v62 = *v59;
                   *(v60 - 1) = *(v59 - 1);
                   *v60 = v62;
-                  v60 += 2;
+                  v60 += 32;
                   v59 += 2;
                   v61 -= 32;
                 }
@@ -9700,7 +9710,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 do
                 {
                   v67 = *v65++;
-                  *v64++ = v67;
+                  *v64 = v67;
+                  v64 += 8;
                   v66 -= 8;
                 }
 
@@ -9722,7 +9733,7 @@ LABEL_73:
                 v55 += 32;
                 v56 = (v56 + v20);
                 v57 = (v57 + v20);
-                v58 += 4;
+                v58 += 32;
                 v19 += 32;
                 v21 += v20;
               }
@@ -9734,7 +9745,7 @@ LABEL_73:
           else if (v22 == v34)
           {
             v35 = (v21 + 16);
-            v36 = &v68[v17 + 16 + v18];
+            v36 = (v68[v17 + 1].i64 + v18);
             do
             {
               *(v36 - 2) = *(v35 - 2);
@@ -9764,14 +9775,14 @@ LABEL_73:
               *v47 = *v46;
               if (v34 != 8)
               {
-                v47[1] = v46[1];
+                *(v47 + 1) = v46[1];
                 if (v34 != 16)
                 {
-                  v47[2] = v46[2];
+                  *(v47 + 2) = v46[2];
                 }
               }
 
-              v48 = v47 + v34;
+              v48 = &v47[v34];
               v49 = v46 + v34;
               v50 = v22 & 0x18;
               do

@@ -38,22 +38,22 @@
 
 - (id)localizedBody
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   notification = [(HDSPWakeUpResultsNotificationLocalizer *)self notification];
   category = [notification category];
 
   if (category == 2)
   {
-    v14 = 0;
-    v5 = &v14;
-    v6 = [(HDSPWakeUpResultsNotificationLocalizer *)self _localizedBodyForTwoWeekNotificationWithError:&v14];
+    v13 = 0;
+    v5 = &v13;
+    v6 = [(HDSPWakeUpResultsNotificationLocalizer *)self _localizedBodyForTwoWeekNotificationWithError:&v13];
   }
 
   else if (category == 1)
   {
-    v15 = 0;
-    v5 = &v15;
-    v6 = [(HDSPWakeUpResultsNotificationLocalizer *)self _localizedBodyForOneWeekDayNotificationWithError:&v15];
+    v14 = 0;
+    v5 = &v14;
+    v6 = [(HDSPWakeUpResultsNotificationLocalizer *)self _localizedBodyForOneWeekDayNotificationWithError:&v14];
   }
 
   else
@@ -64,9 +64,9 @@
       goto LABEL_14;
     }
 
-    v16 = 0;
-    v5 = &v16;
-    v6 = [(HDSPWakeUpResultsNotificationLocalizer *)self _localizedBodyForOneDayNotificationWithError:&v16];
+    v15 = 0;
+    v5 = &v15;
+    v6 = [(HDSPWakeUpResultsNotificationLocalizer *)self _localizedBodyForOneDayNotificationWithError:&v15];
   }
 
   v7 = v6;
@@ -81,12 +81,12 @@
     v7 = HKSPLogForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v12 = objc_opt_class();
+      v11 = objc_opt_class();
       *buf = 138543618;
-      v18 = v12;
-      v19 = 2114;
-      v20 = v8;
-      v13 = v12;
+      v17 = v11;
+      v18 = 2114;
+      v19 = v8;
+      v12 = v11;
       _os_log_error_impl(&dword_269B11000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Unexpected formatting error: %{public}@", buf, 0x16u);
     }
 
@@ -94,19 +94,18 @@
   }
 
 LABEL_14:
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_localizedBodyForOneDayNotificationWithError:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   if ([(HDSPWakeUpResultsNotificationLocalizer *)self category])
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HDSPWakeUpResultsNotificationLocalizer category](self, "category")}];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"HDSPWakeUpResultsNotificationLocalizer.m" lineNumber:81 description:{@"This method can only localized content for One Day Wake Up Results; received category %@", v40}];
+    v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HDSPWakeUpResultsNotificationLocalizer category](self, "category")}];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"HDSPWakeUpResultsNotificationLocalizer.m" lineNumber:81 description:{@"This method can only localized content for One Day Wake Up Results; received category %@", v39}];
   }
 
   [(HDSPWakeUpResultsNotificationLocalizer *)self dailySleepDurationGoal];
@@ -129,18 +128,18 @@ LABEL_14:
 
     if (v16)
     {
-      v48 = 0;
-      v17 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v16 validFormatSpecifiers:@"%ld" error:&v48, v6];
-      v18 = v48;
-      v47 = v18;
+      v47 = 0;
+      v17 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v16 validFormatSpecifiers:@"%ld" error:&v47, v6];
+      v18 = v47;
+      v46 = v18;
       v19 = v9;
-      v20 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v17 validFormatSpecifiers:@"%@" error:&v47, v9];
+      v20 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v17 validFormatSpecifiers:@"%@" error:&v46, v9];
       v21 = v12;
-      v22 = v47;
+      v22 = v46;
 
-      v46 = v22;
-      v23 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v14 validFormatSpecifiers:@"%@%@" error:&v46, userFirstName, v20];
-      v24 = v46;
+      v45 = v22;
+      v23 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v14 validFormatSpecifiers:@"%@%@" error:&v45, userFirstName, v20];
+      v24 = v45;
 
       v12 = v21;
     }
@@ -148,9 +147,9 @@ LABEL_14:
     else
     {
       v19 = v9;
-      v45 = 0;
-      v23 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v14 validFormatSpecifiers:@"%@" error:&v45, userFirstName];
-      v24 = v45;
+      v44 = 0;
+      v23 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v14 validFormatSpecifiers:@"%@" error:&v44, userFirstName];
+      v24 = v44;
     }
   }
 
@@ -164,18 +163,18 @@ LABEL_14:
 
     if (v16)
     {
-      v44 = 0;
-      v27 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v16 validFormatSpecifiers:@"%ld" error:&v44, v6];
-      v28 = v44;
-      v43 = v28;
+      v43 = 0;
+      v27 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v16 validFormatSpecifiers:@"%ld" error:&v43, v6];
+      v28 = v43;
+      v42 = v28;
       v19 = v9;
-      [MEMORY[0x277CCACA8] stringWithValidatedFormat:v27 validFormatSpecifiers:@"%@" error:&v43, v9];
+      [MEMORY[0x277CCACA8] stringWithValidatedFormat:v27 validFormatSpecifiers:@"%@" error:&v42, v9];
       v30 = v29 = v12;
-      v31 = v43;
+      v31 = v42;
 
-      v42 = v31;
-      v23 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v14 validFormatSpecifiers:@"%@" error:&v42, v30];
-      v24 = v42;
+      v41 = v31;
+      v23 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v14 validFormatSpecifiers:@"%@" error:&v41, v30];
+      v24 = v41;
 
       v12 = v29;
     }
@@ -212,35 +211,33 @@ LABEL_14:
         if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v50 = v34;
+          v49 = v34;
           _os_log_error_impl(&dword_269B11000, v36, OS_LOG_TYPE_ERROR, "[%{public}@] Unexpected formatting error: %{public}@", buf, 0xCu);
         }
       }
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
 - (id)_localizedBodyForOneWeekDayNotificationWithError:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if ([(HDSPWakeUpResultsNotificationLocalizer *)self category]!= 1)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HDSPWakeUpResultsNotificationLocalizer category](self, "category")}];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"HDSPWakeUpResultsNotificationLocalizer.m" lineNumber:139 description:{@"This method can only localized content for One Week Wake Up Results; received category %@", v20}];
+    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HDSPWakeUpResultsNotificationLocalizer category](self, "category")}];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"HDSPWakeUpResultsNotificationLocalizer.m" lineNumber:139 description:{@"This method can only localized content for One Week Wake Up Results; received category %@", v19}];
   }
 
   weeklyGoalAchieved = [(HDSPWakeUpResultsNotificationLocalizer *)self weeklyGoalAchieved];
   if ((weeklyGoalAchieved - 5) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v21 = weeklyGoalAchieved;
+    v20 = weeklyGoalAchieved;
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-    v23 = [MEMORY[0x277CCABB0] numberWithInteger:v21];
-    [currentHandler2 handleFailureInMethod:a2 object:self file:@"HDSPWakeUpResultsNotificationLocalizer.m" lineNumber:145 description:{@"One Week goal achieved count must be 3 or 4; received %@", v23}];
+    v22 = [MEMORY[0x277CCABB0] numberWithInteger:v20];
+    [currentHandler2 handleFailureInMethod:a2 object:self file:@"HDSPWakeUpResultsNotificationLocalizer.m" lineNumber:145 description:{@"One Week goal achieved count must be 3 or 4; received %@", v22}];
   }
 
   userFirstName = [(HDSPWakeUpResultsNotificationLocalizer *)self userFirstName];
@@ -249,9 +246,9 @@ LABEL_14:
 
   if ([userFirstName length] && v9)
   {
-    v24 = 0;
-    v10 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v9 validFormatSpecifiers:@"%@" error:&v24, userFirstName];
-    v11 = v24;
+    v23 = 0;
+    v10 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v9 validFormatSpecifiers:@"%@" error:&v23, userFirstName];
+    v11 = v23;
     v12 = v11;
     if (v10)
     {
@@ -274,7 +271,7 @@ LABEL_14:
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v26 = v12;
+          v25 = v12;
           _os_log_error_impl(&dword_269B11000, v16, OS_LOG_TYPE_ERROR, "[%{public}@] Unexpected formatting error: %{public}@", buf, 0xCu);
         }
       }
@@ -296,19 +293,17 @@ LABEL_14:
   v10 = 0;
 LABEL_18:
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)_localizedBodyForTwoWeekNotificationWithError:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if ([(HDSPWakeUpResultsNotificationLocalizer *)self category]!= 2)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HDSPWakeUpResultsNotificationLocalizer category](self, "category")}];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"HDSPWakeUpResultsNotificationLocalizer.m" lineNumber:170 description:{@"This method can only localized content for Two Week Wake Up Results; received category %@", v28}];
+    v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HDSPWakeUpResultsNotificationLocalizer category](self, "category")}];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"HDSPWakeUpResultsNotificationLocalizer.m" lineNumber:170 description:{@"This method can only localized content for Two Week Wake Up Results; received category %@", v27}];
   }
 
   userFirstName = [(HDSPWakeUpResultsNotificationLocalizer *)self userFirstName];
@@ -325,21 +320,21 @@ LABEL_18:
 
     if (v12)
     {
-      v33 = 0;
-      v13 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v12 validFormatSpecifiers:@"%ld" error:&v33, -[HDSPWakeUpResultsNotificationLocalizer weeklyGoalAchieved](self, "weeklyGoalAchieved")];
-      v14 = v33;
-      v32 = v14;
-      v15 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v10 validFormatSpecifiers:@"%@%@" error:&v32, userFirstName, v13];
-      v16 = v32;
+      v32 = 0;
+      v13 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v12 validFormatSpecifiers:@"%ld" error:&v32, -[HDSPWakeUpResultsNotificationLocalizer weeklyGoalAchieved](self, "weeklyGoalAchieved")];
+      v14 = v32;
+      v31 = v14;
+      v15 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v10 validFormatSpecifiers:@"%@%@" error:&v31, userFirstName, v13];
+      v16 = v31;
 LABEL_9:
       v19 = v16;
 
       goto LABEL_12;
     }
 
-    v31 = 0;
-    v15 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v10 validFormatSpecifiers:@"%@" error:&v31, userFirstName];
-    v19 = v31;
+    v30 = 0;
+    v15 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v10 validFormatSpecifiers:@"%@" error:&v30, userFirstName];
+    v19 = v30;
   }
 
   else
@@ -352,12 +347,12 @@ LABEL_9:
 
     if (v12)
     {
-      v30 = 0;
-      v13 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v12 validFormatSpecifiers:@"%ld" error:&v30, -[HDSPWakeUpResultsNotificationLocalizer weeklyGoalAchieved](self, "weeklyGoalAchieved")];
-      v14 = v30;
-      v29 = v14;
-      v15 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v10 validFormatSpecifiers:@"%@" error:&v29, v13];
-      v16 = v29;
+      v29 = 0;
+      v13 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v12 validFormatSpecifiers:@"%ld" error:&v29, -[HDSPWakeUpResultsNotificationLocalizer weeklyGoalAchieved](self, "weeklyGoalAchieved")];
+      v14 = v29;
+      v28 = v14;
+      v15 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v10 validFormatSpecifiers:@"%@" error:&v28, v13];
+      v16 = v28;
       goto LABEL_9;
     }
 
@@ -391,14 +386,12 @@ LABEL_12:
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v35 = v22;
+          v34 = v22;
           _os_log_error_impl(&dword_269B11000, v24, OS_LOG_TYPE_ERROR, "[%{public}@] Unexpected formatting error: %{public}@", buf, 0xCu);
         }
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

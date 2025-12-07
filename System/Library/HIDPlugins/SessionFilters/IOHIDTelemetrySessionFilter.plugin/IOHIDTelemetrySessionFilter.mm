@@ -75,8 +75,7 @@ void sub_17F0(uint64_t a1, NSObject *a2)
   _os_log_debug_impl(&dword_0, a2, OS_LOG_TYPE_DEBUG, "IOHIDTelemetrySessionFilter::initWithSession: %@\n", &v2, 0xCu);
 }
 
-iceCounts, sub_1300, v5);
-    [v4 setObject:v5 forKeyedSubscript:@"ServiceCounts"];
+v5 forKeyedSubscript:@"ServiceCounts"];
   }
 
   else

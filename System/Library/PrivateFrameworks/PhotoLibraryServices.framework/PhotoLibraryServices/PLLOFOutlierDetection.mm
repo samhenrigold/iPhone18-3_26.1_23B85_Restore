@@ -14,7 +14,7 @@
   v70 = *MEMORY[0x1E69E9840];
   datasetCopy = dataset;
   blockCopy = block;
-  v8 = [datasetCopy count];
+  v8 = objc_msgSend_count(datasetCopy);
   if (v8 > 2)
   {
     v9 = v8;
@@ -23,7 +23,7 @@
     selfCopy = self;
     v50 = [(PLLOFOutlierDetection *)self createKNNMatrixWithDistanceMatrix:v10 size:v9];
     array = [MEMORY[0x1E695DF70] array];
-    if ([datasetCopy count])
+    if (objc_msgSend_count(datasetCopy))
     {
       v11 = 0;
       v49 = datasetCopy;
@@ -103,7 +103,7 @@
                 v22 = 0.0;
               }
 
-              v30 = 1.0 / (v22 / [v58 count]);
+              v30 = 1.0 / (v22 / objc_msgSend_count(v58));
 
               v14 = v14 + v30;
               v15 = v57 + 1;
@@ -116,7 +116,7 @@
           while (v56);
         }
 
-        v59 = [obj count];
+        v59 = objc_msgSend_count(obj);
         v31 = v54;
         v32 = v55;
         v33 = [v31 objectAtIndexedSubscript:v55];
@@ -161,7 +161,7 @@
           while (v35);
         }
 
-        v44 = 1.0 / (v13 / [v33 count]);
+        v44 = 1.0 / (v13 / objc_msgSend_count(v33));
 
         v45 = [MEMORY[0x1E696AD98] numberWithDouble:v14 / v59 / v44];
         [array addObject:v45];
@@ -170,7 +170,7 @@
         datasetCopy = v49;
       }
 
-      while (v11 < [v49 count]);
+      while (v11 < objc_msgSend_count(v49));
     }
 
     [(PLLOFOutlierDetection *)selfCopy freeDistancesMatrix:v10 forDataset:datasetCopy];
@@ -189,7 +189,7 @@
 - (void)freeDistancesMatrix:(double *)matrix forDataset:(id)dataset
 {
   datasetCopy = dataset;
-  if ([datasetCopy count])
+  if (objc_msgSend_count(datasetCopy))
   {
     v5 = 0;
     do
@@ -197,7 +197,7 @@
       free(matrix[v5++]);
     }
 
-    while (v5 < [datasetCopy count]);
+    while (v5 < objc_msgSend_count(datasetCopy));
   }
 
   free(matrix);
@@ -207,7 +207,7 @@
 {
   datasetCopy = dataset;
   blockCopy = block;
-  v7 = [datasetCopy count];
+  v7 = objc_msgSend_count(datasetCopy);
   v8 = malloc_type_calloc(v7, 8uLL, 0x80040B8603338uLL);
   if (v7)
   {
@@ -290,7 +290,7 @@
       {
         if (v6 != v10)
         {
-          v13 = [v9 count];
+          v13 = objc_msgSend_count(v9);
           v14 = self->_k;
           if (v13 < v14 || (v15 = v12[v10], [v9 lastObject], v16 = objc_claimAutoreleasedReturnValue(), v17 = v12[objc_msgSend(v16, "integerValue")], v16, v15 < v17))
           {
@@ -354,9 +354,9 @@ uint64_t __64__PLLOFOutlierDetection_createKNNMatrixWithDistanceMatrix_size___bl
   v82 = *MEMORY[0x1E69E9840];
   datasetCopy = dataset;
   blockCopy = block;
-  if ([datasetCopy count] > 2)
+  if (objc_msgSend_count(datasetCopy) > 2)
   {
-    v8 = [datasetCopy count];
+    v8 = objc_msgSend_count(datasetCopy);
     v45 = blockCopy;
     selfCopy = self;
     v63 = [(PLLOFOutlierDetection *)self createDistancesMatrixForDataset:datasetCopy distanceBlock:blockCopy];
@@ -459,7 +459,7 @@ uint64_t __64__PLLOFOutlierDetection_createKNNMatrixWithDistanceMatrix_size___bl
                   v20 = 0.0;
                 }
 
-                v28 = 1.0 / (v20 / [v61 count]);
+                v28 = 1.0 / (v20 / objc_msgSend_count(v61));
 
                 v12 = v12 + v28;
                 v13 = v60 + 1;
@@ -472,7 +472,7 @@ uint64_t __64__PLLOFOutlierDetection_createKNNMatrixWithDistanceMatrix_size___bl
             while (v59);
           }
 
-          v62 = [v55 count];
+          v62 = objc_msgSend_count(v55);
           v29 = v57;
           v30 = [v29 objectAtIndexedSubscript:v58];
           v72 = 0u;
@@ -515,7 +515,7 @@ uint64_t __64__PLLOFOutlierDetection_createKNNMatrixWithDistanceMatrix_size___bl
             while (v32);
           }
 
-          v41 = 1.0 / (v11 / [v30 count]);
+          v41 = 1.0 / (v11 / objc_msgSend_count(v30));
 
           if (v12 / v62 / v41 <= 1.1)
           {
@@ -536,7 +536,7 @@ uint64_t __64__PLLOFOutlierDetection_createKNNMatrixWithDistanceMatrix_size___bl
     [(PLLOFOutlierDetection *)selfCopy freeDistancesMatrix:v63 forDataset:obj];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
-      v43 = [array count];
+      v43 = objc_msgSend_count(array);
       *buf = 134218240;
       v79 = v44 - v43;
       v80 = 2048;

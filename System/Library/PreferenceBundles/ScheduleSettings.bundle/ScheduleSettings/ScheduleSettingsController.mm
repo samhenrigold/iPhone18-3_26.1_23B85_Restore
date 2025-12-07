@@ -63,7 +63,7 @@
 
 - (id)specifiers
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   v5 = MEMORY[0x277D3FF38];
@@ -110,29 +110,29 @@
     [v17 setProperty:v18 forKey:*MEMORY[0x277D3FD78]];
     v19 = [*(&self->super.super.super.super.super.isa + v3) mutableCopy];
     v20 = [v19 indexOfObject:{objc_msgSend(*(&self->super.super.super.super.super.isa + v3), "specifierForID:", @"accountsGroup"}];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v21 = [-[ScheduleSettingsController _makeMCCSpecifiers](self "_makeMCCSpecifiers")];
-    v22 = [v21 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v33;
+      v24 = *v32;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v33 != v24)
+          if (*v32 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          [v19 insertObject:*(*(&v32 + 1) + 8 * i) atIndex:v20 + 1];
+          [v19 insertObject:*(*(&v31 + 1) + 8 * i) atIndex:v20 + 1];
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v23);
@@ -164,58 +164,56 @@
   self->_fetchDividerRow = [v4 indexOfObject:{objc_msgSend(v4, "specifierForID:", @"FETCH_DIVIDER"}];
   v29 = [*(&self->super.super.super.super.super.isa + v3) specifierForID:@"FETCH_DIVIDER"];
   [v29 setProperty:MEMORY[0x277CBEC28] forKey:*v5];
-  result = *(&self->super.super.super.super.super.isa + v3);
-  v31 = *MEMORY[0x277D85DE8];
-  return result;
+  return *(&self->super.super.super.super.super.isa + v3);
 }
 
 - (id)_makeMCCSpecifiers
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
   allAccountTypes = [(ACAccountStore *)self->_accountStore allAccountTypes];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = allAccountTypes;
-  v19 = [allAccountTypes countByEnumeratingWithState:&v24 objects:v29 count:16];
-  if (v19)
+  v18 = [allAccountTypes countByEnumeratingWithState:&v23 objects:v28 count:16];
+  if (v18)
   {
-    v18 = *v25;
+    v17 = *v24;
     do
     {
-      for (i = 0; i != v19; ++i)
+      for (i = 0; i != v18; ++i)
       {
-        if (*v25 != v18)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v24 + 1) + 8 * i);
+        v7 = *(*(&v23 + 1) + 8 * i);
         if (![(ScheduleSettingsController *)self isExcludedAccountType:v7])
         {
           v8 = [(ACAccountStore *)self->_accountStore accountsWithAccountType:v7];
+          v19 = 0u;
           v20 = 0u;
           v21 = 0u;
           v22 = 0u;
-          v23 = 0u;
-          v9 = [(NSArray *)v8 countByEnumeratingWithState:&v20 objects:v28 count:16];
+          v9 = [(NSArray *)v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
           if (v9)
           {
             v10 = v9;
-            v11 = *v21;
+            v11 = *v20;
             do
             {
               for (j = 0; j != v10; ++j)
               {
-                if (*v21 != v11)
+                if (*v20 != v11)
                 {
                   objc_enumerationMutation(v8);
                 }
 
-                v13 = *(*(&v20 + 1) + 8 * j);
+                v13 = *(*(&v19 + 1) + 8 * j);
                 v14 = [(ScheduleSettingsController *)self _specifiersForMCCAccount:v13];
                 if ([v14 count])
                 {
@@ -224,7 +222,7 @@
                 }
               }
 
-              v10 = [(NSArray *)v8 countByEnumeratingWithState:&v20 objects:v28 count:16];
+              v10 = [(NSArray *)v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
             }
 
             while (v10);
@@ -232,16 +230,15 @@
         }
       }
 
-      v19 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v18 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
-    while (v19);
+    while (v18);
   }
 
   [v4 addObject:*MEMORY[0x277D3A1B8]];
   PCSettingsPurgeDictionariesExceptForCurrent();
 
-  v15 = *MEMORY[0x277D85DE8];
   return array;
 }
 
@@ -264,7 +261,7 @@
   return identifier;
 }
 
-uint64_t __52__ScheduleSettingsController_isExcludedAccountType___block_invoke()
+void *__52__ScheduleSettingsController_isExcludedAccountType___block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEB98]);
   result = [v0 initWithObjects:{*MEMORY[0x277CB8CF8], 0}];
@@ -274,40 +271,40 @@ uint64_t __52__ScheduleSettingsController_isExcludedAccountType___block_invoke()
 
 - (id)_specifiersForMCCAccount:(id)account
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   if ([account parentAccount])
   {
-    goto LABEL_2;
+    return array;
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   enabledDataclasses = [account enabledDataclasses];
-  v9 = [enabledDataclasses countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (!v9)
+  v8 = [enabledDataclasses countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (!v8)
   {
-    goto LABEL_2;
+    return array;
   }
 
-  v10 = v9;
-  v11 = *v18;
+  v9 = v8;
+  v10 = *v17;
   while (2)
   {
-    v12 = 0;
+    v11 = 0;
     do
     {
-      if (*v18 != v11)
+      if (*v17 != v10)
       {
         objc_enumerationMutation(enabledDataclasses);
       }
 
-      v13 = *(*(&v17 + 1) + 8 * v12);
+      v12 = *(*(&v16 + 1) + 8 * v11);
       if (ScheduleSettingsDataclassIsFetchy_onceToken == -1)
       {
-        if (!v13)
+        if (!v12)
         {
           goto LABEL_11;
         }
@@ -316,13 +313,13 @@ uint64_t __52__ScheduleSettingsController_isExcludedAccountType___block_invoke()
       else
       {
         [ScheduleSettingsController _specifiersForMCCAccount:];
-        if (!v13)
+        if (!v12)
         {
           goto LABEL_11;
         }
       }
 
-      if ([ScheduleSettingsDataclassIsFetchy_fetchyDataclassSet containsObject:v13])
+      if ([ScheduleSettingsDataclassIsFetchy_fetchyDataclassSet containsObject:v12])
       {
         enabledDataclasses2 = [account enabledDataclasses];
         supportsPush = [account supportsPush];
@@ -331,27 +328,23 @@ uint64_t __52__ScheduleSettingsController_isExcludedAccountType___block_invoke()
           [array addObject:{-[ScheduleSettingsController _specifierForMCCAccount:dataclasses:canPush:canFetch:canManual:](self, "_specifierForMCCAccount:dataclasses:canPush:canFetch:canManual:", account, objc_msgSend(enabledDataclasses2, "allObjects"), supportsPush, 1, 1)}];
         }
 
-        goto LABEL_2;
+        return array;
       }
 
 LABEL_11:
-      ++v12;
+      ++v11;
     }
 
-    while (v10 != v12);
-    v14 = [enabledDataclasses countByEnumeratingWithState:&v17 objects:v21 count:16];
-    v10 = v14;
-    if (v14)
+    while (v9 != v11);
+    v13 = [enabledDataclasses countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = v13;
+    if (v13)
     {
       continue;
     }
 
-    break;
+    return array;
   }
-
-LABEL_2:
-  v6 = *MEMORY[0x277D85DE8];
-  return array;
 }
 
 - (id)_specifierForMCCAccount:(id)account dataclasses:(id)dataclasses canPush:(BOOL)push canFetch:(BOOL)fetch canManual:(BOOL)manual
@@ -359,15 +352,15 @@ LABEL_2:
   manualCopy = manual;
   fetchCopy = fetch;
   pushCopy = push;
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   v13 = [MEMORY[0x277CE8568] specifierWithStyle:3 account:account detailControllerClass:objc_opt_class() presentationStyle:1];
-  v20[0] = dataclasses;
-  v19[0] = @"ScheduleSettingsDataclassesKey";
-  v19[1] = @"ScheduleSettingsAccountUniqueIdentifierKey";
-  v19[2] = @"ScheduleSettingsAccountKey";
-  v20[1] = [account identifier];
-  v20[2] = account;
-  [v13 setUserInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v20, v19, 3)}];
+  v19[0] = dataclasses;
+  v18[0] = @"ScheduleSettingsDataclassesKey";
+  v18[1] = @"ScheduleSettingsAccountUniqueIdentifierKey";
+  v18[2] = @"ScheduleSettingsAccountKey";
+  v19[1] = [account identifier];
+  v19[2] = account;
+  [v13 setUserInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v19, v18, 3)}];
   [v13 setTarget:self];
   *&v13[*MEMORY[0x277D3FCA8]] = sel__mccSchedule_;
   *&v13[*MEMORY[0x277D3FCB0]] = sel__setMCCSchedule_specifier_;
@@ -410,7 +403,6 @@ LABEL_2:
 
   [v13 setProperty:v16 forKey:*MEMORY[0x277D3FF38]];
 
-  v17 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -465,33 +457,33 @@ LABEL_2:
 
 - (void)_readScheduleSettings
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   ClassPollInterval = PCSettingsGetClassPollInterval();
 
   self->_checkedSpecifier = 0;
   if (!self->_isLowPowerMode)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v5 = *MEMORY[0x277D3FC48];
     v6 = *(&self->super.super.super.super.super.isa + v5);
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
 LABEL_5:
       v10 = 0;
       while (1)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
+        v11 = *(*(&v13 + 1) + 8 * v10);
         v12 = [v11 propertyForKey:@"interval"];
         if (v12)
         {
@@ -503,7 +495,7 @@ LABEL_5:
 
         if (v8 == ++v10)
         {
-          v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
           if (v8)
           {
             goto LABEL_5;
@@ -542,7 +534,6 @@ LABEL_12:
 LABEL_16:
   self->_rowToSelect = [*(&self->super.super.super.super.super.isa + v5) indexOfObject:checkedSpecifier];
   [(ScheduleSettingsController *)self updateRadioGroupText];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)pushEnabled:(id)enabled
@@ -647,24 +638,23 @@ LABEL_16:
   if (*&v6[*MEMORY[0x277D3FCB0]])
   {
     v9 = MEMORY[0x277D3FCB8];
-    v10 = *&v6[*MEMORY[0x277D3FCB8]];
     if (objc_opt_respondsToSelector())
     {
       values = [v6 values];
-      v12 = [values count];
-      v13 = *&v6[*v9];
-      v14 = *&v6[*v8];
-      if (v12)
+      v11 = [values count];
+      v12 = *&v6[*v9];
+      v13 = *&v6[*v8];
+      if (v11)
       {
-        v15 = [values objectAtIndex:0];
+        v14 = [values objectAtIndex:0];
       }
 
       else
       {
-        v15 = [v6 propertyForKey:*MEMORY[0x277D40170]];
+        v14 = [v6 propertyForKey:*MEMORY[0x277D40170]];
       }
 
-      [v13 performSelector:v14 withObject:v15 withObject:v6];
+      [v12 performSelector:v13 withObject:v14 withObject:v6];
     }
   }
 }

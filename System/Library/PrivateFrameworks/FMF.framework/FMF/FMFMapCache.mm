@@ -24,10 +24,10 @@
 
 - (FMFMapCache)init
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v29.receiver = self;
-  v29.super_class = FMFMapCache;
-  v2 = [(FMFMapCache *)&v29 init];
+  v35 = *MEMORY[0x277D85DE8];
+  v30.receiver = self;
+  v30.super_class = FMFMapCache;
+  v2 = [(FMFMapCache *)&v30 init];
   if (v2)
   {
     v3 = [MEMORY[0x277D07B70] integerForKey:@"lastPruneTimestamp" inDomain:@"com.apple.findmy"];
@@ -35,78 +35,77 @@
     v4 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:v3];
     [(FMFMapCache *)v2 setLastPruneDate:v4];
 
-    v5 = LogCategory_FMFMapXPC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LogCategory_FMFMapXPC(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       fileProtectionDeactivated = [(FMFMapCache *)v2 fileProtectionDeactivated];
       lastPruneDate = [(FMFMapCache *)v2 lastPruneDate];
       *buf = 67109378;
-      v31 = fileProtectionDeactivated;
-      v32 = 2112;
-      v33 = lastPruneDate;
-      _os_log_impl(&dword_24A33F000, v5, OS_LOG_TYPE_DEFAULT, "FMFMapCache: File protection deactivated? %i last prune date? %@", buf, 0x12u);
+      v32 = fileProtectionDeactivated;
+      v33 = 2112;
+      v34 = lastPruneDate;
+      _os_log_impl(&dword_24A33F000, v6, OS_LOG_TYPE_DEFAULT, "FMFMapCache: File protection deactivated? %i last prune date? %@", buf, 0x12u);
     }
 
     [(FMFMapCache *)v2 setMapLocationDistanceThreshold:50.0];
-    v8 = objc_opt_new();
-    [(FMFMapCache *)v2 setCacheMetaData:v8];
-
     v9 = objc_opt_new();
-    [(FMFMapCache *)v2 setGridImageMetaData:v9];
+    [(FMFMapCache *)v2 setCacheMetaData:v9];
 
     v10 = objc_opt_new();
-    [(FMFMapCache *)v2 setNoLocationImageMetaData:v10];
+    [(FMFMapCache *)v2 setGridImageMetaData:v10];
 
     v11 = objc_opt_new();
-    [(FMFMapCache *)v2 setMapImageMetaData:v11];
+    [(FMFMapCache *)v2 setNoLocationImageMetaData:v11];
 
     v12 = objc_opt_new();
-    [(FMFMapCache *)v2 setPendingMapImageMetaData:v12];
+    [(FMFMapCache *)v2 setMapImageMetaData:v12];
 
-    v13 = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, 1uLL, 1);
-    firstObject = [v13 firstObject];
-    v15 = [firstObject stringByAppendingPathComponent:@"com.apple.icloud.FMF.FMFMapXPCService"];
+    v13 = objc_opt_new();
+    [(FMFMapCache *)v2 setPendingMapImageMetaData:v13];
 
-    v16 = [v15 stringByAppendingPathComponent:@"FMFMapCacheMeta.data"];
-    [(FMFMapCache *)v2 setCachePath:v16];
+    v14 = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, 1uLL, 1);
+    firstObject = [v14 firstObject];
+    v16 = [firstObject stringByAppendingPathComponent:@"com.apple.icloud.FMF.FMFMapXPCService"];
 
-    [(FMFMapCache *)v2 setImageCachePath:v15];
-    v17 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-    v18 = dispatch_queue_create("com.apple.icloud.FMF.CacheMetaIO", v17);
-    [(FMFMapCache *)v2 setCacheMetaQueue:v18];
+    v17 = [v16 stringByAppendingPathComponent:@"FMFMapCacheMeta.data"];
+    [(FMFMapCache *)v2 setCachePath:v17];
 
-    v19 = dispatch_queue_create("com.apple.icloud.FMF.GridImageIO", v17);
-    [(FMFMapCache *)v2 setGridImageQueue:v19];
+    [(FMFMapCache *)v2 setImageCachePath:v16];
+    v18 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+    v19 = dispatch_queue_create("com.apple.icloud.FMF.CacheMetaIO", v18);
+    [(FMFMapCache *)v2 setCacheMetaQueue:v19];
 
-    v20 = dispatch_queue_create("com.apple.icloud.FMF.NoLocationImageIO", v17);
-    [(FMFMapCache *)v2 setNoLocationImageQueue:v20];
+    v20 = dispatch_queue_create("com.apple.icloud.FMF.GridImageIO", v18);
+    [(FMFMapCache *)v2 setGridImageQueue:v20];
 
-    v21 = dispatch_queue_create("com.apple.icloud.FMF.MapImageIO", v17);
-    [(FMFMapCache *)v2 setMapImageQueue:v21];
+    v21 = dispatch_queue_create("com.apple.icloud.FMF.NoLocationImageIO", v18);
+    [(FMFMapCache *)v2 setNoLocationImageQueue:v21];
 
-    v22 = dispatch_queue_create("com.apple.icloud.FMF.PendingImageQueue", v17);
-    [(FMFMapCache *)v2 setPendingImageQueue:v22];
+    v22 = dispatch_queue_create("com.apple.icloud.FMF.MapImageIO", v18);
+    [(FMFMapCache *)v2 setMapImageQueue:v22];
+
+    v23 = dispatch_queue_create("com.apple.icloud.FMF.PendingImageQueue", v18);
+    [(FMFMapCache *)v2 setPendingImageQueue:v23];
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v24 = [defaultManager fileExistsAtPath:v15];
+    v25 = [defaultManager fileExistsAtPath:v16];
 
-    if ((v24 & 1) == 0)
+    if ((v25 & 1) == 0)
     {
-      v25 = LogCategory_FMFMapXPC();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v27 = LogCategory_FMFMapXPC(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_24A33F000, v25, OS_LOG_TYPE_DEFAULT, "FMFMapCache: Creating cache folder", buf, 2u);
+        _os_log_impl(&dword_24A33F000, v27, OS_LOG_TYPE_DEFAULT, "FMFMapCache: Creating cache folder", buf, 2u);
       }
 
       defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-      [defaultManager2 createDirectoryAtPath:v15 withIntermediateDirectories:1 attributes:0 error:0];
+      [defaultManager2 createDirectoryAtPath:v16 withIntermediateDirectories:1 attributes:0 error:0];
     }
 
     [(FMFMapCache *)v2 readMetaData];
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -123,12 +122,12 @@
     path = [v7 path];
     v10 = [v8 dataWithContentsOfFile:path];
 
-    v11 = LogCategory_FMFMapXPC();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = LogCategory_FMFMapXPC(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 138412290;
       v15 = v7;
-      _os_log_impl(&dword_24A33F000, v11, OS_LOG_TYPE_DEFAULT, "FMFMapCache: cachedGridImageForWidth data retreived: %@", &v14, 0xCu);
+      _os_log_impl(&dword_24A33F000, v12, OS_LOG_TYPE_DEFAULT, "FMFMapCache: cachedGridImageForWidth data retreived: %@", &v14, 0xCu);
     }
   }
 
@@ -136,8 +135,6 @@
   {
     v10 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -163,7 +160,7 @@
 
 void __49__FMFMapCache_cacheGridImage_forWidth_andHeight___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [v2 gridKeyForWidth:*(a1 + 56) andHeight:*(a1 + 64)];
   v4 = [v3 stringByAppendingPathExtension:@"png"];
@@ -181,29 +178,30 @@ void __49__FMFMapCache_cacheGridImage_forWidth_andHeight___block_invoke(uint64_t
 
   v10 = [MEMORY[0x277CBEAC0] dictionaryWithObject:*MEMORY[0x277CCA1A0] forKey:*MEMORY[0x277CCA1B0]];
   v11 = [*(a1 + 40) writeToFile:v9 atomically:1];
-  v12 = LogCategory_FMFMapXPC();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v12 = v11;
+  v13 = LogCategory_FMFMapXPC(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = v9;
-    _os_log_impl(&dword_24A33F000, v12, OS_LOG_TYPE_DEFAULT, "FMFMapCache: cacheGridImage %@", buf, 0xCu);
+    v22 = v9;
+    _os_log_impl(&dword_24A33F000, v13, OS_LOG_TYPE_DEFAULT, "FMFMapCache: cacheGridImage %@", buf, 0xCu);
   }
 
-  if (v11)
+  if (v12)
   {
-    if (([*(a1 + 48) fileProtectionDeactivated] & 1) != 0 || (objc_msgSend(MEMORY[0x277CCAA00], "defaultManager"), v13 = objc_claimAutoreleasedReturnValue(), v18 = 0, objc_msgSend(v13, "setAttributes:ofItemAtPath:error:", v10, v9, &v18), v14 = v18, v13, !v14))
+    if (([*(a1 + 48) fileProtectionDeactivated] & 1) != 0 || (objc_msgSend(MEMORY[0x277CCAA00], "defaultManager"), v15 = objc_claimAutoreleasedReturnValue(), v20 = 0, objc_msgSend(v15, "setAttributes:ofItemAtPath:error:", v10, v9, &v20), v16 = v20, v15, !v16))
     {
-      v14 = [[FMFMapCacheImage alloc] initWithPath:v9];
-      v16 = [v2 gridImageMetaData];
-      [v16 setObject:v14 forKey:v3];
+      v16 = [[FMFMapCacheImage alloc] initWithPath:v9];
+      v19 = [v2 gridImageMetaData];
+      [v19 setObject:v16 forKey:v3];
 
       [v2 saveMetaData];
     }
 
     else
     {
-      v15 = LogCategory_FMFMapXPC();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v18 = LogCategory_FMFMapXPC(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         __49__FMFMapCache_cacheGridImage_forWidth_andHeight___block_invoke_cold_1();
       }
@@ -212,16 +210,14 @@ void __49__FMFMapCache_cacheGridImage_forWidth_andHeight___block_invoke(uint64_t
 
   else
   {
-    v14 = LogCategory_FMFMapXPC();
-    if (os_log_type_enabled(&v14->super, OS_LOG_TYPE_DEFAULT))
+    v16 = LogCategory_FMFMapXPC(v14);
+    if (os_log_type_enabled(&v16->super, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = v9;
-      _os_log_impl(&dword_24A33F000, &v14->super, OS_LOG_TYPE_DEFAULT, "FMFMapCache: Unable to write grid image to disk %@", buf, 0xCu);
+      v22 = v9;
+      _os_log_impl(&dword_24A33F000, &v16->super, OS_LOG_TYPE_DEFAULT, "FMFMapCache: Unable to write grid image to disk %@", buf, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cachedNoLocationImageForWidth:(double)width andHeight:(double)height
@@ -237,12 +233,12 @@ void __49__FMFMapCache_cacheGridImage_forWidth_andHeight___block_invoke(uint64_t
     path = [v7 path];
     v10 = [v8 dataWithContentsOfFile:path];
 
-    v11 = LogCategory_FMFMapXPC();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = LogCategory_FMFMapXPC(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 138412290;
       v15 = v7;
-      _os_log_impl(&dword_24A33F000, v11, OS_LOG_TYPE_DEFAULT, "FMFMapCache: noLocationImageForWidth data retreived: %@", &v14, 0xCu);
+      _os_log_impl(&dword_24A33F000, v12, OS_LOG_TYPE_DEFAULT, "FMFMapCache: noLocationImageForWidth data retreived: %@", &v14, 0xCu);
     }
   }
 
@@ -250,8 +246,6 @@ void __49__FMFMapCache_cacheGridImage_forWidth_andHeight___block_invoke(uint64_t
   {
     v10 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -277,7 +271,7 @@ void __49__FMFMapCache_cacheGridImage_forWidth_andHeight___block_invoke(uint64_t
 
 void __55__FMFMapCache_cacheNoLocationImage_forWidth_andHeight___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [v2 noLocationKeyForWidth:*(a1 + 56) andHeight:*(a1 + 64)];
   v4 = [v3 stringByAppendingPathExtension:@"png"];
@@ -295,29 +289,30 @@ void __55__FMFMapCache_cacheNoLocationImage_forWidth_andHeight___block_invoke(ui
 
   v10 = [MEMORY[0x277CBEAC0] dictionaryWithObject:*MEMORY[0x277CCA1A0] forKey:*MEMORY[0x277CCA1B0]];
   v11 = [*(a1 + 40) writeToFile:v9 atomically:1];
-  v12 = LogCategory_FMFMapXPC();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v12 = v11;
+  v13 = LogCategory_FMFMapXPC(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = v9;
-    _os_log_impl(&dword_24A33F000, v12, OS_LOG_TYPE_DEFAULT, "FMFMapCache: cacheNoLocationImage %@", buf, 0xCu);
+    v22 = v9;
+    _os_log_impl(&dword_24A33F000, v13, OS_LOG_TYPE_DEFAULT, "FMFMapCache: cacheNoLocationImage %@", buf, 0xCu);
   }
 
-  if (v11)
+  if (v12)
   {
-    if (([*(a1 + 48) fileProtectionDeactivated] & 1) != 0 || (objc_msgSend(MEMORY[0x277CCAA00], "defaultManager"), v13 = objc_claimAutoreleasedReturnValue(), v18 = 0, objc_msgSend(v13, "setAttributes:ofItemAtPath:error:", v10, v9, &v18), v14 = v18, v13, !v14))
+    if (([*(a1 + 48) fileProtectionDeactivated] & 1) != 0 || (objc_msgSend(MEMORY[0x277CCAA00], "defaultManager"), v15 = objc_claimAutoreleasedReturnValue(), v20 = 0, objc_msgSend(v15, "setAttributes:ofItemAtPath:error:", v10, v9, &v20), v16 = v20, v15, !v16))
     {
-      v14 = [[FMFMapCacheImage alloc] initWithPath:v9];
-      v16 = [v2 noLocationImageMetaData];
-      [v16 setObject:v14 forKey:v3];
+      v16 = [[FMFMapCacheImage alloc] initWithPath:v9];
+      v19 = [v2 noLocationImageMetaData];
+      [v19 setObject:v16 forKey:v3];
 
       [v2 saveMetaData];
     }
 
     else
     {
-      v15 = LogCategory_FMFMapXPC();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v18 = LogCategory_FMFMapXPC(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         __49__FMFMapCache_cacheGridImage_forWidth_andHeight___block_invoke_cold_1();
       }
@@ -326,16 +321,14 @@ void __55__FMFMapCache_cacheNoLocationImage_forWidth_andHeight___block_invoke(ui
 
   else
   {
-    v14 = LogCategory_FMFMapXPC();
-    if (os_log_type_enabled(&v14->super, OS_LOG_TYPE_DEFAULT))
+    v16 = LogCategory_FMFMapXPC(v14);
+    if (os_log_type_enabled(&v16->super, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = v9;
-      _os_log_impl(&dword_24A33F000, &v14->super, OS_LOG_TYPE_DEFAULT, "FMFMapCache: Unable to write grid image to disk %@", buf, 0xCu);
+      v22 = v9;
+      _os_log_impl(&dword_24A33F000, &v16->super, OS_LOG_TYPE_DEFAULT, "FMFMapCache: Unable to write grid image to disk %@", buf, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cachedMapImageForRequest:(id)request
@@ -353,12 +346,12 @@ void __55__FMFMapCache_cacheNoLocationImage_forWidth_andHeight___block_invoke(ui
     path = [v7 path];
     v10 = [v8 dataWithContentsOfFile:path];
 
-    v11 = LogCategory_FMFMapXPC();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = LogCategory_FMFMapXPC(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 138412290;
       v15 = v7;
-      _os_log_impl(&dword_24A33F000, v11, OS_LOG_TYPE_DEFAULT, "FMFMapCache: cachedMapImageForRequest data retreived: %@", &v14, 0xCu);
+      _os_log_impl(&dword_24A33F000, v12, OS_LOG_TYPE_DEFAULT, "FMFMapCache: cachedMapImageForRequest data retreived: %@", &v14, 0xCu);
     }
   }
 
@@ -366,8 +359,6 @@ void __55__FMFMapCache_cacheNoLocationImage_forWidth_andHeight___block_invoke(ui
   {
     v10 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -406,7 +397,7 @@ void __55__FMFMapCache_cacheNoLocationImage_forWidth_andHeight___block_invoke(ui
 
 void __40__FMFMapCache_cacheMapImage_forRequest___block_invoke(id *a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 7);
   v3 = [a1[4] key];
   v4 = [v3 stringByAppendingPathExtension:@"png"];
@@ -424,61 +415,60 @@ void __40__FMFMapCache_cacheMapImage_forRequest___block_invoke(id *a1)
 
   v10 = [MEMORY[0x277CBEAC0] dictionaryWithObject:*MEMORY[0x277CCA1A0] forKey:*MEMORY[0x277CCA1B0]];
   v11 = [a1[5] writeToFile:v9 atomically:1];
-  v12 = LogCategory_FMFMapXPC();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v12 = v11;
+  v13 = LogCategory_FMFMapXPC(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = v9;
-    _os_log_impl(&dword_24A33F000, v12, OS_LOG_TYPE_DEFAULT, "FMFMapCache: cacheMapImage %@", buf, 0xCu);
+    v28 = v9;
+    _os_log_impl(&dword_24A33F000, v13, OS_LOG_TYPE_DEFAULT, "FMFMapCache: cacheMapImage %@", buf, 0xCu);
   }
 
-  if ((v11 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    v15 = LogCategory_FMFMapXPC();
-    if (os_log_type_enabled(&v15->super, OS_LOG_TYPE_DEFAULT))
+    v18 = LogCategory_FMFMapXPC(v14);
+    if (os_log_type_enabled(&v18->super, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v26 = v9;
-      v27 = 2112;
-      v28 = 0;
-      _os_log_impl(&dword_24A33F000, &v15->super, OS_LOG_TYPE_DEFAULT, "FMFMapCache: Unable to write map image to disk %@ %@", buf, 0x16u);
+      v28 = v9;
+      v29 = 2112;
+      v30 = 0;
+      _os_log_impl(&dword_24A33F000, &v18->super, OS_LOG_TYPE_DEFAULT, "FMFMapCache: Unable to write map image to disk %@ %@", buf, 0x16u);
     }
 
     goto LABEL_13;
   }
 
-  if (([a1[6] fileProtectionDeactivated] & 1) != 0 || (objc_msgSend(MEMORY[0x277CCAA00], "defaultManager"), v13 = objc_claimAutoreleasedReturnValue(), v24 = 0, objc_msgSend(v13, "setAttributes:ofItemAtPath:error:", v10, v9, &v24), v14 = v24, v13, !v14))
+  if (([a1[6] fileProtectionDeactivated] & 1) != 0 || (objc_msgSend(MEMORY[0x277CCAA00], "defaultManager"), v15 = objc_claimAutoreleasedReturnValue(), v26 = 0, objc_msgSend(v15, "setAttributes:ofItemAtPath:error:", v10, v9, &v26), v16 = v26, v15, !v16))
   {
-    v15 = [[FMFMapCacheImage alloc] initWithPath:v9];
-    v16 = [WeakRetained mapImageMetaData];
-    [v16 setObject:v15 forKey:v3];
+    v18 = [[FMFMapCacheImage alloc] initWithPath:v9];
+    v19 = [WeakRetained mapImageMetaData];
+    [v19 setObject:v18 forKey:v3];
 
     [WeakRetained saveMetaData];
 LABEL_13:
-    v14 = 0;
+    v16 = 0;
     goto LABEL_14;
   }
 
-  v15 = LogCategory_FMFMapXPC();
-  if (os_log_type_enabled(&v15->super, OS_LOG_TYPE_ERROR))
+  v18 = LogCategory_FMFMapXPC(v17);
+  if (os_log_type_enabled(&v18->super, OS_LOG_TYPE_ERROR))
   {
     __49__FMFMapCache_cacheGridImage_forWidth_andHeight___block_invoke_cold_1();
   }
 
 LABEL_14:
 
-  v17 = [WeakRetained pendingImageQueue];
+  v20 = [WeakRetained pendingImageQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __40__FMFMapCache_cacheMapImage_forRequest___block_invoke_59;
   block[3] = &unk_278FDE548;
+  v24 = WeakRetained;
+  v25 = v3;
+  v21 = v3;
   v22 = WeakRetained;
-  v23 = v3;
-  v18 = v3;
-  v19 = WeakRetained;
-  dispatch_sync(v17, block);
-
-  v20 = *MEMORY[0x277D85DE8];
+  dispatch_sync(v20, block);
 }
 
 void __40__FMFMapCache_cacheMapImage_forRequest___block_invoke_59(uint64_t a1)
@@ -582,7 +572,7 @@ void __41__FMFMapCache_pendingMapImageForRequest___block_invoke(uint64_t a1)
 
 void __27__FMFMapCache_readMetaData__block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = MEMORY[0x277CBEB98];
   v4 = objc_opt_class();
@@ -592,57 +582,58 @@ void __27__FMFMapCache_readMetaData__block_invoke(uint64_t a1)
   v8 = MEMORY[0x277CBEA90];
   v9 = [v2 cachePath];
   v10 = [v8 dataWithContentsOfFile:v9];
-  v28 = 0;
-  v11 = [v7 unarchivedObjectOfClasses:v6 fromData:v10 error:&v28];
-  v12 = v28;
+  v30 = 0;
+  v11 = [v7 unarchivedObjectOfClasses:v6 fromData:v10 error:&v30];
+  v12 = v30;
 
   if (v12)
   {
-    v13 = LogCategory_FMFMapXPC();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = LogCategory_FMFMapXPC(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __27__FMFMapCache_readMetaData__block_invoke_cold_1(v12, v13);
+      __27__FMFMapCache_readMetaData__block_invoke_cold_1(v12, v14);
     }
   }
 
-  v14 = LogCategory_FMFMapXPC();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = LogCategory_FMFMapXPC(v13);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    __27__FMFMapCache_readMetaData__block_invoke_cold_2(v11, v14);
+    __27__FMFMapCache_readMetaData__block_invoke_cold_2(v11, v15);
   }
 
-  v15 = [v11 allKeys];
-  if ([v15 count] == 4)
+  v16 = [v11 allKeys];
+  if ([v16 count] == 4)
   {
-    v16 = [v11 objectForKeyedSubscript:@"version"];
-    v17 = [v16 isEqualToString:@"2"];
+    v17 = [v11 objectForKeyedSubscript:@"version"];
+    v18 = [v17 isEqualToString:@"2"];
 
-    if (v17)
+    if (v18)
     {
       [v2 setCacheMetaData:v11];
-      v18 = [v11 objectForKeyedSubscript:@"gridImage"];
-      [v2 setGridImageMetaData:v18];
+      v20 = [v11 objectForKeyedSubscript:@"gridImage"];
+      [v2 setGridImageMetaData:v20];
 
-      v19 = [v11 objectForKeyedSubscript:@"noLocationImage"];
-      [v2 setNoLocationImageMetaData:v19];
+      v21 = [v11 objectForKeyedSubscript:@"noLocationImage"];
+      [v2 setNoLocationImageMetaData:v21];
 
-      v20 = [v11 objectForKeyedSubscript:@"mapImage"];
+      v22 = [v11 objectForKeyedSubscript:@"mapImage"];
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v21 = [v11 objectForKeyedSubscript:@"mapImage"];
-        [v2 setMapImageMetaData:v21];
+        v24 = [v11 objectForKeyedSubscript:@"mapImage"];
+        [v2 setMapImageMetaData:v24];
       }
 
-      v22 = LogCategory_FMFMapXPC();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v25 = LogCategory_FMFMapXPC(isKindOfClass);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = [v2 mapImageMetaData];
-        v24 = [v23 allValues];
-        v25 = [v24 count];
+        v26 = [v2 mapImageMetaData];
+        v27 = [v26 allValues];
+        v28 = [v27 count];
         *buf = 134217984;
-        v30 = v25;
-        _os_log_impl(&dword_24A33F000, v22, OS_LOG_TYPE_DEFAULT, "FMFMapCache: found entries in cache %ld", buf, 0xCu);
+        v32 = v28;
+        _os_log_impl(&dword_24A33F000, v25, OS_LOG_TYPE_DEFAULT, "FMFMapCache: found entries in cache %ld", buf, 0xCu);
       }
 
       goto LABEL_18;
@@ -653,18 +644,16 @@ void __27__FMFMapCache_readMetaData__block_invoke(uint64_t a1)
   {
   }
 
-  v26 = LogCategory_FMFMapXPC();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v29 = LogCategory_FMFMapXPC(v19);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_24A33F000, v26, OS_LOG_TYPE_DEFAULT, "FMFMapCache: flushing cache because of version mismatch", buf, 2u);
+    _os_log_impl(&dword_24A33F000, v29, OS_LOG_TYPE_DEFAULT, "FMFMapCache: flushing cache because of version mismatch", buf, 2u);
   }
 
   [*(a1 + 40) flushCache];
 LABEL_18:
   [*(a1 + 40) pruneCacheIfNeeded];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveMetaData
@@ -683,7 +672,7 @@ LABEL_18:
 
 void __27__FMFMapCache_saveMetaData__block_invoke(uint64_t a1)
 {
-  *&v27[5] = *MEMORY[0x277D85DE8];
+  *&v28[5] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = objc_opt_new();
   [v3 setObject:@"2" forKey:@"version"];
@@ -696,13 +685,13 @@ void __27__FMFMapCache_saveMetaData__block_invoke(uint64_t a1)
   v6 = [v2 mapImageMetaData];
   [v3 setObject:v6 forKeyedSubscript:@"mapImage"];
 
-  v25 = 0;
-  v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v25];
-  v8 = v25;
+  v26 = 0;
+  v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v26];
+  v8 = v26;
   if (v8)
   {
     v9 = v8;
-    v10 = LogCategory_FMFMapXPC();
+    v10 = LogCategory_FMFMapXPC(v8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __27__FMFMapCache_saveMetaData__block_invoke_cold_1(v9, v10);
@@ -715,49 +704,50 @@ void __27__FMFMapCache_saveMetaData__block_invoke(uint64_t a1)
   v12 = [v7 writeToFile:v11 atomically:1];
 
   v10 = [MEMORY[0x277CBEAC0] dictionaryWithObject:*MEMORY[0x277CCA1A0] forKey:*MEMORY[0x277CCA1B0]];
-  v13 = LogCategory_FMFMapXPC();
+  v13 = LogCategory_FMFMapXPC(v10);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = [v2 mapImageMetaData];
     v15 = [v14 allValues];
     v16 = [v15 count];
     *buf = 134217984;
-    *v27 = v16;
+    *v28 = v16;
     _os_log_impl(&dword_24A33F000, v13, OS_LOG_TYPE_DEFAULT, "FMFMapCache: save map images %ld", buf, 0xCu);
   }
 
   if ((v12 & 1) == 0)
   {
-    v17 = LogCategory_FMFMapXPC();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = LogCategory_FMFMapXPC(v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = [v2 cachePath];
+      v20 = [v2 cachePath];
       *buf = 138412290;
-      *v27 = v18;
-      _os_log_impl(&dword_24A33F000, v17, OS_LOG_TYPE_DEFAULT, "FMFMapCache: Unable to write meta data to disk %@", buf, 0xCu);
+      *v28 = v20;
+      _os_log_impl(&dword_24A33F000, v19, OS_LOG_TYPE_DEFAULT, "FMFMapCache: Unable to write meta data to disk %@", buf, 0xCu);
     }
 
     v9 = 0;
     goto LABEL_15;
   }
 
-  if (([*(a1 + 40) fileProtectionDeactivated] & 1) == 0)
+  v18 = [*(a1 + 40) fileProtectionDeactivated];
+  if ((v18 & 1) == 0)
   {
-    v19 = [MEMORY[0x277CCAA00] defaultManager];
-    v20 = [v2 cachePath];
-    v24 = 0;
-    [v19 setAttributes:v10 ofItemAtPath:v20 error:&v24];
-    v9 = v24;
+    v21 = [MEMORY[0x277CCAA00] defaultManager];
+    v22 = [v2 cachePath];
+    v25 = 0;
+    [v21 setAttributes:v10 ofItemAtPath:v22 error:&v25];
+    v9 = v25;
 
     if (!v9)
     {
       goto LABEL_16;
     }
 
-    v17 = LogCategory_FMFMapXPC();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = LogCategory_FMFMapXPC(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      __27__FMFMapCache_saveMetaData__block_invoke_cold_2(v9, v2, v17);
+      __27__FMFMapCache_saveMetaData__block_invoke_cold_2(v9, v2, v19);
     }
 
 LABEL_15:
@@ -767,24 +757,23 @@ LABEL_15:
 
   v9 = 0;
 LABEL_16:
-  v21 = LogCategory_FMFMapXPC();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v23 = LogCategory_FMFMapXPC(v18);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = [*(a1 + 40) fileProtectionDeactivated];
+    v24 = [*(a1 + 40) fileProtectionDeactivated];
     *buf = 67109376;
-    v27[0] = v12;
-    LOWORD(v27[1]) = 1024;
-    *(&v27[1] + 2) = v22;
-    _os_log_impl(&dword_24A33F000, v21, OS_LOG_TYPE_DEFAULT, "FMFMapCache: FMFMapCache: Save meta data? %d %i", buf, 0xEu);
+    v28[0] = v12;
+    LOWORD(v28[1]) = 1024;
+    *(&v28[1] + 2) = v24;
+    _os_log_impl(&dword_24A33F000, v23, OS_LOG_TYPE_DEFAULT, "FMFMapCache: FMFMapCache: Save meta data? %d %i", buf, 0xEu);
   }
 
 LABEL_19:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)flushCache
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   imageCachePath = [(FMFMapCache *)self imageCachePath];
   v5 = [defaultManager enumeratorAtPath:imageCachePath];
@@ -795,7 +784,7 @@ LABEL_19:
     v7 = nextObject;
     do
     {
-      v8 = LogCategory_FMFMapXPC();
+      v8 = LogCategory_FMFMapXPC(nextObject);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -805,19 +794,19 @@ LABEL_19:
       imageCachePath2 = [(FMFMapCache *)self imageCachePath];
       v10 = [imageCachePath2 stringByAppendingPathComponent:v7];
 
-      v17 = 0;
-      v11 = [defaultManager removeItemAtPath:v10 error:&v17];
-      v12 = v17;
+      v16 = 0;
+      v11 = [defaultManager removeItemAtPath:v10 error:&v16];
+      v12 = v16;
       v13 = v12;
       if ((v11 & 1) == 0 && v12)
       {
-        v14 = LogCategory_FMFMapXPC();
+        v14 = LogCategory_FMFMapXPC(v12);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v19 = v10;
-          v20 = 2112;
-          v21 = v13;
+          v18 = v10;
+          v19 = 2112;
+          v20 = v13;
           _os_log_error_impl(&dword_24A33F000, v14, OS_LOG_TYPE_ERROR, "FMFMapCache: error deleting file: %@ error: %@", buf, 0x16u);
         }
       }
@@ -829,14 +818,12 @@ LABEL_19:
 
     while (nextObject2);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pruneCacheIfNeeded
 {
-  v52 = *MEMORY[0x277D85DE8];
-  v3 = LogCategory_FMFMapXPC();
+  v54 = *MEMORY[0x277D85DE8];
+  v3 = LogCategory_FMFMapXPC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -854,103 +841,101 @@ LABEL_19:
 
   if (v9 > v11)
   {
-    v39 = date;
-    v12 = LogCategory_FMFMapXPC();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v41 = date;
+    v13 = LogCategory_FMFMapXPC(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_24A33F000, v12, OS_LOG_TYPE_DEFAULT, "FMFMapCache: prunning cache....", buf, 2u);
+      _os_log_impl(&dword_24A33F000, v13, OS_LOG_TYPE_DEFAULT, "FMFMapCache: prunning cache....", buf, 2u);
     }
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     mapImageMetaData = [(FMFMapCache *)self mapImageMetaData];
-    v40 = [mapImageMetaData mutableCopy];
+    v42 = [mapImageMetaData mutableCopy];
 
     date2 = [MEMORY[0x277CBEAA8] date];
     [date2 timeIntervalSince1970];
-    v16 = v15;
+    v17 = v16;
 
+    v47 = 0u;
+    v48 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
     mapImageMetaData2 = [(FMFMapCache *)self mapImageMetaData];
-    v18 = [mapImageMetaData2 countByEnumeratingWithState:&v43 objects:v51 count:16];
-    if (v18)
+    v19 = [mapImageMetaData2 countByEnumeratingWithState:&v45 objects:v53 count:16];
+    if (v19)
     {
-      v19 = v18;
-      v20 = *v44;
+      v20 = v19;
+      v21 = *v46;
       do
       {
-        v21 = 0;
+        v22 = 0;
         do
         {
-          if (*v44 != v20)
+          if (*v46 != v21)
           {
             objc_enumerationMutation(mapImageMetaData2);
           }
 
-          v22 = *(*(&v43 + 1) + 8 * v21);
+          v23 = *(*(&v45 + 1) + 8 * v22);
           mapImageMetaData3 = [(FMFMapCache *)self mapImageMetaData];
-          v24 = [mapImageMetaData3 objectForKeyedSubscript:v22];
+          v25 = [mapImageMetaData3 objectForKeyedSubscript:v23];
 
-          timestamp = [v24 timestamp];
+          timestamp = [v25 timestamp];
           [timestamp timeIntervalSince1970];
-          v27 = v16 - v26;
+          v28 = v17 - v27;
           [(FMFMapCache *)self cacheExpiryInSeconds];
-          v29 = v28;
+          v30 = v29;
 
-          if (v27 > v29)
+          if (v28 > v30)
           {
-            v30 = LogCategory_FMFMapXPC();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+            v32 = LogCategory_FMFMapXPC(v31);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v48 = v24;
-              _os_log_impl(&dword_24A33F000, v30, OS_LOG_TYPE_DEFAULT, "FMFMapCache: removing file: %@", buf, 0xCu);
+              v50 = v25;
+              _os_log_impl(&dword_24A33F000, v32, OS_LOG_TYPE_DEFAULT, "FMFMapCache: removing file: %@", buf, 0xCu);
             }
 
-            path = [v24 path];
-            v42 = 0;
-            v32 = [defaultManager removeItemAtPath:path error:&v42];
-            v33 = v42;
+            path = [v25 path];
+            v44 = 0;
+            v34 = [defaultManager removeItemAtPath:path error:&v44];
+            v35 = v44;
 
-            if ((v32 & 1) == 0 && v33)
+            if ((v34 & 1) == 0 && v35)
             {
-              v34 = LogCategory_FMFMapXPC();
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+              v37 = LogCategory_FMFMapXPC(v36);
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
               {
-                path2 = [v24 path];
+                path2 = [v25 path];
                 *buf = 138412546;
-                v48 = path2;
-                v49 = 2112;
-                v50 = v33;
-                _os_log_error_impl(&dword_24A33F000, v34, OS_LOG_TYPE_ERROR, "FMFMapCache: error pruning file: %@ error: %@", buf, 0x16u);
+                v50 = path2;
+                v51 = 2112;
+                v52 = v35;
+                _os_log_error_impl(&dword_24A33F000, v37, OS_LOG_TYPE_ERROR, "FMFMapCache: error pruning file: %@ error: %@", buf, 0x16u);
               }
             }
 
-            [v40 setObject:0 forKeyedSubscript:v22];
+            [v42 setObject:0 forKeyedSubscript:v23];
           }
 
-          ++v21;
+          ++v22;
         }
 
-        while (v19 != v21);
-        v19 = [mapImageMetaData2 countByEnumeratingWithState:&v43 objects:v51 count:16];
+        while (v20 != v22);
+        v20 = [mapImageMetaData2 countByEnumeratingWithState:&v45 objects:v53 count:16];
       }
 
-      while (v19);
+      while (v20);
     }
 
-    date = v39;
-    [(FMFMapCache *)self setLastPruneDate:v39];
-    [(FMFMapCache *)self setMapImageMetaData:v40];
-    v36 = MEMORY[0x277D07B70];
-    [v39 timeIntervalSince1970];
-    [v36 setInteger:v37 forKey:@"lastPruneTimestamp" inDomain:@"com.apple.findmy"];
+    date = v41;
+    [(FMFMapCache *)self setLastPruneDate:v41];
+    [(FMFMapCache *)self setMapImageMetaData:v42];
+    v39 = MEMORY[0x277D07B70];
+    [v41 timeIntervalSince1970];
+    [v39 setInteger:v40 forKey:@"lastPruneTimestamp" inDomain:@"com.apple.findmy"];
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (id)gridKeyForWidth:(double)width andHeight:(double)height
@@ -989,22 +974,20 @@ LABEL_19:
 
 void __35__FMFMapCache_cacheExpiryInSeconds__block_invoke()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D07B70] integerForKey:@"cacheExpiryInSecondsOverride" inDomain:@"com.apple.findmy"];
   if (v0 >= 1)
   {
     v1 = v0;
     *&cacheExpiryInSeconds_cacheExpiryInSeconds = v0;
-    v2 = LogCategory_FMFMapXPC();
+    v2 = LogCategory_FMFMapXPC(v0);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 134217984;
-      v5 = v1;
-      _os_log_impl(&dword_24A33F000, v2, OS_LOG_TYPE_DEFAULT, "FMFMapCache: cache expiry overriden to %f", &v4, 0xCu);
+      v3 = 134217984;
+      v4 = v1;
+      _os_log_impl(&dword_24A33F000, v2, OS_LOG_TYPE_DEFAULT, "FMFMapCache: cache expiry overriden to %f", &v3, 0xCu);
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (double)pruneIntervalInSeconds
@@ -1019,70 +1002,55 @@ void __35__FMFMapCache_cacheExpiryInSeconds__block_invoke()
 
 void __37__FMFMapCache_pruneIntervalInSeconds__block_invoke()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D07B70] integerForKey:@"pruneIntervalInSecondsOverride" inDomain:@"com.apple.findmy"];
   if (v0 >= 1)
   {
     v1 = v0;
     *&pruneIntervalInSeconds_pruneIntervalInSeconds = v0;
-    v2 = LogCategory_FMFMapXPC();
+    v2 = LogCategory_FMFMapXPC(v0);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 134217984;
-      v5 = v1;
-      _os_log_impl(&dword_24A33F000, v2, OS_LOG_TYPE_DEFAULT, "FMFMapCache: prune interval overriden to %f", &v4, 0xCu);
+      v3 = 134217984;
+      v4 = v1;
+      _os_log_impl(&dword_24A33F000, v2, OS_LOG_TYPE_DEFAULT, "FMFMapCache: prune interval overriden to %f", &v3, 0xCu);
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __49__FMFMapCache_cacheGridImage_forWidth_andHeight___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_24A33F000, v0, v1, "FMFMapCache: Error setting file protection %@ %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __27__FMFMapCache_readMetaData__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24A33F000, a2, OS_LOG_TYPE_ERROR, "Error unarchiving map cache: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24A33F000, a2, OS_LOG_TYPE_ERROR, "Error unarchiving map cache: %@", &v2, 0xCu);
 }
 
 void __27__FMFMapCache_readMetaData__block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24A33F000, a2, OS_LOG_TYPE_DEBUG, "FMFMapCache: meta data content %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24A33F000, a2, OS_LOG_TYPE_DEBUG, "FMFMapCache: meta data content %@", &v2, 0xCu);
 }
 
 void __27__FMFMapCache_saveMetaData__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24A33F000, a2, OS_LOG_TYPE_ERROR, "FMFMapCache: saveMetaData error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24A33F000, a2, OS_LOG_TYPE_ERROR, "FMFMapCache: saveMetaData error: %@", &v2, 0xCu);
 }
 
 void __27__FMFMapCache_saveMetaData__block_invoke_cold_2(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 cachePath];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_24A33F000, a3, OS_LOG_TYPE_ERROR, "FMFMapCache: Error setting file protection %@ %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_24A33F000, a3, OS_LOG_TYPE_ERROR, "FMFMapCache: Error setting file protection %@ %@", &v6, 0x16u);
 }
 
 @end

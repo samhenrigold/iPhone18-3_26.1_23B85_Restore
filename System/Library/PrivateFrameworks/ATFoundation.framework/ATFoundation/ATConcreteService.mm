@@ -11,53 +11,48 @@
 
 - (void)messageLinkWasClosed:(id)closed
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   closedCopy = closed;
   v5 = _ATLogCategoryFramework();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = closedCopy;
-    _os_log_impl(&dword_22392A000, v5, OS_LOG_TYPE_DEFAULT, "message link %{public}@ was closed", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = closedCopy;
+    _os_log_impl(&dword_22392A000, v5, OS_LOG_TYPE_DEFAULT, "message link %{public}@ was closed", &v6, 0xCu);
   }
 
   [(ATService *)self removeMessageLink:closedCopy];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageLinkWasOpened:(id)opened
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   openedCopy = opened;
   v4 = _ATLogCategoryFramework();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = openedCopy;
-    _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_DEFAULT, "message link %{public}@ was opened", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = openedCopy;
+    _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_DEFAULT, "message link %{public}@ was opened", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageLinkWasInitialized:(id)initialized
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   initializedCopy = initialized;
   v4 = _ATLogCategoryFramework();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = initializedCopy;
-    _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_DEFAULT, "message link %{public}@ was initialized", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = initializedCopy;
+    _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_DEFAULT, "message link %{public}@ was initialized", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)stop
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = _ATLogCategoryFramework();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -73,38 +68,37 @@
   block[3] = &unk_2784E94D0;
   block[4] = self;
   dispatch_sync(queue, block);
-  v5 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 void __25__ATConcreteService_stop__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) messageLinks];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v9 + 1) + 8 * v6++) close];
+        [*(*(&v8 + 1) + 8 * v6++) close];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
@@ -112,13 +106,11 @@ void __25__ATConcreteService_stop__block_invoke(uint64_t a1)
 
   v7 = [*(a1 + 32) messageLinks];
   [v7 removeAllObjects];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)run
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = _ATLogCategoryFramework();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -136,26 +128,26 @@ void __25__ATConcreteService_stop__block_invoke(uint64_t a1)
   dispatch_resume(self->_signalSource);
   v7 = 1;
   signal(30, 1);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   messageLinks = [(ATService *)self messageLinks];
-  v9 = [messageLinks countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [messageLinks countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(messageLinks);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         if (([(ATConcreteService *)v13 open]& 1) == 0)
         {
           v14 = _ATLogCategoryFramework();
@@ -171,7 +163,7 @@ void __25__ATConcreteService_stop__block_invoke(uint64_t a1)
         }
       }
 
-      v10 = [messageLinks countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [messageLinks countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v10)
       {
         continue;
@@ -185,7 +177,6 @@ void __25__ATConcreteService_stop__block_invoke(uint64_t a1)
 
 LABEL_15:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

@@ -30,7 +30,7 @@
 
 - (void)catalogResetSyncWithCompletion:(id)completion
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SeymourCore7PromiseVyytGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SeymourCore7PromiseVyytGMd, &_s11SeymourCore7PromiseVyytGMR);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v15 - v7;
@@ -55,7 +55,7 @@
 
 - (void)handleCatalogResetSyncNotificationWithNotification:(id)notification
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SeymourCore7PromiseVyytGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SeymourCore7PromiseVyytGMd, &_s11SeymourCore7PromiseVyytGMR);
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v7 = &v15 - v6;

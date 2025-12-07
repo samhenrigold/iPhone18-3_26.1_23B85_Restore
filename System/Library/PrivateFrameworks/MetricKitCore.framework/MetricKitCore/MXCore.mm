@@ -250,22 +250,20 @@ void __31__MXCore__startListenClientXPC__block_invoke(uint64_t a1)
 
 uint64_t __45__MXCore_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) MXCoreLogHandle];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 40) processIdentifier];
-    v6[0] = 67109120;
-    v6[1] = v3;
-    _os_log_impl(&dword_258D6F000, v2, OS_LOG_TYPE_DEFAULT, "Received connection request from %d\n", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v3;
+    _os_log_impl(&dword_258D6F000, v2, OS_LOG_TYPE_DEFAULT, "Received connection request from %d\n", v5, 8u);
   }
 
   [*(a1 + 32) _setupExportedInterfaceForConnection:*(a1 + 40)];
   [*(a1 + 32) _setupRemoteInterfaceForConnection:*(a1 + 40)];
   [*(a1 + 32) _setupHandlersForConnection:*(a1 + 40)];
-  result = [*(a1 + 40) resume];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) resume];
 }
 
 - (void)_setupExportedInterfaceForConnection:(id)connection
@@ -318,43 +316,36 @@ uint64_t __45__MXCore_listener_shouldAcceptNewConnection___block_invoke(uint64_t
 
 void __38__MXCore__setupHandlersForConnection___block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) MXCoreLogHandle];
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     v2 = [MEMORY[0x277CCAE80] currentConnection];
-    v4[0] = 67109120;
-    v4[1] = [v2 processIdentifier];
-    _os_log_impl(&dword_258D6F000, v1, OS_LOG_TYPE_INFO, "Connection to %d interrupted\n", v4, 8u);
+    v3[0] = 67109120;
+    v3[1] = [v2 processIdentifier];
+    _os_log_impl(&dword_258D6F000, v1, OS_LOG_TYPE_INFO, "Connection to %d interrupted\n", v3, 8u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __38__MXCore__setupHandlersForConnection___block_invoke_29(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) MXCoreLogHandle];
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     v2 = [MEMORY[0x277CCAE80] currentConnection];
-    v4[0] = 67109120;
-    v4[1] = [v2 processIdentifier];
-    _os_log_impl(&dword_258D6F000, v1, OS_LOG_TYPE_INFO, "Connection to %d invalidated\n", v4, 8u);
+    v3[0] = 67109120;
+    v3[1] = [v2 processIdentifier];
+    _os_log_impl(&dword_258D6F000, v1, OS_LOG_TYPE_INFO, "Connection to %d invalidated\n", v3, 8u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrieveDiagnostics
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [self description];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrieveMetrics
@@ -363,7 +354,7 @@ void __38__MXCore__setupHandlersForConnection___block_invoke_29(uint64_t a1)
   bundleUtil = [(MXCore *)self bundleUtil];
   if (currentConnection)
   {
-    [currentConnection auditToken];
+    objc_msgSend_auditToken(currentConnection);
   }
 
   else
@@ -393,27 +384,25 @@ void __38__MXCore__setupHandlersForConnection___block_invoke_29(uint64_t a1)
 
 - (void)_registerClient
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = 0;
-  _os_log_error_impl(&dword_258D6F000, log, OS_LOG_TYPE_ERROR, "Bundle %@ is not codesigned", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = 0;
+  _os_log_error_impl(&dword_258D6F000, log, OS_LOG_TYPE_ERROR, "Bundle %@ is not codesigned", &v1, 0xCu);
 }
 
 - (void)_registerClientAndTeam
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_258D6F000, v0, OS_LOG_TYPE_ERROR, "Bundle %@ is not codesigned", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_258D6F000, v0, OS_LOG_TYPE_ERROR, "Bundle %@ is not codesigned", v1, 0xCu);
 }
 
-uint64_t __32__MXCore__registerClientAndTeam__block_invoke(uint64_t result)
+id *__32__MXCore__registerClientAndTeam__block_invoke(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
-    v2 = [*(result + 40) handler];
+    v2 = [result[5] handler];
     [v2 registerClientAndTeamForBundleID:v1[6] andTeamID:v1[7]];
 
     v3 = v1[4];
@@ -534,17 +523,16 @@ void __31__MXCore__scheduleDataActivity__block_invoke_2(uint64_t a1)
 
 - (void)_performDataActivity
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   mXCoreLogHandle = [(MXCore *)self MXCoreLogHandle];
   if (os_log_type_enabled(mXCoreLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "com.apple.metrickitd.data";
-    _os_log_impl(&dword_258D6F000, mXCoreLogHandle, OS_LOG_TYPE_DEFAULT, "%s running\n", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "com.apple.metrickitd.data";
+    _os_log_impl(&dword_258D6F000, mXCoreLogHandle, OS_LOG_TYPE_DEFAULT, "%s running\n", &v4, 0xCu);
   }
 
   [(MXCoreHandler *)self->_handler performDataActivity];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)metricIsAvailableFromSourceDirectoryForSavingToDeliveryDirectoryWithClientMetrics:(id)metrics
@@ -557,7 +545,7 @@ void __31__MXCore__scheduleDataActivity__block_invoke_2(uint64_t a1)
 
 - (void)clientDidRegisterForBundleID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dCopy = d;
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
   remoteObjectProxy = [currentConnection remoteObjectProxy];
@@ -566,12 +554,10 @@ void __31__MXCore__scheduleDataActivity__block_invoke_2(uint64_t a1)
   mXCoreLogHandle = [(MXCore *)self MXCoreLogHandle];
   if (os_log_type_enabled(mXCoreLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = dCopy;
-    _os_log_impl(&dword_258D6F000, mXCoreLogHandle, OS_LOG_TYPE_DEFAULT, "New client: %@\n", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = dCopy;
+    _os_log_impl(&dword_258D6F000, mXCoreLogHandle, OS_LOG_TYPE_DEFAULT, "New client: %@\n", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientIsAvailableForPreparingDataActivity
@@ -703,61 +689,24 @@ void __46__MXCore__deliverSamplePayloadForXcodeClient___block_invoke(uint64_t a1
     mXCoreXcodeSupportLogHandle = [(MXCore *)self MXCoreXcodeSupportLogHandle];
     if (os_log_type_enabled(mXCoreXcodeSupportLogHandle, OS_LOG_TYPE_ERROR))
     {
-      [MXCore _writeDiagnosticReport:clientCopy atAppContainerPath:error forClient:? withError:?];
+      [MXCore _writeDiagnosticReport:atAppContainerPath:forClient:withError:];
     }
   }
 }
 
 void __31__MXCore__startListenClientXPC__block_invoke_cold_2(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*a1 xpcListener];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_canSetupXpcListenerForSourceData
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*self);
-  OUTLINED_FUNCTION_5(&dword_258D6F000, a2, a3, "MXSource: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_deliverSamplePayloadForXcodeClient:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Client %@ not found, ending sample payload delivery", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_deliverSamplePayloadForXcodeClient:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_3(&dword_258D6F000, v0, v1, "Sample payload delivery: Failed to create file directory for %@ with error: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_deliverSamplePayloadForXcodeClient:.cold.4()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_3(&dword_258D6F000, v0, v1, "Sample metric payload delivery: Failed to write metric report for %@ with error: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_writeDiagnosticReport:(uint64_t)a1 atAppContainerPath:(uint64_t *)a2 forClient:withError:.cold.1(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_3(&dword_258D6F000, v3, v4, "Sample diagnostic payload delivery: Failed to write diagnostic report for %@ with error: %@");
-  v5 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *self;
+  OUTLINED_FUNCTION_5(&dword_258D6F000, a2, a3, "MXSource: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

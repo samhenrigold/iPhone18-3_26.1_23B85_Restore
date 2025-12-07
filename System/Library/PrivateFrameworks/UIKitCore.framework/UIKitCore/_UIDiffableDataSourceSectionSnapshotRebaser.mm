@@ -309,7 +309,7 @@ LABEL_37:
           }
 
           v61 = [v114 _identifierBeforeIdentifier:v50];
-          if (![v59 containsItem:v61] || v116 && objc_msgSend(v61, "isEqual:"))
+          if (![v59 containsItem:v61] || v116 && objc_msgSend_isEqual_(v61))
           {
 
             v61 = 0;

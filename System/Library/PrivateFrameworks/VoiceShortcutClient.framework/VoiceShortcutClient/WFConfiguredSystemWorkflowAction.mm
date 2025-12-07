@@ -229,7 +229,7 @@ LABEL_5:
 
 - (WFConfiguredSystemWorkflowAction)initWithWorkflow:(id)workflow shortcutsMetadata:(id)metadata
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   workflowCopy = workflow;
   metadataCopy = metadata;
   if (!workflowCopy)
@@ -246,14 +246,13 @@ LABEL_5:
     {
       v11 = _NSFullMethodName();
       *buf = 136315394;
-      v16 = "[WFConfiguredSystemWorkflowAction initWithWorkflow:shortcutsMetadata:]";
-      v17 = 2112;
-      v18 = v11;
+      v15 = "[WFConfiguredSystemWorkflowAction initWithWorkflow:shortcutsMetadata:]";
+      v16 = 2112;
+      v17 = v11;
       _os_log_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_ERROR, "%s %@ returned nil", buf, 0x16u);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

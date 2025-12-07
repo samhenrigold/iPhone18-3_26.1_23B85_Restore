@@ -310,7 +310,7 @@ LABEL_13:
   if (!(size->var1 * size->var0 * size->var2))
   {
     var2 = size->var2;
-    v31 = 0;
+    v30 = 0;
     var0 = size->var0;
     var1 = size->var1;
     _MTLMessageContextPush_();
@@ -340,67 +340,59 @@ LABEL_13:
   }
 
   v19 = (texture + 72);
-  v20 = *&self->MTLToolsIOCommandBuffer_opaque[24];
   [texture pixelFormat];
   [texture width];
   [texture height];
   [texture depth];
   [texture sampleCount];
   MTLGetTextureLevelInfoForDevice();
-  v38 = *origin;
-  v36 = *&size->var0;
-  v37 = size->var2;
-  v32 = *(texture + 72);
-  v33 = *(texture + 88);
-  v34 = *(texture + 104);
-  v35 = *(texture + 15);
   _MTLAdjustMTLSize();
-  v21 = origin->var0;
+  v20 = origin->var0;
   if ((*(texture + 81) & 4) != 0)
   {
-    if (v21)
+    if (v20)
     {
-      v25 = origin->var0;
-      v28 = 0;
+      v24 = origin->var0;
+      v27 = 0;
       _MTLMessageContextPush_();
     }
 
     if (origin->var1)
     {
-      v25 = origin->var1;
-      v28 = 0;
+      v24 = origin->var1;
+      v27 = 0;
       _MTLMessageContextPush_();
     }
 
     if (origin->var2)
     {
-      v25 = origin->var2;
-      v28 = 0;
+      v24 = origin->var2;
+      v27 = 0;
       goto LABEL_56;
     }
   }
 
   else
   {
-    v22 = size->var0 + v21;
-    if (v22)
+    v21 = size->var0 + v20;
+    if (v21)
     {
-      v25 = v22;
-      v28 = 0;
+      v24 = v21;
+      v27 = 0;
       _MTLMessageContextPush_();
     }
 
     if (size->var1 + origin->var1)
     {
-      v25 = size->var1 + origin->var1;
-      v28 = 0;
+      v24 = size->var1 + origin->var1;
+      v27 = 0;
       _MTLMessageContextPush_();
     }
 
     if (size->var2 + origin->var2)
     {
-      v25 = size->var2 + origin->var2;
-      v28 = 0;
+      v24 = size->var2 + origin->var2;
+      v27 = 0;
 LABEL_56:
       _MTLMessageContextPush_();
     }
@@ -410,49 +402,49 @@ LABEL_56:
   {
     if (origin->var0 % *(texture + 13))
     {
-      v28 = *v19;
-      v30 = *(texture + 13);
-      v25 = origin->var0;
+      v27 = *v19;
+      v29 = *(texture + 13);
+      v24 = origin->var0;
       _MTLMessageContextPush_();
     }
 
     if (origin->var1 % *(texture + 14))
     {
-      v28 = *v19;
-      v30 = *(texture + 14);
-      v25 = origin->var1;
+      v27 = *v19;
+      v29 = *(texture + 14);
+      v24 = origin->var1;
       _MTLMessageContextPush_();
     }
 
     if (origin->var2 % *(texture + 15))
     {
-      v28 = *v19;
-      v30 = *(texture + 15);
-      v25 = origin->var2;
+      v27 = *v19;
+      v29 = *(texture + 15);
+      v24 = origin->var2;
       _MTLMessageContextPush_();
     }
 
     if (0uLL % *(texture + 13))
     {
-      v28 = *v19;
-      v30 = *(texture + 13);
-      v25 = 0;
+      v27 = *v19;
+      v29 = *(texture + 13);
+      v24 = 0;
       _MTLMessageContextPush_();
     }
 
     if (0uLL % *(texture + 14))
     {
-      v28 = *v19;
-      v30 = *(texture + 14);
-      v25 = 0;
+      v27 = *v19;
+      v29 = *(texture + 14);
+      v24 = 0;
       _MTLMessageContextPush_();
     }
 
     if (0uLL % *(texture + 15))
     {
-      v28 = *v19;
-      v30 = *(texture + 15);
-      v25 = 0;
+      v27 = *v19;
+      v29 = *(texture + 15);
+      v24 = 0;
       _MTLMessageContextPush_();
     }
   }
@@ -534,15 +526,15 @@ LABEL_56:
 - (uint64_t)internalValidateLoadBuffer:offset:size:sourceHandle:sourceHandleOffset:.cold.1()
 {
   OUTLINED_FUNCTION_1_0();
-  [objc_msgSend(v0 "baseObject")];
-  return OUTLINED_FUNCTION_4_0();
+  v3 = [objc_msgSend(v0 "baseObject")];
+  return OUTLINED_FUNCTION_4_0(v3, v1, @"(offset + size)(%lu) must be <= [buffer length](%lu).");
 }
 
 - (uint64_t)internalValidateLoadBuffer:offset:size:sourceHandle:sourceHandleOffset:.cold.2()
 {
   OUTLINED_FUNCTION_1_0();
-  [objc_msgSend(v0 "baseObject")];
-  return OUTLINED_FUNCTION_4_0();
+  v3 = [objc_msgSend(v0 "baseObject")];
+  return OUTLINED_FUNCTION_4_0(v3, v1, @"sourceHandleOffset(%lu) must be <= [sourceHandle length](%lu)");
 }
 
 - (uint64_t)internalValidateLoadTexture:slice:level:size:sourceBytesPerRow:sourceBytesPerImage:destinationOrigin:sourceHandle:sourceHandleOffset:.cold.2()
@@ -550,8 +542,8 @@ LABEL_56:
   OUTLINED_FUNCTION_1_0();
   v1 = v0;
   [v0 numFaces];
-  [v1 arrayLength];
-  return OUTLINED_FUNCTION_4_0();
+  v2 = [v1 arrayLength];
+  return OUTLINED_FUNCTION_4_0(v2, v3, @"slice(%lu) must be < (%lu).");
 }
 
 @end

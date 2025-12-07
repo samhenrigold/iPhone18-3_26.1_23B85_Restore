@@ -94,7 +94,7 @@
     [mEMORY[0x1E69DF688] setImageAssetFromPath:relativePath forKey:self->_cacheKey inGroupOfType:3 expiryDate:0];
 
     v7 = [mEMORY[0x1E69DF688] assetPathForKey:self->_cacheKey inGroupOfType:3];
-    v8 = VUIDefaultLogObject();
+    v8 = VUIDefaultLogObject(v7);
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (v7)
     {

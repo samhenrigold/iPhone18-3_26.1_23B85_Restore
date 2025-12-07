@@ -1,7 +1,15 @@
-void sub_296DB0FE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, std::runtime_error a27)
+void sub_296DB0FD0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
+  boost::signals2::detail::garbage_collecting_lock<boost::signals2::mutex>::~garbage_collecting_lock(va);
+  JUMPOUT(0x296DB10B0);
+}
+
+void sub_296DB0FE0(_Unwind_Exception *a1, uint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, std::runtime_error a27)
+{
+  v27 = a2;
   std::runtime_error::~runtime_error(&a27);
-  if (a2 != 2)
+  if (v27 != 2)
   {
     boost::signals2::detail::signal_impl<void ()(coex::SubId),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(coex::SubId)>,boost::function<void ()(boost::signals2::connection const&,coex::SubId)>,boost::signals2::mutex>::invocation_janitor::~invocation_janitor(&v29);
     boost::signals2::detail::slot_call_iterator_cache<boost::signals2::detail::void_type,boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,coex::SubId>>::~slot_call_iterator_cache(&v31);
@@ -14,10 +22,11 @@ void sub_296DB0FE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   __cxa_rethrow();
 }
 
-void sub_296DB1044(_Unwind_Exception *a1, int a2)
+void sub_296DB1044(_Unwind_Exception *a1, uint64_t a2)
 {
+  v2 = a2;
   __cxa_end_catch();
-  if (a2 != 2)
+  if (v2 != 2)
   {
     boost::signals2::detail::signal_impl<void ()(coex::SubId),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(coex::SubId)>,boost::function<void ()(boost::signals2::connection const&,coex::SubId)>,boost::signals2::mutex>::invocation_janitor::~invocation_janitor(&v4);
     boost::signals2::detail::slot_call_iterator_cache<boost::signals2::detail::void_type,boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,coex::SubId>>::~slot_call_iterator_cache(&v6);
@@ -26,6 +35,13 @@ void sub_296DB1044(_Unwind_Exception *a1, int a2)
   }
 
   JUMPOUT(0x296DB1014);
+}
+
+void sub_296DB1078(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  boost::signals2::detail::auto_buffer<boost::shared_ptr<void>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::shared_ptr<void>>>::~auto_buffer(va);
+  JUMPOUT(0x296DB10B0);
 }
 
 void sub_296DB108C(void *a1, int a2)
@@ -48,40 +64,40 @@ void ___ZN7desense16ARICommandDriver4initEv_block_invoke_3(uint64_t a1)
   }
 }
 
-uint64_t desense::ARICommandDriver::handleCurrentFrequencyInfoIndication_sync(desense::ARICommandDriver *this, const unsigned __int8 *a2)
+uint64_t desense::ARICommandDriver::handleCurrentFrequencyInfoIndication_sync(desense::ARICommandDriver *this, const unsigned __int8 *a2, unsigned int a3)
 {
   v193 = *MEMORY[0x29EDCA608];
-  *&v3 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v190 = v3;
-  v191 = v3;
-  v188 = v3;
-  v189 = v3;
-  v186[3] = v3;
-  v187 = v3;
-  v186[1] = v3;
-  v186[2] = v3;
-  v186[0] = v3;
+  *&v4 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v190 = v4;
+  v191 = v4;
+  v188 = v4;
+  v189 = v4;
+  v186[3] = v4;
+  v187 = v4;
+  v186[1] = v4;
+  v186[2] = v4;
+  v186[0] = v4;
   AriSdk::ARI_IBIMsAccCurrentFreqInfoIndCb_SDK::ARI_IBIMsAccCurrentFreqInfoIndCb_SDK(v186, a2);
-  v4 = AriSdk::ARI_IBIMsAccCurrentFreqInfoIndCb_SDK::unpack(v186);
-  v5 = v4;
-  if (v4)
+  v5 = AriSdk::ARI_IBIMsAccCurrentFreqInfoIndCb_SDK::unpack(v186);
+  v6 = v5;
+  if (v5)
   {
-    v6 = *(this + 5);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = *(this + 5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = asString();
+      v8 = asString();
       *buf = 136315394;
-      *&buf[4] = v7;
+      *&buf[4] = v8;
       *&buf[12] = 1024;
-      *&buf[14] = v5;
-      v8 = "#N Could not unpack IBIMsAccCurrentFreqInfoIndCb: %s (%d)";
+      *&buf[14] = v6;
+      v9 = "#N Could not unpack IBIMsAccCurrentFreqInfoIndCb: %s (%d)";
 LABEL_7:
-      _os_log_impl(&dword_296D7D000, v6, OS_LOG_TYPE_DEFAULT, v8, buf, 0x12u);
-      goto LABEL_8;
+      _os_log_impl(&dword_296D7D000, v7, OS_LOG_TYPE_DEFAULT, v9, buf, 0x12u);
+      return MEMORY[0x29C265400](v186);
     }
 
-    goto LABEL_8;
+    return MEMORY[0x29C265400](v186);
   }
 
   if (!**(&v187 + 1))
@@ -109,32 +125,32 @@ LABEL_7:
     if (**(&v188 + 1))
     {
       v15 = *(*(&v188 + 1) + 12);
-      v4 = operator new(0x20uLL);
-      v16 = v4;
+      v5 = operator new(0x20uLL);
+      v16 = v5;
       v17 = *(v13 + 4);
-      v4[6] = v15;
-      *(v4 + 1) = buf;
-      *(v4 + 2) = v17;
-      *v4 = buf;
-      *buf = v4;
-      *&buf[8] = v4;
+      v5[6] = v15;
+      *(v5 + 1) = buf;
+      *(v5 + 2) = v17;
+      *v5 = buf;
+      *buf = v5;
+      *&buf[8] = v5;
       *&buf[16] = 1;
       if (v14 != 1)
       {
         v18 = *(v13 + 24);
-        v4 = operator new(0x20uLL);
+        v5 = operator new(0x20uLL);
         v19 = *(v13 + 16);
-        v4[6] = v18;
-        *(v4 + 1) = buf;
-        *(v4 + 2) = v19;
-        *v4 = v16;
-        *(v16 + 1) = v4;
-        *buf = v4;
+        v5[6] = v18;
+        *(v5 + 1) = buf;
+        *(v5 + 2) = v19;
+        *v5 = v16;
+        *(v16 + 1) = v5;
+        *buf = v5;
         *&buf[16] = 2;
       }
     }
 
-    v20 = capabilities::abs::nonPrimaryDLServingCellBandwidthMaxValue(v4);
+    v20 = capabilities::abs::nonPrimaryDLServingCellBandwidthMaxValue(v5);
     if (*v189)
     {
       if (*v189 >= 0x14u)
@@ -832,7 +848,7 @@ LABEL_188:
                       }
                     }
 
-                    goto LABEL_8;
+                    return MEMORY[0x29C265400](v186);
                   }
                 }
 
@@ -1083,40 +1099,39 @@ LABEL_65:
     goto LABEL_84;
   }
 
-  v6 = *(this + 5);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = *(this + 5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = asString();
-    v10 = **(&v187 + 1);
+    v10 = asString();
+    v11 = **(&v187 + 1);
     *buf = 136315394;
-    *&buf[4] = v9;
+    *&buf[4] = v10;
     *&buf[12] = 1024;
-    *&buf[14] = v10;
-    v8 = "#N Current frequency info indication failed: %s (%d)";
+    *&buf[14] = v11;
+    v9 = "#N Current frequency info indication failed: %s (%d)";
     goto LABEL_7;
   }
 
-LABEL_8:
-  result = MEMORY[0x29C265400](v186);
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  return MEMORY[0x29C265400](v186);
 }
 
-void sub_296DB1EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_296DB1EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   std::list<std::pair<unsigned long long,unsigned int>>::~list(&a16);
   std::list<std::pair<unsigned long long,unsigned int>>::~list(&a19);
   std::list<std::pair<unsigned long long,unsigned int>>::~list(&a22);
   std::list<std::pair<unsigned long long,unsigned int>>::~list(&a25);
   std::list<std::pair<unsigned long long,unsigned int>>::~list(&a28);
-  std::list<std::pair<unsigned long long,unsigned int>>::~list((v31 - 112));
-  MEMORY[0x29C265400](&a31);
+  std::list<std::pair<unsigned long long,unsigned int>>::~list((v30 - 112));
+  MEMORY[0x29C265400](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t desense::ARICommandDriver::setFrequencyReportingMode(void *a1, uint64_t a2, unsigned int a3)
+uint64_t desense::ARICommandDriver::setFrequencyReportingMode(void *a1, uint64_t a2, uint64_t a3)
 {
-  v43 = *MEMORY[0x29EDCA608];
+  v3 = a3;
+  v42 = *MEMORY[0x29EDCA608];
   v5 = a1[5];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -1127,10 +1142,10 @@ uint64_t desense::ARICommandDriver::setFrequencyReportingMode(void *a1, uint64_t
 
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v36 = v6;
-  *__p = v6;
-  v34 = v6;
   v35 = v6;
+  *__p = v6;
+  v33 = v6;
+  v34 = v6;
   *buf = v6;
   AriSdk::ARI_IBIMsAccCurrentFreqInfoReq_SDK::ARI_IBIMsAccCurrentFreqInfoReq_SDK(buf);
   v7 = operator new(4uLL);
@@ -1142,10 +1157,10 @@ uint64_t desense::ARICommandDriver::setFrequencyReportingMode(void *a1, uint64_t
     operator delete(v8);
   }
 
-  if (a3 < 3)
+  if (v3 < 3)
   {
     v9 = operator new(4uLL);
-    *v9 = a3;
+    *v9 = v3;
     v10 = __p[1];
     __p[1] = v9;
     if (v10)
@@ -1156,7 +1171,7 @@ uint64_t desense::ARICommandDriver::setFrequencyReportingMode(void *a1, uint64_t
     v11 = a1[17];
     v13 = a1[1];
     v12 = a1[2];
-    if (!v12 || (v14 = std::__shared_weak_count::lock(v12), (v29 = v14) == 0))
+    if (!v12 || (v14 = std::__shared_weak_count::lock(v12), (v28 = v14) == 0))
     {
       std::__throw_bad_weak_ptr[abi:ne200100]();
     }
@@ -1181,21 +1196,21 @@ uint64_t desense::ARICommandDriver::setFrequencyReportingMode(void *a1, uint64_t
     v17[1].__shared_owners_ = v15;
     v17[1].__shared_weak_owners_ = desense::ARICommandDriver::handleSetFrequencyReportingModeResponse_sync;
     v17[2].__vftable = 0;
-    *&v38 = MEMORY[0x29EDCA5F8];
-    *(&v38 + 1) = 1174405120;
-    v39 = ___ZN3ice6detail12wrapCallbackIZNS_6Client4sendIN6AriSdk34ARI_IBIMsAccCurrentFreqInfoReq_SDKEN7desense13CommandDriverENS6_16ARICommandDriverEvJPKhjEEENS_16SendMsgBaseProxyERT_NSt3__110shared_ptrIT0_EEMT1_FT2_DpT3_EEUlSA_jE_vEEN8dispatch5blockIU13block_pointerFiPhjEEENSE_17integral_constantIiLi2EEEOSC__block_invoke;
-    v40 = &__block_descriptor_tmp_33_3;
-    v41 = v17 + 1;
-    v42 = v17;
+    *&v37 = MEMORY[0x29EDCA5F8];
+    *(&v37 + 1) = 1174405120;
+    v38 = ___ZN3ice6detail12wrapCallbackIZNS_6Client4sendIN6AriSdk34ARI_IBIMsAccCurrentFreqInfoReq_SDKEN7desense13CommandDriverENS6_16ARICommandDriverEvJPKhjEEENS_16SendMsgBaseProxyERT_NSt3__110shared_ptrIT0_EEMT1_FT2_DpT3_EEUlSA_jE_vEEN8dispatch5blockIU13block_pointerFiPhjEEENSE_17integral_constantIiLi2EEEOSC__block_invoke;
+    v39 = &__block_descriptor_tmp_33_3;
+    v40 = v17 + 1;
+    v41 = v17;
     atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
     aBlock[0] = MEMORY[0x29EDCA5F8];
     aBlock[1] = 0x40000000;
     aBlock[2] = ___ZN3ice6detail12wrapCallbackIvEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEU13block_pointerFT_S4_jE_block_invoke_4;
     aBlock[3] = &unk_29EE5BA40;
-    aBlock[4] = &v38;
+    aBlock[4] = &v37;
     v19 = _Block_copy(aBlock);
-    v20 = v42;
-    if (v42 && !atomic_fetch_add(&v42->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v20 = v41;
+    if (v41 && !atomic_fetch_add(&v41->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
       (v20->__on_zero_shared)(v20);
       std::__shared_weak_count::__release_weak(v20);
@@ -1212,21 +1227,21 @@ LABEL_21:
         *v23 = 0;
         __p[0] = v23;
 LABEL_22:
-        v31 = 0xAAAAAAAAAAAAAAAALL;
+        v30 = 0xAAAAAAAAAAAAAAAALL;
         *&v24 = 0xAAAAAAAAAAAAAAAALL;
         *(&v24 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v30[0] = v24;
-        v30[1] = v24;
+        v29[0] = v24;
+        v29[1] = v24;
         v25 = *(v11 + 16);
-        *&v38 = *(v11 + 8);
+        *&v37 = *(v11 + 8);
         if (v25)
         {
-          *(&v38 + 1) = std::__shared_weak_count::lock(v25);
-          if (*(&v38 + 1))
+          *(&v37 + 1) = std::__shared_weak_count::lock(v25);
+          if (*(&v37 + 1))
           {
             ice::SendMsgBaseProxy::SendMsgBaseProxy();
-            v26 = *(&v38 + 1);
-            if (*(&v38 + 1) && !atomic_fetch_add((*(&v38 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+            v26 = *(&v37 + 1);
+            if (*(&v37 + 1) && !atomic_fetch_add((*(&v37 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
             {
               (v26->__on_zero_shared)(v26);
               std::__shared_weak_count::__release_weak(v26);
@@ -1240,20 +1255,20 @@ LABEL_22:
             }
 
             std::__shared_weak_count::__release_weak(v15);
-            MEMORY[0x29C263BF0](v30);
-            if (v29 && !atomic_fetch_add(&v29->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+            MEMORY[0x29C263BF0](v29);
+            if (v28 && !atomic_fetch_add(&v28->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
             {
-              (v29->__on_zero_shared)(v29);
-              std::__shared_weak_count::__release_weak(v29);
+              (v28->__on_zero_shared)(v28);
+              std::__shared_weak_count::__release_weak(v28);
             }
 
-            goto LABEL_32;
+            return MEMORY[0x29C265210](buf);
           }
         }
 
         else
         {
-          *(&v38 + 1) = 0;
+          *(&v37 + 1) = 0;
         }
 
         std::__throw_bad_weak_ptr[abi:ne200100]();
@@ -1279,56 +1294,53 @@ LABEL_22:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     v22 = desense::asString();
-    LODWORD(v38) = 136315138;
-    *(&v38 + 4) = v22;
-    _os_log_impl(&dword_296D7D000, v21, OS_LOG_TYPE_DEFAULT, "#N Unhandled frequency reporting mode: %s", &v38, 0xCu);
+    LODWORD(v37) = 136315138;
+    *(&v37 + 4) = v22;
+    _os_log_impl(&dword_296D7D000, v21, OS_LOG_TYPE_DEFAULT, "#N Unhandled frequency reporting mode: %s", &v37, 0xCu);
   }
 
-LABEL_32:
-  result = MEMORY[0x29C265210](buf);
-  v28 = *MEMORY[0x29EDCA608];
-  return result;
+  return MEMORY[0x29C265210](buf);
 }
 
-uint64_t desense::ARICommandDriver::handleSetFrequencyReportingModeResponse_sync(desense::ARICommandDriver *this, const unsigned __int8 *a2)
+uint64_t desense::ARICommandDriver::handleSetFrequencyReportingModeResponse_sync(desense::ARICommandDriver *this, const unsigned __int8 *a2, unsigned int a3)
 {
   v193 = *MEMORY[0x29EDCA608];
-  *&v3 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v190 = v3;
-  v191 = v3;
-  v188 = v3;
-  v189 = v3;
-  v186[3] = v3;
-  v187 = v3;
-  v186[1] = v3;
-  v186[2] = v3;
-  v186[0] = v3;
+  *&v4 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v190 = v4;
+  v191 = v4;
+  v188 = v4;
+  v189 = v4;
+  v186[3] = v4;
+  v187 = v4;
+  v186[1] = v4;
+  v186[2] = v4;
+  v186[0] = v4;
   AriSdk::ARI_IBIMsAccCurrentFreqInfoRspCb_SDK::ARI_IBIMsAccCurrentFreqInfoRspCb_SDK(v186, a2);
   if ((ice::isARIResponseValid() & 1) == 0)
   {
-    goto LABEL_9;
+    return MEMORY[0x29C265430](v186);
   }
 
-  v4 = AriSdk::ARI_IBIMsAccCurrentFreqInfoRspCb_SDK::unpack(v186);
-  v5 = v4;
-  if (v4)
+  v5 = AriSdk::ARI_IBIMsAccCurrentFreqInfoRspCb_SDK::unpack(v186);
+  v6 = v5;
+  if (v5)
   {
-    v6 = *(this + 5);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = *(this + 5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = asString();
+      v8 = asString();
       *buf = 136315394;
-      *&buf[4] = v7;
+      *&buf[4] = v8;
       *&buf[12] = 1024;
-      *&buf[14] = v5;
-      v8 = "#N Could not unpack IBIMsAccCurrentFreqInfoRspCb: %s (%d)";
+      *&buf[14] = v6;
+      v9 = "#N Could not unpack IBIMsAccCurrentFreqInfoRspCb: %s (%d)";
 LABEL_8:
-      _os_log_impl(&dword_296D7D000, v6, OS_LOG_TYPE_DEFAULT, v8, buf, 0x12u);
-      goto LABEL_9;
+      _os_log_impl(&dword_296D7D000, v7, OS_LOG_TYPE_DEFAULT, v9, buf, 0x12u);
+      return MEMORY[0x29C265430](v186);
     }
 
-    goto LABEL_9;
+    return MEMORY[0x29C265430](v186);
   }
 
   if (!**(&v187 + 1))
@@ -1356,32 +1368,32 @@ LABEL_8:
     if (**(&v188 + 1))
     {
       v15 = *(*(&v188 + 1) + 12);
-      v4 = operator new(0x20uLL);
-      v16 = v4;
+      v5 = operator new(0x20uLL);
+      v16 = v5;
       v17 = *(v13 + 4);
-      v4[6] = v15;
-      *(v4 + 1) = buf;
-      *(v4 + 2) = v17;
-      *v4 = buf;
-      *buf = v4;
-      *&buf[8] = v4;
+      v5[6] = v15;
+      *(v5 + 1) = buf;
+      *(v5 + 2) = v17;
+      *v5 = buf;
+      *buf = v5;
+      *&buf[8] = v5;
       *&buf[16] = 1;
       if (v14 != 1)
       {
         v18 = *(v13 + 24);
-        v4 = operator new(0x20uLL);
+        v5 = operator new(0x20uLL);
         v19 = *(v13 + 16);
-        v4[6] = v18;
-        *(v4 + 1) = buf;
-        *(v4 + 2) = v19;
-        *v4 = v16;
-        *(v16 + 1) = v4;
-        *buf = v4;
+        v5[6] = v18;
+        *(v5 + 1) = buf;
+        *(v5 + 2) = v19;
+        *v5 = v16;
+        *(v16 + 1) = v5;
+        *buf = v5;
         *&buf[16] = 2;
       }
     }
 
-    v20 = capabilities::abs::nonPrimaryDLServingCellBandwidthMaxValue(v4);
+    v20 = capabilities::abs::nonPrimaryDLServingCellBandwidthMaxValue(v5);
     if (*v189)
     {
       if (*v189 >= 0x14u)
@@ -2079,7 +2091,7 @@ LABEL_189:
                       }
                     }
 
-                    goto LABEL_9;
+                    return MEMORY[0x29C265430](v186);
                   }
                 }
 
@@ -2330,46 +2342,44 @@ LABEL_66:
     goto LABEL_85;
   }
 
-  v6 = *(this + 5);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = *(this + 5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = asString();
-    v10 = **(&v187 + 1);
+    v10 = asString();
+    v11 = **(&v187 + 1);
     *buf = 136315394;
-    *&buf[4] = v9;
+    *&buf[4] = v10;
     *&buf[12] = 1024;
-    *&buf[14] = v10;
-    v8 = "#N Set frequency reporting mode request failed: %s (%d)";
+    *&buf[14] = v11;
+    v9 = "#N Set frequency reporting mode request failed: %s (%d)";
     goto LABEL_8;
   }
 
-LABEL_9:
-  result = MEMORY[0x29C265430](v186);
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  return MEMORY[0x29C265430](v186);
 }
 
-void sub_296DB32AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_296DB32AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   std::list<std::pair<unsigned long long,unsigned int>>::~list(&a16);
   std::list<std::pair<unsigned long long,unsigned int>>::~list(&a19);
   std::list<std::pair<unsigned long long,unsigned int>>::~list(&a22);
   std::list<std::pair<unsigned long long,unsigned int>>::~list(&a25);
   std::list<std::pair<unsigned long long,unsigned int>>::~list(&a28);
-  std::list<std::pair<unsigned long long,unsigned int>>::~list((v31 - 112));
-  MEMORY[0x29C265430](&a31);
+  std::list<std::pair<unsigned long long,unsigned int>>::~list((v30 - 112));
+  MEMORY[0x29C265430](va);
   _Unwind_Resume(a1);
 }
 
-void desense::ARICommandDriver::sendFrequencyReport_sync(uint64_t a1, void *a2, int a3)
+void desense::ARICommandDriver::sendFrequencyReport_sync(uint64_t result, void *a2, int a3)
 {
-  v93 = *MEMORY[0x29EDCA608];
+  v92 = *MEMORY[0x29EDCA608];
   if (!a2[2])
   {
-    goto LABEL_71;
+    return;
   }
 
-  v6 = *(a1 + 40);
+  v6 = *(result + 40);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -2377,25 +2387,25 @@ void desense::ARICommandDriver::sendFrequencyReport_sync(uint64_t a1, void *a2, 
     _os_log_impl(&dword_296D7D000, v6, OS_LOG_TYPE_DEFAULT, "#I Sending frequency report for SubId=%d", buf, 8u);
   }
 
-  v49[0] = 0;
-  v49[1] = 0;
-  v48 = v49;
+  v48[0] = 0;
+  v48[1] = 0;
+  v47 = v48;
   v9 = *a2;
   v7 = a2 + 1;
   v8 = v9;
   if (v9 == v7)
   {
-    v10 = *(a1 + 80);
+    v10 = *(result + 80);
+    v50 = 0;
     v51 = 0;
-    v52 = 0;
-    v50 = &v51;
+    v49 = &v50;
   }
 
   else
   {
     do
     {
-      std::__tree<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::__map_value_compare<char const*,std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>>>::__emplace_hint_unique_key_args<char const*,std::pair<char const* const,std::list<std::pair<unsigned long long,unsigned int>>> const&>(&v48, v49, v8[4], v8 + 4);
+      std::__tree<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::__map_value_compare<char const*,std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>>>::__emplace_hint_unique_key_args<char const*,std::pair<char const* const,std::list<std::pair<unsigned long long,unsigned int>>> const&>(&v47, v48, v8[4], v8 + 4);
       v11 = v8[1];
       if (v11)
       {
@@ -2424,16 +2434,16 @@ void desense::ARICommandDriver::sendFrequencyReport_sync(uint64_t a1, void *a2, 
     }
 
     while (v12 != v7);
-    v14 = v48;
-    v10 = *(a1 + 80);
+    v14 = v47;
+    v10 = *(result + 80);
+    v50 = 0;
     v51 = 0;
-    v52 = 0;
-    v50 = &v51;
-    if (v48 != v49)
+    v49 = &v50;
+    if (v47 != v48)
     {
       do
       {
-        std::__tree<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::__map_value_compare<char const*,std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>>>::__emplace_hint_unique_key_args<char const*,std::pair<char const* const,std::list<std::pair<unsigned long long,unsigned int>>> const&>(&v50, &v51, v14[4], v14 + 4);
+        std::__tree<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::__map_value_compare<char const*,std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>>>::__emplace_hint_unique_key_args<char const*,std::pair<char const* const,std::list<std::pair<unsigned long long,unsigned int>>> const&>(&v49, &v50, v14[4], v14 + 4);
         v22 = v14[1];
         if (v22)
         {
@@ -2461,30 +2471,30 @@ void desense::ARICommandDriver::sendFrequencyReport_sync(uint64_t a1, void *a2, 
         v14 = v23;
       }
 
-      while (v23 != v49);
+      while (v23 != v48);
     }
   }
 
-  v61 = a3;
+  v60 = a3;
+  v58 = 0;
   v59 = 0;
-  v60 = 0;
   *&v15 = 0xAAAAAAAAAAAAAAAALL;
   *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v78 = v15;
-  v79 = v15;
-  v76 = v15;
   v77 = v15;
-  v74 = v15;
+  v78 = v15;
   v75 = v15;
-  v72 = v15;
+  v76 = v15;
   v73 = v15;
-  *buf = v15;
+  v74 = v15;
   v71 = v15;
+  v72 = v15;
+  *buf = v15;
+  v70 = v15;
   v16 = *(v10 + 24);
   __p[0] = 10;
   __p[1] = buf;
-  v81[0] = 0;
-  v81[1] = v16;
+  v80[0] = 0;
+  v80[1] = v16;
   pthread_mutex_lock(v16);
   v17 = *(v10 + 8);
   if (!v17)
@@ -2502,7 +2512,7 @@ void desense::ARICommandDriver::sendFrequencyReport_sync(uint64_t a1, void *a2, 
     if (v21 == *v19)
     {
       v21 = *(v20 + 8);
-      *&v62 = v21;
+      *&v61 = v21;
       if (v20 == v21)
       {
 LABEL_30:
@@ -2513,7 +2523,7 @@ LABEL_30:
 
     else
     {
-      *&v62 = *(v10 + 16);
+      *&v61 = *(v10 + 16);
     }
 
     v24 = v21[2];
@@ -2524,7 +2534,7 @@ LABEL_30:
 
     else
     {
-      v21 = boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>>::erase(v20, (v24 + 64), &v62);
+      v21 = boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>>::erase(v20, (v24 + 64), &v61);
       v19 = *v10;
     }
 
@@ -2539,9 +2549,9 @@ LABEL_31:
   }
 
 LABEL_33:
-  v25 = v60;
-  v59 = v19;
-  v60 = v17;
+  v25 = v59;
+  v58 = v19;
+  v59 = v17;
   if (v25)
   {
     if (atomic_fetch_add(v25 + 2, 0xFFFFFFFF) == 1)
@@ -2554,32 +2564,32 @@ LABEL_33:
     }
   }
 
-  pthread_mutex_unlock(v81[1]);
+  pthread_mutex_unlock(v80[1]);
   v26 = __p[1];
   if (__p[1])
   {
-    if (v81[0] > 0)
+    if (v80[0] > 0)
     {
-      v46 = __p[1] + 16 * v81[0];
+      v45 = __p[1] + 16 * v80[0];
       do
       {
-        v47 = *(v46 - 1);
-        if (v47)
+        v46 = *(v45 - 1);
+        if (v46)
         {
-          if (atomic_fetch_add(v47 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v46 + 2, 0xFFFFFFFF) == 1)
           {
-            (*(*v47 + 16))(v47);
-            if (atomic_fetch_add(v47 + 3, 0xFFFFFFFF) == 1)
+            (*(*v46 + 16))(v46);
+            if (atomic_fetch_add(v46 + 3, 0xFFFFFFFF) == 1)
             {
-              (*(*v47 + 24))(v47);
+              (*(*v46 + 24))(v46);
             }
           }
         }
 
-        v46 -= 16;
+        v45 -= 16;
       }
 
-      while (v46 > v26);
+      while (v45 > v26);
     }
 
     if (__p[0] >= 0xB)
@@ -2590,52 +2600,52 @@ LABEL_33:
 
   *&v27 = 0xAAAAAAAAAAAAAAAALL;
   *(&v27 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v83 = v27;
-  v84 = v27;
-  *v81 = v27;
   v82 = v27;
-  v79 = v27;
-  *__p = v27;
-  v77 = v27;
+  v83 = v27;
+  *v80 = v27;
+  v81 = v27;
   v78 = v27;
-  v75 = v27;
+  *__p = v27;
   v76 = v27;
-  v73 = v27;
+  v77 = v27;
   v74 = v27;
-  v71 = v27;
+  v75 = v27;
   v72 = v27;
+  v73 = v27;
+  v70 = v27;
+  v71 = v27;
   *buf = v27;
   buf[0] = 0;
-  v85 = 0xAAAAAAAAAAAAAAAALL;
-  v86 = 10;
-  v87 = &buf[8];
-  v88 = 0;
-  v89 = &v50;
-  v90 = &v61;
-  v92 = 0;
+  v84 = 0xAAAAAAAAAAAAAAAALL;
+  v85 = 10;
+  v86 = &buf[8];
+  v87 = 0;
+  v88 = &v49;
+  v89 = &v60;
   v91 = 0;
-  v28 = v59;
-  v29 = *v59;
-  v56 = buf;
-  v57 = v10;
-  v58 = v29;
-  *&v54 = *(v29 + 8);
+  v90 = 0;
+  v28 = v58;
+  v29 = *v58;
+  v55 = buf;
+  v56 = v10;
+  v57 = v29;
+  *&v53 = *(v29 + 8);
+  *(&v53 + 1) = v29;
+  *&v54 = buf;
   *(&v54 + 1) = v29;
-  *&v55 = buf;
-  *(&v55 + 1) = v29;
-  boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>::lock_next_callable(&v54);
-  v53[0] = *v28;
-  v53[1] = v53[0];
-  v53[2] = buf;
-  v53[3] = v53[0];
-  boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>::lock_next_callable(v53);
+  boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>::lock_next_callable(&v53);
+  v52[0] = *v28;
+  v52[1] = v52[0];
+  v52[2] = buf;
+  v52[3] = v52[0];
+  boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>::lock_next_callable(v52);
+  v61 = v53;
   v62 = v54;
-  v63 = v55;
-  v30 = v53[0];
-  v31 = v54;
-  if (v54 == v53[0])
+  v30 = v52[0];
+  v31 = v53;
+  if (v53 == v52[0])
   {
-    if (HIDWORD(v91) <= v91)
+    if (HIDWORD(v90) <= v90)
     {
       goto LABEL_66;
     }
@@ -2643,17 +2653,17 @@ LABEL_33:
 
   else
   {
-    v32 = v63;
-    v33 = *v63;
+    v32 = v62;
+    v33 = *v62;
     do
     {
       if ((v33 & 1) == 0)
       {
         v34 = *(*(v31 + 16) + 32);
         v35 = *(v32 + 272);
+        v64 = 0;
         v65 = 0;
-        v66 = 0;
-        v64 = &v65;
+        v63 = &v64;
         v38 = *v35;
         v36 = v35 + 1;
         v37 = v38;
@@ -2661,7 +2671,7 @@ LABEL_33:
         {
           do
           {
-            std::__tree<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::__map_value_compare<char const*,std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>>>::__emplace_hint_unique_key_args<char const*,std::pair<char const* const,std::list<std::pair<unsigned long long,unsigned int>>> const&>(&v64, &v65, v37[4], v37 + 4);
+            std::__tree<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::__map_value_compare<char const*,std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>>>::__emplace_hint_unique_key_args<char const*,std::pair<char const* const,std::list<std::pair<unsigned long long,unsigned int>>> const&>(&v63, &v64, v37[4], v37 + 4);
             v42 = v37[1];
             if (v42)
             {
@@ -2695,77 +2705,72 @@ LABEL_33:
         v39 = *(v34 + 24);
         if (!v39)
         {
-          std::runtime_error::runtime_error(&v69, "call to empty boost::function");
-          v69.__vftable = &unk_2A1E0C118;
-          boost::throw_exception<boost::bad_function_call>(&v69);
+          std::runtime_error::runtime_error(&v68, "call to empty boost::function");
+          v68.__vftable = &unk_2A1E0C118;
+          boost::throw_exception<boost::bad_function_call>(&v68);
         }
 
         v40 = **(v32 + 280);
         v41 = *((v39 & 0xFFFFFFFFFFFFFFFELL) + 8);
-        v67 = v64;
-        v68[0] = v65;
-        v68[1] = v66;
-        if (v66)
+        v66 = v63;
+        v67[0] = v64;
+        v67[1] = v65;
+        if (v65)
         {
-          v65[2] = v68;
-          v64 = &v65;
+          v64[2] = v67;
+          v63 = &v64;
+          v64 = 0;
           v65 = 0;
-          v66 = 0;
         }
 
         else
         {
-          v67 = v68;
+          v66 = v67;
         }
 
-        v41(v34 + 32, &v67, v40);
-        std::__tree<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::__map_value_compare<char const*,std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>>>::destroy(v68[0]);
-        std::__tree<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::__map_value_compare<char const*,std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>>>::destroy(v65);
+        v41(v34 + 32, &v66, v40);
+        std::__tree<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::__map_value_compare<char const*,std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>>>::destroy(v67[0]);
+        std::__tree<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::__map_value_compare<char const*,std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>>>::destroy(v64);
         if ((*v32 & 1) == 0)
         {
           *v32 = 1;
         }
       }
 
-      *&v62 = *(v31 + 8);
-      boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>::lock_next_callable(&v62);
-      v32 = v63;
-      if (*v63 == 1)
+      *&v61 = *(v31 + 8);
+      boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>::lock_next_callable(&v61);
+      v32 = v62;
+      if (*v62 == 1)
       {
-        *v63 = 0;
+        *v62 = 0;
       }
 
       v33 = 0;
-      v31 = v62;
+      v31 = v61;
     }
 
-    while (v62 != v30);
-    if (*(v56 + 73) <= *(v56 + 72))
+    while (v61 != v30);
+    if (*(v55 + 73) <= *(v55 + 72))
     {
       goto LABEL_66;
     }
   }
 
-  boost::signals2::detail::signal_impl<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>,boost::function<void ()(boost::signals2::connection const&,std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>,boost::signals2::mutex>::force_cleanup_connections(v57, v58);
+  boost::signals2::detail::signal_impl<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>,boost::function<void ()(boost::signals2::connection const&,std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>,boost::signals2::mutex>::force_cleanup_connections(v56, v57);
 LABEL_66:
   boost::signals2::detail::slot_call_iterator_cache<boost::signals2::detail::void_type,boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId>>::~slot_call_iterator_cache(buf);
-  v44 = v60;
-  if (v60)
+  v44 = v59;
+  if (v59 && atomic_fetch_add(v59 + 2, 0xFFFFFFFF) == 1)
   {
-    if (atomic_fetch_add(v60 + 2, 0xFFFFFFFF) == 1)
+    (*(*v44 + 16))(v44);
+    if (atomic_fetch_add(v44 + 3, 0xFFFFFFFF) == 1)
     {
-      (*(*v44 + 16))(v44);
-      if (atomic_fetch_add(v44 + 3, 0xFFFFFFFF) == 1)
-      {
-        (*(*v44 + 24))(v44);
-      }
+      (*(*v44 + 24))(v44);
     }
   }
 
-  std::__tree<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::__map_value_compare<char const*,std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>>>::destroy(v51);
-  std::__tree<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::__map_value_compare<char const*,std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>>>::destroy(v49[0]);
-LABEL_71:
-  v45 = *MEMORY[0x29EDCA608];
+  std::__tree<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::__map_value_compare<char const*,std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>>>::destroy(v50);
+  std::__tree<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::__map_value_compare<char const*,std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,std::less<char const*>,true>,std::allocator<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>>>::destroy(v48[0]);
 }
 
 void sub_296DB3B18(void *a1, int a2)
@@ -3226,10 +3231,10 @@ LABEL_30:
   return result;
 }
 
-void sub_296DB437C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296DB437C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::__list_imp<std::pair<unsigned long long,unsigned int>>::clear(v2);
+  va_start(va, a3);
+  std::__list_imp<std::pair<unsigned long long,unsigned int>>::clear(v3);
   std::unique_ptr<std::__tree_node<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3283,12 +3288,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   while (1)
   {
     v2 = a2[2];
-    if (v2[3])
+    if (*(v2 + 24))
     {
       return result;
     }
 
-    v3 = v2[2];
+    v3 = *(v2 + 16);
     v4 = *v3;
     if (*v3 != v2)
     {
@@ -3300,10 +3305,9 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     {
       if (*v2 == a2)
       {
-        v20 = a2[2];
         *(v2 + 24) = 1;
         *(v3 + 24) = 0;
-        v13 = v4[1];
+        v13 = *(v4 + 8);
         *v3 = v13;
         if (v13)
         {
@@ -3313,26 +3317,26 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
       else
       {
-        v10 = v2[1];
+        v10 = *(v2 + 8);
         v11 = *v10;
-        v2[1] = *v10;
+        *(v2 + 8) = *v10;
         v12 = v2;
         if (v11)
         {
-          v11[2] = v2;
-          v3 = v2[2];
+          *(v11 + 16) = v2;
+          v3 = *(v2 + 16);
           v12 = *v3;
         }
 
-        v10[2] = v3;
+        *(v10 + 16) = v3;
         v3[v12 != v2] = v10;
         *v10 = v2;
-        v2[2] = v10;
-        v3 = v10[2];
+        *(v2 + 16) = v10;
+        v3 = *(v10 + 16);
         v4 = *v3;
         *(v10 + 24) = 1;
         *(v3 + 24) = 0;
-        v13 = v4[1];
+        v13 = *(v4 + 8);
         *v3 = v13;
         if (v13)
         {
@@ -3343,8 +3347,8 @@ LABEL_15:
 
       v14 = v3[2];
       v14[*v14 != v3] = v4;
-      v4[1] = v3;
-      v4[2] = v14;
+      *(v4 + 8) = v3;
+      *(v4 + 16) = v14;
       v3[2] = v4;
       return result;
     }
@@ -3363,7 +3367,7 @@ LABEL_3:
   if (v4)
   {
     v6 = *(v4 + 24);
-    v5 = v4 + 3;
+    v5 = (v4 + 24);
     if (v6 != 1)
     {
       v7 = v5;
@@ -3374,19 +3378,19 @@ LABEL_3:
   v15 = *v2;
   if (*v2 == a2)
   {
-    v16 = *(v15 + 8);
+    v16 = v15[1];
     *v2 = v16;
     if (v16)
     {
       *(v16 + 16) = v2;
-      v3 = v2[2];
+      v3 = *(v2 + 16);
     }
 
     v3[*v3 != v2] = v15;
-    *(v15 + 8) = v2;
-    *(v15 + 16) = v3;
-    v2[2] = v15;
-    v3 = *(v15 + 16);
+    v15[1] = v2;
+    v15[2] = v3;
+    *(v2 + 16) = v15;
+    v3 = v15[2];
   }
 
   else
@@ -3639,11 +3643,11 @@ void *boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr
     {
       while (1)
       {
-        v14 = *(v9 + 32);
+        v14 = *(v9 + 8);
         v15 = v14 < 1;
         if (v14 == 1)
         {
-          v15 = *(v9 + 40) < v7;
+          v15 = *(v9 + 10) < v7;
         }
 
         if (!v15)
@@ -3651,7 +3655,7 @@ void *boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr
           break;
         }
 
-        v9 = *(v9 + 8);
+        v9 = v9[1];
         if (!v9)
         {
           goto LABEL_16;
@@ -3669,10 +3673,10 @@ void *boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr
   {
     do
     {
-      v10 = *(v9 + 32);
+      v10 = *(v9 + 8);
       v11 = v10 == v6;
       v15 = v10 < v6;
-      v12 = 8 * (v10 < v6);
+      v12 = v10 < v6;
       if (v15)
       {
         v13 = v8;
@@ -3694,7 +3698,7 @@ void *boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr
         v8 = v13;
       }
 
-      v9 = *(v9 + v12);
+      v9 = v9[v12];
     }
 
     while (v9);
@@ -4103,7 +4107,7 @@ uint64_t **std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(uin
       }
 
 LABEL_6:
-      v6[1] = v2;
+      *(v6 + 8) = v2;
       v8 = *(v3 + 24);
       if (v3 == a2)
       {
@@ -4185,7 +4189,7 @@ LABEL_10:
 
   else
   {
-    v7 = v6[1];
+    v7 = *(v6 + 8);
     v8 = *(v3 + 24);
     if (v3 != a2)
     {
@@ -4215,7 +4219,6 @@ LABEL_21:
   {
     v14 = v7[2];
     v15 = *v14;
-    v16 = *(v7 + 24);
     if (*v14 == v7)
     {
       break;
@@ -4225,19 +4228,19 @@ LABEL_21:
     {
       *(v7 + 24) = 1;
       *(v14 + 24) = 0;
-      v17 = v14[1];
-      v18 = *v17;
-      v14[1] = *v17;
-      if (v18)
+      v16 = *(v14 + 8);
+      v17 = *v16;
+      *(v14 + 8) = *v16;
+      if (v17)
       {
-        *(v18 + 16) = v14;
+        *(v17 + 16) = v14;
       }
 
-      v19 = v14[2];
-      v17[2] = v19;
-      v19[*v19 != v14] = v17;
-      *v17 = v14;
-      v14[2] = v17;
+      v18 = *(v14 + 16);
+      v16[2] = v18;
+      v18[*v18 != v14] = v16;
+      *v16 = v14;
+      *(v14 + 16) = v16;
       if (result == *v7)
       {
         result = v7;
@@ -4246,57 +4249,57 @@ LABEL_21:
       v7 = *(*v7 + 8);
     }
 
-    v20 = *v7;
-    if (*v7 && *(v20 + 24) != 1)
+    v19 = *v7;
+    if (*v7 && *(v19 + 24) != 1)
     {
-      v21 = v7[1];
-      if (v21 && (v21[3] & 1) == 0)
+      v20 = v7[1];
+      if (v20 && (v20[3] & 1) == 0)
       {
 LABEL_65:
-        v20 = v7;
+        v19 = v7;
       }
 
       else
       {
-        *(v20 + 24) = 1;
+        *(v19 + 24) = 1;
         *(v7 + 24) = 0;
-        v29 = v20[1];
-        *v7 = v29;
-        if (v29)
+        v28 = v19[1];
+        *v7 = v28;
+        if (v28)
         {
-          *(v29 + 16) = v7;
+          *(v28 + 16) = v7;
         }
 
-        v30 = v7[2];
-        v30[*v30 != v7] = v20;
-        v20[1] = v7;
-        v20[2] = v30;
-        v7[2] = v20;
-        v21 = v7;
+        v29 = v7[2];
+        v29[*v29 != v7] = v19;
+        v19[1] = v7;
+        v19[2] = v29;
+        v7[2] = v19;
+        v20 = v7;
       }
 
-      v31 = v20[2];
-      *(v20 + 24) = *(v31 + 24);
-      *(v31 + 24) = 1;
-      *(v21 + 24) = 1;
-      v32 = *(v31 + 8);
-      v33 = *v32;
-      *(v31 + 8) = *v32;
-      if (v33)
+      v30 = v19[2];
+      *(v19 + 24) = *(v30 + 24);
+      *(v30 + 24) = 1;
+      *(v20 + 24) = 1;
+      v31 = *(v30 + 8);
+      v32 = *v31;
+      *(v30 + 8) = *v31;
+      if (v32)
       {
-        *(v33 + 16) = v31;
+        *(v32 + 16) = v30;
       }
 
-      v34 = *(v31 + 16);
-      v32[2] = v34;
-      v34[*v34 != v31] = v32;
-      *v32 = v31;
-      *(v31 + 16) = v32;
+      v33 = *(v30 + 16);
+      v31[2] = v33;
+      v33[*v33 != v30] = v31;
+      *v31 = v30;
+      *(v30 + 16) = v31;
       return result;
     }
 
-    v21 = v7[1];
-    if (v21 && *(v21 + 24) != 1)
+    v20 = v7[1];
+    if (v20 && *(v20 + 24) != 1)
     {
       goto LABEL_65;
     }
@@ -4316,35 +4319,35 @@ LABEL_28:
   {
     *(v7 + 24) = 1;
     *(v14 + 24) = 0;
-    v22 = v15[1];
-    *v14 = v22;
-    if (v22)
+    v21 = v15[1];
+    *v14 = v21;
+    if (v21)
     {
-      v22[2] = v14;
+      *(v21 + 16) = v14;
     }
 
-    v23 = v14[2];
-    v23[*v23 != v14] = v15;
+    v22 = *(v14 + 16);
+    v22[*v22 != v14] = v15;
     v15[1] = v14;
-    v15[2] = v23;
-    v14[2] = v15;
-    v24 = v7[1];
-    if (result == v24)
+    v15[2] = v22;
+    *(v14 + 16) = v15;
+    v23 = v7[1];
+    if (result == v23)
     {
       result = v7;
     }
 
-    v7 = *v24;
+    v7 = *v23;
   }
 
-  v25 = *v7;
-  if (*v7 && *(v25 + 24) != 1)
+  v24 = *v7;
+  if (*v7 && *(v24 + 24) != 1)
   {
     goto LABEL_69;
   }
 
-  v26 = v7[1];
-  if (!v26 || *(v26 + 24) == 1)
+  v25 = v7[1];
+  if (!v25 || *(v25 + 24) == 1)
   {
     *(v7 + 24) = 0;
     v12 = v7[2];
@@ -4358,110 +4361,108 @@ LABEL_59:
     goto LABEL_28;
   }
 
-  if (v25 && (v25[3] & 1) == 0)
+  if (v24 && (v24[3] & 1) == 0)
   {
 LABEL_69:
-    v26 = v7;
+    v25 = v7;
     goto LABEL_70;
   }
 
-  *(v26 + 24) = 1;
-  *(v7 + 24) = 0;
-  v27 = *v26;
-  v7[1] = *v26;
-  if (v27)
-  {
-    *(v27 + 16) = v7;
-  }
-
-  v28 = v7[2];
-  v26[2] = v28;
-  v28[*v28 != v7] = v26;
-  *v26 = v7;
-  v7[2] = v26;
-  v25 = v7;
-LABEL_70:
-  v35 = v26[2];
-  *(v26 + 24) = *(v35 + 24);
-  *(v35 + 24) = 1;
   *(v25 + 24) = 1;
-  v36 = *v35;
-  v37 = *(*v35 + 8);
-  *v35 = v37;
-  if (v37)
+  *(v7 + 24) = 0;
+  v26 = *v25;
+  v7[1] = *v25;
+  if (v26)
   {
-    *(v37 + 16) = v35;
+    *(v26 + 16) = v7;
   }
 
-  v38 = v35[2];
-  v38[*v38 != v35] = v36;
-  *(v36 + 8) = v35;
-  *(v36 + 16) = v38;
-  v35[2] = v36;
+  v27 = v7[2];
+  v25[2] = v27;
+  v27[*v27 != v7] = v25;
+  *v25 = v7;
+  v7[2] = v25;
+  v24 = v7;
+LABEL_70:
+  v34 = v25[2];
+  *(v25 + 24) = *(v34 + 24);
+  *(v34 + 24) = 1;
+  *(v24 + 24) = 1;
+  v35 = *v34;
+  v36 = *(*v34 + 8);
+  *v34 = v36;
+  if (v36)
+  {
+    *(v36 + 16) = v34;
+  }
+
+  v37 = *(v34 + 16);
+  v37[*v37 != v34] = v35;
+  *(v35 + 8) = v34;
+  *(v35 + 16) = v37;
+  *(v34 + 16) = v35;
   return result;
 }
 
 void boost::signals2::detail::connection_body_base::disconnect(boost::signals2::detail::connection_body_base *this)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v7[8] = v2;
-  v7[9] = v2;
-  v7[6] = v2;
-  v7[7] = v2;
-  v7[4] = v2;
-  v7[5] = v2;
-  v7[2] = v2;
-  v7[3] = v2;
-  v7[0] = v2;
-  v7[1] = v2;
-  v8 = 10;
-  __p = v7;
-  v10 = 0;
-  v11 = this;
+  v6[8] = v2;
+  v6[9] = v2;
+  v6[6] = v2;
+  v6[7] = v2;
+  v6[4] = v2;
+  v6[5] = v2;
+  v6[2] = v2;
+  v6[3] = v2;
+  v6[0] = v2;
+  v6[1] = v2;
+  v7 = 10;
+  __p = v6;
+  v9 = 0;
+  v10 = this;
   (*(*this + 24))(this);
   if (*(this + 24) == 1)
   {
     *(this + 24) = 0;
-    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(this, v7);
+    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(this, v6);
   }
 
-  (*(*v11 + 32))(v11);
+  (*(*v10 + 32))(v10);
   v3 = __p;
   if (__p)
   {
-    if (v10 > 0)
+    if (v9 > 0)
     {
-      v5 = __p + 16 * v10;
+      v4 = __p + 16 * v9;
       do
       {
-        v6 = *(v5 - 1);
-        if (v6)
+        v5 = *(v4 - 1);
+        if (v5)
         {
-          if (atomic_fetch_add(v6 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
           {
-            (*(*v6 + 16))(v6);
-            if (atomic_fetch_add(v6 + 3, 0xFFFFFFFF) == 1)
+            (*(*v5 + 16))(v5);
+            if (atomic_fetch_add(v5 + 3, 0xFFFFFFFF) == 1)
             {
-              (*(*v6 + 24))(v6);
+              (*(*v5 + 24))(v5);
             }
           }
         }
 
-        v5 -= 16;
+        v4 -= 16;
       }
 
-      while (v5 > v3);
+      while (v4 > v3);
     }
 
-    if (v8 >= 0xB)
+    if (v7 >= 0xB)
     {
       operator delete(__p);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DB55CC(_Unwind_Exception *exception_object, int a2)
@@ -4723,16 +4724,16 @@ void sub_296DB5FA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_296DB5FC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296DB5FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(va);
   _Unwind_Resume(a1);
 }
 
-void sub_296DB5FDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296DB5FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(va);
   _Unwind_Resume(a1);
 }
@@ -4802,11 +4803,11 @@ void boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::sig
 
 void boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,coex::SubId>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>::lock_next_callable(void *a1)
 {
-  v45[3] = *MEMORY[0x29EDCA608];
+  v44[3] = *MEMORY[0x29EDCA608];
   v1 = *a1;
   if (*a1 == a1[3])
   {
-    goto LABEL_59;
+    return;
   }
 
   if (v1 == a1[1])
@@ -4818,7 +4819,7 @@ LABEL_50:
       goto LABEL_53;
     }
 
-    goto LABEL_59;
+    return;
   }
 
   do
@@ -4826,23 +4827,23 @@ LABEL_50:
     boost::signals2::detail::auto_buffer<boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>>>::clear((a1[2] + 8));
     *&v3 = 0xAAAAAAAAAAAAAAAALL;
     *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v43 = v3;
-    v44 = v3;
-    v41 = v3;
     v42 = v3;
-    v39 = v3;
+    v43 = v3;
     v40 = v3;
-    v37 = v3;
+    v41 = v3;
     v38 = v3;
-    v35 = v3;
+    v39 = v3;
     v36 = v3;
-    v33 = v3;
+    v37 = v3;
     v34 = v3;
+    v35 = v3;
+    v32 = v3;
+    v33 = v3;
     v4 = *(*a1 + 16);
-    *&v43 = 10;
-    *(&v43 + 1) = &v33;
-    *&v44 = 0;
-    *(&v44 + 1) = v4;
+    *&v42 = 10;
+    *(&v42 + 1) = &v32;
+    *&v43 = 0;
+    *(&v43 + 1) = v4;
     (*(*v4 + 24))(v4);
     v5 = *a1;
     v6 = *(*a1 + 16);
@@ -4855,8 +4856,8 @@ LABEL_50:
       {
         while (1)
         {
-          memset(v45, 170, 24);
-          boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v9, v45);
+          memset(v44, 170, 24);
+          boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v9, v44);
           if ((*v9 ^ (*v9 >> 31)) == 2)
           {
             if (!(*(**(v9 + 8) + 24))(*(v9 + 8)))
@@ -4871,9 +4872,9 @@ LABEL_50:
             if (v10 && atomic_load_explicit((v10 + 8), memory_order_acquire))
             {
 LABEL_8:
-              boost::signals2::detail::auto_buffer<boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>>>::push_back((v7 + 8), v45);
+              boost::signals2::detail::auto_buffer<boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>>>::push_back((v7 + 8), v44);
               v11 = 0;
-              if (LODWORD(v45[0]) == SLODWORD(v45[0]) >> 31)
+              if (LODWORD(v44[0]) == SLODWORD(v44[0]) >> 31)
               {
                 goto LABEL_15;
               }
@@ -4885,17 +4886,17 @@ LABEL_8:
           if (*(v6 + 24) == 1)
           {
             *(v6 + 24) = 0;
-            boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v6, &v33);
+            boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v6, &v32);
           }
 
           v11 = 1;
-          if (LODWORD(v45[0]) == SLODWORD(v45[0]) >> 31)
+          if (LODWORD(v44[0]) == SLODWORD(v44[0]) >> 31)
           {
 LABEL_15:
-            v12 = v45[2];
-            if (v45[2])
+            v12 = v44[2];
+            if (v44[2])
             {
-              if (atomic_fetch_add((v45[2] + 8), 0xFFFFFFFF) == 1)
+              if (atomic_fetch_add((v44[2] + 8), 0xFFFFFFFF) == 1)
               {
                 (*(*v12 + 16))(v12);
                 if (atomic_fetch_add(v12 + 3, 0xFFFFFFFF) == 1)
@@ -4909,9 +4910,9 @@ LABEL_15:
           }
 
 LABEL_9:
-          if (v45[1])
+          if (v44[1])
           {
-            (*(*v45[1] + 8))(v45[1]);
+            (*(*v44[1] + 8))(v44[1]);
           }
 
 LABEL_19:
@@ -4959,7 +4960,7 @@ LABEL_32:
       v22 = *(v7 + 288);
       if (v22)
       {
-        boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v22, &v33);
+        boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v22, &v32);
       }
 
       v16 = 0;
@@ -4972,7 +4973,7 @@ LABEL_32:
       v15 = *(v7 + 288);
       if (v15)
       {
-        boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v15, &v33);
+        boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v15, &v32);
       }
 
       *(v7 + 288) = v14;
@@ -4984,13 +4985,13 @@ LABEL_32:
     }
 
 LABEL_33:
-    (*(**(&v44 + 1) + 32))(*(&v44 + 1));
-    v17 = *(&v43 + 1);
-    if (*(&v43 + 1))
+    (*(**(&v43 + 1) + 32))(*(&v43 + 1));
+    v17 = *(&v42 + 1);
+    if (*(&v42 + 1))
     {
-      if (v44 > 0)
+      if (v43 > 0)
       {
-        v20 = *(&v43 + 1) + 16 * v44;
+        v20 = *(&v42 + 1) + 16 * v43;
         do
         {
           v21 = *(v20 - 8);
@@ -5012,9 +5013,9 @@ LABEL_33:
         while (v20 > v17);
       }
 
-      if (v43 >= 0xB)
+      if (v42 >= 0xB)
       {
-        operator delete(*(&v43 + 1));
+        operator delete(*(&v42 + 1));
       }
     }
 
@@ -5024,7 +5025,7 @@ LABEL_33:
     {
       if (v1 != v18)
       {
-        goto LABEL_59;
+        return;
       }
 
       goto LABEL_50;
@@ -5039,78 +5040,75 @@ LABEL_33:
   v23 = a1[3];
   if (v23 == v24)
   {
-    goto LABEL_59;
+    return;
   }
 
 LABEL_53:
   *&v25 = 0xAAAAAAAAAAAAAAAALL;
   *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v41 = v25;
-  v42 = v25;
-  v39 = v25;
   v40 = v25;
-  v37 = v25;
+  v41 = v25;
   v38 = v25;
-  v35 = v25;
+  v39 = v25;
   v36 = v25;
-  v33 = v25;
+  v37 = v25;
   v34 = v25;
+  v35 = v25;
+  v32 = v25;
+  v33 = v25;
   v26 = *(v23 + 16);
-  *&v43 = 10;
-  *(&v43 + 1) = &v33;
-  *&v44 = 0;
-  *(&v44 + 1) = v26;
+  *&v42 = 10;
+  *(&v42 + 1) = &v32;
+  *&v43 = 0;
+  *(&v43 + 1) = v26;
   (*(*v26 + 24))(v26);
   v27 = a1[2];
   a1[3] = a1[1];
   v28 = *(v27 + 288);
   if (v28)
   {
-    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v28, &v33);
+    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v28, &v32);
   }
 
   *(v27 + 288) = 0;
-  (*(**(&v44 + 1) + 32))(*(&v44 + 1));
-  v29 = *(&v43 + 1);
-  if (*(&v43 + 1))
+  (*(**(&v43 + 1) + 32))(*(&v43 + 1));
+  v29 = *(&v42 + 1);
+  if (*(&v42 + 1))
   {
-    if (v44 > 0)
+    if (v43 > 0)
     {
-      v31 = *(&v43 + 1) + 16 * v44;
+      v30 = *(&v42 + 1) + 16 * v43;
       do
       {
-        v32 = *(v31 - 8);
-        if (v32)
+        v31 = *(v30 - 8);
+        if (v31)
         {
-          if (atomic_fetch_add(v32 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v31 + 2, 0xFFFFFFFF) == 1)
           {
-            (*(*v32 + 16))(v32);
-            if (atomic_fetch_add(v32 + 3, 0xFFFFFFFF) == 1)
+            (*(*v31 + 16))(v31);
+            if (atomic_fetch_add(v31 + 3, 0xFFFFFFFF) == 1)
             {
-              (*(*v32 + 24))(v32);
+              (*(*v31 + 24))(v31);
             }
           }
         }
 
-        v31 -= 16;
+        v30 -= 16;
       }
 
-      while (v31 > v29);
+      while (v30 > v29);
     }
 
-    if (v43 >= 0xB)
+    if (v42 >= 0xB)
     {
-      operator delete(*(&v43 + 1));
+      operator delete(*(&v42 + 1));
     }
   }
-
-LABEL_59:
-  v30 = *MEMORY[0x29EDCA608];
 }
 
-void sub_296DB67D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296DB67D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   boost::signals2::detail::garbage_collecting_lock<boost::signals2::detail::connection_body_base>::~garbage_collecting_lock(va);
   _Unwind_Resume(a1);
 }
@@ -5293,11 +5291,11 @@ uint64_t boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_point
   return result;
 }
 
-void sub_296DB6BFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_296DB6BFC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5344,7 +5342,7 @@ uint64_t boost::signals2::detail::auto_buffer<boost::variant<boost::shared_ptr<v
       v7 = a1[32];
     }
 
-    v8 = v6 + 24 * v7;
+    v8 = &v6[3 * v7];
     result = *(a2 + 8);
     if (*a2 != *a2 >> 31)
     {
@@ -5540,12 +5538,12 @@ void sub_296DB7154(void *a1)
   JUMPOUT(0x296DB7144);
 }
 
-uint64_t boost::signals2::detail::signal_impl<void ()(coex::SubId),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(coex::SubId)>,boost::function<void ()(boost::signals2::connection const&,coex::SubId)>,boost::signals2::mutex>::invocation_janitor::~invocation_janitor(uint64_t result)
+void *boost::signals2::detail::signal_impl<void ()(coex::SubId),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(coex::SubId)>,boost::function<void ()(boost::signals2::connection const&,coex::SubId)>,boost::signals2::mutex>::invocation_janitor::~invocation_janitor(void *result)
 {
   if (*(*result + 284) > *(*result + 280))
   {
     v1 = result;
-    boost::signals2::detail::signal_impl<void ()(coex::SubId),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(coex::SubId)>,boost::function<void ()(boost::signals2::connection const&,coex::SubId)>,boost::signals2::mutex>::force_cleanup_connections(*(result + 8), *(result + 16));
+    boost::signals2::detail::signal_impl<void ()(coex::SubId),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(coex::SubId)>,boost::function<void ()(boost::signals2::connection const&,coex::SubId)>,boost::signals2::mutex>::force_cleanup_connections(result[1], result[2]);
     return v1;
   }
 
@@ -5555,24 +5553,24 @@ uint64_t boost::signals2::detail::signal_impl<void ()(coex::SubId),boost::signal
 void boost::signals2::detail::signal_impl<void ()(coex::SubId),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(coex::SubId)>,boost::function<void ()(boost::signals2::connection const&,coex::SubId)>,boost::signals2::mutex>::force_cleanup_connections(uint64_t **a1, uint64_t a2)
 {
   v3 = a1;
-  v75 = *MEMORY[0x29EDCA608];
+  v74 = *MEMORY[0x29EDCA608];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v70[8] = v4;
-  v70[9] = v4;
-  v70[6] = v4;
-  v70[7] = v4;
-  v70[4] = v4;
-  v70[5] = v4;
-  v70[2] = v4;
-  v70[3] = v4;
-  v70[0] = v4;
-  v70[1] = v4;
+  v69[8] = v4;
+  v69[9] = v4;
+  v69[6] = v4;
+  v69[7] = v4;
+  v69[4] = v4;
+  v69[5] = v4;
+  v69[2] = v4;
+  v69[3] = v4;
+  v69[0] = v4;
+  v69[1] = v4;
   v5 = a1[3];
-  v71 = 10;
-  __p = v70;
-  v73 = 0;
-  v74 = v5;
+  v70 = 10;
+  __p = v69;
+  v72 = 0;
+  v73 = v5;
   pthread_mutex_lock(v5);
   if (**v3 != a2)
   {
@@ -5585,7 +5583,7 @@ void boost::signals2::detail::signal_impl<void ()(coex::SubId),boost::signals2::
     v7 = operator new(0x20uLL);
     v8 = *v3;
     v9 = **v3;
-    v66 = v7;
+    v65 = v7;
     v10 = operator new(0x40uLL);
     v11 = v10;
     *v10 = v10;
@@ -5621,14 +5619,14 @@ void boost::signals2::detail::signal_impl<void ()(coex::SubId),boost::signals2::
       while (v12 != v9);
     }
 
-    v64 = v3;
-    v65 = v8;
+    v63 = v3;
+    v64 = v8;
     v11[3] = 0;
     v11[4] = 0;
     v17 = v11 + 4;
     v11[5] = 0;
     *(v11 + 48) = *(v9 + 48);
-    v67 = (v11 + 3);
+    v66 = (v11 + 3);
     v11[3] = v11 + 4;
     v18 = *(v9 + 24);
     v19 = (v9 + 32);
@@ -5742,34 +5740,34 @@ LABEL_10:
         while (v30 != v19);
       }
 
-      *v66 = v11;
-      v66[1] = 0;
+      *v65 = v11;
+      v65[1] = 0;
       v52 = operator new(0x18uLL);
       v52[1] = 0x100000001;
       *v52 = &unk_2A1E0C1D0;
       v52[2] = v11;
-      v66[1] = v52;
-      v66[2] = v65[2];
-      v53 = v65[3];
-      v66[3] = v53;
-      v3 = v64;
+      v65[1] = v52;
+      v65[2] = v64[2];
+      v53 = v64[3];
+      v65[3] = v53;
+      v3 = v63;
       if (v53)
       {
         atomic_fetch_add_explicit((v53 + 8), 1u, memory_order_relaxed);
       }
 
-      v68 = v66;
-      v69 = 0;
+      v67 = v65;
+      v68 = 0;
       v54 = operator new(0x18uLL);
       v54[1] = 0x100000001;
       *v54 = &unk_2A1E0C160;
-      v54[2] = v66;
-      v55 = *v64;
-      v56 = v64[1];
-      *v64 = v66;
-      v64[1] = v54;
-      v68 = v55;
-      v69 = v56;
+      v54[2] = v65;
+      v55 = *v63;
+      v56 = v63[1];
+      *v63 = v65;
+      v63[1] = v54;
+      v67 = v55;
+      v68 = v56;
       if (v56)
       {
         if (atomic_fetch_add(v56 + 2, 0xFFFFFFFF) == 1)
@@ -5788,10 +5786,10 @@ LABEL_10:
     while (1)
     {
       v33 = *(v18 + 8);
-      v34 = *v67;
+      v34 = *v66;
       v35 = *v17;
       v36 = v11 + 4;
-      if (*v67 != v17)
+      if (*v66 != v17)
       {
         v37 = *v17;
         v38 = v11 + 4;
@@ -5848,7 +5846,7 @@ LABEL_66:
             *v42 = v47;
             if (*v34)
             {
-              *v67 = *v34;
+              *v66 = *v34;
             }
 
             std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v11[4], v47);
@@ -6009,7 +6007,7 @@ LABEL_69:
 LABEL_88:
   v57 = **v3;
   v58 = *(v57 + 8);
-  v68 = v58;
+  v67 = v58;
   if (v57 != v58)
   {
     do
@@ -6023,16 +6021,16 @@ LABEL_88:
         }
 
         v58 = v58[1];
-        v68 = v58;
+        v67 = v58;
         if (v58 == v57)
         {
           goto LABEL_93;
         }
       }
 
-      v58 = boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>>::erase(v57, (v59 + 64), &v68);
+      v58 = boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>>>::erase(v57, (v59 + 64), &v67);
       v57 = **v3;
-      v68 = v58;
+      v67 = v58;
     }
 
     while (v58 != v57);
@@ -6042,41 +6040,39 @@ LABEL_93:
 
   v3[2] = v58;
 LABEL_95:
-  pthread_mutex_unlock(v74);
+  pthread_mutex_unlock(v73);
   v60 = __p;
   if (__p)
   {
-    if (v73 > 0)
+    if (v72 > 0)
     {
-      v62 = __p + 16 * v73;
+      v61 = __p + 16 * v72;
       do
       {
-        v63 = *(v62 - 1);
-        if (v63)
+        v62 = *(v61 - 1);
+        if (v62)
         {
-          if (atomic_fetch_add(v63 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v62 + 2, 0xFFFFFFFF) == 1)
           {
-            (*(*v63 + 16))(v63);
-            if (atomic_fetch_add(v63 + 3, 0xFFFFFFFF) == 1)
+            (*(*v62 + 16))(v62);
+            if (atomic_fetch_add(v62 + 3, 0xFFFFFFFF) == 1)
             {
-              (*(*v63 + 24))(v63);
+              (*(*v62 + 24))(v62);
             }
           }
         }
 
-        v62 -= 16;
+        v61 -= 16;
       }
 
-      while (v62 > v60);
+      while (v61 > v60);
     }
 
-    if (v71 >= 0xB)
+    if (v70 >= 0xB)
     {
       operator delete(__p);
     }
   }
-
-  v61 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DB7864(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
@@ -6347,57 +6343,57 @@ void boost::detail::sp_counted_impl_p<boost::signals2::detail::grouped_list<int,
 
 uint64_t boost::signals2::detail::slot_call_iterator_cache<boost::signals2::detail::void_type,boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,coex::SubId>>::~slot_call_iterator_cache(uint64_t a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 288);
   if (v2)
   {
     *&v3 = 0xAAAAAAAAAAAAAAAALL;
     *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v9[8] = v3;
-    v9[9] = v3;
-    v9[6] = v3;
-    v9[7] = v3;
-    v9[4] = v3;
-    v9[5] = v3;
-    v9[2] = v3;
-    v9[3] = v3;
-    v9[0] = v3;
-    v9[1] = v3;
-    v10 = 10;
-    __p = v9;
-    v12 = 0;
-    v13 = v2;
+    v8[8] = v3;
+    v8[9] = v3;
+    v8[6] = v3;
+    v8[7] = v3;
+    v8[4] = v3;
+    v8[5] = v3;
+    v8[2] = v3;
+    v8[3] = v3;
+    v8[0] = v3;
+    v8[1] = v3;
+    v9 = 10;
+    __p = v8;
+    v11 = 0;
+    v12 = v2;
     (*(*v2 + 24))(v2);
-    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(*(a1 + 288), v9);
-    (*(*v13 + 32))(v13);
+    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(*(a1 + 288), v8);
+    (*(*v12 + 32))(v12);
     v4 = __p;
     if (__p)
     {
-      if (v12 > 0)
+      if (v11 > 0)
       {
-        v7 = __p + 16 * v12;
+        v6 = __p + 16 * v11;
         do
         {
-          v8 = *(v7 - 1);
-          if (v8)
+          v7 = *(v6 - 1);
+          if (v7)
           {
-            if (atomic_fetch_add(v8 + 2, 0xFFFFFFFF) == 1)
+            if (atomic_fetch_add(v7 + 2, 0xFFFFFFFF) == 1)
             {
-              (*(*v8 + 16))(v8);
-              if (atomic_fetch_add(v8 + 3, 0xFFFFFFFF) == 1)
+              (*(*v7 + 16))(v7);
+              if (atomic_fetch_add(v7 + 3, 0xFFFFFFFF) == 1)
               {
-                (*(*v8 + 24))(v8);
+                (*(*v7 + 24))(v7);
               }
             }
           }
 
-          v7 -= 16;
+          v6 -= 16;
         }
 
-        while (v7 > v4);
+        while (v6 > v4);
       }
 
-      if (v10 >= 0xB)
+      if (v9 >= 0xB)
       {
         operator delete(__p);
       }
@@ -6410,7 +6406,6 @@ uint64_t boost::signals2::detail::slot_call_iterator_cache<boost::signals2::deta
     *a1 = 0;
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -6707,11 +6702,11 @@ void *boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr
     {
       while (1)
       {
-        v14 = *(v9 + 32);
+        v14 = *(v9 + 8);
         v15 = v14 < 1;
         if (v14 == 1)
         {
-          v15 = *(v9 + 40) < v7;
+          v15 = *(v9 + 10) < v7;
         }
 
         if (!v15)
@@ -6719,7 +6714,7 @@ void *boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr
           break;
         }
 
-        v9 = *(v9 + 8);
+        v9 = v9[1];
         if (!v9)
         {
           goto LABEL_16;
@@ -6737,10 +6732,10 @@ void *boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr
   {
     do
     {
-      v10 = *(v9 + 32);
+      v10 = *(v9 + 8);
       v11 = v10 == v6;
       v15 = v10 < v6;
-      v12 = 8 * (v10 < v6);
+      v12 = v10 < v6;
       if (v15)
       {
         v13 = v8;
@@ -6762,7 +6757,7 @@ void *boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr
         v8 = v13;
       }
 
-      v9 = *(v9 + v12);
+      v9 = v9[v12];
     }
 
     while (v9);
@@ -7030,11 +7025,11 @@ LABEL_75:
 
 void boost::signals2::detail::slot_call_iterator_t<boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>,void *>,boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>::lock_next_callable(void *a1)
 {
-  v45[3] = *MEMORY[0x29EDCA608];
+  v44[3] = *MEMORY[0x29EDCA608];
   v1 = *a1;
   if (*a1 == a1[3])
   {
-    goto LABEL_59;
+    return;
   }
 
   if (v1 == a1[1])
@@ -7046,7 +7041,7 @@ LABEL_50:
       goto LABEL_53;
     }
 
-    goto LABEL_59;
+    return;
   }
 
   do
@@ -7054,23 +7049,23 @@ LABEL_50:
     boost::signals2::detail::auto_buffer<boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>>>::clear((a1[2] + 8));
     *&v3 = 0xAAAAAAAAAAAAAAAALL;
     *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v43 = v3;
-    v44 = v3;
-    v41 = v3;
     v42 = v3;
-    v39 = v3;
+    v43 = v3;
     v40 = v3;
-    v37 = v3;
+    v41 = v3;
     v38 = v3;
-    v35 = v3;
+    v39 = v3;
     v36 = v3;
-    v33 = v3;
+    v37 = v3;
     v34 = v3;
+    v35 = v3;
+    v32 = v3;
+    v33 = v3;
     v4 = *(*a1 + 16);
-    *&v43 = 10;
-    *(&v43 + 1) = &v33;
-    *&v44 = 0;
-    *(&v44 + 1) = v4;
+    *&v42 = 10;
+    *(&v42 + 1) = &v32;
+    *&v43 = 0;
+    *(&v43 + 1) = v4;
     (*(*v4 + 24))(v4);
     v5 = *a1;
     v6 = *(*a1 + 16);
@@ -7083,8 +7078,8 @@ LABEL_50:
       {
         while (1)
         {
-          memset(v45, 170, 24);
-          boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v9, v45);
+          memset(v44, 170, 24);
+          boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v9, v44);
           if ((*v9 ^ (*v9 >> 31)) == 2)
           {
             if (!(*(**(v9 + 8) + 24))(*(v9 + 8)))
@@ -7099,9 +7094,9 @@ LABEL_50:
             if (v10 && atomic_load_explicit((v10 + 8), memory_order_acquire))
             {
 LABEL_8:
-              boost::signals2::detail::auto_buffer<boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>>>::push_back((v7 + 8), v45);
+              boost::signals2::detail::auto_buffer<boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>,boost::signals2::detail::store_n_objects<10u>,boost::signals2::detail::default_grow_policy,std::allocator<boost::variant<boost::shared_ptr<void>,boost::signals2::detail::foreign_void_shared_ptr>>>::push_back((v7 + 8), v44);
               v11 = 0;
-              if (LODWORD(v45[0]) == SLODWORD(v45[0]) >> 31)
+              if (LODWORD(v44[0]) == SLODWORD(v44[0]) >> 31)
               {
                 goto LABEL_15;
               }
@@ -7113,17 +7108,17 @@ LABEL_8:
           if (*(v6 + 24) == 1)
           {
             *(v6 + 24) = 0;
-            boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v6, &v33);
+            boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v6, &v32);
           }
 
           v11 = 1;
-          if (LODWORD(v45[0]) == SLODWORD(v45[0]) >> 31)
+          if (LODWORD(v44[0]) == SLODWORD(v44[0]) >> 31)
           {
 LABEL_15:
-            v12 = v45[2];
-            if (v45[2])
+            v12 = v44[2];
+            if (v44[2])
             {
-              if (atomic_fetch_add((v45[2] + 8), 0xFFFFFFFF) == 1)
+              if (atomic_fetch_add((v44[2] + 8), 0xFFFFFFFF) == 1)
               {
                 (*(*v12 + 16))(v12);
                 if (atomic_fetch_add(v12 + 3, 0xFFFFFFFF) == 1)
@@ -7137,9 +7132,9 @@ LABEL_15:
           }
 
 LABEL_9:
-          if (v45[1])
+          if (v44[1])
           {
-            (*(*v45[1] + 8))(v45[1]);
+            (*(*v44[1] + 8))(v44[1]);
           }
 
 LABEL_19:
@@ -7187,7 +7182,7 @@ LABEL_32:
       v22 = *(v7 + 296);
       if (v22)
       {
-        boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v22, &v33);
+        boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v22, &v32);
       }
 
       v16 = 0;
@@ -7200,7 +7195,7 @@ LABEL_32:
       v15 = *(v7 + 296);
       if (v15)
       {
-        boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v15, &v33);
+        boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v15, &v32);
       }
 
       *(v7 + 296) = v14;
@@ -7212,13 +7207,13 @@ LABEL_32:
     }
 
 LABEL_33:
-    (*(**(&v44 + 1) + 32))(*(&v44 + 1));
-    v17 = *(&v43 + 1);
-    if (*(&v43 + 1))
+    (*(**(&v43 + 1) + 32))(*(&v43 + 1));
+    v17 = *(&v42 + 1);
+    if (*(&v42 + 1))
     {
-      if (v44 > 0)
+      if (v43 > 0)
       {
-        v20 = *(&v43 + 1) + 16 * v44;
+        v20 = *(&v42 + 1) + 16 * v43;
         do
         {
           v21 = *(v20 - 8);
@@ -7240,9 +7235,9 @@ LABEL_33:
         while (v20 > v17);
       }
 
-      if (v43 >= 0xB)
+      if (v42 >= 0xB)
       {
-        operator delete(*(&v43 + 1));
+        operator delete(*(&v42 + 1));
       }
     }
 
@@ -7252,7 +7247,7 @@ LABEL_33:
     {
       if (v1 != v18)
       {
-        goto LABEL_59;
+        return;
       }
 
       goto LABEL_50;
@@ -7267,78 +7262,75 @@ LABEL_33:
   v23 = a1[3];
   if (v23 == v24)
   {
-    goto LABEL_59;
+    return;
   }
 
 LABEL_53:
   *&v25 = 0xAAAAAAAAAAAAAAAALL;
   *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v41 = v25;
-  v42 = v25;
-  v39 = v25;
   v40 = v25;
-  v37 = v25;
+  v41 = v25;
   v38 = v25;
-  v35 = v25;
+  v39 = v25;
   v36 = v25;
-  v33 = v25;
+  v37 = v25;
   v34 = v25;
+  v35 = v25;
+  v32 = v25;
+  v33 = v25;
   v26 = *(v23 + 16);
-  *&v43 = 10;
-  *(&v43 + 1) = &v33;
-  *&v44 = 0;
-  *(&v44 + 1) = v26;
+  *&v42 = 10;
+  *(&v42 + 1) = &v32;
+  *&v43 = 0;
+  *(&v43 + 1) = v26;
   (*(*v26 + 24))(v26);
   v27 = a1[2];
   a1[3] = a1[1];
   v28 = *(v27 + 296);
   if (v28)
   {
-    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v28, &v33);
+    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(v28, &v32);
   }
 
   *(v27 + 296) = 0;
-  (*(**(&v44 + 1) + 32))(*(&v44 + 1));
-  v29 = *(&v43 + 1);
-  if (*(&v43 + 1))
+  (*(**(&v43 + 1) + 32))(*(&v43 + 1));
+  v29 = *(&v42 + 1);
+  if (*(&v42 + 1))
   {
-    if (v44 > 0)
+    if (v43 > 0)
     {
-      v31 = *(&v43 + 1) + 16 * v44;
+      v30 = *(&v42 + 1) + 16 * v43;
       do
       {
-        v32 = *(v31 - 8);
-        if (v32)
+        v31 = *(v30 - 8);
+        if (v31)
         {
-          if (atomic_fetch_add(v32 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v31 + 2, 0xFFFFFFFF) == 1)
           {
-            (*(*v32 + 16))(v32);
-            if (atomic_fetch_add(v32 + 3, 0xFFFFFFFF) == 1)
+            (*(*v31 + 16))(v31);
+            if (atomic_fetch_add(v31 + 3, 0xFFFFFFFF) == 1)
             {
-              (*(*v32 + 24))(v32);
+              (*(*v31 + 24))(v31);
             }
           }
         }
 
-        v31 -= 16;
+        v30 -= 16;
       }
 
-      while (v31 > v29);
+      while (v30 > v29);
     }
 
-    if (v43 >= 0xB)
+    if (v42 >= 0xB)
     {
-      operator delete(*(&v43 + 1));
+      operator delete(*(&v42 + 1));
     }
   }
-
-LABEL_59:
-  v30 = *MEMORY[0x29EDCA608];
 }
 
-void sub_296DB9340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296DB9340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   boost::signals2::detail::garbage_collecting_lock<boost::signals2::detail::connection_body_base>::~garbage_collecting_lock(va);
   _Unwind_Resume(a1);
 }
@@ -7353,12 +7345,12 @@ void sub_296DB9354(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t boost::signals2::detail::signal_impl<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>,boost::function<void ()(boost::signals2::connection const&,std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>,boost::signals2::mutex>::invocation_janitor::~invocation_janitor(uint64_t result)
+void *boost::signals2::detail::signal_impl<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>,boost::function<void ()(boost::signals2::connection const&,std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>,boost::signals2::mutex>::invocation_janitor::~invocation_janitor(void *result)
 {
   if (*(*result + 292) > *(*result + 288))
   {
     v1 = result;
-    boost::signals2::detail::signal_impl<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>,boost::function<void ()(boost::signals2::connection const&,std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>,boost::signals2::mutex>::force_cleanup_connections(*(result + 8), *(result + 16));
+    boost::signals2::detail::signal_impl<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>,boost::function<void ()(boost::signals2::connection const&,std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>,boost::signals2::mutex>::force_cleanup_connections(result[1], result[2]);
     return v1;
   }
 
@@ -7368,24 +7360,24 @@ uint64_t boost::signals2::detail::signal_impl<void ()(std::map<char const*,std::
 void boost::signals2::detail::signal_impl<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>,boost::function<void ()(boost::signals2::connection const&,std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>,boost::signals2::mutex>::force_cleanup_connections(uint64_t **a1, uint64_t a2)
 {
   v3 = a1;
-  v75 = *MEMORY[0x29EDCA608];
+  v74 = *MEMORY[0x29EDCA608];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v70[8] = v4;
-  v70[9] = v4;
-  v70[6] = v4;
-  v70[7] = v4;
-  v70[4] = v4;
-  v70[5] = v4;
-  v70[2] = v4;
-  v70[3] = v4;
-  v70[0] = v4;
-  v70[1] = v4;
+  v69[8] = v4;
+  v69[9] = v4;
+  v69[6] = v4;
+  v69[7] = v4;
+  v69[4] = v4;
+  v69[5] = v4;
+  v69[2] = v4;
+  v69[3] = v4;
+  v69[0] = v4;
+  v69[1] = v4;
   v5 = a1[3];
-  v71 = 10;
-  __p = v70;
-  v73 = 0;
-  v74 = v5;
+  v70 = 10;
+  __p = v69;
+  v72 = 0;
+  v73 = v5;
   pthread_mutex_lock(v5);
   if (**v3 != a2)
   {
@@ -7398,7 +7390,7 @@ void boost::signals2::detail::signal_impl<void ()(std::map<char const*,std::list
     v7 = operator new(0x20uLL);
     v8 = *v3;
     v9 = **v3;
-    v66 = v7;
+    v65 = v7;
     v10 = operator new(0x40uLL);
     v11 = v10;
     *v10 = v10;
@@ -7434,14 +7426,14 @@ void boost::signals2::detail::signal_impl<void ()(std::map<char const*,std::list
       while (v12 != v9);
     }
 
-    v64 = v3;
-    v65 = v8;
+    v63 = v3;
+    v64 = v8;
     v11[3] = 0;
     v11[4] = 0;
     v17 = v11 + 4;
     v11[5] = 0;
     *(v11 + 48) = *(v9 + 48);
-    v67 = (v11 + 3);
+    v66 = (v11 + 3);
     v11[3] = v11 + 4;
     v18 = *(v9 + 24);
     v19 = (v9 + 32);
@@ -7555,34 +7547,34 @@ LABEL_10:
         while (v30 != v19);
       }
 
-      *v66 = v11;
-      v66[1] = 0;
+      *v65 = v11;
+      v65[1] = 0;
       v52 = operator new(0x18uLL);
       v52[1] = 0x100000001;
       *v52 = &unk_2A1E0C3C8;
       v52[2] = v11;
-      v66[1] = v52;
-      v66[2] = v65[2];
-      v53 = v65[3];
-      v66[3] = v53;
-      v3 = v64;
+      v65[1] = v52;
+      v65[2] = v64[2];
+      v53 = v64[3];
+      v65[3] = v53;
+      v3 = v63;
       if (v53)
       {
         atomic_fetch_add_explicit((v53 + 8), 1u, memory_order_relaxed);
       }
 
-      v68 = v66;
-      v69 = 0;
+      v67 = v65;
+      v68 = 0;
       v54 = operator new(0x18uLL);
       v54[1] = 0x100000001;
       *v54 = &unk_2A1E0C368;
-      v54[2] = v66;
-      v55 = *v64;
-      v56 = v64[1];
-      *v64 = v66;
-      v64[1] = v54;
-      v68 = v55;
-      v69 = v56;
+      v54[2] = v65;
+      v55 = *v63;
+      v56 = v63[1];
+      *v63 = v65;
+      v63[1] = v54;
+      v67 = v55;
+      v68 = v56;
       if (v56)
       {
         if (atomic_fetch_add(v56 + 2, 0xFFFFFFFF) == 1)
@@ -7601,10 +7593,10 @@ LABEL_10:
     while (1)
     {
       v33 = *(v18 + 8);
-      v34 = *v67;
+      v34 = *v66;
       v35 = *v17;
       v36 = v11 + 4;
-      if (*v67 != v17)
+      if (*v66 != v17)
       {
         v37 = *v17;
         v38 = v11 + 4;
@@ -7661,7 +7653,7 @@ LABEL_66:
             *v42 = v47;
             if (*v34)
             {
-              *v67 = *v34;
+              *v66 = *v34;
             }
 
             std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v11[4], v47);
@@ -7822,7 +7814,7 @@ LABEL_69:
 LABEL_88:
   v57 = **v3;
   v58 = *(v57 + 8);
-  v68 = v58;
+  v67 = v58;
   if (v57 != v58)
   {
     do
@@ -7836,16 +7828,16 @@ LABEL_88:
         }
 
         v58 = v58[1];
-        v68 = v58;
+        v67 = v58;
         if (v58 == v57)
         {
           goto LABEL_93;
         }
       }
 
-      v58 = boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>>::erase(v57, (v59 + 64), &v68);
+      v58 = boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>>>::erase(v57, (v59 + 64), &v67);
       v57 = **v3;
-      v68 = v58;
+      v67 = v58;
     }
 
     while (v58 != v57);
@@ -7855,41 +7847,39 @@ LABEL_93:
 
   v3[2] = v58;
 LABEL_95:
-  pthread_mutex_unlock(v74);
+  pthread_mutex_unlock(v73);
   v60 = __p;
   if (__p)
   {
-    if (v73 > 0)
+    if (v72 > 0)
     {
-      v62 = __p + 16 * v73;
+      v61 = __p + 16 * v72;
       do
       {
-        v63 = *(v62 - 1);
-        if (v63)
+        v62 = *(v61 - 1);
+        if (v62)
         {
-          if (atomic_fetch_add(v63 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v62 + 2, 0xFFFFFFFF) == 1)
           {
-            (*(*v63 + 16))(v63);
-            if (atomic_fetch_add(v63 + 3, 0xFFFFFFFF) == 1)
+            (*(*v62 + 16))(v62);
+            if (atomic_fetch_add(v62 + 3, 0xFFFFFFFF) == 1)
             {
-              (*(*v63 + 24))(v63);
+              (*(*v62 + 24))(v62);
             }
           }
         }
 
-        v62 -= 16;
+        v61 -= 16;
       }
 
-      while (v62 > v60);
+      while (v61 > v60);
     }
 
-    if (v71 >= 0xB)
+    if (v70 >= 0xB)
     {
       operator delete(__p);
     }
   }
-
-  v61 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296DB9AEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
@@ -8139,57 +8129,57 @@ void boost::detail::sp_counted_impl_p<boost::signals2::detail::grouped_list<int,
 
 uint64_t boost::signals2::detail::slot_call_iterator_cache<boost::signals2::detail::void_type,boost::signals2::detail::variadic_slot_invoker<boost::signals2::detail::void_type,std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId>>::~slot_call_iterator_cache(uint64_t a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 296);
   if (v2)
   {
     *&v3 = 0xAAAAAAAAAAAAAAAALL;
     *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v9[8] = v3;
-    v9[9] = v3;
-    v9[6] = v3;
-    v9[7] = v3;
-    v9[4] = v3;
-    v9[5] = v3;
-    v9[2] = v3;
-    v9[3] = v3;
-    v9[0] = v3;
-    v9[1] = v3;
-    v10 = 10;
-    __p = v9;
-    v12 = 0;
-    v13 = v2;
+    v8[8] = v3;
+    v8[9] = v3;
+    v8[6] = v3;
+    v8[7] = v3;
+    v8[4] = v3;
+    v8[5] = v3;
+    v8[2] = v3;
+    v8[3] = v3;
+    v8[0] = v3;
+    v8[1] = v3;
+    v9 = 10;
+    __p = v8;
+    v11 = 0;
+    v12 = v2;
     (*(*v2 + 24))(v2);
-    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(*(a1 + 296), v9);
-    (*(*v13 + 32))(v13);
+    boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::detail::connection_body_base>(*(a1 + 296), v8);
+    (*(*v12 + 32))(v12);
     v4 = __p;
     if (__p)
     {
-      if (v12 > 0)
+      if (v11 > 0)
       {
-        v7 = __p + 16 * v12;
+        v6 = __p + 16 * v11;
         do
         {
-          v8 = *(v7 - 1);
-          if (v8)
+          v7 = *(v6 - 1);
+          if (v7)
           {
-            if (atomic_fetch_add(v8 + 2, 0xFFFFFFFF) == 1)
+            if (atomic_fetch_add(v7 + 2, 0xFFFFFFFF) == 1)
             {
-              (*(*v8 + 16))(v8);
-              if (atomic_fetch_add(v8 + 3, 0xFFFFFFFF) == 1)
+              (*(*v7 + 16))(v7);
+              if (atomic_fetch_add(v7 + 3, 0xFFFFFFFF) == 1)
               {
-                (*(*v8 + 24))(v8);
+                (*(*v7 + 24))(v7);
               }
             }
           }
 
-          v7 -= 16;
+          v6 -= 16;
         }
 
-        while (v7 > v4);
+        while (v6 > v4);
       }
 
-      if (v10 >= 0xB)
+      if (v9 >= 0xB)
       {
         operator delete(__p);
       }
@@ -8202,7 +8192,6 @@ uint64_t boost::signals2::detail::slot_call_iterator_cache<boost::signals2::deta
     *a1 = 0;
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -8273,24 +8262,24 @@ uint64_t antenna::ARICommandDriver::create@<X0>(NSObject **a1@<X0>, uint64_t *a2
   return (*(**a3 + 32))();
 }
 
-void sub_296DBA6F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296DBA6F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
-  if (v3)
-  {
-    dispatch_release(v3);
-  }
-
   if (v4)
   {
-    operator delete(v2);
+    dispatch_release(v4);
+  }
+
+  if (v5)
+  {
+    operator delete(v3);
   }
 
   _Unwind_Resume(a1);
 }
 
-antenna::CommandDriver *antenna::ARICommandDriver::ARICommandDriver(antenna::CommandDriver *a1, dispatch_object_t *a2, uint64_t *a3)
+antenna::CommandDriver *antenna::ARICommandDriver::ARICommandDriver(antenna::CommandDriver *a1, NSObject **a2, uint64_t *a3)
 {
   object = *a2;
   if (*a2)
@@ -8299,18 +8288,17 @@ antenna::CommandDriver *antenna::ARICommandDriver::ARICommandDriver(antenna::Com
   }
 
   v5 = a3[1];
-  v9 = *a3;
-  v10 = v5;
+  v9 = v5;
   if (v5)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
   }
 
   antenna::CommandDriver::CommandDriver();
-  if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v10->__on_zero_shared)(v10);
-    std::__shared_weak_count::__release_weak(v10);
+    (v9->__on_zero_shared)(v9);
+    std::__shared_weak_count::__release_weak(v9);
   }
 
   if (object)
@@ -8342,7 +8330,7 @@ antenna::CommandDriver *antenna::ARICommandDriver::ARICommandDriver(antenna::Com
   return a1;
 }
 
-void sub_296DBA848(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, dispatch_object_t a9, char a10, uint64_t a11, dispatch_object_t object)
+void sub_296DBA848(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, dispatch_object_t a9, uint64_t a10, uint64_t a11, dispatch_object_t object)
 {
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a10);
   if (object)
@@ -9534,28 +9522,27 @@ LABEL_178:
   }
 
   *(v106 + 8) = 255;
-  v110 = *(v1 + 128);
-  v111 = operator new(0x20uLL);
-  v111->__shared_owners_ = 0;
-  p_shared_owners = &v111->__shared_owners_;
-  v111->__shared_weak_owners_ = 0;
-  v111->__vftable = &unk_2A1E0C5F8;
-  v111[1].__vftable = v1;
-  v135 = MEMORY[0x29EDCA5F8];
-  v136 = 1174405120;
-  v137 = ___ZN3ice6detail17wrapEventCallbackIZZN7antenna16ARICommandDriver4initEvEUb_E3__0vEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEOT__block_invoke;
-  v138 = &__block_descriptor_tmp_15_2;
-  v139 = v111 + 1;
-  v140 = v111;
-  atomic_fetch_add_explicit(&v111->__shared_owners_, 1uLL, memory_order_relaxed);
+  v110 = operator new(0x20uLL);
+  v110->__shared_owners_ = 0;
+  p_shared_owners = &v110->__shared_owners_;
+  v110->__shared_weak_owners_ = 0;
+  v110->__vftable = &unk_2A1E0C5F8;
+  v110[1].__vftable = v1;
+  v131 = MEMORY[0x29EDCA5F8];
+  v132 = 1174405120;
+  v133 = ___ZN3ice6detail17wrapEventCallbackIZZN7antenna16ARICommandDriver4initEvEUb_E3__0vEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEOT__block_invoke;
+  v134 = &__block_descriptor_tmp_15_2;
+  v135 = v110 + 1;
+  v136 = v110;
+  atomic_fetch_add_explicit(&v110->__shared_owners_, 1uLL, memory_order_relaxed);
   aBlock = MEMORY[0x29EDCA5F8];
-  v142 = 0x40000000;
-  v143 = ___ZN3ice6detail17wrapEventCallbackIvEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEU13block_pointerFT_vE_block_invoke_2;
-  v144 = &unk_29EE5BA88;
-  v145 = &v135;
-  v113 = _Block_copy(&aBlock);
-  v114 = v140;
-  if (!v140 || atomic_fetch_add(&v140->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v138 = 0x40000000;
+  v139 = ___ZN3ice6detail17wrapEventCallbackIvEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEU13block_pointerFT_vE_block_invoke_2;
+  v140 = &unk_29EE5BA88;
+  v141 = &v131;
+  v112 = _Block_copy(&aBlock);
+  v113 = v136;
+  if (!v136 || atomic_fetch_add(&v136->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     if (atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
     {
@@ -9563,9 +9550,9 @@ LABEL_178:
     }
 
 LABEL_187:
-    (v111->__on_zero_shared)(v111);
-    std::__shared_weak_count::__release_weak(v111);
-    if (v113)
+    (v110->__on_zero_shared)(v110);
+    std::__shared_weak_count::__release_weak(v110);
+    if (v112)
     {
       goto LABEL_185;
     }
@@ -9573,68 +9560,67 @@ LABEL_187:
     goto LABEL_188;
   }
 
-  (v114->__on_zero_shared)(v114);
-  std::__shared_weak_count::__release_weak(v114);
+  (v113->__on_zero_shared)(v113);
+  std::__shared_weak_count::__release_weak(v113);
   if (!atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
   {
     goto LABEL_187;
   }
 
 LABEL_184:
-  if (v113)
+  if (v112)
   {
 LABEL_185:
-    v115 = _Block_copy(v113);
+    v114 = _Block_copy(v112);
     goto LABEL_189;
   }
 
 LABEL_188:
-  v115 = 0;
+  v114 = 0;
 LABEL_189:
-  v135 = v115;
+  v131 = v114;
   ice::Client::regEventHandlerInternal();
-  if (v135)
+  if (v131)
   {
-    _Block_release(v135);
+    _Block_release(v131);
   }
 
-  if (v113)
+  if (v112)
   {
-    _Block_release(v113);
+    _Block_release(v112);
   }
 
-  v116 = *(v1 + 128);
-  v117 = operator new(0x20uLL);
-  v117->__shared_owners_ = 0;
-  v118 = &v117->__shared_owners_;
-  v117->__shared_weak_owners_ = 0;
-  v117->__vftable = &unk_2A1E0C678;
-  v117[1].__vftable = v1;
-  v135 = MEMORY[0x29EDCA5F8];
-  v136 = 1174405120;
-  v137 = ___ZN3ice6detail17wrapEventCallbackIZZN7antenna16ARICommandDriver4initEvEUb_E3__1vEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEOT__block_invoke;
-  v138 = &__block_descriptor_tmp_19;
-  v139 = v117 + 1;
-  v140 = v117;
-  atomic_fetch_add_explicit(&v117->__shared_owners_, 1uLL, memory_order_relaxed);
+  v115 = operator new(0x20uLL);
+  v115->__shared_owners_ = 0;
+  v116 = &v115->__shared_owners_;
+  v115->__shared_weak_owners_ = 0;
+  v115->__vftable = &unk_2A1E0C678;
+  v115[1].__vftable = v1;
+  v131 = MEMORY[0x29EDCA5F8];
+  v132 = 1174405120;
+  v133 = ___ZN3ice6detail17wrapEventCallbackIZZN7antenna16ARICommandDriver4initEvEUb_E3__1vEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEOT__block_invoke;
+  v134 = &__block_descriptor_tmp_19;
+  v135 = v115 + 1;
+  v136 = v115;
+  atomic_fetch_add_explicit(&v115->__shared_owners_, 1uLL, memory_order_relaxed);
   aBlock = MEMORY[0x29EDCA5F8];
-  v142 = 0x40000000;
-  v143 = ___ZN3ice6detail17wrapEventCallbackIvEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEU13block_pointerFT_vE_block_invoke_2;
-  v144 = &unk_29EE5BA88;
-  v145 = &v135;
-  v119 = _Block_copy(&aBlock);
-  v120 = v140;
-  if (!v140 || atomic_fetch_add(&v140->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v138 = 0x40000000;
+  v139 = ___ZN3ice6detail17wrapEventCallbackIvEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEU13block_pointerFT_vE_block_invoke_2;
+  v140 = &unk_29EE5BA88;
+  v141 = &v131;
+  v117 = _Block_copy(&aBlock);
+  v118 = v136;
+  if (!v136 || atomic_fetch_add(&v136->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    if (atomic_fetch_add(v118, 0xFFFFFFFFFFFFFFFFLL))
+    if (atomic_fetch_add(v116, 0xFFFFFFFFFFFFFFFFLL))
     {
       goto LABEL_196;
     }
 
 LABEL_199:
-    (v117->__on_zero_shared)(v117);
-    std::__shared_weak_count::__release_weak(v117);
-    if (v119)
+    (v115->__on_zero_shared)(v115);
+    std::__shared_weak_count::__release_weak(v115);
+    if (v117)
     {
       goto LABEL_197;
     }
@@ -9642,68 +9628,67 @@ LABEL_199:
     goto LABEL_200;
   }
 
-  (v120->__on_zero_shared)(v120);
-  std::__shared_weak_count::__release_weak(v120);
-  if (!atomic_fetch_add(v118, 0xFFFFFFFFFFFFFFFFLL))
+  (v118->__on_zero_shared)(v118);
+  std::__shared_weak_count::__release_weak(v118);
+  if (!atomic_fetch_add(v116, 0xFFFFFFFFFFFFFFFFLL))
   {
     goto LABEL_199;
   }
 
 LABEL_196:
-  if (v119)
+  if (v117)
   {
 LABEL_197:
-    v121 = _Block_copy(v119);
+    v119 = _Block_copy(v117);
     goto LABEL_201;
   }
 
 LABEL_200:
-  v121 = 0;
+  v119 = 0;
 LABEL_201:
-  v135 = v121;
+  v131 = v119;
   ice::Client::regEventHandlerInternal();
-  if (v135)
+  if (v131)
   {
-    _Block_release(v135);
+    _Block_release(v131);
   }
 
-  if (v119)
+  if (v117)
   {
-    _Block_release(v119);
+    _Block_release(v117);
   }
 
-  v122 = *(v1 + 128);
-  v123 = operator new(0x20uLL);
-  v123->__shared_owners_ = 0;
-  v124 = &v123->__shared_owners_;
-  v123->__shared_weak_owners_ = 0;
-  v123->__vftable = &unk_2A1E0C6F8;
-  v123[1].__vftable = v1;
-  v135 = MEMORY[0x29EDCA5F8];
-  v136 = 1174405120;
-  v137 = ___ZN3ice6detail17wrapEventCallbackIZZN7antenna16ARICommandDriver4initEvEUb_E3__2vEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEOT__block_invoke;
-  v138 = &__block_descriptor_tmp_21_0;
-  v139 = v123 + 1;
-  v140 = v123;
-  atomic_fetch_add_explicit(&v123->__shared_owners_, 1uLL, memory_order_relaxed);
+  v120 = operator new(0x20uLL);
+  v120->__shared_owners_ = 0;
+  v121 = &v120->__shared_owners_;
+  v120->__shared_weak_owners_ = 0;
+  v120->__vftable = &unk_2A1E0C6F8;
+  v120[1].__vftable = v1;
+  v131 = MEMORY[0x29EDCA5F8];
+  v132 = 1174405120;
+  v133 = ___ZN3ice6detail17wrapEventCallbackIZZN7antenna16ARICommandDriver4initEvEUb_E3__2vEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEOT__block_invoke;
+  v134 = &__block_descriptor_tmp_21_0;
+  v135 = v120 + 1;
+  v136 = v120;
+  atomic_fetch_add_explicit(&v120->__shared_owners_, 1uLL, memory_order_relaxed);
   aBlock = MEMORY[0x29EDCA5F8];
-  v142 = 0x40000000;
-  v143 = ___ZN3ice6detail17wrapEventCallbackIvEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEU13block_pointerFT_vE_block_invoke_2;
-  v144 = &unk_29EE5BA88;
-  v145 = &v135;
-  v125 = _Block_copy(&aBlock);
-  v126 = v140;
-  if (!v140 || atomic_fetch_add(&v140->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v138 = 0x40000000;
+  v139 = ___ZN3ice6detail17wrapEventCallbackIvEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEU13block_pointerFT_vE_block_invoke_2;
+  v140 = &unk_29EE5BA88;
+  v141 = &v131;
+  v122 = _Block_copy(&aBlock);
+  v123 = v136;
+  if (!v136 || atomic_fetch_add(&v136->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    if (atomic_fetch_add(v124, 0xFFFFFFFFFFFFFFFFLL))
+    if (atomic_fetch_add(v121, 0xFFFFFFFFFFFFFFFFLL))
     {
       goto LABEL_208;
     }
 
 LABEL_211:
-    (v123->__on_zero_shared)(v123);
-    std::__shared_weak_count::__release_weak(v123);
-    if (v125)
+    (v120->__on_zero_shared)(v120);
+    std::__shared_weak_count::__release_weak(v120);
+    if (v122)
     {
       goto LABEL_209;
     }
@@ -9711,68 +9696,67 @@ LABEL_211:
     goto LABEL_212;
   }
 
-  (v126->__on_zero_shared)(v126);
-  std::__shared_weak_count::__release_weak(v126);
-  if (!atomic_fetch_add(v124, 0xFFFFFFFFFFFFFFFFLL))
+  (v123->__on_zero_shared)(v123);
+  std::__shared_weak_count::__release_weak(v123);
+  if (!atomic_fetch_add(v121, 0xFFFFFFFFFFFFFFFFLL))
   {
     goto LABEL_211;
   }
 
 LABEL_208:
-  if (v125)
+  if (v122)
   {
 LABEL_209:
-    v127 = _Block_copy(v125);
+    v124 = _Block_copy(v122);
     goto LABEL_213;
   }
 
 LABEL_212:
-  v127 = 0;
+  v124 = 0;
 LABEL_213:
-  v135 = v127;
+  v131 = v124;
   ice::Client::regEventHandlerInternal();
-  if (v135)
+  if (v131)
   {
-    _Block_release(v135);
+    _Block_release(v131);
   }
 
-  if (v125)
+  if (v122)
   {
-    _Block_release(v125);
+    _Block_release(v122);
   }
 
-  v128 = *(v1 + 128);
-  v129 = operator new(0x20uLL);
-  v129->__shared_owners_ = 0;
-  v130 = &v129->__shared_owners_;
-  v129->__shared_weak_owners_ = 0;
-  v129->__vftable = &unk_2A1E0C778;
-  v129[1].__vftable = v1;
-  v135 = MEMORY[0x29EDCA5F8];
-  v136 = 1174405120;
-  v137 = ___ZN3ice6detail17wrapEventCallbackIZZN7antenna16ARICommandDriver4initEvEUb_E3__3vEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEOT__block_invoke;
-  v138 = &__block_descriptor_tmp_23_1;
-  v139 = v129 + 1;
-  v140 = v129;
-  atomic_fetch_add_explicit(&v129->__shared_owners_, 1uLL, memory_order_relaxed);
+  v125 = operator new(0x20uLL);
+  v125->__shared_owners_ = 0;
+  v126 = &v125->__shared_owners_;
+  v125->__shared_weak_owners_ = 0;
+  v125->__vftable = &unk_2A1E0C778;
+  v125[1].__vftable = v1;
+  v131 = MEMORY[0x29EDCA5F8];
+  v132 = 1174405120;
+  v133 = ___ZN3ice6detail17wrapEventCallbackIZZN7antenna16ARICommandDriver4initEvEUb_E3__3vEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEOT__block_invoke;
+  v134 = &__block_descriptor_tmp_23_1;
+  v135 = v125 + 1;
+  v136 = v125;
+  atomic_fetch_add_explicit(&v125->__shared_owners_, 1uLL, memory_order_relaxed);
   aBlock = MEMORY[0x29EDCA5F8];
-  v142 = 0x40000000;
-  v143 = ___ZN3ice6detail17wrapEventCallbackIvEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEU13block_pointerFT_vE_block_invoke_2;
-  v144 = &unk_29EE5BA88;
-  v145 = &v135;
-  v131 = _Block_copy(&aBlock);
-  v132 = v140;
-  if (!v140 || atomic_fetch_add(&v140->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v138 = 0x40000000;
+  v139 = ___ZN3ice6detail17wrapEventCallbackIvEEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEENSt3__117integral_constantIiLi0EEEU13block_pointerFT_vE_block_invoke_2;
+  v140 = &unk_29EE5BA88;
+  v141 = &v131;
+  v127 = _Block_copy(&aBlock);
+  v128 = v136;
+  if (!v136 || atomic_fetch_add(&v136->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    if (atomic_fetch_add(v130, 0xFFFFFFFFFFFFFFFFLL))
+    if (atomic_fetch_add(v126, 0xFFFFFFFFFFFFFFFFLL))
     {
       goto LABEL_220;
     }
 
 LABEL_223:
-    (v129->__on_zero_shared)(v129);
-    std::__shared_weak_count::__release_weak(v129);
-    if (v131)
+    (v125->__on_zero_shared)(v125);
+    std::__shared_weak_count::__release_weak(v125);
+    if (v127)
     {
       goto LABEL_221;
     }
@@ -9780,34 +9764,34 @@ LABEL_223:
     goto LABEL_224;
   }
 
-  (v132->__on_zero_shared)(v132);
-  std::__shared_weak_count::__release_weak(v132);
-  if (!atomic_fetch_add(v130, 0xFFFFFFFFFFFFFFFFLL))
+  (v128->__on_zero_shared)(v128);
+  std::__shared_weak_count::__release_weak(v128);
+  if (!atomic_fetch_add(v126, 0xFFFFFFFFFFFFFFFFLL))
   {
     goto LABEL_223;
   }
 
 LABEL_220:
-  if (v131)
+  if (v127)
   {
 LABEL_221:
-    v133 = _Block_copy(v131);
+    v129 = _Block_copy(v127);
     goto LABEL_225;
   }
 
 LABEL_224:
-  v133 = 0;
+  v129 = 0;
 LABEL_225:
-  v135 = v133;
+  v131 = v129;
   ice::Client::regEventHandlerInternal();
-  if (v135)
-  {
-    _Block_release(v135);
-  }
-
   if (v131)
   {
     _Block_release(v131);
+  }
+
+  if (v127)
+  {
+    _Block_release(v127);
   }
 
   return ice::Client::start(*(v1 + 128));

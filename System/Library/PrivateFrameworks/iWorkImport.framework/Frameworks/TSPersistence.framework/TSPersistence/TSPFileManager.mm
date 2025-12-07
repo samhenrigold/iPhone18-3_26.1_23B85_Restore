@@ -1,10 +1,13 @@
 @interface TSPFileManager
 + (BOOL)copyDataFromReadChannel:(id)channel decryptionInfo:(id)info size:(unint64_t)size toWriteChannel:(id)writeChannel encryptionInfo:(id)encryptionInfo encodedLength:(unint64_t *)length error:(id *)error;
 + (BOOL)linkOrCloneItemAtURL:(id)l toURL:(id)rL canLink:(BOOL)link canClone:(BOOL)clone error:(id *)error;
++ (BOOL)linkOrCloneItemAtURL:(id)l toURL:(id)rL canLink:(BOOL)link error:(id *)error;
 + (BOOL)linkOrCopyItemAtURL:(id)l decryptionInfo:(id)info toURL:(id)rL encryptionInfo:(id)encryptionInfo canLink:(BOOL)link encodedLength:(unint64_t *)length error:(id *)error;
 + (id)errorWithDomain:(id)domain code:(int64_t)code sourcePath:(id)path targetPath:(id)targetPath;
 + (id)ioCompletionQueue;
++ (void)copyDataFromReadChannel:(id)channel decryptionInfo:(id)info size:(unint64_t)size toWriteChannel:(id)writeChannel encryptionInfo:(id)encryptionInfo synchronous:(BOOL)synchronous completion:(id)completion;
 + (void)copyDataFromReadChannel:(id)channel size:(unint64_t)size toWriteChannel:(id)writeChannel synchronous:(BOOL)synchronous completion:(id)completion;
++ (void)transcodeReadChannel:(id)channel decryptionInfo:(id)info size:(unint64_t)size toWriteChannel:(id)writeChannel encryptionInfo:(id)encryptionInfo synchronous:(BOOL)synchronous completion:(id)completion;
 @end
 
 @implementation TSPFileManager
@@ -40,6 +43,19 @@
   v21 = objc_msgSend_errorWithDomain_code_userInfo_(v18, v20, domainCopy, code, v19);
 
   return v21;
+}
+
++ (BOOL)linkOrCloneItemAtURL:(id)l toURL:(id)rL canLink:(BOOL)link error:(id *)error
+{
+  linkCopy = link;
+  v10 = MEMORY[0x277CCAA00];
+  rLCopy = rL;
+  lCopy = l;
+  v15 = objc_msgSend_defaultManager(v10, v13, v14);
+  canCloneItemAtURL_toURL = objc_msgSend_tsu_canCloneItemAtURL_toURL_(v15, v16, lCopy, rLCopy);
+
+  LOBYTE(error) = objc_msgSend_linkOrCloneItemAtURL_toURL_canLink_canClone_error_(self, v18, lCopy, rLCopy, linkCopy, canCloneItemAtURL_toURL, error);
+  return error;
 }
 
 + (BOOL)linkOrCloneItemAtURL:(id)l toURL:(id)rL canLink:(BOOL)link canClone:(BOOL)clone error:(id *)error
@@ -317,6 +333,58 @@ LABEL_28:
 
   _Block_object_dispose(&v30, 8);
   return v21;
+}
+
++ (void)copyDataFromReadChannel:(id)channel decryptionInfo:(id)info size:(unint64_t)size toWriteChannel:(id)writeChannel encryptionInfo:(id)encryptionInfo synchronous:(BOOL)synchronous completion:(id)completion
+{
+  synchronousCopy = synchronous;
+  channelCopy = channel;
+  infoCopy = info;
+  writeChannelCopy = writeChannel;
+  encryptionInfoCopy = encryptionInfo;
+  completionCopy = completion;
+  if (channelCopy && writeChannelCopy)
+  {
+    if (sub_276AB65D0(infoCopy, encryptionInfoCopy))
+    {
+      objc_msgSend_transcodeReadChannel_decryptionInfo_size_toWriteChannel_encryptionInfo_synchronous_completion_(self, v20, channelCopy, infoCopy, size, writeChannelCopy, encryptionInfoCopy, synchronousCopy, completionCopy);
+    }
+
+    else
+    {
+      objc_msgSend_copyDataFromReadChannel_size_toWriteChannel_synchronous_completion_(self, v20, channelCopy, size, writeChannelCopy, synchronousCopy, completionCopy);
+    }
+  }
+
+  else if (completionCopy)
+  {
+    v21 = objc_msgSend_tsp_unknownReadErrorWithUserInfo_(MEMORY[0x277CCA9B8], v18, 0);
+    completionCopy[2](completionCopy, 0, v21);
+  }
+}
+
++ (void)transcodeReadChannel:(id)channel decryptionInfo:(id)info size:(unint64_t)size toWriteChannel:(id)writeChannel encryptionInfo:(id)encryptionInfo synchronous:(BOOL)synchronous completion:(id)completion
+{
+  synchronousCopy = synchronous;
+  writeChannelCopy = writeChannel;
+  completionCopy = completion;
+  encryptionInfoCopy = encryptionInfo;
+  infoCopy = info;
+  channelCopy = channel;
+  v19 = [TSPCryptoTranscodeReadChannel alloc];
+  Channel_decryptionInfo_encryptionInfo = objc_msgSend_initWithReadChannel_decryptionInfo_encryptionInfo_(v19, v20, channelCopy, infoCopy, encryptionInfoCopy);
+
+  if (Channel_decryptionInfo_encryptionInfo)
+  {
+    objc_msgSend_copyDataFromReadChannel_size_toWriteChannel_synchronous_completion_(self, v22, Channel_decryptionInfo_encryptionInfo, size, writeChannelCopy, synchronousCopy, completionCopy);
+    objc_msgSend_close(Channel_decryptionInfo_encryptionInfo, v23, v24);
+  }
+
+  else if (completionCopy)
+  {
+    v25 = objc_msgSend_tsp_unknownReadErrorWithUserInfo_(MEMORY[0x277CCA9B8], v22, 0);
+    completionCopy[2](completionCopy, 0, v25);
+  }
 }
 
 + (id)ioCompletionQueue

@@ -10,19 +10,18 @@
 
 - (MSConversationFlagChangeTriageAction)initWithReferenceMessage:(id)message origin:(int64_t)origin actor:(int64_t)actor delegate:(id)delegate reason:(int64_t)reason
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   delegateCopy = delegate;
   v14 = [MSMessageListItemSelection alloc];
-  v21[0] = messageCopy;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = messageCopy;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   v16 = [(MSMessageListItemSelection *)v14 initWithMessageListItems:v15];
 
-  v20.receiver = self;
-  v20.super_class = MSConversationFlagChangeTriageAction;
-  v17 = [(MSFlagChangeTriageAction *)&v20 initWithMessageListSelection:v16 origin:origin actor:actor delegate:delegateCopy reason:reason];
+  v19.receiver = self;
+  v19.super_class = MSConversationFlagChangeTriageAction;
+  v17 = [(MSFlagChangeTriageAction *)&v19 initWithMessageListSelection:v16 origin:origin actor:actor delegate:delegateCopy reason:reason];
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

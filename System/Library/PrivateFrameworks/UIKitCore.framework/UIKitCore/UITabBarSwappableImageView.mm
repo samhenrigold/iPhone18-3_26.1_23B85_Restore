@@ -21,7 +21,7 @@
 
     else
     {
-      v3 = &OBJC_IVAR___UITabBarSwappableImageView__value;
+      v3 = OBJC_IVAR___UITabBarSwappableImageView__value;
     }
 
     v4 = v3[2];
@@ -29,7 +29,7 @@
 
   else
   {
-    v3 = &OBJC_IVAR___UITabBarSwappableImageView__value;
+    v3 = OBJC_IVAR___UITabBarSwappableImageView__value;
     if (!self->_showAlternate)
     {
 LABEL_9:

@@ -3,6 +3,7 @@
 - (BOOL)isPlaying;
 - (BOOL)playInEvironments:(int64_t)evironments completion:(id)completion;
 - (SBUISound)initWithFeedbackEventType:(int64_t)type;
+- (SBUISound)initWithSystemSoundID:(unsigned int)d behavior:(unint64_t)behavior vibrationPattern:(id)pattern;
 - (SBUISound)initWithSystemSoundPath:(id)path behavior:(unint64_t)behavior vibrationPattern:(id)pattern;
 - (SBUISound)initWithToneAlert:(id)alert;
 - (SBUISound)initWithToneAlert:(int64_t)alert accountIdentifier:(id)identifier toneIdentifier:(id)toneIdentifier vibrationIdentifier:(id)vibrationIdentifier;
@@ -14,6 +15,25 @@
 @end
 
 @implementation SBUISound
+
+- (SBUISound)initWithSystemSoundID:(unsigned int)d behavior:(unint64_t)behavior vibrationPattern:(id)pattern
+{
+  v6 = *&d;
+  patternCopy = pattern;
+  v12.receiver = self;
+  v12.super_class = SBUISound;
+  v9 = [(SBUISound *)&v12 init];
+  v10 = v9;
+  if (v9)
+  {
+    [(SBUISound *)v9 setSoundType:0];
+    [(SBUISound *)v10 setSystemSoundID:v6];
+    [(SBUISound *)v10 setSoundBehavior:behavior];
+    [(SBUISound *)v10 setVibrationPattern:patternCopy];
+  }
+
+  return v10;
+}
 
 - (SBUISound)initWithSystemSoundPath:(id)path behavior:(unint64_t)behavior vibrationPattern:(id)pattern
 {

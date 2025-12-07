@@ -542,22 +542,22 @@ LABEL_11:
   {
     v26 = objc_alloc(MEMORY[0x1E695DF70]);
     v4 = [CKSearchTokenFilter alloc];
-    v29 = CKFrameworkBundle();
+    v29 = CKFrameworkBundle(v4);
     v28 = [v29 localizedStringForKey:@"SEARCH_LINK_TOKEN" value:&stru_1F04268F8 table:@"ChatKit"];
     v27 = [(CKSearchTokenFilter *)v4 initWithContentType:2 itemIdentifier:v28];
     v30[0] = v27;
     v5 = [CKSearchTokenFilter alloc];
-    v25 = CKFrameworkBundle();
+    v25 = CKFrameworkBundle(v5);
     v24 = [v25 localizedStringForKey:@"SEARCH_PHOTO_TOKEN" value:&stru_1F04268F8 table:@"ChatKit"];
     v23 = [(CKSearchTokenFilter *)v5 initWithContentType:3 itemIdentifier:v24];
     v30[1] = v23;
     v6 = [CKSearchTokenFilter alloc];
-    v7 = CKFrameworkBundle();
+    v7 = CKFrameworkBundle(v6);
     v8 = [v7 localizedStringForKey:@"SEARCH_LOCATION_TOKEN" value:&stru_1F04268F8 table:@"ChatKit"];
     v9 = [(CKSearchTokenFilter *)v6 initWithContentType:4 itemIdentifier:v8];
     v30[2] = v9;
     v10 = [CKSearchTokenFilter alloc];
-    v11 = CKFrameworkBundle();
+    v11 = CKFrameworkBundle(v10);
     v12 = [v11 localizedStringForKey:@"SEARCH_DOCUMENT_TOKEN" value:&stru_1F04268F8 table:@"ChatKit"];
     v13 = [(CKSearchTokenFilter *)v10 initWithContentType:6 itemIdentifier:v12];
     v30[3] = v13;
@@ -567,7 +567,7 @@ LABEL_11:
     if (+[CKSpotlightQueryUtilities shouldDisplayWalletSearchController])
     {
       v16 = [CKSearchTokenFilter alloc];
-      v17 = CKFrameworkBundle();
+      v17 = CKFrameworkBundle(v16);
       v18 = [v17 localizedStringForKey:@"SEARCH_WALLET_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
       v19 = [(CKSearchTokenFilter *)v16 initWithContentType:5 itemIdentifier:v18];
       [v15 addObject:v19];

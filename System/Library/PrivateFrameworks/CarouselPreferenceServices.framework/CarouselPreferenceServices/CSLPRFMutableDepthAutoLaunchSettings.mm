@@ -25,9 +25,7 @@
 
 - (void)setBundleID:(id)d
 {
-  v4 = [d copy];
-  bundleID = self->super._bundleID;
-  self->super._bundleID = v4;
+  self->super._bundleID = [d copy];
 
   MEMORY[0x2821F96F8]();
 }

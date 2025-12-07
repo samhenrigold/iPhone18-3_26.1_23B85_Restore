@@ -36,12 +36,12 @@
 
 - (PTCVMNetwork)initWithMetalContext:(id)context colorSize:(id *)size depthPrioritization:(int64_t)prioritization sharedResources:(id)resources
 {
-  v113[2] = *MEMORY[0x277D85DE8];
+  v120[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   resourcesCopy = resources;
-  v96.receiver = self;
-  v96.super_class = PTCVMNetwork;
-  v13 = [(PTCVMNetwork *)&v96 init];
+  v103.receiver = self;
+  v103.super_class = PTCVMNetwork;
+  v13 = [(PTCVMNetwork *)&v103 init];
   if (v13)
   {
     v14 = v13;
@@ -49,22 +49,23 @@
     *&buf[16] = size->var2;
     v15 = [(PTCVMNetwork *)v13 getLayoutFromSize:buf];
     kdebug_trace();
-    v95.receiver = v14;
-    v95.super_class = PTCVMNetwork;
-    v16 = [(PTCVMNetwork *)&v95 init];
-    if ((MGGetBoolAnswer() & 1) == 0)
+    v102.receiver = v14;
+    v102.super_class = PTCVMNetwork;
+    v16 = [(PTCVMNetwork *)&v102 init];
+    v17 = MGGetBoolAnswer();
+    if ((v17 & 1) == 0)
     {
-      v24 = _PTLogSystem();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v26 = _PTLogSystem(v17);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         [PTCVMNetwork initWithMetalContext:colorSize:depthPrioritization:sharedResources:];
       }
 
-      v25 = 0;
+      v27 = 0;
       goto LABEL_65;
     }
 
-    PTKTraceInit();
+    PTKTraceInit(v17, v18);
     objc_storeStrong(&v16->_metalContext, context);
     v16->_depthPrioritization = prioritization;
     effectUtil = [resourcesCopy effectUtil];
@@ -82,50 +83,50 @@
     {
       effectNetworkConfig2 = 0;
       inferenceDescriptor = 0;
-      v24 = 0;
+      v26 = 0;
     }
 
     else
     {
       effectNetworkConfig2 = objc_opt_new();
-      v26 = [objc_alloc(MEMORY[0x277CED000]) initWithInputPrioritization:prioritization andParameters:effectNetworkConfig2];
-      if (!v26)
+      v28 = [objc_alloc(MEMORY[0x277CED000]) initWithInputPrioritization:prioritization andParameters:effectNetworkConfig2];
+      if (!v28)
       {
-        inferenceDescriptor = _PTLogSystem();
+        inferenceDescriptor = _PTLogSystem(0);
         if (os_log_type_enabled(inferenceDescriptor, OS_LOG_TYPE_ERROR))
         {
           [PTCVMNetwork initWithMetalContext:colorSize:depthPrioritization:sharedResources:];
         }
 
-        v42 = 0;
-        v24 = 0;
-        v25 = 0;
+        v45 = 0;
+        v26 = 0;
+        v27 = 0;
         goto LABEL_64;
       }
 
-      v24 = v26;
-      inferenceDescriptor = [v26 inferenceDescriptor];
+      v26 = v28;
+      inferenceDescriptor = [v28 inferenceDescriptor];
     }
 
     var1 = size->var1;
     var0 = size->var0;
-    v27 = [inferenceDescriptor configurationNameForLayout:v15];
+    v29 = [inferenceDescriptor configurationNameForLayout:v15];
     networkURL = [inferenceDescriptor networkURL];
     absoluteString = [networkURL absoluteString];
 
     if (!absoluteString)
     {
-      name2 = _PTLogSystem();
+      name2 = _PTLogSystem(v32);
       if (os_log_type_enabled(name2, OS_LOG_TYPE_ERROR))
       {
         [PTCVMNetwork initWithMetalContext:colorSize:depthPrioritization:sharedResources:];
       }
 
-      v25 = 0;
+      v27 = 0;
       goto LABEL_63;
     }
 
-    v93 = effectNetworkConfig2;
+    v100 = effectNetworkConfig2;
     colorInput = [inferenceDescriptor colorInput];
     name = [colorInput name];
     inRGBAName = v16->_inRGBAName;
@@ -138,48 +139,48 @@
     name3 = [disparityOutput name];
 
     effectNetworkConfig = [resourcesCopy effectNetworkConfig];
-    if (v27 == effectNetworkConfig)
+    if (v29 == effectNetworkConfig)
     {
-      v84 = Bool;
-      v36 = inferenceDescriptor;
-      v37 = v24;
-      v38 = contextCopy;
-      v39 = v27;
+      v91 = Bool;
+      v39 = inferenceDescriptor;
+      v40 = v26;
+      v41 = contextCopy;
+      v42 = v29;
     }
 
     else
     {
       effectNetworkConfig2 = [resourcesCopy effectNetworkConfig];
-      if (![v27 isEqualToString:effectNetworkConfig2])
+      if (![v29 isEqualToString:effectNetworkConfig2])
       {
-        v87 = 0;
+        v94 = 0;
         goto LABEL_26;
       }
 
-      v84 = Bool;
-      v36 = inferenceDescriptor;
-      v37 = v24;
-      v38 = contextCopy;
-      v39 = v27;
+      v91 = Bool;
+      v39 = inferenceDescriptor;
+      v40 = v26;
+      v41 = contextCopy;
+      v42 = v29;
     }
 
     effectNetworkPath = [resourcesCopy effectNetworkPath];
-    v87 = [absoluteString isEqualToString:effectNetworkPath];
+    v94 = [absoluteString isEqualToString:effectNetworkPath];
 
-    v27 = v39;
-    v41 = v39 == effectNetworkConfig;
-    contextCopy = v38;
-    v24 = v37;
-    inferenceDescriptor = v36;
-    Bool = v84;
-    if (v41)
+    v29 = v42;
+    v44 = v42 == effectNetworkConfig;
+    contextCopy = v41;
+    v26 = v40;
+    inferenceDescriptor = v39;
+    Bool = v91;
+    if (v44)
     {
 LABEL_27:
 
-      effectNetworkConfig2 = v93;
+      effectNetworkConfig2 = v100;
       if ((Bool & 1) == 0)
       {
-        if (v87)
+        if (v94)
         {
           effectNetwork = [resourcesCopy effectNetwork];
           executor = v16->_executor;
@@ -188,40 +189,40 @@ LABEL_27:
 
         else
         {
-          v45 = [PTEspressoGenericExecutor alloc];
+          v48 = [PTEspressoGenericExecutor alloc];
           metalContext = v16->_metalContext;
-          v82 = v45;
-          v79 = [MEMORY[0x277CBEBC0] fileURLWithPath:absoluteString];
-          v113[0] = v16->_inRGBAName;
-          v113[1] = name2;
-          v78 = [MEMORY[0x277CBEA60] arrayWithObjects:v113 count:2];
-          v112 = name3;
-          [MEMORY[0x277CBEA60] arrayWithObjects:&v112 count:1];
-          v85 = contextCopy;
-          v46 = absoluteString;
-          v48 = v47 = v27;
-          v111[0] = name2;
-          v111[1] = name3;
-          v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v111 count:2];
-          v50 = [(PTEspressoGenericExecutor *)v82 initWithMetalContext:metalContext url:v79 inputNames:v78 outputNames:v48 tensorSwapNames:v49 reshapeNetworkSize:0 configuration:v47];
-          v51 = v16->_executor;
-          v16->_executor = v50;
+          v89 = v48;
+          v86 = [MEMORY[0x277CBEBC0] fileURLWithPath:absoluteString];
+          v120[0] = v16->_inRGBAName;
+          v120[1] = name2;
+          v85 = [MEMORY[0x277CBEA60] arrayWithObjects:v120 count:2];
+          v119 = name3;
+          [MEMORY[0x277CBEA60] arrayWithObjects:&v119 count:1];
+          v92 = contextCopy;
+          v49 = absoluteString;
+          v51 = v50 = v29;
+          v118[0] = name2;
+          v118[1] = name3;
+          v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v118 count:2];
+          v53 = [(PTEspressoGenericExecutor *)v89 initWithMetalContext:metalContext url:v86 inputNames:v85 outputNames:v51 tensorSwapNames:v52 reshapeNetworkSize:0 configuration:v50];
+          v54 = v16->_executor;
+          v16->_executor = v53;
 
-          effectNetworkConfig2 = v93;
-          v27 = v47;
-          absoluteString = v46;
-          contextCopy = v85;
+          effectNetworkConfig2 = v100;
+          v29 = v50;
+          absoluteString = v49;
+          contextCopy = v92;
 
           [resourcesCopy setEffectNetwork:v16->_executor];
-          [resourcesCopy setEffectNetworkConfig:v27];
+          [resourcesCopy setEffectNetworkConfig:v29];
           [resourcesCopy setEffectNetworkPath:absoluteString];
         }
       }
 
-      v52 = v16->_executor;
-      if (!v52)
+      v55 = v16->_executor;
+      if (!v55)
       {
-        networkVersion = _PTLogSystem();
+        networkVersion = _PTLogSystem(0);
         if (os_log_type_enabled(networkVersion, OS_LOG_TYPE_ERROR))
         {
           [PTCVMNetwork initWithMetalContext:colorSize:depthPrioritization:sharedResources:];
@@ -230,10 +231,10 @@ LABEL_27:
         goto LABEL_52;
       }
 
-      networkVersion = [(PTEspressoGenericExecutor *)v52 networkVersion];
+      networkVersion = [(PTEspressoGenericExecutor *)v55 networkVersion];
       if ([networkVersion isEqualToString:@"bkkidb647v_iteration_105001"])
       {
-        v54 = 4;
+        v57 = 4;
       }
 
       else
@@ -244,68 +245,68 @@ LABEL_27:
           goto LABEL_40;
         }
 
-        v54 = 7;
+        v57 = 7;
       }
 
-      v16->_networkVersionID = v54;
+      v16->_networkVersionID = v57;
 LABEL_40:
-      v55 = [(PTEspressoGenericExecutor *)v16->_executor getInputResourceWithName:v16->_inRGBAName];
+      v58 = [(PTEspressoGenericExecutor *)v16->_executor getInputResourceWithName:v16->_inRGBAName];
       inRGBA = v16->_inRGBA;
-      v16->_inRGBA = v55;
+      v16->_inRGBA = v58;
 
       if (v16->_inRGBA)
       {
-        v57 = [(PTEspressoGenericExecutor *)v16->_executor getInputResourceWithName:name2];
+        v61 = [(PTEspressoGenericExecutor *)v16->_executor getInputResourceWithName:name2];
         disparityInOut = v16->_disparityInOut;
         inDispIndex = v16->_inDispIndex;
-        v60 = v16->_disparityInOut[inDispIndex];
-        v16->_disparityInOut[inDispIndex] = v57;
+        v64 = v16->_disparityInOut[inDispIndex];
+        v16->_disparityInOut[inDispIndex] = v61;
 
         if (v16->_disparityInOut[v16->_inDispIndex])
         {
-          v61 = [(PTEspressoGenericExecutor *)v16->_executor getOutputResourceWithName:name3];
+          v66 = [(PTEspressoGenericExecutor *)v16->_executor getOutputResourceWithName:name3];
           outDispIndex = v16->_outDispIndex;
-          v63 = disparityInOut[outDispIndex];
-          disparityInOut[outDispIndex] = v61;
+          v68 = disparityInOut[outDispIndex];
+          disparityInOut[outDispIndex] = v66;
 
           if (disparityInOut[v16->_outDispIndex])
           {
-            v77 = v27;
+            v84 = v29;
             if (var0 >= var1)
             {
               goto LABEL_46;
             }
 
             textureUtil = [(PTMetalContext *)v16->_metalContext textureUtil];
-            v65 = [textureUtil createWithWidth:-[MTLTexture height](v16->_inRGBA height:"height") pixelFormat:-[MTLTexture width](v16->_inRGBA, "width"), -[MTLTexture pixelFormat](v16->_inRGBA, "pixelFormat")];
+            v71 = [textureUtil createWithWidth:-[MTLTexture height](v16->_inRGBA height:"height") pixelFormat:-[MTLTexture width](v16->_inRGBA, "width"), -[MTLTexture pixelFormat](v16->_inRGBA, "pixelFormat")];
             inRGBARotated = v16->_inRGBARotated;
-            v16->_inRGBARotated = v65;
+            v16->_inRGBARotated = v71;
 
             if (!v16->_inRGBARotated)
             {
-              v73 = _PTLogSystem();
-              if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+              v80 = _PTLogSystem(v73);
+              if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
               {
                 [PTCVMNetwork initWithMetalContext:colorSize:depthPrioritization:sharedResources:];
               }
 
-              v25 = 0;
+              v27 = 0;
               goto LABEL_61;
             }
 
             textureUtil2 = [(PTMetalContext *)v16->_metalContext textureUtil];
-            v68 = [textureUtil2 createWithWidth:-[MTLTexture height](v16->_disparityInOut[1] height:"height") pixelFormat:-[MTLTexture width](v16->_disparityInOut[1], "width"), -[MTLTexture pixelFormat](v16->_disparityInOut[1], "pixelFormat")];
+            v75 = [textureUtil2 createWithWidth:-[MTLTexture height](v16->_disparityInOut[1] height:"height") pixelFormat:-[MTLTexture width](v16->_disparityInOut[1], "width"), -[MTLTexture pixelFormat](v16->_disparityInOut[1], "pixelFormat")];
             outDisparityRotated = v16->_outDisparityRotated;
-            v16->_outDisparityRotated = v68;
+            v16->_outDisparityRotated = v75;
 
-            v27 = v77;
+            v29 = v84;
             if (v16->_outDisparityRotated)
             {
 LABEL_46:
-              v70 = _PTLogSystem();
-              if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
+              v77 = _PTLogSystem(v69);
+              if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
               {
-                v91 = v16->_inRGBAName;
+                v98 = v16->_inRGBAName;
                 width = [(MTLTexture *)v16->_inRGBA width];
                 height = [(MTLTexture *)v16->_inRGBA height];
                 width2 = [(MTLTexture *)v16->_disparityInOut[1] width];
@@ -313,24 +314,24 @@ LABEL_46:
                 width3 = [(MTLTexture *)v16->_disparityInOut[0] width];
                 height3 = [(MTLTexture *)v16->_disparityInOut[0] height];
                 *buf = 138414338;
-                *&buf[4] = v91;
+                *&buf[4] = v98;
                 *&buf[12] = 2048;
                 *&buf[14] = width;
                 *&buf[22] = 2048;
-                v98 = height;
-                v99 = 2112;
-                v100 = name3;
-                v101 = 2048;
-                v102 = width2;
-                v103 = 2048;
-                v104 = height2;
-                v105 = 2112;
-                v106 = name2;
-                v107 = 2048;
-                v108 = width3;
-                v109 = 2048;
-                v110 = height3;
-                _os_log_debug_impl(&dword_2243FB000, v70, OS_LOG_TYPE_DEBUG, "Init disparity network: %@ (%lux%lu) %@ (%lux%lu) %@ (%lux%lu)", buf, 0x5Cu);
+                v105 = height;
+                v106 = 2112;
+                v107 = name3;
+                v108 = 2048;
+                v109 = width2;
+                v110 = 2048;
+                v111 = height2;
+                v112 = 2112;
+                v113 = name2;
+                v114 = 2048;
+                v115 = width3;
+                v116 = 2048;
+                v117 = height3;
+                _os_log_debug_impl(&dword_2243FB000, v77, OS_LOG_TYPE_DEBUG, "Init disparity network: %@ (%lux%lu) %@ (%lux%lu) %@ (%lux%lu)", buf, 0x5Cu);
               }
 
               [(PTCVMNetwork *)v16 reset];
@@ -338,15 +339,15 @@ LABEL_46:
               [(MTLTexture *)disparityInOut[v16->_outDispIndex] height];
               [(MTLTexture *)disparityInOut[v16->_outDispIndex] pixelFormat];
               kdebug_trace();
-              v25 = v16;
+              v27 = v16;
 LABEL_61:
-              effectNetworkConfig2 = v93;
-              v27 = v77;
+              effectNetworkConfig2 = v100;
+              v29 = v84;
               goto LABEL_62;
             }
 
-            v72 = _PTLogSystem();
-            if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+            v79 = _PTLogSystem(v69);
+            if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
             {
               [PTCVMNetwork initWithMetalContext:colorSize:depthPrioritization:sharedResources:];
             }
@@ -354,8 +355,8 @@ LABEL_61:
 
           else
           {
-            v72 = _PTLogSystem();
-            if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+            v79 = _PTLogSystem(v69);
+            if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
             {
               [PTCVMNetwork initWithMetalContext:colorSize:depthPrioritization:sharedResources:];
             }
@@ -364,33 +365,33 @@ LABEL_61:
 
         else
         {
-          v72 = _PTLogSystem();
-          if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+          v79 = _PTLogSystem(v65);
+          if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
           {
             [PTCVMNetwork initWithMetalContext:colorSize:depthPrioritization:sharedResources:];
           }
         }
 
-        v25 = 0;
-        effectNetworkConfig2 = v93;
+        v27 = 0;
+        effectNetworkConfig2 = v100;
 LABEL_62:
 
 LABEL_63:
-        v42 = inferenceDescriptor;
+        v45 = inferenceDescriptor;
 LABEL_64:
 
 LABEL_65:
         goto LABEL_66;
       }
 
-      v71 = _PTLogSystem();
-      if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+      v78 = _PTLogSystem(v60);
+      if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
       {
         [PTCVMNetwork initWithMetalContext:colorSize:depthPrioritization:sharedResources:];
       }
 
 LABEL_52:
-      v25 = 0;
+      v27 = 0;
       goto LABEL_62;
     }
 
@@ -399,10 +400,10 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  v25 = 0;
+  v27 = 0;
 LABEL_66:
 
-  return v25;
+  return v27;
 }
 
 - (void)bindColorInputPixelBuffer:(__CVBuffer *)buffer
@@ -410,8 +411,8 @@ LABEL_66:
   self->_inputPixelBuffer = buffer;
   if (buffer)
   {
-    device = [(PTMetalContext *)self->_metalContext device];
-    v5 = [PTPixelBufferUtil createTextureFromPixelBuffer:buffer device:device];
+    v7 = objc_msgSend_device(self->_metalContext, a2);
+    v5 = [PTPixelBufferUtil createTextureFromPixelBuffer:buffer device:v7];
     inRGBA = self->_inRGBA;
     self->_inRGBA = v5;
   }
@@ -456,55 +457,59 @@ LABEL_66:
 - (unsigned)executeNetwork:(int64_t)network
 {
   self->_frameIndex = network;
-  if (self->_inputPixelBuffer && [(PTEspressoGenericExecutor *)self->_executor bindInputResourceWithName:self->_inRGBAName to:?])
+  if (self->_inputPixelBuffer)
   {
-    v4 = _PTLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = [(PTEspressoGenericExecutor *)self->_executor bindInputResourceWithName:self->_inRGBAName to:?];
+    if (v4)
     {
-      [PTCVMNetwork executeNetwork:];
+      v5 = _PTLogSystem(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        [PTCVMNetwork executeNetwork:];
+      }
     }
   }
 
   [(PTEspressoGenericExecutor *)self->_executor tensorSwap:self->_frameId];
   frameId = self->_frameId;
-  v6 = frameId & 1;
+  v7 = frameId & 1;
   if (frameId < 0)
   {
-    v6 = -v6;
+    v7 = -v7;
   }
 
-  v7 = __OFADD__(frameId, 1);
-  v8 = frameId + 1;
-  v9 = v8 & 1;
-  if (v8 < 0 != v7)
+  v8 = __OFADD__(frameId, 1);
+  v9 = frameId + 1;
+  v10 = v9 & 1;
+  if (v9 < 0 != v8)
   {
-    v9 = -v9;
+    v10 = -v10;
   }
 
-  self->_outDispIndex = v9;
-  self->_inDispIndex = v6;
-  self->_frameId = v8;
-  v10 = PTDefaultsGetDictionary();
-  [(PTCVMNetwork *)self dumpNetworkInputWithDefaults:v10];
+  self->_outDispIndex = v10;
+  self->_inDispIndex = v7;
+  self->_frameId = v9;
+  v11 = PTDefaultsGetDictionary();
+  [(PTCVMNetwork *)self dumpNetworkInputWithDefaults:v11];
   [(MTLTexture *)self->_disparityInOut[self->_outDispIndex] width];
   [(MTLTexture *)self->_disparityInOut[self->_outDispIndex] height];
   kdebug_trace();
   executor = self->_executor;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __31__PTCVMNetwork_executeNetwork___block_invoke;
-  v19[3] = &unk_278522E90;
-  v19[4] = self;
-  v12 = [(PTEspressoGenericExecutor *)executor executeAsync:v19];
-  [(PTCVMNetwork *)self dumpNetworkOutputWithDefaults:v10];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __31__PTCVMNetwork_executeNetwork___block_invoke;
+  v21[3] = &unk_278522E90;
+  v21[4] = self;
+  v13 = [(PTEspressoGenericExecutor *)executor executeAsync:v21];
+  [(PTCVMNetwork *)self dumpNetworkOutputWithDefaults:v11];
   if (self->_outDisparityRotated)
   {
     commandBuffer = [(PTMetalContext *)self->_metalContext commandBuffer];
 
     if (!commandBuffer)
     {
-      v14 = _PTLogSystem();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = _PTLogSystem(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [PTEffectPersonSegmentation runPersonSegmentationToOutPersonSegmentationMatteBuffer:inColor:transform:inSegmentationRGBA:inSegmentationRGBATexture:outUpscaledSegmentation:];
       }
@@ -520,7 +525,7 @@ LABEL_66:
     [(PTMetalContext *)self->_metalContext commit];
   }
 
-  return v12;
+  return v13;
 }
 
 - (void)reset
@@ -530,8 +535,8 @@ LABEL_66:
 
   if (!commandBuffer)
   {
-    v5 = _PTLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _PTLogSystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [PTEffectPersonSegmentation runPersonSegmentationToOutPersonSegmentationMatteBuffer:inColor:transform:inSegmentationRGBA:inSegmentationRGBATexture:outUpscaledSegmentation:];
     }

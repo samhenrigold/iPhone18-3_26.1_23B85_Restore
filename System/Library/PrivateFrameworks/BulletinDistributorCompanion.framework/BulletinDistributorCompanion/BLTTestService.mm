@@ -2,6 +2,7 @@
 + (id)sharedTestService;
 - (BLTTestService)init;
 - (void)_connectIfNecessary;
+- (void)addBulletin:(id)bulletin forFeed:(unint64_t)feed playLightsAndSirens:(BOOL)sirens attachment:(id)attachment attachmentType:(int64_t)type alwaysSend:(BOOL)send completion:(id)completion;
 - (void)clearSectionInfoSentCacheWithCompletion:(id)completion;
 - (void)dealloc;
 - (void)disableStandaloneTestModeWithCompletion:(id)completion;
@@ -11,6 +12,7 @@
 - (void)originalSettingsWithCompletion:(id)completion;
 - (void)overriddenSettingsWithCompletion:(id)completion;
 - (void)removeSectionID:(id)d completion:(id)completion;
+- (void)sendAllSectionInfoWithSpool:(BOOL)spool completion:(id)completion;
 - (void)sendSectionInfoWithSectionID:(id)d completion:(id)completion;
 - (void)settingOverridesWithCompletion:(id)completion;
 - (void)simulateAnalytics:(id)analytics completion:(id)completion;
@@ -39,9 +41,11 @@
 
 uint64_t __35__BLTTestService_sharedTestService__block_invoke(uint64_t a1)
 {
-  sharedTestService_sharedService = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedTestService_sharedService;
+  sharedTestService_sharedService = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (BLTTestService)init
@@ -67,6 +71,24 @@ uint64_t __35__BLTTestService_sharedTestService__block_invoke(uint64_t a1)
   v4.receiver = self;
   v4.super_class = BLTTestService;
   [(BLTTestService *)&v4 dealloc];
+}
+
+- (void)addBulletin:(id)bulletin forFeed:(unint64_t)feed playLightsAndSirens:(BOOL)sirens attachment:(id)attachment attachmentType:(int64_t)type alwaysSend:(BOOL)send completion:(id)completion
+{
+  sendCopy = send;
+  sirensCopy = sirens;
+  completionCopy = completion;
+  connection = self->_connection;
+  attachmentCopy = attachment;
+  bulletinCopy = bulletin;
+  remoteObjectProxy = [(NSXPCConnection *)connection remoteObjectProxy];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __106__BLTTestService_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_completion___block_invoke;
+  v22[3] = &unk_278D320A8;
+  v23 = completionCopy;
+  v21 = completionCopy;
+  [remoteObjectProxy addBulletin:bulletinCopy forFeed:feed playLightsAndSirens:sirensCopy attachment:attachmentCopy attachmentType:type alwaysSend:sendCopy completion:v22];
 }
 
 uint64_t __106__BLTTestService_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_completion___block_invoke(uint64_t a1)
@@ -104,6 +126,20 @@ uint64_t __58__BLTTestService_sendSectionInfoWithSectionID_completion___block_in
   }
 
   return result;
+}
+
+- (void)sendAllSectionInfoWithSpool:(BOOL)spool completion:(id)completion
+{
+  spoolCopy = spool;
+  completionCopy = completion;
+  remoteObjectProxy = [(NSXPCConnection *)self->_connection remoteObjectProxy];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __57__BLTTestService_sendAllSectionInfoWithSpool_completion___block_invoke;
+  v9[3] = &unk_278D314F0;
+  v10 = completionCopy;
+  v8 = completionCopy;
+  [remoteObjectProxy sendAllSectionInfoWithSpool:spoolCopy completion:v9];
 }
 
 uint64_t __57__BLTTestService_sendAllSectionInfoWithSpool_completion___block_invoke(uint64_t a1)
@@ -413,7 +449,7 @@ uint64_t __47__BLTTestService_simulateAnalytics_completion___block_invoke(uint64
 
 - (void)_connectIfNecessary
 {
-  v13[8] = *MEMORY[0x277D85DE8];
+  v12[8] = *MEMORY[0x277D85DE8];
   if (!self->_connection)
   {
     v3 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.bulletindistributor.testservice" options:4096];
@@ -424,15 +460,15 @@ uint64_t __47__BLTTestService_simulateAnalytics_completion___block_invoke(uint64
     v6 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_285458CA0];
     [(NSXPCConnection *)v5 setRemoteObjectInterface:v6];
 
-    v13[0] = objc_opt_class();
-    v13[1] = objc_opt_class();
-    v13[2] = objc_opt_class();
-    v13[3] = objc_opt_class();
-    v13[4] = objc_opt_class();
-    v13[5] = objc_opt_class();
-    v13[6] = objc_opt_class();
-    v13[7] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:8];
+    v12[0] = objc_opt_class();
+    v12[1] = objc_opt_class();
+    v12[2] = objc_opt_class();
+    v12[3] = objc_opt_class();
+    v12[4] = objc_opt_class();
+    v12[5] = objc_opt_class();
+    v12[6] = objc_opt_class();
+    v12[7] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:8];
     remoteObjectInterface = [(NSXPCConnection *)self->_connection remoteObjectInterface];
     v9 = [MEMORY[0x277CBEB98] setWithArray:v7];
     [remoteObjectInterface setClasses:v9 forSelector:sel_overriddenSettingsWithCompletion_ argumentIndex:0 ofReply:1];
@@ -445,27 +481,25 @@ uint64_t __47__BLTTestService_simulateAnalytics_completion___block_invoke(uint64
     [(NSXPCConnection *)self->_connection setInvalidationHandler:&__block_literal_global_93];
     [(NSXPCConnection *)self->_connection resume];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-void __37__BLTTestService__connectIfNecessary__block_invoke()
+void __37__BLTTestService__connectIfNecessary__block_invoke(uint64_t a1)
 {
-  v0 = blt_general_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = blt_general_log(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_241FB3000, v0, OS_LOG_TYPE_DEFAULT, "BLTTestService connection interrupted!", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_241FB3000, v1, OS_LOG_TYPE_DEFAULT, "BLTTestService connection interrupted!", v2, 2u);
   }
 }
 
-void __37__BLTTestService__connectIfNecessary__block_invoke_91()
+void __37__BLTTestService__connectIfNecessary__block_invoke_91(uint64_t a1)
 {
-  v0 = blt_general_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = blt_general_log(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_241FB3000, v0, OS_LOG_TYPE_DEFAULT, "BLTTestService connection invalidated!", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_241FB3000, v1, OS_LOG_TYPE_DEFAULT, "BLTTestService connection invalidated!", v2, 2u);
   }
 }
 

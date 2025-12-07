@@ -103,7 +103,6 @@ LABEL_3:
     }
   }
 
-  v7 = *(equalCopy + 48);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 48) & 2) == 0 || self->_sequenceNumber != *(equalCopy + 2))
@@ -115,7 +114,7 @@ LABEL_3:
   else if ((*(equalCopy + 48) & 2) != 0)
   {
 LABEL_18:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_19;
   }
 
@@ -135,17 +134,17 @@ LABEL_18:
   launchUUID = self->_launchUUID;
   if (launchUUID | *(equalCopy + 3))
   {
-    v9 = [(NSString *)launchUUID isEqual:?];
+    v8 = [(NSString *)launchUUID isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_19:
 
-  return v9;
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -220,39 +219,37 @@ LABEL_19:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_sessionIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_uuidString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    sequenceNumber = self->_sequenceNumber;
     PBDataWriterWriteUint64Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    idsPriority = self->_idsPriority;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_launchUUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

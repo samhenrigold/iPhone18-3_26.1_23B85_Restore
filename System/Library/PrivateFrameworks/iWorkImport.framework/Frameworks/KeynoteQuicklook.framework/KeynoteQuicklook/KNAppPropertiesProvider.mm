@@ -11,46 +11,46 @@
 
 - (id)applicationDisplayName
 {
-  v4 = objc_msgSend_mainBundle(MEMORY[0x277CCA8D8], a2, v2);
-  v6 = objc_msgSend_objectForInfoDictionaryKey_(v4, v5, @"CFBundleDisplayName");
-  v9 = v6;
-  if (v6)
+  mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
+  v4 = [mainBundle objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+  v5 = v4;
+  if (v4)
   {
-    v10 = v6;
+    applicationName = v4;
   }
 
   else
   {
-    v10 = objc_msgSend_applicationName(self, v7, v8);
+    applicationName = [(KNAppPropertiesProvider *)self applicationName];
   }
 
-  v11 = v10;
+  v7 = applicationName;
 
-  return v11;
+  return v7;
 }
 
 - (id)documentTypeDisplayName
 {
-  v2 = sub_275DC204C();
-  v4 = objc_msgSend_localizedStringForKey_value_table_(v2, v3, @"Presentation", &stru_2884D8E20, @"Keynote");
+  v2 = sub_275DC204C(self);
+  v3 = [v2 localizedStringForKey:@"Presentation" value:&stru_2884D8E20 table:@"Keynote"];
 
-  return v4;
+  return v3;
 }
 
 - (id)documentTypeDisplayNameForSharingInvitation
 {
-  v2 = sub_275DC204C();
-  v4 = objc_msgSend_localizedStringForKey_value_table_(v2, v3, @"presentation", &stru_2884D8E20, @"Keynote");
+  v2 = sub_275DC204C(self);
+  v3 = [v2 localizedStringForKey:@"presentation" value:&stru_2884D8E20 table:@"Keynote"];
 
-  return v4;
+  return v3;
 }
 
 - (id)templateTypeDisplayName
 {
-  v2 = sub_275DC204C();
-  v4 = objc_msgSend_localizedStringForKey_value_table_(v2, v3, @"Theme", &stru_2884D8E20, @"Keynote");
+  v2 = sub_275DC204C(self);
+  v3 = [v2 localizedStringForKey:@"Theme" value:&stru_2884D8E20 table:@"Keynote"];
 
-  return v4;
+  return v3;
 }
 
 - (NSArray)powerPointDocumentTypes
@@ -65,7 +65,7 @@
   v4[6] = @"com.microsoft.powerpoint.pot";
   v4[7] = @"org.openxmlformats.presentationml.template";
   v4[8] = @"org.openxmlformats.presentationml.template.macroenabled";
-  v2 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v4, 9);
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:9];
 
   return v2;
 }

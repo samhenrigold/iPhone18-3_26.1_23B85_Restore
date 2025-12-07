@@ -807,7 +807,7 @@ LABEL_97:
         goto LABEL_98;
       }
 
-      HIDWORD(v71) = argtou(uTF8String3, 0, 0xFFFFFFFF);
+      HIDWORD(v71) = argtou(uTF8String3, 0, 0xFFFFFFFF, "volume ID");
       LODWORD(v71) = 1;
       goto LABEL_35;
     }
@@ -842,7 +842,7 @@ LABEL_35:
       goto LABEL_98;
     }
 
-    HIDWORD(v69) = argtou(uTF8String3, 1u, 0xFFFFu);
+    HIDWORD(v69) = argtou(uTF8String3, 1u, 0xFFFFu, "bytes/sector");
     goto LABEL_35;
   }
 
@@ -853,7 +853,7 @@ LABEL_35:
       goto LABEL_98;
     }
 
-    LODWORD(v69) = argtou(uTF8String3, 1u, 0xFFFFu);
+    LODWORD(v69) = argtou(uTF8String3, 1u, 0xFFFFu, "physical bytes/sector");
     goto LABEL_35;
   }
 
@@ -864,7 +864,7 @@ LABEL_35:
       goto LABEL_98;
     }
 
-    HIDWORD(v68) = argtou(uTF8String3, 1u, 0xFFFFFFFF);
+    HIDWORD(v68) = argtou(uTF8String3, 1u, 0xFFFFFFFF, "sectors/FAT");
     goto LABEL_35;
   }
 
@@ -875,7 +875,7 @@ LABEL_35:
       goto LABEL_98;
     }
 
-    LODWORD(v68) = argtou(uTF8String3, 1u, 0xFFFFFFFF);
+    LODWORD(v68) = argtou(uTF8String3, 1u, 0xFFFFFFFF, "block size");
     HIDWORD(v67) = 0;
     goto LABEL_35;
   }
@@ -887,7 +887,7 @@ LABEL_35:
       goto LABEL_98;
     }
 
-    HIDWORD(v67) = argtou(uTF8String3, 1u, 0xFFu);
+    HIDWORD(v67) = argtou(uTF8String3, 1u, 0xFFu, "sectors/cluster");
     LODWORD(v68) = 0;
     goto LABEL_35;
   }
@@ -899,7 +899,7 @@ LABEL_35:
       goto LABEL_98;
     }
 
-    LODWORD(v67) = argtou(uTF8String3, 1u, 0xFFFFu);
+    LODWORD(v67) = argtou(uTF8String3, 1u, 0xFFFFu, "directory entries");
     goto LABEL_35;
   }
 
@@ -921,7 +921,7 @@ LABEL_35:
       goto LABEL_98;
     }
 
-    HIDWORD(v65) = argtou(uTF8String3, 1u, 0xFFFFu);
+    HIDWORD(v65) = argtou(uTF8String3, 1u, 0xFFFFu, "drive heads");
     goto LABEL_35;
   }
 
@@ -932,7 +932,7 @@ LABEL_35:
       goto LABEL_98;
     }
 
-    LODWORD(v65) = argtou(uTF8String3, 1u, 0xFFFFu);
+    LODWORD(v65) = argtou(uTF8String3, 1u, 0xFFFFu, "info sector");
     goto LABEL_35;
   }
 
@@ -943,7 +943,7 @@ LABEL_35:
       goto LABEL_98;
     }
 
-    HIDWORD(v64) = argtou(uTF8String3, 1u, 0xFFFFu);
+    HIDWORD(v64) = argtou(uTF8String3, 1u, 0xFFFFu, "backup sector");
     goto LABEL_35;
   }
 
@@ -954,7 +954,7 @@ LABEL_35:
       goto LABEL_98;
     }
 
-    LODWORD(v64) = argtou(uTF8String3, 0, 0xFFu);
+    LODWORD(v64) = argtou(uTF8String3, 0, 0xFFu, "media descriptor");
     HIDWORD(v63) = 1;
     goto LABEL_35;
   }
@@ -966,7 +966,7 @@ LABEL_35:
       goto LABEL_98;
     }
 
-    LODWORD(v63) = argtou(uTF8String3, 1u, 0xFFu);
+    LODWORD(v63) = argtou(uTF8String3, 1u, 0xFFu, "number of FATs");
     goto LABEL_35;
   }
 
@@ -977,7 +977,7 @@ LABEL_35:
       goto LABEL_98;
     }
 
-    LODWORD(v62) = argtou(uTF8String3, 0, 0xFFFFFFFF);
+    LODWORD(v62) = argtou(uTF8String3, 0, 0xFFFFFFFF, "hidden sectors");
     HIDWORD(v62) = 1;
     goto LABEL_35;
   }
@@ -989,7 +989,7 @@ LABEL_35:
       goto LABEL_98;
     }
 
-    HIDWORD(v61) = argtou(uTF8String3, 1u, 0xFFFFu);
+    HIDWORD(v61) = argtou(uTF8String3, 1u, 0xFFFFu, "reserved sectors");
     goto LABEL_35;
   }
 
@@ -1000,7 +1000,7 @@ LABEL_35:
       goto LABEL_98;
     }
 
-    LODWORD(v61) = argtou(uTF8String3, 1u, 0xFFFFFFFF);
+    LODWORD(v61) = argtou(uTF8String3, 1u, 0xFFFFFFFF, "file system size (in sectors)");
     goto LABEL_35;
   }
 
@@ -1011,7 +1011,7 @@ LABEL_35:
       goto LABEL_98;
     }
 
-    v60 = argtou(uTF8String3, 1u, 0xFFFFu);
+    v60 = argtou(uTF8String3, 1u, 0xFFFFu, "sectors/track");
     goto LABEL_35;
   }
 

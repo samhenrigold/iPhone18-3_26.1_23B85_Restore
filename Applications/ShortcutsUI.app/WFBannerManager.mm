@@ -6,6 +6,7 @@
 - (BOOL)queuedDialogIsActionUIRequest:(id)request;
 - (BOOL)runningContextIsInPersistentMode:(id)mode;
 - (BOOL)shouldUpdateStateBasedOnLayout:(id)layout;
+- (CGSize)calculatedSiriSnippetSizeWithDialog:(BOOL)dialog;
 - (CGSize)preferredContainerSize;
 - (CGSize)preferredPresentationSize;
 - (NSMutableDictionary)runningPersistentWorkflows;
@@ -40,6 +41,7 @@
 - (void)getBannerForQueuedStatusPresentation:(id)presentation completionHandler:(id)handler;
 - (void)handleSingleStepHomeScreenDialogRequest:(id)request runningContext:(id)context completionHandler:(id)handler;
 - (void)pauseDialogPresentationForDuration:(id)duration withCompletionHandler:(id)handler;
+- (void)queue_dismissPresentableWithReason:(id)reason interruptible:(BOOL)interruptible forced:(BOOL)forced;
 - (void)queue_dismissRemoteAlertViewControllerWithReason:(id)reason;
 - (void)queue_enqueuePersistentModeStatusPresentationForRunningContext:(id)context;
 - (void)queue_presentBanner:(id)banner completion:(id)completion;
@@ -63,6 +65,64 @@
 @end
 
 @implementation WFBannerManager
+
+- (CGSize)calculatedSiriSnippetSizeWithDialog:(BOOL)dialog
+{
+  v3 = +[WFDevice currentDevice];
+  idiom = [v3 idiom];
+
+  v5 = +[UIScreen mainScreen];
+  [v5 _referenceBounds];
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
+  v13 = v12;
+
+  v22.origin.x = v7;
+  v22.origin.y = v9;
+  v22.size.width = v11;
+  v22.size.height = v13;
+  if (CGRectGetWidth(v22) >= 1024.0)
+  {
+    v23.origin.x = v7;
+    v23.origin.y = v9;
+    v23.size.width = v11;
+    v23.size.height = v13;
+    v14 = dbl_100019670[CGRectGetHeight(v23) >= 1366.0];
+  }
+
+  else
+  {
+    v14 = 425.0;
+  }
+
+  if (idiom == 1)
+  {
+    v15 = 4.0;
+    v16 = 500.0;
+  }
+
+  else
+  {
+    v17 = +[WFDevice currentDevice];
+    [v17 screenBounds];
+    v16 = v18;
+
+    v15 = 8.0;
+    v14 = 556.0;
+  }
+
+  if (v14 >= v16 + v15 * -2.0)
+  {
+    v14 = v16 + v15 * -2.0;
+  }
+
+  v19 = v14 + v15 * -2.0;
+  v20 = 1.79769313e308;
+  result.height = v20;
+  result.width = v19;
+  return result;
+}
 
 - (CGSize)preferredContainerSize
 {
@@ -1072,35 +1132,7 @@ LABEL_25:
       else
       {
         associatedPill = [(WFBannerManager *)self presentedPlatter];
-        if (!associatedPill || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-        {
-
-          presentedBanner = [(WFBannerManager *)self presentedBanner];
-          if (presentedBanner)
-          {
-            objc_opt_class();
-            v15 = (objc_opt_isKindOfClass() & 1) != 0 ? presentedBanner : 0;
-          }
-
-          else
-          {
-            v15 = 0;
-          }
-
-          v16 = v15;
-
-          associatedPill = [v16 queuedStatusPlatter];
-
-          if (!associatedPill)
-          {
-            goto LABEL_29;
-          }
-        }
-
-        associatedRunningContext = [associatedPill associatedRunningContext];
-        v18 = [associatedRunningContext isEqual:contextCopy];
-
-        if (v18)
+        if (associatedPill && (objc_opt_class(), (objc_opt_isKindOfClass()) || ((associatedPill, -[WFBannerManager presentedBanner](self, "presentedBanner"), (v14 = objc_claimAutoreleasedReturnValue()) == 0) ? (v15 = 0) : (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (v15 = 0) : (v15 = v14), v16 = v15, v14, [v16 queuedStatusPlatter], associatedPill = objc_claimAutoreleasedReturnValue(), v16, associatedPill)) && (-[NSObject associatedRunningContext](associatedPill, "associatedRunningContext"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "isEqual:", contextCopy), v17, (v18))
         {
           if ([presentedPlatter completed])
           {
@@ -1142,7 +1174,6 @@ LABEL_25:
 
         else
         {
-LABEL_29:
           v22 = sub_100007750();
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
@@ -1160,8 +1191,8 @@ LABEL_29:
   presentedPlatter = [(WFBannerManager *)self presentedPlatter];
   if (presentedPlatter && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    associatedRunningContext2 = [presentedPlatter associatedRunningContext];
-    v12 = [associatedRunningContext2 isEqual:contextCopy];
+    associatedRunningContext = [presentedPlatter associatedRunningContext];
+    v12 = [associatedRunningContext isEqual:contextCopy];
 
     if (v12)
     {
@@ -1753,6 +1784,151 @@ LABEL_28:
   [(WFBannerManager *)self setPresentedRemoteAlertViewController:0];
   reasonCopy = [NSString stringWithFormat:@"we just dismissed action UI, updating state: %@", reasonCopy];
   [(WFBannerManager *)self queue_updateStateWithReason:reasonCopy];
+}
+
+- (void)queue_dismissPresentableWithReason:(id)reason interruptible:(BOOL)interruptible forced:(BOOL)forced
+{
+  forcedCopy = forced;
+  interruptibleCopy = interruptible;
+  reasonCopy = reason;
+  queue = [(WFBannerManager *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  presentedBanner = [(WFBannerManager *)self presentedBanner];
+  v11 = presentedBanner;
+  if (presentedBanner)
+  {
+    v12 = presentedBanner;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v13 = v12;
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+
+    v14 = v13;
+
+    if ([v14 dismissalPhase]!= 1 || interruptibleCopy)
+    {
+      dismissalPhase = [v14 dismissalPhase];
+      associatedRunningContext = sub_100007750();
+      v20 = os_log_type_enabled(associatedRunningContext, OS_LOG_TYPE_DEFAULT);
+      if (dismissalPhase)
+      {
+        if (v20)
+        {
+          *buf = 136315138;
+          v35 = "[WFBannerManager queue_dismissPresentableWithReason:interruptible:forced:]";
+          _os_log_impl(&_mh_execute_header, associatedRunningContext, OS_LOG_TYPE_DEFAULT, "%s Dismissal requested while already dismissing presentable, nothing to do.", buf, 0xCu);
+        }
+
+        goto LABEL_27;
+      }
+
+      if (!v20)
+      {
+LABEL_17:
+
+        associatedRunningContext = [v14 associatedRunningContext];
+        embeddedPlatter = [v14 embeddedPlatter];
+        v22 = embeddedPlatter == 0;
+
+        if (v22)
+        {
+          reasonCopy = [NSString stringWithFormat:@"hinting request did not find embedded platter, revoking immediately. Hint reason: %@", reasonCopy];
+          [(WFBannerManager *)self queue_revokePresentableForContext:associatedRunningContext reason:reasonCopy forced:forcedCopy];
+        }
+
+        else if ([v14 dismissalPhase]&& interruptibleCopy)
+        {
+          v23 = sub_100007750();
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 136315394;
+            v35 = "[WFBannerManager queue_dismissPresentableWithReason:interruptible:forced:]";
+            v36 = 2112;
+            v37 = v14;
+            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%s Presenting container is already hinting, no need to initiate hint again: %@", buf, 0x16u);
+          }
+        }
+
+        else
+        {
+          objc_initWeak(buf, v12);
+          objc_initWeak(&location, self);
+          v27[0] = _NSConcreteStackBlock;
+          v27[1] = 3221225472;
+          v27[2] = sub_10000F15C;
+          v27[3] = &unk_100028A08;
+          objc_copyWeak(&v30, &location);
+          objc_copyWeak(&v31, buf);
+          associatedRunningContext = associatedRunningContext;
+          v28 = associatedRunningContext;
+          v25 = reasonCopy;
+          v29 = v25;
+          v32 = forcedCopy;
+          [v14 dismissEmbeddedPlatterWithCompletion:v27 interruptible:interruptibleCopy];
+          [(WFBannerManager *)self queue_updatePresentedStatusForRunningContext:associatedRunningContext];
+          if (interruptibleCopy)
+          {
+            v26 = [NSString stringWithFormat:@"we just hinted a banner, hint reason: %@", v25];
+            [(WFBannerManager *)self queue_updateStateWithReason:v26];
+          }
+
+          objc_destroyWeak(&v31);
+          objc_destroyWeak(&v30);
+          objc_destroyWeak(&location);
+          objc_destroyWeak(buf);
+        }
+
+LABEL_27:
+
+        goto LABEL_28;
+      }
+
+      *buf = 136315650;
+      v35 = "[WFBannerManager queue_dismissPresentableWithReason:interruptible:forced:]";
+      v36 = 2112;
+      v37 = v14;
+      v38 = 2112;
+      v39 = reasonCopy;
+      v16 = "%s Hinting dismissal of presented banner: %@, reason: %@";
+      v17 = associatedRunningContext;
+      v18 = 32;
+    }
+
+    else
+    {
+      associatedRunningContext = sub_100007750();
+      if (!os_log_type_enabled(associatedRunningContext, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_17;
+      }
+
+      *buf = 136315138;
+      v35 = "[WFBannerManager queue_dismissPresentableWithReason:interruptible:forced:]";
+      v16 = "%s Non-interruptible dismissal request received while hinting, immediately pushing to poof phase.";
+      v17 = associatedRunningContext;
+      v18 = 12;
+    }
+
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v16, buf, v18);
+    goto LABEL_17;
+  }
+
+  v14 = sub_100007750();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v35 = "[WFBannerManager queue_dismissPresentableWithReason:interruptible:forced:]";
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s No presentable to dismiss", buf, 0xCu);
+  }
+
+LABEL_28:
 }
 
 - (void)queue_updateStateWithReason:(id)reason

@@ -595,92 +595,51 @@ LABEL_11:
 
   v6 = [MEMORY[0x1E695DFA8] set];
   array = [MEMORY[0x1E695DF70] array];
-  v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v15 = OUTLINED_FUNCTION_1_66(array, v8, v9, v10, v11, v12, v13, v14);
+  v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v15 = OUTLINED_FUNCTION_1_66(array, v8, v9, v10, v11, v12, v13, v14, v29, v31, v32, v33, v34, selfCopy, v36, v37);
   if (v15)
   {
     v16 = v15;
-    v17 = *v32;
+    v17 = *v39;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v32 != v17)
+        if (*v39 != v17)
         {
           objc_enumerationMutation(a2);
         }
 
-        v19 = *(*(&v31 + 1) + 8 * i);
+        v19 = *(*(&v38 + 1) + 8 * i);
         [v6 addObject:{objc_msgSend(objc_msgSend(v19, "synchronizationMaster"), "portType")}];
         v20 = [array addObjectsFromArray:{objc_msgSend(v19, "activeStreams")}];
       }
 
-      v16 = OUTLINED_FUNCTION_1_66(v20, v21, v22, v23, v24, v25, v26, v27);
+      v16 = OUTLINED_FUNCTION_1_66(v20, v21, v22, v23, v24, v25, v26, v27, v30, v31, v32, v33, v34, selfCopy, v36, v37);
     }
 
     while (v16);
   }
 
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __95__BWMultiCamConfiguration_sortedStreamsForTNRFeatureBasedRegistration_prioritizePrimaryStream___block_invoke;
-  v29[3] = &unk_1E79977B0;
-  v29[4] = self;
-  v29[5] = v6;
-  registrationCopy = registration;
-  [array sortUsingComparator:v29];
+  v31 = MEMORY[0x1E69E9820];
+  v32 = 3221225472;
+  v33 = __95__BWMultiCamConfiguration_sortedStreamsForTNRFeatureBasedRegistration_prioritizePrimaryStream___block_invoke;
+  v34 = &unk_1E79977B0;
+  selfCopy = self;
+  v36 = v6;
+  LOBYTE(v37) = registration;
+  [array sortUsingComparator:&v31];
   return array;
 }
 
-- (uint64_t)_initWithUnsynchronizedActiveStreamsPortTypes:synchronizedActiveStreamsGroupsPortTypes:withCaptureDevice:readCurrentStateFromCaptureDevice:stereoVideoCaptureEnabled:.cold.1()
+- (void)_initWithUnsynchronizedActiveStreamsPortTypes:(int)a1 synchronizedActiveStreamsGroupsPortTypes:(void *)a2 withCaptureDevice:readCurrentStateFromCaptureDevice:stereoVideoCaptureEnabled:.cold.2(int a1, void *a2)
 {
   fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (void)_initWithUnsynchronizedActiveStreamsPortTypes:(uint64_t)a1 synchronizedActiveStreamsGroupsPortTypes:(void *)a2 withCaptureDevice:readCurrentStateFromCaptureDevice:stereoVideoCaptureEnabled:.cold.2(uint64_t a1, void *a2)
-{
-  fig_log_get_emitter();
-  FigDebugAssert3();
-}
-
-- (uint64_t)multiCamConfigurationForDevice:errorOut:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)multiCamConfigurationForDevice:errorOut:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)multiCamConfigurationForDevice:errorOut:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)copyActiveSynchronizedStreamsGroupsForDevice:errorOut:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)copyActiveSynchronizedStreamsGroupsForDevice:errorOut:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
+  v5 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v2, v6, v7, v8, v9, vars0, vars8);
 }
 
 @end

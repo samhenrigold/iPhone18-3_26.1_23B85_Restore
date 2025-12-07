@@ -55,19 +55,19 @@
 void __61__PMSignInWithAppleController_performHealthCheckInBackground__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
-  v4 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  v5 = v4;
+  v5 = WBS_LOG_CHANNEL_PREFIXPasswords(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __61__PMSignInWithAppleController_performHealthCheckInBackground__block_invoke_cold_1(v3, v5);
+      __61__PMSignInWithAppleController_performHealthCheckInBackground__block_invoke_cold_1(v3, v6);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __61__PMSignInWithAppleController_performHealthCheckInBackground__block_invoke_cold_2(v5);
+    __61__PMSignInWithAppleController_performHealthCheckInBackground__block_invoke_cold_2(v6);
   }
 }
 
@@ -94,11 +94,10 @@ void __61__PMSignInWithAppleController_performHealthCheckInBackground__block_inv
 
 void __61__PMSignInWithAppleController_performHealthCheckInBackground__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_21C6E5000, a2, OS_LOG_TYPE_ERROR, "Sign in with Apple health check failed with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_21C6E5000, a2, OS_LOG_TYPE_ERROR, "Sign in with Apple health check failed with error: %@", &v2, 0xCu);
 }
 
 @end

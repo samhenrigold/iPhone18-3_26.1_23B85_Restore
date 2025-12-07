@@ -7,7 +7,7 @@
 
 - (_TtC20LiveCommunicationKit27CallObserverDelegateWrapper)init
 {
-  v2 = (&self->super.isa + OBJC_IVAR____TtC20LiveCommunicationKit27CallObserverDelegateWrapper_onCallChanged);
+  v2 = (self + OBJC_IVAR____TtC20LiveCommunicationKit27CallObserverDelegateWrapper_onCallChanged);
   *v2 = nullsub_1;
   v2[1] = 0;
   v4.receiver = self;
@@ -17,12 +17,11 @@
 
 - (void)callObserver:(id)observer callChanged:(id)changed
 {
-  v6 = *(&self->super.isa + OBJC_IVAR____TtC20LiveCommunicationKit27CallObserverDelegateWrapper_onCallChanged);
-  v5 = *&self->onCallChanged[OBJC_IVAR____TtC20LiveCommunicationKit27CallObserverDelegateWrapper_onCallChanged];
+  v5 = *(&self->super.isa + OBJC_IVAR____TtC20LiveCommunicationKit27CallObserverDelegateWrapper_onCallChanged);
   changedCopy = changed;
   selfCopy = self;
 
-  v6(changedCopy);
+  v5(changedCopy);
 }
 
 @end

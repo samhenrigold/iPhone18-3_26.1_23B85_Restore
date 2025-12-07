@@ -7,9 +7,7 @@
 
 - (void)setLastCallDate
 {
-  v3 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceNow:-10.0];
-  lastCallDate = self->_lastCallDate;
-  self->_lastCallDate = v3;
+  self->_lastCallDate = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceNow:-10.0];
 
   MEMORY[0x1EEE66BB8]();
 }

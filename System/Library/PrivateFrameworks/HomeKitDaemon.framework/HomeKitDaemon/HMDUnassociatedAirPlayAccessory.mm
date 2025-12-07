@@ -13,7 +13,7 @@
 
 - (void)associateToHome:(id)home completionHandler:(id)handler
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   handlerCopy = handler;
   v8 = objc_autoreleasePoolPush();
@@ -23,7 +23,7 @@
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v58 = v11;
+    v57 = v11;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Starting association", buf, 0xCu);
   }
 
@@ -59,7 +59,7 @@
         {
           v35 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v58 = v35;
+          v57 = v35;
           _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@Only the owner of the home can perform association", buf, 0xCu);
         }
 
@@ -91,34 +91,34 @@
         aBlock[1] = 3221225472;
         aBlock[2] = __69__HMDUnassociatedAirPlayAccessory_associateToHome_completionHandler___block_invoke;
         aBlock[3] = &unk_278674400;
-        objc_copyWeak(&v53, buf);
-        objc_copyWeak(&v54, &location);
-        v55 = context;
+        objc_copyWeak(&v52, buf);
+        objc_copyWeak(&v53, &location);
+        v54 = context;
         v20 = av_authorizedPeer;
-        v51 = v20;
+        v50 = v20;
         v21 = mediaPassword;
-        v52 = v21;
+        v51 = v21;
         v22 = _Block_copy(aBlock);
         objc_initWeak(&from, v14);
-        v42[0] = MEMORY[0x277D85DD0];
-        v42[1] = 3221225472;
-        v42[2] = __69__HMDUnassociatedAirPlayAccessory_associateToHome_completionHandler___block_invoke_13;
-        v42[3] = &unk_278674428;
-        objc_copyWeak(&v46, buf);
-        v48 = context;
-        v43 = v20;
+        v41[0] = MEMORY[0x277D85DD0];
+        v41[1] = 3221225472;
+        v41[2] = __69__HMDUnassociatedAirPlayAccessory_associateToHome_completionHandler___block_invoke_13;
+        v41[3] = &unk_278674428;
+        objc_copyWeak(&v45, buf);
+        v47 = context;
+        v42 = v20;
         v23 = v21;
-        v44 = v23;
-        objc_copyWeak(&v47, &from);
-        v45 = handlerCopy;
-        [av_OutputDevice configureUsingBlock:v22 options:0 completionHandler:v42];
+        v43 = v23;
+        objc_copyWeak(&v46, &from);
+        v44 = handlerCopy;
+        [av_OutputDevice configureUsingBlock:v22 options:0 completionHandler:v41];
 
-        objc_destroyWeak(&v47);
         objc_destroyWeak(&v46);
+        objc_destroyWeak(&v45);
         objc_destroyWeak(&from);
 
-        objc_destroyWeak(&v54);
         objc_destroyWeak(&v53);
+        objc_destroyWeak(&v52);
         objc_destroyWeak(&location);
         objc_destroyWeak(buf);
       }
@@ -132,9 +132,9 @@
         {
           v38 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v58 = v38;
-          v59 = 2112;
-          v60 = owner;
+          v57 = v38;
+          v58 = 2112;
+          v59 = owner;
           _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@Missing authorized peer for user: %@", buf, 0x16u);
         }
 
@@ -160,7 +160,7 @@ LABEL_31:
     {
       v31 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v58 = v31;
+      v57 = v31;
       _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@Missing output device", buf, 0xCu);
     }
 
@@ -187,7 +187,7 @@ LABEL_33:
   {
     v27 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v58 = v27;
+    v57 = v27;
     _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@Missing advertisement", buf, 0xCu);
   }
 
@@ -200,13 +200,11 @@ LABEL_33:
   }
 
 LABEL_34:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HMDUnassociatedAirPlayAccessory_associateToHome_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = objc_loadWeakRetained((a1 + 56));
@@ -233,20 +231,19 @@ void __69__HMDUnassociatedAirPlayAccessory_associateToHome_completionHandler___b
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring with configuration: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v10;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring with configuration: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HMDUnassociatedAirPlayAccessory_associateToHome_completionHandler___block_invoke_13(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   v10 = a5;
@@ -260,11 +257,11 @@ void __69__HMDUnassociatedAirPlayAccessory_associateToHome_completionHandler___b
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v71 = v22;
+      v69 = v22;
+      v70 = 2112;
+      v71 = v10;
       v72 = 2112;
-      v73 = v10;
-      v74 = 2112;
-      v75 = v9;
+      v73 = v9;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to update configuration while associating to home with error: %@, %@", buf, 0x20u);
     }
 
@@ -282,7 +279,7 @@ void __69__HMDUnassociatedAirPlayAccessory_associateToHome_completionHandler___b
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v71 = v27;
+      v69 = v27;
       v28 = "%{public}@Failed to enable home connections";
 LABEL_14:
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_DEFAULT, v28, buf, 0xCu);
@@ -306,7 +303,7 @@ LABEL_16:
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v71 = v27;
+      v69 = v27;
       v28 = "%{public}@Failed to disable guest access";
       goto LABEL_14;
     }
@@ -330,7 +327,7 @@ LABEL_16:
   else
   {
     v18 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48 description:@"Not supported." reason:@"Accessory missing pairing identity" suggestion:0];
-    v32 = v18;
+    v31 = v18;
     v17 = 0;
   }
 
@@ -338,131 +335,130 @@ LABEL_16:
   if (v17)
   {
     [WeakRetained setPairingIdentity:v17];
-    v33 = [v12 peersInHomeGroup];
-    v34 = [v33 containsObject:*(a1 + 32)];
+    v32 = [v12 peersInHomeGroup];
+    v33 = [v32 containsObject:*(a1 + 32)];
 
-    if (v34)
+    if (v33)
     {
-      v68 = v17;
-      v35 = [v12 peersInHomeGroup];
-      v36 = [v35 count];
+      v66 = v17;
+      v34 = [v12 peersInHomeGroup];
+      v35 = [v34 count];
 
-      if (v36 < 2)
+      if (v35 < 2)
       {
-        v55 = [v12 devicePassword];
-        v56 = *(a1 + 40);
-        v57 = HMFEqualObjects();
+        v54 = [v12 devicePassword];
+        v55 = HMFEqualObjects();
 
-        if (v57)
+        if (v55)
         {
-          v54 = objc_loadWeakRetained((a1 + 64));
-          [v54 setAssociated:1];
-          v58 = objc_autoreleasePoolPush();
-          v59 = WeakRetained;
-          v60 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+          v53 = objc_loadWeakRetained((a1 + 64));
+          [v53 setAssociated:1];
+          v56 = objc_autoreleasePoolPush();
+          v57 = WeakRetained;
+          v58 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
           {
             HMFGetLogIdentifier();
-            v61 = v67 = v58;
+            v59 = v65 = v56;
             *buf = 138543362;
-            v71 = v61;
-            _os_log_impl(&dword_229538000, v60, OS_LOG_TYPE_INFO, "%{public}@Successfully associated", buf, 0xCu);
+            v69 = v59;
+            _os_log_impl(&dword_229538000, v58, OS_LOG_TYPE_INFO, "%{public}@Successfully associated", buf, 0xCu);
 
-            v58 = v67;
+            v56 = v65;
           }
 
-          objc_autoreleasePoolPop(v58);
+          objc_autoreleasePoolPop(v56);
           goto LABEL_42;
         }
 
-        v62 = objc_autoreleasePoolPush();
-        v63 = WeakRetained;
-        v64 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+        v60 = objc_autoreleasePoolPush();
+        v61 = WeakRetained;
+        v62 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
         {
-          v65 = HMFGetLogIdentifier();
+          v63 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v71 = v65;
-          _os_log_impl(&dword_229538000, v64, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to set media password", buf, 0xCu);
+          v69 = v63;
+          _os_log_impl(&dword_229538000, v62, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to set media password", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v62);
-        v42 = MEMORY[0x277CCA9B8];
-        v43 = 54;
+        objc_autoreleasePoolPop(v60);
+        v41 = MEMORY[0x277CCA9B8];
+        v42 = 54;
       }
 
       else
       {
-        v37 = objc_autoreleasePoolPush();
-        v38 = WeakRetained;
-        v39 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+        v36 = objc_autoreleasePoolPush();
+        v37 = WeakRetained;
+        v38 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
           HMFGetLogIdentifier();
-          v40 = v66 = v37;
-          v41 = [v12 peersInHomeGroup];
+          v39 = v64 = v36;
+          v40 = [v12 peersInHomeGroup];
           *buf = 138543618;
+          v69 = v39;
+          v70 = 2112;
           v71 = v40;
-          v72 = 2112;
-          v73 = v41;
-          _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_DEFAULT, "%{public}@Unexpected peers found: %@", buf, 0x16u);
+          _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_DEFAULT, "%{public}@Unexpected peers found: %@", buf, 0x16u);
 
-          v37 = v66;
+          v36 = v64;
         }
 
-        objc_autoreleasePoolPop(v37);
-        v42 = MEMORY[0x277CCA9B8];
-        v43 = 41;
+        objc_autoreleasePoolPop(v36);
+        v41 = MEMORY[0x277CCA9B8];
+        v42 = 41;
       }
 
-      [v42 hmErrorWithCode:v43];
-      v29 = v54 = v29;
+      [v41 hmErrorWithCode:v42];
+      v29 = v53 = v29;
 LABEL_42:
-      v17 = v68;
+      v17 = v66;
       goto LABEL_43;
     }
 
-    v50 = objc_autoreleasePoolPush();
-    v51 = WeakRetained;
-    v52 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+    v49 = objc_autoreleasePoolPush();
+    v50 = WeakRetained;
+    v51 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
     {
       HMFGetLogIdentifier();
-      v53 = v69 = v17;
+      v52 = v67 = v17;
       *buf = 138543362;
-      v71 = v53;
-      _os_log_impl(&dword_229538000, v52, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to add ourselves as a peer", buf, 0xCu);
+      v69 = v52;
+      _os_log_impl(&dword_229538000, v51, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to add ourselves as a peer", buf, 0xCu);
 
-      v17 = v69;
+      v17 = v67;
     }
 
-    objc_autoreleasePoolPop(v50);
-    v48 = MEMORY[0x277CCA9B8];
-    v49 = 2;
+    objc_autoreleasePoolPop(v49);
+    v47 = MEMORY[0x277CCA9B8];
+    v48 = 2;
   }
 
   else
   {
-    v44 = objc_autoreleasePoolPush();
-    v45 = WeakRetained;
-    v46 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+    v43 = objc_autoreleasePoolPush();
+    v44 = WeakRetained;
+    v45 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
-      v47 = HMFGetLogIdentifier();
+      v46 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v71 = v47;
-      _os_log_impl(&dword_229538000, v46, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid or missing pairing identity", buf, 0xCu);
+      v69 = v46;
+      _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid or missing pairing identity", buf, 0xCu);
 
       v17 = 0;
     }
 
-    objc_autoreleasePoolPop(v44);
-    v48 = MEMORY[0x277CCA9B8];
-    v49 = 21;
+    objc_autoreleasePoolPop(v43);
+    v47 = MEMORY[0x277CCA9B8];
+    v48 = 21;
   }
 
-  [v48 hmErrorWithCode:v49];
-  v29 = v54 = v29;
+  [v47 hmErrorWithCode:v48];
+  v29 = v53 = v29;
 LABEL_43:
 
 LABEL_17:
@@ -471,13 +467,11 @@ LABEL_17:
   {
     (*(v30 + 16))(v30, v29);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPairingIdentity:(id)identity
 {
-  v4 = [identity copy];
+  v4 = objc_msgSend_copy(identity, a2);
   os_unfair_recursive_lock_lock_with_options();
   pairingIdentity = self->_pairingIdentity;
   self->_pairingIdentity = v4;
@@ -731,10 +725,9 @@ LABEL_25:
 
 void __46__HMDUnassociatedAirPlayAccessory_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v21;
-  logCategory__hmf_once_v21 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v21;
+  logCategory__hmf_once_v21 = v0;
 }
 
 @end

@@ -767,7 +767,7 @@ double ___LayoutConstants_block_invoke_6(uint64_t a1, void *a2)
 
   if (v3 && (v4 = [v2 version], v4 == _block_invoke___previousCLKDeviceVersion_8))
   {
-    v5 = *&_block_invoke_value_0_1;
+    v5 = _block_invoke_value_0_1;
   }
 
   else
@@ -775,12 +775,12 @@ double ___LayoutConstants_block_invoke_6(uint64_t a1, void *a2)
     _block_invoke___cachedDevice_8 = v2;
     _block_invoke___previousCLKDeviceVersion_8 = [v2 version];
     v5 = NTKWhistlerSubdialComplicationDistanceFromCenter(v2);
-    _block_invoke_value_0_1 = *&v5;
+    _block_invoke_value_0_1 = v5;
   }
 
   os_unfair_lock_unlock(&_block_invoke_lock_8);
 
-  return v5;
+  return *&v5;
 }
 
 void ___LayoutConstants_block_invoke_7(void *a1@<X1>, uint64_t a2@<X8>)
@@ -3803,18 +3803,18 @@ double ___LayoutConstants_block_invoke_2_35(uint64_t a1, void *a2)
   return v6;
 }
 
-uint64_t ___LayoutConstants_block_invoke_42()
+uint64_t ___LayoutConstants_block_invoke_42(uint64_t a1, uint64_t a2)
 {
   _LayoutConstants__constants_0 = 0x4045000000000000;
   _LayoutConstants__constants_1 = 0x403F000000000000;
-  result = NTKCScreenStyle();
-  v1 = 16.0;
+  result = NTKCScreenStyle(a1, a2);
+  v3 = 16.0;
   if (result == 1)
   {
-    v1 = 20.0;
+    v3 = 20.0;
   }
 
-  _LayoutConstants__constants_2 = *&v1;
+  _LayoutConstants__constants_2 = *&v3;
   _LayoutConstants__constants_3 = 0x402E000000000000;
   _LayoutConstants__constants_4 = 0x4028000000000000;
   _LayoutConstants__constants_5 = 0x4039000000000000;
@@ -5305,47 +5305,52 @@ void ___LayoutConstants_block_invoke_2_47(void *a1@<X1>, uint64_t a2@<X8>)
 {
   v3 = MEMORY[0x277CBBAF8];
   v4 = a1;
-  v24 = [v3 metricsWithDevice:v4 identitySizeClass:2];
-  v5 = NTKWhistlerSubdialComplicationContentDiameter(v4);
-  v6 = NTKWhistlerSubdialComplicationContentDiameter(v4) * 0.5;
-  v7 = NTKWhistlerSubdialComplicationContentDiameter(v4);
-  [v24 scaledValue:3 withOverride:26.0 forSizeClass:29.0];
-  v22 = v8;
-  [v24 scaledValue:4.5];
+  v29 = [v3 metricsWithDevice:v4 identitySizeClass:2];
+  NTKWhistlerSubdialComplicationContentDiameter();
+  v6 = v5;
+  NTKWhistlerSubdialComplicationContentDiameter();
+  v8 = v7 * 0.5;
+  NTKWhistlerSubdialComplicationContentDiameter();
   v10 = v9;
-  [v24 scaledValue:4.0];
-  v12 = v11;
+  [v29 scaledValue:3 withOverride:26.0 forSizeClass:29.0];
+  v27 = v11;
+  [v29 scaledValue:4.5];
+  v13 = v12;
+  [v29 scaledValue:4.0];
+  v15 = v14;
   CLKComplicationGraphicExtraLargeCircularScalingFactor();
-  v23 = v13;
-  v14 = NTKGraphicExtraLargeComplicationContentDiameter(v4);
-  v21 = NTKGraphicExtraLargeComplicationContentDiameter(v4);
+  v28 = v16;
+  NTKGraphicExtraLargeComplicationContentDiameter();
+  v18 = v17;
+  NTKGraphicExtraLargeComplicationContentDiameter();
+  v26 = v19;
 
-  *a2 = v5;
+  *a2 = v6;
   *(a2 + 8) = 0x3FF8000000000000;
-  *(a2 + 16) = v7;
-  *(a2 + 24) = v22;
-  *(a2 + 32) = v6;
+  *(a2 + 16) = v10;
+  *(a2 + 24) = v27;
+  *(a2 + 32) = v8;
   *(a2 + 40) = 0x3FF0000000000000;
-  *(a2 + 48) = v10;
+  *(a2 + 48) = v13;
   *(a2 + 56) = 0x3FF0000000000000;
-  *(a2 + 64) = v12;
+  *(a2 + 64) = v15;
   *(a2 + 72) = vdupq_n_s64(0x3FE3333333333333uLL);
   *(a2 + 88) = 0x3FD6666666666666;
-  *(a2 + 96) = v14;
-  *(a2 + 104) = v23 * 1.5;
-  *(a2 + 112) = v7 * v23;
-  v15.f64[0] = v22;
-  v15.f64[1] = v21;
+  *(a2 + 96) = v18;
+  *(a2 + 104) = v28 * 1.5;
+  *(a2 + 112) = v10 * v28;
+  v20.f64[0] = v27;
+  v20.f64[1] = v26;
   __asm { FMOV            V0.2D, #0.5 }
 
-  _Q0.f64[0] = v23;
-  *(a2 + 120) = vmulq_f64(v15, _Q0);
-  *(a2 + 136) = v23;
-  *(a2 + 144) = v10 * v23;
-  *(a2 + 152) = v23;
-  *(a2 + 160) = v12 * v23;
-  *(a2 + 168) = v23 * 0.6;
-  *(a2 + 176) = v23 * 0.6;
+  _Q0.f64[0] = v28;
+  *(a2 + 120) = vmulq_f64(v20, _Q0);
+  *(a2 + 136) = v28;
+  *(a2 + 144) = v13 * v28;
+  *(a2 + 152) = v28;
+  *(a2 + 160) = v15 * v28;
+  *(a2 + 168) = v28 * 0.6;
+  *(a2 + 176) = v28 * 0.6;
   *(a2 + 184) = 0x3FD6666666666666;
 }
 
@@ -5636,7 +5641,7 @@ double ___LayoutConstants_block_invoke_64(uint64_t a1, void *a2)
 
   if (v3 && (v4 = [v2 version], v4 == _block_invoke___previousCLKDeviceVersion_73))
   {
-    v5 = *&_block_invoke_value_0_19;
+    v5 = _block_invoke_value_0_19;
   }
 
   else
@@ -5644,13 +5649,13 @@ double ___LayoutConstants_block_invoke_64(uint64_t a1, void *a2)
     _block_invoke___cachedDevice_73 = v2;
     _block_invoke___previousCLKDeviceVersion_73 = [v2 version];
     v5 = NTKWhistlerLargeRectangularComplicationSize(v2);
-    _block_invoke_value_0_19 = *&v5;
+    _block_invoke_value_0_19 = v5;
     _block_invoke_value_1_14 = v6;
   }
 
   os_unfair_lock_unlock(&_block_invoke_lock_73);
 
-  return v5;
+  return *&v5;
 }
 
 double ___LayoutConstants_block_invoke_65(uint64_t a1, void *a2)
@@ -5838,7 +5843,7 @@ void ___LayoutConstants_block_invoke_67(void *a1@<X1>, uint64_t a2@<X8>)
 
 void ___LayoutConstants_block_invoke_2_54(void *a1@<X1>, uint64_t a2@<X8>)
 {
-  v48[3] = *MEMORY[0x277D85DE8];
+  v49[3] = *MEMORY[0x277D85DE8];
   *(a2 + 160) = 0;
   *(a2 + 128) = 0u;
   *(a2 + 144) = 0u;
@@ -5847,129 +5852,130 @@ void ___LayoutConstants_block_invoke_2_54(void *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 64) = 0u;
   *(a2 + 80) = 0u;
   v3 = MEMORY[0x277CBBAF8];
-  v34 = a1;
-  v4 = [v3 metricsWithDevice:v34 identitySizeClass:2];
-  [NTKAnalogUtilities whistlerMediumDialDiameterForDevice:v34];
+  v35 = a1;
+  v4 = [v3 metricsWithDevice:v35 identitySizeClass:2];
+  [NTKAnalogUtilities whistlerMediumDialDiameterForDevice:v35];
   *a2 = v5;
-  v47[0] = &unk_284185A88;
+  v48[0] = &unk_284185A88;
   v6 = [MEMORY[0x277CCAE60] valueWithCGSize:{15.5, 16.0}];
-  v48[0] = v6;
-  v47[1] = &unk_284185AA0;
+  v49[0] = v6;
+  v48[1] = &unk_284185AA0;
   v7 = [MEMORY[0x277CCAE60] valueWithCGSize:{15.5, 16.0}];
-  v48[1] = v7;
-  v47[2] = &unk_284185AB8;
+  v49[1] = v7;
+  v48[2] = &unk_284185AB8;
   v8 = [MEMORY[0x277CCAE60] valueWithCGSize:{16.0, 15.0}];
-  v48[2] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:3];
+  v49[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:3];
   [v4 scaledSize:v9 withOverrides:{13.0, 14.0}];
   *(a2 + 8) = v10;
   *(a2 + 16) = v11;
 
-  v45[0] = &unk_284185A88;
-  v45[1] = &unk_284185AD0;
-  v46[0] = &unk_2841895E8;
-  v46[1] = &unk_2841895F8;
-  v45[2] = &unk_284185AE8;
-  v45[3] = &unk_284185AA0;
-  v46[2] = &unk_284189608;
-  v46[3] = &unk_284189618;
-  v45[4] = &unk_284185B00;
-  v45[5] = &unk_284185B18;
-  v46[4] = &unk_284189628;
-  v46[5] = &unk_284189618;
-  v45[6] = &unk_284185AB8;
-  v46[6] = &unk_284189638;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:7];
+  v46[0] = &unk_284185A88;
+  v46[1] = &unk_284185AD0;
+  v47[0] = &unk_2841895E8;
+  v47[1] = &unk_2841895F8;
+  v46[2] = &unk_284185AE8;
+  v46[3] = &unk_284185AA0;
+  v47[2] = &unk_284189608;
+  v47[3] = &unk_284189618;
+  v46[4] = &unk_284185B00;
+  v46[5] = &unk_284185B18;
+  v47[4] = &unk_284189628;
+  v47[5] = &unk_284189618;
+  v46[6] = &unk_284185AB8;
+  v47[6] = &unk_284189638;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:7];
   [v4 scaledValue:v12 withOverrides:5.0];
   *(a2 + 24) = v13;
 
-  v43[0] = &unk_284185A88;
-  v43[1] = &unk_284185AA0;
-  v44[0] = &unk_284189648;
-  v44[1] = &unk_284189658;
-  v43[2] = &unk_284185B00;
-  v43[3] = &unk_284185B18;
-  v44[2] = &unk_284189638;
-  v44[3] = &unk_284189658;
-  v43[4] = &unk_284185AB8;
-  v44[4] = &unk_284189668;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:5];
+  v44[0] = &unk_284185A88;
+  v44[1] = &unk_284185AA0;
+  v45[0] = &unk_284189648;
+  v45[1] = &unk_284189658;
+  v44[2] = &unk_284185B00;
+  v44[3] = &unk_284185B18;
+  v45[2] = &unk_284189638;
+  v45[3] = &unk_284189658;
+  v44[4] = &unk_284185AB8;
+  v45[4] = &unk_284189668;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:5];
   [v4 scaledValue:v14 withOverrides:15.0];
   *(a2 + 32) = v15;
 
   [v4 scaledValue:3 withOverride:42.0 forSizeClass:47.0];
   *(a2 + 40) = v16;
-  *(a2 + 48) = NTKWhistlerSubdialComplicationContentDiameter(v34);
-  v41[0] = &unk_284185A88;
-  v41[1] = &unk_284185AB8;
-  v42[0] = &unk_284189678;
-  v42[1] = &unk_284189688;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:2];
-  [v4 scaledValue:v17 withOverrides:69.0];
-  *(a2 + 56) = v18;
+  NTKWhistlerSubdialComplicationContentDiameter();
+  *(a2 + 48) = v17;
+  v42[0] = &unk_284185A88;
+  v42[1] = &unk_284185AB8;
+  v43[0] = &unk_284189678;
+  v43[1] = &unk_284189688;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
+  [v4 scaledValue:v18 withOverrides:69.0];
+  *(a2 + 56) = v19;
 
-  v39[0] = &unk_284185A88;
-  v39[1] = &unk_284185AD0;
-  v40[0] = &unk_2841895E8;
-  v40[1] = &unk_284189698;
-  v39[2] = &unk_284185AE8;
-  v39[3] = &unk_284185AA0;
-  v40[2] = &unk_2841896A8;
-  v40[3] = &unk_284189618;
-  v39[4] = &unk_284185B00;
-  v39[5] = &unk_284185B18;
-  v40[4] = &unk_284189698;
-  v40[5] = &unk_284189618;
-  v39[6] = &unk_284185AB8;
-  v40[6] = &unk_284189638;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:7];
-  [v4 scaledValue:v19 withOverrides:6.0];
-  *(a2 + 64) = v20;
+  v40[0] = &unk_284185A88;
+  v40[1] = &unk_284185AD0;
+  v41[0] = &unk_2841895E8;
+  v41[1] = &unk_284189698;
+  v40[2] = &unk_284185AE8;
+  v40[3] = &unk_284185AA0;
+  v41[2] = &unk_2841896A8;
+  v41[3] = &unk_284189618;
+  v40[4] = &unk_284185B00;
+  v40[5] = &unk_284185B18;
+  v41[4] = &unk_284189698;
+  v41[5] = &unk_284189618;
+  v40[6] = &unk_284185AB8;
+  v41[6] = &unk_284189638;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:7];
+  [v4 scaledValue:v20 withOverrides:6.0];
+  *(a2 + 64) = v21;
 
   __asm { FMOV            V0.2D, #4.0 }
 
   *(a2 + 72) = _Q0;
   *(a2 + 88) = _Q0;
-  v37[0] = &unk_284185A88;
-  v37[1] = &unk_284185AA0;
-  v38[0] = &unk_2841896B8;
-  v38[1] = &unk_2841896C8;
-  v37[2] = &unk_284185B00;
-  v37[3] = &unk_284185B18;
-  v38[2] = &unk_2841896B8;
-  v38[3] = &unk_2841896D8;
-  v37[4] = &unk_284185AB8;
-  v38[4] = &unk_2841896A8;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:5];
-  [v4 scaledValue:v26 withOverrides:0.5];
-  *(a2 + 104) = v27;
+  v38[0] = &unk_284185A88;
+  v38[1] = &unk_284185AA0;
+  v39[0] = &unk_2841896B8;
+  v39[1] = &unk_2841896C8;
+  v38[2] = &unk_284185B00;
+  v38[3] = &unk_284185B18;
+  v39[2] = &unk_2841896B8;
+  v39[3] = &unk_2841896D8;
+  v38[4] = &unk_284185AB8;
+  v39[4] = &unk_2841896A8;
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:5];
+  [v4 scaledValue:v27 withOverrides:0.5];
+  *(a2 + 104) = v28;
 
-  v35[0] = &unk_284185A88;
-  v35[1] = &unk_284185AA0;
-  v36[0] = &unk_2841896E8;
-  v36[1] = &unk_2841896C8;
-  v35[2] = &unk_284185B00;
-  v35[3] = &unk_284185B18;
-  v36[2] = &unk_2841896E8;
-  v36[3] = &unk_2841896A8;
-  v35[4] = &unk_284185AB8;
-  v36[4] = &unk_2841896F8;
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:5];
-  [v4 scaledValue:v28 withOverrides:2.0];
-  *(a2 + 112) = v29;
+  v36[0] = &unk_284185A88;
+  v36[1] = &unk_284185AA0;
+  v37[0] = &unk_2841896E8;
+  v37[1] = &unk_2841896C8;
+  v36[2] = &unk_284185B00;
+  v36[3] = &unk_284185B18;
+  v37[2] = &unk_2841896E8;
+  v37[3] = &unk_2841896A8;
+  v36[4] = &unk_284185AB8;
+  v37[4] = &unk_2841896F8;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:5];
+  [v4 scaledValue:v29 withOverrides:2.0];
+  *(a2 + 112) = v30;
 
   [v4 scaledValue:3 withOverride:188.0 forSizeClass:213.0];
-  *(a2 + 120) = v30;
+  *(a2 + 120) = v31;
   *(a2 + 128) = xmmword_22DCE8950;
   [v4 scaledValue:3 withOverride:-23.0 forSizeClass:-26.0];
-  *(a2 + 144) = v31;
+  *(a2 + 144) = v32;
   *(a2 + 152) = 0x4020000000000000;
-  [v34 screenBounds];
+  [v35 screenBounds];
   +[NTKGossamerColorPalette contentScaleForTintedBackground];
   CLKFloorForDevice();
-  v33 = v32;
+  v34 = v33;
 
-  *(a2 + 160) = v33;
+  *(a2 + 160) = v34;
 }
 
 void ___LayoutConstants_block_invoke_68(void *a1@<X1>, void *a2@<X8>)

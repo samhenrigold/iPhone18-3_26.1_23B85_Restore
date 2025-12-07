@@ -35,16 +35,16 @@ LABEL_9:
   v14 = [(HMDXPCRequest *)&v26 init];
   if (v14)
   {
-    v15 = [nameCopy copy];
+    v15 = objc_msgSend_copy(nameCopy);
     name = v14->_name;
     v14->_name = v15;
 
     v14->_qualityOfService = service;
-    v17 = [dateCopy copy];
+    v17 = objc_msgSend_copy(dateCopy);
     timeoutDate = v14->_timeoutDate;
     v14->_timeoutDate = v17;
 
-    v19 = [v13 copy];
+    v19 = objc_msgSend_copy(v13);
     responseHandler = v14->_responseHandler;
     v14->_responseHandler = v19;
   }

@@ -1,6 +1,9 @@
 @interface CoreIRLearningSessionProvider
 - (BOOL)_addMapping:(id)mapping;
+- (BOOL)addMappingWithProtocolID:(unsigned __int8)d options:(unsigned __int8)options commandToMap:(unint64_t)map command:(unint64_t)command repeat:(unint64_t)repeat;
+- (BOOL)addMappingWithProtocolID:(unsigned __int8)d options:(unsigned __int8)options commandToMap:(unint64_t)map commands:(unint64_t *)commands commandCount:(unint64_t)count repeats:(unint64_t *)repeats repeatCount:(unint64_t)repeatCount;
 - (BOOL)startLearningCommand:(unint64_t)command;
+- (id)_newMappingWithProtocolID:(unsigned __int8)d options:(unsigned __int8)options commandToMap:(unint64_t)map commands:(unint64_t *)commands commandCount:(unint64_t)count repeats:(unint64_t *)repeats repeatCount:(unint64_t)repeatCount;
 - (int)initTimers;
 - (uint64_t)processCapturedPattern;
 - (unint64_t)_findDuplicateIRCommand:(id)command forCommand:(unint64_t)forCommand device:(id *)device;
@@ -63,7 +66,7 @@
 {
   if (gLogCategory_CoreIRLearningSession <= 10 && (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize()))
   {
-    [CoreIRLearningSessionProvider setCaptureState:?];
+    [(CoreIRLearningSessionProvider *)self setCaptureState:state];
   }
 
   self->_captureState = state;
@@ -71,49 +74,47 @@
 
 - (void)enumerateMappingUsingBlock:(id)block
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   mappings = [(CoreIRLearningSessionProvider *)self mappings];
-  v5 = [(NSMutableArray *)mappings countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSMutableArray *)mappings countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v14 != v7)
+      if (*v13 != v7)
       {
         objc_enumerationMutation(mappings);
       }
 
-      v9 = *(*(&v13 + 1) + 8 * v8);
+      v9 = *(*(&v12 + 1) + 8 * v8);
       v10 = [v9 objectForKey:@"CoreIRLearningSessionCommand"];
-      v12 = 0;
-      (*(block + 2))(block, [v10 unsignedIntegerValue], objc_msgSend(v9, "objectForKey:", @"CoreIRLearningSessionInfraredCommand"), objc_msgSend(v9, "objectForKey:", @"CoreIRLearningSessionInfraredRepeat"), &v12);
-      if (v12)
+      v11 = 0;
+      (*(block + 2))(block, [v10 unsignedIntegerValue], objc_msgSend(v9, "objectForKey:", @"CoreIRLearningSessionInfraredCommand"), objc_msgSend(v9, "objectForKey:", @"CoreIRLearningSessionInfraredRepeat"), &v11);
+      if (v11)
       {
         break;
       }
 
       if (v6 == ++v8)
       {
-        v6 = [(NSMutableArray *)mappings countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [(NSMutableArray *)mappings countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v6)
         {
           goto LABEL_3;
         }
 
-        break;
+        return;
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endLearning
@@ -157,18 +158,23 @@ LABEL_3:
             return;
           }
 
-          v6 = self->_captureState;
+          captureState = self->_captureState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_CoreIRLearningSession, "[CoreIRLearningSessionProvider processIRCommand:]", 524378, "    IR event in unexpected state: %d\n", captureState);
         return;
       }
 
-      if ([(CoreIRLearningSessionProvider *)self initTimers])
+      initTimers = [(CoreIRLearningSessionProvider *)self initTimers];
+      if (initTimers)
       {
-        if (gLogCategory_CoreIRLearningSession <= 60 && (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize()))
+        if (gLogCategory_CoreIRLearningSession <= 60)
         {
-          [CoreIRLearningSessionProvider processIRCommand:];
+          v7 = initTimers;
+          if (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize())
+          {
+            [CoreIRLearningSessionProvider processIRCommand:v7];
+          }
         }
 
         return;
@@ -193,7 +199,7 @@ LABEL_3:
 
   if (gLogCategory_CoreIRLearningSession <= 10 && (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize()))
   {
-    [CoreIRLearningSessionProvider updateProgress];
+    [(CoreIRLearningSessionProvider *)v5 updateProgress];
   }
 
   bridgeDelegate = [(CoreIRLearningSession *)self bridgeDelegate];
@@ -230,6 +236,7 @@ LABEL_3:
     payload = [command payload];
     v9 = self->_capturedCount;
     self->_capturedCommands[v9] = payload;
+    v10 = v9 + 1;
     self->_capturedCount = v9 + 1;
     if (gLogCategory_CoreIRLearningSession > 10)
     {
@@ -245,7 +252,7 @@ LABEL_3:
     {
       v10 = self->_capturedCount;
 LABEL_6:
-      LogPrintF();
+      LogPrintF(&gLogCategory_CoreIRLearningSession, "[CoreIRLearningSessionProvider captureIRCommand:]", 524298, "    Captured event %zu of %u\n", v10, 128);
     }
   }
 
@@ -278,13 +285,13 @@ LABEL_12:
       if (gLogCategory_CoreIRLearningSession != -1)
       {
 LABEL_78:
-        LogPrintF();
+        LogPrintF(&gLogCategory_CoreIRLearningSession, "[CoreIRLearningSessionProvider processCapturedPattern]", 50, "Not enough captured events to learn: %zu\n", capturedCount);
         goto LABEL_79;
       }
 
       if (_LogCategory_Initialize())
       {
-        v26 = self->_capturedCount;
+        capturedCount = self->_capturedCount;
         goto LABEL_78;
       }
     }
@@ -387,10 +394,10 @@ LABEL_19:
 
   if (gLogCategory_CoreIRLearningSession <= 40 && (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize()))
   {
-    [CoreIRLearningSessionProvider processCapturedPattern];
+    [(CoreIRLearningSessionProvider *)v17 processCapturedPattern];
   }
 
-  v31 = v17;
+  v27 = v17;
   if (v17)
   {
     v18 = self->_capturedCommands;
@@ -398,8 +405,7 @@ LABEL_19:
     {
       if (gLogCategory_CoreIRLearningSession <= 40 && (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize()))
       {
-        v27 = *v18;
-        LogPrintF();
+        LogPrintF(&gLogCategory_CoreIRLearningSession, "[CoreIRLearningSessionProvider processCapturedPattern]", 524328, "0x%llx ", *v18);
       }
 
       ++v18;
@@ -418,8 +424,7 @@ LABEL_19:
 
     if (gLogCategory_CoreIRLearningSession <= 40 && (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize()))
     {
-      v29 = v12;
-      LogPrintF();
+      LogPrintF(&gLogCategory_CoreIRLearningSession, "[CoreIRLearningSessionProvider processCapturedPattern]", 40, "Learned Repeat  Pattern %3zu, %3zu: ", v5, v12);
     }
   }
 
@@ -430,8 +435,7 @@ LABEL_19:
     {
       if (gLogCategory_CoreIRLearningSession <= 40 && (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize()))
       {
-        v28 = *v8;
-        LogPrintF();
+        LogPrintF(&gLogCategory_CoreIRLearningSession, "[CoreIRLearningSessionProvider processCapturedPattern]", 524328, "0x%llx ", *v8);
       }
 
       ++v8;
@@ -446,7 +450,7 @@ LABEL_19:
     [CoreIRLearningSessionProvider processCapturedPattern];
   }
 
-  v20 = [(CoreIRLearningSessionProvider *)self _newMappingWithProtocolID:self->_capturedProtocolID options:self->_capturedProtocolOptions commandToMap:self->_currentCommand commands:capturedCommands commandCount:v31 repeats:&capturedCommands[v5] repeatCount:v12, v29];
+  v20 = [(CoreIRLearningSessionProvider *)self _newMappingWithProtocolID:self->_capturedProtocolID options:self->_capturedProtocolOptions commandToMap:self->_currentCommand commands:capturedCommands commandCount:v27 repeats:&capturedCommands[v5] repeatCount:v12];
   if (!v20)
   {
     v16 = 3758096388;
@@ -454,7 +458,7 @@ LABEL_19:
   }
 
   v21 = v20;
-  if (-[CoreIRLearningSession reason](self, "reason") != 1 || (v32 = 0, (v22 = -[CoreIRLearningSessionProvider _findDuplicateIRCommand:forCommand:device:](self, "_findDuplicateIRCommand:forCommand:device:", [v21 objectForKey:@"CoreIRLearningSessionInfraredCommand"], self->_currentCommand, &v32)) == 0))
+  if (-[CoreIRLearningSession reason](self, "reason") != 1 || (v28 = 0, (v22 = -[CoreIRLearningSessionProvider _findDuplicateIRCommand:forCommand:device:](self, "_findDuplicateIRCommand:forCommand:device:", [v21 objectForKey:@"CoreIRLearningSessionInfraredCommand"], self->_currentCommand, &v28)) == 0))
   {
 LABEL_72:
     [(CoreIRLearningSessionProvider *)self _addMapping:v21];
@@ -488,48 +492,67 @@ LABEL_68:
 LABEL_63:
   if (gLogCategory_CoreIRLearningSession <= 90 && (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize()))
   {
-    [CoreIRLearningSessionProvider processCapturedPattern];
+    [(CoreIRLearningSessionProvider *)v23 processCapturedPattern];
   }
 
   bridgeDelegate = [(CoreIRLearningSession *)self bridgeDelegate];
   owningDevice = [(CoreIRLearningSession *)self owningDevice];
-  [(CoreIRLearningSessionBridgeDelegate *)bridgeDelegate learningSessionForDevice:owningDevice duplicateCommand:v23 target:v32];
+  [(CoreIRLearningSessionBridgeDelegate *)bridgeDelegate learningSessionForDevice:owningDevice duplicateCommand:v23 target:v28];
 LABEL_73:
+}
+
+- (BOOL)addMappingWithProtocolID:(unsigned __int8)d options:(unsigned __int8)options commandToMap:(unint64_t)map command:(unint64_t)command repeat:(unint64_t)repeat
+{
+  optionsCopy = options;
+  dCopy = d;
+  repeatCopy = repeat;
+  commandCopy = command;
+  if (gLogCategory_CoreIRLearningSession <= 10)
+  {
+    repeatCopy2 = repeat;
+    commandCopy2 = command;
+    if (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize())
+    {
+      LogPrintF(&gLogCategory_CoreIRLearningSession, "[CoreIRLearningSessionProvider addMappingWithProtocolID:options:commandToMap:command:repeat:]", 10, "addMappingWithProtocolID %d, %d, %d, %x, %x", dCopy, optionsCopy, map, commandCopy2, repeatCopy2);
+    }
+  }
+
+  return [(CoreIRLearningSessionProvider *)self addMappingWithProtocolID:dCopy options:optionsCopy commandToMap:map commands:&commandCopy commandCount:1 repeats:&repeatCopy repeatCount:1];
 }
 
 - (unint64_t)_findDuplicateIRCommand:(id)command forCommand:(unint64_t)forCommand device:(id *)device
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   mappings = self->_mappings;
-  v8 = [(NSMutableArray *)mappings countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [(NSMutableArray *)mappings countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(mappings);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         v13 = [objc_msgSend(v12 objectForKeyedSubscript:{@"CoreIRLearningSessionCommand", "unsignedIntegerValue"}];
         v14 = [v12 objectForKeyedSubscript:@"CoreIRLearningSessionInfraredCommand"];
         if (v13 != forCommand && ([command isEqual:v14] & 1) != 0)
         {
           *device = 0;
-          goto LABEL_12;
+          return v13;
         }
       }
 
-      v9 = [(NSMutableArray *)mappings countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [(NSMutableArray *)mappings countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v9)
       {
         continue;
@@ -539,67 +562,75 @@ LABEL_73:
     }
   }
 
-  v13 = [(CoreIRDevice *)[(CoreIRLearningSession *)self owningDevice] findDuplicateIRCommand:command forCommand:forCommand device:device];
-LABEL_12:
-  v15 = *MEMORY[0x277D85DE8];
-  return v13;
+  return [(CoreIRDevice *)[(CoreIRLearningSession *)self owningDevice] findDuplicateIRCommand:command forCommand:forCommand device:device];
 }
 
 - (void)handleNoSignal
 {
-  if (gLogCategory_CoreIRLearningSession <= 10 && (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_CoreIRLearningSession <= 10)
   {
-    [CoreIRLearningSessionProvider handleNoSignal];
+    if (gLogCategory_CoreIRLearningSession != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      self = [(CoreIRLearningSessionProvider *)self handleNoSignal];
+    }
   }
 
-  if (self->_captureState == 1)
+  if (selfCopy->_captureState == 1)
   {
     if (gLogCategory_CoreIRLearningSession <= 90 && (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize()))
     {
       [CoreIRLearningSessionProvider handleNoSignal];
     }
 
-    captureNoSignalTimer = self->_captureNoSignalTimer;
+    captureNoSignalTimer = selfCopy->_captureNoSignalTimer;
     if (captureNoSignalTimer)
     {
-      dispatch_source_cancel(self->_captureNoSignalTimer);
+      dispatch_source_cancel(selfCopy->_captureNoSignalTimer);
       dispatch_release(captureNoSignalTimer);
-      self->_captureNoSignalTimer = 0;
+      selfCopy->_captureNoSignalTimer = 0;
     }
 
-    bridgeDelegate = [(CoreIRLearningSession *)self bridgeDelegate];
-    owningDevice = [(CoreIRLearningSession *)self owningDevice];
+    bridgeDelegate = [(CoreIRLearningSession *)selfCopy bridgeDelegate];
+    owningDevice = [(CoreIRLearningSession *)selfCopy owningDevice];
 
     [(CoreIRLearningSessionBridgeDelegate *)bridgeDelegate learningSessionForDevice:owningDevice status:3758096387];
   }
 
-  else if (gLogCategory_CoreIRLearningSession <= 10 && (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_CoreIRLearningSession <= 10)
   {
-    [CoreIRLearningSessionProvider handleNoSignal];
+    if (gLogCategory_CoreIRLearningSession != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(CoreIRLearningSessionProvider *)self handleNoSignal];
+    }
   }
 }
 
 - (void)handleIdle
 {
+  selfCopy = self;
   captureState = self->_captureState;
   if (captureState == 3)
   {
-    if (gLogCategory_CoreIRLearningSession <= 10 && (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_CoreIRLearningSession <= 10)
     {
-      [CoreIRLearningSessionProvider handleIdle];
+      if (gLogCategory_CoreIRLearningSession != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(CoreIRLearningSessionProvider *)self handleIdle];
+      }
     }
 
-    captureIdleTimer = self->_captureIdleTimer;
+    captureIdleTimer = selfCopy->_captureIdleTimer;
     if (captureIdleTimer)
     {
-      dispatch_source_cancel(self->_captureIdleTimer);
+      dispatch_source_cancel(selfCopy->_captureIdleTimer);
       dispatch_release(captureIdleTimer);
-      self->_captureIdleTimer = 0;
+      selfCopy->_captureIdleTimer = 0;
     }
 
-    [(CoreIRLearningSessionBridgeDelegate *)[(CoreIRLearningSession *)self bridgeDelegate] learningSessionForDeviceCommandDone:[(CoreIRLearningSession *)self owningDevice]];
+    [(CoreIRLearningSessionBridgeDelegate *)[(CoreIRLearningSession *)selfCopy bridgeDelegate] learningSessionForDeviceCommandDone:[(CoreIRLearningSession *)selfCopy owningDevice]];
 
-    [(CoreIRLearningSessionProvider *)self setCaptureState:0];
+    [(CoreIRLearningSessionProvider *)selfCopy setCaptureState:0];
   }
 
   else
@@ -618,10 +649,10 @@ LABEL_12:
           return;
         }
 
-        v9 = self->_captureState;
+        captureState = selfCopy->_captureState;
       }
 
-      LogPrintF();
+      LogPrintF(&gLogCategory_CoreIRLearningSession, "[CoreIRLearningSessionProvider handleIdle]", 90, "Idle timeout in unexpected state %d\n", captureState);
       return;
     }
 
@@ -630,26 +661,26 @@ LABEL_12:
       [CoreIRLearningSessionProvider handleIdle];
     }
 
-    v4 = self->_captureIdleTimer;
-    if (v4)
+    v5 = selfCopy->_captureIdleTimer;
+    if (v5)
     {
-      dispatch_source_cancel(self->_captureIdleTimer);
-      dispatch_release(v4);
-      self->_captureIdleTimer = 0;
+      dispatch_source_cancel(selfCopy->_captureIdleTimer);
+      dispatch_release(v5);
+      selfCopy->_captureIdleTimer = 0;
     }
 
-    captureDoneTimer = self->_captureDoneTimer;
+    captureDoneTimer = selfCopy->_captureDoneTimer;
     if (captureDoneTimer)
     {
-      dispatch_source_cancel(self->_captureDoneTimer);
+      dispatch_source_cancel(selfCopy->_captureDoneTimer);
       dispatch_release(captureDoneTimer);
-      self->_captureDoneTimer = 0;
+      selfCopy->_captureDoneTimer = 0;
     }
 
-    self->_capturedCount = 0;
-    [(CoreIRLearningSessionProvider *)self setCaptureState:1];
-    bridgeDelegate = [(CoreIRLearningSession *)self bridgeDelegate];
-    owningDevice = [(CoreIRLearningSession *)self owningDevice];
+    selfCopy->_capturedCount = 0;
+    [(CoreIRLearningSessionProvider *)selfCopy setCaptureState:1];
+    bridgeDelegate = [(CoreIRLearningSession *)selfCopy bridgeDelegate];
+    owningDevice = [(CoreIRLearningSession *)selfCopy owningDevice];
 
     [(CoreIRLearningSessionBridgeDelegate *)bridgeDelegate learningSessionForDevice:owningDevice commandProgress:&unk_28593C3A8];
   }
@@ -657,7 +688,9 @@ LABEL_12:
 
 - (void)handleDone
 {
-  if (self->_captureState != 2)
+  selfCopy = self;
+  captureState = self->_captureState;
+  if (captureState != 2)
   {
     if (gLogCategory_CoreIRLearningSession > 90)
     {
@@ -671,50 +704,50 @@ LABEL_12:
         return;
       }
 
-      captureState = self->_captureState;
+      captureState = selfCopy->_captureState;
     }
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreIRLearningSession, "[CoreIRLearningSessionProvider handleDone]", 90, "Done timeout in unexpected state %d\n", captureState);
     return;
   }
 
-  if (gLogCategory_CoreIRLearningSession <= 10 && (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_CoreIRLearningSession <= 10)
   {
-    [CoreIRLearningSessionProvider handleDone];
+    if (gLogCategory_CoreIRLearningSession != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(CoreIRLearningSessionProvider *)self handleDone];
+    }
   }
 
-  captureDoneTimer = self->_captureDoneTimer;
+  captureDoneTimer = selfCopy->_captureDoneTimer;
   if (captureDoneTimer)
   {
-    dispatch_source_cancel(self->_captureDoneTimer);
+    dispatch_source_cancel(selfCopy->_captureDoneTimer);
     dispatch_release(captureDoneTimer);
-    self->_captureDoneTimer = 0;
+    selfCopy->_captureDoneTimer = 0;
   }
 
-  [(CoreIRLearningSessionBridgeDelegate *)[(CoreIRLearningSession *)self bridgeDelegate] learningSessionForDevice:[(CoreIRLearningSession *)self owningDevice] commandProgress:&unk_28593C3B8];
-  [(CoreIRLearningSessionProvider *)self processCapturedPattern];
+  [(CoreIRLearningSessionBridgeDelegate *)[(CoreIRLearningSession *)selfCopy bridgeDelegate] learningSessionForDevice:[(CoreIRLearningSession *)selfCopy owningDevice] commandProgress:&unk_28593C3B8];
+  [(CoreIRLearningSessionProvider *)selfCopy processCapturedPattern];
 
-  [(CoreIRLearningSessionProvider *)self setCaptureState:3];
+  [(CoreIRLearningSessionProvider *)selfCopy setCaptureState:3];
 }
 
 - (BOOL)startLearningCommand:(unint64_t)command
 {
   if (gLogCategory_CoreIRLearningSession <= 10 && (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize()))
   {
-    captureState = self->_captureState;
-    commandCopy = command;
-    v7 = "[CoreIRLearningSessionProvider startLearningCommand:]";
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreIRLearningSession, "[CoreIRLearningSessionProvider startLearningCommand:]", 10, "%s state = %d command = %d\n", "[CoreIRLearningSessionProvider startLearningCommand:]", self->_captureState, command);
   }
 
-  [(CoreIRLearningSessionProvider *)self disableAllTimers:v7];
+  [(CoreIRLearningSessionProvider *)self disableAllTimers];
   self->_currentCommand = command;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __54__CoreIRLearningSessionProvider_startLearningCommand___block_invoke;
-  v11[3] = &unk_278EA3400;
-  v11[4] = self;
-  [(CoreIRLearningSessionProvider *)self initTimer:&self->_captureNoSignalTimer withTimeout:20000000000 handler:v11];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __54__CoreIRLearningSessionProvider_startLearningCommand___block_invoke;
+  v7[3] = &unk_278EA3400;
+  v7[4] = self;
+  [(CoreIRLearningSessionProvider *)self initTimer:&self->_captureNoSignalTimer withTimeout:20000000000 handler:v7];
   captureNoSignalTimer = self->_captureNoSignalTimer;
   if (captureNoSignalTimer)
   {
@@ -726,8 +759,7 @@ LABEL_12:
 
     if (gLogCategory_CoreIRLearningSession <= 10 && (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize()))
     {
-      v8 = self->_captureState;
-      LogPrintF();
+      LogPrintF(&gLogCategory_CoreIRLearningSession, "[CoreIRLearningSessionProvider startLearningCommand:]", 10, "startLearningCommand success current state = %d\n", self->_captureState);
     }
   }
 
@@ -796,6 +828,33 @@ LABEL_12:
   return 0;
 }
 
+- (id)_newMappingWithProtocolID:(unsigned __int8)d options:(unsigned __int8)options commandToMap:(unint64_t)map commands:(unint64_t *)commands commandCount:(unint64_t)count repeats:(unint64_t *)repeats repeatCount:(unint64_t)repeatCount
+{
+  mapCopy = map;
+  if (map)
+  {
+    v13 = [IRProtocol protocolWithID:d options:options hasRepeats:*commands != *repeats];
+    if (v13 && (v14 = v13, (v15 = [IRCommand commandWithProtocol:v13 payload:*commands repeat:0]) != 0) && (v16 = v15, [(IRCommand *)v15 setSequence:commands withCount:count], (v17 = [IRCommand commandWithProtocol:v14 payload:*repeats repeat:1]) != 0))
+    {
+      v18 = v17;
+      [(IRCommand *)v17 setSequence:repeats withCount:repeatCount];
+      v19 = objc_alloc(MEMORY[0x277CBEB38]);
+      mapCopy = [v19 initWithObjectsAndKeys:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedInteger:", mapCopy), @"CoreIRLearningSessionCommand", v16, @"CoreIRLearningSessionInfraredCommand", v18, @"CoreIRLearningSessionInfraredRepeat", 0}];
+      if (gLogCategory_CoreIRLearningSession <= 10 && (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_CoreIRLearningSession, "[CoreIRLearningSessionProvider _newMappingWithProtocolID:options:commandToMap:commands:commandCount:repeats:repeatCount:]", 10, "New mapping %@\n", mapCopy);
+      }
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return mapCopy;
+}
+
 - (BOOL)_addMapping:(id)mapping
 {
   if (mapping)
@@ -810,8 +869,7 @@ LABEL_12:
         [(NSMutableArray *)self->_mappings addObject:v5];
         if (gLogCategory_CoreIRLearningSession <= 10 && (gLogCategory_CoreIRLearningSession != -1 || _LogCategory_Initialize()))
         {
-          mappings = self->_mappings;
-          LogPrintF();
+          LogPrintF(&gLogCategory_CoreIRLearningSession, "[CoreIRLearningSessionProvider _addMapping:]", 10, "Mapping added %@ to %@\n", v5, self->_mappings);
         }
 
         LOBYTE(v4) = 1;
@@ -829,34 +887,33 @@ LABEL_12:
 
 - (void)_removeMappingForCommand:(unint64_t)command
 {
-  v37 = *MEMORY[0x277D85DE8];
   if (command)
   {
     mappings = self->_mappings;
-    v11 = OUTLINED_FUNCTION_2_7(self, a2, command, v3, v4, v5, v6, v7, 0, 0, 0, 0, 0, 0, 0, 0, v33, v35);
+    v11 = OUTLINED_FUNCTION_2_7(self, a2, command, v3, v4, v5, v6, v7, 0, 0, 0, 0, 0, 0, 0, 0, v32);
     if (v11)
     {
       v12 = v11;
-      v13 = *v27;
+      v13 = *v26;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v27 != v13)
+          if (*v26 != v13)
           {
             objc_enumerationMutation(mappings);
           }
 
-          v15 = *(v26 + 8 * i);
+          v15 = *(v25 + 8 * i);
           v16 = [objc_msgSend(v15 objectForKeyedSubscript:{@"CoreIRLearningSessionCommand", "unsignedIntegerValue"}];
           if (v16 == command)
           {
             [(NSMutableArray *)self->_mappings removeObject:v15];
-            goto LABEL_12;
+            return;
           }
         }
 
-        v12 = OUTLINED_FUNCTION_2_7(v16, v17, v18, v19, v20, v21, v22, v23, v25, v26, v27, v28, v29, v30, v31, v32, v34, v36);
+        v12 = OUTLINED_FUNCTION_2_7(v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v33);
         if (v12)
         {
           continue;
@@ -866,16 +923,20 @@ LABEL_12:
       }
     }
   }
-
-LABEL_12:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)processIRCommand:(uint64_t)a1 .cold.1(uint64_t a1)
+- (BOOL)addMappingWithProtocolID:(unsigned __int8)d options:(unsigned __int8)options commandToMap:(unint64_t)map commands:(unint64_t *)commands commandCount:(unint64_t)count repeats:(unint64_t *)repeats repeatCount:(unint64_t)repeatCount
 {
-  v2 = *(a1 + 1128);
-  v3 = *(a1 + 1136);
-  return LogPrintF();
+  v10 = [(CoreIRLearningSessionProvider *)self _newMappingWithProtocolID:d options:options commandToMap:map commands:commands commandCount:count repeats:repeats repeatCount:repeatCount];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = [(CoreIRLearningSessionProvider *)self _addMapping:v10];
+
+    LOBYTE(v10) = v12;
+  }
+
+  return v10;
 }
 
 - (uint64_t)processCapturedPattern

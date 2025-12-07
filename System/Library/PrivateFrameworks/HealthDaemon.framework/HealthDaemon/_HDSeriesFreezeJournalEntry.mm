@@ -29,11 +29,11 @@
   v11 = [(_HDSeriesFreezeJournalEntry *)&v19 init];
   if (v11)
   {
-    v12 = [dCopy copy];
+    v12 = objc_msgSend_copy(dCopy);
     seriesUUID = v11->_seriesUUID;
     v11->_seriesUUID = v12;
 
-    v14 = [metadataCopy copy];
+    v14 = objc_msgSend_copy(metadataCopy);
     metadata = v11->_metadata;
     v11->_metadata = v14;
 
@@ -55,35 +55,35 @@
 
 + (void)applyEntries:(id)entries withProfile:(id)profile
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   profileCopy = profile;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = entriesCopy;
-  v7 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
+  v7 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v32;
+    v9 = *v31;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v32 != v9)
+        if (*v31 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v31 + 1) + 8 * i);
+        v11 = *(*(&v30 + 1) + 8 * i);
         seriesClass = [v11 seriesClass];
         seriesUUID = [v11 seriesUUID];
         metadata = [v11 metadata];
-        v30 = 0;
-        v15 = [seriesClass freezeSeriesWithIdentifier:seriesUUID metadata:metadata profile:profileCopy error:&v30];
-        v16 = v30;
+        v29 = 0;
+        v15 = [seriesClass freezeSeriesWithIdentifier:seriesUUID metadata:metadata profile:profileCopy error:&v29];
+        v16 = v29;
 
         if ((v15 & 1) == 0)
         {
@@ -96,11 +96,11 @@
             v26 = v25;
             seriesUUID2 = [v11 seriesUUID];
             *buf = 138412802;
-            v36 = v25;
-            v37 = 2112;
-            v38 = seriesUUID2;
-            v39 = 2114;
-            v40 = v16;
+            v35 = v25;
+            v36 = 2112;
+            v37 = seriesUUID2;
+            v38 = 2114;
+            v39 = v16;
             _os_log_error_impl(&dword_228986000, v24, OS_LOG_TYPE_ERROR, "%@: *** Failed to freeze series: %@ %{public}@", buf, 0x20u);
           }
 
@@ -121,7 +121,7 @@
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
+      v8 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
       if (v8)
       {
         continue;
@@ -132,13 +132,11 @@
   }
 
 LABEL_15:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (_HDSeriesFreezeJournalEntry)initWithCoder:(id)coder
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sid"];
   hk_secureCodingClasses = [MEMORY[0x277CBEAC0] hk_secureCodingClasses];
@@ -159,15 +157,14 @@ LABEL_15:
     v11 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      v14 = 138543362;
-      v15 = v8;
-      _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "Failed to instantiate series freeze journal entry: unable to find subclass '%{public}@'", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v8;
+      _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "Failed to instantiate series freeze journal entry: unable to find subclass '%{public}@'", &v13, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

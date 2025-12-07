@@ -19,6 +19,7 @@
 
 - (void)getGradientAtTime:(id *)time inColorSpace:(CGColorSpace *)space asChars:(unsigned __int8)chars[4] samples:(unsigned int)samples
 {
+  v6 = *&samples;
   pOZChannel = self->super.super._pOZChannel;
   if (pOZChannel)
   {
@@ -30,7 +31,7 @@
   }
 
   (*(*v11 + 336))(&v12, v11, time);
-  OZChannelGradient::getGradient(v11, &v12, space, chars, samples, 0, &kPCNoToneMapMethod);
+  OZChannelGradient::getGradient(v11, &v12, space, chars, v6, 0, &kPCNoToneMapMethod);
 }
 
 - (void)getGradientAtTime:(id *)time inColorSpace:(CGColorSpace *)space asShorts:(unsigned __int16)shorts[4] samples:(unsigned int)samples

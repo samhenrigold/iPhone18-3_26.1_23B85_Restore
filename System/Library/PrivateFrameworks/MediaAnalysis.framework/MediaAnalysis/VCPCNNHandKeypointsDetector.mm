@@ -23,15 +23,15 @@
 
 - (int)copyImage:(__CVBuffer *)image toData:(float *)data
 {
-  v7 = VCPSignPostLog();
+  v7 = VCPSignPostLog(self);
   v8 = os_signpost_id_generate(v7);
 
-  v9 = VCPSignPostLog();
-  v10 = v9;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = VCPSignPostLog(v9);
+  v11 = v10;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "copyImageToBGRHandKeypointCallFromSPI", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "copyImageToBGRHandKeypointCallFromSPI", "", buf, 2u);
   }
 
   if (CVPixelBufferGetPixelFormatType(image) != 1111970369)
@@ -45,12 +45,12 @@
   unlockFlags = 1;
   if (image)
   {
-    v13 = Height;
-    v14 = CVPixelBufferLockBaseAddress(image, 1uLL);
-    *buf = v14;
-    if (v14)
+    v14 = Height;
+    v15 = CVPixelBufferLockBaseAddress(image, 1uLL);
+    *buf = v15;
+    if (v15)
     {
-      v15 = v14;
+      v16 = v15;
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         [VCPImageConverter convertImage:yuvFrame:];
@@ -61,58 +61,59 @@
     {
       BaseAddress = CVPixelBufferGetBaseAddress(image);
       BytesPerRow = CVPixelBufferGetBytesPerRow(image);
-      bzero(data, 3 * 4 * Width * v13);
-      if (v13 >= 1)
+      bzero(data, 3 * 4 * Width * v14);
+      if (v14 >= 1)
       {
-        v19 = 0;
-        v20 = &data[2 * v13 * Width];
-        v21 = &data[v13 * Width];
-        v22 = 4 * Width;
+        v20 = 0;
+        v21 = &data[2 * v14 * Width];
+        v22 = &data[v14 * Width];
+        v23 = 4 * Width;
         do
         {
           if (Width >= 1)
           {
-            v23 = 0;
-            v24 = Width & 0x7FFFFFFF;
+            v24 = 0;
+            v25 = Width & 0x7FFFFFFF;
             do
             {
-              LOBYTE(v18) = BaseAddress[(v23 * 4)];
-              *&v25 = (LODWORD(v18) / self->_std) - self->_mean;
-              data[v23] = *&v25;
-              LOBYTE(v25) = BaseAddress[(v23 * 4) + 1];
-              *&v26 = (v25 / self->_std) - self->_mean;
-              v21[v23] = *&v26;
-              LOBYTE(v26) = BaseAddress[(v23 * 4) + 2];
-              v18 = (v26 / self->_std) - self->_mean;
-              v20[v23++] = v18;
-              --v24;
+              LOBYTE(v19) = BaseAddress[(v24 * 4)];
+              *&v26 = (LODWORD(v19) / self->_std) - self->_mean;
+              data[v24] = *&v26;
+              LOBYTE(v26) = BaseAddress[(v24 * 4) + 1];
+              *&v27 = (v26 / self->_std) - self->_mean;
+              v22[v24] = *&v27;
+              LOBYTE(v27) = BaseAddress[(v24 * 4) + 2];
+              v19 = (v27 / self->_std) - self->_mean;
+              v21[v24++] = v19;
+              --v25;
             }
 
-            while (v24);
+            while (v25);
           }
 
           BaseAddress += BytesPerRow;
-          ++v19;
-          v20 = (v20 + v22);
-          v21 = (v21 + v22);
-          data = (data + v22);
+          ++v20;
+          v21 = (v21 + v23);
+          v22 = (v22 + v23);
+          data = (data + v23);
         }
 
-        while (v19 != v13);
+        while (v20 != v14);
       }
 
-      v15 = CVPixelBufferLock::Unlock(buf);
-      if (!v15)
+      v28 = CVPixelBufferLock::Unlock(buf);
+      v16 = v28;
+      if (!v28)
       {
-        v27 = VCPSignPostLog();
-        v28 = v27;
-        if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+        v29 = VCPSignPostLog(v28);
+        v30 = v29;
+        if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
         {
-          *v30 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v28, OS_SIGNPOST_INTERVAL_END, v8, "copyImageToBGRHandKeypointCallFromSPI", "", v30, 2u);
+          *v32 = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v30, OS_SIGNPOST_INTERVAL_END, v8, "copyImageToBGRHandKeypointCallFromSPI", "", v32, 2u);
         }
 
-        v15 = 0;
+        v16 = 0;
       }
     }
   }
@@ -124,7 +125,7 @@
       [VCPVideoCNNAnalyzer copyImage:withChannels:settling:];
     }
 
-    v15 = -50;
+    v16 = -50;
     *buf = -50;
   }
 
@@ -133,7 +134,7 @@
     [VCPImageExposurePreAnalyzer analyzePixelBuffer:flags:results:cancel:];
   }
 
-  return v15;
+  return v16;
 }
 
 - (int)createInput:(float *)input withBuffer:(__CVBuffer *)buffer cnnInputHeight:(int)height cnnInputWidth:(int)width box:(id)box
@@ -155,38 +156,39 @@
     v21 = v20;
     [v13 maxY];
     v23 = v22;
-    [v13 minY];
-    v25 = v24;
-    v26 = VCPSignPostLog();
-    v27 = os_signpost_id_generate(v26);
+    minY = [v13 minY];
+    v26 = v25;
+    v27 = VCPSignPostLog(minY);
+    v28 = os_signpost_id_generate(v27);
 
-    v28 = VCPSignPostLog();
-    v29 = v28;
-    v30 = v15;
-    v31 = v17;
-    v32 = (v19 - v21);
-    if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
+    v30 = VCPSignPostLog(v29);
+    v31 = v30;
+    v32 = v15;
+    v33 = v17;
+    v34 = (v19 - v21);
+    if (v28 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_BEGIN, v27, "preProcessingHandKeypointCallFromSPI", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v31, OS_SIGNPOST_INTERVAL_BEGIN, v28, "preProcessingHandKeypointCallFromSPI", "", buf, 2u);
     }
 
-    v40.origin.x = v30;
-    v40.origin.y = v31;
-    v40.size.width = v32;
-    v40.size.height = (v23 - v25);
-    v33 = Scaler::ScaleCropped(&self->_scaler, v40, buffer, &cf, v7, v8, 1111970369);
-    if (!v33)
+    v43.origin.x = v32;
+    v43.origin.y = v33;
+    v43.size.width = v34;
+    v43.size.height = (v23 - v26);
+    v35 = Scaler::ScaleCropped(&self->_scaler, v43, buffer, &cf, v7, v8, 1111970369);
+    v36 = v35;
+    if (!v35)
     {
-      v34 = VCPSignPostLog();
-      v35 = v34;
-      if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
+      v37 = VCPSignPostLog(v35);
+      v38 = v37;
+      if (v28 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
       {
-        *v37 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v35, OS_SIGNPOST_INTERVAL_END, v27, "preProcessingHandKeypointCallFromSPI", "", v37, 2u);
+        *v40 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v38, OS_SIGNPOST_INTERVAL_END, v28, "preProcessingHandKeypointCallFromSPI", "", v40, 2u);
       }
 
-      v33 = [(VCPCNNHandKeypointsDetector *)self copyImage:cf toData:input];
+      v36 = [(VCPCNNHandKeypointsDetector *)self copyImage:cf toData:input];
     }
 
     if (cf)
@@ -197,105 +199,106 @@
 
   else
   {
-    v33 = -108;
+    v36 = -108;
   }
 
-  return v33;
+  return v36;
 }
 
 - (int)cvtHeatmaps2Keypoints:(float *)keypoints outHeight:(int)height outWidth:(int)width inHeight:(int)inHeight inWidth:(int)inWidth outChannel:(int)channel keypoints:(CGPoint *)a9 keypointConfidence:(float *)self0 offset:(float)self1
 {
-  v18 = VCPSignPostLog();
+  v18 = VCPSignPostLog(self);
   v19 = os_signpost_id_generate(v18);
 
-  v20 = VCPSignPostLog();
-  v21 = v20;
-  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+  v21 = VCPSignPostLog(v20);
+  v22 = v21;
+  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v19, "postProcessingHandKeypointCallFromSPI", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v19, "postProcessingHandKeypointCallFromSPI", "", buf, 2u);
   }
 
-  result = -50;
+  v23 = 4294967246;
   if (height && width)
   {
     if (channel >= 1)
     {
-      v23 = 0;
       v24 = 0;
+      v25 = 0;
       do
       {
         if (height < 1)
         {
+          v31 = 0.0;
+          v28 = 1.1755e-38;
           v30 = 0.0;
-          v27 = 1.1755e-38;
-          v29 = 0.0;
-          v26 = 0.0;
+          v27 = 0.0;
         }
 
         else
         {
-          v25 = 0;
-          v26 = 0.0;
-          v27 = 1.1755e-38;
-          v28 = v23;
-          v29 = 0.0;
+          v26 = 0;
+          v27 = 0.0;
+          v28 = 1.1755e-38;
+          v29 = v24;
           v30 = 0.0;
+          v31 = 0.0;
           do
           {
             if (width >= 1)
             {
-              v31 = 0;
+              v32 = 0;
               do
               {
-                v32 = keypoints[v28 + v31];
-                if (v32 > 0.1)
+                v23 = (v29 + v32);
+                v33 = keypoints[v23];
+                if (v33 > 0.1)
                 {
-                  if (v26 <= v32)
+                  if (v27 <= v33)
                   {
-                    v26 = keypoints[v28 + v31];
+                    v27 = keypoints[v23];
                   }
 
-                  v30 = v30 + (v31 * v32);
-                  v29 = v29 + (v25 * v32);
-                  v27 = v27 + v32;
+                  v31 = v31 + (v32 * v33);
+                  v30 = v30 + (v26 * v33);
+                  v28 = v28 + v33;
                 }
 
-                ++v31;
+                ++v32;
               }
 
-              while (width != v31);
+              while (width != v32);
             }
 
-            ++v25;
-            v28 += width;
+            ++v26;
+            v29 += width;
           }
 
-          while (v25 != height);
+          while (v26 != height);
         }
 
-        v33 = &a9[v24];
-        v33->x = (((v30 / v27) + offset) * (inHeight / height));
-        v33->y = (((v29 / v27) + offset) * (inWidth / width));
-        confidence[v24++] = v26;
-        v23 += width * height;
+        v34 = &a9[v25];
+        v34->x = (((v31 / v28) + offset) * (inHeight / height));
+        v34->y = (((v30 / v28) + offset) * (inWidth / width));
+        confidence[v25++] = v27;
+        v24 += width * height;
       }
 
-      while (v24 != channel);
+      while (v25 != channel);
     }
 
-    v34 = VCPSignPostLog();
-    v35 = v34;
-    if (v19 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v34))
+    v35 = VCPSignPostLog(v23);
+    v36 = v35;
+    if (v19 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v35))
     {
-      *v36 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v35, OS_SIGNPOST_INTERVAL_END, v19, "postProcessingHandKeypointCallFromSPI", "", v36, 2u);
+      *v38 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v36, OS_SIGNPOST_INTERVAL_END, v19, "postProcessingHandKeypointCallFromSPI", "", v38, 2u);
     }
 
-    return 0;
+    LODWORD(v23) = 0;
   }
 
-  return result;
+  return v23;
 }
 
 - (int)handKeypointsDetection:(__CVBuffer *)detection box:(id)box keypoints:(CGPoint)keypoints[21] keypointConfidence:(float)confidence[21] handHoldsObjectConfidence:(float *)objectConfidence

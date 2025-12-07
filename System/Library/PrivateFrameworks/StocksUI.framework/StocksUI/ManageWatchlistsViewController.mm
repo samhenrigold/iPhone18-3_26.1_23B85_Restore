@@ -31,13 +31,13 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_22070E1E0();
+  sub_22070E1E0(selfCopy, v2);
 }
 
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_22070ECA4();
+  sub_22070ECA4(selfCopy, v2);
 }
 
 - (void)traitCollectionDidChange:(id)change

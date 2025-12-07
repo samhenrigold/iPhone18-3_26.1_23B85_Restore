@@ -74,91 +74,91 @@
 
 - (HGRef<HGNode>)internalHGNodeForTime:(id *)time trackInputs:(const void *)inputs renderer:(const void *)renderer igContext:(HGRef<PVInstructionGraphContext>)context
 {
-  v12 = v6;
-  HGTraceGuard::HGTraceGuard(v42, "kPVInstructionGraphToHeliumGraphLogContext", 1, "[PVInstructionGraphTransformNode hgNodeForTime:...]");
+  v10 = v6;
+  HGTraceGuard::HGTraceGuard(v40, "kPVInstructionGraphToHeliumGraphLogContext", 1, "[PVInstructionGraphTransformNode hgNodeForTime:...]");
   inputNode = [(PVInstructionGraphTransformNode *)self inputNode];
-  v41 = *time;
-  v14 = *context.m_Obj;
-  v40 = v14;
-  if (v14)
+  v39 = *time;
+  v12 = *context.m_Obj;
+  v38 = v12;
+  if (v12)
   {
-    (*(*v14 + 16))(v14);
+    (*(*v12 + 16))(v12);
   }
 
   if (inputNode)
   {
-    [inputNode hgNodeForTime:&v41 trackInputs:inputs renderer:renderer igContext:&v40];
+    objc_msgSend_hgNodeForTime_trackInputs_renderer_igContext_(inputNode);
   }
 
   else
   {
-    *v12 = 0;
+    *v10 = 0;
   }
 
-  if (v40)
+  if (v38)
   {
-    (*(*v40 + 24))(v40);
+    (*(*v38 + 24))(v38);
   }
 
-  v15 = (*(**context.m_Obj + 40))();
-  v17 = v16;
-  v18 = (*(**context.m_Obj + 48))();
-  memset(&v39, 0, sizeof(v39));
-  [(PVInstructionGraphTransformNode *)self transform];
+  v13 = (*(**context.m_Obj + 40))();
+  v15 = v14;
+  v16 = (*(**context.m_Obj + 48))();
+  memset(&v37, 0, sizeof(v37));
+  objc_msgSend_transform(self);
   transformOrigin = [(PVInstructionGraphTransformNode *)self transformOrigin];
-  v20 = v18;
-  v21 = v15 * v18;
-  v22 = v17 * v20;
+  v18 = v16;
+  v19 = v13 * v16;
+  v20 = v15 * v18;
   if (transformOrigin)
   {
     if (transformOrigin == 1)
     {
-      v23 = v17 * v20;
+      v21 = v15 * v18;
     }
 
     else
     {
-      v23 = v22 * 0.5;
+      v21 = v20 * 0.5;
     }
 
     if (transformOrigin == 1)
     {
-      v24 = 0.0;
+      v22 = 0.0;
     }
 
     else
     {
-      v24 = v21 * 0.5;
+      v22 = v19 * 0.5;
     }
   }
 
   else
   {
-    v24 = *MEMORY[0x277CBF348];
-    v23 = *(MEMORY[0x277CBF348] + 8);
+    v22 = *MEMORY[0x277CBF348];
+    v21 = *(MEMORY[0x277CBF348] + 8);
   }
 
-  memset(&v38, 0, sizeof(v38));
-  CGAffineTransformMakeTranslation(&t1, -v24, -v23);
-  t2 = v39;
-  CGAffineTransformConcat(&v45, &t1, &t2);
-  CGAffineTransformMakeTranslation(&t1, v24, v23);
-  CGAffineTransformConcat(&v38, &v45, &t1);
-  v25 = *v12;
-  v37 = v25;
-  if (v25)
+  memset(&v36, 0, sizeof(v36));
+  CGAffineTransformMakeTranslation(&t1, -v22, -v21);
+  t2 = v37;
+  CGAffineTransformConcat(&v43, &t1, &t2);
+  CGAffineTransformMakeTranslation(&t1, v22, v21);
+  CGAffineTransformConcat(&v36, &v43, &t1);
+  v23 = *v10;
+  v35 = v23;
+  if (v23)
   {
-    (*(*v25 + 16))(v25);
+    (*(*v23 + 16))(v23);
   }
 
-  v45 = v38;
-  v26 = (*(**context.m_Obj + 64))();
-  HGXFormForCGAffineTransform(&v37, &v45, v26, &t1);
-  v27 = *v12;
+  v43 = v36;
+  v24 = (*(**context.m_Obj + 64))();
+  HGXFormForCGAffineTransform(&v35, &v43, v24, &t1);
+  v25 = *v10;
   a = t1.a;
-  if (*v12 == *&t1.a)
+  if (*v10 == *&t1.a)
   {
-    if (v27)
+    if (v25)
     {
       (*(**&t1.a + 24))(*&t1.a);
     }
@@ -166,35 +166,35 @@
 
   else
   {
-    if (v27)
+    if (v25)
     {
-      (*(*v27 + 24))(v27);
+      (*(*v25 + 24))(v25);
       a = t1.a;
     }
 
-    *v12 = a;
+    *v10 = a;
     t1.a = 0.0;
   }
 
-  if (v37)
+  if (v35)
   {
-    (*(*v37 + 24))(v37);
+    (*(*v35 + 24))(v35);
   }
 
   if ([(PVInstructionGraphNode *)self isDebugDrawingEnabled])
   {
-    v30 = v21;
-    v31 = v22;
-    v32 = HGRectMake4f(v29, 0.0, 0.0, v30, v31);
-    v34 = v33;
-    v35 = HGObject::operator new(0x1A0uLL);
-    *&v47.var0 = v32;
-    *&v47.var2 = v34;
-    HGSolidColor::HGSolidColor(v35, v47);
+    v28 = v19;
+    v29 = v20;
+    v30 = HGRectMake4f(v27, 0.0, 0.0, v28, v29);
+    v32 = v31;
+    v33 = HGObject::operator new(0x1A0uLL);
+    *&v45.var0 = v30;
+    *&v45.var2 = v32;
+    HGSolidColor::HGSolidColor(v33, v45);
   }
 
-  HGTraceGuard::~HGTraceGuard(v42);
-  return v36;
+  HGTraceGuard::~HGTraceGuard(v40);
+  return v34;
 }
 
 - (id)requiredSourceTrackIDs

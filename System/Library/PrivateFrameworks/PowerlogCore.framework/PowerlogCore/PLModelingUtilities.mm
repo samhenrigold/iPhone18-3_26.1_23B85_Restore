@@ -10,7 +10,6 @@
 + (BOOL)isiPad;
 + (BOOL)isiPhone;
 + (BOOL)isiPod;
-+ (BOOL)shouldShowBatteryGraphs;
 + (BOOL)supportsPhysicalSim;
 + (BOOL)supportsSlowCharging;
 + (double)defaultBatteryEnergyCapacity;
@@ -23,19 +22,15 @@
 
 + (double)duetDiscretionaryBudget
 {
-  v11 = *MEMORY[0x1E69E9840];
   if (+[PLModelingUtilities isiPhone])
   {
-    v2 = 280.0;
-    goto LABEL_13;
+    return 280.0;
   }
 
   if (MGIsDeviceOneOfType())
   {
     v3 = 0x4064000000000000;
-LABEL_12:
-    v2 = *&v3;
-    goto LABEL_13;
+    return *&v3;
   }
 
   if (MGIsDeviceOneOfType())
@@ -46,58 +41,53 @@ LABEL_12:
   if (MGIsDeviceOneOfType() & 1) != 0 || (MGIsDeviceOneOfType() & 1) != 0 || (MGIsDeviceOneOfType() & 1) != 0 || (MGIsDeviceOneOfType())
   {
     v3 = 0x4054000000000000;
-    goto LABEL_12;
+    return *&v3;
   }
 
   if (MGIsDeviceOneOfType())
   {
 LABEL_6:
     v3 = 0x404E000000000000;
-    goto LABEL_12;
+    return *&v3;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    v2 = 110.0;
+    return 110.0;
   }
 
-  else
+  v2 = 135.0;
+  if ((MGIsDeviceOneOfType() & 1) == 0 && (MGIsDeviceOneOfType() & 1) == 0 && (MGIsDeviceOneOfType() & 1) == 0 && (MGIsDeviceOneOfType() & 1) == 0 && (MGIsDeviceOneOfType() & 1) == 0)
   {
-    v2 = 135.0;
-    if ((MGIsDeviceOneOfType() & 1) == 0 && (MGIsDeviceOneOfType() & 1) == 0 && (MGIsDeviceOneOfType() & 1) == 0 && (MGIsDeviceOneOfType() & 1) == 0 && (MGIsDeviceOneOfType() & 1) == 0)
+    LODWORD(v9) = -1509831889;
+    if ((MGIsDeviceOneOfType() & 1) == 0)
     {
-      LODWORD(v10) = -1509831889;
-      if ((MGIsDeviceOneOfType() & 1) == 0)
+      v2 = 210.0;
+      if ((MGIsDeviceOneOfType() & 1) == 0 && (MGIsDeviceOneOfType() & 1) == 0)
       {
-        v2 = 210.0;
-        if ((MGIsDeviceOneOfType() & 1) == 0 && (MGIsDeviceOneOfType() & 1) == 0)
+        v5 = 0.05;
+        if ([PLModelingUtilities isiPad:0])
+        {
+          v6 = 0.01;
+        }
+
+        else
         {
           v6 = 0.05;
-          if ([PLModelingUtilities isiPad:0])
-          {
-            v7 = 0.01;
-          }
-
-          else
-          {
-            v7 = 0.05;
-          }
-
-          v8 = +[PLModelingUtilities isWatch];
-          if (!+[PLModelingUtilities isMac]&& !v8)
-          {
-            v6 = v7;
-          }
-
-          +[PLModelingUtilities defaultBatteryEnergyCapacity];
-          v2 = v6 * v9;
         }
+
+        v7 = +[PLModelingUtilities isWatch];
+        if (!+[PLModelingUtilities isMac]&& !v7)
+        {
+          v5 = v6;
+        }
+
+        +[PLModelingUtilities defaultBatteryEnergyCapacity];
+        return v5 * v8;
       }
     }
   }
 
-LABEL_13:
-  v4 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -124,10 +114,9 @@ LABEL_13:
 
 void __55__PLModelingUtilities_valueForMobileGestaltCapability___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = MGCopyAnswerWithError();
-  v3 = valueForMobileGestaltCapability__gestaltValue;
-  valueForMobileGestaltCapability__gestaltValue = v2;
+  v1 = MGCopyAnswerWithError();
+  v2 = valueForMobileGestaltCapability__gestaltValue;
+  valueForMobileGestaltCapability__gestaltValue = v1;
 }
 
 + (BOOL)isiPad
@@ -210,163 +199,128 @@ void __32__PLModelingUtilities_isAppleTV__block_invoke()
   isAppleTV_isAppleTV_0 = [v0 isEqualToString:@"AppleTV"];
 }
 
-+ (BOOL)shouldShowBatteryGraphs
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = MGIsDeviceOneOfType();
-  v3 = *MEMORY[0x1E69E9840];
-  return v2 ^ 1;
-}
-
 + (double)defaultBatteryEnergyCapacity
 {
-  v15 = *MEMORY[0x1E69E9840];
   if (MGIsDeviceOneOfType())
   {
-    result = 7449.0;
-    goto LABEL_130;
+    return 7449.0;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 11080.0;
-    goto LABEL_130;
+    return 11080.0;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 6176.0;
-    goto LABEL_130;
+    return 6176.0;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 10480.0;
-    goto LABEL_130;
+    return 10480.0;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 6484.0;
-    goto LABEL_130;
+    return 6484.0;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 11100.0;
-    goto LABEL_130;
+    return 11100.0;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 6870.0;
-    goto LABEL_130;
+    return 6870.0;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 5608.6;
-    goto LABEL_130;
+    return 5608.6;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 5427.2;
-    goto LABEL_130;
+    return 5427.2;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 5173.9;
-    goto LABEL_130;
+    return 5173.9;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 26700.0;
-    goto LABEL_130;
+    return 26700.0;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 38500.0;
-    goto LABEL_130;
+    return 38500.0;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 19120.0;
-    goto LABEL_130;
+    return 19120.0;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 23120.0;
-    goto LABEL_130;
+    return 23120.0;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 27900.0;
-    goto LABEL_130;
+    return 27900.0;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    goto LABEL_32;
+    return 31590.0;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 42500.0;
-    goto LABEL_130;
+    return 42500.0;
   }
 
   if (MGIsDeviceOneOfType())
   {
-LABEL_32:
-    result = 31590.0;
-    goto LABEL_130;
+    return 31590.0;
   }
 
   v3 = 28570.0;
   if (MGIsDeviceOneOfType())
   {
-LABEL_37:
-    result = v3;
-    goto LABEL_130;
+    return v3;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 36210.0;
-    goto LABEL_130;
+    return 36210.0;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 28370.0;
-    goto LABEL_130;
+    return 28370.0;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 36636.0;
-    goto LABEL_130;
+    return 36636.0;
   }
 
   v4 = 19020.0;
   if (MGIsDeviceOneOfType())
   {
-LABEL_45:
-    result = v4;
-    goto LABEL_130;
+    return v4;
   }
 
   if (MGIsDeviceOneOfType())
   {
-    result = 29620.0;
-    goto LABEL_130;
+    return 29620.0;
   }
 
   v5 = MGIsDeviceOneOfType();
@@ -380,19 +334,17 @@ LABEL_45:
       v3 = 28650.0;
       if (MGIsDeviceOneOfType())
       {
-        goto LABEL_37;
+        return v3;
       }
 
       if (MGIsDeviceOneOfType())
       {
-        result = 28760.0;
-        goto LABEL_130;
+        return 28760.0;
       }
 
       if (MGIsDeviceOneOfType())
       {
-        result = 41160.0;
-        goto LABEL_130;
+        return 41160.0;
       }
 
       v7 = MGIsDeviceOneOfType();
@@ -405,251 +357,221 @@ LABEL_45:
         {
           if (MGIsDeviceOneOfType())
           {
-            result = 28990.0;
-            goto LABEL_130;
+            return 28990.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 36730.0;
-            goto LABEL_130;
+            return 36730.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 31290.0;
-            goto LABEL_130;
+            return 31290.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 38990.0;
-            goto LABEL_130;
+            return 38990.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 3975.0;
-            goto LABEL_130;
+            return 3975.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 10030.0;
-            goto LABEL_130;
+            return 10030.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 12060.0;
-            goto LABEL_130;
+            return 12060.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 11160.0;
-            goto LABEL_130;
+            return 11160.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 11920.0;
-            goto LABEL_130;
+            return 11920.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 11750.0;
-            goto LABEL_130;
+            return 11750.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 15100.0;
-            goto LABEL_130;
+            return 15100.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 6960.0;
-            goto LABEL_130;
+            return 6960.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 8670.0;
-            goto LABEL_130;
+            return 8670.0;
           }
 
           v4 = 10960.0;
           if (MGIsDeviceOneOfType())
           {
-            goto LABEL_45;
+            return v4;
           }
 
           v9 = MGIsDeviceOneOfType();
           result = 10960.0;
           if (v9)
           {
-            goto LABEL_130;
+            return result;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 14620.0;
-            goto LABEL_130;
+            return 14620.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 12129.0;
-            goto LABEL_130;
+            return 12129.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 17024.0;
-            goto LABEL_130;
+            return 17024.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 9467.0;
-            goto LABEL_130;
+            return 9467.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 12563.0;
-            goto LABEL_130;
+            return 12563.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 7909.0;
-            goto LABEL_130;
+            return 7909.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 12823.0;
-            goto LABEL_130;
+            return 12823.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 16872.0;
-            goto LABEL_130;
+            return 16872.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 12449.0;
-            goto LABEL_130;
+            return 12449.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 17070.0;
-            goto LABEL_130;
+            return 17070.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 12872.0;
-            goto LABEL_130;
+            return 12872.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 17305.0;
-            goto LABEL_130;
+            return 17305.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 13162.0;
-            goto LABEL_130;
+            return 13162.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 17181.0;
-            goto LABEL_130;
+            return 17181.0;
           }
 
           v4 = 14052.0;
           if (MGIsDeviceOneOfType())
           {
-            goto LABEL_45;
+            return v4;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 18260.0;
-            goto LABEL_130;
+            return 18260.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 14006.0;
-            goto LABEL_130;
+            return 14006.0;
           }
 
           if (MGIsDeviceOneOfType())
           {
-            result = 18089.0;
-            goto LABEL_130;
+            return 18089.0;
           }
 
           v3 = 15752.0;
-          if (MGIsDeviceOneOfType())
+          if ((MGIsDeviceOneOfType() & 1) == 0)
           {
-            goto LABEL_37;
-          }
-
-          v10 = MGIsDeviceOneOfType();
-          result = 15752.0;
-          if ((v10 & 1) == 0)
-          {
-            v11 = MGIsDeviceOneOfType();
-            result = 14052.0;
-            if ((v11 & 1) == 0)
+            v10 = MGIsDeviceOneOfType();
+            result = 15752.0;
+            if ((v10 & 1) == 0)
             {
-              if (MGIsDeviceOneOfType())
+              v11 = MGIsDeviceOneOfType();
+              result = 14052.0;
+              if ((v11 & 1) == 0)
               {
-                v12 = ![PLModelingUtilities supportsPhysicalSim:0];
-                result = 16773.0;
-                v13 = 15735.0;
-              }
+                if (MGIsDeviceOneOfType())
+                {
+                  v12 = ![PLModelingUtilities supportsPhysicalSim:0];
+                  result = 16773.0;
+                  v13 = 15735.0;
+                }
 
-              else if (MGIsDeviceOneOfType())
-              {
-                v12 = ![PLModelingUtilities supportsPhysicalSim:0];
-                result = 20032.0;
-                v13 = 18994.0;
-              }
+                else if (MGIsDeviceOneOfType())
+                {
+                  v12 = ![PLModelingUtilities supportsPhysicalSim:0];
+                  result = 20032.0;
+                  v13 = 18994.0;
+                }
 
-              else
-              {
-                v12 = ![PLModelingUtilities isiPad:0];
-                result = 7000.0;
-                v13 = 19120.0;
-              }
+                else
+                {
+                  v12 = ![PLModelingUtilities isiPad:0];
+                  result = 7000.0;
+                  v13 = 19120.0;
+                }
 
-              if (!v12)
-              {
-                result = v13;
+                if (!v12)
+                {
+                  return v13;
+                }
               }
             }
+
+            return result;
           }
+
+          return v3;
         }
       }
     }
   }
 
-LABEL_130:
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -755,14 +677,12 @@ void __46__PLModelingUtilities_isLowPowerModeSupported__block_invoke()
 
 uint64_t __37__PLModelingUtilities_isNarrowScreen__block_invoke()
 {
-  v2 = *MEMORY[0x1E69E9840];
   result = MGIsDeviceOneOfType();
   if (result)
   {
     isNarrowScreen__retValue = 1;
   }
 
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 

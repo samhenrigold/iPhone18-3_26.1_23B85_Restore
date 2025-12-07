@@ -591,7 +591,7 @@ LABEL_18:
     if (v26)
     {
       [(TappableDayNumber *)self->_dayNumber numberFrame];
-      [(EKUITodayCirclePulseView *)self->_pulseView setTextYOffset:CGRectGetMinY(v32)];
+      [(EKUITodayCirclePulseView *)self->_pulseView setTextYOffset:CGRectGetMinY(v31)];
     }
 
     else
@@ -600,30 +600,29 @@ LABEL_18:
       [objc_opt_class() defaultCircleDiameter];
       CalRoundToScreenScale();
       [(EKUITodayCirclePulseView *)self->_pulseView setTextYOffset:v27 + 3.5];
-      EKUIScaleFactor();
-      if (v28 <= 1.0)
+      if (EKUIScaleFactor() <= 1.0)
       {
-        v29 = 0.0;
+        v28 = 0.0;
       }
 
       else
       {
-        v29 = 0.5;
+        v28 = 0.5;
       }
 
-      [(EKUITodayCirclePulseView *)self->_pulseView setTextOffsetFromCircle:0.0, v29];
+      [(EKUITodayCirclePulseView *)self->_pulseView setTextOffsetFromCircle:0.0, v28];
     }
 
     [(EKUITodayCirclePulseView *)self->_pulseView layoutIfNeeded];
     [v11Superview addSubview:self->_pulseView];
     [(TappableDayNumber *)self->_dayNumber setHidden:1];
-    v30 = self->_pulseView;
-    v31[0] = _NSConcreteStackBlock;
-    v31[1] = 3221225472;
-    v31[2] = sub_1000E2980;
-    v31[3] = &unk_10020EB00;
-    v31[4] = self;
-    [(EKUITodayCirclePulseView *)v30 pulse:v31];
+    v29 = self->_pulseView;
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_1000E2980;
+    v30[3] = &unk_10020EB00;
+    v30[4] = self;
+    [(EKUITodayCirclePulseView *)v29 pulse:v30];
   }
 }
 

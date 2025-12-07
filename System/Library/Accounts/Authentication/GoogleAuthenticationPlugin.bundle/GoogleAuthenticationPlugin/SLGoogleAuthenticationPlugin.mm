@@ -65,7 +65,7 @@
 
 - (id)credentialForAccount:(id)account client:(id)client store:(id)store error:(id *)error
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   clientCopy = client;
   v10 = [clientCopy hasEntitlement:*MEMORY[0x29EDB83E0]];
@@ -75,9 +75,9 @@
   {
     if (v12)
     {
-      v16 = 138412290;
-      v17 = clientCopy;
-      _os_log_impl(&dword_29C82D000, v11, OS_LOG_TYPE_DEFAULT, "%@ is entitled for all-account access. Returning Google credentials.", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = clientCopy;
+      _os_log_impl(&dword_29C82D000, v11, OS_LOG_TYPE_DEFAULT, "%@ is entitled for all-account access. Returning Google credentials.", &v15, 0xCu);
     }
 
     v13 = [MEMORY[0x29EDBDFF8] credentialForAccount:accountCopy clientID:0 error:error];
@@ -87,22 +87,20 @@
   {
     if (v12)
     {
-      v16 = 138412290;
-      v17 = clientCopy;
-      _os_log_impl(&dword_29C82D000, v11, OS_LOG_TYPE_DEFAULT, "%@ is a non-entitled client. No Google credential for you.", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = clientCopy;
+      _os_log_impl(&dword_29C82D000, v11, OS_LOG_TYPE_DEFAULT, "%@ is a non-entitled client. No Google credential for you.", &v15, 0xCu);
     }
 
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 
   return v13;
 }
 
 - (void)verifyCredentialsForAccount:(id)account accountStore:(id)store options:(id)options completion:(id)completion
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   completionCopy = completion;
   username = [accountCopy username];
@@ -137,9 +135,9 @@ LABEL_9:
 LABEL_10:
     v19 = MEMORY[0x29EDB9FA0];
     v20 = *MEMORY[0x29EDB8300];
-    v24 = *MEMORY[0x29EDB9ED8];
-    v25 = @"The account could not be verified because it does not have the necessary credentials.";
-    v21 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x29EDB9ED8];
+    v24 = @"The account could not be verified because it does not have the necessary credentials.";
+    v21 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
     v22 = [v19 errorWithDomain:v20 code:3 userInfo:v21];
 
     completionCopy[2](completionCopy, 0, v22);
@@ -150,19 +148,17 @@ LABEL_10:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = accountCopy;
+    v26 = accountCopy;
     _os_log_impl(&dword_29C82D000, v18, OS_LOG_TYPE_DEFAULT, "%@ is an OAuth account. we're good!", buf, 0xCu);
   }
 
   (completionCopy)[2](completionCopy, accountCopy, 0);
 LABEL_11:
-
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 - (id)renewalIDsForAccount:(id)account accountStore:(id)store options:(id)options
 {
-  v17[2] = *MEMORY[0x29EDCA608];
+  v16[2] = *MEMORY[0x29EDCA608];
   accountCopy = account;
   v7 = [options objectForKeyedSubscript:*MEMORY[0x29EDB8450]];
   bOOLValue = [v7 BOOLValue];
@@ -172,27 +168,25 @@ LABEL_11:
     v9 = MEMORY[0x29EDBA0F8];
     identifier = [accountCopy identifier];
     v11 = [v9 stringWithFormat:@"%@.AvoidUI", identifier];
-    v17[0] = v11;
+    v16[0] = v11;
     identifier2 = [accountCopy identifier];
-    v17[1] = identifier2;
-    v13 = [MEMORY[0x29EDB8D80] arrayWithObjects:v17 count:2];
+    v16[1] = identifier2;
+    v13 = [MEMORY[0x29EDB8D80] arrayWithObjects:v16 count:2];
   }
 
   else
   {
     identifier = [accountCopy identifier];
-    v16 = identifier;
-    v13 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v16 count:1];
+    v15 = identifier;
+    v13 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v15 count:1];
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 
   return v13;
 }
 
 - (void)renewCredentialsForAccount:(id)account accountStore:(id)store options:(id)options completion:(id)completion
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   storeCopy = store;
   optionsCopy = options;
@@ -201,32 +195,30 @@ LABEL_11:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v30 = accountCopy;
-    v31 = 2114;
-    v32 = optionsCopy;
+    v29 = accountCopy;
+    v30 = 2114;
+    v31 = optionsCopy;
     _os_log_impl(&dword_29C82D000, v14, OS_LOG_TYPE_DEFAULT, "Google plugin got renewCredentialsForAccount: %@ options: %{public}@ completion:", buf, 0x16u);
   }
 
   v15 = [optionsCopy objectForKeyedSubscript:*MEMORY[0x29EDB8450]];
   bOOLValue = [v15 BOOLValue];
 
-  v22[0] = MEMORY[0x29EDCA5F8];
-  v22[1] = 3221225472;
-  v22[2] = sub_29C82E8D8;
-  v22[3] = &unk_29F327DC0;
-  v26 = storeCopy;
-  v27 = completionCopy;
-  v23 = accountCopy;
-  v24 = optionsCopy;
+  v21[0] = MEMORY[0x29EDCA5F8];
+  v21[1] = 3221225472;
+  v21[2] = sub_29C82E8D8;
+  v21[3] = &unk_29F327DC0;
+  v25 = storeCopy;
+  v26 = completionCopy;
+  v22 = accountCopy;
+  v23 = optionsCopy;
   selfCopy = self;
-  v28 = bOOLValue;
+  v27 = bOOLValue;
   v17 = storeCopy;
   v18 = optionsCopy;
   v19 = completionCopy;
   v20 = accountCopy;
-  [(SLGoogleAuthenticationPlugin *)self _refreshTokenForAccount:v20 store:v17 completion:v22];
-
-  v21 = *MEMORY[0x29EDCA608];
+  [(SLGoogleAuthenticationPlugin *)self _refreshTokenForAccount:v20 store:v17 completion:v21];
 }
 
 - (void)_refreshTokenForAccount:(id)account store:(id)store completion:(id)completion

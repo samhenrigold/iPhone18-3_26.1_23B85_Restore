@@ -122,17 +122,17 @@
 
 - (void)_updateWithTimeZone:(id)zone timestamp:(double)timestamp
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   dispatch_assert_queue_V2(self->_donationQueue);
   v7 = [objc_opt_class() log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412546;
-    v16 = zoneCopy;
-    v17 = 2048;
+    v14 = 138412546;
+    v15 = zoneCopy;
+    v16 = 2048;
     timestampCopy = timestamp;
-    _os_log_impl(&dword_22595A000, v7, OS_LOG_TYPE_DEFAULT, "Writing timezone event %@ at %f", &v15, 0x16u);
+    _os_log_impl(&dword_22595A000, v7, OS_LOG_TYPE_DEFAULT, "Writing timezone event %@ at %f", &v14, 0x16u);
   }
 
   timeZone = self->_timeZone;
@@ -145,8 +145,6 @@
   timeZone = [device TimeZone];
   source = [timeZone source];
   [source sendEvent:v9 timestamp:timestamp];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enqueueTimeZoneUpdate

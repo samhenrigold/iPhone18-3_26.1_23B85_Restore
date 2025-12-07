@@ -75,7 +75,7 @@
 
 - (tvec3<float>)cameraSpacePoint
 {
-  sub_276154744(&self->_objectSpacePoint, &self->_transform, v2, v3);
+  sub_276154744(&self->_objectSpacePoint.var0.var0, &self->_transform, v2, v3);
   result.var0 = v4;
   result.var1 = *(&v4 + 4);
   result.var2 = v5;

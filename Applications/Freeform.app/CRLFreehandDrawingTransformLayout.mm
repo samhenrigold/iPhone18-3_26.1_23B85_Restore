@@ -62,7 +62,7 @@
   v19 = 0u;
   if (trackerCopy)
   {
-    [trackerCopy transformForLayout:self];
+    objc_msgSend_transformForLayout_(trackerCopy);
   }
 
   originalGeometry = [(CRLCanvasLayout *)self originalGeometry];
@@ -118,7 +118,7 @@
   v18 = 0u;
   if (trackerCopy)
   {
-    [trackerCopy freeTransformForLayout:self];
+    objc_msgSend_freeTransformForLayout_(trackerCopy);
   }
 
   originalGeometry = [(CRLCanvasLayout *)self originalGeometry];

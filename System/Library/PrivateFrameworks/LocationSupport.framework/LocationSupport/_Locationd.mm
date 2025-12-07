@@ -7,31 +7,31 @@
 
 + (void)becameFatallyBlocked:(id)blocked index:(unint64_t)index
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   blockedCopy = blocked;
-  v6 = blockedCopy;
+  v8 = blockedCopy;
   if ((byte_1ED5FAD98 & 1) == 0)
   {
     _Exit(0);
   }
 
-  v7 = index + 1;
-  if (v7 < [blockedCopy count])
+  v9 = index + 1;
+  if (v9 < objc_msgSend_count(blockedCopy, v6, v7))
   {
     if (qword_1ED5FAD40 != -1)
     {
       dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
     }
 
-    v8 = qword_1ED5FAD48;
+    v10 = qword_1ED5FAD48;
     if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_1DF7FE000, v8, OS_LOG_TYPE_FAULT, "_Locationd should come last?!", &v13, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_1DF7FE000, v10, OS_LOG_TYPE_FAULT, "_Locationd should come last?!", &v16, 2u);
     }
 
-    v9 = [v6 objectAtIndexedSubscript:v7];
-    [v9 becameFatallyBlocked:v6 index:v7];
+    v12 = objc_msgSend_objectAtIndexedSubscript_(v8, v11, v9);
+    objc_msgSend_becameFatallyBlocked_index_(v12, v13, v8, v9);
   }
 
   if (qword_1ED5FAD40 != -1)
@@ -39,35 +39,33 @@
     dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
   }
 
-  v10 = qword_1ED5FAD48;
+  v14 = qword_1ED5FAD48;
   if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_FAULT))
   {
-    v13 = 68289282;
-    v14 = 0;
-    v15 = 2082;
-    v16 = &unk_1DF8255EF;
-    v17 = 2114;
-    v18 = v6;
-    _os_log_impl(&dword_1DF7FE000, v10, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:locationd became blocked, non-fatally because internal install, ImplicatedServicesSoFar:%{public, location:escape_only}@}", &v13, 0x1Cu);
+    v16 = 68289282;
+    v17 = 0;
+    v18 = 2082;
+    v19 = &unk_1DF8255EF;
+    v20 = 2114;
+    v21 = v8;
+    _os_log_impl(&dword_1DF7FE000, v14, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:locationd became blocked, non-fatally because internal install, ImplicatedServicesSoFar:%{public, location:escape_only}@}", &v16, 0x1Cu);
     if (qword_1ED5FAD40 != -1)
     {
       dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
     }
   }
 
-  v11 = qword_1ED5FAD48;
+  v15 = qword_1ED5FAD48;
   if (os_signpost_enabled(qword_1ED5FAD48))
   {
-    v13 = 68289282;
-    v14 = 0;
-    v15 = 2082;
-    v16 = &unk_1DF8255EF;
-    v17 = 2114;
-    v18 = v6;
-    _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "locationd became blocked, non-fatally because internal install", "{msg%{public}.0s:locationd became blocked, non-fatally because internal install, ImplicatedServicesSoFar:%{public, location:escape_only}@}", &v13, 0x1Cu);
+    v16 = 68289282;
+    v17 = 0;
+    v18 = 2082;
+    v19 = &unk_1DF8255EF;
+    v20 = 2114;
+    v21 = v8;
+    _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "locationd became blocked, non-fatally because internal install", "{msg%{public}.0s:locationd became blocked, non-fatally because internal install, ImplicatedServicesSoFar:%{public, location:escape_only}@}", &v16, 0x1Cu);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)performSyncOnSilo:(id)silo invoker:(id)invoker
@@ -132,7 +130,7 @@
       _os_log_impl(&dword_1DF7FE000, v9, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Don't message _Locationd, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLServiceVendor.mm", 106, "+[_Locationd performSyncOnSilo:invoker:]");
     __break(1u);
 LABEL_11:
     dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);

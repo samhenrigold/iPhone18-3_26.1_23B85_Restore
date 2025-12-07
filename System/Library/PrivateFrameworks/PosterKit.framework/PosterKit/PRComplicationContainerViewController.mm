@@ -37,12 +37,12 @@
   complicationDescriptorsCopy = complicationDescriptors;
   iconLayoutCopy = iconLayout;
   sceneCopy = scene;
-  v43.receiver = self;
-  v43.super_class = PRComplicationContainerViewController;
+  v45.receiver = self;
+  v45.super_class = PRComplicationContainerViewController;
   layoutCopy = layout;
   descriptorsCopy = descriptors;
   descriptorCopy = descriptor;
-  v18 = [(PRComplicationContainerViewController *)&v43 init];
+  v18 = [(PRComplicationContainerViewController *)&v45 init];
   objc_storeStrong(&v18->_scene, scene);
   v19 = objc_opt_new();
   models = v18->_models;
@@ -98,8 +98,8 @@
   complicationRowReticleView = v18->_complicationRowReticleView;
   v18->_complicationRowReticleView = v38;
 
-  [(BSUIVibrancyEffectView *)v18->_reticleVibrancyView setUserInteractionEnabled:0];
-  [(BSUIVibrancyEffectView *)v18->_reticleVibrancyView setBlurEnabled:PREditingSupportsLiveBlurs()];
+  v40 = [(BSUIVibrancyEffectView *)v18->_reticleVibrancyView setUserInteractionEnabled:0];
+  [(BSUIVibrancyEffectView *)v18->_reticleVibrancyView setBlurEnabled:PREditingSupportsLiveBlurs(v40, v41)];
   [(BSUIVibrancyEffectView *)v18->_reticleVibrancyView setAutoresizesSubviews:1];
   [(PREditingReticleView *)v18->_complicationRowReticleView setAutoresizingMask:18];
   [(PREditingReticleView *)v18->_complicationRowReticleView setAutoresizesSubviews:1];
@@ -236,7 +236,7 @@ uint64_t __58__PRComplicationContainerViewController_handlePanGesture___block_in
   return [v3 setCenter:?];
 }
 
-uint64_t __58__PRComplicationContainerViewController_handlePanGesture___block_invoke_2(uint64_t a1)
+void *__58__PRComplicationContainerViewController_handlePanGesture___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 48);
   v3 = *(a1 + 56) + *(a1 + 64) * 0.5;

@@ -1,6 +1,6 @@
 @interface SVTimeline
 - (SVTimeline)init;
-- (uint64_t)cancelScheduledBlocks;
+- (id)cancelScheduledBlocks;
 - (uint64_t)resetTime;
 - (void)dealloc;
 - (void)executeActionsForTime:(double)time withDuration:;
@@ -28,29 +28,29 @@
 
 - (void)executeActionsForTime:(double)time withDuration:
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (self)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v5 = [*(self + 24) copy];
-    v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v6)
     {
-      v7 = *v21;
+      v7 = *v20;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v21 != v7)
+          if (*v20 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
           v9 = time > 0.0;
-          v10 = *(*(&v20 + 1) + 8 * i);
+          v10 = *(*(&v19 + 1) + 8 * i);
           time = [(SVTimeBasedAction *)v10 time];
           v12 = time < 0.0;
           v13 = time + time;
@@ -81,14 +81,12 @@
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v6);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performBlock:(double)block at:
@@ -146,11 +144,11 @@ void __30__SVTimeline_performBlock_at___block_invoke(uint64_t a1, void *a2)
   [(SVTimeline *)&v3 dealloc];
 }
 
-- (uint64_t)cancelScheduledBlocks
+- (id)cancelScheduledBlocks
 {
   if (result)
   {
-    return [*(result + 24) removeAllObjects];
+    return [result[3] removeAllObjects];
   }
 
   return result;

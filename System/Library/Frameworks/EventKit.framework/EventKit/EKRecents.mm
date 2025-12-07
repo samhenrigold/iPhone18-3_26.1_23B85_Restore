@@ -55,9 +55,11 @@ uint64_t __41__EKRecents_crRecentContactsLibraryClass__block_invoke()
 
 uint64_t __37__EKRecents_crAddressKindEmailString__block_invoke()
 {
-  crAddressKindEmailString_crAddressKindEmailString = EKWeakLinkStringConstant();
+  v0 = EKWeakLinkStringConstant();
+  v1 = crAddressKindEmailString_crAddressKindEmailString;
+  crAddressKindEmailString_crAddressKindEmailString = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)crAddressKindPhoneNumberString
@@ -74,9 +76,11 @@ uint64_t __37__EKRecents_crAddressKindEmailString__block_invoke()
 
 uint64_t __43__EKRecents_crAddressKindPhoneNumberString__block_invoke()
 {
-  crAddressKindPhoneNumberString_crAddressKindPhoneNumberString = EKWeakLinkStringConstant();
+  v0 = EKWeakLinkStringConstant();
+  v1 = crAddressKindPhoneNumberString_crAddressKindPhoneNumberString;
+  crAddressKindPhoneNumberString_crAddressKindPhoneNumberString = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)crRecentsDomainCalendarString
@@ -93,9 +97,11 @@ uint64_t __43__EKRecents_crAddressKindPhoneNumberString__block_invoke()
 
 uint64_t __42__EKRecents_crRecentsDomainCalendarString__block_invoke()
 {
-  crRecentsDomainCalendarString_crRecentsDomainCalendarString = EKWeakLinkStringConstant();
+  v0 = EKWeakLinkStringConstant();
+  v1 = crRecentsDomainCalendarString_crRecentsDomainCalendarString;
+  crRecentsDomainCalendarString_crRecentsDomainCalendarString = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)recentForContactWithAddress:(id)address name:(id)name kind:(id)kind
@@ -112,7 +118,7 @@ uint64_t __42__EKRecents_crRecentsDomainCalendarString__block_invoke()
 
 + (void)recordRecentWithAddress:(id)address name:(id)name kind:(id)kind
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   addressCopy = address;
   nameCopy = name;
   if (!nameCopy)
@@ -122,12 +128,10 @@ uint64_t __42__EKRecents_crRecentsDomainCalendarString__block_invoke()
 
   v10 = [self recentForContactWithAddress:addressCopy name:nameCopy kind:kind];
   v11 = [objc_msgSend(self "crRecentContactsLibraryClass")];
-  v15[0] = v10;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v14[0] = v10;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
   crRecentsDomainCalendarString = [self crRecentsDomainCalendarString];
   [v11 recordContactEvents:v12 recentsDomain:crRecentsDomainCalendarString sendingAddress:0 completion:0];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)recordRecentForContactWithName:(id)name emailAddress:(id)address phoneNumber:(id)number
@@ -164,9 +168,11 @@ uint64_t __42__EKRecents_crRecentsDomainCalendarString__block_invoke()
 
 uint64_t __22__EKRecents_logHandle__block_invoke()
 {
-  logHandle_handle = os_log_create("com.apple.calendar.caluikit", "EKRecents");
+  v0 = os_log_create("com.apple.calendar.caluikit", "EKRecents");
+  v1 = logHandle_handle;
+  logHandle_handle = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)mapKitHandleForRecent:(id)recent
@@ -179,7 +185,7 @@ uint64_t __22__EKRecents_logHandle__block_invoke()
 
 + (id)mapKitStyleAttributesForRecent:(id)recent
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   metadata = [recent metadata];
   v5 = [metadata objectForKey:@"mapItemStyleAttributes"];
 
@@ -190,14 +196,14 @@ uint64_t __22__EKRecents_logHandle__block_invoke()
   }
 
   v6 = MEMORY[0x1E695DFD8];
-  v15[0] = objc_opt_class();
-  v15[1] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[0] = objc_opt_class();
+  v14[1] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   v8 = [v6 setWithArray:v7];
 
-  v14 = 0;
-  v9 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v8 fromData:v5 error:&v14];
-  v10 = v14;
+  v13 = 0;
+  v9 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v8 fromData:v5 error:&v13];
+  v10 = v13;
   if (v9)
   {
     objc_opt_class();
@@ -220,7 +226,6 @@ uint64_t __22__EKRecents_logHandle__block_invoke()
 LABEL_10:
 
 LABEL_11:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -359,44 +364,44 @@ LABEL_4:
 
 + (id)recentForLocation:(id)location withAddressString:(id)string andTitle:(id)title mapItem:(id)item
 {
-  v47[7] = *MEMORY[0x1E69E9840];
+  v46[7] = *MEMORY[0x1E69E9840];
   locationCopy = location;
   itemCopy = item;
   titleCopy = title;
   stringCopy = string;
   geoLocation = [locationCopy geoLocation];
-  v46[0] = @"latitude";
+  v45[0] = @"latitude";
   v11 = MEMORY[0x1E696AD98];
   [geoLocation coordinate];
   v12 = [v11 numberWithDouble:?];
-  v47[0] = v12;
-  v46[1] = @"longitude";
+  v46[0] = v12;
+  v45[1] = @"longitude";
   v13 = MEMORY[0x1E696AD98];
   [geoLocation coordinate];
   v15 = [v13 numberWithDouble:v14];
-  v47[1] = v15;
-  v46[2] = @"hAccuracy";
+  v46[1] = v15;
+  v45[2] = @"hAccuracy";
   v16 = MEMORY[0x1E696AD98];
   [geoLocation horizontalAccuracy];
   v17 = [v16 numberWithDouble:?];
-  v47[2] = v17;
-  v46[3] = @"vAccuracy";
+  v46[2] = v17;
+  v45[3] = @"vAccuracy";
   v18 = MEMORY[0x1E696AD98];
   [geoLocation verticalAccuracy];
   v19 = [v18 numberWithDouble:?];
-  v47[3] = v19;
-  v46[4] = @"locationType";
+  v46[3] = v19;
+  v45[4] = @"locationType";
   v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:0];
-  v47[4] = v20;
-  v46[5] = @"radius";
+  v46[4] = v20;
+  v45[5] = @"radius";
   v21 = MEMORY[0x1E696AD98];
   [locationCopy radius];
   v22 = [v21 numberWithDouble:?];
-  v47[5] = v22;
-  v46[6] = @"referenceFrame";
+  v46[5] = v22;
+  v45[6] = @"referenceFrame";
   v23 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(geoLocation, "referenceFrame")}];
-  v47[6] = v23;
-  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:7];
+  v46[6] = v23;
+  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:v45 count:7];
 
   mapKitHandle = [locationCopy mapKitHandle];
   if (mapKitHandle)
@@ -459,8 +464,6 @@ LABEL_14:
   date = [MEMORY[0x1E695DF00] date];
   v39 = [v36 recentEventForAddress:stringCopy displayName:titleCopy kind:v37 date:date weight:0 metadata:v27 options:1];
 
-  v40 = *MEMORY[0x1E69E9840];
-
   return v39;
 }
 
@@ -487,15 +490,15 @@ LABEL_14:
 
 + (id)recentForDirectoryLocation:(id)location onSource:(id)source
 {
-  v21[2] = *MEMORY[0x1E69E9840];
-  v20[0] = @"sourceExternalID";
+  v20[2] = *MEMORY[0x1E69E9840];
+  v19[0] = @"sourceExternalID";
   locationCopy = location;
   externalID = [source externalID];
-  v20[1] = @"locationType";
-  v21[0] = externalID;
+  v19[1] = @"locationType";
+  v20[0] = externalID;
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:1];
-  v21[1] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v20[1] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   v9 = EKWeakLinkClass();
   v10 = EKWeakLinkStringConstant();
@@ -524,9 +527,7 @@ LABEL_14:
   }
 
   date = [MEMORY[0x1E695DF00] date];
-  v17 = [v9 recentEventForAddress:v13 displayName:v15 kind:v10 date:date weight:0 metadata:v8 options:{1, v20[0]}];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = [v9 recentEventForAddress:v13 displayName:v15 kind:v10 date:date weight:0 metadata:v8 options:{1, v19[0]}];
 
   return v17;
 }
@@ -578,20 +579,18 @@ LABEL_14:
 
 + (void)mapKitStyleAttributesForRecent:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Unable to unarchive style attributes for recent: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Unable to unarchive style attributes for recent: %@", &v2, 0xCu);
 }
 
 + (void)_archivedInstance:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Unable to archive instance for recent: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Unable to archive instance for recent: %@", &v2, 0xCu);
 }
 
 @end

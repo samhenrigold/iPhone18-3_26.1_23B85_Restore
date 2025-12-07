@@ -7,7 +7,7 @@
 
 - (double)scoreForLocation:(id)location
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   WeakRetained = objc_loadWeakRetained(&self->_updater);
 
@@ -17,107 +17,127 @@
     arrivalLeg = [v6 arrivalLeg];
 
     [locationCopy coordinate];
-    v8 = objc_loadWeakRetained(&self->_updater);
-    route = [v8 route];
+    v9 = v8;
+    v11 = v10;
+    v12 = objc_loadWeakRetained(&self->_updater);
+    route = [v12 route];
     [route pointAt:{objc_msgSend(arrivalLeg, "endPointIndex")}];
+    v15 = v14;
+    v17 = v16;
 
     arrivalPoints = self->_arrivalPoints;
     if (arrivalPoints)
     {
       threshold = self->_threshold;
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
-      v35 = 0u;
-      v11 = arrivalPoints;
-      v12 = [(NSArray *)v11 countByEnumeratingWithState:&v34 objects:v44 count:16];
-      if (v12)
+      v59 = 0u;
+      v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
+      v19 = arrivalPoints;
+      v20 = [(NSArray *)v19 countByEnumeratingWithState:&v57 objects:v67 count:16];
+      if (v20)
       {
-        v13 = v12;
-        v14 = *v35;
-        v15 = 0.0;
+        v21 = v20;
+        v22 = *v58;
+        v23 = 0.0;
         do
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v21; ++i)
           {
-            if (*v35 != v14)
+            if (*v58 != v22)
             {
-              objc_enumerationMutation(v11);
+              objc_enumerationMutation(v19);
             }
 
-            v17 = *(*(&v34 + 1) + 8 * i);
-            point = [v17 point];
+            v25 = *(*(&v57 + 1) + 8 * i);
+            point = [v25 point];
             [point lat];
-            point2 = [v17 point];
+            v28 = v27;
+            point2 = [v25 point];
             [point2 lng];
+            v31 = v30;
 
-            GEOCalculateDistance();
-            if (v20 > v15)
+            v69.var0 = v9;
+            v69.var1 = v11;
+            v69.var2 = v28;
+            v73.var0 = v31;
+            v36 = GEOCalculateDistance(v32, v33, v69, v73);
+            if (v36 > v23)
             {
-              v21 = v20;
-              GEOCalculateDistance();
-              threshold = self->_threshold + v22;
-              v15 = v21;
+              v39 = v36;
+              v70.var0 = v15;
+              v70.var1 = v17;
+              v70.var2 = v28;
+              v40 = v31;
+              threshold = self->_threshold + GEOCalculateDistance(v34, v35, v70, *(&v37 - 1));
+              v23 = v39;
             }
           }
 
-          v13 = [(NSArray *)v11 countByEnumeratingWithState:&v34 objects:v44 count:16];
+          v21 = [(NSArray *)v19 countByEnumeratingWithState:&v57 objects:v67 count:16];
         }
 
-        while (v13);
+        while (v21);
       }
 
       else
       {
-        v15 = 0.0;
+        v23 = 0.0;
       }
 
-      v27 = threshold;
+      v51 = threshold;
     }
 
     else
     {
       destination = [arrivalLeg destination];
       [destination coordinate];
+      v44 = v43;
+      v46 = v45;
 
-      GEOCalculateDistance();
-      v15 = v25;
-      GEOCalculateDistance();
-      v27 = self->_threshold + v26;
+      v71.var0 = v9;
+      v71.var1 = v11;
+      v71.var2 = v44;
+      v74.var0 = v46;
+      v23 = GEOCalculateDistance(v47, v48, v71, v74);
+      v72.var0 = v15;
+      v72.var1 = v17;
+      v72.var2 = v44;
+      v75.var0 = v46;
+      v51 = self->_threshold + GEOCalculateDistance(v49, v50, v72, v75);
     }
 
-    if (v15 >= v27)
+    if (v23 >= v51)
     {
-      v28 = MNGetMNDepartureUpdaterLog();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v52 = MNGetMNDepartureUpdaterLog();
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = objc_loadWeakRetained(&self->_updater);
-        arrivalWaypointLegIndex = [v29 arrivalWaypointLegIndex];
+        v53 = objc_loadWeakRetained(&self->_updater);
+        arrivalWaypointLegIndex = [v53 arrivalWaypointLegIndex];
         *buf = 67109632;
-        v39 = arrivalWaypointLegIndex;
-        v40 = 2048;
-        v41 = v15;
-        v42 = 2048;
-        v43 = v27;
-        _os_log_impl(&dword_1D311E000, v28, OS_LOG_TYPE_DEFAULT, "Minimum deviation from intermediary waypoint detected. Leg: %d. Distance (%0.1fm) > Required distance (%0.1fm).", buf, 0x1Cu);
+        v62 = arrivalWaypointLegIndex;
+        v63 = 2048;
+        v64 = v23;
+        v65 = 2048;
+        v66 = v51;
+        _os_log_impl(&dword_1D311E000, v52, OS_LOG_TYPE_DEFAULT, "Minimum deviation from intermediary waypoint detected. Leg: %d. Distance (%0.1fm) > Required distance (%0.1fm).", buf, 0x1Cu);
       }
 
-      v23 = 1.0;
+      v41 = 1.0;
     }
 
     else
     {
-      v23 = v15 / v27;
+      v41 = v23 / v51;
     }
   }
 
   else
   {
-    v23 = -1.0;
+    v41 = -1.0;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
-  return v23;
+  return v41;
 }
 
 - (__MNDepartureMinimumDepartureDistanceCondition)initWithUpdater:(id)updater arrivalPoints:(id)points distanceThreshold:(double)threshold

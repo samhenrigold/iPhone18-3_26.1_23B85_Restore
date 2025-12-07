@@ -50,8 +50,8 @@
 
   if ((isKindOfClass & 1) == 0)
   {
-    v5 = _CNLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = _CNLogSystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [(CNCustomDetectionTrack *)self _integrityCheck];
     }
@@ -62,19 +62,17 @@
 
 - (void)_integrityCheck
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   internalTrack = [self internalTrack];
   v7 = objc_opt_class();
   v8 = NSStringFromClass(v7);
-  v10 = 138412546;
-  v11 = v5;
-  v12 = 2112;
-  v13 = v8;
-  _os_log_debug_impl(&dword_236F52000, a2, OS_LOG_TYPE_DEBUG, "%@ has unexpected internal type %@", &v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138412546;
+  v10 = v5;
+  v11 = 2112;
+  v12 = v8;
+  _os_log_debug_impl(&dword_236F52000, a2, OS_LOG_TYPE_DEBUG, "%@ has unexpected internal type %@", &v9, 0x16u);
 }
 
 @end

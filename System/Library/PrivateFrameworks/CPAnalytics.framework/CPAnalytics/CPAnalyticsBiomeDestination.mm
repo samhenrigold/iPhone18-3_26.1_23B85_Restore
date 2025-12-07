@@ -155,7 +155,7 @@ void __76__CPAnalyticsBiomeDestination__donateSearchSessionyWithBaseSample_andEv
 
 - (void)_donatePhotoSearchEventWithBaseSample:(id)sample andEvent:(id)event
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   v6 = [event propertyForKey:@"bundleIdentifier"];
   v7 = BiomeLibrary();
@@ -175,39 +175,37 @@ void __76__CPAnalyticsBiomeDestination__donateSearchSessionyWithBaseSample_andEv
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     identifier2 = [sampleCopy identifier];
-    v18 = 138412290;
-    v19 = identifier2;
-    _os_log_impl(&dword_24260A000, v15, OS_LOG_TYPE_INFO, "[Biome][Donation][Photos][Search] Sent a photo search event with uuid: %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = identifier2;
+    _os_log_impl(&dword_24260A000, v15, OS_LOG_TYPE_INFO, "[Biome][Donation][Photos][Search] Sent a photo search event with uuid: %@", &v17, 0xCu);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_donatePhotoShareEventWithBaseSample:(id)sample andEvent:(id)event
 {
-  v28[9] = *MEMORY[0x277D85DE8];
+  v27[9] = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
-  v27[0] = @"PLActivityTypeUseAsWallpaper";
-  v27[1] = @"com.apple.NanoTimeKit.CreateWatchFace";
-  v28[0] = &unk_2854F1D18;
-  v28[1] = &unk_2854F1D30;
-  v27[2] = @"com.apple.Photos.actvity.AirPlay";
-  v27[3] = @"com.apple.UIKit.activity.AirDrop";
-  v28[2] = &unk_2854F1D48;
-  v28[3] = &unk_2854F1D60;
-  v27[4] = @"com.apple.DocumentManagerUICore.SaveToFiles";
-  v27[5] = @"com.apple.UIKit.activity.AssignToContact";
-  v28[4] = &unk_2854F1D78;
-  v28[5] = &unk_2854F1D90;
-  v27[6] = @"PUActivityTypeAddToAlbum";
-  v27[7] = @"PLActivityTypeAlbumStream";
-  v28[6] = &unk_2854F1DA8;
-  v28[7] = &unk_2854F1DC0;
-  v27[8] = @"PUActivityTypeHide";
-  v28[8] = &unk_2854F1DD8;
+  v26[0] = @"PLActivityTypeUseAsWallpaper";
+  v26[1] = @"com.apple.NanoTimeKit.CreateWatchFace";
+  v27[0] = &unk_2854F1D18;
+  v27[1] = &unk_2854F1D30;
+  v26[2] = @"com.apple.Photos.actvity.AirPlay";
+  v26[3] = @"com.apple.UIKit.activity.AirDrop";
+  v27[2] = &unk_2854F1D48;
+  v27[3] = &unk_2854F1D60;
+  v26[4] = @"com.apple.DocumentManagerUICore.SaveToFiles";
+  v26[5] = @"com.apple.UIKit.activity.AssignToContact";
+  v27[4] = &unk_2854F1D78;
+  v27[5] = &unk_2854F1D90;
+  v26[6] = @"PUActivityTypeAddToAlbum";
+  v26[7] = @"PLActivityTypeAlbumStream";
+  v27[6] = &unk_2854F1DA8;
+  v27[7] = &unk_2854F1DC0;
+  v26[8] = @"PUActivityTypeHide";
+  v27[8] = &unk_2854F1DD8;
   v6 = MEMORY[0x277CBEAC0];
   eventCopy = event;
-  v8 = [v6 dictionaryWithObjects:v28 forKeys:v27 count:9];
+  v8 = [v6 dictionaryWithObjects:v27 forKeys:v26 count:9];
   v9 = [eventCopy propertyForKey:@"activityType"];
 
   subset = [sampleCopy subset];
@@ -241,17 +239,15 @@ void __76__CPAnalyticsBiomeDestination__donateSearchSessionyWithBaseSample_andEv
   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
     identifier2 = [sampleCopy identifier];
-    v25 = 138412290;
-    v26 = identifier2;
-    _os_log_impl(&dword_24260A000, v22, OS_LOG_TYPE_INFO, "[Biome][Donation][Photos][Share] Sent a photo share event with uuid: %@", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = identifier2;
+    _os_log_impl(&dword_24260A000, v22, OS_LOG_TYPE_INFO, "[Biome][Donation][Photos][Share] Sent a photo share event with uuid: %@", &v24, 0xCu);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_donatePhotoFavoritesEventWithBaseSample:(id)sample andEvent:(id)event
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   v6 = [event propertyForKey:@"cpa_media_ageInMinutes"];
   [v6 doubleValue];
@@ -290,17 +286,15 @@ void __76__CPAnalyticsBiomeDestination__donateSearchSessionyWithBaseSample_andEv
   if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
     identifier2 = [sampleCopy identifier];
-    v23 = 138412290;
-    v24 = identifier2;
-    _os_log_impl(&dword_24260A000, v20, OS_LOG_TYPE_INFO, "[Biome][Donation][Photos][Favorite] Sent a photo favorite event with uuid: %@", &v23, 0xCu);
+    v22 = 138412290;
+    v23 = identifier2;
+    _os_log_impl(&dword_24260A000, v20, OS_LOG_TYPE_INFO, "[Biome][Donation][Photos][Favorite] Sent a photo favorite event with uuid: %@", &v22, 0xCu);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_donatePhotoEngagmentEventWithBaseSample:(id)sample andEvent:(id)event
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   v6 = [event propertyForKey:@"signpostDuration"];
   [v6 doubleValue];
@@ -352,17 +346,15 @@ void __76__CPAnalyticsBiomeDestination__donateSearchSessionyWithBaseSample_andEv
   if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
     identifier2 = [sampleCopy identifier];
-    v26 = 138412290;
-    v27 = identifier2;
-    _os_log_impl(&dword_24260A000, v23, OS_LOG_TYPE_INFO, "[Biome][Donation][Photos][Engagement] Sent a photos engagement event with uuid: %@", &v26, 0xCu);
+    v25 = 138412290;
+    v26 = identifier2;
+    _os_log_impl(&dword_24260A000, v23, OS_LOG_TYPE_INFO, "[Biome][Donation][Photos][Engagement] Sent a photos engagement event with uuid: %@", &v25, 0xCu);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_donatePhotoEditEventWithBaseSample:(id)sample andEvent:(id)event
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   v5 = BiomeLibrary();
   photos = [v5 Photos];
@@ -382,17 +374,15 @@ void __76__CPAnalyticsBiomeDestination__donateSearchSessionyWithBaseSample_andEv
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     identifier2 = [sampleCopy identifier];
-    v17 = 138412290;
-    v18 = identifier2;
-    _os_log_impl(&dword_24260A000, v14, OS_LOG_TYPE_INFO, "[Biome][Donation][Photos][Edit] Sent a photo edit event with uuid: %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = identifier2;
+    _os_log_impl(&dword_24260A000, v14, OS_LOG_TYPE_INFO, "[Biome][Donation][Photos][Edit] Sent a photo edit event with uuid: %@", &v16, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_donatePhotoDeleteEventWithBaseSample:(id)sample andEvent:(id)event
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   v6 = [event propertyForKey:@"cpa_media_ageInMinutes"];
   [v6 doubleValue];
@@ -431,12 +421,10 @@ void __76__CPAnalyticsBiomeDestination__donateSearchSessionyWithBaseSample_andEv
   if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
     identifier2 = [sampleCopy identifier];
-    v23 = 138412290;
-    v24 = identifier2;
-    _os_log_impl(&dword_24260A000, v20, OS_LOG_TYPE_INFO, "[Biome][Donation][Photos][Delete] Sent a photo delete event with uuid: %@", &v23, 0xCu);
+    v22 = 138412290;
+    v23 = identifier2;
+    _os_log_impl(&dword_24260A000, v20, OS_LOG_TYPE_INFO, "[Biome][Donation][Photos][Delete] Sent a photo delete event with uuid: %@", &v22, 0xCu);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_donateGenerativeMemoryCreationWithBaseSample:(id)sample andEvent:(id)event
@@ -752,7 +740,7 @@ LABEL_45:
 
 - (void)_donateMemorySharedWithBaseSample:(id)sample andEvent:(id)event
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   v6 = [event propertyForKey:@"isThirdPartyShareDestination"];
   v7 = BiomeLibrary();
@@ -775,17 +763,15 @@ LABEL_45:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     identifier2 = [sampleCopy identifier];
-    v22 = 138412290;
-    v23 = identifier2;
-    _os_log_impl(&dword_24260A000, v19, OS_LOG_TYPE_INFO, "[Biome][Donation][MemoryShare] Sent a memory share event with uuid: %@", &v22, 0xCu);
+    v21 = 138412290;
+    v22 = identifier2;
+    _os_log_impl(&dword_24260A000, v19, OS_LOG_TYPE_INFO, "[Biome][Donation][MemoryShare] Sent a memory share event with uuid: %@", &v21, 0xCu);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dondateMemoryNotificationWithBaseSample:(id)sample andEvent:(id)event
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   eventCopy = event;
   name = [eventCopy name];
@@ -832,17 +818,15 @@ LABEL_45:
   if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
   {
     identifier2 = [sampleCopy identifier];
-    v27 = 138412290;
-    v28 = identifier2;
-    _os_log_impl(&dword_24260A000, v24, OS_LOG_TYPE_INFO, "[Biome][Donation][Notifications] Sent a memory notifications event with uuid: %@", &v27, 0xCu);
+    v26 = 138412290;
+    v27 = identifier2;
+    _os_log_impl(&dword_24260A000, v24, OS_LOG_TYPE_INFO, "[Biome][Donation][Notifications] Sent a memory notifications event with uuid: %@", &v26, 0xCu);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_donateMemoryMoviePlayedWithBaseSample:(id)sample andEvent:(id)event
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   v5 = BiomeLibrary();
   photos = [v5 Photos];
@@ -864,17 +848,15 @@ LABEL_45:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     identifier2 = [sampleCopy identifier];
-    v20 = 138412290;
-    v21 = identifier2;
-    _os_log_impl(&dword_24260A000, v17, OS_LOG_TYPE_INFO, "[Biome][Donation][MoviePlayed] Sent a movie played event with uuid: %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = identifier2;
+    _os_log_impl(&dword_24260A000, v17, OS_LOG_TYPE_INFO, "[Biome][Donation][MoviePlayed] Sent a movie played event with uuid: %@", &v19, 0xCu);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_donateMemoryCurationWithBaseSample:(id)sample andEvent:(id)event
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   eventCopy = event;
   name = [eventCopy name];
@@ -933,26 +915,24 @@ LABEL_45:
   if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
     identifier2 = [sampleCopy identifier];
-    v30 = 138412290;
-    v31 = identifier2;
-    _os_log_impl(&dword_24260A000, v27, OS_LOG_TYPE_INFO, "[Biome][Donation][MemoryCuration] Sent a memory curation event with uuid: %@", &v30, 0xCu);
+    v29 = 138412290;
+    v30 = identifier2;
+    _os_log_impl(&dword_24260A000, v27, OS_LOG_TYPE_INFO, "[Biome][Donation][MemoryCuration] Sent a memory curation event with uuid: %@", &v29, 0xCu);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendBiomeEvent:(id)event matcher:(id)matcher
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   matcherCopy = matcher;
   v8 = CPAnalyticsLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     datasetName = [matcherCopy datasetName];
-    v14 = 138412290;
-    v15 = datasetName;
-    _os_log_impl(&dword_24260A000, v8, OS_LOG_TYPE_INFO, "Enter with matcher %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = datasetName;
+    _os_log_impl(&dword_24260A000, v8, OS_LOG_TYPE_INFO, "Enter with matcher %@", &v13, 0xCu);
   }
 
   datasetName2 = [matcherCopy datasetName];
@@ -1027,13 +1007,11 @@ LABEL_45:
     v12 = CPAnalyticsLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
-      v15 = datasetName2;
-      _os_log_error_impl(&dword_24260A000, v12, OS_LOG_TYPE_ERROR, "No donation method implemented for %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = datasetName2;
+      _os_log_error_impl(&dword_24260A000, v12, OS_LOG_TYPE_ERROR, "No donation method implemented for %@", &v13, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_baseSampleFromEvent:(id)event matcher:(id)matcher
@@ -1062,28 +1040,28 @@ LABEL_45:
 
 - (void)processEvent:(id)event
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   eventCopy = event;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   eventMatchers = [(CPAnalyticsBiomeDestination *)self eventMatchers];
-  v6 = [eventMatchers countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [eventMatchers countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v13 != v8)
+      if (*v12 != v8)
       {
         objc_enumerationMutation(eventMatchers);
       }
 
-      v10 = *(*(&v12 + 1) + 8 * v9);
+      v10 = *(*(&v11 + 1) + 8 * v9);
       if ([v10 doesMatch:eventCopy])
       {
         [(CPAnalyticsBiomeDestination *)self _sendBiomeEvent:eventCopy matcher:v10];
@@ -1095,7 +1073,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [eventMatchers countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [eventMatchers countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -1105,38 +1083,36 @@ LABEL_3:
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateWithConfig:(id)config
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = [config objectForKeyedSubscript:@"events"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v5 = v4;
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         v9 = 0;
         do
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [[CPAnalyticsCoreDuetEventMatcher alloc] initWithConfig:*(*(&v12 + 1) + 8 * v9)];
+          v10 = [[CPAnalyticsCoreDuetEventMatcher alloc] initWithConfig:*(*(&v11 + 1) + 8 * v9)];
           if (v10)
           {
             [(NSMutableArray *)self->_eventMatchers addObject:v10];
@@ -1146,14 +1122,12 @@ LABEL_3:
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (CPAnalyticsBiomeDestination)initWithConfig:(id)config cpAnalyticsInstance:(id)instance

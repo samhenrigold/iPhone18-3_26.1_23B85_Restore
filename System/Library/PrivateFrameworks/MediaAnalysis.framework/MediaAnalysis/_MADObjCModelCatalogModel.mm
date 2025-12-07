@@ -9,7 +9,7 @@
 {
   Logger.init(subsystem:category:)();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for _MADObjCModelCatalogModel();
+  v4.super_class = type metadata accessor for _MADObjCModelCatalogModel(0);
   return [(_MADObjCModelCatalogModel *)&v4 init];
 }
 

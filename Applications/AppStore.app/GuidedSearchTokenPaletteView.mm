@@ -35,25 +35,26 @@
   v5 = type metadata accessor for IndexPath();
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   v9 = *(&self->super.super.super.isa + OBJC_IVAR____TtC8AppStore28GuidedSearchTokenPaletteView_onSelect);
   if (v9)
   {
+    v10 = *&self->onSelect[OBJC_IVAR____TtC8AppStore28GuidedSearchTokenPaletteView_onSelect];
     selfCopy = self;
-    sub_10000827C(v9);
-    v11 = IndexPath.row.getter();
-    v9(v11);
-    sub_10001F63C(v9);
+    sub_10000827C(v9, v10);
+    v12 = IndexPath.row.getter();
+    v9(v12);
+    sub_10001F63C(v9, v10);
 
     (*(v6 + 8))(v8, v5);
   }
 
   else
   {
-    v12 = *(v6 + 8);
+    v13 = *(v6 + 8);
     selfCopy2 = self;
-    v12(v8, v5);
+    v13(v8, v5);
   }
 }
 
@@ -66,7 +67,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_100556030(viewCopy);
+  v12 = sub_100556030(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 
@@ -78,34 +79,38 @@
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
-  v10 = &v23[-1] - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v29[-1] - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_100556158(v23);
-  if (v23[3])
+  sub_100556158(v29);
+  v13 = v30;
+  if (v30)
   {
-    v13 = v23[1];
-    v14 = v23[0];
-    v15 = v24;
+    v15 = v29[1];
+    v14 = v29[2];
+    v16 = v29[0];
+    v17 = v31;
     [viewCopy bounds];
-    v16 = sub_100556A00(v14, v13);
-    v17 = sub_100556CC8(v16, v15 & 1, viewCopy);
     v19 = v18;
+    v21 = v20;
+    v22 = sub_100556A00(v16, v15, v14, v13, viewCopy);
+    v23 = sub_100556CC8(v22, v17 & 1, viewCopy, v19, v21);
+    v25 = v24;
   }
 
   else
   {
 
-    v17 = 0.0;
-    v19 = 0.0;
+    v23 = 0.0;
+    v25 = 0.0;
   }
 
   (*(v8 + 8))(v10, v7);
-  v20 = v17;
-  v21 = v19;
-  result.height = v21;
-  result.width = v20;
+  v26 = v23;
+  v27 = v25;
+  result.height = v27;
+  result.width = v26;
   return result;
 }
 
@@ -153,7 +158,7 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_10055832C(cellCopy);
+  sub_10055832C(cellCopy, v11);
 
   (*(v9 + 8))(v11, v8);
 }

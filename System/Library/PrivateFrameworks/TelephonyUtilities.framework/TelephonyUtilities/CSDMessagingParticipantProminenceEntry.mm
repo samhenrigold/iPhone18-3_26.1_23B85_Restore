@@ -63,20 +63,18 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    participantIdentifier = self->_participantIdentifier;
     PBDataWriterWriteUint64Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    audioPriority = self->_audioPriority;
     PBDataWriterWriteUint64Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

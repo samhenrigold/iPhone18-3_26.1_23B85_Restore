@@ -76,8 +76,7 @@ LABEL_11:
   {
     if (type == 3)
     {
-      length = self->length_;
-      v11 = @"Malformed-input error with erroneous input length ";
+      v10 = @"Malformed-input error with erroneous input length ";
     }
 
     else
@@ -87,16 +86,15 @@ LABEL_11:
         goto LABEL_8;
       }
 
-      v10 = self->length_;
-      v11 = @"Unmappable-character error with erroneous input length ";
+      v10 = @"Unmappable-character error with erroneous input length ";
     }
 
-    JreStrcat("$I", a2, v2, v3, v4, v5, v6, v7, v11);
+    JreStrcat("$I", a2, v2, v3, v4, v5, v6, v7, v10);
   }
 
 LABEL_8:
-  v13 = [-[JavaNioCharsetCoderResult getClass](self "getClass")];
-  return JreStrcat("$C$C", v14, v15, v16, v17, v18, v19, v20, v13);
+  v11 = [-[JavaNioCharsetCoderResult getClass](self "getClass")];
+  return JreStrcat("$C$C", v12, v13, v14, v15, v16, v17, v18, v11);
 }
 
 + (void)initialize

@@ -10,21 +10,22 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TSTravelEducationIntroViewController
 
 - (TSTravelEducationIntroViewController)initWithOptions:(id)options
 {
-  v34[3] = *MEMORY[0x277D85DE8];
+  v33[3] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v6 = [v5 localizedStringForKey:@"STAY_CONNECTED_TRAVEL_TITLE" value:&stru_28753DF48 table:@"Localizable"];
   v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v8 = [v7 localizedStringForKey:@"STAY_CONNECTED_TRAVEL_BODY" value:&stru_28753DF48 table:@"Localizable"];
-  v32.receiver = self;
-  v32.super_class = TSTravelEducationIntroViewController;
-  v9 = [(OBTableWelcomeController *)&v32 initWithTitle:v6 detailText:v8 symbolName:@"antenna.radiowaves.left.and.right" adoptTableViewScrollView:1];
+  v31.receiver = self;
+  v31.super_class = TSTravelEducationIntroViewController;
+  v9 = [(OBTableWelcomeController *)&v31 initWithTitle:v6 detailText:v8 symbolName:@"antenna.radiowaves.left.and.right" adoptTableViewScrollView:1];
 
   if (v9)
   {
@@ -55,19 +56,19 @@
     v9->_isRoamingTapped = 0;
     v9->_isExistingPlanTapped = 0;
     v9->_isPurchaseLocalPlanTapped = 0;
-    v33[0] = @"showRoamingOption";
+    v32[0] = @"showRoamingOption";
     v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v20 = [v19 localizedStringForKey:@"TRAVEL_DATA_ROAMING_LIST_ITEM" value:&stru_28753DF48 table:@"Localizable"];
-    v34[0] = v20;
-    v33[1] = @"showLocalPlanOption";
+    v33[0] = v20;
+    v32[1] = @"showLocalPlanOption";
     v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v22 = [v21 localizedStringForKey:@"TRAVEL_EXISTING_PLAN_LIST_ITEM" value:&stru_28753DF48 table:@"Localizable"];
-    v34[1] = v22;
-    v33[2] = @"showPurchaseOption";
+    v33[1] = v22;
+    v32[2] = @"showPurchaseOption";
     v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v24 = [v23 localizedStringForKey:@"TRAVEL_PURCHASE_PLAN_LIST_ITEM" value:&stru_28753DF48 table:@"Localizable"];
-    v34[2] = v24;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:3];
+    v33[2] = v24;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:3];
     text = v9->_text;
     v9->_text = v25;
 
@@ -77,7 +78,6 @@
     v9->_client = v28;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -121,6 +121,16 @@
 
   tableView9 = [(OBTableWelcomeController *)self tableView];
   [tableView9 layoutIfNeeded];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  self->_isRoamingTapped = 0;
+  self->_isExistingPlanTapped = 0;
+  self->_isPurchaseLocalPlanTapped = 0;
+  v3.receiver = self;
+  v3.super_class = TSTravelEducationIntroViewController;
+  [(OBTableWelcomeController *)&v3 viewWillAppear:appear];
 }
 
 - (void)viewDidLayoutSubviews
@@ -270,12 +280,12 @@ LABEL_10:
 
 - (id)getDisplayOptions
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBEB18]);
-  v13[0] = @"showRoamingOption";
-  v13[1] = @"showLocalPlanOption";
-  v13[2] = @"showPurchaseOption";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
+  v12[0] = @"showRoamingOption";
+  v12[1] = @"showLocalPlanOption";
+  v12[2] = @"showPurchaseOption";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
   v5 = [v3 initWithArray:v4];
 
   if ([v5 count])
@@ -300,8 +310,6 @@ LABEL_10:
     while ([v5 count] > v7);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
@@ -316,23 +324,21 @@ LABEL_10:
 
 - (id)_decodeBase64EncodedString:(id)string
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEA90];
   stringCopy = string;
   v5 = [[v3 alloc] initWithBase64EncodedString:stringCopy options:0];
 
   v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v5 encoding:4];
-  v7 = _TSLogDomain();
+  v7 = _TSLogDomain(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
-    v11 = v6;
-    v12 = 2080;
-    v13 = "[TSTravelEducationIntroViewController _decodeBase64EncodedString:]";
-    _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "_decodeBase64EncodedString: ret %@ @%s", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v6;
+    v11 = 2080;
+    v12 = "[TSTravelEducationIntroViewController _decodeBase64EncodedString:]";
+    _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "_decodeBase64EncodedString: ret %@ @%s", &v9, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

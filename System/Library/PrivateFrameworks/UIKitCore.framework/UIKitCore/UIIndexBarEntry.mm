@@ -162,15 +162,15 @@ void __43__UIIndexBarEntry__externalDotImageInView___block_invoke(uint64_t a1)
   v3 = title;
   if (title)
   {
-    v4 = [title isEqualToString:@"#"];
+    isEqualToString = objc_msgSend_isEqualToString_(title);
   }
 
   else
   {
-    v4 = 0;
+    isEqualToString = 0;
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 @end

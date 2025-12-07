@@ -7,7 +7,7 @@
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -15,7 +15,7 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v11 = v6;
+    v10 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Resetting the link preference for proxy service", buf, 0xCu);
   }
 
@@ -23,19 +23,18 @@
   proxyService = [(_HMDIDSProxyLinkPreferenceAssertion *)selfCopy proxyService];
   [proxyService setLinkPreferences:MEMORY[0x277CBEC10]];
 
-  v9.receiver = selfCopy;
-  v9.super_class = _HMDIDSProxyLinkPreferenceAssertion;
-  [(_HMDIDSProxyLinkPreferenceAssertion *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = selfCopy;
+  v8.super_class = _HMDIDSProxyLinkPreferenceAssertion;
+  [(_HMDIDSProxyLinkPreferenceAssertion *)&v8 dealloc];
 }
 
 - (_HMDIDSProxyLinkPreferenceAssertion)initWithIDSProxyService:(id)service
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
-  v21.receiver = self;
-  v21.super_class = _HMDIDSProxyLinkPreferenceAssertion;
-  v6 = [(_HMDIDSProxyLinkPreferenceAssertion *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = _HMDIDSProxyLinkPreferenceAssertion;
+  v6 = [(_HMDIDSProxyLinkPreferenceAssertion *)&v20 init];
   v7 = v6;
   if (v6)
   {
@@ -79,9 +78,9 @@
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v18;
-      v24 = 2112;
-      v25 = v8;
+      v22 = v18;
+      v23 = 2112;
+      v24 = v8;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Setting the link preference for proxy service with %@", buf, 0x16u);
     }
 
@@ -89,7 +88,6 @@
     [(HMDIDSService *)v7->_proxyService setLinkPreferences:v8];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

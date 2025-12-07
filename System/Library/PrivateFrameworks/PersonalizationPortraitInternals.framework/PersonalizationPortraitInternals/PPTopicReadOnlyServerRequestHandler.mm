@@ -94,7 +94,7 @@ uint64_t __67__PPTopicReadOnlyServerRequestHandler_registerFeedback_completion__
 
 - (void)unmapMappedTopicIdentifier:(id)identifier mappingIdentifier:(id)mappingIdentifier completion:(id)completion
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   mappingIdentifierCopy = mappingIdentifier;
   completionCopy = completion;
@@ -103,7 +103,7 @@ uint64_t __67__PPTopicReadOnlyServerRequestHandler_registerFeedback_completion__
   {
     clientProcessName = self->_clientProcessName;
     *buf = 138412290;
-    v35 = clientProcessName;
+    v34 = clientProcessName;
     _os_log_impl(&dword_23224A000, v11, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: unmapMappedTopicIdentifier process:%@", buf, 0xCu);
   }
 
@@ -119,9 +119,9 @@ uint64_t __67__PPTopicReadOnlyServerRequestHandler_registerFeedback_completion__
   }
 
   v17 = +[PPLocalTopicStore defaultStore];
-  v33 = 0;
-  v18 = [v17 unmapMappedTopicIdentifier:identifierCopy mappingIdentifier:mappingIdentifierCopy error:&v33];
-  v19 = v33;
+  v32 = 0;
+  v18 = [v17 unmapMappedTopicIdentifier:identifierCopy mappingIdentifier:mappingIdentifierCopy error:&v32];
+  v19 = v32;
 
   v20 = pp_topics_signpost_handle();
   v21 = v20;
@@ -160,9 +160,9 @@ uint64_t __67__PPTopicReadOnlyServerRequestHandler_registerFeedback_completion__
     {
       v31 = self->_clientProcessName;
       *buf = 138412546;
-      v35 = v31;
-      v36 = 2112;
-      v37 = mappingIdentifierCopy;
+      v34 = v31;
+      v35 = 2112;
+      v36 = mappingIdentifierCopy;
       _os_log_impl(&dword_23224A000, v30, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: unmapMappedTopicIdentifier process:%@ mappingIdentifier:%@", buf, 0x16u);
     }
   }
@@ -170,21 +170,19 @@ uint64_t __67__PPTopicReadOnlyServerRequestHandler_registerFeedback_completion__
   else
   {
     v22 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v38 = @"PPServerSideErrorInfoKey";
+    v37 = @"PPServerSideErrorInfoKey";
     v23 = [v19 description];
-    v39[0] = v23;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+    v38[0] = v23;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
     v25 = [v22 initWithDomain:@"PPServerSideErrorDomain" code:1 userInfo:v24];
 
     (completionCopy)[2](completionCopy, 0, v25);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scoresForTopicMapping:(id)mapping query:(id)query queryId:(unint64_t)id
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   mappingCopy = mapping;
   queryCopy = query;
   v11 = pp_xpc_server_log_handle();
@@ -193,24 +191,24 @@ uint64_t __67__PPTopicReadOnlyServerRequestHandler_registerFeedback_completion__
     clientProcessName = self->_clientProcessName;
     *buf = 134218242;
     idCopy3 = id;
-    v28 = 2112;
-    v29 = clientProcessName;
+    v27 = 2112;
+    v28 = clientProcessName;
     _os_log_impl(&dword_23224A000, v11, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: scoresForTopicMapping queryId:%llu process:%@", buf, 0x16u);
   }
 
   queryManager = self->_queryManager;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_queryId___block_invoke;
-  v20[3] = &unk_278975258;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_queryId___block_invoke;
+  v19[3] = &unk_278975258;
   v14 = mappingCopy;
-  v21 = v14;
+  v20 = v14;
   v15 = queryCopy;
-  v22 = v15;
+  v21 = v15;
   selfCopy = self;
   idCopy2 = id;
-  v25 = a2;
-  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v20];
+  v24 = a2;
+  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v19];
   v16 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
@@ -218,21 +216,19 @@ uint64_t __67__PPTopicReadOnlyServerRequestHandler_registerFeedback_completion__
     customizedDescription = [v15 customizedDescription];
     *buf = 134218754;
     idCopy3 = id;
-    v28 = 2112;
-    v29 = v17;
-    v30 = 2112;
-    v31 = v14;
-    v32 = 2112;
-    v33 = customizedDescription;
+    v27 = 2112;
+    v28 = v17;
+    v29 = 2112;
+    v30 = v14;
+    v31 = 2112;
+    v32 = customizedDescription;
     _os_log_impl(&dword_23224A000, v16, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: scoresForTopicMapping queryId:%llu process:%@ mappingId:%@ query:%@", buf, 0x2Au);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_queryId___block_invoke(void *a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = pp_topics_signpost_handle();
   v3 = os_signpost_id_generate(v2);
 
@@ -247,9 +243,9 @@ void __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_query
   v6 = +[PPLocalTopicStore defaultStore];
   v7 = a1[4];
   v8 = a1[5];
-  v35 = 0;
-  v9 = [v6 scoresForTopicMapping:v7 query:v8 error:&v35 clientProcessName:*(a1[6] + 24)];
-  v10 = v35;
+  v34 = 0;
+  v9 = [v6 scoresForTopicMapping:v7 query:v8 error:&v34 clientProcessName:*(a1[6] + 24)];
+  v10 = v34;
 
   v11 = pp_topics_signpost_handle();
   v12 = v11;
@@ -275,13 +271,13 @@ void __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_query
   else
   {
     v14 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{2 * objc_msgSend(v9, "count")}];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_queryId___block_invoke_2;
-    v33[3] = &unk_2789795B0;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_queryId___block_invoke_2;
+    v32[3] = &unk_2789795B0;
     v15 = v14;
-    v34 = v15;
-    [v9 enumerateKeysAndObjectsUsingBlock:v33];
+    v33 = v15;
+    [v9 enumerateKeysAndObjectsUsingBlock:v32];
     v16 = pp_xpc_server_log_handle();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
@@ -293,41 +289,39 @@ void __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_query
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v37 = 0x2020000000;
-    v38 = 0;
+    v36 = 0x2020000000;
+    v37 = 0;
     v18 = *(a1[6] + 16);
     v19 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@-scoresForTopicMapping", *(a1[6] + 24)];
     v20 = a1[7];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_queryId___block_invoke_213;
-    v28[3] = &unk_278975230;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_queryId___block_invoke_213;
+    v27[3] = &unk_278975230;
     v21 = v15;
     v22 = a1[8];
     p_buf = &buf;
-    v32 = v22;
+    v31 = v22;
     v23 = a1[6];
-    v29 = v21;
-    v30 = v23;
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_queryId___block_invoke_2_221;
-    v27[3] = &unk_2789776A8;
-    v24 = a1[7];
-    v27[4] = v23;
-    v27[5] = v24;
+    v28 = v21;
+    v29 = v23;
     v26[0] = MEMORY[0x277D85DD0];
     v26[1] = 3221225472;
-    v26[2] = __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_queryId___block_invoke_4;
-    v26[3] = &unk_2789776D0;
+    v26[2] = __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_queryId___block_invoke_2_221;
+    v26[3] = &unk_2789776A8;
+    v24 = a1[7];
     v26[4] = v23;
     v26[5] = v24;
-    [v18 sendBatchedResultForQueryWithName:v19 queryId:v20 batchGenerator:v28 sendError:v27 sendBatch:v26];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_queryId___block_invoke_4;
+    v25[3] = &unk_2789776D0;
+    v25[4] = v23;
+    v25[5] = v24;
+    [v18 sendBatchedResultForQueryWithName:v19 queryId:v20 batchGenerator:v27 sendError:v26 sendBatch:v25];
 
     _Block_object_dispose(&buf, 8);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_queryId___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -338,7 +332,7 @@ void __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_query
   [*(a1 + 32) addObject:v6];
 }
 
-uint64_t __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_queryId___block_invoke_213(uint64_t a1, BOOL *a2)
+void *__75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_queryId___block_invoke_213(uint64_t a1, BOOL *a2)
 {
   v4 = [*(a1 + 32) count];
   v5 = *(*(*(a1 + 48) + 8) + 24);
@@ -367,7 +361,7 @@ uint64_t __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_q
 
 - (void)topicExtractionsFromText:(id)text queryId:(unint64_t)id
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   textCopy = text;
   v7 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -375,21 +369,21 @@ uint64_t __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_q
     clientProcessName = self->_clientProcessName;
     *buf = 134218242;
     idCopy3 = id;
-    v21 = 2112;
-    v22 = clientProcessName;
+    v20 = 2112;
+    v21 = clientProcessName;
     _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: topicExtractionsFromText queryId:%llu process:%@", buf, 0x16u);
   }
 
   queryManager = self->_queryManager;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __72__PPTopicReadOnlyServerRequestHandler_topicExtractionsFromText_queryId___block_invoke;
-  v15[3] = &unk_278978A80;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __72__PPTopicReadOnlyServerRequestHandler_topicExtractionsFromText_queryId___block_invoke;
+  v14[3] = &unk_278978A80;
   v10 = textCopy;
-  v16 = v10;
+  v15 = v10;
   selfCopy = self;
   idCopy2 = id;
-  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v15];
+  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v14];
   v11 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
@@ -397,19 +391,17 @@ uint64_t __75__PPTopicReadOnlyServerRequestHandler_scoresForTopicMapping_query_q
     v13 = [v10 length];
     *buf = 134218498;
     idCopy3 = id;
-    v21 = 2112;
-    v22 = v12;
-    v23 = 2048;
-    v24 = v13;
+    v20 = 2112;
+    v21 = v12;
+    v22 = 2048;
+    v23 = v13;
     _os_log_impl(&dword_23224A000, v11, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: topicExtractionsFromText queryId:%llu process:%@ text size:%tu", buf, 0x20u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __72__PPTopicReadOnlyServerRequestHandler_topicExtractionsFromText_queryId___block_invoke(void *a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = pp_topics_signpost_handle();
   v3 = os_signpost_id_generate(v2);
 
@@ -424,9 +416,9 @@ void __72__PPTopicReadOnlyServerRequestHandler_topicExtractionsFromText_queryId_
   v6 = +[PPLocalTopicStore defaultStore];
   v7 = a1[4];
   v8 = *(a1[5] + 24);
-  v28 = 0;
-  v9 = [v6 topicExtractionsFromText:v7 clientProcessName:v8 error:&v28];
-  v10 = v28;
+  v27 = 0;
+  v9 = [v6 topicExtractionsFromText:v7 clientProcessName:v8 error:&v27];
+  v10 = v27;
 
   v11 = pp_topics_signpost_handle();
   v12 = v11;
@@ -462,63 +454,60 @@ void __72__PPTopicReadOnlyServerRequestHandler_topicExtractionsFromText_queryId_
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v30 = 0x2020000000;
-    v31 = 0;
+    v29 = 0x2020000000;
+    v30 = 0;
     v16 = *(a1[5] + 16);
     v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@-topicExtractionsFromText", *(a1[5] + 24)];
     v18 = a1[6];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __72__PPTopicReadOnlyServerRequestHandler_topicExtractionsFromText_queryId___block_invoke_202;
-    v25[3] = &unk_278977680;
-    v26 = v9;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __72__PPTopicReadOnlyServerRequestHandler_topicExtractionsFromText_queryId___block_invoke_202;
+    v24[3] = &unk_278977680;
+    v25 = v9;
     p_buf = &buf;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __72__PPTopicReadOnlyServerRequestHandler_topicExtractionsFromText_queryId___block_invoke_2;
-    v22[3] = &unk_2789776A8;
-    v19 = a1[6];
-    v23 = a1[5];
-    v24 = v19;
     v21[0] = MEMORY[0x277D85DD0];
     v21[1] = 3221225472;
-    v21[2] = __72__PPTopicReadOnlyServerRequestHandler_topicExtractionsFromText_queryId___block_invoke_4;
-    v21[3] = &unk_2789776D0;
-    v21[4] = v23;
-    v21[5] = v19;
-    [v16 sendBatchedResultForQueryWithName:v17 queryId:v18 batchGenerator:v25 sendError:v22 sendBatch:v21];
+    v21[2] = __72__PPTopicReadOnlyServerRequestHandler_topicExtractionsFromText_queryId___block_invoke_2;
+    v21[3] = &unk_2789776A8;
+    v19 = a1[6];
+    v22 = a1[5];
+    v23 = v19;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __72__PPTopicReadOnlyServerRequestHandler_topicExtractionsFromText_queryId___block_invoke_4;
+    v20[3] = &unk_2789776D0;
+    v20[4] = v22;
+    v20[5] = v19;
+    [v16 sendBatchedResultForQueryWithName:v17 queryId:v18 batchGenerator:v24 sendError:v21 sendBatch:v20];
 
     _Block_object_dispose(&buf, 8);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __72__PPTopicReadOnlyServerRequestHandler_topicExtractionsFromText_queryId___block_invoke_202(uint64_t a1, BOOL *a2)
+void *__72__PPTopicReadOnlyServerRequestHandler_topicExtractionsFromText_queryId___block_invoke_202(uint64_t a1, BOOL *a2)
 {
   v4 = [*(a1 + 32) count];
-  v5 = *(a1 + 32);
-  v6 = *(*(*(a1 + 40) + 8) + 24);
-  v7 = v4 - v6;
-  if ((v4 - v6) >= 0x32)
+  v5 = *(*(*(a1 + 40) + 8) + 24);
+  v6 = v4 - v5;
+  if ((v4 - v5) >= 0x32)
   {
-    v8 = 50;
+    v7 = 50;
   }
 
   else
   {
-    v8 = v4 - v6;
+    v7 = v4 - v5;
   }
 
   result = [*(a1 + 32) subarrayWithRange:?];
-  *a2 = v7 < 0x33;
-  *(*(*(a1 + 40) + 8) + 24) += v8;
+  *a2 = v6 < 0x33;
+  *(*(*(a1 + 40) + 8) + 24) += v7;
   return result;
 }
 
 - (void)topicRecordsWithQuery:(id)query queryId:(unint64_t)id
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   v7 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -526,21 +515,21 @@ uint64_t __72__PPTopicReadOnlyServerRequestHandler_topicExtractionsFromText_quer
     clientProcessName = self->_clientProcessName;
     *buf = 134218242;
     idCopy3 = id;
-    v21 = 2112;
-    v22 = clientProcessName;
+    v20 = 2112;
+    v21 = clientProcessName;
     _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: topicRecordsWithQuery queryId:%llu process:%@", buf, 0x16u);
   }
 
   queryManager = self->_queryManager;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __69__PPTopicReadOnlyServerRequestHandler_topicRecordsWithQuery_queryId___block_invoke;
-  v15[3] = &unk_278978A80;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __69__PPTopicReadOnlyServerRequestHandler_topicRecordsWithQuery_queryId___block_invoke;
+  v14[3] = &unk_278978A80;
   v10 = queryCopy;
   selfCopy = self;
   idCopy2 = id;
-  v16 = v10;
-  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v15];
+  v15 = v10;
+  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v14];
   v11 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
@@ -548,19 +537,17 @@ uint64_t __72__PPTopicReadOnlyServerRequestHandler_topicExtractionsFromText_quer
     customizedDescription = [v10 customizedDescription];
     *buf = 134218498;
     idCopy3 = id;
-    v21 = 2112;
-    v22 = v12;
-    v23 = 2112;
-    v24 = customizedDescription;
+    v20 = 2112;
+    v21 = v12;
+    v22 = 2112;
+    v23 = customizedDescription;
     _os_log_impl(&dword_23224A000, v11, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: topicRecordsWithQuery queryId:%llu process:%@ query:%@", buf, 0x20u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __69__PPTopicReadOnlyServerRequestHandler_topicRecordsWithQuery_queryId___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = pp_topics_signpost_handle();
   v3 = os_signpost_id_generate(v2);
 
@@ -576,9 +563,9 @@ void __69__PPTopicReadOnlyServerRequestHandler_topicRecordsWithQuery_queryId___b
   v7 = [*(a1 + 32) copy];
   [v7 setLimit:-1];
   v8 = +[PPLocalTopicStore defaultStore];
-  v38 = 0;
-  v9 = [v8 topicRecordsWithQuery:v7 error:&v38];
-  v10 = v38;
+  v36 = 0;
+  v9 = [v8 topicRecordsWithQuery:v7 error:&v36];
+  v10 = v36;
 
   v11 = pp_topics_signpost_handle();
   v12 = v11;
@@ -590,28 +577,27 @@ void __69__PPTopicReadOnlyServerRequestHandler_topicRecordsWithQuery_queryId___b
 
   if (v9)
   {
-    v13 = *(a1 + 40);
-    v14 = objc_opt_class();
-    v15 = *(*(a1 + 40) + 24);
-    v16 = +[PPTopicAllowlist sharedInstance];
-    v17 = [v14 filterTopicRecordsNotInAllowlist:v9 withAllowlistOfProcess:v15 allowlist:v16];
+    v13 = objc_opt_class();
+    v14 = *(*(a1 + 40) + 24);
+    v15 = +[PPTopicAllowlist sharedInstance];
+    v16 = [v13 filterTopicRecordsNotInAllowlist:v9 withAllowlistOfProcess:v14 allowlist:v15];
 
-    if ([v17 count] > v6)
+    if ([v16 count] > v6)
     {
-      v18 = [v17 subarrayWithRange:{0, v6}];
+      v17 = [v16 subarrayWithRange:{0, v6}];
 
-      v17 = v18;
+      v16 = v17;
     }
 
-    v19 = pp_xpc_server_log_handle();
-    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+    v18 = pp_xpc_server_log_handle();
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
     if (v10)
     {
-      if (v20)
+      if (v19)
       {
         *buf = 138412290;
         *&buf[4] = v10;
-        _os_log_impl(&dword_23224A000, v19, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: topicRecordsWithQuery returned an error: %@", buf, 0xCu);
+        _os_log_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: topicRecordsWithQuery returned an error: %@", buf, 0xCu);
       }
 
       [*(*(a1 + 40) + 8) topicRecordBatch:0 isLast:1 error:v10 queryId:*(a1 + 48) completion:&__block_literal_global_189];
@@ -619,42 +605,42 @@ void __69__PPTopicReadOnlyServerRequestHandler_topicRecordsWithQuery_queryId___b
 
     else
     {
-      if (v20)
+      if (v19)
       {
-        v24 = [v17 count];
+        v23 = [v16 count];
         *buf = 134217984;
-        *&buf[4] = v24;
-        _os_log_impl(&dword_23224A000, v19, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: topicRecordsWithQuery returned %tu results", buf, 0xCu);
+        *&buf[4] = v23;
+        _os_log_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: topicRecordsWithQuery returned %tu results", buf, 0xCu);
       }
 
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v40 = 0;
-      v25 = *(*(a1 + 40) + 16);
-      v26 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@-topicRecordsWithQuery", *(*(a1 + 40) + 24)];
-      v27 = *(a1 + 48);
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __69__PPTopicReadOnlyServerRequestHandler_topicRecordsWithQuery_queryId___block_invoke_193;
-      v35[3] = &unk_278977680;
-      v28 = v17;
-      v36 = v28;
-      v37 = buf;
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __69__PPTopicReadOnlyServerRequestHandler_topicRecordsWithQuery_queryId___block_invoke_2;
-      v32[3] = &unk_2789776A8;
-      v29 = *(a1 + 48);
-      v33 = *(a1 + 40);
-      v34 = v29;
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __69__PPTopicReadOnlyServerRequestHandler_topicRecordsWithQuery_queryId___block_invoke_4;
-      v31[3] = &unk_2789776D0;
-      v31[4] = v33;
-      v31[5] = v29;
-      [v25 sendBatchedResultForQueryWithName:v26 queryId:v27 batchGenerator:v35 sendError:v32 sendBatch:v31];
+      v38 = 0;
+      v24 = *(*(a1 + 40) + 16);
+      v25 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@-topicRecordsWithQuery", *(*(a1 + 40) + 24)];
+      v26 = *(a1 + 48);
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __69__PPTopicReadOnlyServerRequestHandler_topicRecordsWithQuery_queryId___block_invoke_193;
+      v33[3] = &unk_278977680;
+      v27 = v16;
+      v34 = v27;
+      v35 = buf;
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __69__PPTopicReadOnlyServerRequestHandler_topicRecordsWithQuery_queryId___block_invoke_2;
+      v30[3] = &unk_2789776A8;
+      v28 = *(a1 + 48);
+      v31 = *(a1 + 40);
+      v32 = v28;
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __69__PPTopicReadOnlyServerRequestHandler_topicRecordsWithQuery_queryId___block_invoke_4;
+      v29[3] = &unk_2789776D0;
+      v29[4] = v31;
+      v29[5] = v28;
+      [v24 sendBatchedResultForQueryWithName:v25 queryId:v26 batchGenerator:v33 sendError:v30 sendBatch:v29];
 
       _Block_object_dispose(buf, 8);
     }
@@ -662,51 +648,48 @@ void __69__PPTopicReadOnlyServerRequestHandler_topicRecordsWithQuery_queryId___b
 
   else
   {
-    v21 = pp_xpc_server_log_handle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v20 = pp_xpc_server_log_handle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = *(a1 + 48);
-      v23 = *(*(a1 + 40) + 24);
+      v21 = *(a1 + 48);
+      v22 = *(*(a1 + 40) + 24);
       *buf = 134218498;
-      *&buf[4] = v22;
+      *&buf[4] = v21;
       *&buf[12] = 2112;
-      *&buf[14] = v23;
+      *&buf[14] = v22;
       *&buf[22] = 2112;
-      v40 = v10;
-      _os_log_impl(&dword_23224A000, v21, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: topicRecordsWithQuery queryId:%llu process:%@ returned nil result with error: %@", buf, 0x20u);
+      v38 = v10;
+      _os_log_impl(&dword_23224A000, v20, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: topicRecordsWithQuery queryId:%llu process:%@ returned nil result with error: %@", buf, 0x20u);
     }
 
     [*(*(a1 + 40) + 8) topicRecordBatch:0 isLast:1 error:v10 queryId:*(a1 + 48) completion:&__block_literal_global_186];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __69__PPTopicReadOnlyServerRequestHandler_topicRecordsWithQuery_queryId___block_invoke_193(uint64_t a1, BOOL *a2)
+void *__69__PPTopicReadOnlyServerRequestHandler_topicRecordsWithQuery_queryId___block_invoke_193(uint64_t a1, BOOL *a2)
 {
   v4 = [*(a1 + 32) count];
-  v5 = *(a1 + 32);
-  v6 = *(*(*(a1 + 40) + 8) + 24);
-  v7 = v4 - v6;
-  if ((v4 - v6) >= 0x32)
+  v5 = *(*(*(a1 + 40) + 8) + 24);
+  v6 = v4 - v5;
+  if ((v4 - v5) >= 0x32)
   {
-    v8 = 50;
+    v7 = 50;
   }
 
   else
   {
-    v8 = v4 - v6;
+    v7 = v4 - v5;
   }
 
   result = [*(a1 + 32) subarrayWithRange:?];
-  *a2 = v7 < 0x33;
-  *(*(*(a1 + 40) + 8) + 24) += v8;
+  *a2 = v6 < 0x33;
+  *(*(*(a1 + 40) + 8) + 24) += v7;
   return result;
 }
 
 - (void)rankedTopicsWithQuery:(id)query queryId:(unint64_t)id
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   v7 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -714,21 +697,21 @@ uint64_t __69__PPTopicReadOnlyServerRequestHandler_topicRecordsWithQuery_queryId
     clientProcessName = self->_clientProcessName;
     *buf = 134218242;
     idCopy3 = id;
-    v20 = 2112;
-    v21 = clientProcessName;
+    v19 = 2112;
+    v20 = clientProcessName;
     _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: rankedTopicsWithQuery queryId:%llu process:%@", buf, 0x16u);
   }
 
   queryManager = self->_queryManager;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId___block_invoke;
-  v15[3] = &unk_278978A80;
-  v15[4] = self;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId___block_invoke;
+  v14[3] = &unk_278978A80;
+  v14[4] = self;
   idCopy2 = id;
   v10 = queryCopy;
-  v16 = v10;
-  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v15];
+  v15 = v10;
+  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v14];
   v11 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
@@ -736,19 +719,17 @@ uint64_t __69__PPTopicReadOnlyServerRequestHandler_topicRecordsWithQuery_queryId
     customizedDescription = [v10 customizedDescription];
     *buf = 134218498;
     idCopy3 = id;
-    v20 = 2112;
-    v21 = v12;
-    v22 = 2112;
-    v23 = customizedDescription;
+    v19 = 2112;
+    v20 = v12;
+    v21 = 2112;
+    v22 = customizedDescription;
     _os_log_impl(&dword_23224A000, v11, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: rankedTopicsWithQuery queryId:%llu process:%@ query:%@", buf, 0x20u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId___block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v2 = pp_topics_signpost_handle();
   v3 = os_signpost_id_generate(v2);
 
@@ -762,7 +743,7 @@ void __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId___b
 
   if (![*(*(a1 + 32) + 24) isEqualToString:@"Apple Store"])
   {
-    goto LABEL_38;
+    goto LABEL_37;
   }
 
   v6 = pp_xpc_server_log_handle();
@@ -794,7 +775,7 @@ void __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId___b
       goto LABEL_18;
     }
 
-LABEL_38:
+LABEL_37:
     v10 = pp_xpc_server_log_handle();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
@@ -824,9 +805,9 @@ LABEL_18:
       v15 = [*(a1 + 40) copy];
       [v15 setLimit:-1];
       v16 = +[PPLocalTopicStore defaultStore];
-      v46 = 0;
-      v17 = [v16 rankedTopicsWithQuery:v15 error:&v46 clientProcessName:*(*(a1 + 32) + 24)];
-      v18 = v46;
+      v44 = 0;
+      v17 = [v16 rankedTopicsWithQuery:v15 error:&v44 clientProcessName:*(*(a1 + 32) + 24)];
+      v18 = v44;
 
       v19 = pp_topics_signpost_handle();
       v20 = v19;
@@ -838,70 +819,69 @@ LABEL_18:
 
       if (v17)
       {
-        v21 = *(a1 + 32);
-        v22 = objc_opt_class();
-        v23 = *(*(a1 + 32) + 24);
-        v24 = +[PPTopicAllowlist sharedInstance];
-        v25 = [v22 filterScoredTopicsNotInAllowlist:v17 withAllowlistOfProcess:v23 allowlist:v24];
+        v21 = objc_opt_class();
+        v22 = *(*(a1 + 32) + 24);
+        v23 = +[PPTopicAllowlist sharedInstance];
+        v24 = [v21 filterScoredTopicsNotInAllowlist:v17 withAllowlistOfProcess:v22 allowlist:v23];
 
-        if ([v25 count] > v14)
+        if ([v24 count] > v14)
         {
-          v26 = [v25 subarrayWithRange:{0, v14}];
+          v25 = [v24 subarrayWithRange:{0, v14}];
 
-          v25 = v26;
+          v24 = v25;
         }
 
-        v27 = pp_xpc_server_log_handle();
-        v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
-        if (v25)
+        v26 = pp_xpc_server_log_handle();
+        v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+        if (v24)
         {
-          if (v28)
+          if (v27)
           {
-            v29 = [v25 count];
+            v28 = [v24 count];
             *buf = 134217984;
-            *&buf[4] = v29;
-            _os_log_impl(&dword_23224A000, v27, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: rankedTopicsWithQuery returned %tu results", buf, 0xCu);
+            *&buf[4] = v28;
+            _os_log_impl(&dword_23224A000, v26, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: rankedTopicsWithQuery returned %tu results", buf, 0xCu);
           }
 
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x2020000000;
-          v48 = 0;
-          v30 = *(*(a1 + 32) + 16);
-          v31 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@-rankedTopicsWithQuery", *(*(a1 + 32) + 24)];
-          v32 = *(a1 + 48);
-          v43[0] = MEMORY[0x277D85DD0];
-          v43[1] = 3221225472;
-          v43[2] = __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId___block_invoke_178;
-          v43[3] = &unk_278977680;
-          v33 = v25;
-          v44 = v33;
-          v45 = buf;
-          v40[0] = MEMORY[0x277D85DD0];
-          v40[1] = 3221225472;
-          v40[2] = __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId___block_invoke_2;
-          v40[3] = &unk_2789776A8;
-          v34 = *(a1 + 48);
-          v41 = *(a1 + 32);
-          v42 = v34;
-          v39[0] = MEMORY[0x277D85DD0];
-          v39[1] = 3221225472;
-          v39[2] = __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId___block_invoke_4;
-          v39[3] = &unk_2789776D0;
-          v39[4] = v41;
-          v39[5] = v34;
-          [v30 sendBatchedResultForQueryWithName:v31 queryId:v32 batchGenerator:v43 sendError:v40 sendBatch:v39];
+          v46 = 0;
+          v29 = *(*(a1 + 32) + 16);
+          v30 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@-rankedTopicsWithQuery", *(*(a1 + 32) + 24)];
+          v31 = *(a1 + 48);
+          v41[0] = MEMORY[0x277D85DD0];
+          v41[1] = 3221225472;
+          v41[2] = __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId___block_invoke_178;
+          v41[3] = &unk_278977680;
+          v32 = v24;
+          v42 = v32;
+          v43 = buf;
+          v38[0] = MEMORY[0x277D85DD0];
+          v38[1] = 3221225472;
+          v38[2] = __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId___block_invoke_2;
+          v38[3] = &unk_2789776A8;
+          v33 = *(a1 + 48);
+          v39 = *(a1 + 32);
+          v40 = v33;
+          v37[0] = MEMORY[0x277D85DD0];
+          v37[1] = 3221225472;
+          v37[2] = __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId___block_invoke_4;
+          v37[3] = &unk_2789776D0;
+          v37[4] = v39;
+          v37[5] = v33;
+          [v29 sendBatchedResultForQueryWithName:v30 queryId:v31 batchGenerator:v41 sendError:v38 sendBatch:v37];
 
           _Block_object_dispose(buf, 8);
         }
 
         else
         {
-          if (v28)
+          if (v27)
           {
             *buf = 138412290;
             *&buf[4] = v18;
-            _os_log_impl(&dword_23224A000, v27, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: rankedTopicsWithQuery returned an error: %@", buf, 0xCu);
+            _os_log_impl(&dword_23224A000, v26, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer: rankedTopicsWithQuery returned an error: %@", buf, 0xCu);
           }
 
           [*(*(a1 + 32) + 8) topicBatch:0 isLast:1 error:v18 queryId:*(a1 + 48) completion:&__block_literal_global_173];
@@ -910,47 +890,44 @@ LABEL_18:
 
       else
       {
-        v35 = pp_xpc_server_log_handle();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v34 = pp_xpc_server_log_handle();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
-          v36 = *(a1 + 48);
-          v37 = *(*(a1 + 32) + 24);
+          v35 = *(a1 + 48);
+          v36 = *(*(a1 + 32) + 24);
           *buf = 134218498;
-          *&buf[4] = v36;
+          *&buf[4] = v35;
           *&buf[12] = 2112;
-          *&buf[14] = v37;
+          *&buf[14] = v36;
           *&buf[22] = 2112;
-          v48 = v18;
-          _os_log_impl(&dword_23224A000, v35, OS_LOG_TYPE_DEFAULT, "rankedTopicsWithQuery queryId:%llu process:%@ returned nil result with error: %@", buf, 0x20u);
+          v46 = v18;
+          _os_log_impl(&dword_23224A000, v34, OS_LOG_TYPE_DEFAULT, "rankedTopicsWithQuery queryId:%llu process:%@ returned nil result with error: %@", buf, 0x20u);
         }
 
         [*(*(a1 + 32) + 8) topicBatch:0 isLast:1 error:v18 queryId:*(a1 + 48) completion:&__block_literal_global_169_13971];
       }
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId___block_invoke_178(uint64_t a1, BOOL *a2)
+void *__69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId___block_invoke_178(uint64_t a1, BOOL *a2)
 {
   v4 = [*(a1 + 32) count];
-  v5 = *(a1 + 32);
-  v6 = *(*(*(a1 + 40) + 8) + 24);
-  v7 = v4 - v6;
-  if ((v4 - v6) >= 0x32)
+  v5 = *(*(*(a1 + 40) + 8) + 24);
+  v6 = v4 - v5;
+  if ((v4 - v5) >= 0x32)
   {
-    v8 = 50;
+    v7 = 50;
   }
 
   else
   {
-    v8 = v4 - v6;
+    v7 = v4 - v5;
   }
 
   result = [*(a1 + 32) subarrayWithRange:?];
-  *a2 = v7 < 0x33;
-  *(*(*(a1 + 40) + 8) + 24) += v8;
+  *a2 = v6 < 0x33;
+  *(*(*(a1 + 40) + 8) + 24) += v7;
   return result;
 }
 
@@ -971,7 +948,7 @@ uint64_t __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId
 
 + (id)filterQIDDictionary:(id)dictionary withAllowlistOfProcess:(id)process allowlist:(id)allowlist
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   processCopy = process;
   allowlistCopy = allowlist;
@@ -990,13 +967,13 @@ uint64_t __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId
         v17 = pp_topics_log_handle();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = 134218498;
-          v21 = v15 - v16;
-          v22 = 2048;
-          v23 = [dictionaryCopy count];
-          v24 = 2112;
-          v25 = processCopy;
-          _os_log_impl(&dword_23224A000, v17, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer filtered out %tu of %tu qid records from mapping due to allowlist for client process %@", &v20, 0x20u);
+          v19 = 134218498;
+          v20 = v15 - v16;
+          v21 = 2048;
+          v22 = [dictionaryCopy count];
+          v23 = 2112;
+          v24 = processCopy;
+          _os_log_impl(&dword_23224A000, v17, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer filtered out %tu of %tu qid records from mapping due to allowlist for client process %@", &v19, 0x20u);
         }
 
         v14 = v11;
@@ -1016,14 +993,12 @@ uint64_t __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId
     v10 = MEMORY[0x277CBEC10];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)filterTopicRecordsNotInAllowlist:(id)allowlist withAllowlistOfProcess:(id)process allowlist:(id)a5
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   allowlistCopy = allowlist;
   processCopy = process;
   v9 = a5;
@@ -1045,13 +1020,13 @@ uint64_t __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId
         v15 = pp_topics_log_handle();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = 134218498;
-          v20 = v13 - v14;
-          v21 = 2048;
-          v22 = [allowlistCopy count];
-          v23 = 2112;
-          v24 = processCopy;
-          _os_log_impl(&dword_23224A000, v15, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer filtered out %tu of %tu topic records due to allowance policy for client process %@", &v19, 0x20u);
+          v18 = 134218498;
+          v19 = v13 - v14;
+          v20 = 2048;
+          v21 = [allowlistCopy count];
+          v22 = 2112;
+          v23 = processCopy;
+          _os_log_impl(&dword_23224A000, v15, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer filtered out %tu of %tu topic records due to allowance policy for client process %@", &v18, 0x20u);
         }
 
         v16 = [allowlistCopy objectsAtIndexes:v11];
@@ -1071,14 +1046,12 @@ uint64_t __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId
     v10 = MEMORY[0x277CBEBF8];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)filterScoredTopicsNotInAllowlist:(id)allowlist withAllowlistOfProcess:(id)process allowlist:(id)a5
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   allowlistCopy = allowlist;
   processCopy = process;
   v9 = a5;
@@ -1100,13 +1073,13 @@ uint64_t __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId
         v15 = pp_topics_log_handle();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = 134218498;
-          v20 = v13 - v14;
-          v21 = 2048;
-          v22 = [allowlistCopy count];
-          v23 = 2112;
-          v24 = processCopy;
-          _os_log_impl(&dword_23224A000, v15, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer filtered out %tu of %tu scored topic due to allowlist for client process %@", &v19, 0x20u);
+          v18 = 134218498;
+          v19 = v13 - v14;
+          v20 = 2048;
+          v21 = [allowlistCopy count];
+          v22 = 2112;
+          v23 = processCopy;
+          _os_log_impl(&dword_23224A000, v15, OS_LOG_TYPE_DEFAULT, "PPTopicReadOnlyServer filtered out %tu of %tu scored topic due to allowlist for client process %@", &v18, 0x20u);
         }
 
         v16 = [allowlistCopy objectsAtIndexes:v11];
@@ -1125,8 +1098,6 @@ uint64_t __69__PPTopicReadOnlyServerRequestHandler_rankedTopicsWithQuery_queryId
   {
     v10 = MEMORY[0x277CBEBF8];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

@@ -66,28 +66,27 @@
   swift_unknownObjectRetain();
   selfCopy = self;
   ApplicationLauncher.launchApplication(for:options:completion:)(session, options, v8, v9);
-  _sxRi_zRi0_zlyytIseghHr_SgWOe(v8);
+  _sxRi_zRi0_zlyytIseghHr_SgWOe(v8, v9);
   swift_unknownObjectRelease();
 }
 
 - (void)revokeBackgroundAuthorizationForBundleID:(id)d
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v14 - v6;
-  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v10 = v9;
-  v11 = type metadata accessor for TaskPriority();
-  (*(*(v11 - 8) + 56))(v7, 1, 1, v11);
-  v12 = swift_allocObject();
-  v12[2] = 0;
-  v12[3] = 0;
-  v12[4] = self;
-  v12[5] = v8;
-  v12[6] = v10;
+  v6 = &v13 - v5;
+  v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v9 = v8;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v6, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = self;
+  v11[5] = v7;
+  v11[6] = v9;
   selfCopy = self;
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v7, &closure #1 in ApplicationLauncher.revokeBackgroundAuthorization(for:)partial apply, v12);
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v6, &closure #1 in ApplicationLauncher.revokeBackgroundAuthorization(for:)partial apply, v11);
 }
 
 - (void)revokeBackgroundAuthorizationForSession:(id)session
@@ -111,31 +110,30 @@
 - (void)authorizePiPForActivitySession:(id)session completion:(id)completion
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v18 - v9;
-  v11 = _Block_copy(completion);
-  v12 = swift_allocObject();
-  *(v12 + 16) = v11;
-  v13 = *(self + OBJC_IVAR___CPApplicationLauncherSwift_pegasusLaunchBehavior);
-  if (v13)
+  v9 = &v17 - v8;
+  v10 = _Block_copy(completion);
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
+  v12 = *(self + OBJC_IVAR___CPApplicationLauncherSwift_pegasusLaunchBehavior);
+  if (v12)
   {
-    v14 = type metadata accessor for TaskPriority();
-    (*(*(v14 - 8) + 56))(v10, 1, 1, v14);
-    v15 = swift_allocObject();
-    v15[2] = 0;
-    v15[3] = 0;
-    v15[4] = v13;
-    v15[5] = session;
-    v15[6] = partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned ObjCBool, @unowned NSError?) -> ();
-    v15[7] = v12;
+    v13 = type metadata accessor for TaskPriority();
+    (*(*(v13 - 8) + 56))(v9, 1, 1, v13);
+    v14 = swift_allocObject();
+    v14[2] = 0;
+    v14[3] = 0;
+    v14[4] = v12;
+    v14[5] = session;
+    v14[6] = partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned ObjCBool, @unowned NSError?) -> ();
+    v14[7] = v11;
     swift_unknownObjectRetain_n();
     selfCopy = self;
-    _Block_copy(v11);
+    _Block_copy(v10);
 
-    _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v10, &closure #1 in ApplicationLauncher.authorizePiP(for:completion:)partial apply, v15);
+    _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v9, &closure #1 in ApplicationLauncher.authorizePiP(for:completion:)partial apply, v14);
 
-    _Block_release(v11);
+    _Block_release(v10);
     swift_unknownObjectRelease();
   }
 
@@ -143,12 +141,12 @@
   {
     swift_unknownObjectRetain();
     selfCopy2 = self;
-    _Block_copy(v11);
-    (*(v11 + 2))(v11, 0, 0);
+    _Block_copy(v10);
+    (*(v10 + 2))(v10, 0, 0);
 
-    _Block_release(v11);
+    _Block_release(v10);
     swift_unknownObjectRelease();
-    v17 = selfCopy2;
+    v16 = selfCopy2;
   }
 }
 

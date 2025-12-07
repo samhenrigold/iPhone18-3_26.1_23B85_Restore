@@ -174,7 +174,7 @@ LABEL_9:
 
 - (void)setChannelAssignments:(NSArray *)channelAssignments
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   impl = self->_impl;
   v6 = [(NSArray *)channelAssignments count];
   if (v6 == [(AVAudioPlayer *)self numberOfChannels])
@@ -191,16 +191,16 @@ LABEL_9:
       if (v8)
       {
         v9 = v8;
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
         v27 = 0u;
-        v10 = [(NSArray *)channelAssignments countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
+        v10 = [(NSArray *)channelAssignments countByEnumeratingWithState:&v25 objects:v29 count:16];
         if (v10)
         {
           v11 = v10;
           v12 = 0;
-          v13 = *v27;
+          v13 = *v26;
           do
           {
             v14 = 0;
@@ -208,15 +208,15 @@ LABEL_9:
             v12 += v11;
             do
             {
-              if (*v27 != v13)
+              if (*v26 != v13)
               {
                 objc_enumerationMutation(channelAssignments);
               }
 
-              v16 = *(*(&v26 + 1) + 8 * v14);
+              v16 = *(*(&v25 + 1) + 8 * v14);
               if (v16)
               {
-                *v15 = [*(*(&v26 + 1) + 8 * v14) owningPortUID];
+                *v15 = [*(*(&v25 + 1) + 8 * v14) owningPortUID];
                 channelNumber = [v16 channelNumber];
               }
 
@@ -232,7 +232,7 @@ LABEL_9:
             }
 
             while (v11 != v14);
-            v11 = [(NSArray *)channelAssignments countByEnumeratingWithState:&v26 objects:v30 count:16];
+            v11 = [(NSArray *)channelAssignments countByEnumeratingWithState:&v25 objects:v29 count:16];
           }
 
           while (v11);
@@ -274,8 +274,6 @@ LABEL_9:
       }
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (float)averagePowerForChannel:(NSUInteger)channelNumber

@@ -5,12 +5,12 @@
 - (uint64_t)safari_containsCloudKitMissingZoneErrorForRecordZoneID:()SafariSharedCloudKitExtras;
 - (uint64_t)safari_errorOrAnyPartialErrorHasCloudKitInternalErrorCode:()SafariSharedCloudKitExtras;
 - (uint64_t)safari_hasOrContainsErrorWithCloudKitErrorCode:()SafariSharedCloudKitExtras;
-- (uint64_t)safari_isCloudKitBatchTooLargeError;
 - (uint64_t)safari_isCloudKitMissingZoneError;
-- (uint64_t)safari_isCloudKitNonExistentRecordError;
 - (uint64_t)safari_isInCloudKitErrorDomain;
 - (uint64_t)safari_isUnrecoverableCloudKitError;
 - (void)_safari_enumerateCloudKitErrorsWithBlock:()SafariSharedCloudKitExtras;
+- (void)safari_isCloudKitBatchTooLargeError;
+- (void)safari_isCloudKitNonExistentRecordError;
 @end
 
 @implementation NSError(SafariSharedCloudKitExtras)
@@ -86,23 +86,23 @@
   return v2;
 }
 
-- (uint64_t)safari_isCloudKitBatchTooLargeError
+- (void)safari_isCloudKitBatchTooLargeError
 {
   result = [self safari_isInCloudKitErrorDomain];
   if (result)
   {
-    return [self code] == 27;
+    return ([self code] == 27);
   }
 
   return result;
 }
 
-- (uint64_t)safari_isCloudKitNonExistentRecordError
+- (void)safari_isCloudKitNonExistentRecordError
 {
   result = [self safari_isInCloudKitErrorDomain];
   if (result)
   {
-    return [self code] == 11;
+    return ([self code] == 11);
   }
 
   return result;
@@ -110,13 +110,12 @@
 
 - (uint64_t)safari_isCloudKitMissingZoneError
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = *MEMORY[0x1E695B740];
-  v7[0] = &unk_1F308E718;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E695B740];
+  v6[0] = &unk_1F308E718;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v3 = [self safari_matchesErrorDomainsAndCodes:v2];
 
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

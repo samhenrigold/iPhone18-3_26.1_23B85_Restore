@@ -2,6 +2,8 @@
 + (void)initialize;
 - (id)newTopDocsWithOrgApacheLuceneSearchScoreDocArray:(id)array withInt:(int)int;
 - (id)topDocs;
+- (id)topDocsWithInt:(int)int;
+- (id)topDocsWithInt:(int)int withInt:(int)withInt;
 - (int)topDocsSize;
 - (void)dealloc;
 - (void)populateResultsWithOrgApacheLuceneSearchScoreDocArray:(id)array withInt:(int)int;
@@ -74,6 +76,55 @@
   return [(OrgApacheLuceneSearchTopDocsCollector *)self topDocsWithInt:0 withInt:topDocsSize];
 }
 
+- (id)topDocsWithInt:(int)int
+{
+  v3 = *&int;
+  topDocsSize = [(OrgApacheLuceneSearchTopDocsCollector *)self topDocsSize];
+
+  return [(OrgApacheLuceneSearchTopDocsCollector *)self topDocsWithInt:v3 withInt:topDocsSize];
+}
+
+- (id)topDocsWithInt:(int)int withInt:(int)withInt
+{
+  v5 = *&int;
+  topDocsSize = [(OrgApacheLuceneSearchTopDocsCollector *)self topDocsSize];
+  if ((v5 & 0x80000000) != 0 || withInt < 1 || (v8 = __OFSUB__(topDocsSize, v5), v9 = topDocsSize - v5, (v9 < 0) ^ v8 | (v9 == 0)))
+  {
+    selfCopy2 = self;
+    v17 = 0;
+  }
+
+  else
+  {
+    v10 = JavaLangMath_minWithInt_withInt_(v9, withInt);
+    v12 = [IOSObjectArray arrayWithLength:v10 type:OrgApacheLuceneSearchScoreDoc_class_(v10, v11)];
+    pq = self->pq_;
+    if (!pq)
+    {
+      JreThrowNullPointerException();
+    }
+
+    v14 = [(OrgApacheLuceneUtilPriorityQueue *)pq size]- (v10 + v5);
+    if (v14 >= 1)
+    {
+      v15 = v14 + 1;
+      do
+      {
+        [(OrgApacheLuceneUtilPriorityQueue *)self->pq_ pop];
+        --v15;
+      }
+
+      while (v15 > 1);
+    }
+
+    [(OrgApacheLuceneSearchTopDocsCollector *)self populateResultsWithOrgApacheLuceneSearchScoreDocArray:v12 withInt:v10];
+    selfCopy2 = self;
+    v17 = v12;
+  }
+
+  return [(OrgApacheLuceneSearchTopDocsCollector *)selfCopy2 newTopDocsWithOrgApacheLuceneSearchScoreDocArray:v17 withInt:v5];
+}
+
 - (void)dealloc
 {
   v3.receiver = self;
@@ -83,11 +134,12 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
-    v2 = [IOSObjectArray arrayWithLength:0 type:OrgApacheLuceneSearchScoreDoc_class_()];
-    v3 = new_OrgApacheLuceneSearchTopDocs_initWithInt_withOrgApacheLuceneSearchScoreDocArray_withFloat_(0, v2, NAN);
-    JreStrongAssignAndConsume(&OrgApacheLuceneSearchTopDocsCollector_EMPTY_TOPDOCS_, v3);
+    v5 = [IOSObjectArray arrayWithLength:0 type:OrgApacheLuceneSearchScoreDoc_class_(v3, v4)];
+    v6 = new_OrgApacheLuceneSearchTopDocs_initWithInt_withOrgApacheLuceneSearchScoreDocArray_withFloat_(0, v5, NAN);
+    JreStrongAssignAndConsume(&OrgApacheLuceneSearchTopDocsCollector_EMPTY_TOPDOCS_, v6);
     atomic_store(1u, OrgApacheLuceneSearchTopDocsCollector__initialized);
   }
 }

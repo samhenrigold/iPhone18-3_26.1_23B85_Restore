@@ -32,7 +32,7 @@
 {
   deviceCopy = device;
   gr_session_ticket_id = [deviceCopy gr_session_ticket_id];
-  sub_100022098(&self->_interestedDeviceList.__table_.__bucket_list_.__ptr_, &gr_session_ticket_id);
+  sub_100022098(&self->_interestedDeviceList.__table_.__bucket_list_.__ptr_, &gr_session_ticket_id, &gr_session_ticket_id);
   if (*(&self->_clientIdAsStdString.__rep_.__l + 23) < 0)
   {
     sub_1000056BC(__p, self->_clientIdAsStdString.__rep_.__l.__data_, self->_clientIdAsStdString.__rep_.__l.__size_);

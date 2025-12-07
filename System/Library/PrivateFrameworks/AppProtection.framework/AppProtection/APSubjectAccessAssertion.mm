@@ -31,25 +31,25 @@
   v7 = swift_allocObject();
   *(v7 + 16) = v6;
   subjectCopy = subject;
-  v9 = APGetAuditTokenForSelf();
-  if (v9)
+  v10 = APGetAuditTokenForSelf(subjectCopy, v9);
+  if (v10)
   {
-    v10 = v9[1];
-    v16 = *v9;
-    v17 = v10;
-    v14 = sub_185B1265C;
-    v15 = v7;
-    *&v12 = MEMORY[0x1E69E9820];
-    *(&v12 + 1) = 1107296256;
-    *&v13 = sub_185B0E6C8;
-    *(&v13 + 1) = &block_descriptor_50_0;
-    v11 = _Block_copy(&v12);
+    v11 = v10[1];
+    v17 = *v10;
+    v18 = v11;
+    v15 = sub_185B1265C;
+    v16 = v7;
+    *&v13 = MEMORY[0x1E69E9820];
+    *(&v13 + 1) = 1107296256;
+    *&v14 = sub_185B0E6C8;
+    *(&v14 + 1) = &block_descriptor_50_0;
+    v12 = _Block_copy(&v13);
 
-    v12 = v16;
     v13 = v17;
-    [self acquireForSubject:subjectCopy onBehalfOfProcessWithAuditToken:&v12 accessGrantReason:0x7FFFFFFFFFFFFFFFLL completion:v11];
+    v14 = v18;
+    [self acquireForSubject:subjectCopy onBehalfOfProcessWithAuditToken:&v13 accessGrantReason:0x7FFFFFFFFFFFFFFFLL completion:v12];
 
-    _Block_release(v11);
+    _Block_release(v12);
   }
 
   else

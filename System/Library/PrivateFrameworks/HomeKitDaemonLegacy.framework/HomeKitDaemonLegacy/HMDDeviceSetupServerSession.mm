@@ -10,7 +10,7 @@
 
 - (BOOL)processSessionData:(id)data outAccessoryUUID:(id *)d outAccessoryCategory:(id *)category outAccessoryIDSIdentifier:(id *)identifier error:(id *)error
 {
-  v181 = *MEMORY[0x277D85DE8];
+  v180 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   logger = self->_logger;
   if (os_signpost_enabled(logger))
@@ -33,13 +33,13 @@ LABEL_13:
     state = [(HMDDeviceSetupSessionInternal *)self state];
     if (state == 2)
     {
-      v160 = v31;
+      v159 = v31;
       identifierCopy2 = identifier;
-      v165 = v30;
+      v164 = v30;
       categoryCopy = category;
-      v169 = dataCopy;
+      v168 = dataCopy;
 LABEL_85:
-      [currentAccessorySetupMetricDispatcher markSetupBeginStage:4 error:{v18, v154}];
+      [currentAccessorySetupMetricDispatcher markSetupBeginStage:4 error:{v18, v153}];
       accessoryBrowser = [homeManager accessoryBrowser];
       mediaBrowser = [accessoryBrowser mediaBrowser];
       currentAccessory = [mediaBrowser currentAccessory];
@@ -54,9 +54,9 @@ LABEL_85:
         {
           v134 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v176 = v134;
-          v177 = 2112;
-          v178 = currentAccessory;
+          v175 = v134;
+          v176 = 2112;
+          v177 = currentAccessory;
           _os_log_impl(&dword_2531F8000, v133, OS_LOG_TYPE_DEFAULT, "%{public}@Set accessory %@", buf, 0x16u);
         }
 
@@ -96,9 +96,9 @@ LABEL_85:
           {
             v141 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v176 = v141;
-            v177 = 2112;
-            v178 = uUIDString;
+            v175 = v141;
+            v176 = 2112;
+            v177 = uUIDString;
             _os_log_impl(&dword_2531F8000, v140, OS_LOG_TYPE_INFO, "%{public}@Saving model uuid for Core Data voucher %@", buf, 0x16u);
           }
 
@@ -114,7 +114,7 @@ LABEL_85:
         {
           v143 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v176 = v143;
+          v175 = v143;
           _os_log_impl(&dword_2531F8000, v133, OS_LOG_TYPE_ERROR, "%{public}@Did not obtain accessory in M2.", buf, 0xCu);
         }
 
@@ -142,22 +142,22 @@ LABEL_85:
       {
         v150 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v176 = v150;
-        v177 = 2112;
-        v178 = dictionary;
+        v175 = v150;
+        v176 = 2112;
+        v177 = dictionary;
         _os_log_impl(&dword_2531F8000, v149, OS_LOG_TYPE_INFO, "%{public}@Response: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v147);
-      v74 = v160;
-      [v160 encodeObject:dictionary forKey:*MEMORY[0x277CCA308]];
-      [v160 finishEncoding];
-      encodedData = [v160 encodedData];
+      v74 = v159;
+      [v159 encodeObject:dictionary forKey:*MEMORY[0x277CCA308]];
+      [v159 finishEncoding];
+      encodedData = [v159 encodedData];
       [(HMDDeviceSetupSessionInternal *)v148 setSessionData:encodedData];
 
       v51 = 1;
-      dataCopy = v169;
-      v30 = v165;
+      dataCopy = v168;
+      v30 = v164;
       goto LABEL_106;
     }
 
@@ -174,7 +174,7 @@ LABEL_85:
         HMFGetLogIdentifier();
         v65 = v64 = v30;
         *buf = 138543362;
-        v176 = v65;
+        v175 = v65;
         _os_log_impl(&dword_2531F8000, v63, OS_LOG_TYPE_ERROR, "%{public}@Unrecognized state or hit error.", buf, 0xCu);
 
         v30 = v64;
@@ -201,7 +201,7 @@ LABEL_85:
 
     categoryCopy2 = category;
     [currentAccessorySetupMetricDispatcher markSetupBeginStage:3 error:v18];
-    v165 = v30;
+    v164 = v30;
     v34 = [v30 objectForKeyedSubscript:@"pi"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -216,26 +216,26 @@ LABEL_85:
 
     v36 = v35;
 
-    v160 = v31;
+    v159 = v31;
     if (v36)
     {
       if ([homeManager setLocalPairingIdentity:v36 error:errorCopy])
       {
-        v164 = v18;
+        v163 = v18;
         v37 = self->_logger;
-        v38 = v165;
+        v38 = v164;
         if (os_signpost_enabled(v37))
         {
           *buf = 0;
           _os_signpost_emit_with_name_impl(&dword_2531F8000, v37, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ReceivedLocalControllerKey", "", buf, 2u);
         }
 
-        v156 = v36;
+        v155 = v36;
         identifierCopy2 = identifier;
-        v159 = [v165 objectForKeyedSubscript:@"pi.hh2"];
+        v158 = [v164 objectForKeyedSubscript:@"pi.hh2"];
         categoryCopy = categoryCopy2;
-        v169 = dataCopy;
-        if (v159)
+        v168 = dataCopy;
+        if (v158)
         {
           v39 = objc_autoreleasePoolPush();
           selfCopy3 = self;
@@ -243,21 +243,21 @@ LABEL_85:
           if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
           {
             v42 = HMFGetLogIdentifier();
-            identifier = [v159 identifier];
+            identifier = [v158 identifier];
             *buf = 138543618;
-            v176 = v42;
-            v177 = 2112;
-            v178 = identifier;
+            v175 = v42;
+            v176 = 2112;
+            v177 = identifier;
             _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_DEFAULT, "%{public}@Got the HH2 Pairing key during TTSU : %@. Going to save it to keychain store", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v39);
           systemStore = [MEMORY[0x277CFEC78] systemStore];
-          v45 = [systemStore saveHH2PairingIdentity:v159 syncable:1];
+          v45 = [systemStore saveHH2PairingIdentity:v158 syncable:1];
 
           if (v45)
           {
-            v38 = v165;
+            v38 = v164;
           }
 
           else
@@ -269,20 +269,20 @@ LABEL_85:
             {
               v83 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v176 = v83;
+              v175 = v83;
               _os_log_impl(&dword_2531F8000, v82, OS_LOG_TYPE_ERROR, "%{public}@Unable to save the HH2 key to keychain store. This will not fail TTSU as there can be multiple HH2 keys and the HomeKitDaemon will handle that appropriately.", buf, 0xCu);
             }
 
             objc_autoreleasePoolPop(v80);
             v84 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:3401];
 
-            v164 = v84;
-            v38 = v165;
+            v163 = v84;
+            v38 = v164;
           }
         }
 
         v85 = [v38 hmf_numberForKey:@"mi.hh2"];
-        v158 = v85;
+        v157 = v85;
         if (v85)
         {
           v86 = objc_autoreleasePoolPush();
@@ -294,19 +294,19 @@ LABEL_85:
             [v85 BOOLValue];
             v90 = HMFBooleanToString();
             *buf = 138543618;
-            v176 = v89;
-            v177 = 2112;
-            v178 = v90;
+            v175 = v89;
+            v176 = 2112;
+            v177 = v90;
             _os_log_impl(&dword_2531F8000, v88, OS_LOG_TYPE_DEFAULT, "%{public}@Got the HH2 settings migration key during TTSU : %@. Going to save it to user defaults", buf, 0x16u);
 
-            v85 = v158;
+            v85 = v157;
           }
 
           objc_autoreleasePoolPop(v86);
           standardUserDefaults2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
           [standardUserDefaults2 setBool:objc_msgSend(v85 forKey:{"BOOLValue"), @"mi.hh2"}];
 
-          v38 = v165;
+          v38 = v164;
         }
 
         v92 = [v38 hmf_numberForKey:@"rpr"];
@@ -321,12 +321,12 @@ LABEL_85:
             [v92 BOOLValue];
             v97 = HMFBooleanToString();
             *buf = 138543618;
-            v176 = v96;
-            v177 = 2112;
-            v178 = v97;
+            v175 = v96;
+            v176 = 2112;
+            v177 = v97;
             _os_log_impl(&dword_2531F8000, v95, OS_LOG_TYPE_DEFAULT, "%{public}@Got the home has reachable resident value during TTSU: %@.", buf, 0x16u);
 
-            v85 = v158;
+            v85 = v157;
           }
 
           objc_autoreleasePoolPop(v93);
@@ -335,11 +335,11 @@ LABEL_85:
         }
 
         bOOLValue = [v85 BOOLValue];
-        v100 = [v165 hmf_numberForKey:@"sz.hh2"];
+        v100 = [v164 hmf_numberForKey:@"sz.hh2"];
         bOOLValue2 = [v100 BOOLValue];
 
         [currentAccessorySetupMetricDispatcher markControllerHH2Mode:bOOLValue controllerHH2SentinelExists:bOOLValue2];
-        v102 = [v165 objectForKeyedSubscript:@"session.id"];
+        v102 = [v164 objectForKeyedSubscript:@"session.id"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -362,9 +362,9 @@ LABEL_85:
           {
             v108 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v176 = v108;
-            v177 = 2112;
-            v178 = v104;
+            v175 = v108;
+            v176 = 2112;
+            v177 = v104;
             _os_log_impl(&dword_2531F8000, v107, OS_LOG_TYPE_INFO, "%{public}@Setting controller setup session identifier %@", buf, 0x16u);
           }
 
@@ -372,18 +372,18 @@ LABEL_85:
           [currentAccessorySetupMetricDispatcher setControllerSetupSessionIdentifier:v104];
         }
 
-        v155 = v104;
+        v154 = v104;
         uuid2 = [homeManager uuid];
         [homeManager updateGenerationCounterWithReason:@"Device Setup Set Controller Keys" sourceUUID:uuid2 shouldNotifyClients:1];
 
-        v18 = v164;
-        [currentAccessorySetupMetricDispatcher markSetupEndStage:3 error:v164];
-        v110 = [v165 hmf_stringForKey:*MEMORY[0x277CD2450]];
-        v111 = [v165 hmf_stringForKey:*MEMORY[0x277CD2470]];
-        v112 = [v165 hmf_stringForKey:*MEMORY[0x277CD24A0]];
+        v18 = v163;
+        [currentAccessorySetupMetricDispatcher markSetupEndStage:3 error:v163];
+        v110 = [v164 hmf_stringForKey:*MEMORY[0x277CD2450]];
+        v111 = [v164 hmf_stringForKey:*MEMORY[0x277CD2470]];
+        v112 = [v164 hmf_stringForKey:*MEMORY[0x277CD24A0]];
         v113 = v110;
-        v114 = [v165 hmf_stringForKey:*MEMORY[0x277CD2498]];
-        v157 = v114;
+        v114 = [v164 hmf_stringForKey:*MEMORY[0x277CD2498]];
+        v156 = v114;
         if (v110 && v111 && v112 && v114)
         {
           v115 = objc_autoreleasePoolPush();
@@ -392,18 +392,18 @@ LABEL_85:
           if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
           {
             HMFGetLogIdentifier();
-            v154 = v92;
+            v153 = v92;
             v119 = v118 = v113;
             *buf = 138543362;
-            v176 = v119;
+            v175 = v119;
             _os_log_impl(&dword_2531F8000, v117, OS_LOG_TYPE_DEFAULT, "%{public}@Saving media system hints and persist to disk", buf, 0xCu);
 
             v113 = v118;
-            v92 = v154;
+            v92 = v153;
           }
 
           objc_autoreleasePoolPop(v115);
-          [homeManager saveMediaSystemHintsWithHomeUUIDString:v113 mediaSystemUUIDString:v111 peerAccessoryUUIDString:v112 peerAccessoryRoleString:v157 persistToDisk:1];
+          [homeManager saveMediaSystemHintsWithHomeUUIDString:v113 mediaSystemUUIDString:v111 peerAccessoryUUIDString:v112 peerAccessoryRoleString:v156 persistToDisk:1];
         }
 
         v120 = objc_autoreleasePoolPush();
@@ -412,18 +412,18 @@ LABEL_85:
         if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
         {
           HMFGetLogIdentifier();
-          v154 = v112;
+          v153 = v112;
           v123 = v111;
           v124 = v92;
           v126 = v125 = v113;
           *buf = 138543362;
-          v176 = v126;
+          v175 = v126;
           _os_log_impl(&dword_2531F8000, v122, OS_LOG_TYPE_DEFAULT, "%{public}@Proceeding to M2", buf, 0xCu);
 
           v113 = v125;
           v92 = v124;
           v111 = v123;
-          v112 = v154;
+          v112 = v153;
         }
 
         objc_autoreleasePoolPop(v120);
@@ -440,12 +440,12 @@ LABEL_85:
       {
         v78 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v176 = v78;
+        v175 = v78;
         _os_log_impl(&dword_2531F8000, v77, OS_LOG_TYPE_ERROR, "%{public}@Failed to set local pairing identity", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v75);
-      v30 = v165;
+      v30 = v164;
       v71 = dictionary;
       if (errorCopy)
       {
@@ -470,7 +470,7 @@ LABEL_85:
       {
         v70 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v176 = v70;
+        v175 = v70;
         _os_log_impl(&dword_2531F8000, v69, OS_LOG_TYPE_ERROR, "%{public}@Request missing pairing identity", buf, 0xCu);
       }
 
@@ -478,12 +478,12 @@ LABEL_85:
       v71 = dictionary;
       if (!errorCopy)
       {
-        v30 = v165;
+        v30 = v164;
 LABEL_56:
         [currentAccessorySetupMetricDispatcher markSetupEndStage:3 error:v18];
 
         v51 = 0;
-        v74 = v160;
+        v74 = v159;
 LABEL_106:
 
         goto LABEL_107;
@@ -492,7 +492,7 @@ LABEL_106:
       v72 = [MEMORY[0x277CCA9B8] hmErrorWithCode:27];
       *errorCopy = v72;
       v73 = v72;
-      v30 = v165;
+      v30 = v164;
     }
 
     v18 = v73;
@@ -502,17 +502,17 @@ LABEL_106:
   categoryCopy3 = category;
   v15 = MEMORY[0x277CCAAC8];
   v16 = +[HMDDeviceSetupClientSession allowedClasses];
-  v174 = 0;
-  v17 = [v15 unarchivedObjectOfClasses:v16 fromData:dataCopy error:&v174];
-  v18 = v174;
+  v173 = 0;
+  v17 = [v15 unarchivedObjectOfClasses:v16 fromData:dataCopy error:&v173];
+  v18 = v173;
 
   if (v17)
   {
     identifierCopy3 = identifier;
     dCopy2 = d;
-    v163 = v18;
-    v161 = currentAccessorySetupMetricDispatcher;
-    v168 = dataCopy;
+    v162 = v18;
+    v160 = currentAccessorySetupMetricDispatcher;
+    v167 = dataCopy;
     v20 = v17;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -535,9 +535,9 @@ LABEL_106:
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v176 = v27;
-      v177 = 2112;
-      v178 = v26;
+      v175 = v27;
+      v176 = 2112;
+      v177 = v26;
       _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Processing request: %@", buf, 0x16u);
 
       v22 = v26;
@@ -550,10 +550,10 @@ LABEL_106:
     {
 
       category = categoryCopy3;
-      dataCopy = v168;
+      dataCopy = v167;
       v30 = v26;
       identifier = identifierCopy3;
-      currentAccessorySetupMetricDispatcher = v161;
+      currentAccessorySetupMetricDispatcher = v160;
       goto LABEL_13;
     }
 
@@ -565,11 +565,11 @@ LABEL_106:
       v55 = HMFGetLogIdentifier();
       state2 = [(HMDDeviceSetupSessionInternal *)v53 state];
       *buf = 138543874;
-      v176 = v55;
-      v177 = 2112;
-      v178 = v28;
-      v179 = 2048;
-      v180 = state2;
+      v175 = v55;
+      v176 = 2112;
+      v177 = v28;
+      v178 = 2048;
+      v179 = state2;
       _os_log_impl(&dword_2531F8000, v54, OS_LOG_TYPE_DEFAULT, "%{public}@Request state number, %@, does not match expected state number: %tu", buf, 0x20u);
     }
 
@@ -581,11 +581,11 @@ LABEL_106:
       v18 = v57;
     }
 
-    dataCopy = v168;
-    [v161 markSetupBeginStage:3 error:v18];
+    dataCopy = v167;
+    [v160 markSetupBeginStage:3 error:v18];
 
     v51 = 0;
-    currentAccessorySetupMetricDispatcher = v161;
+    currentAccessorySetupMetricDispatcher = v160;
   }
 
   else
@@ -597,9 +597,9 @@ LABEL_106:
     {
       v49 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v176 = v49;
-      v177 = 2112;
-      v178 = v18;
+      v175 = v49;
+      v176 = 2112;
+      v177 = v18;
       _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive request payload from data: %@", buf, 0x16u);
     }
 
@@ -616,7 +616,6 @@ LABEL_106:
 
 LABEL_107:
 
-  v152 = *MEMORY[0x277D85DE8];
   return v51;
 }
 
@@ -649,27 +648,24 @@ LABEL_107:
 
 uint64_t __42__HMDDeviceSetupServerSession_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v71;
-  logCategory__hmf_once_v71 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v71;
+  logCategory__hmf_once_v71 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)allowedClasses
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = &OBJC_METACLASS___HMDDeviceSetupServerSession;
-  v2 = objc_msgSendSuper2(&v7, sel_allowedClasses);
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = &OBJC_METACLASS___HMDDeviceSetupServerSession;
+  v2 = objc_msgSendSuper2(&v6, sel_allowedClasses);
   v3 = [v2 mutableCopy];
 
-  v8[0] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   [v3 addObjectsFromArray:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

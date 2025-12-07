@@ -2,6 +2,7 @@
 - (BOOL)isSuspended;
 - (SCWAsyncSerialQueue)initWithQualityOfService:(int64_t)service;
 - (void)enqueueBlock:(id)block;
+- (void)setSuspended:(BOOL)suspended;
 - (void)waitUntilEmpty;
 @end
 
@@ -50,6 +51,13 @@
   isSuspended = [serialOperationQueue isSuspended];
 
   return isSuspended;
+}
+
+- (void)setSuspended:(BOOL)suspended
+{
+  suspendedCopy = suspended;
+  serialOperationQueue = [(SCWAsyncSerialQueue *)self serialOperationQueue];
+  [serialOperationQueue setSuspended:suspendedCopy];
 }
 
 @end

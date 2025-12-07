@@ -359,121 +359,123 @@ id WebPrivacy::applyOrderedReplacements<objc_object>(void *a1, void *a2)
   return v5;
 }
 
-void sub_273D36110(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_273D36110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_273D36210(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_273D36210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_273D36310(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_273D36310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_273D36468(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, id location, char a14)
+void sub_273D36468(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, id location, ...)
 {
-  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](&a14);
+  va_start(va, location);
+  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](va);
   objc_destroyWeak(&location);
 
   _Unwind_Resume(a1);
 }
 
-void sub_273D365C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, id location, char a14)
+void sub_273D365C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, id location, ...)
 {
-  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](&a14);
+  va_start(va, location);
+  std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](va);
   objc_destroyWeak(&location);
 
   _Unwind_Resume(a1);
 }
 
-void sub_273D366D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_273D366D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_273D367D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_273D367D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_273D368D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_273D368D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_273D369D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_273D369D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_273D36AD0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_273D36AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_273D36BD0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_273D36BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_273D36CD0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_273D36CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_273D36DD0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_273D36DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_273D36EE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_273D36EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_273D36FEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_273D36FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(WebPrivacy::MessageError,Platform::ArrayView<unsigned char> &&)>::~__value_func[abi:nn200100](va);
 
   _Unwind_Resume(a1);
@@ -499,7 +501,7 @@ void sub_273D3716C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void callCompletionHandler<void({block_pointer} {__strong})(NSData *,NSError *)>(void *a1, void *a2, void *a3, unsigned int a4)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = a3;
@@ -511,7 +513,7 @@ void callCompletionHandler<void({block_pointer} {__strong})(NSData *,NSError *)>
   else if (a4)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v16 = *MEMORY[0x277CCA470];
+    v15 = *MEMORY[0x277CCA470];
     if (a4 > 3)
     {
       v11 = "Invalid";
@@ -523,8 +525,8 @@ void callCompletionHandler<void({block_pointer} {__strong})(NSData *,NSError *)>
     }
 
     v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:v11];
-    v17[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v16[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v14 = [v10 errorWithDomain:@"WebPrivacyErrorDomain" code:a4 userInfo:v13];
     (v7)[2](v7, 0, v14);
   }
@@ -533,8 +535,6 @@ void callCompletionHandler<void({block_pointer} {__strong})(NSData *,NSError *)>
   {
     (v7)[2](v7, 0, v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_273D383F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10)
@@ -546,7 +546,7 @@ void sub_273D383F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void callCompletionHandler<void({block_pointer} {__strong})(WPLinkFilteringData *,NSError *)>(void *a1, void *a2, void *a3, unsigned int a4)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = a3;
@@ -558,7 +558,7 @@ void callCompletionHandler<void({block_pointer} {__strong})(WPLinkFilteringData 
   else if (a4)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v16 = *MEMORY[0x277CCA470];
+    v15 = *MEMORY[0x277CCA470];
     if (a4 > 3)
     {
       v11 = "Invalid";
@@ -570,8 +570,8 @@ void callCompletionHandler<void({block_pointer} {__strong})(WPLinkFilteringData 
     }
 
     v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:v11];
-    v17[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v16[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v14 = [v10 errorWithDomain:@"WebPrivacyErrorDomain" code:a4 userInfo:v13];
     (v7)[2](v7, 0, v14);
   }
@@ -580,8 +580,6 @@ void callCompletionHandler<void({block_pointer} {__strong})(WPLinkFilteringData 
   {
     (v7)[2](v7, 0, v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void _ZZZ68__WPResources_loadTrackerBlockerRuleListForStore_completionHandler__ENK4__13clIN10WebPrivacy12MessageErrorEN8Platform9ArrayViewIhEEEEDaT_OT0_ENUlP17WKContentRuleListP7NSErrorE_clESB_SD_(void **a1, void *a2)
@@ -595,11 +593,11 @@ void _ZZZ68__WPResources_loadTrackerBlockerRuleListForStore_completionHandler__E
     v6 = [v5 isEqualToString:a1[1]];
     if (v6)
     {
-      v7 = WPOSLogAPI();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = WPOSLogAPI(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_273D20000, v7, OS_LOG_TYPE_INFO, "Adding last cached tracker block list rules", buf, 2u);
+        _os_log_impl(&dword_273D20000, v8, OS_LOG_TYPE_INFO, "Adding last cached tracker block list rules", buf, 2u);
       }
 
       (*(a1[2] + 2))();
@@ -607,22 +605,24 @@ void _ZZZ68__WPResources_loadTrackerBlockerRuleListForStore_completionHandler__E
     }
   }
 
-  v8 = WebPrivacy::Client::shared(v6);
-  WebPrivacy::Client::cachedListData(v8, 1u, buf);
+  v9 = WebPrivacy::Client::shared(v6);
+  WebPrivacy::Client::cachedListData(v9, 1, buf);
+  v11 = *buf;
   if (!*buf)
   {
-    v22 = 0;
-    v23 = 0;
+    v27 = 0;
+    v28 = 0;
     goto LABEL_11;
   }
 
-  v22 = Platform::SharedMemory::view(*buf);
-  v23 = v9;
-  if (!v9)
+  v11 = Platform::SharedMemory::view(*buf);
+  v27 = v11;
+  v28 = v10;
+  if (!v10)
   {
 LABEL_11:
-    v13 = WPOSLogAPI();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = WPOSLogAPI(v11, v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       _ZZZ68__WPResources_loadTrackerBlockerRuleListForStore_completionHandler__ENK4__13clIN10WebPrivacy12MessageErrorEN8Platform9ArrayViewIhEEEEDaT_OT0_ENUlP17WKContentRuleListP7NSErrorE_clESB_SD__cold_2();
     }
@@ -631,11 +631,12 @@ LABEL_11:
     goto LABEL_22;
   }
 
-  WebPrivacy::createContentExtensionSource(&v22, v21);
-  if (![v21[0] length])
+  WebPrivacy::createContentExtensionSource(&v27, v26);
+  if (![v26[0] length])
   {
-    v14 = WPOSLogAPI();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = WPOSLogAPI(0, v12);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+    if (v18)
     {
       _ZZZ68__WPResources_loadTrackerBlockerRuleListForStore_completionHandler__ENK4__13clIN10WebPrivacy12MessageErrorEN8Platform9ArrayViewIhEEEEDaT_OT0_ENUlP17WKContentRuleListP7NSErrorE_clESB_SD__cold_1();
       if (v3)
@@ -647,11 +648,11 @@ LABEL_11:
     else if (v3)
     {
 LABEL_16:
-      v15 = WPOSLogAPI();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v20 = WPOSLogAPI(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        *v20 = 0;
-        _os_log_impl(&dword_273D20000, v15, OS_LOG_TYPE_INFO, "Falling back to previously compiled rules", v20, 2u);
+        *v25 = 0;
+        _os_log_impl(&dword_273D20000, v20, OS_LOG_TYPE_INFO, "Falling back to previously compiled rules", v25, 2u);
       }
 
       (*(a1[2] + 2))();
@@ -662,23 +663,23 @@ LABEL_16:
     goto LABEL_21;
   }
 
-  v10 = objc_alloc(MEMORY[0x277CCACA8]);
-  v11 = [v10 initWithData:v21[0] encoding:4];
-  v12 = *a1;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = ___ZZZ68__WPResources_loadTrackerBlockerRuleListForStore_completionHandler__ENK4__13clIN10WebPrivacy12MessageErrorEN8Platform9ArrayViewIhEEEEDaT_OT0_ENUlP17WKContentRuleListP7NSErrorE_clESB_SD__block_invoke;
-  v16[3] = &unk_279EAF468;
-  v17 = v3;
-  v19 = a1[2];
-  v18 = a1[1];
-  [v12 compileContentRuleListForIdentifier:@"com.apple.WebPrivacy.TrackingResourceRequestContentBlocker" encodedContentRuleList:v11 completionHandler:v16];
+  v13 = objc_alloc(MEMORY[0x277CCACA8]);
+  v14 = [v13 initWithData:v26[0] encoding:4];
+  v15 = *a1;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = ___ZZZ68__WPResources_loadTrackerBlockerRuleListForStore_completionHandler__ENK4__13clIN10WebPrivacy12MessageErrorEN8Platform9ArrayViewIhEEEEDaT_OT0_ENUlP17WKContentRuleListP7NSErrorE_clESB_SD__block_invoke;
+  v21[3] = &unk_279EAF468;
+  v22 = v3;
+  v24 = a1[2];
+  v23 = a1[1];
+  [v15 compileContentRuleListForIdentifier:@"com.apple.WebPrivacy.TrackingResourceRequestContentBlocker" encodedContentRuleList:v14 completionHandler:v21];
 
 LABEL_21:
 LABEL_22:
-  if (v25)
+  if (v30)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v25);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v30);
   }
 
 LABEL_24:
@@ -702,28 +703,28 @@ void _ZZN8Platform8BlockPtrIFvP17WKContentRuleListP7NSErrorEE12fromCallableIZZ68
 
 void ___ZZZ68__WPResources_loadTrackerBlockerRuleListForStore_completionHandler__ENK4__13clIN10WebPrivacy12MessageErrorEN8Platform9ArrayViewIhEEEEDaT_OT0_ENUlP17WKContentRuleListP7NSErrorE_clESB_SD__block_invoke(void *a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WPOSLogAPI();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WPOSLogAPI(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v8 = [v6 localizedDescription];
-      ___ZZZ68__WPResources_loadTrackerBlockerRuleListForStore_completionHandler__ENK4__13clIN10WebPrivacy12MessageErrorEN8Platform9ArrayViewIhEEEEDaT_OT0_ENUlP17WKContentRuleListP7NSErrorE_clESB_SD__block_invoke_cold_1(v8, v14, v7);
+      v10 = [v8 localizedDescription];
+      ___ZZZ68__WPResources_loadTrackerBlockerRuleListForStore_completionHandler__ENK4__13clIN10WebPrivacy12MessageErrorEN8Platform9ArrayViewIhEEEEDaT_OT0_ENUlP17WKContentRuleListP7NSErrorE_clESB_SD__block_invoke_cold_1(v10, v16, v9);
     }
 
     if (a1[4])
     {
-      v9 = WPOSLogAPI();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v13 = WPOSLogAPI(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_273D20000, v9, OS_LOG_TYPE_INFO, "Falling back to previously compiled rules", v13, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_273D20000, v13, OS_LOG_TYPE_INFO, "Falling back to previously compiled rules", v15, 2u);
       }
 
-      v10 = a1[4];
       (*(a1[6] + 16))();
     }
 
@@ -736,11 +737,9 @@ void ___ZZZ68__WPResources_loadTrackerBlockerRuleListForStore_completionHandler_
   else
   {
     (*(a1[6] + 16))();
-    v11 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    [v11 setObject:a1[5] forKey:@"com.apple.WebPrivacy.TrackingResourceRequestContentBlockerVersion"];
+    v14 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+    [v14 setObject:a1[5] forKey:@"com.apple.WebPrivacy.TrackingResourceRequestContentBlockerVersion"];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void _ZZZ69__WPResources_prepareResourceMonitorRulesForStore_completionHandler__ENK4__14clIN10WebPrivacy12MessageErrorEN8Platform9ArrayViewIhEEEEDaT_OT0_ENUlP17WKContentRuleListP7NSErrorE_clESB_SD_(void **a1, void *a2)
@@ -754,11 +753,11 @@ void _ZZZ69__WPResources_prepareResourceMonitorRulesForStore_completionHandler__
     v6 = [v5 isEqualToString:a1[1]];
     if (v6)
     {
-      v7 = WPOSLogAPI();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = WPOSLogAPI(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_273D20000, v7, OS_LOG_TYPE_INFO, "Adding last cached resource monitor url rules", buf, 2u);
+        _os_log_impl(&dword_273D20000, v8, OS_LOG_TYPE_INFO, "Adding last cached resource monitor url rules", buf, 2u);
       }
 
       (*(a1[2] + 2))();
@@ -766,22 +765,24 @@ void _ZZZ69__WPResources_prepareResourceMonitorRulesForStore_completionHandler__
     }
   }
 
-  v8 = WebPrivacy::Client::shared(v6);
-  WebPrivacy::Client::cachedListData(v8, 0xAu, buf);
+  v9 = WebPrivacy::Client::shared(v6);
+  WebPrivacy::Client::cachedListData(v9, 10, buf);
+  v11 = *buf;
   if (!*buf)
   {
-    v22 = 0;
-    v23 = 0;
+    v27 = 0;
+    v28 = 0;
     goto LABEL_11;
   }
 
-  v22 = Platform::SharedMemory::view(*buf);
-  v23 = v9;
-  if (!v9)
+  v11 = Platform::SharedMemory::view(*buf);
+  v27 = v11;
+  v28 = v10;
+  if (!v10)
   {
 LABEL_11:
-    v13 = WPOSLogAPI();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = WPOSLogAPI(v11, v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       _ZZZ68__WPResources_loadTrackerBlockerRuleListForStore_completionHandler__ENK4__13clIN10WebPrivacy12MessageErrorEN8Platform9ArrayViewIhEEEEDaT_OT0_ENUlP17WKContentRuleListP7NSErrorE_clESB_SD__cold_2();
     }
@@ -790,11 +791,12 @@ LABEL_11:
     goto LABEL_22;
   }
 
-  WebPrivacy::createContentExtensionSource(&v22, v21);
-  if (![v21[0] length])
+  WebPrivacy::createContentExtensionSource(&v27, v26);
+  if (![v26[0] length])
   {
-    v14 = WPOSLogAPI();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = WPOSLogAPI(0, v12);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+    if (v18)
     {
       _ZZZ69__WPResources_prepareResourceMonitorRulesForStore_completionHandler__ENK4__14clIN10WebPrivacy12MessageErrorEN8Platform9ArrayViewIhEEEEDaT_OT0_ENUlP17WKContentRuleListP7NSErrorE_clESB_SD__cold_1();
       if (v3)
@@ -806,11 +808,11 @@ LABEL_11:
     else if (v3)
     {
 LABEL_16:
-      v15 = WPOSLogAPI();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v20 = WPOSLogAPI(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        *v20 = 0;
-        _os_log_impl(&dword_273D20000, v15, OS_LOG_TYPE_INFO, "Falling back to previously compiled rules", v20, 2u);
+        *v25 = 0;
+        _os_log_impl(&dword_273D20000, v20, OS_LOG_TYPE_INFO, "Falling back to previously compiled rules", v25, 2u);
       }
 
       (*(a1[2] + 2))();
@@ -821,23 +823,23 @@ LABEL_16:
     goto LABEL_21;
   }
 
-  v10 = objc_alloc(MEMORY[0x277CCACA8]);
-  v11 = [v10 initWithData:v21[0] encoding:4];
-  v12 = *a1;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = ___ZZZ69__WPResources_prepareResourceMonitorRulesForStore_completionHandler__ENK4__14clIN10WebPrivacy12MessageErrorEN8Platform9ArrayViewIhEEEEDaT_OT0_ENUlP17WKContentRuleListP7NSErrorE_clESB_SD__block_invoke;
-  v16[3] = &unk_279EAF468;
-  v17 = v3;
-  v19 = a1[2];
-  v18 = a1[1];
-  [v12 compileContentRuleListForIdentifier:@"com.apple.WebPrivacy.ResourceMonitorURLsRuleList" encodedContentRuleList:v11 completionHandler:v16];
+  v13 = objc_alloc(MEMORY[0x277CCACA8]);
+  v14 = [v13 initWithData:v26[0] encoding:4];
+  v15 = *a1;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = ___ZZZ69__WPResources_prepareResourceMonitorRulesForStore_completionHandler__ENK4__14clIN10WebPrivacy12MessageErrorEN8Platform9ArrayViewIhEEEEDaT_OT0_ENUlP17WKContentRuleListP7NSErrorE_clESB_SD__block_invoke;
+  v21[3] = &unk_279EAF468;
+  v22 = v3;
+  v24 = a1[2];
+  v23 = a1[1];
+  [v15 compileContentRuleListForIdentifier:@"com.apple.WebPrivacy.ResourceMonitorURLsRuleList" encodedContentRuleList:v14 completionHandler:v21];
 
 LABEL_21:
 LABEL_22:
-  if (v25)
+  if (v30)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v25);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v30);
   }
 
 LABEL_24:
@@ -861,28 +863,28 @@ void _ZZN8Platform8BlockPtrIFvP17WKContentRuleListP7NSErrorEE12fromCallableIZZ69
 
 void ___ZZZ69__WPResources_prepareResourceMonitorRulesForStore_completionHandler__ENK4__14clIN10WebPrivacy12MessageErrorEN8Platform9ArrayViewIhEEEEDaT_OT0_ENUlP17WKContentRuleListP7NSErrorE_clESB_SD__block_invoke(void *a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WPOSLogAPI();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WPOSLogAPI(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v8 = [v6 localizedDescription];
-      ___ZZZ69__WPResources_prepareResourceMonitorRulesForStore_completionHandler__ENK4__14clIN10WebPrivacy12MessageErrorEN8Platform9ArrayViewIhEEEEDaT_OT0_ENUlP17WKContentRuleListP7NSErrorE_clESB_SD__block_invoke_cold_1(v8, v14, v7);
+      v10 = [v8 localizedDescription];
+      ___ZZZ69__WPResources_prepareResourceMonitorRulesForStore_completionHandler__ENK4__14clIN10WebPrivacy12MessageErrorEN8Platform9ArrayViewIhEEEEDaT_OT0_ENUlP17WKContentRuleListP7NSErrorE_clESB_SD__block_invoke_cold_1(v10, v16, v9);
     }
 
     if (a1[4])
     {
-      v9 = WPOSLogAPI();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v13 = WPOSLogAPI(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_273D20000, v9, OS_LOG_TYPE_INFO, "Falling back to previously compiled rules", v13, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_273D20000, v13, OS_LOG_TYPE_INFO, "Falling back to previously compiled rules", v15, 2u);
       }
 
-      v10 = a1[4];
       (*(a1[6] + 16))();
     }
 
@@ -895,17 +897,16 @@ void ___ZZZ69__WPResources_prepareResourceMonitorRulesForStore_completionHandler
   else
   {
     (*(a1[6] + 16))();
-    v11 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    [v11 setObject:a1[5] forKey:@"com.apple.WebPrivacy.ResourceMonitorURLsVersion"];
+    v14 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+    [v14 setObject:a1[5] forKey:@"com.apple.WebPrivacy.ResourceMonitorURLsVersion"];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -914,7 +915,7 @@ void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, ui
   _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, a5, 0xCu);
 }
 
-void sub_273D3B6CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
+void sub_273D3B6CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -933,22 +934,23 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_273D3BCB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_273D3BCB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_273D3C1AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30, char a31)
+void sub_273D3C1AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a25, 8);
 
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_273D3C70C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34)
+void sub_273D3C70C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34)
 {
   _Block_object_dispose(&a25, 8);
   _Block_object_dispose(&a29, 8);
@@ -972,19 +974,17 @@ void ___ZN10WebPrivacy6Client16ensureConnectionEv_block_invoke_cold_1(uint64_t a
 
 void WebPrivacy::Client::getList(void *a1, unsigned __int8 a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = Backend::nsStringFromEnum(a2);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_273D20000, v3, OS_LOG_TYPE_ERROR, "Timed out waiting for sync reply for %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_273D20000, v3, OS_LOG_TYPE_ERROR, "Timed out waiting for sync reply for %@", &v5, 0xCu);
 }
 
 void _ZZZN10WebPrivacy6Client34scheduleListUpdateWithNotificationEN7Backend10RemoteListEEUb_ENK3__6clINSt3__18optionalINS_3XPC15UpdateListReplyEEEEEDaOT__cold_1(_BYTE *a1, unsigned __int8 *a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (*a1 == 1)
   {
     v3 = *a2;
@@ -1004,49 +1004,36 @@ void _ZZZN10WebPrivacy6Client34scheduleListUpdateWithNotificationEN7Backend10Rem
     v4 = "DecodingFailure";
   }
 
-  v6 = 136315138;
-  v7 = v4;
-  _os_log_error_impl(&dword_273D20000, log, OS_LOG_TYPE_ERROR, "Updated list with error: %s", &v6, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 136315138;
+  v6 = v4;
+  _os_log_error_impl(&dword_273D20000, log, OS_LOG_TYPE_ERROR, "Updated list with error: %s", &v5, 0xCu);
 }
 
 void std::__function::__func<WebPrivacy::rawJSONToDictionaries(Platform::ArrayView<unsigned char> const&)::$_0,std::allocator<WebPrivacy::rawJSONToDictionaries(Platform::ArrayView<unsigned char> const&)::$_0>,void ()(Platform::ArrayView<unsigned char>&&)>::operator()(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_273D20000, a2, OS_LOG_TYPE_ERROR, "Failed to deserialize raw JSON content: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_273D20000, a2, OS_LOG_TYPE_ERROR, "Failed to deserialize raw JSON content: %@", &v2, 0xCu);
 }
 
 void std::__function::__func<WebPrivacy::createContentExtensionSource(Platform::ArrayView<unsigned char> const&)::$_0,std::allocator<WebPrivacy::createContentExtensionSource(Platform::ArrayView<unsigned char> const&)::$_0>,void ()(Platform::ArrayView<unsigned char>&&)>::operator()(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_273D20000, a2, OS_LOG_TYPE_ERROR, "Failed to serialize content extension source: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_273D20000, a2, OS_LOG_TYPE_ERROR, "Failed to serialize content extension source: %@", &v2, 0xCu);
 }
 
-void Platform::SharedMemory::map(unsigned int *a1, uint64_t a2, int a3)
+void Platform::SharedMemory::map(uint64_t a1, uint64_t a2, int a3)
 {
-  v3 = *a1;
   OUTLINED_FUNCTION_0(1.5047e-36, a1, a2, a3);
-  _os_log_error_impl(&dword_273D20000, v5, OS_LOG_TYPE_ERROR, "Failed to fstat file descriptor %i: %{errno}i", v4, 0xEu);
+  _os_log_error_impl(&dword_273D20000, v4, OS_LOG_TYPE_ERROR, "Failed to fstat file descriptor %i: %{errno}i", v3, 0xEu);
 }
 
 {
-  v3 = *a1;
   OUTLINED_FUNCTION_0(1.5047e-36, a1, a2, a3);
-  _os_log_error_impl(&dword_273D20000, v5, OS_LOG_TYPE_ERROR, "Failed to mmap file descriptor %i: %{errno}i", v4, 0xEu);
-}
-
-void ___ZN10WebPrivacyL18sharedLinkDetectorEv_block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_273D20000, v4, OS_LOG_TYPE_ERROR, "Failed to mmap file descriptor %i: %{errno}i", v3, 0xEu);
 }
 
 void ___ZZZ68__WPResources_loadTrackerBlockerRuleListForStore_completionHandler__ENK4__13clIN10WebPrivacy12MessageErrorEN8Platform9ArrayViewIhEEEEDaT_OT0_ENUlP17WKContentRuleListP7NSErrorE_clESB_SD__block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)

@@ -20,16 +20,17 @@
 
   else
   {
-    memset(v10, 0, sizeof(v10));
+    memset(v13, 0, sizeof(v13));
     keyCopy2 = key;
     selfCopy2 = self;
   }
 
-  sub_24075A0B4();
+  v10 = sub_24075A0B4();
+  v12 = v11;
 
-  sub_2407555E4(v10);
+  sub_2407555E4(v13, v10, v12);
 
-  sub_2405B8A50(v10, &qword_27E4BA1E8, &qword_24076E1C0);
+  sub_2405B8A50(v13, &qword_27E4BA1E8, &qword_24076E1C0);
 }
 
 - (id)initRequiringSecureCoding:(BOOL)coding

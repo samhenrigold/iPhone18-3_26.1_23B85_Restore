@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)destRatAsString:(int)string;
 - (id)dictionaryRepresentation;
 - (int)StringAsDestRat:(id)rat;
 - (int)destRat;
@@ -38,6 +39,21 @@
   {
     return 0;
   }
+}
+
+- (id)destRatAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003180D8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsDestRat:(id)rat
@@ -199,14 +215,12 @@
   has = self->_has;
   if (has)
   {
-    destRat = self->_destRat;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    total = self->_total;
     PBDataWriterWriteUint32Field();
   }
 
@@ -215,15 +229,14 @@
     PBDataWriterPlaceMark();
     if (self->_causeCounts.count)
     {
-      v8 = 0;
+      v6 = 0;
       do
       {
-        v9 = self->_causeCounts.list[v8];
         PBDataWriterWriteUint32Field();
-        ++v8;
+        ++v6;
       }
 
-      while (v8 < self->_causeCounts.count);
+      while (v6 < self->_causeCounts.count);
     }
 
     PBDataWriterRecallMark();
@@ -231,7 +244,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    totalAp = self->_totalAp;
     PBDataWriterWriteUint32Field();
   }
 
@@ -241,15 +253,14 @@
     PBDataWriterPlaceMark();
     if (p_causeCountAps->count)
     {
-      v12 = 0;
+      v8 = 0;
       do
       {
-        v13 = p_causeCountAps->list[v12];
         PBDataWriterWriteUint32Field();
-        ++v12;
+        ++v8;
       }
 
-      while (v12 < p_causeCountAps->count);
+      while (v8 < p_causeCountAps->count);
     }
 
     PBDataWriterRecallMark();
@@ -346,7 +357,6 @@
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 68);
   if (*&self->_has)
   {
     if ((*(equalCopy + 68) & 1) == 0 || self->_destRat != *(equalCopy + 14))
@@ -380,7 +390,6 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v6 = *(equalCopy + 68);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 68) & 4) == 0 || self->_totalAp != *(equalCopy + 16))

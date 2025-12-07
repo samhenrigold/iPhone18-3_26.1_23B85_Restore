@@ -36,7 +36,7 @@
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDHomeKeySetupLockLogEvent completedCount](self, "completedCount")}];
   [dictionary setObject:v7 forKeyedSubscript:@"completedCount"];
 
-  v8 = [dictionary copy];
+  v8 = objc_msgSend_copy(dictionary);
 
   return v8;
 }

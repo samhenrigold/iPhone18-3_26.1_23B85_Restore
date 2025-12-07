@@ -203,36 +203,25 @@
   _messageLink = [_geoMapItem _messageLink];
   timeZone = [_messageLink timeZone];
 
-  if (!timeZone)
+  v11 = 0;
+  if (timeZone)
   {
-    goto LABEL_6;
-  }
+    if ([(MKMapItem *)v2 _isMapItemTypeBrand])
+    {
+      _messageBusinessHours = [(MKMapItem *)v2 _messageBusinessHours];
+      if (_messageBusinessHours)
+      {
+        v7 = _messageBusinessHours;
+        _geoMapItem2 = [(MKMapItem *)v2 _geoMapItem];
+        _messageLink2 = [_geoMapItem2 _messageLink];
+        timeZone2 = [_messageLink2 timeZone];
 
-  if (![(MKMapItem *)v2 _isMapItemTypeBrand])
-  {
-    goto LABEL_6;
-  }
-
-  _messageBusinessHours = [(MKMapItem *)v2 _messageBusinessHours];
-  if (!_messageBusinessHours)
-  {
-    goto LABEL_6;
-  }
-
-  v7 = _messageBusinessHours;
-  _geoMapItem2 = [(MKMapItem *)v2 _geoMapItem];
-  _messageLink2 = [_geoMapItem2 _messageLink];
-  timeZone2 = [_messageLink2 timeZone];
-
-  if (timeZone2)
-  {
-    v11 = 1;
-  }
-
-  else
-  {
-LABEL_6:
-    v11 = 0;
+        if (timeZone2)
+        {
+          v11 = 1;
+        }
+      }
+    }
   }
 
   return v11;
@@ -425,35 +414,35 @@ LABEL_7:
 
 - (BOOL)_hasAppleRatingsCategories
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   _geoMapItem = [(MKMapItem *)self->_mapItem _geoMapItem];
   _appleRatings = [_geoMapItem _appleRatings];
 
-  v4 = [_appleRatings countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [_appleRatings countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(_appleRatings);
         }
 
-        if ([*(*(&v9 + 1) + 8 * i) ratingType] == 1)
+        if ([*(*(&v8 + 1) + 8 * i) ratingType] == 1)
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [_appleRatings countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [_appleRatings countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -465,26 +454,23 @@ LABEL_7:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (BOOL)supportsAnnotatedTextList
 {
-  placeCardOptions = self->_placeCardOptions;
   _annotatedItemList = [(MKMapItem *)self->_mapItem _annotatedItemList];
-  v4 = displayStyleForAnnotatedItemList() == 2;
+  v3 = displayStyleForAnnotatedItemList() == 2;
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)supportsAnnotatedPhotos
 {
-  placeCardOptions = self->_placeCardOptions;
   _annotatedItemList = [(MKMapItem *)self->_mapItem _annotatedItemList];
-  v4 = displayStyleForAnnotatedItemList() == 1;
+  v3 = displayStyleForAnnotatedItemList() == 1;
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)supportsVenueTextInfo
@@ -573,27 +559,27 @@ LABEL_11:
 
 - (BOOL)supportsAmenities
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   _amenities = [(MKMapItem *)self->_mapItem _amenities];
-  v3 = [_amenities countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [_amenities countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(_amenities);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         if (![v7 isApplePayAmenity] || (objc_msgSend(v7, "isAmenityPresent") & 1) != 0)
         {
           v8 = 1;
@@ -601,7 +587,7 @@ LABEL_11:
         }
       }
 
-      v4 = [_amenities countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [_amenities countByEnumeratingWithState:&v10 objects:v14 count:16];
       v8 = 0;
       if (v4)
       {
@@ -619,7 +605,6 @@ LABEL_11:
 
 LABEL_13:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

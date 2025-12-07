@@ -92,20 +92,20 @@ uint64_t __69__PKPaymentOfferActionResult_paymentOfferActionResultFromQueryItems
   v3 = v2;
   if (v2 == @"sessionIdentifier")
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else if (v2)
   {
-    v4 = [(__CFString *)v2 isEqualToString:@"sessionIdentifier"];
+    isEqualToString = objc_msgSend_isEqualToString_(v2);
   }
 
   else
   {
-    v4 = 0;
+    isEqualToString = 0;
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 uint64_t __69__PKPaymentOfferActionResult_paymentOfferActionResultFromQueryItems___block_invoke_2(uint64_t a1, void *a2)
@@ -114,20 +114,20 @@ uint64_t __69__PKPaymentOfferActionResult_paymentOfferActionResultFromQueryItems
   v3 = v2;
   if (v2 == @"provisioningCredentialIdentifier")
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else if (v2)
   {
-    v4 = [(__CFString *)v2 isEqualToString:@"provisioningCredentialIdentifier"];
+    isEqualToString = objc_msgSend_isEqualToString_(v2);
   }
 
   else
   {
-    v4 = 0;
+    isEqualToString = 0;
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 uint64_t __69__PKPaymentOfferActionResult_paymentOfferActionResultFromQueryItems___block_invoke_3(uint64_t a1, void *a2)
@@ -136,20 +136,20 @@ uint64_t __69__PKPaymentOfferActionResult_paymentOfferActionResultFromQueryItems
   v3 = v2;
   if (v2 == @"provisioningCardIconURL")
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else if (v2)
   {
-    v4 = [(__CFString *)v2 isEqualToString:@"provisioningCardIconURL"];
+    isEqualToString = objc_msgSend_isEqualToString_(v2);
   }
 
   else
   {
-    v4 = 0;
+    isEqualToString = 0;
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 uint64_t __69__PKPaymentOfferActionResult_paymentOfferActionResultFromQueryItems___block_invoke_4(uint64_t a1, void *a2)
@@ -158,20 +158,20 @@ uint64_t __69__PKPaymentOfferActionResult_paymentOfferActionResultFromQueryItems
   v3 = v2;
   if (v2 == @"didSelectOffer")
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else if (v2)
   {
-    v4 = [(__CFString *)v2 isEqualToString:@"didSelectOffer"];
+    isEqualToString = objc_msgSend_isEqualToString_(v2);
   }
 
   else
   {
-    v4 = 0;
+    isEqualToString = 0;
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 - (PKPaymentOfferActionResult)initWithCoder:(id)coder

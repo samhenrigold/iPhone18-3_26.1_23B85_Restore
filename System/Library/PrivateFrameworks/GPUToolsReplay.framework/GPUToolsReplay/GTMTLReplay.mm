@@ -107,13 +107,12 @@ void __GTMTLReplay_CLI_block_invoke_2_317(uint64_t a1, void *a2)
     ++*(*(*(a1 + 32) + 8) + 24);
     if (g_runningInCI == 1)
     {
-      v7 = v3;
-      v4 = *(*(*(a1 + 32) + 8) + 24);
-      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"\tBatch ID Filtering Data %lu/%lu", v4, *(a1 + 40)];
-      v6 = [v5 stringByReplacingOccurrencesOfString:@"\n" withString:@"\n#CI-INFO# "];
+      v6 = v3;
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"\tBatch ID Filtering Data %lu/%lu", *(*(*(a1 + 32) + 8) + 24), *(a1 + 40)];
+      v5 = [v4 stringByReplacingOccurrencesOfString:@"\n" withString:@"\n#CI-INFO# "];
 
-      fprintf(*MEMORY[0x277D85E08], "#CI-INFO# %s\n", [v6 UTF8String]);
-      v3 = v7;
+      fprintf(*MEMORY[0x277D85E08], "#CI-INFO# %s\n", [v5 UTF8String]);
+      v3 = v6;
     }
   }
 }
@@ -166,13 +165,12 @@ void __GTMTLReplay_CLI_block_invoke_5(uint64_t a1, void *a2)
     ++*(*(*(a1 + 32) + 8) + 24);
     if (g_runningInCI == 1)
     {
-      v7 = v3;
-      v4 = *(*(*(a1 + 32) + 8) + 24);
-      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"\tBatch ID Filtering Data %lu/%lu", v4, *(a1 + 40)];
-      v6 = [v5 stringByReplacingOccurrencesOfString:@"\n" withString:@"\n#CI-INFO# "];
+      v6 = v3;
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"\tBatch ID Filtering Data %lu/%lu", *(*(*(a1 + 32) + 8) + 24), *(a1 + 40)];
+      v5 = [v4 stringByReplacingOccurrencesOfString:@"\n" withString:@"\n#CI-INFO# "];
 
-      fprintf(*MEMORY[0x277D85E08], "#CI-INFO# %s\n", [v6 UTF8String]);
-      v3 = v7;
+      fprintf(*MEMORY[0x277D85E08], "#CI-INFO# %s\n", [v5 UTF8String]);
+      v3 = v6;
     }
   }
 }
@@ -200,56 +198,7 @@ void __GTMTLReplay_addGPUrestartHandler_block_invoke(uint64_t a1, void *a2)
     v11 = v6;
     v12 = [v11 error];
 
-    if (!v12)
-    {
-      goto LABEL_64;
-    }
-
-    v13 = [v11 error];
-    v14 = [v13 code];
-
-    if (v14 != 3)
-    {
-      goto LABEL_64;
-    }
-
-    properties[0] = 0;
-    v15 = IOServiceNameMatching("AGXRestartReport");
-    if (!v15)
-    {
-      goto LABEL_64;
-    }
-
-    MatchingService = IOServiceGetMatchingService(*MEMORY[0x277CD28A0], v15);
-    if (!MatchingService)
-    {
-      goto LABEL_64;
-    }
-
-    IORegistryEntryCreateCFProperties(MatchingService, properties, *MEMORY[0x277CBECE8], 0);
-    if (!properties[0])
-    {
-      goto LABEL_64;
-    }
-
-    Value = CFDictionaryGetValue(properties[0], @"CrashReport");
-    v18 = Value;
-    if (!Value)
-    {
-      goto LABEL_64;
-    }
-
-    v19 = CFDictionaryGetValue(Value, @"analysis");
-    v20 = v19;
-    if (!v19)
-    {
-      goto LABEL_64;
-    }
-
-    v78 = 0;
-    RestartReportInt = TryGetRestartReportInt(v19, &v78);
-    v22 = v78 == 3 && RestartReportInt;
-    if (!v22 || (v23 = getpid(), proc_name(v23, properties, 0x400u)) && TryGetRestartReportString(v18, __s2) && strcmp(properties, __s2))
+    if (!v12 || ([v11 error], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "code"), v13, v14 != 3) || (properties[0] = 0, (v15 = IOServiceNameMatching("AGXRestartReport")) == 0) || (MatchingService = IOServiceGetMatchingService(*MEMORY[0x277CD28A0], v15)) == 0 || (IORegistryEntryCreateCFProperties(MatchingService, properties, *MEMORY[0x277CBECE8], 0), !properties[0]) || (Value = CFDictionaryGetValue(properties[0], @"CrashReport"), (v18 = Value) == 0) || (v19 = CFDictionaryGetValue(Value, @"analysis"), (v20 = v19) == 0) || ((v77 = 0, RestartReportInt = TryGetRestartReportInt(v19, &v77), v77 == 3) ? (v22 = RestartReportInt) : (v22 = 0), !v22 || (v23 = getpid(), proc_name(v23, properties, 0x400u)) && TryGetRestartReportString(v18, __s2) && strcmp(properties, __s2)))
     {
 LABEL_64:
 
@@ -283,10 +232,10 @@ LABEL_65:
     v31 = apr_pstrcat(v29, "BIF", v30, " fault", 0);
     valuePtr[0].n128_u64[0] = 0;
     *n = 0;
-    *v75 = 0;
-    *v76 = 0;
-    v73 = 0;
     *v74 = 0;
+    *v75 = 0;
+    v72 = 0;
+    *v73 = 0;
     v32 = CFDictionaryGetValue(v28, @"requestor");
     if (CFNumberGetValue(v32, kCFNumberSInt64Type, valuePtr))
     {
@@ -302,33 +251,33 @@ LABEL_65:
     }
 
     v36 = CFDictionaryGetValue(v28, @"level");
-    if (CFNumberGetValue(v36, kCFNumberSInt64Type, v76))
+    if (CFNumberGetValue(v36, kCFNumberSInt64Type, v75))
     {
-      v37 = apr_itoa(v29, v76[0]);
+      v37 = apr_itoa(v29, v75[0]);
       v31 = apr_pstrcat(v29, v31, "\n\tlevel: ", v37, 0);
     }
 
     v38 = CFDictionaryGetValue(v28, @"is_read");
-    if (CFNumberGetValue(v38, kCFNumberSInt64Type, v75))
+    if (CFNumberGetValue(v38, kCFNumberSInt64Type, v74))
     {
       v39 = newpool;
-      v40 = apr_itoa(newpool, v75[0]);
+      v40 = apr_itoa(newpool, v74[0]);
       v31 = apr_pstrcat(v39, v31, "\n\tis_read: ", v40, 0);
     }
 
     v41 = CFDictionaryGetValue(v28, @"pm_protect");
-    if (CFNumberGetValue(v41, kCFNumberSInt64Type, v74))
+    if (CFNumberGetValue(v41, kCFNumberSInt64Type, v73))
     {
       v42 = newpool;
-      v43 = apr_itoa(newpool, v74[0]);
+      v43 = apr_itoa(newpool, v73[0]);
       v31 = apr_pstrcat(v42, v31, "\n\tpm_protect: ", v43, 0);
     }
 
     v44 = CFDictionaryGetValue(v28, @"address");
-    if (CFNumberGetValue(v44, kCFNumberSInt64Type, &v73))
+    if (CFNumberGetValue(v44, kCFNumberSInt64Type, &v72))
     {
-      v45 = v73;
-      __snprintf_chk(buf, 0x400uLL, 0, 0x400uLL, "0x%llx", v73);
+      v45 = v72;
+      __snprintf_chk(buf, 0x400uLL, 0, 0x400uLL, "0x%llx", v72);
       v31 = apr_pstrcat(newpool, v31, "\n\taddress: ", buf, 0);
     }
 
@@ -343,7 +292,7 @@ LABEL_65:
       if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v81 = v31;
+        v80 = v31;
         _os_log_fault_impl(&dword_24D764000, v46, OS_LOG_TYPE_FAULT, "fail: Page fault: %s", buf, 0xCu);
       }
     }
@@ -357,7 +306,7 @@ LABEL_65:
     }
 
     v49 = *(v4 + 40);
-    v72 = 0;
+    v71 = 0;
     memset(valuePtr, 0, sizeof(valuePtr));
     v50 = newpool;
     GTMTLIndirectResources_allResourcesByKey(valuePtr, v49, v5, 1, newpool);
@@ -375,26 +324,26 @@ LABEL_65:
         {
           if (v58 == 9)
           {
-            v70 = apr_ltoa(v50, Object[18]);
+            v69 = apr_ltoa(v50, Object[18]);
             v59 = "acceleration structure";
           }
 
           else if (v58 == 2)
           {
-            v70 = apr_ltoa(v50, Object[26]);
+            v69 = apr_ltoa(v50, Object[26]);
             v59 = "texture";
           }
 
           else
           {
-            v70 = 0;
+            v69 = 0;
             v59 = "unknown";
           }
         }
 
         else
         {
-          v70 = 0;
+          v69 = 0;
           v59 = "buffer";
         }
 
@@ -407,9 +356,9 @@ LABEL_65:
           v66 = apr_pstrcat(v50, v65, "\n\tLabel: ", v57[11], 0);
         }
 
-        if (v70)
+        if (v69)
         {
-          v66 = apr_pstrcat(v50, v66, "\n\tgpuResourceID: ", v70, 0);
+          v66 = apr_pstrcat(v50, v66, "\n\tgpuResourceID: ", v69, 0);
         }
 
         if (s_logUsingOsLog == 1)
@@ -461,8 +410,6 @@ LABEL_63:
   }
 
 LABEL_66:
-
-  v69 = *MEMORY[0x277D85DE8];
 }
 
 @end

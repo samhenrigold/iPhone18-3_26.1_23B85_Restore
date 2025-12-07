@@ -217,7 +217,7 @@
 
 - (UIButton)useRTTButton
 {
-  v3 = sub_10001A58C();
+  v3 = sub_10001A58C(self);
   v4 = +[TUCallCenter sharedInstance];
   frontmostCall = [v4 frontmostCall];
 
@@ -571,31 +571,31 @@
   [(PHBottomBar *)self bounds];
   v4 = v3;
   [(PHBottomBar *)self bounds];
-  v28 = 0u;
   v29 = 0u;
-  v6 = v5 * 0.5;
   v30 = 0u;
+  v6 = v5 * 0.5;
   v31 = 0u;
+  v32 = 0u;
   subviews = [(PHBottomBar *)self subviews];
-  v8 = [subviews countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v8 = [subviews countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v29;
+    v11 = *v30;
     v12 = v6;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v29 != v11)
+        if (*v30 != v11)
         {
           objc_enumerationMutation(subviews);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
+        v14 = *(*(&v29 + 1) + 8 * i);
         if (v14 != self->_topLayoutGuide)
         {
-          [*(*(&v28 + 1) + 8 * i) frame];
+          [*(*(&v29 + 1) + 8 * i) frame];
           if (v15 < v4)
           {
             [(UIView *)v14 frame];
@@ -623,7 +623,7 @@
         }
       }
 
-      v10 = [subviews countByEnumeratingWithState:&v28 objects:v32 count:{16, v9}];
+      v10 = [subviews countByEnumeratingWithState:&v29 objects:v33 count:{16, v9}];
     }
 
     while (v10);
@@ -634,16 +634,16 @@
     v12 = v6;
   }
 
-  [(UIView *)self->_topLayoutGuide frame];
-  if (v4 != v25)
+  frame = [(UIView *)self->_topLayoutGuide frame];
+  if (v4 != v26)
   {
     if (v4 < 0.0)
     {
-      v26 = sub_100004F84();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v27 = sub_100004F84(frame);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        *v27 = 0;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "PHBottomBar subview was outside of PHBottomBar bounds. Setting topLayoutGuide to 0", v27, 2u);
+        *v28 = 0;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "PHBottomBar subview was outside of PHBottomBar bounds. Setting topLayoutGuide to 0", v28, 2u);
       }
 
       v4 = 0.0;
@@ -726,16 +726,16 @@ LABEL_13:
   }
 
 LABEL_14:
-  [(UIView *)self->_mainButtonLayoutGuide frame];
-  if (v4 != v25 || ([(UIView *)self->_mainButtonLayoutGuide frame], v9 != v26))
+  frame = [(UIView *)self->_mainButtonLayoutGuide frame];
+  if (v4 != v26 || (frame = [(UIView *)self->_mainButtonLayoutGuide frame], v9 != v27))
   {
     if (v4 < 0.0)
     {
-      v27 = sub_100004F84();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v28 = sub_100004F84(frame);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "PHBottomBar subview was outside of PHBottomBar bounds. Setting mainButtonLayoutGuide x value to 0", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "PHBottomBar subview was outside of PHBottomBar bounds. Setting mainButtonLayoutGuide x value to 0", buf, 2u);
       }
 
       v4 = 0.0;
@@ -743,11 +743,11 @@ LABEL_14:
 
     if (v9 < 0.0)
     {
-      v28 = sub_100004F84();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v29 = sub_100004F84(frame);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        *v29 = 0;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "PHBottomBar subview was outside of PHBottomBar bounds. Setting mainButtonLayoutGuide y value to 0", v29, 2u);
+        *v30 = 0;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "PHBottomBar subview was outside of PHBottomBar bounds. Setting mainButtonLayoutGuide y value to 0", v30, 2u);
       }
 
       v9 = 0.0;
@@ -1598,20 +1598,22 @@ LABEL_39:
 {
   animatedCopy = animated;
   blockCopy = block;
-  if (![(PHBottomBar *)self animating])
+  animating = [(PHBottomBar *)self animating];
+  if (!animating)
   {
-    v12 = +[TUCallCenter sharedInstance];
-    frontmostAudioOrVideoCall = [v12 frontmostAudioOrVideoCall];
+    v13 = +[TUCallCenter sharedInstance];
+    frontmostAudioOrVideoCall = [v13 frontmostAudioOrVideoCall];
 
     callScreeningAvailable = [(PHBottomBar *)self callScreeningAvailable];
-    v15 = sub_100004F84();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = callScreeningAvailable;
+    v17 = sub_100004F84(callScreeningAvailable);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       stateCopy2 = self;
-      v243 = 2048;
+      v245 = 2048;
       stateCopy = state;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "BottomBar (%@) set to state: %ld", buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "BottomBar (%@) set to state: %ld", buf, 0x16u);
     }
 
     if ([(PHBottomBar *)self currentState]== state)
@@ -1621,7 +1623,7 @@ LABEL_39:
 
     if (animatedCopy && [(PHBottomBar *)self animateFromState:self->_currentState toState:state completion:blockCopy])
     {
-      v16 = 1;
+      v18 = 1;
       goto LABEL_69;
     }
 
@@ -1630,8 +1632,8 @@ LABEL_39:
     {
       if (state == 11)
       {
-        v17 = [(PHBottomBar *)self makeButtonWithType:15 title:0 image:0 color:0 font:0 fontColor:0];
-        [(PHBottomBar *)self setMainLeftButton:v17];
+        v19 = [(PHBottomBar *)self makeButtonWithType:15 title:0 image:0 color:0 font:0 fontColor:0];
+        [(PHBottomBar *)self setMainLeftButton:v19];
 
         delegate = [(PHBottomBar *)self delegate];
         if (objc_opt_respondsToSelector())
@@ -1652,17 +1654,17 @@ LABEL_19:
             goto LABEL_63;
           }
 
-          v21 = +[PHUIConfiguration inCallBottomBarSpacing];
-          v22 = 15.0;
-          if (!v21)
+          v23 = +[PHUIConfiguration inCallBottomBarSpacing];
+          v24 = 15.0;
+          if (!v23)
           {
-            v22 = 14.0;
+            v24 = 14.0;
           }
 
-          delegate = [UIFont systemFontOfSize:v22];
-          v23 = +[UIColor whiteColor];
-          v24 = [(PHBottomBar *)self makeButtonWithType:23 title:&stru_100361FD0 image:0 color:0 font:delegate fontColor:v23];
-          [(PHBottomBar *)self setSupplementalBottomLeftButton:v24];
+          delegate = [UIFont systemFontOfSize:v24];
+          v25 = +[UIColor whiteColor];
+          v26 = [(PHBottomBar *)self makeButtonWithType:23 title:&stru_100361FD0 image:0 color:0 font:delegate fontColor:v25];
+          [(PHBottomBar *)self setSupplementalBottomLeftButton:v26];
         }
 
         goto LABEL_19;
@@ -1670,54 +1672,54 @@ LABEL_19:
 
       if ((state - 1) <= 2)
       {
-        v32 = [(PHBottomBar *)self makeButtonWithType:8 title:0 image:0 color:0 font:0 fontColor:0];
-        [(PHBottomBar *)self setMainLeftButton:v32];
+        v34 = [(PHBottomBar *)self makeButtonWithType:8 title:0 image:0 color:0 font:0 fontColor:0];
+        [(PHBottomBar *)self setMainLeftButton:v34];
 
         if (state == 1)
         {
-          v33 = 3;
+          v35 = 3;
         }
 
         else
         {
-          v33 = 1;
+          v35 = 1;
         }
 
-        v34 = [(PHBottomBar *)self makeButtonWithType:v33 title:0 image:0 color:0 font:0 fontColor:0];
-        [(PHBottomBar *)self setMainRightButton:v34];
+        v36 = [(PHBottomBar *)self makeButtonWithType:v35 title:0 image:0 color:0 font:0 fontColor:0];
+        [(PHBottomBar *)self setMainRightButton:v36];
 
         callDisplayStyleManager = [(PHBottomBar *)self callDisplayStyleManager];
-        v36 = [callDisplayStyleManager callDisplayStyle] == 3;
+        v38 = [callDisplayStyleManager callDisplayStyle] == 3;
 
-        if (v36)
+        if (v38)
         {
-          if (callScreeningAvailable)
+          if (v16)
           {
-            v37 = [(PHBottomBar *)self makeButtonWithType:25 title:0 image:0 color:0 font:0 fontColor:0];
-            [(PHBottomBar *)self setSideButtonLeft:v37];
+            v39 = [(PHBottomBar *)self makeButtonWithType:25 title:0 image:0 color:0 font:0 fontColor:0];
+            [(PHBottomBar *)self setSideButtonLeft:v39];
           }
         }
 
-        else if (callScreeningAvailable)
+        else if (v16)
         {
-          v55 = +[CNKFeatures sharedInstance];
-          receptionistEnabled = [v55 receptionistEnabled];
+          v57 = +[CNKFeatures sharedInstance];
+          receptionistEnabled = [v57 receptionistEnabled];
 
           if (receptionistEnabled)
           {
-            v57 = [(PHBottomBar *)self makeButtonWithType:26 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
-            [(PHBottomBar *)self setSupplementalTopLeftButton:v57];
+            v59 = [(PHBottomBar *)self makeButtonWithType:26 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
+            [(PHBottomBar *)self setSupplementalTopLeftButton:v59];
 
             [(PHBottomBar *)self setupCallScreeningMoreButton];
           }
 
           else
           {
-            v122 = [(PHBottomBar *)self makeButtonWithType:12 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
-            [(PHBottomBar *)self setSupplementalTopLeftButton:v122];
+            v124 = [(PHBottomBar *)self makeButtonWithType:12 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
+            [(PHBottomBar *)self setSupplementalTopLeftButton:v124];
 
-            v123 = [(PHBottomBar *)self makeButtonWithType:25 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
-            [(PHBottomBar *)self setSupplementalTopRightButton:v123];
+            v125 = [(PHBottomBar *)self makeButtonWithType:25 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
+            [(PHBottomBar *)self setSupplementalTopRightButton:v125];
           }
         }
 
@@ -1726,8 +1728,8 @@ LABEL_19:
           if ([(PHBottomBar *)self shouldUseLayoutAsCallScreening])
           {
 LABEL_159:
-            v205 = [(PHBottomBar *)self makeButtonWithType:12 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
-            [(PHBottomBar *)self setSupplementalTopLeftButton:v205];
+            v207 = [(PHBottomBar *)self makeButtonWithType:12 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
+            [(PHBottomBar *)self setSupplementalTopLeftButton:v207];
 
             [(PHBottomBar *)self makeButtonWithType:13 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
           }
@@ -1735,13 +1737,13 @@ LABEL_159:
           else
           {
 LABEL_178:
-            v222 = [(PHBottomBar *)self makeButtonWithType:13 title:0 image:0 color:0 font:0 fontColor:0];
-            [(PHBottomBar *)self setSupplementalTopLeftButton:v222];
+            v224 = [(PHBottomBar *)self makeButtonWithType:13 title:0 image:0 color:0 font:0 fontColor:0];
+            [(PHBottomBar *)self setSupplementalTopLeftButton:v224];
 
             [(PHBottomBar *)self makeButtonWithType:9 title:0 image:0 color:0 font:0 fontColor:0];
           }
-          v206 = ;
-          [(PHBottomBar *)self setSupplementalTopRightButton:v206];
+          v208 = ;
+          [(PHBottomBar *)self setSupplementalTopRightButton:v208];
         }
 
         goto LABEL_63;
@@ -1749,57 +1751,57 @@ LABEL_178:
 
       if ((state & 0xFFFFFFFFFFFFFFFELL) == 4)
       {
-        if (!callScreeningAvailable)
+        if (!v16)
         {
           if ([(PHBottomBar *)self shouldUseLayoutAsCallScreening])
           {
-            v60 = [(PHBottomBar *)self makeButtonWithType:12 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
-            [(PHBottomBar *)self setSupplementalTopLeftButton:v60];
+            v62 = [(PHBottomBar *)self makeButtonWithType:12 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
+            [(PHBottomBar *)self setSupplementalTopLeftButton:v62];
 
             [(PHBottomBar *)self makeButtonWithType:13 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
           }
 
           else
           {
-            v115 = [(PHBottomBar *)self makeButtonWithType:13 title:0 image:0 color:0 font:0 fontColor:0];
-            [(PHBottomBar *)self setSupplementalTopLeftButton:v115];
+            v117 = [(PHBottomBar *)self makeButtonWithType:13 title:0 image:0 color:0 font:0 fontColor:0];
+            [(PHBottomBar *)self setSupplementalTopLeftButton:v117];
 
             [(PHBottomBar *)self makeButtonWithType:9 title:0 image:0 color:0 font:0 fontColor:0];
           }
-          v61 = ;
-          [(PHBottomBar *)self setSupplementalTopRightButton:v61];
+          v63 = ;
+          [(PHBottomBar *)self setSupplementalTopRightButton:v63];
 
           goto LABEL_95;
         }
 
-        v38 = +[CNKFeatures sharedInstance];
-        if ([v38 receptionistEnabled])
+        v40 = +[CNKFeatures sharedInstance];
+        if ([v40 receptionistEnabled])
         {
-          v39 = [(PHBottomBar *)self liveReplyAvailableForCall:frontmostAudioOrVideoCall];
+          v41 = [(PHBottomBar *)self liveReplyAvailableForCall:frontmostAudioOrVideoCall];
 
-          if (v39)
+          if (v41)
           {
-            v40 = [(PHBottomBar *)self makeButtonWithType:26 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
-            [(PHBottomBar *)self setSupplementalTopLeftButton:v40];
+            v42 = [(PHBottomBar *)self makeButtonWithType:26 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
+            [(PHBottomBar *)self setSupplementalTopLeftButton:v42];
 
             [(PHBottomBar *)self setupCallScreeningMoreButton];
 LABEL_95:
-            v118 = [(PHBottomBar *)self makeSlidingButtonWithType:state == 5];
-            [(PHBottomBar *)self setSlidingButton:v118];
+            v120 = [(PHBottomBar *)self makeSlidingButtonWithType:state == 5];
+            [(PHBottomBar *)self setSlidingButton:v120];
 
             if (![(PHBottomBar *)self shouldShowAnswerRTTButton])
             {
               goto LABEL_63;
             }
 
-            v119 = [UIImage imageNamed:@"Call Accept RTT"];
-            v31 = [v119 imageWithRenderingMode:2];
+            v121 = [UIImage imageNamed:@"Call Accept RTT"];
+            v33 = [v121 imageWithRenderingMode:2];
 
-            if (v31)
+            if (v33)
             {
               slidingButton = [(PHBottomBar *)self slidingButton];
               acceptButton = [slidingButton acceptButton];
-              [acceptButton setKnobImage:v31];
+              [acceptButton setKnobImage:v33];
             }
 
             goto LABEL_62;
@@ -1810,11 +1812,11 @@ LABEL_95:
         {
         }
 
-        v116 = [(PHBottomBar *)self makeButtonWithType:12 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
-        [(PHBottomBar *)self setSupplementalTopLeftButton:v116];
+        v118 = [(PHBottomBar *)self makeButtonWithType:12 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
+        [(PHBottomBar *)self setSupplementalTopLeftButton:v118];
 
-        v117 = [(PHBottomBar *)self makeButtonWithType:25 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
-        [(PHBottomBar *)self setSupplementalTopRightButton:v117];
+        v119 = [(PHBottomBar *)self makeButtonWithType:25 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
+        [(PHBottomBar *)self setSupplementalTopRightButton:v119];
 
         goto LABEL_95;
       }
@@ -1823,39 +1825,39 @@ LABEL_95:
       {
         case 6:
           callDisplayStyleManager2 = [(PHBottomBar *)self callDisplayStyleManager];
-          v51 = [callDisplayStyleManager2 callDisplayStyle] == 3;
+          v53 = [callDisplayStyleManager2 callDisplayStyle] == 3;
 
-          if (v51)
+          if (v53)
           {
-            v52 = [(PHBottomBar *)self makeButtonWithType:8 title:0 image:0 color:0 font:0 fontColor:0];
-            [(PHBottomBar *)self setMainLeftButton:v52];
+            v54 = [(PHBottomBar *)self makeButtonWithType:8 title:0 image:0 color:0 font:0 fontColor:0];
+            [(PHBottomBar *)self setMainLeftButton:v54];
 
-            v53 = [(PHBottomBar *)self makeButtonWithType:3 title:0 image:0 color:0 font:0 fontColor:0];
-            [(PHBottomBar *)self setMainRightButton:v53];
+            v55 = [(PHBottomBar *)self makeButtonWithType:3 title:0 image:0 color:0 font:0 fontColor:0];
+            [(PHBottomBar *)self setMainRightButton:v55];
 
-            v54 = [(PHBottomBar *)self makeButtonWithType:9 title:0 image:0 color:0 font:0 fontColor:0];
-            [(PHBottomBar *)self setSideButtonLeft:v54];
+            v56 = [(PHBottomBar *)self makeButtonWithType:9 title:0 image:0 color:0 font:0 fontColor:0];
+            [(PHBottomBar *)self setSideButtonLeft:v56];
           }
 
           else
           {
             if ([(PHBottomBar *)self shouldUseLayoutAsCallScreening])
             {
-              v187 = [(PHBottomBar *)self makeButtonWithType:12 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
-              [(PHBottomBar *)self setSupplementalTopLeftButton:v187];
+              v189 = [(PHBottomBar *)self makeButtonWithType:12 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
+              [(PHBottomBar *)self setSupplementalTopLeftButton:v189];
 
               [(PHBottomBar *)self makeButtonWithType:13 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
             }
 
             else
             {
-              v218 = [(PHBottomBar *)self makeButtonWithType:13 title:0 image:0 color:0 font:0 fontColor:0];
-              [(PHBottomBar *)self setSupplementalTopLeftButton:v218];
+              v220 = [(PHBottomBar *)self makeButtonWithType:13 title:0 image:0 color:0 font:0 fontColor:0];
+              [(PHBottomBar *)self setSupplementalTopLeftButton:v220];
 
               [(PHBottomBar *)self makeButtonWithType:9 title:0 image:0 color:0 font:0 fontColor:0];
             }
-            v219 = ;
-            [(PHBottomBar *)self setSupplementalTopRightButton:v219];
+            v221 = ;
+            [(PHBottomBar *)self setSupplementalTopRightButton:v221];
 
             if ([(PHBottomBar *)self shouldShowActionTypeCameraFlip])
             {
@@ -1866,49 +1868,49 @@ LABEL_95:
             {
               [(PHBottomBar *)self makeSlidingButtonWithType:3];
             }
-            v220 = ;
-            [(PHBottomBar *)self setSlidingButton:v220];
+            v222 = ;
+            [(PHBottomBar *)self setSlidingButton:v222];
           }
 
           goto LABEL_63;
         case 7:
           if ([(PHBottomBar *)self shouldShowActionTypeSendToVoicemail])
           {
-            v144 = 24;
+            v146 = 24;
           }
 
           else
           {
-            v144 = 7;
+            v146 = 7;
           }
 
-          v145 = [(PHBottomBar *)self makeButtonWithType:v144 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setMainLeftButton:v145];
+          v147 = [(PHBottomBar *)self makeButtonWithType:v146 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setMainLeftButton:v147];
 
           callCenter = [(PHBottomBar *)self callCenter];
           isEndAndAnswerAllowed = [callCenter isEndAndAnswerAllowed];
 
           if (isEndAndAnswerAllowed)
           {
-            v148 = [(PHBottomBar *)self makeButtonWithType:4 title:0 image:0 color:0 font:0 fontColor:0];
-            [(PHBottomBar *)self setSideButtonLeft:v148];
+            v150 = [(PHBottomBar *)self makeButtonWithType:4 title:0 image:0 color:0 font:0 fontColor:0];
+            [(PHBottomBar *)self setSideButtonLeft:v150];
           }
 
           else
           {
-            v148 = [NSBundle bundleForClass:objc_opt_class()];
-            v195 = [v148 localizedStringForKey:@"END_CURRENT" value:&stru_100361FD0 table:@"BottomBar"];
-            v196 = [(PHBottomBar *)self makeButtonWithType:15 title:v195 image:0 color:0 font:0 fontColor:0];
-            [(PHBottomBar *)self setSideButtonLeft:v196];
+            v150 = [NSBundle bundleForClass:objc_opt_class()];
+            v197 = [v150 localizedStringForKey:@"END_CURRENT" value:&stru_100361FD0 table:@"BottomBar"];
+            v198 = [(PHBottomBar *)self makeButtonWithType:15 title:v197 image:0 color:0 font:0 fontColor:0];
+            [(PHBottomBar *)self setSideButtonLeft:v198];
           }
 
-          v197 = [(PHBottomBar *)self makeButtonWithType:6 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setSideButtonRight:v197];
+          v199 = [(PHBottomBar *)self makeButtonWithType:6 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setSideButtonRight:v199];
 
           callDisplayStyleManager3 = [(PHBottomBar *)self callDisplayStyleManager];
-          v199 = [callDisplayStyleManager3 callDisplayStyle] == 3;
+          v201 = [callDisplayStyleManager3 callDisplayStyle] == 3;
 
-          if (!v199)
+          if (!v201)
           {
             if (![(PHBottomBar *)self shouldUseLayoutAsCallScreening])
             {
@@ -1922,41 +1924,41 @@ LABEL_95:
         case 8:
           if ([(PHBottomBar *)self shouldShowActionTypeSendToVoicemail])
           {
-            v158 = 24;
+            v160 = 24;
           }
 
           else
           {
-            v158 = 7;
+            v160 = 7;
           }
 
-          v159 = [(PHBottomBar *)self makeButtonWithType:v158 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setMainLeftButton:v159];
+          v161 = [(PHBottomBar *)self makeButtonWithType:v160 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setMainLeftButton:v161];
 
           callCenter2 = [(PHBottomBar *)self callCenter];
           isEndAndAnswerAllowed2 = [callCenter2 isEndAndAnswerAllowed];
 
           if (isEndAndAnswerAllowed2)
           {
-            v162 = [(PHBottomBar *)self makeButtonWithType:4 title:0 image:0 color:0 font:0 fontColor:0];
-            [(PHBottomBar *)self setSideButtonLeft:v162];
+            v164 = [(PHBottomBar *)self makeButtonWithType:4 title:0 image:0 color:0 font:0 fontColor:0];
+            [(PHBottomBar *)self setSideButtonLeft:v164];
           }
 
           else
           {
-            v162 = [NSBundle bundleForClass:objc_opt_class()];
-            v200 = [v162 localizedStringForKey:@"END_CURRENT" value:&stru_100361FD0 table:@"BottomBar"];
-            v201 = [(PHBottomBar *)self makeButtonWithType:15 title:v200 image:0 color:0 font:0 fontColor:0];
-            [(PHBottomBar *)self setSideButtonLeft:v201];
+            v164 = [NSBundle bundleForClass:objc_opt_class()];
+            v202 = [v164 localizedStringForKey:@"END_CURRENT" value:&stru_100361FD0 table:@"BottomBar"];
+            v203 = [(PHBottomBar *)self makeButtonWithType:15 title:v202 image:0 color:0 font:0 fontColor:0];
+            [(PHBottomBar *)self setSideButtonLeft:v203];
           }
 
-          v202 = [(PHBottomBar *)self makeButtonWithType:5 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setSideButtonRight:v202];
+          v204 = [(PHBottomBar *)self makeButtonWithType:5 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setSideButtonRight:v204];
 
           callDisplayStyleManager4 = [(PHBottomBar *)self callDisplayStyleManager];
-          v204 = [callDisplayStyleManager4 callDisplayStyle] == 3;
+          v206 = [callDisplayStyleManager4 callDisplayStyle] == 3;
 
-          if (!v204)
+          if (!v206)
           {
             if (![(PHBottomBar *)self shouldUseLayoutAsCallScreening])
             {
@@ -1973,25 +1975,25 @@ LABEL_95:
 
           if (isEndAndAnswerAllowed3)
           {
-            v157 = [(PHBottomBar *)self makeButtonWithType:4 title:0 image:0 color:0 font:0 fontColor:0];
-            [(PHBottomBar *)self setMainRightButton:v157];
+            v159 = [(PHBottomBar *)self makeButtonWithType:4 title:0 image:0 color:0 font:0 fontColor:0];
+            [(PHBottomBar *)self setMainRightButton:v159];
           }
 
           else
           {
-            v157 = [NSBundle bundleForClass:objc_opt_class()];
-            v182 = [v157 localizedStringForKey:@"END_CURRENT" value:&stru_100361FD0 table:@"BottomBar"];
-            v183 = [(PHBottomBar *)self makeButtonWithType:15 title:v182 image:0 color:0 font:0 fontColor:0];
-            [(PHBottomBar *)self setMainRightButton:v183];
+            v159 = [NSBundle bundleForClass:objc_opt_class()];
+            v184 = [v159 localizedStringForKey:@"END_CURRENT" value:&stru_100361FD0 table:@"BottomBar"];
+            v185 = [(PHBottomBar *)self makeButtonWithType:15 title:v184 image:0 color:0 font:0 fontColor:0];
+            [(PHBottomBar *)self setMainRightButton:v185];
           }
 
-          v184 = [(PHBottomBar *)self makeButtonWithType:7 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setMainLeftButton:v184];
+          v186 = [(PHBottomBar *)self makeButtonWithType:7 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setMainLeftButton:v186];
 
           callDisplayStyleManager5 = [(PHBottomBar *)self callDisplayStyleManager];
-          v186 = [callDisplayStyleManager5 callDisplayStyle] == 3;
+          v188 = [callDisplayStyleManager5 callDisplayStyle] == 3;
 
-          if (!v186)
+          if (!v188)
           {
             if (![(PHBottomBar *)self shouldUseLayoutAsCallScreening])
             {
@@ -2003,85 +2005,85 @@ LABEL_95:
 
           goto LABEL_63;
         case 10:
-          v133 = [(PHBottomBar *)self makeSlidingButtonWithType:4];
-          [(PHBottomBar *)self setSlidingButton:v133];
+          v135 = [(PHBottomBar *)self makeSlidingButtonWithType:4];
+          [(PHBottomBar *)self setSlidingButton:v135];
 
           goto LABEL_63;
         case 12:
-          v149 = [(PHBottomBar *)self makeSlidingButtonWithType:5];
-          [(PHBottomBar *)self setSlidingButton:v149];
+          v151 = [(PHBottomBar *)self makeSlidingButtonWithType:5];
+          [(PHBottomBar *)self setSlidingButton:v151];
 
           goto LABEL_63;
         case 13:
-          v163 = [(PHBottomBar *)self makeButtonWithType:19 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setMainLeftButton:v163];
+          v165 = [(PHBottomBar *)self makeButtonWithType:19 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setMainLeftButton:v165];
 
-          v164 = [(PHBottomBar *)self makeButtonWithType:18 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setMainRightButton:v164];
+          v166 = [(PHBottomBar *)self makeButtonWithType:18 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setMainRightButton:v166];
 
           goto LABEL_63;
         case 14:
-          v165 = [(PHBottomBar *)self makeButtonWithType:15 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setMainLeftButton:v165];
+          v167 = [(PHBottomBar *)self makeButtonWithType:15 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setMainLeftButton:v167];
 
           if ([(PHBottomBar *)self shouldShowActionTypeAudioRoute])
           {
-            v166 = 22;
+            v168 = 22;
           }
 
           else
           {
-            v166 = 21;
+            v168 = 21;
           }
 
           +[PHBottomBarButtonConfiguration smallHeight];
-          v167 = [(PHBottomBar *)self makeButtonWithType:v166 title:0 image:0 color:0 font:0 fontColor:0 diameter:?];
-          [(PHBottomBar *)self setSideButtonRight:v167];
+          v169 = [(PHBottomBar *)self makeButtonWithType:v168 title:0 image:0 color:0 font:0 fontColor:0 diameter:?];
+          [(PHBottomBar *)self setSideButtonRight:v169];
 
           +[PHBottomBarButtonConfiguration smallHeight];
-          v168 = [(PHBottomBar *)self makeButtonWithType:20 title:0 image:0 color:0 font:0 fontColor:0 diameter:?];
-          [(PHBottomBar *)self setSideButtonLeft:v168];
+          v170 = [(PHBottomBar *)self makeButtonWithType:20 title:0 image:0 color:0 font:0 fontColor:0 diameter:?];
+          [(PHBottomBar *)self setSideButtonLeft:v170];
 
           goto LABEL_63;
         case 15:
-          v172 = [(PHBottomBar *)self makeButtonWithType:15 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setMainLeftButton:v172];
+          v174 = [(PHBottomBar *)self makeButtonWithType:15 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setMainLeftButton:v174];
 
           if ([(PHBottomBar *)self shouldShowActionTypeAudioRoute])
           {
-            v173 = 22;
+            v175 = 22;
           }
 
           else
           {
-            v173 = 21;
+            v175 = 21;
           }
 
           +[PHBottomBarButtonConfiguration smallHeight];
-          v174 = [(PHBottomBar *)self makeButtonWithType:v173 title:0 image:0 color:0 font:0 fontColor:0 diameter:?];
-          [(PHBottomBar *)self setSideButtonRight:v174];
+          v176 = [(PHBottomBar *)self makeButtonWithType:v175 title:0 image:0 color:0 font:0 fontColor:0 diameter:?];
+          [(PHBottomBar *)self setSideButtonRight:v176];
 
           if ([(PHBottomBar *)self shouldShowActionTypePunchOut])
           {
             delegate3 = [(PHBottomBar *)self delegate];
-            v176 = [delegate3 imageForItemInBar:self withActionType:31];
-            v177 = +[UIColor whiteColor];
-            v178 = [(PHBottomBar *)self makeButtonWithType:31 title:0 image:v176 color:v177 font:0 fontColor:0];
-            [(PHBottomBar *)self setSideButtonLeft:v178];
+            v178 = [delegate3 imageForItemInBar:self withActionType:31];
+            v179 = +[UIColor whiteColor];
+            v180 = [(PHBottomBar *)self makeButtonWithType:31 title:0 image:v178 color:v179 font:0 fontColor:0];
+            [(PHBottomBar *)self setSideButtonLeft:v180];
           }
 
           else if ([(PHBottomBar *)self shouldShowActionTypePhotoCapture])
           {
             +[PHBottomBarButtonConfiguration smallHeight];
-            v207 = [(PHBottomBar *)self makeButtonWithType:33 title:0 image:0 color:0 font:0 fontColor:0 diameter:?];
-            [(PHBottomBar *)self setSideButtonLeft:v207];
+            v209 = [(PHBottomBar *)self makeButtonWithType:33 title:0 image:0 color:0 font:0 fontColor:0 diameter:?];
+            [(PHBottomBar *)self setSideButtonLeft:v209];
           }
 
           else if ([(PHBottomBar *)self shouldShowActionTypeEffects])
           {
             +[PHBottomBarButtonConfiguration smallHeight];
-            v221 = [(PHBottomBar *)self makeButtonWithType:34 title:0 image:0 color:0 font:0 fontColor:0 diameter:?];
-            [(PHBottomBar *)self setSideButtonLeft:v221];
+            v223 = [(PHBottomBar *)self makeButtonWithType:34 title:0 image:0 color:0 font:0 fontColor:0 diameter:?];
+            [(PHBottomBar *)self setSideButtonLeft:v223];
           }
 
           else
@@ -2091,110 +2093,110 @@ LABEL_95:
 
           goto LABEL_63;
         case 16:
-          v171 = [(PHBottomBar *)self makeSlidingButtonWithType:6];
-          [(PHBottomBar *)self setSlidingButton:v171];
+          v173 = [(PHBottomBar *)self makeSlidingButtonWithType:6];
+          [(PHBottomBar *)self setSlidingButton:v173];
 
           goto LABEL_63;
         case 17:
-          v130 = [(PHBottomBar *)self makeButtonWithType:18 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setSideButtonLeft:v130];
+          v132 = [(PHBottomBar *)self makeButtonWithType:18 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setSideButtonLeft:v132];
 
-          v131 = [(PHBottomBar *)self makeButtonWithType:19 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setMainLeftButton:v131];
+          v133 = [(PHBottomBar *)self makeButtonWithType:19 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setMainLeftButton:v133];
 
-          v132 = [(PHBottomBar *)self makeButtonWithType:29 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setSideButtonRight:v132];
+          v134 = [(PHBottomBar *)self makeButtonWithType:29 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setSideButtonRight:v134];
 
           goto LABEL_63;
         case 18:
-          v150 = [NSBundle bundleForClass:objc_opt_class()];
-          v151 = [v150 localizedStringForKey:@"DONE" value:&stru_100361FD0 table:@"BottomBar"];
-          v152 = [UIFont systemFontOfSize:28.0];
-          v153 = +[UIColor whiteColor];
-          v154 = [(PHBottomBar *)self makeButtonWithType:14 title:v151 image:0 color:0 font:v152 fontColor:v153];
-          [(PHBottomBar *)self setMainLeftButton:v154];
+          v152 = [NSBundle bundleForClass:objc_opt_class()];
+          v153 = [v152 localizedStringForKey:@"DONE" value:&stru_100361FD0 table:@"BottomBar"];
+          v154 = [UIFont systemFontOfSize:28.0];
+          v155 = +[UIColor whiteColor];
+          v156 = [(PHBottomBar *)self makeButtonWithType:14 title:v153 image:0 color:0 font:v154 fontColor:v155];
+          [(PHBottomBar *)self setMainLeftButton:v156];
 
           goto LABEL_63;
         case 19:
-          v134 = +[CNKFeatures sharedInstance];
-          isDialPadEnabled = [v134 isDialPadEnabled];
+          v136 = +[CNKFeatures sharedInstance];
+          isDialPadEnabled = [v136 isDialPadEnabled];
 
-          v136 = [(PHBottomBar *)self makeButtonWithType:15 title:0 image:0 color:0 font:0 fontColor:0];
+          v138 = [(PHBottomBar *)self makeButtonWithType:15 title:0 image:0 color:0 font:0 fontColor:0];
           if (isDialPadEnabled)
           {
-            [(PHBottomBar *)self setSupplementalBottomLeftButton:v136];
+            [(PHBottomBar *)self setSupplementalBottomLeftButton:v138];
 
-            v137 = [NSBundle bundleForClass:objc_opt_class()];
-            v138 = [v137 localizedStringForKey:@"HIDE_KEYPAD" value:&stru_100361FD0 table:@"BottomBar"];
-            v139 = +[PHUIConfiguration inCallBottomBarSpacing];
-            v140 = 15.0;
-            if (!v139)
+            v139 = [NSBundle bundleForClass:objc_opt_class()];
+            v140 = [v139 localizedStringForKey:@"HIDE_KEYPAD" value:&stru_100361FD0 table:@"BottomBar"];
+            v141 = +[PHUIConfiguration inCallBottomBarSpacing];
+            v142 = 15.0;
+            if (!v141)
             {
-              v140 = 14.0;
+              v142 = 14.0;
             }
 
-            v141 = [UIFont systemFontOfSize:v140];
-            v142 = +[UIColor whiteColor];
-            v143 = [(PHBottomBar *)self makeButtonWithType:17 title:v138 image:0 color:0 font:v141 fontColor:v142];
-            [(PHBottomBar *)self setMainRightButton:v143];
+            v143 = [UIFont systemFontOfSize:v142];
+            v144 = +[UIColor whiteColor];
+            v145 = [(PHBottomBar *)self makeButtonWithType:17 title:v140 image:0 color:0 font:v143 fontColor:v144];
+            [(PHBottomBar *)self setMainRightButton:v145];
           }
 
           else
           {
-            [(PHBottomBar *)self setMainLeftButton:v136];
+            [(PHBottomBar *)self setMainLeftButton:v138];
 
-            v188 = [NSBundle bundleForClass:objc_opt_class()];
-            v189 = [v188 localizedStringForKey:@"HIDE" value:&stru_100361FD0 table:@"BottomBar"];
-            v190 = +[PHUIConfiguration inCallBottomBarSpacing];
-            v191 = 15.0;
-            if (!v190)
+            v190 = [NSBundle bundleForClass:objc_opt_class()];
+            v191 = [v190 localizedStringForKey:@"HIDE" value:&stru_100361FD0 table:@"BottomBar"];
+            v192 = +[PHUIConfiguration inCallBottomBarSpacing];
+            v193 = 15.0;
+            if (!v192)
             {
-              v191 = 14.0;
+              v193 = 14.0;
             }
 
-            v192 = [UIFont systemFontOfSize:v191];
-            v193 = +[UIColor whiteColor];
-            v194 = [(PHBottomBar *)self makeButtonWithType:17 title:v189 image:0 color:0 font:v192 fontColor:v193];
-            [(PHBottomBar *)self setSupplementalBottomRightButton:v194];
+            v194 = [UIFont systemFontOfSize:v193];
+            v195 = +[UIColor whiteColor];
+            v196 = [(PHBottomBar *)self makeButtonWithType:17 title:v191 image:0 color:0 font:v194 fontColor:v195];
+            [(PHBottomBar *)self setSupplementalBottomRightButton:v196];
           }
 
           goto LABEL_63;
         case 20:
-          v124 = [(PHBottomBar *)self makeButtonWithType:15 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setMainLeftButton:v124];
+          v126 = [(PHBottomBar *)self makeButtonWithType:15 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setMainLeftButton:v126];
 
-          v125 = +[PHUIConfiguration inCallBottomBarSpacing];
-          v126 = 15.0;
-          if (!v125)
+          v127 = +[PHUIConfiguration inCallBottomBarSpacing];
+          v128 = 15.0;
+          if (!v127)
           {
-            v126 = 14.0;
+            v128 = 14.0;
           }
 
-          v127 = [UIFont systemFontOfSize:v126];
-          v128 = +[UIColor whiteColor];
-          v129 = [(PHBottomBar *)self makeButtonWithType:23 title:&stru_100361FD0 image:0 color:0 font:v127 fontColor:v128];
-          [(PHBottomBar *)self setSupplementalBottomLeftButton:v129];
+          v129 = [UIFont systemFontOfSize:v128];
+          v130 = +[UIColor whiteColor];
+          v131 = [(PHBottomBar *)self makeButtonWithType:23 title:&stru_100361FD0 image:0 color:0 font:v129 fontColor:v130];
+          [(PHBottomBar *)self setSupplementalBottomLeftButton:v131];
 
           goto LABEL_63;
         case 21:
-          v169 = [(PHBottomBar *)self makeButtonWithType:28 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setMainLeftButton:v169];
+          v171 = [(PHBottomBar *)self makeButtonWithType:28 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setMainLeftButton:v171];
 
           goto LABEL_63;
         case 24:
-          v170 = [(PHBottomBar *)self makeSlidingButtonWithType:0];
-          [(PHBottomBar *)self setSlidingButton:v170];
+          v172 = [(PHBottomBar *)self makeSlidingButtonWithType:0];
+          [(PHBottomBar *)self setSlidingButton:v172];
 
           goto LABEL_63;
         case 27:
-          v179 = [(PHBottomBar *)self makeButtonWithType:35 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setSideButtonLeft:v179];
+          v181 = [(PHBottomBar *)self makeButtonWithType:35 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setSideButtonLeft:v181];
 
-          v180 = [(PHBottomBar *)self makeButtonWithType:37 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setMainLeftButton:v180];
+          v182 = [(PHBottomBar *)self makeButtonWithType:37 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setMainLeftButton:v182];
 
-          v181 = [(PHBottomBar *)self makeButtonWithType:36 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setSideButtonRight:v181];
+          v183 = [(PHBottomBar *)self makeButtonWithType:36 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setSideButtonRight:v183];
 
           goto LABEL_63;
         default:
@@ -2202,11 +2204,11 @@ LABEL_95:
           {
             if (state == 22)
             {
-              v227 = [(PHBottomBar *)self makeButtonWithType:39 title:0 image:0 color:0 font:0 fontColor:0];
-              [(PHBottomBar *)self setMainLeftButton:v227];
+              v229 = [(PHBottomBar *)self makeButtonWithType:39 title:0 image:0 color:0 font:0 fontColor:0];
+              [(PHBottomBar *)self setMainLeftButton:v229];
 
-              v228 = [(PHBottomBar *)self makeButtonWithType:38 title:0 image:0 color:0 font:0 fontColor:0];
-              [(PHBottomBar *)self setMainRightButton:v228];
+              v230 = [(PHBottomBar *)self makeButtonWithType:38 title:0 image:0 color:0 font:0 fontColor:0];
+              [(PHBottomBar *)self setMainRightButton:v230];
 
               alertFeedbackGenerator = [(PHBottomBar *)self alertFeedbackGenerator];
               [alertFeedbackGenerator notificationOccurred:0];
@@ -2246,31 +2248,31 @@ LABEL_63:
 
               if ([(PHBottomBar *)self declineAndMessageIsAvailable])
               {
-                v75 = [frontmostAudioOrVideoCall isBranded] ^ 1;
+                v77 = [frontmostAudioOrVideoCall isBranded] ^ 1;
               }
 
               else
               {
-                v75 = 0;
+                v77 = 0;
               }
 
-              v76 = [(PHBottomBar *)self controlForActionType:12];
-              [v76 setEnabled:v75];
+              v78 = [(PHBottomBar *)self controlForActionType:12];
+              [v78 setEnabled:v77];
 
-              v77 = [(PHBottomBar *)self controlForActionType:9];
-              [v77 setEnabled:v75];
+              v79 = [(PHBottomBar *)self controlForActionType:9];
+              [v79 setEnabled:v77];
 
               declineAndMessageIsAvailable = [(PHBottomBar *)self declineAndMessageIsAvailable];
-              v79 = [(PHBottomBar *)self controlForActionType:12];
-              [v79 setHidden:declineAndMessageIsAvailable ^ 1];
+              v81 = [(PHBottomBar *)self controlForActionType:12];
+              [v81 setHidden:declineAndMessageIsAvailable ^ 1];
 
               declineAndMessageIsAvailable2 = [(PHBottomBar *)self declineAndMessageIsAvailable];
-              v81 = [(PHBottomBar *)self controlForActionType:9];
-              [v81 setHidden:declineAndMessageIsAvailable2 ^ 1];
+              v83 = [(PHBottomBar *)self controlForActionType:9];
+              [v83 setHidden:declineAndMessageIsAvailable2 ^ 1];
 
               declineAndRemindIsAvailable = [(PHBottomBar *)self declineAndRemindIsAvailable];
-              v83 = [(PHBottomBar *)self controlForActionType:13];
-              [v83 setHidden:declineAndRemindIsAvailable ^ 1];
+              v85 = [(PHBottomBar *)self controlForActionType:13];
+              [v85 setHidden:declineAndRemindIsAvailable ^ 1];
 
               buttonLayoutConstraints = [(PHBottomBar *)self buttonLayoutConstraints];
 
@@ -2280,27 +2282,27 @@ LABEL_63:
                 [(PHBottomBar *)self removeConstraints:buttonLayoutConstraints2];
               }
 
-              v86 = [(PHBottomBar *)self constraintsForState:state];
-              [(PHBottomBar *)self setButtonLayoutConstraints:v86];
+              v88 = [(PHBottomBar *)self constraintsForState:state];
+              [(PHBottomBar *)self setButtonLayoutConstraints:v88];
 
               buttonLayoutConstraints3 = [(PHBottomBar *)self buttonLayoutConstraints];
               [(PHBottomBar *)self addConstraints:buttonLayoutConstraints3];
 
-              v16 = 0;
+              v18 = 0;
 LABEL_69:
               self->_currentState = state;
               [(PHBottomBar *)self setNeedsLayout];
               if (blockCopy)
               {
-                v88 = v16;
+                v90 = v18;
               }
 
               else
               {
-                v88 = 1;
+                v90 = 1;
               }
 
-              if ((v88 & 1) == 0)
+              if ((v90 & 1) == 0)
               {
                 blockCopy[2](blockCopy, 1);
               }
@@ -2380,9 +2382,9 @@ LABEL_90:
               {
                 supplementalTopRightButton3 = [(PHBottomBar *)self supplementalTopRightButton];
                 objc_opt_class();
-                v110 = objc_opt_isKindOfClass();
+                v112 = objc_opt_isKindOfClass();
 
-                if (v110)
+                if (v112)
                 {
                   supplementalTopRightButton4 = [(PHBottomBar *)self supplementalTopRightButton];
                   effectView3 = [supplementalTopRightButton4 effectView];
@@ -2402,13 +2404,13 @@ LABEL_90:
           {
             if (state == 28)
             {
-              v223 = [NSBundle bundleForClass:objc_opt_class()];
-              v224 = [v223 localizedStringForKey:@"END" value:&stru_100361FD0 table:@"BottomBar"];
-              v225 = [(PHBottomBar *)self makeButtonWithType:11 title:v224 image:0 color:0 font:0 fontColor:0];
-              [(PHBottomBar *)self setMainLeftButton:v225];
+              v225 = [NSBundle bundleForClass:objc_opt_class()];
+              v226 = [v225 localizedStringForKey:@"END" value:&stru_100361FD0 table:@"BottomBar"];
+              v227 = [(PHBottomBar *)self makeButtonWithType:11 title:v226 image:0 color:0 font:0 fontColor:0];
+              [(PHBottomBar *)self setMainLeftButton:v227];
 
-              v226 = [(PHBottomBar *)self makeButtonWithType:40 title:0 image:0 color:0 font:0 fontColor:0];
-              [(PHBottomBar *)self setMainRightButton:v226];
+              v228 = [(PHBottomBar *)self makeButtonWithType:40 title:0 image:0 color:0 font:0 fontColor:0];
+              [(PHBottomBar *)self setMainRightButton:v228];
 
               goto LABEL_63;
             }
@@ -2424,46 +2426,46 @@ LABEL_90:
             }
           }
 
-          v208 = +[CNKFeatures sharedInstance];
-          lvm_stopEnabled = [v208 lvm_stopEnabled];
+          v210 = +[CNKFeatures sharedInstance];
+          lvm_stopEnabled = [v210 lvm_stopEnabled];
 
-          v210 = [NSBundle bundleForClass:objc_opt_class()];
-          v211 = v210;
+          v212 = [NSBundle bundleForClass:objc_opt_class()];
+          v213 = v212;
           if (lvm_stopEnabled)
           {
-            v212 = [v210 localizedStringForKey:@"SCREENING_STOP" value:&stru_100361FD0 table:@"BottomBar"];
-            v213 = [(PHBottomBar *)self makeButtonWithType:11 title:v212 image:0 color:0 font:0 fontColor:0];
-            [(PHBottomBar *)self setMainLeftButton:v213];
+            v214 = [v212 localizedStringForKey:@"SCREENING_STOP" value:&stru_100361FD0 table:@"BottomBar"];
+            v215 = [(PHBottomBar *)self makeButtonWithType:11 title:v214 image:0 color:0 font:0 fontColor:0];
+            [(PHBottomBar *)self setMainLeftButton:v215];
 
             callDisplayStyleManager6 = [(PHBottomBar *)self callDisplayStyleManager];
-            v215 = [callDisplayStyleManager6 callDisplayStyle] == 3 && state == 25;
+            v217 = [callDisplayStyleManager6 callDisplayStyle] == 3 && state == 25;
 
-            if (!v215)
+            if (!v217)
             {
               goto LABEL_188;
             }
 
-            v211 = [NSBundle bundleForClass:objc_opt_class()];
-            v216 = [v211 localizedStringForKey:@"SCREENING_BLOCK" value:&stru_100361FD0 table:@"BottomBar"];
-            v217 = [(PHBottomBar *)self makeButtonWithType:10 title:v216 image:0 color:0 font:0 fontColor:0];
-            [(PHBottomBar *)self setSideButtonLeft:v217];
+            v213 = [NSBundle bundleForClass:objc_opt_class()];
+            v218 = [v213 localizedStringForKey:@"SCREENING_BLOCK" value:&stru_100361FD0 table:@"BottomBar"];
+            v219 = [(PHBottomBar *)self makeButtonWithType:10 title:v218 image:0 color:0 font:0 fontColor:0];
+            [(PHBottomBar *)self setSideButtonLeft:v219];
           }
 
           else
           {
             if (state == 25)
             {
-              v216 = [v210 localizedStringForKey:@"SCREENING_BLOCK" value:&stru_100361FD0 table:@"BottomBar"];
-              [(PHBottomBar *)self makeButtonWithType:10 title:v216 image:0 color:0 font:0 fontColor:0];
+              v218 = [v212 localizedStringForKey:@"SCREENING_BLOCK" value:&stru_100361FD0 table:@"BottomBar"];
+              [(PHBottomBar *)self makeButtonWithType:10 title:v218 image:0 color:0 font:0 fontColor:0];
             }
 
             else
             {
-              v216 = [v210 localizedStringForKey:@"SCREENING_MESSAGE" value:&stru_100361FD0 table:@"BottomBar"];
-              [(PHBottomBar *)self makeButtonWithType:30 title:v216 image:0 color:0 font:0 fontColor:0];
+              v218 = [v212 localizedStringForKey:@"SCREENING_MESSAGE" value:&stru_100361FD0 table:@"BottomBar"];
+              [(PHBottomBar *)self makeButtonWithType:30 title:v218 image:0 color:0 font:0 fontColor:0];
             }
-            v217 = ;
-            [(PHBottomBar *)self setMainLeftButton:v217];
+            v219 = ;
+            [(PHBottomBar *)self setMainLeftButton:v219];
           }
 
 LABEL_188:
@@ -2471,105 +2473,105 @@ LABEL_188:
           {
             if ([(PHBottomBar *)self shouldShowAnswerRTTButton])
             {
-              v230 = 2;
+              v232 = 2;
             }
 
             else
             {
-              v230 = 1;
+              v232 = 1;
             }
           }
 
           else
           {
-            v230 = 1;
+            v232 = 1;
           }
 
-          v231 = [NSBundle bundleForClass:objc_opt_class()];
-          v232 = [v231 localizedStringForKey:@"ACCEPT" value:&stru_100361FD0 table:@"BottomBar"];
-          v233 = [(PHBottomBar *)self makeButtonWithType:v230 title:v232 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setMainRightButton:v233];
+          v233 = [NSBundle bundleForClass:objc_opt_class()];
+          v234 = [v233 localizedStringForKey:@"ACCEPT" value:&stru_100361FD0 table:@"BottomBar"];
+          v235 = [(PHBottomBar *)self makeButtonWithType:v232 title:v234 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setMainRightButton:v235];
 
           goto LABEL_63;
       }
     }
 
-    v28 = [(PHBottomBar *)self makeButtonWithType:7 title:0 image:0 color:0 font:0 fontColor:0];
-    [(PHBottomBar *)self setMainLeftButton:v28];
+    v30 = [(PHBottomBar *)self makeButtonWithType:7 title:0 image:0 color:0 font:0 fontColor:0];
+    [(PHBottomBar *)self setMainLeftButton:v30];
 
     if ([(PHBottomBar *)self shouldShowAnswerRTTButton])
     {
-      v29 = [UIImage imageNamed:@"Call Accept RTT"];
-      v30 = +[UIColor whiteColor];
-      v31 = [v29 _flatImageWithColor:v30];
+      v31 = [UIImage imageNamed:@"Call Accept RTT"];
+      v32 = +[UIColor whiteColor];
+      v33 = [v31 _flatImageWithColor:v32];
     }
 
     else
     {
-      v31 = 0;
+      v33 = 0;
     }
 
-    v41 = [(PHBottomBar *)self makeButtonWithType:1 title:0 image:v31 color:0 font:0 fontColor:0];
-    [(PHBottomBar *)self setMainRightButton:v41];
+    v43 = [(PHBottomBar *)self makeButtonWithType:1 title:0 image:v33 color:0 font:0 fontColor:0];
+    [(PHBottomBar *)self setMainRightButton:v43];
 
     callDisplayStyleManager7 = [(PHBottomBar *)self callDisplayStyleManager];
-    v43 = [callDisplayStyleManager7 callDisplayStyle] == 3;
+    v45 = [callDisplayStyleManager7 callDisplayStyle] == 3;
 
-    if (v43)
+    if (v45)
     {
       provider = [frontmostAudioOrVideoCall provider];
       isSystemProvider = [provider isSystemProvider];
 
       if (isSystemProvider)
       {
-        if (callScreeningAvailable)
+        if (v16)
         {
-          v46 = [(PHBottomBar *)self makeButtonWithType:25 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setSideButtonLeft:v46];
+          v48 = [(PHBottomBar *)self makeButtonWithType:25 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setSideButtonLeft:v48];
         }
 
         else if ([(PHBottomBar *)self shouldShowActionTypeSendToVoicemail])
         {
-          v65 = [(PHBottomBar *)self makeButtonWithType:24 title:0 image:0 color:0 font:0 fontColor:0];
-          [(PHBottomBar *)self setSideButtonLeft:v65];
+          v67 = [(PHBottomBar *)self makeButtonWithType:24 title:0 image:0 color:0 font:0 fontColor:0];
+          [(PHBottomBar *)self setSideButtonLeft:v67];
         }
       }
 
       goto LABEL_62;
     }
 
-    if (!callScreeningAvailable)
+    if (!v16)
     {
       if ([(PHBottomBar *)self shouldUseLayoutAsCallScreening])
       {
-        v58 = [(PHBottomBar *)self makeButtonWithType:12 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
-        [(PHBottomBar *)self setSupplementalTopLeftButton:v58];
+        v60 = [(PHBottomBar *)self makeButtonWithType:12 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
+        [(PHBottomBar *)self setSupplementalTopLeftButton:v60];
 
         [(PHBottomBar *)self makeButtonWithType:13 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
       }
 
       else
       {
-        v62 = [(PHBottomBar *)self makeButtonWithType:13 title:0 image:0 color:0 font:0 fontColor:0];
-        [(PHBottomBar *)self setSupplementalTopLeftButton:v62];
+        v64 = [(PHBottomBar *)self makeButtonWithType:13 title:0 image:0 color:0 font:0 fontColor:0];
+        [(PHBottomBar *)self setSupplementalTopLeftButton:v64];
 
         [(PHBottomBar *)self makeButtonWithType:9 title:0 image:0 color:0 font:0 fontColor:0];
       }
-      v59 = ;
-      [(PHBottomBar *)self setSupplementalTopRightButton:v59];
+      v61 = ;
+      [(PHBottomBar *)self setSupplementalTopRightButton:v61];
 
       goto LABEL_62;
     }
 
-    v47 = +[CNKFeatures sharedInstance];
-    if ([v47 receptionistEnabled])
+    v49 = +[CNKFeatures sharedInstance];
+    if ([v49 receptionistEnabled])
     {
-      v48 = [(PHBottomBar *)self liveReplyAvailableForCall:frontmostAudioOrVideoCall];
+      v50 = [(PHBottomBar *)self liveReplyAvailableForCall:frontmostAudioOrVideoCall];
 
-      if (v48)
+      if (v50)
       {
-        v49 = [(PHBottomBar *)self makeButtonWithType:26 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
-        [(PHBottomBar *)self setSupplementalTopLeftButton:v49];
+        v51 = [(PHBottomBar *)self makeButtonWithType:26 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
+        [(PHBottomBar *)self setSupplementalTopLeftButton:v51];
 
         [(PHBottomBar *)self setupCallScreeningMoreButton];
 LABEL_62:
@@ -2582,37 +2584,37 @@ LABEL_62:
     {
     }
 
-    v63 = [(PHBottomBar *)self makeButtonWithType:12 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
-    [(PHBottomBar *)self setSupplementalTopLeftButton:v63];
+    v65 = [(PHBottomBar *)self makeButtonWithType:12 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
+    [(PHBottomBar *)self setSupplementalTopLeftButton:v65];
 
-    v64 = [(PHBottomBar *)self makeButtonWithType:25 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
-    [(PHBottomBar *)self setSupplementalTopRightButton:v64];
+    v66 = [(PHBottomBar *)self makeButtonWithType:25 title:0 image:0 color:0 font:0 fontColor:0 diameter:44.0];
+    [(PHBottomBar *)self setSupplementalTopRightButton:v66];
 
     goto LABEL_62;
   }
 
-  v9 = sub_100004F84();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004F84(animating);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
     stateCopy2 = state;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Bottom bar is currently animating, we will pend this bottom bar state change to state %ld until that's over", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Bottom bar is currently animating, we will pend this bottom bar state change to state %ld until that's over", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   pendingStateBlocks = [(PHBottomBar *)self pendingStateBlocks];
-  v234 = _NSConcreteStackBlock;
-  v235 = 3221225472;
-  v236 = sub_100136750;
-  v237 = &unk_100359EC0;
-  objc_copyWeak(v239, buf);
-  v239[1] = state;
-  v240 = animatedCopy;
-  v238 = blockCopy;
-  v11 = objc_retainBlock(&v234);
-  [pendingStateBlocks addObject:{v11, v234, v235, v236, v237}];
+  v236 = _NSConcreteStackBlock;
+  v237 = 3221225472;
+  v238 = sub_100136750;
+  v239 = &unk_100359EC0;
+  objc_copyWeak(v241, buf);
+  v241[1] = state;
+  v242 = animatedCopy;
+  v240 = blockCopy;
+  v12 = objc_retainBlock(&v236);
+  [pendingStateBlocks addObject:{v12, v236, v237, v238, v239}];
 
-  objc_destroyWeak(v239);
+  objc_destroyWeak(v241);
   objc_destroyWeak(buf);
 LABEL_91:
 }
@@ -4459,41 +4461,41 @@ LABEL_19:
 
       if (v5)
       {
-        v6 = sub_100004F84();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v7 = sub_100004F84(v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           pendingStateBlocks2 = [(PHBottomBar *)self pendingStateBlocks];
           *buf = 134217984;
-          v20 = [pendingStateBlocks2 count];
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Bottom bar has %ld pending state block(s) waiting for the animation to finish, we'll run those now", buf, 0xCu);
+          v21 = [pendingStateBlocks2 count];
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Bottom bar has %ld pending state block(s) waiting for the animation to finish, we'll run those now", buf, 0xCu);
         }
 
-        v16 = 0u;
         v17 = 0u;
-        v14 = 0u;
+        v18 = 0u;
         v15 = 0u;
+        v16 = 0u;
         pendingStateBlocks3 = [(PHBottomBar *)self pendingStateBlocks];
-        v9 = [pendingStateBlocks3 countByEnumeratingWithState:&v14 objects:v18 count:16];
-        if (v9)
+        v10 = [pendingStateBlocks3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        if (v10)
         {
-          v10 = v9;
-          v11 = *v15;
+          v11 = v10;
+          v12 = *v16;
           do
           {
-            for (i = 0; i != v10; i = i + 1)
+            for (i = 0; i != v11; i = i + 1)
             {
-              if (*v15 != v11)
+              if (*v16 != v12)
               {
                 objc_enumerationMutation(pendingStateBlocks3);
               }
 
-              (*(*(*(&v14 + 1) + 8 * i) + 16))();
+              (*(*(*(&v15 + 1) + 8 * i) + 16))();
             }
 
-            v10 = [pendingStateBlocks3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+            v11 = [pendingStateBlocks3 countByEnumeratingWithState:&v15 objects:v19 count:16];
           }
 
-          while (v10);
+          while (v11);
         }
 
         pendingStateBlocks4 = [(PHBottomBar *)self pendingStateBlocks];
@@ -6599,8 +6601,7 @@ LABEL_36:
     traitCollection2 = [(PHBottomBar *)self traitCollection];
     _backlightLuminance3 = [traitCollection2 _backlightLuminance];
 
-    [(PHBottomBar *)self setUserInteractionEnabled:_backlightLuminance3 != 1];
-    v10 = sub_100004F84();
+    v10 = sub_100004F84([(PHBottomBar *)self setUserInteractionEnabled:_backlightLuminance3 != 1]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;

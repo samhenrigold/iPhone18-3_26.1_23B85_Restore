@@ -237,9 +237,7 @@ LABEL_14:
 
 - (void)_didMutate
 {
-  v3 = objc_alloc_init(MEMORY[0x277CCAD78]);
-  revisionIdentifier = self->_revisionIdentifier;
-  self->_revisionIdentifier = v3;
+  self->_revisionIdentifier = objc_alloc_init(MEMORY[0x277CCAD78]);
 
   MEMORY[0x2821F96F8]();
 }
@@ -603,37 +601,34 @@ id __67__SRUIFMutableConversationItem_initWithPropertyListRepresentation___block
 
 - (void)initWithPropertyListRepresentation:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[SRUIFMutableConversationItem initWithPropertyListRepresentation:]";
-  v5 = 2050;
-  v6 = a1;
-  _os_log_error_impl(&dword_26951F000, a2, OS_LOG_TYPE_ERROR, "%s unable to deserialize property list with version %{public}ld; returning nil", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[SRUIFMutableConversationItem initWithPropertyListRepresentation:]";
+  v4 = 2050;
+  v5 = a1;
+  _os_log_error_impl(&dword_26951F000, a2, OS_LOG_TYPE_ERROR, "%s unable to deserialize property list with version %{public}ld; returning nil", &v2, 0x16u);
 }
 
 - (void)initWithPropertyListRepresentation:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[SRUIFMutableConversationItem initWithPropertyListRepresentation:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_26951F000, a2, OS_LOG_TYPE_ERROR, "%s returning nil; unable co create associated data store from property list %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[SRUIFMutableConversationItem initWithPropertyListRepresentation:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_26951F000, a2, OS_LOG_TYPE_ERROR, "%s returning nil; unable co create associated data store from property list %@", &v2, 0x16u);
 }
 
 - (void)initWithPropertyListRepresentation:(os_log_t)log .cold.3(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "[SRUIFMutableConversationItem initWithPropertyListRepresentation:]";
-  v6 = 2114;
-  v7 = a1;
-  v8 = 2112;
-  v9 = a2;
-  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s returning nil; passed invalid property list (%{public}@): %@", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "[SRUIFMutableConversationItem initWithPropertyListRepresentation:]";
+  v5 = 2114;
+  v6 = a1;
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s returning nil; passed invalid property list (%{public}@): %@", &v3, 0x20u);
 }
 
 @end

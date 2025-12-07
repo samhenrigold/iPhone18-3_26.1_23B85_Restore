@@ -30,7 +30,7 @@
 {
   if (statuses)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB7D2000);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB7D2000, &unk_1B2582B50);
     v4 = sub_1B256DC5C();
   }
 

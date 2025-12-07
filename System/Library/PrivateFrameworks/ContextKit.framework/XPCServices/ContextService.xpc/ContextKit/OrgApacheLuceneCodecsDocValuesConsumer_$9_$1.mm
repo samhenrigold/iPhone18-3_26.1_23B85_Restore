@@ -112,7 +112,6 @@ LABEL_18:
               IOSArray_throwOutOfBoundsWithMsg(v38, *(self + 76));
             }
 
-            v39 = *(self + 76);
             *(v35 + 16 + 8 * v37) = v36;
             *(self + 76) = v37 + 1;
             nextOrd2 = [v21 nextOrd];
@@ -196,20 +195,19 @@ LABEL_36:
     }
   }
 
-  v40 = *(self + 64);
-  if (!v40)
+  v39 = *(self + 64);
+  if (!v39)
   {
     goto LABEL_45;
   }
 
-  v41 = *(v40 + 8);
-  if (v6 < 0 || v6 >= v41)
+  v40 = *(v39 + 8);
+  if (v6 < 0 || v6 >= v40)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v41, *(self + 72));
+    IOSArray_throwOutOfBoundsWithMsg(v40, *(self + 72));
   }
 
-  v42 = *(self + 72);
-  *(self + 24) = *(v40 + 16 + 8 * v6);
+  *(self + 24) = *(v39 + 16 + 8 * v6);
   *(self + 72) = v6 + 1;
   result = 1;
   *(self + 56) = 1;
@@ -220,14 +218,14 @@ LABEL_36:
 {
   if (![(OrgApacheLuceneCodecsDocValuesConsumer_$9_$1 *)self hasNext])
   {
-    v5 = new_JavaUtilNoSuchElementException_init();
-    objc_exception_throw(v5);
+    v6 = new_JavaUtilNoSuchElementException_init();
+    objc_exception_throw(v6);
   }
 
   self->nextIsSet_ = 0;
   nextValue = self->nextValue_;
 
-  return JavaLangLong_valueOfWithLong_(nextValue);
+  return JavaLangLong_valueOfWithLong_(nextValue, v3);
 }
 
 - (OrgApacheLuceneCodecsDocValuesConsumer_$9_$1)initWithOrgApacheLuceneCodecsDocValuesConsumer_$9:(id)9

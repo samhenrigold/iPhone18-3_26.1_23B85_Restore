@@ -19,6 +19,7 @@
 - (void)_didReceiveNewSolution:(const void *)solution session:(shared_ptr<rose::objects::RoseBaseSession>)session;
 - (void)_didReceiveRemoteData:(const void *)data session:(shared_ptr<rose::objects::RoseBaseSession>)session;
 - (void)_getClientDelegateAndQueueMap:(shared_ptr<rose:(id)map :objects::RoseBaseSession>)a3 completion:;
+- (void)_roseSession:(shared_ptr<rose:(int)session :(float)a5 objects:(float)objects :(int)a7 RoseBaseSession>)a3 didChangeRangingUpdateRate:newThrottleRate:prevThrottleRate:effectiveSinceCycleInde:;
 - (void)_sendHangupSignalForSession:(shared_ptr<rose::objects::GRSession>)session;
 - (void)_serviceRequestDidUpdateStatus:(ServiceRequestStatusUpdate)status session:(shared_ptr<rose::objects::RoseBaseSession>)session;
 - (void)_sessionDidInvalidatedWithReason:(int)reason session:(shared_ptr<rose::objects::RoseBaseSession>)session;
@@ -42,9 +43,9 @@
 
 - (id)_initInternal
 {
-  v16.receiver = self;
-  v16.super_class = NIServerGRResponderRangingService;
-  v2 = [(NIServerGRResponderRangingService *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = NIServerGRResponderRangingService;
+  v2 = [(NIServerGRResponderRangingService *)&v15 init];
   v3 = v2;
   if (v2)
   {
@@ -55,21 +56,20 @@
 
     v7 = objc_opt_new();
     uUIDString = [v7 UUIDString];
-    sub_100004A08(&v14, [uUIDString UTF8String]);
+    sub_100004A08(&v13, [uUIDString UTF8String]);
     if (*(&v2->_containerIdentifier.__rep_.__l + 23) < 0)
     {
       operator delete(v2->_containerIdentifier.__rep_.__l.__data_);
     }
 
-    *v2->_containerIdentifier.__rep_.__s.__data_ = v14;
-    *(&v2->_containerIdentifier.__rep_.__l + 2) = v15;
-    HIBYTE(v15) = 0;
-    LOBYTE(v14) = 0;
+    *v2->_containerIdentifier.__rep_.__s.__data_ = v13;
+    *(&v2->_containerIdentifier.__rep_.__l + 2) = v14;
+    HIBYTE(v14) = 0;
+    LOBYTE(v13) = 0;
 
     if (+[NIPlatformInfo isInternalBuild](NIPlatformInfo, "isInternalBuild") || (+[NSUserDefaults standardUserDefaults](NSUserDefaults, "standardUserDefaults"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v9 BOOLForKey:@"EnableStateDump"], v9, v10))
     {
-      v11 = v3->_queue;
-      v13 = v3;
+      v12 = v3;
       os_state_add_handler();
     }
   }
@@ -302,7 +302,7 @@
 
     if (v15)
     {
-      [v15 interested_tickets];
+      objc_msgSend_interested_tickets(v15);
       if (*(&v17 + 1))
       {
         v8 = v17;
@@ -573,7 +573,7 @@ LABEL_33:
     }
 
     LOBYTE(__ns.__rep_) = 0;
-    sub_100025100(buf, 16);
+    sub_100025100(buf, 16, &__ns);
     v7 = *buf;
     **buf = 258;
     *(v7 + 2) = 0;
@@ -865,6 +865,56 @@ LABEL_33:
   }
 }
 
+- (void)_roseSession:(shared_ptr<rose:(int)session :(float)a5 objects:(float)objects :(int)a7 RoseBaseSession>)a3 didChangeRangingUpdateRate:newThrottleRate:prevThrottleRate:effectiveSinceCycleInde:
+{
+  var1 = a3.var1;
+  var0 = a3.var0;
+  v13 = *(a3.var0 + 1);
+  v24 = *a3.var0;
+  v25 = v13;
+  if (v13)
+  {
+    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v14 = [(NIServerGRResponderRangingService *)self _getTicket:&v24, a3.var1, *&session, *&a7];
+  if (v25)
+  {
+    sub_10000AD84(v25);
+  }
+
+  if ((v14 & 0x10000) != 0)
+  {
+    v15 = *(var0 + 1);
+    v22 = *var0;
+    v23 = v15;
+    if (v15)
+    {
+      atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10001FC00;
+    v16[3] = &unk_10098A500;
+    v17 = var1;
+    v18 = a5;
+    objectsCopy = objects;
+    sessionCopy = session;
+    v21 = v14 & 0xFFFFFF;
+    [(NIServerGRResponderRangingService *)self _getClientDelegateAndQueueMap:&v22 completion:v16];
+    if (v23)
+    {
+      sub_10000AD84(v23);
+    }
+  }
+
+  else if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
+  {
+    sub_10049A43C();
+  }
+}
+
 - (shared_ptr<rose::objects::GRSession>)_getSession:(unsigned __int16)session
 {
   v5 = v3;
@@ -873,13 +923,13 @@ LABEL_33:
   if (v6)
   {
     v10 = &sessionCopy;
-    v6 = sub_10002385C(&self->serviceMap.__table_.__bucket_list_.__ptr_, &sessionCopy);
-    v8 = v6[4];
-    *v5 = v6[3];
+    v6 = sub_10002385C(&self->serviceMap.__table_.__bucket_list_.__ptr_, &sessionCopy, &unk_100548C50, &v10);
+    v8 = *(v6 + 4);
+    *v5 = *(v6 + 3);
     v5[1] = v8;
     if (v8)
     {
-      atomic_fetch_add_explicit(v8 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -897,13 +947,14 @@ LABEL_33:
 - (shared_ptr<rose::objects::GRSession>)_getSessionWithAddress:(unint64_t)address
 {
   v5 = v3;
-  v9[0] = address;
-  v6 = sub_100009BCC(&self->deviceMap.__table_.__bucket_list_.__ptr_, v9);
+  addressCopy = address;
+  v6 = sub_100009BCC(&self->deviceMap.__table_.__bucket_list_.__ptr_, &addressCopy);
   if (v6)
   {
-    v9[2] = v9;
-    v8 = sub_100023300(&self->deviceMap.__table_.__bucket_list_.__ptr_, v9)[3];
-    -[NIServerGRResponderRangingService _getSession:](self, "_getSession:", [v8 gr_session_ticket_id]);
+    v10 = &addressCopy;
+    v8 = sub_100023300(&self->deviceMap.__table_.__bucket_list_.__ptr_, &addressCopy, &unk_100548C50, &v10)[3];
+    [v8 gr_session_ticket_id];
+    objc_msgSend__getSession_(self);
   }
 
   else
@@ -997,20 +1048,20 @@ LABEL_8:
 
   if (v8)
   {
-    [v8 rate_per_client];
+    objc_msgSend_rate_per_client(v8);
     for (i = v13; i; i = *i)
     {
       if (sub_100021574(&self->clientMap.__table_.__bucket_list_.__ptr_, i + 2))
       {
-        v16 = (i + 2);
-        v10 = [sub_100022718(&self->clientMap.__table_.__bucket_list_.__ptr_ i + 2)[5]];
-        v16 = (i + 2);
-        v11 = [sub_100022718(&self->clientMap.__table_.__bucket_list_.__ptr_ i + 2)[5]];
+        v17 = (i + 2);
+        v10 = [sub_100022718(&self->clientMap.__table_.__bucket_list_.__ptr_ i + 2];
+        v17 = (i + 2);
+        v11 = [sub_100022718(&self->clientMap.__table_.__bucket_list_.__ptr_ i + 2];
         (*(v6 + 2))(v6, v10, v11);
       }
     }
 
-    sub_100021FB4(v12);
+    sub_100021FB4(&v12);
   }
 }
 

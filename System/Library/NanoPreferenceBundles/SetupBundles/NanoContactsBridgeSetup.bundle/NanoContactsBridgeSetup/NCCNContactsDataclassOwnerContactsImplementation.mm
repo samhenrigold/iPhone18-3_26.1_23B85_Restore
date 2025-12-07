@@ -15,6 +15,7 @@
 - (id)defaultContainerInContactsAccount:(id)account;
 - (id)localContainer;
 - (id)syncingAccountIdentifierForParentAccount:(id)account withChildAccounts:(id)accounts;
+- (void)setLocalContainerEnabled:(BOOL)enabled;
 @end
 
 @implementation NCCNContactsDataclassOwnerContactsImplementation
@@ -47,6 +48,30 @@
   }
 
   return v10;
+}
+
+- (void)setLocalContainerEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  localContainer = [(NCCNContactsDataclassOwnerContactsImplementation *)self localContainer];
+  v6 = localContainer;
+  if (localContainer)
+  {
+    v7 = [localContainer mutableCopy];
+    [v7 setEnabled:enabledCopy];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_370C;
+    v10[3] = &unk_1C518;
+    v11 = v7;
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_3718;
+    v9[3] = &unk_1C540;
+    v9[4] = self;
+    v8 = v7;
+    [(NCCNContactsDataclassOwnerContactsImplementation *)self createAndExecuteSaveRequest:v10 errorBlock:v9];
+  }
 }
 
 - (BOOL)isLocalContainerEmpty

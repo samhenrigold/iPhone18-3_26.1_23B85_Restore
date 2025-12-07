@@ -29,25 +29,24 @@
 
 - (BOOL)isCopyActionItem
 {
-  ddAction = self->_ddAction;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2050000000;
-  v3 = getDDCopyActionClass_softClass;
-  v10 = getDDCopyActionClass_softClass;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2050000000;
+  v2 = getDDCopyActionClass_softClass;
+  v9 = getDDCopyActionClass_softClass;
   if (!getDDCopyActionClass_softClass)
   {
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __getDDCopyActionClass_block_invoke;
-    v6[3] = &unk_278CFE620;
-    v6[4] = &v7;
-    __getDDCopyActionClass_block_invoke(v6);
-    v3 = v8[3];
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __getDDCopyActionClass_block_invoke;
+    v5[3] = &unk_278CFE620;
+    v5[4] = &v6;
+    __getDDCopyActionClass_block_invoke(v5);
+    v2 = v7[3];
   }
 
-  v4 = v3;
-  _Block_object_dispose(&v7, 8);
+  v3 = v2;
+  _Block_object_dispose(&v6, 8);
   objc_opt_class();
   return objc_opt_isKindOfClass() & 1;
 }

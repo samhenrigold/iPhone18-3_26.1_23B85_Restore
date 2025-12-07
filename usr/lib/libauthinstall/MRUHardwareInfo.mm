@@ -102,11 +102,11 @@ LABEL_19:
 
 - (MRUHardwareInfo)initWithOptions:(id)options error:(id *)error
 {
-  v67[1] = *MEMORY[0x29EDCA608];
+  v66[1] = *MEMORY[0x29EDCA608];
   optionsCopy = options;
-  v51.receiver = self;
-  v51.super_class = MRUHardwareInfo;
-  v7 = [(MRUHardwareInfo *)&v51 init];
+  v50.receiver = self;
+  v50.super_class = MRUHardwareInfo;
+  v7 = [(MRUHardwareInfo *)&v50 init];
   if (!v7)
   {
 LABEL_35:
@@ -120,10 +120,10 @@ LABEL_35:
     if (*error)
     {
       v24 = MEMORY[0x29EDB9FA0];
-      v66 = *MEMORY[0x29EDB9ED8];
+      v65 = *MEMORY[0x29EDB9ED8];
       v25 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"No chipID in options dict"];
-      v67[0] = v25;
-      v26 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v67 forKeys:&v66 count:1];
+      v66[0] = v25;
+      v26 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v66 forKeys:&v65 count:1];
       *error = [v24 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:1 userInfo:v26];
     }
 
@@ -138,10 +138,10 @@ LABEL_35:
     if (*error)
     {
       v27 = MEMORY[0x29EDB9FA0];
-      v64 = *MEMORY[0x29EDB9ED8];
+      v63 = *MEMORY[0x29EDB9ED8];
       v28 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"No chipRev in options dict"];
-      v65 = v28;
-      v29 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+      v64 = v28;
+      v29 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
       *error = [v27 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:1 userInfo:v29];
     }
 
@@ -156,10 +156,10 @@ LABEL_35:
     if (*error)
     {
       v30 = MEMORY[0x29EDB9FA0];
-      v62 = *MEMORY[0x29EDB9ED8];
+      v61 = *MEMORY[0x29EDB9ED8];
       v31 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"No boardID in options dict"];
-      v63 = v31;
-      v32 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+      v62 = v31;
+      v32 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
       *error = [v30 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:1 userInfo:v32];
     }
 
@@ -174,10 +174,10 @@ LABEL_35:
     if (*error)
     {
       v33 = MEMORY[0x29EDB9FA0];
-      v60 = *MEMORY[0x29EDB9ED8];
+      v59 = *MEMORY[0x29EDB9ED8];
       v34 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"No securityEpoch in options dict"];
-      v61 = v34;
-      v35 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+      v60 = v34;
+      v35 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
       *error = [v33 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:1 userInfo:v35];
     }
 
@@ -191,12 +191,12 @@ LABEL_35:
   {
     if (*error)
     {
-      v48 = MEMORY[0x29EDB9FA0];
-      v58 = *MEMORY[0x29EDB9ED8];
+      v47 = MEMORY[0x29EDB9FA0];
+      v57 = *MEMORY[0x29EDB9ED8];
       v36 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"No productionStatus in options dict"];
-      v59 = v36;
-      v37 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
-      *error = [v48 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:1 userInfo:v37];
+      v58 = v36;
+      v37 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+      *error = [v47 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:1 userInfo:v37];
     }
 
     goto LABEL_27;
@@ -220,12 +220,12 @@ LABEL_30:
       goto LABEL_31;
     }
 
-    v49 = MEMORY[0x29EDB9FA0];
-    v56 = *MEMORY[0x29EDB9ED8];
+    v48 = MEMORY[0x29EDB9FA0];
+    v55 = *MEMORY[0x29EDB9ED8];
     v19 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"No securityMode in options dict"];
-    v57 = v19;
-    v38 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-    *error = [v49 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:1 userInfo:v38];
+    v56 = v19;
+    v38 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+    *error = [v48 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:1 userInfo:v38];
 
 LABEL_25:
     goto LABEL_26;
@@ -238,12 +238,12 @@ LABEL_25:
   {
     if (*error)
     {
-      v46 = MEMORY[0x29EDB9FA0];
-      v54 = *MEMORY[0x29EDB9ED8];
-      v50 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"No securityDomain in options dict"];
-      v55 = v50;
-      v39 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
-      *error = [v46 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:1 userInfo:v39];
+      v45 = MEMORY[0x29EDB9FA0];
+      v53 = *MEMORY[0x29EDB9ED8];
+      v49 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"No securityDomain in options dict"];
+      v54 = v49;
+      v39 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+      *error = [v45 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:1 userInfo:v39];
     }
 
     goto LABEL_25;
@@ -261,12 +261,12 @@ LABEL_25:
 
   else if (*error)
   {
-    v45 = MEMORY[0x29EDB9FA0];
-    v52 = *MEMORY[0x29EDB9ED8];
-    v47 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"No ecid in options dict"];
-    v53 = v47;
-    v44 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-    *error = [v45 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:1 userInfo:v44];
+    v44 = MEMORY[0x29EDB9FA0];
+    v51 = *MEMORY[0x29EDB9ED8];
+    v46 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"No ecid in options dict"];
+    v52 = v46;
+    v43 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+    *error = [v44 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:1 userInfo:v43];
 
     v22 = 0;
   }
@@ -282,7 +282,6 @@ LABEL_31:
   v40 = 0;
 LABEL_36:
 
-  v42 = *MEMORY[0x29EDCA608];
   return v40;
 }
 
@@ -318,34 +317,32 @@ LABEL_36:
 
 - (NSDictionary)asDictionary
 {
-  v15[8] = *MEMORY[0x29EDCA608];
-  v14[0] = @"chipID";
+  v14[8] = *MEMORY[0x29EDCA608];
+  v13[0] = @"chipID";
   v3 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:self->_chipID];
-  v15[0] = v3;
-  v14[1] = @"bundlePath";
+  v14[0] = v3;
+  v13[1] = @"bundlePath";
   v4 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:self->_chipRev];
-  v15[1] = v4;
-  v14[2] = @"boardID";
+  v14[1] = v4;
+  v13[2] = @"boardID";
   v5 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:self->_boardID];
-  v15[2] = v5;
-  v14[3] = @"securityEpoch";
+  v14[2] = v5;
+  v13[3] = @"securityEpoch";
   v6 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:self->_securityEpoch];
-  v15[3] = v6;
-  v14[4] = @"productionStatus";
+  v14[3] = v6;
+  v13[4] = @"productionStatus";
   v7 = [MEMORY[0x29EDBA070] numberWithBool:self->_productionStatus];
-  v15[4] = v7;
-  v14[5] = @"securityMode";
+  v14[4] = v7;
+  v13[5] = @"securityMode";
   v8 = [MEMORY[0x29EDBA070] numberWithBool:self->_securityMode];
-  v15[5] = v8;
-  v14[6] = @"securityDomain";
+  v14[5] = v8;
+  v13[6] = @"securityDomain";
   v9 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:self->_securityDomain];
-  v15[6] = v9;
-  v14[7] = @"ecid";
+  v14[6] = v9;
+  v13[7] = @"ecid";
   v10 = [MEMORY[0x29EDBA070] numberWithUnsignedLongLong:self->_ecid];
-  v15[7] = v10;
-  v11 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v15 forKeys:v14 count:8];
-
-  v12 = *MEMORY[0x29EDCA608];
+  v14[7] = v10;
+  v11 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v14 forKeys:v13 count:8];
 
   return v11;
 }

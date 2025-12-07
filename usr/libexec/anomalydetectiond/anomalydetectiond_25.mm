@@ -249,34 +249,26 @@ LABEL_4:
 LABEL_10:
   v4 = 0;
 LABEL_11:
-  v5 = *(this + 4);
-  v6 = *(this + 5);
+  v5 = PBHashBytes();
+  v6 = PBHashBytes();
   v7 = PBHashBytes();
-  v8 = *(this + 7);
-  v9 = *(this + 8);
-  v10 = PBHashBytes();
-  v11 = *(this + 10);
-  v12 = *(this + 11);
-  v13 = PBHashBytes();
-  v14 = *(this + 1);
-  v15 = *(this + 2);
-  v16 = PBHashBytes();
+  v8 = PBHashBytes();
   if ((*(this + 120) & 2) != 0)
   {
-    v18 = *(this + 28);
-    v17 = LODWORD(v18);
-    if (v18 == 0.0)
+    v10 = *(this + 28);
+    v9 = LODWORD(v10);
+    if (v10 == 0.0)
     {
-      v17 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    v17 = 0;
+    v9 = 0;
   }
 
-  return v3 ^ v2 ^ v4 ^ v7 ^ v10 ^ v13 ^ v16 ^ v17;
+  return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ v7 ^ v8 ^ v9;
 }
 
 uint64_t CMMsl::GyroBiasCorrection::GyroBiasCorrection(uint64_t this)
@@ -313,12 +305,12 @@ void CMMsl::GyroBiasCorrection::~GyroBiasCorrection(CMMsl::GyroBiasCorrection *t
   operator delete();
 }
 
-uint64_t CMMsl::GyroBiasCorrection::GyroBiasCorrection(uint64_t this, const CMMsl::GyroBiasCorrection *a2)
+CMMsl::GyroBiasCorrection *CMMsl::GyroBiasCorrection::GyroBiasCorrection(CMMsl::GyroBiasCorrection *this, const CMMsl::DeviceMotionCorrection **a2)
 {
   *this = off_10041EB28;
-  *(this + 8) = 0;
-  *(this + 20) = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  *(this + 5) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -327,22 +319,22 @@ uint64_t CMMsl::GyroBiasCorrection::GyroBiasCorrection(uint64_t this, const CMMs
   {
     v2 = *(a2 + 4);
     *(this + 20) |= 1u;
-    *(this + 16) = v2;
+    *(this + 4) = v2;
   }
 
   return this;
 }
 
-const CMMsl::GyroBiasCorrection *CMMsl::GyroBiasCorrection::operator=(const CMMsl::GyroBiasCorrection *a1, const CMMsl::GyroBiasCorrection *a2)
+uint64_t CMMsl::GyroBiasCorrection::operator=(uint64_t a1, const CMMsl::DeviceMotionCorrection **a2)
 {
   if (a1 != a2)
   {
     CMMsl::GyroBiasCorrection::GyroBiasCorrection(v6, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v7;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v7;
     v7 = v3;
-    v4 = *(a1 + 2);
-    *(a1 + 2) = v8;
+    v4 = *(a1 + 16);
+    *(a1 + 16) = v8;
     v8 = v4;
     CMMsl::GyroBiasCorrection::~GyroBiasCorrection(v6);
   }
@@ -692,9 +684,9 @@ unint64_t CMMsl::GyroBiasCorrection::hash_value(CMMsl::GyroBiasCorrection *this)
   return v3 ^ v2;
 }
 
-uint64_t CMMsl::GyroBiasCorrection::makeCorrection(uint64_t this)
+void *CMMsl::GyroBiasCorrection::makeCorrection(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -1731,53 +1723,49 @@ uint64_t CMMsl::GyroBiasEstimate::hash_value(CMMsl::GyroBiasEstimate *this)
     v2 = 0;
   }
 
-  v3 = *(this + 4);
-  v4 = *(this + 5);
-  v5 = PBHashBytes();
-  v6 = *(this + 1);
-  v7 = *(this + 2);
-  v8 = PBHashBytes();
+  v3 = PBHashBytes();
+  v4 = PBHashBytes();
   if ((*(this + 80) & 8) != 0)
   {
-    v9 = *(this + 76);
+    v5 = *(this + 76);
     if ((*(this + 80) & 4) != 0)
     {
 LABEL_8:
-      v10 = *(this + 18);
+      v6 = *(this + 18);
       if (*(this + 80))
       {
         goto LABEL_9;
       }
 
 LABEL_14:
-      v11 = 0.0;
-      return v5 ^ v2 ^ v8 ^ v9 ^ v10 ^ *&v11;
+      v7 = 0.0;
+      return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ *&v7;
     }
   }
 
   else
   {
-    v9 = 0;
+    v5 = 0;
     if ((*(this + 80) & 4) != 0)
     {
       goto LABEL_8;
     }
   }
 
-  v10 = 0;
+  v6 = 0;
   if ((*(this + 80) & 1) == 0)
   {
     goto LABEL_14;
   }
 
 LABEL_9:
-  v11 = *(this + 7);
-  if (v11 == 0.0)
+  v7 = *(this + 7);
+  if (v7 == 0.0)
   {
-    v11 = 0.0;
+    v7 = 0.0;
   }
 
-  return v5 ^ v2 ^ v8 ^ v9 ^ v10 ^ *&v11;
+  return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ *&v7;
 }
 
 double CMMsl::GyroBiasEstimateError::GyroBiasEstimateError(CMMsl::GyroBiasEstimateError *this)
@@ -1944,7 +1932,7 @@ uint64_t CMMsl::GyroBiasEstimateError::GyroBiasEstimateError(uint64_t a1, uint64
   return a1;
 }
 
-CMMsl *CMMsl::GyroBiasEstimateError::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::GyroBiasEstimateError::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -2731,31 +2719,25 @@ uint64_t CMMsl::GyroBiasEstimateError::hash_value(CMMsl::GyroBiasEstimateError *
     v2 = 0;
   }
 
-  v3 = *(this + 1);
-  v4 = *(this + 2);
+  v3 = PBHashBytes();
+  v4 = PBHashBytes();
   v5 = PBHashBytes();
-  v6 = *(this + 4);
-  v7 = *(this + 5);
-  v8 = PBHashBytes();
-  v9 = *(this + 7);
-  v10 = *(this + 8);
-  v11 = PBHashBytes();
   if ((*(this + 92) & 2) != 0)
   {
-    v13 = *(this + 22);
-    v12 = LODWORD(v13);
-    if (v13 == 0.0)
+    v7 = *(this + 22);
+    v6 = LODWORD(v7);
+    if (v7 == 0.0)
     {
-      v12 = 0;
+      v6 = 0;
     }
   }
 
   else
   {
-    v12 = 0;
+    v6 = 0;
   }
 
-  return v5 ^ v2 ^ v8 ^ v11 ^ v12;
+  return v3 ^ v2 ^ v4 ^ v5 ^ v6;
 }
 
 double CMMsl::GyroBiasFit::GyroBiasFit(CMMsl::GyroBiasFit *this)
@@ -2805,11 +2787,11 @@ void CMMsl::GyroBiasFit::~GyroBiasFit(CMMsl::GyroBiasFit *this)
   operator delete();
 }
 
-CMMsl::GyroBiasFit *CMMsl::GyroBiasFit::GyroBiasFit(char **this, char **a2)
+char **CMMsl::GyroBiasFit::GyroBiasFit(char **this, char **a2)
 {
   *this = off_10041EBD0;
   *(this + 1) = 0u;
-  v4 = this + 1;
+  v4 = (this + 1);
   *(this + 15) = 0;
   *(this + 3) = 0u;
   *(this + 5) = 0u;
@@ -3467,28 +3449,24 @@ BOOL CMMsl::GyroBiasFit::operator==(uint64_t a1, uint64_t a2)
 
 uint64_t CMMsl::GyroBiasFit::hash_value(CMMsl::GyroBiasFit *this)
 {
-  v2 = *(this + 4);
-  v3 = *(this + 5);
-  v4 = PBHashBytes();
-  v5 = *(this + 1);
-  v6 = *(this + 2);
-  v7 = PBHashBytes();
+  v2 = PBHashBytes();
+  v3 = PBHashBytes();
   if (*(this + 60))
   {
-    v9 = *(this + 14);
-    v8 = LODWORD(v9);
-    if (v9 == 0.0)
+    v5 = *(this + 14);
+    v4 = LODWORD(v5);
+    if (v5 == 0.0)
     {
-      v8 = 0;
+      v4 = 0;
     }
   }
 
   else
   {
-    v8 = 0;
+    v4 = 0;
   }
 
-  return v7 ^ v4 ^ v8;
+  return v3 ^ v2 ^ v4;
 }
 
 void *CMMsl::GyroCalibrationDataFactory::GyroCalibrationDataFactory(void *this)
@@ -3531,17 +3509,16 @@ void CMMsl::GyroCalibrationDataFactory::~GyroCalibrationDataFactory(CMMsl::GyroC
   operator delete();
 }
 
-void *CMMsl::GyroCalibrationDataFactory::GyroCalibrationDataFactory(void *this, const CMMsl::GyroCalibrationDataFactory *a2)
+CMMsl::GyroCalibrationDataFactory *CMMsl::GyroCalibrationDataFactory::GyroCalibrationDataFactory(CMMsl::GyroCalibrationDataFactory *this, const CMMsl::GyroCalibrationDataFactory *a2)
 {
-  this[1] = 0;
+  *(this + 1) = 0;
   *this = off_10041EC08;
-  this[2] = 0;
-  this[3] = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
   v2 = *(a2 + 1);
   if (v2 != *(a2 + 2))
   {
-    v3 = *v2;
-    sub_10010D964();
+    sub_10010D964(this + 1, *v2);
   }
 
   return this;
@@ -3581,16 +3558,16 @@ void *CMMsl::swap(void *this, CMMsl::GyroCalibrationDataFactory *a2, CMMsl::Gyro
   return this;
 }
 
-uint64_t CMMsl::GyroCalibrationDataFactory::GyroCalibrationDataFactory(uint64_t a1, uint64_t a2)
+void **CMMsl::GyroCalibrationDataFactory::GyroCalibrationDataFactory(void **a1, uint64_t a2)
 {
   *a1 = off_10041EC08;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  sub_1002A2EE4((a1 + 8));
+  a1[2] = 0;
+  a1[3] = 0;
+  a1[1] = 0;
+  v4 = a1 + 1;
+  sub_1002A2EE4(a1 + 1);
   *v4 = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
+  a1[3] = *(a2 + 24);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0;
@@ -3599,13 +3576,13 @@ uint64_t CMMsl::GyroCalibrationDataFactory::GyroCalibrationDataFactory(uint64_t 
 
 {
   *a1 = off_10041EC08;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  sub_1002A2EE4((a1 + 8));
+  a1[2] = 0;
+  a1[3] = 0;
+  a1[1] = 0;
+  v4 = a1 + 1;
+  sub_1002A2EE4(a1 + 1);
   *v4 = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
+  a1[3] = *(a2 + 24);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0;
@@ -3654,7 +3631,7 @@ uint64_t CMMsl::GyroCalibrationDataFactory::formatText(CMMsl::GyroCalibrationDat
   return PB::TextFormatter::endObject(a2);
 }
 
-uint64_t CMMsl::GyroCalibrationDataFactory::readFrom(CMMsl::GyroCalibrationDataFactory *this, PB::Reader *a2)
+uint64_t CMMsl::GyroCalibrationDataFactory::readFrom(const void **this, PB::Reader *a2)
 {
   v2 = *(a2 + 1);
   v3 = *(a2 + 2);
@@ -3664,78 +3641,78 @@ uint64_t CMMsl::GyroCalibrationDataFactory::readFrom(CMMsl::GyroCalibrationDataF
     v4 = 0;
     do
     {
-      v6 = *a2;
+      v7 = *a2;
       if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
       {
-        v14 = 0;
         v15 = 0;
-        v9 = 0;
-        v16 = v3 >= v2;
-        v17 = v3 - v2;
-        if (!v16)
+        v16 = 0;
+        v10 = 0;
+        v17 = v3 >= v2;
+        v18 = v3 - v2;
+        if (!v17)
         {
-          v17 = 0;
+          v18 = 0;
         }
 
-        v18 = (v6 + v2);
-        v19 = v2 + 1;
+        v19 = (v7 + v2);
+        v20 = v2 + 1;
         while (1)
         {
-          if (!v17)
+          if (!v18)
           {
             v4 = 1;
             *(a2 + 24) = 1;
             goto LABEL_29;
           }
 
-          v20 = *v18;
-          *(a2 + 1) = v19;
-          v9 |= (v20 & 0x7F) << v14;
-          if ((v20 & 0x80) == 0)
+          v21 = *v19;
+          *(a2 + 1) = v20;
+          v10 |= (v21 & 0x7F) << v15;
+          if ((v21 & 0x80) == 0)
           {
             break;
           }
 
-          v14 += 7;
-          --v17;
-          ++v18;
+          v15 += 7;
+          --v18;
           ++v19;
-          v13 = v15++ > 8;
-          if (v13)
+          ++v20;
+          v14 = v16++ > 8;
+          if (v14)
           {
 LABEL_18:
-            v9 = 0;
+            v10 = 0;
             goto LABEL_21;
           }
         }
 
         if (v4)
         {
-          v9 = 0;
+          v10 = 0;
         }
       }
 
       else
       {
-        v7 = 0;
         v8 = 0;
         v9 = 0;
-        v10 = (v6 + v2);
-        v11 = v2 + 1;
+        v10 = 0;
+        v11 = (v7 + v2);
+        v12 = v2 + 1;
         while (1)
         {
-          *(a2 + 1) = v11;
-          v12 = *v10++;
-          v9 |= (v12 & 0x7F) << v7;
-          if ((v12 & 0x80) == 0)
+          *(a2 + 1) = v12;
+          v13 = *v11++;
+          v10 |= (v13 & 0x7F) << v8;
+          if ((v13 & 0x80) == 0)
           {
             break;
           }
 
-          v7 += 7;
-          ++v11;
-          v13 = v8++ > 8;
-          if (v13)
+          v8 += 7;
+          ++v12;
+          v14 = v9++ > 8;
+          if (v14)
           {
             goto LABEL_18;
           }
@@ -3743,20 +3720,20 @@ LABEL_18:
       }
 
 LABEL_21:
-      if (v4 & 1 | ((v9 & 7) == 4))
+      if (v4 & 1 | ((v10 & 7) == 4))
       {
         break;
       }
 
-      if ((v9 >> 3) == 1)
+      if ((v10 >> 3) == 1)
       {
-        sub_10010DF90();
+        sub_10010DF90(this + 1);
       }
 
-      if ((PB::Reader::skip(a2, v9 >> 3, v9 & 7, 0) & 1) == 0)
+      if ((PB::Reader::skip(a2, v10 >> 3, v10 & 7, 0) & 1) == 0)
       {
-        v21 = 0;
-        return v21 & 1;
+        v22 = 0;
+        return v22 & 1;
       }
 
       v2 = *(a2 + 1);
@@ -3768,8 +3745,8 @@ LABEL_21:
   }
 
 LABEL_29:
-  v21 = v4 ^ 1;
-  return v21 & 1;
+  v22 = v4 ^ 1;
+  return v22 & 1;
 }
 
 uint64_t CMMsl::GyroCalibrationDataFactory::writeTo(uint64_t this, PB::Writer *a2)
@@ -3871,17 +3848,16 @@ void CMMsl::GyroCalibrationDataNonlinearNonFactory::~GyroCalibrationDataNonlinea
   operator delete();
 }
 
-void *CMMsl::GyroCalibrationDataNonlinearNonFactory::GyroCalibrationDataNonlinearNonFactory(void *this, const CMMsl::GyroCalibrationDataNonlinearNonFactory *a2)
+CMMsl::GyroCalibrationDataNonlinearNonFactory *CMMsl::GyroCalibrationDataNonlinearNonFactory::GyroCalibrationDataNonlinearNonFactory(CMMsl::GyroCalibrationDataNonlinearNonFactory *this, const CMMsl::GyroCalibrationDataNonlinearNonFactory *a2)
 {
-  this[1] = 0;
+  *(this + 1) = 0;
   *this = off_10041EC40;
-  this[2] = 0;
-  this[3] = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
   v2 = *(a2 + 1);
   if (v2 != *(a2 + 2))
   {
-    v3 = *v2;
-    sub_10010E400();
+    sub_10010E400(this + 1, *v2);
   }
 
   return this;
@@ -3921,16 +3897,16 @@ void *CMMsl::swap(void *this, CMMsl::GyroCalibrationDataNonlinearNonFactory *a2,
   return this;
 }
 
-uint64_t CMMsl::GyroCalibrationDataNonlinearNonFactory::GyroCalibrationDataNonlinearNonFactory(uint64_t a1, uint64_t a2)
+void **CMMsl::GyroCalibrationDataNonlinearNonFactory::GyroCalibrationDataNonlinearNonFactory(void **a1, uint64_t a2)
 {
   *a1 = off_10041EC40;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  sub_1002A2EE4((a1 + 8));
+  a1[2] = 0;
+  a1[3] = 0;
+  a1[1] = 0;
+  v4 = a1 + 1;
+  sub_1002A2EE4(a1 + 1);
   *v4 = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
+  a1[3] = *(a2 + 24);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0;
@@ -3939,13 +3915,13 @@ uint64_t CMMsl::GyroCalibrationDataNonlinearNonFactory::GyroCalibrationDataNonli
 
 {
   *a1 = off_10041EC40;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  sub_1002A2EE4((a1 + 8));
+  a1[2] = 0;
+  a1[3] = 0;
+  a1[1] = 0;
+  v4 = a1 + 1;
+  sub_1002A2EE4(a1 + 1);
   *v4 = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
+  a1[3] = *(a2 + 24);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0;
@@ -3994,7 +3970,7 @@ uint64_t CMMsl::GyroCalibrationDataNonlinearNonFactory::formatText(CMMsl::GyroCa
   return PB::TextFormatter::endObject(a2);
 }
 
-uint64_t CMMsl::GyroCalibrationDataNonlinearNonFactory::readFrom(CMMsl::GyroCalibrationDataNonlinearNonFactory *this, PB::Reader *a2)
+uint64_t CMMsl::GyroCalibrationDataNonlinearNonFactory::readFrom(const void **this, PB::Reader *a2)
 {
   v2 = *(a2 + 1);
   v3 = *(a2 + 2);
@@ -4004,78 +3980,78 @@ uint64_t CMMsl::GyroCalibrationDataNonlinearNonFactory::readFrom(CMMsl::GyroCali
     v4 = 0;
     do
     {
-      v6 = *a2;
+      v7 = *a2;
       if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
       {
-        v14 = 0;
         v15 = 0;
-        v9 = 0;
-        v16 = v3 >= v2;
-        v17 = v3 - v2;
-        if (!v16)
+        v16 = 0;
+        v10 = 0;
+        v17 = v3 >= v2;
+        v18 = v3 - v2;
+        if (!v17)
         {
-          v17 = 0;
+          v18 = 0;
         }
 
-        v18 = (v6 + v2);
-        v19 = v2 + 1;
+        v19 = (v7 + v2);
+        v20 = v2 + 1;
         while (1)
         {
-          if (!v17)
+          if (!v18)
           {
             v4 = 1;
             *(a2 + 24) = 1;
             goto LABEL_29;
           }
 
-          v20 = *v18;
-          *(a2 + 1) = v19;
-          v9 |= (v20 & 0x7F) << v14;
-          if ((v20 & 0x80) == 0)
+          v21 = *v19;
+          *(a2 + 1) = v20;
+          v10 |= (v21 & 0x7F) << v15;
+          if ((v21 & 0x80) == 0)
           {
             break;
           }
 
-          v14 += 7;
-          --v17;
-          ++v18;
+          v15 += 7;
+          --v18;
           ++v19;
-          v13 = v15++ > 8;
-          if (v13)
+          ++v20;
+          v14 = v16++ > 8;
+          if (v14)
           {
 LABEL_18:
-            v9 = 0;
+            v10 = 0;
             goto LABEL_21;
           }
         }
 
         if (v4)
         {
-          v9 = 0;
+          v10 = 0;
         }
       }
 
       else
       {
-        v7 = 0;
         v8 = 0;
         v9 = 0;
-        v10 = (v6 + v2);
-        v11 = v2 + 1;
+        v10 = 0;
+        v11 = (v7 + v2);
+        v12 = v2 + 1;
         while (1)
         {
-          *(a2 + 1) = v11;
-          v12 = *v10++;
-          v9 |= (v12 & 0x7F) << v7;
-          if ((v12 & 0x80) == 0)
+          *(a2 + 1) = v12;
+          v13 = *v11++;
+          v10 |= (v13 & 0x7F) << v8;
+          if ((v13 & 0x80) == 0)
           {
             break;
           }
 
-          v7 += 7;
-          ++v11;
-          v13 = v8++ > 8;
-          if (v13)
+          v8 += 7;
+          ++v12;
+          v14 = v9++ > 8;
+          if (v14)
           {
             goto LABEL_18;
           }
@@ -4083,20 +4059,20 @@ LABEL_18:
       }
 
 LABEL_21:
-      if (v4 & 1 | ((v9 & 7) == 4))
+      if (v4 & 1 | ((v10 & 7) == 4))
       {
         break;
       }
 
-      if ((v9 >> 3) == 1)
+      if ((v10 >> 3) == 1)
       {
-        sub_10010EA2C();
+        sub_10010EA2C(this + 1);
       }
 
-      if ((PB::Reader::skip(a2, v9 >> 3, v9 & 7, 0) & 1) == 0)
+      if ((PB::Reader::skip(a2, v10 >> 3, v10 & 7, 0) & 1) == 0)
       {
-        v21 = 0;
-        return v21 & 1;
+        v22 = 0;
+        return v22 & 1;
       }
 
       v2 = *(a2 + 1);
@@ -4108,8 +4084,8 @@ LABEL_21:
   }
 
 LABEL_29:
-  v21 = v4 ^ 1;
-  return v21 & 1;
+  v22 = v4 ^ 1;
+  return v22 & 1;
 }
 
 uint64_t CMMsl::GyroCalibrationDataNonlinearNonFactory::writeTo(uint64_t this, PB::Writer *a2)
@@ -4772,27 +4748,27 @@ void CMMsl::GyroCalibrationSampleNonlinear::~GyroCalibrationSampleNonlinear(CMMs
   operator delete();
 }
 
-uint64_t CMMsl::GyroCalibrationSampleNonlinear::GyroCalibrationSampleNonlinear(uint64_t this, const CMMsl::GyroCalibrationSampleNonlinear *a2)
+CMMsl::GyroCalibrationSampleNonlinear *CMMsl::GyroCalibrationSampleNonlinear::GyroCalibrationSampleNonlinear(CMMsl::GyroCalibrationSampleNonlinear *this, const CMMsl::GyroCalibrationSample **a2)
 {
   *this = off_10041ECB0;
-  *(this + 8) = 0;
-  *(this + 24) = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  *(this + 6) = 0;
+  if (a2[1])
   {
     operator new();
   }
 
-  if (*(a2 + 24))
+  if (a2[3])
   {
-    v2 = *(a2 + 2);
+    v2 = a2[2];
     *(this + 24) |= 1u;
-    *(this + 16) = v2;
+    *(this + 2) = v2;
   }
 
   return this;
 }
 
-uint64_t CMMsl::GyroCalibrationSampleNonlinear::operator=(uint64_t a1, const CMMsl::GyroCalibrationSampleNonlinear *a2)
+uint64_t CMMsl::GyroCalibrationSampleNonlinear::operator=(uint64_t a1, const CMMsl::GyroCalibrationSample **a2)
 {
   if (a1 != a2)
   {
@@ -5090,9 +5066,9 @@ unint64_t CMMsl::GyroCalibrationSampleNonlinear::hash_value(CMMsl::GyroCalibrati
   return *&v3 ^ v2;
 }
 
-uint64_t CMMsl::GyroCalibrationSampleNonlinear::makeSuper(uint64_t this)
+void *CMMsl::GyroCalibrationSampleNonlinear::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -5388,7 +5364,7 @@ float CMMsl::GyroCompass::GyroCompass(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::GyroCompass::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::GyroCompass::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

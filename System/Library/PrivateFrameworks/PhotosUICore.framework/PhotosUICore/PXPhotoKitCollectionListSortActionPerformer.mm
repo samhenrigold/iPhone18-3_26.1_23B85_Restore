@@ -48,7 +48,7 @@
 - (_TtC12PhotosUICore43PXPhotoKitCollectionListSortActionPerformer)initWithActionType:(id)type collectionList:(id)list parameters:(id)parameters
 {
   type metadata accessor for PXActionParameterKey();
-  sub_1A3C38278(&unk_1EB1356B0);
+  sub_1A3C38278(&unk_1EB1356B0, &unk_1A5377DC0);
   sub_1A524C3E4();
   typeCopy = type;
   listCopy = list;

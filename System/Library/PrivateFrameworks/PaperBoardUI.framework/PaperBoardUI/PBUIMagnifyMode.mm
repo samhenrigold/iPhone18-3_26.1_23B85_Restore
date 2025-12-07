@@ -16,34 +16,35 @@
 
 + (id)currentMagnifyMode
 {
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy__3;
-  v14 = __Block_byref_object_dispose__3;
-  v15 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__3;
+  v16 = __Block_byref_object_dispose__3;
+  v17 = 0;
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   displayConfiguration = [mainScreen displayConfiguration];
 
-  v9 = 0;
+  v11 = 0;
   [displayConfiguration deviceName];
   v4 = IOMobileFramebufferOpenByName();
-  v5 = PBUILogCommon();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v5 = v4;
+  v6 = PBUILogCommon(v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     +[(PBUIMagnifyMode *)displayConfiguration];
   }
 
-  v8 = PBUILogCommon();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v10 = PBUILogCommon(v7);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    +[(PBUIMagnifyMode *)v8];
+    +[(PBUIMagnifyMode *)v10];
   }
 
-  v6 = v11[5];
-  _Block_object_dispose(&v10, 8);
+  v8 = v13[5];
+  _Block_object_dispose(&v12, 8);
 
-  return v6;
+  return v8;
 }
 
 + (PBUIMagnifyMode)magnifyModeWithSize:(CGSize)size name:(id)name

@@ -59,7 +59,7 @@
 
 - (NSArray)supplementaryIdentifiers
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9D9040);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9D9040, &qword_18BC428D0);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_18BC3FC60;
   *(v2 + 32) = sub_18BC20BD8();

@@ -93,36 +93,35 @@ LABEL_7:
 
 void __60__IXPromisedInMemoryData_initWithName_client_data_location___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[IXPromisedInMemoryData initWithName:client:data:location:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[IXPromisedInMemoryData initWithName:client:data:location:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 1;
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __60__IXPromisedInMemoryData_initWithName_client_data_location___block_invoke_6(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[IXPromisedInMemoryData initWithName:client:data:location:]_block_invoke";
-      v10 = 2112;
-      v11 = v5;
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed tell daemon to set up in memory data promise: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[IXPromisedInMemoryData initWithName:client:data:location:]_block_invoke";
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed tell daemon to set up in memory data promise: %@", &v7, 0x16u);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -132,8 +131,6 @@ void __60__IXPromisedInMemoryData_initWithName_client_data_location___block_invo
   {
     [*(a1 + 32) _updateInitWithSeed:a2 notifyDaemon:0];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetWithCompletion:(id)completion
@@ -159,13 +156,12 @@ void __60__IXPromisedInMemoryData_initWithName_client_data_location___block_invo
 
 - (void)resetWithCompletion:(os_log_t)log .cold.1(os_log_t log)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = 136315394;
-  v3 = "[IXPromisedInMemoryData resetWithCompletion:]";
-  v4 = 2112;
-  v5 = 0;
-  _os_log_error_impl(&dword_1DA47A000, log, OS_LOG_TYPE_ERROR, "%s: Resetting an in-memory data promise doesn't make sense. : %@", &v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v1 = 136315394;
+  v2 = "[IXPromisedInMemoryData resetWithCompletion:]";
+  v3 = 2112;
+  v4 = 0;
+  _os_log_error_impl(&dword_1DA47A000, log, OS_LOG_TYPE_ERROR, "%s: Resetting an in-memory data promise doesn't make sense. : %@", &v1, 0x16u);
 }
 
 @end

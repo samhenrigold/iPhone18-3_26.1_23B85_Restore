@@ -72,7 +72,7 @@ LABEL_16:
 
 - (id)decodeModelFromRecord:(id)record externalRecordFields:(id)fields source:(unint64_t)source error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   fieldsCopy = fields;
   modelContainer = [(HMBCloudZone *)self modelContainer];
@@ -144,11 +144,11 @@ LABEL_13:
   {
     v27 = HMFGetLogIdentifier();
     hmbDescription = [recordCopy hmbDescription];
-    v31 = 138543618;
-    v32 = v27;
-    v33 = 2112;
-    v34 = hmbDescription;
-    _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode record %@ from legacy cloud zone.", &v31, 0x16u);
+    v30 = 138543618;
+    v31 = v27;
+    v32 = 2112;
+    v33 = hmbDescription;
+    _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode record %@ from legacy cloud zone.", &v30, 0x16u);
   }
 
   objc_autoreleasePoolPop(v24);
@@ -164,8 +164,6 @@ LABEL_13:
   }
 
 LABEL_19:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

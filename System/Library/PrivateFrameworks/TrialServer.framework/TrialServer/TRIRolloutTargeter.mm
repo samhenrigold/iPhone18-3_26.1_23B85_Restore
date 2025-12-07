@@ -29,7 +29,7 @@
 
 + (id)_targetingErrorWithDeployment:(id)deployment errorType:(id)type details:(id)details
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   deploymentCopy = deployment;
   typeCopy = type;
   detailsCopy = details;
@@ -68,17 +68,17 @@ LABEL_6:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v31 = typeCopy;
+    v30 = typeCopy;
     _os_log_error_impl(&dword_26F567000, v17, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
   }
 
-  v28[0] = *MEMORY[0x277CCA450];
+  v27[0] = *MEMORY[0x277CCA450];
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   v19 = [mainBundle localizedStringForKey:typeCopy value:&stru_287FA0430 table:0];
-  v28[1] = @"logMessage";
-  v29[0] = v19;
-  v29[1] = typeCopy;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+  v27[1] = @"logMessage";
+  v28[0] = v19;
+  v28[1] = typeCopy;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
   v21 = [v20 mutableCopy];
 
   if (deploymentCopy)
@@ -91,8 +91,6 @@ LABEL_6:
   }
 
   v24 = [MEMORY[0x277CCA9B8] errorWithDomain:@"triald" code:1 userInfo:v21];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -152,7 +150,7 @@ void __48__TRIRolloutTargeter__activeRecordForRolloutId___block_invoke(uint64_t 
 - ($A5A652246548B43F8BC05201A1C72A70)_targetRollout:(id)rollout factorPackSetId:(id *)id relatedRampDeployment:(id *)deployment recurseOnRamp:(BOOL)ramp error:(id *)error
 {
   rampCopy = ramp;
-  v124[2] = *MEMORY[0x277D85DE8];
+  v123[2] = *MEMORY[0x277D85DE8];
   rolloutCopy = rollout;
   if (rolloutCopy)
   {
@@ -208,7 +206,7 @@ LABEL_4:
     rolloutId = [rolloutCopy rolloutId];
     v18 = [v16 initWithRolloutId:rolloutId deploymentId:{objc_msgSend(rolloutCopy, "deploymentId")}];
 
-    v111 = v18;
+    v110 = v18;
     if (([rolloutCopy hasAssignment] & 1) == 0)
     {
       v32 = [objc_opt_class() targetingErrorWithDeployment:v18 errorType:@"missing rollout assignment"];
@@ -221,19 +219,19 @@ LABEL_91:
       goto LABEL_92;
     }
 
-    v123[0] = @"SystemCovariates";
+    v122[0] = @"SystemCovariates";
     systemCovariateProvider = [(TRIRolloutTargeter *)self systemCovariateProvider];
-    v123[1] = @"TempValues";
-    v124[0] = systemCovariateProvider;
+    v122[1] = @"TempValues";
+    v123[0] = systemCovariateProvider;
     v20 = [MEMORY[0x277CBEC10] mutableCopy];
-    v124[1] = v20;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v124 forKeys:v123 count:2];
-    v109 = [v21 mutableCopy];
+    v123[1] = v20;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v123 forKeys:v122 count:2];
+    v108 = [v21 mutableCopy];
 
     userCovariateProvider = [(TRIRolloutTargeter *)self userCovariateProvider];
     if (userCovariateProvider)
     {
-      [v109 setObject:userCovariateProvider forKeyedSubscript:@"UserCovariates"];
+      [v108 setObject:userCovariateProvider forKeyedSubscript:@"UserCovariates"];
     }
 
     assignment = [rolloutCopy assignment];
@@ -249,7 +247,7 @@ LABEL_91:
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          LODWORD(v118) = schemaVersion;
+          LODWORD(v117) = schemaVersion;
           _os_log_impl(&dword_26F567000, v25, OS_LOG_TYPE_DEFAULT, "Assigning to default treatment because assignment language schema version %u is incompatible.", buf, 8u);
         }
 
@@ -282,7 +280,7 @@ LABEL_91:
         v39 = objc_autoreleasePoolPush();
         v40 = [MEMORY[0x277CCA9C0] expressionWithFormat:assignmentExpression2];
         objc_autoreleasePoolPop(v39);
-        v107 = v40;
+        v106 = v40;
         v41 = objc_opt_new();
         v42 = [v41 validateExpression:v40 outError:error];
 
@@ -298,17 +296,17 @@ LABEL_91:
           systemCovariateProvider2 = [(TRIRolloutTargeter *)self systemCovariateProvider];
           dictionary = [systemCovariateProvider2 dictionary];
           *buf = 138412290;
-          v118 = dictionary;
+          v117 = dictionary;
           _os_log_impl(&dword_26F567000, v43, OS_LOG_TYPE_DEFAULT, "Using the following covariates for targeting: %@", buf, 0xCu);
         }
 
         v46 = objc_autoreleasePoolPush();
-        v47 = [v40 expressionValueWithObject:v109 context:0];
+        v47 = [v40 expressionValueWithObject:v108 context:0];
         objc_autoreleasePoolPop(v46);
-        v106 = v47;
+        v105 = v47;
         if (!v47)
         {
-          v60 = [objc_opt_class() targetingErrorWithDeployment:v111 errorType:@"assignment expression evaluated to nil"];
+          v60 = [objc_opt_class() targetingErrorWithDeployment:v110 errorType:@"assignment expression evaluated to nil"];
           v61 = *error;
           *error = v60;
 
@@ -316,7 +314,7 @@ LABEL_91:
           if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v118 = v107;
+            v117 = v106;
             _os_log_error_impl(&dword_26F567000, v57, OS_LOG_TYPE_ERROR, "assignment expression evaluated to nil: %@", buf, 0xCu);
           }
 
@@ -331,11 +329,11 @@ LABEL_91:
             v62 = TRILogCategory_Server();
             if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
             {
-              shortDesc = [v111 shortDesc];
+              shortDesc = [v110 shortDesc];
               *buf = 138543618;
-              v118 = shortDesc;
-              v119 = 2114;
-              v120 = @"empty";
+              v117 = shortDesc;
+              v118 = 2114;
+              v119 = @"empty";
               _os_log_impl(&dword_26F567000, v62, OS_LOG_TYPE_DEFAULT, "Rollout %{public}@ is targeted to %{public}@ (enroll with an empty factor pack set).", buf, 0x16u);
             }
 
@@ -349,33 +347,33 @@ LABEL_91:
           if ([v47 caseInsensitiveCompare:@"disenroll"])
           {
             v48 = v47;
-            v116 = -1;
+            v115 = -1;
             v49 = [(__CFString *)v48 componentsSeparatedByString:@":"];
             v50 = v49;
             if ([v49 count] > 2)
             {
 LABEL_30:
-              v105 = v48;
+              v104 = v48;
               v51 = TRILogCategory_Server();
               if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
               {
-                shortDesc2 = [v111 shortDesc];
+                shortDesc2 = [v110 shortDesc];
                 *buf = 138543618;
-                v118 = shortDesc2;
-                v119 = 2114;
-                v120 = v48;
+                v117 = shortDesc2;
+                v118 = 2114;
+                v119 = v48;
                 _os_log_error_impl(&dword_26F567000, v51, OS_LOG_TYPE_ERROR, "Assignment for %{public}@ evaluates to ill-formatted factor pack set id: %{public}@", buf, 0x16u);
               }
 
               v52 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"assignment evaluates to ill-formatted factor pack set id: %@", v48];
-              v53 = [objc_opt_class() _targetingErrorWithDeployment:v111 errorType:v52 details:0];
+              v53 = [objc_opt_class() _targetingErrorWithDeployment:v110 errorType:v52 details:0];
               v54 = *error;
               *error = v53;
 
               v29.var0 = 0;
 LABEL_82:
 
-              v57 = v105;
+              v57 = v104;
               goto LABEL_83;
             }
 
@@ -383,9 +381,9 @@ LABEL_82:
             {
               v66 = MEMORY[0x277D73748];
               v67 = [v49 objectAtIndexedSubscript:1];
-              v68 = [v66 convertFromString:v67 usingBase:10 toI64:&v116];
+              v68 = [v66 convertFromString:v67 usingBase:10 toI64:&v115];
 
-              if (v116 >> 31)
+              if (v115 >> 31)
               {
                 v69 = 0;
               }
@@ -401,20 +399,20 @@ LABEL_82:
               }
 
               [v50 objectAtIndexedSubscript:0];
-              v105 = v70 = v48;
+              v104 = v70 = v48;
             }
 
             else
             {
               v70 = TRILogCategory_Server();
-              v105 = v48;
+              v104 = v48;
               if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
               {
-                shortDesc3 = [v111 shortDesc];
+                shortDesc3 = [v110 shortDesc];
                 *buf = 138543618;
-                v118 = shortDesc3;
-                v119 = 2114;
-                v120 = v48;
+                v117 = shortDesc3;
+                v118 = 2114;
+                v119 = v48;
                 _os_log_impl(&dword_26F567000, v70, OS_LOG_TYPE_DEFAULT, "Assignment for %{public}@ evaluates to legacy-format factor pack set id: %{public}@", buf, 0x16u);
               }
             }
@@ -426,7 +424,7 @@ LABEL_76:
               if (v50)
               {
                 v91 = [TRIRuleQualifiedFactorPackSetId alloc];
-                v92 = [(TRIRuleQualifiedFactorPackSetId *)v91 initWithIdent:v50 targetingRuleIndex:v116];
+                v92 = [(TRIRuleQualifiedFactorPackSetId *)v91 initWithIdent:v50 targetingRuleIndex:v115];
                 v93 = *id;
                 *id = v92;
 
@@ -434,13 +432,13 @@ LABEL_76:
                 if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
                 {
                   v95 = *id;
-                  shortDesc4 = [v111 shortDesc];
+                  shortDesc4 = [v110 shortDesc];
                   *buf = 138543874;
-                  v118 = v95;
-                  v119 = 2114;
-                  v120 = shortDesc4;
-                  v121 = 2114;
-                  v122 = assignmentExpression2;
+                  v117 = v95;
+                  v118 = 2114;
+                  v119 = shortDesc4;
+                  v120 = 2114;
+                  v121 = assignmentExpression2;
                   _os_log_impl(&dword_26F567000, v94, OS_LOG_TYPE_DEFAULT, "Targeting factor pack set id %{public}@ for rollout %{public}@ with assignment %{public}@.", buf, 0x20u);
                 }
 
@@ -449,7 +447,7 @@ LABEL_76:
 
               else
               {
-                v97 = [objc_opt_class() targetingErrorWithDeployment:v111 errorType:@"targeted factor pack set id is not a suitable identifier"];
+                v97 = [objc_opt_class() targetingErrorWithDeployment:v110 errorType:@"targeted factor pack set id is not a suitable identifier"];
                 v29.var0 = 0;
                 v94 = *error;
                 *error = v97;
@@ -465,7 +463,7 @@ LABEL_76:
             if (v50)
             {
               deployment = [v50 deployment];
-              v78 = [deployment isEqualToDeployment:v111];
+              v78 = [deployment isEqualToDeployment:v110];
 
               v76 = v50;
               if ((v78 & 1) == 0)
@@ -489,20 +487,20 @@ LABEL_74:
                   v83 = TRILogCategory_Server();
                   if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
                   {
-                    shortDesc5 = [v111 shortDesc];
+                    shortDesc5 = [v110 shortDesc];
                     rampId4 = [rolloutCopy rampId];
                     *buf = 138543618;
-                    v118 = shortDesc5;
-                    v119 = 2114;
-                    v120 = rampId4;
+                    v117 = shortDesc5;
+                    v118 = 2114;
+                    v119 = rampId4;
                     _os_log_impl(&dword_26F567000, v83, OS_LOG_TYPE_DEFAULT, "Rollout %{public}@ targeted successfully, but has the same rampId (%{public}@) as the current active deployment. Retargeting the active deployment.", buf, 0x16u);
                   }
 
                   obj = 0;
-                  v115 = 0;
+                  v114 = 0;
                   artifact = [v50 artifact];
                   rollout = [artifact rollout];
-                  v88.var0 = [(TRIRolloutTargeter *)self _targetRollout:rollout factorPackSetId:&obj relatedRampDeployment:0 recurseOnRamp:0 error:&v115];
+                  v88.var0 = [(TRIRolloutTargeter *)self _targetRollout:rollout factorPackSetId:&obj relatedRampDeployment:0 recurseOnRamp:0 error:&v114];
 
                   if (v88.var0 - 2 >= 3 && v88.var0)
                   {
@@ -530,9 +528,9 @@ LABEL_74:
                       shortDesc6 = [deployment3 shortDesc];
                       v102 = off_279DE3A20[v88.var0];
                       *buf = 138543618;
-                      v118 = shortDesc6;
-                      v119 = 2114;
-                      v120 = v102;
+                      v117 = shortDesc6;
+                      v118 = 2114;
+                      v119 = v102;
                       _os_log_impl(&dword_26F567000, v99, OS_LOG_TYPE_DEFAULT, "Retargeting of prior ramp deployment %{public}@ resulted in %{public}@; taking the new deployment instead.", buf, 0x16u);
                     }
                   }
@@ -554,11 +552,11 @@ LABEL_75:
             goto LABEL_83;
           }
 
-          shortDesc7 = [v111 shortDesc];
+          shortDesc7 = [v110 shortDesc];
           *buf = 138543618;
-          v118 = shortDesc7;
-          v119 = 2114;
-          v120 = @"disenroll";
+          v117 = shortDesc7;
+          v118 = 2114;
+          v119 = @"disenroll";
           v59 = v57;
           _os_log_impl(&dword_26F567000, v57, OS_LOG_TYPE_DEFAULT, "Rollout %{public}@ is targeted to %{public}@ (emergency disenroll!!!).", buf, 0x16u);
 
@@ -574,11 +572,11 @@ LABEL_75:
             goto LABEL_83;
           }
 
-          shortDesc8 = [v111 shortDesc];
+          shortDesc8 = [v110 shortDesc];
           *buf = 138543618;
-          v118 = shortDesc8;
-          v119 = 2114;
-          v120 = @"no-op";
+          v117 = shortDesc8;
+          v118 = 2114;
+          v119 = @"no-op";
           v59 = v57;
           _os_log_impl(&dword_26F567000, v57, OS_LOG_TYPE_DEFAULT, "Rollout %{public}@ is targeted to %{public}@ (ignoring the deployment).", buf, 0x16u);
 
@@ -589,7 +587,7 @@ LABEL_75:
 LABEL_83:
 
 LABEL_89:
-        v28 = v107;
+        v28 = v106;
         goto LABEL_90;
       }
     }
@@ -598,7 +596,7 @@ LABEL_89:
     {
     }
 
-    v55 = [objc_opt_class() targetingErrorWithDeployment:v111 errorType:@"assignment string is missing or empty"];
+    v55 = [objc_opt_class() targetingErrorWithDeployment:v110 errorType:@"assignment string is missing or empty"];
     v56 = *error;
     *error = v55;
 
@@ -618,7 +616,6 @@ LABEL_90:
 LABEL_92:
   objc_autoreleasePoolPop(context);
 
-  v103 = *MEMORY[0x277D85DE8];
   return v29;
 }
 

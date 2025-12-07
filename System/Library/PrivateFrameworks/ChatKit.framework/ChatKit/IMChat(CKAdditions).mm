@@ -3,9 +3,9 @@
 + (id)waterMarkTimeCache;
 - (id)__ck_watermarkDate;
 - (uint64_t)__ck_sendReadReceipts;
-- (uint64_t)__ck_watermarkMessageID;
 - (void)__ck_saveWatermark;
 - (void)__ck_updateWatermarkToMessageID:()CKAdditions date:;
+- (void)__ck_watermarkMessageID;
 @end
 
 @implementation IMChat(CKAdditions)
@@ -50,12 +50,12 @@
     +[IMChat(CKAdditions) waterMarkMessageIDCache];
   }
 
-  v1 = waterMarkMessageIDCache__waterMarkMessageIDCache;
+  v2 = waterMarkMessageIDCache__waterMarkMessageIDCache;
 
-  return v1;
+  return v2;
 }
 
-- (uint64_t)__ck_watermarkMessageID
+- (void)__ck_watermarkMessageID
 {
   waterMarkMessageIDCache = [objc_opt_class() waterMarkMessageIDCache];
   guid = [self guid];

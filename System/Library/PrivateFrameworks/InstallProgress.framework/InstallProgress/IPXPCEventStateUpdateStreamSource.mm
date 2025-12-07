@@ -28,14 +28,14 @@
 
 - (void)resume
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   self->_resumed = 1;
-  v3 = _IPServerLog();
+  v3 = _IPServerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     streamName = self->_streamName;
     *buf = 138412290;
-    v12 = streamName;
+    v11 = streamName;
     _os_log_impl(&dword_254C69000, v3, OS_LOG_TYPE_DEFAULT, "Resuming event source for %@, setting handlers", buf, 0xCu);
   }
 
@@ -49,12 +49,11 @@
   handler[1] = 3221225472;
   handler[2] = __43__IPXPCEventStateUpdateStreamSource_resume__block_invoke;
   handler[3] = &unk_2797B2008;
-  objc_copyWeak(&v10, buf);
+  objc_copyWeak(&v9, buf);
   xpc_set_event_stream_handler(uTF8String, queue, handler);
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
 
   objc_destroyWeak(buf);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __43__IPXPCEventStateUpdateStreamSource_resume__block_invoke(uint64_t a1, void *a2)
@@ -66,53 +65,54 @@ void __43__IPXPCEventStateUpdateStreamSource_resume__block_invoke(uint64_t a1, v
 
 - (void)_queue_handleEvent:(id)event
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dispatch_assert_queue_V2(self->_queue);
-  v5 = _IPClientLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _IPClientLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = IPXPCCopyDescription(eventCopy);
+    v7 = IPXPCCopyDescription(eventCopy);
     *buf = 138412290;
-    v15 = v6;
-    _os_log_impl(&dword_254C69000, v5, OS_LOG_TYPE_DEFAULT, "event: %@", buf, 0xCu);
+    v17 = v7;
+    _os_log_impl(&dword_254C69000, v6, OS_LOG_TYPE_DEFAULT, "event: %@", buf, 0xCu);
   }
 
-  if (MEMORY[0x259C29850](eventCopy) == MEMORY[0x277D86468])
+  v8 = MEMORY[0x259C29850](eventCopy);
+  if (v8 == MEMORY[0x277D86468])
   {
     if (xpc_dictionary_get_uint64(eventCopy, [@"type" UTF8String]) == -1)
     {
       reply = xpc_dictionary_create_reply(eventCopy);
-      xpc_dictionary_send_reply();
-      v11 = _IPClientLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = xpc_dictionary_send_reply();
+      v14 = _IPClientLog(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_254C69000, v11, OS_LOG_TYPE_DEFAULT, "Sent reply message to ping event.", buf, 2u);
+        _os_log_impl(&dword_254C69000, v14, OS_LOG_TYPE_DEFAULT, "Sent reply message to ping event.", buf, 2u);
       }
     }
 
     else
     {
-      v13 = 0;
-      v8 = [[IPStateUpdateMessage alloc] initWithXPCDictionaryRepresentation:eventCopy error:&v13];
-      reply = v13;
-      v9 = _IPClientLog();
-      WeakRetained = v9;
-      if (v8)
+      v15 = 0;
+      v10 = [[IPStateUpdateMessage alloc] initWithXPCDictionaryRepresentation:eventCopy error:&v15];
+      reply = v15;
+      v11 = _IPClientLog(reply);
+      WeakRetained = v11;
+      if (v10)
       {
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v15 = v8;
+          v17 = v10;
           _os_log_impl(&dword_254C69000, WeakRetained, OS_LOG_TYPE_DEFAULT, "handling: %@", buf, 0xCu);
         }
 
         WeakRetained = objc_loadWeakRetained(&self->_delegate);
-        [WeakRetained stateUpdateStreamSource:self updateMessageReceived:v8];
+        [WeakRetained stateUpdateStreamSource:self updateMessageReceived:v10];
       }
 
-      else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [IPXPCEventStateUpdateStreamSource _queue_handleEvent:];
       }
@@ -121,14 +121,12 @@ void __43__IPXPCEventStateUpdateStreamSource_resume__block_invoke(uint64_t a1, v
 
   else
   {
-    reply = _IPClientLog();
+    reply = _IPClientLog(v8);
     if (os_log_type_enabled(reply, OS_LOG_TYPE_ERROR))
     {
       [IPXPCEventStateUpdateStreamSource _queue_handleEvent:];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (IPStateUpdateStreamSourceDelegate)delegate
@@ -136,14 +134,6 @@ void __43__IPXPCEventStateUpdateStreamSource_resume__block_invoke(uint64_t a1, v
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-- (void)_queue_handleEvent:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

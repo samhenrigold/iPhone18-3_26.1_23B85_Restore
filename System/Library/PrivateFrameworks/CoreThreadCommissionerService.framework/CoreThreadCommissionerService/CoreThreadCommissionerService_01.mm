@@ -140,16 +140,16 @@ void sub_1000248D8(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_100024F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100024F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100025360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100025360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -331,10 +331,11 @@ LABEL_18:
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_100026548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_100026548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
+  va_start(va, a42);
   _Block_object_dispose(&a37, 8);
-  _Block_object_dispose(&a43, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3164,9 +3165,9 @@ LABEL_270:
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_10002EBD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002EBD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3189,16 +3190,16 @@ int64_t sub_100030358(id a1, id a2, id a3)
   return v7;
 }
 
-void sub_1000307CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000307CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100030D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100030D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4979,13 +4980,6 @@ void sub_1000422F8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100042368(unsigned __int8 *a1)
-{
-  v6 = *a1;
-  sub_100008438();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-}
-
 void sub_1000423F4()
 {
   sub_10003B560();
@@ -5321,24 +5315,19 @@ void sub_10004932C(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x26u);
 }
 
-void sub_10004934C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10004934C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
-}
-
-uint64_t *sub_100049368@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
 void sub_100049388()
 {
+  v6 = 136315650;
   sub_100008428();
   sub_10003B4BC();
-  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d can not parse dictionary data for server : %@", v2, v3, v4, v5, 2u);
+  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d can not parse dictionary data for server : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_100049404(void *a1)
@@ -5371,24 +5360,25 @@ void sub_100049568(void *a1)
 
 void sub_10004962C()
 {
+  v6 = 136315650;
   sub_100008428();
   sub_10003B4BC();
-  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d network name nsstring conversion failure for server : %@, continue to next network", v2, v3, v4, v5, 2u);
+  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d network name nsstring conversion failure for server : %@, continue to next network", v2, v3, v4, v5, v6);
 }
 
-void sub_1000496A8(unsigned int *a1)
+void sub_1000496A8()
 {
-  v1 = *a1;
   sub_10004931C();
   sub_100008438();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void sub_100049738()
 {
+  v6 = 136315650;
   sub_100008428();
   sub_10003B4BC();
-  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d No text record data available for the server : %@, continue to next network, retry flag is on!", v2, v3, v4, v5, 2u);
+  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d No text record data available for the server : %@, continue to next network, retry flag is on!", v2, v3, v4, v5, v6);
 }
 
 void sub_1000497B4()
@@ -5400,9 +5390,10 @@ void sub_1000497B4()
 
 void sub_100049830()
 {
+  v6 = 136315650;
   sub_100008428();
   sub_10003B4BC();
-  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d can not parse dictionary data for server : %@", v2, v3, v4, v5, 2u);
+  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d can not parse dictionary data for server : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000498AC(void *a1, void *a2)
@@ -5414,99 +5405,104 @@ void sub_1000498AC(void *a1, void *a2)
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x26u);
 }
 
-void sub_10004996C(uint64_t *a1)
+void sub_10004996C()
 {
-  sub_100049368(a1, __stack_chk_guard);
-  v3 = 136315906;
+  sub_100049368(__stack_chk_guard);
+  v2 = 136315906;
   sub_10004931C();
   sub_100049300();
-  sub_10004932C(&_mh_execute_header, v1, v2, "%s : %d: Network to find :%@ does not match with mdns record :%@", v3);
+  sub_10004932C(&_mh_execute_header, v0, v1, "%s : %d: Network to find :%@ does not match with mdns record :%@", v2);
 }
 
 void sub_1000499E8()
 {
+  v6 = 136315650;
   sub_100008428();
   sub_10003B4BC();
-  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d network name nsstring conversion failure for server : %@, continue to next network", v2, v3, v4, v5, 2u);
+  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d network name nsstring conversion failure for server : %@, continue to next network", v2, v3, v4, v5, v6);
 }
 
-void sub_100049A64(uint64_t *a1)
+void sub_100049A64()
 {
-  sub_100049368(a1, __stack_chk_guard);
-  v3 = 136315906;
+  sub_100049368(__stack_chk_guard);
+  v2 = 136315906;
   sub_10004931C();
   sub_100049300();
-  sub_10004932C(&_mh_execute_header, v1, v2, "%s : %d: Xpanid to find :%@ does not match with mdns record xpanid :%@", v3);
+  sub_10004932C(&_mh_execute_header, v0, v1, "%s : %d: Xpanid to find :%@ does not match with mdns record xpanid :%@", v2);
 }
 
-void sub_100049AE0(uint64_t *a1)
+void sub_100049AE0()
 {
-  sub_100049368(a1, __stack_chk_guard);
-  v3 = 136315906;
+  sub_100049368(__stack_chk_guard);
+  v2 = 136315906;
   sub_10004931C();
   sub_100049300();
-  sub_10004932C(&_mh_execute_header, v1, v2, "%s : %d: BaID to find :%@ does not match with mdns record BaID :%@", v3);
+  sub_10004932C(&_mh_execute_header, v0, v1, "%s : %d: BaID to find :%@ does not match with mdns record BaID :%@", v2);
 }
 
-void sub_100049B5C(uint64_t *a1)
+void sub_100049B5C()
 {
-  sub_100049368(a1, __stack_chk_guard);
-  v3 = 136315906;
+  sub_100049368(__stack_chk_guard);
+  v2 = 136315906;
   sub_10004931C();
   sub_100049300();
-  sub_10004932C(&_mh_execute_header, v1, v2, "%s : %d: Xpanid to find :%@ does not match with mdns record xpanid :%@", v3);
+  sub_10004932C(&_mh_execute_header, v0, v1, "%s : %d: Xpanid to find :%@ does not match with mdns record xpanid :%@", v2);
 }
 
 void sub_100049BD8()
 {
+  v6 = 136315650;
   sub_100008428();
   sub_10003B4BC();
-  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d hex string conversion to nsdata failure for server : %@", v2, v3, v4, v5, 2u);
+  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d hex string conversion to nsdata failure for server : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_100049C54()
 {
+  v6 = 136315650;
   sub_100008428();
   sub_10003B4BC();
-  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d xpanid nsstring conversion failure, server : %@", v2, v3, v4, v5, 2u);
+  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d xpanid nsstring conversion failure, server : %@", v2, v3, v4, v5, v6);
 }
 
-void sub_100049CD0(uint64_t *a1)
+void sub_100049CD0()
 {
-  sub_100049368(a1, __stack_chk_guard);
-  v3 = 136315906;
+  sub_100049368(__stack_chk_guard);
+  v2 = 136315906;
   sub_10004931C();
   sub_100049300();
-  sub_10004932C(&_mh_execute_header, v1, v2, "%s : %d: BaID to find :%@ does not match with mdns record BaID :%@", v3);
+  sub_10004932C(&_mh_execute_header, v0, v1, "%s : %d: BaID to find :%@ does not match with mdns record BaID :%@", v2);
 }
 
 void sub_100049D4C()
 {
+  v6 = 136315650;
   sub_100008428();
   sub_10003B4BC();
-  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d hex string conversion to nsdata failure for server : %@, continue to next network", v2, v3, v4, v5, 2u);
+  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d hex string conversion to nsdata failure for server : %@, continue to next network", v2, v3, v4, v5, v6);
 }
 
 void sub_100049DC8()
 {
+  v6 = 136315650;
   sub_100008428();
   sub_10003B4BC();
-  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d xpanid and baid nsstring conversion failure, server : %@, continue to next network", v2, v3, v4, v5, 2u);
+  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d xpanid and baid nsstring conversion failure, server : %@, continue to next network", v2, v3, v4, v5, v6);
 }
 
-void sub_100049E44(unsigned int *a1)
+void sub_100049E44()
 {
-  v1 = *a1;
   sub_10004931C();
   sub_100008438();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void sub_100049ED4()
 {
+  v6 = 136315650;
   sub_100008428();
   sub_10003B4BC();
-  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d No text record data available for the server : %@, continue to next network, retry flag is on!", v2, v3, v4, v5, 2u);
+  sub_10004934C(&_mh_execute_header, v0, v1, "%s : %d No text record data available for the server : %@, continue to next network, retry flag is on!", v2, v3, v4, v5, v6);
 }
 
 void sub_100049F50()
@@ -6019,37 +6015,7 @@ void sub_10004F8C0(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
   v6 = v5;
-  if (!v5)
-  {
-    goto LABEL_8;
-  }
-
-  if (a3)
-  {
-    goto LABEL_8;
-  }
-
-  v7 = [v5 credentialsDataSet];
-  if (!v7)
-  {
-    goto LABEL_8;
-  }
-
-  v8 = v7;
-  v9 = [v6 credentialsDataSet];
-  v10 = [v9 dataSetArray];
-
-  if (!v10)
-  {
-    goto LABEL_8;
-  }
-
-  v11 = *(a1 + 32);
-  v12 = [v6 credentialsDataSet];
-  v13 = [v12 dataSetArray];
-  LODWORD(v11) = [v11 isEqualToData:v13];
-
-  if (v11)
+  if (v5 && !a3 && ([v5 credentialsDataSet], (v7 = objc_claimAutoreleasedReturnValue()) != 0) && (v8 = v7, objc_msgSend(v6, "credentialsDataSet"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "dataSetArray"), v10 = objc_claimAutoreleasedReturnValue(), v10, v9, v8, v10) && (v11 = *(a1 + 32), objc_msgSend(v6, "credentialsDataSet"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "dataSetArray"), v13 = objc_claimAutoreleasedReturnValue(), LODWORD(v11) = objc_msgSend(v11, "isEqualToData:", v13), v13, v12, v11))
   {
     v14 = sub_10001B194(1);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
@@ -6064,7 +6030,6 @@ void sub_10004F8C0(uint64_t a1, void *a2, uint64_t a3)
 
   else
   {
-LABEL_8:
     v14 = sub_10001B194(1);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
@@ -6386,12 +6351,11 @@ void sub_1000547D0()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_100054854(unsigned __int8 *a1)
+void sub_100054854()
 {
-  v1 = *a1;
   sub_10005357C();
   sub_100008438();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_1000548D4()
@@ -6520,12 +6484,11 @@ void sub_100055204()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_100055288(unsigned __int8 *a1)
+void sub_100055288()
 {
-  v1 = *a1;
   sub_10005357C();
   sub_100008438();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_100055308()

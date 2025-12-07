@@ -26,7 +26,7 @@
 - (void)processChangedProperty:(unint64_t)property
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for CRLFileRep();
+  v5.super_class = type metadata accessor for CRLFileRep(0);
   v4 = v5.receiver;
   [(CRLCanvasRep *)&v5 processChangedProperty:property];
   if (property == 53)
@@ -77,7 +77,7 @@
   type metadata accessor for CRLBoardItem(0);
   v3 = swift_isaMask & *swift_dynamicCastClassUnconditional();
   v4 = (*(v3 + 624))();
-  v5 = swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
   if (v4)
   {
     sub_10125C4B0(v5);

@@ -6,6 +6,8 @@
 - (void)_hostApplicationStateDidChange:(unsigned int)change;
 - (void)_hostDidTerminate;
 - (void)setRequestRecord:(id)record completion:(id)completion;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HKHealthPrivacyServiceRecalibrateEstimatesViewController
@@ -100,6 +102,35 @@
 
   v4 = [NSError errorWithDomain:HKErrorDomain code:5 userInfo:0];
   [(HKHealthPrivacyServiceRecalibrateEstimatesViewController *)self _finishRequestWithError:v4];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = HKHealthPrivacyServiceRecalibrateEstimatesViewController;
+  [(HKHealthPrivacyServiceRecalibrateEstimatesViewController *)&v6 viewWillAppear:appear];
+  alertViewController = self->_alertViewController;
+  if (alertViewController)
+  {
+    presentingViewController = [(UIAlertController *)alertViewController presentingViewController];
+
+    if (!presentingViewController)
+    {
+      [(HKHealthPrivacyServiceRecalibrateEstimatesViewController *)self presentViewController:self->_alertViewController animated:1 completion:0];
+    }
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = HKHealthPrivacyServiceRecalibrateEstimatesViewController;
+  [(HKHealthPrivacyServiceRecalibrateEstimatesViewController *)&v6 viewDidDisappear:disappear];
+  transactionError = self->_transactionError;
+  self->_transactionError = 0;
+  v5 = transactionError;
+
+  (*(self->_requestCompletion + 2))(self->_requestCompletion, v5 == 0, v5);
 }
 
 - (void)_configureAlertControllerWithSourceName:(id)name sampleType:(id)type effectiveDate:(id)date

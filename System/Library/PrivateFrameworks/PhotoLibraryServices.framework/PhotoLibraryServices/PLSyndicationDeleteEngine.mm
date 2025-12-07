@@ -72,12 +72,12 @@ uint64_t __78__PLSyndicationDeleteEngine_processDeletesForBundleID_identifiers_c
     v10 = 138543618;
     v11 = logPrefix;
     v12 = 2048;
-    v13 = [identifiersCopy count];
+    v13 = objc_msgSend_count(identifiersCopy);
     _os_log_impl(&dword_19BF1F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ Going to delete %lu items", &v10, 0x16u);
   }
 
   [(PLSyndicationDeleteEngine *)self _processDeletesForBundleID:dCopy unprefixedIdentifiers:identifiersCopy];
-  if ([dCopy isEqualToString:*MEMORY[0x1E69BFF00]])
+  if (objc_msgSend_isEqualToString_(dCopy))
   {
     [(PLSyndicationDeleteEngine *)self _deleteConversationWithBundleID:dCopy syndicationIdentifiers:identifiersCopy];
   }
@@ -262,8 +262,8 @@ void __101__PLSyndicationDeleteEngine__deleteSyndicationAssetsWithBundleID_syndi
   v13 = PLSyndicationGetLog();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v14 = [v11 count];
-    v15 = [v10 count];
+    v14 = objc_msgSend_count(v11);
+    v15 = objc_msgSend_count(v10);
     *buf = 134218240;
     v24 = v14;
     v25 = 2048;

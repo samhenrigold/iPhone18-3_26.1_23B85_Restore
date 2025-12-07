@@ -146,26 +146,26 @@
 
 - (id)formattedDescription:(unint64_t)description withPrintedTypes:(id)types
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v7 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v8 = MEMORY[0x1E696AEC0];
-  v13 = v7;
-  v14 = @"DataType =";
-  v15 = MTLDataTypeString(self->_dataType);
-  v16 = v7;
-  v17 = @"ArrayLength =";
-  v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(self + 4)];
-  v19 = v7;
-  v20 = @"Stride =";
-  v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(self + 5)];
-  v22 = v7;
-  v23 = @"ArgumentIndexStride =";
-  v24 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_argumentIndexStride];
-  v25 = v7;
+  v12 = v7;
+  v13 = @"DataType =";
+  v14 = MTLDataTypeString(self->_dataType);
+  v15 = v7;
+  v16 = @"ArrayLength =";
+  v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(self + 4)];
+  v18 = v7;
+  v19 = @"Stride =";
+  v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(self + 5)];
+  v21 = v7;
+  v22 = @"ArgumentIndexStride =";
+  v23 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_argumentIndexStride];
+  v24 = v7;
   elementTypeInfo = self->_elementTypeInfo;
   if (elementTypeInfo)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ElementTypeInfo = %@", -[MTLType formattedDescription:withPrintedTypes:](elementTypeInfo, "formattedDescription:withPrintedTypes:", description + 4, types), v13, v14];
+    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ElementTypeInfo = %@", -[MTLType formattedDescription:withPrintedTypes:](elementTypeInfo, "formattedDescription:withPrintedTypes:", description + 4, types), v12, v13];
   }
 
   else
@@ -173,10 +173,8 @@
     v10 = MTLDataTypeString(self->_elementType);
   }
 
-  v26 = v10;
-  result = [v8 stringWithFormat:@"%@", objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v13, 14), "componentsJoinedByString:", @" "];
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  v25 = v10;
+  return [v8 stringWithFormat:@"%@", objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v12, 14), "componentsJoinedByString:", @" "];
 }
 
 - (BOOL)isEqual:(id)equal

@@ -1,13 +1,13 @@
-id _StatusKitAgentMainLog()
+id _StatusKitAgentMainLog(uint64_t a1)
 {
   if (_StatusKitAgentMainLog_onceToken != -1)
   {
     _StatusKitAgentMainLog_cold_1();
   }
 
-  v1 = _StatusKitAgentMainLog__logger;
+  v2 = _StatusKitAgentMainLog__logger;
 
-  return v1;
+  return v2;
 }
 
 void _HandleSignal(int a1)
@@ -22,40 +22,41 @@ void _HandleSignal(int a1)
 
 int main(int argc, const char **argv, const char **envp)
 {
-  if ((_set_user_dir_suffix() & 1) == 0)
+  v3 = _set_user_dir_suffix();
+  if ((v3 & 1) == 0)
   {
-    v14 = _StatusKitAgentMainLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v15 = _StatusKitAgentMainLog(v3);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      main_cold_1(v14);
+      main_cold_1(v15);
     }
 
     exit(1);
   }
 
   _InitSandbox();
-  v3 = objc_autoreleasePoolPush();
-  v4 = NSTemporaryDirectory();
+  v4 = objc_autoreleasePoolPush();
+  v5 = NSTemporaryDirectory();
   if (_SetupSignalHandler_onceToken != -1)
   {
     main_cold_2();
   }
 
-  v5 = _StatusKitAgentMainLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _StatusKitAgentMainLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v15 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "StatusKitAgent launched", v15, 2u);
+    *v16 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "StatusKitAgent launched", v16, 2u);
   }
 
   NSLog(@"Hello, World!");
-  v6 = objc_autoreleasePoolPush();
-  v7 = +[SKAStatusServer sharedInstance];
+  v7 = objc_autoreleasePoolPush();
+  v8 = +[SKAStatusServer sharedInstance];
   if (_os_feature_enabled_impl())
   {
-    v8 = [[SKALocalStatusServerObjC alloc] initWithIDSDeviceProvider:v7];
-    v9 = gLocalStatusServer;
-    gLocalStatusServer = v8;
+    v9 = [[SKALocalStatusServerObjC alloc] initWithIDSDeviceProvider:v8];
+    v10 = gLocalStatusServer;
+    gLocalStatusServer = v9;
   }
 
   else
@@ -63,16 +64,16 @@ int main(int argc, const char **argv, const char **envp)
     NSLog(@"LocalStatusKit not enabled");
   }
 
-  objc_autoreleasePoolPop(v6);
-  objc_autoreleasePoolPop(v3);
-  if (v7 | gLocalStatusServer)
+  objc_autoreleasePoolPop(v7);
+  objc_autoreleasePoolPop(v4);
+  if (v8 | gLocalStatusServer)
   {
-    v10 = +[NSRunLoop currentRunLoop];
-    [v10 run];
+    v11 = +[NSRunLoop currentRunLoop];
+    [v11 run];
   }
 
-  v11 = objc_opt_self();
-  v12 = gLocalStatusServer;
+  v12 = objc_opt_self();
+  v13 = gLocalStatusServer;
   gLocalStatusServer = 0;
 
   return 0;
@@ -89,7 +90,7 @@ void main_cold_1(NSObject *a1)
 void main_cold_3(void *a1)
 {
   v1 = objc_begin_catch(a1);
-  v2 = _StatusKitAgentMainLog();
+  v2 = _StatusKitAgentMainLog(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     v3 = 138412290;

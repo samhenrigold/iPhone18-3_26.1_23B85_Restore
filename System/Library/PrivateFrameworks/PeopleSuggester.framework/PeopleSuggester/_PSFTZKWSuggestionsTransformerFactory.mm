@@ -36,14 +36,14 @@
 - (id)formatWithSuggestion:(id)suggestion bundleIdsForGroupMatching:(id)matching checkForMessagesGroupIdentifier:(BOOL)identifier
 {
   identifierCopy = identifier;
-  v92[1] = *MEMORY[0x1E69E9840];
+  v91[1] = *MEMORY[0x1E69E9840];
   suggestionCopy = suggestion;
   matchingCopy = matching;
   if (!suggestionCopy)
   {
-    v92[0] = 0;
+    v91[0] = 0;
     v12 = MEMORY[0x1E695DEC8];
-    v13 = v92;
+    v13 = v91;
     goto LABEL_14;
   }
 
@@ -55,9 +55,9 @@
       [_PSFTZKWSuggestionsTransformerFactory formatWithSuggestion:v14 bundleIdsForGroupMatching:? checkForMessagesGroupIdentifier:?];
     }
 
-    v91 = suggestionCopy;
+    v90 = suggestionCopy;
     v12 = MEMORY[0x1E695DEC8];
-    v13 = &v91;
+    v13 = &v90;
     goto LABEL_14;
   }
 
@@ -66,11 +66,11 @@
 
   if (v11 <= 1)
   {
-    v90 = suggestionCopy;
+    v89 = suggestionCopy;
     v12 = MEMORY[0x1E695DEC8];
-    v13 = &v90;
+    v13 = &v89;
 LABEL_14:
-    v71 = [v12 arrayWithObjects:v13 count:1];
+    v70 = [v12 arrayWithObjects:v13 count:1];
     goto LABEL_15;
   }
 
@@ -84,9 +84,9 @@ LABEL_14:
     {
       if (!identifierCopy || ([suggestionCopy messagesGroupIdentifier], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "length"), v18, v19))
       {
-        v89 = suggestionCopy;
+        v88 = suggestionCopy;
         v12 = MEMORY[0x1E695DEC8];
-        v13 = &v89;
+        v13 = &v88;
         goto LABEL_14;
       }
     }
@@ -96,56 +96,56 @@ LABEL_14:
   {
   }
 
-  v22 = objc_opt_new();
+  v21 = objc_opt_new();
+  v75 = 0u;
   v76 = 0u;
   v77 = 0u;
   v78 = 0u;
-  v79 = 0u;
   obj = [suggestionCopy recipients];
-  v23 = [obj countByEnumeratingWithState:&v76 objects:v88 count:16];
-  if (v23)
+  v22 = [obj countByEnumeratingWithState:&v75 objects:v87 count:16];
+  if (v22)
   {
-    v24 = v23;
-    v25 = *v77;
+    v23 = v22;
+    v24 = *v76;
     while (2)
     {
-      for (i = 0; i != v24; ++i)
+      for (i = 0; i != v23; ++i)
       {
-        if (*v77 != v25)
+        if (*v76 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = *(*(&v76 + 1) + 8 * i);
-        contact = [v27 contact];
+        v26 = *(*(&v75 + 1) + 8 * i);
+        contact = [v26 contact];
         if (contact)
         {
-          contact2 = [v27 contact];
+          contact2 = [v26 contact];
           identifier = [contact2 identifier];
         }
 
         else
         {
-          identifier = [v27 handle];
+          identifier = [v26 handle];
         }
 
         if (!identifier)
         {
-          v35 = +[_PSLogging generalChannel];
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          v34 = +[_PSLogging generalChannel];
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
-            [_PSFTZKWSuggestionsTransformerFactory formatWithSuggestion:suggestionCopy bundleIdsForGroupMatching:v35 checkForMessagesGroupIdentifier:?];
+            [_PSFTZKWSuggestionsTransformerFactory formatWithSuggestion:suggestionCopy bundleIdsForGroupMatching:v34 checkForMessagesGroupIdentifier:?];
           }
 
-          v71 = MEMORY[0x1E695E0F0];
+          v70 = MEMORY[0x1E695E0F0];
           goto LABEL_54;
         }
 
-        [v22 addObject:identifier];
+        [v21 addObject:identifier];
       }
 
-      v24 = [obj countByEnumeratingWithState:&v76 objects:v88 count:16];
-      if (v24)
+      v23 = [obj countByEnumeratingWithState:&v75 objects:v87 count:16];
+      if (v23)
       {
         continue;
       }
@@ -158,128 +158,126 @@ LABEL_14:
   interactionStore = [(_PSFTZKWSuggestionsTransformerFactory *)self interactionStore];
   obj = getMeContact;
   identifier2 = [getMeContact identifier];
-  v34 = [_PSInteractionStoreUtils mostRecentInteractionWithExactMatchingIdentifiers:v22 store:interactionStore bundleIds:matchingCopy meContactIdentifier:identifier2];
+  v33 = [_PSInteractionStoreUtils mostRecentInteractionWithExactMatchingIdentifiers:v21 store:interactionStore bundleIds:matchingCopy meContactIdentifier:identifier2];
 
-  v35 = v34;
-  v36 = +[_PSLogging generalChannel];
-  v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
-  if (v34)
+  v34 = v33;
+  v35 = +[_PSLogging generalChannel];
+  v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
+  if (v33)
   {
-    v69 = v22;
-    if (v37)
+    v68 = v21;
+    if (v36)
     {
       *buf = 138412546;
-      v82 = v34;
-      v83 = 2112;
-      v84 = suggestionCopy;
-      _os_log_impl(&dword_1B5ED1000, v36, OS_LOG_TYPE_DEFAULT, "Found group interaction mapping %@ for %@", buf, 0x16u);
+      v81 = v33;
+      v82 = 2112;
+      v83 = suggestionCopy;
+      _os_log_impl(&dword_1B5ED1000, v35, OS_LOG_TYPE_DEFAULT, "Found group interaction mapping %@ for %@", buf, 0x16u);
     }
 
-    v38 = [_PSInteractionStoreUtils conversationIdFromInteraction:v34 bundleIds:matchingCopy];
-    v39 = [_PSSuggestion alloc];
+    v37 = [_PSInteractionStoreUtils conversationIdFromInteraction:v33 bundleIds:matchingCopy];
+    v38 = [_PSSuggestion alloc];
     bundleID = [suggestionCopy bundleID];
-    groupName2 = [v35 groupName];
+    groupName2 = [v34 groupName];
     recipients2 = [suggestionCopy recipients];
     reason = [suggestionCopy reason];
     reasonType = [suggestionCopy reasonType];
-    v68 = v38;
-    v45 = [(_PSSuggestion *)v39 initWithBundleID:bundleID conversationIdentifier:v38 groupName:groupName2 recipients:recipients2 reason:reason reasonType:reasonType];
+    v67 = v37;
+    v44 = [(_PSSuggestion *)v38 initWithBundleID:bundleID conversationIdentifier:v37 groupName:groupName2 recipients:recipients2 reason:reason reasonType:reasonType];
 
     if (formatWithSuggestion_bundleIdsForGroupMatching_checkForMessagesGroupIdentifier___pasOnceToken7 != -1)
     {
       [_PSFTZKWSuggestionsTransformerFactory formatWithSuggestion:bundleIdsForGroupMatching:checkForMessagesGroupIdentifier:];
     }
 
-    v46 = formatWithSuggestion_bundleIdsForGroupMatching_checkForMessagesGroupIdentifier___pasExprOnceResult;
-    bundleId = [v35 bundleId];
+    v45 = formatWithSuggestion_bundleIdsForGroupMatching_checkForMessagesGroupIdentifier___pasExprOnceResult;
+    bundleId = [v34 bundleId];
     if (bundleId)
     {
-      v48 = bundleId;
-      bundleId2 = [v35 bundleId];
-      v50 = [v46 containsObject:bundleId2];
+      v47 = bundleId;
+      bundleId2 = [v34 bundleId];
+      v49 = [v45 containsObject:bundleId2];
 
-      if (v50)
+      if (v49)
       {
-        account = [v35 account];
-        [(_PSSuggestion *)v45 setMessagesGroupIdentifier:account];
+        account = [v34 account];
+        [(_PSSuggestion *)v44 setMessagesGroupIdentifier:account];
       }
     }
 
-    v80 = v45;
-    v71 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v80 count:1];
+    v79 = v44;
+    v70 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v79 count:1];
 
 LABEL_52:
-    v22 = v69;
-    v52 = v68;
+    v21 = v68;
+    v51 = v67;
     goto LABEL_53;
   }
 
-  v67 = matchingCopy;
-  if (v37)
+  v66 = matchingCopy;
+  if (v36)
   {
     *buf = 0;
-    _os_log_impl(&dword_1B5ED1000, v36, OS_LOG_TYPE_DEFAULT, "Could not map group suggestion to group interaction. Flattening.", buf, 2u);
+    _os_log_impl(&dword_1B5ED1000, v35, OS_LOG_TYPE_DEFAULT, "Could not map group suggestion to group interaction. Flattening.", buf, 2u);
   }
 
-  v71 = objc_opt_new();
-  v52 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"handle" ascending:1];
+  v70 = objc_opt_new();
+  v51 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"handle" ascending:1];
+  v71 = 0u;
   v72 = 0u;
   v73 = 0u;
   v74 = 0u;
-  v75 = 0u;
   recipients3 = [suggestionCopy recipients];
-  v86 = v52;
-  v54 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v86 count:1];
-  v45 = [recipients3 sortedArrayUsingDescriptors:v54];
+  v85 = v51;
+  v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v85 count:1];
+  v44 = [recipients3 sortedArrayUsingDescriptors:v53];
 
-  v55 = [(_PSSuggestion *)v45 countByEnumeratingWithState:&v72 objects:v87 count:16];
-  if (v55)
+  v54 = [(_PSSuggestion *)v44 countByEnumeratingWithState:&v71 objects:v86 count:16];
+  if (v54)
   {
-    v56 = v55;
-    v68 = v52;
-    v69 = v22;
-    v57 = *v73;
+    v55 = v54;
+    v67 = v51;
+    v68 = v21;
+    v56 = *v72;
     do
     {
-      v58 = v45;
-      for (j = 0; j != v56; ++j)
+      v57 = v44;
+      for (j = 0; j != v55; ++j)
       {
-        if (*v73 != v57)
+        if (*v72 != v56)
         {
-          objc_enumerationMutation(v58);
+          objc_enumerationMutation(v57);
         }
 
-        v60 = *(*(&v72 + 1) + 8 * j);
-        v61 = [_PSSuggestion alloc];
+        v59 = *(*(&v71 + 1) + 8 * j);
+        v60 = [_PSSuggestion alloc];
         bundleID2 = [suggestionCopy bundleID];
-        v85 = v60;
-        v63 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v85 count:1];
+        v84 = v59;
+        v62 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v84 count:1];
         reason2 = [suggestionCopy reason];
         reasonType2 = [suggestionCopy reasonType];
-        v66 = [(_PSSuggestion *)v61 initWithBundleID:bundleID2 conversationIdentifier:0 groupName:0 recipients:v63 reason:reason2 reasonType:reasonType2];
+        v65 = [(_PSSuggestion *)v60 initWithBundleID:bundleID2 conversationIdentifier:0 groupName:0 recipients:v62 reason:reason2 reasonType:reasonType2];
 
-        [v71 addObject:v66];
+        [v70 addObject:v65];
       }
 
-      v45 = v58;
-      v56 = [(_PSSuggestion *)v58 countByEnumeratingWithState:&v72 objects:v87 count:16];
+      v44 = v57;
+      v55 = [(_PSSuggestion *)v57 countByEnumeratingWithState:&v71 objects:v86 count:16];
     }
 
-    while (v56);
-    v35 = 0;
-    matchingCopy = v67;
+    while (v55);
+    v34 = 0;
+    matchingCopy = v66;
     goto LABEL_52;
   }
 
-  matchingCopy = v67;
+  matchingCopy = v66;
 LABEL_53:
 
 LABEL_54:
 LABEL_15:
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v71;
+  return v70;
 }
 
 - (id)formatWithBundleIdsForGroupMatching:(id)matching
@@ -299,7 +297,7 @@ LABEL_15:
 
 - (BOOL)isEligibleRecipient:(id)recipient
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   recipientCopy = recipient;
   if ([recipientCopy handleType] == 2)
   {
@@ -308,11 +306,11 @@ LABEL_15:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       handle = [recipientCopy handle];
-      v14 = 138412546;
-      v15 = handle;
-      v16 = 1024;
-      v17 = 1;
-      _os_log_impl(&dword_1B5ED1000, v5, OS_LOG_TYPE_DEFAULT, "Recipient %@ is considered reachable and eligible for zkw suggestions %d", &v14, 0x12u);
+      v13 = 138412546;
+      v14 = handle;
+      v15 = 1024;
+      v16 = 1;
+      _os_log_impl(&dword_1B5ED1000, v5, OS_LOG_TYPE_DEFAULT, "Recipient %@ is considered reachable and eligible for zkw suggestions %d", &v13, 0x12u);
     }
   }
 
@@ -327,17 +325,16 @@ LABEL_15:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       handle3 = [recipientCopy handle];
-      v14 = 138412802;
-      v15 = handle3;
-      v16 = 1024;
-      v17 = v10 < 2;
-      v18 = 2048;
-      v19 = v10;
-      _os_log_impl(&dword_1B5ED1000, v5, OS_LOG_TYPE_DEFAULT, "Recipient %@ is considered reachable and eligible for zkw suggestions %d with IDS status %ld", &v14, 0x1Cu);
+      v13 = 138412802;
+      v14 = handle3;
+      v15 = 1024;
+      v16 = v10 < 2;
+      v17 = 2048;
+      v18 = v10;
+      _os_log_impl(&dword_1B5ED1000, v5, OS_LOG_TYPE_DEFAULT, "Recipient %@ is considered reachable and eligible for zkw suggestions %d with IDS status %ld", &v13, 0x1Cu);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -484,11 +481,10 @@ LABEL_15:
 
 - (void)formatWithSuggestion:(uint64_t)a1 bundleIdsForGroupMatching:(NSObject *)a2 checkForMessagesGroupIdentifier:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Group suggestion %@ has recipient without any identifier. Proceeding to filter out entire suggestion", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Group suggestion %@ has recipient without any identifier. Proceeding to filter out entire suggestion", &v2, 0xCu);
 }
 
 @end

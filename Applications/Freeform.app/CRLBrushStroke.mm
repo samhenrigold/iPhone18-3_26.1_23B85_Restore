@@ -534,7 +534,7 @@ LABEL_18:
 
   if (directlyCopy)
   {
-    [directlyCopy transform];
+    objc_msgSend_transform(directlyCopy);
     v23 = sub_100139A00(&v104.a);
     [directlyCopy contentsScale];
 LABEL_26:
@@ -1385,7 +1385,7 @@ LABEL_80:
   optionsCopy = options;
   if (directlyCopy)
   {
-    [directlyCopy transform];
+    objc_msgSend_transform(directlyCopy);
   }
 
   else
@@ -1585,13 +1585,13 @@ LABEL_36:
         }
       }
 
-      y = v300.y;
       x = v300.x;
+      y = v300.y;
       v38 = v296;
       v39 = sub_10011F068(v300.x, v300.y, *(v296 - 2), *(v296 - 1)) * scale * scale;
       if (v39 > 0.000000999999997 && v39 <= 1.0)
       {
-        if (v28 == v289 || (*buf = xmmword_1014629F0, *&buf[16] = xmmword_1014629F0, *&buf[32] = xmmword_1014629F0, [v281 elementAtIndex:v28 + 1 associatedPoints:buf]) && (v38 = v296, v41 = *&buf[8], v284 = *buf, y = v300.y, x = v300.x, v42 = sub_10011F31C(v300.x, v300.y, *(v296 - 2)), v44 = sub_10011F2FC(v42, v43), v45 = scale, v46 = var3, v48 = v47, v49 = sub_10011F31C(v284, v41, x), v51 = sub_10011F2FC(v49, v50), v53 = v52, v54 = v48, var3 = v46, scale = v45, sub_10011F328(v44, v54, v51, v53) < 0.99))
+        if (v28 == v289 || (*buf = xmmword_1014629F0, *&buf[16] = xmmword_1014629F0, *&buf[32] = xmmword_1014629F0, [v281 elementAtIndex:v28 + 1 associatedPoints:buf]) && (v38 = v296, v41 = *&buf[8], v284 = *buf, x = v300.x, y = v300.y, v42 = sub_10011F31C(v300.x, v300.y, *(v296 - 2)), v44 = sub_10011F2FC(v42, v43), v45 = scale, v46 = var3, v48 = v47, v49 = sub_10011F31C(v284, v41, x), v51 = sub_10011F2FC(v49, v50), v53 = v52, v54 = v48, var3 = v46, scale = v45, sub_10011F328(v44, v54, v51, v53) < 0.99))
         {
 LABEL_47:
           if ((v30 | 2) != 3)
@@ -1637,8 +1637,8 @@ LABEL_47:
             [CRLAssertionHandler handleFailureInFunction:v58 file:v59 lineNumber:910 isFatal:0 description:"Should only have line and close elements by now."];
 
             v38 = v296;
-            y = v300.y;
             x = v300.x;
+            y = v300.y;
           }
 
           v60 = sqrt(v39) / 50.0;
@@ -2231,21 +2231,21 @@ LABEL_166:
   optionsCopy = options;
   context = objc_autoreleasePoolPush();
   dataCopy = data;
-  v169 = directlyCopy;
+  v170 = directlyCopy;
   if (*(data + 1) != *data)
   {
     c = context;
     if (directlyCopy)
     {
       [directlyCopy frame];
-      [directlyCopy transform];
+      objc_msgSend_transform(directlyCopy);
       sub_10011ECB4();
       m11 = transform.m11;
       m12 = transform.m12;
-      v213 = *&transform.m13;
-      v214 = *&transform.m21;
-      v211 = *&transform.m13;
-      v212 = *&transform.m21;
+      v214 = *&transform.m13;
+      v215 = *&transform.m21;
+      v212 = *&transform.m13;
+      v213 = *&transform.m21;
       if (v16 > 0.0 && v13 > 0.0)
       {
         color = [(CRLStroke *)self color];
@@ -2261,23 +2261,23 @@ LABEL_166:
       CGContextGetCTM(&transform, context);
       m11 = transform.m11;
       m12 = transform.m12;
-      v213 = *&transform.m13;
-      v214 = *&transform.m21;
+      v214 = *&transform.m13;
+      v215 = *&transform.m21;
       if ([(CRLBrushStroke *)self p_isDrawingRasterizedIntoPDFWithContext:context])
       {
-        v216.m11 = m11;
-        v216.m12 = m12;
-        *&v216.m13 = v213;
-        *&v216.m21 = v214;
-        CGAffineTransformScale(&transform, &v216, 3.0, 3.0);
+        v217.m11 = m11;
+        v217.m12 = m12;
+        *&v217.m13 = v214;
+        *&v217.m21 = v215;
+        CGAffineTransformScale(&transform, &v217, 3.0, 3.0);
         m11 = transform.m11;
         m12 = transform.m12;
-        v213 = *&transform.m13;
-        v214 = *&transform.m21;
+        v214 = *&transform.m13;
+        v215 = *&transform.m21;
       }
 
-      v211 = v213;
       v212 = v214;
+      v213 = v215;
       if (width > 0.0 && height > 0.0)
       {
         if (context)
@@ -2316,231 +2316,231 @@ LABEL_166:
           [CRLAssertionHandler handleFailureInFunction:v20 file:v21 lineNumber:1168 isFatal:0 description:"Should have either a direct context or a CGContext."];
 
           color = 0;
-          directlyCopy = v169;
+          directlyCopy = v170;
         }
 
 LABEL_21:
         [(CRLStroke *)self width];
         v23 = v22;
-        [color alphaComponent];
-        v24 = sqrt(m12 * m12 + m11 * m11);
-        v26 = v25;
-        v27 = 1.0 / v24;
-        v28 = v23 * v24 * v26;
-        if (v23 < v27)
+        alphaComponent = [color alphaComponent];
+        v25 = sqrt(m12 * m12 + m11 * m11);
+        v27 = v26;
+        v28 = 1.0 / v25;
+        v29 = v23 * v25 * v27;
+        if (v23 < v28)
         {
-          v26 = v28;
+          v27 = v29;
         }
 
         if (parameterizedCopy)
         {
-          v26 = 1.0;
+          v27 = 1.0;
         }
 
-        v175 = v26;
+        v176 = v27;
         if (directlyCopy)
         {
-          v156 = 0;
-          v149 = 0;
+          v157 = 0;
+          v150 = 0;
           x = CGRectZero.origin.x;
           y = CGRectZero.origin.y;
-          v30 = CGRectZero.size.width;
-          v29 = CGRectZero.size.height;
+          v31 = CGRectZero.size.width;
+          v30 = CGRectZero.size.height;
         }
 
         else
         {
           CGContextSaveGState(c);
-          v216.m11 = m11;
-          v216.m12 = m12;
-          *&v216.m13 = v211;
-          *&v216.m21 = v212;
-          CGAffineTransformInvert(&transform, &v216);
+          v217.m11 = m11;
+          v217.m12 = m12;
+          *&v217.m13 = v212;
+          *&v217.m21 = v213;
+          CGAffineTransformInvert(&transform, &v217);
           CGContextConcatCTM(c, &transform);
-          v31 = *&CGAffineTransformIdentity.tx;
-          v211 = *&CGAffineTransformIdentity.c;
-          v212 = v31;
-          v219 = CGContextGetClipBoundingBox(c);
-          v220 = CGRectIntegral(v219);
-          x = v220.origin.x;
-          y = v220.origin.y;
-          v30 = v220.size.width;
-          v29 = v220.size.height;
-          v149 = fmin(v220.size.width, 1024.0);
-          v156 = fmin(v220.size.height, 1024.0);
+          v32 = *&CGAffineTransformIdentity.tx;
+          v212 = *&CGAffineTransformIdentity.c;
+          v213 = v32;
+          v220 = CGContextGetClipBoundingBox(c);
+          v221 = CGRectIntegral(v220);
+          x = v221.origin.x;
+          y = v221.origin.y;
+          v31 = v221.size.width;
+          v30 = v221.size.height;
+          v150 = fmin(v221.size.width, 1024.0);
+          v157 = fmin(v221.size.height, 1024.0);
         }
 
-        v174 = sub_10016BB74();
-        v160 = parameterizedCopy;
+        v175 = sub_10016BB74(alphaComponent);
+        v161 = parameterizedCopy;
         if (directlyCopy)
         {
           metalDeviceOverride = [directlyCopy metalDeviceOverride];
-          v33 = metalDeviceOverride == 0;
+          v34 = metalDeviceOverride == 0;
 
-          if (!v33)
+          if (!v34)
           {
-            metalDeviceOverride2 = [v169 metalDeviceOverride];
+            metalDeviceOverride2 = [v170 metalDeviceOverride];
 
-            v174 = metalDeviceOverride2;
+            v175 = metalDeviceOverride2;
           }
         }
 
-        v35 = +[NSMutableArray array];
-        v195 = +[NSMutableArray array];
-        v36 = *(data + 1) - *data;
-        if (v36)
+        v36 = +[NSMutableArray array];
+        v196 = +[NSMutableArray array];
+        v37 = *(data + 1) - *data;
+        if (v37)
         {
-          v37 = 0;
-          v38 = v36 >> 5;
-          v180 = v36 >> 5;
+          v38 = 0;
+          v39 = v37 >> 5;
+          v181 = v37 >> 5;
           do
           {
-            v39 = 0;
-            v40 = *dataCopy;
-            v41 = 32 * v37;
-            v42 = v37;
+            v40 = 0;
+            v41 = *dataCopy;
+            v42 = 32 * v38;
+            v43 = v38;
             do
             {
-              if (*(v40 + v41) == 1)
+              if (*(v41 + v42) == 1)
               {
-                if (v39)
+                if (v40)
                 {
                   break;
                 }
 
-                ++v37;
+                ++v38;
               }
 
               else
               {
-                ++v39;
+                ++v40;
               }
 
-              ++v42;
-              v41 += 32;
+              ++v43;
+              v42 += 32;
             }
 
-            while (v42 < v38);
-            v43 = v40 + 32 * v37;
-            v37 += v39;
+            while (v43 < v39);
+            v44 = (v41 + 32 * v38);
+            v38 += v40;
             memset(&transform, 0, 24);
-            sub_100522D14(&transform, v43, v40 + 32 * v37, (32 * v39) >> 5);
-            v44 = transform.m11;
-            v45 = *&transform.m12 - *&transform.m11;
+            sub_100522D14(&transform, v44, v41 + 32 * v38, (32 * v40) >> 5);
+            v45 = transform.m11;
+            v46 = *&transform.m12 - *&transform.m11;
             if (*&transform.m12 != *&transform.m11)
             {
-              v184 = v37;
-              v46 = 0;
-              v47 = v45 >> 5;
-              v193 = (v45 >> 5) - 3;
+              v185 = v38;
+              v47 = 0;
+              v48 = v46 >> 5;
+              v194 = (v46 >> 5) - 3;
               do
               {
-                v48 = [CRLGLDataBufferAttribute attributeWithName:@"position" bufferUsage:35044 dataType:5 normalized:0 componentCount:2];
-                v49 = [CRLGLDataBufferAttribute attributeWithName:@"textureCoordinate" bufferUsage:35044 dataType:5 normalized:0 componentCount:2];
-                v50 = [CRLGLDataBufferAttribute attributeWithName:@"clampedTextureCoordinate" bufferUsage:35044 dataType:5 normalized:0 componentCount:2];
-                v51 = [CRLGLDataBufferAttribute attributeWithName:@"percentAlongPath" bufferUsage:35044 dataType:5 normalized:1 componentCount:1];
-                v217[0] = v48;
-                v217[1] = v49;
-                v217[2] = v50;
-                v217[3] = v51;
-                v52 = [NSArray arrayWithObjects:v217 count:4];
-                v53 = 65534;
-                if (v47 - v46 <= 0xFFFE)
+                v49 = [CRLGLDataBufferAttribute attributeWithName:@"position" bufferUsage:35044 dataType:5 normalized:0 componentCount:2];
+                v50 = [CRLGLDataBufferAttribute attributeWithName:@"textureCoordinate" bufferUsage:35044 dataType:5 normalized:0 componentCount:2];
+                v51 = [CRLGLDataBufferAttribute attributeWithName:@"clampedTextureCoordinate" bufferUsage:35044 dataType:5 normalized:0 componentCount:2];
+                v52 = [CRLGLDataBufferAttribute attributeWithName:@"percentAlongPath" bufferUsage:35044 dataType:5 normalized:1 componentCount:1];
+                v218[0] = v49;
+                v218[1] = v50;
+                v218[2] = v51;
+                v218[3] = v52;
+                v53 = [NSArray arrayWithObjects:v218 count:4];
+                v54 = 65534;
+                if (v48 - v47 <= 0xFFFE)
                 {
-                  v53 = v47 - v46;
+                  v54 = v48 - v47;
                 }
 
-                if (v53 + v46 <= v193 || v53 + v46 >= v47)
+                if (v54 + v47 <= v194 || v54 + v47 >= v48)
                 {
-                  v55 = v53;
+                  v56 = v54;
                 }
 
                 else
                 {
-                  v55 = v47 - v46 - 3;
+                  v56 = v48 - v47 - 3;
                 }
 
-                v56 = [CRLGPUDataBuffer newDataBufferWithVertexAttributes:v52 vertexCount:v55 indexElementCount:0 device:v174];
-                [v56 setMetalDrawMode:4];
-                v206[0] = _NSConcreteStackBlock;
-                v206[1] = 3321888768;
-                v206[2] = sub_100520768;
-                v206[3] = &unk_10186C498;
-                v206[4] = v55;
-                v206[5] = v46;
+                v57 = [CRLGPUDataBuffer newDataBufferWithVertexAttributes:v53 vertexCount:v56 indexElementCount:0 device:v175];
+                [v57 setMetalDrawMode:4];
+                v207[0] = _NSConcreteStackBlock;
+                v207[1] = 3321888768;
+                v207[2] = sub_100520768;
+                v207[3] = &unk_10186C498;
+                v207[4] = v56;
+                v207[5] = v47;
                 orderCopy = order;
-                v206[6] = v47;
-                v208 = 0;
+                v207[6] = v48;
                 v209 = 0;
+                v210 = 0;
                 __p = 0;
                 sub_100522DCC(&__p, *&transform.m11, *&transform.m12, (*&transform.m12 - *&transform.m11) >> 5);
-                [v56 updateMetalDataBufferAttributes:v52 withBlock:v206];
-                [v35 addObject:v56];
-                v46 += v55;
-                v57 = [NSNumber numberWithBool:v46 >= v47];
-                [v195 addObject:v57];
+                [v57 updateMetalDataBufferAttributes:v53 withBlock:v207];
+                [v36 addObject:v57];
+                v47 += v56;
+                v58 = [NSNumber numberWithBool:v47 >= v48];
+                [v196 addObject:v58];
 
                 if (__p)
                 {
-                  v208 = __p;
+                  v209 = __p;
                   operator delete(__p);
                 }
               }
 
-              while (v46 < v47);
-              v44 = transform.m11;
-              v37 = v184;
-              v38 = v180;
+              while (v47 < v48);
+              v45 = transform.m11;
+              v38 = v185;
+              v39 = v181;
             }
 
-            if (v44 != 0.0)
+            if (v45 != 0.0)
             {
-              transform.m12 = v44;
-              operator delete(*&v44);
+              transform.m12 = v45;
+              operator delete(*&v45);
             }
           }
 
-          while (v37 < v38);
+          while (v38 < v39);
         }
 
-        if (v169)
+        if (v170)
         {
-          if ([CRLBrushStroke p_isDirectContextWideColorCapable:v169])
+          if ([CRLBrushStroke p_isDirectContextWideColorCapable:v170])
           {
-            v58 = 115;
+            v59 = 115;
           }
 
           else
           {
-            v58 = 70;
+            v59 = 70;
           }
 
-          metalDrawable = [v169 metalDrawable];
+          metalDrawable = [v170 metalDrawable];
           texture = [metalDrawable texture];
           width = [texture width];
 
-          metalDrawable2 = [v169 metalDrawable];
+          metalDrawable2 = [v170 metalDrawable];
           texture2 = [metalDrawable2 texture];
           height = [texture2 height];
         }
 
         else
         {
-          v58 = 70;
-          height = v156;
-          width = v149;
+          v59 = 70;
+          height = v157;
+          width = v150;
         }
 
-        v65 = +[CRLCapabilities currentCapabilities];
-        [v65 maximumMetalTextureSizeForDevice:v174];
-        v67 = v66;
-        v69 = v68;
+        v66 = +[CRLCapabilities currentCapabilities];
+        [v66 maximumMetalTextureSizeForDevice:v175];
+        v68 = v67;
+        v70 = v69;
 
-        v70 = height;
-        v71 = width;
-        if (v160 || ((v72 = width + width, v73 = height + height, v72 <= v67) ? (v74 = v73 > v69) : (v74 = 1), v70 = height, v71 = width, v74))
+        v71 = height;
+        v72 = width;
+        if (v161 || ((v73 = width + width, v74 = height + height, v73 <= v68) ? (v75 = v74 > v70) : (v75 = 1), v71 = height, v72 = width, v75))
         {
-          if (!v71)
+          if (!v72)
           {
 LABEL_87:
 
@@ -2550,196 +2550,196 @@ LABEL_87:
 
         else
         {
-          v70 = v73;
-          if (!v72)
+          v71 = v74;
+          if (!v73)
           {
             goto LABEL_87;
           }
         }
 
-        if (v70 && width && height)
+        if (v71 && width && height)
         {
-          v188 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:"texture2DDescriptorWithPixelFormat:width:height:mipmapped:" width:10 height:? mipmapped:?];
-          [v188 setUsage:5];
-          [v188 setStorageMode:2];
-          v181 = [v174 newTextureWithDescriptor:v188];
-          v194 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:v58 width:width height:height mipmapped:0];
-          [v194 setUsage:5];
-          [v194 setStorageMode:0];
-          if (v169)
+          v189 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:"texture2DDescriptorWithPixelFormat:width:height:mipmapped:" width:10 height:? mipmapped:?];
+          [v189 setUsage:5];
+          [v189 setStorageMode:2];
+          v182 = [v175 newTextureWithDescriptor:v189];
+          v195 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:v59 width:width height:height mipmapped:0];
+          [v195 setUsage:5];
+          [v195 setStorageMode:0];
+          if (v170)
           {
-            metalDrawable3 = [v169 metalDrawable];
+            metalDrawable3 = [v170 metalDrawable];
             texture3 = [metalDrawable3 texture];
           }
 
           else
           {
-            texture3 = [v174 newTextureWithDescriptor:v194];
+            texture3 = [v175 newTextureWithDescriptor:v195];
           }
 
-          v178 = +[MTLRenderPassDescriptor renderPassDescriptor];
-          colorAttachments = [v178 colorAttachments];
-          v148 = [colorAttachments objectAtIndexedSubscript:0];
+          v179 = +[MTLRenderPassDescriptor renderPassDescriptor];
+          colorAttachments = [v179 colorAttachments];
+          v149 = [colorAttachments objectAtIndexedSubscript:0];
 
-          [v148 setTexture:v181];
-          [v148 setStoreAction:1];
-          [v148 setLoadAction:2];
-          [v148 setClearColor:{0.0, 0.0, 0.0, 0.0}];
-          [(CRLBrushStroke *)self p_metalBrushShaderForPixelFormat:10 andDevice:v174];
-          v78 = v77 = c;
-          v187 = [(CRLBrushStroke *)self p_metalOpacityShaderForPixelFormat:v58 andDevice:v174];
-          v177 = +[CRLGPUDataBuffer newDataBufferWithVertexRect:textureRect:device:](CRLGPUDataBuffer, "newDataBufferWithVertexRect:textureRect:device:", v174, 0.0, 0.0, [texture3 width], objc_msgSend(texture3, "height"), 0.0, 0.0, 1.0, 1.0);
-          v203[0] = v160;
+          [v149 setTexture:v182];
+          [v149 setStoreAction:1];
+          [v149 setLoadAction:2];
+          [v149 setClearColor:{0.0, 0.0, 0.0, 0.0}];
+          [(CRLBrushStroke *)self p_metalBrushShaderForPixelFormat:10 andDevice:v175];
+          v79 = v78 = c;
+          v188 = [(CRLBrushStroke *)self p_metalOpacityShaderForPixelFormat:v59 andDevice:v175];
+          v178 = +[CRLGPUDataBuffer newDataBufferWithVertexRect:textureRect:device:](CRLGPUDataBuffer, "newDataBufferWithVertexRect:textureRect:device:", v175, 0.0, 0.0, [texture3 width], objc_msgSend(texture3, "height"), 0.0, 0.0, 1.0, 1.0);
+          v204[0] = v161;
           __asm { FMOV            V0.4S, #1.0 }
 
-          v204 = _Q0;
+          v205 = _Q0;
           [optionsCopy strokeEnd];
-          *&v83 = v83;
-          v205 = LODWORD(v83);
+          *&v84 = v84;
+          v206 = LODWORD(v84);
           cGColor = [color CGColor];
-          if (v169)
+          if (v170)
           {
-            cGColor = [CRLBrushStroke p_colorForDrawingIntoDirectContext:v169 fromOriginalColor:color];
+            cGColor = [CRLBrushStroke p_colorForDrawingIntoDirectContext:v170 fromOriginalColor:color];
           }
 
           Components = CGColorGetComponents(cGColor);
-          v87 = *Components;
-          v86 = Components[1];
-          v88 = Components[2];
-          v179 = [(CRLBrushStroke *)self p_metalTextureForCurrentStrokeAndDevice:v174];
-          v170 = sub_10016BE38(v174);
-          v89 = v87;
-          *&v90 = v175 * v89;
-          v91 = v86;
-          v92 = v88;
-          *(&v90 + 1) = v175 * v91;
-          *(&v90 + 1) = __PAIR64__(LODWORD(v175), v175 * v92);
-          v176 = v90;
-          if (v169)
+          v88 = *Components;
+          v87 = Components[1];
+          v89 = Components[2];
+          v180 = [(CRLBrushStroke *)self p_metalTextureForCurrentStrokeAndDevice:v175];
+          v171 = sub_10016BE38(v175);
+          v90 = v88;
+          *&v91 = v176 * v90;
+          v92 = v87;
+          v93 = v89;
+          *(&v91 + 1) = v176 * v92;
+          *(&v91 + 1) = __PAIR64__(LODWORD(v176), v176 * v93);
+          v177 = v91;
+          if (v170)
           {
-            [v169 frame];
-            v94 = v93;
-            v96 = v95;
-            v97 = *&CATransform3DIdentity.m13;
-            *&v216.m11 = *&CATransform3DIdentity.m11;
-            *&v216.m13 = v97;
-            v98 = *&CATransform3DIdentity.m23;
-            *&v216.m21 = *&CATransform3DIdentity.m21;
-            *&v216.m23 = v98;
-            v99 = *&CATransform3DIdentity.m33;
-            *&v216.m31 = *&CATransform3DIdentity.m31;
-            *&v216.m33 = v99;
-            v100 = *&CATransform3DIdentity.m43;
-            *&v216.m41 = *&CATransform3DIdentity.m41;
-            *&v216.m43 = v100;
-            CATransform3DScale(&transform, &v216, 2.0 / v93, -2.0 / v95, 1.0);
-            v216 = transform;
-            CATransform3DTranslate(&transform, &v216, v94 * -0.5, v96 * -0.5, 0.0);
-            v216 = transform;
-            [v169 contentsScale];
-            v102 = v101;
-            [v169 contentsScale];
-            CATransform3DScale(&transform, &v216, 1.0 / v102, 1.0 / v103, 1.0);
-            v185 = *&transform.m13;
-            v190 = *&transform.m11;
-            v167 = *&transform.m23;
+            [v170 frame];
+            v95 = v94;
+            v97 = v96;
+            v98 = *&CATransform3DIdentity.m13;
+            *&v217.m11 = *&CATransform3DIdentity.m11;
+            *&v217.m13 = v98;
+            v99 = *&CATransform3DIdentity.m23;
+            *&v217.m21 = *&CATransform3DIdentity.m21;
+            *&v217.m23 = v99;
+            v100 = *&CATransform3DIdentity.m33;
+            *&v217.m31 = *&CATransform3DIdentity.m31;
+            *&v217.m33 = v100;
+            v101 = *&CATransform3DIdentity.m43;
+            *&v217.m41 = *&CATransform3DIdentity.m41;
+            *&v217.m43 = v101;
+            CATransform3DScale(&transform, &v217, 2.0 / v94, -2.0 / v96, 1.0);
+            v217 = transform;
+            CATransform3DTranslate(&transform, &v217, v95 * -0.5, v97 * -0.5, 0.0);
+            v217 = transform;
+            [v170 contentsScale];
+            v103 = v102;
+            [v170 contentsScale];
+            CATransform3DScale(&transform, &v217, 1.0 / v103, 1.0 / v104, 1.0);
+            v186 = *&transform.m13;
+            v191 = *&transform.m11;
+            v168 = *&transform.m23;
             *ca = *&transform.m21;
-            v157 = *&transform.m33;
-            v161 = *&transform.m31;
-            v150 = *&transform.m43;
-            v154 = *&transform.m41;
+            v158 = *&transform.m33;
+            v162 = *&transform.m31;
+            v151 = *&transform.m43;
+            v155 = *&transform.m41;
             m.m11 = m11;
             m.m12 = m12;
-            *&m.m13 = v213;
-            *&m.m21 = v214;
-            CATransform3DMakeAffineTransform(&v216, &m);
-            *&m.m11 = v190;
-            *&m.m13 = v185;
+            *&m.m13 = v214;
+            *&m.m21 = v215;
+            CATransform3DMakeAffineTransform(&v217, &m);
+            *&m.m11 = v191;
+            *&m.m13 = v186;
             *&m.m21 = *ca;
-            *&m.m23 = v167;
-            *&m.m31 = v161;
-            *&m.m33 = v157;
-            *&m.m41 = v154;
-            *&m.m43 = v150;
-            CATransform3DConcat(&transform, &v216, &m);
+            *&m.m23 = v168;
+            *&m.m31 = v162;
+            *&m.m33 = v158;
+            *&m.m41 = v155;
+            *&m.m43 = v151;
+            CATransform3DConcat(&transform, &v217, &m);
             *cb = *&transform.m23;
-            v151 = *&transform.m11;
-            v155 = *&transform.m21;
-            v186 = *&transform.m33;
-            v158 = *&transform.m31;
-            v162 = *&transform.m13;
-            v191 = *&transform.m43;
-            v168 = *&transform.m41;
-            commandBuffer = [v170 commandBuffer];
-            v105 = [commandBuffer renderCommandEncoderWithDescriptor:v178];
+            v152 = *&transform.m11;
+            v156 = *&transform.m21;
+            v187 = *&transform.m33;
+            v159 = *&transform.m31;
+            v163 = *&transform.m13;
+            v192 = *&transform.m43;
+            v169 = *&transform.m41;
+            commandBuffer = [v171 commandBuffer];
+            v106 = [commandBuffer renderCommandEncoderWithDescriptor:v179];
             transform.m12 = 0.0;
             transform.m11 = 0.0;
-            transform.m13 = [v188 width];
-            transform.m14 = [v188 height];
+            transform.m13 = [v189 width];
+            transform.m14 = [v189 height];
             *&transform.m21 = xmmword_101463BB0;
-            [v105 setViewport:&transform];
-            [v105 setFragmentTexture:v179 atIndex:0];
-            *&v216.m11 = vcvt_hight_f32_f64(vcvt_f32_f64(v151), v162);
-            *&v216.m13 = vcvt_hight_f32_f64(vcvt_f32_f64(v155), *cb);
-            *&v216.m21 = vcvt_hight_f32_f64(vcvt_f32_f64(v158), v186);
-            *&v216.m23 = vcvt_hight_f32_f64(vcvt_f32_f64(v168), v191);
-            [v78 setPipelineStateWithEncoder:v105 vertexBytes:&v216 fragmentBytes:v203];
-            v199 = 0u;
+            [v106 setViewport:&transform];
+            [v106 setFragmentTexture:v180 atIndex:0];
+            *&v217.m11 = vcvt_hight_f32_f64(vcvt_f32_f64(v152), v163);
+            *&v217.m13 = vcvt_hight_f32_f64(vcvt_f32_f64(v156), *cb);
+            *&v217.m21 = vcvt_hight_f32_f64(vcvt_f32_f64(v159), v187);
+            *&v217.m23 = vcvt_hight_f32_f64(vcvt_f32_f64(v169), v192);
+            [v79 setPipelineStateWithEncoder:v106 vertexBytes:&v217 fragmentBytes:v204];
             v200 = 0u;
-            v197 = 0u;
+            v201 = 0u;
             v198 = 0u;
-            v106 = v35;
-            v107 = [v106 countByEnumeratingWithState:&v197 objects:v215 count:16];
-            if (v107)
+            v199 = 0u;
+            v107 = v36;
+            v108 = [v107 countByEnumeratingWithState:&v198 objects:v216 count:16];
+            if (v108)
             {
-              v108 = *v198;
+              v109 = *v199;
               do
               {
-                for (i = 0; i != v107; i = i + 1)
+                for (i = 0; i != v108; i = i + 1)
                 {
-                  if (*v198 != v108)
+                  if (*v199 != v109)
                   {
-                    objc_enumerationMutation(v106);
+                    objc_enumerationMutation(v107);
                   }
 
-                  [*(*(&v197 + 1) + 8 * i) drawWithEncoder:v105 atIndex:{objc_msgSend(v78, "bufferIndex")}];
+                  [*(*(&v198 + 1) + 8 * i) drawWithEncoder:v106 atIndex:{objc_msgSend(v79, "bufferIndex")}];
                 }
 
-                v107 = [v106 countByEnumeratingWithState:&v197 objects:v215 count:16];
+                v108 = [v107 countByEnumeratingWithState:&v198 objects:v216 count:16];
               }
 
-              while (v107);
+              while (v108);
             }
 
-            [v105 endEncoding];
-            v110 = +[MTLRenderPassDescriptor renderPassDescriptor];
-            colorAttachments2 = [v110 colorAttachments];
-            v112 = [colorAttachments2 objectAtIndexedSubscript:0];
+            [v106 endEncoding];
+            v111 = +[MTLRenderPassDescriptor renderPassDescriptor];
+            colorAttachments2 = [v111 colorAttachments];
+            v113 = [colorAttachments2 objectAtIndexedSubscript:0];
 
-            [v112 setTexture:texture3];
-            [v112 setStoreAction:1];
-            [v112 setLoadAction:2];
-            [v112 setClearColor:{0.0, 0.0, 0.0, 0.0}];
-            v113 = [commandBuffer renderCommandEncoderWithDescriptor:v110];
+            [v113 setTexture:texture3];
+            [v113 setStoreAction:1];
+            [v113 setLoadAction:2];
+            [v113 setClearColor:{0.0, 0.0, 0.0, 0.0}];
+            v114 = [commandBuffer renderCommandEncoderWithDescriptor:v111];
             transform.m12 = 0.0;
             transform.m11 = 0.0;
-            transform.m13 = [v194 width];
-            transform.m14 = [v194 height];
+            transform.m13 = [v195 width];
+            transform.m14 = [v195 height];
             *&transform.m21 = xmmword_101463BB0;
-            [v113 setViewport:&transform];
-            [v113 setFragmentTexture:v181 atIndex:0];
-            sub_1001C66F0(&transform, 0.0, [v194 width], 0.0, objc_msgSend(v194, "height"), -1.0, 1.0);
+            [v114 setViewport:&transform];
+            [v114 setFragmentTexture:v182 atIndex:0];
+            sub_1001C66F0(&transform, 0.0, [v195 width], 0.0, objc_msgSend(v195, "height"), -1.0, 1.0);
             *&m.m11 = vcvt_hight_f32_f64(vcvt_f32_f64(*&transform.m11), *&transform.m13);
             *&m.m13 = vcvt_hight_f32_f64(vcvt_f32_f64(*&transform.m21), *&transform.m23);
             *&m.m21 = vcvt_hight_f32_f64(vcvt_f32_f64(*&transform.m31), *&transform.m33);
             *&m.m23 = vcvt_hight_f32_f64(vcvt_f32_f64(*&transform.m41), *&transform.m43);
-            *&transform.m11 = v176;
+            *&transform.m11 = v177;
             LOBYTE(transform.m13) = 1;
-            [v187 setPipelineStateWithEncoder:v113 vertexBytes:&m fragmentBytes:&transform];
-            [v177 drawWithEncoder:v113 atIndex:{objc_msgSend(v187, "bufferIndex")}];
-            [v113 endEncoding];
+            [v188 setPipelineStateWithEncoder:v114 vertexBytes:&m fragmentBytes:&transform];
+            [v178 drawWithEncoder:v114 atIndex:{objc_msgSend(v188, "bufferIndex")}];
+            [v114 endEncoding];
             [commandBuffer enqueue];
-            metalDrawable4 = [v169 metalDrawable];
+            metalDrawable4 = [v170 metalDrawable];
             [commandBuffer presentDrawable:metalDrawable4];
 
             [commandBuffer commit];
@@ -2747,139 +2747,139 @@ LABEL_87:
 
           else
           {
-            v143 = vcvtpd_s64_f64(v30 * 0.0009765625);
-            if (v143 >= 1)
+            v144 = vcvtpd_s64_f64(v31 * 0.0009765625);
+            if (v144 >= 1)
             {
-              v144 = 0;
-              v115 = vcvtpd_s64_f64(v29 * 0.0009765625);
-              v116 = v156;
-              v142 = vcvtd_n_f64_s64(-v149, 1uLL);
-              rect = v149;
-              v117 = 2.0 / v149;
-              v152 = vcvtd_n_f64_s64(-v156, 1uLL);
-              v118 = 2.0 / v156;
-              v146 = v115;
+              v145 = 0;
+              v116 = vcvtpd_s64_f64(v30 * 0.0009765625);
+              v117 = v157;
+              v143 = vcvtd_n_f64_s64(-v150, 1uLL);
+              rect = v150;
+              v118 = 2.0 / v150;
+              v153 = vcvtd_n_f64_s64(-v157, 1uLL);
+              v119 = 2.0 / v157;
+              v147 = v116;
               do
               {
-                if (v115 >= 1)
+                if (v116 >= 1)
                 {
-                  v159 = 0;
-                  v119 = (x + (v144 << 10));
-                  v120 = v142 - v119;
+                  v160 = 0;
+                  v120 = (x + (v145 << 10));
+                  v121 = v143 - v120;
                   do
                   {
                     memset(&transform, 0, sizeof(transform));
-                    CATransform3DMakeScale(&transform, v117, v118, 1.0);
+                    CATransform3DMakeScale(&transform, v118, v119, 1.0);
                     m = transform;
-                    v121 = (y + (v159 << 10));
-                    CATransform3DTranslate(&v216, &m, v120, v152 - v121, 0.0);
-                    transform = v216;
-                    v196.m11 = m11;
-                    v196.m12 = m12;
-                    *&v196.m13 = v213;
-                    *&v196.m21 = v214;
-                    CATransform3DMakeAffineTransform(&m, &v196);
-                    v196 = transform;
-                    CATransform3DConcat(&v216, &m, &v196);
-                    v122 = 0;
-                    transform = v216;
-                    while (v122 < [v35 count])
+                    v122 = (y + (v160 << 10));
+                    CATransform3DTranslate(&v217, &m, v121, v153 - v122, 0.0);
+                    transform = v217;
+                    v197.m11 = m11;
+                    v197.m12 = m12;
+                    *&v197.m13 = v214;
+                    *&v197.m21 = v215;
+                    CATransform3DMakeAffineTransform(&m, &v197);
+                    v197 = transform;
+                    CATransform3DConcat(&v217, &m, &v197);
+                    v123 = 0;
+                    transform = v217;
+                    while (v123 < [v36 count])
                     {
-                      commandBuffer2 = [v170 commandBuffer];
-                      v123 = 0;
-                      while (v122 < [v35 count] && v123 <= 8)
+                      commandBuffer2 = [v171 commandBuffer];
+                      v124 = 0;
+                      while (v123 < [v36 count] && v124 <= 8)
                       {
-                        v124 = [commandBuffer2 renderCommandEncoderWithDescriptor:v178];
-                        v216.m12 = 0.0;
-                        v216.m11 = 0.0;
-                        v216.m13 = [v188 width];
-                        v216.m14 = [v188 height];
-                        *&v216.m21 = xmmword_101463BB0;
-                        [v124 setViewport:&v216];
-                        [v124 setFragmentTexture:v179 atIndex:0];
+                        v125 = [commandBuffer2 renderCommandEncoderWithDescriptor:v179];
+                        v217.m12 = 0.0;
+                        v217.m11 = 0.0;
+                        v217.m13 = [v189 width];
+                        v217.m14 = [v189 height];
+                        *&v217.m21 = xmmword_101463BB0;
+                        [v125 setViewport:&v217];
+                        [v125 setFragmentTexture:v180 atIndex:0];
                         *&m.m11 = vcvt_hight_f32_f64(vcvt_f32_f64(*&transform.m11), *&transform.m13);
                         *&m.m13 = vcvt_hight_f32_f64(vcvt_f32_f64(*&transform.m21), *&transform.m23);
                         *&m.m21 = vcvt_hight_f32_f64(vcvt_f32_f64(*&transform.m31), *&transform.m33);
                         *&m.m23 = vcvt_hight_f32_f64(vcvt_f32_f64(*&transform.m41), *&transform.m43);
-                        [v78 setPipelineStateWithEncoder:v124 vertexBytes:&m fragmentBytes:v203];
-                        v123 += 2;
-                        v125 = v122;
+                        [v79 setPipelineStateWithEncoder:v125 vertexBytes:&m fragmentBytes:v204];
+                        v124 += 2;
+                        v126 = v123;
                         do
                         {
-                          if (v125 >= [v35 count])
+                          if (v126 >= [v36 count])
                           {
                             break;
                           }
 
-                          v126 = [v35 objectAtIndexedSubscript:v125];
-                          [v126 drawWithEncoder:v124 atIndex:{objc_msgSend(v78, "bufferIndex")}];
-                          v127 = [v195 objectAtIndexedSubscript:v125];
-                          bOOLValue = [v127 BOOLValue];
+                          v127 = [v36 objectAtIndexedSubscript:v126];
+                          [v127 drawWithEncoder:v125 atIndex:{objc_msgSend(v79, "bufferIndex")}];
+                          v128 = [v196 objectAtIndexedSubscript:v126];
+                          bOOLValue = [v128 BOOLValue];
 
-                          ++v125;
+                          ++v126;
                         }
 
                         while ((bOOLValue & 1) == 0);
-                        [v124 endEncoding];
-                        v129 = +[MTLRenderPassDescriptor renderPassDescriptor];
-                        colorAttachments3 = [v129 colorAttachments];
-                        v131 = [colorAttachments3 objectAtIndexedSubscript:0];
+                        [v125 endEncoding];
+                        v130 = +[MTLRenderPassDescriptor renderPassDescriptor];
+                        colorAttachments3 = [v130 colorAttachments];
+                        v132 = [colorAttachments3 objectAtIndexedSubscript:0];
 
-                        [v131 setTexture:texture3];
-                        [v131 setStoreAction:1];
-                        if (v122)
+                        [v132 setTexture:texture3];
+                        [v132 setStoreAction:1];
+                        if (v123)
                         {
-                          [v131 setLoadAction:1];
+                          [v132 setLoadAction:1];
                         }
 
                         else
                         {
-                          [v131 setLoadAction:2];
-                          [v131 setClearColor:{0.0, 0.0, 0.0, 0.0}];
+                          [v132 setLoadAction:2];
+                          [v132 setClearColor:{0.0, 0.0, 0.0, 0.0}];
                         }
 
-                        v132 = [commandBuffer2 renderCommandEncoderWithDescriptor:v129];
-                        v216.m12 = 0.0;
-                        v216.m11 = 0.0;
-                        v216.m13 = [v194 width];
-                        v216.m14 = [v194 height];
-                        *&v216.m21 = xmmword_101463BB0;
-                        [v132 setViewport:&v216];
-                        [v132 setFragmentTexture:v181 atIndex:0];
-                        sub_1001C66F0(&v216, 0.0, [v194 width], 0.0, objc_msgSend(v194, "height"), -1.0, 1.0);
-                        *&v196.m11 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v216.m11), *&v216.m13);
-                        *&v196.m13 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v216.m21), *&v216.m23);
-                        *&v196.m21 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v216.m31), *&v216.m33);
-                        *&v196.m23 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v216.m41), *&v216.m43);
-                        *&v216.m11 = v176;
-                        LOBYTE(v216.m13) = 1;
-                        [v187 setPipelineStateWithEncoder:v132 vertexBytes:&v196 fragmentBytes:&v216];
-                        [v177 drawWithEncoder:v132 atIndex:{objc_msgSend(v187, "bufferIndex")}];
-                        [v132 endEncoding];
+                        v133 = [commandBuffer2 renderCommandEncoderWithDescriptor:v130];
+                        v217.m12 = 0.0;
+                        v217.m11 = 0.0;
+                        v217.m13 = [v195 width];
+                        v217.m14 = [v195 height];
+                        *&v217.m21 = xmmword_101463BB0;
+                        [v133 setViewport:&v217];
+                        [v133 setFragmentTexture:v182 atIndex:0];
+                        sub_1001C66F0(&v217, 0.0, [v195 width], 0.0, objc_msgSend(v195, "height"), -1.0, 1.0);
+                        *&v197.m11 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v217.m11), *&v217.m13);
+                        *&v197.m13 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v217.m21), *&v217.m23);
+                        *&v197.m21 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v217.m31), *&v217.m33);
+                        *&v197.m23 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v217.m41), *&v217.m43);
+                        *&v217.m11 = v177;
+                        LOBYTE(v217.m13) = 1;
+                        [v188 setPipelineStateWithEncoder:v133 vertexBytes:&v197 fragmentBytes:&v217];
+                        [v178 drawWithEncoder:v133 atIndex:{objc_msgSend(v188, "bufferIndex")}];
+                        [v133 endEncoding];
 
-                        v122 = v125;
+                        v123 = v126;
                       }
 
-                      if (v122 > [v35 count])
+                      if (v123 > [v36 count])
                       {
-                        v133 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+                        v134 = +[CRLAssertionHandler _atomicIncrementAssertCount];
                         if (qword_101AD5A10 != -1)
                         {
                           sub_10138C970();
                         }
 
-                        v134 = off_1019EDA68;
+                        v135 = off_1019EDA68;
                         if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
                         {
-                          LODWORD(v216.m11) = 67109890;
-                          HIDWORD(v216.m11) = v133;
-                          LOWORD(v216.m12) = 2082;
-                          *(&v216.m12 + 2) = "[CRLBrushStroke p_finishMetalRenderInContext:orDirectly:pathVertexData:parameterized:shouldReverseDrawOrder:withLayoutOptions:]";
-                          WORD1(v216.m13) = 2082;
-                          *(&v216.m13 + 4) = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLBrushStroke.mm";
-                          WORD2(v216.m14) = 1024;
-                          *(&v216.m14 + 6) = 1523;
-                          _os_log_error_impl(&_mh_execute_header, v134, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The buffer index should not be greater than the number of buffers.", &v216, 0x22u);
+                          LODWORD(v217.m11) = 67109890;
+                          HIDWORD(v217.m11) = v134;
+                          LOWORD(v217.m12) = 2082;
+                          *(&v217.m12 + 2) = "[CRLBrushStroke p_finishMetalRenderInContext:orDirectly:pathVertexData:parameterized:shouldReverseDrawOrder:withLayoutOptions:]";
+                          WORD1(v217.m13) = 2082;
+                          *(&v217.m13 + 4) = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLBrushStroke.mm";
+                          WORD2(v217.m14) = 1024;
+                          *(&v217.m14 + 6) = 1523;
+                          _os_log_error_impl(&_mh_execute_header, v135, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d The buffer index should not be greater than the number of buffers.", &v217, 0x22u);
                         }
 
                         if (qword_101AD5A10 != -1)
@@ -2887,66 +2887,66 @@ LABEL_87:
                           sub_10138C998();
                         }
 
-                        v135 = off_1019EDA68;
-                        if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+                        v136 = off_1019EDA68;
+                        if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
                         {
-                          v139 = +[CRLAssertionHandler packedBacktraceString];
-                          LODWORD(v216.m11) = 67109378;
-                          HIDWORD(v216.m11) = v133;
-                          LOWORD(v216.m12) = 2114;
-                          *(&v216.m12 + 2) = v139;
-                          _os_log_error_impl(&_mh_execute_header, v135, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", &v216, 0x12u);
+                          v140 = +[CRLAssertionHandler packedBacktraceString];
+                          LODWORD(v217.m11) = 67109378;
+                          HIDWORD(v217.m11) = v134;
+                          LOWORD(v217.m12) = 2114;
+                          *(&v217.m12 + 2) = v140;
+                          _os_log_error_impl(&_mh_execute_header, v136, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", &v217, 0x12u);
                         }
 
-                        v136 = [NSString stringWithUTF8String:"[CRLBrushStroke p_finishMetalRenderInContext:orDirectly:pathVertexData:parameterized:shouldReverseDrawOrder:withLayoutOptions:]"];
-                        v137 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLBrushStroke.mm"];
-                        [CRLAssertionHandler handleFailureInFunction:v136 file:v137 lineNumber:1523 isFatal:0 description:"The buffer index should not be greater than the number of buffers."];
+                        v137 = [NSString stringWithUTF8String:"[CRLBrushStroke p_finishMetalRenderInContext:orDirectly:pathVertexData:parameterized:shouldReverseDrawOrder:withLayoutOptions:]"];
+                        v138 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLBrushStroke.mm"];
+                        [CRLAssertionHandler handleFailureInFunction:v137 file:v138 lineNumber:1523 isFatal:0 description:"The buffer index should not be greater than the number of buffers."];
                       }
 
-                      v138 = [v35 count];
+                      v139 = [v36 count];
                       [commandBuffer2 enqueue];
                       [commandBuffer2 commit];
-                      if (v122 >= v138)
+                      if (v123 >= v139)
                       {
                         [commandBuffer2 waitUntilCompleted];
                       }
 
-                      v77 = c;
+                      v78 = c;
                     }
 
-                    v140 = sub_10016BBEC(texture3);
-                    if (v160)
+                    v141 = sub_10016BBEC(texture3);
+                    if (v161)
                     {
-                      v221.origin.x = (x + (v144 << 10));
-                      v221.origin.y = (y + (v159 << 10));
-                      v221.size.width = rect;
-                      v221.size.height = v116;
-                      CGContextDrawImage(v77, v221, v140);
+                      v222.origin.x = (x + (v145 << 10));
+                      v222.origin.y = (y + (v160 << 10));
+                      v222.size.width = rect;
+                      v222.size.height = v117;
+                      CGContextDrawImage(v78, v222, v141);
                     }
 
                     else
                     {
-                      v141 = [color colorWithAlphaComponent:1.0];
-                      [objc_opt_class() p_drawColor:v141 intoContext:v77 usingImageAsMask:v140 withRect:{v119, v121, rect, v116}];
+                      v142 = [color colorWithAlphaComponent:1.0];
+                      [objc_opt_class() p_drawColor:v142 intoContext:v78 usingImageAsMask:v141 withRect:{v120, v122, rect, v117}];
 
-                      v77 = c;
+                      v78 = c;
                     }
 
-                    CGImageRelease(v140);
-                    ++v159;
+                    CGImageRelease(v141);
+                    ++v160;
                   }
 
-                  while (v159 != v146);
+                  while (v160 != v147);
                 }
 
-                ++v144;
-                v115 = v146;
+                ++v145;
+                v116 = v147;
               }
 
-              while (v144 != v143);
+              while (v145 != v144);
             }
 
-            CGContextRestoreGState(v77);
+            CGContextRestoreGState(v78);
           }
         }
 

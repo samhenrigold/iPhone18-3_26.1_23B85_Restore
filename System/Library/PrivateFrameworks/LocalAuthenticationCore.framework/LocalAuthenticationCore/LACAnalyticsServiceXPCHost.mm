@@ -27,27 +27,27 @@
 
 - (id)sessionForContextUUID:(id)d
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dCopy = d;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allObjects = [(NSPointerArray *)self->_sessions allObjects];
-  session = [allObjects countByEnumeratingWithState:&v14 objects:v18 count:16];
+  session = [allObjects countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (session)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != session; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         contextUUID = [v9 contextUUID];
         v11 = [contextUUID isEqual:dCopy];
 
@@ -58,7 +58,7 @@
         }
       }
 
-      session = [allObjects countByEnumeratingWithState:&v14 objects:v18 count:16];
+      session = [allObjects countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (session)
       {
         continue;
@@ -70,14 +70,12 @@
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return session;
 }
 
 - (void)startSessionForContext:(id)context dialogID:(id)d bundleID:(id)iD reply:(id)reply
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   dCopy = d;
   iDCopy = iD;
@@ -97,26 +95,23 @@ LABEL_11:
     [(NSPointerArray *)self->_sessions compact];
     v16 = [[LACAnalyticsSession alloc] initWithDialogID:dCopy bundleID:iDCopy];
     v17 = [[LACAnalyticsSessionXPCHost alloc] initWithSession:v16 contextUUID:contextCopy connected:0 workQueue:self->_workQueue];
-    [(NSPointerArray *)self->_sessions addPointer:v17];
-    v18 = LACLogAnalytics();
+    v18 = LACLogAnalytics([(NSPointerArray *)self->_sessions addPointer:v17]);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138543618;
-      v21 = v16;
-      v22 = 2114;
-      v23 = contextCopy;
-      _os_log_impl(&dword_1B0233000, v18, OS_LOG_TYPE_DEFAULT, "Started %{public}@ for contextUUID: %{public}@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v16;
+      v21 = 2114;
+      v22 = contextCopy;
+      _os_log_impl(&dword_1B0233000, v18, OS_LOG_TYPE_DEFAULT, "Started %{public}@ for contextUUID: %{public}@", &v19, 0x16u);
     }
 
     (replyCopy)[2](replyCopy, v17, 0);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectSessionForContext:(id)context reply:(id)reply
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   workQueue = self->_workQueue;
   replyCopy = reply;
@@ -125,15 +120,14 @@ LABEL_11:
   if (v9)
   {
     v10 = [[LACAnalyticsSessionXPCHost alloc] initWithSession:v9 contextUUID:contextCopy connected:1 workQueue:self->_workQueue];
-    [(NSPointerArray *)self->_sessions addPointer:v10];
-    v11 = LACLogAnalytics();
+    v11 = LACLogAnalytics([(NSPointerArray *)self->_sessions addPointer:v10]);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543618;
-      v14 = v9;
-      v15 = 2114;
-      v16 = contextCopy;
-      _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "Connected to %{public}@ for contextUUID: %{public}@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v9;
+      v14 = 2114;
+      v15 = contextCopy;
+      _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "Connected to %{public}@ for contextUUID: %{public}@", &v12, 0x16u);
     }
 
     replyCopy[2](replyCopy, v10, 0);
@@ -144,8 +138,6 @@ LABEL_11:
     v10 = [LACError errorWithCode:-1000 debugDescription:@"No session exists for this context"];
     (replyCopy)[2](replyCopy, 0, v10);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

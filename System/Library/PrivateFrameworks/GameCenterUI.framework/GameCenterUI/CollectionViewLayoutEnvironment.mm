@@ -9,7 +9,7 @@
 
 - (NSCollectionLayoutContainer)container
 {
-  v2 = sub_24E12AB9C();
+  sub_24E12AB9C();
 
   return v2;
 }

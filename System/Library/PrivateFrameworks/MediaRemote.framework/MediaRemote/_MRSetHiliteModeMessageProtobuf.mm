@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    hiliteMode = self->_hiliteMode;
     PBDataWriterWriteBOOLField();
   }
 }

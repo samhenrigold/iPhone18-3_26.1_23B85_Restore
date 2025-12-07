@@ -185,17 +185,7 @@ void __39__MSOID_setAsn1OidFromOIDString_error___block_invoke(uint64_t a1, void 
   v7 = a2;
   v8 = *(a1 + 32);
   v15 = v7;
-  if (![v15 length])
-  {
-    goto LABEL_6;
-  }
-
-  v9 = [MEMORY[0x277CCA900] decimalDigitCharacterSet];
-  v10 = [v9 invertedSet];
-  v11 = [v15 rangeOfCharacterFromSet:v10];
-  v13 = v12;
-
-  if (v11 == 0x7FFFFFFFFFFFFFFFLL && v13 == 0)
+  if ([v15 length] && ((objc_msgSend(MEMORY[0x277CCA900], "decimalDigitCharacterSet"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "invertedSet"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v15, "rangeOfCharacterFromSet:", v10), v13 = v12, v10, v9, v11 == 0x7FFFFFFFFFFFFFFFLL) ? (v14 = v13 == 0) : (v14 = 0), v14))
   {
     if (v8)
     {
@@ -205,7 +195,6 @@ void __39__MSOID_setAsn1OidFromOIDString_error___block_invoke(uint64_t a1, void 
 
   else
   {
-LABEL_6:
 
     *a4 = 1;
   }
@@ -361,34 +350,32 @@ LABEL_8:
 
 void __51__MSOID_initDigestOIDWithSignatureAlgorithm_error___block_invoke()
 {
-  v4[11] = *MEMORY[0x277D85DE8];
-  v3[0] = @"1.2.840.113549.1.1.4";
-  v3[1] = @"1.2.840.113549.1.1.5";
-  v4[0] = @"1.2.840.113549.2.5";
-  v4[1] = @"1.3.14.3.2.26";
-  v3[2] = @"1.2.840.10045.4.1";
-  v3[3] = @"1.2.840.113549.1.1.14";
-  v4[2] = @"1.3.14.3.2.26";
-  v4[3] = @"2.16.840.1.101.3.4.2.4";
-  v3[4] = @"1.2.840.10045.4.3.1";
-  v3[5] = @"1.2.840.113549.1.1.11";
-  v4[4] = @"2.16.840.1.101.3.4.2.4";
-  v4[5] = @"2.16.840.1.101.3.4.2.1";
-  v3[6] = @"1.2.840.10045.4.3.2";
-  v3[7] = @"1.2.840.113549.1.1.12";
-  v4[6] = @"2.16.840.1.101.3.4.2.1";
-  v4[7] = @"2.16.840.1.101.3.4.2.2";
-  v3[8] = @"1.2.840.10045.4.3.3";
-  v3[9] = @"1.2.840.113549.1.1.13";
-  v4[8] = @"2.16.840.1.101.3.4.2.2";
-  v4[9] = @"2.16.840.1.101.3.4.2.3";
-  v3[10] = @"1.2.840.10045.4.3.4";
-  v4[10] = @"2.16.840.1.101.3.4.2.3";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:11];
+  v3[11] = *MEMORY[0x277D85DE8];
+  v2[0] = @"1.2.840.113549.1.1.4";
+  v2[1] = @"1.2.840.113549.1.1.5";
+  v3[0] = @"1.2.840.113549.2.5";
+  v3[1] = @"1.3.14.3.2.26";
+  v2[2] = @"1.2.840.10045.4.1";
+  v2[3] = @"1.2.840.113549.1.1.14";
+  v3[2] = @"1.3.14.3.2.26";
+  v3[3] = @"2.16.840.1.101.3.4.2.4";
+  v2[4] = @"1.2.840.10045.4.3.1";
+  v2[5] = @"1.2.840.113549.1.1.11";
+  v3[4] = @"2.16.840.1.101.3.4.2.4";
+  v3[5] = @"2.16.840.1.101.3.4.2.1";
+  v2[6] = @"1.2.840.10045.4.3.2";
+  v2[7] = @"1.2.840.113549.1.1.12";
+  v3[6] = @"2.16.840.1.101.3.4.2.1";
+  v3[7] = @"2.16.840.1.101.3.4.2.2";
+  v2[8] = @"1.2.840.10045.4.3.3";
+  v2[9] = @"1.2.840.113549.1.1.13";
+  v3[8] = @"2.16.840.1.101.3.4.2.2";
+  v3[9] = @"2.16.840.1.101.3.4.2.3";
+  v2[10] = @"1.2.840.10045.4.3.4";
+  v3[10] = @"2.16.840.1.101.3.4.2.3";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:11];
   v1 = initDigestOIDWithSignatureAlgorithm_error__sSigAlgToDigAlg;
   initDigestOIDWithSignatureAlgorithm_error__sSigAlgToDigAlg = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initRSASignatureOIDWithDigestAlgorithm:(id)algorithm error:(id *)error
@@ -423,24 +410,22 @@ void __51__MSOID_initDigestOIDWithSignatureAlgorithm_error___block_invoke()
 
 void __54__MSOID_initRSASignatureOIDWithDigestAlgorithm_error___block_invoke()
 {
-  v4[6] = *MEMORY[0x277D85DE8];
-  v3[0] = @"1.2.840.113549.2.5";
-  v3[1] = @"1.3.14.3.2.26";
-  v4[0] = @"1.2.840.113549.1.1.4";
-  v4[1] = @"1.2.840.113549.1.1.5";
-  v3[2] = @"2.16.840.1.101.3.4.2.4";
-  v3[3] = @"2.16.840.1.101.3.4.2.1";
-  v4[2] = @"1.2.840.113549.1.1.14";
-  v4[3] = @"1.2.840.113549.1.1.11";
-  v3[4] = @"2.16.840.1.101.3.4.2.2";
-  v3[5] = @"2.16.840.1.101.3.4.2.3";
-  v4[4] = @"1.2.840.113549.1.1.12";
-  v4[5] = @"1.2.840.113549.1.1.13";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:6];
+  v3[6] = *MEMORY[0x277D85DE8];
+  v2[0] = @"1.2.840.113549.2.5";
+  v2[1] = @"1.3.14.3.2.26";
+  v3[0] = @"1.2.840.113549.1.1.4";
+  v3[1] = @"1.2.840.113549.1.1.5";
+  v2[2] = @"2.16.840.1.101.3.4.2.4";
+  v2[3] = @"2.16.840.1.101.3.4.2.1";
+  v3[2] = @"1.2.840.113549.1.1.14";
+  v3[3] = @"1.2.840.113549.1.1.11";
+  v2[4] = @"2.16.840.1.101.3.4.2.2";
+  v2[5] = @"2.16.840.1.101.3.4.2.3";
+  v3[4] = @"1.2.840.113549.1.1.12";
+  v3[5] = @"1.2.840.113549.1.1.13";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:6];
   v1 = initRSASignatureOIDWithDigestAlgorithm_error__sDigAlgToSigAlg;
   initRSASignatureOIDWithDigestAlgorithm_error__sDigAlgToSigAlg = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initECSignatureOIDWithDigestAlgorithm:(id)algorithm error:(id *)error
@@ -475,22 +460,20 @@ void __54__MSOID_initRSASignatureOIDWithDigestAlgorithm_error___block_invoke()
 
 void __53__MSOID_initECSignatureOIDWithDigestAlgorithm_error___block_invoke()
 {
-  v4[5] = *MEMORY[0x277D85DE8];
-  v3[0] = @"1.3.14.3.2.26";
-  v3[1] = @"2.16.840.1.101.3.4.2.4";
-  v4[0] = @"1.2.840.10045.4.1";
-  v4[1] = @"1.2.840.10045.4.3.1";
-  v3[2] = @"2.16.840.1.101.3.4.2.1";
-  v3[3] = @"2.16.840.1.101.3.4.2.2";
-  v4[2] = @"1.2.840.10045.4.3.2";
-  v4[3] = @"1.2.840.10045.4.3.3";
-  v3[4] = @"2.16.840.1.101.3.4.2.3";
-  v4[4] = @"1.2.840.10045.4.3.4";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:5];
+  v3[5] = *MEMORY[0x277D85DE8];
+  v2[0] = @"1.3.14.3.2.26";
+  v2[1] = @"2.16.840.1.101.3.4.2.4";
+  v3[0] = @"1.2.840.10045.4.1";
+  v3[1] = @"1.2.840.10045.4.3.1";
+  v2[2] = @"2.16.840.1.101.3.4.2.1";
+  v2[3] = @"2.16.840.1.101.3.4.2.2";
+  v3[2] = @"1.2.840.10045.4.3.2";
+  v3[3] = @"1.2.840.10045.4.3.3";
+  v2[4] = @"2.16.840.1.101.3.4.2.3";
+  v3[4] = @"1.2.840.10045.4.3.4";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:5];
   v1 = initECSignatureOIDWithDigestAlgorithm_error__sDigAlgToSigAlg;
   initECSignatureOIDWithDigestAlgorithm_error__sDigAlgToSigAlg = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initSignatureOIDWithSecKeyAlgorithm:(__CFString *)algorithm error:(id *)error
@@ -522,109 +505,105 @@ void __53__MSOID_initECSignatureOIDWithDigestAlgorithm_error___block_invoke()
 
 void __51__MSOID_initSignatureOIDWithSecKeyAlgorithm_error___block_invoke()
 {
-  v15[22] = *MEMORY[0x277D85DE8];
+  v14[22] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CDC3A0];
-  v14[0] = *MEMORY[0x277CDC370];
-  v14[1] = v0;
-  v15[0] = @"1.2.840.113549.1.1.4";
-  v15[1] = @"1.2.840.113549.1.1.4";
+  v13[0] = *MEMORY[0x277CDC370];
+  v13[1] = v0;
+  v14[0] = @"1.2.840.113549.1.1.4";
+  v14[1] = @"1.2.840.113549.1.1.4";
   v1 = *MEMORY[0x277CDC3A8];
-  v14[2] = *MEMORY[0x277CDC378];
-  v14[3] = v1;
-  v15[2] = @"1.2.840.113549.1.1.5";
-  v15[3] = @"1.2.840.113549.1.1.5";
+  v13[2] = *MEMORY[0x277CDC378];
+  v13[3] = v1;
+  v14[2] = @"1.2.840.113549.1.1.5";
+  v14[3] = @"1.2.840.113549.1.1.5";
   v2 = *MEMORY[0x277CDC2E8];
-  v14[4] = *MEMORY[0x277CDC2A8];
-  v14[5] = v2;
-  v15[4] = @"1.2.840.10045.4.1";
-  v15[5] = @"1.2.840.10045.4.1";
+  v13[4] = *MEMORY[0x277CDC2A8];
+  v13[5] = v2;
+  v14[4] = @"1.2.840.10045.4.1";
+  v14[5] = @"1.2.840.10045.4.1";
   v3 = *MEMORY[0x277CDC3B0];
-  v14[6] = *MEMORY[0x277CDC380];
-  v14[7] = v3;
-  v15[6] = @"1.2.840.113549.1.1.14";
-  v15[7] = @"1.2.840.113549.1.1.14";
+  v13[6] = *MEMORY[0x277CDC380];
+  v13[7] = v3;
+  v14[6] = @"1.2.840.113549.1.1.14";
+  v14[7] = @"1.2.840.113549.1.1.14";
   v4 = *MEMORY[0x277CDC2F0];
-  v14[8] = *MEMORY[0x277CDC2B0];
-  v14[9] = v4;
-  v15[8] = @"1.2.840.10045.4.3.1";
-  v15[9] = @"1.2.840.10045.4.3.1";
+  v13[8] = *MEMORY[0x277CDC2B0];
+  v13[9] = v4;
+  v14[8] = @"1.2.840.10045.4.3.1";
+  v14[9] = @"1.2.840.10045.4.3.1";
   v5 = *MEMORY[0x277CDC3B8];
-  v14[10] = *MEMORY[0x277CDC388];
-  v14[11] = v5;
-  v15[10] = @"1.2.840.113549.1.1.11";
-  v15[11] = @"1.2.840.113549.1.1.11";
+  v13[10] = *MEMORY[0x277CDC388];
+  v13[11] = v5;
+  v14[10] = @"1.2.840.113549.1.1.11";
+  v14[11] = @"1.2.840.113549.1.1.11";
   v6 = *MEMORY[0x277CDC300];
-  v14[12] = *MEMORY[0x277CDC2B8];
-  v14[13] = v6;
-  v15[12] = @"1.2.840.10045.4.3.2";
-  v15[13] = @"1.2.840.10045.4.3.2";
+  v13[12] = *MEMORY[0x277CDC2B8];
+  v13[13] = v6;
+  v14[12] = @"1.2.840.10045.4.3.2";
+  v14[13] = @"1.2.840.10045.4.3.2";
   v7 = *MEMORY[0x277CDC3C0];
-  v14[14] = *MEMORY[0x277CDC390];
-  v14[15] = v7;
-  v15[14] = @"1.2.840.113549.1.1.12";
-  v15[15] = @"1.2.840.113549.1.1.12";
+  v13[14] = *MEMORY[0x277CDC390];
+  v13[15] = v7;
+  v14[14] = @"1.2.840.113549.1.1.12";
+  v14[15] = @"1.2.840.113549.1.1.12";
   v8 = *MEMORY[0x277CDC308];
-  v14[16] = *MEMORY[0x277CDC2C0];
-  v14[17] = v8;
-  v15[16] = @"1.2.840.10045.4.3.3";
-  v15[17] = @"1.2.840.10045.4.3.3";
+  v13[16] = *MEMORY[0x277CDC2C0];
+  v13[17] = v8;
+  v14[16] = @"1.2.840.10045.4.3.3";
+  v14[17] = @"1.2.840.10045.4.3.3";
   v9 = *MEMORY[0x277CDC3C8];
-  v14[18] = *MEMORY[0x277CDC398];
-  v14[19] = v9;
-  v15[18] = @"1.2.840.113549.1.1.13";
-  v15[19] = @"1.2.840.113549.1.1.13";
+  v13[18] = *MEMORY[0x277CDC398];
+  v13[19] = v9;
+  v14[18] = @"1.2.840.113549.1.1.13";
+  v14[19] = @"1.2.840.113549.1.1.13";
   v10 = *MEMORY[0x277CDC310];
-  v14[20] = *MEMORY[0x277CDC2C8];
-  v14[21] = v10;
-  v15[20] = @"1.2.840.10045.4.3.4";
-  v15[21] = @"1.2.840.10045.4.3.4";
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:22];
+  v13[20] = *MEMORY[0x277CDC2C8];
+  v13[21] = v10;
+  v14[20] = @"1.2.840.10045.4.3.4";
+  v14[21] = @"1.2.840.10045.4.3.4";
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:22];
   v12 = initSignatureOIDWithSecKeyAlgorithm_error__sKeyAlgorithmToSignatureAlgorithm;
   initSignatureOIDWithSecKeyAlgorithm_error__sKeyAlgorithmToSignatureAlgorithm = v11;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __24__MSOID_secKeyAlgorithm__block_invoke()
 {
-  v14[11] = *MEMORY[0x277D85DE8];
+  v13[11] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CDC370];
-  v13[0] = @"1.2.840.113549.1.1.4";
-  v13[1] = @"1.2.840.113549.1.1.5";
+  v12[0] = @"1.2.840.113549.1.1.4";
+  v12[1] = @"1.2.840.113549.1.1.5";
   v1 = *MEMORY[0x277CDC378];
-  v14[0] = v0;
-  v14[1] = v1;
+  v13[0] = v0;
+  v13[1] = v1;
   v2 = *MEMORY[0x277CDC380];
-  v13[2] = @"1.2.840.113549.1.1.14";
-  v13[3] = @"1.2.840.113549.1.1.11";
+  v12[2] = @"1.2.840.113549.1.1.14";
+  v12[3] = @"1.2.840.113549.1.1.11";
   v3 = *MEMORY[0x277CDC388];
-  v14[2] = v2;
-  v14[3] = v3;
+  v13[2] = v2;
+  v13[3] = v3;
   v4 = *MEMORY[0x277CDC390];
-  v13[4] = @"1.2.840.113549.1.1.12";
-  v13[5] = @"1.2.840.113549.1.1.13";
+  v12[4] = @"1.2.840.113549.1.1.12";
+  v12[5] = @"1.2.840.113549.1.1.13";
   v5 = *MEMORY[0x277CDC398];
-  v14[4] = v4;
-  v14[5] = v5;
+  v13[4] = v4;
+  v13[5] = v5;
   v6 = *MEMORY[0x277CDC2A8];
-  v13[6] = @"1.2.840.10045.4.1";
-  v13[7] = @"1.2.840.10045.4.3.1";
+  v12[6] = @"1.2.840.10045.4.1";
+  v12[7] = @"1.2.840.10045.4.3.1";
   v7 = *MEMORY[0x277CDC2B0];
-  v14[6] = v6;
-  v14[7] = v7;
+  v13[6] = v6;
+  v13[7] = v7;
   v8 = *MEMORY[0x277CDC2B8];
-  v13[8] = @"1.2.840.10045.4.3.2";
-  v13[9] = @"1.2.840.10045.4.3.3";
+  v12[8] = @"1.2.840.10045.4.3.2";
+  v12[9] = @"1.2.840.10045.4.3.3";
   v9 = *MEMORY[0x277CDC2C0];
-  v14[8] = v8;
-  v14[9] = v9;
-  v13[10] = @"1.2.840.10045.4.3.4";
-  v14[10] = *MEMORY[0x277CDC2C8];
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:11];
+  v13[8] = v8;
+  v13[9] = v9;
+  v12[10] = @"1.2.840.10045.4.3.4";
+  v13[10] = *MEMORY[0x277CDC2C8];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:11];
   v11 = secKeyAlgorithm_sAlgorithmOIDToKeyAlgorithm;
   secKeyAlgorithm_sAlgorithmOIDToKeyAlgorithm = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (MSOID)initWithAsn1OID:(heim_oid *)d error:(id *)error

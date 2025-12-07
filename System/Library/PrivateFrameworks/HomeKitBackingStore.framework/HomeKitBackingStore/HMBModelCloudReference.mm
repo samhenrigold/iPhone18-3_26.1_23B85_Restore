@@ -24,7 +24,7 @@
 
 - (id)nativeCKValueWithEncodingContext:(id)context error:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (!contextCopy)
   {
@@ -70,9 +70,9 @@ LABEL_7:
 
   localZone = [(HMBModelReference *)self localZone];
   hmbModelID2 = [(HMBModelReference *)self hmbModelID];
-  v36 = 0;
-  v19 = [localZone externalIDForModelID:hmbModelID2 error:&v36];
-  v20 = v36;
+  v35 = 0;
+  v19 = [localZone externalIDForModelID:hmbModelID2 error:&v35];
+  v20 = v35;
 
   if (!v19)
   {
@@ -81,24 +81,24 @@ LABEL_7:
       v20 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
     }
 
-    v29 = objc_autoreleasePoolPush();
+    v28 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v31 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v30 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      v32 = HMFGetLogIdentifier();
+      v31 = HMFGetLogIdentifier();
       hmbModelID3 = [(HMBModelReference *)selfCopy hmbModelID];
       uUIDString = [hmbModelID3 UUIDString];
       *buf = 138543874;
-      v38 = v32;
-      v39 = 2112;
-      v40 = uUIDString;
-      v41 = 2112;
-      v42 = v20;
-      _os_log_impl(&dword_22AD27000, v31, OS_LOG_TYPE_ERROR, "%{public}@Unable to determine CKRecordID for model ID %@: %@", buf, 0x20u);
+      v37 = v31;
+      v38 = 2112;
+      v39 = uUIDString;
+      v40 = 2112;
+      v41 = v20;
+      _os_log_impl(&dword_22AD27000, v30, OS_LOG_TYPE_ERROR, "%{public}@Unable to determine CKRecordID for model ID %@: %@", buf, 0x20u);
     }
 
-    objc_autoreleasePoolPop(v29);
+    objc_autoreleasePoolPop(v28);
     v13 = 0;
     if (!error)
     {
@@ -108,9 +108,9 @@ LABEL_7:
     goto LABEL_13;
   }
 
-  v35 = v20;
-  v13 = [MEMORY[0x277CBC5D0] recordIDFromExternalID:v19 error:&v35];
-  v21 = v35;
+  v34 = v20;
+  v13 = [MEMORY[0x277CBC5D0] recordIDFromExternalID:v19 error:&v34];
+  v21 = v34;
 
   if (!v21)
   {
@@ -126,11 +126,11 @@ LABEL_7:
   {
     v25 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v38 = v25;
-    v39 = 2112;
-    v40 = v19;
-    v41 = 2112;
-    v42 = v20;
+    v37 = v25;
+    v38 = 2112;
+    v39 = v19;
+    v40 = 2112;
+    v41 = v20;
     _os_log_impl(&dword_22AD27000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode CKRecordID from external ID %@: %@", buf, 0x20u);
   }
 
@@ -146,8 +146,6 @@ LABEL_14:
 
   reference = 0;
 LABEL_15:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return reference;
 }
@@ -300,7 +298,7 @@ LABEL_15:
 - (id)referencedModelOfType:(Class)type fromCloudZone:(id)zone allowExternalFetch:(BOOL)fetch
 {
   fetchCopy = fetch;
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   localZone = [zoneCopy localZone];
   if (localZone)
@@ -313,18 +311,18 @@ LABEL_15:
       v13 = HMFGetLogIdentifier();
       hmbModelID = [(HMBModelReference *)selfCopy hmbModelID];
       *buf = 138543874;
-      v43 = v13;
-      v44 = 2112;
-      v45 = hmbModelID;
-      v46 = 2112;
-      v47 = localZone;
+      v42 = v13;
+      v43 = 2112;
+      v44 = hmbModelID;
+      v45 = 2112;
+      v46 = localZone;
       _os_log_impl(&dword_22AD27000, v12, OS_LOG_TYPE_INFO, "%{public}@Looking for referenced model %@ in localZone %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
-    v41 = 0;
-    v15 = [(HMBModelReference *)selfCopy referencedModelOfType:type fromLocalZone:localZone error:&v41];
-    v16 = v41;
+    v40 = 0;
+    v15 = [(HMBModelReference *)selfCopy referencedModelOfType:type fromLocalZone:localZone error:&v40];
+    v16 = v40;
     reference3 = v16;
     if (v15)
     {
@@ -344,9 +342,9 @@ LABEL_10:
         v22 = HMFGetLogIdentifier();
         hmbModelID2 = [(HMBModelReference *)v20 hmbModelID];
         *buf = 138543618;
-        v43 = v22;
-        v44 = 2112;
-        v45 = hmbModelID2;
+        v42 = v22;
+        v43 = 2112;
+        v44 = hmbModelID2;
         _os_log_impl(&dword_22AD27000, v21, OS_LOG_TYPE_ERROR, "%{public}@Error fetching model %@", buf, 0x16u);
       }
 
@@ -374,11 +372,11 @@ LABEL_10:
       hmbModelID3 = [(HMBModelReference *)selfCopy2 hmbModelID];
       reference2 = [(HMBModelCloudReference *)selfCopy2 reference];
       *buf = 138543874;
-      v43 = v32;
-      v44 = 2112;
-      v45 = hmbModelID3;
-      v46 = 2112;
-      v47 = reference2;
+      v42 = v32;
+      v43 = 2112;
+      v44 = hmbModelID3;
+      v45 = 2112;
+      v46 = reference2;
       _os_log_impl(&dword_22AD27000, v31, OS_LOG_TYPE_INFO, "%{public}@No local model for %@, fetching via CKReference %@", buf, 0x20u);
     }
 
@@ -395,9 +393,9 @@ LABEL_10:
       v36 = HMFGetLogIdentifier();
       hmbModelID4 = [(HMBModelReference *)selfCopy2 hmbModelID];
       *buf = 138543618;
-      v43 = v36;
-      v44 = 2112;
-      v45 = hmbModelID4;
+      v42 = v36;
+      v43 = 2112;
+      v44 = hmbModelID4;
       _os_log_impl(&dword_22AD27000, v31, OS_LOG_TYPE_ERROR, "%{public}@Unable to find referenced model %@, no local model and no CKReference to fetch", buf, 0x16u);
     }
 
@@ -408,8 +406,6 @@ LABEL_10:
   }
 
 LABEL_19:
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -480,7 +476,7 @@ LABEL_19:
 
 + (void)applyNativeCKValue:(id)value fromSource:(unint64_t)source associatingWith:(id)with toModel:(id)model propertyNamed:(id)named
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   withCopy = with;
   modelCopy = model;
@@ -518,12 +514,12 @@ LABEL_19:
     selfCopy = self;
     if (v20)
     {
-      v50 = v18;
-      v52 = namedCopy;
-      v53 = withCopy;
-      v54 = modelCopy;
+      v49 = v18;
+      v51 = namedCopy;
+      v52 = withCopy;
+      v53 = modelCopy;
       [v20 associateWithContainer:withCopy];
-      v51 = v17;
+      v50 = v17;
       recordID = [v17 recordID];
       zoneID = [recordID zoneID];
       zoneName = [zoneID zoneName];
@@ -535,54 +531,54 @@ LABEL_19:
 
       if (v28)
       {
-        modelCopy = v54;
-        namedCopy = v52;
-        [v54 hmbSetProperty:v20 named:v52];
+        modelCopy = v53;
+        namedCopy = v51;
+        [v53 hmbSetProperty:v20 named:v51];
 
-        withCopy = v53;
-        v17 = v51;
+        withCopy = v52;
+        v17 = v50;
         goto LABEL_22;
       }
 
       v36 = objc_autoreleasePoolPush();
       v41 = selfCopy;
       v38 = HMFGetOSLogHandle();
-      modelCopy = v54;
-      namedCopy = v52;
+      modelCopy = v53;
+      namedCopy = v51;
       if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         v42 = HMFGetLogIdentifier();
-        hmbDescription = [v54 hmbDescription];
-        v17 = v51;
-        [v51 hmbDescription];
-        v44 = v49 = v36;
+        hmbDescription = [v53 hmbDescription];
+        v17 = v50;
+        [v50 hmbDescription];
+        v44 = v48 = v36;
         reference2 = [v20 reference];
         hmbDescription2 = [reference2 hmbDescription];
         *buf = 138544386;
-        v57 = v42;
-        v58 = 2112;
-        v59 = hmbDescription;
-        v60 = 2112;
-        v61 = v52;
-        v62 = 2112;
-        v63 = v44;
-        v64 = 2112;
-        v65 = hmbDescription2;
+        v56 = v42;
+        v57 = 2112;
+        v58 = hmbDescription;
+        v59 = 2112;
+        v60 = v51;
+        v61 = 2112;
+        v62 = v44;
+        v63 = 2112;
+        v64 = hmbDescription2;
         _os_log_impl(&dword_22AD27000, v38, OS_LOG_TYPE_ERROR, "%{public}@Received CKRecord with a HMBModelCloudReference field (%@/%@) where zone name for reference stored in the CKRecord field does not match the zone name in the HMBModel field (%@!=%@)", buf, 0x34u);
 
-        modelCopy = v54;
-        v36 = v49;
+        modelCopy = v53;
+        v36 = v48;
 
-        withCopy = v53;
+        withCopy = v52;
       }
 
       else
       {
-        withCopy = v53;
-        v17 = v51;
+        withCopy = v52;
+        v17 = v50;
       }
 
-      v18 = v50;
+      v18 = v49;
     }
 
     else
@@ -594,18 +590,18 @@ LABEL_19:
       {
         v39 = HMFGetLogIdentifier();
         [modelCopy hmbDescription];
-        v40 = v48 = v36;
+        v40 = v47 = v36;
         *buf = 138544130;
-        v57 = v39;
-        v58 = 2112;
-        v59 = v40;
-        v60 = 2112;
-        v61 = namedCopy;
-        v62 = 2112;
-        v63 = v15;
+        v56 = v39;
+        v57 = 2112;
+        v58 = v40;
+        v59 = 2112;
+        v60 = namedCopy;
+        v61 = 2112;
+        v62 = v15;
         _os_log_impl(&dword_22AD27000, v38, OS_LOG_TYPE_ERROR, "%{public}@Received CKRecord with a HMBModelCloudReference field (%@/%@) where the corresponding CKRecord field is not set or not of the expected type (got %@)", buf, 0x2Au);
 
-        v36 = v48;
+        v36 = v47;
       }
     }
 
@@ -625,13 +621,13 @@ LABEL_19:
       [modelCopy hmbDescription];
       v35 = v34 = modelCopy;
       *buf = 138544130;
-      v57 = v33;
-      v58 = 2112;
-      v59 = v15;
-      v60 = 2112;
-      v61 = v35;
-      v62 = 2112;
-      v63 = v29;
+      v56 = v33;
+      v57 = 2112;
+      v58 = v15;
+      v59 = 2112;
+      v60 = v35;
+      v61 = 2112;
+      v62 = v29;
       _os_log_impl(&dword_22AD27000, v32, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly found %@ in CKRecord field for wrapped model value %@/%@ which we expected to be a CKReference (ignoring).", buf, 0x2Au);
 
       modelCopy = v34;
@@ -643,8 +639,6 @@ LABEL_19:
   }
 
 LABEL_22:
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 @end

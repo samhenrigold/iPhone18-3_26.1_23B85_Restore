@@ -12,9 +12,8 @@
     JreThrowNullPointerException();
   }
 
-  v2 = *(&self->super.super.super.super.super.rawFrameCount + 2);
   [*&self->c_ getName];
-  return JreStrcat("CC$$$", v3, v4, v5, v6, v7, v8, v9, 37);
+  return JreStrcat("CC$$$", v2, v3, v4, v5, v6, v7, v8, 37);
 }
 
 - (void)dealloc

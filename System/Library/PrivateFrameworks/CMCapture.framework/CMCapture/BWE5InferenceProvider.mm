@@ -18,7 +18,7 @@
 - (uint64_t)_applyRotationOnPixelBuffer:(__CVBuffer *)buffer dstPixelBuffer:(int)pixelBuffer rotationDegrees:;
 - (uint64_t)_ensureBindingsUsingStorage:(int)storage requiredOutputRotationDegrees:(uint64_t)degrees newIntermediateOutputBufferByVideoRequirementOut:;
 - (uint64_t)_prepareWithSharedANEMemoryProvider:(VTPixelRotationSessionRef *)pixelRotationSessionOut;
-- (uint64_t)_unbindUsingStorage:(uint64_t)storage;
+- (void)_unbindUsingStorage:(uint64_t)storage;
 - (void)dealloc;
 - (void)setCustomInferenceIdentifier:(id)identifier;
 - (void)setPropagatable:(id)propagatable;
@@ -254,21 +254,28 @@
 
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    [(VTPixelRotationSessionRef *)pixelRotationSessionOut type];
-    OUTLINED_FUNCTION_2_38();
+    type = [(VTPixelRotationSessionRef *)pixelRotationSessionOut type];
+    OUTLINED_FUNCTION_2_38(0x485u, v8, type);
   }
 
-  BWInferenceTypeDescription(*(pixelRotationSessionOut + 44));
+  v22 = BWInferenceTypeDescription(*(pixelRotationSessionOut + 44));
   mach_absolute_time();
   [(OpaqueVTPixelRotationSession *)pixelRotationSessionOut[2] fileSystemRepresentation];
-  v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BWInference type %d", *(pixelRotationSessionOut + 44)];
+  v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BWInference type %d", *(pixelRotationSessionOut + 44)];
+  v32 = 0;
   [(OpaqueVTPixelRotationSession *)pixelRotationSessionOut[3] UTF8String];
   if (e5rt_precompiled_compute_op_create_options_create())
   {
-    goto LABEL_60;
+    OUTLINED_FUNCTION_0_108();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v21);
+LABEL_61:
+    v10 = 0;
+LABEL_48:
+    v11 = 0;
+    goto LABEL_49;
   }
 
-  [v7 UTF8String];
+  [v9 UTF8String];
   if (e5rt_precompiled_compute_op_create_options_set_operation_name() || e5rt_precompiled_compute_op_create_options_set_allocate_intermediate_buffers())
   {
     goto LABEL_61;
@@ -278,119 +285,132 @@
   {
     OUTLINED_FUNCTION_3_94();
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v18))
+    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v30))
     {
-      v11 = v19;
+      v13 = v31;
     }
 
     else
     {
-      v11 = v19 & 0xFFFFFFFE;
+      v13 = v31 & 0xFFFFFFFE;
     }
 
-    if (v11)
+    if (v13)
     {
+      v23 = 136315394;
+      v24 = "[BWE5InferenceProvider _prepareWithSharedANEMemoryProvider:]";
+      v25 = 2114;
+      v26 = pixelRotationSessionOut;
+      v21 = &v23;
       _os_log_send_and_compose_impl();
     }
 
     OUTLINED_FUNCTION_7_67();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    goto LABEL_25;
+LABEL_25:
+    v29 = 0;
+    if (a2 && (v29 = [a2 fetchANEMemoryProviderForNetwork:{-[OpaqueVTPixelRotationSession path](pixelRotationSessionOut[2], "path")}]) != 0)
+    {
+      if (e5rt_precompiled_compute_op_create_options_set_custom_ane_memory_provider())
+      {
+LABEL_60:
+        OUTLINED_FUNCTION_0_108();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v21);
+        goto LABEL_61;
+      }
+
+      v14 = 1;
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    if (!e5rt_execution_stream_operation_create_precompiled_compute_operation_with_options() && !e5rt_precompiled_compute_op_create_options_release())
+    {
+      v32 = 0;
+      if (a2)
+      {
+        v15 = v14;
+      }
+
+      else
+      {
+        v15 = 1;
+      }
+
+      if (v15)
+      {
+        goto LABEL_39;
+      }
+
+      if (!e5rt_ane_memory_provider_create())
+      {
+        if ([a2 registerANEMemoryProvider:v29 forNetwork:{-[OpaqueVTPixelRotationSession path](pixelRotationSessionOut[2], "path")}])
+        {
+          e5rt_ane_memory_provider_release();
+        }
+
+LABEL_39:
+        if (e5rt_execution_stream_create())
+        {
+          v10 = 0;
+          v11 = 4294935594;
+          goto LABEL_49;
+        }
+
+        if (dword_1EB58E400)
+        {
+          OUTLINED_FUNCTION_3_94();
+          v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v17 = v31;
+          if (os_log_type_enabled(v16, v30))
+          {
+            v18 = v17;
+          }
+
+          else
+          {
+            v18 = v17 & 0xFFFFFFFE;
+          }
+
+          if (v18)
+          {
+            mach_absolute_time();
+            v19 = FigHostTimeToNanoseconds();
+            v23 = 136315650;
+            v24 = "[BWE5InferenceProvider _prepareWithSharedANEMemoryProvider:]";
+            v25 = 2114;
+            v26 = v22;
+            v27 = 2048;
+            v28 = (v19 / 1000) / 1000.0;
+            _os_log_send_and_compose_impl();
+          }
+
+          OUTLINED_FUNCTION_7_67();
+          v10 = 1;
+          fig_log_call_emit_and_clean_up_after_send_and_compose();
+          goto LABEL_48;
+        }
+
+LABEL_46:
+        v11 = 0;
+        v10 = 1;
+        goto LABEL_49;
+      }
+    }
+
+    goto LABEL_60;
   }
 
   if (!e5rt_precompiled_compute_op_create_options_set_iosurface_memory_pool_id())
   {
-LABEL_25:
-    v17 = 0;
-    if (!a2 || (v17 = [a2 fetchANEMemoryProviderForNetwork:{-[OpaqueVTPixelRotationSession path](pixelRotationSessionOut[2], "path")}]) == 0)
-    {
-      v12 = 0;
-      goto LABEL_30;
-    }
-
-    if (!e5rt_precompiled_compute_op_create_options_set_custom_ane_memory_provider())
-    {
-      v12 = 1;
-LABEL_30:
-      if (!e5rt_execution_stream_operation_create_precompiled_compute_operation_with_options() && !e5rt_precompiled_compute_op_create_options_release())
-      {
-        if (a2)
-        {
-          v13 = v12;
-        }
-
-        else
-        {
-          v13 = 1;
-        }
-
-        if (v13)
-        {
-          goto LABEL_39;
-        }
-
-        if (!e5rt_ane_memory_provider_create())
-        {
-          if ([a2 registerANEMemoryProvider:v17 forNetwork:{-[OpaqueVTPixelRotationSession path](pixelRotationSessionOut[2], "path")}])
-          {
-            e5rt_ane_memory_provider_release();
-          }
-
-LABEL_39:
-          if (e5rt_execution_stream_create())
-          {
-            v8 = 0;
-            v9 = 4294935594;
-            goto LABEL_49;
-          }
-
-          if (dword_1EB58E400)
-          {
-            OUTLINED_FUNCTION_3_94();
-            v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            if (os_log_type_enabled(v14, v18))
-            {
-              v15 = v19;
-            }
-
-            else
-            {
-              v15 = v19 & 0xFFFFFFFE;
-            }
-
-            if (v15)
-            {
-              mach_absolute_time();
-              FigHostTimeToNanoseconds();
-              _os_log_send_and_compose_impl();
-            }
-
-            OUTLINED_FUNCTION_7_67();
-            v8 = 1;
-            fig_log_call_emit_and_clean_up_after_send_and_compose();
-            goto LABEL_48;
-          }
-
-LABEL_46:
-          v9 = 0;
-          v8 = 1;
-          goto LABEL_49;
-        }
-      }
-    }
-
-LABEL_60:
-    OUTLINED_FUNCTION_0_108();
-    FigDebugAssert3();
-LABEL_61:
-    v8 = 0;
-LABEL_48:
-    v9 = 0;
-    goto LABEL_49;
+    goto LABEL_25;
   }
 
-  v8 = 0;
-  v9 = 4294935586;
+  v10 = 0;
+  v11 = 4294935586;
 LABEL_49:
   if (*v6 == 1)
   {
@@ -401,10 +421,10 @@ LABEL_49:
 
   if (a2)
   {
-    [a2 completeANEMemoryProviderCreationForNetwork:-[OpaqueVTPixelRotationSession path](pixelRotationSessionOut[2] wasSuccessful:{"path"), v8}];
+    [a2 completeANEMemoryProviderCreationForNetwork:-[OpaqueVTPixelRotationSession path](pixelRotationSessionOut[2] wasSuccessful:{"path"), v10}];
   }
 
-  if ((v8 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
     e5rt_get_last_error_message();
     e5rt_execution_stream_operation_release();
@@ -412,7 +432,7 @@ LABEL_49:
     return 4294935586;
   }
 
-  return v9;
+  return v11;
 }
 
 - (uint64_t)_ensureBindingsUsingStorage:(int)storage requiredOutputRotationDegrees:(uint64_t)degrees newIntermediateOutputBufferByVideoRequirementOut:
@@ -423,45 +443,45 @@ LABEL_49:
   }
 
   v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v88 = v8;
+  v87 = v8;
   if (!storage || degrees)
   {
-    HIDWORD(v85) = storage;
-    v181 = 0u;
-    v182 = 0u;
+    HIDWORD(v84) = storage;
     v179 = 0u;
     v180 = 0u;
+    v177 = 0u;
+    v178 = 0u;
     v16 = self[11];
-    v17 = OUTLINED_FUNCTION_12_45(v8, v9, v10, v11, v12, v13, v14, v15, v74, v77, obj, v85, v8, v89, v92, v95, v98, v101, v104, v107, v110, v113, v116, v119, v122, v125, v128, v131, v134, v137, v140, v143, v145, v147, v149, v151, v153, v155, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, *(&v173 + 1), v174, *(&v174 + 1), v175, *(&v175 + 1), v176, *(&v176 + 1), v177);
+    v17 = OUTLINED_FUNCTION_12_45(v8, v9, v10, v11, v12, v13, v14, v15, v73, v76, obj, v84, v8, v88, v91, v94, v97, v100, v103, v106, v109, v112, v115, v118, v121, v124, v127, v130, v133, v136, v139, v141, v143, v145, v147, v149, v151, v153, v155, v156, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, *(&v171 + 1), v172, *(&v172 + 1), v173, *(&v173 + 1), v174, *(&v174 + 1), v175);
     if (v17)
     {
       v18 = v17;
-      v19 = *v180;
+      v19 = *v178;
 LABEL_6:
       v20 = 0;
       while (1)
       {
-        if (*v180 != v19)
+        if (*v178 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v179 + 1) + 8 * v20);
+        v21 = *(*(&v177 + 1) + 8 * v20);
         v22 = [OUTLINED_FUNCTION_5_78() pixelBufferForRequirement:?];
         if (!v22 || (v23 = v22, (v24 = [OUTLINED_FUNCTION_5_78() bindingNameForRequirement:?]) == 0))
         {
-          v71 = 4294935584;
+          v70 = 4294935584;
           goto LABEL_63;
         }
 
-        v178 = 0;
+        v176 = 0;
         [v24 UTF8String];
         if (e5rt_execution_stream_operation_retain_input_port())
         {
           break;
         }
 
-        if (![(BWE5MultipleLayoutInferenceProvider *)self _bindE5Port:v178 toPixelBuffer:v23])
+        if (![(BWE5MultipleLayoutInferenceProvider *)self _bindE5Port:v176 toPixelBuffer:v23])
         {
           goto LABEL_62;
         }
@@ -474,7 +494,7 @@ LABEL_6:
 
         if (v18 == ++v20)
         {
-          v18 = OUTLINED_FUNCTION_12_45(v25, v26, v27, v28, v29, v30, v31, v32, attachedMediaKey, v78, obja, v86, v88, v90, v93, v96, v99, v102, v105, v108, v111, v114, v117, v120, v123, v126, v129, v132, v135, v138, v141, v144, v146, v148, v150, v152, v154, v156, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, *(&v173 + 1), v174, *(&v174 + 1), v175, *(&v175 + 1), v176, *(&v176 + 1), v177);
+          v18 = OUTLINED_FUNCTION_12_45(v25, v26, v27, v28, v29, v30, v31, v32, v74, v77, obja, v85, v87, v89, v92, v95, v98, v101, v104, v107, v110, v113, v116, v119, v122, v125, v128, v131, v134, v137, v140, v142, v144, v146, v148, v150, v152, v154, v155, v156, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, *(&v171 + 1), v172, *(&v172 + 1), v173, *(&v173 + 1), v174, *(&v174 + 1), v175);
           if (v18)
           {
             goto LABEL_6;
@@ -491,66 +511,66 @@ LABEL_59:
         goto LABEL_62;
       }
 
-      v72 = OUTLINED_FUNCTION_5_78();
+      v71 = OUTLINED_FUNCTION_5_78();
     }
 
     else
     {
 LABEL_16:
-      v175 = 0u;
-      v176 = 0u;
       v173 = 0u;
       v174 = 0u;
+      v171 = 0u;
+      v172 = 0u;
       degreesCopy = degrees;
       objb = self[12];
-      v33 = [objb countByEnumeratingWithState:&v173 objects:&v157 count:16];
-      v41 = HIDWORD(v86);
+      v33 = [objb countByEnumeratingWithState:&v171 objects:&v155 count:16];
+      v41 = HIDWORD(v85);
       if (!v33)
       {
 LABEL_35:
-        v55 = self[15];
-        v56 = OUTLINED_FUNCTION_16(v33, v34, v35, v36, v37, v38, v39, v40, attachedMediaKey, degreesCopy, objb, v86, v88, v90, v93, v96, v99, v102, v105, v108, v111, v114, v117, v120, v123, v126, v129, v132, v135, v138, 0);
-        if (v56)
+        v54 = self[15];
+        v55 = OUTLINED_FUNCTION_16(v33, v34, v35, v36, v37, v38, v39, v40, v74, degreesCopy, objb, v85, v87, v89, v92, v95, v98, v101, v104, v107, v110, v113, v116, v119, v122, v125, v128, v131, v134, v137);
+        if (v55)
         {
-          v57 = v56;
-          v58 = MEMORY[0];
+          v56 = v55;
+          v57 = MEMORY[0];
           while (2)
           {
-            for (i = 0; i != v57; ++i)
+            for (i = 0; i != v56; ++i)
             {
-              if (MEMORY[0] != v58)
+              if (MEMORY[0] != v57)
               {
-                objc_enumerationMutation(v55);
+                objc_enumerationMutation(v54);
               }
 
               v21 = *(8 * i);
-              v60 = [OUTLINED_FUNCTION_5_78() tensorPortForRequirement:?];
-              if (!v60)
+              v59 = [OUTLINED_FUNCTION_5_78() tensorPortForRequirement:?];
+              if (!v59)
               {
-                v68 = [OUTLINED_FUNCTION_5_78() bindingNameForRequirement:?];
-                if (!v68)
+                v67 = [OUTLINED_FUNCTION_5_78() bindingNameForRequirement:?];
+                if (!v67)
                 {
-                  v71 = 4294935577;
+                  v70 = 4294935577;
                   goto LABEL_63;
                 }
 
-                v69 = v68;
-                v70 = malloc_type_malloc(8uLL, 0x2004093837F09uLL);
-                [v69 UTF8String];
+                v68 = v67;
+                v69 = malloc_type_malloc(8uLL, 0x2004093837F09uLL);
+                [v68 UTF8String];
                 if (e5rt_execution_stream_operation_retain_output_port())
                 {
-                  free(v70);
+                  free(v69);
                   goto LABEL_59;
                 }
 
                 [OUTLINED_FUNCTION_6_75() setTensorPort:? forRequirement:?];
-                v178 = 0;
+                v176 = 0;
                 if (e5rt_io_port_retain_tensor_desc())
                 {
                   goto LABEL_59;
                 }
 
-                v91 = 0;
+                v90 = 0;
                 if (e5rt_tensor_desc_alloc_buffer_object())
                 {
                   goto LABEL_59;
@@ -566,16 +586,16 @@ LABEL_35:
                   goto LABEL_59;
                 }
 
-                v60 = e5rt_tensor_desc_release();
-                if (v60)
+                v59 = e5rt_tensor_desc_release();
+                if (v59)
                 {
                   goto LABEL_59;
                 }
               }
             }
 
-            v57 = OUTLINED_FUNCTION_16(v60, v61, v62, v63, v64, v65, v66, v67, v76, v80, objc, v87, v88, v91, v94, v97, v100, v103, v106, v109, v112, v115, v118, v121, v124, v127, v130, v133, v136, v139, v142);
-            if (v57)
+            v56 = OUTLINED_FUNCTION_16(v59, v60, v61, v62, v63, v64, v65, v66, v75, v79, objc, v86, v87, v90, v93, v96, v99, v102, v105, v108, v111, v114, v117, v120, v123, v126, v129, v132, v135, v138);
+            if (v56)
             {
               continue;
             }
@@ -584,33 +604,33 @@ LABEL_35:
           }
         }
 
-        v71 = 0;
-        if (v80)
+        v70 = 0;
+        if (v79)
         {
-          *v80 = [v88 copy];
+          *v79 = [v87 copy];
         }
 
         goto LABEL_63;
       }
 
       v42 = v33;
-      v43 = *v174;
-      LODWORD(v86) = SHIDWORD(v86) % 180;
+      v43 = *v172;
+      LODWORD(v85) = SHIDWORD(v85) % 180;
 LABEL_18:
       v44 = 0;
       while (1)
       {
-        if (*v174 != v43)
+        if (*v172 != v43)
         {
           objc_enumerationMutation(objb);
         }
 
-        v45 = *(*(&v173 + 1) + 8 * v44);
+        v45 = *(*(&v171 + 1) + 8 * v44);
         v46 = [OUTLINED_FUNCTION_6_75() bindingNameForRequirement:?];
         if (!v46)
         {
 LABEL_52:
-          v71 = 4294935579;
+          v70 = 4294935579;
           goto LABEL_63;
         }
 
@@ -628,7 +648,7 @@ LABEL_52:
           CFRelease(v48);
         }
 
-        v178 = 0;
+        v176 = 0;
         [v47 UTF8String];
         if (e5rt_execution_stream_operation_retain_output_port())
         {
@@ -641,27 +661,25 @@ LABEL_52:
           v50 = Width | (CVPixelBufferGetHeight(v48) << 32);
           PixelFormatType = CVPixelBufferGetPixelFormatType(v48);
           v52 = __ROR8__(v50, 32);
-          if (v86)
+          if (v85)
           {
             v50 = v52;
           }
 
-          v53 = MEMORY[0x1E696AEC0];
-          attachedMediaKey = [v45 attachedMediaKey];
-          v54 = [+[BWOnDemandPixelBufferAllocator onDemandAllocatorWithDimensions:pixelFormat:name:memoryPool:](BWOnDemandPixelBufferAllocator onDemandAllocatorWithDimensions:v50 pixelFormat:PixelFormatType name:objc_msgSend(v53 memoryPool:"stringWithFormat:", @"OnDemand-EspressoE5-Output-Rotation-%@", +[BWMemoryPool sharedMemoryPool](BWMemoryPool, "sharedMemoryPool")), "newPixelBuffer"];
-          if (!v54)
+          v53 = [+[BWOnDemandPixelBufferAllocator onDemandAllocatorWithDimensions:pixelFormat:name:memoryPool:](BWOnDemandPixelBufferAllocator onDemandAllocatorWithDimensions:v50 pixelFormat:PixelFormatType name:objc_msgSend(MEMORY[0x1E696AEC0] memoryPool:"stringWithFormat:", @"OnDemand-EspressoE5-Output-Rotation-%@", objc_msgSend(v45, "attachedMediaKey")), +[BWMemoryPool sharedMemoryPool](BWMemoryPool, "sharedMemoryPool")), "newPixelBuffer"];
+          if (!v53)
           {
-            v71 = 4294935578;
+            v70 = 4294935578;
             goto LABEL_63;
           }
 
-          v48 = v54;
-          [v88 setObject:v54 forKeyedSubscript:v45];
+          v48 = v53;
+          [v87 setObject:v53 forKeyedSubscript:v45];
           CVPixelBufferRelease(v48);
-          v41 = HIDWORD(v86);
+          v41 = HIDWORD(v85);
         }
 
-        if (![(BWE5MultipleLayoutInferenceProvider *)self _bindE5Port:v178 toPixelBuffer:v48])
+        if (![(BWE5MultipleLayoutInferenceProvider *)self _bindE5Port:v176 toPixelBuffer:v48])
         {
           goto LABEL_62;
         }
@@ -673,7 +691,7 @@ LABEL_52:
 
         if (v42 == ++v44)
         {
-          v33 = [objb countByEnumeratingWithState:&v173 objects:&v157 count:16];
+          v33 = [objb countByEnumeratingWithState:&v171 objects:&v155 count:16];
           v42 = v33;
           if (v33)
           {
@@ -690,26 +708,26 @@ LABEL_52:
         goto LABEL_62;
       }
 
-      v72 = OUTLINED_FUNCTION_6_75();
+      v71 = OUTLINED_FUNCTION_6_75();
     }
 
-    [v72 bindingNameForRequirement:?];
+    [v71 bindingNameForRequirement:?];
   }
 
 LABEL_62:
-  v71 = 4294935586;
+  v70 = 4294935586;
 LABEL_63:
 
-  return v71;
+  return v70;
 }
 
-- (uint64_t)_unbindUsingStorage:(uint64_t)storage
+- (void)_unbindUsingStorage:(uint64_t)storage
 {
   if (result)
   {
     v9 = result;
-    v10 = *(result + 88);
-    v11 = OUTLINED_FUNCTION_10_50(result, a2, storage, a4, a5, a6, a7, a8, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75);
+    v10 = result[11];
+    v11 = OUTLINED_FUNCTION_10_50(result, a2, storage, a4, a5, a6, a7, a8, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73);
     if (v11)
     {
       v12 = v11;
@@ -729,13 +747,13 @@ LABEL_63:
           v15 = e5rt_io_port_release();
         }
 
-        v12 = OUTLINED_FUNCTION_10_50(v15, v16, v17, v18, v19, v20, v21, v22, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76);
+        v12 = OUTLINED_FUNCTION_10_50(v15, v16, v17, v18, v19, v20, v21, v22, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74);
       }
 
       while (v12);
     }
 
-    v23 = *(v9 + 96);
+    v23 = v9[12];
     OUTLINED_FUNCTION_43();
     result = [v23 countByEnumeratingWithState:? objects:? count:?];
     if (result)
@@ -756,7 +774,7 @@ LABEL_63:
           e5rt_execution_stream_operation_retain_output_port();
           e5rt_io_port_bind_surface_object();
           e5rt_io_port_release();
-          ++v26;
+          v26 = (v26 + 1);
         }
 
         while (v24 != v26);
@@ -798,7 +816,7 @@ LABEL_63:
   v6 = MEMORY[0x1E695FF58];
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    OUTLINED_FUNCTION_2_38();
+    OUTLINED_FUNCTION_2_38(0x495u, a2, memory);
   }
 
   v7 = [(BWE5InferenceProvider *)&self->super.isa _prepareWithSharedANEMemoryProvider:provider];
@@ -831,21 +849,21 @@ LABEL_63:
   v9 = MEMORY[0x1E695FF58];
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    [(BWE5InferenceProvider *)self type:buffer];
-    OUTLINED_FUNCTION_2_38();
+    v10 = [(BWE5InferenceProvider *)self type:buffer];
+    OUTLINED_FUNCTION_2_38(0x48Du, v11, v10);
   }
 
-  v32[0] = 0;
+  v34[0] = 0;
   if (self->_portraitOrientationSupportEnabled)
   {
-    v10 = [objc_msgSend(storage "mutableInferenceMetadata")];
-    if (!v10)
+    v12 = [objc_msgSend(storage "mutableInferenceMetadata")];
+    if (!v12)
     {
-      v24 = 4294935577;
+      v26 = 4294935577;
       goto LABEL_29;
     }
 
-    intValue = [v10 intValue];
+    intValue = [v12 intValue];
   }
 
   else
@@ -853,10 +871,10 @@ LABEL_63:
     intValue = 0;
   }
 
-  v12 = [(BWE5InferenceProvider *)self _ensureBindingsUsingStorage:storage requiredOutputRotationDegrees:intValue newIntermediateOutputBufferByVideoRequirementOut:v32];
-  if (v12)
+  v14 = [(BWE5InferenceProvider *)self _ensureBindingsUsingStorage:storage requiredOutputRotationDegrees:intValue newIntermediateOutputBufferByVideoRequirementOut:v34];
+  if (v14)
   {
-    v24 = v12;
+    v26 = v14;
     goto LABEL_29;
   }
 
@@ -872,44 +890,44 @@ LABEL_63:
 
   outputVideoRequirements = self->_outputVideoRequirements;
   OUTLINED_FUNCTION_43();
-  v14 = [NSMutableArray countByEnumeratingWithState:"countByEnumeratingWithState:objects:count:" objects:? count:?];
-  if (!v14)
+  v16 = [NSMutableArray countByEnumeratingWithState:"countByEnumeratingWithState:objects:count:" objects:? count:?];
+  if (!v16)
   {
     goto LABEL_23;
   }
 
-  v15 = v14;
-  v16 = MEMORY[0];
+  v17 = v16;
+  v18 = MEMORY[0];
   while (2)
   {
-    for (i = 0; i != v15; ++i)
+    for (i = 0; i != v17; ++i)
     {
-      if (MEMORY[0] != v16)
+      if (MEMORY[0] != v18)
       {
         objc_enumerationMutation(outputVideoRequirements);
       }
 
-      v18 = *(8 * i);
-      v19 = [v32[0] objectForKeyedSubscript:v18];
-      if (!v19 || (v20 = v19, (v21 = [storage pixelBufferForRequirement:v18]) == 0))
+      v20 = *(8 * i);
+      v21 = [v34[0] objectForKeyedSubscript:v20];
+      if (!v21 || (v22 = v21, (v23 = [storage pixelBufferForRequirement:v20]) == 0))
       {
-        v24 = 4294935594;
+        v26 = 4294935594;
 LABEL_28:
         v9 = MEMORY[0x1E695FF58];
         goto LABEL_29;
       }
 
-      v22 = [(BWE5InferenceProvider *)self _applyRotationOnPixelBuffer:v20 dstPixelBuffer:v21 rotationDegrees:intValue];
-      if (v22)
+      v24 = [(BWE5InferenceProvider *)self _applyRotationOnPixelBuffer:v22 dstPixelBuffer:v23 rotationDegrees:intValue];
+      if (v24)
       {
-        v24 = v22;
+        v26 = v24;
         goto LABEL_28;
       }
     }
 
     OUTLINED_FUNCTION_43();
-    v15 = [NSMutableArray countByEnumeratingWithState:"countByEnumeratingWithState:objects:count:" objects:? count:?];
-    if (v15)
+    v17 = [NSMutableArray countByEnumeratingWithState:"countByEnumeratingWithState:objects:count:" objects:? count:?];
+    if (v17)
     {
       continue;
     }
@@ -918,17 +936,17 @@ LABEL_28:
   }
 
 LABEL_23:
-  v23 = e5rt_execution_stream_reset();
+  v25 = e5rt_execution_stream_reset();
   v9 = MEMORY[0x1E695FF58];
-  if (!v23)
+  if (!v25)
   {
-    v24 = 0;
+    v26 = 0;
     goto LABEL_29;
   }
 
 LABEL_25:
   e5rt_get_last_error_message();
-  v24 = 4294935586;
+  v26 = 4294935586;
 LABEL_29:
   if (*v9 == 1)
   {
@@ -937,10 +955,10 @@ LABEL_29:
     kdebug_trace();
   }
 
-  (*(handler + 2))(handler, v24, self);
-  [(BWE5InferenceProvider *)self _unbindUsingStorage:storage, v25, v26, v27, v28, v29, v30];
+  (*(handler + 2))(handler, v26, self);
+  [(BWE5InferenceProvider *)self _unbindUsingStorage:storage, v27, v28, v29, v30, v31, v32];
 
-  return v24;
+  return v26;
 }
 
 - (int)reconcileWithPlaceholderProvider:(id)provider
@@ -952,7 +970,8 @@ LABEL_29:
   }
 
   [provider customInferenceIdentifier];
-  if (![OUTLINED_FUNCTION_8() isEqualToString:?])
+  v6 = OUTLINED_FUNCTION_8();
+  if (!objc_msgSend_isEqualToString_(v6))
   {
     return -31783;
   }
@@ -975,15 +994,15 @@ LABEL_29:
   [(NSMutableDictionary *)self->_bindingNamesByRequirement removeAllObjects];
   if (provider)
   {
-    v6 = *(provider + 10);
+    v7 = *(provider + 10);
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  [(NSMutableDictionary *)self->_bindingNamesByRequirement addEntriesFromDictionary:v6];
+  [(NSMutableDictionary *)self->_bindingNamesByRequirement addEntriesFromDictionary:v7];
   -[BWE5InferenceProvider setPropagatable:](self, "setPropagatable:", [provider propagatable]);
   portraitOrientationSupportEnabled = [provider portraitOrientationSupportEnabled];
   result = 0;
@@ -995,33 +1014,33 @@ LABEL_29:
 {
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    [(BWE5InferenceProvider *)self type:buffer];
-    OUTLINED_FUNCTION_2_38();
+    v10 = [(BWE5InferenceProvider *)self type:buffer];
+    OUTLINED_FUNCTION_2_38(0x499u, v11, v10);
   }
 
-  v10 = [(BWE5InferenceProvider *)self _ensureBindingsUsingStorage:storage requiredOutputRotationDegrees:0 newIntermediateOutputBufferByVideoRequirementOut:0];
-  if (v10)
+  v12 = [(BWE5InferenceProvider *)self _ensureBindingsUsingStorage:storage requiredOutputRotationDegrees:0 newIntermediateOutputBufferByVideoRequirementOut:0];
+  if (v12)
   {
-    v11 = v10;
+    v13 = v12;
   }
 
   else
   {
     if ((self->_executionTarget != 3 || !e5rt_execution_stream_set_ane_execution_priority()) && !e5rt_execution_stream_encode_operation() && !e5rt_execution_stream_submit_async())
     {
-      LODWORD(v11) = 0;
-      return v11;
+      LODWORD(v13) = 0;
+      return v13;
     }
 
     e5rt_get_last_error_message();
-    v11 = 4294935586;
+    v13 = 4294935586;
   }
 
-  (*(handler + 2))(handler, v11, self);
-  return v11;
+  (*(handler + 2))(handler, v13, self);
+  return v13;
 }
 
-uint64_t __107__BWE5InferenceProvider_submitForSampleBuffer_usingStorage_withSubmissionTime_workQueue_completionHandler___block_invoke(uint64_t a1)
+void *__107__BWE5InferenceProvider_submitForSampleBuffer_usingStorage_withSubmissionTime_workQueue_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
 {
   e5rt_execution_stream_reset();
   if (*MEMORY[0x1E695FF58] == 1)
@@ -1031,10 +1050,10 @@ uint64_t __107__BWE5InferenceProvider_submitForSampleBuffer_usingStorage_withSub
   }
 
   (*(*(a1 + 48) + 16))();
-  v8 = *(a1 + 32);
-  v9 = *(a1 + 40);
+  v11 = *(a1 + 32);
+  v12 = *(a1 + 40);
 
-  return [(BWE5InferenceProvider *)v8 _unbindUsingStorage:v9, v2, v3, v4, v5, v6, v7];
+  return [(BWE5InferenceProvider *)v11 _unbindUsingStorage:v12, v5, v6, v7, v8, v9, v10];
 }
 
 @end

@@ -8,7 +8,7 @@
 - (void)updateViewsWithSlowLeq:(double)leq fastLeq:(double)fastLeq thresholdLevel:(unint64_t)level
 {
   selfCopy = self;
-  sub_25219F644();
+  sub_25219F644(level, leq, fastLeq);
 }
 
 - (HUISoundMeterViewInterfaceInternal)init

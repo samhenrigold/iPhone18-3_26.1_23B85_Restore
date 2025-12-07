@@ -68,59 +68,59 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
-  v5.receiver = self;
-  v5.super_class = SBHRootSidebarController;
-  [(SBHRootSidebarController *)&v5 viewWillAppear:appear];
-  v3 = SBLogCommon();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v6.receiver = self;
+  v6.super_class = SBHRootSidebarController;
+  v3 = [(SBHRootSidebarController *)&v6 viewWillAppear:appear];
+  v4 = SBLogCommon(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1BEB18000, v3, OS_LOG_TYPE_DEFAULT, "Sidebar viewWillAppear:", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "Sidebar viewWillAppear:", v5, 2u);
   }
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = SBHRootSidebarController;
-  [(SBHRootSidebarController *)&v8 viewDidAppear:appear];
+  v12 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = SBHRootSidebarController;
+  [(SBHRootSidebarController *)&v9 viewDidAppear:appear];
   view = [(SBHRootSidebarController *)self view];
   window = [view window];
 
-  v6 = SBLogCommon();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SBLogCommon(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = SBHStringFromUIInterfaceOrientation([window interfaceOrientation]);
+    v8 = SBHStringFromUIInterfaceOrientation([window interfaceOrientation]);
     *buf = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_DEFAULT, "[Overlay Position] Root side bar viewDidAppear:, orientation: %{public}@", buf, 0xCu);
+    v11 = v8;
+    _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_DEFAULT, "[Overlay Position] Root side bar viewDidAppear:, orientation: %{public}@", buf, 0xCu);
   }
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
-  v5.receiver = self;
-  v5.super_class = SBHRootSidebarController;
-  [(SBHRootSidebarController *)&v5 viewWillDisappear:disappear];
-  v3 = SBLogCommon();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v6.receiver = self;
+  v6.super_class = SBHRootSidebarController;
+  v3 = [(SBHRootSidebarController *)&v6 viewWillDisappear:disappear];
+  v4 = SBLogCommon(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1BEB18000, v3, OS_LOG_TYPE_DEFAULT, "Sidebar viewWillDisappear:", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "Sidebar viewWillDisappear:", v5, 2u);
   }
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
-  v5.receiver = self;
-  v5.super_class = SBHRootSidebarController;
-  [(SBHRootSidebarController *)&v5 viewDidDisappear:disappear];
-  v3 = SBLogCommon();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v6.receiver = self;
+  v6.super_class = SBHRootSidebarController;
+  v3 = [(SBHRootSidebarController *)&v6 viewDidDisappear:disappear];
+  v4 = SBLogCommon(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1BEB18000, v3, OS_LOG_TYPE_DEFAULT, "Sidebar viewDidDisappear:", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "Sidebar viewDidDisappear:", v5, 2u);
   }
 }
 

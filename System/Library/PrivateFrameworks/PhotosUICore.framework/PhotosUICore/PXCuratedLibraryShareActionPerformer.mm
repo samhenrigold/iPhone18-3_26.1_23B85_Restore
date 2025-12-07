@@ -28,7 +28,7 @@
     assetCollectionReference2 = [(PXCuratedLibraryAssetCollectionActionPerformer *)self assetCollectionReference];
     if (v9)
     {
-      [v9 indexPathForAssetCollectionReference:assetCollectionReference2];
+      objc_msgSend_indexPathForAssetCollectionReference_(v9);
     }
 
     else

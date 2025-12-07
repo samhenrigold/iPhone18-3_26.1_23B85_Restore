@@ -1,3 +1,54 @@
+uint64_t VideoReceiver_SetSynchronizer(uint64_t a1, uint64_t a2)
+{
+  v10[5] = *MEMORY[0x1E69E9840];
+  v4 = CheckInHandleDebug();
+  if (v4)
+  {
+    v5 = v4 + 40920;
+    if (*(v4 + 1400) == 2)
+    {
+      if (a2)
+      {
+        v10[0] = MEMORY[0x1E69E9820];
+        v10[1] = 0x40000000;
+        v10[2] = __VideoReceiver_SetSynchronizer_block_invoke;
+        v10[3] = &__block_descriptor_tmp_121;
+        v10[4] = a1;
+        v6 = v10;
+        v7 = a2;
+LABEL_10:
+        VCMediaStreamSynchronizer_setSourcePlayoutTimeUpdatedHandler(v7, v6);
+        goto LABEL_11;
+      }
+
+      v7 = *(v4 + 43328);
+      if (v7)
+      {
+        v6 = 0;
+        goto LABEL_10;
+      }
+    }
+
+LABEL_11:
+    *(v5 + 2408) = a2;
+    *v5 = a2 != 0;
+    CheckOutHandleDebug();
+    return 0;
+  }
+
+  v8 = 2149515266;
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+    {
+      VideoReceiver_SetSynchronizer_cold_1();
+    }
+  }
+
+  return v8;
+}
+
 uint64_t _VideoReceiver_RTPPacketCallback(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 144);
@@ -74,7 +125,7 @@ double _VideoReceiver_GetTotalPLR(unsigned int *a1)
   }
 
   v2 = 0;
-  v3 = (a1 + 468);
+  v3 = a1 + 468;
   result = 0.0;
   do
   {
@@ -120,15 +171,16 @@ double _VideoReceiver_GetTotalPLR(unsigned int *a1)
   return result;
 }
 
-uint64_t VideoReceiver_SetJitterBufferMode(uint64_t a1, unsigned int a2)
+uint64_t VideoReceiver_SetJitterBufferMode(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = CheckInHandleDebug();
   if (!v3)
   {
     return 2147680258;
   }
 
-  _VideoReceiver_SetJitterBufferMode(v3, a2);
+  _VideoReceiver_SetJitterBufferMode(v3, v2);
   CheckOutHandleDebug();
   return 0;
 }
@@ -158,7 +210,7 @@ uint64_t VideoReceiver_UpdateVideoExpected(uint64_t a1, int a2)
   BYTE1(v5[616]._os_unfair_lock_opaque) = a2;
   if (a2)
   {
-    *&v5[618]._os_unfair_lock_opaque = micro();
+    *&v5[618]._os_unfair_lock_opaque = micro(v6, v7);
   }
 
   os_unfair_lock_unlock(v4 + 10860);
@@ -166,15 +218,16 @@ uint64_t VideoReceiver_UpdateVideoExpected(uint64_t a1, int a2)
   return 0;
 }
 
-uint64_t VideoReceiver_SetExternalOutputLatency(double a1)
+uint64_t VideoReceiver_SetExternalOutputLatency(uint64_t a1, double a2)
 {
-  v2 = CheckInHandleDebug();
-  if (v2)
+  v3 = CheckInHandleDebug();
+  if (v3)
   {
-    *(v2 + 43456) = a1;
-    if (*(v2 + 40976) != 0xFFFFFFFFLL)
+    *(v3 + 43456) = a2;
+    v4 = *(v3 + 40976);
+    if (v4 != 0xFFFFFFFFLL)
     {
-      VCVideoPlayer_SetOutputLatency(a1);
+      VCVideoPlayer_SetOutputLatency(v4, a2);
     }
 
     CheckOutHandleDebug();
@@ -183,7 +236,7 @@ uint64_t VideoReceiver_SetExternalOutputLatency(double a1)
 
   else
   {
-    v3 = 2147680258;
+    v5 = 2147680258;
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
       VRTraceErrorLogLevelToCSTR();
@@ -194,7 +247,7 @@ uint64_t VideoReceiver_SetExternalOutputLatency(double a1)
     }
   }
 
-  return v3;
+  return v5;
 }
 
 uint64_t VideoReceiver_SetDeferredAssemblyEnabled(uint64_t a1, char a2)
@@ -297,17 +350,17 @@ uint64_t VideoReceiver_SetForceRTCPForLTRPACK(uint64_t a1, char a2)
   return v8;
 }
 
-uint64_t VideoReceiver_VideoAlarmForDisplay(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void VideoReceiver_VideoAlarmForDisplay(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v7 = *a2;
-  v8 = *(a2 + 2);
-  return _VideoReceiver_VideoAlarmCommon(a1, &v7, a3, a4, 1, a5, a6);
+  v8 = *MEMORY[0x1E69E9840];
+  v6 = *a2;
+  v7 = *(a2 + 2);
+  _VideoReceiver_VideoAlarmCommon(a1, &v6, a3, a4, 1, a5, a6);
 }
 
 void _VideoReceiver_ShowFrame(uint64_t a1, uint64_t a2)
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     if (a2)
@@ -322,7 +375,7 @@ void _VideoReceiver_ShowFrame(uint64_t a1, uint64_t a2)
         }
 
         v5 = *(a2 + 16);
-        v57 = kCVAttachmentMode_ShouldNotPropagate;
+        v59 = kCVAttachmentMode_ShouldNotPropagate;
         LODWORD(valuePtr.value) = 0;
         attachmentMode = -1431655766;
         Attachment = CVBufferGetAttachment(v5, @"VraWidth", &attachmentMode);
@@ -332,7 +385,7 @@ void _VideoReceiver_ShowFrame(uint64_t a1, uint64_t a2)
         }
 
         v8 = CVBufferGetAttachment(v5, @"VraHeight", &attachmentMode);
-        if (!v8 || (CFNumberGetValue(v8, kCFNumberIntType, &v57), Height = v57, v57 <= kCVAttachmentMode_ShouldNotPropagate))
+        if (!v8 || (CFNumberGetValue(v8, kCFNumberIntType, &v59), Height = v59, v59 <= kCVAttachmentMode_ShouldNotPropagate))
         {
           Height = CVPixelBufferGetHeight(v5);
         }
@@ -370,8 +423,8 @@ void _VideoReceiver_ShowFrame(uint64_t a1, uint64_t a2)
         v18 = *(a2 + 16);
         if (*(v4 + 2041) == 1)
         {
-          v57 = -1431655766;
-          v19 = CVBufferGetAttachment(v18, @"PSNRArray", &v57);
+          v59 = -1431655766;
+          v19 = CVBufferGetAttachment(v18, @"PSNRArray", &v59);
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
             v20 = VRTraceErrorLogLevelToCSTR();
@@ -379,7 +432,7 @@ void _VideoReceiver_ShowFrame(uint64_t a1, uint64_t a2)
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
               v22 = *(a2 + 48);
-              v55 = *(a2 + 24);
+              v57 = *(a2 + 24);
               valuePtr = *(a2 + 88);
               Seconds = CMTimeGetSeconds(&valuePtr);
               v24 = *(a2 + 66);
@@ -391,23 +444,23 @@ void _VideoReceiver_ShowFrame(uint64_t a1, uint64_t a2)
               LOWORD(valuePtr.flags) = 2080;
               *(&valuePtr.flags + 2) = "_VideoReceiver_ShowFrame";
               HIWORD(valuePtr.epoch) = 1024;
-              v59 = 2357;
-              v60 = 2048;
-              v61 = a1;
-              v62 = 1024;
-              v63 = v22;
+              v61 = 2357;
+              v62 = 2048;
+              v63 = a1;
               v64 = 1024;
-              v65 = v55;
-              v66 = 2048;
-              *v67 = Seconds;
-              *&v67[8] = 1024;
-              v68 = v24;
-              v69 = 2112;
-              v70 = ValueAtIndex;
+              v65 = v22;
+              v66 = 1024;
+              v67 = v57;
+              v68 = 2048;
+              *v69 = Seconds;
+              *&v69[8] = 1024;
+              v70 = v24;
               v71 = 2112;
-              v72 = v26;
+              v72 = ValueAtIndex;
               v73 = 2112;
-              v74 = v27;
+              v74 = v26;
+              v75 = 2112;
+              v76 = v27;
               _os_log_impl(&dword_1DB56E000, v21, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] for streamID=%d decoded frame with presentationTimestamp=%u frameTime=%f shouldShowFrame=%d Y-PSNR=%@ U-PSNR=%@ V-PSNR=%@", &valuePtr, 0x60u);
             }
           }
@@ -446,27 +499,27 @@ void _VideoReceiver_ShowFrame(uint64_t a1, uint64_t a2)
           v34 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
           {
-            v51 = *(a2 + 48);
-            v52 = *(a2 + 24);
+            v53 = *(a2 + 48);
+            v54 = *(a2 + 24);
             valuePtr = *(a2 + 88);
-            v53 = CMTimeGetSeconds(&valuePtr);
-            v54 = *(a2 + 66);
+            v55 = CMTimeGetSeconds(&valuePtr);
+            v56 = *(a2 + 66);
             LODWORD(valuePtr.value) = 136316930;
             *(&valuePtr.value + 4) = v33;
             LOWORD(valuePtr.flags) = 2080;
             *(&valuePtr.flags + 2) = "_VideoReceiver_ShowFrame";
             HIWORD(valuePtr.epoch) = 1024;
-            v59 = 2373;
-            v60 = 2048;
-            v61 = a1;
-            v62 = 1024;
-            v63 = v51;
+            v61 = 2373;
+            v62 = 2048;
+            v63 = a1;
             v64 = 1024;
-            v65 = v52;
-            v66 = 2048;
-            *v67 = v53;
-            *&v67[8] = 1024;
-            v68 = v54;
+            v65 = v53;
+            v66 = 1024;
+            v67 = v54;
+            v68 = 2048;
+            *v69 = v55;
+            *&v69[8] = 1024;
+            v70 = v56;
             _os_log_error_impl(&dword_1DB56E000, v34, OS_LOG_TYPE_ERROR, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Trying to show a NULL frame for streamID=%d decoded frame with presentationTimestamp=%u frameTime=%f shouldShowFrame=%d", &valuePtr, 0x42u);
           }
         }
@@ -474,85 +527,85 @@ void _VideoReceiver_ShowFrame(uint64_t a1, uint64_t a2)
 
       CVPixelBufferRelease(*(a2 + 16));
       v35 = *(a2 + 24);
-      v36 = micro();
+      v38 = micro(v36, v37);
       *(v4 + 1756) = v35;
-      v37 = *(v4 + 1776);
-      if (v37 != 0.0)
+      v39 = *(v4 + 1776);
+      if (v39 != 0.0)
       {
-        v38 = ((v36 - v37) * 1000.0 + 0.5);
-        if (*(v4 + 1784) < v38)
+        v40 = ((v38 - v39) * 1000.0 + 0.5);
+        if (*(v4 + 1784) < v40)
         {
-          *(v4 + 1784) = v38;
+          *(v4 + 1784) = v40;
         }
       }
 
-      *(v4 + 1776) = v36;
-      v39 = *(a1 + 1312);
-      if (v39)
+      *(v4 + 1776) = v38;
+      v41 = *(a1 + 1312);
+      if (v41)
       {
-        if (!*v4 || (v40 = *(*v4 + 80)) == 0)
+        if (!*v4 || (v42 = *(*v4 + 80)) == 0)
         {
-          v40 = *(v4 + 1480);
+          v42 = *(v4 + 1480);
         }
 
-        if (VCMediaControlInfoGeneratorGetVersion(v40) == 2)
+        if (VCMediaControlInfoGeneratorGetVersion(v42) == 2)
         {
-          v41 = *(v4 + 1864) - *(v4 + 1856) + 1;
-          *(v39 + 40) = v41 - *(v4 + 1852);
+          v43 = *(v4 + 1864) - *(v4 + 1856) + 1;
+          *(v41 + 40) = v43 - *(v4 + 1852);
           if (VRTraceGetErrorLogLevelForModule() >= 8)
           {
-            v42 = VRTraceErrorLogLevelToCSTR();
-            v43 = *MEMORY[0x1E6986650];
-            v44 = *MEMORY[0x1E6986650];
+            v44 = VRTraceErrorLogLevelToCSTR();
+            v45 = *MEMORY[0x1E6986650];
+            v46 = *MEMORY[0x1E6986650];
             if (*MEMORY[0x1E6986640] == 1)
             {
-              if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
               {
-                v45 = *(v39 + 40);
-                v46 = *(v4 + 1864);
-                v47 = *(v4 + 1856);
+                v47 = *(v41 + 40);
+                v48 = *(v4 + 1864);
+                v49 = *(v4 + 1856);
                 LODWORD(valuePtr.value) = 136316930;
-                *(&valuePtr.value + 4) = v42;
+                *(&valuePtr.value + 4) = v44;
                 LOWORD(valuePtr.flags) = 2080;
                 *(&valuePtr.flags + 2) = "_VideoReceiver_UpdateWRMFrameErasureMetrics";
                 HIWORD(valuePtr.epoch) = 1024;
-                v59 = 2204;
-                v60 = 2048;
-                v61 = a1;
-                v62 = 1024;
-                v63 = v45;
+                v61 = 2204;
+                v62 = 2048;
+                v63 = a1;
                 v64 = 1024;
-                v65 = v41;
+                v65 = v47;
                 v66 = 1024;
-                *v67 = v46;
-                *&v67[4] = 1024;
-                *&v67[6] = v47;
-                _os_log_impl(&dword_1DB56E000, v43, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] videoFrameErasureCount=%d videoFramesExpected=%d maxFrameSequenceNumber=%d baseFrameSequenceNumber=%d", &valuePtr, 0x3Eu);
+                v67 = v43;
+                v68 = 1024;
+                *v69 = v48;
+                *&v69[4] = 1024;
+                *&v69[6] = v49;
+                _os_log_impl(&dword_1DB56E000, v45, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] videoFrameErasureCount=%d videoFramesExpected=%d maxFrameSequenceNumber=%d baseFrameSequenceNumber=%d", &valuePtr, 0x3Eu);
               }
             }
 
-            else if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+            else if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
             {
-              v48 = *(v39 + 40);
-              v49 = *(v4 + 1864);
-              v50 = *(v4 + 1856);
+              v50 = *(v41 + 40);
+              v51 = *(v4 + 1864);
+              v52 = *(v4 + 1856);
               LODWORD(valuePtr.value) = 136316930;
-              *(&valuePtr.value + 4) = v42;
+              *(&valuePtr.value + 4) = v44;
               LOWORD(valuePtr.flags) = 2080;
               *(&valuePtr.flags + 2) = "_VideoReceiver_UpdateWRMFrameErasureMetrics";
               HIWORD(valuePtr.epoch) = 1024;
-              v59 = 2204;
-              v60 = 2048;
-              v61 = a1;
-              v62 = 1024;
-              v63 = v48;
+              v61 = 2204;
+              v62 = 2048;
+              v63 = a1;
               v64 = 1024;
-              v65 = v41;
+              v65 = v50;
               v66 = 1024;
-              *v67 = v49;
-              *&v67[4] = 1024;
-              *&v67[6] = v50;
-              _os_log_debug_impl(&dword_1DB56E000, v43, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] videoFrameErasureCount=%d videoFramesExpected=%d maxFrameSequenceNumber=%d baseFrameSequenceNumber=%d", &valuePtr, 0x3Eu);
+              v67 = v43;
+              v68 = 1024;
+              *v69 = v51;
+              *&v69[4] = 1024;
+              *&v69[6] = v52;
+              _os_log_debug_impl(&dword_1DB56E000, v45, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] videoFrameErasureCount=%d videoFramesExpected=%d maxFrameSequenceNumber=%d baseFrameSequenceNumber=%d", &valuePtr, 0x3Eu);
             }
           }
         }
@@ -607,8 +660,9 @@ BOOL _VideoReceiver_IsFrameQueueEmpty(void *a1, int a2, int a3)
   return Head == 0;
 }
 
-void _VideoReceiver_VideoAlarmCommon(uint64_t a1, uint64_t a2, int a3, int a4, int a5, int a6, int a7)
+void _VideoReceiver_VideoAlarmCommon(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5, unsigned int a6, int a7)
 {
+  v9 = a5;
   v76 = *MEMORY[0x1E69E9840];
   v14 = CheckInHandleDebug();
   if (v14)
@@ -683,7 +737,7 @@ LABEL_78:
           v66 = 1024;
           v67 = v28;
           v68 = 1024;
-          v69 = a5;
+          v69 = v9;
           v70 = 2048;
           v71 = v29;
           v72 = 1024;
@@ -709,7 +763,7 @@ LABEL_78:
         v66 = 1024;
         v67 = v58;
         v68 = 1024;
-        v69 = a5;
+        v69 = v9;
         v70 = 2048;
         v71 = v59;
         v72 = 1024;
@@ -726,18 +780,18 @@ LABEL_78:
     kdebug_trace();
     if (a3)
     {
-      if (a5 == 1 || (*(v15 + 1335) & 1) == 0)
+      if (v9 == 1 || (*(v15 + 1335) & 1) == 0)
       {
         _VideoReceiver_UpdateVideoStallStatus(v15, 1);
       }
 
-      else if (!a5)
+      else if (!v9)
       {
         VCVideoPlayer_QueueAlarmForDisplay(*(v15 + 40976), VideoReceiver_VideoAlarmForDisplay, v60, *(a2 + 8), a7, 1, *(a2 + 16));
       }
     }
 
-    if (!_VideoReceiver_CanDequeue(v15, a5, *(a2 + 8)))
+    if (!_VideoReceiver_CanDequeue(v15, v9, *(a2 + 8)))
     {
       goto LABEL_78;
     }
@@ -757,7 +811,7 @@ LABEL_78:
         os_unfair_lock_unlock((v15 + 42908));
       }
 
-      if (a5)
+      if (v9)
       {
         v31 = *a2;
         pthread_mutex_lock((v15 + 43056));
@@ -1002,7 +1056,7 @@ LABEL_72:
       }
 
 LABEL_60:
-      if (!_VideoReceiver_CanDequeue(v15, a5, *(a2 + 8)))
+      if (!_VideoReceiver_CanDequeue(v15, v9, *(a2 + 8)))
       {
         goto LABEL_78;
       }
@@ -1025,7 +1079,7 @@ LABEL_60:
         HIWORD(buf.epoch) = 1024;
         v63 = 2687;
         v64 = 1024;
-        LODWORD(v65) = a5;
+        LODWORD(v65) = v9;
         _os_log_impl(&dword_1DB56E000, v23, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver is null. alarmType=%d", &buf, 0x22u);
       }
     }
@@ -1037,8 +1091,9 @@ LABEL_60:
   }
 }
 
-BOOL _VideoReceiver_CanDequeue(uint64_t a1, int a2, int a3)
+BOOL _VideoReceiver_CanDequeue(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   v34 = *MEMORY[0x1E69E9840];
   v5 = a1 + 40960;
   v19 = 0;
@@ -1052,7 +1107,7 @@ BOOL _VideoReceiver_CanDequeue(uint64_t a1, int a2, int a3)
       {
         v7 = *(v6 + 24);
         v19 = *(v5 + 2544);
-        v8 = v7 - a3;
+        v8 = v7 - v3;
         if (v8)
         {
           v9 = v8 > 0x7FFFFFFE;
@@ -1075,7 +1130,7 @@ BOOL _VideoReceiver_CanDequeue(uint64_t a1, int a2, int a3)
 
     else
     {
-      CanDequeueFromSimpleQueue = _VideoReceiver_CanDequeueFromSimpleQueue(a1, 1, a3, &v19);
+      CanDequeueFromSimpleQueue = _VideoReceiver_CanDequeueFromSimpleQueue(a1, 1, v3, &v19);
     }
 
     pthread_mutex_unlock((a1 + 43056));
@@ -1131,7 +1186,7 @@ BOOL _VideoReceiver_CanDequeue(uint64_t a1, int a2, int a3)
         v26 = 2048;
         v27 = a1;
         v28 = 1024;
-        v29 = a3;
+        v29 = v3;
         v30 = 1024;
         v31 = v19;
         v32 = 1024;
@@ -1151,7 +1206,7 @@ BOOL _VideoReceiver_CanDequeue(uint64_t a1, int a2, int a3)
       v26 = 2048;
       v27 = a1;
       v28 = 1024;
-      v29 = a3;
+      v29 = v3;
       v30 = 1024;
       v31 = v19;
       v32 = 1024;
@@ -1163,16 +1218,16 @@ BOOL _VideoReceiver_CanDequeue(uint64_t a1, int a2, int a3)
   return CanDequeueFromSimpleQueue;
 }
 
-void _VideoReceiver_DequeueAndDecode(uint64_t a1, int a2, double a3, double a4)
+void _VideoReceiver_DequeueAndDecode(uint64_t a1, unsigned int a2, double a3, double a4)
 {
   v6 = a1;
-  v223 = *MEMORY[0x1E69E9840];
+  v225 = *MEMORY[0x1E69E9840];
   v7 = a1 + 40900;
   if (*(a1 + 1558) != 1 || *(a1 + 1568) != 1)
   {
     v8 = CMSimpleQueueDequeue(*(a1 + 43040));
     cf = 0;
-    v205 = v8;
+    v207 = v8;
     if (v8)
     {
       goto LABEL_13;
@@ -1195,7 +1250,7 @@ LABEL_210:
       }
     }
 
-    v205 = 0;
+    v207 = 0;
     goto LABEL_210;
   }
 
@@ -1226,7 +1281,7 @@ LABEL_210:
 
     else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v161 = *(v8 + 12);
+      v163 = *(v8 + 12);
       *buf = 136316162;
       *&buf[4] = v9;
       *&buf[12] = 2080;
@@ -1236,7 +1291,7 @@ LABEL_210:
       *&buf[28] = 2048;
       *&buf[30] = a1;
       *&buf[38] = 1024;
-      *&buf[40] = v161;
+      *&buf[40] = v163;
       _os_log_debug_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Dequeuing decodingOrder=%d", buf, 0x2Cu);
     }
   }
@@ -1244,7 +1299,7 @@ LABEL_210:
   *(v7 + 2592) = *(v8 + 12);
   --*(v7 + 2588);
   cf = 0;
-  v205 = v8;
+  v207 = v8;
   v6 = a1;
 LABEL_13:
   *(v8 + 4) = a3;
@@ -1281,11 +1336,11 @@ LABEL_13:
     v16 = 0;
   }
 
-  v192 = v13;
+  v194 = v13;
   CanDequeue = _VideoReceiver_CanDequeue(v6, 0, a2);
-  v191 = v16 | CanDequeue;
-  v196 = v15;
-  v193 = (v13 > 1) | (v16 | CanDequeue) ^ 1;
+  v193 = v16 | CanDequeue;
+  v198 = v15;
+  v195 = (v13 > 1) | (v16 | CanDequeue) ^ 1;
   if (!((v13 > 1) | ((v16 | CanDequeue) ^ 1) & 1))
   {
     v18 = CanDequeue;
@@ -1333,7 +1388,7 @@ LABEL_13:
       *&buf[102] = 2048;
       *&buf[104] = v25 / v22;
       _os_log_impl(&dword_1DB56E000, v24, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] decode but skip frame payload=%d sampleBuffer.timestamp=%u decodingOrder=%d lastFrameDecodingOrderDequeuedForDecode=%d alarmRtpTimestamp=%u playoutRTPTimestamp=%u argsLength=%zu shouldShowFrame=%d didFrameArriveLate=%d canDequeue=%d exceededTime=%2.4f", buf, 0x70u);
-      v8 = v205;
+      v8 = v207;
     }
 
     else
@@ -1341,7 +1396,7 @@ LABEL_13:
       v6 = a1;
     }
 
-    v15 = v196;
+    v15 = v198;
     ++*(v7 + 1880);
   }
 
@@ -1376,21 +1431,23 @@ LABEL_13:
     *(v7 + 1864) = v33;
   }
 
-  if (VRTraceGetErrorLogLevelForModule() >= 8)
+  ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+  if (ErrorLogLevelForModule >= 8)
   {
-    v34 = VRTraceErrorLogLevelToCSTR();
-    v35 = *MEMORY[0x1E6986650];
-    v36 = *MEMORY[0x1E6986650];
+    v36 = VRTraceErrorLogLevelToCSTR();
+    v37 = *MEMORY[0x1E6986650];
+    v38 = *MEMORY[0x1E6986650];
     if (*MEMORY[0x1E6986640] == 1)
     {
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      ErrorLogLevelForModule = os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT);
+      if (ErrorLogLevelForModule)
       {
-        v37 = *(v7 + 1862);
-        v38 = *(v7 + 1864);
-        v39 = *(v7 + 1868);
-        v40 = *(v7 + 1860);
+        v39 = *(v7 + 1862);
+        v40 = *(v7 + 1864);
+        v41 = *(v7 + 1868);
+        v42 = *(v7 + 1860);
         *buf = 136316930;
-        *&buf[4] = v34;
+        *&buf[4] = v36;
         *&buf[12] = 2080;
         *&buf[14] = "_VideoReceiver_UpdateExpectedNetworkFrameNumber";
         *&buf[22] = 1024;
@@ -1398,259 +1455,268 @@ LABEL_13:
         *&buf[28] = 2048;
         *&buf[30] = v6;
         *&buf[38] = 1024;
-        *&buf[40] = v37;
+        *&buf[40] = v39;
         *&buf[44] = 1024;
-        *&buf[46] = v38;
+        *&buf[46] = v40;
         *&buf[50] = 1024;
-        *&buf[52] = v39;
+        *&buf[52] = v41;
         *&buf[56] = 1024;
-        *&buf[58] = v40;
-        _os_log_impl(&dword_1DB56E000, v35, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] expectedNetworkFrameNumber=%d lastReportedExpectedNetworkFrameNumber=%d maxFrameSequenceNumber=%d baseFrameSequenceNumber=%d", buf, 0x3Eu);
+        *&buf[58] = v42;
+        _os_log_impl(&dword_1DB56E000, v37, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] expectedNetworkFrameNumber=%d lastReportedExpectedNetworkFrameNumber=%d maxFrameSequenceNumber=%d baseFrameSequenceNumber=%d", buf, 0x3Eu);
       }
-    }
-
-    else if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
-    {
-      v157 = *(v7 + 1862);
-      v158 = *(v7 + 1864);
-      v159 = *(v7 + 1868);
-      v160 = *(v7 + 1860);
-      *buf = 136316930;
-      *&buf[4] = v34;
-      *&buf[12] = 2080;
-      *&buf[14] = "_VideoReceiver_UpdateExpectedNetworkFrameNumber";
-      *&buf[22] = 1024;
-      *&buf[24] = 2500;
-      *&buf[28] = 2048;
-      *&buf[30] = v6;
-      *&buf[38] = 1024;
-      *&buf[40] = v157;
-      *&buf[44] = 1024;
-      *&buf[46] = v158;
-      *&buf[50] = 1024;
-      *&buf[52] = v159;
-      *&buf[56] = 1024;
-      *&buf[58] = v160;
-      _os_log_debug_impl(&dword_1DB56E000, v35, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] expectedNetworkFrameNumber=%d lastReportedExpectedNetworkFrameNumber=%d maxFrameSequenceNumber=%d baseFrameSequenceNumber=%d", buf, 0x3Eu);
-    }
-  }
-
-  if (*(v7 + 2045) == 1 && VRTraceGetErrorLogLevelForModule() >= 7)
-  {
-    v41 = VRTraceErrorLogLevelToCSTR();
-    v42 = *MEMORY[0x1E6986650];
-    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
-    {
-      v43 = *(v8 + 10);
-      v44 = *(v8 + 2);
-      v45 = *(v8 + 4);
-      *buf = 136317186;
-      *&buf[4] = v41;
-      *&buf[12] = 2080;
-      *&buf[14] = "_VideoReceiver_DequeueAndDecode";
-      *&buf[22] = 1024;
-      *&buf[24] = 2617;
-      *&buf[28] = 2048;
-      *&buf[30] = v6;
-      *&buf[38] = 1024;
-      *&buf[40] = v43;
-      *&buf[44] = 1024;
-      *&buf[46] = v44;
-      *&buf[50] = 1024;
-      *&buf[52] = v45;
-      *&buf[56] = 2048;
-      *&buf[58] = 104;
-      *&buf[66] = 1024;
-      *&buf[68] = v193 & 1;
-      _os_log_impl(&dword_1DB56E000, v42, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] for streamID:%d dequeue frame for decode payload:%d timestamp:%u argsLength:%zu shouldShowFrame:%d", buf, 0x48u);
-    }
-  }
-
-  v206 = -1431655766;
-  v207 = -1431655766;
-  v46 = micro();
-  cf = 0;
-  if (*(v7 + 2028) == 1 && *(v7 + 2036))
-  {
-    v47 = *(v8 + 4);
-    memset(md, 170, 20);
-    dataPointerOut[0] = 0;
-    lengthAtOffsetOut = 0;
-    *&v48 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v48 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *&c.data[9] = v48;
-    *&c.data[13] = v48;
-    *&c.data[1] = v48;
-    *&c.data[5] = v48;
-    *&c.h0 = v48;
-    *&c.h4 = v48;
-    CC_SHA1_Init(&c);
-    if (CMBlockBufferGetDataPointer(v8[14], 0, &lengthAtOffsetOut, 0, dataPointerOut))
-    {
-      v49 = 0;
     }
 
     else
     {
-      v50 = 0;
+      ErrorLogLevelForModule = os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG);
+      if (ErrorLogLevelForModule)
+      {
+        v159 = *(v7 + 1862);
+        v160 = *(v7 + 1864);
+        v161 = *(v7 + 1868);
+        v162 = *(v7 + 1860);
+        *buf = 136316930;
+        *&buf[4] = v36;
+        *&buf[12] = 2080;
+        *&buf[14] = "_VideoReceiver_UpdateExpectedNetworkFrameNumber";
+        *&buf[22] = 1024;
+        *&buf[24] = 2500;
+        *&buf[28] = 2048;
+        *&buf[30] = v6;
+        *&buf[38] = 1024;
+        *&buf[40] = v159;
+        *&buf[44] = 1024;
+        *&buf[46] = v160;
+        *&buf[50] = 1024;
+        *&buf[52] = v161;
+        *&buf[56] = 1024;
+        *&buf[58] = v162;
+        _os_log_debug_impl(&dword_1DB56E000, v37, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] expectedNetworkFrameNumber=%d lastReportedExpectedNetworkFrameNumber=%d maxFrameSequenceNumber=%d baseFrameSequenceNumber=%d", buf, 0x3Eu);
+      }
+    }
+  }
+
+  if (*(v7 + 2045) == 1)
+  {
+    ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+    if (ErrorLogLevelForModule >= 7)
+    {
+      v43 = VRTraceErrorLogLevelToCSTR();
+      v44 = *MEMORY[0x1E6986650];
+      ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+      if (ErrorLogLevelForModule)
+      {
+        v45 = *(v8 + 10);
+        v46 = *(v8 + 2);
+        v47 = *(v8 + 4);
+        *buf = 136317186;
+        *&buf[4] = v43;
+        *&buf[12] = 2080;
+        *&buf[14] = "_VideoReceiver_DequeueAndDecode";
+        *&buf[22] = 1024;
+        *&buf[24] = 2617;
+        *&buf[28] = 2048;
+        *&buf[30] = v6;
+        *&buf[38] = 1024;
+        *&buf[40] = v45;
+        *&buf[44] = 1024;
+        *&buf[46] = v46;
+        *&buf[50] = 1024;
+        *&buf[52] = v47;
+        *&buf[56] = 2048;
+        *&buf[58] = 104;
+        *&buf[66] = 1024;
+        *&buf[68] = v195 & 1;
+        _os_log_impl(&dword_1DB56E000, v44, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] for streamID:%d dequeue frame for decode payload:%d timestamp:%u argsLength:%zu shouldShowFrame:%d", buf, 0x48u);
+      }
+    }
+  }
+
+  v208 = -1431655766;
+  v209 = -1431655766;
+  v48 = micro(ErrorLogLevelForModule, v35);
+  cf = 0;
+  if (*(v7 + 2028) == 1 && *(v7 + 2036))
+  {
+    v49 = *(v8 + 4);
+    memset(md, 170, 20);
+    dataPointerOut[0] = 0;
+    lengthAtOffsetOut = 0;
+    *&v50 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v50 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *&c.data[9] = v50;
+    *&c.data[13] = v50;
+    *&c.data[1] = v50;
+    *&c.data[5] = v50;
+    *&c.h0 = v50;
+    *&c.h4 = v50;
+    CC_SHA1_Init(&c);
+    if (CMBlockBufferGetDataPointer(v8[14], 0, &lengthAtOffsetOut, 0, dataPointerOut))
+    {
+      v51 = 0;
+    }
+
+    else
+    {
+      v52 = 0;
       do
       {
         CC_SHA1_Update(&c, dataPointerOut[0], lengthAtOffsetOut);
-        v50 += lengthAtOffsetOut;
+        v52 += lengthAtOffsetOut;
       }
 
-      while (!CMBlockBufferGetDataPointer(v8[14], v50, &lengthAtOffsetOut, 0, dataPointerOut));
-      v49 = v50;
+      while (!CMBlockBufferGetDataPointer(v8[14], v52, &lengthAtOffsetOut, 0, dataPointerOut));
+      v51 = v52;
     }
 
     CC_SHA1_Final(md, &c);
-    v51 = *(v7 + 2036);
-    fprintf(v51, "[%08X:%dB SHA1:", v47, v49);
+    v53 = *(v7 + 2036);
+    fprintf(v53, "[%08X:%dB SHA1:", v49, v51);
     for (i = 0; i != 20; ++i)
     {
-      fprintf(v51, "%02X", md[i]);
+      fprintf(v53, "%02X", md[i]);
     }
 
-    fwrite("]\n", 2uLL, 1uLL, v51);
-    *&v53 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v53 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *&buf[284] = v53;
-    *&buf[257] = v53;
-    *&buf[273] = v53;
-    *&buf[241] = v53;
-    *&buf[225] = v53;
-    *&buf[209] = v53;
-    *&buf[193] = v53;
-    *&buf[177] = v53;
-    *&buf[161] = v53;
-    *&buf[145] = v53;
-    *&buf[129] = v53;
-    *&buf[113] = v53;
-    *&buf[97] = v53;
-    *&buf[81] = v53;
-    *&buf[65] = v53;
-    *&buf[49] = v53;
-    *&buf[33] = v53;
-    *&buf[17] = v53;
-    *&buf[1] = v53;
-    LODWORD(v219) = -1431655766;
-    v217 = v53;
-    v218 = v53;
-    *&valuePtr[32] = v53;
-    *&valuePtr[48] = v53;
-    *valuePtr = v53;
-    *&valuePtr[16] = v53;
+    fwrite("]\n", 2uLL, 1uLL, v53);
+    *&v55 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v55 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *&buf[284] = v55;
+    *&buf[257] = v55;
+    *&buf[273] = v55;
+    *&buf[241] = v55;
+    *&buf[225] = v55;
+    *&buf[209] = v55;
+    *&buf[193] = v55;
+    *&buf[177] = v55;
+    *&buf[161] = v55;
+    *&buf[145] = v55;
+    *&buf[129] = v55;
+    *&buf[113] = v55;
+    *&buf[97] = v55;
+    *&buf[81] = v55;
+    *&buf[65] = v55;
+    *&buf[49] = v55;
+    *&buf[33] = v55;
+    *&buf[17] = v55;
+    *&buf[1] = v55;
+    LODWORD(v221) = -1431655766;
+    v219 = v55;
+    v220 = v55;
+    *&valuePtr[32] = v55;
+    *&valuePtr[48] = v55;
+    *valuePtr = v55;
+    *&valuePtr[16] = v55;
     buf[0] = 0;
     dataPointerOut[0] = 0;
     lengthAtOffsetOut = 0;
     if (!CMBlockBufferGetDataPointer(v8[14], 0, &lengthAtOffsetOut, 0, dataPointerOut))
     {
-      v54 = 0;
-      v55 = 0;
+      v56 = 0;
+      v57 = 0;
       do
       {
-        v56 = lengthAtOffsetOut;
+        v58 = lengthAtOffsetOut;
         if (lengthAtOffsetOut)
         {
           for (j = 0; j < lengthAtOffsetOut; ++j)
           {
             __sprintf_chk(valuePtr, 0, 0x64uLL, " %02X", dataPointerOut[0][j]);
-            __strlcat_chk();
-            if ((~(v54 + j) & 0x1F) == 0)
+            __strlcat_chk(buf, valuePtr, 300, 300);
+            if ((~(v56 + j) & 0x1F) == 0)
             {
-              fprintf(v51, "%s\n", buf);
+              fprintf(v53, "%s\n", buf);
               buf[0] = 0;
             }
 
-            v56 = lengthAtOffsetOut;
+            v58 = lengthAtOffsetOut;
           }
 
-          v54 += j;
+          v56 += j;
         }
 
-        v55 += v56;
+        v57 += v58;
       }
 
-      while (!CMBlockBufferGetDataPointer(v8[14], v55, &lengthAtOffsetOut, 0, dataPointerOut));
-      v15 = v196;
-      if ((v54 & 0x1F) != 0)
+      while (!CMBlockBufferGetDataPointer(v8[14], v57, &lengthAtOffsetOut, 0, dataPointerOut));
+      v15 = v198;
+      if ((v56 & 0x1F) != 0)
       {
-        fprintf(v51, "%s\n", buf);
+        fprintf(v53, "%s\n", buf);
       }
     }
   }
 
-  v58 = *(v8 + 2);
-  if (v58 == 100)
+  v60 = *(v8 + 2);
+  if (v60 == 100)
   {
-    v59 = 1752589105;
+    v61 = 1752589105;
   }
 
   else
   {
-    v59 = 1635148593;
+    v61 = 1635148593;
   }
 
-  *(v7 + 2500) = v59;
-  v60 = *(v8 + 3);
-  v61 = *(v8 + 4);
-  if (v58 == 124 || v58 == 110)
+  *(v7 + 2500) = v61;
+  v62 = *(v8 + 3);
+  v63 = *(v8 + 4);
+  if (v60 == 124 || v60 == 110)
   {
     *(v7 + 1656) = 1;
   }
 
-  if (v60 == 2)
+  if (v62 == 2)
   {
-    v62 = *(v8 + 58);
-    v209 = v62;
+    v64 = *(v8 + 58);
+    v211 = v64;
     lengthAtOffsetOut = 0;
     memset(buf, 170, sizeof(buf));
-    v63 = a1;
-    if (v62 >= 0x801)
+    v65 = a1;
+    if (v64 >= 0x801)
     {
-      v62 = 2048;
-      v209 = 2048;
+      v64 = 2048;
+      v211 = 2048;
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v64 = VRTraceErrorLogLevelToCSTR();
-        v65 = *MEMORY[0x1E6986650];
-        v62 = 2048;
+        v66 = VRTraceErrorLogLevelToCSTR();
+        v67 = *MEMORY[0x1E6986650];
+        v64 = 2048;
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
           *valuePtr = 136315906;
-          *&valuePtr[4] = v64;
+          *&valuePtr[4] = v66;
           *&valuePtr[12] = 2080;
           *&valuePtr[14] = "_VideoReceiver_CreateCompressedVideoFrameForDecode";
           *&valuePtr[22] = 1024;
           *&valuePtr[24] = 1330;
           *&valuePtr[28] = 2048;
           *&valuePtr[30] = 2048;
-          _os_log_error_impl(&dword_1DB56E000, v65, OS_LOG_TYPE_ERROR, "VideoReceiver [%s] %s:%d ParameterSet size=%zu too large", valuePtr, 0x26u);
-          v62 = v209;
+          _os_log_error_impl(&dword_1DB56E000, v67, OS_LOG_TYPE_ERROR, "VideoReceiver [%s] %s:%d ParameterSet size=%zu too large", valuePtr, 0x26u);
+          v64 = v211;
         }
 
-        v15 = v196;
+        v15 = v198;
       }
     }
 
-    v66 = CMBlockBufferAccessDataBytes(v8[14], 0, v62, buf, &lengthAtOffsetOut);
-    if (v66)
+    v68 = CMBlockBufferAccessDataBytes(v8[14], 0, v64, buf, &lengthAtOffsetOut);
+    if (v68)
     {
-      v67 = v66;
+      v69 = v68;
       if (VRTraceGetErrorLogLevelForModule() < 3)
       {
         goto LABEL_199;
       }
 
-      v68 = VRTraceErrorLogLevelToCSTR();
-      v69 = *MEMORY[0x1E6986650];
+      v70 = VRTraceErrorLogLevelToCSTR();
+      v71 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_199;
       }
 
       *valuePtr = 136316162;
-      *&valuePtr[4] = v68;
+      *&valuePtr[4] = v70;
       *&valuePtr[12] = 2080;
       *&valuePtr[14] = "_VideoReceiver_CreateCompressedVideoFrameForDecode";
       *&valuePtr[22] = 1024;
@@ -1658,42 +1724,42 @@ LABEL_13:
       *&valuePtr[28] = 2048;
       *&valuePtr[30] = a1;
       *&valuePtr[38] = 1024;
-      *&valuePtr[40] = v67;
-      v127 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] CMBlockBufferAccessDataBytes returned error:%i";
+      *&valuePtr[40] = v69;
+      v129 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] CMBlockBufferAccessDataBytes returned error:%i";
       goto LABEL_212;
     }
 
-    v76 = lengthAtOffsetOut;
-    if ((VideoDecoder_IsFormatCompatible_SPSPPS(*(v15 + 542), v59, lengthAtOffsetOut, &v209, 0, &v207, &v206) & 0x80000000) != 0)
+    v78 = lengthAtOffsetOut;
+    if ((VideoDecoder_IsFormatCompatible_SPSPPS(*(v15 + 542), v61, lengthAtOffsetOut, &v211, 0, &v209, &v208) & 0x80000000) != 0)
     {
-      *(v221 + 14) = 0xAAAAAAAAAAAAAAAALL;
-      *&v119 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v119 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v220 = v119;
-      v221[0] = v119;
-      v218 = v119;
-      v219 = v119;
-      *&valuePtr[48] = v119;
-      v217 = v119;
-      *&valuePtr[16] = v119;
-      *&valuePtr[32] = v119;
-      *valuePtr = v119;
-      v120 = *(v15 + 7);
-      c.h0 = v58;
-      v121 = CFNumberCreate(*(v7 + 2364), kCFNumberIntType, &c);
-      Value = CFDictionaryGetValue(v120, v121);
-      CFRelease(v121);
+      *(v223 + 14) = 0xAAAAAAAAAAAAAAAALL;
+      *&v121 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v121 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v222 = v121;
+      v223[0] = v121;
+      v220 = v121;
+      v221 = v121;
+      *&valuePtr[48] = v121;
+      v219 = v121;
+      *&valuePtr[16] = v121;
+      *&valuePtr[32] = v121;
+      *valuePtr = v121;
+      v122 = *(v15 + 7);
+      c.h0 = v60;
+      v123 = CFNumberCreate(*(v7 + 2364), kCFNumberIntType, &c);
+      Value = CFDictionaryGetValue(v122, v123);
+      CFRelease(v123);
       if (!Value || !CFStringGetCString(Value, valuePtr, 150, 0x8000100u) || !valuePtr[0])
       {
         valuePtr[0] = 0;
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v146 = VRTraceErrorLogLevelToCSTR();
-          v147 = *MEMORY[0x1E6986650];
+          v148 = VRTraceErrorLogLevelToCSTR();
+          v149 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
           {
             c.h0 = 136316162;
-            *&c.h1 = v146;
+            *&c.h1 = v148;
             LOWORD(c.h3) = 2080;
             *(&c.h3 + 2) = "_VideoReceiver_CreateCompressedVideoFrameForDecode";
             HIWORD(c.Nl) = 1024;
@@ -1701,80 +1767,80 @@ LABEL_13:
             LOWORD(c.data[0]) = 2048;
             *(c.data + 2) = a1;
             HIWORD(c.data[2]) = 1024;
-            c.data[3] = v58;
-            _os_log_error_impl(&dword_1DB56E000, v147, OS_LOG_TYPE_ERROR, "VideoReceiver [%s] %s:%d VideoReceiver[%p] No matched feature list string for payload: %d", &c, 0x2Cu);
+            c.data[3] = v60;
+            _os_log_error_impl(&dword_1DB56E000, v149, OS_LOG_TYPE_ERROR, "VideoReceiver [%s] %s:%d VideoReceiver[%p] No matched feature list string for payload: %d", &c, 0x2Cu);
           }
         }
 
-        v15 = v196;
+        v15 = v198;
         goto LABEL_231;
       }
 
       if ((*v7 & 0xFFFFFFFE) == 2)
       {
-        v123 = 42;
+        v125 = 42;
       }
 
       else
       {
-        v123 = 1;
+        v125 = 1;
       }
 
-      v124 = *(v7 + 2292);
-      v15 = v196;
-      if (*(v196 + 108) == 1)
+      v126 = *(v7 + 2292);
+      v15 = v198;
+      if (*(v198 + 108) == 1)
       {
-        v124 = v124 & 0xFFFFFFF1 | (2 * (v196[28] & 7));
+        v126 = v126 & 0xFFFFFFF1 | (2 * (v198[28] & 7));
       }
 
       c.Nl = -1431655766;
       *&c.Nh = 0xAAAAAAAAAAAAAAAALL;
       *&c.h0 = valuePtr;
       c.h3 = -1431655935;
-      c.h2 = v58;
-      c.h4 = v124;
+      c.h2 = v60;
+      c.h4 = v126;
       LOWORD(c.Nl) = *(a1 + 1306);
-      c.Nh = v123;
-      v125 = *(v8 + 58);
+      c.Nh = v125;
+      v127 = *(v8 + 58);
       *&c.data[1] = v8[14];
-      *&c.data[3] = v125;
-      dataPointerOut[0] = v76;
-      dataPointerOut[1] = &v209;
-      dataPointerOut[2] = &v207;
-      dataPointerOut[3] = &v206;
-      if ((VideoDecoder_NewFormat_InitDecoder(*(v196 + 542), &c, dataPointerOut) & 0x80000000) != 0)
+      *&c.data[3] = v127;
+      dataPointerOut[0] = v78;
+      dataPointerOut[1] = &v211;
+      dataPointerOut[2] = &v209;
+      dataPointerOut[3] = &v208;
+      if ((VideoDecoder_NewFormat_InitDecoder(*(v198 + 542), &c, dataPointerOut) & 0x80000000) != 0)
       {
         if (VRTraceGetErrorLogLevelForModule() < 3)
         {
           goto LABEL_199;
         }
 
-        v126 = VRTraceErrorLogLevelToCSTR();
-        v69 = *MEMORY[0x1E6986650];
+        v128 = VRTraceErrorLogLevelToCSTR();
+        v71 = *MEMORY[0x1E6986650];
         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
           goto LABEL_199;
         }
 
         *md = 136316162;
-        *&md[4] = v126;
+        *&md[4] = v128;
         *&md[12] = 2080;
         *&md[14] = "_VideoReceiver_CreateCompressedVideoFrameForDecode";
         *&md[22] = 1024;
-        *v213 = 1380;
-        *&v213[4] = 2048;
-        *&v213[6] = a1;
-        v214 = 1024;
-        v215 = v124;
-        v127 = "VideoReceiver [%s] %s:%d VideoReceiver=%p decoderFlags=%d VideoDecoder_NewFormat_SPSPPS failed";
-        v128 = md;
+        *v215 = 1380;
+        *&v215[4] = 2048;
+        *&v215[6] = a1;
+        v216 = 1024;
+        v217 = v126;
+        v129 = "VideoReceiver [%s] %s:%d VideoReceiver=%p decoderFlags=%d VideoDecoder_NewFormat_SPSPPS failed";
+        v130 = md;
         goto LABEL_213;
       }
     }
 
-    v77 = v206;
-    *(v7 + 1648) = v207;
-    *(v7 + 1652) = v77;
+    v79 = v208;
+    *(v7 + 1648) = v209;
+    *(v7 + 1652) = v79;
     *(v7 + 1656) = 1;
     *(v7 + 2062) = *v15;
     if (VRTraceGetErrorLogLevelForModule() < 7)
@@ -1782,17 +1848,17 @@ LABEL_13:
       goto LABEL_111;
     }
 
-    v78 = VRTraceErrorLogLevelToCSTR();
-    v79 = *MEMORY[0x1E6986650];
+    v80 = VRTraceErrorLogLevelToCSTR();
+    v81 = *MEMORY[0x1E6986650];
     if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_111;
     }
 
-    v80 = *(a1 + 1296);
-    v81 = *v15;
+    v82 = *(a1 + 1296);
+    v83 = *v15;
     *valuePtr = 136317186;
-    *&valuePtr[4] = v78;
+    *&valuePtr[4] = v80;
     *&valuePtr[12] = 2080;
     *&valuePtr[14] = "_VideoReceiver_CreateCompressedVideoFrameForDecode";
     *&valuePtr[22] = 1024;
@@ -1800,59 +1866,59 @@ LABEL_13:
     *&valuePtr[28] = 2048;
     *&valuePtr[30] = a1;
     *&valuePtr[38] = 2048;
-    *&valuePtr[40] = v80;
+    *&valuePtr[40] = v82;
     *&valuePtr[48] = 2048;
     *&valuePtr[50] = v15;
     *&valuePtr[58] = 1024;
-    *&valuePtr[60] = v81;
-    LOWORD(v217) = 1024;
-    *(&v217 + 2) = v207;
-    WORD3(v217) = 1024;
-    DWORD2(v217) = v206;
+    *&valuePtr[60] = v83;
+    LOWORD(v219) = 1024;
+    *(&v219 + 2) = v209;
+    WORD3(v219) = 1024;
+    DWORD2(v219) = v208;
     goto LABEL_94;
   }
 
   LODWORD(lengthAtOffsetOut) = -1431655766;
-  LODWORD(v209) = -1431655766;
-  v63 = a1;
+  LODWORD(v211) = -1431655766;
+  v65 = a1;
   if (!v8[17])
   {
     goto LABEL_119;
   }
 
-  v70 = v8[18];
-  v71 = v8[19] + 4;
-  dataPointerOut[0] = v70 - 4;
-  if ((VideoDecoder_IsFormatCompatible_ImgDesc(*(v15 + 542), v71, v70 - 4, 0) & 0x80000000) != 0)
+  v72 = v8[18];
+  v73 = v8[19] + 4;
+  dataPointerOut[0] = v72 - 4;
+  if ((VideoDecoder_IsFormatCompatible_ImgDesc(*(v15 + 542), v73, v72 - 4, 0) & 0x80000000) != 0)
   {
     *&buf[142] = 0xAAAAAAAAAAAAAAAALL;
-    *&v82 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v82 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *&buf[112] = v82;
-    *&buf[128] = v82;
-    *&buf[80] = v82;
-    *&buf[96] = v82;
-    *&buf[48] = v82;
-    *&buf[64] = v82;
-    *&buf[16] = v82;
-    *&buf[32] = v82;
-    *buf = v82;
-    v83 = *(v15 + 7);
-    *valuePtr = v58;
-    v84 = CFNumberCreate(*(v7 + 2364), kCFNumberIntType, valuePtr);
-    v85 = CFDictionaryGetValue(v83, v84);
-    CFRelease(v84);
-    if (!v85 || !CFStringGetCString(v85, buf, 150, 0x8000100u) || !buf[0])
+    *&v84 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v84 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *&buf[112] = v84;
+    *&buf[128] = v84;
+    *&buf[80] = v84;
+    *&buf[96] = v84;
+    *&buf[48] = v84;
+    *&buf[64] = v84;
+    *&buf[16] = v84;
+    *&buf[32] = v84;
+    *buf = v84;
+    v85 = *(v15 + 7);
+    *valuePtr = v60;
+    v86 = CFNumberCreate(*(v7 + 2364), kCFNumberIntType, valuePtr);
+    v87 = CFDictionaryGetValue(v85, v86);
+    CFRelease(v86);
+    if (!v87 || !CFStringGetCString(v87, buf, 150, 0x8000100u) || !buf[0])
     {
       buf[0] = 0;
-      if (v58 == 126)
+      if (v60 == 126)
       {
-        v86 = *(v196 + 7);
+        v88 = *(v198 + 7);
         *valuePtr = 123;
-        v87 = CFNumberCreate(*(v7 + 2364), kCFNumberIntType, valuePtr);
-        v88 = CFDictionaryGetValue(v86, v87);
-        CFRelease(v87);
-        if (v88 && CFStringGetCString(v88, buf, 150, 0x8000100u) && buf[0])
+        v89 = CFNumberCreate(*(v7 + 2364), kCFNumberIntType, valuePtr);
+        v90 = CFDictionaryGetValue(v88, v89);
+        CFRelease(v89);
+        if (v90 && CFStringGetCString(v90, buf, 150, 0x8000100u) && buf[0])
         {
           goto LABEL_102;
         }
@@ -1860,15 +1926,15 @@ LABEL_13:
         buf[0] = 0;
       }
 
-      v15 = v196;
+      v15 = v198;
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v148 = VRTraceErrorLogLevelToCSTR();
-        v149 = *MEMORY[0x1E6986650];
+        v150 = VRTraceErrorLogLevelToCSTR();
+        v151 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
           *valuePtr = 136316162;
-          *&valuePtr[4] = v148;
+          *&valuePtr[4] = v150;
           *&valuePtr[12] = 2080;
           *&valuePtr[14] = "_VideoReceiver_CreateCompressedVideoFrameForDecode";
           *&valuePtr[22] = 1024;
@@ -1876,8 +1942,8 @@ LABEL_13:
           *&valuePtr[28] = 2048;
           *&valuePtr[30] = a1;
           *&valuePtr[38] = 1024;
-          *&valuePtr[40] = v58;
-          _os_log_error_impl(&dword_1DB56E000, v149, OS_LOG_TYPE_ERROR, "VideoReceiver [%s] %s:%d VideoReceiver[%p] No matched feature list string for payload: %d", valuePtr, 0x2Cu);
+          *&valuePtr[40] = v60;
+          _os_log_error_impl(&dword_1DB56E000, v151, OS_LOG_TYPE_ERROR, "VideoReceiver [%s] %s:%d VideoReceiver[%p] No matched feature list string for payload: %d", valuePtr, 0x2Cu);
         }
       }
 
@@ -1887,19 +1953,19 @@ LABEL_13:
 LABEL_102:
     if ((*v7 & 0xFFFFFFFE) == 2)
     {
-      v89 = 42;
+      v91 = 42;
     }
 
     else
     {
-      v89 = 1;
+      v91 = 1;
     }
 
-    v90 = *(v7 + 2292);
-    v15 = v196;
-    if (*(v196 + 108) == 1)
+    v92 = *(v7 + 2292);
+    v15 = v198;
+    if (*(v198 + 108) == 1)
     {
-      v90 = v90 & 0xFFFFFFF1 | (2 * (v196[28] & 7));
+      v92 = v92 & 0xFFFFFFF1 | (2 * (v198[28] & 7));
     }
 
     c.Nl = -1431655766;
@@ -1907,31 +1973,31 @@ LABEL_102:
     *&c.h0 = buf;
     c.h3 = -1431655936;
     c.h2 = 128;
-    c.h4 = v90;
+    c.h4 = v92;
     LOWORD(c.Nl) = *(a1 + 1306);
-    c.Nh = v89;
+    c.Nh = v91;
     *&c.data[1] = 0;
     *&c.data[3] = 0;
-    *md = v71;
+    *md = v73;
     *&md[8] = dataPointerOut;
     *&md[16] = &lengthAtOffsetOut;
-    *v213 = &v209;
-    if ((VideoDecoder_NewFormat_InitDecoder(*(v196 + 542), &c, md) & 0x80000000) != 0)
+    *v215 = &v211;
+    if ((VideoDecoder_NewFormat_InitDecoder(*(v198 + 542), &c, md) & 0x80000000) != 0)
     {
       if (VRTraceGetErrorLogLevelForModule() < 3)
       {
         goto LABEL_199;
       }
 
-      v151 = VRTraceErrorLogLevelToCSTR();
-      v69 = *MEMORY[0x1E6986650];
+      v153 = VRTraceErrorLogLevelToCSTR();
+      v71 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_199;
       }
 
       *valuePtr = 136316162;
-      *&valuePtr[4] = v151;
+      *&valuePtr[4] = v153;
       *&valuePtr[12] = 2080;
       *&valuePtr[14] = "_VideoReceiver_CreateCompressedVideoFrameForDecode";
       *&valuePtr[22] = 1024;
@@ -1939,35 +2005,35 @@ LABEL_102:
       *&valuePtr[28] = 2048;
       *&valuePtr[30] = a1;
       *&valuePtr[38] = 1024;
-      *&valuePtr[40] = v90;
-      v127 = "VideoReceiver [%s] %s:%d VideoReceiver=%p decoderFlags=%d VideoDecoder_NewFormat_SPSPPS failed";
+      *&valuePtr[40] = v92;
+      v129 = "VideoReceiver [%s] %s:%d VideoReceiver=%p decoderFlags=%d VideoDecoder_NewFormat_SPSPPS failed";
 LABEL_212:
-      v128 = valuePtr;
+      v130 = valuePtr;
 LABEL_213:
-      _os_log_error_impl(&dword_1DB56E000, v69, OS_LOG_TYPE_ERROR, v127, v128, 0x2Cu);
+      _os_log_error_impl(&dword_1DB56E000, v71, OS_LOG_TYPE_ERROR, v129, v130, 0x2Cu);
       goto LABEL_199;
     }
 
     *(v7 + 1648) = lengthAtOffsetOut;
-    *(v7 + 1652) = v209;
+    *(v7 + 1652) = v211;
     *(v7 + 1656) = 1;
-    *(v7 + 2062) = *v196;
+    *(v7 + 2062) = *v198;
     if (VRTraceGetErrorLogLevelForModule() < 7)
     {
       goto LABEL_111;
     }
 
-    v91 = VRTraceErrorLogLevelToCSTR();
-    v79 = *MEMORY[0x1E6986650];
+    v93 = VRTraceErrorLogLevelToCSTR();
+    v81 = *MEMORY[0x1E6986650];
     if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_111;
     }
 
-    v92 = *(a1 + 1296);
-    v93 = *v196;
+    v94 = *(a1 + 1296);
+    v95 = *v198;
     *valuePtr = 136317186;
-    *&valuePtr[4] = v91;
+    *&valuePtr[4] = v93;
     *&valuePtr[12] = 2080;
     *&valuePtr[14] = "_VideoReceiver_CreateCompressedVideoFrameForDecode";
     *&valuePtr[22] = 1024;
@@ -1975,57 +2041,57 @@ LABEL_213:
     *&valuePtr[28] = 2048;
     *&valuePtr[30] = a1;
     *&valuePtr[38] = 2048;
-    *&valuePtr[40] = v92;
+    *&valuePtr[40] = v94;
     *&valuePtr[48] = 2048;
-    *&valuePtr[50] = v196;
+    *&valuePtr[50] = v198;
     *&valuePtr[58] = 1024;
-    *&valuePtr[60] = v93;
-    LOWORD(v217) = 1024;
-    *(&v217 + 2) = lengthAtOffsetOut;
-    WORD3(v217) = 1024;
-    DWORD2(v217) = v209;
+    *&valuePtr[60] = v95;
+    LOWORD(v219) = 1024;
+    *(&v219 + 2) = lengthAtOffsetOut;
+    WORD3(v219) = 1024;
+    DWORD2(v219) = v211;
 LABEL_94:
-    _os_log_impl(&dword_1DB56E000, v79, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] participantId[%llu] stream[%p] streamId[%d] Got ImgDesc:%dx%d", valuePtr, 0x4Cu);
+    _os_log_impl(&dword_1DB56E000, v81, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] participantId[%llu] stream[%p] streamId[%d] Got ImgDesc:%dx%d", valuePtr, 0x4Cu);
 LABEL_111:
-    v94 = (v7 + 1772);
-    v95 = *(v7 + 1772);
-    if (v95)
+    v96 = (v7 + 1772);
+    v97 = *(v7 + 1772);
+    if (v97)
     {
-      CFRelease(v95);
-      *v94 = 0;
+      CFRelease(v97);
+      *v96 = 0;
     }
 
     VideoDecoder_GetFormatDescription(*(v15 + 542), (v7 + 1772));
-    if (*v94)
+    if (*v96)
     {
-      CFRetain(*v94);
-      if (*(v63 + 1212))
+      CFRetain(*v96);
+      if (*(v65 + 1212))
       {
-        VideoReceiver_DumpRecvSPSPPS(v63, v58, v15);
+        VideoReceiver_DumpRecvSPSPPS(v65, v60, v15);
       }
     }
 
-    v96 = *(v7 + 1700);
-    if (v96)
+    v98 = *(v7 + 1700);
+    if (v98)
     {
-      CVPixelBufferPoolRelease(v96);
+      CVPixelBufferPoolRelease(v98);
       *(v7 + 1700) = 0;
     }
 
-    VideoDecoder_GetBufferPool();
+    VideoDecoder_GetBufferPool(*(v15 + 542), v7 + 1700);
     goto LABEL_119;
   }
 
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v72 = VRTraceErrorLogLevelToCSTR();
-    v73 = *MEMORY[0x1E6986650];
+    v74 = VRTraceErrorLogLevelToCSTR();
+    v75 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v74 = *(v7 + 2062);
-      v75 = *v15;
+      v76 = *(v7 + 2062);
+      v77 = *v15;
       *buf = 136316418;
-      *&buf[4] = v72;
+      *&buf[4] = v74;
       *&buf[12] = 2080;
       *&buf[14] = "_VideoReceiver_CreateCompressedVideoFrameForDecode";
       *&buf[22] = 1024;
@@ -2033,10 +2099,10 @@ LABEL_111:
       *&buf[28] = 2048;
       *&buf[30] = a1;
       *&buf[38] = 1024;
-      *&buf[40] = v74;
+      *&buf[40] = v76;
       *&buf[44] = 1024;
-      *&buf[46] = v75;
-      _os_log_impl(&dword_1DB56E000, v73, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] update lastKeyFrameStreamId from %d to %d", buf, 0x32u);
+      *&buf[46] = v77;
+      _os_log_impl(&dword_1DB56E000, v75, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] update lastKeyFrameStreamId from %d to %d", buf, 0x32u);
     }
   }
 
@@ -2045,161 +2111,161 @@ LABEL_119:
   if (!*(v7 + 1656))
   {
 LABEL_199:
-    v150 = 0;
+    v152 = 0;
     goto LABEL_232;
   }
 
-  v97 = v8[16];
-  if (v97)
+  v99 = v8[16];
+  if (v99)
   {
-    if (*(v63 + 1212))
+    if (*(v65 + 1212))
     {
-      v98 = *v15;
+      v100 = *v15;
       c.h0 = 0x1000000;
-      if (*v7 == 1 && *(v7 + 2060) != v98)
+      if (*v7 == 1 && *(v7 + 2060) != v100)
       {
-        VideoReceiver_DumpRecvCreate(v63, v98);
+        VideoReceiver_DumpRecvCreate(v65, v100);
       }
 
-      v99 = (v7 + 2068);
+      v101 = (v7 + 2068);
       if (*(v7 + 2068))
       {
         *buf = 0xAAAAAAAAAAAAAAAALL;
         *valuePtr = 0;
-        if (!CMBlockBufferGetDataPointer(v97, 0, buf, 0, valuePtr))
+        if (!CMBlockBufferGetDataPointer(v99, 0, buf, 0, valuePtr))
         {
-          v100 = 0;
+          v102 = 0;
           do
           {
-            v101 = bswap32(**valuePtr) + 4;
-            fwrite(&c, 1uLL, 4uLL, *v99);
-            v100 += 4;
-            if (v100 != v101)
+            v103 = bswap32(**valuePtr) + 4;
+            fwrite(&c, 1uLL, 4uLL, *v101);
+            v102 += 4;
+            if (v102 != v103)
             {
               do
               {
-                CMBlockBufferGetDataPointer(v97, v100, buf, 0, valuePtr);
-                if (*buf >= v101 - v100)
+                CMBlockBufferGetDataPointer(v99, v102, buf, 0, valuePtr);
+                if (*buf >= v103 - v102)
                 {
-                  v102 = v101 - v100;
+                  v104 = v103 - v102;
                 }
 
                 else
                 {
-                  v102 = *buf;
+                  v104 = *buf;
                 }
 
-                fwrite(*valuePtr, 1uLL, v102, *v99);
-                v100 += v102;
+                fwrite(*valuePtr, 1uLL, v104, *v101);
+                v102 += v104;
               }
 
-              while (v100 != v101);
-              v100 = v101;
+              while (v102 != v103);
+              v102 = v103;
             }
           }
 
-          while (!CMBlockBufferGetDataPointer(v97, v100, buf, 0, valuePtr));
+          while (!CMBlockBufferGetDataPointer(v99, v102, buf, 0, valuePtr));
         }
 
-        v63 = a1;
+        v65 = a1;
       }
     }
 
-    if (*(v63 + 1200))
+    if (*(v65 + 1200))
     {
-      v103 = *(v7 + 1772);
-      if (v103)
+      v105 = *(v7 + 1772);
+      if (v105)
       {
-        VideoReceiverUtil_CaptureBitstreamFile(v8[16], *(v63 + 1180) >> 2, v63 + 42592, v103, (v61 - *(v7 + 1760)) >> 2);
+        VideoReceiverUtil_CaptureBitstreamFile(v8[16], *(v65 + 1180) >> 2, v65 + 42592, v105, (v63 - *(v7 + 1760)) >> 2);
       }
     }
 
-    v104 = *(MEMORY[0x1E6960CF0] + 48);
+    v106 = *(MEMORY[0x1E6960CF0] + 48);
     *&buf[32] = *(MEMORY[0x1E6960CF0] + 32);
-    *&buf[48] = v104;
+    *&buf[48] = v106;
     *&buf[64] = *(MEMORY[0x1E6960CF0] + 64);
-    v105 = *(MEMORY[0x1E6960CF0] + 16);
+    v107 = *(MEMORY[0x1E6960CF0] + 16);
     *buf = *MEMORY[0x1E6960CF0];
-    *&buf[16] = v105;
+    *&buf[16] = v107;
     CMTimeMake(valuePtr, (*(v8 + 4) * 1000000000.0), 1000000000);
     *&buf[24] = *valuePtr;
     *&buf[48] = *MEMORY[0x1E6960C70];
-    v106 = *(MEMORY[0x1E6960C70] + 16);
+    v108 = *(MEMORY[0x1E6960C70] + 16);
     *&buf[40] = *&valuePtr[16];
-    *&buf[64] = v106;
+    *&buf[64] = v108;
     CMTimeMake(valuePtr, 1, 1);
     *buf = *valuePtr;
     *&buf[16] = *&valuePtr[16];
-    v107 = *(v8 + 2);
-    v108 = (v107 == 124) & *(v7 + 2573);
-    *(v7 + 2573) = v108;
-    if (v107 != 124 && v107 != 110)
+    v109 = *(v8 + 2);
+    v110 = (v109 == 124) & *(v7 + 2573);
+    *(v7 + 2573) = v110;
+    if (v109 != 124 && v109 != 110)
     {
       if (*v15 != *(v7 + 2062) && (*(v15 + 70) & 1) == 0)
       {
         if (VRTraceGetErrorLogLevelForModule() >= 5)
         {
-          v152 = VRTraceErrorLogLevelToCSTR();
-          v153 = *MEMORY[0x1E6986650];
+          v154 = VRTraceErrorLogLevelToCSTR();
+          v155 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v154 = *v15;
-            v155 = *(v7 + 2062);
-            v156 = *(v8 + 4);
+            v156 = *v15;
+            v157 = *(v7 + 2062);
+            v158 = *(v8 + 4);
             *valuePtr = 136316930;
-            *&valuePtr[4] = v152;
+            *&valuePtr[4] = v154;
             *&valuePtr[12] = 2080;
             *&valuePtr[14] = "_VideoReceiver_CreateCompressedVideoFrameForDecode";
             *&valuePtr[22] = 1024;
             *&valuePtr[24] = 1534;
             *&valuePtr[28] = 2048;
-            *&valuePtr[30] = v63;
+            *&valuePtr[30] = v65;
             *&valuePtr[38] = 1024;
-            *&valuePtr[40] = v154;
+            *&valuePtr[40] = v156;
             *&valuePtr[44] = 1024;
-            *&valuePtr[46] = v155;
+            *&valuePtr[46] = v157;
             *&valuePtr[50] = 1024;
-            *&valuePtr[52] = v156;
+            *&valuePtr[52] = v158;
             *&valuePtr[56] = 1024;
-            *&valuePtr[58] = v154;
-            _os_log_impl(&dword_1DB56E000, v153, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Skip frame due to mismatch with decoder. streamID=%d, lastKeyFrameStreamId=%d, timestamp=%u. Request key frame for streamID=%d", valuePtr, 0x3Eu);
+            *&valuePtr[58] = v156;
+            _os_log_impl(&dword_1DB56E000, v155, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Skip frame due to mismatch with decoder. streamID=%d, lastKeyFrameStreamId=%d, timestamp=%u. Request key frame for streamID=%d", valuePtr, 0x3Eu);
           }
         }
 
         goto LABEL_199;
       }
 
-      v117 = v8[14];
-      v118 = *(v7 + 1772);
+      v119 = v8[14];
+      v120 = *(v7 + 1772);
       *&valuePtr[32] = *&buf[32];
       *&valuePtr[48] = *&buf[48];
-      *&v217 = *&buf[64];
+      *&v219 = *&buf[64];
       *valuePtr = *buf;
       *&valuePtr[16] = *&buf[16];
-      SampleFromBuffer = VideoUtil_CreateSampleFromBuffer(v117, valuePtr, v118);
+      SampleFromBuffer = VideoUtil_CreateSampleFromBuffer(v119, valuePtr, v120);
       cf = SampleFromBuffer;
       if (SampleFromBuffer)
       {
 LABEL_150:
         LOBYTE(lengthAtOffsetOut) = *(v8 + 22);
-        v111 = (v7 + 2364);
-        v112 = CFNumberCreate(*(v7 + 2364), kCFNumberCharType, &lengthAtOffsetOut);
-        if (v112)
+        v113 = (v7 + 2364);
+        v114 = CFNumberCreate(*(v7 + 2364), kCFNumberCharType, &lengthAtOffsetOut);
+        if (v114)
         {
-          v113 = v112;
-          CMSetAttachment(SampleFromBuffer, @"FramePriority", v112, 1u);
-          CFRelease(v113);
+          v115 = v114;
+          CMSetAttachment(SampleFromBuffer, @"FramePriority", v114, 1u);
+          CFRelease(v115);
           if (VRTraceGetErrorLogLevelForModule() >= 8)
           {
-            v114 = VRTraceErrorLogLevelToCSTR();
-            v115 = *MEMORY[0x1E6986650];
-            v116 = *MEMORY[0x1E6986650];
+            v116 = VRTraceErrorLogLevelToCSTR();
+            v117 = *MEMORY[0x1E6986650];
+            v118 = *MEMORY[0x1E6986650];
             if (*MEMORY[0x1E6986640] == 1)
             {
-              if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
               {
                 *valuePtr = 136316162;
-                *&valuePtr[4] = v114;
+                *&valuePtr[4] = v116;
                 *&valuePtr[12] = 2080;
                 *&valuePtr[14] = "_VideoReceiver_PrepareDecodeSampleBufferAttachments";
                 *&valuePtr[22] = 1024;
@@ -2208,33 +2274,33 @@ LABEL_150:
                 *&valuePtr[30] = lengthAtOffsetOut;
                 *&valuePtr[34] = 2112;
                 *&valuePtr[36] = @"FramePriority";
-                _os_log_impl(&dword_1DB56E000, v115, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d [Media Priority] Attaching video priority=%u as kVCPixelBufferOptionKey_FramePriority(%@)", valuePtr, 0x2Cu);
+                _os_log_impl(&dword_1DB56E000, v117, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d [Media Priority] Attaching video priority=%u as kVCPixelBufferOptionKey_FramePriority(%@)", valuePtr, 0x2Cu);
               }
             }
 
-            else if (os_log_type_enabled(v116, OS_LOG_TYPE_DEBUG))
+            else if (os_log_type_enabled(v118, OS_LOG_TYPE_DEBUG))
             {
               _VideoReceiver_DequeueAndDecode_cold_4();
             }
           }
 
           LODWORD(dataPointerOut[0]) = *(v8 + 4);
-          v129 = CFNumberCreate(*v111, kCFNumberSInt32Type, dataPointerOut);
-          if (v129)
+          v131 = CFNumberCreate(*v113, kCFNumberSInt32Type, dataPointerOut);
+          if (v131)
           {
-            v130 = v129;
-            CMSetAttachment(SampleFromBuffer, @"rtpTimestsamp", v129, 0);
-            CFRelease(v130);
+            v132 = v131;
+            CMSetAttachment(SampleFromBuffer, @"rtpTimestsamp", v131, 0);
+            CFRelease(v132);
             *&c.h0 = VideoUtil_ConstructSubFrameIdentifer(*(v8 + 12), *(v8 + 22));
-            v131 = CFNumberCreate(*v111, kCFNumberSInt64Type, &c);
-            v15 = v196;
-            if (v131)
+            v133 = CFNumberCreate(*v113, kCFNumberSInt64Type, &c);
+            v15 = v198;
+            if (v133)
             {
-              v132 = v131;
-              CMSetAttachment(SampleFromBuffer, @"subFrameIndentifier", v131, 0);
-              CFRelease(v132);
+              v134 = v133;
+              CMSetAttachment(SampleFromBuffer, @"subFrameIndentifier", v133, 0);
+              CFRelease(v134);
               kdebug_trace();
-              if (!*(v63 + 1576))
+              if (!*(v65 + 1576))
               {
                 goto LABEL_178;
               }
@@ -2242,57 +2308,57 @@ LABEL_150:
               SampleAttachmentsArray = CMSampleBufferGetSampleAttachmentsArray(SampleFromBuffer, 1u);
               ValueAtIndex = CFArrayGetValueAtIndex(SampleAttachmentsArray, 0);
               *valuePtr = VCCameraStatusUtil_RotationAngleForCameraStatusBits(*(v7 + 2220));
-              v135 = CFNumberCreate(*v111, kCFNumberSInt32Type, valuePtr);
-              if (v135)
+              v137 = CFNumberCreate(*v113, kCFNumberSInt32Type, valuePtr);
+              if (v137)
               {
-                v136 = v135;
-                CFDictionarySetValue(ValueAtIndex, @"ContentRotationAngle", v135);
-                CFRelease(v136);
+                v138 = v137;
+                CFDictionarySetValue(ValueAtIndex, @"ContentRotationAngle", v137);
+                CFRelease(v138);
 LABEL_178:
-                if (*(v63 + 1306) < 2u)
+                if (*(v65 + 1306) < 2u)
                 {
                   goto LABEL_182;
                 }
 
-                v137 = CMSampleBufferGetSampleAttachmentsArray(SampleFromBuffer, 1u);
-                v138 = CFArrayGetValueAtIndex(v137, 0);
+                v139 = CMSampleBufferGetSampleAttachmentsArray(SampleFromBuffer, 1u);
+                v140 = CFArrayGetValueAtIndex(v139, 0);
                 *valuePtr = *(v8 + 22);
-                v139 = CFNumberCreate(*v111, kCFNumberSInt32Type, valuePtr);
-                if (v139)
+                v141 = CFNumberCreate(*v113, kCFNumberSInt32Type, valuePtr);
+                if (v141)
                 {
-                  v140 = v139;
-                  CFDictionarySetValue(v138, @"TileID", v139);
-                  CFRelease(v140);
+                  v142 = v141;
+                  CFDictionarySetValue(v140, @"TileID", v141);
+                  CFRelease(v142);
                   *md = *(v8 + 12);
-                  v141 = CFNumberCreate(*v111, kCFNumberSInt32Type, md);
-                  if (v141)
+                  v143 = CFNumberCreate(*v113, kCFNumberSInt32Type, md);
+                  if (v143)
                   {
-                    v142 = v141;
-                    CFDictionarySetValue(v138, @"TileOrder", v141);
-                    CFRelease(v142);
+                    v144 = v143;
+                    CFDictionarySetValue(v140, @"TileOrder", v143);
+                    CFRelease(v144);
 LABEL_182:
-                    if (*(v63 + 1544))
+                    if (*(v65 + 1544))
                     {
                       if (VRTraceGetErrorLogLevelForModule() >= 8)
                       {
-                        v143 = VRTraceErrorLogLevelToCSTR();
-                        v144 = *MEMORY[0x1E6986650];
-                        v145 = *MEMORY[0x1E6986650];
+                        v145 = VRTraceErrorLogLevelToCSTR();
+                        v146 = *MEMORY[0x1E6986650];
+                        v147 = *MEMORY[0x1E6986650];
                         if (*MEMORY[0x1E6986640] == 1)
                         {
-                          if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
+                          if (os_log_type_enabled(v147, OS_LOG_TYPE_DEFAULT))
                           {
                             *valuePtr = 136315650;
-                            *&valuePtr[4] = v143;
+                            *&valuePtr[4] = v145;
                             *&valuePtr[12] = 2080;
                             *&valuePtr[14] = "_VideoReceiver_PrepareDecodeSampleBufferAttachments";
                             *&valuePtr[22] = 1024;
                             *&valuePtr[24] = 1301;
-                            _os_log_impl(&dword_1DB56E000, v144, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d Attaching decryption context to sample buffer", valuePtr, 0x1Cu);
+                            _os_log_impl(&dword_1DB56E000, v146, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d Attaching decryption context to sample buffer", valuePtr, 0x1Cu);
                           }
                         }
 
-                        else if (os_log_type_enabled(v145, OS_LOG_TYPE_DEBUG))
+                        else if (os_log_type_enabled(v147, OS_LOG_TYPE_DEBUG))
                         {
                           _VideoReceiver_DequeueAndDecode_cold_6();
                         }
@@ -2327,7 +2393,7 @@ LABEL_182:
           else
           {
             _VideoReceiver_DequeueAndDecode_cold_10();
-            v15 = v196;
+            v15 = v198;
           }
         }
 
@@ -2352,14 +2418,14 @@ LABEL_226:
       goto LABEL_158;
     }
 
-    if (v108)
+    if (v110)
     {
       if (!*(v7 + 2644))
       {
         *&valuePtr[16] = 1936287538;
-        v109 = *(v7 + 2236);
+        v111 = *(v7 + 2236);
         *valuePtr = *(v7 + 2276);
-        *&valuePtr[8] = v109;
+        *&valuePtr[8] = v111;
         if ((VCSignalDecoder_Create(*MEMORY[0x1E695E480], valuePtr, (v7 + 2644)) & 0x80000000) != 0)
         {
           _VideoReceiver_DequeueAndDecode_cold_3();
@@ -2419,156 +2485,156 @@ LABEL_158:
   }
 
 LABEL_231:
-  pthread_mutex_lock((v63 + 42192));
-  SummerAdd(*(v7 + 1500), v46);
+  pthread_mutex_lock((v65 + 42192));
+  SummerAdd(*(v7 + 36), *(v7 + 1500), v48);
   *(v7 + 1500) = 0;
-  SummerAdd(*(v7 + 1504), v46);
+  SummerAdd(*(v7 + 44), *(v7 + 1504), v48);
   *(v7 + 1504) = 0;
-  SummerAdd(*(v7 + 1512), v46);
+  SummerAdd(*(v7 + 52), *(v7 + 1512), v48);
   *(v7 + 1512) = 0;
-  SummerAdd(v8[11], v46);
-  SummerAdd(*(v7 + 1508), v46);
+  SummerAdd(*(v7 + 60), v8[11], v48);
+  SummerAdd(*(v7 + 68), *(v7 + 1508), v48);
   *(v7 + 1508) = 0;
-  pthread_mutex_unlock((v63 + 42192));
-  v150 = 1;
+  pthread_mutex_unlock((v65 + 42192));
+  v152 = 1;
 LABEL_232:
   if (*(v8 + 3) == 2)
   {
-    VideoPacketBuffer_SetFrameSize(*(v15 + 16), v207, v206);
+    VideoPacketBuffer_SetFrameSize(*(v15 + 16), v209, v208);
   }
 
-  if ((v150 & 1) == 0 && (v8[10] & 1) == 0)
+  if ((v152 & 1) == 0 && (v8[10] & 1) == 0)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 5)
     {
-      v185 = VRTraceErrorLogLevelToCSTR();
-      v186 = *MEMORY[0x1E6986650];
+      v187 = VRTraceErrorLogLevelToCSTR();
+      v188 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v187 = *v15;
+        v189 = *v15;
         *buf = 136316162;
-        *&buf[4] = v185;
+        *&buf[4] = v187;
         *&buf[12] = 2080;
         *&buf[14] = "_VideoReceiver_CreateSampleBufferForDecode";
         *&buf[22] = 1024;
         *&buf[24] = 2466;
         *&buf[28] = 2048;
-        *&buf[30] = v63;
+        *&buf[30] = v65;
         *&buf[38] = 1024;
-        *&buf[40] = v187;
-        _os_log_impl(&dword_1DB56E000, v186, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] CreateCompressedVideoFrameForDecode failed, request key frame for stream %d", buf, 0x2Cu);
+        *&buf[40] = v189;
+        _os_log_impl(&dword_1DB56E000, v188, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] CreateCompressedVideoFrameForDecode failed, request key frame for stream %d", buf, 0x2Cu);
       }
     }
 
-    _VideoReceiver_DecoderNeedsRefresh(v63, v15, 0, 19, v46);
+    _VideoReceiver_DecoderNeedsRefresh(v65, v15, 0, 0x13u, v48);
   }
 
-  v162 = cf;
+  v164 = cf;
   if (!cf)
   {
     _VideoReceiver_DequeueAndDecode_cold_15();
     goto LABEL_264;
   }
 
-  v163 = v205;
-  v203 = *(v205 + 4);
-  v164 = CFNumberCreate(*(v7 + 2364), kCFNumberSInt32Type, &v203);
-  CMSetAttachment(v162, @"rtpTimestsamp", v164, 0);
-  v202 = VideoUtil_ConstructSubFrameIdentifer(*(v163 + 12), *(v163 + 22));
-  v165 = CFNumberCreate(*(v7 + 2364), kCFNumberSInt64Type, &v202);
-  CMSetAttachment(v162, @"subFrameIndentifier", v165, 0);
-  v166 = CFNumberCreate(*(v7 + 2364), kCFNumberIntType, v163 + 13);
-  CMSetAttachment(v162, @"InterleavedStreamIndex", v166, 0);
+  v165 = v207;
+  v205 = *(v207 + 4);
+  v166 = CFNumberCreate(*(v7 + 2364), kCFNumberSInt32Type, &v205);
+  CMSetAttachment(v164, @"rtpTimestsamp", v166, 0);
+  v204 = VideoUtil_ConstructSubFrameIdentifer(*(v165 + 12), *(v165 + 22));
+  v167 = CFNumberCreate(*(v7 + 2364), kCFNumberSInt64Type, &v204);
+  CMSetAttachment(v164, @"subFrameIndentifier", v167, 0);
+  v168 = CFNumberCreate(*(v7 + 2364), kCFNumberIntType, v165 + 13);
+  CMSetAttachment(v164, @"InterleavedStreamIndex", v168, 0);
   kdebug_trace();
   if (VRTraceGetErrorLogLevelForModule() >= 8)
   {
-    v167 = VRTraceErrorLogLevelToCSTR();
-    v168 = *MEMORY[0x1E6986650];
-    v169 = *MEMORY[0x1E6986650];
+    v169 = VRTraceErrorLogLevelToCSTR();
+    v170 = *MEMORY[0x1E6986650];
+    v171 = *MEMORY[0x1E6986650];
     if (*MEMORY[0x1E6986640] == 1)
     {
-      if (os_log_type_enabled(v169, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v171, OS_LOG_TYPE_DEFAULT))
       {
-        v170 = v163[4];
-        v171 = *(v163 + 23);
-        v172 = *(v163 + 22);
+        v172 = v165[4];
+        v173 = *(v165 + 23);
+        v174 = *(v165 + 22);
         *buf = 136316674;
-        *&buf[4] = v167;
+        *&buf[4] = v169;
         *&buf[12] = 2080;
         *&buf[14] = "_VideoReceiver_DequeueAndDecode";
         *&buf[22] = 1024;
         *&buf[24] = 2635;
         *&buf[28] = 1024;
-        *&buf[30] = v203;
+        *&buf[30] = v205;
         *&buf[34] = 2048;
-        *&buf[36] = v170;
+        *&buf[36] = v172;
         *&buf[44] = 1024;
-        *&buf[46] = v171;
+        *&buf[46] = v173;
         *&buf[50] = 1024;
-        *&buf[52] = v172;
-        _os_log_impl(&dword_1DB56E000, v168, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d Start Decode RTPTimestamp=%u PresentationTime=%f isRefreshFrame=%d tileIndex=%u", buf, 0x38u);
+        *&buf[52] = v174;
+        _os_log_impl(&dword_1DB56E000, v170, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d Start Decode RTPTimestamp=%u PresentationTime=%f isRefreshFrame=%d tileIndex=%u", buf, 0x38u);
       }
     }
 
-    else if (os_log_type_enabled(v169, OS_LOG_TYPE_DEBUG))
+    else if (os_log_type_enabled(v171, OS_LOG_TYPE_DEBUG))
     {
-      v188 = v163[4];
-      v189 = *(v163 + 23);
-      v190 = *(v163 + 22);
+      v190 = v165[4];
+      v191 = *(v165 + 23);
+      v192 = *(v165 + 22);
       *buf = 136316674;
-      *&buf[4] = v167;
+      *&buf[4] = v169;
       *&buf[12] = 2080;
       *&buf[14] = "_VideoReceiver_DequeueAndDecode";
       *&buf[22] = 1024;
       *&buf[24] = 2635;
       *&buf[28] = 1024;
-      *&buf[30] = v203;
+      *&buf[30] = v205;
       *&buf[34] = 2048;
-      *&buf[36] = v188;
+      *&buf[36] = v190;
       *&buf[44] = 1024;
-      *&buf[46] = v189;
+      *&buf[46] = v191;
       *&buf[50] = 1024;
-      *&buf[52] = v190;
-      _os_log_debug_impl(&dword_1DB56E000, v168, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d Start Decode RTPTimestamp=%u PresentationTime=%f isRefreshFrame=%d tileIndex=%u", buf, 0x38u);
+      *&buf[52] = v192;
+      _os_log_debug_impl(&dword_1DB56E000, v170, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d Start Decode RTPTimestamp=%u PresentationTime=%f isRefreshFrame=%d tileIndex=%u", buf, 0x38u);
     }
   }
 
-  CFRelease(v165);
-  CFRelease(v164);
+  CFRelease(v167);
   CFRelease(v166);
-  v173 = *(v163 + 22);
-  v174 = *(v163 + 23) | (v192 < 2) & (v191 ^ 1);
-  HIDWORD(v175) = -1431655766;
-  v201 = 0xAAAAAAAAAAAAAAAALL;
-  *&v176 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v176 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v199 = v176;
-  v200 = v176;
-  LODWORD(v175) = v203;
-  *&v197 = v175;
-  WORD2(v197) = *(v163 + 24);
-  *(&v197 + 1) = a4;
-  v198 = v202;
-  LOWORD(v199) = *v196;
-  v177 = *(v63 + 1168);
-  *(&v199 + 1) = v177;
-  v178 = *(v196 + 33);
-  LOWORD(v200) = v178;
-  BYTE2(v200) = v193 & 1;
-  *(&v200 + 3) = 0;
-  BYTE5(v200) = v173 != 0;
-  BYTE6(v200) = v173;
-  BYTE7(v200) = *(v196 + 69);
-  BYTE8(v200) = v174;
-  BYTE9(v200) = *(v163 + 80);
-  BYTE10(v200) = *(v163 + 96);
-  HIDWORD(v200) = *(v163 + 25);
-  LOWORD(v201) = 0;
-  v179 = *(v163 + 2);
-  if (v179 == 124 || v179 == 110)
+  CFRelease(v168);
+  v175 = *(v165 + 22);
+  v176 = *(v165 + 23) | (v194 < 2) & (v193 ^ 1);
+  HIDWORD(v177) = -1431655766;
+  v203 = 0xAAAAAAAAAAAAAAAALL;
+  *&v178 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v178 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v201 = v178;
+  v202 = v178;
+  LODWORD(v177) = v205;
+  *&v199 = v177;
+  WORD2(v199) = *(v165 + 24);
+  *(&v199 + 1) = a4;
+  v200 = v204;
+  LOWORD(v201) = *v198;
+  v179 = *(v65 + 1168);
+  *(&v201 + 1) = v179;
+  v180 = *(v198 + 33);
+  LOWORD(v202) = v180;
+  BYTE2(v202) = v195 & 1;
+  *(&v202 + 3) = 0;
+  BYTE5(v202) = v175 != 0;
+  BYTE6(v202) = v175;
+  BYTE7(v202) = *(v198 + 69);
+  BYTE8(v202) = v176;
+  BYTE9(v202) = *(v165 + 80);
+  BYTE10(v202) = *(v165 + 96);
+  HIDWORD(v202) = *(v165 + 25);
+  LOWORD(v203) = 0;
+  v181 = *(v165 + 2);
+  if (v181 == 124 || v181 == 110)
   {
-    _VideoReceiver_HandleDataBuffer(v63, v196, &cf, &v197);
-    v180 = cf;
+    _VideoReceiver_HandleDataBuffer(v65, v198, &cf, &v199);
+    v182 = cf;
     if (!cf)
     {
       goto LABEL_264;
@@ -2577,11 +2643,11 @@ LABEL_232:
     goto LABEL_263;
   }
 
-  v180 = cf;
+  v182 = cf;
   LOBYTE(c.h0) = 0;
   LOBYTE(dataPointerOut[0]) = 0;
   LOBYTE(lengthAtOffsetOut) = 0;
-  *(v7 + 1876) = v178 * *(v7 + 2288);
+  *(v7 + 1876) = v180 * *(v7 + 2288);
   if ((*(v7 + 1849) & 1) == 0)
   {
     *(v7 + 1849) = 1;
@@ -2591,22 +2657,22 @@ LABEL_252:
     goto LABEL_253;
   }
 
-  v181 = a2 - *(v7 + 1852);
-  if (v181 && v181 <= 0x7FFFFFFE)
+  v183 = a2 - *(v7 + 1852);
+  if (v183 && v183 <= 0x7FFFFFFE)
   {
     goto LABEL_252;
   }
 
 LABEL_253:
-  v182 = VideoDecoder_DecodeFrame(*(v196 + 542), v177, &c, dataPointerOut, &lengthAtOffsetOut, v180, &v197);
-  if (v182 < 0 && VRTraceGetErrorLogLevelForModule() >= 3)
+  v184 = VideoDecoder_DecodeFrame(*(v198 + 542), v179, &c, dataPointerOut, &lengthAtOffsetOut, v182, &v199);
+  if (v184 < 0 && VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    v183 = VRTraceErrorLogLevelToCSTR();
-    v184 = *MEMORY[0x1E6986650];
+    v185 = VRTraceErrorLogLevelToCSTR();
+    v186 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      *&buf[4] = v183;
+      *&buf[4] = v185;
       *&buf[12] = 2080;
       *&buf[14] = "_VideoReceiver_DecodeFrame";
       *&buf[22] = 1024;
@@ -2614,28 +2680,28 @@ LABEL_253:
       *&buf[28] = 1024;
       *&buf[30] = 2307;
       *&buf[34] = 2048;
-      *&buf[36] = v63;
+      *&buf[36] = v65;
       *&buf[44] = 1024;
-      *&buf[46] = v182;
-      _os_log_error_impl(&dword_1DB56E000, v184, OS_LOG_TYPE_ERROR, "VideoReceiver [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/Others/VideoReceiver.c:%d: VideoReceiver[%p] VideoPlayer_DecodeFrame failed (%08X)", buf, 0x32u);
+      *&buf[46] = v184;
+      _os_log_error_impl(&dword_1DB56E000, v186, OS_LOG_TYPE_ERROR, "VideoReceiver [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/Others/VideoReceiver.c:%d: VideoReceiver[%p] VideoPlayer_DecodeFrame failed (%08X)", buf, 0x32u);
     }
   }
 
-  if (LOBYTE(c.h0) == 1 && (BYTE9(v200) & 1) == 0)
+  if (LOBYTE(c.h0) == 1 && (BYTE9(v202) & 1) == 0)
   {
-    _VideoReceiver_DecoderRequestKeyFrame(v63, v196, 0x11u, v197, *(v196 + 100), lengthAtOffsetOut);
+    _VideoReceiver_DecoderRequestKeyFrame(v65, v198, 0x11u, v199, *(v198 + 100), lengthAtOffsetOut);
   }
 
   if (LOBYTE(dataPointerOut[0]) != 1)
   {
-    if ((v182 & 0x80000000) == 0)
+    if ((v184 & 0x80000000) == 0)
     {
       goto LABEL_262;
     }
 
 LABEL_266:
-    _VideoReceiver_DequeueAndDecode_cold_14(v63, v182, v180, buf);
-    v180 = *buf;
+    _VideoReceiver_DequeueAndDecode_cold_14(v65, v184, v182, buf);
+    v182 = *buf;
     if (!*buf)
     {
       goto LABEL_264;
@@ -2645,20 +2711,20 @@ LABEL_266:
   }
 
   ++*(v7 + 1892);
-  if (v182 < 0)
+  if (v184 < 0)
   {
     goto LABEL_266;
   }
 
 LABEL_262:
-  if (v180)
+  if (v182)
   {
 LABEL_263:
-    CFRelease(v180);
+    CFRelease(v182);
   }
 
 LABEL_264:
-  VCVideoReceiverSampleBuffer_Destroy(&v205);
+  VCVideoReceiverSampleBuffer_Destroy(&v207);
 }
 
 BOOL _VideoReceiver_CanDequeueFromSimpleQueue(void *a1, int a2, int a3, int32_t *a4)
@@ -3458,9 +3524,10 @@ LABEL_28:
   }
 }
 
-void _VideoReceiver_ProcessCompletedFrames(uint64_t a1, unsigned int *a2, uint64_t a3, int a4)
+void _VideoReceiver_ProcessCompletedFrames(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v4 = a4;
+  v47 = *MEMORY[0x1E69E9840];
   if (*(a2 + 653) < 2u)
   {
     if (*(a2 + 1568) == 1)
@@ -3471,22 +3538,22 @@ void _VideoReceiver_ProcessCompletedFrames(uint64_t a1, unsigned int *a2, uint64
 
     else
     {
-      v18 = *(a3 + 128);
+      v20 = *(a3 + 128);
 
-      _VideoReceiver_ScheduleFramesForVideoPacketBuffer(a1, a2, v18, a4, a3);
+      _VideoReceiver_ScheduleFramesForVideoPacketBuffer(a1, a2, v20, a4, a3);
     }
   }
 
   else
   {
+    v30 = 0;
+    v29 = 0;
     v28 = 0;
-    v27 = 0;
-    v26 = 0;
-    VideoPacketBuffer_GetFrameDecodingOrder(*(a3 + 128), &v28, &v27, &v26);
-    if (v28 == 1 && *(a2 + 43252) == 1)
+    VideoPacketBuffer_GetFrameDecodingOrder(*(a3 + 128), &v30, &v29, &v28);
+    if (v30 == 1 && *(a2 + 43252) == 1)
     {
       v8 = *(a2 + 21627);
-      if (v27 != v8 && (v27 - v8) <= 0x7FFEu && a2[10606] - v26 <= 0x7FFFFFFE)
+      if (v29 != v8 && (v29 - v8) <= 0x7FFEu && a2[10606] - v28 <= 0x7FFFFFFE)
       {
         v9 = *a2;
         if (v9)
@@ -3497,11 +3564,11 @@ void _VideoReceiver_ProcessCompletedFrames(uint64_t a1, unsigned int *a2, uint64
           {
             if (v11 != a3)
             {
-              v25 = 0;
-              v24 = 0;
+              v27 = 0;
+              v26 = 0;
               *buf = 0;
-              VideoPacketBuffer_GetFrameDecodingOrder(*(v11 + 16), &v25, &v24, buf);
-              if (v25 == 1 && v28 == 1 && v27 != v24 && (v27 - v24) <= 0x7FFEu)
+              VideoPacketBuffer_GetFrameDecodingOrder(*(v11 + 16), &v27, &v26, buf);
+              if (v27 == 1 && v30 == 1 && v29 != v26 && (v29 - v26) <= 0x7FFEu)
               {
                 goto LABEL_30;
               }
@@ -3516,68 +3583,70 @@ void _VideoReceiver_ProcessCompletedFrames(uint64_t a1, unsigned int *a2, uint64
           while (v10 < v9);
         }
 
-        if (VRTraceGetErrorLogLevelForModule() >= 5)
+        ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+        if (ErrorLogLevelForModule >= 5)
         {
-          v12 = VRTraceErrorLogLevelToCSTR();
-          v13 = *MEMORY[0x1E6986650];
-          if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+          v14 = VRTraceErrorLogLevelToCSTR();
+          v15 = *MEMORY[0x1E6986650];
+          ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+          if (ErrorLogLevelForModule)
           {
-            v14 = *(a3 + 128);
-            v15 = *(a2 + 21627);
-            v16 = *(a2 + 43252);
+            v16 = *(a3 + 128);
+            v17 = *(a2 + 21627);
+            v18 = *(a2 + 43252);
             *buf = 136316930;
-            v30 = v12;
-            v31 = 2080;
-            v32 = "_VideoReceiver_DetectFullSubFrameLoss";
-            v33 = 1024;
-            v34 = 3541;
-            v35 = 2048;
-            v36 = a2;
+            v32 = v14;
+            v33 = 2080;
+            v34 = "_VideoReceiver_DetectFullSubFrameLoss";
+            v35 = 1024;
+            v36 = 3541;
             v37 = 2048;
-            v38 = v14;
-            v39 = 1024;
-            v40 = v27;
+            v38 = a2;
+            v39 = 2048;
+            v40 = v16;
             v41 = 1024;
-            v42 = v15;
+            v42 = v29;
             v43 = 1024;
-            v44 = v16;
-            _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] VideoPacketBuffer[%p] Needs refresh and reset DON due to sub frame loss in frameDecodingOrder:%hu expectedDecodingOrder:%hu isExpectedDecodingOrderValid:%d", buf, 0x42u);
+            v44 = v17;
+            v45 = 1024;
+            v46 = v18;
+            _os_log_impl(&dword_1DB56E000, v15, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] VideoPacketBuffer[%p] Needs refresh and reset DON due to sub frame loss in frameDecodingOrder:%hu expectedDecodingOrder:%hu isExpectedDecodingOrderValid:%d", buf, 0x42u);
           }
         }
 
-        v17 = *(a2 + 1329) == 1 && a2[10639] != 0;
-        v19 = micro();
-        _VideoReceiver_DecoderNeedsRefresh(a2, a3, v17, 23, v19);
+        v19 = *(a2 + 1329) == 1 && a2[10639] != 0;
+        v21 = micro(ErrorLogLevelForModule, v13);
+        _VideoReceiver_DecoderNeedsRefresh(a2, a3, v19, 0x17u, v21);
       }
     }
 
 LABEL_30:
-    LODWORD(v20) = *a2;
-    v21 = (exp2(*a2) + -1.0);
-    while (v21)
+    LODWORD(v22) = *a2;
+    v23 = (exp2(*a2) + -1.0);
+    while (v23)
     {
-      if (v20)
+      if (v22)
       {
-        v22 = 0;
-        v23 = (a2 + 424);
+        v24 = 0;
+        v25 = a2 + 424;
         do
         {
-          if (_VideoReceiver_ScheduleFramesForVideoPacketBuffer(a1, a2, *(v23 + 128), a4, v23))
+          if (_VideoReceiver_ScheduleFramesForVideoPacketBuffer(a1, a2, *(v25 + 16), v4, v25))
           {
-            v21 |= 1 << v22;
+            v23 |= 1 << v24;
           }
 
           else
           {
-            v21 &= ~(1 << v22);
+            v23 &= ~(1 << v24);
           }
 
-          ++v22;
-          v20 = *a2;
-          v23 += 4352;
+          ++v24;
+          v22 = *a2;
+          v25 += 1088;
         }
 
-        while (v22 < v20);
+        while (v24 < v22);
       }
     }
   }
@@ -3624,7 +3693,7 @@ uint64_t _VideoReceiver_ScheduleFramesForVideoPacketBuffer(uint64_t a1, uint64_t
   return v11;
 }
 
-void _VideoReceiver_ProcessCompletedFramesForInterleavedStreams(uint64_t a1, uint64_t a2)
+void _VideoReceiver_ProcessCompletedFramesForInterleavedStreams(uint64_t result, uint64_t a2)
 {
   v34 = *MEMORY[0x1E69E9840];
   memset(v21, 0, sizeof(v21));
@@ -3711,7 +3780,7 @@ LABEL_12:
         v14 = &v22 + 1;
         do
         {
-          _VideoReceiver_AssembleAndEnqueueFrame(a1, a2, *v14, *(v14 - 2));
+          _VideoReceiver_AssembleAndEnqueueFrame(result, a2, *v14, *(v14 - 2));
           v14 += 3;
           --v13;
         }
@@ -3722,14 +3791,14 @@ LABEL_12:
 
     if (v8)
     {
-      _VideoReceiver_ProcessCompletedFramesForInterleavedStreams(a1, a2);
+      _VideoReceiver_ProcessCompletedFramesForInterleavedStreams(result, a2);
     }
   }
 }
 
 uint64_t _VideoReceiver_AssembleAndEnqueueFrame(uint64_t a1, uint64_t a2, unsigned __int16 *a3, unsigned int a4)
 {
-  v220 = *MEMORY[0x1E69E9840];
+  v224 = *MEMORY[0x1E69E9840];
   v6 = a2 + 40897;
   v7 = (a2 + 42428);
   v8 = *(a2 + 42428);
@@ -3754,11 +3823,11 @@ uint64_t _VideoReceiver_AssembleAndEnqueueFrame(uint64_t a1, uint64_t a2, unsign
         *&buf[12] = 2080;
         *&buf[14] = "_VideoReceiver_AssembleAndEnqueueFrame";
         *&buf[22] = 1024;
-        v211 = 3279;
-        *v212 = 2048;
-        *&v212[2] = a2;
-        *&v212[10] = 1024;
-        *&v212[12] = a4;
+        v215 = 3279;
+        *v216 = 2048;
+        *&v216[2] = a2;
+        *&v216[10] = 1024;
+        *&v216[12] = a4;
         _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Got frame with RTPTimestamp=%u", buf, 0x2Cu);
       }
     }
@@ -3770,100 +3839,100 @@ uint64_t _VideoReceiver_AssembleAndEnqueueFrame(uint64_t a1, uint64_t a2, unsign
       *&buf[12] = 2080;
       *&buf[14] = "_VideoReceiver_AssembleAndEnqueueFrame";
       *&buf[22] = 1024;
-      v211 = 3279;
-      *v212 = 2048;
-      *&v212[2] = a2;
-      *&v212[10] = 1024;
-      *&v212[12] = a4;
+      v215 = 3279;
+      *v216 = 2048;
+      *&v216[2] = a2;
+      *&v216[10] = 1024;
+      *&v216[12] = a4;
       _os_log_debug_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Got frame with RTPTimestamp=%u", buf, 0x2Cu);
     }
   }
 
   *v7 = a4;
-  v200 = 0;
+  v204 = 0;
+  v202 = 0u;
+  v203 = 0u;
+  v200 = 0u;
+  v201 = 0u;
   v198 = 0u;
   v199 = 0u;
-  v196 = 0u;
-  v197 = 0u;
-  v194 = 0u;
-  v195 = 0u;
   VideoFrameTimeInSeconds = _VideoReceiver_GetVideoFrameTimeInSeconds(a2, a4, 0.0);
-  v206 = -1431655766;
-  v205 = -1431655766;
-  v204 = 0;
-  v201 = 0;
-  v186 = (v6 + 2471);
-  v203 = 1;
-  v183 = (v6 + 1663);
-  v184 = (v6 + 2351);
-  v190 = (v6 + 2357);
-  v191 = (v6 + 2405);
-  v192 = (v6 + 2143);
-  v188 = (v6 + 2335);
-  v189 = (v6 + 2407);
-  v187 = (v6 + 2319);
-  v185 = (v6 + 2583);
-  v182 = (v6 + 2255);
+  v210 = -1431655766;
+  v209 = -1431655766;
+  v208 = 0;
+  v205 = 0;
+  v190 = (v6 + 2471);
+  v207 = 1;
+  v187 = (v6 + 1663);
+  v188 = (v6 + 2351);
+  v194 = (v6 + 2357);
+  v195 = (v6 + 2405);
+  v196 = (v6 + 2143);
+  v192 = (v6 + 2335);
+  v193 = (v6 + 2407);
+  v191 = (v6 + 2319);
+  v189 = (v6 + 2583);
+  v186 = (v6 + 2255);
   while (1)
   {
-    pthread_mutex_lock((a2 + 42256));
+    v16 = pthread_mutex_lock((a2 + 42256));
+    v209 = 0;
+    v18 = micro(v16, v17);
     v205 = 0;
-    v16 = micro();
-    v201 = 0;
-    v206 = -1;
+    v210 = -1;
     element = 0;
-    v207 = -1431655936;
-    NextFrame = VideoPacketBuffer_GetNextFrame(*(a3 + 16), a4, &v206, &v203, &v201, &v205, &v204, &v207, &element, &v194);
-    if (v207 < 0)
+    v211 = -1431655936;
+    NextFrame = VideoPacketBuffer_GetNextFrame(*(a3 + 16), a4, &v210, &v207, &v205, &v209, &v208, &v211, &element, &v198);
+    if (v211 < 0)
     {
-      *(v6 + 2223) = v207;
+      *(v6 + 2223) = v211;
     }
 
-    if (v206 != -1)
+    if (v210 != -1)
     {
-      v18 = (v206 == 2) & *(a2 + 1329);
-      v19 = v203;
+      v20 = (v210 == 2) & *(a2 + 1329);
+      v21 = v207;
       if (*(a2 + 1420) == 1)
       {
-        *(a3 + 4296) = v18;
-        *(a3 + 1075) = v19;
+        *(a3 + 4296) = v20;
+        *(a3 + 1075) = v21;
         if (*(a3 + 538) == 0.0)
         {
-          *(a3 + 538) = v16;
+          *(a3 + 538) = v18;
         }
 
         if (VRTraceGetErrorLogLevelForModule() >= 5)
         {
-          v20 = VRTraceErrorLogLevelToCSTR();
-          v21 = *MEMORY[0x1E6986650];
+          v22 = VRTraceErrorLogLevelToCSTR();
+          v23 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v22 = *(a3 + 16);
-            v23 = *(a3 + 538);
+            v24 = *(a3 + 16);
+            v25 = *(a3 + 538);
             *buf = 136316418;
-            *&buf[4] = v20;
+            *&buf[4] = v22;
             *&buf[12] = 2080;
             *&buf[14] = "_VideoReceiver_SendFIRWithDelay";
             *&buf[22] = 1024;
-            v211 = 2049;
-            *v212 = 2048;
-            *&v212[2] = a2;
-            *&v212[10] = 2048;
-            *&v212[12] = v22;
-            *&v212[20] = 2048;
-            *&v212[22] = v23;
-            _os_log_impl(&dword_1DB56E000, v21, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] VideoPacketBuffer[%p] Delay FIR cachedFIRcurrentTime=%2.4f", buf, 0x3Au);
+            v215 = 2049;
+            *v216 = 2048;
+            *&v216[2] = a2;
+            *&v216[10] = 2048;
+            *&v216[12] = v24;
+            *&v216[20] = 2048;
+            *&v216[22] = v25;
+            _os_log_impl(&dword_1DB56E000, v23, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] VideoPacketBuffer[%p] Delay FIR cachedFIRcurrentTime=%2.4f", buf, 0x3Au);
           }
         }
       }
 
       else
       {
-        _VideoReceiver_SendFIR(a2, a3, v18, v203, v16);
+        _VideoReceiver_SendFIR(a2, a3, v20, v207, v18);
       }
     }
 
-    if (v201)
+    if (v205)
     {
       _VideoReceiver_ResetExpectedDecodingOrder(a2);
     }
@@ -3872,58 +3941,58 @@ uint64_t _VideoReceiver_AssembleAndEnqueueFrame(uint64_t a1, uint64_t a2, unsign
     {
       if (*(element + 23) == 1)
       {
-        *buf = element[15];
+        *buf = *(element + 15);
         ReportingEventDictionary = _VideoReceiver_CreateReportingEventDictionary(a2);
-        v25 = CFNumberCreate(*(v6 + 2367), kCFNumberSInt16Type, buf);
-        CFDictionaryAddValue(ReportingEventDictionary, @"VCVSKeyFrameSize", v25);
-        CFRelease(v25);
+        v27 = CFNumberCreate(*(v6 + 2367), kCFNumberSInt16Type, buf);
+        CFDictionaryAddValue(ReportingEventDictionary, @"VCVSKeyFrameSize", v27);
+        CFRelease(v27);
         reportingVideoStreamEvent();
         CFRelease(ReportingEventDictionary);
-        memset(v209, 0, sizeof(v209));
-        memset(v208, 0, sizeof(v208));
-        VCUtil_ConvertStreamIDArrayToString((a3 + 6), a3[4], v209, 0x60uLL);
-        VCUtil_ConvertStreamIDArrayToString((a3 + 15), a3[4], v208, 0x60uLL);
-        *v186 = *(element + 4);
+        memset(v213, 0, sizeof(v213));
+        memset(v212, 0, sizeof(v212));
+        VCUtil_ConvertStreamIDArrayToString((a3 + 6), a3[4], v213, 0x60uLL);
+        VCUtil_ConvertStreamIDArrayToString((a3 + 15), a3[4], v212, 0x60uLL);
+        *v190 = *(element + 4);
         if (VRTraceGetErrorLogLevelForModule() >= 7)
         {
-          v26 = VRTraceErrorLogLevelToCSTR();
-          v27 = *MEMORY[0x1E6986650];
+          v28 = VRTraceErrorLogLevelToCSTR();
+          v29 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v28 = *(a3 + 1086);
-            v29 = *v186;
-            v30 = element[15];
-            v31 = *a3;
-            v32 = a3[1];
-            v33 = *(a3 + 70);
-            v34 = v31 == a3[2];
+            v30 = *(a3 + 1086);
+            v31 = *v190;
+            v32 = *(element + 15);
+            v33 = *a3;
+            v34 = a3[1];
+            v35 = *(a3 + 70);
+            v36 = v33 == a3[2];
             *buf = 136318210;
-            *&buf[4] = v26;
+            *&buf[4] = v28;
             *&buf[12] = 2080;
             *&buf[14] = "_VideoReceiver_AssembleAndEnqueueForDecode";
             *&buf[22] = 1024;
-            v211 = 3148;
-            *v212 = 2048;
-            *&v212[2] = a2;
-            *&v212[10] = 1024;
-            *&v212[12] = v28;
-            *&v212[16] = 1024;
-            *&v212[18] = v29;
-            *&v212[22] = 1024;
-            *&v212[24] = v30;
-            *&v212[28] = 1024;
-            *&v212[30] = v31;
-            *&v212[34] = 1024;
-            *&v212[36] = v32;
-            *&v212[40] = 2080;
-            *&v212[42] = v209;
-            LOWORD(v213) = 2080;
-            *(&v213 + 2) = v208;
-            WORD5(v213) = 1024;
-            HIDWORD(v213) = v33;
-            LOWORD(v214) = 1024;
-            *(&v214 + 2) = v34;
-            _os_log_impl(&dword_1DB56E000, v27, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Received key frame on streamIndex=%d timestamp=%u bytes=%d for streamID=%d, repairStreamID=%d, subStreamIDs=%s, repairSubStreamIDs=%s, isTemporalScaledStream=%d isBaseLayer=%d", buf, 0x64u);
+            v215 = 3148;
+            *v216 = 2048;
+            *&v216[2] = a2;
+            *&v216[10] = 1024;
+            *&v216[12] = v30;
+            *&v216[16] = 1024;
+            *&v216[18] = v31;
+            *&v216[22] = 1024;
+            *&v216[24] = v32;
+            *&v216[28] = 1024;
+            *&v216[30] = v33;
+            *&v216[34] = 1024;
+            *&v216[36] = v34;
+            *&v216[40] = 2080;
+            *&v216[42] = v213;
+            LOWORD(v217) = 2080;
+            *(&v217 + 2) = v212;
+            WORD5(v217) = 1024;
+            HIDWORD(v217) = v35;
+            LOWORD(v218) = 1024;
+            *(&v218 + 2) = v36;
+            _os_log_impl(&dword_1DB56E000, v29, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Received key frame on streamIndex=%d timestamp=%u bytes=%d for streamID=%d, repairStreamID=%d, subStreamIDs=%s, repairSubStreamIDs=%s, isTemporalScaledStream=%d isBaseLayer=%d", buf, 0x64u);
           }
         }
       }
@@ -3934,7 +4003,7 @@ uint64_t _VideoReceiver_AssembleAndEnqueueFrame(uint64_t a1, uint64_t a2, unsign
       break;
     }
 
-    v35 = element;
+    v37 = element;
     if (!element)
     {
       goto LABEL_180;
@@ -3946,124 +4015,124 @@ uint64_t _VideoReceiver_AssembleAndEnqueueFrame(uint64_t a1, uint64_t a2, unsign
       {
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v45 = VRTraceErrorLogLevelToCSTR();
-          v46 = *MEMORY[0x1E6986650];
+          v47 = VRTraceErrorLogLevelToCSTR();
+          v48 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
           {
             *buf = 136315906;
-            *&buf[4] = v45;
+            *&buf[4] = v47;
             *&buf[12] = 2080;
             *&buf[14] = "_VideoReceiver_AssembleAndEnqueueForDecode";
             *&buf[22] = 1024;
-            v211 = 3166;
-            *v212 = 2048;
-            *&v212[2] = a2;
-            _os_log_error_impl(&dword_1DB56E000, v46, OS_LOG_TYPE_ERROR, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Received a frame with invalid decoding order!", buf, 0x26u);
+            v215 = 3166;
+            *v216 = 2048;
+            *&v216[2] = a2;
+            _os_log_error_impl(&dword_1DB56E000, v48, OS_LOG_TYPE_ERROR, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Received a frame with invalid decoding order!", buf, 0x26u);
           }
         }
 
         goto LABEL_72;
       }
 
-      v36 = *(element + 23);
-      v37 = *(element + 12);
+      v38 = *(element + 23);
+      v39 = *(element + 12);
       if (*(v6 + 2355) == 1)
       {
-        v38 = v37 - *v190;
-        if (v38)
+        v40 = v39 - *v194;
+        if (v40)
         {
-          if (v38 <= 0x7FFEu && VRTraceGetErrorLogLevelForModule() >= 5)
+          if (v40 <= 0x7FFEu && VRTraceGetErrorLogLevelForModule() >= 5)
           {
-            v39 = VRTraceErrorLogLevelToCSTR();
-            v40 = *MEMORY[0x1E6986650];
+            v41 = VRTraceErrorLogLevelToCSTR();
+            v42 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
-              v41 = *v190;
+              v43 = *v194;
               *buf = 136316418;
-              *&buf[4] = v39;
+              *&buf[4] = v41;
               *&buf[12] = 2080;
               *&buf[14] = "_VideoReceiver_UpdateExpectedDecodingOrder";
               *&buf[22] = 1024;
-              v211 = 1203;
-              *v212 = 2048;
-              *&v212[2] = a2;
-              *&v212[10] = 1024;
-              *&v212[12] = v37;
-              *&v212[16] = 1024;
-              *&v212[18] = v41;
-              _os_log_impl(&dword_1DB56E000, v40, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Jump in frameDecodingOrder:%hu expectedDecodingOrder:%hu", buf, 0x32u);
+              v215 = 1203;
+              *v216 = 2048;
+              *&v216[2] = a2;
+              *&v216[10] = 1024;
+              *&v216[12] = v39;
+              *&v216[16] = 1024;
+              *&v216[18] = v43;
+              _os_log_impl(&dword_1DB56E000, v42, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Jump in frameDecodingOrder:%hu expectedDecodingOrder:%hu", buf, 0x32u);
             }
           }
         }
 
-        if ((v37 - *v190) >= 0x7FFFu && VRTraceGetErrorLogLevelForModule() >= 5)
+        if ((v39 - *v194) >= 0x7FFFu && VRTraceGetErrorLogLevelForModule() >= 5)
         {
-          v42 = VRTraceErrorLogLevelToCSTR();
-          v43 = *MEMORY[0x1E6986650];
+          v44 = VRTraceErrorLogLevelToCSTR();
+          v45 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v44 = *v190;
+            v46 = *v194;
             *buf = 136316418;
-            *&buf[4] = v42;
+            *&buf[4] = v44;
             *&buf[12] = 2080;
             *&buf[14] = "_VideoReceiver_UpdateExpectedDecodingOrder";
             *&buf[22] = 1024;
-            v211 = 1206;
-            *v212 = 2048;
-            *&v212[2] = a2;
-            *&v212[10] = 1024;
-            *&v212[12] = v37;
-            *&v212[16] = 1024;
-            *&v212[18] = v44;
-            _os_log_impl(&dword_1DB56E000, v43, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] out of order in frameDecodingOrder:%hu expectedDecodingOrder:%hu", buf, 0x32u);
+            v215 = 1206;
+            *v216 = 2048;
+            *&v216[2] = a2;
+            *&v216[10] = 1024;
+            *&v216[12] = v39;
+            *&v216[16] = 1024;
+            *&v216[18] = v46;
+            _os_log_impl(&dword_1DB56E000, v45, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] out of order in frameDecodingOrder:%hu expectedDecodingOrder:%hu", buf, 0x32u);
           }
         }
       }
 
       if (*(v6 + 2355) == 1)
       {
-        if ((v37 - *v190) <= 0x7FFEu)
+        if ((v39 - *v194) <= 0x7FFEu)
         {
-          *v190 = v37 + 1;
+          *v194 = v39 + 1;
         }
 
         goto LABEL_72;
       }
 
-      if (v36)
+      if (v38)
       {
-        v47 = *v184 + 1;
-        *v184 = v47;
+        v49 = *v188 + 1;
+        *v188 = v49;
         if ((*(v6 + 2356) & 1) == 0)
         {
-          *v190 = v37 + 1;
-          *(v6 + 2355) = v47 == *(a2 + 1306);
+          *v194 = v39 + 1;
+          *(v6 + 2355) = v49 == *(a2 + 1306);
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
-            v62 = VRTraceErrorLogLevelToCSTR();
-            v63 = *MEMORY[0x1E6986650];
+            v64 = VRTraceErrorLogLevelToCSTR();
+            v65 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
-              v64 = *v184;
-              v65 = *v190;
-              v66 = *(v6 + 2355);
+              v66 = *v188;
+              v67 = *v194;
+              v68 = *(v6 + 2355);
               *buf = 136316930;
-              *&buf[4] = v62;
+              *&buf[4] = v64;
               *&buf[12] = 2080;
               *&buf[14] = "_VideoReceiver_UpdateExpectedDecodingOrderForRefreshFrame";
               *&buf[22] = 1024;
-              v211 = 1179;
-              *v212 = 2048;
-              *&v212[2] = a2;
-              *&v212[10] = 1024;
-              *&v212[12] = v37;
-              *&v212[16] = 1024;
-              *&v212[18] = v64;
-              *&v212[22] = 1024;
-              *&v212[24] = v65;
-              *&v212[28] = 1024;
-              *&v212[30] = v66;
-              _os_log_impl(&dword_1DB56E000, v63, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] First refresh frameDecodingOrder:%hu refreshFrameCount:%d expectedDecodingOrder:%hu isExpectedDecodingOrderValid:%d", buf, 0x3Eu);
+              v215 = 1179;
+              *v216 = 2048;
+              *&v216[2] = a2;
+              *&v216[10] = 1024;
+              *&v216[12] = v39;
+              *&v216[16] = 1024;
+              *&v216[18] = v66;
+              *&v216[22] = 1024;
+              *&v216[24] = v67;
+              *&v216[28] = 1024;
+              *&v216[30] = v68;
+              _os_log_impl(&dword_1DB56E000, v65, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] First refresh frameDecodingOrder:%hu refreshFrameCount:%d expectedDecodingOrder:%hu isExpectedDecodingOrderValid:%d", buf, 0x3Eu);
             }
           }
 
@@ -4071,82 +4140,82 @@ uint64_t _VideoReceiver_AssembleAndEnqueueFrame(uint64_t a1, uint64_t a2, unsign
           goto LABEL_72;
         }
 
-        v48 = *v190;
-        if ((v37 - v48) <= 0x7FFEu)
+        v50 = *v194;
+        if ((v39 - v50) <= 0x7FFEu)
         {
-          if (v37 != v48)
+          if (v39 != v50)
           {
-            *v184 = 1;
+            *v188 = 1;
             if (VRTraceGetErrorLogLevelForModule() >= 7)
             {
-              v49 = VRTraceErrorLogLevelToCSTR();
-              v50 = *MEMORY[0x1E6986650];
+              v51 = VRTraceErrorLogLevelToCSTR();
+              v52 = *MEMORY[0x1E6986650];
               if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
               {
-                v51 = *v184;
-                v52 = *v190;
-                v53 = *(v6 + 2355);
+                v53 = *v188;
+                v54 = *v194;
+                v55 = *(v6 + 2355);
                 *buf = 136316930;
-                *&buf[4] = v49;
+                *&buf[4] = v51;
                 *&buf[12] = 2080;
                 *&buf[14] = "_VideoReceiver_UpdateExpectedDecodingOrderForRefreshFrame";
                 *&buf[22] = 1024;
-                v211 = 1188;
-                *v212 = 2048;
-                *&v212[2] = a2;
-                *&v212[10] = 1024;
-                *&v212[12] = v37;
-                *&v212[16] = 1024;
-                *&v212[18] = v51;
-                *&v212[22] = 1024;
-                *&v212[24] = v52;
-                *&v212[28] = 1024;
-                *&v212[30] = v53;
-                _os_log_impl(&dword_1DB56E000, v50, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Jump within refresh frameDecodingOrder:%hu refreshFrameCount:%d expectedDecodingOrder:%hu isExpectedDecodingOrderValid:%d", buf, 0x3Eu);
+                v215 = 1188;
+                *v216 = 2048;
+                *&v216[2] = a2;
+                *&v216[10] = 1024;
+                *&v216[12] = v39;
+                *&v216[16] = 1024;
+                *&v216[18] = v53;
+                *&v216[22] = 1024;
+                *&v216[24] = v54;
+                *&v216[28] = 1024;
+                *&v216[30] = v55;
+                _os_log_impl(&dword_1DB56E000, v52, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Jump within refresh frameDecodingOrder:%hu refreshFrameCount:%d expectedDecodingOrder:%hu isExpectedDecodingOrderValid:%d", buf, 0x3Eu);
               }
             }
           }
 
-          *v190 = v37 + 1;
-          *(v6 + 2355) = *v184 == *(a2 + 1306);
+          *v194 = v39 + 1;
+          *(v6 + 2355) = *v188 == *(a2 + 1306);
           if (VRTraceGetErrorLogLevelForModule() < 7)
           {
             goto LABEL_72;
           }
 
-          v54 = VRTraceErrorLogLevelToCSTR();
-          v55 = *MEMORY[0x1E6986650];
+          v56 = VRTraceErrorLogLevelToCSTR();
+          v57 = *MEMORY[0x1E6986650];
           if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_72;
           }
 
-          v56 = *v184;
-          v57 = *v190;
-          v58 = *(v6 + 2355);
+          v58 = *v188;
+          v59 = *v194;
+          v60 = *(v6 + 2355);
           *buf = 136316930;
-          *&buf[4] = v54;
+          *&buf[4] = v56;
           *&buf[12] = 2080;
           *&buf[14] = "_VideoReceiver_UpdateExpectedDecodingOrderForRefreshFrame";
           *&buf[22] = 1024;
-          v211 = 1194;
-          *v212 = 2048;
-          *&v212[2] = a2;
-          *&v212[10] = 1024;
-          *&v212[12] = v37;
-          *&v212[16] = 1024;
-          *&v212[18] = v56;
-          *&v212[22] = 1024;
-          *&v212[24] = v57;
-          *&v212[28] = 1024;
-          *&v212[30] = v58;
-          v59 = v55;
-          v60 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] Refresh frameDecodingOrder:%d refreshFrameCount:%d expectedDecodingOrder:%hu isExpectedDecodingOrderValid:%d";
-          v61 = 62;
+          v215 = 1194;
+          *v216 = 2048;
+          *&v216[2] = a2;
+          *&v216[10] = 1024;
+          *&v216[12] = v39;
+          *&v216[16] = 1024;
+          *&v216[18] = v58;
+          *&v216[22] = 1024;
+          *&v216[24] = v59;
+          *&v216[28] = 1024;
+          *&v216[30] = v60;
+          v61 = v57;
+          v62 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] Refresh frameDecodingOrder:%d refreshFrameCount:%d expectedDecodingOrder:%hu isExpectedDecodingOrderValid:%d";
+          v63 = 62;
 LABEL_71:
-          _os_log_impl(&dword_1DB56E000, v59, OS_LOG_TYPE_DEFAULT, v60, buf, v61);
+          _os_log_impl(&dword_1DB56E000, v61, OS_LOG_TYPE_DEFAULT, v62, buf, v63);
 LABEL_72:
-          v35 = element;
+          v37 = element;
           *(element + 22) = *(a3 + 68);
           goto LABEL_73;
         }
@@ -4156,31 +4225,31 @@ LABEL_72:
           goto LABEL_72;
         }
 
-        v67 = VRTraceErrorLogLevelToCSTR();
-        v68 = *MEMORY[0x1E6986650];
+        v69 = VRTraceErrorLogLevelToCSTR();
+        v70 = *MEMORY[0x1E6986650];
         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_72;
         }
 
-        v69 = *v190;
-        v70 = *(v6 + 2355);
+        v71 = *v194;
+        v72 = *(v6 + 2355);
         *buf = 136316674;
-        *&buf[4] = v67;
+        *&buf[4] = v69;
         *&buf[12] = 2080;
         *&buf[14] = "_VideoReceiver_UpdateExpectedDecodingOrderForRefreshFrame";
         *&buf[22] = 1024;
-        v211 = 1196;
-        *v212 = 2048;
-        *&v212[2] = a2;
-        *&v212[10] = 1024;
-        *&v212[12] = v37;
-        *&v212[16] = 1024;
-        *&v212[18] = v69;
-        *&v212[22] = 1024;
-        *&v212[24] = v70;
-        v59 = v68;
-        v60 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] Received out of order refresh frameDecodingOrder:%hu expectedDecodingOrder:%hu isExpectedDecodingOrderValid:%d";
+        v215 = 1196;
+        *v216 = 2048;
+        *&v216[2] = a2;
+        *&v216[10] = 1024;
+        *&v216[12] = v39;
+        *&v216[16] = 1024;
+        *&v216[18] = v71;
+        *&v216[22] = 1024;
+        *&v216[24] = v72;
+        v61 = v70;
+        v62 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] Received out of order refresh frameDecodingOrder:%hu expectedDecodingOrder:%hu isExpectedDecodingOrderValid:%d";
       }
 
       else
@@ -4190,61 +4259,61 @@ LABEL_72:
           goto LABEL_72;
         }
 
-        v164 = VRTraceErrorLogLevelToCSTR();
-        v165 = *MEMORY[0x1E6986650];
-        v166 = *MEMORY[0x1E6986650];
+        v166 = VRTraceErrorLogLevelToCSTR();
+        v167 = *MEMORY[0x1E6986650];
+        v168 = *MEMORY[0x1E6986650];
         if (*MEMORY[0x1E6986640] != 1)
         {
-          if (os_log_type_enabled(v166, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v168, OS_LOG_TYPE_DEBUG))
           {
-            v171 = *v190;
-            v172 = *(v6 + 2355);
+            v173 = *v194;
+            v174 = *(v6 + 2355);
             *buf = 136316674;
-            *&buf[4] = v164;
+            *&buf[4] = v166;
             *&buf[12] = 2080;
             *&buf[14] = "_VideoReceiver_UpdateExpectedDecodingOrder";
             *&buf[22] = 1024;
-            v211 = 1221;
-            *v212 = 2048;
-            *&v212[2] = a2;
-            *&v212[10] = 1024;
-            *&v212[12] = v37;
-            *&v212[16] = 1024;
-            *&v212[18] = v171;
-            *&v212[22] = 1024;
-            *&v212[24] = v172;
-            _os_log_debug_impl(&dword_1DB56E000, v165, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Not a refresh frameDecodingOrder:%hu expectedDecodingOrder:%hu isExpectedDecodingOrderValid:%d", buf, 0x38u);
+            v215 = 1221;
+            *v216 = 2048;
+            *&v216[2] = a2;
+            *&v216[10] = 1024;
+            *&v216[12] = v39;
+            *&v216[16] = 1024;
+            *&v216[18] = v173;
+            *&v216[22] = 1024;
+            *&v216[24] = v174;
+            _os_log_debug_impl(&dword_1DB56E000, v167, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Not a refresh frameDecodingOrder:%hu expectedDecodingOrder:%hu isExpectedDecodingOrderValid:%d", buf, 0x38u);
           }
 
           goto LABEL_72;
         }
 
-        if (!os_log_type_enabled(v166, OS_LOG_TYPE_DEFAULT))
+        if (!os_log_type_enabled(v168, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_72;
         }
 
-        v167 = *v190;
-        v168 = *(v6 + 2355);
+        v169 = *v194;
+        v170 = *(v6 + 2355);
         *buf = 136316674;
-        *&buf[4] = v164;
+        *&buf[4] = v166;
         *&buf[12] = 2080;
         *&buf[14] = "_VideoReceiver_UpdateExpectedDecodingOrder";
         *&buf[22] = 1024;
-        v211 = 1221;
-        *v212 = 2048;
-        *&v212[2] = a2;
-        *&v212[10] = 1024;
-        *&v212[12] = v37;
-        *&v212[16] = 1024;
-        *&v212[18] = v167;
-        *&v212[22] = 1024;
-        *&v212[24] = v168;
-        v59 = v165;
-        v60 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] Not a refresh frameDecodingOrder:%hu expectedDecodingOrder:%hu isExpectedDecodingOrderValid:%d";
+        v215 = 1221;
+        *v216 = 2048;
+        *&v216[2] = a2;
+        *&v216[10] = 1024;
+        *&v216[12] = v39;
+        *&v216[16] = 1024;
+        *&v216[18] = v169;
+        *&v216[22] = 1024;
+        *&v216[24] = v170;
+        v61 = v167;
+        v62 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] Not a refresh frameDecodingOrder:%hu expectedDecodingOrder:%hu isExpectedDecodingOrderValid:%d";
       }
 
-      v61 = 56;
+      v63 = 56;
       goto LABEL_71;
     }
 
@@ -4254,171 +4323,171 @@ LABEL_72:
     }
 
 LABEL_73:
-    *(v35 + 10) = *a3;
-    v35[64] = *(a3 + 69);
-    *(v35 + 9) = VideoFrameTimeInSeconds;
-    *(v35 + 11) = *(v35 + 15);
-    v71 = *(a2 + 1329);
-    if (!v205)
+    *(v37 + 10) = *a3;
+    v37[64] = *(a3 + 69);
+    *(v37 + 9) = VideoFrameTimeInSeconds;
+    *(v37 + 11) = *(v37 + 15);
+    v73 = *(a2 + 1329);
+    if (!v209)
     {
-      v71 = 0;
+      v73 = 0;
     }
 
-    v35[96] = v71;
-    *(v35 + 25) = v204;
-    v72 = *(v35 + 40);
-    v73 = *(v35 + 8);
-    v195 = *(v35 + 24);
-    v196 = v72;
-    v194 = v73;
-    v74 = *(v35 + 56);
-    v75 = *(v35 + 13);
-    v76 = *(v35 + 88);
-    v198 = *(v35 + 72);
-    v199 = v76;
-    v200 = v75;
-    v197 = v74;
+    v37[96] = v73;
+    *(v37 + 25) = v208;
+    v74 = *(v37 + 40);
+    v75 = *(v37 + 8);
+    v199 = *(v37 + 24);
+    v200 = v74;
+    v198 = v75;
+    v76 = *(v37 + 56);
+    v77 = *(v37 + 13);
+    v78 = *(v37 + 88);
+    v202 = *(v37 + 72);
+    v203 = v78;
+    v204 = v77;
+    v201 = v76;
     if (*(v6 + 2048) == 1 && VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v77 = VRTraceErrorLogLevelToCSTR();
-      v78 = *MEMORY[0x1E6986650];
+      v79 = VRTraceErrorLogLevelToCSTR();
+      v80 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v79 = *(v35 + 10);
-        v80 = *(v35 + 2);
-        v81 = *(v35 + 4);
+        v81 = *(v37 + 10);
+        v82 = *(v37 + 2);
+        v83 = *(v37 + 4);
         *buf = 136316930;
-        *&buf[4] = v77;
+        *&buf[4] = v79;
         *&buf[12] = 2080;
         *&buf[14] = "_VideoReceiver_EnqueueForDecode";
         *&buf[22] = 1024;
-        v211 = 3013;
-        *v212 = 2048;
-        *&v212[2] = a2;
-        *&v212[10] = 1024;
-        *&v212[12] = v79;
-        *&v212[16] = 1024;
-        *&v212[18] = v80;
-        *&v212[22] = 1024;
-        *&v212[24] = v81;
-        *&v212[28] = 2048;
-        *&v212[30] = 104;
-        _os_log_impl(&dword_1DB56E000, v78, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] for streamID=%d enqueue encoded frame for later decode. payload=%d timestamp=%u argsLength=%zu", buf, 0x42u);
+        v215 = 3013;
+        *v216 = 2048;
+        *&v216[2] = a2;
+        *&v216[10] = 1024;
+        *&v216[12] = v81;
+        *&v216[16] = 1024;
+        *&v216[18] = v82;
+        *&v216[22] = 1024;
+        *&v216[24] = v83;
+        *&v216[28] = 2048;
+        *&v216[30] = 104;
+        _os_log_impl(&dword_1DB56E000, v80, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] for streamID=%d enqueue encoded frame for later decode. payload=%d timestamp=%u argsLength=%zu", buf, 0x42u);
       }
     }
 
-    v82 = *(a2 + 1306);
-    if (v82 >= 2)
+    v84 = *(a2 + 1306);
+    if (v84 >= 2)
     {
-      if ((*(v6 + 2355) & 1) == 0 && (v35[23] & 1) == 0)
+      if ((*(v6 + 2355) & 1) == 0 && (v37[23] & 1) == 0)
       {
         if (VRTraceGetErrorLogLevelForModule() >= 5)
         {
-          v125 = VRTraceErrorLogLevelToCSTR();
-          v126 = *MEMORY[0x1E6986650];
+          v127 = VRTraceErrorLogLevelToCSTR();
+          v128 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v127 = *v190;
-            v128 = v35[23];
-            v129 = v35[26];
-            v130 = *(v35 + 12);
+            v129 = *v194;
+            v130 = v37[23];
+            v131 = v37[26];
+            v132 = *(v37 + 12);
             *buf = 136316930;
-            *&buf[4] = v125;
+            *&buf[4] = v127;
             *&buf[12] = 2080;
             *&buf[14] = "_VideoReceiver_EnqueueForDecode";
             *&buf[22] = 1024;
-            v211 = 3016;
-            *v212 = 2048;
-            *&v212[2] = a2;
-            *&v212[10] = 1024;
-            *&v212[12] = v127;
-            *&v212[16] = 1024;
-            *&v212[18] = v128;
-            *&v212[22] = 1024;
-            *&v212[24] = v129;
-            *&v212[28] = 1024;
-            *&v212[30] = v130;
-            _os_log_impl(&dword_1DB56E000, v126, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Don't process sub frame when expectedDecodingOrder:%d is invalid! isRefreshFrame:%d frameDecodingOrderValid:%d frameDecodingOrder:%d", buf, 0x3Eu);
+            v215 = 3016;
+            *v216 = 2048;
+            *&v216[2] = a2;
+            *&v216[10] = 1024;
+            *&v216[12] = v129;
+            *&v216[16] = 1024;
+            *&v216[18] = v130;
+            *&v216[22] = 1024;
+            *&v216[24] = v131;
+            *&v216[28] = 1024;
+            *&v216[30] = v132;
+            _os_log_impl(&dword_1DB56E000, v128, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Don't process sub frame when expectedDecodingOrder:%d is invalid! isRefreshFrame:%d frameDecodingOrderValid:%d frameDecodingOrder:%d", buf, 0x3Eu);
           }
         }
 
-        v102 = 20;
+        v104 = 20;
         goto LABEL_151;
       }
 
-      if (*v190 != (*(v35 + 12) + 1))
+      if (*v194 != (*(v37 + 12) + 1))
       {
         if (VRTraceGetErrorLogLevelForModule() >= 5)
         {
-          v95 = VRTraceErrorLogLevelToCSTR();
-          v96 = *MEMORY[0x1E6986650];
+          v97 = VRTraceErrorLogLevelToCSTR();
+          v98 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v97 = *v190;
-            v98 = *(v6 + 2355);
-            v99 = v35[23];
-            v100 = v35[26];
-            v101 = *(v35 + 12);
+            v99 = *v194;
+            v100 = *(v6 + 2355);
+            v101 = v37[23];
+            v102 = v37[26];
+            v103 = *(v37 + 12);
             *buf = 136317186;
-            *&buf[4] = v95;
+            *&buf[4] = v97;
             *&buf[12] = 2080;
             *&buf[14] = "_VideoReceiver_EnqueueForDecode";
             *&buf[22] = 1024;
-            v211 = 3022;
-            *v212 = 2048;
-            *&v212[2] = a2;
-            *&v212[10] = 1024;
-            *&v212[12] = v97;
-            *&v212[16] = 1024;
-            *&v212[18] = v98;
-            *&v212[22] = 1024;
-            *&v212[24] = v99;
-            *&v212[28] = 1024;
-            *&v212[30] = v100;
-            *&v212[34] = 1024;
-            *&v212[36] = v101;
-            _os_log_impl(&dword_1DB56E000, v96, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Don't process sub frame when expectedDecodingOrder:%d isExpectedDecodingOrderValid:%d is jumping or out of order! isRefreshFrame:%d frameDecodingOrderValid:%d frameDecodingOrder:%d", buf, 0x44u);
+            v215 = 3022;
+            *v216 = 2048;
+            *&v216[2] = a2;
+            *&v216[10] = 1024;
+            *&v216[12] = v99;
+            *&v216[16] = 1024;
+            *&v216[18] = v100;
+            *&v216[22] = 1024;
+            *&v216[24] = v101;
+            *&v216[28] = 1024;
+            *&v216[30] = v102;
+            *&v216[34] = 1024;
+            *&v216[36] = v103;
+            _os_log_impl(&dword_1DB56E000, v98, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Don't process sub frame when expectedDecodingOrder:%d isExpectedDecodingOrderValid:%d is jumping or out of order! isRefreshFrame:%d frameDecodingOrderValid:%d frameDecodingOrder:%d", buf, 0x44u);
           }
         }
 
-        v102 = 21;
+        v104 = 21;
 LABEL_151:
-        v203 = v102;
+        v207 = v104;
 LABEL_152:
         if (*(a2 + 1306) >= 2u && (*(v6 + 2355) & 1) == 0)
         {
           if (VRTraceGetErrorLogLevelForModule() >= 5)
           {
-            v137 = VRTraceErrorLogLevelToCSTR();
-            v138 = *MEMORY[0x1E6986650];
+            v139 = VRTraceErrorLogLevelToCSTR();
+            v140 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
-              v139 = *(a3 + 16);
-              v140 = *(element + 12);
-              v141 = *v190;
-              v142 = *(v6 + 2355);
+              v141 = *(a3 + 16);
+              v142 = *(element + 12);
+              v143 = *v194;
+              v144 = *(v6 + 2355);
               *buf = 136316930;
-              *&buf[4] = v137;
+              *&buf[4] = v139;
               *&buf[12] = 2080;
               *&buf[14] = "_VideoReceiver_AssembleAndEnqueueForDecode";
               *&buf[22] = 1024;
-              v211 = 3187;
-              *v212 = 2048;
-              *&v212[2] = a2;
-              *&v212[10] = 2048;
-              *&v212[12] = v139;
-              *&v212[20] = 1024;
-              *&v212[22] = v140;
-              *&v212[26] = 1024;
-              *&v212[28] = v141;
-              *&v212[32] = 1024;
-              *&v212[34] = v142;
-              _os_log_impl(&dword_1DB56E000, v138, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] VideoPacketBuffer[%p] Needs refresh and reset DON due to failure to enqueue video frameDecodingOrder:%hu expectedDecodingOrder:%hu isExpectedDecodingOrderValid:%d", buf, 0x42u);
+              v215 = 3187;
+              *v216 = 2048;
+              *&v216[2] = a2;
+              *&v216[10] = 2048;
+              *&v216[12] = v141;
+              *&v216[20] = 1024;
+              *&v216[22] = v142;
+              *&v216[26] = 1024;
+              *&v216[28] = v143;
+              *&v216[32] = 1024;
+              *&v216[34] = v144;
+              _os_log_impl(&dword_1DB56E000, v140, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] VideoPacketBuffer[%p] Needs refresh and reset DON due to failure to enqueue video frameDecodingOrder:%hu expectedDecodingOrder:%hu isExpectedDecodingOrderValid:%d", buf, 0x42u);
             }
           }
 
-          v143 = *(a2 + 1329) == 1 && *(v6 + 1659) != 0;
-          _VideoReceiver_DecoderNeedsRefresh(a2, a3, v143, v203, v16);
+          v145 = *(a2 + 1329) == 1 && *(v6 + 1659) != 0;
+          _VideoReceiver_DecoderNeedsRefresh(a2, a3, v145, v207, v18);
         }
 
         VCVideoReceiverSampleBuffer_Destroy(&element);
@@ -4428,205 +4497,205 @@ LABEL_152:
 
     if (*(a2 + 1324) == 1)
     {
-      if (*(a2 + 1338) == 1 && v35[23] == 1)
+      if (*(a2 + 1338) == 1 && v37[23] == 1)
       {
-        v83 = *(v35 + 17);
-        if (v83 != *v183)
+        v85 = *(v37 + 17);
+        if (v85 != *v187)
         {
-          v84 = VCDefaults_GetIntValueForKey(@"pixelCountThresholdForDynamicVideoJitterBufferMode", 8294400) > v83;
-          _VideoReceiver_SetJitterBufferMode(a2, v84);
-          v82 = *(a2 + 1306);
+          v86 = VCDefaults_GetIntValueForKey(@"pixelCountThresholdForDynamicVideoJitterBufferMode", 8294400) > v85;
+          _VideoReceiver_SetJitterBufferMode(a2, v86);
+          v84 = *(a2 + 1306);
         }
 
-        *v183 = v83;
+        *v187 = v85;
       }
 
-      v85 = (v35 + 8);
-      if (v82 >= 2)
+      v87 = (v37 + 8);
+      if (v84 >= 2)
       {
         buf[0] = 0;
-        VideoDecoder_IsLastSubframe(*(a3 + 542), *(v35 + 14), *(v35 + 22), buf);
+        VideoDecoder_IsLastSubframe(*(a3 + 542), *(v37 + 14), *(v37 + 22), buf);
         if (!buf[0])
         {
-          v85 = 0;
+          v87 = 0;
         }
       }
 
-      _VideoReceiver_EnqueueFrameToJitterBuffer(a2, v85);
+      _VideoReceiver_EnqueueFrameToJitterBuffer(a2, v87);
     }
 
-    v86 = *(v35 + 24) - *v191;
-    if (v86 >= 0x7FFFu)
+    v88 = *(v37 + 24) - *v195;
+    if (v88 >= 0x7FFFu)
     {
-      v86 = 1;
+      v88 = 1;
     }
 
-    if ((a3[35] & 1) == 0 && *(v35 + 10) == *v189 && *(v6 + 1851) == 1 && v86 >= 2u)
+    if ((a3[35] & 1) == 0 && *(v37 + 10) == *v193 && *(v6 + 1851) == 1 && v88 >= 2u)
     {
-      v87 = v86 - 1;
-      *(v6 + 2411) += v87;
+      v89 = v88 - 1;
+      *(v6 + 2411) += v89;
       if (VRTraceGetErrorLogLevelForModule() >= 5)
       {
-        v88 = VRTraceErrorLogLevelToCSTR();
-        v89 = *MEMORY[0x1E6986650];
+        v90 = VRTraceErrorLogLevelToCSTR();
+        v91 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v90 = *(v35 + 4);
-          v91 = *(v35 + 24);
-          v92 = *v191;
+          v92 = *(v37 + 4);
+          v93 = *(v37 + 24);
+          v94 = *v195;
           *buf = 136316930;
-          *&buf[4] = v88;
+          *&buf[4] = v90;
           *&buf[12] = 2080;
           *&buf[14] = "_VideoReceiver_CalculateFrameErasures";
           *&buf[22] = 1024;
-          v211 = 2803;
-          *v212 = 2048;
-          *&v212[2] = a2;
-          *&v212[10] = 1024;
-          *&v212[12] = v87;
-          *&v212[16] = 1024;
-          *&v212[18] = v90;
-          *&v212[22] = 1024;
-          *&v212[24] = v91;
-          *&v212[28] = 1024;
-          *&v212[30] = v92;
-          _os_log_impl(&dword_1DB56E000, v89, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Detected video frame erasure count of %u frames. rtpTimestamp=%u frameSequenceNumber=%u lastFrameSequenceNumber=%u", buf, 0x3Eu);
+          v215 = 2803;
+          *v216 = 2048;
+          *&v216[2] = a2;
+          *&v216[10] = 1024;
+          *&v216[12] = v89;
+          *&v216[16] = 1024;
+          *&v216[18] = v92;
+          *&v216[22] = 1024;
+          *&v216[24] = v93;
+          *&v216[28] = 1024;
+          *&v216[30] = v94;
+          _os_log_impl(&dword_1DB56E000, v91, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Detected video frame erasure count of %u frames. rtpTimestamp=%u frameSequenceNumber=%u lastFrameSequenceNumber=%u", buf, 0x3Eu);
         }
       }
     }
 
-    *v191 = *(v35 + 24);
-    *v189 = *(v35 + 10);
-    if ((v35[23] & 1) == 0)
+    *v195 = *(v37 + 24);
+    *v193 = *(v37 + 10);
+    if ((v37[23] & 1) == 0)
     {
       if (*v6)
       {
-        if ((v35[81] & 1) == 0)
+        if ((v37[81] & 1) == 0)
         {
-          v93 = *(v35 + 7);
-          memset(v212, 0, sizeof(v212));
-          v213 = 0u;
-          v214 = 0u;
-          v215 = 0u;
-          v216 = 0u;
+          v95 = *(v37 + 7);
+          memset(v216, 0, sizeof(v216));
           v217 = 0u;
           v218 = 0u;
-          memset(v219, 0, sizeof(v219));
-          v94 = *v182;
+          v219 = 0u;
+          v220 = 0u;
+          v221 = 0u;
+          v222 = 0u;
+          memset(v223, 0, sizeof(v223));
+          v96 = *v186;
           *buf = 10;
-          *&buf[8] = v93;
+          *&buf[8] = v95;
           *&buf[16] = 0;
-          v211 = 5;
+          v215 = 5;
           goto LABEL_112;
         }
       }
 
-      else if (v35[81])
+      else if (v37[81])
       {
-        v103 = *(v35 + 7);
-        *&v212[8] = 0;
-        *v212 = 0;
-        *&v212[16] = 256;
-        memset(&v212[18], 0, 32);
-        v213 = 0u;
-        v214 = 0u;
-        v215 = 0u;
-        v216 = 0u;
+        v105 = *(v37 + 7);
+        *&v216[8] = 0;
+        *v216 = 0;
+        *&v216[16] = 256;
+        memset(&v216[18], 0, 32);
         v217 = 0u;
         v218 = 0u;
-        memset(v219, 0, sizeof(v219));
-        v94 = *v182;
+        v219 = 0u;
+        v220 = 0u;
+        v221 = 0u;
+        v222 = 0u;
+        memset(v223, 0, sizeof(v223));
+        v96 = *v186;
         *buf = 10;
-        *&buf[8] = v103;
+        *&buf[8] = v105;
         *&buf[16] = 0;
-        v211 = 5;
+        v215 = 5;
 LABEL_112:
-        VCRateControlSetStatistics(v94, buf);
+        VCRateControlSetStatistics(v96, buf);
       }
 
-      *v6 = v35[81];
+      *v6 = v37[81];
     }
 
     if (*(a2 + 1398) == 1)
     {
-      Head = CMSimpleQueueGetHead(*v192);
+      Head = CMSimpleQueueGetHead(*v196);
       if (Head)
       {
-        v107 = Head[9];
-        LODWORD(v105) = *(v6 + 1527);
-        LODWORD(v106) = *(v6 + 1535);
-        v108 = (v105 + v106 * 4294967300.0) / *(a2 + 1180);
-        if (v108 - v107 > *(v6 + 2455) && *v187 - *v188 > 30.0)
+        v109 = Head[9];
+        LODWORD(v107) = *(v6 + 1527);
+        LODWORD(v108) = *(v6 + 1535);
+        v110 = (v107 + v108 * 4294967300.0) / *(a2 + 1180);
+        if (v110 - v109 > *(v6 + 2455) && *v191 - *v192 > 30.0)
         {
-          Count = CMSimpleQueueGetCount(*v192);
+          Count = CMSimpleQueueGetCount(*v196);
           if (VRTraceGetErrorLogLevelForModule() >= 5)
           {
-            v110 = VRTraceErrorLogLevelToCSTR();
-            v111 = *MEMORY[0x1E6986650];
+            v112 = VRTraceErrorLogLevelToCSTR();
+            v113 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136316930;
-              *&buf[4] = v110;
+              *&buf[4] = v112;
               *&buf[12] = 2080;
               *&buf[14] = "_VideoReceiver_CheckQueueDepthMeetsRealtime";
               *&buf[22] = 1024;
-              v211 = 2931;
-              *v212 = 2048;
-              *&v212[2] = a2;
-              *&v212[10] = 2048;
-              *&v212[12] = v108 - v107;
-              *&v212[20] = 2048;
-              *&v212[22] = v108;
-              *&v212[30] = 2048;
-              *&v212[32] = v107;
-              *&v212[40] = 1024;
-              *&v212[42] = Count;
-              _os_log_impl(&dword_1DB56E000, v111, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] High watermark exceeded in frameQueueForDecode. delay=%0.3f playoutTimeInSeconds=%0.6f, oldestVideoFrameTimeInSeconds=%0.6f, numFramesEnqueuedForDecode=%d", buf, 0x4Au);
+              v215 = 2931;
+              *v216 = 2048;
+              *&v216[2] = a2;
+              *&v216[10] = 2048;
+              *&v216[12] = v110 - v109;
+              *&v216[20] = 2048;
+              *&v216[22] = v110;
+              *&v216[30] = 2048;
+              *&v216[32] = v109;
+              *&v216[40] = 1024;
+              *&v216[42] = Count;
+              _os_log_impl(&dword_1DB56E000, v113, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] High watermark exceeded in frameQueueForDecode. delay=%0.3f playoutTimeInSeconds=%0.6f, oldestVideoFrameTimeInSeconds=%0.6f, numFramesEnqueuedForDecode=%d", buf, 0x4Au);
             }
           }
 
           reportingSymptom();
-          *v188 = *v187;
+          *v192 = *v191;
         }
       }
     }
 
     if (*(a2 + 1558) != 1 || *(a2 + 1568) != 1)
     {
-      v121 = CMSimpleQueueEnqueue(*v192, v35);
-      if (!v121)
+      v123 = CMSimpleQueueEnqueue(*v196, v37);
+      if (!v123)
       {
         goto LABEL_180;
       }
 
-      v122 = v121;
-      v203 = 22;
+      v124 = v123;
+      v207 = 22;
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v123 = VRTraceErrorLogLevelToCSTR();
-        v124 = *MEMORY[0x1E6986650];
+        v125 = VRTraceErrorLogLevelToCSTR();
+        v126 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
-          v144 = *(v35 + 10);
-          v145 = *(v35 + 2);
-          v146 = *(v35 + 4);
+          v146 = *(v37 + 10);
+          v147 = *(v37 + 2);
+          v148 = *(v37 + 4);
           *buf = 136316930;
-          *&buf[4] = v123;
+          *&buf[4] = v125;
           *&buf[12] = 2080;
           *&buf[14] = "_VideoReceiver_EnqueueToSimpleQueue";
           *&buf[22] = 1024;
-          v211 = 2947;
-          *v212 = 2048;
-          *&v212[2] = a2;
-          *&v212[10] = 1024;
-          *&v212[12] = v144;
-          *&v212[16] = 1024;
-          *&v212[18] = v145;
-          *&v212[22] = 1024;
-          *&v212[24] = v146;
-          *&v212[28] = 1024;
-          *&v212[30] = v122;
-          _os_log_error_impl(&dword_1DB56E000, v124, OS_LOG_TYPE_ERROR, "VideoReceiver [%s] %s:%d VideoReceiver[%p] for streamID=%d failed to enqueue frame for decode. payload=%d timestamp=%u status=%d", buf, 0x3Eu);
+          v215 = 2947;
+          *v216 = 2048;
+          *&v216[2] = a2;
+          *&v216[10] = 1024;
+          *&v216[12] = v146;
+          *&v216[16] = 1024;
+          *&v216[18] = v147;
+          *&v216[22] = 1024;
+          *&v216[24] = v148;
+          *&v216[28] = 1024;
+          *&v216[30] = v124;
+          _os_log_error_impl(&dword_1DB56E000, v126, OS_LOG_TYPE_ERROR, "VideoReceiver [%s] %s:%d VideoReceiver[%p] for streamID=%d failed to enqueue frame for decode. payload=%d timestamp=%u status=%d", buf, 0x3Eu);
         }
       }
 
@@ -4639,25 +4708,25 @@ LABEL_112:
       goto LABEL_152;
     }
 
-    v112 = *v185;
-    if (*v185)
+    v114 = *v189;
+    if (*v189)
     {
-      v113 = 0;
-      v114 = *(v35 + 4);
+      v115 = 0;
+      v116 = *(v37 + 4);
       while (1)
       {
-        v115 = v112;
-        v112 = *(v112 + 240);
-        v116 = v112 && v114 < *(v112 + 16);
-        if (!(v113 & 1 | (v114 > *(v115 + 16))))
+        v117 = v114;
+        v114 = *(v114 + 240);
+        v118 = v114 && v116 < *(v114 + 16);
+        if (!(v115 & 1 | (v116 > *(v117 + 16))))
         {
           break;
         }
 
-        if (v114 <= *(v115 + 16))
+        if (v116 <= *(v117 + 16))
         {
-          v113 = 1;
-          if (!v112)
+          v115 = 1;
+          if (!v114)
           {
             goto LABEL_136;
           }
@@ -4665,94 +4734,94 @@ LABEL_112:
 
         else
         {
-          if (!v112)
+          if (!v114)
           {
-            v116 = 1;
+            v118 = 1;
           }
 
-          v113 = 1;
-          if (v116)
+          v115 = 1;
+          if (v118)
           {
 LABEL_136:
             if (VRTraceGetErrorLogLevelForModule() >= 8)
             {
-              v117 = VRTraceErrorLogLevelToCSTR();
-              v118 = *MEMORY[0x1E6986650];
-              v119 = *MEMORY[0x1E6986650];
+              v119 = VRTraceErrorLogLevelToCSTR();
+              v120 = *MEMORY[0x1E6986650];
+              v121 = *MEMORY[0x1E6986650];
               if (*MEMORY[0x1E6986640] == 1)
               {
-                if (os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT))
+                if (os_log_type_enabled(v121, OS_LOG_TYPE_DEFAULT))
                 {
-                  if (v112)
+                  if (v114)
                   {
-                    v120 = *(v112 + 24);
+                    v122 = *(v114 + 24);
                   }
 
                   else
                   {
-                    v120 = -1;
+                    v122 = -1;
                   }
 
-                  v150 = *(v35 + 12);
-                  v151 = *(v115 + 24);
-                  v152 = *(v35 + 26);
+                  v152 = *(v37 + 12);
+                  v153 = *(v117 + 24);
+                  v154 = *(v37 + 26);
                   *buf = 136316930;
-                  *&buf[4] = v117;
+                  *&buf[4] = v119;
                   *&buf[12] = 2080;
                   *&buf[14] = "_VideoReceiver_EnqueueToOrderedQueue";
                   *&buf[22] = 1024;
-                  v211 = 2978;
-                  *v212 = 2048;
-                  *&v212[2] = a2;
-                  *&v212[10] = 1024;
-                  *&v212[12] = v150;
-                  *&v212[16] = 1024;
-                  *&v212[18] = v151;
-                  *&v212[22] = 1024;
-                  *&v212[24] = v120;
-                  *&v212[28] = 1024;
-                  *&v212[30] = v152;
-                  _os_log_impl(&dword_1DB56E000, v118, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Inserting at the end of queue for display: decOrder=%d beforeDecOrder=%d afterDecOrder=%d streamIndex=%d", buf, 0x3Eu);
+                  v215 = 2978;
+                  *v216 = 2048;
+                  *&v216[2] = a2;
+                  *&v216[10] = 1024;
+                  *&v216[12] = v152;
+                  *&v216[16] = 1024;
+                  *&v216[18] = v153;
+                  *&v216[22] = 1024;
+                  *&v216[24] = v122;
+                  *&v216[28] = 1024;
+                  *&v216[30] = v154;
+                  _os_log_impl(&dword_1DB56E000, v120, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Inserting at the end of queue for display: decOrder=%d beforeDecOrder=%d afterDecOrder=%d streamIndex=%d", buf, 0x3Eu);
                 }
               }
 
-              else if (os_log_type_enabled(v119, OS_LOG_TYPE_DEBUG))
+              else if (os_log_type_enabled(v121, OS_LOG_TYPE_DEBUG))
               {
-                if (v112)
+                if (v114)
                 {
-                  v136 = *(v112 + 24);
+                  v138 = *(v114 + 24);
                 }
 
                 else
                 {
-                  v136 = -1;
+                  v138 = -1;
                 }
 
-                v156 = *(v35 + 12);
-                v157 = *(v115 + 24);
-                v158 = *(v35 + 26);
+                v158 = *(v37 + 12);
+                v159 = *(v117 + 24);
+                v160 = *(v37 + 26);
                 *buf = 136316930;
-                *&buf[4] = v117;
+                *&buf[4] = v119;
                 *&buf[12] = 2080;
                 *&buf[14] = "_VideoReceiver_EnqueueToOrderedQueue";
                 *&buf[22] = 1024;
-                v211 = 2978;
-                *v212 = 2048;
-                *&v212[2] = a2;
-                *&v212[10] = 1024;
-                *&v212[12] = v156;
-                *&v212[16] = 1024;
-                *&v212[18] = v157;
-                *&v212[22] = 1024;
-                *&v212[24] = v136;
-                *&v212[28] = 1024;
-                *&v212[30] = v158;
-                _os_log_debug_impl(&dword_1DB56E000, v118, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Inserting at the end of queue for display: decOrder=%d beforeDecOrder=%d afterDecOrder=%d streamIndex=%d", buf, 0x3Eu);
+                v215 = 2978;
+                *v216 = 2048;
+                *&v216[2] = a2;
+                *&v216[10] = 1024;
+                *&v216[12] = v158;
+                *&v216[16] = 1024;
+                *&v216[18] = v159;
+                *&v216[22] = 1024;
+                *&v216[24] = v138;
+                *&v216[28] = 1024;
+                *&v216[30] = v160;
+                _os_log_debug_impl(&dword_1DB56E000, v120, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Inserting at the end of queue for display: decOrder=%d beforeDecOrder=%d afterDecOrder=%d streamIndex=%d", buf, 0x3Eu);
               }
             }
 
-            *(v35 + 30) = *(v115 + 240);
-            *(v115 + 240) = v35;
+            *(v37 + 30) = *(v117 + 240);
+            *(v117 + 240) = v37;
             goto LABEL_179;
           }
         }
@@ -4760,133 +4829,133 @@ LABEL_136:
 
       if (VRTraceGetErrorLogLevelForModule() >= 8)
       {
-        v131 = VRTraceErrorLogLevelToCSTR();
-        v132 = *MEMORY[0x1E6986650];
-        v133 = *MEMORY[0x1E6986650];
+        v133 = VRTraceErrorLogLevelToCSTR();
+        v134 = *MEMORY[0x1E6986650];
+        v135 = *MEMORY[0x1E6986650];
         if (*MEMORY[0x1E6986640] == 1)
         {
-          if (os_log_type_enabled(v133, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
           {
-            if (v112)
+            if (v114)
             {
-              v134 = *(v112 + 24);
+              v136 = *(v114 + 24);
             }
 
             else
             {
-              v134 = -1;
+              v136 = -1;
             }
 
-            v147 = *(v35 + 12);
-            v148 = *(v115 + 24);
-            v149 = *(v35 + 26);
+            v149 = *(v37 + 12);
+            v150 = *(v117 + 24);
+            v151 = *(v37 + 26);
             *buf = 136316930;
-            *&buf[4] = v131;
+            *&buf[4] = v133;
             *&buf[12] = 2080;
             *&buf[14] = "_VideoReceiver_EnqueueToOrderedQueue";
             *&buf[22] = 1024;
-            v211 = 2972;
-            *v212 = 2048;
-            *&v212[2] = a2;
-            *&v212[10] = 1024;
-            *&v212[12] = v147;
-            *&v212[16] = 1024;
-            *&v212[18] = v148;
-            *&v212[22] = 1024;
-            *&v212[24] = v134;
-            *&v212[28] = 1024;
-            *&v212[30] = v149;
-            _os_log_impl(&dword_1DB56E000, v132, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Inserting frame at queue for decode HEAD: decOrder=%d beforeDecOrder=%d afterDecOrder=%d streamIndex=%d", buf, 0x3Eu);
+            v215 = 2972;
+            *v216 = 2048;
+            *&v216[2] = a2;
+            *&v216[10] = 1024;
+            *&v216[12] = v149;
+            *&v216[16] = 1024;
+            *&v216[18] = v150;
+            *&v216[22] = 1024;
+            *&v216[24] = v136;
+            *&v216[28] = 1024;
+            *&v216[30] = v151;
+            _os_log_impl(&dword_1DB56E000, v134, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Inserting frame at queue for decode HEAD: decOrder=%d beforeDecOrder=%d afterDecOrder=%d streamIndex=%d", buf, 0x3Eu);
           }
         }
 
-        else if (os_log_type_enabled(v133, OS_LOG_TYPE_DEBUG))
+        else if (os_log_type_enabled(v135, OS_LOG_TYPE_DEBUG))
         {
-          if (v112)
+          if (v114)
           {
-            v135 = *(v112 + 24);
+            v137 = *(v114 + 24);
           }
 
           else
           {
-            v135 = -1;
+            v137 = -1;
           }
 
-          v153 = *(v35 + 12);
-          v154 = *(v115 + 24);
-          v155 = *(v35 + 26);
+          v155 = *(v37 + 12);
+          v156 = *(v117 + 24);
+          v157 = *(v37 + 26);
           *buf = 136316930;
-          *&buf[4] = v131;
+          *&buf[4] = v133;
           *&buf[12] = 2080;
           *&buf[14] = "_VideoReceiver_EnqueueToOrderedQueue";
           *&buf[22] = 1024;
-          v211 = 2972;
-          *v212 = 2048;
-          *&v212[2] = a2;
-          *&v212[10] = 1024;
-          *&v212[12] = v153;
-          *&v212[16] = 1024;
-          *&v212[18] = v154;
-          *&v212[22] = 1024;
-          *&v212[24] = v135;
-          *&v212[28] = 1024;
-          *&v212[30] = v155;
-          _os_log_debug_impl(&dword_1DB56E000, v132, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Inserting frame at queue for decode HEAD: decOrder=%d beforeDecOrder=%d afterDecOrder=%d streamIndex=%d", buf, 0x3Eu);
+          v215 = 2972;
+          *v216 = 2048;
+          *&v216[2] = a2;
+          *&v216[10] = 1024;
+          *&v216[12] = v155;
+          *&v216[16] = 1024;
+          *&v216[18] = v156;
+          *&v216[22] = 1024;
+          *&v216[24] = v137;
+          *&v216[28] = 1024;
+          *&v216[30] = v157;
+          _os_log_debug_impl(&dword_1DB56E000, v134, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Inserting frame at queue for decode HEAD: decOrder=%d beforeDecOrder=%d afterDecOrder=%d streamIndex=%d", buf, 0x3Eu);
         }
       }
 
-      *(v35 + 30) = *v185;
-      *v185 = v35;
+      *(v37 + 30) = *v189;
+      *v189 = v37;
     }
 
     else
     {
-      *(v35 + 30) = 0;
-      *v185 = v35;
+      *(v37 + 30) = 0;
+      *v189 = v37;
       if (VRTraceGetErrorLogLevelForModule() >= 8)
       {
-        v159 = VRTraceErrorLogLevelToCSTR();
-        v160 = *MEMORY[0x1E6986650];
-        v161 = *MEMORY[0x1E6986650];
+        v161 = VRTraceErrorLogLevelToCSTR();
+        v162 = *MEMORY[0x1E6986650];
+        v163 = *MEMORY[0x1E6986650];
         if (*MEMORY[0x1E6986640] == 1)
         {
-          if (os_log_type_enabled(v161, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v163, OS_LOG_TYPE_DEFAULT))
           {
-            v162 = *(v35 + 12);
-            v163 = *(v35 + 26);
+            v164 = *(v37 + 12);
+            v165 = *(v37 + 26);
             *buf = 136316418;
-            *&buf[4] = v159;
+            *&buf[4] = v161;
             *&buf[12] = 2080;
             *&buf[14] = "_VideoReceiver_EnqueueToOrderedQueue";
             *&buf[22] = 1024;
-            v211 = 2990;
-            *v212 = 2048;
-            *&v212[2] = a2;
-            *&v212[10] = 1024;
-            *&v212[12] = v162;
-            *&v212[16] = 1024;
-            *&v212[18] = v163;
-            _os_log_impl(&dword_1DB56E000, v160, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Queue empty, adding frame with decOrder=%d streamIndex=%d", buf, 0x32u);
+            v215 = 2990;
+            *v216 = 2048;
+            *&v216[2] = a2;
+            *&v216[10] = 1024;
+            *&v216[12] = v164;
+            *&v216[16] = 1024;
+            *&v216[18] = v165;
+            _os_log_impl(&dword_1DB56E000, v162, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Queue empty, adding frame with decOrder=%d streamIndex=%d", buf, 0x32u);
           }
         }
 
-        else if (os_log_type_enabled(v161, OS_LOG_TYPE_DEBUG))
+        else if (os_log_type_enabled(v163, OS_LOG_TYPE_DEBUG))
         {
-          v169 = *(v35 + 12);
-          v170 = *(v35 + 26);
+          v171 = *(v37 + 12);
+          v172 = *(v37 + 26);
           *buf = 136316418;
-          *&buf[4] = v159;
+          *&buf[4] = v161;
           *&buf[12] = 2080;
           *&buf[14] = "_VideoReceiver_EnqueueToOrderedQueue";
           *&buf[22] = 1024;
-          v211 = 2990;
-          *v212 = 2048;
-          *&v212[2] = a2;
-          *&v212[10] = 1024;
-          *&v212[12] = v169;
-          *&v212[16] = 1024;
-          *&v212[18] = v170;
-          _os_log_debug_impl(&dword_1DB56E000, v160, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Queue empty, adding frame with decOrder=%d streamIndex=%d", buf, 0x32u);
+          v215 = 2990;
+          *v216 = 2048;
+          *&v216[2] = a2;
+          *&v216[10] = 1024;
+          *&v216[12] = v171;
+          *&v216[16] = 1024;
+          *&v216[18] = v172;
+          _os_log_debug_impl(&dword_1DB56E000, v162, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Queue empty, adding frame with decOrder=%d streamIndex=%d", buf, 0x32u);
         }
       }
     }
@@ -4898,7 +4967,7 @@ LABEL_180:
   }
 
   VCVideoReceiverSampleBuffer_Destroy(&element);
-  pthread_mutex_unlock((a2 + 42256));
+  v175 = pthread_mutex_unlock((a2 + 42256));
   if (*(a2 + 1324) == 1)
   {
     if (*(a2 + 1325) == 1 && ((*(a2 + 1396) & 1) != 0 || (*(v6 + 2387) & 1) == 0))
@@ -4906,32 +4975,32 @@ LABEL_180:
       _VideoReceiver_AssembleAndEnqueueFrame_cold_1(a2);
     }
 
-    v173 = (v6 + 1607);
-    v174 = micro();
+    v177 = (v6 + 1607);
+    v178 = micro(v175, v176);
     *(v6 + 1607) = *(v6 + 1591);
-    v175 = *(v6 + 1599);
+    v179 = *(v6 + 1599);
     TargetJitterQueueSize = VCVideoJitterBuffer_GetTargetJitterQueueSize(*(v6 + 2375));
-    if (v175 == 1)
+    if (v179 == 1)
     {
       TargetJitterQueueSize = VCDefaults_GetDoubleValueForKey(@"videoPlayerJitterQueueSize", TargetJitterQueueSize);
     }
 
     *(v6 + 1591) = TargetJitterQueueSize;
-    v177 = *v173;
-    if (*v173 != TargetJitterQueueSize)
+    v181 = *v177;
+    if (*v177 != TargetJitterQueueSize)
     {
-      v178 = v174 - *(v6 + 1623);
+      v182 = v178 - *(v6 + 1623);
       ++*(v6 + 1615);
-      *(v6 + 1639) = *(v6 + 1639) + v178 * v177;
-      if (TargetJitterQueueSize == 0.0 || v177 != 0.0)
+      *(v6 + 1639) = *(v6 + 1639) + v182 * v181;
+      if (TargetJitterQueueSize == 0.0 || v181 != 0.0)
       {
-        *(v6 + 1631) = v178 + *(v6 + 1631);
+        *(v6 + 1631) = v182 + *(v6 + 1631);
       }
 
-      *(v6 + 1623) = v174;
+      *(v6 + 1623) = v178;
     }
 
-    VCVideoPlayer_SetTargetQueueSizeInSeconds(TargetJitterQueueSize);
+    VCVideoPlayer_SetTargetQueueSizeInSeconds(*(v6 + 79), TargetJitterQueueSize);
     if (*(a2 + 1325) == 1)
     {
       *buf = 0;
@@ -4940,13 +5009,14 @@ LABEL_180:
     }
   }
 
-  VideoUtil_ConstructSubFrameIdentifer(v195, *(a3 + 68));
+  VideoUtil_ConstructSubFrameIdentifer(v199, *(a3 + 68));
   kdebug_trace();
-  return VCVideoPlayer_QueueAlarmForDecode(*(v6 + 79), VideoReceiver_VideoAlarmForDecode, a1, a4, WORD4(v196), v201 != 0, VideoFrameTimeInSeconds);
+  return VCVideoPlayer_QueueAlarmForDecode(*(v6 + 79), VideoReceiver_VideoAlarmForDecode, a1, a4, WORD4(v200), v205 != 0, VideoFrameTimeInSeconds);
 }
 
-double _VideoReceiver_GetVideoFrameTimeInSeconds(uint64_t a1, unsigned int a2, double a3)
+double _VideoReceiver_GetVideoFrameTimeInSeconds(uint64_t a1, uint64_t a2, double a3)
 {
+  v3 = a2;
   v28 = *MEMORY[0x1E69E9840];
   v5 = a1 + 40960;
   v6 = *(a1 + 43328);
@@ -4976,7 +5046,7 @@ double _VideoReceiver_GetVideoFrameTimeInSeconds(uint64_t a1, unsigned int a2, d
         v24 = 2048;
         v25 = v7;
         v26 = 1024;
-        v27 = a2;
+        v27 = v3;
         v11 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] videoFrameTimeInSeconds=%.6f from VCMediaStreamSynchronizer for RTPTimestamp=%u";
 LABEL_10:
         _os_log_impl(&dword_1DB56E000, v9, OS_LOG_TYPE_DEFAULT, v11, &v16, 0x36u);
@@ -5002,7 +5072,7 @@ LABEL_10:
     v24 = 2048;
     v25 = v7;
     v26 = 1024;
-    v27 = a2;
+    v27 = v3;
     v14 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] videoFrameTimeInSeconds=%.6f from VCMediaStreamSynchronizer for RTPTimestamp=%u";
 LABEL_16:
     _os_log_debug_impl(&dword_1DB56E000, v9, OS_LOG_TYPE_DEBUG, v14, &v16, 0x36u);
@@ -5037,7 +5107,7 @@ LABEL_16:
     v24 = 2048;
     v25 = v7;
     v26 = 1024;
-    v27 = a2;
+    v27 = v3;
     v14 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] videoFrameTimeInSeconds=%.6f for RTPTimestamp=%u";
     goto LABEL_16;
   }
@@ -5055,7 +5125,7 @@ LABEL_16:
     v24 = 2048;
     v25 = v7;
     v26 = 1024;
-    v27 = a2;
+    v27 = v3;
     v11 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] videoFrameTimeInSeconds=%.6f for RTPTimestamp=%u";
     goto LABEL_10;
   }
@@ -5068,7 +5138,7 @@ void VideoReceiver_VideoAlarmForDecode(uint64_t a1, __int128 *a2, int a3, int a4
   v6 = *MEMORY[0x1E69E9840];
   v4 = *a2;
   v5 = *(a2 + 2);
-  _VideoReceiver_VideoAlarmCommon(a1, &v4, a3, a4, 0, 1, 0);
+  _VideoReceiver_VideoAlarmCommon(a1, &v4, a3, a4, 0, 1u, 0);
 }
 
 void _VideoReceiver_EnqueueFrameToJitterBuffer(uint64_t a1, uint64_t a2)
@@ -5241,7 +5311,7 @@ LABEL_16:
 void _VideoReceiver_ScheduleFramesForDecodingMultiway(uint64_t a1, unsigned int *a2, int a3)
 {
   v80 = *MEMORY[0x1E69E9840];
-  v3 = (a2 + 10220);
+  v3 = a2 + 10220;
   v61 = 0;
   if (*(a2 + 42440) == 1)
   {
@@ -5282,7 +5352,7 @@ void _VideoReceiver_ScheduleFramesForDecodingMultiway(uint64_t a1, unsigned int 
             while (1)
             {
               v15 = v14;
-              if (v11 + v12 > 3 || !VideoPacketBuffer_SchedulePastIncompleteFrame(*(v10 + 16), a3, v13, *(v3 + 386), 0, 0))
+              if (v11 + v12 > 3 || !VideoPacketBuffer_SchedulePastIncompleteFrame(*(v10 + 16), a3, v13, v3[386], 0, 0))
               {
                 break;
               }
@@ -5301,7 +5371,7 @@ LABEL_16:
             while (1)
             {
               v16 = v12;
-              if (v11 + v12 > 3 || !VideoPacketBuffer_ScheduleFutureFrame(*(v10 + 16), v10[38], a3, &v66 + v12, *(v3 + 386), 0, 0, *(v3 + 292)))
+              if (v11 + v12 > 3 || !VideoPacketBuffer_ScheduleFutureFrame(*(v10 + 16), v10[38], a3, &v66 + v12, v3[386], 0, 0, *(v3 + 292)))
               {
                 break;
               }
@@ -5426,7 +5496,7 @@ LABEL_52:
           break;
         }
 
-        if ((v3[8] & 1) == 0)
+        if ((v3[4] & 1) == 0)
         {
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
@@ -5434,7 +5504,7 @@ LABEL_52:
             v40 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
-              v41 = *(v4 + 1296);
+              v41 = *(v4 + 162);
               v42 = *v3;
               buf = 136316418;
               *buf_4 = v39;
@@ -5473,9 +5543,9 @@ LABEL_77:
         goto LABEL_77;
       }
 
-      if ((v3[8] & 1) == 0 && *(v3 + 6) == 1 && *(v3 + 14) == 1)
+      if ((v3[4] & 1) == 0 && *(v3 + 6) == 1 && *(v3 + 14) == 1)
       {
-        if ((*v3 == v3[4]) | v35 & 1)
+        if ((*v3 == *(v3 + 4)) | v35 & 1)
         {
           goto LABEL_77;
         }
@@ -5502,8 +5572,8 @@ LABEL_77:
           v46 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v47 = *(v4 + 1296);
-            v48 = v3[4];
+            v47 = *(v4 + 162);
+            v48 = *(v3 + 4);
             buf = 136316418;
             *buf_4 = v45;
             *&buf_4[8] = 2080;
@@ -5531,10 +5601,10 @@ LABEL_82:
         v53 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v54 = *(v4 + 1296);
+          v54 = *(v4 + 162);
           v55 = *v37;
           v56 = *v3;
-          v57 = v3[4];
+          v57 = *(v3 + 4);
           buf = 136316930;
           *buf_4 = v52;
           *&buf_4[8] = 2080;
@@ -5571,31 +5641,31 @@ LABEL_82:
 
 uint64_t _VideoReceiver_ProcessVideoRTPInternal(uint64_t a1, uint64_t a2, unsigned __int16 *a3, uint64_t a4)
 {
-  v223 = *MEMORY[0x1E69E9840];
+  v221 = *MEMORY[0x1E69E9840];
   v8 = (a2 + 40880);
-  v199 = *(a4 + 12);
-  v200 = *(a4 + 20);
+  v197 = *(a4 + 12);
+  v198 = *(a4 + 20);
   value = *(a4 + 24);
-  v212 = 0;
-  v9 = *(a4 + 40);
-  v10 = micro();
-  v211 = 0;
-  v218 = 0;
-  v217 = 0u;
-  v216 = 0u;
-  v215 = 0u;
-  blockBufferOut = 0;
-  v209 = 0;
   v210 = 0;
-  v207 = -21846;
+  v9 = *(a4 + 40);
+  v10 = micro(a1, a2);
+  v209 = 0;
+  v216 = 0;
+  v215 = 0u;
+  v214 = 0u;
+  v213 = 0u;
+  blockBufferOut = 0;
+  v207 = 0;
+  v208 = 0;
+  v205 = -21846;
   *(v8 + 292) = v9;
-  v214 = 0;
+  v212 = 0;
   v11 = *(a4 + 136);
   v12 = *(a4 + 144);
-  v206 = 0u;
   v204 = 0u;
-  memset(v205, 0, sizeof(v205));
-  v203 = 0u;
+  v202 = 0u;
+  memset(v203, 0, sizeof(v203));
+  v201 = 0u;
   if (*(v8 + 2065) == 1)
   {
     if (*(a4 + 88))
@@ -5683,7 +5753,7 @@ LABEL_184:
   }
 
   v19 = (a2 + 40900);
-  v198 = (a4 + 8);
+  v196 = (a4 + 8);
   v20 = value;
   kdebug_trace();
   if (*(a2 + 1353) == 1 && (*(a3 + 69) & 1) == 0)
@@ -5716,14 +5786,14 @@ LABEL_184:
     v21 = 0;
   }
 
-  v197 = a1;
-  v203 = xmmword_1DBD45AE0;
-  *&v204 = &blockBufferOut;
-  DWORD2(v204) = 0;
-  memset(v205, 0, 18);
-  *(&v205[1] + 1) = &v214;
-  *&v206 = a4 + 8;
-  BYTE8(v206) = v21;
+  v195 = a1;
+  v201 = xmmword_1DBD45AE0;
+  *&v202 = &blockBufferOut;
+  DWORD2(v202) = 0;
+  memset(v203, 0, 18);
+  *(&v203[1] + 1) = &v212;
+  *&v204 = a4 + 8;
+  BYTE8(v204) = v21;
   v22 = *(a3 + 1086);
   if (*(a2 + 42440) != 1)
   {
@@ -5792,8 +5862,8 @@ LABEL_33:
   }
 
   v50 = v41;
-  v202 = 0;
-  RTPGetRecvStats(*(a3 + 6), &v202 + 1, &v202);
+  v200 = 0;
+  RTPGetRecvStats(*(a3 + 6), &v200 + 1, &v200);
   if (VCMediaControlInfo_IsLossStatsEnabled(*(a2 + 43300)) && (v51 = *(a3 + 16)) != 0)
   {
     memcpy(buf, &unk_1DBD481B8, sizeof(buf));
@@ -5801,15 +5871,15 @@ LABEL_33:
     memcpy(__dst, buf, sizeof(__dst));
     if (*(a3 + 101) == 1)
     {
-      _VideoReceiver_SendRTCPResiliencyInfo(a2, a3, 0, 0, SWORD2(v202), __dst, v10);
+      _VideoReceiver_SendRTCPResiliencyInfo(a2, a3, 0, 0, SWORD2(v200), __dst, v10);
     }
 
-    _VideoReceiver_PackFrameLoss(a2, &v202 + 2, buf);
+    _VideoReceiver_PackFrameLoss(a2, &v200 + 2, buf);
   }
 
   else if (*(a3 + 116) == 1)
   {
-    HIDWORD(v202) = 0;
+    HIDWORD(v200) = 0;
   }
 
   v52 = *(a3 + 10);
@@ -5820,7 +5890,7 @@ LABEL_33:
     {
       if (*(a2 + 43324))
       {
-        if (!VCCVOExtensionUtils_CameraStatusBitsFromCVOExtension(*(a2 + 43324), v12, v11, v205 + 12) && VRTraceGetErrorLogLevelForModule() >= 3)
+        if (!VCCVOExtensionUtils_CameraStatusBitsFromCVOExtension(*(a2 + 43324), v12, v11, v203 + 12) && VRTraceGetErrorLogLevelForModule() >= 3)
         {
           VRTraceErrorLogLevelToCSTR();
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
@@ -5831,32 +5901,32 @@ LABEL_33:
       }
 
 LABEL_75:
-      LOBYTE(v64) = v214;
-      if (v214)
+      LOBYTE(v64) = v212;
+      if (v212)
       {
         v20 = value;
         v41 = v50;
-        if (DWORD1(v215) >> 30)
+        if (DWORD1(v213) >> 30)
         {
-          if (DWORD1(v215) >> 30 == 1)
+          if (DWORD1(v213) >> 30 == 1)
           {
-            v64 = ((DWORD1(v215) >> 22) & 1) == 0;
+            v64 = ((DWORD1(v213) >> 22) & 1) == 0;
           }
 
           else
           {
-            v64 = (DWORD1(v215) >> 26) & 1;
+            v64 = (DWORD1(v213) >> 26) & 1;
           }
         }
 
         else
         {
-          v64 = ((DWORD1(v215) >> 23) & 1) == 0;
+          v64 = ((DWORD1(v213) >> 23) & 1) == 0;
         }
 
         if (v64 && *(a2 + 43288) == 1)
         {
-          FECUtil_UpdateParitySequenceNumberHistory(a2 + 43288, *(*(&v205[1] + 1) + 54));
+          FECUtil_UpdateParitySequenceNumberHistory(a2 + 43288, *(*(&v203[1] + 1) + 54));
           LOBYTE(v64) = 1;
         }
       }
@@ -5867,7 +5937,7 @@ LABEL_75:
         v41 = v50;
       }
 
-      if (LOWORD(v205[1]) == 1)
+      if (LOWORD(v203[1]) == 1)
       {
         ++*(a2 + 42784);
       }
@@ -5888,21 +5958,21 @@ LABEL_89:
 LABEL_92:
       if (*(a2 + 1329) == 1)
       {
-        v66 = v212;
-        if (v212)
+        v66 = v210;
+        if (v210)
         {
           v67 = *(a2 + 1672);
           if (v67)
           {
             v67(*(a2 + 1656));
-            v66 = v212;
+            v66 = v210;
           }
 
           VideoTransmitter_ACKLTRFrame(*(a2 + 40928), v66);
         }
       }
 
-      v196 = v41;
+      v194 = v41;
       if (!(v41 & 1 | ((*(a2 + 1332) & 1) == 0)))
       {
         v68 = *(a2 + 1180);
@@ -5951,8 +6021,8 @@ LABEL_92:
         goto LABEL_126;
       }
 
-      v194 = *(a4 + 120);
-      FrameSliceHeader = ReadFrameSliceHeader(*(a4 + 12), *(a4 + 168), *(a4 + 160), 0);
+      v192 = *(a4 + 120);
+      FrameSliceHeader = ReadFrameSliceHeader(*(a4 + 12), *(a4 + 168), *(a4 + 160), 0, 0);
       if (FrameSliceHeader <= 6 && ((1 << FrameSliceHeader) & 0x4C) != 0)
       {
         *(a2 + 43024) = v74;
@@ -5962,7 +6032,7 @@ LABEL_92:
           goto LABEL_118;
         }
 
-        v191 = VRTraceErrorLogLevelToCSTR();
+        v189 = VRTraceErrorLogLevelToCSTR();
         v78 = *MEMORY[0x1E6986650];
         v79 = *MEMORY[0x1E6986650];
         if (*MEMORY[0x1E6986640] == 1)
@@ -5974,7 +6044,7 @@ LABEL_92:
 
           v80 = *(a2 + 43024);
           *buf = 136316418;
-          *&buf[4] = v191;
+          *&buf[4] = v189;
           *&buf[12] = 2080;
           *&buf[14] = "_VideoReceiver_ProcessProbingSequence";
           *&buf[22] = 1024;
@@ -6010,7 +6080,7 @@ LABEL_118:
             buf[29] = v88;
             *&buf[30] = v75 != 0;
             *&buf[32] = v74;
-            *&buf[36] = v194;
+            *&buf[36] = v192;
             *&buf[40] = v73;
             memset(&buf[52], 0, 148);
             *&buf[48] = v74;
@@ -6043,9 +6113,9 @@ LABEL_124:
           goto LABEL_126;
         }
 
-        v190 = *(a2 + 43024);
+        v188 = *(a2 + 43024);
         *buf = 136316418;
-        *&buf[4] = v191;
+        *&buf[4] = v189;
         *&buf[12] = 2080;
         *&buf[14] = "_VideoReceiver_ProcessProbingSequence";
         *&buf[22] = 1024;
@@ -6053,14 +6123,14 @@ LABEL_124:
         *&buf[28] = 2048;
         *&buf[30] = a2;
         *&buf[38] = 1024;
-        *&buf[40] = v190;
+        *&buf[40] = v188;
         *&buf[44] = 1024;
         *&buf[46] = v76;
-        v187 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] Receiving a packet of a probing sequence:%u, streamID:%u";
-        v188 = v78;
-        v189 = 50;
+        v185 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] Receiving a packet of a probing sequence:%u, streamID:%u";
+        v186 = v78;
+        v187 = 50;
 LABEL_274:
-        _os_log_debug_impl(&dword_1DB56E000, v188, OS_LOG_TYPE_DEBUG, v187, buf, v189);
+        _os_log_debug_impl(&dword_1DB56E000, v186, OS_LOG_TYPE_DEBUG, v185, buf, v187);
         goto LABEL_118;
       }
 
@@ -6072,7 +6142,7 @@ LABEL_274:
           goto LABEL_118;
         }
 
-        v192 = VRTraceErrorLogLevelToCSTR();
+        v190 = VRTraceErrorLogLevelToCSTR();
         v84 = *MEMORY[0x1E6986650];
         v85 = *MEMORY[0x1E6986650];
         if (*MEMORY[0x1E6986640] == 1)
@@ -6083,7 +6153,7 @@ LABEL_274:
           }
 
           *buf = 136316162;
-          *&buf[4] = v192;
+          *&buf[4] = v190;
           *&buf[12] = 2080;
           *&buf[14] = "_VideoReceiver_ProcessProbingSequence";
           *&buf[22] = 1024;
@@ -6102,7 +6172,7 @@ LABEL_274:
         }
 
         *buf = 136316162;
-        *&buf[4] = v192;
+        *&buf[4] = v190;
         *&buf[12] = 2080;
         *&buf[14] = "_VideoReceiver_ProcessProbingSequence";
         *&buf[22] = 1024;
@@ -6111,7 +6181,7 @@ LABEL_274:
         *&buf[30] = a2;
         *&buf[38] = 1024;
         *&buf[40] = v76;
-        v187 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] Continue receiving a packet of the same probing sequence, streamID:%u";
+        v185 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] Continue receiving a packet of the same probing sequence, streamID:%u";
         goto LABEL_272;
       }
 
@@ -6124,18 +6194,18 @@ LABEL_274:
           goto LABEL_118;
         }
 
-        v193 = VRTraceErrorLogLevelToCSTR();
+        v191 = VRTraceErrorLogLevelToCSTR();
         v84 = *MEMORY[0x1E6986650];
-        v119 = *MEMORY[0x1E6986650];
+        v116 = *MEMORY[0x1E6986650];
         if (*MEMORY[0x1E6986640] == 1)
         {
-          if (!os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT))
+          if (!os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_118;
           }
 
           *buf = 136316162;
-          *&buf[4] = v193;
+          *&buf[4] = v191;
           *&buf[12] = 2080;
           *&buf[14] = "_VideoReceiver_ProcessProbingSequence";
           *&buf[22] = 1024;
@@ -6153,13 +6223,13 @@ LABEL_111:
           goto LABEL_118;
         }
 
-        if (!os_log_type_enabled(v119, OS_LOG_TYPE_DEBUG))
+        if (!os_log_type_enabled(v116, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_118;
         }
 
         *buf = 136316162;
-        *&buf[4] = v193;
+        *&buf[4] = v191;
         *&buf[12] = 2080;
         *&buf[14] = "_VideoReceiver_ProcessProbingSequence";
         *&buf[22] = 1024;
@@ -6168,10 +6238,10 @@ LABEL_111:
         *&buf[30] = a2;
         *&buf[38] = 1024;
         *&buf[40] = v76;
-        v187 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] Receiving a packet that is not a probing sequence, streamID:%u";
+        v185 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] Receiving a packet that is not a probing sequence, streamID:%u";
 LABEL_272:
-        v188 = v84;
-        v189 = 44;
+        v186 = v84;
+        v187 = 44;
         goto LABEL_274;
       }
 
@@ -6184,7 +6254,7 @@ LABEL_126:
         v91 = *(a2 + 43288);
         *buf = v91;
         *&buf[8] = *(a2 + 43296);
-        v92 = v199;
+        v92 = v197;
         v93 = v72;
         if ((v91 - 1) > 1)
         {
@@ -6225,7 +6295,7 @@ LABEL_126:
 
       else
       {
-        v92 = v199;
+        v92 = v197;
         v93 = v72;
         if (VRTraceGetErrorLogLevelForModule() >= 8)
         {
@@ -6273,10 +6343,11 @@ LABEL_126:
         if (v92 != 110)
         {
 LABEL_155:
-          v28 = RTPProcessH263Packet(v198, &v203, &v203 + 1, &v207 + 1, &v207, *(a2 + 43240), &blockBufferOut);
-          DWORD2(v203) = (HIBYTE(v207) >> 1) & 1;
-          HIDWORD(v203) = HIBYTE(v207) & 1;
-          if ((v28 & 0x80000000) != 0)
+          v98 = RTPProcessH263Packet(v196, &v201, &v201 + 1, &v205 + 1, &v205, *(a2 + 43240), &blockBufferOut);
+          v28 = v98;
+          DWORD2(v201) = (HIBYTE(v205) >> 1) & 1;
+          HIDWORD(v201) = HIBYTE(v205) & 1;
+          if ((v98 & 0x80000000) != 0)
           {
             goto LABEL_156;
           }
@@ -6285,13 +6356,13 @@ LABEL_155:
         }
 
 LABEL_154:
-        v207 = 0;
-        *(&v203 + 1) = 0x100000001;
+        v205 = 0;
+        *(&v201 + 1) = 0x100000001;
         VCBlockBuffer_Copy(a4 + 152, &blockBufferOut);
         goto LABEL_169;
       }
 
-      v207 = 0;
+      v205 = 0;
       if (v93)
       {
         v28 = 0;
@@ -6319,15 +6390,15 @@ LABEL_154:
 
         if (v92 == 123)
         {
-          v99 = RTPProcessH264FragmentationHeader(*(a4 + 168), *(a4 + 160), &v203 + 2, (&v203 | 0xC), (a4 + 32), (a4 + 34), &v211, v97 & 1);
+          v101 = RTPProcessH264FragmentationHeader(*(a4 + 168), *(a4 + 160), &v201 + 2, (&v201 | 0xC), (a4 + 32), (a4 + 34), &v209, v97 & 1);
         }
 
         else
         {
-          v99 = RTPProcessHEVCFragmentationHeader(*(a4 + 168), *(a4 + 160), &v203 + 2, (&v203 | 0xC), (a4 + 32), (a4 + 34), v97 & 1, &v211);
+          v101 = RTPProcessHEVCFragmentationHeader(*(a4 + 168), *(a4 + 160), &v201 + 2, (&v201 | 0xC), (a4 + 32), (a4 + 34), v97 & 1, &v209);
         }
 
-        v28 = v99;
+        v28 = v101;
       }
 
       VCBlockBuffer_Copy(a4 + 152, &blockBufferOut);
@@ -6337,12 +6408,12 @@ LABEL_156:
         VCBlockBuffer_Clear(&blockBufferOut);
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v98 = VRTraceErrorLogLevelToCSTR();
+          v100 = VRTraceErrorLogLevelToCSTR();
           v62 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
           {
             *buf = 136316162;
-            *&buf[4] = v98;
+            *&buf[4] = v100;
             *&buf[12] = 2080;
             *&buf[14] = "_VideoReceiver_ProcessVideoRTPInternal";
             *&buf[22] = 1024;
@@ -6360,78 +6431,78 @@ LABEL_156:
       }
 
 LABEL_169:
-      v195 = a3;
-      v100 = v93;
+      v193 = a3;
+      v102 = v93;
       if (*(a2 + 42912) == 1)
       {
-        v101 = (a2 + 42920);
+        v103 = (a2 + 42920);
         if (*(a2 + 42920))
         {
-          *&v102 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v102 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          *&buf[284] = v102;
-          *&buf[257] = v102;
-          *&buf[273] = v102;
-          *&buf[241] = v102;
-          *&buf[225] = v102;
-          *&buf[209] = v102;
-          *&buf[193] = v102;
-          *&buf[177] = v102;
-          *&buf[161] = v102;
-          *&buf[145] = v102;
-          *&buf[129] = v102;
-          *&buf[113] = v102;
-          *&buf[97] = v102;
-          *&buf[81] = v102;
-          *&buf[65] = v102;
-          *&buf[49] = v102;
-          *&buf[33] = v102;
-          *&buf[17] = v102;
-          *&buf[1] = v102;
+          *&v104 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v104 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          *&buf[284] = v104;
+          *&buf[257] = v104;
+          *&buf[273] = v104;
+          *&buf[241] = v104;
+          *&buf[225] = v104;
+          *&buf[209] = v104;
+          *&buf[193] = v104;
+          *&buf[177] = v104;
+          *&buf[161] = v104;
+          *&buf[145] = v104;
+          *&buf[129] = v104;
+          *&buf[113] = v104;
+          *&buf[97] = v104;
+          *&buf[81] = v104;
+          *&buf[65] = v104;
+          *&buf[49] = v104;
+          *&buf[33] = v104;
+          *&buf[17] = v104;
+          *&buf[1] = v104;
           LODWORD(__dst[6]) = -1431655766;
-          __dst[5] = v102;
-          __dst[4] = v102;
-          __dst[3] = v102;
-          __dst[2] = v102;
-          __dst[1] = v102;
-          __dst[0] = v102;
+          __dst[5] = v104;
+          __dst[4] = v104;
+          __dst[3] = v104;
+          __dst[2] = v104;
+          __dst[1] = v104;
+          __dst[0] = v104;
           buf[0] = 0;
-          v103 = micro();
-          fprintf(*v101, "[%.6f:%04X:%08X:%d:%08X]\n", v103, v200, value, v209, DWORD1(v215));
-          if (v209)
+          v105 = micro(v98, v99);
+          fprintf(*v103, "[%.6f:%04X:%08X:%d:%08X]\n", v105, v198, value, v207, DWORD1(v213));
+          if (v207)
           {
-            for (i = 0; i < v209; ++i)
+            for (i = 0; i < v207; ++i)
             {
-              __sprintf_chk(__dst, 0, 0x64uLL, " %02X", *(v210 + i));
-              __strlcat_chk();
+              __sprintf_chk(__dst, 0, 0x64uLL, " %02X", *(v208 + i));
+              __strlcat_chk(buf, __dst, 300, 300);
               if ((~i & 0x1F) == 0)
               {
-                fprintf(*v101, "%s\n", buf);
+                fprintf(*v103, "%s\n", buf);
                 buf[0] = 0;
               }
             }
 
-            v92 = v199;
+            v92 = v197;
             if ((i & 0x1F) != 0)
             {
-              fprintf(*v101, "%s\n", buf);
+              fprintf(*v103, "%s\n", buf);
             }
           }
         }
       }
 
-      if (!v209)
+      if (!v207)
       {
         v28 = 2149515265;
         VCBlockBuffer_Clear(&blockBufferOut);
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v106 = VRTraceErrorLogLevelToCSTR();
-          v107 = *MEMORY[0x1E6986650];
+          v109 = VRTraceErrorLogLevelToCSTR();
+          v110 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
           {
             *buf = 136316674;
-            *&buf[4] = v106;
+            *&buf[4] = v109;
             *&buf[12] = 2080;
             *&buf[14] = "_VideoReceiver_ProcessVideoRTPInternal";
             *&buf[22] = 1024;
@@ -6439,13 +6510,13 @@ LABEL_169:
             *&buf[28] = 2048;
             *&buf[30] = a2;
             *&buf[38] = 1024;
-            *&buf[40] = v200;
+            *&buf[40] = v198;
             *&buf[44] = 1024;
             *&buf[46] = value;
             *&buf[50] = 1024;
             *&buf[52] = v92;
             v38 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] UNEXPECTED: Received 0-length pkt seq: %d ts: %d payload: %d ";
-            v39 = v107;
+            v39 = v110;
             v40 = 56;
             goto LABEL_184;
           }
@@ -6455,47 +6526,48 @@ LABEL_169:
       }
 
       pthread_mutex_lock((a2 + 42192));
-      v105 = *(v206 + 112);
-      *(a2 + 42400) += v105;
-      if (v100)
+      v107 = *(v204 + 112);
+      *(a2 + 42400) += v107;
+      v108 = value;
+      if (v102)
       {
-        *(a2 + 42404) += v105;
+        *(a2 + 42404) += v107;
       }
 
       else
       {
-        *(a2 + 42412) += *(v204 + 8);
+        *(a2 + 42412) += *(v202 + 8);
       }
 
-      v108 = v197;
+      v111 = v195;
       pthread_mutex_unlock((a2 + 42192));
-      *(a2 + 43384) = _VideoReceiver_HandleStreamSwitch(a2, v195, v109, v110, v111, v112, v113, v114);
-      if ((v195[68] & 1) == 0)
+      *(a2 + 43384) = _VideoReceiver_HandleStreamSwitch(a2, v193);
+      if ((v193[68] & 1) == 0)
       {
-        *(v195 + 38) = *(a4 + 28);
-        if (!*(v195 + 16))
+        *(v193 + 38) = *(a4 + 28);
+        if (!*(v193 + 16))
         {
-          if (*(v195 + 70) == 1 && (v115 = v195[2], *v195 != v115))
+          if (*(v193 + 70) == 1 && (v112 = v193[2], *v193 != v112))
           {
-            Stream = _VideoReceiver_GetStream(a2, v115, *(v195 + 69));
+            Stream = _VideoReceiver_GetStream(a2, v112, *(v193 + 69));
             if (Stream)
             {
-              v122 = Stream;
-              v123 = *(Stream + 16);
-              if (v123)
+              v119 = Stream;
+              v120 = *(Stream + 16);
+              if (v120)
               {
-                *(v195 + 16) = v123;
+                *(v193 + 16) = v120;
                 if (VRTraceGetErrorLogLevelForModule() >= 7)
                 {
-                  v124 = VRTraceErrorLogLevelToCSTR();
-                  v125 = *MEMORY[0x1E6986650];
+                  v121 = VRTraceErrorLogLevelToCSTR();
+                  v122 = *MEMORY[0x1E6986650];
                   if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                   {
-                    v126 = *v195;
-                    v127 = *(v195 + 16);
-                    v128 = *v122;
+                    v123 = *v193;
+                    v124 = *(v193 + 16);
+                    v125 = *v119;
                     *buf = 136316674;
-                    *&buf[4] = v124;
+                    *&buf[4] = v121;
                     *&buf[12] = 2080;
                     *&buf[14] = "_VideoReceiver_CreateVPB";
                     *&buf[22] = 1024;
@@ -6503,16 +6575,16 @@ LABEL_169:
                     *&buf[28] = 2048;
                     *&buf[30] = a2;
                     *&buf[38] = 1024;
-                    *&buf[40] = v126;
+                    *&buf[40] = v123;
                     *&buf[44] = 2048;
-                    *&buf[46] = v127;
+                    *&buf[46] = v124;
                     *&buf[54] = 1024;
-                    *&buf[56] = v128;
-                    _os_log_impl(&dword_1DB56E000, v125, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Higher layer in temporal scaling group with streamID %d, uses base layer's VPB[%p]. Base Layer streamID is %d", buf, 0x3Cu);
+                    *&buf[56] = v125;
+                    _os_log_impl(&dword_1DB56E000, v122, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Higher layer in temporal scaling group with streamID %d, uses base layer's VPB[%p]. Base Layer streamID is %d", buf, 0x3Cu);
                   }
                 }
 
-                *(v195 + 136) = 1;
+                *(v193 + 136) = 1;
               }
 
               else
@@ -6532,80 +6604,80 @@ LABEL_169:
             memset(&buf[16], 0, 384);
             *buf = 0u;
             *buf = *(a4 + 20);
-            v116 = *(a2 + 1180);
+            v113 = *(a2 + 1180);
             *&buf[4] = *(a4 + 24);
-            *&buf[8] = v116;
+            *&buf[8] = v113;
             *&buf[16] = *(a2 + 43416);
             *&buf[224] = *(a2 + 1208);
             buf[228] = *(a2 + 43000) != 0;
             buf[229] = *(a2 + 1352);
             if (*(a2 + 1306) <= 1u)
             {
-              v118 = *(a2 + 1558);
-              if (v118 == 1)
+              v115 = *(a2 + 1558);
+              if (v115 == 1)
               {
-                v120 = *(a2 + 1568);
+                v117 = *(a2 + 1568);
               }
 
               else
               {
-                v120 = 0;
+                v117 = 0;
               }
 
-              buf[240] = v120 & 1;
-              v117 = *(a2 + 1397);
+              buf[240] = v117 & 1;
+              v114 = *(a2 + 1397);
             }
 
             else
             {
-              v117 = 0;
+              v114 = 0;
               buf[240] = 1;
-              LOBYTE(v118) = *(a2 + 1558);
+              LOBYTE(v115) = *(a2 + 1558);
             }
 
-            buf[241] = v117 & 1;
-            *&buf[248] = v195;
-            if (*(v195 + 536))
+            buf[241] = v114 & 1;
+            *&buf[248] = v193;
+            if (*(v193 + 536))
             {
-              v129 = _VideoReceiver_DecryptFrame;
+              v126 = _VideoReceiver_DecryptFrame;
             }
 
             else
             {
-              v129 = 0;
+              v126 = 0;
             }
 
-            *&buf[256] = v129;
+            *&buf[256] = v126;
             *&buf[264] = a2;
             if (*(a2 + 1324))
             {
-              v130 = _VideoReceiver_EnqueueFailedFrameToJitterBuffer;
+              v127 = _VideoReceiver_EnqueueFailedFrameToJitterBuffer;
             }
 
             else
             {
-              v130 = 0;
+              v127 = 0;
             }
 
-            *&buf[272] = v130;
+            *&buf[272] = v127;
             buf[280] = *(a2 + 1404);
             *&buf[288] = *(a2 + 43376);
             buf[364] = *(a2 + 1477);
             buf[365] = *(a2 + 43473);
-            buf[367] = v118;
-            buf[366] = *(v195 + 124) == 2;
+            buf[367] = v115;
+            buf[366] = *(v193 + 124) == 2;
             snprintf(&buf[368], 0x1EuLL, "parent=%p", a2);
             if (VRTraceGetErrorLogLevelForModule() >= 7)
             {
-              v131 = VRTraceErrorLogLevelToCSTR();
-              v132 = *MEMORY[0x1E6986650];
+              v128 = VRTraceErrorLogLevelToCSTR();
+              v129 = *MEMORY[0x1E6986650];
               if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
               {
-                v133 = buf[280];
-                v134 = buf[366];
-                v135 = FourccToCStr(*(a2 + 1392));
+                v130 = buf[280];
+                v131 = buf[366];
+                v132 = FourccToCStr(*(a2 + 1392));
                 LODWORD(__dst[0]) = 136316674;
-                *(__dst + 4) = v131;
+                *(__dst + 4) = v128;
                 WORD6(__dst[0]) = 2080;
                 *(__dst + 14) = "_VideoReceiver_NewVideoPacketBufferConfig";
                 WORD3(__dst[1]) = 1024;
@@ -6613,36 +6685,37 @@ LABEL_169:
                 WORD6(__dst[1]) = 2048;
                 *(&__dst[1] + 14) = a2;
                 WORD3(__dst[2]) = 1024;
-                DWORD2(__dst[2]) = v133;
+                DWORD2(__dst[2]) = v130;
+                v108 = value;
                 WORD6(__dst[2]) = 1024;
-                *(&__dst[2] + 14) = v134;
+                *(&__dst[2] + 14) = v131;
                 WORD1(__dst[3]) = 2080;
-                *(&__dst[3] + 4) = v135;
-                _os_log_impl(&dword_1DB56E000, v132, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d [%p] isServerPacketRetransmissionEnabled=%d, isFrameBasedFECEnabled=%d, streamGroupID=%s", __dst, 0x3Cu);
+                *(&__dst[3] + 4) = v132;
+                _os_log_impl(&dword_1DB56E000, v129, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d [%p] isServerPacketRetransmissionEnabled=%d, isFrameBasedFECEnabled=%d, streamGroupID=%s", __dst, 0x3Cu);
               }
             }
 
             _VCVideoReceiver_InitDumpFileName(a2, &buf[24]);
-            v136 = *(a2 + 1424);
-            v137 = *(a2 + 1456);
+            v133 = *(a2 + 1424);
+            v134 = *(a2 + 1456);
             *&buf[328] = *(a2 + 1440);
-            *&buf[344] = v137;
+            *&buf[344] = v134;
             *&buf[296] = *(a2 + 1408);
-            *&buf[312] = v136;
+            *&buf[312] = v133;
             *&buf[360] = *(a2 + 1472);
-            *(v195 + 16) = VideoPacketBuffer_Create(buf);
+            *(v193 + 16) = VideoPacketBuffer_Create(buf);
             if (VRTraceGetErrorLogLevelForModule() >= 7)
             {
-              v138 = VRTraceErrorLogLevelToCSTR();
-              v139 = *MEMORY[0x1E6986650];
+              v135 = VRTraceErrorLogLevelToCSTR();
+              v136 = *MEMORY[0x1E6986650];
               if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
               {
-                v140 = *(v195 + 16);
-                v141 = *v195;
-                v142 = *(v195 + 70);
-                v143 = v195[2] == v141;
+                v137 = *(v193 + 16);
+                v138 = *v193;
+                v139 = *(v193 + 70);
+                v140 = v193[2] == v138;
                 LODWORD(__dst[0]) = 136316930;
-                *(__dst + 4) = v138;
+                *(__dst + 4) = v135;
                 WORD6(__dst[0]) = 2080;
                 *(__dst + 14) = "_VideoReceiver_CreateVPB";
                 WORD3(__dst[1]) = 1024;
@@ -6650,34 +6723,35 @@ LABEL_169:
                 WORD6(__dst[1]) = 2048;
                 *(&__dst[1] + 14) = a2;
                 WORD3(__dst[2]) = 2048;
-                *(&__dst[2] + 1) = v140;
+                *(&__dst[2] + 1) = v137;
                 LOWORD(__dst[3]) = 1024;
-                *(&__dst[3] + 2) = v141;
+                *(&__dst[3] + 2) = v138;
                 WORD3(__dst[3]) = 1024;
-                DWORD2(__dst[3]) = v142;
+                DWORD2(__dst[3]) = v139;
                 WORD6(__dst[3]) = 1024;
-                *(&__dst[3] + 14) = v143;
-                _os_log_impl(&dword_1DB56E000, v139, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] created VideoPacketBuffer[%p] for stream:%d, isTemporalScalingEnabled=%d, isBaseLayerStream=%d", __dst, 0x42u);
+                *(&__dst[3] + 14) = v140;
+                _os_log_impl(&dword_1DB56E000, v136, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] created VideoPacketBuffer[%p] for stream:%d, isTemporalScalingEnabled=%d, isBaseLayerStream=%d", __dst, 0x42u);
               }
             }
 
-            *(v195 + 136) = 1;
-            v108 = v197;
+            *(v193 + 136) = 1;
+            v111 = v195;
           }
         }
       }
 
-      v144 = v195[2] == *v195;
-      VideoPacketDump_RTPLog(*(a2 + 42984));
-      VideoPacketBuffer_AddPacket(*(v195 + 16), &v203, *(v195 + 70), v144, *(a2 + 43384));
+      v141 = *v193;
+      v142 = v193[2] == v141;
+      VideoPacketDump_RTPLog(*(a2 + 42984), v141, v108, v198, HIWORD(v203[0]), v212, *(v193 + 70), v142);
+      VideoPacketBuffer_AddPacket(*(v193 + 16), &v201, *(v193 + 70), v142, *(a2 + 43384));
       VCBlockBuffer_Clear(&blockBufferOut);
-      v145 = *(a2 + 1309);
-      if ((v196 & v145) == 1)
+      v143 = *(a2 + 1309);
+      if ((v194 & v143) == 1)
       {
-        v145 = *v198 != 0;
+        v143 = *v196 != 0;
       }
 
-      if (*(a2 + 1353) & 1) == 0 && ((*(a4 + 49) | v145))
+      if (*(a2 + 1353) & 1) == 0 && ((*(a4 + 49) | v143))
       {
         if (*(a2 + 1309))
         {
@@ -6686,41 +6760,41 @@ LABEL_169:
 
         else
         {
-          _VideoReceiver_ProcessCompletedFrames(v108, a2, v195, value);
+          _VideoReceiver_ProcessCompletedFrames(v111, a2, v193, value);
         }
 
-        v146 = v10 - *(a2 + 42472);
+        v144 = v10 - *(a2 + 42472);
         memset(buf, 0, 168);
-        _VideoReceiver_SendRTCP(a2, v195, buf, v146 > 5.0, v10);
+        _VideoReceiver_SendRTCP(a2, v193, buf, v144 > 5.0, v10);
       }
 
-      v147 = *(a2 + 43328);
-      if (v147 && *(a2 + 43193) == 1)
+      v145 = *(a2 + 43328);
+      if (v145 && *(a2 + 43193) == 1)
       {
         LODWORD(__dst[0]) = 0;
-        if (!VCMediaStreamSynchronizer_sourceRTPTimestampFromDestinationRTPTimestamp(v147, value, __dst))
+        if (!VCMediaStreamSynchronizer_sourceRTPTimestampFromDestinationRTPTimestamp(v145, value, __dst))
         {
           _VideoReceiver_CallAlarms(a2, MEMORY[0x1E6960CC0], v10);
 LABEL_238:
           if (*(a2 + 1420) == 1)
           {
-            v153 = *(v195 + 538);
-            if (v153 != 0.0)
+            v151 = *(v193 + 538);
+            if (v151 != 0.0)
             {
-              v154 = *(a2 + 42680);
-              v155 = v10 - v153;
-              if (v154 == 0.0 || v155 > 0.15 && *(a2 + 42872) != 0.0)
+              v152 = *(a2 + 42680);
+              v153 = v10 - v151;
+              if (v152 == 0.0 || v153 > 0.15 && *(a2 + 42872) != 0.0)
               {
                 if (VRTraceGetErrorLogLevelForModule() >= 5)
                 {
-                  v156 = VRTraceErrorLogLevelToCSTR();
-                  v157 = *MEMORY[0x1E6986650];
+                  v154 = VRTraceErrorLogLevelToCSTR();
+                  v155 = *MEMORY[0x1E6986650];
                   if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                   {
-                    v158 = *(v195 + 16);
-                    v159 = *(a2 + 43344);
+                    v156 = *(v193 + 16);
+                    v157 = *(a2 + 43344);
                     *buf = 136317186;
-                    *&buf[4] = v156;
+                    *&buf[4] = v154;
                     *&buf[12] = 2080;
                     *&buf[14] = "_VideoReceiver_ShallSendCachedDelayedFIR";
                     *&buf[22] = 1024;
@@ -6728,22 +6802,22 @@ LABEL_238:
                     *&buf[28] = 2048;
                     *&buf[30] = a2;
                     *&buf[38] = 2048;
-                    *&buf[40] = v158;
+                    *&buf[40] = v156;
                     *&buf[48] = 2048;
-                    *&buf[50] = v155;
+                    *&buf[50] = v153;
                     *&buf[58] = 2048;
                     *&buf[60] = 0x3FC3333333333333;
                     *&buf[68] = 2048;
-                    *&buf[70] = v159;
+                    *&buf[70] = v157;
                     *&buf[78] = 1024;
-                    *&buf[80] = v154 == 0.0;
-                    _os_log_impl(&dword_1DB56E000, v157, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] VideoPacketBuffer[%p] Sending Delayed FIR timeSinceFIRRequest=%2.4f waitFIRTime=%2.4f roundTripTime=%2.4f noFramesDisplayed=%d", buf, 0x54u);
+                    *&buf[80] = v152 == 0.0;
+                    _os_log_impl(&dword_1DB56E000, v155, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] VideoPacketBuffer[%p] Sending Delayed FIR timeSinceFIRRequest=%2.4f waitFIRTime=%2.4f roundTripTime=%2.4f noFramesDisplayed=%d", buf, 0x54u);
                   }
                 }
 
-                _VideoReceiver_SendFIR(a2, v195, *(v195 + 4296), *(v195 + 1075), *(v195 + 538));
-                *(v195 + 538) = 0;
-                v108 = v197;
+                _VideoReceiver_SendFIR(a2, v193, *(v193 + 4296), *(v193 + 1075), *(v193 + 538));
+                *(v193 + 538) = 0;
+                v111 = v195;
               }
             }
           }
@@ -6751,95 +6825,95 @@ LABEL_238:
           if (*(a2 + 43408))
           {
             *&__dst[0] = 0;
-            v221[0] = 0.0;
-            v213 = 0.0;
-            VideoReceiver_GetBitrate(1.0, v108, __dst, v221, &v213, 0, 0);
+            v219[0] = 0.0;
+            v211 = 0.0;
+            VideoReceiver_GetBitrate(v111, __dst, v219, &v211, 0, 0, 1.0);
             memset(buf, 0, 32);
             VCVideoPlayer_GetVideoPlayerStatsForJB(*(a2 + 40976), buf);
-            v160 = (v213 / 1000.0 + 0.5);
-            v161 = *(a2 + 43408);
-            v162 = *(v161 + 40);
-            v163 = *(a2 + 40904);
-            if (v163)
+            v158 = (v211 / 1000.0 + 0.5);
+            v159 = *(a2 + 43408);
+            v160 = *(v159 + 40);
+            v161 = *(a2 + 40904);
+            if (v161)
             {
-              v164 = *v163;
+              v162 = *v161;
             }
 
             else
             {
-              v164 = *(v162 + 24);
+              v162 = *(v160 + 24);
             }
 
-            v165 = 0.0;
-            v166 = 0.0;
+            v163 = 0.0;
+            v164 = 0.0;
             if (*(a2 + 42692))
             {
-              LOWORD(v166) = *(a2 + 42690);
-              v166 = LODWORD(v166) / *(a2 + 42692);
+              LOWORD(v164) = *(a2 + 42690);
+              v164 = LODWORD(v164) / *(a2 + 42692);
             }
 
-            v167 = *(a2 + 42816) / 1000.0 + 0.5;
-            v168 = *__dst / 1000.0 + 0.5;
-            v169 = (v221[0] / 1000.0 + 0.5);
-            if (v166 == 0.0)
+            v165 = *(a2 + 42816) / 1000.0 + 0.5;
+            v166 = *__dst / 1000.0 + 0.5;
+            v167 = (v219[0] / 1000.0 + 0.5);
+            if (v164 == 0.0)
             {
-              v170 = *(v162 + 128);
+              v168 = *(v160 + 128);
             }
 
             else
             {
-              v170 = v166;
+              v168 = v164;
             }
 
-            v171 = *(a2 + 43400);
+            v169 = *(a2 + 43400);
             TotalPLR = _VideoReceiver_GetTotalPLR(a2);
-            v173 = *(a2 + 42808);
-            v174 = v173;
-            if (v160)
+            v171 = *(a2 + 42808);
+            v172 = v171;
+            if (v158)
             {
-              v165 = (v169 / v160);
+              v163 = (v167 / v158);
             }
 
-            v175 = TotalPLR;
-            v176 = *(a2 + 42800);
-            v177 = *(a2 + 42864);
-            v178 = *(a2 + 42840) * 1000.0;
-            v179 = *(a2 + 42488) * 1000.0;
-            v180 = *(a2 + 1325);
-            v181 = *(a2 + 43308) - *(a2 + 43312);
-            v182 = *(a2 + 42740);
-            v183 = *&buf[8];
-            v184 = *(a2 + 43188);
-            if (v184)
+            v173 = TotalPLR;
+            v174 = *(a2 + 42800);
+            v175 = *(a2 + 42864);
+            v176 = *(a2 + 42840) * 1000.0;
+            v177 = *(a2 + 42488) * 1000.0;
+            v178 = *(a2 + 1325);
+            v179 = *(a2 + 43308) - *(a2 + 43312);
+            v180 = *(a2 + 42740);
+            v181 = *&buf[8];
+            v182 = *(a2 + 43188);
+            if (v182)
             {
-              v185 = *(a2 + 42536) / v184 * 1000.0;
+              v183 = *(a2 + 42536) / v182 * 1000.0;
             }
 
             else
             {
-              v185 = 0.0;
+              v183 = 0.0;
             }
 
-            *(v162 + 24) = v164;
-            *(v162 + 28) = v171;
-            *(v162 + 92) = v168;
-            *(v162 + 96) = v160;
-            *(v162 + 100) = v169;
-            *(v162 + 104) = v165;
-            *(v162 + 108) = v175;
-            *(v162 + 120) = v174;
-            *(v162 + 124) = v176;
-            *(v162 + 128) = v170;
-            *(v162 + 152) = v167;
-            *(v162 + 156) = v178;
-            *(v162 + 160) = v177;
-            *(v162 + 164) = v179;
-            *(v162 + 168) = v180;
-            *(v162 + 172) = v185;
-            *(v162 + 176) = v181;
-            *(v162 + 188) = v182;
-            *(v162 + 192) = v183;
-            VCOverlaySource_Write(v161);
+            *(v160 + 24) = v162;
+            *(v160 + 28) = v169;
+            *(v160 + 92) = v166;
+            *(v160 + 96) = v158;
+            *(v160 + 100) = v167;
+            *(v160 + 104) = v163;
+            *(v160 + 108) = v173;
+            *(v160 + 120) = v172;
+            *(v160 + 124) = v174;
+            *(v160 + 128) = v168;
+            *(v160 + 152) = v165;
+            *(v160 + 156) = v176;
+            *(v160 + 160) = v175;
+            *(v160 + 164) = v177;
+            *(v160 + 168) = v178;
+            *(v160 + 172) = v183;
+            *(v160 + 176) = v179;
+            *(v160 + 188) = v180;
+            *(v160 + 192) = v181;
+            VCOverlaySource_Write(v159);
           }
 
           return 0;
@@ -6847,15 +6921,15 @@ LABEL_238:
 
         if (VRTraceGetErrorLogLevelForModule() >= 8)
         {
-          v148 = VRTraceErrorLogLevelToCSTR();
-          v149 = *MEMORY[0x1E6986650];
-          v150 = *MEMORY[0x1E6986650];
+          v146 = VRTraceErrorLogLevelToCSTR();
+          v147 = *MEMORY[0x1E6986650];
+          v148 = *MEMORY[0x1E6986650];
           if (*MEMORY[0x1E6986640] == 1)
           {
-            if (os_log_type_enabled(v150, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v148, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136316162;
-              *&buf[4] = v148;
+              *&buf[4] = v146;
               *&buf[12] = 2080;
               *&buf[14] = "_VideoReceiver_ProcessVideoRTPInternal";
               *&buf[22] = 1024;
@@ -6864,14 +6938,14 @@ LABEL_238:
               *&buf[30] = value;
               *&buf[34] = 1024;
               *&buf[36] = __dst[0];
-              _os_log_impl(&dword_1DB56E000, v149, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d Converted video dwTimestamp=%u into audio domain with timestamp=%u", buf, 0x28u);
+              _os_log_impl(&dword_1DB56E000, v147, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d Converted video dwTimestamp=%u into audio domain with timestamp=%u", buf, 0x28u);
             }
           }
 
-          else if (os_log_type_enabled(v150, OS_LOG_TYPE_DEBUG))
+          else if (os_log_type_enabled(v148, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136316162;
-            *&buf[4] = v148;
+            *&buf[4] = v146;
             *&buf[12] = 2080;
             *&buf[14] = "_VideoReceiver_ProcessVideoRTPInternal";
             *&buf[22] = 1024;
@@ -6880,21 +6954,21 @@ LABEL_238:
             *&buf[30] = value;
             *&buf[34] = 1024;
             *&buf[36] = __dst[0];
-            _os_log_debug_impl(&dword_1DB56E000, v149, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d Converted video dwTimestamp=%u into audio domain with timestamp=%u", buf, 0x28u);
+            _os_log_debug_impl(&dword_1DB56E000, v147, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d Converted video dwTimestamp=%u into audio domain with timestamp=%u", buf, 0x28u);
           }
         }
 
-        v152 = LODWORD(__dst[0]);
-        v151 = a2;
+        v150 = LODWORD(__dst[0]);
+        v149 = a2;
       }
 
       else
       {
-        v151 = a2;
-        v152 = value;
+        v149 = a2;
+        v150 = value;
       }
 
-      _VideoReceiver_ProcessInternalCallAlarms(v151, v152, v10);
+      _VideoReceiver_ProcessInternalCallAlarms(v149, v150, v10);
       goto LABEL_238;
     }
   }
@@ -6905,9 +6979,9 @@ LABEL_238:
   *&__dst[0] = v9;
   v54 = *(a4 + 24);
   DWORD2(__dst[0]) = *(a4 + 120);
-  DWORD1(__dst[1]) = HIDWORD(v202);
+  DWORD1(__dst[1]) = HIDWORD(v200);
   HIDWORD(__dst[1]) = v54;
-  DWORD2(__dst[1]) = v202 >> 3;
+  DWORD2(__dst[1]) = v200 >> 3;
   if (!v52)
   {
     v55 = *(a2 + 40904);
@@ -6924,13 +6998,13 @@ LABEL_238:
   {
     if (VCMediaControlInfoHasInfo(ControlInfoWithBuffer, 3))
     {
-      VCMediaControlInfoGetInfo(v57, 3, v205 + 12, 1, 0);
-      BYTE12(v205[0]) |= 0x80u;
+      VCMediaControlInfoGetInfo(v57, 3, v203 + 12, 1, 0);
+      BYTE12(v203[0]) |= 0x80u;
     }
 
     if (VCMediaControlInfoHasInfo(v57, 4))
     {
-      VCMediaControlInfoGetInfo(v57, 4, v205 + 8, 4, 0);
+      VCMediaControlInfoGetInfo(v57, 4, v203 + 8, 4, 0);
     }
 
     if (VCMediaControlInfoHasInfo(v57, 6) && VCMediaControlInfoGetVersion(v57) == 2)
@@ -6939,23 +7013,23 @@ LABEL_238:
       VCMediaControlInfoGetInfo(v57, 6, buf, 4, 0);
       HIDWORD(v58) = *buf;
       LODWORD(v58) = *buf;
-      BYTE13(v205[0]) = 1;
-      *(v205 + 14) = v58 >> 16;
+      BYTE13(v203[0]) = 1;
+      *(v203 + 14) = v58 >> 16;
     }
 
     if (VCMediaControlInfoHasInfo(v57, 5))
     {
-      VCMediaControlInfoGetInfo(v57, 5, &v212, 4, 0);
-      v212 = bswap32(v212);
+      VCMediaControlInfoGetInfo(v57, 5, &v210, 4, 0);
+      v210 = bswap32(v210);
     }
 
     if (VCMediaControlInfoHasInfo(v57, 7))
     {
-      v222 = 0;
-      memset(v221, 0, sizeof(v221));
-      v213 = -3.72066208e-103;
-      VCMediaControlInfoGetInfo(v57, 7, v221, 36, &v213);
-      if (*&v213 <= 3uLL)
+      v220 = 0;
+      memset(v219, 0, sizeof(v219));
+      v211 = -3.72066208e-103;
+      VCMediaControlInfoGetInfo(v57, 7, v219, 36, &v211);
+      if (*&v211 <= 3uLL)
       {
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
@@ -6972,7 +7046,7 @@ LABEL_238:
             *&buf[28] = 2048;
             *&buf[30] = a2;
             *&buf[38] = 2048;
-            *&buf[40] = v213;
+            *&buf[40] = v211;
             _os_log_error_impl(&dword_1DB56E000, v60, OS_LOG_TYPE_ERROR, "VideoReceiver [%s] %s:%d VideoReceiver[%p] FEC header size %ld too small!", buf, 0x30u);
           }
         }
@@ -6981,7 +7055,7 @@ LABEL_238:
         goto LABEL_62;
       }
 
-      FECHeader_UnpackHeaderFromBuffer(&v214, *(a2 + 43288), v221, *&v213);
+      FECHeader_UnpackHeaderFromBuffer(&v212, *(a2 + 43288), v219, *&v211);
     }
 
     VCMediaControlInfoDispose(v57);
@@ -7102,32 +7176,32 @@ LABEL_25:
   return v6 & 1;
 }
 
-uint64_t _VideoReceiver_HandleStreamSwitch(uint64_t a1, unsigned __int16 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _VideoReceiver_HandleStreamSwitch(uint64_t a1, unsigned __int16 *a2)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if (*(a1 + 1353) == 1)
   {
-    v10 = (a1 + 40880);
-    v11 = *(a1 + 40912);
-    if (v11 != a2)
+    v4 = (a1 + 40880);
+    v5 = *(a1 + 40912);
+    if (v5 != a2)
     {
-      if (!v11)
+      if (!v5)
       {
 LABEL_6:
-        v12 = 0;
+        v6 = 0;
 LABEL_34:
-        *(v10 + 4) = a2;
-        return v12;
+        *(v4 + 4) = a2;
+        return v6;
       }
 
-      if (*(v11 + 70))
+      if (*(v5 + 70))
       {
         if (a2[35])
         {
           goto LABEL_6;
         }
 
-        v14 = (a1 + 40888);
+        v8 = (a1 + 40888);
         if ((*(a1 + 40886) & 1) == 0)
         {
           goto LABEL_17;
@@ -7140,57 +7214,57 @@ LABEL_34:
         {
           if (*(a1 + 40886) && *(a1 + 40894) == 1)
           {
-            v13 = (a1 + 40884);
-            v14 = (a1 + 40892);
+            v7 = (a1 + 40884);
+            v8 = (a1 + 40892);
 LABEL_16:
-            v15 = *v13 == *v14;
+            v9 = *v7 == *v8;
             goto LABEL_18;
           }
 
 LABEL_17:
-          v15 = 0;
+          v9 = 0;
 LABEL_18:
           if (*(a1 + 40920) == 1)
           {
             VCMediaStreamSynchronizer_resetDestinationState(*(a1 + 43328));
             if (VRTraceGetErrorLogLevelForModule() >= 8)
             {
-              v16 = VRTraceErrorLogLevelToCSTR();
-              v17 = *MEMORY[0x1E6986650];
-              v18 = *MEMORY[0x1E6986650];
+              v10 = VRTraceErrorLogLevelToCSTR();
+              v11 = *MEMORY[0x1E6986650];
+              v12 = *MEMORY[0x1E6986650];
               if (*MEMORY[0x1E6986640] == 1)
               {
-                if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+                if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
                 {
-                  v19 = *(v10 + 192);
-                  v20 = *(v10 + 386);
-                  v21 = *(v10 + 387);
-                  v22 = *(v10 + 388);
-                  v23 = *(v10 + 389);
-                  v24 = *(v10 + 1560);
-                  v33 = 136317186;
-                  v34 = v16;
-                  v35 = 2080;
-                  v36 = "_VideoReceiver_HandleStreamSwitch";
+                  v13 = *(v4 + 192);
+                  v14 = *(v4 + 386);
+                  v15 = *(v4 + 387);
+                  v16 = *(v4 + 388);
+                  v17 = *(v4 + 389);
+                  v18 = *(v4 + 1560);
+                  v27 = 136317186;
+                  v28 = v10;
+                  v29 = 2080;
+                  v30 = "_VideoReceiver_HandleStreamSwitch";
+                  v31 = 1024;
+                  v32 = 3754;
+                  v33 = 2048;
+                  v34 = v13;
+                  v35 = 1024;
+                  v36 = v14;
                   v37 = 1024;
-                  v38 = 3754;
-                  v39 = 2048;
-                  v40 = v19;
+                  v38 = v15;
+                  v39 = 1024;
+                  v40 = v16;
                   v41 = 1024;
-                  v42 = v20;
+                  v42 = v17;
                   v43 = 1024;
-                  v44 = v21;
-                  v45 = 1024;
-                  v46 = v22;
-                  v47 = 1024;
-                  v48 = v23;
-                  v49 = 1024;
-                  v50 = v24;
-                  _os_log_impl(&dword_1DB56E000, v17, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d Before resetting playoutContext, soundAlarmReferenceTimestamp=%llu playoutRTPTimestamp=%u lastVideoTS=%u videoTSWraps=%u lastReceivedTimestamp=%u lastReceivedTimestampValid=%d", &v33, 0x44u);
+                  v44 = v18;
+                  _os_log_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d Before resetting playoutContext, soundAlarmReferenceTimestamp=%llu playoutRTPTimestamp=%u lastVideoTS=%u videoTSWraps=%u lastReceivedTimestamp=%u lastReceivedTimestampValid=%d", &v27, 0x44u);
                 }
               }
 
-              else if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+              else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
               {
                 _VideoReceiver_HandleStreamSwitch_cold_1();
               }
@@ -7199,66 +7273,67 @@ LABEL_18:
             *(a1 + 42448) = 0u;
             *(a1 + 42432) = 0u;
             *(a1 + 42416) = 0u;
+            v5 = *(v4 + 4);
           }
 
-          else if (!v15)
+          else if (!v9)
           {
-            v12 = 0;
+            v6 = 0;
 LABEL_32:
-            v31 = *(v10 + 317);
-            if (v31)
+            v25 = *(v4 + 317);
+            if (v25)
             {
-              v33 = *a2;
-              v34 = *(v10 + 834);
-              VRDump_AddEvent(v31, 9u, &v33, a4, a5, a6, a7, a8, v33);
+              v27 = *a2;
+              v28 = *(v4 + 834);
+              VRDump_AddEvent(v25, 9u, &v27);
             }
 
             goto LABEL_34;
           }
 
-          RTPResetHandle();
+          RTPResetHandle(*(v5 + 48));
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
-            v25 = VRTraceErrorLogLevelToCSTR();
-            v26 = *MEMORY[0x1E6986650];
+            v19 = VRTraceErrorLogLevelToCSTR();
+            v20 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
-              v27 = *v10;
-              v28 = v10[4];
-              v29 = **(v10 + 4);
-              v30 = *a2;
-              v33 = 136316930;
-              v34 = v25;
-              v35 = 2080;
-              v36 = "_VideoReceiver_HandleStreamSwitch";
+              v21 = *v4;
+              v22 = v4[4];
+              v23 = **(v4 + 4);
+              v24 = *a2;
+              v27 = 136316930;
+              v28 = v19;
+              v29 = 2080;
+              v30 = "_VideoReceiver_HandleStreamSwitch";
+              v31 = 1024;
+              v32 = 3763;
+              v33 = 2048;
+              v34 = a1;
+              v35 = 1024;
+              v36 = v21;
               v37 = 1024;
-              v38 = 3763;
-              v39 = 2048;
-              v40 = a1;
+              v38 = v22;
+              v39 = 1024;
+              v40 = v23;
               v41 = 1024;
-              v42 = v27;
-              v43 = 1024;
-              v44 = v28;
-              v45 = 1024;
-              v46 = v29;
-              v47 = 1024;
-              v48 = v30;
-              _os_log_impl(&dword_1DB56E000, v26, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] currentStreamID:%u targetStreamID:%u, packet receive switched from stream:%u to stream:%u", &v33, 0x3Eu);
+              v42 = v24;
+              _os_log_impl(&dword_1DB56E000, v20, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] currentStreamID:%u targetStreamID:%u, packet receive switched from stream:%u to stream:%u", &v27, 0x3Eu);
             }
           }
 
-          v12 = 1;
+          v6 = 1;
           goto LABEL_32;
         }
 
-        v14 = (a1 + 40888);
+        v8 = (a1 + 40888);
         if ((*(a1 + 40886) & 1) == 0)
         {
           goto LABEL_17;
         }
       }
 
-      v13 = (a1 + 40880);
+      v7 = (a1 + 40880);
       if (*(a1 + 40894) == 1)
       {
         goto LABEL_16;
@@ -7329,12 +7404,13 @@ uint64_t _VideoReceiver_ProcessInternalCallAlarms(uint64_t result, int64_t value
 
 void _VideoReceiver_ProcessVideoRTCPInternal(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  *(&v109[21] + 4) = *MEMORY[0x1E69E9840];
+  v4 = a2;
+  *(&v108[21] + 4) = *MEMORY[0x1E69E9840];
   v6 = a1 + 40928;
-  v105[0] = 0;
-  v105[1] = 0;
-  v106 = 0;
-  v7 = micro();
+  v104[0] = 0;
+  v104[1] = 0;
+  v105 = 0;
+  v7 = micro(a1, a2);
   *(v6 + 2296) = v7;
   if (!*(a3 + 8))
   {
@@ -7343,11 +7419,11 @@ void _VideoReceiver_ProcessVideoRTCPInternal(uint64_t a1, uint64_t a2, uint64_t 
 
   v8 = v7;
   v9 = 0;
+  v93 = 0;
   v94 = 0;
-  v95 = 0;
-  v99 = -1431655766;
+  v98 = -1431655766;
   allocator = *MEMORY[0x1E695E480];
-  v96 = a2;
+  v95 = v4;
   do
   {
     v10 = a3 + 16;
@@ -7358,82 +7434,82 @@ void _VideoReceiver_ProcessVideoRTCPInternal(uint64_t a1, uint64_t a2, uint64_t 
       switch(v12)
       {
         case 0xC0u:
-          v31 = RTCPPacketFIREntryCount(*(v10 + 8 * v9));
-          v32 = v31;
-          if (v31)
+          v26 = RTCPPacketFIREntryCount(*(v10 + 8 * v9));
+          v27 = v26;
+          if (v26)
           {
-            v33 = (v11 + 8);
-            v34 = v31;
-            v35 = v105;
+            v28 = (v11 + 8);
+            v29 = v26;
+            v30 = v104;
             do
             {
-              v37 = *v33++;
-              v36 = v37;
-              if (v37 == 0xFFFF)
+              v32 = *v28++;
+              v31 = v32;
+              if (v32 == 0xFFFF)
               {
                 break;
               }
 
-              *v35++ = v36;
-              --v34;
+              *v30++ = v31;
+              --v29;
             }
 
-            while (v34);
+            while (v29);
             if ((*(a1 + 1329) & 1) == 0)
             {
               if (VRTraceGetErrorLogLevelForModule() >= 7)
               {
-                v38 = VRTraceErrorLogLevelToCSTR();
-                v39 = *MEMORY[0x1E6986650];
+                v33 = VRTraceErrorLogLevelToCSTR();
+                v34 = *MEMORY[0x1E6986650];
                 if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315906;
-                  *&buf[4] = v38;
+                  *&buf[4] = v33;
                   *&buf[12] = 2080;
                   *&buf[14] = "_VideoReceiver_ProcessVideoRTCPInternal";
                   *&buf[22] = 1024;
-                  v108 = 4932;
-                  LOWORD(v109[0]) = 2048;
-                  *(v109 + 2) = a1;
-                  _os_log_impl(&dword_1DB56E000, v39, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] LTRP is disabled. Converting refresh request to key frame request", buf, 0x26u);
+                  v107 = 4932;
+                  LOWORD(v108[0]) = 2048;
+                  *(v108 + 2) = a1;
+                  _os_log_impl(&dword_1DB56E000, v34, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] LTRP is disabled. Converting refresh request to key frame request", buf, 0x26u);
                 }
               }
 
-              v32 = 0;
+              v27 = 0;
             }
           }
 
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
-            v40 = VRTraceErrorLogLevelToCSTR();
-            v41 = *MEMORY[0x1E6986650];
+            v35 = VRTraceErrorLogLevelToCSTR();
+            v36 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136316674;
-              *&buf[4] = v40;
+              *&buf[4] = v35;
               *&buf[12] = 2080;
               *&buf[14] = "_VideoReceiver_ProcessVideoRTCPInternal";
               *&buf[22] = 1024;
-              v108 = 4936;
-              LOWORD(v109[0]) = 2048;
-              *(v109 + 2) = a1;
-              WORD1(v109[1]) = 1024;
-              HIDWORD(v109[1]) = v32;
-              LOWORD(v109[2]) = 1024;
-              *(&v109[2] + 2) = LOWORD(v105[0]);
-              HIWORD(v109[2]) = 1024;
-              LODWORD(v109[3]) = WORD1(v105[0]);
-              _os_log_impl(&dword_1DB56E000, v41, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Received FIR(%d) %dx%d", buf, 0x38u);
+              v107 = 4936;
+              LOWORD(v108[0]) = 2048;
+              *(v108 + 2) = a1;
+              WORD1(v108[1]) = 1024;
+              HIDWORD(v108[1]) = v27;
+              LOWORD(v108[2]) = 1024;
+              *(&v108[2] + 2) = LOWORD(v104[0]);
+              HIWORD(v108[2]) = 1024;
+              LODWORD(v108[3]) = WORD1(v104[0]);
+              _os_log_impl(&dword_1DB56E000, v36, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Received FIR(%d) %dx%d", buf, 0x38u);
             }
           }
 
-          v94 = 1;
-          VideoTransmitter_GenerateKeyFrameNow(*v6, *(v11 + 4), v105, v32, 0, 1, 2 * (v32 != 0));
+          v93 = 1;
+          VideoTransmitter_GenerateKeyFrameNow(*v6, *(v11 + 4), v104, v27, 0, 1, 2 * (v27 != 0));
           break;
         case 0xC1u:
-          if ((*(a1 + 1404) & 1) == 0 && *(v6 + 2416) < 0.2 && (RTPRexmitRTP(*(a2 + 48), *(v11 + 8), *(v11 + 10), &v99) & 0x80000000) == 0)
+          if ((*(a1 + 1404) & 1) == 0 && *(v6 + 2416) < 0.2 && (RTPRexmitRTP(*(v4 + 48), *(v11 + 8), *(v11 + 10), &v98) & 0x80000000) == 0)
           {
-            VideoTransmitter_AddRexmitBytes(*v6, v99);
+            VideoTransmitter_AddRexmitBytes(*v6, v98);
           }
 
           break;
@@ -7449,24 +7525,24 @@ void _VideoReceiver_ProcessVideoRTCPInternal(uint64_t a1, uint64_t a2, uint64_t 
               *&buf[12] = 2080;
               *&buf[14] = "_VideoReceiver_ProcessRTCPSRPacket";
               *&buf[22] = 1024;
-              v108 = 4757;
+              v107 = 4757;
               _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d Received RTCP SR", buf, 0x1Cu);
             }
           }
 
-          if (_VideoReceiver_ShouldProcessPacket(a1, a2, *(a3 + 1621), *(a3 + 1624), (a3 + 1596), *(a3 + 1620)))
+          if (_VideoReceiver_ShouldProcessPacket(a1, v4, *(a3 + 1621), *(a3 + 1624), (a3 + 1596), *(a3 + 1620)))
           {
-            *(v6 + 2456) = _VideoReceiver_HandleStreamSwitch(a1, a2, v19, v20, v21, v22, v23, v24);
-            v25 = a2;
-            v26 = *(v11 + 8);
-            v27 = *(v11 + 12);
-            v95 = (v11 + 28);
-            _VideoReceiver_ProcessReceptionReportBlock(*(v25 + 48), *v11 & 0x1F, (v11 + 28), *a3);
-            v28 = *(v6 + 2400);
-            if (v28)
+            *(v6 + 2456) = _VideoReceiver_HandleStreamSwitch(a1, v4);
+            v19 = v4;
+            v20 = *(v11 + 8);
+            v21 = *(v11 + 12);
+            v94 = (v11 + 28);
+            _VideoReceiver_ProcessReceptionReportBlock(*(v19 + 48), *v11 & 0x1F, (v11 + 28), *a3);
+            v23 = *(v6 + 2400);
+            if (v23)
             {
-              v29 = NTPToMicro(v27 | (v26 << 32));
-              VCMediaStreamSynchronizer_updateDestinationNTPTime(v28, *(v11 + 16), v29);
+              v24 = NTPToMicro(v21 | (v20 << 32), v22);
+              VCMediaStreamSynchronizer_updateDestinationNTPTime(v23, *(v11 + 16), v24);
             }
 
             goto LABEL_73;
@@ -7480,82 +7556,82 @@ void _VideoReceiver_ProcessVideoRTCPInternal(uint64_t a1, uint64_t a2, uint64_t 
     {
       if (v12 == 205)
       {
-        if (*(v6 + 2416) < 0.2 && (RTPRexmitRTP(*(a2 + 48), *(v11 + 12), *(v11 + 14), &v99) & 0x80000000) == 0)
+        if (*(v6 + 2416) < 0.2 && (RTPRexmitRTP(*(v4 + 48), *(v11 + 12), *(v11 + 14), &v98) & 0x80000000) == 0)
         {
-          VideoTransmitter_AddRexmitBytes(*v6, v99);
+          VideoTransmitter_AddRexmitBytes(*v6, v98);
         }
 
-        v46 = *(v11 + 2);
-        if (v46 >= 3)
+        v41 = *(v11 + 2);
+        if (v41 >= 3)
         {
-          v47 = (v46 - 2);
-          v48 = (v11 + 14);
+          v42 = (v41 - 2);
+          v43 = (v11 + 14);
           do
           {
-            if ((VideoTransmitter_RetransmitPackets(v8, *v6, *(v11 + 8), *(v48 - 1), *v48) & 0x80000000) != 0 && VRTraceGetErrorLogLevelForModule() >= 8)
+            if ((VideoTransmitter_RetransmitPackets(*v6, *(v11 + 8), *(v43 - 1), *v43, v8) & 0x80000000) != 0 && VRTraceGetErrorLogLevelForModule() >= 8)
             {
-              v49 = VRTraceErrorLogLevelToCSTR();
-              v50 = *MEMORY[0x1E6986650];
-              v51 = *MEMORY[0x1E6986650];
+              v44 = VRTraceErrorLogLevelToCSTR();
+              v45 = *MEMORY[0x1E6986650];
+              v46 = *MEMORY[0x1E6986650];
               if (*MEMORY[0x1E6986640] == 1)
               {
-                if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+                if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
                 {
-                  v52 = *(v11 + 8);
-                  v53 = *(v48 - 1);
-                  v54 = *v48;
+                  v47 = *(v11 + 8);
+                  v48 = *(v43 - 1);
+                  v49 = *v43;
                   *buf = 136316930;
-                  *&buf[4] = v49;
+                  *&buf[4] = v44;
                   *&buf[12] = 2080;
                   *&buf[14] = "_VideoReceiver_ProcessVideoRTCPNACKPacket";
                   *&buf[22] = 1024;
-                  v108 = 4860;
-                  LOWORD(v109[0]) = 2048;
-                  *(v109 + 2) = a1;
-                  WORD1(v109[1]) = 1024;
-                  HIDWORD(v109[1]) = v52;
-                  LOWORD(v109[2]) = 1024;
-                  *(&v109[2] + 2) = v53;
-                  HIWORD(v109[2]) = 1024;
-                  LODWORD(v109[3]) = v54;
-                  WORD2(v109[3]) = 2048;
-                  *(&v109[3] + 6) = v8;
-                  _os_log_impl(&dword_1DB56E000, v50, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] VRTCP: Failed to retransmit packets ssrc=%u, firstSequenceNumber=%u, bitmask=%u, currentTime=%f", buf, 0x42u);
+                  v107 = 4860;
+                  LOWORD(v108[0]) = 2048;
+                  *(v108 + 2) = a1;
+                  WORD1(v108[1]) = 1024;
+                  HIDWORD(v108[1]) = v47;
+                  LOWORD(v108[2]) = 1024;
+                  *(&v108[2] + 2) = v48;
+                  HIWORD(v108[2]) = 1024;
+                  LODWORD(v108[3]) = v49;
+                  WORD2(v108[3]) = 2048;
+                  *(&v108[3] + 6) = v8;
+                  _os_log_impl(&dword_1DB56E000, v45, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] VRTCP: Failed to retransmit packets ssrc=%u, firstSequenceNumber=%u, bitmask=%u, currentTime=%f", buf, 0x42u);
                 }
               }
 
-              else if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+              else if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
               {
-                v55 = *(v11 + 8);
-                v56 = *(v48 - 1);
-                v57 = *v48;
+                v50 = *(v11 + 8);
+                v51 = *(v43 - 1);
+                v52 = *v43;
                 *buf = 136316930;
-                *&buf[4] = v49;
+                *&buf[4] = v44;
                 *&buf[12] = 2080;
                 *&buf[14] = "_VideoReceiver_ProcessVideoRTCPNACKPacket";
                 *&buf[22] = 1024;
-                v108 = 4860;
-                LOWORD(v109[0]) = 2048;
-                *(v109 + 2) = a1;
-                WORD1(v109[1]) = 1024;
-                HIDWORD(v109[1]) = v55;
-                LOWORD(v109[2]) = 1024;
-                *(&v109[2] + 2) = v56;
-                HIWORD(v109[2]) = 1024;
-                LODWORD(v109[3]) = v57;
-                WORD2(v109[3]) = 2048;
-                *(&v109[3] + 6) = v8;
-                _os_log_debug_impl(&dword_1DB56E000, v50, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] VRTCP: Failed to retransmit packets ssrc=%u, firstSequenceNumber=%u, bitmask=%u, currentTime=%f", buf, 0x42u);
+                v107 = 4860;
+                LOWORD(v108[0]) = 2048;
+                *(v108 + 2) = a1;
+                WORD1(v108[1]) = 1024;
+                HIDWORD(v108[1]) = v50;
+                LOWORD(v108[2]) = 1024;
+                *(&v108[2] + 2) = v51;
+                HIWORD(v108[2]) = 1024;
+                LODWORD(v108[3]) = v52;
+                WORD2(v108[3]) = 2048;
+                *(&v108[3] + 6) = v8;
+                _os_log_debug_impl(&dword_1DB56E000, v45, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] VRTCP: Failed to retransmit packets ssrc=%u, firstSequenceNumber=%u, bitmask=%u, currentTime=%f", buf, 0x42u);
               }
             }
 
-            v48 += 2;
-            --v47;
+            v43 += 2;
+            --v42;
           }
 
-          while (v47);
+          while (v42);
 LABEL_73:
-          a2 = v96;
+          v4 = v95;
         }
       }
 
@@ -7566,12 +7642,12 @@ LABEL_73:
           goto LABEL_74;
         }
 
-        LODWORD(v101) = 0;
-        v100 = 0uLL;
-        v30 = *(v11 + 12);
-        if (v30 != 6)
+        LODWORD(v100) = 0;
+        v99 = 0uLL;
+        v25 = *(v11 + 12);
+        if (v25 != 6)
         {
-          if (v30 == 5)
+          if (v25 == 5)
           {
             v14 = a1;
             v15 = v11;
@@ -7581,145 +7657,151 @@ LABEL_24:
             goto LABEL_74;
           }
 
-          v73 = (*v11 & 0x1F) == 2;
-          v74 = *(a1 + 1392);
+          v72 = (*v11 & 0x1F) == 2;
+          v73 = *(a1 + 1392);
           Mutable = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
           if (Mutable)
           {
-            v76 = Mutable;
-            v77 = *(a1 + 1376);
-            if (v77)
+            v75 = Mutable;
+            v76 = *(a1 + 1376);
+            if (v76)
             {
-              CFDictionaryAddValue(Mutable, @"VCSPUUID", v77);
+              CFDictionaryAddValue(Mutable, @"VCSPUUID", v76);
             }
 
-            *buf = v74;
-            v78 = CFNumberCreate(allocator, kCFNumberIntType, buf);
-            CFDictionaryAddValue(v76, @"VCASStreamIDs", v78);
-            CFRelease(v78);
+            *buf = v73;
+            v77 = CFNumberCreate(allocator, kCFNumberIntType, buf);
+            CFDictionaryAddValue(v75, @"VCASStreamIDs", v77);
+            CFRelease(v77);
             reportingVideoStreamEvent();
-            CFRelease(v76);
+            CFRelease(v75);
           }
 
           else if (VRTraceGetErrorLogLevelForModule() >= 3)
           {
-            v84 = VRTraceErrorLogLevelToCSTR();
-            v85 = *MEMORY[0x1E6986650];
+            v83 = VRTraceErrorLogLevelToCSTR();
+            v84 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
             {
               *buf = 136315650;
-              *&buf[4] = v84;
+              *&buf[4] = v83;
               *&buf[12] = 2080;
               *&buf[14] = "_VideoReceiver_ReportFIRFBReceived";
               *&buf[22] = 1024;
-              v108 = 4809;
-              _os_log_error_impl(&dword_1DB56E000, v85, OS_LOG_TYPE_ERROR, "VideoReceiver [%s] %s:%d Failed to create reporting dictionary", buf, 0x1Cu);
+              v107 = 4809;
+              _os_log_error_impl(&dword_1DB56E000, v84, OS_LOG_TYPE_ERROR, "VideoReceiver [%s] %s:%d Failed to create reporting dictionary", buf, 0x1Cu);
             }
           }
 
-          VideoTransmitter_GenerateKeyFrameNow(*v6, *(v11 + 4), &v100, (2 * v73), 1, 1, 2 * v73);
+          VideoTransmitter_GenerateKeyFrameNow(*v6, *(v11 + 4), &v99, (2 * v72), 1, 1, 2 * v72);
           goto LABEL_73;
         }
 
-        v67 = *(v11 + 16);
-        v68 = *(v11 + 20);
-        v69 = *(v11 + 22);
-        v70 = *(v11 + 23);
-        if (VRTraceGetErrorLogLevelForModule() >= 8)
+        v64 = *(v11 + 16);
+        v65 = *(v11 + 20);
+        v66 = *(v11 + 22);
+        v67 = *(v11 + 23);
+        ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+        if (ErrorLogLevelForModule >= 8)
         {
-          v92 = VRTraceErrorLogLevelToCSTR();
+          v91 = VRTraceErrorLogLevelToCSTR();
+          v70 = *MEMORY[0x1E6986650];
           v71 = *MEMORY[0x1E6986650];
-          v72 = *MEMORY[0x1E6986650];
           if (*MEMORY[0x1E6986640] == 1)
           {
-            if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+            ErrorLogLevelForModule = os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT);
+            if (ErrorLogLevelForModule)
             {
               *buf = 136316674;
-              *&buf[4] = v92;
+              *&buf[4] = v91;
               *&buf[12] = 2080;
               *&buf[14] = "_VideoReceiver_ProcessRtcpLossFeedback";
               *&buf[22] = 1024;
-              v108 = 4796;
-              LOWORD(v109[0]) = 1024;
-              *(v109 + 2) = v67;
-              HIWORD(v109[0]) = 1024;
-              LODWORD(v109[1]) = v68;
-              WORD2(v109[1]) = 1024;
-              *(&v109[1] + 6) = v69;
-              WORD1(v109[2]) = 1024;
-              HIDWORD(v109[2]) = v70;
-              _os_log_impl(&dword_1DB56E000, v71, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d RTCP received loss feedback: frameRTPTimestamp=%u, numReceivedPackets=%u, frameSize=%u, numLostPackets=%u", buf, 0x34u);
+              v107 = 4796;
+              LOWORD(v108[0]) = 1024;
+              *(v108 + 2) = v64;
+              HIWORD(v108[0]) = 1024;
+              LODWORD(v108[1]) = v65;
+              WORD2(v108[1]) = 1024;
+              *(&v108[1] + 6) = v66;
+              WORD1(v108[2]) = 1024;
+              HIDWORD(v108[2]) = v67;
+              _os_log_impl(&dword_1DB56E000, v70, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d RTCP received loss feedback: frameRTPTimestamp=%u, numReceivedPackets=%u, frameSize=%u, numLostPackets=%u", buf, 0x34u);
             }
           }
 
-          else if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
+          else
           {
-            *buf = 136316674;
-            *&buf[4] = v92;
-            *&buf[12] = 2080;
-            *&buf[14] = "_VideoReceiver_ProcessRtcpLossFeedback";
-            *&buf[22] = 1024;
-            v108 = 4796;
-            LOWORD(v109[0]) = 1024;
-            *(v109 + 2) = v67;
-            HIWORD(v109[0]) = 1024;
-            LODWORD(v109[1]) = v68;
-            WORD2(v109[1]) = 1024;
-            *(&v109[1] + 6) = v69;
-            WORD1(v109[2]) = 1024;
-            HIDWORD(v109[2]) = v70;
-            _os_log_debug_impl(&dword_1DB56E000, v71, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d RTCP received loss feedback: frameRTPTimestamp=%u, numReceivedPackets=%u, frameSize=%u, numLostPackets=%u", buf, 0x34u);
+            ErrorLogLevelForModule = os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG);
+            if (ErrorLogLevelForModule)
+            {
+              *buf = 136316674;
+              *&buf[4] = v91;
+              *&buf[12] = 2080;
+              *&buf[14] = "_VideoReceiver_ProcessRtcpLossFeedback";
+              *&buf[22] = 1024;
+              v107 = 4796;
+              LOWORD(v108[0]) = 1024;
+              *(v108 + 2) = v64;
+              HIWORD(v108[0]) = 1024;
+              LODWORD(v108[1]) = v65;
+              WORD2(v108[1]) = 1024;
+              *(&v108[1] + 6) = v66;
+              WORD1(v108[2]) = 1024;
+              HIDWORD(v108[2]) = v67;
+              _os_log_debug_impl(&dword_1DB56E000, v70, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d RTCP received loss feedback: frameRTPTimestamp=%u, numReceivedPackets=%u, frameSize=%u, numLostPackets=%u", buf, 0x34u);
+            }
           }
         }
 
-        v79 = micro();
-        v80 = *(v6 + 2224);
+        v78 = micro(ErrorLogLevelForModule, v69);
+        v79 = *(v6 + 2224);
         *buf = 13;
-        *&buf[8] = v79;
+        *&buf[8] = v78;
         *&buf[16] = 0;
         buf[18] = 1;
         *&buf[19] = 0;
         buf[23] = 0;
-        v108 = v67;
-        LOWORD(v109[0]) = v68;
-        BYTE2(v109[0]) = v69;
-        BYTE3(v109[0]) = v70;
-        memset(v109 + 4, 0, 48);
-        memset(&v109[6] + 4, 0, 120);
-        VCRateControlSetStatistics(v80, buf);
-        a2 = v96;
+        v107 = v64;
+        LOWORD(v108[0]) = v65;
+        BYTE2(v108[0]) = v66;
+        BYTE3(v108[0]) = v67;
+        memset(v108 + 4, 0, 48);
+        memset(&v108[6] + 4, 0, 120);
+        VCRateControlSetStatistics(v79, buf);
+        v4 = v95;
         if (VRTraceGetErrorLogLevelForModule() >= 8)
         {
-          v81 = VRTraceErrorLogLevelToCSTR();
+          v80 = VRTraceErrorLogLevelToCSTR();
+          v81 = *MEMORY[0x1E6986650];
           v82 = *MEMORY[0x1E6986650];
-          v83 = *MEMORY[0x1E6986650];
           if (*MEMORY[0x1E6986640] == 1)
           {
-            if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315906;
-              *&buf[4] = v81;
+              *&buf[4] = v80;
               *&buf[12] = 2080;
               *&buf[14] = "_VideoReceiver_ProcessRtcpPSFBPacket";
               *&buf[22] = 1024;
-              v108 = 4841;
-              LOWORD(v109[0]) = 2048;
-              *(v109 + 2) = a1;
-              _os_log_impl(&dword_1DB56E000, v82, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Received PSFB LOSS FB", buf, 0x26u);
+              v107 = 4841;
+              LOWORD(v108[0]) = 2048;
+              *(v108 + 2) = a1;
+              _os_log_impl(&dword_1DB56E000, v81, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Received PSFB LOSS FB", buf, 0x26u);
             }
           }
 
-          else if (os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
+          else if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315906;
-            *&buf[4] = v81;
+            *&buf[4] = v80;
             *&buf[12] = 2080;
             *&buf[14] = "_VideoReceiver_ProcessRtcpPSFBPacket";
             *&buf[22] = 1024;
-            v108 = 4841;
-            LOWORD(v109[0]) = 2048;
-            *(v109 + 2) = a1;
-            _os_log_debug_impl(&dword_1DB56E000, v82, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Received PSFB LOSS FB", buf, 0x26u);
+            v107 = 4841;
+            LOWORD(v108[0]) = 2048;
+            *(v108 + 2) = a1;
+            _os_log_debug_impl(&dword_1DB56E000, v81, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Received PSFB LOSS FB", buf, 0x26u);
           }
         }
       }
@@ -7729,24 +7811,24 @@ LABEL_24:
     {
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v42 = VRTraceErrorLogLevelToCSTR();
-        v43 = *MEMORY[0x1E6986650];
+        v37 = VRTraceErrorLogLevelToCSTR();
+        v38 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          *&buf[4] = v42;
+          *&buf[4] = v37;
           *&buf[12] = 2080;
           *&buf[14] = "_VideoReceiver_ProcessVideoRTCPInternal";
           *&buf[22] = 1024;
-          v108 = 4883;
-          _os_log_impl(&dword_1DB56E000, v43, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d Received RTCP RR", buf, 0x1Cu);
+          v107 = 4883;
+          _os_log_impl(&dword_1DB56E000, v38, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d Received RTCP RR", buf, 0x1Cu);
         }
       }
 
-      v45 = *v11;
-      v44 = (v11 + 8);
-      _VideoReceiver_ProcessReceptionReportBlock(*(a2 + 48), v45 & 0x1F, v44, *a3);
-      v95 = v44;
+      v40 = *v11;
+      v39 = (v11 + 8);
+      _VideoReceiver_ProcessReceptionReportBlock(*(v4 + 48), v40 & 0x1F, v39, *a3);
+      v94 = v39;
     }
 
     else
@@ -7770,98 +7852,98 @@ LABEL_24:
         goto LABEL_24;
       }
 
-      v104 = -1431655766;
-      *&v103 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v103 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v58 = *(v11 + 12);
-      v104 = *(v11 + 28);
-      v103 = v58;
-      v102 = 0;
+      v103 = -1431655766;
+      *&v102 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v102 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v53 = *(v11 + 12);
+      v103 = *(v11 + 28);
+      v102 = v53;
+      v101 = 0;
+      v99 = 0u;
       v100 = 0u;
-      v101 = 0u;
-      v98 = 0;
-      v97 = 16843010;
-      VCMediaControlInfoUnserializeWithData(&v100, &v103, 0x14uLL, &v97);
-      v59 = *(v11 + 4);
-      v60 = micro();
-      v61 = WORD4(v101);
-      v62 = RTPUnpackDouble(HIDWORD(v101));
-      v63 = *(v6 + 2224);
+      v97 = 0;
+      v96 = 16843010;
+      v54 = VCMediaControlInfoUnserializeWithData(&v99, &v102, 0x14uLL, &v96);
+      v55 = *(v11 + 4);
+      v57 = micro(v54, v56);
+      v58 = WORD4(v100);
+      v59 = RTPUnpackDouble(HIDWORD(v100));
+      v60 = *(v6 + 2224);
       *buf = 2;
-      *&buf[8] = v60;
+      *&buf[8] = v57;
       *&buf[16] = 0;
       buf[18] = 1;
       *&buf[19] = 0;
       buf[23] = 0;
-      v108 = v61;
-      a2 = v96;
-      LODWORD(v109[0]) = DWORD1(v101);
-      HIDWORD(v109[0]) = WORD1(v100);
-      LODWORD(v109[1]) = 0;
-      HIDWORD(v109[2]) = 0;
-      LODWORD(v109[3]) = 0;
-      *(&v109[1] + 4) = WORD2(v100);
-      HIDWORD(v109[3]) = WORD3(v100);
-      v109[4] = 0;
-      LODWORD(v109[6]) = 0;
-      *(&v109[6] + 4) = v62;
-      memset(&v109[7] + 4, 0, 96);
-      *&v109[19] = 0u;
-      v109[5] = v100;
-      LODWORD(v109[21]) = v59;
-      VCRateControlSetStatistics(v63, buf);
+      v107 = v58;
+      v4 = v95;
+      LODWORD(v108[0]) = DWORD1(v100);
+      HIDWORD(v108[0]) = WORD1(v99);
+      LODWORD(v108[1]) = 0;
+      HIDWORD(v108[2]) = 0;
+      LODWORD(v108[3]) = 0;
+      *(&v108[1] + 4) = WORD2(v99);
+      HIDWORD(v108[3]) = WORD3(v99);
+      v108[4] = 0;
+      LODWORD(v108[6]) = 0;
+      *(&v108[6] + 4) = v59;
+      memset(&v108[7] + 4, 0, 96);
+      *&v108[19] = 0u;
+      v108[5] = v99;
+      LODWORD(v108[21]) = v55;
+      VCRateControlSetStatistics(v60, buf);
       if (VRTraceGetErrorLogLevelForModule() >= 8)
       {
-        v64 = VRTraceErrorLogLevelToCSTR();
-        v65 = *MEMORY[0x1E6986650];
-        v66 = *MEMORY[0x1E6986650];
+        v61 = VRTraceErrorLogLevelToCSTR();
+        v62 = *MEMORY[0x1E6986650];
+        v63 = *MEMORY[0x1E6986650];
         if (*MEMORY[0x1E6986640] == 1)
         {
-          if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136316930;
-            *&buf[4] = v64;
+            *&buf[4] = v61;
             *&buf[12] = 2080;
             *&buf[14] = "_VideoReceiver_ProcessVideoRTCPInternal";
             *&buf[22] = 1024;
-            v108 = 4914;
-            LOWORD(v109[0]) = 2048;
-            *(v109 + 2) = a1;
-            WORD1(v109[1]) = 1024;
-            HIDWORD(v109[1]) = HIDWORD(v101);
-            LOWORD(v109[2]) = 1024;
-            *(&v109[2] + 2) = WORD1(v100);
-            HIWORD(v109[2]) = 1024;
-            LODWORD(v109[3]) = WORD2(v100);
-            WORD2(v109[3]) = 1024;
-            *(&v109[3] + 6) = v101;
-            _os_log_impl(&dword_1DB56E000, v65, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Received APP_RTCL with owrd:%u, BWE:%u, burstyLoss:%u, JQSize:%u", buf, 0x3Eu);
+            v107 = 4914;
+            LOWORD(v108[0]) = 2048;
+            *(v108 + 2) = a1;
+            WORD1(v108[1]) = 1024;
+            HIDWORD(v108[1]) = HIDWORD(v100);
+            LOWORD(v108[2]) = 1024;
+            *(&v108[2] + 2) = WORD1(v99);
+            HIWORD(v108[2]) = 1024;
+            LODWORD(v108[3]) = WORD2(v99);
+            WORD2(v108[3]) = 1024;
+            *(&v108[3] + 6) = v100;
+            _os_log_impl(&dword_1DB56E000, v62, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Received APP_RTCL with owrd:%u, BWE:%u, burstyLoss:%u, JQSize:%u", buf, 0x3Eu);
           }
         }
 
-        else if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
+        else if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136316930;
-          *&buf[4] = v64;
+          *&buf[4] = v61;
           *&buf[12] = 2080;
           *&buf[14] = "_VideoReceiver_ProcessVideoRTCPInternal";
           *&buf[22] = 1024;
-          v108 = 4914;
-          LOWORD(v109[0]) = 2048;
-          *(v109 + 2) = a1;
-          WORD1(v109[1]) = 1024;
-          HIDWORD(v109[1]) = HIDWORD(v101);
-          LOWORD(v109[2]) = 1024;
-          *(&v109[2] + 2) = WORD1(v100);
-          HIWORD(v109[2]) = 1024;
-          LODWORD(v109[3]) = WORD2(v100);
-          WORD2(v109[3]) = 1024;
-          *(&v109[3] + 6) = v101;
-          _os_log_debug_impl(&dword_1DB56E000, v65, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Received APP_RTCL with owrd:%u, BWE:%u, burstyLoss:%u, JQSize:%u", buf, 0x3Eu);
+          v107 = 4914;
+          LOWORD(v108[0]) = 2048;
+          *(v108 + 2) = a1;
+          WORD1(v108[1]) = 1024;
+          HIDWORD(v108[1]) = HIDWORD(v100);
+          LOWORD(v108[2]) = 1024;
+          *(&v108[2] + 2) = WORD1(v99);
+          HIWORD(v108[2]) = 1024;
+          LODWORD(v108[3]) = WORD2(v99);
+          WORD2(v108[3]) = 1024;
+          *(&v108[3] + 6) = v100;
+          _os_log_debug_impl(&dword_1DB56E000, v62, OS_LOG_TYPE_DEBUG, "VideoReceiver [%s] %s:%d VideoReceiver[%p] Received APP_RTCL with owrd:%u, BWE:%u, burstyLoss:%u, JQSize:%u", buf, 0x3Eu);
         }
       }
 
-      VideoTransmitter_SetPacketExpirationTime(*v6, v101);
+      VideoTransmitter_SetPacketExpirationTime(*v6, v100);
     }
 
 LABEL_74:
@@ -7869,38 +7951,38 @@ LABEL_74:
   }
 
   while (v9 < *(a3 + 8));
-  if (v95)
+  if (v94)
   {
-    VideoTransmitter_SetVideoLossFraction(*v6, *(v95 + 4));
+    VideoTransmitter_SetVideoLossFraction(*v6, *(v94 + 4));
     if (VRTraceGetErrorLogLevelForModule() >= 6)
     {
-      v86 = VRTraceErrorLogLevelToCSTR();
-      v87 = *MEMORY[0x1E6986650];
+      v85 = VRTraceErrorLogLevelToCSTR();
+      v86 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v88 = v95[1];
-        v89 = v95[1] >> 8;
-        v90 = v95[3];
-        v91 = *(v6 + 2416);
+        v87 = v94[1];
+        v88 = v94[1] >> 8;
+        v89 = v94[3];
+        v90 = *(v6 + 2416);
         *buf = 136317186;
-        *&buf[4] = v86;
+        *&buf[4] = v85;
         *&buf[12] = 2080;
         *&buf[14] = "_VideoReceiver_ProcessVideoRTCPInternal";
         *&buf[22] = 1024;
-        v108 = 4973;
-        LOWORD(v109[0]) = 2048;
-        *(v109 + 2) = a1;
-        WORD1(v109[1]) = 1024;
-        HIDWORD(v109[1]) = v88;
-        LOWORD(v109[2]) = 1024;
-        *(&v109[2] + 2) = v89;
-        HIWORD(v109[2]) = 2048;
-        v109[3] = v90;
-        LOWORD(v109[4]) = 2048;
-        *(&v109[4] + 2) = v91;
-        WORD1(v109[5]) = 1024;
-        HIDWORD(v109[5]) = v94;
-        _os_log_impl(&dword_1DB56E000, v87, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] VRTCP: Fraction=%03d, Lost=%d, Jitter=%lu, RTT=%.3f, FIR=%d", buf, 0x4Cu);
+        v107 = 4973;
+        LOWORD(v108[0]) = 2048;
+        *(v108 + 2) = a1;
+        WORD1(v108[1]) = 1024;
+        HIDWORD(v108[1]) = v87;
+        LOWORD(v108[2]) = 1024;
+        *(&v108[2] + 2) = v88;
+        HIWORD(v108[2]) = 2048;
+        v108[3] = v89;
+        LOWORD(v108[4]) = 2048;
+        *(&v108[4] + 2) = v90;
+        WORD1(v108[5]) = 1024;
+        HIDWORD(v108[5]) = v93;
+        _os_log_impl(&dword_1DB56E000, v86, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] VRTCP: Fraction=%03d, Lost=%d, Jitter=%lu, RTT=%.3f, FIR=%d", buf, 0x4Cu);
       }
     }
   }
@@ -8068,8 +8150,8 @@ LABEL_16:
 
 void _VideoReceiver_CompleteStreamSwitch(unsigned int *a1, uint64_t a2)
 {
-  v64 = *MEMORY[0x1E69E9840];
-  v4 = (a1 + 10220);
+  v65 = *MEMORY[0x1E69E9840];
+  v4 = a1 + 10220;
   v5 = *(a1 + 157);
   if (v5)
   {
@@ -8137,13 +8219,13 @@ LABEL_23:
           }
 
           *buf = 136315906;
-          v49 = v21;
-          v50 = 2080;
-          v51 = "_VideoReceiver_ResetNonTargetStreams";
-          v52 = 1024;
-          v53 = 4497;
-          v54 = 2048;
-          v55 = a1;
+          v50 = v21;
+          v51 = 2080;
+          v52 = "_VideoReceiver_ResetNonTargetStreams";
+          v53 = 1024;
+          v54 = 4497;
+          v55 = 2048;
+          v56 = a1;
           v23 = v22;
           v24 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] resetting 1:1 stream";
           v25 = 38;
@@ -8168,15 +8250,15 @@ LABEL_23:
 
           LODWORD(_X8) = *v12;
           *buf = 136316162;
-          v49 = v26;
-          v50 = 2080;
-          v51 = "_VideoReceiver_ResetNonTargetStreams";
-          v52 = 1024;
-          v53 = 4499;
-          v54 = 2048;
-          v55 = a1;
-          v56 = 1024;
-          LODWORD(v57) = _X8;
+          v50 = v26;
+          v51 = 2080;
+          v52 = "_VideoReceiver_ResetNonTargetStreams";
+          v53 = 1024;
+          v54 = 4499;
+          v55 = 2048;
+          v56 = a1;
+          v57 = 1024;
+          LODWORD(v58) = _X8;
           v23 = v27;
           v24 = "VideoReceiver [%s] %s:%d VideoReceiver[%p] resetting non target stream %d";
           v25 = 44;
@@ -8184,15 +8266,16 @@ LABEL_23:
 
         _os_log_impl(&dword_1DB56E000, v23, OS_LOG_TYPE_DEFAULT, v24, buf, v25);
 LABEL_20:
+        v30 = &a1[v9];
         if (*&a1[v9 + 456])
         {
           pthread_mutex_lock((a1 + 10564));
-          VideoPacketBuffer_NeedRefreshFrame(*&a1[v9 + 456], 1, 1, 0x18u);
+          VideoPacketBuffer_NeedRefreshFrame(*(v30 + 228), 1, 1, 0x18u);
           pthread_mutex_unlock((a1 + 10564));
         }
 
         *(v4 + 2504) = 1;
-        RTPResetHandle();
+        RTPResetHandle(*(v30 + 218));
         v8 = *a1;
         a2 = v13;
         goto LABEL_23;
@@ -8203,86 +8286,86 @@ LABEL_20:
 LABEL_24:
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v30 = VRTraceErrorLogLevelToCSTR();
-    v31 = *MEMORY[0x1E6986650];
+    v31 = VRTraceErrorLogLevelToCSTR();
+    v32 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v32 = *(a1 + 162);
-      v33 = *v4;
-      v34 = v4[4];
-      v35 = v4[6];
+      v33 = *(a1 + 162);
+      v34 = *v4;
+      v35 = *(v4 + 4);
+      v36 = *(v4 + 6);
       *buf = 136316930;
-      v49 = v30;
-      v50 = 2080;
-      v51 = "_VideoReceiver_UpdateStreamSwitchContextForCurrentStream";
-      v52 = 1024;
-      v53 = 4520;
-      v54 = 2048;
-      v55 = a1;
-      v56 = 2048;
-      v57 = v32;
-      v58 = 1024;
-      v59 = v33;
-      v60 = 1024;
-      v61 = v34;
-      v62 = 1024;
-      v63 = v35;
-      _os_log_impl(&dword_1DB56E000, v31, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] participantId[%llu]: Stream switch completed from (%d), to (%d). New baseStreamID is (%d)", buf, 0x42u);
+      v50 = v31;
+      v51 = 2080;
+      v52 = "_VideoReceiver_UpdateStreamSwitchContextForCurrentStream";
+      v53 = 1024;
+      v54 = 4520;
+      v55 = 2048;
+      v56 = a1;
+      v57 = 2048;
+      v58 = v33;
+      v59 = 1024;
+      v60 = v34;
+      v61 = 1024;
+      v62 = v35;
+      v63 = 1024;
+      v64 = v36;
+      _os_log_impl(&dword_1DB56E000, v32, OS_LOG_TYPE_DEFAULT, "VideoReceiver [%s] %s:%d VideoReceiver[%p] participantId[%llu]: Stream switch completed from (%d), to (%d). New baseStreamID is (%d)", buf, 0x42u);
     }
   }
 
-  *v4 = v4[4];
-  *(v4 + 1) = *(v4 + 5);
+  *v4 = *(v4 + 4);
+  *(v4 + 2) = *(v4 + 10);
   *(v4 + 6) = 1;
   if (a2)
   {
-    v36 = *(a2 + 8);
-    if (!v36)
+    v37 = *(a2 + 8);
+    if (!v37)
     {
       goto LABEL_42;
     }
 
-    v37 = WORD1(*v4);
-    v38 = *v4;
-    v39 = (a2 + 30);
-    v40 = 1;
-    v41 = *(a2 + 8);
-    v42 = 1;
+    v38 = WORD1(*v4);
+    v39 = *v4;
+    v40 = (a2 + 30);
+    v41 = 1;
+    v42 = *(a2 + 8);
+    v43 = 1;
     do
     {
       if ((*v4 & 0x1000000000000) != 0)
       {
-        v43 = *(v39 - 9);
-        if (v43 == v38 || v37 == v43)
+        v44 = *(v40 - 9);
+        if (v44 == v39 || v38 == v44)
         {
           break;
         }
 
-        v45 = *v39;
-        if (v45 == v38 || v37 == v45)
+        v46 = *v40;
+        if (v46 == v39 || v38 == v46)
         {
           break;
         }
       }
 
-      v42 = v40++ < v36;
-      ++v39;
-      --v41;
+      v43 = v41++ < v37;
+      ++v40;
+      --v42;
     }
 
-    while (v41);
-    if (v42)
+    while (v42);
+    if (v43)
     {
-      v47 = 1;
+      v48 = 1;
     }
 
     else
     {
 LABEL_42:
-      v47 = 0;
+      v48 = 0;
     }
 
-    RTPIgnorePacketLossAccounting(*(a2 + 48), v47);
+    RTPIgnorePacketLossAccounting(*(a2 + 48), v48);
     *(v4 + 3) = a2;
   }
 }
@@ -8309,26 +8392,29 @@ void OUTLINED_FUNCTION_32_2(float a1)
   *(v3 - 148) = 2080;
 }
 
-void OUTLINED_FUNCTION_12_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_12_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x22u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0x22u);
 }
 
-void OUTLINED_FUNCTION_21_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_21_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x1Cu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0x1Cu);
 }
 
-CMSimpleQueueRef *VCAudioIssueDetectorUtil_Create(int a1)
+CMSimpleQueueRef *VCAudioIssueDetectorUtil_Create(uint64_t a1)
 {
+  v1 = a1;
   v17 = *MEMORY[0x1E69E9840];
   v2 = malloc_type_calloc(1uLL, 0x4650uLL, 0x1020040E3657F74uLL);
   if (v2)
   {
     v3 = v2;
-    *(v2 + 4494) = a1;
+    *(v2 + 4494) = v1;
     v4 = CMSimpleQueueCreate(*MEMORY[0x1E695E480], 25, v2 + 2246);
     ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
     if (v4)
@@ -8353,7 +8439,7 @@ CMSimpleQueueRef *VCAudioIssueDetectorUtil_Create(int a1)
           v13 = 1024;
           v14 = 1521;
           v15 = 1024;
-          v16 = a1;
+          v16 = v1;
           _os_log_impl(&dword_1DB56E000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Audio issue detector created for direction=%d", v10, 0x22u);
         }
       }
@@ -8520,33 +8606,33 @@ void VCAudioIssueDetectorUtil_UpdateRATType(uint64_t a1, int a2)
   }
 }
 
-void VCAudioIssueDetectorUtil_ProcessCellularNetworkNotification(uint64_t a1, uint64_t a2)
+void VCAudioIssueDetectorUtil_ProcessCellularNetworkNotification(uint64_t result, uint64_t a2)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      v2 = (a1 + 14736);
+      v2 = (result + 14736);
       v3 = *(a2 + 4);
       if (!v3)
       {
-        if (*(a1 + 14737) != *(a2 + 60))
+        if (*(result + 14737) != *(a2 + 60))
         {
           *v2 = 0;
-          *(a1 + 14744) = 0;
-          *(a1 + 14752) = 0;
-          *(a1 + 14737) = *(a2 + 60);
+          *(result + 14744) = 0;
+          *(result + 14752) = 0;
+          *(result + 14737) = *(a2 + 60);
         }
 
-        *(a1 + 14738) = *(a2 + 61);
-        *(a1 + 14740) = *(a2 + 63);
-        *(a1 + 14742) = *(a2 + 65);
-        *(a1 + 14743) = *(a2 + 66);
-        *(a1 + 14744) = *(a2 + 67);
-        *(a1 + 14745) = *(a2 + 68) != 0;
-        *(a1 + 14746) = *(a2 + 69) != 0;
-        *(a1 + 14748) = *(a2 + 70);
-        *(a1 + 14750) = *(a2 + 74) != 0;
+        *(result + 14738) = *(a2 + 61);
+        *(result + 14740) = *(a2 + 63);
+        *(result + 14742) = *(a2 + 65);
+        *(result + 14743) = *(a2 + 66);
+        *(result + 14744) = *(a2 + 67);
+        *(result + 14745) = *(a2 + 68) != 0;
+        *(result + 14746) = *(a2 + 69) != 0;
+        *(result + 14748) = *(a2 + 70);
+        *(result + 14750) = *(a2 + 74) != 0;
         v3 = *(a2 + 4);
       }
 
@@ -8554,31 +8640,31 @@ void VCAudioIssueDetectorUtil_ProcessCellularNetworkNotification(uint64_t a1, ui
       {
         if (v3 == 5)
         {
-          *(a1 + 14737) = *(a2 + 8);
-          *(a1 + 14752) = *(a2 + 12);
-          *(a1 + 14750) = *(a2 + 74) != 0;
+          *(result + 14737) = *(a2 + 8);
+          *(result + 14752) = *(a2 + 12);
+          *(result + 14750) = *(a2 + 74) != 0;
         }
 
         else if (v3 == 4)
         {
-          *(a1 + 14748) = *(a2 + 10);
-          *(a1 + 14746) = *(a2 + 8) != 0;
+          *(result + 14748) = *(a2 + 10);
+          *(result + 14746) = *(a2 + 8) != 0;
         }
       }
 
       else if (v3 == 2)
       {
-        *(a1 + 14737) = *(a2 + 8);
-        *(a1 + 14742) = *(a2 + 16);
-        *(a1 + 14744) = *(a2 + 18);
-        *(a1 + 14738) = *(a2 + 12);
-        *(a1 + 14740) = *(a2 + 14);
-        *(a1 + 14743) = *(a2 + 17);
+        *(result + 14737) = *(a2 + 8);
+        *(result + 14742) = *(a2 + 16);
+        *(result + 14744) = *(a2 + 18);
+        *(result + 14738) = *(a2 + 12);
+        *(result + 14740) = *(a2 + 14);
+        *(result + 14743) = *(a2 + 17);
       }
 
       else if (v3 == 3)
       {
-        *(a1 + 14745) = *(a2 + 8) != 0;
+        *(result + 14745) = *(a2 + 8) != 0;
       }
 
       *v2 = 1;
@@ -8600,24 +8686,25 @@ void VCAudioIssueDetectorUtil_ProcessCellularNetworkNotification(uint64_t a1, ui
   }
 }
 
-void VCAudioIssueDetectorUtil_Finalize(int32x2_t **a1)
+void VCAudioIssueDetectorUtil_Finalize(int32x2_t **result)
 {
-  if (a1)
+  if (result)
   {
-    v2 = *a1;
+    v2 = *result;
     if (v2)
     {
       _VCAudioIssueDetectorUtil_StateMachine(v2, 5, 5, 0, 0.0);
     }
 
-    *a1 = 0;
+    *result = 0;
   }
 }
 
-void _VCAudioIssueDetectorUtil_StateMachine(int32x2_t *a1, int a2, int a3, unsigned int a4, float a5)
+void _VCAudioIssueDetectorUtil_StateMachine(int32x2_t *a1, uint64_t a2, uint64_t a3, unsigned int a4, float a5)
 {
+  v7 = a3;
   v8 = a1;
-  v15[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   if (a3 != 5)
   {
     v9 = a1->i32[1] + 1;
@@ -8642,21 +8729,21 @@ LABEL_51:
             _VCAudioIssueDetectorUtil_MonitorAndUpdateRmsSegmentStats(a1, 4, v13);
             _VCAudioIssueDetectorUtilFlushSilenceDistortionStats(v8);
             _VCAudioIssueDetectorUtil_StopZerosMonitoring(v8);
-            _VCAudioIssueDetectorUtil_FlushRmsStats(v8);
+            _VCAudioIssueDetectorUtil_FlushRmsStats(v8, v14);
             _VCAudioIssueDetectorUtil_ReportCallEndStatsIfNeeded(v8);
 
             VCAudioIssueDetectorUtil_FlushLogEvents(v8);
             return;
           }
 
-          v15[0] = a1;
+          v17[0] = a1;
           a1->i32[0] = 0;
-          v14 = 2;
+          v15 = 2;
 LABEL_60:
-          _VCAudioIssueDetectorUtil_MonitorAndUpdateRmsSegmentStats(a1, 5, v14);
+          _VCAudioIssueDetectorUtil_MonitorAndUpdateRmsSegmentStats(a1, 5, v15);
           _VCAudioIssueDetectorUtilFlushSilenceDistortionStats(v8);
           _VCAudioIssueDetectorUtil_StopZerosMonitoring(v8);
-          _VCAudioIssueDetectorUtil_FlushRmsStats(v8);
+          _VCAudioIssueDetectorUtil_FlushRmsStats(v8, v16);
           _VCAudioIssueDetectorUtil_ReportCallEndStatsIfNeeded(v8);
           VCAudioIssueDetectorUtil_FlushLogEvents(v8);
           goto LABEL_61;
@@ -8674,7 +8761,7 @@ LABEL_60:
         {
           a1->i32[0] = 3;
           _VCAudioIssueDetectorUtil_MonitorAndUpdateRmsSegmentStats(a1, 2, 2);
-          _VCAudioIssueDetectorUtil_UpdateAggregatedStats(v8, a3);
+          _VCAudioIssueDetectorUtil_UpdateAggregatedStats(v8, v7);
           _VCAudioIssueDetectorUtil_UpdateRmsStats(v8, a5);
 
           _VCAudioIssueDetectorUtilFlushSilenceDistortionStats(v8);
@@ -8683,18 +8770,18 @@ LABEL_60:
       }
 
       _VCAudioIssueDetectorUtil_UpdateAggregatedStats(a1, a3);
-      if (v8[2247].i32[0])
+      if (v8[4494])
       {
-        ++v8[19].i32[0];
-        if ((a3 & 0xFFFFFFFE) == 2)
+        ++v8[38];
+        if ((v7 & 0xFFFFFFFE) == 2)
         {
-          ++v8[19].i32[1];
+          ++v8[39];
         }
       }
 
       else
       {
-        ++v8[19].i16[0];
+        ++*(v8 + 76);
       }
     }
 
@@ -8720,14 +8807,14 @@ LABEL_20:
         if ((a2 - 2) < 2)
         {
           _VCAudioIssueDetectorUtil_UpdateAggregatedStats(a1, a3);
-          _VCAudioIssueDetectorUtil_MonitorContinuousSpeechDistortion(v8, a3);
+          _VCAudioIssueDetectorUtil_MonitorContinuousSpeechDistortion(v8, v7);
           _VCAudioIssueDetectorUtil_UpdateRmsStats(v8, a5);
           if (a4)
           {
-            v12 = v8[23].u16[1];
+            v12 = *(v8 + 93);
             if (v12 != a4 && (a4 > 0x960 || v12 <= 0x960))
             {
-              v8[23].i16[1] = a4;
+              *(v8 + 93) = a4;
             }
           }
 
@@ -8738,18 +8825,18 @@ LABEL_20:
         {
           _VCAudioIssueDetectorUtil_MonitorContinuousSpeechDistortion(a1, a3);
           _VCAudioIssueDetectorUtil_MonitorAverageSpeechDistortion(v8);
-          v8->i32[0] = 1;
+          *v8 = 1;
           a1 = v8;
           v13 = 3;
           goto LABEL_51;
         }
 
-        v15[0] = a1;
+        v17[0] = a1;
         _VCAudioIssueDetectorUtil_MonitorContinuousSpeechDistortion(a1, a3);
         _VCAudioIssueDetectorUtil_MonitorAverageSpeechDistortion(v8);
-        v8->i32[0] = 0;
+        *v8 = 0;
         a1 = v8;
-        v14 = 3;
+        v15 = 3;
         goto LABEL_60;
       }
 
@@ -8757,17 +8844,17 @@ LABEL_20:
       {
 LABEL_44:
         bzero(a1, 0x4630uLL);
-        v8[2].i32[1] = -956694528;
-        v8[4].i32[0] = -956694528;
-        v8[8].i32[1] = -956694528;
-        v8[10].i32[0] = -956694528;
+        v8[5] = -956694528;
+        v8[8] = -956694528;
+        v8[17] = -956694528;
+        v8[20] = -956694528;
         goto LABEL_45;
       }
 
       a1->i32[0] = 2;
       _VCAudioIssueDetectorUtil_MonitorAndUpdateRmsSegmentStats(a1, 1, 3);
-      _VCAudioIssueDetectorUtil_UpdateAggregatedStats(v8, a3);
-      _VCAudioIssueDetectorUtil_MonitorContinuousSpeechDistortion(v8, a3);
+      _VCAudioIssueDetectorUtil_UpdateAggregatedStats(v8, v7);
+      _VCAudioIssueDetectorUtil_MonitorContinuousSpeechDistortion(v8, v7);
       _VCAudioIssueDetectorUtil_MonitorAverageSpeechDistortion(v8);
     }
 
@@ -8779,7 +8866,7 @@ LABEL_44:
   {
     if (v10 == 1)
     {
-      v15[0] = a1;
+      v17[0] = a1;
       if (a2 > 1)
       {
         if (a2 == 2)
@@ -8806,7 +8893,7 @@ LABEL_55:
 
         _VCAudioIssueDetectorUtil_ReportCallEndStatsIfNeeded(a1);
 LABEL_61:
-        _VCAudioIssueDetectorUtilDeInit(v15);
+        _VCAudioIssueDetectorUtilDeInit(v17);
         return;
       }
 
@@ -8836,7 +8923,7 @@ LABEL_39:
     goto LABEL_20;
   }
 
-  v15[0] = a1;
+  v17[0] = a1;
   if (a2 == 5)
   {
     goto LABEL_61;
@@ -8847,7 +8934,7 @@ LABEL_39:
 LABEL_42:
     _VCAudioIssueDetectorUtil_InitAndUseLatestConfig(a1);
 LABEL_45:
-    v8->i32[0] = 1;
+    *v8 = 1;
     return;
   }
 
@@ -9592,81 +9679,4 @@ _DWORD *_VCAudioIssueDetectorUtil_UpdateAggregatedStats(_DWORD *result, int a2)
 
   ++result[v2];
   return result;
-}
-
-void _VCAudioIssueDetectorUtil_UpdateRmsStats(uint64_t a1, float a2)
-{
-  *(a1 + 140) = log10f(a2) * 20.0;
-  v4 = *(a1 + 17980);
-  *(a1 + 136) = v4;
-  *(a1 + 144) = *(a1 + 144) + ((a2 * a2) * v4);
-  *(a1 + 128) += v4;
-  if (a2 == 0.0)
-  {
-    v5 = *(a1 + 116);
-    if (v5 == 1)
-    {
-      *(a1 + 124) = *(a1 + 4) * *(a1 + 8) - *(a1 + 120);
-    }
-
-    else if (!v5)
-    {
-      v6 = *a1;
-      *(a1 + 120) = *(a1 + 4) * *(a1 + 8);
-      *(a1 + 112) = v6;
-      *(a1 + 116) = 1;
-    }
-  }
-
-  else
-  {
-    v7 = *a1;
-    _VCAudioIssueDetectorUtil_StopZerosMonitoring(a1);
-    if (v7 == 2)
-    {
-      v11 = *(a1 + 196);
-      *(a1 + 44) = v11;
-      v12 = *(a1 + 140);
-      v13 = *(a1 + 16);
-      if (v12 <= *(a1 + 20))
-      {
-        if (v12 < *(a1 + 24))
-        {
-          *(a1 + 24) = v12;
-        }
-      }
-
-      else
-      {
-        *(a1 + 20) = v12;
-      }
-
-      *(a1 + 16) = (v12 + (v13 * (v11 - 1))) / v11;
-    }
-
-    else if (v7 == 3)
-    {
-      v8 = *(a1 + 140);
-      if (v8 > -75.0)
-      {
-        v9 = *(a1 + 92) + 1;
-        *(a1 + 92) = v9;
-        v10 = *(a1 + 64);
-        if (v8 <= *(a1 + 68))
-        {
-          if (v8 < *(a1 + 72))
-          {
-            *(a1 + 72) = v8;
-          }
-        }
-
-        else
-        {
-          *(a1 + 68) = v8;
-        }
-
-        *(a1 + 64) = (v8 + (v10 * (v9 - 1))) / v9;
-      }
-    }
-  }
 }

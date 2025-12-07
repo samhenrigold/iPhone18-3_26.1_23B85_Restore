@@ -10,16 +10,16 @@
 
 - (WFWorkflowRunDescriptor)descriptor
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   descriptor = self->_descriptor;
   if (!descriptor)
   {
     v4 = MEMORY[0x1E696ACD0];
     v5 = objc_opt_class();
     descriptorData = self->_descriptorData;
-    v14 = 0;
-    v7 = [v4 unarchivedObjectOfClass:v5 fromData:descriptorData error:&v14];
-    v8 = v14;
+    v13 = 0;
+    v7 = [v4 unarchivedObjectOfClass:v5 fromData:descriptorData error:&v13];
+    v8 = v13;
     v9 = self->_descriptor;
     self->_descriptor = v7;
 
@@ -30,9 +30,9 @@
       {
         localizedDescription = [v8 localizedDescription];
         *buf = 136315394;
-        v16 = "[WFPausedShortcutData descriptor]";
-        v17 = 2112;
-        v18 = localizedDescription;
+        v15 = "[WFPausedShortcutData descriptor]";
+        v16 = 2112;
+        v17 = localizedDescription;
         _os_log_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_ERROR, "%s Unable to decode run descriptor: %@", buf, 0x16u);
       }
     }
@@ -40,23 +40,21 @@
     descriptor = self->_descriptor;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return descriptor;
 }
 
 - (WFWorkflowRunningContext)context
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   context = self->_context;
   if (!context)
   {
     v4 = MEMORY[0x1E696ACD0];
     v5 = objc_opt_class();
     contextData = self->_contextData;
-    v14 = 0;
-    v7 = [v4 unarchivedObjectOfClass:v5 fromData:contextData error:&v14];
-    v8 = v14;
+    v13 = 0;
+    v7 = [v4 unarchivedObjectOfClass:v5 fromData:contextData error:&v13];
+    v8 = v13;
     v9 = self->_context;
     self->_context = v7;
 
@@ -67,17 +65,15 @@
       {
         localizedDescription = [v8 localizedDescription];
         *buf = 136315394;
-        v16 = "[WFPausedShortcutData context]";
-        v17 = 2112;
-        v18 = localizedDescription;
+        v15 = "[WFPausedShortcutData context]";
+        v16 = 2112;
+        v17 = localizedDescription;
         _os_log_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_ERROR, "%s Unable to decode running context: %@", buf, 0x16u);
       }
     }
 
     context = self->_context;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return context;
 }

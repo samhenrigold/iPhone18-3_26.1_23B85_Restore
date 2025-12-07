@@ -3,8 +3,10 @@
 + (void)_resetGeneralDeviceStatisticToDefaults;
 + (void)_setupInitValuesForGeneralTransactionStatistics;
 + (void)postAnalyticsGeneralTransactionStatistics;
++ (void)postAnalyticsSetupEndpoints:(unsigned int)endpoints totalUnknowntoSE:(unsigned int)e;
 + (void)postDailyTagStatistics;
 + (void)postGeneralDeviceStatistics;
++ (void)postPlasticCardEnableStatus:(BOOL)status aid:(id)aid;
 + (void)updateAnalyticsGeneralTransactionStatistics:(id)statistics;
 + (void)updateDailyTagStatistic:(id)statistic;
 + (void)updateGeneralDeviceStatistic:(id)statistic;
@@ -63,32 +65,32 @@
 
 + (void)_setupInitValuesForGeneralTransactionStatistics
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(&unk_2843B4DA0, v3, &v16, v20, 16);
+  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(&unk_2843B4DA0, v3, &v15, v19, 16);
   if (v4)
   {
     v7 = v4;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(&unk_2843B4DA0);
         }
 
-        objc_msgSend_setObject_forKeyedSubscript_(v2, v5, &unk_2843B4C50, *(*(&v16 + 1) + 8 * v9++));
+        objc_msgSend_setObject_forKeyedSubscript_(v2, v5, &unk_2843B4C50, *(*(&v15 + 1) + 8 * v9++));
       }
 
       while (v7 != v9);
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(&unk_2843B4DA0, v5, &v16, v20, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(&unk_2843B4DA0, v5, &v15, v19, 16);
     }
 
     while (v7);
@@ -98,7 +100,6 @@
   v13 = objc_msgSend_getCALoggerUserDefaults(v10, v11, v12);
 
   objc_msgSend_setObject_forKey_(v13, v14, v2, @"com.apple.nfcd.generalTransactionStatistic");
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)updateGeneralDeviceStatistic:(id)statistic
@@ -196,6 +197,48 @@
     objc_msgSend_setObject_forKey_(v26, v23, v6, @"com.apple.nfcd.generalDeviceStatistic");
     objc_msgSend_synchronize(v26, v24, v25);
   }
+}
+
++ (void)postAnalyticsSetupEndpoints:(unsigned int)endpoints totalUnknowntoSE:(unsigned int)e
+{
+  if (endpoints)
+  {
+    v4 = *&e;
+    v5 = *&endpoints;
+    v16 = objc_opt_new();
+    v7 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v6, v4);
+    objc_msgSend_setObject_forKeyedSubscript_(v16, v8, v7, @"totalIdentifiersUnknowntoSE");
+
+    v10 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v9, v5);
+    objc_msgSend_setObject_forKeyedSubscript_(v16, v11, v10, @"totalIdentifiersReceived");
+
+    v14 = objc_msgSend_sharedCALogger(NFCALogger, v12, v13);
+    objc_msgSend_postCAEventFor_eventInput_(v14, v15, @"com.apple.nfcd.setupEndpointFailureEvent", v16);
+  }
+}
+
++ (void)postPlasticCardEnableStatus:(BOOL)status aid:(id)aid
+{
+  statusCopy = status;
+  v17[2] = *MEMORY[0x277D85DE8];
+  v16[0] = @"status";
+  v5 = MEMORY[0x277CCABB0];
+  aidCopy = aid;
+  v9 = objc_msgSend_numberWithBool_(v5, v7, statusCopy);
+  v16[1] = @"aid";
+  v17[0] = v9;
+  v10 = &stru_2843AE380;
+  if (aidCopy)
+  {
+    v10 = aidCopy;
+  }
+
+  v17[1] = v10;
+  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v17, v16, 2);
+
+  v14 = objc_msgSend_sharedCALogger(NFCALogger, v12, v13);
+
+  objc_msgSend_postCAEventFor_eventInput_(v14, v15, @"com.apple.nfcd.plasticCardEnableEvent", v11);
 }
 
 + (void)updateDailyTagStatistic:(id)statistic

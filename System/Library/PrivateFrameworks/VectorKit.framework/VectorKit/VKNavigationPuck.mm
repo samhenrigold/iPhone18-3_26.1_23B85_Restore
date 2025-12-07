@@ -24,7 +24,7 @@
 
   else
   {
-    [(VKAnnotation *)self->_annotation coordinate];
+    objc_msgSend_coordinate(self->_annotation, a2);
   }
 
   result.var0 = v2.f64[0];
@@ -109,9 +109,9 @@
     v11 = annotationCopy;
     objc_storeStrong(&self->_annotation, annotation);
     navigationPuck = self->_navigationPuck;
-    [(VKAnnotation *)self->_annotation coordinate];
+    objc_msgSend_coordinate(self->_annotation);
     v10 = v7;
-    [(VKAnnotation *)self->_annotation coordinate];
+    objc_msgSend_coordinate(self->_annotation);
     v8.f64[0] = v10;
     v8.f64[1] = v9;
     *(navigationPuck + 8) = vmulq_f64(v8, vdupq_n_s64(0x3F91DF46A2529D39uLL));

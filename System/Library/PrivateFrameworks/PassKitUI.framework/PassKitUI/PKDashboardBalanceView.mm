@@ -373,14 +373,14 @@ LABEL_9:
     v12 = 11.0;
   }
 
-  v59.origin.x = x;
-  v59.origin.y = y;
+  v111.origin.x = x;
+  v111.origin.y = y;
   amount = v10;
   v13 = x + v10;
-  v58 = v12;
+  v110 = v12;
   v14 = y + v12;
-  v59.size.width = width;
-  v59.size.height = height;
+  v111.size.width = width;
+  v111.size.height = height;
   v15 = width - v11;
   v16 = 32.0;
   if (v9)
@@ -408,64 +408,72 @@ LABEL_9:
   v21 = v20;
 
   [(UILabel *)self->_titleLabel sizeThatFits:v15, v17];
-  v56 = v22;
-  v57 = v23;
+  v108 = v22;
+  v109 = v23;
   [(UILabel *)self->_detailLabel sizeThatFits:v15, v17];
   v25 = v24;
   [(PKContinuousButton *)self->_actionButton sizeThatFits:v15, v17];
   v27 = v26;
-  v54 = v28;
+  v106 = v28;
   if (self->_showDisclosure)
   {
     [(UIImageView *)self->_disclosureView sizeThatFits:v15, v17];
     v30 = v29;
+    v105 = v31;
   }
 
   else
   {
     v30 = *MEMORY[0x1E695F060];
+    v105 = *(MEMORY[0x1E695F060] + 8);
   }
 
-  if (v21 < 30.0 && fmax(v56, v25) + v27 + v30 + amount * 2.0 <= v15)
+  if (v21 < 30.0 && fmax(v108, v25) + v27 + v30 + amount * 2.0 <= v15)
   {
-    v33 = 0;
-    v32 = 1;
-    v31 = 2;
+    v34 = 0;
+    v33 = 1;
+    v32 = 2;
   }
 
   else
   {
-    v31 = 0;
     v32 = 0;
-    v33 = 1;
+    v33 = 0;
+    v34 = 1;
   }
 
-  [(UILabel *)self->_titleLabel setNumberOfLines:v31];
+  [(UILabel *)self->_titleLabel setNumberOfLines:v32];
   titleLabel = [(PKContinuousButton *)self->_actionButton titleLabel];
-  [titleLabel setNumberOfLines:v32];
+  [titleLabel setNumberOfLines:v33];
 
   memset(&slice, 0, sizeof(slice));
   if (v27 <= v15)
   {
-    v35 = v27;
+    v36 = v27;
   }
 
   else
   {
-    v35 = v15;
+    v36 = v15;
   }
 
   if (self->_showDisclosure)
   {
-    v63.origin.x = v13;
-    v63.origin.y = v14;
-    v63.size.width = v15;
-    v63.size.height = v17;
-    CGRectDivide(v63, &slice, &remainder, v30, v18);
+    v115.origin.x = v13;
+    v115.origin.y = v14;
+    v115.size.width = v15;
+    v115.size.height = v17;
+    CGRectDivide(v115, &slice, &remainder, v30, v18);
     if (!self->_isTemplateLayout)
     {
       disclosureView = self->_disclosureView;
-      PKSizeAlignedInRect();
+      v39.n128_u64[0] = *&slice.origin.x;
+      v40.n128_u64[0] = *&slice.origin.y;
+      v41.n128_u64[0] = *&slice.size.width;
+      v42.n128_u64[0] = *&slice.size.height;
+      v37.n128_f64[0] = v30;
+      v38.n128_u64[0] = v105;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v37, v38, v39, v40, v41, v42, v43);
       [(UIImageView *)disclosureView setFrame:?];
     }
 
@@ -480,21 +488,27 @@ LABEL_9:
   topUpAction = self->_topUpAction;
   if (topUpAction)
   {
-    v38 = v33;
+    v46 = v34;
   }
 
   else
   {
-    v38 = 1;
+    v46 = 1;
   }
 
-  if ((v38 & 1) == 0)
+  if ((v46 & 1) == 0)
   {
-    CGRectDivide(remainder, &slice, &remainder, v35, v18);
+    CGRectDivide(remainder, &slice, &remainder, v36, v18);
     if (!self->_isTemplateLayout)
     {
       actionButton = self->_actionButton;
-      PKSizeAlignedInRect();
+      v49.n128_u64[0] = *&slice.origin.x;
+      v50.n128_u64[0] = *&slice.origin.y;
+      v51.n128_u64[0] = *&slice.size.width;
+      v52.n128_u64[0] = *&slice.size.height;
+      v47.n128_f64[0] = v36;
+      v48.n128_f64[0] = v106;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v47, v48, v49, v50, v51, v52, v53);
       [(PKContinuousButton *)actionButton setFrame:?];
     }
 
@@ -502,76 +516,110 @@ LABEL_9:
     topUpAction = self->_topUpAction;
   }
 
-  v40 = topUpAction == 0;
-  v41 = v33 ^ 1;
-  if (v40)
+  v55 = topUpAction == 0;
+  v56 = v34 ^ 1;
+  if (v55)
   {
-    v41 = 1;
+    v56 = 1;
   }
 
-  if (v41)
+  if (v56)
   {
-    PKContentAlignmentMake();
+    v57 = PKContentAlignmentMake();
   }
 
-  CGRectDivide(remainder, &slice, &remainder, v57, CGRectMinYEdge);
+  else
+  {
+    v57 = *MEMORY[0x1E69BB7F8];
+  }
+
+  v58 = remainder.size.width;
+  CGRectDivide(remainder, &slice, &remainder, v109, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
+    v59.n128_f64[0] = fmin(v58, v108);
     titleLabel = self->_titleLabel;
-    PKSizeAlignedInRect();
+    v61.n128_u64[0] = *&slice.origin.x;
+    v62.n128_u64[0] = *&slice.origin.y;
+    v63.n128_u64[0] = *&slice.size.width;
+    v64.n128_u64[0] = *&slice.size.height;
+    v60.n128_f64[0] = v109;
+    PKSizeAlignedInRect(v57, v59, v60, v61, v62, v63, v64, v65);
     [(UILabel *)titleLabel setFrame:?];
   }
 
   [(UILabel *)self->_detailLabel sizeThatFits:remainder.size.width, remainder.size.height];
-  v44 = v43;
-  CGRectDivide(remainder, &slice, &remainder, v43, CGRectMinYEdge);
+  v68 = v67;
+  v70 = v69;
+  v71 = remainder.size.width;
+  CGRectDivide(remainder, &slice, &remainder, v69, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
+    v72.n128_f64[0] = fmin(v71, v68);
     detailLabel = self->_detailLabel;
-    PKSizeAlignedInRect();
+    v74.n128_u64[0] = *&slice.origin.x;
+    v75.n128_u64[0] = *&slice.origin.y;
+    v76.n128_u64[0] = *&slice.size.width;
+    v77.n128_u64[0] = *&slice.size.height;
+    v73.n128_f64[0] = v70;
+    PKSizeAlignedInRect(v57, v72, v73, v74, v75, v76, v77, v78);
     [(UILabel *)detailLabel setFrame:?];
   }
 
-  v46 = v58 + v57 + v44;
+  v80 = v110 + v109 + v70;
   if ([(NSString *)self->_availableCredit length])
   {
     [(UILabel *)self->_availableCreditLabel sizeThatFits:remainder.size.width, remainder.size.height];
-    v48 = v47;
-    CGRectDivide(remainder, &slice, &remainder, v47, CGRectMinYEdge);
-    v46 = v46 + v48;
+    v82 = v81;
+    v84 = v83;
+    v85 = remainder.size.width;
+    CGRectDivide(remainder, &slice, &remainder, v83, CGRectMinYEdge);
+    v80 = v80 + v84;
     if (!self->_isTemplateLayout)
     {
+      v86.n128_f64[0] = fmin(v85, v82);
       availableCreditLabel = self->_availableCreditLabel;
-      PKSizeAlignedInRect();
+      v88.n128_u64[0] = *&slice.origin.x;
+      v89.n128_u64[0] = *&slice.origin.y;
+      v90.n128_u64[0] = *&slice.size.width;
+      v91.n128_u64[0] = *&slice.size.height;
+      v87.n128_f64[0] = v84;
+      PKSizeAlignedInRect(v57, v86, v87, v88, v89, v90, v91, v92);
       [(UILabel *)availableCreditLabel setFrame:?];
     }
   }
 
-  v50 = v33 ^ 1;
+  v94 = v34 ^ 1;
   if (!self->_topUpAction)
   {
-    v50 = 1;
+    v94 = 1;
   }
 
-  if ((v50 & 1) == 0)
+  if ((v94 & 1) == 0)
   {
-    CGRectDivide(remainder, &slice, &remainder, v54, CGRectMinYEdge);
-    v46 = v54 + v46;
+    CGRectDivide(remainder, &slice, &remainder, v106, CGRectMinYEdge);
+    v80 = v106 + v80;
     if (!self->_isTemplateLayout)
     {
       if (self->_topUpAction)
       {
-        v51 = self->_actionButton;
-        PKSizeAlignedInRect();
-        [(PKContinuousButton *)v51 setFrame:?];
+        v102 = self->_actionButton;
+        v97.n128_u64[0] = *&slice.origin.x;
+        v98.n128_u64[0] = *&slice.origin.y;
+        v99.n128_u64[0] = *&slice.size.width;
+        v100.n128_u64[0] = *&slice.size.height;
+        v95.n128_f64[0] = v36;
+        v96.n128_f64[0] = v106;
+        PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v95, v96, v97, v98, v99, v100, v101);
+        [(PKContinuousButton *)v102 setFrame:?];
       }
     }
   }
 
-  v52 = CGRectGetWidth(v59);
-  v53 = v58 + v46;
-  result.height = v53;
-  result.width = v52;
+  v103 = CGRectGetWidth(v111);
+  v104 = v110 + v80;
+  result.height = v104;
+  result.width = v103;
   return result;
 }
 

@@ -119,7 +119,7 @@ LABEL_5:
         }
 
         v14 = *(*(&v17 + 1) + 8 * i);
-        if (([v8 containsObject:{v14, v17}] & 1) == 0)
+        if ((objc_msgSend_containsObject_(v8, v17) & 1) == 0)
         {
           [v7 addObject:v14];
           [v8 addObject:v14];
@@ -290,7 +290,7 @@ LABEL_5:
             v17 = [self similarThirdPartyWidgetsForPosition:v16];
             v18 = [self eligibleThirdPartyWidgetFromSimilarWidgets:v17 launchCounts:countsCopy];
             v19 = [self widgetExtensionAndKindFromKey:v18];
-            if (v19 && ([v10 containsObject:v19] & 1) == 0)
+            if (v19 && (objc_msgSend_containsObject_(v10) & 1) == 0)
             {
               v20 = [[ATXWidgetPersonality alloc] initWithStringRepresentation:v19];
               if (v20)
@@ -327,7 +327,7 @@ LABEL_5:
                   }
 
                   v26 = *(*(&v40 + 1) + 8 * i);
-                  if (([v10 containsObject:{v26, v30, v31, v32}] & 1) == 0)
+                  if ((objc_msgSend_containsObject_(v10, v30, v31, v32) & 1) == 0)
                   {
                     v27 = [[ATXWidgetPersonality alloc] initWithExtensionBundleId:&stru_1F3E050C8 kind:v26];
                     [array addObject:v27];
@@ -345,7 +345,7 @@ LABEL_5:
             }
           }
 
-          else if (([v10 containsObject:v16] & 1) == 0)
+          else if ((objc_msgSend_containsObject_(v10) & 1) == 0)
           {
             v18 = [[ATXWidgetPersonality alloc] initWithStringRepresentation:v16];
             if (v18)
@@ -520,7 +520,7 @@ BOOL __81__ATXDefaultHomeScreenItemProducerUtilities_similarThirdPartyWidgetsFor
       firstObject2 = [v14 firstObject];
 
       v16 = [countsCopy objectForKeyedSubscript:firstObject2];
-      v17 = __atxlog_handle_home_screen();
+      v17 = __atxlog_handle_home_screen(v16);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         rawLaunchCount = [(ATXAggregatedAppLaunchData *)v16 rawLaunchCount];
@@ -605,7 +605,7 @@ LABEL_31:
   if ([array count])
   {
     v23 = [array count];
-    v24 = __atxlog_handle_home_screen();
+    v24 = __atxlog_handle_home_screen(v23);
     v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
     if (v23 == 1)
     {
@@ -723,12 +723,12 @@ LABEL_42:
 
 + (id)specialWidgetDescriptorForPersonality:(id)personality size:(unint64_t)size
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   kind = [personality kind];
   v7 = [self _supportedSizeClassesForSpecialAvocadoKind:kind];
   if (([self _widgetFamilyMaskForStackLayoutSize:size] & v7) == 0)
   {
-    v13 = 0;
+    v15 = 0;
     goto LABEL_18;
   }
 
@@ -738,10 +738,10 @@ LABEL_42:
 
   if (!v10)
   {
-    v12 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_home_screen(v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [ATXDefaultHomeScreenItemProducerUtilities specialWidgetDescriptorForPersonality:kind size:v12];
+      [ATXDefaultHomeScreenItemProducerUtilities specialWidgetDescriptorForPersonality:kind size:v14];
     }
 
     goto LABEL_12;
@@ -749,44 +749,45 @@ LABEL_42:
 
   if ([kind isEqualToString:@"SBHSpecialAvocadoDescriptorKindShortcutsSingle"] & 1) != 0 || (objc_msgSend(kind, "isEqualToString:", @"SBHSpecialAvocadoDescriptorKindShortcutsFolder"))
   {
-    v11 = @"com.apple.shortcuts";
+    v12 = @"com.apple.shortcuts";
   }
 
   else
   {
     if (![kind isEqualToString:@"SBHSpecialAvocadoDescriptorKindFiles"])
     {
-      v11 = 0;
+      v12 = 0;
       goto LABEL_16;
     }
 
-    v11 = @"com.apple.DocumentsApp";
+    v12 = @"com.apple.DocumentsApp";
   }
 
-  if ([ATXApplicationRecord isInstalledForBundle:v11])
+  v13 = [ATXApplicationRecord isInstalledForBundle:v12];
+  if (v13)
   {
 LABEL_16:
-    v13 = [self widgetDescriptorFromChronoDescriptor:v10 appBundleId:v11 rankType:1];
-    [v13 setSuggestedSize:size];
+    v15 = [self widgetDescriptorFromChronoDescriptor:v10 appBundleId:v12 rankType:1];
+    [v15 setSuggestedSize:size];
     goto LABEL_17;
   }
 
-  v12 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v14 = __atxlog_handle_home_screen(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = kind;
-    _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemProducer: could not add %@ widget to default stack because app is not installed on device", &v15, 0xCu);
+    v17 = 138412290;
+    v18 = kind;
+    _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "ATXDefaultHomeScreenItemProducer: could not add %@ widget to default stack because app is not installed on device", &v17, 0xCu);
   }
 
 LABEL_12:
 
-  v13 = 0;
+  v15 = 0;
 LABEL_17:
 
 LABEL_18:
 
-  return v13;
+  return v15;
 }
 
 + (unint64_t)_supportedSizeClassesForSpecialAvocadoKind:(id)kind
@@ -817,97 +818,102 @@ LABEL_18:
 
 + (id)_defaultWidgetStackFromSmallStack:(id)stack mediumStack:(id)mediumStack largeStack:(id)largeStack extraLargeStack:(id)extraLargeStack suggestedSize:(unint64_t)size maxWidgetsPerStack:(unint64_t)perStack isiPad:(BOOL)pad
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   stackCopy = stack;
   mediumStackCopy = mediumStack;
   largeStackCopy = largeStack;
   extraLargeStackCopy = extraLargeStack;
-  if ([stackCopy count] < 2 || objc_msgSend(mediumStackCopy, "count") < 2 || objc_msgSend(largeStackCopy, "count") <= 1)
+  v18 = [stackCopy count];
+  if (v18 < 2 || (v18 = [mediumStackCopy count], v18 < 2) || (v18 = objc_msgSend(largeStackCopy, "count"), v18 <= 1))
   {
-    v18 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-    {
-      v34 = 136315906;
-      v35 = "+[ATXDefaultHomeScreenItemProducerUtilities _defaultWidgetStackFromSmallStack:mediumStack:largeStack:extraLargeStack:suggestedSize:maxWidgetsPerStack:isiPad:]";
-      v36 = 2048;
-      v37 = [stackCopy count];
-      v38 = 2048;
-      v39 = [mediumStackCopy count];
-      v40 = 2048;
-      v41 = [largeStackCopy count];
-      _os_log_error_impl(&dword_1BF549000, v18, OS_LOG_TYPE_ERROR, "%s: default stack does not have enough widgets (small: %lu, med: %lu, large: %lu)", &v34, 0x2Au);
-    }
-  }
-
-  if (pad && [extraLargeStackCopy count] <= 1)
-  {
-    v19 = __atxlog_handle_home_screen();
+    v19 = __atxlog_handle_home_screen(v18);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [ATXDefaultHomeScreenItemProducerUtilities _defaultWidgetStackFromSmallStack:extraLargeStackCopy mediumStack:v19 largeStack:? extraLargeStack:? suggestedSize:? maxWidgetsPerStack:? isiPad:?];
+      v36 = 136315906;
+      v37 = "+[ATXDefaultHomeScreenItemProducerUtilities _defaultWidgetStackFromSmallStack:mediumStack:largeStack:extraLargeStack:suggestedSize:maxWidgetsPerStack:isiPad:]";
+      v38 = 2048;
+      v39 = [stackCopy count];
+      v40 = 2048;
+      v41 = [mediumStackCopy count];
+      v42 = 2048;
+      v43 = [largeStackCopy count];
+      _os_log_error_impl(&dword_1BF549000, v19, OS_LOG_TYPE_ERROR, "%s: default stack does not have enough widgets (small: %lu, med: %lu, large: %lu)", &v36, 0x2Au);
     }
   }
 
-  v20 = [stackCopy count];
-  if (v20 >= perStack)
+  if (pad)
+  {
+    v20 = [extraLargeStackCopy count];
+    if (v20 <= 1)
+    {
+      v21 = __atxlog_handle_home_screen(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        [ATXDefaultHomeScreenItemProducerUtilities _defaultWidgetStackFromSmallStack:extraLargeStackCopy mediumStack:v21 largeStack:? extraLargeStack:? suggestedSize:? maxWidgetsPerStack:? isiPad:?];
+      }
+    }
+  }
+
+  v22 = [stackCopy count];
+  if (v22 >= perStack)
   {
     perStackCopy = perStack;
   }
 
   else
   {
-    perStackCopy = v20;
+    perStackCopy = v22;
   }
 
-  v22 = [stackCopy subarrayWithRange:{0, perStackCopy}];
+  v24 = [stackCopy subarrayWithRange:{0, perStackCopy}];
 
-  v23 = [mediumStackCopy count];
-  if (v23 >= perStack)
+  v25 = [mediumStackCopy count];
+  if (v25 >= perStack)
   {
     perStackCopy2 = perStack;
   }
 
   else
   {
-    perStackCopy2 = v23;
+    perStackCopy2 = v25;
   }
 
-  v25 = [mediumStackCopy subarrayWithRange:{0, perStackCopy2}];
+  v27 = [mediumStackCopy subarrayWithRange:{0, perStackCopy2}];
 
-  v26 = [largeStackCopy count];
-  if (v26 >= perStack)
+  v28 = [largeStackCopy count];
+  if (v28 >= perStack)
   {
     perStackCopy3 = perStack;
   }
 
   else
   {
-    perStackCopy3 = v26;
+    perStackCopy3 = v28;
   }
 
-  v28 = [largeStackCopy subarrayWithRange:{0, perStackCopy3}];
+  v30 = [largeStackCopy subarrayWithRange:{0, perStackCopy3}];
 
-  v29 = [extraLargeStackCopy count];
-  if (v29 >= perStack)
+  v31 = [extraLargeStackCopy count];
+  if (v31 >= perStack)
   {
     perStackCopy4 = perStack;
   }
 
   else
   {
-    perStackCopy4 = v29;
+    perStackCopy4 = v31;
   }
 
-  v31 = [extraLargeStackCopy subarrayWithRange:{0, perStackCopy4}];
+  v33 = [extraLargeStackCopy subarrayWithRange:{0, perStackCopy4}];
 
-  v32 = objc_opt_new();
-  [v32 setSmallDefaultStack:v22];
-  [v32 setMediumDefaultStack:v25];
-  [v32 setLargeDefaultStack:v28];
-  [v32 setExtraLargeDefaultStack:v31];
-  [v32 setSuggestedSize:size];
+  v34 = objc_opt_new();
+  [v34 setSmallDefaultStack:v24];
+  [v34 setMediumDefaultStack:v27];
+  [v34 setLargeDefaultStack:v30];
+  [v34 setExtraLargeDefaultStack:v33];
+  [v34 setSuggestedSize:size];
 
-  return v32;
+  return v34;
 }
 
 + (id)widgetDescriptorFromChronoDescriptor:(id)descriptor appBundleId:(id)id rankType:(int64_t)type
@@ -925,97 +931,102 @@ LABEL_18:
 
 + (id)defaultWidgetStackFromSmallStack:(id)stack mediumStack:(id)mediumStack largeStack:(id)largeStack extraLargeStack:(id)extraLargeStack suggestedSize:(unint64_t)size maxWidgetsPerStack:(unint64_t)perStack isiPad:(BOOL)pad
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   stackCopy = stack;
   mediumStackCopy = mediumStack;
   largeStackCopy = largeStack;
   extraLargeStackCopy = extraLargeStack;
-  if ([stackCopy count] < 2 || objc_msgSend(mediumStackCopy, "count") < 2 || objc_msgSend(largeStackCopy, "count") <= 1)
+  v18 = [stackCopy count];
+  if (v18 < 2 || (v18 = [mediumStackCopy count], v18 < 2) || (v18 = objc_msgSend(largeStackCopy, "count"), v18 <= 1))
   {
-    v18 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-    {
-      v34 = 136315906;
-      v35 = "+[ATXDefaultHomeScreenItemProducerUtilities defaultWidgetStackFromSmallStack:mediumStack:largeStack:extraLargeStack:suggestedSize:maxWidgetsPerStack:isiPad:]";
-      v36 = 2048;
-      v37 = [stackCopy count];
-      v38 = 2048;
-      v39 = [mediumStackCopy count];
-      v40 = 2048;
-      v41 = [largeStackCopy count];
-      _os_log_debug_impl(&dword_1BF549000, v18, OS_LOG_TYPE_DEBUG, "%s: default stack does not have enough widgets (small: %lu, med: %lu, large: %lu)", &v34, 0x2Au);
-    }
-  }
-
-  if (pad && [extraLargeStackCopy count] <= 1)
-  {
-    v19 = __atxlog_handle_home_screen();
+    v19 = __atxlog_handle_home_screen(v18);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      [ATXDefaultHomeScreenItemProducerUtilities defaultWidgetStackFromSmallStack:extraLargeStackCopy mediumStack:v19 largeStack:? extraLargeStack:? suggestedSize:? maxWidgetsPerStack:? isiPad:?];
+      v36 = 136315906;
+      v37 = "+[ATXDefaultHomeScreenItemProducerUtilities defaultWidgetStackFromSmallStack:mediumStack:largeStack:extraLargeStack:suggestedSize:maxWidgetsPerStack:isiPad:]";
+      v38 = 2048;
+      v39 = [stackCopy count];
+      v40 = 2048;
+      v41 = [mediumStackCopy count];
+      v42 = 2048;
+      v43 = [largeStackCopy count];
+      _os_log_debug_impl(&dword_1BF549000, v19, OS_LOG_TYPE_DEBUG, "%s: default stack does not have enough widgets (small: %lu, med: %lu, large: %lu)", &v36, 0x2Au);
     }
   }
 
-  v20 = [stackCopy count];
-  if (v20 >= perStack)
+  if (pad)
+  {
+    v20 = [extraLargeStackCopy count];
+    if (v20 <= 1)
+    {
+      v21 = __atxlog_handle_home_screen(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      {
+        [ATXDefaultHomeScreenItemProducerUtilities defaultWidgetStackFromSmallStack:extraLargeStackCopy mediumStack:v21 largeStack:? extraLargeStack:? suggestedSize:? maxWidgetsPerStack:? isiPad:?];
+      }
+    }
+  }
+
+  v22 = [stackCopy count];
+  if (v22 >= perStack)
   {
     perStackCopy = perStack;
   }
 
   else
   {
-    perStackCopy = v20;
+    perStackCopy = v22;
   }
 
-  v22 = [stackCopy subarrayWithRange:{0, perStackCopy}];
+  v24 = [stackCopy subarrayWithRange:{0, perStackCopy}];
 
-  v23 = [mediumStackCopy count];
-  if (v23 >= perStack)
+  v25 = [mediumStackCopy count];
+  if (v25 >= perStack)
   {
     perStackCopy2 = perStack;
   }
 
   else
   {
-    perStackCopy2 = v23;
+    perStackCopy2 = v25;
   }
 
-  v25 = [mediumStackCopy subarrayWithRange:{0, perStackCopy2}];
+  v27 = [mediumStackCopy subarrayWithRange:{0, perStackCopy2}];
 
-  v26 = [largeStackCopy count];
-  if (v26 >= perStack)
+  v28 = [largeStackCopy count];
+  if (v28 >= perStack)
   {
     perStackCopy3 = perStack;
   }
 
   else
   {
-    perStackCopy3 = v26;
+    perStackCopy3 = v28;
   }
 
-  v28 = [largeStackCopy subarrayWithRange:{0, perStackCopy3}];
+  v30 = [largeStackCopy subarrayWithRange:{0, perStackCopy3}];
 
-  v29 = [extraLargeStackCopy count];
-  if (v29 >= perStack)
+  v31 = [extraLargeStackCopy count];
+  if (v31 >= perStack)
   {
     perStackCopy4 = perStack;
   }
 
   else
   {
-    perStackCopy4 = v29;
+    perStackCopy4 = v31;
   }
 
-  v31 = [extraLargeStackCopy subarrayWithRange:{0, perStackCopy4}];
+  v33 = [extraLargeStackCopy subarrayWithRange:{0, perStackCopy4}];
 
-  v32 = objc_opt_new();
-  [v32 setSmallDefaultStack:v22];
-  [v32 setMediumDefaultStack:v25];
-  [v32 setLargeDefaultStack:v28];
-  [v32 setExtraLargeDefaultStack:v31];
-  [v32 setSuggestedSize:size];
+  v34 = objc_opt_new();
+  [v34 setSmallDefaultStack:v24];
+  [v34 setMediumDefaultStack:v27];
+  [v34 setLargeDefaultStack:v30];
+  [v34 setExtraLargeDefaultStack:v33];
+  [v34 setSuggestedSize:size];
 
-  return v32;
+  return v34;
 }
 
 + (id)splitDescriptorsIntoFirstPartyAndThirdParty:(id)party

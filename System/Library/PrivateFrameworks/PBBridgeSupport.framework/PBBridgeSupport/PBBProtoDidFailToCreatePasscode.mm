@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    error = self->_error;
     PBDataWriterWriteInt32Field();
   }
 }

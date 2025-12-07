@@ -1,4 +1,5 @@
 @interface AppleIRCommand
+- (AppleIRCommand)initWithPayload:(unint64_t)payload repeat:(BOOL)repeat;
 - (BOOL)getVendorSpecificHIDUsagePage:(unsigned int *)page usageID:(unsigned int *)d ignoreRepeats:(BOOL *)repeats;
 - (id)description;
 - (unint64_t)command;
@@ -26,11 +27,217 @@
   return v3;
 }
 
+- (AppleIRCommand)initWithPayload:(unint64_t)payload repeat:(BOOL)repeat
+{
+  repeatCopy = repeat;
+  v7 = [IRProtocol protocolWithID:1 options:0];
+
+  return [(IRCommand *)self initWithProtocol:v7 payload:payload repeat:repeatCopy];
+}
+
 - (unint64_t)command
 {
   token = [(AppleIRCommand *)self token];
   v3 = 0;
-  if (token <= 3584)
+  if (token > 3584)
+  {
+    if (token > 3588)
+    {
+      if (token > 3629)
+      {
+        if (token == 3630)
+        {
+LABEL_27:
+          if (gLogCategory_CoreRCDevice > 40)
+          {
+            return 1;
+          }
+
+          else if (gLogCategory_CoreRCDevice == -1)
+          {
+            v3 = 1;
+            if (_LogCategory_Initialize())
+            {
+              LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Select\n");
+            }
+          }
+
+          else
+          {
+            v3 = 1;
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Select\n");
+          }
+        }
+
+        else if (token == 3631)
+        {
+          if (gLogCategory_CoreRCDevice > 40)
+          {
+            return 46;
+          }
+
+          else if (gLogCategory_CoreRCDevice == -1)
+          {
+            v3 = 46;
+            if (_LogCategory_Initialize())
+            {
+              LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Play/Pause\n");
+            }
+          }
+
+          else
+          {
+            v3 = 46;
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Play/Pause\n");
+          }
+        }
+      }
+
+      else if (token == 3589)
+      {
+LABEL_33:
+        if (gLogCategory_CoreRCDevice > 40)
+        {
+          return 2;
+        }
+
+        else if (gLogCategory_CoreRCDevice == -1)
+        {
+          v3 = 2;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Up\n");
+          }
+        }
+
+        else
+        {
+          v3 = 2;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Up\n");
+        }
+      }
+
+      else if (token == 3590)
+      {
+LABEL_15:
+        if (gLogCategory_CoreRCDevice > 40)
+        {
+          return 3;
+        }
+
+        else if (gLogCategory_CoreRCDevice == -1)
+        {
+          v3 = 3;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Down\n");
+          }
+        }
+
+        else
+        {
+          v3 = 3;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Down\n");
+        }
+      }
+    }
+
+    else if (token > 3586)
+    {
+      if (token == 3587)
+      {
+LABEL_30:
+        if (gLogCategory_CoreRCDevice > 40)
+        {
+          return 5;
+        }
+
+        else if (gLogCategory_CoreRCDevice == -1)
+        {
+          v3 = 5;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Right\n");
+          }
+        }
+
+        else
+        {
+          v3 = 5;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Right\n");
+        }
+      }
+
+      else
+      {
+LABEL_19:
+        if (gLogCategory_CoreRCDevice > 40)
+        {
+          return 4;
+        }
+
+        else if (gLogCategory_CoreRCDevice == -1)
+        {
+          v3 = 4;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Left\n");
+          }
+        }
+
+        else
+        {
+          v3 = 4;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Left\n");
+        }
+      }
+    }
+
+    else if (token == 3585)
+    {
+      if (gLogCategory_CoreRCDevice > 40)
+      {
+        return 15;
+      }
+
+      else if (gLogCategory_CoreRCDevice == -1)
+      {
+        v3 = 15;
+        if (_LogCategory_Initialize())
+        {
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Menu\n");
+        }
+      }
+
+      else
+      {
+        v3 = 15;
+        LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Menu\n");
+      }
+    }
+
+    else if (gLogCategory_CoreRCDevice > 40)
+    {
+      return 81;
+    }
+
+    else if (gLogCategory_CoreRCDevice == -1)
+    {
+      v3 = 81;
+      if (_LogCategory_Initialize())
+      {
+        LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Play/Pause/Select\n");
+      }
+    }
+
+    else
+    {
+      v3 = 81;
+      LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Play/Pause/Select\n");
+    }
+  }
+
+  else
   {
     switch(token)
     {
@@ -47,593 +254,449 @@
       case 1288:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 43;
+          v3 = 43;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 43;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Volume Increase\n");
+          }
         }
 
-        v3 = 43;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 43;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Volume Increase\n");
         }
 
-        return v3;
+        break;
       case 1289:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 44;
+          v3 = 44;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 44;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Volume Decrease\n");
+          }
         }
 
-        v3 = 44;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 44;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Volume Decrease\n");
         }
 
-        return v3;
+        break;
       case 1291:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 67;
+          v3 = 67;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 67;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Play\n");
+          }
         }
 
-        v3 = 67;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 67;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Play\n");
         }
 
-        return v3;
+        break;
       case 1293:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 49;
+          v3 = 49;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 49;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: FastForward\n");
+          }
         }
 
-        v3 = 49;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 49;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: FastForward\n");
         }
 
-        return v3;
+        break;
       case 1294:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 48;
+          v3 = 48;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 48;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Rewind\n");
+          }
         }
 
-        v3 = 48;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 48;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Rewind\n");
         }
 
-        return v3;
+        break;
       case 1297:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 83;
+          v3 = 83;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 83;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: NextTrack/NextChapter\n");
+          }
         }
 
-        v3 = 83;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 83;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: NextTrack/NextChapter\n");
         }
 
-        return v3;
+        break;
       case 1298:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 82;
+          v3 = 82;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 82;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: PreviousTrack/PreviousChapter\n");
+          }
         }
 
-        v3 = 82;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 82;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: PreviousTrack/PreviousChapter\n");
         }
 
-        return v3;
+        break;
       case 1299:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 52;
+          v3 = 52;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 52;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Replay10Seconds\n");
+          }
         }
 
-        v3 = 52;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 52;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Replay10Seconds\n");
         }
 
-        return v3;
+        break;
       case 1300:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 45;
+          v3 = 45;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 45;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Volume Mute\n");
+          }
         }
 
-        v3 = 45;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 45;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Volume Mute\n");
         }
 
-        return v3;
+        break;
       case 1301:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 74;
+          v3 = 74;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 74;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Standby\n");
+          }
         }
 
-        v3 = 74;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 74;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Standby\n");
         }
 
-        return v3;
+        break;
       case 1302:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 75;
+          v3 = 75;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 75;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: On\n");
+          }
         }
 
-        v3 = 75;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 75;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: On\n");
         }
 
-        return v3;
+        break;
       case 1303:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 51;
+          v3 = 51;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 51;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: SkipAhead\n");
+          }
         }
 
-        v3 = 51;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 51;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: SkipAhead\n");
         }
 
-        return v3;
+        break;
       case 1304:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 72;
+          v3 = 72;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 72;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Stop\n");
+          }
         }
 
-        v3 = 72;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 72;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Stop\n");
         }
 
-        return v3;
+        break;
       case 1305:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 47;
+          v3 = 47;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 47;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Pause\n");
+          }
         }
 
-        v3 = 47;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 47;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Pause\n");
         }
 
-        return v3;
+        break;
       case 1312:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 84;
+          v3 = 84;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 84;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: TV\n");
+          }
         }
 
-        v3 = 84;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 84;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: TV\n");
         }
 
-        return v3;
+        break;
       case 1313:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 85;
+          v3 = 85;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 85;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: App Switcher\n");
+          }
         }
 
-        v3 = 85;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 85;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: App Switcher\n");
         }
 
-        return v3;
+        break;
       case 1314:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 64;
+          v3 = 64;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 64;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Accessibility Toggle\n");
+          }
         }
 
-        v3 = 64;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 64;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Accessibility Toggle\n");
         }
 
-        return v3;
+        break;
       case 1315:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 34;
+          v3 = 34;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 34;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Channel Increment\n");
+          }
         }
 
-        v3 = 34;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 34;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Channel Increment\n");
         }
 
-        return v3;
+        break;
       case 1316:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 35;
+          v3 = 35;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 35;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Channel Decrement\n");
+          }
         }
 
-        v3 = 35;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 35;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Channel Decrement\n");
         }
 
-        return v3;
+        break;
       case 1317:
         if (gLogCategory_CoreRCDevice > 40)
         {
-          return 90;
+          v3 = 90;
         }
 
-        if (gLogCategory_CoreRCDevice != -1)
+        else if (gLogCategory_CoreRCDevice == -1)
         {
           v3 = 90;
-          goto LABEL_101;
+          if (_LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Program Guide\n");
+          }
         }
 
-        v3 = 90;
-        if (_LogCategory_Initialize())
+        else
         {
-          goto LABEL_101;
+          v3 = 90;
+          LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand command]", 40, "BUTTON: Program Guide\n");
         }
 
-        return v3;
+        break;
       default:
         return v3;
     }
   }
 
-  if (token > 3588)
-  {
-    if (token > 3629)
-    {
-      if (token != 3630)
-      {
-        if (token == 3631)
-        {
-          if (gLogCategory_CoreRCDevice > 40)
-          {
-            return 46;
-          }
-
-          if (gLogCategory_CoreRCDevice == -1)
-          {
-            v3 = 46;
-            if (!_LogCategory_Initialize())
-            {
-              return v3;
-            }
-          }
-
-          else
-          {
-            v3 = 46;
-          }
-
-          goto LABEL_101;
-        }
-
-        return v3;
-      }
-
-LABEL_27:
-      if (gLogCategory_CoreRCDevice > 40)
-      {
-        return 1;
-      }
-
-      if (gLogCategory_CoreRCDevice == -1)
-      {
-        v3 = 1;
-        if (!_LogCategory_Initialize())
-        {
-          return v3;
-        }
-      }
-
-      else
-      {
-        v3 = 1;
-      }
-    }
-
-    else if (token == 3589)
-    {
-LABEL_33:
-      if (gLogCategory_CoreRCDevice > 40)
-      {
-        return 2;
-      }
-
-      if (gLogCategory_CoreRCDevice == -1)
-      {
-        v3 = 2;
-        if (!_LogCategory_Initialize())
-        {
-          return v3;
-        }
-      }
-
-      else
-      {
-        v3 = 2;
-      }
-    }
-
-    else
-    {
-      if (token != 3590)
-      {
-        return v3;
-      }
-
-LABEL_15:
-      if (gLogCategory_CoreRCDevice > 40)
-      {
-        return 3;
-      }
-
-      if (gLogCategory_CoreRCDevice == -1)
-      {
-        v3 = 3;
-        if (!_LogCategory_Initialize())
-        {
-          return v3;
-        }
-      }
-
-      else
-      {
-        v3 = 3;
-      }
-    }
-
-LABEL_101:
-    LogPrintF();
-    return v3;
-  }
-
-  if (token <= 3586)
-  {
-    if (token == 3585)
-    {
-      if (gLogCategory_CoreRCDevice > 40)
-      {
-        return 15;
-      }
-
-      if (gLogCategory_CoreRCDevice == -1)
-      {
-        v3 = 15;
-        if (!_LogCategory_Initialize())
-        {
-          return v3;
-        }
-      }
-
-      else
-      {
-        v3 = 15;
-      }
-    }
-
-    else
-    {
-      if (gLogCategory_CoreRCDevice > 40)
-      {
-        return 81;
-      }
-
-      if (gLogCategory_CoreRCDevice == -1)
-      {
-        v3 = 81;
-        if (!_LogCategory_Initialize())
-        {
-          return v3;
-        }
-      }
-
-      else
-      {
-        v3 = 81;
-      }
-    }
-
-    goto LABEL_101;
-  }
-
-  if (token == 3587)
-  {
-LABEL_30:
-    if (gLogCategory_CoreRCDevice > 40)
-    {
-      return 5;
-    }
-
-    if (gLogCategory_CoreRCDevice == -1)
-    {
-      v3 = 5;
-      if (!_LogCategory_Initialize())
-      {
-        return v3;
-      }
-    }
-
-    else
-    {
-      v3 = 5;
-    }
-
-    goto LABEL_101;
-  }
-
-LABEL_19:
-  if (gLogCategory_CoreRCDevice <= 40)
-  {
-    if (gLogCategory_CoreRCDevice == -1)
-    {
-      v3 = 4;
-      if (!_LogCategory_Initialize())
-      {
-        return v3;
-      }
-    }
-
-    else
-    {
-      v3 = 4;
-    }
-
-    goto LABEL_101;
-  }
-
-  return 4;
+  return v3;
 }
 
 - (BOOL)getVendorSpecificHIDUsagePage:(unsigned int *)page usageID:(unsigned int *)d ignoreRepeats:(BOOL *)repeats
@@ -658,7 +721,7 @@ LABEL_19:
           v12 = 65294;
           if (!_LogCategory_Initialize())
           {
-            goto LABEL_64;
+            goto LABEL_68;
           }
         }
 
@@ -669,7 +732,8 @@ LABEL_19:
           v12 = 65294;
         }
 
-        goto LABEL_47;
+        LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand getVendorSpecificHIDUsagePage:usageID:ignoreRepeats:]", 50, "Low battery event received from Apple IR remote\n");
+        goto LABEL_68;
       }
 
       v10 = 1;
@@ -682,7 +746,7 @@ LABEL_19:
       {
         if (token == 3591)
         {
-          goto LABEL_23;
+          goto LABEL_25;
         }
 
         if (token != 3592)
@@ -690,7 +754,7 @@ LABEL_19:
           return v9;
         }
 
-        goto LABEL_26;
+        goto LABEL_28;
       }
 
       if (gLogCategory_CoreRCDevice <= 50)
@@ -702,7 +766,7 @@ LABEL_19:
           v12 = 65294;
           if (!_LogCategory_Initialize())
           {
-            goto LABEL_64;
+            goto LABEL_68;
           }
         }
 
@@ -713,7 +777,8 @@ LABEL_19:
           v12 = 65294;
         }
 
-        goto LABEL_47;
+        LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand getVendorSpecificHIDUsagePage:usageID:ignoreRepeats:]", 50, "Apple IR Remote Menu+Plus (undirected advertising/BTLE discovery mode)\n");
+        goto LABEL_68;
       }
 
       v10 = 0;
@@ -721,100 +786,71 @@ LABEL_19:
     }
 
     v12 = 65294;
-    goto LABEL_64;
+    goto LABEL_68;
   }
 
-  if (token > 3634)
+  if (token <= 3634)
   {
-    if (token != 3635)
+    if (token != 3595)
     {
-      if (token == 3636)
+      if (token != 3596)
       {
-        if (gLogCategory_CoreRCDevice <= 50)
+        if (token != 3634)
         {
-          if (gLogCategory_CoreRCDevice == -1)
-          {
-            v9 = _LogCategory_Initialize();
-            if (!v9)
-            {
-              return v9;
-            }
-          }
-
-          [AppleIRCommand getVendorSpecificHIDUsagePage:usageID:ignoreRepeats:];
+          return v9;
         }
 
-LABEL_38:
-        LOBYTE(v9) = 0;
-        return v9;
-      }
-
-      if (token != 3637)
-      {
-        return v9;
-      }
-
-      if (gLogCategory_CoreRCDevice <= 50)
-      {
-        if (gLogCategory_CoreRCDevice == -1)
+LABEL_25:
+        if (gLogCategory_CoreRCDevice > 50)
         {
-          v10 = 1;
-          v11 = 3;
+          v11 = 1;
           v12 = 65295;
-          if (!_LogCategory_Initialize())
-          {
-            goto LABEL_64;
-          }
         }
 
         else
         {
-          v10 = 1;
-          v11 = 3;
+          if (gLogCategory_CoreRCDevice != -1)
+          {
+            v11 = 1;
+            v12 = 65295;
+            v10 = 1;
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand getVendorSpecificHIDUsagePage:usageID:ignoreRepeats:]", 50, "Apple IR Remote Play+Up (screenshot)\n");
+            goto LABEL_68;
+          }
+
+          v11 = 1;
           v12 = 65295;
+          if (_LogCategory_Initialize())
+          {
+            v10 = 1;
+            LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand getVendorSpecificHIDUsagePage:usageID:ignoreRepeats:]", 50, "Apple IR Remote Play+Up (screenshot)\n");
+            goto LABEL_68;
+          }
         }
 
-        goto LABEL_47;
+        v10 = 1;
+        goto LABEL_68;
       }
 
-      v10 = 1;
-      v11 = 3;
-LABEL_52:
-      v12 = 65295;
-      goto LABEL_64;
-    }
-
-LABEL_26:
-    if (gLogCategory_CoreRCDevice <= 50)
-    {
-      if (gLogCategory_CoreRCDevice == -1)
+      if (gLogCategory_CoreRCDevice <= 40)
       {
-        v10 = 1;
-        v11 = 2;
-        v12 = 65295;
-        if (!_LogCategory_Initialize())
+        if (gLogCategory_CoreRCDevice == -1)
         {
-          goto LABEL_64;
+          v9 = _LogCategory_Initialize();
+          if (!v9)
+          {
+            return v9;
+          }
         }
+
+        [AppleIRCommand getVendorSpecificHIDUsagePage:usageID:ignoreRepeats:];
       }
 
-      else
-      {
-        v10 = 1;
-        v11 = 2;
-        v12 = 65295;
-      }
-
-      goto LABEL_47;
+LABEL_41:
+      LOBYTE(v9) = 0;
+      return v9;
     }
 
-    v10 = 1;
-    v11 = 2;
-    goto LABEL_52;
-  }
-
-  if (token == 3595)
-  {
     if (gLogCategory_CoreRCDevice <= 50)
     {
       if (gLogCategory_CoreRCDevice == -1)
@@ -824,7 +860,7 @@ LABEL_26:
         v12 = 65295;
         if (!_LogCategory_Initialize())
         {
-          goto LABEL_64;
+          goto LABEL_68;
         }
       }
 
@@ -835,67 +871,100 @@ LABEL_26:
         v12 = 65295;
       }
 
-      goto LABEL_47;
+      LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand getVendorSpecificHIDUsagePage:usageID:ignoreRepeats:]", 50, "Apple IR Remote Menu+Up (black screen recover - A39)\n");
+      goto LABEL_68;
     }
 
     v10 = 1;
     v11 = 4;
-    goto LABEL_52;
+LABEL_56:
+    v12 = 65295;
+    goto LABEL_68;
   }
 
-  if (token == 3596)
+  if (token != 3635)
   {
-    if (gLogCategory_CoreRCDevice <= 40)
+    if (token == 3636)
     {
-      if (gLogCategory_CoreRCDevice == -1)
+      if (gLogCategory_CoreRCDevice <= 50)
       {
-        v9 = _LogCategory_Initialize();
-        if (!v9)
+        if (gLogCategory_CoreRCDevice == -1)
         {
-          return v9;
+          v9 = _LogCategory_Initialize();
+          if (!v9)
+          {
+            return v9;
+          }
         }
+
+        [AppleIRCommand getVendorSpecificHIDUsagePage:usageID:ignoreRepeats:];
       }
 
-      [AppleIRCommand getVendorSpecificHIDUsagePage:usageID:ignoreRepeats:];
+      goto LABEL_41;
     }
 
-    goto LABEL_38;
+    if (token != 3637)
+    {
+      return v9;
+    }
+
+    if (gLogCategory_CoreRCDevice > 50)
+    {
+      v10 = 1;
+      v11 = 3;
+      goto LABEL_56;
+    }
+
+    if (gLogCategory_CoreRCDevice == -1)
+    {
+      v10 = 1;
+      v11 = 3;
+      v12 = 65295;
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_68;
+      }
+    }
+
+    else
+    {
+      v10 = 1;
+      v11 = 3;
+      v12 = 65295;
+    }
+
+    LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand getVendorSpecificHIDUsagePage:usageID:ignoreRepeats:]", 50, "Apple IR Remote Play+Right (send logs)\n");
+    goto LABEL_68;
   }
 
-  if (token != 3634)
-  {
-    return v9;
-  }
-
-LABEL_23:
+LABEL_28:
   if (gLogCategory_CoreRCDevice > 50)
   {
-    v11 = 1;
-    v12 = 65295;
+    v10 = 1;
+    v11 = 2;
     goto LABEL_56;
   }
 
   if (gLogCategory_CoreRCDevice == -1)
   {
-    v11 = 1;
-    v12 = 65295;
-    if (_LogCategory_Initialize())
-    {
-      v10 = 1;
-      goto LABEL_47;
-    }
-
-LABEL_56:
     v10 = 1;
-    goto LABEL_64;
+    v11 = 2;
+    v12 = 65295;
+    if (!_LogCategory_Initialize())
+    {
+      goto LABEL_68;
+    }
   }
 
-  v11 = 1;
-  v12 = 65295;
-  v10 = 1;
-LABEL_47:
-  LogPrintF();
-LABEL_64:
+  else
+  {
+    v10 = 1;
+    v11 = 2;
+    v12 = 65295;
+  }
+
+  LogPrintF(&gLogCategory_CoreRCDevice, "[AppleIRCommand getVendorSpecificHIDUsagePage:usageID:ignoreRepeats:]", 50, "Apple IR Remote Play+Down (stackshot)\n");
+LABEL_68:
   if (page)
   {
     *page = v12;

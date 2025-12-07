@@ -16,6 +16,9 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateSpecifiers:(id)specifiers forConsiderateVolumeEnabled:(BOOL)enabled;
 - (void)updateSpecifiersForConsiderateVolumeEnabled:(BOOL)enabled;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AssistantBridgeSiriResponsesController
@@ -43,6 +46,47 @@
   }
 
   return v2;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AssistantBridgeSiriResponsesController;
+  [(AssistantBridgeSiriResponsesController *)&v4 viewWillAppear:appear];
+  [(AssistantBridgeSiriResponsesController *)self reloadSpecifierID:@"CONSIDERATE_VOLUME_PROFILE_ID"];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = +[NSNotificationCenter defaultCenter];
+  [v5 addObserver:self selector:"preferencesDidChange:" name:AFNanoPreferencesDidChangeNotification object:0];
+
+  v6 = +[NSNotificationCenter defaultCenter];
+  [v6 addObserver:self selector:"languageCodeDidChange:" name:AFLanguageCodeDidChangeNotification object:0];
+
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+  v8 = +[RSConsiderateVolumeSettingsController prefsDidChangeNotification];
+  CFNotificationCenterAddObserver(DarwinNotifyCenter, self, sub_437C, v8, 0, 1024);
+
+  v9.receiver = self;
+  v9.super_class = AssistantBridgeSiriResponsesController;
+  [(AssistantBridgeSiriResponsesController *)&v9 viewDidAppear:appearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = AssistantBridgeSiriResponsesController;
+  [(AssistantBridgeSiriResponsesController *)&v7 viewDidDisappear:disappear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 removeObserver:self name:AFNanoPreferencesDidChangeNotification object:0];
+
+  v5 = +[NSNotificationCenter defaultCenter];
+  [v5 removeObserver:self name:AFLanguageCodeDidChangeNotification object:0];
+
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterRemoveEveryObserver(DarwinNotifyCenter, self);
 }
 
 - (void)preferencesDidChange:(id)change

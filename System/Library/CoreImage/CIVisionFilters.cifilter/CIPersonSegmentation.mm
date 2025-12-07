@@ -37,9 +37,9 @@
 - (id)outputImage
 {
   inputImage = self->inputImage;
-  if (!inputImage || ([(CIImage *)inputImage extent], CGRectIsInfinite(v40)))
+  if (!inputImage || ([(CIImage *)inputImage extent], inputImage = CGRectIsInfinite(v40), inputImage))
   {
-    v4 = sub_13F0();
+    v4 = sub_13F0(inputImage, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1CAC(self, v4);

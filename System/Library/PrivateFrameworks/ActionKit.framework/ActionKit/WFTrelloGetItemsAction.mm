@@ -98,7 +98,7 @@ void __49__WFTrelloGetItemsAction_updateBoards_onAccount___block_invoke_2()
 
 - (void)runAsynchronouslyWithInput:(id)input
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v54[1] = *MEMORY[0x277D85DE8];
   resourceManager = [(WFTrelloGetItemsAction *)self resourceManager];
   v5 = [resourceManager resourceObjectsOfClass:objc_opt_class()];
   anyObject = [v5 anyObject];
@@ -116,14 +116,14 @@ void __49__WFTrelloGetItemsAction_updateBoards_onAccount___block_invoke_2()
     v13 = [(WFTrelloGetItemsAction *)self parameterValueForKey:@"WFTrelloItemType" ofClass:objc_opt_class()];
     if ([v13 isEqualToString:@"Boards"])
     {
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke;
-      v45[3] = &unk_278C21150;
-      v45[4] = self;
-      v46 = firstObject;
-      [(WFTrelloSessionManager *)v11 getOpenBoardsWithCompletionHandler:v45];
-      v14 = v46;
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke;
+      v44[3] = &unk_278C21150;
+      v44[4] = self;
+      v45 = firstObject;
+      [(WFTrelloSessionManager *)v11 getOpenBoardsWithCompletionHandler:v44];
+      v14 = v45;
 LABEL_8:
 
       goto LABEL_9;
@@ -133,32 +133,32 @@ LABEL_8:
     {
       if (v12)
       {
-        v42[0] = MEMORY[0x277D85DD0];
-        v42[1] = 3221225472;
-        v42[2] = __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke_2;
-        v42[3] = &unk_278C221D0;
-        v42[4] = self;
+        v41[0] = MEMORY[0x277D85DD0];
+        v41[1] = 3221225472;
+        v41[2] = __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke_2;
+        v41[3] = &unk_278C221D0;
+        v41[4] = self;
         v12 = v12;
-        v43 = v12;
-        v44 = firstObject;
-        [(WFTrelloSessionManager *)v11 getListsForBoard:v12 completionHandler:v42];
+        v42 = v12;
+        v43 = firstObject;
+        [(WFTrelloSessionManager *)v11 getListsForBoard:v12 completionHandler:v41];
 
-        v14 = v43;
+        v14 = v42;
         goto LABEL_8;
       }
 
-      v25 = MEMORY[0x277CCA9B8];
-      v26 = *MEMORY[0x277D7CB30];
-      v52 = *MEMORY[0x277CCA450];
-      v27 = WFLocalizedString(@"You must select a board to retrieve lists from.");
-      v53 = v27;
-      v28 = MEMORY[0x277CBEAC0];
-      v29 = &v53;
-      v30 = &v52;
+      v24 = MEMORY[0x277CCA9B8];
+      v25 = *MEMORY[0x277D7CB30];
+      v51 = *MEMORY[0x277CCA450];
+      v26 = WFLocalizedString(@"You must select a board to retrieve lists from.");
+      v52 = v26;
+      v27 = MEMORY[0x277CBEAC0];
+      v28 = &v52;
+      v29 = &v51;
 LABEL_18:
-      v31 = [v28 dictionaryWithObjects:v29 forKeys:v30 count:1];
-      v32 = [v25 errorWithDomain:v26 code:5 userInfo:v31];
-      [(WFTrelloGetItemsAction *)self finishRunningWithError:v32];
+      v30 = [v27 dictionaryWithObjects:v28 forKeys:v29 count:1];
+      v31 = [v24 errorWithDomain:v25 code:5 userInfo:v30];
+      [(WFTrelloGetItemsAction *)self finishRunningWithError:v31];
 
       v12 = 0;
       goto LABEL_9;
@@ -171,57 +171,57 @@ LABEL_18:
 
     if (!v12)
     {
-      v25 = MEMORY[0x277CCA9B8];
-      v26 = *MEMORY[0x277D7CB30];
-      v50 = *MEMORY[0x277CCA450];
-      v27 = WFLocalizedString(@"You must select a board to retrieve cards from.");
-      v51 = v27;
-      v28 = MEMORY[0x277CBEAC0];
-      v29 = &v51;
-      v30 = &v50;
+      v24 = MEMORY[0x277CCA9B8];
+      v25 = *MEMORY[0x277D7CB30];
+      v49 = *MEMORY[0x277CCA450];
+      v26 = WFLocalizedString(@"You must select a board to retrieve cards from.");
+      v50 = v26;
+      v27 = MEMORY[0x277CBEAC0];
+      v28 = &v50;
+      v29 = &v49;
       goto LABEL_18;
     }
 
-    v18 = [(WFTrelloGetItemsAction *)self parameterValueForKey:@"WFTrelloList" ofClass:objc_opt_class()];
-    identifier = [v18 identifier];
+    v17 = [(WFTrelloGetItemsAction *)self parameterValueForKey:@"WFTrelloList" ofClass:objc_opt_class()];
+    identifier = [v17 identifier];
 
     if (!identifier)
     {
-      v39 = +[WFDiskCache workflowCache];
-      v20 = MEMORY[0x277CBEB98];
-      v49[0] = objc_opt_class();
-      v49[1] = objc_opt_class();
-      v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
-      v21 = [v20 setWithArray:v38];
+      v38 = +[WFDiskCache workflowCache];
+      v19 = MEMORY[0x277CBEB98];
+      v48[0] = objc_opt_class();
+      v48[1] = objc_opt_class();
+      v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
+      v20 = [v19 setWithArray:v37];
       identifier2 = [v12 identifier];
-      v37 = [v39 objectOfClasses:v21 forKeyComponents:{identifier2, @"WFTrelloLists", 0}];
+      v36 = [v38 objectOfClasses:v20 forKeyComponents:{identifier2, @"WFTrelloLists", 0}];
 
-      name = [v18 name];
-      v24 = [v37 objectMatchingKey:@"name" value:name];
+      name = [v17 name];
+      v23 = [v36 objectMatchingKey:@"name" value:name];
 
-      v18 = v24;
+      v17 = v23;
     }
 
-    if (v18)
+    if (v17)
     {
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke_3;
-      v41[3] = &unk_278C22518;
-      v41[4] = self;
-      [(WFTrelloSessionManager *)v11 getCardsForList:v18 completionHandler:v41];
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke_3;
+      v40[3] = &unk_278C22518;
+      v40[4] = self;
+      [(WFTrelloSessionManager *)v11 getCardsForList:v17 completionHandler:v40];
     }
 
     else
     {
-      v40 = MEMORY[0x277CCA9B8];
-      v33 = *MEMORY[0x277D7CB30];
-      v47 = *MEMORY[0x277CCA450];
-      v34 = WFLocalizedString(@"You must select a list to retrieve cards from.");
-      v48 = v34;
-      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-      v36 = [v40 errorWithDomain:v33 code:5 userInfo:v35];
-      [(WFTrelloGetItemsAction *)self finishRunningWithError:v36];
+      v39 = MEMORY[0x277CCA9B8];
+      v32 = *MEMORY[0x277D7CB30];
+      v46 = *MEMORY[0x277CCA450];
+      v33 = WFLocalizedString(@"You must select a list to retrieve cards from.");
+      v47 = v33;
+      v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+      v35 = [v39 errorWithDomain:v32 code:5 userInfo:v34];
+      [(WFTrelloGetItemsAction *)self finishRunningWithError:v35];
     }
   }
 
@@ -229,22 +229,20 @@ LABEL_18:
   {
     v15 = MEMORY[0x277CCA9B8];
     v16 = *MEMORY[0x277D7CB30];
-    v54 = *MEMORY[0x277CCA450];
+    v53 = *MEMORY[0x277CCA450];
     v11 = WFLocalizedString(@"Your Trello account couldn’t be verified. Please sign out and try again!");
-    v55[0] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:&v54 count:1];
+    v54[0] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:&v53 count:1];
     v13 = [v15 errorWithDomain:v16 code:-1 userInfo:v12];
     [(WFTrelloGetItemsAction *)self finishRunningWithError:v13];
   }
 
 LABEL_9:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (a3)
@@ -254,26 +252,26 @@ void __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke(uint
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
-    v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         v10 = 0;
         do
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * v10);
+          v11 = *(*(&v13 + 1) + 8 * v10);
           v12 = [*(a1 + 32) output];
           [v12 addObject:v11];
 
@@ -281,7 +279,7 @@ void __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke(uint
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -289,13 +287,11 @@ void __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke(uint
 
     [*(a1 + 32) updateBoards:v6 onAccount:*(a1 + 40)];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (a3)
@@ -305,26 +301,26 @@ void __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke_2(ui
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
-    v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         v10 = 0;
         do
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * v10);
+          v11 = *(*(&v13 + 1) + 8 * v10);
           v12 = [*(a1 + 32) output];
           [v12 addObject:v11];
 
@@ -332,7 +328,7 @@ void __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke_2(ui
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -340,13 +336,11 @@ void __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke_2(ui
 
     [*(a1 + 32) updateListCache:v6 board:*(a1 + 40) account:*(a1 + 48)];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (a3)
@@ -357,26 +351,26 @@ void __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke_3(ui
 
   else
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
-    v9 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v9 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         v12 = 0;
         do
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v6);
           }
 
-          v13 = *(*(&v16 + 1) + 8 * v12);
+          v13 = *(*(&v15 + 1) + 8 * v12);
           v14 = [*(a1 + 32) output];
           [v14 addObject:v13];
 
@@ -384,7 +378,7 @@ void __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke_3(ui
         }
 
         while (v10 != v12);
-        v10 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v10);
@@ -395,8 +389,6 @@ void __53__WFTrelloGetItemsAction_runAsynchronouslyWithInput___block_invoke_3(ui
   }
 
   [v7 finishRunningWithError:v8];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initializeParameters

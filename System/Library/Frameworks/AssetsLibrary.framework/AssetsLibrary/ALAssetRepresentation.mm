@@ -180,7 +180,6 @@ id __28__ALAssetRepresentation_url__block_invoke(uint64_t a1, void *a2, uint64_t
 uint64_t __59__ALAssetRepresentation__largeDisplayableImageForFormatID___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   [objc_msgSend(MEMORY[0x277D3AC00] "sharedAssetsSaver")];
-  v5 = *(a1 + 40);
   [a3 uniformTypeIdentifier];
   result = PLCreateImageFromDataWithFormat();
   *(*(*(a1 + 32) + 8) + 40) = result;
@@ -425,35 +424,34 @@ double __35__ALAssetRepresentation_dimensions__block_invoke(void *a1, uint64_t a
   v6 = [a3 originalHeight];
   v7 = [a3 width];
   v8 = [a3 height];
-  v9 = *(*(a1[4] + 8) + 24);
-  v10 = PLExifOrientationSwapsWidthAndHeight();
-  v11 = *(a1[5] + 8);
-  if (v10)
+  v9 = PLExifOrientationSwapsWidthAndHeight();
+  v10 = *(a1[5] + 8);
+  if (v9)
   {
-    v12 = v6;
+    v11 = v6;
   }
 
   else
+  {
+    v11 = v5;
+  }
+
+  if (v9)
   {
     v12 = v5;
   }
 
-  if (v10)
-  {
-    v13 = v5;
-  }
-
   else
   {
-    v13 = v6;
+    v12 = v6;
   }
 
-  *(v11 + 32) = v12;
-  *(v11 + 40) = v13;
+  *(v10 + 32) = v11;
+  *(v10 + 40) = v12;
   result = v7;
-  v15 = *(a1[6] + 8);
-  *(v15 + 32) = v7;
-  *(v15 + 40) = v8;
+  v14 = *(a1[6] + 8);
+  *(v14 + 32) = v7;
+  *(v14 + 40) = v8;
   return result;
 }
 

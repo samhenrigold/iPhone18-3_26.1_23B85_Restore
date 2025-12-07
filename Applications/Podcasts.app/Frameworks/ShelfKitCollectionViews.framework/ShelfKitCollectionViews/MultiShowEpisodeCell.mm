@@ -9,7 +9,7 @@
 - (void)didMoveToWindow
 {
   v8.receiver = self;
-  v8.super_class = type metadata accessor for MultiShowEpisodeCell();
+  v8.super_class = type metadata accessor for MultiShowEpisodeCell(0);
   v2 = v8.receiver;
   [(MultiShowEpisodeCell *)&v8 didMoveToWindow];
   window = [v2 window];
@@ -37,7 +37,7 @@
 - (void)prepareForReuse
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for MultiShowEpisodeCell();
+  v5.super_class = type metadata accessor for MultiShowEpisodeCell(0);
   v2 = v5.receiver;
   [(MultiShowEpisodeCell *)&v5 prepareForReuse];
   v3 = *&v2[OBJC_IVAR____TtC23ShelfKitCollectionViews20MultiShowEpisodeCell_episodeInfoView];

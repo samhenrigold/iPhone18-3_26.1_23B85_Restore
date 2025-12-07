@@ -210,7 +210,7 @@ void sub_254CA9CA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *YAML::Emitter::WriteStreamable<double>(uint64_t *a1, double a2)
+YAML::EmitterState **YAML::Emitter::WriteStreamable<double>(YAML::EmitterState **a1, double a2)
 {
   if (**a1 != 1)
   {
@@ -219,7 +219,7 @@ uint64_t *YAML::Emitter::WriteStreamable<double>(uint64_t *a1, double a2)
 
   YAML::Emitter::PrepareNode(a1, 2u);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v11);
-  *(&v11[2] + *(v11[0] - 24)) = *(*a1 + 104);
+  *(&v11[2] + *(v11[0] - 24)) = *(*a1 + 13);
   if (a2 == INFINITY)
   {
     v4 = ".inf";
@@ -299,9 +299,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CAA034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CAA034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -327,14 +327,14 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CAA114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CAA114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *YAML::Emitter::WriteIntegralType<int>(uint64_t *a1, uint64_t a2)
+uint64_t YAML::Emitter::WriteIntegralType<int>(uint64_t a1, uint64_t a2)
 {
   if (**a1 == 1)
   {
@@ -343,7 +343,7 @@ uint64_t *YAML::Emitter::WriteIntegralType<int>(uint64_t *a1, uint64_t a2)
     YAML::Emitter::PrepareIntegralStream(a1, v9);
     MEMORY[0x259C29BC0](&v10, a2);
     std::stringbuf::str();
-    YAML::ostream_wrapper::write((a1 + 1), &__p);
+    YAML::ostream_wrapper::write((a1 + 8), &__p);
     if (v8 < 0)
     {
       operator delete(__p);
@@ -403,21 +403,21 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CAA410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CAA410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void std::vector<siri::intelligence::TestCase>::__base_destruct_at_end[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<siri::intelligence::TestCase>::__base_destruct_at_end[abi:ne200100](uint64_t result, uint64_t a2)
 {
-  for (i = *(a1 + 8); i != a2; std::allocator_traits<std::allocator<siri::intelligence::TestCase>>::destroy[abi:ne200100]<siri::intelligence::TestCase,0>(a1, i))
+  for (i = *(result + 8); i != a2; std::allocator_traits<std::allocator<siri::intelligence::TestCase>>::destroy[abi:ne200100]<siri::intelligence::TestCase,0>(result, i))
   {
     i -= 152;
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 void std::allocator_traits<std::allocator<siri::intelligence::TestCase>>::destroy[abi:ne200100]<siri::intelligence::TestCase,0>(uint64_t a1, uint64_t a2)
@@ -638,7 +638,7 @@ uint64_t std::__split_buffer<siri::intelligence::TestParseError>::~__split_buffe
   return a1;
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -650,11 +650,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void std::vector<protobuf::FlowTest_Step>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -667,15 +667,15 @@ void std::vector<protobuf::FlowTest_Step>::__destroy_vector::operator()[abi:ne20
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 80;
-      v7 = v4 - 80;
-      v8 = v4 - 80;
+      v6 = v4 - 10;
+      v7 = v4 - 10;
+      v8 = v4 - 10;
       do
       {
         v9 = *v8;
-        v8 -= 80;
+        v8 -= 10;
         (*v9)(v7);
-        v6 -= 80;
+        v6 -= 10;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -695,26 +695,22 @@ __n128 std::allocator_traits<std::allocator<siri::intelligence::TestCase>>::cons
   v2 = *a2;
   *(a1 + 16) = *(a2 + 2);
   *a1 = v2;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   v3 = *(a2 + 24);
   *(a1 + 40) = *(a2 + 5);
   *(a1 + 24) = v3;
-  *(a2 + 4) = 0;
-  *(a2 + 5) = 0;
+  a2[2] = 0uLL;
   *(a2 + 3) = 0;
   v4 = a2[3];
   *(a1 + 64) = *(a2 + 8);
   *(a1 + 48) = v4;
-  *(a2 + 7) = 0;
-  *(a2 + 8) = 0;
+  *(a2 + 56) = 0uLL;
   *(a2 + 6) = 0;
   v5 = *(a2 + 72);
   *(a1 + 88) = *(a2 + 11);
   *(a1 + 72) = v5;
-  *(a2 + 9) = 0;
-  *(a2 + 10) = 0;
+  *(a2 + 72) = 0uLL;
   *(a2 + 11) = 0;
   v6 = *(a2 + 12);
   *(a1 + 112) = 0;
@@ -723,8 +719,7 @@ __n128 std::allocator_traits<std::allocator<siri::intelligence::TestCase>>::cons
   *(a1 + 104) = 0;
   *(a1 + 104) = *(a2 + 104);
   *(a1 + 120) = *(a2 + 15);
-  *(a2 + 13) = 0;
-  *(a2 + 14) = 0;
+  *(a2 + 104) = 0uLL;
   *(a2 + 15) = 0;
   *(a1 + 128) = 0;
   *(a1 + 136) = 0;
@@ -732,8 +727,7 @@ __n128 std::allocator_traits<std::allocator<siri::intelligence::TestCase>>::cons
   result = a2[8];
   *(a1 + 128) = result;
   *(a1 + 144) = *(a2 + 18);
-  *(a2 + 16) = 0;
-  *(a2 + 17) = 0;
+  a2[8] = 0uLL;
   *(a2 + 18) = 0;
   return result;
 }
@@ -777,7 +771,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<si
     do
     {
       std::allocator_traits<std::allocator<siri::intelligence::TestCase>>::destroy[abi:ne200100]<siri::intelligence::TestCase,0>(a1, v5);
-      v5 += 152;
+      v5 = (v5 + 152);
     }
 
     while (v5 != a3);
@@ -839,18 +833,18 @@ uint64_t std::__split_buffer<siri::intelligence::TestCase>::~__split_buffer(uint
   return a1;
 }
 
-uint64_t std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(uint64_t **a1, const void **a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
-uint64_t std::vector<siri::intelligence::TestCase>::__init_with_size[abi:ne200100]<siri::intelligence::TestCase*,siri::intelligence::TestCase*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<siri::intelligence::TestCase>::__init_with_size[abi:ne200100]<siri::intelligence::TestCase*,siri::intelligence::TestCase*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -860,14 +854,14 @@ uint64_t std::vector<siri::intelligence::TestCase>::__init_with_size[abi:ne20010
   return result;
 }
 
-void sub_254CAAEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_254CAAEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<siri::intelligence::TestCase>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<siri::intelligence::TestCase>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<siri::intelligence::TestCase>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x1AF286BCA1AF287)
   {
@@ -988,7 +982,7 @@ void sub_254CAB10C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<protobuf::FlowTest_Step>::__init_with_size[abi:ne200100]<protobuf::FlowTest_Step*,protobuf::FlowTest_Step*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<protobuf::FlowTest_Step>::__init_with_size[abi:ne200100]<protobuf::FlowTest_Step*,protobuf::FlowTest_Step*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1005,7 +999,7 @@ void sub_254CAB1EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<protobuf::FlowTest_Step>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<protobuf::FlowTest_Step>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x333333333333334)
   {
@@ -1068,7 +1062,7 @@ void sub_254CAB320(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1085,7 +1079,7 @@ void sub_254CAB3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -1171,7 +1165,7 @@ void std::vector<siri::intelligence::TestCase>::__destroy_vector::operator()[abi
   }
 }
 
-uint64_t std::vector<siri::intelligence::TestParseError>::__init_with_size[abi:ne200100]<siri::intelligence::TestParseError*,siri::intelligence::TestParseError*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<siri::intelligence::TestParseError>::__init_with_size[abi:ne200100]<siri::intelligence::TestParseError*,siri::intelligence::TestParseError*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1181,14 +1175,14 @@ uint64_t std::vector<siri::intelligence::TestParseError>::__init_with_size[abi:n
   return result;
 }
 
-void sub_254CAB63C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_254CAB63C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<siri::intelligence::TestParseError>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<siri::intelligence::TestParseError>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<siri::intelligence::TestParseError>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -1338,9 +1332,9 @@ uint64_t std::vector<siri::intelligence::TestCase>::__emplace_back_slow_path<sir
   return v12;
 }
 
-void sub_254CAB970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_254CAB970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<siri::intelligence::TestCase>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1453,8 +1447,7 @@ void siri::intelligence::VariableString::GetValue(siri::intelligence::VariableSt
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 72);
-    a2->__r_.__value_.__r.__words[2] = *(this + 11);
+    *a2 = *(this + 3);
   }
 }
 
@@ -1532,8 +1525,7 @@ void siri::intelligence::VariableString::AsString(siri::intelligence::VariableSt
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 72);
-    a2->__r_.__value_.__r.__words[2] = *(this + 11);
+    *a2 = *(this + 3);
   }
 }
 
@@ -1643,7 +1635,7 @@ void std::__shared_ptr_emplace<siri::intelligence::VariableString>::~__shared_pt
   JUMPOUT(0x259C29D90);
 }
 
-void siri::intelligence::Escaping::Escape(uint64_t a1@<X0>, uint64_t *a2@<X1>, std::string *a3@<X8>)
+void siri::intelligence::Escaping::Escape(uint64_t a1@<X0>, void *a2@<X1>, std::string *a3@<X8>)
 {
   if (*(a1 + 23) < 0)
   {
@@ -1912,7 +1904,7 @@ void siri::intelligence::Escaping::EscapeVector(uint64_t *a1@<X0>, uint64_t a2@<
   {
     std::string::basic_string[abi:ne200100]<0>(__p, ",");
     v10.__r_.__value_.__r.__words[0] = __p;
-    v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&qword_280AF4150, __p);
+    v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&qword_280AF4150, __p, &std::piecewise_construct, &v10);
     MEMORY[0x259C299D0](v4 + 56, "&comma;");
     if (v12 < 0)
     {
@@ -1974,7 +1966,7 @@ void **std::vector<std::string>::~vector[abi:ne200100](void **a1)
   return a1;
 }
 
-void siri::intelligence::Escaping::UnescapeVector(uint64_t a1)
+void siri::intelligence::Escaping::UnescapeVector(unsigned __int8 *a1)
 {
   if ((atomic_load_explicit(&qword_280AF4120, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF4120))
   {
@@ -1988,10 +1980,10 @@ void siri::intelligence::Escaping::UnescapeVector(uint64_t a1)
   if (!qword_280AF4178)
   {
     std::string::basic_string[abi:ne200100]<0>(__p, ",");
-    v5 = __p;
-    v2 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&qword_280AF4168, __p);
-    MEMORY[0x259C299D0](v2 + 56, "&comma;");
-    if (SHIBYTE(v4) < 0)
+    v6 = __p;
+    v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&qword_280AF4168, __p, &std::piecewise_construct, &v6);
+    MEMORY[0x259C299D0](v3 + 56, "&comma;");
+    if (SHIBYTE(v5) < 0)
     {
       operator delete(__p[0]);
     }
@@ -1999,7 +1991,7 @@ void siri::intelligence::Escaping::UnescapeVector(uint64_t a1)
 
   __p[0] = 0;
   __p[1] = 0;
-  v4 = 0;
+  v5 = 0;
   siri::intelligence::StringSplit(a1, ",");
 }
 
@@ -2037,7 +2029,7 @@ void siri::intelligence::Escaping::EscapeMap(void *a1@<X0>, uint64_t a2@<X8>)
   {
     std::string::basic_string[abi:ne200100]<0>(v22, "=");
     __p.__r_.__value_.__r.__words[0] = v22;
-    v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&qword_280AF4180, v22);
+    v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&qword_280AF4180, v22, &std::piecewise_construct, &__p);
     MEMORY[0x259C299D0](v4 + 56, "&equals;");
     if (SHIBYTE(v23) < 0)
     {
@@ -2046,7 +2038,7 @@ void siri::intelligence::Escaping::EscapeMap(void *a1@<X0>, uint64_t a2@<X8>)
 
     std::string::basic_string[abi:ne200100]<0>(v22, ";");
     __p.__r_.__value_.__r.__words[0] = v22;
-    v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&qword_280AF4198, v22);
+    v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&qword_280AF4198, v22, &std::piecewise_construct, &__p);
     MEMORY[0x259C299D0](v5 + 56, "&semi;");
     if (SHIBYTE(v23) < 0)
     {
@@ -2234,8 +2226,7 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = v4 + 24;
   }
@@ -2243,7 +2234,7 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
   *(a1 + 8) = v7;
 }
 
-void siri::intelligence::Escaping::UnescapeMap(uint64_t a1@<X0>, void *a2@<X8>)
+void siri::intelligence::Escaping::UnescapeMap(unsigned __int8 *a1@<X0>, void *a2@<X8>)
 {
   if ((atomic_load_explicit(&qword_280AF4138, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF4138))
   {
@@ -2265,20 +2256,22 @@ void siri::intelligence::Escaping::UnescapeMap(uint64_t a1@<X0>, void *a2@<X8>)
 
   if (!qword_280AF41C0)
   {
-    std::string::basic_string[abi:ne200100]<0>(&v6, "=");
-    v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&qword_280AF41B0, &v6);
+    std::string::basic_string[abi:ne200100]<0>(&v7, "=");
+    v6.__r_.__value_.__r.__words[0] = &v7;
+    v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&qword_280AF41B0, &v7, &std::piecewise_construct, &v6);
     MEMORY[0x259C299D0](v4 + 56, "&equals;");
-    if (v7 < 0)
+    if (v8 < 0)
     {
-      operator delete(v6);
+      operator delete(v7);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v6, ";");
-    v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&qword_280AF41C8, &v6);
+    std::string::basic_string[abi:ne200100]<0>(&v7, ";");
+    v6.__r_.__value_.__r.__words[0] = &v7;
+    v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&qword_280AF41C8, &v7, &std::piecewise_construct, &v6);
     MEMORY[0x259C299D0](v5 + 56, "&semi;");
-    if (v7 < 0)
+    if (v8 < 0)
     {
-      operator delete(v6);
+      operator delete(v7);
     }
   }
 
@@ -2296,25 +2289,25 @@ void siri::intelligence::Escaping::UnescapeMap(uint64_t a1@<X0>, void *a2@<X8>)
 
   if (qword_280AF41E0 == qword_280AF41E8)
   {
-    std::string::basic_string[abi:ne200100]<0>(&v6, "&amp;");
-    std::vector<std::string>::push_back[abi:ne200100](&qword_280AF41E0, &v6);
-    if (v7 < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v7, "&amp;");
+    std::vector<std::string>::push_back[abi:ne200100](&qword_280AF41E0, &v7);
+    if (v8 < 0)
     {
-      operator delete(v6);
+      operator delete(v7);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v6, "&equals;");
-    std::vector<std::string>::push_back[abi:ne200100](&qword_280AF41E0, &v6);
-    if (v7 < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v7, "&equals;");
+    std::vector<std::string>::push_back[abi:ne200100](&qword_280AF41E0, &v7);
+    if (v8 < 0)
     {
-      operator delete(v6);
+      operator delete(v7);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v6, "&semi;");
-    std::vector<std::string>::push_back[abi:ne200100](&qword_280AF41E0, &v6);
-    if (v7 < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v7, "&semi;");
+    std::vector<std::string>::push_back[abi:ne200100](&qword_280AF41E0, &v7);
+    if (v8 < 0)
     {
-      operator delete(v6);
+      operator delete(v7);
     }
   }
 
@@ -2332,15 +2325,15 @@ void sub_254CAD5EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(uint64_t a1, void *a2, const void **a3)
@@ -2475,20 +2468,20 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::str
   return a1;
 }
 
-void *std::vector<std::string>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::string>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::string>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::string>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::__wrap_iter<std::string*>,std::__wrap_iter<std::string*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+std::string *std::vector<std::string>::__init_with_size[abi:ne200100]<std::__wrap_iter<std::string*>,std::__wrap_iter<std::string*>>(std::string *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2685,8 +2678,7 @@ void siri::intelligence::VariableReference::GetValue(siri::intelligence::Variabl
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 72);
-    a2->__r_.__value_.__r.__words[2] = *(this + 11);
+    *a2 = *(this + 3);
   }
 }
 
@@ -2758,8 +2750,7 @@ void siri::intelligence::VariableReference::AsString(siri::intelligence::Variabl
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 72);
-    a2->__r_.__value_.__r.__words[2] = *(this + 11);
+    *a2 = *(this + 3);
   }
 }
 
@@ -2771,96 +2762,94 @@ uint64_t siri::intelligence::VariableReference::CheckForRecursion(uint64_t a1, u
     return 0;
   }
 
-  v5 = *v2;
-  v6 = **v2;
-  if (!v7)
+  if (!v5)
   {
-    v8 = 0;
-    goto LABEL_30;
+    v6 = 0;
+    goto LABEL_29;
   }
 
-  v8 = *(a2 + 8);
-  if (v8)
+  v6 = *(a2 + 8);
+  if (v6)
   {
-    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  if (v7[95] < 0)
+  if (v5[95] < 0)
   {
-    std::string::__init_copy_ctor_external(&v36, *(v7 + 9), *(v7 + 10));
-  }
-
-  else
-  {
-    v36 = *(v7 + 3);
-  }
-
-  v10 = SHIBYTE(v36.__r_.__value_.__r.__words[2]);
-  if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    size = HIBYTE(v36.__r_.__value_.__r.__words[2]);
+    std::string::__init_copy_ctor_external(&v32, *(v5 + 9), *(v5 + 10));
   }
 
   else
   {
-    size = v36.__r_.__value_.__l.__size_;
+    v32 = *(v5 + 3);
   }
 
-  v12 = *(a1 + 95);
-  v13 = v12;
-  if ((v12 & 0x80u) != 0)
+  v8 = SHIBYTE(v32.__r_.__value_.__r.__words[2]);
+  if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v12 = *(a1 + 80);
+    size = HIBYTE(v32.__r_.__value_.__r.__words[2]);
   }
 
-  if (size == v12)
+  else
   {
-    if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    size = v32.__r_.__value_.__l.__size_;
+  }
+
+  v10 = *(a1 + 95);
+  v11 = v10;
+  if ((v10 & 0x80u) != 0)
+  {
+    v10 = *(a1 + 80);
+  }
+
+  if (size == v10)
+  {
+    if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v14 = &v36;
+      v12 = &v32;
     }
 
     else
     {
-      v14 = v36.__r_.__value_.__r.__words[0];
+      v12 = v32.__r_.__value_.__r.__words[0];
     }
 
-    if (v13 >= 0)
+    if (v11 >= 0)
     {
-      v15 = (a1 + 72);
+      v13 = (a1 + 72);
     }
 
     else
     {
-      v15 = *(a1 + 72);
+      v13 = *(a1 + 72);
     }
 
-    v16 = memcmp(v14, v15, size) == 0;
-    if (v10 < 0)
+    v14 = memcmp(v12, v13, size) == 0;
+    if (v8 < 0)
     {
 LABEL_27:
-      operator delete(v36.__r_.__value_.__l.__data_);
-      if (!v16)
+      operator delete(v32.__r_.__value_.__l.__data_);
+      if (!v14)
       {
         goto LABEL_28;
       }
 
 LABEL_26:
-      v9 = 1;
-      goto LABEL_67;
+      v7 = 1;
+      goto LABEL_66;
     }
   }
 
   else
   {
-    v16 = 0;
-    if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+    v14 = 0;
+    if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
     {
       goto LABEL_27;
     }
   }
 
-  if (v16)
+  if (v14)
   {
     goto LABEL_26;
   }
@@ -2869,122 +2858,117 @@ LABEL_28:
   v2 = *a2;
   if (*a2)
   {
-    v5 = *v2;
-LABEL_30:
-    v17 = *v5;
-    if (v18)
+LABEL_29:
+    if (v15)
     {
-      v19 = *(a2 + 8);
-      if (v19)
+      v16 = *(a2 + 8);
+      if (v16)
       {
-        atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      std::map<std::string,std::shared_ptr<siri::intelligence::Variable>>::map[abi:ne200100](&v36, v18 + 9);
-      v20 = v36.__r_.__value_.__r.__words[0];
-      if (v36.__r_.__value_.__l.__data_ != &v36.__r_.__value_.__r.__words[1])
+      std::map<std::string,std::shared_ptr<siri::intelligence::Variable>>::map[abi:ne200100](&v32, v15 + 9);
+      v17 = v32.__r_.__value_.__r.__words[0];
+      if (v32.__r_.__value_.__l.__data_ != &v32.__r_.__value_.__r.__words[1])
       {
         while (1)
         {
-          v21 = v20[2].__words[2];
-          v35[0] = v20[2].__words[1];
-          v35[1] = v21;
-          if (v21)
+          v18 = v17[2].__words[2];
+          v31[0] = v17[2].__words[1];
+          v31[1] = v18;
+          if (v18)
           {
-            atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v22 = siri::intelligence::VariableReference::CheckForRecursion(a1, v35);
-          if (v21)
+          v19 = siri::intelligence::VariableReference::CheckForRecursion(a1, v31);
+          if (v18)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v18);
           }
 
-          if (v22)
+          if (v19)
           {
             break;
           }
 
-          v23 = v20->__words[1];
-          if (v23)
+          v20 = v17->__words[1];
+          if (v20)
           {
             do
             {
-              v24 = v23;
-              v23 = v23->__r_.__value_.__r.__words[0];
+              v21 = v20;
+              v20 = v20->__r_.__value_.__r.__words[0];
             }
 
-            while (v23);
+            while (v20);
           }
 
           else
           {
             do
             {
-              v24 = v20->__words[2];
-              v25 = v24->__r_.__value_.__r.__words[0] == v20;
-              v20 = v24;
+              v21 = v17->__words[2];
+              v22 = v21->__r_.__value_.__r.__words[0] == v17;
+              v17 = v21;
             }
 
-            while (!v25);
+            while (!v22);
           }
 
-          v20 = v24;
-          if (v24 == &v36.__r_.__value_.__r.__words[1])
+          v17 = v21;
+          if (v21 == &v32.__r_.__value_.__r.__words[1])
           {
-            goto LABEL_45;
+            goto LABEL_44;
           }
         }
 
-        std::__tree<std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>>>::destroy(&v36, v36.__r_.__value_.__l.__size_);
-        v9 = 1;
-        goto LABEL_65;
+        std::__tree<std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>>>::destroy(&v32, v32.__r_.__value_.__l.__size_);
+        v7 = 1;
+        goto LABEL_64;
       }
 
-LABEL_45:
-      std::__tree<std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>>>::destroy(&v36, v36.__r_.__value_.__l.__size_);
+LABEL_44:
+      std::__tree<std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>>>::destroy(&v32, v32.__r_.__value_.__l.__size_);
       v2 = *a2;
       if (!*a2)
       {
-        goto LABEL_60;
+        goto LABEL_59;
       }
-
-      v5 = *v2;
     }
 
     else
     {
-      v19 = 0;
+      v16 = 0;
     }
 
-    v26 = *v5;
-    if (v27)
+    if (v23)
     {
-      v28 = *(a2 + 8);
-      if (v28)
+      v24 = *(a2 + 8);
+      if (v24)
       {
-        atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      memset(&v36, 0, sizeof(v36));
-      std::vector<std::shared_ptr<siri::intelligence::Variable>>::__init_with_size[abi:ne200100]<std::shared_ptr<siri::intelligence::Variable>*,std::shared_ptr<siri::intelligence::Variable>*>(&v36, v27[9], v27[10], (v27[10] - v27[9]) >> 4);
-      v30 = v36.__r_.__value_.__l.__size_;
-      v29 = v36.__r_.__value_.__r.__words[0];
-      if (v36.__r_.__value_.__r.__words[0] == v36.__r_.__value_.__l.__size_)
+      memset(&v32, 0, sizeof(v32));
+      std::vector<std::shared_ptr<siri::intelligence::Variable>>::__init_with_size[abi:ne200100]<std::shared_ptr<siri::intelligence::Variable>*,std::shared_ptr<siri::intelligence::Variable>*>(&v32, v23[9], v23[10], (v23[10] - v23[9]) >> 4);
+      v26 = v32.__r_.__value_.__l.__size_;
+      v25 = v32.__r_.__value_.__r.__words[0];
+      if (v32.__r_.__value_.__r.__words[0] == v32.__r_.__value_.__l.__size_)
       {
-LABEL_58:
-        v37 = &v36;
-        std::vector<std::shared_ptr<siri::intelligence::Variable>>::__destroy_vector::operator()[abi:ne200100](&v37);
-        v9 = 0;
-        if (!v28)
+LABEL_57:
+        v33 = &v32;
+        std::vector<std::shared_ptr<siri::intelligence::Variable>>::__destroy_vector::operator()[abi:ne200100](&v33);
+        v7 = 0;
+        if (!v24)
         {
-LABEL_65:
-          if (v19)
+LABEL_64:
+          if (v16)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v16);
           }
 
-          goto LABEL_67;
+          goto LABEL_66;
         }
       }
 
@@ -2992,58 +2976,58 @@ LABEL_65:
       {
         while (1)
         {
-          v31 = v29[1];
-          v34[0] = *v29;
-          v34[1] = v31;
-          if (v31)
+          v27 = v25[1];
+          v30[0] = *v25;
+          v30[1] = v27;
+          if (v27)
           {
-            atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v32 = siri::intelligence::VariableReference::CheckForRecursion(a1, v34);
-          if (v31)
+          v28 = siri::intelligence::VariableReference::CheckForRecursion(a1, v30);
+          if (v27)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v27);
           }
 
-          if (v32)
+          if (v28)
           {
             break;
           }
 
-          v29 += 2;
-          if (v29 == v30)
+          v25 += 2;
+          if (v25 == v26)
           {
-            goto LABEL_58;
+            goto LABEL_57;
           }
         }
 
-        v37 = &v36;
-        std::vector<std::shared_ptr<siri::intelligence::Variable>>::__destroy_vector::operator()[abi:ne200100](&v37);
-        v9 = 1;
-        if (!v28)
+        v33 = &v32;
+        std::vector<std::shared_ptr<siri::intelligence::Variable>>::__destroy_vector::operator()[abi:ne200100](&v33);
+        v7 = 1;
+        if (!v24)
         {
-          goto LABEL_65;
+          goto LABEL_64;
         }
       }
 
-      std::__shared_weak_count::__release_shared[abi:ne200100](v28);
-      goto LABEL_65;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+      goto LABEL_64;
     }
 
-LABEL_60:
-    v9 = 0;
-    goto LABEL_65;
+LABEL_59:
+    v7 = 0;
+    goto LABEL_64;
   }
 
-  v9 = 0;
-LABEL_67:
-  if (v8)
+  v7 = 0;
+LABEL_66:
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  return v9;
+  return v7;
 }
 
 void sub_254CAEC68(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16)
@@ -3124,7 +3108,7 @@ LABEL_11:
     goto LABEL_14;
   }
 
-  (*v11)[11](v11, a2);
+  (*(*v11 + 88))(v11, a2);
 LABEL_14:
   if (v12)
   {
@@ -3173,13 +3157,13 @@ LABEL_9:
   {
     if (*(v7 + 55) < 0)
     {
-      std::string::__init_copy_ctor_external(a3, v7[4], v7[5]);
+      std::string::__init_copy_ctor_external(a3, *(v7 + 32), *(v7 + 40));
     }
 
     else
     {
-      v5 = *(v7 + 2);
-      a3->__r_.__value_.__r.__words[2] = v7[6];
+      v5 = *(v7 + 32);
+      a3->__r_.__value_.__r.__words[2] = *(v7 + 48);
       *&a3->__r_.__value_.__l.__data_ = v5;
     }
   }
@@ -3228,9 +3212,9 @@ void siri::intelligence::VariableReference::~VariableReference(void **this)
   JUMPOUT(0x259C29D90);
 }
 
-void siri::intelligence::HashUtils::ComputeMD5(_DWORD *a1@<X0>, _BYTE *a2@<X8>)
+void siri::intelligence::HashUtils::ComputeMD5(_DWORD *a1@<X0>, void *a2@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 23);
   v4 = a1[2];
   if (v3 >= 0)
@@ -3260,20 +3244,18 @@ void siri::intelligence::HashUtils::ComputeMD5(_DWORD *a1@<X0>, _BYTE *a2@<X8>)
     operator new();
   }
 
-  a2[23] = v9;
+  *(a2 + 23) = v9;
   if (v9)
   {
     memmove(a2, v8, v9);
   }
 
-  a2[v10] = 0;
-
-  v11 = *MEMORY[0x277D85DE8];
+  *(a2 + v10) = 0;
 }
 
 std::string *siri::intelligence::HashUtils::ComputeSHA256@<X0>(_DWORD *a1@<X0>, std::string *a2@<X8>)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 23);
   v4 = a1[2];
   if (v3 >= 0)
@@ -3294,7 +3276,7 @@ std::string *siri::intelligence::HashUtils::ComputeSHA256@<X0>(_DWORD *a1@<X0>, 
   a2->__r_.__value_.__r.__words[2] = 0;
   do
   {
-    v10 = 0;
+    v9 = 0;
     *__str = 0;
     snprintf(__str, 3uLL, "%02hhx", md[v6]);
     result = std::string::append(a2, __str);
@@ -3302,11 +3284,10 @@ std::string *siri::intelligence::HashUtils::ComputeSHA256@<X0>(_DWORD *a1@<X0>, 
   }
 
   while (v6 != 32);
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void siri::intelligence::HashUtils::ComputeCATIGuid(uint64_t a1@<X0>, const void **a2@<X1>, _BYTE *a3@<X8>)
+void siri::intelligence::HashUtils::ComputeCATIGuid(uint64_t a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
 {
   if (*(a2 + 23) >= 0)
   {
@@ -3468,17 +3449,17 @@ BOOL siri::intelligence::DialogTypes::IsDialogType(siri::intelligence *a1)
 {
   siri::intelligence::GetDialogTypes(a1);
   siri::intelligence::GetArrayElementType(a1, &__p);
-  v2 = std::__tree<std::string>::find<std::string>(v5, &__p.__r_.__value_.__l.__data_);
+  v2 = std::__tree<std::string>::find<std::string>(&v5, &__p.__r_.__value_.__l.__data_);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::destroy(v5, v6);
+  std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::destroy(&v5, v6);
   return &v6 != v2;
 }
 
-void sub_254CAFF60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, void *a16)
+void sub_254CAFF60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16)
 {
   if (a14 < 0)
   {
@@ -3493,720 +3474,720 @@ void siri::intelligence::GetDialogTypes(siri::intelligence *this)
 {
   MEMORY[0x28223BE20](this);
   v2 = v1;
-  v360 = *MEMORY[0x277D85DE8];
+  v359 = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&_MergedGlobals_5, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_5))
   {
-    v40 = v2;
-    std::string::basic_string[abi:ne200100]<0>(&v173, "dialog.AbstractMeasurement");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v315, "units", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v316, "value", "dialog.Number");
-    std::map<std::string,std::string>::map[abi:ne200100](v172, v315, 2);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v317, &v173, v172);
-    std::string::basic_string[abi:ne200100]<0>(&v170, "dialog.Area");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v312, "outputUnits");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v313, "units", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v314, "value", "dialog.Number");
-    std::map<std::string,std::string>::map[abi:ne200100](v169, v312, 3);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v318, &v170, v169);
-    std::string::basic_string[abi:ne200100]<0>(&v167, "dialog.Array");
-    v166[1] = 0;
-    v166[0] = 0;
-    v165 = v166;
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v319, &v167, &v165);
-    std::string::basic_string[abi:ne200100]<0>(&v163, "dialog.Boolean");
-    v162[1] = 0;
-    v162[0] = 0;
-    v161 = v162;
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v320, &v163, &v161);
-    std::string::basic_string[abi:ne200100]<0>(&v159, "dialog.Calendar");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[21],0>(v308);
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[14],0>(v309, "secs", "dialog.Number");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v310, "timeZone");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[14],0>(v311, "utcOffsetSecs", "dialog.Number");
-    std::map<std::string,std::string>::map[abi:ne200100](v158, v308, 4);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v321, &v159, v158);
-    std::string::basic_string[abi:ne200100]<0>(&v156, "dialog.CalendarRange");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[14],0>(v305, "endSecs", "dialog.Number");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[14],0>(v306, "startSecs", "dialog.Number");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v307, "timeZone");
-    std::map<std::string,std::string>::map[abi:ne200100](v155, v305, 3);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v322, &v156, v155);
-    std::string::basic_string[abi:ne200100]<0>(&v153, "dialog.ConvertibleMeasurement");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v302, "outputUnits");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v303, "units", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v304, "value", "dialog.Number");
-    std::map<std::string,std::string>::map[abi:ne200100](v152, v302, 3);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v323, &v153, v152);
-    std::string::basic_string[abi:ne200100]<0>(&v150, "dialog.Currency");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v300, "units", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v301, "value", "dialog.Number");
-    std::map<std::string,std::string>::map[abi:ne200100](v149, v300, 2);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v324, &v150, v149);
-    std::string::basic_string[abi:ne200100]<0>(&v147, "dialog.DateFormatter");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[14],0>(v298, "length", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[15],0>(v299, "omitYear");
-    std::map<std::string,std::string>::map[abi:ne200100](v146, v298, 2);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v325, &v147, v146);
-    std::string::basic_string[abi:ne200100]<0>(&v144, "dialog.DateTime");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[14],0>(v294, "day", "dialog.Number");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v295, "month", "dialog.Number");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v296, "timeZone");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[14],0>(v297, "year", "dialog.Number");
-    std::map<std::string,std::string>::map[abi:ne200100](v143, v294, 4);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v326, &v144, v143);
-    std::string::basic_string[abi:ne200100]<0>(&v141, "dialog.Density");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v291, "outputUnits");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v292, "units", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v293, "value", "dialog.Number");
-    std::map<std::string,std::string>::map[abi:ne200100](v140, v291, 3);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v327, &v141, v140);
-    std::string::basic_string[abi:ne200100]<0>(&v138, "dialog.Duration");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[14],0>(v290, "secs", "dialog.Number");
-    std::map<std::string,std::string>::map[abi:ne200100](v137, v290, 1);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v328, &v138, v137);
-    std::string::basic_string[abi:ne200100]<0>(&v135, "dialog.Length");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v287, "outputUnits");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v288, "units", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v289, "value", "dialog.Number");
-    std::map<std::string,std::string>::map[abi:ne200100](v134, v287, 3);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v329, &v135, v134);
-    std::string::basic_string[abi:ne200100]<0>(&v132, "dialog.Location");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[23],0>(v286);
-    std::map<std::string,std::string>::map[abi:ne200100](v131, v286, 1);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v330, &v132, v131);
-    std::string::basic_string[abi:ne200100]<0>(&v129, "dialog.LocationAddress");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[19],char const(&)[14],0>(v274);
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[23],char const(&)[14],0>(v275, "administrativeAreaCode");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[14],0>(v276, "country", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v277, "countryCode");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[14],0>(v278, "fullThoroughfare");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v279, "locality");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[14],0>(v280, "name", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v281, "postCode");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[22],char const(&)[14],0>(v282);
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v283, "subLocality");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[14],0>(v284, "subThoroughfare");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[14],0>(v285, "thoroughfare");
-    std::map<std::string,std::string>::map[abi:ne200100](v128, v274, 12);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v331, &v129, v128);
-    std::string::basic_string[abi:ne200100]<0>(&v126, "dialog.LocationValue");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[23],0>(v273);
-    std::map<std::string,std::string>::map[abi:ne200100](v125, v273, 1);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v332, &v126, v125);
-    std::string::basic_string[abi:ne200100]<0>(&v123, "dialog.MultiLevelItem");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[24],0>(v272);
-    std::map<std::string,std::string>::map[abi:ne200100](v122, v272, 1);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v333, &v123, v122);
-    std::string::basic_string[abi:ne200100]<0>(&v120, "dialog.Number");
-    v119[1] = 0;
-    v119[0] = 0;
-    v118 = v119;
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v334, &v120, &v118);
-    std::string::basic_string[abi:ne200100]<0>(&v116, "dialog.Percent");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v270, "units", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v271, "value", "dialog.Number");
-    std::map<std::string,std::string>::map[abi:ne200100](v115, v270, 2);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v335, &v116, v115);
-    std::string::basic_string[abi:ne200100]<0>(&v113, "dialog.Person");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[14],0>(v257, "company", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[14],0>(v258, "familyName");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[24],char const(&)[15],0>(v259);
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v260, "fullName");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[14],0>(v261, "givenName", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[14],0>(v262, "middleName");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v263, "nickname");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[20],0>(v264);
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[15],0>(v265, "pronoun", "dialog.Pronoun");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[15],0>(v266, "related", "dialog.Boolean");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[14],0>(v267, "relationship");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[22],char const(&)[15],0>(v268, "useConversationalName");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[20],char const(&)[15],0>(v269);
-    std::map<std::string,std::string>::map[abi:ne200100](v112, v257, 13);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v336, &v113, v112);
-    std::string::basic_string[abi:ne200100]<0>(&v110, "dialog.PersonHandle");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v254, "label", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[14],0>(v255, "type", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v256, "value", "dialog.String");
-    std::map<std::string,std::string>::map[abi:ne200100](v109, v254, 3);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v337, &v110, v109);
-    std::string::basic_string[abi:ne200100]<0>(&v107, "dialog.PersonHeight");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v252, "units", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v253, "value", "dialog.Number");
-    std::map<std::string,std::string>::map[abi:ne200100](v106, v252, 2);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v338, &v107, v106);
-    std::string::basic_string[abi:ne200100]<0>(&v104, "dialog.PhoneNumber");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v250, "countryCode");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v251, "value", "dialog.String");
-    std::map<std::string,std::string>::map[abi:ne200100](v103, v250, 2);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v339, &v104, v103);
-    std::string::basic_string[abi:ne200100]<0>(&v101, "dialog.Pressure");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v247, "outputUnits");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v248, "units", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v249, "value", "dialog.Number");
-    std::map<std::string,std::string>::map[abi:ne200100](v100, v247, 3);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v340, &v101, v100);
-    std::string::basic_string[abi:ne200100]<0>(&v98, "dialog.Pronoun");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[14],0>(v246, "gender", "dialog.String");
-    std::map<std::string,std::string>::map[abi:ne200100](v97, v246, 1);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v341, &v98, v97);
-    std::string::basic_string[abi:ne200100]<0>(&v95, "dialog.Speed");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v243, "outputUnits");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v244, "units", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v245, "value", "dialog.Number");
-    std::map<std::string,std::string>::map[abi:ne200100](v94, v243, 3);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v342, &v95, v94);
-    std::string::basic_string[abi:ne200100]<0>(&v92, "dialog.State");
-    v91[1] = 0;
-    v91[0] = 0;
-    v90 = v91;
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v343, &v92, &v90);
-    std::string::basic_string[abi:ne200100]<0>(&v88, "dialog.String");
-    v87[1] = 0;
-    v87[0] = 0;
-    v86 = v87;
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v344, &v88, &v86);
-    std::string::basic_string[abi:ne200100]<0>(&v84, "dialog.StringPair");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v241, "first", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[14],0>(v242, "second", "dialog.String");
-    std::map<std::string,std::string>::map[abi:ne200100](v83, v241, 2);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v345, &v84, v83);
-    std::string::basic_string[abi:ne200100]<0>(&v81, "dialog.Temperature");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v238, "outputUnits");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v239, "units", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v240, "value", "dialog.Number");
-    std::map<std::string,std::string>::map[abi:ne200100](v80, v238, 3);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v346, &v81, v80);
-    std::string::basic_string[abi:ne200100]<0>(&v78, "dialog.TimeZone");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[14],0>(v236, "secs", "dialog.Number");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v237, "timeZone");
-    std::map<std::string,std::string>::map[abi:ne200100](v77, v236, 2);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v347, &v78, v77);
-    std::string::basic_string[abi:ne200100]<0>(&v75, "dialog.User");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[14],0>(v223, "company", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[14],0>(v224, "familyName");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[24],char const(&)[15],0>(v225);
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v226, "fullName");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[14],0>(v227, "givenName", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[14],0>(v228, "middleName");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v229, "nickname");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[20],0>(v230);
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[15],0>(v231, "pronoun", "dialog.Pronoun");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[15],0>(v232, "related", "dialog.Boolean");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[14],0>(v233, "relationship");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[22],char const(&)[15],0>(v234, "useConversationalName");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[20],char const(&)[15],0>(v235);
-    std::map<std::string,std::string>::map[abi:ne200100](v74, v223, 13);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v348, &v75, v74);
-    std::string::basic_string[abi:ne200100]<0>(&v72, "dialog.Weight");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v220, "outputUnits");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v221, "units", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v222, "value", "dialog.Number");
-    std::map<std::string,std::string>::map[abi:ne200100](v71, v220, 3);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v349, &v72, v71);
-    std::string::basic_string[abi:ne200100]<0>(&v69, "sirikit.App");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v218, "appId", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[18],char const(&)[27],0>(v219);
-    std::map<std::string,std::string>::map[abi:ne200100](v68, v218, 2);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v350, &v69, v68);
-    std::string::basic_string[abi:ne200100]<0>(&v66, "sirikit.DeviceRestrictions");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[15],0>(v217);
-    std::map<std::string,std::string>::map[abi:ne200100](v65, v217, 1);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v351, &v66, v65);
-    std::string::basic_string[abi:ne200100]<0>(&v63, "sirikit.DeviceState");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[14],0>(v192, "companionName", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[14],0>(v193, "deviceName");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[14],0>(v194, "deviceRegionCode");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v195, "inputOrigin");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[14],0>(v196, "interactionType");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[15],0>(v197, "isAppleTV");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[15],0>(v198);
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[15],0>(v199, "isCarDnD");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[15],0>(v200, "isCarPlay");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[15],0>(v201, "isEyesFree");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[15],0>(v202, "isHomePod");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[21],char const(&)[15],0>(v203);
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[15],0>(v204, "isMac");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[15],0>(v205, "isPad");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[15],0>(v206, "isPhone", "dialog.Boolean");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[15],0>(v207, "isSidekick");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[22],char const(&)[15],0>(v208, "isTextToSpeechEnabled");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[15],0>(v209, "isVOX");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[22],char const(&)[15],0>(v210, "isVoiceTriggerEnabled");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[15],0>(v211, "isWatch", "dialog.Boolean");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[15],char const(&)[14],0>(v212);
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[27],0>(v213);
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[14],0>(v214, "siriLocale");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[23],char const(&)[14],0>(v215, "userAssignedDeviceName");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v216, "voiceGender");
-    std::map<std::string,std::string>::map[abi:ne200100](v62, v192, 25);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v352, &v63, v62);
-    std::string::basic_string[abi:ne200100]<0>(&v60, "sirikit.LocalizedAppName");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[14],0>(v190, "appName", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[14],0>(v191, "locale", "dialog.String");
-    std::map<std::string,std::string>::map[abi:ne200100](v59, v190, 2);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v353, &v60, v59);
-    std::string::basic_string[abi:ne200100]<0>(&v57, "visual.AppIcon");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v188, "bundleId");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v189, "iconType");
-    std::map<std::string,std::string>::map[abi:ne200100](v56, v188, 2);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v354, &v57, v56);
-    std::string::basic_string[abi:ne200100]<0>(&v54, "visual.AspectRatio");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[14],0>(v186, "height", "dialog.Number");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v187, "width", "dialog.Number");
-    std::map<std::string,std::string>::map[abi:ne200100](v53, v186, 2);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v355, &v54, v53);
-    std::string::basic_string[abi:ne200100]<0>(&v51, "visual.ImageData");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[19],0>(v184);
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v185, "encodedData");
-    std::map<std::string,std::string>::map[abi:ne200100](v50, v184, 2);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v356, &v51, v50);
-    std::string::basic_string[abi:ne200100]<0>(&v48, "visual.ImageResource");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[15],0>(v179, "appIcon", "visual.AppIcon");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[17],0>(v180);
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[14],0>(v181, "imageType", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[16],0>(v182);
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[14],0>(v183, "symbol", "visual.Symbol");
-    std::map<std::string,std::string>::map[abi:ne200100](v47, v179, 5);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v357, &v48, v47);
-    std::string::basic_string[abi:ne200100]<0>(v45, "visual.ImageUrl");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[19],0>(v176);
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[14],0>(v177, "darkUrl", "dialog.String");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[14],0>(v178, "url", "dialog.String");
-    std::map<std::string,std::string>::map[abi:ne200100](v44, v176, 3);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v358, v45, v44);
+    v39 = v2;
+    std::string::basic_string[abi:ne200100]<0>(&v172, "dialog.AbstractMeasurement");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v314, "units", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v315, "value", "dialog.Number");
+    std::map<std::string,std::string>::map[abi:ne200100](v171, v314, 2);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v316, &v172, v171);
+    std::string::basic_string[abi:ne200100]<0>(&v169, "dialog.Area");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v311, "outputUnits");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v312, "units", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v313, "value", "dialog.Number");
+    std::map<std::string,std::string>::map[abi:ne200100](v168, v311, 3);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v317, &v169, v168);
+    std::string::basic_string[abi:ne200100]<0>(&v166, "dialog.Array");
+    v165[1] = 0;
+    v165[0] = 0;
+    v164 = v165;
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v318, &v166, &v164);
+    std::string::basic_string[abi:ne200100]<0>(&v162, "dialog.Boolean");
+    v161[1] = 0;
+    v161[0] = 0;
+    v160 = v161;
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v319, &v162, &v160);
+    std::string::basic_string[abi:ne200100]<0>(&v158, "dialog.Calendar");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[21],0>(v307);
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[14],0>(v308, "secs", "dialog.Number");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v309, "timeZone");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[14],0>(v310, "utcOffsetSecs", "dialog.Number");
+    std::map<std::string,std::string>::map[abi:ne200100](v157, v307, 4);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v320, &v158, v157);
+    std::string::basic_string[abi:ne200100]<0>(&v155, "dialog.CalendarRange");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[14],0>(v304, "endSecs", "dialog.Number");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[14],0>(v305, "startSecs", "dialog.Number");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v306, "timeZone");
+    std::map<std::string,std::string>::map[abi:ne200100](v154, v304, 3);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v321, &v155, v154);
+    std::string::basic_string[abi:ne200100]<0>(&v152, "dialog.ConvertibleMeasurement");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v301, "outputUnits");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v302, "units", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v303, "value", "dialog.Number");
+    std::map<std::string,std::string>::map[abi:ne200100](v151, v301, 3);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v322, &v152, v151);
+    std::string::basic_string[abi:ne200100]<0>(&v149, "dialog.Currency");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v299, "units", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v300, "value", "dialog.Number");
+    std::map<std::string,std::string>::map[abi:ne200100](v148, v299, 2);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v323, &v149, v148);
+    std::string::basic_string[abi:ne200100]<0>(&v146, "dialog.DateFormatter");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[14],0>(v297, "length", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[15],0>(v298, "omitYear");
+    std::map<std::string,std::string>::map[abi:ne200100](v145, v297, 2);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v324, &v146, v145);
+    std::string::basic_string[abi:ne200100]<0>(&v143, "dialog.DateTime");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[14],0>(v293, "day", "dialog.Number");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v294, "month", "dialog.Number");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v295, "timeZone");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[14],0>(v296, "year", "dialog.Number");
+    std::map<std::string,std::string>::map[abi:ne200100](v142, v293, 4);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v325, &v143, v142);
+    std::string::basic_string[abi:ne200100]<0>(&v140, "dialog.Density");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v290, "outputUnits");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v291, "units", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v292, "value", "dialog.Number");
+    std::map<std::string,std::string>::map[abi:ne200100](v139, v290, 3);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v326, &v140, v139);
+    std::string::basic_string[abi:ne200100]<0>(&v137, "dialog.Duration");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[14],0>(v289, "secs", "dialog.Number");
+    std::map<std::string,std::string>::map[abi:ne200100](v136, v289, 1);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v327, &v137, v136);
+    std::string::basic_string[abi:ne200100]<0>(&v134, "dialog.Length");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v286, "outputUnits");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v287, "units", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v288, "value", "dialog.Number");
+    std::map<std::string,std::string>::map[abi:ne200100](v133, v286, 3);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v328, &v134, v133);
+    std::string::basic_string[abi:ne200100]<0>(&v131, "dialog.Location");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[23],0>(v285);
+    std::map<std::string,std::string>::map[abi:ne200100](v130, v285, 1);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v329, &v131, v130);
+    std::string::basic_string[abi:ne200100]<0>(&v128, "dialog.LocationAddress");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[19],char const(&)[14],0>(v273);
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[23],char const(&)[14],0>(v274, "administrativeAreaCode");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[14],0>(v275, "country", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v276, "countryCode");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[14],0>(v277, "fullThoroughfare");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v278, "locality");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[14],0>(v279, "name", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v280, "postCode");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[22],char const(&)[14],0>(v281);
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v282, "subLocality");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[14],0>(v283, "subThoroughfare");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[14],0>(v284, "thoroughfare");
+    std::map<std::string,std::string>::map[abi:ne200100](v127, v273, 12);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v330, &v128, v127);
+    std::string::basic_string[abi:ne200100]<0>(&v125, "dialog.LocationValue");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[23],0>(v272);
+    std::map<std::string,std::string>::map[abi:ne200100](v124, v272, 1);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v331, &v125, v124);
+    std::string::basic_string[abi:ne200100]<0>(&v122, "dialog.MultiLevelItem");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[24],0>(v271);
+    std::map<std::string,std::string>::map[abi:ne200100](v121, v271, 1);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v332, &v122, v121);
+    std::string::basic_string[abi:ne200100]<0>(&v119, "dialog.Number");
+    v118[1] = 0;
+    v118[0] = 0;
+    v117 = v118;
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v333, &v119, &v117);
+    std::string::basic_string[abi:ne200100]<0>(&v115, "dialog.Percent");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v269, "units", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v270, "value", "dialog.Number");
+    std::map<std::string,std::string>::map[abi:ne200100](v114, v269, 2);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v334, &v115, v114);
+    std::string::basic_string[abi:ne200100]<0>(&v112, "dialog.Person");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[14],0>(v256, "company", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[14],0>(v257, "familyName");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[24],char const(&)[15],0>(v258);
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v259, "fullName");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[14],0>(v260, "givenName", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[14],0>(v261, "middleName");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v262, "nickname");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[20],0>(v263);
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[15],0>(v264, "pronoun", "dialog.Pronoun");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[15],0>(v265, "related", "dialog.Boolean");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[14],0>(v266, "relationship");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[22],char const(&)[15],0>(v267, "useConversationalName");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[20],char const(&)[15],0>(v268);
+    std::map<std::string,std::string>::map[abi:ne200100](v111, v256, 13);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v335, &v112, v111);
+    std::string::basic_string[abi:ne200100]<0>(&v109, "dialog.PersonHandle");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v253, "label", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[14],0>(v254, "type", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v255, "value", "dialog.String");
+    std::map<std::string,std::string>::map[abi:ne200100](v108, v253, 3);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v336, &v109, v108);
+    std::string::basic_string[abi:ne200100]<0>(&v106, "dialog.PersonHeight");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v251, "units", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v252, "value", "dialog.Number");
+    std::map<std::string,std::string>::map[abi:ne200100](v105, v251, 2);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v337, &v106, v105);
+    std::string::basic_string[abi:ne200100]<0>(&v103, "dialog.PhoneNumber");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v249, "countryCode");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v250, "value", "dialog.String");
+    std::map<std::string,std::string>::map[abi:ne200100](v102, v249, 2);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v338, &v103, v102);
+    std::string::basic_string[abi:ne200100]<0>(&v100, "dialog.Pressure");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v246, "outputUnits");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v247, "units", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v248, "value", "dialog.Number");
+    std::map<std::string,std::string>::map[abi:ne200100](v99, v246, 3);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v339, &v100, v99);
+    std::string::basic_string[abi:ne200100]<0>(&v97, "dialog.Pronoun");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[14],0>(v245, "gender", "dialog.String");
+    std::map<std::string,std::string>::map[abi:ne200100](v96, v245, 1);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v340, &v97, v96);
+    std::string::basic_string[abi:ne200100]<0>(&v94, "dialog.Speed");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v242, "outputUnits");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v243, "units", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v244, "value", "dialog.Number");
+    std::map<std::string,std::string>::map[abi:ne200100](v93, v242, 3);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v341, &v94, v93);
+    std::string::basic_string[abi:ne200100]<0>(&v91, "dialog.State");
+    v90[1] = 0;
+    v90[0] = 0;
+    v89 = v90;
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v342, &v91, &v89);
+    std::string::basic_string[abi:ne200100]<0>(&v87, "dialog.String");
+    v86[1] = 0;
+    v86[0] = 0;
+    v85 = v86;
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v343, &v87, &v85);
+    std::string::basic_string[abi:ne200100]<0>(&v83, "dialog.StringPair");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v240, "first", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[14],0>(v241, "second", "dialog.String");
+    std::map<std::string,std::string>::map[abi:ne200100](v82, v240, 2);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v344, &v83, v82);
+    std::string::basic_string[abi:ne200100]<0>(&v80, "dialog.Temperature");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v237, "outputUnits");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v238, "units", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v239, "value", "dialog.Number");
+    std::map<std::string,std::string>::map[abi:ne200100](v79, v237, 3);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v345, &v80, v79);
+    std::string::basic_string[abi:ne200100]<0>(&v77, "dialog.TimeZone");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[14],0>(v235, "secs", "dialog.Number");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v236, "timeZone");
+    std::map<std::string,std::string>::map[abi:ne200100](v76, v235, 2);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v346, &v77, v76);
+    std::string::basic_string[abi:ne200100]<0>(&v74, "dialog.User");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[14],0>(v222, "company", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[14],0>(v223, "familyName");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[24],char const(&)[15],0>(v224);
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v225, "fullName");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[14],0>(v226, "givenName", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[14],0>(v227, "middleName");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v228, "nickname");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[20],0>(v229);
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[15],0>(v230, "pronoun", "dialog.Pronoun");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[15],0>(v231, "related", "dialog.Boolean");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[14],0>(v232, "relationship");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[22],char const(&)[15],0>(v233, "useConversationalName");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[20],char const(&)[15],0>(v234);
+    std::map<std::string,std::string>::map[abi:ne200100](v73, v222, 13);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v347, &v74, v73);
+    std::string::basic_string[abi:ne200100]<0>(&v71, "dialog.Weight");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v219, "outputUnits");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v220, "units", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v221, "value", "dialog.Number");
+    std::map<std::string,std::string>::map[abi:ne200100](v70, v219, 3);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v348, &v71, v70);
+    std::string::basic_string[abi:ne200100]<0>(&v68, "sirikit.App");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v217, "appId", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[18],char const(&)[27],0>(v218);
+    std::map<std::string,std::string>::map[abi:ne200100](v67, v217, 2);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v349, &v68, v67);
+    std::string::basic_string[abi:ne200100]<0>(&v65, "sirikit.DeviceRestrictions");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[15],0>(v216);
+    std::map<std::string,std::string>::map[abi:ne200100](v64, v216, 1);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v350, &v65, v64);
+    std::string::basic_string[abi:ne200100]<0>(&v62, "sirikit.DeviceState");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[14],0>(v191, "companionName", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[14],0>(v192, "deviceName");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[14],0>(v193, "deviceRegionCode");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v194, "inputOrigin");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[14],0>(v195, "interactionType");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[15],0>(v196, "isAppleTV");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[15],0>(v197);
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[15],0>(v198, "isCarDnD");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[15],0>(v199, "isCarPlay");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[15],0>(v200, "isEyesFree");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[15],0>(v201, "isHomePod");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[21],char const(&)[15],0>(v202);
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[15],0>(v203, "isMac");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[15],0>(v204, "isPad");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[15],0>(v205, "isPhone", "dialog.Boolean");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[15],0>(v206, "isSidekick");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[22],char const(&)[15],0>(v207, "isTextToSpeechEnabled");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[15],0>(v208, "isVOX");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[22],char const(&)[15],0>(v209, "isVoiceTriggerEnabled");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[15],0>(v210, "isWatch", "dialog.Boolean");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[15],char const(&)[14],0>(v211);
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[27],0>(v212);
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[14],0>(v213, "siriLocale");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[23],char const(&)[14],0>(v214, "userAssignedDeviceName");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v215, "voiceGender");
+    std::map<std::string,std::string>::map[abi:ne200100](v61, v191, 25);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v351, &v62, v61);
+    std::string::basic_string[abi:ne200100]<0>(&v59, "sirikit.LocalizedAppName");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[14],0>(v189, "appName", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[14],0>(v190, "locale", "dialog.String");
+    std::map<std::string,std::string>::map[abi:ne200100](v58, v189, 2);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v352, &v59, v58);
+    std::string::basic_string[abi:ne200100]<0>(&v56, "visual.AppIcon");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v187, "bundleId");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(v188, "iconType");
+    std::map<std::string,std::string>::map[abi:ne200100](v55, v187, 2);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v353, &v56, v55);
+    std::string::basic_string[abi:ne200100]<0>(&v53, "visual.AspectRatio");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[14],0>(v185, "height", "dialog.Number");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(v186, "width", "dialog.Number");
+    std::map<std::string,std::string>::map[abi:ne200100](v52, v185, 2);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v354, &v53, v52);
+    std::string::basic_string[abi:ne200100]<0>(&v50, "visual.ImageData");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[19],0>(v183);
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(v184, "encodedData");
+    std::map<std::string,std::string>::map[abi:ne200100](v49, v183, 2);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v355, &v50, v49);
+    std::string::basic_string[abi:ne200100]<0>(&v47, "visual.ImageResource");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[15],0>(v178, "appIcon", "visual.AppIcon");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[17],0>(v179);
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[14],0>(v180, "imageType", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[16],0>(v181);
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[14],0>(v182, "symbol", "visual.Symbol");
+    std::map<std::string,std::string>::map[abi:ne200100](v46, v178, 5);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v356, &v47, v46);
+    std::string::basic_string[abi:ne200100]<0>(v44, "visual.ImageUrl");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[19],0>(v175);
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[14],0>(v176, "darkUrl", "dialog.String");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[14],0>(v177, "url", "dialog.String");
+    std::map<std::string,std::string>::map[abi:ne200100](v43, v175, 3);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v357, v44, v43);
     std::string::basic_string[abi:ne200100]<0>(__p, "visual.Symbol");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[14],0>(v175, "name", "dialog.String");
-    std::map<std::string,std::string>::map[abi:ne200100](v41, v175, 1);
-    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v359, __p, v41);
-    std::map<std::string,std::map<std::string,std::string>>::map[abi:ne200100](v317, 43);
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[14],0>(v174, "name", "dialog.String");
+    std::map<std::string,std::string>::map[abi:ne200100](v40, v174, 1);
+    std::pair<std::string const,std::map<std::string,std::string>>::pair[abi:ne200100]<true,0>(v358, __p, v40);
+    std::map<std::string,std::map<std::string,std::string>>::map[abi:ne200100](&v316[0].__r_.__value_.__l.__data_, 43);
     for (i = 2016; i != -48; i -= 48)
     {
-      std::pair<std::string const,std::map<std::string,std::string>>::~pair(&v317[i / 0x18]);
+      std::pair<std::string const,std::map<std::string,std::string>>::~pair(&v316[i / 0x18]);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v41, v41[1]);
-    siri::intelligence::TestParseError::~TestParseError(v175);
-    if (v43 < 0)
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v40, v40[1]);
+    siri::intelligence::TestParseError::~TestParseError(v174);
+    if (v42 < 0)
     {
       operator delete(__p[0]);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v44, v44[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v43, v43[1]);
     for (j = 12; j != -6; j -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v176[j]);
+      siri::intelligence::TestParseError::~TestParseError(&v175[j]);
     }
 
-    if (v46 < 0)
+    if (v45 < 0)
     {
-      operator delete(v45[0]);
+      operator delete(v44[0]);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v47, v47[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v46, v46[1]);
     for (k = 24; k != -6; k -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v179[k]);
+      siri::intelligence::TestParseError::~TestParseError(&v178[k]);
     }
 
-    if (v49 < 0)
+    if (v48 < 0)
     {
-      operator delete(v48);
+      operator delete(v47);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v50, v50[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v49, v49[1]);
     for (m = 6; m != -6; m -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v184[m]);
+      siri::intelligence::TestParseError::~TestParseError(&v183[m]);
     }
 
-    if (v52 < 0)
+    if (v51 < 0)
     {
-      operator delete(v51);
+      operator delete(v50);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v53, v53[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v52, v52[1]);
     for (n = 6; n != -6; n -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v186[n]);
+      siri::intelligence::TestParseError::~TestParseError(&v185[n]);
     }
 
-    if (v55 < 0)
+    if (v54 < 0)
     {
-      operator delete(v54);
+      operator delete(v53);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v56, v56[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v55, v55[1]);
     for (ii = 6; ii != -6; ii -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v188[ii]);
+      siri::intelligence::TestParseError::~TestParseError(&v187[ii]);
     }
 
-    if (v58 < 0)
+    if (v57 < 0)
     {
-      operator delete(v57);
+      operator delete(v56);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v59, v59[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v58, v58[1]);
     for (jj = 6; jj != -6; jj -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v190[jj]);
+      siri::intelligence::TestParseError::~TestParseError(&v189[jj]);
     }
 
-    if (v61 < 0)
+    if (v60 < 0)
     {
-      operator delete(v60);
+      operator delete(v59);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v62, v62[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v61, v61[1]);
     for (kk = 144; kk != -6; kk -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v192[kk]);
+      siri::intelligence::TestParseError::~TestParseError(&v191[kk]);
     }
 
-    if (v64 < 0)
+    if (v63 < 0)
     {
-      operator delete(v63);
+      operator delete(v62);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v65, v65[1]);
-    siri::intelligence::TestParseError::~TestParseError(v217);
-    if (v67 < 0)
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v64, v64[1]);
+    siri::intelligence::TestParseError::~TestParseError(v216);
+    if (v66 < 0)
     {
-      operator delete(v66);
+      operator delete(v65);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v68, v68[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v67, v67[1]);
     for (mm = 6; mm != -6; mm -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v218[mm]);
+      siri::intelligence::TestParseError::~TestParseError(&v217[mm]);
     }
 
-    if (v70 < 0)
+    if (v69 < 0)
     {
-      operator delete(v69);
+      operator delete(v68);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v71, v71[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v70, v70[1]);
     for (nn = 12; nn != -6; nn -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v220[nn]);
+      siri::intelligence::TestParseError::~TestParseError(&v219[nn]);
     }
 
-    if (v73 < 0)
+    if (v72 < 0)
     {
-      operator delete(v72);
+      operator delete(v71);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v74, v74[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v73, v73[1]);
     for (i1 = 72; i1 != -6; i1 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v223[i1]);
+      siri::intelligence::TestParseError::~TestParseError(&v222[i1]);
     }
 
-    if (v76 < 0)
+    if (v75 < 0)
     {
-      operator delete(v75);
+      operator delete(v74);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v77, v77[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v76, v76[1]);
     for (i2 = 6; i2 != -6; i2 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v236[i2]);
+      siri::intelligence::TestParseError::~TestParseError(&v235[i2]);
     }
 
-    if (v79 < 0)
+    if (v78 < 0)
     {
-      operator delete(v78);
+      operator delete(v77);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v80, v80[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v79, v79[1]);
     for (i3 = 12; i3 != -6; i3 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v238[i3]);
+      siri::intelligence::TestParseError::~TestParseError(&v237[i3]);
     }
 
-    if (v82 < 0)
+    if (v81 < 0)
     {
-      operator delete(v81);
+      operator delete(v80);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v83, v83[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v82, v82[1]);
     for (i4 = 6; i4 != -6; i4 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v241[i4]);
+      siri::intelligence::TestParseError::~TestParseError(&v240[i4]);
     }
 
-    if (v85 < 0)
+    if (v84 < 0)
     {
-      operator delete(v84);
+      operator delete(v83);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v86, v87[0]);
-    if (v89 < 0)
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v85, v86[0]);
+    if (v88 < 0)
     {
-      operator delete(v88);
+      operator delete(v87);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v90, v91[0]);
-    if (v93 < 0)
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v89, v90[0]);
+    if (v92 < 0)
     {
-      operator delete(v92);
+      operator delete(v91);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v94, v94[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v93, v93[1]);
     for (i5 = 12; i5 != -6; i5 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v243[i5]);
+      siri::intelligence::TestParseError::~TestParseError(&v242[i5]);
     }
 
-    if (v96 < 0)
+    if (v95 < 0)
     {
-      operator delete(v95);
+      operator delete(v94);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v97, v97[1]);
-    siri::intelligence::TestParseError::~TestParseError(v246);
-    if (v99 < 0)
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v96, v96[1]);
+    siri::intelligence::TestParseError::~TestParseError(v245);
+    if (v98 < 0)
     {
-      operator delete(v98);
+      operator delete(v97);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v100, v100[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v99, v99[1]);
     for (i6 = 12; i6 != -6; i6 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v247[i6]);
+      siri::intelligence::TestParseError::~TestParseError(&v246[i6]);
     }
 
-    if (v102 < 0)
+    if (v101 < 0)
     {
-      operator delete(v101);
+      operator delete(v100);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v103, v103[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v102, v102[1]);
     for (i7 = 6; i7 != -6; i7 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v250[i7]);
+      siri::intelligence::TestParseError::~TestParseError(&v249[i7]);
     }
 
-    if (v105 < 0)
+    if (v104 < 0)
     {
-      operator delete(v104);
+      operator delete(v103);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v106, v106[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v105, v105[1]);
     for (i8 = 6; i8 != -6; i8 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v252[i8]);
+      siri::intelligence::TestParseError::~TestParseError(&v251[i8]);
     }
 
-    if (v108 < 0)
+    if (v107 < 0)
     {
-      operator delete(v107);
+      operator delete(v106);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v109, v109[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v108, v108[1]);
     for (i9 = 12; i9 != -6; i9 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v254[i9]);
+      siri::intelligence::TestParseError::~TestParseError(&v253[i9]);
     }
 
-    if (v111 < 0)
+    if (v110 < 0)
     {
-      operator delete(v110);
+      operator delete(v109);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v112, v112[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v111, v111[1]);
     for (i10 = 72; i10 != -6; i10 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v257[i10]);
+      siri::intelligence::TestParseError::~TestParseError(&v256[i10]);
     }
 
-    if (v114 < 0)
+    if (v113 < 0)
     {
-      operator delete(v113);
+      operator delete(v112);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v115, v115[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v114, v114[1]);
     for (i11 = 6; i11 != -6; i11 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v270[i11]);
+      siri::intelligence::TestParseError::~TestParseError(&v269[i11]);
     }
 
-    if (v117 < 0)
+    if (v116 < 0)
     {
-      operator delete(v116);
+      operator delete(v115);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v118, v119[0]);
-    if (v121 < 0)
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v117, v118[0]);
+    if (v120 < 0)
     {
-      operator delete(v120);
+      operator delete(v119);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v122, v122[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v121, v121[1]);
+    siri::intelligence::TestParseError::~TestParseError(v271);
+    if (v123 < 0)
+    {
+      operator delete(v122);
+    }
+
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v124, v124[1]);
     siri::intelligence::TestParseError::~TestParseError(v272);
-    if (v124 < 0)
+    if (v126 < 0)
     {
-      operator delete(v123);
+      operator delete(v125);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v125, v125[1]);
-    siri::intelligence::TestParseError::~TestParseError(v273);
-    if (v127 < 0)
-    {
-      operator delete(v126);
-    }
-
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v128, v128[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v127, v127[1]);
     for (i12 = 66; i12 != -6; i12 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v274[i12]);
+      siri::intelligence::TestParseError::~TestParseError(&v273[i12]);
     }
 
-    if (v130 < 0)
+    if (v129 < 0)
     {
-      operator delete(v129);
+      operator delete(v128);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v131, v131[1]);
-    siri::intelligence::TestParseError::~TestParseError(v286);
-    if (v133 < 0)
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v130, v130[1]);
+    siri::intelligence::TestParseError::~TestParseError(v285);
+    if (v132 < 0)
     {
-      operator delete(v132);
+      operator delete(v131);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v134, v134[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v133, v133[1]);
     for (i13 = 12; i13 != -6; i13 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v287[i13]);
+      siri::intelligence::TestParseError::~TestParseError(&v286[i13]);
     }
 
-    if (v136 < 0)
+    if (v135 < 0)
     {
-      operator delete(v135);
+      operator delete(v134);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v137, v137[1]);
-    siri::intelligence::TestParseError::~TestParseError(v290);
-    if (v139 < 0)
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v136, v136[1]);
+    siri::intelligence::TestParseError::~TestParseError(v289);
+    if (v138 < 0)
     {
-      operator delete(v138);
+      operator delete(v137);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v140, v140[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v139, v139[1]);
     for (i14 = 12; i14 != -6; i14 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v291[i14]);
+      siri::intelligence::TestParseError::~TestParseError(&v290[i14]);
     }
 
-    if (v142 < 0)
+    if (v141 < 0)
     {
-      operator delete(v141);
+      operator delete(v140);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v143, v143[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v142, v142[1]);
     for (i15 = 18; i15 != -6; i15 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v294[i15]);
+      siri::intelligence::TestParseError::~TestParseError(&v293[i15]);
     }
 
-    if (v145 < 0)
+    if (v144 < 0)
     {
-      operator delete(v144);
+      operator delete(v143);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v146, v146[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v145, v145[1]);
     for (i16 = 6; i16 != -6; i16 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v298[i16]);
+      siri::intelligence::TestParseError::~TestParseError(&v297[i16]);
     }
 
-    if (v148 < 0)
+    if (v147 < 0)
     {
-      operator delete(v147);
+      operator delete(v146);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v149, v149[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v148, v148[1]);
     for (i17 = 6; i17 != -6; i17 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v300[i17]);
+      siri::intelligence::TestParseError::~TestParseError(&v299[i17]);
     }
 
-    if (v151 < 0)
+    if (v150 < 0)
     {
-      operator delete(v150);
+      operator delete(v149);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v152, v152[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v151, v151[1]);
     for (i18 = 12; i18 != -6; i18 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v302[i18]);
+      siri::intelligence::TestParseError::~TestParseError(&v301[i18]);
     }
 
-    if (v154 < 0)
+    if (v153 < 0)
     {
-      operator delete(v153);
+      operator delete(v152);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v155, v155[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v154, v154[1]);
     for (i19 = 12; i19 != -6; i19 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v305[i19]);
+      siri::intelligence::TestParseError::~TestParseError(&v304[i19]);
     }
 
-    if (v157 < 0)
+    if (v156 < 0)
     {
-      operator delete(v156);
+      operator delete(v155);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v158, v158[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v157, v157[1]);
     for (i20 = 18; i20 != -6; i20 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v308[i20]);
+      siri::intelligence::TestParseError::~TestParseError(&v307[i20]);
     }
 
-    if (v160 < 0)
+    if (v159 < 0)
     {
-      operator delete(v159);
+      operator delete(v158);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v161, v162[0]);
-    if (v164 < 0)
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v160, v161[0]);
+    if (v163 < 0)
     {
-      operator delete(v163);
+      operator delete(v162);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v165, v166[0]);
-    if (v168 < 0)
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v164, v165[0]);
+    if (v167 < 0)
     {
-      operator delete(v167);
+      operator delete(v166);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v169, v169[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v168, v168[1]);
     for (i21 = 12; i21 != -6; i21 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v312[i21]);
+      siri::intelligence::TestParseError::~TestParseError(&v311[i21]);
     }
 
-    if (v171 < 0)
+    if (v170 < 0)
     {
-      operator delete(v170);
+      operator delete(v169);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v172, v172[1]);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v171, v171[1]);
     for (i22 = 6; i22 != -6; i22 -= 6)
     {
-      siri::intelligence::TestParseError::~TestParseError(&v315[i22]);
+      siri::intelligence::TestParseError::~TestParseError(&v314[i22]);
     }
 
-    if (v174 < 0)
+    if (v173 < 0)
     {
-      operator delete(v173);
+      operator delete(v172);
     }
 
     __cxa_atexit(std::map<std::string,std::map<std::string,std::string>>::~map[abi:ne200100], &qword_280AF4220, &dword_254C81000);
     __cxa_guard_release(&_MergedGlobals_5);
-    v2 = v40;
+    v2 = v39;
   }
 
   v2[1] = 0;
@@ -4217,7 +4198,7 @@ void siri::intelligence::GetDialogTypes(siri::intelligence *this)
   {
     do
     {
-      std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::map<std::string,std::string>> const&>(v2, (v2 + 1), (v3 + 32));
+      std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::map<std::string,std::string>> const&>(v2, (v2 + 1), (v3 + 32), v3 + 32);
       v4 = *(v3 + 8);
       if (v4)
       {
@@ -4247,20 +4228,18 @@ void siri::intelligence::GetDialogTypes(siri::intelligence *this)
 
     while (v5 != &qword_280AF4228);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void sub_254CB2534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, void **a11, void **a12, void **a13, void **a14, void **a15, void **a16, void **a17, void **a18, void **a19, uint64_t a20, uint64_t a21, char a22, void *a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, char a32, void *a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, char a42, void *a43, uint64_t a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, char a52, void *a53, uint64_t a54, void *a55, uint64_t a56, int a57, __int16 a58, char a59, char a60, uint64_t a61, char a62, void *a63)
+void sub_254CB2534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, void **a11, void **a12, void **a13, void **a14, void **a15, void **a16, void **a17, void **a18, void **a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, void *a55, uint64_t a56, int a57, __int16 a58, char a59, char a60, uint64_t a61, uint64_t a62, void *a63)
 {
-  v90 = -2064;
+  v85 = -2064;
   do
   {
     a20 = std::pair<std::string const,std::map<std::string,std::string>>::~pair(a20) - 48;
-    v90 += 48;
+    v85 += 48;
   }
 
-  while (v90);
+  while (v85);
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a22, a23);
   siri::intelligence::TestParseError::~TestParseError(&STACK[0x9A0]);
   if (a30 < 0)
@@ -4269,109 +4248,109 @@ void sub_254CB2534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a32, a33);
-  v92 = -144;
+  v87 = -144;
   do
   {
-    siri::intelligence::TestParseError::~TestParseError(v86);
-    v86 -= 6;
-    v92 += 48;
+    siri::intelligence::TestParseError::~TestParseError(v81);
+    v81 -= 6;
+    v87 += 48;
   }
 
-  while (v92);
+  while (v87);
   if (a40 < 0)
   {
     operator delete(a35);
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a42, a43);
-  v93 = -240;
+  v88 = -240;
   do
   {
-    siri::intelligence::TestParseError::~TestParseError(v85);
-    v85 -= 6;
-    v93 += 48;
+    siri::intelligence::TestParseError::~TestParseError(v80);
+    v80 -= 6;
+    v88 += 48;
   }
 
-  while (v93);
+  while (v88);
   if (a50 < 0)
   {
     operator delete(a45);
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a52, a53);
-  v94 = &STACK[0xB80];
-  v95 = -96;
+  v89 = &STACK[0xB80];
+  v90 = -96;
   do
   {
-    siri::intelligence::TestParseError::~TestParseError(v94);
-    v94 = (v96 - 48);
-    v95 += 48;
+    siri::intelligence::TestParseError::~TestParseError(v89);
+    v89 = (v91 - 48);
+    v90 += 48;
   }
 
-  while (v95);
+  while (v90);
   if (a60 < 0)
   {
     operator delete(a55);
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a62, a63);
-  v97 = &STACK[0xBE0];
-  v98 = -96;
+  v92 = &STACK[0xBE0];
+  v93 = -96;
   do
   {
-    siri::intelligence::TestParseError::~TestParseError(v97);
-    v97 = (v99 - 48);
-    v98 += 48;
+    siri::intelligence::TestParseError::~TestParseError(v92);
+    v92 = (v94 - 48);
+    v93 += 48;
   }
 
-  while (v98);
-  if (a70 < 0)
+  while (v93);
+  if (a66 < 0)
   {
     operator delete(a65);
   }
 
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a72, a73);
-  v100 = &STACK[0xC40];
-  v101 = -96;
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a67, a68);
+  v95 = &STACK[0xC40];
+  v96 = -96;
   do
   {
-    siri::intelligence::TestParseError::~TestParseError(v100);
-    v100 = (v102 - 48);
+    siri::intelligence::TestParseError::~TestParseError(v95);
+    v95 = (v97 - 48);
+    v96 += 48;
+  }
+
+  while (v96);
+  if (a70 < 0)
+  {
+    operator delete(a69);
+  }
+
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a71, a72);
+  v98 = &STACK[0xCA0];
+  v99 = -96;
+  do
+  {
+    siri::intelligence::TestParseError::~TestParseError(v98);
+    v98 = (v100 - 48);
+    v99 += 48;
+  }
+
+  while (v99);
+  if (a74 < 0)
+  {
+    operator delete(a73);
+  }
+
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a75, a76);
+  v101 = -1200;
+  do
+  {
+    siri::intelligence::TestParseError::~TestParseError(v79);
+    v79 -= 6;
     v101 += 48;
   }
 
   while (v101);
-  if (a75 < 0)
-  {
-    operator delete(a74);
-  }
-
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a76, a77);
-  v103 = &STACK[0xCA0];
-  v104 = -96;
-  do
-  {
-    siri::intelligence::TestParseError::~TestParseError(v103);
-    v103 = (v105 - 48);
-    v104 += 48;
-  }
-
-  while (v104);
-  if (a79 < 0)
-  {
-    operator delete(a78);
-  }
-
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&a80, a81);
-  v106 = -1200;
-  do
-  {
-    siri::intelligence::TestParseError::~TestParseError(v84);
-    v84 -= 6;
-    v106 += 48;
-  }
-
-  while (v106);
   if (SLOBYTE(STACK[0x21F]) < 0)
   {
     operator delete(STACK[0x208]);
@@ -4385,7 +4364,53 @@ void sub_254CB2534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x260], STACK[0x268]);
-  v107 = &STACK[0x11E0];
+  v102 = &STACK[0x11E0];
+  v103 = -96;
+  do
+  {
+    siri::intelligence::TestParseError::~TestParseError(v102);
+    v102 = (v104 - 48);
+    v103 += 48;
+  }
+
+  while (v103);
+  if (SLOBYTE(STACK[0x28F]) < 0)
+  {
+    operator delete(STACK[0x278]);
+  }
+
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x298], STACK[0x2A0]);
+  v105 = -144;
+  do
+  {
+    siri::intelligence::TestParseError::~TestParseError(v78);
+    v78 -= 6;
+    v105 += 48;
+  }
+
+  while (v105);
+  if (SLOBYTE(STACK[0x2C7]) < 0)
+  {
+    operator delete(STACK[0x2B0]);
+  }
+
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x2D0], STACK[0x2D8]);
+  v106 = -624;
+  do
+  {
+    siri::intelligence::TestParseError::~TestParseError(v77);
+    v77 -= 6;
+    v106 += 48;
+  }
+
+  while (v106);
+  if (SLOBYTE(STACK[0x2FF]) < 0)
+  {
+    operator delete(STACK[0x2E8]);
+  }
+
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x308], STACK[0x310]);
+  v107 = &STACK[0x1540];
   v108 = -96;
   do
   {
@@ -4395,83 +4420,37 @@ void sub_254CB2534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   while (v108);
-  if (SLOBYTE(STACK[0x28F]) < 0)
-  {
-    operator delete(STACK[0x278]);
-  }
-
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x298], STACK[0x2A0]);
-  v110 = -144;
-  do
-  {
-    siri::intelligence::TestParseError::~TestParseError(v83);
-    v83 -= 6;
-    v110 += 48;
-  }
-
-  while (v110);
-  if (SLOBYTE(STACK[0x2C7]) < 0)
-  {
-    operator delete(STACK[0x2B0]);
-  }
-
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x2D0], STACK[0x2D8]);
-  v111 = -624;
-  do
-  {
-    siri::intelligence::TestParseError::~TestParseError(v82);
-    v82 -= 6;
-    v111 += 48;
-  }
-
-  while (v111);
-  if (SLOBYTE(STACK[0x2FF]) < 0)
-  {
-    operator delete(STACK[0x2E8]);
-  }
-
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x308], STACK[0x310]);
-  v112 = &STACK[0x1540];
-  v113 = -96;
-  do
-  {
-    siri::intelligence::TestParseError::~TestParseError(v112);
-    v112 = (v114 - 48);
-    v113 += 48;
-  }
-
-  while (v113);
   if (SLOBYTE(STACK[0x337]) < 0)
   {
     operator delete(STACK[0x320]);
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x340], STACK[0x348]);
-  v115 = -144;
+  v110 = -144;
   do
   {
     siri::intelligence::TestParseError::~TestParseError(a10);
-    a10 = (v117 - 48);
-    v115 += 48;
+    a10 = (v112 - 48);
+    v110 += 48;
   }
 
-  while (v115);
+  while (v110);
   if (SLOBYTE(STACK[0x36F]) < 0)
   {
     operator delete(STACK[0x358]);
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x378], STACK[0x380]);
-  v118 = &STACK[0x1630];
-  v119 = -96;
+  v113 = &STACK[0x1630];
+  v114 = -96;
   do
   {
-    siri::intelligence::TestParseError::~TestParseError(v118);
-    v118 = (v120 - 48);
-    v119 += 48;
+    siri::intelligence::TestParseError::~TestParseError(v113);
+    v113 = (v115 - 48);
+    v114 += 48;
   }
 
-  while (v119);
+  while (v114);
   if (SLOBYTE(STACK[0x3A7]) < 0)
   {
     operator delete(STACK[0x390]);
@@ -4490,15 +4469,15 @@ void sub_254CB2534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x410], STACK[0x418]);
-  v121 = -144;
+  v116 = -144;
   do
   {
     siri::intelligence::TestParseError::~TestParseError(a11);
-    a11 = (v123 - 48);
-    v121 += 48;
+    a11 = (v118 - 48);
+    v116 += 48;
   }
 
-  while (v121);
+  while (v116);
   if (SLOBYTE(STACK[0x43F]) < 0)
   {
     operator delete(STACK[0x428]);
@@ -4512,94 +4491,94 @@ void sub_254CB2534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x480], STACK[0x488]);
-  v124 = -144;
+  v119 = -144;
   do
   {
     siri::intelligence::TestParseError::~TestParseError(a12);
-    a12 = (v126 - 48);
-    v124 += 48;
+    a12 = (v121 - 48);
+    v119 += 48;
   }
 
-  while (v124);
+  while (v119);
   if (SLOBYTE(STACK[0x4AF]) < 0)
   {
     operator delete(STACK[0x498]);
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x4B8], STACK[0x4C0]);
-  v127 = &STACK[0x17E0];
-  v128 = -96;
+  v122 = &STACK[0x17E0];
+  v123 = -96;
   do
   {
-    siri::intelligence::TestParseError::~TestParseError(v127);
-    v127 = (v129 - 48);
-    v128 += 48;
+    siri::intelligence::TestParseError::~TestParseError(v122);
+    v122 = (v124 - 48);
+    v123 += 48;
   }
 
-  while (v128);
+  while (v123);
   if (SLOBYTE(STACK[0x4E7]) < 0)
   {
     operator delete(STACK[0x4D0]);
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x4F0], STACK[0x4F8]);
-  v130 = &STACK[0x1840];
-  v131 = -96;
+  v125 = &STACK[0x1840];
+  v126 = -96;
   do
   {
-    siri::intelligence::TestParseError::~TestParseError(v130);
-    v130 = (v132 - 48);
-    v131 += 48;
+    siri::intelligence::TestParseError::~TestParseError(v125);
+    v125 = (v127 - 48);
+    v126 += 48;
   }
 
-  while (v131);
+  while (v126);
   if (SLOBYTE(STACK[0x51F]) < 0)
   {
     operator delete(STACK[0x508]);
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x528], STACK[0x530]);
-  v133 = -144;
+  v128 = -144;
   do
   {
     siri::intelligence::TestParseError::~TestParseError(a13);
-    a13 = (v135 - 48);
-    v133 += 48;
+    a13 = (v130 - 48);
+    v128 += 48;
   }
 
-  while (v133);
+  while (v128);
   if (SLOBYTE(STACK[0x557]) < 0)
   {
     operator delete(STACK[0x540]);
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x560], STACK[0x568]);
-  v136 = -624;
-  v137 = v88;
+  v131 = -624;
+  v132 = v83;
   do
   {
-    siri::intelligence::TestParseError::~TestParseError(v137);
-    v137 = (v138 - 48);
-    v136 += 48;
+    siri::intelligence::TestParseError::~TestParseError(v132);
+    v132 = (v133 - 48);
+    v131 += 48;
   }
 
-  while (v136);
+  while (v131);
   if (SLOBYTE(STACK[0x58F]) < 0)
   {
     operator delete(STACK[0x578]);
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x598], STACK[0x5A0]);
-  v139 = &STACK[0x1BA0];
-  v140 = -96;
+  v134 = &STACK[0x1BA0];
+  v135 = -96;
   do
   {
-    siri::intelligence::TestParseError::~TestParseError(v139);
-    v139 = (v141 - 48);
-    v140 += 48;
+    siri::intelligence::TestParseError::~TestParseError(v134);
+    v134 = (v136 - 48);
+    v135 += 48;
   }
 
-  while (v140);
+  while (v135);
   if (SLOBYTE(STACK[0x5C7]) < 0)
   {
     operator delete(STACK[0x5B0]);
@@ -4626,16 +4605,16 @@ void sub_254CB2534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x670], STACK[0x678]);
-  v142 = -576;
-  v143 = v87;
+  v137 = -576;
+  v138 = v82;
   do
   {
-    siri::intelligence::TestParseError::~TestParseError(v143);
-    v143 = (v144 - 48);
-    v142 += 48;
+    siri::intelligence::TestParseError::~TestParseError(v138);
+    v138 = (v139 - 48);
+    v137 += 48;
   }
 
-  while (v142);
+  while (v137);
   if (SLOBYTE(STACK[0x69F]) < 0)
   {
     operator delete(STACK[0x688]);
@@ -4649,15 +4628,15 @@ void sub_254CB2534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x6E0], STACK[0x6E8]);
-  v145 = -144;
+  v140 = -144;
   do
   {
     siri::intelligence::TestParseError::~TestParseError(a14);
-    a14 = (v147 - 48);
-    v145 += 48;
+    a14 = (v142 - 48);
+    v140 += 48;
   }
 
-  while (v145);
+  while (v140);
   if (SLOBYTE(STACK[0x70F]) < 0)
   {
     operator delete(STACK[0x6F8]);
@@ -4671,107 +4650,107 @@ void sub_254CB2534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x750], STACK[0x758]);
-  v148 = -144;
+  v143 = -144;
   do
   {
     siri::intelligence::TestParseError::~TestParseError(a15);
-    a15 = (v150 - 48);
-    v148 += 48;
+    a15 = (v145 - 48);
+    v143 += 48;
   }
 
-  while (v148);
+  while (v143);
   if (SLOBYTE(STACK[0x77F]) < 0)
   {
     operator delete(STACK[0x768]);
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x788], STACK[0x790]);
-  v151 = -192;
+  v146 = -192;
   do
   {
     siri::intelligence::TestParseError::~TestParseError(a18);
-    a18 = (v153 - 48);
-    v151 += 48;
+    a18 = (v148 - 48);
+    v146 += 48;
   }
 
-  while (v151);
+  while (v146);
   if (SLOBYTE(STACK[0x7B7]) < 0)
   {
     operator delete(STACK[0x7A0]);
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x7C0], STACK[0x7C8]);
-  v154 = &STACK[0x20E0];
-  v155 = -96;
+  v149 = &STACK[0x20E0];
+  v150 = -96;
   do
   {
-    siri::intelligence::TestParseError::~TestParseError(v154);
-    v154 = (v156 - 48);
-    v155 += 48;
+    siri::intelligence::TestParseError::~TestParseError(v149);
+    v149 = (v151 - 48);
+    v150 += 48;
   }
 
-  while (v155);
+  while (v150);
   if (SLOBYTE(STACK[0x7EF]) < 0)
   {
     operator delete(STACK[0x7D8]);
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x7F8], STACK[0x800]);
-  v157 = &STACK[0x2140];
-  v158 = -96;
+  v152 = &STACK[0x2140];
+  v153 = -96;
   do
   {
-    siri::intelligence::TestParseError::~TestParseError(v157);
-    v157 = (v159 - 48);
-    v158 += 48;
+    siri::intelligence::TestParseError::~TestParseError(v152);
+    v152 = (v154 - 48);
+    v153 += 48;
   }
 
-  while (v158);
+  while (v153);
   if (SLOBYTE(STACK[0x827]) < 0)
   {
     operator delete(STACK[0x810]);
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x830], STACK[0x838]);
-  v160 = -144;
+  v155 = -144;
   do
   {
     siri::intelligence::TestParseError::~TestParseError(a16);
-    a16 = (v162 - 48);
-    v160 += 48;
+    a16 = (v157 - 48);
+    v155 += 48;
   }
 
-  while (v160);
+  while (v155);
   if (SLOBYTE(STACK[0x85F]) < 0)
   {
     operator delete(STACK[0x848]);
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x868], STACK[0x870]);
-  v163 = -144;
+  v158 = -144;
   do
   {
     siri::intelligence::TestParseError::~TestParseError(a17);
-    a17 = (v165 - 48);
-    v163 += 48;
+    a17 = (v160 - 48);
+    v158 += 48;
   }
 
-  while (v163);
+  while (v158);
   if (SLOBYTE(STACK[0x897]) < 0)
   {
     operator delete(STACK[0x880]);
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x8A0], STACK[0x8A8]);
-  v166 = -192;
+  v161 = -192;
   do
   {
     siri::intelligence::TestParseError::~TestParseError(a19);
-    a19 = (v168 - 48);
-    v166 += 48;
+    a19 = (v163 - 48);
+    v161 += 48;
   }
 
-  while (v166);
+  while (v161);
   if (SLOBYTE(STACK[0x8CF]) < 0)
   {
     operator delete(STACK[0x8B8]);
@@ -4790,31 +4769,31 @@ void sub_254CB2534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x938], STACK[0x940]);
-  v169 = -144;
+  v164 = -144;
   do
   {
-    siri::intelligence::TestParseError::~TestParseError(v81);
-    v81 -= 6;
-    v169 += 48;
+    siri::intelligence::TestParseError::~TestParseError(v76);
+    v76 -= 6;
+    v164 += 48;
   }
 
-  while (v169);
+  while (v164);
   if (SLOBYTE(STACK[0x967]) < 0)
   {
     operator delete(STACK[0x950]);
   }
 
   std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&STACK[0x970], STACK[0x978]);
-  v170 = &STACK[0x2410];
-  v171 = -96;
+  v165 = &STACK[0x2410];
+  v166 = -96;
   do
   {
-    siri::intelligence::TestParseError::~TestParseError(v170);
-    v170 = (v172 - 48);
-    v171 += 48;
+    siri::intelligence::TestParseError::~TestParseError(v165);
+    v165 = (v167 - 48);
+    v166 += 48;
   }
 
-  while (v171);
+  while (v166);
   if (SLOBYTE(STACK[0x99F]) < 0)
   {
     operator delete(STACK[0x988]);
@@ -4868,7 +4847,7 @@ BOOL siri::intelligence::DialogTypes::IsDialogTypeInput(siri::intelligence *a1, 
   return v5;
 }
 
-void sub_254CB3CA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, void *a16)
+void sub_254CB3CA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16)
 {
   if (a14 < 0)
   {
@@ -4910,7 +4889,7 @@ void siri::intelligence::DialogTypes::GetDialogTypeInputType(siri::intelligence 
   std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::destroy(v11, v12);
 }
 
-void sub_254CB3DB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, void *a16)
+void sub_254CB3DB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16)
 {
   if (a14 < 0)
   {
@@ -4932,10 +4911,10 @@ uint64_t std::pair<std::string const,std::map<std::string,std::string>>::~pair(u
   return a1;
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[14],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -4949,18 +4928,18 @@ void sub_254CB3E64(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::map<std::string,std::string>::map[abi:ne200100](void *a1, const void **a2, uint64_t a3)
+uint64_t **std::map<std::string,std::string>::map[abi:ne200100](uint64_t **a1, const void **a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 48 * a3;
     do
     {
-      std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, v4, a2, a2);
       a2 += 6;
       v6 -= 48;
     }
@@ -4971,18 +4950,18 @@ void *std::map<std::string,std::string>::map[abi:ne200100](void *a1, const void 
   return a1;
 }
 
-const void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(void *a1, uint64_t *a2, const void **a3)
+uint64_t *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(uint64_t **a1, uint64_t *a2, const void **a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::pair<std::string const,std::string> const&>();
   }
 
-  return v3;
+  return v4;
 }
 
-const void **std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(void *a1, uint64_t *a2, const void ***a3, uint64_t *a4, const void **a5)
+const void **std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(uint64_t **a1, uint64_t *a2, const void ***a3, uint64_t *a4, const void **a5)
 {
   v9 = (a1 + 1);
   if (a1 + 1 != a2 && !std::less<std::string>::operator()[abi:ne200100](a1, a5, a2 + 4))
@@ -5150,7 +5129,7 @@ std::string *std::pair<std::string const,std::map<std::string,std::string>>::pai
     *&this->__r_.__value_.__l.__data_ = v5;
   }
 
-  std::map<std::string,std::string>::map[abi:ne200100](this[1].__r_.__value_.__r.__words, a3);
+  std::map<std::string,std::string>::map[abi:ne200100](&this[1], a3);
   return this;
 }
 
@@ -5164,16 +5143,16 @@ void sub_254CB42A8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::map<std::string,std::string>::map[abi:ne200100](void *a1, const void ***a2)
+uint64_t *std::map<std::string,std::string>::map[abi:ne200100](uint64_t *a1, const void ***a2)
 {
   a1[2] = 0;
   a1[1] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>>(a1, *a2, a2 + 1);
   return a1;
 }
 
-void *std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>>(void *result, const void **a2, const void ***a3)
+uint64_t *std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>>(uint64_t *result, const void **a2, const void ***a3)
 {
   if (a2 != a3)
   {
@@ -5181,7 +5160,7 @@ void *std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_i
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(v5, v5 + 1, v4 + 4);
+      result = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(v5, v5 + 1, v4 + 4, (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -5215,10 +5194,10 @@ void *std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_i
   return result;
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(_BYTE *a1, char *a2)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[14],0>(void *a1, char *a2)
 {
   v3 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v3 + 24, "dialog.String");
+  std::string::basic_string[abi:ne200100]<0>(v3 + 3, "dialog.String");
   return a1;
 }
 
@@ -5232,10 +5211,10 @@ void sub_254CB43DC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[21],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[21],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "dateFormatter");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "dialog.DateFormatter");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "dialog.DateFormatter");
   return a1;
 }
 
@@ -5249,10 +5228,10 @@ void sub_254CB4438(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[14],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[14],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -5266,10 +5245,10 @@ void sub_254CB448C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(_BYTE *a1, char *a2)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[14],0>(void *a1, char *a2)
 {
   v3 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v3 + 24, "dialog.String");
+  std::string::basic_string[abi:ne200100]<0>(v3 + 3, "dialog.String");
   return a1;
 }
 
@@ -5283,10 +5262,10 @@ void sub_254CB44E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[14],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[14],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -5300,10 +5279,10 @@ void sub_254CB4534(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[14],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[14],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -5317,10 +5296,10 @@ void sub_254CB4588(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[14],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[14],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -5334,10 +5313,10 @@ void sub_254CB45DC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[14],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[14],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -5351,10 +5330,10 @@ void sub_254CB4630(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[15],0>(_BYTE *a1, char *a2)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[15],0>(void *a1, char *a2)
 {
   v3 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v3 + 24, "dialog.Boolean");
+  std::string::basic_string[abi:ne200100]<0>(v3 + 3, "dialog.Boolean");
   return a1;
 }
 
@@ -5368,10 +5347,10 @@ void sub_254CB4684(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[14],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[14],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -5385,10 +5364,10 @@ void sub_254CB46D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[23],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[23],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "values");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "dialog.LocationValue[]");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "dialog.LocationValue[]");
   return a1;
 }
 
@@ -5402,10 +5381,10 @@ void sub_254CB4734(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[19],char const(&)[14],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[19],char const(&)[14],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "administrativeArea");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "dialog.String");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "dialog.String");
   return a1;
 }
 
@@ -5419,10 +5398,10 @@ void sub_254CB4790(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[23],char const(&)[14],0>(_BYTE *a1, char *a2)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[23],char const(&)[14],0>(void *a1, char *a2)
 {
   v3 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v3 + 24, "dialog.String");
+  std::string::basic_string[abi:ne200100]<0>(v3 + 3, "dialog.String");
   return a1;
 }
 
@@ -5436,10 +5415,10 @@ void sub_254CB47E4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[14],0>(_BYTE *a1, char *a2)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[14],0>(void *a1, char *a2)
 {
   v3 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v3 + 24, "dialog.String");
+  std::string::basic_string[abi:ne200100]<0>(v3 + 3, "dialog.String");
   return a1;
 }
 
@@ -5453,10 +5432,10 @@ void sub_254CB4838(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[22],char const(&)[14],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[22],char const(&)[14],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "subAdministrativeArea");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "dialog.String");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "dialog.String");
   return a1;
 }
 
@@ -5470,10 +5449,10 @@ void sub_254CB4894(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[14],0>(_BYTE *a1, char *a2)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[14],0>(void *a1, char *a2)
 {
   v3 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v3 + 24, "dialog.String");
+  std::string::basic_string[abi:ne200100]<0>(v3 + 3, "dialog.String");
   return a1;
 }
 
@@ -5487,10 +5466,10 @@ void sub_254CB48E8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[14],0>(_BYTE *a1, char *a2)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[14],0>(void *a1, char *a2)
 {
   v3 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v3 + 24, "dialog.String");
+  std::string::basic_string[abi:ne200100]<0>(v3 + 3, "dialog.String");
   return a1;
 }
 
@@ -5504,10 +5483,10 @@ void sub_254CB493C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[23],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[23],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "address");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "dialog.LocationAddress");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "dialog.LocationAddress");
   return a1;
 }
 
@@ -5521,10 +5500,10 @@ void sub_254CB4998(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[24],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[24],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "childItems");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "dialog.MultiLevelItem[]");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "dialog.MultiLevelItem[]");
   return a1;
 }
 
@@ -5538,10 +5517,10 @@ void sub_254CB49F4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[14],0>(_BYTE *a1, char *a2)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[14],0>(void *a1, char *a2)
 {
   v3 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v3 + 24, "dialog.String");
+  std::string::basic_string[abi:ne200100]<0>(v3 + 3, "dialog.String");
   return a1;
 }
 
@@ -5555,10 +5534,10 @@ void sub_254CB4A48(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[24],char const(&)[15],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[24],char const(&)[15],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "friendlyPhoneNumberName");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "dialog.Boolean");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "dialog.Boolean");
   return a1;
 }
 
@@ -5572,10 +5551,10 @@ void sub_254CB4AA4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[20],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[20],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "personHandle");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "dialog.PersonHandle");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "dialog.PersonHandle");
   return a1;
 }
 
@@ -5589,10 +5568,10 @@ void sub_254CB4B00(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[15],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[15],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -5606,10 +5585,10 @@ void sub_254CB4B54(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[22],char const(&)[15],0>(_BYTE *a1, char *a2)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[22],char const(&)[15],0>(void *a1, char *a2)
 {
   v3 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v3 + 24, "dialog.Boolean");
+  std::string::basic_string[abi:ne200100]<0>(v3 + 3, "dialog.Boolean");
   return a1;
 }
 
@@ -5623,10 +5602,10 @@ void sub_254CB4BA8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[20],char const(&)[15],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[20],char const(&)[15],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "useRelationshipName");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "dialog.Boolean");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "dialog.Boolean");
   return a1;
 }
 
@@ -5640,10 +5619,10 @@ void sub_254CB4C04(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[18],char const(&)[27],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[18],char const(&)[27],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "localizedAppNames");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "sirikit.LocalizedAppName[]");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "sirikit.LocalizedAppName[]");
   return a1;
 }
 
@@ -5657,10 +5636,10 @@ void sub_254CB4C60(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[15],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[15],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "noPrimaryDisplay");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "dialog.Boolean");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "dialog.Boolean");
   return a1;
 }
 
@@ -5674,10 +5653,10 @@ void sub_254CB4CBC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[15],0>(_BYTE *a1, char *a2)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[15],0>(void *a1, char *a2)
 {
   v3 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v3 + 24, "dialog.Boolean");
+  std::string::basic_string[abi:ne200100]<0>(v3 + 3, "dialog.Boolean");
   return a1;
 }
 
@@ -5691,10 +5670,10 @@ void sub_254CB4D10(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[15],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[15],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "isAuthenticated");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "dialog.Boolean");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "dialog.Boolean");
   return a1;
 }
 
@@ -5708,10 +5687,10 @@ void sub_254CB4D6C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[15],0>(_BYTE *a1, char *a2)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[15],0>(void *a1, char *a2)
 {
   v3 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v3 + 24, "dialog.Boolean");
+  std::string::basic_string[abi:ne200100]<0>(v3 + 3, "dialog.Boolean");
   return a1;
 }
 
@@ -5725,10 +5704,10 @@ void sub_254CB4DC0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[21],char const(&)[15],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[21],char const(&)[15],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "isLockedWithPasscode");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "dialog.Boolean");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "dialog.Boolean");
   return a1;
 }
 
@@ -5742,10 +5721,10 @@ void sub_254CB4E1C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[15],0>(_BYTE *a1, char *a2)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[15],0>(void *a1, char *a2)
 {
   v3 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v3 + 24, "dialog.Boolean");
+  std::string::basic_string[abi:ne200100]<0>(v3 + 3, "dialog.Boolean");
   return a1;
 }
 
@@ -5759,10 +5738,10 @@ void sub_254CB4E70(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[15],char const(&)[14],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[15],char const(&)[14],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "multiUserState");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "dialog.String");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "dialog.String");
   return a1;
 }
 
@@ -5776,10 +5755,10 @@ void sub_254CB4ECC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[27],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[27],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "restrictions");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "sirikit.DeviceRestrictions");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "sirikit.DeviceRestrictions");
   return a1;
 }
 
@@ -5793,10 +5772,10 @@ void sub_254CB4F28(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[19],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[19],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "aspectRatio");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "visual.AspectRatio");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "visual.AspectRatio");
   return a1;
 }
 
@@ -5810,10 +5789,10 @@ void sub_254CB4F84(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[17],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[17],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "imageData");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "visual.ImageData");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "visual.ImageData");
   return a1;
 }
 
@@ -5827,10 +5806,10 @@ void sub_254CB4FE0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[16],0>(_BYTE *a1)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[16],0>(void *a1)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(a1, "imageUrl");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "visual.ImageUrl");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "visual.ImageUrl");
   return a1;
 }
 
@@ -5844,7 +5823,7 @@ void sub_254CB503C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::map<std::string,std::map<std::string,std::string>>::map[abi:ne200100](uint64_t result, uint64_t a2)
+const void **std::map<std::string,std::map<std::string,std::string>>::map[abi:ne200100](const void **result, uint64_t a2)
 {
   qword_280AF4230 = 0;
   qword_280AF4228 = 0;
@@ -5855,7 +5834,7 @@ uint64_t std::map<std::string,std::map<std::string,std::string>>::map[abi:ne2001
     v3 = 48 * a2;
     do
     {
-      result = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::map<std::string,std::string>> const&>(&qword_280AF4220, &qword_280AF4228, v2);
+      result = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::map<std::string,std::string>> const&>(&qword_280AF4220, &qword_280AF4228, v2, v2);
       v2 += 6;
       v3 -= 48;
     }
@@ -5866,26 +5845,26 @@ uint64_t std::map<std::string,std::map<std::string,std::string>>::map[abi:ne2001
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::map<std::string,std::string>> const&>(uint64_t result, uint64_t a2, const void **a3)
+uint64_t std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::map<std::string,std::string>> const&>(uint64_t result, uint64_t a2, const void **a3, uint64_t a4)
 {
-  v5 = result;
-  v6 = result + 8;
+  v6 = result;
+  v7 = result + 8;
   if (result + 8 == a2 || (result = std::less<std::string>::operator()[abi:ne200100](result, a3, (a2 + 32)), result))
   {
-    if (*v5 == a2)
+    if (*v6 == a2)
     {
-      v8 = a2;
+      v9 = a2;
 LABEL_16:
       if (!*a2)
       {
-        v17 = a2;
+        v18 = a2;
         goto LABEL_31;
       }
 
-      v17 = v8;
-      v10 = (v8 + 8);
+      v18 = v9;
+      v11 = (v9 + 8);
 LABEL_30:
-      if (!*v10)
+      if (!*v11)
       {
         goto LABEL_31;
       }
@@ -5893,100 +5872,100 @@ LABEL_30:
       return result;
     }
 
-    v7 = *a2;
+    v8 = *a2;
     if (*a2)
     {
       do
       {
-        v8 = v7;
-        v7 = *(v7 + 8);
+        v9 = v8;
+        v8 = *(v8 + 8);
       }
 
-      while (v7);
+      while (v8);
     }
 
     else
     {
-      v13 = a2;
+      v14 = a2;
       do
       {
-        v8 = *(v13 + 16);
-        v14 = *v8 == v13;
-        v13 = v8;
+        v9 = *(v14 + 16);
+        v15 = *v9 == v14;
+        v14 = v9;
       }
 
-      while (v14);
+      while (v15);
     }
 
-    result = std::less<std::string>::operator()[abi:ne200100](v5, (v8 + 32), a3);
+    result = std::less<std::string>::operator()[abi:ne200100](v6, (v9 + 32), a3);
     if (result)
     {
       goto LABEL_16;
     }
 
 LABEL_29:
-    result = std::__tree<std::string>::__find_equal<std::string>(v5, &v17, a3);
-    v10 = result;
+    result = std::__tree<std::string>::__find_equal<std::string>(v6, &v18, a3);
+    v11 = result;
     goto LABEL_30;
   }
 
-  result = std::less<std::string>::operator()[abi:ne200100](v5, (a2 + 32), a3);
+  result = std::less<std::string>::operator()[abi:ne200100](v6, (a2 + 32), a3);
   if (result)
   {
-    v10 = (a2 + 8);
-    v9 = *(a2 + 8);
-    if (v9)
+    v11 = (a2 + 8);
+    v10 = *(a2 + 8);
+    if (v10)
     {
-      v11 = *(a2 + 8);
+      v12 = *(a2 + 8);
       do
       {
-        v12 = v11;
-        v11 = *v11;
+        v13 = v12;
+        v12 = *v12;
       }
 
-      while (v11);
+      while (v12);
     }
 
     else
     {
-      v15 = a2;
+      v16 = a2;
       do
       {
-        v12 = *(v15 + 16);
-        v14 = *v12 == v15;
-        v15 = v12;
+        v13 = *(v16 + 16);
+        v15 = *v13 == v16;
+        v16 = v13;
       }
 
-      while (!v14);
+      while (!v15);
     }
 
-    if (v12 != v6)
+    if (v13 != v7)
     {
-      result = std::less<std::string>::operator()[abi:ne200100](v5, a3, (v12 + 32));
+      result = std::less<std::string>::operator()[abi:ne200100](v6, a3, (v13 + 32));
       if (!result)
       {
         goto LABEL_29;
       }
 
-      v9 = *v10;
+      v10 = *v11;
     }
 
-    if (v9)
+    if (v10)
     {
-      v17 = v12;
-      v10 = v12;
+      v18 = v13;
+      v11 = v13;
     }
 
     else
     {
-      v17 = a2;
+      v18 = a2;
     }
 
     goto LABEL_30;
   }
 
-  v16 = a2;
   v17 = a2;
+  v18 = a2;
   if (!a2)
   {
 LABEL_31:
@@ -5996,14 +5975,14 @@ LABEL_31:
   return result;
 }
 
-void sub_254CB5318(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254CB5318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map<std::string,std::string>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::map<std::string,std::string>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map<std::string,std::string>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::map<std::string,std::string>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::map<std::string,std::string>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::map<std::string,std::string>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -6097,8 +6076,7 @@ void siri::intelligence::ResponseBase::GetId(siri::intelligence::ResponseBase *t
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 8);
-    a2->__r_.__value_.__r.__words[2] = *(this + 3);
+    *a2 = *(this + 8);
   }
 }
 
@@ -6111,8 +6089,7 @@ void siri::intelligence::ResponseBase::GetInputGroup(siri::intelligence::Respons
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 2);
-    a2->__r_.__value_.__r.__words[2] = *(this + 6);
+    *a2 = *(this + 32);
   }
 }
 
@@ -6125,8 +6102,7 @@ void siri::intelligence::ResponseBase::GetCondition(siri::intelligence::Response
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 56);
-    a2->__r_.__value_.__r.__words[2] = *(this + 9);
+    *a2 = *(this + 56);
   }
 }
 
@@ -6267,8 +6243,7 @@ void siri::intelligence::DirectInvocation::GetId(siri::intelligence::DirectInvoc
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *this;
-    a2->__r_.__value_.__r.__words[2] = *(this + 2);
+    *a2 = *this;
   }
 }
 
@@ -6371,7 +6346,7 @@ void std::__shared_ptr_emplace<siri::intelligence::ReferenceResponse::Impl>::__o
   }
 }
 
-BOOL YAML::IsNullString(unsigned __int8 ***a1)
+BOOL YAML::IsNullString(unsigned __int8 ****a1)
 {
   v1 = *(a1 + 23);
   v2 = a1[1];
@@ -6437,7 +6412,7 @@ BOOL YAML::IsNullString(unsigned __int8 ***a1)
 siri::intelligence::DecisionInfo *siri::intelligence::DecisionInfo::DecisionInfo(siri::intelligence::DecisionInfo *this)
 {
   v2 = std::string::basic_string[abi:ne200100]<0>(this, "");
-  std::string::basic_string[abi:ne200100]<0>(v2 + 24, "");
+  std::string::basic_string[abi:ne200100]<0>(v2 + 3, "");
   *(this + 3) = 0u;
   *(this + 4) = 0u;
   return this;
@@ -6462,12 +6437,11 @@ void siri::intelligence::DecisionInfo::GetInputId(siri::intelligence::DecisionIn
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *this;
-    a2->__r_.__value_.__r.__words[2] = *(this + 2);
+    *a2 = *this;
   }
 }
 
-_BYTE *siri::intelligence::DecisionInfo::GetInputTypeString@<X0>(siri::intelligence::DecisionInfo *this@<X0>, _BYTE *a2@<X8>)
+void *siri::intelligence::DecisionInfo::GetInputTypeString@<X0>(siri::intelligence::DecisionInfo *this@<X0>, void *a2@<X8>)
 {
   v2 = *(this + 12);
   v3 = "NONE";
@@ -6498,12 +6472,11 @@ void siri::intelligence::DecisionInfo::GetInputGroupId(siri::intelligence::Decis
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 24);
-    a2->__r_.__value_.__r.__words[2] = *(this + 5);
+    *a2 = *(this + 1);
   }
 }
 
-_BYTE *siri::intelligence::DecisionInfo::GetMatchScopeString@<X0>(siri::intelligence::DecisionInfo *this@<X0>, _BYTE *a2@<X8>)
+void *siri::intelligence::DecisionInfo::GetMatchScopeString@<X0>(siri::intelligence::DecisionInfo *this@<X0>, void *a2@<X8>)
 {
   v4 = *(this + 13) - 1;
   if (v4 > 2)
@@ -6528,12 +6501,11 @@ void siri::intelligence::DecisionInfo::GetIntentId(siri::intelligence::DecisionI
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 56);
-    a2->__r_.__value_.__r.__words[2] = *(this + 9);
+    *a2 = *(this + 56);
   }
 }
 
-void sub_254CB6210(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void (**a18)(void), void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+void sub_254CB6210(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
 {
   if (a24 < 0)
   {
@@ -6559,9 +6531,9 @@ void sub_254CB6210(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void siri::intelligence::Configuration::GetPathFromFlowId(uint64_t a1)
+void siri::intelligence::Configuration::GetPathFromFlowId(unsigned __int8 *a1, uint64_t a2)
 {
-  std::string::basic_string[abi:ne200100]<0>(&v3, "flow");
+  std::string::basic_string[abi:ne200100]<0>(&v4, "flow");
   std::string::basic_string[abi:ne200100]<0>(&__p, ".flowfamily");
   siri::intelligence::GetPathFromId(a1);
 }
@@ -6590,9 +6562,9 @@ void sub_254CB6638(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void siri::intelligence::Configuration::GetFlowIdFromPath(const std::string *a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  siri::intelligence::StringTrim("/", a1, &__p);
-  memset(&v1, 0, sizeof(v1));
+  v4 = *MEMORY[0x277D85DE8];
+  siri::intelligence::StringTrim(&__p, "/", a1);
+  memset(&v2, 0, sizeof(v2));
   siri::intelligence::StringSplit(&__p, "/");
 }
 
@@ -6618,10 +6590,10 @@ void sub_254CB6880(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void siri::intelligence::Configuration::GetPathFromCatId(uint64_t a1)
+void siri::intelligence::Configuration::GetPathFromCatId(unsigned __int8 *a1)
 {
-  std::string::basic_string[abi:ne200100]<0>(&v4, "dialog");
-  std::string::basic_string[abi:ne200100]<0>(&v3, ".catfamily");
+  std::string::basic_string[abi:ne200100]<0>(&v5, "dialog");
+  std::string::basic_string[abi:ne200100]<0>(&v4, ".catfamily");
   std::string::basic_string[abi:ne200100]<0>(&__p, ".cat");
   siri::intelligence::GetPathFromId(a1);
 }
@@ -6646,9 +6618,9 @@ void sub_254CB69B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void siri::intelligence::Configuration::GetPathFromPatternId(uint64_t a1)
+void siri::intelligence::Configuration::GetPathFromPatternId(unsigned __int8 *a1)
 {
-  std::string::basic_string[abi:ne200100]<0>(&v3, "pattern");
+  std::string::basic_string[abi:ne200100]<0>(&v4, "pattern");
   std::string::basic_string[abi:ne200100]<0>(&__p, ".patternfamily");
   siri::intelligence::GetPathFromId(a1);
 }
@@ -6877,7 +6849,7 @@ __int128 *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std
   return v5;
 }
 
-void YAML::detail::memory_holder::merge(uint64_t *a1, uint64_t a2)
+void YAML::detail::memory_holder::merge(uint64_t **a1, uint64_t a2)
 {
   v3 = *a1;
   if (v3 != *a2)
@@ -6911,7 +6883,7 @@ void sub_254CB6EB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::set<std::shared_ptr<YAML::detail::node>>::insert[abi:ne200100]<std::__tree_const_iterator<std::shared_ptr<YAML::detail::node>,std::__tree_node<std::shared_ptr<YAML::detail::node>,void *> *,long>>(uint64_t result, void *a2, void *a3)
+uint64_t *std::set<std::shared_ptr<YAML::detail::node>>::insert[abi:ne200100]<std::__tree_const_iterator<std::shared_ptr<YAML::detail::node>,std::__tree_node<std::shared_ptr<YAML::detail::node>,void *> *,long>>(uint64_t *result, void *a2, void *a3)
 {
   if (a2 != a3)
   {
@@ -6919,7 +6891,7 @@ uint64_t std::set<std::shared_ptr<YAML::detail::node>>::insert[abi:ne200100]<std
     v5 = result;
     do
     {
-      result = std::__tree<std::shared_ptr<YAML::detail::node>>::__emplace_hint_unique_key_args<std::shared_ptr<YAML::detail::node>,std::shared_ptr<YAML::detail::node> const&>(v5, v5 + 1, v4 + 4);
+      result = std::__tree<std::shared_ptr<YAML::detail::node>>::__emplace_hint_unique_key_args<std::shared_ptr<YAML::detail::node>,std::shared_ptr<YAML::detail::node> const&>(v5, (v5 + 8), v4 + 4, v4 + 4);
       v6 = v4[1];
       if (v6)
       {
@@ -7118,56 +7090,56 @@ void std::default_delete<YAML::detail::node>::operator()[abi:ne200100](uint64_t 
   }
 }
 
-void *std::__tree<std::shared_ptr<YAML::detail::node>>::__emplace_unique_key_args<std::shared_ptr<YAML::detail::node>,std::shared_ptr<YAML::detail::node> const&>(uint64_t a1, unint64_t *a2)
+uint64_t *std::__tree<std::shared_ptr<YAML::detail::node>>::__emplace_unique_key_args<std::shared_ptr<YAML::detail::node>,std::shared_ptr<YAML::detail::node> const&>(uint64_t **a1, unint64_t *a2, uint64_t *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t std::__tree<std::shared_ptr<YAML::detail::node>>::__emplace_hint_unique_key_args<std::shared_ptr<YAML::detail::node>,std::shared_ptr<YAML::detail::node> const&>(void *a1, void *a2, unint64_t *a3)
+uint64_t *std::__tree<std::shared_ptr<YAML::detail::node>>::__emplace_hint_unique_key_args<std::shared_ptr<YAML::detail::node>,std::shared_ptr<YAML::detail::node> const&>(uint64_t **a1, void *a2, unint64_t *a3, uint64_t *a4)
 {
-  v3 = *std::__tree<std::shared_ptr<YAML::detail::node>>::__find_equal<std::shared_ptr<YAML::detail::node>>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::shared_ptr<YAML::detail::node>>::__find_equal<std::shared_ptr<YAML::detail::node>>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 void *std::__tree<std::shared_ptr<YAML::detail::node>>::__find_equal<std::shared_ptr<YAML::detail::node>>(void *a1, void *a2, void *a3, void *a4, unint64_t *a5)
@@ -7383,87 +7355,87 @@ void sub_254CB7A8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void siri::intelligence::GetFormatUpdaters(siri::intelligence *this)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v25[4] = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:ne200100]<0>(v2, "1.0.1");
-  v3 = siri::intelligence::UpdateTo_1_0_1;
-  std::string::basic_string[abi:ne200100]<0>(v4, "1.0.2");
-  v5 = siri::intelligence::UpdateTo_1_0_2;
-  std::string::basic_string[abi:ne200100]<0>(v6, "1.0.3");
-  v7 = siri::intelligence::UpdateTo_1_0_3;
-  std::string::basic_string[abi:ne200100]<0>(v8, "1.0.4");
-  v9 = siri::intelligence::UpdateTo_1_0_4;
-  std::string::basic_string[abi:ne200100]<0>(v10, "1.0.5");
-  v11 = siri::intelligence::UpdateTo_1_0_5;
-  std::string::basic_string[abi:ne200100]<0>(v12, "1.0.6");
-  v13 = siri::intelligence::UpdateTo_1_0_6;
-  std::string::basic_string[abi:ne200100]<0>(v14, "1.0.7");
-  v15 = siri::intelligence::UpdateTo_1_0_7;
-  std::string::basic_string[abi:ne200100]<0>(v16, "1.4.0");
-  v17 = siri::intelligence::UpdateTo_1_4_0;
-  std::string::basic_string[abi:ne200100]<0>(v18, "1.4.1");
-  v19 = siri::intelligence::UpdateTo_1_4_1;
-  std::string::basic_string[abi:ne200100]<0>(v20, "1.4.2");
-  v21 = siri::intelligence::UpdateNoOp;
-  std::string::basic_string[abi:ne200100]<0>(v22, "1.4.3");
-  v23 = siri::intelligence::UpdateNoOp;
-  std::string::basic_string[abi:ne200100]<0>(v24, "1.4.4");
-  v25 = siri::intelligence::UpdateTo_1_4_4;
-  std::string::basic_string[abi:ne200100]<0>(v26, "1.4.5");
-  v27 = siri::intelligence::UpdateTo_1_4_5;
-  std::string::basic_string[abi:ne200100]<0>(v28, "1.4.6");
-  v29 = siri::intelligence::UpdateNoOp;
-  std::string::basic_string[abi:ne200100]<0>(v30, "1.4.7");
-  v31 = siri::intelligence::UpdateNoOp;
-  std::string::basic_string[abi:ne200100]<0>(v32, "2.0.0");
-  v33 = siri::intelligence::UpdateNoOp;
-  std::string::basic_string[abi:ne200100]<0>(v34, "2.0.1");
-  v35 = siri::intelligence::UpdateTo_2_0_1;
-  std::string::basic_string[abi:ne200100]<0>(v36, "2.0.2");
-  v37 = siri::intelligence::UpdateNoOp;
-  std::string::basic_string[abi:ne200100]<0>(v38, "2.0.3");
-  v39 = siri::intelligence::UpdateNoOp;
-  std::string::basic_string[abi:ne200100]<0>(v40, "2.0.4");
-  v41 = siri::intelligence::UpdateNoOp;
-  std::string::basic_string[abi:ne200100]<0>(v42, "2.0.5");
-  v43 = siri::intelligence::UpdateNoOp;
-  std::string::basic_string[abi:ne200100]<0>(v44, "2.0.6");
-  v45 = siri::intelligence::UpdateNoOp;
-  std::string::basic_string[abi:ne200100]<0>(v46, "2.0.7");
-  v47 = siri::intelligence::UpdateNoOp;
-  std::string::basic_string[abi:ne200100]<0>(v48, "2.0.8");
-  v49 = siri::intelligence::UpdateNoOp;
+  v2[3] = siri::intelligence::UpdateTo_1_0_1;
+  std::string::basic_string[abi:ne200100]<0>(v3, "1.0.2");
+  v3[3] = siri::intelligence::UpdateTo_1_0_2;
+  std::string::basic_string[abi:ne200100]<0>(v4, "1.0.3");
+  v4[3] = siri::intelligence::UpdateTo_1_0_3;
+  std::string::basic_string[abi:ne200100]<0>(v5, "1.0.4");
+  v5[3] = siri::intelligence::UpdateTo_1_0_4;
+  std::string::basic_string[abi:ne200100]<0>(v6, "1.0.5");
+  v6[3] = siri::intelligence::UpdateTo_1_0_5;
+  std::string::basic_string[abi:ne200100]<0>(v7, "1.0.6");
+  v7[3] = siri::intelligence::UpdateTo_1_0_6;
+  std::string::basic_string[abi:ne200100]<0>(v8, "1.0.7");
+  v8[3] = siri::intelligence::UpdateTo_1_0_7;
+  std::string::basic_string[abi:ne200100]<0>(v9, "1.4.0");
+  v9[3] = siri::intelligence::UpdateTo_1_4_0;
+  std::string::basic_string[abi:ne200100]<0>(v10, "1.4.1");
+  v10[3] = siri::intelligence::UpdateTo_1_4_1;
+  std::string::basic_string[abi:ne200100]<0>(v11, "1.4.2");
+  v11[3] = siri::intelligence::UpdateNoOp;
+  std::string::basic_string[abi:ne200100]<0>(v12, "1.4.3");
+  v12[3] = siri::intelligence::UpdateNoOp;
+  std::string::basic_string[abi:ne200100]<0>(v13, "1.4.4");
+  v13[3] = siri::intelligence::UpdateTo_1_4_4;
+  std::string::basic_string[abi:ne200100]<0>(v14, "1.4.5");
+  v14[3] = siri::intelligence::UpdateTo_1_4_5;
+  std::string::basic_string[abi:ne200100]<0>(v15, "1.4.6");
+  v15[3] = siri::intelligence::UpdateNoOp;
+  std::string::basic_string[abi:ne200100]<0>(v16, "1.4.7");
+  v16[3] = siri::intelligence::UpdateNoOp;
+  std::string::basic_string[abi:ne200100]<0>(v17, "2.0.0");
+  v17[3] = siri::intelligence::UpdateNoOp;
+  std::string::basic_string[abi:ne200100]<0>(v18, "2.0.1");
+  v18[3] = siri::intelligence::UpdateTo_2_0_1;
+  std::string::basic_string[abi:ne200100]<0>(v19, "2.0.2");
+  v19[3] = siri::intelligence::UpdateNoOp;
+  std::string::basic_string[abi:ne200100]<0>(v20, "2.0.3");
+  v20[3] = siri::intelligence::UpdateNoOp;
+  std::string::basic_string[abi:ne200100]<0>(v21, "2.0.4");
+  v21[3] = siri::intelligence::UpdateNoOp;
+  std::string::basic_string[abi:ne200100]<0>(v22, "2.0.5");
+  v22[3] = siri::intelligence::UpdateNoOp;
+  std::string::basic_string[abi:ne200100]<0>(v23, "2.0.6");
+  v23[3] = siri::intelligence::UpdateNoOp;
+  std::string::basic_string[abi:ne200100]<0>(v24, "2.0.7");
+  v24[3] = siri::intelligence::UpdateNoOp;
+  std::string::basic_string[abi:ne200100]<0>(v25, "2.0.8");
+  v25[3] = siri::intelligence::UpdateNoOp;
   *(this + 1) = 0;
   *(this + 2) = 0;
   *this = 0;
   operator new();
 }
 
-void sub_254CB7FCC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254CB7FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::pair<std::string,void (*)(protobuf::Intelligence *)>>::__destroy_vector::operator()[abi:ne200100](va);
-  v3 = &STACK[0x33F];
-  v4 = -768;
-  v5 = &STACK[0x33F];
+  v4 = &STACK[0x33F];
+  v5 = -768;
+  v6 = &STACK[0x33F];
   while (1)
   {
-    v6 = *v5;
-    v5 -= 4;
-    if (v6 < 0)
+    v7 = *v6;
+    v6 -= 4;
+    if (v7 < 0)
     {
-      operator delete(*(v3 - 23));
+      operator delete(*(v4 - 23));
     }
 
-    v3 = v5;
-    v4 += 32;
-    if (!v4)
+    v4 = v6;
+    v5 += 32;
+    if (!v5)
     {
       _Unwind_Resume(a1);
     }
   }
 }
 
-void siri::intelligence::Updater::IsUpdateAvailable(uint64_t a1, uint64_t a2)
+void siri::intelligence::Updater::IsUpdateAvailable(unsigned __int8 *a1, uint64_t a2)
 {
   if (*(a2 + 23) < 0)
   {
@@ -7486,7 +7458,7 @@ void siri::intelligence::Updater::IsUpdateAvailable(uint64_t a1, uint64_t a2)
     siri::intelligence::Updater::GetHighestVersionWithinRelease(a1);
   }
 
-  siri::intelligence::Utils::VersionLessThan(a1);
+  siri::intelligence::Utils::VersionLessThan(a1, &v4);
 }
 
 void sub_254CB810C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -7504,12 +7476,12 @@ void siri::intelligence::Updater::GetValidVersions(void *a1@<X8>)
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  siri::intelligence::GetFormatUpdaters(&v2);
+  siri::intelligence::GetFormatUpdaters(&v1);
 }
 
-void sub_254CB8264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_254CB8264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7532,12 +7504,12 @@ std::__split_buffer<std::string>::pointer std::vector<std::string>::push_back[ab
   return result;
 }
 
-void siri::intelligence::Updater::UpdateToVersion(uint64_t a1)
+void siri::intelligence::Updater::UpdateToVersion(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 16);
-  if ((v2 & 1) == 0)
+  v3 = *(a1 + 16);
+  if ((v3 & 1) == 0)
   {
-    *(a1 + 16) = v2 | 1;
+    *(a1 + 16) = v3 | 1;
     std::string::basic_string[abi:ne200100]<0>(&__p, "1.0");
     google::protobuf::internal::ArenaStringPtr::SetNoArena((a1 + 528), &google::protobuf::internal::fixed_address_empty_string, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7549,21 +7521,21 @@ void siri::intelligence::Updater::UpdateToVersion(uint64_t a1)
     *(a1 + 16) &= ~4u;
   }
 
-  v3 = *(a1 + 528);
-  if (*(v3 + 23) < 0)
+  v4 = *(a1 + 528);
+  if (*(v4 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&__p, *v3, *(v3 + 1));
+    std::string::__init_copy_ctor_external(&__p, *v4, *(v4 + 1));
   }
 
   else
   {
-    v4 = *v3;
-    __p.__r_.__value_.__r.__words[2] = *(v3 + 2);
-    *&__p.__r_.__value_.__l.__data_ = v4;
+    v5 = *v4;
+    __p.__r_.__value_.__r.__words[2] = *(v4 + 2);
+    *&__p.__r_.__value_.__l.__data_ = v5;
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__str, "2.0.8");
-  siri::intelligence::Utils::VersionLessThan(&__str);
+  siri::intelligence::Utils::VersionLessThan(&__str, &__p);
 }
 
 void sub_254CB8698(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -7583,7 +7555,7 @@ void sub_254CB8698(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void siri::intelligence::Updater::UpdateToVersion(uint64_t a1, uint64_t a2, _BYTE *a3)
+void siri::intelligence::Updater::UpdateToVersion(uint64_t *a1, uint64_t a2, _BYTE *a3)
 {
   if (a3)
   {
@@ -7642,7 +7614,7 @@ void siri::intelligence::UpdateTo_1_0_1(siri::intelligence *this, protobuf::Inte
         if (v7 == *(this + 105))
         {
 LABEL_8:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 102, v7 + 1);
+          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 408), v7 + 1);
           v5 = *(this + 53);
           v7 = *v5;
         }
@@ -7696,7 +7668,7 @@ LABEL_13:
         if (v15 == *(this + 111))
         {
 LABEL_20:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 108, v15 + 1);
+          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 432), v15 + 1);
           v13 = *(this + 56);
           v15 = *v13;
         }
@@ -7742,10 +7714,10 @@ LABEL_25:
       {
         v22 = v20;
         v25 = *(v20 + 160);
-        v23 = v20 + 160;
+        v23 = (v20 + 160);
         v24 = v25;
-        v26 = *(v23 - 16);
-        *(v23 - 144) = v21 | 0x20;
+        v26 = *(v23 - 2);
+        *(v23 - 36) = v21 | 0x20;
         if (v25 == &google::protobuf::internal::fixed_address_empty_string)
         {
           google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v23, v26);
@@ -7788,10 +7760,10 @@ LABEL_25:
       {
         v31 = v29;
         v34 = *(v29 + 112);
-        v32 = v29 + 112;
+        v32 = (v29 + 112);
         v33 = v34;
-        v35 = *(v32 - 16);
-        *(v32 - 96) = v30 | 0x20;
+        v35 = *(v32 - 2);
+        *(v32 - 24) = v30 | 0x20;
         if (v34 == &google::protobuf::internal::fixed_address_empty_string)
         {
           google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v32, v35);
@@ -7834,10 +7806,10 @@ LABEL_25:
       {
         v40 = v38;
         v43 = *(v38 + 88);
-        v41 = v38 + 88;
+        v41 = (v38 + 88);
         v42 = v43;
-        v44 = *(v41 - 16);
-        *(v41 - 72) = v39 | 0x20;
+        v44 = *(v41 - 2);
+        *(v41 - 18) = v39 | 0x20;
         if (v43 == &google::protobuf::internal::fixed_address_empty_string)
         {
           google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v41, v44);
@@ -7880,10 +7852,10 @@ LABEL_25:
       {
         v49 = v47;
         v52 = *(v47 + 88);
-        v50 = v47 + 88;
+        v50 = (v47 + 88);
         v51 = v52;
-        v53 = *(v50 - 16);
-        *(v50 - 72) = v48 | 0x20;
+        v53 = *(v50 - 2);
+        *(v50 - 18) = v48 | 0x20;
         if (v52 == &google::protobuf::internal::fixed_address_empty_string)
         {
           google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v50, v53);
@@ -7963,28 +7935,28 @@ LABEL_25:
         v62 = v61;
         v64 = (v61 + 128);
         v63 = *(v61 + 128);
-        if (*(v63 + 23) < 0)
+        if (SHIBYTE(v63->__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&__p, *v63, *(v63 + 1));
+          std::string::__init_copy_ctor_external(&__p, v63->__r_.__value_.__l.__data_, v63->__r_.__value_.__l.__size_);
           v63 = *v64;
         }
 
         else
         {
-          v65 = *v63;
-          __p.__r_.__value_.__r.__words[2] = *(v63 + 2);
+          v65 = *&v63->__r_.__value_.__l.__data_;
+          __p.__r_.__value_.__r.__words[2] = v63->__r_.__value_.__r.__words[2];
           *&__p.__r_.__value_.__l.__data_ = v65;
         }
 
-        if (*(v63 + 23) < 0)
+        if (SHIBYTE(v63->__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&__str, *v63, *(v63 + 1));
+          std::string::__init_copy_ctor_external(&__str, v63->__r_.__value_.__l.__data_, v63->__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v66 = *v63;
-          __str.__r_.__value_.__r.__words[2] = *(v63 + 2);
+          v66 = *&v63->__r_.__value_.__l.__data_;
+          __str.__r_.__value_.__r.__words[2] = v63->__r_.__value_.__r.__words[2];
           *&__str.__r_.__value_.__l.__data_ = v66;
         }
 
@@ -8506,7 +8478,7 @@ LABEL_241:
             v91 = *(v69 + 120);
             if (v91 == &google::protobuf::internal::fixed_address_empty_string)
             {
-              google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v69 + 120, &v157);
+              google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((v69 + 120), &v157);
             }
 
             std::string::operator=(v91, &v157);
@@ -8549,7 +8521,7 @@ LABEL_241:
         if (v100 == *(this + 99))
         {
 LABEL_275:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 96, v100 + 1);
+          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 384), v100 + 1);
           v98 = *(this + 50);
           v100 = *v98;
         }
@@ -8571,7 +8543,7 @@ LABEL_277:
       *(v101 + 4) |= 1u;
       if (v105 == &google::protobuf::internal::fixed_address_empty_string)
       {
-        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v101 + 72, v104);
+        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v101 + 9, v104);
       }
 
       std::string::operator=(v105, v104);
@@ -8580,9 +8552,9 @@ LABEL_277:
       {
         v106 = *(v97 + 32);
         v109 = *(v101 + 12);
-        v108 = v101 + 96;
+        v108 = (v101 + 96);
         v107 = v109;
-        *(v108 - 80) |= 8u;
+        *(v108 - 20) |= 8u;
         if (v109 == &google::protobuf::internal::fixed_address_empty_string)
         {
           google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v108, v106);
@@ -8622,7 +8594,7 @@ LABEL_285:
         if (v114 == *(this + 99))
         {
 LABEL_292:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 96, v114 + 1);
+          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 384), v114 + 1);
           v112 = *(this + 50);
           v114 = *v112;
         }
@@ -8644,7 +8616,7 @@ LABEL_294:
       *(v115 + 4) |= 1u;
       if (v119 == &google::protobuf::internal::fixed_address_empty_string)
       {
-        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v115 + 72, v118);
+        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v115 + 9, v118);
       }
 
       std::string::operator=(v119, v118);
@@ -8687,7 +8659,7 @@ LABEL_300:
         if (v125 == *(this + 99))
         {
 LABEL_307:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 96, v125 + 1);
+          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 384), v125 + 1);
           v123 = *(this + 50);
           v125 = *v123;
         }
@@ -8709,7 +8681,7 @@ LABEL_309:
       *(v126 + 4) |= 1u;
       if (v130 == &google::protobuf::internal::fixed_address_empty_string)
       {
-        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v126 + 72, v129);
+        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v126 + 9, v129);
       }
 
       std::string::operator=(v130, v129);
@@ -8772,7 +8744,7 @@ LABEL_324:
       *(v137 + 4) |= 1u;
       if (v141 == &google::protobuf::internal::fixed_address_empty_string)
       {
-        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v137 + 72, v140);
+        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v137 + 9, v140);
       }
 
       std::string::operator=(v141, v140);
@@ -8802,7 +8774,7 @@ LABEL_324:
             if (v145 == *(v137 + 9))
             {
 LABEL_336:
-              google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v137 + 6, v145 + 1);
+              google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v137 + 24), v145 + 1);
               v143 = *(v137 + 5);
               v145 = *v143;
             }
@@ -8821,9 +8793,9 @@ LABEL_336:
 LABEL_338:
           v149 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(v133 + 24, v142);
           v152 = *(v146 + 16);
-          v151 = v146 + 128;
+          v151 = (v146 + 128);
           v150 = v152;
-          *(v151 - 112) |= 2u;
+          *(v151 - 28) |= 2u;
           if (v152 == &google::protobuf::internal::fixed_address_empty_string)
           {
             google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v151, v149);
@@ -8849,7 +8821,7 @@ LABEL_342:
 
     v136 = *(this + 99);
 LABEL_322:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 96, v136 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 384), v136 + 1);
     v134 = *(this + 50);
     v136 = *v134;
     goto LABEL_323;
@@ -8893,7 +8865,7 @@ void siri::intelligence::UpdateTo_1_0_2(siri::intelligence *this, protobuf::Inte
         *(v5 + 16) |= 0x800u;
         if (v8 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v5 + 208, v9);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((v5 + 208), v9);
         }
 
         std::string::operator=(v8, v9);
@@ -8970,7 +8942,7 @@ void siri::intelligence::UpdateTo_1_0_2(siri::intelligence *this, protobuf::Inte
         *(v20 + 16) |= 0x100u;
         if (v23 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v20 + 136, v24);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((v20 + 136), v24);
         }
 
         std::string::operator=(v23, v24);
@@ -9061,7 +9033,7 @@ LABEL_44:
         *(v37 + 16) |= 0x200u;
         if (v40 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v37 + 120, v41);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((v37 + 120), v41);
         }
 
         std::string::operator=(v40, v41);
@@ -9112,7 +9084,7 @@ LABEL_44:
         *(v45 + 16) |= 0x80u;
         if (v48 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v45 + 104, v49);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((v45 + 104), v49);
         }
 
         std::string::operator=(v48, v49);
@@ -9407,9 +9379,9 @@ void sub_254CBB0F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void siri::intelligence::UpdateTo_1_0_3(siri::intelligence *this, protobuf::Intelligence *a2)
+void siri::intelligence::UpdateTo_1_0_3(uint64_t this, protobuf::Intelligence *a2)
 {
-  if (*(this + 68) >= 1)
+  if (*(this + 272) >= 1)
   {
     v3 = 0;
     do
@@ -9427,7 +9399,7 @@ void siri::intelligence::UpdateTo_1_0_3(siri::intelligence *this, protobuf::Inte
       ++v3;
     }
 
-    while (v3 < *(this + 68));
+    while (v3 < *(this + 272));
   }
 }
 
@@ -9481,14 +9453,14 @@ void sub_254CBB348(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void siri::intelligence::UpdateTo_1_0_5(siri::intelligence *this, protobuf::Intelligence *a2)
+void siri::intelligence::UpdateTo_1_0_5(std::string *this, protobuf::Intelligence *a2)
 {
-  if (*(this + 98) >= 1)
+  if (SLODWORD(this[16].__r_.__value_.__r.__words[1]) >= 1)
   {
     v3 = 0;
     while (1)
     {
-      v4 = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_Variable>::TypeHandler>(this + 384, v3);
+      v4 = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_Variable>::TypeHandler>(&this[16], v3);
       v5 = v4;
       v6 = *(v4 + 16);
       if ((v6 & 8) != 0)
@@ -9503,9 +9475,9 @@ void siri::intelligence::UpdateTo_1_0_5(siri::intelligence *this, protobuf::Inte
 
         v18 = *(v5 + 96);
         v21 = *(v17 + 16);
-        v19 = v17 + 128;
+        v19 = (v17 + 128);
         v20 = v21;
-        *(v19 - 112) |= 2u;
+        *(v19 - 28) |= 2u;
         if (v21 == &google::protobuf::internal::fixed_address_empty_string)
         {
           google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v19, v18);
@@ -9598,7 +9570,7 @@ LABEL_43:
               if (v11 == *(v7 + 15))
               {
 LABEL_18:
-                google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v7 + 12, v11 + 1);
+                google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v7 + 48), v11 + 1);
                 v9 = *(v7 + 8);
                 v11 = *v9;
               }
@@ -9698,7 +9670,7 @@ LABEL_67:
             if (v32 == *(v28 + 21))
             {
 LABEL_58:
-              google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v28 + 18, v32 + 1);
+              google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v28 + 72), v32 + 1);
               v30 = *(v28 + 11);
               v32 = *v30;
             }
@@ -9744,7 +9716,7 @@ LABEL_60:
       }
 
 LABEL_44:
-      if (++v3 >= *(this + 98))
+      if (++v3 >= SLODWORD(this[16].__r_.__value_.__r.__words[1]))
       {
         return;
       }
@@ -9767,9 +9739,9 @@ LABEL_44:
   }
 }
 
-void sub_254CBB740(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254CBB740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::~RepeatedPtrField(va);
   _Unwind_Resume(a1);
 }
@@ -9836,7 +9808,7 @@ void siri::intelligence::UpdateTo_1_0_6(siri::intelligence *this, protobuf::Inte
     *(v13 + 16) |= 8u;
     if (v17 == &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v13 + 72, v16);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((v13 + 72), v16);
     }
 
     std::string::operator=(v17, v16);
@@ -9856,9 +9828,9 @@ LABEL_28:
         {
           v22 = *(v13 + 56);
           v25 = *(v21 + 6);
-          v23 = v21 + 48;
+          v23 = (v21 + 48);
           v24 = v25;
-          *(v23 - 32) |= 1u;
+          *(v23 - 8) |= 1u;
           if (v25 == &google::protobuf::internal::fixed_address_empty_string)
           {
             google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v23, v22);
@@ -9985,7 +9957,7 @@ LABEL_64:
                 if (v42 == *(v33 + 9))
                 {
 LABEL_79:
-                  google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v33 + 6, v42 + 1);
+                  google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v33 + 24), v42 + 1);
                   v40 = *(v33 + 5);
                   v42 = *v40;
                 }
@@ -10442,9 +10414,9 @@ LABEL_205:
 
         v113 = *(*(*(this + 23) + 8) + 56);
         v116 = *(v112 + 6);
-        v115 = v112 + 48;
+        v115 = (v112 + 48);
         v114 = v116;
-        *(v115 - 32) |= 1u;
+        *(v115 - 8) |= 1u;
         if (v116 == &google::protobuf::internal::fixed_address_empty_string)
         {
           google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v115, v113);

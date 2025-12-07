@@ -18,7 +18,7 @@
 
 - (id)sameRoomAccessoryUUIDsForDestinationControllerData:(id)data
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   dataSource = [(HMDMediaDestinationControllerAggregateDataGenerator *)self dataSource];
   v6 = dataSource;
@@ -36,18 +36,16 @@
     {
       v11 = HMFGetLogIdentifier();
       identifier = [dataCopy identifier];
-      v15 = 138543618;
-      v16 = v11;
-      v17 = 2112;
-      v18 = identifier;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get same room accessory UUIDs for destination controller data: %@ due to no data source", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v11;
+      v16 = 2112;
+      v17 = identifier;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get same room accessory UUIDs for destination controller data: %@ due to no data source", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = MEMORY[0x277CBEBF8];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

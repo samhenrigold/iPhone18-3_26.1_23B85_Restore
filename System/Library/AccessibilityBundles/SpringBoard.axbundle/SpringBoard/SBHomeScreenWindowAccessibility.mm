@@ -47,7 +47,7 @@
   return v3;
 }
 
-uint64_t __65__SBHomeScreenWindowAccessibility__accessibilityIsIsolatedWindow__block_invoke(uint64_t a1)
+void *__65__SBHomeScreenWindowAccessibility__accessibilityIsIsolatedWindow__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDisplayingWidgetIntroductionOnPage:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -125,7 +125,7 @@ uint64_t __65__SBHomeScreenWindowAccessibility__accessibilityIsIsolatedWindow__b
 
 - (BOOL)_accessibilityIgnoresStatusBarFrame
 {
-  v3 = AXSBHIconManagerFromSharedIconController();
+  v3 = AXSBHIconManagerFromSharedIconController(self, a2);
   v4 = [v3 safeBoolForKey:@"isEditing"];
 
   if (v4)

@@ -8,7 +8,7 @@
 
 - (BOOL)configureWithBytes:(const void *)bytes length:(unint64_t)length
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (length)
   {
     if (self->_bufferSize >= length)
@@ -33,11 +33,11 @@
       v5 = os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT);
       if (v5)
       {
-        v10 = 136315138;
-        v11 = "[CSReusableBufferBackingStore configureWithBytes:length:]";
+        v9 = 136315138;
+        v10 = "[CSReusableBufferBackingStore configureWithBytes:length:]";
         v6 = "%s Failed to allocate buffer since length is larger than configuration";
 LABEL_7:
-        _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, v6, &v10, 0xCu);
+        _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, v6, &v9, 0xCu);
         LOBYTE(v5) = 0;
       }
     }
@@ -49,14 +49,13 @@ LABEL_7:
     v5 = os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT);
     if (v5)
     {
-      v10 = 136315138;
-      v11 = "[CSReusableBufferBackingStore configureWithBytes:length:]";
+      v9 = 136315138;
+      v10 = "[CSReusableBufferBackingStore configureWithBytes:length:]";
       v6 = "%s Failed to allocate buffer since length zero";
       goto LABEL_7;
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

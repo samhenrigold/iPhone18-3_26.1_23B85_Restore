@@ -1,21 +1,19 @@
 @interface NSData(MD5)
-- (id)blt_sha256;
 - (id)blt_sha256String;
 - (unsigned)MD5:()MD5;
+- (unsigned)blt_sha256;
 @end
 
 @implementation NSData(MD5)
 
-- (id)blt_sha256
+- (unsigned)blt_sha256
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = CC_SHA256([self bytes], objc_msgSend(self, "length"), md);
   if (v1)
   {
     v1 = [MEMORY[0x277CBEA90] dataWithBytes:md length:32];
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 
   return v1;
 }

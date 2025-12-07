@@ -385,9 +385,9 @@ LABEL_114:
     {
       while (1)
       {
-        v59 = *(v58 + 4);
-        v60 = v59 == 30 || v59 == 2;
-        if (!v60 || (*(v58 + 8) - 1) > 1)
+        ai_family = v58->ai_family;
+        v60 = ai_family == 30 || ai_family == 2;
+        if (!v60 || (v58->ai_socktype - 1) > 1)
         {
           goto LABEL_108;
         }
@@ -458,7 +458,7 @@ LABEL_111:
         }
 
 LABEL_108:
-        v58 = *(v58 + 40);
+        v58 = v58->ai_next;
         if (!v58)
         {
           goto LABEL_111;
@@ -582,10 +582,39 @@ uint64_t sub_1190(uint64_t a1)
   return result;
 }
 
-void sub_120C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_120C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
+}
+
+void sub_1228()
+{
+  v5 = 136315394;
+  sub_11F8();
+  sub_120C(&dword_0, &_os_log_default, v0, "Invalid value for %s (%lld). Using 0 instead.", v1, v2, v3, v4, v5);
+}
+
+void sub_12A4()
+{
+  v5 = 136315394;
+  sub_11F8();
+  sub_120C(&dword_0, &_os_log_default, v0, "Invalid value for %s (%lld). Using 0 instead.", v1, v2, v3, v4, v5);
+}
+
+void sub_1320()
+{
+  v5 = 136315394;
+  sub_11F8();
+  sub_120C(&dword_0, &_os_log_default, v0, "Invalid value for %s (%lld). Using 0 instead.", v1, v2, v3, v4, v5);
+}
+
+void sub_139C()
+{
+  v5 = 136315394;
+  sub_11F8();
+  sub_120C(&dword_0, &_os_log_default, v0, "Invalid length for %s (%lu). Ignoring.", v1, v2, v3, v4, v5);
 }
 
 void xpc_event_provider_create()

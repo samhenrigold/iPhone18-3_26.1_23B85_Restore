@@ -33,11 +33,9 @@
 
 - (id)stringValue
 {
-  fieldsData = self->fieldsData_;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v4 = self->fieldsData_;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -45,38 +43,36 @@
     }
   }
 
-  v5 = self->fieldsData_;
-  if (!v5)
+  fieldsData = self->fieldsData_;
+  if (!fieldsData)
   {
     JreThrowNullPointerException();
   }
 
-  return [v5 description];
+  return [fieldsData description];
 }
 
 - (id)readerValue
 {
-  fieldsData = self->fieldsData_;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->fieldsData_;
+  fieldsData = self->fieldsData_;
   objc_opt_class();
-  if (v4 && (objc_opt_isKindOfClass() & 1) == 0)
+  if (fieldsData && (objc_opt_isKindOfClass() & 1) == 0)
   {
     JreThrowClassCastException();
   }
 
-  return v4;
+  return fieldsData;
 }
 
 - (void)setStringValueWithNSString:(id)string
 {
   p_fieldsData = &self->fieldsData_;
-  fieldsData = self->fieldsData_;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -86,15 +82,15 @@
     }
 
     [objc_msgSend(*p_fieldsData "getClass")];
-    v13 = JreStrcat("$$$", v6, v7, v8, v9, v10, v11, v12, @"cannot change value type from ");
+    v12 = JreStrcat("$$$", v5, v6, v7, v8, v9, v10, v11, @"cannot change value type from ");
 LABEL_9:
-    v14 = new_JavaLangIllegalArgumentException_initWithNSString_(v13);
-    objc_exception_throw(v14);
+    v13 = new_JavaLangIllegalArgumentException_initWithNSString_(v12);
+    objc_exception_throw(v13);
   }
 
   if (!string)
   {
-    v13 = @"value cannot be null";
+    v12 = @"value cannot be null";
     goto LABEL_9;
   }
 
@@ -104,16 +100,15 @@ LABEL_9:
 - (void)setReaderValueWithJavaIoReader:(id)reader
 {
   p_fieldsData = &self->fieldsData_;
-  fieldsData = self->fieldsData_;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     if (*p_fieldsData)
     {
       [objc_msgSend(*p_fieldsData "getClass")];
-      v13 = JreStrcat("$$$", v6, v7, v8, v9, v10, v11, v12, @"cannot change value type from ");
-      v14 = new_JavaLangIllegalArgumentException_initWithNSString_(v13);
-      objc_exception_throw(v14);
+      v12 = JreStrcat("$$$", v5, v6, v7, v8, v9, v10, v11, @"cannot change value type from ");
+      v13 = new_JavaLangIllegalArgumentException_initWithNSString_(v12);
+      objc_exception_throw(v13);
     }
 
     JreThrowNullPointerException();
@@ -132,14 +127,13 @@ LABEL_9:
 - (void)setBytesValueWithOrgApacheLuceneUtilBytesRef:(id)ref
 {
   p_fieldsData = &self->fieldsData_;
-  fieldsData = self->fieldsData_;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     if (*p_fieldsData)
     {
       [objc_msgSend(*p_fieldsData "getClass")];
-      v16 = JreStrcat("$$$", v9, v10, v11, v12, v13, v14, v15, @"cannot change value type from ");
+      v15 = JreStrcat("$$$", v8, v9, v10, v11, v12, v13, v14, @"cannot change value type from ");
       goto LABEL_15;
     }
 
@@ -161,16 +155,16 @@ LABEL_12:
 
   if (indexOptions != OrgApacheLuceneIndexIndexOptionsEnum_values_[0])
   {
-    v16 = @"cannot set a BytesRef value on an indexed field";
+    v15 = @"cannot set a BytesRef value on an indexed field";
     goto LABEL_15;
   }
 
   if (!ref)
   {
-    v16 = @"value cannot be null";
+    v15 = @"value cannot be null";
 LABEL_15:
-    v17 = new_JavaLangIllegalArgumentException_initWithNSString_(v16);
-    objc_exception_throw(v17);
+    v16 = new_JavaLangIllegalArgumentException_initWithNSString_(v15);
+    objc_exception_throw(v16);
   }
 
   JreStrongAssign(p_fieldsData, ref);
@@ -180,7 +174,6 @@ LABEL_15:
 {
   byteCopy = byte;
   p_fieldsData = &self->fieldsData_;
-  fieldsData = self->fieldsData_;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -195,7 +188,7 @@ LABEL_15:
     JreThrowNullPointerException();
   }
 
-  v6 = JavaLangByte_valueOfWithByte_(byteCopy);
+  v6 = JavaLangByte_valueOfWithByte_(byteCopy, v5);
 
   JreStrongAssign(p_fieldsData, v6);
 }
@@ -204,7 +197,6 @@ LABEL_15:
 {
   shortCopy = short;
   p_fieldsData = &self->fieldsData_;
-  fieldsData = self->fieldsData_;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -219,7 +211,7 @@ LABEL_15:
     JreThrowNullPointerException();
   }
 
-  v6 = JavaLangShort_valueOfWithShort_(shortCopy);
+  v6 = JavaLangShort_valueOfWithShort_(shortCopy, v5);
 
   JreStrongAssign(p_fieldsData, v6);
 }
@@ -227,30 +219,28 @@ LABEL_15:
 - (void)setIntValueWithInt:(int)int
 {
   p_fieldsData = &self->fieldsData_;
-  fieldsData = self->fieldsData_;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     if (*p_fieldsData)
     {
       [objc_msgSend(*p_fieldsData "getClass")];
-      v14 = JreStrcat("$$$", v7, v8, v9, v10, v11, v12, v13, @"cannot change value type from ");
-      v15 = new_JavaLangIllegalArgumentException_initWithNSString_(v14);
-      objc_exception_throw(v15);
+      v13 = JreStrcat("$$$", v6, v7, v8, v9, v10, v11, v12, @"cannot change value type from ");
+      v14 = new_JavaLangIllegalArgumentException_initWithNSString_(v13);
+      objc_exception_throw(v14);
     }
 
     JreThrowNullPointerException();
   }
 
-  v6 = JavaLangInteger_valueOfWithInt_(int);
+  v5 = JavaLangInteger_valueOfWithInt_(int);
 
-  JreStrongAssign(p_fieldsData, v6);
+  JreStrongAssign(p_fieldsData, v5);
 }
 
 - (void)setLongValueWithLong:(int64_t)long
 {
   p_fieldsData = &self->fieldsData_;
-  fieldsData = self->fieldsData_;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -265,7 +255,7 @@ LABEL_15:
     JreThrowNullPointerException();
   }
 
-  v6 = JavaLangLong_valueOfWithLong_(long);
+  v6 = JavaLangLong_valueOfWithLong_(long, v5);
 
   JreStrongAssign(p_fieldsData, v6);
 }
@@ -273,47 +263,47 @@ LABEL_15:
 - (void)setFloatValueWithFloat:(float)float
 {
   p_fieldsData = &self->fieldsData_;
-  fieldsData = self->fieldsData_;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
     if (*p_fieldsData)
     {
       [objc_msgSend(*p_fieldsData "getClass")];
-      v14 = JreStrcat("$$$", v7, v8, v9, v10, v11, v12, v13, @"cannot change value type from ");
-      v15 = new_JavaLangIllegalArgumentException_initWithNSString_(v14);
-      objc_exception_throw(v15);
+      v15 = JreStrcat("$$$", v8, v9, v10, v11, v12, v13, v14, @"cannot change value type from ");
+      v16 = new_JavaLangIllegalArgumentException_initWithNSString_(v15);
+      objc_exception_throw(v16);
     }
 
     JreThrowNullPointerException();
   }
 
-  v6 = JavaLangFloat_valueOfWithFloat_(float);
+  v7 = JavaLangFloat_valueOfWithFloat_(isKindOfClass, v6, float);
 
-  JreStrongAssign(p_fieldsData, v6);
+  JreStrongAssign(p_fieldsData, v7);
 }
 
 - (void)setDoubleValueWithDouble:(double)double
 {
   p_fieldsData = &self->fieldsData_;
-  fieldsData = self->fieldsData_;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
     if (*p_fieldsData)
     {
       [objc_msgSend(*p_fieldsData "getClass")];
-      v14 = JreStrcat("$$$", v7, v8, v9, v10, v11, v12, v13, @"cannot change value type from ");
-      v15 = new_JavaLangIllegalArgumentException_initWithNSString_(v14);
-      objc_exception_throw(v15);
+      v15 = JreStrcat("$$$", v8, v9, v10, v11, v12, v13, v14, @"cannot change value type from ");
+      v16 = new_JavaLangIllegalArgumentException_initWithNSString_(v15);
+      objc_exception_throw(v16);
     }
 
     JreThrowNullPointerException();
   }
 
-  v6 = JavaLangDouble_valueOfWithDouble_(double);
+  v7 = JavaLangDouble_valueOfWithDouble_(isKindOfClass, v6, double);
 
-  JreStrongAssign(p_fieldsData, v6);
+  JreStrongAssign(p_fieldsData, v7);
 }
 
 - (void)setTokenStreamWithOrgApacheLuceneAnalysisTokenStream:(id)stream
@@ -375,40 +365,38 @@ LABEL_13:
 
 - (id)numericValue
 {
-  fieldsData = self->fieldsData_;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->fieldsData_;
+  fieldsData = self->fieldsData_;
   objc_opt_class();
-  if (v4 && (objc_opt_isKindOfClass() & 1) == 0)
+  if (fieldsData && (objc_opt_isKindOfClass() & 1) == 0)
   {
     JreThrowClassCastException();
   }
 
-  return v4;
+  return fieldsData;
 }
 
 - (id)binaryValue
 {
-  fieldsData = self->fieldsData_;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->fieldsData_;
+  fieldsData = self->fieldsData_;
   objc_opt_class();
-  if (v4 && (objc_opt_isKindOfClass() & 1) == 0)
+  if (fieldsData && (objc_opt_isKindOfClass() & 1) == 0)
   {
     JreThrowClassCastException();
   }
 
-  return v4;
+  return fieldsData;
 }
 
 - (NSString)description
@@ -594,7 +582,7 @@ LABEL_64:
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           v21 = [OrgApacheLuceneDocumentField_BinaryTokenStream alloc];
-          sub_1000656E8(v21);
+          sub_1000656E8(&v21->super.super.super.isa);
           tokenStream = v21;
         }
 
@@ -623,7 +611,7 @@ LABEL_68:
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v18 = [OrgApacheLuceneDocumentField_StringTokenStream alloc];
-      sub_100065870(v18);
+      sub_100065870(&v18->super.super.super.isa);
       tokenStream = v18;
     }
 

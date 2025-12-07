@@ -7,22 +7,23 @@ double ___NETRBClientStartService_block_invoke(uint64_t a1)
 {
   if (__NETRBClientValidateClient(*(a1 + 40)))
   {
-    v10 = *(a1 + 40);
-LABEL_4:
-    NETRBErrorLog();
+    NETRBErrorLog("invalid client %p");
+LABEL_5:
     *(*(*(a1 + 32) + 8) + 24) = 0;
     return result;
   }
 
   if (*(*(a1 + 40) + 289))
   {
-    goto LABEL_4;
+    NETRBErrorLog("client already started a service");
+    goto LABEL_5;
   }
 
   v3 = xpc_dictionary_create(0, 0, 0);
   if (!v3)
   {
-    goto LABEL_4;
+    NETRBErrorLog("xpc_dictionary_create() failed");
+    goto LABEL_5;
   }
 
   v4 = v3;
@@ -49,17 +50,16 @@ LABEL_4:
     xpc_dictionary_set_string(v6, netrbXPCExtName[0], v7);
   }
 
-  v11 = *(a1 + 40);
-  NETRBInfoLog();
+  NETRBInfoLog("client %p xpc send -> start service", *(a1 + 40));
   snprintf((*(a1 + 40) + 289), 0x100uLL, "%s-%p-%u", "com.apple.netrb", *(a1 + 40), __netrbStartId);
   ++__netrbStartId;
   v8 = *(a1 + 64);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 0x40000000;
-  v12[2] = ___NETRBClientStartService_block_invoke_2;
-  v12[3] = &__block_descriptor_tmp_88;
-  v12[4] = *(a1 + 40);
-  *(*(*(a1 + 32) + 8) + 24) = NETRBXPCSetupAndSend(v8, v4, v12);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 0x40000000;
+  v10[2] = ___NETRBClientStartService_block_invoke_2;
+  v10[3] = &__block_descriptor_tmp_88;
+  v10[4] = *(a1 + 40);
+  *(*(*(a1 + 32) + 8) + 24) = NETRBXPCSetupAndSend(v8, v4, v10);
   xpc_release(v4);
   v9 = *(a1 + 40);
   if (*(*(*(a1 + 32) + 8) + 24) == 1)

@@ -327,7 +327,7 @@ uint64_t __55__PMLWordPieceTokenizer_toTokens_fromInput_withLength___block_invok
 
 - (id)tokenize:(id)tokenize withLength:(unint64_t)length
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   tokenizeCopy = tokenize;
   if (length >= 0x200)
   {
@@ -341,12 +341,12 @@ uint64_t __55__PMLWordPieceTokenizer_toTokens_fromInput_withLength___block_invok
 
   v8 = (4 * (lengthCopy & 0x1FFFFFFFFFFFFFFFLL)) | 3;
   memptr = 0;
-  v21 = 0;
+  v20 = 0;
   if (v8 > 0x194)
   {
-    v16 = malloc_type_posix_memalign(&memptr, 8uLL, 4 * lengthCopy, 0x100004052888210uLL);
-    LOBYTE(v21) = 0;
-    if (v16)
+    v15 = malloc_type_posix_memalign(&memptr, 8uLL, 4 * lengthCopy, 0x100004052888210uLL);
+    LOBYTE(v20) = 0;
+    if (v15)
     {
       goto LABEL_19;
     }
@@ -356,27 +356,27 @@ uint64_t __55__PMLWordPieceTokenizer_toTokens_fromInput_withLength___block_invok
 
   else
   {
-    v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(v9, (4 * (lengthCopy & 0x1FFFFFFFFFFFFFFFLL)) | 3);
   }
 
   v10 = (16 * (lengthCopy & 0x7FFFFFFFFFFFFFFLL)) | 7;
   memptr = 0;
-  v21 = 0;
+  v20 = 0;
   if (v10 <= 0x328)
   {
-    v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(v11, (16 * (lengthCopy & 0x7FFFFFFFFFFFFFFLL)) | 7);
     goto LABEL_8;
   }
 
-  v17 = malloc_type_posix_memalign(&memptr, 8uLL, 16 * lengthCopy, 0x1000040451B5BE8uLL);
-  LOBYTE(v21) = 0;
-  if (v17)
+  v16 = malloc_type_posix_memalign(&memptr, 8uLL, 16 * lengthCopy, 0x1000040451B5BE8uLL);
+  LOBYTE(v20) = 0;
+  if (v16)
   {
 LABEL_19:
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
+    objc_exception_throw(v17);
   }
 
   v11 = memptr;
@@ -393,8 +393,6 @@ LABEL_8:
   {
     free(v11);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

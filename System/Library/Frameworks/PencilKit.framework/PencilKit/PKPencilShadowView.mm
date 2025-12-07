@@ -4,9 +4,9 @@
 + (void)hideShadowViewForSceneIfNecessary:(id)necessary;
 - (CGPoint)location;
 - (PKPencilShadowView)initWithFrame:(CGRect)frame;
+- (id)_updateFrameIfNecessary;
 - (uint64_t)_shadowShouldBeVisibleForCurrentTiledView;
 - (uint64_t)_updateFrame;
-- (uint64_t)_updateFrameIfNecessary;
 - (void)dealloc;
 - (void)didMoveToSuperview;
 - (void)keepVisibleInTiledView:(id)view;
@@ -165,250 +165,250 @@
   return v5;
 }
 
-void __38__PKPencilShadowView_startUpdateCycle__block_invoke(uint64_t a1)
+void __38__PKPencilShadowView_startUpdateCycle__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   _UIMediaTimeForMachTime();
-  v3 = v2;
+  v5 = v4;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = WeakRetained;
+  v7 = WeakRetained;
   if (WeakRetained)
   {
-    v8 = WeakRetained;
+    v10 = WeakRetained;
     [WeakRetained bounds];
-    IsEmpty = CGRectIsEmpty(v10);
-    v5 = v8;
-    if (!IsEmpty && (*(v8 + 546) & 1) == 0)
+    IsEmpty = CGRectIsEmpty(v12);
+    v7 = v10;
+    if (!IsEmpty && (*(v10 + 546) & 1) == 0)
     {
-      v7 = v3 + *(v8 + 472) * 2.0 + -0.001;
-      if (CACurrentMediaTime() < v7)
+      v9 = v5 + *(v10 + 472) * 2.0 + -0.001;
+      if (CACurrentMediaTime() < v9)
       {
-        atomic_store(*&v7, (v8 + 584));
+        atomic_store(*&v9, (v10 + 584));
       }
 
       [MEMORY[0x1E6979518] begin];
       [MEMORY[0x1E6979518] setDisableActions:1];
       [MEMORY[0x1E6979518] setAnimationDuration:0.0];
-      [(PKPencilShadowView *)v8 _updateFrame];
+      [(PKPencilShadowView *)v10 _updateFrame];
       [MEMORY[0x1E6979518] commit];
-      v5 = v8;
+      v7 = v10;
     }
   }
 }
 
-void __38__PKPencilShadowView_startUpdateCycle__block_invoke_2(uint64_t a1)
+void __38__PKPencilShadowView_startUpdateCycle__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   _UIMediaTimeForMachTime();
-  v3 = v2;
-  v4 = *(a1 + 40);
-  if (v4 >= 1)
+  v5 = v4;
+  v6 = *(a1 + 40);
+  if (v6 >= 1)
   {
-    v5 = 1.0 / v4;
+    v7 = 1.0 / v6;
     mach_absolute_time();
     _UIMediaTimeForMachTime();
-    v7 = v3 - v5 - v6;
-    if (v7 > 0.0 && v7 < v5 / 3.0)
+    v9 = v5 - v7 - v8;
+    if (v9 > 0.0 && v9 < v7 / 3.0)
     {
-      v9 = _UIMachTimeForMediaTime();
-      mach_wait_until(v9);
+      v11 = _UIMachTimeForMediaTime();
+      mach_wait_until(v11);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v11 = WeakRetained;
+  v13 = WeakRetained;
   if (WeakRetained)
   {
-    v47 = WeakRetained;
+    v49 = WeakRetained;
     [WeakRetained bounds];
-    IsEmpty = CGRectIsEmpty(v70);
-    v11 = v47;
+    IsEmpty = CGRectIsEmpty(v72);
+    v13 = v49;
     if (!IsEmpty)
     {
-      ShouldBeVisibleForCurrentTiled = [(PKPencilShadowView *)v47 _shadowShouldBeVisibleForCurrentTiledView];
-      v14 = v47;
-      if ((ShouldBeVisibleForCurrentTiled & 1) != 0 || *(v47 + 416) == 0.0)
+      ShouldBeVisibleForCurrentTiled = [(PKPencilShadowView *)v49 _shadowShouldBeVisibleForCurrentTiledView];
+      v16 = v49;
+      if ((ShouldBeVisibleForCurrentTiled & 1) != 0 || *(v49 + 416) == 0.0)
       {
-        v15 = *(v47 + 552);
-        *(v47 + 552) = v15 + 1;
-        *(v47 + 546) = (v15 < 15) & v15;
-        if (*(v47 + 576) == 1 && (*(v47 + 546) & 1) == 0)
+        v17 = *(v49 + 552);
+        *(v49 + 552) = v17 + 1;
+        *(v49 + 546) = (v17 < 15) & v17;
+        if (*(v49 + 576) == 1 && (*(v49 + 546) & 1) == 0)
         {
-          v16 = COERCE_DOUBLE(atomic_load((v47 + 584)));
-          if (v3 < v16)
+          v18 = COERCE_DOUBLE(atomic_load((v49 + 584)));
+          if (v5 < v18)
           {
-            v17 = -5;
-            while (!__CFADD__(v17++, 1))
+            v19 = -5;
+            while (!__CFADD__(v19++, 1))
             {
               usleep(0xFAu);
-              v14 = v47;
-              v19 = COERCE_DOUBLE(atomic_load((v47 + 584)));
-              if (v3 >= v19)
+              v16 = v49;
+              v21 = COERCE_DOUBLE(atomic_load((v49 + 584)));
+              if (v5 >= v21)
               {
                 goto LABEL_21;
               }
             }
 
-            *(v14 + 546) = 1;
+            *(v16 + 546) = 1;
             _UIMachTimeForMediaTime();
             kdebug_trace();
-            v14 = v47;
+            v16 = v49;
           }
         }
 
 LABEL_21:
-        v20 = *(v14 + 424);
-        v21 = *(v14 + 416);
-        v22 = 10.0;
-        if (v21 > v20)
+        v22 = *(v16 + 424);
+        v23 = *(v16 + 416);
+        v24 = 10.0;
+        if (v23 > v22)
         {
-          v22 = 30.0;
+          v24 = 30.0;
         }
 
-        v23 = (v21 + v20 * (v22 + -1.0)) / v22;
-        *(v14 + 424) = v23;
-        v24 = *(v14 + 632) * (*(v14 + 480) * v23);
-        v25 = 0.0;
-        if (v24 >= 0.00390625)
+        v25 = (v23 + v22 * (v24 + -1.0)) / v24;
+        *(v16 + 424) = v25;
+        v26 = *(v16 + 632) * (*(v16 + 480) * v25);
+        v27 = 0.0;
+        if (v26 >= 0.00390625)
         {
-          v25 = v24;
-          if (v24 > 0.99609375)
+          v27 = v26;
+          if (v26 > 0.99609375)
           {
-            v25 = 1.0;
+            v27 = 1.0;
           }
         }
 
-        v26 = CACurrentMediaTime();
-        v27 = v47;
-        if (*(v47 + 624) && *(v47 + 416) == 1.0 && *(v47 + 424) > 0.9 && v26 - *(v47 + 496) > 0.1 && (*(v47 + 544) & 1) == 0)
+        v28 = CACurrentMediaTime();
+        v29 = v49;
+        if (*(v49 + 624) && *(v49 + 416) == 1.0 && *(v49 + 424) > 0.9 && v28 - *(v49 + 496) > 0.1 && (*(v49 + 544) & 1) == 0)
         {
-          [v47 updateInk:0 animated:1];
-          v27 = v47;
+          [v49 updateInk:0 animated:1];
+          v29 = v49;
         }
 
-        [v27 zPosition];
-        v29 = v28;
-        [v47 altitude];
+        [v29 zPosition];
         v31 = v30;
-        [v47 rollAngle];
+        [v49 altitude];
         v33 = v32;
-        v34 = *(v47 + 512);
-        v35 = [v47 ink];
-        if (v34 == 1)
+        [v49 rollAngle];
+        v35 = v34;
+        v36 = *(v49 + 512);
+        v37 = [v49 ink];
+        if (v36 == 1)
         {
-          v36 = *(v47 + 528);
+          v38 = *(v49 + 528);
 
-          v37 = *(v47 + 520);
-          v38 = v47;
-          v39 = v26 - *(v47 + 504) + v26 - *(v47 + 504);
-          v40 = 1.0;
-          if (v39 >= 1.0)
+          v39 = *(v49 + 520);
+          v40 = v49;
+          v41 = v28 - *(v49 + 504) + v28 - *(v49 + 504);
+          v42 = 1.0;
+          if (v41 >= 1.0)
           {
-            v41 = *(v47 + 528);
-            *(v47 + 528) = 0;
+            v43 = *(v49 + 528);
+            *(v49 + 528) = 0;
 
-            v42 = *(v47 + 520);
-            *(v47 + 520) = 0;
+            v44 = *(v49 + 520);
+            *(v49 + 520) = 0;
 
-            v38 = v47;
-            *(v47 + 512) = 0;
-            v35 = v36;
+            v40 = v49;
+            *(v49 + 512) = 0;
+            v37 = v38;
           }
 
           else
           {
-            v35 = v36;
-            v40 = v39;
+            v37 = v38;
+            v42 = v41;
           }
         }
 
         else
         {
-          v37 = 0;
-          v40 = 1.0;
-          v38 = v47;
+          v39 = 0;
+          v42 = 1.0;
+          v40 = v49;
         }
 
-        if (v25 == 0.0 || (*(v38 + 546) & 1) == 0)
+        if (v27 == 0.0 || (*(v40 + 546) & 1) == 0)
         {
           [MEMORY[0x1E6979518] activate];
           [MEMORY[0x1E6979518] begin];
           [MEMORY[0x1E6979518] setDisableActions:1];
           [MEMORY[0x1E6979518] setAnimationDuration:0.0];
-          [v47 setAlpha:v25];
-          [v47 setHidden:v25 == 0.0];
-          if (v25 > 0.0)
+          [v49 setAlpha:v27];
+          [v49 setHidden:v27 == 0.0];
+          if (v27 > 0.0)
           {
-            v43 = *(v47 + 440);
+            v45 = *(v49 + 440);
             block[0] = MEMORY[0x1E69E9820];
             block[1] = 3221225472;
             block[2] = __48__PKPencilShadowView__vsyncWithTargetTimestamp___block_invoke;
             block[3] = &unk_1E82DAA60;
-            block[4] = v47;
-            v49 = v35;
-            v50 = v37;
-            v51 = v33;
-            v52 = v31;
-            v53 = v40;
-            dispatch_async(v43, block);
-            if ([*(v47 + 408) isDrawableAvailable])
+            block[4] = v49;
+            v51 = v37;
+            v52 = v39;
+            v53 = v35;
+            v54 = v33;
+            v55 = v42;
+            dispatch_async(v45, block);
+            if ([*(v49 + 408) isDrawableAvailable])
             {
-              v44 = [*(v47 + 408) nextDrawable];
-              if (v44)
+              v46 = [*(v49 + 408) nextDrawable];
+              if (v46)
               {
-                v63 = 0;
-                v64 = &v63;
-                v65 = 0x3032000000;
-                v66 = __Block_byref_object_copy__21;
-                v67 = __Block_byref_object_dispose__21;
-                v68 = 0;
-                v45 = *(v47 + 440);
+                v65 = 0;
+                v66 = &v65;
+                v67 = 0x3032000000;
+                v68 = __Block_byref_object_copy__21;
+                v69 = __Block_byref_object_dispose__21;
+                v70 = 0;
+                v47 = *(v49 + 440);
                 *buf = MEMORY[0x1E69E9820];
-                v55 = 3221225472;
-                v56 = __53__PKPencilShadowView__renderAtHeight_altitude_alpha___block_invoke;
-                v57 = &unk_1E82DAA88;
-                v60 = &v63;
-                v58 = v47;
-                v46 = v44;
-                v59 = v46;
-                v61 = v31;
-                v62 = v29;
-                dispatch_sync(v45, buf);
-                [v64[5] waitUntilScheduled];
-                [v46 present];
+                v57 = 3221225472;
+                v58 = __53__PKPencilShadowView__renderAtHeight_altitude_alpha___block_invoke;
+                v59 = &unk_1E82DAA88;
+                v62 = &v65;
+                v60 = v49;
+                v48 = v46;
+                v61 = v48;
+                v63 = v33;
+                v64 = v31;
+                dispatch_sync(v47, buf);
+                [v66[5] waitUntilScheduled];
+                [v48 present];
 
-                _Block_object_dispose(&v63, 8);
+                _Block_object_dispose(&v65, 8);
               }
 
               else
               {
-                v46 = 0;
+                v48 = 0;
               }
             }
 
             else
             {
-              v46 = os_log_create("com.apple.pencilkit", "");
-              if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+              v48 = os_log_create("com.apple.pencilkit", "");
+              if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_1C7CCA000, v46, OS_LOG_TYPE_DEFAULT, "PKPencilShadowView: No drawable available; skipping frame", buf, 2u);
+                _os_log_impl(&dword_1C7CCA000, v48, OS_LOG_TYPE_DEFAULT, "PKPencilShadowView: No drawable available; skipping frame", buf, 2u);
               }
             }
           }
 
           [MEMORY[0x1E6979518] commit];
-          if (v25 == 0.0 && *(v47 + 416) == 0.0 && (*(v47 + 512) & 1) == 0)
+          if (v27 == 0.0 && *(v49 + 416) == 0.0 && (*(v49 + 512) & 1) == 0)
           {
-            [(PKPencilShadowView *)v47 pauseUpdateCycle];
+            [(PKPencilShadowView *)v49 pauseUpdateCycle];
           }
         }
       }
 
       else
       {
-        [v47 updateOpacity:1 animated:0.0];
+        [v49 updateOpacity:1 animated:0.0];
       }
 
-      v11 = v47;
+      v13 = v49;
     }
   }
 }
@@ -576,17 +576,17 @@ void __45__PKPencilShadowView_updateOpacity_animated___block_invoke(uint64_t a1)
     [(PKPencilShadowView *)self updateOpacity:1 animated:1.0];
   }
 
-  [(PKPencilShadowView *)self _updateFrameIfNecessary];
+  [(PKPencilShadowView *)&self->super.super.super.isa _updateFrameIfNecessary];
 }
 
-- (uint64_t)_updateFrameIfNecessary
+- (id)_updateFrameIfNecessary
 {
   if (result)
   {
     v1 = result;
-    [*(result + 408) bounds];
-    v4 = v3 == *(v1 + 456) && v2 == *(v1 + 464);
-    if (!v4 || ((result = [v1 bounds], v6 == *(v1 + 456)) ? (v7 = v5 == *(v1 + 464)) : (v7 = 0), !v7 || *(v1 + 545) == 1))
+    [result[51] bounds];
+    v4 = v3 == *(v1 + 57) && v2 == *(v1 + 58);
+    if (!v4 || ((result = [v1 bounds], v6 == *(v1 + 57)) ? (v7 = v5 == *(v1 + 58)) : (v7 = 0), !v7 || *(v1 + 545) == 1))
     {
       [MEMORY[0x1E6979518] begin];
       [MEMORY[0x1E6979518] setDisableActions:1];

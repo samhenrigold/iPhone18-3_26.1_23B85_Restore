@@ -129,39 +129,39 @@ LABEL_10:
   keyplane = [(UIKBKeyView *)self keyplane];
   v55 = [factory traitsForKey:v4 onKeyplane:keyplane];
 
-  geometry = [v55 geometry];
-  [geometry roundRectRadius];
+  v6 = objc_msgSend_geometry(v55);
+  [v6 roundRectRadius];
   v8 = v7;
 
-  geometry2 = [v55 geometry];
-  roundRectCorners = [geometry2 roundRectCorners];
+  v9 = objc_msgSend_geometry(v55);
+  roundRectCorners = [v9 roundRectCorners];
 
-  geometry3 = [v55 geometry];
-  [geometry3 frame];
+  v11 = objc_msgSend_geometry(v55);
+  [v11 frame];
   MinY = CGRectGetMinY(v57);
-  geometry4 = [v55 geometry];
-  [geometry4 paddedFrame];
+  v13 = objc_msgSend_geometry(v55);
+  [v13 paddedFrame];
   v14 = MinY - CGRectGetMinY(v58);
 
-  geometry5 = [v55 geometry];
-  [geometry5 frame];
+  v15 = objc_msgSend_geometry(v55);
+  [v15 frame];
   MaxX = CGRectGetMaxX(v59);
-  geometry6 = [v55 geometry];
-  [geometry6 paddedFrame];
+  v17 = objc_msgSend_geometry(v55);
+  [v17 paddedFrame];
   v18 = MaxX - CGRectGetMaxX(v60);
 
-  geometry7 = [v55 geometry];
-  [geometry7 frame];
+  v19 = objc_msgSend_geometry(v55);
+  [v19 frame];
   MaxY = CGRectGetMaxY(v61);
-  geometry8 = [v55 geometry];
-  [geometry8 paddedFrame];
+  v21 = objc_msgSend_geometry(v55);
+  [v21 paddedFrame];
   v22 = MaxY - CGRectGetMaxY(v62);
 
-  geometry9 = [v55 geometry];
-  [geometry9 frame];
+  v23 = objc_msgSend_geometry(v55);
+  [v23 frame];
   MinX = CGRectGetMinX(v63);
-  geometry10 = [v55 geometry];
-  [geometry10 paddedFrame];
+  v25 = objc_msgSend_geometry(v55);
+  [v25 paddedFrame];
   v26 = MinX - CGRectGetMinX(v64);
 
   v27 = +[UIKeyboardImpl activeInstance];

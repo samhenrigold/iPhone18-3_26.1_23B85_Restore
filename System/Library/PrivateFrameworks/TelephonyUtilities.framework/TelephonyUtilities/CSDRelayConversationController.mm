@@ -51,12 +51,12 @@
 
   if (gftOnWatch)
   {
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004778(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = conversationCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "CSDRelayConversationController added active conversation %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = conversationCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "CSDRelayConversationController added active conversation %@", &v12, 0xCu);
     }
 
     messagingController = [(CSDRelayConversationController *)self messagingController];
@@ -75,12 +75,12 @@
 
   if (gftOnWatch)
   {
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004778(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = conversationCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "CSDRelayConversationController removed active conversation %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = conversationCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "CSDRelayConversationController removed active conversation %@", &v12, 0xCu);
     }
 
     messagingController = [(CSDRelayConversationController *)self messagingController];
@@ -99,12 +99,12 @@
 
   if (gftOnWatch)
   {
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004778(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = conversationCopy;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "CSDRelayConversationController state changed for conversation %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = conversationCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "CSDRelayConversationController state changed for conversation %@", &v14, 0xCu);
     }
 
     if (oldConversation)
@@ -126,12 +126,12 @@
 
   if (gftOnWatch)
   {
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004778(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = dCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "CSDRelayConversationController updated messages group UUID for conversation %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = dCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "CSDRelayConversationController updated messages group UUID for conversation %@", &v12, 0xCu);
     }
 
     messagingController = [(CSDRelayConversationController *)self messagingController];
@@ -150,12 +150,12 @@
 
   if (oldConversation && gftOnWatch)
   {
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004778(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = conversationCopy;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "CSDRelayConversationController remote members changed for conversation %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = conversationCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "CSDRelayConversationController remote members changed for conversation %@", &v14, 0xCu);
     }
 
     messagingController = [(CSDRelayConversationController *)self messagingController];
@@ -174,12 +174,12 @@
 
   if (oldConversation && gftOnWatch)
   {
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004778(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = conversationCopy;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "CSDRelayConversationController activeRemoteParticipants changed for conversation %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = conversationCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "CSDRelayConversationController activeRemoteParticipants changed for conversation %@", &v14, 0xCu);
     }
 
     messagingController = [(CSDRelayConversationController *)self messagingController];
@@ -198,12 +198,12 @@
 
   if (oldConversation && gftOnWatch)
   {
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004778(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = conversationCopy;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "CSDRelayConversationController avMode changed for conversation %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = conversationCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "CSDRelayConversationController avMode changed for conversation %@", &v14, 0xCu);
     }
 
     messagingController = [(CSDRelayConversationController *)self messagingController];
@@ -217,24 +217,31 @@
   featureFlags = [(CSDRelayConversationController *)self featureFlags];
   gftOnWatch = [featureFlags gftOnWatch];
 
-  if (gftOnWatch && [conversationCopy hostedOnCurrentDevice] && (objc_msgSend(conversationCopy, "endpointOnCurrentDevice") & 1) == 0)
+  if (gftOnWatch)
   {
-    v8 = sub_100004778();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if ([conversationCopy hostedOnCurrentDevice])
     {
-      *buf = 138412290;
-      v13 = conversationCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Prominence changed for %@", buf, 0xCu);
-    }
+      endpointOnCurrentDevice = [conversationCopy endpointOnCurrentDevice];
+      if ((endpointOnCurrentDevice & 1) == 0)
+      {
+        v9 = sub_100004778(endpointOnCurrentDevice);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v14 = conversationCopy;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Prominence changed for %@", buf, 0xCu);
+        }
 
-    queue = [(CSDRelayConversationController *)self queue];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_1001EA2E0;
-    v10[3] = &unk_100619D88;
-    v10[4] = self;
-    v11 = conversationCopy;
-    dispatch_async(queue, v10);
+        queue = [(CSDRelayConversationController *)self queue];
+        v11[0] = _NSConcreteStackBlock;
+        v11[1] = 3221225472;
+        v11[2] = sub_1001EA2E0;
+        v11[3] = &unk_100619D88;
+        v11[4] = self;
+        v12 = conversationCopy;
+        dispatch_async(queue, v11);
+      }
+    }
   }
 }
 

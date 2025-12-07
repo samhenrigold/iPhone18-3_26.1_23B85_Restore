@@ -161,7 +161,7 @@ uint64_t siri::intelligence::VariableBoolean::IsEmpty(siri::intelligence::Variab
   return v1 & 1;
 }
 
-_BYTE *siri::intelligence::VariableBoolean::AsString@<X0>(siri::intelligence::VariableBoolean *this@<X0>, _BYTE *a2@<X8>)
+void *siri::intelligence::VariableBoolean::AsString@<X0>(siri::intelligence::VariableBoolean *this@<X0>, void *a2@<X8>)
 {
   if (*(this + 66))
   {
@@ -195,8 +195,7 @@ void siri::intelligence::VariableBoolean::~VariableBoolean(void **this)
 
 void YAML::EncodeBase64(YAML *this@<X0>, unint64_t a2@<X1>, std::string *a3@<X8>)
 {
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
+  *&a3->__r_.__value_.__l.__data_ = 0uLL;
   a3->__r_.__value_.__r.__words[2] = 0;
   std::string::resize(a3, 4 * a2 / 3 + 3, 0);
   if ((a3->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -275,18 +274,18 @@ void sub_254D7C870(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t YAML::DecodeBase64@<X0>(uint64_t result@<X0>, void *a2@<X8>)
+void YAML::DecodeBase64(uint64_t *a1@<X0>, void *a2@<X8>)
 {
-  if ((*(result + 23) & 0x8000000000000000) != 0)
+  if ((*(a1 + 23) & 0x8000000000000000) != 0)
   {
-    if (*(result + 8))
+    if (a1[1])
     {
 LABEL_3:
       operator new();
     }
   }
 
-  else if (*(result + 23))
+  else if (*(a1 + 23))
   {
     goto LABEL_3;
   }
@@ -294,7 +293,6 @@ LABEL_3:
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  return result;
 }
 
 void sub_254D7CAEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -353,7 +351,7 @@ void sub_254D7D564(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t siri::intelligence::TestRunner::RunTestSuite@<X0>(uint64_t *a1@<X1>, uint64_t a2@<X2>, uint64_t **a3@<X8>)
+uint64_t siri::intelligence::TestRunner::RunTestSuite@<X0>(uint64_t *a1@<X1>, const std::string **a2@<X2>, uint64_t **a3@<X8>)
 {
   a3[1] = 0;
   *a3 = a1;
@@ -367,7 +365,7 @@ uint64_t siri::intelligence::TestRunner::RunTestSuite@<X0>(uint64_t *a1@<X1>, ui
   v6 = v28;
   if (v27 != v28)
   {
-    while (*a2 != *(a2 + 8))
+    while (*a2 != a2[1])
     {
       if (*(v5 + 71) < 0)
       {
@@ -559,32 +557,29 @@ void siri::intelligence::TestKeyValueToVariable(siri::intelligence *this, const 
   v4 = *(a2 + 9);
   if (*(v4 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v10, *v4, *(v4 + 1));
+    std::string::__init_copy_ctor_external(&v7, *v4, *(v4 + 1));
   }
 
   else
   {
     v5 = *v4;
-    v10.__r_.__value_.__r.__words[2] = *(v4 + 2);
-    *&v10.__r_.__value_.__l.__data_ = v5;
+    v7.__r_.__value_.__r.__words[2] = *(v4 + 2);
+    *&v7.__r_.__value_.__l.__data_ = v5;
   }
 
   v6 = *(a2 + 4);
   if ((v6 & 2) != 0)
   {
-    v7 = *(a2 + 10);
     operator new();
   }
 
   if ((v6 & 8) != 0)
   {
-    v8 = *(a2 + 96);
     operator new();
   }
 
   if ((v6 & 4) != 0)
   {
-    v9 = *(a2 + 11);
     operator new();
   }
 
@@ -600,9 +595,9 @@ void siri::intelligence::TestKeyValueToVariable(siri::intelligence *this, const 
 
   *this = 0;
   *(this + 1) = 0;
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v7.__r_.__value_.__l.__data_);
   }
 }
 
@@ -659,35 +654,35 @@ void siri::intelligence::TestResult::~TestResult(void **this)
 
 uint64_t siri::intelligence::NLGenerator::FromCATI(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   if (*(a4 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v35, *a4, *(a4 + 8));
+    std::string::__init_copy_ctor_external(&v36, *a4, *(a4 + 8));
   }
 
   else
   {
-    v35 = *a4;
+    v36 = *a4;
   }
 
-  size = HIBYTE(v35.__r_.__value_.__r.__words[2]);
-  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  size = HIBYTE(v36.__r_.__value_.__r.__words[2]);
+  if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v35.__r_.__value_.__l.__size_;
+    size = v36.__r_.__value_.__l.__size_;
   }
 
   if (!size)
   {
     siri::intelligence::BaseName(a1, &__p);
-    siri::intelligence::RemoveExtension(&__p, v45);
-    if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+    siri::intelligence::RemoveExtension(&__p, v47);
+    if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v35.__r_.__value_.__l.__data_);
+      operator delete(v36.__r_.__value_.__l.__data_);
     }
 
-    v35 = v45[0];
-    *(&v45[0].__r_.__value_.__s + 23) = 0;
-    v45[0].__r_.__value_.__s.__data_[0] = 0;
+    v36 = v47[0];
+    *(&v47[0].__r_.__value_.__s + 23) = 0;
+    v47[0].__r_.__value_.__s.__data_[0] = 0;
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -696,10 +691,10 @@ uint64_t siri::intelligence::NLGenerator::FromCATI(uint64_t a1, uint64_t a2, uin
 
   if (siri::intelligence::FileExists(a3))
   {
-    v33 = 0;
     v34 = 0;
-    v32 = &v33;
-    rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::GenericDocument(v45, 0, 1024, 0);
+    v35 = 0;
+    v33 = &v34;
+    rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::GenericDocument(v47, 0, 1024, 0);
     siri::intelligence::ReadFileToString(a3, &__p);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
@@ -711,126 +706,126 @@ uint64_t siri::intelligence::NLGenerator::FromCATI(uint64_t a1, uint64_t a2, uin
       p_p = __p.__r_.__value_.__r.__words[0];
     }
 
-    v41 = p_p;
     v42 = p_p;
-    if (*(rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::ParseStream<128u,rapidjson::UTF8<char>,rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(v45, &v41) + 88))
+    v43 = p_p;
+    if (*(rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::ParseStream<128u,rapidjson::UTF8<char>,rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(v47, &v42, v8, v9) + 88))
     {
-      if (v46 > 0x11)
+      if (v48 > 0x11)
       {
-        v9 = "Unknown error.";
+        v11 = "Unknown error.";
       }
 
       else
       {
-        v9 = off_2797B3038[v46];
+        v11 = off_2797B3038[v48];
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v41, v9);
-      if ((v43 & 0x80u) == 0)
+      std::string::basic_string[abi:ne200100]<0>(&v42, v11);
+      if ((v44 & 0x80u) == 0)
       {
-        v27 = &v41;
+        v29 = &v42;
       }
 
       else
       {
-        v27 = v41;
+        v29 = v42;
       }
 
-      siri::intelligence::Log::Error("Failed to parse CATI Manifest JSON: %s", v26, v27);
-      if (v43 < 0)
+      siri::intelligence::Log::Error("Failed to parse CATI Manifest JSON: %s", v28, v29);
+      if (v44 < 0)
       {
-        operator delete(v41);
+        operator delete(v42);
       }
     }
 
-    else if (rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::HasMember(v45, "cati-manifest") && *(rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::operator[]<char const>(v45, "cati-manifest") + 22) == 3)
+    else if (rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::HasMember(v47, "cati-manifest") && *(rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::operator[]<char const>(v47, "cati-manifest") + 22) == 3)
     {
-      v13 = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::operator[]<char const>(v45, "cati-manifest");
-      if (rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::HasMember(v13, "intents") && *(rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::operator[]<char const>(v13, "intents") + 22) == 4)
+      v15 = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::operator[]<char const>(v47, "cati-manifest");
+      if (rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::HasMember(v15, "intents") && *(rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::operator[]<char const>(v15, "intents") + 22) == 4)
       {
-        v15 = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::operator[]<char const>(v13, "intents");
-        if (*(v15 + 11) != 4)
+        v17 = rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::operator[]<char const>(v15, "intents");
+        if (*(v17 + 11) != 4)
         {
           __assert_rtn("GetArray", "document.h", 1724, "IsArray()");
         }
 
-        v16 = *v15;
-        if (v16)
+        v18 = *v17;
+        if (v18)
         {
-          v17 = *(v15 + 1);
-          v18 = 24 * v16;
+          v19 = *(v17 + 1);
+          v20 = 24 * v18;
           do
           {
             std::string::basic_string[abi:ne200100]<0>(&__str, "intentName");
-            siri::intelligence::ParseJSONString(&v41, v17, &__str);
+            siri::intelligence::ParseJSONString(&v42, v19, &__str);
             if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__str.__r_.__value_.__l.__data_);
             }
 
-            std::string::basic_string[abi:ne200100]<0>(v38, "GUID");
-            siri::intelligence::ParseJSONString(&__str, v17, v38);
-            if (v39 < 0)
+            std::string::basic_string[abi:ne200100]<0>(v39, "GUID");
+            siri::intelligence::ParseJSONString(&__str, v19, v39);
+            if (v40 < 0)
             {
-              operator delete(v38[0]);
+              operator delete(v39[0]);
             }
 
-            std::string::basic_string[abi:ne200100]<0>(v36, "ensemble");
-            siri::intelligence::ParseJSONString(v38, v17, v36);
-            if (v37 < 0)
+            std::string::basic_string[abi:ne200100]<0>(v37, "ensemble");
+            siri::intelligence::ParseJSONString(v39, v19, v37);
+            if (v38 < 0)
             {
-              operator delete(v36[0]);
+              operator delete(v37[0]);
             }
 
-            v19 = v43;
-            if ((v43 & 0x80u) != 0)
+            v21 = v44;
+            if ((v44 & 0x80u) != 0)
             {
-              v19 = v42;
+              v21 = v43;
             }
 
-            if (v19)
+            if (v21)
             {
-              v20 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+              v22 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
               if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
               {
-                v20 = __str.__r_.__value_.__l.__size_;
+                v22 = __str.__r_.__value_.__l.__size_;
               }
 
-              if (v20)
+              if (v22)
               {
-                if ((v39 & 0x80u) == 0)
+                if ((v40 & 0x80u) == 0)
                 {
-                  v21 = v39;
+                  v23 = v40;
                 }
 
                 else
                 {
-                  v21 = v38[1];
+                  v23 = v39[1];
                 }
 
-                v22 = HIBYTE(v35.__r_.__value_.__r.__words[2]);
-                if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                v24 = HIBYTE(v36.__r_.__value_.__r.__words[2]);
+                if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                 {
-                  v22 = v35.__r_.__value_.__l.__size_;
+                  v24 = v36.__r_.__value_.__l.__size_;
                 }
 
-                if (v21 == v22)
+                if (v23 == v24)
                 {
-                  v23 = (v39 & 0x80u) == 0 ? v38 : v38[0];
-                  v24 = (v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v35 : v35.__r_.__value_.__r.__words[0];
-                  if (!memcmp(v23, v24, v21))
+                  v25 = (v40 & 0x80u) == 0 ? v39 : v39[0];
+                  v26 = (v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v36 : v36.__r_.__value_.__r.__words[0];
+                  if (!memcmp(v25, v26, v23))
                   {
-                    v36[0] = &v41;
-                    v25 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v32, &v41);
-                    std::string::operator=((v25 + 56), &__str);
+                    v37[0] = &v42;
+                    v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v33, &v42, &std::piecewise_construct, v37, &v46);
+                    std::string::operator=((v27 + 7), &__str);
                   }
                 }
               }
             }
 
-            if (v39 < 0)
+            if (v40 < 0)
             {
-              operator delete(v38[0]);
+              operator delete(v39[0]);
             }
 
             if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -838,16 +833,16 @@ uint64_t siri::intelligence::NLGenerator::FromCATI(uint64_t a1, uint64_t a2, uin
               operator delete(__str.__r_.__value_.__l.__data_);
             }
 
-            if (v43 < 0)
+            if (v44 < 0)
             {
-              operator delete(v41);
+              operator delete(v42);
             }
 
-            v17 += 6;
-            v18 -= 24;
+            v19 += 6;
+            v20 -= 24;
           }
 
-          while (v18);
+          while (v20);
         }
       }
 
@@ -855,15 +850,15 @@ uint64_t siri::intelligence::NLGenerator::FromCATI(uint64_t a1, uint64_t a2, uin
       {
         if (*(a3 + 23) >= 0)
         {
-          v31 = a3;
+          v32 = a3;
         }
 
         else
         {
-          v31 = *a3;
+          v32 = *a3;
         }
 
-        siri::intelligence::Log::Warning("The CATI Manifest file does not have a %s array: %s", v14, "intents", v31);
+        siri::intelligence::Log::Warning("The CATI Manifest file does not have a %s array: %s", v16, "intents", v32);
       }
     }
 
@@ -871,15 +866,15 @@ uint64_t siri::intelligence::NLGenerator::FromCATI(uint64_t a1, uint64_t a2, uin
     {
       if (*(a3 + 23) >= 0)
       {
-        v28 = a3;
+        v30 = a3;
       }
 
       else
       {
-        v28 = *a3;
+        v30 = *a3;
       }
 
-      siri::intelligence::Log::Warning("The CATI Manifest file does not have a %s dictionary: %s", v12, "cati-manifest", v28);
+      siri::intelligence::Log::Warning("The CATI Manifest file does not have a %s dictionary: %s", v14, "cati-manifest", v30);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -887,43 +882,42 @@ uint64_t siri::intelligence::NLGenerator::FromCATI(uint64_t a1, uint64_t a2, uin
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::~GenericDocument(v45);
-    if (v34)
+    rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::~GenericDocument(v47);
+    if (v35)
     {
       siri::intelligence::GetFormatForFilename(a1);
       siri::intelligence::Loader::LoadFile();
     }
 
-    v11 = 1;
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v32, v33);
+    v13 = 1;
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v33, v34);
   }
 
   else
   {
     if (*(a3 + 23) >= 0)
     {
-      v10 = a3;
+      v12 = a3;
     }
 
     else
     {
-      v10 = *a3;
+      v12 = *a3;
     }
 
-    siri::intelligence::Log::Error("CATI Manifest file does not exist: %s", v7, v10);
-    v11 = 0;
+    siri::intelligence::Log::Error("CATI Manifest file does not exist: %s", v7, v12);
+    v13 = 0;
   }
 
-  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v35.__r_.__value_.__l.__data_);
+    operator delete(v36.__r_.__value_.__l.__data_);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v13;
 }
 
-void sub_254D7FDD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, void *a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, void *__p, uint64_t a52, int a53, __int16 a54, char a55, char a56)
+void sub_254D7FDD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, void *__p, uint64_t a52, int a53, __int16 a54, char a55, char a56)
 {
   if (a56 < 0)
   {
@@ -942,7 +936,7 @@ void sub_254D7FDD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void siri::intelligence::UpdateEvent(uint64_t a1, uint64_t a2)
 {
-  v5 = a1 + 136;
+  v5 = (a1 + 136);
   v4 = *(a1 + 136);
   if (*(v4 + 23) < 0)
   {
@@ -1074,7 +1068,7 @@ LABEL_33:
           *(a1 + 16) |= 8u;
           if (v21 == &google::protobuf::internal::fixed_address_empty_string)
           {
-            google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 144, &__p);
+            google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 144), &__p);
           }
 
           std::string::operator=(v21, &__p);
@@ -1235,7 +1229,7 @@ LABEL_19:
   *(v9 + 4) |= 1u;
   if (v12 == &google::protobuf::internal::fixed_address_empty_string)
   {
-    google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v9 + 120, FALLBACK_EVENT_ID);
+    google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v9 + 15, FALLBACK_EVENT_ID);
   }
 
   std::string::operator=(v12, FALLBACK_EVENT_ID);
@@ -1244,7 +1238,7 @@ LABEL_19:
   {
     v15 = *(v9 + 9);
 LABEL_27:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v9 + 6, v15 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v9 + 24), v15 + 1);
     v13 = *(v9 + 5);
     v15 = *v13;
     goto LABEL_28;
@@ -1304,7 +1298,7 @@ LABEL_37:
     }
 
 LABEL_36:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v16 + 6, v21 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v16 + 24), v21 + 1);
     v19 = *(v16 + 5);
     v21 = *v19;
     goto LABEL_37;
@@ -1358,43 +1352,40 @@ void sub_254D80714(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::HasMember(unsigned int *a1, const char *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
-  v6[1] = a2;
-  v6[2] = 0x405000000000000;
-  v6[0] = rapidjson::GenericStringRef<char>::NotNullStrLen(a2);
-  rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::FindMember<rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>(&v5, a1, v6);
+  v5[3] = *MEMORY[0x277D85DE8];
+  v5[1] = a2;
+  v5[2] = 0x405000000000000;
+  v5[0] = rapidjson::GenericStringRef<char>::NotNullStrLen(a2);
+  rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::FindMember<rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>(&v4, a1, v5);
   if (*(a1 + 11) != 3)
   {
     __assert_rtn("MemberEnd", "document.h", 1158, "IsObject()");
   }
 
-  result = v5 != *(a1 + 1) + 48 * *a1;
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return v4 != *(a1 + 1) + 48 * *a1;
 }
 
 uint64_t rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::operator[]<char const>(unsigned int *a1, const char *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
-  v6[1] = a2;
-  v6[2] = 0x405000000000000;
-  v6[0] = rapidjson::GenericStringRef<char>::NotNullStrLen(a2);
-  rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::FindMember<rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>(&v5, a1, v6);
+  v5[3] = *MEMORY[0x277D85DE8];
+  v5[1] = a2;
+  v5[2] = 0x405000000000000;
+  v5[0] = rapidjson::GenericStringRef<char>::NotNullStrLen(a2);
+  rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::FindMember<rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>(&v4, a1, v5);
   if (*(a1 + 11) != 3)
   {
     __assert_rtn("MemberEnd", "document.h", 1164, "IsObject()");
   }
 
-  if (v5 == *(a1 + 1) + 48 * *a1)
+  if (v4 == *(a1 + 1) + 48 * *a1)
   {
     __assert_rtn("operator[]", "document.h", 1133, "false");
   }
 
-  v3 = *MEMORY[0x277D85DE8];
-  return v5 + 24;
+  return v4 + 24;
 }
 
-_BYTE *siri::intelligence::ParseJSONString(_BYTE *a1, unsigned int *a2, uint64_t a3)
+void *siri::intelligence::ParseJSONString(void *a1, unsigned int *a2, uint64_t a3)
 {
   if (*(a3 + 23) >= 0)
   {
@@ -1721,18 +1712,18 @@ LABEL_46:
     {
       v27 = YAML::Exp::EndScalarInFlow(v26);
       v28 = YAML::Exp::BlankOrBreak(v27);
-      YAML::Exp::Comment(&v44);
-      YAML::operator+(v28, &v44, &v46);
-      v29 = YAML::operator|(v27, &v46, &v48);
+      YAML::Exp::Comment(v44);
+      YAML::operator+(&v46, v28, v44);
+      v29 = YAML::operator|(&v48, v27, &v46);
       YAML::Exp::NotPrintable(v29);
-      v30 = YAML::operator|(&v48, dword_280AF48C0, &v50);
+      v30 = YAML::operator|(&v50, &v48, qword_280AF48C0);
       YAML::Exp::Utf8_ByteOrderMark(v30);
-      v31 = YAML::operator|(&v50, dword_280AF48E0, &v52);
+      v31 = YAML::operator|(&v52, &v50, dword_280AF48E0);
       v32 = YAML::Exp::Break(v31);
-      v33 = YAML::operator|(&v52, v32, &v54);
+      v33 = YAML::operator|(&v54, &v52, v32);
       v34 = YAML::Exp::Tab(v33);
-      YAML::operator|(&v54, v34, &unk_280AF4880);
-      __cxa_atexit(YAML::RegEx::~RegEx, &unk_280AF4880, &dword_254C81000);
+      YAML::operator|(qword_280AF4880, &v54, v34);
+      __cxa_atexit(YAML::RegEx::~RegEx, qword_280AF4880, &dword_254C81000);
       v57 = &v55;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v57);
       v57 = v53;
@@ -1745,7 +1736,7 @@ LABEL_46:
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v57);
       v57 = v45;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v57);
-      _MergedGlobals_20 = &unk_280AF4880;
+      _MergedGlobals_20 = qword_280AF4880;
       __cxa_guard_release(&qword_280AF4858);
     }
   }
@@ -1757,18 +1748,18 @@ LABEL_46:
     {
       v36 = YAML::Exp::EndScalar(v35);
       v37 = YAML::Exp::BlankOrBreak(v36);
-      YAML::Exp::Comment(&v44);
-      YAML::operator+(v37, &v44, &v46);
-      v38 = YAML::operator|(v36, &v46, &v48);
+      YAML::Exp::Comment(v44);
+      YAML::operator+(&v46, v37, v44);
+      v38 = YAML::operator|(&v48, v36, &v46);
       YAML::Exp::NotPrintable(v38);
-      v39 = YAML::operator|(&v48, dword_280AF48C0, &v50);
+      v39 = YAML::operator|(&v50, &v48, qword_280AF48C0);
       YAML::Exp::Utf8_ByteOrderMark(v39);
-      v40 = YAML::operator|(&v50, dword_280AF48E0, &v52);
+      v40 = YAML::operator|(&v52, &v50, dword_280AF48E0);
       v41 = YAML::Exp::Break(v40);
-      v42 = YAML::operator|(&v52, v41, &v54);
+      v42 = YAML::operator|(&v54, &v52, v41);
       v43 = YAML::Exp::Tab(v42);
-      YAML::operator|(&v54, v43, &unk_280AF48A0);
-      __cxa_atexit(YAML::RegEx::~RegEx, &unk_280AF48A0, &dword_254C81000);
+      YAML::operator|(qword_280AF48A0, &v54, v43);
+      __cxa_atexit(YAML::RegEx::~RegEx, qword_280AF48A0, &dword_254C81000);
       v57 = &v55;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v57);
       v57 = v53;
@@ -1781,7 +1772,7 @@ LABEL_46:
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v57);
       v57 = v45;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v57);
-      qword_280AF4860 = &unk_280AF48A0;
+      qword_280AF4860 = qword_280AF48A0;
       __cxa_guard_release(&qword_280AF4868);
     }
   }
@@ -1838,13 +1829,13 @@ void sub_254D81144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t YAML::Utils::WriteSingleQuotedString(std::vector<char> *a1, uint64_t a2)
+uint64_t YAML::Utils::WriteSingleQuotedString(std::vector<char> *a1, uint64_t **a2)
 {
   YAML::ostream_wrapper::write(a1, "'", 1uLL);
   LODWORD(v12) = 0;
   v4 = *(a2 + 23);
   v5 = *a2;
-  v6 = *(a2 + 8);
+  v6 = a2[1];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -1885,7 +1876,7 @@ uint64_t YAML::Utils::WriteSingleQuotedString(std::vector<char> *a1, uint64_t a2
 
       if ((v7 & 0x80u) != 0)
       {
-        v7 = *(a2 + 8);
+        v7 = a2[1];
       }
     }
   }
@@ -2065,11 +2056,11 @@ uint64_t YAML::Utils::WriteDoubleQuotedString(std::vector<char> *a1, uint64_t a2
             break;
           case 0x5C:
             v10 = a1;
-            v11 = "\\\";
+            v11 = "\\\"";
             break;
           case 0x22:
             v10 = a1;
-            v11 = "\\"";
+            v11 = "\";
             break;
           default:
 LABEL_17:
@@ -2142,7 +2133,7 @@ LABEL_24:
 void YAML::Utils::anonymous namespace::WriteDoubleQuoteEscapeSequence(std::vector<char> *this, YAML::ostream_wrapper *a2)
 {
   v2 = a2;
-  YAML::ostream_wrapper::write(this, "\", 1uLL);
+  YAML::ostream_wrapper::write(this, "\"", 1uLL);
   v4 = "U";
   if (v2 >= 0xFFFF)
   {
@@ -2188,7 +2179,7 @@ void YAML::Utils::anonymous namespace::WriteDoubleQuoteEscapeSequence(std::vecto
   while (v9 > 1);
 }
 
-uint64_t YAML::Utils::WriteLiteralString(std::vector<char> *a1, uint64_t a2, char *a3)
+uint64_t YAML::Utils::WriteLiteralString(std::vector<char> *a1, uint64_t a2, std::vector<char>::pointer a3)
 {
   YAML::ostream_wrapper::write(a1, "|\n", 2uLL);
   while (a1[2].__begin_ < a3)
@@ -2286,10 +2277,10 @@ uint64_t YAML::Utils::WriteChar(std::vector<char> *this, YAML::ostream_wrapper *
           v4 = "\\n";
           goto LABEL_15;
         case 0x5C:
-          v4 = "\\\\"";
+          v4 = "\\\";
           goto LABEL_15;
         case 0x22:
-          v4 = "\\"";
+          v4 = "\";
 LABEL_15:
           v5 = 4;
           goto LABEL_16;
@@ -2497,7 +2488,7 @@ uint64_t YAML::Utils::WriteAnchor(std::vector<char> *a1, uint64_t a2)
   YAML::ostream_wrapper::write(a1, "&", 1uLL);
 }
 
-uint64_t YAML::Utils::WriteTag(std::vector<char> *a1, void **a2, int a3)
+uint64_t YAML::Utils::WriteTag(std::vector<char> *a1, void ***a2, int a3)
 {
   if (a3)
   {
@@ -2774,11 +2765,11 @@ void YAML::Exp::NotPrintable(YAML::Exp *this)
     memset(v21, 0, sizeof(v21));
     std::string::basic_string[abi:ne200100]<0>(__p, "\x01\x02\x03\x04\x05\x06\a\b\v\f\x7F");
     YAML::RegEx::RegEx(&v17, __p, 3);
-    YAML::operator|(&v19, &v17, &v22);
+    YAML::operator|(&v22, &v19, &v17);
     LODWORD(v13) = 2;
     WORD2(v13) = 7950;
     memset(v14, 0, sizeof(v14));
-    YAML::operator|(&v22, &v13, &v24);
+    YAML::operator|(&v24, &v22, &v13);
     v8 = 1;
     v9 = 194;
     memset(v10, 0, sizeof(v10));
@@ -2788,9 +2779,9 @@ void YAML::Exp::NotPrintable(YAML::Exp *this)
     LODWORD(v1) = 2;
     WORD2(v1) = -24698;
     memset(v2, 0, sizeof(v2));
-    YAML::operator|(&v3, &v1, &v6);
-    YAML::operator+(&v8, &v6, &v11);
-    YAML::operator|(&v24, &v11, &unk_280AF48C0);
+    YAML::operator|(&v6, &v3, &v1);
+    YAML::operator+(&v11, &v8, &v6);
+    YAML::operator|(qword_280AF48C0, &v24, &v11);
     v26 = &v12;
     std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v26);
     v26 = &v7;
@@ -2816,7 +2807,7 @@ void YAML::Exp::NotPrintable(YAML::Exp *this)
 
     v17 = v21;
     std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v17);
-    __cxa_atexit(YAML::RegEx::~RegEx, &unk_280AF48C0, &dword_254C81000);
+    __cxa_atexit(YAML::RegEx::~RegEx, qword_280AF48C0, &dword_254C81000);
     __cxa_guard_release(&qword_280AF4870);
   }
 }
@@ -2947,7 +2938,7 @@ void siri::intelligence::FlowGraph::Clear(siri::intelligence::FlowGraph *this)
   *(*this + 304) = 0;
 }
 
-void siri::intelligence::FlowGraph::CreateOrReuseInputGroup(void *a1@<X0>, const void **a2@<X1>, int a3@<W2>, void *a4@<X8>)
+void siri::intelligence::FlowGraph::CreateOrReuseInputGroup(uint64_t *a1@<X0>, const void **a2@<X1>, int a3@<W2>, uint64_t *a4@<X8>)
 {
   if (siri::intelligence::IE_GLOBAL_SCOPE[23] < 0)
   {
@@ -3132,6 +3123,14 @@ void *siri::intelligence::FlowGraph::GetTopLevelInputGroup@<X0>(void *a1@<X0>, c
   return result;
 }
 
+std::string *siri::intelligence::FlowGraph::AddMetaData(uint64_t *a1, const void **a2, const std::string *a3)
+{
+  v4 = *a1;
+  v8 = a2;
+  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v4 + 16), a2, &std::piecewise_construct, &v8, &v7);
+  return std::string::operator=((v5 + 7), a3);
+}
+
 void siri::intelligence::FlowGraph::AddResponse(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
@@ -3151,7 +3150,7 @@ void siri::intelligence::FlowGraph::AddResponse(uint64_t *a1, uint64_t *a2)
     }
 
     p_p = &__p;
-    v6 = std::__tree<std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4 + 64, &__p.__r_.__value_.__l.__data_);
+    v6 = std::__tree<std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v4 + 64), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &p_p);
     v8 = *a2;
     v7 = a2[1];
     if (v7)
@@ -3184,11 +3183,11 @@ void sub_254D82DC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void siri::intelligence::FlowGraph::AddActivity(void *a1, __int128 *a2)
+void siri::intelligence::FlowGraph::AddActivity(void *result, __int128 *a2)
 {
   if (*a2)
   {
-    std::vector<std::shared_ptr<siri::intelligence::Activity>>::push_back[abi:ne200100](*a1 + 184, a2);
+    std::vector<std::shared_ptr<siri::intelligence::Activity>>::push_back[abi:ne200100](*result + 184, a2);
   }
 }
 
@@ -3400,7 +3399,7 @@ LABEL_11:
 
     siri::intelligence::StringToLower(&v21, &__p);
     p_p = &__p;
-    v18 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v17 + 160, &__p.__r_.__value_.__l.__data_);
+    v18 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v17 + 160), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &p_p);
     v19 = v18;
     if (*(v18 + 79) < 0)
     {
@@ -3456,7 +3455,7 @@ void siri::intelligence::FlowGraph::AddCondition(uint64_t *a1, __int128 **a2)
     }
 
     p_p = &__p;
-    v6 = std::__tree<std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4 + 112, &__p.__r_.__value_.__l.__data_);
+    v6 = std::__tree<std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v4 + 112), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &p_p);
     v8 = *a2;
     v7 = a2[1];
     if (v7)
@@ -3508,7 +3507,7 @@ void siri::intelligence::FlowGraph::AddCharacter(uint64_t *a1, __int128 **a2)
     }
 
     p_p = &__p;
-    v6 = std::__tree<std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4 + 136, &__p.__r_.__value_.__l.__data_);
+    v6 = std::__tree<std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v4 + 136), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &p_p);
     v8 = *a2;
     v7 = a2[1];
     if (v7)
@@ -3845,7 +3844,7 @@ void siri::intelligence::FlowGraph::SetResponseLastTimestamp(uint64_t *a1, uint6
     }
 
     p_p = &__p;
-    *(std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v5 + 232, &__p.__r_.__value_.__l.__data_) + 56) = a3;
+    *(std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v5 + 232), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &p_p) + 56) = a3;
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -3930,7 +3929,7 @@ void siri::intelligence::FlowGraph::SetResponseVisitCount(uint64_t *a1, uint64_t
     }
 
     p_p = &__p;
-    *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v5 + 256, &__p.__r_.__value_.__l.__data_) + 56) = a3;
+    *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v5 + 256), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &p_p) + 56) = a3;
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -3980,8 +3979,8 @@ void siri::intelligence::FlowGraph::IncrementResponseVisitCount(uint64_t *a1, ui
       *&__p.__r_.__value_.__l.__data_ = v8;
     }
 
-    v10[3] = &__p;
-    *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6 + 256, &__p.__r_.__value_.__l.__data_) + 56) = ResponseVisitCount + 1;
+    p_p = &__p;
+    *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v6 + 256), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &p_p) + 56) = ResponseVisitCount + 1;
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -4024,7 +4023,7 @@ double siri::intelligence::FlowGraph::GetIntentReferenceLastTimestamp(void *a1, 
   return v3;
 }
 
-uint64_t siri::intelligence::FlowGraph::SetIntentReferenceLastTimestamp(uint64_t result, uint64_t *a2, double a3)
+uint64_t *siri::intelligence::FlowGraph::SetIntentReferenceLastTimestamp(uint64_t *result, uint64_t *a2, double a3)
 {
   v3 = *a2;
   if (v3)
@@ -4037,8 +4036,10 @@ uint64_t siri::intelligence::FlowGraph::SetIntentReferenceLastTimestamp(uint64_t
 
     if (v5)
     {
-      result = std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*result + 280, v3);
-      *(result + 56) = a3;
+      v6 = *result;
+      v8 = v3;
+      result = std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v6 + 280), v3, &std::piecewise_construct, &v8, &v7);
+      *(result + 7) = a3;
     }
   }
 
@@ -4150,13 +4151,13 @@ void sub_254D83DC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t siri::intelligence::FlowGraph::GetActivities@<X0>(siri::intelligence::FlowGraph *this@<X0>, void *a2@<X8>)
+uint64_t *siri::intelligence::FlowGraph::GetActivities@<X0>(uint64_t *a1@<X8>, uint64_t *a2@<X0>)
 {
-  v2 = *this;
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  return std::vector<std::shared_ptr<siri::intelligence::Activity>>::__init_with_size[abi:ne200100]<std::shared_ptr<siri::intelligence::Activity>*,std::shared_ptr<siri::intelligence::Activity>*>(a2, *(v2 + 184), *(v2 + 192), (*(v2 + 192) - *(v2 + 184)) >> 4);
+  v2 = *a2;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  return std::vector<std::shared_ptr<siri::intelligence::Activity>>::__init_with_size[abi:ne200100]<std::shared_ptr<siri::intelligence::Activity>*,std::shared_ptr<siri::intelligence::Activity>*>(a1, *(v2 + 184), *(v2 + 192), (*(v2 + 192) - *(v2 + 184)) >> 4);
 }
 
 void siri::intelligence::FlowGraph::GetActivity(uint64_t a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
@@ -4288,18 +4289,18 @@ uint64_t siri::intelligence::FlowGraph::GetIntent@<X0>(void *a1@<X0>, const void
   return result;
 }
 
-void **siri::intelligence::FlowGraph::GetIntents@<X0>(void **this@<X0>, uint64_t a2@<X8>)
+void **siri::intelligence::FlowGraph::GetIntents@<X0>(void **__return_ptr a1@<X8>, void **this@<X0>)
 {
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v3 = *(*this + 11);
   v4 = *this + 96;
   if (v3 != v4)
   {
     do
     {
-      this = std::vector<std::shared_ptr<siri::intelligence::Intent>>::push_back[abi:ne200100](a2, (v3 + 7));
+      this = std::vector<std::shared_ptr<siri::intelligence::Intent>>::push_back[abi:ne200100](a1, (v3 + 7));
       v5 = v3[1];
       if (v5)
       {
@@ -4333,9 +4334,9 @@ void **siri::intelligence::FlowGraph::GetIntents@<X0>(void **this@<X0>, uint64_t
   return this;
 }
 
-void sub_254D84044(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254D84044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::shared_ptr<siri::intelligence::Variable>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4386,7 +4387,7 @@ void **std::vector<std::shared_ptr<siri::intelligence::Intent>>::push_back[abi:n
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -4440,19 +4441,19 @@ uint64_t siri::intelligence::FlowGraph::GetCondition@<X0>(void *a1@<X0>, const v
   return result;
 }
 
-void *siri::intelligence::FlowGraph::GetConditions@<X0>(siri::intelligence::FlowGraph *this@<X0>, void **a2@<X8>)
+void **siri::intelligence::FlowGraph::GetConditions@<X0>(void **__return_ptr a1@<X8>, siri::intelligence::FlowGraph *this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  result = std::vector<std::shared_ptr<siri::intelligence::Condition>>::reserve(a2, *(*this + 128));
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  result = std::vector<std::shared_ptr<siri::intelligence::Condition>>::reserve(a1, *(*this + 128));
   v5 = *(*this + 112);
   v6 = *this + 120;
   if (v5 != v6)
   {
     do
     {
-      result = std::vector<std::shared_ptr<siri::intelligence::Intent>>::push_back[abi:ne200100](a2, (v5 + 7));
+      result = std::vector<std::shared_ptr<siri::intelligence::Intent>>::push_back[abi:ne200100](a1, (v5 + 7));
       v7 = v5[1];
       if (v7)
       {
@@ -4486,21 +4487,19 @@ void *siri::intelligence::FlowGraph::GetConditions@<X0>(siri::intelligence::Flow
   return result;
 }
 
-void sub_254D84274(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254D84274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::shared_ptr<siri::intelligence::Variable>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<std::shared_ptr<siri::intelligence::Condition>>::reserve(void *result, unint64_t a2)
+void **std::vector<std::shared_ptr<siri::intelligence::Condition>>::reserve(void **result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<siri::intelligence::ResponseBase>>>(result, a2);
     }
 
@@ -4891,7 +4890,7 @@ void siri::intelligence::FlowGraph::Save(siri::intelligence::FlowGraph *this, pr
           if (v32 == *(a2 + 49))
           {
 LABEL_37:
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a2 + 46, v32 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a2 + 184), v32 + 1);
             v30 = *(a2 + 25);
             v32 = *v30;
           }
@@ -4914,7 +4913,7 @@ LABEL_39:
         *(v33 + 4) |= 1u;
         if (v37 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v33 + 24, v36);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v33 + 3, v36);
         }
 
         std::string::operator=(v37, v36);
@@ -5111,7 +5110,7 @@ LABEL_89:
           if (v59 == *(a2 + 21))
           {
 LABEL_94:
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(a2 + 18, v59 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a2 + 72), v59 + 1);
             v57 = *(a2 + 11);
             v59 = *v57;
           }
@@ -5205,7 +5204,7 @@ LABEL_96:
   else
   {
 
-    siri::intelligence::Log::Error("NULL state in FlowGraph::Save", 0);
+    siri::intelligence::Log::Error("NULL state in FlowGraph::Save", 0, a3, a4);
   }
 }
 
@@ -5264,7 +5263,7 @@ void **std::vector<std::shared_ptr<siri::intelligence::IntentReference>>::push_b
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -5380,15 +5379,15 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::sha
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::intelligence::ResponseBase>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void std::vector<std::shared_ptr<siri::intelligence::InputGroup>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -5460,31 +5459,31 @@ uint64_t std::__split_buffer<std::shared_ptr<siri::intelligence::InputGroup>>::~
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::string>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *std::__tree<std::string>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::string>::__find_equal<std::string>(a1, &v6, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -5500,7 +5499,7 @@ void sub_254D85878(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::shared_ptr<siri::intelligence::Activity>>::__init_with_size[abi:ne200100]<std::shared_ptr<siri::intelligence::Activity>*,std::shared_ptr<siri::intelligence::Activity>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<siri::intelligence::Activity>>::__init_with_size[abi:ne200100]<std::shared_ptr<siri::intelligence::Activity>*,std::shared_ptr<siri::intelligence::Activity>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5517,7 +5516,7 @@ void sub_254D858FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::shared_ptr<siri::intelligence::Activity>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::shared_ptr<siri::intelligence::Activity>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -6687,7 +6686,7 @@ LABEL_32:
         goto LABEL_137;
       }
 
-      v58 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,siri::intelligence::FlowGraph::Save(protobuf::Intelligence_State *,unsigned long,unsigned long)::$_0 &,std::shared_ptr<siri::intelligence::IntentReference> *>(a1, v8 - 2, a3);
+      v58 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,siri::intelligence::FlowGraph::Save(protobuf::Intelligence_State *,unsigned long,unsigned long)::$_0 &,std::shared_ptr<siri::intelligence::IntentReference> *>(a1, v8 - 16, a3);
       if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,siri::intelligence::FlowGraph::Save(protobuf::Intelligence_State *,unsigned long,unsigned long)::$_0 &,std::shared_ptr<siri::intelligence::IntentReference> *>(v8, a2, a3))
       {
         a2 = v8 - 2;
@@ -7455,7 +7454,7 @@ LABEL_7:
 void std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,siri::intelligence::FlowGraph::Save(protobuf::Intelligence_State *,unsigned long,unsigned long)::$_0 &,std::shared_ptr<siri::intelligence::IntentReference> *,0>(uint64_t *a1, uint64_t *a2, uint64_t *a3, void **a4)
 {
   v7 = *a2;
-  v9 = (a2 + 1);
+  v9 = a2 + 1;
   v8 = a2[1];
   if (v8)
   {
@@ -7463,7 +7462,7 @@ void std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,siri::intelligence::FlowG
   }
 
   v10 = *a1;
-  v12 = (a1 + 1);
+  v12 = a1 + 1;
   v11 = a1[1];
   if (v11)
   {
@@ -7690,7 +7689,7 @@ LABEL_90:
       *a1 = *a3;
       *a3 = v24;
 LABEL_89:
-      v9 = (a3 + 1);
+      v9 = a3 + 1;
       goto LABEL_90;
     }
 
@@ -8308,7 +8307,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,siri::intelligence::FlowGraph::Save(protobuf::Intelligence_State *,unsigned long,unsigned long)::$_0 &,std::shared_ptr<siri::intelligence::IntentReference> *>(uint64_t *a1, uint64_t *a2, void **a3)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,siri::intelligence::FlowGraph::Save(protobuf::Intelligence_State *,unsigned long,unsigned long)::$_0 &,std::shared_ptr<siri::intelligence::IntentReference> *>(uint64_t *a1, char *a2, void **a3)
 {
   v4 = a2;
   v6 = (a2 - a1) >> 4;
@@ -8623,12 +8622,12 @@ LABEL_3:
   goto LABEL_3;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,siri::intelligence::FlowGraph::Save(protobuf::Intelligence_State *,unsigned long,unsigned long)::$_1 &,std::shared_ptr<siri::intelligence::ResponseBase> *,false>(uint64_t *a1, uint64_t *a2, uint64_t **a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,siri::intelligence::FlowGraph::Save(protobuf::Intelligence_State *,unsigned long,unsigned long)::$_1 &,std::shared_ptr<siri::intelligence::ResponseBase> *,false>(char *a1, char *a2, uint64_t **a3, uint64_t a4, char a5)
 {
 LABEL_1:
-  v174 = a2 - 2;
-  v165 = a2 - 6;
-  v166 = a2 - 4;
+  v174 = (a2 - 16);
+  v165 = (a2 - 48);
+  v166 = (a2 - 32);
   v9 = a1;
   v171 = a2;
   while (1)
@@ -8801,7 +8800,7 @@ LABEL_227:
         }
 
         v91 = v167;
-        if ((v101 & 1) == 0)
+        if (!v101)
         {
           v102 = v99[1];
           v169 = *v99;
@@ -9011,8 +9010,8 @@ LABEL_279:
         v10 = v121;
         if (v116 > v118)
         {
-          v114 = v172 - 2;
-          if (v121 == v172 - 2)
+          v114 = v172 - 16;
+          if (v121 == (v172 - 16))
           {
             v150 = v121[1];
             *v121 = v170;
@@ -9132,7 +9131,7 @@ LABEL_279:
                   v121 = v144;
                 }
 
-                while ((v148 & 1) != 0);
+                while (v148);
                 v149 = v144[1];
                 *v144 = v143;
                 v144[1] = v142;
@@ -9251,7 +9250,7 @@ LABEL_24:
         v19 += 2;
       }
 
-      while ((v23 & 1) != 0);
+      while (v23);
       v24 = &v10[v19];
       i = v171;
       if (v19 == 2)
@@ -9287,7 +9286,7 @@ LABEL_24:
               std::__shared_weak_count::__release_shared[abi:ne200100](v29);
             }
 
-            v31 = v24 >= i ? 1 : v30;
+            v31 = v24 >= i || v30;
             if (v31)
             {
               break;
@@ -9329,7 +9328,7 @@ LABEL_24:
           }
         }
 
-        while ((v28 & 1) == 0);
+        while (!v28);
       }
 
       v9 = v24;
@@ -9375,7 +9374,7 @@ LABEL_24:
             }
           }
 
-          while ((v37 & 1) != 0);
+          while (v37);
           do
           {
             v38 = *(v32 - 2);
@@ -9441,10 +9440,10 @@ LABEL_24:
       a4 = v178;
       if (v45)
       {
-        v46 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,siri::intelligence::FlowGraph::Save(protobuf::Intelligence_State *,unsigned long,unsigned long)::$_1 &,std::shared_ptr<siri::intelligence::ResponseBase> *>(v173, v9 - 2, a3);
+        v46 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,siri::intelligence::FlowGraph::Save(protobuf::Intelligence_State *,unsigned long,unsigned long)::$_1 &,std::shared_ptr<siri::intelligence::ResponseBase> *>(v173, v9 - 16, a3);
         if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,siri::intelligence::FlowGraph::Save(protobuf::Intelligence_State *,unsigned long,unsigned long)::$_1 &,std::shared_ptr<siri::intelligence::ResponseBase> *>(v9, v171, a3))
         {
-          a2 = v9 - 2;
+          a2 = (v9 - 2);
           if (v46)
           {
             return;
@@ -9462,7 +9461,7 @@ LABEL_24:
       else
       {
 LABEL_91:
-        std::__introsort<std::_ClassicAlgPolicy,siri::intelligence::FlowGraph::Save(protobuf::Intelligence_State *,unsigned long,unsigned long)::$_1 &,std::shared_ptr<siri::intelligence::ResponseBase> *,false>(v173, v9 - 2, a3, v178, a5 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,siri::intelligence::FlowGraph::Save(protobuf::Intelligence_State *,unsigned long,unsigned long)::$_1 &,std::shared_ptr<siri::intelligence::ResponseBase> *,false>(v173, v9 - 16, a3, v178, a5 & 1);
         a5 = 0;
       }
     }
@@ -9533,7 +9532,7 @@ LABEL_91:
           v9 += 2;
         }
 
-        while ((v53 & 1) == 0);
+        while (!v53);
       }
 
       else
@@ -9604,10 +9603,10 @@ LABEL_91:
             std::__shared_weak_count::__release_shared[abi:ne200100](v48);
           }
 
-          a2 -= 2;
+          a2 -= 16;
         }
 
-        while ((v55 & 1) != 0);
+        while (v55);
       }
 
       while (v9 < a2)
@@ -9616,8 +9615,8 @@ LABEL_91:
         *v9 = *a2;
         *a2 = v56;
         v57 = v9[1];
-        v9[1] = a2[1];
-        a2[1] = v57;
+        v9[1] = *(a2 + 1);
+        *(a2 + 1) = v57;
         do
         {
           v188 = v49;
@@ -9678,10 +9677,10 @@ LABEL_91:
             std::__shared_weak_count::__release_shared[abi:ne200100](v48);
           }
 
-          a2 -= 2;
+          a2 -= 16;
         }
 
-        while ((v61 & 1) != 0);
+        while (v61);
       }
 
       v62 = v9 - 2;
@@ -9807,7 +9806,7 @@ LABEL_91:
           if (v81)
           {
             std::__shared_weak_count::__release_shared[abi:ne200100](v81);
-            if ((v87 & 1) == 0)
+            if (!v87)
             {
               goto LABEL_210;
             }
@@ -9928,7 +9927,7 @@ LABEL_211:
             v159 -= 2;
           }
 
-          while ((v163 & 1) != 0);
+          while (v163);
           v164 = *v159;
           *(v159 - 1) = v157;
           *v159 = v158;

@@ -9,8 +9,10 @@
 - (id)tableView:(id)view titleForHeaderInSection:(int64_t)section;
 - (id)tableView:(id)view viewForFooterInSection:(int64_t)section;
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section;
+- (void)switchCellValueChanged:(id)changed value:(BOOL)value;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WDAuthorizationSettingsViewController
@@ -43,6 +45,13 @@
   v2.receiver = self;
   v2.super_class = WDAuthorizationSettingsViewController;
   [(HKAuthorizationSettingsViewController *)&v2 viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = WDAuthorizationSettingsViewController;
+  [(HKAuthorizationSettingsViewController *)&v3 viewWillAppear:appear];
 }
 
 - (id)sectionsForAuthController:(id)controller
@@ -264,6 +273,39 @@ void __66__WDAuthorizationSettingsViewController__isTypeEnabledAtIndexPath__bloc
   return v8;
 }
 
+- (void)switchCellValueChanged:(id)changed value:(BOOL)value
+{
+  valueCopy = value;
+  changedCopy = changed;
+  if (-[WDAuthorizationSettingsViewController _isSiriAndDeviceCapable](self, "_isSiriAndDeviceCapable") && ([changedCopy reuseIdentifier], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEqualToString:", @"ToggleAllCell"), v7, v8))
+  {
+    if (valueCopy)
+    {
+      v9 = 1;
+    }
+
+    else
+    {
+      v9 = 2;
+    }
+
+    healthStore = [(WDProfile *)self->_profile healthStore];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __70__WDAuthorizationSettingsViewController_switchCellValueChanged_value___block_invoke;
+    v12[3] = &unk_2796E6CC8;
+    v12[4] = self;
+    [healthStore setAllHealthDataAccessForSiri:v9 completion:v12];
+  }
+
+  else
+  {
+    v11.receiver = self;
+    v11.super_class = WDAuthorizationSettingsViewController;
+    [(HKAuthorizationSettingsViewController *)&v11 switchCellValueChanged:changedCopy value:valueCopy];
+  }
+}
+
 void __70__WDAuthorizationSettingsViewController_switchCellValueChanged_value___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
@@ -328,22 +370,20 @@ void __70__WDAuthorizationSettingsViewController_switchCellValueChanged_value___
 
 void __66__WDAuthorizationSettingsViewController__isTypeEnabledAtIndexPath__block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_4(&dword_251E85000, a2, a3, "%{public}@: Unable to get the authorization status for Siri %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_4(&dword_251E85000, a2, a3, "%{public}@: Unable to get the authorization status for Siri %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __70__WDAuthorizationSettingsViewController_switchCellValueChanged_value___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_4(&dword_251E85000, a2, a3, "Failed to update authorization status for Siri: %@ with error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_4(&dword_251E85000, a2, a3, "Failed to update authorization status for Siri: %@ with error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

@@ -172,13 +172,14 @@
 
 void __64__WBSHistoryServiceStore__connectWithOptions_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a5;
-  if ([v8 safari_isSQLiteCorruptionError])
+  v9 = [v8 safari_isSQLiteCorruptionError];
+  if (v9)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXHistory(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [v8 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
@@ -186,26 +187,26 @@ void __64__WBSHistoryServiceStore__connectWithOptions_completionHandler___block_
     }
 
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 112));
-    v11 = *(a1 + 32);
-    v12 = [v11 _databaseURLs];
-    [WeakRetained historyStoreDidFailDatabaseIntegrityCheck:v11 error:v8 databaseURLs:v12];
+    v13 = *(a1 + 32);
+    v14 = [v13 _databaseURLs];
+    [WeakRetained historyStoreDidFailDatabaseIntegrityCheck:v13 error:v8 databaseURLs:v14];
 
-    v13 = *(a1 + 40);
-    v14 = *(*(a1 + 32) + 32);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __64__WBSHistoryServiceStore__connectWithOptions_completionHandler___block_invoke_18;
-    v20[3] = &unk_1E7FC7790;
-    v15 = *(a1 + 48);
-    v16 = *(a1 + 56);
-    *&v17 = *(a1 + 40);
-    *(&v17 + 1) = *(a1 + 32);
-    v19 = v17;
-    *&v18 = *(a1 + 48);
-    *(&v18 + 1) = v16;
+    v15 = *(a1 + 40);
+    v16 = *(*(a1 + 32) + 32);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __64__WBSHistoryServiceStore__connectWithOptions_completionHandler___block_invoke_18;
+    v22[3] = &unk_1E7FC7790;
+    v17 = *(a1 + 48);
+    v18 = *(a1 + 56);
+    *&v19 = *(a1 + 40);
+    *(&v19 + 1) = *(a1 + 32);
     v21 = v19;
-    v22 = v18;
-    [v14 connectWithOptions:v13 delegate:v15 completionHandler:v20];
+    *&v20 = *(a1 + 48);
+    *(&v20 + 1) = v18;
+    v23 = v21;
+    v24 = v20;
+    [v16 connectWithOptions:v15 delegate:v17 completionHandler:v22];
   }
 
   else
@@ -218,32 +219,33 @@ void __64__WBSHistoryServiceStore__connectWithOptions_completionHandler___block_
 {
   v7 = a2;
   v8 = a5;
-  if ([v8 safari_isSQLiteCorruptionError])
+  v9 = [v8 safari_isSQLiteCorruptionError];
+  if (v9)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXHistory(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [v8 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __64__WBSHistoryServiceStore__connectWithOptions_completionHandler___block_invoke_18_cold_1();
     }
 
-    v10 = a1[4];
-    if (v10)
+    v12 = a1[4];
+    if (v12)
     {
-      v11 = [v10 mutableCopy];
+      v13 = [v12 mutableCopy];
     }
 
     else
     {
-      v11 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:1];
+      v13 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:1];
     }
 
-    v12 = v11;
-    v13 = WBSHistoryInMemoryDatabaseURL();
-    [v12 setObject:v13 forKeyedSubscript:@"WBSHistoryConnectionOptionDatabaseURL"];
+    v14 = v13;
+    v15 = WBSHistoryInMemoryDatabaseURL();
+    [v14 setObject:v15 forKeyedSubscript:@"WBSHistoryConnectionOptionDatabaseURL"];
 
-    [*(a1[5] + 32) connectWithOptions:v12 delegate:a1[6] completionHandler:a1[7]];
+    [*(a1[5] + 32) connectWithOptions:v14 delegate:a1[6] completionHandler:a1[7]];
   }
 
   else
@@ -271,67 +273,68 @@ void __64__WBSHistoryServiceStore__connectWithOptions_completionHandler___block_
 
 void __52__WBSHistoryServiceStore_loadWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = dispatch_group_create();
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__24;
-  v23 = __Block_byref_object_dispose__24;
-  v24 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__24;
+  v25 = __Block_byref_object_dispose__24;
+  v26 = 0;
   dispatch_group_enter(v2);
-  v17[0] = 0;
-  v17[1] = v17;
-  v17[2] = 0x3032000000;
-  v17[3] = __Block_byref_object_copy__24;
-  v17[4] = __Block_byref_object_dispose__24;
-  v18 = [MEMORY[0x1E695DF00] date];
+  v19[0] = 0;
+  v19[1] = v19;
+  v19[2] = 0x3032000000;
+  v19[3] = __Block_byref_object_copy__24;
+  v19[4] = __Block_byref_object_dispose__24;
+  v20 = [MEMORY[0x1E695DF00] date];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __52__WBSHistoryServiceStore_loadWithCompletionHandler___block_invoke_20;
-  v13[3] = &unk_1E7FC77B8;
-  v13[4] = v3;
-  v15 = &v19;
-  v16 = v17;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __52__WBSHistoryServiceStore_loadWithCompletionHandler___block_invoke_20;
+  v15[3] = &unk_1E7FC77B8;
+  v15[4] = v3;
+  v17 = &v21;
+  v18 = v19;
   v5 = v2;
-  v14 = v5;
-  [v3 _connectWithOptions:v4 completionHandler:v13];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __52__WBSHistoryServiceStore_loadWithCompletionHandler___block_invoke_22;
-  v12[3] = &unk_1E7FC7280;
-  v12[4] = *(a1 + 32);
-  if ((waitForGroupOrStopCondition(v5, v12) & 1) == 0)
+  v16 = v5;
+  [v3 _connectWithOptions:v4 completionHandler:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __52__WBSHistoryServiceStore_loadWithCompletionHandler___block_invoke_22;
+  v14[3] = &unk_1E7FC7280;
+  v14[4] = *(a1 + 32);
+  v6 = waitForGroupOrStopCondition(v5, v14);
+  if ((v6 & 1) == 0)
   {
-    v7 = *(a1 + 48);
-    v8 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:89 userInfo:0];
-    (*(v7 + 16))(v7, v8);
+    v9 = *(a1 + 48);
+    v10 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:89 userInfo:0];
+    (*(v9 + 16))(v9, v10);
 LABEL_8:
 
     goto LABEL_9;
   }
 
-  if (!v20[5])
+  if (!v22[5])
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __52__WBSHistoryServiceStore_loadWithCompletionHandler___block_invoke_25;
     block[3] = &unk_1E7FB6F08;
     block[4] = *(a1 + 32);
-    v11 = *(a1 + 48);
-    v9 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, block);
-    _os_activity_initiate(&dword_1BB6F3000, "Load history", OS_ACTIVITY_FLAG_DETACHED, v9);
+    v13 = *(a1 + 48);
+    v11 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, block);
+    _os_activity_initiate(&dword_1BB6F3000, "Load history", OS_ACTIVITY_FLAG_DETACHED, v11);
 
-    v8 = v11;
+    v10 = v13;
     goto LABEL_8;
   }
 
-  v6 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v8 = WBS_LOG_CHANNEL_PREFIXHistory(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    [v20[5] safari_privacyPreservingDescription];
+    [v22[5] safari_privacyPreservingDescription];
     objc_claimAutoreleasedReturnValue();
     __52__WBSHistoryServiceStore_loadWithCompletionHandler___block_invoke_cold_1();
   }
@@ -339,13 +342,13 @@ LABEL_8:
   (*(*(a1 + 48) + 16))();
 LABEL_9:
 
-  _Block_object_dispose(v17, 8);
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(v19, 8);
+  _Block_object_dispose(&v21, 8);
 }
 
 void __52__WBSHistoryServiceStore_loadWithCompletionHandler___block_invoke_20(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = a5;
   if (v10)
@@ -357,18 +360,18 @@ void __52__WBSHistoryServiceStore_loadWithCompletionHandler___block_invoke_20(ui
   {
     *(*(a1 + 32) + 56) = a3;
     *(*(a1 + 32) + 64) = a4;
-    [*(a1 + 32) setDatabaseProxy:v9];
+    v11 = [*(a1 + 32) setDatabaseProxy:v9];
   }
 
-  v11 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v13 = WBS_LOG_CHANNEL_PREFIXHistory(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     [*(*(*(a1 + 56) + 8) + 40) timeIntervalSinceNow];
-    v13 = 136446466;
-    v14 = "connect_with_options_call";
-    v15 = 2048;
-    v16 = -v12;
-    _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, "#perf - %{public}s: %f", &v13, 0x16u);
+    v15 = 136446466;
+    v16 = "connect_with_options_call";
+    v17 = 2048;
+    v18 = -v14;
+    _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "#perf - %{public}s: %f", &v15, 0x16u);
   }
 
   dispatch_group_leave(*(a1 + 40));
@@ -438,28 +441,28 @@ void __58__WBSHistoryServiceStore__loadOnDatabaseQueue_readHandle___block_invoke
 {
   if (*(a2 + 48))
   {
-    v4 = [objc_alloc(*(*(a1 + 32) + 8)) initWithHistoryStreamedItem:a2];
-    if (v4)
+    v5 = [objc_alloc(*(*(a1 + 32) + 8)) initWithHistoryStreamedItem:a2];
+    if (v5)
     {
-      [*(*(a1 + 32) + 48) setItem:v4 forID:*(a2 + 8)];
-      [*(a1 + 40) addObject:v4];
+      [*(*(a1 + 32) + 48) setItem:v5 forID:*(a2 + 8)];
+      [*(a1 + 40) addObject:v5];
     }
 
     else
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v7 = WBS_LOG_CHANNEL_PREFIXHistory(0, v4);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Failed to create WBSHistoryItem", v7, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, "Failed to create WBSHistoryItem", v8, 2u);
       }
     }
   }
 
   else
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXHistory(a1, a2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __58__WBSHistoryServiceStore__loadOnDatabaseQueue_readHandle___block_invoke_cold_1();
     }
@@ -468,154 +471,154 @@ void __58__WBSHistoryServiceStore__loadOnDatabaseQueue_readHandle___block_invoke
 
 void __58__WBSHistoryServiceStore__loadOnDatabaseQueue_readHandle___block_invoke_32(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v4 = [*(*(a1 + 32) + 48) itemForID:*(a2 + 16)];
-  if (v4)
+  v13 = *MEMORY[0x1E69E9840];
+  v5 = [*(*(a1 + 32) + 48) itemForID:*(a2 + 16)];
+  if (v5)
   {
-    v5 = [[WBSHistoryVisit alloc] initWithHistoryItem:v4 streamedVisit:a2];
-    if (v5)
+    v7 = [[WBSHistoryVisit alloc] initWithHistoryItem:v5 streamedVisit:a2];
+    if (v7)
     {
-      [v4 updateLastVisitIfNil:v5];
-      [*(a1 + 40) addObject:v5];
-      v6 = *(*(a1 + 48) + 8);
-      *v10 = *(a2 + 8);
-      *&v10[8] = *(a2 + 40);
-      std::__hash_table<std::__hash_value_type<long long,VisitRedirectInformation>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,VisitRedirectInformation>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,VisitRedirectInformation>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,VisitRedirectInformation>>>::__emplace_unique_key_args<long long,std::pair<long long,VisitRedirectInformation>>((v6 + 48), v10);
-      [*(*(a1 + 32) + 48) setVisit:v5 forID:*(a2 + 8)];
+      [v5 updateLastVisitIfNil:v7];
+      [*(a1 + 40) addObject:v7];
+      v8 = *(*(a1 + 48) + 8);
+      *v12 = *(a2 + 8);
+      *&v12[8] = *(a2 + 40);
+      std::__hash_table<std::__hash_value_type<long long,VisitRedirectInformation>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,VisitRedirectInformation>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,VisitRedirectInformation>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,VisitRedirectInformation>>>::__emplace_unique_key_args<long long,std::pair<long long,VisitRedirectInformation>>((v8 + 48), v12, v12);
+      [*(*(a1 + 32) + 48) setVisit:v7 forID:*(a2 + 8)];
     }
 
     else
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v11 = WBS_LOG_CHANNEL_PREFIXHistory(0, v6);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Failed to create WBSHistoryVisit", v10, 2u);
+        *v12 = 0;
+        _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, "Failed to create WBSHistoryVisit", v12, 2u);
       }
     }
   }
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = WBS_LOG_CHANNEL_PREFIXHistory(0, v4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v8 = *(a2 + 16);
-      *v10 = 134217984;
-      *&v10[4] = v8;
-      _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, "Failed to retrieve item %lli", v10, 0xCu);
+      v10 = *(a2 + 16);
+      *v12 = 134217984;
+      *&v12[4] = v10;
+      _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Failed to retrieve item %lli", v12, 0xCu);
     }
   }
 }
 
 - (void)_load:(id)_load
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   _loadCopy = _load;
   v5 = dispatch_group_create();
   group = dispatch_group_create();
-  v30 = objc_alloc_init(MEMORY[0x1E696AB50]);
-  v79 = 0;
-  v80 = &v79;
-  v81 = 0x2020000000;
-  v82 = 0;
-  v73 = 0;
-  v74 = &v73;
-  v75 = 0x3032000000;
-  v76 = __Block_byref_object_copy__24;
-  v77 = __Block_byref_object_dispose__24;
+  v35 = objc_alloc_init(MEMORY[0x1E696AB50]);
+  v84 = 0;
+  v85 = &v84;
+  v86 = 0x2020000000;
+  v87 = 0;
   v78 = 0;
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x3032000000;
-  v70 = __Block_byref_object_copy__24;
-  v71 = __Block_byref_object_dispose__24;
+  v79 = &v78;
+  v80 = 0x3032000000;
+  v81 = __Block_byref_object_copy__24;
+  v82 = __Block_byref_object_dispose__24;
+  v83 = 0;
   v72 = 0;
-  v65[0] = 0;
-  v65[1] = v65;
-  v65[2] = 0x3032000000;
-  v65[3] = __Block_byref_object_copy__24;
-  v65[4] = __Block_byref_object_dispose__24;
+  v73 = &v72;
+  v74 = 0x3032000000;
+  v75 = __Block_byref_object_copy__24;
+  v76 = __Block_byref_object_dispose__24;
+  v77 = 0;
+  v70[0] = 0;
+  v70[1] = v70;
+  v70[2] = 0x3032000000;
+  v70[3] = __Block_byref_object_copy__24;
+  v70[4] = __Block_byref_object_dispose__24;
   date = [MEMORY[0x1E695DF00] date];
-  v63[0] = 0;
-  v63[1] = v63;
-  v63[2] = 0x3032000000;
-  v63[3] = __Block_byref_object_copy__24;
-  v63[4] = __Block_byref_object_dispose__24;
+  v68[0] = 0;
+  v68[1] = v68;
+  v68[2] = 0x3032000000;
+  v68[3] = __Block_byref_object_copy__24;
+  v68[4] = __Block_byref_object_dispose__24;
   date2 = [MEMORY[0x1E695DF00] date];
   dispatch_group_enter(v5);
   databaseProxy = [(WBSHistoryServiceStore *)self databaseProxy];
   v7 = objc_opt_new();
-  v57[0] = MEMORY[0x1E69E9820];
-  v57[1] = 3221225472;
-  v57[2] = __32__WBSHistoryServiceStore__load___block_invoke;
-  v57[3] = &unk_1E7FC7830;
-  v59 = &v79;
-  v60 = &v73;
-  v61 = &v67;
-  v62 = v63;
+  v62[0] = MEMORY[0x1E69E9820];
+  v62[1] = 3221225472;
+  v62[2] = __32__WBSHistoryServiceStore__load___block_invoke;
+  v62[3] = &unk_1E7FC7830;
+  v64 = &v84;
+  v65 = &v78;
+  v66 = &v72;
+  v67 = v68;
   v8 = v5;
-  v58 = v8;
-  [databaseProxy fetchWithOptions:27 predicate:v7 completionHandler:v57];
+  v63 = v8;
+  [databaseProxy fetchWithOptions:27 predicate:v7 completionHandler:v62];
 
-  v55[0] = 0;
-  v55[1] = v55;
-  v55[2] = 0x3032000000;
-  v55[3] = __Block_byref_object_copy__24;
-  v55[4] = __Block_byref_object_dispose__24;
+  v60[0] = 0;
+  v60[1] = v60;
+  v60[2] = 0x3032000000;
+  v60[3] = __Block_byref_object_copy__24;
+  v60[4] = __Block_byref_object_dispose__24;
   date3 = [MEMORY[0x1E695DF00] date];
   dispatch_group_enter(group);
   databaseProxy2 = [(WBSHistoryServiceStore *)self databaseProxy];
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __32__WBSHistoryServiceStore__load___block_invoke_40;
-  v51[3] = &unk_1E7FC7880;
-  v10 = v30;
-  v52 = v10;
-  v54 = v55;
+  v56[0] = MEMORY[0x1E69E9820];
+  v56[1] = 3221225472;
+  v56[2] = __32__WBSHistoryServiceStore__load___block_invoke_40;
+  v56[3] = &unk_1E7FC7880;
+  v10 = v35;
+  v57 = v10;
+  v59 = v60;
   v11 = group;
-  v53 = v11;
-  [databaseProxy2 fetchDomainExpansions:v51];
+  v58 = v11;
+  [databaseProxy2 fetchDomainExpansions:v56];
 
   dispatch_group_enter(v11);
   databaseProxy3 = [(WBSHistoryServiceStore *)self databaseProxy];
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v49[2] = __32__WBSHistoryServiceStore__load___block_invoke_46;
-  v49[3] = &unk_1E7FC78A8;
-  v49[4] = self;
+  v54[0] = MEMORY[0x1E69E9820];
+  v54[1] = 3221225472;
+  v54[2] = __32__WBSHistoryServiceStore__load___block_invoke_46;
+  v54[3] = &unk_1E7FC78A8;
+  v54[4] = self;
   v13 = v11;
-  v50 = v13;
-  [databaseProxy3 fetchDatabaseURL:v49];
+  v55 = v13;
+  [databaseProxy3 fetchDatabaseURL:v54];
 
   v14 = [MEMORY[0x1E695DFD8] setWithObjects:{@"last_maintenance_date", 0}];
   date4 = [MEMORY[0x1E695DF00] date];
   dispatch_group_enter(v13);
   databaseProxy4 = [(WBSHistoryServiceStore *)self databaseProxy];
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = 3221225472;
-  v47[2] = __32__WBSHistoryServiceStore__load___block_invoke_49;
-  v47[3] = &unk_1E7FC78D0;
-  v47[4] = self;
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = __32__WBSHistoryServiceStore__load___block_invoke_49;
+  v52[3] = &unk_1E7FC78D0;
+  v52[4] = self;
   v17 = v13;
-  v48 = v17;
-  [databaseProxy4 fetchMetadataForKeys:v14 completionHandler:v47];
+  v53 = v17;
+  [databaseProxy4 fetchMetadataForKeys:v14 completionHandler:v52];
 
-  v18 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v20 = WBS_LOG_CHANNEL_PREFIXHistory(v18, v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     [date4 timeIntervalSinceNow];
-    [WBSHistoryServiceStore _load:v19];
+    [WBSHistoryServiceStore _load:v21];
   }
 
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __32__WBSHistoryServiceStore__load___block_invoke_52;
-  v46[3] = &unk_1E7FC7280;
-  v46[4] = self;
-  if (waitForGroupOrStopCondition(v8, v46))
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3221225472;
+  v51[2] = __32__WBSHistoryServiceStore__load___block_invoke_52;
+  v51[3] = &unk_1E7FC7280;
+  v51[4] = self;
+  if (waitForGroupOrStopCondition(v8, v51))
   {
-    if (v68[5])
+    if (v73[5])
     {
       _loadCopy[2](_loadCopy);
     }
@@ -623,87 +626,87 @@ void __58__WBSHistoryServiceStore__loadOnDatabaseQueue_readHandle___block_invoke
     else
     {
       date5 = [MEMORY[0x1E695DF00] date];
-      v29 = [(WBSHistoryServiceStore *)self _loadOnDatabaseQueue:v80[3] readHandle:v74[5]];
-      v21 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v34 = [(WBSHistoryServiceStore *)self _loadOnDatabaseQueue:v85[3] readHandle:v79[5]];
+      v24 = WBS_LOG_CHANNEL_PREFIXHistory(v34, v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         [date5 timeIntervalSinceNow];
-        [WBSHistoryServiceStore _load:v22];
+        [WBSHistoryServiceStore _load:v25];
       }
 
-      v23 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v28 = WBS_LOG_CHANNEL_PREFIXHistory(v26, v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
-        -[WBSHistoryServiceStore _load:].cold.3(v83, [v29 count]);
+        -[WBSHistoryServiceStore _load:].cold.3(v88, [v34 count]);
       }
 
-      v45[0] = MEMORY[0x1E69E9820];
-      v45[1] = 3221225472;
-      v45[2] = __32__WBSHistoryServiceStore__load___block_invoke_54;
-      v45[3] = &unk_1E7FC7280;
-      v45[4] = self;
-      if (waitForGroupOrStopCondition(v17, v45))
+      v50[0] = MEMORY[0x1E69E9820];
+      v50[1] = 3221225472;
+      v50[2] = __32__WBSHistoryServiceStore__load___block_invoke_54;
+      v50[3] = &unk_1E7FC7280;
+      v50[4] = self;
+      if (waitForGroupOrStopCondition(v17, v50))
       {
         objc_initWeak(&location, self);
-        v42[0] = 0;
-        v42[1] = v42;
-        v42[2] = 0x2020000000;
-        v43 = 0;
-        v40[0] = 0;
-        v40[1] = v40;
-        v40[2] = 0x3032000000;
-        v40[3] = __Block_byref_object_copy__24;
-        v40[4] = __Block_byref_object_dispose__24;
+        v47[0] = 0;
+        v47[1] = v47;
+        v47[2] = 0x2020000000;
+        v48 = 0;
+        v45[0] = 0;
+        v45[1] = v45;
+        v45[2] = 0x3032000000;
+        v45[3] = __Block_byref_object_copy__24;
+        v45[4] = __Block_byref_object_dispose__24;
         date6 = [MEMORY[0x1E695DF00] date];
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __32__WBSHistoryServiceStore__load___block_invoke_2;
-        v32[3] = &unk_1E7FC78F8;
-        v36 = v42;
-        objc_copyWeak(&v39, &location);
-        v35 = _loadCopy;
-        v37 = v40;
-        v38 = v65;
-        v33 = v29;
-        v34 = v10;
-        v24 = MEMORY[0x1BFB13CE0](v32);
+        v37[0] = MEMORY[0x1E69E9820];
+        v37[1] = 3221225472;
+        v37[2] = __32__WBSHistoryServiceStore__load___block_invoke_2;
+        v37[3] = &unk_1E7FC78F8;
+        v41 = v47;
+        objc_copyWeak(&v44, &location);
+        v40 = _loadCopy;
+        v42 = v45;
+        v43 = v70;
+        v38 = v34;
+        v39 = v10;
+        v29 = MEMORY[0x1BFB13CE0](v37);
         loadCompletionBlock = self->_loadCompletionBlock;
-        self->_loadCompletionBlock = v24;
+        self->_loadCompletionBlock = v29;
 
         [(WBSHistoryServiceStore *)self _scheduleMaintenance];
-        v26 = 0;
-        atomic_compare_exchange_strong(&self->_state.__a_.__a_value, &v26, 1uLL);
+        v31 = 0;
+        atomic_compare_exchange_strong(&self->_state.__a_.__a_value, &v31, 1uLL);
         dispatch_async(MEMORY[0x1E69E96A0], self->_loadCompletionBlock);
 
-        objc_destroyWeak(&v39);
-        _Block_object_dispose(v40, 8);
+        objc_destroyWeak(&v44);
+        _Block_object_dispose(v45, 8);
 
-        _Block_object_dispose(v42, 8);
+        _Block_object_dispose(v47, 8);
         objc_destroyWeak(&location);
       }
 
       else
       {
-        v27 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:89 userInfo:0];
-        (_loadCopy[2])(_loadCopy, v27);
+        v32 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:89 userInfo:0];
+        (_loadCopy[2])(_loadCopy, v32);
       }
     }
   }
 
   else
   {
-    v20 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:89 userInfo:0];
-    (_loadCopy[2])(_loadCopy, v20);
+    v22 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:89 userInfo:0];
+    (_loadCopy[2])(_loadCopy, v22);
   }
 
-  _Block_object_dispose(v55, 8);
-  _Block_object_dispose(v63, 8);
+  _Block_object_dispose(v60, 8);
+  _Block_object_dispose(v68, 8);
 
-  _Block_object_dispose(v65, 8);
-  _Block_object_dispose(&v67, 8);
+  _Block_object_dispose(v70, 8);
+  _Block_object_dispose(&v72, 8);
 
-  _Block_object_dispose(&v73, 8);
-  _Block_object_dispose(&v79, 8);
+  _Block_object_dispose(&v78, 8);
+  _Block_object_dispose(&v84, 8);
 }
 
 void __32__WBSHistoryServiceStore__load___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -715,8 +718,8 @@ void __32__WBSHistoryServiceStore__load___block_invoke(uint64_t a1, uint64_t a2,
   objc_storeStrong((*(*(a1 + 56) + 8) + 40), a4);
   if (v9)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXHistory(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [v9 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
@@ -724,11 +727,11 @@ void __32__WBSHistoryServiceStore__load___block_invoke(uint64_t a1, uint64_t a2,
     }
   }
 
-  v11 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v13 = WBS_LOG_CHANNEL_PREFIXHistory(v10, v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [*(*(*(a1 + 64) + 8) + 40) timeIntervalSinceNow];
-    __32__WBSHistoryServiceStore__load___block_invoke_cold_2(v12);
+    __32__WBSHistoryServiceStore__load___block_invoke_cold_2(v14);
   }
 
   dispatch_group_leave(*(a1 + 32));
@@ -736,15 +739,16 @@ void __32__WBSHistoryServiceStore__load___block_invoke(uint64_t a1, uint64_t a2,
 
 void __32__WBSHistoryServiceStore__load___block_invoke_40(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXHistory(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [v6 safari_privacyPreservingDescription];
+      [v8 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __32__WBSHistoryServiceStore__load___block_invoke_40_cold_1();
     }
@@ -752,20 +756,20 @@ void __32__WBSHistoryServiceStore__load___block_invoke_40(uint64_t a1, void *a2,
 
   else
   {
-    v8 = [v5 fileDescriptor];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __32__WBSHistoryServiceStore__load___block_invoke_41;
-    v11[3] = &unk_1E7FC7858;
-    v12 = *(a1 + 32);
-    SafariShared::ReadStreamedDomainExpansions(v8, v11);
+    v12 = [v5 fileDescriptor];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __32__WBSHistoryServiceStore__load___block_invoke_41;
+    v15[3] = &unk_1E7FC7858;
+    v16 = *(a1 + 32);
+    SafariShared::ReadStreamedDomainExpansions(v12, v15);
   }
 
-  v9 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v13 = WBS_LOG_CHANNEL_PREFIXHistory(v10, v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [*(*(*(a1 + 48) + 8) + 40) timeIntervalSinceNow];
-    __32__WBSHistoryServiceStore__load___block_invoke_40_cold_2(v10);
+    __32__WBSHistoryServiceStore__load___block_invoke_40_cold_2(v14);
   }
 
   dispatch_group_leave(*(a1 + 40));
@@ -791,12 +795,13 @@ void __32__WBSHistoryServiceStore__load___block_invoke_46(uint64_t a1, void *a2,
 {
   v6 = a2;
   v7 = a3;
+  v9 = v7;
   if (v7)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXHistory(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [v7 safari_privacyPreservingDescription];
+      [v9 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __32__WBSHistoryServiceStore__load___block_invoke_46_cold_1();
     }
@@ -829,15 +834,15 @@ void __32__WBSHistoryServiceStore__load___block_invoke_49(uint64_t a1, void *a2)
 
   if (v11 > v14)
   {
-    v15 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = WBS_LOG_CHANNEL_PREFIXHistory(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      __32__WBSHistoryServiceStore__load___block_invoke_49_cold_1(a1 + 32, v15);
+      __32__WBSHistoryServiceStore__load___block_invoke_49_cold_1(a1 + 32, v17);
     }
 
-    v16 = [MEMORY[0x1E695DF00] now];
-    v17 = *(*v8 + 10);
-    *(*v8 + 10) = v16;
+    v18 = [MEMORY[0x1E695DF00] now];
+    v19 = *(*v8 + 10);
+    *(*v8 + 10) = v18;
 
     [*v8 _updateLastMaintenanceDate];
   }
@@ -847,7 +852,7 @@ void __32__WBSHistoryServiceStore__load___block_invoke_49(uint64_t a1, void *a2)
 
 void __32__WBSHistoryServiceStore__load___block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v1 = *(*(a1 + 56) + 8);
   if ((*(v1 + 24) & 1) == 0)
   {
@@ -855,51 +860,52 @@ void __32__WBSHistoryServiceStore__load___block_invoke_2(uint64_t a1)
     WeakRetained = objc_loadWeakRetained((a1 + 80));
     if (WeakRetained)
     {
-      v4 = objc_alloc_init(MEMORY[0x1E69C8A40]);
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __32__WBSHistoryServiceStore__load___block_invoke_56;
-      v14[3] = &unk_1E7FB6F80;
-      v14[4] = WeakRetained;
-      [v4 setHandler:v14];
-      v5 = objc_loadWeakRetained(WeakRetained + 14);
-      if (v5)
+      v5 = objc_alloc_init(MEMORY[0x1E69C8A40]);
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __32__WBSHistoryServiceStore__load___block_invoke_56;
+      v21[3] = &unk_1E7FB6F80;
+      v21[4] = WeakRetained;
+      [v5 setHandler:v21];
+      v6 = objc_loadWeakRetained(WeakRetained + 14);
+      v8 = v6;
+      if (v6)
       {
-        v6 = WBS_LOG_CHANNEL_PREFIXHistory();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+        v9 = WBS_LOG_CHANNEL_PREFIXHistory(v6, v7);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           [*(*(*(a1 + 64) + 8) + 40) timeIntervalSinceNow];
-          __32__WBSHistoryServiceStore__load___block_invoke_2_cold_1(v7);
+          __32__WBSHistoryServiceStore__load___block_invoke_2_cold_1(v10);
         }
 
-        v8 = WBS_LOG_CHANNEL_PREFIXHistory();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+        v13 = WBS_LOG_CHANNEL_PREFIXHistory(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
           [*(*(*(a1 + 72) + 8) + 40) timeIntervalSinceNow];
           *buf = 136446466;
-          v16 = "load";
-          v17 = 2048;
-          v18 = -v9;
-          _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "#perf - %{public}s: %f", buf, 0x16u);
+          v23 = "load";
+          v24 = 2048;
+          v25 = -v14;
+          _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "#perf - %{public}s: %f", buf, 0x16u);
         }
 
-        v10 = WBS_LOG_CHANNEL_PREFIXHistory();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+        v17 = WBS_LOG_CHANNEL_PREFIXHistory(v15, v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v11 = [*(a1 + 32) count];
+          v18 = [*(a1 + 32) count];
           *buf = 134217984;
-          v16 = v11;
-          _os_log_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_INFO, "Finished loading history. Total item count: <%zi>", buf, 0xCu);
+          v23 = v18;
+          _os_log_impl(&dword_1BB6F3000, v17, OS_LOG_TYPE_INFO, "Finished loading history. Total item count: <%zi>", buf, 0xCu);
         }
 
-        [v5 historyLoader:WeakRetained didLoadItems:*(a1 + 32) stringsForUserTypeDomainExpansion:*(a1 + 40)];
-        [v5 historyLoaderDidFinishLoading:WeakRetained];
+        [v8 historyLoader:WeakRetained didLoadItems:*(a1 + 32) stringsForUserTypeDomainExpansion:*(a1 + 40)];
+        [v8 historyLoaderDidFinishLoading:WeakRetained];
       }
 
       else
       {
-        v13 = WBS_LOG_CHANNEL_PREFIXHistory();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v20 = WBS_LOG_CHANNEL_PREFIXHistory(0, v7);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           __32__WBSHistoryServiceStore__load___block_invoke_2_cold_2();
         }
@@ -910,8 +916,8 @@ void __32__WBSHistoryServiceStore__load___block_invoke_2(uint64_t a1)
 
     else
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v19 = WBS_LOG_CHANNEL_PREFIXHistory(0, v3);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         __32__WBSHistoryServiceStore__load___block_invoke_2_cold_3();
       }
@@ -1098,51 +1104,51 @@ void __80__WBSHistoryServiceStore__databaseFetchWithOptions_predicate_completion
 
 void __80__WBSHistoryServiceStore__databaseFetchWithOptions_predicate_completionHandler___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = [*(*(a1 + 32) + 48) visitForID:*(a2 + 8)];
   if (!v4)
   {
-    v6 = [*(*(a1 + 32) + 48) itemForID:*(a2 + 16)];
-    if (v6)
+    v7 = [*(*(a1 + 32) + 48) itemForID:*(a2 + 16)];
+    if (v7)
     {
-      v5 = [[WBSHistoryVisit alloc] initWithHistoryItem:v6 streamedVisit:a2];
+      v5 = [[WBSHistoryVisit alloc] initWithHistoryItem:v7 streamedVisit:a2];
       if (v5)
       {
         [*(a1 + 40) addObject:v5];
-        v7 = *(*(a1 + 48) + 8);
-        *v14 = *(a2 + 8);
-        *&v14[8] = *(a2 + 40);
-        std::__hash_table<std::__hash_value_type<long long,VisitRedirectInformation>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,VisitRedirectInformation>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,VisitRedirectInformation>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,VisitRedirectInformation>>>::__emplace_unique_key_args<long long,std::pair<long long,VisitRedirectInformation>>((v7 + 48), v14);
+        v9 = *(*(a1 + 48) + 8);
+        *v16 = *(a2 + 8);
+        *&v16[8] = *(a2 + 40);
+        std::__hash_table<std::__hash_value_type<long long,VisitRedirectInformation>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,VisitRedirectInformation>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,VisitRedirectInformation>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,VisitRedirectInformation>>>::__emplace_unique_key_args<long long,std::pair<long long,VisitRedirectInformation>>((v9 + 48), v16, v16);
         [*(*(a1 + 32) + 48) setVisit:v5 forID:*(a2 + 8)];
 LABEL_12:
 
         goto LABEL_13;
       }
 
-      v13 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v15 = WBS_LOG_CHANNEL_PREFIXHistory(0, v8);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        *v14 = 0;
-        v10 = "Failed to create WBSHistoryVisit";
-        v11 = v13;
-        v12 = 2;
+        *v16 = 0;
+        v12 = "Failed to create WBSHistoryVisit";
+        v13 = v15;
+        v14 = 2;
         goto LABEL_10;
       }
     }
 
     else
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v10 = WBS_LOG_CHANNEL_PREFIXHistory(0, v6);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v9 = *(a2 + 16);
-        *v14 = 134217984;
-        *&v14[4] = v9;
-        v10 = "Failed to retrieve item %lli";
-        v11 = v8;
-        v12 = 12;
+        v11 = *(a2 + 16);
+        *v16 = 134217984;
+        *&v16[4] = v11;
+        v12 = "Failed to retrieve item %lli";
+        v13 = v10;
+        v14 = 12;
 LABEL_10:
-        _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, v10, v14, v12);
+        _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, v12, v16, v14);
       }
     }
 
@@ -1229,12 +1235,13 @@ void __81__WBSHistoryServiceStore_getVisitsCreatedAfterDate_beforeDate_completio
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXHistory(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [v6 safari_privacyPreservingDescription];
+      [v8 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __81__WBSHistoryServiceStore_getVisitsCreatedAfterDate_beforeDate_completionHandler___block_invoke_cold_1();
     }
@@ -1320,12 +1327,13 @@ void __120__WBSHistoryServiceStore_getHighLevelHTTPFamilyDomainsVisitedAfterDate
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXHistory(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [v6 safari_privacyPreservingDescription];
+      [v8 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __120__WBSHistoryServiceStore_getHighLevelHTTPFamilyDomainsVisitedAfterDate_beforeDate_onlyFromThisDevice_completionHandler___block_invoke_2_cold_1();
     }
@@ -1353,56 +1361,56 @@ void __120__WBSHistoryServiceStore_getHighLevelHTTPFamilyDomainsVisitedAfterDate
 
 void __75__WBSHistoryServiceStore_removePastHistoryVisitsForItem_completionHandler___block_invoke(id *a1)
 {
-  v2 = [a1[4] urlString];
-  if (v2)
+  v3 = [a1[4] urlString];
+  if (v3)
   {
-    v3 = MEMORY[0x1E695DFD8];
-    v4 = [[WBSHistoryServiceURLRepresentation alloc] initWithURLString:v2];
-    v5 = [v3 setWithObject:v4];
+    v4 = MEMORY[0x1E695DFD8];
+    v5 = [[WBSHistoryServiceURLRepresentation alloc] initWithURLString:v3];
+    v6 = [v4 setWithObject:v5];
 
-    v6 = [MEMORY[0x1E695DF00] distantPast];
-    v7 = [MEMORY[0x1E695DF00] date];
-    v8 = MEMORY[0x1E695DF00];
-    v9 = [a1[4] lastVisitOnSynchronizationQueue];
-    [v9 visitTime];
-    v10 = [v8 dateWithTimeIntervalSinceReferenceDate:?];
+    v7 = [MEMORY[0x1E695DF00] distantPast];
+    v8 = [MEMORY[0x1E695DF00] date];
+    v9 = MEMORY[0x1E695DF00];
+    v10 = [a1[4] lastVisitOnSynchronizationQueue];
+    [v10 visitTime];
+    v11 = [v9 dateWithTimeIntervalSinceReferenceDate:?];
 
-    v11 = [v7 compare:v10];
-    v12 = [a1[5] databaseProxy];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __75__WBSHistoryServiceStore_removePastHistoryVisitsForItem_completionHandler___block_invoke_68;
-    v20[3] = &unk_1E7FC79E0;
-    v13 = v2;
-    v21 = v13;
-    v22 = a1[6];
-    [v12 clearHistoryItems:v5 afterDate:v6 beforeDate:v7 tombstoneMode:1 completionHandler:v20];
+    v12 = [v8 compare:v11];
+    v13 = [a1[5] databaseProxy];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __75__WBSHistoryServiceStore_removePastHistoryVisitsForItem_completionHandler___block_invoke_68;
+    v21[3] = &unk_1E7FC79E0;
+    v14 = v3;
+    v22 = v14;
+    v23 = a1[6];
+    [v13 clearHistoryItems:v6 afterDate:v7 beforeDate:v8 tombstoneMode:1 completionHandler:v21];
 
-    if (v11 == -1)
+    if (v12 == -1)
     {
-      v14 = [a1[5] databaseProxy];
-      v15 = [MEMORY[0x1E695DF00] distantFuture];
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __75__WBSHistoryServiceStore_removePastHistoryVisitsForItem_completionHandler___block_invoke_70;
-      v18[3] = &unk_1E7FB78D8;
-      v19 = v13;
-      [v14 clearHistoryItems:v5 afterDate:v6 beforeDate:v15 tombstoneMode:0 completionHandler:v18];
+      v15 = [a1[5] databaseProxy];
+      v16 = [MEMORY[0x1E695DF00] distantFuture];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __75__WBSHistoryServiceStore_removePastHistoryVisitsForItem_completionHandler___block_invoke_70;
+      v19[3] = &unk_1E7FB78D8;
+      v20 = v14;
+      [v15 clearHistoryItems:v6 afterDate:v7 beforeDate:v16 tombstoneMode:0 completionHandler:v19];
     }
   }
 
   else
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = WBS_LOG_CHANNEL_PREFIXHistory(0, v2);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       __75__WBSHistoryServiceStore_removePastHistoryVisitsForItem_completionHandler___block_invoke_cold_1();
     }
 
-    v17 = a1[6];
-    if (v17)
+    v18 = a1[6];
+    if (v18)
     {
-      v17[2]();
+      v18[2]();
     }
   }
 }
@@ -1410,33 +1418,35 @@ void __75__WBSHistoryServiceStore_removePastHistoryVisitsForItem_completionHandl
 void __75__WBSHistoryServiceStore_removePastHistoryVisitsForItem_completionHandler___block_invoke_68(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [v3 safari_privacyPreservingDescription];
+      [v5 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __75__WBSHistoryServiceStore_removePastHistoryVisitsForItem_completionHandler___block_invoke_68_cold_1();
     }
   }
 
-  v5 = *(a1 + 40);
-  if (v5)
+  v7 = *(a1 + 40);
+  if (v7)
   {
-    (*(v5 + 16))();
+    (*(v7 + 16))();
   }
 }
 
 void __75__WBSHistoryServiceStore_removePastHistoryVisitsForItem_completionHandler___block_invoke_70(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXHistory(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [v2 safari_privacyPreservingDescription];
+      [v4 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __75__WBSHistoryServiceStore_removePastHistoryVisitsForItem_completionHandler___block_invoke_70_cold_1();
     }
@@ -1530,12 +1540,13 @@ void __42__WBSHistoryServiceStore_visitsWereAdded___block_invoke_2(uint64_t a1)
 void __42__WBSHistoryServiceStore_visitsWereAdded___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXHistory(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [v2 safari_privacyPreservingDescription];
+      [v4 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __42__WBSHistoryServiceStore_visitsWereAdded___block_invoke_3_cold_1();
     }
@@ -1578,12 +1589,13 @@ void __47__WBSHistoryServiceStore_visitTitleWasUpdated___block_invoke(uint64_t a
 void __47__WBSHistoryServiceStore_visitTitleWasUpdated___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXHistory(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [v2 safari_privacyPreservingDescription];
+      [v4 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __47__WBSHistoryServiceStore_visitTitleWasUpdated___block_invoke_2_cold_1();
     }
@@ -1613,12 +1625,13 @@ void __47__WBSHistoryServiceStore_visitTitleWasUpdated___block_invoke_2(uint64_t
 void __82__WBSHistoryServiceStore_visitAttributeWasUpdated_removeAttributes_addAttributes___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXHistory(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [v2 safari_privacyPreservingDescription];
+      [v4 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __82__WBSHistoryServiceStore_visitAttributeWasUpdated_removeAttributes_addAttributes___block_invoke_2_cold_1();
     }
@@ -1644,12 +1657,13 @@ id **__60__WBSHistoryServiceStore_clearHistoryWithCompletionHandler___block_invo
 void __60__WBSHistoryServiceStore_clearHistoryWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v5 = WBS_LOG_CHANNEL_PREFIXHistory(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [v2 safari_privacyPreservingDescription];
+      [v4 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __60__WBSHistoryServiceStore_clearHistoryWithCompletionHandler___block_invoke_2_cold_1();
     }
@@ -1684,12 +1698,13 @@ void __61__WBSHistoryServiceStore_vacuumHistoryWithCompletionHandler___block_inv
 void __61__WBSHistoryServiceStore_vacuumHistoryWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [v3 safari_privacyPreservingDescription];
+      [v5 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __61__WBSHistoryServiceStore_vacuumHistoryWithCompletionHandler___block_invoke_2_cold_1();
     }
@@ -1718,71 +1733,72 @@ void __61__WBSHistoryServiceStore_vacuumHistoryWithCompletionHandler___block_inv
   dispatch_async(databaseQueue, v15);
 }
 
-void __88__WBSHistoryServiceStore_clearHistoryVisitsAddedAfterDate_beforeDate_completionHandler___block_invoke(uint64_t a1)
+void __88__WBSHistoryServiceStore_clearHistoryVisitsAddedAfterDate_beforeDate_completionHandler___block_invoke(void **a1, uint64_t a2)
 {
-  v3 = (a1 + 32);
-  v2 = *(a1 + 32);
-  if (v2 && *(a1 + 40) && [v2 compare:?] == -1)
+  v4 = (a1 + 4);
+  v3 = a1[4];
+  if (v3 && a1[5] && (v3 = [v3 compare:?], v3 == -1))
   {
-    v5 = [*(a1 + 48) databaseProxy];
-    v6 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __88__WBSHistoryServiceStore_clearHistoryVisitsAddedAfterDate_beforeDate_completionHandler___block_invoke_80;
-    v15[3] = &unk_1E7FC7A80;
-    v16 = v6;
-    v17 = *(a1 + 40);
-    v18 = *(a1 + 56);
-    [v5 clearHistoryVisitsAddedAfterDate:v16 beforeDate:v7 tombstoneMode:1 clearAllSpotlightHistoryForProfile:0 completionHandler:v15];
+    v6 = [a1[6] databaseProxy];
+    v7 = a1[4];
+    v8 = a1[5];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __88__WBSHistoryServiceStore_clearHistoryVisitsAddedAfterDate_beforeDate_completionHandler___block_invoke_80;
+    v16[3] = &unk_1E7FC7A80;
+    v17 = v7;
+    v18 = a1[5];
+    v19 = a1[7];
+    [v6 clearHistoryVisitsAddedAfterDate:v17 beforeDate:v8 tombstoneMode:1 clearAllSpotlightHistoryForProfile:0 completionHandler:v16];
 
-    v8 = [MEMORY[0x1E695DF00] distantFuture];
-    v9 = [*(a1 + 48) databaseProxy];
-    v10 = *v3;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __88__WBSHistoryServiceStore_clearHistoryVisitsAddedAfterDate_beforeDate_completionHandler___block_invoke_81;
-    v12[3] = &unk_1E7FC7AA8;
-    v13 = v10;
-    v11 = v8;
+    v9 = [MEMORY[0x1E695DF00] distantFuture];
+    v10 = [a1[6] databaseProxy];
+    v11 = *v4;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __88__WBSHistoryServiceStore_clearHistoryVisitsAddedAfterDate_beforeDate_completionHandler___block_invoke_81;
+    v13[3] = &unk_1E7FC7AA8;
     v14 = v11;
-    [v9 clearHistoryVisitsAddedAfterDate:v13 beforeDate:v11 tombstoneMode:0 clearAllSpotlightHistoryForProfile:0 completionHandler:v12];
+    v12 = v9;
+    v15 = v12;
+    [v10 clearHistoryVisitsAddedAfterDate:v14 beforeDate:v12 tombstoneMode:0 clearAllSpotlightHistoryForProfile:0 completionHandler:v13];
   }
 
   else
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXHistory(v3, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __88__WBSHistoryServiceStore_clearHistoryVisitsAddedAfterDate_beforeDate_completionHandler___block_invoke_cold_1(v3, a1, v4);
+      __88__WBSHistoryServiceStore_clearHistoryVisitsAddedAfterDate_beforeDate_completionHandler___block_invoke_cold_1(v4, a1, v5);
     }
 
-    if (*(a1 + 56))
+    if (a1[7])
     {
-      dispatch_async(MEMORY[0x1E69E96A0], *(a1 + 56));
+      dispatch_async(MEMORY[0x1E69E96A0], a1[7]);
     }
   }
 }
 
 void __88__WBSHistoryServiceStore_clearHistoryVisitsAddedAfterDate_beforeDate_completionHandler___block_invoke_80(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v6 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v6 = *(a1 + 32);
-      v5 = *(a1 + 40);
-      v7 = [v3 safari_privacyPreservingDescription];
-      v8 = 138412802;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v5;
-      v12 = 2114;
+      v8 = *(a1 + 32);
+      v7 = *(a1 + 40);
+      v9 = [v5 safari_privacyPreservingDescription];
+      v10 = 138412802;
+      v11 = v8;
+      v12 = 2112;
       v13 = v7;
-      _os_log_fault_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_FAULT, "Failed to perform history maintenance between %@ - %@: %{public}@", &v8, 0x20u);
+      v14 = 2114;
+      v15 = v9;
+      _os_log_fault_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_FAULT, "Failed to perform history maintenance between %@ - %@: %{public}@", &v10, 0x20u);
     }
   }
 
@@ -1794,23 +1810,24 @@ void __88__WBSHistoryServiceStore_clearHistoryVisitsAddedAfterDate_beforeDate_co
 
 void __88__WBSHistoryServiceStore_clearHistoryVisitsAddedAfterDate_beforeDate_completionHandler___block_invoke_81(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
-      v5 = *(a1 + 40);
-      v7 = [v3 safari_privacyPreservingDescription];
-      v8 = 138412802;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v5;
-      v12 = 2114;
+      v8 = *(a1 + 32);
+      v7 = *(a1 + 40);
+      v9 = [v5 safari_privacyPreservingDescription];
+      v10 = 138412802;
+      v11 = v8;
+      v12 = 2112;
       v13 = v7;
-      _os_log_error_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_ERROR, "Failed to perform history maintenance between %@ - %@: %{public}@", &v8, 0x20u);
+      v14 = 2114;
+      v15 = v9;
+      _os_log_error_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_ERROR, "Failed to perform history maintenance between %@ - %@: %{public}@", &v10, 0x20u);
     }
   }
 }
@@ -1902,15 +1919,16 @@ id *__46__WBSHistoryServiceStore__scheduleMaintenance__block_invoke_3(uint64_t a
 
 void __46__WBSHistoryServiceStore__scheduleMaintenance__block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXHistory(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [v6 safari_privacyPreservingDescription];
+      [v8 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __46__WBSHistoryServiceStore__scheduleMaintenance__block_invoke_4_cold_1();
     }
@@ -1922,31 +1940,31 @@ LABEL_12:
 
   if ([v5 count])
   {
+    v15 = 0u;
+    v16 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
-    if (v8)
+    v9 = v5;
+    v10 = [v9 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v10)
     {
-      v9 = *v12;
+      v11 = *v14;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v12 != v9)
+          if (*v14 != v11)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v9);
           }
 
-          [*(a1 + 32) handleEvent:MEMORY[0x1E69E9820] completionHandler:{3221225472, __46__WBSHistoryServiceStore__scheduleMaintenance__block_invoke_86, &unk_1E7FC7AA8, *(a1 + 32), *(*(&v11 + 1) + 8 * i), v11}];
+          [*(a1 + 32) handleEvent:MEMORY[0x1E69E9820] completionHandler:{3221225472, __46__WBSHistoryServiceStore__scheduleMaintenance__block_invoke_86, &unk_1E7FC7AA8, *(a1 + 32), *(*(&v13 + 1) + 8 * i), v13}];
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
-      while (v8);
+      while (v10);
     }
 
     goto LABEL_12;
@@ -1971,12 +1989,13 @@ void __46__WBSHistoryServiceStore__scheduleMaintenance__block_invoke_86(uint64_t
 void __46__WBSHistoryServiceStore__scheduleMaintenance__block_invoke_2_88(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXHistory(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [v2 safari_privacyPreservingDescription];
+      [v4 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __46__WBSHistoryServiceStore__scheduleMaintenance__block_invoke_2_88_cold_1();
     }
@@ -1993,12 +2012,13 @@ void __46__WBSHistoryServiceStore__scheduleMaintenance__block_invoke_2_88(uint64
 void __42__WBSHistoryServiceStore__expireOldVisits__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXHistory(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [v2 safari_privacyPreservingDescription];
+      [v4 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __42__WBSHistoryServiceStore__expireOldVisits__block_invoke_cold_1();
     }
@@ -2017,12 +2037,13 @@ void __42__WBSHistoryServiceStore__expireOldVisits__block_invoke(uint64_t a1, vo
 void __52__WBSHistoryServiceStore__updateLastMaintenanceDate__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXHistory(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [v2 safari_privacyPreservingDescription];
+      [v4 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __52__WBSHistoryServiceStore__updateLastMaintenanceDate__block_invoke_cold_1();
     }
@@ -2148,31 +2169,32 @@ void __45__WBSHistoryServiceStore_performMaintenance___block_invoke(uint64_t a1)
 
 void __57__WBSHistoryServiceStore_addAutocompleteTrigger_forItem___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [v3 safari_privacyPreservingDescription];
+      [v5 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __57__WBSHistoryServiceStore_addAutocompleteTrigger_forItem___block_invoke_cold_1();
     }
 
-    v5 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v9 = WBS_LOG_CHANNEL_PREFIXHistory(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v6 = *(a1 + 32);
-      v7 = [*(a1 + 40) urlString];
-      v8 = [v3 safari_privacyPreservingDescription];
-      v9 = 138478339;
-      v10 = v6;
-      v11 = 2113;
-      v12 = v7;
-      v13 = 2114;
-      v14 = v8;
-      _os_log_debug_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_DEBUG, "Failed to add autocomplete trigger %{private}@ for %{private}@: %{public}@", &v9, 0x20u);
+      v10 = *(a1 + 32);
+      v11 = [*(a1 + 40) urlString];
+      v12 = [v5 safari_privacyPreservingDescription];
+      v13 = 138478339;
+      v14 = v10;
+      v15 = 2113;
+      v16 = v11;
+      v17 = 2114;
+      v18 = v12;
+      _os_log_debug_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_DEBUG, "Failed to add autocomplete trigger %{private}@ for %{private}@: %{public}@", &v13, 0x20u);
     }
   }
 }
@@ -2198,19 +2220,19 @@ void __57__WBSHistoryServiceStore_addAutocompleteTrigger_forItem___block_invoke(
 void __75__WBSHistoryServiceStore_getAutocompleteTriggersForItem_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
-  v6 = a3;
-  if (!v6)
+  v7 = a3;
+  if (!v7)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXHistory(0, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [v5 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __75__WBSHistoryServiceStore_getAutocompleteTriggersForItem_completionHandler___block_invoke_cold_1();
     }
 
-    v8 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v11 = WBS_LOG_CHANNEL_PREFIXHistory(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [*(a1 + 32) urlString];
       objc_claimAutoreleasedReturnValue();
@@ -2566,7 +2588,7 @@ uint64_t __96__WBSHistoryServiceStore__fetchHistoryItemsForTopics_fromStartDate_
         v7 = v22;
         v16 = [v6 databaseID];
         v29 = &v16;
-        v8 = std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(v7 + 6, &v16);
+        v8 = std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(v7 + 6, &v16, &std::piecewise_construct, &v29);
         if (!v8)
         {
           __break(1u);
@@ -2610,10 +2632,12 @@ void __96__WBSHistoryServiceStore__fetchHistoryItemsForTopics_fromStartDate_toEn
     goto LABEL_4;
   }
 
-  v5 = std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((*(*(a1 + 40) + 8) + 48), (a2 + 16));
-  if (v5)
+  v5 = *(*(a1 + 40) + 8);
+  v7 = (a2 + 16);
+  v6 = std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((v5 + 48), (a2 + 16), &std::piecewise_construct, &v7);
+  if (v6)
   {
-    [v5[3] tagHistoryItem:v4];
+    [v6[3] tagHistoryItem:v4];
 LABEL_4:
 
     return;
@@ -2734,23 +2758,24 @@ void __112__WBSHistoryServiceStore_fetchTopicsFromStartDate_toEndDate_limit_mini
 
 void __57__WBSHistoryServiceStore__setMetadataValue_forKey_group___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
-      v5 = *(a1 + 40);
-      v7 = [v3 safari_privacyPreservingDescription];
-      v8 = 138543874;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v5;
-      v12 = 2114;
+      v8 = *(a1 + 32);
+      v7 = *(a1 + 40);
+      v9 = [v5 safari_privacyPreservingDescription];
+      v10 = 138543874;
+      v11 = v8;
+      v12 = 2112;
       v13 = v7;
-      _os_log_error_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_ERROR, "failed to update metadata %{public}@ to %@: %{public}@", &v8, 0x20u);
+      v14 = 2114;
+      v15 = v9;
+      _os_log_error_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_ERROR, "failed to update metadata %{public}@ to %@: %{public}@", &v10, 0x20u);
     }
   }
 
@@ -2865,12 +2890,12 @@ uint64_t __72__WBSHistoryServiceStore_reportPermanentIDsForVisits_completionHand
 
 - (void)handleEvent:(id)event completionHandler:(id)handler
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   handlerCopy = handler;
   group = dispatch_group_create();
-  v7 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = WBS_LOG_CHANNEL_PREFIXHistory(group, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [eventCopy eventType];
     objc_claimAutoreleasedReturnValue();
@@ -2880,93 +2905,93 @@ uint64_t __72__WBSHistoryServiceStore_reportPermanentIDsForVisits_completionHand
   }
 
   value = [eventCopy value];
-  v32 = [value safari_dictionaryForKey:@"disposedURLs"];
+  v33 = [value safari_dictionaryForKey:@"disposedURLs"];
 
-  if ([v32 count])
+  if ([v33 count])
   {
     databaseQueue = self->_databaseQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke;
     block[3] = &unk_1E7FB7DD0;
-    v50 = v32;
+    v51 = v33;
     selfCopy = self;
-    v52 = group;
-    dispatch_group_async(v52, databaseQueue, block);
+    v53 = group;
+    dispatch_group_async(v53, databaseQueue, block);
   }
 
   value2 = [eventCopy value];
-  v31 = [value2 safari_arrayForKey:@"disposedHostnames"];
+  v32 = [value2 safari_arrayForKey:@"disposedHostnames"];
 
-  if ([v31 count])
+  if ([v32 count])
   {
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 3221225472;
-    v46[2] = __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_3;
-    v46[3] = &unk_1E7FB7F10;
-    v47 = v31;
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 3221225472;
+    v47[2] = __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_3;
+    v47[3] = &unk_1E7FB7F10;
+    v48 = v32;
     selfCopy2 = self;
-    dispatch_group_async(group, MEMORY[0x1E69E96A0], v46);
+    dispatch_group_async(group, MEMORY[0x1E69E96A0], v47);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   value3 = [eventCopy value];
-  v30 = [value3 safari_arrayForKey:@"disposedHighLevelDomains"];
+  v31 = [value3 safari_arrayForKey:@"disposedHighLevelDomains"];
 
-  if ([v30 count] && (objc_opt_respondsToSelector() & 1) != 0)
+  if ([v31 count] && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_126;
-    v42[3] = &unk_1E7FB7DD0;
-    v43 = v30;
-    v44 = WeakRetained;
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_126;
+    v43[3] = &unk_1E7FB7DD0;
+    v44 = v31;
+    v45 = WeakRetained;
     selfCopy3 = self;
-    dispatch_group_async(group, MEMORY[0x1E69E96A0], v42);
+    dispatch_group_async(group, MEMORY[0x1E69E96A0], v43);
   }
 
   value4 = [eventCopy value];
-  v14 = [value4 safari_arrayForKey:@"disposedVisits"];
+  v15 = [value4 safari_arrayForKey:@"disposedVisits"];
 
   value5 = [eventCopy value];
-  v16 = [value5 safari_dictionaryForKey:@"updateLatestVisits"];
+  v17 = [value5 safari_dictionaryForKey:@"updateLatestVisits"];
 
-  if ([v14 count] || objc_msgSend(v16, "count"))
+  if ([v15 count] || objc_msgSend(v17, "count"))
   {
-    v17 = self->_databaseQueue;
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_127;
-    v36[3] = &unk_1E7FC7D58;
-    v37 = v14;
-    v38 = v16;
+    v18 = self->_databaseQueue;
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_127;
+    v37[3] = &unk_1E7FC7D58;
+    v38 = v15;
+    v39 = v17;
     selfCopy4 = self;
-    v40 = eventCopy;
-    v41 = WeakRetained;
-    dispatch_group_async(group, v17, v36);
+    v41 = eventCopy;
+    v42 = WeakRetained;
+    dispatch_group_async(group, v18, v37);
   }
 
   eventType = [eventCopy eventType];
-  v19 = [eventType isEqualToString:@"clear"];
+  v20 = [eventType isEqualToString:@"clear"];
 
-  if (v19)
+  if (v20)
   {
     value6 = [eventCopy value];
-    v21 = [value6 safari_dateForKey:@"startDate"];
+    v22 = [value6 safari_dateForKey:@"startDate"];
 
     value7 = [eventCopy value];
-    v23 = [value7 safari_dateForKey:@"endDate"];
+    v24 = [value7 safari_dateForKey:@"endDate"];
 
     mEMORY[0x1E6998640] = [MEMORY[0x1E6998640] sharedInstance];
-    v25 = mEMORY[0x1E6998640];
-    if (v21 && v23)
+    v26 = mEMORY[0x1E6998640];
+    if (v22 && v24)
     {
-      [mEMORY[0x1E6998640] clearCompletionsFromDate:v21 toDate:v23];
+      [mEMORY[0x1E6998640] clearCompletionsFromDate:v22 toDate:v24];
     }
 
     else
     {
-      if (!v23)
+      if (!v24)
       {
         [mEMORY[0x1E6998640] clearAllCompletions];
         [WeakRetained historyStoreWasCleared:self];
@@ -2974,9 +2999,9 @@ uint64_t __72__WBSHistoryServiceStore_reportPermanentIDsForVisits_completionHand
       }
 
       distantPast = [MEMORY[0x1E695DF00] distantPast];
-      [v25 clearCompletionsFromDate:distantPast toDate:v23];
+      [v26 clearCompletionsFromDate:distantPast toDate:v24];
 
-      if (!v21)
+      if (!v22)
       {
 LABEL_21:
 
@@ -2984,64 +3009,64 @@ LABEL_21:
       }
     }
 
-    [WeakRetained historyStoreWasCleared:self afterDate:v21 beforeDate:v23];
+    [WeakRetained historyStoreWasCleared:self afterDate:v22 beforeDate:v24];
     goto LABEL_21;
   }
 
 LABEL_22:
-  v27 = dispatch_get_global_queue(9, 0);
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_130;
-  v34[3] = &unk_1E7FB7B80;
-  v35 = handlerCopy;
-  v28 = handlerCopy;
-  dispatch_group_notify(group, v27, v34);
+  v28 = dispatch_get_global_queue(9, 0);
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_130;
+  v35[3] = &unk_1E7FB7B80;
+  v36 = handlerCopy;
+  v29 = handlerCopy;
+  dispatch_group_notify(group, v28, v35);
 }
 
 void __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
-  v3 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = WBS_LOG_CHANNEL_PREFIXHistory(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_cold_1(v16, [v2 count]);
+    __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_cold_1(v17, [v2 count]);
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_121;
-  v14[3] = &unk_1E7FC7D30;
-  v4 = *(a1 + 32);
-  v14[4] = *(a1 + 40);
-  v5 = v2;
-  v15 = v5;
-  [v4 enumerateKeysAndObjectsUsingBlock:v14];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_121;
+  v15[3] = &unk_1E7FC7D30;
+  v5 = *(a1 + 32);
+  v15[4] = *(a1 + 40);
+  v6 = v2;
+  v16 = v6;
+  [v5 enumerateKeysAndObjectsUsingBlock:v15];
   WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 112));
-  LOBYTE(v4) = WeakRetained == 0;
+  LOBYTE(v5) = WeakRetained == 0;
 
-  if (v4)
+  if (v5)
   {
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v7 = [[WBSHistoryDeletionPlan alloc] initWithSQLiteStore:*(a1 + 40) discoveredItemsToDelete:v5];
+    v8 = [[WBSHistoryDeletionPlan alloc] initWithSQLiteStore:*(a1 + 40) discoveredItemsToDelete:v6];
   }
 
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_2;
   block[3] = &unk_1E7FB7DD0;
-  v8 = *(a1 + 48);
+  v9 = *(a1 + 48);
   block[4] = *(a1 + 40);
-  v12 = v5;
-  v13 = v7;
-  v9 = v7;
-  v10 = v5;
-  dispatch_group_async(v8, MEMORY[0x1E69E96A0], block);
+  v13 = v6;
+  v14 = v8;
+  v10 = v8;
+  v11 = v6;
+  dispatch_group_async(v9, MEMORY[0x1E69E96A0], block);
 }
 
 void __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_121(uint64_t a1, void *a2, void *a3)
@@ -3079,124 +3104,124 @@ void __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_2
   }
 }
 
-void __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_3(uint64_t a1)
+void __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v4[3] = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v5[3] = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXHistory(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_3_cold_1(v4, [*(a1 + 32) count]);
+    __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_3_cold_1(v5, [*(a1 + 32) count]);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 112));
   [WeakRetained historyStore:*(a1 + 40) didRemoveHostnames:*(a1 + 32)];
 }
 
-uint64_t __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_126(uint64_t a1)
+uint64_t __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_126(uint64_t a1, uint64_t a2)
 {
-  v4[3] = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v5[3] = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXHistory(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_126_cold_1(v4, [*(a1 + 32) count]);
+    __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_126_cold_1(v5, [*(a1 + 32) count]);
   }
 
   return [*(a1 + 40) historyStore:*(a1 + 48) didRemoveHighLevelDomains:*(a1 + 32)];
 }
 
-void __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_127(uint64_t a1)
+void __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_127(uint64_t a1, uint64_t a2)
 {
-  v86 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
-  {
-    __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_127_cold_1(v85, [*(a1 + 32) count]);
-  }
-
-  v3 = WBS_LOG_CHANNEL_PREFIXHistory();
+  v89 = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXHistory(a1, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_127_cold_2(v84, [*(a1 + 40) count]);
+    __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_127_cold_1(v88, [*(a1 + 32) count]);
   }
 
-  v59 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
-  v57 = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
-  v77 = 0u;
-  v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v76 objects:v83 count:16];
-  if (v5)
+  v6 = WBS_LOG_CHANNEL_PREFIXHistory(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *v77;
+    __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_127_cold_2(v87, [*(a1 + 40) count]);
+  }
+
+  v62 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v60 = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
+  v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
+  v7 = *(a1 + 32);
+  v8 = [v7 countByEnumeratingWithState:&v79 objects:v86 count:16];
+  if (v8)
+  {
+    v9 = *v80;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v77 != v6)
+        if (*v80 != v9)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v7);
         }
 
-        v8 = [*(*(a1 + 48) + 48) visitForID:{objc_msgSend(*(*(&v76 + 1) + 8 * i), "longLongValue")}];
-        if (v8)
+        v11 = [*(*(a1 + 48) + 48) visitForID:{objc_msgSend(*(*(&v79 + 1) + 8 * i), "longLongValue")}];
+        if (v11)
         {
-          [v59 addObject:v8];
+          [v62 addObject:v11];
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v76 objects:v83 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v79 objects:v86 count:16];
     }
 
-    while (v5);
+    while (v8);
   }
 
-  v9 = [*(a1 + 56) value];
-  v10 = [v9 safari_dictionaryForKey:@"updateItems"];
+  v12 = [*(a1 + 56) value];
+  v13 = [v12 safari_dictionaryForKey:@"updateItems"];
 
-  v74 = 0u;
+  v77 = 0u;
+  v78 = 0u;
   v75 = 0u;
-  v72 = 0u;
-  v73 = 0u;
-  obj = v10;
-  v11 = [obj countByEnumeratingWithState:&v72 objects:v82 count:16];
-  if (v11)
+  v76 = 0u;
+  obj = v13;
+  v14 = [obj countByEnumeratingWithState:&v75 objects:v85 count:16];
+  if (v14)
   {
-    v12 = *v73;
+    v15 = *v76;
     while (2)
     {
-      for (j = 0; j != v11; ++j)
+      for (j = 0; j != v14; ++j)
       {
-        if (*v73 != v12)
+        if (*v76 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v72 + 1) + 8 * j);
-        v15 = [*(*(a1 + 48) + 48) itemForID:{objc_msgSend(v14, "longLongValue")}];
-        if (!v15)
+        v17 = *(*(&v75 + 1) + 8 * j);
+        v18 = [*(*(a1 + 48) + 48) itemForID:{objc_msgSend(v17, "longLongValue")}];
+        if (!v18)
         {
-          v16 = [obj objectForKeyedSubscript:v14];
-          v17 = *(a1 + 64);
-          v18 = *(a1 + 48);
-          v56 = v16;
-          v19 = [v16 url];
-          v15 = [v17 historyStore:v18 itemForURLString:v19 createIfNeeded:1];
+          v19 = [obj objectForKeyedSubscript:v17];
+          v20 = *(a1 + 64);
+          v21 = *(a1 + 48);
+          v59 = v19;
+          v22 = [v19 url];
+          v18 = [v20 historyStore:v21 itemForURLString:v22 createIfNeeded:1];
 
-          if (!v15)
+          if (!v18)
           {
-            v58 = obj;
+            v61 = obj;
             goto LABEL_68;
           }
 
-          [v15 updateWithServiceItem:v56];
-          [*(*(a1 + 48) + 48) setItem:v15 forID:{objc_msgSend(v14, "longLongValue")}];
+          [v18 updateWithServiceItem:v59];
+          [*(*(a1 + 48) + 48) setItem:v18 forID:{objc_msgSend(v17, "longLongValue")}];
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v72 objects:v82 count:16];
-      if (v11)
+      v14 = [obj countByEnumeratingWithState:&v75 objects:v85 count:16];
+      if (v14)
       {
         continue;
       }
@@ -3205,169 +3230,169 @@ void __56__WBSHistoryServiceStore_handleEvent_completionHandler___block_invoke_1
     }
   }
 
-  v20 = [*(a1 + 56) value];
-  v54 = [v20 safari_dictionaryForKey:@"updateVisits"];
+  v23 = [*(a1 + 56) value];
+  v57 = [v23 safari_dictionaryForKey:@"updateVisits"];
 
-  v56 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v54, "count")}];
+  v59 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v57, "count")}];
+  v72 = 0u;
+  v73 = 0u;
+  v74 = 1065353216;
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
-  v71 = 1065353216;
-  v65 = 0u;
-  v66 = 0u;
-  v67 = 0u;
-  v68 = 0u;
-  v58 = v54;
-  v21 = [v58 countByEnumeratingWithState:&v65 objects:v81 count:16];
-  if (v21)
+  v71 = 0u;
+  v61 = v57;
+  v24 = [v61 countByEnumeratingWithState:&v68 objects:v84 count:16];
+  if (v24)
   {
-    v22 = *v66;
+    v25 = *v69;
     do
     {
-      for (k = 0; k != v21; ++k)
+      for (k = 0; k != v24; ++k)
       {
-        if (*v66 != v22)
+        if (*v69 != v25)
         {
-          objc_enumerationMutation(v58);
+          objc_enumerationMutation(v61);
         }
 
-        v24 = *(*(&v65 + 1) + 8 * k);
-        v25 = [*(*(a1 + 48) + 48) visitForID:{objc_msgSend(v24, "longLongValue", v54)}];
-        if (!v25)
+        v27 = *(*(&v68 + 1) + 8 * k);
+        v28 = [*(*(a1 + 48) + 48) visitForID:{objc_msgSend(v27, "longLongValue", v57)}];
+        if (!v28)
         {
-          v26 = [v58 objectForKeyedSubscript:v24];
-          v27 = [*(*(a1 + 48) + 48) itemForID:{objc_msgSend(v26, "itemID")}];
-          if (v27)
+          v29 = [v61 objectForKeyedSubscript:v27];
+          v30 = [*(*(a1 + 48) + 48) itemForID:{objc_msgSend(v29, "itemID")}];
+          if (v30)
           {
-            [v26 visitTime];
-            v28 = [v27 visitForTimeOnSynchronizationQueue:?];
-            if (v28)
+            [v29 visitTime];
+            v31 = [v30 visitForTimeOnSynchronizationQueue:?];
+            if (v31)
             {
-              v25 = v28;
-              [v28 setDatabaseID:{objc_msgSend(v26, "databaseID")}];
+              v28 = v31;
+              [v31 setDatabaseID:{objc_msgSend(v29, "databaseID")}];
             }
 
             else
             {
-              v29 = [[WBSHistoryVisit alloc] initWithHistoryItem:v27 serviceVisit:v26];
-              [v56 addObject:v29];
-              v30 = [v24 longLongValue];
-              v31 = [v26 redirectSource];
-              v32 = [v26 redirectDestination];
-              v64[0] = v30;
-              v64[1] = v31;
-              v64[2] = v32;
-              std::__hash_table<std::__hash_value_type<long long,VisitRedirectInformation>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,VisitRedirectInformation>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,VisitRedirectInformation>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,VisitRedirectInformation>>>::__emplace_unique_key_args<long long,std::pair<long long,VisitRedirectInformation>>(&v69, v64);
-              v25 = v29;
+              v32 = [[WBSHistoryVisit alloc] initWithHistoryItem:v30 serviceVisit:v29];
+              [v59 addObject:v32];
+              v33 = [v27 longLongValue];
+              v34 = [v29 redirectSource];
+              v35 = [v29 redirectDestination];
+              v67[0] = v33;
+              v67[1] = v34;
+              v67[2] = v35;
+              std::__hash_table<std::__hash_value_type<long long,VisitRedirectInformation>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,VisitRedirectInformation>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,VisitRedirectInformation>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,VisitRedirectInformation>>>::__emplace_unique_key_args<long long,std::pair<long long,VisitRedirectInformation>>(&v72, v67, v67);
+              v28 = v32;
             }
 
-            [*(*(a1 + 48) + 48) setVisit:v25 forID:{objc_msgSend(v24, "longLongValue")}];
+            [*(*(a1 + 48) + 48) setVisit:v28 forID:{objc_msgSend(v27, "longLongValue")}];
           }
 
           else
           {
-            v25 = 0;
+            v28 = 0;
           }
         }
       }
 
-      v21 = [v58 countByEnumeratingWithState:&v65 objects:v81 count:16];
+      v24 = [v61 countByEnumeratingWithState:&v68 objects:v84 count:16];
     }
 
-    while (v21);
+    while (v24);
   }
 
-  for (m = v70; m; m = *m)
+  for (m = v73; m; m = *m)
   {
-    v34 = [*(*(a1 + 48) + 48) visitForID:{m[2], v54}];
-    v35 = m[4];
+    v37 = [*(*(a1 + 48) + 48) visitForID:{m[2], v57}];
+    v38 = m[4];
     if (m[3])
     {
-      v36 = [*(*(a1 + 48) + 48) visitForID:?];
-      [v34 setRedirectSource:v36];
+      v39 = [*(*(a1 + 48) + 48) visitForID:?];
+      [v37 setRedirectSource:v39];
     }
 
-    if (v35)
+    if (v38)
     {
-      v37 = [*(*(a1 + 48) + 48) visitForID:v35];
-      [v34 setRedirectDestination:v37];
+      v40 = [*(*(a1 + 48) + 48) visitForID:v38];
+      [v37 setRedirectDestination:v40];
     }
   }
 
-  v62 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   v63 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v38 = *(a1 + 40);
-  v39 = [v38 countByEnumeratingWithState:&v60 objects:v80 count:16];
-  if (v39)
+  v64 = 0u;
+  v41 = *(a1 + 40);
+  v42 = [v41 countByEnumeratingWithState:&v63 objects:v83 count:16];
+  if (v42)
   {
-    v40 = *v61;
+    v43 = *v64;
     do
     {
-      for (n = 0; n != v39; ++n)
+      for (n = 0; n != v42; ++n)
       {
-        if (*v61 != v40)
+        if (*v64 != v43)
         {
-          objc_enumerationMutation(v38);
+          objc_enumerationMutation(v41);
         }
 
-        v42 = *(*(&v60 + 1) + 8 * n);
-        v43 = [*(a1 + 40) safari_numberForKey:{v42, v54}];
-        if (v43)
+        v45 = *(*(&v63 + 1) + 8 * n);
+        v46 = [*(a1 + 40) safari_numberForKey:{v45, v57}];
+        if (v46)
         {
-          v44 = [*(*(a1 + 48) + 48) itemForID:{objc_msgSend(v42, "longLongValue")}];
-          v45 = [*(*(a1 + 48) + 48) visitForID:{objc_msgSend(v43, "longLongValue")}];
-          if (v45)
+          v47 = [*(*(a1 + 48) + 48) itemForID:{objc_msgSend(v45, "longLongValue")}];
+          v48 = [*(*(a1 + 48) + 48) visitForID:{objc_msgSend(v46, "longLongValue")}];
+          if (v48)
           {
-            v46 = v44 == 0;
+            v49 = v47 == 0;
           }
 
           else
           {
-            v46 = 1;
+            v49 = 1;
           }
 
-          if (!v46)
+          if (!v49)
           {
-            [v57 setObject:v45 forKey:v44];
+            [v60 setObject:v48 forKey:v47];
           }
         }
       }
 
-      v39 = [v38 countByEnumeratingWithState:&v60 objects:v80 count:16];
+      v42 = [v41 countByEnumeratingWithState:&v63 objects:v83 count:16];
     }
 
-    while (v39);
+    while (v42);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 48) + 112));
   if (WeakRetained)
   {
-    v48 = v56;
-    if ([v59 count])
-    {
-      v49 = *(a1 + 48);
-      v50 = [v59 allObjects];
-      [WeakRetained historyStore:v49 didRemoveVisits:v50];
-
-      v51 = [[WBSHistoryDeletionPlan alloc] initWithSQLiteStore:*(a1 + 48) triggeringVisits:v59 updatedLastVisitsByItem:v57];
-      if (v51)
-      {
-        [WeakRetained historyStore:*(a1 + 48) didPrepareToDeleteWithDeletionPlan:v51];
-      }
-
-      v48 = v56;
-    }
-
-    if ([v48 count])
+    v51 = v59;
+    if ([v62 count])
     {
       v52 = *(a1 + 48);
-      v53 = [v56 allObjects];
-      [WeakRetained historyStore:v52 didAddVisits:v53];
+      v53 = [v62 allObjects];
+      [WeakRetained historyStore:v52 didRemoveVisits:v53];
+
+      v54 = [[WBSHistoryDeletionPlan alloc] initWithSQLiteStore:*(a1 + 48) triggeringVisits:v62 updatedLastVisitsByItem:v60];
+      if (v54)
+      {
+        [WeakRetained historyStore:*(a1 + 48) didPrepareToDeleteWithDeletionPlan:v54];
+      }
+
+      v51 = v59;
+    }
+
+    if ([v51 count])
+    {
+      v55 = *(a1 + 48);
+      v56 = [v59 allObjects];
+      [WeakRetained historyStore:v55 didAddVisits:v56];
     }
   }
 
-  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(&v69);
+  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(&v72);
 LABEL_68:
 }
 
@@ -3609,12 +3634,13 @@ void __66__WBSHistoryServiceStore_connectionProxyConnectionWasInterrupted___bloc
 {
   v9 = a2;
   v10 = a5;
+  v12 = v10;
   if (v10)
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXHistory(v10, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [v10 safari_privacyPreservingDescription];
+      [v12 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __66__WBSHistoryServiceStore_connectionProxyConnectionWasInterrupted___block_invoke_cold_1();
     }

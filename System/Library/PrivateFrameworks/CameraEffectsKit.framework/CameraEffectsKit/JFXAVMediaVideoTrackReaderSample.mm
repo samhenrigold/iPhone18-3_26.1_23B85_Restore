@@ -53,8 +53,8 @@
 
 - ($AC64C642040120CEEAD84DEEACA9A5CE)timeRange
 {
-  [(JFXAVMediaVideoTrackReaderSample *)self presentationTimeStamp];
-  [(JFXAVMediaVideoTrackReaderSample *)self duration];
+  objc_msgSend_presentationTimeStamp(self, a3);
+  objc_msgSend_duration(self);
   return CMTimeRangeMake(retstr, &start, &v6);
 }
 

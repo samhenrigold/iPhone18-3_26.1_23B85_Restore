@@ -153,7 +153,7 @@ void std::__shared_ptr_emplace<mediaplatform::DatabaseParameter<std::string>>::~
   JUMPOUT(0x1DA6EDD40);
 }
 
-uint64_t mlcore::ComparisonPredicate<std::string>::matches(uint64_t a1, void *a2)
+BOOL mlcore::ComparisonPredicate<std::string>::matches(uint64_t a1, void *a2)
 {
   mlcore::PropertyCacheBase<std::string,mediaplatform::Data>::valueForProperty(&__p, *a2 + 8, *(a1 + 8));
   v3 = mlcore::_string_matches((a1 + 24), *(a1 + 20), &__p);
@@ -175,7 +175,7 @@ void sub_1D5948C84(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t mlcore::_string_matches(char *a1, int a2, char *a3)
+BOOL mlcore::_string_matches(char *a1, int a2, char *a3)
 {
   if (a2 > 4)
   {
@@ -325,7 +325,7 @@ uint64_t mlcore::_string_matches(char *a1, int a2, char *a3)
             v43 = &v32[v31];
             do
             {
-              v44 = v42 + 1;
+              v44 = (v42 + 1);
               while (*v42 != v40)
               {
                 ++v42;
@@ -561,7 +561,7 @@ LABEL_130:
   return memcmp(a1, v29, v25) == 0;
 }
 
-uint64_t mlcore::ComparisonPredicate<std::string>::description@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t mlcore::ComparisonPredicate<std::string>::description@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v24);
   v4 = *(a1 + 8);
@@ -716,31 +716,32 @@ uint64_t mlcore::ComparisonPredicate<std::string>::~ComparisonPredicate(uint64_t
 
 void mlcore::ComparisonPredicate<double>::_SQLExpression(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = (a1 + 32);
   if (!*(a1 + 32))
   {
     operator new();
   }
 
-  v2 = *(a1 + 8);
-  v3 = a2[1];
-  v4 = *a2;
-  v5 = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  (*(*v2 + 96))(&v6);
+  v4 = *(a1 + 8);
+  v5 = a2[1];
+  v6[2] = *a2;
+  v7 = v5;
   if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::allocate_shared[abi:ne200100]<mediaplatform::DatabaseBindParameter,std::allocator<mediaplatform::DatabaseBindParameter>,std::shared_ptr<mediaplatform::DatabaseParameter<int>> &,0>();
+  (*(*v4 + 96))(&v8);
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+
+  std::allocate_shared[abi:ne200100]<mediaplatform::DatabaseBindParameter,std::allocator<mediaplatform::DatabaseBindParameter>,std::shared_ptr<mediaplatform::DatabaseParameter<int>> &,0>(v6, v3);
 }
 
-void sub_1D5949A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22, uint64_t a23, uint64_t a24, char a25)
+void sub_1D5949A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__destroy_vector::operator()[abi:ne200100](&a9);
   v26 = 24;
@@ -828,7 +829,7 @@ LABEL_14:
   }
 }
 
-uint64_t mlcore::ComparisonPredicate<double>::description@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t mlcore::ComparisonPredicate<double>::description@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v18);
   v4 = *(a1 + 8);
@@ -945,31 +946,32 @@ void *mlcore::ComparisonPredicate<double>::~ComparisonPredicate(void *a1)
 
 void mlcore::ComparisonPredicate<int>::_SQLExpression(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = (a1 + 32);
   if (!*(a1 + 32))
   {
     operator new();
   }
 
-  v2 = *(a1 + 8);
-  v3 = a2[1];
-  v4 = *a2;
-  v5 = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  (*(*v2 + 96))(&v6);
+  v4 = *(a1 + 8);
+  v5 = a2[1];
+  v6[2] = *a2;
+  v7 = v5;
   if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::allocate_shared[abi:ne200100]<mediaplatform::DatabaseBindParameter,std::allocator<mediaplatform::DatabaseBindParameter>,std::shared_ptr<mediaplatform::DatabaseParameter<int>> &,0>();
+  (*(*v4 + 96))(&v8);
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+
+  std::allocate_shared[abi:ne200100]<mediaplatform::DatabaseBindParameter,std::allocator<mediaplatform::DatabaseBindParameter>,std::shared_ptr<mediaplatform::DatabaseParameter<int>> &,0>(v6, v3);
 }
 
-void sub_1D594A7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22, uint64_t a23, uint64_t a24, char a25)
+void sub_1D594A7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__destroy_vector::operator()[abi:ne200100](&a9);
   v26 = 24;
@@ -1068,7 +1070,7 @@ LABEL_22:
   }
 }
 
-uint64_t mlcore::ComparisonPredicate<int>::description@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t mlcore::ComparisonPredicate<int>::description@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v18);
   v4 = *(a1 + 8);
@@ -1185,31 +1187,32 @@ void *mlcore::ComparisonPredicate<int>::~ComparisonPredicate(void *a1)
 
 void mlcore::ComparisonPredicate<mediaplatform::Data>::_SQLExpression(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = (a1 + 64);
   if (!*(a1 + 64))
   {
     operator new();
   }
 
-  v2 = *(a1 + 8);
-  v3 = a2[1];
-  v4 = *a2;
-  v5 = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  (*(*v2 + 96))(&v6);
+  v4 = *(a1 + 8);
+  v5 = a2[1];
+  v6[2] = *a2;
+  v7 = v5;
   if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::allocate_shared[abi:ne200100]<mediaplatform::DatabaseBindParameter,std::allocator<mediaplatform::DatabaseBindParameter>,std::shared_ptr<mediaplatform::DatabaseParameter<int>> &,0>();
+  (*(*v4 + 96))(&v8);
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+
+  std::allocate_shared[abi:ne200100]<mediaplatform::DatabaseBindParameter,std::allocator<mediaplatform::DatabaseBindParameter>,std::shared_ptr<mediaplatform::DatabaseParameter<int>> &,0>(v6, v3);
 }
 
-void sub_1D594B474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22, uint64_t a23, uint64_t a24, char a25)
+void sub_1D594B474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__destroy_vector::operator()[abi:ne200100](&a9);
   v26 = 24;
@@ -1257,14 +1260,14 @@ uint64_t mediaplatform::DatabaseParameter<mediaplatform::Data>::bind(uint64_t a1
   return result;
 }
 
-void sub_1D594B720(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D594B720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   mediaplatform::Data::~Data(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t mediaplatform::DatabaseParameter<mediaplatform::Data>::description@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t mediaplatform::DatabaseParameter<mediaplatform::Data>::description@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   mediaplatform::Data::Data(v4, *(a1 + 32), *(a1 + 16), 1);
   result = mediaplatform::SQLStringValue<mediaplatform::Data>(a2, v4);
@@ -1281,9 +1284,9 @@ uint64_t mediaplatform::DatabaseParameter<mediaplatform::Data>::description@<X0>
   return result;
 }
 
-void sub_1D594B7C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D594B7C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   mediaplatform::Data::~Data(va);
   _Unwind_Resume(a1);
 }
@@ -1328,7 +1331,7 @@ void std::__shared_ptr_emplace<mediaplatform::DatabaseParameter<mediaplatform::D
   JUMPOUT(0x1DA6EDD40);
 }
 
-uint64_t mlcore::ComparisonPredicate<mediaplatform::Data>::matches(uint64_t a1, void *a2)
+BOOL mlcore::ComparisonPredicate<mediaplatform::Data>::matches(uint64_t a1, void *a2)
 {
   v2 = a1;
   mlcore::PropertyCacheBase<mediaplatform::Data>::valueForProperty(v9, *a2 + 8, *(a1 + 8));
@@ -1371,7 +1374,7 @@ void sub_1D594BA84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t __len)
+void *std::string::basic_string[abi:ne200100](void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -1383,17 +1386,17 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, __src, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   return __dst;
 }
 
-uint64_t mlcore::ComparisonPredicate<mediaplatform::Data>::description@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t mlcore::ComparisonPredicate<mediaplatform::Data>::description@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v21);
   v4 = *(a1 + 8);
@@ -1558,35 +1561,35 @@ uint64_t mlcore::ComparisonPredicate<mediaplatform::Data>::~ComparisonPredicate(
 
 void mlcore::ComparisonPropertyPredicate::_SQLExpression(uint64_t a1, uint64_t *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 8);
-  v5 = a2[1];
-  v12 = *a2;
-  v13 = v5;
-  if (v5)
+  v22 = *MEMORY[0x1E69E9840];
+  v5 = *(a1 + 8);
+  v6 = a2[1];
+  v15 = *a2;
+  v16 = v6;
+  if (v6)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  (*(*v4 + 96))(&v14);
+  (*(*v5 + 96))(&v17);
+  if (v16)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+  }
+
+  v7 = *(a1 + 24);
+  v8 = a2[1];
+  v12 = *a2;
+  v13 = v8;
+  if (v8)
+  {
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  (*(*v7 + 96))(&v14);
   if (v13)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v13);
-  }
-
-  v6 = *(a1 + 24);
-  v7 = a2[1];
-  v9 = *a2;
-  v10 = v7;
-  if (v7)
-  {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  (*(*v6 + 96))(&v11);
-  if (v10)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
   if ((*(a1 + 16) & 4) == 0)
@@ -1595,81 +1598,81 @@ void mlcore::ComparisonPropertyPredicate::_SQLExpression(uint64_t a1, uint64_t *
     operator new();
   }
 
-  v8 = (*(**(a1 + 8) + 80))(*(a1 + 8));
-  if (v8 <= 1)
+  v9 = (*(**(a1 + 8) + 80))(*(a1 + 8));
+  if (v9 <= 1)
   {
-    if (!v8)
+    if (!v9)
     {
-      v16 = v14;
-      if (*(&v14 + 1))
+      v19[0] = v17;
+      if (*(&v17 + 1))
       {
-        atomic_fetch_add_explicit((*(&v14 + 1) + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((*(&v17 + 1) + 8), 1uLL, memory_order_relaxed);
       }
 
-      LODWORD(v15) = 0;
-      std::allocate_shared[abi:ne200100]<mediaplatform::SQLLiteralValue<int>,std::allocator<mediaplatform::SQLLiteralValue<int>>,int,0>();
+      LODWORD(v18) = 0;
+      std::allocate_shared[abi:ne200100]<mediaplatform::SQLLiteralValue<int>,std::allocator<mediaplatform::SQLLiteralValue<int>>,int,0>(&v11, &v18);
     }
 
-    if (v8 == 1)
+    if (v9 == 1)
     {
-      v16 = v14;
-      if (*(&v14 + 1))
+      v19[0] = v17;
+      if (*(&v17 + 1))
       {
-        atomic_fetch_add_explicit((*(&v14 + 1) + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((*(&v17 + 1) + 8), 1uLL, memory_order_relaxed);
       }
 
-      LODWORD(v15) = 0;
-      std::allocate_shared[abi:ne200100]<mediaplatform::SQLLiteralValue<long long>,std::allocator<mediaplatform::SQLLiteralValue<long long>>,int,0>();
+      LODWORD(v18) = 0;
+      std::allocate_shared[abi:ne200100]<mediaplatform::SQLLiteralValue<long long>,std::allocator<mediaplatform::SQLLiteralValue<long long>>,int,0>(&v11, &v18);
     }
   }
 
   else
   {
-    switch(v8)
+    switch(v9)
     {
       case 2:
-        v16 = v14;
-        if (*(&v14 + 1))
+        v19[0] = v17;
+        if (*(&v17 + 1))
         {
-          atomic_fetch_add_explicit((*(&v14 + 1) + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((*(&v17 + 1) + 8), 1uLL, memory_order_relaxed);
         }
 
-        LODWORD(v15) = 0;
-        std::allocate_shared[abi:ne200100]<mediaplatform::SQLLiteralValue<double>,std::allocator<mediaplatform::SQLLiteralValue<double>>,int,0>();
+        LODWORD(v18) = 0;
+        std::allocate_shared[abi:ne200100]<mediaplatform::SQLLiteralValue<double>,std::allocator<mediaplatform::SQLLiteralValue<double>>,int,0>(&v11, &v18);
       case 3:
-        v16 = v14;
-        if (*(&v14 + 1))
+        v19[0] = v17;
+        if (*(&v17 + 1))
         {
-          atomic_fetch_add_explicit((*(&v14 + 1) + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((*(&v17 + 1) + 8), 1uLL, memory_order_relaxed);
         }
 
-        std::allocate_shared[abi:ne200100]<mediaplatform::SQLLiteralValue<std::string>,std::allocator<mediaplatform::SQLLiteralValue<std::string>>,char const(&)[1],0>();
+        std::allocate_shared[abi:ne200100]<mediaplatform::SQLLiteralValue<std::string>,std::allocator<mediaplatform::SQLLiteralValue<std::string>>,char const(&)[1],0>(&v11);
       case 4:
-        v19 = v14;
-        if (*(&v14 + 1))
+        v21 = v17;
+        if (*(&v17 + 1))
         {
-          atomic_fetch_add_explicit((*(&v14 + 1) + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((*(&v17 + 1) + 8), 1uLL, memory_order_relaxed);
         }
 
-        *&v16 = &unk_1F50DD860;
-        *(&v16 + 1) = 0;
-        v17 = 0uLL;
-        v18 = 0;
-        std::allocate_shared[abi:ne200100]<mediaplatform::SQLLiteralValue<mediaplatform::Data>,std::allocator<mediaplatform::SQLLiteralValue<mediaplatform::Data>>,mediaplatform::Data,0>();
+        *&v19[0] = &unk_1F50DD860;
+        *(&v19[0] + 1) = 0;
+        v19[1] = 0uLL;
+        LOBYTE(v20) = 0;
+        std::allocate_shared[abi:ne200100]<mediaplatform::SQLLiteralValue<mediaplatform::Data>,std::allocator<mediaplatform::SQLLiteralValue<mediaplatform::Data>>,mediaplatform::Data,0>(&v10, v19);
     }
   }
 
-  v16 = v14;
-  if (*(&v14 + 1))
+  v19[0] = v17;
+  if (*(&v17 + 1))
   {
-    atomic_fetch_add_explicit((*(&v14 + 1) + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((*(&v17 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
-  LODWORD(v15) = 0;
-  std::allocate_shared[abi:ne200100]<mediaplatform::SQLLiteralValue<long long>,std::allocator<mediaplatform::SQLLiteralValue<long long>>,int,0>();
+  LODWORD(v18) = 0;
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLLiteralValue<long long>,std::allocator<mediaplatform::SQLLiteralValue<long long>>,int,0>(&v11, &v18);
 }
 
-void sub_1D594CAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, std::__shared_weak_count *a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1D594CAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, std::__shared_weak_count *a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24, uint64_t a25, uint64_t a26, uint64_t a27)
 {
   std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__destroy_vector::operator()[abi:ne200100](&a9);
   v28 = 24;
@@ -1701,13 +1704,11 @@ void sub_1D594CAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t mlcore::ComparisonPropertyPredicate::_allProperties@<X0>(mlcore::ComparisonPropertyPredicate *this@<X0>, uint64_t a2@<X8>)
 {
-  v5[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v2 = *(this + 3);
-  v5[0] = *(this + 1);
-  v5[1] = v2;
-  result = mlcore::OrderedSet<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>>::OrderedSet(a2, v5, 2);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v4[0] = *(this + 1);
+  v4[1] = v2;
+  return mlcore::OrderedSet<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>>::OrderedSet(a2, v4, 2);
 }
 
 uint64_t mlcore::ComparisonPredicate<long long>::ComparisonPredicate(uint64_t result, uint64_t a2, int a3, void *a4, int a5)
@@ -3265,7 +3266,7 @@ void sub_1D594FBB8()
 
 void sub_1D594FBD4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, void *__p)
 {
-  if (a68 < 0)
+  if (a65 < 0)
   {
     operator delete(__p);
   }
@@ -3283,9 +3284,16 @@ void sub_1D594FBF8(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x1D594FB18);
 }
 
-void sub_1D594FC90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void mediaplatform::DatabaseTable<long long,int,int,int,mediaplatform::Data>::targetColumnExpression(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  va_start(va, a4);
+  v3 = a1 + 8;
+  (*(*a1 + 24))(v4);
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLColumnNameExpression,std::allocator<mediaplatform::SQLColumnNameExpression>,std::string &,std::string const&,0>(a2, v4[0], v3);
+}
+
+void sub_1D594FC90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3302,9 +3310,9 @@ void mediaplatform::DatabaseTable<long long,int,int,int,mediaplatform::Data>::co
   mediaplatform::ColumnNamesApplier::operator()<mediaplatform::Data>(a2, a1 + 80);
 }
 
-void sub_1D594FD18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D594FD18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3760,7 +3768,7 @@ void mediaplatform::SQLUsingJoinConstraint::~SQLUsingJoinConstraint(mediaplatfor
   std::vector<std::shared_ptr<mediaplatform::SQLJoinClause const>>::__destroy_vector::operator()[abi:ne200100](&v1);
 }
 
-uint64_t mediaplatform::SQLJoinClause::sql@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t mediaplatform::SQLJoinClause::sql@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v17);
   v4 = *(a1 + 8);
@@ -3887,13 +3895,13 @@ void mediaplatform::SQLJoinClause::~SQLJoinClause(mediaplatform::SQLJoinClause *
   }
 }
 
-uint64_t mediaplatform::SQLFromStatement::sql@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t mediaplatform::SQLFromStatement::sql@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v20);
   if (a2)
   {
     (*(*a2 + 8))(&v19, a2);
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>((v19.__r_.__value_.__r.__words[0] + 48), (a1 + 8));
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>((v19.__r_.__value_.__r.__words[0] + 48), (a1 + 8), a1 + 8);
     if (v19.__r_.__value_.__l.__size_)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v19.__r_.__value_.__l.__size_);
@@ -3989,7 +3997,7 @@ LABEL_34:
       }
     }
 
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>((v13 + 48), &v19);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>((v13 + 48), &v19, &v19);
     if (v18)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v18);
@@ -4109,7 +4117,6 @@ void *mediaplatform::SQLOnJoinConstraint::SQLOnJoinConstraint(void *result, uint
 void mediaplatform::SQLUsingJoinConstraint::SQLUsingJoinConstraint(void *a1, uint64_t *a2)
 {
   *a1 = &unk_1F50DD0A0;
-  v3 = *a2;
   v2 = a2[1];
   if (v2)
   {
@@ -4133,7 +4140,7 @@ void sub_1D59514CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *mediaplatform::SQLUsingJoinConstraint::SQLUsingJoinConstraint(void *a1, uint64_t *a2)
+void *mediaplatform::SQLUsingJoinConstraint::SQLUsingJoinConstraint(void *a1, void *a2)
 {
   *a1 = &unk_1F50DD0A0;
   a1[2] = 0;
@@ -4143,16 +4150,7 @@ void *mediaplatform::SQLUsingJoinConstraint::SQLUsingJoinConstraint(void *a1, ui
   return a1;
 }
 
-{
-  *a1 = &unk_1F50DD0A0;
-  a1[2] = 0;
-  a1[3] = 0;
-  a1[1] = 0;
-  std::vector<std::shared_ptr<mediaplatform::SQLColumnNameExpression const>>::__init_with_size[abi:ne200100]<std::shared_ptr<mediaplatform::SQLColumnNameExpression const>*,std::shared_ptr<mediaplatform::SQLColumnNameExpression const>*>((a1 + 1), *a2, a2[1], (a2[1] - *a2) >> 4);
-  return a1;
-}
-
-void std::vector<std::shared_ptr<mediaplatform::SQLColumnNameExpression const>>::__init_with_size[abi:ne200100]<std::shared_ptr<mediaplatform::SQLColumnNameExpression const>*,std::shared_ptr<mediaplatform::SQLColumnNameExpression const>*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<std::shared_ptr<mediaplatform::SQLColumnNameExpression const>>::__init_with_size[abi:ne200100]<std::shared_ptr<mediaplatform::SQLColumnNameExpression const>*,std::shared_ptr<mediaplatform::SQLColumnNameExpression const>*>(uint64_t result, void *a2, void *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4163,6 +4161,16 @@ void std::vector<std::shared_ptr<mediaplatform::SQLColumnNameExpression const>>:
 
     std::vector<std::string>::__throw_length_error[abi:ne200100]();
   }
+}
+
+void *mediaplatform::SQLUsingJoinConstraint::SQLUsingJoinConstraint(void *a1, void **a2)
+{
+  *a1 = &unk_1F50DD0A0;
+  a1[2] = 0;
+  a1[3] = 0;
+  a1[1] = 0;
+  std::vector<std::shared_ptr<mediaplatform::SQLColumnNameExpression const>>::__init_with_size[abi:ne200100]<std::shared_ptr<mediaplatform::SQLColumnNameExpression const>*,std::shared_ptr<mediaplatform::SQLColumnNameExpression const>*>((a1 + 1), *a2, a2[1], (a2[1] - *a2) >> 4);
+  return a1;
 }
 
 uint64_t mediaplatform::SQLJoinClause::SQLJoinClause(uint64_t a1, int a2, __int128 *a3, void *a4)
@@ -4192,7 +4200,7 @@ uint64_t mediaplatform::SQLJoinClause::SQLJoinClause(uint64_t a1, int a2, __int1
   return a1;
 }
 
-uint64_t mediaplatform::SQLFromStatement::SQLFromStatement(uint64_t a1, __int128 *a2, uint64_t *a3)
+uint64_t mediaplatform::SQLFromStatement::SQLFromStatement(uint64_t a1, __int128 *a2, void **a3)
 {
   *a1 = &unk_1F50DD0F0;
   if (*(a2 + 23) < 0)
@@ -4224,7 +4232,7 @@ void sub_1D59517C4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::shared_ptr<mediaplatform::SQLJoinClause const>>::__init_with_size[abi:ne200100]<std::shared_ptr<mediaplatform::SQLJoinClause const>*,std::shared_ptr<mediaplatform::SQLJoinClause const>*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<std::shared_ptr<mediaplatform::SQLJoinClause const>>::__init_with_size[abi:ne200100]<std::shared_ptr<mediaplatform::SQLJoinClause const>*,std::shared_ptr<mediaplatform::SQLJoinClause const>*>(uint64_t result, void *a2, void *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4237,13 +4245,13 @@ void std::vector<std::shared_ptr<mediaplatform::SQLJoinClause const>>::__init_wi
   }
 }
 
-void *mediaplatform::SQLFromStatement::addJoinClause(void *result, _OWORD *a2)
+void *mediaplatform::SQLFromStatement::addJoinClause(void *result, __int128 *a2)
 {
   v2 = result;
   v17 = *a2;
   if (*(a2 + 1))
   {
-    atomic_fetch_add_explicit(((*(a2 + 8) >> 64) + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((*(a2 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   v4 = result[5];
@@ -5715,51 +5723,51 @@ mlcore::ItemArtistTable *mlcore::ItemArtistTable::ItemArtistTable(mlcore::ItemAr
 
 void sub_1D59545A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, _Unwind_Exception *exception_objecta, uint64_t a20, void **a21, void **a22, uint64_t a23, void **a24, void **a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void **a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, unint64_t a39, unint64_t a40, unint64_t a41, unint64_t a42, unint64_t a43, unint64_t a44, unint64_t a45, unint64_t a46, void *a47, uint64_t a48, int a49, __int16 a50, char a51, char a52, uint64_t a53, void *__p, uint64_t a55, int a56, __int16 a57, char a58, char a59, uint64_t a60, uint64_t a61, void *a62, uint64_t a63)
 {
-  *(v77 + 1776) = v80;
-  if (*(v77 + 1807) < 0)
-  {
-    operator delete(*v81);
-  }
-
-  mediaplatform::DatabaseColumn<mediaplatform::Data>::~DatabaseColumn(v82);
-  *(v77 + 1648) = v79;
-  if (*(v77 + 1679) < 0)
+  *(v72 + 1776) = v75;
+  if (*(v72 + 1807) < 0)
   {
     operator delete(*v76);
   }
 
-  *(v77 + 1600) = a20;
-  if (*(v77 + 1631) < 0)
+  mediaplatform::DatabaseColumn<mediaplatform::Data>::~DatabaseColumn(v77);
+  *(v72 + 1648) = v74;
+  if (*(v72 + 1679) < 0)
   {
-    operator delete(*v78);
+    operator delete(*v71);
   }
 
-  *(v77 + 1552) = a23;
-  if (*(v77 + 1583) < 0)
+  *(v72 + 1600) = a20;
+  if (*(v72 + 1631) < 0)
   {
-    operator delete(*v75);
+    operator delete(*v73);
   }
 
-  *(v77 + 1504) = a26;
-  if (*(v77 + 1535) < 0)
+  *(v72 + 1552) = a23;
+  if (*(v72 + 1583) < 0)
+  {
+    operator delete(*v70);
+  }
+
+  *(v72 + 1504) = a26;
+  if (*(v72 + 1535) < 0)
   {
     operator delete(*a21);
   }
 
-  *(v77 + 1456) = a27;
-  if (*(v77 + 1487) < 0)
+  *(v72 + 1456) = a27;
+  if (*(v72 + 1487) < 0)
   {
     operator delete(*a22);
   }
 
-  *(v77 + 1408) = a28;
-  if (*(v77 + 1439) < 0)
+  *(v72 + 1408) = a28;
+  if (*(v72 + 1439) < 0)
   {
     operator delete(*a24);
   }
 
-  *(v77 + 1360) = a29;
-  if (*(v77 + 1391) < 0)
+  *(v72 + 1360) = a29;
+  if (*(v72 + 1391) < 0)
   {
     operator delete(*a25);
   }
@@ -5769,13 +5777,13 @@ void sub_1D59545A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   mediaplatform::DatabaseColumn<std::string>::~DatabaseColumn(a32);
   mediaplatform::DatabaseColumn<std::string>::~DatabaseColumn(a33);
   mediaplatform::DatabaseColumn<std::string>::~DatabaseColumn(a34);
-  *(v77 + 976) = a35;
-  if (*(v77 + 1007) < 0)
+  *(v72 + 976) = a35;
+  if (*(v72 + 1007) < 0)
   {
     operator delete(*a31);
   }
 
-  mediaplatform::DatabaseTable<long long,std::string,std::string,std::string,std::string,mediaplatform::Data,int,long long,long long,int,int,int,int,mediaplatform::Data,long long,int>::~DatabaseTable(v77);
+  mediaplatform::DatabaseTable<long long,std::string,std::string,std::string,std::string,mediaplatform::Data,int,long long,long long,int,int,int,int,mediaplatform::Data,long long,int>::~DatabaseTable(v72);
   if (a59 < 0)
   {
     operator delete(__p);
@@ -5786,20 +5794,20 @@ void sub_1D59545A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a47);
   }
 
-  if (a72 < 0)
+  if (a67 < 0)
   {
-    operator delete(a69);
+    operator delete(a66);
   }
 
-  if (a67 < 0)
+  if (a65 < 0)
   {
     operator delete(a62);
   }
 
-  mediaplatform::DatabaseColumn<mediaplatform::Data>::~DatabaseColumn(&a75);
-  if (a74 < 0)
+  mediaplatform::DatabaseColumn<mediaplatform::Data>::~DatabaseColumn(&a70);
+  if (a69 < 0)
   {
-    operator delete(a73);
+    operator delete(a68);
   }
 
   STACK[0x240] = a39;
@@ -5971,9 +5979,16 @@ void sub_1D5954F28()
   JUMPOUT(0x1D5954C60);
 }
 
-void sub_1D5955060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void mediaplatform::DatabaseTable<long long,std::string,std::string,std::string,std::string,mediaplatform::Data,int,long long,long long,int,int,int,int,mediaplatform::Data,long long,int>::targetColumnExpression(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  va_start(va, a4);
+  v3 = a1 + 8;
+  (*(*a1 + 24))(v4);
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLColumnNameExpression,std::allocator<mediaplatform::SQLColumnNameExpression>,std::string &,std::string const&,0>(a2, v4[0], v3);
+}
+
+void sub_1D5955060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6001,9 +6016,9 @@ void mediaplatform::DatabaseTable<long long,std::string,std::string,std::string,
   mediaplatform::ColumnNamesApplier::operator()<int>(a2, a1 + 80);
 }
 
-void sub_1D595516C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D595516C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7737,7 +7752,7 @@ void sub_1D5958EEC()
 
 void sub_1D5958F08(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (a70 < 0)
+  if (a66 < 0)
   {
     operator delete(__p);
   }
@@ -9127,7 +9142,7 @@ void sub_1D595C070()
 
 void sub_1D595C08C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (a72 < 0)
+  if (a66 < 0)
   {
     operator delete(__p);
   }
@@ -9943,21 +9958,4 @@ std::vector<std::string> *mlcore::LanguageResources::LanguageResources(std::vect
   __p.__r_.__value_.__r.__words[0] = &v20.__r_.__value_.__l.__size_;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
   return this;
-}
-
-void sub_1D595D914(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10, std::exception_vtbl *a11, void **a12, std::exception a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38)
-{
-  mediaplatform::PlatformErrorCondition::~PlatformErrorCondition(&a13);
-  *(v38 - 128) = &unk_1F50DE578;
-  a13.__vftable = (v38 - 120);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a13);
-  if (*(a12 + 119) < 0)
-  {
-    operator delete(*a10);
-  }
-
-  a13.__vftable = a11;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a13);
-  mlcore::LocalizedSectionsInfo::~LocalizedSectionsInfo(a12);
-  _Unwind_Resume(a1);
 }

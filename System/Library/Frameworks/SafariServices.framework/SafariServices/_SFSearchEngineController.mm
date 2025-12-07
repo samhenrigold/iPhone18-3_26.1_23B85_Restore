@@ -499,7 +499,7 @@ LABEL_12:
 
 - (void)_loadSystemPropertiesForSearchEngine:(id)engine
 {
-  v41[2] = *MEMORY[0x1E69E9840];
+  v45[2] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DF58];
   engineCopy = engine;
   currentLocale = [v4 currentLocale];
@@ -525,12 +525,12 @@ LABEL_12:
   v14 = WBSSearchProviderBaiduTrackingCodeTemplateParameterValues();
   v15 = [v14 mutableCopy];
 
-  v41[0] = v13;
-  v40[0] = @"languageCode";
-  v40[1] = @"primaryLanguageCode";
+  v45[0] = v13;
+  v44[0] = @"languageCode";
+  v44[1] = @"primaryLanguageCode";
   v16 = [(__CFString *)v13 substringToIndex:2];
-  v41[1] = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:2];
+  v45[1] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:2];
   [v15 addEntriesFromDictionary:v17];
 
   v18 = [v15 copy];
@@ -542,65 +542,65 @@ LABEL_12:
   {
     v20 = [objc_alloc(MEMORY[0x1E6965090]) initWithSlot:1];
     v21 = [objc_alloc(MEMORY[0x1E69650A0]) initWithQueue:0];
-    v37 = 0;
-    v22 = [v21 copyMobileSubscriberCountryCode:v20 error:&v37];
-    v23 = v37;
+    v41 = 0;
+    v22 = [v21 copyMobileSubscriberCountryCode:v20 error:&v41];
+    v23 = v41;
     if ([v22 length])
     {
-      v34 = v22;
-      v36 = v23;
-      v24 = [v21 copyMobileSubscriberNetworkCode:v20 error:&v36];
-      v25 = v36;
+      v38 = v22;
+      v40 = v23;
+      v25 = [v21 copyMobileSubscriberNetworkCode:v20 error:&v40];
+      v26 = v40;
 
-      if ([v24 length])
+      if ([v25 length])
       {
-        v33 = v24;
-        v35 = v25;
-        v32 = [objc_alloc(MEMORY[0x1E6964F68]) initWithBundleType:1];
-        v26 = [v21 copyCarrierBundleValue:v20 key:@"CarrierName" bundleType:? error:?];
-        v23 = v35;
+        v37 = v25;
+        v39 = v26;
+        v36 = [objc_alloc(MEMORY[0x1E6964F68]) initWithBundleType:1];
+        v28 = [v21 copyCarrierBundleValue:v20 key:@"CarrierName" bundleType:? error:?];
+        v23 = v39;
 
-        if (v26)
+        if (v28)
         {
-          v38[0] = @"carrierName";
-          v38[1] = @"carrierCountryCode";
-          v22 = v34;
-          v39[0] = v26;
-          v39[1] = v34;
-          v38[2] = @"carrierNetworkCode";
-          v39[2] = v33;
-          v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:3];
+          v42[0] = @"carrierName";
+          v42[1] = @"carrierCountryCode";
+          v22 = v38;
+          v43[0] = v28;
+          v43[1] = v38;
+          v42[2] = @"carrierNetworkCode";
+          v43[2] = v37;
+          v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:3];
           carrierTemplateParameterValues = self->_carrierTemplateParameterValues;
-          self->_carrierTemplateParameterValues = v27;
+          self->_carrierTemplateParameterValues = v31;
         }
 
         else
         {
-          v22 = v34;
+          v22 = v38;
           if (v23)
           {
-            v31 = WBS_LOG_CHANNEL_PREFIXSearchEngine();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+            v35 = WBS_LOG_CHANNEL_PREFIXSearchEngine(v29, v30);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
-              [(_SFSearchEngineController *)v31 _loadSystemPropertiesForSearchEngine:v23];
+              [(_SFSearchEngineController *)v35 _loadSystemPropertiesForSearchEngine:v23];
             }
           }
         }
 
-        v24 = v33;
+        v25 = v37;
       }
 
       else
       {
-        if (v25)
+        if (v26)
         {
-          v30 = WBS_LOG_CHANNEL_PREFIXSearchEngine();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          v34 = WBS_LOG_CHANNEL_PREFIXSearchEngine(0, v27);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
-            [(_SFSearchEngineController *)v30 _loadSystemPropertiesForSearchEngine:v25];
+            [(_SFSearchEngineController *)v34 _loadSystemPropertiesForSearchEngine:v26];
           }
 
-          v23 = v25;
+          v23 = v26;
         }
 
         else
@@ -608,16 +608,16 @@ LABEL_12:
           v23 = 0;
         }
 
-        v22 = v34;
+        v22 = v38;
       }
     }
 
     else if (v23)
     {
-      v29 = WBS_LOG_CHANNEL_PREFIXSearchEngine();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v33 = WBS_LOG_CHANNEL_PREFIXSearchEngine(0, v24);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        [(_SFSearchEngineController *)v29 _loadSystemPropertiesForSearchEngine:v23];
+        [(_SFSearchEngineController *)v33 _loadSystemPropertiesForSearchEngine:v23];
       }
     }
   }
@@ -899,21 +899,27 @@ LABEL_11:
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Unable to retrieve carrier name with error: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Unable to retrieve carrier name with error: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)_loadSystemPropertiesForSearchEngine:(void *)a1 .cold.2(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Unable to retrieve carrier network code with error: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Unable to retrieve carrier network code with error: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)_loadSystemPropertiesForSearchEngine:(void *)a1 .cold.3(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Unable to retrieve carrier country code with error: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Unable to retrieve carrier country code with error: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

@@ -34,13 +34,13 @@
 
 + (void)preferredInputAudioFormatForLocale:(id)locale completion:(id)completion
 {
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_280407E80, &qword_26B5E3C70) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (MEMORY[0x28223BE20])();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280407E80, &qword_26B5E3C70);
+  MEMORY[0x28223BE20](v5 - 8);
   v7 = &v22 - v6;
   v8 = sub_26B5E161C();
   v9 = *(v8 - 8);
   v10 = *(v9 + 64);
-  v11 = (MEMORY[0x28223BE20])();
+  v11 = MEMORY[0x28223BE20](v8);
   v12 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v11);
   v14 = &v22 - v13;
@@ -92,17 +92,16 @@
 - (STSpeechTranslator)initWithSourceLocale:(id)locale targetLocale:(id)targetLocale delegate:(id)delegate
 {
   v6 = sub_26B5E161C();
-  v7 = *(*(v6 - 8) + 64);
-  v8 = MEMORY[0x28223BE20](v6 - 8);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v12 = &v15 - v11;
+  v7 = MEMORY[0x28223BE20](v6 - 8);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v11 = &v14 - v10;
   sub_26B5E160C();
   sub_26B5E160C();
   swift_unknownObjectRetain();
-  v13 = sub_26B5DC508(v12, v10, delegate);
+  v12 = sub_26B5DC508(v11, v9, delegate);
   swift_unknownObjectRelease();
-  return v13;
+  return v12;
 }
 
 - (void)addAudio:(id)audio
@@ -115,17 +114,16 @@
 - (void)finishAudio
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280407E80, &qword_26B5E3C70);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v10 - v5;
-  v7 = sub_26B5E1A9C();
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
-  v8 = swift_allocObject();
-  v8[2] = 0;
-  v8[3] = 0;
-  v8[4] = self;
+  v5 = &v9 - v4;
+  v6 = sub_26B5E1A9C();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
+  v7 = swift_allocObject();
+  v7[2] = 0;
+  v7[3] = 0;
+  v7[4] = self;
   selfCopy = self;
-  sub_26B5D37D0(0, 0, v6, &unk_26B5E3D18, v8);
+  sub_26B5D37D0(0, 0, v5, &unk_26B5E3D18, v7);
 }
 
 - (AVAudioFormat)currentOutputFormat
@@ -146,20 +144,19 @@
 - (void)translator:(id)translator didProduceTranslatedOutputs:(id)outputs
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280407E80, &qword_26B5E3C70);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v13 - v7;
+  v7 = &v12 - v6;
   sub_26B5DD43C(0, &qword_280408038, 0x277CE1BC8);
-  v9 = sub_26B5E1A2C();
-  v10 = sub_26B5E1A9C();
-  (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
-  v11 = swift_allocObject();
-  v11[2] = 0;
-  v11[3] = 0;
-  v11[4] = v9;
-  v11[5] = self;
+  v8 = sub_26B5E1A2C();
+  v9 = sub_26B5E1A9C();
+  (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
+  v10 = swift_allocObject();
+  v10[2] = 0;
+  v10[3] = 0;
+  v10[4] = v8;
+  v10[5] = self;
   selfCopy = self;
-  sub_26B5D37D0(0, 0, v8, &unk_26B5E3D08, v11);
+  sub_26B5D37D0(0, 0, v7, &unk_26B5E3D08, v10);
 }
 
 - (void)translator:(id)translator didProduceSpeakableOutput:(id)output
@@ -173,35 +170,33 @@
 - (void)translator:(id)translator didEncounterError:(id)error
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280407E80, &qword_26B5E3C70);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v14 - v8;
-  v10 = sub_26B5E1A9C();
-  (*(*(v10 - 8) + 56))(v9, 1, 1, v10);
-  v11 = swift_allocObject();
-  v11[2] = 0;
-  v11[3] = 0;
-  v11[4] = error;
-  v11[5] = self;
+  v8 = &v13 - v7;
+  v9 = sub_26B5E1A9C();
+  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
+  v10 = swift_allocObject();
+  v10[2] = 0;
+  v10[3] = 0;
+  v10[4] = error;
+  v10[5] = self;
   errorCopy = error;
   selfCopy = self;
-  sub_26B5D37D0(0, 0, v9, &unk_26B5E3D00, v11);
+  sub_26B5D37D0(0, 0, v8, &unk_26B5E3D00, v10);
 }
 
 - (void)translatorDidFinish:(id)finish
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280407E80, &qword_26B5E3C70);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v11 - v6;
-  v8 = sub_26B5E1A9C();
-  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
-  v9 = swift_allocObject();
-  v9[2] = 0;
-  v9[3] = 0;
-  v9[4] = self;
+  v6 = &v10 - v5;
+  v7 = sub_26B5E1A9C();
+  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  v8 = swift_allocObject();
+  v8[2] = 0;
+  v8[3] = 0;
+  v8[4] = self;
   selfCopy = self;
-  sub_26B5D37D0(0, 0, v7, &unk_26B5E3CF8, v9);
+  sub_26B5D37D0(0, 0, v6, &unk_26B5E3CF8, v8);
 }
 
 @end

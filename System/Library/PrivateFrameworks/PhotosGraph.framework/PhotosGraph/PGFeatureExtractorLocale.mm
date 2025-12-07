@@ -32,30 +32,29 @@
 
 - (id)featureNames
 {
-  v5[21] = *MEMORY[0x277D85DE8];
-  v5[0] = @"Other";
-  v5[1] = @"en_US";
-  v5[2] = @"zh_CN";
-  v5[3] = @"ja_JP";
-  v5[4] = @"pt_BR";
-  v5[5] = @"en_GB";
-  v5[6] = @"es_MX";
-  v5[7] = @"de_DE";
-  v5[8] = @"en_CA";
-  v5[9] = @"it_IT";
-  v5[10] = @"ru_RU";
-  v5[11] = @"tr_TR";
-  v5[12] = @"fr_FR";
-  v5[13] = @"en_AU";
-  v5[14] = @"ko_KR";
-  v5[15] = @"es_ES";
-  v5[16] = @"es_US";
-  v5[17] = @"en_IN";
-  v5[18] = @"vi_VN";
-  v5[19] = @"nl_NL";
-  v5[20] = @"th_TH";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:21];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[21] = *MEMORY[0x277D85DE8];
+  v4[0] = @"Other";
+  v4[1] = @"en_US";
+  v4[2] = @"zh_CN";
+  v4[3] = @"ja_JP";
+  v4[4] = @"pt_BR";
+  v4[5] = @"en_GB";
+  v4[6] = @"es_MX";
+  v4[7] = @"de_DE";
+  v4[8] = @"en_CA";
+  v4[9] = @"it_IT";
+  v4[10] = @"ru_RU";
+  v4[11] = @"tr_TR";
+  v4[12] = @"fr_FR";
+  v4[13] = @"en_AU";
+  v4[14] = @"ko_KR";
+  v4[15] = @"es_ES";
+  v4[16] = @"es_US";
+  v4[17] = @"en_IN";
+  v4[18] = @"vi_VN";
+  v4[19] = @"nl_NL";
+  v4[20] = @"th_TH";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:21];
 
   return v2;
 }

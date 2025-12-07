@@ -16,16 +16,16 @@
 
 - (NUANFArticleDataProvider)initWithArticle:(id)article contentContext:(id)context fontRegistration:(id)registration host:(id)host embedDataManager:(id)manager linkedContentManager:(id)contentManager
 {
-  v31[2] = *MEMORY[0x277D85DE8];
+  v30[2] = *MEMORY[0x277D85DE8];
   articleCopy = article;
   contextCopy = context;
   registrationCopy = registration;
   hostCopy = host;
   managerCopy = manager;
   contentManagerCopy = contentManager;
-  v30.receiver = self;
-  v30.super_class = NUANFArticleDataProvider;
-  v18 = [(NUANFArticleDataProvider *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = NUANFArticleDataProvider;
+  v18 = [(NUANFArticleDataProvider *)&v29 init];
   v19 = v18;
   if (v18)
   {
@@ -41,14 +41,13 @@
 
     v19->_relativePriority = 0;
     v22 = MEMORY[0x277CBEB98];
-    v31[0] = @"contextDidLoadEvent";
-    v31[1] = @"assetPrefetchRequestEvent";
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+    v30[0] = @"contextDidLoadEvent";
+    v30[1] = @"assetPrefetchRequestEvent";
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
     v24 = [v22 setWithArray:v23];
     [(NUANFArticleDataProvider *)v19 setupAssetPrefetchRequestEventsWithEvents:v24];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -75,14 +74,14 @@
   v16 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = CACurrentMediaTime();
-  v6 = NUArticleLoadLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = NUArticleLoadLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     article = [(NUANFArticleDataProvider *)self article];
     articleID = [article articleID];
     *buf = 138543362;
     v15 = articleID;
-    _os_log_impl(&dword_25C2D6000, v6, OS_LOG_TYPE_DEFAULT, "Article data loader did start loading, articleID=%{public}@", buf, 0xCu);
+    _os_log_impl(&dword_25C2D6000, v7, OS_LOG_TYPE_DEFAULT, "Article data loader did start loading, articleID=%{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
@@ -93,21 +92,19 @@
   v11[4] = self;
   v13[1] = *&v5;
   objc_copyWeak(v13, buf);
-  v9 = blockCopy;
-  v12 = v9;
+  v10 = blockCopy;
+  v12 = v10;
   [(NUANFArticleDataProvider *)self loadArticleWithCompletionBlock:v11];
 
   objc_destroyWeak(v13);
   objc_destroyWeak(buf);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke(uint64_t a1, void *a2)
 {
   v66 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = NUArticleLoadLog();
+  v4 = NUArticleLoadLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) article];
@@ -162,49 +159,49 @@ void __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invok
   if (v15)
   {
 LABEL_15:
-    v29 = dispatch_group_create();
-    dispatch_group_enter(v29);
+    v30 = dispatch_group_create();
+    dispatch_group_enter(v30);
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
     v63 = __Block_byref_object_copy__1;
     v64 = __Block_byref_object_dispose__1;
     v65 = 0;
-    v30 = [v11 contextLoader];
+    v31 = [v11 contextLoader];
     v52[0] = MEMORY[0x277D85DD0];
     v52[1] = 3221225472;
     v52[2] = __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_17;
     v52[3] = &unk_2799A4490;
     v52[4] = v11;
-    v31 = v29;
+    v32 = v30;
     v55 = *(a1 + 56);
-    v53 = v31;
+    v53 = v32;
     v54 = buf;
-    v32 = [v30 loadContextWithCompletion:v52];
+    v33 = [v31 loadContextWithCompletion:v52];
 
-    dispatch_group_enter(v31);
-    v33 = [v11 fontLoader];
+    dispatch_group_enter(v32);
+    v34 = [v11 fontLoader];
     v49[0] = MEMORY[0x277D85DD0];
     v49[1] = 3221225472;
     v49[2] = __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_20;
     v49[3] = &unk_2799A44B8;
     v49[4] = v11;
     v51 = *(a1 + 56);
-    v34 = v31;
-    v50 = v34;
-    v35 = [v33 loadFontsWithCompletion:v49];
+    v35 = v32;
+    v50 = v35;
+    v36 = [v34 loadFontsWithCompletion:v49];
 
-    dispatch_group_enter(v34);
-    v36 = [v11 embedDataManger];
+    dispatch_group_enter(v35);
+    v37 = [v11 embedDataManger];
     v46[0] = MEMORY[0x277D85DD0];
     v46[1] = 3221225472;
     v46[2] = __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_21;
     v46[3] = &unk_2799A44B8;
     v46[4] = v11;
     v48 = *(a1 + 56);
-    v37 = v34;
-    v47 = v37;
-    [v36 loadEmbedDataWithCompletion:v46];
+    v38 = v35;
+    v47 = v38;
+    [v37 loadEmbedDataWithCompletion:v46];
 
     v42[0] = MEMORY[0x277D85DD0];
     v42[1] = 3221225472;
@@ -216,7 +213,7 @@ LABEL_15:
     v43 = *(a1 + 40);
     v44 = buf;
     v42[5] = *(a1 + 32);
-    dispatch_group_notify(v37, MEMORY[0x277D85CD0], v42);
+    dispatch_group_notify(v38, MEMORY[0x277D85CD0], v42);
 
     objc_destroyWeak(v45);
     _Block_object_dispose(buf, 8);
@@ -224,45 +221,45 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v16 = NUArticleLoadLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = NUArticleLoadLog(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = [v11 article];
-    v18 = [v17 articleID];
-    v19 = CACurrentMediaTime() - *(a1 + 56);
+    v18 = [v11 article];
+    v19 = [v18 articleID];
+    v20 = CACurrentMediaTime() - *(a1 + 56);
     *buf = 138543618;
-    *&buf[4] = v18;
+    *&buf[4] = v19;
     *&buf[12] = 2048;
-    *&buf[14] = v19;
-    _os_log_impl(&dword_25C2D6000, v16, OS_LOG_TYPE_DEFAULT, "Article data loader did finish with prewarmed article, articleID=%{public}@, duration=%f", buf, 0x16u);
+    *&buf[14] = v20;
+    _os_log_impl(&dword_25C2D6000, v17, OS_LOG_TYPE_DEFAULT, "Article data loader did finish with prewarmed article, articleID=%{public}@, duration=%f", buf, 0x16u);
   }
 
-  v20 = [v11 contextLoader];
-  v21 = [v20 context];
-  v22 = v21 == 0;
+  v21 = [v11 contextLoader];
+  v22 = [v21 context];
+  v23 = v22 == 0;
 
-  if (v22)
+  if (v23)
   {
     v39 = *(a1 + 40);
     v40 = MEMORY[0x277CCA9B8];
-    v26 = [v11 article];
-    v27 = [v11 contextLoader];
-    v28 = [v27 contextError];
-    v41 = [v40 nu_errorArticleDownloadFailed:v26 underlyingError:v28];
+    v27 = [v11 article];
+    v28 = [v11 contextLoader];
+    v29 = [v28 contextError];
+    v41 = [v40 nu_errorArticleDownloadFailed:v27 underlyingError:v29];
     (*(v39 + 16))(v39, 0, 0, v41);
   }
 
   else
   {
-    v23 = [v11 contextLoader];
-    v24 = [v23 assetLoader];
-    [v11 setAssetLoader:v24];
+    v24 = [v11 contextLoader];
+    v25 = [v24 assetLoader];
+    [v11 setAssetLoader:v25];
 
-    v25 = *(a1 + 40);
-    v26 = [v11 contextLoader];
-    v27 = [v26 context];
-    v28 = [v11 fontLoader];
-    (*(v25 + 16))(v25, v27, v28, 0);
+    v26 = *(a1 + 40);
+    v27 = [v11 contextLoader];
+    v28 = [v27 context];
+    v29 = [v11 fontLoader];
+    (*(v26 + 16))(v26, v28, v29, 0);
   }
 
   block[0] = MEMORY[0x277D85DD0];
@@ -272,8 +269,6 @@ LABEL_15:
   block[4] = v11;
   dispatch_async(MEMORY[0x277D85CD0], block);
 LABEL_16:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_16(uint64_t a1)
@@ -284,22 +279,22 @@ void __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invok
 
 void __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_17(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   v9 = v8;
   if (v7)
   {
-    v10 = NUArticleLoadLog();
+    v10 = NUArticleLoadLog(v8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = [*(a1 + 32) article];
       v12 = [v11 articleID];
       v13 = CACurrentMediaTime() - *(a1 + 56);
       *buf = 138543618;
-      v19 = v12;
-      v20 = 2048;
-      v21 = v13;
+      v18 = v12;
+      v19 = 2048;
+      v20 = v13;
       _os_log_impl(&dword_25C2D6000, v10, OS_LOG_TYPE_DEFAULT, "Article data loader did finish loading context, articleID=%{public}@, duration=%f", buf, 0x16u);
     }
 
@@ -309,22 +304,20 @@ void __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invok
 
   else
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_2_18;
-    v15[3] = &unk_2799A4468;
-    v15[4] = *(a1 + 32);
-    v16 = v8;
-    v17 = *(a1 + 40);
-    __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_2_18(v15);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_2_18;
+    v14[3] = &unk_2799A4468;
+    v14[4] = *(a1 + 32);
+    v15 = v8;
+    v16 = *(a1 + 40);
+    __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_2_18(v14);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_2_18(uint64_t a1)
 {
-  v2 = NUArticleLoadLog();
+  v2 = NUArticleLoadLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_2_18_cold_1(a1, v2);
@@ -335,68 +328,66 @@ void __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invok
 
 void __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_20(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = NUArticleLoadLog();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = NUArticleLoadLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) article];
     v4 = [v3 articleID];
     v5 = CACurrentMediaTime() - *(a1 + 48);
-    v7 = 138543618;
-    v8 = v4;
-    v9 = 2048;
-    v10 = v5;
-    _os_log_impl(&dword_25C2D6000, v2, OS_LOG_TYPE_DEFAULT, "Article data loader did finish loading fonts, articleID=%{public}@, duration=%f", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v4;
+    v8 = 2048;
+    v9 = v5;
+    _os_log_impl(&dword_25C2D6000, v2, OS_LOG_TYPE_DEFAULT, "Article data loader did finish loading fonts, articleID=%{public}@, duration=%f", &v6, 0x16u);
   }
 
   dispatch_group_leave(*(a1 + 40));
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_21(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = NUArticleLoadLog();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = NUArticleLoadLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) article];
     v4 = [v3 articleID];
     v5 = CACurrentMediaTime() - *(a1 + 48);
-    v7 = 138543618;
-    v8 = v4;
-    v9 = 2048;
-    v10 = v5;
-    _os_log_impl(&dword_25C2D6000, v2, OS_LOG_TYPE_DEFAULT, "Article data loader did finish embed data, articleID=%{public}@, duration=%f", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v4;
+    v8 = 2048;
+    v9 = v5;
+    _os_log_impl(&dword_25C2D6000, v2, OS_LOG_TYPE_DEFAULT, "Article data loader did finish embed data, articleID=%{public}@, duration=%f", &v6, 0x16u);
   }
 
   dispatch_group_leave(*(a1 + 40));
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_22(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v2 = NUArticleLoadLog();
+  v25 = *MEMORY[0x277D85DE8];
+  v2 = NUArticleLoadLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) article];
     v4 = [v3 articleID];
     v5 = CACurrentMediaTime() - *(a1 + 72);
     *buf = 138543618;
-    v23 = v4;
-    v24 = 2048;
-    v25 = v5;
+    v22 = v4;
+    v23 = 2048;
+    v24 = v5;
     _os_log_impl(&dword_25C2D6000, v2, OS_LOG_TYPE_DEFAULT, "Article data loader start loading linked content, articleID=%{public}@, duration=%f", buf, 0x16u);
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_23;
-  v19[3] = &unk_2799A44E0;
-  objc_copyWeak(v21, (a1 + 64));
-  v20 = *(a1 + 48);
-  v21[1] = *(a1 + 72);
-  v6 = MEMORY[0x25F883F30](v19);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_23;
+  v18[3] = &unk_2799A44E0;
+  objc_copyWeak(v20, (a1 + 64));
+  v19 = *(a1 + 48);
+  v20[1] = *(a1 + 72);
+  v6 = MEMORY[0x25F883F30](v18);
   v7 = [*(*(*(a1 + 56) + 8) + 40) documentController];
   v8 = [v7 requiresLinkedContentForLayout];
 
@@ -428,28 +419,27 @@ void __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invok
     v17 = [v11 loadLinkedContentForHeadline:v13 withContext:v15 completion:v6];
   }
 
-  objc_destroyWeak(v21);
-  v18 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(v20);
 }
 
 void __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_23(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
   {
     v4 = WeakRetained;
-    v5 = NUArticleLoadLog();
+    v5 = NUArticleLoadLog(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [v4 article];
       v7 = [v6 articleID];
       v8 = CACurrentMediaTime() - *(a1 + 48);
       *buf = 138543618;
-      v25 = v7;
-      v26 = 2048;
-      v27 = v8;
+      v24 = v7;
+      v25 = 2048;
+      v26 = v8;
       _os_log_impl(&dword_25C2D6000, v5, OS_LOG_TYPE_DEFAULT, "Article data loader did finish, articleID=%{public}@, duration=%f", buf, 0x16u);
     }
 
@@ -486,16 +476,14 @@ void __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invok
 
   else
   {
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_2_24;
-    v22[3] = &unk_2799A3148;
-    v23 = *(a1 + 32);
-    __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_2_24(v22);
-    v4 = v23;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_2_24;
+    v21[3] = &unk_2799A3148;
+    v22 = *(a1 + 32);
+    __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_2_24(v21);
+    v4 = v22;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prefetchAssets
@@ -664,7 +652,7 @@ LABEL_6:
 
 - (void)reloadArticleIfNeeded
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   article = [(NUANFArticleDataProvider *)self article];
   headline = [article headline];
 
@@ -681,18 +669,18 @@ LABEL_6:
       {
         lastFetchedDate = [v5 lastFetchedDate];
         [lastFetchedDate fc_timeIntervalUntilNow];
-        v11 = v10;
+        v12 = v11;
 
-        if (v11 > 30.0)
+        if (v12 > 30.0)
         {
-          v12 = NUArticleLoadLog();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v14 = NUArticleLoadLog(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             article2 = [(NUANFArticleDataProvider *)self article];
             articleID = [article2 articleID];
             *buf = 138543362;
-            v24 = articleID;
-            _os_log_impl(&dword_25C2D6000, v12, OS_LOG_TYPE_DEFAULT, "Article data loader did reset for rapid updates, articleID=%{public}@", buf, 0xCu);
+            v25 = articleID;
+            _os_log_impl(&dword_25C2D6000, v14, OS_LOG_TYPE_DEFAULT, "Article data loader did reset for rapid updates, articleID=%{public}@", buf, 0xCu);
           }
 
           [(NUANFArticleDataProvider *)self setContextLoader:0];
@@ -701,59 +689,55 @@ LABEL_6:
           articleController = [contentContext2 articleController];
           articleID2 = [(NUANFArticleDataProvider *)self articleID];
           [(NUANFArticleDataProvider *)self relativePriority];
-          v18 = [articleController articleWithID:articleID2 forceArticleUpdate:1 qualityOfService:FCInferQualityOfServiceFromRelativePriority() relativePriority:{-[NUANFArticleDataProvider relativePriority](self, "relativePriority")}];
-          [(NUANFArticleDataProvider *)self setArticle:v18];
+          v20 = [articleController articleWithID:articleID2 forceArticleUpdate:1 qualityOfService:FCInferQualityOfServiceFromRelativePriority() relativePriority:{-[NUANFArticleDataProvider relativePriority](self, "relativePriority")}];
+          [(NUANFArticleDataProvider *)self setArticle:v20];
         }
 
         else
         {
-          v20[0] = MEMORY[0x277D85DD0];
-          v20[1] = 3221225472;
-          v20[2] = __49__NUANFArticleDataProvider_reloadArticleIfNeeded__block_invoke_47;
-          v20[3] = &unk_2799A3440;
-          v21 = v5;
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __49__NUANFArticleDataProvider_reloadArticleIfNeeded__block_invoke_47;
+          v21[3] = &unk_2799A3440;
+          v22 = v5;
           selfCopy = self;
-          __49__NUANFArticleDataProvider_reloadArticleIfNeeded__block_invoke_47(v20);
+          __49__NUANFArticleDataProvider_reloadArticleIfNeeded__block_invoke_47(v21);
         }
       }
 
       else
       {
-        __49__NUANFArticleDataProvider_reloadArticleIfNeeded__block_invoke_3();
+        __49__NUANFArticleDataProvider_reloadArticleIfNeeded__block_invoke_3(v9);
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-void __49__NUANFArticleDataProvider_reloadArticleIfNeeded__block_invoke_3()
+void __49__NUANFArticleDataProvider_reloadArticleIfNeeded__block_invoke_3(uint64_t a1)
 {
-  v0 = NUArticleLoadLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = NUArticleLoadLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_25C2D6000, v0, OS_LOG_TYPE_DEFAULT, "Article data loader did not reload rapid-updates because network is not reachable", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_25C2D6000, v1, OS_LOG_TYPE_DEFAULT, "Article data loader did not reload rapid-updates because network is not reachable", v2, 2u);
   }
 }
 
 void __49__NUANFArticleDataProvider_reloadArticleIfNeeded__block_invoke_47(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = NUArticleLoadLog();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = NUArticleLoadLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) lastFetchedDate];
     v4 = [*(a1 + 40) article];
     v5 = [v4 articleID];
-    v7 = 138543618;
-    v8 = v3;
-    v9 = 2114;
-    v10 = v5;
-    _os_log_impl(&dword_25C2D6000, v2, OS_LOG_TYPE_DEFAULT, "Article data loader will not reload rapid-updates article because it's up-to-date, fetchDate=%{public}@, articleID=%{public}@", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 2114;
+    v9 = v5;
+    _os_log_impl(&dword_25C2D6000, v2, OS_LOG_TYPE_DEFAULT, "Article data loader will not reload rapid-updates article because it's up-to-date, fetchDate=%{public}@, articleID=%{public}@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupAssetPrefetchRequestEventsWithEvents:(id)events
@@ -777,13 +761,13 @@ void __49__NUANFArticleDataProvider_reloadArticleIfNeeded__block_invoke_47(uint6
 
 void __70__NUANFArticleDataProvider_setupAssetPrefetchRequestEventsWithEvents___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
   {
     v3 = WeakRetained;
-    v4 = NUArticleLoadLog();
+    v4 = NUArticleLoadLog(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [v3 article];
@@ -795,25 +779,23 @@ void __70__NUANFArticleDataProvider_setupAssetPrefetchRequestEventsWithEvents___
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v13 = 0x3032000000;
-    v14 = __Block_byref_object_copy__1;
-    v15 = __Block_byref_object_dispose__1;
-    v16 = 0;
+    v12 = 0x3032000000;
+    v13 = __Block_byref_object_copy__1;
+    v14 = __Block_byref_object_dispose__1;
+    v15 = 0;
     v7 = [v3 assetLoader];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __70__NUANFArticleDataProvider_setupAssetPrefetchRequestEventsWithEvents___block_invoke_51;
-    v11[3] = &unk_2799A3DE8;
-    v11[4] = &buf;
-    v8 = [v7 loadAssetsWithCompletion:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __70__NUANFArticleDataProvider_setupAssetPrefetchRequestEventsWithEvents___block_invoke_51;
+    v10[3] = &unk_2799A3DE8;
+    v10[4] = &buf;
+    v8 = [v7 loadAssetsWithCompletion:v10];
     v9 = *(*(&buf + 1) + 40);
     *(*(&buf + 1) + 40) = v8;
 
     [v3 setupAssetPrefetchCancellationWithOperation:*(*(&buf + 1) + 40)];
     _Block_object_dispose(&buf, 8);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __70__NUANFArticleDataProvider_setupAssetPrefetchRequestEventsWithEvents___block_invoke_51(uint64_t a1)
@@ -846,7 +828,7 @@ void __70__NUANFArticleDataProvider_setupAssetPrefetchRequestEventsWithEvents___
 
 void __72__NUANFArticleDataProvider_setupAssetPrefetchCancellationWithOperation___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -857,37 +839,33 @@ void __72__NUANFArticleDataProvider_setupAssetPrefetchCancellationWithOperation_
     if (v4)
     {
       v6 = v4;
-      v7 = NUArticleLoadLog();
+      v7 = NUArticleLoadLog(v6);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = [v6 article];
         v9 = [v8 articleID];
-        v12 = 138543362;
-        v13 = v9;
-        _os_log_impl(&dword_25C2D6000, v7, OS_LOG_TYPE_DEFAULT, "Article data loader will cancel asset prefetch, articleID=%{public}@", &v12, 0xCu);
+        v11 = 138543362;
+        v12 = v9;
+        _os_log_impl(&dword_25C2D6000, v7, OS_LOG_TYPE_DEFAULT, "Article data loader will cancel asset prefetch, articleID=%{public}@", &v11, 0xCu);
       }
 
       v10 = [MEMORY[0x277CBEB98] setWithObject:@"assetPrefetchRequestEvent"];
       [v6 setupAssetPrefetchRequestEventsWithEvents:v10];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __59__NUANFArticleDataProvider_loadContextWithCompletionBlock___block_invoke_2_18_cold_1(uint64_t a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) article];
   v5 = [v4 articleID];
   v6 = *(a1 + 40);
-  v8 = 138543618;
-  v9 = v5;
-  v10 = 2114;
-  v11 = v6;
-  _os_log_error_impl(&dword_25C2D6000, a2, OS_LOG_TYPE_ERROR, "Article data loader did fail loading context, articleID=%{public}@, error=%{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138543618;
+  v8 = v5;
+  v9 = 2114;
+  v10 = v6;
+  _os_log_error_impl(&dword_25C2D6000, a2, OS_LOG_TYPE_ERROR, "Article data loader did fail loading context, articleID=%{public}@, error=%{public}@", &v7, 0x16u);
 }
 
 @end

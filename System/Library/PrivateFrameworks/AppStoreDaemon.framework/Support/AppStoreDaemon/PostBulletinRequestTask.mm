@@ -247,7 +247,7 @@
     }
   }
 
-  v55 = sub_1003E9190();
+  v55 = sub_1003E9190(UserNotificationManager);
   sub_1003E926C(v55, v19);
 
   if (self)

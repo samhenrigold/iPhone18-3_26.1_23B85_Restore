@@ -1,79 +1,3 @@
-uint64_t GTMTLDataType_requiresPatching(uint64_t a1, unint64_t a2)
-{
-  v2 = (a2 >> 7) & 1;
-  v3 = (a2 >> 8) & 1;
-  if (a1 == 118)
-  {
-    v4 = (a2 >> 8) & 1;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (a1 != 117)
-  {
-    LODWORD(v3) = v4;
-  }
-
-  if (a1 != 116)
-  {
-    LODWORD(v2) = v3;
-  }
-
-  v5 = (a2 >> 5) & 1;
-  v6 = (a2 >> 6) & 1;
-  if (a1 != 115)
-  {
-    LODWORD(v6) = 0;
-  }
-
-  if (a1 != 80)
-  {
-    LODWORD(v5) = v6;
-  }
-
-  if (a1 <= 115)
-  {
-    LODWORD(v2) = v5;
-  }
-
-  v7 = (a2 >> 4) & 1;
-  v8 = a2 & 1;
-  v9 = (a2 >> 1) & 1;
-  v10 = (a2 >> 3) & 1;
-  if (a1 != 60)
-  {
-    LODWORD(v10) = 0;
-  }
-
-  if (a1 != 59)
-  {
-    LODWORD(v9) = v10;
-  }
-
-  if (a1 != 58)
-  {
-    v8 = v9;
-  }
-
-  if (a1 <= 77)
-  {
-    LODWORD(v7) = v8;
-  }
-
-  if (a1 <= 79)
-  {
-    return v7;
-  }
-
-  else
-  {
-    return v2;
-  }
-}
-
 uint64_t GTMTLPointerType_requiresPatching(uint64_t a1, unint64_t a2)
 {
   v2 = *(a1 + 22);
@@ -105,7 +29,7 @@ uint64_t GTMTLArrayType_requiresPatching(uint64_t a1, unint64_t a2)
 
   if (v2 == 1)
   {
-    return GTMTLStructType_requiresPatching(*(a1 + 8));
+    return GTMTLStructType_requiresPatching(*(a1 + 8), a2);
   }
 
   else
@@ -219,13 +143,13 @@ char *DYMTLIndirectArgumentBufferManager_decodeArgumentBuffer()
 {
   v0 = MEMORY[0x28223BE20]();
   v2 = v1;
-  v250 = v3;
+  v246 = v3;
   v4 = v0;
-  v282 = *MEMORY[0x277D85DE8];
+  v278 = *MEMORY[0x277D85DE8];
   v5 = v0 + 20480;
-  v244 = *(v0 + 8);
+  v240 = *(v0 + 8);
   v6 = *v4;
-  v260 = v5;
+  v256 = v5;
   v7 = *(v6[16] + 24) + (*GroupBuilder_getCommandBuffer(*(*(*v4 + 15) + 12), *(*(*v4 + 15) + 24), *(v5 + 2080)) << 6);
   *__dst = *(GTTraceFunc_argumentBytesWithMap(v7, *(v7 + 13), v6[2]) + 1);
   entry = find_entry(v6[19], __dst, 8uLL, 0);
@@ -239,30 +163,30 @@ char *DYMTLIndirectArgumentBufferManager_decodeArgumentBuffer()
     v9 = 0;
   }
 
-  v262 = v4;
+  v258 = v4;
   v10 = v4[1];
   v11 = apr_array_make(v2, *(*(v9 + 8) + 12), 32);
-  *&v265 = v11;
+  *&v261 = v11;
   v12 = apr_hash_make(v2);
-  *(&v265 + 1) = v12;
-  v251 = apr_hash_make(v2);
-  *&v266 = v251;
+  *(&v261 + 1) = v12;
+  v247 = apr_hash_make(v2);
+  *&v262 = v247;
   ht = apr_hash_make(v2);
-  *(&v266 + 1) = ht;
+  *(&v262 + 1) = ht;
+  *&v249 = apr_hash_make(v2);
+  *(&v249 + 1) = apr_hash_make(v2);
+  v263 = v249;
+  *&v251 = apr_hash_make(v2);
+  *(&v251 + 1) = apr_hash_make(v2);
+  v264 = v251;
+  *&v252 = apr_hash_make(v2);
+  *(&v252 + 1) = apr_hash_make(v2);
+  v265 = v252;
   *&v253 = apr_hash_make(v2);
-  *(&v253 + 1) = apr_hash_make(v2);
-  v267 = v253;
-  *&v255 = apr_hash_make(v2);
-  *(&v255 + 1) = apr_hash_make(v2);
-  v268 = v255;
-  *&v256 = apr_hash_make(v2);
-  *(&v256 + 1) = apr_hash_make(v2);
-  v269 = v256;
-  *&v257 = apr_hash_make(v2);
   p = v2;
-  *(&v257 + 1) = apr_hash_make(v2);
-  v270 = v257;
-  v271 = 0;
+  *(&v253 + 1) = apr_hash_make(v2);
+  v266 = v253;
+  v267 = 0;
   v13 = *(v9 + 8);
   if (*(v13 + 12) >= 1)
   {
@@ -370,7 +294,7 @@ char *DYMTLIndirectArgumentBufferManager_decodeArgumentBuffer()
         v40 = v38;
       }
 
-      apr_hash_set(v251, v40, 8, v35);
+      apr_hash_set(v247, v40, 8, v35);
 
       v33 = apr_hash_next(v33);
     }
@@ -467,7 +391,7 @@ char *DYMTLIndirectArgumentBufferManager_decodeArgumentBuffer()
         v61 = v59;
       }
 
-      apr_hash_set(v253, v61, 8, v56);
+      apr_hash_set(v249, v61, 8, v56);
 
       v54 = apr_hash_next(v54);
     }
@@ -511,7 +435,7 @@ char *DYMTLIndirectArgumentBufferManager_decodeArgumentBuffer()
         v71 = v69;
       }
 
-      apr_hash_set(*(&v253 + 1), v71, 8, v66);
+      apr_hash_set(*(&v249 + 1), v71, 8, v66);
 
       v64 = apr_hash_next(v64);
     }
@@ -555,7 +479,7 @@ char *DYMTLIndirectArgumentBufferManager_decodeArgumentBuffer()
         v81 = v79;
       }
 
-      apr_hash_set(v255, v81, 8, v76);
+      apr_hash_set(v251, v81, 8, v76);
 
       v74 = apr_hash_next(v74);
     }
@@ -599,7 +523,7 @@ char *DYMTLIndirectArgumentBufferManager_decodeArgumentBuffer()
         v91 = v89;
       }
 
-      apr_hash_set(*(&v255 + 1), v91, 8, v86);
+      apr_hash_set(*(&v251 + 1), v91, 8, v86);
 
       v84 = apr_hash_next(v84);
     }
@@ -643,7 +567,7 @@ char *DYMTLIndirectArgumentBufferManager_decodeArgumentBuffer()
         v101 = v99;
       }
 
-      apr_hash_set(v256, v101, 8, v96);
+      apr_hash_set(v252, v101, 8, v96);
 
       v94 = apr_hash_next(v94);
     }
@@ -687,7 +611,7 @@ char *DYMTLIndirectArgumentBufferManager_decodeArgumentBuffer()
         v111 = v109;
       }
 
-      apr_hash_set(*(&v256 + 1), v111, 8, v106);
+      apr_hash_set(*(&v252 + 1), v111, 8, v106);
 
       v104 = apr_hash_next(v104);
     }
@@ -731,7 +655,7 @@ char *DYMTLIndirectArgumentBufferManager_decodeArgumentBuffer()
         v121 = v119;
       }
 
-      apr_hash_set(v257, v121, 8, v116);
+      apr_hash_set(v253, v121, 8, v116);
 
       v114 = apr_hash_next(v114);
     }
@@ -749,8 +673,8 @@ char *DYMTLIndirectArgumentBufferManager_decodeArgumentBuffer()
   v125 = v124;
   if (v122 != 1)
   {
-    v126 = v244;
-    v127 = v262;
+    v126 = v240;
+    v127 = v258;
     if (!v124)
     {
       goto LABEL_106;
@@ -798,7 +722,7 @@ LABEL_104:
       v136 = apr_palloc(v32, 8uLL);
       *v136 = *v132;
 LABEL_105:
-      apr_hash_set(*(&v257 + 1), v135, 8, v136);
+      apr_hash_set(*(&v253 + 1), v135, 8, v136);
       v125 = apr_hash_next(v125);
       if (!v125)
       {
@@ -807,8 +731,8 @@ LABEL_105:
     }
   }
 
-  v126 = v244;
-  v127 = v262;
+  v126 = v240;
+  v127 = v258;
   if (v124)
   {
     do
@@ -817,7 +741,7 @@ LABEL_105:
       v129 = *(v128 + 16);
       v130 = *(v128 + 24);
       v131 = apr_array_copy(v32, *(v128 + 32));
-      apr_hash_set(*(&v257 + 1), v129, v130, v131);
+      apr_hash_set(*(&v253 + 1), v129, v130, v131);
       v125 = apr_hash_next(v125);
     }
 
@@ -826,34 +750,34 @@ LABEL_105:
 
 LABEL_106:
 
-  GTMTLIndirectResources_rehash(__dst, &v265, 1, v32);
+  GTMTLIndirectResources_rehash(__dst, &v261, 1, v32);
   v137 = 0;
   v138 = *v127;
-  v139 = *(*(*v127 + 16) + 24) + ((*(v260 + 2080) - 1) << 6);
+  v139 = *(*(*v127 + 16) + 24) + ((*(v256 + 2080) - 1) << 6);
   v140 = *(v139 + 8) >> 2 == 1073737833;
-  v269 = *&__dst[64];
-  v270 = *&__dst[80];
-  v271 = *&__dst[96];
-  v265 = *__dst;
-  v266 = *&__dst[16];
-  v267 = *&__dst[32];
-  v268 = *&__dst[48];
-  v280 = 0;
-  v279 = 0u;
-  memset(v278, 0, sizeof(v278));
-  v277 = 0u;
-  memset(v276, 0, sizeof(v276));
+  v265 = *&__dst[64];
+  v266 = *&__dst[80];
+  v267 = *&__dst[96];
+  v261 = *__dst;
+  v262 = *&__dst[16];
+  v263 = *&__dst[32];
+  v264 = *&__dst[48];
+  v276 = 0;
   v275 = 0u;
-  v274 = 0u;
+  memset(v274, 0, sizeof(v274));
+  v273 = 0u;
+  memset(v272, 0, sizeof(v272));
+  v271 = 0u;
+  v270 = 0u;
   if (v140)
   {
-    v280 = *v127[23];
-    GTMTLSMContext_indirectCommandBufferResources(v278, *(v138 + 5), *v139, v280);
-    GetExecuteCommandsInBufferArgs(&v274, v139, *(v138 + 2));
-    Object = GTMTLSMContext_getObject(**(v138 + 5), v274, *v139);
-    GTMTLCreateIndirectCommandEncoder(v276 + 8, Object[14]);
-    v137 = *(&v275 + 1) + *(&v277 + 1) * *(v260 + 2084);
-    *(&v279 + 1) = v137;
+    v276 = *v127[23];
+    GTMTLSMContext_indirectCommandBufferResources(v274, *(v138 + 5), *v139, v276);
+    GetExecuteCommandsInBufferArgs(&v270, v139, *(v138 + 2));
+    Object = GTMTLSMContext_getObject(**(v138 + 5), v270, *v139);
+    GTMTLCreateIndirectCommandEncoder(v272 + 8, Object[14]);
+    v137 = *(&v271 + 1) + *(&v273 + 1) * *(v256 + 2084);
+    *(&v275 + 1) = v137;
   }
 
   v142 = *(v127 + 2840);
@@ -862,15 +786,15 @@ LABEL_106:
     memcpy(__dst, v127 + 31, 0x8D0uLL);
     if (*(v139 + 8) >> 2 == 1073737833)
     {
-      GTMTLSMComputeCommandEncoder_loadIndirectCommand(__dst, v276 + 1, v137, v278);
-      apr_pool_clear(v280);
+      GTMTLSMComputeCommandEncoder_loadIndirectCommand(__dst, v272 + 1, v137, v274);
+      apr_pool_clear(v276);
     }
 
     v153 = GTMTLSMContext_getObject(**(v138 + 5), *&__dst[8], *v139);
     v154 = v153[8];
-    memset(v272, 0, 512);
-    GTMTLSMComputePipelineState_computePipelineDescriptor(*(v138 + 5), v153, v272, v32);
-    v155 = (v250 + 1346);
+    memset(v268, 0, 512);
+    GTMTLSMComputePipelineState_computePipelineDescriptor(*(v138 + 5), v153, v268, v32);
+    v155 = (v246 + 1346);
     v156 = *(v154 + 94);
     if (*(v154 + 94))
     {
@@ -891,8 +815,8 @@ LABEL_134:
       v149 = 0;
     }
 
-    v158 = v273;
-    v159 = (*&__dst[8 * ((v250 + 1346) >> 6) + 16] >> (v250 + 66)) & 1;
+    v158 = v269;
+    v159 = (*&__dst[8 * ((v246 + 1346) >> 6) + 16] >> (v246 + 66)) & 1;
     v160 = &__dst[8 * v155];
     v161 = *(v160 + 4);
     v162 = *(v160 + 35);
@@ -904,23 +828,23 @@ LABEL_134:
     memcpy(__dst, v127 + 31, sizeof(__dst));
     if (*(v139 + 8) >> 2 == 1073737833)
     {
-      GTMTLSMRenderCommandEncoder_loadIndirectCommand(__dst, v276 + 1, v137, v278);
-      apr_pool_clear(v280);
+      GTMTLSMRenderCommandEncoder_loadIndirectCommand(__dst, v272 + 1, v137, v274);
+      apr_pool_clear(v276);
     }
 
     v143 = GTMTLSMContext_getObject(**(v138 + 5), *&__dst[8544], *v139);
     v144 = v143[7];
-    if (v250 < 0xFFFFFFFFFFFFFBBELL)
+    if (v246 < 0xFFFFFFFFFFFFFBBELL)
     {
-      if (v250 < 0xFFFFFFFFFFFFFB7ELL)
+      if (v246 < 0xFFFFFFFFFFFFFB7ELL)
       {
-        if (v250 < 0xFFFFFFFFFFFFFB3ELL)
+        if (v246 < 0xFFFFFFFFFFFFFB3ELL)
         {
-          if (v250 >= 0xFFFFFFFFFFFFFAFELL)
+          if (v246 >= 0xFFFFFFFFFFFFFAFELL)
           {
             v145 = &__dst[3584];
             v146 = &__dst[3832];
-            v147 = v250 + 1282;
+            v147 = v246 + 1282;
             v168 = *(v144 + 204);
             if (*(v144 + 204))
             {
@@ -948,7 +872,7 @@ LABEL_168:
 
           v145 = &__dst[6896];
           v146 = &__dst[7144];
-          v147 = v250 + 1346;
+          v147 = v246 + 1346;
           v170 = *(v144 + 202);
           if (*(v144 + 202))
           {
@@ -977,7 +901,7 @@ LABEL_178:
         {
           v145 = &__dst[5240];
           v146 = &__dst[5488];
-          v147 = v250 + 1218;
+          v147 = v246 + 1218;
           v165 = *(v144 + 206);
           if (*(v144 + 206))
           {
@@ -1009,7 +933,7 @@ LABEL_157:
       {
         v145 = &__dst[1928];
         v146 = &__dst[2176];
-        v147 = v250 + 1154;
+        v147 = v246 + 1154;
         v163 = *(v144 + 200);
         if (*(v144 + 200))
         {
@@ -1039,7 +963,7 @@ LABEL_146:
     {
       v145 = &__dst[24];
       v146 = &__dst[272];
-      v147 = v250 + 1090;
+      v147 = v246 + 1090;
       v148 = *(v144 + 198);
       if (*(v144 + 198))
       {
@@ -1081,7 +1005,7 @@ LABEL_182:
   v172 = [v126 functionForKey:v158];
   v173 = DEVICEOBJECT(v172);
 
-  v242 = v173;
+  v238 = v173;
   v174 = [v173 newArgumentEncoderWithBufferIndex:*(v149 + 18)];
   if (v159)
   {
@@ -1101,7 +1025,7 @@ LABEL_182:
   v179 = [v178 bufferWithLength:v177 alignment:{objc_msgSend(v174, "alignment")}];
   v180 = [v178 blitCommandEncoder];
   v181 = [v179 heapBuffer];
-  v259 = v177;
+  v255 = v177;
   [v180 copyFromBuffer:v176 sourceOffset:0 toBuffer:v181 destinationOffset:objc_msgSend(v179 size:{"heapLocation"), v177}];
 
   v182 = [v178 commandBuffer];
@@ -1110,9 +1034,9 @@ LABEL_182:
 
   [v178 commitCommandBuffer];
   [v182 waitUntilCompleted];
-  v243 = [v179 heapBuffer];
+  v239 = [v179 heapBuffer];
 
-  v241 = v179;
+  v237 = v179;
   v184 = [v179 heapLocation];
 
   v185 = apr_array_make(v32, 8, 32);
@@ -1146,13 +1070,13 @@ LABEL_191:
 
 LABEL_192:
   GTMTLStructType_fillArgumentIndicesRequiresPatching(v186, 0, 0, v185, 0xFFFuLL);
-  v188 = DEVICEOBJECT(v243);
+  v188 = DEVICEOBJECT(v239);
   v189 = v174;
   v190 = [v189 encodedLength];
-  v240 = v189;
-  v245 = [v189 layout];
+  v236 = v189;
+  v241 = [v189 layout];
   v191 = v162 % v190;
-  v258 = v190;
+  v254 = v190;
   v192 = (v177 - v162 % v190) / v190;
   nelts = v185->nelts;
   v194 = apr_array_make(v32, nelts + v192 + v192 * nelts + 2, 8);
@@ -1173,12 +1097,12 @@ LABEL_192:
     while (v195 < v185->nelts);
   }
 
-  v198 = v191 + v258;
-  if (v191 + v258 <= v177)
+  v198 = v191 + v254;
+  if (v191 + v254 <= v177)
   {
-    v199 = v271;
-    v247 = v188;
-    v246 = v271;
+    v199 = v267;
+    v243 = v188;
+    v242 = v267;
     while (1)
     {
       v200 = v198;
@@ -1190,7 +1114,7 @@ LABEL_192:
 
       if (v199 == 1)
       {
-        v261 = v200;
+        v257 = v200;
         v201 = v188;
         v202 = v185->nelts;
         if (v202 >= 1)
@@ -1199,7 +1123,7 @@ LABEL_192:
           v204 = 0;
           v205 = 0;
           v206 = v191 + v184;
-          v207 = v265;
+          v207 = v261;
           while (1)
           {
             v208 = &v185->elts[v204];
@@ -1243,7 +1167,7 @@ LABEL_225:
           {
             if (v209 > 0x8Au)
             {
-              v214 = &v266 + 1;
+              v214 = &v262 + 1;
               if (v209 != 139)
               {
                 if (v209 != 140)
@@ -1251,19 +1175,19 @@ LABEL_225:
                   goto LABEL_221;
                 }
 
-                v214 = &v266;
+                v214 = &v262;
               }
 
               goto LABEL_220;
             }
 
-            v214 = &v270;
+            v214 = &v266;
             if (v209 - 117 < 2)
             {
               goto LABEL_220;
             }
 
-            v214 = &v269 + 1;
+            v214 = &v265 + 1;
             if (v209 == 116)
             {
               goto LABEL_220;
@@ -1274,13 +1198,13 @@ LABEL_225:
           {
             if (v209 <= 0x4Eu)
             {
-              v214 = &v265 + 1;
+              v214 = &v261 + 1;
               if (v209 != 58)
               {
-                v214 = &v267;
+                v214 = &v263;
                 if (v209 != 59)
                 {
-                  v214 = &v267 + 1;
+                  v214 = &v263 + 1;
                   if (v209 != 78)
                   {
                     goto LABEL_221;
@@ -1293,19 +1217,19 @@ LABEL_220:
               goto LABEL_221;
             }
 
-            v214 = &v268;
+            v214 = &v264;
             if (v209 == 79)
             {
               goto LABEL_220;
             }
 
-            v214 = &v268 + 1;
+            v214 = &v264 + 1;
             if (v209 == 80)
             {
               goto LABEL_220;
             }
 
-            v214 = &v269;
+            v214 = &v265;
             if (v209 == 115)
             {
               goto LABEL_220;
@@ -1335,37 +1259,37 @@ LABEL_224:
       }
 
 LABEL_264:
-      v198 = v200 + v258;
+      v198 = v200 + v254;
       v191 = v200;
-      if (v200 + v258 > v259)
+      if (v200 + v254 > v255)
       {
         goto LABEL_265;
       }
     }
 
-    v261 = v200;
+    v257 = v200;
     v219 = v188;
-    v220 = v245;
+    v220 = v241;
     v221 = v185->nelts;
     if (v221 < 1)
     {
 LABEL_262:
 
 LABEL_263:
-      v188 = v247;
+      v188 = v243;
 
-      v199 = v246;
-      v200 = v261;
+      v199 = v242;
+      v200 = v257;
       goto LABEL_264;
     }
 
     v222 = 0;
     v223 = 0;
-    v224 = v270;
-    v254 = v269;
-    v252 = v268;
-    v249 = v267;
-    v248 = v265;
+    v224 = v266;
+    v250 = v265;
+    v248 = v264;
+    v245 = v263;
+    v244 = v261;
     while (1)
     {
       v225 = &v185->elts[v222];
@@ -1379,7 +1303,7 @@ LABEL_263:
           {
             v228 = [v220 uniqueIdentifierForIndirectCommandBufferAtIndex:v226 inIndirectArgumentBuffer:v219 atOffset:v191 + v184];
             *__dst = v228;
-            v229 = *(&v252 + 1);
+            v229 = *(&v248 + 1);
             goto LABEL_257;
           }
 
@@ -1387,7 +1311,7 @@ LABEL_263:
           {
             v228 = [v220 uniqueIdentifierForVisibleFunctionTableAtIndex:v226 inIndirectArgumentBuffer:v219 atOffset:v191 + v184];
             *__dst = v228;
-            v229 = v254;
+            v229 = v250;
             goto LABEL_257;
           }
         }
@@ -1399,7 +1323,7 @@ LABEL_263:
             case 't':
               v228 = [v220 uniqueIdentifierForIntersectionFunctionTableAtIndex:v226 inIndirectArgumentBuffer:v219 atOffset:v191 + v184];
               *__dst = v228;
-              v229 = *(&v254 + 1);
+              v229 = *(&v250 + 1);
               goto LABEL_257;
             case 'u':
               v230 = [v220 uniqueIdentifierForPrimitiveAccelerationStructureAtIndex:v226 inIndirectArgumentBuffer:v219 atOffset:v191 + v184];
@@ -1435,7 +1359,7 @@ LABEL_260:
         {
           v228 = [v220 uniqueIdentifierForTextureAtIndex:v226 inIndirectArgumentBuffer:v219 atOffset:v191 + v184];
           *__dst = v228;
-          v229 = *(&v248 + 1);
+          v229 = *(&v244 + 1);
           goto LABEL_257;
         }
 
@@ -1443,7 +1367,7 @@ LABEL_260:
         {
           v228 = [v220 uniqueIdentifierForSamplerAtIndex:v226 inIndirectArgumentBuffer:v219 atOffset:v191 + v184];
           *__dst = v228;
-          v229 = v249;
+          v229 = v245;
           goto LABEL_257;
         }
       }
@@ -1454,7 +1378,7 @@ LABEL_260:
         {
           case '<':
             v228 = [v220 virtualAddressForBufferAtIndex:v226 inIndirectArgumentBuffer:v219 atOffset:v191 + v184];
-            v231 = GTMTLGPUAddressResource_resourceForGPUAddress(*(v248 + 24), *(v248 + 12), v228);
+            v231 = GTMTLGPUAddressResource_resourceForGPUAddress(*(v244 + 24), *(v244 + 12), v228);
             if (v231)
             {
               v228 = v231[2] + v228 - *v231;
@@ -1464,12 +1388,12 @@ LABEL_260:
           case 'N':
             v228 = [v220 uniqueIdentifierForRenderPipelineAtIndex:v226 inIndirectArgumentBuffer:v219 atOffset:v191 + v184];
             *__dst = v228;
-            v229 = *(&v249 + 1);
+            v229 = *(&v245 + 1);
             goto LABEL_257;
           case 'O':
             v228 = [v220 uniqueIdentifierForComputePipelineAtIndex:v226 inIndirectArgumentBuffer:v219 atOffset:v191 + v184];
             *__dst = v228;
-            v229 = v252;
+            v229 = v248;
             goto LABEL_257;
         }
       }
@@ -1485,11 +1409,7 @@ LABEL_260:
 
 LABEL_265:
   elts = v194->elts;
-  p_elt_size = &v194->elt_size;
-  elt_size = v194->elt_size;
-  v236 = p_elt_size[1];
 
-  v238 = *MEMORY[0x277D85DE8];
   return elts;
 }
 
@@ -1585,485 +1505,411 @@ LABEL_22:
 
 void GTMTLReplayController_restoreRenderCommandEncoder(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v85[1] = *MEMORY[0x277D85DE8];
+  v77[1] = *MEMORY[0x277D85DE8];
   v7 = a3 + 0x2000;
   v8 = a2 + 0x2000;
   v9 = a1;
   v10 = a4;
-  v50 = v9;
+  v42 = v9;
   v11 = *(a3 + 8544);
   if (*(a2 + 8544) != v11 && v11 != 0)
   {
     v13 = [v10 renderPipelineStateForKey:?];
-    [v50 setRenderPipelineState:v13];
+    [v42 setRenderPipelineState:v13];
   }
 
   if (*(v8 + 2907) != *(v7 + 2907))
   {
-    [v50 setTriangleFillMode:?];
+    [v42 setTriangleFillMode:?];
   }
 
   if (*(v8 + 2906) != *(v7 + 2906))
   {
-    [v50 setFrontFacingWinding:?];
+    [v42 setFrontFacingWinding:?];
   }
 
   if (*(v8 + 2904) != *(v7 + 2904))
   {
-    [v50 setCullMode:?];
+    [v42 setCullMode:?];
   }
 
   v14 = *(a3 + 9848);
   if (*(a2 + 9848) != v14 && v14)
   {
     v15 = [v10 depthStencilStateForKey:?];
-    [v50 setDepthStencilState:v15];
+    [v42 setDepthStencilState:v15];
   }
 
-  if (*(a2 + 10008) != *(a3 + 10008))
+  if (*(a2 + 10008) != *(a3 + 10008) || *(a2 + 10012) != *(a3 + 10012) || *(a2 + 10016) != *(a3 + 10016))
   {
-    v16 = *(a3 + 10012);
-LABEL_19:
-    v17 = *(a3 + 10016);
-    [v50 setDepthBias:? slopeScale:? clamp:?];
-    goto LABEL_20;
+    [v42 setDepthBias:? slopeScale:? clamp:?];
   }
 
-  if (*(a2 + 10012) != *(a3 + 10012) || *(a2 + 10016) != *(a3 + 10016))
-  {
-    goto LABEL_19;
-  }
-
-LABEL_20:
   if (*(v8 + 2905) != *(v7 + 2905))
   {
-    [v50 setDepthClipMode:?];
+    [v42 setDepthClipMode:?];
   }
 
-  if (*(a2 + 10020) == *(a3 + 10020))
+  if (*(a2 + 10020) != *(a3 + 10020) || *(a2 + 10024) != *(a3 + 10024))
   {
-    if (*(a2 + 10024) == *(a3 + 10024))
-    {
-      goto LABEL_26;
-    }
+    [v42 setDepthTestMinBound:? maxBound:?];
   }
 
-  else
+  if (*(a2 + 10044) != *(a3 + 10044) || *(a2 + 10048) != *(a3 + 10048))
   {
-    v18 = *(a3 + 10024);
+    [v42 setStencilFrontReferenceValue:? backReferenceValue:?];
   }
 
-  [v50 setDepthTestMinBound:? maxBound:?];
-LABEL_26:
-  if (*(a2 + 10044) == *(a3 + 10044))
+  v16 = *(a3 + 8552);
+  if (v16 != *(a2 + 8552) || memcmp((a3 + 8560), (a2 + 8560), 48 * v16))
   {
-    if (*(a2 + 10048) == *(a3 + 10048))
-    {
-      goto LABEL_31;
-    }
+    [v42 setViewports:a3 + 8560 count:v16];
   }
 
-  else
+  v17 = *(a3 + 9328);
+  if (v17 != *(a2 + 9328) || memcmp((a3 + 9336), (a2 + 9336), 32 * v17))
   {
-    v19 = *(a3 + 10048);
+    [v42 setScissorRects:a3 + 9336 count:v17];
   }
 
-  [v50 setStencilFrontReferenceValue:? backReferenceValue:?];
-LABEL_31:
-  v20 = *(a3 + 8552);
-  if (v20 != *(a2 + 8552) || memcmp((a3 + 8560), (a2 + 8560), 48 * v20))
-  {
-    [v50 setViewports:a3 + 8560 count:v20];
-  }
-
-  v21 = *(a3 + 9328);
-  if (v21 != *(a2 + 9328) || memcmp((a3 + 9336), (a2 + 9336), 32 * v21))
-  {
-    [v50 setScissorRects:a3 + 9336 count:v21];
-  }
-
-  v26 = v50;
+  v22 = v42;
   if ((GT_SUPPORT_0 & 2) != 0)
   {
-    if (*(v8 + 2908) == *(v7 + 2908))
+    if (*(v8 + 2908) != *(v7 + 2908) || *(a2 + 11084) != *(a3 + 11084))
     {
-      if (*(a2 + 11084) == *(a3 + 11084))
-      {
-LABEL_43:
-        if (*(a2 + 11088) == *(a3 + 11088))
-        {
-          if (*(a2 + 9856) == *(a3 + 9856))
-          {
-            goto LABEL_48;
-          }
-        }
-
-        else
-        {
-          v28 = *(a3 + 9856);
-        }
-
-        [v50 setVertexAmplificationCount:? viewMappings:?];
-        v26 = v50;
-        goto LABEL_48;
-      }
+      [v42 setVertexAmplificationMode:? value:?];
+      v22 = v42;
     }
 
-    else
+    if (*(a2 + 11088) != *(a3 + 11088) || *(a2 + 9856) != *(a3 + 9856))
     {
-      v27 = *(a3 + 11084);
+      [v42 setVertexAmplificationCount:? viewMappings:?];
+      v22 = v42;
     }
-
-    [v50 setVertexAmplificationMode:? value:?];
-    v26 = v50;
-    goto LABEL_43;
   }
 
-LABEL_48:
   if (*(v8 + 1836) != *(v7 + 1836) || *(v8 + 1844) != *(v7 + 1844))
   {
-    LODWORD(v22) = *(a3 + 10028);
-    LODWORD(v23) = *(a3 + 10032);
-    LODWORD(v24) = *(a3 + 10036);
-    LODWORD(v25) = *(a3 + 10040);
-    [v50 setBlendColorRed:v22 green:v23 blue:v24 alpha:v25];
-    v26 = v50;
+    LODWORD(v18) = *(a3 + 10028);
+    LODWORD(v19) = *(a3 + 10032);
+    LODWORD(v20) = *(a3 + 10036);
+    LODWORD(v21) = *(a3 + 10040);
+    [v42 setBlendColorRed:v18 green:v19 blue:v20 alpha:v21];
+    v22 = v42;
   }
 
-  if (*(v8 + 2909) == *(v7 + 2909))
+  if (*(v8 + 2909) != *(v7 + 2909) || *(a2 + 11092) != *(a3 + 11092))
   {
-    if (*(a2 + 11092) == *(a3 + 11092))
-    {
-      goto LABEL_58;
-    }
+    [v42 setVisibilityResultMode:? offset:?];
+    v22 = v42;
   }
 
-  else
-  {
-    v30 = *(a3 + 11092);
-  }
-
-  [v50 setVisibilityResultMode:? offset:?];
-  v26 = v50;
-LABEL_58:
-  v51 = a2 + 24;
-  v52 = a3 + 24;
-  v53 = 31;
-  v54 = a2 + 272;
-  v55 = a3 + 272;
-  v56 = 31;
-  *&v57 = a2 + 520;
-  *(&v57 + 1) = a3 + 520;
-  *&v58 = 31;
-  *(&v58 + 1) = a2 + 16;
-  *&v59 = a3 + 16;
-  *(&v59 + 1) = 1;
-  v60 = a2 + 8;
-  v61 = a3 + 8;
-  v62 = 1;
-  v63 = a3 + 24;
-  v64 = a3 + 272;
-  v65 = a2 + 768;
-  v66 = a3 + 768;
-  v67 = 128;
-  v68 = a2 + 1792;
-  v69 = a3 + 1792;
-  v70 = 16;
-  v71 = a2 + 10052;
-  v72 = a2 + 10116;
-  v73 = a3 + 10052;
-  v74 = a3 + 10116;
-  v75 = 16;
-  v76 = sel_setVertexBuffer_offset_atIndex_;
-  v77 = sel_setVertexBuffer_offset_attributeStride_atIndex_;
-  v78 = sel_setVertexAccelerationStructure_atBufferIndex_;
-  v79 = sel_setVertexIntersectionFunctionTable_atBufferIndex_;
-  v80 = sel_setVertexVisibleFunctionTable_atBufferIndex_;
-  v81 = sel_setVertexBytes_length_atIndex_;
-  v82 = sel_setVertexBytes_length_attributeStride_atIndex_;
-  v83 = sel_setVertexTextures_withRange_;
-  v84 = sel_setVertexSamplerStates_lodMinClamps_lodMaxClamps_withRange_;
-  RestoreRenderStageResources(v26, &v51, v10);
-  v51 = a2 + 1928;
-  v52 = a3 + 1928;
-  v53 = 31;
-  v54 = a2 + 2176;
-  v55 = a3 + 2176;
-  v56 = 31;
-  v57 = 0u;
-  v58 = 0u;
-  v59 = 0u;
-  v60 = a2 + 1920;
-  v61 = a3 + 1920;
-  v62 = 1;
-  v63 = a3 + 1928;
-  v64 = a3 + 2176;
-  v65 = a2 + 2424;
-  v66 = a3 + 2424;
-  v67 = 128;
-  v68 = a2 + 3448;
-  v69 = a3 + 3448;
-  v70 = 16;
-  v71 = a2 + 10180;
-  v72 = a2 + 10244;
-  v73 = a3 + 10180;
-  v74 = a3 + 10244;
-  v75 = 16;
-  v76 = sel_setFragmentBuffer_offset_atIndex_;
-  v77 = 0;
-  v78 = sel_setFragmentAccelerationStructure_atBufferIndex_;
-  v79 = sel_setFragmentIntersectionFunctionTable_atBufferIndex_;
-  v80 = sel_setFragmentVisibleFunctionTable_atBufferIndex_;
-  v81 = sel_setFragmentBytes_length_atIndex_;
-  v82 = 0;
-  v83 = sel_setFragmentTextures_withRange_;
-  v84 = sel_setFragmentSamplerStates_lodMinClamps_lodMaxClamps_withRange_;
-  RestoreRenderStageResources(v50, &v51, v10);
+  v43 = a2 + 24;
+  v44 = a3 + 24;
+  v45 = 31;
+  v46 = a2 + 272;
+  v47 = a3 + 272;
+  v48 = 31;
+  *&v49 = a2 + 520;
+  *(&v49 + 1) = a3 + 520;
+  *&v50 = 31;
+  *(&v50 + 1) = a2 + 16;
+  *&v51 = a3 + 16;
+  *(&v51 + 1) = 1;
+  v52 = a2 + 8;
+  v53 = a3 + 8;
+  v54 = 1;
+  v55 = a3 + 24;
+  v56 = a3 + 272;
+  v57 = a2 + 768;
+  v58 = a3 + 768;
+  v59 = 128;
+  v60 = a2 + 1792;
+  v61 = a3 + 1792;
+  v62 = 16;
+  v63 = a2 + 10052;
+  v64 = a2 + 10116;
+  v65 = a3 + 10052;
+  v66 = a3 + 10116;
+  v67 = 16;
+  v68 = sel_setVertexBuffer_offset_atIndex_;
+  v69 = sel_setVertexBuffer_offset_attributeStride_atIndex_;
+  v70 = sel_setVertexAccelerationStructure_atBufferIndex_;
+  v71 = sel_setVertexIntersectionFunctionTable_atBufferIndex_;
+  v72 = sel_setVertexVisibleFunctionTable_atBufferIndex_;
+  v73 = sel_setVertexBytes_length_atIndex_;
+  v74 = sel_setVertexBytes_length_attributeStride_atIndex_;
+  v75 = sel_setVertexTextures_withRange_;
+  v76 = sel_setVertexSamplerStates_lodMinClamps_lodMaxClamps_withRange_;
+  RestoreRenderStageResources(v22, &v43, v10);
+  v43 = a2 + 1928;
+  v44 = a3 + 1928;
+  v45 = 31;
+  v46 = a2 + 2176;
+  v47 = a3 + 2176;
+  v48 = 31;
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v52 = a2 + 1920;
+  v53 = a3 + 1920;
+  v54 = 1;
+  v55 = a3 + 1928;
+  v56 = a3 + 2176;
+  v57 = a2 + 2424;
+  v58 = a3 + 2424;
+  v59 = 128;
+  v60 = a2 + 3448;
+  v61 = a3 + 3448;
+  v62 = 16;
+  v63 = a2 + 10180;
+  v64 = a2 + 10244;
+  v65 = a3 + 10180;
+  v66 = a3 + 10244;
+  v67 = 16;
+  v68 = sel_setFragmentBuffer_offset_atIndex_;
+  v69 = 0;
+  v70 = sel_setFragmentAccelerationStructure_atBufferIndex_;
+  v71 = sel_setFragmentIntersectionFunctionTable_atBufferIndex_;
+  v72 = sel_setFragmentVisibleFunctionTable_atBufferIndex_;
+  v73 = sel_setFragmentBytes_length_atIndex_;
+  v74 = 0;
+  v75 = sel_setFragmentTextures_withRange_;
+  v76 = sel_setFragmentSamplerStates_lodMinClamps_lodMaxClamps_withRange_;
+  RestoreRenderStageResources(v42, &v43, v10);
   if (*(a2 + 9864) != *(a3 + 9864) || *(a2 + 10704) != *(a3 + 10704) || *(a2 + 10708) != *(a3 + 10708))
   {
-    v31 = [v10 bufferForKey:?];
-    [v50 setTessellationFactorBuffer:v31 offset:*(a3 + 10704) instanceStride:*(a3 + 10708)];
+    v24 = [v10 bufferForKey:?];
+    [v42 setTessellationFactorBuffer:v24 offset:*(a3 + 10704) instanceStride:*(a3 + 10708)];
   }
 
-  v32 = v50;
+  v25 = v42;
   if (*(a2 + 10692) != *(a3 + 10692))
   {
-    [v50 setTessellationFactorScale:?];
-    v32 = v50;
+    [v42 setTessellationFactorScale:?];
+    v25 = v42;
   }
 
-  v51 = a2 + 3584;
-  v52 = a3 + 3584;
-  v53 = 31;
-  v54 = a2 + 3832;
-  v55 = a3 + 3832;
-  v56 = 31;
-  v57 = 0u;
-  v58 = 0u;
-  v59 = 0u;
-  v60 = a2 + 3576;
-  v61 = a3 + 3576;
-  v62 = 1;
-  v63 = a3 + 3584;
-  v64 = a3 + 3832;
-  v65 = a2 + 4080;
-  v66 = a3 + 4080;
-  v67 = 128;
-  v68 = a2 + 5104;
-  v69 = a3 + 5104;
-  v70 = 16;
-  v71 = a2 + 10308;
-  v72 = a2 + 10372;
-  v73 = a3 + 10308;
-  v74 = a3 + 10372;
-  v75 = 16;
-  v76 = sel_setObjectBuffer_offset_atIndex_;
-  v77 = 0;
-  v78 = sel_setObjectAccelerationStructure_atBufferIndex_;
-  v79 = sel_setObjectIntersectionFunctionTable_atBufferIndex_;
-  v80 = sel_setObjectVisibleFunctionTable_atBufferIndex_;
-  v81 = sel_setObjectBytes_length_atIndex_;
-  v82 = 0;
-  v83 = sel_setObjectTextures_withRange_;
-  v84 = sel_setObjectSamplerStates_lodMinClamps_lodMaxClamps_withRange_;
-  RestoreRenderStageResources(v32, &v51, v10);
+  v43 = a2 + 3584;
+  v44 = a3 + 3584;
+  v45 = 31;
+  v46 = a2 + 3832;
+  v47 = a3 + 3832;
+  v48 = 31;
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v52 = a2 + 3576;
+  v53 = a3 + 3576;
+  v54 = 1;
+  v55 = a3 + 3584;
+  v56 = a3 + 3832;
+  v57 = a2 + 4080;
+  v58 = a3 + 4080;
+  v59 = 128;
+  v60 = a2 + 5104;
+  v61 = a3 + 5104;
+  v62 = 16;
+  v63 = a2 + 10308;
+  v64 = a2 + 10372;
+  v65 = a3 + 10308;
+  v66 = a3 + 10372;
+  v67 = 16;
+  v68 = sel_setObjectBuffer_offset_atIndex_;
+  v69 = 0;
+  v70 = sel_setObjectAccelerationStructure_atBufferIndex_;
+  v71 = sel_setObjectIntersectionFunctionTable_atBufferIndex_;
+  v72 = sel_setObjectVisibleFunctionTable_atBufferIndex_;
+  v73 = sel_setObjectBytes_length_atIndex_;
+  v74 = 0;
+  v75 = sel_setObjectTextures_withRange_;
+  v76 = sel_setObjectSamplerStates_lodMinClamps_lodMaxClamps_withRange_;
+  RestoreRenderStageResources(v25, &v43, v10);
   for (i = 0; i != 31; ++i)
   {
-    v34 = *(a3 + 10960 + 4 * i);
-    if (v34 != *(a2 + 10960 + 4 * i))
+    v27 = *(a3 + 10960 + 4 * i);
+    if (v27 != *(a2 + 10960 + 4 * i))
     {
-      [v50 setObjectThreadgroupMemoryLength:v34 atIndex:i];
+      [v42 setObjectThreadgroupMemoryLength:v27 atIndex:i];
     }
   }
 
-  v51 = a2 + 5240;
-  v52 = a3 + 5240;
-  v53 = 31;
-  v54 = a2 + 5488;
-  v55 = a3 + 5488;
-  v56 = 31;
-  v57 = 0u;
-  v58 = 0u;
-  v59 = 0u;
-  v60 = a2 + 5232;
-  v61 = a3 + 5232;
-  v62 = 1;
-  v63 = a3 + 5240;
-  v64 = a3 + 5488;
-  v65 = a2 + 5736;
-  v66 = a3 + 5736;
-  v67 = 128;
-  v68 = a2 + 6760;
-  v69 = a3 + 6760;
-  v70 = 16;
-  v71 = a2 + 10436;
-  v72 = a2 + 10500;
-  v73 = a3 + 10436;
-  v74 = a3 + 10500;
-  v75 = 16;
-  v76 = sel_setMeshBuffer_offset_atIndex_;
-  v77 = 0;
-  v78 = sel_setMeshAccelerationStructure_atBufferIndex_;
-  v79 = sel_setMeshIntersectionFunctionTable_atBufferIndex_;
-  v80 = sel_setMeshVisibleFunctionTable_atBufferIndex_;
-  v81 = sel_setMeshBytes_length_atIndex_;
-  v82 = 0;
-  v83 = sel_setMeshTextures_withRange_;
-  v84 = sel_setMeshSamplerStates_lodMinClamps_lodMaxClamps_withRange_;
-  RestoreRenderStageResources(v50, &v51, v10);
+  v43 = a2 + 5240;
+  v44 = a3 + 5240;
+  v45 = 31;
+  v46 = a2 + 5488;
+  v47 = a3 + 5488;
+  v48 = 31;
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v52 = a2 + 5232;
+  v53 = a3 + 5232;
+  v54 = 1;
+  v55 = a3 + 5240;
+  v56 = a3 + 5488;
+  v57 = a2 + 5736;
+  v58 = a3 + 5736;
+  v59 = 128;
+  v60 = a2 + 6760;
+  v61 = a3 + 6760;
+  v62 = 16;
+  v63 = a2 + 10436;
+  v64 = a2 + 10500;
+  v65 = a3 + 10436;
+  v66 = a3 + 10500;
+  v67 = 16;
+  v68 = sel_setMeshBuffer_offset_atIndex_;
+  v69 = 0;
+  v70 = sel_setMeshAccelerationStructure_atBufferIndex_;
+  v71 = sel_setMeshIntersectionFunctionTable_atBufferIndex_;
+  v72 = sel_setMeshVisibleFunctionTable_atBufferIndex_;
+  v73 = sel_setMeshBytes_length_atIndex_;
+  v74 = 0;
+  v75 = sel_setMeshTextures_withRange_;
+  v76 = sel_setMeshSamplerStates_lodMinClamps_lodMaxClamps_withRange_;
+  RestoreRenderStageResources(v42, &v43, v10);
   if (GT_SUPPORT_0)
   {
-    v51 = a2 + 6896;
-    v52 = a3 + 6896;
-    v53 = 31;
-    v54 = a2 + 7144;
-    v55 = a3 + 7144;
-    v56 = 31;
-    v57 = 0u;
-    v58 = 0u;
-    v59 = 0u;
-    v60 = a2 + 6888;
-    v61 = a3 + 6888;
-    v62 = 1;
-    v63 = a3 + 6896;
-    v64 = a3 + 7144;
-    v65 = a2 + 7392;
-    v66 = a3 + 7392;
-    v67 = 128;
-    v68 = a2 + 8416;
-    v69 = a3 + 8416;
-    v70 = 16;
-    v71 = a2 + 10564;
-    v72 = a2 + 10628;
-    v73 = a3 + 10564;
-    v74 = a3 + 10628;
-    v75 = 16;
-    v76 = sel_setTileBuffer_offset_atIndex_;
-    v77 = 0;
-    v78 = sel_setTileAccelerationStructure_atBufferIndex_;
-    v79 = sel_setTileIntersectionFunctionTable_atBufferIndex_;
-    v80 = sel_setTileVisibleFunctionTable_atBufferIndex_;
-    v81 = sel_setTileBytes_length_atIndex_;
-    v82 = 0;
-    v83 = sel_setTileTextures_withRange_;
-    v84 = sel_setTileSamplerStates_lodMinClamps_lodMaxClamps_withRange_;
-    RestoreRenderStageResources(v50, &v51, v10);
-    v35 = 0;
-    v36 = (a2 + 10836);
-    v37 = (a3 + 10836);
+    v43 = a2 + 6896;
+    v44 = a3 + 6896;
+    v45 = 31;
+    v46 = a2 + 7144;
+    v47 = a3 + 7144;
+    v48 = 31;
+    v49 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v52 = a2 + 6888;
+    v53 = a3 + 6888;
+    v54 = 1;
+    v55 = a3 + 6896;
+    v56 = a3 + 7144;
+    v57 = a2 + 7392;
+    v58 = a3 + 7392;
+    v59 = 128;
+    v60 = a2 + 8416;
+    v61 = a3 + 8416;
+    v62 = 16;
+    v63 = a2 + 10564;
+    v64 = a2 + 10628;
+    v65 = a3 + 10564;
+    v66 = a3 + 10628;
+    v67 = 16;
+    v68 = sel_setTileBuffer_offset_atIndex_;
+    v69 = 0;
+    v70 = sel_setTileAccelerationStructure_atBufferIndex_;
+    v71 = sel_setTileIntersectionFunctionTable_atBufferIndex_;
+    v72 = sel_setTileVisibleFunctionTable_atBufferIndex_;
+    v73 = sel_setTileBytes_length_atIndex_;
+    v74 = 0;
+    v75 = sel_setTileTextures_withRange_;
+    v76 = sel_setTileSamplerStates_lodMinClamps_lodMaxClamps_withRange_;
+    RestoreRenderStageResources(v42, &v43, v10);
+    v29 = 0;
+    v30 = (a2 + 10836);
+    v31 = (a3 + 10836);
     do
     {
-      if (*(v36 - 31) == *(v37 - 31))
+      if (*(v30 - 31) != *(v31 - 31) || *v30 != *v31)
       {
-        if (*v36 == *v37)
-        {
-          goto LABEL_75;
-        }
+        [v42 setThreadgroupMemoryLength:? offset:? atIndex:?];
       }
 
-      else
-      {
-        v38 = *v37;
-      }
-
-      [v50 setThreadgroupMemoryLength:? offset:? atIndex:?];
-LABEL_75:
-      ++v37;
-      ++v35;
-      ++v36;
+      ++v31;
+      ++v29;
+      ++v30;
     }
 
-    while (v35 != 31);
+    while (v29 != 31);
   }
 
-  v39 = 0;
-  v40 = (a2 + 9936);
-  v41 = (a3 + 9936);
+  v32 = 0;
+  v33 = (a2 + 9936);
+  v34 = (a3 + 9936);
   do
   {
-    if (*(v40 - 8) != *(v41 - 8))
+    if (*(v33 - 8) != *(v34 - 8))
     {
-      [v50 setColorStoreAction:? atIndex:?];
+      [v42 setColorStoreAction:? atIndex:?];
     }
 
-    if (*v40 != *v41)
+    if (*v33 != *v34)
     {
-      [v50 setColorStoreActionOptions:? atIndex:?];
+      [v42 setColorStoreActionOptions:? atIndex:?];
     }
 
-    ++v41;
-    ++v39;
-    ++v40;
+    ++v34;
+    ++v32;
+    ++v33;
   }
 
-  while (v39 != 8);
+  while (v32 != 8);
   if (*(v8 + 2910) != *(v7 + 2910))
   {
-    [v50 setDepthStoreAction:?];
+    [v42 setDepthStoreAction:?];
   }
 
   if (*(v8 + 2912) != *(v7 + 2912))
   {
-    [v50 setDepthStoreActionOptions:?];
+    [v42 setDepthStoreActionOptions:?];
   }
 
   if (*(v8 + 2911) != *(v7 + 2911))
   {
-    [v50 setStencilStoreAction:?];
+    [v42 setStencilStoreAction:?];
   }
 
   if (*(v8 + 2913) != *(v7 + 2913))
   {
-    [v50 setStencilStoreActionOptions:?];
+    [v42 setStencilStoreActionOptions:?];
   }
 
   if (*(a2 + 10696) != *(a3 + 10696))
   {
-    [v50 setLineWidth:?];
+    [v42 setLineWidth:?];
   }
 
-  v42 = *(v7 + 2914);
-  if (v42 != *(v8 + 2914))
+  v35 = *(v7 + 2914);
+  if (v35 != *(v8 + 2914))
   {
-    [v50 setPrimitiveRestartEnabled:v42 != 0];
+    [v42 setPrimitiveRestartEnabled:v35 != 0];
   }
 
-  v43 = *(a2 + 10000);
-  v51 = *(a3 + 10000);
-  v85[0] = v43;
-  if (v51 == v43)
+  v36 = *(a2 + 10000);
+  v43 = *(a3 + 10000);
+  v77[0] = v36;
+  if (v43 == v36)
   {
-    v44 = 1;
-    while (v44 != 8)
+    v37 = 1;
+    while (v37 != 8)
     {
-      v45 = v44;
-      v46 = *(&v51 + v44);
-      v47 = *(v85 + v44++);
-      if (v46 != v47)
+      v38 = v37;
+      v39 = *(&v43 + v37);
+      v40 = *(v77 + v37++);
+      if (v39 != v40)
       {
-        if ((v45 - 1) > 6)
+        if ((v38 - 1) > 6)
         {
           break;
         }
 
-        goto LABEL_99;
+        goto LABEL_87;
       }
     }
   }
 
   else
   {
-LABEL_99:
-    v48 = MakeMTLLogicalToPhysicalColorAttachmentMap(v51);
-    [v50 setColorAttachmentMap:v48];
+LABEL_87:
+    v41 = MakeMTLLogicalToPhysicalColorAttachmentMap(v43, v28);
+    [v42 setColorAttachmentMap:v41];
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void RestoreRenderStageResources(void *a1, uint64_t *a2, void *a3)
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a3;
   v7 = CompareObjectIdRange(*a2, a2[1], a2[2]);
@@ -2090,10 +1936,10 @@ void RestoreRenderStageResources(void *a1, uint64_t *a2, void *a3)
     v12.location = v13;
   }
 
-  v79.location = v13;
-  v79.length = v9;
-  v14 = NSUnionRange(v79, v12);
-  v76 = v14;
+  v78.location = v13;
+  v78.length = v9;
+  v14 = NSUnionRange(v78, v12);
+  v75 = v14;
   if (!v14.length)
   {
     goto LABEL_39;
@@ -2103,26 +1949,26 @@ void RestoreRenderStageResources(void *a1, uint64_t *a2, void *a3)
   length = v14.length;
   do
   {
-    *&v77[0] = location;
+    *&v76[0] = location;
     if (((*(a2[13] + ((location >> 3) & 0x1FFFFFFFFFFFFFF8)) >> location) & 1) == 0 && *(a2[1] + 8 * location))
     {
-      v75 = [v6 resourceForKey:?];
-      if ([v75 conformsToProtocol:&unk_2860F61B0])
+      v74 = [v6 resourceForKey:?];
+      if ([v74 conformsToProtocol:&unk_2860F61B0])
       {
-        v74 = *(a2[4] + 8 * *&v77[0]);
+        v73 = *(a2[4] + 8 * *&v76[0]);
         v17 = a2[10];
-        if (v17 && ((*(v17 + ((*&v77[0] >> 3) & 0x1FFFFFFFFFFFFFF8)) >> SLOBYTE(v77[0])) & 1) != 0)
+        if (v17 && ((*(v17 + ((*&v76[0] >> 3) & 0x1FFFFFFFFFFFFFF8)) >> SLOBYTE(v76[0])) & 1) != 0)
         {
-          v73 = *(a2[7] + 8 * *&v77[0]);
+          v72 = *(a2[7] + 8 * *&v76[0]);
           v18 = MEMORY[0x277CBEAE8];
           v19 = [v5 methodSignatureForSelector:a2[29]];
           v20 = [v18 invocationWithMethodSignature:v19];
 
           [v20 setSelector:a2[29]];
           [v20 setTarget:v5];
-          [v20 setArgument:&v75 atIndex:2];
-          [v20 setArgument:&v74 atIndex:3];
-          [v20 setArgument:&v73 atIndex:4];
+          [v20 setArgument:&v74 atIndex:2];
+          [v20 setArgument:&v73 atIndex:3];
+          [v20 setArgument:&v72 atIndex:4];
           v21 = v20;
           v22 = 5;
         }
@@ -2135,8 +1981,8 @@ void RestoreRenderStageResources(void *a1, uint64_t *a2, void *a3)
 
           [v20 setSelector:a2[28]];
           [v20 setTarget:v5];
-          [v20 setArgument:&v75 atIndex:2];
-          [v20 setArgument:&v74 atIndex:3];
+          [v20 setArgument:&v74 atIndex:2];
+          [v20 setArgument:&v73 atIndex:3];
           v21 = v20;
           v22 = 4;
         }
@@ -2144,7 +1990,7 @@ void RestoreRenderStageResources(void *a1, uint64_t *a2, void *a3)
 
       else
       {
-        if ([v75 conformsToProtocol:&unk_2860F7610] && a2[30])
+        if ([v74 conformsToProtocol:&unk_2860F7610] && a2[30])
         {
           v23 = MEMORY[0x277CBEAE8];
           v24 = [v5 methodSignatureForSelector:?];
@@ -2153,7 +1999,7 @@ void RestoreRenderStageResources(void *a1, uint64_t *a2, void *a3)
           v25 = a2[30];
         }
 
-        else if ([v75 conformsToProtocol:&unk_2860F77A8] && a2[31])
+        else if ([v74 conformsToProtocol:&unk_2860F77A8] && a2[31])
         {
           v26 = MEMORY[0x277CBEAE8];
           v27 = [v5 methodSignatureForSelector:?];
@@ -2164,7 +2010,7 @@ void RestoreRenderStageResources(void *a1, uint64_t *a2, void *a3)
 
         else
         {
-          if (![v75 conformsToProtocol:&unk_2860F7528] || !a2[32])
+          if (![v74 conformsToProtocol:&unk_2860F7528] || !a2[32])
           {
             goto LABEL_27;
           }
@@ -2178,12 +2024,12 @@ void RestoreRenderStageResources(void *a1, uint64_t *a2, void *a3)
 
         [v20 setSelector:v25];
         [v20 setTarget:v5];
-        [v20 setArgument:&v75 atIndex:2];
+        [v20 setArgument:&v74 atIndex:2];
         v21 = v20;
         v22 = 3;
       }
 
-      [v21 setArgument:v77 atIndex:v22];
+      [v21 setArgument:v76 atIndex:v22];
       [v20 invoke];
 
 LABEL_27:
@@ -2209,7 +2055,7 @@ LABEL_27:
         }
 
         v35 = (v33 + __clz(__rbit64(v34)));
-        *&v77[0] = (v32 << 6) + v35;
+        *&v76[0] = (v32 << 6) + v35;
         v36 = a2[10];
         if (v36 && ((*(v36 + ((((v32 << 6) + v35) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v35) & 1) != 0)
         {
@@ -2219,9 +2065,9 @@ LABEL_27:
 
           [v39 setSelector:a2[34]];
           [v39 setTarget:v5];
-          [v39 setArgument:a2[15] + 8 * *&v77[0] atIndex:2];
-          [v39 setArgument:a2[16] + 8 * *&v77[0] atIndex:3];
-          [v39 setArgument:a2[7] + 8 * *&v77[0] atIndex:4];
+          [v39 setArgument:a2[15] + 8 * *&v76[0] atIndex:2];
+          [v39 setArgument:a2[16] + 8 * *&v76[0] atIndex:3];
+          [v39 setArgument:a2[7] + 8 * *&v76[0] atIndex:4];
           v40 = v39;
           v41 = 5;
         }
@@ -2234,13 +2080,13 @@ LABEL_27:
 
           [v39 setSelector:a2[33]];
           [v39 setTarget:v5];
-          [v39 setArgument:a2[15] + 8 * *&v77[0] atIndex:2];
-          [v39 setArgument:a2[16] + 8 * *&v77[0] atIndex:3];
+          [v39 setArgument:a2[15] + 8 * *&v76[0] atIndex:2];
+          [v39 setArgument:a2[16] + 8 * *&v76[0] atIndex:3];
           v40 = v39;
           v41 = 4;
         }
 
-        [v40 setArgument:v77 atIndex:v41];
+        [v40 setArgument:v76 atIndex:v41];
         [v39 invoke];
 
         v33 = v35 + 1;
@@ -2254,31 +2100,31 @@ LABEL_27:
   }
 
 LABEL_39:
-  v76.location = CompareObjectIdRange(a2[17], a2[18], a2[19]);
-  v76.length = v44;
+  v75.location = CompareObjectIdRange(a2[17], a2[18], a2[19]);
+  v75.length = v44;
   if (v44)
   {
-    bzero(v77, 0x400uLL);
+    bzero(v76, 0x400uLL);
     v45 = 0;
     do
     {
-      v46 = [v6 textureForKey:*(a2[18] + 8 * v76.location + 8 * v45)];
-      v47 = *(v77 + v45);
-      *(v77 + v45) = v46;
+      v46 = [v6 textureForKey:*(a2[18] + 8 * v75.location + 8 * v45)];
+      v47 = *(v76 + v45);
+      *(v76 + v45) = v46;
 
       ++v45;
     }
 
-    while (v45 < v76.length);
-    v75 = v77;
+    while (v45 < v75.length);
+    v74 = v76;
     v48 = MEMORY[0x277CBEAE8];
     v49 = [v5 methodSignatureForSelector:a2[35]];
     v50 = [v48 invocationWithMethodSignature:v49];
 
     [v50 setSelector:a2[35]];
     [v50 setTarget:v5];
-    [v50 setArgument:&v75 atIndex:2];
-    [v50 setArgument:&v76 atIndex:3];
+    [v50 setArgument:&v74 atIndex:2];
+    [v50 setArgument:&v75 atIndex:3];
     [v50 invoke];
 
     for (i = 1016; i != -8; i -= 8)
@@ -2288,8 +2134,8 @@ LABEL_39:
 
   v52 = CompareObjectIdRange(a2[20], a2[21], a2[22]);
   v54 = v53;
-  v76.location = v52;
-  v76.length = v53;
+  v75.location = v52;
+  v75.length = v53;
   v55 = CompareFloatRange(a2[23], a2[25], a2[27]);
   v57.length = v56;
   if (v54)
@@ -2312,10 +2158,10 @@ LABEL_39:
     v57.location = v58;
   }
 
-  v80.location = v58;
-  v80.length = v54;
-  v59 = NSUnionRange(v80, v57);
-  v76 = v59;
+  v79.location = v58;
+  v79.length = v54;
+  v59 = NSUnionRange(v79, v57);
+  v75 = v59;
   v60 = CompareFloatRange(a2[24], a2[26], a2[27]);
   v62.length = v61;
   if (v59.length)
@@ -2338,45 +2184,43 @@ LABEL_39:
     v62.location = v63;
   }
 
-  v81.location = v63;
-  v81.length = v59.length;
-  v76 = NSUnionRange(v81, v62);
-  if (v76.length)
+  v80.location = v63;
+  v80.length = v59.length;
+  v75 = NSUnionRange(v80, v62);
+  if (v75.length)
   {
     v64 = 0;
-    memset(v77, 0, 128);
+    memset(v76, 0, 128);
     do
     {
-      v65 = [v6 samplerStateForKey:*(a2[21] + 8 * v76.location + 8 * v64)];
-      v66 = *(v77 + v64);
-      *(v77 + v64) = v65;
+      v65 = [v6 samplerStateForKey:*(a2[21] + 8 * v75.location + 8 * v64)];
+      v66 = *(v76 + v64);
+      *(v76 + v64) = v65;
 
       ++v64;
     }
 
-    while (v64 < v76.length);
+    while (v64 < v75.length);
     v67 = a2[26];
-    v74 = a2[25] + 4 * v76.location;
-    v75 = v77;
-    v73 = v67 + 4 * v76.location;
+    v73 = a2[25] + 4 * v75.location;
+    v74 = v76;
+    v72 = v67 + 4 * v75.location;
     v68 = MEMORY[0x277CBEAE8];
     v69 = [v5 methodSignatureForSelector:a2[36]];
     v70 = [v68 invocationWithMethodSignature:v69];
 
     [v70 setSelector:a2[36]];
     [v70 setTarget:v5];
-    [v70 setArgument:&v75 atIndex:2];
-    [v70 setArgument:&v74 atIndex:3];
-    [v70 setArgument:&v73 atIndex:4];
-    [v70 setArgument:&v76 atIndex:5];
+    [v70 setArgument:&v74 atIndex:2];
+    [v70 setArgument:&v73 atIndex:3];
+    [v70 setArgument:&v72 atIndex:4];
+    [v70 setArgument:&v75 atIndex:5];
     [v70 invoke];
 
     for (j = 120; j != -8; j -= 8)
     {
     }
   }
-
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 unint64_t CompareObjectIdRange(uint64_t a1, uint64_t a2, unint64_t a3)
@@ -2482,263 +2326,217 @@ void GTMTLReplayController_restoreDefaultRenderCommandEncoder()
   v4 = v3;
   v6 = v5;
   v7 = v0;
-  v21 = *MEMORY[0x277D85DE8];
-  memset(v13, 0, 512);
+  v20 = *MEMORY[0x277D85DE8];
+  memset(v12, 0, 512);
   v8 = *v1;
   v10 = v9;
   v11 = v7;
-  GTMTLSMRenderCommandEncoder_init(v13, v8);
-  v14 = 1;
-  v15 = v6;
-  v16 = v4;
-  v17 = 0x3FF0000000000000;
-  v18 = 1;
-  v19 = v6;
-  v20 = v4;
-  GTMTLReplayController_restoreRenderCommandEncoder(v11, v13, v2, v10);
-
-  v12 = *MEMORY[0x277D85DE8];
+  GTMTLSMRenderCommandEncoder_init(v12, v8);
+  v13 = 1;
+  v14 = v6;
+  v15 = v4;
+  v16 = 0x3FF0000000000000;
+  v17 = 1;
+  v18 = v6;
+  v19 = v4;
+  GTMTLReplayController_restoreRenderCommandEncoder(v11, v12, v2, v10);
 }
 
 void GTMTLReplayController_restoreDefaultRenderCommandEncoder4(void *a1, unint64_t a2, unint64_t a3, uint64_t *a4, void *a5)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v9 = *a4;
   v10 = a5;
-  v12 = a1;
-  bzero(v14, 0x750uLL);
-  v13 = v9;
-  v16 = 1065353216;
-  v17 = 1;
-  memset_pattern16(v15, &unk_24DA90D30, 0x40uLL);
-  v18 = 1028;
-  v15[8] = 0x706050403020100;
-  v14[7] = 1;
-  *&v14[10] = a2;
-  *&v14[11] = a3;
-  v14[13] = 0x3FF0000000000000;
-  v14[104] = 1;
-  v14[107] = a2;
-  v14[108] = a3;
-  GTMTLReplayController_restoreMTL4RenderCommandEncoder(v12, &v13, a4, v10);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = a1;
+  bzero(v13, 0x750uLL);
+  v12 = v9;
+  v15 = 1065353216;
+  v16 = 1;
+  memset_pattern16(v14, &unk_24DA90D30, 0x40uLL);
+  v17 = 1028;
+  v14[8] = 0x706050403020100;
+  v13[7] = 1;
+  *&v13[10] = a2;
+  *&v13[11] = a3;
+  v13[13] = 0x3FF0000000000000;
+  v13[104] = 1;
+  v13[107] = a2;
+  v13[108] = a3;
+  GTMTLReplayController_restoreMTL4RenderCommandEncoder(v11, &v12, a4, v10);
 }
 
 void GTMTLReplayController_restoreMTL4RenderCommandEncoder(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a4;
-  v43 = v7;
+  v38 = v7;
   v9 = *(a3 + 56);
   if (*(a2 + 56) != v9 && v9 != 0)
   {
     v11 = [v8 renderPipelineStateForKey:?];
-    [v43 setRenderPipelineState:v11];
+    [v38 setRenderPipelineState:v11];
   }
 
   if (*(a2 + 1871) != *(a3 + 1871))
   {
-    [v43 setTriangleFillMode:?];
+    [v38 setTriangleFillMode:?];
   }
 
   if (*(a2 + 1870) != *(a3 + 1870))
   {
-    [v43 setFrontFacingWinding:?];
+    [v38 setFrontFacingWinding:?];
   }
 
   if (*(a2 + 1868) != *(a3 + 1868))
   {
-    [v43 setCullMode:?];
+    [v38 setCullMode:?];
   }
 
   v12 = *(a3 + 1360);
   if (*(a2 + 1360) != v12 && v12)
   {
     v13 = [v8 depthStencilStateForKey:?];
-    [v43 setDepthStencilState:v13];
+    [v38 setDepthStencilState:v13];
   }
 
-  if (*(a2 + 1448) != *(a3 + 1448))
+  if (*(a2 + 1448) != *(a3 + 1448) || *(a2 + 1452) != *(a3 + 1452) || *(a2 + 1456) != *(a3 + 1456))
   {
-    v14 = *(a3 + 1452);
-LABEL_19:
-    v15 = *(a3 + 1456);
-    [v43 setDepthBias:v43 slopeScale:? clamp:?];
-    goto LABEL_20;
+    [v38 setDepthBias:v38 slopeScale:? clamp:?];
   }
 
-  if (*(a2 + 1452) != *(a3 + 1452) || *(a2 + 1456) != *(a3 + 1456))
-  {
-    goto LABEL_19;
-  }
-
-LABEL_20:
   if (*(a2 + 1869) != *(a3 + 1869))
   {
-    [v43 setDepthClipMode:?];
+    [v38 setDepthClipMode:?];
   }
 
-  if (*(a2 + 1476) == *(a3 + 1476))
+  if (*(a2 + 1476) != *(a3 + 1476) || *(a2 + 1480) != *(a3 + 1480))
   {
-    if (*(a2 + 1480) == *(a3 + 1480))
-    {
-      goto LABEL_27;
-    }
+    [v38 setStencilFrontReferenceValue:v38 backReferenceValue:?];
   }
 
-  else
+  v14 = *(a3 + 64);
+  if (v14 != *(a2 + 64) || memcmp((a3 + 72), (a2 + 72), 48 * v14))
   {
-    v16 = *(a3 + 1480);
+    [v38 setViewports:a3 + 72 count:{v14, v38}];
   }
 
-  [v43 setStencilFrontReferenceValue:v43 backReferenceValue:?];
-LABEL_27:
-  v17 = *(a3 + 64);
-  if (v17 != *(a2 + 64) || memcmp((a3 + 72), (a2 + 72), 48 * v17))
+  v15 = *(a3 + 840);
+  if (v15 != *(a2 + 840) || memcmp((a3 + 848), (a2 + 848), 32 * v15))
   {
-    [v43 setViewports:a3 + 72 count:{v17, v43}];
-  }
-
-  v18 = *(a3 + 840);
-  if (v18 != *(a2 + 840) || memcmp((a3 + 848), (a2 + 848), 32 * v18))
-  {
-    [v43 setScissorRects:a3 + 848 count:{v18, v43}];
+    [v38 setScissorRects:a3 + 848 count:{v15, v38}];
   }
 
   if (*(a2 + 1460) != *(a3 + 1460) || *(a2 + 1468) != *(a3 + 1468))
   {
-    LODWORD(v19) = *(a3 + 1460);
-    LODWORD(v20) = *(a3 + 1464);
-    LODWORD(v21) = *(a3 + 1468);
-    LODWORD(v22) = *(a3 + 1472);
-    [v43 setBlendColorRed:v19 green:v20 blue:v21 alpha:v22];
+    LODWORD(v17) = *(a3 + 1460);
+    LODWORD(v18) = *(a3 + 1464);
+    LODWORD(v19) = *(a3 + 1468);
+    LODWORD(v20) = *(a3 + 1472);
+    [v38 setBlendColorRed:v17 green:v18 blue:v19 alpha:v20];
   }
 
-  if (*(a2 + 1872) == *(a3 + 1872))
+  if (*(a2 + 1872) != *(a3 + 1872) || *(a2 + 1864) != *(a3 + 1864))
   {
-    if (*(a2 + 1864) == *(a3 + 1864))
-    {
-      goto LABEL_43;
-    }
+    [v38 setVisibilityResultMode:v38 offset:?];
   }
 
-  else
-  {
-    v24 = *(a3 + 1864);
-  }
-
-  [v43 setVisibilityResultMode:v43 offset:?];
-LABEL_43:
   for (i = 0; i != 31; ++i)
   {
-    v26 = *(a3 + 1736 + 4 * i);
-    if (v26 != *(a2 + 1736 + 4 * i))
+    v23 = *(a3 + 1736 + 4 * i);
+    if (v23 != *(a2 + 1736 + 4 * i))
     {
-      [v43 setObjectThreadgroupMemoryLength:v26 atIndex:i];
+      [v38 setObjectThreadgroupMemoryLength:v23 atIndex:i];
     }
   }
 
   if (GT_SUPPORT_0)
   {
-    v27 = 0;
-    v28 = (a2 + 1612);
-    v29 = (a3 + 1612);
+    v24 = 0;
+    v25 = (a2 + 1612);
+    v26 = (a3 + 1612);
     do
     {
-      if (*(v28 - 31) == *(v29 - 31))
+      if (*(v25 - 31) != *(v26 - 31) || *v25 != *v26)
       {
-        if (*v28 == *v29)
-        {
-          goto LABEL_54;
-        }
+        [v38 setThreadgroupMemoryLength:v38 offset:? atIndex:?];
       }
 
-      else
-      {
-        v30 = *v29;
-      }
-
-      [v43 setThreadgroupMemoryLength:v43 offset:? atIndex:?];
-LABEL_54:
-      ++v29;
-      ++v27;
-      ++v28;
+      ++v26;
+      ++v24;
+      ++v25;
     }
 
-    while (v27 != 31);
+    while (v24 != 31);
   }
 
   for (j = 0; j != 8; ++j)
   {
     if (*(a2 + 1376 + 8 * j) != *(a3 + 1376 + 8 * j))
     {
-      [v43 setColorStoreAction:? atIndex:?];
+      [v38 setColorStoreAction:? atIndex:?];
     }
   }
 
   if (*(a2 + 1873) != *(a3 + 1873))
   {
-    [v43 setDepthStoreAction:?];
+    [v38 setDepthStoreAction:?];
   }
 
   if (*(a2 + 1874) != *(a3 + 1874))
   {
-    [v43 setStencilStoreAction:?];
+    [v38 setStencilStoreAction:?];
   }
 
   if (*(a2 + 1484) != *(a3 + 1484))
   {
-    [v43 setLineWidth:?];
+    [v38 setLineWidth:?];
   }
 
   for (k = 0; k != 5; ++k)
   {
-    v33 = *(a3 + 8 + 8 * k);
-    if (*(a2 + 8 + 8 * k) != v33 && v33 != 0)
+    v29 = *(a3 + 8 + 8 * k);
+    if (*(a2 + 8 + 8 * k) != v29 && v29 != 0)
     {
-      v35 = [v8 mtl4ArgumentTableForKey:?];
-      [v43 setArgumentTable:v35 atStages:(1 << k)];
+      v31 = [v8 mtl4ArgumentTableForKey:?];
+      [v38 setArgumentTable:v31 atStages:(1 << k)];
     }
   }
 
-  v36 = *(a3 + 1440);
-  v44 = *(a2 + 1440);
-  v45[0] = v36;
-  if (v36 == v44)
+  v32 = *(a3 + 1440);
+  v39 = *(a2 + 1440);
+  v40[0] = v32;
+  if (v32 == v39)
   {
-    v37 = 1;
-    while (v37 != 8)
+    v33 = 1;
+    while (v33 != 8)
     {
-      v38 = v37;
-      v39 = *(v45 + v37);
-      v40 = *(&v45[-1] + v37++);
-      if (v39 != v40)
+      v34 = v33;
+      v35 = *(v40 + v33);
+      v36 = *(&v40[-1] + v33++);
+      if (v35 != v36)
       {
-        if ((v38 - 1) >= 7)
+        if ((v34 - 1) >= 7)
         {
           break;
         }
 
-        goto LABEL_77;
+        goto LABEL_70;
       }
     }
   }
 
   else
   {
-LABEL_77:
-    v41 = MakeMTLLogicalToPhysicalColorAttachmentMap(v36);
-    [v43 setColorAttachmentMap:v41];
+LABEL_70:
+    v37 = MakeMTLLogicalToPhysicalColorAttachmentMap(v32, v16);
+    [v38 setColorAttachmentMap:v37];
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void GTMTLReplayController_restoreComputeCommandEncoder(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a4;
   v9 = v8;
@@ -2751,7 +2549,7 @@ void GTMTLReplayController_restoreComputeCommandEncoder(void *a1, uint64_t a2, u
 
   v13 = CompareObjectIdRange(a2 + 32, a3 + 32, 0x1FuLL);
   v15 = v14;
-  v70 = a2;
+  v69 = a2;
   v16 = CompareObjectIdRange(a2 + 280, a3 + 280, 0x1FuLL);
   v18.length = v17;
   if (v15)
@@ -2774,19 +2572,19 @@ void GTMTLReplayController_restoreComputeCommandEncoder(void *a1, uint64_t a2, u
     v18.location = v19;
   }
 
-  v81.location = v19;
-  v81.length = v15;
-  v20 = NSUnionRange(v81, v18);
-  v71 = a3;
+  v80.location = v19;
+  v80.length = v15;
+  v20 = NSUnionRange(v80, v18);
+  v70 = a3;
   if (v20.length)
   {
     location = v20.location;
     length = v20.length;
-    v68 = a3 + 280;
-    v69 = a3 + 32;
+    v67 = a3 + 280;
+    v68 = a3 + 32;
     v23 = (a3 + 16);
     v24 = a3 + 24;
-    v67 = a3 + 528;
+    v66 = a3 + 528;
     v25 = (a3 + 8 * v20.location + 280);
     do
     {
@@ -2830,7 +2628,7 @@ void GTMTLReplayController_restoreComputeCommandEncoder(void *a1, uint64_t a2, u
 
     while (length);
     v29 = 0;
-    a3 = v71;
+    a3 = v70;
     do
     {
       v30 = *v23 >> v29;
@@ -2843,12 +2641,12 @@ void GTMTLReplayController_restoreComputeCommandEncoder(void *a1, uint64_t a2, u
       v32 = v29 + v31;
       if ((*(v24 + ((v32 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v29 + v31)))
       {
-        [v7 setBytes:*(v69 + 8 * v32) length:*(v68 + 8 * v32) attributeStride:*(v67 + 8 * v32) atIndex:v32];
+        [v7 setBytes:*(v68 + 8 * v32) length:*(v67 + 8 * v32) attributeStride:*(v66 + 8 * v32) atIndex:v32];
       }
 
       else
       {
-        [v7 setBytes:*(v69 + 8 * v32) length:*(v68 + 8 * v32) atIndex:v32];
+        [v7 setBytes:*(v68 + 8 * v32) length:*(v67 + 8 * v32) atIndex:v32];
       }
 
       v29 = v32 + 1;
@@ -2857,37 +2655,37 @@ void GTMTLReplayController_restoreComputeCommandEncoder(void *a1, uint64_t a2, u
     while (v32 < 63);
   }
 
-  v33 = CompareObjectIdRange(v70 + 776, a3 + 776, 0x80uLL);
+  v33 = CompareObjectIdRange(v69 + 776, a3 + 776, 0x80uLL);
   if (v34)
   {
     v35 = v33;
     v36 = v34;
-    bzero(&v72, 0x400uLL);
+    bzero(&v71, 0x400uLL);
     v37 = a3;
     v38 = 0;
     v39 = v37 + 8 * v35 + 776;
     do
     {
       v40 = [v9 textureForKey:*(v39 + 8 * v38)];
-      v41 = *(&v72 + v38);
-      *(&v72 + v38) = v40;
+      v41 = *(&v71 + v38);
+      *(&v71 + v38) = v40;
 
       ++v38;
     }
 
     while (v36 != v38);
-    [v7 setTextures:&v72 withRange:{v35, v36}];
+    [v7 setTextures:&v71 withRange:{v35, v36}];
     for (i = 1016; i != -8; i -= 8)
     {
     }
 
-    a3 = v71;
+    a3 = v70;
   }
 
-  v43 = CompareObjectIdRange(v70 + 1800, a3 + 1800, 0x10uLL);
+  v43 = CompareObjectIdRange(v69 + 1800, a3 + 1800, 0x10uLL);
   v45 = v44;
   v46 = a3 + 2120;
-  v47 = CompareFloatRange(v70 + 2120, a3 + 2120, 0x10uLL);
+  v47 = CompareFloatRange(v69 + 2120, a3 + 2120, 0x10uLL);
   v49.length = v48;
   if (v45)
   {
@@ -2909,11 +2707,11 @@ void GTMTLReplayController_restoreComputeCommandEncoder(void *a1, uint64_t a2, u
     v49.location = v50;
   }
 
-  v82.location = v50;
-  v82.length = v45;
-  v51 = NSUnionRange(v82, v49);
+  v81.location = v50;
+  v81.length = v45;
+  v51 = NSUnionRange(v81, v49);
   v52 = a3 + 2184;
-  v53 = CompareFloatRange(v70 + 2184, a3 + 2184, 0x10uLL);
+  v53 = CompareFloatRange(v69 + 2184, a3 + 2184, 0x10uLL);
   v55.length = v54;
   if (v51.length)
   {
@@ -2935,44 +2733,44 @@ void GTMTLReplayController_restoreComputeCommandEncoder(void *a1, uint64_t a2, u
     v55.location = v56;
   }
 
-  v83.location = v56;
-  v83.length = v51.length;
-  v57 = NSUnionRange(v83, v55);
+  v82.location = v56;
+  v82.length = v51.length;
+  v57 = NSUnionRange(v82, v55);
   if (v57.length)
   {
     v58 = 0;
-    v78 = 0u;
-    v79 = 0u;
-    v76 = 0u;
     v77 = 0u;
-    v74 = 0u;
+    v78 = 0u;
     v75 = 0u;
-    v59 = a3 + 8 * v57.location + 1800;
-    v72 = 0u;
+    v76 = 0u;
     v73 = 0u;
+    v74 = 0u;
+    v59 = a3 + 8 * v57.location + 1800;
+    v71 = 0u;
+    v72 = 0u;
     do
     {
       v60 = [v9 samplerStateForKey:*(v59 + 8 * v58)];
-      v61 = *(&v72 + v58);
-      *(&v72 + v58) = v60;
+      v61 = *(&v71 + v58);
+      *(&v71 + v58) = v60;
 
       ++v58;
     }
 
     while (v57.length != v58);
-    [v7 setSamplerStates:&v72 lodMinClamps:v46 + 4 * v57.location lodMaxClamps:v52 + 4 * v57.location withRange:{v57.location, v57.length}];
+    [v7 setSamplerStates:&v71 lodMinClamps:v46 + 4 * v57.location lodMaxClamps:v52 + 4 * v57.location withRange:{v57.location, v57.length}];
     for (j = 120; j != -8; j -= 8)
     {
     }
 
-    a3 = v71;
+    a3 = v70;
   }
 
   v63 = 0;
   v64 = a3 + 1984;
   do
   {
-    if (*(v70 + 1984 + 4 * v63) != *(v64 + 4 * v63))
+    if (*(v69 + 1984 + 4 * v63) != *(v64 + 4 * v63))
     {
       [v7 setThreadgroupMemoryLength:? atIndex:?];
     }
@@ -2981,21 +2779,19 @@ void GTMTLReplayController_restoreComputeCommandEncoder(void *a1, uint64_t a2, u
   }
 
   while (v63 != 31);
-  if ((GT_SUPPORT_0 & 0x200) != 0 && *(v71 + 2108) && *(v71 + 2112))
+  if ((GT_SUPPORT_0 & 0x200) != 0 && *(v70 + 2108) && *(v70 + 2112))
   {
     [v7 setImageblockWidth:? height:?];
   }
 
-  if (memcmp((v70 + 1928), (v71 + 1928), 0x30uLL))
+  if (memcmp((v69 + 1928), (v70 + 1928), 0x30uLL))
   {
-    v65 = *(v71 + 1944);
-    v72 = *(v71 + 1928);
-    v73 = v65;
-    v74 = *(v71 + 1960);
-    [v7 setStageInRegion:&v72];
+    v65 = *(v70 + 1944);
+    v71 = *(v70 + 1928);
+    v72 = v65;
+    v73 = *(v70 + 1960);
+    [v7 setStageInRegion:&v71];
   }
-
-  v66 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t GTMTLReplayController_renderPassDescriptor(uint64_t a1)
@@ -3094,14 +2890,14 @@ void GTMTLReplayController_updateCommandEncoder(uint64_t a1, uint64_t a2)
       v33 = v21;
       if (!v20)
       {
-        [v19 screenSize];
+        objc_msgSend_screenSize(v19);
         v20 = v30;
         v34 = v30;
       }
 
       if (!v21)
       {
-        [v19 screenSize];
+        objc_msgSend_screenSize(v19);
         v21 = v29;
         v33 = v29;
       }
@@ -3149,14 +2945,14 @@ LABEL_33:
       v33 = v26;
       if (!v25)
       {
-        [v19 screenSize];
+        objc_msgSend_screenSize(v19);
         v25 = v32;
         v34 = v32;
       }
 
       if (!v26)
       {
-        [v19 screenSize];
+        objc_msgSend_screenSize(v19);
         v26 = v31;
         v33 = v31;
       }
@@ -3201,16 +2997,16 @@ LABEL_34:
   objc_autoreleasePoolPop(v4);
 }
 
-void GTMTLReplayController_playTo(uint64_t a1, unint64_t a2)
+void GTMTLReplayController_playTo(const char ****a1, unint64_t a2)
 {
-  v2 = a1 + 20480;
-  if (*(a1 + 22560) < a2)
+  v2 = (a1 + 2560);
+  if (*(a1 + 5640) < a2)
   {
-    v5 = *(*a1 + 128);
+    v5 = (*a1)[16];
     do
     {
       v6 = objc_autoreleasePoolPush();
-      v7 = *(v5 + 24) + (*(v2 + 2080) << 6);
+      v7 = &v5[3][64 * v2[520]];
       if (GTFenum_isBeginCommandBuffer(*(v7 + 8)))
       {
         GTMTLReplayController_restoreCommandBuffer(a1, v7);
@@ -3228,14 +3024,14 @@ void GTMTLReplayController_playTo(uint64_t a1, unint64_t a2)
       }
 
       objc_autoreleasePoolPop(v6);
-      v8 = (*(v2 + 2080) + 1);
-      *(v2 + 2080) = v8;
+      v8 = v2[520] + 1;
+      v2[520] = v8;
     }
 
     while (v8 < a2);
   }
 
-  *(v2 + 2084) = 0;
+  v2[521] = 0;
 }
 
 void GTMTLReplayController_executeCommandsInBuffer(uint64_t *a1, unint64_t *a2, NSUInteger a3, NSUInteger a4)
@@ -3302,10 +3098,11 @@ LABEL_7:
   }
 }
 
-uint64_t GTMTLReplayController_debugSubCommandStop(uint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t GTMTLReplayController_debugSubCommandStop(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   [g_activityLog enterDebugFuncStopFromIndex:*(a1 + 22560) toIndex:a2 | (a3 << 32)];
-  GTMTLReplayController_debugSubCommand(a1, a2, a3);
+  GTMTLReplayController_debugSubCommand(a1, v4, a3);
   v6 = *(a1 + 22560);
   ExclusiveRange = GroupBuilder_findExclusiveRange(*(*(*a1 + 120) + 12), *(*(*a1 + 120) + 24), (v6 - 1));
   if (ExclusiveRange && GTFenum_isBeginCommandBuffer(ExclusiveRange[5]))
@@ -3323,7 +3120,7 @@ _DWORD *GTMTLReplayController_debugSubCommand(_DWORD *result, unsigned int a2, u
 {
   v3 = a3;
   v4 = result;
-  v158 = *MEMORY[0x277D85DE8];
+  v156 = *MEMORY[0x277D85DE8];
   v5 = result + 5120;
   v6 = *(*result + 128);
   v7 = *(v6 + 12);
@@ -3337,546 +3134,544 @@ _DWORD *GTMTLReplayController_debugSubCommand(_DWORD *result, unsigned int a2, u
     v8 = v7;
   }
 
-  if (result[5640] != v8)
+  if (result[5640] == v8)
+  {
+    v9 = result[5641];
+    if (v9 == a3)
+    {
+      return result;
+    }
+
+    v10 = v9 >= a3;
+  }
+
+  else
   {
     v10 = 0;
-LABEL_8:
-    if (s_logUsingOsLog == 1)
+  }
+
+  if (s_logUsingOsLog == 1)
+  {
+    v11 = gt_tagged_log(0xAu);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v11 = gt_tagged_log(0xAu);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      LODWORD(buf[0]) = 67109376;
+      HIDWORD(buf[0]) = v8;
+      LOWORD(buf[1]) = 1024;
+      *(&buf[1] + 2) = v3;
+      _os_log_impl(&dword_24D764000, v11, OS_LOG_TYPE_INFO, "debugSubCommand - functionIndex: %u, subCommandIndex: %u", buf, 0xEu);
+    }
+  }
+
+  else
+  {
+    v12 = *MEMORY[0x277D85E08];
+    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"debugSubCommand - functionIndex: %u, subCommandIndex: %u", v8, a3];
+    fprintf(v12, "%s\n", [v13 UTF8String]);
+  }
+
+  v14 = v8 < v5[520] || v10;
+  if ((v14 & 1) != 0 || (qword_27F09CF90 & 0x2000) != 0)
+  {
+    GTMTLReplayController_rewind(v4);
+  }
+
+  v15 = *(*v4 + 120);
+  v16 = *(v15 + 12);
+  v139 = v15;
+  v140 = (v8 - 1);
+  v17 = *(v15 + 24);
+  InclusiveRange = GroupBuilder_findInclusiveRange(v16, v17, v140);
+  v19 = GroupRange_encoderWithAttachments(InclusiveRange);
+  v20 = v5[520];
+  ExclusiveRange = GroupBuilder_findExclusiveRange(v16, v17, v20 - 1);
+  if (ExclusiveRange)
+  {
+    v22 = ExclusiveRange;
+    v23 = GroupRange_encoderWithAttachments(ExclusiveRange);
+    v24 = v23;
+    if (v23)
+    {
+      if (*v23 >= v20)
       {
-        LODWORD(buf[0]) = 67109376;
-        HIDWORD(buf[0]) = v8;
-        LOWORD(buf[1]) = 1024;
-        *(&buf[1] + 2) = v3;
-        _os_log_impl(&dword_24D764000, v11, OS_LOG_TYPE_INFO, "debugSubCommand - functionIndex: %u, subCommandIndex: %u", buf, 0xEu);
-      }
-    }
-
-    else
-    {
-      v12 = *MEMORY[0x277D85E08];
-      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"debugSubCommand - functionIndex: %u, subCommandIndex: %u", v8, a3];
-      fprintf(v12, "%s\n", [v13 UTF8String]);
-    }
-
-    v14 = v8 < v5[520] || v10;
-    if ((v14 & 1) != 0 || (qword_27F09CF90 & 0x2000) != 0)
-    {
-      GTMTLReplayController_rewind(v4);
-    }
-
-    v15 = *(*v4 + 120);
-    v16 = *(v15 + 12);
-    v141 = v15;
-    v142 = (v8 - 1);
-    v17 = *(v15 + 24);
-    InclusiveRange = GroupBuilder_findInclusiveRange(v16, v17, v142);
-    v19 = GroupRange_encoderWithAttachments(InclusiveRange);
-    v20 = v5[520];
-    ExclusiveRange = GroupBuilder_findExclusiveRange(v16, v17, v20 - 1);
-    if (ExclusiveRange)
-    {
-      v22 = ExclusiveRange;
-      v23 = GroupRange_encoderWithAttachments(ExclusiveRange);
-      v24 = v23;
-      if (v23)
-      {
-        if (*v23 >= v20)
-        {
-          v25 = 2;
-        }
-
-        else
-        {
-          v25 = 3;
-        }
-
-        if (v23 == v19)
-        {
-          v26 = v25;
-        }
-
-        else
-        {
-          v26 = *v23 < v20;
-        }
+        v25 = 2;
       }
 
       else
       {
-        v26 = 0;
+        v25 = 3;
       }
 
-      GTMTLReplayController_restoreGroup(v4, v22, v26);
-    }
-
-    else
-    {
-      v24 = 0;
-    }
-
-    v27 = (v8 - 1);
-    if (v8 && (v28 = *(v6 + 24)) != 0)
-    {
-      v29 = v28 + (v142 << 6);
-      if (*(v29 + 8) >> 2 == 1073737833)
+      if (v23 == v19)
       {
-        v30 = (v28 + (v142 << 6));
+        v26 = v25;
       }
 
       else
       {
-        v30 = 0;
+        v26 = *v23 < v20;
       }
-
-      v144 = v30;
     }
 
     else
     {
-      v29 = 0;
-      v144 = 0;
+      v26 = 0;
     }
 
-    v31 = v5[520];
-    if (v31)
+    GTMTLReplayController_restoreGroup(v4, v22, v26);
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  v27 = (v8 - 1);
+  if (v8 && (v28 = *(v6 + 24)) != 0)
+  {
+    v29 = v28 + (v140 << 6);
+    if (*(v29 + 8) >> 2 == 1073737833)
     {
-      v32 = *(v6 + 24);
-      if (v32)
+      v30 = (v28 + (v140 << 6));
+    }
+
+    else
+    {
+      v30 = 0;
+    }
+
+    v142 = v30;
+  }
+
+  else
+  {
+    v29 = 0;
+    v142 = 0;
+  }
+
+  v31 = v5[520];
+  if (v31)
+  {
+    v32 = *(v6 + 24);
+    if (v32)
+    {
+      v33 = (v32 + ((v31 - 1) << 6));
+      if (*(v33 + 2) >> 2 == 1073737833)
       {
-        v33 = (v32 + ((v31 - 1) << 6));
-        if (*(v33 + 2) >> 2 == 1073737833)
+        v34 = v5[521];
+        v35 = (v34 + 1);
+        v36 = (v3 - v34);
+        v37 = v142;
+        v38 = v33 == v142;
+        if (v33 == v142)
         {
-          v34 = v5[521];
-          v35 = (v34 + 1);
-          v36 = (v3 - v34);
-          v37 = v144;
-          v38 = v33 == v144;
-          if (v33 == v144)
-          {
-            v37 = 0;
-          }
-
-          v144 = v37;
-          if (v38)
-          {
-            v39 = v36;
-          }
-
-          else
-          {
-            v39 = ~v35;
-          }
-
-          GTMTLReplayController_executeCommandsInBuffer(v4, v33, v35, v39);
+          v37 = 0;
         }
+
+        v142 = v37;
+        if (v38)
+        {
+          v39 = v36;
+        }
+
+        else
+        {
+          v39 = ~v35;
+        }
+
+        GTMTLReplayController_executeCommandsInBuffer(v4, v33, v35, v39);
       }
     }
+  }
 
-    if (v19)
+  if (v19)
+  {
+    if (v24 != v19)
     {
-      if (v24 != v19)
+      v138 = v8;
+      GTMTLReplayController_playTo(v4, *v19);
+      GTMTLReplayController_updateCommandEncoder(v4, *(v6 + 24) + (*v19 << 6));
+      v40 = v4[2840] - 95;
+      if (v40 > 0xA || ((0x409u >> v40) & 1) == 0)
       {
-        v140 = v8;
-        GTMTLReplayController_playTo(v4, *v19);
-        GTMTLReplayController_updateCommandEncoder(v4, *(v6 + 24) + (*v19 << 6));
-        v40 = *(v4 + 11360) - 95;
-        if (v40 > 0xA || ((0x409u >> v40) & 1) == 0)
+        v137 = v29;
+        GTMTLReplayController_tileMemoryFree(v4);
+        v41 = GTMTLReplayController_renderPassDescriptor(v4);
+        v42 = *(*v4 + 88);
+        v43 = v5[520];
+        for (i = 8; i != 520; i += 64)
         {
-          v139 = v29;
-          GTMTLReplayController_tileMemoryFree(v4);
-          v41 = GTMTLReplayController_renderPassDescriptor(v4);
-          v42 = *(*v4 + 88);
-          v43 = v5[520];
-          for (i = 8; i != 520; i += 64)
-          {
-            AddMemorylessTexture(v4, *(v41 + i), v42 + v43);
-          }
+          AddMemorylessTexture(v4, *(v41 + i), v42 + v43);
+        }
 
-          AddMemorylessTexture(v4, *(v41 + 680), v42 + v43);
-          AddMemorylessTexture(v4, *(v41 + 728), v42 + v43);
-          v45 = 0;
-          if (*(v41 + 814))
+        AddMemorylessTexture(v4, *(v41 + 680), v42 + v43);
+        AddMemorylessTexture(v4, *(v41 + 728), v42 + v43);
+        v45 = 0;
+        if (*(v41 + 814))
+        {
+          v29 = v137;
+          if (*(v41 + 812))
           {
-            v29 = v139;
-            if (*(v41 + 812))
+            v45 = (*(v41 + 812) + *(v4 + 2819) - 1) / *(v41 + 812) * ((*(v41 + 814) + *(v4 + 2818) - 1) / *(v41 + 814));
+          }
+        }
+
+        else
+        {
+          v29 = v137;
+        }
+
+        if (GT_SUPPORT_0)
+        {
+          if (v45)
+          {
+            v135 = *(v41 + 800);
+            if (!(((v135 + *(v41 + 804)) < 0) ^ __OFADD__(v135, *(v41 + 804)) | (v135 + *(v41 + 804) == 0)))
             {
-              v45 = (*(v41 + 812) + *(v4 + 22552) - 1) / *(v41 + 812) * ((*(v41 + 814) + *(v4 + 22544) - 1) / *(v41 + 814));
-            }
-          }
-
-          else
-          {
-            v29 = v139;
-          }
-
-          if (GT_SUPPORT_0)
-          {
-            if (v45)
-            {
-              v137 = *(v41 + 800);
-              if (!(((v137 + *(v41 + 804)) < 0) ^ __OFADD__(v137, *(v41 + 804)) | (v137 + *(v41 + 804) == 0)))
+              v129 = *(v41 + 804);
+              v132 = v5;
+              v133 = v3;
+              v134 = v45;
+              v141 = [*(v4 + 1) defaultDevice];
+              v46 = objc_alloc_init(MEMORY[0x277CD7070]);
+              v127 = v41;
+              FillAttachmentPixelFormats(v41, *(*v4 + 40), v42 + v43, v46);
+              v47 = 0;
+              v48 = 0;
+              do
               {
-                v131 = *(v41 + 804);
-                v134 = v5;
-                v135 = v3;
-                v136 = v45;
-                v143 = [*(v4 + 8) defaultDevice];
-                v46 = objc_alloc_init(MEMORY[0x277CD7070]);
-                v129 = v41;
-                FillAttachmentPixelFormats(v41, *(*v4 + 40), v42 + v43, v46);
-                v47 = 0;
-                v48 = 0;
-                do
+                v49 = v46;
+                v50 = [v46 colorAttachments];
+                v51 = [v50 objectAtIndexedSubscript:v47];
+                v52 = [v51 pixelFormat];
+
+                if (v52)
                 {
-                  v49 = v46;
-                  v50 = [v46 colorAttachments];
-                  v51 = [v50 objectAtIndexedSubscript:v47];
-                  v52 = [v51 pixelFormat];
-
-                  if (v52)
-                  {
-                    v155[v48] = v52;
-                    v53 = &buf[7 * v48];
-                    GTMTLPixelFormatGetInfoForDevice(v153, v143, v52);
-                    v54 = v153[1];
-                    *v53 = v153[0];
-                    *(v53 + 1) = v54;
-                    *(v53 + 2) = v153[2];
-                    v53[6] = v154;
-                    ++v48;
-                  }
-
-                  ++v47;
-                  v46 = v49;
+                  v153[v48] = v52;
+                  v53 = &buf[7 * v48];
+                  GTMTLPixelFormatGetInfoForDevice(v151, v141, v52);
+                  v54 = v151[1];
+                  *v53 = v151[0];
+                  *(v53 + 1) = v54;
+                  *(v53 + 2) = v151[2];
+                  v53[6] = v152;
+                  ++v48;
                 }
 
-                while (v47 != 8);
-                [v49 rasterSampleCount];
-                v55 = (MTLPixelFormatComputeTotalSizeUsed() + 7) & 0xFFFFFFFFFFFFFFF8;
-                v56 = objc_alloc_init(MEMORY[0x277CD6D10]);
-                v133 = v56;
-                if (v137 <= 0)
-                {
-                  v130 = 0;
-                }
-
-                else
-                {
-                  v57 = v56;
-                  v152 = @"THREADGROUP_MEMORY_LENGTH";
-                  v58 = [MEMORY[0x277CCABB0] numberWithInt:v137];
-                  *&v153[0] = v58;
-                  v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v153 forKeys:&v152 count:1];
-                  [v57 setPreprocessorMacros:v59];
-
-                  v151 = 0;
-                  v60 = [v143 newLibraryWithSource:@"#include <metal_stdlib>\nusing namespace metal;\n\nstruct ThreadgroupData { uint8_t data[THREADGROUP_MEMORY_LENGTH]; };\n\nkernel void ThreadgroupStore(ushort2 threadgroup_position_in_grid [[ threadgroup_position_in_grid ]] options:\n                                ushort2 threadgroups_per_grid [[ threadgroups_per_grid ]] error:{\n                                device ThreadgroupData* buffer [[ buffer(0) ]], \n                                const threadgroup ThreadgroupData& threadgroupData [[ threadgroup(0) ]])\n{\n   ushort i = (threadgroup_position_in_grid.y * threadgroups_per_grid.x) + threadgroup_position_in_grid.x;\n   for (ushort j = 0; j < THREADGROUP_MEMORY_LENGTH; j++)\n       buffer[i].data[j] = threadgroupData.data[j];\n}\n\nkernel void ThreadgroupLoad(ushort2 threadgroup_position_in_grid [[ threadgroup_position_in_grid ]], \n                                ushort2 threadgroups_per_grid [[ threadgroups_per_grid ]], \n                                const device ThreadgroupData* buffer [[ buffer(0) ]], \n                                threadgroup ThreadgroupData& threadgroupData [[ threadgroup(0) ]])\n{\n   ushort i = (threadgroup_position_in_grid.y * threadgroups_per_grid.x) + threadgroup_position_in_grid.x;\n   for (ushort j = 0; j < THREADGROUP_MEMORY_LENGTH; j++)\n       threadgroupData.data[j] = buffer[i].data[j];\n}\n\nkernel void Fence()\n{\n}\n", v57, &v151}];
-                  v61 = v151;
-                  v62 = [v60 newFunctionWithName:@"ThreadgroupStore"];
-                  [v49 setTileFunction:v62];
-
-                  v150 = v61;
-                  v63 = [v143 newRenderPipelineStateWithTileDescriptor:v49 options:0 reflection:0 error:&v150];
-                  v64 = v150;
-
-                  v65 = *(v4 + 88);
-                  *(v4 + 88) = v63;
-
-                  v66 = [v60 newFunctionWithName:@"ThreadgroupLoad"];
-                  [v49 setTileFunction:v66];
-
-                  v149 = v64;
-                  v67 = [v143 newRenderPipelineStateWithTileDescriptor:v49 options:0 reflection:0 error:&v149];
-                  v68 = v149;
-
-                  v69 = *(v4 + 96);
-                  *(v4 + 96) = v67;
-
-                  v70 = [v60 newFunctionWithName:@"Fence"];
-                  [v49 setTileFunction:v70];
-
-                  v148 = v68;
-                  v71 = [v143 newRenderPipelineStateWithTileDescriptor:v49 options:0 reflection:0 error:&v148];
-                  v130 = v148;
-
-                  v72 = *(v4 + 104);
-                  *(v4 + 104) = v71;
-
-                  v73 = [v143 newBufferWithLength:v136 * v137 options:32];
-                  v74 = *(v4 + 128);
-                  *(v4 + 128) = v73;
-                }
-
-                v29 = v139;
-                v75 = v131 - v55;
-                if (v131 <= v55)
-                {
-                  v3 = v135;
-                  v106 = v143;
-                  v91 = v133;
-                  v100 = v130;
-                }
-
-                else
-                {
-                  v76 = 8;
-                  if ((v75 & 7) != 0)
-                  {
-                    do
-                    {
-                      v76 /= 2;
-                    }
-
-                    while (v75 % v76);
-                  }
-
-                  v138 = v131 - v55;
-                  v77 = v75 / v76;
-                  v78 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v75 / v76];
-                  v79 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v77];
-                  if (v77 >= 1)
-                  {
-                    v80 = 0;
-                    v81 = (8 * v76);
-                    do
-                    {
-                      v82 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"uint%d_t _%d", v81, v80];
-                      [v78 addObject:v82];
-
-                      v83 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"(dest)->_%d = (src)->_%d", v80, v80];
-                      [v79 addObject:v83];
-
-                      v80 = (v80 + 1);
-                    }
-
-                    while (v77 != v80);
-                  }
-
-                  v155[0] = @"IMAGEBLOCK_SAMPLE_MEMBERS";
-                  v84 = objc_alloc(MEMORY[0x277CCACA8]);
-                  v132 = v78;
-                  v127 = [v78 componentsJoinedByString:@" "];;
-                  v85 = [v84 initWithFormat:@"%@", v127];
-                  buf[0] = v85;
-                  v155[1] = @"IMAGEBLOCK_SAMPLE_COPY(dest,src)";
-                  v86 = objc_alloc(MEMORY[0x277CCACA8]);
-                  v128 = v79;
-                  v87 = [v79 componentsJoinedByString:@" "];;
-                  v88 = [v86 initWithFormat:@"%@", v87];
-                  buf[1] = v88;
-                  v155[2] = @"SAMPLE_COUNT";
-                  v89 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v49, "rasterSampleCount")}];
-                  v157 = v89;
-                  v90 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v155 count:3];
-                  v91 = v133;
-                  [v133 setPreprocessorMacros:v90];
-
-                  v147 = v130;
-                  v92 = [v143 newLibraryWithSource:@"#include <metal_stdlib>\nusing namespace metal;\n\nstruct ImageblockData { IMAGEBLOCK_SAMPLE_MEMBERS; };\n\nkernel void ImageblockStore(ushort2 threadgroup_position_in_grid [[ threadgroup_position_in_grid ]] options:\n                            ushort2 threadgroups_per_grid [[ threadgroups_per_grid ]] error:{\n                            ushort2 threads_per_threadgroup [[ threads_per_threadgroup ]], \n                            ushort thread_index_in_threadgroup [[ thread_index_in_threadgroup ]], \n                            ushort2 thread_position_in_threadgroup [[ thread_position_in_threadgroup ]], \n                            device ImageblockData* buffer [[ buffer(0) ]], \n                            const imageblock<ImageblockData, imageblock_layout_explicit> ib)\n{\n   uint i = (threadgroup_position_in_grid.y * threadgroups_per_grid.x) + threadgroup_position_in_grid.x;\n   i *= threads_per_threadgroup.x * threads_per_threadgroup.y;\n   i += thread_index_in_threadgroup;\n   for (ushort j = 0; j < SAMPLE_COUNT; j++)\n   {\n       const threadgroup_imageblock ImageblockData* src = ib.data(thread_position_in_threadgroup, j, imageblock_data_rate::sample);\n       device ImageblockData* dest = buffer + i * SAMPLE_COUNT + j;       IMAGEBLOCK_SAMPLE_COPY(dest, src);\n   }\n}\n\nkernel void ImageblockLoad(ushort2 threadgroup_position_in_grid [[ threadgroup_position_in_grid ]], \n                           ushort2 threadgroups_per_grid [[ threadgroups_per_grid ]], \n                           ushort2 threads_per_threadgroup [[ threads_per_threadgroup ]], \n                           ushort thread_index_in_threadgroup [[ thread_index_in_threadgroup ]], \n                           ushort2 thread_position_in_threadgroup [[ thread_position_in_threadgroup ]], \n                           const device ImageblockData* buffer [[ buffer(0) ]], \n                           imageblock<ImageblockData, imageblock_layout_explicit> ib)\n{\n   uint i = (threadgroup_position_in_grid.y * threadgroups_per_grid.x) + threadgroup_position_in_grid.x;\n   i *= threads_per_threadgroup.x * threads_per_threadgroup.y;\n   i += thread_index_in_threadgroup;\n   for (ushort j = 0; j < SAMPLE_COUNT; j++)\n   {\n       threadgroup_imageblock ImageblockData* dest = ib.data(thread_position_in_threadgroup, j, imageblock_data_rate::sample);\n       const device ImageblockData* src = buffer + i * SAMPLE_COUNT + j;       IMAGEBLOCK_SAMPLE_COPY(dest, src);\n   }\n}\n", v133, &v147}];
-                  v93 = v147;
-
-                  [v49 setThreadgroupSizeMatchesTileSize:1];
-                  v94 = [v92 newFunctionWithName:@"ImageblockStore"];
-                  [v49 setTileFunction:v94];
-
-                  v146 = v93;
-                  v95 = [v143 newRenderPipelineStateWithTileDescriptor:v49 options:0 reflection:0 error:&v146];
-                  v96 = v146;
-
-                  v97 = *(v4 + 112);
-                  *(v4 + 112) = v95;
-
-                  v98 = [v92 newFunctionWithName:@"ImageblockLoad"];
-                  [v49 setTileFunction:v98];
-
-                  v145 = v96;
-                  v99 = [v143 newRenderPipelineStateWithTileDescriptor:v49 options:0 reflection:0 error:&v145];
-                  v100 = v145;
-
-                  v101 = *(v4 + 120);
-                  *(v4 + 120) = v99;
-
-                  v102 = *(v129 + 814);
-                  v103 = *(v129 + 812);
-                  v104 = [v49 rasterSampleCount];
-                  v105 = v138 * v136 * v102;
-                  v106 = v143;
-                  v107 = [v143 newBufferWithLength:v105 * v103 * v104 options:32];
-                  v108 = *(v4 + 136);
-                  *(v4 + 136) = v107;
-
-                  v5 = v134;
-                  v3 = v135;
-                  v29 = v139;
-                }
-
-                v27 = v142;
+                ++v47;
+                v46 = v49;
               }
+
+              while (v47 != 8);
+              [v49 rasterSampleCount];
+              v55 = (MTLPixelFormatComputeTotalSizeUsed() + 7) & 0xFFFFFFFFFFFFFFF8;
+              v56 = objc_alloc_init(MEMORY[0x277CD6D10]);
+              v131 = v56;
+              if (v135 <= 0)
+              {
+                v128 = 0;
+              }
+
+              else
+              {
+                v57 = v56;
+                v150 = @"THREADGROUP_MEMORY_LENGTH";
+                v58 = [MEMORY[0x277CCABB0] numberWithInt:v135];
+                *&v151[0] = v58;
+                v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v151 forKeys:&v150 count:1];
+                [v57 setPreprocessorMacros:v59];
+
+                v149 = 0;
+                v60 = [v141 newLibraryWithSource:@"#include <metal_stdlib>\nusing namespace metal;\n\nstruct ThreadgroupData { uint8_t data[THREADGROUP_MEMORY_LENGTH]; };\n\nkernel void ThreadgroupStore(ushort2 threadgroup_position_in_grid [[ threadgroup_position_in_grid ]] options:\n                                ushort2 threadgroups_per_grid [[ threadgroups_per_grid ]] error:{\n                                device ThreadgroupData* buffer [[ buffer(0) ]], \n                                const threadgroup ThreadgroupData& threadgroupData [[ threadgroup(0) ]])\n{\n   ushort i = (threadgroup_position_in_grid.y * threadgroups_per_grid.x) + threadgroup_position_in_grid.x;\n   for (ushort j = 0; j < THREADGROUP_MEMORY_LENGTH; j++)\n       buffer[i].data[j] = threadgroupData.data[j];\n}\n\nkernel void ThreadgroupLoad(ushort2 threadgroup_position_in_grid [[ threadgroup_position_in_grid ]], \n                                ushort2 threadgroups_per_grid [[ threadgroups_per_grid ]], \n                                const device ThreadgroupData* buffer [[ buffer(0) ]], \n                                threadgroup ThreadgroupData& threadgroupData [[ threadgroup(0) ]])\n{\n   ushort i = (threadgroup_position_in_grid.y * threadgroups_per_grid.x) + threadgroup_position_in_grid.x;\n   for (ushort j = 0; j < THREADGROUP_MEMORY_LENGTH; j++)\n       threadgroupData.data[j] = buffer[i].data[j];\n}\n\nkernel void Fence()\n{\n}\n", v57, &v149}];
+                v61 = v149;
+                v62 = [v60 newFunctionWithName:@"ThreadgroupStore"];
+                [v49 setTileFunction:v62];
+
+                v148 = v61;
+                v63 = [v141 newRenderPipelineStateWithTileDescriptor:v49 options:0 reflection:0 error:&v148];
+                v64 = v148;
+
+                v65 = *(v4 + 11);
+                *(v4 + 11) = v63;
+
+                v66 = [v60 newFunctionWithName:@"ThreadgroupLoad"];
+                [v49 setTileFunction:v66];
+
+                v147 = v64;
+                v67 = [v141 newRenderPipelineStateWithTileDescriptor:v49 options:0 reflection:0 error:&v147];
+                v68 = v147;
+
+                v69 = *(v4 + 12);
+                *(v4 + 12) = v67;
+
+                v70 = [v60 newFunctionWithName:@"Fence"];
+                [v49 setTileFunction:v70];
+
+                v146 = v68;
+                v71 = [v141 newRenderPipelineStateWithTileDescriptor:v49 options:0 reflection:0 error:&v146];
+                v128 = v146;
+
+                v72 = *(v4 + 13);
+                *(v4 + 13) = v71;
+
+                v73 = [v141 newBufferWithLength:v134 * v135 options:32];
+                v74 = *(v4 + 16);
+                *(v4 + 16) = v73;
+              }
+
+              v29 = v137;
+              v75 = v129 - v55;
+              if (v129 <= v55)
+              {
+                v3 = v133;
+                v106 = v141;
+                v91 = v131;
+                v100 = v128;
+              }
+
+              else
+              {
+                v76 = 8;
+                if ((v75 & 7) != 0)
+                {
+                  do
+                  {
+                    v76 /= 2;
+                  }
+
+                  while (v75 % v76);
+                }
+
+                v136 = v129 - v55;
+                v77 = v75 / v76;
+                v78 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v75 / v76];
+                v79 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v77];
+                if (v77 >= 1)
+                {
+                  v80 = 0;
+                  v81 = (8 * v76);
+                  do
+                  {
+                    v82 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"uint%d_t _%d", v81, v80];
+                    [v78 addObject:v82];
+
+                    v83 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"(dest)->_%d = (src)->_%d", v80, v80];
+                    [v79 addObject:v83];
+
+                    v80 = (v80 + 1);
+                  }
+
+                  while (v77 != v80);
+                }
+
+                v153[0] = @"IMAGEBLOCK_SAMPLE_MEMBERS";
+                v84 = objc_alloc(MEMORY[0x277CCACA8]);
+                v130 = v78;
+                v125 = [v78 componentsJoinedByString:@" "];;
+                v85 = [v84 initWithFormat:@"%@", v125];
+                buf[0] = v85;
+                v153[1] = @"IMAGEBLOCK_SAMPLE_COPY(dest,src)";
+                v86 = objc_alloc(MEMORY[0x277CCACA8]);
+                v126 = v79;
+                v87 = [v79 componentsJoinedByString:@" "];;
+                v88 = [v86 initWithFormat:@"%@", v87];
+                buf[1] = v88;
+                v153[2] = @"SAMPLE_COUNT";
+                v89 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v49, "rasterSampleCount")}];
+                v155 = v89;
+                v90 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v153 count:3];
+                v91 = v131;
+                [v131 setPreprocessorMacros:v90];
+
+                v145 = v128;
+                v92 = [v141 newLibraryWithSource:@"#include <metal_stdlib>\nusing namespace metal;\n\nstruct ImageblockData { IMAGEBLOCK_SAMPLE_MEMBERS; };\n\nkernel void ImageblockStore(ushort2 threadgroup_position_in_grid [[ threadgroup_position_in_grid ]] options:\n                            ushort2 threadgroups_per_grid [[ threadgroups_per_grid ]] error:{\n                            ushort2 threads_per_threadgroup [[ threads_per_threadgroup ]], \n                            ushort thread_index_in_threadgroup [[ thread_index_in_threadgroup ]], \n                            ushort2 thread_position_in_threadgroup [[ thread_position_in_threadgroup ]], \n                            device ImageblockData* buffer [[ buffer(0) ]], \n                            const imageblock<ImageblockData, imageblock_layout_explicit> ib)\n{\n   uint i = (threadgroup_position_in_grid.y * threadgroups_per_grid.x) + threadgroup_position_in_grid.x;\n   i *= threads_per_threadgroup.x * threads_per_threadgroup.y;\n   i += thread_index_in_threadgroup;\n   for (ushort j = 0; j < SAMPLE_COUNT; j++)\n   {\n       const threadgroup_imageblock ImageblockData* src = ib.data(thread_position_in_threadgroup, j, imageblock_data_rate::sample);\n       device ImageblockData* dest = buffer + i * SAMPLE_COUNT + j;       IMAGEBLOCK_SAMPLE_COPY(dest, src);\n   }\n}\n\nkernel void ImageblockLoad(ushort2 threadgroup_position_in_grid [[ threadgroup_position_in_grid ]], \n                           ushort2 threadgroups_per_grid [[ threadgroups_per_grid ]], \n                           ushort2 threads_per_threadgroup [[ threads_per_threadgroup ]], \n                           ushort thread_index_in_threadgroup [[ thread_index_in_threadgroup ]], \n                           ushort2 thread_position_in_threadgroup [[ thread_position_in_threadgroup ]], \n                           const device ImageblockData* buffer [[ buffer(0) ]], \n                           imageblock<ImageblockData, imageblock_layout_explicit> ib)\n{\n   uint i = (threadgroup_position_in_grid.y * threadgroups_per_grid.x) + threadgroup_position_in_grid.x;\n   i *= threads_per_threadgroup.x * threads_per_threadgroup.y;\n   i += thread_index_in_threadgroup;\n   for (ushort j = 0; j < SAMPLE_COUNT; j++)\n   {\n       threadgroup_imageblock ImageblockData* dest = ib.data(thread_position_in_threadgroup, j, imageblock_data_rate::sample);\n       const device ImageblockData* src = buffer + i * SAMPLE_COUNT + j;       IMAGEBLOCK_SAMPLE_COPY(dest, src);\n   }\n}\n", v131, &v145}];
+                v93 = v145;
+
+                [v49 setThreadgroupSizeMatchesTileSize:1];
+                v94 = [v92 newFunctionWithName:@"ImageblockStore"];
+                [v49 setTileFunction:v94];
+
+                v144 = v93;
+                v95 = [v141 newRenderPipelineStateWithTileDescriptor:v49 options:0 reflection:0 error:&v144];
+                v96 = v144;
+
+                v97 = *(v4 + 14);
+                *(v4 + 14) = v95;
+
+                v98 = [v92 newFunctionWithName:@"ImageblockLoad"];
+                [v49 setTileFunction:v98];
+
+                v143 = v96;
+                v99 = [v141 newRenderPipelineStateWithTileDescriptor:v49 options:0 reflection:0 error:&v143];
+                v100 = v143;
+
+                v101 = *(v4 + 15);
+                *(v4 + 15) = v99;
+
+                v102 = *(v127 + 814);
+                v103 = *(v127 + 812);
+                v104 = [v49 rasterSampleCount];
+                v105 = v136 * v134 * v102;
+                v106 = v141;
+                v107 = [v141 newBufferWithLength:v105 * v103 * v104 options:32];
+                v108 = *(v4 + 17);
+                *(v4 + 17) = v107;
+
+                v5 = v132;
+                v3 = v133;
+                v29 = v137;
+              }
+
+              v27 = v140;
             }
           }
         }
-
-        v109 = *v19;
-        GTMTLReplayController_restoreCommandEncoder();
-        v5[520] = *v19 + 1;
-        v8 = v140;
       }
-    }
 
-    else
-    {
-      GTMTLReplayController_tileMemoryFree(v4);
+      GTMTLReplayController_restoreCommandEncoder();
+      v5[520] = *v19 + 1;
+      v8 = v138;
     }
+  }
 
-    if (v144)
-    {
-      GTMTLReplayController_playTo(v4, v27);
-      GTMTLReplayController_executeCommandsInBuffer(v4, v144, 0, (v3 + 1));
-      v5[520] = v8;
-    }
+  else
+  {
+    GTMTLReplayController_tileMemoryFree(v4);
+  }
 
-    else
-    {
-      GTMTLReplayController_playTo(v4, v8);
-    }
+  if (v142)
+  {
+    GTMTLReplayController_playTo(v4, v27);
+    GTMTLReplayController_executeCommandsInBuffer(v4, v142, 0, (v3 + 1));
+    v5[520] = v8;
+  }
 
-    v110 = GroupBuilder_findInclusiveRange(*(v141 + 12), *(v141 + 24), v27);
-    v111 = GroupRange_encoderWithIndirectResources(v110);
-    if (v111)
-    {
-      GTMTLReplayController_restoreIndirectResourceUsageForCommandBuffer(v4, *(v111 + 4));
-    }
+  else
+  {
+    GTMTLReplayController_playTo(v4, v8);
+  }
 
-    if (!v19 || (GTFenum_isEndEncoding(*(v29 + 8)) & 1) != 0 || (GT_SUPPORT_0 & 1) == 0)
-    {
-      goto LABEL_109;
-    }
+  v109 = GroupBuilder_findInclusiveRange(*(v139 + 12), *(v139 + 24), v27);
+  v110 = GroupRange_encoderWithIndirectResources(v109);
+  if (v110)
+  {
+    GTMTLReplayController_restoreIndirectResourceUsageForCommandBuffer(v4, *(v110 + 4));
+  }
 
-    v112 = *(v4 + 11360);
-    v113 = *(v4 + 8);
-    if (v112 - 95) <= 0xA && ((0x409u >> (v112 - 95)))
+  if (v19 && (GTFenum_isEndEncoding(*(v29 + 8)) & 1) == 0 && (GT_SUPPORT_0 & 1) != 0)
+  {
+    v111 = v4[2840];
+    v112 = *(v4 + 1);
+    if (v111 - 95) <= 0xA && ((0x409u >> (v111 - 95)))
     {
-      v114 = GTMTLReplayController_renderPassDescriptor4(v4);
-      v115 = [v113 defaultDevice];
-      v116 = objc_opt_new();
-      [v116 setMaxBufferBindCount:1];
-      v117 = [v115 newArgumentTableWithDescriptor:v116 error:0];
-      if (*(v4 + 11360))
+      v113 = GTMTLReplayController_renderPassDescriptor4(v4);
+      v114 = [v112 defaultDevice];
+      v115 = objc_opt_new();
+      [v115 setMaxBufferBindCount:1];
+      v116 = [v114 newArgumentTableWithDescriptor:v115 error:0];
+      if (v4[2840])
       {
-        v118 = *(v4 + 200);
+        v117 = *(v4 + 25);
       }
 
       else
       {
-        v118 = 0;
+        v117 = 0;
       }
 
-      v123 = [*(v4 + 8) mtl4RenderCommandEncoderForKey:v118];
-      v124 = v123;
-      if (*(v4 + 136))
+      v122 = [*(v4 + 1) mtl4RenderCommandEncoderForKey:v117];
+      v123 = v122;
+      if (*(v4 + 17))
       {
-        [v123 setRenderPipelineState:*(v4 + 112)];
-        [v117 setAddress:objc_msgSend(*(v4 + 136) atIndex:{"gpuAddress"), 0}];
-        [v124 setArgumentTable:v117 atStages:4];
-        v125 = *(v114 + 628);
-        buf[0] = *(v114 + 630);
-        buf[1] = v125;
+        [v122 setRenderPipelineState:*(v4 + 14)];
+        [v116 setAddress:objc_msgSend(*(v4 + 17) atIndex:{"gpuAddress"), 0}];
+        [v123 setArgumentTable:v116 atStages:4];
+        v124 = *(v113 + 628);
+        buf[0] = *(v113 + 630);
+        buf[1] = v124;
       }
 
       else
       {
-        if (!*(v4 + 128))
+        if (!*(v4 + 16))
         {
 LABEL_105:
-          if (*(v4 + 128))
+          if (*(v4 + 16))
           {
-            [v124 setRenderPipelineState:*(v4 + 88)];
-            [v124 setThreadgroupMemoryLength:*(v114 + 616) offset:0 atIndex:0];
-            [v117 setAddress:objc_msgSend(*(v4 + 128) atIndex:{"gpuAddress"), 0}];
-            [v124 setArgumentTable:v117 atStages:4];
+            [v123 setRenderPipelineState:*(v4 + 11)];
+            [v123 setThreadgroupMemoryLength:*(v113 + 616) offset:0 atIndex:0];
+            [v116 setAddress:objc_msgSend(*(v4 + 16) atIndex:{"gpuAddress"), 0}];
+            [v123 setArgumentTable:v116 atStages:4];
             *buf = vdupq_n_s64(1uLL);
-            v157 = 1;
-            [v124 dispatchThreadsPerTile:buf];
+            v155 = 1;
+            [v123 dispatchThreadsPerTile:buf];
           }
 
 LABEL_108:
-LABEL_109:
-          v5[521] = v3;
-          result = [*(v4 + 24) commitCommandBuffer];
-          goto LABEL_110;
+          goto LABEL_109;
         }
 
-        [v123 setRenderPipelineState:*(v4 + 104)];
+        [v122 setRenderPipelineState:*(v4 + 13)];
         *buf = vdupq_n_s64(1uLL);
       }
 
-      v157 = 1;
-      [v124 dispatchThreadsPerTile:buf];
+      v155 = 1;
+      [v123 dispatchThreadsPerTile:buf];
       goto LABEL_105;
     }
 
-    v119 = GTMTLReplayController_renderPassDescriptor(v4);
-    if (v112)
+    v118 = GTMTLReplayController_renderPassDescriptor(v4);
+    if (v111)
     {
-      v120 = *(v4 + 200);
+      v119 = *(v4 + 25);
     }
 
     else
     {
-      v120 = 0;
+      v119 = 0;
     }
 
-    v121 = [v113 renderCommandEncoderForKey:v120];
-    v115 = v121;
-    if (*(v4 + 136))
+    v120 = [v112 renderCommandEncoderForKey:v119];
+    v114 = v120;
+    if (*(v4 + 17))
     {
-      [v121 setRenderPipelineState:*(v4 + 112)];
-      [v115 setTileBuffer:*(v4 + 136) offset:0 atIndex:0];
-      v122 = *(v119 + 812);
-      buf[0] = *(v119 + 814);
-      buf[1] = v122;
+      [v120 setRenderPipelineState:*(v4 + 14)];
+      [v114 setTileBuffer:*(v4 + 17) offset:0 atIndex:0];
+      v121 = *(v118 + 812);
+      buf[0] = *(v118 + 814);
+      buf[1] = v121;
     }
 
     else
     {
-      if (!*(v4 + 128))
+      if (!*(v4 + 16))
       {
         goto LABEL_97;
       }
 
-      [v121 setRenderPipelineState:*(v4 + 104)];
+      [v120 setRenderPipelineState:*(v4 + 13)];
       *buf = vdupq_n_s64(1uLL);
     }
 
-    v157 = 1;
-    [v115 dispatchThreadsPerTile:buf];
+    v155 = 1;
+    [v114 dispatchThreadsPerTile:buf];
 LABEL_97:
-    if (*(v4 + 128))
+    if (*(v4 + 16))
     {
-      [v115 setRenderPipelineState:*(v4 + 88)];
-      [v115 setThreadgroupMemoryLength:*(v119 + 800) offset:0 atIndex:0];
-      [v115 setTileBuffer:*(v4 + 128) offset:0 atIndex:0];
+      [v114 setRenderPipelineState:*(v4 + 11)];
+      [v114 setThreadgroupMemoryLength:*(v118 + 800) offset:0 atIndex:0];
+      [v114 setTileBuffer:*(v4 + 16) offset:0 atIndex:0];
       *buf = vdupq_n_s64(1uLL);
-      v157 = 1;
-      [v115 dispatchThreadsPerTile:buf];
+      v155 = 1;
+      [v114 dispatchThreadsPerTile:buf];
     }
 
     goto LABEL_108;
   }
 
-  v9 = result[5641];
-  if (v9 != a3)
-  {
-    v10 = v9 >= a3;
-    goto LABEL_8;
-  }
-
-LABEL_110:
-  v126 = *MEMORY[0x277D85DE8];
-  return result;
+LABEL_109:
+  v5[521] = v3;
+  return [*(v4 + 3) commitCommandBuffer];
 }
 
 void GTMTLReplayController_restoreIndirectResourceUsageForCommandBuffer(uint64_t a1, unint64_t a2)
@@ -4143,11 +3938,11 @@ LABEL_64:
   }
 }
 
-void _restoreCommandEncoderIndirectResourceUsage(_DWORD *a1)
+void _restoreCommandEncoderIndirectResourceUsage(const char ****a1)
 {
-  v2 = (a1[5640] - 1);
+  v2 = (*(a1 + 5640) - 1);
   v3 = *a1;
-  InclusiveRange = GroupBuilder_findInclusiveRange(*(*(*a1 + 120) + 12), *(*(*a1 + 120) + 24), v2);
+  InclusiveRange = GroupBuilder_findInclusiveRange(*((*a1)[15] + 3), (*a1)[15][3], v2);
   if (InclusiveRange)
   {
     v5 = InclusiveRange;
@@ -4185,8 +3980,8 @@ void _restoreCommandEncoderIndirectResourceUsage(_DWORD *a1)
         v11 = v9 << 6;
         do
         {
-          v12 = *(*(v3 + 128) + 24) + v11;
-          if (GTFenum_isUseResourceCall(*(v12 + 8)))
+          v12 = &v3[16][3][v11];
+          if (GTFenum_isUseResourceCall(*(v12 + 2)))
           {
             GTMTLReplayController_defaultDispatchFunction(a1, v12);
           }
@@ -4201,7 +3996,7 @@ void _restoreCommandEncoderIndirectResourceUsage(_DWORD *a1)
   }
 }
 
-void GTMTLReplayController_restoreGroup(_DWORD *a1, int *a2, uint64_t a3)
+void GTMTLReplayController_restoreGroup(const char ****a1, int *a2, uint64_t a3)
 {
   v5 = a2[2];
   if (v5)
@@ -4219,7 +4014,7 @@ void GTMTLReplayController_restoreGroup(_DWORD *a1, int *a2, uint64_t a3)
     GTMTLReplayController_restoreGroup(a1, &a2[-6 * v5], a3);
   }
 
-  v7 = *(*(*a1 + 128) + 24) + (*a2 << 6);
+  v7 = &(*a1)[16][3][64 * *a2];
   v8 = *(v7 + 8);
   ConstructorType = GTFenum_getConstructorType(v8);
   if (GTFenum_isMTLCommandEncoder(ConstructorType) || (ConstructorType - 95) <= 0xA && ((0x409u >> (ConstructorType - 95)) & 1) != 0)
@@ -4236,7 +4031,7 @@ void GTMTLReplayController_restoreGroup(_DWORD *a1, int *a2, uint64_t a3)
     GTMTLReplayController_defaultDispatchFunction(a1, v7);
     if (isBeginCommandBuffer)
     {
-      v11 = a1[5640];
+      v11 = *(a1 + 5640);
 
       GTMTLReplayController_restoreIndirectResourceUsageForCommandBuffer(a1, v11);
     }
@@ -4249,7 +4044,7 @@ void GTMTLReplayController_restoreCommandEncoder()
   v2 = v1;
   v4 = v3;
   v5 = v0;
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   v6 = objc_autoreleasePoolPush();
   v7 = *(*v5 + 16);
   v8 = *(*v5 + 128);
@@ -4270,8 +4065,8 @@ void GTMTLReplayController_restoreCommandEncoder()
       {
         if (ConstructorType == 98)
         {
-          bzero(v73, 0x790uLL);
-          GTMTL4SMCommandEncoder_processTraceFunc(v73, v10, v7);
+          bzero(v72, 0x790uLL);
+          GTMTL4SMCommandEncoder_processTraceFunc(v72, v10, v7);
           if (*(v10 + 8) >> 1 == 2147476065)
           {
             memcpy(__dst, __src[0], 0x280uLL);
@@ -4370,10 +4165,10 @@ void GTMTLReplayController_restoreCommandEncoder()
 LABEL_108:
           __src[8] = 1;
           v58 = *(v5 + 22544);
-          v75[1] = vcvtq_f64_u64(v58);
-          v76 = 0x3FF0000000000000;
-          v81 = 1;
-          v82 = v58;
+          v74[1] = vcvtq_f64_u64(v58);
+          v75 = 0x3FF0000000000000;
+          v80 = 1;
+          v81 = v58;
           GTMTLReplayController_restoreMTL4RenderCommandEncoder(v18, __src, v5 + 248, v9);
 
           goto LABEL_130;
@@ -4382,8 +4177,8 @@ LABEL_108:
         goto LABEL_25;
       }
 
-      bzero(v73, 0x790uLL);
-      GTMTL4SMCommandEncoder_processTraceFunc(v73, v10, v7);
+      bzero(v72, 0x790uLL);
+      GTMTL4SMCommandEncoder_processTraceFunc(v72, v10, v7);
       GTMTLReplayController_defaultDispatchFunction(v5, v10);
       if (*(v5 + 11360))
       {
@@ -4428,8 +4223,8 @@ LABEL_108:
       goto LABEL_76;
     }
 
-    bzero(v73, 0x2BA0uLL);
-    GTMTLSMCommandEncoder_processTraceFunc(v73, v10, v7);
+    bzero(v72, 0x2BA0uLL);
+    GTMTLSMCommandEncoder_processTraceFunc(v72, v10, v7);
     v14 = *(v10 + 8);
     if (v14 == -16286)
     {
@@ -4548,13 +4343,13 @@ LABEL_108:
 LABEL_129:
     v69 = *(v5 + 22544);
     v70 = *(v5 + 22552);
-    v83 = 1;
-    v84 = v69;
-    v85 = v70;
-    v86 = 0x3FF0000000000000;
-    v87 = 1;
-    v88 = v69;
-    v89 = v70;
+    v82 = 1;
+    v83 = v69;
+    v84 = v70;
+    v85 = 0x3FF0000000000000;
+    v86 = 1;
+    v87 = v69;
+    v88 = v70;
     GTMTLReplayController_restoreRenderCommandEncoder(v45, __src, v5 + 248, v9);
 
     goto LABEL_130;
@@ -4562,8 +4357,8 @@ LABEL_129:
 
   if (ConstructorType == 28)
   {
-    bzero(v73, 0x2BA0uLL);
-    GTMTLSMCommandEncoder_processTraceFunc(v73, v10, v7);
+    bzero(v72, 0x2BA0uLL);
+    GTMTLSMCommandEncoder_processTraceFunc(v72, v10, v7);
     GTMTLReplayController_defaultDispatchFunction(v5, v10);
     if (*(v5 + 11360))
     {
@@ -4588,8 +4383,8 @@ LABEL_129:
 
   if (ConstructorType == 65)
   {
-    bzero(v73, 0x2BA0uLL);
-    GTMTLSMCommandEncoder_processTraceFunc(v73, v10, v7);
+    bzero(v72, 0x2BA0uLL);
+    GTMTLSMCommandEncoder_processTraceFunc(v72, v10, v7);
     v13 = GTTraceFunc_argumentBytesWithMap(v10, *(v10 + 13), v7);
     memcpy(__dst, __src[0], sizeof(__dst));
     if (v2)
@@ -4670,7 +4465,7 @@ LABEL_129:
 
     v31 = v29;
     v32 = 0;
-    v33 = v75;
+    v33 = v74;
     v34 = (v5 + 11496);
     do
     {
@@ -4690,22 +4485,22 @@ LABEL_129:
     }
 
     while (v32 != 8);
-    if (v77 != *v25)
+    if (v76 != *v25)
     {
       [v31 setDepthStoreAction:?];
     }
 
-    if (v79 != v25[2])
+    if (v78 != v25[2])
     {
       [v31 setDepthStoreActionOptions:?];
     }
 
-    if (v78 != v25[1])
+    if (v77 != v25[1])
     {
       [v31 setStencilStoreAction:?];
     }
 
-    if (v80 != v25[3])
+    if (v79 != v25[3])
     {
       [v31 setStencilStoreActionOptions:?];
     }
@@ -4721,7 +4516,6 @@ LABEL_25:
 LABEL_130:
 
   objc_autoreleasePoolPop(v6);
-  v71 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t _clearDontCareAttachments(uint64_t result, uint64_t a2, uint64_t a3)
@@ -4759,8 +4553,9 @@ uint64_t _clearDontCareAttachments(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void GTMTLReplayController_debugSubCommandResume(void *a1, unsigned int a2, int a3)
+void GTMTLReplayController_debugSubCommandResume(void *a1, uint64_t a2, int a3)
 {
+  v3 = a2;
   v4 = a1;
   v5 = *a1;
   if (a2)
@@ -4780,24 +4575,24 @@ void GTMTLReplayController_debugSubCommandResume(void *a1, unsigned int a2, int 
 LABEL_7:
       if (*(v6 - 56) >> 2 == 1073737833)
       {
-        v13 = 0;
+        v12 = 0;
+        v10 = 0u;
         v11 = 0u;
-        v12 = 0u;
-        GetExecuteCommandsInBufferArgs(&v11, v6, *(v5 + 16));
-        v7 = a2 - 1;
-        v8 = v12;
+        GetExecuteCommandsInBufferArgs(&v10, v6, *(v5 + 16));
+        v3 = (v3 - 1);
+        v7 = v11;
         a1 = v4;
-        v9 = v7;
+        v8 = v3;
       }
 
       else
       {
-        v7 = a2 - 1;
-        v9 = v7;
-        v8 = 0;
+        v3 = (v3 - 1);
+        v8 = v3;
+        v7 = 0;
       }
 
-      GTMTLReplayController_debugSubCommandStop(a1, v9, v8);
+      GTMTLReplayController_debugSubCommandStop(a1, v8, v7);
       goto LABEL_11;
     }
   }
@@ -4807,15 +4602,15 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  GTMTLReplayController_debugSubCommandStop(a1, a2, (a3 - 1));
-  v7 = a2 - 1;
+  GTMTLReplayController_debugSubCommandStop(a1, v3, (a3 - 1));
+  LODWORD(v3) = v3 - 1;
 LABEL_11:
-  ExclusiveRange = GroupBuilder_findExclusiveRange(*(*(*v4 + 120) + 12), *(*(*v4 + 120) + 24), v7);
+  ExclusiveRange = GroupBuilder_findExclusiveRange(*(*(*v4 + 120) + 12), *(*(*v4 + 120) + 24), v3);
 
   GTMTLReplayController_restoreGroup(v4, ExclusiveRange, 3);
 }
 
-void GTMTLReplayController_prePlayForProfiling(uint64_t a1)
+void GTMTLReplayController_prePlayForProfiling(id *a1)
 {
   v2 = MEMORY[0x277D85E08];
   if (s_logUsingOsLog == 1)
@@ -4842,8 +4637,8 @@ void GTMTLReplayController_prePlayForProfiling(uint64_t a1)
     v8 = gt_tagged_log(0xAu);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_24D764000, v8, OS_LOG_TYPE_INFO, "Rewinding for profiling", v15, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_24D764000, v8, OS_LOG_TYPE_INFO, "Rewinding for profiling", v13, 2u);
     }
   }
 
@@ -4855,24 +4650,13 @@ void GTMTLReplayController_prePlayForProfiling(uint64_t a1)
   }
 
   Rewind(a1);
-  if ((qword_27F09CF90 & 0x400000) != 0)
+  [a1[1] setLayerClass:objc_opt_class()];
+  v10 = v7[13];
+  if (v10)
   {
-    v10 = off_279312748;
-  }
-
-  else
-  {
-    v10 = 0x277CD9F10;
-  }
-
-  v11 = *v10;
-  [*(a1 + 8) setLayerClass:objc_opt_class()];
-  v12 = *(v7 + 104);
-  if (v12)
-  {
-    GTMTLReplayController_playTo(a1, v12);
-    v13 = [*(a1 + 8) defaultCommandQueue];
-    [v13 finish];
+    GTMTLReplayController_playTo(a1, v10);
+    v11 = [a1[1] defaultCommandQueue];
+    [v11 finish];
   }
 
   objc_autoreleasePoolPop(v6);
@@ -4958,9 +4742,9 @@ void sub_24D8E5BD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_24D8E68AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_24D8E68AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5025,24 +4809,6 @@ void std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataTyp
   }
 }
 
-void std::pair<std::string const,std::function<void ()(ShaderDebugger::Metadata::MDSerializerLLVM3XXX::TracepointContext *)>>::pair[abi:nn200100]<char const(&)[24],std::__bind<void (ShaderDebugger::Metadata::MDSerializerLLVM3XXX::*)(ShaderDebugger::Metadata::MDSerializerLLVM3XXX::TracepointContext *),ShaderDebugger::Metadata::MDSerializerLLVM3XXX*,std::placeholders::__ph<1> const&>,0>(_BYTE *a1, char *a2, __int128 *a3)
-{
-  v4 = std::string::basic_string[abi:nn200100]<0>(a1, a2);
-  v5 = *a3;
-  v6 = *(a3 + 2);
-  *(v4 + 6) = 0;
-  operator new();
-}
-
-void std::pair<std::string const,std::function<void ()(ShaderDebugger::Metadata::MDSerializerLLVM3XXX::TracepointContext *)>>::pair[abi:nn200100]<char const(&)[26],std::__bind<void (ShaderDebugger::Metadata::MDSerializerLLVM3XXX::*)(ShaderDebugger::Metadata::MDSerializerLLVM3XXX::TracepointContext *,ShaderDebugger::Metadata::MDWaypointTracePoint::TracePointWaypointType),ShaderDebugger::Metadata::MDSerializerLLVM3XXX*,std::placeholders::__ph<1> const&,ShaderDebugger::Metadata::MDWaypointTracePoint::TracePointWaypointType>,0>(_BYTE *a1, char *a2, __int128 *a3)
-{
-  v4 = std::string::basic_string[abi:nn200100]<0>(a1, a2);
-  v5 = *a3;
-  v6 = a3[1];
-  *(v4 + 6) = 0;
-  operator new();
-}
-
 uint64_t std::__function::__value_func<void ()(ShaderDebugger::Metadata::MDSerializerLLVM3XXX::TracepointContext *)>::~__value_func[abi:nn200100](uint64_t a1)
 {
   v2 = *(a1 + 24);
@@ -5059,7 +4825,7 @@ uint64_t std::__function::__value_func<void ()(ShaderDebugger::Metadata::MDSeria
   return a1;
 }
 
-uint64_t std::string::basic_string[abi:nn200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:nn200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -5071,11 +4837,11 @@ uint64_t std::string::basic_string[abi:nn200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeModules(std::vector<std::unique_ptr<llvm::Module>> const&,std::unordered_map<unsigned int,std::string> const&,unsigned long long *)::$_0::operator()(int **a1, uint64_t a2)
@@ -5224,7 +4990,7 @@ LABEL_35:
 
   else
   {
-    v28 = std::__throw_bad_function_call[abi:nn200100]();
+    std::__throw_bad_function_call[abi:nn200100]();
     llvm::StringRef::str(v28, v29, v30);
   }
 }
@@ -5285,7 +5051,7 @@ __n128 std::__function::__func<std::__bind<void (ShaderDebugger::Metadata::MDSer
   return result;
 }
 
-void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeWaypointTracePoint(int8x8_t *a1, uint64_t *a2, uint64_t a3)
+void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeWaypointTracePoint(uint64_t **a1, _DWORD *a2, uint64_t a3)
 {
   v5 = *a2;
   v6 = *(*(*a2 - 8 * *(*a2 + 8) + 16) + 128);
@@ -5300,12 +5066,12 @@ void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeWaypointTracePoint
     v8 = (*(v6 + 24) << -v7) >> -v7;
   }
 
-  v9 = v8 & 0xFFFFFF | (*(a2 + 4) << 24);
+  v9 = v8 & 0xFFFFFF | (a2[4] << 24);
   TracePointLocation = ShaderDebugger::Metadata::MDSerializerLLVM3XXX::extractTracePointLocation(a1, *a2);
   v60 = v9;
   v58 = 9;
   v61 = &v58;
-  v10 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 9uLL);
+  v10 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 9uLL, &v61);
   v11 = v10;
   v13 = v10 + 5;
   v12 = v10[5];
@@ -5377,7 +5143,7 @@ LABEL_76:
         v18 = v23 + 1;
         memcpy(0, v22, v27);
         v11[11] = 0;
-        v11[12] = v23 + 1;
+        v11[12] = (v23 + 1);
         v11[13] = 0;
         if (v22)
         {
@@ -5440,7 +5206,7 @@ LABEL_76:
         v18 = v33 + 1;
         memcpy(0, v32, v37);
         v11[11] = 0;
-        v11[12] = v33 + 1;
+        v11[12] = (v33 + 1);
         v11[13] = 0;
         if (v32)
         {
@@ -5504,7 +5270,7 @@ LABEL_76:
         v18 = v43 + 1;
         memcpy(0, v42, v47);
         v11[11] = 0;
-        v11[12] = v43 + 1;
+        v11[12] = (v43 + 1);
         v11[13] = 0;
         if (v42)
         {
@@ -5567,7 +5333,7 @@ LABEL_76:
         v18 = v53 + 1;
         memcpy(0, v52, v57);
         v11[11] = 0;
-        v11[12] = v53 + 1;
+        v11[12] = (v53 + 1);
         v11[13] = 0;
         if (v52)
         {
@@ -5585,7 +5351,7 @@ LABEL_76:
   }
 }
 
-uint64_t ShaderDebugger::Metadata::MDSerializerLLVM3XXX::extractTracePointLocation(int8x8_t *a1, uint64_t a2)
+unint64_t ShaderDebugger::Metadata::MDSerializerLLVM3XXX::extractTracePointLocation(uint64_t **a1, uint64_t a2)
 {
   v2 = *(a2 - 8 * *(a2 + 8) + 24);
   if (!v2)
@@ -5677,7 +5443,7 @@ __n128 std::__function::__func<std::__bind<void (ShaderDebugger::Metadata::MDSer
   return result;
 }
 
-void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeDataValueTracePoint(int8x8_t *a1, uint64_t *a2)
+void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeDataValueTracePoint(uint64_t **a1, uint64_t *a2)
 {
   v3 = *a2;
   v4 = *(*(*a2 - 8 * *(*a2 + 8) + 16) + 128);
@@ -5699,24 +5465,24 @@ void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeDataValueTracePoin
   if (v10 == 24)
   {
     v22 = (v9 - *(v9 + 2))[3];
-    v123[0] = 0;
-    v123[1] = 0;
-    v122 = v123;
-    v23 = ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeType(a1, v22, &v122);
-    std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::destroy(v123[0]);
+    v120[0] = 0;
+    v120[1] = 0;
+    v119 = v120;
+    v23 = ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeType(a1, v22, &v119);
+    std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::destroy(v120[0]);
     Filename = llvm::DIVariable::getFilename(v9);
-    llvm::StringRef::str(v126, Filename, v25);
+    llvm::StringRef::str(v123, Filename, v25);
     Directory = llvm::DIVariable::getDirectory(v9);
     llvm::StringRef::str(__p, Directory, v27);
-    v28 = ShaderDebugger::Metadata::MDSerializer::serializeLocation(a1, v9 + 1, v126, __p, *(v9 + 6), -1);
-    if (v125 < 0)
+    v28 = ShaderDebugger::Metadata::MDSerializer::serializeLocation(a1, v9 + 1, v123, __p, *(v9 + 6), -1);
+    if (v122 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v128 < 0)
+    if (v125 < 0)
     {
-      operator delete(v126[0]);
+      operator delete(v123[0]);
     }
 
     v29 = (v9 - *(v9 + 2))[1];
@@ -5732,8 +5498,8 @@ void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeDataValueTracePoin
       v32 = 0;
     }
 
-    llvm::StringRef::str(v126, String, v32);
-    v34 = ShaderDebugger::Metadata::MDSerializer::serializeGlobalVariable(a1, v9, v126, v23, v28);
+    llvm::StringRef::str(v123, String, v32);
+    v34 = ShaderDebugger::Metadata::MDSerializer::serializeGlobalVariable(a1, v9, v123, v23, v28);
   }
 
   else
@@ -5745,24 +5511,24 @@ void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeDataValueTracePoin
     }
 
     v11 = (v9 - *(v9 + 2))[3];
-    v130[0] = 0;
-    v130[1] = 0;
-    v129 = v130;
-    v12 = ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeType(a1, v11, &v129);
-    std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::destroy(v130[0]);
+    v127[0] = 0;
+    v127[1] = 0;
+    v126 = v127;
+    v12 = ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeType(a1, v11, &v126);
+    std::__tree<std::__value_type<unsigned long long,unsigned long long>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,unsigned long long>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,unsigned long long>>>::destroy(v127[0]);
     v13 = llvm::DIVariable::getFilename(v9);
-    llvm::StringRef::str(v126, v13, v14);
+    llvm::StringRef::str(v123, v13, v14);
     v15 = llvm::DIVariable::getDirectory(v9);
     llvm::StringRef::str(__p, v15, v16);
-    v17 = ShaderDebugger::Metadata::MDSerializer::serializeLocation(a1, v9 + 1, v126, __p, *(v9 + 6), -1);
-    if (v125 < 0)
+    v17 = ShaderDebugger::Metadata::MDSerializer::serializeLocation(a1, v9 + 1, v123, __p, *(v9 + 6), -1);
+    if (v122 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v128 < 0)
+    if (v125 < 0)
     {
-      operator delete(v126[0]);
+      operator delete(v123[0]);
     }
 
     v18 = (v9 - *(v9 + 2))[1];
@@ -5778,38 +5544,35 @@ void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeDataValueTracePoin
       v21 = 0;
     }
 
-    llvm::StringRef::str(v126, v19, v21);
-    v34 = ShaderDebugger::Metadata::MDSerializer::serializeLocalVariable(a1, v9, v126, v12, v17, *(v9 + 16) != 0);
+    llvm::StringRef::str(v123, v19, v21);
+    v34 = ShaderDebugger::Metadata::MDSerializer::serializeLocalVariable(a1, v9, v123, v12, v17, *(v9 + 16) != 0);
   }
 
   v33 = v34;
-  if (v128 < 0)
+  if (v125 < 0)
   {
-    operator delete(v126[0]);
+    operator delete(v123[0]);
   }
 
 LABEL_25:
   v35 = *(v3 + 8);
-  v36 = *(v3 - 8 * v35 + 40);
-  if (*v36 == 6)
+  if (**(v3 - 8 * v35 + 40) == 6)
   {
-    v37 = *(v36 + 24);
-    v38 = *(v36 + 32);
     llvm::DIExpression::getFragmentInfo();
-    v39 = v126[0];
-    if (v127)
+    v36 = v123[0];
+    if (v124)
     {
-      v40 = v126[1];
+      v37 = v123[1];
     }
 
     else
     {
-      v40 = 0;
+      v37 = 0;
     }
 
-    if (!v127)
+    if (!v124)
     {
-      v39 = 0;
+      v36 = 0;
     }
 
     v35 = *(v3 + 8);
@@ -5817,499 +5580,499 @@ LABEL_25:
 
   else
   {
-    v40 = 0;
-    v39 = 0;
+    v37 = 0;
+    v36 = 0;
   }
 
-  v41 = *(*(v3 - 8 * v35 + 48) + 128);
-  v42 = *(v41 + 32);
-  if (v42 > 0x40)
+  v38 = *(*(v3 - 8 * v35 + 48) + 128);
+  v39 = *(v38 + 32);
+  if (v39 > 0x40)
   {
-    v43 = **(v41 + 24);
+    v40 = **(v38 + 24);
   }
 
   else
   {
-    v43 = (*(v41 + 24) << -v42) >> -v42;
+    v40 = (*(v38 + 24) << -v39) >> -v39;
   }
 
   __p[0] = (v6 & 0xFFFFFF | (v7 << 24));
-  v135 = v33;
-  v136 = TracePointLocation;
-  v134 = v43;
-  v132 = v40;
-  v133 = v39;
-  v131 = 10;
-  v126[0] = &v131;
-  v44 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 0xAuLL);
-  v45 = v44;
-  v47 = v44 + 5;
-  v46 = v44[5];
-  v48 = v44[6];
-  v49 = v46;
-  if (v46 != v48)
+  v132 = v33;
+  v133 = TracePointLocation;
+  v131 = v40;
+  v129 = v37;
+  v130 = v36;
+  v128 = 10;
+  v123[0] = &v128;
+  v41 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 0xAuLL, v123);
+  v42 = v41;
+  v44 = v41 + 5;
+  v43 = v41[5];
+  v45 = v41[6];
+  v46 = v43;
+  if (v43 != v45)
   {
-    while (*v49 != v3)
+    while (*v46 != v3)
     {
-      v49 += 8;
-      if (v49 == v48)
+      v46 += 8;
+      if (v46 == v45)
       {
-        v49 = v44[6];
+        v46 = v41[6];
         break;
       }
     }
   }
 
-  if (v48 == v49 || v49 - v46 == -8 || ShaderDebugger::Metadata::MDSerializer::isMetadataIdReserved((v44 + 5), v3))
+  if (v45 == v46 || v46 - v43 == -8 || ShaderDebugger::Metadata::MDSerializer::isMetadataIdReserved((v41 + 5), v3))
   {
-    v126[0] = ShaderDebugger::Metadata::MDSerializer::addAndLinearizeMetadataId(v47, v3);
-    v51 = (v45 + 11);
-    v50 = v45[11];
-    v52 = v45[12];
-    v53 = v45[13] - v50;
-    if (v53 < &v52[-v50 + 8])
+    v123[0] = ShaderDebugger::Metadata::MDSerializer::addAndLinearizeMetadataId(v44, v3);
+    v48 = (v42 + 11);
+    v47 = v42[11];
+    v49 = v42[12];
+    v50 = v42[13] - v47;
+    if (v50 < &v49[-v47 + 8])
     {
-      std::vector<unsigned char>::reserve(v45 + 11, (2 * v53) | 1);
-      v52 = v45[12];
+      std::vector<unsigned char>::reserve(v42 + 11, (2 * v50) | 1);
+      v49 = v42[12];
     }
 
     for (i = 0; i != 8; ++i)
     {
-      v55 = v45[13];
-      if (v52 >= v55)
+      v52 = v42[13];
+      if (v49 >= v52)
       {
-        v56 = *v51;
-        v57 = (v52 - *v51);
-        v58 = (v57 + 1);
-        if ((v57 + 1) < 0)
+        v53 = *v48;
+        v54 = (v49 - *v48);
+        v55 = (v54 + 1);
+        if ((v54 + 1) < 0)
         {
 LABEL_156:
           std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
         }
 
-        v59 = v55 - v56;
-        if (2 * v59 > v58)
+        v56 = v52 - v53;
+        if (2 * v56 > v55)
         {
-          v58 = 2 * v59;
+          v55 = 2 * v56;
         }
 
-        if (v59 >= 0x3FFFFFFFFFFFFFFFLL)
+        if (v56 >= 0x3FFFFFFFFFFFFFFFLL)
         {
-          v60 = 0x7FFFFFFFFFFFFFFFLL;
+          v57 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v60 = v58;
+          v57 = v55;
         }
 
-        if (v60)
+        if (v57)
         {
           operator new();
         }
 
-        v61 = v52 - *v51;
-        *v57 = *(v126 + i);
-        v52 = v57 + 1;
-        memcpy(0, v56, v61);
-        v45[11] = 0;
-        v45[12] = v57 + 1;
-        v45[13] = 0;
-        if (v56)
+        v58 = v49 - *v48;
+        *v54 = *(v123 + i);
+        v49 = v54 + 1;
+        memcpy(0, v53, v58);
+        v42[11] = 0;
+        v42[12] = (v54 + 1);
+        v42[13] = 0;
+        if (v53)
         {
-          operator delete(v56);
+          operator delete(v53);
         }
       }
 
       else
       {
-        *v52++ = *(v126 + i);
+        *v49++ = *(v123 + i);
       }
 
-      v45[12] = v52;
+      v42[12] = v49;
     }
 
-    v62 = v45[11];
-    v63 = v45[13] - v62;
-    if (v63 < &v52[-v62 + 8])
+    v59 = v42[11];
+    v60 = v42[13] - v59;
+    if (v60 < &v49[-v59 + 8])
     {
-      std::vector<unsigned char>::reserve(v45 + 11, (2 * v63) | 1);
-      v52 = v45[12];
+      std::vector<unsigned char>::reserve(v42 + 11, (2 * v60) | 1);
+      v49 = v42[12];
     }
 
     for (j = 0; j != 8; ++j)
     {
-      v65 = v45[13];
-      if (v52 >= v65)
+      v62 = v42[13];
+      if (v49 >= v62)
       {
-        v66 = *v51;
-        v67 = (v52 - *v51);
-        v68 = (v67 + 1);
-        if ((v67 + 1) < 0)
+        v63 = *v48;
+        v64 = (v49 - *v48);
+        v65 = (v64 + 1);
+        if ((v64 + 1) < 0)
         {
           goto LABEL_156;
         }
 
-        v69 = v65 - v66;
-        if (2 * v69 > v68)
+        v66 = v62 - v63;
+        if (2 * v66 > v65)
         {
-          v68 = 2 * v69;
+          v65 = 2 * v66;
         }
 
-        if (v69 >= 0x3FFFFFFFFFFFFFFFLL)
+        if (v66 >= 0x3FFFFFFFFFFFFFFFLL)
         {
-          v70 = 0x7FFFFFFFFFFFFFFFLL;
+          v67 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v70 = v68;
+          v67 = v65;
         }
 
-        if (v70)
+        if (v67)
         {
           operator new();
         }
 
-        v71 = v52 - *v51;
-        *v67 = *(__p + j);
-        v52 = v67 + 1;
-        memcpy(0, v66, v71);
-        v45[11] = 0;
-        v45[12] = v67 + 1;
-        v45[13] = 0;
-        if (v66)
+        v68 = v49 - *v48;
+        *v64 = *(__p + j);
+        v49 = v64 + 1;
+        memcpy(0, v63, v68);
+        v42[11] = 0;
+        v42[12] = (v64 + 1);
+        v42[13] = 0;
+        if (v63)
         {
-          operator delete(v66);
+          operator delete(v63);
         }
       }
 
       else
       {
-        *v52++ = *(__p + j);
+        *v49++ = *(__p + j);
       }
 
-      v45[12] = v52;
+      v42[12] = v49;
     }
 
-    v72 = v45[11];
-    v73 = v45[13] - v72;
-    if (v73 < &v52[-v72 + 8])
+    v69 = v42[11];
+    v70 = v42[13] - v69;
+    if (v70 < &v49[-v69 + 8])
     {
-      std::vector<unsigned char>::reserve(v45 + 11, (2 * v73) | 1);
-      v52 = v45[12];
+      std::vector<unsigned char>::reserve(v42 + 11, (2 * v70) | 1);
+      v49 = v42[12];
     }
 
     for (k = 0; k != 8; ++k)
     {
-      v75 = v45[13];
-      if (v52 >= v75)
+      v72 = v42[13];
+      if (v49 >= v72)
       {
-        v76 = *v51;
-        v77 = (v52 - *v51);
-        v78 = (v77 + 1);
-        if ((v77 + 1) < 0)
+        v73 = *v48;
+        v74 = (v49 - *v48);
+        v75 = (v74 + 1);
+        if ((v74 + 1) < 0)
         {
           goto LABEL_156;
         }
 
-        v79 = v75 - v76;
-        if (2 * v79 > v78)
+        v76 = v72 - v73;
+        if (2 * v76 > v75)
         {
-          v78 = 2 * v79;
+          v75 = 2 * v76;
         }
 
-        if (v79 >= 0x3FFFFFFFFFFFFFFFLL)
+        if (v76 >= 0x3FFFFFFFFFFFFFFFLL)
         {
-          v80 = 0x7FFFFFFFFFFFFFFFLL;
+          v77 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v80 = v78;
+          v77 = v75;
         }
 
-        if (v80)
+        if (v77)
         {
           operator new();
         }
 
-        v81 = v52 - *v51;
-        *v77 = *(&v136 + k);
-        v52 = v77 + 1;
-        memcpy(0, v76, v81);
-        v45[11] = 0;
-        v45[12] = v77 + 1;
-        v45[13] = 0;
-        if (v76)
+        v78 = v49 - *v48;
+        *v74 = *(&v133 + k);
+        v49 = v74 + 1;
+        memcpy(0, v73, v78);
+        v42[11] = 0;
+        v42[12] = (v74 + 1);
+        v42[13] = 0;
+        if (v73)
         {
-          operator delete(v76);
+          operator delete(v73);
         }
       }
 
       else
       {
-        *v52++ = *(&v136 + k);
+        *v49++ = *(&v133 + k);
       }
 
-      v45[12] = v52;
+      v42[12] = v49;
     }
 
-    v82 = v45[11];
-    v83 = v45[13] - v82;
-    if (v83 < &v52[-v82 + 8])
+    v79 = v42[11];
+    v80 = v42[13] - v79;
+    if (v80 < &v49[-v79 + 8])
     {
-      std::vector<unsigned char>::reserve(v45 + 11, (2 * v83) | 1);
-      v52 = v45[12];
+      std::vector<unsigned char>::reserve(v42 + 11, (2 * v80) | 1);
+      v49 = v42[12];
     }
 
     for (m = 0; m != 8; ++m)
     {
-      v85 = v45[13];
-      if (v52 >= v85)
+      v82 = v42[13];
+      if (v49 >= v82)
       {
-        v86 = *v51;
-        v87 = (v52 - *v51);
-        v88 = (v87 + 1);
-        if ((v87 + 1) < 0)
+        v83 = *v48;
+        v84 = (v49 - *v48);
+        v85 = (v84 + 1);
+        if ((v84 + 1) < 0)
         {
           goto LABEL_156;
         }
 
-        v89 = v85 - v86;
-        if (2 * v89 > v88)
+        v86 = v82 - v83;
+        if (2 * v86 > v85)
         {
-          v88 = 2 * v89;
+          v85 = 2 * v86;
         }
 
-        if (v89 >= 0x3FFFFFFFFFFFFFFFLL)
+        if (v86 >= 0x3FFFFFFFFFFFFFFFLL)
         {
-          v90 = 0x7FFFFFFFFFFFFFFFLL;
+          v87 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v90 = v88;
+          v87 = v85;
         }
 
-        if (v90)
+        if (v87)
         {
           operator new();
         }
 
-        v91 = v52 - *v51;
-        *v87 = *(&v135 + m);
-        v52 = v87 + 1;
-        memcpy(0, v86, v91);
-        v45[11] = 0;
-        v45[12] = v87 + 1;
-        v45[13] = 0;
-        if (v86)
+        v88 = v49 - *v48;
+        *v84 = *(&v132 + m);
+        v49 = v84 + 1;
+        memcpy(0, v83, v88);
+        v42[11] = 0;
+        v42[12] = (v84 + 1);
+        v42[13] = 0;
+        if (v83)
         {
-          operator delete(v86);
+          operator delete(v83);
         }
       }
 
       else
       {
-        *v52++ = *(&v135 + m);
+        *v49++ = *(&v132 + m);
       }
 
-      v45[12] = v52;
+      v42[12] = v49;
     }
 
-    v92 = v45[11];
-    v93 = v45[13] - v92;
-    if (v93 < &v52[-v92 + 8])
+    v89 = v42[11];
+    v90 = v42[13] - v89;
+    if (v90 < &v49[-v89 + 8])
     {
-      std::vector<unsigned char>::reserve(v45 + 11, (2 * v93) | 1);
-      v52 = v45[12];
+      std::vector<unsigned char>::reserve(v42 + 11, (2 * v90) | 1);
+      v49 = v42[12];
     }
 
     for (n = 0; n != 8; ++n)
     {
-      v95 = v45[13];
-      if (v52 >= v95)
+      v92 = v42[13];
+      if (v49 >= v92)
       {
-        v96 = *v51;
-        v97 = (v52 - *v51);
-        v98 = (v97 + 1);
-        if ((v97 + 1) < 0)
+        v93 = *v48;
+        v94 = (v49 - *v48);
+        v95 = (v94 + 1);
+        if ((v94 + 1) < 0)
         {
           goto LABEL_156;
         }
 
-        v99 = v95 - v96;
-        if (2 * v99 > v98)
+        v96 = v92 - v93;
+        if (2 * v96 > v95)
         {
-          v98 = 2 * v99;
+          v95 = 2 * v96;
         }
 
-        if (v99 >= 0x3FFFFFFFFFFFFFFFLL)
+        if (v96 >= 0x3FFFFFFFFFFFFFFFLL)
         {
-          v100 = 0x7FFFFFFFFFFFFFFFLL;
+          v97 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v100 = v98;
+          v97 = v95;
         }
 
-        if (v100)
+        if (v97)
         {
           operator new();
         }
 
-        v101 = v52 - *v51;
-        *v97 = *(&v134 + n);
-        v52 = v97 + 1;
-        memcpy(0, v96, v101);
-        v45[11] = 0;
-        v45[12] = v97 + 1;
-        v45[13] = 0;
-        if (v96)
+        v98 = v49 - *v48;
+        *v94 = *(&v131 + n);
+        v49 = v94 + 1;
+        memcpy(0, v93, v98);
+        v42[11] = 0;
+        v42[12] = (v94 + 1);
+        v42[13] = 0;
+        if (v93)
         {
-          operator delete(v96);
+          operator delete(v93);
         }
       }
 
       else
       {
-        *v52++ = *(&v134 + n);
+        *v49++ = *(&v131 + n);
       }
 
-      v45[12] = v52;
+      v42[12] = v49;
     }
 
-    v102 = v45[11];
-    v103 = v45[13] - v102;
-    if (v103 < &v52[-v102 + 8])
+    v99 = v42[11];
+    v100 = v42[13] - v99;
+    if (v100 < &v49[-v99 + 8])
     {
-      std::vector<unsigned char>::reserve(v45 + 11, (2 * v103) | 1);
-      v52 = v45[12];
+      std::vector<unsigned char>::reserve(v42 + 11, (2 * v100) | 1);
+      v49 = v42[12];
     }
 
     for (ii = 0; ii != 8; ++ii)
     {
-      v105 = v45[13];
-      if (v52 >= v105)
+      v102 = v42[13];
+      if (v49 >= v102)
       {
-        v106 = *v51;
-        v107 = (v52 - *v51);
-        v108 = (v107 + 1);
-        if ((v107 + 1) < 0)
+        v103 = *v48;
+        v104 = (v49 - *v48);
+        v105 = (v104 + 1);
+        if ((v104 + 1) < 0)
         {
           goto LABEL_156;
         }
 
-        v109 = v105 - v106;
-        if (2 * v109 > v108)
+        v106 = v102 - v103;
+        if (2 * v106 > v105)
         {
-          v108 = 2 * v109;
+          v105 = 2 * v106;
         }
 
-        if (v109 >= 0x3FFFFFFFFFFFFFFFLL)
+        if (v106 >= 0x3FFFFFFFFFFFFFFFLL)
         {
-          v110 = 0x7FFFFFFFFFFFFFFFLL;
+          v107 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v110 = v108;
+          v107 = v105;
         }
 
-        if (v110)
+        if (v107)
         {
           operator new();
         }
 
-        v111 = v52 - *v51;
-        *v107 = *(&v133 + ii);
-        v52 = v107 + 1;
-        memcpy(0, v106, v111);
-        v45[11] = 0;
-        v45[12] = v107 + 1;
-        v45[13] = 0;
-        if (v106)
+        v108 = v49 - *v48;
+        *v104 = *(&v130 + ii);
+        v49 = v104 + 1;
+        memcpy(0, v103, v108);
+        v42[11] = 0;
+        v42[12] = (v104 + 1);
+        v42[13] = 0;
+        if (v103)
         {
-          operator delete(v106);
+          operator delete(v103);
         }
       }
 
       else
       {
-        *v52++ = *(&v133 + ii);
+        *v49++ = *(&v130 + ii);
       }
 
-      v45[12] = v52;
+      v42[12] = v49;
     }
 
-    v112 = v45[11];
-    v113 = v45[13] - v112;
-    if (v113 < &v52[-v112 + 8])
+    v109 = v42[11];
+    v110 = v42[13] - v109;
+    if (v110 < &v49[-v109 + 8])
     {
-      std::vector<unsigned char>::reserve(v45 + 11, (2 * v113) | 1);
-      v52 = v45[12];
+      std::vector<unsigned char>::reserve(v42 + 11, (2 * v110) | 1);
+      v49 = v42[12];
     }
 
     for (jj = 0; jj != 8; ++jj)
     {
-      v115 = v45[13];
-      if (v52 >= v115)
+      v112 = v42[13];
+      if (v49 >= v112)
       {
-        v116 = *v51;
-        v117 = (v52 - *v51);
-        v118 = (v117 + 1);
-        if ((v117 + 1) < 0)
+        v113 = *v48;
+        v114 = (v49 - *v48);
+        v115 = (v114 + 1);
+        if ((v114 + 1) < 0)
         {
           goto LABEL_156;
         }
 
-        v119 = v115 - v116;
-        if (2 * v119 > v118)
+        v116 = v112 - v113;
+        if (2 * v116 > v115)
         {
-          v118 = 2 * v119;
+          v115 = 2 * v116;
         }
 
-        if (v119 >= 0x3FFFFFFFFFFFFFFFLL)
+        if (v116 >= 0x3FFFFFFFFFFFFFFFLL)
         {
-          v120 = 0x7FFFFFFFFFFFFFFFLL;
+          v117 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v120 = v118;
+          v117 = v115;
         }
 
-        if (v120)
+        if (v117)
         {
           operator new();
         }
 
-        v121 = v52 - *v51;
-        *v117 = *(&v132 + jj);
-        v52 = v117 + 1;
-        memcpy(0, v116, v121);
-        v45[11] = 0;
-        v45[12] = v117 + 1;
-        v45[13] = 0;
-        if (v116)
+        v118 = v49 - *v48;
+        *v114 = *(&v129 + jj);
+        v49 = v114 + 1;
+        memcpy(0, v113, v118);
+        v42[11] = 0;
+        v42[12] = (v114 + 1);
+        v42[13] = 0;
+        if (v113)
         {
-          operator delete(v116);
+          operator delete(v113);
         }
       }
 
       else
       {
-        *v52++ = *(&v132 + jj);
+        *v49++ = *(&v129 + jj);
       }
 
-      v45[12] = v52;
+      v42[12] = v49;
     }
   }
 }
 
-uint64_t ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeType(uint64_t a1, unsigned __int8 *a2, void **a3)
+uint64_t ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeType(uint64_t **a1, unsigned __int8 *a2, void *a3)
 {
   v6 = a3 + 1;
   v5 = a3[1];
@@ -6370,7 +6133,7 @@ LABEL_14:
     v288 = 3;
     v291 = &v288;
     v14 = a1;
-    v15 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 3uLL);
+    v15 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 3uLL, &v291);
     v16 = v15[5];
     v291 = a2;
     v17 = v15[6];
@@ -6391,7 +6154,7 @@ LABEL_14:
     {
       std::vector<unsigned long>::push_back[abi:nn200100]((v15 + 5), &v291);
       LOBYTE(__p[0]) = 1;
-      std::vector<BOOL>::push_back((v15 + 8), __p);
+      std::vector<BOOL>::push_back(v15 + 8, __p);
       result = ((v15[6] - v15[5]) >> 3) - 1;
     }
 
@@ -6428,7 +6191,7 @@ LABEL_14:
         LODWORD(v284[0]) = *(a2 + 13);
         __p[0] = 3;
         v288 = __p;
-        v141 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 3uLL);
+        v141 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 3uLL, &v288);
         v142 = v141;
         v144 = v141 + 5;
         v143 = v141[5];
@@ -6498,7 +6261,7 @@ LABEL_14:
               v148 = v154 + 1;
               memcpy(0, v153, v158);
               v142[11] = 0;
-              v142[12] = v154 + 1;
+              v142[12] = (v154 + 1);
               v142[13] = 0;
               if (v153)
               {
@@ -6585,7 +6348,7 @@ LABEL_14:
       v284[0] = v24;
       v296[0] = 3;
       __p[0] = v296;
-      v107 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 3uLL);
+      v107 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 3uLL, __p);
       v108 = v107;
       v110 = v107 + 5;
       v109 = v107[5];
@@ -6656,7 +6419,7 @@ LABEL_14:
             v114 = v120 + 1;
             memcpy(0, v119, v124);
             v108[11] = 0;
-            v108[12] = v120 + 1;
+            v108[12] = (v120 + 1);
             v108[13] = 0;
             if (v119)
             {
@@ -6726,7 +6489,7 @@ LABEL_14:
             v114 = v131 + 1;
             memcpy(0, v130, v135);
             v108[11] = 0;
-            v108[12] = v131 + 1;
+            v108[12] = (v131 + 1);
             v108[13] = 0;
             if (v130)
             {
@@ -6831,7 +6594,7 @@ LABEL_360:
       v61 = llvm::DINode::getTag(a2);
       v296[0] = 3;
       v284[0] = v296;
-      v62 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 3uLL);
+      v62 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 3uLL, v284);
       v63 = v62;
       v65 = v62 + 5;
       v64 = v62[5];
@@ -6902,7 +6665,7 @@ LABEL_360:
             v69 = v75 + 1;
             memcpy(0, v74, v79);
             v63[11] = 0;
-            v63[12] = v75 + 1;
+            v63[12] = (v75 + 1);
             v63[13] = 0;
             if (v74)
             {
@@ -6972,7 +6735,7 @@ LABEL_360:
                 v69 = v86 + 1;
                 memcpy(0, v85, v90);
                 v63[11] = 0;
-                v63[12] = v86 + 1;
+                v63[12] = (v86 + 1);
                 v63[13] = 0;
                 if (v85)
                 {
@@ -7036,7 +6799,7 @@ LABEL_360:
                 v69 = v96 + 1;
                 memcpy(0, v95, v100);
                 v63[11] = 0;
-                v63[12] = v96 + 1;
+                v63[12] = (v96 + 1);
                 v63[13] = 0;
                 if (v95)
                 {
@@ -7136,7 +6899,7 @@ LABEL_279:
       v294 = 3;
       v295 = v271;
       v296[0] = &v294;
-      v222 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 3uLL);
+      v222 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 3uLL, v296);
       v223 = v222;
       v225 = v222 + 5;
       v224 = v222[5];
@@ -7206,7 +6969,7 @@ LABEL_279:
             v229 = v235 + 1;
             memcpy(0, v234, v239);
             v223[11] = 0;
-            v223[12] = v235 + 1;
+            v223[12] = (v235 + 1);
             v223[13] = 0;
             if (v234)
             {
@@ -7222,7 +6985,7 @@ LABEL_279:
           v223[12] = v229;
         }
 
-        v296[0] = &v289[-v288] >> 4;
+        v296[0] = (&v289[-v288] >> 4);
         v240 = v223[11];
         v241 = v223[13] - v240;
         if (v241 < &v229[-v240 + 8])
@@ -7270,7 +7033,7 @@ LABEL_279:
             v229 = v245 + 1;
             memcpy(0, v244, v249);
             v223[11] = 0;
-            v223[12] = v245 + 1;
+            v223[12] = (v245 + 1);
             v223[13] = 0;
             if (v244)
             {
@@ -7337,7 +7100,7 @@ LABEL_279:
               v229 = v256 + 1;
               memcpy(0, v255, v260);
               v223[11] = 0;
-              v223[12] = v256 + 1;
+              v223[12] = (v256 + 1);
               v223[13] = 0;
               if (v255)
               {
@@ -7401,7 +7164,7 @@ LABEL_279:
               v229 = v266 + 1;
               memcpy(0, v265, v270);
               v223[11] = 0;
-              v223[12] = v266 + 1;
+              v223[12] = (v266 + 1);
               v223[13] = 0;
               if (v265)
               {
@@ -7502,7 +7265,7 @@ LABEL_279:
         v296[0] = v170;
         v294 = 4;
         v284[0] = &v294;
-        v173 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(v14, 4uLL);
+        v173 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(v14, 4uLL, v284);
         v174 = v173;
         v176 = v173 + 5;
         v175 = v173[5];
@@ -7579,7 +7342,7 @@ LABEL_363:
               v182 = v187 + 1;
               memcpy(0, v186, v191);
               v174[11] = 0;
-              v174[12] = v187 + 1;
+              v174[12] = (v187 + 1);
               v174[13] = 0;
               if (v186)
               {
@@ -7642,7 +7405,7 @@ LABEL_363:
               v182 = v197 + 1;
               memcpy(0, v196, v201);
               v174[11] = 0;
-              v174[12] = v197 + 1;
+              v174[12] = (v197 + 1);
               v174[13] = 0;
               if (v196)
               {
@@ -7705,7 +7468,7 @@ LABEL_363:
               v182 = v207 + 1;
               memcpy(0, v206, v211);
               v174[11] = 0;
-              v174[12] = v207 + 1;
+              v174[12] = (v207 + 1);
               v174[13] = 0;
               if (v206)
               {
@@ -7747,7 +7510,7 @@ LABEL_201:
 
   v288 = 3;
   v291 = &v288;
-  v39 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 3uLL);
+  v39 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 3uLL, &v291);
   v41 = v39[5];
   v40 = v39[6];
   v42 = v41;
@@ -7809,10 +7572,10 @@ llvm::MDString *llvm::DIVariable::getDirectory(llvm::DIVariable *this)
   return result;
 }
 
-void *std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(uint64_t a1, unint64_t a2)
+uint64_t *std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(uint64_t **a1, unint64_t a2, void **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -7822,27 +7585,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -8046,7 +7809,7 @@ void std::vector<std::pair<ShaderDebugger::Metadata::MDBase::MetadataType,unsign
   *(a1 + 8) = v5;
 }
 
-uint64_t *std::__tree<llvm::DIType *>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<llvm::DIType *>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -8064,7 +7827,7 @@ uint64_t *std::__tree<llvm::DIType *>::__insert_node_at(uint64_t **a1, uint64_t 
   return result;
 }
 
-void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeDataTracePoint(int8x8_t *a1, uint64_t *a2)
+void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeDataTracePoint(uint64_t **a1, uint64_t *a2)
 {
   v3 = *a2;
   v4 = *(*(*a2 - 8 * *(*a2 + 8) + 16) + 128);
@@ -8111,7 +7874,7 @@ void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeDataTracePoint(int
   v76 = v12;
   v75 = 8;
   v79 = &v75;
-  v16 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 8uLL);
+  v16 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 8uLL, &v79);
   v17 = v16;
   v19 = v16 + 5;
   v18 = v16[5];
@@ -8184,7 +7947,7 @@ LABEL_98:
         v24 = v29 + 1;
         memcpy(0, v28, v33);
         v17[11] = 0;
-        v17[12] = v29 + 1;
+        v17[12] = (v29 + 1);
         v17[13] = 0;
         if (v28)
         {
@@ -8247,7 +8010,7 @@ LABEL_98:
         v24 = v39 + 1;
         memcpy(0, v38, v43);
         v17[11] = 0;
-        v17[12] = v39 + 1;
+        v17[12] = (v39 + 1);
         v17[13] = 0;
         if (v38)
         {
@@ -8310,7 +8073,7 @@ LABEL_98:
         v24 = v49 + 1;
         memcpy(0, v48, v53);
         v17[11] = 0;
-        v17[12] = v49 + 1;
+        v17[12] = (v49 + 1);
         v17[13] = 0;
         if (v48)
         {
@@ -8373,7 +8136,7 @@ LABEL_98:
         v24 = v59 + 1;
         memcpy(0, v58, v63);
         v17[11] = 0;
-        v17[12] = v59 + 1;
+        v17[12] = (v59 + 1);
         v17[13] = 0;
         if (v58)
         {
@@ -8437,7 +8200,7 @@ LABEL_98:
         v24 = v69 + 1;
         memcpy(0, v68, v73);
         v17[11] = 0;
-        v17[12] = v69 + 1;
+        v17[12] = (v69 + 1);
         v17[13] = 0;
         if (v68)
         {
@@ -8455,7 +8218,7 @@ LABEL_98:
   }
 }
 
-void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeVariableTracePoint(int8x8_t *a1, uint64_t a2)
+void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeVariableTracePoint(uint64_t **a1, uint64_t *a2)
 {
   v3 = *a2;
   v4 = *a2 - 8 * *(*a2 + 8);
@@ -8483,7 +8246,7 @@ void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeVariableTracePoint
     v10 = (*(v8 + 24) << -v9) >> -v9;
   }
 
-  v11 = *(a2 + 16);
+  v11 = *(a2 + 4);
   v12 = *(v4 + 32);
   v13 = *v12;
   if (*v12)
@@ -8579,7 +8342,7 @@ LABEL_82:
     goto LABEL_90;
   }
 
-  v36 = *(a2 + 8);
+  v36 = a2[1];
   v37 = llvm::MDString::getString(*(v4 + 32));
   if (v38 < 0xD)
   {
@@ -8842,7 +8605,7 @@ LABEL_90:
   v156 = 7;
   v157[0] = v77;
   v151 = &v156;
-  v84 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 7uLL);
+  v84 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 7uLL, &v151);
   v85 = v84;
   v87 = v84 + 5;
   v86 = v84[5];
@@ -8915,7 +8678,7 @@ LABEL_170:
         v92 = v97 + 1;
         memcpy(0, v96, v101);
         v85[11] = 0;
-        v85[12] = v97 + 1;
+        v85[12] = (v97 + 1);
         v85[13] = 0;
         if (v96)
         {
@@ -8978,7 +8741,7 @@ LABEL_170:
         v92 = v107 + 1;
         memcpy(0, v106, v111);
         v85[11] = 0;
-        v85[12] = v107 + 1;
+        v85[12] = (v107 + 1);
         v85[13] = 0;
         if (v106)
         {
@@ -9041,7 +8804,7 @@ LABEL_170:
         v92 = v117 + 1;
         memcpy(0, v116, v121);
         v85[11] = 0;
-        v85[12] = v117 + 1;
+        v85[12] = (v117 + 1);
         v85[13] = 0;
         if (v116)
         {
@@ -9105,7 +8868,7 @@ LABEL_170:
         v92 = v127 + 1;
         memcpy(0, v126, v131);
         v85[11] = 0;
-        v85[12] = v127 + 1;
+        v85[12] = (v127 + 1);
         v85[13] = 0;
         if (v126)
         {
@@ -9123,7 +8886,7 @@ LABEL_170:
   }
 }
 
-void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeFunctionCallTracePoint(int8x8_t *a1, uint64_t *a2)
+void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeFunctionCallTracePoint(uint64_t **a1, uint64_t *a2)
 {
   v3 = *a2;
   v4 = *(*(*a2 - 8 * *(*a2 + 8) + 16) + 128);
@@ -9188,7 +8951,7 @@ void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeFunctionCallTraceP
   }
 }
 
-uint64_t ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeSubprogram(int8x8_t *a1, uint64_t a2)
+uint64_t *ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeSubprogram(uint64_t **a1, uint64_t a2)
 {
   v4 = a2 + 1;
   v5 = a2;
@@ -9273,7 +9036,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeSubprogram(int
   return v20;
 }
 
-void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeFunctionEndTracePoint(int8x8_t *a1, uint64_t *a2)
+void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeFunctionEndTracePoint(uint64_t **a1, uint64_t *a2)
 {
   v3 = *a2;
   v4 = *(*(*a2 - 8 * *(*a2 + 8) + 16) + 128);
@@ -9295,7 +9058,7 @@ void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeFunctionEndTracePo
   ShaderDebugger::Metadata::MDSerializer::serializeFunctionTracepoint(a1, v3, v7, 2, v9, TracePointLocation);
 }
 
-void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeFunctionBeginTracePoint(int8x8_t *a1, _DWORD *a2)
+void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeFunctionBeginTracePoint(uint64_t **a1, _DWORD *a2)
 {
   v3 = *a2;
   v4 = *a2 - 8 * *(*a2 + 8);
@@ -9317,7 +9080,7 @@ void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeFunctionBeginTrace
   ShaderDebugger::Metadata::MDSerializer::serializeFunctionTracepoint(a1, v3, v8, 1, v9, -1);
 }
 
-void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeThreadTracePoint(int8x8_t *a1, uint64_t *a2)
+void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeThreadTracePoint(uint64_t **a1, uint64_t *a2)
 {
   v3 = *a2;
   v4 = *(*(*a2 - 8 * *(*a2 + 8) + 16) + 128);
@@ -9350,7 +9113,7 @@ void ShaderDebugger::Metadata::MDSerializerLLVM3XXX::serializeThreadTracePoint(i
   v50 = v6 & 0xFFFFFF | (v7 << 24);
   v48 = 5;
   v51 = &v48;
-  v10 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 5uLL);
+  v10 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, 5uLL, &v51);
   v11 = v10;
   v13 = v10 + 5;
   v12 = v10[5];
@@ -9422,7 +9185,7 @@ LABEL_63:
         v18 = v23 + 1;
         memcpy(0, v22, v27);
         v11[11] = 0;
-        v11[12] = v23 + 1;
+        v11[12] = (v23 + 1);
         v11[13] = 0;
         if (v22)
         {
@@ -9485,7 +9248,7 @@ LABEL_63:
         v18 = v33 + 1;
         memcpy(0, v32, v37);
         v11[11] = 0;
-        v11[12] = v33 + 1;
+        v11[12] = (v33 + 1);
         v11[13] = 0;
         if (v32)
         {
@@ -9548,7 +9311,7 @@ LABEL_63:
         v18 = v43 + 1;
         memcpy(0, v42, v47);
         v11[11] = 0;
-        v11[12] = v43 + 1;
+        v11[12] = (v43 + 1);
         v11[13] = 0;
         if (v42)
         {
@@ -9616,4 +9379,329 @@ id StringFromArchive(void *a1, uint64_t a2, char *a3)
   }
 
   return v9;
+}
+
+id NewLibraryWithSource(uint64_t a1, void *a2, char *a3, void *a4, void *a5)
+{
+  v9 = a2;
+  v10 = a4;
+  v11 = StringFromArchive(**a1, *(a1 + 184), a3);
+  if ([v10 libraryType] == 1)
+  {
+    v12 = [v10 installName];
+    v13 = [v12 hasPrefix:@"/"];
+
+    if (v13)
+    {
+      v14 = *(a1 + 22648);
+      v15 = [v10 installName];
+      v16 = [v15 substringFromIndex:1];
+      v17 = [v14 URLByAppendingPathComponent:v16];
+
+      v18 = [v17 path];
+      [v10 setInstallName:v18];
+    }
+  }
+
+  v24 = 0;
+  v19 = [v9 newLibraryWithSource:v11 options:v10 error:&v24];
+  v20 = v24;
+  v21 = v20;
+  if (a5)
+  {
+    v22 = v20;
+    *a5 = v21;
+  }
+
+  ValidateLibrary(v19);
+  objc_claimAutoreleasedReturnValue();
+
+  return v19;
+}
+
+id GetDynamicLibraryURL(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v6 = a2;
+  v8 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a4);
+  v9 = GTTraceFunc_argumentBytesWithMap(a3, v6, a4);
+  v10 = *(v8 + 1);
+
+  return GTMTLReplayController_dumpLibrary(a1, v9, v10);
+}
+
+void GTMTLReplayController_defaultDispatchFunction(const char ****a1, void *a2)
+{
+  if ((qword_27F09CF90 & 0x10000000) != 0)
+  {
+    v4 = *(a1 + 5642);
+    if (v4 >= 1 && v4 == *(a1 + 5640))
+    {
+      return;
+    }
+  }
+
+  if ((GT_SUPPORT_0 & 0x80000) != 0)
+  {
+    v5 = (*a1)[2];
+    v6 = a1[1];
+    v7 = *(a2 + 2);
+    if (v7 <= -15616)
+    {
+      if (v7 <= -16164)
+      {
+        if (v7 <= -16314)
+        {
+          if (v7 == -16370 || v7 == -16314)
+          {
+            goto LABEL_74;
+          }
+
+          goto LABEL_73;
+        }
+
+        if (v7 == -16313)
+        {
+LABEL_40:
+          v13 = GTTraceFunc_argumentBytesWithMap(a2, *(a2 + 13), v5);
+          v14 = [v6 bufferForKey:*(v13 + 1)];
+          v56 = 0u;
+          v57 = 0u;
+          v54 = 0u;
+          v55 = 0u;
+          v52 = 0u;
+          v53 = 0u;
+          v50 = 0u;
+          v51 = 0u;
+          v48 = 0u;
+          v49 = 0u;
+          v46 = 0u;
+          v47 = 0u;
+          v44 = 0u;
+          v45 = 0u;
+          v42 = 0u;
+          v43 = 0u;
+          v40 = 0u;
+          v41 = 0u;
+          v38 = 0u;
+          v39 = 0u;
+          v36 = 0u;
+          v37 = 0u;
+          v34 = 0u;
+          v35 = 0u;
+          v32 = 0u;
+          v33 = 0u;
+          v31 = 0u;
+          v15 = *(v13 + 1);
+          *buf = 22;
+          v30 = v15;
+          *(&v31 + 1) = GTTraceFunc_argumentBytesWithMap(a2, v13[40], v5);
+          *(&v32 + 1) = *(v13 + 2);
+          GTMTLReplayController_restoreMTLBufferContents(a1, buf);
+
+          goto LABEL_74;
+        }
+
+        v12 = -16312;
+        goto LABEL_39;
+      }
+
+      if (v7 <= -15779)
+      {
+        v8 = v7 + 16163;
+        if (v8 <= 0x2E && ((1 << v8) & 0x680000000001) != 0)
+        {
+          goto LABEL_74;
+        }
+
+        goto LABEL_73;
+      }
+
+      if (v7 <= -15706)
+      {
+        if (v7 == -15778)
+        {
+LABEL_74:
+
+          return;
+        }
+
+        v12 = -15707;
+LABEL_39:
+        if (v7 == v12)
+        {
+          goto LABEL_40;
+        }
+
+LABEL_73:
+        GTMTLReplayController_defaultDispatchFunction_noPinning(a1, a2);
+        goto LABEL_74;
+      }
+
+      if (v7 == -15705)
+      {
+        goto LABEL_74;
+      }
+
+      if (v7 != -15659)
+      {
+        goto LABEL_73;
+      }
+
+      v20 = GTTraceFunc_argumentBytesWithMap(a2, *(a2 + 13), v5);
+      Object = GTMTLSMContext_getObject(*(*a1)[5], *v20, *a2 - 1);
+      v18 = Object;
+      if ((GT_SUPPORT_0 & 0x100000) == 0 && Object[20])
+      {
+        if (s_logUsingOsLog == 1)
+        {
+          v22 = gt_tagged_log(0xAu);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 0;
+            _os_log_error_impl(&dword_24D764000, v22, OS_LOG_TYPE_ERROR, "warning: Acceleration structure indirection is not supported, but acceleration structures have indices", buf, 2u);
+          }
+        }
+
+        else
+        {
+          v27 = *MEMORY[0x277D85DF8];
+          v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"warning: Acceleration structure indirection is not supported, but acceleration structures have indices"];
+          fprintf(v27, "%s\n", [v28 UTF8String]);
+        }
+      }
+
+      if (v18[6])
+      {
+        if ((GT_SUPPORT_0 & 0x100000) == 0 || !v18[20])
+        {
+          goto LABEL_74;
+        }
+
+        goto LABEL_73;
+      }
+
+LABEL_69:
+      if (v18[19] || ((GT_SUPPORT_0 & 0x100000) == 0 || !v18[20]) && v18[21])
+      {
+        goto LABEL_74;
+      }
+
+      goto LABEL_73;
+    }
+
+    if (v7 > -15356)
+    {
+      if (v7 > -15353)
+      {
+        if (v7 == -15352 || v7 == -15351)
+        {
+          if ((GT_SUPPORT_0 & 0x80000) != 0)
+          {
+            goto LABEL_74;
+          }
+
+          goto LABEL_73;
+        }
+
+        v12 = -10237;
+        goto LABEL_39;
+      }
+
+      if (v7 == -15355 || v7 == -15354)
+      {
+LABEL_24:
+        v10 = GTTraceFunc_argumentBytesWithMap(a2, *(a2 + 13), v5);
+        v11 = GTMTLSMContext_getObject(*(*a1)[5], *(v10 + 1), *a2);
+        if ((GT_SUPPORT_0 & 0x100000) == 0 || !v11[20])
+        {
+          goto LABEL_74;
+        }
+
+        goto LABEL_73;
+      }
+
+      v9 = -15353;
+LABEL_23:
+      if (v7 != v9)
+      {
+        goto LABEL_73;
+      }
+
+      goto LABEL_24;
+    }
+
+    if (v7 > -15510)
+    {
+      if (v7 == -15509 || v7 == -15464)
+      {
+        goto LABEL_74;
+      }
+
+      v9 = -15356;
+      goto LABEL_23;
+    }
+
+    if (v7 == -15615)
+    {
+      v23 = GTTraceFunc_argumentBytesWithMap(a2, *(a2 + 13), v5);
+      v24 = GTMTLSMContext_getObject(*(*a1)[5], *(v23 + 1), *a2);
+      v18 = v24;
+      if ((GT_SUPPORT_0 & 0x100000) != 0 || !v24[20])
+      {
+        goto LABEL_69;
+      }
+
+      if (s_logUsingOsLog == 1)
+      {
+        v19 = gt_tagged_log(0xAu);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          goto LABEL_77;
+        }
+
+LABEL_62:
+
+        goto LABEL_69;
+      }
+    }
+
+    else
+    {
+      if (v7 != -15614)
+      {
+        goto LABEL_73;
+      }
+
+      v16 = GTTraceFunc_argumentBytesWithMap(a2, *(a2 + 13), v5);
+      v17 = GTMTLSMContext_getObject(*(*a1)[5], *(v16 + 1), *a2);
+      v18 = v17;
+      if ((GT_SUPPORT_0 & 0x100000) != 0 || !v17[20])
+      {
+        goto LABEL_69;
+      }
+
+      if (s_logUsingOsLog == 1)
+      {
+        v19 = gt_tagged_log(0xAu);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+LABEL_77:
+          _os_log_error_impl(&dword_24D764000, v19, OS_LOG_TYPE_ERROR, "warning: Acceleration structure indirection is not supported, but acceleration structures have indices", buf, 2u);
+          goto LABEL_62;
+        }
+
+        goto LABEL_62;
+      }
+    }
+
+    v25 = *MEMORY[0x277D85DF8];
+    v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"warning: Acceleration structure indirection is not supported, but acceleration structures have indices"];
+    fprintf(v25, "%s\n", [v26 UTF8String]);
+
+    goto LABEL_69;
+  }
+
+  GTMTLReplayController_defaultDispatchFunction_noPinning(a1, a2);
 }

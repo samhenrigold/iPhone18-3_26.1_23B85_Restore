@@ -1,6 +1,7 @@
 @interface CMPedometerData
 - (CMPedometerData)initWithBinarySampleRepresentation:(id)representation metadata:(id)metadata timestamp:(double)timestamp;
 - (CMPedometerData)initWithCoder:(id)coder;
+- (CMPedometerData)initWithStartDate:(double)date endDate:(double)endDate steps:(int)steps distance:(double)distance floorsAscended:(id)ascended floorsDescended:(id)descended recordID:(int64_t)d currentPace:(id)self0 currentCadence:(id)self1 firstStepTime:(double)self2 activeTime:(id)self3 sourceId:(id)self4 isOdometerDistance:(id)self5 isOdometerPace:(id)self6 pushes:(int)self7 workoutType:(int)self8 elevationAscended:(id)self9 elevationDescended:(id)elevationDescended distanceSource:(int)source;
 - (NSNumber)averageActivePace;
 - (NSString)description;
 - (id)binarySampleRepresentation;
@@ -10,6 +11,58 @@
 @end
 
 @implementation CMPedometerData
+
+- (CMPedometerData)initWithStartDate:(double)date endDate:(double)endDate steps:(int)steps distance:(double)distance floorsAscended:(id)ascended floorsDescended:(id)descended recordID:(int64_t)d currentPace:(id)self0 currentCadence:(id)self1 firstStepTime:(double)self2 activeTime:(id)self3 sourceId:(id)self4 isOdometerDistance:(id)self5 isOdometerPace:(id)self6 pushes:(int)self7 workoutType:(int)self8 elevationAscended:(id)self9 elevationDescended:(id)elevationDescended distanceSource:(int)source
+{
+  v28 = *&steps;
+  v59.receiver = self;
+  v59.super_class = CMPedometerData;
+  v31 = [(CMPedometerData *)&v59 init];
+  if (v31)
+  {
+    activeTimeCopy = activeTime;
+    v32 = objc_alloc(MEMORY[0x1E695DF00]);
+    v31->fStartDate = objc_msgSend_initWithTimeIntervalSinceReferenceDate_(v32, v33, v34, date);
+    v35 = objc_alloc(MEMORY[0x1E695DF00]);
+    v31->fEndDate = objc_msgSend_initWithTimeIntervalSinceReferenceDate_(v35, v36, v37, endDate);
+    v38 = objc_alloc(MEMORY[0x1E696AD98]);
+    v31->fNumberOfSteps = objc_msgSend_initWithInt_(v38, v39, v28);
+    v40 = objc_alloc(MEMORY[0x1E696AD98]);
+    v31->fDistance = objc_msgSend_initWithDouble_(v40, v41, v42, distance);
+    v31->fFloorsAscended = ascended;
+    v31->fFloorsDescended = descended;
+    v43 = objc_alloc(MEMORY[0x1E696AD98]);
+    v31->fRecordId = objc_msgSend_initWithInteger_(v43, v44, d);
+    v31->fCurrentPace = pace;
+    v31->fCurrentCadence = cadence;
+    if (time <= 0.0)
+    {
+      v48 = 0;
+    }
+
+    else
+    {
+      v45 = objc_alloc(MEMORY[0x1E695DF00]);
+      v48 = objc_msgSend_initWithTimeIntervalSinceReferenceDate_(v45, v46, v47, time, activeTime);
+    }
+
+    v31->fFirstStepTime = v48;
+    v31->fActiveTime = activeTimeCopy;
+    v31->fSourceId = objc_msgSend_copy(id, v49, v50);
+    v31->fIsOdometerDistance = odometerDistance;
+    v31->fIsOdometerPace = odometerDistance;
+    v51 = objc_alloc(MEMORY[0x1E696AD98]);
+    v31->fNumberOfPushes = objc_msgSend_initWithInt_(v51, v52, pushes);
+    v53 = objc_alloc(MEMORY[0x1E696AD98]);
+    v31->fWorkoutType = objc_msgSend_initWithInt_(v53, v54, type);
+    v31->fElevationAscended = elevationAscended;
+    v31->fElevationDescended = elevationDescended;
+    v55 = objc_alloc(MEMORY[0x1E696AD98]);
+    v31->fDistanceSource = objc_msgSend_initWithInt_(v55, v56, source);
+  }
+
+  return v31;
+}
 
 - (void)dealloc
 {

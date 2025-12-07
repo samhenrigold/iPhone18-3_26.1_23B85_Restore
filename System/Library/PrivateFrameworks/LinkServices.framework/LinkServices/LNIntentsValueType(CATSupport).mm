@@ -7,7 +7,7 @@
 
 - (id)cat_value:()CATSupport
 {
-  v37[3] = *MEMORY[0x1E69E9840];
+  v36[3] = *MEMORY[0x1E69E9840];
   v4 = a3;
   typeIdentifier = [self typeIdentifier];
   lastPathComponent = 0;
@@ -61,7 +61,7 @@ LABEL_21:
       goto LABEL_25;
     }
 
-    v36[0] = @"familyName";
+    v35[0] = @"familyName";
     value2 = [v4 value];
     if (value2)
     {
@@ -87,8 +87,8 @@ LABEL_21:
     nameComponents = [v17 nameComponents];
 
     familyName = [nameComponents familyName];
-    v37[0] = familyName;
-    v36[1] = @"givenName";
+    v36[0] = familyName;
+    v35[1] = @"givenName";
     value3 = [v4 value];
     if (value3)
     {
@@ -114,8 +114,8 @@ LABEL_21:
     nameComponents2 = [v22 nameComponents];
 
     givenName = [nameComponents2 givenName];
-    v37[1] = givenName;
-    v36[2] = @"nickname";
+    v36[1] = givenName;
+    v35[2] = @"nickname";
     value4 = [v4 value];
     if (value4)
     {
@@ -141,8 +141,8 @@ LABEL_21:
     nameComponents3 = [v27 nameComponents];
 
     nickname = [nameComponents3 nickname];
-    v37[2] = nickname;
-    lastPathComponent = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:3];
+    v36[2] = nickname;
+    lastPathComponent = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:3];
 
     goto LABEL_54;
   }
@@ -251,7 +251,6 @@ LABEL_54:
 LABEL_55:
 
 LABEL_56:
-  v34 = *MEMORY[0x1E69E9840];
 
   return lastPathComponent;
 }

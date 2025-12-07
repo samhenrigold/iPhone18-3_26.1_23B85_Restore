@@ -54,32 +54,32 @@
 
 + (void)countMKFCKEntitiesInChangeSet:(id)set entitiesCount:(id)count
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   setCopy = set;
   countCopy = count;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v7 = setCopy;
-  v8 = [v7 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v29;
+    v11 = *v28;
     *&v9 = 138543618;
-    v25 = v9;
+    v24 = v9;
     selfCopy = self;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v29 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        entity = [*(*(&v28 + 1) + 8 * i) entity];
+        entity = [*(*(&v27 + 1) + 8 * i) entity];
         name = [entity name];
 
         objc_opt_class();
@@ -105,10 +105,10 @@
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             v20 = HMFGetLogIdentifier();
-            *buf = v25;
-            v33 = v20;
-            v34 = 2112;
-            v35 = name;
+            *buf = v24;
+            v32 = v20;
+            v33 = 2112;
+            v34 = name;
             v21 = v19;
             v22 = "%{public}@NSManagedObject not of type MKFCKModel, name: %@";
             v23 = 22;
@@ -128,7 +128,7 @@ LABEL_15:
           {
             v20 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v33 = v20;
+            v32 = v20;
             v21 = v19;
             v22 = "%{public}@NSManagedObject entity has no name";
             v23 = 12;
@@ -140,44 +140,42 @@ LABEL_15:
 LABEL_17:
       }
 
-      v10 = [v7 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v10 = [v7 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v10);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 + (void)trimChangeSetForUnchangedValues:(id)values
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   v5 = [MEMORY[0x277CBEB58] set];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v6 = valuesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v27;
+    v10 = *v26;
     *&v8 = 138543618;
-    v23 = v8;
+    v22 = v8;
     selfCopy = self;
-    v25 = *v27;
+    v24 = *v26;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
+        v12 = *(*(&v25 + 1) + 8 * i);
         if (([v12 hasPersistentChangedValues] & 1) == 0)
         {
           [v5 addObject:v12];
@@ -192,10 +190,10 @@ LABEL_17:
             v18 = v9;
             v19 = v6;
             v21 = v20 = v5;
-            *buf = v23;
-            v31 = v16;
-            v32 = 2112;
-            v33 = v21;
+            *buf = v22;
+            v30 = v16;
+            v31 = 2112;
+            v32 = v21;
             _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Trimmed: NSManagedObject %@ has no changes to process", buf, 0x16u);
 
             v5 = v20;
@@ -203,21 +201,20 @@ LABEL_17:
             v9 = v18;
 
             self = selfCopy;
-            v10 = v25;
+            v10 = v24;
           }
 
           objc_autoreleasePoolPop(v13);
         }
       }
 
-      v9 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v9);
   }
 
   [v6 minusSet:v5];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

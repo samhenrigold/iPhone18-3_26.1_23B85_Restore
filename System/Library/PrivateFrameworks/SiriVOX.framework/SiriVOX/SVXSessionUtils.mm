@@ -55,13 +55,13 @@
 - (id)getLanguageCodeWithAllowsFallback:(BOOL)fallback preferences:(id)preferences
 {
   fallbackCopy = fallback;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   preferencesCopy = preferences;
   if (!preferencesCopy)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[SVXSessionUtils getLanguageCodeWithAllowsFallback:preferences:]"];
-    [currentHandler handleFailureInFunction:v17 file:@"SVXSessionUtils.m" lineNumber:34 description:{@"Invalid parameter not satisfying: %@", @"preferences != nil"}];
+    v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[SVXSessionUtils getLanguageCodeWithAllowsFallback:preferences:]"];
+    [currentHandler handleFailureInFunction:v16 file:@"SVXSessionUtils.m" lineNumber:34 description:{@"Invalid parameter not satisfying: %@", @"preferences != nil"}];
   }
 
   languageCode = [preferencesCopy languageCode];
@@ -87,7 +87,7 @@ LABEL_18:
   }
 
   *buf = 136315138;
-  v19 = "[SVXSessionUtils getLanguageCodeWithAllowsFallback:preferences:]";
+  v18 = "[SVXSessionUtils getLanguageCodeWithAllowsFallback:preferences:]";
   _os_log_error_impl(&dword_2695B9000, v9, OS_LOG_TYPE_ERROR, "%s Siri language code is nil.", buf, 0xCu);
   if (!fallbackCopy)
   {
@@ -107,9 +107,9 @@ LABEL_7:
     }
 
     *buf = 136315394;
-    v19 = "[SVXSessionUtils getLanguageCodeWithAllowsFallback:preferences:]";
-    v20 = 2112;
-    v21 = v7;
+    v18 = "[SVXSessionUtils getLanguageCodeWithAllowsFallback:preferences:]";
+    v19 = 2112;
+    v20 = v7;
     v12 = "%s Best supported Siri language is %@.";
   }
 
@@ -118,7 +118,7 @@ LABEL_7:
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v19 = "[SVXSessionUtils getLanguageCodeWithAllowsFallback:preferences:]";
+      v18 = "[SVXSessionUtils getLanguageCodeWithAllowsFallback:preferences:]";
       _os_log_error_impl(&dword_2695B9000, v11, OS_LOG_TYPE_ERROR, "%s Best supported Siri language is nil.", buf, 0xCu);
     }
 
@@ -130,9 +130,9 @@ LABEL_7:
     }
 
     *buf = 136315394;
-    v19 = "[SVXSessionUtils getLanguageCodeWithAllowsFallback:preferences:]";
-    v20 = 2112;
-    v21 = @"en-US";
+    v18 = "[SVXSessionUtils getLanguageCodeWithAllowsFallback:preferences:]";
+    v19 = 2112;
+    v20 = @"en-US";
     v12 = "%s Default Siri language is %@.";
   }
 
@@ -142,15 +142,13 @@ LABEL_15:
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v19 = "[SVXSessionUtils getLanguageCodeWithAllowsFallback:preferences:]";
-    v20 = 2112;
-    v21 = v7;
+    v18 = "[SVXSessionUtils getLanguageCodeWithAllowsFallback:preferences:]";
+    v19 = 2112;
+    v20 = v7;
     _os_log_impl(&dword_2695B9000, v13, OS_LOG_TYPE_INFO, "%s Resolved Siri language code is %@.", buf, 0x16u);
   }
 
 LABEL_19:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

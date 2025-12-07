@@ -44,7 +44,7 @@
 
 - (void)mergeBallot:(id)ballot
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   ballotCopy = ballot;
   candidates = [(COBallot *)self candidates];
   v6 = [candidates mutableCopy];
@@ -53,33 +53,33 @@
   [v6 unionOrderedSet:candidates2];
 
   [v6 sortUsingComparator:&__block_literal_global_59];
-  v22 = v6;
+  v21 = v6;
   [(COBallot *)self setCandidates:v6];
   selfCopy = self;
   discovery = [(COBallot *)self discovery];
   v9 = [discovery mutableCopy];
 
-  v23 = ballotCopy;
+  v22 = ballotCopy;
   discovery2 = [ballotCopy discovery];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v11 = [discovery2 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v11 = [discovery2 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v26;
+    v13 = *v25;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v26 != v13)
+        if (*v25 != v13)
         {
           objc_enumerationMutation(discovery2);
         }
 
-        v15 = *(*(&v25 + 1) + 8 * i);
+        v15 = *(*(&v24 + 1) + 8 * i);
         v16 = [discovery2 objectForKey:v15];
         discovery3 = [(COBallot *)selfCopy discovery];
         v18 = [discovery3 objectForKey:v15];
@@ -99,15 +99,13 @@
         [v9 setObject:v20 forKey:v15];
       }
 
-      v12 = [discovery2 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v12 = [discovery2 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v12);
   }
 
   [(COBallot *)selfCopy setDiscovery:v9];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)addDiscoveryRecord:(id)record

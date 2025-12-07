@@ -102,7 +102,7 @@ LABEL_12:
 
 - (ISDialog)init
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISDialog.m", 104, a2);
   v8.receiver = self;
   v8.super_class = ISDialog;
   v3 = [(ISDialog *)&v8 init];
@@ -422,7 +422,7 @@ LABEL_64:
 - (ISDialog)initWithError:(id)error
 {
   errorCopy = error;
-  if (ISErrorIsEqual(errorCopy, @"SSErrorDomain", 16))
+  if (ISErrorIsEqual(errorCopy, @"SSErrorDomain", 0x10))
   {
     v5 = 0;
 LABEL_9:
@@ -1057,37 +1057,37 @@ LABEL_7:
 
 - (void)setButtonsWithTitles:(id)titles
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   titlesCopy = titles;
   if (titlesCopy)
   {
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = titlesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * i);
+          v11 = *(*(&v13 + 1) + 8 * i);
           v12 = objc_alloc_init(ISDialogButton);
-          [(ISDialogButton *)v12 setTitle:v11, v14];
+          [(ISDialogButton *)v12 setTitle:v11, v13];
           [v5 addObject:v12];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -1100,8 +1100,6 @@ LABEL_7:
   {
     [(ISDialog *)self setButtons:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDisplayCountKey:(id)key
@@ -1192,14 +1190,14 @@ LABEL_7:
 
 - (id)orderedButtonTitleKeysForCFUserNotification
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CBF1E8];
-  v13[0] = *MEMORY[0x277CBF1C0];
-  v13[1] = v3;
-  v14 = *MEMORY[0x277CBF218];
-  v12[0] = v13[0];
-  v12[1] = v14;
-  v12[2] = v3;
+  v12[0] = *MEMORY[0x277CBF1C0];
+  v12[1] = v3;
+  v13 = *MEMORY[0x277CBF218];
+  v11[0] = v12[0];
+  v11[1] = v13;
+  v11[2] = v3;
   [(NSLock *)self->_lock lock];
   noDefaultButton = self->_noDefaultButton;
   v5 = [(NSArray *)self->_buttons count];
@@ -1209,12 +1207,12 @@ LABEL_7:
     v6 = objc_alloc(MEMORY[0x277CBEA60]);
     if (noDefaultButton)
     {
-      v7 = v12;
+      v7 = v11;
     }
 
     else
     {
-      v7 = v13;
+      v7 = v12;
     }
 
     if (v5 >= 3)
@@ -1234,8 +1232,6 @@ LABEL_7:
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1457,35 +1453,27 @@ LABEL_5:
   v3 = xpc_dictionary_create(0, 0, 0);
   [(NSLock *)self->_lock lock];
   xpc_dictionary_set_BOOL(v3, "1", self->_allowDuplicates);
-  authenticationContext = self->_authenticationContext;
   SSXPCDictionarySetCFObject();
   xpc_dictionary_set_BOOL(v3, "3", self->_authorizationIsForced);
-  buttons = self->_buttons;
   SSXPCDictionarySetCFObject();
   xpc_dictionary_set_int64(v3, "5", self->_defaultButtonIndex);
   xpc_dictionary_set_BOOL(v3, "6", self->_dismissOnHomeButton);
   xpc_dictionary_set_BOOL(v3, "7", self->_dismissOnLock);
-  displayCountKey = self->_displayCountKey;
   SSXPCDictionarySetCFObject();
   xpc_dictionary_set_BOOL(v3, "9", self->_expectsResponse);
   xpc_dictionary_set_BOOL(v3, "A", self->_groupsTextFields);
   xpc_dictionary_set_int64(v3, "B", self->_kind);
   xpc_dictionary_set_int64(v3, "C", self->_maxDisplayCount);
-  message = self->_message;
   SSXPCDictionarySetCFObject();
   xpc_dictionary_set_BOOL(v3, "N", self->_noDefaultButton);
   xpc_dictionary_set_BOOL(v3, "E", self->_oneButtonPerLine);
   xpc_dictionary_set_BOOL(v3, "F", self->_shouldDismissAfterUnlock);
   xpc_dictionary_set_BOOL(v3, "G", self->_shouldDisplayAsTopMost);
   xpc_dictionary_set_BOOL(v3, "H", self->_shouldPendInSetupIfNotAllowed);
-  textFields = self->_textFields;
   SSXPCDictionarySetCFObject();
-  title = self->_title;
   SSXPCDictionarySetCFObject();
   xpc_dictionary_set_int64(v3, "K", self->_unlockActionButtonIndex);
-  userInfo = self->_userInfo;
   SSXPCDictionarySetCFObject();
-  userNotificationValues = self->_userNotificationValues;
   SSXPCDictionarySetCFObject();
   [(NSLock *)self->_lock unlock];
   return v3;

@@ -565,20 +565,20 @@ void __72__RTMotionActivityManager_CoreMotion__onVehicleDisconnectedNotification
   }
 }
 
-void __63__RTMotionActivityManager_CoreMotion_onVehicleExitNotification__block_invoke(uint64_t a1)
+void __63__RTMotionActivityManager_CoreMotion_onVehicleExitNotification__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = objc_opt_new();
-  [*(a1 + 32) postNotification:v2];
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = objc_opt_new();
+  [*(a1 + 32) postNotification:v3];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v3 = _rt_log_facility_get_os_log(RTLogFacilityMotionActivity);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = _rt_log_facility_get_os_log(RTLogFacilityMotionActivity);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v4 = *MEMORY[0x277CC1DD0];
-      v5 = 138412290;
-      v6 = v4;
-      _os_log_impl(&dword_2304B3000, v3, OS_LOG_TYPE_INFO, "received darwin notification, %@", &v5, 0xCu);
+      v5 = *MEMORY[0x277CC1DD0];
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&dword_2304B3000, v4, OS_LOG_TYPE_INFO, "received darwin notification, %@", &v6, 0xCu);
     }
   }
 }

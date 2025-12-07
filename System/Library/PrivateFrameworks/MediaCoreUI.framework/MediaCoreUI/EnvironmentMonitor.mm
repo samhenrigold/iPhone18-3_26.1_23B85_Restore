@@ -12,7 +12,7 @@
   [sharedMonitor unregisterObserver_];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for EnvironmentMonitor();
+  v6.super_class = type metadata accessor for EnvironmentMonitor(0);
   [(EnvironmentMonitor *)&v6 dealloc];
 }
 

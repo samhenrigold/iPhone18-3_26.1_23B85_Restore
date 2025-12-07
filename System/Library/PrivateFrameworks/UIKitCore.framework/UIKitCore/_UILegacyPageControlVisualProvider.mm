@@ -782,9 +782,9 @@ LABEL_5:
       do
       {
         v6 = [(_UILegacyPageControlVisualProvider *)self _pageIndicatorImageForPage:v5];
-        v7 = [preferredIndicatorImage isEqual:v6];
+        isEqual = objc_msgSend_isEqual_(preferredIndicatorImage);
         v8 = self->_pageImages;
-        if (v7)
+        if (isEqual)
         {
           null = [MEMORY[0x1E695DFB0] null];
           [(NSMutableArray *)v8 addObject:null];
@@ -813,7 +813,7 @@ LABEL_5:
       do
       {
         v12 = [(_UILegacyPageControlVisualProvider *)self _pageIndicatorCurrentImageForPage:v11];
-        v13 = [defaultActivePageIndicatorImage isEqual:v12];
+        v13 = objc_msgSend_isEqual_(defaultActivePageIndicatorImage);
         v14 = self->_currentPageImages;
         if (v13)
         {

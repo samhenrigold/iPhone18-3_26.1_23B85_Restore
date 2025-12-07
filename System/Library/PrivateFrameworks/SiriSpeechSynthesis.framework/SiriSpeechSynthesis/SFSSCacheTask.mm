@@ -18,7 +18,7 @@
 
 - (void)startTask:(id)task
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   request = [(SFSpeechSynthesisTask *)self request];
   voiceName = [request voiceName];
@@ -37,39 +37,39 @@
 
   if (v11)
   {
-    [v11 asbd];
+    objc_msgSend_asbd(v11);
   }
 
   else
   {
-    v28 = 0;
-    memset(v27, 0, sizeof(v27));
+    v27 = 0;
+    memset(v26, 0, sizeof(v26));
   }
 
-  [(SFSpeechSynthesisTask *)self handleSynthesisBegin:0 asbd:v27 audioPlaybackBufferDuration:v13 voiceAsset:v15 resourceAsset:0.0];
+  [(SFSpeechSynthesisTask *)self handleSynthesisBegin:0 asbd:v26 audioPlaybackBufferDuration:v13 voiceAsset:v15 resourceAsset:0.0];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   rawAudio = [v11 rawAudio];
-  v17 = [rawAudio countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v17 = [rawAudio countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v24;
+    v19 = *v23;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v24 != v19)
+        if (*v23 != v19)
         {
           objc_enumerationMutation(rawAudio);
         }
 
-        [(SFSpeechSynthesisTask *)self handleSynthesisChunks:*(*(&v23 + 1) + 8 * i)];
+        [(SFSpeechSynthesisTask *)self handleSynthesisChunks:*(*(&v22 + 1) + 8 * i)];
       }
 
-      v18 = [rawAudio countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v18 = [rawAudio countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
     while (v18);
@@ -78,8 +78,6 @@
   [(SFSpeechSynthesisTask *)self handleSynthesisEnd:0];
   error = [(SFSpeechSynthesisTask *)self error];
   taskCopy[2](taskCopy, error);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (SFSSCacheTask)initWithRequest:(id)request

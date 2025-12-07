@@ -6,7 +6,7 @@
 
 + (void)_delayedResetCachesAndModels
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __42__SGPipeline__delayedResetCachesAndModels__block_invoke;
@@ -56,7 +56,7 @@ LABEL_13:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    v10 = v4;
+    v9 = v4;
     _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Setting a timer to reset DDNL caches in %f seconds", buf, 0xCu);
   }
 
@@ -72,8 +72,6 @@ LABEL_13:
 
   dispatch_source_set_timer(v2, v6, 0xFFFFFFFFFFFFFFFFLL, 1000000000 * (v4 / 10.0));
   dispatch_resume(v2);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

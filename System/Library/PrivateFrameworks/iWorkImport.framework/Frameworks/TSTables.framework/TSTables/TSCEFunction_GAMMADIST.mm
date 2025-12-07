@@ -7,92 +7,91 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v8 = **arguments;
-  v67 = 0;
-  v10 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 0, &v67);
-  v11 = v67;
-  objc_msgSend_doubleRepresentation(v10, v12, v13, v14, v15);
+  v58 = 0;
+  v10 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 0, &v58);
+  v11 = v58;
+  objc_msgSend_doubleRepresentation(v10, v12, v13, v14);
   if (v11)
   {
-    v20 = objc_msgSend_raiseErrorOrConvert_(context, v16, v11, v17, v18);
+    v18 = objc_msgSend_raiseErrorOrConvert_(context, v15, v11, v16);
   }
 
   else
   {
-    v21 = v19;
-    v22 = *(*arguments + 8);
-    v66 = 0;
-    v24 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v22, v23, context, spec, 1, &v66);
-    v11 = v66;
-    objc_msgSend_doubleRepresentation(v24, v25, v26, v27, v28);
+    v19 = v17;
+    v20 = *(*arguments + 8);
+    v57 = 0;
+    v22 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v20, v21, context, spec, 1, &v57);
+    v11 = v57;
+    objc_msgSend_doubleRepresentation(v22, v23, v24, v25);
     if (v11)
     {
-      v20 = objc_msgSend_raiseErrorOrConvert_(context, v29, v11, v30, v31);
+      v18 = objc_msgSend_raiseErrorOrConvert_(context, v26, v11, v27);
     }
 
     else
     {
-      v33 = v32;
-      v34 = *(*arguments + 16);
-      v65 = 0;
-      v36 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v34, v35, context, spec, 2, &v65);
-      v11 = v65;
-      objc_msgSend_doubleRepresentation(v36, v37, v38, v39, v40);
+      v29 = v28;
+      v30 = *(*arguments + 16);
+      v56 = 0;
+      v32 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v30, v31, context, spec, 2, &v56);
+      v11 = v56;
+      objc_msgSend_doubleRepresentation(v32, v33, v34, v35);
       if (v11)
       {
-        v20 = objc_msgSend_raiseErrorOrConvert_(context, v41, v11, v42, v43);
+        v18 = objc_msgSend_raiseErrorOrConvert_(context, v36, v11, v37);
       }
 
       else
       {
-        v45 = v44;
-        v46 = *(*arguments + 24);
-        v64 = 0;
-        v48 = objc_msgSend_asBoolean_functionSpec_argumentIndex_outError_(v46, v47, context, spec, 3, &v64);
-        v11 = v64;
+        v39 = v38;
+        v40 = *(*arguments + 24);
+        v55 = 0;
+        v42 = objc_msgSend_asBoolean_functionSpec_argumentIndex_outError_(v40, v41, context, spec, 3, &v55);
+        v11 = v55;
         if (v11)
         {
-          v52 = objc_msgSend_raiseErrorOrConvert_(context, v49, v11, v50, v51);
+          v45 = objc_msgSend_raiseErrorOrConvert_(context, v43, v11, v44);
         }
 
         else
         {
-          if (v48)
+          if (v42)
           {
             pthread_mutex_lock(&stru_27CFB4098);
-            v53.n128_f64[0] = 1.0 / v45;
-            v54.n128_f64[0] = v33;
-            sub_2213D8990(v53, v54, v21);
+            v46.n128_f64[0] = 1.0 / v39;
+            sub_2213D8990(v46, v29, v19);
             pthread_mutex_unlock(&stru_27CFB4098);
           }
 
           else
           {
-            v55 = -v21 / v45 + (v33 + -1.0) * log(v21);
-            v56 = v55 - lgamma(v33);
-            v57 = log(v45);
-            exp(v56 - v33 * v57);
+            v47 = -v19 / v39 + (v29 + -1.0) * log(v19);
+            v48 = v47 - lgamma(v29);
+            v49 = log(v39);
+            exp(v48 - v29 * v49);
           }
 
           TSUDecimal::operator=();
           if (v8)
           {
-            objc_msgSend_formatWithContext_(v8, v58, context, v59, v60);
+            objc_msgSend_formatWithContext_(v8, v50, context, v51);
           }
 
           else
           {
-            memset(v62, 0, sizeof(v62));
+            memset(v53, 0, sizeof(v53));
           }
 
-          v52 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v58, v63, v62, v60);
+          v45 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v50, v54, v53);
         }
 
-        v20 = v52;
+        v18 = v45;
       }
     }
   }
 
-  return v20;
+  return v18;
 }
 
 @end

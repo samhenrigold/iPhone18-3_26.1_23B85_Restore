@@ -11,7 +11,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey();
-    sub_100001FF8(&qword_100015218, type metadata accessor for LaunchOptionsKey);
+    sub_100001FF8(&qword_100015218, type metadata accessor for LaunchOptionsKey, &unk_10000A364);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -32,7 +32,7 @@
 - (void)application:(id)application didDiscardSceneSessions:(id)sessions
 {
   sub_100001A44();
-  sub_100001FF8(&qword_100015210, sub_100001A44);
+  sub_100001FF8(&qword_100015210, sub_100001A44, &protocol conformance descriptor for NSObject);
   static Set._unconditionallyBridgeFromObjectiveC(_:)();
 }
 

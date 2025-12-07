@@ -11,28 +11,24 @@
 
 + (id)supportedDecoders
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(EchoCodecCapability);
   v3 = objc_alloc_init(NullCodecCapability);
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
 + (id)supportedEncoders
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(EchoCodecCapability);
   v3 = objc_alloc_init(NullCodecCapability);
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
 
   return v4;
 }
@@ -49,27 +45,27 @@
 
 + (Class)configurationClassForName:(id)name
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   nameCopy = name;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = +[APCCodecInfo supportedConfigurationClasses];
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
-    v6 = *v16;
+    v6 = *v15;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         v9 = objc_alloc_init(v8);
         algorithmName = [v9 algorithmName];
         v11 = [algorithmName isEqualToString:nameCopy];
@@ -82,7 +78,7 @@
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v5)
       {
         continue;
@@ -103,8 +99,6 @@
   }
 
 LABEL_13:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

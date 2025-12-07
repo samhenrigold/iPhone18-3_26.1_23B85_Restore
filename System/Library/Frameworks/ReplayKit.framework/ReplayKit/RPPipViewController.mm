@@ -11,26 +11,29 @@
 - (void)setUpPipSession;
 - (void)startPipSession;
 - (void)stopPipSession;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation RPPipViewController
 
 - (RPPipViewController)initWithOrientation:(int64_t)orientation position:(int64_t)position
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = RPPipViewController;
-  v6 = [(RPPipViewController *)&v9 init];
+  v15 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = RPPipViewController;
+  v6 = [(RPPipViewController *)&v8 init];
   if (v6)
   {
     if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446722;
-      v11 = "[RPPipViewController initWithOrientation:position:]";
-      v12 = 1024;
-      v13 = 87;
-      v14 = 2048;
-      v15 = v6;
+      v10 = "[RPPipViewController initWithOrientation:position:]";
+      v11 = 1024;
+      v12 = 87;
+      v13 = 2048;
+      v14 = v6;
       _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %p", buf, 0x1Cu);
     }
 
@@ -39,44 +42,42 @@
     v6->_cameraPosition = position;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v6 = "[RPPipViewController dealloc]";
-    v7 = 1024;
-    v8 = 98;
-    v9 = 2048;
+    v5 = "[RPPipViewController dealloc]";
+    v6 = 1024;
+    v7 = 98;
+    v8 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %p", buf, 0x1Cu);
   }
 
   [(RPPipViewController *)self removeSystemPrefferedCameraObserver];
-  v4.receiver = self;
-  v4.super_class = RPPipViewController;
-  [(RPPipViewController *)&v4 dealloc];
-  v3 = *MEMORY[0x277D85DE8];
+  v3.receiver = self;
+  v3.super_class = RPPipViewController;
+  [(RPPipViewController *)&v3 dealloc];
 }
 
 - (id)cameraWithPosition:(int64_t)position
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CE5AC8] devicesWithMediaType:*MEMORY[0x277CE5EA8]];
   if (v4)
   {
     if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446722;
-      v23 = "[RPPipViewController cameraWithPosition:]";
-      v24 = 1024;
-      v25 = 118;
-      v26 = 1024;
+      v22 = "[RPPipViewController cameraWithPosition:]";
+      v23 = 1024;
+      v24 = 118;
+      v25 = 1024;
       positionCopy = [v4 count];
       v5 = MEMORY[0x277D86220];
       v6 = " [INFO] %{public}s:%d looking for camera in %d capture devices";
@@ -89,44 +90,44 @@ LABEL_8:
   else if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v23 = "[RPPipViewController cameraWithPosition:]";
-    v24 = 1024;
-    v25 = 120;
+    v22 = "[RPPipViewController cameraWithPosition:]";
+    v23 = 1024;
+    v24 = 120;
     v5 = MEMORY[0x277D86220];
     v6 = " [INFO] %{public}s:%d no capture devices found";
     v7 = 18;
     goto LABEL_8;
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = v4;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         if ([v13 position] == position)
         {
           if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136446722;
-            v23 = "[RPPipViewController cameraWithPosition:]";
-            v24 = 1024;
-            v25 = 131;
-            v26 = 1024;
+            v22 = "[RPPipViewController cameraWithPosition:]";
+            v23 = 1024;
+            v24 = 131;
+            v25 = 1024;
             positionCopy = position;
             _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d camera found with position %d", buf, 0x18u);
           }
@@ -137,7 +138,7 @@ LABEL_8:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v10)
       {
         continue;
@@ -155,20 +156,18 @@ LABEL_8:
   v14 = 0;
 LABEL_25:
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (void)configurePipSessionWithCameraPosition:(int64_t)position
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v13 = "[RPPipViewController configurePipSessionWithCameraPosition:]";
-    v14 = 1024;
-    v15 = 141;
+    v12 = "[RPPipViewController configurePipSessionWithCameraPosition:]";
+    v13 = 1024;
+    v14 = 141;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
   }
 
@@ -179,9 +178,9 @@ LABEL_25:
   }
 
   v5 = [(RPPipViewController *)self cameraWithPosition:position];
-  v11 = 0;
-  v6 = [objc_alloc(MEMORY[0x277CE5AD8]) initWithDevice:v5 error:&v11];
-  v7 = v11;
+  v10 = 0;
+  v6 = [objc_alloc(MEMORY[0x277CE5AD8]) initWithDevice:v5 error:&v10];
+  v7 = v10;
   videoInput = self->_videoInput;
   self->_videoInput = v6;
 
@@ -206,20 +205,18 @@ LABEL_25:
   }
 
   [(AVCaptureSession *)self->_pipSession commitConfiguration];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCameraPosition:(int64_t)position
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136446466;
-    v7 = "[RPPipViewController setCameraPosition:]";
-    v8 = 1024;
-    v9 = 167;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v6, 0x12u);
+    v5 = 136446466;
+    v6 = "[RPPipViewController setCameraPosition:]";
+    v7 = 1024;
+    v8 = 167;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v5, 0x12u);
   }
 
   if (self->_pipSession && self->_cameraPosition != position)
@@ -228,65 +225,58 @@ LABEL_25:
   }
 
   self->_cameraPosition = position;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUpPipSession
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startPipSession
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446466;
-    v6 = "[RPPipViewController startPipSession]";
-    v7 = 1024;
-    v8 = 217;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v5, 0x12u);
+    v4 = 136446466;
+    v5 = "[RPPipViewController startPipSession]";
+    v6 = 1024;
+    v7 = 217;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v4, 0x12u);
   }
 
   pipSession = [(RPPipViewController *)self pipSession];
   [pipSession startRunning];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopPipSession
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446466;
-    v6 = "[RPPipViewController stopPipSession]";
-    v7 = 1024;
-    v8 = 223;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v5, 0x12u);
+    v4 = 136446466;
+    v5 = "[RPPipViewController stopPipSession]";
+    v6 = 1024;
+    v7 = 223;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v4, 0x12u);
   }
 
   [(RPPipViewController *)self removeSystemPrefferedCameraObserver];
   pipSession = [(RPPipViewController *)self pipSession];
   [pipSession stopRunning];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadView
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136446466;
-    v9 = "[RPPipViewController loadView]";
-    v10 = 1024;
-    v11 = 230;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v8, 0x12u);
+    v7 = 136446466;
+    v8 = "[RPPipViewController loadView]";
+    v9 = 1024;
+    v10 = 230;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v7, 0x12u);
   }
 
   v3 = [RPPipView alloc];
@@ -299,7 +289,91 @@ LABEL_25:
 
   [(RPPipViewController *)self _updateViewGeometry];
   [(RPPipViewController *)self setUpPipSession];
-  v7 = *MEMORY[0x277D85DE8];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v13 = *MEMORY[0x277D85DE8];
+  if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v10 = "[RPPipViewController viewWillAppear:]";
+    v11 = 1024;
+    v12 = 262;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
+  }
+
+  v8.receiver = self;
+  v8.super_class = RPPipViewController;
+  [(RPPipViewController *)&v8 viewWillAppear:appearCopy];
+  [(RPPipViewController *)self startPipSession];
+  _pipView = [(RPPipViewController *)self _pipView];
+  previewLayer = [_pipView previewLayer];
+  connection = [previewLayer connection];
+  [connection setVideoOrientation:{-[RPPipViewController _captureVideoOrientationForUIDeviceOrientation:](self, "_captureVideoOrientationForUIDeviceOrientation:", self->_initialOrientation)}];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v15 = *MEMORY[0x277D85DE8];
+  if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v12 = "[RPPipViewController viewDidAppear:]";
+    v13 = 1024;
+    v14 = 271;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
+  }
+
+  v10.receiver = self;
+  v10.super_class = RPPipViewController;
+  [(RPPipViewController *)&v10 viewDidAppear:appearCopy];
+  view = [(RPPipViewController *)self view];
+  window = [view window];
+  isInterfaceAutorotationDisabled = [window isInterfaceAutorotationDisabled];
+
+  if ((isInterfaceAutorotationDisabled & 1) == 0)
+  {
+    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    [defaultCenter addObserver:self selector:sel__deviceOrientationDidChange name:*MEMORY[0x277D76878] object:0];
+
+    currentDevice = [MEMORY[0x277D75418] currentDevice];
+    [currentDevice beginGeneratingDeviceOrientationNotifications];
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v15 = *MEMORY[0x277D85DE8];
+  if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v12 = "[RPPipViewController viewDidDisappear:]";
+    v13 = 1024;
+    v14 = 281;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
+  }
+
+  v10.receiver = self;
+  v10.super_class = RPPipViewController;
+  [(RPPipViewController *)&v10 viewDidDisappear:disappearCopy];
+  view = [(RPPipViewController *)self view];
+  window = [view window];
+  isInterfaceAutorotationDisabled = [window isInterfaceAutorotationDisabled];
+
+  if ((isInterfaceAutorotationDisabled & 1) == 0)
+  {
+    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    [defaultCenter removeObserver:self];
+
+    currentDevice = [MEMORY[0x277D75418] currentDevice];
+    [currentDevice endGeneratingDeviceOrientationNotifications];
+  }
+
+  [(RPPipViewController *)self stopPipSession];
 }
 
 - (void)_updateViewGeometry
@@ -488,23 +562,18 @@ LABEL_41:
 
 - (void)cameraWithPosition:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configurePipSessionWithCameraPosition:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

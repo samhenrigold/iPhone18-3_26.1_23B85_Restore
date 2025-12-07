@@ -56,47 +56,46 @@
 
 - (WiFiP2PAWDLState)initWithCoder:(id)coder
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = MEMORY[0x277CBEB98];
-  v29[0] = objc_opt_class();
-  v29[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+  v27[0] = objc_opt_class();
+  v27[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
   v7 = [v5 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"AWDLState.channelSequenceKey"];
 
   if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v26 = 0u;
-    v27 = 0u;
     v24 = 0u;
     v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v25;
+      v12 = *v23;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v25 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v24 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             selfCopy = 0;
-            v15 = v9;
+            v14 = v9;
             goto LABEL_20;
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v11)
         {
           continue;
@@ -106,16 +105,16 @@
       }
     }
 
-    v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"AWDLState.interfaceNameKey"];
-    v16 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"AWDLState.macAddressKey"];
-    v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"AWDLState.peerMasterChannelKey"];
-    v18 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"AWDLState.peerPrimaryPreferredChannelKey"];
-    v19 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"AWDLState.peerSecondaryPreferredChannelKey"];
-    v20 = v19;
+    v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"AWDLState.interfaceNameKey"];
+    v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"AWDLState.macAddressKey"];
+    v16 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"AWDLState.peerMasterChannelKey"];
+    v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"AWDLState.peerPrimaryPreferredChannelKey"];
+    v18 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"AWDLState.peerSecondaryPreferredChannelKey"];
+    v19 = v18;
     selfCopy = 0;
-    if (v15 && v16 && v17 && v18 && v19)
+    if (v14 && v15 && v16 && v17 && v18)
     {
-      self = -[WiFiP2PAWDLState initWithInterfaceName:supportsSoloMode:supportsDataTransfer:channelSequence:isEnabled:substate:macAddress:peerMasterChannel:peerPrimaryPreferredChannel:peerSecondaryPreferredChannel:](self, "initWithInterfaceName:supportsSoloMode:supportsDataTransfer:channelSequence:isEnabled:substate:macAddress:peerMasterChannel:peerPrimaryPreferredChannel:peerSecondaryPreferredChannel:", v15, [coderCopy decodeBoolForKey:@"AWDLState.supportsSoloModeKey"], objc_msgSend(coderCopy, "decodeBoolForKey:", @"AWDLState.supportsDataTransferKey"), v9, objc_msgSend(coderCopy, "decodeBoolForKey:", @"AWDLState.isEnabledKey"), objc_msgSend(coderCopy, "decodeInt32ForKey:", @"AWDLState.substateKey"), v16, v17, v18, v19);
+      self = -[WiFiP2PAWDLState initWithInterfaceName:supportsSoloMode:supportsDataTransfer:channelSequence:isEnabled:substate:macAddress:peerMasterChannel:peerPrimaryPreferredChannel:peerSecondaryPreferredChannel:](self, "initWithInterfaceName:supportsSoloMode:supportsDataTransfer:channelSequence:isEnabled:substate:macAddress:peerMasterChannel:peerPrimaryPreferredChannel:peerSecondaryPreferredChannel:", v14, [coderCopy decodeBoolForKey:@"AWDLState.supportsSoloModeKey"], objc_msgSend(coderCopy, "decodeBoolForKey:", @"AWDLState.supportsDataTransferKey"), v9, objc_msgSend(coderCopy, "decodeBoolForKey:", @"AWDLState.isEnabledKey"), objc_msgSend(coderCopy, "decodeInt32ForKey:", @"AWDLState.substateKey"), v15, v16, v17, v18);
       selfCopy = self;
     }
 
@@ -127,7 +126,6 @@ LABEL_20:
     selfCopy = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

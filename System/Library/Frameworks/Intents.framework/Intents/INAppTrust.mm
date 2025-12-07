@@ -53,7 +53,7 @@
 
 + (BOOL)_shouldTrustAppForLaunch:(id)launch withExplicitAppTrustCache:(id)cache
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   launchCopy = launch;
   cacheCopy = cache;
   if (!launchCopy)
@@ -106,11 +106,11 @@ LABEL_17:
         v14 = INSiriLogContextIntents;
         if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
         {
-          v17 = 136315394;
-          v18 = "+[INAppTrust _shouldTrustAppForLaunch:withExplicitAppTrustCache:]";
-          v19 = 2112;
-          v20 = path;
-          _os_log_error_impl(&dword_18E991000, v14, OS_LOG_TYPE_ERROR, "%s Unable to determine app aproval state for %@ because the path is unreadable", &v17, 0x16u);
+          v16 = 136315394;
+          v17 = "+[INAppTrust _shouldTrustAppForLaunch:withExplicitAppTrustCache:]";
+          v18 = 2112;
+          v19 = path;
+          _os_log_error_impl(&dword_18E991000, v14, OS_LOG_TYPE_ERROR, "%s Unable to determine app aproval state for %@ because the path is unreadable", &v16, 0x16u);
         }
       }
     }
@@ -122,7 +122,6 @@ LABEL_17:
   LOBYTE(v8) = 1;
 LABEL_18:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

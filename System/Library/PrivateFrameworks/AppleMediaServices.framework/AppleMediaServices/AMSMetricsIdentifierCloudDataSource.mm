@@ -254,51 +254,51 @@ LABEL_6:
   dispatch_sync(_sharedQueue, block);
 }
 
-void __55__AMSMetricsIdentifierCloudDataSource_removeAllRecords__block_invoke()
+void __55__AMSMetricsIdentifierCloudDataSource_removeAllRecords__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v0 = [objc_opt_class() _database];
-  v1 = +[AMSLogConfig sharedMetricsConfig];
-  if (!v1)
+  v18 = *MEMORY[0x1E69E9840];
+  v1 = [objc_opt_class() _database];
+  v2 = +[AMSLogConfig sharedMetricsConfig];
+  if (!v2)
   {
-    v1 = +[AMSLogConfig sharedConfig];
+    v2 = +[AMSLogConfig sharedConfig];
   }
 
-  v2 = [v1 OSLogObject];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = [v2 OSLogObject];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = objc_opt_class();
-    v4 = AMSLogKey();
+    v4 = objc_opt_class();
+    v5 = AMSLogKey();
     *buf = 138543618;
-    v12 = v3;
-    v13 = 2114;
-    v14 = v4;
-    _os_log_impl(&dword_192869000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Permanently removing cross-device identifiers", buf, 0x16u);
+    v13 = v4;
+    v14 = 2114;
+    v15 = v5;
+    _os_log_impl(&dword_192869000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Permanently removing cross-device identifiers", buf, 0x16u);
   }
 
-  v10 = 0;
-  [v0 removeCrossDeviceIdentifiersWithError:&v10];
-  v5 = v10;
-  if (v5)
+  v11 = 0;
+  [v1 removeCrossDeviceIdentifiersWithError:&v11];
+  v6 = v11;
+  if (v6)
   {
-    v6 = +[AMSLogConfig sharedMetricsConfig];
-    if (!v6)
+    v7 = +[AMSLogConfig sharedMetricsConfig];
+    if (!v7)
     {
-      v6 = +[AMSLogConfig sharedConfig];
+      v7 = +[AMSLogConfig sharedConfig];
     }
 
-    v7 = [v6 OSLogObject];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = [v7 OSLogObject];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = objc_opt_class();
-      v9 = AMSLogKey();
+      v9 = objc_opt_class();
+      v10 = AMSLogKey();
       *buf = 138543874;
-      v12 = v8;
-      v13 = 2114;
-      v14 = v9;
-      v15 = 2114;
-      v16 = v5;
-      _os_log_impl(&dword_192869000, v7, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to permanently remove cross-device identifiers. %{public}@", buf, 0x20u);
+      v13 = v9;
+      v14 = 2114;
+      v15 = v10;
+      v16 = 2114;
+      v17 = v6;
+      _os_log_impl(&dword_192869000, v8, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to permanently remove cross-device identifiers. %{public}@", buf, 0x20u);
     }
   }
 }

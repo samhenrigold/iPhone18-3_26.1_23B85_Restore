@@ -1,3 +1,131 @@
+uint64_t CMMsl::AccelBatch::writeTo(uint64_t this, PB::Writer *a2)
+{
+  v3 = this;
+  v4 = *(this + 32);
+  if (v4)
+  {
+    this = PB::Writer::write(a2, *(this + 8), 1u);
+    v4 = *(v3 + 32);
+    if ((v4 & 4) == 0)
+    {
+LABEL_3:
+      if ((v4 & 8) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_9;
+    }
+  }
+
+  else if ((*(this + 32) & 4) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  this = PB::Writer::write(a2, *(v3 + 20), 2u);
+  v4 = *(v3 + 32);
+  if ((v4 & 8) == 0)
+  {
+LABEL_4:
+    if ((v4 & 0x10) == 0)
+    {
+      goto LABEL_5;
+    }
+
+LABEL_10:
+    this = PB::Writer::write(a2, *(v3 + 28), 4u);
+    if ((*(v3 + 32) & 2) == 0)
+    {
+      return this;
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_9:
+  this = PB::Writer::write(a2, *(v3 + 24), 3u);
+  v4 = *(v3 + 32);
+  if ((v4 & 0x10) != 0)
+  {
+    goto LABEL_10;
+  }
+
+LABEL_5:
+  if ((v4 & 2) == 0)
+  {
+    return this;
+  }
+
+LABEL_11:
+  v5 = *(v3 + 16);
+
+  return PB::Writer::writeVarInt(a2, v5, 5u);
+}
+
+BOOL CMMsl::AccelBatch::operator==(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 32))
+  {
+    if ((*(a2 + 32) & 1) == 0 || *(a1 + 8) != *(a2 + 8))
+    {
+      return 0;
+    }
+  }
+
+  else if (*(a2 + 32))
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 32) & 4) != 0)
+  {
+    if ((*(a2 + 32) & 4) == 0 || *(a1 + 20) != *(a2 + 20))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 32) & 4) != 0)
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 32) & 8) != 0)
+  {
+    if ((*(a2 + 32) & 8) == 0 || *(a1 + 24) != *(a2 + 24))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 32) & 8) != 0)
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 32) & 0x10) != 0)
+  {
+    if ((*(a2 + 32) & 0x10) == 0 || *(a1 + 28) != *(a2 + 28))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 32) & 0x10) != 0)
+  {
+    return 0;
+  }
+
+  v2 = (*(a2 + 32) & 2) == 0;
+  if ((*(a1 + 32) & 2) != 0)
+  {
+    return (*(a2 + 32) & 2) != 0 && *(a1 + 16) == *(a2 + 16);
+  }
+
+  return v2;
+}
+
 uint64_t CMMsl::AccelBatch::hash_value(CMMsl::AccelBatch *this)
 {
   if ((*(this + 32) & 1) == 0)
@@ -1118,53 +1246,49 @@ uint64_t CMMsl::AccelBiasEstimate::hash_value(CMMsl::AccelBiasEstimate *this)
     v2 = 0;
   }
 
-  v3 = *(this + 4);
-  v4 = *(this + 5);
-  v5 = PBHashBytes();
-  v6 = *(this + 1);
-  v7 = *(this + 2);
-  v8 = PBHashBytes();
+  v3 = PBHashBytes();
+  v4 = PBHashBytes();
   if ((*(this + 80) & 8) != 0)
   {
-    v9 = *(this + 76);
+    v5 = *(this + 76);
     if ((*(this + 80) & 4) != 0)
     {
 LABEL_8:
-      v10 = *(this + 18);
+      v6 = *(this + 18);
       if (*(this + 80))
       {
         goto LABEL_9;
       }
 
 LABEL_14:
-      v11 = 0.0;
-      return v5 ^ v2 ^ v8 ^ v9 ^ v10 ^ *&v11;
+      v7 = 0.0;
+      return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ *&v7;
     }
   }
 
   else
   {
-    v9 = 0;
+    v5 = 0;
     if ((*(this + 80) & 4) != 0)
     {
       goto LABEL_8;
     }
   }
 
-  v10 = 0;
+  v6 = 0;
   if ((*(this + 80) & 1) == 0)
   {
     goto LABEL_14;
   }
 
 LABEL_9:
-  v11 = *(this + 7);
-  if (v11 == 0.0)
+  v7 = *(this + 7);
+  if (v7 == 0.0)
   {
-    v11 = 0.0;
+    v7 = 0.0;
   }
 
-  return v5 ^ v2 ^ v8 ^ v9 ^ v10 ^ *&v11;
+  return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ *&v7;
 }
 
 void *CMMsl::AccelGesture::AccelGesture(void *this)
@@ -1199,11 +1323,11 @@ void CMMsl::AccelGesture::~AccelGesture(CMMsl::AccelGesture *this)
   operator delete();
 }
 
-void *CMMsl::AccelGesture::AccelGesture(void *this, const CMMsl::AccelGesture *a2)
+CMMsl::AccelGesture *CMMsl::AccelGesture::AccelGesture(CMMsl::AccelGesture *this, const CMMsl::Accel **a2)
 {
   *this = off_10041C710;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -1211,13 +1335,13 @@ void *CMMsl::AccelGesture::AccelGesture(void *this, const CMMsl::AccelGesture *a
   return this;
 }
 
-const CMMsl::AccelGesture *CMMsl::AccelGesture::operator=(const CMMsl::AccelGesture *a1, const CMMsl::AccelGesture *a2)
+uint64_t CMMsl::AccelGesture::operator=(uint64_t a1, const CMMsl::Accel **a2)
 {
   if (a1 != a2)
   {
     CMMsl::AccelGesture::AccelGesture(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::AccelGesture::~AccelGesture(&v5);
   }
@@ -1445,9 +1569,9 @@ CMMsl::Accel *CMMsl::AccelGesture::hash_value(CMMsl::AccelGesture *this)
   return result;
 }
 
-uint64_t CMMsl::AccelGesture::makeSuper(uint64_t this)
+void *CMMsl::AccelGesture::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -2066,11 +2190,11 @@ void CMMsl::AccelOscarEmu::~AccelOscarEmu(CMMsl::AccelOscarEmu *this)
   operator delete();
 }
 
-void *CMMsl::AccelOscarEmu::AccelOscarEmu(void *this, const CMMsl::AccelOscarEmu *a2)
+CMMsl::AccelOscarEmu *CMMsl::AccelOscarEmu::AccelOscarEmu(CMMsl::AccelOscarEmu *this, const CMMsl::Accel **a2)
 {
   *this = off_10041C780;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -2078,13 +2202,13 @@ void *CMMsl::AccelOscarEmu::AccelOscarEmu(void *this, const CMMsl::AccelOscarEmu
   return this;
 }
 
-const CMMsl::AccelOscarEmu *CMMsl::AccelOscarEmu::operator=(const CMMsl::AccelOscarEmu *a1, const CMMsl::AccelOscarEmu *a2)
+uint64_t CMMsl::AccelOscarEmu::operator=(uint64_t a1, const CMMsl::Accel **a2)
 {
   if (a1 != a2)
   {
     CMMsl::AccelOscarEmu::AccelOscarEmu(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::AccelOscarEmu::~AccelOscarEmu(&v5);
   }
@@ -2312,9 +2436,9 @@ CMMsl::Accel *CMMsl::AccelOscarEmu::hash_value(CMMsl::AccelOscarEmu *this)
   return result;
 }
 
-uint64_t CMMsl::AccelOscarEmu::makeSuper(uint64_t this)
+void *CMMsl::AccelOscarEmu::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -2380,11 +2504,11 @@ void CMMsl::AccelTNBFrame::~AccelTNBFrame(CMMsl::AccelTNBFrame *this)
   operator delete();
 }
 
-CMMsl::AccelTNBFrame *CMMsl::AccelTNBFrame::AccelTNBFrame(char **this, char **a2)
+char **CMMsl::AccelTNBFrame::AccelTNBFrame(char **this, char **a2)
 {
   *this = off_10041C7B8;
   *(this + 1) = 0u;
-  v4 = this + 1;
+  v4 = (this + 1);
   *(this + 29) = 0;
   *(this + 3) = 0u;
   *(this + 5) = 0u;
@@ -2551,7 +2675,7 @@ uint64_t CMMsl::AccelTNBFrame::AccelTNBFrame(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::AccelTNBFrame::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::AccelTNBFrame::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -3517,32 +3641,26 @@ BOOL CMMsl::AccelTNBFrame::operator==(uint64_t a1, uint64_t a2)
 
 uint64_t CMMsl::AccelTNBFrame::hash_value(CMMsl::AccelTNBFrame *this)
 {
-  v2 = *(this + 7);
-  v3 = *(this + 8);
+  v2 = PBHashBytes();
+  v3 = PBHashBytes();
   v4 = PBHashBytes();
-  v5 = *(this + 4);
-  v6 = *(this + 5);
-  v7 = PBHashBytes();
-  v8 = *(this + 1);
-  v9 = *(this + 2);
-  v10 = PBHashBytes();
   if ((*(this + 116) & 2) == 0)
   {
-    v11 = 0.0;
+    v5 = 0.0;
     if (*(this + 116))
     {
       goto LABEL_3;
     }
 
 LABEL_16:
-    v12 = 0.0;
+    v6 = 0.0;
     if ((*(this + 116) & 8) != 0)
     {
       goto LABEL_6;
     }
 
 LABEL_17:
-    v13 = 0.0;
+    v7 = 0.0;
     if ((*(this + 116) & 0x10) != 0)
     {
       goto LABEL_9;
@@ -3551,10 +3669,10 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v11 = *(this + 11);
-  if (v11 == 0.0)
+  v5 = *(this + 11);
+  if (v5 == 0.0)
   {
-    v11 = 0.0;
+    v5 = 0.0;
   }
 
   if ((*(this + 116) & 1) == 0)
@@ -3563,10 +3681,10 @@ LABEL_17:
   }
 
 LABEL_3:
-  v12 = *(this + 10);
-  if (v12 == 0.0)
+  v6 = *(this + 10);
+  if (v6 == 0.0)
   {
-    v12 = 0.0;
+    v6 = 0.0;
   }
 
   if ((*(this + 116) & 8) == 0)
@@ -3575,41 +3693,41 @@ LABEL_3:
   }
 
 LABEL_6:
-  v13 = *(this + 13);
-  if (v13 == 0.0)
+  v7 = *(this + 13);
+  if (v7 == 0.0)
   {
-    v13 = 0.0;
+    v7 = 0.0;
   }
 
   if ((*(this + 116) & 0x10) != 0)
   {
 LABEL_9:
-    v14 = *(this + 112);
+    v8 = *(this + 112);
     if ((*(this + 116) & 4) != 0)
     {
       goto LABEL_10;
     }
 
 LABEL_19:
-    v15 = 0.0;
-    return v7 ^ v4 ^ v10 ^ *&v11 ^ *&v12 ^ *&v13 ^ v14 ^ *&v15;
+    v9 = 0.0;
+    return v3 ^ v2 ^ v4 ^ *&v5 ^ *&v6 ^ *&v7 ^ v8 ^ *&v9;
   }
 
 LABEL_18:
-  v14 = 0;
+  v8 = 0;
   if ((*(this + 116) & 4) == 0)
   {
     goto LABEL_19;
   }
 
 LABEL_10:
-  v15 = *(this + 12);
-  if (v15 == 0.0)
+  v9 = *(this + 12);
+  if (v9 == 0.0)
   {
-    v15 = 0.0;
+    v9 = 0.0;
   }
 
-  return v7 ^ v4 ^ v10 ^ *&v11 ^ *&v12 ^ *&v13 ^ v14 ^ *&v15;
+  return v3 ^ v2 ^ v4 ^ *&v5 ^ *&v6 ^ *&v7 ^ v8 ^ *&v9;
 }
 
 uint64_t CMMsl::AccelerometerPace::AccelerometerPace(uint64_t this)
@@ -4123,12 +4241,12 @@ void CMMsl::AccessoryAccel::~AccessoryAccel(CMMsl::AccessoryAccel *this)
   operator delete();
 }
 
-uint64_t CMMsl::AccessoryAccel::AccessoryAccel(uint64_t this, const CMMsl::AccessoryAccel *a2)
+CMMsl::AccessoryAccel *CMMsl::AccessoryAccel::AccessoryAccel(CMMsl::AccessoryAccel *this, const CMMsl::Accel **a2)
 {
   *this = off_10041C828;
+  *(this + 1) = 0;
   *(this + 8) = 0;
-  *(this + 32) = 0;
-  if (*(a2 + 1))
+  if (a2[1])
   {
     operator new();
   }
@@ -4138,7 +4256,7 @@ uint64_t CMMsl::AccessoryAccel::AccessoryAccel(uint64_t this, const CMMsl::Acces
   {
     v4 = *(a2 + 6);
     *(this + 32) |= 2u;
-    *(this + 24) = v4;
+    *(this + 6) = v4;
     v2 = *(a2 + 32);
     if ((v2 & 4) == 0)
     {
@@ -4152,27 +4270,27 @@ LABEL_5:
     }
   }
 
-  else if ((*(a2 + 32) & 4) == 0)
+  else if ((a2[4] & 4) == 0)
   {
     goto LABEL_5;
   }
 
   v5 = *(a2 + 7);
   *(this + 32) |= 4u;
-  *(this + 28) = v5;
-  if ((*(a2 + 32) & 1) == 0)
+  *(this + 7) = v5;
+  if ((a2[4] & 1) == 0)
   {
     return this;
   }
 
 LABEL_6:
-  v3 = *(a2 + 2);
+  v3 = a2[2];
   *(this + 32) |= 1u;
-  *(this + 16) = v3;
+  *(this + 2) = v3;
   return this;
 }
 
-uint64_t CMMsl::AccessoryAccel::operator=(uint64_t a1, const CMMsl::AccessoryAccel *a2)
+uint64_t CMMsl::AccessoryAccel::operator=(uint64_t a1, const CMMsl::Accel **a2)
 {
   if (a1 != a2)
   {
@@ -4839,9 +4957,9 @@ LABEL_6:
   return v3 ^ v2 ^ v4 ^ v5;
 }
 
-uint64_t CMMsl::AccessoryAccel::makeAccel(uint64_t this)
+void *CMMsl::AccessoryAccel::makeAccel(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -4894,23 +5012,23 @@ void CMMsl::AccessoryAccelConfig::~AccessoryAccelConfig(CMMsl::AccessoryAccelCon
   operator delete();
 }
 
-void *CMMsl::AccessoryAccelConfig::AccessoryAccelConfig(void *this, const CMMsl::AccessoryAccelConfig *a2)
+CMMsl::AccessoryAccelConfig *CMMsl::AccessoryAccelConfig::AccessoryAccelConfig(CMMsl::AccessoryAccelConfig *this, const CMMsl::AccessoryConfig **a2)
 {
-  this[1] = 0;
+  *(this + 1) = 0;
   *this = off_10041C860;
-  this[2] = 0;
-  this[3] = 0;
-  if (*(a2 + 3))
+  *(this + 2) = 0;
+  *(this + 3) = 0;
+  if (a2[3])
   {
     operator new();
   }
 
-  if (*(a2 + 1))
+  if (a2[1])
   {
     operator new();
   }
 
-  if (*(a2 + 2))
+  if (a2[2])
   {
     operator new();
   }
@@ -4918,7 +5036,7 @@ void *CMMsl::AccessoryAccelConfig::AccessoryAccelConfig(void *this, const CMMsl:
   return this;
 }
 
-uint64_t CMMsl::AccessoryAccelConfig::operator=(uint64_t a1, const CMMsl::AccessoryAccelConfig *a2)
+uint64_t CMMsl::AccessoryAccelConfig::operator=(uint64_t a1, const CMMsl::AccessoryConfig **a2)
 {
   if (a1 != a2)
   {
@@ -5409,36 +5527,33 @@ unint64_t CMMsl::AccessoryAccelConfig::hash_value(CMMsl::AccessoryAccelConfig *t
     v3 = 0;
   }
 
-  v4 = *(this + 1);
-  if (v4)
+  if (*(this + 1))
   {
-    v5 = *v4;
-    v6 = v4[1];
-    v7 = PBHashBytes();
+    v4 = PBHashBytes();
   }
 
   else
   {
-    v7 = 0;
+    v4 = 0;
   }
 
-  v8 = *(this + 2);
-  if (v8)
+  v5 = *(this + 2);
+  if (v5)
   {
-    v9 = sub_100011074(&v11, v8);
+    v6 = sub_100011074(&v8, v5);
   }
 
   else
   {
-    v9 = 0;
+    v6 = 0;
   }
 
-  return v7 ^ v3 ^ v9;
+  return v4 ^ v3 ^ v6;
 }
 
-uint64_t CMMsl::AccessoryAccelConfig::makeConfig(uint64_t this)
+void *CMMsl::AccessoryAccelConfig::makeConfig(void *this)
 {
-  if (!*(this + 24))
+  if (!this[3])
   {
     operator new();
   }
@@ -7385,20 +7500,20 @@ void CMMsl::AccessoryBatchedPPG::~AccessoryBatchedPPG(CMMsl::AccessoryBatchedPPG
   operator delete();
 }
 
-uint64_t CMMsl::AccessoryBatchedPPG::AccessoryBatchedPPG(uint64_t this, const CMMsl::AccessoryBatchedPPG *a2)
+CMMsl::AccessoryBatchedPPG *CMMsl::AccessoryBatchedPPG::AccessoryBatchedPPG(CMMsl::AccessoryBatchedPPG *this, const CMMsl::AccessoryBatchedPPG *a2)
 {
   *this = off_10041C908;
-  *(this + 8) = 0;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
   *(this + 16) = 0;
-  *(this + 24) = 0;
-  *(this + 64) = 0;
   v2 = *(a2 + 64);
   if ((v2 & 2) != 0)
   {
     v4 = *(a2 + 5);
     v3 = 2;
     *(this + 64) = 2;
-    *(this + 40) = v4;
+    *(this + 5) = v4;
     v2 = *(a2 + 64);
     if ((v2 & 1) == 0)
     {
@@ -7415,17 +7530,17 @@ LABEL_5:
     v5 = *(a2 + 4);
     v3 |= 1u;
     *(this + 64) = v3;
-    *(this + 32) = v5;
+    *(this + 4) = v5;
     v2 = *(a2 + 64);
   }
 
 LABEL_6:
   if ((v2 & 0x10) != 0)
   {
-    v9 = *(a2 + 14);
+    v8 = *(a2 + 14);
     v3 |= 0x10u;
     *(this + 64) = v3;
-    *(this + 56) = v9;
+    *(this + 14) = v8;
     v2 = *(a2 + 64);
     if ((v2 & 8) == 0)
     {
@@ -7444,10 +7559,10 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v10 = *(a2 + 13);
+  v9 = *(a2 + 13);
   v3 |= 8u;
   *(this + 64) = v3;
-  *(this + 52) = v10;
+  *(this + 13) = v9;
   v2 = *(a2 + 64);
   if ((v2 & 4) == 0)
   {
@@ -7461,24 +7576,23 @@ LABEL_9:
   }
 
 LABEL_16:
-  v11 = *(a2 + 12);
+  v10 = *(a2 + 12);
   v3 |= 4u;
   *(this + 64) = v3;
-  *(this + 48) = v11;
+  *(this + 12) = v10;
   if ((*(a2 + 64) & 0x20) != 0)
   {
 LABEL_10:
     v6 = *(a2 + 15);
     *(this + 64) = v3 | 0x20;
-    *(this + 60) = v6;
+    *(this + 15) = v6;
   }
 
 LABEL_11:
   v7 = *(a2 + 1);
   if (v7 != *(a2 + 2))
   {
-    v8 = *v7;
-    sub_10006A194();
+    sub_10006A194(this + 1, *v7);
   }
 
   return this;
@@ -8076,7 +8190,7 @@ LABEL_123:
 
         if (v22 == 7)
         {
-          sub_10006AE34();
+          sub_10006AE34(this + 1);
         }
       }
 
@@ -8367,7 +8481,6 @@ LABEL_8:
 
 BOOL CMMsl::AccessoryBatchedPPG::operator==(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 64);
   if ((*(a1 + 64) & 2) != 0)
   {
     if ((*(a2 + 64) & 2) == 0 || *(a1 + 40) != *(a2 + 40))
@@ -8441,7 +8554,7 @@ LABEL_6:
       return 0;
     }
 
-    return sub_10006B188((a1 + 8), a2 + 8);
+    return sub_10006B188((a1 + 8), (a2 + 8));
   }
 
   if ((*(a2 + 64) & 2) == 0)
@@ -8452,12 +8565,12 @@ LABEL_6:
   return 0;
 }
 
-BOOL sub_10006B188(uint64_t **a1, uint64_t a2)
+BOOL sub_10006B188(uint64_t **a1, uint64_t **a2)
 {
   v3 = *a1;
   v2 = a1[1];
   v4 = *a2;
-  if (v2 - *a1 != *(a2 + 8) - *a2)
+  if (v2 - *a1 != a2[1] - *a2)
   {
     return 0;
   }
@@ -8622,18 +8735,18 @@ void CMMsl::AccessoryConfig::~AccessoryConfig(CMMsl::AccessoryConfig *this)
   operator delete();
 }
 
-uint64_t CMMsl::AccessoryConfig::AccessoryConfig(uint64_t this, const CMMsl::AccessoryConfig *a2)
+CMMsl::AccessoryConfig *CMMsl::AccessoryConfig::AccessoryConfig(CMMsl::AccessoryConfig *this, const CMMsl::AccessoryConfig *a2)
 {
   *this = off_10041C940;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  *(this + 36) = 0;
-  *(this + 24) = 0;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  *(this + 9) = 0;
+  *(this + 3) = 0;
   if ((*(a2 + 36) & 2) != 0)
   {
     v2 = *(a2 + 7);
     *(this + 36) = 2;
-    *(this + 28) = v2;
+    *(this + 7) = v2;
   }
 
   if (*(a2 + 2))
@@ -8651,7 +8764,7 @@ uint64_t CMMsl::AccessoryConfig::AccessoryConfig(uint64_t this, const CMMsl::Acc
   {
     v4 = *(a2 + 6);
     *(this + 36) |= 1u;
-    *(this + 24) = v4;
+    *(this + 6) = v4;
     v3 = *(a2 + 36);
   }
 
@@ -9250,12 +9363,12 @@ void CMMsl::AccessoryDeviceMotion::~AccessoryDeviceMotion(CMMsl::AccessoryDevice
   operator delete();
 }
 
-uint64_t CMMsl::AccessoryDeviceMotion::AccessoryDeviceMotion(uint64_t this, const CMMsl::AccessoryDeviceMotion *a2)
+CMMsl::AccessoryDeviceMotion *CMMsl::AccessoryDeviceMotion::AccessoryDeviceMotion(CMMsl::AccessoryDeviceMotion *this, const CMMsl::DeviceMotion **a2)
 {
   *this = off_10041C978;
-  *(this + 8) = 0;
-  *(this + 24) = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  *(this + 6) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -9265,7 +9378,7 @@ uint64_t CMMsl::AccessoryDeviceMotion::AccessoryDeviceMotion(uint64_t this, cons
   {
     v3 = *(a2 + 4);
     *(this + 24) |= 1u;
-    *(this + 16) = v3;
+    *(this + 4) = v3;
     v2 = *(a2 + 24);
   }
 
@@ -9273,13 +9386,13 @@ uint64_t CMMsl::AccessoryDeviceMotion::AccessoryDeviceMotion(uint64_t this, cons
   {
     v4 = *(a2 + 5);
     *(this + 24) |= 2u;
-    *(this + 20) = v4;
+    *(this + 5) = v4;
   }
 
   return this;
 }
 
-uint64_t CMMsl::AccessoryDeviceMotion::operator=(uint64_t a1, const CMMsl::AccessoryDeviceMotion *a2)
+uint64_t CMMsl::AccessoryDeviceMotion::operator=(uint64_t a1, const CMMsl::DeviceMotion **a2)
 {
   if (a1 != a2)
   {
@@ -9674,394 +9787,4 @@ LABEL_62:
 LABEL_70:
   v54 = v4 ^ 1;
   return v54 & 1;
-}
-
-uint64_t CMMsl::DeviceMotion::DeviceMotion(uint64_t this)
-{
-  *this = off_10041DC10;
-  *(this + 124) = 0;
-  return this;
-}
-
-{
-  *this = off_10041DC10;
-  *(this + 124) = 0;
-  return this;
-}
-
-uint64_t CMMsl::AccessoryDeviceMotion::writeTo(uint64_t this, PB::Writer *a2)
-{
-  v3 = this;
-  v4 = *(this + 8);
-  if (v4)
-  {
-    this = PB::Writer::writeSubmessage(a2, v4, 1u);
-  }
-
-  v5 = *(v3 + 24);
-  if (v5)
-  {
-    this = PB::Writer::writeVarInt(a2, *(v3 + 16), 2u);
-    v5 = *(v3 + 24);
-  }
-
-  if ((v5 & 2) != 0)
-  {
-    v6 = *(v3 + 20);
-
-    return PB::Writer::writeVarInt(a2, v6, 3u);
-  }
-
-  return this;
-}
-
-BOOL CMMsl::AccessoryDeviceMotion::operator==(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 8);
-  v5 = *(a2 + 8);
-  if (v4)
-  {
-    if (!v5 || !CMMsl::DeviceMotion::operator==(v4, v5))
-    {
-      return 0;
-    }
-  }
-
-  else if (v5)
-  {
-    return 0;
-  }
-
-  if (*(a1 + 24))
-  {
-    if ((*(a2 + 24) & 1) == 0 || *(a1 + 16) != *(a2 + 16))
-    {
-      return 0;
-    }
-  }
-
-  else if (*(a2 + 24))
-  {
-    return 0;
-  }
-
-  result = (*(a2 + 24) & 2) == 0;
-  if ((*(a1 + 24) & 2) == 0)
-  {
-    return result;
-  }
-
-  return (*(a2 + 24) & 2) != 0 && *(a1 + 20) == *(a2 + 20);
-}
-
-BOOL CMMsl::DeviceMotion::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 124);
-  v3 = *(a2 + 124);
-  if ((v2 & 0x10) != 0)
-  {
-    if ((v3 & 0x10) == 0 || *(a1 + 40) != *(a2 + 40))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x10) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 2) != 0)
-  {
-    if ((v3 & 2) == 0 || *(a1 + 16) != *(a2 + 16))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 2) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 4) != 0)
-  {
-    if ((v3 & 4) == 0 || *(a1 + 24) != *(a2 + 24))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 4) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 8) != 0)
-  {
-    if ((v3 & 8) == 0 || *(a1 + 32) != *(a2 + 32))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 8) != 0)
-  {
-    return 0;
-  }
-
-  if (v2)
-  {
-    if ((v3 & 1) == 0 || *(a1 + 8) != *(a2 + 8))
-    {
-      return 0;
-    }
-  }
-
-  else if (v3)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x40000) != 0)
-  {
-    if ((v3 & 0x40000) == 0 || *(a1 + 100) != *(a2 + 100))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x40000) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x80000) != 0)
-  {
-    if ((v3 & 0x80000) == 0 || *(a1 + 104) != *(a2 + 104))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x80000) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x100000) != 0)
-  {
-    if ((v3 & 0x100000) == 0 || *(a1 + 108) != *(a2 + 108))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x100000) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x2000) != 0)
-  {
-    if ((v3 & 0x2000) == 0 || *(a1 + 80) != *(a2 + 80))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x2000) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x4000) != 0)
-  {
-    if ((v3 & 0x4000) == 0 || *(a1 + 84) != *(a2 + 84))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x4000) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x8000) != 0)
-  {
-    if ((v3 & 0x8000) == 0 || *(a1 + 88) != *(a2 + 88))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x8000) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x100) != 0)
-  {
-    if ((v3 & 0x100) == 0 || *(a1 + 60) != *(a2 + 60))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x100) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x200) != 0)
-  {
-    if ((v3 & 0x200) == 0 || *(a1 + 64) != *(a2 + 64))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x200) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x400) != 0)
-  {
-    if ((v3 & 0x400) == 0 || *(a1 + 68) != *(a2 + 68))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x400) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x80) != 0)
-  {
-    if ((v3 & 0x80) == 0 || *(a1 + 56) != *(a2 + 56))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x80) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x800) != 0)
-  {
-    if ((v3 & 0x800) == 0 || *(a1 + 72) != *(a2 + 72))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x800) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x20000) != 0)
-  {
-    if ((v3 & 0x20000) == 0 || *(a1 + 96) != *(a2 + 96))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x20000) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x20) != 0)
-  {
-    if ((v3 & 0x20) == 0 || *(a1 + 48) != *(a2 + 48))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x20) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x1000) != 0)
-  {
-    if ((v3 & 0x1000) == 0 || *(a1 + 76) != *(a2 + 76))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x1000) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x40) != 0)
-  {
-    if ((v3 & 0x40) == 0 || *(a1 + 52) != *(a2 + 52))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x40) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x10000) != 0)
-  {
-    if ((v3 & 0x10000) == 0 || *(a1 + 92) != *(a2 + 92))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x10000) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x200000) != 0)
-  {
-    if ((v3 & 0x200000) == 0 || *(a1 + 112) != *(a2 + 112))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x200000) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x800000) != 0)
-  {
-    if ((v3 & 0x800000) == 0 || *(a1 + 120) != *(a2 + 120))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x800000) != 0)
-  {
-    return 0;
-  }
-
-  v4 = (v3 & 0x400000) == 0;
-  if ((v2 & 0x400000) != 0)
-  {
-    return (v3 & 0x400000) != 0 && *(a1 + 116) == *(a2 + 116);
-  }
-
-  return v4;
 }

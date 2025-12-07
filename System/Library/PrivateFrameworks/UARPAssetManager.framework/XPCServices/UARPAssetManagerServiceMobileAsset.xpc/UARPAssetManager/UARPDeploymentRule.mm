@@ -235,9 +235,7 @@ LABEL_16:
 
 - (void)setTestSerialNumber:(id)number
 {
-  v4 = [number copy];
-  testSerialNumber = self->_testSerialNumber;
-  self->_testSerialNumber = v4;
+  self->_testSerialNumber = [number copy];
 
   _objc_release_x1();
 }
@@ -269,7 +267,7 @@ LABEL_16:
     v7 = v6;
     if (v6)
     {
-      [v6 operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(v6);
     }
 
     else
@@ -838,11 +836,11 @@ LABEL_5:
     if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
     {
       currentISOCountryCode = self->_currentISOCountryCode;
-      v15 = 136315394;
-      v16 = "[UARPDeploymentRule isDeploymentAllowedPerCountryList]";
-      v17 = 2112;
-      v18 = currentISOCountryCode;
-      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: Current location unknown %@", &v15, 0x16u);
+      *v15 = 136315394;
+      *&v15[4] = "[UARPDeploymentRule isDeploymentAllowedPerCountryList]";
+      *&v15[12] = 2112;
+      *&v15[14] = currentISOCountryCode;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: Current location unknown %@", v15, 0x16u);
     }
 
     if (!self->_currentISOCountryCode)
@@ -857,8 +855,9 @@ LABEL_5:
   {
     if (v6)
     {
-      v16 = "[UARPDeploymentRule isDeploymentAllowedPerCountryList]";
-      sub_10000B678(&_mh_execute_header, v7, v8, "%s: Device not in country list, deployment not allowed", v9, v10, v11, v12, 2u);
+      *v15 = 136315138;
+      *&v15[4] = "[UARPDeploymentRule isDeploymentAllowedPerCountryList]";
+      sub_10000B678(&_mh_execute_header, v7, v8, "%s: Device not in country list, deployment not allowed", v9, v10, v11, v12, *v15, *&v15[8]);
     }
 
     return 0;
@@ -869,9 +868,10 @@ LABEL_5:
     return 1;
   }
 
-  v16 = "[UARPDeploymentRule isDeploymentAllowedPerCountryList]";
+  *v15 = 136315138;
+  *&v15[4] = "[UARPDeploymentRule isDeploymentAllowedPerCountryList]";
   v13 = 1;
-  sub_10000B678(&_mh_execute_header, v7, v8, "%s: Device is in country list", v9, v10, v11, v12, 2u);
+  sub_10000B678(&_mh_execute_header, v7, v8, "%s: Device is in country list", v9, v10, v11, v12, *v15);
   return v13;
 }
 

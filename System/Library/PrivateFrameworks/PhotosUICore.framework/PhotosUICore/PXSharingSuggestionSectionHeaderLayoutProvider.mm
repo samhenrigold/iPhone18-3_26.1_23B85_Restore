@@ -74,7 +74,7 @@ LABEL_10:
     currentDataSource = [viewModel currentDataSource];
     if (headerCopy)
     {
-      [headerCopy sectionIndexPath];
+      objc_msgSend_sectionIndexPath(headerCopy);
     }
 
     else
@@ -141,7 +141,7 @@ void __99__PXSharingSuggestionSectionHeaderLayoutProvider_sectionHeader_didPress
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 sectionIndexPath];
+    objc_msgSend_sectionIndexPath(v4);
   }
 
   else

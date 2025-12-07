@@ -808,7 +808,7 @@ void __113__PXCMMPhotoKitPublishMomentShareActionPerformer__budgetOverridePrompt
   [v2 setShouldIgnoreBudgets:*(a1 + 40)];
 }
 
-void __113__PXCMMPhotoKitPublishMomentShareActionPerformer__budgetOverridePromptForMomentShare_completedWithOutcome_error___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void __113__PXCMMPhotoKitPublishMomentShareActionPerformer__budgetOverridePromptForMomentShare_completedWithOutcome_error___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
   *(a1 + 32);

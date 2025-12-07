@@ -26,13 +26,13 @@
 
 - (BOOL)setParameterState:(id)state forKey:(id)key
 {
-  sub_1CA94C3A8();
+  v6 = sub_1CA94C3A8();
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_1CA5F0EA4(state);
+  LOBYTE(v6) = sub_1CA5F0EA4(state, v6);
   swift_unknownObjectRelease();
 
-  return v7 & 1;
+  return v6 & 1;
 }
 
 - (void)runWithInput:(WFContentCollection *)input completionHandler:(id)handler
@@ -129,11 +129,12 @@
 
 - (id)entityMetadataForIdentifier:(id)identifier
 {
-  sub_1CA94C3A8();
+  v4 = sub_1CA94C3A8();
+  v6 = v5;
   selfCopy = self;
-  v5 = sub_1CA5F4AE0();
+  v8 = sub_1CA5F4AE0(v4, v6);
 
-  return v5;
+  return v8;
 }
 
 - (_TtC11WorkflowKit21WFGetAppSettingAction)initWithIdentifier:(id)identifier definition:(id)definition serializedParameters:(id)parameters

@@ -20,14 +20,14 @@
     v12 = [elementCopy getAttribute:@"freshness"];
     if ([v12 length])
     {
-      if (![v12 isEqualToString:@"certified"])
+      if (!objc_msgSend_isEqualToString_(v12))
       {
-        if ([v12 isEqualToString:@"fresh"])
+        if (objc_msgSend_isEqualToString_(v12))
         {
           goto LABEL_9;
         }
 
-        if ([v12 isEqualToString:@"rotten"])
+        if (objc_msgSend_isEqualToString_(v12))
         {
           goto LABEL_11;
         }

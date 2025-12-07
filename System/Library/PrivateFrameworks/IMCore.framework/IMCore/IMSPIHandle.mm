@@ -14,74 +14,74 @@
 
 - (id)description
 {
-  v4 = MEMORY[0x1E696AEC0];
-  v5 = objc_msgSend_address(self, a2, v2);
-  v8 = objc_msgSend_businessName(self, v6, v7);
-  v10 = objc_msgSend_stringWithFormat_(v4, v9, @"IMSPIHandle: %p [Address: %@  Business Name: %@]", self, v5, v8);
+  v3 = MEMORY[0x1E696AEC0];
+  address = [(IMSPIHandle *)self address];
+  businessName = [(IMSPIHandle *)self businessName];
+  v6 = [v3 stringWithFormat:@"IMSPIHandle: %p [Address: %@  Business Name: %@]", self, address, businessName];
 
-  return v10;
+  return v6;
 }
 
 - (NSString)businessName
 {
-  v3 = objc_msgSend_address(self, a2, v2);
+  address = [(IMSPIHandle *)self address];
   if (MEMORY[0x1AC56C3A0]())
   {
-    v5 = objc_msgSend_placeholderNameForBrandURI_(MEMORY[0x1E69A7F28], v4, v3);
-    v6 = dispatch_semaphore_create(0);
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x3032000000;
-    v31 = sub_1A8259CB0;
-    v32 = sub_1A825AF84;
-    v33 = 0;
-    v9 = objc_msgSend_sharedInstance(IMHandleRegistrar, v7, v8);
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = sub_1A83CFD48;
-    v25[3] = &unk_1E7811E08;
-    v27 = &v28;
-    v10 = v6;
-    v26 = v10;
-    v12 = objc_msgSend_businessNameForUID_updateHandler_(v9, v11, v3, v25);
+    v3 = [MEMORY[0x1E69A7F28] placeholderNameForBrandURI:address];
+    v4 = dispatch_semaphore_create(0);
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x3032000000;
+    v22 = sub_1A8259CB0;
+    v23 = sub_1A825AF84;
+    v24 = 0;
+    v5 = +[IMHandleRegistrar sharedInstance];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = sub_1A83CFD48;
+    v16[3] = &unk_1E7811E08;
+    v18 = &v19;
+    v6 = v4;
+    v17 = v6;
+    v7 = [v5 businessNameForUID:address updateHandler:v16];
 
-    v15 = objc_msgSend_length(v12, v13, v14);
-    v16 = v12;
-    if (!v15)
+    v8 = [v7 length];
+    v9 = v7;
+    if (!v8)
     {
-      v17 = dispatch_time(0, 3000000000);
-      if (dispatch_semaphore_wait(v10, v17) && IMOSLoggingEnabled())
+      v10 = dispatch_time(0, 3000000000);
+      if (dispatch_semaphore_wait(v6, v10) && IMOSLoggingEnabled())
       {
-        v20 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        v11 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
-          *v24 = 0;
-          _os_log_impl(&dword_1A823F000, v20, OS_LOG_TYPE_INFO, "Business name lookup timed out", v24, 2u);
+          *v15 = 0;
+          _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Business name lookup timed out", v15, 2u);
         }
       }
 
-      if (!objc_msgSend_length(v29[5], v18, v19))
+      if (![v20[5] length])
       {
         goto LABEL_11;
       }
 
-      v16 = v29[5];
+      v9 = v20[5];
     }
 
-    v21 = v16;
+    v12 = v9;
 
-    v5 = v21;
+    v3 = v12;
 LABEL_11:
-    v22 = v5;
+    v13 = v3;
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v19, 8);
     goto LABEL_13;
   }
 
-  v22 = 0;
+  v13 = 0;
 LABEL_13:
 
-  return v22;
+  return v13;
 }
 
 - (IMSPIHandle)initWithAddress:(id)address countryCode:(id)code isMe:(BOOL)me
@@ -104,65 +104,64 @@ LABEL_13:
 
 - (BOOL)isBusiness
 {
-  v3 = objc_msgSend_address(self, a2, v2);
-  v4 = MEMORY[0x1AC56C3A0]();
+  address = [(IMSPIHandle *)self address];
+  v3 = MEMORY[0x1AC56C3A0]();
 
-  return v4;
+  return v3;
 }
 
 - (id)handle
 {
   if (!self->_haveFetchedIMHandle)
   {
-    v4 = objc_msgSend_iMessageService(IMServiceImpl, a2, v2);
-    v5 = IMPreferredAccountForService(v4);
+    v3 = +[IMServiceImpl iMessageService];
+    v4 = IMPreferredAccountForService(v3);
 
-    if (v5)
+    if (v4)
     {
-      address = self->_address;
-      v7 = IMStripFormattingFromAddress();
-      v9 = objc_msgSend_existingIMHandleWithID_(v5, v8, v7);
+      v5 = IMStripFormattingFromAddress();
+      v6 = [v4 existingIMHandleWithID:v5];
       imHandle = self->_imHandle;
-      self->_imHandle = v9;
+      self->_imHandle = v6;
 
       self->_haveFetchedIMHandle = 1;
     }
   }
 
-  v11 = self->_imHandle;
+  v8 = self->_imHandle;
 
-  return v11;
+  return v8;
 }
 
 - (NSString)displayName
 {
-  v4 = objc_msgSend_businessName(self, a2, v2);
-  if (!objc_msgSend_length(v4, v5, v6))
+  businessName = [(IMSPIHandle *)self businessName];
+  if (![businessName length])
   {
-    v8 = objc_msgSend_displayNameForChat_(self->_imHandle, v7, 0);
+    v4 = [(IMHandle *)self->_imHandle displayNameForChat:0];
 
-    v4 = v8;
+    businessName = v4;
   }
 
-  return v4;
+  return businessName;
 }
 
 - (NSString)cnContactID
 {
-  v3 = objc_msgSend_handle(self, a2, v2);
-  v5 = v3;
-  if (v3)
+  handle = [(IMSPIHandle *)self handle];
+  v3 = handle;
+  if (handle)
   {
-    v6 = objc_msgSend_cnContactWithKeys_(v3, v4, MEMORY[0x1E695E0F0]);
-    v9 = objc_msgSend_identifier(v6, v7, v8);
+    v4 = [handle cnContactWithKeys:MEMORY[0x1E695E0F0]];
+    identifier = [v4 identifier];
   }
 
   else
   {
-    v9 = 0;
+    identifier = 0;
   }
 
-  return v9;
+  return identifier;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -170,7 +169,7 @@ LABEL_13:
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v14 = 1;
+    v9 = 1;
   }
 
   else
@@ -180,37 +179,37 @@ LABEL_13:
     {
       v5 = equalCopy;
       address = self->_address;
-      v9 = objc_msgSend_address(v5, v7, v8);
-      LODWORD(address) = objc_msgSend_isEqualToString_(address, v10, v9);
+      address = [(IMSPIHandle *)v5 address];
+      LODWORD(address) = [(NSString *)address isEqualToString:address];
 
       if (address)
       {
         isMe = self->_isMe;
-        v14 = isMe != (objc_msgSend_isMe(v5, v11, v12) ^ 1);
+        v9 = isMe != ![(IMSPIHandle *)v5 isMe];
       }
 
       else
       {
-        v14 = 0;
+        v9 = 0;
       }
     }
 
     else
     {
-      v14 = 0;
+      v9 = 0;
     }
   }
 
-  return v14;
+  return v9;
 }
 
 - (unint64_t)hash
 {
-  v4 = objc_msgSend_hash(self->_address, a2, v2);
-  v6 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v5, self->_isMe);
-  v9 = objc_msgSend_hash(v6, v7, v8);
+  v3 = [(NSString *)self->_address hash];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:self->_isMe];
+  v5 = [v4 hash];
 
-  return v9 ^ v4;
+  return v5 ^ v3;
 }
 
 @end

@@ -403,117 +403,120 @@
 
 - (void)webViewController:(id)controller requestNotificationPermissionForSecurityOrigin:(id)origin decisionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  if ((objc_opt_respondsToSelector() & 1) == 0)
+  v7 = objc_opt_respondsToSelector();
+  if ((v7 & 1) == 0)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXWebPush();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = WBS_LOG_CHANNEL_PREFIXWebPush(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_DEFAULT, "requestNotificationPermissionForSecurityOrigin: Cannot get push placeholder bundle identifier from UIWebClip", buf, 2u);
+      _os_log_impl(&dword_1D4644000, v9, OS_LOG_TYPE_DEFAULT, "requestNotificationPermissionForSecurityOrigin: Cannot get push placeholder bundle identifier from UIWebClip", buf, 2u);
     }
 
     handlerCopy[2](handlerCopy, 0);
   }
 
   placeholderBundleIdentifier = [(UIWebClip *)self->_webClip placeholderBundleIdentifier];
-  v9 = WBS_LOG_CHANNEL_PREFIXWebPush();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v12 = WBS_LOG_CHANNEL_PREFIXWebPush(placeholderBundleIdentifier, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     webClip = self->_webClip;
-    v11 = v9;
+    v14 = v12;
     identifier = [(UIWebClip *)webClip identifier];
     *buf = 138543362;
-    v18 = identifier;
-    _os_log_impl(&dword_1D4644000, v11, OS_LOG_TYPE_DEFAULT, "Requesting push notification permission for Web Clip %{public}@", buf, 0xCu);
+    v21 = identifier;
+    _os_log_impl(&dword_1D4644000, v14, OS_LOG_TYPE_DEFAULT, "Requesting push notification permission for Web Clip %{public}@", buf, 0xCu);
   }
 
-  v13 = [objc_alloc(MEMORY[0x1E6983308]) initWithBundleIdentifier:placeholderBundleIdentifier];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __115___SFWebAppServiceViewController_webViewController_requestNotificationPermissionForSecurityOrigin_decisionHandler___block_invoke;
-  v15[3] = &unk_1E8491E88;
-  v16 = handlerCopy;
-  v14 = handlerCopy;
-  [v13 requestAuthorizationWithOptions:7 completionHandler:v15];
+  v16 = [objc_alloc(MEMORY[0x1E6983308]) initWithBundleIdentifier:placeholderBundleIdentifier];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __115___SFWebAppServiceViewController_webViewController_requestNotificationPermissionForSecurityOrigin_decisionHandler___block_invoke;
+  v18[3] = &unk_1E8491E88;
+  v19 = handlerCopy;
+  v17 = handlerCopy;
+  [v16 requestAuthorizationWithOptions:7 completionHandler:v18];
 }
 
 - (void)webViewController:(id)controller updatedAppBadge:(id)badge fromSecurityOrigin:(id)origin
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   badgeCopy = badge;
   originCopy = origin;
-  if ((objc_opt_respondsToSelector() & 1) == 0)
+  v9 = objc_opt_respondsToSelector();
+  if ((v9 & 1) == 0)
   {
-    v20 = WBS_LOG_CHANNEL_PREFIXWebPush();
-    if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v26 = WBS_LOG_CHANNEL_PREFIXWebPush(v9, v10);
+    if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_14;
     }
 
-    LOWORD(v27) = 0;
-    v21 = "Denied attempt to update app badge from a window object: Missing selector to verify script origin should be allowed";
-    v22 = v20;
+    LOWORD(v33) = 0;
+    v27 = "Denied attempt to update app badge from a window object: Missing selector to verify script origin should be allowed";
+    v28 = v26;
     goto LABEL_9;
   }
 
   pageURL = [(UIWebClip *)self->_webClip pageURL];
-  v10 = [originCopy isSameSiteAsURL:pageURL];
+  v12 = [originCopy isSameSiteAsURL:pageURL];
 
-  if (v10)
+  if (v12)
   {
-    v11 = objc_opt_respondsToSelector();
-    v12 = WBS_LOG_CHANNEL_PREFIXWebPush();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-    if (v11)
+    v15 = objc_opt_respondsToSelector();
+    v16 = v15;
+    v18 = WBS_LOG_CHANNEL_PREFIXWebPush(v15, v17);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    if (v16)
     {
-      if (v13)
+      if (v19)
       {
         webClip = self->_webClip;
-        v15 = v12;
+        v21 = v18;
         identifier = [(UIWebClip *)webClip identifier];
-        v27 = 138543875;
-        v28 = identifier;
-        v29 = 2113;
-        v30 = originCopy;
-        v31 = 2112;
-        v32 = badgeCopy;
-        _os_log_impl(&dword_1D4644000, v15, OS_LOG_TYPE_DEFAULT, "Web Clip with identifier '%{public}@', script from origin %{private}@ updated app badge count to %@", &v27, 0x20u);
+        v33 = 138543875;
+        v34 = identifier;
+        v35 = 2113;
+        v36 = originCopy;
+        v37 = 2112;
+        v38 = badgeCopy;
+        _os_log_impl(&dword_1D4644000, v21, OS_LOG_TYPE_DEFAULT, "Web Clip with identifier '%{public}@', script from origin %{private}@ updated app badge count to %@", &v33, 0x20u);
       }
 
-      v17 = objc_alloc(MEMORY[0x1E69DEBB0]);
+      v23 = objc_alloc(MEMORY[0x1E69DEBB0]);
       placeholderBundleIdentifier = [(UIWebClip *)self->_webClip placeholderBundleIdentifier];
-      v19 = [v17 initWithBundleIdentifier:placeholderBundleIdentifier];
+      v25 = [v23 initWithBundleIdentifier:placeholderBundleIdentifier];
 
-      [v19 setBadgeValue:badgeCopy];
+      [v25 setBadgeValue:badgeCopy];
       goto LABEL_14;
     }
 
-    if (!v13)
+    if (!v19)
     {
       goto LABEL_14;
     }
 
-    LOWORD(v27) = 0;
-    v21 = "Denied attempt to update app badge from a window object: Cannot get push placeholder bundle identifier from UIWebClip";
-    v22 = v12;
+    LOWORD(v33) = 0;
+    v27 = "Denied attempt to update app badge from a window object: Cannot get push placeholder bundle identifier from UIWebClip";
+    v28 = v18;
 LABEL_9:
-    _os_log_impl(&dword_1D4644000, v22, OS_LOG_TYPE_DEFAULT, v21, &v27, 2u);
+    _os_log_impl(&dword_1D4644000, v28, OS_LOG_TYPE_DEFAULT, v27, &v33, 2u);
     goto LABEL_14;
   }
 
-  v23 = WBS_LOG_CHANNEL_PREFIXWebPush();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v29 = WBS_LOG_CHANNEL_PREFIXWebPush(v13, v14);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = self->_webClip;
-    v25 = v23;
-    pageURL2 = [(UIWebClip *)v24 pageURL];
-    v27 = 138478083;
-    v28 = originCopy;
-    v29 = 2117;
-    v30 = pageURL2;
-    _os_log_impl(&dword_1D4644000, v25, OS_LOG_TYPE_DEFAULT, "Denied attempt to update app badge from a window object: Script origin %{private}@ is a different site from Web Clip page URL %{sensitive}@", &v27, 0x16u);
+    v30 = self->_webClip;
+    v31 = v29;
+    pageURL2 = [(UIWebClip *)v30 pageURL];
+    v33 = 138478083;
+    v34 = originCopy;
+    v35 = 2117;
+    v36 = pageURL2;
+    _os_log_impl(&dword_1D4644000, v31, OS_LOG_TYPE_DEFAULT, "Denied attempt to update app badge from a window object: Script origin %{private}@ is a different site from Web Clip page URL %{sensitive}@", &v33, 0x16u);
   }
 
 LABEL_14:
@@ -1056,7 +1059,7 @@ LABEL_15:
 
 - (void)loadWebAppWithIdentifier:(id)identifier
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if ([(_SFWebAppServiceViewController *)self _clientIsWebApp])
   {
@@ -1074,37 +1077,42 @@ LABEL_15:
     v10 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v9 error:0];
 
     [(UIWebClip *)self->_webClip _sf_setApplicationManifest:v10];
-    if (objc_opt_respondsToSelector())
+    v11 = objc_opt_respondsToSelector();
+    if (v11)
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXWebApp();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = WBS_LOG_CHANNEL_PREFIXWebApp(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         bundleVersion = [(UIWebClip *)self->_webClip bundleVersion];
         *buf = 138543618;
-        v27 = identifierCopy;
-        v28 = 2048;
-        v29 = bundleVersion;
-        _os_log_impl(&dword_1D4644000, v11, OS_LOG_TYPE_DEFAULT, "Loading UIWebClip with identifier '%{public}@'; version: %lu", buf, 0x16u);
+        v31 = identifierCopy;
+        v32 = 2048;
+        v33 = bundleVersion;
+        _os_log_impl(&dword_1D4644000, v13, OS_LOG_TYPE_DEFAULT, "Loading UIWebClip with identifier '%{public}@'; version: %lu", buf, 0x16u);
       }
     }
 
     else
     {
-      v13 = WBS_LOG_CHANNEL_PREFIXWebApp();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = WBS_LOG_CHANNEL_PREFIXWebApp(v11, v12);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v27 = identifierCopy;
-        _os_log_impl(&dword_1D4644000, v13, OS_LOG_TYPE_DEFAULT, "Loading UIWebClip with identifier '%{public}@'; unable to get version information", buf, 0xCu);
+        v31 = identifierCopy;
+        _os_log_impl(&dword_1D4644000, v15, OS_LOG_TYPE_DEFAULT, "Loading UIWebClip with identifier '%{public}@'; unable to get version information", buf, 0xCu);
       }
     }
 
-    if ((objc_opt_respondsToSelector() & 1) != 0 && ([(UIWebClip *)self->_webClip ensurePlaceholderBundle]& 1) == 0)
+    if (objc_opt_respondsToSelector())
     {
-      v14 = WBS_LOG_CHANNEL_PREFIXWebApp();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      ensurePlaceholderBundle = [(UIWebClip *)self->_webClip ensurePlaceholderBundle];
+      if ((ensurePlaceholderBundle & 1) == 0)
       {
-        [_SFWebAppServiceViewController loadWebAppWithIdentifier:];
+        v18 = WBS_LOG_CHANNEL_PREFIXWebApp(ensurePlaceholderBundle, v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        {
+          [_SFWebAppServiceViewController loadWebAppWithIdentifier:];
+        }
       }
     }
 
@@ -1116,21 +1124,21 @@ LABEL_15:
     [serviceViewControllers setObject:self forKey:identifierCopy];
 
     [(_SFWebAppServiceViewController *)self setNeedsStatusBarAppearanceUpdate];
-    v17 = objc_alloc(MEMORY[0x1E698D028]);
+    v21 = objc_alloc(MEMORY[0x1E698D028]);
     _hostApplicationBundleIdentifier = [(_SFWebAppServiceViewController *)self _hostApplicationBundleIdentifier];
-    v25 = _hostApplicationBundleIdentifier;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
-    v20 = [v17 initWithBundleIDs:v19 states:40];
+    v29 = _hostApplicationBundleIdentifier;
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
+    v24 = [v21 initWithBundleIDs:v23 states:40];
     stateMonitor = self->_stateMonitor;
-    self->_stateMonitor = v20;
+    self->_stateMonitor = v24;
 
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __59___SFWebAppServiceViewController_loadWebAppWithIdentifier___block_invoke;
-    v22[3] = &unk_1E8490FC8;
-    objc_copyWeak(&v23, &location);
-    [(BKSApplicationStateMonitor *)self->_stateMonitor setHandler:v22];
-    objc_destroyWeak(&v23);
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __59___SFWebAppServiceViewController_loadWebAppWithIdentifier___block_invoke;
+    v26[3] = &unk_1E8490FC8;
+    objc_copyWeak(&v27, &location);
+    [(BKSApplicationStateMonitor *)self->_stateMonitor setHandler:v26];
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
   }
 }
@@ -1213,55 +1221,55 @@ LABEL_15:
 
 - (void)websiteDataStore:(id)store showNotification:(id)notification
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   notificationCopy = notification;
-  v8 = WBS_LOG_CHANNEL_PREFIXWebPush();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = WBS_LOG_CHANNEL_PREFIXWebPush(notificationCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = v8;
+    v10 = v9;
     _webPushPartition = [storeCopy _webPushPartition];
     *buf = 138543362;
-    v37 = _webPushPartition;
-    _os_log_impl(&dword_1D4644000, v9, OS_LOG_TYPE_DEFAULT, "About to show push notification with targetContentIdentifier %{public}@", buf, 0xCu);
+    v39 = _webPushPartition;
+    _os_log_impl(&dword_1D4644000, v10, OS_LOG_TYPE_DEFAULT, "About to show push notification with targetContentIdentifier %{public}@", buf, 0xCu);
   }
 
-  v11 = objc_opt_new();
-  [v11 setDefaultActionBundleIdentifier:@"com.apple.webapp"];
+  v12 = objc_opt_new();
+  [v12 setDefaultActionBundleIdentifier:@"com.apple.webapp"];
   _webPushPartition2 = [storeCopy _webPushPartition];
-  [v11 setTargetContentIdentifier:_webPushPartition2];
+  [v12 setTargetContentIdentifier:_webPushPartition2];
 
   title = [notificationCopy title];
-  [v11 setTitle:title];
+  [v12 setTitle:title];
 
   body = [notificationCopy body];
-  [v11 setBody:body];
+  [v12 setBody:body];
 
   if ((objc_opt_respondsToSelector() & 1) != 0 && [notificationCopy alert] != 1)
   {
     defaultSound = [MEMORY[0x1E69832B8] defaultSound];
-    [v11 setSound:defaultSound];
+    [v12 setSound:defaultSound];
   }
 
-  v16 = self->_webClip;
-  identifier = [(UIWebClip *)v16 identifier];
+  v17 = self->_webClip;
+  identifier = [(UIWebClip *)v17 identifier];
   _webPushPartition3 = [storeCopy _webPushPartition];
-  v19 = [identifier isEqualToString:_webPushPartition3];
+  v20 = [identifier isEqualToString:_webPushPartition3];
 
-  if ((v19 & 1) == 0)
+  if ((v20 & 1) == 0)
   {
-    v20 = MEMORY[0x1E69DD2B8];
+    v21 = MEMORY[0x1E69DD2B8];
     _webPushPartition4 = [storeCopy _webPushPartition];
-    v22 = [v20 webClipWithIdentifier:_webPushPartition4];
+    v23 = [v21 webClipWithIdentifier:_webPushPartition4];
 
-    v16 = v22;
+    v17 = v23;
   }
 
-  title2 = [(UIWebClip *)v16 title];
+  title2 = [(UIWebClip *)v17 title];
   if (![title2 length])
   {
-    v24 = WBS_LOG_CHANNEL_PREFIXWebPush();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v26 = WBS_LOG_CHANNEL_PREFIXWebPush(0, v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       [_SFWebAppServiceViewController websiteDataStore:showNotification:];
     }
@@ -1271,24 +1279,24 @@ LABEL_15:
     title2 = origin;
   }
 
-  v26 = MEMORY[0x1E696AEC0];
-  v27 = _WBSLocalizedString();
-  v28 = [v26 stringWithFormat:v27, title2];
-  [v11 setSubtitle:v28];
+  v28 = MEMORY[0x1E696AEC0];
+  v29 = _WBSLocalizedString();
+  v30 = [v28 stringWithFormat:v29, title2];
+  [v12 setSubtitle:v30];
 
   userInfo = [notificationCopy userInfo];
-  [v11 setUserInfo:userInfo];
+  [v12 setUserInfo:userInfo];
 
-  v30 = [(_SFWebAppServiceViewController *)self placeholderBundleIdentifierForDataStore:storeCopy];
-  v31 = [MEMORY[0x1E6983290] iconForApplicationIdentifier:v30];
-  [v11 setIcon:v31];
+  v32 = [(_SFWebAppServiceViewController *)self placeholderBundleIdentifierForDataStore:storeCopy];
+  v33 = [MEMORY[0x1E6983290] iconForApplicationIdentifier:v32];
+  [v12 setIcon:v33];
 
-  v32 = MEMORY[0x1E6983298];
+  v34 = MEMORY[0x1E6983298];
   identifier2 = [notificationCopy identifier];
-  v34 = [v32 requestWithIdentifier:identifier2 content:v11 trigger:0];
+  v36 = [v34 requestWithIdentifier:identifier2 content:v12 trigger:0];
 
-  v35 = [objc_alloc(MEMORY[0x1E6983308]) initWithBundleIdentifier:v30];
-  [v35 addNotificationRequest:v34 withCompletionHandler:&__block_literal_global_279];
+  v37 = [objc_alloc(MEMORY[0x1E6983308]) initWithBundleIdentifier:v32];
+  [v37 addNotificationRequest:v36 withCompletionHandler:&__block_literal_global_279];
 }
 
 - (void)websiteDataStore:(id)store getDisplayedNotificationsForWorkerOrigin:(id)origin completionHandler:(id)handler
@@ -1308,19 +1316,20 @@ LABEL_15:
 - (void)websiteDataStore:(id)store navigateToNotificationActionURL:(id)l
 {
   lCopy = l;
-  if ([lCopy safari_isEligibleToBeOpenedByServiceWorkers])
+  safari_isEligibleToBeOpenedByServiceWorkers = [lCopy safari_isEligibleToBeOpenedByServiceWorkers];
+  if (safari_isEligibleToBeOpenedByServiceWorkers)
   {
-    v6 = [MEMORY[0x1E695AC68] requestWithURL:lCopy];
-    [(_SFBrowserContentViewController *)self loadRequest:v6];
+    v8 = [MEMORY[0x1E695AC68] requestWithURL:lCopy];
+    [(_SFBrowserContentViewController *)self loadRequest:v8];
   }
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXWebPush();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = WBS_LOG_CHANNEL_PREFIXWebPush(safari_isEligibleToBeOpenedByServiceWorkers, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_INFO, "Declarative web push notification action URL is ineligible to be opened", v8, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1D4644000, v9, OS_LOG_TYPE_INFO, "Declarative web push notification action URL is ineligible to be opened", v10, 2u);
     }
   }
 }
@@ -1329,27 +1338,28 @@ LABEL_15:
 {
   windowCopy = window;
   handlerCopy = handler;
-  if ([windowCopy safari_isEligibleToBeOpenedByServiceWorkers])
+  safari_isEligibleToBeOpenedByServiceWorkers = [windowCopy safari_isEligibleToBeOpenedByServiceWorkers];
+  if (safari_isEligibleToBeOpenedByServiceWorkers)
   {
     webViewConfiguration = [(_SFWebAppServiceViewController *)self webViewConfiguration];
-    v11 = [(_SFBrowserContentViewController *)self _openNewWebViewIfNeededWithConfiguration:webViewConfiguration forNavigationAction:0];
+    v13 = [(_SFBrowserContentViewController *)self _openNewWebViewIfNeededWithConfiguration:webViewConfiguration forNavigationAction:0];
 
-    if (v11)
+    if (v13)
     {
-      v12 = [MEMORY[0x1E695AC68] requestWithURL:windowCopy];
-      [(_SFBrowserContentViewController *)self loadRequest:v12];
+      v14 = [MEMORY[0x1E695AC68] requestWithURL:windowCopy];
+      [(_SFBrowserContentViewController *)self loadRequest:v14];
     }
 
-    handlerCopy[2](handlerCopy, v11);
+    handlerCopy[2](handlerCopy, v13);
   }
 
   else
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXWebPush();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v15 = WBS_LOG_CHANNEL_PREFIXWebPush(safari_isEligibleToBeOpenedByServiceWorkers, v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v14[0] = 0;
-      _os_log_impl(&dword_1D4644000, v13, OS_LOG_TYPE_INFO, "Web push notification URL is ineligible to be opened", v14, 2u);
+      v16[0] = 0;
+      _os_log_impl(&dword_1D4644000, v15, OS_LOG_TYPE_INFO, "Web push notification URL is ineligible to be opened", v16, 2u);
     }
 
     handlerCopy[2](handlerCopy, 0);
@@ -1358,109 +1368,111 @@ LABEL_15:
 
 - (void)websiteDataStore:(id)store workerOrigin:(id)origin updatedAppBadge:(id)badge
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   originCopy = origin;
   badgeCopy = badge;
-  if (objc_opt_respondsToSelector())
+  v11 = objc_opt_respondsToSelector();
+  if (v11)
   {
-    v11 = self->_webClip;
-    identifier = [(UIWebClip *)v11 identifier];
+    v13 = self->_webClip;
+    identifier = [(UIWebClip *)v13 identifier];
     _webPushPartition = [storeCopy _webPushPartition];
-    v14 = [identifier isEqualToString:_webPushPartition];
+    v16 = [identifier isEqualToString:_webPushPartition];
 
-    if ((v14 & 1) == 0)
+    if ((v16 & 1) == 0)
     {
-      v15 = MEMORY[0x1E69DD2B8];
+      v17 = MEMORY[0x1E69DD2B8];
       _webPushPartition2 = [storeCopy _webPushPartition];
-      v17 = [v15 webClipWithIdentifier:_webPushPartition2];
+      v19 = [v17 webClipWithIdentifier:_webPushPartition2];
 
-      v11 = v17;
+      v13 = v19;
     }
 
-    pageURL = [(UIWebClip *)v11 pageURL];
-    v19 = [originCopy isSameSiteAsURL:pageURL];
+    pageURL = [(UIWebClip *)v13 pageURL];
+    v21 = [originCopy isSameSiteAsURL:pageURL];
 
-    if (v19)
+    if (v21)
     {
-      v20 = objc_opt_respondsToSelector();
-      v21 = WBS_LOG_CHANNEL_PREFIXWebPush();
-      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
-      if (v20)
+      v24 = objc_opt_respondsToSelector();
+      v25 = v24;
+      v27 = WBS_LOG_CHANNEL_PREFIXWebPush(v24, v26);
+      v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+      if (v25)
       {
-        if (v22)
+        if (v28)
         {
-          v23 = v21;
+          v29 = v27;
           _webPushPartition3 = [storeCopy _webPushPartition];
-          v32 = 138412803;
-          v33 = _webPushPartition3;
-          v34 = 2113;
-          v35 = originCopy;
-          v36 = 2112;
-          v37 = badgeCopy;
-          _os_log_impl(&dword_1D4644000, v23, OS_LOG_TYPE_DEFAULT, "Web clip with identifier '%@' worker from origin %{private}@ updated app badge count to %@", &v32, 0x20u);
+          v38 = 138412803;
+          v39 = _webPushPartition3;
+          v40 = 2113;
+          v41 = originCopy;
+          v42 = 2112;
+          v43 = badgeCopy;
+          _os_log_impl(&dword_1D4644000, v29, OS_LOG_TYPE_DEFAULT, "Web clip with identifier '%@' worker from origin %{private}@ updated app badge count to %@", &v38, 0x20u);
         }
 
-        v25 = objc_alloc(MEMORY[0x1E69DEBB0]);
-        placeholderBundleIdentifier = [(UIWebClip *)v11 placeholderBundleIdentifier];
-        v27 = [v25 initWithBundleIdentifier:placeholderBundleIdentifier];
+        v31 = objc_alloc(MEMORY[0x1E69DEBB0]);
+        placeholderBundleIdentifier = [(UIWebClip *)v13 placeholderBundleIdentifier];
+        v33 = [v31 initWithBundleIdentifier:placeholderBundleIdentifier];
 
-        [v27 setBadgeValue:badgeCopy];
+        [v33 setBadgeValue:badgeCopy];
       }
 
-      else if (v22)
+      else if (v28)
       {
-        LOWORD(v32) = 0;
-        _os_log_impl(&dword_1D4644000, v21, OS_LOG_TYPE_DEFAULT, "Denied attempt to update app badge from a worker: Cannot get push placeholder bundle identifier from UIWebClip", &v32, 2u);
+        LOWORD(v38) = 0;
+        _os_log_impl(&dword_1D4644000, v27, OS_LOG_TYPE_DEFAULT, "Denied attempt to update app badge from a worker: Cannot get push placeholder bundle identifier from UIWebClip", &v38, 2u);
       }
     }
 
     else
     {
-      v29 = WBS_LOG_CHANNEL_PREFIXWebPush();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v35 = WBS_LOG_CHANNEL_PREFIXWebPush(v22, v23);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
-        v30 = v29;
-        pageURL2 = [(UIWebClip *)v11 pageURL];
-        v32 = 138478083;
-        v33 = originCopy;
-        v34 = 2117;
-        v35 = pageURL2;
-        _os_log_impl(&dword_1D4644000, v30, OS_LOG_TYPE_DEFAULT, "Denied attempt to update app badge from a worker: Worker origin %{private}@ is a different site from Web Clip page URL %{sensitive}@", &v32, 0x16u);
+        v36 = v35;
+        pageURL2 = [(UIWebClip *)v13 pageURL];
+        v38 = 138478083;
+        v39 = originCopy;
+        v40 = 2117;
+        v41 = pageURL2;
+        _os_log_impl(&dword_1D4644000, v36, OS_LOG_TYPE_DEFAULT, "Denied attempt to update app badge from a worker: Worker origin %{private}@ is a different site from Web Clip page URL %{sensitive}@", &v38, 0x16u);
       }
     }
   }
 
   else
   {
-    v28 = WBS_LOG_CHANNEL_PREFIXWebPush();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v34 = WBS_LOG_CHANNEL_PREFIXWebPush(v11, v12);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v32) = 0;
-      _os_log_impl(&dword_1D4644000, v28, OS_LOG_TYPE_DEFAULT, "Denied attempt to update app badge from a worker: Missing selector to verify worker script origin should be allowed", &v32, 2u);
+      LOWORD(v38) = 0;
+      _os_log_impl(&dword_1D4644000, v34, OS_LOG_TYPE_DEFAULT, "Denied attempt to update app badge from a worker: Missing selector to verify worker script origin should be allowed", &v38, 2u);
     }
   }
 }
 
 - (void)processWebPushForWebAppWithIdentifier:(id)identifier
 {
-  v32[2] = *MEMORY[0x1E69E9840];
+  v33[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   identifierCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s for %@", "-[_SFWebAppServiceViewController processWebPushForWebAppWithIdentifier:]", identifierCopy];
   v6 = *MEMORY[0x1E69DDA98];
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __72___SFWebAppServiceViewController_processWebPushForWebAppWithIdentifier___block_invoke;
-  v26[3] = &unk_1E848F810;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __72___SFWebAppServiceViewController_processWebPushForWebAppWithIdentifier___block_invoke;
+  v27[3] = &unk_1E848F810;
   v7 = identifierCopy;
-  v27 = v7;
-  v8 = [v6 beginBackgroundTaskWithName:identifierCopy expirationHandler:v26];
-  v9 = WBS_LOG_CHANNEL_PREFIXWebPush();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v28 = v7;
+  v8 = [v6 beginBackgroundTaskWithName:identifierCopy expirationHandler:v27];
+  v10 = WBS_LOG_CHANNEL_PREFIXWebPush(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = v7;
-    _os_log_impl(&dword_1D4644000, v9, OS_LOG_TYPE_DEFAULT, "Processing push for Web clip with identifier: '%@'", &buf, 0xCu);
+    _os_log_impl(&dword_1D4644000, v10, OS_LOG_TYPE_DEFAULT, "Processing push for Web clip with identifier: '%@'", &buf, 0xCu);
   }
 
   if (self->_webClip)
@@ -1474,50 +1486,50 @@ LABEL_15:
   }
 
   _webPushPartition = [websiteDataStore _webPushPartition];
-  v12 = [_webPushPartition isEqualToString:v7];
+  v13 = [_webPushPartition isEqualToString:v7];
 
-  if ((v12 & 1) == 0)
+  if ((v13 & 1) == 0)
   {
-    v13 = [(_SFWebAppServiceViewController *)self createWebsiteDataStoreForWebClipIdentifier:v7];
+    v14 = [(_SFWebAppServiceViewController *)self createWebsiteDataStoreForWebClipIdentifier:v7];
 
-    websiteDataStore = v13;
+    websiteDataStore = v14;
   }
 
-  v14 = dispatch_group_create();
-  dispatch_group_enter(v14);
+  v15 = dispatch_group_create();
+  dispatch_group_enter(v15);
   if (objc_opt_respondsToSelector())
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v29 = 0x3042000000;
-    v30 = __Block_byref_object_copy__288;
-    v31 = __Block_byref_object_dispose__289;
-    v32[0] = 0;
+    v30 = 0x3042000000;
+    v31 = __Block_byref_object_copy__288;
+    v32 = __Block_byref_object_dispose__289;
+    v33[0] = 0;
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __72___SFWebAppServiceViewController_processWebPushForWebAppWithIdentifier___block_invoke_290;
     aBlock[3] = &unk_1E8491FA0;
-    v23 = v14;
-    p_buf = &buf;
-    v15 = websiteDataStore;
     v24 = v15;
-    v16 = _Block_copy(aBlock);
-    objc_storeWeak((*(&buf + 1) + 40), v16);
-    getAndProcessPendingPushMessage(v15, v16);
+    p_buf = &buf;
+    v16 = websiteDataStore;
+    v25 = v16;
+    v17 = _Block_copy(aBlock);
+    objc_storeWeak((*(&buf + 1) + 40), v17);
+    getAndProcessPendingPushMessage(v16, v17);
 
     _Block_object_dispose(&buf, 8);
-    objc_destroyWeak(v32);
+    objc_destroyWeak(v33);
   }
 
   else
   {
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __72___SFWebAppServiceViewController_processWebPushForWebAppWithIdentifier___block_invoke_2;
-    v19[3] = &unk_1E8491FF0;
-    v20 = v14;
-    v21 = websiteDataStore;
-    [v21 _getPendingPushMessages:v19];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __72___SFWebAppServiceViewController_processWebPushForWebAppWithIdentifier___block_invoke_2;
+    v20[3] = &unk_1E8491FF0;
+    v21 = v15;
+    v22 = websiteDataStore;
+    [v22 _getPendingPushMessages:v20];
   }
 
   block[0] = MEMORY[0x1E69E9820];
@@ -1527,42 +1539,42 @@ LABEL_15:
   block[4] = self;
   block[5] = v8;
   selfCopy = self;
-  dispatch_group_notify(v14, MEMORY[0x1E69E96A0], block);
+  dispatch_group_notify(v15, MEMORY[0x1E69E96A0], block);
 }
 
 - (void)handlePushNotificationActivation:(id)activation
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   webClip = self->_webClip;
   activationCopy = activation;
   identifier = [(UIWebClip *)webClip identifier];
   v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s for %@", "-[_SFWebAppServiceViewController handlePushNotificationActivation:]", identifier];
   v8 = *MEMORY[0x1E69DDA98];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __67___SFWebAppServiceViewController_handlePushNotificationActivation___block_invoke;
-  v19[3] = &unk_1E848F810;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __67___SFWebAppServiceViewController_handlePushNotificationActivation___block_invoke;
+  v20[3] = &unk_1E848F810;
   v9 = identifier;
-  v20 = v9;
-  v10 = [v8 beginBackgroundTaskWithName:v7 expirationHandler:v19];
-  v11 = WBS_LOG_CHANNEL_PREFIXWebPush();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v21 = v9;
+  v10 = [v8 beginBackgroundTaskWithName:v7 expirationHandler:v20];
+  v12 = WBS_LOG_CHANNEL_PREFIXWebPush(v10, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = v9;
-    _os_log_impl(&dword_1D4644000, v11, OS_LOG_TYPE_DEFAULT, "Processing push notification activation for Web clip with identifier: '%@'", buf, 0xCu);
+    v23 = v9;
+    _os_log_impl(&dword_1D4644000, v12, OS_LOG_TYPE_DEFAULT, "Processing push notification activation for Web clip with identifier: '%@'", buf, 0xCu);
   }
 
-  v12 = dispatch_group_create();
-  dispatch_group_enter(v12);
+  v13 = dispatch_group_create();
+  dispatch_group_enter(v13);
   websiteDataStore = [(_SFWebAppServiceViewController *)self websiteDataStore];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __67___SFWebAppServiceViewController_handlePushNotificationActivation___block_invoke_299;
-  v17[3] = &unk_1E848FA00;
-  v18 = v12;
-  v14 = v12;
-  [websiteDataStore _processPersistentNotificationClick:activationCopy completionHandler:v17];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __67___SFWebAppServiceViewController_handlePushNotificationActivation___block_invoke_299;
+  v18[3] = &unk_1E848FA00;
+  v19 = v13;
+  v15 = v13;
+  [websiteDataStore _processPersistentNotificationClick:activationCopy completionHandler:v18];
 
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -1571,7 +1583,7 @@ LABEL_15:
   block[4] = self;
   block[5] = v10;
   selfCopy = self;
-  dispatch_group_notify(v14, MEMORY[0x1E69E96A0], block);
+  dispatch_group_notify(v15, MEMORY[0x1E69E96A0], block);
 }
 
 - (void)_handleHostStateUpdate:(id)update

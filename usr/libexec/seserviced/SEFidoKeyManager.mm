@@ -158,7 +158,7 @@
   v13 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v15 = v14;
 
-  v16 = sub_10031E3AC(v10, v12);
+  v16 = sub_10031E3AC(v10, v12, v13, v15);
   sub_10006A178(v13, v15);
   sub_10006A178(v10, v12);
 
@@ -274,7 +274,7 @@
   String.init(cString:)();
   Logger.init(subsystem:category:)();
   v6.receiver = self;
-  v6.super_class = type metadata accessor for SEFidoKeyManager();
+  v6.super_class = type metadata accessor for SEFidoKeyManager(0);
   return [(SEFidoKeyManager *)&v6 init];
 }
 

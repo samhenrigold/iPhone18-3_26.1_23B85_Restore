@@ -174,7 +174,7 @@ LABEL_9:
 
 + (id)generateAssetFromFileURLs:(id)ls previewImage:(id)image error:(id *)error
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
   imageCopy = image;
   if (![lsCopy count])
@@ -206,13 +206,13 @@ LABEL_13:
     goto LABEL_48;
   }
 
-  v57 = 0;
-  v58 = 0;
   v56 = 0;
-  [AEFileAssetPackageGenerator generateMetadataFromFileURLs:lsCopy fileURL:&v58 videoComplementURL:&v57 metadata:&v56];
-  v12 = v58;
-  v13 = v57;
-  v14 = v56;
+  v57 = 0;
+  v55 = 0;
+  [AEFileAssetPackageGenerator generateMetadataFromFileURLs:lsCopy fileURL:&v57 videoComplementURL:&v56 metadata:&v55];
+  v12 = v57;
+  v13 = v56;
+  v14 = v55;
   v15 = v14;
   if (v12 && v14)
   {
@@ -237,7 +237,7 @@ LABEL_18:
         [imageCopy size];
         v28 = v26;
         v29 = v27;
-        v54 = uUIDString;
+        v53 = uUIDString;
         if (imageCopy && v23 == v26 && v25 == v27)
         {
           v30 = PLAssetExplorerGetLog();
@@ -280,17 +280,17 @@ LABEL_18:
                 v37 = @"nil";
               }
 
-              v53 = v37;
-              v65.width = v23;
-              v65.height = v25;
-              v38 = NSStringFromCGSize(v65);
-              v66.width = v28;
-              v66.height = v29;
-              v39 = NSStringFromCGSize(v66);
+              v52 = v37;
+              v64.width = v23;
+              v64.height = v25;
+              v38 = NSStringFromCGSize(v64);
+              v65.width = v28;
+              v65.height = v29;
+              v39 = NSStringFromCGSize(v65);
               isImage3 = [v15 isImage];
               v41 = @"NO";
               LODWORD(time.value) = 138413058;
-              *(&time.value + 4) = v53;
+              *(&time.value + 4) = v52;
               LOWORD(time.flags) = 2112;
               if (isImage3)
               {
@@ -299,9 +299,9 @@ LABEL_18:
 
               *(&time.flags + 2) = v38;
               HIWORD(time.epoch) = 2112;
-              v60 = v39;
-              v61 = 2112;
-              v62 = v41;
+              v59 = v39;
+              v60 = 2112;
+              v61 = v41;
               _os_log_impl(&dword_2411DE000, v32, OS_LOG_TYPE_DEFAULT, "Not generating preview. previewImage = %@, size = %@, previewImage.size = %@, isImage = %@", &time, 0x2Au);
             }
           }
@@ -371,7 +371,7 @@ LABEL_18:
       identifier3 = [*MEMORY[0x277CE1E00] identifier];
       [(AEMutableAssetPackage *)v11 storeURL:v12 forType:identifier3];
 
-      [v15 duration];
+      objc_msgSend_duration(v15);
       identifier2 = [MEMORY[0x277CCABB0] numberWithDouble:CMTimeGetSeconds(&time)];
       [v18 setValue:identifier2 forKey:@"AEAssetPackageDisplayDuration"];
     }
@@ -393,7 +393,6 @@ LABEL_18:
 LABEL_47:
 
 LABEL_48:
-  v51 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

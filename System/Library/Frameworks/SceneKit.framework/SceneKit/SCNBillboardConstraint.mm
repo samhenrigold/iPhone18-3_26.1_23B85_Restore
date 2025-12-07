@@ -12,17 +12,18 @@
 
 - (SCNBillboardConstraint)init
 {
-  v4.receiver = self;
-  v4.super_class = SCNBillboardConstraint;
-  v2 = [(SCNConstraint *)&v4 init];
+  v6.receiver = self;
+  v6.super_class = SCNBillboardConstraint;
+  v2 = [(SCNConstraint *)&v6 init];
+  v4 = v2;
   if (v2)
   {
-    *(v2 + 1) = C3DConstraintCreateBillboard();
-    [v2 setFreeAxes:7];
-    *(v2 + 64) = C3DConstraintBillboardGetPreserveScale(*(v2 + 1));
+    v2->super._constraintRef = C3DConstraintCreateBillboard(v2, v3);
+    [(SCNBillboardConstraint *)v4 setFreeAxes:7];
+    v4->_preserveScale = C3DConstraintBillboardGetPreserveScale(v4->super._constraintRef);
   }
 
-  return v2;
+  return v4;
 }
 
 + (SCNBillboardConstraint)billboardConstraint
@@ -78,14 +79,14 @@
 
 - (SCNBillboardConstraint)initWithCoder:(id)coder
 {
-  v7.receiver = self;
-  v7.super_class = SCNBillboardConstraint;
-  v4 = [(SCNConstraint *)&v7 initWithCoder:?];
+  v9.receiver = self;
+  v9.super_class = SCNBillboardConstraint;
+  v4 = [(SCNConstraint *)&v9 initWithCoder:?];
   if (v4)
   {
     v5 = +[SCNTransaction immediateMode];
-    [SCNTransaction setImmediateMode:1];
-    v4->super._constraintRef = C3DConstraintCreateBillboard();
+    v6 = [SCNTransaction setImmediateMode:1];
+    v4->super._constraintRef = C3DConstraintCreateBillboard(v6, v7);
     -[SCNBillboardConstraint setFreeAxes:](v4, "setFreeAxes:", [coder decodeIntegerForKey:@"freeAxes"]);
     -[SCNBillboardConstraint setPreserveScale:](v4, "setPreserveScale:", [coder decodeBoolForKey:@"preserveScale"]);
     [(SCNConstraint *)v4 finalizeDecodeConstraint:coder];

@@ -96,17 +96,17 @@ LABEL_5:
 
 - (void)addAssignment:(id)assignment
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   assignmentCopy = assignment;
   v5 = +[REMLogStore write];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     reminderChangeItem = [(REMReminderAssignmentContextChangeItem *)self reminderChangeItem];
-    v12 = 138412546;
-    v13 = reminderChangeItem;
-    v14 = 2112;
-    v15 = assignmentCopy;
-    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Adding assignment {reminderChangeItem: %@, assignment: %@}", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = reminderChangeItem;
+    v13 = 2112;
+    v14 = assignmentCopy;
+    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Adding assignment {reminderChangeItem: %@, assignment: %@}", &v11, 0x16u);
   }
 
   reminderChangeItem2 = [(REMReminderAssignmentContextChangeItem *)self reminderChangeItem];
@@ -121,8 +121,6 @@ LABEL_5:
   [v9 addObject:assignmentCopy];
   reminderChangeItem3 = [(REMReminderAssignmentContextChangeItem *)self reminderChangeItem];
   [reminderChangeItem3 setAssignments:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)addAssignmentWithAssignee:(id)assignee originator:(id)originator status:(int64_t)status
@@ -164,17 +162,17 @@ LABEL_5:
 
 - (void)removeAssignment:(id)assignment
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   assignmentCopy = assignment;
   v5 = +[REMLogStore write];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     reminderChangeItem = [(REMReminderAssignmentContextChangeItem *)self reminderChangeItem];
-    v12 = 138412546;
-    v13 = reminderChangeItem;
-    v14 = 2112;
-    v15 = assignmentCopy;
-    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Removing assignment {reminderChangeItem: %@, assignment: %@}", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = reminderChangeItem;
+    v13 = 2112;
+    v14 = assignmentCopy;
+    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Removing assignment {reminderChangeItem: %@, assignment: %@}", &v11, 0x16u);
   }
 
   reminderChangeItem2 = [(REMReminderAssignmentContextChangeItem *)self reminderChangeItem];
@@ -184,13 +182,11 @@ LABEL_5:
   [v9 removeObject:assignmentCopy];
   reminderChangeItem3 = [(REMReminderAssignmentContextChangeItem *)self reminderChangeItem];
   [reminderChangeItem3 setAssignments:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllAssignments
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   reminderChangeItem = [(REMReminderAssignmentContextChangeItem *)self reminderChangeItem];
   assignments = [reminderChangeItem assignments];
   v5 = [assignments count];
@@ -201,17 +197,15 @@ LABEL_5:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       reminderChangeItem2 = [(REMReminderAssignmentContextChangeItem *)self reminderChangeItem];
-      v11 = 138412290;
-      v12 = reminderChangeItem2;
-      _os_log_impl(&dword_19A0DB000, v6, OS_LOG_TYPE_INFO, "Removing all assignment {reminderChangeItem: %@}", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = reminderChangeItem2;
+      _os_log_impl(&dword_19A0DB000, v6, OS_LOG_TYPE_INFO, "Removing all assignment {reminderChangeItem: %@}", &v10, 0xCu);
     }
 
     v8 = [MEMORY[0x1E695DFD8] set];
     reminderChangeItem3 = [(REMReminderAssignmentContextChangeItem *)self reminderChangeItem];
     [reminderChangeItem3 setAssignments:v8];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

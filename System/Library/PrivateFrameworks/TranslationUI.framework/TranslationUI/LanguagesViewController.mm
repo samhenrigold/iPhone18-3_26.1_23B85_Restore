@@ -13,9 +13,7 @@
 {
   *(&self->super.super.super.isa + OBJC_IVAR____TtC13TranslationUI23LanguagesViewController_segmentedControl) = 0;
   v4 = OBJC_IVAR____TtC13TranslationUI23LanguagesViewController_selectionModel;
-  v5 = type metadata accessor for LanguageSelectionModel();
-  v6 = *(v5 + 48);
-  v7 = *(v5 + 52);
+  type metadata accessor for LanguageSelectionModel(0);
   swift_allocObject();
   *(&self->super.super.super.isa + v4) = sub_26F3ED628();
   *(&self->super.super._responderFlags + OBJC_IVAR____TtC13TranslationUI23LanguagesViewController_delegate) = 0;

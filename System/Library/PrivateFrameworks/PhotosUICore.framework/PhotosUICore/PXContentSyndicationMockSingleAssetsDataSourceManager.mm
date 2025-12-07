@@ -159,7 +159,7 @@ LABEL_3:
   v5 = dataSource;
   if (dataSource)
   {
-    [dataSource firstItemIndexPath];
+    objc_msgSend_firstItemIndexPath(dataSource);
   }
 
   else

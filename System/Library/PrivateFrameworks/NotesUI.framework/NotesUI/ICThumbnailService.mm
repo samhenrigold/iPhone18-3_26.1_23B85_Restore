@@ -29,9 +29,10 @@
 
 uint64_t __44__ICThumbnailService_sharedThumbnailService__block_invoke()
 {
-  sharedThumbnailService_instance = objc_alloc_init(ICThumbnailService);
+  v0 = objc_alloc_init(ICThumbnailService);
+  sharedThumbnailService_instance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (ICThumbnailService)init
@@ -116,7 +117,7 @@ uint64_t __44__ICThumbnailService_sharedThumbnailService__block_invoke()
   completionCopy = completion;
   v8 = [MEMORY[0x1E695DF00] now];
   cache = [(ICThumbnailService *)self cache];
-  v10 = [cache objectForKeyedSubscript:configurationCopy];
+  v10 = objc_msgSend_objectForKeyedSubscript_(cache);
 
   if (v10)
   {
@@ -192,7 +193,7 @@ void __60__ICThumbnailService_thumbnailWithConfiguration_completion___block_invo
 {
   v2 = [*(a1 + 32) callbacks];
   v3 = [*(a1 + 40) uniqueKey];
-  v10 = [v2 objectForKeyedSubscript:v3];
+  v10 = objc_msgSend_objectForKeyedSubscript_(v2);
 
   if (v10)
   {
@@ -729,7 +730,7 @@ void __56__ICThumbnailService_processThumbnailDescriptionResult___block_invoke(u
   v2 = [*(a1 + 32) callbacks];
   v3 = [*(a1 + 40) configuration];
   v4 = [v3 uniqueKey];
-  v5 = [v2 objectForKeyedSubscript:v4];
+  v5 = objc_msgSend_objectForKeyedSubscript_(v2);
   v6 = *(*(a1 + 48) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;

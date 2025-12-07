@@ -305,10 +305,12 @@ void __97__AXPIFingerContainerView_showFingerModels_animated_startPointForAnimat
 {
   v4 = *(*(a1 + 32) + 408);
   v5 = a2;
-  v6 = [v4 objectAtIndexedSubscript:a3];
+  v10 = [v4 objectAtIndexedSubscript:a3];
   [v5 location];
+  v7 = v6;
+  v9 = v8;
 
-  [v6 setFrame:_frameCenteredAroundPointForView(v6)];
+  [v10 setFrame:{_frameCenteredAroundPointForView(v10, v7, v9)}];
 }
 
 - (void)setShouldSuppressFingerVisuals:(BOOL)visuals
@@ -408,38 +410,40 @@ void __97__AXPIFingerContainerView_showFingerModels_animated_startPointForAnimat
 
 void __72__AXPIFingerContainerView_clearAllFingersAnimated_endPointForAnimation___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setAlpha:0.0];
+  v16 = 0u;
+  v17 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 40);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v15;
     v6 = *MEMORY[0x277CBF348];
     v7 = *(MEMORY[0x277CBF348] + 8);
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        if (*(a1 + 48) != v6 || *(a1 + 56) != v7)
+        v9 = *(a1 + 48);
+        v10 = *(a1 + 56);
+        if (v9 != v6 || v10 != v7)
         {
-          v10 = *(*(&v12 + 1) + 8 * i);
-          v11 = _frameCenteredAroundPointForView(v10);
-          [v10 setFrame:{v11, v12}];
+          v12 = *(*(&v14 + 1) + 8 * i);
+          v13 = _frameCenteredAroundPointForView(v12, v9, v10);
+          [v12 setFrame:{v13, v14}];
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
@@ -502,7 +506,7 @@ LABEL_11:
   isPressed = [v6 isPressed];
   isSelected = [v6 isSelected];
   [modelCopy location];
-  [v6 setFrame:_frameCenteredAroundPointForView(v6)];
+  [v6 setFrame:{_frameCenteredAroundPointForView(v6, v9, v10)}];
   [v6 setPressed:objc_msgSend(modelCopy animated:{"isPressed"), -[AXPIFingerContainerView shouldAnimatePress](self, "shouldAnimatePress")}];
   [v6 setSelected:{objc_msgSend(modelCopy, "isSelected")}];
   [modelCopy force];

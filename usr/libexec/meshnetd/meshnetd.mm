@@ -62,11 +62,11 @@ uint64_t tcp_listenForConnection()
   }
 
   AppleCIOMeshNet::TcpConnectionListener::listen(logger, 0x137Fu, buf);
-  if (v9)
+  if (v8)
   {
-    AppleCIOMeshNet::TcpConnectionListener::accept(buf, &v6);
+    AppleCIOMeshNet::TcpConnectionListener::accept(&v6, buf);
     v1 = logger;
-    if (v7)
+    if ((v6 & 0x100000000) != 0)
     {
       if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
       {
@@ -74,7 +74,7 @@ uint64_t tcp_listenForConnection()
         _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "Accepted connection from peer node \n", v5, 2u);
       }
 
-      if ((v7 & 1) == 0)
+      if ((v6 & 0x100000000) == 0)
       {
         abort();
       }
@@ -92,7 +92,7 @@ uint64_t tcp_listenForConnection()
       v2 = 0xFFFFFFFFLL;
     }
 
-    if (v7 == 1)
+    if (BYTE4(v6) == 1)
     {
       AppleCIOMeshNet::TcpConnection::~TcpConnection(&v6);
     }
@@ -109,7 +109,7 @@ uint64_t tcp_listenForConnection()
     v2 = 0xFFFFFFFFLL;
   }
 
-  if (v9 == 1)
+  if (v8 == 1)
   {
     AppleCIOMeshNet::TcpConnectionListener::~TcpConnectionListener(buf);
   }
@@ -117,7 +117,7 @@ uint64_t tcp_listenForConnection()
   return v2;
 }
 
-void sub_100001190(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, __int16 a11, char a12, char a13, __int16 a14, char a15, char a16, uint64_t a17, char a18)
+void sub_100001190(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, __int16 a10, __int16 a11, char a12, char a13, __int16 a14, id a15, uint64_t a17, char a18)
 {
   if (a12 == 1)
   {
@@ -173,7 +173,7 @@ int *AppleCIOMeshNet::TcpConnection::operator=(int *a1, int *a2)
   return a1;
 }
 
-ssize_t AppleCIOMeshNet::TcpConnection::read(AppleCIOMeshNet::TcpConnection *this, unsigned __int8 *a2, unint64_t a3)
+unint64_t AppleCIOMeshNet::TcpConnection::read(AppleCIOMeshNet::TcpConnection *this, unsigned __int8 *a2, unint64_t a3)
 {
   if (a3 >> 31)
   {
@@ -202,11 +202,11 @@ ssize_t AppleCIOMeshNet::TcpConnection::read(AppleCIOMeshNet::TcpConnection *thi
     }
   }
 
-  v9 = *__error();
+  __error();
   return v8;
 }
 
-ssize_t AppleCIOMeshNet::TcpConnection::write(AppleCIOMeshNet::TcpConnection *this, const unsigned __int8 *a2, unint64_t a3)
+unint64_t AppleCIOMeshNet::TcpConnection::write(AppleCIOMeshNet::TcpConnection *this, const unsigned __int8 *a2, unint64_t a3)
 {
   if (a3 >> 31)
   {
@@ -235,7 +235,7 @@ ssize_t AppleCIOMeshNet::TcpConnection::write(AppleCIOMeshNet::TcpConnection *th
     }
   }
 
-  v9 = *__error();
+  __error();
   return v8;
 }
 
@@ -339,9 +339,9 @@ LABEL_22:
 LABEL_15:
 }
 
-void sub_100001764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100001764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
 
   AppleCIOMeshUtils::ScopeGuard<AppleCIOMeshNet::TcpConnection::connect(NSObject  {objcproto9OS_os_log}*,char const*,unsigned short)::$_0>::~ScopeGuard(va);
   _Unwind_Resume(a1);
@@ -474,9 +474,9 @@ void AppleCIOMeshNet::TcpConnectionListener::listen(void *a1@<X0>, unsigned int 
 LABEL_20:
 }
 
-void sub_100001AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_100001AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
 
   AppleCIOMeshUtils::ScopeGuard<AppleCIOMeshNet::TcpConnectionListener::listen(NSObject  {objcproto9OS_os_log}*,unsigned short)::$_0>::~ScopeGuard(va);
   _Unwind_Resume(a1);
@@ -492,7 +492,7 @@ uint64_t AppleCIOMeshUtils::ScopeGuard<AppleCIOMeshNet::TcpConnectionListener::l
   return a1;
 }
 
-void AppleCIOMeshNet::TcpConnectionListener::accept(AppleCIOMeshNet::TcpConnectionListener *this@<X0>, uint64_t a2@<X8>)
+void AppleCIOMeshNet::TcpConnectionListener::accept(uint64_t *__return_ptr a1@<X8>, AppleCIOMeshNet::TcpConnectionListener *this@<X0>)
 {
   v16 = 28;
   v4 = accept(*this, &v17, &v16);
@@ -524,7 +524,7 @@ void AppleCIOMeshNet::TcpConnectionListener::accept(AppleCIOMeshNet::TcpConnecti
     }
 
 LABEL_12:
-    *(a2 + 4) = 0;
+    *(a1 + 4) = 0;
     return;
   }
 
@@ -534,9 +534,9 @@ LABEL_12:
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "TcpConnectionListener - Accepted connection", buf, 2u);
   }
 
-  *a2 = v5;
+  *a1 = v5;
   v14 = -1;
-  *(a2 + 4) = 1;
+  *(a1 + 4) = 1;
   AppleCIOMeshNet::TcpConnection::~TcpConnection(&v14);
 }
 
@@ -612,7 +612,7 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t get_enum_tag_for_layout_string_8meshnetd23MeshNetworkServiceErrorO(uint64_t *a1)
+uint64_t get_enum_tag_for_layout_string_8meshnetd23MeshNetworkServiceErrorO(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 >= 0xFFFFFFFF)
@@ -711,10 +711,10 @@ LABEL_5:
   return result;
 }
 
-uint64_t static MeshNetworkResponse.from(socket:)@<X0>(int a1@<W0>, uint64_t a2@<X8>)
+uint64_t static MeshNetworkResponse.from(socket:)@<X0>(int a1@<W0>, char *a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s3XPC16XPCCodableObjectVSgMd, &_s3XPC16XPCCodableObjectVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s3XPC16XPCCodableObjectVSgMd, &_s3XPC16XPCCodableObjectVSgMR);
+  __chkstk_darwin(v4 - 8);
   v6 = v17 - v5;
   if (xpc_fd_create(a1))
   {
@@ -723,10 +723,10 @@ uint64_t static MeshNetworkResponse.from(socket:)@<X0>(int a1@<W0>, uint64_t a2@
     v8 = *(*(v7 - 8) + 56);
     v8(v6, 0, 1, v7);
     v8(a2, 1, 1, v7);
-    v9 = (a2 + *(type metadata accessor for MeshNetworkResponse() + 20));
+    v9 = &a2[*(type metadata accessor for MeshNetworkResponse(0) + 20)];
     result = outlined assign with take of XPCCodableObject?(v6, a2);
     *v9 = 0;
-    v9[1] = 0;
+    *(v9 + 1) = 0;
   }
 
   else
@@ -738,10 +738,10 @@ uint64_t static MeshNetworkResponse.from(socket:)@<X0>(int a1@<W0>, uint64_t a2@
     v13 = String.init<A>(describing:)();
     v15 = v14;
     v12(a2, 1, 1, v11);
-    v16 = (a2 + *(type metadata accessor for MeshNetworkResponse() + 20));
+    v16 = &a2[*(type metadata accessor for MeshNetworkResponse(0) + 20)];
     result = outlined assign with take of XPCCodableObject?(v6, a2);
     *v16 = v13;
-    v16[1] = v15;
+    *(v16 + 1) = v15;
   }
 
   return result;
@@ -757,46 +757,45 @@ uint64_t one-time initialization function for logger()
 
 uint64_t MeshNetworkService.handler.handleIncomingRequest(_:)@<X0>(uint64_t *a1@<X8>)
 {
-  v2 = *(*(type metadata accessor for XPCReceivedMessage() - 8) + 64);
-  v3 = (__chkstk_darwin)();
+  v2 = type metadata accessor for XPCReceivedMessage();
+  v3 = __chkstk_darwin(v2);
   __chkstk_darwin(v3);
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s3XPC16XPCCodableObjectVSgMd, &_s3XPC16XPCCodableObjectVSgMR);
-  v5 = (*(*(v4 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin(v4 - 8);
-  v7 = v48 - v6;
-  v48[5] = XPCReceivedMessage.auditToken.getter();
-  v48[6] = v8;
-  v48[7] = v9;
-  v48[8] = v10;
+  v6 = v47 - v5;
+  v47[5] = XPCReceivedMessage.auditToken.getter();
+  v47[6] = v7;
+  v47[7] = v8;
+  v47[8] = v9;
   String.utf8CString.getter();
-  v11 = xpc_copy_entitlement_for_token();
+  v10 = xpc_copy_entitlement_for_token();
 
-  if (v11)
+  if (v10)
   {
-    if (xpc_BOOL_get_value(v11))
+    if (xpc_BOOL_get_value(v10))
     {
       lazy protocol witness table accessor for type MeshNetworkRequest and conformance MeshNetworkRequest();
       XPCReceivedMessage.decode<A>(as:)();
-      if (v50)
+      if (v49)
       {
-        a1[3] = type metadata accessor for MeshNetworkResponse();
+        a1[3] = type metadata accessor for MeshNetworkResponse(0);
         a1[4] = lazy protocol witness table accessor for type MeshNetworkResponse and conformance MeshNetworkResponse();
         boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a1);
-        v44 = String.utf8CString.getter();
-        v45 = tcp_connectToPeer((v44 + 32));
+        v43 = String.utf8CString.getter();
+        v44 = tcp_connectToPeer((v43 + 32));
 
-        static MeshNetworkResponse.from(socket:)(v45, boxed_opaque_existential_1);
-        close(v45);
+        static MeshNetworkResponse.from(socket:)(v44, boxed_opaque_existential_1);
+        close(v44);
       }
 
       else
       {
-        a1[3] = type metadata accessor for MeshNetworkResponse();
+        a1[3] = type metadata accessor for MeshNetworkResponse(0);
         a1[4] = lazy protocol witness table accessor for type MeshNetworkResponse and conformance MeshNetworkResponse();
-        v46 = __swift_allocate_boxed_opaque_existential_1(a1);
-        v47 = tcp_listenForConnection();
-        static MeshNetworkResponse.from(socket:)(v47, v46);
-        close(v47);
+        v45 = __swift_allocate_boxed_opaque_existential_1(a1);
+        v46 = tcp_listenForConnection();
+        static MeshNetworkResponse.from(socket:)(v46, v45);
+        close(v46);
       }
 
       return swift_unknownObjectRelease();
@@ -809,41 +808,41 @@ uint64_t MeshNetworkService.handler.handleIncomingRequest(_:)@<X0>(uint64_t *a1@
         swift_once();
       }
 
-      v28 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v28, static MeshNetworkService.logger);
-      v29 = Logger.logObject.getter();
-      v30 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v29, v30))
+      v27 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v27, static MeshNetworkService.logger);
+      v28 = Logger.logObject.getter();
+      v29 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v28, v29))
       {
+        v30 = swift_slowAlloc();
         v31 = swift_slowAlloc();
-        v32 = swift_slowAlloc();
-        *v31 = 138412290;
+        *v30 = 138412290;
         lazy protocol witness table accessor for type MeshNetworkServiceError and conformance MeshNetworkServiceError();
         swift_allocError();
-        *v33 = 1;
-        v34 = _swift_stdlib_bridgeErrorToNSError();
-        *(v31 + 4) = v34;
-        *v32 = v34;
-        _os_log_impl(&_mh_execute_header, v29, v30, "Refused client: %@", v31, 0xCu);
-        outlined destroy of NSObject?(v32);
+        *v32 = 1;
+        v33 = _swift_stdlib_bridgeErrorToNSError();
+        *(v30 + 4) = v33;
+        *v31 = v33;
+        _os_log_impl(&_mh_execute_header, v28, v29, "Refused client: %@", v30, 0xCu);
+        outlined destroy of NSObject?(v31);
       }
 
-      v35 = type metadata accessor for XPCCodableObject();
-      v36 = *(*(v35 - 8) + 56);
-      v36(v7, 1, 1, v35);
-      v49 = 1;
-      v37 = String.init<A>(describing:)();
-      v39 = v38;
-      v40 = type metadata accessor for MeshNetworkResponse();
-      a1[3] = v40;
+      v34 = type metadata accessor for XPCCodableObject();
+      v35 = *(*(v34 - 8) + 56);
+      v35(v6, 1, 1, v34);
+      v48 = 1;
+      v36 = String.init<A>(describing:)();
+      v38 = v37;
+      v39 = type metadata accessor for MeshNetworkResponse(0);
+      a1[3] = v39;
       a1[4] = lazy protocol witness table accessor for type MeshNetworkResponse and conformance MeshNetworkResponse();
-      v41 = __swift_allocate_boxed_opaque_existential_1(a1);
-      v36(v41, 1, 1, v35);
-      v42 = (v41 + *(v40 + 20));
-      outlined assign with take of XPCCodableObject?(v7, v41);
+      v40 = __swift_allocate_boxed_opaque_existential_1(a1);
+      v35(v40, 1, 1, v34);
+      v41 = (v40 + *(v39 + 20));
+      outlined assign with take of XPCCodableObject?(v6, v40);
       result = swift_unknownObjectRelease();
-      *v42 = v37;
-      v42[1] = v39;
+      *v41 = v36;
+      v41[1] = v38;
     }
   }
 
@@ -854,46 +853,46 @@ uint64_t MeshNetworkService.handler.handleIncomingRequest(_:)@<X0>(uint64_t *a1@
       swift_once();
     }
 
-    v12 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v12, static MeshNetworkService.logger);
-    v13 = Logger.logObject.getter();
-    v14 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v13, v14))
+    v11 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v11, static MeshNetworkService.logger);
+    v12 = Logger.logObject.getter();
+    v13 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v12, v13))
     {
+      v14 = swift_slowAlloc();
       v15 = swift_slowAlloc();
-      v16 = swift_slowAlloc();
-      *v15 = 138412290;
+      *v14 = 138412290;
       lazy protocol witness table accessor for type MeshNetworkServiceError and conformance MeshNetworkServiceError();
       swift_allocError();
-      *v17 = 1;
-      v18 = _swift_stdlib_bridgeErrorToNSError();
-      *(v15 + 4) = v18;
-      *v16 = v18;
-      _os_log_impl(&_mh_execute_header, v13, v14, "Refused client: %@", v15, 0xCu);
-      outlined destroy of NSObject?(v16);
+      *v16 = 1;
+      v17 = _swift_stdlib_bridgeErrorToNSError();
+      *(v14 + 4) = v17;
+      *v15 = v17;
+      _os_log_impl(&_mh_execute_header, v12, v13, "Refused client: %@", v14, 0xCu);
+      outlined destroy of NSObject?(v15);
     }
 
-    v19 = type metadata accessor for XPCCodableObject();
-    v20 = *(*(v19 - 8) + 56);
-    v20(v7, 1, 1, v19);
-    v49 = 1;
-    v21 = String.init<A>(describing:)();
-    v23 = v22;
-    v24 = type metadata accessor for MeshNetworkResponse();
-    a1[3] = v24;
+    v18 = type metadata accessor for XPCCodableObject();
+    v19 = *(*(v18 - 8) + 56);
+    v19(v6, 1, 1, v18);
+    v48 = 1;
+    v20 = String.init<A>(describing:)();
+    v22 = v21;
+    v23 = type metadata accessor for MeshNetworkResponse(0);
+    a1[3] = v23;
     a1[4] = lazy protocol witness table accessor for type MeshNetworkResponse and conformance MeshNetworkResponse();
-    v25 = __swift_allocate_boxed_opaque_existential_1(a1);
-    v20(v25, 1, 1, v19);
-    v26 = (v25 + *(v24 + 20));
-    result = outlined assign with take of XPCCodableObject?(v7, v25);
-    *v26 = v21;
-    v26[1] = v23;
+    v24 = __swift_allocate_boxed_opaque_existential_1(a1);
+    v19(v24, 1, 1, v18);
+    v25 = (v24 + *(v23 + 20));
+    result = outlined assign with take of XPCCodableObject?(v6, v24);
+    *v25 = v20;
+    v25[1] = v22;
   }
 
   return result;
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -993,11 +992,9 @@ LABEL_8:
 
 char *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
@@ -1097,7 +1094,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -1111,15 +1107,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v3);
+  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -1134,15 +1130,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1151,12 +1147,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -1266,12 +1262,10 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
 uint64_t specialized MeshNetworkService.listen()()
 {
-  v1 = *(*(type metadata accessor for XPCListener.InitializationOptions() - 8) + 64);
-  __chkstk_darwin();
+  v1 = type metadata accessor for XPCListener.InitializationOptions();
+  __chkstk_darwin(v1 - 8);
   static XPCListener.InitializationOptions.none.getter();
-  v2 = type metadata accessor for XPCListener();
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 52);
+  type metadata accessor for XPCListener();
   swift_allocObject();
   XPCListener.init(service:targetQueue:options:incomingSessionHandler:)();
   if (!v0)
@@ -1285,28 +1279,28 @@ uint64_t specialized MeshNetworkService.listen()()
     swift_once();
   }
 
-  v5 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v5, static MeshNetworkService.logger);
+  v2 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v2, static MeshNetworkService.logger);
   swift_errorRetain();
-  v6 = Logger.logObject.getter();
-  v7 = static os_log_type_t.error.getter();
+  v3 = Logger.logObject.getter();
+  v4 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v6, v7))
+  if (os_log_type_enabled(v3, v4))
   {
-    v8 = swift_slowAlloc();
-    v9 = swift_slowAlloc();
-    *v8 = 138412290;
+    v5 = swift_slowAlloc();
+    v6 = swift_slowAlloc();
+    *v5 = 138412290;
     swift_errorRetain();
-    v10 = _swift_stdlib_bridgeErrorToNSError();
-    *(v8 + 4) = v10;
-    *v9 = v10;
-    _os_log_impl(&_mh_execute_header, v6, v7, "Failed to create listener, error: %@", v8, 0xCu);
-    outlined destroy of NSObject?(v9);
+    v7 = _swift_stdlib_bridgeErrorToNSError();
+    *(v5 + 4) = v7;
+    *v6 = v7;
+    _os_log_impl(&_mh_execute_header, v3, v4, "Failed to create listener, error: %@", v5, 0xCu);
+    outlined destroy of NSObject?(v6);
   }
 
   lazy protocol witness table accessor for type MeshNetworkServiceError and conformance MeshNetworkServiceError();
   swift_allocError();
-  *v11 = v0;
+  *v8 = v0;
   return swift_willThrow();
 }
 
@@ -1334,7 +1328,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1356,14 +1349,11 @@ unint64_t lazy protocol witness table accessor for type MeshNetworkService.handl
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -1374,7 +1364,7 @@ unint64_t lazy protocol witness table accessor for type MeshNetworkResponse and 
   result = lazy protocol witness table cache variable for type MeshNetworkResponse and conformance MeshNetworkResponse;
   if (!lazy protocol witness table cache variable for type MeshNetworkResponse and conformance MeshNetworkResponse)
   {
-    type metadata accessor for MeshNetworkResponse();
+    type metadata accessor for MeshNetworkResponse(255);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type MeshNetworkResponse and conformance MeshNetworkResponse);
   }
@@ -1412,15 +1402,17 @@ unint64_t lazy protocol witness table accessor for type MeshNetworkRequest and c
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
@@ -1435,14 +1427,14 @@ uint64_t MeshNetworkResponse.init(socket:error:)@<X0>(uint64_t a1@<X0>, uint64_t
 {
   v8 = type metadata accessor for XPCCodableObject();
   (*(*(v8 - 8) + 56))(a4, 1, 1, v8);
-  v9 = (a4 + *(type metadata accessor for MeshNetworkResponse() + 20));
+  v9 = (a4 + *(type metadata accessor for MeshNetworkResponse(0) + 20));
   result = outlined assign with take of XPCCodableObject?(a1, a4);
   *v9 = a2;
   v9[1] = a3;
   return result;
 }
 
-uint64_t type metadata accessor for MeshNetworkResponse()
+uint64_t type metadata accessor for MeshNetworkResponse(uint64_t a1)
 {
   result = type metadata singleton initialization cache for MeshNetworkResponse;
   if (!type metadata singleton initialization cache for MeshNetworkResponse)
@@ -1453,20 +1445,17 @@ uint64_t type metadata accessor for MeshNetworkResponse()
   return result;
 }
 
-unint64_t protocol witness for CodingKey.stringValue.getter in conformance MeshNetworkRequest.CodingKeys()
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance MeshNetworkRequest.CodingKeys()
 {
   if (*v0)
   {
-    result = 0xD000000000000013;
+    return 0xD000000000000013;
   }
 
   else
   {
-    result = 0x547463656E6E6F63;
+    return 0x547463656E6E6F63;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t protocol witness for CodingKey.init(stringValue:) in conformance MeshNetworkRequest.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
@@ -1524,7 +1513,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance MeshNet
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MeshNetworkRequest.ConnectToPeerCodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MeshNetworkRequest.ConnectToPeerCodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   Hasher._combine(_:)(0);
@@ -1564,10 +1553,10 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance MeshNetworkRequest.ListenForConnectionCodingKeys@<X0>(_BYTE *a1@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance MeshNetworkRequest.ListenForConnectionCodingKeys@<X0>(_BYTE *a2@<X8>)
 {
 
-  *a1 = 1;
+  *a2 = 1;
   return result;
 }
 
@@ -1587,48 +1576,44 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t MeshNetworkRequest.encode(to:)(void *a1, uint64_t a2, uint64_t a3)
 {
-  v25 = a3;
-  v24 = a2;
+  v21 = a3;
+  v20 = a2;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy8meshnetd18MeshNetworkRequestO29ListenForConnectionCodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMd, &_ss22KeyedEncodingContainerVy8meshnetd18MeshNetworkRequestO29ListenForConnectionCodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMR);
-  v22 = *(v4 - 8);
-  v23 = v4;
-  v5 = *(v22 + 64);
+  v18 = *(v4 - 8);
+  v19 = v4;
   __chkstk_darwin(v4);
-  v21 = &v21 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy8meshnetd18MeshNetworkRequestO23ConnectToPeerCodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMd, &_ss22KeyedEncodingContainerVy8meshnetd18MeshNetworkRequestO23ConnectToPeerCodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMR);
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v7);
-  v11 = &v21 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy8meshnetd18MeshNetworkRequestO10CodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMd, &_ss22KeyedEncodingContainerVy8meshnetd18MeshNetworkRequestO10CodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMR);
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v12);
-  v16 = &v21 - v15;
-  v17 = a1[4];
+  v17 = &v17 - v5;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy8meshnetd18MeshNetworkRequestO23ConnectToPeerCodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMd, &_ss22KeyedEncodingContainerVy8meshnetd18MeshNetworkRequestO23ConnectToPeerCodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMR);
+  v7 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v9 = &v17 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy8meshnetd18MeshNetworkRequestO10CodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMd, &_ss22KeyedEncodingContainerVy8meshnetd18MeshNetworkRequestO10CodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMR);
+  v11 = *(v10 - 8);
+  __chkstk_darwin(v10);
+  v13 = &v17 - v12;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type MeshNetworkRequest.CodingKeys and conformance MeshNetworkRequest.CodingKeys();
-  v18 = v25;
+  v14 = v21;
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  if (v18)
+  if (v14)
   {
-    v26 = 0;
+    v22 = 0;
     lazy protocol witness table accessor for type MeshNetworkRequest.ConnectToPeerCodingKeys and conformance MeshNetworkRequest.ConnectToPeerCodingKeys();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
     KeyedEncodingContainer.encode(_:forKey:)();
-    (*(v8 + 8))(v11, v7);
+    (*(v7 + 8))(v9, v6);
   }
 
   else
   {
-    v27 = 1;
+    v23 = 1;
     lazy protocol witness table accessor for type MeshNetworkRequest.ListenForConnectionCodingKeys and conformance MeshNetworkRequest.ListenForConnectionCodingKeys();
-    v20 = v21;
+    v16 = v17;
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    (*(v22 + 8))(v20, v23);
+    (*(v18 + 8))(v16, v19);
   }
 
-  return (*(v13 + 8))(v16, v12);
+  return (*(v11 + 8))(v13, v10);
 }
 
 void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
@@ -1765,13 +1750,13 @@ unint64_t lazy protocol witness table accessor for type MeshNetworkRequest.Conne
   return result;
 }
 
-uint64_t protocol witness for Decodable.init(from:) in conformance MeshNetworkRequest@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *protocol witness for Decodable.init(from:) in conformance MeshNetworkRequest@<X0>(uint64_t *a1@<X8>, void *a2@<X0>)
 {
-  result = specialized MeshNetworkRequest.init(from:)(a1);
+  result = specialized MeshNetworkRequest.init(from:)(a2);
   if (!v2)
   {
-    *a2 = result;
-    a2[1] = v5;
+    *a1 = result;
+    a1[1] = v5;
   }
 
   return result;
@@ -1779,17 +1764,14 @@ uint64_t protocol witness for Decodable.init(from:) in conformance MeshNetworkRe
 
 uint64_t MeshNetworkResponse.error.getter()
 {
-  v1 = (v0 + *(type metadata accessor for MeshNetworkResponse() + 20));
-  v2 = *v1;
-  v3 = v1[1];
+  v1 = *(v0 + *(type metadata accessor for MeshNetworkResponse(0) + 20));
 
-  return v2;
+  return v1;
 }
 
 uint64_t MeshNetworkResponse.error.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = (v2 + *(type metadata accessor for MeshNetworkResponse() + 20));
-  v6 = v5[1];
+  v5 = (v2 + *(type metadata accessor for MeshNetworkResponse(0) + 20));
 
   *v5 = a1;
   v5[1] = a2;
@@ -1804,11 +1786,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance MeshNet
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MeshNetworkRequest.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MeshNetworkRequest.CodingKeys(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 
@@ -1816,16 +1798,13 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance MeshNe
 {
   if (*v0)
   {
-    result = 0x726F727265;
+    return 0x726F727265;
   }
 
   else
   {
-    result = 0x74656B636F73;
+    return 0x74656B636F73;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t protocol witness for CodingKey.init(stringValue:) in conformance MeshNetworkResponse.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
@@ -1878,156 +1857,143 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t MeshNetworkResponse.encode(to:)(void *a1)
 {
-  v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy8meshnetd19MeshNetworkResponseV10CodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMd, &_ss22KeyedEncodingContainerVy8meshnetd19MeshNetworkResponseV10CodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMR);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v5);
-  v9 = &v15[-v8];
-  v10 = a1[4];
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy8meshnetd19MeshNetworkResponseV10CodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMd, &_ss22KeyedEncodingContainerVy8meshnetd19MeshNetworkResponseV10CodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMR);
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v8[-v5];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type MeshNetworkResponse.CodingKeys and conformance MeshNetworkResponse.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v15[15] = 0;
+  v8[15] = 0;
   type metadata accessor for XPCCodableObject();
-  lazy protocol witness table accessor for type XPCCodableObject and conformance XPCCodableObject(&lazy protocol witness table cache variable for type XPCCodableObject and conformance XPCCodableObject);
+  lazy protocol witness table accessor for type XPCCodableObject and conformance XPCCodableObject(&lazy protocol witness table cache variable for type XPCCodableObject and conformance XPCCodableObject, &protocol conformance descriptor for XPCCodableObject);
   KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-  if (!v2)
+  if (!v1)
   {
-    v11 = (v3 + *(type metadata accessor for MeshNetworkResponse() + 20));
-    v12 = *v11;
-    v13 = v11[1];
-    v15[14] = 1;
+    type metadata accessor for MeshNetworkResponse(0);
+    v8[14] = 1;
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
   }
 
-  return (*(v6 + 8))(v9, v5);
+  return (*(v4 + 8))(v6, v3);
 }
 
-uint64_t MeshNetworkResponse.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t MeshNetworkResponse.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v25 = a2;
+  v21 = a2;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s3XPC16XPCCodableObjectVSgMd, &_s3XPC16XPCCodableObjectVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v25 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy8meshnetd19MeshNetworkResponseV10CodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMd, &_ss22KeyedDecodingContainerVy8meshnetd19MeshNetworkResponseV10CodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMR);
-  v26 = *(v7 - 8);
-  v27 = v7;
-  v8 = *(v26 + 64);
-  __chkstk_darwin(v7);
-  v10 = &v25 - v9;
-  v11 = type metadata accessor for MeshNetworkResponse();
-  v12 = v11 - 8;
-  v13 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11);
-  v15 = &v25 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = type metadata accessor for XPCCodableObject();
-  (*(*(v16 - 8) + 56))(v15, 1, 1, v16);
-  v17 = &v15[*(v12 + 28)];
-  *v17 = 0;
-  v17[1] = 0;
-  v18 = a1[4];
+  v5 = &v21 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy8meshnetd19MeshNetworkResponseV10CodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMd, &_ss22KeyedDecodingContainerVy8meshnetd19MeshNetworkResponseV10CodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMR);
+  v22 = *(v6 - 8);
+  v23 = v6;
+  __chkstk_darwin(v6);
+  v8 = &v21 - v7;
+  v9 = type metadata accessor for MeshNetworkResponse(0);
+  v10 = v9 - 8;
+  __chkstk_darwin(v9);
+  v12 = &v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for XPCCodableObject();
+  (*(*(v13 - 8) + 56))(v12, 1, 1, v13);
+  v14 = &v12[*(v10 + 28)];
+  *v14 = 0;
+  v14[1] = 0;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type MeshNetworkResponse.CodingKeys and conformance MeshNetworkResponse.CodingKeys();
-  v19 = v28;
+  v15 = v24;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v19)
+  if (!v15)
   {
-    v20 = v26;
-    v30 = 0;
-    lazy protocol witness table accessor for type XPCCodableObject and conformance XPCCodableObject(&lazy protocol witness table cache variable for type XPCCodableObject and conformance XPCCodableObject);
+    v16 = v22;
+    v26 = 0;
+    lazy protocol witness table accessor for type XPCCodableObject and conformance XPCCodableObject(&lazy protocol witness table cache variable for type XPCCodableObject and conformance XPCCodableObject, &protocol conformance descriptor for XPCCodableObject);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    outlined assign with take of XPCCodableObject?(v6, v15);
-    v29 = 1;
-    v22 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v24 = v23;
-    (*(v20 + 8))(v10, v27);
-    *v17 = v22;
-    v17[1] = v24;
-    outlined init with copy of MeshNetworkResponse(v15, v25);
+    outlined assign with take of XPCCodableObject?(v5, v12);
+    v25 = 1;
+    v18 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v20 = v19;
+    (*(v16 + 8))(v8, v23);
+    *v14 = v18;
+    v14[1] = v20;
+    outlined init with copy of MeshNetworkResponse(v12, v21);
   }
 
   __swift_destroy_boxed_opaque_existential_0(a1);
-  return outlined destroy of MeshNetworkResponse(v15);
+  return outlined destroy of MeshNetworkResponse(v12);
 }
 
-uint64_t specialized MeshNetworkRequest.init(from:)(uint64_t *a1)
+void *specialized MeshNetworkRequest.init(from:)(void *a1)
 {
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy8meshnetd18MeshNetworkRequestO29ListenForConnectionCodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMd, &_ss22KeyedDecodingContainerVy8meshnetd18MeshNetworkRequestO29ListenForConnectionCodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMR);
-  v28 = *(v26 - 8);
-  v2 = *(v28 + 64);
-  __chkstk_darwin(v26);
-  v4 = &v25 - v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy8meshnetd18MeshNetworkRequestO23ConnectToPeerCodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMd, &_ss22KeyedDecodingContainerVy8meshnetd18MeshNetworkRequestO23ConnectToPeerCodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMR);
-  v27 = *(v5 - 8);
-  v6 = *(v27 + 64);
-  __chkstk_darwin(v5);
-  v8 = &v25 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy8meshnetd18MeshNetworkRequestO10CodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMd, &_ss22KeyedDecodingContainerVy8meshnetd18MeshNetworkRequestO10CodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMR);
-  v29 = *(v9 - 8);
-  v10 = *(v29 + 64);
-  __chkstk_darwin(v9);
-  v12 = &v25 - v11;
-  v13 = a1[4];
-  v14 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy8meshnetd18MeshNetworkRequestO29ListenForConnectionCodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMd, &_ss22KeyedDecodingContainerVy8meshnetd18MeshNetworkRequestO29ListenForConnectionCodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMR);
+  v23 = *(v21 - 8);
+  __chkstk_darwin(v21);
+  v3 = &v20 - v2;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy8meshnetd18MeshNetworkRequestO23ConnectToPeerCodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMd, &_ss22KeyedDecodingContainerVy8meshnetd18MeshNetworkRequestO23ConnectToPeerCodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMR);
+  v22 = *(v4 - 8);
+  __chkstk_darwin(v4);
+  v6 = &v20 - v5;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy8meshnetd18MeshNetworkRequestO10CodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMd, &_ss22KeyedDecodingContainerVy8meshnetd18MeshNetworkRequestO10CodingKeys33_3AF91F5DEDEF9CA48455540729921991LLOGMR);
+  v24 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v9 = &v20 - v8;
+  v10 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type MeshNetworkRequest.CodingKeys and conformance MeshNetworkRequest.CodingKeys();
-  v15 = v30;
+  v11 = v25;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v15)
+  if (v11)
   {
     goto LABEL_7;
   }
 
-  v16 = v28;
-  v30 = a1;
-  v14 = v12;
-  v17 = KeyedDecodingContainer.allKeys.getter();
-  if (*(v17 + 16) != 1)
+  v12 = v23;
+  v25 = a1;
+  v10 = v9;
+  v13 = KeyedDecodingContainer.allKeys.getter();
+  if (*(v13 + 16) != 1)
   {
-    v19 = type metadata accessor for DecodingError();
+    v15 = type metadata accessor for DecodingError();
     swift_allocError();
-    v21 = v20;
-    v22 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-    *v21 = &type metadata for MeshNetworkRequest;
+    v17 = v16;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    *v17 = &type metadata for MeshNetworkRequest;
     KeyedDecodingContainer.codingPath.getter();
     DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
-    (*(*(v19 - 8) + 104))(v21, enum case for DecodingError.typeMismatch(_:), v19);
+    (*(*(v15 - 8) + 104))(v17, enum case for DecodingError.typeMismatch(_:), v15);
     swift_willThrow();
-    (*(v29 + 8))(v12, v9);
+    (*(v24 + 8))(v9, v7);
     swift_unknownObjectRelease();
-    a1 = v30;
+    a1 = v25;
 LABEL_7:
     __swift_destroy_boxed_opaque_existential_0(a1);
-    return v14;
+    return v10;
   }
 
-  if (*(v17 + 32))
+  if (*(v13 + 32))
   {
-    v32 = 1;
+    v27 = 1;
     lazy protocol witness table accessor for type MeshNetworkRequest.ListenForConnectionCodingKeys and conformance MeshNetworkRequest.ListenForConnectionCodingKeys();
     KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    v18 = v29;
-    (*(v16 + 8))(v4, v26);
-    (*(v18 + 8))(v12, v9);
+    v14 = v24;
+    (*(v12 + 8))(v3, v21);
+    (*(v14 + 8))(v9, v7);
     swift_unknownObjectRelease();
-    v14 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v31 = 0;
+    v26 = 0;
     lazy protocol witness table accessor for type MeshNetworkRequest.ConnectToPeerCodingKeys and conformance MeshNetworkRequest.ConnectToPeerCodingKeys();
     KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    v23 = v29;
-    v14 = KeyedDecodingContainer.decode(_:forKey:)();
-    (*(v27 + 8))(v8, v5);
-    (*(v23 + 8))(v12, v9);
+    v18 = v24;
+    v10 = KeyedDecodingContainer.decode(_:forKey:)();
+    (*(v22 + 8))(v6, v4);
+    (*(v18 + 8))(v9, v7);
     swift_unknownObjectRelease();
   }
 
-  __swift_destroy_boxed_opaque_existential_0(v30);
-  return v14;
+  __swift_destroy_boxed_opaque_existential_0(v25);
+  return v10;
 }
 
 uint64_t outlined init with copy of XPCCodableObject?(uint64_t a1, uint64_t a2)
@@ -2084,12 +2050,12 @@ unint64_t lazy protocol witness table accessor for type MeshNetworkResponse.Codi
 
 uint64_t outlined destroy of MeshNetworkResponse(uint64_t a1)
 {
-  v2 = type metadata accessor for MeshNetworkResponse();
+  v2 = type metadata accessor for MeshNetworkResponse(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t lazy protocol witness table accessor for type XPCCodableObject and conformance XPCCodableObject(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type XPCCodableObject and conformance XPCCodableObject(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -2104,7 +2070,7 @@ uint64_t lazy protocol witness table accessor for type XPCCodableObject and conf
 
 uint64_t outlined init with copy of MeshNetworkResponse(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for MeshNetworkResponse();
+  v4 = type metadata accessor for MeshNetworkResponse(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -2249,28 +2215,28 @@ uint64_t sub_10000525C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void type metadata completion function for MeshNetworkResponse()
+void type metadata completion function for MeshNetworkResponse(uint64_t a1)
 {
-  type metadata accessor for XPCCodableObject?();
-  if (v0 <= 0x3F)
+  type metadata accessor for XPCCodableObject?(319);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for String?();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void type metadata accessor for XPCCodableObject?()
+void type metadata accessor for XPCCodableObject?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for XPCCodableObject?)
   {
     type metadata accessor for XPCCodableObject();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for XPCCodableObject?);
+      atomic_store(v1, &lazy cache variable for type metadata for XPCCodableObject?);
     }
   }
 }

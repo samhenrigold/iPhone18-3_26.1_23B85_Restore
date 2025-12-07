@@ -166,16 +166,16 @@
 
   if (isValid)
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100002880(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543874;
-      v11 = objc_opt_class();
-      v12 = 2050;
+      v11 = 138543874;
+      v12 = objc_opt_class();
+      v13 = 2050;
       selfCopy = self;
-      v14 = 2050;
-      v15 = beaconCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p> addBLEBeacon: <%{public}p>", &v10, 0x20u);
+      v15 = 2050;
+      v16 = beaconCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p> addBLEBeacon: <%{public}p>", &v11, 0x20u);
     }
 
     beaconsByIdentifier = [(FMDInternalBluetoothManagerDevice *)self beaconsByIdentifier];
@@ -191,18 +191,18 @@
 
   if (channelName)
   {
-    v6 = sub_100002880();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100002880(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138544130;
-      v10 = objc_opt_class();
-      v11 = 2050;
+      v10 = 138544130;
+      v11 = objc_opt_class();
+      v12 = 2050;
       selfCopy = self;
-      v13 = 2050;
-      v14 = statusCopy;
-      v15 = 2112;
-      v16 = statusCopy;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p> addAudioChannelStatus: <%{public}p> %@", &v9, 0x2Au);
+      v14 = 2050;
+      v15 = statusCopy;
+      v16 = 2112;
+      v17 = statusCopy;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "<%{public}@: %{public}p> addAudioChannelStatus: <%{public}p> %@", &v10, 0x2Au);
     }
 
     audioChannelsByName = [(FMDInternalBluetoothManagerDevice *)self audioChannelsByName];
@@ -306,31 +306,31 @@
   v4 = +[EAAccessoryManager sharedAccessoryManager];
   connectedAccessories = [v4 connectedAccessories];
 
-  v6 = sub_100002880();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = sub_100002880(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    sub_1002267BC(connectedAccessories, v6);
+    sub_1002267BC(connectedAccessories, v7);
   }
 
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = sub_10000A9A4;
-  v17 = sub_100002A9C;
-  v18 = 0;
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_10013A7E0;
-  v10[3] = &unk_1002CD9E0;
-  v7 = addressCopy;
-  v11 = v7;
-  v12 = &v13;
-  [connectedAccessories enumerateObjectsUsingBlock:v10];
-  v8 = v14[5];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_10000A9A4;
+  v18 = sub_100002A9C;
+  v19 = 0;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_10013A7E0;
+  v11[3] = &unk_1002CD9E0;
+  v8 = addressCopy;
+  v12 = v8;
+  v13 = &v14;
+  [connectedAccessories enumerateObjectsUsingBlock:v11];
+  v9 = v15[5];
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v14, 8);
 
-  return v8;
+  return v9;
 }
 
 @end

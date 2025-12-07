@@ -262,14 +262,14 @@ LABEL_23:
   self->m_resultsCasesMask = 0;
   self->m_timeForStreamInUSec = 5000000;
   self->m_casesMask = 255;
-  v68 = -1;
-  v69 = -1;
-  v21 = [(Pearl_FW_Status_iOSController *)self getPearlProjectorHWVersion:&v69];
+  v66 = -1;
+  v67 = -1;
+  v21 = [(Pearl_FW_Status_iOSController *)self getPearlProjectorHWVersion:&v67];
   self->m_isSmp = 0;
   self->m_isNuri = 0;
   if (!v21)
   {
-    if (v69 == 10)
+    if (v67 == 10)
     {
       v54 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/DepthDiagnostics/Diagnostic-8201/Pearl_FW_Status_iOSController.mm"];
       lastPathComponent5 = [v54 lastPathComponent];
@@ -279,7 +279,7 @@ LABEL_23:
       self->m_isNuri = 1;
     }
 
-    else if (v69 == 8)
+    else if (v67 == 8)
     {
       v29 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/DepthDiagnostics/Diagnostic-8201/Pearl_FW_Status_iOSController.mm"];
       lastPathComponent6 = [v29 lastPathComponent];
@@ -298,9 +298,9 @@ LABEL_23:
     }
   }
 
-  v67 = 0;
-  v22 = [(Pearl_FW_Status_iOSController *)self getRigelInfo:&v68 serialNumber:&v67];
-  v23 = v67;
+  v65 = 0;
+  v22 = [(Pearl_FW_Status_iOSController *)self getRigelInfo:&v66 serialNumber:&v65];
+  v23 = v65;
   if (v22)
   {
     v24 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/DepthDiagnostics/Diagnostic-8201/Pearl_FW_Status_iOSController.mm"];
@@ -320,21 +320,21 @@ LABEL_23:
     v28 = @"N/A";
   }
 
-  if (v68 != -1)
+  if (v66 != -1)
   {
-    v27 = [NSString stringWithFormat:@"%d", v68];
+    v27 = [NSString stringWithFormat:@"%d", v66];
   }
 
   [(NSMutableDictionary *)self->m_statusesDict setValue:v27 forKey:@"RIGEL_OTP_VERSION"];
   [(NSMutableDictionary *)self->m_statusesDict setValue:v28 forKey:@"RIGEL_SERIAL_NUMBER"];
-  if ([(Pearl_FW_Status_iOSController *)self getPLEUUID:v70])
+  if ([(Pearl_FW_Status_iOSController *)self getPLEUUID:v68])
   {
     [(NSMutableDictionary *)self->m_statusesDict setValue:@"N/A" forKey:@"PCE_CALIB_UUID"];
   }
 
   else
   {
-    v32 = [NSString stringWithFormat:@"%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X", v70[0], v70[1], v70[2], v70[3], v70[4], v70[5], v70[6], v70[7], v70[8], v70[9], v70[10], v70[11], v70[12], v70[13], v70[14], v70[15]];
+    v32 = [NSString stringWithFormat:@"%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X", v68[0], v68[1], v68[2], v68[3], v68[4], v68[5], v68[6], v68[7], v68[8], v68[9], v68[10], v68[11], v68[12], v68[13], v68[14], v68[15]];
     [(NSMutableDictionary *)self->m_statusesDict setValue:v32 forKey:@"PCE_CALIB_UUID"];
   }
 
@@ -396,12 +396,12 @@ LABEL_23:
     {
       if ((self->m_casesMask & v49) != 0)
       {
-        v66 = 0;
-        v62 = 0;
-        v63 = 0;
         v64 = 0;
-        v65 = 0;
-        v66 = v60;
+        LOWORD(v62) = 0;
+        BYTE2(v62) = 0;
+        HIDWORD(v62) = 0;
+        v63 = 0;
+        v64 = v60;
         if ([(Pearl_FW_Status_iOSController *)self getConfigurationForCaseMask:v49 returnedConfiguration:&v62])
         {
           [(Pearl_FW_Status_iOSController *)self finalizingWithErrorStatusCode:&off_100038A90 andInfoString:@"Bad Diagnostic bit mask"];

@@ -423,7 +423,7 @@ id __66__MPMediaLibraryArtwork_fetchArtworkForRequest_completionHandler___block_
   return libraryID;
 }
 
-uint64_t __58__MPMediaLibraryArtwork_fetchableArtworkExistsForRequest___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__58__MPMediaLibraryArtwork_fetchableArtworkExistsForRequest___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) isArtworkFetchableForPersistentID:*(a1 + 48) entityType:*(a1 + 56) artworkType:*(a1 + 64) artworkSourceType:a3];
   *(*(*(a1 + 40) + 8) + 24) = result;

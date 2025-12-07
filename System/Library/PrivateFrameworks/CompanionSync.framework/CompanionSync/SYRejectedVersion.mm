@@ -79,7 +79,7 @@
     [SYRejectedVersion writeTo:];
   }
 
-  v8 = toCopy;
+  v7 = toCopy;
   PBDataWriterWriteSubmessage();
   if (!self->_inReplyTo)
   {
@@ -93,7 +93,6 @@
     v6 = 0;
     do
     {
-      v7 = p_supportedVersions->list[v6];
       PBDataWriterWriteUint32Field();
       ++v6;
     }

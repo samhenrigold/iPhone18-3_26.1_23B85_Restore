@@ -15,19 +15,17 @@
 
 - (void)sendTimerEvent
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_debug_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEBUG, "%@ sendTimerEvent called", &v6, 0xCu);
+    _os_log_debug_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEBUG, "%@ sendTimerEvent called", &v5, 0xCu);
   }
 
   _principalObject = [(NEExtensionProviderContext *)self _principalObject];
   [_principalObject handleTimerEvent];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unmatchEthernet
@@ -59,7 +57,7 @@
 
 - (void)stopWithReason:(int)reason completionHandler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = ne_log_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -80,38 +78,34 @@
     v9 = 0;
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __70__NEExtensionAppPushProviderContext_stopWithReason_completionHandler___block_invoke;
-  v12[3] = &unk_1E7F0B588;
-  v12[4] = self;
-  v13 = handlerCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __70__NEExtensionAppPushProviderContext_stopWithReason_completionHandler___block_invoke;
+  v11[3] = &unk_1E7F0B588;
+  v11[4] = self;
+  v12 = handlerCopy;
   v10 = handlerCopy;
-  [_principalObject stopWithReason:v9 completionHandler:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [_principalObject stopWithReason:v9 completionHandler:v11];
 }
 
 uint64_t __70__NEExtensionAppPushProviderContext_stopWithReason_completionHandler___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v5 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v5;
-    _os_log_debug_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEBUG, "%@ provider stopped", &v6, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_debug_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEBUG, "%@ provider stopped", &v5, 0xCu);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)startConnectionWithProviderConfig:(id)config completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   configCopy = config;
   handlerCopy = handler;
   _principalObject = [(NEExtensionProviderContext *)self _principalObject];
@@ -159,44 +153,40 @@ uint64_t __70__NEExtensionAppPushProviderContext_stopWithReason_completionHandle
       _os_log_debug_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEBUG, "%@ the new start method is not overridden", buf, 0xCu);
     }
 
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __89__NEExtensionAppPushProviderContext_startConnectionWithProviderConfig_completionHandler___block_invoke;
-    v19[3] = &unk_1E7F0B628;
-    v19[4] = self;
-    v20 = handlerCopy;
-    [v11 startWithCompletionHandler:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __89__NEExtensionAppPushProviderContext_startConnectionWithProviderConfig_completionHandler___block_invoke;
+    v18[3] = &unk_1E7F0B628;
+    v18[4] = self;
+    v19 = handlerCopy;
+    [v11 startWithCompletionHandler:v18];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __89__NEExtensionAppPushProviderContext_startConnectionWithProviderConfig_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
-      v7 = 138412546;
-      v8 = v6;
-      v9 = 2112;
-      v10 = v3;
-      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "%@ startWithCompletionHandler failed, error: %@", &v7, 0x16u);
+      v5 = *(a1 + 32);
+      v6 = 138412546;
+      v7 = v5;
+      v8 = 2112;
+      v9 = v3;
+      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "%@ startWithCompletionHandler failed, error: %@", &v6, 0x16u);
     }
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
@@ -205,10 +195,9 @@ void __89__NEExtensionAppPushProviderContext_startConnectionWithProviderConfig_c
     _os_log_debug_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEBUG, "%@: dealloc", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = NEExtensionAppPushProviderContext;
-  [(NEExtensionProviderContext *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = NEExtensionAppPushProviderContext;
+  [(NEExtensionProviderContext *)&v4 dealloc];
 }
 
 + (id)_extensionAuxiliaryHostProtocol

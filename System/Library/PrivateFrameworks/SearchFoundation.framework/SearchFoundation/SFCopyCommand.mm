@@ -190,11 +190,11 @@ LABEL_21:
 
 - (SFCopyCommand)initWithProtobuf:(id)protobuf
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v25.receiver = self;
-  v25.super_class = SFCopyCommand;
-  v5 = [(SFCopyCommand *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = SFCopyCommand;
+  v5 = [(SFCopyCommand *)&v24 init];
   if (v5)
   {
     copyableItem = [protobufCopy copyableItem];
@@ -218,33 +218,33 @@ LABEL_21:
       v11 = 0;
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     copyableItems2 = [protobufCopy copyableItems];
-    v13 = [copyableItems2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v13 = [copyableItems2 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v22;
+      v15 = *v21;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v22 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(copyableItems2);
           }
 
-          v17 = [[SFCopyItem alloc] initWithProtobuf:*(*(&v21 + 1) + 8 * i)];
+          v17 = [[SFCopyItem alloc] initWithProtobuf:*(*(&v20 + 1) + 8 * i)];
           if (v17)
           {
             [v11 addObject:v17];
           }
         }
 
-        v14 = [copyableItems2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v14 = [copyableItems2 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v14);
@@ -254,7 +254,6 @@ LABEL_21:
     v18 = v5;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

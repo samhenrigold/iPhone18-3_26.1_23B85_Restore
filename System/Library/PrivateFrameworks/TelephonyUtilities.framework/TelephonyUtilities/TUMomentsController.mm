@@ -4,6 +4,7 @@
 + (BOOL)isInternalInstall;
 + (id)faceTimePhotosEnabledDeterminer;
 + (id)sharedInstance;
++ (void)setFaceTimePhotosEnabled:(BOOL)enabled;
 + (void)setFaceTimePhotosEnabledDeterminer:(id)determiner;
 - (TUMomentsController)init;
 - (TUMomentsController)initWithDataSource:(id)source queue:(id)queue;
@@ -32,6 +33,8 @@
 - (void)sendVideoMessageWithRequest:(id)request completion:(id)completion;
 - (void)serverDiedForDataSource:(id)source;
 - (void)startMediaRequest:(id)request completion:(id)completion;
+- (void)startRecordingMessageWithMediaType:(int)type completion:(id)completion;
+- (void)startRequestWithMediaType:(int)type forProvider:(id)provider requesteeID:(id)d completion:(id)completion;
 - (void)unregisterProvider:(id)provider completion:(id)completion;
 @end
 
@@ -107,9 +110,9 @@ uint64_t __37__TUMomentsController_sharedInstance__block_invoke()
 
 uint64_t __48__TUMomentsController_initWithDataSource_queue___block_invoke()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v0 = TULockdownModeEnabled();
-  v1 = TUDefaultLog();
+  v1 = TUDefaultLog(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v2 = @"NO";
@@ -118,12 +121,11 @@ uint64_t __48__TUMomentsController_initWithDataSource_queue___block_invoke()
       v2 = @"YES";
     }
 
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v1, OS_LOG_TYPE_DEFAULT, "Determined lockdownModeEnabled: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v1, OS_LOG_TYPE_DEFAULT, "Determined lockdownModeEnabled: %@", &v4, 0xCu);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
@@ -181,27 +183,27 @@ void __38__TUMomentsController_removeDelegate___block_invoke(uint64_t a1)
   queue = [(TUMomentsController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = TUDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = TUDefaultLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1956FD000, v6, OS_LOG_TYPE_DEFAULT, "Prewarming audio client for video message", buf, 2u);
+    _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "Prewarming audio client for video message", buf, 2u);
   }
 
   dataSource = [(TUMomentsController *)self dataSource];
-  v8 = objc_opt_respondsToSelector();
+  v9 = objc_opt_respondsToSelector();
 
-  if (v8)
+  if (v9)
   {
     dataSource2 = [(TUMomentsController *)self dataSource];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __56__TUMomentsController_prewarmAudioClientWithCompletion___block_invoke;
-    v14[3] = &unk_1E7425568;
-    v10 = &v15;
-    v14[4] = self;
-    v15 = completionCopy;
-    [dataSource2 prewarmAudioClientWithCompletion:v14];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __56__TUMomentsController_prewarmAudioClientWithCompletion___block_invoke;
+    v15[3] = &unk_1E7425568;
+    v11 = &v16;
+    v15[4] = self;
+    v16 = completionCopy;
+    [dataSource2 prewarmAudioClientWithCompletion:v15];
 
 LABEL_7:
     goto LABEL_8;
@@ -214,8 +216,8 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __56__TUMomentsController_prewarmAudioClientWithCompletion___block_invoke_3;
     block[3] = &unk_1E7425590;
-    v10 = &v13;
-    v13 = completionCopy;
+    v11 = &v14;
+    v14 = completionCopy;
     dispatch_async(queue2, block);
 
     goto LABEL_7;
@@ -245,6 +247,58 @@ void __56__TUMomentsController_prewarmAudioClientWithCompletion___block_invoke_3
   v1 = *(a1 + 32);
   v2 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:3328 userInfo:0];
   (*(v1 + 16))(v1, v2);
+}
+
+- (void)startRecordingMessageWithMediaType:(int)type completion:(id)completion
+{
+  v4 = *&type;
+  v21 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  queue = [(TUMomentsController *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v9 = TUDefaultLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v20 = v4;
+    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Starting video message with mediaType: %d", buf, 8u);
+  }
+
+  dataSource = [(TUMomentsController *)self dataSource];
+  v11 = objc_opt_respondsToSelector();
+
+  if (v11)
+  {
+    dataSource2 = [(TUMomentsController *)self dataSource];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __69__TUMomentsController_startRecordingMessageWithMediaType_completion___block_invoke;
+    v17[3] = &unk_1E74255E0;
+    v13 = &v18;
+    v17[4] = self;
+    v18 = completionCopy;
+    [dataSource2 startRecordingMessageWithMediaType:v4 completion:v17];
+
+LABEL_7:
+    goto LABEL_8;
+  }
+
+  if (completionCopy)
+  {
+    queue2 = [(TUMomentsController *)self queue];
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __69__TUMomentsController_startRecordingMessageWithMediaType_completion___block_invoke_3;
+    block[3] = &unk_1E7425590;
+    v13 = &v16;
+    v16 = completionCopy;
+    dispatch_async(queue2, block);
+
+    goto LABEL_7;
+  }
+
+LABEL_8:
 }
 
 void __69__TUMomentsController_startRecordingMessageWithMediaType_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -280,25 +334,25 @@ void __69__TUMomentsController_startRecordingMessageWithMediaType_completion___b
   queue = [(TUMomentsController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = TUDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = TUDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v21 = dCopy;
-    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Ending video message for UUID: %@", buf, 0xCu);
+    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "Ending video message for UUID: %@", buf, 0xCu);
   }
 
   dataSource = [(TUMomentsController *)self dataSource];
-  v11 = objc_opt_respondsToSelector();
+  v12 = objc_opt_respondsToSelector();
 
-  if (v11)
+  if (v12)
   {
     dataSource2 = [(TUMomentsController *)self dataSource];
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
     v18[2] = __62__TUMomentsController_endRecordingMessageWithUUID_completion___block_invoke;
     v18[3] = &unk_1E7425568;
-    v13 = &v19;
+    v14 = &v19;
     v18[4] = self;
     v19 = completionCopy;
     [dataSource2 endRecordingMessageWithUUID:dCopy completion:v18];
@@ -314,7 +368,7 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __62__TUMomentsController_endRecordingMessageWithUUID_completion___block_invoke_3;
     block[3] = &unk_1E7425590;
-    v13 = &v17;
+    v14 = &v17;
     v17 = completionCopy;
     dispatch_async(queue2, block);
 
@@ -322,8 +376,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __62__TUMomentsController_endRecordingMessageWithUUID_completion___block_invoke(uint64_t a1, void *a2)
@@ -357,25 +409,25 @@ void __62__TUMomentsController_endRecordingMessageWithUUID_completion___block_in
   queue = [(TUMomentsController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = TUDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = TUDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v21 = dCopy;
-    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Discarding video message for UUID: %@", buf, 0xCu);
+    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "Discarding video message for UUID: %@", buf, 0xCu);
   }
 
   dataSource = [(TUMomentsController *)self dataSource];
-  v11 = objc_opt_respondsToSelector();
+  v12 = objc_opt_respondsToSelector();
 
-  if (v11)
+  if (v12)
   {
     dataSource2 = [(TUMomentsController *)self dataSource];
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
     v18[2] = __62__TUMomentsController_discardVideoMessageWithUUID_completion___block_invoke;
     v18[3] = &unk_1E7425568;
-    v13 = &v19;
+    v14 = &v19;
     v18[4] = self;
     v19 = completionCopy;
     [dataSource2 discardVideoMessageWithUUID:dCopy completion:v18];
@@ -391,7 +443,7 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __62__TUMomentsController_discardVideoMessageWithUUID_completion___block_invoke_3;
     block[3] = &unk_1E7425590;
-    v13 = &v17;
+    v14 = &v17;
     v17 = completionCopy;
     dispatch_async(queue2, block);
 
@@ -399,8 +451,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __62__TUMomentsController_discardVideoMessageWithUUID_completion___block_invoke(uint64_t a1, void *a2)
@@ -434,12 +484,12 @@ void __62__TUMomentsController_discardVideoMessageWithUUID_completion___block_in
   queue = [(TUMomentsController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = TUDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = TUDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v16 = requestCopy;
-    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Sending video message with request: %@", buf, 0xCu);
+    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "Sending video message with request: %@", buf, 0xCu);
   }
 
   dataSource = [(TUMomentsController *)self dataSource];
@@ -449,10 +499,8 @@ void __62__TUMomentsController_discardVideoMessageWithUUID_completion___block_in
   v13[3] = &unk_1E7425568;
   v13[4] = self;
   v14 = completionCopy;
-  v11 = completionCopy;
+  v12 = completionCopy;
   [dataSource sendVideoMessageWithRequest:requestCopy completion:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __62__TUMomentsController_sendVideoMessageWithRequest_completion___block_invoke(uint64_t a1, void *a2)
@@ -479,12 +527,12 @@ void __62__TUMomentsController_sendVideoMessageWithRequest_completion___block_in
   queue = [(TUMomentsController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = TUDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = TUDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v16 = dCopy;
-    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Saving video message with UUID: %@", buf, 0xCu);
+    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "Saving video message with UUID: %@", buf, 0xCu);
   }
 
   dataSource = [(TUMomentsController *)self dataSource];
@@ -494,10 +542,8 @@ void __62__TUMomentsController_sendVideoMessageWithRequest_completion___block_in
   v13[3] = &unk_1E7425568;
   v13[4] = self;
   v14 = completionCopy;
-  v11 = completionCopy;
+  v12 = completionCopy;
   [dataSource saveVideoMessageWithUUID:dCopy completion:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __59__TUMomentsController_saveVideoMessageWithUUID_completion___block_invoke(uint64_t a1, void *a2)
@@ -523,22 +569,22 @@ void __59__TUMomentsController_saveVideoMessageWithUUID_completion___block_invok
   queue = [(TUMomentsController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = TUDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = TUDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Resetting video messaging", buf, 2u);
+    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "Resetting video messaging", buf, 2u);
   }
 
   dataSource = [(TUMomentsController *)self dataSource];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __69__TUMomentsController_resetVideoMessagingWithSessionUUID_completion___block_invoke;
-  v12[3] = &unk_1E7425568;
-  v12[4] = self;
-  v13 = completionCopy;
-  v11 = completionCopy;
-  [dataSource resetVideoMessagingWithSessionUUID:dCopy completion:v12];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __69__TUMomentsController_resetVideoMessagingWithSessionUUID_completion___block_invoke;
+  v13[3] = &unk_1E7425568;
+  v13[4] = self;
+  v14 = completionCopy;
+  v12 = completionCopy;
+  [dataSource resetVideoMessagingWithSessionUUID:dCopy completion:v13];
 }
 
 void __69__TUMomentsController_resetVideoMessagingWithSessionUUID_completion___block_invoke(uint64_t a1, void *a2)
@@ -565,18 +611,16 @@ void __69__TUMomentsController_resetVideoMessagingWithSessionUUID_completion___b
   queue = [(TUMomentsController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = TUDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = TUDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
     v13 = requestCopy;
-    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Prewarming media request %@", &v12, 0xCu);
+    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "Prewarming media request %@", &v12, 0xCu);
   }
 
   dataSource = [(TUMomentsController *)self dataSource];
   [dataSource prewarmMediaRequest:requestCopy completion:completionCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startMediaRequest:(id)request completion:(id)completion
@@ -587,18 +631,16 @@ void __69__TUMomentsController_resetVideoMessagingWithSessionUUID_completion___b
   queue = [(TUMomentsController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = TUDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = TUDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
     v13 = requestCopy;
-    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Starting media request %@", &v12, 0xCu);
+    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "Starting media request %@", &v12, 0xCu);
   }
 
   dataSource = [(TUMomentsController *)self dataSource];
   [dataSource startMediaRequest:requestCopy completion:completionCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endMediaRequestWithUUID:(id)d completion:(id)completion
@@ -609,18 +651,68 @@ void __69__TUMomentsController_resetVideoMessagingWithSessionUUID_completion___b
   queue = [(TUMomentsController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = TUDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = TUDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
     v13 = dCopy;
-    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Ending media request with UUID %@", &v12, 0xCu);
+    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "Ending media request with UUID %@", &v12, 0xCu);
   }
 
   dataSource = [(TUMomentsController *)self dataSource];
   [dataSource endMediaRequestWithUUID:dCopy completion:completionCopy];
+}
 
-  v11 = *MEMORY[0x1E69E9840];
+- (void)startRequestWithMediaType:(int)type forProvider:(id)provider requesteeID:(id)d completion:(id)completion
+{
+  v8 = *&type;
+  v31 = *MEMORY[0x1E69E9840];
+  providerCopy = provider;
+  dCopy = d;
+  completionCopy = completion;
+  if (!providerCopy)
+  {
+    [TUMomentsController startRequestWithMediaType:forProvider:requesteeID:completion:];
+  }
+
+  queue = [(TUMomentsController *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v15 = TUDefaultLog(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109634;
+    v26 = v8;
+    v27 = 2112;
+    v28 = providerCopy;
+    v29 = 2112;
+    v30 = dCopy;
+    _os_log_impl(&dword_1956FD000, v15, OS_LOG_TYPE_DEFAULT, "mediaType: %d, provider: %@ participant: %@", buf, 0x1Cu);
+  }
+
+  remoteIDSDestinations = [providerCopy remoteIDSDestinations];
+  v17 = remoteIDSDestinations;
+  if (dCopy)
+  {
+    firstObject = [remoteIDSDestinations objectForKeyedSubscript:dCopy];
+  }
+
+  else
+  {
+    allValues = [remoteIDSDestinations allValues];
+    firstObject = [allValues firstObject];
+  }
+
+  dataSource = [(TUMomentsController *)self dataSource];
+  streamToken = [providerCopy streamToken];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __84__TUMomentsController_startRequestWithMediaType_forProvider_requesteeID_completion___block_invoke;
+  v23[3] = &unk_1E7425608;
+  v23[4] = self;
+  v24 = completionCopy;
+  v22 = completionCopy;
+  [dataSource startRequestWithMediaType:v8 forStreamToken:streamToken requesteeID:dCopy destinationID:firstObject completion:v23];
 }
 
 void __84__TUMomentsController_startRequestWithMediaType_forProvider_requesteeID_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -654,12 +746,12 @@ void __84__TUMomentsController_startRequestWithMediaType_forProvider_requesteeID
   queue = [(TUMomentsController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = TUDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = TUDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v16 = dCopy;
-    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "transactionID: %@", buf, 0xCu);
+    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "transactionID: %@", buf, 0xCu);
   }
 
   dataSource = [(TUMomentsController *)self dataSource];
@@ -669,10 +761,8 @@ void __84__TUMomentsController_startRequestWithMediaType_forProvider_requesteeID
   v13[3] = &unk_1E7425568;
   v13[4] = self;
   v14 = completionCopy;
-  v11 = completionCopy;
+  v12 = completionCopy;
   [dataSource endRequestWithTransactionID:dCopy completion:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __62__TUMomentsController_endRequestWithTransactionID_completion___block_invoke(uint64_t a1, void *a2)
@@ -704,12 +794,12 @@ void __62__TUMomentsController_endRequestWithTransactionID_completion___block_in
   queue = [(TUMomentsController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = TUDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = TUDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v22 = providerCopy;
-    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "provider: %@", buf, 0xCu);
+    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "provider: %@", buf, 0xCu);
   }
 
   dataSource = [(TUMomentsController *)self dataSource];
@@ -724,25 +814,23 @@ void __62__TUMomentsController_endRequestWithTransactionID_completion___block_in
   v18[4] = self;
   v19 = providerCopy;
   v20 = completionCopy;
-  v15 = completionCopy;
-  v16 = providerCopy;
+  v16 = completionCopy;
+  v17 = providerCopy;
   [dataSource registerStreamToken:streamToken requesterID:requesterID remoteIDSDestinations:remoteIDSDestinations remoteMomentsAvailable:isRemoteMomentsAvailable completion:v18];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __51__TUMomentsController_registerProvider_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = TUDefaultLog();
+  v7 = TUDefaultLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v22 = v5;
-    v23 = 2112;
-    v24 = v6;
+    v21 = v5;
+    v22 = 2112;
+    v23 = v6;
     _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "registered, capabilities: %@, error: %@", buf, 0x16u);
   }
 
@@ -753,17 +841,15 @@ void __51__TUMomentsController_registerProvider_completion___block_invoke(uint64
   block[3] = &unk_1E7425630;
   v9 = *(a1 + 32);
   v10 = *(a1 + 40);
-  v16 = v5;
-  v17 = v9;
-  v18 = v10;
+  v15 = v5;
+  v16 = v9;
+  v17 = v10;
   v11 = *(a1 + 48);
-  v19 = v6;
-  v20 = v11;
+  v18 = v6;
+  v19 = v11;
   v12 = v6;
   v13 = v5;
   dispatch_async(v8, block);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __51__TUMomentsController_registerProvider_completion___block_invoke_50(uint64_t a1)
@@ -784,10 +870,9 @@ uint64_t __51__TUMomentsController_registerProvider_completion___block_invoke_50
   result = *(a1 + 64);
   if (result)
   {
-    v9 = *(a1 + 56);
-    v10 = *(result + 16);
+    v9 = *(result + 16);
 
-    return v10();
+    return v9();
   }
 
   return result;
@@ -806,12 +891,12 @@ uint64_t __51__TUMomentsController_registerProvider_completion___block_invoke_50
   queue = [(TUMomentsController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = TUDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = TUDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v19 = providerCopy;
-    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "provider: %@", buf, 0xCu);
+    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "provider: %@", buf, 0xCu);
   }
 
   dataSource = [(TUMomentsController *)self dataSource];
@@ -823,11 +908,9 @@ uint64_t __51__TUMomentsController_registerProvider_completion___block_invoke_50
   v15[4] = self;
   v16 = providerCopy;
   v17 = completionCopy;
-  v12 = completionCopy;
-  v13 = providerCopy;
+  v13 = completionCopy;
+  v14 = providerCopy;
   [dataSource unregisterStreamToken:streamToken completion:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __53__TUMomentsController_unregisterProvider_completion___block_invoke(uint64_t a1, void *a2)
@@ -861,10 +944,9 @@ uint64_t __53__TUMomentsController_unregisterProvider_completion___block_invoke_
   result = *(a1 + 56);
   if (result)
   {
-    v7 = *(a1 + 48);
-    v8 = *(result + 16);
+    v7 = *(result + 16);
 
-    return v8();
+    return v7();
   }
 
   return result;
@@ -963,15 +1045,13 @@ uint64_t __54__TUMomentsController_faceTimePhotosEnabledDeterminer__block_invoke
 
 void __46__TUMomentsController_isFaceTimePhotosEnabled__block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695E000] tu_defaults];
-  v6 = @"FaceTimePhotosEnabled";
+  v5 = @"FaceTimePhotosEnabled";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 32), "isFaceTimePhotosEnabledByDefault")}];
-  v7[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [v2 registerDefaults:v4];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)isInternalInstall
@@ -1010,17 +1090,28 @@ void __40__TUMomentsController_isInternalInstall__block_invoke(uint64_t a1)
 {
   v2 = objc_alloc_init(TUFeatureFlags);
   livePhotoXPCServiceEnabled = [(TUFeatureFlags *)v2 livePhotoXPCServiceEnabled];
+  v4 = livePhotoXPCServiceEnabled;
   if (livePhotoXPCServiceEnabled)
   {
-    v4 = TUDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = TUDefaultLog(livePhotoXPCServiceEnabled);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Determined that Live Photo moments XPC Service should be enabled", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Determined that Live Photo moments XPC Service should be enabled", v7, 2u);
     }
   }
 
-  return livePhotoXPCServiceEnabled;
+  return v4;
+}
+
++ (void)setFaceTimePhotosEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  tu_defaults = [MEMORY[0x1E695E000] tu_defaults];
+  [tu_defaults setBool:enabledCopy forKey:@"FaceTimePhotosEnabled"];
+
+  tu_defaults2 = [MEMORY[0x1E695E000] tu_defaults];
+  [tu_defaults2 synchronize];
 }
 
 - (void)dataSource:(id)source didUpdateCapabilities:(id)capabilities forVideoStreamToken:(int64_t)token
@@ -1040,69 +1131,68 @@ void __40__TUMomentsController_isInternalInstall__block_invoke(uint64_t a1)
 
 void __76__TUMomentsController_dataSource_didUpdateCapabilities_forVideoStreamToken___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v1 = a1;
+  v31 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 48);
+    v3 = *(v1 + 32);
+    v4 = *(v1 + 48);
     *buf = 138412546;
-    v29 = v3;
-    v30 = 2048;
-    v31 = v4;
+    v28 = v3;
+    v29 = 2048;
+    v30 = v4;
     _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "capabilities: %@ token: %ld", buf, 0x16u);
   }
 
-  v5 = *(a1 + 32);
-  v6 = [*(a1 + 40) capabilitiesByVideoStreamToken];
-  v7 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 48)];
+  v5 = *(v1 + 32);
+  v6 = [*(v1 + 40) capabilitiesByVideoStreamToken];
+  v7 = [MEMORY[0x1E696AD98] numberWithInteger:*(v1 + 48)];
   [v6 setObject:v5 forKeyedSubscript:v7];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
-  obj = [*(a1 + 40) delegates];
-  v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  obj = [*(v1 + 40) delegates];
+  v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * i);
+        v12 = *(*(&v22 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
-          v13 = *(a1 + 40);
-          v22 = *(a1 + 32);
+          v13 = *(v1 + 40);
+          v21 = *(v1 + 32);
           v14 = [v13 providerByVideoStreamToken];
-          [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 48)];
+          [MEMORY[0x1E696AD98] numberWithInteger:*(v1 + 48)];
           v15 = v9;
           v16 = v10;
-          v18 = v17 = a1;
+          v18 = v17 = v1;
           v19 = [v14 objectForKeyedSubscript:v18];
-          [v12 momentsController:v13 didUpdateCapabilities:v22 forProvider:v19];
+          [v12 momentsController:v13 didUpdateCapabilities:v21 forProvider:v19];
 
-          a1 = v17;
+          v1 = v17;
           v10 = v16;
           v9 = v15;
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v9);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dataSource:(id)source willCaptureRemoteRequestFromRequesterID:(id)d
@@ -1121,35 +1211,35 @@ void __76__TUMomentsController_dataSource_didUpdateCapabilities_forVideoStreamTo
 
 void __74__TUMomentsController_dataSource_willCaptureRemoteRequestFromRequesterID___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v15 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "", buf, 2u);
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = [*(a1 + 32) delegates];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           [v8 momentsController:*(a1 + 32) willCaptureRemoteRequestFromIdentifier:*(a1 + 40)];
@@ -1159,13 +1249,11 @@ void __74__TUMomentsController_dataSource_willCaptureRemoteRequestFromRequesterI
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dataSource:(id)source didReceiveLocallyRequestedMomentDescriptor:(id)descriptor
@@ -1184,37 +1272,37 @@ void __74__TUMomentsController_dataSource_willCaptureRemoteRequestFromRequesterI
 
 void __77__TUMomentsController_dataSource_didReceiveLocallyRequestedMomentDescriptor___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v17 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v17 = v3;
+    v16 = v3;
     _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "momentDescriptor: %@", buf, 0xCu);
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = [*(a1 + 40) delegates];
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
           [v9 momentsController:*(a1 + 40) didReceiveLocallyRequestedMomentDescriptor:*(a1 + 32)];
@@ -1224,13 +1312,11 @@ void __77__TUMomentsController_dataSource_didReceiveLocallyRequestedMomentDescri
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dataSource:(id)source requestSandboxExtensionForURL:(id)l reply:(id)reply
@@ -1271,36 +1357,36 @@ void __77__TUMomentsController_dataSource_didReceiveLocallyRequestedMomentDescri
 
 void __47__TUMomentsController_serverDiedForDataSource___block_invoke(uint64_t a1)
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v47 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v47 = "[TUMomentsController serverDiedForDataSource:]_block_invoke";
+    v46 = "[TUMomentsController serverDiedForDataSource:]_block_invoke";
     _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "%s: ", buf, 0xCu);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v3 = [*(a1 + 32) delegates];
-  v4 = [v3 countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v40;
+    v6 = *v39;
     do
     {
       v7 = 0;
       do
       {
-        if (*v40 != v6)
+        if (*v39 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v39 + 1) + 8 * v7);
+        v8 = *(*(&v38 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           [v8 momentsControllerServerDied:*(a1 + 32)];
@@ -1310,36 +1396,36 @@ void __47__TUMomentsController_serverDiedForDataSource___block_invoke(uint64_t a
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
     while (v5);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v9 = [*(a1 + 32) providerByVideoStreamToken];
   v10 = [v9 allKeys];
 
   obj = v10;
-  v29 = [v10 countByEnumeratingWithState:&v35 objects:v44 count:16];
-  if (v29)
+  v28 = [v10 countByEnumeratingWithState:&v34 objects:v43 count:16];
+  if (v28)
   {
-    v28 = *v36;
+    v27 = *v35;
     do
     {
       v11 = 0;
       do
       {
-        if (*v36 != v28)
+        if (*v35 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = v11;
-        v12 = *(*(&v35 + 1) + 8 * v11);
+        v29 = v11;
+        v12 = *(*(&v34 + 1) + 8 * v11);
         v13 = [*(a1 + 32) providerByVideoStreamToken];
         v14 = [v13 objectForKeyedSubscript:v12];
 
@@ -1349,27 +1435,27 @@ void __47__TUMomentsController_serverDiedForDataSource___block_invoke(uint64_t a
         v16 = [*(a1 + 32) capabilitiesByVideoStreamToken];
         [v16 setObject:0 forKeyedSubscript:v12];
 
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
         v32 = 0u;
+        v33 = 0u;
+        v30 = 0u;
+        v31 = 0u;
         v17 = [*(a1 + 32) delegates];
-        v18 = [v17 countByEnumeratingWithState:&v31 objects:v43 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v30 objects:v42 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v32;
+          v20 = *v31;
           do
           {
             v21 = 0;
             do
             {
-              if (*v32 != v20)
+              if (*v31 != v20)
               {
                 objc_enumerationMutation(v17);
               }
 
-              v22 = *(*(&v31 + 1) + 8 * v21);
+              v22 = *(*(&v30 + 1) + 8 * v21);
               if (objc_opt_respondsToSelector())
               {
                 v23 = [TUMomentsCapabilities alloc];
@@ -1383,23 +1469,21 @@ void __47__TUMomentsController_serverDiedForDataSource___block_invoke(uint64_t a
             }
 
             while (v19 != v21);
-            v19 = [v17 countByEnumeratingWithState:&v31 objects:v43 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v30 objects:v42 count:16];
           }
 
           while (v19);
         }
 
-        v11 = v30 + 1;
+        v11 = v29 + 1;
       }
 
-      while (v30 + 1 != v29);
-      v29 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
+      while (v29 + 1 != v28);
+      v28 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dataSource:(id)source didFinishProcessingRawVideoMessage:(id)message
@@ -1418,28 +1502,28 @@ void __47__TUMomentsController_serverDiedForDataSource___block_invoke(uint64_t a
 
 void __69__TUMomentsController_dataSource_didFinishProcessingRawVideoMessage___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) delegates];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 momentsController:*(a1 + 32) didFinishProcessingRawVideoMessage:*(a1 + 40)];
@@ -1449,19 +1533,17 @@ void __69__TUMomentsController_dataSource_didFinishProcessingRawVideoMessage___b
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dataSource:(id)source didFinishRecordingMedia:(id)media
 {
   mediaCopy = media;
-  v6 = TUDefaultLog();
+  v6 = TUDefaultLog(mediaCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1481,28 +1563,28 @@ void __69__TUMomentsController_dataSource_didFinishProcessingRawVideoMessage___b
 
 void __58__TUMomentsController_dataSource_didFinishRecordingMedia___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) delegates];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 momentsController:*(a1 + 32) didFinishRecordingMedia:*(a1 + 40)];
@@ -1512,13 +1594,11 @@ void __58__TUMomentsController_dataSource_didFinishRecordingMedia___block_invoke
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dataSource:(id)source didReceiveMessageRecordingError:(id)error
@@ -1537,28 +1617,28 @@ void __58__TUMomentsController_dataSource_didFinishRecordingMedia___block_invoke
 
 void __66__TUMomentsController_dataSource_didReceiveMessageRecordingError___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) delegates];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 momentsController:*(a1 + 32) didReceiveMessageRecordingError:*(a1 + 40)];
@@ -1568,13 +1648,11 @@ void __66__TUMomentsController_dataSource_didReceiveMessageRecordingError___bloc
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dataSource:(id)source didReceiveMediaRecordingError:(id)error
@@ -1593,28 +1671,28 @@ void __66__TUMomentsController_dataSource_didReceiveMessageRecordingError___bloc
 
 void __64__TUMomentsController_dataSource_didReceiveMediaRecordingError___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) delegates];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 momentsController:*(a1 + 32) didReceiveMediaRecordingError:*(a1 + 40)];
@@ -1624,13 +1702,11 @@ void __64__TUMomentsController_dataSource_didReceiveMediaRecordingError___block_
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startRequestWithMediaType:forProvider:requesteeID:completion:.cold.1()

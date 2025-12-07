@@ -9,9 +9,9 @@
 {
   teamCopy = team;
   selfCopy = self;
-  v7 = sub_100085C60(team);
+  v8 = sub_100085C60(team, v7);
 
-  return v7;
+  return v8;
 }
 
 - (id)predicateForTeam:(id)team

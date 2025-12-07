@@ -87,36 +87,35 @@ id __49__CPSMetrics_sendAppSignInSessionCompletedEvent___block_invoke(uint64_t a
 id __43__CPSMetrics_sendProviderDeviceUsageEvent___block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x277CBEB38] dictionary];
-  v3 = *(a1 + 32);
-  v4 = GestaltProductTypeStringToDeviceClass();
-  if (v4 == 1)
+  v3 = GestaltProductTypeStringToDeviceClass();
+  if (v3 == 1)
   {
-    v5 = @"phone";
+    v4 = @"phone";
   }
 
   else
   {
-    if (v4 != 3)
+    if (v3 != 3)
     {
       goto LABEL_6;
     }
 
-    v5 = @"pad";
+    v4 = @"pad";
   }
 
-  [v2 setObject:v5 forKeyedSubscript:@"deviceClass"];
+  [v2 setObject:v4 forKeyedSubscript:@"deviceClass"];
 LABEL_6:
-  v6 = [MEMORY[0x277CCABB0] numberWithBool:(*(a1 + 40) >> 19) & 1];
-  [v2 setObject:v6 forKeyedSubscript:@"flagsOwner"];
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:(*(a1 + 40) >> 19) & 1];
+  [v2 setObject:v5 forKeyedSubscript:@"flagsOwner"];
 
-  v7 = [MEMORY[0x277CCABB0] numberWithBool:(*(a1 + 40) >> 13) & 1];
-  [v2 setObject:v7 forKeyedSubscript:@"flagsHome"];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:(*(a1 + 40) >> 13) & 1];
+  [v2 setObject:v6 forKeyedSubscript:@"flagsHome"];
 
-  v8 = [MEMORY[0x277CCABB0] numberWithBool:(*(a1 + 40) >> 14) & 1];
-  [v2 setObject:v8 forKeyedSubscript:@"flagsFamily"];
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:(*(a1 + 40) >> 14) & 1];
+  [v2 setObject:v7 forKeyedSubscript:@"flagsFamily"];
 
-  v9 = [MEMORY[0x277CCABB0] numberWithBool:(*(a1 + 40) >> 15) & 1];
-  [v2 setObject:v9 forKeyedSubscript:@"flagsPaired"];
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:(*(a1 + 40) >> 15) & 1];
+  [v2 setObject:v8 forKeyedSubscript:@"flagsPaired"];
 
   return v2;
 }
@@ -195,7 +194,7 @@ id __46__CPSMetrics_sendSystemSessionCompletedEvent___block_invoke(uint64_t a1)
 
 + (void)_sendEvent:(id)event withPayloadBuilder:(id)builder
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   builderCopy = builder;
   if (MetricsLog_token != -1)
@@ -206,9 +205,9 @@ id __46__CPSMetrics_sendSystemSessionCompletedEvent___block_invoke(uint64_t a1)
   v7 = MetricsLog_log;
   if (os_log_type_enabled(MetricsLog_log, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = eventCopy;
-    _os_log_impl(&dword_243D1C000, v7, OS_LOG_TYPE_DEFAULT, "Send event: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = eventCopy;
+    _os_log_impl(&dword_243D1C000, v7, OS_LOG_TYPE_DEFAULT, "Send event: %{public}@", &v8, 0xCu);
   }
 
   if (builderCopy)
@@ -220,8 +219,6 @@ id __46__CPSMetrics_sendSystemSessionCompletedEvent___block_invoke(uint64_t a1)
   {
     AnalyticsSendEvent();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

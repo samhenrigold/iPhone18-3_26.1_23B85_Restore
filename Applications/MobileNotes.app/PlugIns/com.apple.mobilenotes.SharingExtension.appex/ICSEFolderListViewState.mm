@@ -90,45 +90,44 @@
   selfCopy = self;
   [(ICSEFolderListViewState *)self addFolderListItem:v5];
   [accountCopy visibleNoteContainerChildren];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  obj = v19 = 0u;
-  v7 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  obj = v18 = 0u;
+  v7 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
-        v12 = ICDynamicCast();
-        if (v12)
+        v11 = ICDynamicCast();
+        if (v11)
         {
-          v13 = [[ICSEFolderListItem alloc] initWithViewState:selfCopy];
-          [(ICSEFolderListItem *)v13 setIsAccount:1];
-          [(ICSEFolderListItem *)v13 setNoteContainer:accountCopy];
-          [(ICSEFolderListItem *)v13 setParent:v5];
-          [(ICSEFolderListItem *)v5 addChildItem:v13];
+          v12 = [[ICSEFolderListItem alloc] initWithViewState:selfCopy];
+          [(ICSEFolderListItem *)v12 setIsAccount:1];
+          [(ICSEFolderListItem *)v12 setNoteContainer:accountCopy];
+          [(ICSEFolderListItem *)v12 setParent:v5];
+          [(ICSEFolderListItem *)v5 addChildItem:v12];
         }
 
         objc_opt_class();
-        v14 = ICDynamicCast();
-        if ([v14 isVisible] && (objc_msgSend(v14, "isTrashFolder") & 1) == 0)
+        v13 = ICDynamicCast();
+        if ([v13 isVisible] && (objc_msgSend(v13, "isTrashFolder") & 1) == 0)
         {
-          [(ICSEFolderListItem *)v5 recursivelyAddChildFolder:v14];
+          [(ICSEFolderListItem *)v5 recursivelyAddChildFolder:v13];
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);

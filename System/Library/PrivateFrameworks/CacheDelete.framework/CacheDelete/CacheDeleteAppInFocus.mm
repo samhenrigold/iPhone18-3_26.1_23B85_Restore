@@ -8,36 +8,36 @@
 {
   beginningCopy = beginning;
   callbackCopy = callback;
-  if (BiomeLibraryLibraryCore())
+  if (BiomeLibraryLibraryCore(0))
   {
     if (qword_1ED76A0E8 != -1)
     {
       dispatch_once(&qword_1ED76A0E8, &__block_literal_global_10);
     }
 
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x2020000000;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2020000000;
     v7 = off_1ED76A108;
-    v27 = off_1ED76A108;
+    v28 = off_1ED76A108;
     if (!off_1ED76A108)
     {
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __getBiomeLibrarySymbolLoc_block_invoke;
-      v23[3] = &unk_1E7F03180;
-      v23[4] = &v24;
-      __getBiomeLibrarySymbolLoc_block_invoke(v23);
-      v7 = v25[3];
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __getBiomeLibrarySymbolLoc_block_invoke;
+      v24[3] = &unk_1E7F03180;
+      v24[4] = &v25;
+      __getBiomeLibrarySymbolLoc_block_invoke(v24);
+      v7 = v26[3];
     }
 
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v25, 8);
     if (!v7)
     {
-      dlerror();
-      v19 = abort_report_np();
-      _Block_object_dispose(&v24, 8);
-      _Unwind_Resume(v19);
+      v19 = dlerror();
+      v20 = abort_report_np("%s", v19);
+      _Block_object_dispose(&v25, 8);
+      _Unwind_Resume(v20);
     }
 
     v8 = v7();
@@ -51,14 +51,14 @@
     v15 = [v13 initWithStartDate:date endDate:beginningCopy maxEvents:0 lastN:0 reversed:1];
 
     v16 = [inFocus publisherWithOptions:v15];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __71__CacheDeleteAppInFocus_subscribeToAppInFocusStreamBeginning_callback___block_invoke_3;
-    v20[3] = &unk_1E7F03140;
-    v21 = v12;
-    v22 = callbackCopy;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __71__CacheDeleteAppInFocus_subscribeToAppInFocusStreamBeginning_callback___block_invoke_3;
+    v21[3] = &unk_1E7F03140;
+    v22 = v12;
+    v23 = callbackCopy;
     v17 = v12;
-    v18 = [v16 sinkWithCompletion:&__block_literal_global_36_0 receiveInput:v20];
+    v18 = [v16 sinkWithCompletion:&__block_literal_global_36_0 receiveInput:v21];
 
     objc_autoreleasePoolPop(v11);
   }
@@ -73,7 +73,7 @@ void __71__CacheDeleteAppInFocus_subscribeToAppInFocusStreamBeginning_callback__
   v5 = qword_1ED76A100;
   if (!qword_1ED76A100)
   {
-    BiomeLibraryLibraryCore();
+    BiomeLibraryLibraryCore(0);
     v3[3] = objc_getClass("BMPublisherOptions");
     qword_1ED76A100 = v3[3];
     v0 = v3[3];

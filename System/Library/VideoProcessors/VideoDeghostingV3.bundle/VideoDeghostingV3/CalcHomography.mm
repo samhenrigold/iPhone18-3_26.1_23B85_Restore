@@ -4,7 +4,7 @@
 - (_homographyData)_ispHomographyFromISPInfoFunc:(id *)func;
 - (_homographyData)ispHomographyFromMetaInfo:(id)info;
 - (double)_scaleHomography:(simd_float3x3)homography scaleX:(float)x scaleY:(float)y;
-- (id)_normalizeHomography:(unint64_t)homography width:(unint64_t)width height:(double)height;
+- (void)_normalizeHomography:(double)homography width:(double)width height:(double)height;
 @end
 
 @implementation CalcHomography
@@ -34,11 +34,11 @@
   return v5;
 }
 
-- (id)_normalizeHomography:(unint64_t)homography width:(unint64_t)width height:(double)height
+- (void)_normalizeHomography:(double)homography width:(double)width height:(double)height
 {
-  *&a8 = homography;
-  *&a9 = width;
-  return [self _scaleHomography:height scaleX:a6 scaleY:{a7, a8, a9}];
+  *&height = a8;
+  *&a6 = a9;
+  return [self _scaleHomography:a2 scaleX:homography scaleY:{width, height, a6}];
 }
 
 - (double)_scaleHomography:(simd_float3x3)homography scaleX:(float)x scaleY:(float)y
@@ -296,39 +296,11 @@
   return v10;
 }
 
-- (void)ispHomographyFromMetaInfo:(void *)a1 .cold.1(void *a1)
+- (void)ispHomographyFromMetaInfo:(const char *)a1 .cold.1(const char *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-}
-
-- (void)ispHomographyFromMetaInfo:(void *)a1 .cold.2(void *a1)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-}
-
-- (uint64_t)ispHomographyFromMetaInfo:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)ispHomographyFromMetaInfo:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)cascadeHomographyMatricesArray:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v1, v2, v3, a1, v6, v7, vars0, vars8);
 }
 
 @end

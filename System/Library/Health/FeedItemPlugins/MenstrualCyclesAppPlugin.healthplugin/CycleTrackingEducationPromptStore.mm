@@ -8,7 +8,7 @@
 {
   domainCopy = domain;
 
-  sub_29E22B6F4();
+  sub_29E22B6F4(domainCopy);
 }
 
 @end

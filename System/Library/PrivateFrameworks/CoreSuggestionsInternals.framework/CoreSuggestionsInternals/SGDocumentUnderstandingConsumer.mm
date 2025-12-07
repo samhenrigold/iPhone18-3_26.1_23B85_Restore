@@ -26,29 +26,28 @@
     v7 = sgLogHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEFAULT, "Error encoding message as protobuf", v15, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEFAULT, "Error encoding message as protobuf", v14, 2u);
     }
   }
 
   v8 = NSSelectorFromString(@"addSerializedDocument:documentType:");
-  duReceiver = self->_duReceiver;
   if (objc_opt_respondsToSelector())
   {
-    v10 = objc_autoreleasePoolPush();
-    v11 = [(DUDocumentHarvesting *)self->_duReceiver methodSignatureForSelector:v8];
-    v12 = [MEMORY[0x277CBEAE8] invocationWithMethodSignature:v11];
-    [v12 setSelector:v8];
-    [v12 setArgument:buf atIndex:{2, 3}];
-    [v12 setArgument:v15 atIndex:3];
-    [v12 invokeWithTarget:self->_duReceiver];
+    v9 = objc_autoreleasePoolPush();
+    v10 = [(DUDocumentHarvesting *)self->_duReceiver methodSignatureForSelector:v8];
+    v11 = [MEMORY[0x277CBEAE8] invocationWithMethodSignature:v10];
+    [v11 setSelector:v8];
+    [v11 setArgument:buf atIndex:{2, 3}];
+    [v11 setArgument:v14 atIndex:3];
+    [v11 invokeWithTarget:self->_duReceiver];
 
-    objc_autoreleasePoolPop(v10);
+    objc_autoreleasePoolPop(v9);
   }
 
-  v13 = [MEMORY[0x277D41DF0] successWithNumberOfExtractions:0];
+  v12 = [MEMORY[0x277D41DF0] successWithNumberOfExtractions:0];
 
-  return v13;
+  return v12;
 }
 
 - (id)consumeNotesContentWithContext:(id)context
@@ -68,29 +67,28 @@
     v7 = sgLogHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEFAULT, "Error encoding message as protobuf", v15, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEFAULT, "Error encoding message as protobuf", v14, 2u);
     }
   }
 
   v8 = NSSelectorFromString(@"addSerializedDocument:documentType:");
-  duReceiver = self->_duReceiver;
   if (objc_opt_respondsToSelector())
   {
-    v10 = objc_autoreleasePoolPush();
-    v11 = [(DUDocumentHarvesting *)self->_duReceiver methodSignatureForSelector:v8];
-    v12 = [MEMORY[0x277CBEAE8] invocationWithMethodSignature:v11];
-    [v12 setSelector:v8];
-    [v12 setArgument:buf atIndex:{2, 2}];
-    [v12 setArgument:v15 atIndex:3];
-    [v12 invokeWithTarget:self->_duReceiver];
+    v9 = objc_autoreleasePoolPush();
+    v10 = [(DUDocumentHarvesting *)self->_duReceiver methodSignatureForSelector:v8];
+    v11 = [MEMORY[0x277CBEAE8] invocationWithMethodSignature:v10];
+    [v11 setSelector:v8];
+    [v11 setArgument:buf atIndex:{2, 2}];
+    [v11 setArgument:v14 atIndex:3];
+    [v11 invokeWithTarget:self->_duReceiver];
 
-    objc_autoreleasePoolPop(v10);
+    objc_autoreleasePoolPop(v9);
   }
 
-  v13 = [MEMORY[0x277D41DF0] successWithNumberOfExtractions:0];
+  v12 = [MEMORY[0x277D41DF0] successWithNumberOfExtractions:0];
 
-  return v13;
+  return v12;
 }
 
 - (id)consumeMessagesContentWithContext:(id)context
@@ -110,29 +108,28 @@
     v7 = sgLogHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEFAULT, "Error encoding message as protobuf", v15, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEFAULT, "Error encoding message as protobuf", v14, 2u);
     }
   }
 
   v8 = NSSelectorFromString(@"addSerializedDocument:documentType:");
-  duReceiver = self->_duReceiver;
   if (objc_opt_respondsToSelector())
   {
-    v10 = objc_autoreleasePoolPush();
-    v11 = [(DUDocumentHarvesting *)self->_duReceiver methodSignatureForSelector:v8];
-    v12 = [MEMORY[0x277CBEAE8] invocationWithMethodSignature:v11];
-    [v12 setSelector:v8];
-    [v12 setArgument:buf atIndex:{2, 1}];
-    [v12 setArgument:v15 atIndex:3];
-    [v12 invokeWithTarget:self->_duReceiver];
+    v9 = objc_autoreleasePoolPush();
+    v10 = [(DUDocumentHarvesting *)self->_duReceiver methodSignatureForSelector:v8];
+    v11 = [MEMORY[0x277CBEAE8] invocationWithMethodSignature:v10];
+    [v11 setSelector:v8];
+    [v11 setArgument:buf atIndex:{2, 1}];
+    [v11 setArgument:v14 atIndex:3];
+    [v11 invokeWithTarget:self->_duReceiver];
 
-    objc_autoreleasePoolPop(v10);
+    objc_autoreleasePoolPop(v9);
   }
 
-  v13 = [MEMORY[0x277D41DF0] successWithNumberOfExtractions:0];
+  v12 = [MEMORY[0x277D41DF0] successWithNumberOfExtractions:0];
 
-  return v13;
+  return v12;
 }
 
 - (id)consumeMailContentWithContext:(id)context
@@ -152,29 +149,28 @@
     v7 = sgLogHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEFAULT, "Error encoding message as protobuf", v15, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEFAULT, "Error encoding message as protobuf", v14, 2u);
     }
   }
 
   v8 = NSSelectorFromString(@"addSerializedDocument:documentType:");
-  duReceiver = self->_duReceiver;
   if (objc_opt_respondsToSelector())
   {
-    v10 = objc_autoreleasePoolPush();
-    v11 = [(DUDocumentHarvesting *)self->_duReceiver methodSignatureForSelector:v8];
-    v12 = [MEMORY[0x277CBEAE8] invocationWithMethodSignature:v11];
-    [v12 setSelector:v8];
-    [v12 setArgument:buf atIndex:{2, 0}];
-    [v12 setArgument:v15 atIndex:3];
-    [v12 invokeWithTarget:self->_duReceiver];
+    v9 = objc_autoreleasePoolPush();
+    v10 = [(DUDocumentHarvesting *)self->_duReceiver methodSignatureForSelector:v8];
+    v11 = [MEMORY[0x277CBEAE8] invocationWithMethodSignature:v10];
+    [v11 setSelector:v8];
+    [v11 setArgument:buf atIndex:{2, 0}];
+    [v11 setArgument:v14 atIndex:3];
+    [v11 invokeWithTarget:self->_duReceiver];
 
-    objc_autoreleasePoolPop(v10);
+    objc_autoreleasePoolPop(v9);
   }
 
-  v13 = [MEMORY[0x277D41DF0] successWithNumberOfExtractions:0];
+  v12 = [MEMORY[0x277D41DF0] successWithNumberOfExtractions:0];
 
-  return v13;
+  return v12;
 }
 
 - (SGDocumentUnderstandingConsumer)init

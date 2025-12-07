@@ -19,8 +19,12 @@
 - (int)mailNumberOfPastDaysToSync;
 - (int)performFetchAttachmentRequest:(id)request consumer:(id)consumer;
 - (int)performFetchMessageSearchResultRequests:(id)requests consumer:(id)consumer;
+- (int)performMailboxRequest:(id)request mailbox:(id)mailbox previousTag:(id)tag clientWinsOnSyncConflict:(BOOL)conflict isUserRequested:(BOOL)requested consumer:(id)consumer;
+- (int)performMailboxRequests:(id)requests mailbox:(id)mailbox previousTag:(id)tag clientWinsOnSyncConflict:(BOOL)conflict isUserRequested:(BOOL)requested consumer:(id)consumer;
 - (int)performMoveRequests:(id)requests consumer:(id)consumer;
 - (int)performResolveRecipientsRequest:(id)request consumer:(id)consumer;
+- (int)sendMessageWithRFC822Data:(id)data messageID:(id)d outgoingMessageType:(int)type originalMessageFolderID:(id)iD originalMessageItemID:(id)itemID originalMessageLongID:(id)longID originalAccountID:(id)accountID useSmartTasksIfPossible:(BOOL)self0 isUserRequested:(BOOL)self1 consumer:(id)self2 context:(id)self3;
+- (int)sendSmartMessageWithRFC822Data:(id)data messageID:(id)d outgoingMessageType:(int)type originalMessageFolderID:(id)iD originalMessageItemID:(id)itemID originalMessageLongID:(id)longID originalAccountID:(id)accountID replaceOriginalMime:(BOOL)self0 isUserRequested:(BOOL)self1 consumer:(id)self2 context:(id)self3;
 - (int)supportsConversations;
 - (int)supportsDraftFolderSync;
 - (int)supportsEmailFlagging;
@@ -35,11 +39,16 @@
 - (void)_newASPolicyKeyNotification:(id)notification;
 - (void)cancelAllSearchQueries;
 - (void)cancelSearchQuery:(id)query;
+- (void)cancelTaskWithID:(int)d;
 - (void)monitorFoldersForUpdates:(id)updates;
+- (void)monitorFoldersForUpdates:(id)updates persistent:(BOOL)persistent;
+- (void)performFolderChange:(id)change isUserRequested:(BOOL)requested;
 - (void)performSearchQuery:(id)query;
 - (void)setAccount:(id)account;
 - (void)setCustomSignature:(id)signature;
 - (void)setEncryptionIdentityPersistentReference:(id)reference;
+- (void)setGeneratesBulletins:(BOOL)bulletins;
+- (void)setMailNumberOfPastDaysToSync:(int)sync;
 - (void)setSigningIdentityPersistentReference:(id)reference;
 - (void)shutdown;
 - (void)startup;
@@ -151,6 +160,12 @@
   return 0;
 }
 
+- (void)setGeneratesBulletins:(BOOL)bulletins
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"ASAccountActor.m" lineNumber:73 description:{@"Must be called on subclass: %s", sel_getName(a2)}];
+}
+
 - (id)signingIdentityPersistentReference
 {
   currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -193,10 +208,22 @@
   [currentHandler handleFailureInMethod:a2 object:self file:@"ASAccountActor.m" lineNumber:100 description:{@"Must be called on subclass: %s", sel_getName(a2)}];
 }
 
+- (void)setMailNumberOfPastDaysToSync:(int)sync
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"ASAccountActor.m" lineNumber:105 description:{@"Must be called on subclass: %s", sel_getName(a2)}];
+}
+
 - (void)monitorFoldersForUpdates:(id)updates
 {
   currentHandler = [MEMORY[0x277CCA890] currentHandler];
   [currentHandler handleFailureInMethod:a2 object:self file:@"ASAccountActor.m" lineNumber:110 description:{@"Must be called on subclass: %s", sel_getName(a2)}];
+}
+
+- (void)monitorFoldersForUpdates:(id)updates persistent:(BOOL)persistent
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"ASAccountActor.m" lineNumber:115 description:{@"Must be called on subclass: %s", sel_getName(a2)}];
 }
 
 - (void)stopMonitoringFoldersForUpdates:(id)updates
@@ -259,6 +286,38 @@
   return 0;
 }
 
+- (int)sendMessageWithRFC822Data:(id)data messageID:(id)d outgoingMessageType:(int)type originalMessageFolderID:(id)iD originalMessageItemID:(id)itemID originalMessageLongID:(id)longID originalAccountID:(id)accountID useSmartTasksIfPossible:(BOOL)self0 isUserRequested:(BOOL)self1 consumer:(id)self2 context:(id)self3
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"ASAccountActor.m" lineNumber:173 description:{@"Must be called on subclass: %s", sel_getName(a2)}];
+
+  return 0;
+}
+
+- (int)sendSmartMessageWithRFC822Data:(id)data messageID:(id)d outgoingMessageType:(int)type originalMessageFolderID:(id)iD originalMessageItemID:(id)itemID originalMessageLongID:(id)longID originalAccountID:(id)accountID replaceOriginalMime:(BOOL)self0 isUserRequested:(BOOL)self1 consumer:(id)self2 context:(id)self3
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"ASAccountActor.m" lineNumber:188 description:{@"Must be called on subclass: %s", sel_getName(a2)}];
+
+  return 0;
+}
+
+- (int)performMailboxRequest:(id)request mailbox:(id)mailbox previousTag:(id)tag clientWinsOnSyncConflict:(BOOL)conflict isUserRequested:(BOOL)requested consumer:(id)consumer
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"ASAccountActor.m" lineNumber:229 description:{@"Must be called on subclass: %s", sel_getName(a2)}];
+
+  return 0;
+}
+
+- (int)performMailboxRequests:(id)requests mailbox:(id)mailbox previousTag:(id)tag clientWinsOnSyncConflict:(BOOL)conflict isUserRequested:(BOOL)requested consumer:(id)consumer
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"ASAccountActor.m" lineNumber:240 description:{@"Must be called on subclass: %s", sel_getName(a2)}];
+
+  return 0;
+}
+
 - (int)performMoveRequests:(id)requests consumer:(id)consumer
 {
   currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -289,6 +348,18 @@
   [currentHandler handleFailureInMethod:a2 object:self file:@"ASAccountActor.m" lineNumber:266 description:{@"Must be called on subclass: %s", sel_getName(a2)}];
 
   return 0;
+}
+
+- (void)performFolderChange:(id)change isUserRequested:(BOOL)requested
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"ASAccountActor.m" lineNumber:271 description:{@"Must be called on subclass: %s", sel_getName(a2)}];
+}
+
+- (void)cancelTaskWithID:(int)d
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"ASAccountActor.m" lineNumber:276 description:{@"Must be called on subclass: %s", sel_getName(a2)}];
 }
 
 - (void)performSearchQuery:(id)query
@@ -376,7 +447,7 @@
 - (ASAccountActor)initWithDAAccount:(id)account
 {
   accountCopy = account;
-  if (ExchangeSyncLibraryCore_1())
+  if (ExchangeSyncLibraryCore_1(0))
   {
     v10 = 0;
     v11 = &v10;

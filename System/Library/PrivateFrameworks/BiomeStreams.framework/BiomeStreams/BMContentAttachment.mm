@@ -77,13 +77,13 @@ LABEL_3:
 
 - (id)jsonDict
 {
-  v9[3] = *MEMORY[0x1E69E9840];
-  v8[0] = @"type";
-  v8[1] = @"filename";
+  v8[3] = *MEMORY[0x1E69E9840];
+  v7[0] = @"type";
+  v7[1] = @"filename";
   filename = self->_filename;
-  v9[0] = self->_type;
-  v9[1] = filename;
-  v8[2] = @"path";
+  v8[0] = self->_type;
+  v8[1] = filename;
+  v7[2] = @"path";
   path = self->_path;
   null = path;
   if (!path)
@@ -91,13 +91,11 @@ LABEL_3:
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v9[2] = null;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
+  v8[2] = null;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
   if (!path)
   {
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

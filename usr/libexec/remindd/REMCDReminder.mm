@@ -1,4 +1,5 @@
 @interface REMCDReminder
++ (id)dueDateComponentsWithDueDate:(id)date isAllDay:(BOOL)day timeZoneName:(id)name;
 + (id)existingCloudObjectForRecordID:(id)d accountID:(id)iD context:(id)context;
 + (id)newCloudObjectForRecord:(id)record account:(id)account context:(id)context;
 + (id)recordTypes;
@@ -51,8 +52,9 @@
 - (uint64_t)validateForUpdate_Swift:(void *)swift
 {
   swiftCopy = swift;
-  sub_100342E04();
+  v2 = sub_100342E04();
 
+  v2, v3, v4, v5, v6, v7, v8, v9;
   return 1;
 }
 
@@ -1018,6 +1020,35 @@ LABEL_51:
   return v4;
 }
 
++ (id)dueDateComponentsWithDueDate:(id)date isAllDay:(BOOL)day timeZoneName:(id)name
+{
+  dayCopy = day;
+  dateCopy = date;
+  if (dateCopy)
+  {
+    nameCopy = name;
+    v9 = [objc_opt_class() timeZoneFromName:nameCopy];
+
+    if (v9)
+    {
+      [NSDateComponents rem_dateComponentsWithDate:dateCopy timeZone:v9 isAllDay:dayCopy];
+    }
+
+    else
+    {
+      [NSDateComponents rem_dateComponentsWithDateUsingArchivingTimeZone:dateCopy isAllDay:dayCopy];
+    }
+    v10 = ;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  return v10;
+}
+
 - (NSDateComponents)dueDateComponents
 {
   v3 = objc_opt_class();
@@ -1234,6 +1265,8 @@ LABEL_51:
   contextCopy = context;
   v12 = static REMCDReminder.existingCloudObject(for:accountID:managedObjectContext:)(dCopy, v7, v9, contextCopy);
 
+  v9, v13, v14, v15, v16, v17, v18, v19;
+
   return v12;
 }
 
@@ -1264,6 +1297,8 @@ LABEL_51:
   v11._countAndFlagsBits = v6;
   v11._object = v8;
   REMCDReminder.mergeData(from:accountID:)(recordCopy, v11);
+
+  v8, v12, v13, v14, v15, v16, v17, v18;
 }
 
 - (CKRecord)ckServerRecord
@@ -1322,11 +1357,12 @@ LABEL_51:
 - (id)objectsToBeDeletedBeforeThisObject
 {
   selfCopy = self;
-  REMCDReminder.objectsToBeDeletedBeforeThisObject()();
+  v3 = REMCDReminder.objectsToBeDeletedBeforeThisObject()();
 
-  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v3, v5, v6, v7, v8, v9, v10, v11;
 
-  return v3.super.isa;
+  return v4.super.isa;
 }
 
 - (void)fixBrokenReferences

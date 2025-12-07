@@ -268,7 +268,7 @@ void __41__SKUISearchFieldController_becomeActive__block_invoke(uint64_t a1)
 - (void)setSearchBarAccessoryText:(id)text
 {
   textCopy = text;
-  if (([textCopy isEqualToString:self->_searchBarAccessoryText] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(textCopy) & 1) == 0)
   {
     v4 = [textCopy copy];
     searchBarAccessoryText = self->_searchBarAccessoryText;
@@ -608,24 +608,24 @@ void __92__SKUISearchFieldController_searchControllerWillTransitionToSize_withTr
   {
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
     keyWindow = [mEMORY[0x277D75128] keyWindow];
-    [keyWindow bounds];
-    if (v6 <= SKUICompactThreshold())
+    bounds = [keyWindow bounds];
+    if (v8 <= SKUICompactThreshold(bounds, v7))
     {
-      LOBYTE(v7) = 0;
+      LOBYTE(v9) = 0;
     }
 
     else
     {
-      v7 = [popoverCopy shouldForceTransientSearchControllerBahavior] ^ 1;
+      v9 = [popoverCopy shouldForceTransientSearchControllerBahavior] ^ 1;
     }
   }
 
   else
   {
-    LOBYTE(v7) = 0;
+    LOBYTE(v9) = 0;
   }
 
-  return v7;
+  return v9;
 }
 
 - (void)_adjustInsetsForResultsTableView:(id)view
@@ -636,8 +636,8 @@ void __92__SKUISearchFieldController_searchControllerWillTransitionToSize_withTr
   {
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
     keyWindow = [mEMORY[0x277D75128] keyWindow];
-    [keyWindow bounds];
-    if (v7 > SKUICompactThreshold())
+    bounds = [keyWindow bounds];
+    if (v9 > SKUICompactThreshold(bounds, v8))
     {
       shouldForceTransientSearchControllerBahavior = [(SKUIClientContext *)self->_clientContext shouldForceTransientSearchControllerBahavior];
 
@@ -652,23 +652,23 @@ void __92__SKUISearchFieldController_searchControllerWillTransitionToSize_withTr
 
 LABEL_7:
   [viewCopy contentInset];
-  v10 = v9;
   v12 = v11;
   v14 = v13;
   v16 = v15;
-  [viewCopy contentOffset];
   v18 = v17;
+  [viewCopy contentOffset];
   v20 = v19;
+  v22 = v21;
   contentsController = [(SKUISearchFieldController *)self contentsController];
   topLayoutGuide = [contentsController topLayoutGuide];
   [topLayoutGuide length];
-  v24 = v23;
+  v26 = v25;
 
-  if (v24 != v10)
+  if (v26 != v12)
   {
-    [viewCopy setContentInset:{v24, v12, v14, v16}];
-    [viewCopy setScrollIndicatorInsets:{v24, v12, v14, v16}];
-    [viewCopy setContentOffset:{v18, v20 - (v24 - v10)}];
+    [viewCopy setContentInset:{v26, v14, v16, v18}];
+    [viewCopy setScrollIndicatorInsets:{v26, v14, v16, v18}];
+    [viewCopy setContentOffset:{v20, v22 - (v26 - v12)}];
   }
 
 LABEL_9:
@@ -842,8 +842,8 @@ void __40__SKUISearchFieldController__reloadData__block_invoke_4(uint64_t a1)
   {
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
     keyWindow = [mEMORY[0x277D75128] keyWindow];
-    [keyWindow bounds];
-    if (v6 <= SKUICompactThreshold())
+    bounds = [keyWindow bounds];
+    if (v8 <= SKUICompactThreshold(bounds, v7))
     {
     }
 
@@ -863,19 +863,19 @@ void __40__SKUISearchFieldController__reloadData__block_invoke_4(uint64_t a1)
       isActive = [(SKUISearchController *)self->_searchController isActive];
       searchBar = [(SKUISearchController *)self->_searchController searchBar];
       text = [searchBar text];
-      v12 = [text length];
+      v14 = [text length];
 
-      if (v12)
+      if (v14)
       {
-        v13 = 0;
+        v15 = 0;
       }
 
       else
       {
-        v13 = isActive;
+        v15 = isActive;
       }
 
-      [mEMORY[0x277D75128] setTrendingSearchesVisible:v13];
+      [mEMORY[0x277D75128] setTrendingSearchesVisible:v15];
     }
   }
 }

@@ -23,18 +23,15 @@
         dispatch_once(&qword_100228F30, &stru_1001FA700);
       }
 
-      v5 = 433;
-      v3 = "";
-      v4 = "[BTPAdvertiser dealloc]";
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100228F28, 16, "%s%.30s:%-4d _sdRefRegister is still active", ", "[BTPAdvertiser dealloc]"", 433);
     }
 
-    [(BTPAdvertiser *)self stop:v3];
+    [(BTPAdvertiser *)self stop];
   }
 
-  v6.receiver = self;
-  v6.super_class = BTPAdvertiser;
-  [(BTPAdvertiser *)&v6 dealloc];
+  v3.receiver = self;
+  v3.super_class = BTPAdvertiser;
+  [(BTPAdvertiser *)&v3 dealloc];
 }
 
 - (void)stop
@@ -58,12 +55,7 @@
       dispatch_once(&qword_100228F30, &stru_1001FA700);
     }
 
-    bonjourDomain = self->_bonjourDomain;
-    hostTarget = self->_hostTarget;
-    v4 = *&self->_bonjourName;
-    v7 = bswap32(self->_port) >> 16;
-    dstIfIndex = self->_dstIfIndex;
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_100228F28, 2, "%s%.30s:%-4d Successfully unregistered %@.%@.%@ %@:%d over %u", ", "[BTPAdvertiser stop]"", 427, self->_bonjourName, self->_bonjourType, self->_bonjourDomain, self->_hostTarget, bswap32(self->_port) >> 16, self->_dstIfIndex);
   }
 }
 
@@ -91,12 +83,7 @@
         dispatch_once(&qword_100228F30, &stru_1001FA700);
       }
 
-      dstIfIndex = self->_dstIfIndex;
-      bonjourDomain = self->_bonjourDomain;
-      hostTarget = self->_hostTarget;
-      v14 = *&self->_bonjourName;
-      v20 = bswap32(self->_port) >> 16;
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100228F28, 16, "%s%.30s:%-4d DNSServiceRegister for %@.%@.%@ %@:%d over %u failed %d", ", "[BTPAdvertiser start]"", 405, self->_bonjourName, self->_bonjourType, self->_bonjourDomain, self->_hostTarget, bswap32(self->_port) >> 16, self->_dstIfIndex, v5);
     }
 
     result = 0;
@@ -127,12 +114,7 @@
           dispatch_once(&qword_100228F30, &stru_1001FA700);
         }
 
-        v17 = self->_bonjourDomain;
-        v19 = self->_hostTarget;
-        v15 = *&self->_bonjourName;
-        v21 = bswap32(self->_port) >> 16;
-        v23 = self->_dstIfIndex;
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_100228F28, 2, "%s%.30s:%-4d Successfully registered %@.%@.%@ %@:%d over %u", ", "[BTPAdvertiser start]"", 416, self->_bonjourName, self->_bonjourType, self->_bonjourDomain, self->_hostTarget, bswap32(self->_port) >> 16, self->_dstIfIndex);
       }
 
       return 1;
@@ -151,14 +133,10 @@
         dispatch_once(&qword_100228F30, &stru_1001FA700);
       }
 
-      callBack = 411;
-      v13 = v8;
-      txtLen = "";
-      txtRecord = "[BTPAdvertiser start]";
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100228F28, 16, "%s%.30s:%-4d DNSServiceSetDispatchQueue failed %d", ", "[BTPAdvertiser start]"", 411, v8);
     }
 
-    [(BTPAdvertiser *)self stop:txtLen];
+    [(BTPAdvertiser *)self stop];
     return 0;
   }
 
@@ -204,7 +182,7 @@
         dispatch_once(&qword_100228F30, &stru_1001FA700);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100228F28, 16, "%s%.30s:%-4d super init failed", ", "[BTPAdvertiser initWithSrcIfIndex:dstIfIndex:name:type:domain:hostTarget:port:txtRecord:]"", 376);
     }
   }
 

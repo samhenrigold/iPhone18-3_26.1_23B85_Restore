@@ -32,7 +32,7 @@
   }
 
   v6.receiver = self;
-  v6.super_class = type metadata accessor for QuickActionCustomButton();
+  v6.super_class = type metadata accessor for QuickActionCustomButton(0);
   selfCopy = self;
   [(QuickActionCustomButton *)&v6 layoutSubviews];
   v4 = [(QuickActionCustomButton *)selfCopy layer:v6.receiver];

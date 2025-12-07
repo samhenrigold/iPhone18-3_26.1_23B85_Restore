@@ -43,24 +43,22 @@
 
 - (void)didReceiveLifecycleNotification
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory(4uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
     lifecycleNotification = self->_lifecycleNotification;
-    v9 = 138543618;
-    v10 = v4;
-    v11 = 2114;
-    v12 = lifecycleNotification;
+    v8 = 138543618;
+    v9 = v4;
+    v10 = 2114;
+    v11 = lifecycleNotification;
     v6 = v4;
-    _os_log_impl(&dword_269A84000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] received lifecycle notification %{public}@", &v9, 0x16u);
+    _os_log_impl(&dword_269A84000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] received lifecycle notification %{public}@", &v8, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained listenerDidReceiveHeartbeat:self];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HKSPXPCHeartbeatListenerDelegate)delegate

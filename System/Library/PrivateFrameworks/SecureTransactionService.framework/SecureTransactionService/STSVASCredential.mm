@@ -1,10 +1,22 @@
 @interface STSVASCredential
++ (id)vasCredentialWithMerchantId:(id)id data:(id)data mobileToken:(id)token userInterventionRequired:(BOOL)required;
 - (STSVASCredential)initWithCoder:(id)coder;
 - (STSVASCredential)initWithMerchantId:(id)id data:(id)data mobileToken:(id)token userInterventionRequired:(BOOL)required;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation STSVASCredential
+
++ (id)vasCredentialWithMerchantId:(id)id data:(id)data mobileToken:(id)token userInterventionRequired:(BOOL)required
+{
+  requiredCopy = required;
+  tokenCopy = token;
+  dataCopy = data;
+  idCopy = id;
+  v12 = [[STSVASCredential alloc] initWithMerchantId:idCopy data:dataCopy mobileToken:tokenCopy userInterventionRequired:requiredCopy];
+
+  return v12;
+}
 
 - (STSVASCredential)initWithMerchantId:(id)id data:(id)data mobileToken:(id)token userInterventionRequired:(BOOL)required
 {

@@ -417,7 +417,7 @@ void __81__PSKeychainSyncManager_showRecoveryFlowWithSpecifier_overController_co
     v26 = 0;
     v4 = [v3 getAccountInfoWithInfo:0 results:&v26];
     v5 = v26;
-    v6 = _PSLoggingFacility();
+    v6 = _PSLoggingFacility(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -1115,25 +1115,25 @@ void __99__PSKeychainSyncManager__disableKeychainSyncOverController_deletingSafa
   }
 
   cf = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
   v8 = getAKAuthenticationUsernameKeySymbolLoc_ptr;
-  v37 = getAKAuthenticationUsernameKeySymbolLoc_ptr;
+  v38 = getAKAuthenticationUsernameKeySymbolLoc_ptr;
   if (!getAKAuthenticationUsernameKeySymbolLoc_ptr)
   {
-    v29 = MEMORY[0x1E69E9820];
-    v30 = 3221225472;
-    v31 = __getAKAuthenticationUsernameKeySymbolLoc_block_invoke;
-    v32 = &unk_1E71DBC78;
-    v33 = &v34;
+    v30 = MEMORY[0x1E69E9820];
+    v31 = 3221225472;
+    v32 = __getAKAuthenticationUsernameKeySymbolLoc_block_invoke;
+    v33 = &unk_1E71DBC78;
+    v34 = &v35;
     v9 = AuthKitLibrary_0();
-    v35[3] = dlsym(v9, "AKAuthenticationUsernameKey");
-    getAKAuthenticationUsernameKeySymbolLoc_ptr = *(v33[1] + 24);
-    v8 = v35[3];
+    v36[3] = dlsym(v9, "AKAuthenticationUsernameKey");
+    getAKAuthenticationUsernameKeySymbolLoc_ptr = *(v34[1] + 24);
+    v8 = v36[3];
   }
 
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v35, 8);
   if (!v8)
   {
     [PSContactsAuthorizationLevelController dealloc];
@@ -1144,25 +1144,25 @@ LABEL_28:
 
   v10 = *v8;
   v11 = [v5 objectForKeyedSubscript:v10];
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
   v12 = getAKAuthenticationRawPasswordKeySymbolLoc_ptr;
-  v37 = getAKAuthenticationRawPasswordKeySymbolLoc_ptr;
+  v38 = getAKAuthenticationRawPasswordKeySymbolLoc_ptr;
   if (!getAKAuthenticationRawPasswordKeySymbolLoc_ptr)
   {
-    v29 = MEMORY[0x1E69E9820];
-    v30 = 3221225472;
-    v31 = __getAKAuthenticationRawPasswordKeySymbolLoc_block_invoke;
-    v32 = &unk_1E71DBC78;
-    v33 = &v34;
+    v30 = MEMORY[0x1E69E9820];
+    v31 = 3221225472;
+    v32 = __getAKAuthenticationRawPasswordKeySymbolLoc_block_invoke;
+    v33 = &unk_1E71DBC78;
+    v34 = &v35;
     v13 = AuthKitLibrary_0();
-    v35[3] = dlsym(v13, "AKAuthenticationRawPasswordKey");
-    getAKAuthenticationRawPasswordKeySymbolLoc_ptr = *(v33[1] + 24);
-    v12 = v35[3];
+    v36[3] = dlsym(v13, "AKAuthenticationRawPasswordKey");
+    getAKAuthenticationRawPasswordKeySymbolLoc_ptr = *(v34[1] + 24);
+    v12 = v36[3];
   }
 
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v35, 8);
   if (!v12)
   {
     goto LABEL_28;
@@ -1171,31 +1171,32 @@ LABEL_28:
   v14 = *v12;
   v15 = [v5 objectForKeyedSubscript:v14];
   [v15 dataUsingEncoding:4];
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
   v16 = getAKAuthenticationDSIDKeySymbolLoc_ptr;
-  v37 = getAKAuthenticationDSIDKeySymbolLoc_ptr;
+  v38 = getAKAuthenticationDSIDKeySymbolLoc_ptr;
   if (!getAKAuthenticationDSIDKeySymbolLoc_ptr)
   {
-    v29 = MEMORY[0x1E69E9820];
-    v30 = 3221225472;
-    v31 = __getAKAuthenticationDSIDKeySymbolLoc_block_invoke;
-    v32 = &unk_1E71DBC78;
-    v33 = &v34;
+    v30 = MEMORY[0x1E69E9820];
+    v31 = 3221225472;
+    v32 = __getAKAuthenticationDSIDKeySymbolLoc_block_invoke;
+    v33 = &unk_1E71DBC78;
+    v34 = &v35;
     v17 = AuthKitLibrary_0();
-    v35[3] = dlsym(v17, "AKAuthenticationDSIDKey");
-    getAKAuthenticationDSIDKeySymbolLoc_ptr = *(v33[1] + 24);
-    v16 = v35[3];
+    v36[3] = dlsym(v17, "AKAuthenticationDSIDKey");
+    getAKAuthenticationDSIDKeySymbolLoc_ptr = *(v34[1] + 24);
+    v16 = v36[3];
   }
 
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v35, 8);
   if (!v16)
   {
 LABEL_29:
-    v24 = [PSContactsAuthorizationLevelController dealloc];
-    _Block_object_dispose(&v34, 8);
-    _Unwind_Resume(v24);
+    [PSContactsAuthorizationLevelController dealloc];
+    v25 = v24;
+    _Block_object_dispose(&v35, 8);
+    _Unwind_Resume(v25);
   }
 
   v18 = [v5 objectForKeyedSubscript:*v16];
@@ -1213,8 +1214,8 @@ LABEL_29:
     cf = 0;
   }
 
-  v29 = 0;
-  if ((SOSCCRemoveThisDeviceFromCircle() & 1) != 0 || ![*(a1 + 32) _errorRequiresPasswordPrompt:v29])
+  v30 = 0;
+  if ((SOSCCRemoveThisDeviceFromCircle() & 1) != 0 || ![*(a1 + 32) _errorRequiresPasswordPrompt:v30])
   {
     if (*(a1 + 48) == 1)
     {
@@ -1227,21 +1228,21 @@ LABEL_29:
   else
   {
     NSLog(&cfstr_Sosccremovethi.isa);
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __99__PSKeychainSyncManager__disableKeychainSyncOverController_deletingSafariPasswords_withCompletion___block_invoke_2;
-    v25[3] = &unk_1E71DD118;
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __99__PSKeychainSyncManager__disableKeychainSyncOverController_deletingSafariPasswords_withCompletion___block_invoke_2;
+    v26[3] = &unk_1E71DD118;
     v20 = *(a1 + 32);
     v21 = *(a1 + 40);
-    v27 = *(a1 + 48);
-    v25[4] = *(a1 + 32);
-    v26 = v21;
-    [v20 promptForPasswordOverController:0 withCompletion:v25];
+    v28 = *(a1 + 48);
+    v26[4] = *(a1 + 32);
+    v27 = v21;
+    [v20 promptForPasswordOverController:0 withCompletion:v26];
   }
 
-  if (v29)
+  if (v30)
   {
-    CFRelease(v29);
+    CFRelease(v30);
   }
 
 LABEL_26:
@@ -1818,25 +1819,26 @@ void __94__PSKeychainSyncManager_promptForPasswordIfCredentialsNotCachedOverCont
   v2 = *(a1 + 32);
   if (v2)
   {
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x2020000000;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x2020000000;
     v3 = getAKAuthenticationPasswordKeySymbolLoc_ptr;
-    v13 = getAKAuthenticationPasswordKeySymbolLoc_ptr;
+    v14 = getAKAuthenticationPasswordKeySymbolLoc_ptr;
     if (!getAKAuthenticationPasswordKeySymbolLoc_ptr)
     {
       v4 = AuthKitLibrary_0();
-      v11[3] = dlsym(v4, "AKAuthenticationPasswordKey");
-      getAKAuthenticationPasswordKeySymbolLoc_ptr = v11[3];
-      v3 = v11[3];
+      v12[3] = dlsym(v4, "AKAuthenticationPasswordKey");
+      getAKAuthenticationPasswordKeySymbolLoc_ptr = v12[3];
+      v3 = v12[3];
     }
 
-    _Block_object_dispose(&v10, 8);
+    _Block_object_dispose(&v11, 8);
     if (!v3)
     {
-      v9 = [PSContactsAuthorizationLevelController dealloc];
-      _Block_object_dispose(&v10, 8);
-      _Unwind_Resume(v9);
+      [PSContactsAuthorizationLevelController dealloc];
+      v10 = v9;
+      _Block_object_dispose(&v11, 8);
+      _Unwind_Resume(v10);
     }
 
     v5 = [v2 objectForKey:*v3];
@@ -2452,7 +2454,7 @@ void __91__PSKeychainSyncManager_promptForDevicePasscodeChangeToPasscode_overCon
   }
 
   v28 = 0;
-  PSKeychainSyncGetCircleMembershipStatus(0, &v28);
+  PSKeychainSyncGetCircleMembershipStatus(0, &v28, 0);
   if (!v28)
   {
     if (*(a1 + 64) == 1)
@@ -2508,32 +2510,34 @@ LABEL_16:
 void __91__PSKeychainSyncManager_promptForDevicePasscodeChangeToPasscode_overController_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = [MEMORY[0x1E69DC938] currentDevice];
-    if (([v6 sf_isInternalInstall]& 1) != 0 || PSDiagnosticsAreEnabled())
+    v7 = [MEMORY[0x1E69DC938] currentDevice];
+    v8 = [v7 sf_isInternalInstall];
+    if ((v8 & 1) != 0 || (v8 = PSDiagnosticsAreEnabled(), v8))
     {
-      v7 = _PSLoggingFacility();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v9 = _PSLoggingFacility(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        __91__PSKeychainSyncManager_promptForDevicePasscodeChangeToPasscode_overController_completion___block_invoke_2_cold_2(v7);
+        __91__PSKeychainSyncManager_promptForDevicePasscodeChangeToPasscode_overController_completion___block_invoke_2_cold_2(v9);
       }
     }
   }
 
   else
   {
-    v6 = _PSLoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _PSLoggingFacility(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __91__PSKeychainSyncManager_promptForDevicePasscodeChangeToPasscode_overController_completion___block_invoke_2_cold_1(v5, v6);
+      __91__PSKeychainSyncManager_promptForDevicePasscodeChangeToPasscode_overController_completion___block_invoke_2_cold_1(v6, v7);
     }
   }
 
-  v8 = *(a1 + 32);
-  if (v8)
+  v10 = *(a1 + 32);
+  if (v10)
   {
-    (*(v8 + 16))(v8, a2, v5);
+    (*(v10 + 16))(v10, a2, v6);
   }
 }
 
@@ -3246,43 +3250,44 @@ uint64_t __64__PSKeychainSyncManager_joinCircleAfterRecovery_withCompletion___bl
 
   v10 = MEMORY[0x1E695DF20];
   v11 = getkSecureBackupPassphraseKey();
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
   v12 = getkSecureBackupVerificationTokenKeySymbolLoc_ptr;
-  v28 = getkSecureBackupVerificationTokenKeySymbolLoc_ptr;
+  v29 = getkSecureBackupVerificationTokenKeySymbolLoc_ptr;
   if (!getkSecureBackupVerificationTokenKeySymbolLoc_ptr)
   {
-    v20 = MEMORY[0x1E69E9820];
-    v21 = 3221225472;
-    v22 = __getkSecureBackupVerificationTokenKeySymbolLoc_block_invoke;
-    v23 = &unk_1E71DBC78;
-    v24 = &v25;
+    v21 = MEMORY[0x1E69E9820];
+    v22 = 3221225472;
+    v23 = __getkSecureBackupVerificationTokenKeySymbolLoc_block_invoke;
+    v24 = &unk_1E71DBC78;
+    v25 = &v26;
     v13 = CloudServicesLibrary_1();
-    v26[3] = dlsym(v13, "kSecureBackupVerificationTokenKey");
-    getkSecureBackupVerificationTokenKeySymbolLoc_ptr = *(v24[1] + 24);
-    v12 = v26[3];
+    v27[3] = dlsym(v13, "kSecureBackupVerificationTokenKey");
+    getkSecureBackupVerificationTokenKeySymbolLoc_ptr = *(v25[1] + 24);
+    v12 = v27[3];
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v26, 8);
   if (!v12)
   {
-    v17 = [PSContactsAuthorizationLevelController dealloc];
-    _Block_object_dispose(&v25, 8);
-    _Unwind_Resume(v17);
+    [PSContactsAuthorizationLevelController dealloc];
+    v18 = v17;
+    _Block_object_dispose(&v26, 8);
+    _Unwind_Resume(v18);
   }
 
   v14 = [v10 dictionaryWithObjectsAndKeys:{codeCopy, v11, verificationCodeCopy, *v12, 0}];
 
   v15 = objc_alloc_init(getSecureBackupClass_0());
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __67__PSKeychainSyncManager__recoverWithSecurityCode_verificationCode___block_invoke;
-  v18[3] = &unk_1E71DC548;
-  v18[4] = self;
-  v19 = verificationCodeCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __67__PSKeychainSyncManager__recoverWithSecurityCode_verificationCode___block_invoke;
+  v19[3] = &unk_1E71DC548;
+  v19[4] = self;
+  v20 = verificationCodeCopy;
   v16 = verificationCodeCopy;
-  [v15 recoverWithInfo:v14 completionBlockWithResults:v18];
+  [v15 recoverWithInfo:v14 completionBlockWithResults:v19];
 }
 
 void __67__PSKeychainSyncManager__recoverWithSecurityCode_verificationCode___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -3578,12 +3583,12 @@ void __67__PSKeychainSyncManager__recoverWithSecurityCode_verificationCode___blo
   [(PSKeychainSyncManager *)self _showGenericFlowErrorAlertWithDismissalHandler:v7];
 }
 
-uint64_t __60__PSKeychainSyncManager__circleJoinAfterRecoveryTimerFired___block_invoke(uint64_t a1)
+void *__60__PSKeychainSyncManager__circleJoinAfterRecoveryTimerFired___block_invoke(uint64_t a1)
 {
   result = *(*(a1 + 32) + 176);
   if (result)
   {
-    (*(result + 16))(result, *(a1 + 48), *(a1 + 40));
+    (*(result + 2))(result, *(a1 + 48), *(a1 + 40));
     v3 = *(a1 + 32);
 
     return [v3 setCircleJoinCompletion:0];
@@ -3892,9 +3897,9 @@ LABEL_29:
 
     [(PSKeychainSyncManager *)self startNavigationSpinnerInViewController:self->_securityCodeRecoveryController];
     v13 = objc_alloc_init(getSecureBackupClass_0());
-    v90 = 0;
-    v14 = [v13 getAccountInfoWithInfo:0 results:&v90];
-    v15 = v90;
+    v91 = 0;
+    v14 = [v13 getAccountInfoWithInfo:0 results:&v91];
+    v15 = v91;
     if (v14)
     {
       [(PSKeychainSyncManager *)self stopNavigationSpinner];
@@ -3905,62 +3910,62 @@ LABEL_63:
       goto LABEL_64;
     }
 
-    v76 = securityCodeRecoveryAttempt;
-    v96 = 0;
-    v97 = &v96;
-    v98 = 0x2020000000;
+    v77 = securityCodeRecoveryAttempt;
+    v97 = 0;
+    v98 = &v97;
+    v99 = 0x2020000000;
     v43 = getkSecureBackupAccountIsHighSecurityKeySymbolLoc_ptr;
-    v99 = getkSecureBackupAccountIsHighSecurityKeySymbolLoc_ptr;
+    v100 = getkSecureBackupAccountIsHighSecurityKeySymbolLoc_ptr;
     if (!getkSecureBackupAccountIsHighSecurityKeySymbolLoc_ptr)
     {
       location = MEMORY[0x1E69E9820];
-      v92 = 3221225472;
-      v93 = __getkSecureBackupAccountIsHighSecurityKeySymbolLoc_block_invoke;
-      v94 = &unk_1E71DBC78;
-      v95 = &v96;
+      v93 = 3221225472;
+      v94 = __getkSecureBackupAccountIsHighSecurityKeySymbolLoc_block_invoke;
+      v95 = &unk_1E71DBC78;
+      v96 = &v97;
       v44 = CloudServicesLibrary_1();
       v45 = dlsym(v44, "kSecureBackupAccountIsHighSecurityKey");
-      *(v95[1] + 24) = v45;
-      getkSecureBackupAccountIsHighSecurityKeySymbolLoc_ptr = *(v95[1] + 24);
-      v43 = v97[3];
+      *(v96[1] + 24) = v45;
+      getkSecureBackupAccountIsHighSecurityKeySymbolLoc_ptr = *(v96[1] + 24);
+      v43 = v98[3];
     }
 
-    v46 = &v96;
-    _Block_object_dispose(&v96, 8);
+    v46 = &v97;
+    _Block_object_dispose(&v97, 8);
     if (v43)
     {
       v47 = [v15 objectForKey:*v43];
       bOOLValue = [v47 BOOLValue];
 
-      v96 = 0;
-      v97 = &v96;
-      v98 = 0x2020000000;
+      v97 = 0;
+      v98 = &v97;
+      v99 = 0x2020000000;
       v46 = &getkSecureBackupAuthenticationPasswordSymbolLoc_ptr;
       v49 = getkSecureBackupRecoveryRequiresVerificationTokenKeySymbolLoc_ptr;
-      v99 = getkSecureBackupRecoveryRequiresVerificationTokenKeySymbolLoc_ptr;
+      v100 = getkSecureBackupRecoveryRequiresVerificationTokenKeySymbolLoc_ptr;
       if (!getkSecureBackupRecoveryRequiresVerificationTokenKeySymbolLoc_ptr)
       {
         location = MEMORY[0x1E69E9820];
-        v92 = 3221225472;
-        v93 = __getkSecureBackupRecoveryRequiresVerificationTokenKeySymbolLoc_block_invoke;
-        v94 = &unk_1E71DBC78;
-        v95 = &v96;
+        v93 = 3221225472;
+        v94 = __getkSecureBackupRecoveryRequiresVerificationTokenKeySymbolLoc_block_invoke;
+        v95 = &unk_1E71DBC78;
+        v96 = &v97;
         v50 = CloudServicesLibrary_1();
         v51 = dlsym(v50, "kSecureBackupRecoveryRequiresVerificationTokenKey");
-        *(v95[1] + 24) = v51;
-        getkSecureBackupRecoveryRequiresVerificationTokenKeySymbolLoc_ptr = *(v95[1] + 24);
-        v49 = v97[3];
+        *(v96[1] + 24) = v51;
+        getkSecureBackupRecoveryRequiresVerificationTokenKeySymbolLoc_ptr = *(v96[1] + 24);
+        v49 = v98[3];
       }
 
-      v74 = bOOLValue;
-      _Block_object_dispose(&v96, 8);
+      v75 = bOOLValue;
+      _Block_object_dispose(&v97, 8);
       if (v49)
       {
         v52 = [v15 objectForKey:*v49];
         bOOLValue2 = [v52 BOOLValue];
 
         v53 = getkSecureBackupSMSTargetInfoKey();
-        v77 = v15;
+        v78 = v15;
         v54 = [v15 objectForKey:v53];
 
         objc_opt_class();
@@ -3970,22 +3975,22 @@ LABEL_63:
           v56 = [v54 objectForKey:v55];
 
           v57 = getkSecureBackupCountryDialCodeKey();
-          v71 = [v54 objectForKey:v57];
+          v72 = [v54 objectForKey:v57];
 
           v58 = getkSecureBackupCountryCodeKey_0();
           v59 = [v54 objectForKey:v58];
 
           if (![v59 length])
           {
-            v70 = getkSecureBackupMetadataKey_0();
-            v68 = [v77 objectForKey:v70];
+            v71 = getkSecureBackupMetadataKey_0();
+            v69 = [v78 objectForKey:v71];
             v60 = getkSecureBackupCountryCodeKey_0();
-            v69 = [v68 objectForKey:?];
+            v70 = [v69 objectForKey:?];
 
-            v59 = v69;
+            v59 = v70;
           }
 
-          v61 = v71;
+          v61 = v72;
         }
 
         else
@@ -3995,7 +4000,7 @@ LABEL_63:
           v56 = 0;
         }
 
-        if ((v74 & 1) == 0)
+        if ((v75 & 1) == 0)
         {
           v62 = bOOLValue2;
           if (!v56)
@@ -4005,39 +4010,39 @@ LABEL_63:
 
           if (v62 == 1 && v61)
           {
-            v73 = v56;
+            v74 = v56;
             [getFTDeviceSupportClass() sharedInstance];
-            v75 = v13;
+            v76 = v13;
             v63 = v54;
             v65 = v64 = v61;
             isTelephonyDevice = [v65 isTelephonyDevice];
 
             v61 = v64;
             v54 = v63;
-            v13 = v75;
+            v13 = v76;
             if (isTelephonyDevice && [(PSKeychainSyncManager *)self isRunningInBuddy])
             {
               objc_initWeak(&location, self);
-              v88[0] = MEMORY[0x1E69E9820];
-              v88[1] = 3221225472;
-              v88[2] = __74__PSKeychainSyncManager_keychainSyncController_didFinishWithResult_error___block_invoke;
-              v88[3] = &unk_1E71DD500;
-              objc_copyWeak(&v89, &location);
-              PSHSAAuthenticationRegisterIncomingAuthenticationTokenBlockWithIdentifier(v88);
-              objc_destroyWeak(&v89);
+              v89[0] = MEMORY[0x1E69E9820];
+              v89[1] = 3221225472;
+              v89[2] = __74__PSKeychainSyncManager_keychainSyncController_didFinishWithResult_error___block_invoke;
+              v89[3] = &unk_1E71DD500;
+              objc_copyWeak(&v90, &location);
+              PSHSAAuthenticationRegisterIncomingAuthenticationTokenBlockWithIdentifier(v89);
+              objc_destroyWeak(&v90);
               objc_destroyWeak(&location);
             }
 
-            v84[0] = MEMORY[0x1E69E9820];
-            v84[1] = 3221225472;
-            v84[2] = __74__PSKeychainSyncManager_keychainSyncController_didFinishWithResult_error___block_invoke_3;
-            v84[3] = &unk_1E71DD550;
-            v84[4] = self;
-            v85 = v59;
-            v86 = v61;
-            v56 = v73;
-            v87 = v73;
-            [v75 startSMSChallengeWithInfo:0 completionBlockWithResults:v84];
+            v85[0] = MEMORY[0x1E69E9820];
+            v85[1] = 3221225472;
+            v85[2] = __74__PSKeychainSyncManager_keychainSyncController_didFinishWithResult_error___block_invoke_3;
+            v85[3] = &unk_1E71DD550;
+            v85[4] = self;
+            v86 = v59;
+            v87 = v61;
+            v56 = v74;
+            v88 = v74;
+            [v76 startSMSChallengeWithInfo:0 completionBlockWithResults:v85];
 
             goto LABEL_62;
           }
@@ -4052,8 +4057,8 @@ LABEL_63:
         [(PSKeychainSyncManager *)self _recoverWithSecurityCode:self->_securityCodeRecoveryAttempt verificationCode:0];
 LABEL_62:
 
-        securityCodeRecoveryAttempt = v76;
-        v15 = v77;
+        securityCodeRecoveryAttempt = v77;
+        v15 = v78;
         goto LABEL_63;
       }
     }
@@ -4063,10 +4068,11 @@ LABEL_62:
       [PSContactsAuthorizationLevelController dealloc];
     }
 
-    v67 = [PSContactsAuthorizationLevelController dealloc];
+    [PSContactsAuthorizationLevelController dealloc];
+    v68 = v67;
     objc_destroyWeak(v46 + 4);
     objc_destroyWeak(&location);
-    _Unwind_Resume(v67);
+    _Unwind_Resume(v68);
   }
 
   if (self->_advancedSecurityCodeChoiceController == controllerCopy)
@@ -4080,12 +4086,12 @@ LABEL_62:
 
       securityCodeRecoveryAttempt = objc_alloc_init(getSecureBackupClass_0());
       [(__CFString *)securityCodeRecoveryAttempt disableWithInfo:0 completionBlock:&__block_literal_global_17];
-      v83[0] = MEMORY[0x1E69E9820];
-      v83[1] = 3221225472;
-      v83[2] = __74__PSKeychainSyncManager_keychainSyncController_didFinishWithResult_error___block_invoke_7;
-      v83[3] = &unk_1E71DCF10;
-      v83[4] = self;
-      [(PSKeychainSyncManager *)self joinCircleWithCompletion:v83];
+      v84[0] = MEMORY[0x1E69E9820];
+      v84[1] = 3221225472;
+      v84[2] = __74__PSKeychainSyncManager_keychainSyncController_didFinishWithResult_error___block_invoke_7;
+      v84[3] = &unk_1E71DCF10;
+      v84[4] = self;
+      [(PSKeychainSyncManager *)self joinCircleWithCompletion:v84];
       goto LABEL_65;
     }
 
@@ -4128,9 +4134,9 @@ LABEL_62:
         block[1] = 3221225472;
         block[2] = __74__PSKeychainSyncManager_keychainSyncController_didFinishWithResult_error___block_invoke_8;
         block[3] = &unk_1E71DD4B0;
-        v82 = intValue2;
+        v83 = intValue2;
         block[4] = self;
-        v81 = controllerCopy;
+        v82 = controllerCopy;
         dispatch_async(v18, block);
       }
 
@@ -4194,22 +4200,22 @@ LABEL_36:
 
         v34 = MEMORY[0x1E69DC648];
         v35 = PS_LocalizedStringForKeychainSync(@"CANCEL");
-        v79[0] = MEMORY[0x1E69E9820];
-        v79[1] = 3221225472;
-        v79[2] = __74__PSKeychainSyncManager_keychainSyncController_didFinishWithResult_error___block_invoke_11;
-        v79[3] = &unk_1E71DC288;
-        v79[4] = self;
-        v36 = [v34 actionWithTitle:v35 style:1 handler:v79];
+        v80[0] = MEMORY[0x1E69E9820];
+        v80[1] = 3221225472;
+        v80[2] = __74__PSKeychainSyncManager_keychainSyncController_didFinishWithResult_error___block_invoke_11;
+        v80[3] = &unk_1E71DC288;
+        v80[4] = self;
+        v36 = [v34 actionWithTitle:v35 style:1 handler:v80];
         [(__CFString *)securityCodeRecoveryAttempt addAction:v36];
 
         v37 = MEMORY[0x1E69DC648];
         v38 = PS_LocalizedStringForKeychainSync(@"USE_CODE");
-        v78[0] = MEMORY[0x1E69E9820];
-        v78[1] = 3221225472;
-        v78[2] = __74__PSKeychainSyncManager_keychainSyncController_didFinishWithResult_error___block_invoke_12;
-        v78[3] = &unk_1E71DC288;
-        v78[4] = self;
-        v39 = [v37 actionWithTitle:v38 style:0 handler:v78];
+        v79[0] = MEMORY[0x1E69E9820];
+        v79[1] = 3221225472;
+        v79[2] = __74__PSKeychainSyncManager_keychainSyncController_didFinishWithResult_error___block_invoke_12;
+        v79[3] = &unk_1E71DC288;
+        v79[4] = self;
+        v39 = [v37 actionWithTitle:v38 style:0 handler:v79];
         [(__CFString *)securityCodeRecoveryAttempt addAction:v39];
 
         [(PSKeychainSyncManager *)self showAlert:securityCodeRecoveryAttempt];
@@ -4314,12 +4320,12 @@ LABEL_10:
 
       v15 = MEMORY[0x1E69DC648];
       v16 = PS_LocalizedStringForKeychainSync(@"OK");
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __74__PSKeychainSyncManager_keychainSyncController_didFinishWithResult_error___block_invoke_5;
-      v26[3] = &unk_1E71DC288;
-      v26[4] = *(a1 + 32);
-      v17 = [v15 actionWithTitle:v16 style:0 handler:v26];
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __74__PSKeychainSyncManager_keychainSyncController_didFinishWithResult_error___block_invoke_5;
+      v27[3] = &unk_1E71DC288;
+      v27[4] = *(a1 + 32);
+      v17 = [v15 actionWithTitle:v16 style:0 handler:v27];
       [v14 addAction:v17];
 
       [*(a1 + 32) showAlert:v14];
@@ -4343,30 +4349,31 @@ LABEL_18:
   if (!*(a1 + 40))
   {
     v18 = *(a1 + 72);
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2020000000;
     v19 = getkSecureBackupRecoveryVerificationTokenLengthKeySymbolLoc_ptr;
-    v31 = getkSecureBackupRecoveryVerificationTokenLengthKeySymbolLoc_ptr;
+    v32 = getkSecureBackupRecoveryVerificationTokenLengthKeySymbolLoc_ptr;
     if (!getkSecureBackupRecoveryVerificationTokenLengthKeySymbolLoc_ptr)
     {
-      v26[5] = MEMORY[0x1E69E9820];
-      v26[6] = 3221225472;
-      v26[7] = __getkSecureBackupRecoveryVerificationTokenLengthKeySymbolLoc_block_invoke;
-      v26[8] = &unk_1E71DBC78;
-      v27 = &v28;
+      v27[5] = MEMORY[0x1E69E9820];
+      v27[6] = 3221225472;
+      v27[7] = __getkSecureBackupRecoveryVerificationTokenLengthKeySymbolLoc_block_invoke;
+      v27[8] = &unk_1E71DBC78;
+      v28 = &v29;
       v20 = CloudServicesLibrary_1();
-      v29[3] = dlsym(v20, "kSecureBackupRecoveryVerificationTokenLengthKey");
-      getkSecureBackupRecoveryVerificationTokenLengthKeySymbolLoc_ptr = *(v27[1] + 24);
-      v19 = v29[3];
+      v30[3] = dlsym(v20, "kSecureBackupRecoveryVerificationTokenLengthKey");
+      getkSecureBackupRecoveryVerificationTokenLengthKeySymbolLoc_ptr = *(v28[1] + 24);
+      v19 = v30[3];
     }
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v29, 8);
     if (!v19)
     {
-      v25 = [PSContactsAuthorizationLevelController dealloc];
-      _Block_object_dispose(&v28, 8);
-      _Unwind_Resume(v25);
+      [PSContactsAuthorizationLevelController dealloc];
+      v26 = v25;
+      _Block_object_dispose(&v29, 8);
+      _Unwind_Resume(v26);
     }
 
     v6 = [v18 objectForKey:*v19];
@@ -4546,44 +4553,45 @@ LABEL_9:
 
   if (-[PSKeychainSyncManager isRunningInBuddy](self, "isRunningInBuddy") && (-[PSKeychainSyncManager stagedSecurityCode](self, "stagedSecurityCode"), v14 = objc_claimAutoreleasedReturnValue(), v15 = [v14 length], v14, !v15))
   {
-    v69 = 0;
-    v70 = &v69;
-    v71 = 0x2020000000;
+    v71 = 0;
+    v72 = &v71;
+    v73 = 0x2020000000;
     v28 = getkSecureBackupUseCachedPassphraseKeySymbolLoc_ptr;
-    v72 = getkSecureBackupUseCachedPassphraseKeySymbolLoc_ptr;
+    v74 = getkSecureBackupUseCachedPassphraseKeySymbolLoc_ptr;
     if (!getkSecureBackupUseCachedPassphraseKeySymbolLoc_ptr)
     {
       *buf = MEMORY[0x1E69E9820];
-      v65 = 3221225472;
-      v66 = __getkSecureBackupUseCachedPassphraseKeySymbolLoc_block_invoke;
-      v67 = &unk_1E71DBC78;
-      v68 = &v69;
+      v67 = 3221225472;
+      v68 = __getkSecureBackupUseCachedPassphraseKeySymbolLoc_block_invoke;
+      v69 = &unk_1E71DBC78;
+      v70 = &v71;
       v29 = CloudServicesLibrary_1();
-      v70[3] = dlsym(v29, "kSecureBackupUseCachedPassphraseKey");
-      getkSecureBackupUseCachedPassphraseKeySymbolLoc_ptr = *(v68[1] + 24);
-      v28 = v70[3];
+      v72[3] = dlsym(v29, "kSecureBackupUseCachedPassphraseKey");
+      getkSecureBackupUseCachedPassphraseKeySymbolLoc_ptr = *(v70[1] + 24);
+      v28 = v72[3];
     }
 
-    _Block_object_dispose(&v69, 8);
+    _Block_object_dispose(&v71, 8);
     if (!v28)
     {
-      v57 = [PSContactsAuthorizationLevelController dealloc];
-      _Block_object_dispose(&v69, 8);
-      _Unwind_Resume(v57);
+      [PSContactsAuthorizationLevelController dealloc];
+      v59 = v58;
+      _Block_object_dispose(&v71, 8);
+      _Unwind_Resume(v59);
     }
 
     [v11 setObject:MEMORY[0x1E695E118] forKey:*v28];
-    LOBYTE(v69) = 0;
-    PSIsUsingPasscode(&v69);
-    v30 = [MEMORY[0x1E696AD98] numberWithInt:v69 ^ 1u];
+    LOBYTE(v71) = 0;
+    PSIsUsingPasscode(&v71);
+    v30 = [MEMORY[0x1E696AD98] numberWithInt:v71 ^ 1u];
     v31 = getkSecureBackupUsesComplexPassphraseKey();
     [dictionary setObject:v30 forKey:v31];
 
-    v32 = [MEMORY[0x1E696AD98] numberWithInt:v69];
+    v32 = [MEMORY[0x1E696AD98] numberWithInt:v71];
     v33 = getkSecureBackupUsesNumericPassphraseKey();
     [dictionary setObject:v32 forKey:v33];
 
-    if (v69 == 1)
+    if (v71 == 1)
     {
       *buf = -1;
       mEMORY[0x1E69ADFB8] = [MEMORY[0x1E69ADFB8] sharedConnection];
@@ -4637,11 +4645,11 @@ LABEL_9:
 
   if (!appleIDPasswordOrEquivalentToken)
   {
-    v39 = _PSLoggingFacility();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v40 = _PSLoggingFacility(v39);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_18B008000, v39, OS_LOG_TYPE_DEFAULT, "Missing password or password equivalent!", buf, 2u);
+      _os_log_impl(&dword_18B008000, v40, OS_LOG_TYPE_DEFAULT, "Missing password or password equivalent!", buf, 2u);
     }
   }
 
@@ -4653,24 +4661,24 @@ LABEL_9:
 
       if (appleIDPasswordOrEquivalentToken2)
       {
-        v41 = getkSecureBackupSMSTargetPhoneNumberKey();
-        [v11 setObject:numberCopy forKey:v41];
+        v42 = getkSecureBackupSMSTargetPhoneNumberKey();
+        [v11 setObject:numberCopy forKey:v42];
 
         dialingPrefix = [infoCopy dialingPrefix];
-        v43 = getkSecureBackupCountryDialCodeKey();
-        [v11 setObject:dialingPrefix forKey:v43];
+        v44 = getkSecureBackupCountryDialCodeKey();
+        [v11 setObject:dialingPrefix forKey:v44];
 
         countryCode2 = [infoCopy countryCode];
-        v45 = getkSecureBackupCountryCodeKey_0();
-        [v11 setObject:countryCode2 forKey:v45];
+        v46 = getkSecureBackupCountryCodeKey_0();
+        [v11 setObject:countryCode2 forKey:v46];
 
         appleIDUsername = [(PSKeychainSyncManager *)self appleIDUsername];
-        v47 = getkSecureBackupAuthenticationAppleID();
-        [v11 setObject:appleIDUsername forKey:v47];
+        v48 = getkSecureBackupAuthenticationAppleID();
+        [v11 setObject:appleIDUsername forKey:v48];
 
         appleIDPasswordOrEquivalentToken3 = [(PSKeychainSyncManager *)self appleIDPasswordOrEquivalentToken];
-        v49 = getkSecureBackupAuthenticationPassword();
-        [v11 setObject:appleIDPasswordOrEquivalentToken3 forKey:v49];
+        v50 = getkSecureBackupAuthenticationPassword();
+        [v11 setObject:appleIDPasswordOrEquivalentToken3 forKey:v50];
       }
     }
   }
@@ -4679,21 +4687,21 @@ LABEL_9:
   topViewController = [navigationController topViewController];
   [(PSKeychainSyncManager *)self startNavigationSpinnerInViewController:topViewController];
 
-  v52 = objc_alloc_init(getSecureBackupClass_0());
-  v58[0] = MEMORY[0x1E69E9820];
-  v58[1] = 3221225472;
-  v58[2] = __72__PSKeychainSyncManager__enableSecureBackupWithPhoneNumber_countryInfo___block_invoke;
-  v58[3] = &unk_1E71DD5F0;
-  v59 = v52;
-  v60 = v11;
+  v53 = objc_alloc_init(getSecureBackupClass_0());
+  v60[0] = MEMORY[0x1E69E9820];
+  v60[1] = 3221225472;
+  v60[2] = __72__PSKeychainSyncManager__enableSecureBackupWithPhoneNumber_countryInfo___block_invoke;
+  v60[3] = &unk_1E71DD5F0;
+  v61 = v53;
+  v62 = v11;
   selfCopy = self;
-  v62 = numberCopy;
-  v63 = infoCopy;
-  v53 = infoCopy;
-  v54 = numberCopy;
-  v55 = v11;
-  v56 = v52;
-  [v56 disableWithInfo:0 completionBlock:v58];
+  v64 = numberCopy;
+  v65 = infoCopy;
+  v54 = infoCopy;
+  v55 = numberCopy;
+  v56 = v11;
+  v57 = v53;
+  [v57 disableWithInfo:0 completionBlock:v60];
 }
 
 void __72__PSKeychainSyncManager__enableSecureBackupWithPhoneNumber_countryInfo___block_invoke(uint64_t a1, uint64_t a2)
@@ -4823,11 +4831,11 @@ void __84__PSKeychainSyncManager_joinCircleAndEnableSecureBackupWithPhoneNumber_
   }
 }
 
-uint64_t __84__PSKeychainSyncManager_joinCircleAndEnableSecureBackupWithPhoneNumber_countryInfo___block_invoke_2(uint64_t result, int a2)
+id *__84__PSKeychainSyncManager_joinCircleAndEnableSecureBackupWithPhoneNumber_countryInfo___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _enableSecureBackupWithPhoneNumber:*(result + 40) countryInfo:*(result + 48)];
+    return [result[4] _enableSecureBackupWithPhoneNumber:result[5] countryInfo:result[6]];
   }
 
   return result;

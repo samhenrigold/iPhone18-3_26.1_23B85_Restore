@@ -1,4 +1,5 @@
 @interface CATDispatchTimer
++ (id)scheduledTimerWithIdentifier:(id)identifier workQueue:(id)queue delegateQueue:(id)delegateQueue timeInterval:(double)interval totalFires:(unint64_t)fires firesForever:(BOOL)forever fireHandler:(id)handler;
 - (CATDispatchTimer)initWithIdentifier:(id)identifier workQueue:(id)queue delegateQueue:(id)delegateQueue timeInterval:(double)interval totalFires:(unint64_t)fires firesForever:(BOOL)forever fireHandler:(id)handler;
 - (void)dealloc;
 - (void)invalidate;
@@ -41,6 +42,20 @@
     mFireHandler = v20->mFireHandler;
     v20->mFireHandler = v23;
   }
+
+  return v20;
+}
+
++ (id)scheduledTimerWithIdentifier:(id)identifier workQueue:(id)queue delegateQueue:(id)delegateQueue timeInterval:(double)interval totalFires:(unint64_t)fires firesForever:(BOOL)forever fireHandler:(id)handler
+{
+  foreverCopy = forever;
+  handlerCopy = handler;
+  delegateQueueCopy = delegateQueue;
+  queueCopy = queue;
+  identifierCopy = identifier;
+  v20 = [[self alloc] initWithIdentifier:identifierCopy workQueue:queueCopy delegateQueue:delegateQueueCopy timeInterval:fires totalFires:foreverCopy firesForever:handlerCopy fireHandler:interval];
+
+  [v20 resume];
 
   return v20;
 }

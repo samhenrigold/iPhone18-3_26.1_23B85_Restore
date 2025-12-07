@@ -324,27 +324,28 @@
 
 - (id)getFeedbackStringForKnob:(unint64_t)knob
 {
-  if ([(TSDPointPathSource *)self type]!= 100)
+  type = [(TSDPointPathSource *)self type];
+  if (type != 100)
   {
     return &stru_287D36338;
   }
 
-  v5 = MEMORY[0x277CCACA8];
-  v6 = TSDBundle();
+  v7 = MEMORY[0x277CCACA8];
+  v8 = TSDBundle(type, v6);
   if (knob == 12)
   {
-    v7 = [v6 localizedStringForKey:@"Points: %d" value:&stru_287D36338 table:@"TSDrawables"];
+    v9 = [v8 localizedStringForKey:@"Points: %d" value:&stru_287D36338 table:@"TSDrawables"];
     [(TSDPointPathSource *)self point];
   }
 
   else
   {
-    v7 = [v6 localizedStringForKey:@"Radius: %d%%" value:&stru_287D36338 table:@"TSDrawables"];
+    v9 = [v8 localizedStringForKey:@"Radius: %d%%" value:&stru_287D36338 table:@"TSDrawables"];
     [(TSDPointPathSource *)self point];
-    v8 = v10 * 100.0;
+    v10 = v12 * 100.0;
   }
 
-  return [v5 stringWithFormat:v7, v8];
+  return [v7 stringWithFormat:v9, v10];
 }
 
 - (CGPath)newFeedbackPathForKnob:(unint64_t)knob
@@ -611,18 +612,18 @@ TSDPointPathSource *__55__TSDPointPathSource_mixedObjectWithFraction_ofObject___
   v4 = v3;
   v6 = v5;
   [v2 point];
-  TSDMixPoints(v4, v6, v7, v8, *(a1 + 48));
-  v9 = TSDRoundedPoint();
-  v11 = v10;
+  v9 = TSDMixPoints(v4, v6, v7, v8, *(a1 + 48));
+  v12 = TSDRoundedPoint(v10, v9, v11);
+  v14 = v13;
   [*(a1 + 40) naturalSize];
-  v13 = v12;
-  v15 = v14;
+  v16 = v15;
+  v18 = v17;
   [v2 naturalSize];
-  v18 = TSDMixSizes(v13, v15, v16, v17, *(a1 + 48));
-  v20 = v19;
-  v21 = [*(a1 + 40) type];
+  v21 = TSDMixSizes(v16, v18, v19, v20, *(a1 + 48));
+  v23 = v22;
+  v24 = [*(a1 + 40) type];
 
-  return [TSDPointPathSource pathSourceWithType:v21 point:v9 naturalSize:v11, v18, v20];
+  return [TSDPointPathSource pathSourceWithType:v24 point:v12 naturalSize:v14, v21, v23];
 }
 
 - (CGPath)p_newArrowPath

@@ -57,18 +57,18 @@ uint64_t __39__CACSystemStatusManager_sharedManager__block_invoke()
 
 void __30__CACSystemStatusManager_init__block_invoke(uint64_t a1)
 {
-  v2 = CACLogGeneral();
+  v2 = CACLogGeneral(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __30__CACSystemStatusManager_init__block_invoke_cold_1(v2);
   }
 
   state64 = 0;
-  notify_get_state(_notificationToken, &state64);
-  v3 = CACLogGeneral();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  state = notify_get_state(_notificationToken, &state64);
+  v4 = CACLogGeneral(state);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __30__CACSystemStatusManager_init__block_invoke_cold_2(&state64, v3);
+    __30__CACSystemStatusManager_init__block_invoke_cold_2(&state64, v4);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));

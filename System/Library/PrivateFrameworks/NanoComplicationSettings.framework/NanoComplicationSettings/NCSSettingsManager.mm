@@ -103,53 +103,52 @@ uint64_t __43__NCSSettingsManager_sharedSettingsManager__block_invoke()
 
 - (void)_updateSockPuppetComplications
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   _fetchSockPuppetComplications = [(NCSSettingsManager *)self _fetchSockPuppetComplications];
   v4 = [_fetchSockPuppetComplications mutableCopy];
 
   array = [MEMORY[0x277CBEB18] array];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __52__NCSSettingsManager__updateSockPuppetComplications__block_invoke;
-  v18[3] = &unk_27992E1B0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __52__NCSSettingsManager__updateSockPuppetComplications__block_invoke;
+  v17[3] = &unk_27992E1B0;
   v6 = v4;
-  v19 = v6;
+  v18 = v6;
   v7 = array;
-  v20 = v7;
-  [(NCSInternalSettingsManager *)self enumerateAllComplicationDefinitionsUsingBlock:v18];
+  v19 = v7;
+  [(NCSInternalSettingsManager *)self enumerateAllComplicationDefinitionsUsingBlock:v17];
   [(NCSInternalSettingsManager *)self removeComplicationDefinitionsInArray:v7];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   allValues = [v6 allValues];
-  v9 = [allValues countByEnumeratingWithState:&v14 objects:v21 count:16];
+  v9 = [allValues countByEnumeratingWithState:&v13 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [(NCSInternalSettingsManager *)self addComplicationDefinition:*(*(&v14 + 1) + 8 * v12++)];
+        [(NCSInternalSettingsManager *)self addComplicationDefinition:*(*(&v13 + 1) + 8 * v12++)];
       }
 
       while (v10 != v12);
-      v10 = [allValues countByEnumeratingWithState:&v14 objects:v21 count:16];
+      v10 = [allValues countByEnumeratingWithState:&v13 objects:v20 count:16];
     }
 
     while (v10);
   }
 
   [(NCSInternalSettingsManager *)self saveSettings];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __52__NCSSettingsManager__updateSockPuppetComplications__block_invoke(uint64_t a1, void *a2)
@@ -310,27 +309,27 @@ void __51__NCSSettingsManager__fetchSockPuppetComplications__block_invoke_4(uint
 
 intptr_t __51__NCSSettingsManager__fetchSockPuppetComplications__block_invoke_5(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = *(*(*(a1 + 48) + 8) + 40);
-  v2 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v2 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v21;
+    v4 = *v20;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v21 != v4)
+        if (*v20 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v20 + 1) + 8 * i);
+        v6 = *(*(&v19 + 1) + 8 * i);
         v7 = [*(*(*(a1 + 48) + 8) + 40) objectForKeyedSubscript:v6];
         v8 = [v7 objectForKeyedSubscript:@"s"];
         v9 = [v8 intValue];
@@ -354,15 +353,13 @@ intptr_t __51__NCSSettingsManager__fetchSockPuppetComplications__block_invoke_5(
         [v15 setObject:v11 forKeyedSubscript:v16];
       }
 
-      v3 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v3 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v3);
   }
 
-  result = dispatch_semaphore_signal(*(a1 + 40));
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 40));
 }
 
 - (NCSSettingsManagerDelegate)delegate

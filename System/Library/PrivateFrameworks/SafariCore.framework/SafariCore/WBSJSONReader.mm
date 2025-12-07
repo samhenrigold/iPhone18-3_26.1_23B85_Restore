@@ -9,97 +9,97 @@
 
 - (BOOL)parseData:(id)data error:(id *)error
 {
-  v49[9] = *MEMORY[0x1E69E9840];
+  v48[9] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v33 = &unk_1F30601A0;
+  v32 = &unk_1F30601A0;
   selfCopy = self;
-  v35 = WeakRetained;
+  v34 = WeakRetained;
   v7 = dataCopy;
   bytes = [dataCopy bytes];
-  v44 = 0;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::parser<nlohmann::detail::iterator_input_adapter<char const*>>(bytes, bytes + [dataCopy length], v43, 1, v45);
+  v43 = 0;
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::parser<nlohmann::detail::iterator_input_adapter<char const*>>(bytes, bytes + [dataCopy length], v42, 1, v44);
   memset(&__p, 0, sizeof(__p));
   while (1)
   {
     while (1)
     {
-      if (v46 <= 5)
+      if (v45 <= 5)
       {
-        if (v46 > 2)
+        if (v45 > 2)
         {
-          if (v46 == 3)
+          if (v45 == 3)
           {
-            v9 = (*v33)(&v33);
+            v9 = (*v32)(&v32);
           }
 
-          else if (v46 == 4)
+          else if (v45 == 4)
           {
-            v9 = v33[5](&v33, v49);
+            v9 = v32[5](&v32, v48);
           }
 
           else
           {
-            v9 = v33[3](&v33, v49[5]);
+            v9 = v32[3](&v32, v48[5]);
           }
 
           goto LABEL_27;
         }
 
-        if (v46 == 1)
+        if (v45 == 1)
         {
-          v9 = v33[1](&v33, 1);
+          v9 = v32[1](&v32, 1);
           goto LABEL_27;
         }
 
-        if (v46 == 2)
+        if (v45 == 2)
         {
-          v9 = v33[1](&v33, 0);
+          v9 = v32[1](&v32, 0);
           goto LABEL_27;
         }
 
         goto LABEL_66;
       }
 
-      if (v46 <= 7)
+      if (v45 <= 7)
       {
-        if (v46 == 6)
+        if (v45 == 6)
         {
-          v9 = v33[2](&v33, v49[4]);
+          v9 = v32[2](&v32, v48[4]);
           goto LABEL_27;
         }
 
-        if ((v49[6] & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+        if ((v48[6] & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
         {
-          v28 = v48.__r_.__value_.__r.__words[0];
-          nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v47, &v41);
-          nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v47, &v36);
-          v29 = std::string::insert(&v36, 0, "number overflow parsing '", 0x19uLL);
-          v30 = *&v29->__r_.__value_.__l.__data_;
-          v37.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
-          *&v37.__r_.__value_.__l.__data_ = v30;
-          v29->__r_.__value_.__l.__size_ = 0;
-          v29->__r_.__value_.__r.__words[2] = 0;
-          v29->__r_.__value_.__r.__words[0] = 0;
-          v31 = std::string::append(&v37, "'", 1uLL);
-          v32 = *&v31->__r_.__value_.__l.__data_;
-          v38.__r_.__value_.__r.__words[2] = v31->__r_.__value_.__r.__words[2];
-          *&v38.__r_.__value_.__l.__data_ = v32;
-          v31->__r_.__value_.__l.__size_ = 0;
-          v31->__r_.__value_.__r.__words[2] = 0;
-          v31->__r_.__value_.__r.__words[0] = 0;
-          nlohmann::detail::out_of_range::create(406, &v38, &v39);
-          v16 = (v33[12])(&v33, v28, &v41, &v39);
-          nlohmann::detail::out_of_range::~out_of_range(&v39);
-          if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
+          v27 = v47.__r_.__value_.__r.__words[0];
+          nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v46, &v40);
+          nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v46, &v35);
+          v28 = std::string::insert(&v35, 0, "number overflow parsing '", 0x19uLL);
+          v29 = *&v28->__r_.__value_.__l.__data_;
+          v36.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
+          *&v36.__r_.__value_.__l.__data_ = v29;
+          v28->__r_.__value_.__l.__size_ = 0;
+          v28->__r_.__value_.__r.__words[2] = 0;
+          v28->__r_.__value_.__r.__words[0] = 0;
+          v30 = std::string::append(&v36, "'", 1uLL);
+          v31 = *&v30->__r_.__value_.__l.__data_;
+          v37.__r_.__value_.__r.__words[2] = v30->__r_.__value_.__r.__words[2];
+          *&v37.__r_.__value_.__l.__data_ = v31;
+          v30->__r_.__value_.__l.__size_ = 0;
+          v30->__r_.__value_.__r.__words[2] = 0;
+          v30->__r_.__value_.__r.__words[0] = 0;
+          nlohmann::detail::out_of_range::create(406, &v37, &v38);
+          v16 = (v32[12])(&v32, v27, &v40, &v38);
+          nlohmann::detail::out_of_range::~out_of_range(&v38);
+          if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v38.__r_.__value_.__l.__data_);
+            operator delete(v37.__r_.__value_.__l.__data_);
           }
 
           goto LABEL_68;
         }
 
-        if (!v33[4](&v33, v49))
+        if (!v32[4](&v32, v48))
         {
           goto LABEL_63;
         }
@@ -107,64 +107,64 @@
         goto LABEL_28;
       }
 
-      if (v46 != 8)
+      if (v45 != 8)
       {
         break;
       }
 
-      if (!(v33)[10](&v33, -1))
+      if (!(v32)[10](&v32, -1))
       {
         goto LABEL_63;
       }
 
-      v46 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v47);
-      if (v46 == 10)
+      v45 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v46);
+      if (v45 == 10)
       {
-        v9 = (v33[11])(&v33);
+        v9 = (v32[11])(&v32);
         goto LABEL_27;
       }
 
-      LOBYTE(v39.__vftable) = 1;
-      std::vector<BOOL>::push_back(&__p, &v39);
+      LOBYTE(v38.__vftable) = 1;
+      std::vector<BOOL>::push_back(&__p, &v38);
     }
 
-    if (v46 != 9)
+    if (v45 != 9)
     {
-      if (v46 == 14)
+      if (v45 == 14)
       {
-        v20 = v48.__r_.__value_.__r.__words[0];
-        nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v47, &v41);
-        v38 = v48;
-        std::string::basic_string[abi:sn200100]<0>(&v36, "value");
-        nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::exception_message(v45, 0, &v36, &v37);
-        nlohmann::detail::parse_error::create(101, &v38, &v37, &v39);
-        v21 = (v33[12])(&v33, v20, &v41, &v39);
+        v19 = v47.__r_.__value_.__r.__words[0];
+        nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v46, &v40);
+        v37 = v47;
+        std::string::basic_string[abi:sn200100]<0>(&v35.__r_.__value_.__l.__data_, "value");
+        nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::exception_message(v44, 0, &v35, &v36);
+        nlohmann::detail::parse_error::create(101, &v37, &v36, &v38);
+        v20 = (v32[12])(&v32, v19, &v40, &v38);
 LABEL_67:
-        v16 = v21;
-        v39.__vftable = &unk_1F30602D0;
-        MEMORY[0x1B8CC0150](v40);
-        std::exception::~exception(&v39);
+        v16 = v20;
+        v38.__vftable = &unk_1F30602D0;
+        MEMORY[0x1B8CC0150](v39);
+        std::exception::~exception(&v38);
         goto LABEL_68;
       }
 
 LABEL_66:
-      v22 = v48.__r_.__value_.__r.__words[0];
-      nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v47, &v41);
-      v38 = v48;
-      std::string::basic_string[abi:sn200100]<0>(&v36, "value");
-      nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::exception_message(v45, 0x10u, &v36, &v37);
-      nlohmann::detail::parse_error::create(101, &v38, &v37, &v39);
-      v21 = (v33[12])(&v33, v22, &v41, &v39);
+      v21 = v47.__r_.__value_.__r.__words[0];
+      nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v46, &v40);
+      v37 = v47;
+      std::string::basic_string[abi:sn200100]<0>(&v35.__r_.__value_.__l.__data_, "value");
+      nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::exception_message(v44, 16, &v35, &v36);
+      nlohmann::detail::parse_error::create(101, &v37, &v36, &v38);
+      v20 = (v32[12])(&v32, v21, &v40, &v38);
       goto LABEL_67;
     }
 
-    if (((v33)[7](&v33, -1) & 1) == 0)
+    if (((v32)[7](&v32, -1) & 1) == 0)
     {
       goto LABEL_63;
     }
 
-    v10 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v47);
-    v46 = v10;
+    v10 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v46);
+    v45 = v10;
     if (v10 == 11)
     {
       break;
@@ -173,62 +173,62 @@ LABEL_66:
     if (v10 != 4)
     {
 LABEL_77:
-      v26 = v48.__r_.__value_.__r.__words[0];
-      nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v47, &v41);
-      v38 = v48;
-      std::string::basic_string[abi:sn200100]<0>(&v36, "object key");
-      nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::exception_message(v45, 4u, &v36, &v37);
-      nlohmann::detail::parse_error::create(101, &v38, &v37, &v39);
-      v24 = (v33[12])(&v33, v26, &v41, &v39);
+      v25 = v47.__r_.__value_.__r.__words[0];
+      nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v46, &v40);
+      v37 = v47;
+      std::string::basic_string[abi:sn200100]<0>(&v35.__r_.__value_.__l.__data_, "object key");
+      nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::exception_message(v44, 4, &v35, &v36);
+      nlohmann::detail::parse_error::create(101, &v37, &v36, &v38);
+      v23 = (v32[12])(&v32, v25, &v40, &v38);
       goto LABEL_79;
     }
 
-    if (!v33[8](&v33, v49))
+    if (!v32[8](&v32, v48))
     {
       goto LABEL_63;
     }
 
-    v46 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v47);
-    if (v46 != 12)
+    v45 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v46);
+    if (v45 != 12)
     {
 LABEL_78:
-      v27 = v48.__r_.__value_.__r.__words[0];
-      nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v47, &v41);
-      v38 = v48;
-      std::string::basic_string[abi:sn200100]<0>(&v36, "object separator");
-      nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::exception_message(v45, 0xCu, &v36, &v37);
-      nlohmann::detail::parse_error::create(101, &v38, &v37, &v39);
-      v24 = (v33[12])(&v33, v27, &v41, &v39);
+      v26 = v47.__r_.__value_.__r.__words[0];
+      nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v46, &v40);
+      v37 = v47;
+      std::string::basic_string[abi:sn200100]<0>(&v35.__r_.__value_.__l.__data_, "object separator");
+      nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::exception_message(v44, 12, &v35, &v36);
+      nlohmann::detail::parse_error::create(101, &v37, &v36, &v38);
+      v23 = (v32[12])(&v32, v26, &v40, &v38);
 LABEL_79:
-      v16 = v24;
-      nlohmann::detail::parse_error::~parse_error(&v39);
+      v16 = v23;
+      nlohmann::detail::parse_error::~parse_error(&v38);
 LABEL_68:
-      if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v37.__r_.__value_.__l.__data_);
-      }
-
       if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v36.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v41.__r_.__value_.__l.__data_);
+        operator delete(v35.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v40.__r_.__value_.__l.__data_);
       }
 
       goto LABEL_52;
     }
 
-    LOBYTE(v39.__vftable) = 0;
-    std::vector<BOOL>::push_back(&__p, &v39);
-    v15 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v47);
+    LOBYTE(v38.__vftable) = 0;
+    std::vector<BOOL>::push_back(&__p, &v38);
+    v15 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v46);
 LABEL_45:
-    v46 = v15;
+    v45 = v15;
   }
 
-  v9 = (v33[9])(&v33);
+  v9 = (v32[9])(&v32);
 LABEL_27:
   if ((v9 & 1) == 0)
   {
@@ -248,8 +248,8 @@ LABEL_51:
   {
     if ((*(__p.__r_.__value_.__r.__words[0] + (((size - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (size - 1)))
     {
-      v12 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v47);
-      v46 = v12;
+      v12 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v46);
+      v45 = v12;
       if (v12 == 13)
       {
         goto LABEL_44;
@@ -260,7 +260,7 @@ LABEL_51:
         goto LABEL_75;
       }
 
-      v13 = (v33[11])(&v33);
+      v13 = (v32[11])(&v32);
 LABEL_36:
       if (!v13)
       {
@@ -271,13 +271,13 @@ LABEL_36:
       {
         __break(1u);
 LABEL_75:
-        v23 = v48.__r_.__value_.__r.__words[0];
-        nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v47, &v41);
-        v38 = v48;
-        std::string::basic_string[abi:sn200100]<0>(&v36, "array");
-        nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::exception_message(v45, 0xAu, &v36, &v37);
-        nlohmann::detail::parse_error::create(101, &v38, &v37, &v39);
-        v24 = (v33[12])(&v33, v23, &v41, &v39);
+        v22 = v47.__r_.__value_.__r.__words[0];
+        nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v46, &v40);
+        v37 = v47;
+        std::string::basic_string[abi:sn200100]<0>(&v35.__r_.__value_.__l.__data_, "array");
+        nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::exception_message(v44, 10, &v35, &v36);
+        nlohmann::detail::parse_error::create(101, &v37, &v36, &v38);
+        v23 = (v32[12])(&v32, v22, &v40, &v38);
         goto LABEL_79;
       }
 
@@ -294,42 +294,42 @@ LABEL_75:
     break;
   }
 
-  v14 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v47);
-  v46 = v14;
+  v14 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v46);
+  v45 = v14;
   if (v14 != 13)
   {
     if (v14 != 11)
     {
-      v25 = v48.__r_.__value_.__r.__words[0];
-      nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v47, &v41);
-      v38 = v48;
-      std::string::basic_string[abi:sn200100]<0>(&v36, "object");
-      nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::exception_message(v45, 0xBu, &v36, &v37);
-      nlohmann::detail::parse_error::create(101, &v38, &v37, &v39);
-      v24 = (v33[12])(&v33, v25, &v41, &v39);
+      v24 = v47.__r_.__value_.__r.__words[0];
+      nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v46, &v40);
+      v37 = v47;
+      std::string::basic_string[abi:sn200100]<0>(&v35.__r_.__value_.__l.__data_, "object");
+      nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::exception_message(v44, 11, &v35, &v36);
+      nlohmann::detail::parse_error::create(101, &v37, &v36, &v38);
+      v23 = (v32[12])(&v32, v24, &v40, &v38);
       goto LABEL_79;
     }
 
-    v13 = (v33[9])(&v33);
+    v13 = (v32[9])(&v32);
     goto LABEL_36;
   }
 
-  v46 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v47);
-  if (v46 != 4)
+  v45 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v46);
+  if (v45 != 4)
   {
     goto LABEL_77;
   }
 
-  if (v33[8](&v33, v49))
+  if (v32[8](&v32, v48))
   {
-    v46 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v47);
-    if (v46 != 12)
+    v45 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v46);
+    if (v45 != 12)
     {
       goto LABEL_78;
     }
 
 LABEL_44:
-    v15 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v47);
+    v15 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v46);
     goto LABEL_45;
   }
 
@@ -343,27 +343,27 @@ LABEL_52:
 
   if (v16)
   {
-    v46 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v47);
-    if (v46 != 15)
+    v45 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(v46);
+    if (v45 != 15)
     {
-      v17 = v48.__r_.__value_.__r.__words[0];
-      nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v47, &__p);
-      v41 = v48;
-      std::string::basic_string[abi:sn200100]<0>(&v37, "value");
-      nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::exception_message(v45, 0xFu, &v37, &v38);
-      nlohmann::detail::parse_error::create(101, &v41, &v38, &v39);
-      (v33[12])(&v33, v17, &__p, &v39);
-      v39.__vftable = &unk_1F30602D0;
-      MEMORY[0x1B8CC0150](v40);
-      std::exception::~exception(&v39);
-      if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v38.__r_.__value_.__l.__data_);
-      }
-
+      v17 = v47.__r_.__value_.__r.__words[0];
+      nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get_token_string(v46, &__p);
+      v40 = v47;
+      std::string::basic_string[abi:sn200100]<0>(&v36.__r_.__value_.__l.__data_, "value");
+      nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::exception_message(v44, 15, &v36, &v37);
+      nlohmann::detail::parse_error::create(101, &v40, &v37, &v38);
+      (v32[12])(&v32, v17, &__p, &v38);
+      v38.__vftable = &unk_1F30602D0;
+      MEMORY[0x1B8CC0150](v39);
+      std::exception::~exception(&v38);
       if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v37.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v36.__r_.__value_.__l.__data_);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -373,97 +373,93 @@ LABEL_52:
     }
   }
 
-  nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::~lexer(v47);
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:sn200100](v45);
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:sn200100](v43);
+  nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::~lexer(v46);
+  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:sn200100](v44);
+  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:sn200100](v42);
 
-  v18 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (BOOL)parseURL:(id)l error:(id *)error
 {
-  v22[18] = *MEMORY[0x1E69E9840];
+  v21[18] = *MEMORY[0x1E69E9840];
   lCopy = l;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v12 = &unk_1F30601A0;
+  v11 = &unk_1F30601A0;
   selfCopy = self;
-  v14 = WeakRetained;
+  v13 = WeakRetained;
   path = [lCopy path];
   v8 = path;
-  [path fileSystemRepresentation];
-  std::ifstream::basic_ifstream(v16);
+  std::ifstream::basic_ifstream(v15, [path fileSystemRepresentation], 8);
 
-  v9 = *&v17[*(v16[0] - 24) + 24];
-  v15[0] = v16;
-  v15[1] = v9;
-  v15[2] = 0;
-  v15[3] = 0;
-  v20 = 0;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::parser<nlohmann::detail::input_stream_adapter>(v15, v19, 1, v21);
-  nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::~lexer(v22);
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:sn200100](v21);
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:sn200100](v19);
-  if (v15[0])
+  v9 = *&v16[*(v15[0] - 24) + 24];
+  v14[0] = v15;
+  v14[1] = v9;
+  v14[2] = 0;
+  v14[3] = 0;
+  v19 = 0;
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::parser<nlohmann::detail::input_stream_adapter>(v14, v18, 1, v20);
+  nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::~lexer(v21);
+  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:sn200100](v20);
+  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:sn200100](v18);
+  if (v14[0])
   {
-    std::ios_base::clear((v15[0] + *(*v15[0] - 24)), *(v15[0] + *(*v15[0] - 24) + 32) & 2);
+    std::ios_base::clear((v14[0] + *(*v14[0] - 24)), *(v14[0] + *(*v14[0] - 24) + 32) & 2);
   }
 
-  v16[0] = *MEMORY[0x1E69E54C8];
-  *(v16 + *(v16[0] - 24)) = *(MEMORY[0x1E69E54C8] + 24);
-  MEMORY[0x1B8CC01B0](v17);
+  v15[0] = *MEMORY[0x1E69E54C8];
+  *(v15 + *(v15[0] - 24)) = *(MEMORY[0x1E69E54C8] + 24);
+  MEMORY[0x1B8CC01B0](v16);
   std::istream::~istream();
-  MEMORY[0x1B8CC0220](&v18);
+  MEMORY[0x1B8CC0220](&v17);
 
-  v10 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (BOOL)parseFileHandle:(id)handle error:(id *)error
 {
-  v26[18] = *MEMORY[0x1E69E9840];
+  v25[18] = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v15 = &unk_1F30601A0;
+  v14 = &unk_1F30601A0;
   selfCopy = self;
-  v17 = WeakRetained;
+  v16 = WeakRetained;
   LODWORD(WeakRetained) = [handleCopy fileDescriptor];
   v7 = MEMORY[0x1E69E5538] + 16;
   __sb = (MEMORY[0x1E69E5538] + 16);
-  MEMORY[0x1B8CC01E0](v20);
-  memset(&v20[4], 0, 24);
-  v21 = WeakRetained;
+  MEMORY[0x1B8CC01E0](v19);
+  memset(&v19[4], 0, 24);
+  v20 = WeakRetained;
   __sb = &unk_1F3060228;
-  v20[1].__locale_ = v22;
-  v20[2].__locale_ = v22;
-  v20[3].__locale_ = v22;
-  v12.__loc_ = 0;
-  v11[0] = MEMORY[0x1E69E5518] + 24;
-  v11[1] = 0;
-  v12.__vftable = (MEMORY[0x1E69E5518] + 64);
-  std::ios_base::init(&v12, &__sb);
-  v13 = 0;
-  v14 = -1;
-  v8 = *(&v12.__width_ + *(v11[0] - 24));
-  v18[0] = v11;
-  v18[1] = v8;
-  v18[2] = 0;
-  v18[3] = 0;
-  v24 = 0;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::parser<nlohmann::detail::input_stream_adapter>(v18, v23, 1, v25);
-  nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::~lexer(v26);
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:sn200100](v25);
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:sn200100](v23);
-  if (v18[0])
+  v19[1].__locale_ = v21;
+  v19[2].__locale_ = v21;
+  v19[3].__locale_ = v21;
+  v11.__loc_ = 0;
+  v10[0] = MEMORY[0x1E69E5518] + 24;
+  v10[1] = 0;
+  v11.__vftable = (MEMORY[0x1E69E5518] + 64);
+  std::ios_base::init(&v11, &__sb);
+  v12 = 0;
+  v13 = -1;
+  v8 = *(&v11.__width_ + *(v10[0] - 24));
+  v17[0] = v10;
+  v17[1] = v8;
+  v17[2] = 0;
+  v17[3] = 0;
+  v23 = 0;
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::parser<nlohmann::detail::input_stream_adapter>(v17, v22, 1, v24);
+  nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::~lexer(v25);
+  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:sn200100](v24);
+  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:sn200100](v22);
+  if (v17[0])
   {
-    std::ios_base::clear((v18[0] + *(*v18[0] - 24)), *(v18[0] + *(*v18[0] - 24) + 32) & 2);
+    std::ios_base::clear((v17[0] + *(*v17[0] - 24)), *(v17[0] + *(*v17[0] - 24) + 32) & 2);
   }
 
   std::istream::~istream();
   __sb = v7;
-  std::locale::~locale(v20);
+  std::locale::~locale(v19);
 
-  v9 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

@@ -22,7 +22,7 @@
 
 - (id)eventDictionaries
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CF7818]);
   v4 = [v3 initWithDomain:*MEMORY[0x277CF7A58]];
   v5 = [v4 getValueForPreference:@"overlayCalendarID" expectedClass:objc_opt_class()];
@@ -48,10 +48,8 @@
   v14 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v4, "getBooleanPreference:defaultValue:", @"ShowDeclinedEvents", 0)}];
   [(NSMutableDictionary *)self->payload setObject:v14 forKeyedSubscript:@"declinedEventsEnabled"];
 
-  v18[0] = self->payload;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[0] = self->payload;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
 
   return v15;
 }

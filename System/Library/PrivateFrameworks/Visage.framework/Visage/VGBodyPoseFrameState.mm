@@ -8,16 +8,16 @@
 
 - (VGBodyPoseFrameState)initWithCoder:(id)coder
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(VGBodyPoseFrameState *)self init];
   if (v5)
   {
+    v13 = objc_opt_class();
     v14 = objc_opt_class();
     v15 = objc_opt_class();
-    v16 = objc_opt_class();
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:3];
-    v7 = [MEMORY[0x277CBEB98] setWithArray:{v6, v14, v15}];
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:3];
+    v7 = [MEMORY[0x277CBEB98] setWithArray:{v6, v13, v14}];
     v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"scores"];
     scores = v5->_scores;
     v5->_scores = v8;
@@ -27,7 +27,6 @@
     v11 = v5;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

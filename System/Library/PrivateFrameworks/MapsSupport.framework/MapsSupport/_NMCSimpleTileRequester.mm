@@ -1,8 +1,8 @@
 @interface _NMCSimpleTileRequester
 - (_NMCSimpleTileRequester)initWithTileRequest:(id)request forOriginalRequests:(id)requests delegateQueue:(id)queue delegate:(id)delegate;
-- (id)checksumMethodForIncomingTileDataWithKey:(uint64_t)key;
 - (id)localizationURLForTileKey:(uint64_t)key;
 - (id)urlForTileKey:(uint64_t)key;
+- (void)checksumMethodForIncomingTileDataWithKey:(uint64_t)key;
 @end
 
 @implementation _NMCSimpleTileRequester
@@ -85,7 +85,7 @@
   return v9;
 }
 
-- (id)checksumMethodForIncomingTileDataWithKey:(uint64_t)key
+- (void)checksumMethodForIncomingTileDataWithKey:(uint64_t)key
 {
   v1 = [*(key + 144) objectForKey:?];
   v2 = v1;

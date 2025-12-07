@@ -674,7 +674,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  [overrideCopy displayedAssetContentsRect];
+  objc_msgSend_displayedAssetContentsRect(overrideCopy);
   itemPlacementSourceIdentifier = [(PXStoryClipLayout *)self itemPlacementSourceIdentifier];
   v26[0] = MEMORY[0x1E69E9820];
   v26[1] = 3221225472;
@@ -703,7 +703,7 @@ void __67__PXStoryClipLayout_setDetailedPlacementOverride_forItemReference___blo
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 preferredPresentedContentsRect];
+    objc_msgSend_preferredPresentedContentsRect(v4);
   }
 
   else
@@ -733,7 +733,7 @@ void __67__PXStoryClipLayout_setDetailedPlacementOverride_forItemReference___blo
 
   if (v8)
   {
-    [(PXStoryClipLayout *)self presentedContentsRect];
+    objc_msgSend_presentedContentsRect(self);
     *v10 = *&v10[7];
     *&v10[2] = *&v10[9];
     *&v10[4] = *&v10[11];
@@ -1030,7 +1030,7 @@ LABEL_8:
 {
   model = [(PXStoryClipLayout *)self model];
   configuration = [model configuration];
-  v5 = ([configuration options] >> 1) & 1;
+  v5 = (objc_msgSend_options(configuration) >> 1) & 1;
 
   return v5;
 }
@@ -1146,7 +1146,7 @@ LABEL_9:
     }
 
     [v6 appendFormat:@"Autoplay: %@\n", v12];
-    [(PXStoryClipLayout *)self autoplayTimeRange];
+    objc_msgSend_autoplayTimeRange(self);
     v13 = PXStoryTimeRangeDescription(&v90);
     [v6 appendFormat:@"Time Range: %@\n", v13];
 
@@ -1227,7 +1227,7 @@ LABEL_22:
 LABEL_23:
 
 LABEL_24:
-  [(PXStoryClipLayout *)self clipTimeRange];
+  objc_msgSend_clipTimeRange(self);
   v90 = v97;
   *&v91 = v98;
   v33 = PXStoryTimeDescription(&v90);
@@ -1237,7 +1237,7 @@ LABEL_24:
   v35 = clip2;
   if (clip2)
   {
-    [clip2 info];
+    objc_msgSend_info(clip2);
   }
 
   else
@@ -1268,7 +1268,7 @@ LABEL_24:
     [v6 appendFormat:@"Video Range: %@\n", v40];
 
     clip4 = [(PXStoryClipLayout *)self clip];
-    [(PXStoryClipLayout *)self clipTimeRange];
+    objc_msgSend_clipTimeRange(self);
     PXStoryClipSegmentPlaybackTimeRangeIncludingJLCuts(clip4, &v99, 1u, &v90);
     *&v99 = v90;
     v42 = HIDWORD(v90);
@@ -1291,7 +1291,7 @@ LABEL_24:
     displayAsset = v73;
     if (debugShowVideoPlaybackDetails)
     {
-      [videoPresentationController actualTime];
+      objc_msgSend_actualTime(videoPresentationController);
       v48 = PXStoryTimeDescription(&v90);
       [v6 appendFormat:@"Current time: %@\n", v48];
 
@@ -1332,7 +1332,7 @@ LABEL_24:
     if (clip5)
     {
       v58 = clip5;
-      [clip5 info];
+      objc_msgSend_info(clip5);
       v59 = v75;
       v60 = v76;
       v61 = v78;
@@ -1544,7 +1544,7 @@ LABEL_53:
     }
   }
 
-  else if ([model viewMode] == 5 || objc_msgSend(model, "options") == 1)
+  else if ([model viewMode] == 5 || objc_msgSend_options(model) == 1)
   {
     [(PXStoryClipLayout *)self referenceSize];
     if (v12 == v13)
@@ -1598,7 +1598,7 @@ LABEL_53:
   }
 }
 
-uint64_t __31__PXStoryClipLayout__updateHUD__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, float *a4, uint64_t a5)
+void *__31__PXStoryClipLayout__updateHUD__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, float *a4, uint64_t a5)
 {
   result = [*(a1 + 32) wantsHUD];
   v9 = 0.0;
@@ -1803,7 +1803,7 @@ LABEL_5:
   v7 = *(off_1E7722240 + 2);
   if (kenBurnsAnimation)
   {
-    [kenBurnsAnimation currentRect];
+    objc_msgSend_currentRect(kenBurnsAnimation, v7, v8, v9);
   }
 
   else if (clip && self->_resourceKind == 1)
@@ -1818,29 +1818,28 @@ LABEL_5:
       PXSizeGetAspectRatio();
     }
 
-    [v5 info];
+    objc_msgSend_info(v5);
   }
 
   [(PXStoryClipLayout *)self manualContentsRect:v7];
   PXStoryRectFromCGRect();
 }
 
-uint64_t __40__PXStoryClipLayout__updateContentStyle__block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+void __40__PXStoryClipLayout__updateContentStyle__block_invoke(uint64_t a1, uint64_t a2, unsigned int *a3)
 {
   if (*a3)
   {
-    v4 = result;
-    *(*(a3 + 24) + 36) = *(result + 88);
-    [*(result + 32) contentScale];
-    *(*(a3 + 24) + 60) = v5;
-    v6 = *(v4 + 56);
-    v7 = *(v4 + 40);
-    v8 = v6;
-    v9 = *(v4 + 72);
-    PXGSpriteStyleSetPXStoryContentsRect();
+    *(*(a3 + 3) + 36) = *(a1 + 88);
+    [*(a1 + 32) contentScale];
+    v5 = *(a3 + 3);
+    *(v5 + 60) = v6;
+    v7 = *(*(a1 + 32) + 904);
+    v8 = *(a1 + 56);
+    v9[0] = *(a1 + 40);
+    v9[1] = v8;
+    v9[2] = *(a1 + 72);
+    PXGSpriteStyleSetPXStoryContentsRect(v5, v9, v7);
   }
-
-  return result;
 }
 
 void __40__PXStoryClipLayout__updateContentStyle__block_invoke_2(uint64_t a1, void *a2)
@@ -2021,7 +2020,7 @@ void __38__PXStoryClipLayout__updateAnimations__block_invoke(uint64_t a1, void *
     v6 = *(a1 + 40);
     if (v6)
     {
-      [v6 info];
+      objc_msgSend_info(v6);
     }
 
     else
@@ -2049,7 +2048,7 @@ void __38__PXStoryClipLayout__updateAnimations__block_invoke(uint64_t a1, void *
     v38 = __src[42];
     v39 = __src[43];
     *&v40 = *&__src[44];
-    [PXStoryTransitionFactory visibleOrderOutDurationForTransitionInfo:&v38];
+    objc_msgSend_visibleOrderOutDurationForTransitionInfo_(PXStoryTransitionFactory);
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __38__PXStoryClipLayout__updateAnimations__block_invoke_2;
@@ -2131,7 +2130,7 @@ void __38__PXStoryClipLayout__updateAnimations__block_invoke_2(uint64_t a1@<X0>,
     v8 = v7;
     if (v7)
     {
-      [v7 timeLeftInCurrentSegment];
+      objc_msgSend_timeLeftInCurrentSegment(v7);
     }
 
     else
@@ -2234,7 +2233,7 @@ void __38__PXStoryClipLayout__updateAnimations__block_invoke_4(uint64_t a1)
   v10 = *(a1 + 32);
   if (v10)
   {
-    [v10 presentedKenBurnsAnimationCurrentRect];
+    objc_msgSend_presentedKenBurnsAnimationCurrentRect(v10);
   }
 
 LABEL_6:
@@ -2428,7 +2427,7 @@ LABEL_5:
   v3 = objc_alloc_init(MEMORY[0x1E696AD50]);
   model = [(PXStoryClipLayout *)self model];
   timeline = [model timeline];
-  [(PXStoryClipLayout *)self clipTimeRange];
+  objc_msgSend_clipTimeRange(self);
   v7[0] = MEMORY[0x1E69E9820];
   v7[1] = 3221225472;
   v7[2] = __46__PXStoryClipLayout__updateSegmentIdentifiers__block_invoke;
@@ -2440,7 +2439,7 @@ LABEL_5:
   [(PXStoryClipLayout *)self setSegmentIdentifiers:v6];
 }
 
-uint64_t __46__PXStoryClipLayout__updateSegmentIdentifiers__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
+id *__46__PXStoryClipLayout__updateSegmentIdentifiers__block_invoke(id *result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (a2 >= 1)
   {
@@ -2456,7 +2455,7 @@ uint64_t __46__PXStoryClipLayout__updateSegmentIdentifiers__block_invoke(uint64_
     {
       v13 = *a4;
       a4 += 25;
-      result = [*(v12 + 32) addIndex:{v13, v14, v15, v16, v17, v18, v19}];
+      result = [v12[4] addIndex:{v13, v14, v15, v16, v17, v18, v19}];
       --v11;
     }
 
@@ -2527,7 +2526,7 @@ LABEL_5:
 
 void __35__PXStoryClipLayout__updateContent__block_invoke(uint64_t a1)
 {
-  *&v1 = MEMORY[0x1EEE9AC00](a1).n128_u64[0];
+  v1 = MEMORY[0x1EEE9AC00](a1);
   v3 = v2;
   v5 = v4;
   __src[97] = *MEMORY[0x1E69E9840];
@@ -2557,7 +2556,7 @@ void __35__PXStoryClipLayout__updateContent__block_invoke(uint64_t a1)
   v19 = v18;
   if (v18)
   {
-    [v18 info];
+    objc_msgSend_info(v18);
     v20 = vcvt_f32_f64(v217);
   }
 
@@ -2622,7 +2621,7 @@ void __35__PXStoryClipLayout__updateContent__block_invoke(uint64_t a1)
     v61 = v60;
     if (v60)
     {
-      [v60 info];
+      objc_msgSend_info(v60);
       v62 = vcvt_f32_f64(v214);
     }
 
@@ -2638,7 +2637,7 @@ void __35__PXStoryClipLayout__updateContent__block_invoke(uint64_t a1)
     v74 = v73;
     if (v73)
     {
-      [v73 info];
+      objc_msgSend_info(v73);
       if (v212[32])
       {
         v75 = [*(v5 + 32) shouldAspectFitContent];
@@ -2674,7 +2673,7 @@ LABEL_40:
     memset(__dst, 0, 512);
     if (v63)
     {
-      [v63 info];
+      objc_msgSend_info(v63);
     }
 
     else
@@ -2688,13 +2687,13 @@ LABEL_40:
       v78 = v77;
       if (v77)
       {
-        [v77 info];
+        objc_msgSend_info(v77);
         memcpy(__dst, __src, sizeof(__dst));
       }
     }
 
     memcpy(__src, __dst, 0x300uLL);
-    PXStoryMediaSizeForDisplayAssetClipInfo(__src);
+    PXStoryMediaSizeForDisplayAssetClipInfo(__src, rect_8);
   }
 
   if (v27 != 3)
@@ -3299,7 +3298,7 @@ LABEL_5:
     v78[1] = v78;
     v78[2] = 0x2020000000;
     v79 = 0;
-    [(PXStoryClipLayout *)self clipTimeRange];
+    objc_msgSend_clipTimeRange(self);
     v67[0] = MEMORY[0x1E69E9820];
     v67[1] = 3221225472;
     v67[2] = __51__PXStoryClipLayout__updateTextResourceSpriteFrame__block_invoke;
@@ -3478,7 +3477,7 @@ void __51__PXStoryClipLayout__updateTextResourceSpriteFrame__block_invoke(uint64
       v10 = a5[1];
       if (v10 == 3)
       {
-        v11 = [*(a1 + 32) clipWithIdentifier:*a5];
+        v11 = [*(a1 + 32) clipWithIdentifier:{*a5, a4}];
         v12 = [v11 resource];
         v13 = [v12 px_storyResourceTextResourceInfo];
 
@@ -3746,11 +3745,11 @@ LABEL_5:
   [(PXStoryClipLayout *)self setCombinedEffect:v15];
 }
 
-uint64_t __42__PXStoryClipLayout__updateCombinedEffect__block_invoke(uint64_t result, uint64_t a2)
+id *__42__PXStoryClipLayout__updateCombinedEffect__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
@@ -3829,13 +3828,13 @@ LABEL_5:
   if (!self->_isFeedThumbnail)
   {
     clippingAnimation = [(PXStoryClipLayout *)self clippingAnimation];
-    [(PXStoryClipLayout *)self contentEdgeInsets];
+    objc_msgSend_contentEdgeInsets(self);
     v4 = 0;
     if (INFINITY == 0.0)
     {
       if (clippingAnimation)
       {
-        [clippingAnimation currentEdgeInsets];
+        objc_msgSend_currentEdgeInsets(clippingAnimation);
         v4 = v5;
       }
 
@@ -3896,7 +3895,7 @@ LABEL_5:
   -[PXStoryClipLayout setShouldAutoplay:](self, "setShouldAutoplay:", [model shouldAutoplayThumbnail]);
   if (model)
   {
-    [model thumbnailAutoplayTimeRange];
+    objc_msgSend_thumbnailAutoplayTimeRange(model);
   }
 
   else
@@ -4207,16 +4206,19 @@ void __57__PXStoryClipLayout__updateInactiveImageFilterAdjustment__block_invoke(
     [*(a1 + 32) alpha];
     v7 = v6;
     [*(a1 + 32) contentAlpha];
-    v9 = *(a1 + 40) * (v7 * v8);
+    v9 = v7 * v8;
+    v10 = *(a1 + 40);
+    v11 = v10 * v9;
   }
 
   else
   {
-    v9 = 0.0;
+    v10 = *(a1 + 40);
+    v11 = 0.0;
   }
 
-  *(a4 + 160 * *(*(a1 + 32) + 872)) = v9;
-  PXFloatApproximatelyEqualToFloat();
+  *(a4 + 160 * *(*(a1 + 32) + 872)) = v11;
+  PXFloatApproximatelyEqualToFloat(v10);
 }
 
 - (void)_invalidateInactiveImageFilterAdjustment
@@ -4269,7 +4271,7 @@ LABEL_5:
   v7 = clip;
   if (clip)
   {
-    [clip info];
+    objc_msgSend_info(clip);
     v8 = (v11[32] >> 3) & 1;
   }
 
@@ -4650,7 +4652,7 @@ LABEL_5:
   if (clip)
   {
     v7 = clip;
-    [clip info];
+    objc_msgSend_info(clip);
 
     if (((isExporting | isAsync) & 1) == 0 && v19 == 3)
     {
@@ -4765,7 +4767,7 @@ LABEL_5:
       v7 = videoPresentationController2;
       if (videoPresentationController2)
       {
-        [videoPresentationController2 actualTime];
+        objc_msgSend_actualTime(videoPresentationController2);
       }
 
       else
@@ -4827,7 +4829,7 @@ void __60__PXStoryClipLayout__updateVideoPresentationControllerState__block_invo
   v5 = *(a1 + 32);
   if (v5)
   {
-    [v5 clipTimeRange];
+    objc_msgSend_clipTimeRange(v5);
   }
 
   *time = v33;
@@ -4849,7 +4851,7 @@ void __60__PXStoryClipLayout__updateVideoPresentationControllerState__block_invo
     v12 = *(a1 + 40);
     if (v12)
     {
-      [v12 nominalPlaybackTime];
+      objc_msgSend_nominalPlaybackTime(v12);
     }
 
     else
@@ -4872,7 +4874,7 @@ void __60__PXStoryClipLayout__updateVideoPresentationControllerState__block_invo
       v19 = v18;
       if (v18)
       {
-        [v18 videoDuration];
+        objc_msgSend_videoDuration(v18);
       }
 
       else
@@ -4921,7 +4923,7 @@ void __60__PXStoryClipLayout__updateVideoPresentationControllerState__block_invo
 
     if (v28)
     {
-      [v28 info];
+      objc_msgSend_info(v28);
       if (v30 == 5)
       {
         rhs = lhs;
@@ -5018,7 +5020,8 @@ LABEL_35:
     time1.start.flags = flags;
     time1.start.epoch = epoch;
     *time = duration.value;
-    *&time[8] = __PAIR64__(v15, duration.timescale);
+    *&time[8] = duration.timescale;
+    *&time[12] = v15;
     *&time[16] = v16;
     if (CMTimeCompare(&time1.start, time))
     {
@@ -5114,7 +5117,7 @@ LABEL_12:
     v18 = *(a1 + 32);
     if (v18)
     {
-      [v18 clipTimeRange];
+      objc_msgSend_clipTimeRange(v18);
     }
 
     v32 = *location;
@@ -5325,7 +5328,7 @@ LABEL_55:
     memset(v93, 0, sizeof(v93));
     if (clip)
     {
-      [clip info];
+      objc_msgSend_info(clip);
     }
 
     else
@@ -5336,7 +5339,7 @@ LABEL_55:
     v91 = 0u;
     v92 = 0u;
     v90 = 0u;
-    [(PXStoryClipLayout *)self clipTimeRange];
+    objc_msgSend_clipTimeRange(self);
     v18 = v117;
     v69 = v17;
     if (*(&v94 + 1) == 5 || isReadyForAutoplay)
@@ -5401,7 +5404,7 @@ LABEL_46:
       if (*(&v94 + 1) == 3 && isReadyForAutoplay)
       {
         [(PXVideoSessionManagerDisplayAssetOptions *)v27 setShouldCrossfadeLivePhotosWhenLooping:1];
-        [(PXStoryClipLayout *)self autoplayTimeRange];
+        objc_msgSend_autoplayTimeRange(self);
         *buf = v81;
         *&buf[16] = v82;
         v119 = v83;
@@ -5587,7 +5590,7 @@ void __55__PXStoryClipLayout__updateVideoPresentationController__block_invoke(ui
   v4 = [*(a1 + 32) clip];
   if (v4)
   {
-    [v4 info];
+    objc_msgSend_info(v4);
   }
 
   else
@@ -5664,7 +5667,7 @@ LABEL_6:
   }
 
   v6 = clip;
-  [clip info];
+  objc_msgSend_info(clip);
 
   if (v14 - 3 >= 3)
   {
@@ -6676,7 +6679,7 @@ void __52__PXStoryClipLayout_setVideoPresentationController___block_invoke(uint6
         v25 = clip;
         if (clip)
         {
-          [clip info];
+          objc_msgSend_info(clip);
           [(PXStoryClipLayout *)self model];
         }
 
@@ -6788,7 +6791,7 @@ LABEL_15:
       v13 = clip;
       if (clip)
       {
-        [clip info];
+        objc_msgSend_info(clip);
         v14 = v17[0];
       }
 
@@ -7307,7 +7310,7 @@ uint64_t __37__PXStoryClipLayout_setContentAlpha___block_invoke(uint64_t a1)
       [(PXStoryClipLayout *)self _invalidateInactiveImageFilterAdjustment];
       if (clipCopy2)
       {
-        [(PXStoryClip *)clipCopy2 info];
+        objc_msgSend_info(clipCopy2);
         v8 = v13;
       }
 
@@ -7320,7 +7323,7 @@ uint64_t __37__PXStoryClipLayout_setContentAlpha___block_invoke(uint64_t a1)
       v9 = self->_clip;
       if (v9)
       {
-        [(PXStoryClip *)v9 info];
+        objc_msgSend_info(v9);
         v10 = v11[8];
       }
 

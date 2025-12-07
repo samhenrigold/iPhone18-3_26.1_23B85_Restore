@@ -40,16 +40,15 @@
 
 uint64_t __20__TUCallUpdate_init__block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = [MEMORY[0x1E695CE18] tu_contactStore];
   v3 = [WeakRetained handle];
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v5 = [v2 tu_contactsForHandles:v4 keyDescriptors:MEMORY[0x1E695E0F0] error:0];
 
   v6 = [v5 count];
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -101,40 +100,40 @@ uint64_t __20__TUCallUpdate_init__block_invoke(uint64_t a1)
 
 - (BOOL)isHostEligibleForScreening
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   clarityEnabledBlock = [(TUCallUpdate *)self clarityEnabledBlock];
   v4 = clarityEnabledBlock[2]();
 
   if (v4)
   {
-    v5 = TUDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = TUDefaultLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isEligibleForScreening: NO because ClarityUI is enabled", &v19, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_1956FD000, v6, OS_LOG_TYPE_DEFAULT, "isEligibleForScreening: NO because ClarityUI is enabled", &v21, 2u);
     }
 
-    LOBYTE(v6) = 0;
+    LOBYTE(v7) = 0;
     goto LABEL_28;
   }
 
   if ([(TUCallUpdate *)self priority]== 2)
   {
-    v7 = TUDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = TUDefaultLog(2);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "isEligibleForScreening: High Priority call, not screenable", &v19, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "isEligibleForScreening: High Priority call, not screenable", &v21, 2u);
     }
 
 LABEL_20:
-    v14 = TUDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v17 = TUDefaultLog(remoteParticipantCount);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      v15 = "isEligibleForScreening: NO, either telephony Junk Call or Emergency or not a U+1 audio call from a contact";
+      LOWORD(v21) = 0;
+      v18 = "isEligibleForScreening: NO, either telephony Junk Call or Emergency or not a U+1 audio call from a contact";
 LABEL_22:
-      _os_log_impl(&dword_1956FD000, v14, OS_LOG_TYPE_DEFAULT, v15, &v19, 2u);
+      _os_log_impl(&dword_1956FD000, v17, OS_LOG_TYPE_DEFAULT, v18, &v21, 2u);
       goto LABEL_23;
     }
 
@@ -167,50 +166,74 @@ LABEL_22:
   handle = [(TUCallUpdate *)self handle];
   normalizedValue = [handle normalizedValue];
 
-  if (!normalizedValue || [(TUCallUpdate *)self remoteParticipantCount]> 1 || [(TUCallUpdate *)self hasVideo]|| ![(TUCallUpdate *)self isConversation]|| !(*(self->_contactsCountBlock + 2))())
+  if (!normalizedValue)
+  {
+    goto LABEL_20;
+  }
+
+  remoteParticipantCount = [(TUCallUpdate *)self remoteParticipantCount];
+  if (remoteParticipantCount > 1)
+  {
+    goto LABEL_20;
+  }
+
+  remoteParticipantCount = [(TUCallUpdate *)self hasVideo];
+  if (remoteParticipantCount)
+  {
+    goto LABEL_20;
+  }
+
+  remoteParticipantCount = [(TUCallUpdate *)self isConversation];
+  if (!remoteParticipantCount)
+  {
+    goto LABEL_20;
+  }
+
+  remoteParticipantCount = (*(self->_contactsCountBlock + 2))();
+  if (!remoteParticipantCount)
   {
     goto LABEL_20;
   }
 
 LABEL_11:
-  if ([(TUCallUpdate *)self isAnsweringMachineAvailable])
+  isAnsweringMachineAvailable = [(TUCallUpdate *)self isAnsweringMachineAvailable];
+  if (isAnsweringMachineAvailable)
   {
-    v6 = 1;
+    v7 = 1;
     goto LABEL_24;
   }
 
-  v14 = TUDefaultLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v17 = TUDefaultLog(isAnsweringMachineAvailable);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v19) = 0;
-    v15 = "isEligibleForScreening: NO, Answering Machine is not currently available";
+    LOWORD(v21) = 0;
+    v18 = "isEligibleForScreening: NO, Answering Machine is not currently available";
     goto LABEL_22;
   }
 
 LABEL_23:
 
-  v6 = 0;
+  v7 = 0;
 LABEL_24:
-  v5 = TUDefaultLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TUDefaultLog(isAnsweringMachineAvailable);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = @"NO";
-    if (v6)
+    v19 = @"NO";
+    if (v7)
     {
-      v16 = @"YES";
+      v19 = @"YES";
     }
 
-    v19 = 138412546;
-    v20 = v16;
-    v21 = 2112;
+    v21 = 138412546;
+    v22 = v19;
+    v23 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "isEligibleForScreening: %@ for call: %@", &v19, 0x16u);
+    _os_log_impl(&dword_1956FD000, v6, OS_LOG_TYPE_DEFAULT, "isEligibleForScreening: %@ for call: %@", &v21, 0x16u);
   }
 
 LABEL_28:
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v6;
+  return v7;
 }
 
 - (BOOL)isEligibleForScreening

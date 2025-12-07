@@ -5,6 +5,7 @@
 - (void)dealloc;
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
+- (void)previewDidAppear:(BOOL)appear;
 - (void)setupPlayerWithMediaAsset:(id)asset;
 - (void)startObservingItem;
 - (void)stopObservingItem;
@@ -40,9 +41,20 @@ void __96__QLLoopingMediaItemViewController_loadPreviewControllerWithContents_co
   }
 }
 
+- (void)previewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = QLLoopingMediaItemViewController;
+  [(QLMediaItemBaseViewController *)&v5 previewDidAppear:appear];
+  [(QLLoopingMediaItemViewController *)self startObservingItem];
+  v4.receiver = self;
+  v4.super_class = QLLoopingMediaItemViewController;
+  [(QLMediaItemBaseViewController *)&v4 play];
+}
+
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -78,7 +90,7 @@ void __96__QLLoopingMediaItemViewController_loadPreviewControllerWithContents_co
     if (objc_opt_isKindOfClass())
     {
       *buf = *MEMORY[0x277CC08F0];
-      v29 = *(MEMORY[0x277CC08F0] + 16);
+      v28 = *(MEMORY[0x277CC08F0] + 16);
       [v17 seekToTime:buf completionHandler:0];
       [(QLLoopingMediaItemViewController *)self stopObservingItem];
       [v14 insertItem:v17 afterItem:0];
@@ -124,12 +136,10 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v27.receiver = self;
-  v27.super_class = QLLoopingMediaItemViewController;
-  [(QLMediaItemBaseViewController *)&v27 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+  v26.receiver = self;
+  v26.super_class = QLLoopingMediaItemViewController;
+  [(QLMediaItemBaseViewController *)&v26 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
 LABEL_21:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -166,18 +176,18 @@ LABEL_21:
 
 - (void)setupPlayerWithMediaAsset:(id)asset
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   v5 = assetCopy;
-  memset(&v16[1], 0, sizeof(CMTime));
+  memset(&v15[1], 0, sizeof(CMTime));
   if (assetCopy)
   {
-    [assetCopy duration];
+    objc_msgSend_duration(assetCopy);
   }
 
   CMTimeMake(&time2, 1, 100);
-  v16[0] = v16[1];
-  if (CMTimeCompare(v16, &time2) < 0 || ![(QLMediaItemBaseViewController *)self playable])
+  v15[0] = v15[1];
+  if (CMTimeCompare(v15, &time2) < 0 || ![(QLMediaItemBaseViewController *)self playable])
   {
     v9 = MEMORY[0x277D43EF8];
     v10 = *MEMORY[0x277D43EF8];
@@ -189,7 +199,7 @@ LABEL_21:
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      time2 = v16[1];
+      time2 = v15[1];
       v11 = v10;
       Seconds = CMTimeGetSeconds(&time2);
       playable = [(QLMediaItemBaseViewController *)self playable];
@@ -209,7 +219,7 @@ LABEL_21:
 
   else
   {
-    time2 = v16[1];
+    time2 = v15[1];
     for (i = (1.0 / CMTimeGetSeconds(&time2) + 2.0); i; --i)
     {
       v7 = [MEMORY[0x277CE65B0] playerItemWithAsset:v5];
@@ -222,8 +232,6 @@ LABEL_21:
 
     [(QLLoopingMediaItemViewController *)self startObservingItem];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startObservingItem

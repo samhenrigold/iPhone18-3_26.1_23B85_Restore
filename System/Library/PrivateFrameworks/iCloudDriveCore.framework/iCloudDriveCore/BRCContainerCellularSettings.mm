@@ -55,7 +55,7 @@ void __49__BRCContainerCellularSettings_isCellularEnabled__block_invoke(uint64_t
     v3 = brc_default_log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      __49__BRCContainerCellularSettings_isCellularEnabled__block_invoke_cold_1(v12);
+      __49__BRCContainerCellularSettings_isCellularEnabled__block_invoke_cold_1();
     }
 
     v4 = [MEMORY[0x277CB8F48] defaultStore];
@@ -91,13 +91,6 @@ void __49__BRCContainerCellularSettings_isCellularEnabled__block_invoke(uint64_t
   dispatch_async(queue, v7);
 }
 
-uint64_t __59__BRCContainerCellularSettings_accountDidChangeForPersona___block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  return BRPerformWithPersonaAndError();
-}
-
 void __59__BRCContainerCellularSettings_accountDidChangeForPersona___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -119,7 +112,7 @@ void __59__BRCContainerCellularSettings_accountDidChangeForPersona___block_invok
     v7 = brc_default_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      __59__BRCContainerCellularSettings_accountDidChangeForPersona___block_invoke_2_cold_2(v14);
+      __59__BRCContainerCellularSettings_accountDidChangeForPersona___block_invoke_2_cold_2();
     }
 
     v8 = brc_bread_crumbs();
@@ -227,7 +220,7 @@ void __65__BRCContainerCellularSettings_isUnlimitedCellularUpdatesEnabled__block
     v3 = brc_default_log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      __65__BRCContainerCellularSettings_isUnlimitedCellularUpdatesEnabled__block_invoke_cold_1(v12);
+      __65__BRCContainerCellularSettings_isUnlimitedCellularUpdatesEnabled__block_invoke_cold_1();
     }
 
     v4 = [MEMORY[0x277CB8F48] defaultStore];

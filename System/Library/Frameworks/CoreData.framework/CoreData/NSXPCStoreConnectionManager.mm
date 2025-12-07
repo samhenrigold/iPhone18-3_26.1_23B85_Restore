@@ -11,16 +11,16 @@
 
 - (id)initForStore:(id)store
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v20.receiver = self;
-  v20.super_class = NSXPCStoreConnectionManager;
-  v4 = [(NSXPCStoreConnectionManager *)&v20 init];
+  v20 = *MEMORY[0x1E69E9840];
+  v19.receiver = self;
+  v19.super_class = NSXPCStoreConnectionManager;
+  v4 = [(NSXPCStoreConnectionManager *)&v19 init];
   if (v4)
   {
     v5 = [objc_msgSend(store "URL")];
     objc_initWeak(&location, store);
-    v6 = [objc_msgSend(store "options")];
-    v7 = +[_PFTask getPhysicalMemory];
+    v6 = objc_msgSend_valueForKey_([store options]);
+    v7 = +[(_PFTask *)0x1ED4BE000];
     v8 = 2;
     if (v7 >= 0x80000001)
     {
@@ -64,22 +64,21 @@
 
     if (![(NSMutableArray *)allConnections count])
     {
-      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"NSXPCStoreConnection failed to initialize any connections for store at %@", objc_msgSend(store, "URL")];
-      v18 = [_NSCoreDataException exceptionWithName:4224 code:v17 reason:0 userInfo:?];
-      objc_exception_throw(v18);
+      v16 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [store URL]);
+      v17 = [_NSCoreDataException exceptionWithName:4224 code:v16 reason:0 userInfo:?];
+      objc_exception_throw(v17);
     }
 
     v13 = [(NSMutableArray *)v4->_allConnections mutableCopy];
     v4->_availableConnections = v13;
     v4->_connectionLock._os_unfair_lock_opaque = 0;
     v4->_poolCounter = dispatch_semaphore_create([(NSMutableArray *)v13 count]);
-    v14 = [objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"XPCConnectionManager:%p", store), "UTF8String"];
+    v14 = [objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] store)];
     v4->_processingQueue = dispatch_queue_create(v14, MEMORY[0x1E69E96A8]);
 
     objc_destroyWeak(&location);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -117,31 +116,31 @@ LABEL_5:
 
 void __38__NSXPCStoreConnectionManager_dealloc__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = *(*(a1 + 32) + 16);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(NSXPCStoreConnection *)*(*(&v10 + 1) + 8 * i) disconnect];
+        [(NSXPCStoreConnection *)*(*(&v9 + 1) + 8 * i) disconnect];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -157,15 +156,14 @@ void __38__NSXPCStoreConnectionManager_dealloc__block_invoke(uint64_t a1)
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)_checkoutConnection:(uint64_t)connection
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!connection)
   {
-    goto LABEL_11;
+    return 0;
   }
 
   v4 = *(connection + 32);
@@ -185,7 +183,7 @@ void __38__NSXPCStoreConnectionManager_dealloc__block_invoke(uint64_t a1)
         if (v10)
         {
           *buf = 134217984;
-          v18 = v6;
+          v17 = v6;
 LABEL_17:
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error:  NSXPCStoreConnectionManager timed out waiting for a connection - %ld\n", buf, 0xCu);
         }
@@ -194,16 +192,14 @@ LABEL_17:
       else if (v10)
       {
         *buf = 134217984;
-        v18 = v6;
+        v17 = v6;
         goto LABEL_17;
       }
     }
 
     _NSCoreDataLog_console(1, " NSXPCStoreConnectionManager timed out waiting for a connection - %ld", v6);
     objc_autoreleasePoolPop(v7);
-LABEL_11:
-    v14 = 0;
-    goto LABEL_15;
+    return 0;
   }
 
   os_unfair_lock_lock_with_options();
@@ -227,8 +223,6 @@ LABEL_11:
     [(NSXPCStoreConnection *)v14 reconnect];
   }
 
-LABEL_15:
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -269,7 +263,7 @@ LABEL_15:
 
 uint64_t __54__NSXPCStoreConnectionManager_sendMessageWithContext___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   v3 = [(NSXPCStoreConnectionManager *)*(a1 + 32) _checkoutConnection:?];
   if (v3)
@@ -330,9 +324,7 @@ LABEL_18:
   v4 = 0;
 LABEL_16:
   [(NSXPCStoreConnectionManager *)*(a1 + 32) _checkinConnection:v4];
-  result = [v2 drain];
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v2 drain];
 }
 
 - (void)disconnectAllConnections:(uint64_t)connections
@@ -366,106 +358,104 @@ LABEL_16:
 
 uint64_t __56__NSXPCStoreConnectionManager_disconnectAllConnections___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   v3 = [MEMORY[0x1E695DF70] array];
-  v4 = *(a1 + 32);
   os_unfair_lock_lock_with_options();
-  v5 = [*(*(a1 + 32) + 16) count];
+  v4 = [*(*(a1 + 32) + 16) count];
   os_unfair_lock_unlock((*(a1 + 32) + 40));
-  if (v5)
+  if (v4)
   {
-    for (i = 0; i < v5; ++i)
+    for (i = 0; i < v4; ++i)
     {
-      v7 = [(NSXPCStoreConnectionManager *)*(a1 + 32) _checkoutConnection:?];
-      if (v7)
+      v6 = [(NSXPCStoreConnectionManager *)*(a1 + 32) _checkoutConnection:?];
+      if (v6)
       {
-        [v3 addObject:v7];
+        [v3 addObject:v6];
       }
 
       else
       {
-        v8 = *(a1 + 32);
         os_unfair_lock_lock_with_options();
-        v5 = [*(*(a1 + 32) + 16) count];
+        v4 = [*(*(a1 + 32) + 16) count];
         os_unfair_lock_unlock((*(a1 + 32) + 40));
       }
     }
   }
 
-  v40 = 0u;
-  v41 = 0u;
+  v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v9 = [v3 countByEnumeratingWithState:&v38 objects:v45 count:16];
-  if (v9)
+  v35 = 0u;
+  v36 = 0u;
+  v7 = [v3 countByEnumeratingWithState:&v35 objects:v42 count:16];
+  if (v7)
   {
-    v10 = *v39;
+    v8 = *v36;
     do
     {
-      for (j = 0; j != v9; ++j)
+      for (j = 0; j != v7; ++j)
       {
-        if (*v39 != v10)
+        if (*v36 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(NSXPCStoreConnection *)*(*(&v38 + 1) + 8 * j) performAndWait:?];
+        [(NSXPCStoreConnection *)*(*(&v35 + 1) + 8 * j) performAndWait:?];
       }
 
-      v9 = [v3 countByEnumeratingWithState:&v38 objects:v45 count:16];
+      v7 = [v3 countByEnumeratingWithState:&v35 objects:v42 count:16];
     }
 
-    while (v9);
+    while (v7);
   }
 
-  v36 = 0u;
-  v37 = 0u;
+  v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v12 = [v3 countByEnumeratingWithState:&v34 objects:v44 count:16];
-  if (v12)
+  v31 = 0u;
+  v32 = 0u;
+  v10 = [v3 countByEnumeratingWithState:&v31 objects:v41 count:16];
+  if (v10)
   {
-    v13 = *v35;
+    v11 = *v32;
     do
     {
-      for (k = 0; k != v12; ++k)
+      for (k = 0; k != v10; ++k)
       {
-        if (*v35 != v13)
+        if (*v32 != v11)
         {
           objc_enumerationMutation(v3);
         }
 
-        v15 = *(*(&v34 + 1) + 8 * k);
-        v33[0] = MEMORY[0x1E69E9820];
-        v33[1] = 3221225472;
-        v33[2] = __56__NSXPCStoreConnectionManager_disconnectAllConnections___block_invoke_3;
-        v33[3] = &unk_1E6EC16F0;
-        v33[4] = v15;
-        [(NSXPCStoreConnection *)v15 performAndWait:v33];
+        v13 = *(*(&v31 + 1) + 8 * k);
+        v30[0] = MEMORY[0x1E69E9820];
+        v30[1] = 3221225472;
+        v30[2] = __56__NSXPCStoreConnectionManager_disconnectAllConnections___block_invoke_3;
+        v30[3] = &unk_1E6EC16F0;
+        v30[4] = v13;
+        [(NSXPCStoreConnection *)v13 performAndWait:v30];
       }
 
-      v12 = [v3 countByEnumeratingWithState:&v34 objects:v44 count:16];
+      v10 = [v3 countByEnumeratingWithState:&v31 objects:v41 count:16];
     }
 
-    while (v12);
+    while (v10);
   }
 
   if (*(a1 + 48) == 1)
   {
-    v31 = 0uLL;
-    v32 = 0uLL;
+    v28 = 0uLL;
     v29 = 0uLL;
-    v30 = 0uLL;
-    v16 = [v3 countByEnumeratingWithState:&v29 objects:v43 count:16];
-    if (v16)
+    v26 = 0uLL;
+    v27 = 0uLL;
+    v14 = [v3 countByEnumeratingWithState:&v26 objects:v40 count:16];
+    if (v14)
     {
-      v17 = *v30;
+      v15 = *v27;
       do
       {
-        for (m = 0; m != v16; ++m)
+        for (m = 0; m != v14; ++m)
         {
-          if (*v30 != v17)
+          if (*v27 != v15)
           {
             objc_enumerationMutation(v3);
           }
@@ -473,50 +463,48 @@ uint64_t __56__NSXPCStoreConnectionManager_disconnectAllConnections___block_invo
           [(NSXPCStoreConnectionManager *)*(a1 + 32) _checkinConnection:?];
         }
 
-        v16 = [v3 countByEnumeratingWithState:&v29 objects:v43 count:16];
+        v14 = [v3 countByEnumeratingWithState:&v26 objects:v40 count:16];
       }
 
-      while (v16);
+      while (v14);
     }
   }
 
   else
   {
-    v27 = 0uLL;
-    v28 = 0uLL;
+    v24 = 0uLL;
     v25 = 0uLL;
-    v26 = 0uLL;
-    v19 = [v3 countByEnumeratingWithState:&v25 objects:v42 count:16];
-    if (v19)
+    v22 = 0uLL;
+    v23 = 0uLL;
+    v17 = [v3 countByEnumeratingWithState:&v22 objects:v39 count:16];
+    if (v17)
     {
-      v20 = *v26;
+      v18 = *v23;
       do
       {
-        for (n = 0; n != v19; ++n)
+        for (n = 0; n != v17; ++n)
         {
-          if (*v26 != v20)
+          if (*v23 != v18)
           {
             objc_enumerationMutation(v3);
           }
 
-          v22 = *(*(&v25 + 1) + 8 * n);
-          if (v22)
+          v20 = *(*(&v22 + 1) + 8 * n);
+          if (v20)
           {
             dispatch_semaphore_signal(*(*(a1 + 32) + 32));
           }
         }
 
-        v19 = [v3 countByEnumeratingWithState:&v25 objects:v42 count:16];
+        v17 = [v3 countByEnumeratingWithState:&v22 objects:v39 count:16];
       }
 
-      while (v19);
+      while (v17);
     }
   }
 
   [v3 removeAllObjects];
-  result = [v2 drain];
-  v24 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v2 drain];
 }
 
 @end

@@ -2,6 +2,7 @@
 + (id)earlyMomentNodesByPersonNodeWithPersonNodes:(id)nodes;
 + (unint64_t)numberOfPotentialMemoriesForGraph:(id)graph;
 - (id)keyAssetCurationOptionsWithTriggeredMemory:(id)memory inGraph:(id)graph;
+- (id)relevantFeederForTriggeredMemory:(id)memory inGraph:(id)graph allowGuestAsset:(BOOL)asset progressReporter:(id)reporter;
 - (id)titleGeneratorForTriggeredMemory:(id)memory withKeyAsset:(id)asset curatedAssets:(id)assets extendedCuratedAssets:(id)curatedAssets titleGenerationContext:(id)context inGraph:(id)graph;
 - (void)_enumerateEarlyMomentsWithPeopleForLocalDate:(id)date withGraph:(id)graph usingBlock:(id)block;
 - (void)_enumeratePotentialMemoriesForProcessingWindow:(id)window graph:(id)graph progressBlock:(id)block usingBlock:(id)usingBlock;
@@ -45,6 +46,208 @@
   return v10;
 }
 
+- (id)relevantFeederForTriggeredMemory:(id)memory inGraph:(id)graph allowGuestAsset:(BOOL)asset progressReporter:(id)reporter
+{
+  assetCopy = asset;
+  v72 = *MEMORY[0x277D85DE8];
+  memoryCopy = memory;
+  graphCopy = graph;
+  v63 = 0;
+  v64 = &v63;
+  v65 = 0x2020000000;
+  v66 = 0;
+  reporterCopy = reporter;
+  v12 = [reporterCopy isCancelledWithProgress:0.0];
+  *(v64 + 24) = v12;
+  v52 = graphCopy;
+  v53 = memoryCopy;
+  if (v12)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+    {
+      *buf = 67109378;
+      v69 = 248;
+      v70 = 2080;
+      v71 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/PersonMemoryGenerators/PGEarlyMomentsWithPeopleMemoryGenerator.m";
+      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
+    }
+
+    v13 = 0;
+    goto LABEL_39;
+  }
+
+  v14 = [reporterCopy childProgressReporterFromStart:0.0 toEnd:0.25];
+  v62.receiver = self;
+  v62.super_class = PGEarlyMomentsWithPeopleMemoryGenerator;
+  v51 = [(PGMemoryGenerator *)&v62 relevantFeederForTriggeredMemory:memoryCopy inGraph:graphCopy allowGuestAsset:assetCopy progressReporter:v14];
+  selfCopy = self;
+
+  if (*(v64 + 24) == 1)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+    {
+      *buf = 67109378;
+      v69 = 251;
+      v70 = 2080;
+      v71 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/PersonMemoryGenerators/PGEarlyMomentsWithPeopleMemoryGenerator.m";
+      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
+    }
+
+    v13 = 0;
+    goto LABEL_38;
+  }
+
+  memoryFeatureNodes = [memoryCopy memoryFeatureNodes];
+  v49 = [(PGGraphNodeCollection *)PGGraphPersonNodeCollection subsetInCollection:memoryFeatureNodes];
+
+  memoryMomentNodes = [memoryCopy memoryMomentNodes];
+  v48 = [(PGGraphEdgeCollection *)PGGraphMomentFeaturesEdgeCollection edgesFromNodes:memoryMomentNodes toNodes:v49];
+
+  if (![v48 count])
+  {
+    loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
+    if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGEarlyMomentsWithPeopleMemoryGenerator] No moment feature edges found", buf, 2u);
+    }
+
+    v13 = 0;
+    goto LABEL_37;
+  }
+
+  localIdentifiers = [v49 localIdentifiers];
+  loggingConnection = [localIdentifiers anyObject];
+
+  v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  allItems = [v51 allItems];
+  v21 = [allItems countByEnumeratingWithState:&v58 objects:v67 count:16];
+  if (!v21)
+  {
+    goto LABEL_21;
+  }
+
+  v22 = *v59;
+  do
+  {
+    for (i = 0; i != v21; ++i)
+    {
+      if (*v59 != v22)
+      {
+        objc_enumerationMutation(allItems);
+      }
+
+      v24 = *(*(&v58 + 1) + 8 * i);
+      clsPersonLocalIdentifiers = [v24 clsPersonLocalIdentifiers];
+      if ([clsPersonLocalIdentifiers containsObject:loggingConnection])
+      {
+      }
+
+      else
+      {
+        clsFaceInformationSummary = [v24 clsFaceInformationSummary];
+        v27 = [clsFaceInformationSummary numberOfFacesIncludingPets] == 0;
+
+        if (!v27)
+        {
+          continue;
+        }
+      }
+
+      [v19 addObject:v24];
+    }
+
+    v21 = [allItems countByEnumeratingWithState:&v58 objects:v67 count:16];
+  }
+
+  while (v21);
+LABEL_21:
+
+  v28 = objc_alloc(MEMORY[0x277CD98D0]);
+  memoryCurationSession = [(PGMemoryGenerator *)selfCopy memoryCurationSession];
+  photoLibrary = [memoryCurationSession photoLibrary];
+  v31 = MEMORY[0x277CBEB98];
+  assetFetchOptions = [v51 assetFetchOptions];
+  fetchPropertySets = [assetFetchOptions fetchPropertySets];
+  v34 = [v31 setWithArray:fetchPropertySets];
+  v35 = [v28 initWithObjects:v19 photoLibrary:photoLibrary fetchType:0 fetchPropertySets:v34 identifier:0 registerIfNeeded:0];
+
+  memoryCurationSession2 = [(PGMemoryGenerator *)selfCopy memoryCurationSession];
+  curationManager = [memoryCurationSession2 curationManager];
+  durationForCuration = [(PGMemoryGenerator *)selfCopy durationForCuration];
+  allRelevantAssetLocalIdentifiers = [v48 allRelevantAssetLocalIdentifiers];
+  memoryCurationSession3 = [(PGMemoryGenerator *)selfCopy memoryCurationSession];
+  curationContext = [memoryCurationSession3 curationContext];
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = __117__PGEarlyMomentsWithPeopleMemoryGenerator_relevantFeederForTriggeredMemory_inGraph_allowGuestAsset_progressReporter___block_invoke;
+  v55[3] = &unk_278889448;
+  v57 = &v63;
+  v42 = reporterCopy;
+  v56 = v42;
+  v43 = [curationManager memoryCuratedAssetsForAssets:v35 duration:durationForCuration withContextualAssetLocalIdentifiers:allRelevantAssetLocalIdentifiers minimumProportion:v52 graph:curationContext curationContext:v55 progressBlock:0.7];
+
+  if (*(v64 + 24) != 1)
+  {
+    memoryCurationSession4 = [(PGMemoryGenerator *)selfCopy memoryCurationSession];
+    v45 = [PGMemoryGenerationHelper feederForMemoriesWithAssetFetchResult:v43 memoryCurationSession:memoryCurationSession4 graph:v52];
+
+    if (v64[3])
+    {
+      *(v64 + 24) = 1;
+    }
+
+    else
+    {
+      v46 = [v42 isCancelledWithProgress:1.0];
+      *(v64 + 24) = v46;
+      if ((v46 & 1) == 0)
+      {
+        v13 = v45;
+LABEL_35:
+
+        goto LABEL_36;
+      }
+    }
+
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+    {
+      *buf = 67109378;
+      v69 = 277;
+      v70 = 2080;
+      v71 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/PersonMemoryGenerators/PGEarlyMomentsWithPeopleMemoryGenerator.m";
+      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
+    }
+
+    v13 = 0;
+    goto LABEL_35;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109378;
+    v69 = 273;
+    v70 = 2080;
+    v71 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/Memory Generators/CurrentMemoryGenerators/PersonMemoryGenerators/PGEarlyMomentsWithPeopleMemoryGenerator.m";
+    _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
+  }
+
+  v13 = 0;
+LABEL_36:
+
+LABEL_37:
+LABEL_38:
+
+LABEL_39:
+  _Block_object_dispose(&v63, 8);
+
+  return v13;
+}
+
 uint64_t __117__PGEarlyMomentsWithPeopleMemoryGenerator_relevantFeederForTriggeredMemory_inGraph_allowGuestAsset_progressReporter___block_invoke(uint64_t a1, _BYTE *a2, double a3)
 {
   v5 = *(*(a1 + 40) + 8);
@@ -70,7 +273,7 @@ uint64_t __117__PGEarlyMomentsWithPeopleMemoryGenerator_relevantFeederForTrigger
 
 - (void)_enumeratePotentialMemoriesForProcessingWindow:(id)window graph:(id)graph progressBlock:(id)block usingBlock:(id)usingBlock
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   windowCopy = window;
   graphCopy = graph;
   blockCopy = block;
@@ -93,89 +296,87 @@ uint64_t __117__PGEarlyMomentsWithPeopleMemoryGenerator_relevantFeederForTrigger
     }
     v18 = ;
 
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x2020000000;
-    v48 = 0;
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x2020000000;
     v44 = 0;
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x2020000000;
+    v45 = &v44;
+    v46 = 0x2020000000;
+    v47 = 0;
     v40 = 0;
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x2020000000;
+    v41 = &v40;
+    v42 = 0x2020000000;
+    v43 = 0;
     v36 = 0;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __121__PGEarlyMomentsWithPeopleMemoryGenerator__enumeratePotentialMemoriesForProcessingWindow_graph_progressBlock_usingBlock___block_invoke;
-    v25[3] = &unk_27887F350;
-    v29 = &v45;
-    v30 = &v41;
-    v31 = &v37;
-    v26 = graphCopy;
+    v37 = &v36;
+    v38 = 0x2020000000;
+    v39 = 0;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x2020000000;
+    v35 = 0;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __121__PGEarlyMomentsWithPeopleMemoryGenerator__enumeratePotentialMemoriesForProcessingWindow_graph_progressBlock_usingBlock___block_invoke;
+    v24[3] = &unk_27887F350;
+    v28 = &v44;
+    v29 = &v40;
+    v30 = &v36;
+    v25 = graphCopy;
     selfCopy = self;
-    v32 = &v33;
-    v28 = usingBlockCopy;
-    [(PGEarlyMomentsWithPeopleMemoryGenerator *)self _enumerateEarlyMomentsWithPeopleForLocalDate:v18 withGraph:v26 usingBlock:v25];
+    v31 = &v32;
+    v27 = usingBlockCopy;
+    [(PGEarlyMomentsWithPeopleMemoryGenerator *)self _enumerateEarlyMomentsWithPeopleForLocalDate:v18 withGraph:v25 usingBlock:v24];
     loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = v46[3];
-      v21 = v42[3];
-      v22 = v38[3];
-      v23 = v34[3];
+      v20 = v45[3];
+      v21 = v41[3];
+      v22 = v37[3];
+      v23 = v33[3];
       *buf = 134219008;
-      v50 = v20;
-      v51 = 2048;
-      v52 = v21;
-      v53 = 2048;
-      v54 = v22;
-      v55 = 2048;
-      v56 = 0;
-      v57 = 2048;
-      v58 = v23;
+      v49 = v20;
+      v50 = 2048;
+      v51 = v21;
+      v52 = 2048;
+      v53 = v22;
+      v54 = 2048;
+      v55 = 0;
+      v56 = 2048;
+      v57 = v23;
       _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "Memory Creation Request: Found %lu, rejected %lu uninteresting, %lu too short, %lu insufficiently faced, %lu blocklisting", buf, 0x34u);
     }
 
-    _Block_object_dispose(&v33, 8);
-    _Block_object_dispose(&v37, 8);
-    _Block_object_dispose(&v41, 8);
-    _Block_object_dispose(&v45, 8);
+    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v40, 8);
+    _Block_object_dispose(&v44, 8);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __121__PGEarlyMomentsWithPeopleMemoryGenerator__enumeratePotentialMemoriesForProcessingWindow_graph_progressBlock_usingBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   ++*(*(*(a1 + 56) + 8) + 24);
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v49 objects:v55 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v48 objects:v54 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v50;
+    v10 = *v49;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v50 != v10)
+        if (*v49 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        if (([*(*(&v49 + 1) + 8 * i) isInterestingForMemories] & 1) == 0)
+        if (([*(*(&v48 + 1) + 8 * i) isInterestingForMemories] & 1) == 0)
         {
           ++*(*(*(a1 + 64) + 8) + 24);
 
@@ -183,7 +384,7 @@ void __121__PGEarlyMomentsWithPeopleMemoryGenerator__enumeratePotentialMemoriesF
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v49 objects:v55 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v48 objects:v54 count:16];
       if (v9)
       {
         continue;
@@ -193,12 +394,12 @@ void __121__PGEarlyMomentsWithPeopleMemoryGenerator__enumeratePotentialMemoriesF
     }
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v12 = v7;
-  v13 = [v12 countByEnumeratingWithState:&v45 objects:v54 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v44 objects:v53 count:16];
   if (!v13)
   {
 
@@ -209,20 +410,20 @@ LABEL_21:
 
   v14 = v13;
   v15 = 0;
-  v16 = *v46;
+  v16 = *v45;
   do
   {
     for (j = 0; j != v14; ++j)
     {
-      if (*v46 != v16)
+      if (*v45 != v16)
       {
         objc_enumerationMutation(v12);
       }
 
-      v15 += [*(*(&v45 + 1) + 8 * j) numberOfAssets];
+      v15 += [*(*(&v44 + 1) + 8 * j) numberOfAssets];
     }
 
-    v14 = [v12 countByEnumeratingWithState:&v45 objects:v54 count:16];
+    v14 = [v12 countByEnumeratingWithState:&v44 objects:v53 count:16];
   }
 
   while (v14);
@@ -237,39 +438,39 @@ LABEL_21:
   v20 = [(PGGraphEdgeCollection *)PGGraphMomentFeaturesEdgeCollection edgesFromNodes:v18 toNodes:v19];
   if ([v20 numberOfRelevantAssets] > 8)
   {
-    v39 = v19;
-    v40 = v18;
+    v38 = v19;
+    v39 = v18;
     v21 = [*(a1 + 40) memoryGenerationContext];
     v22 = [v21 momentNodesWithBlockedFeatureCache];
     v23 = [v22 momentNodesWithBlockedFeature];
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v24 = v12;
-    v25 = [(PGPotentialEarlyMomentsWithPeopleMemory *)v24 countByEnumeratingWithState:&v41 objects:v53 count:16];
+    v25 = [(PGPotentialEarlyMomentsWithPeopleMemory *)v24 countByEnumeratingWithState:&v40 objects:v52 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v42;
+      v27 = *v41;
       while (2)
       {
         for (k = 0; k != v26; ++k)
         {
-          if (*v42 != v27)
+          if (*v41 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          if ([v23 containsNode:*(*(&v41 + 1) + 8 * k)])
+          if ([v23 containsNode:*(*(&v40 + 1) + 8 * k)])
           {
             ++*(*(*(a1 + 80) + 8) + 24);
             goto LABEL_34;
           }
         }
 
-        v26 = [(PGPotentialEarlyMomentsWithPeopleMemory *)v24 countByEnumeratingWithState:&v41 objects:v53 count:16];
+        v26 = [(PGPotentialEarlyMomentsWithPeopleMemory *)v24 countByEnumeratingWithState:&v40 objects:v52 count:16];
         if (v26)
         {
           continue;
@@ -302,8 +503,8 @@ LABEL_21:
     (*(*(a1 + 48) + 16))();
 
 LABEL_34:
-    v19 = v39;
-    v18 = v40;
+    v19 = v38;
+    v18 = v39;
   }
 
   else
@@ -312,16 +513,15 @@ LABEL_34:
   }
 
 LABEL_36:
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enumerateEarlyMomentsWithPeopleForLocalDate:(id)date withGraph:(id)graph usingBlock:(id)block
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   graphCopy = graph;
   blockCopy = block;
-  v44 = dateCopy;
+  v43 = dateCopy;
   if ([(PGEarlyMomentsWithPeopleMemoryGenerator *)self shouldGenerateAllMemories])
   {
     momentNodes = [graphCopy momentNodes];
@@ -344,43 +544,43 @@ LABEL_36:
   v19 = [personNodes collectionBySubtracting:meNodeCollection];
 
   memoryGenerationContext = [(PGMemoryGenerator *)self memoryGenerationContext];
-  v43 = graphCopy;
+  v42 = graphCopy;
   v21 = [memoryGenerationContext momentNodesAtSensitiveLocationsInGraph:graphCopy];
 
-  v61 = 0;
-  v42 = v19;
+  v60 = 0;
+  v41 = v19;
   [objc_opt_class() earlyMomentNodesByPersonNodeWithPersonNodes:v19];
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
-  v22 = v60 = 0u;
-  v48 = [v22 countByEnumeratingWithState:&v57 objects:v64 count:16];
-  if (v48)
+  v22 = v59 = 0u;
+  v47 = [v22 countByEnumeratingWithState:&v56 objects:v63 count:16];
+  if (v47)
   {
-    v46 = v22;
-    v47 = *v58;
+    v45 = v22;
+    v46 = *v57;
     while (2)
     {
-      for (i = 0; i != v48; ++i)
+      for (i = 0; i != v47; ++i)
       {
-        if (*v58 != v47)
+        if (*v57 != v46)
         {
           objc_enumerationMutation(v22);
         }
 
-        v24 = *(*(&v57 + 1) + 8 * i);
+        v24 = *(*(&v56 + 1) + 8 * i);
         v25 = [v22 objectForKey:v24];
+        v52 = 0u;
         v53 = 0u;
         v54 = 0u;
         v55 = 0u;
-        v56 = 0u;
         v26 = v25;
-        v27 = [v26 countByEnumeratingWithState:&v53 objects:v63 count:16];
+        v27 = [v26 countByEnumeratingWithState:&v52 objects:v62 count:16];
         if (v27)
         {
           v28 = v27;
           v29 = 0;
-          v30 = *v54;
+          v30 = *v53;
           while (2)
           {
             v31 = 0;
@@ -388,12 +588,12 @@ LABEL_36:
             v29 += v28;
             do
             {
-              if (*v54 != v30)
+              if (*v53 != v30)
               {
                 objc_enumerationMutation(v26);
               }
 
-              if (![momentNodes containsNode:*(*(&v53 + 1) + 8 * v31)])
+              if (![momentNodes containsNode:*(*(&v52 + 1) + 8 * v31)])
               {
                 v29 = v32;
                 goto LABEL_19;
@@ -404,7 +604,7 @@ LABEL_36:
             }
 
             while (v28 != v31);
-            v28 = [v26 countByEnumeratingWithState:&v53 objects:v63 count:16];
+            v28 = [v26 countByEnumeratingWithState:&v52 objects:v62 count:16];
             if (v28)
             {
               continue;
@@ -425,50 +625,50 @@ LABEL_19:
             }
 
             v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            v48 = 0u;
             v49 = 0u;
             v50 = 0u;
             v51 = 0u;
-            v52 = 0u;
             v26 = v26;
-            v35 = [v26 countByEnumeratingWithState:&v49 objects:v62 count:16];
+            v35 = [v26 countByEnumeratingWithState:&v48 objects:v61 count:16];
             if (v35)
             {
               v36 = v35;
-              v37 = *v50;
+              v37 = *v49;
               do
               {
                 for (j = 0; j != v36; ++j)
                 {
-                  if (*v50 != v37)
+                  if (*v49 != v37)
                   {
                     objc_enumerationMutation(v26);
                   }
 
-                  v39 = *(*(&v49 + 1) + 8 * j);
+                  v39 = *(*(&v48 + 1) + 8 * j);
                   if (([v21 containsNode:v39] & 1) == 0)
                   {
                     [v34 addObject:v39];
                   }
                 }
 
-                v36 = [v26 countByEnumeratingWithState:&v49 objects:v62 count:16];
+                v36 = [v26 countByEnumeratingWithState:&v48 objects:v61 count:16];
               }
 
               while (v36);
             }
 
-            blockCopy[2](blockCopy, v34, v24, &v61);
-            v40 = v61;
+            blockCopy[2](blockCopy, v34, v24, &v60);
+            v40 = v60;
 
             if (v40 == 1)
             {
 
-              v22 = v46;
+              v22 = v45;
               goto LABEL_38;
             }
           }
 
-          v22 = v46;
+          v22 = v45;
         }
 
         else
@@ -476,8 +676,8 @@ LABEL_19:
         }
       }
 
-      v48 = [v22 countByEnumeratingWithState:&v57 objects:v64 count:16];
-      if (v48)
+      v47 = [v22 countByEnumeratingWithState:&v56 objects:v63 count:16];
+      if (v47)
       {
         continue;
       }
@@ -487,8 +687,6 @@ LABEL_19:
   }
 
 LABEL_38:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 + (id)earlyMomentNodesByPersonNodeWithPersonNodes:(id)nodes
@@ -512,7 +710,7 @@ LABEL_38:
 
 void __87__PGEarlyMomentsWithPeopleMemoryGenerator_earlyMomentNodesByPersonNodeWithPersonNodes___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v32[3] = *MEMORY[0x277D85DE8];
+  v31[3] = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [v4 featureNodeCollection];
   v6 = [v5 momentNodes];
@@ -520,37 +718,37 @@ void __87__PGEarlyMomentsWithPeopleMemoryGenerator_earlyMomentNodesByPersonNodeW
   v7 = [v6 interestingSubset];
 
   v8 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalStartDate" ascending:1];
-  v32[0] = v8;
+  v31[0] = v8;
   v9 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalEndDate" ascending:1];
-  v32[1] = v9;
+  v31[1] = v9;
   v10 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"UUID" ascending:1];
-  v32[2] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:3];
+  v31[2] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:3];
 
   v12 = [v7 sortedArrayUsingDescriptors:v11];
 
   v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:5];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v14 = v12;
-  v15 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v28;
+    v17 = *v27;
     v18 = 0.0;
 LABEL_3:
     v19 = 0;
     while (1)
     {
-      if (*v28 != v17)
+      if (*v27 != v17)
       {
         objc_enumerationMutation(v14);
       }
 
-      v20 = *(*(&v27 + 1) + 8 * v19);
+      v20 = *(*(&v26 + 1) + 8 * v19);
       if ([v20 totalNumberOfPersons] <= 0x13)
       {
         [v20 timestampUTCStart];
@@ -576,7 +774,7 @@ LABEL_3:
 
       if (v16 == ++v19)
       {
-        v16 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v16)
         {
           goto LABEL_3;
@@ -593,8 +791,6 @@ LABEL_3:
     v25 = [v4 anyNode];
     [v24 setObject:v13 forKey:v25];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (unint64_t)numberOfPotentialMemoriesForGraph:(id)graph

@@ -114,25 +114,22 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_24906A4F0(v7);
+  sub_24906A4F0(v7, v8);
 }
 
 - (NSDictionary)_timerMap
 {
-  v2 = *(self + OBJC_IVAR___DTTimerClient__timerMap);
   type metadata accessor for DTTimer(0);
 
-  v3 = sub_249076DDC();
+  v2 = sub_249076DDC();
 
-  return v3;
+  return v2;
 }
 
 - (void)set_timerMap:(id)map
 {
   type metadata accessor for DTTimer(0);
-  v4 = sub_249076DEC();
-  v5 = *(self + OBJC_IVAR___DTTimerClient__timerMap);
-  *(self + OBJC_IVAR___DTTimerClient__timerMap) = v4;
+  *(self + OBJC_IVAR___DTTimerClient__timerMap) = sub_249076DEC();
 }
 
 - (DTTimerClient)initWithDispatchQueue:(id)queue
@@ -243,7 +240,7 @@
 
 + (unint64_t)statusFlags
 {
-  type metadata accessor for DTXPCClient();
+  type metadata accessor for DTXPCClient(0);
   v5 = 0uLL;
   v6.n128_u64[0] = 0;
   v6.n128_u8[8] = 10;

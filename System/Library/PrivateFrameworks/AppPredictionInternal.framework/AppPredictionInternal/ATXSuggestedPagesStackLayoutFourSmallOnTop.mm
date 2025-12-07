@@ -8,7 +8,7 @@
 
 - (id)makeStacksFromWidgets:(id)widgets pageType:(int64_t)type environment:(id)environment
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   widgetsCopy = widgets;
   environmentCopy = environment;
   if (type == 4 || ([MEMORY[0x277D42590] isiPad] & 1) != 0)
@@ -19,33 +19,33 @@
   else
   {
     v10 = objc_opt_new();
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v11 = widgetsCopy;
-    v12 = [v11 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v28;
+      v14 = *v27;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v28 != v14)
+          if (*v27 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v27 + 1) + 8 * i);
+          v16 = *(*(&v26 + 1) + 8 * i);
           if (![v16 size])
           {
             [v10 addObject:v16];
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v13);
@@ -57,19 +57,19 @@
       v18 = +[ATXSuggestedPagesUtils createSmallStack];
       v19 = +[ATXSuggestedPagesUtils createSmallStack];
       v20 = +[ATXSuggestedPagesUtils createSmallStack];
-      v31[0] = v17;
-      v31[1] = v18;
-      v31[2] = v19;
-      v31[3] = v20;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:4];
+      v30[0] = v17;
+      v30[1] = v18;
+      v30[2] = v19;
+      v30[3] = v20;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
       v22 = [ATXSuggestedPagesUtils sortWidgetsByDescendingScore:v10 limit:4];
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __89__ATXSuggestedPagesStackLayoutFourSmallOnTop_makeStacksFromWidgets_pageType_environment___block_invoke;
-      v25[3] = &unk_27859C210;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __89__ATXSuggestedPagesStackLayoutFourSmallOnTop_makeStacksFromWidgets_pageType_environment___block_invoke;
+      v24[3] = &unk_27859C210;
       v9 = v21;
-      v26 = v9;
-      [v22 enumerateObjectsUsingBlock:v25];
+      v25 = v9;
+      [v22 enumerateObjectsUsingBlock:v24];
     }
 
     else
@@ -78,22 +78,19 @@
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 void __89__ATXSuggestedPagesStackLayoutFourSmallOnTop_makeStacksFromWidgets_pageType_environment___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v10 = a2;
+  v10 = *MEMORY[0x277D85DE8];
+  v9 = a2;
   v5 = MEMORY[0x277CBEA60];
   v6 = a2;
-  v7 = [v5 arrayWithObjects:&v10 count:1];
-  v8 = [*(a1 + 32) objectAtIndexedSubscript:{a3, v10, v11}];
+  v7 = [v5 arrayWithObjects:&v9 count:1];
+  v8 = [*(a1 + 32) objectAtIndexedSubscript:{a3, v9, v10}];
 
   [v8 setWidgets:v7];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)layOutStacks:(id)stacks numberOfColumns:(unint64_t)columns forPageType:(int64_t)type

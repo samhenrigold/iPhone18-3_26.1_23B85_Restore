@@ -1,318 +1,3 @@
-void AABC::SetDeviceInSleeve(NSObject **this, char a2)
-{
-  v11 = this;
-  v10 = a2;
-  v2 = this[488];
-  block = MEMORY[0x1E69E9820];
-  v4 = -1073741824;
-  v5 = 0;
-  v6 = ___ZN4AABC17SetDeviceInSleeveEb_block_invoke;
-  v7 = &__block_descriptor_41_e5_v8__0l;
-  v8 = v11;
-  v9 = a2 & 1;
-  dispatch_sync(v2, &block);
-}
-
-void AABCFactoryFunction(AABC *a1, const __CFAllocator *a2)
-{
-  if (AABCFactoryFunction::pred != -1)
-  {
-    dispatch_once(&AABCFactoryFunction::pred, &__block_literal_global_14);
-  }
-
-  AABC::alloc(a1, a2);
-}
-
-os_log_t __AABCFactoryFunction_block_invoke()
-{
-  result = os_log_create("com.apple.CoreBrightness.AABC", "default");
-  _logHandle = result;
-  return result;
-}
-
-AABC *AABC::alloc(AABC *this, const __CFAllocator *a2, AAB::UpdateCurveStrategy *a3)
-{
-  v12 = this;
-  v11 = a2;
-  v10 = MEMORY[0x1E12C3440](this, 4016, 0x10A1040A90B1919, 0);
-  if (v10)
-  {
-    v7 = v10;
-    v3 = *MEMORY[0x1E695E4A8];
-    p_byte7 = &byte7;
-    v9 = CFUUIDGetConstantUUIDWithBytes(v3, 0x96u, 0x5Fu, 0xC3u, 0xCBu, 0x16u, 0xB8u, 0x48u, 0x2Fu, 0xA6u, 0xC6u, 0x48u, 0x63u, 7u, 0x52u, 0x16u, 0xE9u);
-    AABC::AABC(v7, v9, v11);
-    return v7;
-  }
-
-  else
-  {
-    v6 = v11;
-    if (v11)
-    {
-      (*(*v6 + 8))(v6);
-    }
-  }
-
-  return v10;
-}
-
-void AABC::AABC(AABC *this, const __CFUUID *a2, AAB::UpdateCurveStrategy *a3)
-{
-  AABC::AABC(this, a2, a3);
-}
-
-{
-  v8 = *MEMORY[0x1E69E9840];
-  AAB::AAB(this, a3);
-  *this = &unk_1F599B890;
-  *(this + 136) = 0;
-  *(this + 144) = 0;
-  *(this + 19) = 0;
-  *(this + 160) = 0;
-  *(this + 161) = 0;
-  *(this + 162) = 0;
-  AABC::ALSFilter::ALSFilter((this + 168));
-  AABC::ALSFilter::ALSFilter((this + 216));
-  *(this + 264) = 0;
-  *(this + 35) = 0;
-  *(this + 36) = 0;
-  std::bitset<3ul>::bitset[abi:de200100](this + 37, 0);
-  *(this + 76) = -1.0;
-  *(this + 308) = 0;
-  *(this + 79) = 17;
-  *(this + 90) = 0;
-  *(this + 91) = 0;
-  *(this + 92) = 1;
-  *(this + 392) = 0;
-  *(this + 393) = 0;
-  *(this + 50) = 0;
-  *(this + 52) = 0;
-  *(this + 53) = 0;
-  *(this + 432) = 0;
-  *(this + 433) = 0;
-  *(this + 434) = 0;
-  *(this + 435) = 0;
-  *(this + 436) = 0;
-  *(this + 437) = 0;
-  *(this + 110) = 0;
-  *(this + 444) = 0;
-  *(this + 56) = 0;
-  *(this + 57) = 0;
-  *(this + 58) = 0;
-  *(this + 59) = 0;
-  *(this + 120) = 0;
-  *(this + 121) = 0;
-  *(this + 122) = 0;
-  *(this + 496) = 0;
-  *(this + 497) = 0;
-  *(this + 125) = 0;
-  *(this + 126) = 1;
-  *(this + 127) = 1;
-  *(this + 128) = 0;
-  *(this + 129) = 0;
-  *(this + 130) = 0;
-  *(this + 131) = 0.5;
-  *(this + 132) = 1138819072;
-  *(this + 133) = 1138819072;
-  *(this + 134) = -1.0;
-  *(this + 135) = -1.0;
-  *(this + 136) = -1.0;
-  *(this + 137) = 1138819072;
-  *(this + 140) = 0;
-  *(this + 141) = 1;
-  *(this + 146) = 255;
-  *(this + 74) = 0;
-  *(this + 150) = 0;
-  *(this + 151) = 0;
-  *(this + 152) = 0;
-  *(this + 154) = 0;
-  *(this + 155) = 0;
-  *(this + 156) = 0;
-  *(this + 628) = 0;
-  memset(this + 632, 0, 0x28uLL);
-  *(this + 168) = 0;
-  *(this + 169) = 0;
-  *(this + 85) = 0;
-  *(this + 86) = 0;
-  *(this + 87) = 1045220557;
-  *(this + 176) = 0;
-  *(this + 177) = 5.0;
-  *(this + 178) = 1124859904;
-  *(this + 179) = 1140457472;
-  *(this + 180) = 5.0;
-  *(this + 181) = 1124859904;
-  *(this + 182) = 1140457472;
-  *(this + 184) = 5;
-  *(this + 1560) = 0;
-  *(this + 721) = 0;
-  *(this + 722) = 0;
-  *(this + 723) = 0;
-  *(this + 2896) = 0;
-  *(this + 3328) = 0;
-  *(this + 3409) = 0;
-  *(this + 853) = 1;
-  *(this + 3424) = 0;
-  *(this + 3425) = 0;
-  *(this + 3426) = 1;
-  *(this + 857) = 0;
-  *(this + 3432) = AABC::_defaultSettings;
-  *(this + 3448) = xmmword_1DEACE5F0;
-  *(this + 866) = 3;
-  *(this + 3468) = 0;
-  *(this + 3720) = 1;
-  *(this + 466) = 0;
-  *(this + 938) = 0;
-  *(this + 3757) = 1;
-  *(this + 940) = 3.0;
-  *(this + 941) = 0;
-  *(this + 942) = 0;
-  *(this + 943) = 0;
-  *(this + 944) = 0;
-  *(this + 945) = 0;
-  *(this + 946) = 0;
-  *(this + 947) = 0;
-  *(this + 474) = 0;
-  *(this + 950) = 0;
-  *(this + 951) = 1045220557;
-  *(this + 952) = 1045220557;
-  *(this + 953) = 981668463;
-  *(this + 954) = 1036831949;
-  *(this + 955) = 1036831949;
-  *(this + 956) = 0;
-  *(this + 479) = 0;
-  *(this + 960) = 0;
-  *(this + 961) = 1.0;
-  *(this + 481) = os_log_create("com.apple.CoreBrightness.AABC", "LowPowerMode");
-  *(this + 965) = 0;
-  *(this + 483) = 1;
-  *(this + 968) = 0;
-  *(this + 486) = objc_alloc_init(CBLowPowerMode);
-  *(this + 488) = 0;
-  *(this + 3992) = 0;
-  *(this + 500) = 0;
-  *(this + 4008) = 0;
-  _logHandle = os_log_create("com.apple.CoreBrightness.AABC", "default");
-  if (_logHandle)
-  {
-    v5 = _logHandle;
-  }
-
-  else
-  {
-    if (_COREBRIGHTNESS_LOG_DEFAULT)
-    {
-      inited = _COREBRIGHTNESS_LOG_DEFAULT;
-    }
-
-    else
-    {
-      inited = init_default_corebrightness_log();
-    }
-
-    v5 = inited;
-  }
-
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
-  {
-    __os_log_helper_16_0_1_4_0(v7, 4);
-    _os_log_debug_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEBUG, "[%x]: ", v7, 8u);
-  }
-
-  memset(this + 632, 0, 0x28uLL);
-  *(this + 158) = 0;
-  *(this + 167) = 0;
-  *(this + 166) = *(this + 167);
-  *(this + 162) = 0;
-  *(this + 163) = 0;
-  *(this + 164) = 0;
-  *(this + 165) = 0;
-  *(this + 3376) = 0;
-  *(this + 423) = 0;
-  *(this + 425) = 0x4072C00000000000;
-  *(this + 424) = 0;
-  *(this + 845) = 3;
-  *(this + 3916) = 0;
-  *(this + 980) = 0;
-  *(this + 978) = 0;
-  *(this + 3924) = 0;
-  *(this + 464) = objc_alloc_init(ALSSelectionStats);
-  *(this + 467) = objc_alloc_init(AABCHistograms);
-  *(this + 468) = objc_alloc_init(ALSOcclusionStats);
-  if (+[CBSoftWakeAABCDelegate isSupported])
-  {
-    v3 = objc_alloc_init(CBSoftWakeAABCDelegate);
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  *(this + 485) = v3;
-  AABC::UpdateState(this, 0);
-  *MEMORY[0x1E69E9840];
-}
-
-void AABC::operator delete(void *a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  if (_logHandle)
-  {
-    v2 = _logHandle;
-  }
-
-  else
-  {
-    if (_COREBRIGHTNESS_LOG_DEFAULT)
-    {
-      inited = _COREBRIGHTNESS_LOG_DEFAULT;
-    }
-
-    else
-    {
-      inited = init_default_corebrightness_log();
-    }
-
-    v2 = inited;
-  }
-
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
-  {
-    __os_log_helper_16_0_1_8_0(v4, a1);
-    _os_log_impl(&dword_1DE8E5000, v2, OS_LOG_TYPE_INFO, "%p", v4, 0xCu);
-  }
-
-  (*(*a1 + 32))(a1);
-  CFAllocatorDeallocate(*MEMORY[0x1E695E480], a1);
-  *MEMORY[0x1E69E9840];
-}
-
-void sub_1DEA4C800(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object)
-{
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void AAB::AAB(AAB *this, AAB::UpdateCurveStrategy *a2)
-{
-  *this = &unk_1F599B920;
-  *(this + 2) = 1070315492;
-  *(this + 3) = 1031954742;
-  *(this + 4) = 1070315492;
-  *(this + 5) = 0;
-  *(this + 6) = 1157234688;
-  *(this + 7) = 1133903872;
-  *(this + 8) = -1.0;
-  *(this + 9) = -1.0;
-  *(this + 8) = a2;
-  std::mutex::mutex[abi:de200100](this + 9);
-}
-
 AABC::ALSFilter *AABC::ALSFilter::ALSFilter(AABC::ALSFilter *this)
 {
   AABC::ALSFilter::ALSFilter(this);
@@ -413,7 +98,6 @@ void AABC::~AABC(AABC *this)
   AABC::ALSFilter::~ALSFilter((this + 216));
   AABC::ALSFilter::~ALSFilter((this + 168));
   AAB::~AAB(this);
-  *MEMORY[0x1E69E9840];
 }
 
 {
@@ -481,8 +165,6 @@ void AABC::ArmFirstALSSampleTimer(AABC *this)
       dispatch_resume(*(this + 74));
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void AABC::FirstALSSampleTimeout(AABC *this)
@@ -686,8 +368,6 @@ void AABC::FirstALSSampleTimeout(AABC *this)
       _os_log_debug_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEBUG, "[%x]: timer invalid", v17, 8u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t AABC::open(AABC *this, io_registry_entry_t a2, int a3, void (*a4)(void *, const __CFString *, const void *), void *a5)
@@ -1473,7 +1153,6 @@ uint64_t AABC::open(AABC *this, io_registry_entry_t a2, int a3, void (*a4)(void 
     _os_log_impl(&dword_1DE8E5000, v10, OS_LOG_TYPE_INFO, "ambient adaptive brightness plugin _plugInEnabled=%s", v156, 0xCu);
   }
 
-  *MEMORY[0x1E69E9840];
   return v132;
 }
 
@@ -1492,7 +1171,7 @@ void ___ZN4AABC4openEjiPFvPvPK10__CFStringPKvES0__block_invoke(uint64_t a1)
   dispatch_async(v2, &block);
 }
 
-uint64_t ___ZN4AABC4openEjiPFvPvPK10__CFStringPKvES0__block_invoke_2(uint64_t a1)
+void *___ZN4AABC4openEjiPFvPvPK10__CFStringPKvES0__block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 32);
   [*(v2 + 3712) submit];
@@ -1553,7 +1232,6 @@ CFDictionaryRef AABC::createOutlierRemovalDictionary(uint64_t a1, _BYTE *a2)
   CFRelease(__b[3]);
   CFRelease(__b[2]);
   CFRelease(__b[1]);
-  *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1675,10 +1353,7 @@ void AABC::ParseCustomAABCurvesFromEDT(AABC *this, io_registry_entry_t a2)
   if (v8)
   {
     free(v8);
-    v8 = 0;
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void AABC::close(AABC *this)
@@ -1740,8 +1415,6 @@ void AABC::close(AABC *this)
     CFRelease(*(this + 53));
     *(this + 53) = 0;
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void AABC::registerDisplay(AABC *this, __Display *a2)
@@ -3037,8 +2710,6 @@ void AABC::registerDisplay(AABC *this, __Display *a2)
 
     operator new();
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void AABC::setupAABCurvesFromPlist(AABC *this)
@@ -3525,8 +3196,6 @@ LABEL_117:
   {
     CFRelease(filePath);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void *AABC::CreateDefaultCurves(AABC *this)
@@ -3639,22 +3308,22 @@ void *AABC::CreateDefaultCurves(AABC *this)
   return result;
 }
 
-void AABC::setupDefaultsForAoT(AABC *this)
+double AABC::setupDefaultsForAoT(AABC *this)
 {
-  v52 = v89;
-  v104 = *MEMORY[0x1E69E9840];
-  v77 = this;
-  v53 = this;
+  v53 = v90;
+  v105 = *MEMORY[0x1E69E9840];
+  v78 = this;
+  v54 = this;
   if (CBU_IsWatch())
   {
     __n = 120;
     memcpy(__dst, &unk_1DEACE6C4, sizeof(__dst));
-    memcpy(v87, &unk_1DEACE73C, sizeof(v87));
-    v75 = MGGetSInt32Answer();
-    v76 = v75;
+    memcpy(v88, &unk_1DEACE73C, sizeof(v88));
+    v76 = MGGetSInt32Answer();
+    v77 = v76;
     if (_logHandle)
     {
-      v50 = _logHandle;
+      v51 = _logHandle;
     }
 
     else
@@ -3669,46 +3338,46 @@ void AABC::setupDefaultsForAoT(AABC *this)
         inited = init_default_corebrightness_log();
       }
 
-      v50 = inited;
+      v51 = inited;
     }
 
-    oslog = v50;
+    oslog = v51;
     type = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
     {
       log = oslog;
-      *v47 = type;
-      buf = v86;
-      __os_log_helper_16_0_1_4_0(v86, v76);
-      _os_log_impl(&dword_1DE8E5000, oslog, type, "AOT Brightness Class used: %d", v86, 8u);
+      *v48 = type;
+      buf = v87;
+      __os_log_helper_16_0_1_4_0(v87, v77);
+      _os_log_impl(&dword_1DE8E5000, oslog, type, "AOT Brightness Class used: %d", v87, 8u);
     }
 
-    v3 = v53;
-    v4 = &__dst[5 * v76];
-    *(v53 + 2056) = *v4;
+    v3 = v54;
+    v4 = &__dst[5 * v77];
+    *(v54 + 2056) = *v4;
     *(v3 + 518) = v4[4];
-    v5 = &v87[5 * v76];
+    v5 = &v88[5 * v77];
     *(v3 + 2136) = *v5;
     *(v3 + 538) = v5[4];
     *(v3 + 554) = 5;
-    v6 = &__dst[5 * v76];
+    v6 = &__dst[5 * v77];
     *(v3 + 2220) = *v6;
     *(v3 + 559) = v6[4];
-    v7 = &v87[5 * v76];
+    v7 = &v88[5 * v77];
     *(v3 + 2300) = *v7;
     *(v3 + 579) = v7[4];
     *(v3 + 595) = 5;
-    v72 = v76;
+    v73 = v77;
     if (*(v3 + 723))
     {
-      v72 = 3;
+      v73 = 3;
     }
 
-    v8 = v53;
-    v9 = &__dst[5 * v72];
-    *(v53 + 149) = *v9;
+    v8 = v54;
+    v9 = &__dst[5 * v73];
+    *(v54 + 149) = *v9;
     *(v8 + 600) = v9[4];
-    v10 = &v87[5 * v72];
+    v10 = &v88[5 * v73];
     *(v8 + 154) = *v10;
     *(v8 + 620) = v10[4];
     *(v8 + 636) = 5;
@@ -3716,153 +3385,153 @@ void AABC::setupDefaultsForAoT(AABC *this)
 
   else
   {
-    v1 = v53;
-    v2 = v52;
-    *(v52 + 29) = xmmword_1DEACE688;
-    v103 = 1184645120;
-    v98 = *(v1 + 177);
-    v99 = 30.0;
-    v100 = 1120141312;
-    v101 = 1140457472;
+    v1 = v54;
+    v2 = v53;
+    *(v53 + 29) = xmmword_1DEACE688;
+    v104 = 1184645120;
+    v99 = *(v1 + 177);
+    v100 = 30.0;
+    v101 = 1120141312;
     v102 = 1140457472;
+    v103 = 1140457472;
     *(v1 + 2056) = *(v2 + 116);
-    *(v1 + 518) = v103;
+    *(v1 + 518) = v104;
     *(v1 + 2136) = v2[6];
-    *(v1 + 538) = v102;
+    *(v1 + 538) = v103;
     *(v1 + 554) = 5;
     *(v2 + 68) = xmmword_1DEACE69C;
-    v97 = 1184645120;
-    v92 = *(v1 + 177);
-    v93 = 30.0;
-    v94 = 1120141312;
-    v95 = 1140457472;
+    v98 = 1184645120;
+    v93 = *(v1 + 177);
+    v94 = 30.0;
+    v95 = 1120141312;
     v96 = 1140457472;
+    v97 = 1140457472;
     *(v1 + 2220) = *(v2 + 68);
-    *(v1 + 559) = v97;
+    *(v1 + 559) = v98;
     *(v1 + 2300) = v2[3];
-    *(v1 + 579) = v96;
+    *(v1 + 579) = v97;
     *(v1 + 595) = 5;
     *(v2 + 20) = xmmword_1DEACE6B0;
-    v91 = 1184645120;
-    v89[0] = *(v1 + 177);
-    v89[1] = 30.0;
-    v89[2] = 1120141312;
-    v89[3] = 1140457472;
-    v90 = 1140457472;
+    v92 = 1184645120;
+    v90[0] = *(v1 + 177);
+    v90[1] = 30.0;
+    v90[2] = 1120141312;
+    v90[3] = 1140457472;
+    v91 = 1140457472;
     *(v1 + 149) = *(v2 + 20);
-    *(v1 + 600) = v91;
+    *(v1 + 600) = v92;
     *(v1 + 154) = *v2;
-    *(v1 + 620) = v90;
+    *(v1 + 620) = v91;
     *(v1 + 636) = 5;
   }
 
-  v11 = v53 + 164 * *(v53 + 853) + 2056;
+  v11 = v54 + 164 * *(v54 + 853) + 2056;
   __len = 164;
-  memcpy(v53 + 2548, v11, 0xA4uLL);
+  memcpy(v54 + 2548, v11, 0xA4uLL);
   __src = __b;
   memset(__b, 0, sizeof(__b));
-  memcpy(v53 + 2712, __b, 0xA4uLL);
-  *(v53 + 719) = 0;
+  memcpy(v54 + 2712, __b, 0xA4uLL);
+  *(v54 + 719) = 0;
   context = objc_autoreleasePoolPush();
-  v45 = 0x1E695D000uLL;
+  v46 = 0x1E695D000uLL;
+  v71 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v70 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v69 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  for (i = 0; i < *(v53 + 554); ++i)
+  for (i = 0; i < *(v54 + 554); ++i)
   {
-    v39 = v70;
-    v40 = 0x1E696A000uLL;
-    LODWORD(v12) = *(v53 + i + 514);
-    [v70 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v12)}];
-    v41 = v69;
-    LODWORD(v13) = *(v53 + i + 534);
-    [v69 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v13)}];
+    v40 = v71;
+    v41 = 0x1E696A000uLL;
+    LODWORD(v12) = *(v54 + i + 514);
+    [v71 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v12)}];
+    v42 = v70;
+    LODWORD(v13) = *(v54 + i + 534);
+    [v70 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v13)}];
   }
 
-  v84[0] = @"lux";
-  v85[0] = v70;
-  v84[1] = @"nits";
-  v85[1] = v69;
-  v67 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v85 forKeys:v84 count:2];
+  v85[0] = @"lux";
+  v86[0] = v71;
+  v85[1] = @"nits";
+  v86[1] = v70;
+  v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:v85 count:2];
+  MEMORY[0x1E69E5920](v71);
   MEMORY[0x1E69E5920](v70);
-  MEMORY[0x1E69E5920](v69);
-  v38 = 0x1E695D000uLL;
+  v39 = 0x1E695D000uLL;
+  v67 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v66 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v65 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  for (j = 0; j < *(v53 + 595); ++j)
+  for (j = 0; j < *(v54 + 595); ++j)
   {
-    v35 = v66;
-    v36 = 0x1E696A000uLL;
-    LODWORD(v14) = *(v53 + j + 555);
-    [v66 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v14)}];
-    v37 = v65;
-    LODWORD(v15) = *(v53 + j + 575);
-    [v65 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v15)}];
+    v36 = v67;
+    v37 = 0x1E696A000uLL;
+    LODWORD(v14) = *(v54 + j + 555);
+    [v67 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v14)}];
+    v38 = v66;
+    LODWORD(v15) = *(v54 + j + 575);
+    [v66 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v15)}];
   }
 
-  v82[0] = @"lux";
-  v83[0] = v66;
-  v82[1] = @"nits";
-  v83[1] = v65;
-  v63 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v83 forKeys:v82 count:2];
+  v83[0] = @"lux";
+  v84[0] = v67;
+  v83[1] = @"nits";
+  v84[1] = v66;
+  v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v84 forKeys:v83 count:2];
+  MEMORY[0x1E69E5920](v67);
   MEMORY[0x1E69E5920](v66);
-  MEMORY[0x1E69E5920](v65);
-  v34 = 0x1E695D000uLL;
+  v35 = 0x1E695D000uLL;
+  v63 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v62 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v61 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  for (k = 0; k < *(v53 + 636); ++k)
+  for (k = 0; k < *(v54 + 636); ++k)
   {
-    v31 = v62;
-    v32 = 0x1E696A000uLL;
-    LODWORD(v16) = *(v53 + k + 596);
-    [v62 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v16)}];
-    v33 = v61;
-    LODWORD(v17) = *(v53 + k + 616);
-    [v61 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v17)}];
+    v32 = v63;
+    v33 = 0x1E696A000uLL;
+    LODWORD(v16) = *(v54 + k + 596);
+    [v63 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v16)}];
+    v34 = v62;
+    LODWORD(v17) = *(v54 + k + 616);
+    [v62 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v17)}];
   }
 
-  v80[0] = @"lux";
-  v81[0] = v62;
-  v80[1] = @"nits";
-  v81[1] = v61;
-  v24[11] = 0x1E695D000uLL;
-  v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:v80 count:2];
-  MEMORY[0x1E69E5920](v62);
-  *&v18 = MEMORY[0x1E69E5920](v61).n128_u64[0];
-  v78[0] = @"CurveLevelLow";
-  v79[0] = v67;
-  v78[1] = @"CurveLevelMed";
-  v79[1] = v63;
-  v78[2] = @"CurveLevelHigh";
-  v79[2] = v59;
-  value = [MEMORY[0x1E695DF20] dictionaryWithObjects:v79 forKeys:v78 count:{3, v18}];
-  CFDictionarySetValue(*(v53 + 47), @"AOTCurve", value);
+  v81[0] = @"lux";
+  v82[0] = v63;
+  v81[1] = @"nits";
+  v82[1] = v62;
+  v25[11] = 0x1E695D000uLL;
+  v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v82 forKeys:v81 count:2];
+  MEMORY[0x1E69E5920](v63);
+  *&v18 = MEMORY[0x1E69E5920](v62).n128_u64[0];
+  v79[0] = @"CurveLevelLow";
+  v80[0] = v68;
+  v79[1] = @"CurveLevelMed";
+  v80[1] = v64;
+  v79[2] = @"CurveLevelHigh";
+  v80[2] = v60;
+  value = [MEMORY[0x1E695DF20] dictionaryWithObjects:v80 forKeys:v79 count:{3, v18}];
+  CFDictionarySetValue(*(v54 + 47), @"AOTCurve", value);
   objc_autoreleasePoolPop(context);
+  v58 = -1.0;
   v57 = -1.0;
   v56 = -1.0;
-  v55 = -1.0;
-  v56 = *(v53 + 657);
-  v57 = v56;
-  v55 = *(v53 + *(v53 + 677) + 656);
-  v29 = objc_alloc(MEMORY[0x1E695DF20]);
-  v24[12] = 0x1E696A000uLL;
-  *&v19 = v56;
-  v28 = [MEMORY[0x1E696AD98] numberWithFloat:v19];
-  *&v20 = v56;
-  v25 = [MEMORY[0x1E696AD98] numberWithFloat:v20];
-  *&v21 = v55;
-  v26 = [MEMORY[0x1E696AD98] numberWithFloat:v21];
-  LODWORD(v22) = *(v53 + 177);
-  v27 = [MEMORY[0x1E696AD98] numberWithFloat:v22];
-  LODWORD(v23) = *(v53 + 179);
-  v30 = v24;
-  v54 = [v29 initWithObjectsAndKeys:{v28, @"BrightnessCapabilitiesSafeDigitalMin", v25, @"BrightnessCapabilitiesAODmin", v26, @"BrightnessCapabilitiesAODmax", v27, @"BrightnessCapabilitiesActiveMin", objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v23), @"BrightnessCapabilitiesActiveHWMax", 0}];
-  if (v54)
+  v57 = *(v54 + 657);
+  v58 = v57;
+  v56 = *(v54 + *(v54 + 677) + 656);
+  v30 = objc_alloc(MEMORY[0x1E695DF20]);
+  v25[12] = 0x1E696A000uLL;
+  *&v19 = v57;
+  v29 = [MEMORY[0x1E696AD98] numberWithFloat:v19];
+  *&v20 = v57;
+  v26 = [MEMORY[0x1E696AD98] numberWithFloat:v20];
+  *&v21 = v56;
+  v27 = [MEMORY[0x1E696AD98] numberWithFloat:v21];
+  LODWORD(v22) = *(v54 + 177);
+  v28 = [MEMORY[0x1E696AD98] numberWithFloat:v22];
+  LODWORD(v23) = *(v54 + 179);
+  v31 = v25;
+  v55 = [v30 initWithObjectsAndKeys:{v29, @"BrightnessCapabilitiesSafeDigitalMin", v26, @"BrightnessCapabilitiesAODmin", v27, @"BrightnessCapabilitiesAODmax", v28, @"BrightnessCapabilitiesActiveMin", objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v23), @"BrightnessCapabilitiesActiveHWMax", 0}];
+  if (v55)
   {
-    CFDictionarySetValue(*(v53 + 48), @"BrightnessCapabilities", v54);
-    MEMORY[0x1E69E5920](v54);
+    CFDictionarySetValue(*(v54 + 48), @"BrightnessCapabilities", v55);
+    *&result = MEMORY[0x1E69E5920](v55).n128_u64[0];
   }
 
-  *MEMORY[0x1E69E9840];
+  return result;
 }
 
 void ___ZN4AABC15registerDisplayEP9__Display_block_invoke(uint64_t a1, uint64_t a2)
@@ -3938,10 +3607,9 @@ AABC *AABC::_UpdateEcoModeState(AABC *this, char a2)
       v3 = 1;
     }
 
-    this = AABC::SetAggressivity(v6, v3);
+    return AABC::SetAggressivity(v6, v3);
   }
 
-  *MEMORY[0x1E69E9840];
   return this;
 }
 
@@ -3957,7 +3625,7 @@ void AABC::UpdateAmbrosiaFactor(AABC *this, float a2)
   }
 }
 
-uint64_t AABC::unregisterDisplay(id *this, __Display *a2)
+void *AABC::unregisterDisplay(id *this, __Display *a2)
 {
   v8 = *MEMORY[0x1E69E9840];
   if (_logHandle)
@@ -3996,7 +3664,6 @@ uint64_t AABC::unregisterDisplay(id *this, __Display *a2)
   }
 
   this[479] = 0;
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4048,7 +3715,7 @@ void AABC::ALS::~ALS(AABC::ALS *this)
   std::vector<float>::~vector[abi:de200100](this + 12);
 }
 
-void *AABC::registerEndpoint(id *this, CBAPEndpoint *a2)
+__IOHIDServiceClient *AABC::registerEndpoint(IOHIDServiceClientRef *this, CBAPEndpoint *a2)
 {
   v6 = this;
   v5 = a2;
@@ -4063,7 +3730,7 @@ void *AABC::registerEndpoint(id *this, CBAPEndpoint *a2)
   if (*(this + 78) == 1)
   {
     v4 = 0;
-    return [this[500] sendCommand:232 inputBuffer:&v4 inputBufferSize:1];
+    return [(__IOHIDServiceClient *)this[500] sendCommand:232 inputBuffer:&v4 inputBufferSize:1];
   }
 
   return result;
@@ -4233,9 +3900,7 @@ uint64_t AABC::sendAOTCurvesToDCP(AABC *this)
     v4[7 * i + 6] = *(this + 41 * i + 554);
   }
 
-  result = [*(this + 500) sendCommand:228 inputBuffer:v4 inputBufferSize:168];
-  *MEMORY[0x1E69E9840];
-  return result;
+  return [*(this + 500) sendCommand:228 inputBuffer:v4 inputBufferSize:168];
 }
 
 void AABC::scheduleWithDispatchQueue(uint64_t a1, uint64_t a2)
@@ -4348,8 +4013,6 @@ void AABC::scheduleWithDispatchQueue(uint64_t a1, uint64_t a2)
     *(a1 + 152) = [[AccessoryDetection alloc] initWithAABC:a1];
     [*(a1 + 152) start];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void AABC::CancelFastRampMode(CFAbsoluteTime *this)
@@ -4396,29 +4059,30 @@ void AABC::CancelFastRampMode(CFAbsoluteTime *this)
   }
 }
 
-void AABC::InitializeCPMSModule(AABC *this)
+double AABC::InitializeCPMSModule(AABC *this)
 {
-  v71 = *MEMORY[0x1E69E9840];
-  v64 = this;
+  v116 = *MEMORY[0x1E69E9840];
+  v109 = this;
+  v62 = this;
   *(this + 495) = 0;
   *(this + 494) = 0;
-  v62 = MGGetSInt32Answer();
-  v63 = v62;
-  if ((v62 == 6 || v63 == 1 || v63 == 3) && [MEMORY[0x1E6991F30] isCPMSSupported] == 1)
+  v107 = MGGetSInt32Answer();
+  v108 = v107;
+  if ((v107 == 6 || v108 == 1 || v108 == 3) && [MEMORY[0x1E6991F30] isCPMSSupported] == 1)
   {
-    CPMSAPLTable = DisplayGetCPMSAPLTable(*(this + 50));
+    CPMSAPLTable = DisplayGetCPMSAPLTable(*(v62 + 50));
     if (CPMSAPLTable)
     {
-      v60 = 1125842944;
-      APLColumnOrDefault = DisplayGetAPLColumnOrDefault(*(this + 50), 0x64u);
-      v58 = DisplayPhysicalBrightnessToPower(*(this + 50), APLColumnOrDefault, 155.0);
-      APLIndex = DisplayGetAPLIndex(*(this + 50), APLColumnOrDefault);
-      HDRAPLColumn = DisplayGetHDRAPLColumn(*(this + 50));
-      v55 = DisplayPhysicalBrightnessToPower(*(this + 50), HDRAPLColumn, 155.0);
-      v54 = DisplayGetAPLIndex(*(this + 50), HDRAPLColumn);
+      v105 = 1125842944;
+      APLColumnOrDefault = DisplayGetAPLColumnOrDefault(*(v62 + 50), 0x64u);
+      v103 = DisplayPhysicalBrightnessToPower(*(v62 + 50), APLColumnOrDefault, 155.0);
+      APLIndex = DisplayGetAPLIndex(*(v62 + 50), APLColumnOrDefault);
+      HDRAPLColumn = DisplayGetHDRAPLColumn(*(v62 + 50));
+      v100 = DisplayPhysicalBrightnessToPower(*(v62 + 50), HDRAPLColumn, 155.0);
+      v99 = DisplayGetAPLIndex(*(v62 + 50), HDRAPLColumn);
       if (_logHandle)
       {
-        v17 = _logHandle;
+        v61 = _logHandle;
       }
 
       else
@@ -4433,50 +4097,59 @@ void AABC::InitializeCPMSModule(AABC *this)
           inited = init_default_corebrightness_log();
         }
 
-        v17 = inited;
+        v61 = inited;
       }
 
-      v53 = v17;
+      v98 = v61;
       type = OS_LOG_TYPE_INFO;
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
       {
-        __os_log_helper_16_0_3_4_0_8_0_4_0(v70, APLColumnOrDefault, COERCE__INT64(v58), APLIndex);
-        _os_log_impl(&dword_1DE8E5000, v53, type, "CPMS InitializeCPMSModule, cltm/upo apl: %d, budgetMin: %f, apl_inndex: %d", v70, 0x18u);
+        log = v98;
+        *v58 = type;
+        buf = v115;
+        __os_log_helper_16_0_3_4_0_8_0_4_0(v115, APLColumnOrDefault, COERCE__INT64(v103), APLIndex);
+        _os_log_impl(&dword_1DE8E5000, v98, type, "CPMS InitializeCPMSModule, cltm/upo apl: %d, budgetMin: %f, apl_inndex: %d", v115, 0x18u);
       }
 
       if (_logHandle)
       {
-        v15 = _logHandle;
+        v56 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v14 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v55 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v14 = init_default_corebrightness_log();
+          v55 = init_default_corebrightness_log();
         }
 
-        v15 = v14;
+        v56 = v55;
       }
 
-      oslog = v15;
-      v50 = OS_LOG_TYPE_INFO;
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      oslog = v56;
+      v95 = OS_LOG_TYPE_INFO;
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
       {
-        __os_log_helper_16_0_3_4_0_8_0_4_0(v69, HDRAPLColumn, COERCE__INT64(v55), v54);
-        _os_log_impl(&dword_1DE8E5000, oslog, v50, "CPMS InitializeCPMSModule, hdrapl: %d, hdrbudgetMin: %f, hdr_apl_inndex: %d", v69, 0x18u);
+        v52 = oslog;
+        *v53 = v95;
+        v54 = v114;
+        __os_log_helper_16_0_3_4_0_8_0_4_0(v114, HDRAPLColumn, COERCE__INT64(v100), v99);
+        _os_log_impl(&dword_1DE8E5000, oslog, v95, "CPMS InitializeCPMSModule, hdrapl: %d, hdrbudgetMin: %f, hdr_apl_inndex: %d", v114, 0x18u);
       }
 
-      v12 = MEMORY[0x1E695E8B8];
-      v13 = MEMORY[0x1E695E8B0];
-      CFPreferencesSynchronize(@"com.apple.CoreBrightness", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
-      cf = CFPreferencesCopyValue(@"CBCPMSPowerConstraints", @"com.apple.CoreBrightness", *v12, *v13);
-      if (cf && (v11 = CFGetTypeID(cf), v11 == CFDictionaryGetTypeID()))
+      v49 = MEMORY[0x1E695E8B8];
+      v2 = *MEMORY[0x1E695E8B8];
+      v50 = MEMORY[0x1E695E8B0];
+      v3 = *MEMORY[0x1E695E8B0];
+      applicationID = @"com.apple.CoreBrightness";
+      CFPreferencesSynchronize(@"com.apple.CoreBrightness", v2, v3);
+      cf = CFPreferencesCopyValue(@"CBCPMSPowerConstraints", @"com.apple.CoreBrightness", *v49, *v50);
+      if (cf && (v48 = CFGetTypeID(cf), v48 == CFDictionaryGetTypeID()))
       {
         theDict = CFDictionaryGetValue(cf, @"CLTMRestriction");
         if (theDict)
@@ -4484,20 +4157,21 @@ void AABC::InitializeCPMSModule(AABC *this)
           number = CFDictionaryGetValue(theDict, @"Min");
           if (number)
           {
-            CFNumberGetValue(number, kCFNumberIntType, this + 3984);
+            CFNumberGetValue(number, kCFNumberIntType, v62 + 3984);
           }
 
           number = CFDictionaryGetValue(theDict, @"Max");
           if (number)
           {
-            CFNumberGetValue(number, kCFNumberIntType, this + 3988);
+            CFNumberGetValue(number, kCFNumberIntType, v62 + 3988);
           }
         }
 
         else
         {
-          *(this + 996) = v58;
-          *(this + 997) = *&CPMSAPLTable[50 * APLIndex + 103 + CPMSAPLTable[1] - 1];
+          v4 = v62;
+          *(v62 + 996) = v103;
+          *(v4 + 997) = *&CPMSAPLTable[50 * APLIndex + 103 + CPMSAPLTable[1] - 1];
         }
 
         theDict = CFDictionaryGetValue(cf, @"UPORestriction");
@@ -4506,53 +4180,56 @@ void AABC::InitializeCPMSModule(AABC *this)
           Value = CFDictionaryGetValue(theDict, @"Min");
           if (Value)
           {
-            CFNumberGetValue(Value, kCFNumberIntType, this + 3968);
+            CFNumberGetValue(Value, kCFNumberIntType, v62 + 3968);
           }
 
           Value = CFDictionaryGetValue(theDict, @"Max");
           if (Value)
           {
-            CFNumberGetValue(Value, kCFNumberIntType, this + 3972);
+            CFNumberGetValue(Value, kCFNumberIntType, v62 + 3972);
           }
         }
 
         else
         {
-          *(this + 992) = v58;
-          *(this + 993) = *&CPMSAPLTable[50 * APLIndex + 103 + CPMSAPLTable[1] - 1];
+          v5 = v62;
+          *(v62 + 992) = v103;
+          *(v5 + 993) = *&CPMSAPLTable[50 * APLIndex + 103 + CPMSAPLTable[1] - 1];
         }
 
         theDict = CFDictionaryGetValue(cf, @"HDRRestriction");
         if (theDict)
         {
-          v45 = CFDictionaryGetValue(theDict, @"Min");
-          if (v45)
+          v90 = CFDictionaryGetValue(theDict, @"Min");
+          if (v90)
           {
-            CFNumberGetValue(v45, kCFNumberIntType, this + 3976);
+            CFNumberGetValue(v90, kCFNumberIntType, v62 + 3976);
           }
 
-          v45 = CFDictionaryGetValue(theDict, @"Max");
-          if (v45)
+          v90 = CFDictionaryGetValue(theDict, @"Max");
+          if (v90)
           {
-            CFNumberGetValue(v45, kCFNumberIntType, this + 3980);
+            CFNumberGetValue(v90, kCFNumberIntType, v62 + 3980);
           }
         }
 
         else
         {
-          *(this + 994) = v55;
-          *(this + 995) = *&CPMSAPLTable[50 * v54 + 103 + *CPMSAPLTable - 1];
+          v6 = v62;
+          *(v62 + 994) = v100;
+          *(v6 + 995) = *&CPMSAPLTable[50 * v99 + 103 + *CPMSAPLTable - 1];
         }
       }
 
       else
       {
-        *(this + 992) = v58;
-        *(this + 993) = *&CPMSAPLTable[50 * APLIndex + 103 + CPMSAPLTable[1] - 1];
-        *(this + 996) = v58;
-        *(this + 997) = *&CPMSAPLTable[50 * APLIndex + 103 + CPMSAPLTable[1] - 1];
-        *(this + 994) = v55;
-        *(this + 995) = *&CPMSAPLTable[50 * v54 + 103 + CPMSAPLTable[1] - 1];
+        v7 = v62;
+        *(v62 + 992) = v103;
+        *(v7 + 993) = *&CPMSAPLTable[50 * APLIndex + 103 + CPMSAPLTable[1] - 1];
+        *(v7 + 996) = v103;
+        *(v7 + 997) = *&CPMSAPLTable[50 * APLIndex + 103 + CPMSAPLTable[1] - 1];
+        *(v7 + 994) = v100;
+        *(v7 + 995) = *&CPMSAPLTable[50 * v99 + 103 + CPMSAPLTable[1] - 1];
       }
 
       if (cf)
@@ -4560,163 +4237,194 @@ void AABC::InitializeCPMSModule(AABC *this)
         CFRelease(cf);
       }
 
-      *(this + 983) = -1.0;
-      *(this + 984) = -1.0;
-      *(this + 982) = -1.0;
-      *(this + 987) = 5.0;
-      *(this + 985) = 5.0;
-      *(this + 986) = 5.0;
+      v8 = v62;
+      *(v62 + 983) = -1.0;
+      v8[984] = -1.0;
+      v8[982] = -1.0;
+      v8[987] = 5.0;
+      v8[985] = 5.0;
+      v8[986] = 5.0;
       if (_logHandle)
       {
-        v10 = _logHandle;
+        v47 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v9 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v46 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v9 = init_default_corebrightness_log();
+          v46 = init_default_corebrightness_log();
         }
 
-        v10 = v9;
+        v47 = v46;
       }
 
-      v44 = v10;
-      v43 = OS_LOG_TYPE_INFO;
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v89 = v47;
+      v88 = OS_LOG_TYPE_INFO;
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
       {
-        v7 = v44;
-        v8 = v43;
-        __os_log_helper_16_0_0(v42);
-        _os_log_impl(&dword_1DE8E5000, v7, v8, "Registering CPMS Client", v42, 2u);
+        v43 = v89;
+        *v44 = v88;
+        v45 = v87;
+        __os_log_helper_16_0_0(v87);
+        _os_log_impl(&dword_1DE8E5000, v43, v44[0], "Registering CPMS Client", v87, 2u);
       }
 
       if (_logHandle)
       {
-        v6 = _logHandle;
+        v42 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v5 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v41 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v5 = init_default_corebrightness_log();
+          v41 = init_default_corebrightness_log();
         }
 
-        v6 = v5;
+        v42 = v41;
       }
 
-      v41 = v6;
-      v40 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v86 = v42;
+      v85 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_6_4_0_4_0_4_0_4_0_4_0_4_0(v68, *(this + 992), *(this + 993), *(this + 996), *(this + 997), *(this + 994), *(this + 995));
-        _os_log_impl(&dword_1DE8E5000, v41, v40, "CPMS budgets[min/max]: UPO %d/%d, CLTM %d/%d, HDR %d/%d", v68, 0x26u);
+        v38 = v86;
+        *v39 = v85;
+        v9 = *(v62 + 992);
+        v10 = *(v62 + 993);
+        v11 = *(v62 + 996);
+        v12 = *(v62 + 997);
+        v13 = *(v62 + 994);
+        v14 = *(v62 + 995);
+        v40 = v113;
+        __os_log_helper_16_0_6_4_0_4_0_4_0_4_0_4_0_4_0(v113, v9, v10, v11, v12, v13, v14);
+        _os_log_impl(&dword_1DE8E5000, v86, v85, "CPMS budgets[min/max]: UPO %d/%d, CLTM %d/%d, HDR %d/%d", v113, 0x26u);
       }
 
-      *(this + 495) = [MEMORY[0x1E6991F30] sharedCPMSAgent];
-      *(this + 494) = objc_alloc_init(MEMORY[0x1E6991F38]);
-      if (*(this + 494))
+      *(v62 + 495) = [MEMORY[0x1E6991F30] sharedCPMSAgent];
+      v15 = objc_alloc_init(MEMORY[0x1E6991F38]);
+      v16 = v62;
+      *(v62 + 494) = v15;
+      if (*(v16 + 494))
       {
-        [*(this + 494) setClientId:7];
-        v39 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(this + 994)];
-        v38 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(this + 995)];
-        v37 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(this + 992)];
-        v36 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(this + 993)];
-        v35 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(this + 996)];
-        v34 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(this + 997)];
-        v33 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{v39, v38, 0}];
-        v32 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{v37, v36, 0}];
-        v31 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{v35, v34, 0}];
-        v1 = objc_alloc(MEMORY[0x1E695DF20]);
-        v30 = [v1 initWithObjectsAndKeys:{v33, *MEMORY[0x1E6991F50], v32, *MEMORY[0x1E6991F40], v31, *MEMORY[0x1E6991F48], 0}];
-        [*(this + 494) setPowerLevels:v30];
-        [*(this + 494) setIsContinuous:1];
-        [*(this + 494) setPowerBudgetUpdateMinimumPeriod:1000];
-        v24 = MEMORY[0x1E69E9820];
-        v25 = -1073741824;
-        v26 = 0;
-        v27 = ___ZN4AABC20InitializeCPMSModuleEv_block_invoke;
-        v28 = &__block_descriptor_40_e22_v16__0__NSDictionary_8l;
-        v29 = this;
-        [*(this + 494) setNotificationCallback:?];
-        [*(this + 494) setGetCurrentPower:&__block_literal_global_1043];
-        v23 = [*(this + 495) registerClientWithDescription:*(this + 494) error:0];
-        if ((v23 & 1) == 1)
+        [*(v62 + 494) setClientId:7];
+        v35 = 0x1E696A000uLL;
+        v84 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(v62 + 994)];
+        v83 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(v62 + 995)];
+        v82 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(v62 + 992)];
+        v81 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(v62 + 993)];
+        v80 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(v62 + 996)];
+        v79 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:*(v62 + 997)];
+        v36 = 0x1E695D000uLL;
+        v37 = 0;
+        v78 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{v84, v83, 0}];
+        v17 = objc_alloc(*(v36 + 3784));
+        v77 = [v17 initWithObjects:{v82, v81, 0}];
+        v18 = objc_alloc(*(v36 + 3784));
+        v76 = [v18 initWithObjects:{v80, v79, 0}];
+        v19 = objc_alloc(MEMORY[0x1E695DF20]);
+        v20 = *MEMORY[0x1E6991F40];
+        v21 = *MEMORY[0x1E6991F48];
+        v25 = *MEMORY[0x1E6991F50];
+        v75 = [v19 initWithObjectsAndKeys:{v78, v25, v77, v20, v76, v21, 0}];
+        [*(v62 + 494) setPowerLevels:v75];
+        [*(v62 + 494) setIsContinuous:1];
+        [*(v62 + 494) setPowerBudgetUpdateMinimumPeriod:1000];
+        v69 = MEMORY[0x1E69E9820];
+        v70 = -1073741824;
+        v71 = 0;
+        v72 = ___ZN4AABC20InitializeCPMSModuleEv_block_invoke;
+        v73 = &__block_descriptor_40_e22_v16__0__NSDictionary_8l;
+        v74 = v62;
+        [*(v62 + 494) setNotificationCallback:?];
+        [*(v62 + 494) setGetCurrentPower:&__block_literal_global_1043];
+        v68 = [*(v62 + 495) registerClientWithDescription:*(v62 + 494) error:v37];
+        if ((v68 & 1) == 1)
         {
           if (_logHandle)
           {
-            v4 = _logHandle;
+            v34 = _logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v3 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v33 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v3 = init_default_corebrightness_log();
+              v33 = init_default_corebrightness_log();
             }
 
-            v4 = v3;
+            v34 = v33;
           }
 
-          v22 = v4;
-          v21 = OS_LOG_TYPE_INFO;
-          if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+          v67 = v34;
+          v66 = OS_LOG_TYPE_INFO;
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
           {
-            __os_log_helper_16_2_1_8_66(v67, [*(this + 494) description]);
-            _os_log_impl(&dword_1DE8E5000, v22, v21, "Successfully Registered CPMS Client\n%{public}@\n", v67, 0xCu);
+            v30 = v67;
+            *v31 = v66;
+            v22 = [*(v62 + 494) description];
+            v32 = v112;
+            __os_log_helper_16_2_1_8_66(v112, v22);
+            _os_log_impl(&dword_1DE8E5000, v30, v31[0], "Successfully Registered CPMS Client\n%{public}@\n", v32, 0xCu);
           }
 
-          v2 = *(this + 495);
-          v65[0] = *MEMORY[0x1E6991F50];
-          v66[0] = v38;
-          v65[1] = *MEMORY[0x1E6991F40];
-          v66[1] = v36;
-          v65[2] = *MEMORY[0x1E6991F48];
-          v66[2] = v34;
-          v20 = [v2 copyPowerBudgetForRequest:objc_msgSend(MEMORY[0x1E695DF20] forClient:"dictionaryWithObjects:forKeys:count:" error:{v66, v65, 3), objc_msgSend(*(this + 494), "clientId"), 0}];
-          if (v20)
+          v29 = *(v62 + 495);
+          v110[0] = *MEMORY[0x1E6991F50];
+          v111[0] = v83;
+          v110[1] = *MEMORY[0x1E6991F40];
+          v111[1] = v81;
+          v110[2] = *MEMORY[0x1E6991F48];
+          v111[2] = v79;
+          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v111 forKeys:v110 count:3];
+          v23 = [*(v62 + 494) clientId];
+          v65 = [v29 copyPowerBudgetForRequest:v28 forClient:v23 error:0];
+          if (v65)
           {
-            [*(this + 495) acknowledgePowerBudget:v20 forClientId:objc_msgSend(*(this + 494) error:{"clientId"), 0}];
-            MEMORY[0x1E69E5920](v20);
+            v27 = *(v62 + 495);
+            v26 = v65;
+            v24 = [*(v62 + 494) clientId];
+            [v27 acknowledgePowerBudget:v26 forClientId:v24 error:0];
+            MEMORY[0x1E69E5920](v65);
           }
 
-          v19[0] = fmaxf(*&CPMSAPLTable[CPMSAPLTable[1] - 1 + 53], *(this + 182));
-          v19[1] = v19[0];
-          v19[2] = v19[0];
-          DisplayUpdateCPMSBudget(*(this + 50), v19);
+          v63 = fmaxf(*&CPMSAPLTable[CPMSAPLTable[1] - 1 + 53], *(v62 + 182));
+          *v64 = v63;
+          *&v64[1] = v63;
+          *&v64[2] = v63;
+          DisplayUpdateCPMSBudget(*(v62 + 50), v64);
         }
 
-        MEMORY[0x1E69E5920](v33);
-        MEMORY[0x1E69E5920](v32);
-        MEMORY[0x1E69E5920](v31);
-        MEMORY[0x1E69E5920](v39);
-        MEMORY[0x1E69E5920](v38);
-        MEMORY[0x1E69E5920](v37);
-        MEMORY[0x1E69E5920](v36);
-        MEMORY[0x1E69E5920](v35);
-        MEMORY[0x1E69E5920](v34);
-        MEMORY[0x1E69E5920](v30);
+        MEMORY[0x1E69E5920](v78);
+        MEMORY[0x1E69E5920](v77);
+        MEMORY[0x1E69E5920](v76);
+        MEMORY[0x1E69E5920](v84);
+        MEMORY[0x1E69E5920](v83);
+        MEMORY[0x1E69E5920](v82);
+        MEMORY[0x1E69E5920](v81);
+        MEMORY[0x1E69E5920](v80);
+        MEMORY[0x1E69E5920](v79);
+        *&result = MEMORY[0x1E69E5920](v75).n128_u64[0];
       }
     }
   }
 
-  *MEMORY[0x1E69E9840];
+  return result;
 }
 
 void AABC::unscheduleFromDispatchQueue(uint64_t a1)
@@ -4755,8 +4463,6 @@ void AABC::unscheduleFromDispatchQueue(uint64_t a1)
       _os_log_debug_impl(&dword_1DE8E5000, v2, OS_LOG_TYPE_DEBUG, "[%x]: ", v3, 8u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 CFDictionaryRef AABC::createCurvePrefsDictionary(uint64_t a1, void *a2)
@@ -4823,7 +4529,6 @@ CFDictionaryRef AABC::createCurvePrefsDictionary(uint64_t a1, void *a2)
   CFRelease(v15);
   CFRelease(v16);
   CFRelease(v17);
-  *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -5024,7 +4729,6 @@ CFDictionaryRef AABC::createCurveDictionary(uint64_t a1, void *a2)
   CFRelease(__b[2]);
   CFRelease(__b[1]);
   CFRelease(__b[0]);
-  *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -5064,7 +4768,6 @@ CFDictionaryRef AABC::createCurveDescriptorDictionary(uint64_t a1, _DWORD *a2)
   v5 = CFDictionaryCreate(*v3, keys, &v10, 3, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   CFRelease(cf);
   CFRelease(v10);
-  *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -5394,8 +5097,6 @@ void AABC::readCurveFromDictionary(uint64_t a1, const __CFDictionary *a2, float 
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t AABC::writeOutlierRemovalPreferences(uint64_t this, int a2)
@@ -5910,8 +5611,6 @@ void AABC::setInternalProperty(AABC *this, __CFString *a2, void *a3)
       AABC::resetMedianFilter(this);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void AABC::ClearHistoryFunction(AABC *this, __IOHIDServiceClient *a2, AABC::ALS *a3, AABC *a4)
@@ -6030,9 +5729,7 @@ LABEL_22:
     *(a1 + 3808) = *(a1 + 3804);
   }
 
-  result = PerceptualLuminanceThresholding::SetPthresholdDim(*(a1 + 3832), *(a1 + 3808));
-  *MEMORY[0x1E69E9840];
-  return result;
+  return PerceptualLuminanceThresholding::SetPthresholdDim(*(a1 + 3832), *(a1 + 3808));
 }
 
 void AABC::resetFilter(uint64_t a1, uint64_t *a2)
@@ -6176,8 +5873,6 @@ void AABC::UpdateSensorOverride(AABC *this, __IOHIDServiceClient *a2, AABC::ALS 
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void AABC::CancelRamp(AABC *this)
@@ -6195,7 +5890,7 @@ void AABC::handleAODStateUpdateProperty(uint64_t a1, int a2, float a3)
   v37 = a2;
   v36 = a3;
   BrightnessMinPhysical = _DisplayGetBrightnessMinPhysical(*(a1 + 400));
-  AABC::NotifyCPMSWhenDisplayChangeState(a1, v37 == 0);
+  v3 = AABC::NotifyCPMSWhenDisplayChangeState(a1, v37 == 0);
   if (v37 == 1)
   {
     *(a1 + 2876) = 2;
@@ -6291,7 +5986,7 @@ void AABC::handleAODStateUpdateProperty(uint64_t a1, int a2, float a3)
     AABC::setAlwaysOnProperty(a1, &cfstr_Aotstate.isa, v24);
     IOHIDServiceClientSetProperty(*(a1 + 320), @"AODALSMode", *MEMORY[0x1E695E4C0]);
     MEMORY[0x1E69E5920](v24);
-    *&v3 = MEMORY[0x1E69E5920](v23).n128_u64[0];
+    *&v4 = MEMORY[0x1E69E5920](v23).n128_u64[0];
     v22 = *(a1 + 2876);
     *(a1 + 2876) = 3;
     if (*(a1 + 512))
@@ -6303,8 +5998,7 @@ void AABC::handleAODStateUpdateProperty(uint64_t a1, int a2, float a3)
     else
     {
       v21 = 1;
-      [*(a1 + 4000) sendCommand:230 inputBuffer:&v21 inputBufferSize:{1, v3}];
-      v4 = *(a1 + 320);
+      [*(a1 + 4000) sendCommand:230 inputBuffer:&v21 inputBufferSize:{1, v4}];
       v25 = IOHIDServiceClientCopyEvent();
       if (v25)
       {
@@ -6406,7 +6100,6 @@ void AABC::handleAODStateUpdateProperty(uint64_t a1, int a2, float a3)
   }
 
   DisplaySetState(*(a1 + 400), v37 == 0);
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t ___ZN4AABC20setPropertyForClientEPK10__CFStringPKvS4__block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
@@ -6455,60 +6148,54 @@ uint64_t ___ZN4AABC20setPropertyForClientEPK10__CFStringPKvS4__block_invoke(uint
 
 uint64_t ___ZN4AABC20setPropertyForClientEPK10__CFStringPKvS4__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v13 = a1;
-  v25 = *MEMORY[0x1E69E9840];
-  v24 = a1;
-  v23 = a2;
-  v22 = a3;
-  v21 = a4;
-  v20 = a1;
-  v12 = *(a1 + 48);
+  v12 = a1;
+  v23 = *MEMORY[0x1E69E9840];
+  v22 = a1;
+  v21 = a2;
+  v20 = a3;
+  v19 = a4;
+  v18 = a1;
+  v11 = *(a1 + 48);
   v4 = *(a1 + 56);
   v5 = *(a1 + 56);
-  v19 = &v12;
-  v14 = &v12 - ((4 * v4 + 15) & 0x7F0);
-  v18 = v5;
+  v17 = &v11;
+  v13 = &v11 - ((4 * v4 + 15) & 0x7F0);
+  v16 = v5;
   [a2 floatValue];
-  v6 = v13;
-  v7 = v14;
-  v17 = v8;
-  *(v12 + 164 * *(*(*(v13 + 40) + 8) + 24) + 4 * v22 + 2056) = v8;
-  *&v7[4 * v22] = vcvts_n_s32_f32(v17, 0x10uLL);
-  v15 = *(v6 + 32);
-  v9 = [MEMORY[0x1E696AD98] numberWithInteger:*&v7[4 * v22]];
-  result = [v15 addObject:v9];
-  v16 = v19;
-  v11 = __OFSUB__(*MEMORY[0x1E69E9840], v25);
-  return result;
+  v6 = v12;
+  v7 = v13;
+  v15 = v8;
+  *(v11 + 164 * *(*(*(v12 + 40) + 8) + 24) + 4 * v20 + 2056) = v8;
+  *&v7[4 * v20] = vcvts_n_s32_f32(v15, 0x10uLL);
+  v14 = *(v6 + 32);
+  v9 = [MEMORY[0x1E696AD98] numberWithInteger:*&v7[4 * v20]];
+  return [v14 addObject:v9];
 }
 
 uint64_t ___ZN4AABC20setPropertyForClientEPK10__CFStringPKvS4__block_invoke_3(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v13 = a1;
-  v25 = *MEMORY[0x1E69E9840];
-  v24 = a1;
-  v23 = a2;
-  v22 = a3;
-  v21 = a4;
-  v20 = a1;
-  v12 = *(a1 + 48);
+  v12 = a1;
+  v23 = *MEMORY[0x1E69E9840];
+  v22 = a1;
+  v21 = a2;
+  v20 = a3;
+  v19 = a4;
+  v18 = a1;
+  v11 = *(a1 + 48);
   v4 = *(a1 + 56);
   v5 = *(a1 + 56);
-  v19 = &v12;
-  v14 = &v12 - ((4 * v4 + 15) & 0x7F0);
-  v18 = v5;
+  v17 = &v11;
+  v13 = &v11 - ((4 * v4 + 15) & 0x7F0);
+  v16 = v5;
   [a2 floatValue];
-  v6 = v13;
-  v7 = v14;
-  v17 = v8;
-  *(v12 + 164 * *(*(*(v13 + 40) + 8) + 24) + 4 * v22 + 2136) = v8;
-  *&v7[4 * v22] = vcvts_n_s32_f32(v17, 0x10uLL);
-  v15 = *(v6 + 32);
-  v9 = [MEMORY[0x1E696AD98] numberWithInteger:*&v7[4 * v22]];
-  result = [v15 addObject:v9];
-  v16 = v19;
-  v11 = __OFSUB__(*MEMORY[0x1E69E9840], v25);
-  return result;
+  v6 = v12;
+  v7 = v13;
+  v15 = v8;
+  *(v11 + 164 * *(*(*(v12 + 40) + 8) + 24) + 4 * v20 + 2136) = v8;
+  *&v7[4 * v20] = vcvts_n_s32_f32(v15, 0x10uLL);
+  v14 = *(v6 + 32);
+  v9 = [MEMORY[0x1E696AD98] numberWithInteger:*&v7[4 * v20]];
+  return [v14 addObject:v9];
 }
 
 uint64_t __os_log_helper_16_0_5_8_0_8_0_8_0_8_0_4_0(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
@@ -6578,18 +6265,17 @@ void *AABC::AlignCurveTypeWithStrategy(uint64_t a1, _DWORD *a2, _DWORD *a3)
 
     memcpy(__dst, v11, sizeof(__dst));
     memcpy(v11, v12, 0x68uLL);
-    result = memcpy(v12, __dst, 0x68uLL);
+    return memcpy(v12, __dst, 0x68uLL);
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t AABC::getCurveUpdatesFromArray@<X0>(AABC *this@<X0>, objc_object *a2@<X1>, void *a3@<X8>)
+uint64_t *AABC::getCurveUpdatesFromArray@<X0>(uint64_t *__return_ptr a1@<X8>, AABC *this@<X0>, objc_object *a3@<X1>)
 {
-  v15 = a3;
+  v15 = a1;
   v14 = this;
-  v13 = a2;
+  v13 = a3;
   v5 = 0;
   v6 = &v5;
   v7 = 301989888;
@@ -6607,7 +6293,7 @@ uint64_t AABC::getCurveUpdatesFromArray@<X0>(AABC *this@<X0>, objc_object *a2@<X
     }
   }
 
-  std::list<AAB::CurveUpdate>::list(a3, (v6 + 6));
+  std::list<AAB::CurveUpdate>::list(a1, (v6 + 6));
   _Block_object_dispose(&v5, 8);
   return std::list<AAB::CurveUpdate>::~list(v12);
 }
@@ -6748,7 +6434,6 @@ void AABC::revertToGoodCurve(uint64_t a1, int a2)
   }
 
   AABC::setAABCurveUpdateReason(a1, v24);
-  *MEMORY[0x1E69E9840];
 }
 
 void AABC::readOutlierRemovalPreferences(AABC *this)
@@ -6774,13 +6459,13 @@ void AABC::readOutlierRemovalPreferences(AABC *this)
   }
 }
 
-uint64_t ___ZN4AABC20setPropertyForClientEPK10__CFStringPKvS4__block_invoke_742(uint64_t result, uint64_t a2, uint64_t a3)
+void *___ZN4AABC20setPropertyForClientEPK10__CFStringPKvS4__block_invoke_742(void *result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
     if (*(a3 + 24))
     {
-      return [*(a3 + 24) setProperty:*(result + 32) forKey:*(result + 40)];
+      return [*(a3 + 24) setProperty:result[4] forKey:result[5]];
     }
   }
 
@@ -6851,8 +6536,6 @@ void AABC::UpdateAutoBrightnessEnabledStatus(AABC *this, const __CFNumber *a2)
 
     (*(this + 43))(*(this + 44), @"DisplayBrightnessAuto", v2);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void AABC::SetDisplayOrientation(uint64_t a1, int a2)
@@ -6884,8 +6567,6 @@ void AABC::SetDisplayOrientation(uint64_t a1, int a2)
     __os_log_helper_16_2_3_4_0_8_32_4_0(v5, 4, (&kOrientationString)[a2], a2);
     _os_log_debug_impl(&dword_1DE8E5000, v3, OS_LOG_TYPE_DEBUG, "[%x]: orientation=%s (%x)", v5, 0x18u);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void AABC::SetUserBrightness(AABC *this, float a2, int a3)
@@ -7565,8 +7246,6 @@ void AABC::SetUserBrightness(AABC *this, float a2, int a3)
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void AABC::setAABCurveUpdateReason(uint64_t a1, int a2)
@@ -7607,8 +7286,6 @@ void AABC::setAABCurveUpdateReason(uint64_t a1, int a2)
 
     CFRelease(v6);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void *AABC::SetAggressivity(AABC *this, int a2)
@@ -7718,7 +7395,7 @@ uint64_t AABC::populateCurveValuesFromDictionary(AABC *this, const __CFDictionar
                   _os_log_error_impl(&dword_1DE8E5000, v10, OS_LOG_TYPE_ERROR, "invalid curve data at index %d", v63, 8u);
                 }
 
-                goto LABEL_104;
+                return v49 & 1;
               }
 
               CFNumberGetValue(ValueAtIndex, kCFNumberFloatType, &v58->_L[idx]);
@@ -7999,8 +7676,6 @@ uint64_t AABC::populateCurveValuesFromDictionary(AABC *this, const __CFDictionar
     }
   }
 
-LABEL_104:
-  *MEMORY[0x1E69E9840];
   return v49 & 1;
 }
 
@@ -8114,20 +7789,20 @@ float GetFloatFromDictionary(const __CFDictionary *a1, const __CFString *a2)
 
 void AABC::writeCurveToUserDefaults(AABC *this, CustomCurve *a2, const __CFString *a3, uint64_t a4)
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v44 = this;
-  v43 = a2;
-  v42 = a3;
+  v47 = *MEMORY[0x1E69E9840];
+  v43 = this;
+  v42 = a2;
+  v41 = a3;
   size = a2->size;
-  v40 = &v21;
-  v29 = 8 * size;
+  v39 = &v20;
+  v28 = 8 * size;
   MEMORY[0x1EEE9AC00](this, a2, a3, a4);
-  v30 = (&v21 - ((v29 + 15) & 0xFFFFFFFF0));
-  v39 = v4;
-  v31 = 512;
-  if (v29 <= 0x200)
+  v29 = (&v20 - ((v28 + 15) & 0xFFFFFFFF0));
+  v38 = v4;
+  v30 = 512;
+  if (v28 <= 0x200)
   {
-    v5 = v29;
+    v5 = v28;
   }
 
   else
@@ -8135,15 +7810,15 @@ void AABC::writeCurveToUserDefaults(AABC *this, CustomCurve *a2, const __CFStrin
     v5 = 512;
   }
 
-  bzero(&v21 - ((v29 + 15) & 0xFFFFFFFF0), v5);
-  v32 = size;
-  v33 = 8 * size;
+  bzero(&v20 - ((v28 + 15) & 0xFFFFFFFF0), v5);
+  v31 = size;
+  v32 = 8 * size;
   MEMORY[0x1EEE9AC00](v6, v7, v8, v9);
-  v34 = (&v21 - ((v33 + 15) & 0xFFFFFFFF0));
-  v38 = v32;
-  if (v33 <= 0x200)
+  v33 = (&v20 - ((v32 + 15) & 0xFFFFFFFF0));
+  v37 = v31;
+  if (v32 <= 0x200)
   {
-    v11 = v33;
+    v11 = v32;
   }
 
   else
@@ -8151,47 +7826,46 @@ void AABC::writeCurveToUserDefaults(AABC *this, CustomCurve *a2, const __CFStrin
     v11 = v10;
   }
 
-  bzero(&v21 - ((v33 + 15) & 0xFFFFFFFF0), v11);
+  bzero(&v20 - ((v32 + 15) & 0xFFFFFFFF0), v11);
   for (i = 0; i < size; ++i)
   {
-    v27 = MEMORY[0x1E695E480];
+    v26 = MEMORY[0x1E695E480];
     v12 = *MEMORY[0x1E695E480];
-    v28 = 12;
-    v13 = CFNumberCreate(v12, kCFNumberFloatType, &v43->_E[i]);
-    v14 = v27;
-    v15 = v28;
-    v30[i] = v13;
-    v16 = CFNumberCreate(*v14, v15, &v43->_L[i]);
-    v34[i] = v16;
+    v27 = 12;
+    v13 = CFNumberCreate(v12, kCFNumberFloatType, &v42->_E[i]);
+    v14 = v26;
+    v15 = v27;
+    v29[i] = v13;
+    v16 = CFNumberCreate(*v14, v15, &v42->_L[i]);
+    v33[i] = v16;
   }
 
-  v47 = 0;
+  v46 = 0;
   values = 0;
-  v23 = MEMORY[0x1E695E480];
+  v22 = MEMORY[0x1E695E480];
   v17 = *MEMORY[0x1E695E480];
-  v22 = MEMORY[0x1E695E9C0];
-  values = CFArrayCreate(v17, v30, size, MEMORY[0x1E695E9C0]);
-  v47 = CFArrayCreate(*v23, v34, size, v22);
+  v21 = MEMORY[0x1E695E9C0];
+  values = CFArrayCreate(v17, v29, size, MEMORY[0x1E695E9C0]);
+  v46 = CFArrayCreate(*v22, v33, size, v21);
   *keys = xmmword_1E867D070;
-  v36 = CFDictionaryCreate(*v23, keys, &values, 2, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  v24 = MEMORY[0x1E695E8B8];
+  v35 = CFDictionaryCreate(*v22, keys, &values, 2, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  v23 = MEMORY[0x1E695E8B8];
   v18 = *MEMORY[0x1E695E8B8];
-  v25 = MEMORY[0x1E695E8B0];
+  v24 = MEMORY[0x1E695E8B0];
   v19 = *MEMORY[0x1E695E8B0];
-  v26 = @"com.apple.CoreBrightness";
-  CFPreferencesSetValue(v42, v36, @"com.apple.CoreBrightness", v18, v19);
-  CFPreferencesSynchronize(v26, *v24, *v25);
+  v25 = @"com.apple.CoreBrightness";
+  CFPreferencesSetValue(v41, v35, @"com.apple.CoreBrightness", v18, v19);
+  CFPreferencesSynchronize(v25, *v23, *v24);
   for (j = 0; j < size; ++j)
   {
-    CFRelease(v30[j]);
-    CFRelease(v34[j]);
+    CFRelease(v29[j]);
+    CFRelease(v33[j]);
   }
 
   CFRelease(values);
-  CFRelease(v47);
-  CFRelease(v36);
-  v21 = v40;
-  v20 = __OFSUB__(*MEMORY[0x1E69E9840], v48);
+  CFRelease(v46);
+  CFRelease(v35);
+  v20 = v39;
 }
 
 void ___ZN4AABC24getCurveUpdatesFromArrayEP11objc_object_block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -8286,8 +7960,6 @@ void ___ZN4AABC24getCurveUpdatesFromArrayEP11objc_object_block_invoke(uint64_t a
       *v24 = 1;
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void ___ZN4AABC17SetDeviceInSleeveEb_block_invoke(uint64_t a1)
@@ -8330,11 +8002,9 @@ void ___ZN4AABC17SetDeviceInSleeveEb_block_invoke(uint64_t a1)
   {
     AABC::resetFilter(v4, (v4 + 168));
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
-void *std::vector<float>::vector[abi:de200100](void *a1, uint64_t *a2)
+uint64_t *std::vector<float>::vector[abi:de200100](uint64_t *a1, uint64_t *a2)
 {
   std::vector<float>::vector[abi:de200100](a1, a2);
   return a1;
@@ -8350,20 +8020,6 @@ void *std::vector<float>::vector[abi:de200100](void *a1, uint64_t *a2)
   v2 = std::vector<float>::size[abi:de200100](a2);
   std::vector<float>::__init_with_size[abi:de200100]<float *,float *>(a1, v4, v5, v2);
   return a1;
-}
-
-uint64_t std::vector<float>::begin[abi:de200100](uint64_t *a1)
-{
-  v1 = *a1;
-  std::vector<float>::__add_alignment_assumption[abi:de200100]<float *,0>();
-  return std::vector<float>::__make_iter[abi:de200100](a1, v2);
-}
-
-uint64_t std::vector<float>::end[abi:de200100](uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  std::vector<float>::__add_alignment_assumption[abi:de200100]<float *,0>();
-  return std::vector<float>::__make_iter[abi:de200100](a1, v2);
 }
 
 uint64_t std::array<float,3ul>::operator[][abi:de200100](uint64_t a1, unint64_t a2)
@@ -8533,13 +8189,12 @@ uint64_t AABC::setAlwaysOnProperty(id *this, NSString *a2, objc_object *a3)
             _os_log_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_DEFAULT, "Sending AOTState to DCP, aotState: %d", v18, 8u);
           }
 
-          result = [this[500] sendCommand:227 inputBuffer:&v11 inputBufferSize:{4, v4}];
+          return [this[500] sendCommand:227 inputBuffer:&v11 inputBufferSize:{4, v4}];
         }
       }
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8574,7 +8229,6 @@ void AABC::SetALSInterval(AABC *this, float a2)
 
   *(this + 158) = a2;
   AABC::UpdateALSState(this, 1);
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t AABC::AutobrightnessOn_UpdateCurve(AABC *this)
@@ -8650,9 +8304,7 @@ uint64_t AABC::AutobrightnessOn_UpdateCurve(AABC *this)
 
   v9 = fminf(fmaxf(AABC::IlluminanceToLuminance(this, this + 264, *(this + 135), *(this + 138)), *(this + 180)), *(this + 182));
   *(this + 151) = v9;
-  result = AABC::UpdateDisplayBrightness_Block6(this, 0, 2, 0, v9);
-  *MEMORY[0x1E69E9840];
-  return result;
+  return AABC::UpdateDisplayBrightness_Block6(this, 0, 2, 0, v9);
 }
 
 uint64_t AABC::reportAutoBrightnessChangeToCoreAnalytics(AABC *this, char a2)
@@ -8891,8 +8543,6 @@ void AABC::SetAutoBrightnessState(AABC *this, int a2)
     *(this + 126) = v33;
     *(this + 126) = 1;
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __os_log_helper_16_2_3_4_0_8_32_8_0(uint64_t result, int a2, uint64_t a3, uint64_t a4)
@@ -8959,7 +8609,6 @@ float AABC::IlluminanceToLuminanceAggregated_AOD(uint64_t a1, AAB *a2, float *a3
     _os_log_debug_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_DEBUG, "IlluminanceToLuminanceAggregated_AOD: E(Lux) = %f | normal L(Nits) = %f | AOD L(Nits) = %f >>> L %f", v13, 0x2Au);
   }
 
-  *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -9206,7 +8855,6 @@ uint64_t AABC::IsProxEmulationTriggered(AABC *this, int *a2)
     *(this + 153) = fminf(*(this + 153), *(this + 135));
   }
 
-  *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -9406,8 +9054,6 @@ void AABC::_UpdateNitsRestrictionsSinglePoint(AABC *this, float a2, float a3, ch
       DisplaySetRestrictionFactorWithFade(*(this + 50), 0, v21, v7, COERCE_FLOAT(*(this + 434)), COERCE_FLOAT(HIDWORD(*(this + 434))));
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t AABC::GetNitsBin(AABC *this, float a2)
@@ -9687,16 +9333,16 @@ uint64_t __os_log_helper_16_2_3_4_0_8_32_8_32(uint64_t result, int a2, uint64_t 
 
 void AABC::UpdateALSStateFunctionInternalAutoRate(uint64_t a1, __IOHIDServiceClient *a2, uint64_t a3, int *a4)
 {
-  v40 = *MEMORY[0x1E69E9840];
-  v34 = a1;
-  v33 = a2;
-  v32 = a3;
-  v31 = a4;
-  if (a4 && *v31 && *(*v31 + 364))
+  v39 = *MEMORY[0x1E69E9840];
+  v33 = a1;
+  v32 = a2;
+  v31 = a3;
+  v30 = a4;
+  if (a4 && *v30 && *(*v30 + 364))
   {
     if (_logHandle)
     {
-      v15 = _logHandle;
+      v14 = _logHandle;
     }
 
     else
@@ -9711,129 +9357,129 @@ void AABC::UpdateALSStateFunctionInternalAutoRate(uint64_t a1, __IOHIDServiceCli
         inited = init_default_corebrightness_log();
       }
 
-      v15 = inited;
+      v14 = inited;
     }
 
-    v30 = v15;
-    v29 = OS_LOG_TYPE_DEBUG;
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v29 = v14;
+    v28 = OS_LOG_TYPE_DEBUG;
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      __os_log_helper_16_0_3_4_0_4_0_4_0(v39, 16, v31[12], *(a1 + 480));
-      _os_log_debug_impl(&dword_1DE8E5000, v30, v29, "[%x]: function=%x _displayState=%d", v39, 0x14u);
+      __os_log_helper_16_0_3_4_0_4_0_4_0(v38, 16, v30[12], *(a1 + 480));
+      _os_log_debug_impl(&dword_1DE8E5000, v29, v28, "[%x]: function=%x _displayState=%d", v38, 0x14u);
     }
 
-    v28 = 0;
-    if ((v31[12] & 1) != 0 && *(a1 + 644) != 1)
+    v27 = 0;
+    if ((v30[12] & 1) != 0 && *(a1 + 644) != 1)
     {
       *(a1 + 644) = 1;
-      v27 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, (a1 + 644));
-      if (v27)
+      v26 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, (a1 + 644));
+      if (v26)
       {
-        IOHIDServiceClientSetProperty(v33, @"IOHIDALSContinuousMode", v27);
-        CFRelease(v27);
+        IOHIDServiceClientSetProperty(v32, @"IOHIDALSContinuousMode", v26);
+        CFRelease(v26);
       }
     }
 
-    if ((v31[12] & 4) != 0)
+    if ((v30[12] & 4) != 0)
     {
-      v28 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, v31 + 4);
-      if (v28)
+      v27 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, v30 + 4);
+      if (v27)
       {
         if (_logHandle)
         {
-          v13 = _logHandle;
+          v12 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v12 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v11 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v12 = init_default_corebrightness_log();
+            v11 = init_default_corebrightness_log();
           }
 
-          v13 = v12;
+          v12 = v11;
         }
 
-        v26 = v13;
-        v25 = OS_LOG_TYPE_DEBUG;
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v25 = v12;
+        v24 = OS_LOG_TYPE_DEBUG;
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
-          __os_log_helper_16_0_2_4_0_4_0(v38, 16, v31[4]);
-          _os_log_debug_impl(&dword_1DE8E5000, v26, v25, "[%x]: setting IOHIDALSTestMode %d", v38, 0xEu);
+          __os_log_helper_16_0_2_4_0_4_0(v37, 16, v30[4]);
+          _os_log_debug_impl(&dword_1DE8E5000, v25, v24, "[%x]: setting IOHIDALSTestMode %d", v37, 0xEu);
         }
 
-        IOHIDServiceClientSetProperty(v33, @"IOHIDALSTestMode", v28);
-        CFRelease(v28);
+        IOHIDServiceClientSetProperty(v32, @"IOHIDALSTestMode", v27);
+        CFRelease(v27);
       }
     }
 
-    if ((v31[12] & 0x10) != 0)
+    if ((v30[12] & 0x10) != 0)
     {
       valuePtr = 0;
       valuePtr = *(a1 + 668);
-      v28 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &valuePtr);
-      if (v28)
+      v27 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &valuePtr);
+      if (v27)
       {
-        IOHIDServiceClientSetProperty(v33, @"ALSIntegrationMode", v28);
-        CFRelease(v28);
+        IOHIDServiceClientSetProperty(v32, @"ALSIntegrationMode", v27);
+        CFRelease(v27);
       }
 
       if (*(a1 + 668) != *(a1 + 664))
       {
         *(a1 + 664) = *(a1 + 668);
-        v23 = 0.0;
         v22 = 0.0;
+        v21 = 0.0;
         switch(*(a1 + 668))
         {
           case 3:
-            v23 = *(a1 + 652);
-            v22 = *(v32 + 56);
+            v22 = *(a1 + 652);
+            v21 = *(v31 + 56);
             break;
           case 2:
-            v23 = *(a1 + 656);
-            v22 = *(v32 + 52);
+            v22 = *(a1 + 656);
+            v21 = *(v31 + 52);
             break;
           case 1:
-            v23 = *(a1 + 660);
-            v22 = *(v32 + 48);
+            v22 = *(a1 + 660);
+            v21 = *(v31 + 48);
             break;
           default:
             if (*(a1 + 668))
             {
               if (_logHandle)
               {
-                v11 = _logHandle;
+                v10 = _logHandle;
               }
 
               else
               {
                 if (_COREBRIGHTNESS_LOG_DEFAULT)
                 {
-                  v10 = _COREBRIGHTNESS_LOG_DEFAULT;
+                  v9 = _COREBRIGHTNESS_LOG_DEFAULT;
                 }
 
                 else
                 {
-                  v10 = init_default_corebrightness_log();
+                  v9 = init_default_corebrightness_log();
                 }
 
-                v11 = v10;
+                v10 = v9;
               }
 
-              v21 = v11;
-              v20 = OS_LOG_TYPE_DEBUG;
-              if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+              v20 = v10;
+              v19 = OS_LOG_TYPE_DEBUG;
+              if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
               {
-                __os_log_helper_16_0_1_4_0(v37, 1);
-                _os_log_debug_impl(&dword_1DE8E5000, v21, v20, "[%x]: INVALID Integration mode. Behaviour undefined!", v37, 8u);
+                __os_log_helper_16_0_1_4_0(v36, 1);
+                _os_log_debug_impl(&dword_1DE8E5000, v20, v19, "[%x]: INVALID Integration mode. Behaviour undefined!", v36, 8u);
               }
 
-              *(v32 + 88) = 0;
+              *(v31 + 88) = 0;
               *(a1 + 3780) = 1;
             }
 
@@ -9846,35 +9492,35 @@ void AABC::UpdateALSStateFunctionInternalAutoRate(uint64_t a1, __IOHIDServiceCli
               *(a1 + 552) = 0;
               *(a1 + 548) = -1.0;
               AABC::_UpdateSemanticAmbientLightLevel(a1, 0);
-              *(v32 + 164) = 0;
+              *(v31 + 164) = 0;
               *(a1 + 624) = 0;
             }
 
             break;
         }
 
-        if (v23 <= 0.0)
+        if (v22 <= 0.0)
         {
-          *(v32 + 88) = 0;
-          *(a1 + 3780) = v22 > 0.0;
-          *(a1 + 632) = v22;
+          *(v31 + 88) = 0;
+          *(a1 + 3780) = v21 > 0.0;
+          *(a1 + 632) = v21;
           *(a1 + 3788) = 0;
         }
 
         else
         {
-          *(a1 + 3780) = (7.0 / v23);
-          *(v32 + 88) = (*(a1 + 3452) / v23);
-          *(a1 + 632) = v23;
-          *(a1 + 3788) = (4.0 / v23);
+          *(a1 + 3780) = (7.0 / v22);
+          *(v31 + 88) = (*(a1 + 3452) / v22);
+          *(a1 + 632) = v22;
+          *(a1 + 3788) = (4.0 / v22);
         }
 
         if (*(a1 + 3792))
         {
-          v9 = *(a1 + 3792);
-          if (v9)
+          v8 = *(a1 + 3792);
+          if (v8)
           {
-            MEMORY[0x1E12C4020](v9, 0x1000C4052888210);
+            MEMORY[0x1E12C4020](v8, 0x1000C4052888210);
           }
 
           *(a1 + 3792) = 0;
@@ -9884,88 +9530,84 @@ void AABC::UpdateALSStateFunctionInternalAutoRate(uint64_t a1, __IOHIDServiceCli
         *(a1 + 3776) = 0;
         if (*(a1 + 3780))
         {
-          if (is_mul_ok(*(a1 + 3780), 4uLL))
-          {
-            v4 = 4 * *(a1 + 3780);
-          }
-
+          is_mul_ok(*(a1 + 3780), 4uLL);
           operator new[]();
         }
 
-        std::vector<float>::resize((v32 + 96), 0);
-        *(v32 + 80) = 0;
-        *(v32 + 84) = 0;
-        std::vector<float>::resize((v32 + 96), *(v32 + 88));
+        std::vector<float>::resize((v31 + 96), 0);
+        *(v31 + 80) = 0;
+        *(v31 + 84) = 0;
+        std::vector<float>::resize((v31 + 96), *(v31 + 88));
         *(a1 + 3784) = *(a1 + 3788);
         if (_logHandle)
         {
-          v8 = _logHandle;
+          v7 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v7 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v6 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v7 = init_default_corebrightness_log();
+            v6 = init_default_corebrightness_log();
           }
 
-          v8 = v7;
+          v7 = v6;
         }
 
-        v19 = v8;
-        v18 = OS_LOG_TYPE_DEBUG;
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v18 = v7;
+        v17 = OS_LOG_TYPE_DEBUG;
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
-          __os_log_helper_16_0_5_4_0_4_0_4_0_4_0_4_0(v36, 16, *(v32 + 4), *(a1 + 668), *(a1 + 3780), *(v32 + 88));
-          _os_log_debug_impl(&dword_1DE8E5000, v19, v18, "[%x]: als->orientation=%d - _als.integrationMode=%d, _Lhistory_max=%u als->_Ehistory_max=%u", v36, 0x20u);
+          __os_log_helper_16_0_5_4_0_4_0_4_0_4_0_4_0(v35, 16, *(v31 + 4), *(a1 + 668), *(a1 + 3780), *(v31 + 88));
+          _os_log_debug_impl(&dword_1DE8E5000, v18, v17, "[%x]: als->orientation=%d - _als.integrationMode=%d, _Lhistory_max=%u als->_Ehistory_max=%u", v35, 0x20u);
         }
       }
     }
 
-    if ((v31[12] & 8) != 0)
+    if ((v30[12] & 8) != 0)
     {
-      v17 = (*(a1 + 620) * 65536.0);
-      v28 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &v17);
-      if (v28)
+      v16 = (*(a1 + 620) * 65536.0);
+      v27 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &v16);
+      if (v27)
       {
         if (_logHandle)
         {
-          v6 = _logHandle;
+          v5 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v5 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v4 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v5 = init_default_corebrightness_log();
+            v4 = init_default_corebrightness_log();
           }
 
-          v6 = v5;
+          v5 = v4;
         }
 
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
         {
-          __os_log_helper_16_0_2_4_0_4_0(v35, 16, v31[3]);
-          _os_log_debug_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_DEBUG, "[%x]: setting kIOHIDBacklightLevel %d", v35, 0xEu);
+          __os_log_helper_16_0_2_4_0_4_0(v34, 16, v30[3]);
+          _os_log_debug_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEBUG, "[%x]: setting kIOHIDBacklightLevel %d", v34, 0xEu);
         }
 
-        IOHIDServiceClientSetProperty(v33, @"IOHIDBacklightLevel", v28);
-        CFRelease(v28);
+        IOHIDServiceClientSetProperty(v32, @"IOHIDBacklightLevel", v27);
+        CFRelease(v27);
       }
     }
   }
 
-  else if (v31 && *v31 && !*(*v31 + 364) && !*(a1 + 668))
+  else if (v30 && *v30 && !*(*v30 + 364) && !*(a1 + 668))
   {
     *(a1 + 3780) = 0;
     *(a1 + 600) = 0;
@@ -9977,6 +9619,96 @@ void AABC::UpdateALSStateFunctionInternalAutoRate(uint64_t a1, __IOHIDServiceCli
     *(a1 + 624) = 0;
     *(a1 + 3788) = 0;
   }
+}
 
-  *MEMORY[0x1E69E9840];
+uint64_t __os_log_helper_16_0_5_4_0_4_0_4_0_4_0_4_0(uint64_t result, int a2, int a3, int a4, int a5, int a6)
+{
+  *result = 0;
+  *(result + 1) = 5;
+  *(result + 2) = 0;
+  *(result + 3) = 4;
+  *(result + 4) = a2;
+  *(result + 8) = 0;
+  *(result + 9) = 4;
+  *(result + 10) = a3;
+  *(result + 14) = 0;
+  *(result + 15) = 4;
+  *(result + 16) = a4;
+  *(result + 20) = 0;
+  *(result + 21) = 4;
+  *(result + 22) = a5;
+  *(result + 26) = 0;
+  *(result + 27) = 4;
+  *(result + 28) = a6;
+  return result;
+}
+
+uint64_t __os_log_helper_16_2_2_8_0_8_34(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  *result = 2;
+  *(result + 1) = 2;
+  *(result + 2) = 0;
+  *(result + 3) = 8;
+  *(result + 4) = a2;
+  *(result + 12) = 34;
+  *(result + 13) = 8;
+  *(result + 14) = a3;
+  return result;
+}
+
+uint64_t __os_log_helper_16_0_4_4_0_8_0_4_0_4_0(uint64_t result, int a2, uint64_t a3, int a4, int a5)
+{
+  *result = 0;
+  *(result + 1) = 4;
+  *(result + 2) = 0;
+  *(result + 3) = 4;
+  *(result + 4) = a2;
+  *(result + 8) = 0;
+  *(result + 9) = 8;
+  *(result + 10) = a3;
+  *(result + 18) = 0;
+  *(result + 19) = 4;
+  *(result + 20) = a4;
+  *(result + 24) = 0;
+  *(result + 25) = 4;
+  *(result + 26) = a5;
+  return result;
+}
+
+void *AABC::SetUpdateStrategy(AABC *this, AAB::UpdateCurveStrategy *a2)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  if (_logHandle)
+  {
+    v8 = _logHandle;
+  }
+
+  else
+  {
+    if (_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      inited = _COREBRIGHTNESS_LOG_DEFAULT;
+    }
+
+    else
+    {
+      inited = init_default_corebrightness_log();
+    }
+
+    v8 = inited;
+  }
+
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = (*(**(this + 8) + 104))(*(this + 8));
+    v5 = (*(*a2 + 104))(a2);
+    v6 = (*(**(this + 8) + 112))(*(this + 8));
+    v2 = (*(*a2 + 112))(a2);
+    __os_log_helper_16_0_4_4_0_4_0_4_0_4_0(v11, v4, v5, v6, v2);
+    _os_log_impl(&dword_1DE8E5000, v8, OS_LOG_TYPE_DEFAULT, "Change curve update strategies! Curve type: %d => %d, Alternative curve type: %d => %d", v11, 0x1Au);
+  }
+
+  AAB::SetUpdateStrategy(this, a2);
+  AABC::AlignCurveTypeWithStrategy(this, this + 264, this + 752);
+  return AABC::AlignCurveTypeWithStrategy(this, this + 726, this + 778);
 }

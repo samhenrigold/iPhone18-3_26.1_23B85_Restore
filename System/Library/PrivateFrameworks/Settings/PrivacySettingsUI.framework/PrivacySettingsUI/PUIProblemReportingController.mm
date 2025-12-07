@@ -54,6 +54,7 @@
 - (void)setImproveARLocationAccuracy:(id)accuracy specifier:(id)specifier;
 - (void)setImproveAssistiveVoiceValue:(id)value specifier:(id)specifier;
 - (void)setImproveSiriAndDictationValue:(id)value specifier:(id)specifier;
+- (void)setProblemReportingEnabled:(BOOL)enabled;
 - (void)setProblemReportingEnabled:(id)enabled forSpecifier:(id)specifier;
 - (void)setShouldShareAppActivityWithAppDevelopers:(id)developers specifier:(id)specifier;
 - (void)setShouldShareAppleIdImprovementAnalytics:(id)analytics specifier:(id)specifier;
@@ -86,6 +87,7 @@
 - (void)updateAppleIdImprovementForSpecifierID:(id)d;
 - (void)updateHealthRecordsPreferenceForSpecifierID:(id)d;
 - (void)updateiCloudAnalyticsForSpecifierID:(id)d;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation PUIProblemReportingController
@@ -101,10 +103,18 @@
   return v5;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PUIProblemReportingController;
+  [(PUIProblemReportingController *)&v4 viewDidAppear:appear];
+  [(PUIProblemReportingController *)self provideNavigationDonations];
+}
+
 - (void)provideNavigationDonations
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v3 = PUI_BundleForPrivacySettingsFramework();
+  v13[1] = *MEMORY[0x277D85DE8];
+  v3 = PUI_BundleForPrivacySettingsFramework(self);
   bundleURL = [v3 bundleURL];
 
   v5 = objc_alloc(MEMORY[0x277CCAEB8]);
@@ -115,32 +125,30 @@
   currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
   v10 = [v8 initWithKey:@"PRIVACY" table:@"Privacy" locale:currentLocale2 bundleURL:bundleURL];
 
-  v14[0] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v12 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.PrivacyAndSecurity/PROBLEM_REPORTING"];
   [(PUIProblemReportingController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.analytics-and-improvements" title:v7 localizedNavigationComponents:v11 deepLink:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkDiagnosticsSessionAvailability
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v12[0] = 0;
+  v14 = *MEMORY[0x277D85DE8];
+  v11[0] = 0;
   if (!iOSDiagnosticsLibraryCore_frameworkLibrary)
   {
-    v12[1] = MEMORY[0x277D85DD0];
-    v12[2] = 3221225472;
-    v12[3] = __iOSDiagnosticsLibraryCore_block_invoke;
-    v12[4] = &__block_descriptor_40_e5_v8__0l;
-    v12[5] = v12;
-    v13 = xmmword_279BA1658;
-    v14 = 0;
+    v11[1] = MEMORY[0x277D85DD0];
+    v11[2] = 3221225472;
+    v11[3] = __iOSDiagnosticsLibraryCore_block_invoke;
+    v11[4] = &__block_descriptor_40_e5_v8__0l;
+    v11[5] = v11;
+    v12 = xmmword_279BA1658;
+    v13 = 0;
     iOSDiagnosticsLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v12[0];
+    v3 = v11[0];
     if (iOSDiagnosticsLibraryCore_frameworkLibrary)
     {
-      if (!v12[0])
+      if (!v11[0])
       {
         goto LABEL_4;
       }
@@ -148,7 +156,7 @@
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v11[0]);
     }
 
     free(v3);
@@ -161,16 +169,14 @@ LABEL_4:
 
   [v4 resume];
   remoteObjectProxy = [v4 remoteObjectProxy];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __68__PUIProblemReportingController_checkDiagnosticsSessionAvailability__block_invoke;
-  v9[3] = &unk_279BA10D8;
-  v10 = v4;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __68__PUIProblemReportingController_checkDiagnosticsSessionAvailability__block_invoke;
+  v8[3] = &unk_279BA10D8;
+  v9 = v4;
   selfCopy = self;
   v7 = v4;
-  [remoteObjectProxy checkAvailabilityWithReply:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [remoteObjectProxy checkAvailabilityWithReply:v8];
 }
 
 void __68__PUIProblemReportingController_checkDiagnosticsSessionAvailability__block_invoke(uint64_t a1, void *a2)
@@ -193,7 +199,7 @@ void __68__PUIProblemReportingController_checkDiagnosticsSessionAvailability__bl
 
 void __68__PUIProblemReportingController_checkDiagnosticsSessionAvailability__block_invoke_2(uint64_t a1)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
   if ([*(a1 + 32) isEqualToString:@"ENHANCED_LOGGING_STATE"])
   {
@@ -236,13 +242,11 @@ LABEL_9:
   if ([*(a1 + 40) indexOfSpecifierID:@"START_DIAGNOSTICS_WITH_APPLE_SUPPORT"] == 0x7FFFFFFFFFFFFFFFLL)
   {
     v10 = *(a1 + 40);
-    v13[0] = v2;
-    v13[1] = v7;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+    v12[0] = v2;
+    v12[1] = v7;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
     [v10 insertContiguousSpecifiers:v11 atEndOfGroup:0 animated:1];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)launchDiagnosticsSession:(id)session
@@ -511,71 +515,70 @@ LABEL_9:
 
 void __74__PUIProblemReportingController_setBoolValue_forIdMSConfigKey_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = [MEMORY[0x277D75418] currentDevice];
-    v7 = [v6 sf_isInternalInstall];
+    v7 = [MEMORY[0x277D75418] currentDevice];
+    v8 = [v7 sf_isInternalInstall];
 
-    v8 = _PUILoggingFacility();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-    if (v7)
+    v10 = _PUILoggingFacility(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    if (v8)
     {
-      if (!v9)
+      if (!v11)
       {
         goto LABEL_11;
       }
 
-      LOWORD(v16) = 0;
-      v10 = "Successfully wrote analytics choice to IdMS";
-      v11 = v8;
-      v12 = 2;
+      LOWORD(v17) = 0;
+      v12 = "Successfully wrote analytics choice to IdMS";
+      v13 = v10;
+      v14 = 2;
       goto LABEL_10;
     }
 
-    if (!v9)
+    if (!v11)
     {
       goto LABEL_11;
     }
 
-    v13 = *(a1 + 32);
-    v16 = 138412290;
-    v17 = v13;
-    v10 = "Successfully wrote analytics choice to IdMS for key %@";
+    v15 = *(a1 + 32);
+    v17 = 138412290;
+    v18 = v15;
+    v12 = "Successfully wrote analytics choice to IdMS for key %@";
   }
 
   else
   {
-    v8 = _PUILoggingFacility();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = _PUILoggingFacility(v5);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_11;
     }
 
-    v16 = 138412290;
-    v17 = v5;
-    v10 = "Failed to write analytics choice to IdMS, error: %@";
+    v17 = 138412290;
+    v18 = v6;
+    v12 = "Failed to write analytics choice to IdMS, error: %@";
   }
 
-  v11 = v8;
-  v12 = 12;
+  v13 = v10;
+  v14 = 12;
 LABEL_10:
-  _os_log_impl(&dword_2657FE000, v11, OS_LOG_TYPE_DEFAULT, v10, &v16, v12);
+  _os_log_impl(&dword_2657FE000, v13, OS_LOG_TYPE_DEFAULT, v12, &v17, v14);
 LABEL_11:
 
-  v14 = *(a1 + 40);
-  if (v14)
+  v16 = *(a1 + 40);
+  if (v16)
   {
-    (*(v14 + 16))(v14, a2, v5);
+    (*(v16 + 16))(v16, a2, v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAppleIdImprovementForSpecifierID:(id)d
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (_os_feature_enabled_impl())
   {
@@ -587,22 +590,20 @@ LABEL_11:
       aa_altDSID = [aa_primaryAppleAccount aa_altDSID];
       v9 = objc_alloc_init(getAKAppleIDAuthenticationControllerClass());
       objc_initWeak(&location, self);
-      v16[0] = @"com.apple.idms.config.privacy.icloud.data";
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __72__PUIProblemReportingController_updateAppleIdImprovementForSpecifierID___block_invoke;
-      v12[3] = &unk_279BA1150;
-      objc_copyWeak(&v14, &location);
-      v13 = dCopy;
-      [v9 configurationInfoWithIdentifiers:v10 forAltDSID:aa_altDSID completion:v12];
+      v15[0] = @"com.apple.idms.config.privacy.icloud.data";
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __72__PUIProblemReportingController_updateAppleIdImprovementForSpecifierID___block_invoke;
+      v11[3] = &unk_279BA1150;
+      objc_copyWeak(&v13, &location);
+      v12 = dCopy;
+      [v9 configurationInfoWithIdentifiers:v10 forAltDSID:aa_altDSID completion:v11];
 
-      objc_destroyWeak(&v14);
+      objc_destroyWeak(&v13);
       objc_destroyWeak(&location);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __72__PUIProblemReportingController_updateAppleIdImprovementForSpecifierID___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -626,43 +627,41 @@ void __72__PUIProblemReportingController_updateAppleIdImprovementForSpecifierID_
 
 void __72__PUIProblemReportingController_updateAppleIdImprovementForSpecifierID___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = [WeakRetained specifierForID:*(a1 + 32)];
 
-  if (*(a1 + 40) || (v5 = *(a1 + 48)) == 0)
+  if (*(a1 + 40) || (v4 = *(a1 + 48)) == 0)
   {
-    v4 = _PUILoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _PUILoggingFacility(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __72__PUIProblemReportingController_updateAppleIdImprovementForSpecifierID___block_invoke_2_cold_1(v4);
+      __72__PUIProblemReportingController_updateAppleIdImprovementForSpecifierID___block_invoke_2_cold_1(v5);
     }
   }
 
   else
   {
-    v4 = [v5 objectForKeyedSubscript:@"com.apple.idms.config.privacy.appleaccount.access"];
-    v6 = _PUILoggingFacility();
+    v5 = [v4 objectForKeyedSubscript:@"com.apple.idms.config.privacy.appleaccount.access"];
+    v6 = _PUILoggingFacility(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v4;
-      _os_log_impl(&dword_2657FE000, v6, OS_LOG_TYPE_DEFAULT, "From idms: AppleId Improvement Analytics = %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_impl(&dword_2657FE000, v6, OS_LOG_TYPE_DEFAULT, "From idms: AppleId Improvement Analytics = %@", &v9, 0xCu);
     }
 
     v7 = objc_loadWeakRetained((a1 + 56));
-    [v7 setPreferenceValue:v4 specifier:v3];
+    [v7 setPreferenceValue:v5 specifier:v3];
   }
 
   v8 = objc_loadWeakRetained((a1 + 56));
   [v8 reloadSpecifier:v3 animated:1];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateiCloudAnalyticsForSpecifierID:(id)d
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   defaultStore = [MEMORY[0x277CB8F48] defaultStore];
   aa_primaryAppleAccount = [defaultStore aa_primaryAppleAccount];
@@ -672,21 +671,19 @@ void __72__PUIProblemReportingController_updateAppleIdImprovementForSpecifierID_
     aa_altDSID = [aa_primaryAppleAccount aa_altDSID];
     v9 = objc_alloc_init(getAKAppleIDAuthenticationControllerClass());
     objc_initWeak(&location, self);
-    v16[0] = @"com.apple.idms.config.privacy.icloud.data";
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __69__PUIProblemReportingController_updateiCloudAnalyticsForSpecifierID___block_invoke;
-    v12[3] = &unk_279BA1150;
-    objc_copyWeak(&v14, &location);
-    v13 = dCopy;
-    [v9 configurationInfoWithIdentifiers:v10 forAltDSID:aa_altDSID completion:v12];
+    v15[0] = @"com.apple.idms.config.privacy.icloud.data";
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __69__PUIProblemReportingController_updateiCloudAnalyticsForSpecifierID___block_invoke;
+    v11[3] = &unk_279BA1150;
+    objc_copyWeak(&v13, &location);
+    v12 = dCopy;
+    [v9 configurationInfoWithIdentifiers:v10 forAltDSID:aa_altDSID completion:v11];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(&location);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __69__PUIProblemReportingController_updateiCloudAnalyticsForSpecifierID___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -710,38 +707,36 @@ void __69__PUIProblemReportingController_updateiCloudAnalyticsForSpecifierID___b
 
 void __69__PUIProblemReportingController_updateiCloudAnalyticsForSpecifierID___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = [WeakRetained specifierForID:*(a1 + 32)];
 
-  if (*(a1 + 40) || (v5 = *(a1 + 48)) == 0)
+  if (*(a1 + 40) || (v4 = *(a1 + 48)) == 0)
   {
-    v4 = _PUILoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _PUILoggingFacility(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __69__PUIProblemReportingController_updateiCloudAnalyticsForSpecifierID___block_invoke_2_cold_1(v4);
+      __69__PUIProblemReportingController_updateiCloudAnalyticsForSpecifierID___block_invoke_2_cold_1(v5);
     }
   }
 
   else
   {
-    v4 = [v5 objectForKeyedSubscript:@"com.apple.idms.config.privacy.icloud.data"];
-    v6 = _PUILoggingFacility();
+    v5 = [v4 objectForKeyedSubscript:@"com.apple.idms.config.privacy.icloud.data"];
+    v6 = _PUILoggingFacility(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v4;
-      _os_log_impl(&dword_2657FE000, v6, OS_LOG_TYPE_DEFAULT, "From idms: iCloud Analytics = %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_impl(&dword_2657FE000, v6, OS_LOG_TYPE_DEFAULT, "From idms: iCloud Analytics = %@", &v9, 0xCu);
     }
 
     v7 = objc_loadWeakRetained((a1 + 56));
-    [v7 setPreferenceValue:v4 specifier:v3];
+    [v7 setPreferenceValue:v5 specifier:v3];
   }
 
   v8 = objc_loadWeakRetained((a1 + 56));
   [v8 reloadSpecifier:v3 animated:1];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)problemReportingEnabled:(id)enabled
@@ -856,6 +851,64 @@ uint64_t __73__PUIProblemReportingController_setProblemReportingEnabled_forSpeci
   return [v2 reloadSpecifiers];
 }
 
+- (void)setProblemReportingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v20 = *MEMORY[0x277D85DE8];
+  mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
+  [mEMORY[0x277D262A0] setBoolValue:enabledCopy forSetting:*MEMORY[0x277D25E58]];
+
+  v6 = [(PUIProblemReportingController *)self analyticsSpecifiersIncludingIndependentSpecifiers:enabledCopy includeDependentSpecifiers:1];
+  if (enabledCopy)
+  {
+    baseSpecifiers = [(PUIProblemReportingController *)self baseSpecifiers];
+    v8 = [baseSpecifiers count];
+
+    [(PUIProblemReportingController *)self beginUpdates];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __60__PUIProblemReportingController_setProblemReportingEnabled___block_invoke;
+    v18[3] = &unk_279BA11A0;
+    v18[4] = self;
+    v18[5] = v8;
+    [v6 enumerateObjectsUsingBlock:v18];
+  }
+
+  else
+  {
+    [(PUIProblemReportingController *)self beginUpdates];
+    v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    reverseObjectEnumerator = [v6 reverseObjectEnumerator];
+    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v19 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v15;
+      do
+      {
+        for (i = 0; i != v11; ++i)
+        {
+          if (*v15 != v12)
+          {
+            objc_enumerationMutation(reverseObjectEnumerator);
+          }
+
+          [(PUIProblemReportingController *)self removeSpecifier:*(*(&v14 + 1) + 8 * i) animated:1];
+        }
+
+        v11 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v19 count:16];
+      }
+
+      while (v11);
+    }
+  }
+
+  [(PUIProblemReportingController *)self endUpdates];
+}
+
 void __60__PUIProblemReportingController_setProblemReportingEnabled___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
@@ -867,30 +920,30 @@ void __60__PUIProblemReportingController_setProblemReportingEnabled___block_invo
 
 - (void)snapshot:(id)snapshot
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
-  v18 = snapshotCopy;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+  v16 = snapshotCopy;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
   spinnerSpecifier = [(PUIProblemReportingController *)self spinnerSpecifier];
-  v17 = spinnerSpecifier;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  v15 = spinnerSpecifier;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
   [(PUIProblemReportingController *)self replaceContiguousSpecifiers:v5 withSpecifiers:v7 animated:1];
 
-  v16[0] = 0;
+  v14[0] = 0;
   if (!DiskSpaceDiagnosticsLibraryCore_frameworkLibrary)
   {
-    v16[1] = MEMORY[0x277D85DD0];
-    v16[2] = 3221225472;
-    v16[3] = __DiskSpaceDiagnosticsLibraryCore_block_invoke;
-    v16[4] = &__block_descriptor_40_e5_v8__0l;
-    v16[5] = v16;
-    v19 = xmmword_279BA16E8;
-    v20 = 0;
+    v14[1] = MEMORY[0x277D85DD0];
+    v14[2] = 3221225472;
+    v14[3] = __DiskSpaceDiagnosticsLibraryCore_block_invoke;
+    v14[4] = &__block_descriptor_40_e5_v8__0l;
+    v14[5] = v14;
+    v17 = xmmword_279BA16E8;
+    v18 = 0;
     DiskSpaceDiagnosticsLibraryCore_frameworkLibrary = _sl_dlopen();
-    v8 = v16[0];
+    v8 = v14[0];
     if (DiskSpaceDiagnosticsLibraryCore_frameworkLibrary)
     {
-      if (!v16[0])
+      if (!v14[0])
       {
         goto LABEL_4;
       }
@@ -898,34 +951,31 @@ void __60__PUIProblemReportingController_setProblemReportingEnabled___block_invo
 
     else
     {
-      v14 = v16[0];
-      v8 = abort_report_np();
+      v8 = abort_report_np("%s", v14[0]);
     }
 
     free(v8);
   }
 
 LABEL_4:
-  v9 = [MEMORY[0x277CCAE90] interfaceWithProtocol:{&unk_287755DA0, v14}];
+  v9 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287755DA0];
   v10 = [objc_alloc(MEMORY[0x277CCAE80]) initWithServiceName:@"com.apple.FilesystemMetadataSnapshotService"];
   [v10 setRemoteObjectInterface:v9];
   [v10 resume];
   remoteObjectProxy = [v10 remoteObjectProxy];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __42__PUIProblemReportingController_snapshot___block_invoke;
-  v15[3] = &unk_279BA11F0;
-  v15[4] = self;
-  v12 = [remoteObjectProxy generateFilesystemMetadataSnapshotWithOptions:0 reply:v15];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __42__PUIProblemReportingController_snapshot___block_invoke;
+  v13[3] = &unk_279BA11F0;
+  v13[4] = self;
+  v12 = [remoteObjectProxy generateFilesystemMetadataSnapshotWithOptions:0 reply:v13];
 }
 
 void __42__PUIProblemReportingController_snapshot___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    NSLog(&cfstr_FailedToSnapsh.isa, a3);
+    NSLog(&cfstr_FailedToSnapsh.isa, a2, a3);
     v4 = @"FILESYSTEM_METADATA_SNAPSHOT_FAIL_MESSAGE";
     v5 = @"FILESYSTEM_METADATA_SNAPSHOT_FAIL_TITLE";
   }
@@ -952,7 +1002,7 @@ void __42__PUIProblemReportingController_snapshot___block_invoke(uint64_t a1, ui
 
 void __42__PUIProblemReportingController_snapshot___block_invoke_2(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D75110] alertControllerWithTitle:*(a1 + 32) message:*(a1 + 40) preferredStyle:1];
   v3 = MEMORY[0x277D750F8];
   v4 = PUI_LocalizedStringForProblemReporting(@"OK");
@@ -962,14 +1012,12 @@ void __42__PUIProblemReportingController_snapshot___block_invoke_2(uint64_t a1)
   [*(a1 + 48) presentViewController:v2 animated:1 completion:0];
   v6 = *(a1 + 48);
   v7 = [v6 spinnerSpecifier];
-  v13[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v9 = [*(a1 + 48) filesystemMetadataSnapshotSpecifier];
-  v12 = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v11 = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
   [v6 replaceContiguousSpecifiers:v8 withSpecifiers:v10 animated:1];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)baseSpecifiers
@@ -1126,7 +1174,7 @@ LABEL_21:
 
 - (NSArray)appActivitySpecifiers
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   if (self->_appActivitySpecifiers || (PUIIsUserParcElisabethEligible() & 1) != 0)
   {
     goto LABEL_12;
@@ -1168,8 +1216,8 @@ LABEL_9:
   [v13 setProperty:v15 forKey:*MEMORY[0x277D3FF48]];
 
   [v13 setProperty:v12 forKey:*MEMORY[0x277D3FF70]];
-  v28.location = [v12 rangeOfString:v11];
-  v16 = NSStringFromRange(v28);
+  v27.location = [v12 rangeOfString:v11];
+  v16 = NSStringFromRange(v27);
   [v13 setProperty:v16 forKey:*MEMORY[0x277D3FF58]];
 
   v17 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -1186,15 +1234,14 @@ LABEL_9:
     [v18 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
   }
 
-  v26[0] = v13;
-  v26[1] = v18;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v25[0] = v13;
+  v25[1] = v18;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
   appActivitySpecifiers = self->_appActivitySpecifiers;
   self->_appActivitySpecifiers = v21;
 
 LABEL_12:
   v23 = self->_appActivitySpecifiers;
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -1275,12 +1322,13 @@ LABEL_12:
 void __84__PUIProblemReportingController_getCurrentImproveSiriAndDictationValueForSpecifier___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
+  v6 = v5;
   if (v5)
   {
-    v6 = _PUILoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _PUILoggingFacility(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __84__PUIProblemReportingController_getCurrentImproveSiriAndDictationValueForSpecifier___block_invoke_cold_1(a1, v5, v6);
+      __84__PUIProblemReportingController_getCurrentImproveSiriAndDictationValueForSpecifier___block_invoke_cold_1(a1, v6, v7);
     }
   }
 
@@ -1339,7 +1387,7 @@ void __75__PUIProblemReportingController_setImproveSiriAndDictationValue_specifi
   v2 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v3 = _PUILoggingFacility();
+    v3 = _PUILoggingFacility(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __75__PUIProblemReportingController_setImproveSiriAndDictationValue_specifier___block_invoke_2_cold_1(a1, v2, v3);
@@ -1762,21 +1810,21 @@ void __85__PUIProblemReportingController_setShouldShareAppleIdImprovementAnalyti
 
       if ((v14 & 1) == 0)
       {
-        v16 = _PUILoggingFacility();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v17 = _PUILoggingFacility(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
           *&buf[4] = v15;
           *&buf[12] = 2112;
           *&buf[14] = @"com.apple.idms.config.privacy.appleaccount.access";
-          _os_log_impl(&dword_2657FE000, v16, OS_LOG_TYPE_DEFAULT, "Error %@ saving %@ to account", buf, 0x16u);
+          _os_log_impl(&dword_2657FE000, v17, OS_LOG_TYPE_DEFAULT, "Error %@ saving %@ to account", buf, 0x16u);
         }
       }
     }
 
     else
     {
-      v15 = _PUILoggingFacility();
+      v15 = _PUILoggingFacility(0);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
@@ -1790,8 +1838,6 @@ void __85__PUIProblemReportingController_setShouldShareAppleIdImprovementAnalyti
   {
     [WeakRetained reloadSpecifier:*(a1 + 40) animated:1];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldShowAppleIdImprovementSpecifiersForAccount:(id)account
@@ -1876,7 +1922,7 @@ void __82__PUIProblemReportingController_shouldShowAppleIdImprovementSpecifiersF
 
 - (NSArray)improveSiriSpecifiers
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   improveSiriSpecifiers = self->_improveSiriSpecifiers;
   if (!improveSiriSpecifiers)
   {
@@ -1889,8 +1935,8 @@ void __82__PUIProblemReportingController_shouldShowAppleIdImprovementSpecifiersF
     [v7 setProperty:v9 forKey:*MEMORY[0x277D3FF48]];
 
     [v7 setProperty:v6 forKey:*MEMORY[0x277D3FF70]];
-    v23.location = [v6 rangeOfString:v5];
-    v10 = NSStringFromRange(v23);
+    v22.location = [v6 rangeOfString:v5];
+    v10 = NSStringFromRange(v22);
     [v7 setProperty:v10 forKey:*MEMORY[0x277D3FF58]];
 
     v11 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -1912,23 +1958,21 @@ void __82__PUIProblemReportingController_shouldShowAppleIdImprovementSpecifiersF
       [v15 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:*MEMORY[0x277D3FF38]];
     }
 
-    v21[0] = v7;
-    v21[1] = v15;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+    v20[0] = v7;
+    v20[1] = v15;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
     v18 = self->_improveSiriSpecifiers;
     self->_improveSiriSpecifiers = v17;
 
     improveSiriSpecifiers = self->_improveSiriSpecifiers;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return improveSiriSpecifiers;
 }
 
 - (NSArray)improveAssistiveVoiceSpecifiers
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   improveAssistiveVoiceSpecifiers = self->_improveAssistiveVoiceSpecifiers;
   if (!improveAssistiveVoiceSpecifiers)
   {
@@ -1941,8 +1985,8 @@ void __82__PUIProblemReportingController_shouldShowAppleIdImprovementSpecifiersF
     [v7 setProperty:v9 forKey:*MEMORY[0x277D3FF48]];
 
     [v7 setProperty:v6 forKey:*MEMORY[0x277D3FF70]];
-    v22.location = [v6 rangeOfString:v5];
-    v10 = NSStringFromRange(v22);
+    v21.location = [v6 rangeOfString:v5];
+    v10 = NSStringFromRange(v21);
     [v7 setProperty:v10 forKey:*MEMORY[0x277D3FF58]];
 
     v11 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -1956,23 +2000,21 @@ void __82__PUIProblemReportingController_shouldShowAppleIdImprovementSpecifiersF
     v15 = [v13 preferenceSpecifierNamed:v14 target:self set:sel_setImproveAssistiveVoiceValue_specifier_ get:sel_getImproveAssistiveVoiceValueForSpecifier_ detail:0 cell:6 edit:0];
 
     [v15 setIdentifier:@"IMPROVE_ASSISTIVE_VOICE"];
-    v20[0] = v7;
-    v20[1] = v15;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+    v19[0] = v7;
+    v19[1] = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
     v17 = self->_improveAssistiveVoiceSpecifiers;
     self->_improveAssistiveVoiceSpecifiers = v16;
 
     improveAssistiveVoiceSpecifiers = self->_improveAssistiveVoiceSpecifiers;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return improveAssistiveVoiceSpecifiers;
 }
 
 - (id)iCloudSpecifiers
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   iCloudSpecifiers = self->_iCloudSpecifiers;
   if (iCloudSpecifiers)
   {
@@ -1987,7 +2029,7 @@ LABEL_2:
   {
     v7 = PUI_LocalizedStringForProblemReporting(@"ICLOUD_ANALYTICS_EXPLANATION");
     v8 = PUI_LocalizedStringForProblemReporting(@"ABOUT_ICLOUD_ANALYTICS_LINK");
-    v23 = v7;
+    v22 = v7;
     v9 = [MEMORY[0x277CCACA8] stringWithFormat:v7, v8];
     v10 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"ICLOUD_GROUP"];
     v11 = objc_opt_class();
@@ -1995,8 +2037,8 @@ LABEL_2:
     [v10 setProperty:v12 forKey:*MEMORY[0x277D3FF48]];
 
     [v10 setProperty:v9 forKey:*MEMORY[0x277D3FF70]];
-    v26.location = [v9 rangeOfString:v8];
-    v13 = NSStringFromRange(v26);
+    v25.location = [v9 rangeOfString:v8];
+    v13 = NSStringFromRange(v25);
     [v10 setProperty:v13 forKey:*MEMORY[0x277D3FF58]];
 
     v14 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -2019,9 +2061,9 @@ LABEL_2:
       [v17 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
     }
 
-    v24[0] = v10;
-    v24[1] = v17;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+    v23[0] = v10;
+    v23[1] = v17;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
     v20 = self->_iCloudSpecifiers;
     self->_iCloudSpecifiers = v19;
 
@@ -2031,14 +2073,13 @@ LABEL_2:
 
   v3 = 0;
 LABEL_10:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)appleIdImprovementSpecifiers
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   if (self->_appleIdImprovementSpecifiers || !_os_feature_enabled_impl())
   {
 LABEL_9:
@@ -2052,7 +2093,7 @@ LABEL_9:
   {
     v5 = PUI_LocalizedStringForProblemReporting(@"APPLEID_ANALYTICS_EXPLANATION");
     v6 = PUI_LocalizedStringForProblemReporting(@"ABOUT_APPLEID_ANALYTICS_LINK");
-    v22 = v5;
+    v21 = v5;
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:v5, v6];
     v8 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"APPLEID_GROUP"];
     v9 = objc_opt_class();
@@ -2060,8 +2101,8 @@ LABEL_9:
     [v8 setProperty:v10 forKey:*MEMORY[0x277D3FF48]];
 
     [v8 setProperty:v7 forKey:*MEMORY[0x277D3FF70]];
-    v25.location = [v7 rangeOfString:v6];
-    v11 = NSStringFromRange(v25);
+    v24.location = [v7 rangeOfString:v6];
+    v11 = NSStringFromRange(v24);
     [v8 setProperty:v11 forKey:*MEMORY[0x277D3FF58]];
 
     v12 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -2084,9 +2125,9 @@ LABEL_9:
       [v15 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
     }
 
-    v23[0] = v8;
-    v23[1] = v15;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+    v22[0] = v8;
+    v22[1] = v15;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
     appleIdImprovementSpecifiers = self->_appleIdImprovementSpecifiers;
     self->_appleIdImprovementSpecifiers = v17;
 
@@ -2095,7 +2136,6 @@ LABEL_9:
 
   v19 = 0;
 LABEL_10:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -2127,7 +2167,7 @@ LABEL_10:
 
 - (NSArray)fitnessPlusDataSpecifiers
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   if ([(PUIProblemReportingController *)self shouldShowFitnessPlusSpecifiers])
   {
     fitnessPlusDataSpecifiers = self->_fitnessPlusDataSpecifiers;
@@ -2142,8 +2182,8 @@ LABEL_10:
       [v7 setProperty:v9 forKey:*MEMORY[0x277D3FF48]];
 
       [v7 setProperty:v6 forKey:*MEMORY[0x277D3FF70]];
-      v22.location = [v6 rangeOfString:v5];
-      v10 = NSStringFromRange(v22);
+      v21.location = [v6 rangeOfString:v5];
+      v10 = NSStringFromRange(v21);
       [v7 setProperty:v10 forKey:*MEMORY[0x277D3FF58]];
 
       v11 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -2155,9 +2195,9 @@ LABEL_10:
       v14 = [v12 preferenceSpecifierNamed:v13 target:self set:sel_setShouldShareFitnessPlusData_specifier_ get:sel_shouldShareFitnessPlusDataForSpecifier_ detail:0 cell:6 edit:0];
 
       [v14 setProperty:@"SHARE_FITNESS_PLUS_DATA" forKey:*MEMORY[0x277D3FFB8]];
-      v20[0] = v7;
-      v20[1] = v14;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+      v19[0] = v7;
+      v19[1] = v14;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
       v16 = self->_fitnessPlusDataSpecifiers;
       self->_fitnessPlusDataSpecifiers = v15;
 
@@ -2171,8 +2211,6 @@ LABEL_10:
   {
     v17 = MEMORY[0x277CBEBF8];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -2280,19 +2318,19 @@ void __73__PUIProblemReportingController_shouldShowIdentityVerificationSpecifier
     v6 = [MEMORY[0x277CBEBD0] standardUserDefaults];
     [v6 setBool:0 forKey:*(a1 + 32)];
 
-    v7 = _PUILoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _PUILoggingFacility(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v12 = v5;
-      _os_log_impl(&dword_2657FE000, v7, OS_LOG_TYPE_DEFAULT, "Received an error while requesting identity proofing data sharing user consent %@", buf, 0xCu);
+      _os_log_impl(&dword_2657FE000, v8, OS_LOG_TYPE_DEFAULT, "Received an error while requesting identity proofing data sharing user consent %@", buf, 0xCu);
     }
   }
 
   else if (*(a1 + 48) != a2)
   {
-    v8 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    [v8 setBool:a2 forKey:*(a1 + 32)];
+    v9 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+    [v9 setBool:a2 forKey:*(a1 + 32)];
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -2301,8 +2339,6 @@ void __73__PUIProblemReportingController_shouldShowIdentityVerificationSpecifier
     block[4] = *(a1 + 40);
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setShouldShareIdentityVerificationData:(id)data specifier:(id)specifier
@@ -2348,7 +2384,7 @@ void __82__PUIProblemReportingController_setShouldShareIdentityVerificationData_
 {
   if (*(a1 + 32))
   {
-    v1 = _PUILoggingFacility();
+    v1 = _PUILoggingFacility(a1);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -2366,7 +2402,7 @@ void __82__PUIProblemReportingController_setShouldShareIdentityVerificationData_
 
 - (NSArray)identityVerificationDataSpecifiers
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   if ([(PUIProblemReportingController *)self shouldShowIdentityVerificationSpecifiers])
   {
     identityVerificationDataSpecifiers = self->_identityVerificationDataSpecifiers;
@@ -2381,8 +2417,8 @@ void __82__PUIProblemReportingController_setShouldShareIdentityVerificationData_
       [v7 setProperty:v9 forKey:*MEMORY[0x277D3FF48]];
 
       [v7 setProperty:v6 forKey:*MEMORY[0x277D3FF70]];
-      v22.location = [v6 rangeOfString:v5];
-      v10 = NSStringFromRange(v22);
+      v21.location = [v6 rangeOfString:v5];
+      v10 = NSStringFromRange(v21);
       [v7 setProperty:v10 forKey:*MEMORY[0x277D3FF58]];
 
       v11 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -2394,9 +2430,9 @@ void __82__PUIProblemReportingController_setShouldShareIdentityVerificationData_
       v14 = [v12 preferenceSpecifierNamed:v13 target:self set:sel_setShouldShareIdentityVerificationData_specifier_ get:sel_shouldShareIdentityVerificationData_ detail:0 cell:6 edit:0];
 
       [v14 setProperty:@"ID_VERIFICATION_DATA" forKey:*MEMORY[0x277D3FFB8]];
-      v20[0] = v7;
-      v20[1] = v14;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+      v19[0] = v7;
+      v19[1] = v14;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
       v16 = self->_identityVerificationDataSpecifiers;
       self->_identityVerificationDataSpecifiers = v15;
 
@@ -2411,14 +2447,12 @@ void __82__PUIProblemReportingController_setShouldShareIdentityVerificationData_
     v17 = MEMORY[0x277CBEBF8];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (NSArray)healthDataSpecifiers
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   healthDataSpecifiers = self->_healthDataSpecifiers;
   if (!healthDataSpecifiers)
   {
@@ -2431,8 +2465,8 @@ void __82__PUIProblemReportingController_setShouldShareIdentityVerificationData_
     [v7 setProperty:v9 forKey:*MEMORY[0x277D3FF48]];
 
     [v7 setProperty:v6 forKey:*MEMORY[0x277D3FF70]];
-    v22.location = [v6 rangeOfString:v5];
-    v10 = NSStringFromRange(v22);
+    v21.location = [v6 rangeOfString:v5];
+    v10 = NSStringFromRange(v21);
     [v7 setProperty:v10 forKey:*MEMORY[0x277D3FF58]];
 
     v11 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -2452,16 +2486,14 @@ void __82__PUIProblemReportingController_setShouldShareIdentityVerificationData_
       [v14 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
     }
 
-    v20[0] = v7;
-    v20[1] = v14;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+    v19[0] = v7;
+    v19[1] = v14;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
     v17 = self->_healthDataSpecifiers;
     self->_healthDataSpecifiers = v16;
 
     healthDataSpecifiers = self->_healthDataSpecifiers;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return healthDataSpecifiers;
 }
@@ -2493,7 +2525,7 @@ void __82__PUIProblemReportingController_setShouldShareIdentityVerificationData_
 
 - (NSArray)bankConnectDataSpecifiers
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   if (!self->_bankConnectDataSpecifiers)
   {
     v3 = PUI_LocalizedStringForProblemReportingBankConnect(@"PRIVACY_OFFLINE_LAB_DATA_EXPLANATION");
@@ -2505,8 +2537,8 @@ void __82__PUIProblemReportingController_setShouldShareIdentityVerificationData_
     [v6 setProperty:v8 forKey:*MEMORY[0x277D3FF48]];
 
     [v6 setProperty:v5 forKey:*MEMORY[0x277D3FF70]];
-    v27.location = [v5 rangeOfString:v4];
-    v9 = NSStringFromRange(v27);
+    v26.location = [v5 rangeOfString:v4];
+    v9 = NSStringFromRange(v26);
     [v6 setProperty:v9 forKey:*MEMORY[0x277D3FF58]];
 
     v10 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -2518,9 +2550,9 @@ void __82__PUIProblemReportingController_setShouldShareIdentityVerificationData_
     v13 = [v11 preferenceSpecifierNamed:v12 target:self set:sel_setShouldShareBankConnectData_specifier_ get:sel_shouldShareBankConnectDataForSpecifier_ detail:0 cell:6 edit:0];
 
     [v13 setProperty:@"SHARE_BANKCONNECT_OFFLINELAB_DATA" forKey:*MEMORY[0x277D3FFB8]];
-    v26[0] = v6;
-    v26[1] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+    v25[0] = v6;
+    v25[1] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
     bankConnectDataSpecifiers = self->_bankConnectDataSpecifiers;
     self->_bankConnectDataSpecifiers = v14;
 
@@ -2529,12 +2561,12 @@ void __82__PUIProblemReportingController_setShouldShareIdentityVerificationData_
     aBlock[1] = 3221225472;
     aBlock[2] = __58__PUIProblemReportingController_bankConnectDataSpecifiers__block_invoke;
     aBlock[3] = &unk_279BA13A8;
-    objc_copyWeak(&v24, &location);
+    objc_copyWeak(&v23, &location);
     v16 = _Block_copy(aBlock);
     bankConnectAnalyticsConsentCoordinator = [(PUIProblemReportingController *)self bankConnectAnalyticsConsentCoordinator];
     [bankConnectAnalyticsConsentCoordinator registerForUpdatesWithHandler:v16];
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(&location);
   }
 
@@ -2551,7 +2583,6 @@ void __82__PUIProblemReportingController_setShouldShareIdentityVerificationData_
 
   v20 = v19;
 
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -2813,23 +2844,22 @@ void __68__PUIProblemReportingController_setShouldShareHealthData_specifier___bl
 {
   v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v5 = v4;
   if ((a2 & 1) == 0)
   {
-    v5 = _PUILoggingFacility();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _PUILoggingFacility(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;
-      v8 = v4;
-      _os_log_impl(&dword_2657FE000, v5, OS_LOG_TYPE_DEFAULT, "Failed to update user agreement state: %@", &v7, 0xCu);
+      v8 = v5;
+      _os_log_impl(&dword_2657FE000, v6, OS_LOG_TYPE_DEFAULT, "Failed to update user agreement state: %@", &v7, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)healthRecordsDataSpecifiers
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   healthRecordsDataSpecifiers = self->_healthRecordsDataSpecifiers;
   if (!healthRecordsDataSpecifiers)
   {
@@ -2842,8 +2872,8 @@ void __68__PUIProblemReportingController_setShouldShareHealthData_specifier___bl
     [v7 setProperty:v9 forKey:*MEMORY[0x277D3FF48]];
 
     [v7 setProperty:v6 forKey:*MEMORY[0x277D3FF70]];
-    v22.location = [v6 rangeOfString:v5];
-    v10 = NSStringFromRange(v22);
+    v21.location = [v6 rangeOfString:v5];
+    v10 = NSStringFromRange(v21);
     [v7 setProperty:v10 forKey:*MEMORY[0x277D3FF58]];
 
     v11 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -2863,16 +2893,14 @@ void __68__PUIProblemReportingController_setShouldShareHealthData_specifier___bl
       [v14 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
     }
 
-    v20[0] = v7;
-    v20[1] = v14;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+    v19[0] = v7;
+    v19[1] = v14;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
     v17 = self->_healthRecordsDataSpecifiers;
     self->_healthRecordsDataSpecifiers = v16;
 
     healthRecordsDataSpecifiers = self->_healthRecordsDataSpecifiers;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return healthRecordsDataSpecifiers;
 }
@@ -2957,53 +2985,52 @@ void __77__PUIProblemReportingController_updateHealthRecordsPreferenceForSpecifi
   v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (!v5)
   {
-    v7 = _PUILoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _PUILoggingFacility(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v6;
-      _os_log_impl(&dword_2657FE000, v7, OS_LOG_TYPE_DEFAULT, "Error fetching health records visibility status: %@", buf, 0xCu);
+      v19 = v7;
+      _os_log_impl(&dword_2657FE000, v8, OS_LOG_TYPE_DEFAULT, "Error fetching health records visibility status: %@", buf, 0xCu);
     }
   }
 
-  v8 = _PUILoggingFacility();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _PUILoggingFacility(v6);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v19 = v5;
-    _os_log_impl(&dword_2657FE000, v8, OS_LOG_TYPE_DEFAULT, "Health records visibility status: %@", buf, 0xCu);
+    _os_log_impl(&dword_2657FE000, v9, OS_LOG_TYPE_DEFAULT, "Health records visibility status: %@", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v10 = [WeakRetained specifierForID:@"SHARE_HEALTH_RECORDS_DATA"];
-  if (v10)
+  v11 = [WeakRetained specifierForID:@"SHARE_HEALTH_RECORDS_DATA"];
+  if (v11)
   {
   }
 
   else
   {
-    v11 = [v5 BOOLValue];
+    v12 = [v5 BOOLValue];
 
-    if (v11)
+    if (v12)
     {
       v14[0] = MEMORY[0x277D85DD0];
       v14[1] = 3221225472;
       v14[2] = __77__PUIProblemReportingController_updateHealthRecordsPreferenceForSpecifierID___block_invoke_982;
       v14[3] = &unk_279BA1128;
       objc_copyWeak(&v17, (a1 + 56));
-      v12 = *(a1 + 40);
+      v13 = *(a1 + 40);
       v14[4] = *(a1 + 32);
-      v15 = v12;
+      v15 = v13;
       v16 = *(a1 + 48);
       dispatch_async(MEMORY[0x277D85CD0], v14);
 
       objc_destroyWeak(&v17);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __77__PUIProblemReportingController_updateHealthRecordsPreferenceForSpecifierID___block_invoke_982(uint64_t a1)
@@ -3029,37 +3056,37 @@ void __77__PUIProblemReportingController_updateHealthRecordsPreferenceForSpecifi
   v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (!v5)
   {
-    v7 = _PUILoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _PUILoggingFacility(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = v6;
-      _os_log_impl(&dword_2657FE000, v7, OS_LOG_TYPE_DEFAULT, "Error fetching health records opt in status: %@", buf, 0xCu);
+      v16 = v7;
+      _os_log_impl(&dword_2657FE000, v8, OS_LOG_TYPE_DEFAULT, "Error fetching health records opt in status: %@", buf, 0xCu);
     }
   }
 
-  v8 = _PUILoggingFacility();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _PUILoggingFacility(v6);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v16 = v5;
-    _os_log_impl(&dword_2657FE000, v8, OS_LOG_TYPE_DEFAULT, "Health records opt in status: %@", buf, 0xCu);
+    _os_log_impl(&dword_2657FE000, v9, OS_LOG_TYPE_DEFAULT, "Health records opt in status: %@", buf, 0xCu);
   }
 
-  v9 = [v5 BOOLValue];
+  v10 = [v5 BOOLValue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __77__PUIProblemReportingController_updateHealthRecordsPreferenceForSpecifierID___block_invoke_983;
   block[3] = &unk_279BA13D0;
   objc_copyWeak(&v13, (a1 + 40));
-  v14 = v9;
+  v14 = v10;
   v12 = *(a1 + 32);
   dispatch_async(MEMORY[0x277D85CD0], block);
 
   objc_destroyWeak(&v13);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __77__PUIProblemReportingController_updateHealthRecordsPreferenceForSpecifierID___block_invoke_983(uint64_t a1)
@@ -3086,48 +3113,48 @@ void __77__PUIProblemReportingController_updateHealthRecordsPreferenceForSpecifi
   objc_initWeak(location, self);
   HealthAppAnalyticsStoreClass = getHealthAppAnalyticsStoreClass();
   bOOLValue = [dataCopy BOOLValue];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
   v10 = getHealthAppAnalyticsAgreementImproveHealthRecordsSymbolLoc_ptr;
-  v25 = getHealthAppAnalyticsAgreementImproveHealthRecordsSymbolLoc_ptr;
+  v26 = getHealthAppAnalyticsAgreementImproveHealthRecordsSymbolLoc_ptr;
   if (!getHealthAppAnalyticsAgreementImproveHealthRecordsSymbolLoc_ptr)
   {
     location[1] = MEMORY[0x277D85DD0];
     location[2] = 3221225472;
     location[3] = __getHealthAppAnalyticsAgreementImproveHealthRecordsSymbolLoc_block_invoke;
     location[4] = &unk_279BA0D08;
-    v21 = &v22;
+    v22 = &v23;
     v11 = HealthAppServicesLibrary();
     v12 = dlsym(v11, "HealthAppAnalyticsAgreementImproveHealthRecords");
-    *(v21[1] + 24) = v12;
-    getHealthAppAnalyticsAgreementImproveHealthRecordsSymbolLoc_ptr = *(v21[1] + 24);
-    v10 = v23[3];
+    *(v22[1] + 24) = v12;
+    getHealthAppAnalyticsAgreementImproveHealthRecordsSymbolLoc_ptr = *(v22[1] + 24);
+    v10 = v24[3];
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v23, 8);
   if (v10)
   {
     v13 = *v10;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __75__PUIProblemReportingController_setShouldShareHealthRecordsData_specifier___block_invoke;
-    v16[3] = &unk_279BA1530;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __75__PUIProblemReportingController_setShouldShareHealthRecordsData_specifier___block_invoke;
+    v17[3] = &unk_279BA1530;
     v14 = dataCopy;
-    v17 = v14;
-    objc_copyWeak(&v19, location);
+    v18 = v14;
+    objc_copyWeak(&v20, location);
     v15 = specifierCopy;
-    v18 = v15;
-    [HealthAppAnalyticsStoreClass setUserDidAccept:bOOLValue currentAgreement:v13 completion:v16];
+    v19 = v15;
+    [HealthAppAnalyticsStoreClass setUserDidAccept:bOOLValue currentAgreement:v13 completion:v17];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(location);
   }
 
   else
   {
-    dlerror();
-    abort_report_np();
+    v16 = dlerror();
+    abort_report_np("%s", v16);
     __break(1u);
   }
 }
@@ -3152,18 +3179,18 @@ void __75__PUIProblemReportingController_setShouldShareHealthRecordsData_specifi
 
 void __75__PUIProblemReportingController_setShouldShareHealthRecordsData_specifier___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 64);
-  v3 = _PUILoggingFacility();
+  v3 = _PUILoggingFacility(a1);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2 == 1)
   {
     if (v4)
     {
       v5 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_2657FE000, v3, OS_LOG_TYPE_DEFAULT, "Successfully saved opt in status %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_impl(&dword_2657FE000, v3, OS_LOG_TYPE_DEFAULT, "Successfully saved opt in status %@", &v9, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -3176,23 +3203,21 @@ void __75__PUIProblemReportingController_setShouldShareHealthRecordsData_specifi
     {
       v7 = *(a1 + 32);
       v8 = *(a1 + 40);
-      v10 = 138412546;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      _os_log_impl(&dword_2657FE000, v3, OS_LOG_TYPE_DEFAULT, "Error saving opt in status %@: %@", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      _os_log_impl(&dword_2657FE000, v3, OS_LOG_TYPE_DEFAULT, "Error saving opt in status %@: %@", &v9, 0x16u);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 56));
     [WeakRetained reloadSpecifier:*(a1 + 48) animated:1];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)wheelchairDataSpecifiers
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   wheelchairDataSpecifiers = self->_wheelchairDataSpecifiers;
   if (!wheelchairDataSpecifiers)
   {
@@ -3205,8 +3230,8 @@ void __75__PUIProblemReportingController_setShouldShareHealthRecordsData_specifi
     [v7 setProperty:v9 forKey:*MEMORY[0x277D3FF48]];
 
     [v7 setProperty:v6 forKey:*MEMORY[0x277D3FF70]];
-    v22.location = [v6 rangeOfString:v5];
-    v10 = NSStringFromRange(v22);
+    v21.location = [v6 rangeOfString:v5];
+    v10 = NSStringFromRange(v21);
     [v7 setProperty:v10 forKey:*MEMORY[0x277D3FF58]];
 
     v11 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -3226,16 +3251,14 @@ void __75__PUIProblemReportingController_setShouldShareHealthRecordsData_specifi
       [v14 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
     }
 
-    v20[0] = v7;
-    v20[1] = v14;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+    v19[0] = v7;
+    v19[1] = v14;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
     v17 = self->_wheelchairDataSpecifiers;
     self->_wheelchairDataSpecifiers = v16;
 
     wheelchairDataSpecifiers = self->_wheelchairDataSpecifiers;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return wheelchairDataSpecifiers;
 }
@@ -3261,7 +3284,7 @@ void __75__PUIProblemReportingController_setShouldShareHealthRecordsData_specifi
 
 - (NSArray)handwashingDataSpecifiers
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   handwashingDataSpecifiers = self->_handwashingDataSpecifiers;
   if (!handwashingDataSpecifiers)
   {
@@ -3274,8 +3297,8 @@ void __75__PUIProblemReportingController_setShouldShareHealthRecordsData_specifi
     [v7 setProperty:v9 forKey:*MEMORY[0x277D3FF48]];
 
     [v7 setProperty:v6 forKey:*MEMORY[0x277D3FF70]];
-    v23.location = [v6 rangeOfString:v5];
-    v10 = NSStringFromRange(v23);
+    v22.location = [v6 rangeOfString:v5];
+    v10 = NSStringFromRange(v22);
     [v7 setProperty:v10 forKey:*MEMORY[0x277D3FF58]];
 
     v11 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -3295,16 +3318,14 @@ void __75__PUIProblemReportingController_setShouldShareHealthRecordsData_specifi
       [v14 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
     }
 
-    v21[0] = v7;
-    v21[1] = v14;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+    v20[0] = v7;
+    v20[1] = v14;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
     v18 = self->_handwashingDataSpecifiers;
     self->_handwashingDataSpecifiers = v17;
 
     handwashingDataSpecifiers = self->_handwashingDataSpecifiers;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return handwashingDataSpecifiers;
 }
@@ -3330,7 +3351,7 @@ void __75__PUIProblemReportingController_setShouldShareHealthRecordsData_specifi
 
 - (NSArray)safetyDataSpecifiers
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   if (!self->_safetyDataSpecifiers)
   {
     currentDevice = [MEMORY[0x277D75418] currentDevice];
@@ -3347,8 +3368,8 @@ void __75__PUIProblemReportingController_setShouldShareHealthRecordsData_specifi
       [v8 setProperty:v10 forKey:*MEMORY[0x277D3FF48]];
 
       [v8 setProperty:v7 forKey:*MEMORY[0x277D3FF70]];
-      v24.location = [v7 rangeOfString:v6];
-      v11 = NSStringFromRange(v24);
+      v23.location = [v7 rangeOfString:v6];
+      v11 = NSStringFromRange(v23);
       [v8 setProperty:v11 forKey:*MEMORY[0x277D3FF58]];
 
       v12 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -3368,16 +3389,15 @@ void __75__PUIProblemReportingController_setShouldShareHealthRecordsData_specifi
         [v15 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
       }
 
-      v22[0] = v8;
-      v22[1] = v15;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+      v21[0] = v8;
+      v21[1] = v15;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
       safetyDataSpecifiers = self->_safetyDataSpecifiers;
       self->_safetyDataSpecifiers = v17;
     }
   }
 
   v19 = self->_safetyDataSpecifiers;
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -3403,7 +3423,7 @@ void __75__PUIProblemReportingController_setShouldShareHealthRecordsData_specifi
 
 - (NSArray)improveARLocationAccuracySpecifiers
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   improveARLocationAccuracySpecifiers = self->_improveARLocationAccuracySpecifiers;
   if (!improveARLocationAccuracySpecifiers)
   {
@@ -3418,8 +3438,8 @@ void __75__PUIProblemReportingController_setShouldShareHealthRecordsData_specifi
     [v8 setProperty:v10 forKey:*MEMORY[0x277D3FF48]];
 
     [v8 setProperty:v7 forKey:*MEMORY[0x277D3FF70]];
-    v25.location = [v7 rangeOfString:v6];
-    v11 = NSStringFromRange(v25);
+    v24.location = [v7 rangeOfString:v6];
+    v11 = NSStringFromRange(v24);
     [v8 setProperty:v11 forKey:*MEMORY[0x277D3FF58]];
 
     v12 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -3445,16 +3465,14 @@ void __75__PUIProblemReportingController_setShouldShareHealthRecordsData_specifi
     v18 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
     [v15 setProperty:v18 forKey:*MEMORY[0x277D3FF38]];
 
-    v23[0] = v8;
-    v23[1] = v15;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+    v22[0] = v8;
+    v22[1] = v15;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
     v20 = self->_improveARLocationAccuracySpecifiers;
     self->_improveARLocationAccuracySpecifiers = v19;
 
     improveARLocationAccuracySpecifiers = self->_improveARLocationAccuracySpecifiers;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return improveARLocationAccuracySpecifiers;
 }
@@ -3628,36 +3646,32 @@ void __75__PUIProblemReportingController_setShouldShareHealthRecordsData_specifi
 
 void __84__PUIProblemReportingController_getCurrentImproveSiriAndDictationValueForSpecifier___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v9 = 138412546;
-  v10 = v7;
-  v11 = 2112;
-  v12 = a2;
-  _os_log_error_impl(&dword_2657FE000, a3, OS_LOG_TYPE_ERROR, "%@: Encountered error while getting current Siri Analytics Status: %@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412546;
+  v9 = v7;
+  v10 = 2112;
+  v11 = a2;
+  _os_log_error_impl(&dword_2657FE000, a3, OS_LOG_TYPE_ERROR, "%@: Encountered error while getting current Siri Analytics Status: %@", &v8, 0x16u);
 }
 
 void __75__PUIProblemReportingController_setImproveSiriAndDictationValue_specifier___block_invoke_2_cold_1(uint64_t a1, uint64_t *a2, NSObject *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v7 = objc_opt_class();
   v8 = NSStringFromClass(v7);
   v9 = *(a1 + 40);
   v10 = *a2;
-  v12 = 138412802;
-  v13 = v8;
-  v14 = 2112;
-  v15 = v9;
-  v16 = 2112;
-  v17 = v10;
-  _os_log_error_impl(&dword_2657FE000, a3, OS_LOG_TYPE_ERROR, "%@: Encountered error while setting Siri Analytics Status to '%@': %@", &v12, 0x20u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = 138412802;
+  v12 = v8;
+  v13 = 2112;
+  v14 = v9;
+  v15 = 2112;
+  v16 = v10;
+  _os_log_error_impl(&dword_2657FE000, a3, OS_LOG_TYPE_ERROR, "%@: Encountered error while setting Siri Analytics Status to '%@': %@", &v11, 0x20u);
 }
 
 @end

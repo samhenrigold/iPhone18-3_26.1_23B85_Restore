@@ -83,31 +83,12 @@ uint64_t __35__RPPairingUIController_invalidate__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __57__RPPairingUIController_promptWithFlags_throttleSeconds___block_invoke(uint64_t result)
+void __57__RPPairingUIController_promptWithFlags_throttleSeconds___block_invoke(uint64_t result)
 {
-  if (gLogCategory_RPPairingUIController <= 30)
+  if (gLogCategory_RPPairingUIController <= 30 && (gLogCategory_RPPairingUIController != -1 || _LogCategory_Initialize()))
   {
-    v1 = result;
-    if (gLogCategory_RPPairingUIController != -1)
-    {
-      return __57__RPPairingUIController_promptWithFlags_throttleSeconds___block_invoke_cold_1(v1);
-    }
-
-    result = _LogCategory_Initialize();
-    if (result)
-    {
-      return __57__RPPairingUIController_promptWithFlags_throttleSeconds___block_invoke_cold_1(v1);
-    }
+    __57__RPPairingUIController_promptWithFlags_throttleSeconds___block_invoke_cold_1();
   }
-
-  return result;
-}
-
-uint64_t __57__RPPairingUIController_promptWithFlags_throttleSeconds___block_invoke_cold_1(uint64_t a1)
-{
-  v3 = *(a1 + 36);
-  v2 = *(a1 + 32);
-  return LogPrintF();
 }
 
 @end

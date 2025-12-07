@@ -105,7 +105,7 @@ uint64_t DebugHeader(uint64_t a1, void *a2, void *a3, void *a4, int a5)
   return [v15 WF_stringByReplacingString:@"FILTER_MESSAGE" withString:v14];
 }
 
-uint64_t InjectPage(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5, int a6)
+uint64_t InjectPage(void *a1, uint64_t a2, void *a3, void *a4, void *a5, int a6)
 {
   v6 = a1;
   v7 = DebugHeader(a1, a3, a4, a5, a6);
@@ -155,13 +155,13 @@ uint64_t ComposeDebugPageSimple(void *a1, uint64_t a2, void *a3)
 
 uint64_t ComposeDebugPage(void *a1, uint64_t a2, void *a3, void *a4, void *a5, int a6)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v12 = __WFDefaultLog();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v31 = 138412290;
-    v32 = a2;
-    _os_log_impl(&dword_272D73000, v12, OS_LOG_TYPE_INFO, "Composing debug page for:%@", &v31, 0xCu);
+    v30 = 138412290;
+    v31 = a2;
+    _os_log_impl(&dword_272D73000, v12, OS_LOG_TYPE_INFO, "Composing debug page for:%@", &v30, 0xCu);
   }
 
   v13 = __WFDefaultLog();
@@ -236,8 +236,8 @@ uint64_t ComposeDebugPage(void *a1, uint64_t a2, void *a3, void *a4, void *a5, i
     v26 = __WFDefaultLog();
     if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v31) = 0;
-      _os_log_impl(&dword_272D73000, v26, OS_LOG_TYPE_INFO, "NSUTF8StringEncoding encoding doesn't seem to work, trying with NSISOLatin1StringEncoding", &v31, 2u);
+      LOWORD(v30) = 0;
+      _os_log_impl(&dword_272D73000, v26, OS_LOG_TYPE_INFO, "NSUTF8StringEncoding encoding doesn't seem to work, trying with NSISOLatin1StringEncoding", &v30, 2u);
     }
 
     v25 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:a1 encoding:5];
@@ -249,21 +249,21 @@ uint64_t ComposeDebugPage(void *a1, uint64_t a2, void *a3, void *a4, void *a5, i
     v25 = [objc_msgSend(objc_msgSend(v25 WF_stringByReplacingString:@"src" withString:{@"OFF", "WF_stringByReplacingString:withString:", @"SRC", @"OFF", "WF_stringByReplacingString:withString:", @"background-image", @"OFF"}];
   }
 
-  result = InjectPage(v25, v28, a3, a4, a5, a6);
-  v30 = *MEMORY[0x277D85DE8];
-  return result;
+  return InjectPage(v25, v28, a3, a4, a5, a6);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 unint64_t _NSHTMLEncoding(uint64_t a1, unint64_t a2)
@@ -490,7 +490,7 @@ LABEL_9:
   return v14 & 1;
 }
 
-uint64_t WFIsURLExplicit(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *WFIsURLExplicit(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v8 = [objc_msgSend(a1 "scheme")];
   if (([v8 isEqualToString:@"https"] & 1) != 0 || (result = objc_msgSend(v8, "isEqualToString:", @"http"), result))
@@ -521,7 +521,7 @@ uint64_t WFIsURLExplicit(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
   return result;
 }
 
-uint64_t WFIsURLToRestrictForUser(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+void *WFIsURLToRestrictForUser(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   v10 = [objc_msgSend(a2 "scheme")];
   if (([v10 isEqualToString:@"https"] & 1) != 0 || (result = objc_msgSend(v10, "isEqualToString:", @"http"), result))
@@ -553,12 +553,12 @@ uint64_t WFIsURLToRestrictForUser(uint64_t a1, void *a2, uint64_t a3, uint64_t a
   return result;
 }
 
-uint64_t PreferredLanguageForUserName(uint64_t result)
+const __CFString *PreferredLanguageForUserName(const __CFString *result)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   if (!result)
   {
-    goto LABEL_20;
+    return result;
   }
 
   v1 = result;
@@ -577,7 +577,7 @@ uint64_t PreferredLanguageForUserName(uint64_t result)
       PreferredLanguageForUserName_cold_8(v8, v9, v10, v11, v12, v13, v14, v15);
     }
 
-    goto LABEL_19;
+    return 0;
   }
 
   v4 = [MEMORY[0x277CCA8D8] bundleWithPath:@"/System/Library/PrivateFrameworks/WebContentAnalysis.framework"];
@@ -589,7 +589,7 @@ uint64_t PreferredLanguageForUserName(uint64_t result)
       PreferredLanguageForUserName_cold_5(v16, v17, v18, v19, v20, v21, v22, v23);
     }
 
-    goto LABEL_19;
+    return 0;
   }
 
   v5 = [v4 localizations];
@@ -601,7 +601,7 @@ uint64_t PreferredLanguageForUserName(uint64_t result)
       PreferredLanguageForUserName_cold_4(v24, v25, v26, v27, v28, v29, v30, v31);
     }
 
-    goto LABEL_19;
+    return 0;
   }
 
   v6 = [MEMORY[0x277CCA8D8] preferredLocalizationsFromArray:v5 forPreferences:v3];
@@ -613,21 +613,16 @@ uint64_t PreferredLanguageForUserName(uint64_t result)
       PreferredLanguageForUserName_cold_3(v32, v33, v34, v35, v36, v37, v38, v39);
     }
 
-LABEL_19:
-    result = 0;
-    goto LABEL_20;
+    return 0;
   }
 
   v7 = __WFDefaultLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    PreferredLanguageForUserName_cold_2([v6 objectAtIndex:0], v41, v7);
+    PreferredLanguageForUserName_cold_2([v6 objectAtIndex:0], v40, v7);
   }
 
-  result = [v6 objectAtIndex:0];
-LABEL_20:
-  v40 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v6 objectAtIndex:0];
 }
 
 void sub_272D7C94C(_Unwind_Exception *exception_object, int a2)
@@ -676,23 +671,24 @@ id -[WFBlockPage _blockpage](WFBlockPage *self, SEL a2)
   return v3;
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 BOOL _WebFilterIsActive()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v0 = NSUserName();
   if ([&unk_288271290 containsObject:{objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "mainBundle"), "bundleIdentifier")}])
   {
     v1 = __WFDefaultLog();
     if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_272D73000, v1, OS_LOG_TYPE_INFO, "_WebFilterIsActive is bypassing filter", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_272D73000, v1, OS_LOG_TYPE_INFO, "_WebFilterIsActive is bypassing filter", &v8, 2u);
     }
   }
 
@@ -719,12 +715,11 @@ LABEL_7:
       v6 = @"YES";
     }
 
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_272D73000, v5, OS_LOG_TYPE_INFO, "_WebFilterIsActive returning: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_272D73000, v5, OS_LOG_TYPE_INFO, "_WebFilterIsActive returning: %@", &v8, 0xCu);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -733,13 +728,6 @@ void sub_272D7DD24(_Unwind_Exception *a1)
   objc_destroyWeak((v1 + 48));
   objc_destroyWeak((v2 - 40));
   _Unwind_Resume(a1);
-}
-
-uint64_t *OUTLINED_FUNCTION_5@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
 }
 
 void OUTLINED_FUNCTION_7(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -758,43 +746,39 @@ uint64_t NS64BaseStringFromString(void *a1)
 
 void IndexOfBody_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_272D73000, a2, OS_LOG_TYPE_DEBUG, "IndexOfBody found body at index:%lu", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_272D73000, a2, OS_LOG_TYPE_DEBUG, "IndexOfBody found body at index:%lu", &v2, 0xCu);
 }
 
 void ComposeDebugPage_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_272D73000, a2, OS_LOG_TYPE_DEBUG, "GuessEncodingForData:%p", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_272D73000, a2, OS_LOG_TYPE_DEBUG, "GuessEncodingForData:%p", &v2, 0xCu);
 }
 
 void WFIsWebPageToRestrictForUser_cold_4(unsigned __int8 *a1, char a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5[0] = 67109376;
-  v5[1] = v3;
-  v6 = 1024;
-  v7 = a2 & 1;
-  _os_log_debug_impl(&dword_272D73000, log, OS_LOG_TYPE_DEBUG, "WFIsWebPageToRestrictForUser: https should filter: %d, isRestricted: %d", v5, 0xEu);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = 67109376;
+  v4[1] = v3;
+  v5 = 1024;
+  v6 = a2 & 1;
+  _os_log_debug_impl(&dword_272D73000, log, OS_LOG_TYPE_DEBUG, "WFIsWebPageToRestrictForUser: https should filter: %d, isRestricted: %d", v4, 0xEu);
 }
 
 void PreferredLanguageForUserName_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136446466;
-  v4 = "NSString *PreferredLanguageForUserName(NSString *)";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_debug_impl(&dword_272D73000, a2, OS_LOG_TYPE_DEBUG, "%{public}s ----- getting language for: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136446466;
+  v3 = "NSString *PreferredLanguageForUserName(NSString *)";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_debug_impl(&dword_272D73000, a2, OS_LOG_TYPE_DEBUG, "%{public}s ----- getting language for: %@", &v2, 0x16u);
 }
 
 void PreferredLanguageForUserName_cold_2(uint64_t a1, uint8_t *buf, os_log_t log)
@@ -808,42 +792,42 @@ void PreferredLanguageForUserName_cold_2(uint64_t a1, uint8_t *buf, os_log_t log
 
 void PreferredLanguageForUserName_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_272D73000, a1, a3, "%{public}s ----- no preferred locs", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "NSString *PreferredLanguageForUserName(NSString *)";
+  OUTLINED_FUNCTION_0_2(&dword_272D73000, a1, a3, "%{public}s ----- no preferred locs", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void PreferredLanguageForUserName_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_272D73000, a1, a3, "%{public}s ----- no availableLocs", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "NSString *PreferredLanguageForUserName(NSString *)";
+  OUTLINED_FUNCTION_0_2(&dword_272D73000, a1, a3, "%{public}s ----- no availableLocs", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void PreferredLanguageForUserName_cold_5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_272D73000, a1, a3, "%{public}s ----- no framework bundle", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "NSString *PreferredLanguageForUserName(NSString *)";
+  OUTLINED_FUNCTION_0_2(&dword_272D73000, a1, a3, "%{public}s ----- no framework bundle", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void PreferredLanguageForUserName_cold_6(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_272D73000, a2, a3, "*** Caught exception: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_272D73000, a2, a3, "*** Caught exception: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void PreferredLanguageForUserName_cold_7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_272D73000, a1, a3, "%{public}s ----- returning nil", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "NSString *PreferredLanguageForUserName(NSString *)";
+  OUTLINED_FUNCTION_0_2(&dword_272D73000, a1, a3, "%{public}s ----- returning nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void PreferredLanguageForUserName_cold_8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_272D73000, a1, a3, "%{public}s ----- no languagePrefs", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "NSString *PreferredLanguageForUserName(NSString *)";
+  OUTLINED_FUNCTION_0_2(&dword_272D73000, a1, a3, "%{public}s ----- no languagePrefs", a5, a6, a7, a8, v8, DWORD2(v8));
 }

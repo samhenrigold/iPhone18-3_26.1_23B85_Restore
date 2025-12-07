@@ -160,9 +160,9 @@
         v9 = *(*(&v16 + 1) + 8 * i);
         v10 = [(NSMapTable *)self->_buttonItemElements objectForKey:v9];
         itmlID = [v10 itmlID];
-        v12 = [itmlID isEqualToString:identifierCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(itmlID);
 
-        if (v12)
+        if (isEqualToString)
         {
           v13 = v9;
 
@@ -501,9 +501,9 @@ LABEL_12:
   if (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(v8, *MEMORY[0x277D768C8]), vceqq_f64(v11, *(MEMORY[0x277D768C8] + 16))))))
   {
     resourceName = [elementCopy resourceName];
-    v13 = [resourceName isEqualToString:@"previewHistory"];
+    isEqualToString = objc_msgSend_isEqualToString_(resourceName);
 
-    if (v13)
+    if (isEqualToString)
     {
       context = [(SUUINavigationBarSectionController *)self context];
       clientContext = [context clientContext];
@@ -526,7 +526,7 @@ LABEL_12:
       }
 
       resourceName2 = [elementCopy resourceName];
-      v20 = [resourceName2 isEqualToString:@"share"];
+      v20 = objc_msgSend_isEqualToString_(resourceName2);
 
       if (!v20)
       {

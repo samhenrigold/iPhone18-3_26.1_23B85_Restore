@@ -57,44 +57,44 @@
     v10 = objc_msgSend_currentRowIndex(self, v6, v7, v8) < v4;
     v14 = objc_msgSend_currentRowIndex(self, v11, v12, v13);
     v9 = v4;
-    sub_2760CB2EC(v10, "Row indices are expect to increase, after %lu got %lu", v15, v16, v17, v18, v19, v20, v14);
+    sub_2760CB2EC(v10, "Row indices are expect to increase, after %lu got %lu", v14, v4);
   }
 
-  v21 = objc_msgSend_bodyRowRange(self, v6, v7, v8);
-  if (v9 >= v21 && v9 - v21 < v22)
+  v15 = objc_msgSend_bodyRowRange(self, v6, v7, v8);
+  if (v9 >= v15 && v9 - v15 < v16)
   {
     goto LABEL_6;
   }
 
-  if (objc_msgSend_bodyRowRange(self, v22, v23, v24) <= v9)
+  if (objc_msgSend_bodyRowRange(self, v16, v17, v18) <= v9)
   {
-    v29 = objc_msgSend_bodyRowRange(self, v26, v27, v28);
-    if (&v22[v29] <= v9)
+    v23 = objc_msgSend_bodyRowRange(self, v20, v21, v22);
+    if (&v16[v23] <= v9)
     {
 LABEL_6:
-      objc_msgSend_setCurrentTableRegion_(self, v22, 405, v24);
+      objc_msgSend_setCurrentTableRegion_(self, v16, 405, v18);
       goto LABEL_9;
     }
 
-    objc_msgSend_setCurrentTableRegion_(self, v22, 0, v24);
-    v33 = objc_msgSend_bodyRowRange(self, v30, v31, v32);
-    v35 = v34;
-    v36 = MEMORY[0x277CCACA8];
-    v39 = sub_2760D2B28(v33, v34, v37, v38);
-    v43 = sub_2760D2B28(&v35[v33], v40, v41, v42);
-    v46 = objc_msgSend_stringWithFormat_(v36, v44, @"[%@<-%lu->%@"), v45, v39, v35, v43);
+    objc_msgSend_setCurrentTableRegion_(self, v16, 0, v18);
+    v27 = objc_msgSend_bodyRowRange(self, v24, v25, v26);
+    v29 = v28;
+    v30 = MEMORY[0x277CCACA8];
+    v33 = sub_2760D2B28(v27, v28, v31, v32);
+    v37 = sub_2760D2B28(&v29[v27], v34, v35, v36);
+    v40 = objc_msgSend_stringWithFormat_(v30, v38, @"[%@<-%lu->%@"), v39, v33, v29, v37);
 
-    sub_2760CB2EC(0, "Row index %lu cannot be positioned relative to body row range %@", v47, v48, v49, v50, v51, v52, v9);
+    sub_2760CB2EC(0, "Row index %lu cannot be positioned relative to body row range %@", v9, v40);
   }
 
   else
   {
-    objc_msgSend_setCurrentTableRegion_(self, v26, 404, v28);
+    objc_msgSend_setCurrentTableRegion_(self, v20, 404, v22);
   }
 
 LABEL_9:
 
-  MEMORY[0x2821F9670](self, sel_setCurrentRowIndex_, v4, v25);
+  MEMORY[0x2821F9670](self, sel_setCurrentRowIndex_, v4, v19);
 }
 
 - (TSUCellRect)bodyCellRange

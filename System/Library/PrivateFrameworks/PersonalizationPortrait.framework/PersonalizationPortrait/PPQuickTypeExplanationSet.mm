@@ -51,7 +51,7 @@
   return v3;
 }
 
-uint64_t __34__PPQuickTypeExplanationSet_count__block_invoke(uint64_t a1, void *a2)
+void *__34__PPQuickTypeExplanationSet_count__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 count];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -123,15 +123,12 @@ LABEL_7:
 
 uint64_t __62__PPQuickTypeExplanationSet_isEqualToQuickTypeExplanationSet___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 copy];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t __62__PPQuickTypeExplanationSet_isEqualToQuickTypeExplanationSet___block_invoke_2(uint64_t a1, void *a2)
+void *__62__PPQuickTypeExplanationSet_isEqualToQuickTypeExplanationSet___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 isEqual:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -214,10 +211,7 @@ uint64_t __40__PPQuickTypeExplanationSet_description__block_invoke(uint64_t a1, 
 
 uint64_t __42__PPQuickTypeExplanationSet_copyWithZone___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 mutableCopy];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 mutableCopy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -240,7 +234,7 @@ uint64_t __42__PPQuickTypeExplanationSet_copyWithZone___block_invoke(uint64_t a1
   return v3;
 }
 
-uint64_t __33__PPQuickTypeExplanationSet_hash__block_invoke(uint64_t a1, void *a2)
+void *__33__PPQuickTypeExplanationSet_hash__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 hash];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -262,11 +256,11 @@ uint64_t __33__PPQuickTypeExplanationSet_hash__block_invoke(uint64_t a1, void *a
 
 - (PPQuickTypeExplanationSet)initWithCoder:(id)coder
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v29.receiver = self;
-  v29.super_class = PPQuickTypeExplanationSet;
-  v5 = [(PPQuickTypeExplanationSet *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = PPQuickTypeExplanationSet;
+  v5 = [(PPQuickTypeExplanationSet *)&v28 init];
   if (v5)
   {
     v6 = objc_autoreleasePoolPush();
@@ -286,31 +280,31 @@ uint64_t __33__PPQuickTypeExplanationSet_hash__block_invoke(uint64_t a1, void *a
       v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"set"];
 
       v9 = objc_opt_new();
+      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
       v16 = v15;
-      v17 = [v16 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v26;
+        v19 = *v25;
         do
         {
           v20 = 0;
           do
           {
-            if (*v26 != v19)
+            if (*v25 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            [v9 addIndex:{objc_msgSend(*(*(&v25 + 1) + 8 * v20++), "unsignedIntegerValue")}];
+            [v9 addIndex:{objc_msgSend(*(*(&v24 + 1) + 8 * v20++), "unsignedIntegerValue")}];
           }
 
           while (v18 != v20);
-          v18 = [v16 countByEnumeratingWithState:&v25 objects:v30 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v24 objects:v29 count:16];
         }
 
         while (v18);
@@ -322,7 +316,6 @@ uint64_t __33__PPQuickTypeExplanationSet_hash__block_invoke(uint64_t a1, void *a
     v5->_set = v21;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

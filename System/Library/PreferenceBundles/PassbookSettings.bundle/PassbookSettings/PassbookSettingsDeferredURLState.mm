@@ -10,17 +10,16 @@
 {
   if (*(self + OBJC_IVAR____TtC16PassbookSettings32PassbookSettingsDeferredURLState_resourceDictionary))
   {
-    v2 = *(self + OBJC_IVAR____TtC16PassbookSettings32PassbookSettingsDeferredURLState_resourceDictionary);
 
-    v3.super.isa = sub_A814().super.isa;
+    v2.super.isa = sub_A814().super.isa;
   }
 
   else
   {
-    v3.super.isa = 0;
+    v2.super.isa = 0;
   }
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setResourceDictionary:(id)dictionary
@@ -35,7 +34,6 @@
     v4 = 0;
   }
 
-  v5 = *(self + OBJC_IVAR____TtC16PassbookSettings32PassbookSettingsDeferredURLState_resourceDictionary);
   *(self + OBJC_IVAR____TtC16PassbookSettings32PassbookSettingsDeferredURLState_resourceDictionary) = v4;
 }
 

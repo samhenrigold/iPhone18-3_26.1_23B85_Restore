@@ -92,10 +92,10 @@ LABEL_3:
 
 - (void)forwardInvocation:(id)invocation
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   if (!objc_msgSend_count(self->_targets, a2, invocation))
   {
-    goto LABEL_42;
+    return;
   }
 
   if (dword_1ED517080 < 0)
@@ -139,7 +139,7 @@ LABEL_7:
   v18 = IMCreateXPCObjectFromInvocation(invocation);
   if (!v18)
   {
-    goto LABEL_42;
+    return;
   }
 
   v19 = v18;
@@ -162,28 +162,28 @@ LABEL_7:
     v25 = 0;
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
-  v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v23, &v57, v61, 16);
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v23, &v56, v60, 16);
   if (!v26)
   {
     goto LABEL_40;
   }
 
   v29 = v26;
-  v30 = *v58;
+  v30 = *v57;
   while (2)
   {
     for (i = 0; i != v29; ++i)
     {
-      if (*v58 != v30)
+      if (*v57 != v30)
       {
         objc_enumerationMutation(v25);
       }
 
-      v32 = *(*(&v57 + 1) + 8 * i);
+      v32 = *(*(&v56 + 1) + 8 * i);
       if ((objc_msgSend_isValid(v32, v27, v28) & 1) == 0)
       {
         if (dword_1ED517080 < 0)
@@ -249,7 +249,7 @@ LABEL_33:
       }
     }
 
-    v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v27, &v57, v61, 16);
+    v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v27, &v56, v60, 16);
     if (v29)
     {
       continue;
@@ -262,8 +262,6 @@ LABEL_40:
 
 LABEL_41:
   xpc_release(v20);
-LABEL_42:
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -1,3 +1,434 @@
+void sub_1001740B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int16 a9, char a10, char a11, int a12, _Unwind_Exception *exception_object)
+{
+  if (a11)
+  {
+    objc_destroyWeak(v13);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1001740F0(id *a1, void *a2)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  v3[1] = a1;
+  v3[0] = objc_loadWeakRetained(a1 + 4);
+  if (v3[0] && *(v3[0] + 7))
+  {
+    (*(*(v3[0] + 7) + 16))();
+  }
+
+  objc_storeStrong(v3, 0);
+  objc_storeStrong(location, 0);
+}
+
+void sub_1001741A0(id *a1)
+{
+  location[2] = a1;
+  location[1] = a1;
+  v2 = [NSBundle bundleForClass:objc_opt_class()];
+  v3 = [(NSBundle *)v2 localizedStringForKey:@"ICLOUD_UPGRADE_SKIP_TITLE" value:&stru_10032F900 table:@"AppleIDAuth"];
+  v4 = [NSBundle bundleForClass:objc_opt_class()];
+  v5 = [(NSBundle *)v4 localizedStringForKey:@"ICLOUD_UPGRADE_SKIP_BODY" value:&stru_10032F900 table:@"AppleIDAuth"];
+  location[0] = [UIAlertController alertControllerWithTitle:v3 message:v5 preferredStyle:1];
+
+  v6 = [NSBundle bundleForClass:objc_opt_class()];
+  v7 = [(NSBundle *)v6 localizedStringForKey:@"DONT_SKIP_ALERT_BUTTON" value:&stru_10032F900 table:@"AppleIDAuth"];
+  v8 = [UIAlertAction actionWithTitle:v7 style:1 handler:0];
+  [location[0] addAction:v8];
+
+  v9 = location[0];
+  v10 = [NSBundle bundleForClass:objc_opt_class()];
+  v11 = [(NSBundle *)v10 localizedStringForKey:@"SKIP_ALERT_BUTTON" value:&stru_10032F900 table:@"AppleIDAuth"];
+  v14 = _NSConcreteStackBlock;
+  v15 = -1073741824;
+  v16 = 0;
+  v17 = sub_1001744C8;
+  v18 = &unk_10032B928;
+  objc_copyWeak(&v19, a1 + 4);
+  v12 = [UIAlertAction actionWithTitle:v11 style:0 handler:&v14];
+  [v9 addAction:v12];
+
+  WeakRetained = objc_loadWeakRetained(a1 + 4);
+  [WeakRetained presentViewController:location[0] animated:1 completion:0];
+
+  objc_destroyWeak(&v19);
+  objc_storeStrong(location, 0);
+}
+
+void sub_100174490(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int16 a9, char a10, char a11, int a12, _Unwind_Exception *exception_object)
+{
+  if (a11)
+  {
+    objc_destroyWeak(v13);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1001744C8(id *a1, void *a2)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  v3[1] = a1;
+  v3[0] = objc_loadWeakRetained(a1 + 4);
+  if (v3[0] && *(v3[0] + 7))
+  {
+    (*(*(v3[0] + 7) + 16))();
+  }
+
+  objc_storeStrong(v3, 0);
+  objc_storeStrong(location, 0);
+}
+
+uint64_t sub_100175024()
+{
+  predicate = &unk_1003A7240;
+  block = 0;
+  objc_storeStrong(&block, &stru_10032DE10);
+  if (*predicate != -1)
+  {
+    dispatch_once(predicate, block);
+  }
+
+  objc_storeStrong(&block, 0);
+  return byte_1003A7238 & 1;
+}
+
+uint64_t sub_100175ABC()
+{
+  predicate = &unk_1003A7248;
+  block = 0;
+  objc_storeStrong(&block, &stru_10032DE30);
+  if (*predicate != -1)
+  {
+    dispatch_once(predicate, block);
+  }
+
+  objc_storeStrong(&block, 0);
+  return byte_1003A7239 & 1;
+}
+
+void sub_1001768BC(uint64_t a1)
+{
+  v2 = [*(*(a1 + 32) + 16) editableTextField];
+  [v2 resignFirstResponder];
+
+  v3 = [*(a1 + 32) handler];
+  v4 = *(a1 + 32);
+  v5 = [v4 username];
+  v6 = [v4 _serverFriendlyDisplayNameForCurrentUserName:v5];
+  v7 = [*(*(a1 + 32) + 16) editableTextField];
+  v8 = [v7 text];
+  v3[2](v3, v6, v8);
+}
+
+void sub_1001778C8(uint64_t a1)
+{
+  v2 = [*(a1 + 32) tableView];
+  [v2 insertRowsAtIndexPaths:*(a1 + 40) withRowAnimation:3];
+
+  v3 = [*(*(a1 + 32) + 16) editableTextField];
+  [v3 becomeFirstResponder];
+}
+
+void sub_10017795C(uint64_t a1)
+{
+  v1 = [*(a1 + 32) continueButton];
+  [v1 setEnabled:0];
+}
+
+void sub_1001779B4(uint64_t a1)
+{
+  v2 = [*(a1 + 32) tableView];
+  [v2 layoutIfNeeded];
+
+  v3 = [*(a1 + 32) tableView];
+  [v3 deleteRowsAtIndexPaths:*(a1 + 40) withRowAnimation:*(a1 + 48)];
+}
+
+void sub_100178710(id a1)
+{
+  v1 = [UIDevice currentDevice:a1];
+  byte_1003A7238 = [(UIDevice *)v1 userInterfaceIdiom]== UIUserInterfaceIdiomPhone;
+}
+
+void sub_100178780(id a1)
+{
+  v1 = [UIDevice currentDevice:a1];
+  byte_1003A7239 = [(UIDevice *)v1 userInterfaceIdiom]== 1;
+}
+
+void sub_100178A54(id *a1, void *a2, void *a3)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  v5 = 0;
+  objc_storeStrong(&v5, a3);
+  [a1[4] _updateFillColor];
+  objc_storeStrong(&v5, 0);
+  objc_storeStrong(location, 0);
+}
+
+double sub_100179D50(uint64_t a1, int a2, int a3, uint64_t a4)
+{
+  *&result = 67109634;
+  *a1 = 67109634;
+  *(a1 + 4) = a2;
+  *(a1 + 8) = 1024;
+  *(a1 + 10) = a3;
+  *(a1 + 14) = 2114;
+  *(a1 + 16) = a4;
+  return result;
+}
+
+void sub_10017C644(id *a1, void *a2)
+{
+  location[1] = a1;
+  location[0] = 0;
+  objc_storeStrong(location, a2);
+  v10[1] = a1;
+  v3 = &_dispatch_main_q;
+  block = _NSConcreteStackBlock;
+  v5 = -1073741824;
+  v6 = 0;
+  v7 = sub_10017C754;
+  v8 = &unk_10032B838;
+  v9 = a1[4];
+  v10[0] = location[0];
+  dispatch_async(v3, &block);
+
+  objc_storeStrong(v10, 0);
+  objc_storeStrong(&v9, 0);
+  objc_storeStrong(location, 0);
+}
+
+void sub_10017C754(uint64_t a1)
+{
+  v2 = [NSNumber numberWithInt:*(a1 + 40) != 0, a1];
+  [*(a1 + 32) setReadyForPresentation:v2];
+
+  v3 = [*(a1 + 32) viewControllerAvailableBlock];
+  if (v3)
+  {
+    v4 = [*(a1 + 32) viewControllerAvailableBlock];
+    v5 = [*(a1 + 32) parentViewController];
+    v4[2](v4, v5);
+
+    [*(a1 + 32) setViewControllerAvailableBlock:0];
+  }
+}
+
+void sub_10017CABC(uint64_t a1)
+{
+  v2 = [*(a1 + 32) readyForPresentation];
+
+  if (v2)
+  {
+    v3 = *(a1 + 40);
+    v4 = [*(a1 + 32) parentViewController];
+    (*(v3 + 16))(v3, v4);
+  }
+
+  else
+  {
+    [*(a1 + 32) setViewControllerAvailableBlock:*(a1 + 40)];
+  }
+}
+
+id sub_10017CC68(uint64_t a1)
+{
+  if ([*(a1 + 32) hasAccountType])
+  {
+    return (*(*(a1 + 40) + 16))(*(a1 + 40), [*(a1 + 32) accountType]);
+  }
+
+  else
+  {
+    return [*(a1 + 32) setAccountTypeSelectedBlock:*(a1 + 40)];
+  }
+}
+
+id sub_10017D450(uint64_t a1)
+{
+  result = [*(a1 + 32) hasAccountType];
+  if ((result & 1) == 0)
+  {
+    return [*(a1 + 32) _accountTypeSelected:{objc_msgSend(*(a1 + 40), "accountType")}];
+  }
+
+  return result;
+}
+
+id sub_10017D79C(NSObject *a1)
+{
+  oslog[2] = a1;
+  oslog[1] = a1;
+  if (([(objc_class *)a1[4].isa hasAccountType]& 1) == 0)
+  {
+    oslog[0] = _BYLoggingFacility();
+    v6 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_DEFAULT))
+    {
+      v2 = oslog[0];
+      v3 = v6;
+      sub_10006AA68(v5);
+      _os_log_impl(&_mh_execute_header, v2, v3, "Forcing account type selection due to loss of proximity connection", v5, 2u);
+    }
+
+    objc_storeStrong(oslog, 0);
+    [(objc_class *)a1[4].isa _accountTypeSelected:2];
+  }
+
+  return [(objc_class *)a1[4].isa setDelegate:0];
+}
+
+void sub_100180404(NSObject *a1, char a2, id obj)
+{
+  v21 = a1;
+  v20 = a2;
+  location = 0;
+  objc_storeStrong(&location, obj);
+  oslog[1] = a1;
+  if (location)
+  {
+    oslog[0] = _BYLoggingFacility();
+    v17 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_ERROR))
+    {
+      v15 = 0;
+      v13 = 0;
+      if (_BYIsInternalInstall())
+      {
+        v4 = location;
+      }
+
+      else if (location)
+      {
+        v16 = [location domain];
+        v15 = 1;
+        v4 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"<Error domain: %@, code %ld>", v16, [location code]);
+        v14 = v4;
+        v13 = 1;
+      }
+
+      else
+      {
+        v4 = 0;
+      }
+
+      sub_100071CBC(buf, v4);
+      _os_log_error_impl(&_mh_execute_header, oslog[0], v17, "Failed to determine new user disposition: %{public}@", buf, 0xCu);
+      if (v13)
+      {
+      }
+
+      if (v15)
+      {
+      }
+    }
+
+    objc_storeStrong(oslog, 0);
+  }
+
+  else
+  {
+    v5 = [(objc_class *)a1[4].isa setupMethod];
+    v10 = 0;
+    v6 = 1;
+    if ([v5 intent] != 2)
+    {
+      v11 = [(objc_class *)a1[4].isa flowItemDispositionProvider];
+      v10 = 1;
+      v6 = ([v11 dispositions] & 0x20) == 32;
+    }
+
+    if (v10)
+    {
+    }
+
+    v12 = v6;
+    v7 = [BYSetupUserDisposition alloc];
+    v9 = [v7 initWithNewUser:v20 & 1 child:v6];
+    v8 = [(objc_class *)a1[4].isa buddyPreferencesExcludedFromBackup];
+    [v9 persistUsingPreferences:v8];
+
+    objc_storeStrong(&v9, 0);
+  }
+
+  if (a1[5].isa)
+  {
+    (*(a1[5].isa + 2))();
+  }
+
+  objc_storeStrong(&location, 0);
+}
+
+void sub_100183464(NSObject *a1)
+{
+  oslog[2] = a1;
+  oslog[1] = a1;
+  v2 = [(objc_class *)a1[4].isa managedConfiguration];
+  [v2 setupAssistantDidFinish];
+
+  v3 = [(objc_class *)a1[4].isa enrollmentCoordinator];
+  [v3 returnToServiceFlowCompleted];
+
+  oslog[0] = _BYLoggingFacility();
+  v14 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = oslog[0];
+    v5 = v14;
+    sub_10006AA68(buf);
+    _os_log_impl(&_mh_execute_header, v4, v5, "Configuring Login Window...", buf, 2u);
+  }
+
+  objc_storeStrong(oslog, 0);
+  location = [DMCMultiUserModeUtilities configureToSharedDeviceWithPreferenceDomain:kMDMNotBackedUpPreferencesDomain];
+  if (location)
+  {
+    v11 = _BYLoggingFacility();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v9 = 0;
+      v7 = 0;
+      if (_BYIsInternalInstall())
+      {
+        v6 = location;
+      }
+
+      else
+      {
+        v10 = [location domain];
+        v9 = 1;
+        v6 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"<Error domain: %@, code %ld>", v10, [location code]);
+        v8 = v6;
+        v7 = 1;
+      }
+
+      sub_100071CBC(v16, v6);
+      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Switch to Login Window failed: %{public}@", v16, 0xCu);
+      if (v7)
+      {
+      }
+
+      if (v9)
+      {
+      }
+    }
+
+    objc_storeStrong(&v11, 0);
+    [(objc_class *)a1[4].isa _showConfigurationFailedForError:location];
+  }
+
+  objc_storeStrong(&location, 0);
+}
+
 void sub_10018380C(id *a1)
 {
   v18[2] = a1;
@@ -217,13 +648,19 @@ void sub_100184748(id *a1)
 
 void sub_100184B98()
 {
-  if (!sub_10018560C())
+  v2 = 0;
+  if (!sub_10018560C(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *iOSDiagnosticsLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"RetailDiagnosticsController.m" lineNumber:30 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"RetailDiagnosticsController.m" lineNumber:30 description:@"%s", v2];
 
     __break(1u);
+  }
+
+  if (v2)
+  {
+    free(v2);
   }
 }
 
@@ -313,17 +750,26 @@ void sub_1001854C8(NSAssertionHandler *a1)
   qword_1003A7250 = *(*(a1[4].super.isa + 1) + 24);
 }
 
-uint64_t sub_10018560C()
+uint64_t sub_10018560C(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7258;
+  v9 = qword_1003A7258;
   if (!qword_1003A7258)
   {
-    sub_1001856C0();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1001856C0;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1001856C0(&v2);
   }
 
   return qword_1003A7258;
 }
 
-uint64_t sub_1001856C0()
+uint64_t sub_1001856C0(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7258 = result;
@@ -2178,27 +2624,42 @@ void sub_1001A13F4(NSAssertionHandler *a1)
 
 void sub_1001A1538()
 {
-  if (!sub_1001A1660())
+  v2 = 0;
+  if (!sub_1001A1660(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *AssistantServicesLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BYExpressSetupDataProvider.m" lineNumber:62 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BYExpressSetupDataProvider.m" lineNumber:62 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1001A1660()
+uint64_t sub_1001A1660(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7270;
+  v9 = qword_1003A7270;
   if (!qword_1003A7270)
   {
-    sub_1001A1714();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1001A1714;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1001A1714(&v2);
   }
 
   return qword_1003A7270;
 }
 
-uint64_t sub_1001A1714()
+uint64_t sub_1001A1714(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7270 = result;
@@ -2223,27 +2684,42 @@ void sub_1001A17A8(NSAssertionHandler *a1)
 
 void sub_1001A18EC()
 {
-  if (!sub_1001A1A14())
+  v2 = 0;
+  if (!sub_1001A1A14(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *SpeakerRecognitionLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BYExpressSetupDataProvider.m" lineNumber:76 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BYExpressSetupDataProvider.m" lineNumber:76 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1001A1A14()
+uint64_t sub_1001A1A14(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7280;
+  v9 = qword_1003A7280;
   if (!qword_1003A7280)
   {
-    sub_1001A1AC8();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1001A1AC8;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1001A1AC8(&v2);
   }
 
   return qword_1003A7280;
 }
 
-uint64_t sub_1001A1AC8()
+uint64_t sub_1001A1AC8(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7280 = result;
@@ -2539,27 +3015,42 @@ void sub_1001A5468(NSAssertionHandler *a1)
 
 void sub_1001A55AC()
 {
-  if (!sub_1001A56D4())
+  v2 = 0;
+  if (!sub_1001A56D4(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *SOSLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyEmergencyExecutor.m" lineNumber:15 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyEmergencyExecutor.m" lineNumber:15 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1001A56D4()
+uint64_t sub_1001A56D4(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7298;
+  v9 = qword_1003A7298;
   if (!qword_1003A7298)
   {
-    sub_1001A5788();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1001A5788;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1001A5788(&v2);
   }
 
   return qword_1003A7298;
 }
 
-uint64_t sub_1001A5788()
+uint64_t sub_1001A5788(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7298 = result;
@@ -2594,7 +3085,7 @@ void sub_1001A6BA4(uint64_t a1)
   }
 }
 
-void sub_1001A6D3C(uint64_t a1)
+void sub_1001A6D3C(id *a1)
 {
   v15 = a1;
   v14 = a1;
@@ -2605,16 +3096,16 @@ void sub_1001A6D3C(uint64_t a1)
   if (v2)
   {
     v3 = 0;
-    if (([*(a1 + 32) didActivate] & 1) == 0)
+    if (([a1[4] didActivate] & 1) == 0)
     {
       v3 = 0;
       if (*(a1 + 41))
       {
-        v13 = [*(a1 + 32) navigationController];
+        v13 = [a1[4] navigationController];
         v12 = 1;
         v11 = [v13 topViewController];
         v10 = 1;
-        v3 = v11 == *(a1 + 32);
+        v3 = v11 == a1[4];
       }
     }
   }
@@ -2643,11 +3134,11 @@ void sub_1001A6D3C(uint64_t a1)
 
     objc_storeStrong(&oslog, 0);
     v5 = +[BuddyActivationConfiguration currentConfiguration];
-    [v5 removeDelegate:*(a1 + 32)];
+    [v5 removeDelegate:a1[4]];
 
-    [*(a1 + 32) setDidActivate:1];
-    v6 = [*(a1 + 32) delegate];
-    [v6 flowItemDone:*(a1 + 32)];
+    [a1[4] setDidActivate:1];
+    v6 = [a1[4] delegate];
+    [v6 flowItemDone:a1[4]];
   }
 }
 
@@ -2742,27 +3233,42 @@ void sub_1001A7A0C(NSAssertionHandler *a1)
 
 void sub_1001A7B50()
 {
-  if (!sub_1001A7C78())
+  v2 = 0;
+  if (!sub_1001A7C78(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *SIMSetupSupportLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddySIMController.m" lineNumber:25 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddySIMController.m" lineNumber:25 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1001A7C78()
+uint64_t sub_1001A7C78(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A72A8;
+  v9 = qword_1003A72A8;
   if (!qword_1003A72A8)
   {
-    sub_1001A7D2C();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1001A7D2C;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1001A7D2C(&v2);
   }
 
   return qword_1003A72A8;
 }
 
-uint64_t sub_1001A7D2C()
+uint64_t sub_1001A7D2C(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A72A8 = result;
@@ -2822,27 +3328,42 @@ void sub_1001A96F8(NSAssertionHandler *a1)
 
 void sub_1001A983C()
 {
-  if (!sub_1001A9964())
+  v2 = 0;
+  if (!sub_1001A9964(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *MobileStoreDemoSetupUILibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyDemoController.m" lineNumber:23 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyDemoController.m" lineNumber:23 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1001A9964()
+uint64_t sub_1001A9964(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A72B8;
+  v9 = qword_1003A72B8;
   if (!qword_1003A72B8)
   {
-    sub_1001A9A18();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1001A9A18;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1001A9A18(&v2);
   }
 
   return qword_1003A72B8;
 }
 
-uint64_t sub_1001A9A18()
+uint64_t sub_1001A9A18(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A72B8 = result;
@@ -3876,27 +4397,42 @@ void sub_1001B2218(NSAssertionHandler *a1)
 
 void sub_1001B235C()
 {
-  if (!sub_1001B2484())
+  v2 = 0;
+  if (!sub_1001B2484(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *SoftwareUpdateSettingsLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddySoftwareUpdateController.m" lineNumber:31 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddySoftwareUpdateController.m" lineNumber:31 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1001B2484()
+uint64_t sub_1001B2484(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A72C8;
+  v9 = qword_1003A72C8;
   if (!qword_1003A72C8)
   {
-    sub_1001B2538();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1001B2538;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1001B2538(&v2);
   }
 
   return qword_1003A72C8;
 }
 
-uint64_t sub_1001B2538()
+uint64_t sub_1001B2538(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A72C8 = result;
@@ -4723,15 +5259,24 @@ Class sub_1001BEB00(uint64_t a1)
 
 uint64_t sub_1001BEB6C()
 {
+  v9 = 0;
+  v7 = qword_1003A7310;
+  v8 = qword_1003A7310;
   if (!qword_1003A7310)
   {
-    return sub_1001BEC1C();
+    v1 = _NSConcreteStackBlock;
+    v2 = -1073741824;
+    v3 = 0;
+    v4 = sub_1001BEC1C;
+    v5 = &unk_10032B0A8;
+    v6 = v9;
+    return sub_1001BEC1C(&v1);
   }
 
   return result;
 }
 
-uint64_t sub_1001BEC1C()
+uint64_t sub_1001BEC1C(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7310 = result;
@@ -5863,30 +6408,45 @@ void *sub_1001CAFA0(uint64_t a1)
 
 uint64_t sub_1001CB00C()
 {
-  v3 = sub_1001CB138();
+  v4 = 0;
+  v3 = sub_1001CB138(&v4);
   if (!v3)
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *SIMSetupSupportLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddySIMTransferController.m" lineNumber:26 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddySIMTransferController.m" lineNumber:26 description:@"%s", v4];
 
     __break(1u);
+  }
+
+  if (v4)
+  {
+    free(v4);
   }
 
   return v3;
 }
 
-uint64_t sub_1001CB138()
+uint64_t sub_1001CB138(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7320;
+  v9 = qword_1003A7320;
   if (!qword_1003A7320)
   {
-    sub_1001CB1EC();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1001CB1EC;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1001CB1EC(&v2);
   }
 
   return qword_1003A7320;
 }
 
-uint64_t sub_1001CB1EC()
+uint64_t sub_1001CB1EC(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7320 = result;
@@ -6051,27 +6611,42 @@ void sub_1001CBDE0(NSAssertionHandler *a1)
 
 void sub_1001CBF24()
 {
-  if (!sub_1001CC04C())
+  v2 = 0;
+  if (!sub_1001CC04C(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *ProximityAppleIDSetupUILibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyOverridesFactory.m" lineNumber:28 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyOverridesFactory.m" lineNumber:28 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1001CC04C()
+uint64_t sub_1001CC04C(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7350;
+  v9 = qword_1003A7350;
   if (!qword_1003A7350)
   {
-    sub_1001CC100();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1001CC100;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1001CC100(&v2);
   }
 
   return qword_1003A7350;
 }
 
-uint64_t sub_1001CC100()
+uint64_t sub_1001CC100(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7350 = result;
@@ -6658,27 +7233,42 @@ void sub_1001CF854(NSAssertionHandler *a1)
 
 void sub_1001CF998()
 {
-  if (!sub_1001CFAC0())
+  v2 = 0;
+  if (!sub_1001CFAC0(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *PassKitUILibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyPaymentController.m" lineNumber:51 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyPaymentController.m" lineNumber:51 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1001CFAC0()
+uint64_t sub_1001CFAC0(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7360;
+  v9 = qword_1003A7360;
   if (!qword_1003A7360)
   {
-    sub_1001CFB74();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1001CFB74;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1001CFB74(&v2);
   }
 
   return qword_1003A7360;
 }
 
-uint64_t sub_1001CFB74()
+uint64_t sub_1001CFB74(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7360 = result;
@@ -6735,27 +7325,42 @@ void sub_1001CFE90(NSAssertionHandler *a1)
 
 void sub_1001CFFD4()
 {
-  if (!sub_1001D00FC())
+  v2 = 0;
+  if (!sub_1001D00FC(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *PassKitCoreLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyPaymentController.m" lineNumber:47 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyPaymentController.m" lineNumber:47 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1001D00FC()
+uint64_t sub_1001D00FC(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A7380;
+  v9 = qword_1003A7380;
   if (!qword_1003A7380)
   {
-    sub_1001D01B0();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1001D01B0;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1001D01B0(&v2);
   }
 
   return qword_1003A7380;
 }
 
-uint64_t sub_1001D01B0()
+uint64_t sub_1001D01B0(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A7380 = result;
@@ -7158,30 +7763,45 @@ void *sub_1001D76E4(uint64_t a1)
 
 uint64_t sub_1001D7750()
 {
-  v3 = sub_1001D787C();
+  v4 = 0;
+  v3 = sub_1001D787C(&v4);
   if (!v3)
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *WiFiKitLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyCloudConfigWiFiAssociationWatcher.m" lineNumber:16 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyCloudConfigWiFiAssociationWatcher.m" lineNumber:16 description:@"%s", v4];
 
     __break(1u);
+  }
+
+  if (v4)
+  {
+    free(v4);
   }
 
   return v3;
 }
 
-uint64_t sub_1001D787C()
+uint64_t sub_1001D787C(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A73A0;
+  v9 = qword_1003A73A0;
   if (!qword_1003A73A0)
   {
-    sub_1001D7930();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1001D7930;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1001D7930(&v2);
   }
 
   return qword_1003A73A0;
 }
 
-uint64_t sub_1001D7930()
+uint64_t sub_1001D7930(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A73A0 = result;
@@ -7655,27 +8275,42 @@ void sub_1001DFD90(NSAssertionHandler *a1)
 
 void sub_1001DFED4()
 {
-  if (!sub_1001DFFFC())
+  v2 = 0;
+  if (!sub_1001DFFFC(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *AppleIDSetupUILibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyChildSetupPresenter.m" lineNumber:18 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyChildSetupPresenter.m" lineNumber:18 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1001DFFFC()
+uint64_t sub_1001DFFFC(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A73C0;
+  v9 = qword_1003A73C0;
   if (!qword_1003A73C0)
   {
-    sub_1001E00B0();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1001E00B0;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1001E00B0(&v2);
   }
 
   return qword_1003A73C0;
 }
 
-uint64_t sub_1001E00B0()
+uint64_t sub_1001E00B0(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A73C0 = result;
@@ -8184,27 +8819,42 @@ void sub_1001E4908(NSAssertionHandler *a1)
 
 void sub_1001E4A4C()
 {
-  if (!sub_1001E4B74())
+  v2 = 0;
+  if (!sub_1001E4B74(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *AppleIDSetupLibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyIntentAndChildSetupFlowItem.m" lineNumber:25 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyIntentAndChildSetupFlowItem.m" lineNumber:25 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1001E4B74()
+uint64_t sub_1001E4B74(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A73E0;
+  v9 = qword_1003A73E0;
   if (!qword_1003A73E0)
   {
-    sub_1001E4C28();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1001E4C28;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1001E4C28(&v2);
   }
 
   return qword_1003A73E0;
 }
 
-uint64_t sub_1001E4C28()
+uint64_t sub_1001E4C28(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A73E0 = result;
@@ -8229,27 +8879,42 @@ void sub_1001E4CBC(NSAssertionHandler *a1)
 
 void sub_1001E4E00()
 {
-  if (!sub_1001E4F28())
+  v2 = 0;
+  if (!sub_1001E4F28(&v2))
   {
     v0 = +[NSAssertionHandler currentHandler];
     v1 = [NSString stringWithUTF8String:"void *AppleIDSetupUILibrary(void)"];
-    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyIntentAndChildSetupFlowItem.m" lineNumber:27 description:@"%s", 0];
+    [(NSAssertionHandler *)v0 handleFailureInFunction:v1 file:@"BuddyIntentAndChildSetupFlowItem.m" lineNumber:27 description:@"%s", v2];
 
     __break(1u);
   }
+
+  if (v2)
+  {
+    free(v2);
+  }
 }
 
-uint64_t sub_1001E4F28()
+uint64_t sub_1001E4F28(uint64_t a1)
 {
+  v10 = a1;
+  v8 = qword_1003A73F0;
+  v9 = qword_1003A73F0;
   if (!qword_1003A73F0)
   {
-    sub_1001E4FDC();
+    v2 = _NSConcreteStackBlock;
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = sub_1001E4FDC;
+    v6 = &unk_10032B0A8;
+    v7 = v10;
+    sub_1001E4FDC(&v2);
   }
 
   return qword_1003A73F0;
 }
 
-uint64_t sub_1001E4FDC()
+uint64_t sub_1001E4FDC(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1003A73F0 = result;
@@ -9093,625 +9758,4 @@ void sub_1001EBAC4(uint64_t a1)
       [v5 popToViewController:v7 completion:0];
     }
   }
-}
-
-void sub_1001EC0A0(NSObject *a1, void *a2, void *a3)
-{
-  location[1] = a1;
-  location[0] = 0;
-  objc_storeStrong(location, a2);
-  v17 = 0;
-  objc_storeStrong(&v17, a3);
-  oslog[1] = a1;
-  [(objc_class *)a1[4].isa _stopSpinningForIdentifier:@"family"];
-  if (v17)
-  {
-    oslog[0] = _BYLoggingFacility();
-    v15 = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_ERROR))
-    {
-      sub_100071CBC(buf, v17);
-      _os_log_error_impl(&_mh_execute_header, oslog[0], v15, "Failed to look up family members: %{public}@", buf, 0xCu);
-    }
-
-    objc_storeStrong(oslog, 0);
-  }
-
-  else if ([location[0] count])
-  {
-    v14 = _BYLoggingFacility();
-    v13 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-    {
-      sub_10006AE18(v20, location[0]);
-      _os_log_impl(&_mh_execute_header, v14, v13, "Found family members: %@", v20, 0xCu);
-    }
-
-    objc_storeStrong(&v14, 0);
-    [(objc_class *)a1[4].isa _removeAccountsToSignIn:location[0]];
-    v12 = _BYLoggingFacility();
-    v11 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      v5 = [(objc_class *)a1[4].isa storeAccountsToSignIn];
-      sub_10006AE18(v19, v5);
-      _os_log_impl(&_mh_execute_header, v12, v11, "Accounts to sign-in after removing family members: %@", v19, 0xCu);
-    }
-
-    objc_storeStrong(&v12, 0);
-  }
-
-  else
-  {
-    v10 = _BYLoggingFacility();
-    v9 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      v6 = v10;
-      v7 = v9;
-      sub_10006AA68(v8);
-      _os_log_impl(&_mh_execute_header, v6, v7, "Found no family members", v8, 2u);
-    }
-
-    objc_storeStrong(&v10, 0);
-  }
-
-  [(objc_class *)a1[4].isa _authenticateThenSignInNextAccount];
-  objc_storeStrong(&v17, 0);
-  objc_storeStrong(location, 0);
-}
-
-void sub_1001ECC00(uint64_t a1, void *a2)
-{
-  location[1] = a1;
-  location[0] = 0;
-  objc_storeStrong(location, a2);
-  [*(a1 + 32) setMediaLinkedAccountDSID:location[0]];
-  dispatch_group_leave(*(a1 + 40));
-  objc_storeStrong(location, 0);
-}
-
-uint64_t sub_1001ECC5C(uint64_t result)
-{
-  v1 = result;
-  if (*(result + 40))
-  {
-    v2 = [*(result + 32) storeAccountsToSignIn];
-    [v2 count];
-
-    return (*(*(v1 + 40) + 16))();
-  }
-
-  return result;
-}
-
-void sub_1001ECDF0(uint64_t a1, void *a2, void *a3)
-{
-  location[1] = a1;
-  location[0] = 0;
-  objc_storeStrong(location, a2);
-  v81 = 0;
-  objc_storeStrong(&v81, a3);
-  v80 = a1;
-  [*(a1 + 32) setStoreAccountMap:location[0]];
-  v5 = objc_alloc_init(NSMutableArray);
-  [*(a1 + 32) setStoreAccountsToSignIn:v5];
-
-  memset(__b, 0, sizeof(__b));
-  v6 = [location[0] allKeys];
-  v7 = [v6 countByEnumeratingWithState:__b objects:v87 count:16];
-  if (v7)
-  {
-    v8 = *__b[2];
-    do
-    {
-      for (i = 0; i < v7; ++i)
-      {
-        if (*__b[2] != v8)
-        {
-          objc_enumerationMutation(v6);
-        }
-
-        v79 = *(__b[1] + 8 * i);
-        v10 = [*(a1 + 32) storeAccountMap];
-        v77 = [v10 objectForKeyedSubscript:v79];
-
-        v76 = [v77 objectForKeyedSubscript:@"dsid"];
-        v75 = [v77 objectForKeyedSubscript:@"altDsid"];
-        v11 = [BuddyStoreAccount alloc];
-        v74 = [(BuddyStoreAccount *)v11 initWithUsername:v79 dsid:v76 altDSID:v75];
-        v12 = [*(a1 + 32) storeAccountsToSignIn];
-        [v12 addObject:v74];
-
-        objc_storeStrong(&v74, 0);
-        objc_storeStrong(&v75, 0);
-        objc_storeStrong(&v76, 0);
-        objc_storeStrong(&v77, 0);
-      }
-
-      v7 = [v6 countByEnumeratingWithState:__b objects:v87 count:16];
-    }
-
-    while (v7);
-  }
-
-  v13 = [*(a1 + 32) storeAccountsToSignIn];
-  v67 = _NSConcreteStackBlock;
-  v68 = -1073741824;
-  v69 = 0;
-  v70 = sub_1001ED7D8;
-  v71 = &unk_10032EDF8;
-  v72 = *(a1 + 32);
-  v14 = [v13 indexOfObjectPassingTest:&v67];
-
-  v73 = v14;
-  if (v14 != 0x7FFFFFFFFFFFFFFFLL)
-  {
-    v15 = [*(a1 + 32) storeAccountsToSignIn];
-    v66 = [v15 objectAtIndexedSubscript:v73];
-
-    v16 = [*(a1 + 32) storeAccountsToSignIn];
-    [v16 removeObjectAtIndex:v73];
-
-    v17 = [*(a1 + 32) storeAccountsToSignIn];
-    [v17 insertObject:v66 atIndex:0];
-
-    objc_storeStrong(&v66, 0);
-  }
-
-  if (v81)
-  {
-    v65 = 0x7FFFFFFFFFFFFFFFLL;
-    for (j = 0; ; ++j)
-    {
-      v18 = j;
-      v19 = [*(a1 + 32) storeAccountsToSignIn];
-      v20 = [v19 count];
-
-      if (v18 >= v20)
-      {
-        break;
-      }
-
-      v21 = [*(a1 + 32) storeAccountsToSignIn];
-      v63 = [v21 objectAtIndexedSubscript:j];
-
-      v22 = [v63 username];
-      v23 = [v22 isEqualToString:v81];
-
-      if (v23)
-      {
-        v65 = j;
-        v62 = 4;
-      }
-
-      else
-      {
-        v62 = 0;
-      }
-
-      objc_storeStrong(&v63, 0);
-      if (v62)
-      {
-        break;
-      }
-    }
-
-    v61 = 0;
-    if (v65 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v24 = [BuddyStoreAccount alloc];
-      v25 = [(BuddyStoreAccount *)v24 initWithUsername:v81 dsid:0 altDSID:0];
-      v26 = v61;
-      v61 = v25;
-    }
-
-    else
-    {
-      v28 = [*(a1 + 32) storeAccountsToSignIn];
-      v29 = [v28 objectAtIndex:v65];
-      v30 = v61;
-      v61 = v29;
-
-      v31 = [*(a1 + 32) storeAccountsToSignIn];
-      [v31 removeObject:v61];
-    }
-
-    v27 = [*(a1 + 32) storeAccountsToSignIn];
-    [v27 insertObject:v61 atIndex:0];
-
-    [*(a1 + 32) setActiveBuddyStoreAccount:v61];
-    objc_storeStrong(&v61, 0);
-  }
-
-  v32 = [*(a1 + 32) _primaryAccountInfo];
-  v60 = [v32 username];
-
-  v33 = [*(a1 + 32) _primaryAccountInfo];
-  v59 = [v33 altDSID];
-
-  oslog = _BYLoggingFacility();
-  v57 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
-  {
-    v34 = [*(a1 + 32) storeAccountsToSignIn];
-    sub_10006AE18(buf, v34);
-    _os_log_impl(&_mh_execute_header, oslog, v57, "Store accounts to sign in: %@", buf, 0xCu);
-  }
-
-  objc_storeStrong(&oslog, 0);
-  v56 = _BYLoggingFacility();
-  v55 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
-  {
-    sub_10006AE18(v85, v60);
-    _os_log_impl(&_mh_execute_header, v56, v55, "Primary Apple ID: %@", v85, 0xCu);
-  }
-
-  objc_storeStrong(&v56, 0);
-  v54 = _BYLoggingFacility();
-  v53 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
-  {
-    v35 = [*(a1 + 32) activeBuddyStoreAccount];
-    sub_10006AE18(v84, v35);
-    _os_log_impl(&_mh_execute_header, v54, v53, "Active store account: %@", v84, 0xCu);
-  }
-
-  objc_storeStrong(&v54, 0);
-  v36 = [*(a1 + 32) _primaryAccountInfo];
-  v52 = [v36 dsid];
-
-  v37 = [*(a1 + 32) storeAccountsToSignIn];
-  v44 = _NSConcreteStackBlock;
-  v45 = -1073741824;
-  v46 = 0;
-  v47 = sub_1001ED88C;
-  v48 = &unk_10032EE20;
-  v49 = v59;
-  v50 = v52;
-  v38 = [v37 indexOfObjectPassingTest:&v44];
-
-  v51 = v38;
-  if (v38 != 0x7FFFFFFFFFFFFFFFLL)
-  {
-    v43 = _BYLoggingFacility();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
-    {
-      v39 = [*(a1 + 32) storeAccountsToSignIn];
-      v40 = [v39 objectAtIndexedSubscript:v51];
-      v41 = [v40 username];
-      sub_10006AE18(v83, v41);
-      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Skipping owner account %@...", v83, 0xCu);
-    }
-
-    objc_storeStrong(&v43, 0);
-    v42 = [*(a1 + 32) storeAccountsToSignIn];
-    [v42 removeObjectAtIndex:v51];
-  }
-
-  (*(*(a1 + 40) + 16))();
-  objc_storeStrong(&v50, 0);
-  objc_storeStrong(&v49, 0);
-  objc_storeStrong(&v52, 0);
-  objc_storeStrong(&v59, 0);
-  objc_storeStrong(&v60, 0);
-  objc_storeStrong(&v72, 0);
-  objc_storeStrong(&v81, 0);
-  objc_storeStrong(location, 0);
-}
-
-uint64_t sub_1001ED7D8(void *a1, void *a2)
-{
-  location[1] = a1;
-  location[0] = 0;
-  objc_storeStrong(location, a2);
-  v3 = a1[4];
-  v4 = [location[0] username];
-  v5 = [location[0] altDSID];
-  LOBYTE(v3) = [v3 _isPrimaryAccountWithUsername:v4 orAltDSID:v5];
-
-  objc_storeStrong(location, 0);
-  return v3 & 1;
-}
-
-uint64_t sub_1001ED88C(void *a1, void *a2)
-{
-  location[1] = a1;
-  location[0] = 0;
-  objc_storeStrong(location, a2);
-  v3 = [location[0] altDSID];
-  v4 = [v3 isEqualToString:a1[4]];
-
-  if (v4)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    v5 = [location[0] dsid];
-    v8 = [v5 isEqualToString:a1[5]] & 1;
-  }
-
-  objc_storeStrong(location, 0);
-  return v8 & 1;
-}
-
-id sub_1001EE048(uint64_t a1, uint64_t a2)
-{
-  result = objc_retainBlock(*(a2 + 40));
-  *(a1 + 40) = result;
-  return result;
-}
-
-void sub_1001EE080(uint64_t a1, void *a2)
-{
-  location[1] = a1;
-  location[0] = 0;
-  objc_storeStrong(location, a2);
-  v10[2] = a1;
-  if (*(*(*(a1 + 40) + 8) + 40))
-  {
-    dispatch_block_cancel(*(*(*(a1 + 40) + 8) + 40));
-  }
-
-  v3 = &_dispatch_main_q;
-  v4 = _NSConcreteStackBlock;
-  v5 = -1073741824;
-  v6 = 0;
-  v7 = sub_1001EE1B8;
-  v8 = &unk_10032EE70;
-  v10[1] = *(a1 + 48);
-  v10[0] = *(a1 + 32);
-  v9 = location[0];
-  dispatch_async(v3, &v4);
-
-  objc_storeStrong(&v9, 0);
-  objc_storeStrong(v10, 0);
-  objc_storeStrong(location, 0);
-}
-
-void sub_1001EE1B8(NSObject *a1)
-{
-  oslog[2] = a1;
-  oslog[1] = a1;
-  if ((*(*(a1[6].isa + 1) + 24) & 1) == 0)
-  {
-    *(*(a1[6].isa + 1) + 24) = 1;
-    if (a1[5].isa)
-    {
-      v2 = [(objc_class *)a1[4].isa value];
-      v3 = [v2 BOOLValue];
-
-      if (v3)
-      {
-        oslog[0] = _BYLoggingFacility();
-        v17 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_DEFAULT))
-        {
-          v4 = [(objc_class *)a1[4].isa value];
-          sub_100071CBC(buf, v4);
-          _os_log_impl(&_mh_execute_header, oslog[0], v17, "Media linked account result: %{public}@", buf, 0xCu);
-        }
-
-        objc_storeStrong(oslog, 0);
-        isa = a1[5].isa;
-        v6 = [(objc_class *)a1[4].isa value];
-        (*(isa + 2))(isa, v6);
-      }
-
-      else
-      {
-        v16 = _BYLoggingFacility();
-        v15 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-        {
-          v7 = v16;
-          v8 = v15;
-          sub_10006AA68(v14);
-          _os_log_impl(&_mh_execute_header, v7, v8, "No media linked account found", v14, 2u);
-        }
-
-        objc_storeStrong(&v16, 0);
-        (*(a1[5].isa + 2))();
-      }
-    }
-
-    else
-    {
-      v13 = _BYLoggingFacility();
-      v12 = 16;
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-      {
-        v9 = v13;
-        v10 = v12;
-        sub_10006AA68(v11);
-        _os_log_error_impl(&_mh_execute_header, v9, v10, "Completion handler missing.", v11, 2u);
-      }
-
-      objc_storeStrong(&v13, 0);
-    }
-  }
-}
-
-uint64_t sub_1001EE424(NSObject *a1)
-{
-  oslog[2] = a1;
-  oslog[1] = a1;
-  oslog[0] = _BYLoggingFacility();
-  v6 = 16;
-  if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_ERROR))
-  {
-    v2 = oslog[0];
-    v3 = v6;
-    sub_10006AA68(v5);
-    _os_log_error_impl(&_mh_execute_header, v2, v3, "AMS cache promise did not respond in time. Timing out!", v5, 2u);
-  }
-
-  objc_storeStrong(oslog, 0);
-  return (*(a1[4].isa + 2))();
-}
-
-void sub_1001EE4DC(uint64_t a1)
-{
-  if (*(*(*(a1 + 32) + 8) + 40))
-  {
-    dispatch_block_perform(DISPATCH_BLOCK_ASSIGN_CURRENT, *(*(*(a1 + 32) + 8) + 40));
-  }
-}
-
-void sub_1001EE524(NSObject *a1, void *a2, void *a3)
-{
-  location[1] = a1;
-  location[0] = 0;
-  objc_storeStrong(location, a2);
-  v17 = 0;
-  objc_storeStrong(&v17, a3);
-  oslog[1] = a1;
-  if (v17)
-  {
-    oslog[0] = _BYLoggingFacility();
-    v15 = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_ERROR))
-    {
-      v13 = 0;
-      v11 = 0;
-      if (_BYIsInternalInstall())
-      {
-        v5 = v17;
-      }
-
-      else if (v17)
-      {
-        v14 = [v17 domain];
-        v13 = 1;
-        v5 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"<Error domain: %@, code %ld>", v14, [v17 code]);
-        v12 = v5;
-        v11 = 1;
-      }
-
-      else
-      {
-        v5 = 0;
-      }
-
-      sub_100071CBC(buf, v5);
-      _os_log_error_impl(&_mh_execute_header, oslog[0], v15, "AMS cache update failed to resolve with error: %{public}@", buf, 0xCu);
-      if (v11)
-      {
-      }
-
-      if (v13)
-      {
-      }
-    }
-
-    objc_storeStrong(oslog, 0);
-    (*(a1[4].isa + 2))();
-  }
-
-  else
-  {
-    v10 = _BYLoggingFacility();
-    v9 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      v6 = v10;
-      v7 = v9;
-      sub_10006AA68(v8);
-      _os_log_impl(&_mh_execute_header, v6, v7, "AMS cache updated", v8, 2u);
-    }
-
-    objc_storeStrong(&v10, 0);
-    (*(a1[4].isa + 2))();
-  }
-
-  objc_storeStrong(&v17, 0);
-  objc_storeStrong(location, 0);
-}
-
-void sub_1001EE798(NSObject *a1, void *a2, void *a3)
-{
-  location[1] = a1;
-  location[0] = 0;
-  objc_storeStrong(location, a2);
-  v22 = 0;
-  objc_storeStrong(&v22, a3);
-  oslog[1] = a1;
-  if (v22)
-  {
-    oslog[0] = _BYLoggingFacility();
-    v20 = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_ERROR))
-    {
-      v18 = 0;
-      v16 = 0;
-      if (_BYIsInternalInstall())
-      {
-        v5 = v22;
-      }
-
-      else if (v22)
-      {
-        v19 = [v22 domain];
-        v18 = 1;
-        v5 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"<Error domain: %@, code %ld>", v19, [v22 code]);
-        v17 = v5;
-        v16 = 1;
-      }
-
-      else
-      {
-        v5 = 0;
-      }
-
-      sub_100071CBC(buf, v5);
-      _os_log_error_impl(&_mh_execute_header, oslog[0], v20, "AMS cache promise failure to resolve with error: %{public}@", buf, 0xCu);
-      if (v16)
-      {
-      }
-
-      if (v18)
-      {
-      }
-    }
-
-    objc_storeStrong(oslog, 0);
-    (*(a1[4].isa + 2))();
-  }
-
-  else if ([location[0] isStale])
-  {
-    v15 = _BYLoggingFacility();
-    v14 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-    {
-      v6 = v15;
-      v7 = v14;
-      sub_10006AA68(v13);
-      _os_log_impl(&_mh_execute_header, v6, v7, "AMS cache promise resolved with stale response. Wait for update.", v13, 2u);
-    }
-
-    objc_storeStrong(&v15, 0);
-  }
-
-  else
-  {
-    v12 = _BYLoggingFacility();
-    v11 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = v12;
-      v9 = v11;
-      sub_10006AA68(v10);
-      _os_log_impl(&_mh_execute_header, v8, v9, "AMS cache promise resolved with non-stale response", v10, 2u);
-    }
-
-    objc_storeStrong(&v12, 0);
-    (*(a1[4].isa + 2))();
-  }
-
-  objc_storeStrong(&v22, 0);
-  objc_storeStrong(location, 0);
 }

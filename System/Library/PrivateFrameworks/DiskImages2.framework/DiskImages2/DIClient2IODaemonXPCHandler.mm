@@ -23,43 +23,55 @@
 
 - (void)createConnection
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = *__error();
-  if (DIForwardLogs())
+  v4 = DIForwardLogs();
+  if (v4)
   {
-    v4 = getDIOSLog();
-    os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    *buf = 68157954;
-    v16 = 47;
-    v17 = 2080;
-    v18 = "[DIClient2IODaemonXPCHandler createConnection]";
-    v5 = _os_log_send_and_compose_impl();
-
-    if (v5)
+    v18 = 0;
+    v6 = getDIOSLog(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v5);
-      free(v5);
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    *buf = 68157954;
+    v20 = 47;
+    v21 = 2080;
+    v22 = "[DIClient2IODaemonXPCHandler createConnection]";
+    LODWORD(v17) = 18;
+    v8 = _os_log_send_and_compose_impl(v7, &v18, 0, 0, &dword_248DE0000, v6, 0, "%.*s: Creating connection to IO daemon clients listener", buf, v17);
+
+    if (v8)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v8);
+      free(v8);
     }
   }
 
   else
   {
-    v6 = getDIOSLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v9 = getDIOSLog(v4, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68157954;
-      v16 = 47;
-      v17 = 2080;
-      v18 = "[DIClient2IODaemonXPCHandler createConnection]";
-      _os_log_impl(&dword_248DE0000, v6, OS_LOG_TYPE_DEFAULT, "%.*s: Creating connection to IO daemon clients listener", buf, 0x12u);
+      v20 = 47;
+      v21 = 2080;
+      v22 = "[DIClient2IODaemonXPCHandler createConnection]";
+      _os_log_impl(&dword_248DE0000, v9, OS_LOG_TYPE_DEFAULT, "%.*s: Creating connection to IO daemon clients listener", buf, 0x12u);
     }
   }
 
   *__error() = v3;
-  v7 = objc_alloc(MEMORY[0x277CCAE80]);
+  v10 = objc_alloc(MEMORY[0x277CCAE80]);
   xpcListenerEndpoint = [(DIClient2IODaemonXPCHandler *)self xpcListenerEndpoint];
-  v9 = [v7 initWithListenerEndpoint:xpcListenerEndpoint];
-  [(DIBaseXPCHandler *)self setConnection:v9];
+  v12 = [v10 initWithListenerEndpoint:xpcListenerEndpoint];
+  [(DIBaseXPCHandler *)self setConnection:v12];
 
   remoteObjectInterface = [(DIClient2IODaemonXPCHandler *)self remoteObjectInterface];
   connection = [(DIBaseXPCHandler *)self connection];
@@ -70,87 +82,107 @@
 
   connection3 = [(DIBaseXPCHandler *)self connection];
   [connection3 setInterruptionHandler:&__block_literal_global_4];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 int *__47__DIClient2IODaemonXPCHandler_createConnection__block_invoke()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v0 = *__error();
-  if (DIForwardLogs())
+  v1 = DIForwardLogs();
+  if (v1)
   {
-    v1 = getDIOSLog();
-    os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT);
-    *buf = 68157954;
-    v7 = 60;
-    v8 = 2080;
-    v9 = "[DIClient2IODaemonXPCHandler createConnection]_block_invoke";
-    v2 = _os_log_send_and_compose_impl();
-
-    if (v2)
+    v9 = 0;
+    v3 = getDIOSLog(v1, v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v2);
-      free(v2);
+      v4 = 3;
+    }
+
+    else
+    {
+      v4 = 2;
+    }
+
+    *buf = 68157954;
+    v11 = 60;
+    v12 = 2080;
+    v13 = "[DIClient2IODaemonXPCHandler createConnection]_block_invoke";
+    LODWORD(v8) = 18;
+    v5 = _os_log_send_and_compose_impl(v4, &v9, 0, 0, &dword_248DE0000, v3, 0, "%.*s: Reached an invalidation handler for the IO daemon connection", buf, v8);
+
+    if (v5)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v5);
+      free(v5);
     }
   }
 
   else
   {
-    v3 = getDIOSLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v6 = getDIOSLog(v1, v2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68157954;
-      v7 = 60;
-      v8 = 2080;
-      v9 = "[DIClient2IODaemonXPCHandler createConnection]_block_invoke";
-      _os_log_impl(&dword_248DE0000, v3, OS_LOG_TYPE_DEFAULT, "%.*s: Reached an invalidation handler for the IO daemon connection", buf, 0x12u);
+      v11 = 60;
+      v12 = 2080;
+      v13 = "[DIClient2IODaemonXPCHandler createConnection]_block_invoke";
+      _os_log_impl(&dword_248DE0000, v6, OS_LOG_TYPE_DEFAULT, "%.*s: Reached an invalidation handler for the IO daemon connection", buf, 0x12u);
     }
   }
 
   result = __error();
   *result = v0;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 int *__47__DIClient2IODaemonXPCHandler_createConnection__block_invoke_2()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v0 = *__error();
-  if (DIForwardLogs())
+  v1 = DIForwardLogs();
+  if (v1)
   {
-    v1 = getDIOSLog();
-    os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT);
-    *buf = 68157954;
-    v7 = 60;
-    v8 = 2080;
-    v9 = "[DIClient2IODaemonXPCHandler createConnection]_block_invoke";
-    v2 = _os_log_send_and_compose_impl();
-
-    if (v2)
+    v9 = 0;
+    v3 = getDIOSLog(v1, v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v2);
-      free(v2);
+      v4 = 3;
+    }
+
+    else
+    {
+      v4 = 2;
+    }
+
+    *buf = 68157954;
+    v11 = 60;
+    v12 = 2080;
+    v13 = "[DIClient2IODaemonXPCHandler createConnection]_block_invoke";
+    LODWORD(v8) = 18;
+    v5 = _os_log_send_and_compose_impl(v4, &v9, 0, 0, &dword_248DE0000, v3, 0, "%.*s: Reached an interruption handler for the IO daemon connection", buf, v8);
+
+    if (v5)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v5);
+      free(v5);
     }
   }
 
   else
   {
-    v3 = getDIOSLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v6 = getDIOSLog(v1, v2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68157954;
-      v7 = 60;
-      v8 = 2080;
-      v9 = "[DIClient2IODaemonXPCHandler createConnection]_block_invoke";
-      _os_log_impl(&dword_248DE0000, v3, OS_LOG_TYPE_DEFAULT, "%.*s: Reached an interruption handler for the IO daemon connection", buf, 0x12u);
+      v11 = 60;
+      v12 = 2080;
+      v13 = "[DIClient2IODaemonXPCHandler createConnection]_block_invoke";
+      _os_log_impl(&dword_248DE0000, v6, OS_LOG_TYPE_DEFAULT, "%.*s: Reached an interruption handler for the IO daemon connection", buf, 0x12u);
     }
   }
 
   result = __error();
   *result = v0;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 

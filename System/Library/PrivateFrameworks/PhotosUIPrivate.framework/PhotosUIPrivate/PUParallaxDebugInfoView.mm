@@ -54,7 +54,7 @@
     [debugTimeRect CGRectValue];
     [v14 setFrame:?];
 
-    [currentLayoutInfo additionalTransform];
+    objc_msgSend_additionalTransform(currentLayoutInfo);
     v58 = v59;
     [(PUParallaxDebugInfoView *)self setTransform:&v58];
     debugHUDString = [(PUParallaxDebugInfoView *)self debugHUDString];
@@ -112,7 +112,7 @@
     v42 = v41;
     v44 = v43;
     v46 = v45;
-    [currentLayoutInfo additionalContentTransform];
+    objc_msgSend_additionalContentTransform(currentLayoutInfo);
     v63.origin.x = v40;
     v63.origin.y = v42;
     v63.size.width = v44;

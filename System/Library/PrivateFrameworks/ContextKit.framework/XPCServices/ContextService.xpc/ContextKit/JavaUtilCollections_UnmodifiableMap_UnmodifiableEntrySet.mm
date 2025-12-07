@@ -29,15 +29,16 @@
   }
 
   v4 = [(JavaUtilCollection *)c size];
-  v5 = [IOSObjectArray arrayWithLength:v4 type:NSObject_class_()];
+  v5 = v4;
+  v7 = [IOSObjectArray arrayWithLength:v4 type:NSObject_class_(v4, v6)];
   iterator = [(JavaUtilCollections_UnmodifiableMap_UnmodifiableEntrySet *)self iterator];
-  v7 = (v4 - 1);
-  if (v7 < 0)
+  v9 = (v5 - 1);
+  if (v9 < 0)
   {
-    return v5;
+    return v7;
   }
 
-  v8 = iterator;
+  v10 = iterator;
   if (!iterator)
   {
 LABEL_6:
@@ -46,11 +47,11 @@ LABEL_6:
 
   do
   {
-    IOSObjectArray_Set(v5, v7--, [v8 next]);
+    IOSObjectArray_Set(v7, v9--, [v10 next]);
   }
 
-  while (v7 != -1);
-  return v5;
+  while (v9 != -1);
+  return v7;
 }
 
 - (id)toArrayWithNSObjectArray:(id)array

@@ -41,7 +41,7 @@
 
 - (id)_createXPCMessage
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = xpc_string_create([(NSString *)self->_name UTF8String]);
   info = self->_info;
   if (info)
@@ -67,27 +67,25 @@
 
   *keys = xmmword_278C6DD18;
   v8 = v3;
-  v14[0] = v8;
+  v13[0] = v8;
   v9 = v7;
-  v14[1] = v9;
-  v10 = xpc_dictionary_create(keys, v14, 2uLL);
+  v13[1] = v9;
+  v10 = xpc_dictionary_create(keys, v13, 2uLL);
   for (i = 1; i != -1; --i)
   {
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)_initWithXPCMessage:(id)message onConnection:(id)connection
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   connectionCopy = connection;
-  v25.receiver = self;
-  v25.super_class = ATXPCMessage;
-  v8 = [(ATXPCMessage *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = ATXPCMessage;
+  v8 = [(ATXPCMessage *)&v24 init];
   v9 = v8;
   if (v8)
   {
@@ -101,17 +99,17 @@
     name = v9->_name;
     v9->_name = string;
 
-    v24 = 0;
-    data = xpc_dictionary_get_data(messageCopy, "kDKMessageInfoKey", &v24);
+    v23 = 0;
+    data = xpc_dictionary_get_data(messageCopy, "kDKMessageInfoKey", &v23);
     v13 = 0;
-    if (data && v24)
+    if (data && v23)
     {
-      v14 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:data length:v24 freeWhenDone:0];
+      v14 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:data length:v23 freeWhenDone:0];
       if (v14)
       {
-        v26 = 0;
-        v13 = [MEMORY[0x277CCAC58] propertyListWithData:v14 options:0 format:0 error:&v26];
-        v15 = v26;
+        v25 = 0;
+        v13 = [MEMORY[0x277CCAC58] propertyListWithData:v14 options:0 format:0 error:&v25];
+        v15 = v25;
         if (v15)
         {
           v16 = v15;
@@ -119,7 +117,7 @@
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v28 = v16;
+            v27 = v16;
             _os_log_impl(&dword_23EC61000, v17, OS_LOG_TYPE_ERROR, "Error deserializing plist %{public}@", buf, 0xCu);
           }
         }
@@ -150,7 +148,6 @@
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

@@ -106,9 +106,11 @@
 
 uint64_t __48__CNContactStore_authorizationForCurrentProcess__block_invoke()
 {
-  authorizationForCurrentProcess_cn_once_object_0 = objc_alloc_init(CNAuthorization);
+  v0 = objc_alloc_init(CNAuthorization);
+  v1 = authorizationForCurrentProcess_cn_once_object_0;
+  authorizationForCurrentProcess_cn_once_object_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)authorizationForCurrentProcess
@@ -119,9 +121,9 @@ uint64_t __48__CNContactStore_authorizationForCurrentProcess__block_invoke()
     +[CNContactStore authorizationForCurrentProcess];
   }
 
-  v0 = authorizationForCurrentProcess_cn_once_object_0;
+  v1 = authorizationForCurrentProcess_cn_once_object_0;
 
-  return v0;
+  return v1;
 }
 
 + (id)storeIdentifier
@@ -439,7 +441,7 @@ LABEL_6:
     return 0;
   }
 
-  v4 = +[CNContactStore authorizationForCurrentProcess];
+  v4 = +[(CNContactStore *)self];
   v5 = [v4 authorizationStatusForEntityType:0];
 
   return v5;
@@ -1678,7 +1680,7 @@ void __49__CNContactStore_executeFetchRequest_completion___block_invoke_2(void *
 
 + (BOOL)isAccessRestrictedForEntityType:(int64_t)type
 {
-  v4 = +[CNContactStore authorizationForCurrentProcess];
+  v4 = +[(CNContactStore *)self];
   LOBYTE(type) = [v4 isAccessRestrictedForEntityType:type];
 
   return type;
@@ -1686,7 +1688,7 @@ void __49__CNContactStore_executeFetchRequest_completion___block_invoke_2(void *
 
 + (BOOL)isAccessLimitedForEntityType:(int64_t)type
 {
-  v4 = +[CNContactStore authorizationForCurrentProcess];
+  v4 = +[(CNContactStore *)self];
   v5 = [v4 authorizationStatusForEntityType:type];
 
   return v5 == 4;
@@ -2160,15 +2162,15 @@ LABEL_9:
   return detachedPerson;
 }
 
-const void *__62__CNContactStore_iOSABLegacyCompatibility__personFromContact___block_invoke(uint64_t a1)
+CFTypeRef __62__CNContactStore_iOSABLegacyCompatibility__personFromContact___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ABAddressBookCopyPersonMatchingInternalUUID();
-  if (v2)
+  v3 = ABAddressBookCopyPersonMatchingInternalUUID();
+  if (v3)
   {
-    v2 = CFAutorelease(v2);
+    v3 = CFAutorelease(v3);
   }
 
-  *(*(*(a1 + 40) + 8) + 24) = v2;
+  *(*(*(a1 + 40) + 8) + 24) = v3;
   result = *(*(*(a1 + 40) + 8) + 24);
   if (result && *(a1 + 48) == 1)
   {

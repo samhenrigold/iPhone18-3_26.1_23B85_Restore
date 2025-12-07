@@ -1,1397 +1,2907 @@
-uint64_t sub_1ADFB9C24(uint64_t a1, uint64_t a2)
+BOOL TaggedValue_8.ObservableDifference.isIdentityChanged.getter(uint64_t a1)
 {
-  result = sub_1ADDFCC74();
-  if (!v2)
-  {
-    v5 = *(a2 + 16);
-    if (v5)
-    {
-      v18 = MEMORY[0x1E69E7CC0];
-      v17 = result;
-
-      sub_1ADE6F07C(0, v5, 0);
-      v6 = v18;
-      v7 = (a2 + 56);
-      do
-      {
-        v8 = *(v7 - 3);
-        v9 = *(v7 - 1);
-        v10 = *v7;
-        sub_1ADE42C78(v8);
-        sub_1ADDD86D8(v9, v10);
-        sub_1ADDD86D8(v9, v10);
-        sub_1ADDCC35C(0, 0xC000000000000000);
-        if (v8)
-        {
-          v11 = sub_1ADDF5C7C(*(v17 + 16));
-          v13 = v12;
-          sub_1ADE42CB8(0);
-          sub_1ADE42CB8(v8);
-          sub_1ADDCC35C(v9, v10);
-        }
-
-        else
-        {
-          sub_1ADE42CB8(0);
-          sub_1ADDCC35C(v9, v10);
-          v11 = 0;
-          v13 = 0;
-        }
-
-        v15 = *(v18 + 16);
-        v14 = *(v18 + 24);
-        if (v15 >= v14 >> 1)
-        {
-          sub_1ADE6F07C((v14 > 1), v15 + 1, 1);
-        }
-
-        v7 += 4;
-        *(v18 + 16) = v15 + 1;
-        v16 = (v18 + 32 * v15);
-        v16[4] = v9;
-        v16[5] = v10;
-        v16[6] = v11;
-        v16[7] = v13;
-        --v5;
-      }
-
-      while (v5);
-    }
-
-    else
-    {
-
-      v6 = MEMORY[0x1E69E7CC0];
-    }
-
-    swift_beginAccess();
-    sub_1AE1B6F64(v6);
-    swift_endAccess();
-  }
-
-  return result;
-}
-
-uint64_t sub_1ADFB9E50@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
-{
-  result = sub_1ADFBA168(a1);
-  if (!v2)
-  {
-    *a2 = result;
-  }
-
-  return result;
-}
-
-unint64_t sub_1ADFB9E88(uint64_t a1)
-{
-  result = sub_1ADFB9EB0();
-  *(a1 + 24) = result;
-  return result;
-}
-
-unint64_t sub_1ADFB9EB0()
-{
-  result = qword_1EB5BBDA8;
-  if (!qword_1EB5BBDA8)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB5BBDA8);
-  }
-
-  return result;
-}
-
-uint64_t sub_1ADFB9F04(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
-{
-  result = sub_1AE23BB7C();
-  v8 = result;
-  if (result)
-  {
-    result = sub_1AE23BBAC();
-    if (__OFSUB__(a1, result))
-    {
-LABEL_14:
-      __break(1u);
-LABEL_15:
-      __break(1u);
-      goto LABEL_16;
-    }
-
-    v8 += a1 - result;
-  }
-
-  v9 = __OFSUB__(a2, a1);
-  v10 = a2 - a1;
-  if (v9)
-  {
-    __break(1u);
-    goto LABEL_14;
-  }
-
-  result = sub_1AE23BB9C();
-  if (result >= v10)
-  {
-    v11 = v10;
-  }
-
-  else
-  {
-    v11 = result;
-  }
-
-  if (!a4)
-  {
-    goto LABEL_15;
-  }
-
-  if (!v8)
-  {
-LABEL_16:
-    __break(1u);
-    return result;
-  }
-
-  return v8 == a4 || memcmp(a4, v8, v11) == 0;
-}
-
-uint64_t sub_1ADFB9FBC(uint64_t *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  v2 = a1[1];
-  v4 = a1[2];
-  v5 = a1[3];
-  v7 = *a2;
-  v6 = a2[1];
-  v8 = a2[2];
-  v9 = a2[3];
-  if (*a1)
-  {
-    v10 = *a1;
-    if (v7)
-    {
-      sub_1ADE42C78(v10);
-      sub_1ADE42C78(v7);
-      sub_1ADE42C78(v3);
-      sub_1ADF64C74(v2, v6);
-      if (v11)
-      {
-        sub_1ADF64C74(v3, v7);
-        v13 = v12;
-        sub_1ADE42CB8(v7);
-
-        sub_1ADE42CB8(v3);
-        if (v13)
-        {
-          goto LABEL_14;
-        }
-
-        return 0;
-      }
-
-      sub_1ADE42CB8(v7);
-
-      v14 = v3;
-LABEL_11:
-      sub_1ADE42CB8(v14);
-      return 0;
-    }
-
-    sub_1ADE42C78(v10);
-    sub_1ADE42C78(0);
-    sub_1ADE42C78(v3);
-
-LABEL_9:
-    sub_1ADE42CB8(v3);
-    v14 = v7;
-    goto LABEL_11;
-  }
-
-  sub_1ADE42C78(0);
-  if (v7)
-  {
-    sub_1ADE42C78(v7);
-    goto LABEL_9;
-  }
-
-  sub_1ADE42C78(0);
-  sub_1ADE42CB8(0);
-LABEL_14:
-
-  return sub_1ADDD6F8C(v4, v5, v8, v9);
-}
-
-uint64_t sub_1ADFBA168(uint64_t a1)
-{
-  if (!*(a1 + 64))
-  {
-    sub_1ADE42E40();
-    swift_allocError();
-    *v22 = 0xD000000000000014;
-    *(v22 + 8) = 0x80000001AE25FB50;
-    *(v22 + 16) = 0;
-    swift_willThrow();
-
-    return v1;
-  }
-
-  type metadata accessor for CRDecoder.CRDTContainer();
-  inited = swift_initStackObject();
-  *(inited + 16) = a1;
-  *(inited + 24) = 0;
-  *(inited + 32) = 1;
-
-  v5 = *(sub_1ADDE78C8() + 16);
-  v6 = MEMORY[0x1E69E7CC0];
-  v7 = (~v5 & 0xF000000000000007) != 0 && (v5 & 0xF000000000000000) == 0x9000000000000000;
-  v8 = MEMORY[0x1E69E7CC0];
-  if (v7)
-  {
-    v8 = *((v5 & 0xFFFFFFFFFFFFFFFLL) + 0x10);
-  }
-
-  v9 = *(v8 + 16);
-  if (!v9)
-  {
-
-    return MEMORY[0x1E69E7CC0];
-  }
-
-  v23 = a1;
-  v27 = v6;
-  result = sub_1ADE6F09C(0, v9, 0);
-  v11 = 0;
-  v1 = v6;
-  v12 = (v8 + 56);
-  v24 = v9;
-  v25 = v8;
-  while (v11 < *(v8 + 16))
-  {
-    v14 = *(v12 - 3);
-    v13 = *(v12 - 2);
-    v16 = *(v12 - 1);
-    v15 = *v12;
-    if (v16)
-    {
-
-      sub_1ADDD86D8(v14, v13);
-      sub_1ADE42C78(v16);
-      sub_1ADE42C78(v16);
-      sub_1ADDD6748(v16, v15, v23, v26);
-      if (v2)
-      {
-
-        sub_1ADDCC35C(v14, v13);
-        sub_1ADE42CB8(v16);
-
-        return v1;
-      }
-
-      v18 = v26[0];
-      v17 = v26[1];
-    }
-
-    else
-    {
-      sub_1ADDD86D8(*(v12 - 3), *(v12 - 2));
-      sub_1ADE42C78(0);
-      v18 = 0;
-      v17 = 0;
-    }
-
-    sub_1ADDD86D8(v14, v13);
-    sub_1ADDCC35C(v14, v13);
-    result = sub_1ADE42CB8(v16);
-    v27 = v1;
-    v20 = *(v1 + 16);
-    v19 = *(v1 + 24);
-    if (v20 >= v19 >> 1)
-    {
-      result = sub_1ADE6F09C((v19 > 1), v20 + 1, 1);
-      v1 = v27;
-    }
-
-    ++v11;
-    *(v1 + 16) = v20 + 1;
-    v21 = (v1 + 32 * v20);
-    v21[4] = v18;
-    v21[5] = v17;
-    v21[6] = v14;
-    v21[7] = v13;
-    v12 += 4;
-    v8 = v25;
-    if (v24 == v11)
-    {
-
-      return v1;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1ADFBA458(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BA458, &qword_1AE251E00);
-  (*(*(v4 - 8) + 32))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t sub_1ADFBA4D8(uint64_t *a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0x7FFFFFFF && *(a1 + 32))
-  {
-    return (*a1 + 0x7FFFFFFF);
-  }
-
-  v3 = *a1;
-  if (*a1 >= 0xFFFFFFFF)
-  {
-    LODWORD(v3) = -1;
-  }
-
-  v4 = v3 - 1;
-  if (v4 < 0)
-  {
-    v4 = -1;
-  }
-
-  return (v4 + 1);
-}
-
-uint64_t sub_1ADFBA534(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0x7FFFFFFE)
-  {
-    *(result + 16) = 0;
-    *(result + 24) = 0;
-    *result = a2 - 0x7FFFFFFF;
-    *(result + 8) = 0;
-    if (a3 >= 0x7FFFFFFF)
-    {
-      *(result + 32) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0x7FFFFFFF)
-    {
-      *(result + 32) = 0;
-    }
-
-    if (a2)
-    {
-      *result = a2;
-    }
-  }
-
-  return result;
-}
-
-unint64_t sub_1ADFBA59C()
-{
-  result = qword_1EB5BBDB0[0];
-  if (!qword_1EB5BBDB0[0])
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, qword_1EB5BBDB0);
-  }
-
-  return result;
-}
-
-uint64_t sub_1ADFBA670@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
-{
-  v3 = *(a1 + 16);
-  result = Array<A>.init(defaultState:)();
-  *a2 = result;
-  return result;
-}
-
-uint64_t Array<A>.isDefaultState.getter()
-{
-  sub_1AE23D11C();
-  swift_getWitnessTable();
-  return sub_1AE23D4CC() & 1;
-}
-
-uint64_t sub_1ADFBA714@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
-{
-  result = Set<>.init(defaultState:)(*(a1 + 16), a2, *(a1 + 24));
-  *a3 = result;
-  return result;
-}
-
-uint64_t Set<>.init(defaultState:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = sub_1AE23D05C();
-  if (sub_1AE23D0AC())
-  {
-    v6 = sub_1AE18F13C(v5, a1, a3);
-  }
-
-  else
-  {
-    v6 = MEMORY[0x1E69E7CD0];
-  }
-
+  v2 = *(a1 - 8);
+  v3 = MEMORY[0x1EEE9AC00](a1);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v2 + 16))(v5, v3);
+  v6 = swift_getEnumCaseMultiPayload() == 9;
+  (*(v2 + 8))(v5, a1);
   return v6;
 }
 
-BOOL String.isDefaultState.getter(uint64_t a1, unint64_t a2)
+uint64_t TaggedValue_8.taggedEnum.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
 {
-  v2 = HIBYTE(a2) & 0xF;
-  if ((a2 & 0x2000000000000000) == 0)
-  {
-    v2 = a1 & 0xFFFFFFFFFFFFLL;
-  }
-
-  return v2 == 0;
-}
-
-BOOL sub_1ADFBA82C()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v2 >> 62;
-  if ((v2 >> 62) > 1)
-  {
-    if (v3 == 2)
-    {
-      v7 = *(v1 + 16);
-      v6 = *(v1 + 24);
-    }
-
-    else
-    {
-      v6 = 0;
-      v7 = 0;
-    }
-  }
-
-  else
-  {
-    v4 = BYTE6(v2);
-    v5 = v1;
-    v6 = v1 >> 32;
-    if (v3)
-    {
-      v7 = v5;
-    }
-
-    else
-    {
-      v6 = v4;
-      v7 = 0;
-    }
-  }
-
-  return v7 == v6;
-}
-
-BOOL Data.isDefaultState.getter(uint64_t a1, unint64_t a2)
-{
-  v2 = a2 >> 62;
-  if ((a2 >> 62) > 1)
-  {
-    if (v2 == 2)
-    {
-      v5 = *(a1 + 16);
-      v4 = *(a1 + 24);
-    }
-
-    else
-    {
-      v4 = 0;
-      v5 = 0;
-    }
-  }
-
-  else
-  {
-    v3 = v2 == 0;
-    if (v2)
-    {
-      v4 = a1 >> 32;
-    }
-
-    else
-    {
-      v4 = BYTE6(a2);
-    }
-
-    if (v3)
-    {
-      v5 = 0;
-    }
-
-    else
-    {
-      v5 = a1;
-    }
-  }
-
-  return v5 == v4;
-}
-
-uint64_t sub_1ADFBA91C@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
-{
-  v3 = *(a1 + 16);
-  result = Array<A>.init(defaultState:)();
-  *a2 = result;
-  return result;
-}
-
-uint64_t CRExtensible<>.init(defaultState:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X4>, char *a5@<X8>)
-{
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v11 = *(*(AssociatedTypeWitness - 8) + 64);
-  v12 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v14 = &v16 - v13;
-  (*(*(*(a3 + 8) + 8) + 40))(v12);
-  return CRExtensible.init(rawValue:)(v14, a1, a2, a3, a4, a5);
-}
-
-uint64_t CRExtensible.isDefaultState.getter(uint64_t a1)
-{
-  v1 = a1;
-  v3 = *(a1 + 16);
-  v2 = *(a1 + 24);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v5 = *(AssociatedTypeWitness - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v8 = &v10 - v7;
-  CRExtensible.rawValue.getter(v1, &v10 - v7);
-  LOBYTE(v1) = (*(*(*(*(v1 + 32) + 8) + 8) + 48))(AssociatedTypeWitness);
-  (*(v5 + 8))(v8, AssociatedTypeWitness);
-  return v1 & 1;
-}
-
-uint64_t RawRepresentable<>.init(defaultState:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X3>, uint64_t a3@<X8>)
-{
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v7 = *(*(AssociatedTypeWitness - 8) + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v8 = sub_1AE23D7CC();
-  v9 = *(*(v8 - 8) + 64);
-  v10 = MEMORY[0x1EEE9AC00](v8 - 8);
-  v12 = &v15 - v11;
-  (*(a2 + 16))(AssociatedTypeWitness, a2, v10);
-  sub_1AE23CF7C();
-  v13 = *(a1 - 8);
-  result = (*(v13 + 48))(v12, 1, a1);
-  if (result != 1)
-  {
-    return (*(v13 + 32))(a3, v12, a1);
-  }
-
-  __break(1u);
-  return result;
-}
-
-{
-  v25 = a3;
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v7 = *(*(AssociatedTypeWitness - 8) + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v8 = sub_1AE23D7CC();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = &v23 - v12;
-  result = (*(a2 + 40))(AssociatedTypeWitness, a2, v11);
-  if (!v3)
-  {
-    v15 = v25;
-    sub_1AE23CF7C();
-    v16 = *(a1 - 8);
-    if ((*(v16 + 48))(v13, 1, a1) == 1)
-    {
-      (*(v9 + 8))(v13, v8);
-      v23 = 0;
-      v24 = 0xE000000000000000;
-      sub_1AE23DA2C();
-      v17 = sub_1AE23E40C();
-      v19 = v18;
-
-      v23 = v17;
-      v24 = v19;
-      MEMORY[0x1B26FB670](0xD000000000000025, 0x80000001AE261D30);
-      v20 = v23;
-      v21 = v24;
-      sub_1ADE42E40();
-      swift_allocError();
-      *v22 = v20;
-      *(v22 + 8) = v21;
-      *(v22 + 16) = 0;
-      return swift_willThrow();
-    }
-
-    else
-    {
-      return (*(v16 + 32))(v15, v13, a1);
-    }
-  }
-
-  return result;
-}
-
-uint64_t Dictionary<>.init(defaultState:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  swift_getTupleTypeMetadata2();
-  v7 = sub_1AE23D05C();
-  v8 = sub_1ADDEAF38(v7, a1, a2, a4);
-
-  return v8;
-}
-
-uint64_t RawRepresentable<>.isDefaultState.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v6 = *(AssociatedTypeWitness - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v9 = &v11 - v8;
-  sub_1AE23CF6C();
-  LOBYTE(a4) = (*(a4 + 48))(AssociatedTypeWitness, a4);
-  (*(v6 + 8))(v9, AssociatedTypeWitness);
-  return a4 & 1;
-}
-
-uint64_t CRExtensible.init(defaultState:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, char *a5@<X8>)
-{
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v12 = *(*(AssociatedTypeWitness - 8) + 64);
-  v13 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v15 = &v17 - v14;
-  result = (*(*(*(a3 + 8) + 8) + 40))(v13);
-  if (!v5)
-  {
-    return CRExtensible.init(rawValue:)(v15, a1, a2, a3, a4, a5);
-  }
-
-  return result;
-}
-
-uint64_t sub_1ADFBB260@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t *a3@<X8>)
-{
-  result = Dictionary<>.init(defaultState:)(a1[2], a1[3], a2, a1[4]);
-  *a3 = result;
-  return result;
-}
-
-void sub_1ADFBB29C(void *a1)
-{
-  v2 = *v1;
-  v3 = a1[2];
-  v4 = a1[3];
+  v4 = a1[2];
+  v10[0] = a1[1];
+  v10[1] = v4;
   v5 = a1[4];
-  Dictionary<>.isDefaultState.getter();
+  v10[2] = a1[3];
+  v10[3] = v5;
+  v6 = a1[6];
+  v10[4] = a1[5];
+  v10[5] = v6;
+  v7 = a1[8];
+  v10[6] = a1[7];
+  v10[7] = v7;
+  v8 = type metadata accessor for TaggedValue_8.TaggedEnum(0, v10);
+  return (*(*(v8 - 8) + 16))(a2, v2, v8);
 }
 
-uint64_t sub_1ADFBB2B0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t TaggedValue_8.taggedEnum.setter(uint64_t a1, _OWORD *a2)
 {
-  swift_getWitnessTable();
-  v4 = *(a1 + 16);
-  sub_1AE23D7CC();
-  v7 = *(a1 + 24);
-  WitnessTable = swift_getWitnessTable();
-  return RawRepresentable<>.init(defaultState:)(a1, WitnessTable, a2);
+  v4 = a2[2];
+  v10[0] = a2[1];
+  v10[1] = v4;
+  v5 = a2[4];
+  v10[2] = a2[3];
+  v10[3] = v5;
+  v6 = a2[6];
+  v10[4] = a2[5];
+  v10[5] = v6;
+  v7 = a2[8];
+  v10[6] = a2[7];
+  v10[7] = v7;
+  v8 = type metadata accessor for TaggedValue_8.TaggedEnum(0, v10);
+  return (*(*(v8 - 8) + 40))(v2, a1, v8);
 }
 
-uint64_t sub_1ADFBB354(uint64_t a1)
+uint64_t TaggedValue_8.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, __int128 a10, __int128 a11, __int128 a12, __int128 a13, uint64_t a14)
 {
-  WitnessTable = swift_getWitnessTable();
-  v3 = *(a1 + 16);
-  sub_1AE23D7CC();
-  v7 = *(a1 + 24);
-  v4 = swift_getWitnessTable();
-  return RawRepresentable<>.isDefaultState.getter(a1, v5, WitnessTable, v4) & 1;
-}
-
-uint64_t CRValue<>.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v8 = *(AssociatedTypeWitness - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v11 = &v13 - v10;
-  sub_1AE23CF6C();
-  (*(a5 + 16))(a1, AssociatedTypeWitness, a5);
-  return (*(v8 + 8))(v11, AssociatedTypeWitness);
-}
-
-uint64_t CRValue<>.minEncodingVersion.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v6 = *(AssociatedTypeWitness - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v9 = &v11 - v8;
-  sub_1AE23CF6C();
-  (*(a4 + 24))(AssociatedTypeWitness, a4);
-  return (*(v6 + 8))(v9, AssociatedTypeWitness);
-}
-
-uint64_t CRExtensible.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for CRExtensible();
+  (*(*(a2 - 8) + 32))(a9, a1, a2);
+  v22[0] = a2;
+  v22[1] = a3;
+  v22[2] = a4;
+  v22[3] = a5;
+  v22[4] = a6;
+  v22[5] = a7;
+  v22[6] = a8;
+  v23 = a10;
+  v24 = a11;
+  v25 = a12;
+  v26 = a13;
+  v27 = a14;
+  type metadata accessor for TaggedValue_8.TaggedEnum(0, v22);
   return swift_storeEnumTagMultiPayload();
 }
 
-uint64_t CRExtensible.minEncodingVersion.getter(void *a1)
 {
-  v3 = a1[2];
-  v2 = a1[3];
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v5 = *(AssociatedTypeWitness - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v8 = &v10 - v7;
-  CRExtensible.rawValue.getter(a1, &v10 - v7);
-  (*(*(*(a1[4] + 8) + 8) + 24))(AssociatedTypeWitness);
-  return (*(v5 + 8))(v8, AssociatedTypeWitness);
+  (*(*(a3 - 8) + 32))(a9, a1);
+  v22[0] = a2;
+  v22[1] = a3;
+  v22[2] = a4;
+  v22[3] = a5;
+  v22[4] = a6;
+  v22[5] = a7;
+  v22[6] = a8;
+  v23 = a10;
+  v24 = a11;
+  v25 = a12;
+  v26 = a13;
+  v27 = a14;
+  type metadata accessor for TaggedValue_8.TaggedEnum(0, v22);
+  return swift_storeEnumTagMultiPayload();
 }
 
-uint64_t sub_1ADFBB828(uint64_t a1)
 {
-  swift_getWitnessTable();
-  v2 = *(a1 + 40);
-
-  return sub_1AE23CF8C();
+  (*(*(a4 - 8) + 32))(a9, a1, a4);
+  v22[0] = a2;
+  v22[1] = a3;
+  v22[2] = a4;
+  v22[3] = a5;
+  v22[4] = a6;
+  v22[5] = a7;
+  v22[6] = a8;
+  v23 = a10;
+  v24 = a11;
+  v25 = a12;
+  v26 = a13;
+  v27 = a14;
+  type metadata accessor for TaggedValue_8.TaggedEnum(0, v22);
+  return swift_storeEnumTagMultiPayload();
 }
 
-uint64_t sub_1ADFBB890(uint64_t a1, uint64_t a2)
 {
-  swift_getWitnessTable();
-  v3 = *(a2 + 40);
-
-  return sub_1AE23CF9C();
+  (*(*(a5 - 8) + 32))(a9, a1, a5);
+  v22[0] = a2;
+  v22[1] = a3;
+  v22[2] = a4;
+  v22[3] = a5;
+  v22[4] = a6;
+  v22[5] = a7;
+  v22[6] = a8;
+  v23 = a10;
+  v24 = a11;
+  v25 = a12;
+  v26 = a13;
+  v27 = a14;
+  type metadata accessor for TaggedValue_8.TaggedEnum(0, v22);
+  return swift_storeEnumTagMultiPayload();
 }
 
-uint64_t CRExtensible<>.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X6>, char *a6@<X8>)
 {
-  v19 = a5;
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v13 = *(*(AssociatedTypeWitness - 8) + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v15 = &v18[-v14 - 8];
-  sub_1ADF4E010(a1, v18);
-  sub_1AE23D2BC();
-  if (!v6)
+  (*(*(a6 - 8) + 32))(a9, a1, a6);
+  v22[0] = a2;
+  v22[1] = a3;
+  v22[2] = a4;
+  v22[3] = a5;
+  v22[4] = a6;
+  v22[5] = a7;
+  v22[6] = a8;
+  v23 = a10;
+  v24 = a11;
+  v25 = a12;
+  v26 = a13;
+  v27 = a14;
+  type metadata accessor for TaggedValue_8.TaggedEnum(0, v22);
+  return swift_storeEnumTagMultiPayload();
+}
+
+{
+  (*(*(a7 - 8) + 32))(a9, a1, a7);
+  v22[0] = a2;
+  v22[1] = a3;
+  v22[2] = a4;
+  v22[3] = a5;
+  v22[4] = a6;
+  v22[5] = a7;
+  v22[6] = a8;
+  v23 = a10;
+  v24 = a11;
+  v25 = a12;
+  v26 = a13;
+  v27 = a14;
+  type metadata accessor for TaggedValue_8.TaggedEnum(0, v22);
+  return swift_storeEnumTagMultiPayload();
+}
+
+{
+  (*(*(a8 - 8) + 32))(a9, a1, a8);
+  v22[0] = a2;
+  v22[1] = a3;
+  v22[2] = a4;
+  v22[3] = a5;
+  v22[4] = a6;
+  v22[5] = a7;
+  v22[6] = a8;
+  v23 = a10;
+  v24 = a11;
+  v25 = a12;
+  v26 = a13;
+  v27 = a14;
+  type metadata accessor for TaggedValue_8.TaggedEnum(0, v22);
+  return swift_storeEnumTagMultiPayload();
+}
+
+uint64_t TaggedValue_8.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, __int128 a11, __int128 a12, __int128 a13, uint64_t a14, uint64_t a15)
+{
+  (*(*(a10 - 8) + 32))(a9, a1, a10);
+  v23[0] = a2;
+  v23[1] = a3;
+  v23[2] = a4;
+  v23[3] = a5;
+  v23[4] = a6;
+  v23[5] = a7;
+  v23[6] = a8;
+  v23[7] = a10;
+  v24 = a11;
+  v25 = a12;
+  v26 = a13;
+  v27 = a14;
+  v28 = a15;
+  type metadata accessor for TaggedValue_8.TaggedEnum(0, v23);
+  return swift_storeEnumTagMultiPayload();
+}
+
+uint64_t TaggedValue_8.init(tag:_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>, __int128 a10, __int128 a11, __int128 a12, __int128 a13, uint64_t a14, uint64_t a15)
+{
+  v15 = *a2;
+  *a9 = a1;
+  a9[1] = v15;
+  v17[0] = a3;
+  v17[1] = a4;
+  v17[2] = a5;
+  v17[3] = a6;
+  v17[4] = a7;
+  v17[5] = a8;
+  v18 = a10;
+  v19 = a11;
+  v20 = a12;
+  v21 = a13;
+  v22 = a14;
+  v23 = a15;
+  type metadata accessor for TaggedValue_8.TaggedEnum(0, v17);
+  return swift_storeEnumTagMultiPayload();
+}
+
+uint64_t TaggedValue_8.tagged1.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = v2;
+  v5 = a1[2];
+  v21 = a1[1];
+  v22[0] = v21;
+  v6 = a1[3];
+  v7 = a1[4];
+  v22[1] = v5;
+  v22[2] = v6;
+  v8 = a1[5];
+  v9 = a1[6];
+  v22[3] = v7;
+  v22[4] = v8;
+  v10 = a1[7];
+  v11 = a1[8];
+  v22[5] = v9;
+  v22[6] = v10;
+  v22[7] = v11;
+  v12 = type metadata accessor for TaggedValue_8.TaggedEnum(0, v22);
+  v13 = *(v12 - 8);
+  v14 = MEMORY[0x1EEE9AC00](v12);
+  v16 = &v22[-1] - v15;
+  (*(v13 + 16))(&v22[-1] - v15, v3, v12, v14);
+  if (swift_getEnumCaseMultiPayload())
   {
-    CRExtensible.init(rawValue:)(v15, a2, a3, a4, v19, a6);
-  }
-
-  return __swift_destroy_boxed_opaque_existential_1(a1);
-}
-
-uint64_t CRExtensible<>.encode(to:)(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  v4 = *(a2 + 16);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v6 = *(AssociatedTypeWitness - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v9 = &v11 - v8;
-  CRExtensible.rawValue.getter(a2, &v11 - v8);
-  sub_1AE23CBAC();
-  return (*(v6 + 8))(v9, AssociatedTypeWitness);
-}
-
-uint64_t sub_1ADFBBBDC(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
-{
-  v5 = *(a3 + 24);
-  v6 = *(*(*(a3 + 16) - 8) + 64);
-  v7 = *(*(swift_getAssociatedTypeWitness() - 8) + 64);
-  if (v7 <= v6)
-  {
-    v8 = v6;
+    (*(v13 + 8))(v16, v12);
+    v17 = v21;
+    v18 = *(v21 - 8);
+    v19 = 1;
   }
 
   else
   {
-    v8 = v7;
+    v18 = *(v21 - 8);
+    (*(v18 + 32))(a2, v16);
+    v17 = v21;
+    v19 = 0;
   }
 
-  if (!a2)
+  return (*(v18 + 56))(a2, v19, 1, v17);
+}
+
+uint64_t TaggedValue_8.tagged2.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = v2;
+  v5 = *(a1 + 136);
+  v15 = *(a1 + 16);
+  v14 = *(a1 + 24);
+  v16 = v14;
+  v17 = *(a1 + 40);
+  v18 = *(a1 + 56);
+  v19 = *(a1 + 72);
+  v20 = *(a1 + 88);
+  v21 = *(a1 + 104);
+  v22 = *(a1 + 120);
+  v23 = v5;
+  v6 = type metadata accessor for TaggedValue_8.TaggedEnum(0, &v15);
+  v7 = *(v6 - 8);
+  v8 = MEMORY[0x1EEE9AC00](v6);
+  v10 = &v14 - v9;
+  (*(v7 + 16))(&v14 - v9, v3, v6, v8);
+  if (swift_getEnumCaseMultiPayload() == 1)
   {
-    return 0;
+    v11 = *(v14 - 8);
+    (*(v11 + 32))(a2, v10);
+    v12 = 0;
   }
 
-  if (a2 < 0xFF)
+  else
   {
-    goto LABEL_26;
+    (*(v7 + 8))(v10, v6);
+    v11 = *(v14 - 8);
+    v12 = 1;
   }
 
-  v9 = v8 + 1;
-  v10 = 8 * (v8 + 1);
-  if ((v8 + 1) <= 3)
+  return (*(v11 + 56))(a2, v12, 1, v14);
+}
+
+uint64_t TaggedValue_8.tagged3.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = v2;
+  v5 = a1[1];
+  v20 = a1[2];
+  v21[0] = v5;
+  v6 = a1[3];
+  v7 = a1[4];
+  v21[1] = v20;
+  v21[2] = v6;
+  v8 = a1[5];
+  v9 = a1[6];
+  v21[3] = v7;
+  v21[4] = v8;
+  v10 = a1[7];
+  v11 = a1[8];
+  v21[5] = v9;
+  v21[6] = v10;
+  v21[7] = v11;
+  v12 = type metadata accessor for TaggedValue_8.TaggedEnum(0, v21);
+  v13 = *(v12 - 8);
+  v14 = MEMORY[0x1EEE9AC00](v12);
+  v16 = &v21[-1] - v15;
+  (*(v13 + 16))(&v21[-1] - v15, v3, v12, v14);
+  if (swift_getEnumCaseMultiPayload() == 2)
   {
-    v13 = ((a2 + ~(-1 << v10) - 254) >> v10) + 1;
-    if (HIWORD(v13))
-    {
-      v11 = *(a1 + v9);
-      if (!v11)
-      {
-        goto LABEL_26;
-      }
-
-      goto LABEL_15;
-    }
-
-    if (v13 > 0xFF)
-    {
-      v11 = *(a1 + v9);
-      if (!*(a1 + v9))
-      {
-        goto LABEL_26;
-      }
-
-      goto LABEL_15;
-    }
-
-    if (v13 < 2)
-    {
-LABEL_26:
-      v15 = *(a1 + v8);
-      if (v15 >= 2)
-      {
-        return (v15 ^ 0xFF) + 1;
-      }
-
-      else
-      {
-        return 0;
-      }
-    }
+    v17 = *(v20 - 8);
+    (*(v17 + 32))(a2, v16);
+    v18 = 0;
   }
 
-  v11 = *(a1 + v9);
-  if (!*(a1 + v9))
+  else
   {
-    goto LABEL_26;
+    (*(v13 + 8))(v16, v12);
+    v17 = *(v20 - 8);
+    v18 = 1;
   }
 
-LABEL_15:
-  v14 = (v11 - 1) << v10;
-  if (v9 > 3)
+  return (*(v17 + 56))(a2, v18, 1, v20);
+}
+
+uint64_t TaggedValue_8.tagged4.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = v2;
+  v5 = *(a1 + 136);
+  v6 = *(a1 + 16);
+  v17 = *(a1 + 32);
+  v15 = *(a1 + 40);
+  v16 = v6;
+  v18 = v15;
+  v19 = *(a1 + 56);
+  v20 = *(a1 + 72);
+  v21 = *(a1 + 88);
+  v22 = *(a1 + 104);
+  v23 = *(a1 + 120);
+  v24 = v5;
+  v7 = type metadata accessor for TaggedValue_8.TaggedEnum(0, &v16);
+  v8 = *(v7 - 8);
+  v9 = MEMORY[0x1EEE9AC00](v7);
+  v11 = &v15 - v10;
+  (*(v8 + 16))(&v15 - v10, v3, v7, v9);
+  if (swift_getEnumCaseMultiPayload() == 3)
   {
+    v12 = *(v15 - 8);
+    (*(v12 + 32))(a2, v11);
+    v13 = 0;
+  }
+
+  else
+  {
+    (*(v8 + 8))(v11, v7);
+    v12 = *(v15 - 8);
+    v13 = 1;
+  }
+
+  return (*(v12 + 56))(a2, v13, 1, v15);
+}
+
+uint64_t TaggedValue_8.tagged5.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = v2;
+  v5 = a1[2];
+  v18[0] = a1[1];
+  v18[1] = v5;
+  v6 = a1[4];
+  v17 = a1[3];
+  v18[2] = v17;
+  v18[3] = v6;
+  v7 = a1[6];
+  v18[4] = a1[5];
+  v18[5] = v7;
+  v8 = a1[8];
+  v18[6] = a1[7];
+  v18[7] = v8;
+  v9 = type metadata accessor for TaggedValue_8.TaggedEnum(0, v18);
+  v10 = *(v9 - 8);
+  v11 = MEMORY[0x1EEE9AC00](v9);
+  v13 = &v18[-1] - v12;
+  (*(v10 + 16))(&v18[-1] - v12, v3, v9, v11);
+  if (swift_getEnumCaseMultiPayload() == 4)
+  {
+    v14 = *(v17 - 8);
+    (*(v14 + 32))(a2, v13);
+    v15 = 0;
+  }
+
+  else
+  {
+    (*(v10 + 8))(v13, v9);
+    v14 = *(v17 - 8);
+    v15 = 1;
+  }
+
+  return (*(v14 + 56))(a2, v15, 1, v17);
+}
+
+uint64_t TaggedValue_8.tagged6.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = v2;
+  v5 = *(a1 + 48);
+  v6 = *(a1 + 136);
+  v7 = *(a1 + 32);
+  v17[0] = *(a1 + 16);
+  v17[1] = v7;
+  v18 = v5;
+  v16 = *(a1 + 56);
+  v19 = v16;
+  v20 = *(a1 + 72);
+  v21 = *(a1 + 88);
+  v22 = *(a1 + 104);
+  v23 = *(a1 + 120);
+  v24 = v6;
+  v8 = type metadata accessor for TaggedValue_8.TaggedEnum(0, v17);
+  v9 = *(v8 - 8);
+  v10 = MEMORY[0x1EEE9AC00](v8);
+  v12 = &v17[-1] - v11;
+  (*(v9 + 16))(&v17[-1] - v11, v3, v8, v10);
+  if (swift_getEnumCaseMultiPayload() == 5)
+  {
+    v13 = *(v16 - 8);
+    (*(v13 + 32))(a2, v12);
     v14 = 0;
   }
 
-  if (v9)
+  else
   {
-    if (v9 > 3)
-    {
-      LODWORD(v9) = 4;
-    }
-
-    if (v9 > 2)
-    {
-      if (v9 == 3)
-      {
-        LODWORD(v9) = *a1 | (*(a1 + 2) << 16);
-      }
-
-      else
-      {
-        LODWORD(v9) = *a1;
-      }
-    }
-
-    else if (v9 == 1)
-    {
-      LODWORD(v9) = *a1;
-    }
-
-    else
-    {
-      LODWORD(v9) = *a1;
-    }
+    (*(v9 + 8))(v12, v8);
+    v13 = *(v16 - 8);
+    v14 = 1;
   }
 
-  return (v9 | v14) + 255;
+  return (*(v13 + 56))(a2, v14, 1, v16);
 }
 
-void sub_1ADFBBD4C(_BYTE *a1, unsigned int a2, unsigned int a3, uint64_t a4)
+uint64_t TaggedValue_8.tagged7.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
 {
-  v7 = *(a4 + 24);
-  v8 = *(*(*(a4 + 16) - 8) + 64);
-  v9 = *(*(swift_getAssociatedTypeWitness() - 8) + 64);
-  if (v9 <= v8)
+  v3 = v2;
+  v5 = a1[2];
+  v18[0] = a1[1];
+  v18[1] = v5;
+  v6 = a1[4];
+  v18[2] = a1[3];
+  v18[3] = v6;
+  v17 = v6;
+  v7 = a1[6];
+  v18[4] = a1[5];
+  v18[5] = v7;
+  v8 = a1[8];
+  v18[6] = a1[7];
+  v18[7] = v8;
+  v9 = type metadata accessor for TaggedValue_8.TaggedEnum(0, v18);
+  v10 = *(v9 - 8);
+  v11 = MEMORY[0x1EEE9AC00](v9);
+  v13 = &v18[-1] - v12;
+  (*(v10 + 16))(&v18[-1] - v12, v3, v9, v11);
+  if (swift_getEnumCaseMultiPayload() == 6)
   {
-    v9 = v8;
-  }
-
-  v10 = v9 + 1;
-  if (a3 < 0xFF)
-  {
-    v11 = 0;
-  }
-
-  else if (v10 <= 3)
-  {
-    v14 = ((a3 + ~(-1 << (8 * v10)) - 254) >> (8 * v10)) + 1;
-    if (HIWORD(v14))
-    {
-      v11 = 4;
-    }
-
-    else
-    {
-      if (v14 < 0x100)
-      {
-        v15 = 1;
-      }
-
-      else
-      {
-        v15 = 2;
-      }
-
-      if (v14 >= 2)
-      {
-        v11 = v15;
-      }
-
-      else
-      {
-        v11 = 0;
-      }
-    }
+    v14 = *(v17 - 8);
+    (*(v14 + 32))(a2, v13);
+    v15 = 0;
   }
 
   else
   {
-    v11 = 1;
+    (*(v10 + 8))(v13, v9);
+    v14 = *(v17 - 8);
+    v15 = 1;
   }
 
-  if (a2 > 0xFE)
+  return (*(v14 + 56))(a2, v15, 1, v17);
+}
+
+uint64_t TaggedValue_8.tagged8.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = v2;
+  v5 = *(a1 + 64);
+  v6 = *(a1 + 136);
+  v7 = *(a1 + 32);
+  v17[0] = *(a1 + 16);
+  v17[1] = v7;
+  v17[2] = *(a1 + 48);
+  v18 = v5;
+  v16 = *(a1 + 72);
+  v19 = v16;
+  v20 = *(a1 + 88);
+  v21 = *(a1 + 104);
+  v22 = *(a1 + 120);
+  v23 = v6;
+  v8 = type metadata accessor for TaggedValue_8.TaggedEnum(0, v17);
+  v9 = *(v8 - 8);
+  v10 = MEMORY[0x1EEE9AC00](v8);
+  v12 = &v17[-1] - v11;
+  (*(v9 + 16))(&v17[-1] - v11, v3, v8, v10);
+  if (swift_getEnumCaseMultiPayload() == 7)
   {
-    v12 = a2 - 255;
-    if (v10 >= 4)
+    v13 = *(v16 - 8);
+    (*(v13 + 32))(a2, v12);
+    v14 = 0;
+  }
+
+  else
+  {
+    (*(v9 + 8))(v12, v8);
+    v13 = *(v16 - 8);
+    v14 = 1;
+  }
+
+  return (*(v13 + 56))(a2, v14, 1, v16);
+}
+
+uint64_t TaggedValue_8.unknown.getter@<X0>(_OWORD *a1@<X0>, void *a2@<X8>)
+{
+  v3 = v2;
+  v5 = a1[2];
+  v16[0] = a1[1];
+  v16[1] = v5;
+  v6 = a1[4];
+  v16[2] = a1[3];
+  v16[3] = v6;
+  v7 = a1[6];
+  v16[4] = a1[5];
+  v16[5] = v7;
+  v8 = a1[8];
+  v16[6] = a1[7];
+  v16[7] = v8;
+  v9 = type metadata accessor for TaggedValue_8.TaggedEnum(0, v16);
+  v10 = *(v9 - 8);
+  v11 = MEMORY[0x1EEE9AC00](v9);
+  v13 = v16 - v12;
+  (*(v10 + 16))(v16 - v12, v3, v9, v11);
+  result = swift_getEnumCaseMultiPayload();
+  if (result == 8)
+  {
+    v15 = *(v13 + 1);
+  }
+
+  else
+  {
+    result = (*(v10 + 8))(v13, v9);
+    v15 = 0;
+  }
+
+  *a2 = v15;
+  return result;
+}
+
+void TaggedValue_8.visitReferences(_:)(uint64_t a1, uint64_t a2)
+{
+  v88 = a1;
+  v77 = *(*(a2 + 72) - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v76 = v65 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v74 = *(*(v3 + 64) - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v73 = v65 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v71 = *(*(v6 + 56) - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v70 = v65 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v68 = *(*(v9 + 48) - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v67 = v65 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = *(v12 + 40);
+  v86 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v85 = v65 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = *(v15 + 32);
+  v84 = *(v16 - 8);
+  MEMORY[0x1EEE9AC00](v17);
+  v83 = v65 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = *(v19 + 24);
+  v82 = *(v20 - 8);
+  MEMORY[0x1EEE9AC00](v21);
+  v80 = v65 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = *(v23 + 16);
+  v79 = *(v24 - 8);
+  MEMORY[0x1EEE9AC00](v25);
+  v27 = v65 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v30 = v28[10];
+  v29 = v28[11];
+  v32 = v28[12];
+  v31 = v28[13];
+  v33 = v28[14];
+  v34 = v28[15];
+  v36 = v28[16];
+  v35 = v28[17];
+  *&v37 = v24;
+  *(&v37 + 1) = v20;
+  *&v38 = v16;
+  v81 = v39;
+  *(&v38 + 1) = v39;
+  v89[1] = v38;
+  v89[0] = v37;
+  v69 = v40;
+  *&v37 = v40;
+  v72 = v41;
+  *(&v37 + 1) = v41;
+  v75 = v42;
+  *&v38 = v42;
+  v78 = v43;
+  *(&v38 + 1) = v43;
+  v90 = v38;
+  v89[2] = v37;
+  v91[0] = v30;
+  v91[1] = v29;
+  v91[2] = v32;
+  v91[3] = v31;
+  v65[3] = v33;
+  v91[4] = v33;
+  v91[5] = v34;
+  v65[2] = v34;
+  v65[1] = v36;
+  v91[6] = v36;
+  v91[7] = v35;
+  v66 = v35;
+  v44 = type metadata accessor for TaggedValue_8.TaggedEnum(0, v89);
+  v45 = MEMORY[0x1EEE9AC00](v44);
+  v47 = v65 - v46;
+  (*(v48 + 16))(v65 - v46, v87, v44, v45);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload > 3)
+  {
+    if (EnumCaseMultiPayload <= 5)
     {
-      bzero(a1, v9 + 1);
-      *a1 = v12;
-      v13 = 1;
-      if (v11 > 1)
+      if (EnumCaseMultiPayload == 4)
       {
-        goto LABEL_39;
+        v58 = v68;
+        v59 = v67;
+        v16 = v69;
+        (*(v68 + 32))(v67, v47, v69);
+        v61 = v91;
       }
 
-      goto LABEL_36;
+      else
+      {
+        v58 = v71;
+        v59 = v70;
+        v16 = v72;
+        (*(v71 + 32))(v70, v47, v72);
+        v61 = &v90 + 8;
+      }
     }
 
-    v13 = (v12 >> (8 * v10)) + 1;
-    if (v9 != -1)
+    else
     {
-      v16 = v12 & ~(-1 << (8 * v10));
-      bzero(a1, v10);
-      if (v10 != 3)
+      if (EnumCaseMultiPayload != 6)
       {
-        if (v10 == 2)
+        if (EnumCaseMultiPayload == 7)
         {
-          *a1 = v16;
-          if (v11 > 1)
-          {
-LABEL_39:
-            if (v11 == 2)
-            {
-              *&a1[v10] = v13;
-            }
-
-            else
-            {
-              *&a1[v10] = v13;
-            }
-
-            return;
-          }
+          v50 = v77;
+          v51 = v76;
+          v52 = v78;
+          (*(v77 + 32))(v76, v47, v78);
+          (*(*(v66 + 8) + 48))(v88, v52);
+          (*(v50 + 8))(v51, v52);
         }
 
         else
         {
-          *a1 = v12;
-          if (v11 > 1)
-          {
-            goto LABEL_39;
-          }
-        }
-
-LABEL_36:
-        if (v11)
-        {
-          a1[v10] = v13;
+          (*(**(v47 + 1) + 120))(v88);
         }
 
         return;
       }
 
-      *a1 = v16;
-      a1[2] = BYTE2(v16);
+      v58 = v74;
+      v59 = v73;
+      v16 = v75;
+      (*(v74 + 32))(v73, v47, v75);
+      v61 = &v90;
     }
 
-    if (v11 > 1)
-    {
-      goto LABEL_39;
-    }
-
-    goto LABEL_36;
+    v60 = *(*(v61 - 32) + 8);
+LABEL_20:
+    (*(v60 + 48))(v88, v16);
+    (*(v58 + 8))(v59, v16);
+    return;
   }
 
-  if (v11 <= 1)
+  v87 = v31;
+  v53 = v20;
+  v54 = v85;
+  v55 = v86;
+  v56 = v81;
+  if (EnumCaseMultiPayload > 1)
   {
-    if (v11)
+    if (EnumCaseMultiPayload != 2)
     {
-      a1[v10] = 0;
-      if (!a2)
-      {
-        return;
-      }
-
-LABEL_25:
-      a1[v9] = -a2;
+      (*(v86 + 32))(v85, v47, v81);
+      (*(*(v87 + 8) + 48))(v88, v56);
+      (*(v55 + 8))(v54, v56);
       return;
     }
 
-LABEL_24:
-    if (!a2)
-    {
-      return;
-    }
-
-    goto LABEL_25;
+    v58 = v84;
+    v59 = v83;
+    (*(v84 + 32))(v83, v47, v16);
+    v60 = *(v32 + 8);
+    goto LABEL_20;
   }
 
-  if (v11 == 2)
+  if (EnumCaseMultiPayload)
   {
-    *&a1[v10] = 0;
-    goto LABEL_24;
-  }
-
-  *&a1[v10] = 0;
-  if (a2)
-  {
-    goto LABEL_25;
-  }
-}
-
-uint64_t sub_1ADFBBF38(uint64_t a1, uint64_t a2)
-{
-  WitnessTable = swift_getWitnessTable();
-  v5 = *(a2 + 16);
-  sub_1AE23D7CC();
-  v9 = *(a2 + 24);
-  v6 = swift_getWitnessTable();
-  return CRValue<>.encode(to:)(a1, a2, v7, WitnessTable, v6);
-}
-
-uint64_t sub_1ADFBBFD8(uint64_t a1)
-{
-  WitnessTable = swift_getWitnessTable();
-  v3 = *(a1 + 16);
-  sub_1AE23D7CC();
-  v7 = *(a1 + 24);
-  v4 = swift_getWitnessTable();
-  return CRValue<>.minEncodingVersion.getter(a1, v5, WitnessTable, v4);
-}
-
-uint64_t sub_1ADFBC390(uint64_t a1)
-{
-  v1 = *(a1 + 192);
-  result = swift_checkMetadataState();
-  if (v3 <= 0x3F)
-  {
-    v4 = *(result - 8) + 64;
-    result = swift_initClassMetadata2();
-    if (!result)
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1ADFBC424(uint64_t a1)
-{
-  v2 = *v1;
-  v3 = *(*v1 + 192);
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v7 = &v22 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = &v22 - v9;
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v22 - v12;
-  v14 = swift_dynamicCastClass();
-  if (v14)
-  {
-    v15 = *(*v14 + 216);
-    v16 = v14;
-    swift_beginAccess();
-    v23 = v2;
-    v17 = *(v4 + 16);
-    v17(v10, v16 + v15, v3);
-    (*(v4 + 32))(v13, v10, v3);
-    v18 = *(*v1 + 216);
-    swift_beginAccess();
-    v17(v7, v1 + v18, v3);
-    v19 = (*(*(v23 + 200) + 16))(v13, v3);
-    v20 = *(v4 + 8);
-    v20(v7, v3);
-    v20(v13, v3);
+    v62 = v82;
+    v63 = v80;
+    v64 = v53;
+    (*(v82 + 32))(v80, v47, v53);
+    (*(*(v29 + 8) + 48))(v88, v64);
+    (*(v62 + 8))(v63, v64);
   }
 
   else
   {
+    v57 = v79;
+    (*(v79 + 32))(v27, v47, v24);
+    (*(*(v30 + 8) + 48))(v88, v24);
+    (*(v57 + 8))(v27, v24);
+  }
+}
+
+uint64_t TaggedValue_8.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+{
+  v182 = a1;
+  v183 = a3;
+  v159 = *(*(a2 + 72) - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v160 = &v145 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v158 = &v145 - v5;
+  v156 = *(*(v6 + 64) - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v157 = &v145 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v155 = &v145 - v10;
+  v153 = *(*(v11 + 56) - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v154 = &v145 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v152 = &v145 - v15;
+  v17 = *(v16 + 48);
+  v150 = *(v17 - 8);
+  MEMORY[0x1EEE9AC00](v17);
+  v151 = &v145 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v19);
+  v149 = &v145 - v20;
+  v164 = *(*(v21 + 40) - 8);
+  MEMORY[0x1EEE9AC00](v22);
+  v162 = &v145 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v24);
+  v26 = &v145 - v25;
+  v163 = *(*(v27 + 32) - 8);
+  MEMORY[0x1EEE9AC00](v28);
+  v30 = &v145 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v31);
+  v33 = &v145 - v32;
+  v161 = *(*(v34 + 24) - 8);
+  MEMORY[0x1EEE9AC00](v35);
+  v37 = &v145 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v38);
+  v40 = &v145 - v39;
+  v42 = *(*(v41 + 16) - 8);
+  MEMORY[0x1EEE9AC00](v43);
+  v45 = &v145 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v46);
+  v48 = &v145 - v47;
+  v50 = v49[10];
+  v51 = v49[11];
+  v52 = v49[12];
+  v53 = v49[13];
+  v54 = v49[14];
+  v55 = v49[15];
+  v57 = v49[16];
+  v56 = v49[17];
+  v165 = v58;
+  *&v59 = v58;
+  v166 = v60;
+  *(&v59 + 1) = v60;
+  v167 = v61;
+  *&v62 = v61;
+  v168 = v63;
+  *(&v62 + 1) = v63;
+  v147 = v62;
+  v185 = v62;
+  v148 = v59;
+  v184 = v59;
+  v169 = v64;
+  *&v59 = v64;
+  v171 = v65;
+  *(&v59 + 1) = v65;
+  v172 = v66;
+  *&v62 = v66;
+  v170 = v67;
+  *(&v62 + 1) = v67;
+  v145 = v62;
+  v187 = v62;
+  v146 = v59;
+  v186 = v59;
+  v180 = v51;
+  v181 = v50;
+  v188 = v50;
+  v189 = v51;
+  v179 = v52;
+  v190 = v52;
+  v191 = v53;
+  v178 = v53;
+  v177 = v54;
+  v192 = v54;
+  v193 = v55;
+  v176 = v55;
+  v175 = v57;
+  v194 = v57;
+  v195 = v56;
+  v174 = v56;
+  v68 = type metadata accessor for TaggedValue_8.TaggedEnum(0, &v184);
+  v69 = MEMORY[0x1EEE9AC00](v68);
+  v71 = &v145 - v70;
+  (*(v72 + 16))(&v145 - v70, v173, v68, v69);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload <= 3)
+  {
+    v80 = v33;
+    v81 = v163;
+    v82 = v162;
+    if (EnumCaseMultiPayload > 1)
+    {
+      if (EnumCaseMultiPayload == 2)
+      {
+        v85 = v80;
+        v86 = v167;
+        (*(v163 + 32))(v80, v71, v167);
+        v87 = v179;
+        (*(*(v179 + 8) + 24))(v182, v86);
+        (*(v81 + 8))(v85, v86);
+        *(&v139 + 1) = v175;
+        *&v139 = v176;
+        *(&v131 + 1) = v177;
+        *(&v123 + 1) = v87;
+        *&v131 = v178;
+        *&v123 = v180;
+        *(&v115 + 1) = v181;
+        *&v115 = v170;
+        return TaggedValue_8.init(_:)(v30, v165, v166, v86, v168, v169, v171, v172, v183, v115, v123, v131, v139, v174);
+      }
+
+      else
+      {
+        v101 = v164;
+        v102 = v26;
+        v103 = v26;
+        v104 = v168;
+        (*(v164 + 32))(v103, v71, v168);
+        v105 = v178;
+        (*(*(v178 + 8) + 24))(v182, v104);
+        (*(v101 + 8))(v102, v104);
+        *(&v143 + 1) = v175;
+        *&v143 = v176;
+        *&v135 = v105;
+        *(&v135 + 1) = v177;
+        *(&v127 + 1) = v179;
+        *&v127 = v180;
+        *(&v119 + 1) = v181;
+        *&v119 = v170;
+        return TaggedValue_8.init(_:)(v82, v165, v166, v167, v104, v169, v171, v172, v183, v119, v127, v135, v143, v174);
+      }
+    }
+
+    else if (EnumCaseMultiPayload)
+    {
+      v98 = v161;
+      v99 = v166;
+      (*(v161 + 32))(v40, v71, v166);
+      v100 = v180;
+      (*(*(v180 + 8) + 24))(v182, v99);
+      (*(v98 + 8))(v40, v99);
+      *(&v142 + 1) = v175;
+      *&v142 = v176;
+      *(&v134 + 1) = v177;
+      *&v134 = v178;
+      *&v126 = v100;
+      *(&v126 + 1) = v179;
+      *(&v118 + 1) = v181;
+      *&v118 = v170;
+      return TaggedValue_8.init(_:)(v37, v165, v99, v167, v168, v169, v171, v172, v183, v118, v126, v134, v142, v174);
+    }
+
+    else
+    {
+      v83 = v165;
+      (*(v42 + 32))(v48, v71, v165);
+      v84 = v181;
+      (*(*(v181 + 8) + 24))(v182, v83);
+      (*(v42 + 8))(v48, v83);
+      *(&v138 + 1) = v175;
+      *&v138 = v176;
+      *(&v130 + 1) = v177;
+      *&v130 = v178;
+      *(&v122 + 1) = v179;
+      *(&v114 + 1) = v84;
+      *&v122 = v180;
+      *&v114 = v170;
+      return TaggedValue_8.init(_:)(v45, v83, v166, v167, v168, v169, v171, v172, v183, v114, v122, v130, v138, v174);
+    }
+  }
+
+  else if (EnumCaseMultiPayload <= 5)
+  {
+    if (EnumCaseMultiPayload == 4)
+    {
+      v88 = v150;
+      v89 = v149;
+      v90 = v169;
+      (*(v150 + 32))(v149, v71, v169);
+      v91 = v177;
+      v92 = v151;
+      (*(*(v177 + 8) + 24))(v182, v90);
+      (*(v88 + 8))(v89, v90);
+      *(&v140 + 1) = v175;
+      *(&v132 + 1) = v91;
+      *&v140 = v176;
+      *&v132 = v178;
+      *(&v124 + 1) = v179;
+      *&v124 = v180;
+      *(&v116 + 1) = v181;
+      *&v116 = v170;
+      return TaggedValue_8.init(_:)(v92, v165, v166, v167, v168, v90, v171, v172, v183, v116, v124, v132, v140, v174);
+    }
+
+    else
+    {
+      v109 = v153;
+      v110 = v152;
+      v111 = v171;
+      (*(v153 + 32))(v152, v71, v171);
+      v112 = v176;
+      v113 = v154;
+      (*(*(v176 + 8) + 24))(v182, v111);
+      (*(v109 + 8))(v110, v111);
+      *&v144 = v112;
+      *(&v144 + 1) = v175;
+      *(&v136 + 1) = v177;
+      *&v136 = v178;
+      *(&v128 + 1) = v179;
+      *&v128 = v180;
+      *(&v120 + 1) = v181;
+      *&v120 = v170;
+      return TaggedValue_8.init(_:)(v113, v165, v166, v167, v168, v169, v111, v172, v183, v120, v128, v136, v144, v174);
+    }
+  }
+
+  else if (EnumCaseMultiPayload == 6)
+  {
+    v93 = v156;
+    v94 = v155;
+    v95 = v172;
+    (*(v156 + 32))(v155, v71, v172);
+    v96 = v175;
+    v97 = v157;
+    (*(*(v175 + 8) + 24))(v182, v95);
+    (*(v93 + 8))(v94, v95);
+    *(&v141 + 1) = v96;
+    *&v141 = v176;
+    *(&v133 + 1) = v177;
+    *&v133 = v178;
+    *(&v125 + 1) = v179;
+    *&v125 = v180;
+    *(&v117 + 1) = v181;
+    *&v117 = v170;
+    return TaggedValue_8.init(_:)(v97, v165, v166, v167, v168, v169, v171, v95, v183, v117, v125, v133, v141, v174);
+  }
+
+  else if (EnumCaseMultiPayload == 7)
+  {
+    v74 = v159;
+    v75 = v158;
+    v76 = v170;
+    (*(v159 + 32))(v158, v71, v170);
+    v77 = v174;
+    v78 = v160;
+    (*(*(v174 + 8) + 24))(v182, v76);
+    (*(v74 + 8))(v75, v76);
+    *(&v137 + 1) = v176;
+    *&v137 = v177;
+    *(&v129 + 1) = v178;
+    *&v129 = v179;
+    *(&v121 + 1) = v180;
+    *&v121 = v181;
+    return TaggedValue_8.init(_:)(v78, v165, v166, v167, v168, v169, v171, v172, v183, v76, v121, v129, v137, v175, v77);
+  }
+
+  else
+  {
+    v106 = *v71;
+    v107 = (*(**(v71 + 1) + 104))(v182);
+
+    v108 = v183;
+    *v183 = v106;
+    v108[1] = v107;
+    v185 = v147;
+    v184 = v148;
+    v187 = v145;
+    v186 = v146;
+    v188 = v181;
+    v189 = v180;
+    v190 = v179;
+    v191 = v178;
+    v192 = v177;
+    v193 = v176;
+    v194 = v175;
+    v195 = v174;
+    type metadata accessor for TaggedValue_8.TaggedEnum(0, &v184);
+    return swift_storeEnumTagMultiPayload();
+  }
+}
+
+uint64_t TaggedValue_8.observableDifference(from:with:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, char *a4@<X8>)
+{
+  v325 = a2;
+  v343 = a1;
+  v339 = a4;
+  v5 = a3[9];
+  v340 = a3[17];
+  v304 = *(v340 + 1);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v258 = sub_1AE23D7CC();
+  v257 = *(v258 - 8);
+  MEMORY[0x1EEE9AC00](v258);
+  v305 = &v235 - v7;
+  v306 = AssociatedTypeWitness;
+  v303 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v256 = &v235 - v9;
+  v323 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v301 = &v235 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12);
+  v300 = &v235 - v13;
+  *&v338 = a3[16];
+  v14 = a3[8];
+  v297 = *(v338 + 8);
+  v15 = swift_getAssociatedTypeWitness();
+  v255 = sub_1AE23D7CC();
+  v254 = *(v255 - 8);
+  MEMORY[0x1EEE9AC00](v255);
+  v299 = &v235 - v16;
+  v302 = v15;
+  v298 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v17);
+  v253 = &v235 - v18;
+  v321 = *(v14 - 8);
+  MEMORY[0x1EEE9AC00](v19);
+  v295 = &v235 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v21);
+  v294 = &v235 - v22;
+  *&v337 = a3[15];
+  v23 = a3[7];
+  v291 = *(v337 + 8);
+  v24 = swift_getAssociatedTypeWitness();
+  v252 = sub_1AE23D7CC();
+  v251 = *(v252 - 8);
+  MEMORY[0x1EEE9AC00](v252);
+  v293 = &v235 - v25;
+  v296 = v24;
+  v292 = *(v24 - 8);
+  MEMORY[0x1EEE9AC00](v26);
+  v250 = &v235 - v27;
+  v319 = *(v23 - 8);
+  MEMORY[0x1EEE9AC00](v28);
+  v289 = &v235 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v30);
+  v288 = &v235 - v31;
+  *&v336 = a3[14];
+  v32 = a3[6];
+  v285 = *(v336 + 8);
+  v33 = swift_getAssociatedTypeWitness();
+  v249 = sub_1AE23D7CC();
+  v248 = *(v249 - 8);
+  MEMORY[0x1EEE9AC00](v249);
+  v287 = &v235 - v34;
+  v290 = v33;
+  v286 = *(v33 - 8);
+  MEMORY[0x1EEE9AC00](v35);
+  v247 = &v235 - v36;
+  v317 = *(v32 - 8);
+  MEMORY[0x1EEE9AC00](v37);
+  v284 = &v235 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v39);
+  v283 = &v235 - v40;
+  v318 = v32;
+  *&v41 = v32;
+  v320 = v23;
+  *(&v41 + 1) = v23;
+  v342 = v41;
+  v42 = a3[5];
+  v322 = v14;
+  *&v41 = v14;
+  v324 = v5;
+  *(&v41 + 1) = v5;
+  v341 = v41;
+  *&v335 = a3[13];
+  v278 = *(v335 + 8);
+  v43 = swift_getAssociatedTypeWitness();
+  v246 = sub_1AE23D7CC();
+  v245 = *(v246 - 8);
+  MEMORY[0x1EEE9AC00](v246);
+  v280 = &v235 - v44;
+  v282 = v43;
+  v281 = *(v43 - 8);
+  MEMORY[0x1EEE9AC00](v45);
+  v244 = &v235 - v46;
+  v328 = *(v42 - 8);
+  MEMORY[0x1EEE9AC00](v47);
+  v277 = &v235 - ((v48 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v49);
+  v276 = &v235 - v50;
+  v51 = a3[12];
+  v52 = a3[4];
+  v273 = *(v51 + 8);
+  v53 = swift_getAssociatedTypeWitness();
+  v243 = sub_1AE23D7CC();
+  v242 = *(v243 - 8);
+  MEMORY[0x1EEE9AC00](v243);
+  v275 = &v235 - v54;
+  v279 = v53;
+  v274 = *(v53 - 8);
+  MEMORY[0x1EEE9AC00](v55);
+  v241 = &v235 - v56;
+  v327 = *(v52 - 8);
+  MEMORY[0x1EEE9AC00](v57);
+  v271 = &v235 - ((v58 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v59);
+  v270 = &v235 - v60;
+  v61 = a3[11];
+  v62 = a3[3];
+  v267 = *(v61 + 8);
+  v63 = swift_getAssociatedTypeWitness();
+  v240 = sub_1AE23D7CC();
+  v239 = *(v240 - 8);
+  MEMORY[0x1EEE9AC00](v240);
+  v269 = &v235 - v64;
+  v272 = v63;
+  v268 = *(v63 - 8);
+  MEMORY[0x1EEE9AC00](v65);
+  v238 = &v235 - v66;
+  v313 = *(v62 - 8);
+  MEMORY[0x1EEE9AC00](v67);
+  v266 = &v235 - ((v68 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v69);
+  v265 = &v235 - v70;
+  v71 = a3[10];
+  v72 = a3[2];
+  v261 = *(v71 + 8);
+  v73 = swift_getAssociatedTypeWitness();
+  v237 = sub_1AE23D7CC();
+  v236 = *(v237 - 8);
+  MEMORY[0x1EEE9AC00](v237);
+  v263 = &v235 - v74;
+  v264 = v73;
+  v262 = *(v73 - 8);
+  MEMORY[0x1EEE9AC00](v75);
+  v235 = &v235 - v76;
+  v307 = *(v72 - 8);
+  MEMORY[0x1EEE9AC00](v77);
+  v260 = &v235 - ((v78 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v79);
+  v259 = &v235 - v80;
+  v326 = v72;
+  *&v81 = v72;
+  v314 = v62;
+  *(&v81 + 1) = v62;
+  v315 = v52;
+  *&v82 = v52;
+  v316 = v42;
+  *(&v82 + 1) = v42;
+  v333 = v82;
+  v345 = v82;
+  v334 = v81;
+  v344 = v81;
+  v347 = v341;
+  v346 = v342;
+  *&v82 = v71;
+  *(&v82 + 1) = v61;
+  *&v83 = v51;
+  *(&v83 + 1) = v335;
+  *&v81 = v336;
+  *(&v81 + 1) = v337;
+  v335 = v83;
+  v349 = v83;
+  v336 = v82;
+  v348 = v82;
+  *&v82 = v338;
+  *(&v82 + 1) = v340;
+  v337 = v82;
+  v351 = v82;
+  v338 = v81;
+  v350 = v81;
+  v84 = type metadata accessor for TaggedValue_8.TaggedEnum(0, &v344);
+  v85 = *(v84 - 8);
+  MEMORY[0x1EEE9AC00](v84);
+  v311 = &v235 - ((v86 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v87);
+  v312 = &v235 - v88;
+  MEMORY[0x1EEE9AC00](v89);
+  v310 = &v235 - v90;
+  MEMORY[0x1EEE9AC00](v91);
+  v309 = &v235 - v92;
+  MEMORY[0x1EEE9AC00](v93);
+  v308 = &v235 - v94;
+  MEMORY[0x1EEE9AC00](v95);
+  v97 = &v235 - v96;
+  MEMORY[0x1EEE9AC00](v98);
+  v100 = &v235 - v99;
+  MEMORY[0x1EEE9AC00](v101);
+  v103 = &v235 - v102;
+  MEMORY[0x1EEE9AC00](v104);
+  v106 = &v235 - v105;
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  v331 = *(TupleTypeMetadata2 - 8);
+  v108 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
+  v110 = &v235 - v109;
+  v330 = v111;
+  v112 = &v235 + *(v111 + 48) - v109;
+  v329 = v85;
+  v113 = *(v85 + 16);
+  v113(&v235 - v109, v332, v84, v108);
+  v114 = v112;
+  (v113)(v112, v343, v84);
+  v340 = v110;
+  v343 = v84;
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload > 3)
+  {
+    if (EnumCaseMultiPayload > 5)
+    {
+      if (EnumCaseMultiPayload == 6)
+      {
+        v151 = v310;
+        v116 = v340;
+        (v113)(v310, v340, v343);
+        if (swift_getEnumCaseMultiPayload() == 6)
+        {
+          v152 = v321;
+          v153 = *(v321 + 32);
+          v154 = v294;
+          v155 = v322;
+          v153(v294, v151, v322);
+          v156 = v295;
+          v153(v295, v114, v155);
+          v157 = v299;
+          (*(v297 + 40))(v156, v325, v155);
+          v158 = *(v152 + 8);
+          v158(v156, v155);
+          v158(v154, v155);
+          v159 = v298;
+          v160 = v302;
+          if ((*(v298 + 48))(v157, 1, v302) == 1)
+          {
+            (*(v254 + 8))(v157, v255);
+            goto LABEL_49;
+          }
+
+          v211 = *(v159 + 32);
+          v212 = v253;
+          v211(v253, v157, v160);
+          v213 = v339;
+          v211(v339, v212, v160);
+          v345 = v333;
+          v344 = v334;
+          v347 = v341;
+          v346 = v342;
+          v349 = v335;
+          v348 = v336;
+          v351 = v337;
+          v350 = v338;
+          v214 = type metadata accessor for TaggedValue_8.ObservableDifference(0, &v344);
+          goto LABEL_63;
+        }
+
+        v196 = *(v321 + 8);
+        v197 = v151;
+        v198 = &v345;
+      }
+
+      else
+      {
+        v116 = v340;
+        if (EnumCaseMultiPayload != 7)
+        {
+          v182 = v311;
+          (v113)(v311, v340, v343);
+          if (swift_getEnumCaseMultiPayload() == 8)
+          {
+            v183 = *v182;
+            v184 = *v114;
+
+            if (v183 == v184)
+            {
+              v344 = v334;
+              v345 = v333;
+              v346 = v342;
+              v347 = v341;
+              v348 = v336;
+              v349 = v335;
+              v350 = v338;
+              v351 = v337;
+LABEL_50:
+              v210 = type metadata accessor for TaggedValue_8.ObservableDifference(0, &v344);
+              (*(*(v210 - 8) + 56))(v339, 1, 1, v210);
+LABEL_64:
+              v201 = &v348 + 8;
+              goto LABEL_65;
+            }
+
+            v344 = v334;
+            v345 = v333;
+            v346 = v342;
+            v347 = v341;
+            v348 = v336;
+            v349 = v335;
+            v350 = v338;
+            v351 = v337;
+            v214 = type metadata accessor for TaggedValue_8.ObservableDifference(0, &v344);
+            v213 = v339;
+            goto LABEL_63;
+          }
+
+          goto LABEL_44;
+        }
+
+        v117 = v312;
+        (v113)(v312, v340, v343);
+        if (swift_getEnumCaseMultiPayload() == 7)
+        {
+          v118 = v323;
+          v119 = *(v323 + 32);
+          v120 = v300;
+          v121 = v324;
+          v119(v300, v117, v324);
+          v122 = v301;
+          v119(v301, v114, v121);
+          v123 = v305;
+          (*(v304 + 40))(v122, v325, v121);
+          v124 = *(v118 + 8);
+          v124(v122, v121);
+          v124(v120, v121);
+          v125 = v303;
+          v126 = v306;
+          if ((*(v303 + 48))(v123, 1, v306) == 1)
+          {
+            (*(v257 + 8))(v123, v258);
+LABEL_49:
+            v345 = v333;
+            v344 = v334;
+            v347 = v341;
+            v346 = v342;
+            v349 = v335;
+            v348 = v336;
+            v351 = v337;
+            v350 = v338;
+            goto LABEL_50;
+          }
+
+          v226 = *(v125 + 32);
+          v227 = v256;
+          v226(v256, v123, v126);
+          v213 = v339;
+          v226(v339, v227, v126);
+          v345 = v333;
+          v344 = v334;
+          v347 = v341;
+          v346 = v342;
+          v349 = v335;
+          v348 = v336;
+          v351 = v337;
+          v350 = v338;
+          v214 = type metadata accessor for TaggedValue_8.ObservableDifference(0, &v344);
+          goto LABEL_63;
+        }
+
+        v196 = *(v323 + 8);
+        v197 = v117;
+        v198 = &v346;
+      }
+
+      goto LABEL_43;
+    }
+
+    if (EnumCaseMultiPayload == 4)
+    {
+      v141 = v308;
+      v116 = v340;
+      (v113)(v308, v340, v343);
+      if (swift_getEnumCaseMultiPayload() == 4)
+      {
+        v142 = v317;
+        v143 = *(v317 + 32);
+        v144 = v283;
+        v145 = v318;
+        v143(v283, v141, v318);
+        v146 = v284;
+        v143(v284, v114, v145);
+        v147 = v287;
+        (*(v285 + 40))(v146, v325, v145);
+        v148 = *(v142 + 8);
+        v148(v146, v145);
+        v148(v144, v145);
+        v149 = v286;
+        v150 = v290;
+        if ((*(v286 + 48))(v147, 1, v290) == 1)
+        {
+          (*(v248 + 8))(v147, v249);
+          goto LABEL_49;
+        }
+
+        v228 = *(v149 + 32);
+        v229 = v247;
+        v228(v247, v147, v150);
+        v213 = v339;
+        v228(v339, v229, v150);
+        v345 = v333;
+        v344 = v334;
+        v347 = v341;
+        v346 = v342;
+        v349 = v335;
+        v348 = v336;
+        v351 = v337;
+        v350 = v338;
+        v214 = type metadata accessor for TaggedValue_8.ObservableDifference(0, &v344);
+LABEL_63:
+        swift_storeEnumTagMultiPayload();
+        (*(*(v214 - 8) + 56))(v213, 0, 1, v214);
+        goto LABEL_64;
+      }
+
+      v196 = *(v317 + 8);
+      v197 = v141;
+      v198 = &v342 + 1;
+LABEL_43:
+      v196(v197, *(v198 - 32));
+      goto LABEL_44;
+    }
+
+    v185 = v309;
+    (v113)(v309, v340, v343);
+    if (swift_getEnumCaseMultiPayload() != 5)
+    {
+      (*(v319 + 8))(v185, v320);
+      v199 = v339;
+      v116 = v340;
+      goto LABEL_45;
+    }
+
+    v186 = v319;
+    v187 = *(v319 + 32);
+    v188 = v288;
+    v189 = v320;
+    v187(v288, v185, v320);
+    v190 = v289;
+    v187(v289, v114, v189);
+    v191 = v293;
+    (*(v291 + 40))(v190, v325, v189);
+    v192 = *(v186 + 8);
+    v192(v190, v189);
+    v192(v188, v189);
+    v193 = v292;
+    v194 = v296;
+    if ((*(v292 + 48))(v191, 1, v296) == 1)
+    {
+      (*(v251 + 8))(v191, v252);
+      goto LABEL_35;
+    }
+
+    v230 = *(v193 + 32);
+    v231 = v250;
+    v230(v250, v191, v194);
+    v217 = v339;
+    v230(v339, v231, v194);
+    v345 = v333;
+    v344 = v334;
+    v347 = v341;
+    v346 = v342;
+    v349 = v335;
+    v348 = v336;
+    v351 = v337;
+    v350 = v338;
+    v218 = type metadata accessor for TaggedValue_8.ObservableDifference(0, &v344);
+    goto LABEL_60;
+  }
+
+  v127 = v100;
+  v128 = v326;
+  v129 = v327;
+  v130 = v328;
+  if (EnumCaseMultiPayload <= 1)
+  {
+    v116 = v340;
+    if (!EnumCaseMultiPayload)
+    {
+      (v113)(v106, v340, v343);
+      if (!swift_getEnumCaseMultiPayload())
+      {
+        v202 = v307;
+        v203 = *(v307 + 32);
+        v204 = v259;
+        v203(v259, v106, v128);
+        v205 = v260;
+        v203(v260, v114, v128);
+        v206 = v263;
+        (*(v261 + 40))(v205, v325, v128);
+        v207 = *(v202 + 8);
+        v207(v205, v128);
+        v207(v204, v128);
+        v208 = v262;
+        v209 = v264;
+        if ((*(v262 + 48))(v206, 1, v264) == 1)
+        {
+          (*(v236 + 8))(v206, v237);
+          goto LABEL_49;
+        }
+
+        v232 = *(v208 + 32);
+        v233 = v235;
+        v232(v235, v206, v209);
+        v213 = v339;
+        v232(v339, v233, v209);
+        v345 = v333;
+        v344 = v334;
+        v347 = v341;
+        v346 = v342;
+        v349 = v335;
+        v348 = v336;
+        v351 = v337;
+        v350 = v338;
+        v214 = type metadata accessor for TaggedValue_8.ObservableDifference(0, &v344);
+        goto LABEL_63;
+      }
+
+      (*(v307 + 8))(v106, v128);
+      goto LABEL_44;
+    }
+
+    (v113)(v103, v340, v343);
+    v161 = v114;
+    if (swift_getEnumCaseMultiPayload() == 1)
+    {
+      v162 = v313;
+      v163 = *(v313 + 32);
+      v164 = v265;
+      v165 = v314;
+      v163(v265, v103, v314);
+      v166 = v266;
+      v163(v266, v161, v165);
+      v167 = v269;
+      (*(v267 + 40))(v166, v325, v165);
+      v168 = *(v162 + 8);
+      v168(v166, v165);
+      v168(v164, v165);
+      v169 = v268;
+      v170 = v272;
+      if ((*(v268 + 48))(v167, 1, v272) == 1)
+      {
+        (*(v239 + 8))(v167, v240);
+        goto LABEL_49;
+      }
+
+      v219 = *(v169 + 32);
+      v220 = v238;
+      v219(v238, v167, v170);
+      v213 = v339;
+      v219(v339, v220, v170);
+      v345 = v333;
+      v344 = v334;
+      v347 = v341;
+      v346 = v342;
+      v349 = v335;
+      v348 = v336;
+      v351 = v337;
+      v350 = v338;
+      v214 = type metadata accessor for TaggedValue_8.ObservableDifference(0, &v344);
+      goto LABEL_63;
+    }
+
+    v196 = *(v313 + 8);
+    v197 = v103;
+    v198 = &v340;
+    goto LABEL_43;
+  }
+
+  v131 = v340;
+  if (EnumCaseMultiPayload == 2)
+  {
+    v132 = v127;
+    (v113)(v127, v340, v343);
+    if (swift_getEnumCaseMultiPayload() != 2)
+    {
+      v116 = v131;
+      (*(v129 + 8))(v132, v315);
+LABEL_44:
+      v199 = v339;
+      goto LABEL_45;
+    }
+
+    v133 = *(v129 + 32);
+    v134 = v270;
+    v135 = v315;
+    v133(v270, v132, v315);
+    v136 = v271;
+    v133(v271, v114, v135);
+    v137 = v275;
+    (*(v273 + 40))(v136, v325, v135);
+    v138 = *(v129 + 8);
+    v138(v136, v135);
+    v138(v134, v135);
+    v139 = v274;
+    v140 = v279;
+    if ((*(v274 + 48))(v137, 1, v279) == 1)
+    {
+      (*(v242 + 8))(v137, v243);
+LABEL_35:
+      v345 = v333;
+      v344 = v334;
+      v347 = v341;
+      v346 = v342;
+      v349 = v335;
+      v348 = v336;
+      v351 = v337;
+      v350 = v338;
+      v195 = type metadata accessor for TaggedValue_8.ObservableDifference(0, &v344);
+      (*(*(v195 - 8) + 56))(v339, 1, 1, v195);
+LABEL_61:
+      v225 = v329;
+      v116 = v340;
+      return (*(v225 + 8))(v116, v343);
+    }
+
+    v215 = *(v139 + 32);
+    v216 = v241;
+    v215(v241, v137, v140);
+    v217 = v339;
+    v215(v339, v216, v140);
+    v345 = v333;
+    v344 = v334;
+    v347 = v341;
+    v346 = v342;
+    v349 = v335;
+    v348 = v336;
+    v351 = v337;
+    v350 = v338;
+    v218 = type metadata accessor for TaggedValue_8.ObservableDifference(0, &v344);
+LABEL_60:
+    swift_storeEnumTagMultiPayload();
+    (*(*(v218 - 8) + 56))(v217, 0, 1, v218);
+    goto LABEL_61;
+  }
+
+  v171 = v340;
+  (v113)(v97, v340, v343);
+  v172 = v114;
+  if (swift_getEnumCaseMultiPayload() != 3)
+  {
+    (*(v130 + 8))(v97, v316);
+    v199 = v339;
+    v116 = v171;
+LABEL_45:
+    v344 = v334;
+    v345 = v333;
+    v346 = v342;
+    v347 = v341;
+    v348 = v336;
+    v349 = v335;
+    v350 = v338;
+    v351 = v337;
+    v200 = type metadata accessor for TaggedValue_8.ObservableDifference(0, &v344);
+    swift_storeEnumTagMultiPayload();
+    (*(*(v200 - 8) + 56))(v199, 0, 1, v200);
+    v343 = v330;
+    v201 = &v349 + 8;
+LABEL_65:
+    v225 = *(v201 - 32);
+    return (*(v225 + 8))(v116, v343);
+  }
+
+  v173 = *(v130 + 32);
+  v174 = v276;
+  v175 = v316;
+  v173(v276, v97, v316);
+  v176 = v277;
+  v173(v277, v172, v175);
+  v177 = v280;
+  (*(v278 + 40))(v176, v325, v175);
+  v178 = *(v130 + 8);
+  v178(v176, v175);
+  v178(v174, v175);
+  v179 = v281;
+  v180 = v282;
+  if ((*(v281 + 48))(v177, 1, v282) == 1)
+  {
+    (*(v245 + 8))(v177, v246);
+    v345 = v333;
+    v344 = v334;
+    v347 = v341;
+    v346 = v342;
+    v349 = v335;
+    v348 = v336;
+    v351 = v337;
+    v350 = v338;
+    v181 = type metadata accessor for TaggedValue_8.ObservableDifference(0, &v344);
+    (*(*(v181 - 8) + 56))(v339, 1, 1, v181);
+  }
+
+  else
+  {
+    v221 = *(v179 + 32);
+    v222 = v244;
+    v221(v244, v177, v180);
+    v223 = v339;
+    v221(v339, v222, v180);
+    v345 = v333;
+    v344 = v334;
+    v347 = v341;
+    v346 = v342;
+    v349 = v335;
+    v348 = v336;
+    v351 = v337;
+    v350 = v338;
+    v224 = type metadata accessor for TaggedValue_8.ObservableDifference(0, &v344);
+    swift_storeEnumTagMultiPayload();
+    (*(*(v224 - 8) + 56))(v223, 0, 1, v224);
+  }
+
+  v225 = v329;
+  v116 = v171;
+  return (*(v225 + 8))(v116, v343);
+}
+
+BOOL TaggedValue_9.ObservableDifference.isIdentityChanged.getter(uint64_t a1)
+{
+  v2 = *(a1 - 8);
+  v3 = MEMORY[0x1EEE9AC00](a1);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v2 + 16))(v5, v3);
+  v6 = swift_getEnumCaseMultiPayload() == 10;
+  (*(v2 + 8))(v5, a1);
+  return v6;
+}
+
+uint64_t TaggedValue_9.taggedEnum.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = a1[2];
+  v10[0] = a1[1];
+  v10[1] = v4;
+  v5 = a1[4];
+  v10[2] = a1[3];
+  v10[3] = v5;
+  v6 = a1[6];
+  v10[4] = a1[5];
+  v10[5] = v6;
+  v7 = a1[8];
+  v10[6] = a1[7];
+  v10[7] = v7;
+  v10[8] = a1[9];
+  v8 = type metadata accessor for TaggedValue_9.TaggedEnum(0, v10);
+  return (*(*(v8 - 8) + 16))(a2, v2, v8);
+}
+
+uint64_t TaggedValue_9.taggedEnum.setter(uint64_t a1, _OWORD *a2)
+{
+  v4 = a2[2];
+  v10[0] = a2[1];
+  v10[1] = v4;
+  v5 = a2[4];
+  v10[2] = a2[3];
+  v10[3] = v5;
+  v6 = a2[6];
+  v10[4] = a2[5];
+  v10[5] = v6;
+  v7 = a2[8];
+  v10[6] = a2[7];
+  v10[7] = v7;
+  v10[8] = a2[9];
+  v8 = type metadata accessor for TaggedValue_9.TaggedEnum(0, v10);
+  return (*(*(v8 - 8) + 40))(v2, a1, v8);
+}
+
+uint64_t TaggedValue_9.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, __int128 a10, __int128 a11, __int128 a12, __int128 a13, __int128 a14, uint64_t a15)
+{
+  (*(*(a2 - 8) + 32))(a9, a1, a2);
+  v23[0] = a2;
+  v23[1] = a3;
+  v23[2] = a4;
+  v23[3] = a5;
+  v23[4] = a6;
+  v23[5] = a7;
+  v23[6] = a8;
+  v24 = a10;
+  v25 = a11;
+  v26 = a12;
+  v27 = a13;
+  v28 = a14;
+  v29 = a15;
+  type metadata accessor for TaggedValue_9.TaggedEnum(0, v23);
+  return swift_storeEnumTagMultiPayload();
+}
+
+{
+  (*(*(a3 - 8) + 32))(a9, a1);
+  v23[0] = a2;
+  v23[1] = a3;
+  v23[2] = a4;
+  v23[3] = a5;
+  v23[4] = a6;
+  v23[5] = a7;
+  v23[6] = a8;
+  v24 = a10;
+  v25 = a11;
+  v26 = a12;
+  v27 = a13;
+  v28 = a14;
+  v29 = a15;
+  type metadata accessor for TaggedValue_9.TaggedEnum(0, v23);
+  return swift_storeEnumTagMultiPayload();
+}
+
+{
+  (*(*(a4 - 8) + 32))(a9, a1, a4);
+  v23[0] = a2;
+  v23[1] = a3;
+  v23[2] = a4;
+  v23[3] = a5;
+  v23[4] = a6;
+  v23[5] = a7;
+  v23[6] = a8;
+  v24 = a10;
+  v25 = a11;
+  v26 = a12;
+  v27 = a13;
+  v28 = a14;
+  v29 = a15;
+  type metadata accessor for TaggedValue_9.TaggedEnum(0, v23);
+  return swift_storeEnumTagMultiPayload();
+}
+
+{
+  (*(*(a5 - 8) + 32))(a9, a1, a5);
+  v23[0] = a2;
+  v23[1] = a3;
+  v23[2] = a4;
+  v23[3] = a5;
+  v23[4] = a6;
+  v23[5] = a7;
+  v23[6] = a8;
+  v24 = a10;
+  v25 = a11;
+  v26 = a12;
+  v27 = a13;
+  v28 = a14;
+  v29 = a15;
+  type metadata accessor for TaggedValue_9.TaggedEnum(0, v23);
+  return swift_storeEnumTagMultiPayload();
+}
+
+{
+  (*(*(a6 - 8) + 32))(a9, a1, a6);
+  v23[0] = a2;
+  v23[1] = a3;
+  v23[2] = a4;
+  v23[3] = a5;
+  v23[4] = a6;
+  v23[5] = a7;
+  v23[6] = a8;
+  v24 = a10;
+  v25 = a11;
+  v26 = a12;
+  v27 = a13;
+  v28 = a14;
+  v29 = a15;
+  type metadata accessor for TaggedValue_9.TaggedEnum(0, v23);
+  return swift_storeEnumTagMultiPayload();
+}
+
+{
+  (*(*(a7 - 8) + 32))(a9, a1, a7);
+  v23[0] = a2;
+  v23[1] = a3;
+  v23[2] = a4;
+  v23[3] = a5;
+  v23[4] = a6;
+  v23[5] = a7;
+  v23[6] = a8;
+  v24 = a10;
+  v25 = a11;
+  v26 = a12;
+  v27 = a13;
+  v28 = a14;
+  v29 = a15;
+  type metadata accessor for TaggedValue_9.TaggedEnum(0, v23);
+  return swift_storeEnumTagMultiPayload();
+}
+
+{
+  (*(*(a8 - 8) + 32))(a9, a1, a8);
+  v23[0] = a2;
+  v23[1] = a3;
+  v23[2] = a4;
+  v23[3] = a5;
+  v23[4] = a6;
+  v23[5] = a7;
+  v23[6] = a8;
+  v24 = a10;
+  v25 = a11;
+  v26 = a12;
+  v27 = a13;
+  v28 = a14;
+  v29 = a15;
+  type metadata accessor for TaggedValue_9.TaggedEnum(0, v23);
+  return swift_storeEnumTagMultiPayload();
+}
+
+uint64_t TaggedValue_9.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, __int128 a11, __int128 a12, __int128 a13, __int128 a14, uint64_t a15, uint64_t a16)
+{
+  (*(*(a10 - 8) + 32))(a9, a1, a10);
+  v24[0] = a2;
+  v24[1] = a3;
+  v24[2] = a4;
+  v24[3] = a5;
+  v24[4] = a6;
+  v24[5] = a7;
+  v24[6] = a8;
+  v24[7] = a10;
+  v25 = a11;
+  v26 = a12;
+  v27 = a13;
+  v28 = a14;
+  v29 = a15;
+  v30 = a16;
+  type metadata accessor for TaggedValue_9.TaggedEnum(0, v24);
+  return swift_storeEnumTagMultiPayload();
+}
+
+uint64_t TaggedValue_9.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11, __int128 a12, __int128 a13, __int128 a14, __int128 a15, uint64_t a16)
+{
+  (*(*(a11 - 8) + 32))(a9, a1, a11);
+  v24[0] = a2;
+  v24[1] = a3;
+  v24[2] = a4;
+  v24[3] = a5;
+  v24[4] = a6;
+  v24[5] = a7;
+  v24[6] = a8;
+  v24[7] = a10;
+  v24[8] = a11;
+  v25 = a12;
+  v26 = a13;
+  v27 = a14;
+  v28 = a15;
+  v29 = a16;
+  type metadata accessor for TaggedValue_9.TaggedEnum(0, v24);
+  return swift_storeEnumTagMultiPayload();
+}
+
+uint64_t TaggedValue_9.init(tag:_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>, __int128 a10, __int128 a11, __int128 a12, __int128 a13, __int128 a14, uint64_t a15, uint64_t a16)
+{
+  v16 = *a2;
+  *a9 = a1;
+  a9[1] = v16;
+  v18[0] = a3;
+  v18[1] = a4;
+  v18[2] = a5;
+  v18[3] = a6;
+  v18[4] = a7;
+  v18[5] = a8;
+  v19 = a10;
+  v20 = a11;
+  v21 = a12;
+  v22 = a13;
+  v23 = a14;
+  v24 = a15;
+  v25 = a16;
+  type metadata accessor for TaggedValue_9.TaggedEnum(0, v18);
+  return swift_storeEnumTagMultiPayload();
+}
+
+uint64_t TaggedValue_9.tagged1.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = v2;
+  v5 = a1[2];
+  v22 = a1[1];
+  v23[0] = v22;
+  v6 = a1[3];
+  v7 = a1[4];
+  v23[1] = v5;
+  v23[2] = v6;
+  v8 = a1[5];
+  v9 = a1[6];
+  v23[3] = v7;
+  v23[4] = v8;
+  v10 = a1[7];
+  v11 = a1[8];
+  v23[5] = v9;
+  v23[6] = v10;
+  v12 = a1[9];
+  v23[7] = v11;
+  v23[8] = v12;
+  v13 = type metadata accessor for TaggedValue_9.TaggedEnum(0, v23);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x1EEE9AC00](v13);
+  v17 = &v23[-1] - v16;
+  (*(v14 + 16))(&v23[-1] - v16, v3, v13, v15);
+  if (swift_getEnumCaseMultiPayload())
+  {
+    (*(v14 + 8))(v17, v13);
+    v18 = v22;
+    v19 = *(v22 - 8);
+    v20 = 1;
+  }
+
+  else
+  {
+    v19 = *(v22 - 8);
+    (*(v19 + 32))(a2, v17);
+    v18 = v22;
+    v20 = 0;
+  }
+
+  return (*(v19 + 56))(a2, v20, 1, v18);
+}
+
+uint64_t TaggedValue_9.tagged2.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = v2;
+  v5 = *(a1 + 152);
+  v15 = *(a1 + 16);
+  v14 = *(a1 + 24);
+  v16 = v14;
+  v17 = *(a1 + 40);
+  v18 = *(a1 + 56);
+  v19 = *(a1 + 72);
+  v20 = *(a1 + 88);
+  v21 = *(a1 + 104);
+  v22 = *(a1 + 120);
+  v23 = *(a1 + 136);
+  v24 = v5;
+  v6 = type metadata accessor for TaggedValue_9.TaggedEnum(0, &v15);
+  v7 = *(v6 - 8);
+  v8 = MEMORY[0x1EEE9AC00](v6);
+  v10 = &v14 - v9;
+  (*(v7 + 16))(&v14 - v9, v3, v6, v8);
+  if (swift_getEnumCaseMultiPayload() == 1)
+  {
+    v11 = *(v14 - 8);
+    (*(v11 + 32))(a2, v10);
+    v12 = 0;
+  }
+
+  else
+  {
+    (*(v7 + 8))(v10, v6);
+    v11 = *(v14 - 8);
+    v12 = 1;
+  }
+
+  return (*(v11 + 56))(a2, v12, 1, v14);
+}
+
+uint64_t TaggedValue_9.tagged3.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = v2;
+  v5 = a1[1];
+  v21 = a1[2];
+  v22[0] = v5;
+  v6 = a1[3];
+  v7 = a1[4];
+  v22[1] = v21;
+  v22[2] = v6;
+  v8 = a1[5];
+  v9 = a1[6];
+  v22[3] = v7;
+  v22[4] = v8;
+  v10 = a1[7];
+  v11 = a1[8];
+  v22[5] = v9;
+  v22[6] = v10;
+  v12 = a1[9];
+  v22[7] = v11;
+  v22[8] = v12;
+  v13 = type metadata accessor for TaggedValue_9.TaggedEnum(0, v22);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x1EEE9AC00](v13);
+  v17 = &v22[-1] - v16;
+  (*(v14 + 16))(&v22[-1] - v16, v3, v13, v15);
+  if (swift_getEnumCaseMultiPayload() == 2)
+  {
+    v18 = *(v21 - 8);
+    (*(v18 + 32))(a2, v17);
     v19 = 0;
   }
 
-  return v19 & 1;
-}
-
-uint64_t sub_1ADFBC674(uint64_t a1)
-{
-  v3 = *(v1 + 48);
-  v4 = *(v1 + 52);
-  v5 = swift_allocObject();
-  (*(*(*(*v5 + 192) - 8) + 32))(v5 + *(*v5 + 216), a1);
-  return v5;
-}
-
-uint64_t sub_1ADFBC708@<X0>(uint64_t *a1@<X8>)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 216);
-  swift_beginAccess();
-  v5 = *(v3 + 192);
-  a1[3] = v5;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a1);
-  return (*(*(v5 - 8) + 16))(boxed_opaque_existential_1, v1 + v4, v5);
-}
-
-uint64_t sub_1ADFBC7B4(uint64_t a1)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 192);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = &v14 - v10;
-  v12 = *(v3 + 216);
-  swift_beginAccess();
-  (*(v5 + 16))(v8, v1 + v12, v4);
-  (*(*(*(v3 + 208) + 8) + 24))(a1, v4);
-  (*(v5 + 8))(v8, v4);
-  return sub_1ADFBC674(v11);
-}
-
-uint64_t sub_1ADFBC970(uint64_t a1)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 192);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v8 = &v11 - v7;
-  v9 = *(v3 + 216);
-  swift_beginAccess();
-  (*(v5 + 16))(v8, v1 + v9, v4);
-  (*(*(*(v3 + 208) + 8) + 48))(a1, v4);
-  return (*(v5 + 8))(v8, v4);
-}
-
-uint64_t sub_1ADFBCAC8(uint64_t a1)
-{
-  v2 = *v1;
-  v3 = *(*v1 + 192);
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v7 = &v11 - v6;
-  v8 = *(v2 + 216);
-  swift_beginAccess();
-  (*(v4 + 16))(v7, v1 + v8, v3);
-  v9 = (*(*(*(v2 + 208) + 8) + 56))(v3);
-  (*(v4 + 8))(v7, v3);
-  return v9 & 1;
-}
-
-uint64_t sub_1ADFBCC18(uint64_t a1)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 216);
-  swift_beginAccess();
-  (*(*(*(v3 + 208) + 8) + 64))(a1, *(v3 + 192));
-  return swift_endAccess();
-}
-
-uint64_t sub_1ADFBCCC4(uint64_t a1)
-{
-  v2 = *(*v1 + 192);
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v6 = &v10 - v5;
-  v8 = *(v7 + 216);
-  swift_beginAccess();
-  (*(v3 + 16))(v6, v1 + v8, v2);
-  return sub_1ADFBC674(v6);
-}
-
-uint64_t sub_1ADFBCDF0(uint64_t a1)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 192);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v8 = &v11 - v7;
-  v9 = *(v3 + 216);
-  swift_beginAccess();
-  (*(v5 + 16))(v8, v1 + v9, v4);
-  (*(*(*(*(v3 + 208) + 8) + 8) + 16))(a1, v4);
-  return (*(v5 + 8))(v8, v4);
-}
-
-uint64_t sub_1ADFBCF5C(uint64_t a1)
-{
-  v2 = *(*v1 + 192);
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v6 = &v11 - v5;
-  v8 = *(v7 + 216);
-  swift_beginAccess();
-  (*(v3 + 16))(v6, v1 + v8, v2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB5BB390, &unk_1AE24FCE0);
-  if (swift_dynamicCast())
+  else
   {
-    __swift_project_boxed_opaque_existential_1(&v12, *(&v13 + 1));
-    v9 = sub_1AE23DD9C();
-    __swift_destroy_boxed_opaque_existential_1(&v12);
-    return v9;
+    (*(v14 + 8))(v17, v13);
+    v18 = *(v21 - 8);
+    v19 = 1;
+  }
+
+  return (*(v18 + 56))(a2, v19, 1, v21);
+}
+
+uint64_t TaggedValue_9.tagged4.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = v2;
+  v5 = *(a1 + 152);
+  v6 = *(a1 + 16);
+  v17 = *(a1 + 32);
+  v15 = *(a1 + 40);
+  v16 = v6;
+  v18 = v15;
+  v19 = *(a1 + 56);
+  v20 = *(a1 + 72);
+  v21 = *(a1 + 88);
+  v22 = *(a1 + 104);
+  v23 = *(a1 + 120);
+  v24 = *(a1 + 136);
+  v25 = v5;
+  v7 = type metadata accessor for TaggedValue_9.TaggedEnum(0, &v16);
+  v8 = *(v7 - 8);
+  v9 = MEMORY[0x1EEE9AC00](v7);
+  v11 = &v15 - v10;
+  (*(v8 + 16))(&v15 - v10, v3, v7, v9);
+  if (swift_getEnumCaseMultiPayload() == 3)
+  {
+    v12 = *(v15 - 8);
+    (*(v12 + 32))(a2, v11);
+    v13 = 0;
   }
 
   else
   {
+    (*(v8 + 8))(v11, v7);
+    v12 = *(v15 - 8);
+    v13 = 1;
+  }
+
+  return (*(v12 + 56))(a2, v13, 1, v15);
+}
+
+uint64_t TaggedValue_9.tagged5.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = v2;
+  v5 = a1[2];
+  v18[0] = a1[1];
+  v18[1] = v5;
+  v6 = a1[4];
+  v17 = a1[3];
+  v18[2] = v17;
+  v18[3] = v6;
+  v7 = a1[6];
+  v18[4] = a1[5];
+  v18[5] = v7;
+  v8 = a1[8];
+  v18[6] = a1[7];
+  v18[7] = v8;
+  v18[8] = a1[9];
+  v9 = type metadata accessor for TaggedValue_9.TaggedEnum(0, v18);
+  v10 = *(v9 - 8);
+  v11 = MEMORY[0x1EEE9AC00](v9);
+  v13 = &v18[-1] - v12;
+  (*(v10 + 16))(&v18[-1] - v12, v3, v9, v11);
+  if (swift_getEnumCaseMultiPayload() == 4)
+  {
+    v14 = *(v17 - 8);
+    (*(v14 + 32))(a2, v13);
+    v15 = 0;
+  }
+
+  else
+  {
+    (*(v10 + 8))(v13, v9);
+    v14 = *(v17 - 8);
+    v15 = 1;
+  }
+
+  return (*(v14 + 56))(a2, v15, 1, v17);
+}
+
+uint64_t TaggedValue_9.tagged6.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = v2;
+  v5 = *(a1 + 48);
+  v6 = *(a1 + 152);
+  v7 = *(a1 + 32);
+  v17[0] = *(a1 + 16);
+  v17[1] = v7;
+  v18 = v5;
+  v16 = *(a1 + 56);
+  v19 = v16;
+  v20 = *(a1 + 72);
+  v21 = *(a1 + 88);
+  v22 = *(a1 + 104);
+  v23 = *(a1 + 120);
+  v24 = *(a1 + 136);
+  v25 = v6;
+  v8 = type metadata accessor for TaggedValue_9.TaggedEnum(0, v17);
+  v9 = *(v8 - 8);
+  v10 = MEMORY[0x1EEE9AC00](v8);
+  v12 = &v17[-1] - v11;
+  (*(v9 + 16))(&v17[-1] - v11, v3, v8, v10);
+  if (swift_getEnumCaseMultiPayload() == 5)
+  {
+    v13 = *(v16 - 8);
+    (*(v13 + 32))(a2, v12);
     v14 = 0;
-    v12 = 0u;
-    v13 = 0u;
-    sub_1ADDCEDE0(&v12, &unk_1EB5BEB20, &qword_1AE24C510);
-    return 0x6D6F435243796E41;
-  }
-}
-
-uint64_t sub_1ADFBD104(uint64_t a1)
-{
-  v2 = *(*v1 + 192);
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v6 = &v11 - v5;
-  v8 = *(v7 + 216);
-  swift_beginAccess();
-  (*(v3 + 16))(v6, v1 + v8, v2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BBE68, &unk_1AE24FCD0);
-  if (swift_dynamicCast())
-  {
-    __swift_project_boxed_opaque_existential_1(&v12, *(&v13 + 1));
-    v9 = sub_1AE23E02C();
-    __swift_destroy_boxed_opaque_existential_1(&v12);
-    return v9;
   }
 
   else
   {
+    (*(v9 + 8))(v12, v8);
+    v13 = *(v16 - 8);
+    v14 = 1;
+  }
+
+  return (*(v13 + 56))(a2, v14, 1, v16);
+}
+
+uint64_t TaggedValue_9.tagged7.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = v2;
+  v5 = a1[2];
+  v18[0] = a1[1];
+  v18[1] = v5;
+  v6 = a1[4];
+  v18[2] = a1[3];
+  v18[3] = v6;
+  v17 = v6;
+  v7 = a1[6];
+  v18[4] = a1[5];
+  v18[5] = v7;
+  v8 = a1[8];
+  v18[6] = a1[7];
+  v18[7] = v8;
+  v18[8] = a1[9];
+  v9 = type metadata accessor for TaggedValue_9.TaggedEnum(0, v18);
+  v10 = *(v9 - 8);
+  v11 = MEMORY[0x1EEE9AC00](v9);
+  v13 = &v18[-1] - v12;
+  (*(v10 + 16))(&v18[-1] - v12, v3, v9, v11);
+  if (swift_getEnumCaseMultiPayload() == 6)
+  {
+    v14 = *(v17 - 8);
+    (*(v14 + 32))(a2, v13);
+    v15 = 0;
+  }
+
+  else
+  {
+    (*(v10 + 8))(v13, v9);
+    v14 = *(v17 - 8);
+    v15 = 1;
+  }
+
+  return (*(v14 + 56))(a2, v15, 1, v17);
+}
+
+uint64_t TaggedValue_9.tagged8.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = v2;
+  v5 = *(a1 + 64);
+  v6 = *(a1 + 152);
+  v7 = *(a1 + 32);
+  v17[0] = *(a1 + 16);
+  v17[1] = v7;
+  v17[2] = *(a1 + 48);
+  v18 = v5;
+  v16 = *(a1 + 72);
+  v19 = v16;
+  v20 = *(a1 + 88);
+  v21 = *(a1 + 104);
+  v22 = *(a1 + 120);
+  v23 = *(a1 + 136);
+  v24 = v6;
+  v8 = type metadata accessor for TaggedValue_9.TaggedEnum(0, v17);
+  v9 = *(v8 - 8);
+  v10 = MEMORY[0x1EEE9AC00](v8);
+  v12 = &v17[-1] - v11;
+  (*(v9 + 16))(&v17[-1] - v11, v3, v8, v10);
+  if (swift_getEnumCaseMultiPayload() == 7)
+  {
+    v13 = *(v16 - 8);
+    (*(v13 + 32))(a2, v12);
     v14 = 0;
-    v12 = 0u;
-    v13 = 0u;
-    sub_1ADDCEDE0(&v12, qword_1EB5BBE70, &unk_1AE25AA00);
-    return 0x6D6F435243796E41;
-  }
-}
-
-uint64_t sub_1ADFBD2AC(uint64_t a1)
-{
-  v2 = *v1;
-  v3 = *(*v1 + 192);
-  v4 = *(v3 - 8);
-  v5 = v4[8];
-  MEMORY[0x1EEE9AC00](a1);
-  v7 = &v20[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = &v20[-v9];
-  v11 = swift_dynamicCastClass();
-  if (v11)
-  {
-    v12 = v11;
-    v13 = *(v2 + 216);
-    swift_beginAccess();
-    v14 = v4[2];
-    v14(v10, &v1[v13], v3);
-    v15 = *(*v12 + 216);
-    swift_beginAccess();
-    v14(v7, (v12 + v15), v3);
-    v16 = *(*(v2 + 200) + 8);
-    v17 = sub_1AE23CCBC();
-    v18 = v4[1];
-    v18(v7, v3);
-    v18(v10, v3);
   }
 
   else
   {
-    v17 = 0;
+    (*(v9 + 8))(v12, v8);
+    v13 = *(v16 - 8);
+    v14 = 1;
   }
 
-  return v17 & 1;
+  return (*(v13 + 56))(a2, v14, 1, v16);
 }
 
-uint64_t sub_1ADFBD4F4()
+uint64_t TaggedValue_9.tagged9.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
 {
-  (*(*(*(*v0 + 192) - 8) + 8))(v0 + *(*v0 + 216));
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 52);
+  v3 = v2;
+  v5 = a1[2];
+  v18[0] = a1[1];
+  v18[1] = v5;
+  v6 = a1[4];
+  v18[2] = a1[3];
+  v18[3] = v6;
+  v7 = a1[6];
+  v17 = a1[5];
+  v18[4] = v17;
+  v18[5] = v7;
+  v8 = a1[8];
+  v18[6] = a1[7];
+  v18[7] = v8;
+  v18[8] = a1[9];
+  v9 = type metadata accessor for TaggedValue_9.TaggedEnum(0, v18);
+  v10 = *(v9 - 8);
+  v11 = MEMORY[0x1EEE9AC00](v9);
+  v13 = &v18[-1] - v12;
+  (*(v10 + 16))(&v18[-1] - v12, v3, v9, v11);
+  if (swift_getEnumCaseMultiPayload() == 8)
+  {
+    v14 = *(v17 - 8);
+    (*(v14 + 32))(a2, v13);
+    v15 = 0;
+  }
 
-  return swift_deallocClassInstance();
+  else
+  {
+    (*(v10 + 8))(v13, v9);
+    v14 = *(v17 - 8);
+    v15 = 1;
+  }
+
+  return (*(v14 + 56))(a2, v15, 1, v17);
 }
 
-uint64_t sub_1ADFBD614()
+uint64_t TaggedValue_9.unknown.getter@<X0>(_OWORD *a1@<X0>, void *a2@<X8>)
 {
-  (*(**v0 + 80))(v3);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BBE40, &qword_1AE24FCF0);
-  swift_dynamicCast();
-  __swift_project_boxed_opaque_existential_1(v2, v2[3]);
-  sub_1AE23CBAC();
-  return __swift_destroy_boxed_opaque_existential_1(v2);
-}
+  v3 = v2;
+  v5 = a1[2];
+  v16[0] = a1[1];
+  v16[1] = v5;
+  v6 = a1[4];
+  v16[2] = a1[3];
+  v16[3] = v6;
+  v7 = a1[6];
+  v16[4] = a1[5];
+  v16[5] = v7;
+  v8 = a1[8];
+  v16[6] = a1[7];
+  v16[7] = v8;
+  v16[8] = a1[9];
+  v9 = type metadata accessor for TaggedValue_9.TaggedEnum(0, v16);
+  v10 = *(v9 - 8);
+  v11 = MEMORY[0x1EEE9AC00](v9);
+  v13 = v16 - v12;
+  (*(v10 + 16))(v16 - v12, v3, v9, v11);
+  result = swift_getEnumCaseMultiPayload();
+  if (result == 9)
+  {
+    v15 = *(v13 + 1);
+  }
 
-uint64_t sub_1ADFBD7BC@<X0>(uint64_t *a1@<X8>)
-{
-  result = (*(**v1 + 96))();
-  *a1 = result;
+  else
+  {
+    result = (*(v10 + 8))(v13, v9);
+    v15 = 0;
+  }
+
+  *a2 = v15;
   return result;
 }
 
-uint64_t sub_1ADFBD808@<X0>(unint64_t a1@<X0>, uint64_t *a2@<X8>)
+void TaggedValue_9.visitReferences(_:)(uint64_t a1, uint64_t a2)
 {
-  v4 = *v2;
+  v97 = a1;
+  v93 = *(*(a2 + 80) - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v92 = v70 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v90 = *(*(v3 + 72) - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v89 = v70 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v87 = *(*(v6 + 64) - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v86 = v70 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v84 = *(*(v9 + 56) - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v82 = v70 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = *(v12 + 48);
+  v81 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v80 = v70 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v78 = *(*(v15 + 40) - 8);
+  MEMORY[0x1EEE9AC00](v16);
+  v77 = v70 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = *(v18 + 32);
+  v76 = *(v19 - 8);
+  MEMORY[0x1EEE9AC00](v20);
+  v75 = v70 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = *(v22 + 24);
+  v74 = *(v23 - 8);
+  MEMORY[0x1EEE9AC00](v24);
+  v73 = v70 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = *(v26 + 16);
+  v72 = *(v27 - 8);
+  MEMORY[0x1EEE9AC00](v28);
+  v71 = v70 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v31 = *(v30 + 88);
+  v32 = *(v30 + 96);
+  v33 = *(v30 + 112);
+  v34 = *(v30 + 120);
+  v35 = *(v30 + 128);
+  v36 = *(v30 + 136);
+  v38 = *(v30 + 144);
+  v37 = *(v30 + 152);
+  *&v39 = v27;
+  *(&v39 + 1) = v23;
+  *&v40 = v19;
+  v79 = v41;
+  *(&v40 + 1) = v41;
+  v99[0] = v40;
+  v98 = v39;
+  v83 = v42;
+  *&v39 = v42;
+  v85 = v43;
+  *(&v39 + 1) = v43;
+  v88 = v44;
+  *&v40 = v44;
+  v91 = v45;
+  *(&v40 + 1) = v45;
+  v99[2] = v40;
+  v99[1] = v39;
+  v94 = v46;
+  *&v39 = v46;
+  *(&v39 + 1) = v31;
+  v95 = v32;
+  v99[4] = v32;
+  v99[3] = v39;
+  v70[1] = v33;
+  v100 = v33;
+  v101 = v34;
+  v70[0] = v34;
+  v102 = v35;
+  v103 = v36;
+  v104 = v38;
+  v105 = v37;
+  v47 = type metadata accessor for TaggedValue_9.TaggedEnum(0, &v98);
+  v48 = MEMORY[0x1EEE9AC00](v47);
+  v50 = v70 - v49;
+  (*(v51 + 16))(v70 - v49, v96, v47, v48);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload > 4)
+  {
+    if (EnumCaseMultiPayload <= 6)
+    {
+      if (EnumCaseMultiPayload == 5)
+      {
+        v62 = v84;
+        v63 = v82;
+        v64 = v85;
+        (*(v84 + 32))(v82, v50, v85);
+        (*(*(v35 + 8) + 48))(v97, v64);
+        (*(v62 + 8))(v63, v64);
+        return;
+      }
+
+      v53 = v87;
+      v54 = v86;
+      v55 = v88;
+      (*(v87 + 32))(v86, v50, v88);
+      v67 = *(v36 + 8);
+    }
+
+    else
+    {
+      if (EnumCaseMultiPayload != 7)
+      {
+        if (EnumCaseMultiPayload == 8)
+        {
+          v57 = v93;
+          v58 = v92;
+          v59 = v94;
+          (*(v93 + 32))(v92, v50, v94);
+          (*(*(v37 + 8) + 48))(v97, v59);
+          (*(v57 + 8))(v58, v59);
+        }
+
+        else
+        {
+          (*(**(v50 + 1) + 120))(v97);
+        }
+
+        return;
+      }
+
+      v53 = v90;
+      v54 = v89;
+      v55 = v91;
+      (*(v90 + 32))(v89, v50, v91);
+      v67 = *(v38 + 8);
+    }
+
+LABEL_21:
+    (*(v67 + 48))(v97, v55);
+    (*(v53 + 8))(v54, v55);
+    return;
+  }
+
+  if (EnumCaseMultiPayload > 1)
+  {
+    if (EnumCaseMultiPayload == 2)
+    {
+      v65 = v76;
+      v66 = v75;
+      (*(v76 + 32))(v75, v50, v19);
+      (*(*(*(&v95 + 1) + 8) + 48))(v97, v19);
+      (*(v65 + 8))(v66, v19);
+      return;
+    }
+
+    if (EnumCaseMultiPayload == 3)
+    {
+      v53 = v78;
+      v54 = v77;
+      v55 = v79;
+      (*(v78 + 32))(v77, v50, v79);
+      v56 = v99;
+    }
+
+    else
+    {
+      v53 = v81;
+      v54 = v80;
+      v55 = v83;
+      (*(v81 + 32))(v80, v50, v83);
+      v56 = &v98 + 8;
+    }
+
+    v67 = *(*(v56 - 32) + 8);
+    goto LABEL_21;
+  }
+
+  if (EnumCaseMultiPayload)
+  {
+    v68 = v74;
+    v69 = v73;
+    (*(v74 + 32))(v73, v50, v23);
+    (*(*(v95 + 8) + 48))(v97, v23);
+    (*(v68 + 8))(v69, v23);
+  }
+
+  else
+  {
+    v60 = v72;
+    v61 = v71;
+    (*(v72 + 32))(v71, v50, v27);
+    (*(*(v31 + 8) + 48))(v97, v27);
+    (*(v60 + 8))(v61, v27);
+  }
+}
+
+uint64_t TaggedValue_9.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+{
+  v196 = a1;
+  v198 = a3;
+  v178 = *(*(a2 + 80) - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v179 = &v157 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v177 = &v157 - v5;
+  v7 = *(v6 + 72);
+  v175 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v176 = &v157 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v174 = &v157 - v10;
+  v172 = *(*(v11 + 64) - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v173 = &v157 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v171 = &v157 - v15;
+  v169 = *(*(v16 + 56) - 8);
+  MEMORY[0x1EEE9AC00](v17);
+  v170 = &v157 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v19);
+  v167 = &v157 - v20;
+  v166 = *(*(v21 + 48) - 8);
+  MEMORY[0x1EEE9AC00](v22);
+  v168 = &v157 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v24);
+  v26 = &v157 - v25;
+  v164 = *(*(v27 + 40) - 8);
+  MEMORY[0x1EEE9AC00](v28);
+  v165 = &v157 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v30);
+  v32 = &v157 - v31;
+  v163 = *(*(v33 + 32) - 8);
+  MEMORY[0x1EEE9AC00](v34);
+  v36 = &v157 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v37);
+  v39 = &v157 - v38;
+  v162 = *(*(v40 + 24) - 8);
+  MEMORY[0x1EEE9AC00](v41);
+  v43 = &v157 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v44);
+  v46 = &v157 - v45;
+  v161 = *(*(v47 + 16) - 8);
+  MEMORY[0x1EEE9AC00](v48);
+  v50 = &v157 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v51);
+  v53 = &v157 - v52;
+  v55 = *(v54 + 88);
+  v56 = *(v54 + 96);
+  v57 = *(v54 + 112);
+  v58 = *(v54 + 120);
+  v59 = *(v54 + 128);
+  v60 = *(v54 + 136);
+  v61 = *(v54 + 144);
+  v62 = *(v54 + 152);
+  v180 = v63;
+  *&v64 = v63;
+  v181 = v65;
+  *(&v64 + 1) = v65;
+  v182 = v66;
+  *&v67 = v66;
+  v183 = v68;
+  *(&v67 + 1) = v68;
+  v184 = v69;
+  *&v70 = v69;
+  v186 = v71;
+  *(&v70 + 1) = v71;
+  v187 = v72;
+  *&v73 = v72;
+  v185 = v74;
+  *(&v73 + 1) = v74;
+  v159 = v67;
+  v201 = v67;
+  v160 = v64;
+  v200 = v64;
+  v157 = v73;
+  v203 = v73;
+  v158 = v70;
+  v202 = v70;
+  v197 = v75;
+  *&v204 = v75;
+  *(&v204 + 1) = v55;
+  v195 = v55;
+  v199 = v56;
+  v205 = v56;
+  v194 = v57;
+  v206 = v57;
+  v207 = v58;
+  v193 = v58;
+  v192 = v59;
+  v208 = v59;
+  v209 = v60;
+  v191 = v60;
+  v190 = v61;
+  v210 = v61;
+  v211 = v62;
+  v189 = v62;
+  v76 = type metadata accessor for TaggedValue_9.TaggedEnum(0, &v200);
+  v77 = MEMORY[0x1EEE9AC00](v76);
+  v79 = &v157 - v78;
+  (*(v80 + 16))(&v157 - v78, v188, v76, v77);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload > 4)
+  {
+    if (EnumCaseMultiPayload <= 6)
+    {
+      if (EnumCaseMultiPayload == 5)
+      {
+        v95 = v169;
+        v96 = v167;
+        v97 = v186;
+        (*(v169 + 32))(v167, v79, v186);
+        v98 = v192;
+        v99 = v170;
+        (*(*(v192 + 8) + 24))(v196, v97);
+        (*(v95 + 8))(v96, v97);
+        *(&v152 + 1) = v190;
+        *(&v143 + 1) = v98;
+        *&v152 = v191;
+        *&v143 = v193;
+        *&v134[24] = v194;
+        *&v134[8] = v199;
+        *v134 = v195;
+        *(&v125 + 1) = v197;
+        *&v125 = v185;
+        return TaggedValue_9.init(_:)(v99, v180, v181, v182, v183, v184, v97, v187, v198, v125, *v134, *&v134[16], v143, v152, v189);
+      }
+
+      else
+      {
+        v118 = v172;
+        v119 = v171;
+        v120 = v187;
+        (*(v172 + 32))(v171, v79, v187);
+        v121 = v191;
+        v122 = v173;
+        (*(*(v191 + 8) + 24))(v196, v120);
+        (*(v118 + 8))(v119, v120);
+        *&v156 = v121;
+        *(&v156 + 1) = v190;
+        *(&v147 + 1) = v192;
+        *&v147 = v193;
+        *&v138[24] = v194;
+        *&v138[8] = v199;
+        *v138 = v195;
+        *(&v129 + 1) = v197;
+        *&v129 = v185;
+        return TaggedValue_9.init(_:)(v122, v180, v181, v182, v183, v184, v186, v120, v198, v129, *v138, *&v138[16], v147, v156, v189);
+      }
+    }
+
+    else if (EnumCaseMultiPayload == 7)
+    {
+      v103 = v175;
+      v104 = v174;
+      v105 = v185;
+      (*(v175 + 32))(v174, v79, v185);
+      v106 = v190;
+      v107 = v176;
+      (*(*(v190 + 8) + 24))(v196, v105);
+      (*(v103 + 8))(v104, v105);
+      *(&v148 + 1) = v191;
+      *&v148 = v192;
+      *(&v139 + 1) = v193;
+      *&v139 = v194;
+      *(&v130 + 1) = v195;
+      *&v130 = v197;
+      return TaggedValue_9.init(_:)(v107, v180, v181, v182, v183, v184, v186, v187, v198, v105, v130, v199, v139, v148, v106, v189);
+    }
+
+    else if (EnumCaseMultiPayload == 8)
+    {
+      v87 = v178;
+      v88 = v177;
+      v89 = v197;
+      (*(v178 + 32))(v177, v79, v197);
+      v90 = v189;
+      v91 = v179;
+      (*(*(v189 + 8) + 24))(v196, v89);
+      (*(v87 + 8))(v88, v89);
+      *(&v150 + 1) = v190;
+      *&v150 = v191;
+      *(&v141 + 1) = v192;
+      *&v141 = v193;
+      *&v132[24] = v194;
+      *&v132[8] = v199;
+      *v132 = v195;
+      return TaggedValue_9.init(_:)(v91, v180, v181, v182, v183, v184, v186, v187, v198, v185, v89, *v132, *&v132[16], v141, v150, v90);
+    }
+
+    else
+    {
+      v112 = *v79;
+      v113 = (*(**(v79 + 1) + 104))(v196);
+
+      v114 = v198;
+      *v198 = v112;
+      v114[1] = v113;
+      v201 = v159;
+      v200 = v160;
+      v203 = v157;
+      v202 = v158;
+      *&v115 = v197;
+      *(&v115 + 1) = v195;
+      v205 = v199;
+      v204 = v115;
+      v206 = v194;
+      v207 = v193;
+      v208 = v192;
+      v209 = v191;
+      v210 = v190;
+      v211 = v189;
+      type metadata accessor for TaggedValue_9.TaggedEnum(0, &v200);
+      return swift_storeEnumTagMultiPayload();
+    }
+  }
+
+  else if (EnumCaseMultiPayload <= 1)
+  {
+    if (EnumCaseMultiPayload)
+    {
+      v116 = v162;
+      v117 = v181;
+      (*(v162 + 32))(v46, v79, v181);
+      (*(*(v199 + 8) + 24))(v196, v117);
+      (*(v116 + 8))(v46, v117);
+      *(&v155 + 1) = v190;
+      *&v155 = v191;
+      *(&v146 + 1) = v192;
+      *&v146 = v193;
+      *&v137[24] = v194;
+      *&v137[8] = v199;
+      *v137 = v195;
+      *(&v128 + 1) = v197;
+      *&v128 = v185;
+      return TaggedValue_9.init(_:)(v43, v180, v117, v182, v183, v184, v186, v187, v198, v128, *v137, *&v137[16], v146, v155, v189);
+    }
+
+    else
+    {
+      v92 = v161;
+      v93 = v180;
+      (*(v161 + 32))(v53, v79, v180);
+      v94 = v195;
+      (*(*(v195 + 8) + 24))(v196, v93);
+      (*(v92 + 8))(v53, v93);
+      *(&v151 + 1) = v190;
+      *&v151 = v191;
+      *(&v142 + 1) = v192;
+      *&v142 = v193;
+      *&v133[24] = v194;
+      *&v133[8] = v199;
+      *v133 = v94;
+      *(&v124 + 1) = v197;
+      *&v124 = v185;
+      return TaggedValue_9.init(_:)(v50, v93, v181, v182, v183, v184, v186, v187, v198, v124, *v133, *&v133[16], v142, v151, v189);
+    }
+  }
+
+  else if (EnumCaseMultiPayload == 2)
+  {
+    v100 = v163;
+    v101 = v79;
+    v102 = v182;
+    (*(v163 + 32))(v39, v101, v182);
+    (*(*(*(&v199 + 1) + 8) + 24))(v196, v102);
+    (*(v100 + 8))(v39, v102);
+    *(&v153 + 1) = v190;
+    *&v153 = v191;
+    *(&v144 + 1) = v192;
+    *&v144 = v193;
+    *&v135[24] = v194;
+    *&v135[8] = v199;
+    *v135 = v195;
+    *(&v126 + 1) = v197;
+    *&v126 = v185;
+    return TaggedValue_9.init(_:)(v36, v180, v181, v102, v183, v184, v186, v187, v198, v126, *v135, *&v135[16], v144, v153, v189);
+  }
+
+  else if (EnumCaseMultiPayload == 3)
+  {
+    v82 = v164;
+    v83 = v183;
+    (*(v164 + 32))(v32, v79, v183);
+    v84 = v194;
+    v85 = v165;
+    (*(*(v194 + 8) + 24))(v196, v83);
+    (*(v82 + 8))(v32, v83);
+    *(&v149 + 1) = v190;
+    *&v149 = v191;
+    *(&v140 + 1) = v192;
+    *&v131[24] = v84;
+    *&v140 = v193;
+    *&v131[8] = v199;
+    *v131 = v195;
+    *(&v123 + 1) = v197;
+    *&v123 = v185;
+    return TaggedValue_9.init(_:)(v85, v180, v181, v182, v83, v184, v186, v187, v198, v123, *v131, *&v131[16], v140, v149, v189);
+  }
+
+  else
+  {
+    v108 = v166;
+    v109 = v184;
+    (*(v166 + 32))(v26, v79, v184);
+    v110 = v193;
+    v111 = v168;
+    (*(*(v193 + 8) + 24))(v196, v109);
+    (*(v108 + 8))(v26, v109);
+    *(&v154 + 1) = v190;
+    *&v154 = v191;
+    *&v145 = v110;
+    *(&v145 + 1) = v192;
+    *&v136[24] = v194;
+    *&v136[8] = v199;
+    *v136 = v195;
+    *(&v127 + 1) = v197;
+    *&v127 = v185;
+    return TaggedValue_9.init(_:)(v111, v180, v181, v182, v183, v109, v186, v187, v198, v127, *v136, *&v136[16], v145, v154, v189);
+  }
+}
+
+uint64_t sub_1ADFDC454(unint64_t a1, uint64_t a2, void (*a3)(unint64_t *, uint64_t))
+{
   if (a1)
   {
     v5 = a1;
@@ -1402,5294 +2912,1811 @@ uint64_t sub_1ADFBD808@<X0>(unint64_t a1@<X0>, uint64_t *a2@<X8>)
     v5 = sub_1ADE51288(MEMORY[0x1E69E7CC0]);
   }
 
-  v9 = v5;
-  v6 = *(*v4 + 96);
+  v7 = v5;
 
-  v7 = v6(&v9);
-
-  *a2 = v7;
-  return result;
+  a3(&v7, a2);
 }
 
-uint64_t sub_1ADFBD930(uint64_t a1)
+uint64_t TaggedValue_9.observableDifference(from:with:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, char *a4@<X8>)
 {
-  v2 = v1;
-  result = (*(**v1 + 120))();
-  if (result)
-  {
-    v5 = *v1;
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *v1;
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = (*(*v7 + 136))();
-
-      *v2 = v8;
-      v7 = v8;
-    }
-
-    return (*(*v7 + 128))(a1);
-  }
-
-  return result;
-}
-
-uint64_t sub_1ADFBD9F8@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
-{
-  result = sub_1ADFBDAE4(a1);
-  if (!v2)
-  {
-    *a2 = result;
-  }
-
-  return result;
-}
-
-unint64_t sub_1ADFBDA68(uint64_t a1)
-{
-  result = sub_1ADFBDA90();
-  *(a1 + 8) = result;
-  return result;
-}
-
-unint64_t sub_1ADFBDA90()
-{
-  result = qword_1EB5BBE38;
-  if (!qword_1EB5BBE38)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB5BBE38);
-  }
-
-  return result;
-}
-
-uint64_t sub_1ADFBDAE4(uint64_t a1)
-{
-  v1 = 0xD000000000000028;
-  v2 = *(a1 + 72);
-  if (v2)
-  {
-    v3 = *(v2 + 16);
-    if ((~v3 & 0xF000000000000007) != 0)
-    {
-      v4 = "Coherence/AnyCRComparable.swift";
-      switch((v3 >> 59) & 0x1E | (v3 >> 2) & 1)
-      {
-        case 1uLL:
-
-          v9 = *((v3 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
-          sub_1ADE51B48(v3);
-          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BBE50, &qword_1AE24FCB8);
-          result = swift_allocObject();
-          *(result + 16) = v9;
-          return result;
-        case 2uLL:
-          goto LABEL_5;
-        case 3uLL:
-        case 5uLL:
-          result = sub_1AE23DC5C();
-          __break(1u);
-          return result;
-        case 4uLL:
-
-          v10 = *((v3 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
-          sub_1ADE51B48(v3);
-          v11 = &unk_1EB5BBE60;
-          v12 = &unk_1AE24FCC8;
-          goto LABEL_16;
-        case 6uLL:
-          v4 = "ference as AnyCRComparable.";
-          v1 = 0xD000000000000029;
-          goto LABEL_5;
-        case 7uLL:
-        case 0xFuLL:
-        case 0x10uLL:
-          v8 = "Cannot decode reference as AnyCRComparable.";
-          goto LABEL_12;
-        case 8uLL:
-          v13 = "Cannot decode optional as AnyCRComparable.";
-          goto LABEL_20;
-        case 9uLL:
-          v8 = "Cannot decode timestamp as AnyCRComparable.";
-LABEL_12:
-          v4 = (v8 - 32);
-          v1 = 0xD00000000000002BLL;
-          goto LABEL_5;
-        case 0xAuLL:
-          v13 = "Cannot decode repeated as AnyCRComparable.";
-LABEL_20:
-          v4 = (v13 - 32);
-          v1 = 0xD00000000000002ALL;
-          goto LABEL_5;
-        case 0xBuLL:
-          v4 = "set as AnyCRComparable.";
-          goto LABEL_5;
-        case 0xCuLL:
-          v4 = "stom as AnyCRComparable.";
-          v1 = 0xD000000000000027;
-          goto LABEL_5;
-        case 0xDuLL:
-          v4 = "No value for AnyCRComparable.";
-          goto LABEL_5;
-        case 0xEuLL:
-
-          v14 = *((v3 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
-          sub_1ADE51B48(v3);
-          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BBE48, &qword_1AE24FCB0);
-          result = swift_allocObject();
-          *(result + 16) = v14;
-          return result;
-        default:
-
-          v10 = *(v3 + 16);
-          sub_1ADE51B48(v3);
-          v11 = &unk_1EB5BBE58;
-          v12 = &unk_1AE24FCC0;
-LABEL_16:
-          __swift_instantiateConcreteTypeFromMangledNameV2(v11, v12);
-          result = swift_allocObject();
-          *(result + 16) = v10;
-          return result;
-      }
-    }
-
-    v4 = "CRComparableBox";
-    v1 = 0xD00000000000001DLL;
-  }
-
-  else
-  {
-    v4 = "Not decoding a CRDT.";
-    v1 = 0xD000000000000017;
-  }
-
-LABEL_5:
-  v5 = v4 | 0x8000000000000000;
-  sub_1ADE42E40();
-  swift_allocError();
-  *v6 = v1;
-  *(v6 + 8) = v5;
-  *(v6 + 16) = 0;
-  swift_willThrow();
-}
-
-BOOL TaggedValue_1.ObservableDifference.isIdentityChanged.getter(uint64_t a1)
-{
-  v2 = *(a1 - 8);
-  v3 = *(v2 + 64);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v2 + 16))(v6, v4);
-  v7 = swift_getEnumCaseMultiPayload() == 2;
-  (*(v2 + 8))(v6, a1);
-  return v7;
-}
-
-uint64_t TaggedValue_1.taggedEnum.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = *(a1 + 16);
-  v5 = *(a1 + 24);
-  v6 = type metadata accessor for TaggedValue_1.TaggedEnum();
-  v7 = *(*(v6 - 8) + 16);
-
-  return v7(a2, v2, v6);
-}
-
-uint64_t TaggedValue_1.taggedEnum.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = *(a2 + 16);
-  v4 = *(a2 + 24);
-  v6 = type metadata accessor for TaggedValue_1.TaggedEnum();
-  v7 = *(*(v6 - 8) + 40);
-
-  return v7(v2, a1, v6);
-}
-
-uint64_t TaggedValue_1.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_1.TaggedEnum();
-
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_1.init(tag:_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
-{
-  v4 = *a2;
-  *a3 = a1;
-  a3[1] = v4;
-  type metadata accessor for TaggedValue_1.TaggedEnum();
-
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_1.tagged1.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v6 = *(a1 + 16);
-  v5 = *(a1 + 24);
-  v7 = type metadata accessor for TaggedValue_1.TaggedEnum();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x1EEE9AC00](v7);
-  v12 = &v16 - v11;
-  (*(v8 + 16))(&v16 - v11, v3, v7, v10);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    (*(v8 + 8))(v12, v7);
-    v13 = *(v6 - 8);
-    v14 = 1;
-  }
-
-  else
-  {
-    v13 = *(v6 - 8);
-    (*(v13 + 32))(a2, v12, v6);
-    v14 = 0;
-  }
-
-  return (*(v13 + 56))(a2, v14, 1, v6);
-}
-
-uint64_t TaggedValue_1.unknown.getter@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 24);
-  v7 = type metadata accessor for TaggedValue_1.TaggedEnum();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x1EEE9AC00](v7);
-  v12 = &v15 - v11;
-  (*(v8 + 16))(&v15 - v11, v3, v7, v10);
-  result = swift_getEnumCaseMultiPayload();
-  if (result == 1)
-  {
-    v14 = *(v12 + 1);
-  }
-
-  else
-  {
-    result = (*(v8 + 8))(v12, v7);
-    v14 = 0;
-  }
-
-  *a2 = v14;
-  return result;
-}
-
-uint64_t TaggedValue_1.visitReferences(_:)(uint64_t a1, uint64_t a2)
-{
-  v3 = v2;
-  v5 = *(a2 + 16);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = *(v10 + 24);
-  v12 = type metadata accessor for TaggedValue_1.TaggedEnum();
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x1EEE9AC00](v12);
-  v16 = &v19 - v15;
-  (*(v17 + 16))(&v19 - v15, v3, v12, v14);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    (*(**(v16 + 1) + 120))(a1);
-  }
-
-  else
-  {
-    (*(v6 + 32))(v9, v16, v5);
-    (*(*(v11 + 8) + 48))(a1, v5);
-    return (*(v6 + 8))(v9, v5);
-  }
-}
-
-uint64_t TaggedValue_1.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  v4 = v3;
-  v7 = *(a2 + 16);
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v11 = &v26 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v26 - v13;
-  v16 = *(v15 + 24);
-  v17 = type metadata accessor for TaggedValue_1.TaggedEnum();
-  v18 = *(*(v17 - 8) + 64);
-  v19 = MEMORY[0x1EEE9AC00](v17);
-  v21 = &v26 - v20;
-  (*(v22 + 16))(&v26 - v20, v4, v17, v19);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v23 = *v21;
-    v24 = (*(**(v21 + 1) + 104))(a1);
-
-    *a3 = v23;
-    a3[1] = v24;
-    return swift_storeEnumTagMultiPayload();
-  }
-
-  else
-  {
-    (*(v8 + 32))(v14, v21, v7);
-    (*(*(v16 + 8) + 24))(a1, v7);
-    (*(v8 + 8))(v14, v7);
-    return TaggedValue_1.init(_:)(v11, v7, a3);
-  }
-}
-
-uint64_t TaggedValue_1.observableDifference(from:with:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char *a4@<X8>)
-{
-  v72 = a1;
-  v66 = a2;
-  v74 = a4;
-  v5 = *(a3 + 16);
-  v4 = *(a3 + 24);
-  v65 = *(v4 + 8);
+  v359 = a2;
+  v372 = a1;
+  v368 = a4;
+  v378 = a3[19];
+  v5 = a3[10];
+  v336 = *(v378 + 8);
+  v6 = v5;
+  v375 = v5;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v7 = sub_1AE23D7CC();
-  v60 = *(v7 - 8);
-  v61 = v7;
-  v8 = *(v60 + 64);
-  MEMORY[0x1EEE9AC00](v7);
-  v67 = &v59 - v9;
-  v68 = AssociatedTypeWitness;
-  v64 = *(AssociatedTypeWitness - 8);
-  v10 = *(v64 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v59 = &v59 - v12;
-  v69 = *(v5 - 8);
-  v13 = *(v69 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v63 = &v59 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v62 = &v59 - v17;
-  v73 = v4;
-  v18 = type metadata accessor for TaggedValue_1.TaggedEnum();
-  v19 = *(v18 - 8);
-  v20 = *(v19 + 64);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = (&v59 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v23);
-  v25 = &v59 - v24;
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v27 = *(TupleTypeMetadata2 - 8);
-  v28 = *(v27 + 64);
-  v29 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v31 = &v59 - v30;
-  v33 = (&v59 + *(v32 + 48) - v30);
-  v70 = v19;
-  v34 = *(v19 + 16);
-  v34(&v59 - v30, v71, v18, v29);
-  (v34)(v33, v72, v18);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    (v34)(v22, v31, v18);
-    v35 = v22[1];
-    if (swift_getEnumCaseMultiPayload() == 1)
-    {
-      v36 = *v22;
-      v38 = *v33;
-      v37 = v33[1];
-
-      v39 = type metadata accessor for TaggedValue_1.ObservableDifference();
-      v40 = v39;
-      if (v36 == v38)
-      {
-        v41 = *(*(v39 - 8) + 56);
-        v42 = v74;
-        v43 = 1;
-LABEL_14:
-        v41(v42, v43, 1, v40);
-        goto LABEL_15;
-      }
-
-      v55 = v74;
-LABEL_13:
-      swift_storeEnumTagMultiPayload();
-      v41 = *(*(v40 - 8) + 56);
-      v42 = v55;
-      v43 = 0;
-      goto LABEL_14;
-    }
-  }
-
-  else
-  {
-    (v34)(v25, v31, v18);
-    if (swift_getEnumCaseMultiPayload() != 1)
-    {
-      v46 = v69;
-      v47 = *(v69 + 32);
-      v48 = v62;
-      v47(v62, v25, v5);
-      v49 = v63;
-      v47(v63, v33, v5);
-      v50 = v67;
-      (*(v65 + 40))(v49, v66, v5);
-      v51 = *(v46 + 8);
-      v51(v49, v5);
-      v51(v48, v5);
-      v52 = v64;
-      v53 = v68;
-      if ((*(v64 + 48))(v50, 1, v68) == 1)
-      {
-        (*(v60 + 8))(v50, v61);
-        v54 = type metadata accessor for TaggedValue_1.ObservableDifference();
-        (*(*(v54 - 8) + 56))(v74, 1, 1, v54);
-LABEL_15:
-        v27 = v70;
-        return (*(v27 + 8))(v31, v18);
-      }
-
-      v56 = *(v52 + 32);
-      v57 = v59;
-      v56(v59, v50, v53);
-      v55 = v74;
-      v56(v74, v57, v53);
-      v40 = type metadata accessor for TaggedValue_1.ObservableDifference();
-      goto LABEL_13;
-    }
-
-    (*(v69 + 8))(v25, v5);
-  }
-
-  v44 = type metadata accessor for TaggedValue_1.ObservableDifference();
-  v45 = v74;
-  swift_storeEnumTagMultiPayload();
-  (*(*(v44 - 8) + 56))(v45, 0, 1, v44);
-  v18 = TupleTypeMetadata2;
-  return (*(v27 + 8))(v31, v18);
-}
-
-BOOL TaggedValue_2.ObservableDifference.isIdentityChanged.getter(uint64_t a1)
-{
-  v2 = *(a1 - 8);
-  v3 = *(v2 + 64);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v2 + 16))(v6, v4);
-  v7 = swift_getEnumCaseMultiPayload() == 3;
-  (*(v2 + 8))(v6, a1);
-  return v7;
-}
-
-uint64_t TaggedValue_2.taggedEnum.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v6 = *(a1 + 16);
-  v7 = *(a1 + 32);
-  v4 = type metadata accessor for TaggedValue_2.TaggedEnum();
-  return (*(*(v4 - 8) + 16))(a2, v2, v4);
-}
-
-uint64_t TaggedValue_2.taggedEnum.setter(uint64_t a1, uint64_t a2)
-{
-  v6 = *(a2 + 16);
-  v7 = *(a2 + 32);
-  v4 = type metadata accessor for TaggedValue_2.TaggedEnum();
-  return (*(*(v4 - 8) + 40))(v2, a1, v4);
-}
-
-uint64_t TaggedValue_2.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_2.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_2.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1);
-  type metadata accessor for TaggedValue_2.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_2.init(tag:_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
-{
-  v4 = *a2;
-  *a3 = a1;
-  a3[1] = v4;
-  type metadata accessor for TaggedValue_2.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_2.tagged1.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 32);
-  v16[0] = *(a1 + 16);
-  v16[1] = v16[0];
-  v16[2] = v5;
-  v6 = type metadata accessor for TaggedValue_2.TaggedEnum();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x1EEE9AC00](v6);
-  v11 = v16 - v10;
-  (*(v7 + 16))(v16 - v10, v3, v6, v9);
-  if (swift_getEnumCaseMultiPayload())
-  {
-    (*(v7 + 8))(v11, v6);
-    v12 = *&v16[0];
-    v13 = *(*&v16[0] - 8);
-    v14 = 1;
-  }
-
-  else
-  {
-    v13 = *(*&v16[0] - 8);
-    (*(v13 + 32))(a2, v11);
-    v12 = *&v16[0];
-    v14 = 0;
-  }
-
-  return (*(v13 + 56))(a2, v14, 1, v12);
-}
-
-uint64_t TaggedValue_2.tagged2.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 40);
-  v16 = *(a1 + 16);
-  v15 = *(a1 + 24);
-  v17 = v15;
-  v18 = v5;
-  v6 = type metadata accessor for TaggedValue_2.TaggedEnum();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x1EEE9AC00](v6);
-  v11 = &v15 - v10;
-  (*(v7 + 16))(&v15 - v10, v3, v6, v9);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v12 = *(v15 - 8);
-    (*(v12 + 32))(a2, v11);
-    v13 = 0;
-  }
-
-  else
-  {
-    (*(v7 + 8))(v11, v6);
-    v12 = *(v15 - 8);
-    v13 = 1;
-  }
-
-  return (*(v12 + 56))(a2, v13, 1, v15);
-}
-
-uint64_t TaggedValue_2.unknown.getter@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 32);
-  v14[0] = *(a1 + 16);
-  v14[1] = v5;
-  v6 = type metadata accessor for TaggedValue_2.TaggedEnum();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x1EEE9AC00](v6);
-  v11 = v14 - v10;
-  (*(v7 + 16))(v14 - v10, v3, v6, v9);
-  result = swift_getEnumCaseMultiPayload();
-  if (result == 2)
-  {
-    v13 = *(v11 + 1);
-  }
-
-  else
-  {
-    result = (*(v7 + 8))(v11, v6);
-    v13 = 0;
-  }
-
-  *a2 = v13;
-  return result;
-}
-
-uint64_t TaggedValue_2.visitReferences(_:)(uint64_t a1, uint64_t a2)
-{
-  v3 = v2;
-  v5 = *(a2 + 24);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v9 = v27 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = *(v10 + 16);
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = v27 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  *&v18 = v11;
-  *(&v18 + 1) = v5;
-  v27[0] = *(v17 + 32);
-  v27[1] = v18;
-  v27[2] = v27[0];
-  v19 = type metadata accessor for TaggedValue_2.TaggedEnum();
-  v20 = *(*(v19 - 8) + 64);
-  v21 = MEMORY[0x1EEE9AC00](v19);
-  v23 = v27 - v22;
-  (*(v24 + 16))(v27 - v22, v3, v19, v21);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload)
-  {
-    if (EnumCaseMultiPayload == 1)
-    {
-      (*(v6 + 32))(v9, v23, v5);
-      (*(*(*(&v27[0] + 1) + 8) + 48))(a1, v5);
-      return (*(v6 + 8))(v9, v5);
-    }
-
-    else
-    {
-      (*(**(v23 + 1) + 120))(a1);
-    }
-  }
-
-  else
-  {
-    (*(v12 + 32))(v16, v23, v11);
-    (*(*(*&v27[0] + 8) + 48))(a1, v11);
-    return (*(v12 + 8))(v16, v11);
-  }
-}
-
-uint64_t TaggedValue_2.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  v4 = v3;
-  v39 = a1;
-  v40 = a3;
-  v5 = *(a2 + 24);
-  v38 = *(v5 - 8);
-  v6 = *(v38 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v8 = &v37 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v284 = sub_1AE23D7CC();
+  v283 = *(v284 - 8);
+  MEMORY[0x1EEE9AC00](v284);
+  v337 = &v258 - v8;
+  v338 = AssociatedTypeWitness;
+  v335 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](v9);
-  v11 = &v37 - v10;
-  v13 = *(v12 + 16);
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x1EEE9AC00](v16);
-  v18 = &v37 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v19);
-  v21 = &v37 - v20;
-  v23 = *(v22 + 32);
-  *&v42 = v13;
-  *(&v42 + 1) = v5;
-  v41 = v23;
-  v43 = v23;
-  v24 = type metadata accessor for TaggedValue_2.TaggedEnum();
-  v25 = *(*(v24 - 8) + 64);
-  v26 = MEMORY[0x1EEE9AC00](v24);
-  v28 = &v37 - v27;
-  (*(v29 + 16))(&v37 - v27, v4, v24, v26);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload)
-  {
-    if (EnumCaseMultiPayload == 1)
-    {
-      v31 = v38;
-      (*(v38 + 32))(v11, v28, v5);
-      (*(*(*(&v41 + 1) + 8) + 24))(v39, v5);
-      (*(v31 + 8))(v11, v5);
-      return TaggedValue_2.init(_:)(v8, v5, v40);
-    }
-
-    else
-    {
-      v33 = *v28;
-      v34 = (*(**(v28 + 1) + 104))(v39);
-
-      v35 = v40;
-      *v40 = v33;
-      v35[1] = v34;
-      *&v36 = v13;
-      *(&v36 + 1) = v5;
-      v42 = v36;
-      v43 = v41;
-      type metadata accessor for TaggedValue_2.TaggedEnum();
-      return swift_storeEnumTagMultiPayload();
-    }
-  }
-
-  else
-  {
-    (*(v14 + 32))(v21, v28, v13);
-    (*(*(v41 + 8) + 24))(v39, v13);
-    (*(v14 + 8))(v21, v13);
-    return TaggedValue_2.init(_:)(v18, v13, v40);
-  }
-}
-
-uint64_t TaggedValue_2.observableDifference(from:with:)@<X0>(char *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, char *a4@<X8>)
-{
-  v108 = a2;
-  v119 = a4;
-  v120 = a1;
-  v5 = a3[5];
-  v6 = a3[3];
-  v105 = *(v5 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v97 = sub_1AE23D7CC();
-  v96 = *(v97 - 8);
-  v8 = *(v96 + 64);
-  MEMORY[0x1EEE9AC00](v97);
-  v106 = &v91 - v9;
-  v107 = AssociatedTypeWitness;
-  v104 = *(AssociatedTypeWitness - 8);
-  v10 = *(v104 + 64);
+  v282 = &v258 - v10;
+  v350 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v11);
-  v95 = &v91 - v12;
-  v109 = *(v6 - 8);
-  v13 = *(v109 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v103 = &v91 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v102 = &v91 - v17;
-  v18 = a3[4];
-  v19 = a3[2];
-  v99 = *(v18 + 8);
-  v20 = swift_getAssociatedTypeWitness();
-  v94 = sub_1AE23D7CC();
-  v93 = *(v94 - 8);
-  v21 = *(v93 + 64);
-  MEMORY[0x1EEE9AC00](v94);
-  v98 = &v91 - v22;
-  v101 = v20;
-  v100 = *(v20 - 8);
-  v23 = *(v100 + 64);
-  MEMORY[0x1EEE9AC00](v24);
-  v92 = &v91 - v25;
-  v113 = *(v19 - 8);
-  v26 = *(v113 + 64);
-  MEMORY[0x1EEE9AC00](v27);
-  v112 = &v91 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v29);
-  v110 = v6;
-  v111 = &v91 - v30;
-  *&v31 = v19;
-  *(&v31 + 1) = v6;
-  *&v32 = v18;
-  *(&v32 + 1) = v5;
-  v117 = v32;
-  v118 = v31;
-  v122 = v32;
-  v121 = v31;
-  v33 = type metadata accessor for TaggedValue_2.TaggedEnum();
-  v34 = *(v33 - 8);
-  v35 = *(v34 + 64);
-  MEMORY[0x1EEE9AC00](v33);
-  v37 = (&v91 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v38);
-  v40 = &v91 - v39;
-  MEMORY[0x1EEE9AC00](v41);
-  v43 = &v91 - v42;
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v45 = *(TupleTypeMetadata2 - 8);
-  v46 = *(v45 + 64);
-  v47 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v49 = &v91 - v48;
-  v114 = v34;
-  v115 = v50;
-  v51 = (&v91 + *(v50 + 48) - v48);
-  v52 = *(v34 + 16);
-  v52(&v91 - v48, v116, v33, v47);
-  (v52)(v51, v120, v33);
-  v120 = v49;
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (!EnumCaseMultiPayload)
-  {
-    v66 = v111;
-    v67 = v112;
-    v68 = v113;
-    (v52)(v43, v120, v33);
-    if (!swift_getEnumCaseMultiPayload())
-    {
-      v75 = *(v68 + 32);
-      v76 = v66;
-      v75(v66, v43, v19);
-      v75(v67, v51, v19);
-      v77 = v98;
-      (*(v99 + 40))(v67, v108, v19);
-      v78 = *(v68 + 8);
-      v78(v67, v19);
-      v78(v76, v19);
-      v79 = v100;
-      v80 = v101;
-      if ((*(v100 + 48))(v77, 1, v101) == 1)
-      {
-        (*(v93 + 8))(v77, v94);
-        v122 = v117;
-        v121 = v118;
-        goto LABEL_17;
-      }
-
-      v88 = *(v79 + 32);
-      v89 = v92;
-      v88(v92, v77, v80);
-      v87 = v119;
-      v88(v119, v89, v80);
-      v122 = v117;
-      v121 = v118;
-      v86 = type metadata accessor for TaggedValue_2.ObservableDifference();
-LABEL_22:
-      swift_storeEnumTagMultiPayload();
-      (*(*(v86 - 8) + 56))(v87, 0, 1, v86);
-      goto LABEL_23;
-    }
-
-    (*(v68 + 8))(v43, v19);
-LABEL_13:
-    v73 = v119;
-    v54 = v120;
-    goto LABEL_14;
-  }
-
-  if (EnumCaseMultiPayload != 1)
-  {
-    (v52)(v37, v120, v33);
-    v69 = v37[1];
-    if (swift_getEnumCaseMultiPayload() == 2)
-    {
-      v70 = *v37;
-      v72 = *v51;
-      v71 = v51[1];
-
-      if (v70 == v72)
-      {
-        v121 = v118;
-        v122 = v117;
-LABEL_17:
-        v81 = type metadata accessor for TaggedValue_2.ObservableDifference();
-        (*(*(v81 - 8) + 56))(v119, 1, 1, v81);
-LABEL_23:
-        v45 = v114;
-        v54 = v120;
-        return (*(v45 + 8))(v54, v33);
-      }
-
-      v121 = v118;
-      v122 = v117;
-      v86 = type metadata accessor for TaggedValue_2.ObservableDifference();
-      v87 = v119;
-      goto LABEL_22;
-    }
-
-    goto LABEL_13;
-  }
-
-  v54 = v120;
-  (v52)(v40, v120, v33);
-  if (swift_getEnumCaseMultiPayload() != 1)
-  {
-    (*(v109 + 8))(v40, v110);
-    v73 = v119;
-LABEL_14:
-    v121 = v118;
-    v122 = v117;
-    v74 = type metadata accessor for TaggedValue_2.ObservableDifference();
-    swift_storeEnumTagMultiPayload();
-    (*(*(v74 - 8) + 56))(v73, 0, 1, v74);
-    v33 = v115;
-    return (*(v45 + 8))(v54, v33);
-  }
-
-  v55 = v109;
-  v56 = *(v109 + 32);
-  v57 = v102;
-  v58 = v40;
-  v59 = v110;
-  v56(v102, v58, v110);
-  v60 = v103;
-  v56(v103, v51, v59);
-  v61 = v106;
-  (*(v105 + 40))(v60, v108, v59);
-  v62 = *(v55 + 8);
-  v62(v60, v59);
-  v62(v57, v59);
-  v63 = v104;
-  v64 = v107;
-  if ((*(v104 + 48))(v61, 1, v107) == 1)
-  {
-    (*(v96 + 8))(v61, v97);
-    v122 = v117;
-    v121 = v118;
-    v65 = type metadata accessor for TaggedValue_2.ObservableDifference();
-    (*(*(v65 - 8) + 56))(v119, 1, 1, v65);
-  }
-
-  else
-  {
-    v82 = *(v63 + 32);
-    v83 = v95;
-    v82(v95, v61, v64);
-    v84 = v119;
-    v82(v119, v83, v64);
-    v122 = v117;
-    v121 = v118;
-    v85 = type metadata accessor for TaggedValue_2.ObservableDifference();
-    swift_storeEnumTagMultiPayload();
-    (*(*(v85 - 8) + 56))(v84, 0, 1, v85);
-  }
-
-  v45 = v114;
-  return (*(v45 + 8))(v54, v33);
-}
-
-BOOL TaggedValue_3.ObservableDifference.isIdentityChanged.getter(uint64_t a1)
-{
-  v2 = *(a1 - 8);
-  v3 = *(v2 + 64);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v2 + 16))(v6, v4);
-  v7 = swift_getEnumCaseMultiPayload() == 4;
-  (*(v2 + 8))(v6, a1);
-  return v7;
-}
-
-uint64_t TaggedValue_3.taggedEnum.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v6 = a1[1];
-  v7 = a1[2];
-  v8 = a1[3];
-  v4 = type metadata accessor for TaggedValue_3.TaggedEnum();
-  return (*(*(v4 - 8) + 16))(a2, v2, v4);
-}
-
-uint64_t TaggedValue_3.taggedEnum.setter(uint64_t a1, _OWORD *a2)
-{
-  v6 = a2[1];
-  v7 = a2[2];
-  v8 = a2[3];
-  v4 = type metadata accessor for TaggedValue_3.TaggedEnum();
-  return (*(*(v4 - 8) + 40))(v2, a1, v4);
-}
-
-uint64_t TaggedValue_3.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_3.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_3.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1);
-  type metadata accessor for TaggedValue_3.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_3.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X3>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_3.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_3.init(tag:_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
-{
-  v4 = *a2;
-  *a3 = a1;
-  a3[1] = v4;
-  type metadata accessor for TaggedValue_3.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_3.tagged1.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v17[0] = a1[1];
-  v17[1] = v17[0];
-  v6 = a1[3];
-  v17[2] = v5;
-  v17[3] = v6;
-  v7 = type metadata accessor for TaggedValue_3.TaggedEnum();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x1EEE9AC00](v7);
-  v12 = v17 - v11;
-  (*(v8 + 16))(v17 - v11, v3, v7, v10);
-  if (swift_getEnumCaseMultiPayload())
-  {
-    (*(v8 + 8))(v12, v7);
-    v13 = *&v17[0];
-    v14 = *(*&v17[0] - 8);
-    v15 = 1;
-  }
-
-  else
-  {
-    v14 = *(*&v17[0] - 8);
-    (*(v14 + 32))(a2, v12);
-    v13 = *&v17[0];
-    v15 = 0;
-  }
-
-  return (*(v14 + 56))(a2, v15, 1, v13);
-}
-
-uint64_t TaggedValue_3.tagged2.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 56);
-  v16 = *(a1 + 16);
-  v15 = *(a1 + 24);
-  v17 = v15;
-  v18 = *(a1 + 40);
-  v19 = v5;
-  v6 = type metadata accessor for TaggedValue_3.TaggedEnum();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x1EEE9AC00](v6);
-  v11 = &v15 - v10;
-  (*(v7 + 16))(&v15 - v10, v3, v6, v9);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v12 = *(v15 - 8);
-    (*(v12 + 32))(a2, v11);
-    v13 = 0;
-  }
-
-  else
-  {
-    (*(v7 + 8))(v11, v6);
-    v12 = *(v15 - 8);
-    v13 = 1;
-  }
-
-  return (*(v12 + 56))(a2, v13, 1, v15);
-}
-
-uint64_t TaggedValue_3.tagged3.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[1];
-  v16[0] = a1[2];
-  v16[1] = v5;
-  v6 = a1[3];
-  v16[2] = v16[0];
-  v16[3] = v6;
-  v7 = type metadata accessor for TaggedValue_3.TaggedEnum();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x1EEE9AC00](v7);
-  v12 = v16 - v11;
-  (*(v8 + 16))(v16 - v11, v3, v7, v10);
-  if (swift_getEnumCaseMultiPayload() == 2)
-  {
-    v13 = *(*&v16[0] - 8);
-    (*(v13 + 32))(a2, v12);
-    v14 = 0;
-  }
-
-  else
-  {
-    (*(v8 + 8))(v12, v7);
-    v13 = *(*&v16[0] - 8);
-    v14 = 1;
-  }
-
-  return (*(v13 + 56))(a2, v14, 1, *&v16[0]);
-}
-
-uint64_t TaggedValue_3.unknown.getter@<X0>(_OWORD *a1@<X0>, void *a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v14[0] = a1[1];
-  v14[1] = v5;
-  v14[2] = a1[3];
-  v6 = type metadata accessor for TaggedValue_3.TaggedEnum();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x1EEE9AC00](v6);
-  v11 = v14 - v10;
-  (*(v7 + 16))(v14 - v10, v3, v6, v9);
-  result = swift_getEnumCaseMultiPayload();
-  if (result == 3)
-  {
-    v13 = *(v11 + 1);
-  }
-
-  else
-  {
-    result = (*(v7 + 8))(v11, v6);
-    v13 = 0;
-  }
-
-  *a2 = v13;
-  return result;
-}
-
-uint64_t TaggedValue_3.visitReferences(_:)(uint64_t a1, uint64_t a2)
-{
-  v40 = a1;
-  v2 = *(a2 + 32);
-  v38 = *(v2 - 8);
-  v3 = *(v38 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v37 = &v35 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = *(v5 + 24);
-  v36 = *(v6 - 8);
-  v7 = *(v36 + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = &v35 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = *(v11 + 16);
-  v35 = *(v12 - 8);
-  v13 = *(v35 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = &v35 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = v17[5];
-  v18 = v17[6];
-  v20 = v17[7];
-  *&v21 = v12;
-  *(&v21 + 1) = v6;
-  *&v22 = v2;
-  *(&v22 + 1) = v19;
-  v41 = v21;
-  v42 = v22;
-  v43 = v18;
-  v44 = v20;
-  v23 = type metadata accessor for TaggedValue_3.TaggedEnum();
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x1EEE9AC00](v23);
-  v27 = &v35 - v26;
-  (*(v28 + 16))(&v35 - v26, v39, v23, v25);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 1)
-  {
-    if (EnumCaseMultiPayload == 2)
-    {
-      v33 = v37;
-      v32 = v38;
-      (*(v38 + 32))(v37, v27, v2);
-      (*(*(v20 + 8) + 48))(v40, v2);
-      return (*(v32 + 8))(v33, v2);
-    }
-
-    else
-    {
-      (*(**(v27 + 1) + 120))(v40);
-    }
-  }
-
-  else if (EnumCaseMultiPayload)
-  {
-    v34 = v36;
-    (*(v36 + 32))(v10, v27, v6);
-    (*(*(v18 + 8) + 48))(v40, v6);
-    return (*(v34 + 8))(v10, v6);
-  }
-
-  else
-  {
-    v30 = v35;
-    (*(v35 + 32))(v16, v27, v12);
-    (*(*(v19 + 8) + 48))(v40, v12);
-    return (*(v30 + 8))(v16, v12);
-  }
-}
-
-uint64_t TaggedValue_3.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  v57 = a1;
-  v58 = a3;
-  v3 = *(a2 + 32);
-  v52 = *(v3 - 8);
-  v4 = *(v52 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v51 = &v47 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v6);
-  v8 = &v47 - v7;
-  v10 = *(v9 + 24);
-  v50 = *(v10 - 8);
-  v11 = *(v50 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v47 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v47 - v16;
-  v19 = *(v18 + 16);
-  v49 = *(v19 - 8);
-  v20 = *(v49 + 64);
-  MEMORY[0x1EEE9AC00](v21);
-  v23 = &v47 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v24);
-  v26 = &v47 - v25;
-  v28 = v27[6];
-  v29 = v27[7];
-  *&v30 = v19;
-  *(&v30 + 1) = v10;
-  *&v31 = v3;
-  v53 = v27[5];
-  *(&v31 + 1) = v53;
-  v47 = v31;
-  v48 = v30;
-  v60 = v31;
-  v59 = v30;
-  v55 = v28;
-  v56 = v29;
-  v61 = v28;
-  v62 = v29;
-  v32 = type metadata accessor for TaggedValue_3.TaggedEnum();
-  v33 = *(*(v32 - 8) + 64);
-  v34 = MEMORY[0x1EEE9AC00](v32);
-  v36 = &v47 - v35;
-  (*(v37 + 16))(&v47 - v35, v54, v32, v34);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 1)
-  {
-    if (EnumCaseMultiPayload == 2)
-    {
-      v41 = v52;
-      (*(v52 + 32))(v8, v36, v3);
-      v42 = v51;
-      (*(*(v56 + 8) + 24))(v57, v3);
-      (*(v41 + 8))(v8, v3);
-      return TaggedValue_3.init(_:)(v42, v3, v58);
-    }
-
-    else
-    {
-      v44 = *v36;
-      v45 = (*(**(v36 + 1) + 104))(v57);
-
-      v46 = v58;
-      *v58 = v44;
-      v46[1] = v45;
-      v60 = v47;
-      v59 = v48;
-      v61 = v55;
-      v62 = v56;
-      type metadata accessor for TaggedValue_3.TaggedEnum();
-      return swift_storeEnumTagMultiPayload();
-    }
-  }
-
-  else if (EnumCaseMultiPayload)
-  {
-    v43 = v50;
-    (*(v50 + 32))(v17, v36, v10);
-    (*(*(v55 + 8) + 24))(v57, v10);
-    (*(v43 + 8))(v17, v10);
-    return TaggedValue_3.init(_:)(v14, v10, v58);
-  }
-
-  else
-  {
-    v39 = v49;
-    (*(v49 + 32))(v26, v36, v19);
-    (*(*(v53 + 8) + 24))(v57, v19);
-    (*(v39 + 8))(v26, v19);
-    return TaggedValue_3.init(_:)(v23, v19, v58);
-  }
-}
-
-uint64_t TaggedValue_3.observableDifference(from:with:)@<X0>(char *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, char *a4@<X8>)
-{
-  v153 = a2;
-  v161 = a4;
-  v162 = a1;
-  v5 = a3[7];
-  v6 = a3[4];
-  v144 = *(v5 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v128 = sub_1AE23D7CC();
-  v127 = *(v128 - 8);
-  v8 = *(v127 + 64);
-  MEMORY[0x1EEE9AC00](v128);
-  v145 = &v119 - v9;
-  v146 = AssociatedTypeWitness;
-  v143 = *(AssociatedTypeWitness - 8);
-  v10 = *(v143 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v126 = &v119 - v12;
-  v151 = *(v6 - 8);
-  v13 = *(v151 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v141 = &v119 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v140 = &v119 - v17;
-  v18 = a3[6];
-  v19 = a3[3];
-  v137 = *(v18 + 8);
-  v20 = swift_getAssociatedTypeWitness();
-  v125 = sub_1AE23D7CC();
-  v124 = *(v125 - 8);
-  v21 = *(v124 + 64);
-  MEMORY[0x1EEE9AC00](v125);
-  v139 = &v119 - v22;
-  v142 = v20;
-  v138 = *(v20 - 8);
-  v23 = *(v138 + 64);
-  MEMORY[0x1EEE9AC00](v24);
-  v123 = &v119 - v25;
-  v149 = *(v19 - 8);
-  v26 = *(v149 + 64);
-  MEMORY[0x1EEE9AC00](v27);
-  v136 = &v119 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v29);
-  v135 = &v119 - v30;
-  v31 = a3[5];
-  v32 = a3[2];
-  v131 = *(v31 + 8);
-  v33 = swift_getAssociatedTypeWitness();
-  v122 = sub_1AE23D7CC();
-  v121 = *(v122 - 8);
-  v34 = *(v121 + 64);
-  MEMORY[0x1EEE9AC00](v122);
-  v133 = &v119 - v35;
-  v134 = v33;
-  v132 = *(v33 - 8);
-  v36 = *(v132 + 64);
-  MEMORY[0x1EEE9AC00](v37);
-  v120 = &v119 - v38;
-  v147 = *(v32 - 8);
-  v39 = *(v147 + 64);
-  MEMORY[0x1EEE9AC00](v40);
-  v130 = &v119 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v42);
-  v129 = &v119 - v43;
-  v148 = v32;
-  *&v44 = v32;
-  v150 = v19;
-  *(&v44 + 1) = v19;
-  v152 = v6;
-  *&v45 = v6;
-  *(&v45 + 1) = v31;
-  v157 = v45;
-  v158 = v44;
-  v164 = v45;
-  v163 = v44;
-  v159 = v18;
-  v160 = v5;
-  v165 = v18;
-  v166 = v5;
-  v46 = type metadata accessor for TaggedValue_3.TaggedEnum();
-  v47 = *(v46 - 8);
-  v48 = *(v47 + 64);
-  MEMORY[0x1EEE9AC00](v46);
-  v50 = (&v119 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v51);
-  v53 = &v119 - v52;
-  MEMORY[0x1EEE9AC00](v54);
-  v56 = &v119 - v55;
-  MEMORY[0x1EEE9AC00](v57);
-  v59 = &v119 - v58;
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v61 = *(TupleTypeMetadata2 - 8);
-  v62 = *(v61 + 64);
-  v63 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v65 = &v119 - v64;
-  v154 = v47;
-  v155 = v66;
-  v67 = (&v119 + *(v66 + 48) - v64);
-  v68 = *(v47 + 16);
-  v68(&v119 - v64, v156, v46, v63);
-  (v68)(v67, v162, v46);
-  v162 = v65;
-  v69 = v46;
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 1)
-  {
-    if (EnumCaseMultiPayload == 2)
-    {
-      v71 = v162;
-      (v68)(v53, v162, v69);
-      if (swift_getEnumCaseMultiPayload() != 2)
-      {
-        (*(v151 + 8))(v53, v152);
-        goto LABEL_20;
-      }
-
-      v72 = v151;
-      v73 = *(v151 + 32);
-      v74 = v140;
-      v75 = v53;
-      v76 = v152;
-      v73(v140, v75, v152);
-      v77 = v141;
-      v73(v141, v67, v76);
-      v78 = v145;
-      (*(v144 + 40))(v77, v153, v76);
-      v79 = *(v72 + 8);
-      v79(v77, v76);
-      v79(v74, v76);
-      v80 = v143;
-      v81 = v146;
-      if ((*(v143 + 48))(v78, 1, v146) == 1)
-      {
-        (*(v127 + 8))(v78, v128);
-LABEL_12:
-        v164 = v157;
-        v163 = v158;
-LABEL_16:
-        v165 = v159;
-        v166 = v160;
-        v95 = type metadata accessor for TaggedValue_3.ObservableDifference();
-        (*(*(v95 - 8) + 56))(v161, 1, 1, v95);
-LABEL_27:
-        v61 = v154;
-        return (*(v61 + 8))(v71, v69);
-      }
-
-      v108 = *(v80 + 32);
-      v109 = v126;
-      v108(v126, v78, v81);
-      v110 = v161;
-      v108(v161, v109, v81);
-      v164 = v157;
-      v163 = v158;
-      v165 = v159;
-      v166 = v160;
-      v111 = type metadata accessor for TaggedValue_3.ObservableDifference();
-    }
-
-    else
-    {
-      v71 = v162;
-      (v68)(v50, v162, v69);
-      v91 = v50[1];
-      if (swift_getEnumCaseMultiPayload() != 3)
-      {
-
-        goto LABEL_20;
-      }
-
-      v92 = *v50;
-      v94 = *v67;
-      v93 = v67[1];
-
-      if (v92 == v94)
-      {
-        v163 = v158;
-        v164 = v157;
-        goto LABEL_16;
-      }
-
-      v163 = v158;
-      v164 = v157;
-      v165 = v159;
-      v166 = v160;
-      v111 = type metadata accessor for TaggedValue_3.ObservableDifference();
-      v110 = v161;
-    }
-
-LABEL_26:
-    swift_storeEnumTagMultiPayload();
-    (*(*(v111 - 8) + 56))(v110, 0, 1, v111);
-    goto LABEL_27;
-  }
-
-  if (EnumCaseMultiPayload)
-  {
-    v71 = v162;
-    (v68)(v56, v162, v69);
-    if (swift_getEnumCaseMultiPayload() != 1)
-    {
-      (*(v149 + 8))(v56, v150);
-      goto LABEL_20;
-    }
-
-    v82 = v149;
-    v83 = *(v149 + 32);
-    v84 = v135;
-    v85 = v150;
-    v83(v135, v56, v150);
-    v86 = v136;
-    v83(v136, v67, v85);
-    v87 = v139;
-    (*(v137 + 40))(v86, v153, v85);
-    v88 = *(v82 + 8);
-    v88(v86, v85);
-    v88(v84, v85);
-    v89 = v138;
-    v90 = v142;
-    if ((*(v138 + 48))(v87, 1, v142) == 1)
-    {
-      (*(v124 + 8))(v87, v125);
-      goto LABEL_12;
-    }
-
-    v112 = *(v89 + 32);
-    v113 = v123;
-    v112(v123, v87, v90);
-    v110 = v161;
-    v112(v161, v113, v90);
-    v164 = v157;
-    v163 = v158;
-    v165 = v159;
-    v166 = v160;
-    v111 = type metadata accessor for TaggedValue_3.ObservableDifference();
-    goto LABEL_26;
-  }
-
-  (v68)(v59, v162, v46);
-  if (swift_getEnumCaseMultiPayload())
-  {
-    (*(v147 + 8))(v59, v148);
-    v71 = v162;
-LABEL_20:
-    v163 = v158;
-    v164 = v157;
-    v165 = v159;
-    v166 = v160;
-    v96 = type metadata accessor for TaggedValue_3.ObservableDifference();
-    v97 = v161;
-    swift_storeEnumTagMultiPayload();
-    (*(*(v96 - 8) + 56))(v97, 0, 1, v96);
-    v69 = v155;
-    return (*(v61 + 8))(v71, v69);
-  }
-
-  v98 = v147;
-  v99 = *(v147 + 32);
-  v100 = v129;
-  v101 = v148;
-  v99(v129, v59, v148);
-  v102 = v130;
-  v99(v130, v67, v101);
-  v103 = v133;
-  (*(v131 + 40))(v102, v153, v101);
-  v104 = *(v98 + 8);
-  v104(v102, v101);
-  v104(v100, v101);
-  v105 = v132;
-  v106 = v134;
-  if ((*(v132 + 48))(v103, 1, v134) == 1)
-  {
-    (*(v121 + 8))(v103, v122);
-    v164 = v157;
-    v163 = v158;
-    v165 = v159;
-    v166 = v160;
-    v107 = type metadata accessor for TaggedValue_3.ObservableDifference();
-    (*(*(v107 - 8) + 56))(v161, 1, 1, v107);
-  }
-
-  else
-  {
-    v115 = *(v105 + 32);
-    v116 = v120;
-    v115(v120, v103, v106);
-    v117 = v161;
-    v115(v161, v116, v106);
-    v164 = v157;
-    v163 = v158;
-    v165 = v159;
-    v166 = v160;
-    v118 = type metadata accessor for TaggedValue_3.ObservableDifference();
-    swift_storeEnumTagMultiPayload();
-    (*(*(v118 - 8) + 56))(v117, 0, 1, v118);
-  }
-
-  v61 = v154;
-  v71 = v162;
-  return (*(v61 + 8))(v71, v69);
-}
-
-BOOL TaggedValue_4.ObservableDifference.isIdentityChanged.getter(uint64_t a1)
-{
-  v2 = *(a1 - 8);
-  v3 = *(v2 + 64);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v2 + 16))(v6, v4);
-  v7 = swift_getEnumCaseMultiPayload() == 5;
-  (*(v2 + 8))(v6, a1);
-  return v7;
-}
-
-uint64_t TaggedValue_4.taggedEnum.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v6 = a1[1];
-  v7 = a1[2];
-  v8 = a1[3];
-  v9 = a1[4];
-  v4 = type metadata accessor for TaggedValue_4.TaggedEnum();
-  return (*(*(v4 - 8) + 16))(a2, v2, v4);
-}
-
-uint64_t TaggedValue_4.taggedEnum.setter(uint64_t a1, _OWORD *a2)
-{
-  v6 = a2[1];
-  v7 = a2[2];
-  v8 = a2[3];
-  v9 = a2[4];
-  v4 = type metadata accessor for TaggedValue_4.TaggedEnum();
-  return (*(*(v4 - 8) + 40))(v2, a1, v4);
-}
-
-uint64_t TaggedValue_4.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_4.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_4.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1);
-  type metadata accessor for TaggedValue_4.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_4.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X3>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_4.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_4.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X4>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_4.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_4.init(tag:_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
-{
-  v3 = *a2;
-  *a3 = a1;
-  a3[1] = v3;
-  type metadata accessor for TaggedValue_4.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_4.tagged1.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v18[0] = a1[1];
-  v18[1] = v18[0];
-  v6 = a1[3];
-  v7 = a1[4];
-  v18[2] = v5;
-  v18[3] = v6;
-  v18[4] = v7;
-  v8 = type metadata accessor for TaggedValue_4.TaggedEnum();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = v18 - v12;
-  (*(v9 + 16))(v18 - v12, v3, v8, v11);
-  if (swift_getEnumCaseMultiPayload())
-  {
-    (*(v9 + 8))(v13, v8);
-    v14 = *&v18[0];
-    v15 = *(*&v18[0] - 8);
-    v16 = 1;
-  }
-
-  else
-  {
-    v15 = *(*&v18[0] - 8);
-    (*(v15 + 32))(a2, v13);
-    v14 = *&v18[0];
-    v16 = 0;
-  }
-
-  return (*(v15 + 56))(a2, v16, 1, v14);
-}
-
-uint64_t TaggedValue_4.tagged2.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 72);
-  v16 = *(a1 + 16);
-  v15 = *(a1 + 24);
-  v17 = v15;
-  v18 = *(a1 + 40);
-  v19 = *(a1 + 56);
-  v20 = v5;
-  v6 = type metadata accessor for TaggedValue_4.TaggedEnum();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x1EEE9AC00](v6);
-  v11 = &v15 - v10;
-  (*(v7 + 16))(&v15 - v10, v3, v6, v9);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v12 = *(v15 - 8);
-    (*(v12 + 32))(a2, v11);
-    v13 = 0;
-  }
-
-  else
-  {
-    (*(v7 + 8))(v11, v6);
-    v12 = *(v15 - 8);
-    v13 = 1;
-  }
-
-  return (*(v12 + 56))(a2, v13, 1, v15);
-}
-
-uint64_t TaggedValue_4.tagged3.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[1];
-  v17[0] = a1[2];
-  v17[1] = v5;
-  v6 = a1[3];
-  v7 = a1[4];
-  v17[2] = v17[0];
-  v17[3] = v6;
-  v17[4] = v7;
-  v8 = type metadata accessor for TaggedValue_4.TaggedEnum();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = v17 - v12;
-  (*(v9 + 16))(v17 - v12, v3, v8, v11);
-  if (swift_getEnumCaseMultiPayload() == 2)
-  {
-    v14 = *(*&v17[0] - 8);
-    (*(v14 + 32))(a2, v13);
-    v15 = 0;
-  }
-
-  else
-  {
-    (*(v9 + 8))(v13, v8);
-    v14 = *(*&v17[0] - 8);
-    v15 = 1;
-  }
-
-  return (*(v14 + 56))(a2, v15, 1, *&v17[0]);
-}
-
-uint64_t TaggedValue_4.tagged4.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 72);
-  v6 = *(a1 + 16);
-  v17 = *(a1 + 32);
-  v16[0] = *(a1 + 40);
-  v16[1] = v6;
-  v18 = v16[0];
-  v19 = *(a1 + 56);
-  v20 = v5;
-  v7 = type metadata accessor for TaggedValue_4.TaggedEnum();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x1EEE9AC00](v7);
-  v12 = v16 - v11;
-  (*(v8 + 16))(v16 - v11, v3, v7, v10);
-  if (swift_getEnumCaseMultiPayload() == 3)
-  {
-    v13 = *(*&v16[0] - 8);
-    (*(v13 + 32))(a2, v12);
-    v14 = 0;
-  }
-
-  else
-  {
-    (*(v8 + 8))(v12, v7);
-    v13 = *(*&v16[0] - 8);
-    v14 = 1;
-  }
-
-  return (*(v13 + 56))(a2, v14, 1, *&v16[0]);
-}
-
-uint64_t TaggedValue_4.unknown.getter@<X0>(_OWORD *a1@<X0>, void *a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v15[0] = a1[1];
-  v15[1] = v5;
-  v6 = a1[4];
-  v15[2] = a1[3];
-  v15[3] = v6;
-  v7 = type metadata accessor for TaggedValue_4.TaggedEnum();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x1EEE9AC00](v7);
-  v12 = v15 - v11;
-  (*(v8 + 16))(v15 - v11, v3, v7, v10);
-  result = swift_getEnumCaseMultiPayload();
-  if (result == 4)
-  {
-    v14 = *(v12 + 1);
-  }
-
-  else
-  {
-    result = (*(v8 + 8))(v12, v7);
-    v14 = 0;
-  }
-
-  *a2 = v14;
-  return result;
-}
-
-uint64_t TaggedValue_4.visitReferences(_:)(uint64_t a1, uint64_t a2)
-{
-  v57 = a1;
-  v52 = *(*(a2 + 40) - 8);
-  v2 = *(v52 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v51 = &v48 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v50 = *(*(v4 + 32) - 8);
-  v5 = *(v50 + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  v49 = &v48 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *(v8 + 24);
-  v55 = *(v9 - 8);
-  v10 = *(v55 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v48 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = *(v14 + 16);
-  v54 = *(v15 - 8);
-  v16 = *(v54 + 64);
-  MEMORY[0x1EEE9AC00](v17);
-  v19 = &v48 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = v20[6];
-  v21 = v20[7];
-  v24 = v20[8];
-  v23 = v20[9];
-  *&v25 = v15;
-  *(&v25 + 1) = v9;
-  v48 = v26;
-  *&v27 = v26;
-  v53 = v28;
-  *(&v27 + 1) = v28;
-  v58 = v25;
-  v59 = v27;
-  v60 = v22;
-  v61 = v21;
-  v62 = v24;
-  v63 = v23;
-  v29 = type metadata accessor for TaggedValue_4.TaggedEnum();
-  v30 = *(*(v29 - 8) + 64);
-  v31 = MEMORY[0x1EEE9AC00](v29);
-  v33 = &v48 - v32;
-  (*(v34 + 16))(&v48 - v32, v56, v29, v31);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload <= 1)
-  {
-    v41 = v13;
-    v42 = v55;
-    if (EnumCaseMultiPayload)
-    {
-      (*(v55 + 32))(v41, v33, v9);
-      (*(*(v21 + 8) + 48))(v57, v9);
-      return (*(v42 + 8))(v41, v9);
-    }
-
-    else
-    {
-      v43 = v54;
-      (*(v54 + 32))(v19, v33, v15);
-      (*(*(v22 + 8) + 48))(v57, v15);
-      return (*(v43 + 8))(v19, v15);
-    }
-  }
-
-  else if (EnumCaseMultiPayload == 2)
-  {
-    v44 = v49;
-    v45 = v50;
-    v46 = v33;
-    v47 = v48;
-    (*(v50 + 32))(v49, v46, v48);
-    (*(*(v24 + 8) + 48))(v57, v47);
-    return (*(v45 + 8))(v44, v47);
-  }
-
-  else if (EnumCaseMultiPayload == 3)
-  {
-    v37 = v51;
-    v36 = v52;
-    v38 = v33;
-    v39 = v53;
-    (*(v52 + 32))(v51, v38, v53);
-    (*(*(v23 + 8) + 48))(v57, v39);
-    return (*(v36 + 8))(v37, v39);
-  }
-
-  else
-  {
-    (*(**(v33 + 1) + 120))(v57);
-  }
-}
-
-uint64_t TaggedValue_4.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  v76 = a1;
-  v77 = a3;
-  v67 = *(*(a2 + 40) - 8);
-  v3 = *(v67 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v66 = &v61 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v65 = &v61 - v6;
-  v8 = *(v7 + 32);
-  v64 = *(v8 - 8);
-  v9 = *(v64 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v63 = &v61 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v61 - v13;
-  v16 = *(v15 + 24);
-  v69 = *(v16 - 8);
-  v17 = *(v69 + 64);
-  MEMORY[0x1EEE9AC00](v18);
-  v20 = &v61 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v21);
-  v23 = &v61 - v22;
-  v25 = *(v24 + 16);
-  v68 = *(v25 - 8);
-  v26 = *(v68 + 64);
-  MEMORY[0x1EEE9AC00](v27);
-  v29 = &v61 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v30);
-  v32 = &v61 - v31;
-  v35 = v33[6];
-  v34 = v33[7];
-  v36 = v33[8];
-  v37 = v33[9];
-  *&v38 = v25;
-  *(&v38 + 1) = v16;
-  *&v39 = v8;
-  v70 = v40;
-  *(&v39 + 1) = v40;
-  v61 = v39;
-  v79 = v39;
-  v62 = v38;
-  v78 = v38;
-  v73 = v35;
-  v74 = v34;
-  v80 = v35;
-  v81 = v34;
-  v75 = v36;
-  v82 = v36;
-  v83 = v37;
-  v72 = v37;
-  v41 = type metadata accessor for TaggedValue_4.TaggedEnum();
-  v42 = *(*(v41 - 8) + 64);
-  v43 = MEMORY[0x1EEE9AC00](v41);
-  v45 = &v61 - v44;
-  (*(v46 + 16))(&v61 - v44, v71, v41, v43);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload <= 1)
-  {
-    v54 = v69;
-    if (EnumCaseMultiPayload)
-    {
-      (*(v69 + 32))(v23, v45, v16);
-      (*(*(v74 + 8) + 24))(v76, v16);
-      (*(v54 + 8))(v23, v16);
-      return TaggedValue_4.init(_:)(v20, v16, v77);
-    }
-
-    else
-    {
-      v55 = v68;
-      (*(v68 + 32))(v32, v45, v25);
-      (*(*(v73 + 8) + 24))(v76, v25);
-      (*(v55 + 8))(v32, v25);
-      return TaggedValue_4.init(_:)(v29, v25, v77);
-    }
-  }
-
-  else if (EnumCaseMultiPayload == 2)
-  {
-    v56 = v64;
-    (*(v64 + 32))(v14, v45, v8);
-    v57 = v63;
-    (*(*(v75 + 8) + 24))(v76, v8);
-    (*(v56 + 8))(v14, v8);
-    return TaggedValue_4.init(_:)(v57, v8, v77);
-  }
-
-  else if (EnumCaseMultiPayload == 3)
-  {
-    v48 = v67;
-    v49 = v65;
-    v50 = v45;
-    v51 = v70;
-    (*(v67 + 32))(v65, v50, v70);
-    v52 = v66;
-    (*(*(v72 + 8) + 24))(v76, v51);
-    (*(v48 + 8))(v49, v51);
-    return TaggedValue_4.init(_:)(v52, v51, v77);
-  }
-
-  else
-  {
-    v58 = *v45;
-    v59 = (*(**(v45 + 1) + 104))(v76);
-
-    v60 = v77;
-    *v77 = v58;
-    v60[1] = v59;
-    v79 = v61;
-    v78 = v62;
-    v80 = v73;
-    v81 = v74;
-    v82 = v75;
-    v83 = v72;
-    type metadata accessor for TaggedValue_4.TaggedEnum();
-    return swift_storeEnumTagMultiPayload();
-  }
-}
-
-uint64_t TaggedValue_4.observableDifference(from:with:)@<X0>(char *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, char *a4@<X8>)
-{
-  v191 = a2;
-  v204 = a1;
-  v201 = a4;
-  v5 = a3[5];
-  *&v202 = a3[9];
-  v182 = *(v202 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v160 = sub_1AE23D7CC();
-  v159 = *(v160 - 8);
-  v7 = *(v159 + 64);
-  MEMORY[0x1EEE9AC00](v160);
-  v183 = &v148 - v8;
-  v184 = AssociatedTypeWitness;
-  v181 = *(AssociatedTypeWitness - 8);
-  v9 = *(v181 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v158 = &v148 - v11;
-  v189 = *(v5 - 8);
-  v12 = *(v189 + 64);
+  v333 = &v258 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v13);
-  v179 = &v148 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v178 = &v148 - v16;
-  v17 = a3[8];
-  v18 = a3[4];
-  v175 = *(v17 + 8);
-  v19 = swift_getAssociatedTypeWitness();
-  v157 = sub_1AE23D7CC();
-  v156 = *(v157 - 8);
-  v20 = *(v156 + 64);
-  MEMORY[0x1EEE9AC00](v157);
-  v177 = &v148 - v21;
-  v180 = v19;
-  v176 = *(v19 - 8);
-  v22 = *(v176 + 64);
+  v332 = &v258 - v14;
+  v377 = a3[18];
+  v15 = a3[9];
+  v329 = *(v377 + 8);
+  v16 = v15;
+  *(&v374 + 1) = v15;
+  v17 = swift_getAssociatedTypeWitness();
+  v281 = sub_1AE23D7CC();
+  v280 = *(v281 - 8);
+  MEMORY[0x1EEE9AC00](v281);
+  v331 = &v258 - v18;
+  v334 = v17;
+  v330 = *(v17 - 8);
+  MEMORY[0x1EEE9AC00](v19);
+  v279 = &v258 - v20;
+  v349 = *(v16 - 8);
+  MEMORY[0x1EEE9AC00](v21);
+  v327 = &v258 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v23);
-  v155 = &v148 - v24;
-  v187 = *(v18 - 8);
-  v25 = *(v187 + 64);
-  MEMORY[0x1EEE9AC00](v26);
-  v174 = &v148 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v28);
-  v173 = &v148 - v29;
-  v30 = a3[7];
-  v31 = a3[3];
-  v169 = *(v30 + 8);
-  v32 = swift_getAssociatedTypeWitness();
-  v154 = sub_1AE23D7CC();
-  v153 = *(v154 - 8);
-  v33 = *(v153 + 64);
-  MEMORY[0x1EEE9AC00](v154);
-  v170 = &v148 - v34;
-  v172 = v32;
-  v171 = *(v32 - 8);
-  v35 = *(v171 + 64);
-  MEMORY[0x1EEE9AC00](v36);
-  v152 = &v148 - v37;
-  v193 = *(v31 - 8);
-  v38 = *(v193 + 64);
-  MEMORY[0x1EEE9AC00](v39);
-  v168 = &v148 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v41);
-  v167 = &v148 - v42;
-  v43 = a3[6];
-  v44 = a3[2];
-  v163 = *(v43 + 8);
-  v45 = swift_getAssociatedTypeWitness();
-  v151 = sub_1AE23D7CC();
-  v150 = *(v151 - 8);
-  v46 = *(v150 + 64);
-  MEMORY[0x1EEE9AC00](v151);
-  v165 = &v148 - v47;
-  v166 = v45;
-  v164 = *(v45 - 8);
-  v48 = *(v164 + 64);
-  MEMORY[0x1EEE9AC00](v49);
-  v149 = &v148 - v50;
-  v192 = *(v44 - 8);
-  v51 = *(v192 + 64);
-  MEMORY[0x1EEE9AC00](v52);
-  v162 = &v148 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v54);
-  v161 = &v148 - v55;
-  *&v56 = v44;
-  v194 = v31;
-  *(&v56 + 1) = v31;
-  v188 = v18;
-  *&v57 = v18;
-  v190 = v5;
-  *(&v57 + 1) = v5;
-  *&v58 = v43;
-  *(&v58 + 1) = v30;
-  v198 = v57;
-  v199 = v56;
-  v206 = v57;
-  v205 = v56;
-  *&v56 = v17;
-  *(&v56 + 1) = v202;
-  v200 = v56;
-  v208 = v56;
-  v202 = v58;
-  v207 = v58;
-  v59 = type metadata accessor for TaggedValue_4.TaggedEnum();
-  v60 = *(v59 - 8);
-  v61 = *(v60 + 64);
-  MEMORY[0x1EEE9AC00](v59);
-  v63 = (&v148 - ((v62 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v64);
-  v186 = &v148 - v65;
-  MEMORY[0x1EEE9AC00](v66);
-  v185 = &v148 - v67;
-  MEMORY[0x1EEE9AC00](v68);
-  v70 = &v148 - v69;
-  MEMORY[0x1EEE9AC00](v71);
-  v73 = &v148 - v72;
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v197 = *(TupleTypeMetadata2 - 8);
-  v75 = *(v197 + 64);
-  v76 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v78 = &v148 - v77;
-  v196 = v79;
-  v80 = &v148 + *(v79 + 48) - v77;
-  v195 = v60;
-  v81 = *(v60 + 16);
-  v81(&v148 - v77, v203, v59, v76);
-  v82 = v80;
-  (v81)(v80, v204, v59);
-  v203 = v59;
-  v204 = v78;
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 1)
-  {
-    if (EnumCaseMultiPayload == 2)
-    {
-      v99 = v185;
-      v84 = v203;
-      (v81)(v185, v204, v203);
-      if (swift_getEnumCaseMultiPayload() == 2)
-      {
-        v100 = v187;
-        v101 = *(v187 + 32);
-        v102 = v173;
-        v103 = v188;
-        v101(v173, v99, v188);
-        v104 = v174;
-        v101(v174, v82, v103);
-        v105 = v177;
-        (*(v175 + 40))(v104, v191, v103);
-        v106 = *(v100 + 8);
-        v106(v104, v103);
-        v106(v102, v103);
-        v107 = v176;
-        v108 = v180;
-        if ((*(v176 + 48))(v105, 1, v180) == 1)
-        {
-          (*(v156 + 8))(v105, v157);
-          goto LABEL_27;
-        }
-
-        v134 = *(v107 + 32);
-        v135 = v155;
-        v134(v155, v105, v108);
-        v136 = v201;
-        v134(v201, v135, v108);
-        v206 = v198;
-        v205 = v199;
-        v208 = v200;
-        v207 = v202;
-        v137 = type metadata accessor for TaggedValue_4.ObservableDifference();
-LABEL_35:
-        swift_storeEnumTagMultiPayload();
-        (*(*(v137 - 8) + 56))(v136, 0, 1, v137);
-        goto LABEL_36;
-      }
-
-      (*(v187 + 8))(v99, v188);
-    }
-
-    else
-    {
-      v84 = v203;
-      if (EnumCaseMultiPayload == 3)
-      {
-        v85 = v186;
-        (v81)(v186, v204, v203);
-        if (swift_getEnumCaseMultiPayload() == 3)
-        {
-          v86 = v189;
-          v87 = *(v189 + 32);
-          v88 = v178;
-          v89 = v190;
-          v87(v178, v85, v190);
-          v90 = v179;
-          v87(v179, v82, v89);
-          v91 = v183;
-          (*(v182 + 40))(v90, v191, v89);
-          v92 = *(v86 + 8);
-          v92(v90, v89);
-          v92(v88, v89);
-          v93 = v181;
-          v94 = v184;
-          if ((*(v181 + 48))(v91, 1, v184) == 1)
-          {
-            (*(v159 + 8))(v91, v160);
-LABEL_27:
-            v206 = v198;
-            v205 = v199;
-            v208 = v200;
-            v207 = v202;
-            goto LABEL_28;
-          }
-
-          v138 = *(v93 + 32);
-          v139 = v158;
-          v138(v158, v91, v94);
-          v136 = v201;
-          v138(v201, v139, v94);
-          v206 = v198;
-          v205 = v199;
-          v208 = v200;
-          v207 = v202;
-          v137 = type metadata accessor for TaggedValue_4.ObservableDifference();
-          goto LABEL_35;
-        }
-
-        (*(v189 + 8))(v85, v190);
-      }
-
-      else
-      {
-        (v81)(v63, v204, v203);
-        v109 = v63[1];
-        if (swift_getEnumCaseMultiPayload() == 4)
-        {
-          v110 = *v63;
-          v112 = *v80;
-          v111 = *(v80 + 1);
-
-          if (v110 == v112)
-          {
-            v205 = v199;
-            v206 = v198;
-            v207 = v202;
-            v208 = v200;
-LABEL_28:
-            v133 = type metadata accessor for TaggedValue_4.ObservableDifference();
-            (*(*(v133 - 8) + 56))(v201, 1, 1, v133);
-LABEL_36:
-            v124 = &v209;
-            goto LABEL_37;
-          }
-
-          v205 = v199;
-          v206 = v198;
-          v207 = v202;
-          v208 = v200;
-          v137 = type metadata accessor for TaggedValue_4.ObservableDifference();
-          v136 = v201;
-          goto LABEL_35;
-        }
-      }
-    }
-
-LABEL_24:
-    v122 = v201;
-    v205 = v199;
-    v206 = v198;
-    v207 = v202;
-    v208 = v200;
-    v123 = type metadata accessor for TaggedValue_4.ObservableDifference();
-    swift_storeEnumTagMultiPayload();
-    (*(*(v123 - 8) + 56))(v122, 0, 1, v123);
-    v84 = v196;
-    v124 = &v210;
-LABEL_37:
-    v144 = *(v124 - 32);
-    return (*(v144 + 8))(v204, v84);
-  }
-
-  v95 = v192;
-  v96 = v193;
-  v97 = v194;
-  if (!EnumCaseMultiPayload)
-  {
-    v84 = v203;
-    (v81)(v73, v204, v203);
-    v98 = v82;
-    if (!swift_getEnumCaseMultiPayload())
-    {
-      v125 = *(v95 + 32);
-      v126 = v161;
-      v127 = v44;
-      v125(v161, v73, v44);
-      v128 = v162;
-      v125(v162, v98, v44);
-      v129 = v165;
-      (*(v163 + 40))(v128, v191, v44);
-      v130 = *(v95 + 8);
-      v130(v128, v127);
-      v130(v126, v127);
-      v131 = v164;
-      v132 = v166;
-      if ((*(v164 + 48))(v129, 1, v166) == 1)
-      {
-        (*(v150 + 8))(v129, v151);
-        goto LABEL_27;
-      }
-
-      v145 = *(v131 + 32);
-      v146 = v149;
-      v145(v149, v129, v132);
-      v136 = v201;
-      v145(v201, v146, v132);
-      v206 = v198;
-      v205 = v199;
-      v208 = v200;
-      v207 = v202;
-      v137 = type metadata accessor for TaggedValue_4.ObservableDifference();
-      goto LABEL_35;
-    }
-
-    (*(v95 + 8))(v73, v44);
-    goto LABEL_24;
-  }
-
-  (v81)(v70, v204, v203);
-  if (swift_getEnumCaseMultiPayload() != 1)
-  {
-    (*(v96 + 8))(v70, v97);
-    goto LABEL_24;
-  }
-
-  v113 = v96;
-  v114 = *(v96 + 32);
-  v115 = v167;
-  v114(v167, v70, v97);
-  v116 = v168;
-  v114(v168, v82, v97);
-  v117 = v170;
-  (*(v169 + 40))(v116, v191, v97);
-  v118 = *(v113 + 8);
-  v118(v116, v97);
-  v118(v115, v97);
-  v119 = v171;
-  v120 = v172;
-  if ((*(v171 + 48))(v117, 1, v172) == 1)
-  {
-    (*(v153 + 8))(v117, v154);
-    v206 = v198;
-    v205 = v199;
-    v208 = v200;
-    v207 = v202;
-    v121 = type metadata accessor for TaggedValue_4.ObservableDifference();
-    (*(*(v121 - 8) + 56))(v201, 1, 1, v121);
-  }
-
-  else
-  {
-    v140 = *(v119 + 32);
-    v141 = v152;
-    v140(v152, v117, v120);
-    v142 = v201;
-    v140(v201, v141, v120);
-    v206 = v198;
-    v205 = v199;
-    v208 = v200;
-    v207 = v202;
-    v143 = type metadata accessor for TaggedValue_4.ObservableDifference();
-    swift_storeEnumTagMultiPayload();
-    (*(*(v143 - 8) + 56))(v142, 0, 1, v143);
-  }
-
-  v144 = v195;
-  v84 = v203;
-  return (*(v144 + 8))(v204, v84);
-}
-
-BOOL TaggedValue_5.ObservableDifference.isIdentityChanged.getter(uint64_t a1)
-{
-  v2 = *(a1 - 8);
-  v3 = *(v2 + 64);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v2 + 16))(v6, v4);
-  v7 = swift_getEnumCaseMultiPayload() == 6;
-  (*(v2 + 8))(v6, a1);
-  return v7;
-}
-
-uint64_t TaggedValue_5.taggedEnum.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v6 = a1[1];
-  v7 = a1[2];
-  v8 = a1[3];
-  v9 = a1[4];
-  v10 = a1[5];
-  v4 = type metadata accessor for TaggedValue_5.TaggedEnum();
-  return (*(*(v4 - 8) + 16))(a2, v2, v4);
-}
-
-uint64_t TaggedValue_5.taggedEnum.setter(uint64_t a1, _OWORD *a2)
-{
-  v6 = a2[1];
-  v7 = a2[2];
-  v8 = a2[3];
-  v9 = a2[4];
-  v10 = a2[5];
-  v4 = type metadata accessor for TaggedValue_5.TaggedEnum();
-  return (*(*(v4 - 8) + 40))(v2, a1, v4);
-}
-
-uint64_t TaggedValue_5.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_5.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_5.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1);
-  type metadata accessor for TaggedValue_5.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_5.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X3>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_5.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_5.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X4>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_5.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_5.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X5>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_5.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_5.init(tag:_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
-{
-  v3 = *a2;
-  *a3 = a1;
-  a3[1] = v3;
-  type metadata accessor for TaggedValue_5.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_5.tagged1.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v19[0] = a1[1];
-  v19[1] = v19[0];
-  v6 = a1[3];
-  v7 = a1[4];
-  v19[2] = v5;
-  v19[3] = v6;
-  v8 = a1[5];
-  v19[4] = v7;
-  v19[5] = v8;
-  v9 = type metadata accessor for TaggedValue_5.TaggedEnum();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v14 = v19 - v13;
-  (*(v10 + 16))(v19 - v13, v3, v9, v12);
-  if (swift_getEnumCaseMultiPayload())
-  {
-    (*(v10 + 8))(v14, v9);
-    v15 = *&v19[0];
-    v16 = *(*&v19[0] - 8);
-    v17 = 1;
-  }
-
-  else
-  {
-    v16 = *(*&v19[0] - 8);
-    (*(v16 + 32))(a2, v14);
-    v15 = *&v19[0];
-    v17 = 0;
-  }
-
-  return (*(v16 + 56))(a2, v17, 1, v15);
-}
-
-uint64_t TaggedValue_5.tagged2.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 88);
-  v16 = *(a1 + 16);
-  v15 = *(a1 + 24);
-  v17 = v15;
-  v18 = *(a1 + 40);
-  v19 = *(a1 + 56);
-  v20 = *(a1 + 72);
-  v21 = v5;
-  v6 = type metadata accessor for TaggedValue_5.TaggedEnum();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x1EEE9AC00](v6);
-  v11 = &v15 - v10;
-  (*(v7 + 16))(&v15 - v10, v3, v6, v9);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v12 = *(v15 - 8);
-    (*(v12 + 32))(a2, v11);
-    v13 = 0;
-  }
-
-  else
-  {
-    (*(v7 + 8))(v11, v6);
-    v12 = *(v15 - 8);
-    v13 = 1;
-  }
-
-  return (*(v12 + 56))(a2, v13, 1, v15);
-}
-
-uint64_t TaggedValue_5.tagged3.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[1];
-  v18[0] = a1[2];
-  v18[1] = v5;
-  v6 = a1[3];
-  v7 = a1[4];
-  v18[2] = v18[0];
-  v18[3] = v6;
-  v8 = a1[5];
-  v18[4] = v7;
-  v18[5] = v8;
-  v9 = type metadata accessor for TaggedValue_5.TaggedEnum();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v14 = v18 - v13;
-  (*(v10 + 16))(v18 - v13, v3, v9, v12);
-  if (swift_getEnumCaseMultiPayload() == 2)
-  {
-    v15 = *(*&v18[0] - 8);
-    (*(v15 + 32))(a2, v14);
-    v16 = 0;
-  }
-
-  else
-  {
-    (*(v10 + 8))(v14, v9);
-    v15 = *(*&v18[0] - 8);
-    v16 = 1;
-  }
-
-  return (*(v15 + 56))(a2, v16, 1, *&v18[0]);
-}
-
-uint64_t TaggedValue_5.tagged4.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 88);
-  v6 = *(a1 + 16);
-  v17 = *(a1 + 32);
-  v16[0] = *(a1 + 40);
-  v16[1] = v6;
-  v18 = v16[0];
-  v19 = *(a1 + 56);
-  v20 = *(a1 + 72);
-  v21 = v5;
-  v7 = type metadata accessor for TaggedValue_5.TaggedEnum();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x1EEE9AC00](v7);
-  v12 = v16 - v11;
-  (*(v8 + 16))(v16 - v11, v3, v7, v10);
-  if (swift_getEnumCaseMultiPayload() == 3)
-  {
-    v13 = *(*&v16[0] - 8);
-    (*(v13 + 32))(a2, v12);
-    v14 = 0;
-  }
-
-  else
-  {
-    (*(v8 + 8))(v12, v7);
-    v13 = *(*&v16[0] - 8);
-    v14 = 1;
-  }
-
-  return (*(v13 + 56))(a2, v14, 1, *&v16[0]);
-}
-
-uint64_t TaggedValue_5.tagged5.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v16[1] = a1[1];
-  v16[2] = v5;
-  v6 = a1[4];
-  v16[0] = a1[3];
-  v16[3] = v16[0];
-  v16[4] = v6;
-  v16[5] = a1[5];
-  v7 = type metadata accessor for TaggedValue_5.TaggedEnum();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x1EEE9AC00](v7);
-  v12 = v16 - v11;
-  (*(v8 + 16))(v16 - v11, v3, v7, v10);
-  if (swift_getEnumCaseMultiPayload() == 4)
-  {
-    v13 = *(*&v16[0] - 8);
-    (*(v13 + 32))(a2, v12);
-    v14 = 0;
-  }
-
-  else
-  {
-    (*(v8 + 8))(v12, v7);
-    v13 = *(*&v16[0] - 8);
-    v14 = 1;
-  }
-
-  return (*(v13 + 56))(a2, v14, 1, *&v16[0]);
-}
-
-uint64_t TaggedValue_5.unknown.getter@<X0>(_OWORD *a1@<X0>, void *a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v15[0] = a1[1];
-  v15[1] = v5;
-  v6 = a1[4];
-  v15[2] = a1[3];
-  v15[3] = v6;
-  v15[4] = a1[5];
-  v7 = type metadata accessor for TaggedValue_5.TaggedEnum();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x1EEE9AC00](v7);
-  v12 = v15 - v11;
-  (*(v8 + 16))(v15 - v11, v3, v7, v10);
-  result = swift_getEnumCaseMultiPayload();
-  if (result == 5)
-  {
-    v14 = *(v12 + 1);
-  }
-
-  else
-  {
-    result = (*(v8 + 8))(v12, v7);
-    v14 = 0;
-  }
-
-  *a2 = v14;
-  return result;
-}
-
-uint64_t TaggedValue_5.visitReferences(_:)(uint64_t a1, uint64_t a2)
-{
-  v62 = a1;
-  v59 = *(*(a2 + 48) - 8);
-  v2 = *(v59 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v58 = &v51 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = *(v4 + 40);
-  v57 = *(v5 - 8);
-  v6 = *(v57 + 64);
-  MEMORY[0x1EEE9AC00](v7);
-  v56 = &v51 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = *(v9 + 32);
-  v55 = *(v10 - 8);
-  v11 = *(v55 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v54 = &v51 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = *(v14 + 24);
-  v53 = *(v15 - 8);
-  v16 = *(v53 + 64);
-  MEMORY[0x1EEE9AC00](v17);
-  v52 = &v51 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = *(v19 + 16);
-  v51 = *(v20 - 8);
-  v21 = *(v51 + 64);
-  MEMORY[0x1EEE9AC00](v22);
-  v24 = &v51 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = *(v25 + 56);
-  v27 = *(v25 + 64);
-  v29 = *(v25 + 80);
-  v28 = *(v25 + 88);
-  *&v30 = v20;
-  *(&v30 + 1) = v15;
-  *&v31 = v10;
-  *(&v31 + 1) = v5;
-  v65 = v31;
-  v64 = v30;
-  v60 = v32;
-  *&v30 = v32;
-  *(&v30 + 1) = v26;
-  v61 = v27;
-  v67 = v27;
-  v66 = v30;
-  v68 = v29;
-  v69 = v28;
-  v33 = type metadata accessor for TaggedValue_5.TaggedEnum();
-  v34 = *(*(v33 - 8) + 64);
-  v35 = MEMORY[0x1EEE9AC00](v33);
-  v37 = &v51 - v36;
-  (*(v38 + 16))(&v51 - v36, v63, v33, v35);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 2)
-  {
-    if (EnumCaseMultiPayload == 3)
-    {
-      v48 = v56;
-      v47 = v57;
-      (*(v57 + 32))(v56, v37, v5);
-      (*(*(v29 + 8) + 48))(v62, v5);
-      return (*(v47 + 8))(v48, v5);
-    }
-
-    else if (EnumCaseMultiPayload == 4)
-    {
-      v43 = v58;
-      v44 = v59;
-      v45 = v60;
-      (*(v59 + 32))(v58, v37, v60);
-      (*(*(v28 + 8) + 48))(v62, v45);
-      return (*(v44 + 8))(v43, v45);
-    }
-
-    else
-    {
-      (*(**(v37 + 1) + 120))(v62);
-    }
-  }
-
-  else if (EnumCaseMultiPayload)
-  {
-    if (EnumCaseMultiPayload == 1)
-    {
-      v40 = v53;
-      v41 = v52;
-      (*(v53 + 32))(v52, v37, v15);
-      (*(*(v61 + 8) + 48))(v62, v15);
-      return (*(v40 + 8))(v41, v15);
-    }
-
-    else
-    {
-      v49 = v55;
-      v50 = v54;
-      (*(v55 + 32))(v54, v37, v10);
-      (*(*(*(&v61 + 1) + 8) + 48))(v62, v10);
-      return (*(v49 + 8))(v50, v10);
-    }
-  }
-
-  else
-  {
-    v46 = v51;
-    (*(v51 + 32))(v24, v37, v20);
-    (*(*(v26 + 8) + 48))(v62, v20);
-    return (*(v46 + 8))(v24, v20);
-  }
-}
-
-uint64_t TaggedValue_5.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  v88 = a1;
-  v90 = a3;
-  v83 = *(*(a2 + 48) - 8);
-  v3 = *(v83 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v82 = &v73 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v81 = &v73 - v6;
-  v80 = *(*(v7 + 40) - 8);
-  v8 = *(v80 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v79 = &v73 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v73 - v12;
-  v78 = *(*(v14 + 32) - 8);
-  v15 = *(v78 + 64);
-  MEMORY[0x1EEE9AC00](v16);
-  v77 = &v73 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v20 = &v73 - v19;
-  v22 = *(v21 + 24);
-  v76 = *(v22 - 8);
-  v23 = *(v76 + 64);
-  MEMORY[0x1EEE9AC00](v24);
-  v26 = &v73 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v27);
-  v29 = &v73 - v28;
-  v31 = *(v30 + 16);
-  v75 = *(v31 - 8);
-  v32 = *(v75 + 64);
-  MEMORY[0x1EEE9AC00](v33);
-  v35 = &v73 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v36);
-  v38 = &v73 - v37;
-  v40 = *(v39 + 56);
-  v41 = *(v39 + 64);
-  v42 = *(v39 + 80);
-  v43 = *(v39 + 88);
-  *&v44 = v31;
-  *(&v44 + 1) = v22;
-  v84 = v45;
-  *&v46 = v45;
-  v85 = v47;
-  *(&v46 + 1) = v47;
-  v73 = v46;
-  v95 = v46;
-  v74 = v44;
-  v94 = v44;
-  v91 = v48;
-  *&v96 = v48;
-  *(&v96 + 1) = v40;
-  v89 = v40;
-  v93 = v41;
-  v97 = v41;
-  v86 = v43;
-  v87 = v42;
-  v98 = v42;
-  v99 = v43;
-  v49 = type metadata accessor for TaggedValue_5.TaggedEnum();
-  v50 = *(*(v49 - 8) + 64);
-  v51 = MEMORY[0x1EEE9AC00](v49);
-  v53 = &v73 - v52;
-  (*(v54 + 16))(&v73 - v52, v92, v49, v51);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 2)
-  {
-    if (EnumCaseMultiPayload == 3)
-    {
-      v63 = v80;
-      v64 = v85;
-      (*(v80 + 32))(v13, v53, v85);
-      v65 = v79;
-      (*(*(v87 + 8) + 24))(v88, v64);
-      (*(v63 + 8))(v13, v64);
-      return TaggedValue_5.init(_:)(v65, v64, v90);
-    }
-
-    else if (EnumCaseMultiPayload == 4)
-    {
-      v58 = v83;
-      v59 = v81;
-      v60 = v91;
-      (*(v83 + 32))(v81, v53, v91);
-      v61 = v82;
-      (*(*(v86 + 8) + 24))(v88, v60);
-      (*(v58 + 8))(v59, v60);
-      return TaggedValue_5.init(_:)(v61, v60, v90);
-    }
-
-    else
-    {
-      v69 = *v53;
-      v70 = (*(**(v53 + 1) + 104))(v88);
-
-      v71 = v90;
-      *v90 = v69;
-      v71[1] = v70;
-      v95 = v73;
-      v94 = v74;
-      *&v72 = v91;
-      *(&v72 + 1) = v89;
-      v97 = v93;
-      v96 = v72;
-      v98 = v87;
-      v99 = v86;
-      type metadata accessor for TaggedValue_5.TaggedEnum();
-      return swift_storeEnumTagMultiPayload();
-    }
-  }
-
-  else if (EnumCaseMultiPayload)
-  {
-    if (EnumCaseMultiPayload == 1)
-    {
-      v56 = v76;
-      (*(v76 + 32))(v29, v53, v22);
-      (*(*(v93 + 8) + 24))(v88, v22);
-      (*(v56 + 8))(v29, v22);
-      return TaggedValue_5.init(_:)(v26, v22, v90);
-    }
-
-    else
-    {
-      v66 = v78;
-      v67 = v84;
-      (*(v78 + 32))(v20, v53, v84);
-      v68 = v77;
-      (*(*(*(&v93 + 1) + 8) + 24))(v88, v67);
-      (*(v66 + 8))(v20, v67);
-      return TaggedValue_5.init(_:)(v68, v67, v90);
-    }
-  }
-
-  else
-  {
-    v62 = v75;
-    (*(v75 + 32))(v38, v53, v31);
-    (*(*(v89 + 8) + 24))(v88, v31);
-    (*(v62 + 8))(v38, v31);
-    return TaggedValue_5.init(_:)(v35, v31, v90);
-  }
-}
-
-uint64_t TaggedValue_5.observableDifference(from:with:)@<X0>(char *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, char *a4@<X8>)
-{
-  v236 = a2;
-  v245 = a4;
-  v5 = a3[11];
-  v247 = a1;
-  v248 = v5;
-  v6 = a3[6];
-  v221 = *(v5 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v193 = sub_1AE23D7CC();
-  v192 = *(v193 - 8);
-  v8 = *(v192 + 64);
-  MEMORY[0x1EEE9AC00](v193);
-  v222 = &v178 - v9;
-  v223 = AssociatedTypeWitness;
-  v220 = *(AssociatedTypeWitness - 8);
-  v10 = *(v220 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v191 = &v178 - v12;
-  v234 = *(v6 - 8);
-  v13 = *(v234 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v218 = &v178 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v217 = &v178 - v17;
-  v18 = a3[10];
-  v19 = a3[5];
-  v214 = *(v18 + 8);
-  v20 = swift_getAssociatedTypeWitness();
-  v190 = sub_1AE23D7CC();
-  v189 = *(v190 - 8);
-  v21 = *(v189 + 64);
-  MEMORY[0x1EEE9AC00](v190);
-  v216 = &v178 - v22;
-  v219 = v20;
-  v215 = *(v20 - 8);
-  v23 = *(v215 + 64);
-  MEMORY[0x1EEE9AC00](v24);
-  v188 = &v178 - v25;
-  v232 = *(v19 - 8);
-  v26 = *(v232 + 64);
-  MEMORY[0x1EEE9AC00](v27);
-  v212 = &v178 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v326 = &v258 - v24;
+  v25 = a3[8];
+  v376 = a3[17];
+  v323 = *(v376 + 1);
+  v26 = v25;
+  *&v374 = v25;
+  v27 = swift_getAssociatedTypeWitness();
+  v278 = sub_1AE23D7CC();
+  v277 = *(v278 - 8);
+  MEMORY[0x1EEE9AC00](v278);
+  v325 = &v258 - v28;
+  v328 = v27;
+  v324 = *(v27 - 8);
   MEMORY[0x1EEE9AC00](v29);
-  v211 = &v178 - v30;
-  v31 = a3[9];
-  v32 = a3[4];
-  v208 = *(v31 + 8);
-  v33 = swift_getAssociatedTypeWitness();
-  v187 = sub_1AE23D7CC();
-  v186 = *(v187 - 8);
-  v34 = *(v186 + 64);
-  MEMORY[0x1EEE9AC00](v187);
-  v210 = &v178 - v35;
-  v213 = v33;
-  v209 = *(v33 - 8);
-  v36 = *(v209 + 64);
-  MEMORY[0x1EEE9AC00](v37);
-  v185 = &v178 - v38;
-  v230 = *(v32 - 8);
-  v39 = *(v230 + 64);
-  MEMORY[0x1EEE9AC00](v40);
-  v206 = &v178 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v42);
-  v205 = &v178 - v43;
-  v44 = a3[8];
-  v45 = a3[3];
-  v202 = *(v44 + 8);
+  v276 = &v258 - v30;
+  v348 = *(v26 - 8);
+  MEMORY[0x1EEE9AC00](v31);
+  v321 = &v258 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v33);
+  v320 = &v258 - v34;
+  *&v370 = a3[16];
+  v35 = a3[7];
+  v317 = *(v370 + 8);
+  v36 = v35;
+  v373 = v35;
+  v37 = swift_getAssociatedTypeWitness();
+  v275 = sub_1AE23D7CC();
+  v274 = *(v275 - 8);
+  MEMORY[0x1EEE9AC00](v275);
+  v319 = &v258 - v38;
+  v322 = v37;
+  v318 = *(v37 - 8);
+  MEMORY[0x1EEE9AC00](v39);
+  v273 = &v258 - v40;
+  v347 = *(v36 - 8);
+  MEMORY[0x1EEE9AC00](v41);
+  v315 = &v258 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v43);
+  v314 = &v258 - v44;
+  *&v369[8] = a3[15];
+  v45 = a3[6];
+  v311 = *(*&v369[8] + 8);
   v46 = swift_getAssociatedTypeWitness();
-  v184 = sub_1AE23D7CC();
-  v183 = *(v184 - 8);
-  v47 = *(v183 + 64);
-  MEMORY[0x1EEE9AC00](v184);
-  v204 = &v178 - v48;
-  v207 = v46;
-  v203 = *(v46 - 8);
-  v49 = *(v203 + 64);
+  v272 = sub_1AE23D7CC();
+  v271 = *(v272 - 8);
+  MEMORY[0x1EEE9AC00](v272);
+  v313 = &v258 - v47;
+  v316 = v46;
+  v312 = *(v46 - 8);
+  MEMORY[0x1EEE9AC00](v48);
+  v270 = &v258 - v49;
+  v345 = *(v45 - 8);
   MEMORY[0x1EEE9AC00](v50);
-  v182 = &v178 - v51;
-  v228 = *(v45 - 8);
-  v52 = *(v228 + 64);
-  MEMORY[0x1EEE9AC00](v53);
-  v201 = &v178 - ((v54 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v55);
-  v200 = &v178 - v56;
-  v57 = a3[7];
-  v58 = a3[2];
-  v196 = *(v57 + 8);
-  v59 = swift_getAssociatedTypeWitness();
-  v181 = sub_1AE23D7CC();
-  v180 = *(v181 - 8);
-  v60 = *(v180 + 64);
-  MEMORY[0x1EEE9AC00](v181);
-  v198 = &v178 - v61;
-  v199 = v59;
-  v197 = *(v59 - 8);
-  v62 = *(v197 + 64);
-  MEMORY[0x1EEE9AC00](v63);
-  v179 = &v178 - v64;
-  v226 = *(v58 - 8);
-  v65 = *(v226 + 64);
-  MEMORY[0x1EEE9AC00](v66);
-  v195 = &v178 - ((v67 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v68);
-  v194 = &v178 - v69;
-  v227 = v58;
-  *&v70 = v58;
-  v229 = v45;
-  *(&v70 + 1) = v45;
-  v231 = v32;
-  *&v71 = v32;
-  v233 = v19;
-  *(&v71 + 1) = v19;
-  v240 = v71;
-  v250 = v71;
-  v241 = v70;
-  v249 = v70;
-  v235 = v6;
-  *&v70 = v6;
-  *(&v70 + 1) = v57;
-  *&v71 = v44;
-  *(&v71 + 1) = v31;
-  v242 = v71;
-  v243 = v70;
-  v252 = v71;
-  v251 = v70;
-  v244 = v18;
-  v253 = v18;
-  v254 = v248;
-  v72 = type metadata accessor for TaggedValue_5.TaggedEnum();
-  v73 = *(v72 - 8);
-  v74 = *(v73 + 64);
-  MEMORY[0x1EEE9AC00](v72);
-  v76 = (&v178 - ((v75 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v309 = &v258 - ((v51 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v52);
+  v308 = &v258 - v53;
+  *v369 = a3[14];
+  v54 = a3[5];
+  v305 = *(*v369 + 8);
+  v55 = swift_getAssociatedTypeWitness();
+  v269 = sub_1AE23D7CC();
+  v268 = *(v269 - 8);
+  MEMORY[0x1EEE9AC00](v269);
+  v307 = &v258 - v56;
+  v310 = v55;
+  v306 = *(v55 - 8);
+  MEMORY[0x1EEE9AC00](v57);
+  v267 = &v258 - v58;
+  v343 = *(v54 - 8);
+  MEMORY[0x1EEE9AC00](v59);
+  v303 = &v258 - ((v60 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v61);
+  v302 = &v258 - v62;
+  v63 = a3[13];
+  v64 = a3[4];
+  v299 = *(v63 + 8);
+  v65 = swift_getAssociatedTypeWitness();
+  v266 = sub_1AE23D7CC();
+  v265 = *(v266 - 8);
+  MEMORY[0x1EEE9AC00](v266);
+  v301 = &v258 - v66;
+  v304 = v65;
+  v300 = *(v65 - 8);
+  MEMORY[0x1EEE9AC00](v67);
+  v264 = &v258 - v68;
+  v341 = *(v64 - 8);
+  MEMORY[0x1EEE9AC00](v69);
+  v297 = &v258 - ((v70 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v71);
+  v296 = &v258 - v72;
+  v73 = a3[12];
+  v74 = a3[3];
+  v293 = *(v73 + 8);
+  v75 = swift_getAssociatedTypeWitness();
+  v263 = sub_1AE23D7CC();
+  v262 = *(v263 - 8);
+  MEMORY[0x1EEE9AC00](v263);
+  v295 = &v258 - v76;
+  v298 = v75;
+  v294 = *(v75 - 8);
   MEMORY[0x1EEE9AC00](v77);
-  v225 = &v178 - v78;
+  v261 = &v258 - v78;
+  v339 = *(v74 - 8);
   MEMORY[0x1EEE9AC00](v79);
-  v224 = &v178 - v80;
+  v292 = &v258 - ((v80 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v81);
-  v83 = &v178 - v82;
-  MEMORY[0x1EEE9AC00](v84);
-  v86 = &v178 - v85;
+  v291 = &v258 - v82;
+  v83 = a3[11];
+  v84 = a3[2];
+  v287 = *(v83 + 8);
+  v85 = swift_getAssociatedTypeWitness();
+  v260 = sub_1AE23D7CC();
+  v259 = *(v260 - 8);
+  MEMORY[0x1EEE9AC00](v260);
+  v289 = &v258 - v86;
+  v290 = v85;
+  v288 = *(v85 - 8);
   MEMORY[0x1EEE9AC00](v87);
-  v89 = &v178 - v88;
+  v258 = &v258 - v88;
+  v357 = *(v84 - 8);
+  MEMORY[0x1EEE9AC00](v89);
+  v286 = &v258 - ((v90 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v91);
+  v285 = &v258 - v92;
+  v358 = v84;
+  *&v93 = v84;
+  v340 = v74;
+  *(&v93 + 1) = v74;
+  v342 = v64;
+  *&v94 = v64;
+  v344 = v54;
+  *(&v94 + 1) = v54;
+  v346 = v45;
+  *&v95 = v45;
+  *(&v95 + 1) = v373;
+  v362 = v94;
+  v380 = v94;
+  v363 = v93;
+  v379 = v93;
+  v364 = v374;
+  v382 = v374;
+  v365 = v95;
+  v381 = v95;
+  *&v95 = v375;
+  *(&v95 + 1) = v83;
+  *&v93 = v73;
+  *(&v93 + 1) = v63;
+  v366 = v93;
+  v384 = v93;
+  v367 = v95;
+  v383 = v95;
+  v96 = *v369;
+  *&v93 = v370;
+  *(&v93 + 1) = v376;
+  *&v369[8] = v93;
+  v386 = v93;
+  v370 = v96;
+  v385 = v96;
+  v387 = v377;
+  v388 = v378;
+  v97 = type metadata accessor for TaggedValue_9.TaggedEnum(0, &v379);
+  v98 = *(v97 - 8);
+  MEMORY[0x1EEE9AC00](v97);
+  v355 = &v258 - ((v99 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v100);
+  v356 = &v258 - v101;
+  MEMORY[0x1EEE9AC00](v102);
+  v354 = &v258 - v103;
+  MEMORY[0x1EEE9AC00](v104);
+  v353 = &v258 - v105;
+  MEMORY[0x1EEE9AC00](v106);
+  v352 = &v258 - v107;
+  MEMORY[0x1EEE9AC00](v108);
+  v351 = &v258 - v109;
+  MEMORY[0x1EEE9AC00](v110);
+  v112 = &v258 - v111;
+  MEMORY[0x1EEE9AC00](v113);
+  v115 = &v258 - v114;
+  MEMORY[0x1EEE9AC00](v116);
+  v118 = &v258 - v117;
+  MEMORY[0x1EEE9AC00](v119);
+  v121 = &v258 - v120;
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v239 = *(TupleTypeMetadata2 - 8);
-  v91 = *(v239 + 64);
-  v92 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v94 = &v178 - v93;
-  v238 = v95;
-  v96 = &v178 + *(v95 + 48) - v93;
-  v237 = v73;
-  v97 = *(v73 + 16);
-  v97(&v178 - v93, v246, v72, v92);
-  v98 = v96;
-  (v97)(v96, v247, v72);
-  v247 = v94;
-  v99 = v72;
+  *v369 = *(TupleTypeMetadata2 - 8);
+  v123 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
+  v125 = &v258 - v124;
+  v361 = v126;
+  v127 = &v258 + *(v126 + 48) - v124;
+  v360 = v98;
+  v128 = *(v98 + 16);
+  v128(&v258 - v124, v371, v97, v123);
+  v129 = v127;
+  (v128)(v127, v372, v97);
+  v376 = v125;
+  v130 = v97;
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload <= 2)
+  if (EnumCaseMultiPayload <= 4)
   {
-    if (EnumCaseMultiPayload)
+    if (EnumCaseMultiPayload > 1)
     {
-      v101 = v247;
-      if (EnumCaseMultiPayload == 1)
+      if (EnumCaseMultiPayload == 2)
       {
-        (v97)(v86, v247, v72);
-        if (swift_getEnumCaseMultiPayload() == 1)
-        {
-          v102 = v228;
-          v103 = *(v228 + 32);
-          v104 = v200;
-          v105 = v86;
-          v106 = v96;
-          v107 = v229;
-          v103(v200, v105, v229);
-          v108 = v201;
-          v103(v201, v106, v107);
-          v109 = v204;
-          (*(v202 + 40))(v108, v236, v107);
-          v110 = *(v102 + 8);
-          v110(v108, v107);
-          v110(v104, v107);
-          v111 = v203;
-          v112 = v207;
-          if ((*(v203 + 48))(v109, 1, v207) == 1)
-          {
-            (*(v183 + 8))(v109, v184);
-LABEL_31:
-            v250 = v240;
-            v249 = v241;
-            v252 = v242;
-            v251 = v243;
-            v253 = v244;
-            v254 = v248;
-            v161 = type metadata accessor for TaggedValue_5.ObservableDifference();
-            (*(*(v161 - 8) + 56))(v245, 1, 1, v161);
-LABEL_40:
-            v151 = &v255;
-            goto LABEL_41;
-          }
-
-          v166 = *(v111 + 32);
-          v167 = v182;
-          v166(v182, v109, v112);
-          v164 = v245;
-          v166(v245, v167, v112);
-          v250 = v240;
-          v249 = v241;
-          v252 = v242;
-          v251 = v243;
-          v253 = v244;
-          v254 = v248;
-          v165 = type metadata accessor for TaggedValue_5.ObservableDifference();
-          goto LABEL_39;
-        }
-
-        (*(v228 + 8))(v86, v229);
-      }
-
-      else
-      {
-        (v97)(v83, v247, v72);
+        v132 = v376;
+        (v128)(v115, v376, v97);
         if (swift_getEnumCaseMultiPayload() == 2)
         {
-          v135 = v230;
-          v136 = *(v230 + 32);
-          v137 = v205;
-          v138 = v231;
-          v136(v205, v83, v231);
-          v139 = v206;
-          v136(v206, v98, v138);
-          v140 = v210;
-          (*(v208 + 40))(v139, v236, v138);
-          v141 = *(v135 + 8);
-          v141(v139, v138);
-          v141(v137, v138);
-          v142 = v209;
-          v143 = v213;
-          if ((*(v209 + 48))(v140, 1, v213) == 1)
+          v166 = v341;
+          v167 = *(v341 + 32);
+          v168 = v296;
+          v169 = v342;
+          v167(v296, v115, v342);
+          v170 = v297;
+          v167(v297, v127, v169);
+          v171 = v301;
+          (*(v299 + 40))(v170, v359, v169);
+          v172 = *(v166 + 8);
+          v172(v170, v169);
+          v172(v168, v169);
+          v173 = v300;
+          v174 = v304;
+          if ((*(v300 + 48))(v171, 1, v304) == 1)
           {
-            (*(v186 + 8))(v140, v187);
-            goto LABEL_31;
+            (*(v265 + 8))(v171, v266);
+            goto LABEL_39;
           }
 
-          v170 = *(v142 + 32);
-          v171 = v185;
-          v170(v185, v140, v143);
-          v164 = v245;
-          v170(v245, v171, v143);
-          v250 = v240;
-          v249 = v241;
-          v252 = v242;
-          v251 = v243;
-          v253 = v244;
-          v254 = v248;
-          v165 = type metadata accessor for TaggedValue_5.ObservableDifference();
-          goto LABEL_39;
+          v234 = *(v173 + 32);
+          v235 = v264;
+          v234(v264, v171, v174);
+          v236 = v368;
+          v234(v368, v235, v174);
+          v380 = v362;
+          v379 = v363;
+          v382 = v364;
+          v381 = v365;
+          v384 = v366;
+          v383 = v367;
+          v386 = *&v369[8];
+          v385 = v370;
+          v387 = v377;
+          v388 = v378;
+          v237 = type metadata accessor for TaggedValue_9.ObservableDifference(0, &v379);
+          goto LABEL_63;
         }
 
-        (*(v230 + 8))(v83, v231);
+        (*(v341 + 8))(v115, v342);
       }
-    }
 
-    else
-    {
-      v101 = v247;
-      (v97)(v89, v247, v72);
-      if (!swift_getEnumCaseMultiPayload())
+      else
       {
-        v152 = v226;
-        v153 = *(v226 + 32);
-        v154 = v194;
-        v155 = v227;
-        v153(v194, v89, v227);
-        v156 = v195;
-        v153(v195, v98, v155);
-        v157 = v198;
-        (*(v196 + 40))(v156, v236, v155);
-        v158 = *(v152 + 8);
-        v158(v156, v155);
-        v158(v154, v155);
-        v159 = v197;
-        v160 = v199;
-        if ((*(v197 + 48))(v157, 1, v199) == 1)
+        v132 = v376;
+        if (EnumCaseMultiPayload == 3)
         {
-          (*(v180 + 8))(v157, v181);
-          goto LABEL_31;
-        }
-
-        v175 = *(v159 + 32);
-        v176 = v179;
-        v175(v179, v157, v160);
-        v164 = v245;
-        v175(v245, v176, v160);
-        v250 = v240;
-        v249 = v241;
-        v252 = v242;
-        v251 = v243;
-        v253 = v244;
-        v254 = v248;
-        v165 = type metadata accessor for TaggedValue_5.ObservableDifference();
-        goto LABEL_39;
-      }
-
-      (*(v226 + 8))(v89, v227);
-    }
-
-    goto LABEL_27;
-  }
-
-  if (EnumCaseMultiPayload == 3)
-  {
-    v124 = v224;
-    v101 = v247;
-    (v97)(v224, v247, v99);
-    if (swift_getEnumCaseMultiPayload() == 3)
-    {
-      v125 = v232;
-      v126 = *(v232 + 32);
-      v127 = v211;
-      v128 = v124;
-      v129 = v233;
-      v126(v211, v128, v233);
-      v130 = v212;
-      v126(v212, v98, v129);
-      v131 = v216;
-      (*(v214 + 40))(v130, v236, v129);
-      v132 = *(v125 + 8);
-      v132(v130, v129);
-      v132(v127, v129);
-      v133 = v215;
-      v134 = v219;
-      if ((*(v215 + 48))(v131, 1, v219) == 1)
-      {
-        (*(v189 + 8))(v131, v190);
-        goto LABEL_31;
-      }
-
-      v162 = *(v133 + 32);
-      v163 = v188;
-      v162(v188, v131, v134);
-      v164 = v245;
-      v162(v245, v163, v134);
-      v250 = v240;
-      v249 = v241;
-      v252 = v242;
-      v251 = v243;
-      v253 = v244;
-      v254 = v248;
-      v165 = type metadata accessor for TaggedValue_5.ObservableDifference();
-      goto LABEL_39;
-    }
-
-    (*(v232 + 8))(v124, v233);
-    goto LABEL_27;
-  }
-
-  if (EnumCaseMultiPayload == 4)
-  {
-    v113 = v225;
-    v101 = v247;
-    (v97)(v225, v247, v99);
-    if (swift_getEnumCaseMultiPayload() == 4)
-    {
-      v114 = v234;
-      v115 = *(v234 + 32);
-      v116 = v217;
-      v117 = v113;
-      v118 = v235;
-      v115(v217, v117, v235);
-      v119 = v218;
-      v115(v218, v96, v118);
-      v120 = v222;
-      (*(v221 + 40))(v119, v236, v118);
-      v121 = *(v114 + 8);
-      v121(v119, v118);
-      v121(v116, v118);
-      v122 = v220;
-      v123 = v223;
-      if ((*(v220 + 48))(v120, 1, v223) == 1)
-      {
-        (*(v192 + 8))(v120, v193);
-        goto LABEL_31;
-      }
-
-      v168 = *(v122 + 32);
-      v169 = v191;
-      v168(v191, v120, v123);
-      v164 = v245;
-      v168(v245, v169, v123);
-      v250 = v240;
-      v249 = v241;
-      v252 = v242;
-      v251 = v243;
-      v253 = v244;
-      v254 = v248;
-      v165 = type metadata accessor for TaggedValue_5.ObservableDifference();
+          (v128)(v112, v376, v97);
+          if (swift_getEnumCaseMultiPayload() == 3)
+          {
+            v133 = v343;
+            v134 = *(v343 + 32);
+            v135 = v302;
+            v136 = v344;
+            v134(v302, v112, v344);
+            v137 = v303;
+            v134(v303, v129, v136);
+            v138 = v307;
+            (*(v305 + 40))(v137, v359, v136);
+            v139 = *(v133 + 8);
+            v139(v137, v136);
+            v139(v135, v136);
+            v140 = v306;
+            v141 = v310;
+            if ((*(v306 + 48))(v138, 1, v310) == 1)
+            {
+              (*(v268 + 8))(v138, v269);
 LABEL_39:
-      swift_storeEnumTagMultiPayload();
-      (*(*(v165 - 8) + 56))(v164, 0, 1, v165);
-      goto LABEL_40;
-    }
+              v380 = v362;
+              v379 = v363;
+              v382 = v364;
+              v381 = v365;
+              v384 = v366;
+              v383 = v367;
+              v386 = *&v369[8];
+              v385 = v370;
+              goto LABEL_40;
+            }
 
-    (*(v234 + 8))(v113, v235);
-LABEL_27:
-    v249 = v241;
-    v250 = v240;
-    v251 = v243;
-    v252 = v242;
-    v253 = v244;
-    v254 = v248;
-    v149 = type metadata accessor for TaggedValue_5.ObservableDifference();
-    v150 = v245;
-    swift_storeEnumTagMultiPayload();
-    (*(*(v149 - 8) + 56))(v150, 0, 1, v149);
-    v99 = v238;
-    v151 = &v256;
-LABEL_41:
-    v174 = *(v151 - 32);
-    return (*(v174 + 8))(v101, v99);
-  }
-
-  (v97)(v76, v247, v72);
-  v144 = v76[1];
-  if (swift_getEnumCaseMultiPayload() != 5)
-  {
-
-    v101 = v247;
-    goto LABEL_27;
-  }
-
-  v145 = *v76;
-  v147 = *v96;
-  v146 = *(v96 + 1);
-
-  v249 = v241;
-  v250 = v240;
-  v251 = v243;
-  v252 = v242;
-  v253 = v244;
-  v254 = v248;
-  if (v145 == v147)
-  {
-    v148 = type metadata accessor for TaggedValue_5.ObservableDifference();
-    (*(*(v148 - 8) + 56))(v245, 1, 1, v148);
-  }
-
-  else
-  {
-    v172 = type metadata accessor for TaggedValue_5.ObservableDifference();
-    v173 = v245;
-    swift_storeEnumTagMultiPayload();
-    (*(*(v172 - 8) + 56))(v173, 0, 1, v172);
-  }
-
-  v174 = v237;
-  v101 = v247;
-  return (*(v174 + 8))(v101, v99);
-}
-
-BOOL TaggedValue_6.ObservableDifference.isIdentityChanged.getter(uint64_t a1)
-{
-  v2 = *(a1 - 8);
-  v3 = *(v2 + 64);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v2 + 16))(v6, v4);
-  v7 = swift_getEnumCaseMultiPayload() == 7;
-  (*(v2 + 8))(v6, a1);
-  return v7;
-}
-
-uint64_t TaggedValue_6.taggedEnum.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v6 = a1[1];
-  v7 = a1[2];
-  v8 = a1[3];
-  v9 = a1[4];
-  v10 = a1[5];
-  v11 = a1[6];
-  v4 = type metadata accessor for TaggedValue_6.TaggedEnum();
-  return (*(*(v4 - 8) + 16))(a2, v2, v4);
-}
-
-uint64_t TaggedValue_6.taggedEnum.setter(uint64_t a1, _OWORD *a2)
-{
-  v6 = a2[1];
-  v7 = a2[2];
-  v8 = a2[3];
-  v9 = a2[4];
-  v10 = a2[5];
-  v11 = a2[6];
-  v4 = type metadata accessor for TaggedValue_6.TaggedEnum();
-  return (*(*(v4 - 8) + 40))(v2, a1, v4);
-}
-
-uint64_t TaggedValue_6.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_6.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_6.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1);
-  type metadata accessor for TaggedValue_6.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_6.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X3>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_6.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_6.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X4>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_6.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_6.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X5>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_6.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_6.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X6>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_6.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_6.init(tag:_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
-{
-  v3 = *a2;
-  *a3 = a1;
-  a3[1] = v3;
-  type metadata accessor for TaggedValue_6.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_6.tagged1.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v20[0] = a1[1];
-  v20[1] = v20[0];
-  v6 = a1[3];
-  v7 = a1[4];
-  v20[2] = v5;
-  v20[3] = v6;
-  v8 = a1[5];
-  v9 = a1[6];
-  v20[4] = v7;
-  v20[5] = v8;
-  v20[6] = v9;
-  v10 = type metadata accessor for TaggedValue_6.TaggedEnum();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  v13 = MEMORY[0x1EEE9AC00](v10);
-  v15 = v20 - v14;
-  (*(v11 + 16))(v20 - v14, v3, v10, v13);
-  if (swift_getEnumCaseMultiPayload())
-  {
-    (*(v11 + 8))(v15, v10);
-    v16 = *&v20[0];
-    v17 = *(*&v20[0] - 8);
-    v18 = 1;
-  }
-
-  else
-  {
-    v17 = *(*&v20[0] - 8);
-    (*(v17 + 32))(a2, v15);
-    v16 = *&v20[0];
-    v18 = 0;
-  }
-
-  return (*(v17 + 56))(a2, v18, 1, v16);
-}
-
-uint64_t TaggedValue_6.tagged2.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 104);
-  v16 = *(a1 + 16);
-  v15 = *(a1 + 24);
-  v17 = v15;
-  v18 = *(a1 + 40);
-  v19 = *(a1 + 56);
-  v20 = *(a1 + 72);
-  v21 = *(a1 + 88);
-  v22 = v5;
-  v6 = type metadata accessor for TaggedValue_6.TaggedEnum();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x1EEE9AC00](v6);
-  v11 = &v15 - v10;
-  (*(v7 + 16))(&v15 - v10, v3, v6, v9);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v12 = *(v15 - 8);
-    (*(v12 + 32))(a2, v11);
-    v13 = 0;
-  }
-
-  else
-  {
-    (*(v7 + 8))(v11, v6);
-    v12 = *(v15 - 8);
-    v13 = 1;
-  }
-
-  return (*(v12 + 56))(a2, v13, 1, v15);
-}
-
-uint64_t TaggedValue_6.tagged3.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[1];
-  v19[0] = a1[2];
-  v19[1] = v5;
-  v6 = a1[3];
-  v7 = a1[4];
-  v19[2] = v19[0];
-  v19[3] = v6;
-  v8 = a1[5];
-  v9 = a1[6];
-  v19[4] = v7;
-  v19[5] = v8;
-  v19[6] = v9;
-  v10 = type metadata accessor for TaggedValue_6.TaggedEnum();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  v13 = MEMORY[0x1EEE9AC00](v10);
-  v15 = v19 - v14;
-  (*(v11 + 16))(v19 - v14, v3, v10, v13);
-  if (swift_getEnumCaseMultiPayload() == 2)
-  {
-    v16 = *(*&v19[0] - 8);
-    (*(v16 + 32))(a2, v15);
-    v17 = 0;
-  }
-
-  else
-  {
-    (*(v11 + 8))(v15, v10);
-    v16 = *(*&v19[0] - 8);
-    v17 = 1;
-  }
-
-  return (*(v16 + 56))(a2, v17, 1, *&v19[0]);
-}
-
-uint64_t TaggedValue_6.tagged4.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 104);
-  v6 = *(a1 + 16);
-  v17 = *(a1 + 32);
-  v16[0] = *(a1 + 40);
-  v16[1] = v6;
-  v18 = v16[0];
-  v19 = *(a1 + 56);
-  v20 = *(a1 + 72);
-  v21 = *(a1 + 88);
-  v22 = v5;
-  v7 = type metadata accessor for TaggedValue_6.TaggedEnum();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x1EEE9AC00](v7);
-  v12 = v16 - v11;
-  (*(v8 + 16))(v16 - v11, v3, v7, v10);
-  if (swift_getEnumCaseMultiPayload() == 3)
-  {
-    v13 = *(*&v16[0] - 8);
-    (*(v13 + 32))(a2, v12);
-    v14 = 0;
-  }
-
-  else
-  {
-    (*(v8 + 8))(v12, v7);
-    v13 = *(*&v16[0] - 8);
-    v14 = 1;
-  }
-
-  return (*(v13 + 56))(a2, v14, 1, *&v16[0]);
-}
-
-uint64_t TaggedValue_6.tagged5.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v17[1] = a1[1];
-  v17[2] = v5;
-  v6 = a1[4];
-  v17[0] = a1[3];
-  v17[3] = v17[0];
-  v17[4] = v6;
-  v7 = a1[6];
-  v17[5] = a1[5];
-  v17[6] = v7;
-  v8 = type metadata accessor for TaggedValue_6.TaggedEnum();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = v17 - v12;
-  (*(v9 + 16))(v17 - v12, v3, v8, v11);
-  if (swift_getEnumCaseMultiPayload() == 4)
-  {
-    v14 = *(*&v17[0] - 8);
-    (*(v14 + 32))(a2, v13);
-    v15 = 0;
-  }
-
-  else
-  {
-    (*(v9 + 8))(v13, v8);
-    v14 = *(*&v17[0] - 8);
-    v15 = 1;
-  }
-
-  return (*(v14 + 56))(a2, v15, 1, *&v17[0]);
-}
-
-uint64_t TaggedValue_6.tagged6.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 48);
-  v6 = *(a1 + 104);
-  v7 = *(a1 + 32);
-  v17[1] = *(a1 + 16);
-  v17[2] = v7;
-  v18 = v5;
-  v17[0] = *(a1 + 56);
-  v19 = v17[0];
-  v20 = *(a1 + 72);
-  v21 = *(a1 + 88);
-  v22 = v6;
-  v8 = type metadata accessor for TaggedValue_6.TaggedEnum();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = v17 - v12;
-  (*(v9 + 16))(v17 - v12, v3, v8, v11);
-  if (swift_getEnumCaseMultiPayload() == 5)
-  {
-    v14 = *(*&v17[0] - 8);
-    (*(v14 + 32))(a2, v13);
-    v15 = 0;
-  }
-
-  else
-  {
-    (*(v9 + 8))(v13, v8);
-    v14 = *(*&v17[0] - 8);
-    v15 = 1;
-  }
-
-  return (*(v14 + 56))(a2, v15, 1, *&v17[0]);
-}
-
-uint64_t TaggedValue_6.unknown.getter@<X0>(_OWORD *a1@<X0>, void *a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v16[0] = a1[1];
-  v16[1] = v5;
-  v6 = a1[4];
-  v16[2] = a1[3];
-  v16[3] = v6;
-  v7 = a1[6];
-  v16[4] = a1[5];
-  v16[5] = v7;
-  v8 = type metadata accessor for TaggedValue_6.TaggedEnum();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = v16 - v12;
-  (*(v9 + 16))(v16 - v12, v3, v8, v11);
-  result = swift_getEnumCaseMultiPayload();
-  if (result == 6)
-  {
-    v15 = *(v13 + 1);
-  }
-
-  else
-  {
-    result = (*(v9 + 8))(v13, v8);
-    v15 = 0;
-  }
-
-  *a2 = v15;
-  return result;
-}
-
-uint64_t TaggedValue_6.visitReferences(_:)(uint64_t a1, uint64_t a2)
-{
-  v72 = a1;
-  v64 = *(*(a2 + 56) - 8);
-  v2 = *(v64 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v63 = &v56 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v61 = *(*(v4 + 48) - 8);
-  v5 = *(v61 + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  v60 = &v56 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v58 = *(*(v8 + 40) - 8);
-  v9 = *(v58 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v57 = &v56 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = *(v12 + 32);
-  v70 = *(v13 - 8);
-  v14 = *(v70 + 64);
-  MEMORY[0x1EEE9AC00](v15);
-  v69 = &v56 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = *(v17 + 24);
-  v68 = *(v18 - 8);
-  v19 = *(v68 + 64);
-  MEMORY[0x1EEE9AC00](v20);
-  v22 = &v56 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = *(v23 + 16);
-  v67 = *(v24 - 8);
-  v25 = *(v67 + 64);
-  MEMORY[0x1EEE9AC00](v26);
-  v28 = &v56 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = *(v29 + 64);
-  v32 = *(v29 + 80);
-  v31 = *(v29 + 88);
-  *&v33 = v24;
-  *(&v33 + 1) = v18;
-  *&v34 = v13;
-  v59 = v35;
-  *(&v34 + 1) = v35;
-  v36 = *(v29 + 96);
-  v37 = *(v29 + 104);
-  v74 = v34;
-  v73 = v33;
-  v62 = v38;
-  *&v33 = v38;
-  v65 = v39;
-  *(&v33 + 1) = v39;
-  v66 = v30;
-  v76 = v30;
-  v75 = v33;
-  v77 = v32;
-  v78 = v31;
-  v56 = v31;
-  v79 = v36;
-  v80 = v37;
-  v40 = type metadata accessor for TaggedValue_6.TaggedEnum();
-  v41 = *(*(v40 - 8) + 64);
-  v42 = MEMORY[0x1EEE9AC00](v40);
-  v44 = &v56 - v43;
-  (*(v45 + 16))(&v56 - v43, v71, v40, v42);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload <= 2)
-  {
-    v51 = v68;
-    if (EnumCaseMultiPayload)
-    {
-      if (EnumCaseMultiPayload == 1)
-      {
-        (*(v68 + 32))(v22, v44, v18);
-        (*(*(*(&v66 + 1) + 8) + 48))(v72, v18);
-        return (*(v51 + 8))(v22, v18);
-      }
-
-      else
-      {
-        v54 = v70;
-        v55 = v69;
-        (*(v70 + 32))(v69, v44, v13);
-        (*(*(v32 + 8) + 48))(v72, v13);
-        return (*(v54 + 8))(v55, v13);
-      }
-    }
-
-    else
-    {
-      v53 = v67;
-      (*(v67 + 32))(v28, v44, v24);
-      (*(*(v66 + 8) + 48))(v72, v24);
-      return (*(v53 + 8))(v28, v24);
-    }
-  }
-
-  else
-  {
-    if (EnumCaseMultiPayload > 4)
-    {
-      if (EnumCaseMultiPayload != 5)
-      {
-        (*(**(v44 + 1) + 120))(v72);
-      }
-
-      v47 = v64;
-      v48 = v63;
-      v49 = v65;
-      (*(v64 + 32))(v63, v44, v65);
-      v50 = *(v37 + 8);
-    }
-
-    else if (EnumCaseMultiPayload == 3)
-    {
-      v47 = v58;
-      v48 = v57;
-      v49 = v59;
-      (*(v58 + 32))(v57, v44, v59);
-      v50 = *(v56 + 8);
-    }
-
-    else
-    {
-      v47 = v61;
-      v48 = v60;
-      v49 = v62;
-      (*(v61 + 32))(v60, v44, v62);
-      v50 = *(v36 + 8);
-    }
-
-    (*(v50 + 48))(v72, v49);
-    return (*(v47 + 8))(v48, v49);
-  }
-}
-
-uint64_t TaggedValue_6.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  v115 = a1;
-  v117 = a3;
-  v102 = *(*(a2 + 56) - 8);
-  v3 = *(v102 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v103 = &v94 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v101 = &v94 - v6;
-  v99 = *(*(v7 + 48) - 8);
-  v8 = *(v99 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v100 = &v94 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v98 = &v94 - v12;
-  v96 = *(*(v13 + 40) - 8);
-  v14 = *(v96 + 64);
-  MEMORY[0x1EEE9AC00](v15);
-  v97 = &v94 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17);
-  v19 = &v94 - v18;
-  v21 = *(v20 + 32);
-  v105 = *(v21 - 8);
-  v22 = *(v105 + 64);
-  MEMORY[0x1EEE9AC00](v21);
-  v24 = &v94 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v27 = &v94 - v26;
-  v104 = *(*(v28 + 24) - 8);
-  v29 = *(v104 + 64);
-  MEMORY[0x1EEE9AC00](v30);
-  v32 = &v94 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v33);
-  v35 = &v94 - v34;
-  v37 = *(*(v36 + 16) - 8);
-  v38 = *(v37 + 64);
-  MEMORY[0x1EEE9AC00](v39);
-  v41 = &v94 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v42);
-  v44 = &v94 - v43;
-  v46 = *(v45 + 64);
-  v47 = *(v45 + 80);
-  v48 = *(v45 + 88);
-  v49 = *(v45 + 96);
-  v50 = *(v45 + 104);
-  v106 = v51;
-  *&v52 = v51;
-  v107 = v53;
-  *(&v52 + 1) = v53;
-  v108 = v54;
-  *&v55 = v54;
-  v109 = v56;
-  *(&v55 + 1) = v56;
-  v94 = v55;
-  v121 = v55;
-  v95 = v52;
-  v120 = v52;
-  v116 = v57;
-  *&v122 = v57;
-  *(&v122 + 1) = v58;
-  v118 = v58;
-  v119 = v46;
-  v123 = v46;
-  v113 = v48;
-  v114 = v47;
-  v124 = v47;
-  v125 = v48;
-  v112 = v49;
-  v126 = v49;
-  v127 = v50;
-  v111 = v50;
-  v59 = type metadata accessor for TaggedValue_6.TaggedEnum();
-  v60 = *(*(v59 - 8) + 64);
-  v61 = MEMORY[0x1EEE9AC00](v59);
-  v63 = &v94 - v62;
-  (*(v64 + 16))(&v94 - v62, v110, v59, v61);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload <= 2)
-  {
-    v71 = v104;
-    if (EnumCaseMultiPayload)
-    {
-      if (EnumCaseMultiPayload == 1)
-      {
-        v72 = v63;
-        v73 = v107;
-        (*(v104 + 32))(v35, v72, v107);
-        (*(*(*(&v119 + 1) + 8) + 24))(v115, v73);
-        (*(v71 + 8))(v35, v73);
-        return TaggedValue_6.init(_:)(v32, v73, v117);
-      }
-
-      else
-      {
-        v82 = v105;
-        v83 = v63;
-        v84 = v108;
-        (*(v105 + 32))(v27, v83, v108);
-        (*(*(v114 + 8) + 24))(v115, v84);
-        (*(v82 + 8))(v27, v84);
-        return TaggedValue_6.init(_:)(v24, v84, v117);
-      }
-    }
-
-    else
-    {
-      v79 = v37;
-      v80 = *(v37 + 32);
-      v81 = v106;
-      v80(v44, v63, v106);
-      (*(*(v119 + 8) + 24))(v115, v81);
-      (*(v79 + 8))(v44, v81);
-      return TaggedValue_6.init(_:)(v41, v81, v117);
-    }
-  }
-
-  else if (EnumCaseMultiPayload > 4)
-  {
-    if (EnumCaseMultiPayload == 5)
-    {
-      v74 = v102;
-      v75 = v101;
-      v76 = v63;
-      v77 = v118;
-      (*(v102 + 32))(v101, v76, v118);
-      v78 = v103;
-      (*(*(v111 + 8) + 24))(v115, v77);
-      (*(v74 + 8))(v75, v77);
-      return TaggedValue_6.init(_:)(v78, v77, v117);
-    }
-
-    else
-    {
-      v90 = *v63;
-      v91 = (*(**(v63 + 1) + 104))(v115);
-
-      v92 = v117;
-      *v117 = v90;
-      v92[1] = v91;
-      v121 = v94;
-      v120 = v95;
-      *&v93 = v116;
-      *(&v93 + 1) = v118;
-      v123 = v119;
-      v122 = v93;
-      v124 = v114;
-      v125 = v113;
-      v126 = v112;
-      v127 = v111;
-      type metadata accessor for TaggedValue_6.TaggedEnum();
-      return swift_storeEnumTagMultiPayload();
-    }
-  }
-
-  else if (EnumCaseMultiPayload == 3)
-  {
-    v66 = v96;
-    v67 = v63;
-    v68 = v109;
-    (*(v96 + 32))(v19, v67, v109);
-    v69 = v97;
-    (*(*(v113 + 8) + 24))(v115, v68);
-    (*(v66 + 8))(v19, v68);
-    return TaggedValue_6.init(_:)(v69, v68, v117);
-  }
-
-  else
-  {
-    v85 = v99;
-    v86 = v98;
-    v87 = v63;
-    v88 = v116;
-    (*(v99 + 32))(v98, v87, v116);
-    v89 = v100;
-    (*(*(v112 + 8) + 24))(v115, v88);
-    (*(v85 + 8))(v86, v88);
-    return TaggedValue_6.init(_:)(v89, v88, v117);
-  }
-}
-
-uint64_t TaggedValue_6.observableDifference(from:with:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, char *a4@<X8>)
-{
-  v277 = a2;
-  v289 = a4;
-  v5 = a3[7];
-  v293 = a3[13];
-  v294 = a1;
-  v264 = *(v293 + 1);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v230 = sub_1AE23D7CC();
-  v229 = *(v230 - 8);
-  v7 = *(v229 + 64);
-  MEMORY[0x1EEE9AC00](v230);
-  v265 = &v213 - v8;
-  v266 = AssociatedTypeWitness;
-  v263 = *(AssociatedTypeWitness - 8);
-  v9 = *(v263 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v228 = &v213 - v11;
-  v272 = *(v5 - 8);
-  v12 = *(v272 + 64);
-  MEMORY[0x1EEE9AC00](v13);
-  v261 = &v213 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v260 = &v213 - v16;
-  *&v291 = a3[12];
-  v17 = a3[6];
-  v257 = *(v291 + 8);
-  v18 = swift_getAssociatedTypeWitness();
-  v227 = sub_1AE23D7CC();
-  v226 = *(v227 - 8);
-  v19 = *(v226 + 64);
-  MEMORY[0x1EEE9AC00](v227);
-  v259 = &v213 - v20;
-  v262 = v18;
-  v258 = *(v18 - 8);
-  v21 = *(v258 + 64);
-  MEMORY[0x1EEE9AC00](v22);
-  v225 = &v213 - v23;
-  v270 = *(v17 - 8);
-  v24 = *(v270 + 64);
-  MEMORY[0x1EEE9AC00](v25);
-  v255 = &v213 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v27);
-  v254 = &v213 - v28;
-  *&v290 = a3[11];
-  v29 = a3[5];
-  v251 = *(v290 + 8);
-  v30 = swift_getAssociatedTypeWitness();
-  v224 = sub_1AE23D7CC();
-  v223 = *(v224 - 8);
-  v31 = *(v223 + 64);
-  MEMORY[0x1EEE9AC00](v224);
-  v253 = &v213 - v32;
-  v256 = v30;
-  v252 = *(v30 - 8);
-  v33 = *(v252 + 64);
-  MEMORY[0x1EEE9AC00](v34);
-  v222 = &v213 - v35;
-  v268 = *(v29 - 8);
-  v36 = *(v268 + 64);
-  MEMORY[0x1EEE9AC00](v37);
-  v250 = &v213 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v39);
-  v249 = &v213 - v40;
-  v41 = a3[10];
-  v42 = a3[4];
-  v245 = *(v41 + 8);
-  v43 = swift_getAssociatedTypeWitness();
-  v221 = sub_1AE23D7CC();
-  v220 = *(v221 - 8);
-  v44 = *(v220 + 64);
-  MEMORY[0x1EEE9AC00](v221);
-  v244 = &v213 - v45;
-  v248 = v43;
-  v247 = *(v43 - 8);
-  v46 = *(v247 + 64);
-  MEMORY[0x1EEE9AC00](v47);
-  v219 = &v213 - v48;
-  v280 = *(v42 - 8);
-  v49 = *(v280 + 64);
-  MEMORY[0x1EEE9AC00](v50);
-  v243 = &v213 - ((v51 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v52);
-  v239 = &v213 - v53;
-  v54 = a3[9];
-  v55 = a3[3];
-  v240 = *(v54 + 8);
-  v56 = swift_getAssociatedTypeWitness();
-  v218 = sub_1AE23D7CC();
-  v217 = *(v218 - 8);
-  v57 = *(v217 + 64);
-  MEMORY[0x1EEE9AC00](v218);
-  v242 = &v213 - v58;
-  v246 = v56;
-  v241 = *(v56 - 8);
-  v59 = *(v241 + 64);
-  MEMORY[0x1EEE9AC00](v60);
-  v216 = &v213 - v61;
-  v279 = *(v55 - 8);
-  v62 = *(v279 + 64);
-  MEMORY[0x1EEE9AC00](v63);
-  v238 = &v213 - ((v64 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v65);
-  v237 = &v213 - v66;
-  v67 = a3[8];
-  v68 = a3[2];
-  v233 = *(v67 + 8);
-  v69 = swift_getAssociatedTypeWitness();
-  v215 = sub_1AE23D7CC();
-  v214 = *(v215 - 8);
-  v70 = *(v214 + 64);
-  MEMORY[0x1EEE9AC00](v215);
-  v235 = &v213 - v71;
-  v236 = v69;
-  v234 = *(v69 - 8);
-  v72 = *(v234 + 64);
-  MEMORY[0x1EEE9AC00](v73);
-  v213 = &v213 - v74;
-  v278 = *(v68 - 1);
-  v75 = *(v278 + 64);
-  MEMORY[0x1EEE9AC00](v76);
-  v232 = &v213 - ((v77 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v78);
-  v231 = &v213 - v79;
-  *&v80 = v68;
-  v267 = v55;
-  *(&v80 + 1) = v55;
-  v281 = v42;
-  *&v81 = v42;
-  v269 = v29;
-  *(&v81 + 1) = v29;
-  v285 = v81;
-  v296 = v81;
-  v286 = v80;
-  v295 = v80;
-  v271 = v17;
-  *&v81 = v17;
-  v273 = v5;
-  *(&v81 + 1) = v5;
-  *&v82 = v67;
-  *(&v82 + 1) = v54;
-  *&v80 = v41;
-  *(&v80 + 1) = v290;
-  v287 = v82;
-  v298 = v82;
-  v288 = v81;
-  v297 = v81;
-  *&v81 = v291;
-  *(&v81 + 1) = v293;
-  v290 = v81;
-  v291 = v80;
-  v300 = v81;
-  v299 = v80;
-  v83 = type metadata accessor for TaggedValue_6.TaggedEnum();
-  v84 = *(v83 - 8);
-  v85 = *(v84 + 64);
-  MEMORY[0x1EEE9AC00](v83);
-  v274 = &v213 - ((v86 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v87);
-  v276 = &v213 - v88;
-  MEMORY[0x1EEE9AC00](v89);
-  v275 = &v213 - v90;
-  MEMORY[0x1EEE9AC00](v91);
-  v93 = &v213 - v92;
-  MEMORY[0x1EEE9AC00](v94);
-  v96 = &v213 - v95;
-  MEMORY[0x1EEE9AC00](v97);
-  v99 = &v213 - v98;
-  MEMORY[0x1EEE9AC00](v100);
-  v102 = &v213 - v101;
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v284 = *(TupleTypeMetadata2 - 8);
-  v104 = *(v284 + 64);
-  v105 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v107 = &v213 - v106;
-  v283 = v108;
-  v109 = &v213 + *(v108 + 48) - v106;
-  v282 = v84;
-  v110 = *(v84 + 16);
-  v110(&v213 - v106, v292, v83, v105);
-  v292 = v109;
-  (v110)(v109, v294, v83);
-  v293 = v107;
-  v294 = v83;
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 2)
-  {
-    if (EnumCaseMultiPayload > 4)
-    {
-      if (EnumCaseMultiPayload == 5)
-      {
-        v139 = v276;
-        v112 = v293;
-        (v110)(v276, v293, v294);
-        v140 = v292;
-        if (swift_getEnumCaseMultiPayload() == 5)
-        {
-          v141 = v272;
-          v142 = *(v272 + 32);
-          v143 = v260;
-          v144 = v139;
-          v145 = v273;
-          v142(v260, v144, v273);
-          v146 = v261;
-          v142(v261, v140, v145);
-          v147 = v265;
-          (*(v264 + 40))(v146, v277, v145);
-          v148 = *(v141 + 8);
-          v148(v146, v145);
-          v148(v143, v145);
-          v149 = v263;
-          v150 = v266;
-          if ((*(v263 + 48))(v147, 1, v266) == 1)
-          {
-            (*(v229 + 8))(v147, v230);
-            goto LABEL_38;
+            v240 = *(v140 + 32);
+            v241 = v267;
+            v240(v267, v138, v141);
+            v236 = v368;
+            v240(v368, v241, v141);
+            v380 = v362;
+            v379 = v363;
+            v382 = v364;
+            v381 = v365;
+            v384 = v366;
+            v383 = v367;
+            v386 = *&v369[8];
+            v385 = v370;
+            v387 = v377;
+            v388 = v378;
+            v237 = type metadata accessor for TaggedValue_9.ObservableDifference(0, &v379);
+            goto LABEL_63;
           }
 
-          v206 = *(v149 + 32);
-          v207 = v228;
-          v206(v228, v147, v150);
-          v204 = v289;
-          v206(v289, v207, v150);
-          v296 = v285;
-          v295 = v286;
-          v298 = v287;
-          v297 = v288;
-          v300 = v290;
-          v299 = v291;
-          v205 = type metadata accessor for TaggedValue_6.ObservableDifference();
-LABEL_50:
-          swift_storeEnumTagMultiPayload();
-          (*(*(v205 - 8) + 56))(v204, 0, 1, v205);
-          goto LABEL_51;
+          (*(v343 + 8))(v112, v344);
         }
 
-        (*(v272 + 8))(v139, v273);
-      }
-
-      else
-      {
-        v174 = v274;
-        v112 = v293;
-        (v110)(v274, v293, v294);
-        v175 = v174[1];
-        v176 = v292;
-        if (swift_getEnumCaseMultiPayload() == 6)
+        else
         {
-          v177 = *v174;
-          v179 = *v176;
-          v178 = v176[1];
-
-          if (v177 == v179)
+          v186 = v351;
+          (v128)(v351, v376, v130);
+          if (swift_getEnumCaseMultiPayload() == 4)
           {
-            v295 = v286;
-            v296 = v285;
-            v297 = v288;
-            v298 = v287;
-            v299 = v291;
-            v300 = v290;
-LABEL_39:
-            v192 = type metadata accessor for TaggedValue_6.ObservableDifference();
-            (*(*(v192 - 8) + 56))(v289, 1, 1, v192);
-LABEL_51:
-            v182 = &v301;
-            goto LABEL_52;
+            v187 = v345;
+            v188 = *(v345 + 32);
+            v189 = v308;
+            v190 = v186;
+            v191 = v346;
+            v188(v308, v190, v346);
+            v192 = v309;
+            v188(v309, v129, v191);
+            v193 = v313;
+            (*(v311 + 40))(v192, v359, v191);
+            v194 = *(v187 + 8);
+            v194(v192, v191);
+            v194(v189, v191);
+            v195 = v312;
+            v196 = v316;
+            if ((*(v312 + 48))(v193, 1, v316) == 1)
+            {
+              (*(v271 + 8))(v193, v272);
+              goto LABEL_39;
+            }
+
+            v244 = *(v195 + 32);
+            v245 = v270;
+            v244(v270, v193, v196);
+            v236 = v368;
+            v244(v368, v245, v196);
+            v380 = v362;
+            v379 = v363;
+            v382 = v364;
+            v381 = v365;
+            v384 = v366;
+            v383 = v367;
+            v386 = *&v369[8];
+            v385 = v370;
+            v387 = v377;
+            v388 = v378;
+            v237 = type metadata accessor for TaggedValue_9.ObservableDifference(0, &v379);
+            goto LABEL_63;
           }
 
-          v295 = v286;
-          v296 = v285;
-          v297 = v288;
-          v298 = v287;
-          v299 = v291;
-          v300 = v290;
-          v205 = type metadata accessor for TaggedValue_6.ObservableDifference();
-          v204 = v289;
-          goto LABEL_50;
+          (*(v345 + 8))(v186, v346);
         }
       }
 
-LABEL_35:
-      v295 = v286;
-      v296 = v285;
-      v297 = v288;
-      v298 = v287;
-      v299 = v291;
-      v300 = v290;
-      v180 = type metadata accessor for TaggedValue_6.ObservableDifference();
-      v181 = v289;
-      swift_storeEnumTagMultiPayload();
-      (*(*(v180 - 8) + 56))(v181, 0, 1, v180);
-      v294 = v283;
-      v182 = &v302;
-LABEL_52:
-      v197 = *(v182 - 32);
-      return (*(v197 + 8))(v112, v294);
-    }
-
-    if (EnumCaseMultiPayload == 3)
-    {
-      v112 = v293;
-      (v110)(v93, v293, v294);
-      v113 = v292;
-      if (swift_getEnumCaseMultiPayload() == 3)
-      {
-        v114 = v268;
-        v115 = *(v268 + 32);
-        v116 = v249;
-        v117 = v269;
-        v115(v249, v93, v269);
-        v118 = v250;
-        v115(v250, v113, v117);
-        v119 = v253;
-        (*(v251 + 40))(v118, v277, v117);
-        v120 = *(v114 + 8);
-        v120(v118, v117);
-        v120(v116, v117);
-        v121 = v252;
-        v122 = v256;
-        if ((*(v252 + 48))(v119, 1, v256) == 1)
-        {
-          (*(v223 + 8))(v119, v224);
-LABEL_38:
-          v296 = v285;
-          v295 = v286;
-          v298 = v287;
-          v297 = v288;
-          v300 = v290;
-          v299 = v291;
-          goto LABEL_39;
-        }
-
-        v202 = *(v121 + 32);
-        v203 = v222;
-        v202(v222, v119, v122);
-        v204 = v289;
-        v202(v289, v203, v122);
-        v296 = v285;
-        v295 = v286;
-        v298 = v287;
-        v297 = v288;
-        v300 = v290;
-        v299 = v291;
-        v205 = type metadata accessor for TaggedValue_6.ObservableDifference();
-        goto LABEL_50;
-      }
-
-      (*(v268 + 8))(v93, v269);
-      goto LABEL_35;
-    }
-
-    v161 = v275;
-    (v110)(v275, v293, v294);
-    v162 = v292;
-    if (swift_getEnumCaseMultiPayload() != 4)
-    {
-      (*(v270 + 8))(v161, v271);
-      v112 = v293;
-      goto LABEL_35;
-    }
-
-    v163 = v270;
-    v164 = *(v270 + 32);
-    v165 = v254;
-    v166 = v161;
-    v167 = v271;
-    v164(v254, v166, v271);
-    v168 = v255;
-    v164(v255, v162, v167);
-    v169 = v259;
-    (*(v257 + 40))(v168, v277, v167);
-    v170 = *(v163 + 8);
-    v170(v168, v167);
-    v170(v165, v167);
-    v171 = v258;
-    v172 = v262;
-    if ((*(v258 + 48))(v169, 1, v262) == 1)
-    {
-      (*(v226 + 8))(v169, v227);
-      goto LABEL_24;
-    }
-
-    v208 = *(v171 + 32);
-    v209 = v225;
-    v208(v225, v169, v172);
-    v200 = v289;
-    v208(v289, v209, v172);
-    v296 = v285;
-    v295 = v286;
-    v298 = v287;
-    v297 = v288;
-    v300 = v290;
-    v299 = v291;
-    v201 = type metadata accessor for TaggedValue_6.ObservableDifference();
-    goto LABEL_46;
-  }
-
-  v123 = v278;
-  v276 = v68;
-  v124 = v279;
-  v125 = v280;
-  v126 = v281;
-  if (!EnumCaseMultiPayload)
-  {
-    v112 = v293;
-    (v110)(v102, v293, v294);
-    v151 = v292;
-    if (!swift_getEnumCaseMultiPayload())
-    {
-      v183 = v123;
-      v184 = *(v123 + 32);
-      v185 = v231;
-      v186 = v276;
-      v184(v231, v102, v276);
-      v187 = v232;
-      v184(v232, v151, v186);
-      v188 = v235;
-      (*(v233 + 40))(v187, v277, v186);
-      v189 = *(v183 + 8);
-      v189(v187, v186);
-      v189(v185, v186);
-      v190 = v234;
-      v191 = v236;
-      if ((*(v234 + 48))(v188, 1, v236) == 1)
-      {
-        (*(v214 + 8))(v188, v215);
-        goto LABEL_38;
-      }
-
-      v210 = *(v190 + 32);
-      v211 = v213;
-      v210(v213, v188, v191);
-      v204 = v289;
-      v210(v289, v211, v191);
-      v296 = v285;
-      v295 = v286;
-      v298 = v287;
-      v297 = v288;
-      v300 = v290;
-      v299 = v291;
-      v205 = type metadata accessor for TaggedValue_6.ObservableDifference();
       goto LABEL_50;
     }
 
-    (*(v123 + 8))(v102, v276);
-    goto LABEL_35;
-  }
-
-  v127 = v293;
-  if (EnumCaseMultiPayload != 1)
-  {
-    (v110)(v96, v293, v294);
-    v152 = v292;
-    if (swift_getEnumCaseMultiPayload() != 2)
+    if (EnumCaseMultiPayload)
     {
-      (*(v125 + 8))(v96, v126);
-      v112 = v293;
-      goto LABEL_35;
-    }
-
-    v153 = v125;
-    v154 = *(v125 + 32);
-    v155 = v239;
-    v154(v239, v96, v126);
-    v156 = v243;
-    v154(v243, v152, v126);
-    v157 = v244;
-    (*(v245 + 40))(v156, v277, v126);
-    v158 = *(v153 + 8);
-    v158(v156, v126);
-    v158(v155, v126);
-    v159 = v247;
-    v160 = v248;
-    if ((*(v247 + 48))(v157, 1, v248) == 1)
-    {
-      (*(v220 + 8))(v157, v221);
-LABEL_24:
-      v296 = v285;
-      v295 = v286;
-      v298 = v287;
-      v297 = v288;
-      v300 = v290;
-      v299 = v291;
-      v173 = type metadata accessor for TaggedValue_6.ObservableDifference();
-      (*(*(v173 - 8) + 56))(v289, 1, 1, v173);
-LABEL_47:
-      v197 = v282;
-      v112 = v293;
-      return (*(v197 + 8))(v112, v294);
-    }
-
-    v198 = *(v159 + 32);
-    v199 = v219;
-    v198(v219, v157, v160);
-    v200 = v289;
-    v198(v289, v199, v160);
-    v296 = v285;
-    v295 = v286;
-    v298 = v287;
-    v297 = v288;
-    v300 = v290;
-    v299 = v291;
-    v201 = type metadata accessor for TaggedValue_6.ObservableDifference();
-LABEL_46:
-    swift_storeEnumTagMultiPayload();
-    (*(*(v201 - 8) + 56))(v200, 0, 1, v201);
-    goto LABEL_47;
-  }
-
-  (v110)(v99, v293, v294);
-  v128 = v292;
-  v112 = v127;
-  if (swift_getEnumCaseMultiPayload() != 1)
-  {
-    (*(v124 + 8))(v99, v267);
-    goto LABEL_35;
-  }
-
-  v129 = v127;
-  v130 = *(v124 + 32);
-  v131 = v237;
-  v132 = v267;
-  v130(v237, v99, v267);
-  v133 = v238;
-  v130(v238, v128, v132);
-  v134 = v242;
-  (*(v240 + 40))(v133, v277, v132);
-  v135 = *(v124 + 8);
-  v135(v133, v132);
-  v135(v131, v132);
-  v136 = v241;
-  v137 = v246;
-  if ((*(v241 + 48))(v134, 1, v246) == 1)
-  {
-    (*(v217 + 8))(v134, v218);
-    v296 = v285;
-    v295 = v286;
-    v298 = v287;
-    v297 = v288;
-    v300 = v290;
-    v299 = v291;
-    v138 = type metadata accessor for TaggedValue_6.ObservableDifference();
-    (*(*(v138 - 8) + 56))(v289, 1, 1, v138);
-  }
-
-  else
-  {
-    v193 = *(v136 + 32);
-    v194 = v216;
-    v193(v216, v134, v137);
-    v195 = v289;
-    v193(v289, v194, v137);
-    v296 = v285;
-    v295 = v286;
-    v298 = v287;
-    v297 = v288;
-    v300 = v290;
-    v299 = v291;
-    v196 = type metadata accessor for TaggedValue_6.ObservableDifference();
-    swift_storeEnumTagMultiPayload();
-    (*(*(v196 - 8) + 56))(v195, 0, 1, v196);
-  }
-
-  v197 = v282;
-  v112 = v129;
-  return (*(v197 + 8))(v112, v294);
-}
-
-BOOL TaggedValue_7.ObservableDifference.isIdentityChanged.getter(uint64_t a1)
-{
-  v2 = *(a1 - 8);
-  v3 = *(v2 + 64);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v2 + 16))(v6, v4);
-  v7 = swift_getEnumCaseMultiPayload() == 8;
-  (*(v2 + 8))(v6, a1);
-  return v7;
-}
-
-uint64_t TaggedValue_7.taggedEnum.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v6 = a1[1];
-  v7 = a1[2];
-  v8 = a1[3];
-  v9 = a1[4];
-  v10 = a1[5];
-  v11 = a1[6];
-  v12 = a1[7];
-  v4 = type metadata accessor for TaggedValue_7.TaggedEnum();
-  return (*(*(v4 - 8) + 16))(a2, v2, v4);
-}
-
-uint64_t TaggedValue_7.taggedEnum.setter(uint64_t a1, _OWORD *a2)
-{
-  v6 = a2[1];
-  v7 = a2[2];
-  v8 = a2[3];
-  v9 = a2[4];
-  v10 = a2[5];
-  v11 = a2[6];
-  v12 = a2[7];
-  v4 = type metadata accessor for TaggedValue_7.TaggedEnum();
-  return (*(*(v4 - 8) + 40))(v2, a1, v4);
-}
-
-uint64_t TaggedValue_7.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_7.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_7.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1);
-  type metadata accessor for TaggedValue_7.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_7.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X3>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_7.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_7.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X4>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_7.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_7.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X5>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_7.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_7.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X6>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_7.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_7.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X7>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_7.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_7.init(tag:_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
-{
-  v3 = *a2;
-  *a3 = a1;
-  a3[1] = v3;
-  type metadata accessor for TaggedValue_7.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_7.tagged1.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v21[0] = a1[1];
-  v21[1] = v21[0];
-  v6 = a1[3];
-  v7 = a1[4];
-  v21[2] = v5;
-  v21[3] = v6;
-  v8 = a1[5];
-  v9 = a1[6];
-  v21[4] = v7;
-  v21[5] = v8;
-  v10 = a1[7];
-  v21[6] = v9;
-  v21[7] = v10;
-  v11 = type metadata accessor for TaggedValue_7.TaggedEnum();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v16 = v21 - v15;
-  (*(v12 + 16))(v21 - v15, v3, v11, v14);
-  if (swift_getEnumCaseMultiPayload())
-  {
-    (*(v12 + 8))(v16, v11);
-    v17 = *&v21[0];
-    v18 = *(*&v21[0] - 8);
-    v19 = 1;
-  }
-
-  else
-  {
-    v18 = *(*&v21[0] - 8);
-    (*(v18 + 32))(a2, v16);
-    v17 = *&v21[0];
-    v19 = 0;
-  }
-
-  return (*(v18 + 56))(a2, v19, 1, v17);
-}
-
-uint64_t TaggedValue_7.tagged2.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 120);
-  v16 = *(a1 + 16);
-  v15 = *(a1 + 24);
-  v17 = v15;
-  v18 = *(a1 + 40);
-  v19 = *(a1 + 56);
-  v20 = *(a1 + 72);
-  v21 = *(a1 + 88);
-  v22 = *(a1 + 104);
-  v23 = v5;
-  v6 = type metadata accessor for TaggedValue_7.TaggedEnum();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x1EEE9AC00](v6);
-  v11 = &v15 - v10;
-  (*(v7 + 16))(&v15 - v10, v3, v6, v9);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v12 = *(v15 - 8);
-    (*(v12 + 32))(a2, v11);
-    v13 = 0;
-  }
-
-  else
-  {
-    (*(v7 + 8))(v11, v6);
-    v12 = *(v15 - 8);
-    v13 = 1;
-  }
-
-  return (*(v12 + 56))(a2, v13, 1, v15);
-}
-
-uint64_t TaggedValue_7.tagged3.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[1];
-  v20[0] = a1[2];
-  v20[1] = v5;
-  v6 = a1[3];
-  v7 = a1[4];
-  v20[2] = v20[0];
-  v20[3] = v6;
-  v8 = a1[5];
-  v9 = a1[6];
-  v20[4] = v7;
-  v20[5] = v8;
-  v10 = a1[7];
-  v20[6] = v9;
-  v20[7] = v10;
-  v11 = type metadata accessor for TaggedValue_7.TaggedEnum();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v16 = v20 - v15;
-  (*(v12 + 16))(v20 - v15, v3, v11, v14);
-  if (swift_getEnumCaseMultiPayload() == 2)
-  {
-    v17 = *(*&v20[0] - 8);
-    (*(v17 + 32))(a2, v16);
-    v18 = 0;
-  }
-
-  else
-  {
-    (*(v12 + 8))(v16, v11);
-    v17 = *(*&v20[0] - 8);
-    v18 = 1;
-  }
-
-  return (*(v17 + 56))(a2, v18, 1, *&v20[0]);
-}
-
-uint64_t TaggedValue_7.tagged4.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 120);
-  v6 = *(a1 + 16);
-  v17 = *(a1 + 32);
-  v16[0] = *(a1 + 40);
-  v16[1] = v6;
-  v18 = v16[0];
-  v19 = *(a1 + 56);
-  v20 = *(a1 + 72);
-  v21 = *(a1 + 88);
-  v22 = *(a1 + 104);
-  v23 = v5;
-  v7 = type metadata accessor for TaggedValue_7.TaggedEnum();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x1EEE9AC00](v7);
-  v12 = v16 - v11;
-  (*(v8 + 16))(v16 - v11, v3, v7, v10);
-  if (swift_getEnumCaseMultiPayload() == 3)
-  {
-    v13 = *(*&v16[0] - 8);
-    (*(v13 + 32))(a2, v12);
-    v14 = 0;
-  }
-
-  else
-  {
-    (*(v8 + 8))(v12, v7);
-    v13 = *(*&v16[0] - 8);
-    v14 = 1;
-  }
-
-  return (*(v13 + 56))(a2, v14, 1, *&v16[0]);
-}
-
-uint64_t TaggedValue_7.tagged5.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v17[1] = a1[1];
-  v17[2] = v5;
-  v6 = a1[4];
-  v17[0] = a1[3];
-  v17[3] = v17[0];
-  v17[4] = v6;
-  v7 = a1[6];
-  v17[5] = a1[5];
-  v17[6] = v7;
-  v17[7] = a1[7];
-  v8 = type metadata accessor for TaggedValue_7.TaggedEnum();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = v17 - v12;
-  (*(v9 + 16))(v17 - v12, v3, v8, v11);
-  if (swift_getEnumCaseMultiPayload() == 4)
-  {
-    v14 = *(*&v17[0] - 8);
-    (*(v14 + 32))(a2, v13);
-    v15 = 0;
-  }
-
-  else
-  {
-    (*(v9 + 8))(v13, v8);
-    v14 = *(*&v17[0] - 8);
-    v15 = 1;
-  }
-
-  return (*(v14 + 56))(a2, v15, 1, *&v17[0]);
-}
-
-uint64_t TaggedValue_7.tagged6.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 48);
-  v6 = *(a1 + 120);
-  v7 = *(a1 + 32);
-  v17[1] = *(a1 + 16);
-  v17[2] = v7;
-  v18 = v5;
-  v17[0] = *(a1 + 56);
-  v19 = v17[0];
-  v20 = *(a1 + 72);
-  v21 = *(a1 + 88);
-  v22 = *(a1 + 104);
-  v23 = v6;
-  v8 = type metadata accessor for TaggedValue_7.TaggedEnum();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = v17 - v12;
-  (*(v9 + 16))(v17 - v12, v3, v8, v11);
-  if (swift_getEnumCaseMultiPayload() == 5)
-  {
-    v14 = *(*&v17[0] - 8);
-    (*(v14 + 32))(a2, v13);
-    v15 = 0;
-  }
-
-  else
-  {
-    (*(v9 + 8))(v13, v8);
-    v14 = *(*&v17[0] - 8);
-    v15 = 1;
-  }
-
-  return (*(v14 + 56))(a2, v15, 1, *&v17[0]);
-}
-
-uint64_t TaggedValue_7.tagged7.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v17[1] = a1[1];
-  v17[2] = v5;
-  v6 = a1[4];
-  v17[3] = a1[3];
-  v17[4] = v6;
-  v17[0] = v6;
-  v7 = a1[6];
-  v17[5] = a1[5];
-  v17[6] = v7;
-  v17[7] = a1[7];
-  v8 = type metadata accessor for TaggedValue_7.TaggedEnum();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = v17 - v12;
-  (*(v9 + 16))(v17 - v12, v3, v8, v11);
-  if (swift_getEnumCaseMultiPayload() == 6)
-  {
-    v14 = *(*&v17[0] - 8);
-    (*(v14 + 32))(a2, v13);
-    v15 = 0;
-  }
-
-  else
-  {
-    (*(v9 + 8))(v13, v8);
-    v14 = *(*&v17[0] - 8);
-    v15 = 1;
-  }
-
-  return (*(v14 + 56))(a2, v15, 1, *&v17[0]);
-}
-
-uint64_t TaggedValue_7.unknown.getter@<X0>(_OWORD *a1@<X0>, void *a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v16[0] = a1[1];
-  v16[1] = v5;
-  v6 = a1[4];
-  v16[2] = a1[3];
-  v16[3] = v6;
-  v7 = a1[6];
-  v16[4] = a1[5];
-  v16[5] = v7;
-  v16[6] = a1[7];
-  v8 = type metadata accessor for TaggedValue_7.TaggedEnum();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = v16 - v12;
-  (*(v9 + 16))(v16 - v12, v3, v8, v11);
-  result = swift_getEnumCaseMultiPayload();
-  if (result == 7)
-  {
-    v15 = *(v13 + 1);
-  }
-
-  else
-  {
-    result = (*(v9 + 8))(v13, v8);
-    v15 = 0;
-  }
-
-  *a2 = v15;
-  return result;
-}
-
-uint64_t TaggedValue_7.visitReferences(_:)(uint64_t a1, uint64_t a2)
-{
-  v92 = a1;
-  v89 = *(*(a2 + 64) - 8);
-  v2 = *(v89 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v88 = &v70 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v86 = *(*(v4 + 56) - 8);
-  v5 = *(v86 + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  v85 = &v70 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v83 = *(*(v8 + 48) - 8);
-  v9 = *(v83 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v82 = &v70 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v80 = *(*(v12 + 40) - 8);
-  v13 = *(v80 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v79 = &v70 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = *(v16 + 32);
-  v77 = *(v17 - 8);
-  v18 = *(v77 + 64);
-  MEMORY[0x1EEE9AC00](v17);
-  v76 = &v70 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = *(v20 + 24);
-  v75 = *(v21 - 8);
-  v22 = *(v75 + 64);
-  MEMORY[0x1EEE9AC00](v23);
-  v74 = &v70 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = *(v25 + 16);
-  v73 = *(v26 - 8);
-  v27 = *(v73 + 64);
-  MEMORY[0x1EEE9AC00](v28);
-  v72 = &v70 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v31 = v30[9];
-  v32 = v30[10];
-  v34 = v30[11];
-  v33 = v30[12];
-  v36 = v30[13];
-  v35 = v30[14];
-  v37 = v30[15];
-  *&v38 = v26;
-  *(&v38 + 1) = v21;
-  v78 = v39;
-  *&v40 = v39;
-  v81 = v41;
-  *(&v40 + 1) = v41;
-  v84 = v42;
-  *&v43 = v42;
-  v87 = v44;
-  *(&v43 + 1) = v44;
-  v94 = v40;
-  v93 = v38;
-  v90 = v45;
-  *&v38 = v45;
-  v71 = v31;
-  *(&v38 + 1) = v31;
-  v96 = v38;
-  v95 = v43;
-  v97 = v32;
-  v98 = v34;
-  v99 = v33;
-  v100 = v36;
-  v101 = v35;
-  v102 = v37;
-  v46 = type metadata accessor for TaggedValue_7.TaggedEnum();
-  v47 = *(*(v46 - 8) + 64);
-  v48 = MEMORY[0x1EEE9AC00](v46);
-  v50 = &v70 - v49;
-  (*(v51 + 16))(&v70 - v49, v91, v46, v48);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 3)
-  {
-    if (EnumCaseMultiPayload <= 5)
-    {
-      if (EnumCaseMultiPayload != 4)
+      (v128)(v118, v376, v97);
+      if (swift_getEnumCaseMultiPayload() != 1)
       {
-        v66 = v86;
-        v67 = v85;
-        v68 = v50;
-        v69 = v87;
-        (*(v86 + 32))(v85, v68, v87);
-        (*(*(v35 + 8) + 48))(v92, v69);
-        return (*(v66 + 8))(v67, v69);
+        (*(v339 + 8))(v118, v340);
+        v132 = v376;
+        goto LABEL_50;
       }
 
-      v56 = v83;
-      v57 = v82;
-      v58 = v84;
-      (*(v83 + 32))(v82, v50, v84);
-      (*(*(v36 + 8) + 48))(v92, v58);
-      v59 = *(v56 + 8);
-      v60 = v57;
-      return v59(v60, v58);
-    }
+      v200 = v339;
+      v201 = *(v339 + 32);
+      v202 = v291;
+      v203 = v340;
+      v201(v291, v118, v340);
+      v204 = v292;
+      v201(v292, v129, v203);
+      v205 = v295;
+      (*(v293 + 40))(v204, v359, v203);
+      v206 = *(v200 + 8);
+      v206(v204, v203);
+      v206(v202, v203);
+      v207 = v294;
+      v208 = v298;
+      if ((*(v294 + 48))(v205, 1, v298) == 1)
+      {
+        (*(v262 + 8))(v205, v263);
+LABEL_53:
+        v380 = v362;
+        v379 = v363;
+        v382 = v364;
+        v381 = v365;
+        v384 = v366;
+        v383 = v367;
+        v386 = *&v369[8];
+        v385 = v370;
+        v387 = v377;
+        v388 = v378;
+        v233 = type metadata accessor for TaggedValue_9.ObservableDifference(0, &v379);
+        (*(*(v233 - 8) + 56))(v368, 1, 1, v233);
+LABEL_69:
+        v254 = v360;
+        v132 = v376;
+        return (*(v254 + 8))(v132, v130);
+      }
 
-    if (EnumCaseMultiPayload != 6)
-    {
-      (*(**(v50 + 1) + 120))(v92);
-    }
-
-    v62 = v88;
-    v61 = v89;
-    v58 = v90;
-    (*(v89 + 32))(v88, v50, v90);
-    v63 = *(v37 + 8);
-LABEL_15:
-    (*(v63 + 48))(v92, v58);
-    v59 = *(v61 + 8);
-    v60 = v62;
-    return v59(v60, v58);
-  }
-
-  if (EnumCaseMultiPayload > 1)
-  {
-    if (EnumCaseMultiPayload == 2)
-    {
-      v61 = v77;
-      v62 = v76;
-      v58 = v78;
-      (*(v77 + 32))(v76, v50, v78);
-      v63 = *(v34 + 8);
+      v248 = *(v207 + 32);
+      v249 = v261;
+      v248(v261, v205, v208);
+      v250 = v368;
+      v248(v368, v249, v208);
+      v380 = v362;
+      v379 = v363;
+      v382 = v364;
+      v381 = v365;
+      v384 = v366;
+      v383 = v367;
+      v386 = *&v369[8];
+      v385 = v370;
+      v387 = v377;
+      v388 = v378;
+      v251 = type metadata accessor for TaggedValue_9.ObservableDifference(0, &v379);
     }
 
     else
     {
-      v61 = v80;
-      v62 = v79;
-      v58 = v81;
-      (*(v80 + 32))(v79, v50, v81);
-      v63 = *(v33 + 8);
+      v132 = v376;
+      (v128)(v121, v376, v97);
+      v153 = v127;
+      if (swift_getEnumCaseMultiPayload())
+      {
+        (*(v357 + 8))(v121, v358);
+        goto LABEL_50;
+      }
+
+      v224 = v357;
+      v225 = *(v357 + 32);
+      v226 = v285;
+      v227 = v358;
+      v225(v285, v121, v358);
+      v228 = v286;
+      v225(v286, v153, v227);
+      v229 = v289;
+      (*(v287 + 40))(v228, v359, v227);
+      v230 = *(v224 + 8);
+      v230(v228, v227);
+      v230(v226, v227);
+      v231 = v288;
+      v232 = v290;
+      if ((*(v288 + 48))(v229, 1, v290) == 1)
+      {
+        (*(v259 + 8))(v229, v260);
+        goto LABEL_53;
+      }
+
+      v256 = *(v231 + 32);
+      v257 = v258;
+      v256(v258, v229, v232);
+      v250 = v368;
+      v256(v368, v257, v232);
+      v380 = v362;
+      v379 = v363;
+      v382 = v364;
+      v381 = v365;
+      v384 = v366;
+      v383 = v367;
+      v386 = *&v369[8];
+      v385 = v370;
+      v387 = v377;
+      v388 = v378;
+      v251 = type metadata accessor for TaggedValue_9.ObservableDifference(0, &v379);
     }
 
-    goto LABEL_15;
+    swift_storeEnumTagMultiPayload();
+    (*(*(v251 - 8) + 56))(v250, 0, 1, v251);
+    goto LABEL_69;
   }
 
-  if (EnumCaseMultiPayload)
+  if (EnumCaseMultiPayload <= 6)
   {
-    v64 = v75;
-    v65 = v74;
-    (*(v75 + 32))(v74, v50, v21);
-    (*(*(v32 + 8) + 48))(v92, v21);
-    return (*(v64 + 8))(v65, v21);
+    v132 = v376;
+    if (EnumCaseMultiPayload == 5)
+    {
+      v154 = v352;
+      (v128)(v352, v376, v97);
+      if (swift_getEnumCaseMultiPayload() == 5)
+      {
+        v155 = v347;
+        v156 = *(v347 + 32);
+        v157 = v314;
+        v158 = v154;
+        v159 = v129;
+        v160 = v373;
+        v156(v314, v158, v373);
+        v161 = v315;
+        v156(v315, v159, v160);
+        v162 = v319;
+        (*(v317 + 40))(v161, v359, v160);
+        v163 = *(v155 + 8);
+        v163(v161, v160);
+        v163(v157, v160);
+        v164 = v318;
+        v165 = v322;
+        if ((*(v318 + 48))(v162, 1, v322) == 1)
+        {
+          (*(v274 + 8))(v162, v275);
+          goto LABEL_39;
+        }
+
+        v246 = *(v164 + 32);
+        v247 = v273;
+        v246(v273, v162, v165);
+        v236 = v368;
+        v246(v368, v247, v165);
+        v380 = v362;
+        v379 = v363;
+        v382 = v364;
+        v381 = v365;
+        v384 = v366;
+        v383 = v367;
+        v386 = *&v369[8];
+        v385 = v370;
+        v387 = v377;
+        v388 = v378;
+        v237 = type metadata accessor for TaggedValue_9.ObservableDifference(0, &v379);
+        goto LABEL_63;
+      }
+
+      (*(v347 + 8))(v154, v373);
+    }
+
+    else
+    {
+      v209 = v353;
+      (v128)(v353, v376, v130);
+      if (swift_getEnumCaseMultiPayload() == 6)
+      {
+        v210 = v348;
+        v211 = *(v348 + 32);
+        v212 = v320;
+        v213 = v209;
+        v214 = v374;
+        v211(v320, v213, v374);
+        v215 = v321;
+        v211(v321, v129, v214);
+        v216 = v325;
+        (*(v323 + 40))(v215, v359, v214);
+        v217 = *(v210 + 8);
+        v217(v215, v214);
+        v217(v212, v214);
+        v218 = v324;
+        v219 = v328;
+        if ((*(v324 + 48))(v216, 1, v328) == 1)
+        {
+          (*(v277 + 8))(v216, v278);
+          goto LABEL_39;
+        }
+
+        v252 = *(v218 + 32);
+        v253 = v276;
+        v252(v276, v216, v219);
+        v236 = v368;
+        v252(v368, v253, v219);
+        v380 = v362;
+        v379 = v363;
+        v382 = v364;
+        v381 = v365;
+        v384 = v366;
+        v383 = v367;
+        v386 = *&v369[8];
+        v385 = v370;
+        v387 = v377;
+        v388 = v378;
+        v237 = type metadata accessor for TaggedValue_9.ObservableDifference(0, &v379);
+        goto LABEL_63;
+      }
+
+      (*(v348 + 8))(v209, v374);
+    }
   }
 
   else
   {
-    v53 = v73;
-    v54 = v72;
-    (*(v73 + 32))(v72, v50, v26);
-    (*(*(v71 + 8) + 48))(v92, v26);
-    return (*(v53 + 8))(v54, v26);
+    v132 = v376;
+    if (EnumCaseMultiPayload == 7)
+    {
+      v175 = v354;
+      (v128)(v354, v376, v130);
+      if (swift_getEnumCaseMultiPayload() == 7)
+      {
+        v176 = v349;
+        v177 = *(v349 + 32);
+        v178 = v326;
+        v179 = v175;
+        v180 = *(&v374 + 1);
+        v177(v326, v179, *(&v374 + 1));
+        v181 = v327;
+        v177(v327, v129, v180);
+        v182 = v331;
+        (*(v329 + 40))(v181, v359, v180);
+        v183 = *(v176 + 8);
+        v183(v181, v180);
+        v183(v178, v180);
+        v184 = v330;
+        v185 = v334;
+        if ((*(v330 + 48))(v182, 1, v334) == 1)
+        {
+          (*(v280 + 8))(v182, v281);
+          goto LABEL_39;
+        }
+
+        v238 = *(v184 + 32);
+        v239 = v279;
+        v238(v279, v182, v185);
+        v236 = v368;
+        v238(v368, v239, v185);
+        v380 = v362;
+        v379 = v363;
+        v382 = v364;
+        v381 = v365;
+        v384 = v366;
+        v383 = v367;
+        v386 = *&v369[8];
+        v385 = v370;
+        v387 = v377;
+        v388 = v378;
+        v237 = type metadata accessor for TaggedValue_9.ObservableDifference(0, &v379);
+        goto LABEL_63;
+      }
+
+      (*(v349 + 8))(v175, *(&v374 + 1));
+    }
+
+    else if (EnumCaseMultiPayload == 8)
+    {
+      v142 = v356;
+      (v128)(v356, v376, v130);
+      if (swift_getEnumCaseMultiPayload() == 8)
+      {
+        v143 = v350;
+        v144 = *(v350 + 32);
+        v145 = v332;
+        v146 = v142;
+        v147 = v375;
+        v144(v332, v146, v375);
+        v148 = v333;
+        v144(v333, v129, v147);
+        v149 = v337;
+        (*(v336 + 40))(v148, v359, v147);
+        v150 = *(v143 + 8);
+        v150(v148, v147);
+        v150(v145, v147);
+        v151 = v335;
+        v152 = v338;
+        if ((*(v335 + 48))(v149, 1, v338) == 1)
+        {
+          (*(v283 + 8))(v149, v284);
+          goto LABEL_39;
+        }
+
+        v242 = *(v151 + 32);
+        v243 = v282;
+        v242(v282, v149, v152);
+        v236 = v368;
+        v242(v368, v243, v152);
+        v380 = v362;
+        v379 = v363;
+        v382 = v364;
+        v381 = v365;
+        v384 = v366;
+        v383 = v367;
+        v386 = *&v369[8];
+        v385 = v370;
+        v387 = v377;
+        v388 = v378;
+        v237 = type metadata accessor for TaggedValue_9.ObservableDifference(0, &v379);
+LABEL_63:
+        swift_storeEnumTagMultiPayload();
+        (*(*(v237 - 8) + 56))(v236, 0, 1, v237);
+        goto LABEL_64;
+      }
+
+      (*(v350 + 8))(v142, v375);
+    }
+
+    else
+    {
+      v197 = v355;
+      (v128)(v355, v376, v97);
+      if (swift_getEnumCaseMultiPayload() == 9)
+      {
+        v198 = *v197;
+        v199 = *v129;
+
+        if (v198 == v199)
+        {
+          v379 = v363;
+          v380 = v362;
+          v381 = v365;
+          v382 = v364;
+          v383 = v367;
+          v384 = v366;
+          v385 = v370;
+          v386 = *&v369[8];
+LABEL_40:
+          v387 = v377;
+          v388 = v378;
+          v220 = type metadata accessor for TaggedValue_9.ObservableDifference(0, &v379);
+          (*(*(v220 - 8) + 56))(v368, 1, 1, v220);
+LABEL_64:
+          v223 = &v380 + 8;
+          goto LABEL_65;
+        }
+
+        v379 = v363;
+        v380 = v362;
+        v381 = v365;
+        v382 = v364;
+        v383 = v367;
+        v384 = v366;
+        v385 = v370;
+        v386 = *&v369[8];
+        v387 = v377;
+        v388 = v378;
+        v237 = type metadata accessor for TaggedValue_9.ObservableDifference(0, &v379);
+        v236 = v368;
+        goto LABEL_63;
+      }
+    }
   }
+
+LABEL_50:
+  v379 = v363;
+  v380 = v362;
+  v381 = v365;
+  v382 = v364;
+  v383 = v367;
+  v384 = v366;
+  v385 = v370;
+  v386 = *&v369[8];
+  v387 = v377;
+  v388 = v378;
+  v221 = type metadata accessor for TaggedValue_9.ObservableDifference(0, &v379);
+  v222 = v368;
+  swift_storeEnumTagMultiPayload();
+  (*(*(v221 - 8) + 56))(v222, 0, 1, v221);
+  v130 = v361;
+  v223 = &v389;
+LABEL_65:
+  v254 = *(v223 - 32);
+  return (*(v254 + 8))(v132, v130);
 }
 
-uint64_t TaggedValue_7.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t static TaggedValue_1<>.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v131 = a1;
-  v132 = a3;
-  v115 = *(*(a2 + 64) - 8);
-  v3 = *(v115 + 64);
+  v37 = a2;
+  v7 = *(a3 - 8);
+  v35 = a5;
+  v36 = v7;
   MEMORY[0x1EEE9AC00](a1);
-  v116 = &v99 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v114 = &v99 - v6;
-  v112 = *(*(v7 + 56) - 8);
-  v8 = *(v112 + 64);
+  v34 = &v32 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v9);
-  v113 = &v99 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v111 = &v99 - v12;
-  v109 = *(*(v13 + 48) - 8);
-  v14 = *(v109 + 64);
+  v33 = &v32 - v10;
+  v13 = type metadata accessor for TaggedValue_1.TaggedEnum(0, v11, v12, v12);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v32 - v15;
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  v18 = *(TupleTypeMetadata2 - 8);
+  v19 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
+  v21 = &v32 - v20;
+  v23 = *(v22 + 48);
+  v32 = v14;
+  v24 = *(v14 + 16);
+  v24(&v32 - v20, a1, v13, v19);
+  (v24)(&v21[v23], v37, v13);
+  if (swift_getEnumCaseMultiPayload() != 1)
+  {
+    (v24)(v16, v21, v13);
+    if (swift_getEnumCaseMultiPayload() != 1)
+    {
+      v26 = v36;
+      v27 = *(v36 + 32);
+      v28 = v33;
+      v27(v33, v16, a3);
+      v29 = v34;
+      v27(v34, &v21[v23], a3);
+      v25 = sub_1AE23CCBC();
+      v30 = *(v26 + 8);
+      v30(v29, a3);
+      v30(v28, a3);
+      v18 = v32;
+      TupleTypeMetadata2 = v13;
+      goto LABEL_6;
+    }
+
+    (*(v36 + 8))(v16, a3);
+  }
+
+  v25 = 0;
+LABEL_6:
+  (*(v18 + 8))(v21, TupleTypeMetadata2);
+  return v25 & 1;
+}
+
+uint64_t static TaggedValue_2<>.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v54 = a8;
+  v51[1] = a6;
+  v60 = a1;
+  v61 = a2;
+  v57 = *(a4 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v53 = v51 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v52 = v51 - v11;
+  v59 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v51[0] = v51 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v15);
-  v110 = &v99 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v55 = v51 - v16;
+  v62[0] = v17;
+  v62[1] = v18;
+  v58 = v18;
+  v62[2] = v19;
+  v62[3] = v20;
+  v21 = type metadata accessor for TaggedValue_2.TaggedEnum(0, v62);
+  v22 = *(v21 - 8);
+  MEMORY[0x1EEE9AC00](v21);
+  v24 = v51 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v25);
+  v27 = v51 - v26;
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  v29 = *(TupleTypeMetadata2 - 8);
+  v30 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
+  v32 = v51 - v31;
+  v34 = *(v33 + 48);
+  v56 = v22;
+  v35 = *(v22 + 16);
+  v35(v51 - v31, v60, v21, v30);
+  (v35)(&v32[v34], v61, v21);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload)
+  {
+    if (EnumCaseMultiPayload == 1)
+    {
+      (v35)(v24, v32, v21);
+      if (swift_getEnumCaseMultiPayload() == 1)
+      {
+        v38 = v57;
+        v37 = v58;
+        v39 = *(v57 + 32);
+        v40 = v52;
+        v39(v52, v24, v58);
+        v41 = v53;
+        v39(v53, &v32[v34], v37);
+        v42 = v40;
+        v43 = sub_1AE23CCBC();
+        v44 = *(v38 + 8);
+        v44(v41, v37);
+        v44(v42, v37);
+LABEL_10:
+        v29 = v56;
+        TupleTypeMetadata2 = v21;
+        goto LABEL_11;
+      }
+
+      (*(v57 + 8))(v24, v58);
+    }
+  }
+
+  else
+  {
+    v45 = v59;
+    (v35)(v27, v32, v21);
+    if (!swift_getEnumCaseMultiPayload())
+    {
+      v46 = *(v45 + 32);
+      v46(v55, v27, a3);
+      v47 = v51[0];
+      v46(v51[0], &v32[v34], a3);
+      v48 = v55;
+      v43 = sub_1AE23CCBC();
+      v49 = *(v45 + 8);
+      v49(v47, a3);
+      v49(v48, a3);
+      goto LABEL_10;
+    }
+
+    (*(v45 + 8))(v27, a3);
+  }
+
+  v43 = 0;
+LABEL_11:
+  (*(v29 + 8))(v32, TupleTypeMetadata2);
+  return v43 & 1;
+}
+
+uint64_t static TaggedValue_3<>.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+{
+  v74 = a7;
+  v86 = a1;
+  v87 = a2;
+  v81 = *(a5 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v78 = &v71 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12);
+  v77 = &v71 - v13;
+  v80 = *(v14 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v76 = &v71 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v17);
-  v108 = &v99 - v18;
-  v20 = *(v19 + 40);
-  v106 = *(v20 - 8);
-  v21 = *(v106 + 64);
+  v75 = &v71 - v18;
+  v79 = *(v19 - 8);
   MEMORY[0x1EEE9AC00](v20);
-  v107 = &v99 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v73 = &v71 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v22);
+  v72 = &v71 - v23;
+  v82 = v24;
+  v83 = v25;
+  v88[0] = v24;
+  v88[1] = v26;
+  v84 = v26;
+  v88[2] = v25;
+  v88[3] = v27;
+  v88[4] = v28;
+  v88[5] = v29;
+  v30 = type metadata accessor for TaggedValue_3.TaggedEnum(0, v88);
+  v31 = *(v30 - 8);
+  MEMORY[0x1EEE9AC00](v30);
+  v33 = &v71 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v34);
+  v36 = &v71 - v35;
+  MEMORY[0x1EEE9AC00](v37);
+  v39 = &v71 - v38;
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  v41 = *(TupleTypeMetadata2 - 8);
+  v42 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
+  v44 = &v71 - v43;
+  v46 = *(v45 + 48);
+  v85 = v31;
+  v47 = *(v31 + 16);
+  v47(&v71 - v43, v86, v30, v42);
+  (v47)(&v44[v46], v87, v30);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload > 1)
+  {
+    if (EnumCaseMultiPayload != 2)
+    {
+      goto LABEL_13;
+    }
+
+    (v47)(v33, v44, v30);
+    if (swift_getEnumCaseMultiPayload() != 2)
+    {
+      (*(v81 + 8))(v33, v83);
+      goto LABEL_13;
+    }
+
+    v49 = v81;
+    v50 = *(v81 + 32);
+    v51 = v77;
+    v52 = v83;
+    v50(v77, v33, v83);
+    v53 = &v44[v46];
+    v54 = v78;
+    v50(v78, v53, v52);
+    v55 = sub_1AE23CCBC();
+    v56 = *(v49 + 8);
+    v56(v54, v52);
+    v57 = v51;
+    goto LABEL_10;
+  }
+
+  if (EnumCaseMultiPayload)
+  {
+    (v47)(v36, v44, v30);
+    if (swift_getEnumCaseMultiPayload() != 1)
+    {
+      (*(v80 + 8))(v36, v84);
+      goto LABEL_13;
+    }
+
+    v58 = v80;
+    v59 = *(v80 + 32);
+    v60 = v75;
+    v52 = v84;
+    v59(v75, v36, v84);
+    v61 = &v44[v46];
+    v62 = v76;
+    v59(v76, v61, v52);
+    v55 = sub_1AE23CCBC();
+    v56 = *(v58 + 8);
+    v56(v62, v52);
+    v57 = v60;
+LABEL_10:
+    v56(v57, v52);
+LABEL_15:
+    v41 = v85;
+    TupleTypeMetadata2 = v30;
+    goto LABEL_16;
+  }
+
+  (v47)(v39, v44, v30);
+  if (!swift_getEnumCaseMultiPayload())
+  {
+    v63 = v79;
+    v64 = *(v79 + 32);
+    v65 = v72;
+    v66 = v82;
+    v64(v72, v39, v82);
+    v67 = &v44[v46];
+    v68 = v73;
+    v64(v73, v67, v66);
+    v55 = sub_1AE23CCBC();
+    v69 = *(v63 + 8);
+    v69(v68, v66);
+    v69(v65, v66);
+    goto LABEL_15;
+  }
+
+  (*(v79 + 8))(v39, v82);
+LABEL_13:
+  v55 = 0;
+LABEL_16:
+  (*(v41 + 8))(v44, TupleTypeMetadata2);
+  return v55 & 1;
+}
+
+uint64_t static TaggedValue_4<>.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+{
+  v94 = a8;
+  v112 = a1;
+  v113 = a2;
+  v107 = *(a6 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v100 = &v91 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v99 = &v91 - v16;
+  v106 = *(v17 - 8);
+  MEMORY[0x1EEE9AC00](v18);
+  v98 = &v91 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v20);
+  v97 = &v91 - v21;
+  v103 = *(v22 - 8);
   MEMORY[0x1EEE9AC00](v23);
-  v25 = &v99 - v24;
-  v105 = *(*(v26 + 32) - 8);
-  v27 = *(v105 + 64);
+  v96 = &v91 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v25);
+  v95 = &v91 - v26;
+  v111 = *(v27 - 8);
   MEMORY[0x1EEE9AC00](v28);
-  v30 = &v99 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v31);
-  v33 = &v99 - v32;
-  v104 = *(*(v34 + 24) - 8);
-  v35 = *(v104 + 64);
-  MEMORY[0x1EEE9AC00](v36);
-  v38 = &v99 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v39);
-  v41 = &v99 - v40;
-  v43 = *(v42 + 16);
-  v103 = *(v43 - 8);
-  v44 = *(v103 + 64);
+  v93 = &v91 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v30);
+  v92 = &v91 - v31;
+  v104 = v32;
+  v105 = v33;
+  v114[0] = v32;
+  v114[1] = v33;
+  v108 = v34;
+  v109 = v35;
+  v114[2] = v34;
+  v114[3] = v35;
+  v114[4] = v36;
+  v114[5] = v37;
+  v114[6] = v39;
+  v114[7] = v38;
+  v40 = type metadata accessor for TaggedValue_4.TaggedEnum(0, v114);
+  v41 = *(v40 - 8);
+  MEMORY[0x1EEE9AC00](v40);
+  v102 = &v91 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v43);
+  v101 = &v91 - v44;
   MEMORY[0x1EEE9AC00](v45);
-  v47 = &v99 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v47 = &v91 - v46;
   MEMORY[0x1EEE9AC00](v48);
-  v50 = &v99 - v49;
-  v53 = v51[9];
-  v52 = v51[10];
-  v54 = v51[11];
-  v55 = v51[12];
-  v56 = v51[13];
-  v57 = v51[14];
-  v58 = v51[15];
-  *&v59 = v43;
-  v118 = v60;
-  *(&v59 + 1) = v60;
-  v119 = v61;
-  *&v62 = v61;
-  v120 = v63;
-  *(&v62 + 1) = v63;
-  v121 = v64;
-  *&v65 = v64;
-  v122 = v66;
-  *(&v65 + 1) = v66;
-  v101 = v62;
-  v134 = v62;
-  v102 = v59;
-  v133 = v59;
-  v123 = v67;
-  *&v59 = v67;
-  v117 = v53;
-  *(&v59 + 1) = v53;
-  v99 = v59;
-  v136 = v59;
-  v100 = v65;
-  v135 = v65;
-  v129 = v54;
-  v130 = v52;
-  v137 = v52;
-  v138 = v54;
-  v127 = v56;
-  v128 = v55;
-  v139 = v55;
-  v140 = v56;
-  v126 = v57;
-  v141 = v57;
-  v142 = v58;
-  v125 = v58;
-  v68 = type metadata accessor for TaggedValue_7.TaggedEnum();
-  v69 = *(*(v68 - 8) + 64);
-  v70 = MEMORY[0x1EEE9AC00](v68);
-  v72 = &v99 - v71;
-  (*(v73 + 16))(&v99 - v71, v124, v68, v70);
+  v50 = &v91 - v49;
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  v52 = *(TupleTypeMetadata2 - 8);
+  v53 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
+  v55 = &v91 - v54;
+  v57 = *(v56 + 48);
+  v110 = v41;
+  v58 = *(v41 + 16);
+  v58(&v91 - v54, v112, v40, v53);
+  v59 = v57;
+  (v58)(&v55[v57], v113, v40);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload <= 1)
+  {
+    v70 = v111;
+    if (EnumCaseMultiPayload)
+    {
+      (v58)(v47, v55, v40);
+      if (swift_getEnumCaseMultiPayload() == 1)
+      {
+        v113 = a10;
+        v79 = v103;
+        v80 = *(v103 + 32);
+        v81 = v95;
+        v82 = v105;
+        v80(v95, v47, v105);
+        v83 = v96;
+        v80(v96, &v55[v59], v82);
+        v68 = sub_1AE23CCBC();
+        v84 = *(v79 + 8);
+        v84(v83, v82);
+        v84(v81, v82);
+        goto LABEL_20;
+      }
+
+      (*(v103 + 8))(v47, v105);
+    }
+
+    else
+    {
+      (v58)(v50, v55, v40);
+      if (!swift_getEnumCaseMultiPayload())
+      {
+        v85 = *(v70 + 32);
+        v86 = v92;
+        v87 = v104;
+        v85(v92, v50, v104);
+        v88 = v93;
+        v85(v93, &v55[v59], v87);
+        v68 = sub_1AE23CCBC();
+        v89 = *(v70 + 8);
+        v89(v88, v87);
+        v89(v86, v87);
+        goto LABEL_20;
+      }
+
+      (*(v70 + 8))(v50, v104);
+    }
+  }
+
+  else if (EnumCaseMultiPayload == 2)
+  {
+    v71 = v101;
+    (v58)(v101, v55, v40);
+    if (swift_getEnumCaseMultiPayload() == 2)
+    {
+      v72 = v71;
+      v73 = v106;
+      v74 = *(v106 + 32);
+      v75 = v97;
+      v76 = v108;
+      v74(v97, v72, v108);
+      v77 = v98;
+      v74(v98, &v55[v59], v76);
+      v68 = sub_1AE23CCBC();
+      v78 = *(v73 + 8);
+      v78(v77, v76);
+      v78(v75, v76);
+      goto LABEL_20;
+    }
+
+    (*(v106 + 8))(v71, v108);
+  }
+
+  else if (EnumCaseMultiPayload == 3)
+  {
+    v61 = v102;
+    (v58)(v102, v55, v40);
+    if (swift_getEnumCaseMultiPayload() == 3)
+    {
+      v62 = v107;
+      v63 = *(v107 + 32);
+      v64 = v99;
+      v65 = v109;
+      v63(v99, v61, v109);
+      v66 = &v55[v57];
+      v67 = v100;
+      v63(v100, v66, v65);
+      v68 = sub_1AE23CCBC();
+      v69 = *(v62 + 8);
+      v69(v67, v65);
+      v69(v64, v65);
+LABEL_20:
+      v52 = v110;
+      TupleTypeMetadata2 = v40;
+      goto LABEL_21;
+    }
+
+    (*(v107 + 8))(v61, v109);
+  }
+
+  v68 = 0;
+LABEL_21:
+  (*(v52 + 8))(v55, TupleTypeMetadata2);
+  return v68 & 1;
+}
+
+uint64_t static TaggedValue_5<>.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+{
+  v130 = a1;
+  v131 = a2;
+  v122 = *(a7 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v18 = (v17 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v115 = &v105 - v18;
+  MEMORY[0x1EEE9AC00](v18);
+  v114 = &v105 - v19;
+  v121 = *(v20 - 8);
+  MEMORY[0x1EEE9AC00](v19);
+  v22 = (v21 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v113 = &v105 - v22;
+  MEMORY[0x1EEE9AC00](v22);
+  v112 = &v105 - v23;
+  v120 = *(v24 - 8);
+  MEMORY[0x1EEE9AC00](v23);
+  v26 = (v25 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v111 = &v105 - v26;
+  MEMORY[0x1EEE9AC00](v26);
+  v110 = &v105 - v27;
+  v119 = *(v28 - 8);
+  MEMORY[0x1EEE9AC00](v27);
+  v30 = (v29 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v109 = &v105 - v30;
+  MEMORY[0x1EEE9AC00](v30);
+  v108 = &v105 - v31;
+  v117 = *(v32 - 8);
+  MEMORY[0x1EEE9AC00](v31);
+  v34 = (v33 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v107 = &v105 - v34;
+  MEMORY[0x1EEE9AC00](v34);
+  v106 = &v105 - v35;
+  v118 = v36;
+  v132[0] = v36;
+  v132[1] = v37;
+  v124 = v37;
+  v125 = v38;
+  v132[2] = v38;
+  v132[3] = v39;
+  v123 = v39;
+  v126 = v40;
+  v132[4] = v40;
+  v132[5] = v41;
+  v132[6] = v43;
+  v132[7] = v42;
+  v132[8] = v45;
+  v133 = v44;
+  v46 = type metadata accessor for TaggedValue_5.TaggedEnum(0, v132);
+  v47 = *(v46 - 8);
+  MEMORY[0x1EEE9AC00](v46);
+  v116 = &v105 - ((v48 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v49);
+  v51 = &v105 - v50;
+  MEMORY[0x1EEE9AC00](v52);
+  v54 = &v105 - v53;
+  MEMORY[0x1EEE9AC00](v55);
+  v57 = &v105 - v56;
+  MEMORY[0x1EEE9AC00](v58);
+  v60 = &v105 - v59;
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  v128 = *(TupleTypeMetadata2 - 8);
+  v62 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
+  v64 = &v105 - v63;
+  v129 = v65;
+  v66 = *(v65 + 48);
+  v127 = v47;
+  v67 = *(v47 + 16);
+  v67(&v105 - v63, v130, v46, v62);
+  (v67)(&v64[v66], v131, v46);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload > 2)
+  {
+    if (EnumCaseMultiPayload == 3)
+    {
+      (v67)(v51, v64, v46);
+      if (swift_getEnumCaseMultiPayload() == 3)
+      {
+        v81 = v66;
+        v82 = v121;
+        v83 = *(v121 + 32);
+        v84 = v112;
+        v85 = v123;
+        v83(v112, v51, v123);
+        v86 = &v64[v81];
+        v87 = v113;
+        v83(v113, v86, v85);
+        v79 = sub_1AE23CCBC();
+        v88 = *(v82 + 8);
+        v88(v87, v85);
+        v88(v84, v85);
+        goto LABEL_24;
+      }
+
+      (*(v121 + 8))(v51, v123);
+    }
+
+    else if (EnumCaseMultiPayload == 4)
+    {
+      v76 = v116;
+      (v67)(v116, v64, v46);
+      if (swift_getEnumCaseMultiPayload() == 4)
+      {
+        v69 = v122;
+        v70 = *(v122 + 32);
+        v71 = v114;
+        v77 = v76;
+        v73 = v126;
+        v70(v114, v77, v126);
+        v74 = &v64[v66];
+        v75 = &v134;
+        goto LABEL_10;
+      }
+
+      (*(v122 + 8))(v76, v126);
+    }
+  }
+
+  else if (EnumCaseMultiPayload)
+  {
+    if (EnumCaseMultiPayload == 1)
+    {
+      (v67)(v57, v64, v46);
+      if (swift_getEnumCaseMultiPayload() == 1)
+      {
+        v69 = v119;
+        v70 = *(v119 + 32);
+        v71 = v108;
+        v72 = v57;
+        v73 = v124;
+        v70(v108, v72, v124);
+        v74 = &v64[v66];
+        v75 = &v133;
+LABEL_10:
+        v78 = *(v75 - 32);
+        v70(v78, v74, v73);
+        v79 = sub_1AE23CCBC();
+        v80 = *(v69 + 8);
+        v80(v78, v73);
+        v80(v71, v73);
+LABEL_24:
+        v97 = v127;
+        v96 = v46;
+        goto LABEL_25;
+      }
+
+      (*(v119 + 8))(v57, v124);
+    }
+
+    else
+    {
+      (v67)(v54, v64, v46);
+      if (swift_getEnumCaseMultiPayload() == 2)
+      {
+        v89 = v120;
+        v90 = *(v120 + 32);
+        v91 = v110;
+        v92 = v54;
+        v93 = v125;
+        v90(v110, v92, v125);
+        v94 = v111;
+        v90(v111, &v64[v66], v93);
+        v79 = sub_1AE23CCBC();
+        v95 = *(v89 + 8);
+        v95(v94, v93);
+        v95(v91, v93);
+        goto LABEL_24;
+      }
+
+      (*(v120 + 8))(v54, v125);
+    }
+  }
+
+  else
+  {
+    (v67)(v60, v64, v46);
+    if (!swift_getEnumCaseMultiPayload())
+    {
+      v98 = v117;
+      v99 = *(v117 + 32);
+      v100 = v106;
+      v101 = v118;
+      v99(v106, v60, v118);
+      v102 = v107;
+      v99(v107, &v64[v66], v101);
+      v79 = sub_1AE23CCBC();
+      v103 = *(v98 + 8);
+      v103(v102, v101);
+      v103(v100, v101);
+      goto LABEL_24;
+    }
+
+    (*(v117 + 8))(v60, v118);
+  }
+
+  v79 = 0;
+  v97 = v128;
+  v96 = v129;
+LABEL_25:
+  (*(v97 + 8))(v64, v96);
+  return v79 & 1;
+}
+
+uint64_t static TaggedValue_6<>.== infix(_:_:)(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+{
+  v168 = a1;
+  v169 = a2;
+  v155 = *(a8 - 8);
+  MEMORY[0x1EEE9AC00](a11);
+  v21 = (v20 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v150 = &v139 - v21;
+  MEMORY[0x1EEE9AC00](v22);
+  v149 = &v139 - v21;
+  v154 = *(v23 - 8);
+  MEMORY[0x1EEE9AC00](v24);
+  v26 = (v25 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v148 = &v139 - v26;
+  MEMORY[0x1EEE9AC00](v27);
+  v147 = &v139 - v26;
+  v153 = *(v28 - 8);
+  MEMORY[0x1EEE9AC00](v29);
+  v31 = (v30 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v146 = &v139 - v31;
+  MEMORY[0x1EEE9AC00](v32);
+  v145 = &v139 - v31;
+  v165 = *(v33 - 8);
+  MEMORY[0x1EEE9AC00](v34);
+  v36 = (v35 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v144 = &v139 - v36;
+  MEMORY[0x1EEE9AC00](v37);
+  v143 = &v139 - v36;
+  v164 = *(v38 - 8);
+  MEMORY[0x1EEE9AC00](v39);
+  v41 = (v40 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v142 = &v139 - v41;
+  MEMORY[0x1EEE9AC00](v42);
+  v141 = &v139 - v41;
+  v163 = *(v43 - 8);
+  MEMORY[0x1EEE9AC00](v44);
+  v46 = (v45 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v140 = &v139 - v46;
+  MEMORY[0x1EEE9AC00](v47);
+  v139 = &v139 - v46;
+  v161 = v48;
+  v170[0] = v48;
+  v170[1] = v49;
+  v151 = v49;
+  v152 = v50;
+  v170[2] = v50;
+  v170[3] = v51;
+  v156 = v51;
+  v158 = v52;
+  v170[4] = v52;
+  v170[5] = v53;
+  v157 = v53;
+  v170[6] = v55;
+  v170[7] = v54;
+  v170[8] = v57;
+  v170[9] = v56;
+  v170[10] = v59;
+  v170[11] = v58;
+  v60 = type metadata accessor for TaggedValue_6.TaggedEnum(0, v170);
+  v61 = *(v60 - 8);
+  MEMORY[0x1EEE9AC00](v60);
+  v160 = &v139 - ((v62 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v63);
+  v159 = &v139 - v64;
+  MEMORY[0x1EEE9AC00](v65);
+  v67 = &v139 - v66;
+  MEMORY[0x1EEE9AC00](v68);
+  v70 = &v139 - v69;
+  MEMORY[0x1EEE9AC00](v71);
+  v73 = &v139 - v72;
+  MEMORY[0x1EEE9AC00](v74);
+  v76 = &v139 - v75;
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  v167 = *(TupleTypeMetadata2 - 8);
+  v78 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
+  v80 = &v139 - v79;
+  v166 = v81;
+  v82 = *(v81 + 48);
+  v162 = v61;
+  v83 = *(v61 + 16);
+  v83(&v139 - v79, v168, v60, v78);
+  v84 = v82;
+  (v83)(&v80[v82], v169, v60);
+  v169 = v80;
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload <= 2)
+  {
+    v96 = v163;
+    v97 = v164;
+    v98 = v165;
+    if (EnumCaseMultiPayload)
+    {
+      if (EnumCaseMultiPayload == 1)
+      {
+        v99 = v169;
+        (v83)(v73, v169, v60);
+        v87 = v99;
+        if (swift_getEnumCaseMultiPayload() == 1)
+        {
+          v100 = v97;
+          v101 = *(v97 + 32);
+          v102 = v141;
+          v103 = v151;
+          v101(v141, v73, v151);
+          v104 = v142;
+          v101(v142, &v87[v84], v103);
+          v94 = sub_1AE23CCBC();
+          v105 = *(v100 + 8);
+          v105(v104, v103);
+          goto LABEL_19;
+        }
+
+        (*(v97 + 8))(v73, v151);
+      }
+
+      else
+      {
+        v117 = v169;
+        (v83)(v70, v169, v60);
+        v87 = v117;
+        if (swift_getEnumCaseMultiPayload() == 2)
+        {
+          v118 = v98;
+          v119 = *(v98 + 32);
+          v120 = v143;
+          v121 = v152;
+          v119(v143, v70, v152);
+          v122 = v144;
+          v119(v144, &v117[v84], v121);
+          v94 = sub_1AE23CCBC();
+          v123 = *(v118 + 8);
+          v123(v122, v121);
+          v123(v120, v121);
+          goto LABEL_20;
+        }
+
+        (*(v98 + 8))(v70, v152);
+      }
+    }
+
+    else
+    {
+      v116 = v169;
+      (v83)(v76, v169, v60);
+      v87 = v116;
+      if (!swift_getEnumCaseMultiPayload())
+      {
+        v168 = a10;
+        v133 = v96;
+        v134 = *(v96 + 32);
+        v135 = v139;
+        v136 = v161;
+        v134(v139, v76, v161);
+        v137 = v140;
+        v134(v140, &v87[v84], v136);
+        v94 = sub_1AE23CCBC();
+        v138 = *(v133 + 8);
+        v138(v137, v136);
+        v138(v135, v136);
+        goto LABEL_20;
+      }
+
+      (*(v96 + 8))(v76, v161);
+    }
+
+LABEL_27:
+    v94 = 0;
+    v131 = v166;
+    v130 = v167;
+    goto LABEL_28;
+  }
+
+  if (EnumCaseMultiPayload > 4)
+  {
+    if (EnumCaseMultiPayload != 5)
+    {
+      v94 = 0;
+      v131 = v166;
+      v130 = v167;
+      v87 = v169;
+      goto LABEL_28;
+    }
+
+    v106 = v160;
+    v107 = v169;
+    (v83)(v160, v169, v60);
+    v87 = v107;
+    if (swift_getEnumCaseMultiPayload() == 5)
+    {
+      v108 = v155;
+      v109 = *(v155 + 32);
+      v110 = v149;
+      v111 = v106;
+      v112 = v157;
+      v109(v149, v111, v157);
+      v113 = v150;
+      v109(v150, &v169[v84], v112);
+      v94 = sub_1AE23CCBC();
+      v114 = *(v108 + 8);
+      v114(v113, v112);
+      v115 = v110;
+      v87 = v169;
+      v114(v115, v112);
+      goto LABEL_20;
+    }
+
+    (*(v155 + 8))(v106, v157);
+    goto LABEL_27;
+  }
+
+  if (EnumCaseMultiPayload != 3)
+  {
+    v124 = v159;
+    v125 = v169;
+    (v83)(v159, v169, v60);
+    v87 = v125;
+    if (swift_getEnumCaseMultiPayload() != 4)
+    {
+      (*(v154 + 8))(v124, v158);
+      goto LABEL_27;
+    }
+
+    v126 = v154;
+    v127 = *(v154 + 32);
+    v102 = v147;
+    v128 = v124;
+    v103 = v158;
+    v127(v147, v128, v158);
+    v129 = v148;
+    v127(v148, &v125[v84], v103);
+    v94 = sub_1AE23CCBC();
+    v105 = *(v126 + 8);
+    v105(v129, v103);
+LABEL_19:
+    v105(v102, v103);
+    goto LABEL_20;
+  }
+
+  v86 = v169;
+  (v83)(v67, v169, v60);
+  v87 = v86;
+  if (swift_getEnumCaseMultiPayload() != 3)
+  {
+    (*(v153 + 8))(v67, v156);
+    goto LABEL_27;
+  }
+
+  v88 = v153;
+  v89 = *(v153 + 32);
+  v90 = v145;
+  v91 = v67;
+  v92 = v156;
+  v89(v145, v91, v156);
+  v93 = v146;
+  v89(v146, &v86[v84], v92);
+  v94 = sub_1AE23CCBC();
+  v95 = *(v88 + 8);
+  v95(v93, v92);
+  v95(v90, v92);
+LABEL_20:
+  v130 = v162;
+  v131 = v60;
+LABEL_28:
+  (*(v130 + 8))(v87, v131);
+  return v94 & 1;
+}
+
+uint64_t static TaggedValue_7<>.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
+{
+  v180 = a1;
+  v169 = *(a9 - 8);
+  MEMORY[0x1EEE9AC00](a14);
+  v25 = (v24 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v158 = &v144 - v25;
+  MEMORY[0x1EEE9AC00](v26);
+  v157 = &v144 - v25;
+  v168 = *(v27 - 8);
+  MEMORY[0x1EEE9AC00](v28);
+  v30 = (v29 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v156 = &v144 - v30;
+  MEMORY[0x1EEE9AC00](v31);
+  v155 = &v144 - v30;
+  v167 = *(v32 - 8);
+  MEMORY[0x1EEE9AC00](v33);
+  v35 = (v34 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v154 = &v144 - v35;
+  MEMORY[0x1EEE9AC00](v36);
+  v153 = &v144 - v35;
+  v166 = *(v37 - 8);
+  MEMORY[0x1EEE9AC00](v38);
+  v40 = (v39 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v152 = &v144 - v40;
+  MEMORY[0x1EEE9AC00](v41);
+  v151 = &v144 - v40;
+  v165 = *(v42 - 8);
+  MEMORY[0x1EEE9AC00](v43);
+  v45 = (v44 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v150 = &v144 - v45;
+  MEMORY[0x1EEE9AC00](v46);
+  v149 = &v144 - v45;
+  v164 = *(v47 - 8);
+  MEMORY[0x1EEE9AC00](v48);
+  v50 = (v49 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v148 = &v144 - v50;
+  MEMORY[0x1EEE9AC00](v51);
+  v147 = &v144 - v50;
+  v163 = *(v52 - 8);
+  MEMORY[0x1EEE9AC00](v53);
+  v55 = (v54 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v146 = &v144 - v55;
+  MEMORY[0x1EEE9AC00](v56);
+  v145 = &v144 - v55;
+  v171 = v57;
+  v181 = v57;
+  v182[0] = v58;
+  v172 = v58;
+  v173 = v59;
+  v182[1] = v59;
+  v183[0] = v60;
+  v174 = v60;
+  v175 = v61;
+  v183[1] = v61;
+  v184[0] = v62;
+  v176 = v62;
+  v170 = a9;
+  v184[1] = a9;
+  v185[0] = v63;
+  v185[1] = a12;
+  v185[2] = v64;
+  v185[3] = v66;
+  v185[4] = v65;
+  v185[5] = v68;
+  v185[6] = v67;
+  v69 = type metadata accessor for TaggedValue_7.TaggedEnum(0, &v181);
+  v70 = *(v69 - 8);
+  MEMORY[0x1EEE9AC00](v69);
+  v162 = &v144 - ((v71 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v72);
+  v161 = &v144 - v73;
+  MEMORY[0x1EEE9AC00](v74);
+  v160 = &v144 - v75;
+  MEMORY[0x1EEE9AC00](v76);
+  v159 = &v144 - v77;
+  MEMORY[0x1EEE9AC00](v78);
+  v80 = &v144 - v79;
+  MEMORY[0x1EEE9AC00](v81);
+  v83 = &v144 - v82;
+  MEMORY[0x1EEE9AC00](v84);
+  v86 = &v144 - v85;
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  v179 = *(TupleTypeMetadata2 - 8);
+  v88 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
+  v90 = &v144 - v89;
+  v177 = v70;
+  v178 = v91;
+  v92 = *(v91 + 48);
+  v93 = *(v70 + 16);
+  v93(&v144 - v89, v180, v69, v88);
+  v94 = v92;
+  (v93)(&v90[v92], a2, v69);
+  v95 = v90;
+  v96 = v69;
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload > 3)
   {
@@ -6697,3409 +4724,5647 @@ uint64_t TaggedValue_7.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t
     {
       if (EnumCaseMultiPayload == 6)
       {
-        v83 = v115;
-        v84 = v114;
-        v85 = v123;
-        (*(v115 + 32))(v114, v72, v123);
-        v86 = v116;
-        (*(*(v125 + 8) + 24))(v131, v85);
-        (*(v83 + 8))(v84, v85);
-        return TaggedValue_7.init(_:)(v86, v85, v132);
-      }
+        v111 = v162;
+        (v93)(v162, v95, v69);
+        if (swift_getEnumCaseMultiPayload() != 6)
+        {
+          v98 = *(v169 + 8);
+          v99 = v111;
+          v100 = &v186;
+          goto LABEL_26;
+        }
 
-      else
-      {
-        v96 = *v72;
-        v97 = (*(**(v72 + 1) + 104))(v131);
-
-        v98 = v132;
-        *v132 = v96;
-        v98[1] = v97;
-        v134 = v101;
-        v133 = v102;
-        v136 = v99;
-        v135 = v100;
-        v137 = v130;
-        v138 = v129;
-        v139 = v128;
-        v140 = v127;
-        v141 = v126;
-        v142 = v125;
-        type metadata accessor for TaggedValue_7.TaggedEnum();
-        return swift_storeEnumTagMultiPayload();
+        v112 = v169;
+        v113 = *(v169 + 32);
+        v114 = v157;
+        v115 = v170;
+        v113(v157, v111, v170);
+        v116 = &v95[v92];
+        v117 = v158;
+        v113(v158, v116, v115);
+        v103 = v96;
+        v118 = sub_1AE23CCBC();
+        v119 = *(v112 + 8);
+        v119(v117, v115);
+        v119(v114, v115);
+        goto LABEL_35;
       }
     }
 
     else if (EnumCaseMultiPayload == 4)
     {
-      v77 = v109;
-      v78 = v108;
-      v79 = v121;
-      (*(v109 + 32))(v108, v72, v121);
-      v80 = v110;
-      (*(*(v127 + 8) + 24))(v131, v79);
-      (*(v77 + 8))(v78, v79);
-      return TaggedValue_7.init(_:)(v80, v79, v132);
+      v101 = v160;
+      (v93)(v160, v95, v69);
+      if (swift_getEnumCaseMultiPayload() == 4)
+      {
+        v102 = v167;
+        v103 = v69;
+        v104 = *(v167 + 32);
+        v105 = v153;
+        v106 = v101;
+        v107 = v175;
+        v104(v153, v106, v175);
+        v108 = &v95[v94];
+        v109 = v184;
+LABEL_22:
+        v134 = *(v109 - 32);
+        v104(v134, v108, v107);
+        v118 = sub_1AE23CCBC();
+        v135 = *(v102 + 8);
+        v135(v134, v107);
+        v135(v105, v107);
+        goto LABEL_35;
+      }
+
+      (*(v167 + 8))(v101, v175);
     }
 
     else
     {
-      v89 = v112;
-      v90 = v111;
-      v91 = v122;
-      (*(v112 + 32))(v111, v72, v122);
-      v92 = v113;
-      (*(*(v126 + 8) + 24))(v131, v91);
-      (*(v89 + 8))(v90, v91);
-      return TaggedValue_7.init(_:)(v92, v91, v132);
+      v130 = v161;
+      (v93)(v161, v95, v69);
+      if (swift_getEnumCaseMultiPayload() == 5)
+      {
+        v102 = v168;
+        v103 = v69;
+        v104 = *(v168 + 32);
+        v105 = v155;
+        v131 = v130;
+        v107 = v176;
+        v104(v155, v131, v176);
+        v108 = &v95[v94];
+        v109 = v185;
+        goto LABEL_22;
+      }
+
+      (*(v168 + 8))(v130, v176);
     }
+
+LABEL_31:
+    v118 = 0;
+    goto LABEL_32;
   }
 
-  else if (EnumCaseMultiPayload > 1)
+  if (EnumCaseMultiPayload > 1)
   {
     if (EnumCaseMultiPayload == 2)
     {
-      v81 = v105;
-      v82 = v119;
-      (*(v105 + 32))(v33, v72, v119);
-      (*(*(v129 + 8) + 24))(v131, v82);
-      (*(v81 + 8))(v33, v82);
-      return TaggedValue_7.init(_:)(v30, v82, v132);
+      (v93)(v80, v95, v69);
+      if (swift_getEnumCaseMultiPayload() != 2)
+      {
+        v98 = *(v165 + 8);
+        v99 = v80;
+        v100 = &v188;
+        goto LABEL_26;
+      }
+
+      v102 = v165;
+      v103 = v69;
+      v104 = *(v165 + 32);
+      v105 = v149;
+      v110 = v80;
+      v107 = v173;
+      v104(v149, v110, v173);
+      v108 = &v95[v94];
+      v109 = v182;
     }
 
     else
     {
-      v93 = v106;
-      v94 = v120;
-      (*(v106 + 32))(v25, v72, v120);
-      v95 = v107;
-      (*(*(v128 + 8) + 24))(v131, v94);
-      (*(v93 + 8))(v25, v94);
-      return TaggedValue_7.init(_:)(v95, v94, v132);
+      v132 = v159;
+      (v93)(v159, v95, v69);
+      if (swift_getEnumCaseMultiPayload() != 3)
+      {
+        v98 = *(v166 + 8);
+        v99 = v132;
+        v136 = v174;
+        goto LABEL_30;
+      }
+
+      v102 = v166;
+      v103 = v69;
+      v104 = *(v166 + 32);
+      v105 = v151;
+      v133 = v132;
+      v107 = v174;
+      v104(v151, v133, v174);
+      v108 = &v95[v94];
+      v109 = v183;
+    }
+
+    goto LABEL_22;
+  }
+
+  if (!EnumCaseMultiPayload)
+  {
+    (v93)(v86, v95, v69);
+    if (swift_getEnumCaseMultiPayload())
+    {
+      v98 = *(v163 + 8);
+      v99 = v86;
+      v100 = &v187;
+LABEL_26:
+      v136 = *(v100 - 32);
+LABEL_30:
+      v98(v99, v136);
+      goto LABEL_31;
+    }
+
+    v137 = v163;
+    v103 = v69;
+    v138 = *(v163 + 32);
+    v139 = v145;
+    v140 = v171;
+    v138(v145, v86, v171);
+    v141 = v146;
+    v138(v146, &v95[v92], v140);
+    v118 = sub_1AE23CCBC();
+    v142 = *(v137 + 8);
+    v142(v141, v140);
+    v142(v139, v140);
+LABEL_35:
+    v128 = v177;
+    v129 = v103;
+    goto LABEL_36;
+  }
+
+  v120 = v95;
+  (v93)(v83, v95, v69);
+  if (swift_getEnumCaseMultiPayload() != 1)
+  {
+    (*(v164 + 8))(v83, v172);
+    v118 = 0;
+LABEL_32:
+    v129 = v178;
+    v128 = v179;
+    goto LABEL_36;
+  }
+
+  v121 = v164;
+  v122 = v69;
+  v123 = *(v164 + 32);
+  v124 = v147;
+  v125 = v172;
+  v123(v147, v83, v172);
+  v126 = v148;
+  v123(v148, &v120[v92], v125);
+  v118 = sub_1AE23CCBC();
+  v127 = *(v121 + 8);
+  v127(v126, v125);
+  v127(v124, v125);
+  v128 = v177;
+  v129 = v122;
+  v95 = v120;
+LABEL_36:
+  (*(v128 + 8))(v95, v129);
+  return v118 & 1;
+}
+
+uint64_t static TaggedValue_8<>.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
+{
+  v225 = a1;
+  v213 = *(a10 - 8);
+  MEMORY[0x1EEE9AC00](a17);
+  v28 = (v27 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v201 = &v185 - v28;
+  MEMORY[0x1EEE9AC00](v29);
+  v200 = &v185 - v28;
+  v212 = *(a9 - 8);
+  MEMORY[0x1EEE9AC00](v30);
+  v32 = (v31 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v199 = &v185 - v32;
+  MEMORY[0x1EEE9AC00](v33);
+  v198 = &v185 - v32;
+  v211 = *(v34 - 8);
+  MEMORY[0x1EEE9AC00](v35);
+  v37 = (v36 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v197 = &v185 - v37;
+  MEMORY[0x1EEE9AC00](v38);
+  v196 = &v185 - v37;
+  v209 = *(v39 - 8);
+  MEMORY[0x1EEE9AC00](v40);
+  v42 = (v41 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v195 = &v185 - v42;
+  MEMORY[0x1EEE9AC00](v43);
+  v194 = &v185 - v42;
+  v222 = *(v44 - 8);
+  MEMORY[0x1EEE9AC00](v45);
+  v47 = (v46 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v193 = &v185 - v47;
+  MEMORY[0x1EEE9AC00](v48);
+  v192 = &v185 - v47;
+  v208 = *(v49 - 8);
+  MEMORY[0x1EEE9AC00](v50);
+  v52 = (v51 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v191 = &v185 - v52;
+  MEMORY[0x1EEE9AC00](v53);
+  v190 = &v185 - v52;
+  v221 = *(v54 - 8);
+  MEMORY[0x1EEE9AC00](v55);
+  v57 = (v56 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v189 = &v185 - v57;
+  MEMORY[0x1EEE9AC00](v58);
+  v188 = &v185 - v57;
+  v202 = *(v59 - 8);
+  MEMORY[0x1EEE9AC00](v60);
+  v62 = (v61 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v187 = &v185 - v62;
+  MEMORY[0x1EEE9AC00](v63);
+  v186 = &v185 - v62;
+  v203 = v64;
+  v226[0] = v64;
+  v226[1] = v65;
+  v215 = v65;
+  v217 = v66;
+  v226[2] = v66;
+  v226[3] = v67;
+  v210 = v67;
+  v218 = v68;
+  v226[4] = v68;
+  v227[0] = v69;
+  v219 = v69;
+  v214 = a9;
+  v227[1] = a9;
+  v227[2] = a10;
+  v216 = a10;
+  v227[3] = a11;
+  v227[4] = a13;
+  v227[5] = v71;
+  v227[6] = v70;
+  v227[7] = v73;
+  v227[8] = v72;
+  v227[9] = v75;
+  v227[10] = v74;
+  v76 = type metadata accessor for TaggedValue_8.TaggedEnum(0, v226);
+  v77 = *(v76 - 8);
+  MEMORY[0x1EEE9AC00](v76);
+  v207 = &v185 - ((v78 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v79);
+  v206 = &v185 - v80;
+  MEMORY[0x1EEE9AC00](v81);
+  v205 = &v185 - v82;
+  MEMORY[0x1EEE9AC00](v83);
+  v204 = &v185 - v84;
+  MEMORY[0x1EEE9AC00](v85);
+  v87 = &v185 - v86;
+  MEMORY[0x1EEE9AC00](v88);
+  v90 = &v185 - v89;
+  MEMORY[0x1EEE9AC00](v91);
+  v93 = &v185 - v92;
+  MEMORY[0x1EEE9AC00](v94);
+  v96 = &v185 - v95;
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  v224 = *(TupleTypeMetadata2 - 8);
+  v98 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
+  v100 = &v185 - v99;
+  v223 = v101;
+  v102 = *(v101 + 48);
+  v220 = v77;
+  v103 = *(v77 + 16);
+  v103(&v185 - v99, v225, v76, v98);
+  v225 = v102;
+  (v103)(&v100[v102], a2, v76);
+  v104 = v100;
+  v105 = v76;
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload <= 3)
+  {
+    v119 = v221;
+    v120 = v222;
+    if (EnumCaseMultiPayload > 1)
+    {
+      if (EnumCaseMultiPayload != 2)
+      {
+        v163 = v87;
+        (v103)(v87, v104, v105);
+        v164 = v225;
+        if (swift_getEnumCaseMultiPayload() == 3)
+        {
+          v147 = v120;
+          v165 = v163;
+          v148 = *(v120 + 32);
+          v149 = v192;
+          v151 = v210;
+          v148(v192, v165, v210);
+          v152 = &v104[v164];
+          v153 = &v225;
+          goto LABEL_23;
+        }
+
+        (*(v120 + 8))(v163, v210);
+LABEL_35:
+        v117 = 0;
+        goto LABEL_36;
+      }
+
+      v123 = v90;
+      (v103)(v90, v104, v105);
+      v124 = v225;
+      if (swift_getEnumCaseMultiPayload() != 2)
+      {
+        (*(v208 + 8))(v90, v217);
+        goto LABEL_35;
+      }
+
+      v125 = v208;
+      v126 = *(v208 + 32);
+      v127 = v190;
+      v128 = v217;
+      v126(v190, v123, v217);
+      v129 = &v104[v124];
+      v130 = v191;
+      v126(v191, v129, v128);
+      v117 = sub_1AE23CCBC();
+      v131 = *(v125 + 8);
+      v131(v130, v128);
+      v131(v127, v128);
+    }
+
+    else
+    {
+      if (!EnumCaseMultiPayload)
+      {
+        v121 = v96;
+        (v103)(v96, v104, v105);
+        v122 = v225;
+        if (!swift_getEnumCaseMultiPayload())
+        {
+          v177 = v202;
+          v178 = *(v202 + 32);
+          v179 = v186;
+          v180 = v121;
+          v181 = v203;
+          v178(v186, v180, v203);
+          v182 = v187;
+          v178(v187, &v104[v122], v181);
+          v117 = sub_1AE23CCBC();
+          v183 = *(v177 + 8);
+          v183(v182, v181);
+          v183(v179, v181);
+          goto LABEL_39;
+        }
+
+        (*(v202 + 8))(v121, v203);
+        goto LABEL_35;
+      }
+
+      v154 = v93;
+      (v103)(v93, v104, v105);
+      v155 = v225;
+      if (swift_getEnumCaseMultiPayload() != 1)
+      {
+        (*(v119 + 8))(v154, v215);
+        goto LABEL_35;
+      }
+
+      v156 = v119;
+      v157 = *(v119 + 32);
+      v158 = v188;
+      v159 = v215;
+      v157(v188, v154, v215);
+      v160 = &v104[v155];
+      v161 = v189;
+      v157(v189, v160, v159);
+      v117 = sub_1AE23CCBC();
+      v162 = *(v156 + 8);
+      v162(v161, v159);
+      v162(v158, v159);
+    }
+
+LABEL_39:
+    v144 = v220;
+    v145 = v105;
+    goto LABEL_40;
+  }
+
+  if (EnumCaseMultiPayload > 5)
+  {
+    v107 = v225;
+    if (EnumCaseMultiPayload != 6)
+    {
+      if (EnumCaseMultiPayload == 7)
+      {
+        v108 = v207;
+        (v103)(v207, v104, v76);
+        if (swift_getEnumCaseMultiPayload() == 7)
+        {
+          v109 = v76;
+          v110 = v213;
+          v111 = *(v213 + 32);
+          v112 = v107;
+          v113 = v200;
+          v114 = v108;
+          v115 = v216;
+          v111(v200, v114, v216);
+          v116 = v201;
+          v111(v201, &v104[v112], v115);
+          v117 = sub_1AE23CCBC();
+          v118 = *(v110 + 8);
+          v118(v116, v115);
+          v118(v113, v115);
+LABEL_26:
+          v144 = v220;
+          v145 = v109;
+          goto LABEL_40;
+        }
+
+        (*(v213 + 8))(v108, v216);
+      }
+
+      goto LABEL_35;
+    }
+
+    v146 = v206;
+    (v103)(v206, v104, v76);
+    if (swift_getEnumCaseMultiPayload() == 6)
+    {
+      v147 = v212;
+      v148 = *(v212 + 32);
+      v149 = v198;
+      v150 = v146;
+      v151 = v214;
+      v148(v198, v150, v214);
+      v152 = &v104[v107];
+      v153 = v227;
+LABEL_23:
+      v166 = *(v153 - 32);
+      v148(v166, v152, v151);
+      v117 = sub_1AE23CCBC();
+      v167 = *(v147 + 8);
+      v167(v166, v151);
+      v167(v149, v151);
+      goto LABEL_39;
+    }
+
+    (*(v212 + 8))(v146, v214);
+    goto LABEL_35;
+  }
+
+  v132 = v225;
+  if (EnumCaseMultiPayload != 4)
+  {
+    v168 = v205;
+    (v103)(v205, v104, v105);
+    if (swift_getEnumCaseMultiPayload() == 5)
+    {
+      v169 = v211;
+      v109 = v105;
+      v170 = *(v211 + 32);
+      v171 = v196;
+      v172 = v168;
+      v173 = v219;
+      v170(v196, v172, v219);
+      v174 = &v104[v132];
+      v175 = v197;
+      v170(v197, v174, v173);
+      v117 = sub_1AE23CCBC();
+      v176 = *(v169 + 8);
+      v176(v175, v173);
+      v176(v171, v173);
+      goto LABEL_26;
+    }
+
+    (*(v211 + 8))(v168, v219);
+    goto LABEL_35;
+  }
+
+  v133 = v204;
+  v134 = v76;
+  v135 = v104;
+  (v103)(v204, v104, v76);
+  if (swift_getEnumCaseMultiPayload() != 4)
+  {
+    (*(v209 + 8))(v133, v218);
+    v117 = 0;
+LABEL_36:
+    v145 = v223;
+    v144 = v224;
+    goto LABEL_40;
+  }
+
+  v136 = v209;
+  v137 = *(v209 + 32);
+  v138 = v194;
+  v139 = v133;
+  v140 = v218;
+  v137(v194, v139, v218);
+  v141 = &v135[v132];
+  v142 = v195;
+  v137(v195, v141, v140);
+  v117 = sub_1AE23CCBC();
+  v143 = *(v136 + 8);
+  v143(v142, v140);
+  v143(v138, v140);
+  v144 = v220;
+  v145 = v134;
+  v104 = v135;
+LABEL_40:
+  (*(v144 + 8))(v104, v145);
+  return v117 & 1;
+}
+
+uint64_t static TaggedValue_9<>.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29)
+{
+  v205 = a1;
+  v206 = a2;
+  v186 = *(a11 - 8);
+  MEMORY[0x1EEE9AC00](a20);
+  v30 = (v29 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v178 = &v160 - v30;
+  MEMORY[0x1EEE9AC00](v31);
+  v177 = &v160 - v30;
+  v185 = *(a10 - 8);
+  MEMORY[0x1EEE9AC00](v32);
+  v34 = (v33 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v176 = &v160 - v34;
+  MEMORY[0x1EEE9AC00](v35);
+  v175 = &v160 - v34;
+  v184 = *(a9 - 8);
+  MEMORY[0x1EEE9AC00](v36);
+  v38 = (v37 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v174 = &v160 - v38;
+  MEMORY[0x1EEE9AC00](v39);
+  v173 = &v160 - v38;
+  v183 = *(v40 - 8);
+  MEMORY[0x1EEE9AC00](v41);
+  v43 = (v42 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v172 = &v160 - v43;
+  MEMORY[0x1EEE9AC00](v44);
+  v171 = &v160 - v43;
+  v182 = *(v45 - 8);
+  MEMORY[0x1EEE9AC00](v46);
+  v48 = (v47 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v170 = &v160 - v48;
+  MEMORY[0x1EEE9AC00](v49);
+  v169 = &v160 - v48;
+  v181 = *(v50 - 8);
+  MEMORY[0x1EEE9AC00](v51);
+  v53 = (v52 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v168 = &v160 - v53;
+  MEMORY[0x1EEE9AC00](v54);
+  v167 = &v160 - v53;
+  v180 = *(v55 - 8);
+  MEMORY[0x1EEE9AC00](v56);
+  v58 = (v57 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v166 = &v160 - v58;
+  MEMORY[0x1EEE9AC00](v59);
+  v165 = &v160 - v58;
+  v179 = *(v60 - 8);
+  MEMORY[0x1EEE9AC00](v61);
+  v63 = (v62 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v164 = &v160 - v63;
+  MEMORY[0x1EEE9AC00](v64);
+  v163 = &v160 - v63;
+  v200 = *(v65 - 8);
+  MEMORY[0x1EEE9AC00](v66);
+  v68 = (v67 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v162 = &v160 - v68;
+  MEMORY[0x1EEE9AC00](v69);
+  v161 = &v160 - v68;
+  v201 = v70;
+  v207 = v70;
+  v208[0] = v71;
+  v190 = v71;
+  v191 = v72;
+  v208[1] = v72;
+  v209[0] = v73;
+  v193 = v73;
+  v194 = v74;
+  v209[1] = v74;
+  v209[2] = v75;
+  v192 = v75;
+  v188 = a9;
+  v209[3] = a9;
+  v209[4] = a10;
+  v189 = a10;
+  v187 = a11;
+  v209[5] = a11;
+  v209[6] = a12;
+  v209[7] = a14;
+  v209[8] = a16;
+  v209[9] = v77;
+  v209[10] = v76;
+  v209[11] = v79;
+  v209[12] = v78;
+  v209[13] = v81;
+  v209[14] = v80;
+  v82 = type metadata accessor for TaggedValue_9.TaggedEnum(0, &v207);
+  v83 = *(v82 - 8);
+  MEMORY[0x1EEE9AC00](v82);
+  v199 = &v160 - ((v84 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v85);
+  v198 = &v160 - v86;
+  MEMORY[0x1EEE9AC00](v87);
+  v197 = &v160 - v88;
+  MEMORY[0x1EEE9AC00](v89);
+  v196 = &v160 - v90;
+  MEMORY[0x1EEE9AC00](v91);
+  v195 = &v160 - v92;
+  MEMORY[0x1EEE9AC00](v93);
+  v95 = &v160 - v94;
+  MEMORY[0x1EEE9AC00](v96);
+  v98 = &v160 - v97;
+  MEMORY[0x1EEE9AC00](v99);
+  v101 = &v160 - v100;
+  MEMORY[0x1EEE9AC00](v102);
+  v104 = &v160 - v103;
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  v204 = *(TupleTypeMetadata2 - 8);
+  v106 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
+  v108 = &v160 - v107;
+  v203 = v109;
+  v110 = *(v109 + 48);
+  v202 = v83;
+  v111 = *(v83 + 16);
+  v111(&v160 - v107, v205, v82, v106);
+  v112 = v110;
+  (v111)(&v108[v110], v206, v82);
+  v113 = v108;
+  v114 = v82;
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload > 4)
+  {
+    if (EnumCaseMultiPayload <= 6)
+    {
+      if (EnumCaseMultiPayload != 5)
+      {
+        v143 = v197;
+        v144 = v113;
+        (v111)(v197, v113, v82);
+        if (swift_getEnumCaseMultiPayload() == 6)
+        {
+          v145 = v184;
+          v146 = *(v184 + 32);
+          v147 = v173;
+          v148 = v188;
+          v146(v173, v143, v188);
+          v149 = &v144[v112];
+          v150 = v174;
+          v146(v174, v149, v148);
+          v132 = sub_1AE23CCBC();
+          v151 = *(v145 + 8);
+          v151(v150, v148);
+          v151(v147, v148);
+          v141 = v202;
+          v142 = v114;
+          v113 = v144;
+          goto LABEL_40;
+        }
+
+        (*(v184 + 8))(v143, v188);
+        v132 = 0;
+LABEL_39:
+        v141 = v204;
+        v142 = v203;
+        goto LABEL_40;
+      }
+
+      v124 = v196;
+      (v111)(v196, v113, v82);
+      if (swift_getEnumCaseMultiPayload() == 5)
+      {
+        v116 = v183;
+        v117 = *(v183 + 32);
+        v118 = v171;
+        v125 = v124;
+        v119 = v192;
+        v117(v171, v125, v192);
+        v120 = &v113[v112];
+        v121 = &v204;
+        goto LABEL_26;
+      }
+
+      (*(v183 + 8))(v124, v192);
+    }
+
+    else if (EnumCaseMultiPayload == 7)
+    {
+      v134 = v198;
+      (v111)(v198, v113, v82);
+      if (swift_getEnumCaseMultiPayload() == 7)
+      {
+        v116 = v185;
+        v117 = *(v185 + 32);
+        v118 = v175;
+        v135 = v134;
+        v119 = v189;
+        v117(v175, v135, v189);
+        v120 = &v113[v112];
+        v121 = v208;
+        goto LABEL_26;
+      }
+
+      (*(v185 + 8))(v134, v189);
+    }
+
+    else if (EnumCaseMultiPayload == 8)
+    {
+      v122 = v199;
+      (v111)(v199, v113, v82);
+      if (swift_getEnumCaseMultiPayload() == 8)
+      {
+        v116 = v186;
+        v117 = *(v186 + 32);
+        v118 = v177;
+        v123 = v122;
+        v119 = v187;
+        v117(v177, v123, v187);
+        v120 = &v113[v112];
+        v121 = v209;
+        goto LABEL_26;
+      }
+
+      (*(v186 + 8))(v122, v187);
+    }
+
+    goto LABEL_38;
+  }
+
+  if (EnumCaseMultiPayload <= 1)
+  {
+    if (EnumCaseMultiPayload)
+    {
+      (v111)(v101, v113, v82);
+      if (swift_getEnumCaseMultiPayload() == 1)
+      {
+        v116 = v179;
+        v117 = *(v179 + 32);
+        v118 = v163;
+        v138 = v101;
+        v119 = v190;
+        v117(v163, v138, v190);
+        v120 = &v113[v112];
+        v121 = &v196;
+LABEL_26:
+        v139 = *(v121 - 32);
+        v117(v139, v120, v119);
+        v132 = sub_1AE23CCBC();
+        v140 = *(v116 + 8);
+        v140(v139, v119);
+        v140(v118, v119);
+        goto LABEL_28;
+      }
+
+      (*(v179 + 8))(v101, v190);
+LABEL_38:
+      v132 = 0;
+      goto LABEL_39;
+    }
+
+    (v111)(v104, v113, v82);
+    if (swift_getEnumCaseMultiPayload())
+    {
+      (*(v200 + 8))(v104, v201);
+      goto LABEL_38;
+    }
+
+    v153 = v200;
+    v154 = *(v200 + 32);
+    v155 = v161;
+    v156 = v201;
+    v154(v161, v104, v201);
+    v157 = &v113[v112];
+    v158 = v162;
+    v154(v162, v157, v156);
+    v132 = sub_1AE23CCBC();
+    v159 = *(v153 + 8);
+    v159(v158, v156);
+    v159(v155, v156);
+  }
+
+  else
+  {
+    if (EnumCaseMultiPayload != 2)
+    {
+      if (EnumCaseMultiPayload == 3)
+      {
+        (v111)(v95, v113, v82);
+        if (swift_getEnumCaseMultiPayload() == 3)
+        {
+          v116 = v181;
+          v117 = *(v181 + 32);
+          v118 = v167;
+          v119 = v193;
+          v117(v167, v95, v193);
+          v120 = &v113[v112];
+          v121 = &v200;
+          goto LABEL_26;
+        }
+
+        (*(v181 + 8))(v95, v193);
+        goto LABEL_38;
+      }
+
+      v136 = v195;
+      (v111)(v195, v113, v82);
+      if (swift_getEnumCaseMultiPayload() == 4)
+      {
+        v116 = v182;
+        v117 = *(v182 + 32);
+        v118 = v169;
+        v137 = v136;
+        v119 = v194;
+        v117(v169, v137, v194);
+        v120 = &v113[v112];
+        v121 = &v202;
+        goto LABEL_26;
+      }
+
+      (*(v182 + 8))(v136, v194);
+      goto LABEL_38;
+    }
+
+    (v111)(v98, v113, v82);
+    if (swift_getEnumCaseMultiPayload() != 2)
+    {
+      (*(v180 + 8))(v98, v191);
+      goto LABEL_38;
+    }
+
+    v126 = v180;
+    v127 = *(v180 + 32);
+    v128 = v165;
+    v129 = v191;
+    v127(v165, v98, v191);
+    v130 = &v113[v112];
+    v131 = v166;
+    v127(v166, v130, v129);
+    v132 = sub_1AE23CCBC();
+    v133 = *(v126 + 8);
+    v133(v131, v129);
+    v133(v128, v129);
+  }
+
+LABEL_28:
+  v141 = v202;
+  v142 = v114;
+LABEL_40:
+  (*(v141 + 8))(v113, v142);
+  return v132 & 1;
+}
+
+void TaggedValue_1.init(from:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+{
+  v10 = type metadata accessor for TaggedValue_1.TaggedEnum(0, a2, a3, a4);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = (&inited - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v13);
+  v19 = &inited - v18;
+  v20 = *(a1 + 72);
+  if (!v20)
+  {
+    sub_1ADE42E40(v14, v15, v16);
+    swift_allocError();
+    *v26 = 0xD000000000000017;
+    *(v26 + 8) = 0x80000001AE25FB70;
+    *(v26 + 16) = 0;
+    swift_willThrow();
+    goto LABEL_26;
+  }
+
+  v38 = v17;
+  type metadata accessor for CRDecoder.CRValueContainer();
+  inited = swift_initStackObject();
+  *(inited + 16) = a1;
+  v21 = *(v20 + 16);
+  v39 = a5;
+  if ((~v21 & 0xF000000000000007) != 0 && ((v21 >> 59) & 0x1E | (v21 >> 2) & 1) == 0xB)
+  {
+    v22 = *((v21 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+  }
+
+  else
+  {
+    v22 = &unk_1EB5B9140;
+  }
+
+  swift_beginAccess();
+  v23 = v22[2];
+  if (v23)
+  {
+    v24 = *(v20 + 16);
+    if ((~v24 & 0xF000000000000007) != 0 && ((v24 >> 59) & 0x1E | (v24 >> 2) & 1) == 0xB)
+    {
+      v25 = *((v24 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+    }
+
+    else
+    {
+      v25 = &unk_1EB5B9140;
+    }
+
+    swift_beginAccess();
+    v27 = v25[3];
+    if (v27)
+    {
+      v28 = v27;
+    }
+
+    else
+    {
+      type metadata accessor for Proto_Value._StorageClass();
+      v28 = swift_initStaticObject();
+    }
+
+    type metadata accessor for CRDecoder();
+    swift_allocObject();
+
+    v32 = sub_1ADE0262C(v28, a1);
+    AnyCRValue.init(from:)(v32, &v40);
+
+    if (!v5)
+    {
+
+      v33 = v40;
+      *v12 = v23;
+      v12[1] = v33;
+      swift_storeEnumTagMultiPayload();
+      (*(v38 + 32))(v39, v12, v10);
+      return;
+    }
+
+    goto LABEL_26;
+  }
+
+  v29 = *(v20 + 16);
+  if ((~v29 & 0xF000000000000007) != 0)
+  {
+    v31 = v39;
+    if (((v29 >> 59) & 0x1E | (v29 >> 2) & 1) == 0xB)
+    {
+      v30 = *((v29 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+    }
+
+    else
+    {
+      v30 = &unk_1EB5B9140;
+    }
+  }
+
+  else
+  {
+    v30 = &unk_1EB5B9140;
+    v31 = v39;
+  }
+
+  swift_beginAccess();
+  v34 = v30[3];
+  if (v34)
+  {
+    v35 = v34;
+  }
+
+  else
+  {
+    type metadata accessor for Proto_Value._StorageClass();
+    v35 = swift_initStaticObject();
+  }
+
+  type metadata accessor for CRDecoder();
+  swift_allocObject();
+
+  v36 = sub_1ADE0262C(v35, a1);
+  (*(*(*(a3 + 8) + 8) + 8))(v36, a2);
+
+  if (v5)
+  {
+LABEL_26:
+
+    return;
+  }
+
+  swift_storeEnumTagMultiPayload();
+  (*(v38 + 32))(v31, v19, v10);
+}
+
+void TaggedValue_1.encode(to:)(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 16);
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v7 = &v49 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = *(v8 + 24);
+  v11 = type metadata accessor for TaggedValue_1.TaggedEnum(0, v4, v9, v10);
+  v12 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = (&v49 - v13);
+  v18 = sub_1ADE71C08(v15, v16, v17);
+  if (!v2)
+  {
+    v19 = v18;
+    v50 = v9;
+    v51 = v7;
+    v52 = 0;
+    (*(v12 + 16))(v14, v53, v11);
+    if (swift_getEnumCaseMultiPayload() == 1)
+    {
+      v21 = *v14;
+      v20 = v14[1];
+      swift_beginAccess();
+      v22 = *(*(v19 + 24) + 16);
+      v23 = (~v22 & 0xF000000000000007) != 0 && ((v22 >> 59) & 0x1E | (v22 >> 2) & 1) == 11;
+      v24 = a1;
+      if (v23)
+      {
+        inited = *((v22 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+      }
+
+      else
+      {
+        type metadata accessor for Proto_TaggedValue._StorageClass();
+        inited = swift_initStaticObject();
+      }
+
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        type metadata accessor for Proto_TaggedValue._StorageClass();
+        swift_allocObject();
+        inited = sub_1ADDE5178(inited);
+      }
+
+      swift_beginAccess();
+      *(inited + 16) = v21;
+      sub_1AE1B7530(inited);
+      swift_endAccess();
+      v32 = *(a1 + 112);
+      v31 = *(a1 + 120);
+      *(a1 + 112) = 0;
+      *(a1 + 120) = 0;
+      v33 = v52;
+      v34 = (*(*v20 + 152))(a1);
+      if (v33)
+      {
+      }
+
+      else
+      {
+        v45 = sub_1ADE71C08(v34, v35, v36);
+        swift_beginAccess();
+        v46 = *(v45 + 24);
+        *(v24 + 112) = v32;
+
+        *(v24 + 120) = v31;
+
+        swift_beginAccess();
+        v47 = *(*(v19 + 24) + 16);
+        if ((~v47 & 0xF000000000000007) != 0 && ((v47 >> 59) & 0x1E | (v47 >> 2) & 1) == 0xB)
+        {
+          v48 = *((v47 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          v48 = swift_initStaticObject();
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          v48 = sub_1ADDE5178(v48);
+        }
+
+        swift_beginAccess();
+        *(v48 + 24) = v46;
+
+        sub_1AE1B7530(v48);
+        swift_endAccess();
+      }
+    }
+
+    else
+    {
+      v26 = v5;
+      v27 = v4;
+      (*(v5 + 32))(v51, v14, v4);
+      swift_beginAccess();
+      v28 = *(*(v19 + 24) + 16);
+      if ((~v28 & 0xF000000000000007) != 0 && ((v28 >> 59) & 0x1E | (v28 >> 2) & 1) == 11)
+      {
+        v30 = *((v28 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+      }
+
+      else
+      {
+        type metadata accessor for Proto_TaggedValue._StorageClass();
+        v30 = swift_initStaticObject();
+      }
+
+      v37 = v50;
+
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        type metadata accessor for Proto_TaggedValue._StorageClass();
+        swift_allocObject();
+        v30 = sub_1ADDE5178(v30);
+      }
+
+      swift_beginAccess();
+      *(v30 + 16) = 0;
+      sub_1AE1B7530(v30);
+      v38 = swift_endAccess();
+      MEMORY[0x1EEE9AC00](v38);
+      *(&v49 - 4) = v27;
+      *(&v49 - 3) = v37;
+      v40 = v51;
+      v39 = v52;
+      *(&v49 - 2) = v51;
+      *(&v49 - 1) = a1;
+      v41 = sub_1ADE6B938(sub_1ADE74060);
+      if (v39)
+      {
+      }
+
+      else
+      {
+        v42 = v41;
+        swift_beginAccess();
+        v43 = *(*(v19 + 24) + 16);
+        if ((~v43 & 0xF000000000000007) != 0 && ((v43 >> 59) & 0x1E | (v43 >> 2) & 1) == 0xB)
+        {
+          v44 = *((v43 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          v44 = swift_initStaticObject();
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          v44 = sub_1ADDE5178(v44);
+        }
+
+        swift_beginAccess();
+        *(v44 + 24) = v42;
+
+        sub_1AE1B7530(v44);
+        swift_endAccess();
+      }
+
+      (*(v26 + 8))(v40, v27);
+    }
+  }
+}
+
+void TaggedValue_1<>.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = v3;
+  v5 = *(a2 + 16);
+  v6 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v8 = &v17[-1] - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for TaggedValue_1.TaggedEnum(0, v5, *(v9 + 24), v10);
+  v12 = MEMORY[0x1EEE9AC00](v11);
+  v14 = &v17[-1] - v13;
+  (*(v15 + 16))(&v17[-1] - v13, v4, v11, v12);
+  if (swift_getEnumCaseMultiPayload() == 1)
+  {
+    (*(**(v14 + 1) + 80))(v18);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BBE40, &qword_1AE24FCF0);
+    swift_dynamicCast();
+    __swift_project_boxed_opaque_existential_1(v17, v17[3]);
+    sub_1AE23CBAC();
+    __swift_destroy_boxed_opaque_existential_1(v17);
+  }
+
+  else
+  {
+    (*(v6 + 32))(v8, v14, v5);
+    sub_1AE23CBAC();
+    (*(v6 + 8))(v8, v5);
+  }
+}
+
+void TaggedValue_2.init(from:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+{
+  v58 = a4;
+  v60[0] = a2;
+  v60[1] = a3;
+  v60[2] = a4;
+  v60[3] = a5;
+  v11 = type metadata accessor for TaggedValue_2.TaggedEnum(0, v60);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = (&inited - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &inited - v15;
+  MEMORY[0x1EEE9AC00](v17);
+  v23 = &inited - v22;
+  v24 = *(a1 + 72);
+  if (!v24)
+  {
+    sub_1ADE42E40(v18, v19, v20);
+    swift_allocError();
+    *v33 = 0xD000000000000017;
+    *(v33 + 8) = 0x80000001AE25FB70;
+    *(v33 + 16) = 0;
+    swift_willThrow();
+    goto LABEL_37;
+  }
+
+  v55 = v21;
+  v56 = v18;
+  type metadata accessor for CRDecoder.CRValueContainer();
+  inited = swift_initStackObject();
+  *(inited + 16) = a1;
+  v25 = *(v24 + 16);
+  v57 = a6;
+  if ((~v25 & 0xF000000000000007) != 0 && ((v25 >> 59) & 0x1E | (v25 >> 2) & 1) == 0xB)
+  {
+    v26 = *((v25 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+  }
+
+  else
+  {
+    v26 = &unk_1EB5B9140;
+  }
+
+  swift_beginAccess();
+  v27 = v26[2];
+  if (v27 != 1)
+  {
+    if (v27)
+    {
+      v38 = *(v24 + 16);
+      if ((~v38 & 0xF000000000000007) != 0 && ((v38 >> 59) & 0x1E | (v38 >> 2) & 1) == 0xB)
+      {
+        v39 = *((v38 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+      }
+
+      else
+      {
+        v39 = &unk_1EB5B9140;
+      }
+
+      swift_beginAccess();
+      v40 = v39[3];
+      if (v40)
+      {
+        v41 = v40;
+      }
+
+      else
+      {
+        type metadata accessor for Proto_Value._StorageClass();
+        v41 = swift_initStaticObject();
+      }
+
+      type metadata accessor for CRDecoder();
+      swift_allocObject();
+
+      v42 = sub_1ADE0262C(v41, a1);
+      v43 = v59;
+      AnyCRValue.init(from:)(v42, &v61);
+
+      if (!v43)
+      {
+
+        v44 = v61;
+        *v13 = v27;
+        v13[1] = v44;
+        v45 = v56;
+        swift_storeEnumTagMultiPayload();
+        (*(v55 + 32))(v57, v13, v45);
+        return;
+      }
+    }
+
+    else
+    {
+      v28 = *(v24 + 16);
+      if ((~v28 & 0xF000000000000007) != 0)
+      {
+        v30 = v57;
+        v31 = v58;
+        v32 = v59;
+        if (((v28 >> 59) & 0x1E | (v28 >> 2) & 1) == 0xB)
+        {
+          v29 = *((v28 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          v29 = &unk_1EB5B9140;
+        }
+      }
+
+      else
+      {
+        v29 = &unk_1EB5B9140;
+        v30 = v57;
+        v31 = v58;
+        v32 = v59;
+      }
+
+      swift_beginAccess();
+      v46 = v29[3];
+      if (v46)
+      {
+        v47 = v46;
+      }
+
+      else
+      {
+        type metadata accessor for Proto_Value._StorageClass();
+        v47 = swift_initStaticObject();
+      }
+
+      type metadata accessor for CRDecoder();
+      swift_allocObject();
+
+      v48 = sub_1ADE0262C(v47, a1);
+      (*(*(*(v31 + 8) + 8) + 8))(v48, a2);
+
+      if (!v32)
+      {
+
+        v49 = v56;
+        swift_storeEnumTagMultiPayload();
+        (*(v55 + 32))(v30, v23, v49);
+        return;
+      }
+    }
+
+    goto LABEL_37;
+  }
+
+  v34 = *(v24 + 16);
+  if ((~v34 & 0xF000000000000007) != 0)
+  {
+    v36 = v57;
+    v37 = v59;
+    if (((v34 >> 59) & 0x1E | (v34 >> 2) & 1) == 0xB)
+    {
+      v35 = *((v34 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+    }
+
+    else
+    {
+      v35 = &unk_1EB5B9140;
+    }
+  }
+
+  else
+  {
+    v35 = &unk_1EB5B9140;
+    v36 = v57;
+    v37 = v59;
+  }
+
+  swift_beginAccess();
+  v50 = v35[3];
+  if (v50)
+  {
+    v51 = v50;
+  }
+
+  else
+  {
+    type metadata accessor for Proto_Value._StorageClass();
+    v51 = swift_initStaticObject();
+  }
+
+  type metadata accessor for CRDecoder();
+  swift_allocObject();
+
+  v52 = sub_1ADE0262C(v51, a1);
+  (*(*(*(a5 + 8) + 8) + 8))(v52, a3);
+
+  if (v37)
+  {
+LABEL_37:
+
+    return;
+  }
+
+  v53 = v56;
+  swift_storeEnumTagMultiPayload();
+  (*(v55 + 32))(v36, v16, v53);
+}
+
+void TaggedValue_2.encode(to:)(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 24);
+  v72 = *(v4 - 1);
+  MEMORY[0x1EEE9AC00](a1);
+  v6 = &v67 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *(v7 + 16);
+  v70 = *(v8 - 1);
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v67 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = *(v12 + 32);
+  v73[0] = v8;
+  v73[1] = v4;
+  v71 = v13;
+  v74 = v13;
+  v14 = type metadata accessor for TaggedValue_2.TaggedEnum(0, v73);
+  v15 = *(v14 - 8);
+  MEMORY[0x1EEE9AC00](v14);
+  v17 = (&v67 - v16);
+  v21 = sub_1ADE71C08(v18, v19, v20);
+  if (!v2)
+  {
+    v22 = v21;
+    v67 = v11;
+    v68 = a1;
+    v23 = v72;
+    v69 = 0;
+    (*(v15 + 16))(v17, v75, v14);
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload)
+    {
+      if (EnumCaseMultiPayload == 1)
+      {
+        v25 = v23;
+        v26 = *(v23 + 32);
+        v75 = v6;
+        v27 = v6;
+        v28 = v4;
+        v26(v27, v17, v4);
+        swift_beginAccess();
+        v29 = *(*(v22 + 24) + 16);
+        v30 = v68;
+        if ((~v29 & 0xF000000000000007) != 0 && ((v29 >> 59) & 0x1E | (v29 >> 2) & 1) == 0xB)
+        {
+          inited = *((v29 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          inited = swift_initStaticObject();
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          inited = sub_1ADDE5178(inited);
+        }
+
+        swift_beginAccess();
+        *(inited + 16) = 1;
+        sub_1AE1B7530(inited);
+        v40 = swift_endAccess();
+        MEMORY[0x1EEE9AC00](v40);
+        *(&v67 - 6) = v8;
+        *(&v67 - 5) = v4;
+        *(&v67 - 2) = v71;
+        v41 = v75;
+        *(&v67 - 2) = v75;
+        *(&v67 - 1) = v30;
+        v42 = v69;
+        v43 = sub_1ADE6B938(sub_1ADFFA7A0);
+        if (v42)
+        {
+        }
+
+        else
+        {
+          v57 = v43;
+          swift_beginAccess();
+          v58 = *(*(v22 + 24) + 16);
+          if ((~v58 & 0xF000000000000007) != 0 && ((v58 >> 59) & 0x1E | (v58 >> 2) & 1) == 0xB)
+          {
+            v59 = *((v58 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v59 = swift_initStaticObject();
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v59 = sub_1ADDE5178(v59);
+          }
+
+          swift_beginAccess();
+          *(v59 + 24) = v57;
+
+          sub_1AE1B7530(v59);
+          swift_endAccess();
+        }
+
+        (*(v25 + 8))(v41, v28);
+      }
+
+      else
+      {
+        v36 = *v17;
+        v37 = v17[1];
+        swift_beginAccess();
+        v38 = *(*(v22 + 24) + 16);
+        if ((~v38 & 0xF000000000000007) != 0 && ((v38 >> 59) & 0x1E | (v38 >> 2) & 1) == 0xB)
+        {
+          v39 = *((v38 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          v39 = swift_initStaticObject();
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          v39 = sub_1ADDE5178(v39);
+        }
+
+        swift_beginAccess();
+        *(v39 + 16) = v36;
+        sub_1AE1B7530(v39);
+        swift_endAccess();
+        v51 = v68;
+        v50 = v69;
+        v53 = *(v68 + 112);
+        v52 = *(v68 + 120);
+        *(v68 + 112) = 0;
+        *(v51 + 120) = 0;
+        v54 = (*(*v37 + 152))(v51);
+        if (v50)
+        {
+        }
+
+        else
+        {
+          v63 = sub_1ADE71C08(v54, v55, v56);
+          swift_beginAccess();
+          v64 = *(v63 + 24);
+          *(v51 + 112) = v53;
+
+          *(v51 + 120) = v52;
+
+          swift_beginAccess();
+          v65 = *(*(v22 + 24) + 16);
+          if ((~v65 & 0xF000000000000007) != 0 && ((v65 >> 59) & 0x1E | (v65 >> 2) & 1) == 0xB)
+          {
+            v66 = *((v65 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v66 = swift_initStaticObject();
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v66 = sub_1ADDE5178(v66);
+          }
+
+          swift_beginAccess();
+          *(v66 + 24) = v64;
+
+          sub_1AE1B7530(v66);
+          swift_endAccess();
+        }
+      }
+    }
+
+    else
+    {
+      v32 = v70;
+      (*(v70 + 32))(v67, v17, v8);
+      swift_beginAccess();
+      v33 = *(*(v22 + 24) + 16);
+      v34 = v68;
+      if ((~v33 & 0xF000000000000007) != 0 && ((v33 >> 59) & 0x1E | (v33 >> 2) & 1) == 0xB)
+      {
+        v35 = *((v33 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+      }
+
+      else
+      {
+        type metadata accessor for Proto_TaggedValue._StorageClass();
+        v35 = swift_initStaticObject();
+      }
+
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        type metadata accessor for Proto_TaggedValue._StorageClass();
+        swift_allocObject();
+        v35 = sub_1ADDE5178(v35);
+      }
+
+      swift_beginAccess();
+      *(v35 + 16) = 0;
+      sub_1AE1B7530(v35);
+      v44 = swift_endAccess();
+      MEMORY[0x1EEE9AC00](v44);
+      *&v45 = v8;
+      *(&v45 + 1) = v4;
+      v46 = v71;
+      *(&v67 - 3) = v45;
+      *(&v67 - 2) = v46;
+      v47 = v67;
+      *(&v67 - 2) = v67;
+      *(&v67 - 1) = v34;
+      v48 = v69;
+      v49 = sub_1ADE6B938(sub_1ADFFA7E8);
+      if (v48)
+      {
+
+        (*(v32 + 8))(v47, v8);
+      }
+
+      else
+      {
+        v60 = v49;
+        swift_beginAccess();
+        v61 = *(*(v22 + 24) + 16);
+        if ((~v61 & 0xF000000000000007) != 0 && ((v61 >> 59) & 0x1E | (v61 >> 2) & 1) == 0xB)
+        {
+          v62 = *((v61 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          v62 = swift_initStaticObject();
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          v62 = sub_1ADDE5178(v62);
+        }
+
+        swift_beginAccess();
+        *(v62 + 24) = v60;
+
+        sub_1AE1B7530(v62);
+        swift_endAccess();
+
+        (*(v70 + 8))(v47, v8);
+      }
+    }
+  }
+}
+
+double TaggedValue_2<>.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = v4;
+  v24[0] = a3;
+  v24[1] = a4;
+  v24[2] = a1;
+  v6 = *(a2 + 24);
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v9 = v24 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = *(v10 + 16);
+  v12 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = v24 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25[0] = v11;
+  v25[1] = v6;
+  v26 = *(v16 + 32);
+  v17 = type metadata accessor for TaggedValue_2.TaggedEnum(0, v25);
+  v18 = MEMORY[0x1EEE9AC00](v17);
+  v20 = v24 - v19;
+  (*(v21 + 16))(v24 - v19, v5, v17, v18);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload)
+  {
+    if (EnumCaseMultiPayload == 1)
+    {
+      (*(v7 + 32))(v9, v20, v6);
+      sub_1AE23CBAC();
+      (*(v7 + 8))(v9, v6);
+    }
+
+    else
+    {
+      (*(**(v20 + 1) + 80))(v27);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BBE40, &qword_1AE24FCF0);
+      swift_dynamicCast();
+      __swift_project_boxed_opaque_existential_1(v25, *(&v26 + 1));
+      sub_1AE23CBAC();
+      __swift_destroy_boxed_opaque_existential_1(v25);
+    }
+  }
+
+  else
+  {
+    (*(v12 + 32))(v15, v20, v11);
+    sub_1AE23CBAC();
+    (*(v12 + 8))(v15, v11);
+  }
+
+  return result;
+}
+
+void TaggedValue_3.init(from:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
+{
+  v79[0] = a2;
+  v79[1] = a3;
+  v79[2] = a4;
+  v79[3] = a5;
+  v75 = a6;
+  v76 = a5;
+  v79[4] = a6;
+  v79[5] = a7;
+  v74 = a7;
+  v13 = type metadata accessor for TaggedValue_3.TaggedEnum(0, v79);
+  MEMORY[0x1EEE9AC00](v13);
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v70 - v15;
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v70 - v18;
+  MEMORY[0x1EEE9AC00](v20);
+  v27 = &v70 - v26;
+  v28 = *(a1 + 72);
+  if (!v28)
+  {
+    sub_1ADE42E40(v21, v22, v23);
+    swift_allocError();
+    *v36 = 0xD000000000000017;
+    *(v36 + 8) = 0x80000001AE25FB70;
+    *(v36 + 16) = 0;
+    swift_willThrow();
+
+    return;
+  }
+
+  v70 = v25;
+  v71 = v24;
+  v72 = v21;
+  type metadata accessor for CRDecoder.CRValueContainer();
+  inited = swift_initStackObject();
+  v77 = a1;
+  *(inited + 16) = a1;
+  v30 = *(v28 + 16);
+  v73 = a8;
+  if ((~v30 & 0xF000000000000007) != 0 && ((v30 >> 59) & 0x1E | (v30 >> 2) & 1) == 0xB)
+  {
+    v31 = *((v30 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+  }
+
+  else
+  {
+    v31 = &unk_1EB5B9140;
+  }
+
+  swift_beginAccess();
+  v32 = v31[2];
+  if (v32 == 2)
+  {
+    v40 = *(v28 + 16);
+    if ((~v40 & 0xF000000000000007) != 0)
+    {
+      v42 = v73;
+      v43 = v77;
+      if (((v40 >> 59) & 0x1E | (v40 >> 2) & 1) == 0xB)
+      {
+        v41 = *((v40 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+      }
+
+      else
+      {
+        v41 = &unk_1EB5B9140;
+      }
+    }
+
+    else
+    {
+      v41 = &unk_1EB5B9140;
+      v42 = v73;
+      v43 = v77;
+    }
+
+    swift_beginAccess();
+    v52 = v41[3];
+    if (v52)
+    {
+      v53 = v52;
+    }
+
+    else
+    {
+      type metadata accessor for Proto_Value._StorageClass();
+      v53 = swift_initStaticObject();
+    }
+
+    type metadata accessor for CRDecoder();
+    swift_allocObject();
+
+    v54 = sub_1ADE0262C(v53, v43);
+    v55 = v78;
+    (*(*(*(v74 + 8) + 8) + 8))(v54, a4);
+    if (v55)
+    {
+
+      return;
+    }
+
+    v56 = v72;
+    swift_storeEnumTagMultiPayload();
+    v57 = *(v71 + 32);
+    v58 = v42;
+    goto LABEL_52;
+  }
+
+  if (v32 == 1)
+  {
+    v37 = *(v28 + 16);
+    if ((~v37 & 0xF000000000000007) != 0)
+    {
+      v39 = v77;
+      if (((v37 >> 59) & 0x1E | (v37 >> 2) & 1) == 0xB)
+      {
+        v38 = *((v37 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+      }
+
+      else
+      {
+        v38 = &unk_1EB5B9140;
+      }
+    }
+
+    else
+    {
+      v38 = &unk_1EB5B9140;
+      v39 = v77;
+    }
+
+    swift_beginAccess();
+    v47 = v38[3];
+    if (v47)
+    {
+      v48 = v47;
+    }
+
+    else
+    {
+      type metadata accessor for Proto_Value._StorageClass();
+      v48 = swift_initStaticObject();
+    }
+
+    type metadata accessor for CRDecoder();
+    swift_allocObject();
+
+    v49 = sub_1ADE0262C(v48, v39);
+    v50 = v78;
+    (*(*(*(v75 + 8) + 8) + 8))(v49, a3);
+
+    if (!v50)
+    {
+
+      v51 = v72;
+      swift_storeEnumTagMultiPayload();
+      (*(v71 + 32))(v73, v19, v51);
+      return;
+    }
+
+    goto LABEL_50;
+  }
+
+  if (v32)
+  {
+    v44 = *(v28 + 16);
+    if ((~v44 & 0xF000000000000007) != 0)
+    {
+      v46 = v77;
+      if (((v44 >> 59) & 0x1E | (v44 >> 2) & 1) == 0xB)
+      {
+        v45 = *((v44 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+      }
+
+      else
+      {
+        v45 = &unk_1EB5B9140;
+      }
+    }
+
+    else
+    {
+      v45 = &unk_1EB5B9140;
+      v46 = v77;
+    }
+
+    swift_beginAccess();
+    v65 = v45[3];
+    if (v65)
+    {
+      v66 = v65;
+    }
+
+    else
+    {
+      type metadata accessor for Proto_Value._StorageClass();
+      v66 = swift_initStaticObject();
+    }
+
+    type metadata accessor for CRDecoder();
+    swift_allocObject();
+
+    v67 = sub_1ADE0262C(v66, v46);
+    v68 = v78;
+    AnyCRValue.init(from:)(v67, &v80);
+
+    if (v68)
+    {
+      goto LABEL_50;
+    }
+
+    v69 = v80;
+    v16 = v70;
+    *v70 = v32;
+    *(v16 + 1) = v69;
+    v56 = v72;
+    swift_storeEnumTagMultiPayload();
+    v57 = *(v71 + 32);
+    v58 = v73;
+LABEL_52:
+    v64 = v16;
+    goto LABEL_53;
+  }
+
+  v33 = *(v28 + 16);
+  if ((~v33 & 0xF000000000000007) != 0)
+  {
+    v35 = v73;
+    if (((v33 >> 59) & 0x1E | (v33 >> 2) & 1) == 0xB)
+    {
+      v34 = *((v33 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+    }
+
+    else
+    {
+      v34 = &unk_1EB5B9140;
+    }
+  }
+
+  else
+  {
+    v34 = &unk_1EB5B9140;
+    v35 = v73;
+  }
+
+  swift_beginAccess();
+  v59 = v34[3];
+  if (v59)
+  {
+    v60 = v59;
+  }
+
+  else
+  {
+    type metadata accessor for Proto_Value._StorageClass();
+    v60 = swift_initStaticObject();
+  }
+
+  type metadata accessor for CRDecoder();
+  swift_allocObject();
+  v61 = v77;
+
+  v62 = sub_1ADE0262C(v60, v61);
+  v63 = v78;
+  (*(*(*(v76 + 8) + 8) + 8))(v62, a2);
+
+  if (v63)
+  {
+LABEL_50:
+
+    return;
+  }
+
+  v56 = v72;
+  swift_storeEnumTagMultiPayload();
+  v57 = *(v71 + 32);
+  v58 = v35;
+  v64 = v27;
+LABEL_53:
+  v57(v58, v64, v56);
+}
+
+double TaggedValue_3.encode(to:)(uint64_t a1, uint64_t a2)
+{
+  v94 = *(*(a2 + 32) - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v93 = &v87 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = *(v4 + 24);
+  v92 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v97 = &v87 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = *(v8 + 16);
+  v91 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v87 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = *(v13 + 48);
+  v14 = *(v13 + 56);
+  v90 = v16;
+  *&v17 = v16;
+  *(&v17 + 1) = *v18;
+  *&v19 = v9;
+  *(&v19 + 1) = v5;
+  v95 = v17;
+  v96 = v19;
+  v99[1] = v17;
+  v99[0] = v19;
+  v100 = v15;
+  v101 = v14;
+  v20 = type metadata accessor for TaggedValue_3.TaggedEnum(0, v99);
+  v21 = *(v20 - 8);
+  MEMORY[0x1EEE9AC00](v20);
+  v23 = (&v87 - v22);
+  v24 = v102;
+  v28 = sub_1ADE71C08(v25, v26, v27);
+  if (!v24)
+  {
+    v88 = v9;
+    v30 = v97;
+    v89 = a1;
+    v31 = v28;
+    v102 = 0;
+    (*(v21 + 16))(v23, v98, v20);
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload > 1)
+    {
+      if (EnumCaseMultiPayload == 2)
+      {
+        v39 = v90;
+        (*(v94 + 32))(v93, v23, v90);
+        swift_beginAccess();
+        v40 = *(*(v31 + 24) + 16);
+        v41 = v89;
+        if ((~v40 & 0xF000000000000007) != 0 && ((v40 >> 59) & 0x1E | (v40 >> 2) & 1) == 0xB)
+        {
+          inited = *((v40 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          inited = swift_initStaticObject();
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          inited = sub_1ADDE5178(inited);
+        }
+
+        swift_beginAccess();
+        *(inited + 16) = 2;
+        sub_1AE1B7530(inited);
+        v58 = swift_endAccess();
+        MEMORY[0x1EEE9AC00](v58);
+        v59 = v95;
+        *(&v87 - 4) = v96;
+        *(&v87 - 3) = v59;
+        *(&v87 - 4) = v15;
+        *(&v87 - 3) = v14;
+        v60 = v93;
+        *(&v87 - 2) = v93;
+        *(&v87 - 1) = v41;
+        v61 = v102;
+        v62 = sub_1ADE6B938(sub_1ADFFA830);
+        if (v61)
+        {
+        }
+
+        else
+        {
+          v77 = v62;
+          swift_beginAccess();
+          v78 = *(*(v31 + 24) + 16);
+          if ((~v78 & 0xF000000000000007) != 0 && ((v78 >> 59) & 0x1E | (v78 >> 2) & 1) == 0xB)
+          {
+            v79 = *((v78 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v79 = swift_initStaticObject();
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v79 = sub_1ADDE5178(v79);
+          }
+
+          swift_beginAccess();
+          *(v79 + 24) = v77;
+
+          sub_1AE1B7530(v79);
+          swift_endAccess();
+        }
+
+        (*(v94 + 8))(v60, v39);
+      }
+
+      else
+      {
+        v48 = *v23;
+        v49 = v23[1];
+        swift_beginAccess();
+        v50 = *(*(v31 + 24) + 16);
+        v51 = v89;
+        if ((~v50 & 0xF000000000000007) != 0 && ((v50 >> 59) & 0x1E | (v50 >> 2) & 1) == 0xB)
+        {
+          v52 = *((v50 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          v52 = swift_initStaticObject();
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          v52 = sub_1ADDE5178(v52);
+        }
+
+        swift_beginAccess();
+        *(v52 + 16) = v48;
+        sub_1AE1B7530(v52);
+        swift_endAccess();
+        v69 = *(v51 + 112);
+        v68 = *(v51 + 120);
+        *(v51 + 112) = 0;
+        *(v51 + 120) = 0;
+        v70 = v102;
+        v71 = (*(*v49 + 152))(v51);
+        if (v70)
+        {
+        }
+
+        else
+        {
+          v83 = sub_1ADE71C08(v71, v72, v73);
+          swift_beginAccess();
+          v84 = *(v83 + 24);
+          *(v51 + 112) = v69;
+
+          *(v51 + 120) = v68;
+
+          swift_beginAccess();
+          v85 = *(*(v31 + 24) + 16);
+          if ((~v85 & 0xF000000000000007) != 0 && ((v85 >> 59) & 0x1E | (v85 >> 2) & 1) == 0xB)
+          {
+            v86 = *((v85 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v86 = swift_initStaticObject();
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v86 = sub_1ADDE5178(v86);
+          }
+
+          swift_beginAccess();
+          *(v86 + 24) = v84;
+
+          sub_1AE1B7530(v86);
+          swift_endAccess();
+        }
+      }
+    }
+
+    else
+    {
+      v33 = v31;
+      if (EnumCaseMultiPayload)
+      {
+        v43 = v92;
+        v44 = v23;
+        v45 = v5;
+        (*(v92 + 32))(v30, v44, v5);
+        swift_beginAccess();
+        v46 = *(*(v31 + 24) + 16);
+        if ((~v46 & 0xF000000000000007) != 0 && ((v46 >> 59) & 0x1E | (v46 >> 2) & 1) == 0xB)
+        {
+          v47 = *((v46 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          v47 = swift_initStaticObject();
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          v47 = sub_1ADDE5178(v47);
+        }
+
+        swift_beginAccess();
+        *(v47 + 16) = 1;
+        sub_1AE1B7530(v47);
+        v63 = swift_endAccess();
+        MEMORY[0x1EEE9AC00](v63);
+        v64 = v95;
+        *(&v87 - 4) = v96;
+        *(&v87 - 3) = v64;
+        *(&v87 - 4) = v15;
+        *(&v87 - 3) = v14;
+        v65 = v89;
+        *(&v87 - 2) = v30;
+        *(&v87 - 1) = v65;
+        v66 = v102;
+        v67 = sub_1ADE6B938(sub_1ADFB0048);
+        if (v66)
+        {
+        }
+
+        else
+        {
+          v80 = v67;
+          swift_beginAccess();
+          v81 = *(*(v33 + 24) + 16);
+          if ((~v81 & 0xF000000000000007) != 0 && ((v81 >> 59) & 0x1E | (v81 >> 2) & 1) == 0xB)
+          {
+            v82 = *((v81 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v82 = swift_initStaticObject();
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v82 = sub_1ADDE5178(v82);
+          }
+
+          swift_beginAccess();
+          *(v82 + 24) = v80;
+
+          sub_1AE1B7530(v82);
+          swift_endAccess();
+        }
+
+        (*(v43 + 8))(v30, v45);
+      }
+
+      else
+      {
+        v34 = v91;
+        v35 = v23;
+        v36 = v88;
+        (*(v91 + 32))(v12, v35, v88);
+        swift_beginAccess();
+        v37 = *(*(v31 + 24) + 16);
+        if ((~v37 & 0xF000000000000007) != 0 && ((v37 >> 59) & 0x1E | (v37 >> 2) & 1) == 0xB)
+        {
+          v38 = *((v37 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          v38 = swift_initStaticObject();
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          v38 = sub_1ADDE5178(v38);
+        }
+
+        swift_beginAccess();
+        *(v38 + 16) = 0;
+        sub_1AE1B7530(v38);
+        v53 = swift_endAccess();
+        MEMORY[0x1EEE9AC00](v53);
+        v54 = v95;
+        *(&v87 - 4) = v96;
+        *(&v87 - 3) = v54;
+        *(&v87 - 4) = v15;
+        *(&v87 - 3) = v14;
+        v55 = v89;
+        *(&v87 - 2) = v12;
+        *(&v87 - 1) = v55;
+        v56 = v102;
+        v57 = sub_1ADE6B938(sub_1ADFFA878);
+        if (v56)
+        {
+        }
+
+        else
+        {
+          v74 = v57;
+          swift_beginAccess();
+          v75 = *(*(v33 + 24) + 16);
+          if ((~v75 & 0xF000000000000007) != 0 && ((v75 >> 59) & 0x1E | (v75 >> 2) & 1) == 0xB)
+          {
+            v76 = *((v75 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v76 = swift_initStaticObject();
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v76 = sub_1ADDE5178(v76);
+          }
+
+          swift_beginAccess();
+          *(v76 + 24) = v74;
+
+          sub_1AE1B7530(v76);
+          swift_endAccess();
+        }
+
+        (*(v34 + 8))(v12, v36);
+      }
+    }
+  }
+
+  return result;
+}
+
+double TaggedValue_3<>.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v35 = a5;
+  v32 = a3;
+  v37 = a1;
+  v5 = *(a2 + 32);
+  v33 = *(v5 - 8);
+  v34 = a4;
+  MEMORY[0x1EEE9AC00](a1);
+  v7 = &v30 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = *(v8 + 24);
+  v31 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v30 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = *(v13 + 16);
+  v15 = *(v14 - 8);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v30 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = *(v19 + 56);
+  v39[0] = v14;
+  v39[1] = v9;
+  v39[2] = v5;
+  v40 = *(v19 + 40);
+  v41 = v20;
+  v21 = type metadata accessor for TaggedValue_3.TaggedEnum(0, v39);
+  v22 = MEMORY[0x1EEE9AC00](v21);
+  v24 = &v30 - v23;
+  (*(v25 + 16))(&v30 - v23, v36, v21, v22);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload > 1)
+  {
+    if (EnumCaseMultiPayload == 2)
+    {
+      v28 = v33;
+      (*(v33 + 32))(v7, v24, v5);
+      sub_1AE23CBAC();
+      (*(v28 + 8))(v7, v5);
+    }
+
+    else
+    {
+      (*(**(v24 + 1) + 80))(v38);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BBE40, &qword_1AE24FCF0);
+      swift_dynamicCast();
+      __swift_project_boxed_opaque_existential_1(v39, v40);
+      sub_1AE23CBAC();
+      __swift_destroy_boxed_opaque_existential_1(v39);
     }
   }
 
   else if (EnumCaseMultiPayload)
   {
-    v87 = v104;
-    v88 = v118;
-    (*(v104 + 32))(v41, v72, v118);
-    (*(*(v130 + 8) + 24))(v131, v88);
-    (*(v87 + 8))(v41, v88);
-    return TaggedValue_7.init(_:)(v38, v88, v132);
+    v29 = v31;
+    (*(v31 + 32))(v12, v24, v9);
+    sub_1AE23CBAC();
+    (*(v29 + 8))(v12, v9);
   }
 
   else
   {
-    v75 = v103;
-    (*(v103 + 32))(v50, v72, v43);
-    (*(*(v117 + 8) + 24))(v131, v43);
-    (*(v75 + 8))(v50, v43);
-    return TaggedValue_7.init(_:)(v47, v43, v132);
+    (*(v15 + 32))(v18, v24, v14);
+    sub_1AE23CBAC();
+    (*(v15 + 8))(v18, v14);
   }
+
+  return result;
 }
 
-uint64_t TaggedValue_7.observableDifference(from:with:)@<X0>(char *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, char *a4@<X8>)
+void TaggedValue_4.init(from:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10)
 {
-  v333 = a2;
-  v347 = a1;
-  v344 = a4;
-  v349 = a3[15];
-  v5 = a3[8];
-  v314 = *(v349 + 8);
-  v6 = v5;
-  v346 = v5;
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v274 = sub_1AE23D7CC();
-  v273 = *(v274 - 8);
-  v8 = *(v273 + 64);
-  MEMORY[0x1EEE9AC00](v274);
-  v315 = &v254 - v9;
-  v316 = AssociatedTypeWitness;
-  v313 = *(AssociatedTypeWitness - 8);
-  v10 = *(v313 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v272 = &v254 - v12;
-  v332 = *(v6 - 8);
-  v13 = *(v332 + 64);
+  v101[0] = a2;
+  v101[1] = a3;
+  v96 = a3;
+  v97 = a5;
+  v101[2] = a4;
+  v101[3] = a5;
+  v93 = a6;
+  v101[4] = a6;
+  v101[5] = a7;
+  v94 = a8;
+  v95 = a7;
+  v101[6] = a8;
+  v101[7] = a10;
+  v92 = a10;
+  v14 = type metadata accessor for TaggedValue_4.TaggedEnum(0, v101);
   MEMORY[0x1EEE9AC00](v14);
-  v311 = &v254 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v310 = &v254 - v17;
-  v348 = a3[14];
-  v18 = a3[7];
-  v307 = *(v348 + 8);
-  v19 = v18;
-  v345 = v18;
-  v20 = swift_getAssociatedTypeWitness();
-  v271 = sub_1AE23D7CC();
-  v270 = *(v271 - 8);
-  v21 = *(v270 + 64);
-  MEMORY[0x1EEE9AC00](v271);
-  v309 = &v254 - v22;
-  v312 = v20;
-  v308 = *(v20 - 8);
-  v23 = *(v308 + 64);
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v88 - v16;
+  MEMORY[0x1EEE9AC00](v18);
+  v20 = (&v88 - v19);
+  MEMORY[0x1EEE9AC00](v21);
+  v23 = &v88 - v22;
   MEMORY[0x1EEE9AC00](v24);
-  v269 = &v254 - v25;
-  v331 = *(v19 - 8);
-  v26 = *(v331 + 64);
-  MEMORY[0x1EEE9AC00](v27);
-  v305 = &v254 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v29);
-  v304 = &v254 - v30;
-  v31 = a3[6];
-  *&v343 = a3[13];
-  v301 = *(v343 + 8);
-  v32 = swift_getAssociatedTypeWitness();
-  v268 = sub_1AE23D7CC();
-  v267 = *(v268 - 8);
-  v33 = *(v267 + 64);
-  MEMORY[0x1EEE9AC00](v268);
-  v303 = &v254 - v34;
-  v306 = v32;
-  v302 = *(v32 - 8);
-  v35 = *(v302 + 64);
-  MEMORY[0x1EEE9AC00](v36);
-  v266 = &v254 - v37;
-  v329 = *(v31 - 8);
-  v38 = *(v329 + 64);
-  MEMORY[0x1EEE9AC00](v39);
-  v299 = &v254 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v41);
-  v298 = &v254 - v42;
-  *&v342 = a3[12];
-  v43 = a3[5];
-  v295 = *(v342 + 8);
-  v44 = swift_getAssociatedTypeWitness();
-  v265 = sub_1AE23D7CC();
-  v264 = *(v265 - 8);
-  v45 = *(v264 + 64);
-  MEMORY[0x1EEE9AC00](v265);
-  v297 = &v254 - v46;
-  v300 = v44;
-  v296 = *(v44 - 8);
-  v47 = *(v296 + 64);
-  MEMORY[0x1EEE9AC00](v48);
-  v263 = &v254 - v49;
-  v327 = *(v43 - 8);
-  v50 = v327[8];
-  MEMORY[0x1EEE9AC00](v51);
-  v293 = &v254 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v53);
-  v292 = &v254 - v54;
-  v55 = a3[11];
-  v56 = a3[4];
-  v289 = *(v55 + 8);
-  v57 = swift_getAssociatedTypeWitness();
-  v262 = sub_1AE23D7CC();
-  v261 = *(v262 - 8);
-  v58 = *(v261 + 64);
-  MEMORY[0x1EEE9AC00](v262);
-  v291 = &v254 - v59;
-  v294 = v57;
-  v290 = *(v57 - 8);
-  v60 = *(v290 + 64);
-  MEMORY[0x1EEE9AC00](v61);
-  v260 = &v254 - v62;
-  v325 = *(v56 - 8);
-  v63 = v325[8];
-  MEMORY[0x1EEE9AC00](v64);
-  v287 = &v254 - ((v65 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v66);
-  v286 = &v254 - v67;
-  v68 = a3[10];
-  v69 = a3[3];
-  v283 = *(v68 + 8);
-  v70 = swift_getAssociatedTypeWitness();
-  v259 = sub_1AE23D7CC();
-  v258 = *(v259 - 8);
-  v71 = *(v258 + 64);
-  MEMORY[0x1EEE9AC00](v259);
-  v285 = &v254 - v72;
-  v288 = v70;
-  v284 = *(v70 - 8);
-  v73 = *(v284 + 64);
-  MEMORY[0x1EEE9AC00](v74);
-  v257 = &v254 - v75;
-  v323 = *(v69 - 8);
-  v76 = v323[8];
-  MEMORY[0x1EEE9AC00](v77);
-  v282 = &v254 - ((v78 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v79);
-  v281 = &v254 - v80;
-  v81 = a3[9];
-  v82 = a3[2];
-  v277 = *(v81 + 8);
-  v83 = swift_getAssociatedTypeWitness();
-  v256 = sub_1AE23D7CC();
-  v255 = *(v256 - 8);
-  v84 = *(v255 + 64);
-  MEMORY[0x1EEE9AC00](v256);
-  v279 = &v254 - v85;
-  v280 = v83;
-  v278 = *(v83 - 8);
-  v86 = *(v278 + 64);
-  MEMORY[0x1EEE9AC00](v87);
-  v254 = &v254 - v88;
-  v321 = *(v82 - 8);
-  v89 = v321[8];
-  MEMORY[0x1EEE9AC00](v90);
-  v276 = &v254 - ((v91 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v92);
-  v275 = &v254 - v93;
-  v322 = v82;
-  *&v94 = v82;
-  v324 = v69;
-  *(&v94 + 1) = v69;
-  v326 = v56;
-  *&v95 = v56;
-  v328 = v43;
-  *(&v95 + 1) = v43;
-  v338 = v95;
-  v351 = v95;
-  v339 = v94;
-  v350 = v94;
-  v330 = v31;
-  *&v94 = v31;
-  *(&v94 + 1) = v345;
-  *&v95 = v346;
-  *(&v95 + 1) = v81;
-  v340 = v95;
-  v353 = v95;
-  v341 = v94;
-  v352 = v94;
-  *&v94 = v68;
-  *(&v94 + 1) = v55;
-  *&v95 = v342;
-  *(&v95 + 1) = v343;
-  v342 = v95;
-  v355 = v95;
-  v343 = v94;
-  v354 = v94;
-  v356 = v348;
-  v357 = v349;
-  v96 = type metadata accessor for TaggedValue_7.TaggedEnum();
-  v97 = *(v96 - 8);
-  v98 = *(v97 + 64);
-  MEMORY[0x1EEE9AC00](v96);
-  v318 = &v254 - ((v99 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v100);
-  v320 = &v254 - v101;
-  MEMORY[0x1EEE9AC00](v102);
-  v319 = &v254 - v103;
-  MEMORY[0x1EEE9AC00](v104);
-  v317 = &v254 - v105;
-  MEMORY[0x1EEE9AC00](v106);
-  v108 = &v254 - v107;
-  MEMORY[0x1EEE9AC00](v109);
-  v111 = &v254 - v110;
-  MEMORY[0x1EEE9AC00](v112);
-  v114 = &v254 - v113;
-  MEMORY[0x1EEE9AC00](v115);
-  v117 = &v254 - v116;
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v336 = *(TupleTypeMetadata2 - 8);
-  v119 = *(v336 + 64);
-  v120 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v122 = &v254 - v121;
-  v335 = v123;
-  v124 = &v254 + *(v123 + 48) - v121;
-  v334 = v97;
-  v125 = *(v97 + 16);
-  v125(&v254 - v121, v337, v96, v120);
-  v126 = v124;
-  (v125)(v124, v347, v96);
-  v347 = v122;
-  v127 = v96;
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 3)
+  v31 = &v88 - v30;
+  v32 = *(a1 + 72);
+  if (!v32)
   {
-    if (EnumCaseMultiPayload > 5)
+    sub_1ADE42E40(v25, v26, v27);
+    swift_allocError();
+    *v43 = 0xD000000000000017;
+    *(v43 + 8) = 0x80000001AE25FB70;
+    *(v43 + 16) = 0;
+    swift_willThrow();
+
+    return;
+  }
+
+  v89 = v29;
+  v90 = v28;
+  v91 = v25;
+  type metadata accessor for CRDecoder.CRValueContainer();
+  inited = swift_initStackObject();
+  v98 = a9;
+  v99 = a1;
+  *(inited + 16) = a1;
+  v34 = *(v32 + 16);
+  if ((~v34 & 0xF000000000000007) != 0 && ((v34 >> 59) & 0x1E | (v34 >> 2) & 1) == 0xB)
+  {
+    v35 = *((v34 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+  }
+
+  else
+  {
+    v35 = &unk_1EB5B9140;
+  }
+
+  swift_beginAccess();
+  v36 = v35[2];
+  if (v36 > 1)
+  {
+    if (v36 == 2)
     {
-      v160 = v124;
-      if (EnumCaseMultiPayload != 6)
+      v59 = *(v32 + 16);
+      if ((~v59 & 0xF000000000000007) != 0)
       {
-        v208 = v318;
-        v129 = v347;
-        (v125)(v318, v347, v127);
-        v209 = v127;
-        v210 = v208[1];
-        v175 = v209;
-        if (swift_getEnumCaseMultiPayload() != 7)
+        v61 = v98;
+        v62 = v99;
+        v63 = v100;
+        if (((v59 >> 59) & 0x1E | (v59 >> 2) & 1) == 0xB)
         {
-
-          goto LABEL_39;
-        }
-
-        v211 = *v208;
-        v213 = *v126;
-        v212 = *(v126 + 1);
-
-        if (v211 == v213)
-        {
-          v350 = v339;
-          v351 = v338;
-          v352 = v341;
-          v353 = v340;
-          v354 = v343;
-          v355 = v342;
-LABEL_44:
-          v356 = v348;
-          v357 = v349;
-          v228 = type metadata accessor for TaggedValue_7.ObservableDifference();
-          (*(*(v228 - 8) + 56))(v344, 1, 1, v228);
-LABEL_59:
-          v217 = v334;
-          v216 = v175;
-          return (*(v217 + 8))(v129, v216);
-        }
-
-        v350 = v339;
-        v351 = v338;
-        v352 = v341;
-        v353 = v340;
-        v354 = v343;
-        v355 = v342;
-        v356 = v348;
-        v357 = v349;
-        v244 = type metadata accessor for TaggedValue_7.ObservableDifference();
-        v243 = v344;
-        goto LABEL_58;
-      }
-
-      v161 = v320;
-      v129 = v347;
-      (v125)(v320, v347, v127);
-      if (swift_getEnumCaseMultiPayload() == 6)
-      {
-        v162 = v129;
-        v163 = v127;
-        v164 = v332;
-        v165 = *(v332 + 32);
-        v166 = v310;
-        v167 = v160;
-        v168 = v346;
-        v165(v310, v161, v346);
-        v169 = v311;
-        v165(v311, v167, v168);
-        v170 = v315;
-        (*(v314 + 40))(v169, v333, v168);
-        v171 = *(v164 + 8);
-        v171(v169, v168);
-        v171(v166, v168);
-        v172 = v313;
-        v173 = v316;
-        if ((*(v313 + 48))(v170, 1, v316) == 1)
-        {
-          (*(v273 + 8))(v170, v274);
-          v351 = v338;
-          v350 = v339;
-          v353 = v340;
-          v352 = v341;
-          v355 = v342;
-          v354 = v343;
-          v356 = v348;
-          v357 = v349;
-          v174 = type metadata accessor for TaggedValue_7.ObservableDifference();
-          (*(*(v174 - 8) + 56))(v344, 1, 1, v174);
+          v60 = *((v59 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
         }
 
         else
         {
-          v237 = *(v172 + 32);
-          v238 = v272;
-          v237(v272, v170, v173);
-          v239 = v344;
-          v237(v344, v238, v173);
-          v351 = v338;
-          v350 = v339;
-          v353 = v340;
-          v352 = v341;
-          v355 = v342;
-          v354 = v343;
-          v356 = v348;
-          v357 = v349;
-          v240 = type metadata accessor for TaggedValue_7.ObservableDifference();
-          swift_storeEnumTagMultiPayload();
-          (*(*(v240 - 8) + 56))(v239, 0, 1, v240);
+          v60 = &unk_1EB5B9140;
         }
-
-        v217 = v334;
-        v216 = v163;
-        v129 = v162;
-        return (*(v217 + 8))(v129, v216);
       }
 
-      (*(v332 + 8))(v161, v346);
+      else
+      {
+        v60 = &unk_1EB5B9140;
+        v61 = v98;
+        v62 = v99;
+        v63 = v100;
+      }
+
+      swift_beginAccess();
+      v85 = v60[3];
+      if (v85)
+      {
+        v86 = v85;
+      }
+
+      else
+      {
+        type metadata accessor for Proto_Value._StorageClass();
+        v86 = swift_initStaticObject();
+      }
+
+      type metadata accessor for CRDecoder();
+      swift_allocObject();
+
+      v87 = sub_1ADE0262C(v86, v62);
+      (*(*(*(v94 + 8) + 8) + 8))(v87, a4);
+      if (!v63)
+      {
+
+        v68 = v91;
+        swift_storeEnumTagMultiPayload();
+        v69 = *(v90 + 32);
+        v70 = v61;
+LABEL_65:
+        v69(v70, v20, v68);
+        return;
+      }
     }
 
     else
     {
-      v133 = v124;
-      if (EnumCaseMultiPayload == 4)
+      if (v36 != 3)
       {
-        v134 = v317;
-        (v125)(v317, v347, v127);
-        if (swift_getEnumCaseMultiPayload() == 4)
+LABEL_16:
+        v50 = *(v32 + 16);
+        if ((~v50 & 0xF000000000000007) != 0)
         {
-          v135 = v127;
-          v136 = v329;
-          v137 = *(v329 + 32);
-          v138 = v298;
-          v139 = v134;
-          v140 = v330;
-          v137(v298, v139, v330);
-          v141 = v299;
-          v137(v299, v124, v140);
-          v142 = v303;
-          (*(v301 + 40))(v141, v333, v140);
-          v143 = *(v136 + 8);
-          v143(v141, v140);
-          v143(v138, v140);
-          v144 = v302;
-          v145 = v306;
-          if ((*(v302 + 48))(v142, 1, v306) == 1)
+          v52 = v99;
+          v53 = v100;
+          if (((v50 >> 59) & 0x1E | (v50 >> 2) & 1) == 0xB)
           {
-            (*(v267 + 8))(v142, v268);
-            v351 = v338;
-            v350 = v339;
-            v353 = v340;
-            v352 = v341;
-            v355 = v342;
-            v354 = v343;
-            v356 = v348;
-            v357 = v349;
-            v146 = type metadata accessor for TaggedValue_7.ObservableDifference();
-            (*(*(v146 - 8) + 56))(v344, 1, 1, v146);
+            v51 = *((v50 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
           }
 
           else
           {
-            v229 = *(v144 + 32);
-            v230 = v266;
-            v229(v266, v142, v145);
-            v231 = v344;
-            v229(v344, v230, v145);
-            v351 = v338;
-            v350 = v339;
-            v353 = v340;
-            v352 = v341;
-            v355 = v342;
-            v354 = v343;
-            v356 = v348;
-            v357 = v349;
-            v232 = type metadata accessor for TaggedValue_7.ObservableDifference();
-            swift_storeEnumTagMultiPayload();
-            (*(*(v232 - 8) + 56))(v231, 0, 1, v232);
+            v51 = &unk_1EB5B9140;
           }
-
-          v217 = v334;
-          v129 = v347;
-          v216 = v135;
-          return (*(v217 + 8))(v129, v216);
-        }
-
-        (*(v329 + 8))(v134, v330);
-        v129 = v347;
-      }
-
-      else
-      {
-        v187 = v319;
-        v129 = v347;
-        (v125)(v319, v347, v127);
-        if (swift_getEnumCaseMultiPayload() == 5)
-        {
-          v188 = v127;
-          v189 = v331;
-          v190 = *(v331 + 32);
-          v191 = v304;
-          v192 = v345;
-          v190(v304, v187, v345);
-          v193 = v305;
-          v190(v305, v133, v192);
-          v194 = v309;
-          (*(v307 + 40))(v193, v333, v192);
-          v195 = *(v189 + 8);
-          v195(v193, v192);
-          v195(v191, v192);
-          v196 = v308;
-          v197 = v312;
-          if ((*(v308 + 48))(v194, 1, v312) == 1)
-          {
-            (*(v270 + 8))(v194, v271);
-LABEL_28:
-            v351 = v338;
-            v350 = v339;
-            v353 = v340;
-            v352 = v341;
-            v355 = v342;
-            v354 = v343;
-            v356 = v348;
-            v357 = v349;
-            v207 = type metadata accessor for TaggedValue_7.ObservableDifference();
-            (*(*(v207 - 8) + 56))(v344, 1, 1, v207);
-LABEL_55:
-            v217 = v334;
-            v216 = v188;
-            return (*(v217 + 8))(v129, v216);
-          }
-
-          v245 = *(v196 + 32);
-          v246 = v269;
-          v245(v269, v194, v197);
-          v247 = v344;
-          v245(v344, v246, v197);
-          v351 = v338;
-          v350 = v339;
-          v353 = v340;
-          v352 = v341;
-          v355 = v342;
-          v354 = v343;
-          v356 = v348;
-          v357 = v349;
-          v248 = type metadata accessor for TaggedValue_7.ObservableDifference();
-LABEL_54:
-          swift_storeEnumTagMultiPayload();
-          (*(*(v248 - 8) + 56))(v247, 0, 1, v248);
-          goto LABEL_55;
-        }
-
-        (*(v331 + 8))(v187, v345);
-      }
-    }
-
-LABEL_39:
-    v350 = v339;
-    v351 = v338;
-    v352 = v341;
-    v353 = v340;
-    v354 = v343;
-    v355 = v342;
-    v356 = v348;
-    v357 = v349;
-    v214 = type metadata accessor for TaggedValue_7.ObservableDifference();
-    v215 = v344;
-    swift_storeEnumTagMultiPayload();
-    (*(*(v214 - 8) + 56))(v215, 0, 1, v214);
-    v216 = v335;
-    v217 = v336;
-    return (*(v217 + 8))(v129, v216);
-  }
-
-  if (EnumCaseMultiPayload <= 1)
-  {
-    v129 = v347;
-    if (EnumCaseMultiPayload)
-    {
-      (v125)(v114, v347, v96);
-      if (swift_getEnumCaseMultiPayload() != 1)
-      {
-        v130 = v323[1];
-        v131 = v114;
-        v132 = &v349;
-        goto LABEL_38;
-      }
-
-      v175 = v96;
-      v176 = v323;
-      v177 = v323[4];
-      v178 = v281;
-      v179 = v114;
-      v180 = v126;
-      v181 = v324;
-      v177(v281, v179, v324);
-      v182 = v282;
-      v177(v282, v180, v181);
-      v183 = v285;
-      (*(v283 + 40))(v182, v333, v181);
-      v184 = v176[1];
-      v184(v182, v181);
-      v184(v178, v181);
-      v185 = v284;
-      v186 = v288;
-      if ((*(v284 + 48))(v183, 1, v288) == 1)
-      {
-        (*(v258 + 8))(v183, v259);
-LABEL_43:
-        v351 = v338;
-        v350 = v339;
-        v353 = v340;
-        v352 = v341;
-        v355 = v342;
-        v354 = v343;
-        goto LABEL_44;
-      }
-
-      v241 = *(v185 + 32);
-      v242 = v257;
-      v241(v257, v183, v186);
-      v243 = v344;
-      v241(v344, v242, v186);
-      v351 = v338;
-      v350 = v339;
-      v353 = v340;
-      v352 = v341;
-      v355 = v342;
-      v354 = v343;
-      v356 = v348;
-      v357 = v349;
-      v244 = type metadata accessor for TaggedValue_7.ObservableDifference();
-    }
-
-    else
-    {
-      (v125)(v117, v347, v96);
-      if (swift_getEnumCaseMultiPayload())
-      {
-        v130 = v321[1];
-        v131 = v117;
-        v132 = &v347;
-LABEL_38:
-        v130(v131, *(v132 - 32));
-        goto LABEL_39;
-      }
-
-      v175 = v96;
-      v218 = v321;
-      v219 = v321[4];
-      v220 = v275;
-      v221 = v117;
-      v222 = v322;
-      v219(v275, v221, v322);
-      v223 = v276;
-      v219(v276, v126, v222);
-      v224 = v279;
-      (*(v277 + 40))(v223, v333, v222);
-      v225 = v218[1];
-      v225(v223, v222);
-      v225(v220, v222);
-      v226 = v278;
-      v227 = v280;
-      if ((*(v278 + 48))(v224, 1, v280) == 1)
-      {
-        (*(v255 + 8))(v224, v256);
-        goto LABEL_43;
-      }
-
-      v251 = *(v226 + 32);
-      v252 = v254;
-      v251(v254, v224, v227);
-      v243 = v344;
-      v251(v344, v252, v227);
-      v351 = v338;
-      v350 = v339;
-      v353 = v340;
-      v352 = v341;
-      v355 = v342;
-      v354 = v343;
-      v356 = v348;
-      v357 = v349;
-      v244 = type metadata accessor for TaggedValue_7.ObservableDifference();
-    }
-
-LABEL_58:
-    swift_storeEnumTagMultiPayload();
-    (*(*(v244 - 8) + 56))(v243, 0, 1, v244);
-    goto LABEL_59;
-  }
-
-  v129 = v347;
-  v147 = v126;
-  if (EnumCaseMultiPayload != 2)
-  {
-    (v125)(v108, v347, v127);
-    if (swift_getEnumCaseMultiPayload() != 3)
-    {
-      v130 = v327[1];
-      v131 = v108;
-      v132 = &v351 + 1;
-      goto LABEL_38;
-    }
-
-    v188 = v127;
-    v198 = v327;
-    v199 = v327[4];
-    v200 = v292;
-    v201 = v328;
-    v199(v292, v108, v328);
-    v202 = v293;
-    v199(v293, v126, v201);
-    v203 = v297;
-    (*(v295 + 40))(v202, v333, v201);
-    v204 = v198[1];
-    v204(v202, v201);
-    v204(v200, v201);
-    v205 = v296;
-    v206 = v300;
-    if ((*(v296 + 48))(v203, 1, v300) == 1)
-    {
-      (*(v264 + 8))(v203, v265);
-      goto LABEL_28;
-    }
-
-    v249 = *(v205 + 32);
-    v250 = v263;
-    v249(v263, v203, v206);
-    v247 = v344;
-    v249(v344, v250, v206);
-    v351 = v338;
-    v350 = v339;
-    v353 = v340;
-    v352 = v341;
-    v355 = v342;
-    v354 = v343;
-    v356 = v348;
-    v357 = v349;
-    v248 = type metadata accessor for TaggedValue_7.ObservableDifference();
-    goto LABEL_54;
-  }
-
-  (v125)(v111, v347, v127);
-  if (swift_getEnumCaseMultiPayload() != 2)
-  {
-    v130 = v325[1];
-    v131 = v111;
-    v132 = &v350 + 1;
-    goto LABEL_38;
-  }
-
-  v148 = v129;
-  v149 = v127;
-  v150 = v325;
-  v151 = v325[4];
-  v152 = v286;
-  v153 = v326;
-  v151(v286, v111, v326);
-  v154 = v287;
-  v151(v287, v147, v153);
-  v155 = v291;
-  (*(v289 + 40))(v154, v333, v153);
-  v156 = v150[1];
-  v156(v154, v153);
-  v156(v152, v153);
-  v157 = v290;
-  v158 = v294;
-  if ((*(v290 + 48))(v155, 1, v294) == 1)
-  {
-    (*(v261 + 8))(v155, v262);
-    v351 = v338;
-    v350 = v339;
-    v353 = v340;
-    v352 = v341;
-    v355 = v342;
-    v354 = v343;
-    v356 = v348;
-    v357 = v349;
-    v159 = type metadata accessor for TaggedValue_7.ObservableDifference();
-    (*(*(v159 - 8) + 56))(v344, 1, 1, v159);
-  }
-
-  else
-  {
-    v233 = *(v157 + 32);
-    v234 = v260;
-    v233(v260, v155, v158);
-    v235 = v344;
-    v233(v344, v234, v158);
-    v351 = v338;
-    v350 = v339;
-    v353 = v340;
-    v352 = v341;
-    v355 = v342;
-    v354 = v343;
-    v356 = v348;
-    v357 = v349;
-    v236 = type metadata accessor for TaggedValue_7.ObservableDifference();
-    swift_storeEnumTagMultiPayload();
-    (*(*(v236 - 8) + 56))(v235, 0, 1, v236);
-  }
-
-  v217 = v334;
-  v216 = v149;
-  v129 = v148;
-  return (*(v217 + 8))(v129, v216);
-}
-
-BOOL TaggedValue_8.ObservableDifference.isIdentityChanged.getter(uint64_t a1)
-{
-  v2 = *(a1 - 8);
-  v3 = *(v2 + 64);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v2 + 16))(v6, v4);
-  v7 = swift_getEnumCaseMultiPayload() == 9;
-  (*(v2 + 8))(v6, a1);
-  return v7;
-}
-
-uint64_t TaggedValue_8.taggedEnum.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v6 = a1[1];
-  v7 = a1[2];
-  v8 = a1[3];
-  v9 = a1[4];
-  v10 = a1[5];
-  v11 = a1[6];
-  v12 = a1[7];
-  v13 = a1[8];
-  v4 = type metadata accessor for TaggedValue_8.TaggedEnum();
-  return (*(*(v4 - 8) + 16))(a2, v2, v4);
-}
-
-uint64_t TaggedValue_8.taggedEnum.setter(uint64_t a1, _OWORD *a2)
-{
-  v6 = a2[1];
-  v7 = a2[2];
-  v8 = a2[3];
-  v9 = a2[4];
-  v10 = a2[5];
-  v11 = a2[6];
-  v12 = a2[7];
-  v13 = a2[8];
-  v4 = type metadata accessor for TaggedValue_8.TaggedEnum();
-  return (*(*(v4 - 8) + 40))(v2, a1, v4);
-}
-
-uint64_t TaggedValue_8.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_8.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_8.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1);
-  type metadata accessor for TaggedValue_8.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_8.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X3>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_8.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_8.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X4>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_8.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_8.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X5>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_8.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_8.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X6>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_8.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_8.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X7>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_8.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_8.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>, uint64_t a3)
-{
-  (*(*(a3 - 8) + 32))(a2, a1, a3);
-  type metadata accessor for TaggedValue_8.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_8.init(tag:_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
-{
-  v3 = *a2;
-  *a3 = a1;
-  a3[1] = v3;
-  type metadata accessor for TaggedValue_8.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_8.tagged1.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v22[0] = a1[1];
-  v22[1] = v22[0];
-  v6 = a1[3];
-  v7 = a1[4];
-  v22[2] = v5;
-  v22[3] = v6;
-  v8 = a1[5];
-  v9 = a1[6];
-  v22[4] = v7;
-  v22[5] = v8;
-  v10 = a1[7];
-  v11 = a1[8];
-  v22[6] = v9;
-  v22[7] = v10;
-  v22[8] = v11;
-  v12 = type metadata accessor for TaggedValue_8.TaggedEnum();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  v15 = MEMORY[0x1EEE9AC00](v12);
-  v17 = v22 - v16;
-  (*(v13 + 16))(v22 - v16, v3, v12, v15);
-  if (swift_getEnumCaseMultiPayload())
-  {
-    (*(v13 + 8))(v17, v12);
-    v18 = *&v22[0];
-    v19 = *(*&v22[0] - 8);
-    v20 = 1;
-  }
-
-  else
-  {
-    v19 = *(*&v22[0] - 8);
-    (*(v19 + 32))(a2, v17);
-    v18 = *&v22[0];
-    v20 = 0;
-  }
-
-  return (*(v19 + 56))(a2, v20, 1, v18);
-}
-
-uint64_t TaggedValue_8.tagged2.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 136);
-  v16 = *(a1 + 16);
-  v15 = *(a1 + 24);
-  v17 = v15;
-  v18 = *(a1 + 40);
-  v19 = *(a1 + 56);
-  v20 = *(a1 + 72);
-  v21 = *(a1 + 88);
-  v22 = *(a1 + 104);
-  v23 = *(a1 + 120);
-  v24 = v5;
-  v6 = type metadata accessor for TaggedValue_8.TaggedEnum();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x1EEE9AC00](v6);
-  v11 = &v15 - v10;
-  (*(v7 + 16))(&v15 - v10, v3, v6, v9);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v12 = *(v15 - 8);
-    (*(v12 + 32))(a2, v11);
-    v13 = 0;
-  }
-
-  else
-  {
-    (*(v7 + 8))(v11, v6);
-    v12 = *(v15 - 8);
-    v13 = 1;
-  }
-
-  return (*(v12 + 56))(a2, v13, 1, v15);
-}
-
-uint64_t TaggedValue_8.tagged3.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[1];
-  v21[0] = a1[2];
-  v21[1] = v5;
-  v6 = a1[3];
-  v7 = a1[4];
-  v21[2] = v21[0];
-  v21[3] = v6;
-  v8 = a1[5];
-  v9 = a1[6];
-  v21[4] = v7;
-  v21[5] = v8;
-  v10 = a1[7];
-  v11 = a1[8];
-  v21[6] = v9;
-  v21[7] = v10;
-  v21[8] = v11;
-  v12 = type metadata accessor for TaggedValue_8.TaggedEnum();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  v15 = MEMORY[0x1EEE9AC00](v12);
-  v17 = v21 - v16;
-  (*(v13 + 16))(v21 - v16, v3, v12, v15);
-  if (swift_getEnumCaseMultiPayload() == 2)
-  {
-    v18 = *(*&v21[0] - 8);
-    (*(v18 + 32))(a2, v17);
-    v19 = 0;
-  }
-
-  else
-  {
-    (*(v13 + 8))(v17, v12);
-    v18 = *(*&v21[0] - 8);
-    v19 = 1;
-  }
-
-  return (*(v18 + 56))(a2, v19, 1, *&v21[0]);
-}
-
-uint64_t TaggedValue_8.tagged4.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 136);
-  v6 = *(a1 + 16);
-  v17 = *(a1 + 32);
-  v16[0] = *(a1 + 40);
-  v16[1] = v6;
-  v18 = v16[0];
-  v19 = *(a1 + 56);
-  v20 = *(a1 + 72);
-  v21 = *(a1 + 88);
-  v22 = *(a1 + 104);
-  v23 = *(a1 + 120);
-  v24 = v5;
-  v7 = type metadata accessor for TaggedValue_8.TaggedEnum();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x1EEE9AC00](v7);
-  v12 = v16 - v11;
-  (*(v8 + 16))(v16 - v11, v3, v7, v10);
-  if (swift_getEnumCaseMultiPayload() == 3)
-  {
-    v13 = *(*&v16[0] - 8);
-    (*(v13 + 32))(a2, v12);
-    v14 = 0;
-  }
-
-  else
-  {
-    (*(v8 + 8))(v12, v7);
-    v13 = *(*&v16[0] - 8);
-    v14 = 1;
-  }
-
-  return (*(v13 + 56))(a2, v14, 1, *&v16[0]);
-}
-
-uint64_t TaggedValue_8.tagged5.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v18[1] = a1[1];
-  v18[2] = v5;
-  v6 = a1[4];
-  v18[0] = a1[3];
-  v18[3] = v18[0];
-  v18[4] = v6;
-  v7 = a1[6];
-  v18[5] = a1[5];
-  v18[6] = v7;
-  v8 = a1[8];
-  v18[7] = a1[7];
-  v18[8] = v8;
-  v9 = type metadata accessor for TaggedValue_8.TaggedEnum();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v14 = v18 - v13;
-  (*(v10 + 16))(v18 - v13, v3, v9, v12);
-  if (swift_getEnumCaseMultiPayload() == 4)
-  {
-    v15 = *(*&v18[0] - 8);
-    (*(v15 + 32))(a2, v14);
-    v16 = 0;
-  }
-
-  else
-  {
-    (*(v10 + 8))(v14, v9);
-    v15 = *(*&v18[0] - 8);
-    v16 = 1;
-  }
-
-  return (*(v15 + 56))(a2, v16, 1, *&v18[0]);
-}
-
-uint64_t TaggedValue_8.tagged6.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 48);
-  v6 = *(a1 + 136);
-  v7 = *(a1 + 32);
-  v17[1] = *(a1 + 16);
-  v17[2] = v7;
-  v18 = v5;
-  v17[0] = *(a1 + 56);
-  v19 = v17[0];
-  v20 = *(a1 + 72);
-  v21 = *(a1 + 88);
-  v22 = *(a1 + 104);
-  v23 = *(a1 + 120);
-  v24 = v6;
-  v8 = type metadata accessor for TaggedValue_8.TaggedEnum();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = v17 - v12;
-  (*(v9 + 16))(v17 - v12, v3, v8, v11);
-  if (swift_getEnumCaseMultiPayload() == 5)
-  {
-    v14 = *(*&v17[0] - 8);
-    (*(v14 + 32))(a2, v13);
-    v15 = 0;
-  }
-
-  else
-  {
-    (*(v9 + 8))(v13, v8);
-    v14 = *(*&v17[0] - 8);
-    v15 = 1;
-  }
-
-  return (*(v14 + 56))(a2, v15, 1, *&v17[0]);
-}
-
-uint64_t TaggedValue_8.tagged7.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v18[1] = a1[1];
-  v18[2] = v5;
-  v6 = a1[4];
-  v18[3] = a1[3];
-  v18[4] = v6;
-  v18[0] = v6;
-  v7 = a1[6];
-  v18[5] = a1[5];
-  v18[6] = v7;
-  v8 = a1[8];
-  v18[7] = a1[7];
-  v18[8] = v8;
-  v9 = type metadata accessor for TaggedValue_8.TaggedEnum();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v14 = v18 - v13;
-  (*(v10 + 16))(v18 - v13, v3, v9, v12);
-  if (swift_getEnumCaseMultiPayload() == 6)
-  {
-    v15 = *(*&v18[0] - 8);
-    (*(v15 + 32))(a2, v14);
-    v16 = 0;
-  }
-
-  else
-  {
-    (*(v10 + 8))(v14, v9);
-    v15 = *(*&v18[0] - 8);
-    v16 = 1;
-  }
-
-  return (*(v15 + 56))(a2, v16, 1, *&v18[0]);
-}
-
-uint64_t TaggedValue_8.tagged8.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 64);
-  v6 = *(a1 + 136);
-  v7 = *(a1 + 32);
-  v17[1] = *(a1 + 16);
-  v17[2] = v7;
-  v17[3] = *(a1 + 48);
-  v18 = v5;
-  v17[0] = *(a1 + 72);
-  v19 = v17[0];
-  v20 = *(a1 + 88);
-  v21 = *(a1 + 104);
-  v22 = *(a1 + 120);
-  v23 = v6;
-  v8 = type metadata accessor for TaggedValue_8.TaggedEnum();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = v17 - v12;
-  (*(v9 + 16))(v17 - v12, v3, v8, v11);
-  if (swift_getEnumCaseMultiPayload() == 7)
-  {
-    v14 = *(*&v17[0] - 8);
-    (*(v14 + 32))(a2, v13);
-    v15 = 0;
-  }
-
-  else
-  {
-    (*(v9 + 8))(v13, v8);
-    v14 = *(*&v17[0] - 8);
-    v15 = 1;
-  }
-
-  return (*(v14 + 56))(a2, v15, 1, *&v17[0]);
-}
-
-uint64_t TaggedValue_8.unknown.getter@<X0>(_OWORD *a1@<X0>, void *a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v17[0] = a1[1];
-  v17[1] = v5;
-  v6 = a1[4];
-  v17[2] = a1[3];
-  v17[3] = v6;
-  v7 = a1[6];
-  v17[4] = a1[5];
-  v17[5] = v7;
-  v8 = a1[8];
-  v17[6] = a1[7];
-  v17[7] = v8;
-  v9 = type metadata accessor for TaggedValue_8.TaggedEnum();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v14 = v17 - v13;
-  (*(v10 + 16))(v17 - v13, v3, v9, v12);
-  result = swift_getEnumCaseMultiPayload();
-  if (result == 8)
-  {
-    v16 = *(v14 + 1);
-  }
-
-  else
-  {
-    result = (*(v10 + 8))(v14, v9);
-    v16 = 0;
-  }
-
-  *a2 = v16;
-  return result;
-}
-
-uint64_t TaggedValue_8.visitReferences(_:)(uint64_t a1, uint64_t a2)
-{
-  v98 = a1;
-  v87 = *(*(a2 + 72) - 8);
-  v2 = *(v87 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v86 = v75 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v84 = *(*(v4 + 64) - 8);
-  v5 = *(v84 + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  v83 = v75 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v81 = *(*(v8 + 56) - 8);
-  v9 = *(v81 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v80 = v75 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v78 = *(*(v12 + 48) - 8);
-  v13 = *(v78 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v77 = v75 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = *(v16 + 40);
-  v96 = *(v17 - 8);
-  v18 = *(v96 + 64);
-  MEMORY[0x1EEE9AC00](v17);
-  v95 = v75 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = *(v20 + 32);
-  v94 = *(v21 - 8);
-  v22 = *(v94 + 64);
-  MEMORY[0x1EEE9AC00](v23);
-  v93 = v75 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = *(v25 + 24);
-  v92 = *(v26 - 8);
-  v27 = *(v92 + 64);
-  MEMORY[0x1EEE9AC00](v28);
-  v90 = v75 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v31 = *(v30 + 16);
-  v89 = *(v31 - 8);
-  v32 = *(v89 + 64);
-  MEMORY[0x1EEE9AC00](v33);
-  v35 = v75 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v38 = v36[10];
-  v37 = v36[11];
-  v40 = v36[12];
-  v39 = v36[13];
-  v41 = v36[14];
-  v42 = v36[15];
-  v44 = v36[16];
-  v43 = v36[17];
-  *&v45 = v31;
-  *(&v45 + 1) = v26;
-  *&v46 = v21;
-  v91 = v47;
-  *(&v46 + 1) = v47;
-  v100 = v46;
-  v99 = v45;
-  v79 = v48;
-  *&v45 = v48;
-  v82 = v49;
-  *(&v45 + 1) = v49;
-  v85 = v50;
-  *&v46 = v50;
-  v88 = v51;
-  *(&v46 + 1) = v51;
-  v102 = v46;
-  v101 = v45;
-  v103[0] = v38;
-  v103[1] = v37;
-  v103[2] = v40;
-  v103[3] = v39;
-  v75[3] = v41;
-  v103[4] = v41;
-  v103[5] = v42;
-  v75[2] = v42;
-  v75[1] = v44;
-  v103[6] = v44;
-  v103[7] = v43;
-  v76 = v43;
-  v52 = type metadata accessor for TaggedValue_8.TaggedEnum();
-  v53 = *(*(v52 - 8) + 64);
-  v54 = MEMORY[0x1EEE9AC00](v52);
-  v56 = v75 - v55;
-  (*(v57 + 16))(v75 - v55, v97, v52, v54);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 3)
-  {
-    if (EnumCaseMultiPayload <= 5)
-    {
-      if (EnumCaseMultiPayload == 4)
-      {
-        v68 = v78;
-        v69 = v77;
-        v21 = v79;
-        (*(v78 + 32))(v77, v56, v79);
-        v71 = v103;
-      }
-
-      else
-      {
-        v68 = v81;
-        v69 = v80;
-        v21 = v82;
-        (*(v81 + 32))(v80, v56, v82);
-        v71 = &v102 + 8;
-      }
-    }
-
-    else
-    {
-      if (EnumCaseMultiPayload != 6)
-      {
-        if (EnumCaseMultiPayload == 7)
-        {
-          v59 = v87;
-          v60 = v86;
-          v61 = v88;
-          (*(v87 + 32))(v86, v56, v88);
-          (*(*(v76 + 8) + 48))(v98, v61);
-          return (*(v59 + 8))(v60, v61);
         }
 
         else
         {
-          (*(**(v56 + 1) + 120))(v98);
+          v51 = &unk_1EB5B9140;
+          v52 = v99;
+          v53 = v100;
         }
+
+        swift_beginAccess();
+        v64 = v51[3];
+        if (v64)
+        {
+          v65 = v64;
+        }
+
+        else
+        {
+          type metadata accessor for Proto_Value._StorageClass();
+          v65 = swift_initStaticObject();
+        }
+
+        type metadata accessor for CRDecoder();
+        swift_allocObject();
+
+        v66 = sub_1ADE0262C(v65, v52);
+        AnyCRValue.init(from:)(v66, &v102);
+
+        if (v53)
+        {
+          goto LABEL_38;
+        }
+
+        v67 = v102;
+        v20 = v89;
+        *v89 = v36;
+        v20[1] = v67;
+        v68 = v91;
+        swift_storeEnumTagMultiPayload();
+        v69 = *(v90 + 32);
+        v70 = v98;
+        goto LABEL_65;
       }
 
-      v68 = v84;
-      v69 = v83;
-      v21 = v85;
-      (*(v84 + 32))(v83, v56, v85);
-      v71 = &v102;
-    }
-
-    v70 = *(*(v71 - 32) + 8);
-LABEL_20:
-    (*(v70 + 48))(v98, v21);
-    return (*(v68 + 8))(v69, v21);
-  }
-
-  v97 = v39;
-  v63 = v26;
-  v64 = v95;
-  v65 = v96;
-  v66 = v91;
-  if (EnumCaseMultiPayload > 1)
-  {
-    if (EnumCaseMultiPayload != 2)
-    {
-      (*(v96 + 32))(v95, v56, v91);
-      (*(*(v97 + 8) + 48))(v98, v66);
-      return (*(v65 + 8))(v64, v66);
-    }
-
-    v68 = v94;
-    v69 = v93;
-    (*(v94 + 32))(v93, v56, v21);
-    v70 = *(v40 + 8);
-    goto LABEL_20;
-  }
-
-  if (EnumCaseMultiPayload)
-  {
-    v72 = v92;
-    v73 = v90;
-    v74 = v63;
-    (*(v92 + 32))(v90, v56, v63);
-    (*(*(v37 + 8) + 48))(v98, v74);
-    return (*(v72 + 8))(v73, v74);
-  }
-
-  else
-  {
-    v67 = v89;
-    (*(v89 + 32))(v35, v56, v31);
-    (*(*(v38 + 8) + 48))(v98, v31);
-    return (*(v67 + 8))(v35, v31);
-  }
-}
-
-uint64_t TaggedValue_8.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  v152 = a1;
-  v153 = a3;
-  v129 = *(*(a2 + 72) - 8);
-  v3 = *(v129 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v130 = &v115 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v128 = &v115 - v6;
-  v126 = *(*(v7 + 64) - 8);
-  v8 = *(v126 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v127 = &v115 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v125 = &v115 - v12;
-  v123 = *(*(v13 + 56) - 8);
-  v14 = *(v123 + 64);
-  MEMORY[0x1EEE9AC00](v15);
-  v124 = &v115 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17);
-  v122 = &v115 - v18;
-  v20 = *(v19 + 48);
-  v120 = *(v20 - 8);
-  v21 = *(v120 + 64);
-  MEMORY[0x1EEE9AC00](v20);
-  v121 = &v115 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v23);
-  v119 = &v115 - v24;
-  v134 = *(*(v25 + 40) - 8);
-  v26 = *(v134 + 64);
-  MEMORY[0x1EEE9AC00](v27);
-  v132 = &v115 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v29);
-  v31 = &v115 - v30;
-  v133 = *(*(v32 + 32) - 8);
-  v33 = *(v133 + 64);
-  MEMORY[0x1EEE9AC00](v34);
-  v36 = &v115 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v37);
-  v39 = &v115 - v38;
-  v131 = *(*(v40 + 24) - 8);
-  v41 = *(v131 + 64);
-  MEMORY[0x1EEE9AC00](v42);
-  v44 = &v115 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v45);
-  v47 = &v115 - v46;
-  v49 = *(*(v48 + 16) - 8);
-  v50 = *(v49 + 64);
-  MEMORY[0x1EEE9AC00](v51);
-  v53 = &v115 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v54);
-  v56 = &v115 - v55;
-  v58 = v57[10];
-  v59 = v57[11];
-  v60 = v57[12];
-  v61 = v57[13];
-  v62 = v57[14];
-  v63 = v57[15];
-  v65 = v57[16];
-  v64 = v57[17];
-  v135 = v66;
-  *&v67 = v66;
-  v136 = v68;
-  *(&v67 + 1) = v68;
-  v137 = v69;
-  *&v70 = v69;
-  v138 = v71;
-  *(&v70 + 1) = v71;
-  v117 = v70;
-  v155 = v70;
-  v118 = v67;
-  v154 = v67;
-  v139 = v72;
-  *&v67 = v72;
-  v141 = v73;
-  *(&v67 + 1) = v73;
-  v142 = v74;
-  *&v70 = v74;
-  v140 = v75;
-  *(&v70 + 1) = v75;
-  v115 = v70;
-  v157 = v70;
-  v116 = v67;
-  v156 = v67;
-  v150 = v59;
-  v151 = v58;
-  v158 = v58;
-  v159 = v59;
-  v149 = v60;
-  v160 = v60;
-  v161 = v61;
-  v148 = v61;
-  v147 = v62;
-  v162 = v62;
-  v163 = v63;
-  v146 = v63;
-  v145 = v65;
-  v164 = v65;
-  v165 = v64;
-  v144 = v64;
-  v76 = type metadata accessor for TaggedValue_8.TaggedEnum();
-  v77 = *(*(v76 - 8) + 64);
-  v78 = MEMORY[0x1EEE9AC00](v76);
-  v80 = &v115 - v79;
-  (*(v81 + 16))(&v115 - v79, v143, v76, v78);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload <= 3)
-  {
-    v88 = v39;
-    v89 = v133;
-    v90 = v132;
-    if (EnumCaseMultiPayload > 1)
-    {
-      if (EnumCaseMultiPayload == 2)
+      v44 = *(v32 + 16);
+      if ((~v44 & 0xF000000000000007) != 0)
       {
-        v92 = v88;
-        v93 = v137;
-        (*(v133 + 32))(v88, v80, v137);
-        (*(*(v149 + 8) + 24))(v152, v93);
-        (*(v89 + 8))(v92, v93);
-        return TaggedValue_8.init(_:)(v36, v93, v153);
+        v46 = v98;
+        v47 = v99;
+        v48 = v97;
+        v49 = v92;
+        if (((v44 >> 59) & 0x1E | (v44 >> 2) & 1) == 0xB)
+        {
+          v45 = *((v44 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          v45 = &unk_1EB5B9140;
+        }
       }
 
       else
       {
-        v104 = v134;
-        v105 = v31;
-        v106 = v31;
-        v107 = v138;
-        (*(v134 + 32))(v106, v80, v138);
-        (*(*(v148 + 8) + 24))(v152, v107);
-        (*(v104 + 8))(v105, v107);
-        return TaggedValue_8.init(_:)(v90, v107, v153);
+        v45 = &unk_1EB5B9140;
+        v46 = v98;
+        v47 = v99;
+        v48 = v97;
+        v49 = v92;
+      }
+
+      swift_beginAccess();
+      v76 = v45[3];
+      if (v76)
+      {
+        v77 = v76;
+      }
+
+      else
+      {
+        type metadata accessor for Proto_Value._StorageClass();
+        v77 = swift_initStaticObject();
+      }
+
+      type metadata accessor for CRDecoder();
+      swift_allocObject();
+
+      v78 = sub_1ADE0262C(v77, v47);
+      v79 = v100;
+      (*(*(*(v49 + 8) + 8) + 8))(v78, v48);
+      if (!v79)
+      {
+
+        v80 = v91;
+        swift_storeEnumTagMultiPayload();
+        (*(v90 + 32))(v46, v17, v80);
+        return;
+      }
+    }
+
+    return;
+  }
+
+  if (v36)
+  {
+    if (v36 == 1)
+    {
+      v37 = *(v32 + 16);
+      if ((~v37 & 0xF000000000000007) != 0)
+      {
+        v39 = v98;
+        v40 = v100;
+        v42 = v95;
+        v41 = v96;
+        if (((v37 >> 59) & 0x1E | (v37 >> 2) & 1) == 0xB)
+        {
+          v38 = *((v37 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          v38 = &unk_1EB5B9140;
+        }
+      }
+
+      else
+      {
+        v38 = &unk_1EB5B9140;
+        v39 = v98;
+        v40 = v100;
+        v42 = v95;
+        v41 = v96;
+      }
+
+      swift_beginAccess();
+      v71 = v38[3];
+      if (v71)
+      {
+        v72 = v71;
+      }
+
+      else
+      {
+        type metadata accessor for Proto_Value._StorageClass();
+        v72 = swift_initStaticObject();
+      }
+
+      type metadata accessor for CRDecoder();
+      swift_allocObject();
+      v73 = v99;
+
+      v74 = sub_1ADE0262C(v72, v73);
+      (*(*(*(v42 + 8) + 8) + 8))(v74, v41);
+
+      if (!v40)
+      {
+
+        v75 = v91;
+        swift_storeEnumTagMultiPayload();
+        (*(v90 + 32))(v39, v23, v75);
+        return;
+      }
+
+LABEL_38:
+
+      return;
+    }
+
+    goto LABEL_16;
+  }
+
+  v54 = *(v32 + 16);
+  if ((~v54 & 0xF000000000000007) != 0)
+  {
+    v56 = v98;
+    v57 = v99;
+    v58 = v100;
+    if (((v54 >> 59) & 0x1E | (v54 >> 2) & 1) == 0xB)
+    {
+      v55 = *((v54 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+    }
+
+    else
+    {
+      v55 = &unk_1EB5B9140;
+    }
+  }
+
+  else
+  {
+    v55 = &unk_1EB5B9140;
+    v56 = v98;
+    v57 = v99;
+    v58 = v100;
+  }
+
+  swift_beginAccess();
+  v81 = v55[3];
+  if (v81)
+  {
+    v82 = v81;
+  }
+
+  else
+  {
+    type metadata accessor for Proto_Value._StorageClass();
+    v82 = swift_initStaticObject();
+  }
+
+  type metadata accessor for CRDecoder();
+  swift_allocObject();
+
+  v83 = sub_1ADE0262C(v82, v57);
+  (*(*(*(v93 + 8) + 8) + 8))(v83, a2);
+
+  if (v58)
+  {
+    goto LABEL_38;
+  }
+
+  v84 = v91;
+  swift_storeEnumTagMultiPayload();
+  (*(v90 + 32))(v56, v31, v84);
+}
+
+double TaggedValue_4.encode(to:)(uint64_t a1, uint64_t a2)
+{
+  v127 = *(*(a2 + 40) - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v126 = &v112 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v120 = *(*(v4 + 32) - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v125 = &v112 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v124 = *(*(v7 + 24) - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v123 = &v112 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = *(v10 + 16);
+  v118 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v122 = &v112 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = v14[6];
+  v15 = v14[7];
+  v18 = v14[8];
+  v17 = v14[9];
+  *&v19 = v11;
+  v119 = v20;
+  *(&v19 + 1) = v20;
+  v130 = v21;
+  *&v22 = v21;
+  v121 = v23;
+  *(&v22 + 1) = v23;
+  v128 = v22;
+  v132[1] = v22;
+  v129 = v19;
+  v132[0] = v19;
+  v133 = v16;
+  v134 = v15;
+  v135 = v18;
+  v136 = v17;
+  v24 = type metadata accessor for TaggedValue_4.TaggedEnum(0, v132);
+  v25 = *(v24 - 8);
+  MEMORY[0x1EEE9AC00](v24);
+  v27 = (&v112 - v26);
+  v28 = v137;
+  v32 = sub_1ADE71C08(v29, v30, v31);
+  if (!v28)
+  {
+    v112 = v11;
+    v34 = v130;
+    v113 = v16;
+    v114 = v15;
+    v116 = v18;
+    v115 = v17;
+    v137 = v32;
+    v35 = a1;
+    v117 = 0;
+    (*(v25 + 16))(v27, v131, v24);
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload <= 1)
+    {
+      v41 = v137;
+      if (EnumCaseMultiPayload)
+      {
+        v38 = v119;
+        (*(v124 + 32))(v123, v27, v119);
+        swift_beginAccess();
+        v55 = *(*(v41 + 24) + 16);
+        v56 = v115;
+        if ((~v55 & 0xF000000000000007) != 0 && ((v55 >> 59) & 0x1E | (v55 >> 2) & 1) == 0xB)
+        {
+          inited = *((v55 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          inited = swift_initStaticObject();
+        }
+
+        v89 = v116;
+        v90 = v114;
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          inited = sub_1ADDE5178(inited);
+        }
+
+        swift_beginAccess();
+        *(inited + 16) = 1;
+        sub_1AE1B7530(inited);
+        v91 = swift_endAccess();
+        MEMORY[0x1EEE9AC00](v91);
+        v92 = v128;
+        *(&v112 - 5) = v129;
+        *(&v112 - 4) = v92;
+        *(&v112 - 6) = v113;
+        *(&v112 - 5) = v90;
+        *(&v112 - 4) = v89;
+        *(&v112 - 3) = v56;
+        v72 = v123;
+        *(&v112 - 2) = v123;
+        *(&v112 - 1) = a1;
+        v93 = v117;
+        v94 = sub_1ADE6B938(sub_1ADFFA950);
+        if (v93)
+        {
+        }
+
+        else
+        {
+          v104 = v94;
+          swift_beginAccess();
+          v105 = *(*(v41 + 24) + 16);
+          if ((~v105 & 0xF000000000000007) != 0 && ((v105 >> 59) & 0x1E | (v105 >> 2) & 1) == 0xB)
+          {
+            v106 = *((v105 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v106 = swift_initStaticObject();
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v106 = sub_1ADDE5178(v106);
+          }
+
+          swift_beginAccess();
+          *(v106 + 24) = v104;
+
+          sub_1AE1B7530(v106);
+          swift_endAccess();
+        }
+
+        v75 = &v138;
+        goto LABEL_78;
+      }
+
+      v42 = v118;
+      v43 = v112;
+      (*(v118 + 32))(v122, v27, v112);
+      swift_beginAccess();
+      v44 = *(*(v41 + 24) + 16);
+      v45 = v115;
+      if ((~v44 & 0xF000000000000007) != 0 && ((v44 >> 59) & 0x1E | (v44 >> 2) & 1) == 0xB)
+      {
+        v46 = *((v44 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+      }
+
+      else
+      {
+        type metadata accessor for Proto_TaggedValue._StorageClass();
+        v46 = swift_initStaticObject();
+      }
+
+      v82 = v116;
+
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        type metadata accessor for Proto_TaggedValue._StorageClass();
+        swift_allocObject();
+        v46 = sub_1ADDE5178(v46);
+      }
+
+      swift_beginAccess();
+      *(v46 + 16) = 0;
+      sub_1AE1B7530(v46);
+      v83 = swift_endAccess();
+      MEMORY[0x1EEE9AC00](v83);
+      v84 = v128;
+      *(&v112 - 5) = v129;
+      *(&v112 - 4) = v84;
+      v85 = v114;
+      *(&v112 - 6) = v113;
+      *(&v112 - 5) = v85;
+      *(&v112 - 4) = v82;
+      *(&v112 - 3) = v45;
+      v86 = v122;
+      *(&v112 - 2) = v122;
+      *(&v112 - 1) = a1;
+      v87 = v117;
+      v88 = sub_1ADE6B938(sub_1ADFFA998);
+      if (v87)
+      {
+      }
+
+      else
+      {
+        v101 = v88;
+        swift_beginAccess();
+        v102 = *(*(v41 + 24) + 16);
+        if ((~v102 & 0xF000000000000007) != 0 && ((v102 >> 59) & 0x1E | (v102 >> 2) & 1) == 0xB)
+        {
+          v103 = *((v102 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          v103 = swift_initStaticObject();
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          v103 = sub_1ADDE5178(v103);
+        }
+
+        swift_beginAccess();
+        *(v103 + 24) = v101;
+
+        sub_1AE1B7530(v103);
+        swift_endAccess();
+      }
+
+      (*(v42 + 8))(v86, v43);
+    }
+
+    else
+    {
+      v37 = v137;
+      if (EnumCaseMultiPayload == 2)
+      {
+        v47 = v120;
+        v48 = v34;
+        (*(v120 + 32))(v125, v27, v34);
+        swift_beginAccess();
+        v49 = *(*(v37 + 24) + 16);
+        if ((~v49 & 0xF000000000000007) != 0 && ((v49 >> 59) & 0x1E | (v49 >> 2) & 1) == 0xB)
+        {
+          v50 = *((v49 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          v50 = swift_initStaticObject();
+        }
+
+        v58 = v113;
+
+        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+        v60 = v125;
+        if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          v50 = sub_1ADDE5178(v50);
+        }
+
+        swift_beginAccess();
+        *(v50 + 16) = 2;
+        sub_1AE1B7530(v50);
+        v61 = swift_endAccess();
+        MEMORY[0x1EEE9AC00](v61);
+        v62 = v128;
+        *(&v112 - 5) = v129;
+        *(&v112 - 4) = v62;
+        v63 = v114;
+        *(&v112 - 6) = v58;
+        *(&v112 - 5) = v63;
+        v64 = v115;
+        *(&v112 - 4) = v116;
+        *(&v112 - 3) = v64;
+        *(&v112 - 2) = v60;
+        *(&v112 - 1) = a1;
+        v65 = v117;
+        v66 = sub_1ADE6B938(sub_1ADFFA908);
+        if (v65)
+        {
+        }
+
+        else
+        {
+          v95 = v66;
+          swift_beginAccess();
+          v96 = *(*(v37 + 24) + 16);
+          if ((~v96 & 0xF000000000000007) != 0 && ((v96 >> 59) & 0x1E | (v96 >> 2) & 1) == 0xB)
+          {
+            v97 = *((v96 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v97 = swift_initStaticObject();
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v97 = sub_1ADDE5178(v97);
+          }
+
+          swift_beginAccess();
+          *(v97 + 24) = v95;
+
+          sub_1AE1B7530(v97);
+          swift_endAccess();
+        }
+
+        (*(v47 + 8))(v60, v48);
+      }
+
+      else
+      {
+        if (EnumCaseMultiPayload == 3)
+        {
+          v38 = v121;
+          (*(v127 + 32))(v126, v27, v121);
+          swift_beginAccess();
+          v39 = *(*(v37 + 24) + 16);
+          if ((~v39 & 0xF000000000000007) != 0 && ((v39 >> 59) & 0x1E | (v39 >> 2) & 1) == 0xB)
+          {
+            v40 = *((v39 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v40 = swift_initStaticObject();
+          }
+
+          v67 = v115;
+          v68 = v116;
+          v69 = v114;
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v40 = sub_1ADDE5178(v40);
+          }
+
+          swift_beginAccess();
+          *(v40 + 16) = 3;
+          sub_1AE1B7530(v40);
+          v70 = swift_endAccess();
+          MEMORY[0x1EEE9AC00](v70);
+          v71 = v128;
+          *(&v112 - 5) = v129;
+          *(&v112 - 4) = v71;
+          *(&v112 - 6) = v113;
+          *(&v112 - 5) = v69;
+          *(&v112 - 4) = v68;
+          *(&v112 - 3) = v67;
+          v72 = v126;
+          *(&v112 - 2) = v126;
+          *(&v112 - 1) = a1;
+          v73 = v117;
+          v74 = sub_1ADE6B938(sub_1ADFFA8C0);
+          if (v73)
+          {
+
+            v75 = &v139;
+          }
+
+          else
+          {
+            v98 = v74;
+            swift_beginAccess();
+            v99 = *(*(v37 + 24) + 16);
+            if ((~v99 & 0xF000000000000007) != 0 && ((v99 >> 59) & 0x1E | (v99 >> 2) & 1) == 0xB)
+            {
+              v100 = *((v99 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+            }
+
+            else
+            {
+              type metadata accessor for Proto_TaggedValue._StorageClass();
+              v100 = swift_initStaticObject();
+            }
+
+            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+            {
+              type metadata accessor for Proto_TaggedValue._StorageClass();
+              swift_allocObject();
+              v100 = sub_1ADDE5178(v100);
+            }
+
+            swift_beginAccess();
+            *(v100 + 24) = v98;
+
+            sub_1AE1B7530(v100);
+            swift_endAccess();
+
+            v75 = &v139;
+          }
+
+LABEL_78:
+          (*(*(v75 - 32) + 8))(v72, v38);
+          return result;
+        }
+
+        v52 = *v27;
+        v51 = v27[1];
+        swift_beginAccess();
+        v53 = *(*(v37 + 24) + 16);
+        if ((~v53 & 0xF000000000000007) != 0 && ((v53 >> 59) & 0x1E | (v53 >> 2) & 1) == 0xB)
+        {
+          v54 = *((v53 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          v54 = swift_initStaticObject();
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          v54 = sub_1ADDE5178(v54);
+        }
+
+        swift_beginAccess();
+        *(v54 + 16) = v52;
+        sub_1AE1B7530(v54);
+        swift_endAccess();
+        v77 = *(a1 + 112);
+        v76 = *(a1 + 120);
+        *(a1 + 112) = 0;
+        *(a1 + 120) = 0;
+        v78 = v117;
+        v79 = (*(*v51 + 152))(a1);
+        if (v78)
+        {
+        }
+
+        else
+        {
+          v107 = sub_1ADE71C08(v79, v80, v81);
+          swift_beginAccess();
+          v108 = *(v107 + 24);
+          *(v35 + 112) = v77;
+
+          *(v35 + 120) = v76;
+
+          v109 = v137;
+          swift_beginAccess();
+          v110 = *(*(v109 + 24) + 16);
+          if ((~v110 & 0xF000000000000007) != 0 && ((v110 >> 59) & 0x1E | (v110 >> 2) & 1) == 0xB)
+          {
+            v111 = *((v110 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v111 = swift_initStaticObject();
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v111 = sub_1ADDE5178(v111);
+          }
+
+          swift_beginAccess();
+          *(v111 + 24) = v108;
+
+          sub_1AE1B7530(v111);
+          swift_endAccess();
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+void TaggedValue_4<>.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v46 = a4;
+  v40 = a5;
+  v45 = a3;
+  v48 = a1;
+  v6 = *(a2 + 40);
+  v41 = *(v6 - 8);
+  v42 = a6;
+  MEMORY[0x1EEE9AC00](a1);
+  v39 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = *(v8 + 32);
+  v38 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v38 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = *(v13 + 24);
+  v44 = *(v14 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v38 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = *(v18 + 16);
+  v43 = *(v19 - 8);
+  MEMORY[0x1EEE9AC00](v20);
+  v22 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *&v23 = v19;
+  *(&v23 + 1) = v14;
+  *&v24 = v9;
+  *(&v24 + 1) = v6;
+  v51 = v24;
+  v50 = v23;
+  v26 = *(v25 + 64);
+  v52 = *(v25 + 48);
+  v53 = v26;
+  v27 = type metadata accessor for TaggedValue_4.TaggedEnum(0, &v50);
+  v28 = MEMORY[0x1EEE9AC00](v27);
+  v30 = &v38 - v29;
+  (*(v31 + 16))(&v38 - v29, v47, v27, v28);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload <= 1)
+  {
+    if (EnumCaseMultiPayload)
+    {
+      v37 = v44;
+      (*(v44 + 32))(v17, v30, v14);
+      sub_1AE23CBAC();
+      (*(v37 + 8))(v17, v14);
+    }
+
+    else
+    {
+      v35 = v43;
+      (*(v43 + 32))(v22, v30, v19);
+      sub_1AE23CBAC();
+      (*(v35 + 8))(v22, v19);
+    }
+  }
+
+  else if (EnumCaseMultiPayload == 2)
+  {
+    v36 = v38;
+    (*(v38 + 32))(v12, v30, v9);
+    sub_1AE23CBAC();
+    (*(v36 + 8))(v12, v9);
+  }
+
+  else if (EnumCaseMultiPayload == 3)
+  {
+    v33 = v41;
+    v34 = v39;
+    (*(v41 + 32))(v39, v30, v6);
+    sub_1AE23CBAC();
+    (*(v33 + 8))(v34, v6);
+  }
+
+  else
+  {
+    (*(**(v30 + 1) + 80))(v49);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BBE40, &qword_1AE24FCF0);
+    swift_dynamicCast();
+    __swift_project_boxed_opaque_existential_1(&v50, *(&v51 + 1));
+    sub_1AE23CBAC();
+    __swift_destroy_boxed_opaque_existential_1(&v50);
+  }
+}
+
+void TaggedValue_5.init(from:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  v117[0] = a2;
+  v117[1] = a3;
+  v109 = a3;
+  v108 = a4;
+  v117[2] = a4;
+  v117[3] = a5;
+  v112 = a5;
+  v113 = a6;
+  v117[4] = a6;
+  v117[5] = a7;
+  v106 = a7;
+  v107 = a8;
+  v117[6] = a8;
+  v117[7] = a10;
+  v105 = a10;
+  v110 = a11;
+  v117[8] = a11;
+  v117[9] = a12;
+  v111 = a12;
+  v15 = type metadata accessor for TaggedValue_5.TaggedEnum(0, v117);
+  MEMORY[0x1EEE9AC00](v15);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v100 - v17;
+  MEMORY[0x1EEE9AC00](v19);
+  v21 = &v100 - v20;
+  MEMORY[0x1EEE9AC00](v22);
+  v24 = &v100 - v23;
+  MEMORY[0x1EEE9AC00](v25);
+  v27 = &v100 - v26;
+  MEMORY[0x1EEE9AC00](v28);
+  v35 = &v100 - v34;
+  v36 = *(a1 + 72);
+  if (!v36)
+  {
+    sub_1ADE42E40(v29, v30, v31);
+    swift_allocError();
+    *v47 = 0xD000000000000017;
+    *(v47 + 8) = 0x80000001AE25FB70;
+    *(v47 + 16) = 0;
+    swift_willThrow();
+    goto LABEL_74;
+  }
+
+  v101 = v33;
+  v103 = v32;
+  v104 = v29;
+  type metadata accessor for CRDecoder.CRValueContainer();
+  inited = swift_initStackObject();
+  v115 = a1;
+  v102 = inited;
+  *(inited + 16) = a1;
+  v38 = *(v36 + 16);
+  v114 = a9;
+  if ((~v38 & 0xF000000000000007) != 0 && ((v38 >> 59) & 0x1E | (v38 >> 2) & 1) == 0xB)
+  {
+    v39 = *((v38 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+  }
+
+  else
+  {
+    v39 = &unk_1EB5B9140;
+  }
+
+  swift_beginAccess();
+  v40 = v39[2];
+  if (v40 <= 1)
+  {
+    if (!v40)
+    {
+      v64 = *(v36 + 16);
+      if ((~v64 & 0xF000000000000007) != 0)
+      {
+        v66 = v114;
+        v67 = v115;
+        if (((v64 >> 59) & 0x1E | (v64 >> 2) & 1) == 0xB)
+        {
+          v65 = *((v64 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          v65 = &unk_1EB5B9140;
+        }
+      }
+
+      else
+      {
+        v65 = &unk_1EB5B9140;
+        v66 = v114;
+        v67 = v115;
+      }
+
+      swift_beginAccess();
+      if (v65[3])
+      {
+        v80 = v65[3];
+      }
+
+      else
+      {
+        type metadata accessor for Proto_Value._StorageClass();
+        v80 = swift_initStaticObject();
+      }
+
+      type metadata accessor for CRDecoder();
+      swift_allocObject();
+
+      v81 = sub_1ADE0262C(v80, v67);
+      v82 = v116;
+      (*(*(*(v106 + 8) + 8) + 8))(v81, a2);
+
+      if (!v82)
+      {
+
+        v83 = v104;
+        swift_storeEnumTagMultiPayload();
+        (*(v103 + 32))(v66, v35, v83);
+        return;
+      }
+
+      goto LABEL_74;
+    }
+
+    if (v40 == 1)
+    {
+      v48 = *(v36 + 16);
+      if ((~v48 & 0xF000000000000007) != 0)
+      {
+        v50 = v114;
+        v51 = v115;
+        v52 = v116;
+        if (((v48 >> 59) & 0x1E | (v48 >> 2) & 1) == 0xB)
+        {
+          v49 = *((v48 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          v49 = &unk_1EB5B9140;
+        }
+      }
+
+      else
+      {
+        v49 = &unk_1EB5B9140;
+        v50 = v114;
+        v51 = v115;
+        v52 = v116;
+      }
+
+      swift_beginAccess();
+      v89 = v49[3];
+      if (v89)
+      {
+        v90 = v89;
+      }
+
+      else
+      {
+        type metadata accessor for Proto_Value._StorageClass();
+        v90 = swift_initStaticObject();
+      }
+
+      type metadata accessor for CRDecoder();
+      swift_allocObject();
+
+      v91 = sub_1ADE0262C(v90, v51);
+      (*(*(*(v107 + 8) + 8) + 8))(v91);
+
+      if (!v52)
+      {
+
+        v92 = v104;
+        swift_storeEnumTagMultiPayload();
+        (*(v103 + 32))(v50, v27, v92);
+        return;
+      }
+
+      goto LABEL_74;
+    }
+
+    goto LABEL_24;
+  }
+
+  if (v40 == 2)
+  {
+    v53 = *(v36 + 16);
+    if ((~v53 & 0xF000000000000007) != 0)
+    {
+      v55 = v114;
+      v56 = v115;
+      if (((v53 >> 59) & 0x1E | (v53 >> 2) & 1) == 0xB)
+      {
+        v54 = *((v53 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+      }
+
+      else
+      {
+        v54 = &unk_1EB5B9140;
+      }
+    }
+
+    else
+    {
+      v54 = &unk_1EB5B9140;
+      v55 = v114;
+      v56 = v115;
+    }
+
+    swift_beginAccess();
+    v71 = v54[3];
+    if (v71)
+    {
+      v72 = v71;
+    }
+
+    else
+    {
+      type metadata accessor for Proto_Value._StorageClass();
+      v72 = swift_initStaticObject();
+    }
+
+    type metadata accessor for CRDecoder();
+    swift_allocObject();
+
+    v73 = sub_1ADE0262C(v72, v56);
+    v74 = v116;
+    (*(*(*(v105 + 8) + 8) + 8))(v73);
+    if (!v74)
+    {
+
+      v75 = v104;
+      swift_storeEnumTagMultiPayload();
+      (*(v103 + 32))(v55, v24, v75);
+      return;
+    }
+
+    goto LABEL_61;
+  }
+
+  if (v40 == 3)
+  {
+    v57 = *(v36 + 16);
+    if ((~v57 & 0xF000000000000007) != 0)
+    {
+      v59 = v114;
+      v60 = v115;
+      v61 = v116;
+      v62 = v112;
+      v63 = v110;
+      if (((v57 >> 59) & 0x1E | (v57 >> 2) & 1) == 0xB)
+      {
+        v58 = *((v57 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+      }
+
+      else
+      {
+        v58 = &unk_1EB5B9140;
+      }
+    }
+
+    else
+    {
+      v58 = &unk_1EB5B9140;
+      v59 = v114;
+      v60 = v115;
+      v61 = v116;
+      v62 = v112;
+      v63 = v110;
+    }
+
+    swift_beginAccess();
+    v76 = v58[3];
+    if (v76)
+    {
+      v77 = v76;
+    }
+
+    else
+    {
+      type metadata accessor for Proto_Value._StorageClass();
+      v77 = swift_initStaticObject();
+    }
+
+    type metadata accessor for CRDecoder();
+    swift_allocObject();
+
+    v78 = sub_1ADE0262C(v77, v60);
+    (*(*(*(v63 + 8) + 8) + 8))(v78, v62);
+    if (!v61)
+    {
+
+      v79 = v104;
+      swift_storeEnumTagMultiPayload();
+      (*(v103 + 32))(v59, v21, v79);
+      return;
+    }
+
+    goto LABEL_61;
+  }
+
+  if (v40 != 4)
+  {
+LABEL_24:
+    v68 = *(v36 + 16);
+    if ((~v68 & 0xF000000000000007) != 0)
+    {
+      v70 = v116;
+      if (((v68 >> 59) & 0x1E | (v68 >> 2) & 1) == 0xB)
+      {
+        v69 = *((v68 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+      }
+
+      else
+      {
+        v69 = &unk_1EB5B9140;
+      }
+    }
+
+    else
+    {
+      v69 = &unk_1EB5B9140;
+      v70 = v116;
+    }
+
+    swift_beginAccess();
+    v93 = v69[3];
+    if (v93)
+    {
+      v94 = v93;
+    }
+
+    else
+    {
+      type metadata accessor for Proto_Value._StorageClass();
+      v94 = swift_initStaticObject();
+    }
+
+    type metadata accessor for CRDecoder();
+    swift_allocObject();
+    v95 = v115;
+
+    v96 = sub_1ADE0262C(v94, v95);
+    AnyCRValue.init(from:)(v96, &v118);
+
+    if (!v70)
+    {
+
+      v97 = v118;
+      v98 = v101;
+      *v101 = v40;
+      v98[1] = v97;
+      v99 = v104;
+      swift_storeEnumTagMultiPayload();
+      (*(v103 + 32))(v114, v98, v99);
+      return;
+    }
+
+LABEL_74:
+
+    return;
+  }
+
+  v41 = *(v36 + 16);
+  if ((~v41 & 0xF000000000000007) != 0)
+  {
+    v43 = v114;
+    v44 = v115;
+    v45 = v113;
+    v46 = v111;
+    if (((v41 >> 59) & 0x1E | (v41 >> 2) & 1) == 0xB)
+    {
+      v42 = *((v41 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+    }
+
+    else
+    {
+      v42 = &unk_1EB5B9140;
+    }
+  }
+
+  else
+  {
+    v42 = &unk_1EB5B9140;
+    v43 = v114;
+    v44 = v115;
+    v45 = v113;
+    v46 = v111;
+  }
+
+  swift_beginAccess();
+  v84 = v42[3];
+  if (v84)
+  {
+    v85 = v84;
+  }
+
+  else
+  {
+    type metadata accessor for Proto_Value._StorageClass();
+    v85 = swift_initStaticObject();
+  }
+
+  type metadata accessor for CRDecoder();
+  swift_allocObject();
+
+  v86 = sub_1ADE0262C(v85, v44);
+  v87 = v116;
+  (*(*(*(v46 + 8) + 8) + 8))(v86, v45);
+  if (v87)
+  {
+LABEL_61:
+
+    return;
+  }
+
+  v88 = v104;
+  swift_storeEnumTagMultiPayload();
+  (*(v103 + 32))(v43, v18, v88);
+}
+
+double TaggedValue_5.encode(to:)(char *a1, uint64_t a2)
+{
+  v153 = *(*(a2 + 48) - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v143 = &v133 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v141 = *(*(v4 + 40) - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v148 = &v133 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v147 = *(*(v7 + 32) - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v146 = &v133 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v139 = *(*(v10 + 24) - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v145 = &v133 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = *(v13 + 16);
+  v144 = *(v14 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v133 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = *(v18 + 56);
+  v20 = *(v18 + 64);
+  v22 = *(v18 + 80);
+  v21 = *(v18 + 88);
+  *&v23 = v14;
+  v140 = v24;
+  *(&v23 + 1) = v24;
+  v138 = v25;
+  *&v26 = v25;
+  v142 = v27;
+  *(&v26 + 1) = v27;
+  v149 = v26;
+  v155[1] = v26;
+  v150 = v23;
+  v155[0] = v23;
+  v152 = v28;
+  v156 = v28;
+  v157 = v19;
+  v151 = v20;
+  v158 = v20;
+  v159 = v22;
+  v160 = v21;
+  v29 = type metadata accessor for TaggedValue_5.TaggedEnum(0, v155);
+  v30 = *(v29 - 8);
+  MEMORY[0x1EEE9AC00](v29);
+  v32 = (&v133 - v31);
+  v33 = v161;
+  v37 = sub_1ADE71C08(v34, v35, v36);
+  if (!v33)
+  {
+    v133 = v17;
+    v39 = v153;
+    v134 = v19;
+    v135 = v22;
+    v136 = v21;
+    v40 = v37;
+    v137 = a1;
+    v161 = 0;
+    (*(v30 + 16))(v32, v154, v29);
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload > 2)
+    {
+      v48 = v137;
+      if (EnumCaseMultiPayload == 3)
+      {
+        v60 = v141;
+        v61 = v142;
+        (*(v141 + 32))(v148, v32, v142);
+        v62 = v40;
+        swift_beginAccess();
+        v63 = *(*(v40 + 24) + 16);
+        if ((~v63 & 0xF000000000000007) != 0 && ((v63 >> 59) & 0x1E | (v63 >> 2) & 1) == 0xB)
+        {
+          inited = *((v63 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          inited = swift_initStaticObject();
+        }
+
+        v81 = v136;
+
+        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+        v83 = v148;
+        if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          inited = sub_1ADDE5178(inited);
+        }
+
+        swift_beginAccess();
+        *(inited + 16) = 3;
+        sub_1AE1B7530(inited);
+        v84 = swift_endAccess();
+        MEMORY[0x1EEE9AC00](v84);
+        v85 = v149;
+        *(&v133 - 6) = v150;
+        *(&v133 - 5) = v85;
+        v86 = v134;
+        *(&v133 - 8) = v152;
+        *(&v133 - 7) = v86;
+        *(&v133 - 3) = v151;
+        *(&v133 - 4) = v135;
+        *(&v133 - 3) = v81;
+        *(&v133 - 2) = v83;
+        *(&v133 - 1) = v48;
+        v87 = v161;
+        v88 = sub_1ADE6B938(sub_1ADFFAA28);
+        if (v87)
+        {
+        }
+
+        else
+        {
+          v117 = v88;
+          swift_beginAccess();
+          v118 = *(*(v62 + 24) + 16);
+          if ((~v118 & 0xF000000000000007) != 0 && ((v118 >> 59) & 0x1E | (v118 >> 2) & 1) == 0xB)
+          {
+            v119 = *((v118 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v119 = swift_initStaticObject();
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v119 = sub_1ADDE5178(v119);
+          }
+
+          swift_beginAccess();
+          *(v119 + 24) = v117;
+
+          sub_1AE1B7530(v119);
+          swift_endAccess();
+        }
+
+        (*(v60 + 8))(v83, v61);
+      }
+
+      else
+      {
+        v49 = v40;
+        if (EnumCaseMultiPayload == 4)
+        {
+          v50 = v39;
+          v51 = v143;
+          v52 = v32;
+          v53 = v152;
+          (*(v39 + 32))(v143, v52, v152);
+          swift_beginAccess();
+          v54 = *(*(v49 + 24) + 16);
+          if ((~v54 & 0xF000000000000007) != 0 && ((v54 >> 59) & 0x1E | (v54 >> 2) & 1) == 0xB)
+          {
+            v55 = *((v54 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v55 = swift_initStaticObject();
+          }
+
+          v95 = v135;
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v55 = sub_1ADDE5178(v55);
+          }
+
+          swift_beginAccess();
+          *(v55 + 16) = 4;
+          sub_1AE1B7530(v55);
+          v96 = swift_endAccess();
+          MEMORY[0x1EEE9AC00](v96);
+          v97 = v149;
+          *(&v133 - 6) = v150;
+          *(&v133 - 5) = v97;
+          v98 = v134;
+          *(&v133 - 8) = v53;
+          *(&v133 - 7) = v98;
+          *(&v133 - 3) = v151;
+          v99 = v136;
+          *(&v133 - 4) = v95;
+          *(&v133 - 3) = v99;
+          *(&v133 - 2) = v51;
+          *(&v133 - 1) = v48;
+          v100 = v161;
+          v101 = sub_1ADE6B938(sub_1ADFFA9E0);
+          if (v100)
+          {
+          }
+
+          else
+          {
+            v123 = v101;
+            swift_beginAccess();
+            v124 = *(*(v49 + 24) + 16);
+            if ((~v124 & 0xF000000000000007) != 0 && ((v124 >> 59) & 0x1E | (v124 >> 2) & 1) == 0xB)
+            {
+              v125 = *((v124 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+            }
+
+            else
+            {
+              type metadata accessor for Proto_TaggedValue._StorageClass();
+              v125 = swift_initStaticObject();
+            }
+
+            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+            {
+              type metadata accessor for Proto_TaggedValue._StorageClass();
+              swift_allocObject();
+              v125 = sub_1ADDE5178(v125);
+            }
+
+            swift_beginAccess();
+            *(v125 + 24) = v123;
+
+            sub_1AE1B7530(v125);
+            swift_endAccess();
+          }
+
+          (*(v50 + 8))(v51, v53);
+        }
+
+        else
+        {
+          v70 = *v32;
+          v69 = v32[1];
+          swift_beginAccess();
+          v71 = *(*(v40 + 24) + 16);
+          if ((~v71 & 0xF000000000000007) != 0 && ((v71 >> 59) & 0x1E | (v71 >> 2) & 1) == 0xB)
+          {
+            v72 = *((v71 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v72 = swift_initStaticObject();
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v72 = sub_1ADDE5178(v72);
+          }
+
+          swift_beginAccess();
+          *(v72 + 16) = v70;
+          sub_1AE1B7530(v72);
+          swift_endAccess();
+          v109 = *(v48 + 14);
+          v108 = *(v48 + 15);
+          *(v48 + 14) = 0;
+          *(v48 + 15) = 0;
+          v110 = v161;
+          v111 = (*(*v69 + 152))(v48);
+          if (v110)
+          {
+          }
+
+          else
+          {
+            v129 = sub_1ADE71C08(v111, v112, v113);
+            swift_beginAccess();
+            v130 = *(v129 + 24);
+            *(v48 + 14) = v109;
+
+            *(v48 + 15) = v108;
+
+            swift_beginAccess();
+            v131 = *(*(v40 + 24) + 16);
+            if ((~v131 & 0xF000000000000007) != 0 && ((v131 >> 59) & 0x1E | (v131 >> 2) & 1) == 0xB)
+            {
+              v132 = *((v131 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+            }
+
+            else
+            {
+              type metadata accessor for Proto_TaggedValue._StorageClass();
+              v132 = swift_initStaticObject();
+            }
+
+            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+            {
+              type metadata accessor for Proto_TaggedValue._StorageClass();
+              swift_allocObject();
+              v132 = sub_1ADDE5178(v132);
+            }
+
+            swift_beginAccess();
+            *(v132 + 24) = v130;
+
+            sub_1AE1B7530(v132);
+            swift_endAccess();
+          }
+        }
       }
     }
 
     else if (EnumCaseMultiPayload)
     {
-      v102 = v131;
-      v103 = v136;
-      (*(v131 + 32))(v47, v80, v136);
-      (*(*(v150 + 8) + 24))(v152, v103);
-      (*(v102 + 8))(v47, v103);
-      return TaggedValue_8.init(_:)(v44, v103, v153);
-    }
-
-    else
-    {
-      v91 = v135;
-      (*(v49 + 32))(v56, v80, v135);
-      (*(*(v151 + 8) + 24))(v152, v91);
-      (*(v49 + 8))(v56, v91);
-      return TaggedValue_8.init(_:)(v53, v91, v153);
-    }
-  }
-
-  else if (EnumCaseMultiPayload <= 5)
-  {
-    if (EnumCaseMultiPayload == 4)
-    {
-      v94 = v120;
-      v95 = v119;
-      v96 = v139;
-      (*(v120 + 32))(v119, v80, v139);
-      v97 = v121;
-      (*(*(v147 + 8) + 24))(v152, v96);
-      (*(v94 + 8))(v95, v96);
-      return TaggedValue_8.init(_:)(v97, v96, v153);
-    }
-
-    else
-    {
-      v111 = v123;
-      v112 = v122;
-      v113 = v141;
-      (*(v123 + 32))(v122, v80, v141);
-      v114 = v124;
-      (*(*(v146 + 8) + 24))(v152, v113);
-      (*(v111 + 8))(v112, v113);
-      return TaggedValue_8.init(_:)(v114, v113, v153);
-    }
-  }
-
-  else if (EnumCaseMultiPayload == 6)
-  {
-    v98 = v126;
-    v99 = v125;
-    v100 = v142;
-    (*(v126 + 32))(v125, v80, v142);
-    v101 = v127;
-    (*(*(v145 + 8) + 24))(v152, v100);
-    (*(v98 + 8))(v99, v100);
-    return TaggedValue_8.init(_:)(v101, v100, v153);
-  }
-
-  else if (EnumCaseMultiPayload == 7)
-  {
-    v83 = v129;
-    v84 = v128;
-    v85 = v140;
-    (*(v129 + 32))(v128, v80, v140);
-    v86 = v130;
-    (*(*(v144 + 8) + 24))(v152, v85);
-    (*(v83 + 8))(v84, v85);
-    return TaggedValue_8.init(_:)(v86, v153, v85);
-  }
-
-  else
-  {
-    v108 = *v80;
-    v109 = (*(**(v80 + 1) + 104))(v152);
-
-    v110 = v153;
-    *v153 = v108;
-    v110[1] = v109;
-    v155 = v117;
-    v154 = v118;
-    v157 = v115;
-    v156 = v116;
-    v158 = v151;
-    v159 = v150;
-    v160 = v149;
-    v161 = v148;
-    v162 = v147;
-    v163 = v146;
-    v164 = v145;
-    v165 = v144;
-    type metadata accessor for TaggedValue_8.TaggedEnum();
-    return swift_storeEnumTagMultiPayload();
-  }
-}
-
-uint64_t TaggedValue_8.observableDifference(from:with:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, char *a4@<X8>)
-{
-  v353 = a2;
-  v371 = a1;
-  v367 = a4;
-  v5 = a3[9];
-  v368 = a3[17];
-  v332 = *(v368 + 1);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v286 = sub_1AE23D7CC();
-  v285 = *(v286 - 8);
-  v7 = *(v285 + 64);
-  MEMORY[0x1EEE9AC00](v286);
-  v333 = &v263 - v8;
-  v334 = AssociatedTypeWitness;
-  v331 = *(AssociatedTypeWitness - 8);
-  v9 = *(v331 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v284 = &v263 - v11;
-  v351 = *(v5 - 8);
-  v12 = v351[8];
-  MEMORY[0x1EEE9AC00](v13);
-  v329 = &v263 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v328 = &v263 - v16;
-  *&v366 = a3[16];
-  v17 = a3[8];
-  v325 = *(v366 + 8);
-  v18 = swift_getAssociatedTypeWitness();
-  v283 = sub_1AE23D7CC();
-  v282 = *(v283 - 8);
-  v19 = *(v282 + 64);
-  MEMORY[0x1EEE9AC00](v283);
-  v327 = &v263 - v20;
-  v330 = v18;
-  v326 = *(v18 - 8);
-  v21 = *(v326 + 64);
-  MEMORY[0x1EEE9AC00](v22);
-  v281 = &v263 - v23;
-  v349 = *(v17 - 8);
-  v24 = v349[8];
-  MEMORY[0x1EEE9AC00](v25);
-  v323 = &v263 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v27);
-  v322 = &v263 - v28;
-  *&v365 = a3[15];
-  v29 = a3[7];
-  v319 = *(v365 + 8);
-  v30 = swift_getAssociatedTypeWitness();
-  v280 = sub_1AE23D7CC();
-  v279 = *(v280 - 8);
-  v31 = *(v279 + 64);
-  MEMORY[0x1EEE9AC00](v280);
-  v321 = &v263 - v32;
-  v324 = v30;
-  v320 = *(v30 - 8);
-  v33 = *(v320 + 64);
-  MEMORY[0x1EEE9AC00](v34);
-  v278 = &v263 - v35;
-  v347 = *(v29 - 8);
-  v36 = *(v347 + 64);
-  MEMORY[0x1EEE9AC00](v37);
-  v317 = &v263 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v39);
-  v316 = &v263 - v40;
-  *&v364 = a3[14];
-  v41 = a3[6];
-  v313 = *(v364 + 8);
-  v42 = swift_getAssociatedTypeWitness();
-  v277 = sub_1AE23D7CC();
-  v276 = *(v277 - 8);
-  v43 = *(v276 + 64);
-  MEMORY[0x1EEE9AC00](v277);
-  v315 = &v263 - v44;
-  v318 = v42;
-  v314 = *(v42 - 8);
-  v45 = *(v314 + 64);
-  MEMORY[0x1EEE9AC00](v46);
-  v275 = &v263 - v47;
-  v345 = *(v41 - 8);
-  v48 = v345[8];
-  MEMORY[0x1EEE9AC00](v49);
-  v312 = &v263 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v51);
-  v311 = &v263 - v52;
-  v346 = v41;
-  *&v53 = v41;
-  v348 = v29;
-  *(&v53 + 1) = v29;
-  v370 = v53;
-  v54 = a3[5];
-  v350 = v17;
-  *&v53 = v17;
-  v352 = v5;
-  *(&v53 + 1) = v5;
-  v369 = v53;
-  *&v363 = a3[13];
-  v306 = *(v363 + 8);
-  v55 = swift_getAssociatedTypeWitness();
-  v274 = sub_1AE23D7CC();
-  v273 = *(v274 - 8);
-  v56 = *(v273 + 64);
-  MEMORY[0x1EEE9AC00](v274);
-  v308 = &v263 - v57;
-  v310 = v55;
-  v309 = *(v55 - 8);
-  v58 = *(v309 + 64);
-  MEMORY[0x1EEE9AC00](v59);
-  v272 = &v263 - v60;
-  v356 = *(v54 - 8);
-  v61 = *(v356 + 64);
-  MEMORY[0x1EEE9AC00](v62);
-  v305 = &v263 - ((v63 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v64);
-  v304 = &v263 - v65;
-  v66 = a3[12];
-  v67 = a3[4];
-  v301 = *(v66 + 8);
-  v68 = swift_getAssociatedTypeWitness();
-  v271 = sub_1AE23D7CC();
-  v270 = *(v271 - 8);
-  v69 = *(v270 + 64);
-  MEMORY[0x1EEE9AC00](v271);
-  v303 = &v263 - v70;
-  v307 = v68;
-  v302 = *(v68 - 8);
-  v71 = *(v302 + 64);
-  MEMORY[0x1EEE9AC00](v72);
-  v269 = &v263 - v73;
-  v355 = *(v67 - 8);
-  v74 = *(v355 + 64);
-  MEMORY[0x1EEE9AC00](v75);
-  v299 = &v263 - ((v76 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v77);
-  v298 = &v263 - v78;
-  v79 = a3[11];
-  v80 = a3[3];
-  v295 = *(v79 + 8);
-  v81 = swift_getAssociatedTypeWitness();
-  v268 = sub_1AE23D7CC();
-  v267 = *(v268 - 8);
-  v82 = *(v267 + 64);
-  MEMORY[0x1EEE9AC00](v268);
-  v297 = &v263 - v83;
-  v300 = v81;
-  v296 = *(v81 - 8);
-  v84 = *(v296 + 64);
-  MEMORY[0x1EEE9AC00](v85);
-  v266 = &v263 - v86;
-  v341 = *(v80 - 8);
-  v87 = v341[8];
-  MEMORY[0x1EEE9AC00](v88);
-  v294 = &v263 - ((v89 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v90);
-  v293 = &v263 - v91;
-  v92 = a3[10];
-  v93 = a3[2];
-  v289 = *(v92 + 8);
-  v94 = swift_getAssociatedTypeWitness();
-  v265 = sub_1AE23D7CC();
-  v264 = *(v265 - 8);
-  v95 = *(v264 + 64);
-  MEMORY[0x1EEE9AC00](v265);
-  v291 = &v263 - v96;
-  v292 = v94;
-  v290 = *(v94 - 8);
-  v97 = *(v290 + 64);
-  MEMORY[0x1EEE9AC00](v98);
-  v263 = &v263 - v99;
-  v335 = *(v93 - 8);
-  v100 = *(v335 + 64);
-  MEMORY[0x1EEE9AC00](v101);
-  v288 = &v263 - ((v102 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v103);
-  v287 = &v263 - v104;
-  v354 = v93;
-  *&v105 = v93;
-  v342 = v80;
-  *(&v105 + 1) = v80;
-  v343 = v67;
-  *&v106 = v67;
-  v344 = v54;
-  *(&v106 + 1) = v54;
-  v361 = v106;
-  v373 = v106;
-  v362 = v105;
-  v372 = v105;
-  v375 = v369;
-  v374 = v370;
-  *&v106 = v92;
-  *(&v106 + 1) = v79;
-  *&v107 = v66;
-  *(&v107 + 1) = v363;
-  *&v105 = v364;
-  *(&v105 + 1) = v365;
-  v363 = v107;
-  v377 = v107;
-  v364 = v106;
-  v376 = v106;
-  *&v106 = v366;
-  *(&v106 + 1) = v368;
-  v365 = v106;
-  v379 = v106;
-  v366 = v105;
-  v378 = v105;
-  v108 = type metadata accessor for TaggedValue_8.TaggedEnum();
-  v109 = *(v108 - 8);
-  v110 = *(v109 + 64);
-  MEMORY[0x1EEE9AC00](v108);
-  v339 = &v263 - ((v111 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v112);
-  v340 = &v263 - v113;
-  MEMORY[0x1EEE9AC00](v114);
-  v338 = &v263 - v115;
-  MEMORY[0x1EEE9AC00](v116);
-  v337 = &v263 - v117;
-  MEMORY[0x1EEE9AC00](v118);
-  v336 = &v263 - v119;
-  MEMORY[0x1EEE9AC00](v120);
-  v122 = &v263 - v121;
-  MEMORY[0x1EEE9AC00](v123);
-  v125 = &v263 - v124;
-  MEMORY[0x1EEE9AC00](v126);
-  v128 = &v263 - v127;
-  MEMORY[0x1EEE9AC00](v129);
-  v131 = &v263 - v130;
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v359 = *(TupleTypeMetadata2 - 8);
-  v133 = *(v359 + 64);
-  v134 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v136 = &v263 - v135;
-  v358 = v137;
-  v138 = &v263 + *(v137 + 48) - v135;
-  v357 = v109;
-  v139 = *(v109 + 16);
-  v139(&v263 - v135, v360, v108, v134);
-  v140 = v138;
-  (v139)(v138, v371, v108);
-  v368 = v136;
-  v371 = v108;
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 3)
-  {
-    if (EnumCaseMultiPayload > 5)
-    {
-      if (EnumCaseMultiPayload == 6)
+      v42 = v136;
+      v43 = v134;
+      if (EnumCaseMultiPayload == 1)
       {
-        v177 = v338;
-        v142 = v368;
-        (v139)(v338, v368, v371);
-        if (swift_getEnumCaseMultiPayload() == 6)
+        v44 = v139;
+        v45 = v140;
+        (*(v139 + 32))(v145, v32, v140);
+        swift_beginAccess();
+        v46 = *(*(v40 + 24) + 16);
+        if ((~v46 & 0xF000000000000007) != 0 && ((v46 >> 59) & 0x1E | (v46 >> 2) & 1) == 0xB)
         {
-          v178 = v349;
-          v179 = v349[4];
-          v180 = v322;
-          v181 = v350;
-          v179(v322, v177, v350);
-          v182 = v323;
-          v179(v323, v140, v181);
-          v183 = v327;
-          (*(v325 + 40))(v182, v353, v181);
-          v184 = v178[1];
-          v184(v182, v181);
-          v184(v180, v181);
-          v185 = v326;
-          v186 = v330;
-          if ((*(v326 + 48))(v183, 1, v330) == 1)
-          {
-            (*(v282 + 8))(v183, v283);
-            goto LABEL_49;
-          }
-
-          v239 = *(v185 + 32);
-          v240 = v281;
-          v239(v281, v183, v186);
-          v241 = v367;
-          v239(v367, v240, v186);
-          v373 = v361;
-          v372 = v362;
-          v375 = v369;
-          v374 = v370;
-          v377 = v363;
-          v376 = v364;
-          v379 = v365;
-          v378 = v366;
-          v242 = type metadata accessor for TaggedValue_8.ObservableDifference();
-          goto LABEL_63;
-        }
-
-        v224 = v349[1];
-        v225 = v177;
-        v226 = &v373;
-      }
-
-      else
-      {
-        v142 = v368;
-        if (EnumCaseMultiPayload != 7)
-        {
-          v208 = v339;
-          (v139)(v339, v368, v371);
-          v209 = v208[1];
-          if (swift_getEnumCaseMultiPayload() == 8)
-          {
-            v210 = *v208;
-            v212 = *v140;
-            v211 = *(v140 + 1);
-
-            if (v210 == v212)
-            {
-              v372 = v362;
-              v373 = v361;
-              v374 = v370;
-              v375 = v369;
-              v376 = v364;
-              v377 = v363;
-              v378 = v366;
-              v379 = v365;
-LABEL_50:
-              v238 = type metadata accessor for TaggedValue_8.ObservableDifference();
-              (*(*(v238 - 8) + 56))(v367, 1, 1, v238);
-LABEL_64:
-              v229 = &v376 + 8;
-              goto LABEL_65;
-            }
-
-            v372 = v362;
-            v373 = v361;
-            v374 = v370;
-            v375 = v369;
-            v376 = v364;
-            v377 = v363;
-            v378 = v366;
-            v379 = v365;
-            v242 = type metadata accessor for TaggedValue_8.ObservableDifference();
-            v241 = v367;
-            goto LABEL_63;
-          }
-
-          goto LABEL_44;
-        }
-
-        v143 = v340;
-        (v139)(v340, v368, v371);
-        if (swift_getEnumCaseMultiPayload() == 7)
-        {
-          v144 = v351;
-          v145 = v351[4];
-          v146 = v328;
-          v147 = v352;
-          v145(v328, v143, v352);
-          v148 = v329;
-          v145(v329, v140, v147);
-          v149 = v333;
-          (*(v332 + 40))(v148, v353, v147);
-          v150 = v144[1];
-          v150(v148, v147);
-          v150(v146, v147);
-          v151 = v331;
-          v152 = v334;
-          if ((*(v331 + 48))(v149, 1, v334) == 1)
-          {
-            (*(v285 + 8))(v149, v286);
-LABEL_49:
-            v373 = v361;
-            v372 = v362;
-            v375 = v369;
-            v374 = v370;
-            v377 = v363;
-            v376 = v364;
-            v379 = v365;
-            v378 = v366;
-            goto LABEL_50;
-          }
-
-          v254 = *(v151 + 32);
-          v255 = v284;
-          v254(v284, v149, v152);
-          v241 = v367;
-          v254(v367, v255, v152);
-          v373 = v361;
-          v372 = v362;
-          v375 = v369;
-          v374 = v370;
-          v377 = v363;
-          v376 = v364;
-          v379 = v365;
-          v378 = v366;
-          v242 = type metadata accessor for TaggedValue_8.ObservableDifference();
-          goto LABEL_63;
-        }
-
-        v224 = v351[1];
-        v225 = v143;
-        v226 = &v374;
-      }
-
-      goto LABEL_43;
-    }
-
-    if (EnumCaseMultiPayload == 4)
-    {
-      v167 = v336;
-      v142 = v368;
-      (v139)(v336, v368, v371);
-      if (swift_getEnumCaseMultiPayload() == 4)
-      {
-        v168 = v345;
-        v169 = v345[4];
-        v170 = v311;
-        v171 = v346;
-        v169(v311, v167, v346);
-        v172 = v312;
-        v169(v312, v140, v171);
-        v173 = v315;
-        (*(v313 + 40))(v172, v353, v171);
-        v174 = v168[1];
-        v174(v172, v171);
-        v174(v170, v171);
-        v175 = v314;
-        v176 = v318;
-        if ((*(v314 + 48))(v173, 1, v318) == 1)
-        {
-          (*(v276 + 8))(v173, v277);
-          goto LABEL_49;
-        }
-
-        v256 = *(v175 + 32);
-        v257 = v275;
-        v256(v275, v173, v176);
-        v241 = v367;
-        v256(v367, v257, v176);
-        v373 = v361;
-        v372 = v362;
-        v375 = v369;
-        v374 = v370;
-        v377 = v363;
-        v376 = v364;
-        v379 = v365;
-        v378 = v366;
-        v242 = type metadata accessor for TaggedValue_8.ObservableDifference();
-LABEL_63:
-        swift_storeEnumTagMultiPayload();
-        (*(*(v242 - 8) + 56))(v241, 0, 1, v242);
-        goto LABEL_64;
-      }
-
-      v224 = v345[1];
-      v225 = v167;
-      v226 = &v370 + 1;
-LABEL_43:
-      v224(v225, *(v226 - 32));
-      goto LABEL_44;
-    }
-
-    v213 = v337;
-    (v139)(v337, v368, v371);
-    if (swift_getEnumCaseMultiPayload() != 5)
-    {
-      (*(v347 + 8))(v213, v348);
-      v227 = v367;
-      v142 = v368;
-      goto LABEL_45;
-    }
-
-    v214 = v347;
-    v215 = *(v347 + 32);
-    v216 = v316;
-    v217 = v348;
-    v215(v316, v213, v348);
-    v218 = v317;
-    v215(v317, v140, v217);
-    v219 = v321;
-    (*(v319 + 40))(v218, v353, v217);
-    v220 = *(v214 + 8);
-    v220(v218, v217);
-    v220(v216, v217);
-    v221 = v320;
-    v222 = v324;
-    if ((*(v320 + 48))(v219, 1, v324) == 1)
-    {
-      (*(v279 + 8))(v219, v280);
-      goto LABEL_35;
-    }
-
-    v258 = *(v221 + 32);
-    v259 = v278;
-    v258(v278, v219, v222);
-    v245 = v367;
-    v258(v367, v259, v222);
-    v373 = v361;
-    v372 = v362;
-    v375 = v369;
-    v374 = v370;
-    v377 = v363;
-    v376 = v364;
-    v379 = v365;
-    v378 = v366;
-    v246 = type metadata accessor for TaggedValue_8.ObservableDifference();
-    goto LABEL_60;
-  }
-
-  v153 = v125;
-  v154 = v354;
-  v155 = v355;
-  v156 = v356;
-  if (EnumCaseMultiPayload <= 1)
-  {
-    v142 = v368;
-    if (!EnumCaseMultiPayload)
-    {
-      (v139)(v131, v368, v371);
-      if (!swift_getEnumCaseMultiPayload())
-      {
-        v230 = v335;
-        v231 = *(v335 + 32);
-        v232 = v287;
-        v231(v287, v131, v154);
-        v233 = v288;
-        v231(v288, v140, v154);
-        v234 = v291;
-        (*(v289 + 40))(v233, v353, v154);
-        v235 = *(v230 + 8);
-        v235(v233, v154);
-        v235(v232, v154);
-        v236 = v290;
-        v237 = v292;
-        if ((*(v290 + 48))(v234, 1, v292) == 1)
-        {
-          (*(v264 + 8))(v234, v265);
-          goto LABEL_49;
-        }
-
-        v260 = *(v236 + 32);
-        v261 = v263;
-        v260(v263, v234, v237);
-        v241 = v367;
-        v260(v367, v261, v237);
-        v373 = v361;
-        v372 = v362;
-        v375 = v369;
-        v374 = v370;
-        v377 = v363;
-        v376 = v364;
-        v379 = v365;
-        v378 = v366;
-        v242 = type metadata accessor for TaggedValue_8.ObservableDifference();
-        goto LABEL_63;
-      }
-
-      (*(v335 + 8))(v131, v154);
-      goto LABEL_44;
-    }
-
-    (v139)(v128, v368, v371);
-    v187 = v140;
-    if (swift_getEnumCaseMultiPayload() == 1)
-    {
-      v188 = v341;
-      v189 = v341[4];
-      v190 = v293;
-      v191 = v342;
-      v189(v293, v128, v342);
-      v192 = v294;
-      v189(v294, v187, v191);
-      v193 = v297;
-      (*(v295 + 40))(v192, v353, v191);
-      v194 = v188[1];
-      v194(v192, v191);
-      v194(v190, v191);
-      v195 = v296;
-      v196 = v300;
-      if ((*(v296 + 48))(v193, 1, v300) == 1)
-      {
-        (*(v267 + 8))(v193, v268);
-        goto LABEL_49;
-      }
-
-      v247 = *(v195 + 32);
-      v248 = v266;
-      v247(v266, v193, v196);
-      v241 = v367;
-      v247(v367, v248, v196);
-      v373 = v361;
-      v372 = v362;
-      v375 = v369;
-      v374 = v370;
-      v377 = v363;
-      v376 = v364;
-      v379 = v365;
-      v378 = v366;
-      v242 = type metadata accessor for TaggedValue_8.ObservableDifference();
-      goto LABEL_63;
-    }
-
-    v224 = v341[1];
-    v225 = v128;
-    v226 = &v368;
-    goto LABEL_43;
-  }
-
-  v157 = v368;
-  if (EnumCaseMultiPayload == 2)
-  {
-    v158 = v153;
-    (v139)(v153, v368, v371);
-    if (swift_getEnumCaseMultiPayload() != 2)
-    {
-      v142 = v157;
-      (*(v155 + 8))(v158, v343);
-LABEL_44:
-      v227 = v367;
-      goto LABEL_45;
-    }
-
-    v159 = *(v155 + 32);
-    v160 = v298;
-    v161 = v343;
-    v159(v298, v158, v343);
-    v162 = v299;
-    v159(v299, v140, v161);
-    v163 = v303;
-    (*(v301 + 40))(v162, v353, v161);
-    v164 = *(v155 + 8);
-    v164(v162, v161);
-    v164(v160, v161);
-    v165 = v302;
-    v166 = v307;
-    if ((*(v302 + 48))(v163, 1, v307) == 1)
-    {
-      (*(v270 + 8))(v163, v271);
-LABEL_35:
-      v373 = v361;
-      v372 = v362;
-      v375 = v369;
-      v374 = v370;
-      v377 = v363;
-      v376 = v364;
-      v379 = v365;
-      v378 = v366;
-      v223 = type metadata accessor for TaggedValue_8.ObservableDifference();
-      (*(*(v223 - 8) + 56))(v367, 1, 1, v223);
-LABEL_61:
-      v253 = v357;
-      v142 = v368;
-      return (*(v253 + 8))(v142, v371);
-    }
-
-    v243 = *(v165 + 32);
-    v244 = v269;
-    v243(v269, v163, v166);
-    v245 = v367;
-    v243(v367, v244, v166);
-    v373 = v361;
-    v372 = v362;
-    v375 = v369;
-    v374 = v370;
-    v377 = v363;
-    v376 = v364;
-    v379 = v365;
-    v378 = v366;
-    v246 = type metadata accessor for TaggedValue_8.ObservableDifference();
-LABEL_60:
-    swift_storeEnumTagMultiPayload();
-    (*(*(v246 - 8) + 56))(v245, 0, 1, v246);
-    goto LABEL_61;
-  }
-
-  v197 = v368;
-  (v139)(v122, v368, v371);
-  v198 = v140;
-  if (swift_getEnumCaseMultiPayload() != 3)
-  {
-    (*(v156 + 8))(v122, v344);
-    v227 = v367;
-    v142 = v197;
-LABEL_45:
-    v372 = v362;
-    v373 = v361;
-    v374 = v370;
-    v375 = v369;
-    v376 = v364;
-    v377 = v363;
-    v378 = v366;
-    v379 = v365;
-    v228 = type metadata accessor for TaggedValue_8.ObservableDifference();
-    swift_storeEnumTagMultiPayload();
-    (*(*(v228 - 8) + 56))(v227, 0, 1, v228);
-    v371 = v358;
-    v229 = &v377 + 8;
-LABEL_65:
-    v253 = *(v229 - 32);
-    return (*(v253 + 8))(v142, v371);
-  }
-
-  v199 = *(v156 + 32);
-  v200 = v304;
-  v201 = v344;
-  v199(v304, v122, v344);
-  v202 = v305;
-  v199(v305, v198, v201);
-  v203 = v308;
-  (*(v306 + 40))(v202, v353, v201);
-  v204 = *(v156 + 8);
-  v204(v202, v201);
-  v204(v200, v201);
-  v205 = v309;
-  v206 = v310;
-  if ((*(v309 + 48))(v203, 1, v310) == 1)
-  {
-    (*(v273 + 8))(v203, v274);
-    v373 = v361;
-    v372 = v362;
-    v375 = v369;
-    v374 = v370;
-    v377 = v363;
-    v376 = v364;
-    v379 = v365;
-    v378 = v366;
-    v207 = type metadata accessor for TaggedValue_8.ObservableDifference();
-    (*(*(v207 - 8) + 56))(v367, 1, 1, v207);
-  }
-
-  else
-  {
-    v249 = *(v205 + 32);
-    v250 = v272;
-    v249(v272, v203, v206);
-    v251 = v367;
-    v249(v367, v250, v206);
-    v373 = v361;
-    v372 = v362;
-    v375 = v369;
-    v374 = v370;
-    v377 = v363;
-    v376 = v364;
-    v379 = v365;
-    v378 = v366;
-    v252 = type metadata accessor for TaggedValue_8.ObservableDifference();
-    swift_storeEnumTagMultiPayload();
-    (*(*(v252 - 8) + 56))(v251, 0, 1, v252);
-  }
-
-  v253 = v357;
-  v142 = v197;
-  return (*(v253 + 8))(v142, v371);
-}
-
-BOOL TaggedValue_9.ObservableDifference.isIdentityChanged.getter(uint64_t a1)
-{
-  v2 = *(a1 - 8);
-  v3 = *(v2 + 64);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v2 + 16))(v6, v4);
-  v7 = swift_getEnumCaseMultiPayload() == 10;
-  (*(v2 + 8))(v6, a1);
-  return v7;
-}
-
-uint64_t TaggedValue_9.taggedEnum.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v6 = a1[1];
-  v7 = a1[2];
-  v8 = a1[3];
-  v9 = a1[4];
-  v10 = a1[5];
-  v11 = a1[6];
-  v12 = a1[7];
-  v13 = a1[8];
-  v14 = a1[9];
-  v4 = type metadata accessor for TaggedValue_9.TaggedEnum();
-  return (*(*(v4 - 8) + 16))(a2, v2, v4);
-}
-
-uint64_t TaggedValue_9.taggedEnum.setter(uint64_t a1, _OWORD *a2)
-{
-  v6 = a2[1];
-  v7 = a2[2];
-  v8 = a2[3];
-  v9 = a2[4];
-  v10 = a2[5];
-  v11 = a2[6];
-  v12 = a2[7];
-  v13 = a2[8];
-  v14 = a2[9];
-  v4 = type metadata accessor for TaggedValue_9.TaggedEnum();
-  return (*(*(v4 - 8) + 40))(v2, a1, v4);
-}
-
-uint64_t TaggedValue_9.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_9.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_9.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1);
-  type metadata accessor for TaggedValue_9.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_9.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X3>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_9.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_9.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X4>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_9.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_9.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X5>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_9.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_9.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X6>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_9.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_9.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X7>, uint64_t a3@<X8>)
-{
-  (*(*(a2 - 8) + 32))(a3, a1, a2);
-  type metadata accessor for TaggedValue_9.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_9.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>, uint64_t a3)
-{
-  (*(*(a3 - 8) + 32))(a2, a1, a3);
-  type metadata accessor for TaggedValue_9.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_9.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>, uint64_t a3, uint64_t a4)
-{
-  (*(*(a4 - 8) + 32))(a2, a1, a4);
-  type metadata accessor for TaggedValue_9.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_9.init(tag:_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
-{
-  v3 = *a2;
-  *a3 = a1;
-  a3[1] = v3;
-  type metadata accessor for TaggedValue_9.TaggedEnum();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t TaggedValue_9.tagged1.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v23[0] = a1[1];
-  v23[1] = v23[0];
-  v6 = a1[3];
-  v7 = a1[4];
-  v23[2] = v5;
-  v23[3] = v6;
-  v8 = a1[5];
-  v9 = a1[6];
-  v23[4] = v7;
-  v23[5] = v8;
-  v10 = a1[7];
-  v11 = a1[8];
-  v23[6] = v9;
-  v23[7] = v10;
-  v12 = a1[9];
-  v23[8] = v11;
-  v23[9] = v12;
-  v13 = type metadata accessor for TaggedValue_9.TaggedEnum();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  v16 = MEMORY[0x1EEE9AC00](v13);
-  v18 = v23 - v17;
-  (*(v14 + 16))(v23 - v17, v3, v13, v16);
-  if (swift_getEnumCaseMultiPayload())
-  {
-    (*(v14 + 8))(v18, v13);
-    v19 = *&v23[0];
-    v20 = *(*&v23[0] - 8);
-    v21 = 1;
-  }
-
-  else
-  {
-    v20 = *(*&v23[0] - 8);
-    (*(v20 + 32))(a2, v18);
-    v19 = *&v23[0];
-    v21 = 0;
-  }
-
-  return (*(v20 + 56))(a2, v21, 1, v19);
-}
-
-uint64_t TaggedValue_9.tagged2.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 152);
-  v16 = *(a1 + 16);
-  v15 = *(a1 + 24);
-  v17 = v15;
-  v18 = *(a1 + 40);
-  v19 = *(a1 + 56);
-  v20 = *(a1 + 72);
-  v21 = *(a1 + 88);
-  v22 = *(a1 + 104);
-  v23 = *(a1 + 120);
-  v24 = *(a1 + 136);
-  v25 = v5;
-  v6 = type metadata accessor for TaggedValue_9.TaggedEnum();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x1EEE9AC00](v6);
-  v11 = &v15 - v10;
-  (*(v7 + 16))(&v15 - v10, v3, v6, v9);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v12 = *(v15 - 8);
-    (*(v12 + 32))(a2, v11);
-    v13 = 0;
-  }
-
-  else
-  {
-    (*(v7 + 8))(v11, v6);
-    v12 = *(v15 - 8);
-    v13 = 1;
-  }
-
-  return (*(v12 + 56))(a2, v13, 1, v15);
-}
-
-uint64_t TaggedValue_9.tagged3.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[1];
-  v22[0] = a1[2];
-  v22[1] = v5;
-  v6 = a1[3];
-  v7 = a1[4];
-  v22[2] = v22[0];
-  v22[3] = v6;
-  v8 = a1[5];
-  v9 = a1[6];
-  v22[4] = v7;
-  v22[5] = v8;
-  v10 = a1[7];
-  v11 = a1[8];
-  v22[6] = v9;
-  v22[7] = v10;
-  v12 = a1[9];
-  v22[8] = v11;
-  v22[9] = v12;
-  v13 = type metadata accessor for TaggedValue_9.TaggedEnum();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  v16 = MEMORY[0x1EEE9AC00](v13);
-  v18 = v22 - v17;
-  (*(v14 + 16))(v22 - v17, v3, v13, v16);
-  if (swift_getEnumCaseMultiPayload() == 2)
-  {
-    v19 = *(*&v22[0] - 8);
-    (*(v19 + 32))(a2, v18);
-    v20 = 0;
-  }
-
-  else
-  {
-    (*(v14 + 8))(v18, v13);
-    v19 = *(*&v22[0] - 8);
-    v20 = 1;
-  }
-
-  return (*(v19 + 56))(a2, v20, 1, *&v22[0]);
-}
-
-uint64_t TaggedValue_9.tagged4.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 152);
-  v6 = *(a1 + 16);
-  v17 = *(a1 + 32);
-  v16[0] = *(a1 + 40);
-  v16[1] = v6;
-  v18 = v16[0];
-  v19 = *(a1 + 56);
-  v20 = *(a1 + 72);
-  v21 = *(a1 + 88);
-  v22 = *(a1 + 104);
-  v23 = *(a1 + 120);
-  v24 = *(a1 + 136);
-  v25 = v5;
-  v7 = type metadata accessor for TaggedValue_9.TaggedEnum();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x1EEE9AC00](v7);
-  v12 = v16 - v11;
-  (*(v8 + 16))(v16 - v11, v3, v7, v10);
-  if (swift_getEnumCaseMultiPayload() == 3)
-  {
-    v13 = *(*&v16[0] - 8);
-    (*(v13 + 32))(a2, v12);
-    v14 = 0;
-  }
-
-  else
-  {
-    (*(v8 + 8))(v12, v7);
-    v13 = *(*&v16[0] - 8);
-    v14 = 1;
-  }
-
-  return (*(v13 + 56))(a2, v14, 1, *&v16[0]);
-}
-
-uint64_t TaggedValue_9.tagged5.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v18[1] = a1[1];
-  v18[2] = v5;
-  v6 = a1[4];
-  v18[0] = a1[3];
-  v18[3] = v18[0];
-  v18[4] = v6;
-  v7 = a1[6];
-  v18[5] = a1[5];
-  v18[6] = v7;
-  v8 = a1[8];
-  v18[7] = a1[7];
-  v18[8] = v8;
-  v18[9] = a1[9];
-  v9 = type metadata accessor for TaggedValue_9.TaggedEnum();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v14 = v18 - v13;
-  (*(v10 + 16))(v18 - v13, v3, v9, v12);
-  if (swift_getEnumCaseMultiPayload() == 4)
-  {
-    v15 = *(*&v18[0] - 8);
-    (*(v15 + 32))(a2, v14);
-    v16 = 0;
-  }
-
-  else
-  {
-    (*(v10 + 8))(v14, v9);
-    v15 = *(*&v18[0] - 8);
-    v16 = 1;
-  }
-
-  return (*(v15 + 56))(a2, v16, 1, *&v18[0]);
-}
-
-uint64_t TaggedValue_9.tagged6.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 48);
-  v6 = *(a1 + 152);
-  v7 = *(a1 + 32);
-  v17[1] = *(a1 + 16);
-  v17[2] = v7;
-  v18 = v5;
-  v17[0] = *(a1 + 56);
-  v19 = v17[0];
-  v20 = *(a1 + 72);
-  v21 = *(a1 + 88);
-  v22 = *(a1 + 104);
-  v23 = *(a1 + 120);
-  v24 = *(a1 + 136);
-  v25 = v6;
-  v8 = type metadata accessor for TaggedValue_9.TaggedEnum();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = v17 - v12;
-  (*(v9 + 16))(v17 - v12, v3, v8, v11);
-  if (swift_getEnumCaseMultiPayload() == 5)
-  {
-    v14 = *(*&v17[0] - 8);
-    (*(v14 + 32))(a2, v13);
-    v15 = 0;
-  }
-
-  else
-  {
-    (*(v9 + 8))(v13, v8);
-    v14 = *(*&v17[0] - 8);
-    v15 = 1;
-  }
-
-  return (*(v14 + 56))(a2, v15, 1, *&v17[0]);
-}
-
-uint64_t TaggedValue_9.tagged7.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v18[1] = a1[1];
-  v18[2] = v5;
-  v6 = a1[4];
-  v18[3] = a1[3];
-  v18[4] = v6;
-  v18[0] = v6;
-  v7 = a1[6];
-  v18[5] = a1[5];
-  v18[6] = v7;
-  v8 = a1[8];
-  v18[7] = a1[7];
-  v18[8] = v8;
-  v18[9] = a1[9];
-  v9 = type metadata accessor for TaggedValue_9.TaggedEnum();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v14 = v18 - v13;
-  (*(v10 + 16))(v18 - v13, v3, v9, v12);
-  if (swift_getEnumCaseMultiPayload() == 6)
-  {
-    v15 = *(*&v18[0] - 8);
-    (*(v15 + 32))(a2, v14);
-    v16 = 0;
-  }
-
-  else
-  {
-    (*(v10 + 8))(v14, v9);
-    v15 = *(*&v18[0] - 8);
-    v16 = 1;
-  }
-
-  return (*(v15 + 56))(a2, v16, 1, *&v18[0]);
-}
-
-uint64_t TaggedValue_9.tagged8.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = *(a1 + 64);
-  v6 = *(a1 + 152);
-  v7 = *(a1 + 32);
-  v17[1] = *(a1 + 16);
-  v17[2] = v7;
-  v17[3] = *(a1 + 48);
-  v18 = v5;
-  v17[0] = *(a1 + 72);
-  v19 = v17[0];
-  v20 = *(a1 + 88);
-  v21 = *(a1 + 104);
-  v22 = *(a1 + 120);
-  v23 = *(a1 + 136);
-  v24 = v6;
-  v8 = type metadata accessor for TaggedValue_9.TaggedEnum();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = v17 - v12;
-  (*(v9 + 16))(v17 - v12, v3, v8, v11);
-  if (swift_getEnumCaseMultiPayload() == 7)
-  {
-    v14 = *(*&v17[0] - 8);
-    (*(v14 + 32))(a2, v13);
-    v15 = 0;
-  }
-
-  else
-  {
-    (*(v9 + 8))(v13, v8);
-    v14 = *(*&v17[0] - 8);
-    v15 = 1;
-  }
-
-  return (*(v14 + 56))(a2, v15, 1, *&v17[0]);
-}
-
-uint64_t TaggedValue_9.tagged9.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v18[1] = a1[1];
-  v18[2] = v5;
-  v6 = a1[4];
-  v18[3] = a1[3];
-  v18[4] = v6;
-  v7 = a1[6];
-  v18[0] = a1[5];
-  v18[5] = v18[0];
-  v18[6] = v7;
-  v8 = a1[8];
-  v18[7] = a1[7];
-  v18[8] = v8;
-  v18[9] = a1[9];
-  v9 = type metadata accessor for TaggedValue_9.TaggedEnum();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v14 = v18 - v13;
-  (*(v10 + 16))(v18 - v13, v3, v9, v12);
-  if (swift_getEnumCaseMultiPayload() == 8)
-  {
-    v15 = *(*&v18[0] - 8);
-    (*(v15 + 32))(a2, v14);
-    v16 = 0;
-  }
-
-  else
-  {
-    (*(v10 + 8))(v14, v9);
-    v15 = *(*&v18[0] - 8);
-    v16 = 1;
-  }
-
-  return (*(v15 + 56))(a2, v16, 1, *&v18[0]);
-}
-
-uint64_t TaggedValue_9.unknown.getter@<X0>(_OWORD *a1@<X0>, void *a2@<X8>)
-{
-  v3 = v2;
-  v5 = a1[2];
-  v17[0] = a1[1];
-  v17[1] = v5;
-  v6 = a1[4];
-  v17[2] = a1[3];
-  v17[3] = v6;
-  v7 = a1[6];
-  v17[4] = a1[5];
-  v17[5] = v7;
-  v8 = a1[8];
-  v17[6] = a1[7];
-  v17[7] = v8;
-  v17[8] = a1[9];
-  v9 = type metadata accessor for TaggedValue_9.TaggedEnum();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v14 = v17 - v13;
-  (*(v10 + 16))(v17 - v13, v3, v9, v12);
-  result = swift_getEnumCaseMultiPayload();
-  if (result == 9)
-  {
-    v16 = *(v14 + 1);
-  }
-
-  else
-  {
-    result = (*(v10 + 8))(v14, v9);
-    v16 = 0;
-  }
-
-  *a2 = v16;
-  return result;
-}
-
-uint64_t TaggedValue_9.visitReferences(_:)(uint64_t a1, uint64_t a2)
-{
-  v108 = a1;
-  v104 = *(*(a2 + 80) - 8);
-  v2 = *(v104 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v103 = v81 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v101 = *(*(v4 + 72) - 8);
-  v5 = *(v101 + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  v100 = v81 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v98 = *(*(v8 + 64) - 8);
-  v9 = *(v98 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v97 = v81 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v95 = *(*(v12 + 56) - 8);
-  v13 = *(v95 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v93 = v81 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = *(v16 + 48);
-  v92 = *(v17 - 8);
-  v18 = *(v92 + 64);
-  MEMORY[0x1EEE9AC00](v17);
-  v91 = v81 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v89 = *(*(v20 + 40) - 8);
-  v21 = *(v89 + 64);
-  MEMORY[0x1EEE9AC00](v22);
-  v88 = v81 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = *(v24 + 32);
-  v87 = *(v25 - 8);
-  v26 = *(v87 + 64);
-  MEMORY[0x1EEE9AC00](v27);
-  v86 = v81 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = *(v29 + 24);
-  v85 = *(v30 - 8);
-  v31 = *(v85 + 64);
-  MEMORY[0x1EEE9AC00](v32);
-  v84 = v81 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v35 = *(v34 + 16);
-  v83 = *(v35 - 8);
-  v36 = *(v83 + 64);
-  MEMORY[0x1EEE9AC00](v37);
-  v82 = v81 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v40 = *(v39 + 88);
-  v41 = *(v39 + 96);
-  v42 = *(v39 + 112);
-  v43 = *(v39 + 120);
-  v44 = *(v39 + 128);
-  v45 = *(v39 + 136);
-  v47 = *(v39 + 144);
-  v46 = *(v39 + 152);
-  *&v48 = v35;
-  *(&v48 + 1) = v30;
-  *&v49 = v25;
-  v90 = v50;
-  *(&v49 + 1) = v50;
-  v110[0] = v49;
-  v109 = v48;
-  v94 = v51;
-  *&v48 = v51;
-  v96 = v52;
-  *(&v48 + 1) = v52;
-  v99 = v53;
-  *&v49 = v53;
-  v102 = v54;
-  *(&v49 + 1) = v54;
-  v110[2] = v49;
-  v110[1] = v48;
-  v105 = v55;
-  *&v48 = v55;
-  *(&v48 + 1) = v40;
-  v106 = v41;
-  v110[4] = v41;
-  v110[3] = v48;
-  v81[1] = v42;
-  v111 = v42;
-  v112 = v43;
-  v81[0] = v43;
-  v113 = v44;
-  v114 = v45;
-  v115 = v47;
-  v116 = v46;
-  v56 = type metadata accessor for TaggedValue_9.TaggedEnum();
-  v57 = *(*(v56 - 8) + 64);
-  v58 = MEMORY[0x1EEE9AC00](v56);
-  v60 = v81 - v59;
-  (*(v61 + 16))(v81 - v59, v107, v56, v58);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 4)
-  {
-    if (EnumCaseMultiPayload <= 6)
-    {
-      if (EnumCaseMultiPayload == 5)
-      {
-        v73 = v95;
-        v74 = v93;
-        v75 = v96;
-        (*(v95 + 32))(v93, v60, v96);
-        (*(*(v44 + 8) + 48))(v108, v75);
-        return (*(v73 + 8))(v74, v75);
-      }
-
-      v63 = v98;
-      v64 = v97;
-      v65 = v99;
-      (*(v98 + 32))(v97, v60, v99);
-      v78 = *(v45 + 8);
-    }
-
-    else
-    {
-      if (EnumCaseMultiPayload != 7)
-      {
-        if (EnumCaseMultiPayload == 8)
-        {
-          v67 = v104;
-          v68 = v103;
-          v69 = v105;
-          (*(v104 + 32))(v103, v60, v105);
-          (*(*(v46 + 8) + 48))(v108, v69);
-          return (*(v67 + 8))(v68, v69);
+          v47 = *((v46 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
         }
 
         else
         {
-          (*(**(v60 + 1) + 120))(v108);
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          v47 = swift_initStaticObject();
         }
-      }
 
-      v63 = v101;
-      v64 = v100;
-      v65 = v102;
-      (*(v101 + 32))(v100, v60, v102);
-      v78 = *(v47 + 8);
-    }
+        v89 = v137;
 
-LABEL_21:
-    (*(v78 + 48))(v108, v65);
-    return (*(v63 + 8))(v64, v65);
-  }
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          v47 = sub_1ADDE5178(v47);
+        }
 
-  if (EnumCaseMultiPayload > 1)
-  {
-    if (EnumCaseMultiPayload == 2)
-    {
-      v76 = v87;
-      v77 = v86;
-      (*(v87 + 32))(v86, v60, v25);
-      (*(*(*(&v106 + 1) + 8) + 48))(v108, v25);
-      return (*(v76 + 8))(v77, v25);
-    }
+        swift_beginAccess();
+        *(v47 + 16) = 1;
+        sub_1AE1B7530(v47);
+        v90 = swift_endAccess();
+        MEMORY[0x1EEE9AC00](v90);
+        v91 = v149;
+        *(&v133 - 6) = v150;
+        *(&v133 - 5) = v91;
+        *(&v133 - 8) = v152;
+        *(&v133 - 7) = v43;
+        *(&v133 - 3) = v151;
+        *(&v133 - 4) = v135;
+        *(&v133 - 3) = v42;
+        v92 = v145;
+        *(&v133 - 2) = v145;
+        *(&v133 - 1) = v89;
+        v93 = v161;
+        v94 = sub_1ADE6B938(sub_1ADFFAAB8);
+        if (v93)
+        {
+        }
 
-    if (EnumCaseMultiPayload == 3)
-    {
-      v63 = v89;
-      v64 = v88;
-      v65 = v90;
-      (*(v89 + 32))(v88, v60, v90);
-      v66 = v110;
-    }
+        else
+        {
+          v120 = v94;
+          swift_beginAccess();
+          v121 = *(*(v40 + 24) + 16);
+          if ((~v121 & 0xF000000000000007) != 0 && ((v121 >> 59) & 0x1E | (v121 >> 2) & 1) == 0xB)
+          {
+            v122 = *((v121 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
 
-    else
-    {
-      v63 = v92;
-      v64 = v91;
-      v65 = v94;
-      (*(v92 + 32))(v91, v60, v94);
-      v66 = &v109 + 8;
-    }
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v122 = swift_initStaticObject();
+          }
 
-    v78 = *(*(v66 - 32) + 8);
-    goto LABEL_21;
-  }
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v122 = sub_1ADDE5178(v122);
+          }
 
-  if (EnumCaseMultiPayload)
-  {
-    v79 = v85;
-    v80 = v84;
-    (*(v85 + 32))(v84, v60, v30);
-    (*(*(v106 + 8) + 48))(v108, v30);
-    return (*(v79 + 8))(v80, v30);
-  }
+          swift_beginAccess();
+          *(v122 + 24) = v120;
 
-  else
-  {
-    v71 = v83;
-    v72 = v82;
-    (*(v83 + 32))(v82, v60, v35);
-    (*(*(v40 + 8) + 48))(v108, v35);
-    return (*(v71 + 8))(v72, v35);
-  }
-}
+          sub_1AE1B7530(v122);
+          swift_endAccess();
+        }
 
-uint64_t TaggedValue_9.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  v165 = a1;
-  v167 = a3;
-  v147 = *(*(a2 + 80) - 8);
-  v3 = *(v147 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v148 = &v126 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v146 = &v126 - v6;
-  v8 = *(v7 + 72);
-  v144 = *(v8 - 8);
-  v9 = *(v144 + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  v145 = &v126 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v143 = &v126 - v12;
-  v141 = *(*(v13 + 64) - 8);
-  v14 = *(v141 + 64);
-  MEMORY[0x1EEE9AC00](v15);
-  v142 = &v126 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17);
-  v140 = &v126 - v18;
-  v138 = *(*(v19 + 56) - 8);
-  v20 = *(v138 + 64);
-  MEMORY[0x1EEE9AC00](v21);
-  v139 = &v126 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v23);
-  v136 = &v126 - v24;
-  v135 = *(*(v25 + 48) - 8);
-  v26 = *(v135 + 64);
-  MEMORY[0x1EEE9AC00](v27);
-  v137 = &v126 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v29);
-  v31 = &v126 - v30;
-  v133 = *(*(v32 + 40) - 8);
-  v33 = *(v133 + 64);
-  MEMORY[0x1EEE9AC00](v34);
-  v134 = &v126 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v36);
-  v38 = &v126 - v37;
-  v132 = *(*(v39 + 32) - 8);
-  v40 = *(v132 + 64);
-  MEMORY[0x1EEE9AC00](v41);
-  v43 = &v126 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v44);
-  v46 = &v126 - v45;
-  v131 = *(*(v47 + 24) - 8);
-  v48 = *(v131 + 64);
-  MEMORY[0x1EEE9AC00](v49);
-  v51 = &v126 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v52);
-  v54 = &v126 - v53;
-  v130 = *(*(v55 + 16) - 8);
-  v56 = *(v130 + 64);
-  MEMORY[0x1EEE9AC00](v57);
-  v59 = &v126 - ((v58 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v60);
-  v62 = &v126 - v61;
-  v64 = *(v63 + 88);
-  v65 = *(v63 + 96);
-  v66 = *(v63 + 112);
-  v67 = *(v63 + 120);
-  v68 = *(v63 + 128);
-  v69 = *(v63 + 136);
-  v70 = *(v63 + 144);
-  v71 = *(v63 + 152);
-  v149 = v72;
-  *&v73 = v72;
-  v150 = v74;
-  *(&v73 + 1) = v74;
-  v151 = v75;
-  *&v76 = v75;
-  v152 = v77;
-  *(&v76 + 1) = v77;
-  v153 = v78;
-  *&v79 = v78;
-  v155 = v80;
-  *(&v79 + 1) = v80;
-  v156 = v81;
-  *&v82 = v81;
-  v154 = v83;
-  *(&v82 + 1) = v83;
-  v128 = v76;
-  v170 = v76;
-  v129 = v73;
-  v169 = v73;
-  v126 = v82;
-  v172 = v82;
-  v127 = v79;
-  v171 = v79;
-  v166 = v84;
-  *&v173 = v84;
-  *(&v173 + 1) = v64;
-  v164 = v64;
-  v168 = v65;
-  v174 = v65;
-  v163 = v66;
-  v175 = v66;
-  v176 = v67;
-  v162 = v67;
-  v161 = v68;
-  v177 = v68;
-  v178 = v69;
-  v160 = v69;
-  v159 = v70;
-  v179 = v70;
-  v180 = v71;
-  v158 = v71;
-  v85 = type metadata accessor for TaggedValue_9.TaggedEnum();
-  v86 = *(*(v85 - 8) + 64);
-  v87 = MEMORY[0x1EEE9AC00](v85);
-  v89 = &v126 - v88;
-  (*(v90 + 16))(&v126 - v88, v157, v85, v87);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 4)
-  {
-    if (EnumCaseMultiPayload <= 6)
-    {
-      if (EnumCaseMultiPayload == 5)
-      {
-        v102 = v138;
-        v103 = v136;
-        v104 = v155;
-        (*(v138 + 32))(v136, v89, v155);
-        v105 = v139;
-        (*(*(v161 + 8) + 24))(v165, v104);
-        (*(v102 + 8))(v103, v104);
-        return TaggedValue_9.init(_:)(v105, v104, v167);
+        (*(v44 + 8))(v92, v45);
       }
 
       else
       {
-        v122 = v141;
-        v123 = v140;
-        v124 = v156;
-        (*(v141 + 32))(v140, v89, v156);
-        v125 = v142;
-        (*(*(v160 + 8) + 24))(v165, v124);
-        (*(v122 + 8))(v123, v124);
-        return TaggedValue_9.init(_:)(v125, v124, v167);
+        v65 = v138;
+        (*(v147 + 32))(v146, v32, v138);
+        swift_beginAccess();
+        v66 = *(*(v40 + 24) + 16);
+        v67 = v135;
+        if ((~v66 & 0xF000000000000007) != 0 && ((v66 >> 59) & 0x1E | (v66 >> 2) & 1) == 0xB)
+        {
+          v68 = *((v66 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          v68 = swift_initStaticObject();
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          v68 = sub_1ADDE5178(v68);
+        }
+
+        swift_beginAccess();
+        *(v68 + 16) = 2;
+        sub_1AE1B7530(v68);
+        v102 = swift_endAccess();
+        MEMORY[0x1EEE9AC00](v102);
+        v103 = v149;
+        *(&v133 - 6) = v150;
+        *(&v133 - 5) = v103;
+        *(&v133 - 8) = v152;
+        *(&v133 - 7) = v43;
+        *(&v133 - 3) = v151;
+        *(&v133 - 4) = v67;
+        *(&v133 - 3) = v42;
+        v104 = v146;
+        v105 = v137;
+        *(&v133 - 2) = v146;
+        *(&v133 - 1) = v105;
+        v106 = v161;
+        v107 = sub_1ADE6B938(sub_1ADFFAA70);
+        if (v106)
+        {
+        }
+
+        else
+        {
+          v126 = v107;
+          swift_beginAccess();
+          v127 = *(*(v40 + 24) + 16);
+          if ((~v127 & 0xF000000000000007) != 0 && ((v127 >> 59) & 0x1E | (v127 >> 2) & 1) == 0xB)
+          {
+            v128 = *((v127 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v128 = swift_initStaticObject();
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v128 = sub_1ADDE5178(v128);
+          }
+
+          swift_beginAccess();
+          *(v128 + 24) = v126;
+
+          sub_1AE1B7530(v128);
+          swift_endAccess();
+        }
+
+        (*(v147 + 8))(v104, v65);
       }
     }
 
-    else if (EnumCaseMultiPayload == 7)
+    else
     {
-      v109 = v144;
-      v110 = v143;
-      v111 = v154;
-      (*(v144 + 32))(v143, v89, v154);
-      v112 = v145;
-      (*(*(v159 + 8) + 24))(v165, v111);
-      (*(v109 + 8))(v110, v111);
-      return TaggedValue_9.init(_:)(v112, v167, v111);
+      (*(v144 + 32))(v133, v32, v14);
+      swift_beginAccess();
+      v56 = *(*(v40 + 24) + 16);
+      v57 = v136;
+      v58 = v134;
+      if ((~v56 & 0xF000000000000007) != 0 && ((v56 >> 59) & 0x1E | (v56 >> 2) & 1) == 0xB)
+      {
+        v59 = *((v56 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+      }
+
+      else
+      {
+        type metadata accessor for Proto_TaggedValue._StorageClass();
+        v59 = swift_initStaticObject();
+      }
+
+      v73 = v137;
+
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        type metadata accessor for Proto_TaggedValue._StorageClass();
+        swift_allocObject();
+        v59 = sub_1ADDE5178(v59);
+      }
+
+      swift_beginAccess();
+      *(v59 + 16) = 0;
+      sub_1AE1B7530(v59);
+      v74 = swift_endAccess();
+      MEMORY[0x1EEE9AC00](v74);
+      v75 = v149;
+      *(&v133 - 6) = v150;
+      *(&v133 - 5) = v75;
+      *&v76 = v152;
+      *(&v76 + 1) = v58;
+      v77 = v151;
+      *(&v133 - 4) = v76;
+      *(&v133 - 3) = v77;
+      *(&v133 - 4) = v135;
+      *(&v133 - 3) = v57;
+      v78 = v133;
+      *(&v133 - 2) = v133;
+      *(&v133 - 1) = v73;
+      v79 = v161;
+      v80 = sub_1ADE6B938(sub_1ADFFAB00);
+      if (v79)
+      {
+      }
+
+      else
+      {
+        v114 = v80;
+        swift_beginAccess();
+        v115 = *(*(v40 + 24) + 16);
+        if ((~v115 & 0xF000000000000007) != 0 && ((v115 >> 59) & 0x1E | (v115 >> 2) & 1) == 0xB)
+        {
+          v116 = *((v115 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          v116 = swift_initStaticObject();
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          v116 = sub_1ADDE5178(v116);
+        }
+
+        swift_beginAccess();
+        *(v116 + 24) = v114;
+
+        sub_1AE1B7530(v116);
+        swift_endAccess();
+      }
+
+      (*(v144 + 8))(v78, v14);
+    }
+  }
+
+  return result;
+}
+
+double TaggedValue_5<>.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v58 = a5;
+  v59 = a7;
+  v55 = a6;
+  v57 = a4;
+  v54 = a3;
+  v60 = a1;
+  v7 = *(a2 + 48);
+  v56 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v53 = &v47 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *(v9 + 40);
+  v52 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v51 = &v47 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = *(v13 + 32);
+  v50 = *(v14 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v49 = &v47 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = *(v17 + 24);
+  v48 = *(v18 - 8);
+  MEMORY[0x1EEE9AC00](v19);
+  v21 = &v47 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = *(v22 + 16);
+  v47 = *(v23 - 8);
+  MEMORY[0x1EEE9AC00](v24);
+  v26 = &v47 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *&v27 = v23;
+  *(&v27 + 1) = v18;
+  v29 = *(v28 + 88);
+  *&v30 = v14;
+  *(&v30 + 1) = v10;
+  v63 = v30;
+  v62 = v27;
+  v64 = v7;
+  v31 = *(v28 + 72);
+  v65 = *(v28 + 56);
+  v66 = v31;
+  v67 = v29;
+  v32 = type metadata accessor for TaggedValue_5.TaggedEnum(0, &v62);
+  v33 = MEMORY[0x1EEE9AC00](v32);
+  v35 = &v47 - v34;
+  (*(v36 + 16))(&v47 - v34, v68, v32, v33);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload > 2)
+  {
+    if (EnumCaseMultiPayload == 3)
+    {
+      v43 = v52;
+      v44 = v51;
+      (*(v52 + 32))(v51, v35, v10);
+      sub_1AE23CBAC();
+      (*(v43 + 8))(v44, v10);
     }
 
-    else if (EnumCaseMultiPayload == 8)
+    else if (EnumCaseMultiPayload == 4)
     {
-      v96 = v147;
-      v97 = v146;
-      v98 = v166;
-      (*(v147 + 32))(v146, v89, v166);
-      v99 = v148;
-      (*(*(v158 + 8) + 24))(v165, v98);
-      (*(v96 + 8))(v97, v98);
-      return TaggedValue_9.init(_:)(v99, v167, v154, v98);
+      v40 = v56;
+      v41 = v53;
+      (*(v56 + 32))(v53, v35, v7);
+      sub_1AE23CBAC();
+      (*(v40 + 8))(v41, v7);
     }
 
     else
     {
-      v116 = *v89;
-      v117 = (*(**(v89 + 1) + 104))(v165);
-
-      v118 = v167;
-      *v167 = v116;
-      v118[1] = v117;
-      v170 = v128;
-      v169 = v129;
-      v172 = v126;
-      v171 = v127;
-      *&v119 = v166;
-      *(&v119 + 1) = v164;
-      v174 = v168;
-      v173 = v119;
-      v175 = v163;
-      v176 = v162;
-      v177 = v161;
-      v178 = v160;
-      v179 = v159;
-      v180 = v158;
-      type metadata accessor for TaggedValue_9.TaggedEnum();
-      return swift_storeEnumTagMultiPayload();
+      (*(**(v35 + 1) + 80))(v61);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BBE40, &qword_1AE24FCF0);
+      swift_dynamicCast();
+      __swift_project_boxed_opaque_existential_1(&v62, *(&v63 + 1));
+      sub_1AE23CBAC();
+      __swift_destroy_boxed_opaque_existential_1(&v62);
     }
   }
 
-  else if (EnumCaseMultiPayload <= 1)
+  else if (EnumCaseMultiPayload)
   {
-    if (EnumCaseMultiPayload)
+    if (EnumCaseMultiPayload == 1)
     {
-      v120 = v131;
-      v121 = v150;
-      (*(v131 + 32))(v54, v89, v150);
-      (*(*(v168 + 8) + 24))(v165, v121);
-      (*(v120 + 8))(v54, v121);
-      return TaggedValue_9.init(_:)(v51, v121, v167);
+      v38 = v48;
+      (*(v48 + 32))(v21, v35, v18);
+      sub_1AE23CBAC();
+      (*(v38 + 8))(v21, v18);
     }
 
     else
     {
-      v100 = v130;
-      v101 = v149;
-      (*(v130 + 32))(v62, v89, v149);
-      (*(*(v164 + 8) + 24))(v165, v101);
-      (*(v100 + 8))(v62, v101);
-      return TaggedValue_9.init(_:)(v59, v101, v167);
+      v45 = v50;
+      v46 = v49;
+      (*(v50 + 32))(v49, v35, v14);
+      sub_1AE23CBAC();
+      (*(v45 + 8))(v46, v14);
     }
-  }
-
-  else if (EnumCaseMultiPayload == 2)
-  {
-    v106 = v132;
-    v107 = v89;
-    v108 = v151;
-    (*(v132 + 32))(v46, v107, v151);
-    (*(*(*(&v168 + 1) + 8) + 24))(v165, v108);
-    (*(v106 + 8))(v46, v108);
-    return TaggedValue_9.init(_:)(v43, v108, v167);
-  }
-
-  else if (EnumCaseMultiPayload == 3)
-  {
-    v92 = v133;
-    v93 = v152;
-    (*(v133 + 32))(v38, v89, v152);
-    v94 = v134;
-    (*(*(v163 + 8) + 24))(v165, v93);
-    (*(v92 + 8))(v38, v93);
-    return TaggedValue_9.init(_:)(v94, v93, v167);
   }
 
   else
   {
-    v113 = v135;
-    v114 = v153;
-    (*(v135 + 32))(v31, v89, v153);
-    v115 = v137;
-    (*(*(v162 + 8) + 24))(v165, v114);
-    (*(v113 + 8))(v31, v114);
-    return TaggedValue_9.init(_:)(v115, v114, v167);
+    v42 = v47;
+    (*(v47 + 32))(v26, v35, v23);
+    sub_1AE23CBAC();
+    (*(v42 + 8))(v26, v23);
   }
+
+  return result;
+}
+
+void TaggedValue_6.init(from:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+{
+  v119 = a2;
+  v126[0] = a2;
+  v126[1] = a3;
+  v121 = a3;
+  v113 = a4;
+  v126[2] = a4;
+  v126[3] = a5;
+  v120 = a5;
+  v122 = a6;
+  v126[4] = a6;
+  v126[5] = a7;
+  v114 = a7;
+  v118 = a8;
+  v126[6] = a8;
+  v126[7] = a10;
+  v116 = a10;
+  v111 = a11;
+  v126[8] = a11;
+  v126[9] = a12;
+  v115 = a12;
+  v117 = a13;
+  v126[10] = a13;
+  v126[11] = a14;
+  v112 = a14;
+  v16 = type metadata accessor for TaggedValue_6.TaggedEnum(0, v126);
+  MEMORY[0x1EEE9AC00](v16);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = v108 - v18;
+  MEMORY[0x1EEE9AC00](v20);
+  v22 = v108 - v21;
+  MEMORY[0x1EEE9AC00](v23);
+  v25 = v108 - v24;
+  MEMORY[0x1EEE9AC00](v26);
+  v28 = v108 - v27;
+  MEMORY[0x1EEE9AC00](v29);
+  v31 = v108 - v30;
+  MEMORY[0x1EEE9AC00](v32);
+  v39 = v108 - v38;
+  v40 = *(a1 + 72);
+  if (!v40)
+  {
+    sub_1ADE42E40(v33, v34, v35);
+    swift_allocError();
+    *v51 = 0xD000000000000017;
+    *(v51 + 8) = 0x80000001AE25FB70;
+    *(v51 + 16) = 0;
+    swift_willThrow();
+    goto LABEL_13;
+  }
+
+  v108[0] = v37;
+  v109 = v33;
+  v110 = v36;
+  type metadata accessor for CRDecoder.CRValueContainer();
+  inited = swift_initStackObject();
+  v124 = a1;
+  v108[1] = inited;
+  *(inited + 16) = a1;
+  v42 = *(v40 + 16);
+  v123 = a9;
+  if ((~v42 & 0xF000000000000007) != 0 && ((v42 >> 59) & 0x1E | (v42 >> 2) & 1) == 0xB)
+  {
+    v43 = *((v42 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+  }
+
+  else
+  {
+    v43 = &unk_1EB5B9140;
+  }
+
+  swift_beginAccess();
+  v44 = v43[2];
+  if (v44 <= 2)
+  {
+    if (!v44)
+    {
+      v58 = *(v40 + 16);
+      if ((~v58 & 0xF000000000000007) != 0)
+      {
+        v60 = v123;
+        if (((v58 >> 59) & 0x1E | (v58 >> 2) & 1) == 0xB)
+        {
+          v59 = *((v58 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          v59 = &unk_1EB5B9140;
+        }
+      }
+
+      else
+      {
+        v59 = &unk_1EB5B9140;
+        v60 = v123;
+      }
+
+      swift_beginAccess();
+      v76 = v59[3];
+      if (v76)
+      {
+        v77 = v76;
+      }
+
+      else
+      {
+        type metadata accessor for Proto_Value._StorageClass();
+        v77 = swift_initStaticObject();
+      }
+
+      type metadata accessor for CRDecoder();
+      swift_allocObject();
+      v78 = v124;
+
+      v79 = sub_1ADE0262C(v77, v78);
+      v80 = v125;
+      (*(*(*(v118 + 8) + 8) + 8))(v79);
+
+      if (!v80)
+      {
+
+        v81 = v109;
+        swift_storeEnumTagMultiPayload();
+        (*(v110 + 32))(v60, v39, v81);
+        return;
+      }
+
+      goto LABEL_13;
+    }
+
+    if (v44 == 1)
+    {
+      v68 = *(v40 + 16);
+      v69 = v124;
+      if ((~v68 & 0xF000000000000007) != 0)
+      {
+        v71 = v123;
+        if (((v68 >> 59) & 0x1E | (v68 >> 2) & 1) == 0xB)
+        {
+          v70 = *((v68 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          v70 = &unk_1EB5B9140;
+        }
+      }
+
+      else
+      {
+        v70 = &unk_1EB5B9140;
+        v71 = v123;
+      }
+
+      swift_beginAccess();
+      v101 = v70[3];
+      if (v101)
+      {
+        v102 = v101;
+      }
+
+      else
+      {
+        type metadata accessor for Proto_Value._StorageClass();
+        v102 = swift_initStaticObject();
+      }
+
+      type metadata accessor for CRDecoder();
+      swift_allocObject();
+
+      v103 = sub_1ADE0262C(v102, v69);
+      v104 = v125;
+      (*(*(*(v116 + 8) + 8) + 8))(v103);
+
+      if (!v104)
+      {
+
+        v86 = v109;
+        swift_storeEnumTagMultiPayload();
+        v87 = *(v110 + 32);
+        v88 = v71;
+        goto LABEL_79;
+      }
+
+LABEL_13:
+
+      return;
+    }
+
+    v45 = v124;
+    if (v44 == 2)
+    {
+      v46 = *(v40 + 16);
+      if ((~v46 & 0xF000000000000007) != 0)
+      {
+        v48 = v123;
+        v49 = v113;
+        v50 = v111;
+        if (((v46 >> 59) & 0x1E | (v46 >> 2) & 1) == 0xB)
+        {
+          v47 = *((v46 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          v47 = &unk_1EB5B9140;
+        }
+      }
+
+      else
+      {
+        v47 = &unk_1EB5B9140;
+        v48 = v123;
+        v49 = v113;
+        v50 = v111;
+      }
+
+      swift_beginAccess();
+      v94 = v47[3];
+      if (v94)
+      {
+        v95 = v94;
+      }
+
+      else
+      {
+        type metadata accessor for Proto_Value._StorageClass();
+        v95 = swift_initStaticObject();
+      }
+
+      type metadata accessor for CRDecoder();
+      swift_allocObject();
+
+      v96 = sub_1ADE0262C(v95, v45);
+      v97 = v125;
+      (*(*(*(v50 + 8) + 8) + 8))(v96, v49);
+      if (!v97)
+      {
+
+        v86 = v109;
+        swift_storeEnumTagMultiPayload();
+        v87 = *(v110 + 32);
+        v88 = v48;
+        v89 = v28;
+        goto LABEL_87;
+      }
+
+LABEL_85:
+
+      return;
+    }
+
+LABEL_23:
+    v65 = *(v40 + 16);
+    if ((~v65 & 0xF000000000000007) != 0)
+    {
+      v67 = v125;
+      if (((v65 >> 59) & 0x1E | (v65 >> 2) & 1) == 0xB)
+      {
+        v66 = *((v65 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+      }
+
+      else
+      {
+        v66 = &unk_1EB5B9140;
+      }
+    }
+
+    else
+    {
+      v66 = &unk_1EB5B9140;
+      v67 = v125;
+    }
+
+    swift_beginAccess();
+    v90 = v66[3];
+    if (v90)
+    {
+      v91 = v90;
+    }
+
+    else
+    {
+      type metadata accessor for Proto_Value._StorageClass();
+      v91 = swift_initStaticObject();
+    }
+
+    type metadata accessor for CRDecoder();
+    swift_allocObject();
+
+    v92 = sub_1ADE0262C(v91, v45);
+    AnyCRValue.init(from:)(v92, &v127);
+
+    if (!v67)
+    {
+
+      v93 = v127;
+      v31 = v108[0];
+      *v108[0] = v44;
+      *(v31 + 1) = v93;
+      v86 = v109;
+      swift_storeEnumTagMultiPayload();
+      v87 = *(v110 + 32);
+      v88 = v123;
+LABEL_79:
+      v89 = v31;
+      goto LABEL_87;
+    }
+
+    goto LABEL_13;
+  }
+
+  if (v44 != 3)
+  {
+    v45 = v124;
+    if (v44 == 4)
+    {
+      v72 = *(v40 + 16);
+      if ((~v72 & 0xF000000000000007) != 0)
+      {
+        v74 = v123;
+        v75 = v125;
+        if (((v72 >> 59) & 0x1E | (v72 >> 2) & 1) == 0xB)
+        {
+          v73 = *((v72 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          v73 = &unk_1EB5B9140;
+        }
+      }
+
+      else
+      {
+        v73 = &unk_1EB5B9140;
+        v74 = v123;
+        v75 = v125;
+      }
+
+      swift_beginAccess();
+      v105 = v73[3];
+      if (v105)
+      {
+        v106 = v105;
+      }
+
+      else
+      {
+        type metadata accessor for Proto_Value._StorageClass();
+        v106 = swift_initStaticObject();
+      }
+
+      type metadata accessor for CRDecoder();
+      swift_allocObject();
+
+      v107 = sub_1ADE0262C(v106, v45);
+      (*(*(*(v117 + 8) + 8) + 8))(v107);
+      if (!v75)
+      {
+
+        v86 = v109;
+        swift_storeEnumTagMultiPayload();
+        v87 = *(v110 + 32);
+        v88 = v74;
+        v89 = v22;
+        goto LABEL_87;
+      }
+
+      goto LABEL_85;
+    }
+
+    if (v44 == 5)
+    {
+      v52 = *(v40 + 16);
+      if ((~v52 & 0xF000000000000007) != 0)
+      {
+        v54 = v123;
+        v55 = v125;
+        v56 = v114;
+        v57 = v112;
+        if (((v52 >> 59) & 0x1E | (v52 >> 2) & 1) == 0xB)
+        {
+          v53 = *((v52 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          v53 = &unk_1EB5B9140;
+        }
+      }
+
+      else
+      {
+        v53 = &unk_1EB5B9140;
+        v54 = v123;
+        v55 = v125;
+        v56 = v114;
+        v57 = v112;
+      }
+
+      swift_beginAccess();
+      v98 = v53[3];
+      if (v98)
+      {
+        v99 = v98;
+      }
+
+      else
+      {
+        type metadata accessor for Proto_Value._StorageClass();
+        v99 = swift_initStaticObject();
+      }
+
+      type metadata accessor for CRDecoder();
+      swift_allocObject();
+
+      v100 = sub_1ADE0262C(v99, v45);
+      (*(*(*(v57 + 8) + 8) + 8))(v100, v56);
+      if (!v55)
+      {
+
+        v86 = v109;
+        swift_storeEnumTagMultiPayload();
+        v87 = *(v110 + 32);
+        v88 = v54;
+        v89 = v19;
+        goto LABEL_87;
+      }
+
+      goto LABEL_85;
+    }
+
+    goto LABEL_23;
+  }
+
+  v61 = *(v40 + 16);
+  v62 = v124;
+  if ((~v61 & 0xF000000000000007) != 0)
+  {
+    v64 = v123;
+    if (((v61 >> 59) & 0x1E | (v61 >> 2) & 1) == 0xB)
+    {
+      v63 = *((v61 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+    }
+
+    else
+    {
+      v63 = &unk_1EB5B9140;
+    }
+  }
+
+  else
+  {
+    v63 = &unk_1EB5B9140;
+    v64 = v123;
+  }
+
+  swift_beginAccess();
+  v82 = v63[3];
+  if (v82)
+  {
+    v83 = v82;
+  }
+
+  else
+  {
+    type metadata accessor for Proto_Value._StorageClass();
+    v83 = swift_initStaticObject();
+  }
+
+  type metadata accessor for CRDecoder();
+  swift_allocObject();
+
+  v84 = sub_1ADE0262C(v83, v62);
+  v85 = v125;
+  (*(*(*(v115 + 8) + 8) + 8))(v84);
+  if (v85)
+  {
+    goto LABEL_85;
+  }
+
+  v86 = v109;
+  swift_storeEnumTagMultiPayload();
+  v87 = *(v110 + 32);
+  v88 = v64;
+  v89 = v25;
+LABEL_87:
+  v87(v88, v89, v86);
+}
+
+double TaggedValue_6.encode(to:)(uint64_t a1, uint64_t a2)
+{
+  v159 = *(*(a2 + 56) - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v170 = &v152 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v158 = *(*(v4 + 48) - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v160 = &v152 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v169 = *(*(v7 + 40) - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v168 = &v152 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v166 = *(*(v10 + 32) - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v165 = &v152 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = *(v13 + 24);
+  v164 = *(v14 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v163 = &v152 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = *(v17 + 16);
+  v162 = *(v18 - 8);
+  MEMORY[0x1EEE9AC00](v19);
+  v161 = &v152 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = *(v21 + 64);
+  v24 = *(v21 + 80);
+  v23 = *(v21 + 88);
+  v26 = *(v21 + 96);
+  v25 = *(v21 + 104);
+  *&v27 = v18;
+  v157 = v14;
+  *(&v27 + 1) = v14;
+  v167 = v28;
+  *&v29 = v28;
+  v175 = v30;
+  *(&v29 + 1) = v30;
+  v172 = v29;
+  v178[1] = v29;
+  v173 = v27;
+  v178[0] = v27;
+  v171 = v31;
+  v179 = v31;
+  v180 = v32;
+  v176 = v32;
+  v174 = v22;
+  v181 = v22;
+  v182 = v24;
+  v183 = v23;
+  v184 = v26;
+  v185 = v25;
+  v33 = type metadata accessor for TaggedValue_6.TaggedEnum(0, v178);
+  v34 = *(v33 - 8);
+  MEMORY[0x1EEE9AC00](v33);
+  v36 = (&v152 - v35);
+  v37 = v186;
+  v41 = sub_1ADE71C08(v38, v39, v40);
+  if (!v37)
+  {
+    v152 = v18;
+    v43 = v175;
+    v153 = v24;
+    v154 = v23;
+    v155 = v26;
+    v156 = v25;
+    v44 = v176;
+    v45 = v41;
+    v186 = 0;
+    (*(v34 + 16))(v36, v177, v33);
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload <= 2)
+    {
+      v51 = v45;
+      if (EnumCaseMultiPayload)
+      {
+        v52 = v153;
+        if (EnumCaseMultiPayload == 1)
+        {
+          v53 = v157;
+          (*(v164 + 32))(v163, v36, v157);
+          swift_beginAccess();
+          v54 = *(*(v51 + 24) + 16);
+          if ((~v54 & 0xF000000000000007) != 0 && ((v54 >> 59) & 0x1E | (v54 >> 2) & 1) == 0xB)
+          {
+            inited = *((v54 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            inited = swift_initStaticObject();
+          }
+
+          v86 = v171;
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            inited = sub_1ADDE5178(inited);
+          }
+
+          swift_beginAccess();
+          *(inited + 16) = 1;
+          sub_1AE1B7530(inited);
+          v87 = swift_endAccess();
+          MEMORY[0x1EEE9AC00](v87);
+          v88 = v172;
+          *(&v152 - 7) = v173;
+          *(&v152 - 6) = v88;
+          *(&v152 - 10) = v86;
+          *(&v152 - 9) = v44;
+          *(&v152 - 4) = v174;
+          v89 = v154;
+          *(&v152 - 6) = v52;
+          *(&v152 - 5) = v89;
+          v90 = v156;
+          *(&v152 - 4) = v155;
+          *(&v152 - 3) = v90;
+          v91 = v163;
+          *(&v152 - 2) = v163;
+          *(&v152 - 1) = a1;
+          v92 = v186;
+          v93 = sub_1ADE6B938(sub_1ADFFAC68);
+          if (v92)
+          {
+          }
+
+          else
+          {
+            v133 = v93;
+            swift_beginAccess();
+            v134 = *(*(v51 + 24) + 16);
+            if ((~v134 & 0xF000000000000007) != 0 && ((v134 >> 59) & 0x1E | (v134 >> 2) & 1) == 0xB)
+            {
+              v135 = *((v134 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+            }
+
+            else
+            {
+              type metadata accessor for Proto_TaggedValue._StorageClass();
+              v135 = swift_initStaticObject();
+            }
+
+            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+            {
+              type metadata accessor for Proto_TaggedValue._StorageClass();
+              swift_allocObject();
+              v135 = sub_1ADDE5178(v135);
+            }
+
+            swift_beginAccess();
+            *(v135 + 24) = v133;
+
+            sub_1AE1B7530(v135);
+            swift_endAccess();
+          }
+
+          (*(v164 + 8))(v91, v53);
+        }
+
+        else
+        {
+          (*(v166 + 32))(v165, v36, v167);
+          swift_beginAccess();
+          v64 = *(*(v51 + 24) + 16);
+          if ((~v64 & 0xF000000000000007) != 0 && ((v64 >> 59) & 0x1E | (v64 >> 2) & 1) == 0xB)
+          {
+            v65 = *((v64 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v65 = swift_initStaticObject();
+          }
+
+          v94 = v171;
+          v95 = v156;
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v65 = sub_1ADDE5178(v65);
+          }
+
+          swift_beginAccess();
+          *(v65 + 16) = 2;
+          sub_1AE1B7530(v65);
+          v96 = swift_endAccess();
+          MEMORY[0x1EEE9AC00](v96);
+          v97 = v172;
+          *(&v152 - 7) = v173;
+          *(&v152 - 6) = v97;
+          *(&v152 - 10) = v94;
+          *(&v152 - 9) = v44;
+          *(&v152 - 4) = v174;
+          v98 = v154;
+          *(&v152 - 6) = v52;
+          *(&v152 - 5) = v98;
+          *(&v152 - 4) = v155;
+          *(&v152 - 3) = v95;
+          v99 = v165;
+          *(&v152 - 2) = v165;
+          *(&v152 - 1) = a1;
+          v100 = v186;
+          v101 = sub_1ADE6B938(sub_1ADFFAC20);
+          if (v100)
+          {
+          }
+
+          else
+          {
+            v136 = v101;
+            swift_beginAccess();
+            v137 = *(*(v51 + 24) + 16);
+            if ((~v137 & 0xF000000000000007) != 0 && ((v137 >> 59) & 0x1E | (v137 >> 2) & 1) == 0xB)
+            {
+              v138 = *((v137 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+            }
+
+            else
+            {
+              type metadata accessor for Proto_TaggedValue._StorageClass();
+              v138 = swift_initStaticObject();
+            }
+
+            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+            {
+              type metadata accessor for Proto_TaggedValue._StorageClass();
+              swift_allocObject();
+              v138 = sub_1ADDE5178(v138);
+            }
+
+            swift_beginAccess();
+            *(v138 + 24) = v136;
+
+            sub_1AE1B7530(v138);
+            swift_endAccess();
+          }
+
+          (*(v166 + 8))(v99, v167);
+        }
+      }
+
+      else
+      {
+        (*(v162 + 32))(v161, v36, v152);
+        swift_beginAccess();
+        v61 = *(*(v45 + 24) + 16);
+        v62 = v153;
+        if ((~v61 & 0xF000000000000007) != 0 && ((v61 >> 59) & 0x1E | (v61 >> 2) & 1) == 0xB)
+        {
+          v63 = *((v61 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          v63 = swift_initStaticObject();
+        }
+
+        v76 = v171;
+        v77 = v156;
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          v63 = sub_1ADDE5178(v63);
+        }
+
+        swift_beginAccess();
+        *(v63 + 16) = 0;
+        sub_1AE1B7530(v63);
+        v78 = swift_endAccess();
+        MEMORY[0x1EEE9AC00](v78);
+        v79 = v172;
+        *(&v152 - 7) = v173;
+        *(&v152 - 6) = v79;
+        *&v80 = v76;
+        *(&v80 + 1) = v44;
+        v81 = v174;
+        *(&v152 - 5) = v80;
+        *(&v152 - 4) = v81;
+        v82 = v154;
+        *(&v152 - 6) = v62;
+        *(&v152 - 5) = v82;
+        *(&v152 - 4) = v155;
+        *(&v152 - 3) = v77;
+        v83 = v161;
+        *(&v152 - 2) = v161;
+        *(&v152 - 1) = a1;
+        v84 = v186;
+        v85 = sub_1ADE6B938(sub_1ADFFACB0);
+        if (v84)
+        {
+        }
+
+        else
+        {
+          v130 = v85;
+          swift_beginAccess();
+          v131 = *(*(v51 + 24) + 16);
+          if ((~v131 & 0xF000000000000007) != 0 && ((v131 >> 59) & 0x1E | (v131 >> 2) & 1) == 0xB)
+          {
+            v132 = *((v131 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v132 = swift_initStaticObject();
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v132 = sub_1ADDE5178(v132);
+          }
+
+          swift_beginAccess();
+          *(v132 + 24) = v130;
+
+          sub_1AE1B7530(v132);
+          swift_endAccess();
+        }
+
+        (*(v162 + 8))(v83, v152);
+      }
+    }
+
+    else
+    {
+      v47 = a1;
+      if (EnumCaseMultiPayload > 4)
+      {
+        if (EnumCaseMultiPayload == 5)
+        {
+          v56 = v159;
+          v57 = v36;
+          v58 = v44;
+          (*(v159 + 32))(v170, v57, v44);
+          swift_beginAccess();
+          v59 = *(*(v45 + 24) + 16);
+          if ((~v59 & 0xF000000000000007) != 0 && ((v59 >> 59) & 0x1E | (v59 >> 2) & 1) == 0xB)
+          {
+            v60 = *((v59 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v60 = swift_initStaticObject();
+          }
+
+          v110 = v155;
+          v111 = v154;
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v60 = sub_1ADDE5178(v60);
+          }
+
+          swift_beginAccess();
+          *(v60 + 16) = 5;
+          sub_1AE1B7530(v60);
+          v112 = swift_endAccess();
+          MEMORY[0x1EEE9AC00](v112);
+          v113 = v172;
+          *(&v152 - 7) = v173;
+          *(&v152 - 6) = v113;
+          *(&v152 - 10) = v171;
+          *(&v152 - 9) = v58;
+          *(&v152 - 4) = v174;
+          *(&v152 - 6) = v153;
+          *(&v152 - 5) = v111;
+          v114 = v156;
+          *(&v152 - 4) = v110;
+          *(&v152 - 3) = v114;
+          v115 = v170;
+          *(&v152 - 2) = v170;
+          *(&v152 - 1) = a1;
+          v116 = v186;
+          v117 = sub_1ADE6B938(sub_1ADFFAB48);
+          if (v116)
+          {
+          }
+
+          else
+          {
+            v142 = v117;
+            swift_beginAccess();
+            v143 = *(*(v45 + 24) + 16);
+            if ((~v143 & 0xF000000000000007) != 0 && ((v143 >> 59) & 0x1E | (v143 >> 2) & 1) == 0xB)
+            {
+              v144 = *((v143 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+            }
+
+            else
+            {
+              type metadata accessor for Proto_TaggedValue._StorageClass();
+              v144 = swift_initStaticObject();
+            }
+
+            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+            {
+              type metadata accessor for Proto_TaggedValue._StorageClass();
+              swift_allocObject();
+              v144 = sub_1ADDE5178(v144);
+            }
+
+            swift_beginAccess();
+            *(v144 + 24) = v142;
+
+            sub_1AE1B7530(v144);
+            swift_endAccess();
+          }
+
+          (*(v56 + 8))(v115, v58);
+        }
+
+        else
+        {
+          v73 = *v36;
+          v72 = v36[1];
+          swift_beginAccess();
+          v74 = *(*(v45 + 24) + 16);
+          if ((~v74 & 0xF000000000000007) != 0 && ((v74 >> 59) & 0x1E | (v74 >> 2) & 1) == 0xB)
+          {
+            v75 = *((v74 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v75 = swift_initStaticObject();
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v75 = sub_1ADDE5178(v75);
+          }
+
+          swift_beginAccess();
+          *(v75 + 16) = v73;
+          sub_1AE1B7530(v75);
+          swift_endAccess();
+          v125 = *(a1 + 112);
+          v124 = *(a1 + 120);
+          *(a1 + 112) = 0;
+          *(a1 + 120) = 0;
+          v126 = v186;
+          v127 = (*(*v72 + 152))(a1);
+          if (v126)
+          {
+          }
+
+          else
+          {
+            v148 = sub_1ADE71C08(v127, v128, v129);
+            swift_beginAccess();
+            v149 = *(v148 + 24);
+            *(v47 + 112) = v125;
+
+            *(v47 + 120) = v124;
+
+            swift_beginAccess();
+            v150 = *(*(v45 + 24) + 16);
+            if ((~v150 & 0xF000000000000007) != 0 && ((v150 >> 59) & 0x1E | (v150 >> 2) & 1) == 0xB)
+            {
+              v151 = *((v150 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+            }
+
+            else
+            {
+              type metadata accessor for Proto_TaggedValue._StorageClass();
+              v151 = swift_initStaticObject();
+            }
+
+            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+            {
+              type metadata accessor for Proto_TaggedValue._StorageClass();
+              swift_allocObject();
+              v151 = sub_1ADDE5178(v151);
+            }
+
+            swift_beginAccess();
+            *(v151 + 24) = v149;
+
+            sub_1AE1B7530(v151);
+            swift_endAccess();
+          }
+        }
+      }
+
+      else if (EnumCaseMultiPayload == 3)
+      {
+        v48 = v43;
+        (*(v169 + 32))(v168, v36, v43);
+        swift_beginAccess();
+        v49 = *(*(v45 + 24) + 16);
+        if ((~v49 & 0xF000000000000007) != 0 && ((v49 >> 59) & 0x1E | (v49 >> 2) & 1) == 0xB)
+        {
+          v50 = *((v49 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          v50 = swift_initStaticObject();
+        }
+
+        v102 = v171;
+        v103 = v156;
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          v50 = sub_1ADDE5178(v50);
+        }
+
+        swift_beginAccess();
+        *(v50 + 16) = 3;
+        sub_1AE1B7530(v50);
+        v104 = swift_endAccess();
+        MEMORY[0x1EEE9AC00](v104);
+        v105 = v172;
+        *(&v152 - 7) = v173;
+        *(&v152 - 6) = v105;
+        *(&v152 - 10) = v102;
+        *(&v152 - 9) = v44;
+        *(&v152 - 4) = v174;
+        v106 = v154;
+        *(&v152 - 6) = v153;
+        *(&v152 - 5) = v106;
+        *(&v152 - 4) = v155;
+        *(&v152 - 3) = v103;
+        v107 = v168;
+        *(&v152 - 2) = v168;
+        *(&v152 - 1) = a1;
+        v108 = v186;
+        v109 = sub_1ADE6B938(sub_1ADFFABD8);
+        if (v108)
+        {
+        }
+
+        else
+        {
+          v139 = v109;
+          swift_beginAccess();
+          v140 = *(*(v45 + 24) + 16);
+          if ((~v140 & 0xF000000000000007) != 0 && ((v140 >> 59) & 0x1E | (v140 >> 2) & 1) == 0xB)
+          {
+            v141 = *((v140 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v141 = swift_initStaticObject();
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v141 = sub_1ADDE5178(v141);
+          }
+
+          swift_beginAccess();
+          *(v141 + 24) = v139;
+
+          sub_1AE1B7530(v141);
+          swift_endAccess();
+        }
+
+        (*(v169 + 8))(v107, v48);
+      }
+
+      else
+      {
+        v66 = v158;
+        v67 = v160;
+        v68 = v36;
+        v69 = v171;
+        (*(v158 + 32))(v160, v68, v171);
+        swift_beginAccess();
+        v70 = *(*(v45 + 24) + 16);
+        if ((~v70 & 0xF000000000000007) != 0 && ((v70 >> 59) & 0x1E | (v70 >> 2) & 1) == 0xB)
+        {
+          v71 = *((v70 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          v71 = swift_initStaticObject();
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          type metadata accessor for Proto_TaggedValue._StorageClass();
+          swift_allocObject();
+          v71 = sub_1ADDE5178(v71);
+        }
+
+        swift_beginAccess();
+        *(v71 + 16) = 4;
+        sub_1AE1B7530(v71);
+        v118 = swift_endAccess();
+        MEMORY[0x1EEE9AC00](v118);
+        v119 = v172;
+        *(&v152 - 7) = v173;
+        *(&v152 - 6) = v119;
+        *(&v152 - 10) = v69;
+        *(&v152 - 9) = v44;
+        *(&v152 - 4) = v174;
+        v120 = v154;
+        *(&v152 - 6) = v153;
+        *(&v152 - 5) = v120;
+        v121 = v156;
+        *(&v152 - 4) = v155;
+        *(&v152 - 3) = v121;
+        *(&v152 - 2) = v67;
+        *(&v152 - 1) = a1;
+        v122 = v186;
+        v123 = sub_1ADE6B938(sub_1ADFFAB90);
+        if (v122)
+        {
+
+          (*(v66 + 8))(v67, v69);
+        }
+
+        else
+        {
+          v145 = v123;
+          swift_beginAccess();
+          v146 = *(*(v45 + 24) + 16);
+          if ((~v146 & 0xF000000000000007) != 0 && ((v146 >> 59) & 0x1E | (v146 >> 2) & 1) == 0xB)
+          {
+            v147 = *((v146 & 0xFFFFFFFFFFFFFFBLL) + 0x10);
+          }
+
+          else
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            v147 = swift_initStaticObject();
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            type metadata accessor for Proto_TaggedValue._StorageClass();
+            swift_allocObject();
+            v147 = sub_1ADDE5178(v147);
+          }
+
+          swift_beginAccess();
+          *(v147 + 24) = v145;
+
+          sub_1AE1B7530(v147);
+          swift_endAccess();
+
+          (*(v66 + 8))(v160, v69);
+        }
+      }
+    }
+  }
+
+  return result;
 }

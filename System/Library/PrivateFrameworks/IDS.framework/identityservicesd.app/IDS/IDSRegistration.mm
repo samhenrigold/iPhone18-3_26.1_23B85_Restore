@@ -2553,7 +2553,7 @@ LABEL_41:
     v13 = +[IMRGLog registration];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      sub_100930F88();
+      sub_100930F88(smsSignature);
     }
   }
 

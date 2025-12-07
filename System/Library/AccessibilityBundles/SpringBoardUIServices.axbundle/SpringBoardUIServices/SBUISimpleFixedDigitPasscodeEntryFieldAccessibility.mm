@@ -9,6 +9,7 @@
 - (void)_appendString:(id)string;
 - (void)_autofillForBiometricAuthenticationWithCompletion:(id)completion;
 - (void)_deleteLastCharacter;
+- (void)_resetForFailedPasscode:(BOOL)passcode;
 - (void)reset;
 @end
 
@@ -97,6 +98,16 @@
   accessibilityValue = [(SBUISimpleFixedDigitPasscodeEntryFieldAccessibility *)self accessibilityValue];
   UIAccessibilityPostNotification(v3, accessibilityValue);
 
+  _axBulletStringForEnteredDigits = [(SBUISimpleFixedDigitPasscodeEntryFieldAccessibility *)self _axBulletStringForEnteredDigits];
+  [(SBUISimpleFixedDigitPasscodeEntryFieldAccessibility *)self accessibilityFrame];
+  [(SBUISimpleFixedDigitPasscodeEntryFieldAccessibility *)self _accessibilityPostHoverTypingOnlyValueChangedNotificationWithInsertedText:_axBulletStringForEnteredDigits inputFrame:1 isSecureText:?];
+}
+
+- (void)_resetForFailedPasscode:(BOOL)passcode
+{
+  v5.receiver = self;
+  v5.super_class = SBUISimpleFixedDigitPasscodeEntryFieldAccessibility;
+  [(SBUISimpleFixedDigitPasscodeEntryFieldAccessibility *)&v5 _resetForFailedPasscode:passcode];
   _axBulletStringForEnteredDigits = [(SBUISimpleFixedDigitPasscodeEntryFieldAccessibility *)self _axBulletStringForEnteredDigits];
   [(SBUISimpleFixedDigitPasscodeEntryFieldAccessibility *)self accessibilityFrame];
   [(SBUISimpleFixedDigitPasscodeEntryFieldAccessibility *)self _accessibilityPostHoverTypingOnlyValueChangedNotificationWithInsertedText:_axBulletStringForEnteredDigits inputFrame:1 isSecureText:?];

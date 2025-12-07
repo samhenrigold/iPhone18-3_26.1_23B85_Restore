@@ -1,4 +1,5 @@
 @interface Matcher
+- (BOOL)match:(float *)match withLength:(unsigned int)length;
 - (Matcher)initWithAnimationName:(id)name;
 - (void)circularCorrelation:(float *)correlation withLength:(unsigned int)length;
 - (void)computeNormalizedSignal:(float *)signal withLength:(unsigned int)length;
@@ -100,6 +101,42 @@
   {
     [NSException raise:NSFileHandleOperationException format:@"Template file not found."];
   }
+}
+
+- (BOOL)match:(float *)match withLength:(unsigned int)length
+{
+  v4 = *&length;
+  [(Matcher *)self computeNormalizedSignal:match withLength:?];
+  __I = 0;
+  __C = 0.0;
+  vDSP_maxvi(self->_normalizedSignal, 1, &__C, &__I, v4);
+  [(Matcher *)self circularCorrelation:self->_normalizedSignal withLength:v4];
+  if (self->_matchStrength < self->_strengthThreshold)
+  {
+    goto LABEL_5;
+  }
+
+  v6 = self->_matchIndex - __I;
+  if (v6 < 0)
+  {
+    v6 = __I - self->_matchIndex;
+  }
+
+  if ((v6 % (self->_kernelLength >> 1)) <= self->_sampleThreshold)
+  {
+    v7 = 1;
+    result = 1;
+  }
+
+  else
+  {
+LABEL_5:
+    v7 = 0;
+    result = 0;
+  }
+
+  self->_matched = v7;
+  return result;
 }
 
 - (void)computeNormalizedSignal:(float *)signal withLength:(unsigned int)length

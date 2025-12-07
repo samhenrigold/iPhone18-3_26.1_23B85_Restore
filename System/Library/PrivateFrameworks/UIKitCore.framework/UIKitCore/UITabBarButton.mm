@@ -1131,9 +1131,9 @@ LABEL_25:
     goto LABEL_8;
   }
 
-  v8 = [(_UIBarAppearanceData *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_itemAppearanceData, data);
@@ -1328,7 +1328,7 @@ void __124__UITabBarButton_initWithImage_landscapeImage_selectedImage_landscapeS
   [v5 _setContentTintColor:v6 forState:0];
 
   v7 = *(a1 + 32);
-  v8 = +[UIColor blackColor];
+  v8 = objc_msgSend_blackColor(UIColor);
   [v7 _setContentTintColor:v8 forState:1];
 }
 
@@ -1426,7 +1426,7 @@ void __71__UITabBarButton__updateAfterTraitCollectionOrAccessibilityDidChangeTV_
   [v6 _setContentTintColor:v8 forState:0];
 
   v9 = *(a1 + 32);
-  v10 = +[UIColor blackColor];
+  v10 = objc_msgSend_blackColor(UIColor);
   [v9 _setContentTintColor:v10 forState:1];
 }
 
@@ -1478,7 +1478,7 @@ void __71__UITabBarButton__updateAfterTraitCollectionOrAccessibilityDidChangeTV_
       if (!AccessibilitySelectedImageIndicatorMask_maskImage)
       {
         _UIGraphicsBeginImageContextWithOptions(0, 0, 11.0, 11.0, 1.0);
-        v5 = +[UIColor blackColor];
+        v5 = objc_msgSend_blackColor(UIColor);
         [v5 set];
 
         v6 = [UIBezierPath bezierPathWithRoundedRect:0.0 cornerRadius:0.0, 11.0, 11.0, 5.0];
@@ -2482,7 +2482,7 @@ LABEL_6:
     {
       if (state == 4)
       {
-        +[UIColor blackColor];
+        objc_msgSend_blackColor(UIColor);
       }
 
       else
@@ -2538,19 +2538,19 @@ LABEL_7:
   v10 = v9;
   if (v9 == v8)
   {
-    v11 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v11 = 0;
+    isEqual = 0;
     if (v8 && v9)
     {
-      v11 = [v8 isEqual:v9];
+      isEqual = objc_msgSend_isEqual_(v8);
     }
   }
 
-  return v11;
+  return isEqual;
 }
 
 - (UIOffset)badgePositionAdjustmentForState:(int64_t)state
@@ -2805,7 +2805,7 @@ LABEL_10:
     }
 
     v11 = [(NSMutableDictionary *)badgeTextAttributesForState objectForKeyedSubscript:v6];
-    if (v11 != attributesCopy && ([attributesCopy isEqual:v11] & 1) == 0)
+    if (v11 != attributesCopy && (objc_msgSend_isEqual_(attributesCopy) & 1) == 0)
     {
       v12 = [attributesCopy copy];
       [(NSMutableDictionary *)self->_badgeTextAttributesForState setObject:v12 forKeyedSubscript:v6];
@@ -2883,9 +2883,9 @@ LABEL_10:
 
   v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:state];
   v11 = [(NSMutableDictionary *)buttonTintColorsForState objectForKey:v10];
-  v12 = [v15 isEqual:v11];
+  isEqual = objc_msgSend_isEqual_(v15);
 
-  if ((v12 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     v13 = self->_buttonTintColorsForState;
     v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:state];
@@ -2938,9 +2938,9 @@ LABEL_10:
 
   v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:state];
   v11 = [(NSMutableDictionary *)contentTintColorsForState objectForKey:v10];
-  v12 = [v15 isEqual:v11];
+  isEqual = objc_msgSend_isEqual_(v15);
 
-  if ((v12 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     v13 = self->_contentTintColorsForState;
     v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:state];

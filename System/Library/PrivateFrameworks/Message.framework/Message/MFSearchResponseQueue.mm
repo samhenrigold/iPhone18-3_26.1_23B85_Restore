@@ -26,32 +26,32 @@
 
 - (BOOL)addItem:(id)item
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   if ([itemCopy responseType] == 14)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     searchResults = [itemCopy searchResults];
-    v6 = [searchResults countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [searchResults countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (!v6)
     {
       goto LABEL_13;
     }
 
-    v7 = *v14;
+    v7 = *v13;
     while (1)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(searchResults);
         }
 
-        unsignedIntValue = [*(*(&v13 + 1) + 8 * i) unsignedIntValue];
+        unsignedIntValue = [*(*(&v12 + 1) + 8 * i) unsignedIntValue];
         if ([(NSMutableIndexSet *)self->indexSet count]>= self->limit)
         {
           firstIndex = [(NSMutableIndexSet *)self->indexSet firstIndex];
@@ -66,7 +66,7 @@
         [(NSMutableIndexSet *)self->indexSet addIndex:unsignedIntValue];
       }
 
-      v6 = [searchResults countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [searchResults countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (!v6)
       {
 LABEL_13:
@@ -76,7 +76,6 @@ LABEL_13:
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

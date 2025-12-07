@@ -24,7 +24,7 @@ uint64_t ___APBonjourBrowserCacheEnsureStarted_block_invoke_2(uint64_t a1, const
   {
     if (*(result + 40))
     {
-      return _APBonjourBrowserHandleDeviceEvent(result, 1, a2, *(result + 80));
+      return _APBonjourBrowserHandleDeviceEvent(result, 1u, a2, *(result + 80));
     }
   }
 

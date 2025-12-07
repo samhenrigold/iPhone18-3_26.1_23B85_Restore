@@ -1,47 +1,6 @@
-void *sub_10004B7D0(void *a1, uint64_t a2)
+void sub_10004B918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  v4 = sub_10004B420();
-  v5 = sub_10004B844(a2, v4, a1);
-  v5[4] = 0;
-  *a1 = v5;
-  a1[2] = *(a2 + 16);
-  sub_10004B420()[2] = v5;
-  v6 = a1[3];
-  result = sub_10004B420();
-  result[1] = v6;
-  atomic_store(v5, a1 + 1);
-  return result;
-}
-
-void *sub_10004B844(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = *(a1 + 8);
-  v7 = v6 + 72;
-  if (v6 + 72 > *(a1 + 16))
-  {
-    sub_10004FCEC(v13, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/arena.cc", 398);
-    v8 = sub_10004FD04(v13, "CHECK failed: (pos + ArenaImpl::kSerialArenaSize) <= (b->size()): ");
-    sub_10004FE40(&v12, &v8->__r_.__value_.__l.__data_);
-    sub_10004FE48(v13);
-  }
-
-  v9 = sub_10004B6D8(a1, v6);
-  *(a1 + 8) = v7;
-  *v9 = a3;
-  v9[1] = a2;
-  v9[2] = a1;
-  v9[5] = sub_10004B6D8(a1, v7);
-  v10 = sub_10004B6D8(a1, *(a1 + 16));
-  v9[3] = 0;
-  v9[7] = 0;
-  v9[8] = 0;
-  v9[6] = v10;
-  return v9;
-}
-
-void sub_10004B918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -112,27 +71,35 @@ uint64_t *sub_10004BA14(uint64_t *result)
   return result;
 }
 
-uint64_t sub_10004BA70(uint64_t a1)
+uint64_t sub_10004BA70(unint64_t *a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   if (v2)
   {
     v3 = *(v2 + 32);
     if (v3)
     {
-      (*(*v3 + 24))(v3, *(a1 + 16));
+      (*(*v3 + 24))(v3, a1[2]);
     }
   }
 
-  for (i = *a1; i; i = *(i + 32))
+  v4 = *a1;
+  if (*a1)
   {
-    if (*(i + 24))
+    do
     {
-      sub_10004C488(i);
+      if (*(v4 + 24))
+      {
+        sub_10004C488(v4);
+      }
+
+      v4 = *(v4 + 32);
     }
+
+    while (v4);
   }
 
-  v5 = *(a1 + 32);
+  v5 = a1[4];
   if (v5)
   {
     v6 = *(v5 + 24);
@@ -193,7 +160,7 @@ uint64_t sub_10004BA70(uint64_t a1)
     v9 = 0;
   }
 
-  sub_10004B768(a1, *(a1 + 24) & 1);
+  sub_10004B768(a1, a1[3] & 1);
   if (v9)
   {
     v14 = *v9;
@@ -208,7 +175,7 @@ uint64_t sub_10004BA70(uint64_t a1)
 
     *v9 = v14 & 3;
     v16 = 64;
-    if (!*(a1 + 32))
+    if (!a1[4])
     {
       v16 = 24;
     }
@@ -220,9 +187,9 @@ uint64_t sub_10004BA70(uint64_t a1)
   return v8;
 }
 
-void sub_10004BC60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004BC60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -299,9 +266,9 @@ void *sub_10004BC80(uint64_t a1, uint64_t a2, unint64_t a3)
   return result;
 }
 
-void sub_10004BD6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004BD6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -323,7 +290,7 @@ uint64_t *sub_10004BD84(uint64_t a1, unint64_t a2, uint64_t a3)
   return sub_10004C598(v7, v8, a1, 0, 0);
 }
 
-void *sub_10004BDE0(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t *sub_10004BDE0(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   result = a1[3];
   do
@@ -393,9 +360,9 @@ unint64_t sub_10004BE7C(uint64_t *a1, unint64_t a2)
   return result;
 }
 
-void sub_10004BF64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004BF64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -561,7 +528,7 @@ LABEL_4:
   return explicit;
 }
 
-uint64_t sub_10004C344(uint64_t *a1, unint64_t a2)
+unint64_t sub_10004C344(uint64_t *a1, unint64_t a2)
 {
   v4 = a1[2];
   *(v4 + 8) = *(v4 + 16) - a1[6] + a1[5];
@@ -712,9 +679,9 @@ uint64_t *sub_10004C598(uint64_t *a1, uint64_t a2, uint64_t a3, unsigned int a4,
   return a1;
 }
 
-void sub_10004C62C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004C62C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -727,9 +694,9 @@ void sub_10004C644(void *a1)
   }
 }
 
-unint64_t sub_10004C654(unint64_t *a1)
+unint64_t *sub_10004C654(unint64_t *a1)
 {
-  if ((atomic_load_explicit(&qword_1000B65A0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1000B65A0, memory_order_acquire) & 1) == 0)
   {
     sub_10004D0E0();
   }
@@ -910,14 +877,14 @@ uint64_t *sub_10004C9F4(uint64_t **a1, uint64_t a2)
   return result;
 }
 
-void sub_10004CACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004CACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-unint64_t sub_10004CAE4(uint64_t *a1, uint64_t a2, uint64_t a3)
+_BYTE *sub_10004CAE4(uint64_t *a1, unint64_t a2, uint64_t a3)
 {
   if (*a1)
   {
@@ -930,7 +897,7 @@ unint64_t sub_10004CAE4(uint64_t *a1, uint64_t a2, uint64_t a3)
   }
 }
 
-unint64_t sub_10004CB00(unint64_t *a1, uint64_t a2, uint64_t a3)
+_BYTE *sub_10004CB00(unint64_t *a1, uint64_t a2, unint64_t a3)
 {
   if (*a1)
   {
@@ -968,13 +935,13 @@ LABEL_5:
   v9 = v8;
   if (*(explicit + 23) < 0)
   {
-    sub_100019AD4(v8, *explicit, *(explicit + 8));
+    sub_100019AD4(v8, *explicit, explicit[1]);
   }
 
   else
   {
     v10 = *explicit;
-    *(v8 + 16) = *(explicit + 16);
+    *(v8 + 16) = explicit[2];
     *v8 = v10;
   }
 
@@ -1052,9 +1019,9 @@ LABEL_3:
   return v7;
 }
 
-void sub_10004CE14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004CE14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -1152,7 +1119,7 @@ void *sub_10004D01C(void *result)
   return result;
 }
 
-std::string *sub_10004D058(std::string *result, uint64_t a2)
+std::string *sub_10004D058(std::string *result, unint64_t a2)
 {
   if (result->__r_.__value_.__r.__words[0])
   {
@@ -1169,20 +1136,13 @@ std::string *sub_10004D058(std::string *result, uint64_t a2)
   return result;
 }
 
-uint64_t *sub_10004D0CC(uint64_t a1)
-{
-  result = *(*(a1 + 32) + 32);
-  v2 = *result;
-  return result;
-}
-
 void sub_10004D0E0()
 {
-  if (__cxa_guard_acquire(&qword_1000B65A0))
+  if (__cxa_guard_acquire(byte_1000B65A0))
   {
-    __cxa_atexit(std::mutex::~mutex, &unk_1000B5930, &_mh_execute_header);
+    __cxa_atexit(std::mutex::~mutex, &stru_1000B5930, &_mh_execute_header);
 
-    __cxa_guard_release(&qword_1000B65A0);
+    __cxa_guard_release(byte_1000B65A0);
   }
 }
 
@@ -1291,9 +1251,9 @@ uint64_t sub_10004D2D4(uint64_t a1, int a2)
   return v3;
 }
 
-void sub_10004D39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004D39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -1407,9 +1367,9 @@ uint64_t sub_10004D4D8(uint64_t a1)
   return sub_10004FE48(v7);
 }
 
-void sub_10004D550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004D550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -1465,10 +1425,10 @@ uint64_t sub_10004D568(uint64_t a1, int a2, int a3)
   return result;
 }
 
-uint64_t sub_10004D684(uint64_t a1, void *a2, _DWORD *a3)
+uint64_t sub_10004D684(uint64_t *a1, void *a2, _DWORD *a3)
 {
   v6 = *a1;
-  if (*(a1 + 8) == *a1)
+  if (*(a1 + 2) == *a1)
   {
     result = sub_10004D6EC(a1);
     if (!result)
@@ -1480,7 +1440,7 @@ uint64_t sub_10004D684(uint64_t a1, void *a2, _DWORD *a3)
   }
 
   *a2 = v6;
-  *a3 = *(a1 + 8) - *a1;
+  *a3 = *(a1 + 2) - *a1;
   return 1;
 }
 
@@ -1582,9 +1542,9 @@ uint64_t sub_10004D6EC(uint64_t a1)
   return v6;
 }
 
-void sub_10004D8D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004D8D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -1654,9 +1614,9 @@ BOOL sub_10004D990(uint64_t a1, std::string *this, std::string::size_type __n)
   }
 }
 
-void sub_10004DA94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004DA94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -1775,7 +1735,7 @@ BOOL sub_10004DC3C(uint64_t a1, void *a2)
   return 1;
 }
 
-unint64_t sub_10004DCFC(uint64_t a1)
+uint64_t sub_10004DCFC(uint64_t a1)
 {
   v3 = *a1;
   v2 = *(a1 + 8);
@@ -1941,15 +1901,16 @@ LABEL_38:
   return 0;
 }
 
-void sub_10004DF8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004DF8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10004DFA4(unsigned __int8 **a1, int a2)
+uint64_t sub_10004DFA4(unsigned __int8 **a1, uint64_t a2)
 {
+  v2 = a2;
   v5 = *a1;
   v4 = a1[1];
   if ((v4 - *a1) <= 9 && (v4 <= v5 || *(v4 - 1) < 0))
@@ -1978,7 +1939,7 @@ uint64_t sub_10004DFA4(unsigned __int8 **a1, int a2)
       v5 = *a1;
     }
 
-    if (*v5 != a2)
+    if (*v5 != v2)
     {
       sub_10004FCEC(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/coded_stream.cc", 373);
       v8 = sub_10004FD04(v18, "CHECK failed: (*buffer) == (first_byte): ");
@@ -1986,16 +1947,16 @@ uint64_t sub_10004DFA4(unsigned __int8 **a1, int a2)
       sub_10004FE48(v18);
     }
 
-    if ((a2 & 0x80) == 0)
+    if ((v2 & 0x80) == 0)
     {
       sub_10004FCEC(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/coded_stream.cc", 374);
       v9 = sub_10004FD04(v18, "CHECK failed: (first_byte & 0x80) == (0x80): ");
-      v10 = sub_1000503A4(v9, a2);
+      v10 = sub_1000503A4(v9, v2);
       sub_10004FE40(&v17, &v10->__r_.__value_.__l.__data_);
       sub_10004FE48(v18);
     }
 
-    v11 = a2 + (v5[1] << 7) - 128;
+    v11 = v2 + (v5[1] << 7) - 128;
     if (v5[1] < 0)
     {
       v11 = v11 + (v5[2] << 14) - 0x4000;
@@ -2051,9 +2012,9 @@ uint64_t sub_10004DFA4(unsigned __int8 **a1, int a2)
   return result;
 }
 
-void sub_10004E188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004E188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -2266,17 +2227,17 @@ unint64_t sub_10004E1DC(char **a1)
   }
 }
 
-void sub_10004E46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004E46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-unint64_t sub_10004E484(uint64_t a1)
+uint64_t sub_10004E484(char **a1)
 {
   v2 = *a1;
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   if (*a1 != v3)
   {
 LABEL_4:
@@ -2300,19 +2261,20 @@ LABEL_4:
   if (sub_10004D6EC(a1))
   {
     v2 = *a1;
-    v3 = *(a1 + 8);
+    v3 = a1[1];
     goto LABEL_4;
   }
 
-  v6 = *(a1 + 48);
+  v6 = *(a1 + 12);
   result = 0;
-  v7 = *(a1 + 24) - *(a1 + 44) < v6 || *(a1 + 40) == v6;
+  v7 = *(a1 + 6) - *(a1 + 11) < v6 || *(a1 + 10) == v6;
   *(a1 + 36) = v7;
   return result;
 }
 
-unint64_t sub_10004E524(unsigned __int8 **a1, int a2)
+uint64_t sub_10004E524(unsigned __int8 **a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = a1[1];
   v5 = v4 - *a1;
   if (v5 <= 9)
@@ -2350,9 +2312,9 @@ LABEL_4:
   }
 
   v7 = *a1;
-  if (a2)
+  if (v2)
   {
-    if (*v7 != a2)
+    if (*v7 != v2)
     {
       sub_10004FCEC(v19, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/coded_stream.cc", 373);
       v8 = sub_10004FD04(v19, "CHECK failed: (*buffer) == (first_byte): ");
@@ -2360,16 +2322,16 @@ LABEL_4:
       sub_10004FE48(v19);
     }
 
-    if ((a2 & 0x80) == 0)
+    if ((v2 & 0x80) == 0)
     {
       sub_10004FCEC(v19, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/coded_stream.cc", 374);
       v9 = sub_10004FD04(v19, "CHECK failed: (first_byte & 0x80) == (0x80): ");
-      v10 = sub_1000503A4(v9, a2);
+      v10 = sub_1000503A4(v9, v2);
       sub_10004FE40(&v18, &v10->__r_.__value_.__l.__data_);
       sub_10004FE48(v19);
     }
 
-    v11 = a2 + (v7[1] << 7) - 128;
+    v11 = v2 + (v7[1] << 7) - 128;
     if (v7[1] < 0)
     {
       v11 = v11 + (v7[2] << 14) - 0x4000;
@@ -2431,9 +2393,9 @@ LABEL_4:
   return result;
 }
 
-void sub_10004E768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004E768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -2498,17 +2460,17 @@ uint64_t sub_10004E834(uint64_t a1, int a2)
   return result;
 }
 
-int64_t sub_10004E8EC(uint64_t a1, char *a2)
+unint64_t sub_10004E8EC(unint64_t *a1, char *a2)
 {
   while (1)
   {
     v5 = *a1;
-    v4 = *(a1 + 8);
+    v4 = a1[1];
     if (!v4)
     {
       v10 = v5 - a2;
       v9 = v10 + 16;
-      *(a1 + 8) = a2;
+      a1[1] = a2;
       if (((v10 + 16) & 0x80000000) == 0)
       {
         return v9;
@@ -2540,15 +2502,15 @@ int64_t sub_10004E8EC(uint64_t a1, char *a2)
     }
 
     a2 = &sub_10004EA88(a1)[v6];
-    if (*(a1 + 56))
+    if (a1[7])
     {
       return 0;
     }
   }
 
-  memcpy(v4, (a1 + 16), &a2[-a1 - 16]);
+  memcpy(v4, a1 + 2, a2 - (a1 + 2));
   v11 = *a1;
-  *(a1 + 8) += &a2[-a1 - 16];
+  a1[1] += a2 - (a1 + 2);
   v9 = v11 - a2;
   if (((v11 - a2) & 0x80000000) == 0)
   {
@@ -2563,9 +2525,9 @@ LABEL_12:
   return v9;
 }
 
-void sub_10004EA60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004EA60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -2582,7 +2544,7 @@ char *sub_10004EA88(char **a1)
 
   if (a1[6])
   {
-    v3 = (a1 + 2);
+    v3 = a1 + 2;
     v5 = *a1;
     v4 = a1[1];
     if (v4)
@@ -2623,7 +2585,7 @@ char *sub_10004EA88(char **a1)
       }
 
       *v3 = **a1;
-      v7 = &v3[v6];
+      v7 = v3 + v6;
     }
 
     else
@@ -2639,7 +2601,7 @@ char *sub_10004EA88(char **a1)
   else
   {
     *(a1 + 56) = 1;
-    v3 = (a1 + 2);
+    v3 = a1 + 2;
 LABEL_14:
     *a1 = (a1 + 4);
   }
@@ -2647,9 +2609,9 @@ LABEL_14:
   return v3;
 }
 
-void sub_10004EC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004EC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -2722,7 +2684,7 @@ BOOL sub_10004ED20(uint64_t a1, int a2, char **a3)
   if (*(a1 + 56) == 1 || (v5 = a2, v13 = sub_10004E8EC(a1, *a3), *(a1 + 56) == 1))
   {
     v6 = 0;
-    v7 = (a1 + 16);
+    v7 = a1 + 16;
   }
 
   else
@@ -2740,7 +2702,7 @@ BOOL sub_10004ED20(uint64_t a1, int a2, char **a3)
       if (((*(**(a1 + 48) + 16))(*(a1 + 48), &v12, &v13) & 1) == 0)
       {
         *(a1 + 56) = 1;
-        v7 = (a1 + 16);
+        v7 = a1 + 16;
         *a1 = a1 + 32;
         goto LABEL_5;
       }
@@ -2761,12 +2723,12 @@ BOOL sub_10004ED20(uint64_t a1, int a2, char **a3)
 
     if (v9 <= 16)
     {
-      v7 = (a1 + 16);
+      v7 = a1 + 16;
     }
 
     else
     {
-      v7 = (v12 + v5);
+      v7 = v12 + v5;
     }
 
     *a1 = v10;
@@ -2778,12 +2740,12 @@ LABEL_5:
   return v6;
 }
 
-uint64_t sub_10004EE38(uint64_t a1, char **a2, _DWORD *a3, char **a4)
+uint64_t sub_10004EE38(uint64_t a1, unint64_t *a2, _DWORD *a3, char **a4)
 {
   if (*(a1 + 56) == 1 || (*a3 = sub_10004E8EC(a1, *a4), *(a1 + 56) == 1))
   {
     result = 0;
-    v9 = (a1 + 16);
+    v9 = a1 + 16;
   }
 
   else
@@ -2801,13 +2763,13 @@ uint64_t sub_10004EE38(uint64_t a1, char **a2, _DWORD *a3, char **a4)
       {
         result = 0;
         *(a1 + 56) = 1;
-        v9 = (a1 + 16);
+        v9 = a1 + 16;
         *a1 = a1 + 32;
         goto LABEL_4;
       }
     }
 
-    v11 = &(*a2)[v10 - 16];
+    v11 = *a2 + v10 - 16;
     if (v10 > 16)
     {
       v12 = 0;
@@ -2821,7 +2783,7 @@ uint64_t sub_10004EE38(uint64_t a1, char **a2, _DWORD *a3, char **a4)
 
     if (v10 <= 16)
     {
-      v9 = (a1 + 16);
+      v9 = a1 + 16;
     }
 
     else
@@ -2844,7 +2806,7 @@ uint64_t sub_10004EF30(uint64_t a1, int a2, char **a3)
   if (*(a1 + 56) == 1 || (v6 = sub_10004E8EC(a1, *a3), *(a1 + 56) == 1))
   {
     result = 0;
-    v8 = (a1 + 16);
+    v8 = a1 + 16;
   }
 
   else
@@ -2868,12 +2830,12 @@ uint64_t sub_10004EF30(uint64_t a1, int a2, char **a3)
 
       if (v12 <= 16)
       {
-        v8 = (a1 + 16);
+        v8 = a1 + 16;
       }
 
       else
       {
-        v8 = (result + a2);
+        v8 = result + a2;
       }
 
       *a1 = v13;
@@ -2896,7 +2858,7 @@ uint64_t sub_10004EF30(uint64_t a1, int a2, char **a3)
 
       if (v9 <= 16)
       {
-        v8 = (a1 + 16);
+        v8 = a1 + 16;
       }
 
       else
@@ -2946,14 +2908,14 @@ LABEL_6:
   return (a1 + 16);
 }
 
-void sub_10004F0F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004F0F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-char *sub_10004F118(uint64_t *a1, char *a2, int a3, unint64_t a4)
+char *sub_10004F118(uint64_t *a1, char *a2, int a3, char *a4)
 {
   v4 = a4;
   for (i = sub_10004F1BC(a1, a4); a3 > i; i = sub_10004F1BC(a1, v4))
@@ -2968,7 +2930,7 @@ char *sub_10004F118(uint64_t *a1, char *a2, int a3, unint64_t a4)
   return &v4[a3];
 }
 
-uint64_t sub_10004F1BC(uint64_t *a1, unint64_t a2)
+unint64_t sub_10004F1BC(uint64_t *a1, unint64_t a2)
 {
   v3 = *a1;
   if (*a1 + 16 < a2)
@@ -2983,9 +2945,9 @@ uint64_t sub_10004F1BC(uint64_t *a1, unint64_t a2)
   return v3 - a2 + 16;
 }
 
-void sub_10004F240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004F240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -3014,7 +2976,7 @@ char *sub_10004F258(uint64_t a1, void *a2, uint64_t a3, char *a4)
   return sub_10004F118(a1, a2, a3, a4);
 }
 
-char *sub_10004F360(unint64_t *a1, int a2, void **a3, char *a4)
+char *sub_10004F360(unint64_t *a1, int a2, uint64_t **a3, char *a4)
 {
   v4 = a4;
   v8 = *a1;
@@ -3110,9 +3072,9 @@ char *sub_10004F360(unint64_t *a1, int a2, void **a3, char *a4)
   return sub_10004F4E8(a1, v18, v9, v17);
 }
 
-void sub_10004F4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004F4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -3139,7 +3101,7 @@ char *sub_10004F4E8(uint64_t a1, void *a2, uint64_t a3, char *__dst)
   }
 }
 
-char *sub_10004F578(uint64_t *a1, int a2, uint64_t a3, char *a4)
+char *sub_10004F578(unint64_t *a1, int a2, uint64_t a3, char *a4)
 {
   v4 = a4;
   v8 = *a1;
@@ -3232,7 +3194,7 @@ char *sub_10004F578(uint64_t *a1, int a2, uint64_t a3, char *a4)
     v18 = *a3;
   }
 
-  if (*a1 - v17 < v9)
+  if ((*a1 - v17) < v9)
   {
     return sub_10004F118(a1, v18, v9, v17);
   }
@@ -3241,9 +3203,9 @@ char *sub_10004F578(uint64_t *a1, int a2, uint64_t a3, char *a4)
   return &v17[v9];
 }
 
-void sub_10004F710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004F710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -3320,7 +3282,7 @@ char *sub_10004F864(uint64_t a1, _BYTE *a2)
 
   else
   {
-    v6 = *(v3 + 2);
+    v6 = *(v3 + 8);
   }
 
   if (v6 > 0x7F)
@@ -3374,30 +3336,32 @@ char *sub_10004F864(uint64_t a1, _BYTE *a2)
 
   else
   {
-    v3 = v3[1];
+    v3 = *(v3 + 8);
   }
 
   memcpy(v7, v12, v3);
   return &v7[v3];
 }
 
-void sub_10004F970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10004F970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10004F988(int a1, int a2, const std::string::value_type *a3)
+void sub_10004F988(uint64_t a1, uint64_t a2, const std::string::value_type *a3)
 {
+  v4 = a1;
   if (a2 > 3014000)
   {
+    v5 = a2;
     LODWORD(v20) = 3;
     v21 = "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/common.cc";
     v22 = 76;
     memset(&v23, 0, sizeof(v23));
     std::string::append(&v23, "This program requires version ");
-    sub_10004FD74(a2, &v17);
+    sub_10004FD74(v5, &v17);
     if ((v19 & 0x80u) == 0)
     {
       v6 = &v17;
@@ -3464,14 +3428,14 @@ void sub_10004F988(int a1, int a2, const std::string::value_type *a3)
     }
   }
 
-  if (a1 < 3014000)
+  if (v4 < 3014000)
   {
     LODWORD(v20) = 3;
     v21 = "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/common.cc";
     v22 = 87;
     memset(&v23, 0, sizeof(v23));
     std::string::append(&v23, "This program was compiled against version ");
-    sub_10004FD74(a1, &v17);
+    sub_10004FD74(v4, &v17);
     if ((v19 & 0x80u) == 0)
     {
       v10 = &v17;
@@ -3588,7 +3552,7 @@ std::string *sub_10004FD30(std::string *a1, const std::string::value_type *a2)
   return a1;
 }
 
-_BYTE *sub_10004FD74@<X0>(int a1@<W0>, _BYTE *a2@<X8>)
+void *sub_10004FD74@<X0>(int a1@<W0>, void *a2@<X8>)
 {
   snprintf(__str, 0x80uLL, "%d.%d.%d", a1 / 1000000, a1 / 1000 % 1000, a1 % 1000);
   __str[127] = 0;
@@ -3628,7 +3592,7 @@ uint64_t sub_10004FE7C(uint64_t result, const char *a2, int a3, uint64_t a4)
   return result;
 }
 
-std::string *sub_10004FF00(std::string *a1, _BYTE *a2)
+std::string *sub_10004FF00(std::string *a1, const void **a2)
 {
   sub_10004FF88(a2, __p);
   if ((v7 & 0x80u) == 0)
@@ -3670,12 +3634,12 @@ void sub_10004FF6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *sub_10004FF88@<X0>(_BYTE *result@<X0>, _BYTE *a2@<X8>)
+const void **sub_10004FF88@<X0>(const void **result@<X0>, _BYTE *a2@<X8>)
 {
   v3 = *result;
   if (*result)
   {
-    v4 = *(result + 1);
+    v4 = result[1];
     if (v4 >= 0x7FFFFFFFFFFFFFF8)
     {
       sub_100003DBC();
@@ -3692,7 +3656,7 @@ _BYTE *sub_10004FF88@<X0>(_BYTE *result@<X0>, _BYTE *a2@<X8>)
       result = memmove(a2, v3, v4);
     }
 
-    a2[v4] = 0;
+    v4[a2] = 0;
   }
 
   else
@@ -3788,11 +3752,11 @@ std::string *sub_1000500E0(std::string *a1, __int128 *a2)
   return a1;
 }
 
-void sub_100050270(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+void sub_100050270(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, char a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  if (a14 < 0)
+  if (SHIBYTE(a11) < 0)
   {
-    operator delete(__p);
+    operator delete(a9);
   }
 
   std::ios::~ios();
@@ -3896,13 +3860,13 @@ LABEL_6:
   if (*v1 == 3)
   {
     exception = __cxa_allocate_exception(0x30uLL);
-    sub_1000507E4(exception, v1[1], *(v1 + 4), v1 + 3);
+    sub_1000507E4(exception, v1[1], *(v1 + 4), (v1 + 3));
   }
 
   return result;
 }
 
-uint64_t (*sub_1000507EC(uint64_t (*a1)()))()
+void (*sub_1000507EC(void (*a1)()))()
 {
   v1 = off_1000B5978;
   if (a1)
@@ -4062,45 +4026,46 @@ uint64_t sub_100050A18(uint64_t a1, int a2, _OWORD *a3)
   return 0;
 }
 
-uint64_t sub_100050B2C(unint64_t a1, int a2, int a3, std::string::value_type a4, std::string::value_type a5)
+void sub_100050B2C(unint64_t a1, uint64_t a2, int a3, std::string::value_type a4, std::string::value_type a5)
 {
   v7 = a3;
+  v8 = a2;
   switch(a3)
   {
     case 14:
-      sub_10004FCEC(&v15, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 140);
-      v10 = sub_10004FD04(&v15, "CHECK failed: (type) != (WireFormatLite::TYPE_ENUM): ");
-      sub_10004FE40(&v14, &v10->__r_.__value_.__l.__data_);
+      sub_10004FCEC(&v14, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 140);
+      v10 = sub_10004FD04(&v14, "CHECK failed: (type) != (WireFormatLite::TYPE_ENUM): ");
+      sub_10004FE40(&v13, &v10->__r_.__value_.__l.__data_);
 LABEL_7:
-      sub_10004FE48(&v15);
+      sub_10004FE48(&v14);
       break;
     case 11:
-      sub_10004FCEC(&v15, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 141);
-      v11 = sub_10004FD04(&v15, "CHECK failed: (type) != (WireFormatLite::TYPE_MESSAGE): ");
-      sub_10004FE40(&v14, &v11->__r_.__value_.__l.__data_);
+      sub_10004FCEC(&v14, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 141);
+      v11 = sub_10004FD04(&v14, "CHECK failed: (type) != (WireFormatLite::TYPE_MESSAGE): ");
+      sub_10004FE40(&v13, &v11->__r_.__value_.__l.__data_);
       goto LABEL_7;
     case 10:
-      sub_10004FCEC(&v15, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 142);
-      v12 = sub_10004FD04(&v15, "CHECK failed: (type) != (WireFormatLite::TYPE_GROUP): ");
-      sub_10004FE40(&v14, &v12->__r_.__value_.__l.__data_);
+      sub_10004FCEC(&v14, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 142);
+      v12 = sub_10004FD04(&v14, "CHECK failed: (type) != (WireFormatLite::TYPE_GROUP): ");
+      sub_10004FE40(&v13, &v12->__r_.__value_.__l.__data_);
       goto LABEL_7;
   }
 
-  v15.__r_.__value_.__s.__data_[0] = v7;
-  v15.__r_.__value_.__s.__data_[1] = a4;
-  v15.__r_.__value_.__s.__data_[2] = a5;
-  v16 = 0;
-  return sub_100050C80(a1, a2, &v15);
+  v14.__r_.__value_.__s.__data_[0] = v7;
+  v14.__r_.__value_.__s.__data_[1] = a4;
+  v14.__r_.__value_.__s.__data_[2] = a5;
+  v15 = 0;
+  sub_100050C80(a1, v8, &v14);
 }
 
-void sub_100050C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100050C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100050C80(unint64_t a1, int a2, _OWORD *a3)
+void sub_100050C80(unint64_t a1, int a2, __int128 *a3)
 {
   if ((atomic_load_explicit(&qword_1000B65E0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1000B65E0))
   {
@@ -4109,8 +4074,8 @@ uint64_t sub_100050C80(unint64_t a1, int a2, _OWORD *a3)
 
   qword_1000B65D0 = qword_1000B65D8;
   v6 = a3[1];
-  v26[0] = *a3;
-  v26[1] = v6;
+  v25[0] = *a3;
+  v25[1] = v6;
   v7 = 0x9DDFEA08EB382D69 * ((8 * (a1 & 0x1FFFFFFF) + 8) ^ HIDWORD(a1));
   v8 = 0x9DDFEA08EB382D69 * (HIDWORD(a1) ^ (v7 >> 47) ^ v7);
   v9 = (0x9DDFEA08EB382D69 * (v8 ^ (v8 >> 47))) ^ a2;
@@ -4182,70 +4147,70 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  sub_10004FCEC(v26, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 108);
-  v17 = sub_10004FD04(v26, "Multiple extension registrations for type ");
+  sub_10004FCEC(v25, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 108);
+  v17 = sub_10004FD04(v25, "Multiple extension registrations for type ");
   (*(*a1 + 16))(__p, a1);
   v18 = sub_10004FD30(v17, __p);
   v19 = sub_10004FD04(v18, ", field number ");
   v20 = sub_100050324(v19, a2);
   v21 = sub_10004FD04(v20, ".");
-  sub_10004FE40(&v23, &v21->__r_.__value_.__l.__data_);
-  if (v25 < 0)
+  sub_10004FE40(&v22, &v21->__r_.__value_.__l.__data_);
+  if (v24 < 0)
   {
     operator delete(__p[0]);
   }
 
-  return sub_10004FE48(v26);
+  sub_10004FE48(v25);
 }
 
-uint64_t sub_100051294(unint64_t a1, int a2, int a3, std::string::value_type a4, std::string::value_type a5, std::string::size_type a6)
+void sub_100051294(unint64_t a1, int a2, int a3, std::string::value_type a4, std::string::value_type a5, std::string::size_type a6)
 {
   v9 = a3;
   if (a3 != 14)
   {
-    sub_10004FCEC(&v15, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 164);
-    v12 = sub_10004FD04(&v15, "CHECK failed: (type) == (WireFormatLite::TYPE_ENUM): ");
-    sub_10004FE40(&v14, &v12->__r_.__value_.__l.__data_);
-    sub_10004FE48(&v15);
+    sub_10004FCEC(&v14, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 164);
+    v12 = sub_10004FD04(&v14, "CHECK failed: (type) == (WireFormatLite::TYPE_ENUM): ");
+    sub_10004FE40(&v13, &v12->__r_.__value_.__l.__data_);
+    sub_10004FE48(&v14);
   }
 
-  v15.__r_.__value_.__s.__data_[0] = v9;
-  v15.__r_.__value_.__s.__data_[1] = a4;
-  v15.__r_.__value_.__s.__data_[2] = a5;
-  v15.__r_.__value_.__l.__size_ = sub_10005136C;
-  v15.__r_.__value_.__r.__words[2] = a6;
-  v16 = 0;
-  return sub_100050C80(a1, a2, &v15);
+  v14.__r_.__value_.__s.__data_[0] = v9;
+  v14.__r_.__value_.__s.__data_[1] = a4;
+  v14.__r_.__value_.__s.__data_[2] = a5;
+  v14.__r_.__value_.__l.__size_ = sub_10005136C;
+  v14.__r_.__value_.__r.__words[2] = a6;
+  v15 = 0;
+  sub_100050C80(a1, a2, &v14);
 }
 
-void sub_100051354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100051354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100051378(unint64_t a1, int a2, std::string::value_type a3, std::string::value_type a4, std::string::value_type a5, std::string::size_type a6)
+void sub_100051378(unint64_t a1, int a2, std::string::value_type a3, std::string::value_type a4, std::string::value_type a5, std::string::size_type a6)
 {
   if ((a3 & 0xFE) != 0xA)
   {
-    sub_10004FCEC(&v15, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 177);
-    v12 = sub_10004FD04(&v15, "CHECK failed: type == WireFormatLite::TYPE_MESSAGE || type == WireFormatLite::TYPE_GROUP: ");
-    sub_10004FE40(&v14, &v12->__r_.__value_.__l.__data_);
-    sub_10004FE48(&v15);
+    sub_10004FCEC(&v14, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 177);
+    v12 = sub_10004FD04(&v14, "CHECK failed: type == WireFormatLite::TYPE_MESSAGE || type == WireFormatLite::TYPE_GROUP: ");
+    sub_10004FE40(&v13, &v12->__r_.__value_.__l.__data_);
+    sub_10004FE48(&v14);
   }
 
-  v15.__r_.__value_.__s.__data_[0] = a3;
-  v15.__r_.__value_.__s.__data_[1] = a4;
-  v15.__r_.__value_.__s.__data_[2] = a5;
-  v15.__r_.__value_.__l.__size_ = a6;
-  v16 = 0;
-  return sub_100050C80(a1, a2, &v15);
+  v14.__r_.__value_.__s.__data_[0] = a3;
+  v14.__r_.__value_.__s.__data_[1] = a4;
+  v14.__r_.__value_.__s.__data_[2] = a5;
+  v14.__r_.__value_.__l.__size_ = a6;
+  v15 = 0;
+  sub_100050C80(a1, a2, &v14);
 }
 
-void sub_100051430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100051430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -4290,7 +4255,6 @@ uint64_t sub_100051458(uint64_t a1)
 
     else if (v5)
     {
-      v6 = *(a1 + 16);
       operator delete[]();
     }
   }
@@ -4333,14 +4297,14 @@ uint64_t sub_100051534(uint64_t a1, int a2)
   return v5 & 1;
 }
 
-void sub_1000515C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000515C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000515D8(uint64_t a1, int a2)
+_DWORD *sub_1000515D8(uint64_t a1, int a2)
 {
   if (*(a1 + 8) >= 0x101u)
   {
@@ -4483,9 +4447,9 @@ uint64_t sub_1000516EC(unsigned __int8 *a1)
   return 0;
 }
 
-void sub_100051878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100051878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -4517,9 +4481,9 @@ uint64_t sub_1000518A0(uint64_t a1, int a2)
   }
 }
 
-void sub_10005195C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10005195C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -4536,7 +4500,7 @@ unsigned __int8 *sub_10005197C(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t sub_1000519B0(uint64_t a1, int a2)
+_DWORD *sub_1000519B0(uint64_t a1, int a2)
 {
   if (*(a1 + 8) >= 0x101u)
   {
@@ -4673,9 +4637,9 @@ LABEL_20:
   return result;
 }
 
-void sub_100051C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100051C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -4686,9 +4650,9 @@ uint64_t sub_100051C54(uint64_t a1, int a2, uint64_t a3)
   if (v4)
   {
     v5 = v4;
-    if ((*(v4 + 10) & 1) == 0)
+    if ((v4[10] & 1) == 0)
     {
-      if (*(v4 + 9))
+      if (v4[9])
       {
         sub_10004FCEC(v12, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 348);
         v6 = sub_10004FD04(v12, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
@@ -4720,9 +4684,9 @@ uint64_t sub_100051C54(uint64_t a1, int a2, uint64_t a3)
   return a3;
 }
 
-void sub_100051D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100051D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -4787,9 +4751,9 @@ uint64_t sub_100051DA0(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5)
   return result;
 }
 
-void sub_100051F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100051F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -4802,8 +4766,9 @@ uint64_t sub_100051FB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t **a4)
   return v7 & 1;
 }
 
-uint64_t sub_100051FE8(uint64_t a1, int a2, int a3)
+uint64_t sub_100051FE8(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = sub_1000515D8(a1, a2);
   if (!v4)
   {
@@ -4839,18 +4804,19 @@ uint64_t sub_100051FE8(uint64_t a1, int a2, int a3)
     sub_10004FE48(v13);
   }
 
-  return *sub_1000726BC(*v4, a3);
+  return *sub_1000726BC(*v4, v3);
 }
 
-void sub_10005215C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10005215C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10005218C(uint64_t a1, int a2, int a3, int a4)
+uint64_t sub_10005218C(uint64_t a1, int a2, uint64_t a3, int a4)
 {
+  v4 = a3;
   v13 = a4;
   v5 = sub_1000519B0(a1, a2);
   if (!v5)
@@ -4887,12 +4853,12 @@ uint64_t sub_10005218C(uint64_t a1, int a2, int a3, int a4)
     sub_10004FE48(v15);
   }
 
-  return sub_100072DA0(*v5, a3, &v13);
+  return sub_100072DA0(*v5, v4, &v13);
 }
 
-void sub_100052304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100052304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -4997,9 +4963,9 @@ uint64_t sub_100052334(uint64_t *a1, uint64_t a2, int a3, int a4, int a5, uint64
   return result;
 }
 
-void sub_100052604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100052604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -5010,9 +4976,9 @@ uint64_t sub_100052644(uint64_t a1, int a2, uint64_t a3)
   if (v4)
   {
     v5 = v4;
-    if ((*(v4 + 10) & 1) == 0)
+    if ((v4[10] & 1) == 0)
     {
-      if (*(v4 + 9))
+      if (v4[9])
       {
         sub_10004FCEC(v12, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 349);
         v6 = sub_10004FD04(v12, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
@@ -5044,9 +5010,9 @@ uint64_t sub_100052644(uint64_t a1, int a2, uint64_t a3)
   return a3;
 }
 
-void sub_100052768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100052768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -5111,15 +5077,16 @@ uint64_t sub_100052790(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a
   return result;
 }
 
-void sub_10005296C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10005296C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000529A4(uint64_t a1, int a2, int a3)
+uint64_t sub_1000529A4(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = sub_1000515D8(a1, a2);
   if (!v4)
   {
@@ -5155,18 +5122,19 @@ uint64_t sub_1000529A4(uint64_t a1, int a2, int a3)
     sub_10004FE48(v13);
   }
 
-  return *sub_1000756EC(*v4, a3);
+  return *sub_1000756EC(*v4, v3);
 }
 
-void sub_100052B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100052B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100052B48(uint64_t a1, int a2, int a3, uint64_t a4)
+uint64_t sub_100052B48(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a3;
   v13 = a4;
   v5 = sub_1000519B0(a1, a2);
   if (!v5)
@@ -5203,12 +5171,12 @@ uint64_t sub_100052B48(uint64_t a1, int a2, int a3, uint64_t a4)
     sub_10004FE48(v15);
   }
 
-  return sub_100075DD0(*v5, a3, &v13);
+  return sub_100075DD0(*v5, v4, &v13);
 }
 
-void sub_100052CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100052CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -5313,9 +5281,9 @@ uint64_t sub_100052CF0(uint64_t *a1, uint64_t a2, int a3, int a4, uint64_t a5, u
   return result;
 }
 
-void sub_100052FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100052FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -5326,9 +5294,9 @@ uint64_t sub_100053000(uint64_t a1, int a2, uint64_t a3)
   if (v4)
   {
     v5 = v4;
-    if ((*(v4 + 10) & 1) == 0)
+    if ((v4[10] & 1) == 0)
     {
-      if (*(v4 + 9))
+      if (v4[9])
       {
         sub_10004FCEC(v12, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 350);
         v6 = sub_10004FD04(v12, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
@@ -5360,9 +5328,9 @@ uint64_t sub_100053000(uint64_t a1, int a2, uint64_t a3)
   return a3;
 }
 
-void sub_100053124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100053124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -5427,15 +5395,16 @@ uint64_t sub_10005314C(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5)
   return result;
 }
 
-void sub_100053328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100053328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100053360(uint64_t a1, int a2, int a3)
+uint64_t sub_100053360(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = sub_1000515D8(a1, a2);
   if (!v4)
   {
@@ -5471,18 +5440,19 @@ uint64_t sub_100053360(uint64_t a1, int a2, int a3)
     sub_10004FE48(v13);
   }
 
-  return *sub_100073EE8(*v4, a3);
+  return *sub_100073EE8(*v4, v3);
 }
 
-void sub_1000534D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000534D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100053504(uint64_t a1, int a2, int a3, int a4)
+uint64_t sub_100053504(uint64_t a1, int a2, uint64_t a3, int a4)
 {
+  v4 = a3;
   v13 = a4;
   v5 = sub_1000519B0(a1, a2);
   if (!v5)
@@ -5519,12 +5489,12 @@ uint64_t sub_100053504(uint64_t a1, int a2, int a3, int a4)
     sub_10004FE48(v15);
   }
 
-  return sub_1000745CC(*v5, a3, &v13);
+  return sub_1000745CC(*v5, v4, &v13);
 }
 
-void sub_10005367C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10005367C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -5629,9 +5599,9 @@ uint64_t sub_1000536AC(uint64_t *a1, uint64_t a2, int a3, int a4, int a5, uint64
   return result;
 }
 
-void sub_10005397C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10005397C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -5642,9 +5612,9 @@ uint64_t sub_1000539BC(uint64_t a1, int a2, uint64_t a3)
   if (v4)
   {
     v5 = v4;
-    if ((*(v4 + 10) & 1) == 0)
+    if ((v4[10] & 1) == 0)
     {
-      if (*(v4 + 9))
+      if (v4[9])
       {
         sub_10004FCEC(v12, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 351);
         v6 = sub_10004FD04(v12, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
@@ -5676,9 +5646,9 @@ uint64_t sub_1000539BC(uint64_t a1, int a2, uint64_t a3)
   return a3;
 }
 
-void sub_100053AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100053AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -5743,15 +5713,16 @@ uint64_t sub_100053B08(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a
   return result;
 }
 
-void sub_100053CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100053CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100053D1C(uint64_t a1, int a2, int a3)
+uint64_t sub_100053D1C(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = sub_1000515D8(a1, a2);
   if (!v4)
   {
@@ -5787,18 +5758,19 @@ uint64_t sub_100053D1C(uint64_t a1, int a2, int a3)
     sub_10004FE48(v13);
   }
 
-  return *sub_100076EDC(*v4, a3);
+  return *sub_100076EDC(*v4, v3);
 }
 
-void sub_100053E90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100053E90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100053EC0(uint64_t a1, int a2, int a3, uint64_t a4)
+uint64_t sub_100053EC0(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a3;
   v13 = a4;
   v5 = sub_1000519B0(a1, a2);
   if (!v5)
@@ -5835,12 +5807,12 @@ uint64_t sub_100053EC0(uint64_t a1, int a2, int a3, uint64_t a4)
     sub_10004FE48(v15);
   }
 
-  return sub_1000775C0(*v5, a3, &v13);
+  return sub_1000775C0(*v5, v4, &v13);
 }
 
-void sub_100054038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100054038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -5945,9 +5917,9 @@ uint64_t sub_100054068(uint64_t *a1, uint64_t a2, int a3, int a4, uint64_t a5, u
   return result;
 }
 
-void sub_100054338(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100054338(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -5958,9 +5930,9 @@ float sub_100054378(uint64_t a1, int a2, float a3)
   if (v4)
   {
     v5 = v4;
-    if ((*(v4 + 10) & 1) == 0)
+    if ((v4[10] & 1) == 0)
     {
-      if (*(v4 + 9))
+      if (v4[9])
       {
         sub_10004FCEC(v12, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 352);
         v6 = sub_10004FD04(v12, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
@@ -5992,22 +5964,22 @@ float sub_100054378(uint64_t a1, int a2, float a3)
   return a3;
 }
 
-void sub_1000544A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000544A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000544CC(uint64_t a1, uint64_t a2, int a3, uint64_t a4, float a5)
+uint64_t sub_1000544CC(float a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
 {
-  result = sub_10005A998(a1, a2);
+  result = sub_10005A998(a2, a3);
   v9 = result;
-  *(result + 16) = a4;
+  *(result + 16) = a5;
   if (v10)
   {
-    *(result + 8) = a3;
-    if ((a3 - 19) <= 0xFFFFFFED)
+    *(result + 8) = a4;
+    if ((a4 - 19) <= 0xFFFFFFED)
     {
       sub_10004FCEC(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
       v11 = sub_10004FD04(v18, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
@@ -6015,7 +5987,7 @@ uint64_t sub_1000544CC(uint64_t a1, uint64_t a2, int a3, uint64_t a4, float a5)
       result = sub_10004FE48(v18);
     }
 
-    if (dword_100092BB0[a3] != 6)
+    if (dword_100092BB0[a4] != 6)
     {
       sub_10004FCEC(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 352);
       v12 = sub_10004FD04(v18, "CHECK failed: (cpp_type(extension->type)) == (WireFormatLite::CPPTYPE_FLOAT): ");
@@ -6055,19 +6027,20 @@ uint64_t sub_1000544CC(uint64_t a1, uint64_t a2, int a3, uint64_t a4, float a5)
   }
 
   *(v9 + 10) &= 0xF0u;
-  *v9 = a5;
+  *v9 = a1;
   return result;
 }
 
-void sub_1000546B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000546B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-float sub_1000546E8(uint64_t a1, int a2, int a3)
+float sub_1000546E8(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = sub_1000515D8(a1, a2);
   if (!v4)
   {
@@ -6103,18 +6076,19 @@ float sub_1000546E8(uint64_t a1, int a2, int a3)
     sub_10004FE48(v13);
   }
 
-  return *sub_100078690(*v4, a3);
+  return *sub_100078690(*v4, v3);
 }
 
-void sub_10005485C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10005485C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10005488C(uint64_t a1, int a2, int a3, float a4)
+uint64_t sub_10005488C(uint64_t a1, int a2, uint64_t a3, float a4)
 {
+  v4 = a3;
   v13 = a4;
   v5 = sub_1000519B0(a1, a2);
   if (!v5)
@@ -6151,25 +6125,25 @@ uint64_t sub_10005488C(uint64_t a1, int a2, int a3, float a4)
     sub_10004FE48(v15);
   }
 
-  return sub_100078D74(*v5, a3, &v13);
+  return sub_100078D74(*v5, v4, &v13);
 }
 
-void sub_100054A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100054A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100054A34(uint64_t *a1, uint64_t a2, int a3, int a4, uint64_t a5, float a6)
+uint64_t sub_100054A34(uint64_t *a1, float a2, uint64_t a3, int a4, int a5, uint64_t a6)
 {
-  v11 = sub_10005A998(a1, a2);
+  v11 = sub_10005A998(a1, a3);
   v12 = v11;
-  v11[2] = a5;
+  v11[2] = a6;
   if (v13)
   {
-    *(v11 + 8) = a3;
-    if ((a3 - 19) <= 0xFFFFFFED)
+    *(v11 + 8) = a4;
+    if ((a4 - 19) <= 0xFFFFFFED)
     {
       sub_10004FCEC(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
       v14 = sub_10004FD04(v28, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
@@ -6177,7 +6151,7 @@ uint64_t sub_100054A34(uint64_t *a1, uint64_t a2, int a3, int a4, uint64_t a5, f
       sub_10004FE48(v28);
     }
 
-    if (dword_100092BB0[a3] != 6)
+    if (dword_100092BB0[a4] != 6)
     {
       sub_10004FCEC(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 352);
       v15 = sub_10004FD04(v28, "CHECK failed: (cpp_type(extension->type)) == (WireFormatLite::CPPTYPE_FLOAT): ");
@@ -6186,7 +6160,7 @@ uint64_t sub_100054A34(uint64_t *a1, uint64_t a2, int a3, int a4, uint64_t a5, f
     }
 
     *(v12 + 9) = 1;
-    *(v12 + 11) = a4;
+    *(v12 + 11) = a5;
     v16 = *a1;
     if (!*a1)
     {
@@ -6231,7 +6205,7 @@ uint64_t sub_100054A34(uint64_t *a1, uint64_t a2, int a3, int a4, uint64_t a5, f
       sub_10004FE48(v28);
     }
 
-    if (*(v12 + 11) != a4)
+    if (*(v12 + 11) != a5)
     {
       sub_10004FCEC(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 352);
       v22 = sub_10004FD04(v28, "CHECK failed: (extension->is_packed) == (packed): ");
@@ -6247,13 +6221,13 @@ uint64_t sub_100054A34(uint64_t *a1, uint64_t a2, int a3, int a4, uint64_t a5, f
     v25 = v24 + 1;
     sub_10007834C(v23, v24 + 1);
     result = sub_100078B20(v23);
-    *(result + 4 * v24) = a6;
+    *(result + 4 * v24) = a2;
   }
 
   else
   {
     result = sub_100078B20(v23);
-    *(result + 4 * v24) = a6;
+    *(result + 4 * v24) = a2;
     v25 = v24 + 1;
   }
 
@@ -6261,9 +6235,9 @@ uint64_t sub_100054A34(uint64_t *a1, uint64_t a2, int a3, int a4, uint64_t a5, f
   return result;
 }
 
-void sub_100054D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100054D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -6274,9 +6248,9 @@ double sub_100054D4C(uint64_t a1, int a2, double a3)
   if (v4)
   {
     v5 = v4;
-    if ((*(v4 + 10) & 1) == 0)
+    if ((v4[10] & 1) == 0)
     {
-      if (*(v4 + 9))
+      if (v4[9])
       {
         sub_10004FCEC(v12, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 353);
         v6 = sub_10004FD04(v12, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
@@ -6308,22 +6282,22 @@ double sub_100054D4C(uint64_t a1, int a2, double a3)
   return a3;
 }
 
-void sub_100054E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100054E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100054EA0(uint64_t a1, uint64_t a2, int a3, uint64_t a4, double a5)
+uint64_t sub_100054EA0(double a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
 {
-  result = sub_10005A998(a1, a2);
+  result = sub_10005A998(a2, a3);
   v9 = result;
-  *(result + 16) = a4;
+  *(result + 16) = a5;
   if (v10)
   {
-    *(result + 8) = a3;
-    if ((a3 - 19) <= 0xFFFFFFED)
+    *(result + 8) = a4;
+    if ((a4 - 19) <= 0xFFFFFFED)
     {
       sub_10004FCEC(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
       v11 = sub_10004FD04(v18, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
@@ -6331,7 +6305,7 @@ uint64_t sub_100054EA0(uint64_t a1, uint64_t a2, int a3, uint64_t a4, double a5)
       result = sub_10004FE48(v18);
     }
 
-    if (dword_100092BB0[a3] != 5)
+    if (dword_100092BB0[a4] != 5)
     {
       sub_10004FCEC(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 353);
       v12 = sub_10004FD04(v18, "CHECK failed: (cpp_type(extension->type)) == (WireFormatLite::CPPTYPE_DOUBLE): ");
@@ -6371,19 +6345,20 @@ uint64_t sub_100054EA0(uint64_t a1, uint64_t a2, int a3, uint64_t a4, double a5)
   }
 
   *(v9 + 10) &= 0xF0u;
-  *v9 = a5;
+  *v9 = a1;
   return result;
 }
 
-void sub_100055084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100055084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-double sub_1000550BC(uint64_t a1, int a2, int a3)
+double sub_1000550BC(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = sub_1000515D8(a1, a2);
   if (!v4)
   {
@@ -6419,18 +6394,19 @@ double sub_1000550BC(uint64_t a1, int a2, int a3)
     sub_10004FE48(v13);
   }
 
-  return *sub_100079E98(*v4, a3);
+  return *sub_100079E98(*v4, v3);
 }
 
-void sub_100055230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100055230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100055260(uint64_t a1, int a2, int a3, double a4)
+uint64_t sub_100055260(uint64_t a1, int a2, uint64_t a3, double a4)
 {
+  v4 = a3;
   v13 = a4;
   v5 = sub_1000519B0(a1, a2);
   if (!v5)
@@ -6467,25 +6443,25 @@ uint64_t sub_100055260(uint64_t a1, int a2, int a3, double a4)
     sub_10004FE48(v15);
   }
 
-  return sub_10007A57C(*v5, a3, &v13);
+  return sub_10007A57C(*v5, v4, &v13);
 }
 
-void sub_1000553D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000553D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100055408(uint64_t *a1, uint64_t a2, int a3, int a4, uint64_t a5, double a6)
+uint64_t sub_100055408(uint64_t *a1, double a2, uint64_t a3, int a4, int a5, uint64_t a6)
 {
-  v11 = sub_10005A998(a1, a2);
+  v11 = sub_10005A998(a1, a3);
   v12 = v11;
-  v11[2] = a5;
+  v11[2] = a6;
   if (v13)
   {
-    *(v11 + 8) = a3;
-    if ((a3 - 19) <= 0xFFFFFFED)
+    *(v11 + 8) = a4;
+    if ((a4 - 19) <= 0xFFFFFFED)
     {
       sub_10004FCEC(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
       v14 = sub_10004FD04(v28, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
@@ -6493,7 +6469,7 @@ uint64_t sub_100055408(uint64_t *a1, uint64_t a2, int a3, int a4, uint64_t a5, d
       sub_10004FE48(v28);
     }
 
-    if (dword_100092BB0[a3] != 5)
+    if (dword_100092BB0[a4] != 5)
     {
       sub_10004FCEC(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 353);
       v15 = sub_10004FD04(v28, "CHECK failed: (cpp_type(extension->type)) == (WireFormatLite::CPPTYPE_DOUBLE): ");
@@ -6502,7 +6478,7 @@ uint64_t sub_100055408(uint64_t *a1, uint64_t a2, int a3, int a4, uint64_t a5, d
     }
 
     *(v12 + 9) = 1;
-    *(v12 + 11) = a4;
+    *(v12 + 11) = a5;
     v16 = *a1;
     if (!*a1)
     {
@@ -6547,7 +6523,7 @@ uint64_t sub_100055408(uint64_t *a1, uint64_t a2, int a3, int a4, uint64_t a5, d
       sub_10004FE48(v28);
     }
 
-    if (*(v12 + 11) != a4)
+    if (*(v12 + 11) != a5)
     {
       sub_10004FCEC(v28, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 353);
       v22 = sub_10004FD04(v28, "CHECK failed: (extension->is_packed) == (packed): ");
@@ -6563,13 +6539,13 @@ uint64_t sub_100055408(uint64_t *a1, uint64_t a2, int a3, int a4, uint64_t a5, d
     v25 = v24 + 1;
     sub_100079B54(v23, v24 + 1);
     result = sub_10007A328(v23);
-    *(result + 8 * v24) = a6;
+    *(result + 8 * v24) = a2;
   }
 
   else
   {
     result = sub_10007A328(v23);
-    *(result + 8 * v24) = a6;
+    *(result + 8 * v24) = a2;
     v25 = v24 + 1;
   }
 
@@ -6577,9 +6553,9 @@ uint64_t sub_100055408(uint64_t *a1, uint64_t a2, int a3, int a4, uint64_t a5, d
   return result;
 }
 
-void sub_1000556E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000556E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -6600,7 +6576,7 @@ uint64_t sub_100055720(uint64_t a1, int a2, char a3)
         sub_10004FE48(v12);
       }
 
-      v7 = v5[8];
+      v7 = *(v5 + 8);
       if ((v7 - 19) <= 0xFFFFFFED)
       {
         sub_10004FCEC(v12, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
@@ -6624,9 +6600,9 @@ uint64_t sub_100055720(uint64_t a1, int a2, char a3)
   return a3 & 1;
 }
 
-void sub_100055844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100055844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -6691,15 +6667,16 @@ uint64_t sub_10005586C(uint64_t a1, uint64_t a2, int a3, char a4, uint64_t a5)
   return result;
 }
 
-void sub_100055A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100055A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100055A80(uint64_t a1, int a2, int a3)
+uint64_t sub_100055A80(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = sub_1000515D8(a1, a2);
   if (!v4)
   {
@@ -6735,18 +6712,19 @@ uint64_t sub_100055A80(uint64_t a1, int a2, int a3)
     sub_10004FE48(v13);
   }
 
-  return *sub_100070EE4(*v4, a3);
+  return *sub_100070EE4(*v4, v3);
 }
 
-void sub_100055BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100055BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100055C24(uint64_t a1, int a2, int a3, char a4)
+uint64_t sub_100055C24(uint64_t a1, int a2, uint64_t a3, char a4)
 {
+  v4 = a3;
   v13 = a4;
   v5 = sub_1000519B0(a1, a2);
   if (!v5)
@@ -6783,12 +6761,12 @@ uint64_t sub_100055C24(uint64_t a1, int a2, int a3, char a4)
     sub_10004FE48(v15);
   }
 
-  return sub_1000715F0(*v5, a3, &v13);
+  return sub_1000715F0(*v5, v4, &v13);
 }
 
-void sub_100055D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100055D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -6893,9 +6871,9 @@ uint64_t sub_100055DCC(uint64_t *a1, uint64_t a2, int a3, int a4, char a5, uint6
   return result;
 }
 
-void sub_10005609C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10005609C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -7128,9 +7106,9 @@ uint64_t sub_1000563FC(uint64_t a1, int a2)
   return *v2;
 }
 
-void sub_100056478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100056478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -7141,9 +7119,9 @@ uint64_t sub_100056490(uint64_t a1, int a2, uint64_t a3)
   if (v4)
   {
     v5 = v4;
-    if ((*(v4 + 10) & 1) == 0)
+    if ((v4[10] & 1) == 0)
     {
-      if (*(v4 + 9))
+      if (v4[9])
       {
         sub_10004FCEC(v12, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 450);
         v6 = sub_10004FD04(v12, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
@@ -7175,9 +7153,9 @@ uint64_t sub_100056490(uint64_t a1, int a2, uint64_t a3)
   return a3;
 }
 
-void sub_1000565B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000565B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -7242,15 +7220,16 @@ uint64_t sub_1000565DC(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5)
   return result;
 }
 
-void sub_1000567B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000567B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000567F0(uint64_t a1, int a2, int a3)
+uint64_t sub_1000567F0(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = sub_1000515D8(a1, a2);
   if (!v4)
   {
@@ -7286,18 +7265,19 @@ uint64_t sub_1000567F0(uint64_t a1, int a2, int a3)
     sub_10004FE48(v13);
   }
 
-  return *sub_1000726BC(*v4, a3);
+  return *sub_1000726BC(*v4, v3);
 }
 
-void sub_100056964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100056964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100056994(uint64_t a1, int a2, int a3, int a4)
+uint64_t sub_100056994(uint64_t a1, int a2, uint64_t a3, int a4)
 {
+  v4 = a3;
   v13 = a4;
   v5 = sub_1000519B0(a1, a2);
   if (!v5)
@@ -7334,12 +7314,12 @@ uint64_t sub_100056994(uint64_t a1, int a2, int a3, int a4)
     sub_10004FE48(v15);
   }
 
-  return sub_100072DA0(*v5, a3, &v13);
+  return sub_100072DA0(*v5, v4, &v13);
 }
 
-void sub_100056B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100056B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -7444,9 +7424,9 @@ uint64_t sub_100056B3C(uint64_t *a1, uint64_t a2, int a3, int a4, int a5, uint64
   return result;
 }
 
-void sub_100056E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100056E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -7457,9 +7437,9 @@ uint64_t sub_100056E4C(uint64_t a1, int a2, uint64_t a3)
   if (v4)
   {
     v5 = v4;
-    if ((*(v4 + 10) & 1) == 0)
+    if ((v4[10] & 1) == 0)
     {
-      if (*(v4 + 9))
+      if (v4[9])
       {
         sub_10004FCEC(v12, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 510);
         v6 = sub_10004FD04(v12, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
@@ -7491,9 +7471,9 @@ uint64_t sub_100056E4C(uint64_t a1, int a2, uint64_t a3)
   return a3;
 }
 
-void sub_100056F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100056F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -7573,9 +7553,9 @@ uint64_t sub_100056F98(uint64_t *a1, uint64_t a2, int a3, uint64_t a4)
   return *v8;
 }
 
-void sub_1000571D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000571D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -7620,15 +7600,16 @@ uint64_t sub_10005720C(uint64_t a1, int a2, int a3)
   return sub_1000469CC(*v4, a3);
 }
 
-void sub_10005737C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10005737C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000573AC(uint64_t a1, int a2, int a3)
+uint64_t sub_1000573AC(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = sub_1000519B0(a1, a2);
   if (!v4)
   {
@@ -7664,12 +7645,12 @@ uint64_t sub_1000573AC(uint64_t a1, int a2, int a3)
     sub_10004FE48(v13);
   }
 
-  return sub_100061EA4(*v4, a3);
+  return sub_100061EA4(*v4, v3);
 }
 
-void sub_10005751C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10005751C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -7795,9 +7776,9 @@ LABEL_23:
   return result;
 }
 
-void sub_100057860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100057860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -7845,9 +7826,9 @@ uint64_t sub_100057898(uint64_t a1, int a2, uint64_t a3)
   return a3;
 }
 
-void sub_1000579F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000579F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -7922,14 +7903,14 @@ uint64_t sub_100057A18(void *a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
   return result;
 }
 
-void sub_100057C74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100057C74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-unsigned __int8 *sub_100057CAC(uint64_t **a1, uint64_t a2, int a3, uint64_t a4, void *a5)
+unsigned __int8 *sub_100057CAC(uint64_t **a1, int a2, int a3, uint64_t a4, void *a5)
 {
   if (a5)
   {
@@ -8057,9 +8038,9 @@ LABEL_30:
   return result;
 }
 
-void sub_100057FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100057FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -8074,7 +8055,7 @@ uint64_t *sub_100058024(uint64_t *result, uint64_t a2)
   return result;
 }
 
-unsigned __int8 *sub_100058040(void *a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
+unsigned __int8 *sub_100058040(void *a1, int a2, int a3, uint64_t a4, uint64_t a5)
 {
   if (a5)
   {
@@ -8163,15 +8144,16 @@ LABEL_24:
   return result;
 }
 
-void sub_1000582DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000582DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100058314(void *a1, int a2, uint64_t a3)
+uint64_t sub_100058314(void *a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v6 = sub_1000519B0(a1, a2);
   if (!v6)
   {
@@ -8179,7 +8161,7 @@ uint64_t sub_100058314(void *a1, int a2, uint64_t a3)
   }
 
   v7 = v6;
-  if (*(v6 + 9))
+  if (v6[9])
   {
     sub_10004FCEC(v15, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 693);
     v8 = sub_10004FD04(v15, "CHECK failed: ((*extension).is_repeated ? REPEATED_FIELD : OPTIONAL_FIELD) == (OPTIONAL_FIELD): ");
@@ -8223,13 +8205,13 @@ uint64_t sub_100058314(void *a1, int a2, uint64_t a3)
     }
   }
 
-  sub_100058550(a1, a2);
+  sub_100058550(a1, v4);
   return v12;
 }
 
-void sub_100058528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100058528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -8254,7 +8236,7 @@ char *sub_100058550(uint64_t a1, int a2)
       v8 = v7 >> 1;
       v9 = &result[32 * (v7 >> 1)];
       v11 = *v9;
-      v10 = (v9 + 8);
+      v10 = v9 + 32;
       v7 += ~(v7 >> 1);
       if (v11 < a2)
       {
@@ -8335,15 +8317,16 @@ uint64_t sub_100058600(void *a1, int a2, uint64_t a3)
   return v12;
 }
 
-void sub_1000587B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000587B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000587DC(uint64_t a1, int a2, int a3)
+uint64_t sub_1000587DC(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = sub_1000515D8(a1, a2);
   if (!v4)
   {
@@ -8379,18 +8362,19 @@ uint64_t sub_1000587DC(uint64_t a1, int a2, int a3)
     sub_10004FE48(v13);
   }
 
-  return sub_100061FB0(*v4, a3);
+  return sub_100061FB0(*v4, v3);
 }
 
-void sub_10005894C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10005894C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10005897C(uint64_t a1, int a2, int a3)
+uint64_t sub_10005897C(uint64_t a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = sub_1000519B0(a1, a2);
   if (!v4)
   {
@@ -8426,12 +8410,12 @@ uint64_t sub_10005897C(uint64_t a1, int a2, int a3)
     sub_10004FE48(v13);
   }
 
-  return sub_100062090(*v4, a3);
+  return sub_100062090(*v4, v3);
 }
 
-void sub_100058AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100058AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -8518,9 +8502,9 @@ uint64_t sub_100058B1C(uint64_t *a1, uint64_t a2, int a3, uint64_t a4, uint64_t 
   return v23;
 }
 
-void sub_100058DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100058DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -8716,9 +8700,9 @@ LABEL_36:
   return result;
 }
 
-void sub_1000592F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000592F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -8763,15 +8747,17 @@ uint64_t sub_10005936C(uint64_t a1, int a2)
   return sub_1000622A4(*v2);
 }
 
-void sub_1000594CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000594CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1000594FC(uint64_t a1, int a2, int a3, int a4)
+void sub_1000594FC(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
   v6 = sub_1000519B0(a1, a2);
   if (!v6)
   {
@@ -8806,17 +8792,17 @@ void sub_1000594FC(uint64_t a1, int a2, int a3, int a4)
     {
       if (v12 == 3)
       {
-        sub_100074F90(*v6, a3, a4);
+        sub_100074F90(*v6, v5, v4);
       }
 
       else if (v12 == 4)
       {
-        sub_100077F48(*v6, a3, a4);
+        sub_100077F48(*v6, v5, v4);
       }
 
       else
       {
-        sub_10007AF1C(*v6, a3, a4);
+        sub_10007AF1C(*v6, v5, v4);
       }
 
       return;
@@ -8826,14 +8812,14 @@ void sub_1000594FC(uint64_t a1, int a2, int a3, int a4)
     {
       if (v12 == 2)
       {
-        sub_100076758(*v6, a3, a4);
+        sub_100076758(*v6, v5, v4);
       }
 
       return;
     }
 
 LABEL_22:
-    sub_100073764(*v6, a3, a4);
+    sub_100073764(*v6, v5, v4);
     return;
   }
 
@@ -8841,12 +8827,12 @@ LABEL_22:
   {
     if (v12 == 6)
     {
-      sub_100079750(*v6, a3, a4);
+      sub_100079750(*v6, v5, v4);
     }
 
     else
     {
-      sub_100071F34(*v6, a3, a4);
+      sub_100071F34(*v6, v5, v4);
     }
 
     return;
@@ -8860,15 +8846,15 @@ LABEL_22:
   if (v12 == 9 || v12 == 10)
   {
     v13 = *(*v6 + 16) + 8;
-    v14 = *(v13 + 8 * a3);
-    *(v13 + 8 * a3) = *(v13 + 8 * a4);
-    *(v13 + 8 * a4) = v14;
+    v14 = *(v13 + 8 * v5);
+    *(v13 + 8 * v5) = *(v13 + 8 * v4);
+    *(v13 + 8 * v4) = v14;
   }
 }
 
-void sub_100059730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100059730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10004FE48(va);
   _Unwind_Resume(a1);
 }
@@ -8902,9 +8888,9 @@ unsigned __int8 *sub_100059758(unsigned __int8 *result)
   return result;
 }
 
-uint64_t sub_1000597C0(uint64_t result, size_t __sz)
+uint64_t *sub_1000597C0(uint64_t *result, size_t __sz)
 {
-  v2 = *(result + 8);
+  v2 = *(result + 4);
   if (v2 <= 0x100 && v2 < __sz)
   {
     v4 = result;
@@ -8922,8 +8908,8 @@ uint64_t sub_1000597C0(uint64_t result, size_t __sz)
     }
 
     while (v2 < __sz);
-    v5 = *(result + 16);
-    v6 = *(result + 10);
+    v5 = result[2];
+    v6 = *(result + 5);
     v7 = *result;
     if (v2 < 0x101u)
     {
@@ -8965,10 +8951,10 @@ uint64_t sub_1000597C0(uint64_t result, size_t __sz)
 
       result = sub_10004BF84(v7, 0x18uLL, sub_100062D20);
       v9 = result;
-      *(result + 8) = 0;
-      v10 = (result + 8);
-      *(result + 16) = 0;
-      *result = result + 8;
+      result[1] = 0;
+      v10 = result + 1;
+      result[2] = 0;
+      *result = (result + 1);
       if (v6)
       {
         v11 = &v5[32 * v6];
@@ -8979,7 +8965,7 @@ uint64_t sub_1000597C0(uint64_t result, size_t __sz)
           v13 = *(v12 + 3);
           v16 = *(v12 + 8);
           v17 = v13;
-          result = sub_100062D28(v9, v10, &v15);
+          result = sub_100062D28(v9, v10, &v15, &v15);
           v10 = result;
           v12 += 32;
         }
@@ -9003,11 +8989,11 @@ uint64_t sub_1000597C0(uint64_t result, size_t __sz)
       operator delete[]();
     }
 
-    *(v4 + 8) = v2;
-    *(v4 + 16) = v9;
+    *(v4 + 4) = v2;
+    v4[2] = v9;
     if (v2 >= 0x101u)
     {
-      *(v4 + 10) = 0;
+      *(v4 + 5) = 0;
     }
   }
 
@@ -9146,10 +9132,10 @@ void sub_100059A88(uint64_t *a1, uint64_t a2, void *a3)
     v11 = *(a3 + 8);
     if ((v11 - 19) <= 0xFFFFFFED)
     {
-      sub_10004FCEC(v69, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
-      v12 = sub_10004FD04(v69, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
-      sub_10004FE40(&v68, &v12->__r_.__value_.__l.__data_);
-      sub_10004FE48(v69);
+      sub_10004FCEC(v68, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
+      v12 = sub_10004FD04(v68, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
+      sub_10004FE40(&v67, &v12->__r_.__value_.__l.__data_);
+      sub_10004FE48(v68);
     }
 
     v13 = dword_100092BB0[v11];
@@ -9180,7 +9166,7 @@ void sub_100059A88(uint64_t *a1, uint64_t a2, void *a3)
 
       else
       {
-        sub_100054EA0(a1, a2, *(a3 + 8), a3[2], *a3);
+        sub_100054EA0(*a3, a1, a2, *(a3 + 8), a3[2]);
       }
 
       return;
@@ -9190,7 +9176,7 @@ void sub_100059A88(uint64_t *a1, uint64_t a2, void *a3)
     {
       if (v13 == 6)
       {
-        sub_1000544CC(a1, a2, *(a3 + 8), a3[2], *a3);
+        sub_1000544CC(*a3, a1, a2, *(a3 + 8), a3[2]);
       }
 
       else
@@ -9213,26 +9199,26 @@ void sub_100059A88(uint64_t *a1, uint64_t a2, void *a3)
       v45 = *a3;
       if (*(*a3 + 23) < 0)
       {
-        sub_100019AD4(&v66, *v45, *(v45 + 1));
+        sub_100019AD4(&v65, *v45, *(v45 + 1));
       }
 
       else
       {
         v46 = *v45;
-        v67 = *(v45 + 2);
-        v66 = v46;
+        v66 = *(v45 + 2);
+        v65 = v46;
       }
 
-      v54 = sub_100056F98(a1, a2, v44, a3[2]);
-      v55 = v54;
-      if (*(v54 + 23) < 0)
+      v53 = sub_100056F98(a1, a2, v44, a3[2]);
+      v54 = v53;
+      if (*(v53 + 23) < 0)
       {
-        operator delete(*v54);
+        operator delete(*v53);
       }
 
-      v56 = v66;
-      *(v55 + 16) = v67;
-      *v55 = v56;
+      v55 = v65;
+      *(v54 + 16) = v66;
+      *v54 = v55;
       return;
     }
 
@@ -9254,9 +9240,9 @@ void sub_100059A88(uint64_t *a1, uint64_t a2, void *a3)
       if ((*(a3 + 10) & 0x10) != 0)
       {
         *(v25 + 10) = v28 | 0x10;
-        v65 = (*(**a3 + 16))(*a3, *a1);
-        *v26 = v65;
-        (*(*v65 + 104))(v65, *a3);
+        v64 = (*(**a3 + 16))(*a3, *a1);
+        *v26 = v64;
+        (*(*v64 + 104))(v64, *a3);
         goto LABEL_151;
       }
 
@@ -9272,54 +9258,53 @@ LABEL_151:
 
     if (*(v25 + 8) != *(a3 + 8))
     {
-      sub_10004FCEC(v69, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 1026);
-      v47 = sub_10004FD04(v69, "CHECK failed: (extension->type) == (other_extension.type): ");
-      sub_10004FE40(&v68, &v47->__r_.__value_.__l.__data_);
-      sub_10004FE48(v69);
+      sub_10004FCEC(v68, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 1026);
+      v47 = sub_10004FD04(v68, "CHECK failed: (extension->type) == (other_extension.type): ");
+      sub_10004FE40(&v67, &v47->__r_.__value_.__l.__data_);
+      sub_10004FE48(v68);
     }
 
     if (*(v26 + 11) != *(a3 + 11))
     {
-      sub_10004FCEC(v69, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 1027);
-      v48 = sub_10004FD04(v69, "CHECK failed: (extension->is_packed) == (other_extension.is_packed): ");
-      sub_10004FE40(&v68, &v48->__r_.__value_.__l.__data_);
-      sub_10004FE48(v69);
+      sub_10004FCEC(v68, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 1027);
+      v48 = sub_10004FD04(v68, "CHECK failed: (extension->is_packed) == (other_extension.is_packed): ");
+      sub_10004FE40(&v67, &v48->__r_.__value_.__l.__data_);
+      sub_10004FE48(v68);
     }
 
     if (*(v26 + 9) == 1)
     {
-      sub_10004FCEC(v69, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 1028);
-      v49 = sub_10004FD04(v69, "CHECK failed: !extension->is_repeated: ");
-      sub_10004FE40(&v68, &v49->__r_.__value_.__l.__data_);
-      sub_10004FE48(v69);
+      sub_10004FCEC(v68, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 1028);
+      v49 = sub_10004FD04(v68, "CHECK failed: !extension->is_repeated: ");
+      sub_10004FE40(&v67, &v49->__r_.__value_.__l.__data_);
+      sub_10004FE48(v68);
     }
 
-    v50 = *(v26 + 10);
-    v51 = *v26;
-    v52 = *a3;
+    v50 = *v26;
+    v51 = *a3;
     if ((*(a3 + 10) & 0x10) != 0)
     {
       if ((*(v26 + 10) & 0x10) != 0)
       {
-        (*(*v51 + 104))(*v26, v52);
+        (*(*v50 + 104))(*v26, v51);
         goto LABEL_151;
       }
 
-      v52 = (*(*v52 + 24))(*a3, *v26);
-      v53 = *v51;
+      v51 = (*(*v51 + 24))(*a3, *v26);
+      v52 = *v50;
     }
 
     else
     {
-      v53 = *v51;
+      v52 = *v50;
       if ((*(v26 + 10) & 0x10) != 0)
       {
-        v29 = (*(v53 + 32))(*v26, v52);
+        v29 = (*(v52 + 32))(*v26, v51);
         goto LABEL_118;
       }
     }
 
-    (*(v53 + 64))(v51, v52);
+    (*(v52 + 64))(v50, v51);
     goto LABEL_151;
   }
 
@@ -9339,36 +9324,36 @@ LABEL_151:
   {
     if (*(v7 + 8) != *(a3 + 8))
     {
-      sub_10004FCEC(v69, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 931);
-      v14 = sub_10004FD04(v69, "CHECK failed: (extension->type) == (other_extension.type): ");
-      sub_10004FE40(&v68, &v14->__r_.__value_.__l.__data_);
-      sub_10004FE48(v69);
+      sub_10004FCEC(v68, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 931);
+      v14 = sub_10004FD04(v68, "CHECK failed: (extension->type) == (other_extension.type): ");
+      sub_10004FE40(&v67, &v14->__r_.__value_.__l.__data_);
+      sub_10004FE48(v68);
     }
 
     if (*(v8 + 11) != *(a3 + 11))
     {
-      sub_10004FCEC(v69, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 932);
-      v15 = sub_10004FD04(v69, "CHECK failed: (extension->is_packed) == (other_extension.is_packed): ");
-      sub_10004FE40(&v68, &v15->__r_.__value_.__l.__data_);
-      sub_10004FE48(v69);
+      sub_10004FCEC(v68, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 932);
+      v15 = sub_10004FD04(v68, "CHECK failed: (extension->is_packed) == (other_extension.is_packed): ");
+      sub_10004FE40(&v67, &v15->__r_.__value_.__l.__data_);
+      sub_10004FE48(v68);
     }
 
     if ((*(v8 + 9) & 1) == 0)
     {
-      sub_10004FCEC(v69, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 933);
-      v16 = sub_10004FD04(v69, "CHECK failed: extension->is_repeated: ");
-      sub_10004FE40(&v68, &v16->__r_.__value_.__l.__data_);
-      sub_10004FE48(v69);
+      sub_10004FCEC(v68, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 933);
+      v16 = sub_10004FD04(v68, "CHECK failed: extension->is_repeated: ");
+      sub_10004FE40(&v67, &v16->__r_.__value_.__l.__data_);
+      sub_10004FE48(v68);
     }
   }
 
   v17 = *(a3 + 8);
   if ((v17 - 19) <= 0xFFFFFFED)
   {
-    sub_10004FCEC(v69, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
-    v18 = sub_10004FD04(v69, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
-    sub_10004FE40(&v68, &v18->__r_.__value_.__l.__data_);
-    sub_10004FE48(v69);
+    sub_10004FCEC(v68, 3, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/third_party/protobuf-lite/extension_set.cc", 60);
+    v18 = sub_10004FD04(v68, "CHECK failed: type > 0 && type <= WireFormatLite::MAX_FIELD_TYPE: ");
+    sub_10004FE40(&v67, &v18->__r_.__value_.__l.__data_);
+    sub_10004FE48(v68);
   }
 
   v19 = dword_100092BB0[v17];
@@ -9628,9 +9613,9 @@ LABEL_82:
           }
 
           v43 = sub_10004BF84(v42, 0x18uLL, sub_100061E68);
-          v43[2] = 0;
+          *(v43 + 2) = 0;
           *v43 = v42;
-          v43[1] = 0;
+          *(v43 + 1) = 0;
           *v8 = v43;
         }
 
@@ -9656,33 +9641,33 @@ LABEL_82:
           }
 
           v23 = sub_10004BF84(v22, 0x18uLL, sub_100061E6C);
-          v23[2] = 0;
+          *(v23 + 2) = 0;
           *v23 = v22;
-          v23[1] = 0;
+          *(v23 + 1) = 0;
           *v8 = v23;
         }
 
-        v57 = *a3;
-        if (*(v57 + 8) >= 1)
+        v56 = *a3;
+        if (*(v56 + 8) >= 1)
         {
-          v58 = 0;
+          v57 = 0;
           do
           {
-            v59 = sub_100061FB0(v57, v58);
-            v60 = v59;
-            v61 = *v8;
-            v62 = *(*v8 + 16);
-            if (!v62 || (v63 = *(v61 + 8), v63 >= *v62) || (*(v61 + 8) = v63 + 1, (v64 = *&v62[2 * v63 + 2]) == 0))
+            v58 = sub_100061FB0(v56, v57);
+            v59 = v58;
+            v60 = *v8;
+            v61 = *(*v8 + 2);
+            if (!v61 || (v62 = v60[2], v62 >= *v61) || (v60[2] = v62 + 1, (v63 = *&v61[2 * v62 + 2]) == 0))
             {
-              v64 = (*(*v59 + 32))(v59, *a1);
-              sub_100062170(*v8, v64);
+              v63 = (*(*v58 + 32))(v58, *a1);
+              sub_100062170(*v8, v63);
             }
 
-            (*(*v64 + 64))(v64, v60);
-            ++v58;
+            (*(*v63 + 64))(v63, v59);
+            ++v57;
           }
 
-          while (v58 < *(v57 + 8));
+          while (v57 < *(v56 + 8));
         }
 
         break;
@@ -9722,9 +9707,9 @@ uint64_t sub_10005A6F8(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_10005A7B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10005A7B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100051458(va);
   _Unwind_Resume(a1);
 }
@@ -9818,24 +9803,24 @@ uint64_t sub_10005A7C4(uint64_t result, uint64_t *a2, uint64_t a3)
   return result;
 }
 
-void sub_10005A980(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10005A980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100051458(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_10005A998(uint64_t a1, uint64_t a2)
+uint64_t *sub_10005A998(uint64_t a1, int a2)
 {
   v3 = *(a1 + 8);
   v4 = *(a1 + 16);
   if (v3 >= 0x101)
   {
+    *(&v14 + 1) = 0;
     v15 = 0;
     v16 = 0;
-    v17 = 0;
-    v14 = a2;
-    return sub_100062C54(v4, &v14) + 5;
+    LODWORD(v14) = a2;
+    return sub_100062C54(v4, &v14, &v14) + 5;
   }
 
   else

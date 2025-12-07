@@ -1,9 +1,12 @@
 @interface CMIColourConstancySensorSpaceConversionV1
 - (CMIColourConstancySensorSpaceConversionV1)initWithMetalContext:(id)context;
-- (id)convertYUVtoRegisteredNormSensorSpaceThumbnail:(double)thumbnail inputLumaTexture:(double)texture inputChromaTexture:(double)chromaTexture appliedScaledLSCGainsRGBTexture:(double)bTexture baseScaledLSCGainsRGBTexture:(float)gBTexture yuvOffsets:(uint64_t)offsets cropRect:(void *)rect registrationHomography:(void *)self0 appliedWhitePoint:(void *)self1 integrationTimeScale:(void *)self2 outputWarpedSensorThumbnailRGBATexture:(void *)self3;
+- (int)_encodeScaledLSCGainsAndStrobeBeamProfileCalculate:(id)calculate ambientLSCGainsTexture:(id)texture flashLSCGainsTexture:(id)gainsTexture cropRect:(CMIColourConstancyCropRect)rect LSCCropRect:(CMIColourConstancyLSCCropRect *)cropRect fullSizeDimensions:(float)dimensions ambientLSCMaxGain:(float)gain flashLSCMaxGain:(id)self0 outputAmbientScaledLSCGainsRGBTexture:(id)self1 outputFlashScaledLSCGainsRGBTexture:(id)self2 outputStrobeBeamProfileGainRTexture:;
+- (int)_encodeYUVtoNormSensorSpaceThumbnail:(CMIColourConstancySensorSpaceConversionV1 *)self inputLumaTexture:(SEL)texture inputChromaTexture:(id)chromaTexture appliedScaledLSCGainsRGBTexture:(id)bTexture baseScaledLSCGainsRGBTexture:(id)gBTexture yuvOffsets:(id)offsets cropRect:(id)rect appliedWhitePoint:(CMIColourConstancyCropRect)point integrationTimeScale:(float)scale clippedLikelihoodScale:(float)self0 clippedLikelihoodExponent:(float)self1 outputBalancedThumbnailRGBATexture:(id)self2 outputSensorThumbnailRGBATexture:(id)self3;
 - (int)calculateScaledLSCGainsAndStrobeBeamProfile:(id)profile ambientLSCGainsTexture:(id)texture flashLSCGainsTexture:(id)gainsTexture cropRect:(CMIColourConstancyCropRect)rect LSCCropRect:(CMIColourConstancyLSCCropRect *)cropRect fullSizeDimensions:(float)dimensions ambientLSCMaxGain:(float)gain flashLSCMaxGain:(id)self0 outputAmbientScaledLSCGainsRGBTexture:(id)self1 outputFlashScaledLSCGainsRGBTexture:(id)self2 outputStrobeBeamProfileGainRTexture:;
+- (int)convertYUVtoNormSensorSpaceThumbnail:(CMIColourConstancySensorSpaceConversionV1 *)self inputLumaTexture:(SEL)texture inputChromaTexture:(id)chromaTexture appliedScaledLSCGainsRGBTexture:(id)bTexture baseScaledLSCGainsRGBTexture:(id)gBTexture yuvOffsets:(id)offsets cropRect:(id)rect appliedWhitePoint:(CMIColourConstancyCropRect)point integrationTimeScale:(float)scale outputBalancedThumbnailRGBATexture:(id)self0 outputSensorThumbnailRGBATexture:(id)self1;
 - (int)prepareToProcessWithConfig:(id)config;
 - (uint64_t)_encodeYUVtoRegisteredNormSensorSpaceThumbnail:(__n128)thumbnail inputLumaTexture:(__n128)texture inputChromaTexture:(__n128)chromaTexture appliedScaledLSCGainsRGBTexture:(__n128)bTexture baseScaledLSCGainsRGBTexture:(float)gBTexture yuvOffsets:(float)offsets cropRect:(float)rect registrationHomography:(uint64_t)self0 appliedWhitePoint:(void *)self1 integrationTimeScale:(void *)self2 clippedLikelihoodScale:(void *)self3 clippedLikelihoodExponent:(void *)self4 outputWarpedSensorThumbnailRGBATexture:(void *)self5;
+- (void)convertYUVtoRegisteredNormSensorSpaceThumbnail:(double)thumbnail inputLumaTexture:(double)texture inputChromaTexture:(double)chromaTexture appliedScaledLSCGainsRGBTexture:(double)bTexture baseScaledLSCGainsRGBTexture:(float)gBTexture yuvOffsets:(uint64_t)offsets cropRect:(void *)rect registrationHomography:(void *)self0 appliedWhitePoint:(void *)self1 integrationTimeScale:(void *)self2 outputWarpedSensorThumbnailRGBATexture:(void *)self3;
 @end
 
 @implementation CMIColourConstancySensorSpaceConversionV1
@@ -84,6 +87,64 @@ LABEL_7:
   return v6;
 }
 
+- (int)_encodeScaledLSCGainsAndStrobeBeamProfileCalculate:(id)calculate ambientLSCGainsTexture:(id)texture flashLSCGainsTexture:(id)gainsTexture cropRect:(CMIColourConstancyCropRect)rect LSCCropRect:(CMIColourConstancyLSCCropRect *)cropRect fullSizeDimensions:(float)dimensions ambientLSCMaxGain:(float)gain flashLSCMaxGain:(id)self0 outputAmbientScaledLSCGainsRGBTexture:(id)self1 outputFlashScaledLSCGainsRGBTexture:(id)self2 outputStrobeBeamProfileGainRTexture:
+{
+  v16 = v12;
+  v18 = *&dimensions;
+  rectCopy = rect;
+  calculateCopy = calculate;
+  textureCopy = texture;
+  gainsTextureCopy = gainsTexture;
+  v36 = v18;
+  v34 = v16;
+  gainCopy = gain;
+  maxGainCopy = maxGain;
+  bTextureCopy = bTexture;
+  gBTextureCopy = gBTexture;
+  if (!calculateCopy)
+  {
+    sub_1C178();
+LABEL_7:
+    v30 = 10;
+    goto LABEL_4;
+  }
+
+  computeCommandEncoder = [calculateCopy computeCommandEncoder];
+  if (!computeCommandEncoder)
+  {
+    sub_1C104();
+    goto LABEL_7;
+  }
+
+  v27 = computeCommandEncoder;
+  [computeCommandEncoder setComputePipelineState:self->_calculateScaledLSCGainsAndStrobeBeamProfilePipelineState];
+  [v27 setTexture:textureCopy atIndex:0];
+  [v27 setTexture:gainsTextureCopy atIndex:1];
+  [v27 setTexture:maxGainCopy atIndex:2];
+  [v27 setTexture:bTextureCopy atIndex:3];
+  [v27 setTexture:gBTextureCopy atIndex:4];
+  [v27 setBytes:&rectCopy length:16 atIndex:0];
+  [v27 setBytes:cropRect length:20 atIndex:1];
+  [v27 setBytes:&v36 length:8 atIndex:2];
+  [v27 setBytes:&gainCopy length:4 atIndex:3];
+  [v27 setBytes:&v34 length:4 atIndex:4];
+  threadExecutionWidth = [(MTLComputePipelineState *)self->_calculateScaledLSCGainsAndStrobeBeamProfilePipelineState threadExecutionWidth];
+  v29 = [(MTLComputePipelineState *)self->_calculateScaledLSCGainsAndStrobeBeamProfilePipelineState maxTotalThreadsPerThreadgroup]/ threadExecutionWidth;
+  v33[0] = [gBTextureCopy width];
+  v33[1] = [gBTextureCopy height];
+  v33[2] = 1;
+  v32[0] = threadExecutionWidth;
+  v32[1] = v29;
+  v32[2] = 1;
+  [v27 dispatchThreads:v33 threadsPerThreadgroup:v32];
+  [v27 endEncoding];
+
+  v30 = 0;
+LABEL_4:
+
+  return v30;
+}
+
 - (uint64_t)_encodeYUVtoRegisteredNormSensorSpaceThumbnail:(__n128)thumbnail inputLumaTexture:(__n128)texture inputChromaTexture:(__n128)chromaTexture appliedScaledLSCGainsRGBTexture:(__n128)bTexture baseScaledLSCGainsRGBTexture:(float)gBTexture yuvOffsets:(float)offsets cropRect:(float)rect registrationHomography:(uint64_t)self0 appliedWhitePoint:(void *)self1 integrationTimeScale:(void *)self2 clippedLikelihoodScale:(void *)self3 clippedLikelihoodExponent:(void *)self4 outputWarpedSensorThumbnailRGBATexture:(void *)self5
 {
   v53[0] = a17;
@@ -154,6 +215,91 @@ LABEL_4:
   return v39;
 }
 
+- (int)_encodeYUVtoNormSensorSpaceThumbnail:(CMIColourConstancySensorSpaceConversionV1 *)self inputLumaTexture:(SEL)texture inputChromaTexture:(id)chromaTexture appliedScaledLSCGainsRGBTexture:(id)bTexture baseScaledLSCGainsRGBTexture:(id)gBTexture yuvOffsets:(id)offsets cropRect:(id)rect appliedWhitePoint:(CMIColourConstancyCropRect)point integrationTimeScale:(float)scale clippedLikelihoodScale:(float)self0 clippedLikelihoodExponent:(float)self1 outputBalancedThumbnailRGBATexture:(id)self2 outputSensorThumbnailRGBATexture:(id)self3
+{
+  v19 = v14;
+  v20 = v13;
+  v42 = *&scale;
+  v44 = *&likelihoodScale;
+  pointCopy = point;
+  chromaTextureCopy = chromaTexture;
+  bTextureCopy = bTexture;
+  gBTextureCopy = gBTexture;
+  offsetsCopy = offsets;
+  rectCopy = rect;
+  v52 = v44;
+  v53 = v42;
+  v50 = v20;
+  exponentCopy = exponent;
+  v49 = v19;
+  aTextureCopy = aTexture;
+  bATextureCopy = bATexture;
+  if (chromaTextureCopy)
+  {
+    v45 = chromaTextureCopy;
+    computeCommandEncoder = [chromaTextureCopy computeCommandEncoder];
+    if (computeCommandEncoder)
+    {
+      v31 = computeCommandEncoder;
+      v32 = rectCopy;
+      v33 = offsetsCopy;
+      v34 = gBTextureCopy;
+      v35 = bTextureCopy;
+      v43 = point.var0 / [bATextureCopy width];
+      height = [bATextureCopy height];
+      *&v37 = v43;
+      *(&v37 + 1) = point.var1 / height;
+      v48 = v37;
+      [v31 setComputePipelineState:self->_convertYUVtoNormSensorSpaceThumbnailPipelineState];
+      [v31 setTexture:bTextureCopy atIndex:0];
+      [v31 setTexture:v34 atIndex:1];
+      [v31 setTexture:v33 atIndex:2];
+      [v31 setTexture:v32 atIndex:3];
+      [v31 setTexture:aTextureCopy atIndex:4];
+      [v31 setTexture:bATextureCopy atIndex:5];
+      [v31 setBytes:&v53 length:16 atIndex:0];
+      [v31 setBytes:&v48 length:8 atIndex:1];
+      [v31 setBytes:&pointCopy length:16 atIndex:2];
+      [v31 setBytes:&v52 length:16 atIndex:3];
+      [v31 setBytes:&exponentCopy length:4 atIndex:4];
+      [v31 setBytes:&v50 length:4 atIndex:5];
+      [v31 setBytes:&v49 length:4 atIndex:6];
+      threadExecutionWidth = [(MTLComputePipelineState *)self->_convertYUVtoNormSensorSpaceThumbnailPipelineState threadExecutionWidth];
+      v39 = [(MTLComputePipelineState *)self->_convertYUVtoNormSensorSpaceThumbnailPipelineState maxTotalThreadsPerThreadgroup]/ threadExecutionWidth;
+      v47[0] = [bATextureCopy width];
+      v47[1] = [bATextureCopy height];
+      v47[2] = 1;
+      v46[0] = threadExecutionWidth;
+      v46[1] = v39;
+      bTextureCopy = v35;
+      gBTextureCopy = v34;
+      offsetsCopy = v33;
+      rectCopy = v32;
+      v46[2] = 1;
+      [v31 dispatchThreads:v47 threadsPerThreadgroup:v46];
+      [v31 endEncoding];
+
+      v40 = 0;
+    }
+
+    else
+    {
+      sub_1C2D4();
+      v40 = 10;
+    }
+
+    chromaTextureCopy = v45;
+  }
+
+  else
+  {
+    sub_1C348();
+    v40 = 10;
+  }
+
+  return v40;
+}
+
 - (int)calculateScaledLSCGainsAndStrobeBeamProfile:(id)profile ambientLSCGainsTexture:(id)texture flashLSCGainsTexture:(id)gainsTexture cropRect:(CMIColourConstancyCropRect)rect LSCCropRect:(CMIColourConstancyLSCCropRect *)cropRect fullSizeDimensions:(float)dimensions ambientLSCMaxGain:(float)gain flashLSCMaxGain:(id)self0 outputAmbientScaledLSCGainsRGBTexture:(id)self1 outputFlashScaledLSCGainsRGBTexture:(id)self2 outputStrobeBeamProfileGainRTexture:
 {
   v14 = *cropRect;
@@ -166,7 +312,7 @@ LABEL_4:
   return v12;
 }
 
-- (id)convertYUVtoRegisteredNormSensorSpaceThumbnail:(double)thumbnail inputLumaTexture:(double)texture inputChromaTexture:(double)chromaTexture appliedScaledLSCGainsRGBTexture:(double)bTexture baseScaledLSCGainsRGBTexture:(float)gBTexture yuvOffsets:(uint64_t)offsets cropRect:(void *)rect registrationHomography:(void *)self0 appliedWhitePoint:(void *)self1 integrationTimeScale:(void *)self2 outputWarpedSensorThumbnailRGBATexture:(void *)self3
+- (void)convertYUVtoRegisteredNormSensorSpaceThumbnail:(double)thumbnail inputLumaTexture:(double)texture inputChromaTexture:(double)chromaTexture appliedScaledLSCGainsRGBTexture:(double)bTexture baseScaledLSCGainsRGBTexture:(float)gBTexture yuvOffsets:(uint64_t)offsets cropRect:(void *)rect registrationHomography:(void *)self0 appliedWhitePoint:(void *)self1 integrationTimeScale:(void *)self2 outputWarpedSensorThumbnailRGBATexture:(void *)self3
 {
   v24 = self[2];
   v25 = a17;
@@ -189,6 +335,35 @@ LABEL_4:
   }
 
   return v37;
+}
+
+- (int)convertYUVtoNormSensorSpaceThumbnail:(CMIColourConstancySensorSpaceConversionV1 *)self inputLumaTexture:(SEL)texture inputChromaTexture:(id)chromaTexture appliedScaledLSCGainsRGBTexture:(id)bTexture baseScaledLSCGainsRGBTexture:(id)gBTexture yuvOffsets:(id)offsets cropRect:(id)rect appliedWhitePoint:(CMIColourConstancyCropRect)point integrationTimeScale:(float)scale outputBalancedThumbnailRGBATexture:(id)self0 outputSensorThumbnailRGBATexture:(id)self1
+{
+  v13 = v12;
+  v36 = *&scale;
+  v37 = v11;
+  config = self->_config;
+  bATextureCopy = bATexture;
+  aTextureCopy = aTexture;
+  rectCopy = rect;
+  offsetsCopy = offsets;
+  gBTextureCopy = gBTexture;
+  bTextureCopy = bTexture;
+  chromaTextureCopy = chromaTexture;
+  [(CMIColourConstancySensorSpaceConversionConfigurationV1 *)config clippedConfidenceLikelihoodScale];
+  v29 = v28;
+  [(CMIColourConstancySensorSpaceConversionConfigurationV1 *)self->_config clippedConfidenceLikelihoodExponent];
+  LODWORD(v31) = v30;
+  LODWORD(v32) = v13;
+  LODWORD(v33) = v29;
+  bATextureCopy = [(CMIColourConstancySensorSpaceConversionV1 *)self _encodeYUVtoNormSensorSpaceThumbnail:chromaTextureCopy inputLumaTexture:bTextureCopy inputChromaTexture:gBTextureCopy appliedScaledLSCGainsRGBTexture:offsetsCopy baseScaledLSCGainsRGBTexture:rectCopy yuvOffsets:v36 cropRect:v37 appliedWhitePoint:v32 integrationTimeScale:v33 clippedLikelihoodScale:v31 clippedLikelihoodExponent:*&point.var0 outputBalancedThumbnailRGBATexture:*&point.var2 outputSensorThumbnailRGBATexture:aTextureCopy, bATextureCopy];
+
+  if (bATextureCopy)
+  {
+    sub_1C4AC();
+  }
+
+  return bATextureCopy;
 }
 
 @end

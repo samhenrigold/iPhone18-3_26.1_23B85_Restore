@@ -178,7 +178,7 @@
   metricCopy = metric;
   valuesCopy = values;
   v9 = valuesCopy;
-  if (metricCopy && [valuesCopy count])
+  if (metricCopy && objc_msgSend_count(valuesCopy))
   {
     v10 = @"%K IN %@";
     if (modifier == 1)
@@ -717,7 +717,7 @@ LABEL_20:
 
   v59 = checkpointsCopy;
   v12 = [(_DASPPSDataManager *)self valueFilterPredicateForMetric:@"Name" withMetricValues:checkpointsCopy predicateModifier:0];
-  if ([checkpointsCopy count])
+  if (objc_msgSend_count(checkpointsCopy))
   {
     v13 = v12;
   }
@@ -768,7 +768,7 @@ LABEL_20:
     while (v17);
   }
 
-  if ([v16 count])
+  if (objc_msgSend_count(v16))
   {
 
     allKeys = [v16 allKeys];
@@ -812,7 +812,7 @@ LABEL_20:
       while (v30);
     }
 
-    if ([v29 count])
+    if (objc_msgSend_count(v29))
     {
 
       allKeys2 = [v29 allKeys];
@@ -1030,7 +1030,7 @@ LABEL_20:
   }
 
   v15 = [(_DASPPSDataManager *)self getPPSTimeSeries:@"BackgroundProcessing" category:@"Progress" valueFilter:0 metrics:metricsCopy timeFilter:filterCopy filepath:filepathCopy error:0];
-  if ([progressCopy count])
+  if (objc_msgSend_count(progressCopy))
   {
     v29 = filepathCopy;
     v30 = filterCopy;

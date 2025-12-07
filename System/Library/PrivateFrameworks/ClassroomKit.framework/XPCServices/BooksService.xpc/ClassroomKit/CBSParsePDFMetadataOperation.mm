@@ -42,25 +42,7 @@
     v7 = CGPDFStringCopyTextString(value);
     [(CBSParsePDFMetadataOperation *)self updateAuthor:v7];
 
-    if (![(CBSParsePDFMetadataOperation *)self parseImage])
-    {
-      goto LABEL_7;
-    }
-
-    Page = CGPDFDocumentGetPage(v5, 1uLL);
-    if (!Page)
-    {
-      goto LABEL_7;
-    }
-
-    v9 = Page;
-    BoxRect = CGPDFPageGetBoxRect(Page, kCGPDFCropBox);
-    x = BoxRect.origin.x;
-    y = BoxRect.origin.y;
-    width = BoxRect.size.width;
-    height = BoxRect.size.height;
-    v14 = [CRKCoreGraphicsUtilities createImageContextForSize:70.0, 100.0];
-    if (v14)
+    if ([(CBSParsePDFMetadataOperation *)self parseImage]&& (Page = CGPDFDocumentGetPage(v5, 1uLL)) != 0 && (v9 = Page, BoxRect = CGPDFPageGetBoxRect(Page, kCGPDFCropBox), x = BoxRect.origin.x, y = BoxRect.origin.y, width = BoxRect.size.width, height = BoxRect.size.height, (v14 = [CRKCoreGraphicsUtilities createImageContextForSize:70.0, 100.0]) != 0))
     {
       v15 = v14;
       CGContextTranslateCTM(v14, 0.0, 100.0);
@@ -100,7 +82,6 @@
 
     else
     {
-LABEL_7:
       CFRelease(v5);
     }
 

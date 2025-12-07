@@ -1,5 +1,7 @@
 @interface AWDMETRICSKCellularPowerLogNRBWPHistMBin
 - (BOOL)isEqual:(id)equal;
+- (id)binIdAsString:(int)string;
+- (id)ccIndexAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -28,6 +30,21 @@
   {
     return 0;
   }
+}
+
+- (id)binIdAsString:(int)string
+{
+  if (string >= 0x22)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825C598[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsBinId:(id)id
@@ -254,6 +271,21 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)ccIndexAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825C6A8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsCcIndex:(id)index
 {
   indexCopy = index;
@@ -383,12 +415,11 @@ LABEL_14:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    binId = self->_binId;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -407,15 +438,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    ccIndex = self->_ccIndex;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

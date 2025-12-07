@@ -111,9 +111,9 @@
 + (BOOL)sharedAlbumIsPending:(id)pending
 {
   pendingCopy = pending;
-  v4 = _sSo23PXSharedAlbumsUtilitiesC12PhotosUICoreE20sharedAlbumIsPendingySbSo17PHAssetCollectionCFZ_0(pendingCopy);
+  v5 = _sSo23PXSharedAlbumsUtilitiesC12PhotosUICoreE20sharedAlbumIsPendingySbSo17PHAssetCollectionCFZ_0(pendingCopy, v4);
 
-  return v4 & 1;
+  return v5 & 1;
 }
 
 + (id)ownerForSharedAlbum:(id)album
@@ -198,7 +198,7 @@
 
   albumCopy = album;
   _sSo23PXSharedAlbumsUtilitiesC12PhotosUICoreE8setTitle_14forSharedAlbum17completionHandlerySS_So17PHAssetCollectionCySb_s5Error_pSgtcSgtFZ_0(v7, v9, albumCopy, v6, v10);
-  sub_1A3C33378(v6);
+  sub_1A3C33378(v6, v10);
 }
 
 + (BOOL)hasReachedLimitOfAcceptedSharedAlbumsInPhotoLibrary:(id)library
@@ -237,7 +237,7 @@
 
   albumCopy = album;
   sub_1A4089140(albumCopy, v5, v6, &unk_1F16F43E8, &unk_1A5316968, "An invalid asset collection was passed in to resendInvitationToParticipant:");
-  sub_1A3C33378(v5);
+  sub_1A3C33378(v5, v6);
 }
 
 + (void)markInvitationToSharedAlbumAsSpam:(id)spam completionHandler:(id)handler
@@ -257,13 +257,13 @@
 
   spamCopy = spam;
   sub_1A4089140(spamCopy, v5, v6, &unk_1F16F4370, &unk_1A5316948, "An invalid asset collection was passed in to markInvitationToSharedAlbumAsSpam:");
-  sub_1A3C33378(v5);
+  sub_1A3C33378(v5, v6);
 }
 
 + (void)inviteParticipants:(id)participants toSharedAlbum:(id)album completionHandler:(id)handler
 {
   v6 = _Block_copy(handler);
-  sub_1A3C52C70(0, &qword_1EB12C1B0);
+  sub_1A3C52C70(0, &qword_1EB12C1B0, off_1E771F698);
   v7 = sub_1A524CA34();
   if (v6)
   {
@@ -279,7 +279,7 @@
 
   albumCopy = album;
   _sSo23PXSharedAlbumsUtilitiesC12PhotosUICoreE18inviteParticipants_13toSharedAlbum17completionHandlerySaySo0aJ11ParticipantCG_So17PHAssetCollectionCySb_s5Error_pSgtcSgtFZ_0(v7, albumCopy, v6, v8);
-  sub_1A3C33378(v6);
+  sub_1A3C33378(v6, v8);
 }
 
 + (void)resendInvitationToParticipant:(id)participant inSharedAlbum:(id)album completionHandler:(id)handler
@@ -300,13 +300,13 @@
   participantCopy = participant;
   albumCopy = album;
   _sSo23PXSharedAlbumsUtilitiesC12PhotosUICoreE16resendInvitation2to13inSharedAlbum17completionHandlerySo0aK11ParticipantC_So17PHAssetCollectionCySb_s5Error_pSgtcSgtFZ_0(participantCopy, albumCopy, v7, v8);
-  sub_1A3C33378(v7);
+  sub_1A3C33378(v7, v8);
 }
 
 + (void)removeParticipants:(id)participants fromSharedAlbum:(id)album completionHandler:(id)handler
 {
   v6 = _Block_copy(handler);
-  sub_1A3C52C70(0, &qword_1EB12C1B0);
+  sub_1A3C52C70(0, &qword_1EB12C1B0, off_1E771F698);
   v7 = sub_1A524CA34();
   if (v6)
   {
@@ -322,7 +322,7 @@
 
   albumCopy = album;
   _sSo23PXSharedAlbumsUtilitiesC12PhotosUICoreE18removeParticipants_15fromSharedAlbum17completionHandlerySaySo0aJ11ParticipantCG_So17PHAssetCollectionCySb_s5Error_pSgtcSgtFZ_0(v7, albumCopy, v6, v8);
-  sub_1A3C33378(v6);
+  sub_1A3C33378(v6, v8);
 }
 
 + (BOOL)multipleContributorsEnabledForSharedAlbum:(id)album
@@ -383,7 +383,7 @@
 
   albumCopy = album;
   sub_1A4089D24(enabled, albumCopy, v7, v8, &unk_1F16F3F88, &unk_1A5316870, "An invalid asset collection was passed in to setMultipleContributorsEnabled:");
-  sub_1A3C33378(v7);
+  sub_1A3C33378(v7, v8);
 }
 
 + (BOOL)notificationsEnabledForSharedAlbum:(id)album
@@ -426,7 +426,7 @@
 
   albumCopy = album;
   sub_1A4089D24(enabled, albumCopy, v7, v8, &unk_1F16F3E98, &unk_1A5316840, "An invalid asset collection was passed in to setNotificationsEnabled:");
-  sub_1A3C33378(v7);
+  sub_1A3C33378(v7, v8);
 }
 
 + (id)publicURLForSharedAlbum:(id)album
@@ -469,7 +469,7 @@
 
   albumCopy = album;
   sub_1A4089D24(enabled, albumCopy, v7, v8, &unk_1F16F3DA8, &unk_1A5316810, "An invalid asset collection was passed in to setPublicURLEnabled:");
-  sub_1A3C33378(v7);
+  sub_1A3C33378(v7, v8);
 }
 
 + (void)setLikedTo:(BOOL)to forAssets:(id)assets completionHandler:(id)handler
@@ -490,7 +490,7 @@
 
   swift_unknownObjectRetain();
   _sSo23PXSharedAlbumsUtilitiesC12PhotosUICoreE8setLiked2to9forAssets17completionHandlerySb_So17PXFastEnumeration_pySb_s5Error_pSgtcSgtFZ_0(toCopy, assets, v7, v8);
-  sub_1A3C33378(v7);
+  sub_1A3C33378(v7, v8);
 
   swift_unknownObjectRelease();
 }
@@ -514,7 +514,7 @@
 
   assetCopy = asset;
   _sSo23PXSharedAlbumsUtilitiesC12PhotosUICoreE10addComment_7toAsset17completionHandlerySS_So7PHAssetCySSSg_s5Error_pSgtcSgtFZ_0(v7, v9, assetCopy, v6, v10);
-  sub_1A3C33378(v6);
+  sub_1A3C33378(v6, v10);
 }
 
 + (void)removeComments:(id)comments fromAsset:(id)asset completionHandler:(id)handler
@@ -535,7 +535,7 @@
   swift_unknownObjectRetain();
   assetCopy = asset;
   _sSo23PXSharedAlbumsUtilitiesC12PhotosUICoreE14removeComments_9fromAsset17completionHandlerySo17PXFastEnumeration_p_So7PHAssetCySb_s5Error_pSgtcSgtFZ_0(comments, assetCopy, v7, v8);
-  sub_1A3C33378(v7);
+  sub_1A3C33378(v7, v8);
   swift_unknownObjectRelease();
 }
 

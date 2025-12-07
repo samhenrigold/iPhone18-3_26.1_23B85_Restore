@@ -24,8 +24,8 @@
 
 - (id)_initWithClientPID:(int)d withPurgeBlock:(id)block notificationQueue:(id)queue
 {
-  v9 = FigNote_AllowInternalDefaultLogs() != 0;
-  fig_note_initialize_category_with_default_work_cf(&gFigPurgeAndRenewProcessStateTracker[1], @"processtatetracker_trace", @"com.apple.coremedia", ", "com.apple.coremedia"", v9, 0, gFigPurgeAndRenewProcessStateTracker);
+  v9 = FigNote_AllowInternalDefaultLogs(self, a2) != 0;
+  fig_note_initialize_category_with_default_work_cf(&unk_1EAF1CC58, @"processtatetracker_trace", @"com.apple.coremedia", ", "com.apple.coremedia"", v9, 0, &gFigPurgeAndRenewProcessStateTracker);
   fig_note_initialize_category_with_default_work_cf(&dword_1EAF1CC68, @"processtatetracker_trace", @"com.apple.coremedia", ", "com.apple.coremedia"", 1u, 0, &qword_1EAF1CC60);
   v13.receiver = self;
   v13.super_class = FigPurgeAndRenewPurgeOperator;
@@ -59,10 +59,11 @@
   location[16] = *MEMORY[0x1E69E9840];
   if (dword_1EAF1CC68)
   {
-    v21 = 0;
+    v22 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC60, 1, &v21, &type);
-    v4 = v21;
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC60, 1, &v22, &type);
+    v4 = v22;
+    v5 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v6 = v4;
@@ -76,14 +77,14 @@
     if (v6)
     {
       clientPID = self->_clientPID;
-      v22 = 136315650;
-      v23 = "[FigPurgeAndRenewPurgeOperator restartPurgeTimerIfNecessary]";
-      v24 = 1024;
-      v25 = clientPID;
-      v26 = 2048;
+      v23 = 136315650;
+      v24 = "[FigPurgeAndRenewPurgeOperator restartPurgeTimerIfNecessary]";
+      v25 = 1024;
+      v26 = clientPID;
+      v27 = 2048;
       selfCopy2 = self;
-      v8 = _os_log_send_and_compose_impl();
-      LOBYTE(v4) = v21;
+      v8 = _os_log_send_and_compose_impl(v6, 0, location, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v5, "<<< FigPurgeAndRenewProcessStateTracker >>> %s: app with pid=%d suspended apptracker=%p, check and start timer before purge", &v23, 28, v18);
+      LOBYTE(v4) = v22;
     }
 
     else
@@ -91,17 +92,18 @@
       v8 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC60, 1u, 1, v8, v8 != location, v4, 0, v5);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC60, 1, 1, v8, v8 != location, v4);
   }
 
   if (self->_purgeSuspended)
   {
     if (dword_1EAF1CC68)
     {
-      v21 = 0;
+      v22 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC60, 1, &v21, &type);
-      v10 = v21;
+      v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC60, 1, &v22, &type);
+      v10 = v22;
+      v11 = type;
       if (os_log_type_enabled(v9, type))
       {
         v12 = v10;
@@ -115,14 +117,14 @@
       if (v12)
       {
         v13 = self->_clientPID;
-        v22 = 136315650;
-        v23 = "[FigPurgeAndRenewPurgeOperator restartPurgeTimerIfNecessary]";
-        v24 = 1024;
-        v25 = v13;
-        v26 = 2048;
+        v23 = 136315650;
+        v24 = "[FigPurgeAndRenewPurgeOperator restartPurgeTimerIfNecessary]";
+        v25 = 1024;
+        v26 = v13;
+        v27 = 2048;
         selfCopy2 = self;
-        v14 = _os_log_send_and_compose_impl();
-        LOBYTE(v10) = v21;
+        v14 = _os_log_send_and_compose_impl(v12, 0, location, 128, &dword_196FA7000, v9, v11, "<<< FigPurgeAndRenewProcessStateTracker >>> %s: pid=%d apptracker=%p don't start the timer if purge is suspended", &v23, 28, v18);
+        LOBYTE(v10) = v22;
       }
 
       else
@@ -130,7 +132,7 @@
         v14 = 0;
       }
 
-      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC60, 1u, 1, v14, v14 != location, v10, 0, v11);
+      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC60, 1, 1, v14, v14 != location, v10);
     }
   }
 
@@ -144,10 +146,10 @@
     block[1] = 3221225472;
     block[2] = __61__FigPurgeAndRenewPurgeOperator_restartPurgeTimerIfNecessary__block_invoke;
     block[3] = &unk_1E749CDF0;
-    objc_copyWeak(v19, location);
-    v19[1] = lastSuspensionTimeNs;
+    objc_copyWeak(v20, location);
+    v20[1] = lastSuspensionTimeNs;
     dispatch_after(v16, queue, block);
-    objc_destroyWeak(v19);
+    objc_destroyWeak(v20);
     objc_destroyWeak(location);
   }
 }
@@ -167,13 +169,14 @@ id __61__FigPurgeAndRenewPurgeOperator_restartPurgeTimerIfNecessary__block_invok
 
 - (void)handleprocessDidSuspendOnQueue
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (dword_1EAF1CC68)
   {
-    v10[0] = 0;
+    v10 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC60, 1, v10, &type);
-    v4 = v10[0];
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC60, 1, &v10, &type);
+    v4 = v10;
+    v5 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v6 = v4;
@@ -187,12 +190,12 @@ id __61__FigPurgeAndRenewPurgeOperator_restartPurgeTimerIfNecessary__block_invok
     if (v6)
     {
       clientPID = self->_clientPID;
-      v10[1] = 136315394;
-      v11 = "[FigPurgeAndRenewPurgeOperator handleprocessDidSuspendOnQueue]";
-      v12 = 1024;
-      v13 = clientPID;
-      v8 = _os_log_send_and_compose_impl();
-      LOBYTE(v4) = v10[0];
+      v11 = 136315394;
+      v12 = "[FigPurgeAndRenewPurgeOperator handleprocessDidSuspendOnQueue]";
+      v13 = 1024;
+      v14 = clientPID;
+      v8 = _os_log_send_and_compose_impl(v6, 0, v15, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v5, "<<< FigPurgeAndRenewProcessStateTracker >>> %s: process %d is now suspended", &v11, 18);
+      LOBYTE(v4) = v10;
     }
 
     else
@@ -200,7 +203,7 @@ id __61__FigPurgeAndRenewPurgeOperator_restartPurgeTimerIfNecessary__block_invok
       v8 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC60, 1u, 1, v8, v8 != &v14, v4, 0, v5);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC60, 1, 1, v8, v8 != v15, v4);
   }
 
   self->_isSuspended = 1;
@@ -221,13 +224,14 @@ id __61__FigPurgeAndRenewPurgeOperator_restartPurgeTimerIfNecessary__block_invok
 
 - (void)handleProcessIsNoLongerSuspendedOnQueue
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (dword_1EAF1CC68)
   {
-    v10[0] = 0;
+    v10 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC60, 1, v10, &type);
-    v4 = v10[0];
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC60, 1, &v10, &type);
+    v4 = v10;
+    v5 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v6 = v4;
@@ -241,12 +245,12 @@ id __61__FigPurgeAndRenewPurgeOperator_restartPurgeTimerIfNecessary__block_invok
     if (v6)
     {
       clientPID = self->_clientPID;
-      v10[1] = 136315394;
-      v11 = "[FigPurgeAndRenewPurgeOperator handleProcessIsNoLongerSuspendedOnQueue]";
-      v12 = 1024;
-      v13 = clientPID;
-      v8 = _os_log_send_and_compose_impl();
-      LOBYTE(v4) = v10[0];
+      v11 = 136315394;
+      v12 = "[FigPurgeAndRenewPurgeOperator handleProcessIsNoLongerSuspendedOnQueue]";
+      v13 = 1024;
+      v14 = clientPID;
+      v8 = _os_log_send_and_compose_impl(v6, 0, v15, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v5, "<<< FigPurgeAndRenewProcessStateTracker >>> %s: process %d is no longer suspended, reset state", &v11, 18);
+      LOBYTE(v4) = v10;
     }
 
     else
@@ -254,7 +258,7 @@ id __61__FigPurgeAndRenewPurgeOperator_restartPurgeTimerIfNecessary__block_invok
       v8 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC60, 1u, 1, v8, v8 != &v14, v4, 0, v5);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC60, 1, 1, v8, v8 != v15, v4);
   }
 
   self->_isSuspended = 0;
@@ -274,13 +278,14 @@ id __61__FigPurgeAndRenewPurgeOperator_restartPurgeTimerIfNecessary__block_invok
 
 - (void)processDidTerminate
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (dword_1EAF1CC68)
   {
-    v13 = 0;
+    v11 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC60, 1, &v13, &type);
-    v4 = v13;
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC60, 1, &v11, &type);
+    v4 = v11;
+    v5 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v6 = v4;
@@ -294,14 +299,12 @@ id __61__FigPurgeAndRenewPurgeOperator_restartPurgeTimerIfNecessary__block_invok
     if (v6)
     {
       clientPID = self->_clientPID;
-      v14 = 136315394;
-      v15 = "[FigPurgeAndRenewPurgeOperator processDidTerminate]";
-      v16 = 1024;
-      v17 = clientPID;
-      LODWORD(v11) = 18;
-      v10 = &v14;
-      v8 = _os_log_send_and_compose_impl();
-      LOBYTE(v4) = v13;
+      v12 = 136315394;
+      v13 = "[FigPurgeAndRenewPurgeOperator processDidTerminate]";
+      v14 = 1024;
+      v15 = clientPID;
+      v8 = _os_log_send_and_compose_impl(v6, 0, v16, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v5, "<<< FigPurgeAndRenewProcessStateTracker >>> %s: process %d did terminate", &v12, 18);
+      LOBYTE(v4) = v11;
     }
 
     else
@@ -309,33 +312,33 @@ id __61__FigPurgeAndRenewPurgeOperator_restartPurgeTimerIfNecessary__block_invok
       v8 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC60, 1u, 1, v8, v8 != &v18, v4, 0, v5);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC60, 1, 1, v8, v8 != v16, v4);
   }
 
-  v9 = [MEMORY[0x1E696AD80] notificationWithName:@"FigProcessStateTrackerClientProcessIsTerminated" object:self userInfo:{0, v10, v11}];
+  v9 = [MEMORY[0x1E696AD80] notificationWithName:@"FigProcessStateTrackerClientProcessIsTerminated" object:self userInfo:0];
   [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
 }
 
 - (BOOL)setPurgeSuspended:(BOOL)suspended
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
+  v25 = *MEMORY[0x1E69E9840];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
   self->_purgeSuspended = suspended;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __51__FigPurgeAndRenewPurgeOperator_setPurgeSuspended___block_invoke;
   block[3] = &unk_1E749CE40;
   block[4] = self;
-  block[5] = &v20;
+  block[5] = &v18;
   suspendedCopy = suspended;
   queue = self->_queue;
   if (queue == dispatch_get_current_queue())
   {
     purgeOccurred = self->_purgeOccurred;
-    v23 = !purgeOccurred;
+    v21 = !purgeOccurred;
     v6 = !purgeOccurred;
     if (purgeOccurred)
     {
@@ -346,7 +349,7 @@ id __61__FigPurgeAndRenewPurgeOperator_restartPurgeTimerIfNecessary__block_invok
   else
   {
     dispatch_sync(queue, block);
-    v6 = *(v21 + 24);
+    v6 = *(v19 + 24);
     if ((v6 & 1) == 0)
     {
       goto LABEL_15;
@@ -357,10 +360,11 @@ id __61__FigPurgeAndRenewPurgeOperator_restartPurgeTimerIfNecessary__block_invok
   {
     if (dword_1EAF1CC68)
     {
-      v17 = 0;
+      v15 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC60, 1, &v17, &type);
-      v9 = v17;
+      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC60, 1, &v15, &type);
+      v9 = v15;
+      v10 = type;
       if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
       {
         v11 = v9;
@@ -373,12 +377,10 @@ id __61__FigPurgeAndRenewPurgeOperator_restartPurgeTimerIfNecessary__block_invok
 
       if (v11)
       {
-        v24 = 136315138;
-        v25 = "[FigPurgeAndRenewPurgeOperator setPurgeSuspended:]";
-        LODWORD(v15) = 12;
-        v14 = &v24;
-        v12 = _os_log_send_and_compose_impl();
-        LOBYTE(v9) = v17;
+        v22 = 136315138;
+        v23 = "[FigPurgeAndRenewPurgeOperator setPurgeSuspended:]";
+        v12 = _os_log_send_and_compose_impl(v11, 0, v24, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v10, "<<< FigPurgeAndRenewProcessStateTracker >>> %s: purge suspension was removed, kick off purge if required", &v22);
+        LOBYTE(v9) = v15;
       }
 
       else
@@ -386,15 +388,15 @@ id __61__FigPurgeAndRenewPurgeOperator_restartPurgeTimerIfNecessary__block_invok
         v12 = 0;
       }
 
-      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC60, 1u, 1, v12, v12 != &v26, v9, 0, v10);
+      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC60, 1, 1, v12, v12 != v24, v9);
     }
 
-    [(FigPurgeAndRenewPurgeOperator *)self hintProcessMayNeedPurgeTimerRestart:v14];
-    v6 = *(v21 + 24);
+    [(FigPurgeAndRenewPurgeOperator *)self hintProcessMayNeedPurgeTimerRestart];
+    v6 = *(v19 + 24);
   }
 
 LABEL_15:
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v18, 8);
   return v6 & 1;
 }
 

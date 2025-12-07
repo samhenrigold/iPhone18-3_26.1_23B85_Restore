@@ -15,38 +15,38 @@
   savePlan = self->_savePlan;
   if (savePlan)
   {
-    [(NSSQLSavePlan *)self->_savePlan _createRowsForSave];
+    [(NSSQLSavePlan *)&self->_savePlan->super.isa _createRowsForSave];
     [(NSSQLSavePlan *)savePlan _computeUpdatedRowSplit];
   }
 }
 
 - (void)executeEpilogue
 {
-  v120 = *MEMORY[0x1E69E9840];
+  v119 = *MEMORY[0x1E69E9840];
   rowCache = [(NSSQLSaveChangesRequestContext *)self rowCache];
+  v112 = 0u;
   v113 = 0u;
   v114 = 0u;
   v115 = 0u;
-  v116 = 0u;
-  v101 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v100 = objc_alloc_init(MEMORY[0x1E695DF70]);
   obj = self->_objectIDsInsertUpdatedToPruneDATrigger;
   selfCopy = self;
-  v4 = [(NSArray *)obj countByEnumeratingWithState:&v113 objects:v119 count:16];
+  v4 = [(NSArray *)obj countByEnumeratingWithState:&v112 objects:v118 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v114;
+    v6 = *v113;
     do
     {
       v7 = 0;
       do
       {
-        if (*v114 != v6)
+        if (*v113 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v113 + 1) + 8 * v7);
+        v8 = *(*(&v112 + 1) + 8 * v7);
         firstObject = [v8 firstObject];
         if (rowCache)
         {
@@ -59,7 +59,7 @@
             v14 = [v8 objectAtIndex:1];
             if (v13)
             {
-              v15 = [*(v13 + 40) objectForKey:v14];
+              v15 = [v13[5] objectForKey:v14];
             }
 
             else
@@ -176,7 +176,7 @@ LABEL_14:
 LABEL_33:
             if (v10 != NSKeyValueCoding_NullValue)
             {
-              [v101 addObject:v8];
+              [v100 addObject:v8];
             }
           }
         }
@@ -185,39 +185,39 @@ LABEL_33:
       }
 
       while (v5 != v7);
-      v47 = [(NSArray *)obj countByEnumeratingWithState:&v113 objects:v119 count:16];
+      v47 = [(NSArray *)obj countByEnumeratingWithState:&v112 objects:v118 count:16];
       v5 = v47;
     }
 
     while (v47);
   }
 
-  [(NSManagedObjectContext *)selfCopy->super._context _addObjectIDsInsertUpdatedByDATriggers:v101];
+  [(NSManagedObjectContext *)&selfCopy->super._context->super.isa _addObjectIDsInsertUpdatedByDATriggers:v100];
   obja = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v108 = 0u;
   v109 = 0u;
   v110 = 0u;
   v111 = 0u;
-  v112 = 0u;
   objectIDsUpdatedToPruneDATrigger = selfCopy->_objectIDsUpdatedToPruneDATrigger;
-  v49 = [(NSArray *)objectIDsUpdatedToPruneDATrigger countByEnumeratingWithState:&v109 objects:v118 count:16];
+  v49 = [(NSArray *)objectIDsUpdatedToPruneDATrigger countByEnumeratingWithState:&v108 objects:v117 count:16];
   if (!v49)
   {
     goto LABEL_77;
   }
 
   v50 = v49;
-  v51 = *v110;
+  v51 = *v109;
   do
   {
     v52 = 0;
     do
     {
-      if (*v110 != v51)
+      if (*v109 != v51)
       {
         objc_enumerationMutation(objectIDsUpdatedToPruneDATrigger);
       }
 
-      v53 = *(*(&v109 + 1) + 8 * v52);
+      v53 = *(*(&v108 + 1) + 8 * v52);
       firstObject2 = [v53 firstObject];
       if (rowCache)
       {
@@ -230,7 +230,7 @@ LABEL_33:
           v59 = [v53 objectAtIndex:1];
           if (v58)
           {
-            v60 = [*(v58 + 40) objectForKey:v59];
+            v60 = [v58[5] objectForKey:v59];
           }
 
           else
@@ -356,34 +356,34 @@ LABEL_71:
     }
 
     while (v50 != v52);
-    v92 = [(NSArray *)objectIDsUpdatedToPruneDATrigger countByEnumeratingWithState:&v109 objects:v118 count:16];
+    v92 = [(NSArray *)objectIDsUpdatedToPruneDATrigger countByEnumeratingWithState:&v108 objects:v117 count:16];
     v50 = v92;
   }
 
   while (v92);
 LABEL_77:
-  [(NSManagedObjectContext *)selfCopy->super._context _addObjectIDsUpdatedByDATriggers:?];
+  [(NSManagedObjectContext *)&selfCopy->super._context->super.isa _addObjectIDsUpdatedByDATriggers:?];
   v93 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v104 = 0u;
   v105 = 0u;
   v106 = 0u;
   v107 = 0u;
-  v108 = 0u;
   objectIDsToPruneTrigger = selfCopy->_objectIDsToPruneTrigger;
-  v95 = [(NSSet *)objectIDsToPruneTrigger countByEnumeratingWithState:&v105 objects:v117 count:16];
+  v95 = [(NSSet *)objectIDsToPruneTrigger countByEnumeratingWithState:&v104 objects:v116 count:16];
   if (v95)
   {
     v96 = v95;
-    v97 = *v106;
+    v97 = *v105;
     do
     {
       for (i = 0; i != v96; ++i)
       {
-        if (*v106 != v97)
+        if (*v105 != v97)
         {
           objc_enumerationMutation(objectIDsToPruneTrigger);
         }
 
-        v99 = *(*(&v105 + 1) + 8 * i);
+        v99 = *(*(&v104 + 1) + 8 * i);
         if (v99 != NSKeyValueCoding_NullValue)
         {
           [(NSPersistentStoreCache *)rowCache forgetRowForObjectID:?];
@@ -391,18 +391,17 @@ LABEL_77:
         }
       }
 
-      v96 = [(NSSet *)objectIDsToPruneTrigger countByEnumeratingWithState:&v105 objects:v117 count:16];
+      v96 = [(NSSet *)objectIDsToPruneTrigger countByEnumeratingWithState:&v104 objects:v116 count:16];
     }
 
     while (v96);
   }
 
-  [(NSManagedObjectContext *)selfCopy->super._context _addObjectIDsUpdatedByTriggers:v93];
+  [(NSManagedObjectContext *)&selfCopy->super._context->super.isa _addObjectIDsUpdatedByTriggers:v93];
 
   selfCopy->_objectIDsInsertUpdatedToPruneDATrigger = 0;
   selfCopy->_objectIDsToPruneTrigger = 0;
   [(NSMutableDictionary *)selfCopy->_originalCachedRows removeAllObjects];
-  v100 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

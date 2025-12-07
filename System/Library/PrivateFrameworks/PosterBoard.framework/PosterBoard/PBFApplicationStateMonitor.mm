@@ -97,7 +97,7 @@
 
 - (void)setCurrentApplicationContext:(id)context
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (([(BSAtomicFlag *)self->_invalidationFlag getFlag]& 1) == 0)
   {
@@ -113,51 +113,52 @@
       objc_storeStrong(&selfCopy->_currentApplicationContext, context);
       objc_sync_exit(selfCopy);
 
-      v7 = PBFLogApplicationState();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = PBFLogApplicationState(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v11 = contextCopy;
-        _os_log_impl(&dword_21B526000, v7, OS_LOG_TYPE_DEFAULT, "Updating currentApplicationContext: %{public}@", buf, 0xCu);
+        v12 = contextCopy;
+        _os_log_impl(&dword_21B526000, v8, OS_LOG_TYPE_DEFAULT, "Updating currentApplicationContext: %{public}@", buf, 0xCu);
       }
 
-      v8[0] = MEMORY[0x277D85DD0];
-      v8[1] = 3221225472;
-      v8[2] = __59__PBFApplicationStateMonitor_setCurrentApplicationContext___block_invoke;
-      v8[3] = &unk_2782C9B20;
-      v8[4] = selfCopy;
-      v9 = contextCopy;
-      [(PBFApplicationStateMonitor *)selfCopy _fireStateTrackingObserverSelector:sel_applicationStateMonitor_contextDidUpdate_ block:v8];
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = __59__PBFApplicationStateMonitor_setCurrentApplicationContext___block_invoke;
+      v9[3] = &unk_2782C9B20;
+      v9[4] = selfCopy;
+      v10 = contextCopy;
+      [(PBFApplicationStateMonitor *)selfCopy _fireStateTrackingObserverSelector:sel_applicationStateMonitor_contextDidUpdate_ block:v9];
     }
   }
 }
 
 - (void)pushState:(id)state
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   getFlag = [(BSAtomicFlag *)self->_invalidationFlag getFlag];
   if (stateCopy && (getFlag & 1) == 0)
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    if (([(NSMutableOrderedSet *)selfCopy->_applicationStateStack containsObject:stateCopy]& 1) != 0)
+    v7 = [(NSMutableOrderedSet *)selfCopy->_applicationStateStack containsObject:stateCopy];
+    if (v7)
     {
       objc_sync_exit(selfCopy);
     }
 
     else
     {
-      v7 = PBFLogApplicationState();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = PBFLogApplicationState(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         lastObject = [(NSMutableOrderedSet *)selfCopy->_applicationStateStack lastObject];
         stateDescription = [lastObject stateDescription];
         *buf = 138543618;
-        v13 = stateCopy;
-        v14 = 2114;
-        v15 = stateDescription;
-        _os_log_impl(&dword_21B526000, v7, OS_LOG_TYPE_DEFAULT, "Pushing state %{public}@ foreground; moving %{public}@ background", buf, 0x16u);
+        v14 = stateCopy;
+        v15 = 2114;
+        v16 = stateDescription;
+        _os_log_impl(&dword_21B526000, v8, OS_LOG_TYPE_DEFAULT, "Pushing state %{public}@ foreground; moving %{public}@ background", buf, 0x16u);
       }
 
       [stateCopy addStateObserver:selfCopy];
@@ -165,13 +166,13 @@
       [(PBFApplicationStateMonitor *)selfCopy _updateApplicationContextIfNeeded];
       objc_sync_exit(selfCopy);
 
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __40__PBFApplicationStateMonitor_pushState___block_invoke;
-      v10[3] = &unk_2782C9B20;
-      v10[4] = selfCopy;
-      v11 = stateCopy;
-      [(PBFApplicationStateMonitor *)selfCopy _fireStateTrackingObserverSelector:sel_applicationStateMonitor_didPushNewState_ block:v10];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __40__PBFApplicationStateMonitor_pushState___block_invoke;
+      v11[3] = &unk_2782C9B20;
+      v11[4] = selfCopy;
+      v12 = stateCopy;
+      [(PBFApplicationStateMonitor *)selfCopy _fireStateTrackingObserverSelector:sel_applicationStateMonitor_didPushNewState_ block:v11];
     }
   }
 }
@@ -274,8 +275,7 @@
     objc_sync_enter(selfCopy);
     if (([(NSMutableOrderedSet *)selfCopy->_applicationStateStack containsObject:invalidatedCopy]& 1) != 0)
     {
-      [(NSMutableOrderedSet *)selfCopy->_applicationStateStack removeObject:invalidatedCopy];
-      v6 = PBFLogApplicationState();
+      v6 = PBFLogApplicationState([(NSMutableOrderedSet *)selfCopy->_applicationStateStack removeObject:invalidatedCopy]);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         lastObject = [(NSMutableOrderedSet *)selfCopy->_applicationStateStack lastObject];

@@ -32,11 +32,11 @@
 
 - (BOOL)_launchMobileMailSuspendedError:(id *)error
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   promise = [MEMORY[0x1E699B868] promise];
-  v12 = *MEMORY[0x1E699F8E8];
-  v13[0] = MEMORY[0x1E695E118];
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x1E699F8E8];
+  v12[0] = MEMORY[0x1E695E118];
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   mEMORY[0x1E699FCA0] = [MEMORY[0x1E699FCA0] sharedService];
   errorOnlyCompletionHandlerAdapter = [promise errorOnlyCompletionHandlerAdapter];
   [mEMORY[0x1E699FCA0] openApplication:*MEMORY[0x1E69B17F0] options:v5 withResult:errorOnlyCompletionHandlerAdapter];
@@ -45,13 +45,12 @@
   v9 = [future resultWithTimeout:error error:5.0];
   LOBYTE(error) = v9 != 0;
 
-  v10 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 - (id)_handleMessageSendFailure:(id)failure message:(id)message messageIndex:(int64_t)index context:(id *)context
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   failureCopy = failure;
   messageCopy = message;
   if (!context)
@@ -104,12 +103,12 @@ LABEL_19:
         _connection = [(MSService *)self _connection];
         *buf = 138413058;
         selfCopy2 = self;
-        v31 = 2048;
+        v30 = 2048;
         indexCopy2 = index;
-        v33 = 2048;
-        v34 = _connection;
-        v35 = 2048;
-        v36 = messageCopy;
+        v32 = 2048;
+        v33 = _connection;
+        v34 = 2048;
+        v35 = messageCopy;
         _os_log_impl(&dword_1D876A000, v21, OS_LOG_TYPE_INFO, "#MailServices %@ (%lld) : <connection: %p> launched Mail, message <dictionary: %p>", buf, 0x2Au);
       }
 
@@ -122,9 +121,9 @@ LABEL_19:
   if (v18 >= 5.0)
   {
 LABEL_27:
-    v28.receiver = self;
-    v28.super_class = MSMailDefaultService;
-    v23 = [(MSService *)&v28 _handleMessageSendFailure:failureCopy message:messageCopy messageIndex:index context:context];
+    v27.receiver = self;
+    v27.super_class = MSMailDefaultService;
+    v23 = [(MSService *)&v27 _handleMessageSendFailure:failureCopy message:messageCopy messageIndex:index context:context];
     goto LABEL_19;
   }
 
@@ -148,12 +147,12 @@ LABEL_27:
     _connection2 = [(MSService *)self _connection];
     *buf = 138413058;
     selfCopy2 = self;
-    v31 = 2048;
+    v30 = 2048;
     indexCopy2 = index;
-    v33 = 2048;
-    v34 = _connection2;
-    v35 = 2048;
-    v36 = messageCopy;
+    v32 = 2048;
+    v33 = _connection2;
+    v34 = 2048;
+    v35 = messageCopy;
     _os_log_impl(&dword_1D876A000, v21, OS_LOG_TYPE_INFO, "#MailServices %@ (%lld) : <connection: %p> delayed send, message <dictionary: %p>", buf, 0x2Au);
   }
 
@@ -161,8 +160,6 @@ LABEL_26:
 
   v24 = 0;
 LABEL_20:
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }

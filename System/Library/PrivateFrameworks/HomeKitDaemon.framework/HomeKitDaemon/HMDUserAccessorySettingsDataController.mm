@@ -15,38 +15,38 @@
 
 - (id)_updatedAccessorySetFromAccessoryUUIDs:(id)ds currentAccessories:(id)accessories error:(id *)error
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   accessoriesCopy = accessories;
   v9 = [accessoriesCopy na_map:&__block_literal_global_15_132246];
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __106__HMDUserAccessorySettingsDataController__updatedAccessorySetFromAccessoryUUIDs_currentAccessories_error___block_invoke_2;
-  v45[3] = &unk_27868A1B0;
-  v35 = v9;
-  v46 = v35;
-  v10 = [dsCopy na_filter:v45];
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __106__HMDUserAccessorySettingsDataController__updatedAccessorySetFromAccessoryUUIDs_currentAccessories_error___block_invoke_3;
-  v43[3] = &unk_27867A048;
-  v34 = dsCopy;
-  v44 = v34;
-  v11 = [accessoriesCopy na_filter:v43];
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __106__HMDUserAccessorySettingsDataController__updatedAccessorySetFromAccessoryUUIDs_currentAccessories_error___block_invoke_2;
+  v44[3] = &unk_27868A1B0;
+  v34 = v9;
+  v45 = v34;
+  v10 = [dsCopy na_filter:v44];
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __106__HMDUserAccessorySettingsDataController__updatedAccessorySetFromAccessoryUUIDs_currentAccessories_error___block_invoke_3;
+  v42[3] = &unk_27867A048;
+  v33 = dsCopy;
+  v43 = v33;
+  v11 = [accessoriesCopy na_filter:v42];
   v12 = [v11 mutableCopy];
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v13 = v10;
-  v14 = [v13 countByEnumeratingWithState:&v39 objects:v53 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v38 objects:v52 count:16];
   if (v14)
   {
     v15 = v14;
     errorCopy = error;
     v16 = 0;
-    v17 = *v40;
+    v17 = *v39;
     obj = v13;
     while (2)
     {
@@ -54,16 +54,16 @@
       v19 = v16;
       do
       {
-        if (*v40 != v17)
+        if (*v39 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v39 + 1) + 8 * v18);
+        v20 = *(*(&v38 + 1) + 8 * v18);
         managedObjectContext = [(HMCContext *)self->_context managedObjectContext];
-        v38 = v19;
-        v22 = [(_MKFModel *)_MKFAccessory modelWithModelID:v20 context:managedObjectContext error:&v38];
-        v16 = v38;
+        v37 = v19;
+        v22 = [(_MKFModel *)_MKFAccessory modelWithModelID:v20 context:managedObjectContext error:&v37];
+        v16 = v37;
 
         if (!v22)
         {
@@ -82,11 +82,11 @@
           {
             v28 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v48 = v28;
-            v49 = 2112;
-            v50 = v20;
-            v51 = 2112;
-            v52 = v16;
+            v47 = v28;
+            v48 = 2112;
+            v49 = v20;
+            v50 = 2112;
+            v51 = v16;
             _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Fetching accessory with modelID %@ failed with %@", buf, 0x20u);
           }
 
@@ -109,7 +109,7 @@
 
       while (v15 != v18);
       v13 = obj;
-      v15 = [obj countByEnumeratingWithState:&v39 objects:v53 count:16];
+      v15 = [obj countByEnumeratingWithState:&v38 objects:v52 count:16];
       if (v15)
       {
         continue;
@@ -124,10 +124,8 @@
     v16 = 0;
   }
 
-  v30 = [v12 copy];
+  v30 = objc_msgSend_copy(v12);
 LABEL_19:
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -163,12 +161,12 @@ uint64_t __106__HMDUserAccessorySettingsDataController__updatedAccessorySetFromA
 
 void __81__HMDUserAccessorySettingsDataController_enableUserListeningHistoryForAccessory___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v31 = 0;
-  v4 = [(_MKFModel *)_MKFUser modelWithModelID:v2 context:v3 error:&v31];
-  v5 = v31;
+  v30 = 0;
+  v4 = [(_MKFModel *)_MKFUser modelWithModelID:v2 context:v3 error:&v30];
+  v5 = v30;
   if (v4)
   {
     v6 = MEMORY[0x277CBEB58];
@@ -186,9 +184,9 @@ void __81__HMDUserAccessorySettingsDataController_enableUserListeningHistoryForA
 
     v15 = *(a1 + 56);
     v16 = *(a1 + 40);
-    v30 = v5;
-    v17 = [(_MKFModel *)_MKFAccessory modelWithModelID:v15 context:v16 error:&v30];
-    v18 = v30;
+    v29 = v5;
+    v17 = [(_MKFModel *)_MKFAccessory modelWithModelID:v15 context:v16 error:&v29];
+    v18 = v29;
 
     if ([v8 containsObject:v17])
     {
@@ -200,9 +198,9 @@ void __81__HMDUserAccessorySettingsDataController_enableUserListeningHistoryForA
         v22 = HMFGetLogIdentifier();
         v23 = *(a1 + 56);
         *buf = 138543618;
-        v33 = v22;
-        v34 = 2112;
-        v35 = v23;
+        v32 = v22;
+        v33 = 2112;
+        v34 = v23;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Accessory %@ ULH is already enabled", buf, 0x16u);
       }
     }
@@ -210,13 +208,13 @@ void __81__HMDUserAccessorySettingsDataController_enableUserListeningHistoryForA
     else
     {
       [v8 addObject:v17];
-      v24 = [v8 copy];
+      v24 = objc_msgSend_copy(v8);
       [v4 setAccessoriesWithListeningHistoryEnabled_:v24];
 
       v25 = *(*(a1 + 48) + 16);
-      v29 = v18;
-      [v25 save:&v29];
-      v26 = v29;
+      v28 = v18;
+      [v25 save:&v28];
+      v26 = v28;
 
       if (!v26)
       {
@@ -231,9 +229,9 @@ void __81__HMDUserAccessorySettingsDataController_enableUserListeningHistoryForA
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v33 = v27;
-        v34 = 2112;
-        v35 = v26;
+        v32 = v27;
+        v33 = 2112;
+        v34 = v26;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Saving user listening history access control failed with %@", buf, 0x16u);
       }
 
@@ -255,18 +253,16 @@ LABEL_16:
     v12 = HMFGetLogIdentifier();
     v13 = *(a1 + 32);
     *buf = 138543874;
-    v33 = v12;
-    v34 = 2112;
-    v35 = v13;
-    v36 = 2112;
-    v37 = v5;
+    v32 = v12;
+    v33 = 2112;
+    v34 = v13;
+    v35 = 2112;
+    v36 = v5;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Fetching userModelID %@ failed with %@ when enabling ULH", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
 LABEL_17:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUserListeningHistoryUpdateControlUpdatedAccessoryUUIDs:(id)ds completion:(id)completion
@@ -294,12 +290,12 @@ LABEL_17:
 
 void __114__HMDUserAccessorySettingsDataController_handleUserListeningHistoryUpdateControlUpdatedAccessoryUUIDs_completion___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v32 = 0;
-  v4 = [(_MKFModel *)_MKFUser modelWithModelID:v2 context:v3 error:&v32];
-  v5 = v32;
+  v31 = 0;
+  v4 = [(_MKFModel *)_MKFUser modelWithModelID:v2 context:v3 error:&v31];
+  v5 = v31;
   if (v4)
   {
     v6 = [v4 accessoriesWithListeningHistoryEnabled];
@@ -318,19 +314,19 @@ void __114__HMDUserAccessorySettingsDataController_handleUserListeningHistoryUpd
 
     v16 = *(a1 + 48);
     v17 = *(a1 + 56);
-    v31 = v5;
-    v18 = [v16 _updatedAccessorySetFromAccessoryUUIDs:v17 currentAccessories:v15 error:&v31];
-    v19 = v31;
+    v30 = v5;
+    v18 = [v16 _updatedAccessorySetFromAccessoryUUIDs:v17 currentAccessories:v15 error:&v30];
+    v19 = v30;
 
     if (v18)
     {
-      v20 = [v18 copy];
+      v20 = objc_msgSend_copy(v18);
       [v4 setAccessoriesWithListeningHistoryEnabled_:v20];
 
       v21 = *(*(a1 + 48) + 16);
-      v30 = v19;
-      [v21 save:&v30];
-      v22 = v30;
+      v29 = v19;
+      [v21 save:&v29];
+      v22 = v29;
 
       if (v22)
       {
@@ -341,9 +337,9 @@ void __114__HMDUserAccessorySettingsDataController_handleUserListeningHistoryUpd
         {
           v26 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v34 = v26;
-          v35 = 2112;
-          v36 = v22;
+          v33 = v26;
+          v34 = 2112;
+          v35 = v22;
           _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Saving user listening history access control failed with %@", buf, 0x16u);
         }
 
@@ -377,11 +373,11 @@ void __114__HMDUserAccessorySettingsDataController_handleUserListeningHistoryUpd
       v12 = HMFGetLogIdentifier();
       v13 = *(a1 + 32);
       *buf = 138543874;
-      v34 = v12;
-      v35 = 2112;
-      v36 = v13;
-      v37 = 2112;
-      v38 = v5;
+      v33 = v12;
+      v34 = 2112;
+      v35 = v13;
+      v36 = 2112;
+      v37 = v5;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Fetching userModelID %@ failed with %@", buf, 0x20u);
     }
 
@@ -393,8 +389,6 @@ void __114__HMDUserAccessorySettingsDataController_handleUserListeningHistoryUpd
       (*(v14 + 2))(v14, v5);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMediaContentProfileAccessControlUpdatedAccessoryUUIDs:(id)ds completion:(id)completion
@@ -422,12 +416,12 @@ void __114__HMDUserAccessorySettingsDataController_handleUserListeningHistoryUpd
 
 void __113__HMDUserAccessorySettingsDataController_handleMediaContentProfileAccessControlUpdatedAccessoryUUIDs_completion___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v32 = 0;
-  v4 = [(_MKFModel *)_MKFUser modelWithModelID:v2 context:v3 error:&v32];
-  v5 = v32;
+  v31 = 0;
+  v4 = [(_MKFModel *)_MKFUser modelWithModelID:v2 context:v3 error:&v31];
+  v5 = v31;
   if (v4)
   {
     v6 = [v4 accessoriesWithMediaContentProfileEnabled];
@@ -446,19 +440,19 @@ void __113__HMDUserAccessorySettingsDataController_handleMediaContentProfileAcce
 
     v16 = *(a1 + 48);
     v17 = *(a1 + 56);
-    v31 = v5;
-    v18 = [v16 _updatedAccessorySetFromAccessoryUUIDs:v17 currentAccessories:v15 error:&v31];
-    v19 = v31;
+    v30 = v5;
+    v18 = [v16 _updatedAccessorySetFromAccessoryUUIDs:v17 currentAccessories:v15 error:&v30];
+    v19 = v30;
 
     if (v18)
     {
-      v20 = [v18 copy];
+      v20 = objc_msgSend_copy(v18);
       [v4 setAccessoriesWithMediaContentProfileEnabled_:v20];
 
       v21 = *(*(a1 + 48) + 16);
-      v30 = v19;
-      [v21 save:&v30];
-      v22 = v30;
+      v29 = v19;
+      [v21 save:&v29];
+      v22 = v29;
 
       if (v22)
       {
@@ -469,9 +463,9 @@ void __113__HMDUserAccessorySettingsDataController_handleMediaContentProfileAcce
         {
           v26 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v34 = v26;
-          v35 = 2112;
-          v36 = v22;
+          v33 = v26;
+          v34 = 2112;
+          v35 = v22;
           _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Saving updated media content profile access control failed with %@", buf, 0x16u);
         }
 
@@ -505,11 +499,11 @@ void __113__HMDUserAccessorySettingsDataController_handleMediaContentProfileAcce
       v12 = HMFGetLogIdentifier();
       v13 = *(a1 + 32);
       *buf = 138543874;
-      v34 = v12;
-      v35 = 2112;
-      v36 = v13;
-      v37 = 2112;
-      v38 = v5;
+      v33 = v12;
+      v34 = 2112;
+      v35 = v13;
+      v36 = 2112;
+      v37 = v5;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Fetching userModelID %@ failed with %@", buf, 0x20u);
     }
 
@@ -521,8 +515,6 @@ void __113__HMDUserAccessorySettingsDataController_handleMediaContentProfileAcce
       (*(v14 + 2))(v14, v5);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAssistantAccessControlAccessoryUUIDsUpdated:(id)updated activityNotificationsEnabledForPersonalRequests:(BOOL)requests completion:(id)completion
@@ -551,12 +543,12 @@ void __113__HMDUserAccessorySettingsDataController_handleMediaContentProfileAcce
 
 void __151__HMDUserAccessorySettingsDataController_handleAssistantAccessControlAccessoryUUIDsUpdated_activityNotificationsEnabledForPersonalRequests_completion___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v33 = 0;
-  v4 = [(_MKFModel *)_MKFUser modelWithModelID:v2 context:v3 error:&v33];
-  v5 = v33;
+  v32 = 0;
+  v4 = [(_MKFModel *)_MKFUser modelWithModelID:v2 context:v3 error:&v32];
+  v5 = v32;
   if (v4)
   {
     v6 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 72)];
@@ -578,19 +570,19 @@ void __151__HMDUserAccessorySettingsDataController_handleAssistantAccessControlA
 
     v17 = *(a1 + 48);
     v18 = *(a1 + 56);
-    v32 = v5;
-    v19 = [v17 _updatedAccessorySetFromAccessoryUUIDs:v18 currentAccessories:v16 error:&v32];
-    v20 = v32;
+    v31 = v5;
+    v19 = [v17 _updatedAccessorySetFromAccessoryUUIDs:v18 currentAccessories:v16 error:&v31];
+    v20 = v31;
 
     if (v19)
     {
-      v21 = [v19 copy];
+      v21 = objc_msgSend_copy(v19);
       [v4 setAccessoriesWithPersonalRequestsEnabled_:v21];
 
       v22 = *(*(a1 + 48) + 16);
-      v31 = v20;
-      [v22 save:&v31];
-      v23 = v31;
+      v30 = v20;
+      [v22 save:&v30];
+      v23 = v30;
 
       if (v23)
       {
@@ -601,9 +593,9 @@ void __151__HMDUserAccessorySettingsDataController_handleAssistantAccessControlA
         {
           v27 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v35 = v27;
-          v36 = 2112;
-          v37 = v23;
+          v34 = v27;
+          v35 = 2112;
+          v36 = v23;
           _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Saving personal requests access control failed with %@", buf, 0x16u);
         }
 
@@ -637,11 +629,11 @@ void __151__HMDUserAccessorySettingsDataController_handleAssistantAccessControlA
       v13 = HMFGetLogIdentifier();
       v14 = *(a1 + 32);
       *buf = 138543874;
-      v35 = v13;
-      v36 = 2112;
-      v37 = v14;
-      v38 = 2112;
-      v39 = v5;
+      v34 = v13;
+      v35 = 2112;
+      v36 = v14;
+      v37 = 2112;
+      v38 = v5;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Fetching userModelID %@ failed with %@", buf, 0x20u);
     }
 
@@ -653,8 +645,6 @@ void __151__HMDUserAccessorySettingsDataController_handleAssistantAccessControlA
       (*(v15 + 2))(v15, v5);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)userListeningHistoryUpdateControlModelAccessoriesToEncode
@@ -699,12 +689,12 @@ void __151__HMDUserAccessorySettingsDataController_handleAssistantAccessControlA
 
 void __99__HMDUserAccessorySettingsDataController_userListeningHistoryUpdateControlModelAccessoriesToEncode__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v17 = 0;
-  v4 = [(_MKFModel *)_MKFUser modelWithModelID:v2 context:v3 error:&v17];
-  v5 = v17;
+  v16 = 0;
+  v4 = [(_MKFModel *)_MKFUser modelWithModelID:v2 context:v3 error:&v16];
+  v5 = v16;
   if (v4)
   {
     v6 = [v4 accessoriesWithListeningHistoryEnabled];
@@ -725,18 +715,16 @@ void __99__HMDUserAccessorySettingsDataController_userListeningHistoryUpdateCont
       v14 = HMFGetLogIdentifier();
       v15 = *(a1 + 32);
       *buf = 138543874;
-      v19 = v14;
-      v20 = 2112;
-      v21 = v15;
-      v22 = 2112;
-      v23 = v5;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v5;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Fetching userModelID %@ failed with %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)mediaContentProfileAccessControlAccessoriesToEncode
@@ -781,12 +769,12 @@ void __99__HMDUserAccessorySettingsDataController_userListeningHistoryUpdateCont
 
 void __93__HMDUserAccessorySettingsDataController_mediaContentProfileAccessControlAccessoriesToEncode__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v17 = 0;
-  v4 = [(_MKFModel *)_MKFUser modelWithModelID:v2 context:v3 error:&v17];
-  v5 = v17;
+  v16 = 0;
+  v4 = [(_MKFModel *)_MKFUser modelWithModelID:v2 context:v3 error:&v16];
+  v5 = v16;
   if (v4)
   {
     v6 = [v4 accessoriesWithMediaContentProfileEnabled];
@@ -807,18 +795,16 @@ void __93__HMDUserAccessorySettingsDataController_mediaContentProfileAccessContr
       v14 = HMFGetLogIdentifier();
       v15 = *(a1 + 32);
       *buf = 138543874;
-      v19 = v14;
-      v20 = 2112;
-      v21 = v15;
-      v22 = 2112;
-      v23 = v5;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v5;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Fetching userModelID %@ failed with %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)assistantAccessControlAccessoriesToEncode
@@ -863,12 +849,12 @@ void __93__HMDUserAccessorySettingsDataController_mediaContentProfileAccessContr
 
 void __83__HMDUserAccessorySettingsDataController_assistantAccessControlAccessoriesToEncode__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v17 = 0;
-  v4 = [(_MKFModel *)_MKFUser modelWithModelID:v2 context:v3 error:&v17];
-  v5 = v17;
+  v16 = 0;
+  v4 = [(_MKFModel *)_MKFUser modelWithModelID:v2 context:v3 error:&v16];
+  v5 = v16;
   if (v4)
   {
     v6 = [v4 accessoriesWithPersonalRequestsEnabled];
@@ -889,18 +875,16 @@ void __83__HMDUserAccessorySettingsDataController_assistantAccessControlAccessor
       v14 = HMFGetLogIdentifier();
       v15 = *(a1 + 32);
       *buf = 138543874;
-      v19 = v14;
-      v20 = 2112;
-      v21 = v15;
-      v22 = 2112;
-      v23 = v5;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v5;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Fetching userModelID %@ failed with %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)assistantAccessControlActivityNotificationsEnabledForPersonalRequests
@@ -932,12 +916,12 @@ void __83__HMDUserAccessorySettingsDataController_assistantAccessControlAccessor
 
 void __111__HMDUserAccessorySettingsDataController_assistantAccessControlActivityNotificationsEnabledForPersonalRequests__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v13 = 0;
-  v4 = [(_MKFModel *)_MKFUser modelWithModelID:v2 context:v3 error:&v13];
-  v5 = v13;
+  v12 = 0;
+  v4 = [(_MKFModel *)_MKFUser modelWithModelID:v2 context:v3 error:&v12];
+  v5 = v12;
   if (v4)
   {
     v6 = [v4 activityNotificationsEnabledForPersonalRequests];
@@ -954,18 +938,16 @@ void __111__HMDUserAccessorySettingsDataController_assistantAccessControlActivit
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 32);
       *buf = 138543874;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v5;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v5;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Fetching userModelID %@ failed with %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDUserAccessorySettingsDataController)initWithUserModelID:(id)d managedObjectContext:(id)context

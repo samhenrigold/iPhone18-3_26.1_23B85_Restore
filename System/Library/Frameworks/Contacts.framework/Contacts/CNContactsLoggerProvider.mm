@@ -30,9 +30,11 @@
 
 uint64_t __43__CNContactsLoggerProvider_defaultProvider__block_invoke(uint64_t a1)
 {
-  defaultProvider_cn_once_object_0 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = defaultProvider_cn_once_object_0;
+  defaultProvider_cn_once_object_0 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 id __42__CNContactsLoggerProvider_contactsLogger__block_invoke(uint64_t a1)

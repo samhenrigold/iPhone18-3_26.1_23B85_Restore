@@ -5,6 +5,7 @@
 - (NSString)localBundleIdentifier;
 - (NSString)remoteBundleIdentifier;
 - (REDonatedAction)initWithCoder:(id)coder;
+- (REDonatedAction)initWithEvent:(id)event filtered:(BOOL)filtered;
 - (id)_initInteractionWithEvent:(id)event filtered:(BOOL)filtered;
 - (id)_initRelevantShortcutWithEvent:(id)event filtered:(BOOL)filtered;
 - (id)_initUserActivityWithEvent:(id)event filtered:(BOOL)filtered;
@@ -64,9 +65,9 @@ void __42__REDonatedAction_bundleIdForExtensionId___block_invoke()
 {
   typeCopy = type;
   dCopy = d;
-  v16 = 0;
-  v7 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:dCopy allowPlaceholder:0 error:&v16];
-  v8 = v16;
+  v15 = 0;
+  v7 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:dCopy allowPlaceholder:0 error:&v15];
+  v8 = v15;
   if (!v7)
   {
     teamIdentifier = RELogForDomain(14);
@@ -85,10 +86,9 @@ void __42__REDonatedAction_bundleIdForExtensionId___block_invoke()
   if (isInstalled)
   {
     teamIdentifier = [v7 teamIdentifier];
-    v12 = *MEMORY[0x277CBECE8];
-    v13 = _LSCopyAdvertisementStringForTeamIdentifierAndActivityType();
+    v12 = _LSCopyAdvertisementStringForTeamIdentifierAndActivityType();
     userActivityTypes = [v7 userActivityTypes];
-    if ([userActivityTypes containsObject:v13])
+    if ([userActivityTypes containsObject:v12])
     {
       LOBYTE(isInstalled) = 1;
     }
@@ -102,6 +102,65 @@ LABEL_10:
   }
 
   return isInstalled;
+}
+
+- (REDonatedAction)initWithEvent:(id)event filtered:(BOOL)filtered
+{
+  filteredCopy = filtered;
+  eventCopy = event;
+  if (CoreDuetLibraryCore_1(0))
+  {
+    stream = [eventCopy stream];
+    appIntentsStream = [get_DKSystemEventStreamsClass_1() appIntentsStream];
+    v9 = [stream isEqual:appIntentsStream];
+
+    if (v9)
+    {
+      v10 = [(REDonatedAction *)self _initInteractionWithEvent:eventCopy filtered:filteredCopy];
+    }
+
+    else
+    {
+      appActivityStream = [get_DKSystemEventStreamsClass_1() appActivityStream];
+      v13 = [stream isEqual:appActivityStream];
+
+      if (v13)
+      {
+        v10 = [(REDonatedAction *)self _initUserActivityWithEvent:eventCopy filtered:filteredCopy];
+      }
+
+      else
+      {
+        appRelevantShortcutsStream = [get_DKSystemEventStreamsClass_1() appRelevantShortcutsStream];
+        v15 = [stream isEqual:appRelevantShortcutsStream];
+
+        if (!v15)
+        {
+          v17 = RELogForDomain(14);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          {
+            [REDonatedAction initWithEvent:filtered:];
+          }
+
+          selfCopy = 0;
+          goto LABEL_10;
+        }
+
+        v10 = [(REDonatedAction *)self _initRelevantShortcutWithEvent:eventCopy filtered:filteredCopy];
+      }
+    }
+
+    self = v10;
+    selfCopy = self;
+LABEL_10:
+
+    goto LABEL_11;
+  }
+
+  selfCopy = 0;
+LABEL_11:
+
+  return selfCopy;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -701,31 +760,31 @@ uint64_t __34__REDonatedAction__shortcutFilter__block_invoke()
 
 - (unint64_t)_hashRelevanceProviders:(id)providers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   providersCopy = providers;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [providersCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [providersCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(providersCopy);
         }
 
-        v6 ^= [*(*(&v11 + 1) + 8 * i) hash];
+        v6 ^= [*(*(&v10 + 1) + 8 * i) hash];
       }
 
-      v5 = [providersCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [providersCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -736,7 +795,6 @@ uint64_t __34__REDonatedAction__shortcutFilter__block_invoke()
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -789,7 +847,7 @@ uint64_t __34__REDonatedAction__shortcutFilter__block_invoke()
 
 - (id)generateMetrics
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   if ([(REDonatedAction *)self type]!= 2)
   {
     v17 = 0;
@@ -820,7 +878,7 @@ uint64_t __34__REDonatedAction__shortcutFilter__block_invoke()
 
     v14 = *v13;
 
-    v56 = v14;
+    v55 = v14;
     [v3 setObject:v14 forKey:@"shortcutType"];
     v15 = objc_opt_class();
     v16 = NSStringFromClass(v15);
@@ -843,14 +901,14 @@ uint64_t __34__REDonatedAction__shortcutFilter__block_invoke()
       v18 = *v20;
     }
 
-    v56 = v18;
+    v55 = v18;
     [v3 setObject:v18 forKey:@"shortcutType"];
   }
 
   v21 = v11;
   watchTemplate3 = [relevantShortcut watchTemplate];
 
-  v57 = userActivity;
+  v56 = userActivity;
   if (watchTemplate3)
   {
     watchTemplate4 = [relevantShortcut watchTemplate];
@@ -896,7 +954,7 @@ LABEL_20:
   v30 = v21;
   watchTemplate5 = [relevantShortcut watchTemplate];
 
-  v58 = intent;
+  v57 = intent;
   if (watchTemplate5)
   {
     watchTemplate6 = [relevantShortcut watchTemplate];
@@ -932,34 +990,34 @@ LABEL_27:
     }
   }
 
-  v59 = v3;
+  v58 = v3;
   [v3 setObject:v30 forKey:@"subtitleSource"];
   relevanceProviders = [relevantShortcut relevanceProviders];
   v40 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(relevanceProviders, "count")}];
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   v41 = relevanceProviders;
-  v42 = [v41 countByEnumeratingWithState:&v60 objects:v64 count:16];
+  v42 = [v41 countByEnumeratingWithState:&v59 objects:v63 count:16];
   if (!v42)
   {
     goto LABEL_57;
   }
 
   v43 = v42;
-  v44 = *v61;
+  v44 = *v60;
   do
   {
     v45 = 0;
     do
     {
-      if (*v61 != v44)
+      if (*v60 != v44)
       {
         objc_enumerationMutation(v41);
       }
 
-      v46 = *(*(&v60 + 1) + 8 * v45);
+      v46 = *(*(&v59 + 1) + 8 * v45);
       objc_opt_class();
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
@@ -1048,18 +1106,17 @@ LABEL_37:
     }
 
     while (v43 != v45);
-    v53 = [v41 countByEnumeratingWithState:&v60 objects:v64 count:16];
+    v53 = [v41 countByEnumeratingWithState:&v59 objects:v63 count:16];
     v43 = v53;
   }
 
   while (v53);
 LABEL_57:
 
-  [v59 setObject:v40 forKey:@"relevanceProvider"];
-  v17 = [v59 copy];
+  [v58 setObject:v40 forKey:@"relevanceProvider"];
+  v17 = [v58 copy];
 
 LABEL_58:
-  v54 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -1205,7 +1262,7 @@ void __50__REDonatedAction_LoadSiriAction___loadDuetEvent___block_invoke_2(uint6
 void __50__REDonatedAction_LoadSiriAction___loadDuetEvent___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (CoreDuetLibraryCore_2())
+  if (CoreDuetLibraryCore_2(0))
   {
     v7 = 0;
     v8 = &v7;
@@ -1234,18 +1291,19 @@ void __50__REDonatedAction_LoadSiriAction___loadDuetEvent___block_invoke_3(uint6
 - (void)loadUserActivity:(id)activity
 {
   activityCopy = activity;
+  v6 = activityCopy;
   if (activityCopy)
   {
-    if (REProcessIsRelevanced())
+    if (REProcessIsRelevanced(activityCopy, v5))
     {
-      RERaiseInternalException(*MEMORY[0x277CBE648], @"%s is not allowed from relevanced!", v5, v6, v7, v8, v9, v10, "[REDonatedAction(LoadSiriAction) loadUserActivity:]");
+      RERaiseInternalException(*MEMORY[0x277CBE648], @"%s is not allowed from relevanced!", v7, v8, v9, v10, v11, v12, "[REDonatedAction(LoadSiriAction) loadUserActivity:]");
       goto LABEL_10;
     }
 
-    if (!CoreDuetLibraryCore_2())
+    if (!CoreDuetLibraryCore_2(0))
     {
-      v11 = RELogForDomain(15);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = RELogForDomain(15);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [REDonatedAction(LoadSiriAction) loadUserActivity:];
       }
@@ -1256,17 +1314,17 @@ void __50__REDonatedAction_LoadSiriAction___loadDuetEvent___block_invoke_3(uint6
     if ([(REDonatedAction *)self type])
     {
 LABEL_10:
-      (*(activityCopy + 2))(activityCopy, 0, 0);
+      v6[2](v6, 0, 0);
       goto LABEL_11;
     }
 
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __52__REDonatedAction_LoadSiriAction__loadUserActivity___block_invoke;
-    v12[3] = &unk_2785FDF80;
-    v12[4] = self;
-    v13 = activityCopy;
-    [(REDonatedAction *)self _loadDuetEvent:v12];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __52__REDonatedAction_LoadSiriAction__loadUserActivity___block_invoke;
+    v14[3] = &unk_2785FDF80;
+    v14[4] = self;
+    v15 = v6;
+    [(REDonatedAction *)self _loadDuetEvent:v14];
   }
 
 LABEL_11:
@@ -1315,18 +1373,19 @@ void __52__REDonatedAction_LoadSiriAction__loadUserActivity___block_invoke(uint6
 - (void)loadIntent:(id)intent
 {
   intentCopy = intent;
+  v6 = intentCopy;
   if (intentCopy)
   {
-    if (REProcessIsRelevanced())
+    if (REProcessIsRelevanced(intentCopy, v5))
     {
-      RERaiseInternalException(*MEMORY[0x277CBE648], @"%s is not allowed from relevanced!", v5, v6, v7, v8, v9, v10, "[REDonatedAction(LoadSiriAction) loadIntent:]");
+      RERaiseInternalException(*MEMORY[0x277CBE648], @"%s is not allowed from relevanced!", v7, v8, v9, v10, v11, v12, "[REDonatedAction(LoadSiriAction) loadIntent:]");
       goto LABEL_10;
     }
 
-    if (!CoreDuetLibraryCore_2())
+    if (!CoreDuetLibraryCore_2(0))
     {
-      v11 = RELogForDomain(15);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = RELogForDomain(15);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [REDonatedAction(LoadSiriAction) loadUserActivity:];
       }
@@ -1337,17 +1396,17 @@ void __52__REDonatedAction_LoadSiriAction__loadUserActivity___block_invoke(uint6
     if ([(REDonatedAction *)self type]!= 1)
     {
 LABEL_10:
-      (*(intentCopy + 2))(intentCopy, 0, 0);
+      v6[2](v6, 0, 0);
       goto LABEL_11;
     }
 
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __46__REDonatedAction_LoadSiriAction__loadIntent___block_invoke;
-    v12[3] = &unk_2785FDF80;
-    v12[4] = self;
-    v13 = intentCopy;
-    [(REDonatedAction *)self _loadDuetEvent:v12];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __46__REDonatedAction_LoadSiriAction__loadIntent___block_invoke;
+    v14[3] = &unk_2785FDF80;
+    v14[4] = self;
+    v15 = v6;
+    [(REDonatedAction *)self _loadDuetEvent:v14];
   }
 
 LABEL_11:
@@ -1358,66 +1417,66 @@ void __46__REDonatedAction_LoadSiriAction__loadIntent___block_invoke(uint64_t a1
   v3 = a2;
   if (v3)
   {
-    v11 = [*(a1 + 32) bundleIdentifier];
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x2050000000;
-    v12 = get_DKIntentMetadataKeyClass_softClass_1;
-    v32 = get_DKIntentMetadataKeyClass_softClass_1;
+    v4 = [*(a1 + 32) bundleIdentifier];
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2050000000;
+    v5 = get_DKIntentMetadataKeyClass_softClass_1;
+    v24 = get_DKIntentMetadataKeyClass_softClass_1;
     if (!get_DKIntentMetadataKeyClass_softClass_1)
     {
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __get_DKIntentMetadataKeyClass_block_invoke_1;
-      v28[3] = &unk_2785F9BC0;
-      v28[4] = &v29;
-      __get_DKIntentMetadataKeyClass_block_invoke_1(v28, v4, v5, v6, v7, v8, v9, v10, v25);
-      v12 = v30[3];
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __get_DKIntentMetadataKeyClass_block_invoke_1;
+      v20[3] = &unk_2785F9BC0;
+      v20[4] = &v21;
+      __get_DKIntentMetadataKeyClass_block_invoke_1(v20);
+      v5 = v22[3];
     }
 
-    v13 = v12;
-    _Block_object_dispose(&v29, 8);
-    v14 = [v12 intentClass];
-    v15 = [v3 metadata];
-    v16 = [v15 objectForKeyedSubscript:v14];
+    v6 = v5;
+    _Block_object_dispose(&v21, 8);
+    v7 = [v5 intentClass];
+    v8 = [v3 metadata];
+    v9 = [v8 objectForKeyedSubscript:v7];
 
-    v17 = +[RESiriActionsDonationsWhitelist sharedInstance];
-    v18 = [v17 intentIsWhitelistedForBundleID:v11 andTypeName:v16];
+    v10 = +[RESiriActionsDonationsWhitelist sharedInstance];
+    v11 = [v10 intentIsWhitelistedForBundleID:v4 andTypeName:v9];
 
-    if (v18)
+    if (v11)
     {
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __46__REDonatedAction_LoadSiriAction__loadIntent___block_invoke_2;
-      v26[3] = &unk_2785FDFA8;
-      v19 = *(a1 + 40);
-      v26[4] = *(a1 + 32);
-      v27 = v19;
-      [v3 fetchInteractionWithPopulatedKeyImage:v26];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __46__REDonatedAction_LoadSiriAction__loadIntent___block_invoke_2;
+      v18[3] = &unk_2785FDFA8;
+      v12 = *(a1 + 40);
+      v18[4] = *(a1 + 32);
+      v19 = v12;
+      [v3 fetchInteractionWithPopulatedKeyImage:v18];
     }
 
     else
     {
-      v21 = [v3 interaction];
-      if (!v21)
+      v14 = [v3 interaction];
+      if (!v14)
       {
-        v22 = RELogForDomain(15);
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v15 = RELogForDomain(15);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           __46__REDonatedAction_LoadSiriAction__loadIntent___block_invoke_cold_1((a1 + 32));
         }
       }
 
-      v23 = *(a1 + 40);
-      v24 = [v21 intent];
-      (*(v23 + 16))(v23, v21, v24);
+      v16 = *(a1 + 40);
+      v17 = [v14 intent];
+      (*(v16 + 16))(v16, v14, v17);
     }
   }
 
   else
   {
-    v20 = RELogForDomain(15);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v13 = RELogForDomain(15);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __46__REDonatedAction_LoadSiriAction__loadIntent___block_invoke_cold_2(a1);
     }
@@ -1446,13 +1505,14 @@ void __46__REDonatedAction_LoadSiriAction__loadIntent___block_invoke_2(uint64_t 
 - (void)loadRelevantShortcut:(id)shortcut
 {
   shortcutCopy = shortcut;
+  v6 = shortcutCopy;
   if (shortcutCopy)
   {
-    if (REProcessIsRelevanced())
+    if (REProcessIsRelevanced(shortcutCopy, v5))
     {
-      RERaiseInternalException(*MEMORY[0x277CBE648], @"%s is not allowed from relevanced!", v5, v6, v7, v8, v9, v10, "[REDonatedAction(LoadSiriAction) loadRelevantShortcut:]");
+      RERaiseInternalException(*MEMORY[0x277CBE648], @"%s is not allowed from relevanced!", v7, v8, v9, v10, v11, v12, "[REDonatedAction(LoadSiriAction) loadRelevantShortcut:]");
 LABEL_6:
-      (*(shortcutCopy + 2))(shortcutCopy, 0, 0);
+      v6[2](v6, 0, 0);
       goto LABEL_7;
     }
 
@@ -1461,13 +1521,13 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __56__REDonatedAction_LoadSiriAction__loadRelevantShortcut___block_invoke;
-    v11[3] = &unk_2785FDF80;
-    v11[4] = self;
-    v12 = shortcutCopy;
-    [(REDonatedAction *)self _loadDuetEvent:v11];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __56__REDonatedAction_LoadSiriAction__loadRelevantShortcut___block_invoke;
+    v13[3] = &unk_2785FDF80;
+    v13[4] = self;
+    v14 = v6;
+    [(REDonatedAction *)self _loadDuetEvent:v13];
   }
 
 LABEL_7:
@@ -1508,106 +1568,83 @@ void __56__REDonatedAction_LoadSiriAction__loadRelevantShortcut___block_invoke(u
 
 + (void)supportedActivityType:forBundleID:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(&dword_22859F000, v0, OS_LOG_TYPE_ERROR, "Could not make bundle for %@ - %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22859F000, v0, OS_LOG_TYPE_ERROR, "Could not make bundle for %@ - %@", v1, 0x16u);
 }
 
 - (void)initWithEvent:filtered:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_3();
-  _os_log_debug_impl(&dword_22859F000, v0, OS_LOG_TYPE_DEBUG, "Unsupported stream type: %@ (event: %@)", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_22859F000, v0, OS_LOG_TYPE_DEBUG, "Unsupported stream type: %@ (event: %@)", v1, 0x16u);
 }
 
 void __52__REDonatedAction_LoadSiriAction__loadUserActivity___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_1_4();
-  v1 = *MEMORY[0x277D85DE8];
-  [OUTLINED_FUNCTION_5_0(v2) bundleIdentifier];
+  [OUTLINED_FUNCTION_5_0(v1) bundleIdentifier];
   objc_claimAutoreleasedReturnValue();
-  v3 = [OUTLINED_FUNCTION_4_2() identifier];
+  v2 = [OUTLINED_FUNCTION_4_2() identifier];
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1_6(&dword_22859F000, v4, v5, "Unable to load user activity with bundle ID: %@ (%@)", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_6(&dword_22859F000, v3, v4, "Unable to load user activity with bundle ID: %@ (%@)", v5, v6, v7, v8);
 }
 
 void __52__REDonatedAction_LoadSiriAction__loadUserActivity___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_1_4();
-  v1 = *MEMORY[0x277D85DE8];
-  [OUTLINED_FUNCTION_5_0(v2) bundleIdentifier];
+  [OUTLINED_FUNCTION_5_0(v1) bundleIdentifier];
   objc_claimAutoreleasedReturnValue();
-  v3 = [OUTLINED_FUNCTION_4_2() identifier];
+  v2 = [OUTLINED_FUNCTION_4_2() identifier];
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1_6(&dword_22859F000, v4, v5, "Unable to load user activity (event) with bundle ID: %@ (%@)", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_6(&dword_22859F000, v3, v4, "Unable to load user activity (event) with bundle ID: %@ (%@)", v5, v6, v7, v8);
 }
 
 void __46__REDonatedAction_LoadSiriAction__loadIntent___block_invoke_cold_1(id *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = [*a1 bundleIdentifier];
   v3 = [*a1 identifier];
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_6_1(&dword_22859F000, v4, v5, "Unable to load interaction with bundle ID: %@ (%@)", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6_1(&dword_22859F000, v4, v5, "Unable to load interaction with bundle ID: %@ (%@)", v6, v7, v8, v9);
 }
 
 void __46__REDonatedAction_LoadSiriAction__loadIntent___block_invoke_cold_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v1 = (a1 + 32);
   v2 = [*(a1 + 32) bundleIdentifier];
   v3 = [*v1 identifier];
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_6_1(&dword_22859F000, v4, v5, "Unable to load interaction event with bundle ID: %@ (%@)", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6_1(&dword_22859F000, v4, v5, "Unable to load interaction event with bundle ID: %@ (%@)", v6, v7, v8, v9);
 }
 
 void __46__REDonatedAction_LoadSiriAction__loadIntent___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_1_4();
-  v1 = *MEMORY[0x277D85DE8];
-  [OUTLINED_FUNCTION_5_0(v2) bundleIdentifier];
+  [OUTLINED_FUNCTION_5_0(v1) bundleIdentifier];
   objc_claimAutoreleasedReturnValue();
-  v3 = [OUTLINED_FUNCTION_4_2() identifier];
+  v2 = [OUTLINED_FUNCTION_4_2() identifier];
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1_6(&dword_22859F000, v4, v5, "Unable to load interaction with image with bundle ID: %@ (%@)", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_6(&dword_22859F000, v3, v4, "Unable to load interaction with image with bundle ID: %@ (%@)", v5, v6, v7, v8);
 }
 
 void __56__REDonatedAction_LoadSiriAction__loadRelevantShortcut___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_1_4();
-  v1 = *MEMORY[0x277D85DE8];
-  [OUTLINED_FUNCTION_5_0(v2) bundleIdentifier];
+  [OUTLINED_FUNCTION_5_0(v1) bundleIdentifier];
   objc_claimAutoreleasedReturnValue();
-  v3 = [OUTLINED_FUNCTION_4_2() identifier];
+  v2 = [OUTLINED_FUNCTION_4_2() identifier];
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1_6(&dword_22859F000, v4, v5, "Unable to load relevant shortcut with bundle ID: %@ (%@)", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_6(&dword_22859F000, v3, v4, "Unable to load relevant shortcut with bundle ID: %@ (%@)", v5, v6, v7, v8);
 }
 
 void __56__REDonatedAction_LoadSiriAction__loadRelevantShortcut___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_1_4();
-  v1 = *MEMORY[0x277D85DE8];
-  [OUTLINED_FUNCTION_5_0(v2) bundleIdentifier];
+  [OUTLINED_FUNCTION_5_0(v1) bundleIdentifier];
   objc_claimAutoreleasedReturnValue();
-  v3 = [OUTLINED_FUNCTION_4_2() identifier];
+  v2 = [OUTLINED_FUNCTION_4_2() identifier];
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_1_6(&dword_22859F000, v4, v5, "Unable to load relevant shortcut event with bundle ID: %@ (%@)", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_6(&dword_22859F000, v3, v4, "Unable to load relevant shortcut event with bundle ID: %@ (%@)", v5, v6, v7, v8);
 }
 
 @end

@@ -107,7 +107,8 @@
     v13 = v32.size.height;
     v14 = objc_alloc_init(MEMORY[0x1E6979380]);
     v15 = 0.0;
-    [v14 setFrame:PDFRectToCGRect(v14)];
+    PDFRectToCGRect();
+    [v14 setFrame:?];
     [v14 setCornerRadius:3.0];
     v16 = objc_alloc(MEMORY[0x1E695DF70]);
     v17 = PDFCGColorCreateGenericRGB(0.949019608, 0.937254902, 0.0, 1.0);
@@ -174,7 +175,8 @@
     [v14 setShadowRadius:1.0];
     [v14 setGeometryFlipped:1];
     v9 = [[PDFPageLayerEffect alloc] initWithPDFPageLayer:layerCopy];
-    [(PDFPageLayerEffect *)v9 setFrame:PDFRectToCGRect(v9)];
+    PDFRectToCGRect();
+    [(PDFPageLayerEffect *)v9 setFrame:?];
     [(PDFPageLayerEffect *)v9 setPageFrame:v10, v11, v12, v13];
     [(PDFPageLayerEffect *)v9 setZPosition:-500.0];
     [(PDFPageLayerEffect *)v9 setCompositingFilter:*MEMORY[0x1E6979CA8]];
@@ -218,7 +220,8 @@
 
 LABEL_12:
       v15 = [(PDFPageLayerEffect *)[PDFPageLayerAnnotationEffect alloc] initWithPDFPageLayer:layerCopy];
-      [(PDFPageLayerAnnotationEffect *)v15 setFrame:PDFRectToCGRect(v15)];
+      PDFRectToCGRect();
+      [(PDFPageLayerAnnotationEffect *)v15 setFrame:?];
       v23 = -200.0;
       if (v19)
       {
@@ -276,7 +279,8 @@ LABEL_5:
   if (annotationCopy && ([annotationCopy bounds], v8 = v7, v10 = v9, v12 = v11, v14 = v13, PDFRectValid(v7, v9, v11, v13)) && (v19.origin.x = v8, v19.origin.y = v10, v19.size.width = v12, v19.size.height = v14, !PDFRectIsEmpty(v19)))
   {
     v15 = [(PDFPageLayerEffect *)[PDFPageLayerMarkupAnnotationEffect alloc] initWithPDFPageLayer:layerCopy];
-    [(PDFPageLayerMarkupAnnotationEffect *)v15 setFrame:PDFRectToCGRect(v15)];
+    PDFRectToCGRect();
+    [(PDFPageLayerMarkupAnnotationEffect *)v15 setFrame:?];
     [(PDFPageLayerMarkupAnnotationEffect *)v15 setZPosition:-400.0];
     if ([annotationCopy shouldDisplay])
     {
@@ -358,53 +362,54 @@ LABEL_5:
       v18 = 0.75;
     }
 
-    v37.origin.x = x;
-    v37.origin.y = y;
-    v37.size.width = width;
-    v37.size.height = height;
-    v38 = PDFRectInset(v37, -3.0, -3.0);
-    x = v38.origin.x;
-    y = v38.origin.y;
-    width = v38.size.width;
-    height = v38.size.height;
+    v36.origin.x = x;
+    v36.origin.y = y;
+    v36.size.width = width;
+    v36.size.height = height;
+    v37 = PDFRectInset(v36, -3.0, -3.0);
+    x = v37.origin.x;
+    y = v37.origin.y;
+    width = v37.size.width;
+    height = v37.size.height;
     [(PDFPageLayerEffect *)v9 setCornerRadius:3.0];
     v19 = [MEMORY[0x1E69DC888] colorWithRed:0.101960784 green:0.101960784 blue:0.101960784 alpha:0.3];
     v20 = 0.0;
 LABEL_8:
     -[PDFPageLayerEffect setBackgroundColor:](v9, "setBackgroundColor:", [v19 CGColor]);
 
-    [(PDFPageLayerEffect *)v9 setFrame:PDFRectToCGRect(v21)];
+    PDFRectToCGRect();
+    [(PDFPageLayerEffect *)v9 setFrame:?];
     [(PDFPageLayerEffect *)v9 setPageFrame:x, y, width, height];
     [(PDFPageLayerEffect *)v9 setCompositingFilter:*MEMORY[0x1E6979CA8]];
     [(PDFPageLayerEffect *)v9 setZPosition:-500.0];
-    v22 = [MEMORY[0x1E6979318] animationWithKeyPath:@"opacity"];
-    [v22 setBeginTime:v18 + CACurrentMediaTime()];
-    LODWORD(v23) = 1.0;
-    v24 = [MEMORY[0x1E696AD98] numberWithFloat:v23];
-    [v22 setFromValue:v24];
+    v21 = [MEMORY[0x1E6979318] animationWithKeyPath:@"opacity"];
+    [v21 setBeginTime:v18 + CACurrentMediaTime()];
+    LODWORD(v22) = 1.0;
+    v23 = [MEMORY[0x1E696AD98] numberWithFloat:v22];
+    [v21 setFromValue:v23];
 
-    v25 = [MEMORY[0x1E696AD98] numberWithFloat:0.0];
-    [v22 setToValue:v25];
+    v24 = [MEMORY[0x1E696AD98] numberWithFloat:0.0];
+    [v21 setToValue:v24];
 
-    [v22 setDuration:v20];
-    LODWORD(v26) = 1.0;
-    [v22 setRepeatCount:v26];
-    [v22 setRemovedOnCompletion:0];
-    [v22 setFillMode:*MEMORY[0x1E69797E8]];
-    v27 = MEMORY[0x1E6979518];
-    v30 = MEMORY[0x1E69E9820];
-    v31 = 3221225472;
-    v32 = __78__PDFPageLayerEffect_createFlashEffectForPDFLinkAnnotation_withLayer_forType___block_invoke;
-    v33 = &unk_1E8150FF8;
-    v28 = layerCopy;
-    v34 = v28;
+    [v21 setDuration:v20];
+    LODWORD(v25) = 1.0;
+    [v21 setRepeatCount:v25];
+    [v21 setRemovedOnCompletion:0];
+    [v21 setFillMode:*MEMORY[0x1E69797E8]];
+    v26 = MEMORY[0x1E6979518];
+    v29 = MEMORY[0x1E69E9820];
+    v30 = 3221225472;
+    v31 = __78__PDFPageLayerEffect_createFlashEffectForPDFLinkAnnotation_withLayer_forType___block_invoke;
+    v32 = &unk_1E8150FF8;
+    v27 = layerCopy;
+    v33 = v27;
     annotation = v9;
     annotationCopy2 = annotation;
-    [v27 setCompletionBlock:&v30];
-    [annotation addAnimation:v22 forKey:{@"fadeAnimation", v30, v31, v32, v33}];
+    [v26 setCompletionBlock:&v29];
+    [annotation addAnimation:v21 forKey:{@"fadeAnimation", v29, v30, v31, v32}];
 
     [MEMORY[0x1E6979518] commit];
-    [v28 addPageLayerEffect:annotation];
+    [v27 addPageLayerEffect:annotation];
   }
 
   return annotation;

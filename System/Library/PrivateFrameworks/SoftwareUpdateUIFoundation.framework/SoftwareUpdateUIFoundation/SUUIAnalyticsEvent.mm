@@ -74,7 +74,6 @@
   MEMORY[0x277D82BD8](v5);
   MEMORY[0x277D82BD8](v7);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -84,42 +83,41 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, coder);
-  v21 = [location[0] decodeIntegerForKey:@"eventType"];
-  if (v21 < 0 || v21 > 1)
+  v20 = [location[0] decodeIntegerForKey:@"eventType"];
+  if (v20 < 0 || v20 > 1)
   {
-    v21 = 0;
+    v20 = 0;
   }
 
-  v16 = location[0];
-  v15 = MEMORY[0x277CBEB98];
-  v18 = 0x277CBE000uLL;
-  v14 = objc_opt_class();
+  v15 = location[0];
+  v14 = MEMORY[0x277CBEB98];
+  v17 = 0x277CBE000uLL;
+  v13 = objc_opt_class();
+  v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
   v12 = objc_opt_class();
-  v13 = objc_opt_class();
-  v17 = [v15 setWithObjects:{v14, v10, v11, v12, v13, objc_opt_class(), 0}];
-  v20 = [v16 decodeObjectOfClasses:? forKey:?];
-  MEMORY[0x277D82BD8](v17);
+  v16 = [v14 setWithObjects:{v13, v9, v10, v11, v12, objc_opt_class(), 0}];
+  v19 = [v15 decodeObjectOfClasses:? forKey:?];
+  MEMORY[0x277D82BD8](v16);
   payload = selfCopy->_payload;
-  v3 = *(v18 + 2752);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    objc_storeStrong(&v20, MEMORY[0x277CBEC10]);
+    objc_storeStrong(&v19, MEMORY[0x277CBEC10]);
   }
 
-  v7 = &selfCopy;
-  v4 = selfCopy;
-  v6 = &v20;
+  v6 = &selfCopy;
+  v3 = selfCopy;
+  v5 = &v19;
   obj = 0;
   selfCopy = 0;
-  selfCopy = [(SUUIAnalyticsEvent *)v4 initWithEventType:v21 payload:v20];
-  v9 = MEMORY[0x277D82BE0](selfCopy);
-  objc_storeStrong(v6, obj);
+  selfCopy = [(SUUIAnalyticsEvent *)v3 initWithEventType:v20 payload:v19];
+  v8 = MEMORY[0x277D82BE0](selfCopy);
+  objc_storeStrong(v5, obj);
   objc_storeStrong(location, obj);
-  objc_storeStrong(v7, obj);
-  return v9;
+  objc_storeStrong(v6, obj);
+  return v8;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -138,35 +136,8 @@
   v23[2] = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
-  if (!self->_payload)
+  if (!self->_payload || ((location[0] = -[NSDictionary objectForKey:](selfCopy->_payload, "objectForKey:", @"__SUUI_userInteractionType")) == 0 ? (v12 = 0) : (v22[0] = @"eventType", v11 = SUUIAnalyticsEventTypeToString(selfCopy->_eventType), v23[0] = v11, v22[1] = @"userInteractionType", v10 = SUUIAnalyticsEventTypeToString([location[0] intValue]), v23[1] = v10, v15 = objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v23, v22, 2), MEMORY[0x277D82BD8](v10), MEMORY[0x277D82BD8](v11), v12 = 1), objc_storeStrong(location, 0), !v12))
   {
-    goto LABEL_6;
-  }
-
-  location[0] = [(NSDictionary *)selfCopy->_payload objectForKey:@"__SUUI_userInteractionType"];
-  if (location[0])
-  {
-    v22[0] = @"eventType";
-    v11 = SUUIAnalyticsEventTypeToString(selfCopy->_eventType);
-    v23[0] = v11;
-    v22[1] = @"userInteractionType";
-    v10 = SUUIAnalyticsEventTypeToString([location[0] intValue]);
-    v23[1] = v10;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-    MEMORY[0x277D82BD8](v10);
-    MEMORY[0x277D82BD8](v11);
-    v12 = 1;
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  objc_storeStrong(location, 0);
-  if (!v12)
-  {
-LABEL_6:
     v20[0] = @"eventType";
     v9 = SUUIAnalyticsEventTypeToString(selfCopy->_eventType);
     v21[0] = v9;
@@ -203,7 +174,6 @@ LABEL_6:
     MEMORY[0x277D82BD8](v9);
   }
 
-  *MEMORY[0x277D85DE8];
   v5 = v15;
 
   return v5;

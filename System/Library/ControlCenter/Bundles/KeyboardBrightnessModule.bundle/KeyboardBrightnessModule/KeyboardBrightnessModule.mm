@@ -18,18 +18,17 @@ uint64_t sub_29C9CB4EC(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v3 = *(a1 + 32);
-    v20 = WeakRetained;
+    v19 = WeakRetained;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v7 = objc_msgSend_sliderView(v20, v20, v4, v5, v6);
-      isTracking = objc_msgSend_isTracking(v7, v8, v9, v10, v11);
+      v6 = objc_msgSend_sliderView(v19, v19, v3, v4, v5);
+      isTracking = objc_msgSend_isTracking(v6, v7, v8, v9, v10);
 
       if ((isTracking & 1) == 0)
       {
-        objc_msgSend_floatValue(*(a1 + 32), v20, v13, v14, v15);
-        objc_msgSend_updateControlsForValue_animated_(v20, v16, 1, v17, v18);
+        objc_msgSend_floatValue(*(a1 + 32), v19, v12, v13, v14);
+        objc_msgSend_updateControlsForValue_animated_(v19, v15, 1, v16, v17);
       }
     }
   }

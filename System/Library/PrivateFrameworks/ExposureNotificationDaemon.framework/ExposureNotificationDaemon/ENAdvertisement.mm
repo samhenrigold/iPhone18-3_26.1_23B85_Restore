@@ -126,24 +126,22 @@ LABEL_13:
 
 - (id)decryptedMetadataForTemporaryExposureKey:(id)key
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([(NSData *)self->_encryptedAEM length]== 4 && [(NSData *)self->_rpi length]== 16)
   {
-    v9[0] = 0;
-    v9[1] = 0;
-    [(NSData *)self->_rpi getBytes:v9 length:16];
-    v8 = 0;
-    [(NSData *)self->_encryptedAEM getBytes:&v8 length:4];
-    v5 = [objc_opt_class() decryptedMetadataForTemporaryExposureKey:keyCopy encryptedAEM:&v8 RPI:v9];
+    v8[0] = 0;
+    v8[1] = 0;
+    [(NSData *)self->_rpi getBytes:v8 length:16];
+    v7 = 0;
+    [(NSData *)self->_encryptedAEM getBytes:&v7 length:4];
+    v5 = [objc_opt_class() decryptedMetadataForTemporaryExposureKey:keyCopy encryptedAEM:&v7 RPI:v8];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -179,61 +177,51 @@ LABEL_13:
 
 - (id)description
 {
+  v24 = 0;
   v3 = objc_opt_class();
-  v18 = NSStringFromClass(v3);
-  NSAppendPrintF_safe();
-  v4 = 0;
+  v4 = NSStringFromClass(v3);
+  NSAppendPrintF_safe(&v24, "%@", v4);
+  v5 = v24;
 
-  bytes = [(NSData *)self->_rpi bytes];
-  v6 = [(NSData *)self->_rpi length];
-  v24 = [(NSData *)self->_rpi length];
-  v19 = bytes;
-  NSAppendPrintF();
-  v7 = v4;
+  v23 = v5;
+  NSAppendPrintF(&v23, ", RPI %.3H", [(NSData *)self->_rpi bytes], [(NSData *)self->_rpi length], [(NSData *)self->_rpi length]);
+  v6 = v23;
 
-  [(NSData *)self->_encryptedAEM bytes:v19];
-  [(NSData *)self->_encryptedAEM length];
-  [(NSData *)self->_encryptedAEM length];
-  NSAppendPrintF();
-  v8 = v7;
+  v22 = v6;
+  NSAppendPrintF(&v22, ", eAEM %.3H", [(NSData *)self->_encryptedAEM bytes], [(NSData *)self->_encryptedAEM length], [(NSData *)self->_encryptedAEM length]);
+  v7 = v22;
 
-  v9 = self->_timestamp - *MEMORY[0x277CBECD8];
-  v10 = CUPrintDateCF();
-  NSAppendPrintF_safe();
-  v11 = v8;
+  v21 = v7;
+  v8 = CUPrintDateCF();
+  NSAppendPrintF_safe(&v21, ", %@", v8);
+  v9 = v21;
 
-  scanInterval = self->_scanInterval;
-  NSAppendPrintF_safe();
-  v12 = v11;
+  v20 = v9;
+  NSAppendPrintF_safe(&v20, ", Scan %d", self->_scanInterval);
+  v10 = v20;
 
-  typicalRSSI = self->_typicalRSSI;
-  NSAppendPrintF_safe();
-  v13 = v12;
+  v19 = v10;
+  NSAppendPrintF_safe(&v19, ", typicalRSSI %d", self->_typicalRSSI);
+  v11 = v19;
 
-  maxRSSI = self->_maxRSSI;
-  NSAppendPrintF_safe();
-  v14 = v13;
+  v18 = v11;
+  NSAppendPrintF_safe(&v18, ", maxRSSI %d", self->_maxRSSI);
+  v12 = v18;
 
-  counter = self->_counter;
-  NSAppendPrintF_safe();
-  v15 = v14;
+  v17 = v12;
+  NSAppendPrintF_safe(&v17, ", Counter %d", self->_counter);
+  v13 = v17;
 
   if (self->_saturated)
   {
-    NSAppendPrintF_safe();
-    v16 = v15;
+    v16 = v13;
+    NSAppendPrintF_safe(&v16, ", saturated");
+    v14 = v16;
 
-    v15 = v16;
+    v13 = v14;
   }
 
-  return v15;
-}
-
-- (uint64_t)combineWithAdvertisement:(unsigned __int8 *)a1 .cold.1(unsigned __int8 *a1, void *a2)
-{
-  v3 = *a1;
-  [a2 counter];
-  return LogPrintF_safe();
+  return v13;
 }
 
 @end

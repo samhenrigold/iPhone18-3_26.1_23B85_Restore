@@ -7,35 +7,39 @@
 + (id)_testOverrideForPreference:(uint64_t)preference;
 + (id)_testingOverrideDictionary;
 + (id)defaultForPreference:(unint64_t)preference;
++ (id)observeChangesForPreference:(unint64_t)preference autoCancelToken:(BOOL)token usingBlock:(id)block;
 + (id)observeChangesForPreference:(unint64_t)preference usingBlock:(id)block;
 + (void)_registerForDefaultChanges;
++ (void)_setUserDefaultEnabled:(BOOL)enabled forKey:(id)key;
 + (void)clearPreferenceForTesting:(unint64_t)testing;
 + (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 + (void)registerForDefaultChanges;
++ (void)setPreference:(unint64_t)preference enabled:(BOOL)enabled;
++ (void)setPreferenceForTesting:(unint64_t)testing enabled:(BOOL)enabled;
 @end
 
 @implementation EMInternalPreferences
 
 + (void)_registerForDefaultChanges
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   em_userDefaults = [MEMORY[0x1E695E000] em_userDefaults];
   v4 = 1;
   *&v5 = 134218242;
-  v10 = v5;
+  v9 = v5;
   do
   {
-    v6 = [EMInternalPreferences defaultForPreference:v4, v10];
+    v6 = [EMInternalPreferences defaultForPreference:v4, v9];
     if (v6)
     {
       [em_userDefaults addObserver:self forKeyPath:v6 options:0 context:&kvoContext];
       v7 = +[EMInternalPreferences log];
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = v10;
+        *buf = v9;
         selfCopy = self;
-        v13 = 2112;
-        v14 = v6;
+        v12 = 2112;
+        v13 = v6;
         _os_log_impl(&dword_1C6655000, v7, OS_LOG_TYPE_DEFAULT, "EMInternalPreferences (%p) adding observer for key path %@ on defaults", buf, 0x16u);
       }
     }
@@ -46,8 +50,6 @@
   while (v4 != 63);
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterAddObserver(DarwinNotifyCenter, self, _userDefaultsDidChange, @"com.apple.mail.EMUserDefaultsDidChangeNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (OS_os_log)log
@@ -127,20 +129,20 @@ void __28__EMInternalPreferences_log__block_invoke(uint64_t a1)
 
 + (id)_testOverrideForPreference:(uint64_t)preference
 {
-  objc_opt_self();
+  v3 = objc_opt_self();
   if (EFIsRunningUnitTests())
   {
-    v5 = +[EMInternalPreferences _testingOverrideDictionary];
-    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2];
-    v3 = [v5 objectForKeyedSubscript:v6];
+    v6 = +[(EMInternalPreferences *)v3];
+    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2];
+    v4 = [v6 objectForKeyedSubscript:v7];
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 + (void)registerForDefaultChanges
@@ -181,13 +183,42 @@ void __28__EMInternalPreferences_log__block_invoke(uint64_t a1)
   return v4;
 }
 
++ (id)observeChangesForPreference:(unint64_t)preference autoCancelToken:(BOOL)token usingBlock:(id)block
+{
+  tokenCopy = token;
+  blockCopy = block;
+  currentDevice = [MEMORY[0x1E699B7B0] currentDevice];
+  areInternalSecurityPoliciesAllowed = [currentDevice areInternalSecurityPoliciesAllowed];
+
+  if (areInternalSecurityPoliciesAllowed)
+  {
+    v11 = [self defaultForPreference:preference];
+    em_userDefaults = [MEMORY[0x1E695E000] em_userDefaults];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __80__EMInternalPreferences_observeChangesForPreference_autoCancelToken_usingBlock___block_invoke;
+    v15[3] = &unk_1E826D620;
+    selfCopy = self;
+    preferenceCopy = preference;
+    v16 = blockCopy;
+    v13 = [em_userDefaults ef_observeKeyPath:v11 options:1 autoCancelToken:tokenCopy usingBlock:v15];
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  return v13;
+}
+
 void __80__EMInternalPreferences_observeChangesForPreference_autoCancelToken_usingBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v4 = [a2 objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
+  v3 = [a2 objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v4 BOOLValue];
+    [v3 BOOLValue];
   }
 
   else
@@ -195,7 +226,6 @@ void __80__EMInternalPreferences_observeChangesForPreference_autoCancelToken_usi
     [*(a1 + 40) preferenceEnabled:*(a1 + 48)];
   }
 
-  v3 = *(a1 + 48);
   (*(*(a1 + 32) + 16))();
 }
 
@@ -235,6 +265,16 @@ LABEL_3:
 LABEL_4:
 
   return v6;
+}
+
++ (void)setPreference:(unint64_t)preference enabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v6 = [self defaultForPreference:preference];
+  if (v6)
+  {
+    [self _setUserDefaultEnabled:enabledCopy forKey:v6];
+  }
 }
 
 + (id)defaultForPreference:(unint64_t)preference
@@ -468,6 +508,14 @@ LABEL_6:
   return value;
 }
 
++ (void)_setUserDefaultEnabled:(BOOL)enabled forKey:(id)key
+{
+  enabledCopy = enabled;
+  keyCopy = key;
+  em_userDefaults = [MEMORY[0x1E695E000] em_userDefaults];
+  [em_userDefaults setBool:enabledCopy forKey:keyCopy];
+}
+
 + (BOOL)_hasUserDefaultValueForKey:(id)key expectedValue:(id)value
 {
   keyCopy = key;
@@ -490,11 +538,11 @@ LABEL_6:
 
 + (id)_testingOverrideDictionary
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   if ((EFIsRunningUnitTests() & 1) == 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler handleFailureInMethod:sel__testingOverrideDictionary object:v0 file:@"EMInternalPreferences.m" lineNumber:347 description:{@"%s can only be called from unit tests", "+[EMInternalPreferences _testingOverrideDictionary]"}];
+    [currentHandler handleFailureInMethod:sel__testingOverrideDictionary object:v1 file:@"EMInternalPreferences.m" lineNumber:347 description:{@"%s can only be called from unit tests", "+[EMInternalPreferences _testingOverrideDictionary]"}];
   }
 
   if (_testingOverrideDictionary_onceToken != -1)
@@ -502,9 +550,9 @@ LABEL_6:
     +[EMInternalPreferences _testingOverrideDictionary];
   }
 
-  v1 = _testingOverrideDictionary_testingOverrideDictionary;
+  v2 = _testingOverrideDictionary_testingOverrideDictionary;
 
-  return v1;
+  return v2;
 }
 
 void __51__EMInternalPreferences__testingOverrideDictionary__block_invoke()
@@ -514,20 +562,27 @@ void __51__EMInternalPreferences__testingOverrideDictionary__block_invoke()
   _testingOverrideDictionary_testingOverrideDictionary = v0;
 }
 
++ (void)setPreferenceForTesting:(unint64_t)testing enabled:(BOOL)enabled
+{
+  v8 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  v6 = +[(EMInternalPreferences *)self];
+  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:testing];
+  [v6 setObject:v8 forKeyedSubscript:v7];
+}
+
 + (void)clearPreferenceForTesting:(unint64_t)testing
 {
-  v5 = +[EMInternalPreferences _testingOverrideDictionary];
+  v5 = +[(EMInternalPreferences *)self];
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:testing];
   [v5 setObject:0 forKeyedSubscript:v4];
 }
 
 + (void)_preferenceEnabled:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "Reading invalid preference: %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "Reading invalid preference: %lu", &v2, 0xCu);
 }
 
 @end

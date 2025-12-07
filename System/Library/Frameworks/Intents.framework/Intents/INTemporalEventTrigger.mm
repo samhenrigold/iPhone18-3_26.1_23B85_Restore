@@ -13,8 +13,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7 = @"dateComponentsRange";
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"dateComponentsRange";
   dateComponentsRange = self->_dateComponentsRange;
   null = dateComponentsRange;
   if (!dateComponentsRange)
@@ -22,13 +22,11 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v8[0] = null;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = null;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   if (!dateComponentsRange)
   {
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

@@ -74,7 +74,7 @@
 
 - (void)startRecap
 {
-  if (_SSEnableContinuousScreenCaptureForBugFiling() && RecapLibraryCore_0())
+  if (_SSEnableContinuousScreenCaptureForBugFiling(self, a2) && RecapLibraryCore_0(0))
   {
     v19 = 0;
     v20 = &v19;
@@ -262,7 +262,7 @@ uint64_t __83__SSScreenCapturer__sendEnvironmentDescription_savingImageToPhotos_
 {
   completionCopy = completion;
   descriptionCopy = description;
-  v8 = _SSSignpostLog();
+  v8 = _SSSignpostLog(descriptionCopy);
   if (os_signpost_enabled(v8))
   {
     *buf = 0;
@@ -302,7 +302,7 @@ uint64_t __63__SSScreenCapturer__sendEnvironmentDescription_withCompletion___blo
   captureCopy = capture;
   completionCopy = completion;
   elementCopy = element;
-  v11 = _SSSignpostLog();
+  v11 = _SSSignpostLog(elementCopy);
   if (os_signpost_enabled(v11))
   {
     *buf = 0;
@@ -332,7 +332,7 @@ uint64_t __63__SSScreenCapturer__sendEnvironmentDescription_withCompletion___blo
 void __96__SSScreenCapturer__captureAndSendMetadataForEnvironmentElement_metadataCapture_sendCompletion___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = _SSSignpostLog();
+  v4 = _SSSignpostLog(v3);
   if (os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -368,7 +368,7 @@ void __96__SSScreenCapturer__captureAndSendMetadataForEnvironmentElement_metadat
 - (void)_captureAndSendDocumentForEnvironmentElement:(id)element
 {
   elementCopy = element;
-  v5 = _SSSignpostLog();
+  v5 = _SSSignpostLog(elementCopy);
   if (os_signpost_enabled(v5))
   {
     *buf = 0;
@@ -394,7 +394,7 @@ void __96__SSScreenCapturer__captureAndSendMetadataForEnvironmentElement_metadat
 void __65__SSScreenCapturer__captureAndSendDocumentForEnvironmentElement___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _SSSignpostLog();
+  v4 = _SSSignpostLog(v3);
   if (os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -640,7 +640,7 @@ uint64_t __106__SSScreenCapturer__captureAndSendMetadataAndDocumentForEnvironmen
   }
 
   identifier = [descriptionCopy identifier];
-  v17 = _SSSignpostLog();
+  v17 = _SSSignpostLog(identifier);
   if (os_signpost_enabled(v17))
   {
     *buf = 0;
@@ -670,7 +670,7 @@ uint64_t __106__SSScreenCapturer__captureAndSendMetadataAndDocumentForEnvironmen
 void __68__SSScreenCapturer__saveImageToPhotoLibrary_environmentDescription___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = _SSSignpostLog();
+  v6 = _SSSignpostLog(v5);
   if (os_signpost_enabled(v6))
   {
     *buf = 0;
@@ -706,64 +706,64 @@ void __68__SSScreenCapturer__saveImageToPhotoLibrary_environmentDescription___bl
 
 - (void)_preheatAndTakeScreenshotIfPossibleWithOptionsCollection:(id)collection presentationOptions:(id)options appleInternalOptions:(id)internalOptions
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
   optionsCopy = options;
   internalOptionsCopy = internalOptions;
-  v11 = _SSSignpostLog();
+  v11 = _SSSignpostLog(internalOptionsCopy);
   if (os_signpost_enabled(v11))
   {
-    LOWORD(v21) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1D9E04000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CalledBySpringBoard", &unk_1D9E28D6F, &v21, 2u);
+    LOWORD(v23) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1D9E04000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CalledBySpringBoard", &unk_1D9E28D6F, &v23, 2u);
   }
 
   v12 = os_log_create("com.apple.screenshotservices", "Performance");
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v21) = 0;
-    _os_log_impl(&dword_1D9E04000, v12, OS_LOG_TYPE_INFO, "DISCRETE CalledBySpringBoard", &v21, 2u);
+    LOWORD(v23) = 0;
+    _os_log_impl(&dword_1D9E04000, v12, OS_LOG_TYPE_INFO, "DISCRETE CalledBySpringBoard", &v23, 2u);
   }
 
-  v13 = _SSSignpostLog();
-  if (os_signpost_enabled(v13))
+  v14 = _SSSignpostLog(v13);
+  if (os_signpost_enabled(v14))
   {
-    LOWORD(v21) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1D9E04000, v13, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "ScreenshotGestureToAnimationStart", &unk_1D9E28D6F, &v21, 2u);
+    LOWORD(v23) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1D9E04000, v14, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "ScreenshotGestureToAnimationStart", &unk_1D9E28D6F, &v23, 2u);
   }
 
-  v14 = os_log_create("com.apple.screenshotservices", "Performance");
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v15 = os_log_create("com.apple.screenshotservices", "Performance");
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v21) = 0;
-    _os_log_impl(&dword_1D9E04000, v14, OS_LOG_TYPE_INFO, "BEGIN ScreenshotGestureToAnimationStart", &v21, 2u);
+    LOWORD(v23) = 0;
+    _os_log_impl(&dword_1D9E04000, v15, OS_LOG_TYPE_INFO, "BEGIN ScreenshotGestureToAnimationStart", &v23, 2u);
   }
 
-  v15 = _SSSignpostLog();
-  if (os_signpost_enabled(v15))
+  v17 = _SSSignpostLog(v16);
+  if (os_signpost_enabled(v17))
   {
-    LOWORD(v21) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1D9E04000, v15, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "ServiceLaunch", &unk_1D9E28D6F, &v21, 2u);
+    LOWORD(v23) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1D9E04000, v17, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "ServiceLaunch", &unk_1D9E28D6F, &v23, 2u);
   }
 
-  v16 = os_log_create("com.apple.screenshotservices", "Performance");
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v18 = os_log_create("com.apple.screenshotservices", "Performance");
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v21) = 0;
-    _os_log_impl(&dword_1D9E04000, v16, OS_LOG_TYPE_INFO, "BEGIN ServiceLaunch", &v21, 2u);
+    LOWORD(v23) = 0;
+    _os_log_impl(&dword_1D9E04000, v18, OS_LOG_TYPE_INFO, "BEGIN ServiceLaunch", &v23, 2u);
   }
 
   [(SSDittoRemoteConnection *)self->_dittoRemoteConnection preheatDittoProcess];
-  v17 = os_log_create("com.apple.screenshotservices", "Capture");
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = os_log_create("com.apple.screenshotservices", "Capture");
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = [optionsCopy description];
-    v21 = 138412290;
-    v22 = v18;
-    _os_log_impl(&dword_1D9E04000, v17, OS_LOG_TYPE_DEFAULT, "Asked to capture with presentation options %@", &v21, 0xCu);
+    v20 = [optionsCopy description];
+    v23 = 138412290;
+    v24 = v20;
+    _os_log_impl(&dword_1D9E04000, v19, OS_LOG_TYPE_DEFAULT, "Asked to capture with presentation options %@", &v23, 0xCu);
   }
 
-  v19 = +[SSScreenCaptureAbilityCheck abilityCheck];
-  if ([v19 isAbleToTakeScreenshots])
+  v21 = +[SSScreenCaptureAbilityCheck abilityCheck];
+  if ([v21 isAbleToTakeScreenshots])
   {
     [(SSScreenshotsWindow *)self->_serviceWindow activateRemoteViewControllerIfAppropriate];
     [(SSScreenCapturer *)self _takeScreenshotWithOptionsCollection:collectionCopy serviceOptions:0 presentationOptions:optionsCopy appleInternalOptions:internalOptionsCopy];
@@ -771,10 +771,10 @@ void __68__SSScreenCapturer__saveImageToPhotoLibrary_environmentDescription___bl
 
   else
   {
-    v20 = os_log_create("com.apple.screenshotservices", "Capture");
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = os_log_create("com.apple.screenshotservices", "Capture");
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [SSScreenCapturer _preheatAndTakeScreenshotIfPossibleWithOptionsCollection:v19 presentationOptions:? appleInternalOptions:?];
+      [SSScreenCapturer _preheatAndTakeScreenshotIfPossibleWithOptionsCollection:v21 presentationOptions:? appleInternalOptions:?];
     }
   }
 }
@@ -791,7 +791,7 @@ void __68__SSScreenCapturer__saveImageToPhotoLibrary_environmentDescription___bl
 
   date = [MEMORY[0x1E695DF00] date];
   array = [MEMORY[0x1E695DF70] array];
-  v11 = _SSSignpostLog();
+  v11 = _SSSignpostLog(array);
   if (os_signpost_enabled(v11))
   {
     *buf = 0;
@@ -807,7 +807,7 @@ void __68__SSScreenCapturer__saveImageToPhotoLibrary_environmentDescription___bl
 
   v70 = 0;
   v13 = [(SSSnapshotter *)self->_snapshotter captureAvailableSnapshotsWithOptionsCollection:collectionCopy didFindOnenessScreens:&v70];
-  v14 = _SSSignpostLog();
+  v14 = _SSSignpostLog(v13);
   if (os_signpost_enabled(v14))
   {
     *buf = 0;
@@ -1182,28 +1182,29 @@ LABEL_9:
 
 + (void)playScreenshotSound
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v2 = getAudioServicesPlaySystemSoundSymbolLoc_ptr;
-  v8 = getAudioServicesPlaySystemSoundSymbolLoc_ptr;
+  v9 = getAudioServicesPlaySystemSoundSymbolLoc_ptr;
   if (!getAudioServicesPlaySystemSoundSymbolLoc_ptr)
   {
-    v4[0] = MEMORY[0x1E69E9820];
-    v4[1] = 3221225472;
-    v4[2] = __getAudioServicesPlaySystemSoundSymbolLoc_block_invoke;
-    v4[3] = &unk_1E8590188;
-    v4[4] = &v5;
-    __getAudioServicesPlaySystemSoundSymbolLoc_block_invoke(v4);
-    v2 = v6[3];
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __getAudioServicesPlaySystemSoundSymbolLoc_block_invoke;
+    v5[3] = &unk_1E8590188;
+    v5[4] = &v6;
+    __getAudioServicesPlaySystemSoundSymbolLoc_block_invoke(v5);
+    v2 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v2)
   {
-    v3 = [SSScreenshotAssetManagerPhotoLibraryBackend saveImageDataToTemporaryLocation:withName:imageDescription:completionHandler:];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v3);
+    [SSScreenshotAssetManagerPhotoLibraryBackend saveImageDataToTemporaryLocation:withName:imageDescription:completionHandler:];
+    v4 = v3;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v4);
   }
 
   v2(1108);
@@ -1305,19 +1306,25 @@ LABEL_8:
 - (void)preheatWithPresentationOptions:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 reasonForNotBeingAbleToTakeScreenshots];
-  OUTLINED_FUNCTION_0_0(&dword_1D9E04000, v2, v3, "Could not comply with request to preheat for reason: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_1D9E04000, v2, v3, "Could not comply with request to preheat for reason: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __68__SSScreenCapturer__saveImageToPhotoLibrary_environmentDescription___block_invoke_cold_1(uint64_t a1)
 {
   v1 = [*(a1 + 40) description];
-  OUTLINED_FUNCTION_0_0(&dword_1D9E04000, v2, v3, "Failed to register snapshot with image %@ with backend", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_1D9E04000, v2, v3, "Failed to register snapshot with image %@ with backend", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)_preheatAndTakeScreenshotIfPossibleWithOptionsCollection:(void *)a1 presentationOptions:appleInternalOptions:.cold.1(void *a1)
 {
   v1 = [a1 reasonForNotBeingAbleToTakeScreenshots];
-  OUTLINED_FUNCTION_0_0(&dword_1D9E04000, v2, v3, "Could not comply with request to capture for reason: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_1D9E04000, v2, v3, "Could not comply with request to capture for reason: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

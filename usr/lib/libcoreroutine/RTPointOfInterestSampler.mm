@@ -550,7 +550,7 @@ void __42__RTPointOfInterestSampler__startSampling__block_invoke_2(uint64_t a1)
   }
 }
 
-uint64_t __42__RTPointOfInterestSampler__startSampling__block_invoke_12(uint64_t a1)
+void *__42__RTPointOfInterestSampler__startSampling__block_invoke_12(uint64_t a1)
 {
   v11 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) running];
@@ -755,7 +755,7 @@ void __42__RTPointOfInterestSampler__startSampling__block_invoke_18(uint64_t a1,
   }
 }
 
-uint64_t __42__RTPointOfInterestSampler__startSampling__block_invoke_20(uint64_t a1)
+void *__42__RTPointOfInterestSampler__startSampling__block_invoke_20(uint64_t a1)
 {
   v11 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) running];
@@ -861,38 +861,38 @@ LABEL_12:
   dispatch_async(queue, block);
 }
 
-void __51__RTPointOfInterestSampler_onWiFiScanNotification___block_invoke(uint64_t a1)
+void __51__RTPointOfInterestSampler_onWiFiScanNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v2 = [*(a1 + 32) scanResults];
+    v3 = [*(a1 + 32) scanResults];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v3 = _rt_log_facility_get_os_log(RTLogFacilityLearnedLocation);
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      v4 = _rt_log_facility_get_os_log(RTLogFacilityLearnedLocation);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v4 = NSStringFromSelector(*(a1 + 48));
-        v5 = [v2 count];
-        v6 = [*(a1 + 40) accessPoints];
-        v7 = [v6 count];
-        v8 = [*(a1 + 40) accessPoints];
-        v9 = [v8 count];
-        v11 = 138413058;
-        v12 = v4;
-        v13 = 2048;
-        v14 = v5;
-        v15 = 2048;
-        v16 = v7;
-        v17 = 2048;
-        v18 = [v2 count] + v9;
-        _os_log_impl(&dword_2304B3000, v3, OS_LOG_TYPE_INFO, "%@, received scan result count, %lu, total count, before, %lu, after, %lu", &v11, 0x2Au);
+        v5 = NSStringFromSelector(*(a1 + 48));
+        v6 = [v3 count];
+        v7 = [*(a1 + 40) accessPoints];
+        v8 = [v7 count];
+        v9 = [*(a1 + 40) accessPoints];
+        v10 = [v9 count];
+        v12 = 138413058;
+        v13 = v5;
+        v14 = 2048;
+        v15 = v6;
+        v16 = 2048;
+        v17 = v8;
+        v18 = 2048;
+        v19 = [v3 count] + v10;
+        _os_log_impl(&dword_2304B3000, v4, OS_LOG_TYPE_INFO, "%@, received scan result count, %lu, total count, before, %lu, after, %lu", &v12, 0x2Au);
       }
     }
 
-    v10 = [*(a1 + 40) accessPoints];
-    [v10 addObjectsFromArray:v2];
+    v11 = [*(a1 + 40) accessPoints];
+    [v11 addObjectsFromArray:v3];
   }
 }
 

@@ -87,26 +87,26 @@
   [MEMORY[0x1E69C5D10] waitForSemaphore:v8 timeoutSeconds:v10 onAcquire:v9 onTimeout:3.0];
 }
 
-void __38__ATXModeEntityScorer_scoreApps_mode___block_invoke_2()
+void __38__ATXModeEntityScorer_scoreApps_mode___block_invoke_2(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = objc_opt_class();
-    v2 = NSStringFromClass(v1);
-    v3 = 138412290;
-    v4 = v2;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v3, 0xCu);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
   }
 }
 
-void __38__ATXModeEntityScorer_scoreApps_mode___block_invoke_16()
+void __38__ATXModeEntityScorer_scoreApps_mode___block_invoke_16(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v3 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __38__ATXModeEntityScorer_scoreApps_mode___block_invoke_16_cold_1();
+    __38__ATXModeEntityScorer_scoreApps_mode___block_invoke_16_cold_1(a1);
   }
 }
 
@@ -158,26 +158,26 @@ void __41__ATXModeEntityScorer_rankedAppsForMode___block_invoke(uint64_t a1, voi
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void __41__ATXModeEntityScorer_rankedAppsForMode___block_invoke_2()
+void __41__ATXModeEntityScorer_rankedAppsForMode___block_invoke_2(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = objc_opt_class();
-    v2 = NSStringFromClass(v1);
-    v3 = 138412290;
-    v4 = v2;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v3, 0xCu);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
   }
 }
 
-void __41__ATXModeEntityScorer_rankedAppsForMode___block_invoke_18()
+void __41__ATXModeEntityScorer_rankedAppsForMode___block_invoke_18(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v3 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __41__ATXModeEntityScorer_rankedAppsForMode___block_invoke_18_cold_1();
+    __41__ATXModeEntityScorer_rankedAppsForMode___block_invoke_18_cold_1(a1);
   }
 }
 
@@ -229,26 +229,26 @@ void __49__ATXModeEntityScorer_rankedAppsForMode_options___block_invoke(uint64_t
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void __49__ATXModeEntityScorer_rankedAppsForMode_options___block_invoke_2()
+void __49__ATXModeEntityScorer_rankedAppsForMode_options___block_invoke_2(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = objc_opt_class();
-    v2 = NSStringFromClass(v1);
-    v3 = 138412290;
-    v4 = v2;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v3, 0xCu);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
   }
 }
 
-void __49__ATXModeEntityScorer_rankedAppsForMode_options___block_invoke_19()
+void __49__ATXModeEntityScorer_rankedAppsForMode_options___block_invoke_19(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v3 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __41__ATXModeEntityScorer_rankedAppsForMode___block_invoke_18_cold_1();
+    __41__ATXModeEntityScorer_rankedAppsForMode___block_invoke_18_cold_1(a1);
   }
 }
 
@@ -277,26 +277,26 @@ void __49__ATXModeEntityScorer_rankedAppsForMode_options___block_invoke_19()
   [MEMORY[0x1E69C5D10] waitForSemaphore:v8 timeoutSeconds:v10 onAcquire:v9 onTimeout:3.0];
 }
 
-void __51__ATXModeEntityScorer_scoreUserNotifications_mode___block_invoke_2()
+void __51__ATXModeEntityScorer_scoreUserNotifications_mode___block_invoke_2(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = objc_opt_class();
-    v2 = NSStringFromClass(v1);
-    v3 = 138412290;
-    v4 = v2;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v3, 0xCu);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
   }
 }
 
-void __51__ATXModeEntityScorer_scoreUserNotifications_mode___block_invoke_20()
+void __51__ATXModeEntityScorer_scoreUserNotifications_mode___block_invoke_20(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v3 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __51__ATXModeEntityScorer_scoreUserNotifications_mode___block_invoke_20_cold_1();
+    __51__ATXModeEntityScorer_scoreUserNotifications_mode___block_invoke_20_cold_1(a1);
   }
 }
 
@@ -325,26 +325,26 @@ void __51__ATXModeEntityScorer_scoreUserNotifications_mode___block_invoke_20()
   [MEMORY[0x1E69C5D10] waitForSemaphore:v8 timeoutSeconds:v10 onAcquire:v9 onTimeout:3.0];
 }
 
-void __47__ATXModeEntityScorer_scoreNotifications_mode___block_invoke_2()
+void __47__ATXModeEntityScorer_scoreNotifications_mode___block_invoke_2(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = objc_opt_class();
-    v2 = NSStringFromClass(v1);
-    v3 = 138412290;
-    v4 = v2;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v3, 0xCu);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
   }
 }
 
-void __47__ATXModeEntityScorer_scoreNotifications_mode___block_invoke_21()
+void __47__ATXModeEntityScorer_scoreNotifications_mode___block_invoke_21(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v3 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __51__ATXModeEntityScorer_scoreUserNotifications_mode___block_invoke_20_cold_1();
+    __51__ATXModeEntityScorer_scoreUserNotifications_mode___block_invoke_20_cold_1(a1);
   }
 }
 
@@ -394,10 +394,11 @@ void __58__ATXModeEntityScorer_rankedNotificationsForMode_options___block_invoke
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_notification_management(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __58__ATXModeEntityScorer_rankedNotificationsForMode_options___block_invoke_cold_1();
     }
@@ -411,26 +412,26 @@ void __58__ATXModeEntityScorer_rankedNotificationsForMode_options___block_invoke
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void __58__ATXModeEntityScorer_rankedNotificationsForMode_options___block_invoke_22()
+void __58__ATXModeEntityScorer_rankedNotificationsForMode_options___block_invoke_22(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = objc_opt_class();
-    v2 = NSStringFromClass(v1);
-    v3 = 138412290;
-    v4 = v2;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v3, 0xCu);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
   }
 }
 
-void __58__ATXModeEntityScorer_rankedNotificationsForMode_options___block_invoke_23()
+void __58__ATXModeEntityScorer_rankedNotificationsForMode_options___block_invoke_23(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v3 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __58__ATXModeEntityScorer_rankedNotificationsForMode_options___block_invoke_23_cold_1();
+    __58__ATXModeEntityScorer_rankedNotificationsForMode_options___block_invoke_23_cold_1(a1);
   }
 }
 
@@ -482,26 +483,26 @@ void __57__ATXModeEntityScorer_rankedAppsForNotificationsForMode___block_invoke(
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void __57__ATXModeEntityScorer_rankedAppsForNotificationsForMode___block_invoke_2()
+void __57__ATXModeEntityScorer_rankedAppsForNotificationsForMode___block_invoke_2(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = objc_opt_class();
-    v2 = NSStringFromClass(v1);
-    v3 = 138412290;
-    v4 = v2;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v3, 0xCu);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
   }
 }
 
-void __57__ATXModeEntityScorer_rankedAppsForNotificationsForMode___block_invoke_24()
+void __57__ATXModeEntityScorer_rankedAppsForNotificationsForMode___block_invoke_24(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v3 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __57__ATXModeEntityScorer_rankedAppsForNotificationsForMode___block_invoke_24_cold_1();
+    __57__ATXModeEntityScorer_rankedAppsForNotificationsForMode___block_invoke_24_cold_1(a1);
   }
 }
 
@@ -553,26 +554,26 @@ void __61__ATXModeEntityScorer_rankedContactsForNotificationsForMode___block_inv
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void __61__ATXModeEntityScorer_rankedContactsForNotificationsForMode___block_invoke_2()
+void __61__ATXModeEntityScorer_rankedContactsForNotificationsForMode___block_invoke_2(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = objc_opt_class();
-    v2 = NSStringFromClass(v1);
-    v3 = 138412290;
-    v4 = v2;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v3, 0xCu);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
   }
 }
 
-void __61__ATXModeEntityScorer_rankedContactsForNotificationsForMode___block_invoke_25()
+void __61__ATXModeEntityScorer_rankedContactsForNotificationsForMode___block_invoke_25(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v3 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __61__ATXModeEntityScorer_rankedContactsForNotificationsForMode___block_invoke_25_cold_1();
+    __61__ATXModeEntityScorer_rankedContactsForNotificationsForMode___block_invoke_25_cold_1(a1);
   }
 }
 
@@ -620,12 +621,13 @@ void __113__ATXModeEntityScorer_modeEntityScoresFromCacheForModeEntityTypeIdenti
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_notification_management(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __113__ATXModeEntityScorer_modeEntityScoresFromCacheForModeEntityTypeIdentifier_modeIdentifier_modeConfigurationType___block_invoke_cold_1(a1, v7, v8);
+      __113__ATXModeEntityScorer_modeEntityScoresFromCacheForModeEntityTypeIdentifier_modeIdentifier_modeConfigurationType___block_invoke_cold_1(a1, v8, v9);
     }
   }
 
@@ -637,26 +639,26 @@ void __113__ATXModeEntityScorer_modeEntityScoresFromCacheForModeEntityTypeIdenti
   dispatch_semaphore_signal(*(a1 + 40));
 }
 
-void __113__ATXModeEntityScorer_modeEntityScoresFromCacheForModeEntityTypeIdentifier_modeIdentifier_modeConfigurationType___block_invoke_27()
+void __113__ATXModeEntityScorer_modeEntityScoresFromCacheForModeEntityTypeIdentifier_modeIdentifier_modeConfigurationType___block_invoke_27(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = objc_opt_class();
-    v2 = NSStringFromClass(v1);
-    v3 = 138412290;
-    v4 = v2;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v3, 0xCu);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
   }
 }
 
-void __113__ATXModeEntityScorer_modeEntityScoresFromCacheForModeEntityTypeIdentifier_modeIdentifier_modeConfigurationType___block_invoke_28()
+void __113__ATXModeEntityScorer_modeEntityScoresFromCacheForModeEntityTypeIdentifier_modeIdentifier_modeConfigurationType___block_invoke_28(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v3 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __113__ATXModeEntityScorer_modeEntityScoresFromCacheForModeEntityTypeIdentifier_modeIdentifier_modeConfigurationType___block_invoke_28_cold_1();
+    __113__ATXModeEntityScorer_modeEntityScoresFromCacheForModeEntityTypeIdentifier_modeIdentifier_modeConfigurationType___block_invoke_28_cold_1(a1);
   }
 }
 
@@ -698,10 +700,11 @@ void __113__ATXModeEntityScorer_modeEntityScoresFromCacheForModeEntityTypeIdenti
 void __112__ATXModeEntityScorer_assignModeEntityScores_entityTypeIdentifier_entityIdentifier_score_modeConfigurationType___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_notification_management(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __112__ATXModeEntityScorer_assignModeEntityScores_entityTypeIdentifier_entityIdentifier_score_modeConfigurationType___block_invoke_cold_1();
     }
@@ -715,26 +718,26 @@ void __112__ATXModeEntityScorer_assignModeEntityScores_entityTypeIdentifier_enti
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void __112__ATXModeEntityScorer_assignModeEntityScores_entityTypeIdentifier_entityIdentifier_score_modeConfigurationType___block_invoke_30()
+void __112__ATXModeEntityScorer_assignModeEntityScores_entityTypeIdentifier_entityIdentifier_score_modeConfigurationType___block_invoke_30(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = objc_opt_class();
-    v2 = NSStringFromClass(v1);
-    v3 = 138412290;
-    v4 = v2;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v3, 0xCu);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
   }
 }
 
-void __112__ATXModeEntityScorer_assignModeEntityScores_entityTypeIdentifier_entityIdentifier_score_modeConfigurationType___block_invoke_31()
+void __112__ATXModeEntityScorer_assignModeEntityScores_entityTypeIdentifier_entityIdentifier_score_modeConfigurationType___block_invoke_31(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v3 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __112__ATXModeEntityScorer_assignModeEntityScores_entityTypeIdentifier_entityIdentifier_score_modeConfigurationType___block_invoke_31_cold_1();
+    __112__ATXModeEntityScorer_assignModeEntityScores_entityTypeIdentifier_entityIdentifier_score_modeConfigurationType___block_invoke_31_cold_1(a1);
   }
 }
 
@@ -918,24 +921,25 @@ void __86__ATXModeEntityScorer_copyScoreMetadataFromContactModeEntities_toContac
 void __48__ATXModeEntityScorer_scoreContacts_mode_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_notification_management(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __48__ATXModeEntityScorer_scoreContacts_mode_reply___block_invoke_cold_1();
     }
 
-    v7 = *(*(a1 + 48) + 16);
+    v8 = *(*(a1 + 48) + 16);
   }
 
   else
   {
     [*(a1 + 32) copyScoreMetadataFromContactModeEntities:a2 toContactModeEntities:*(a1 + 40)];
-    v7 = *(*(a1 + 48) + 16);
+    v8 = *(*(a1 + 48) + 16);
   }
 
-  v7();
+  v8();
 }
 
 - (void)rankedContactsForMode:(unint64_t)mode reply:(id)reply
@@ -955,23 +959,24 @@ void __48__ATXModeEntityScorer_scoreContacts_mode_reply___block_invoke(uint64_t 
 void __51__ATXModeEntityScorer_rankedContactsForMode_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_notification_management(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __51__ATXModeEntityScorer_rankedContactsForMode_reply___block_invoke_cold_1();
     }
 
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
-  v6();
+  v7();
 }
 
 - (void)rankedContactsForMode:(unint64_t)mode options:(unint64_t)options reply:(id)reply
@@ -992,23 +997,24 @@ void __51__ATXModeEntityScorer_rankedContactsForMode_reply___block_invoke(uint64
 void __59__ATXModeEntityScorer_rankedContactsForMode_options_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_notification_management(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __59__ATXModeEntityScorer_rankedContactsForMode_options_reply___block_invoke_cold_1();
     }
 
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
-  v6();
+  v7();
 }
 
 - (void)scoreApps:(id)apps mode:(unint64_t)mode reply:(id)reply
@@ -1032,24 +1038,25 @@ void __59__ATXModeEntityScorer_rankedContactsForMode_options_reply___block_invok
 void __44__ATXModeEntityScorer_scoreApps_mode_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_notification_management(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __44__ATXModeEntityScorer_scoreApps_mode_reply___block_invoke_cold_1();
     }
 
-    v7 = *(*(a1 + 48) + 16);
+    v8 = *(*(a1 + 48) + 16);
   }
 
   else
   {
     [*(a1 + 32) copyScoreMetadataFromEntities:a2 toEntities:*(a1 + 40)];
-    v7 = *(*(a1 + 48) + 16);
+    v8 = *(*(a1 + 48) + 16);
   }
 
-  v7();
+  v8();
 }
 
 - (void)rankedAppsForMode:(unint64_t)mode reply:(id)reply
@@ -1069,23 +1076,24 @@ void __44__ATXModeEntityScorer_scoreApps_mode_reply___block_invoke(uint64_t a1, 
 void __47__ATXModeEntityScorer_rankedAppsForMode_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_notification_management(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __47__ATXModeEntityScorer_rankedAppsForMode_reply___block_invoke_cold_1();
     }
 
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
-  v6();
+  v7();
 }
 
 - (void)rankedAppsForMode:(unint64_t)mode options:(unint64_t)options reply:(id)reply
@@ -1105,23 +1113,24 @@ void __47__ATXModeEntityScorer_rankedAppsForMode_reply___block_invoke(uint64_t a
 void __55__ATXModeEntityScorer_rankedAppsForMode_options_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_notification_management(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __47__ATXModeEntityScorer_rankedAppsForMode_reply___block_invoke_cold_1();
     }
 
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
-  v6();
+  v7();
 }
 
 - (void)rankedWidgetsForMode:(unint64_t)mode reply:(id)reply
@@ -1141,23 +1150,24 @@ void __55__ATXModeEntityScorer_rankedAppsForMode_options_reply___block_invoke(ui
 void __50__ATXModeEntityScorer_rankedWidgetsForMode_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_notification_management(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __50__ATXModeEntityScorer_rankedWidgetsForMode_reply___block_invoke_cold_1();
     }
 
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
-  v6();
+  v7();
 }
 
 - (void)_attachNotificationEntityScores:(id)scores toNotifications:(id)notifications
@@ -1249,31 +1259,32 @@ void __50__ATXModeEntityScorer_rankedWidgetsForMode_reply___block_invoke(uint64_
 {
   notificationsCopy = notifications;
   replyCopy = reply;
-  if ([notificationsCopy count] < 0xC351)
+  v10 = [notificationsCopy count];
+  if (v10 < 0xC351)
   {
-    v12 = [notificationsCopy _pas_mappedArrayWithTransform:&__block_literal_global_38];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __57__ATXModeEntityScorer_scoreUserNotifications_mode_reply___block_invoke_2;
-    v13[3] = &unk_1E80C2C80;
-    v16 = replyCopy;
-    v13[4] = self;
-    v14 = v12;
-    v15 = notificationsCopy;
-    v11 = v12;
-    [(ATXModeEntityScorer *)self scoreNotifications:v11 mode:mode reply:v13];
+    v13 = [notificationsCopy _pas_mappedArrayWithTransform:&__block_literal_global_38];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __57__ATXModeEntityScorer_scoreUserNotifications_mode_reply___block_invoke_2;
+    v14[3] = &unk_1E80C2C80;
+    v17 = replyCopy;
+    v14[4] = self;
+    v15 = v13;
+    v16 = notificationsCopy;
+    v12 = v13;
+    [(ATXModeEntityScorer *)self scoreNotifications:v12 mode:mode reply:v14];
   }
 
   else
   {
-    v10 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = __atxlog_handle_notification_management(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [ATXModeEntityScorer scoreUserNotifications:v10 mode:? reply:?];
+      [ATXModeEntityScorer scoreUserNotifications:v11 mode:? reply:?];
     }
 
-    v11 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:28 userInfo:0];
-    (*(replyCopy + 2))(replyCopy, v11);
+    v12 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:28 userInfo:0];
+    (*(replyCopy + 2))(replyCopy, v12);
   }
 }
 
@@ -1323,24 +1334,25 @@ uint64_t __57__ATXModeEntityScorer_scoreUserNotifications_mode_reply___block_inv
 void __53__ATXModeEntityScorer_scoreNotifications_mode_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_notification_management(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __53__ATXModeEntityScorer_scoreNotifications_mode_reply___block_invoke_cold_1();
     }
 
-    v7 = *(*(a1 + 48) + 16);
+    v8 = *(*(a1 + 48) + 16);
   }
 
   else
   {
     [*(a1 + 32) copyScoreMetadataFromEntities:a2 toEntities:*(a1 + 40)];
-    v7 = *(*(a1 + 48) + 16);
+    v8 = *(*(a1 + 48) + 16);
   }
 
-  v7();
+  v8();
 }
 
 - (void)rankedNotificationsForMode:(unint64_t)mode reply:(id)reply
@@ -1360,23 +1372,24 @@ void __53__ATXModeEntityScorer_scoreNotifications_mode_reply___block_invoke(uint
 void __56__ATXModeEntityScorer_rankedNotificationsForMode_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_notification_management(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __56__ATXModeEntityScorer_rankedNotificationsForMode_reply___block_invoke_cold_1();
     }
 
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
-  v6();
+  v7();
 }
 
 - (void)rankedNotificationsForMode:(unint64_t)mode options:(unint64_t)options reply:(id)reply
@@ -1396,23 +1409,24 @@ void __56__ATXModeEntityScorer_rankedNotificationsForMode_reply___block_invoke(u
 void __64__ATXModeEntityScorer_rankedNotificationsForMode_options_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_notification_management(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __56__ATXModeEntityScorer_rankedNotificationsForMode_reply___block_invoke_cold_1();
     }
 
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
-  v6();
+  v7();
 }
 
 - (void)rankedAppsForNotificationsForMode:(unint64_t)mode reply:(id)reply
@@ -1432,23 +1446,24 @@ void __64__ATXModeEntityScorer_rankedNotificationsForMode_options_reply___block_
 void __63__ATXModeEntityScorer_rankedAppsForNotificationsForMode_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_notification_management(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __63__ATXModeEntityScorer_rankedAppsForNotificationsForMode_reply___block_invoke_cold_1();
     }
 
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
-  v6();
+  v7();
 }
 
 - (void)rankedContactsForNotificationsForMode:(unint64_t)mode reply:(id)reply
@@ -1468,23 +1483,24 @@ void __63__ATXModeEntityScorer_rankedAppsForNotificationsForMode_reply___block_i
 void __67__ATXModeEntityScorer_rankedContactsForNotificationsForMode_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_notification_management(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __67__ATXModeEntityScorer_rankedContactsForNotificationsForMode_reply___block_invoke_cold_1();
     }
 
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
-  v6();
+  v7();
 }
 
 - (void)scoreAppsForDenyList:(id)list mode:(unint64_t)mode
@@ -1512,26 +1528,26 @@ void __67__ATXModeEntityScorer_rankedContactsForNotificationsForMode_reply___blo
   [MEMORY[0x1E69C5D10] waitForSemaphore:v8 timeoutSeconds:v10 onAcquire:v9 onTimeout:3.0];
 }
 
-void __49__ATXModeEntityScorer_scoreAppsForDenyList_mode___block_invoke_2()
+void __49__ATXModeEntityScorer_scoreAppsForDenyList_mode___block_invoke_2(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = objc_opt_class();
-    v2 = NSStringFromClass(v1);
-    v3 = 138412290;
-    v4 = v2;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v3, 0xCu);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
   }
 }
 
-void __49__ATXModeEntityScorer_scoreAppsForDenyList_mode___block_invoke_42()
+void __49__ATXModeEntityScorer_scoreAppsForDenyList_mode___block_invoke_42(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v3 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __49__ATXModeEntityScorer_scoreAppsForDenyList_mode___block_invoke_42_cold_1();
+    __49__ATXModeEntityScorer_scoreAppsForDenyList_mode___block_invoke_42_cold_1(a1);
   }
 }
 
@@ -1583,26 +1599,26 @@ void __52__ATXModeEntityScorer_rankedAppsForDenyListForMode___block_invoke(uint6
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void __52__ATXModeEntityScorer_rankedAppsForDenyListForMode___block_invoke_2()
+void __52__ATXModeEntityScorer_rankedAppsForDenyListForMode___block_invoke_2(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = objc_opt_class();
-    v2 = NSStringFromClass(v1);
-    v3 = 138412290;
-    v4 = v2;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v3, 0xCu);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
   }
 }
 
-void __52__ATXModeEntityScorer_rankedAppsForDenyListForMode___block_invoke_43()
+void __52__ATXModeEntityScorer_rankedAppsForDenyListForMode___block_invoke_43(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v3 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __52__ATXModeEntityScorer_rankedAppsForDenyListForMode___block_invoke_43_cold_1();
+    __52__ATXModeEntityScorer_rankedAppsForDenyListForMode___block_invoke_43_cold_1(a1);
   }
 }
 
@@ -1627,24 +1643,25 @@ void __52__ATXModeEntityScorer_rankedAppsForDenyListForMode___block_invoke_43()
 void __55__ATXModeEntityScorer_scoreAppsForDenyList_mode_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_notification_management(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __55__ATXModeEntityScorer_scoreAppsForDenyList_mode_reply___block_invoke_cold_1();
     }
 
-    v7 = *(*(a1 + 48) + 16);
+    v8 = *(*(a1 + 48) + 16);
   }
 
   else
   {
     [*(a1 + 32) copyScoreMetadataFromEntities:a2 toEntities:*(a1 + 40)];
-    v7 = *(*(a1 + 48) + 16);
+    v8 = *(*(a1 + 48) + 16);
   }
 
-  v7();
+  v8();
 }
 
 - (void)rankedAppsForDenyListForMode:(unint64_t)mode reply:(id)reply
@@ -1664,23 +1681,24 @@ void __55__ATXModeEntityScorer_scoreAppsForDenyList_mode_reply___block_invoke(ui
 void __58__ATXModeEntityScorer_rankedAppsForDenyListForMode_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_notification_management(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __58__ATXModeEntityScorer_rankedAppsForDenyListForMode_reply___block_invoke_cold_1();
     }
 
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
-  v6();
+  v7();
 }
 
 - (void)scoreContactsForDenyList:(id)list mode:(unint64_t)mode
@@ -1708,26 +1726,26 @@ void __58__ATXModeEntityScorer_rankedAppsForDenyListForMode_reply___block_invoke
   [MEMORY[0x1E69C5D10] waitForSemaphore:v8 timeoutSeconds:v10 onAcquire:v9 onTimeout:3.0];
 }
 
-void __53__ATXModeEntityScorer_scoreContactsForDenyList_mode___block_invoke_2()
+void __53__ATXModeEntityScorer_scoreContactsForDenyList_mode___block_invoke_2(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = objc_opt_class();
-    v2 = NSStringFromClass(v1);
-    v3 = 138412290;
-    v4 = v2;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v3, 0xCu);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
   }
 }
 
-void __53__ATXModeEntityScorer_scoreContactsForDenyList_mode___block_invoke_44()
+void __53__ATXModeEntityScorer_scoreContactsForDenyList_mode___block_invoke_44(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v3 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __53__ATXModeEntityScorer_scoreContactsForDenyList_mode___block_invoke_44_cold_1();
+    __53__ATXModeEntityScorer_scoreContactsForDenyList_mode___block_invoke_44_cold_1(a1);
   }
 }
 
@@ -1779,26 +1797,26 @@ void __64__ATXModeEntityScorer_rankedContactsForDenyListForMode_options___block_
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void __64__ATXModeEntityScorer_rankedContactsForDenyListForMode_options___block_invoke_2()
+void __64__ATXModeEntityScorer_rankedContactsForDenyListForMode_options___block_invoke_2(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v0 = __atxlog_handle_default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = objc_opt_class();
-    v2 = NSStringFromClass(v1);
-    v3 = 138412290;
-    v4 = v2;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v3, 0xCu);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
   }
 }
 
-void __64__ATXModeEntityScorer_rankedContactsForDenyListForMode_options___block_invoke_45()
+void __64__ATXModeEntityScorer_rankedContactsForDenyListForMode_options___block_invoke_45(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v3 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __64__ATXModeEntityScorer_rankedContactsForDenyListForMode_options___block_invoke_45_cold_1();
+    __64__ATXModeEntityScorer_rankedContactsForDenyListForMode_options___block_invoke_45_cold_1(a1);
   }
 }
 
@@ -1823,24 +1841,25 @@ void __64__ATXModeEntityScorer_rankedContactsForDenyListForMode_options___block_
 void __59__ATXModeEntityScorer_scoreContactsForDenyList_mode_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_notification_management(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __59__ATXModeEntityScorer_scoreContactsForDenyList_mode_reply___block_invoke_cold_1();
     }
 
-    v7 = *(*(a1 + 48) + 16);
+    v8 = *(*(a1 + 48) + 16);
   }
 
   else
   {
     [*(a1 + 32) copyScoreMetadataFromEntities:a2 toEntities:*(a1 + 40)];
-    v7 = *(*(a1 + 48) + 16);
+    v8 = *(*(a1 + 48) + 16);
   }
 
-  v7();
+  v8();
 }
 
 - (void)rankedContactsForDenyListForMode:(unint64_t)mode options:(unint64_t)options reply:(id)reply
@@ -1860,50 +1879,51 @@ void __59__ATXModeEntityScorer_scoreContactsForDenyList_mode_reply___block_invok
 void __70__ATXModeEntityScorer_rankedContactsForDenyListForMode_options_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_notification_management(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __70__ATXModeEntityScorer_rankedContactsForDenyListForMode_options_reply___block_invoke_cold_1();
     }
 
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
-  v6();
+  v7();
 }
 
-void __38__ATXModeEntityScorer_scoreApps_mode___block_invoke_16_cold_1()
+void __38__ATXModeEntityScorer_scoreApps_mode___block_invoke_16_cold_1(uint64_t a1)
 {
-  v0 = OUTLINED_FUNCTION_5_3();
-  v1 = NSStringFromClass(v0);
+  v1 = OUTLINED_FUNCTION_5_3(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-void __41__ATXModeEntityScorer_rankedAppsForMode___block_invoke_18_cold_1()
+void __41__ATXModeEntityScorer_rankedAppsForMode___block_invoke_18_cold_1(uint64_t a1)
 {
-  v0 = OUTLINED_FUNCTION_5_3();
-  v1 = NSStringFromClass(v0);
+  v1 = OUTLINED_FUNCTION_5_3(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-void __51__ATXModeEntityScorer_scoreUserNotifications_mode___block_invoke_20_cold_1()
+void __51__ATXModeEntityScorer_scoreUserNotifications_mode___block_invoke_20_cold_1(uint64_t a1)
 {
-  v0 = OUTLINED_FUNCTION_5_3();
-  v1 = NSStringFromClass(v0);
+  v1 = OUTLINED_FUNCTION_5_3(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void __58__ATXModeEntityScorer_rankedNotificationsForMode_options___block_invoke_cold_1()
@@ -1915,31 +1935,31 @@ void __58__ATXModeEntityScorer_rankedNotificationsForMode_options___block_invoke
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void __58__ATXModeEntityScorer_rankedNotificationsForMode_options___block_invoke_23_cold_1()
+void __58__ATXModeEntityScorer_rankedNotificationsForMode_options___block_invoke_23_cold_1(uint64_t a1)
 {
-  v0 = OUTLINED_FUNCTION_5_3();
-  v1 = NSStringFromClass(v0);
+  v1 = OUTLINED_FUNCTION_5_3(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-void __57__ATXModeEntityScorer_rankedAppsForNotificationsForMode___block_invoke_24_cold_1()
+void __57__ATXModeEntityScorer_rankedAppsForNotificationsForMode___block_invoke_24_cold_1(uint64_t a1)
 {
-  v0 = OUTLINED_FUNCTION_5_3();
-  v1 = NSStringFromClass(v0);
+  v1 = OUTLINED_FUNCTION_5_3(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-void __61__ATXModeEntityScorer_rankedContactsForNotificationsForMode___block_invoke_25_cold_1()
+void __61__ATXModeEntityScorer_rankedContactsForNotificationsForMode___block_invoke_25_cold_1(uint64_t a1)
 {
-  v0 = OUTLINED_FUNCTION_5_3();
-  v1 = NSStringFromClass(v0);
+  v1 = OUTLINED_FUNCTION_5_3(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void __113__ATXModeEntityScorer_modeEntityScoresFromCacheForModeEntityTypeIdentifier_modeIdentifier_modeConfigurationType___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
@@ -1953,13 +1973,13 @@ void __113__ATXModeEntityScorer_modeEntityScoresFromCacheForModeEntityTypeIdenti
   _os_log_error_impl(&dword_1BF549000, log, OS_LOG_TYPE_ERROR, "Did not receive modeEntityScoresFromCache for mode:%@ error:%@", &v4, 0x16u);
 }
 
-void __113__ATXModeEntityScorer_modeEntityScoresFromCacheForModeEntityTypeIdentifier_modeIdentifier_modeConfigurationType___block_invoke_28_cold_1()
+void __113__ATXModeEntityScorer_modeEntityScoresFromCacheForModeEntityTypeIdentifier_modeIdentifier_modeConfigurationType___block_invoke_28_cold_1(uint64_t a1)
 {
-  v0 = OUTLINED_FUNCTION_5_3();
-  v1 = NSStringFromClass(v0);
+  v1 = OUTLINED_FUNCTION_5_3(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void __112__ATXModeEntityScorer_assignModeEntityScores_entityTypeIdentifier_entityIdentifier_score_modeConfigurationType___block_invoke_cold_1()
@@ -1969,13 +1989,13 @@ void __112__ATXModeEntityScorer_assignModeEntityScores_entityTypeIdentifier_enti
   _os_log_error_impl(&dword_1BF549000, v0, OS_LOG_TYPE_ERROR, "assignModeEntityScores error:%@", v1, 0xCu);
 }
 
-void __112__ATXModeEntityScorer_assignModeEntityScores_entityTypeIdentifier_entityIdentifier_score_modeConfigurationType___block_invoke_31_cold_1()
+void __112__ATXModeEntityScorer_assignModeEntityScores_entityTypeIdentifier_entityIdentifier_score_modeConfigurationType___block_invoke_31_cold_1(uint64_t a1)
 {
-  v0 = OUTLINED_FUNCTION_5_3();
-  v1 = NSStringFromClass(v0);
+  v1 = OUTLINED_FUNCTION_5_3(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void __48__ATXModeEntityScorer_scoreContacts_mode_reply___block_invoke_cold_1()
@@ -2077,22 +2097,22 @@ void __67__ATXModeEntityScorer_rankedContactsForNotificationsForMode_reply___blo
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void __49__ATXModeEntityScorer_scoreAppsForDenyList_mode___block_invoke_42_cold_1()
+void __49__ATXModeEntityScorer_scoreAppsForDenyList_mode___block_invoke_42_cold_1(uint64_t a1)
 {
-  v0 = OUTLINED_FUNCTION_5_3();
-  v1 = NSStringFromClass(v0);
+  v1 = OUTLINED_FUNCTION_5_3(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-void __52__ATXModeEntityScorer_rankedAppsForDenyListForMode___block_invoke_43_cold_1()
+void __52__ATXModeEntityScorer_rankedAppsForDenyListForMode___block_invoke_43_cold_1(uint64_t a1)
 {
-  v0 = OUTLINED_FUNCTION_5_3();
-  v1 = NSStringFromClass(v0);
+  v1 = OUTLINED_FUNCTION_5_3(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void __55__ATXModeEntityScorer_scoreAppsForDenyList_mode_reply___block_invoke_cold_1()
@@ -2115,22 +2135,22 @@ void __58__ATXModeEntityScorer_rankedAppsForDenyListForMode_reply___block_invoke
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void __53__ATXModeEntityScorer_scoreContactsForDenyList_mode___block_invoke_44_cold_1()
+void __53__ATXModeEntityScorer_scoreContactsForDenyList_mode___block_invoke_44_cold_1(uint64_t a1)
 {
-  v0 = OUTLINED_FUNCTION_5_3();
-  v1 = NSStringFromClass(v0);
+  v1 = OUTLINED_FUNCTION_5_3(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-void __64__ATXModeEntityScorer_rankedContactsForDenyListForMode_options___block_invoke_45_cold_1()
+void __64__ATXModeEntityScorer_rankedContactsForDenyListForMode_options___block_invoke_45_cold_1(uint64_t a1)
 {
-  v0 = OUTLINED_FUNCTION_5_3();
-  v1 = NSStringFromClass(v0);
+  v1 = OUTLINED_FUNCTION_5_3(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void __59__ATXModeEntityScorer_scoreContactsForDenyList_mode_reply___block_invoke_cold_1()

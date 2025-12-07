@@ -14,10 +14,13 @@
 - (void)copyFromTexture:(id)texture toTexture:(id)toTexture;
 - (void)copyIndirectCommandBuffer:(id)buffer sourceRange:(_NSRange)range destination:(id)destination destinationIndex:(unint64_t)index;
 - (void)endEncoding;
+- (void)fillBuffer:(id)buffer range:(_NSRange)range pattern4:(unsigned int)pattern4;
+- (void)fillBuffer:(id)buffer range:(_NSRange)range value:(unsigned __int8)value;
 - (void)fillTexture:(id)texture level:(unint64_t)level slice:(unint64_t)slice region:(id *)region bytes:(const void *)bytes length:(unint64_t)length;
 - (void)fillTexture:(id)texture level:(unint64_t)level slice:(unint64_t)slice region:(id *)region color:(id)color;
 - (void)fillTexture:(id)texture level:(unint64_t)level slice:(unint64_t)slice region:(id *)region color:(id)color pixelFormat:(unint64_t)format;
 - (void)generateMipmapsForTexture:(id)texture;
+- (void)getTextureAccessCounters:(id)counters region:(id *)region mipLevel:(unint64_t)level slice:(unint64_t)slice resetCounters:(BOOL)resetCounters countersBuffer:(id)buffer countersBufferOffset:(unint64_t)offset;
 - (void)insertDebugSignpost:(id)signpost;
 - (void)invalidateCompressedTexture:(id)texture;
 - (void)invalidateCompressedTexture:(id)texture slice:(unint64_t)slice level:(unint64_t)level;
@@ -33,6 +36,7 @@
 - (void)resetCommandsInBuffer:(id)buffer withRange:(_NSRange)range;
 - (void)resetTextureAccessCounters:(id)counters region:(id *)region mipLevel:(unint64_t)level slice:(unint64_t)slice;
 - (void)resolveCounters:(id)counters inRange:(_NSRange)range destinationBuffer:(id)buffer destinationOffset:(unint64_t)offset;
+- (void)sampleCountersInBuffer:(id)buffer atSampleIndex:(unint64_t)index withBarrier:(BOOL)barrier;
 - (void)updateFence:(id)fence;
 - (void)waitForFence:(id)fence;
 @end
@@ -166,6 +170,30 @@
   [baseObject generateMipmapsForTexture:baseObject2];
 }
 
+- (void)fillBuffer:(id)buffer range:(_NSRange)range value:(unsigned __int8)value
+{
+  valueCopy = value;
+  length = range.length;
+  location = range.location;
+  [(MTLToolsCommandEncoder *)self addRetainedObject:?];
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [buffer baseObject];
+
+  [baseObject fillBuffer:baseObject2 range:location value:{length, valueCopy}];
+}
+
+- (void)fillBuffer:(id)buffer range:(_NSRange)range pattern4:(unsigned int)pattern4
+{
+  v5 = *&pattern4;
+  length = range.length;
+  location = range.location;
+  [(MTLToolsCommandEncoder *)self addRetainedObject:?];
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [buffer baseObject];
+
+  [baseObject fillBuffer:baseObject2 range:location pattern4:{length, v5}];
+}
+
 - (void)fillTexture:(id)texture level:(unint64_t)level slice:(unint64_t)slice region:(id *)region bytes:(const void *)bytes length:(unint64_t)length
 {
   [(MTLToolsCommandEncoder *)self addRetainedObject:?];
@@ -268,6 +296,18 @@
   [baseObject copyFromTexture:baseObject2 toTexture:baseObject3];
 }
 
+- (void)getTextureAccessCounters:(id)counters region:(id *)region mipLevel:(unint64_t)level slice:(unint64_t)slice resetCounters:(BOOL)resetCounters countersBuffer:(id)buffer countersBufferOffset:(unint64_t)offset
+{
+  resetCountersCopy = resetCounters;
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [counters baseObject];
+  v17 = *&region->var0.var2;
+  v18[0] = *&region->var0.var0;
+  v18[1] = v17;
+  v18[2] = *&region->var1.var1;
+  [baseObject getTextureAccessCounters:baseObject2 region:v18 mipLevel:level slice:slice resetCounters:resetCountersCopy countersBuffer:objc_msgSend(buffer countersBufferOffset:{"baseObject"), offset}];
+}
+
 - (void)resetTextureAccessCounters:(id)counters region:(id *)region mipLevel:(unint64_t)level slice:(unint64_t)slice
 {
   baseObject = [(MTLToolsObject *)self baseObject];
@@ -361,6 +401,16 @@
   baseObject3 = [buffer baseObject];
 
   [baseObject resolveCounters:baseObject2 inRange:location destinationBuffer:length destinationOffset:{baseObject3, offset}];
+}
+
+- (void)sampleCountersInBuffer:(id)buffer atSampleIndex:(unint64_t)index withBarrier:(BOOL)barrier
+{
+  barrierCopy = barrier;
+  [(MTLToolsCommandEncoder *)self addRetainedObject:?];
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [buffer baseObject];
+
+  [baseObject sampleCountersInBuffer:baseObject2 atSampleIndex:index withBarrier:barrierCopy];
 }
 
 - (id)endEncodingAndRetrieveProgramAddressTable

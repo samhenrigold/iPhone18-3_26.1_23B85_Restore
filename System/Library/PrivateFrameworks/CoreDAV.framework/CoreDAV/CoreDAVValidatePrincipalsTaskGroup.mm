@@ -82,7 +82,7 @@
 
 - (void)task:(id)task didFinishWithError:(id)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
   [(NSMutableSet *)self->super._outstandingTasks removeObject:taskCopy];
@@ -98,11 +98,11 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         urlBeingExamined = [(CoreDAVValidatePrincipalsTaskGroup *)self urlBeingExamined];
-        v22 = 138412546;
-        v23 = urlBeingExamined;
-        v24 = 2112;
-        v25 = errorCopy;
-        _os_log_impl(&dword_2452FB000, v11, OS_LOG_TYPE_DEFAULT, "Error accessing: %@, error: %@", &v22, 0x16u);
+        v21 = 138412546;
+        v22 = urlBeingExamined;
+        v23 = 2112;
+        v24 = errorCopy;
+        _os_log_impl(&dword_2452FB000, v11, OS_LOG_TYPE_DEFAULT, "Error accessing: %@, error: %@", &v21, 0x16u);
       }
     }
 
@@ -136,17 +136,15 @@
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           urlBeingExamined2 = [(CoreDAVValidatePrincipalsTaskGroup *)self urlBeingExamined];
-          v22 = 138412290;
-          v23 = urlBeingExamined2;
-          _os_log_impl(&dword_2452FB000, v19, OS_LOG_TYPE_DEFAULT, "Failed to find a principal-URL for: %@", &v22, 0xCu);
+          v21 = 138412290;
+          v22 = urlBeingExamined2;
+          _os_log_impl(&dword_2452FB000, v19, OS_LOG_TYPE_DEFAULT, "Failed to find a principal-URL for: %@", &v21, 0xCu);
         }
       }
     }
   }
 
   [(CoreDAVValidatePrincipalsTaskGroup *)self _fetchNextURL];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelTaskGroup

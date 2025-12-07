@@ -409,10 +409,10 @@ LABEL_16:
 {
   if ([(PFVideoAdjustments *)self isRecognizedFormat])
   {
-    [(PFVideoAdjustments *)self slowMotionTimeRange];
+    objc_msgSend_slowMotionTimeRange(self);
     time = v12;
     Seconds = CMTimeGetSeconds(&time);
-    [(PFVideoAdjustments *)self slowMotionTimeRange];
+    objc_msgSend_slowMotionTimeRange(self);
     time = v11;
     v4 = Seconds + CMTimeGetSeconds(&time);
     v10.receiver = self;
@@ -489,7 +489,7 @@ LABEL_16:
 
 - (BOOL)hasSlowMotionAdjustments
 {
-  [(PFVideoAdjustments *)self slowMotionTimeRange];
+  objc_msgSend_slowMotionTimeRange(self, a2);
   [(PFVideoAdjustments *)self slowMotionRate];
   return [(PFVideoAdjustments *)self _isValidSlowMotionTimeRange:&v4 rate:?];
 }
@@ -640,29 +640,27 @@ LABEL_16:
 {
   assetCopy = asset;
   v4 = assetCopy;
-  v18 = 0uLL;
-  v19 = 0;
+  v16 = 0uLL;
+  v17 = 0;
   if (assetCopy)
   {
-    [assetCopy duration];
+    objc_msgSend_duration(assetCopy);
   }
 
-  v16 = 0u;
-  v17 = 0u;
+  v14 = 0u;
   v15 = 0u;
-  v12 = v18;
-  *&v13 = v19;
-  [PFVideoAdjustments defaultSlowMotionTimeRangeForDuration:&v12];
+  v13 = 0u;
+  objc_msgSend_defaultSlowMotionTimeRangeForDuration_(PFVideoAdjustments, v16, v17);
   v5 = [PFMediaUtilities tracksWithMediaType:*MEMORY[0x1E6987608] forAsset:v4];
   firstObject = [v5 firstObject];
   [firstObject nominalFrameRate];
   [PFVideoAdjustments defaultSlowMotionRateForNominalFrameRate:?];
   v8 = v7;
   v9 = [PFVideoAdjustments alloc];
-  v12 = v15;
-  v13 = v16;
-  v14 = v17;
-  v10 = [(PFVideoAdjustments *)v9 initWithSlowMotionTimeRange:&v12 rate:COERCE_DOUBLE(__PAIR64__(DWORD1(v17), v8))];
+  v12[0] = v13;
+  v12[1] = v14;
+  v12[2] = v15;
+  v10 = [(PFVideoAdjustments *)v9 initWithSlowMotionTimeRange:v12 rate:COERCE_DOUBLE(__PAIR64__(DWORD1(v15), v8))];
 
   return v10;
 }

@@ -139,7 +139,7 @@ LABEL_4:
   if (v4)
   {
     v6 = v3;
-    WTF::ThreadSafeRefCounted<SafariShared::HistoryURLCompletionItem,(WTF::DestructionThread)0>::deref(v4);
+    WTF::ThreadSafeRefCounted<SafariShared::HistoryURLCompletionItem,(WTF::DestructionThread)0>::deref(v4, a2);
     v3 = v6;
     v2 = vars8;
   }

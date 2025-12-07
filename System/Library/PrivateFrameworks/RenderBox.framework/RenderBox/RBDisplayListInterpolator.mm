@@ -244,10 +244,10 @@
   {
     _rb_contents = [*(self + 16) _rb_contents];
     _rb_contents2 = [*(self + 24) _rb_contents];
-    v10 = a2[1];
+    v10 = *(a2 + 8);
     if (!*(v10 + 24))
     {
-      make_contents(a2[1]);
+      make_contents(*(a2 + 8));
     }
 
     [v10 deviceScale];

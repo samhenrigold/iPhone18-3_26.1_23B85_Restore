@@ -561,18 +561,18 @@
     dispatch_once(&qword_1ED4A2CF8, &__block_literal_global_23_4);
   }
 
-  v28 = [_UISignalViewCacheKey alloc];
-  v29 = [(_UISignalViewCacheKey *)v28 initWithClass:self size:a11 rect:a2 radius:size lineWidth:rect secondarySize:radius secondaryRect:width alternate:ofSize scale:inRect, a12, *MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8), *&a15, *&a16, *&a17, *&a18, *&scale];
-  v30 = [qword_1ED4A2CF0 objectForKey:v29];
-  if (!v30)
+  v23 = [_UISignalViewCacheKey alloc];
+  v24 = [(_UISignalViewCacheKey *)v23 initWithClass:self size:a11 rect:a2 radius:size lineWidth:rect secondarySize:radius secondaryRect:width alternate:ofSize scale:inRect, a12, *MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8), *&a15, *&a16, *&a17, *&a18, *&scale];
+  v25 = [qword_1ED4A2CF0 objectForKey:v24];
+  if (!v25)
   {
-    v31 = [self _batteryBodyImageWithSize:0 forScale:a2 batteryRect:size cornerRadius:scale lineWidth:rect filled:{radius, width, ofSize, inRect, *&a12}];
-    v32 = [self _batteryBoltMaskImageWithSize:a13 boltSize:a14 forScale:{a13, a14, scale}];
-    v30 = [objc_opt_class() _imageByPunchingImage:v32 inRect:a11 flippedHorizontally:v31 outOfImage:a15 inRect:a16 size:a17 scale:{a18, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), a2, size, *&a2, *&size, *&scale}];
-    [qword_1ED4A2CF0 setObject:v30 forKey:v29];
+    v26 = [self _batteryBodyImageWithSize:0 forScale:a2 batteryRect:size cornerRadius:scale lineWidth:rect filled:{radius, width, ofSize, inRect, *&a12}];
+    v27 = [self _batteryBoltMaskImageWithSize:a13 boltSize:a14 forScale:{a13, a14, scale}];
+    v25 = [objc_opt_class() _imageByPunchingImage:v27 inRect:a11 flippedHorizontally:v26 outOfImage:a15 inRect:a16 size:a17 scale:{a18, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), a2, size, *&a2, *&size, *&scale}];
+    [qword_1ED4A2CF0 setObject:v25 forKey:v24];
   }
 
-  return v30;
+  return v25;
 }
 
 + (id)_percentFillImageWithSize:(CGSize)size forScale:(double)scale batteryRect:(CGRect)rect cornerRadius:(double)radius lineWidth:(double)width

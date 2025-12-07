@@ -1,3 +1,1018 @@
+unint64_t CI::sw_smarttone_highlightcontrast(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 8);
+  v5 = (a3 + 16 * v4);
+  v6 = (a2 + (v4 << 6));
+  if (*(v3 + 16) == 5)
+  {
+    v7 = v5;
+  }
+
+  else
+  {
+    v7 = v6;
+  }
+
+  v8 = *(a2 + (*(v3 + 32) << 6));
+  v23 = *(a2 + (*(v3 + 56) << 6));
+  v11 = vmulq_f32(*v7, vdupq_n_s32(0x3EAAA64Cu));
+  v9 = *v7;
+  v24 = *v7;
+  v10 = vaddv_f32(*v11.f32);
+  v11.f32[0] = v11.f32[2] + v10;
+  if ((v11.f32[2] + v10) <= 1.0)
+  {
+    v12 = v11.f32[2] + v10;
+  }
+
+  else
+  {
+    v12 = 1.0;
+  }
+
+  v13 = v11.f32[0] < 0.0;
+  v14 = 0;
+  if (!v13)
+  {
+    *v14.i32 = v12;
+  }
+
+  v9.i32[3] = 0;
+  v22 = v14;
+  v15 = vmaxnmq_f32(v9, 0);
+  v16 = v8 * -2.0 + 3.0;
+  *&v16 = v16;
+  v15.i32[3] = 0;
+  v17 = vdupq_lane_s32(*&v16, 0);
+  v17.i32[3] = 0;
+  v18 = vaddq_f32(_simd_pow_f4(v15, v17), vminnmq_f32(v9, 0));
+  v19 = v8 * -3.0 + 4.0;
+  v20 = (v8 * (v8 * (v8 * v8))) * -3.0 + 4.0;
+  *&v20 = v20;
+  *&v20 = ((*v22.i32 + -0.8) * *&v20) + 0.8;
+  return vmlaq_n_f32(vmulq_n_f32(v24, 1.0 - (*v22.i32 * *v22.i32)), vmlaq_n_f32(vmulq_n_f32(vsubq_f32(vaddq_f32(v18, vdupq_lane_s32(*&v20, 0)), vdupq_lane_s32(v22, 0)), 1.0 - v23), vaddq_f32(vmulq_n_f32(vaddq_f32(v18, vdupq_n_s32(0xBF4CCCCD)), v19), vdupq_n_s32(0x3F4CCCCDu)), v23), *v22.i32 * *v22.i32).u64[0];
+}
+
+unint64_t CI::sw_rawHighlights(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 8);
+  v5 = (a3 + 16 * v4);
+  v6 = (a2 + (v4 << 6));
+  if (*(v3 + 16) == 5)
+  {
+    v7 = v5;
+  }
+
+  else
+  {
+    v7 = v6;
+  }
+
+  v8 = vmulq_n_f32(*v7, *(a2 + (*(v3 + 32) << 6)));
+  v9 = vmulq_f32(*v7, vdupq_n_s32(0x3EAAA64Cu));
+  v10 = v9.f32[2] + vaddv_f32(*v9.f32);
+  if (v10 <= 1.0)
+  {
+    v11 = v10;
+  }
+
+  else
+  {
+    v11 = 1.0;
+  }
+
+  v12 = v10 < 0.0;
+  v13 = 0.0;
+  if (!v12)
+  {
+    v13 = v11;
+  }
+
+  v14 = *v7;
+  v14.i32[3] = 0;
+  v15 = vmlaq_n_f32(vmulq_n_f32(vmaxnmq_f32(v14, 0), 1.0 - (v13 * v13)), v8, v13 * v13);
+  v8.i32[3] = 0;
+  return vaddq_f32(vminnmq_f32(v8, 0), v15).u64[0];
+}
+
+uint64_t ___ZL22CI_SMART_TONE_USE_CUBEv_block_invoke()
+{
+  v0 = getenv("CI_SMART_TONE_USE_CUBE");
+  if (v0)
+  {
+    result = atoi(v0);
+  }
+
+  else
+  {
+    result = CI_SMART_TONE_USE_CUBE(void)::v;
+  }
+
+  CI_SMART_TONE_USE_CUBE(void)::v = result;
+  return result;
+}
+
+unint64_t CI::sw_smartcolor_contrast(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5, double a6, double a7, double a8)
+{
+  v8 = *(a1 + 40);
+  v9 = *(v8 + 8);
+  v10 = (a3 + 16 * v9);
+  v11 = (a2 + (v9 << 6));
+  if (*(v8 + 16) == 5)
+  {
+    v12 = v10;
+  }
+
+  else
+  {
+    v12 = v11;
+  }
+
+  v13 = vmulq_f32(*v12, xmmword_19CF29CD0);
+  v13.f32[0] = v13.f32[2] + vaddv_f32(*v13.f32);
+  v14 = vsubq_f32(0, vsubq_f32(*v12, vdupq_lane_s32(*v13.f32, 0)));
+  v15 = vmulq_f32(v14, v14);
+  v16 = sqrtf(v15.f32[2] + vaddv_f32(*v15.f32));
+  if (v16 > 1.0)
+  {
+    v16 = 1.0;
+  }
+
+  v17 = ((v16 * v16) * ((v16 * -2.0) + 3.0)) * 5.0 * *(a2 + (*(v8 + 32) << 6));
+  v18 = *v12;
+  v18.i32[3] = 0;
+  __asm { FMOV            V7.4S, #-1.0 }
+
+  v24 = vaddq_f32(vmaxnmq_f32(v18, xmmword_19CF23BD0), _Q7);
+  v25 = vminnmq_f32(v18, 0);
+  v26 = vmaxnmq_f32(v18, 0);
+  v26.i32[3] = 0;
+  v27 = vminnmq_f32(v26, xmmword_19CF23BD0);
+  v28 = fmaxf((v27.f32[2] - v27.f32[1]) * v17, -0.35);
+  *&a8 = v28 + 1.0;
+  return vaddq_f32(vaddq_f32(v25, v24), vdivq_f32(v27, vsubq_f32(vdupq_lane_s32(*&a8, 0), vmulq_n_f32(v27, v28)))).u64[0];
+}
+
+double CI::sw_smartcolor_contrast_darken(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 8);
+  v5 = (a3 + 16 * v4);
+  v6 = (a2 + (v4 << 6));
+  if (*(v3 + 16) == 5)
+  {
+    v7 = v5;
+  }
+
+  else
+  {
+    v7 = v6;
+  }
+
+  v8 = vmulq_f32(*v7, xmmword_19CF29CD0);
+  v8.f32[0] = v8.f32[2] + vaddv_f32(*v8.f32);
+  v9 = vsubq_f32(0, vsubq_f32(*v7, vdupq_lane_s32(*v8.f32, 0)));
+  v10 = vmulq_f32(v9, v9);
+  v11 = sqrtf(v10.f32[2] + vaddv_f32(*v10.f32));
+  if (v11 > 1.0)
+  {
+    v11 = 1.0;
+  }
+
+  v12 = *v7;
+  v12.i32[3] = 0;
+  v13 = ((v11 * v11) * ((v11 * -2.0) + 3.0)) * 5.0 * *(a2 + (*(v3 + 32) << 6));
+  v14 = vmaxnmq_f32(v12, 0);
+  v14.i32[3] = 0;
+  v15 = xmmword_19CF23BD0;
+  v16 = vminnmq_f32(v14, xmmword_19CF23BD0);
+  v17 = (v16.f32[2] - v16.f32[1]) * v13;
+  if (v17 >= 0.0)
+  {
+    v10.f32[0] = v17 + 1.0;
+    v20 = vdivq_f32(v16, vsubq_f32(vdupq_lane_s32(*v10.f32, 0), vmulq_n_f32(v16, v17)));
+  }
+
+  else
+  {
+    v18 = vmulq_f32(v16, xmmword_19CF29CE0);
+    v10.f32[0] = 1.0 - ((1.0 - fminf(v18.f32[2] + vaddv_f32(*v18.f32), 1.0)) * v17);
+    v16.i32[3] = 0;
+    v19 = vdupq_lane_s32(*v10.f32, 0);
+    v19.i32[3] = 0;
+    v27 = v12;
+    v20 = _simd_pow_f4(v16, v19);
+    v15 = xmmword_19CF23BD0;
+    v12 = v27;
+  }
+
+  __asm { FMOV            V3.4S, #-1.0 }
+
+  *&result = vaddq_f32(v20, vaddq_f32(vminnmq_f32(v12, 0), vaddq_f32(vmaxnmq_f32(v12, v15), _Q3))).u64[0];
+  return result;
+}
+
+unint64_t CI::sw_smartcolor_vibrancy_gt1(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 8);
+  v5 = (a3 + 16 * v4);
+  v6 = (a2 + (v4 << 6));
+  if (*(v3 + 16) == 5)
+  {
+    v7 = v5;
+  }
+
+  else
+  {
+    v7 = v6;
+  }
+
+  v8 = *(a2 + (*(v3 + 32) << 6));
+  v9 = *v7->f32;
+  v9.i32[3] = 0;
+  v10 = vmaxnmq_f32(v9, 0);
+  v10.i32[3] = 0;
+  v11 = vminnmq_f32(v10, xmmword_19CF23BD0);
+  v12 = vmulq_f32(v11, xmmword_19CF29CF0);
+  v13 = (v12.f32[2] + vaddv_f32(*v12.f32));
+  v15 = 1.0 / (COERCE_FLOAT(*&v7[1]) + vaddv_f32(*v7));
+  v16 = (((v15 * COERCE_FLOAT(*v7->f32)) - vmuls_lane_f32(v15, *v7->f32, 2)) + -0.2) / 0.2;
+  if (v16 <= 1.0)
+  {
+    v17 = v16;
+  }
+
+  else
+  {
+    v17 = 1.0;
+  }
+
+  if (v16 < 0.0)
+  {
+    v17 = 0.0;
+  }
+
+  v18 = ((v17 * v17) * ((v17 * -2.0) + 3.0)) * -0.8 + 1.0;
+  v14 = v13 * -4.0 * (1.0 - v13) + 1.0;
+  v19 = v14 * v18;
+  if (v8 > 2.5)
+  {
+    v20 = (v8 + -2.5) / 5.0 + v19;
+    v19 = fminf(v20, 1.0);
+  }
+
+  v21 = vmulq_f32(v11, xmmword_19CF29D00);
+  v21.f32[0] = v21.f32[2] + vaddv_f32(*v21.f32);
+  v22 = vdupq_lane_s32(*v21.f32, 0);
+  return vmlaq_n_f32(vmulq_n_f32(*v7->f32, 1.0 - v19), vaddq_f32(v22, vmulq_n_f32(vsubq_f32(*v7->f32, v22), fminf(v8, 3.0))), v19).u64[0];
+}
+
+unint64_t CI::sw_smartcolor_vibrancy_lt1(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 8);
+  v5 = (a3 + 16 * v4);
+  v6 = (a2 + (v4 << 6));
+  if (*(v3 + 16) == 5)
+  {
+    v7 = v5;
+  }
+
+  else
+  {
+    v7 = v6;
+  }
+
+  v8 = *(a2 + (*(v3 + 32) << 6));
+  v9 = vmulq_f32(*v7, vdupq_n_s32(0x3EAAAA9Fu));
+  v9.f32[0] = (1.0 - v8) * (v9.f32[2] + vaddv_f32(*v9.f32));
+  return vmlaq_n_f32(vdupq_lane_s32(*v9.f32, 0), *v7, v8).u64[0];
+}
+
+double CI::sw_smartcolor_cast(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 8);
+  v5 = (a3 + 16 * v4);
+  v6 = (a2 + (v4 << 6));
+  if (*(v3 + 16) == 5)
+  {
+    v7 = v5;
+  }
+
+  else
+  {
+    v7 = v6;
+  }
+
+  v8 = *(a2 + (*(v3 + 32) << 6));
+  v9 = *(a2 + (*(v3 + 104) << 6));
+  v30 = *v7;
+  __asm { FMOV            V1.4S, #1.0 }
+
+  v15 = vminnmq_f32(vmaxnmq_f32(*v7, 0), _Q1);
+  v15.i32[3] = 0;
+  _Q1.i32[0] = *(a2 + (*(v3 + 56) << 6));
+  _Q1.i32[1] = *(a2 + (*(v3 + 80) << 6));
+  v29 = *_Q1.f32;
+  v16 = _simd_pow_f4(v15, xmmword_19CF23AC0);
+  v17 = vaddq_f32(vmulq_lane_f32(xmmword_19CF23AA0, *v16.f32, 1), vmulq_n_f32(xmmword_19CF23A90, v16.f32[0]));
+  v18 = vaddq_f32(vmulq_laneq_f32(xmmword_19CF23AB0, v16, 2), v17);
+  v17.f32[0] = (v9 + -1.0) * (1.0 - v18.f32[0]) + 1.0;
+  v19 = vextq_s8(v18, v18, 4uLL);
+  *v17.f32 = vadd_f32(*v19.i8, vmul_n_f32(v29, v17.f32[0]));
+  v20 = v18.f32[0] / (v8 + 0.00001);
+  v21 = fmaxf(fminf(v20, 1.0), 0.0);
+  v22 = vmlaq_n_f32(vmulq_n_f32(v18, 1.0 - v21), vextq_s8(v19, v17, 0xCuLL), v21);
+  v23 = vaddq_f32(vmulq_laneq_f32(xmmword_19CF23B10, v22, 2), vaddq_f32(vdupq_lane_s32(*v22.f32, 0), vmulq_lane_f32(xmmword_19CF23B00, *v22.f32, 1)));
+  v23.i32[3] = 0;
+  v24 = vmaxnmq_f32(v23, 0);
+  v24.i32[3] = 0;
+  v25 = vminnmq_f32(v24, xmmword_19CF23BD0);
+  v26 = v30;
+  v26.i32[3] = 0;
+  __asm { FMOV            V2.4S, #-1.0 }
+
+  *&result = vaddq_f32(vmulq_f32(v25, vmulq_f32(v25, vmulq_f32(v25, v25))), vaddq_f32(vaddq_f32(vminnmq_f32(v26, 0), vmaxnmq_f32(v26, xmmword_19CF23BD0)), _Q2)).u64[0];
+  return result;
+}
+
+uint64_t ___ZL23CI_SMART_COLOR_USE_CUBEv_block_invoke()
+{
+  v0 = getenv("CI_SMART_COLOR_USE_CUBE");
+  if (v0)
+  {
+    result = atoi(v0);
+  }
+
+  else
+  {
+    result = CI_SMART_COLOR_USE_CUBE(void)::v;
+  }
+
+  CI_SMART_COLOR_USE_CUBE(void)::v = result;
+  return result;
+}
+
+void downsampleRoiH(CGRect a1, float a2)
+{
+  height = a1.size.height;
+  width = a1.size.width;
+  y = a1.origin.y;
+  x = a1.origin.x;
+  if (CGRectIsInfinite(a1))
+  {
+    *&v9.var0 = vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL);
+    *&v9.var2 = vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL);
+  }
+
+  else
+  {
+    v14.origin.x = x;
+    v14.origin.y = y;
+    v14.size.width = width;
+    v14.size.height = height;
+    if (CGRectIsNull(v14))
+    {
+      *&v9.var0 = vdupq_n_s64(0x7FF0000000000000uLL);
+      *&v9.var2 = 0uLL;
+    }
+
+    else
+    {
+      v9.var0 = x;
+      v9.var1 = y;
+      v9.var2 = width;
+      v9.var3 = height;
+    }
+  }
+
+  Rectangle::inset(&v10, &v9, -2.0, -0.0);
+  if (fabs(v10.f64[0]) == INFINITY || fabs(v10.f64[1]) == INFINITY)
+  {
+    *&v12.var0 = vdupq_n_s64(0x7FF0000000000000uLL);
+    v12.var2 = 0.0;
+    v12.var3 = 0.0;
+  }
+
+  else
+  {
+    v7 = vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL);
+    v8 = vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL);
+    if (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(v10, v8), vceqq_f64(v11, v7))))))
+    {
+      v12.var0 = v10.f64[0] * a2;
+      v12.var1 = v10.f64[1];
+      v12.var2 = a2 * v11.f64[0];
+      v12.var3 = v11.f64[1];
+    }
+
+    else
+    {
+      *&v12.var0 = v8;
+      *&v12.var2 = v7;
+    }
+  }
+
+  Rectangle::integralize(&v13, &v12, 0.0001);
+}
+
+void downsampleRoiV(CGRect a1, float a2)
+{
+  height = a1.size.height;
+  width = a1.size.width;
+  y = a1.origin.y;
+  x = a1.origin.x;
+  if (CGRectIsInfinite(a1))
+  {
+    *&v9.var0 = vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL);
+    *&v9.var2 = vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL);
+  }
+
+  else
+  {
+    v14.origin.x = x;
+    v14.origin.y = y;
+    v14.size.width = width;
+    v14.size.height = height;
+    if (CGRectIsNull(v14))
+    {
+      *&v9.var0 = vdupq_n_s64(0x7FF0000000000000uLL);
+      *&v9.var2 = 0uLL;
+    }
+
+    else
+    {
+      v9.var0 = x;
+      v9.var1 = y;
+      v9.var2 = width;
+      v9.var3 = height;
+    }
+  }
+
+  Rectangle::inset(&v10, &v9, -0.0, -2.0);
+  if (fabs(v10.f64[0]) == INFINITY || fabs(v10.f64[1]) == INFINITY)
+  {
+    *&v12.var0 = vdupq_n_s64(0x7FF0000000000000uLL);
+    v12.var2 = 0.0;
+    v12.var3 = 0.0;
+  }
+
+  else
+  {
+    v7 = vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL);
+    v8 = vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL);
+    if (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(v10, v8), vceqq_f64(v11, v7))))))
+    {
+      v12.var0 = v10.f64[0];
+      v12.var1 = v10.f64[1] * a2;
+      v12.var2 = v11.f64[0];
+      v12.var3 = vmuld_lane_f64(a2, v11, 1);
+    }
+
+    else
+    {
+      *&v12.var0 = v8;
+      *&v12.var2 = v7;
+    }
+  }
+
+  Rectangle::integralize(&v13, &v12, 0.0001);
+}
+
+double upsampleRoi(float64_t a1, float64_t a2, double a3, double a4, float32x2_t a5)
+{
+  v8.f64[0] = a1;
+  v8.f64[1] = a2;
+  *&v8.f64[0] = vadd_f32(vmul_f32(a5, vcvt_f32_f64(v8)), 0xBF000000BF000000);
+  v9 = vrndm_f32(*&v8.f64[0]);
+  __asm { FMOV            V13.2S, #1.0 }
+
+  v15 = vadd_f32(vsub_f32(v9, *&v8.f64[0]), _D13);
+  *&v8.f64[0] = vsub_f32(*&v8.f64[0], v9);
+  v16 = vdup_n_s32(0x3E4CCCCDu);
+  v17 = vadd_f32(vsub_f32(v9, vmul_f32(v15, vmul_f32(v15, v16))), 0x3F0000003F000000);
+  __asm { FMOV            V15.2S, #1.5 }
+
+  v30 = vadd_f32(vadd_f32(v9, vmul_f32(*&v8.f64[0], vmul_f32(*&v8.f64[0], v16))), _D15);
+  v8.f64[0] = v17.f32[0];
+  v19 = v17.f32[1];
+  v20 = 0;
+  v21 = 0;
+  v34 = CGRectUnion(*MEMORY[0x1E695F050], *v8.f64);
+  v39.origin.x = v30.f32[0];
+  v39.origin.y = v30.f32[1];
+  v39.size.width = 0.0;
+  v39.size.height = 0.0;
+  v35 = CGRectUnion(v34, v39);
+  v22.f32[0] = a1 + a3;
+  v23 = a2 + a4;
+  v22.f32[1] = v23;
+  v24 = vadd_f32(vmul_f32(a5, v22), 0xBF000000BF000000);
+  v25 = vrndm_f32(v24);
+  v26 = vadd_f32(vsub_f32(v25, v24), _D13);
+  v27 = vsub_f32(v24, v25);
+  v28 = vadd_f32(vsub_f32(v25, vmul_f32(v26, vmul_f32(v26, v16))), 0x3F0000003F000000);
+  v33 = vadd_f32(vadd_f32(v25, vmul_f32(v27, vmul_f32(v27, v16))), _D15);
+  v40.origin.x = v28.f32[0];
+  v40.origin.y = v28.f32[1];
+  v40.size.width = 0.0;
+  v40.size.height = 0.0;
+  v36 = CGRectUnion(v35, v40);
+  v41.origin.x = v33.f32[0];
+  v41.origin.y = v33.f32[1];
+  v41.size.width = 0.0;
+  v41.size.height = 0.0;
+  v37 = CGRectUnion(v36, v41);
+  v38 = CGRectInset(v37, 0.0001, 0.0001);
+  return COERCE_DOUBLE(CGRectIntegral(v38)) + -1.0;
+}
+
+double CI::sw_cubicDownsample2(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = *(a1 + 5);
+  v5 = *(v4 + 8);
+  v6 = *(v4 + 40);
+  v7 = *(v4 + 32);
+  v8 = (a3 + 16 * v7);
+  v9 = (a2 + (v7 << 6));
+  if (v6 == 5)
+  {
+    v9 = v8;
+  }
+
+  v10 = a4 + 80 * v5;
+  v171 = *v9;
+  DC = CI::getDC(a1);
+  v12 = vadd_f32(*DC, *DC);
+  v13 = vextq_s8(v171, v171, 8uLL);
+  v166 = v13;
+  v14 = vrev64_s32(v13.n128_u64[0]);
+  v13.n128_u64[0] = vneg_f32(v14);
+  v167 = v13;
+  v13.n128_u64[0] = vadd_f32(vdup_lane_s32(v13.n128_u64[0], 0), v12);
+  LODWORD(v15) = *(v10 + 24);
+  v16.i32[0] = *(v10 + 36);
+  *v17.i32 = vmuls_lane_f32(*(v10 + 32), v13.n128_u64[0], 1);
+  *&v18 = *v17.i32 + (v13.n128_f32[0] * *(v10 + 28));
+  v13.n128_f32[0] = *&v15 + (vmuls_lane_f32(*(v10 + 20), v13.n128_u64[0], 1) + (v13.n128_f32[0] * *(v10 + 16)));
+  *v19.f64 = *v16.i32 + *&v18;
+  v13.n128_f32[1] = *v16.i32 + *&v18;
+  *v22.i64 = CI::BitmapSampler::read(*(v10 + 8), v13, v19, v15, v18, v17, v16, v20, v21);
+  *&v23.f64[1] = v167.n128_u64[1];
+  *&v23.f64[0] = vadd_f32(vrev64_s32(v167.n128_u64[0]), v12);
+  *&v24 = vmuls_lane_f32(*(v10 + 20), *&v23.f64[0], 1) + (*v23.f64 * *(v10 + 16));
+  LODWORD(v25) = *(v10 + 24);
+  v26.i32[0] = *(v10 + 36);
+  *v27.i32 = vmuls_lane_f32(*(v10 + 32), *&v23.f64[0], 1);
+  v28 = vaddq_f32(vmulq_lane_f32(vmulq_lane_f32(v22, *v171.i8, 1), *v171.i8, 1), 0);
+  v154 = v28;
+  v28.n128_f32[0] = *&v25 + *&v24;
+  *v23.f64 = *v26.i32 + (*v27.i32 + (*v23.f64 * *(v10 + 28)));
+  v28.n128_u32[1] = LODWORD(v23.f64[0]);
+  *v30.i64 = CI::BitmapSampler::read(*(v10 + 8), v28, v23, v24, v25, 0, v27, v26, v29);
+  v31 = v166;
+  HIDWORD(v32) = v167.n128_u32[1];
+  HIDWORD(v31.f64[0]) = v167.n128_u32[0];
+  *&v31.f64[0] = vadd_f32(*&v31.f64[0], v12);
+  *&v32 = vmuls_lane_f32(*(v10 + 20), *&v31.f64[0], 1) + (*v31.f64 * *(v10 + 16));
+  LODWORD(v33) = *(v10 + 24);
+  v34.i32[0] = *(v10 + 36);
+  *v35.i32 = vmuls_lane_f32(*(v10 + 32), *&v31.f64[0], 1);
+  v36 = v154;
+  v37 = vaddq_f32(v154, vmulq_lane_f32(vmulq_n_f32(v30, *v171.i32), *v171.i8, 1));
+  v155 = v37;
+  v37.n128_f32[0] = *&v33 + *&v32;
+  *v31.f64 = *v34.i32 + (*v35.i32 + (*v31.f64 * *(v10 + 28)));
+  v37.n128_u32[1] = LODWORD(v31.f64[0]);
+  *v39.i64 = CI::BitmapSampler::read(*(v10 + 8), v37, v31, v32, v33, v36, v35, v34, v38);
+  *&v40.f64[1] = v166.n128_u64[1];
+  HIDWORD(v41) = v167.n128_u32[1];
+  *&v40.f64[0] = vadd_f32(vext_s8(v166.n128_u64[0], v167.n128_u64[0], 4uLL), v12);
+  *&v41 = vmuls_lane_f32(*(v10 + 20), *&v40.f64[0], 1) + (*v40.f64 * *(v10 + 16));
+  LODWORD(v42) = *(v10 + 24);
+  v43.i32[0] = *(v10 + 36);
+  *v44.i32 = vmuls_lane_f32(*(v10 + 32), *&v40.f64[0], 1);
+  v45 = v155;
+  v46 = vaddq_f32(v155, vmulq_lane_f32(vmulq_n_f32(v39, *v171.i32), *v171.i8, 1));
+  v156 = v46;
+  v46.n128_f32[0] = *&v42 + *&v41;
+  *v40.f64 = *v43.i32 + (*v44.i32 + (*v40.f64 * *(v10 + 28)));
+  v46.n128_u32[1] = LODWORD(v40.f64[0]);
+  *v48.i64 = CI::BitmapSampler::read(*(v10 + 8), v46, v40, v41, v42, v45, v44, v43, v47);
+  *&v49.f64[0] = vsub_f32(v12, v14);
+  *&v50 = vmuls_lane_f32(*(v10 + 20), *&v49.f64[0], 1) + (*v49.f64 * *(v10 + 16));
+  LODWORD(v51) = *(v10 + 24);
+  v52.i32[0] = *(v10 + 36);
+  *v53.i32 = vmuls_lane_f32(*(v10 + 32), *&v49.f64[0], 1);
+  v54 = v156;
+  v55 = vaddq_f32(v156, vmulq_lane_f32(vmulq_lane_f32(v48, *v171.i8, 1), *v171.i8, 1));
+  v157 = v55;
+  v55.n128_f32[0] = *&v51 + *&v50;
+  *v49.f64 = *v52.i32 + (*v53.i32 + (*v49.f64 * *(v10 + 28)));
+  v55.n128_u32[1] = LODWORD(v49.f64[0]);
+  *v57.i64 = CI::BitmapSampler::read(*(v10 + 8), v55, v49, v50, v51, v54, v53, v52, v56);
+  *&v58.f64[1] = v167.n128_u64[1];
+  *&v58.f64[0] = vadd_f32(vdup_lane_s32(v167.n128_u64[0], 1), v12);
+  *&v59 = vmuls_lane_f32(*(v10 + 20), *&v58.f64[0], 1) + (*v58.f64 * *(v10 + 16));
+  LODWORD(v60) = *(v10 + 24);
+  v61.i32[0] = *(v10 + 36);
+  *v62.i32 = vmuls_lane_f32(*(v10 + 32), *&v58.f64[0], 1);
+  v63 = v157;
+  v64 = vaddq_f32(v157, vmulq_n_f32(vmulq_lane_f32(v57, *v171.i8, 1), *v171.i32));
+  v158 = v64;
+  v64.n128_f32[0] = *&v60 + *&v59;
+  *v58.f64 = *v61.i32 + (*v62.i32 + (*v58.f64 * *(v10 + 28)));
+  v64.n128_u32[1] = LODWORD(v58.f64[0]);
+  *v66.i64 = CI::BitmapSampler::read(*(v10 + 8), v64, v58, v59, v60, v63, v62, v61, v65);
+  v67 = v166;
+  HIDWORD(v68) = v167.n128_u32[1];
+  HIDWORD(v67.f64[0]) = v167.n128_u32[1];
+  *&v67.f64[0] = vadd_f32(*&v67.f64[0], v12);
+  *&v68 = vmuls_lane_f32(*(v10 + 20), *&v67.f64[0], 1) + (*v67.f64 * *(v10 + 16));
+  LODWORD(v69) = *(v10 + 24);
+  v70.i32[0] = *(v10 + 36);
+  *v71.i32 = vmuls_lane_f32(*(v10 + 32), *&v67.f64[0], 1);
+  v72 = v158;
+  v73 = vaddq_f32(v158, vmulq_n_f32(vmulq_n_f32(v66, *v171.i32), *v171.i32));
+  v159 = v73;
+  v73.n128_f32[0] = *&v69 + *&v68;
+  *v67.f64 = *v70.i32 + (*v71.i32 + (*v67.f64 * *(v10 + 28)));
+  v73.n128_u32[1] = LODWORD(v67.f64[0]);
+  *v75.i64 = CI::BitmapSampler::read(*(v10 + 8), v73, v67, v68, v69, v72, v71, v70, v74);
+  HIDWORD(v77) = v166.n128_u32[1];
+  v76 = v167;
+  LODWORD(v76.f64[0]) = v166.n128_u32[1];
+  *&v76.f64[0] = vadd_f32(*&v76.f64[0], v12);
+  *&v77 = vmuls_lane_f32(*(v10 + 20), *&v76.f64[0], 1) + (*v76.f64 * *(v10 + 16));
+  LODWORD(v78) = *(v10 + 24);
+  v79.i32[0] = *(v10 + 36);
+  *v80.i32 = vmuls_lane_f32(*(v10 + 32), *&v76.f64[0], 1);
+  v81 = v159;
+  v82 = vaddq_f32(v159, vmulq_n_f32(vmulq_n_f32(v75, *v171.i32), *v171.i32));
+  v160 = v82;
+  v82.n128_f32[0] = *&v78 + *&v77;
+  *v76.f64 = *v79.i32 + (*v80.i32 + (*v76.f64 * *(v10 + 28)));
+  v82.n128_u32[1] = LODWORD(v76.f64[0]);
+  *v84.i64 = CI::BitmapSampler::read(*(v10 + 8), v82, v76, v77, v78, v81, v80, v79, v83);
+  *&v85.f64[1] = v166.n128_u64[1];
+  HIDWORD(v86) = v167.n128_u32[1];
+  *&v85.f64[0] = vadd_f32(vzip1_s32(v167.n128_u64[0], v166.n128_u64[0]), v12);
+  *&v86 = vmuls_lane_f32(*(v10 + 20), *&v85.f64[0], 1) + (*v85.f64 * *(v10 + 16));
+  LODWORD(v87) = *(v10 + 24);
+  v88.i32[0] = *(v10 + 36);
+  *v89.i32 = vmuls_lane_f32(*(v10 + 32), *&v85.f64[0], 1);
+  v90 = v160;
+  v91 = vaddq_f32(v160, vmulq_n_f32(vmulq_lane_f32(v84, *v171.i8, 1), *v171.i32));
+  v161 = v91;
+  v91.n128_f32[0] = *&v87 + *&v86;
+  *v85.f64 = *v88.i32 + (*v89.i32 + (*v85.f64 * *(v10 + 28)));
+  v91.n128_u32[1] = LODWORD(v85.f64[0]);
+  *v93.i64 = CI::BitmapSampler::read(*(v10 + 8), v91, v85, v86, v87, v90, v89, v88, v92);
+  *&v94.f64[1] = v166.n128_u64[1];
+  HIDWORD(v95) = v167.n128_u32[1];
+  *&v94.f64[0] = vadd_f32(vext_s8(v167.n128_u64[0], v166.n128_u64[0], 4uLL), v12);
+  *&v95 = vmuls_lane_f32(*(v10 + 20), *&v94.f64[0], 1) + (*v94.f64 * *(v10 + 16));
+  LODWORD(v96) = *(v10 + 24);
+  v97.i32[0] = *(v10 + 36);
+  *v98.i32 = vmuls_lane_f32(*(v10 + 32), *&v94.f64[0], 1);
+  v99 = v161;
+  v100 = vaddq_f32(v161, vmulq_n_f32(vmulq_lane_f32(v93, *v171.i8, 1), *v171.i32));
+  v162 = v100;
+  v100.n128_f32[0] = *&v96 + *&v95;
+  *v94.f64 = *v97.i32 + (*v98.i32 + (*v94.f64 * *(v10 + 28)));
+  v100.n128_u32[1] = LODWORD(v94.f64[0]);
+  *v102.i64 = CI::BitmapSampler::read(*(v10 + 8), v100, v94, v95, v96, v99, v98, v97, v101);
+  *&v103.f64[0] = vadd_f32(vdup_laneq_s32(v171, 2), v12);
+  *&v104 = vmuls_lane_f32(*(v10 + 20), *&v103.f64[0], 1) + (*v103.f64 * *(v10 + 16));
+  LODWORD(v105) = *(v10 + 24);
+  v106.i32[0] = *(v10 + 36);
+  *v107.i32 = vmuls_lane_f32(*(v10 + 32), *&v103.f64[0], 1);
+  v108 = v162;
+  v109 = vaddq_f32(v162, vmulq_n_f32(vmulq_n_f32(v102, *v171.i32), *v171.i32));
+  v163 = v109;
+  v109.n128_f32[0] = *&v105 + *&v104;
+  *v103.f64 = *v106.i32 + (*v107.i32 + (*v103.f64 * *(v10 + 28)));
+  v109.n128_u32[1] = LODWORD(v103.f64[0]);
+  *v110.i64 = CI::BitmapSampler::read(*(v10 + 8), v109, v103, v104, v105, v108, v107, v106, v171);
+  *&v111.f64[0] = vadd_f32(v14, v12);
+  *&v112 = vmuls_lane_f32(*(v10 + 20), *&v111.f64[0], 1) + (*v111.f64 * *(v10 + 16));
+  LODWORD(v113) = *(v10 + 24);
+  v114.i32[0] = *(v10 + 36);
+  *v115.i32 = vmuls_lane_f32(*(v10 + 32), *&v111.f64[0], 1);
+  v116 = v163;
+  v117 = vaddq_f32(v163, vmulq_n_f32(vmulq_n_f32(v110, *v171.i32), *v171.i32));
+  v164 = v117;
+  v117.n128_f32[0] = *&v113 + *&v112;
+  *v111.f64 = *v114.i32 + (*v115.i32 + (*v111.f64 * *(v10 + 28)));
+  v117.n128_u32[1] = LODWORD(v111.f64[0]);
+  *v119.i64 = CI::BitmapSampler::read(*(v10 + 8), v117, v111, v112, v113, v116, v115, v114, v118);
+  HIDWORD(v121) = v166.n128_u32[1];
+  v120 = v167;
+  HIDWORD(v120.f64[0]) = v166.n128_u32[1];
+  *&v120.f64[0] = vadd_f32(*&v120.f64[0], v12);
+  *&v121 = vmuls_lane_f32(*(v10 + 20), *&v120.f64[0], 1) + (*v120.f64 * *(v10 + 16));
+  LODWORD(v122) = *(v10 + 24);
+  v123.i32[0] = *(v10 + 36);
+  *v124.i32 = vmuls_lane_f32(*(v10 + 32), *&v120.f64[0], 1);
+  v125 = v164;
+  v126 = vaddq_f32(v164, vmulq_n_f32(vmulq_lane_f32(v119, *v171.i8, 1), *v171.i32));
+  v165 = v126;
+  v126.n128_f32[0] = *&v122 + *&v121;
+  *v120.f64 = *v123.i32 + (*v124.i32 + (*v120.f64 * *(v10 + 28)));
+  v126.n128_u32[1] = LODWORD(v120.f64[0]);
+  *v128.i64 = CI::BitmapSampler::read(*(v10 + 8), v126, v120, v121, v122, v125, v124, v123, v127);
+  *&v129.f64[1] = v166.n128_u64[1];
+  HIDWORD(v130) = v167.n128_u32[1];
+  *&v129.f64[0] = vadd_f32(vzip2_s32(v167.n128_u64[0], v166.n128_u64[0]), v12);
+  *&v130 = vmuls_lane_f32(*(v10 + 20), *&v129.f64[0], 1) + (*v129.f64 * *(v10 + 16));
+  LODWORD(v131) = *(v10 + 24);
+  v132.i32[0] = *(v10 + 36);
+  *v133.i32 = vmuls_lane_f32(*(v10 + 32), *&v129.f64[0], 1);
+  v134 = vaddq_f32(v165, vmulq_lane_f32(vmulq_lane_f32(v128, *v171.i8, 1), *v171.i8, 1));
+  v168 = v134;
+  v134.n128_f32[0] = *&v131 + *&v130;
+  *v129.f64 = *v132.i32 + (*v133.i32 + (*v129.f64 * *(v10 + 28)));
+  v134.n128_u32[1] = LODWORD(v129.f64[0]);
+  *v136.i64 = CI::BitmapSampler::read(*(v10 + 8), v134, v129, v130, v131, v165, v133, v132, v135);
+  *&v137.f64[1] = v166.n128_u64[1];
+  *&v137.f64[0] = vadd_f32(v166.n128_u64[0], v12);
+  *&v138 = vmuls_lane_f32(*(v10 + 20), *&v137.f64[0], 1) + (*v137.f64 * *(v10 + 16));
+  LODWORD(v139) = *(v10 + 24);
+  v140.i32[0] = *(v10 + 36);
+  v141 = v168;
+  v142 = vaddq_f32(v168, vmulq_lane_f32(vmulq_n_f32(v136, *v171.i32), *v171.i8, 1));
+  v169 = v142;
+  v142.n128_f32[0] = *&v139 + *&v138;
+  *v137.f64 = *v140.i32 + (vmuls_lane_f32(*(v10 + 32), *&v137.f64[0], 1) + (*v137.f64 * *(v10 + 28)));
+  v142.n128_u32[1] = LODWORD(v137.f64[0]);
+  *v144.i64 = CI::BitmapSampler::read(*(v10 + 8), v142, v137, v138, v139, v141, v171, v140, v143);
+  *&v145.f64[0] = vadd_f32(vdup_laneq_s32(v171, 3), v12);
+  *&v146 = vmuls_lane_f32(*(v10 + 20), *&v145.f64[0], 1) + (*v145.f64 * *(v10 + 16));
+  LODWORD(v147) = *(v10 + 24);
+  v148.i32[0] = *(v10 + 36);
+  *v149.i32 = vmuls_lane_f32(*(v10 + 32), *&v145.f64[0], 1);
+  v150 = v169;
+  v151 = vaddq_f32(v169, vmulq_lane_f32(vmulq_n_f32(v144, *v171.i32), *v171.i8, 1));
+  v170 = v151;
+  v151.n128_f32[0] = *&v147 + *&v146;
+  *v145.f64 = *v148.i32 + (*v149.i32 + (*v145.f64 * *(v10 + 28)));
+  v151.n128_u32[1] = LODWORD(v145.f64[0]);
+  *v152.i64 = CI::BitmapSampler::read(*(v10 + 8), v151, v145, v146, v147, v150, v149, v148, v171);
+  *&result = vaddq_f32(v170, vmulq_lane_f32(vmulq_lane_f32(v152, *v171.i8, 1), *v171.i8, 1)).u64[0];
+  return result;
+}
+
+double CI::sw_cubicDownsample2h(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = *(a1 + 5);
+  v5 = *(v4 + 8);
+  v6 = *(v4 + 40);
+  v7 = *(v4 + 32);
+  v8 = (a3 + 16 * v7);
+  v9 = (a2 + (v7 << 6));
+  if (v6 == 5)
+  {
+    v9 = v8;
+  }
+
+  v10 = a4 + 80 * v5;
+  v51 = *v9;
+  DC = CI::getDC(a1);
+  HIDWORD(v12.f64[0]) = 1065353216;
+  v13 = vmul_f32(*DC, 0x3F80000040000000);
+  v14 = vextq_s8(v51, v51, 8uLL);
+  v14.n128_u64[0] = vneg_f32(vrev64_s32(v14.n128_u64[0]));
+  v47 = v14;
+  v14.n128_u64[0] = vadd_f32(vmul_n_f32(1065353216, v14.n128_f32[0]), v13);
+  LODWORD(v15) = *(v10 + 24);
+  v16.i32[0] = *(v10 + 36);
+  *v17.i32 = vmuls_lane_f32(*(v10 + 32), v14.n128_u64[0], 1);
+  *&v18 = *v17.i32 + (v14.n128_f32[0] * *(v10 + 28));
+  v14.n128_f32[0] = *&v15 + (vmuls_lane_f32(*(v10 + 20), v14.n128_u64[0], 1) + (v14.n128_f32[0] * *(v10 + 16)));
+  *v12.f64 = *v16.i32 + *&v18;
+  v14.n128_f32[1] = *v16.i32 + *&v18;
+  *v21.i64 = CI::BitmapSampler::read(*(v10 + 8), v14, v12, v15, v18, v17, v16, v19, v20);
+  *&v22.f64[1] = v47.n128_u64[1];
+  *&v22.f64[0] = vadd_f32(vmul_lane_f32(1065353216, v47.n128_u64[0], 1), v13);
+  *&v23 = vmuls_lane_f32(*(v10 + 20), *&v22.f64[0], 1) + (*v22.f64 * *(v10 + 16));
+  LODWORD(v24) = *(v10 + 24);
+  v25.i32[0] = *(v10 + 36);
+  *v26.i32 = vmuls_lane_f32(*(v10 + 32), *&v22.f64[0], 1);
+  v27 = vaddq_f32(vmulq_lane_f32(v21, *v51.f32, 1), 0);
+  v48 = v27;
+  v27.n128_f32[0] = *&v24 + *&v23;
+  *v22.f64 = *v25.i32 + (*v26.i32 + (*v22.f64 * *(v10 + 28)));
+  v27.n128_u32[1] = LODWORD(v22.f64[0]);
+  *v29.i64 = CI::BitmapSampler::read(*(v10 + 8), v27, v22, v23, v24, 0, v26, v25, v28);
+  *&v30.f64[0] = vadd_f32(vmul_laneq_f32(1065353216, v51, 2), v13);
+  *&v31 = vmuls_lane_f32(*(v10 + 20), *&v30.f64[0], 1) + (*v30.f64 * *(v10 + 16));
+  LODWORD(v32) = *(v10 + 24);
+  v33.i32[0] = *(v10 + 36);
+  *v34.i32 = vmuls_lane_f32(*(v10 + 32), *&v30.f64[0], 1);
+  v35 = v48;
+  v36 = vaddq_f32(v48, vmulq_n_f32(v29, v51.f32[0]));
+  v49 = v36;
+  v36.n128_f32[0] = *&v32 + *&v31;
+  *v30.f64 = *v33.i32 + (*v34.i32 + (*v30.f64 * *(v10 + 28)));
+  v36.n128_u32[1] = LODWORD(v30.f64[0]);
+  *v37.i64 = CI::BitmapSampler::read(*(v10 + 8), v36, v30, v31, v32, v35, v34, v33, v51);
+  *&v38.f64[0] = vadd_f32(vmul_laneq_f32(1065353216, v51, 3), v13);
+  *&v39 = vmuls_lane_f32(*(v10 + 20), *&v38.f64[0], 1) + (*v38.f64 * *(v10 + 16));
+  LODWORD(v40) = *(v10 + 24);
+  v41.i32[0] = *(v10 + 36);
+  *v42.i32 = vmuls_lane_f32(*(v10 + 32), *&v38.f64[0], 1);
+  v43 = v49;
+  v44 = vaddq_f32(v49, vmulq_n_f32(v37, v51.f32[0]));
+  v50 = v44;
+  v44.n128_f32[0] = *&v40 + *&v39;
+  *v38.f64 = *v41.i32 + (*v42.i32 + (*v38.f64 * *(v10 + 28)));
+  v44.n128_u32[1] = LODWORD(v38.f64[0]);
+  *v45.i64 = CI::BitmapSampler::read(*(v10 + 8), v44, v38, v39, v40, v43, v42, v41, v51);
+  *&result = vaddq_f32(v50, vmulq_lane_f32(v45, *v51.f32, 1)).u64[0];
+  return result;
+}
+
+double CI::sw_cubicDownsample2v(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = *(a1 + 5);
+  v5 = *(v4 + 8);
+  v6 = *(v4 + 40);
+  v7 = *(v4 + 32);
+  v8 = (a3 + 16 * v7);
+  v9 = (a2 + (v7 << 6));
+  if (v6 == 5)
+  {
+    v9 = v8;
+  }
+
+  v10 = a4 + 80 * v5;
+  v51 = *v9;
+  DC = CI::getDC(a1);
+  HIDWORD(v12.f64[0]) = 0x40000000;
+  v13 = vmul_f32(*DC, 0x400000003F800000);
+  v14 = vextq_s8(v51, v51, 8uLL);
+  v14.n128_u64[0] = vneg_f32(vrev64_s32(v14.n128_u64[0]));
+  v47 = v14;
+  v14.n128_u64[0] = vadd_f32(vmul_n_f32(0x3F80000000000000, v14.n128_f32[0]), v13);
+  LODWORD(v15) = *(v10 + 24);
+  v16.i32[0] = *(v10 + 36);
+  *v17.i32 = vmuls_lane_f32(*(v10 + 32), v14.n128_u64[0], 1);
+  *&v18 = *v17.i32 + (v14.n128_f32[0] * *(v10 + 28));
+  v14.n128_f32[0] = *&v15 + (vmuls_lane_f32(*(v10 + 20), v14.n128_u64[0], 1) + (v14.n128_f32[0] * *(v10 + 16)));
+  *v12.f64 = *v16.i32 + *&v18;
+  v14.n128_f32[1] = *v16.i32 + *&v18;
+  *v21.i64 = CI::BitmapSampler::read(*(v10 + 8), v14, v12, v15, v18, v17, v16, v19, v20);
+  *&v22.f64[1] = v47.n128_u64[1];
+  *&v22.f64[0] = vadd_f32(vmul_lane_f32(0x3F80000000000000, v47.n128_u64[0], 1), v13);
+  *&v23 = vmuls_lane_f32(*(v10 + 20), *&v22.f64[0], 1) + (*v22.f64 * *(v10 + 16));
+  LODWORD(v24) = *(v10 + 24);
+  v25.i32[0] = *(v10 + 36);
+  *v26.i32 = vmuls_lane_f32(*(v10 + 32), *&v22.f64[0], 1);
+  v27 = vaddq_f32(vmulq_lane_f32(v21, *v51.f32, 1), 0);
+  v48 = v27;
+  v27.n128_f32[0] = *&v24 + *&v23;
+  *v22.f64 = *v25.i32 + (*v26.i32 + (*v22.f64 * *(v10 + 28)));
+  v27.n128_u32[1] = LODWORD(v22.f64[0]);
+  *v29.i64 = CI::BitmapSampler::read(*(v10 + 8), v27, v22, v23, v24, 0, v26, v25, v28);
+  *&v30.f64[0] = vadd_f32(vmul_laneq_f32(0x3F80000000000000, v51, 2), v13);
+  *&v31 = vmuls_lane_f32(*(v10 + 20), *&v30.f64[0], 1) + (*v30.f64 * *(v10 + 16));
+  LODWORD(v32) = *(v10 + 24);
+  v33.i32[0] = *(v10 + 36);
+  *v34.i32 = vmuls_lane_f32(*(v10 + 32), *&v30.f64[0], 1);
+  v35 = v48;
+  v36 = vaddq_f32(v48, vmulq_n_f32(v29, v51.f32[0]));
+  v49 = v36;
+  v36.n128_f32[0] = *&v32 + *&v31;
+  *v30.f64 = *v33.i32 + (*v34.i32 + (*v30.f64 * *(v10 + 28)));
+  v36.n128_u32[1] = LODWORD(v30.f64[0]);
+  *v37.i64 = CI::BitmapSampler::read(*(v10 + 8), v36, v30, v31, v32, v35, v34, v33, v51);
+  *&v38.f64[0] = vadd_f32(vmul_laneq_f32(0x3F80000000000000, v51, 3), v13);
+  *&v39 = vmuls_lane_f32(*(v10 + 20), *&v38.f64[0], 1) + (*v38.f64 * *(v10 + 16));
+  LODWORD(v40) = *(v10 + 24);
+  v41.i32[0] = *(v10 + 36);
+  *v42.i32 = vmuls_lane_f32(*(v10 + 32), *&v38.f64[0], 1);
+  v43 = v49;
+  v44 = vaddq_f32(v49, vmulq_n_f32(v37, v51.f32[0]));
+  v50 = v44;
+  v44.n128_f32[0] = *&v40 + *&v39;
+  *v38.f64 = *v41.i32 + (*v42.i32 + (*v38.f64 * *(v10 + 28)));
+  v44.n128_u32[1] = LODWORD(v38.f64[0]);
+  *v45.i64 = CI::BitmapSampler::read(*(v10 + 8), v44, v38, v39, v40, v43, v42, v41, v51);
+  *&result = vaddq_f32(v50, vmulq_lane_f32(v45, *v51.f32, 1)).u64[0];
+  return result;
+}
+
+double CI::sw_cubicDownsampleH(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = *(a1 + 5);
+  v6 = *(v5 + 8);
+  v7 = *(v5 + 32);
+  v8 = (a3 + 16 * v7);
+  v9 = (a2 + (v7 << 6));
+  if (*(v5 + 40) == 5)
+  {
+    v10 = v8;
+  }
+
+  else
+  {
+    v10 = v9;
+  }
+
+  v11 = *(v5 + 56);
+  v12 = (a3 + 16 * v11);
+  v13 = (a2 + (v11 << 6));
+  if (*(v5 + 64) == 5)
+  {
+    v14 = v12;
+  }
+
+  else
+  {
+    v14 = v13;
+  }
+
+  v15 = *(v5 + 88);
+  v16 = *(v5 + 80);
+  v17 = (a3 + 16 * v16);
+  v18 = (a2 + (v16 << 6));
+  if (v15 == 5)
+  {
+    v18 = v17;
+  }
+
+  v51 = *v10;
+  v45 = *v18;
+  v46 = *v14;
+  DC = CI::getDC(a1);
+  __asm { FMOV            V2.2D, #0.5 }
+
+  *v28.i8 = vcvt_f32_f64(vaddq_f64(vrndmq_f64(vaddq_f64(vcvtq_f64_f32(vmul_n_f32(vadd_f32(vdup_lane_s32(*DC, 0), COERCE_FLOAT32X2_T(--2.00000143)), *&v51)), xmmword_19CF29EC0)), _Q2));
+  v29 = *&v28.i32[1];
+  if (*v28.i32 <= *&v28.i32[1])
+  {
+    v31 = *(&v51 + 2);
+    v32 = a4 + 80 * v6;
+    v33 = vmul_f32(*&v51, *DC);
+    v34 = v28;
+    v34.i32[1] = v33.i32[1];
+    v35 = *(&v51 + 2) * vsub_f32(*v28.i8, v33).f32[0];
+    v30 = 0uLL;
+    v20.i64[0] = 0;
+    __asm { FMOV            V2.4S, #1.0 }
+
+    v44 = HIDWORD(_Q2);
+    do
+    {
+      v48 = v34;
+      v49 = v20;
+      v50 = v30;
+      v52 = v28;
+      v20.f32[0] = fabsf(v35);
+      v37.f32[0] = (v35 * v35) * v20.f32[0];
+      v37.f32[1] = v35 * v35;
+      v37.i64[1] = __PAIR64__(v44, v20.u32[0]);
+      v30.i32[0] = 1.0;
+      HIDWORD(v38) = v45.i32[1];
+      v39 = vmulq_f32(vbslq_s8(vdupq_lane_s32(*&vcgtq_f32(v30, v20), 0), v46, v45), v37);
+      v40 = vextq_s8(v39, v39, 8uLL);
+      *&v40.f64[0] = vadd_f32(v39.n128_u64[0], *&v40.f64[0]);
+      v39.n128_f32[0] = *(v32 + 24) + (vmuls_lane_f32(*(v32 + 20), *v34.i8, 1) + (*v28.i32 * *(v32 + 16)));
+      v28.i32[0] = *(v32 + 36);
+      *&v38 = vmuls_lane_f32(*(v32 + 32), *v34.i8, 1) + (*v52.i32 * *(v32 + 28));
+      *v37.f32 = vadd_f32(*&v40.f64[0], vdup_lane_s32(*&v40.f64[0], 1));
+      v47 = v37.f32[0];
+      v41 = vaddv_f32(*&v40.f64[0]);
+      *v40.f64 = *v28.i32 + *&v38;
+      v39.n128_f32[1] = *v28.i32 + *&v38;
+      *v42.i64 = CI::BitmapSampler::read(*(v32 + 8), v39, v40, v38, *v37.i64, v28, v52, v21, v22);
+      v34 = v48;
+      v28 = v52;
+      v30 = vaddq_f32(v50, vmulq_n_f32(v42, v47));
+      v20 = v49;
+      v20.f32[0] = v49.f32[0] + v41;
+      v35 = v31 + v35;
+      *v28.i32 = *v52.i32 + 1.0;
+      *v34.i32 = *v52.i32 + 1.0;
+    }
+
+    while ((*v52.i32 + 1.0) <= v29);
+  }
+
+  else
+  {
+    v20.i64[0] = 0;
+    v30 = 0uLL;
+  }
+
+  *&result = vdivq_f32(v30, vdupq_lane_s32(*v20.f32, 0)).u64[0];
+  return result;
+}
+
 double CI::sw_cubicDownsampleV(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = *(a1 + 5);
@@ -72,16 +1087,16 @@ double CI::sw_cubicDownsampleV(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
       HIDWORD(v38) = v45.i32[1];
       v39 = vmulq_f32(vbslq_s8(vdupq_lane_s32(*&vcgtq_f32(v29, v20), 0), v46, v45), v37);
       v40 = vextq_s8(v39, v39, 8uLL);
-      *&v40.f64[0] = vadd_f32(*v39.i8, *&v40.f64[0]);
-      *v39.i32 = *(v33 + 24) + (vmuls_lane_f32(*(v33 + 20), *v21.i8, 1) + (*v21.i32 * *(v33 + 16)));
+      *&v40.f64[0] = vadd_f32(v39.n128_u64[0], *&v40.f64[0]);
+      v39.n128_f32[0] = *(v33 + 24) + (vmuls_lane_f32(*(v33 + 20), *v21.i8, 1) + (*v21.i32 * *(v33 + 16)));
       v21.i32[0] = *(v33 + 36);
       *&v38 = vmuls_lane_f32(*(v33 + 32), *v52.i8, 1) + (*v52.i32 * *(v33 + 28));
       *v37.f32 = vadd_f32(*&v40.f64[0], vdup_lane_s32(*&v40.f64[0], 1));
       v47 = v37.f32[0];
       v41 = vaddv_f32(*&v40.f64[0]);
       *v40.f64 = *v21.i32 + *&v38;
-      *&v39.i32[1] = *v21.i32 + *&v38;
-      *v42.i64 = CI::BitmapSampler::read(*(v33 + 8), *v39.i64, v40, v38, *v37.i64, v21, v52, v22, v23);
+      v39.n128_f32[1] = *v21.i32 + *&v38;
+      *v42.i64 = CI::BitmapSampler::read(*(v33 + 8), v39, v40, v38, *v37.i64, v21, v52, v22, v23);
       v29 = v50;
       v21 = v52;
       v31 = vaddq_f32(v49, vmulq_n_f32(v42, v47));
@@ -129,59 +1144,63 @@ double CI::sw_cubicUpsample10(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   *v21.i8 = vmul_f32(v18, *v20.i8);
   v22 = vdup_n_s32(0x3E2AAAABu);
   *v23.i8 = vadd_f32(vadd_f32(*v20.i8, vadd_f32(*v21.i8, vmul_f32(v18, vmul_f32(v18, vmul_f32(v18, vdup_n_s32(0xBEAAAAAB)))))), v22);
-  *v24.i8 = vsub_f32(_D4, *v23.i8);
-  v61 = v24;
+  v24.n128_u64[0] = vsub_f32(_D4, *v23.i8);
+  v63 = v24;
   *v25.i8 = vadd_f32(vadd_f32(v12, vdiv_f32(vadd_f32(vadd_f32(*v20.i8, vsub_f32(*v21.i8, vmul_f32(v18, *v21.i8))), v22), *v23.i8)), 0xBF000000BF000000);
   __asm { FMOV            V1.2S, #6.0 }
 
-  v27 = vadd_f32(v12, vdiv_f32(vdiv_f32(vmul_f32(v19, vmul_f32(v19, v19)), _D1), *v24.i8));
+  v27 = vadd_f32(v12, vdiv_f32(vdiv_f32(vmul_f32(v19, vmul_f32(v19, v19)), _D1), v24.n128_u64[0]));
   __asm { FMOV            V1.2S, #1.5 }
 
-  *v29.i8 = vadd_f32(v27, *&_Q1.f64[0]);
-  v58 = v23;
-  v59 = v29;
-  *v29.i32 = vmuls_lane_f32(*v23.i32, *v23.i8, 1);
-  v54 = v29;
-  v56 = v25;
+  v29.n128_u64[0] = vadd_f32(v27, *&_Q1.f64[0]);
+  v60 = v23;
+  v61 = v29;
+  v29.n128_f32[0] = vmuls_lane_f32(*v23.i32, *v23.i8, 1);
+  v56 = v29;
+  v58 = v25;
   v30 = v25;
   v12.i32[0] = *(v10 + 28);
-  *v29.i32 = *(v10 + 24) + (vmuls_lane_f32(*(v10 + 20), *v25.i8, 1) + (*v25.i32 * *(v10 + 16)));
+  v29.n128_f32[0] = *(v10 + 24) + (vmuls_lane_f32(*(v10 + 20), *v25.i8, 1) + (*v25.i32 * *(v10 + 16)));
   v25.i32[0] = *(v10 + 36);
   *_Q1.f64 = *v25.i32 + (vmuls_lane_f32(*(v10 + 32), *v30.i8, 1) + (*v30.i32 * v12.f32[0]));
-  v29.i32[1] = LODWORD(_Q1.f64[0]);
-  *v31.i64 = CI::BitmapSampler::read(*(v10 + 8), *v29.i64, _Q1, *&v12, *v25.i64, v30, v23, v20, v21);
-  v32 = v54;
-  v55 = vmulq_n_f32(v31, *v54.f64);
-  v31.f32[0] = *(v10 + 24) + (vmuls_lane_f32(*(v10 + 20), *v56.i8, 1) + (*v59.i32 * *(v10 + 16)));
-  LODWORD(v33) = *(v10 + 36);
-  v34 = v61;
-  *v34.i32 = vmuls_lane_f32(*v61.i32, *v58.i8, 1);
-  v53 = v34;
-  *v32.f64 = *&v33 + (vmuls_lane_f32(*(v10 + 32), *v56.i8, 1) + (*v59.i32 * *(v10 + 28)));
-  v31.i32[1] = LODWORD(v32.f64[0]);
-  *v36.i64 = CI::BitmapSampler::read(*(v10 + 8), *v31.i64, v32, *v34.i64, v33, v58, v56, v59, v35);
-  v37 = v56;
-  v38 = vmuls_lane_f32(*(v10 + 20), *v59.i8, 1) + (*v56.i32 * *(v10 + 16));
-  LODWORD(v39) = *(v10 + 24);
-  v40.i32[0] = *(v10 + 36);
-  *&v41 = vmuls_lane_f32(*(v10 + 32), *v59.i8, 1) + (*v56.i32 * *(v10 + 28));
-  v57 = vaddq_f32(v55, vmulq_n_f32(v36, *v53.i32));
-  v36.f32[0] = *&v39 + v38;
-  *v42.f64 = *v40.i32 + *&v41;
-  v36.f32[1] = *v40.i32 + *&v41;
-  *v43.i64 = CI::BitmapSampler::read(*(v10 + 8), *v36.i64, v42, v39, v41, v58, v40, v53, v37);
-  HIDWORD(v44) = v59.i32[1];
-  v45 = vmuls_lane_f32(*(v10 + 20), *v59.i8, 1) + (*v59.i32 * *(v10 + 16));
-  v46 = v59;
-  LODWORD(v47) = *(v10 + 24);
-  v48.i32[0] = *(v10 + 36);
-  *&v44 = vmuls_lane_f32(*(v10 + 32), *v59.i8, 1) + (*v59.i32 * *(v10 + 28));
-  v60 = vaddq_f32(v57, vmulq_n_f32(v43, vmuls_lane_f32(*v58.i32, *v61.i8, 1)));
-  v43.f32[0] = *&v47 + v45;
-  *v49.f64 = *v48.i32 + *&v44;
-  v43.f32[1] = *v48.i32 + *&v44;
-  *v51.i64 = CI::BitmapSampler::read(*(v10 + 8), *v43.i64, v49, v47, v44, v57, v48, v46, v50);
-  *&result = vaddq_f32(v60, vmulq_n_f32(v51, vmuls_lane_f32(*v61.i32, *v61.i8, 1))).u64[0];
+  v29.n128_u32[1] = LODWORD(_Q1.f64[0]);
+  *v31.i64 = CI::BitmapSampler::read(*(v10 + 8), v29, _Q1, *&v12, *v25.i64, v30, v23, v20, v21);
+  v32 = v56;
+  v33 = vmulq_n_f32(v31, v56.n128_f32[0]);
+  v57 = v33;
+  v33.n128_f32[0] = *(v10 + 24) + (vmuls_lane_f32(*(v10 + 20), *v58.i8, 1) + (*v61.i32 * *(v10 + 16)));
+  LODWORD(v34) = *(v10 + 36);
+  v35 = v63;
+  *v35.i32 = vmuls_lane_f32(v63.n128_f32[0], *v60.i8, 1);
+  v55 = v35;
+  *v32.f64 = *&v34 + (vmuls_lane_f32(*(v10 + 32), *v58.i8, 1) + (*v61.i32 * *(v10 + 28)));
+  v33.n128_u32[1] = LODWORD(v32.f64[0]);
+  *v37.i64 = CI::BitmapSampler::read(*(v10 + 8), v33, v32, *v35.i64, v34, v60, v58, v61, v36);
+  v38 = v58;
+  v39 = vmuls_lane_f32(*(v10 + 20), *v61.i8, 1) + (*v58.i32 * *(v10 + 16));
+  LODWORD(v40) = *(v10 + 24);
+  v41.i32[0] = *(v10 + 36);
+  *&v42 = vmuls_lane_f32(*(v10 + 32), *v61.i8, 1) + (*v58.i32 * *(v10 + 28));
+  v59 = vaddq_f32(v57, vmulq_n_f32(v37, *v55.i32));
+  v37.i64[1] = v63.n128_i64[1];
+  v37.f32[0] = *&v40 + v39;
+  *v43.f64 = *v41.i32 + *&v42;
+  v37.f32[1] = *v41.i32 + *&v42;
+  *v44.i64 = CI::BitmapSampler::read(*(v10 + 8), v37, v43, v40, v42, v60, v41, v55, v38);
+  HIDWORD(v45) = v61.i32[1];
+  v46 = vmuls_lane_f32(*(v10 + 20), *v61.i8, 1) + (*v61.i32 * *(v10 + 16));
+  v47 = v61;
+  LODWORD(v48) = *(v10 + 24);
+  v49.i32[0] = *(v10 + 36);
+  *&v45 = vmuls_lane_f32(*(v10 + 32), *v61.i8, 1) + (*v61.i32 * *(v10 + 28));
+  v62 = vaddq_f32(v59, vmulq_n_f32(v44, vmuls_lane_f32(*v60.i32, v63.n128_u64[0], 1)));
+  v50 = v63;
+  v63.n128_u32[0] = vmuls_lane_f32(v50.n128_f32[0], v50.n128_u64[0], 1);
+  v50.n128_f32[0] = *&v48 + v46;
+  *v51.f64 = *v49.i32 + *&v45;
+  v50.n128_f32[1] = *v49.i32 + *&v45;
+  *v53.i64 = CI::BitmapSampler::read(*(v10 + 8), v50, v51, v48, v45, v59, v49, v47, v52);
+  *&result = vaddq_f32(v62, vmulq_n_f32(v53, v63.n128_f32[0])).u64[0];
   return result;
 }
 
@@ -225,76 +1244,80 @@ double CI::sw_cubicUpsampleX0(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 
   v18 = a4 + 80 * v5;
-  v74 = *v13;
-  v71 = *v17;
+  v76 = *v13;
+  v73 = *v17;
   v19 = vmul_f32(*v9, *CI::getDC(a1));
   v20 = vadd_f32(vrndm_f32(vadd_f32(v19, 0xBF000000BF000000)), 0x3F0000003F000000);
   v21 = vsub_f32(v20, v19);
   __asm { FMOV            V3.2S, #-1.0 }
 
   v27 = vabs_f32(vadd_f32(v21, _D3));
-  v28.i64[1] = v71.i64[1];
-  v29 = vdup_laneq_s32(v71, 3);
-  v30.i64[1] = v71.i64[1];
+  v28.i64[1] = v73.i64[1];
+  v29 = vdup_laneq_s32(v73, 3);
+  v30.i64[1] = v73.i64[1];
   v31 = vabd_f32(v20, v19);
-  v32 = vadd_f32(vdup_laneq_s32(v74, 3), vadd_f32(vmul_laneq_f32(v31, v74, 2), vadd_f32(vmul_f32(v31, vmul_lane_f32(v31, *v74.f32, 1)), vmul_f32(v31, vmul_f32(v31, vmul_n_f32(v31, v74.f32[0]))))));
+  v32 = vadd_f32(vdup_laneq_s32(v76, 3), vadd_f32(vmul_laneq_f32(v31, v76, 2), vadd_f32(vmul_f32(v31, vmul_lane_f32(v31, *v76.f32, 1)), vmul_f32(v31, vmul_f32(v31, vmul_n_f32(v31, v76.f32[0]))))));
   v33 = vabs_f32(vadd_f32(v21, 0x4000000040000000));
-  v34 = vadd_f32(v29, vadd_f32(vmul_laneq_f32(v33, v71, 2), vadd_f32(vmul_f32(v33, vmul_lane_f32(v33, *v71.f32, 1)), vmul_f32(v33, vmul_f32(v33, vmul_n_f32(v33, v71.f32[0]))))));
-  *v30.i8 = vadd_f32(v32, vadd_f32(v29, vadd_f32(vmul_laneq_f32(v27, v71, 2), vadd_f32(vmul_f32(v27, vmul_lane_f32(v27, *v71.f32, 1)), vmul_f32(v27, vmul_f32(v27, vmul_n_f32(v27, v71.f32[0])))))));
+  v34 = vadd_f32(v29, vadd_f32(vmul_laneq_f32(v33, v73, 2), vadd_f32(vmul_f32(v33, vmul_lane_f32(v33, *v73.f32, 1)), vmul_f32(v33, vmul_f32(v33, vmul_n_f32(v33, v73.f32[0]))))));
+  *v30.i8 = vadd_f32(v32, vadd_f32(v29, vadd_f32(vmul_laneq_f32(v27, v73, 2), vadd_f32(vmul_f32(v27, vmul_lane_f32(v27, *v73.f32, 1)), vmul_f32(v27, vmul_f32(v27, vmul_n_f32(v27, v73.f32[0])))))));
   __asm { FMOV            V4.2S, #1.0 }
 
   *v28.i8 = vsub_f32(_D4, *v30.i8);
   *v36.i8 = vdup_n_s32(0xB8D1B717);
-  v70 = v30;
+  v72 = v30;
   *v37.i8 = vcltz_f32(vadd_f32(*v30.i8, *v36.i8));
   *v38.i8 = vadd_f32(vadd_f32(v20, _D3), vbic_s8(vdiv_f32(v32, *v30.i8), *v37.i8));
-  v75 = v28;
+  v77 = v28;
   v39 = vdiv_f32(v34, *v28.i8);
   *&v40.f64[0] = vadd_f32(v20, _D4);
-  *v41.i8 = vadd_f32(*&v40.f64[0], vbic_s8(v39, vcltz_f32(vadd_f32(*v28.i8, *v36.i8))));
-  v72 = v41;
-  *v41.i32 = vmuls_lane_f32(*v30.i32, *v30.i8, 1);
-  v66 = v41;
-  v68 = v38;
+  v41.n128_u64[0] = vadd_f32(*&v40.f64[0], vbic_s8(v39, vcltz_f32(vadd_f32(*v28.i8, *v36.i8))));
+  v74 = v41;
+  v41.n128_f32[0] = vmuls_lane_f32(*v30.i32, *v30.i8, 1);
+  v68 = v41;
+  v70 = v38;
   v42 = v38;
   v39.i32[0] = *(v18 + 28);
-  *v41.i32 = *(v18 + 24) + (vmuls_lane_f32(*(v18 + 20), *v38.i8, 1) + (*v38.i32 * *(v18 + 16)));
+  v41.n128_f32[0] = *(v18 + 24) + (vmuls_lane_f32(*(v18 + 20), *v38.i8, 1) + (*v38.i32 * *(v18 + 16)));
   v38.i32[0] = *(v18 + 36);
   *v40.f64 = *v38.i32 + (vmuls_lane_f32(*(v18 + 32), *v42.i8, 1) + (*v42.i32 * *v39.i32));
-  v41.i32[1] = LODWORD(v40.f64[0]);
-  *v43.i64 = CI::BitmapSampler::read(*(v18 + 8), *v41.i64, v40, *&v39, *v38.i64, v42, v36, v37, v28);
-  v44 = v66;
-  v67 = vmulq_n_f32(v43, *v66.f64);
-  v43.f32[0] = *(v18 + 24) + (vmuls_lane_f32(*(v18 + 20), *v68.i8, 1) + (*v72.i32 * *(v18 + 16)));
-  LODWORD(v45) = *(v18 + 36);
-  v46 = v75;
-  *v46.i32 = vmuls_lane_f32(*v75.i32, *v70.i8, 1);
-  v65 = v46;
-  *v44.f64 = *&v45 + (vmuls_lane_f32(*(v18 + 32), *v68.i8, 1) + (*v72.i32 * *(v18 + 28)));
-  v43.i32[1] = LODWORD(v44.f64[0]);
-  *v48.i64 = CI::BitmapSampler::read(*(v18 + 8), *v43.i64, v44, *v46.i64, v45, v70, v68, v72, v47);
-  v49 = v68;
-  v50 = vmuls_lane_f32(*(v18 + 20), *v72.i8, 1) + (*v68.i32 * *(v18 + 16));
-  LODWORD(v51) = *(v18 + 24);
-  v52.i32[0] = *(v18 + 36);
-  *&v53 = vmuls_lane_f32(*(v18 + 32), *v72.i8, 1) + (*v68.i32 * *(v18 + 28));
-  v69 = vaddq_f32(v67, vmulq_n_f32(v48, *v65.i32));
-  v48.f32[0] = *&v51 + v50;
-  *v54.f64 = *v52.i32 + *&v53;
-  v48.f32[1] = *v52.i32 + *&v53;
-  *v55.i64 = CI::BitmapSampler::read(*(v18 + 8), *v48.i64, v54, v51, v53, v70, v52, v65, v49);
-  HIDWORD(v56) = v72.i32[1];
-  v57 = vmuls_lane_f32(*(v18 + 20), *v72.i8, 1) + (*v72.i32 * *(v18 + 16));
-  v58 = v72;
-  LODWORD(v59) = *(v18 + 24);
-  v60.i32[0] = *(v18 + 36);
-  *&v56 = vmuls_lane_f32(*(v18 + 32), *v72.i8, 1) + (*v72.i32 * *(v18 + 28));
-  v73 = vaddq_f32(v69, vmulq_n_f32(v55, vmuls_lane_f32(*v70.i32, *v75.i8, 1)));
-  v55.f32[0] = *&v59 + v57;
-  *v61.f64 = *v60.i32 + *&v56;
-  v55.f32[1] = *v60.i32 + *&v56;
-  *v63.i64 = CI::BitmapSampler::read(*(v18 + 8), *v55.i64, v61, v59, v56, v69, v60, v58, v62);
-  *&result = vaddq_f32(v73, vmulq_n_f32(v63, vmuls_lane_f32(*v75.i32, *v75.i8, 1))).u64[0];
+  v41.n128_u32[1] = LODWORD(v40.f64[0]);
+  *v43.i64 = CI::BitmapSampler::read(*(v18 + 8), v41, v40, *&v39, *v38.i64, v42, v36, v37, v28);
+  v44 = v68;
+  v45 = vmulq_n_f32(v43, v68.n128_f32[0]);
+  v69 = v45;
+  v45.n128_f32[0] = *(v18 + 24) + (vmuls_lane_f32(*(v18 + 20), *v70.i8, 1) + (*v74.i32 * *(v18 + 16)));
+  LODWORD(v46) = *(v18 + 36);
+  v47 = v77;
+  *v47.i32 = vmuls_lane_f32(v77.n128_f32[0], *v72.i8, 1);
+  v67 = v47;
+  *v44.f64 = *&v46 + (vmuls_lane_f32(*(v18 + 32), *v70.i8, 1) + (*v74.i32 * *(v18 + 28)));
+  v45.n128_u32[1] = LODWORD(v44.f64[0]);
+  *v49.i64 = CI::BitmapSampler::read(*(v18 + 8), v45, v44, *v47.i64, v46, v72, v70, v74, v48);
+  v50 = v70;
+  v51 = vmuls_lane_f32(*(v18 + 20), *v74.i8, 1) + (*v70.i32 * *(v18 + 16));
+  LODWORD(v52) = *(v18 + 24);
+  v53.i32[0] = *(v18 + 36);
+  *&v54 = vmuls_lane_f32(*(v18 + 32), *v74.i8, 1) + (*v70.i32 * *(v18 + 28));
+  v71 = vaddq_f32(v69, vmulq_n_f32(v49, *v67.i32));
+  v49.i64[1] = v77.n128_i64[1];
+  v49.f32[0] = *&v52 + v51;
+  *v55.f64 = *v53.i32 + *&v54;
+  v49.f32[1] = *v53.i32 + *&v54;
+  *v56.i64 = CI::BitmapSampler::read(*(v18 + 8), v49, v55, v52, v54, v72, v53, v67, v50);
+  HIDWORD(v57) = v74.i32[1];
+  v58 = vmuls_lane_f32(*(v18 + 20), *v74.i8, 1) + (*v74.i32 * *(v18 + 16));
+  v59 = v74;
+  LODWORD(v60) = *(v18 + 24);
+  v61.i32[0] = *(v18 + 36);
+  *&v57 = vmuls_lane_f32(*(v18 + 32), *v74.i8, 1) + (*v74.i32 * *(v18 + 28));
+  v75 = vaddq_f32(v71, vmulq_n_f32(v56, vmuls_lane_f32(*v72.i32, v77.n128_u64[0], 1)));
+  v62 = v77;
+  v77.n128_u32[0] = vmuls_lane_f32(v62.n128_f32[0], v62.n128_u64[0], 1);
+  v62.n128_f32[0] = *&v60 + v58;
+  *v63.f64 = *v61.i32 + *&v57;
+  v62.n128_f32[1] = *v61.i32 + *&v57;
+  *v65.i64 = CI::BitmapSampler::read(*(v18 + 8), v62, v63, v60, v57, v71, v61, v59, v64);
+  *&result = vaddq_f32(v75, vmulq_n_f32(v65, v77.n128_f32[0])).u64[0];
   return result;
 }
 
@@ -338,8 +1361,8 @@ double CI::sw_cubicUpsample(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 
   v18 = a4 + 80 * v5;
-  v162 = *v17;
-  v166 = *v13;
+  v177 = *v17;
+  v181 = *v13;
   v19 = vmul_f32(*v9, *CI::getDC(a1));
   *v20.i8 = vadd_f32(vrndm_f32(vadd_f32(v19, 0xBF000000BF000000)), 0x3F0000003F000000);
   v21 = vsub_f32(*v20.i8, v19);
@@ -347,14 +1370,14 @@ double CI::sw_cubicUpsample(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   __asm { FMOV            V9.2S, #-1.0 }
 
   *v20.i8 = vabs_f32(vadd_f32(v21, *&_D9));
-  v28.i64[1] = v162.i64[1];
-  *v29.i8 = vadd_f32(vdup_laneq_s32(v162, 3), vadd_f32(vmul_laneq_f32(*v20.i8, v162, 2), vadd_f32(vmul_f32(*v20.i8, vmul_lane_f32(*v20.i8, *v162.f32, 1)), vmul_f32(*v20.i8, vmul_f32(*v20.i8, vmul_n_f32(*v20.i8, v162.f32[0]))))));
-  v163 = v29;
+  v28.i64[1] = v177.i64[1];
+  *v29.i8 = vadd_f32(vdup_laneq_s32(v177, 3), vadd_f32(vmul_laneq_f32(*v20.i8, v177, 2), vadd_f32(vmul_f32(*v20.i8, vmul_lane_f32(*v20.i8, *v177.f32, 1)), vmul_f32(*v20.i8, vmul_f32(*v20.i8, vmul_n_f32(*v20.i8, v177.f32[0]))))));
+  v178 = v29;
   v30 = vabd_f32(*v22.i8, v19);
-  v168 = v22;
-  v31 = v166;
-  v32 = vmul_f32(v30, vmul_lane_f32(v30, *v166.f32, 1));
-  v33 = vadd_f32(vmul_laneq_f32(v30, v166, 2), vadd_f32(v32, vmul_f32(v30, vmul_f32(v30, vmul_n_f32(v30, v166.f32[0])))));
+  v183 = v22;
+  v31 = v181;
+  v32 = vmul_f32(v30, vmul_lane_f32(v30, *v181.f32, 1));
+  v33 = vadd_f32(vmul_laneq_f32(v30, v181, 2), vadd_f32(v32, vmul_f32(v30, vmul_f32(v30, vmul_n_f32(v30, v181.f32[0])))));
   __asm { FMOV            V8.2S, #1.0 }
 
   v35 = vabs_f32(vadd_f32(v21, *&_D8));
@@ -363,184 +1386,199 @@ double CI::sw_cubicUpsample(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v31.i32[0] = *(v18 + 24);
   v36.i32[0] = *(v18 + 36);
   *v20.i32 = vmuls_lane_f32(*(v18 + 32), *v20.i8, 1) + (*v20.i32 * *(v18 + 28));
-  *v28.i8 = vmul_f32(v35, vmul_lane_f32(v35, *v166.f32, 1));
-  *v22.i8 = vdup_laneq_s32(v166, 3);
-  *v37.i8 = vadd_f32(*v22.i8, v33);
-  *&v38.f64[0] = vadd_f32(*v22.i8, vadd_f32(vmul_laneq_f32(v35, v166, 2), vadd_f32(*v28.i8, vmul_f32(v35, vmul_f32(v35, vmul_n_f32(v35, v166.f32[0]))))));
-  v160 = v37;
-  v161 = v38;
-  *v37.i8 = vsub_f32(*&_D8, vadd_f32(*&v38.f64[0], vadd_f32(*v37.i8, *v29.i8)));
-  v167 = v37;
-  *v37.i32 = *v31.i32 + v32.f32[0];
+  *v28.i8 = vmul_f32(v35, vmul_lane_f32(v35, *v181.f32, 1));
+  *v22.i8 = vdup_laneq_s32(v181, 3);
+  v37.n128_u64[0] = vadd_f32(*v22.i8, v33);
+  *&v38.f64[0] = vadd_f32(*v22.i8, vadd_f32(vmul_laneq_f32(v35, v181, 2), vadd_f32(*v28.i8, vmul_f32(v35, vmul_f32(v35, vmul_n_f32(v35, v181.f32[0]))))));
+  v175 = v37;
+  v176 = v38;
+  v37.n128_u64[0] = vsub_f32(*&_D8, vadd_f32(*&v38.f64[0], vadd_f32(v37.n128_u64[0], *v29.i8)));
+  v182 = v37;
+  v37.n128_f32[0] = *v31.i32 + v32.f32[0];
   *v38.f64 = *v36.i32 + *v20.i32;
-  *&v37.i32[1] = *v36.i32 + *v20.i32;
-  *v39.i64 = CI::BitmapSampler::read(*(v18 + 8), *v37.i64, v38, *v20.i64, *&v32, v31, v22, v28, v36);
-  HIDWORD(v40) = v168.i32[1];
-  *&v41.f64[0] = vadd_f32(*v168.i8, 0xBF80000000000000);
+  v37.n128_f32[1] = *v36.i32 + *v20.i32;
+  *v39.i64 = CI::BitmapSampler::read(*(v18 + 8), v37, v38, *v20.i64, *&v32, v31, v22, v28, v36);
+  HIDWORD(v40) = v183.i32[1];
+  *&v41.f64[0] = vadd_f32(*v183.i8, 0xBF80000000000000);
   *&v40 = vmuls_lane_f32(*(v18 + 20), *&v41.f64[0], 1) + (*v41.f64 * *(v18 + 16));
   LODWORD(v42) = *(v18 + 24);
   v43.i32[0] = *(v18 + 36);
   *v44.i32 = vmuls_lane_f32(*(v18 + 32), *&v41.f64[0], 1);
-  v148 = vaddq_f32(vmulq_lane_f32(vmulq_n_f32(v39, *v163.i32), *v163.i8, 1), 0);
-  v39.f32[0] = *&v42 + *&v40;
+  v45 = vaddq_f32(vmulq_lane_f32(vmulq_n_f32(v39, *v178.i32), *v178.i8, 1), 0);
+  v163 = v45;
+  v45.n128_f32[0] = *&v42 + *&v40;
   *v41.f64 = *v43.i32 + (*v44.i32 + (*v41.f64 * *(v18 + 28)));
-  v39.i32[1] = LODWORD(v41.f64[0]);
-  *v46.i64 = CI::BitmapSampler::read(*(v18 + 8), *v39.i64, v41, v40, v42, 0, v44, v43, v45);
-  HIDWORD(v47) = v168.i32[1];
-  *&v48.f64[0] = vadd_f32(*v168.i8, COERCE_FLOAT32X2_T(-_D8));
-  *&v47 = vmuls_lane_f32(*(v18 + 20), *&v48.f64[0], 1) + (*v48.f64 * *(v18 + 16));
-  LODWORD(v49) = *(v18 + 24);
-  v50.i32[0] = *(v18 + 36);
-  *v51.i32 = vmuls_lane_f32(*(v18 + 32), *&v48.f64[0], 1);
-  v52 = v148;
-  v149 = vaddq_f32(v148, vmulq_lane_f32(vmulq_n_f32(v46, *v160.i32), *v163.i8, 1));
-  v46.f32[0] = *&v49 + *&v47;
-  *v48.f64 = *v50.i32 + (*v51.i32 + (*v48.f64 * *(v18 + 28)));
-  v46.i32[1] = LODWORD(v48.f64[0]);
-  *v54.i64 = CI::BitmapSampler::read(*(v18 + 8), *v46.i64, v48, v47, v49, v52, v51, v50, v53);
-  HIDWORD(v55) = v168.i32[1];
-  *&v56.f64[0] = vadd_f32(*v168.i8, 0xBF80000040000000);
-  *&v55 = vmuls_lane_f32(*(v18 + 20), *&v56.f64[0], 1) + (*v56.f64 * *(v18 + 16));
-  LODWORD(v57) = *(v18 + 24);
-  v58.i32[0] = *(v18 + 36);
-  v59 = v149;
-  v150 = vaddq_f32(v149, vmulq_lane_f32(vmulq_n_f32(v54, *v161.i32), *v163.i8, 1));
-  v54.f32[0] = *&v57 + *&v55;
-  *v56.f64 = *v58.i32 + (vmuls_lane_f32(*(v18 + 32), *&v56.f64[0], 1) + (*v56.f64 * *(v18 + 28)));
-  v54.i32[1] = LODWORD(v56.f64[0]);
-  *v61.i64 = CI::BitmapSampler::read(*(v18 + 8), *v54.i64, v56, v55, v57, v59, v161, v58, v60);
-  HIDWORD(v62) = v168.i32[1];
-  *&v63.f64[0] = vadd_f32(*v168.i8, 3212836864);
-  *&v62 = vmuls_lane_f32(*(v18 + 20), *&v63.f64[0], 1) + (*v63.f64 * *(v18 + 16));
-  LODWORD(v64) = *(v18 + 24);
-  v65.i32[0] = *(v18 + 36);
-  v66 = v150;
-  v151 = vaddq_f32(v150, vmulq_lane_f32(vmulq_n_f32(v61, *v167.i32), *v163.i8, 1));
-  v61.f32[0] = *&v64 + *&v62;
-  *v63.f64 = *v65.i32 + (vmuls_lane_f32(*(v18 + 32), *&v63.f64[0], 1) + (*v63.f64 * *(v18 + 28)));
-  v61.i32[1] = LODWORD(v63.f64[0]);
-  *v68.i64 = CI::BitmapSampler::read(*(v18 + 8), *v61.i64, v63, v62, v64, v66, v167, v65, v67);
-  v69 = v151;
-  HIDWORD(v70) = v160.i32[1];
-  v152 = vaddq_f32(v151, vmulq_lane_f32(vmulq_n_f32(v68, *v163.i32), *v160.i8, 1));
-  LODWORD(v70) = *(v18 + 28);
-  v68.f32[0] = *(v18 + 24) + (vmuls_lane_f32(*(v18 + 20), *v168.i8, 1) + (*v168.i32 * *(v18 + 16)));
-  LODWORD(v71) = *(v18 + 36);
-  *v69.f64 = *&v71 + (vmuls_lane_f32(*(v18 + 32), *v168.i8, 1) + (*v168.i32 * *&v70));
-  v68.i32[1] = LODWORD(v69.f64[0]);
-  *v75.i64 = CI::BitmapSampler::read(*(v18 + 8), *v68.i64, v69, v70, v71, v168, v72, v73, v74);
-  HIDWORD(v76) = v168.i32[1];
-  *&v77.f64[0] = vadd_f32(*v168.i8, 1065353216);
-  *&v76 = vmuls_lane_f32(*(v18 + 20), *&v77.f64[0], 1) + (*v77.f64 * *(v18 + 16));
-  LODWORD(v78) = *(v18 + 24);
-  v79.i32[0] = *(v18 + 36);
-  v80 = v152;
-  v153 = vaddq_f32(v152, vmulq_lane_f32(vmulq_n_f32(v75, *v160.i32), *v160.i8, 1));
-  v75.f32[0] = *&v78 + *&v76;
-  *v77.f64 = *v79.i32 + (vmuls_lane_f32(*(v18 + 32), *&v77.f64[0], 1) + (*v77.f64 * *(v18 + 28)));
-  v75.i32[1] = LODWORD(v77.f64[0]);
-  *v82.i64 = CI::BitmapSampler::read(*(v18 + 8), *v75.i64, v77, v76, v78, v80, v160, v79, v81);
-  HIDWORD(v83) = v168.i32[1];
-  *&v84.f64[0] = vadd_f32(*v168.i8, 0x40000000);
-  *&v83 = vmuls_lane_f32(*(v18 + 20), *&v84.f64[0], 1) + (*v84.f64 * *(v18 + 16));
-  LODWORD(v85) = *(v18 + 24);
-  v86.i32[0] = *(v18 + 36);
-  v87 = v153;
-  v154 = vaddq_f32(v153, vmulq_lane_f32(vmulq_n_f32(v82, *v161.i32), *v160.i8, 1));
-  v82.f32[0] = *&v85 + *&v83;
-  *v84.f64 = *v86.i32 + (vmuls_lane_f32(*(v18 + 32), *&v84.f64[0], 1) + (*v84.f64 * *(v18 + 28)));
-  v82.i32[1] = LODWORD(v84.f64[0]);
-  *v89.i64 = CI::BitmapSampler::read(*(v18 + 8), *v82.i64, v84, v83, v85, v87, v161, v86, v88);
-  HIDWORD(v90) = v168.i32[1];
-  *&v91.f64[0] = vadd_f32(*v168.i8, COERCE_FLOAT32X2_T(-_D9));
-  *&v90 = vmuls_lane_f32(*(v18 + 20), *&v91.f64[0], 1) + (*v91.f64 * *(v18 + 16));
-  LODWORD(v92) = *(v18 + 24);
-  v93.i32[0] = *(v18 + 36);
-  v94 = v154;
-  v155 = vaddq_f32(v154, vmulq_lane_f32(vmulq_n_f32(v89, *v167.i32), *v160.i8, 1));
-  v89.f32[0] = *&v92 + *&v90;
-  *v91.f64 = *v93.i32 + (vmuls_lane_f32(*(v18 + 32), *&v91.f64[0], 1) + (*v91.f64 * *(v18 + 28)));
-  v89.i32[1] = LODWORD(v91.f64[0]);
-  *v96.i64 = CI::BitmapSampler::read(*(v18 + 8), *v89.i64, v91, v90, v92, v94, v160, v93, v95);
-  HIDWORD(v97) = v168.i32[1];
-  *&v98.f64[0] = vadd_f32(*v168.i8, 0x3F80000000000000);
+  v45.n128_u32[1] = LODWORD(v41.f64[0]);
+  *v47.i64 = CI::BitmapSampler::read(*(v18 + 8), v45, v41, v40, v42, 0, v44, v43, v46);
+  HIDWORD(v48) = v183.i32[1];
+  *&v49.f64[0] = vadd_f32(*v183.i8, COERCE_FLOAT32X2_T(-_D8));
+  *&v48 = vmuls_lane_f32(*(v18 + 20), *&v49.f64[0], 1) + (*v49.f64 * *(v18 + 16));
+  LODWORD(v50) = *(v18 + 24);
+  v51.i32[0] = *(v18 + 36);
+  *v52.i32 = vmuls_lane_f32(*(v18 + 32), *&v49.f64[0], 1);
+  v53 = v163;
+  v54 = vaddq_f32(v163, vmulq_lane_f32(vmulq_n_f32(v47, *v175.i32), *v178.i8, 1));
+  v164 = v54;
+  v54.n128_f32[0] = *&v50 + *&v48;
+  *v49.f64 = *v51.i32 + (*v52.i32 + (*v49.f64 * *(v18 + 28)));
+  v54.n128_u32[1] = LODWORD(v49.f64[0]);
+  *v56.i64 = CI::BitmapSampler::read(*(v18 + 8), v54, v49, v48, v50, v53, v52, v51, v55);
+  HIDWORD(v57) = v183.i32[1];
+  *&v58.f64[0] = vadd_f32(*v183.i8, 0xBF80000040000000);
+  *&v57 = vmuls_lane_f32(*(v18 + 20), *&v58.f64[0], 1) + (*v58.f64 * *(v18 + 16));
+  LODWORD(v59) = *(v18 + 24);
+  v60.i32[0] = *(v18 + 36);
+  v61 = v164;
+  v62 = vaddq_f32(v164, vmulq_lane_f32(vmulq_n_f32(v56, *v176.i32), *v178.i8, 1));
+  v165 = v62;
+  v62.n128_f32[0] = *&v59 + *&v57;
+  *v58.f64 = *v60.i32 + (vmuls_lane_f32(*(v18 + 32), *&v58.f64[0], 1) + (*v58.f64 * *(v18 + 28)));
+  v62.n128_u32[1] = LODWORD(v58.f64[0]);
+  *v64.i64 = CI::BitmapSampler::read(*(v18 + 8), v62, v58, v57, v59, v61, v176, v60, v63);
+  HIDWORD(v65) = v183.i32[1];
+  *&v66.f64[0] = vadd_f32(*v183.i8, 3212836864);
+  *&v65 = vmuls_lane_f32(*(v18 + 20), *&v66.f64[0], 1) + (*v66.f64 * *(v18 + 16));
+  LODWORD(v67) = *(v18 + 24);
+  v68.i32[0] = *(v18 + 36);
+  v69 = v165;
+  v70 = vaddq_f32(v165, vmulq_lane_f32(vmulq_n_f32(v64, *v182.i32), *v178.i8, 1));
+  v166 = v70;
+  v70.n128_f32[0] = *&v67 + *&v65;
+  *v66.f64 = *v68.i32 + (vmuls_lane_f32(*(v18 + 32), *&v66.f64[0], 1) + (*v66.f64 * *(v18 + 28)));
+  v70.n128_u32[1] = LODWORD(v66.f64[0]);
+  *v72.i64 = CI::BitmapSampler::read(*(v18 + 8), v70, v66, v65, v67, v69, v182, v68, v71);
+  v73 = v166;
+  HIDWORD(v74) = v175.i32[1];
+  v75 = vaddq_f32(v166, vmulq_lane_f32(vmulq_n_f32(v72, *v178.i32), *v175.i8, 1));
+  v167 = v75;
+  LODWORD(v74) = *(v18 + 28);
+  v75.n128_f32[0] = *(v18 + 24) + (vmuls_lane_f32(*(v18 + 20), *v183.i8, 1) + (*v183.i32 * *(v18 + 16)));
+  LODWORD(v76) = *(v18 + 36);
+  *v73.f64 = *&v76 + (vmuls_lane_f32(*(v18 + 32), *v183.i8, 1) + (*v183.i32 * *&v74));
+  v75.n128_u32[1] = LODWORD(v73.f64[0]);
+  *v80.i64 = CI::BitmapSampler::read(*(v18 + 8), v75, v73, v74, v76, v183, v77, v78, v79);
+  HIDWORD(v81) = v183.i32[1];
+  *&v82.f64[0] = vadd_f32(*v183.i8, 1065353216);
+  *&v81 = vmuls_lane_f32(*(v18 + 20), *&v82.f64[0], 1) + (*v82.f64 * *(v18 + 16));
+  LODWORD(v83) = *(v18 + 24);
+  v84.i32[0] = *(v18 + 36);
+  v85 = v167;
+  v86 = vaddq_f32(v167, vmulq_lane_f32(vmulq_n_f32(v80, *v175.i32), *v175.i8, 1));
+  v168 = v86;
+  v86.n128_f32[0] = *&v83 + *&v81;
+  *v82.f64 = *v84.i32 + (vmuls_lane_f32(*(v18 + 32), *&v82.f64[0], 1) + (*v82.f64 * *(v18 + 28)));
+  v86.n128_u32[1] = LODWORD(v82.f64[0]);
+  *v88.i64 = CI::BitmapSampler::read(*(v18 + 8), v86, v82, v81, v83, v85, v175, v84, v87);
+  HIDWORD(v89) = v183.i32[1];
+  *&v90.f64[0] = vadd_f32(*v183.i8, 0x40000000);
+  *&v89 = vmuls_lane_f32(*(v18 + 20), *&v90.f64[0], 1) + (*v90.f64 * *(v18 + 16));
+  LODWORD(v91) = *(v18 + 24);
+  v92.i32[0] = *(v18 + 36);
+  v93 = v168;
+  v94 = vaddq_f32(v168, vmulq_lane_f32(vmulq_n_f32(v88, *v176.i32), *v175.i8, 1));
+  v169 = v94;
+  v94.n128_f32[0] = *&v91 + *&v89;
+  *v90.f64 = *v92.i32 + (vmuls_lane_f32(*(v18 + 32), *&v90.f64[0], 1) + (*v90.f64 * *(v18 + 28)));
+  v94.n128_u32[1] = LODWORD(v90.f64[0]);
+  *v96.i64 = CI::BitmapSampler::read(*(v18 + 8), v94, v90, v89, v91, v93, v176, v92, v95);
+  HIDWORD(v97) = v183.i32[1];
+  *&v98.f64[0] = vadd_f32(*v183.i8, COERCE_FLOAT32X2_T(-_D9));
   *&v97 = vmuls_lane_f32(*(v18 + 20), *&v98.f64[0], 1) + (*v98.f64 * *(v18 + 16));
   LODWORD(v99) = *(v18 + 24);
   v100.i32[0] = *(v18 + 36);
-  v101 = v155;
-  v156 = vaddq_f32(v155, vmulq_lane_f32(vmulq_n_f32(v96, *v163.i32), *v161.i8, 1));
-  v96.f32[0] = *&v99 + *&v97;
+  v101 = v169;
+  v102 = vaddq_f32(v169, vmulq_lane_f32(vmulq_n_f32(v96, *v182.i32), *v175.i8, 1));
+  v170 = v102;
+  v102.n128_f32[0] = *&v99 + *&v97;
   *v98.f64 = *v100.i32 + (vmuls_lane_f32(*(v18 + 32), *&v98.f64[0], 1) + (*v98.f64 * *(v18 + 28)));
-  v96.i32[1] = LODWORD(v98.f64[0]);
-  *v103.i64 = CI::BitmapSampler::read(*(v18 + 8), *v96.i64, v98, v97, v99, v101, v163, v100, v102);
-  *&v104.f64[1] = v168.i64[1];
-  *&v104.f64[0] = vadd_f32(*v168.i8, *&_D8);
-  *&v105 = vmuls_lane_f32(*(v18 + 20), *&v104.f64[0], 1) + (*v104.f64 * *(v18 + 16));
-  LODWORD(v106) = *(v18 + 24);
-  v107.i32[0] = *(v18 + 36);
-  v108 = v156;
-  v157 = vaddq_f32(v156, vmulq_lane_f32(vmulq_n_f32(v103, *v160.i32), *v161.i8, 1));
-  v103.f32[0] = *&v106 + *&v105;
-  *v104.f64 = *v107.i32 + (vmuls_lane_f32(*(v18 + 32), *&v104.f64[0], 1) + (*v104.f64 * *(v18 + 28)));
-  v103.i32[1] = LODWORD(v104.f64[0]);
-  *v110.i64 = CI::BitmapSampler::read(*(v18 + 8), *v103.i64, v104, v105, v106, v108, v160, v107, v109);
-  HIDWORD(v111) = v168.i32[1];
-  *&v112.f64[0] = vadd_f32(*v168.i8, 0x3F80000040000000);
-  *&v111 = vmuls_lane_f32(*(v18 + 20), *&v112.f64[0], 1) + (*v112.f64 * *(v18 + 16));
-  LODWORD(v113) = *(v18 + 24);
-  v114.i32[0] = *(v18 + 36);
-  *v115.i32 = vmuls_lane_f32(*(v18 + 32), *&v112.f64[0], 1);
-  v116 = v157;
-  v158 = vaddq_f32(v157, vmulq_lane_f32(vmulq_n_f32(v110, *v161.i32), *v161.i8, 1));
-  v110.f32[0] = *&v113 + *&v111;
-  *v112.f64 = *v114.i32 + (*v115.i32 + (*v112.f64 * *(v18 + 28)));
-  v110.i32[1] = LODWORD(v112.f64[0]);
-  *v118.i64 = CI::BitmapSampler::read(*(v18 + 8), *v110.i64, v112, v111, v113, v116, v115, v114, v117);
-  HIDWORD(v119) = v168.i32[1];
-  *&v120.f64[0] = vadd_f32(*v168.i8, 0x40000000BF800000);
-  *&v119 = vmuls_lane_f32(*(v18 + 20), *&v120.f64[0], 1) + (*v120.f64 * *(v18 + 16));
-  LODWORD(v121) = *(v18 + 24);
-  v122.i32[0] = *(v18 + 36);
-  *v123.i32 = vmuls_lane_f32(*(v18 + 32), *&v120.f64[0], 1);
-  v124 = v158;
-  v159 = vaddq_f32(v158, vmulq_lane_f32(vmulq_n_f32(v118, *v167.i32), *v161.i8, 1));
-  v118.f32[0] = *&v121 + *&v119;
-  *v120.f64 = *v122.i32 + (*v123.i32 + (*v120.f64 * *(v18 + 28)));
-  v118.i32[1] = LODWORD(v120.f64[0]);
-  *v126.i64 = CI::BitmapSampler::read(*(v18 + 8), *v118.i64, v120, v119, v121, v124, v123, v122, v125);
-  HIDWORD(v127) = v168.i32[1];
-  *&v128.f64[0] = vadd_f32(*v168.i8, 0x4000000000000000);
-  *&v127 = vmuls_lane_f32(*(v18 + 20), *&v128.f64[0], 1) + (*v128.f64 * *(v18 + 16));
-  LODWORD(v129) = *(v18 + 24);
-  v130.i32[0] = *(v18 + 36);
-  v131 = v163;
-  v164 = vaddq_f32(v159, vmulq_lane_f32(vmulq_n_f32(v126, *v163.i32), *v167.i8, 1));
-  v126.f32[0] = *&v129 + *&v127;
-  *v128.f64 = *v130.i32 + (vmuls_lane_f32(*(v18 + 32), *&v128.f64[0], 1) + (*v128.f64 * *(v18 + 28)));
-  v126.i32[1] = LODWORD(v128.f64[0]);
-  *v133.i64 = CI::BitmapSampler::read(*(v18 + 8), *v126.i64, v128, v127, v129, v159, v131, v130, v132);
-  HIDWORD(v134) = v168.i32[1];
-  *&v135.f64[0] = vadd_f32(*v168.i8, 0x400000003F800000);
-  *&v134 = vmuls_lane_f32(*(v18 + 20), *&v135.f64[0], 1) + (*v135.f64 * *(v18 + 16));
-  LODWORD(v136) = *(v18 + 24);
-  v137.i32[0] = *(v18 + 36);
-  v138 = v164;
-  v165 = vaddq_f32(v164, vmulq_lane_f32(vmulq_n_f32(v133, *v160.i32), *v167.i8, 1));
-  v133.f32[0] = *&v136 + *&v134;
-  *v135.f64 = *v137.i32 + (vmuls_lane_f32(*(v18 + 32), *&v135.f64[0], 1) + (*v135.f64 * *(v18 + 28)));
-  v133.i32[1] = LODWORD(v135.f64[0]);
-  *v140.i64 = CI::BitmapSampler::read(*(v18 + 8), *v133.i64, v135, v134, v136, v138, v167, v137, v139);
-  HIDWORD(v141) = v168.i32[1];
-  *&v142.f64[0] = vadd_f32(*v168.i8, 0x4000000040000000);
-  *&v141 = vmuls_lane_f32(*(v18 + 20), *&v142.f64[0], 1) + (*v142.f64 * *(v18 + 16));
-  LODWORD(v143) = *(v18 + 24);
-  v144.i32[0] = *(v18 + 36);
-  v169 = vaddq_f32(v165, vmulq_lane_f32(vmulq_n_f32(v140, *v161.i32), *v167.i8, 1));
-  v140.f32[0] = *&v143 + *&v141;
-  *v142.f64 = *v144.i32 + (vmuls_lane_f32(*(v18 + 32), *&v142.f64[0], 1) + (*v142.f64 * *(v18 + 28)));
-  v140.i32[1] = LODWORD(v142.f64[0]);
-  *v146.i64 = CI::BitmapSampler::read(*(v18 + 8), *v140.i64, v142, v141, v143, v165, v167, v144, v145);
-  *&result = vaddq_f32(v169, vmulq_lane_f32(vmulq_n_f32(v146, *v167.i32), *v167.i8, 1)).u64[0];
+  v102.n128_u32[1] = LODWORD(v98.f64[0]);
+  *v104.i64 = CI::BitmapSampler::read(*(v18 + 8), v102, v98, v97, v99, v101, v175, v100, v103);
+  HIDWORD(v105) = v183.i32[1];
+  *&v106.f64[0] = vadd_f32(*v183.i8, 0x3F80000000000000);
+  *&v105 = vmuls_lane_f32(*(v18 + 20), *&v106.f64[0], 1) + (*v106.f64 * *(v18 + 16));
+  LODWORD(v107) = *(v18 + 24);
+  v108.i32[0] = *(v18 + 36);
+  v109 = v170;
+  v110 = vaddq_f32(v170, vmulq_lane_f32(vmulq_n_f32(v104, *v178.i32), *v176.i8, 1));
+  v171 = v110;
+  v110.n128_f32[0] = *&v107 + *&v105;
+  *v106.f64 = *v108.i32 + (vmuls_lane_f32(*(v18 + 32), *&v106.f64[0], 1) + (*v106.f64 * *(v18 + 28)));
+  v110.n128_u32[1] = LODWORD(v106.f64[0]);
+  *v112.i64 = CI::BitmapSampler::read(*(v18 + 8), v110, v106, v105, v107, v109, v178, v108, v111);
+  *&v113.f64[1] = v183.i64[1];
+  *&v113.f64[0] = vadd_f32(*v183.i8, *&_D8);
+  *&v114 = vmuls_lane_f32(*(v18 + 20), *&v113.f64[0], 1) + (*v113.f64 * *(v18 + 16));
+  LODWORD(v115) = *(v18 + 24);
+  v116.i32[0] = *(v18 + 36);
+  v117 = v171;
+  v118 = vaddq_f32(v171, vmulq_lane_f32(vmulq_n_f32(v112, *v175.i32), *v176.i8, 1));
+  v172 = v118;
+  v118.n128_f32[0] = *&v115 + *&v114;
+  *v113.f64 = *v116.i32 + (vmuls_lane_f32(*(v18 + 32), *&v113.f64[0], 1) + (*v113.f64 * *(v18 + 28)));
+  v118.n128_u32[1] = LODWORD(v113.f64[0]);
+  *v120.i64 = CI::BitmapSampler::read(*(v18 + 8), v118, v113, v114, v115, v117, v175, v116, v119);
+  HIDWORD(v121) = v183.i32[1];
+  *&v122.f64[0] = vadd_f32(*v183.i8, 0x3F80000040000000);
+  *&v121 = vmuls_lane_f32(*(v18 + 20), *&v122.f64[0], 1) + (*v122.f64 * *(v18 + 16));
+  LODWORD(v123) = *(v18 + 24);
+  v124.i32[0] = *(v18 + 36);
+  *v125.i32 = vmuls_lane_f32(*(v18 + 32), *&v122.f64[0], 1);
+  v126 = v172;
+  v127 = vaddq_f32(v172, vmulq_lane_f32(vmulq_n_f32(v120, *v176.i32), *v176.i8, 1));
+  v173 = v127;
+  v127.n128_f32[0] = *&v123 + *&v121;
+  *v122.f64 = *v124.i32 + (*v125.i32 + (*v122.f64 * *(v18 + 28)));
+  v127.n128_u32[1] = LODWORD(v122.f64[0]);
+  *v129.i64 = CI::BitmapSampler::read(*(v18 + 8), v127, v122, v121, v123, v126, v125, v124, v128);
+  HIDWORD(v130) = v183.i32[1];
+  *&v131.f64[0] = vadd_f32(*v183.i8, 0x40000000BF800000);
+  *&v130 = vmuls_lane_f32(*(v18 + 20), *&v131.f64[0], 1) + (*v131.f64 * *(v18 + 16));
+  LODWORD(v132) = *(v18 + 24);
+  v133.i32[0] = *(v18 + 36);
+  *v134.i32 = vmuls_lane_f32(*(v18 + 32), *&v131.f64[0], 1);
+  v135 = v173;
+  v136 = vaddq_f32(v173, vmulq_lane_f32(vmulq_n_f32(v129, *v182.i32), *v176.i8, 1));
+  v174 = v136;
+  v136.n128_f32[0] = *&v132 + *&v130;
+  *v131.f64 = *v133.i32 + (*v134.i32 + (*v131.f64 * *(v18 + 28)));
+  v136.n128_u32[1] = LODWORD(v131.f64[0]);
+  *v138.i64 = CI::BitmapSampler::read(*(v18 + 8), v136, v131, v130, v132, v135, v134, v133, v137);
+  HIDWORD(v139) = v183.i32[1];
+  *&v140.f64[0] = vadd_f32(*v183.i8, 0x4000000000000000);
+  *&v139 = vmuls_lane_f32(*(v18 + 20), *&v140.f64[0], 1) + (*v140.f64 * *(v18 + 16));
+  LODWORD(v141) = *(v18 + 24);
+  v142.i32[0] = *(v18 + 36);
+  v143 = v178;
+  v144 = vaddq_f32(v174, vmulq_lane_f32(vmulq_n_f32(v138, *v178.i32), *v182.i8, 1));
+  v179 = v144;
+  v144.n128_f32[0] = *&v141 + *&v139;
+  *v140.f64 = *v142.i32 + (vmuls_lane_f32(*(v18 + 32), *&v140.f64[0], 1) + (*v140.f64 * *(v18 + 28)));
+  v144.n128_u32[1] = LODWORD(v140.f64[0]);
+  *v146.i64 = CI::BitmapSampler::read(*(v18 + 8), v144, v140, v139, v141, v174, v143, v142, v145);
+  HIDWORD(v147) = v183.i32[1];
+  *&v148.f64[0] = vadd_f32(*v183.i8, 0x400000003F800000);
+  *&v147 = vmuls_lane_f32(*(v18 + 20), *&v148.f64[0], 1) + (*v148.f64 * *(v18 + 16));
+  LODWORD(v149) = *(v18 + 24);
+  v150.i32[0] = *(v18 + 36);
+  v151 = v179;
+  v152 = vaddq_f32(v179, vmulq_lane_f32(vmulq_n_f32(v146, *v175.i32), *v182.i8, 1));
+  v180 = v152;
+  v152.n128_f32[0] = *&v149 + *&v147;
+  *v148.f64 = *v150.i32 + (vmuls_lane_f32(*(v18 + 32), *&v148.f64[0], 1) + (*v148.f64 * *(v18 + 28)));
+  v152.n128_u32[1] = LODWORD(v148.f64[0]);
+  *v154.i64 = CI::BitmapSampler::read(*(v18 + 8), v152, v148, v147, v149, v151, v182, v150, v153);
+  HIDWORD(v155) = v183.i32[1];
+  *&v156.f64[0] = vadd_f32(*v183.i8, 0x4000000040000000);
+  *&v155 = vmuls_lane_f32(*(v18 + 20), *&v156.f64[0], 1) + (*v156.f64 * *(v18 + 16));
+  LODWORD(v157) = *(v18 + 24);
+  v158.i32[0] = *(v18 + 36);
+  v159 = vaddq_f32(v180, vmulq_lane_f32(vmulq_n_f32(v154, *v176.i32), *v182.i8, 1));
+  v184 = v159;
+  v159.n128_f32[0] = *&v157 + *&v155;
+  *v156.f64 = *v158.i32 + (vmuls_lane_f32(*(v18 + 32), *&v156.f64[0], 1) + (*v156.f64 * *(v18 + 28)));
+  v159.n128_u32[1] = LODWORD(v156.f64[0]);
+  *v161.i64 = CI::BitmapSampler::read(*(v18 + 8), v159, v156, v155, v157, v180, v182, v158, v160);
+  *&result = vaddq_f32(v184, vmulq_lane_f32(vmulq_n_f32(v161, *v182.i32), *v182.i8, 1)).u64[0];
   return result;
 }
 
@@ -561,32 +1599,33 @@ double CI::sw_cubicUpsample10v(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v15.i64[0] = 0x3FC5555555555555;
   *v16.f64 = v14 + v12 * -0.333333333 * v12 * v12 + v12 * 0.5 + 0.166666667;
   *v17.i64 = *v16.f64;
-  v33 = v16;
-  v35 = 1.0 - *v16.f64;
+  v34 = v16;
+  v36 = 1.0 - *v16.f64;
   *v18.i64 = v14 + v12 * -0.5 * v12 * v12;
   v7.f64[0] = *v7.f64;
   v19 = (*v18.i64 + v12 * 0.5 + 0.166666667) / *v16.f64 + v7.f64[0] + -0.5;
   *&v19 = v19;
   v20 = (1.0 - *v16.f64);
-  v21 = (v11 * (v11 * v11)) / 6.0 / v20 + v7.f64[0];
+  v21.n128_f64[0] = (v11 * (v11 * v11)) / 6.0 / v20 + v7.f64[0];
   v7.f64[0] = 1.5;
-  v22 = v21 + 1.5;
-  v32 = v8;
+  v22 = v21.n128_f64[0] + 1.5;
+  v33 = v8;
   LODWORD(v20) = *(v5 + 28);
-  *&v21 = *(v5 + 24) + ((*(v5 + 20) * *&v19) + (*v8.f64 * *(v5 + 16)));
+  v21.n128_f32[0] = *(v5 + 24) + ((*(v5 + 20) * *&v19) + (*v8.f64 * *(v5 + 16)));
   v17.i32[0] = *(v5 + 36);
   *v7.f64 = *v17.i32 + ((*(v5 + 32) * *&v19) + (*v8.f64 * *&v20));
-  *(&v21 + 1) = *v7.f64;
+  v21.n128_f32[1] = *v7.f64;
   *v23.i64 = CI::BitmapSampler::read(*(v5 + 8), v21, v7, v19, v20, v17, v13, v18, v15);
-  v24 = v33;
-  v34 = vmulq_n_f32(v23, *v33.f64);
-  LODWORD(v25) = *(v5 + 28);
-  v23.f32[0] = *(v5 + 24) + ((*(v5 + 20) * v22) + (*v32.i32 * *(v5 + 16)));
-  LODWORD(v26) = *(v5 + 36);
-  *v24.f64 = *&v26 + ((*(v5 + 32) * v22) + (*v32.i32 * *&v25));
-  v23.f32[1] = *v24.f64;
-  *v30.i64 = CI::BitmapSampler::read(*(v5 + 8), *v23.i64, v24, v25, v26, v32, v27, v28, v29);
-  *&result = vaddq_f32(v34, vmulq_n_f32(v30, v35)).u64[0];
+  v24 = v34;
+  v25 = vmulq_n_f32(v23, *v34.f64);
+  v35 = v25;
+  LODWORD(v26) = *(v5 + 28);
+  v25.n128_f32[0] = *(v5 + 24) + ((*(v5 + 20) * v22) + (*v33.i32 * *(v5 + 16)));
+  LODWORD(v27) = *(v5 + 36);
+  *v24.f64 = *&v27 + ((*(v5 + 32) * v22) + (*v33.i32 * *&v26));
+  v25.n128_f32[1] = *v24.f64;
+  *v31.i64 = CI::BitmapSampler::read(*(v5 + 8), v25, v24, v26, v27, v33, v28, v29, v30);
+  *&result = vaddq_f32(v35, vmulq_n_f32(v31, v36)).u64[0];
   return result;
 }
 
@@ -607,32 +1646,33 @@ double CI::sw_cubicUpsample10h(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v16.i64[0] = 0x3FC5555555555555;
   *v17.f64 = v15 + v13 * -0.333333333 * v13 * v13 + v13 * 0.5 + 0.166666667;
   *v18.i64 = *v17.f64;
-  v36 = v17;
-  v38 = 1.0 - *v17.f64;
+  v37 = v17;
+  v39 = 1.0 - *v17.f64;
   *v19.i64 = v15 + v13 * -0.5 * v13 * v13;
   v20 = v10;
   v21 = (*v19.i64 + v13 * 0.5 + 0.166666667) / *v17.f64 + v20 + -0.5;
   *&v21 = v21;
   v22 = (1.0 - *v17.f64);
-  v23 = (v12 * (v12 * v12)) / 6.0 / v22 + v20;
+  v23.n128_f64[0] = (v12 * (v12 * v12)) / 6.0 / v22 + v20;
   v24.f64[0] = 1.5;
-  v25 = v23 + 1.5;
-  v35 = v8;
+  v25 = v23.n128_f64[0] + 1.5;
+  v36 = v8;
   LODWORD(v22) = *(v5 + 28);
-  *&v23 = *(v5 + 24) + (vmuls_lane_f32(*(v5 + 20), *DC, 1) + (*&v21 * *(v5 + 16)));
+  v23.n128_f32[0] = *(v5 + 24) + (vmuls_lane_f32(*(v5 + 20), *DC, 1) + (*&v21 * *(v5 + 16)));
   v18.i32[0] = *(v5 + 36);
   *v24.f64 = *v18.i32 + (vmuls_lane_f32(*(v5 + 32), *DC, 1) + (*&v21 * *&v22));
-  HIDWORD(v23) = LODWORD(v24.f64[0]);
+  v23.n128_u32[1] = LODWORD(v24.f64[0]);
   *v26.i64 = CI::BitmapSampler::read(*(v5 + 8), v23, v24, v21, v22, v18, v14, v19, v16);
-  v27 = v36;
-  v37 = vmulq_n_f32(v26, *v36.f64);
-  LODWORD(v28) = *(v5 + 28);
-  v26.f32[0] = *(v5 + 24) + (vmuls_lane_f32(*(v5 + 20), *v35.i8, 1) + (v25 * *(v5 + 16)));
-  LODWORD(v29) = *(v5 + 36);
-  *v27.f64 = *&v29 + (vmuls_lane_f32(*(v5 + 32), *v35.i8, 1) + (v25 * *&v28));
-  v26.i32[1] = LODWORD(v27.f64[0]);
-  *v33.i64 = CI::BitmapSampler::read(*(v5 + 8), *v26.i64, v27, v28, v29, v35, v30, v31, v32);
-  *&result = vaddq_f32(v37, vmulq_n_f32(v33, v38)).u64[0];
+  v27 = v37;
+  v28 = vmulq_n_f32(v26, *v37.f64);
+  v38 = v28;
+  LODWORD(v29) = *(v5 + 28);
+  v28.n128_f32[0] = *(v5 + 24) + (vmuls_lane_f32(*(v5 + 20), *v36.i8, 1) + (v25 * *(v5 + 16)));
+  LODWORD(v30) = *(v5 + 36);
+  *v27.f64 = *&v30 + (vmuls_lane_f32(*(v5 + 32), *v36.i8, 1) + (v25 * *&v29));
+  v28.n128_u32[1] = LODWORD(v27.f64[0]);
+  *v34.i64 = CI::BitmapSampler::read(*(v5 + 8), v28, v27, v29, v30, v36, v31, v32, v33);
+  *&result = vaddq_f32(v38, vmulq_n_f32(v34, v39)).u64[0];
   return result;
 }
 
@@ -817,8 +1857,9 @@ float32x2_t CI::sw_stretch(CI *a1, uint64_t a2, uint64_t a3)
   return vsub_f32(*CI::getDC(v19), v18);
 }
 
-void minMax(double a1, double a2, double a3, double a4, double a5, int a6, double *a7, double *a8)
+void minMax(double a1, double a2, double a3, double a4, double a5, uint64_t result, double *a7, double *a8)
 {
+  v10 = result;
   v14 = a2;
   if (a1 >= a3)
   {
@@ -827,12 +1868,12 @@ void minMax(double a1, double a2, double a3, double a4, double a5, int a6, doubl
     {
       if (v16 >= v14)
       {
-        *a7 = minForMiddleRange(a1, v14, a3, a4, a5, a6);
+        *a7 = minForMiddleRange(a1, v14, a3, a4, a5, result);
         v18 = a1;
         goto LABEL_13;
       }
 
-      v17 = minForMiddleRange(a1, v16, a3, a4, a5, a6);
+      v17 = minForMiddleRange(a1, v16, a3, a4, a5, result);
     }
 
     else
@@ -853,7 +1894,7 @@ LABEL_11:
     {
       v18 = a3;
 LABEL_13:
-      v14 = maxForMiddleRange(v18, v14, a3, a4, a5, a6);
+      v14 = maxForMiddleRange(v18, v14, a3, a4, a5, v10);
       goto LABEL_14;
     }
 
@@ -1161,8 +2202,8 @@ double CI::sw_sunbeams(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v36 = *(a2 + (*(v4 + 80) << 6));
   v14 = COERCE_FLOAT(*(v12 + 1));
   LODWORD(v15) = HIDWORD(*v12);
-  v16 = vsub_f32(*CI::getDC(a1), *v8);
-  v17 = vmul_f32(v16, v16);
+  v16.n128_u64[0] = vsub_f32(*CI::getDC(a1), *v8);
+  v17 = vmul_f32(v16.n128_u64[0], v16.n128_u64[0]);
   v18 = vadd_f32(v17, vdup_lane_s32(v17, 1)).u32[0];
   v19 = vaddv_f32(v17);
   v20 = vextq_s8(v34, v34, 8uLL);
@@ -1170,14 +2211,14 @@ double CI::sw_sunbeams(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   *v22.i8 = vmul_f32(v21, v21);
   v23 = COERCE_DOUBLE(vmul_f32(v21, vrsqrts_f32(v18, *v22.i8)));
   v24 = vdup_n_s32(0x42480000u);
-  *&v20.f64[0] = vadd_f32(*&v20.f64[0], vmul_f32(vmul_n_f32(v16, *&v23), v24));
+  *&v20.f64[0] = vadd_f32(*&v20.f64[0], vmul_f32(vmul_n_f32(v16.n128_u64[0], *&v23), v24));
   v24.i32[0] = *(v13 + 28);
-  v16.f32[0] = *(v13 + 24) + (vmuls_lane_f32(*(v13 + 20), *&v20.f64[0], 1) + (*v20.f64 * *(v13 + 16)));
+  v16.n128_f32[0] = *(v13 + 24) + (vmuls_lane_f32(*(v13 + 20), *&v20.f64[0], 1) + (*v20.f64 * *(v13 + 16)));
   v22.i32[0] = *(v13 + 36);
   *&v23 = vmuls_lane_f32(*(v13 + 32), *&v20.f64[0], 1);
   *v20.f64 = *v22.i32 + (*&v23 + (*v20.f64 * v24.f32[0]));
-  v16.i32[1] = LODWORD(v20.f64[0]);
-  v28 = CI::BitmapSampler::read(*(v13 + 8), *&v16, v20, v23, *&v24, v22, v25, v26, v27);
+  v16.n128_u32[1] = LODWORD(v20.f64[0]);
+  v28 = CI::BitmapSampler::read(*(v13 + 8), v16, v20, v23, *&v24, v22, v25, v26, v27);
   *&v28 = v15 + (*&v28 * v14);
   v29 = *&v35 / (v19 + 0.0001);
   v30 = vaddq_f32(vmulq_n_f32(v36, v29), vdupq_lane_s32(*&v28, 0));
@@ -1385,9 +2426,9 @@ double CI::sw_falseColor(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void sub_19CDE64EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19CDE64EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1426,7 +2467,7 @@ CGFloat makeCorners(void *a1, CGPoint *a2, CGPoint *a3, CGPoint *a4, CGPoint *a5
   return result;
 }
 
-uint64_t FutharkLibraryCore()
+uint64_t FutharkLibraryCore(uint64_t a1)
 {
   if (!FutharkLibraryCore_frameworkLibrary)
   {
@@ -1436,7 +2477,7 @@ uint64_t FutharkLibraryCore()
   return FutharkLibraryCore_frameworkLibrary;
 }
 
-uint64_t __FutharkLibraryCore_block_invoke()
+uint64_t __FutharkLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   FutharkLibraryCore_frameworkLibrary = result;
@@ -1446,9 +2487,14 @@ uint64_t __FutharkLibraryCore_block_invoke()
 Class __getFKTextDetectorClass_block_invoke(uint64_t a1)
 {
   v3 = 0;
-  if (!FutharkLibraryCore())
+  if (!FutharkLibraryCore(&v3))
   {
     __getFKTextDetectorClass_block_invoke_cold_2(&v3);
+  }
+
+  if (v3)
+  {
+    free(v3);
   }
 
   result = objc_getClass("FKTextDetector");
@@ -1949,46 +2995,46 @@ double CI::sw_triangleTile(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   v18 = a4 + 80 * v5;
   v19 = *v9;
-  v38 = *v13;
-  v39 = *v17;
-  v20 = vsub_f32(*CI::getDC(a1), *v9);
-  *&v27.f64[0] = vmul_f32(*v38.i8, v20);
-  v23 = vmul_f32(*&vextq_s8(v38, v38, 8uLL), v20);
-  v24 = vadd_f32(vzip1_s32(*&v27.f64[0], v23), vzip2_s32(*&v27.f64[0], v23));
-  v25 = vminnm_f32(vsub_f32(v24, vrndm_f32(v24)), vdup_n_s32(0x3F7FFFFFu));
-  *&v27.f64[0] = vdup_lane_s32(vcgt_f32(v25, vdup_lane_s32(v25, 1)), 0);
-  v26 = vbsl_s8(*&v27.f64[0], vrev64_s32(v25), v25);
-  LODWORD(v27.f64[0]) = v26.i32[1];
-  v28 = *v26.i32;
-  *v29.i64 = 2.0 - *v26.i32 - *&v26.i32[1];
-  *v30.i32 = *v29.i64;
-  if (*v29.i64 < *&v26.i32[1])
+  v32 = *v13;
+  v33 = *v17;
+  v22.n128_u64[0] = vsub_f32(*CI::getDC(a1), *v9);
+  *&v23.f64[0] = vmul_f32(*v32.i8, v22.n128_u64[0]);
+  v22.n128_u64[0] = vmul_f32(*&vextq_s8(v32, v32, 8uLL), v22.n128_u64[0]);
+  v22.n128_u64[0] = vadd_f32(vzip1_s32(*&v23.f64[0], v22.n128_u64[0]), vzip2_s32(*&v23.f64[0], v22.n128_u64[0]));
+  v22.n128_u64[0] = vminnm_f32(vsub_f32(v22.n128_u64[0], vrndm_f32(v22.n128_u64[0])), vdup_n_s32(0x3F7FFFFFu));
+  *&v23.f64[0] = vdup_lane_s32(vcgt_f32(v22.n128_u64[0], vdup_lane_s32(v22.n128_u64[0], 1)), 0);
+  v22.n128_u64[0] = vbsl_s8(*&v23.f64[0], vrev64_s32(v22.n128_u64[0]), v22.n128_u64[0]);
+  LODWORD(v23.f64[0]) = v22.n128_u32[1];
+  v24 = v22.n128_f32[0];
+  *v25.i64 = 2.0 - v22.n128_f32[0] - v22.n128_f32[1];
+  *v26.i32 = *v25.i64;
+  if (*v25.i64 < v22.n128_f32[1])
   {
-    *v27.f64 = *v29.i64;
+    *v23.f64 = *v25.i64;
   }
 
-  *v29.i64 = *v27.f64;
-  v31 = 1.0 - v28 - *v27.f64;
-  if (v31 > v28)
+  *v25.i64 = *v23.f64;
+  v27 = 1.0 - v24 - *v23.f64;
+  if (v27 > v24)
   {
-    v32 = v31;
-    *v26.i32 = v32;
+    v28 = v27;
+    v22.n128_f32[0] = v28;
   }
 
-  v33 = vcgt_f32(v26, *&v27.f64[0]);
-  v26.i32[1] = LODWORD(v27.f64[0]);
-  v34 = vbsl_s8(vdup_lane_s32(v33, 0), vrev64_s32(v26), v26);
-  *&v27.f64[0] = vmul_f32(*v39.i8, v34);
-  v35 = vmul_f32(*&vextq_s8(v39, v39, 8uLL), v34);
-  v36 = vzip1_s32(*&v27.f64[0], v35);
-  *&v27.f64[0] = vadd_f32(v19, vadd_f32(v36, vzip2_s32(*&v27.f64[0], v35)));
-  LODWORD(v28) = *(v18 + 28);
-  *v35.i32 = *(v18 + 24) + (vmuls_lane_f32(*(v18 + 20), *&v27.f64[0], 1) + (*v27.f64 * *(v18 + 16)));
-  v29.i32[0] = *(v18 + 36);
-  v36.f32[0] = vmuls_lane_f32(*(v18 + 32), *&v27.f64[0], 1);
-  *v27.f64 = *v29.i32 + (v36.f32[0] + (*v27.f64 * *&v28));
-  v35.i32[1] = LODWORD(v27.f64[0]);
-  return CI::BitmapSampler::read(*(v18 + 8), *&v35, v27, *&v36, v28, v29, v30, v21, v22);
+  v29 = vcgt_f32(v22.n128_u64[0], *&v23.f64[0]);
+  v22.n128_u32[1] = LODWORD(v23.f64[0]);
+  v22.n128_u64[0] = vbsl_s8(vdup_lane_s32(v29, 0), vrev64_s32(v22.n128_u64[0]), v22.n128_u64[0]);
+  *&v23.f64[0] = vmul_f32(*v33.i8, v22.n128_u64[0]);
+  v22.n128_u64[0] = vmul_f32(*&vextq_s8(v33, v33, 8uLL), v22.n128_u64[0]);
+  v30 = vzip1_s32(*&v23.f64[0], v22.n128_u64[0]);
+  *&v23.f64[0] = vadd_f32(v19, vadd_f32(v30, vzip2_s32(*&v23.f64[0], v22.n128_u64[0])));
+  LODWORD(v24) = *(v18 + 28);
+  v22.n128_f32[0] = *(v18 + 24) + (vmuls_lane_f32(*(v18 + 20), *&v23.f64[0], 1) + (*v23.f64 * *(v18 + 16)));
+  v25.i32[0] = *(v18 + 36);
+  v30.f32[0] = vmuls_lane_f32(*(v18 + 32), *&v23.f64[0], 1);
+  *v23.f64 = *v25.i32 + (v30.f32[0] + (*v23.f64 * *&v24));
+  v22.n128_u32[1] = LODWORD(v23.f64[0]);
+  return CI::BitmapSampler::read(*(v18 + 8), v22, v23, *&v30, v24, v25, v26, v20, v21);
 }
 
 float32x2_t CI::sw_twirl(CI *a1, uint64_t a2, uint64_t a3)
@@ -2139,7 +3185,7 @@ uint64_t VisionLibrary_0()
   return v0;
 }
 
-uint64_t __VisionLibraryCore_block_invoke_0()
+uint64_t __VisionLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_0 = result;
@@ -2182,40 +3228,40 @@ double CI::sw_variableBoxBlur(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v12 = a4 + 80 * v6;
   v13 = a4 + 80 * v5;
   v14 = *(a2 + (v7 << 6));
-  v190 = *v11;
+  v198 = *v11;
   DC = CI::getDC(a1);
   LODWORD(v16) = *(v12 + 24);
   v17.i32[0] = *(v12 + 36);
   *v18.i32 = vmuls_lane_f32(*(v12 + 32), *DC, 1);
   *&v19 = *v18.i32 + (COERCE_FLOAT(*DC) * *(v12 + 28));
-  *&v20 = *&v16 + (vmuls_lane_f32(*(v12 + 20), *DC, 1) + (COERCE_FLOAT(*DC) * *(v12 + 16)));
+  v20.n128_f32[0] = *&v16 + (vmuls_lane_f32(*(v12 + 20), *DC, 1) + (COERCE_FLOAT(*DC) * *(v12 + 16)));
   *v21.f64 = *v17.i32 + *&v19;
-  *(&v20 + 1) = *v17.i32 + *&v19;
+  v20.n128_f32[1] = *v17.i32 + *&v19;
   *v24.i64 = CI::BitmapSampler::read(*(v12 + 8), v20, v21, v16, v19, v18, v17, v22, v23);
   v25 = vmulq_f32(vmulq_n_f32(v24, 1.0 / fmaxf(v24.f32[3], 0.00001)), xmmword_19CF283E0);
   v25.f32[0] = fmaxf(v14 * (v25.f32[2] + vaddv_f32(*v25.f32)), 0.5);
-  v186 = v25;
+  v194 = v25;
   v27 = CI::getDC(v26);
-  v28.f32[0] = -1.0 - v186.f32[0];
-  v29 = v186;
-  v28.f32[1] = -v186.f32[0];
+  v28.f32[0] = -1.0 - v194.f32[0];
+  v29 = v194;
+  v28.f32[1] = -v194.f32[0];
   v30 = vadd_f32(*v27, v28);
-  v31 = v190;
+  v31 = v198;
   v32 = vextq_s8(v31, v31, 8uLL);
-  *v32.i8 = vadd_f32(*v32.i8, *v190.i8);
-  v33.i64[1] = v190.i64[1];
-  *v31.i8 = vminnm_f32(vmaxnm_f32(v30, *v190.i8), *v32.i8);
-  *&v29.i32[1] = v186.f32[0] + 1.0;
-  *&v34.f64[0] = vminnm_f32(vmaxnm_f32(vadd_f32(*v27, *v29.i8), *v190.i8), *v32.i8);
-  v187 = v34;
-  v188 = v31;
+  *v32.i8 = vadd_f32(*v32.i8, *v198.i8);
+  v33.i64[1] = v198.i64[1];
+  *v31.i8 = vminnm_f32(vmaxnm_f32(v30, *v198.i8), *v32.i8);
+  *&v29.i32[1] = v194.f32[0] + 1.0;
+  *&v34.f64[0] = vminnm_f32(vmaxnm_f32(vadd_f32(*v27, *v29.i8), *v198.i8), *v32.i8);
+  v195 = v34;
+  v196 = v31;
   v35 = v31;
-  v35.i32[1] = HIDWORD(v34.f64[0]);
-  *v35.i8 = vadd_f32(*v35.i8, 0xBF000000BF000000);
-  *v32.i8 = vrndm_f32(*v35.i8);
+  v35.n128_u32[1] = HIDWORD(v34.f64[0]);
+  v35.n128_u64[0] = vadd_f32(v35.n128_u64[0], 0xBF000000BF000000);
+  *v32.i8 = vrndm_f32(v35.n128_u64[0]);
   *&v34.f64[0] = vadd_f32(*v32.i8, 0x3F0000003F000000);
   v36 = v32;
-  v182 = v32;
+  v190 = v32;
   *v32.i32 = vmuls_lane_f32(*(v13 + 20), *&v34.f64[0], 1) + (*v34.f64 * *(v13 + 16));
   v31.i32[0] = *(v13 + 24);
   v37.i32[0] = *(v13 + 36);
@@ -2223,207 +3269,229 @@ double CI::sw_variableBoxBlur(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   __asm { FMOV            V10.2S, #1.0 }
 
   *v33.i8 = vadd_f32(*v36.i8, _D10);
-  v191 = v33;
-  *v35.i8 = vsub_f32(*v33.i8, *v35.i8);
-  v180 = v35;
-  *v35.i32 = *v31.i32 + *v32.i32;
+  v199 = v33;
+  v35.n128_u64[0] = vsub_f32(*v33.i8, v35.n128_u64[0]);
+  v188 = v35;
+  v35.n128_f32[0] = *v31.i32 + *v32.i32;
   *v34.f64 = *v37.i32 + (*v29.i32 + (*v34.f64 * *(v13 + 28)));
-  v35.i32[1] = LODWORD(v34.f64[0]);
-  *v43.i64 = CI::BitmapSampler::read(*(v13 + 8), *v35.i64, v34, *v32.i64, *v31.i64, v33, v29, v37, v36);
-  v177 = v43;
-  *v43.f32 = vadd_f32(*v191.i8, 0x3F0000003F000000);
+  v35.n128_u32[1] = LODWORD(v34.f64[0]);
+  v43.n128_f64[0] = CI::BitmapSampler::read(*(v13 + 8), v35, v34, *v32.i64, *v31.i64, v33, v29, v37, v36);
+  v185 = v43;
+  v43.n128_u64[1] = v199.u64[1];
+  v43.n128_u64[0] = vadd_f32(*v199.i8, 0x3F0000003F000000);
   LODWORD(v44) = *(v13 + 24);
   v45.i32[0] = *(v13 + 36);
-  *v46.i32 = vmuls_lane_f32(*(v13 + 32), *v43.f32, 1);
-  *&v47 = *v46.i32 + (v43.f32[0] * *(v13 + 28));
-  v43.f32[0] = *&v44 + (vmuls_lane_f32(*(v13 + 20), *v43.f32, 1) + (v43.f32[0] * *(v13 + 16)));
+  *v46.i32 = vmuls_lane_f32(*(v13 + 32), v43.n128_u64[0], 1);
+  *&v47 = *v46.i32 + (v43.n128_f32[0] * *(v13 + 28));
+  v43.n128_f32[0] = *&v44 + (vmuls_lane_f32(*(v13 + 20), v43.n128_u64[0], 1) + (v43.n128_f32[0] * *(v13 + 16)));
   *v48.f64 = *v45.i32 + *&v47;
-  v43.f32[1] = *v45.i32 + *&v47;
-  *v51.i64 = CI::BitmapSampler::read(*(v13 + 8), *v43.i64, v48, v44, v47, v46, v45, v49, v50);
-  v173 = v51;
-  v52 = v182;
-  *v51.f32 = vadd_f32(__PAIR64__(v182.u32[1], v191.u32[0]), 0x3F0000003F000000);
-  LODWORD(v53) = *(v13 + 24);
-  v54.i32[0] = *(v13 + 36);
-  *v55.i32 = vmuls_lane_f32(*(v13 + 32), *v51.f32, 1);
-  *&v56 = *v55.i32 + (v51.f32[0] * *(v13 + 28));
-  v51.f32[0] = *&v53 + (vmuls_lane_f32(*(v13 + 20), *v51.f32, 1) + (v51.f32[0] * *(v13 + 16)));
-  *v52.f64 = *v54.i32 + *&v56;
-  v51.f32[1] = *v54.i32 + *&v56;
-  *v59.i64 = CI::BitmapSampler::read(*(v13 + 8), *v51.i64, v52, v53, v56, v55, v54, v57, v58);
-  v169 = v59;
-  v60 = v191;
-  *v59.f32 = vadd_f32(__PAIR64__(v191.u32[1], v182.u32[0]), 0x3F0000003F000000);
-  LODWORD(v61) = *(v13 + 24);
-  v62.i32[0] = *(v13 + 36);
-  *v63.i32 = vmuls_lane_f32(*(v13 + 32), *v59.f32, 1);
-  *&v64 = *v63.i32 + (v59.f32[0] * *(v13 + 28));
-  v59.f32[0] = *&v61 + (vmuls_lane_f32(*(v13 + 20), *v59.f32, 1) + (v59.f32[0] * *(v13 + 16)));
-  *v60.f64 = *v62.i32 + *&v64;
-  v59.f32[1] = *v62.i32 + *&v64;
-  *v67.i64 = CI::BitmapSampler::read(*(v13 + 8), *v59.i64, v60, v61, v64, v63, v62, v65, v66);
-  v68.i64[1] = v180.i64[1];
-  v69 = vmlaq_n_f32(vmulq_n_f32(v169, 1.0 - *v180.i32), v177, *v180.i32);
-  v70 = v173;
-  v71 = vmlaq_n_f32(vmulq_n_f32(v173, 1.0 - *v180.i32), v67, *v180.i32);
-  v181 = vmlaq_lane_f32(vmulq_n_f32(v71, 1.0 - *&v180.i32[1]), v69, *v180.i8, 1);
-  v67.i64[1] = *&v187.f64[1];
-  *v67.f32 = vadd_f32(*&v187.f64[0], 0xBF000000BF000000);
-  *v69.f32 = vrndm_f32(*v67.f32);
-  *v71.f32 = vadd_f32(*v69.f32, 0x3F0000003F000000);
-  v72 = v69;
-  v183 = v69;
-  v69.f32[0] = vmuls_lane_f32(*(v13 + 20), *v71.f32, 1) + (v71.f32[0] * *(v13 + 16));
-  LODWORD(v73) = *(v13 + 24);
-  v74.i32[0] = *(v13 + 36);
-  *v70.i32 = vmuls_lane_f32(*(v13 + 32), *v71.f32, 1);
-  *v68.i8 = vadd_f32(*v72.i8, _D10);
-  v192 = v68;
-  *v67.f32 = vsub_f32(*v68.i8, *v67.f32);
-  v178 = v67;
-  v67.f32[0] = *&v73 + v69.f32[0];
-  v71.f32[0] = *v74.i32 + (*v70.i32 + (v71.f32[0] * *(v13 + 28)));
-  v67.i32[1] = v71.i32[0];
-  *v75.i64 = CI::BitmapSampler::read(*(v13 + 8), *v67.i64, v71, *v69.i64, v73, v68, v70, v74, v72);
-  v174 = v75;
-  *v75.f32 = vadd_f32(*v192.i8, 0x3F0000003F000000);
-  LODWORD(v76) = *(v13 + 24);
-  v77.i32[0] = *(v13 + 36);
-  *v78.i32 = vmuls_lane_f32(*(v13 + 32), *v75.f32, 1);
-  *&v79 = *v78.i32 + (v75.f32[0] * *(v13 + 28));
-  v75.f32[0] = *&v76 + (vmuls_lane_f32(*(v13 + 20), *v75.f32, 1) + (v75.f32[0] * *(v13 + 16)));
-  *v80.f64 = *v77.i32 + *&v79;
-  v75.f32[1] = *v77.i32 + *&v79;
-  *v83.i64 = CI::BitmapSampler::read(*(v13 + 8), *v75.i64, v80, v76, v79, v78, v77, v81, v82);
-  v170 = v83;
-  v84 = v183;
-  *v83.f32 = vadd_f32(__PAIR64__(v183.u32[1], v192.u32[0]), 0x3F0000003F000000);
-  LODWORD(v85) = *(v13 + 24);
-  v86.i32[0] = *(v13 + 36);
-  *v87.i32 = vmuls_lane_f32(*(v13 + 32), *v83.f32, 1);
-  *&v88 = *v87.i32 + (v83.f32[0] * *(v13 + 28));
-  v83.f32[0] = *&v85 + (vmuls_lane_f32(*(v13 + 20), *v83.f32, 1) + (v83.f32[0] * *(v13 + 16)));
-  *v84.f64 = *v86.i32 + *&v88;
-  v83.f32[1] = *v86.i32 + *&v88;
-  *v91.i64 = CI::BitmapSampler::read(*(v13 + 8), *v83.i64, v84, v85, v88, v87, v86, v89, v90);
-  v166 = v91;
-  v92 = v192;
-  *v91.f32 = vadd_f32(__PAIR64__(v192.u32[1], v183.u32[0]), 0x3F0000003F000000);
-  LODWORD(v93) = *(v13 + 24);
-  v94.i32[0] = *(v13 + 36);
-  *v95.i32 = vmuls_lane_f32(*(v13 + 32), *v91.f32, 1);
-  *&v96 = *v95.i32 + (v91.f32[0] * *(v13 + 28));
-  v91.f32[0] = *&v93 + (vmuls_lane_f32(*(v13 + 20), *v91.f32, 1) + (v91.f32[0] * *(v13 + 16)));
-  *v92.f64 = *v94.i32 + *&v96;
-  v91.f32[1] = *v94.i32 + *&v96;
-  *v99.i64 = CI::BitmapSampler::read(*(v13 + 8), *v91.i64, v92, v93, v96, v95, v94, v97, v98);
-  v100.i64[1] = v178.i64[1];
-  v101 = vmlaq_n_f32(vmulq_n_f32(v166, 1.0 - v178.f32[0]), v174, v178.f32[0]);
-  v102 = v170;
-  v103 = vmlaq_n_f32(vmulq_n_f32(v170, 1.0 - v178.f32[0]), v99, v178.f32[0]);
-  v179 = vmlaq_lane_f32(vmulq_n_f32(v103, 1.0 - v178.f32[1]), v101, *v178.f32, 1);
-  v99.i64[1] = v188.i64[1];
-  *v99.f32 = vadd_f32(*v188.i8, 0xBF000000BF000000);
-  *v101.f32 = vrndm_f32(*v99.f32);
-  *v103.f32 = vadd_f32(*v101.f32, 0x3F0000003F000000);
-  v104 = v101;
-  v184 = v101;
-  v101.f32[0] = vmuls_lane_f32(*(v13 + 20), *v103.f32, 1) + (v103.f32[0] * *(v13 + 16));
-  LODWORD(v105) = *(v13 + 24);
-  v106.i32[0] = *(v13 + 36);
-  *v102.i32 = vmuls_lane_f32(*(v13 + 32), *v103.f32, 1);
-  *v100.i8 = vadd_f32(*v104.i8, _D10);
-  v193 = v100;
-  *v99.f32 = vsub_f32(*v100.i8, *v99.f32);
-  v175 = v99;
-  v99.f32[0] = *&v105 + v101.f32[0];
-  v103.f32[0] = *v106.i32 + (*v102.i32 + (v103.f32[0] * *(v13 + 28)));
-  v99.i32[1] = v103.i32[0];
-  *v107.i64 = CI::BitmapSampler::read(*(v13 + 8), *v99.i64, v103, *v101.i64, v105, v100, v102, v106, v104);
-  v171 = v107;
-  *v107.f32 = vadd_f32(*v193.i8, 0x3F0000003F000000);
-  LODWORD(v108) = *(v13 + 24);
-  v109.i32[0] = *(v13 + 36);
-  *v110.i32 = vmuls_lane_f32(*(v13 + 32), *v107.f32, 1);
-  *&v111 = *v110.i32 + (v107.f32[0] * *(v13 + 28));
-  v107.f32[0] = *&v108 + (vmuls_lane_f32(*(v13 + 20), *v107.f32, 1) + (v107.f32[0] * *(v13 + 16)));
-  *v112.f64 = *v109.i32 + *&v111;
-  v107.f32[1] = *v109.i32 + *&v111;
-  *v115.i64 = CI::BitmapSampler::read(*(v13 + 8), *v107.i64, v112, v108, v111, v110, v109, v113, v114);
-  v167 = v115;
-  v116 = v184;
-  *v115.f32 = vadd_f32(__PAIR64__(v184.u32[1], v193.u32[0]), 0x3F0000003F000000);
-  LODWORD(v117) = *(v13 + 24);
-  v118.i32[0] = *(v13 + 36);
-  *v119.i32 = vmuls_lane_f32(*(v13 + 32), *v115.f32, 1);
-  *&v120 = *v119.i32 + (v115.f32[0] * *(v13 + 28));
-  v115.f32[0] = *&v117 + (vmuls_lane_f32(*(v13 + 20), *v115.f32, 1) + (v115.f32[0] * *(v13 + 16)));
-  *v116.f64 = *v118.i32 + *&v120;
-  v115.f32[1] = *v118.i32 + *&v120;
-  *v123.i64 = CI::BitmapSampler::read(*(v13 + 8), *v115.i64, v116, v117, v120, v119, v118, v121, v122);
-  v165 = v123;
-  v124 = v193;
-  *v123.f32 = vadd_f32(__PAIR64__(v193.u32[1], v184.u32[0]), 0x3F0000003F000000);
-  LODWORD(v125) = *(v13 + 24);
-  v126.i32[0] = *(v13 + 36);
-  *v127.i32 = vmuls_lane_f32(*(v13 + 32), *v123.f32, 1);
-  *&v128 = *v127.i32 + (v123.f32[0] * *(v13 + 28));
-  v123.f32[0] = *&v125 + (vmuls_lane_f32(*(v13 + 20), *v123.f32, 1) + (v123.f32[0] * *(v13 + 16)));
-  *v124.f64 = *v126.i32 + *&v128;
-  v123.f32[1] = *v126.i32 + *&v128;
-  *v131.i64 = CI::BitmapSampler::read(*(v13 + 8), *v123.i64, v124, v125, v128, v127, v126, v129, v130);
-  v132 = v175;
-  v133 = vmlaq_n_f32(vmulq_n_f32(v165, 1.0 - v175.f32[0]), v171, v175.f32[0]);
-  v185 = vmlaq_lane_f32(vmulq_n_f32(vmlaq_n_f32(vmulq_n_f32(v167, 1.0 - v175.f32[0]), v131, v175.f32[0]), 1.0 - v175.f32[1]), v133, *v175.f32, 1);
-  *&v134.f64[1] = v188.i64[1];
-  *v131.f32 = vadd_f32(__PAIR64__(v188.u32[1], LODWORD(v187.f64[0])), 0xBF000000BF000000);
-  *v133.f32 = vrndm_f32(*v131.f32);
-  v189 = v133;
-  *v193.i8 = vadd_f32(*v133.f32, _D10);
-  *&v187.f64[0] = vsub_f32(*v193.i8, *v131.f32);
-  *&v134.f64[0] = vadd_f32(*v133.f32, 0x3F0000003F000000);
-  LODWORD(v135) = *(v13 + 28);
-  v131.f32[0] = *(v13 + 24) + (vmuls_lane_f32(*(v13 + 20), *&v134.f64[0], 1) + (*v134.f64 * *(v13 + 16)));
+  v43.n128_f32[1] = *v45.i32 + *&v47;
+  *v51.i64 = CI::BitmapSampler::read(*(v13 + 8), v43, v48, v44, v47, v46, v45, v49, v50);
+  v181 = v51;
+  v52 = v199;
+  v53 = v190;
+  v52.n128_u32[1] = v190.u32[1];
+  v52.n128_u64[0] = vadd_f32(v52.n128_u64[0], 0x3F0000003F000000);
+  LODWORD(v54) = *(v13 + 24);
+  v55.i32[0] = *(v13 + 36);
+  *v56.i32 = vmuls_lane_f32(*(v13 + 32), v52.n128_u64[0], 1);
+  *&v57 = *v56.i32 + (v52.n128_f32[0] * *(v13 + 28));
+  v52.n128_f32[0] = *&v54 + (vmuls_lane_f32(*(v13 + 20), v52.n128_u64[0], 1) + (v52.n128_f32[0] * *(v13 + 16)));
+  *v53.f64 = *v55.i32 + *&v57;
+  v52.n128_f32[1] = *v55.i32 + *&v57;
+  *v60.i64 = CI::BitmapSampler::read(*(v13 + 8), v52, v53, v54, v57, v56, v55, v58, v59);
+  v177 = v60;
+  v61 = v190;
+  v62 = v199;
+  v61.n128_u32[1] = v199.u32[1];
+  v61.n128_u64[0] = vadd_f32(v61.n128_u64[0], 0x3F0000003F000000);
+  LODWORD(v63) = *(v13 + 24);
+  v64.i32[0] = *(v13 + 36);
+  *v65.i32 = vmuls_lane_f32(*(v13 + 32), v61.n128_u64[0], 1);
+  *&v66 = *v65.i32 + (v61.n128_f32[0] * *(v13 + 28));
+  v61.n128_f32[0] = *&v63 + (vmuls_lane_f32(*(v13 + 20), v61.n128_u64[0], 1) + (v61.n128_f32[0] * *(v13 + 16)));
+  *v62.f64 = *v64.i32 + *&v66;
+  v61.n128_f32[1] = *v64.i32 + *&v66;
+  *v69.i64 = CI::BitmapSampler::read(*(v13 + 8), v61, v62, v63, v66, v65, v64, v67, v68);
+  v70.i64[1] = v188.n128_i64[1];
+  v71 = vmlaq_n_f32(vmulq_n_f32(v177, 1.0 - v188.n128_f32[0]), v185, v188.n128_f32[0]);
+  v72 = v181;
+  v73 = vmlaq_n_f32(vmulq_n_f32(v181, 1.0 - v188.n128_f32[0]), v69, v188.n128_f32[0]);
+  v189 = vmlaq_lane_f32(vmulq_n_f32(v73, 1.0 - v188.n128_f32[1]), v71, v188.n128_u64[0], 1);
+  v69.i64[1] = v195.n128_i64[1];
+  *v69.f32 = vadd_f32(v195.n128_u64[0], 0xBF000000BF000000);
+  *v71.f32 = vrndm_f32(*v69.f32);
+  *v73.f32 = vadd_f32(*v71.f32, 0x3F0000003F000000);
+  v74 = v71;
+  v191 = v71;
+  v71.f32[0] = vmuls_lane_f32(*(v13 + 20), *v73.f32, 1) + (v73.f32[0] * *(v13 + 16));
+  LODWORD(v75) = *(v13 + 24);
+  v76.i32[0] = *(v13 + 36);
+  *v72.i32 = vmuls_lane_f32(*(v13 + 32), *v73.f32, 1);
+  *v70.i8 = vadd_f32(*v74.i8, _D10);
+  v200 = v70;
+  *v69.f32 = vsub_f32(*v70.i8, *v69.f32);
+  v186 = v69;
+  v69.f32[0] = *&v75 + v71.f32[0];
+  v73.f32[0] = *v76.i32 + (*v72.i32 + (v73.f32[0] * *(v13 + 28)));
+  v69.i32[1] = v73.i32[0];
+  v77.n128_f64[0] = CI::BitmapSampler::read(*(v13 + 8), v69, v73, *v71.i64, v75, v70, v72, v76, v74);
+  v182 = v77;
+  v77.n128_u64[1] = v200.u64[1];
+  v77.n128_u64[0] = vadd_f32(*v200.i8, 0x3F0000003F000000);
+  LODWORD(v78) = *(v13 + 24);
+  v79.i32[0] = *(v13 + 36);
+  *v80.i32 = vmuls_lane_f32(*(v13 + 32), v77.n128_u64[0], 1);
+  *&v81 = *v80.i32 + (v77.n128_f32[0] * *(v13 + 28));
+  v77.n128_f32[0] = *&v78 + (vmuls_lane_f32(*(v13 + 20), v77.n128_u64[0], 1) + (v77.n128_f32[0] * *(v13 + 16)));
+  *v82.f64 = *v79.i32 + *&v81;
+  v77.n128_f32[1] = *v79.i32 + *&v81;
+  *v85.i64 = CI::BitmapSampler::read(*(v13 + 8), v77, v82, v78, v81, v80, v79, v83, v84);
+  v178 = v85;
+  v86 = v200;
+  v87 = v191;
+  v86.n128_u32[1] = v191.u32[1];
+  v86.n128_u64[0] = vadd_f32(v86.n128_u64[0], 0x3F0000003F000000);
+  LODWORD(v88) = *(v13 + 24);
+  v89.i32[0] = *(v13 + 36);
+  *v90.i32 = vmuls_lane_f32(*(v13 + 32), v86.n128_u64[0], 1);
+  *&v91 = *v90.i32 + (v86.n128_f32[0] * *(v13 + 28));
+  v86.n128_f32[0] = *&v88 + (vmuls_lane_f32(*(v13 + 20), v86.n128_u64[0], 1) + (v86.n128_f32[0] * *(v13 + 16)));
+  *v87.f64 = *v89.i32 + *&v91;
+  v86.n128_f32[1] = *v89.i32 + *&v91;
+  *v94.i64 = CI::BitmapSampler::read(*(v13 + 8), v86, v87, v88, v91, v90, v89, v92, v93);
+  v174 = v94;
+  v95 = v191;
+  v96 = v200;
+  v95.n128_u32[1] = v200.u32[1];
+  v95.n128_u64[0] = vadd_f32(v95.n128_u64[0], 0x3F0000003F000000);
+  LODWORD(v97) = *(v13 + 24);
+  v98.i32[0] = *(v13 + 36);
+  *v99.i32 = vmuls_lane_f32(*(v13 + 32), v95.n128_u64[0], 1);
+  *&v100 = *v99.i32 + (v95.n128_f32[0] * *(v13 + 28));
+  v95.n128_f32[0] = *&v97 + (vmuls_lane_f32(*(v13 + 20), v95.n128_u64[0], 1) + (v95.n128_f32[0] * *(v13 + 16)));
+  *v96.f64 = *v98.i32 + *&v100;
+  v95.n128_f32[1] = *v98.i32 + *&v100;
+  *v103.i64 = CI::BitmapSampler::read(*(v13 + 8), v95, v96, v97, v100, v99, v98, v101, v102);
+  v104.i64[1] = v186.i64[1];
+  v105 = vmlaq_n_f32(vmulq_n_f32(v174, 1.0 - v186.f32[0]), v182, v186.f32[0]);
+  v106 = v178;
+  v107 = vmlaq_n_f32(vmulq_n_f32(v178, 1.0 - v186.f32[0]), v103, v186.f32[0]);
+  v187 = vmlaq_lane_f32(vmulq_n_f32(v107, 1.0 - v186.f32[1]), v105, *v186.f32, 1);
+  v103.i64[1] = v196.i64[1];
+  *v103.f32 = vadd_f32(*v196.i8, 0xBF000000BF000000);
+  *v105.f32 = vrndm_f32(*v103.f32);
+  *v107.f32 = vadd_f32(*v105.f32, 0x3F0000003F000000);
+  v108 = v105;
+  v192 = v105;
+  v105.f32[0] = vmuls_lane_f32(*(v13 + 20), *v107.f32, 1) + (v107.f32[0] * *(v13 + 16));
+  LODWORD(v109) = *(v13 + 24);
+  v110.i32[0] = *(v13 + 36);
+  *v106.i32 = vmuls_lane_f32(*(v13 + 32), *v107.f32, 1);
+  *v104.i8 = vadd_f32(*v108.i8, _D10);
+  v201 = v104;
+  *v103.f32 = vsub_f32(*v104.i8, *v103.f32);
+  v183 = v103;
+  v103.f32[0] = *&v109 + v105.f32[0];
+  v107.f32[0] = *v110.i32 + (*v106.i32 + (v107.f32[0] * *(v13 + 28)));
+  v103.i32[1] = v107.i32[0];
+  v111.n128_f64[0] = CI::BitmapSampler::read(*(v13 + 8), v103, v107, *v105.i64, v109, v104, v106, v110, v108);
+  v179 = v111;
+  v111.n128_u64[1] = v201.u64[1];
+  v111.n128_u64[0] = vadd_f32(*v201.i8, 0x3F0000003F000000);
+  LODWORD(v112) = *(v13 + 24);
+  v113.i32[0] = *(v13 + 36);
+  *v114.i32 = vmuls_lane_f32(*(v13 + 32), v111.n128_u64[0], 1);
+  *&v115 = *v114.i32 + (v111.n128_f32[0] * *(v13 + 28));
+  v111.n128_f32[0] = *&v112 + (vmuls_lane_f32(*(v13 + 20), v111.n128_u64[0], 1) + (v111.n128_f32[0] * *(v13 + 16)));
+  *v116.f64 = *v113.i32 + *&v115;
+  v111.n128_f32[1] = *v113.i32 + *&v115;
+  *v119.i64 = CI::BitmapSampler::read(*(v13 + 8), v111, v116, v112, v115, v114, v113, v117, v118);
+  v175 = v119;
+  v120 = v201;
+  v121 = v192;
+  v120.n128_u32[1] = v192.u32[1];
+  v120.n128_u64[0] = vadd_f32(v120.n128_u64[0], 0x3F0000003F000000);
+  LODWORD(v122) = *(v13 + 24);
+  v123.i32[0] = *(v13 + 36);
+  *v124.i32 = vmuls_lane_f32(*(v13 + 32), v120.n128_u64[0], 1);
+  *&v125 = *v124.i32 + (v120.n128_f32[0] * *(v13 + 28));
+  v120.n128_f32[0] = *&v122 + (vmuls_lane_f32(*(v13 + 20), v120.n128_u64[0], 1) + (v120.n128_f32[0] * *(v13 + 16)));
+  *v121.f64 = *v123.i32 + *&v125;
+  v120.n128_f32[1] = *v123.i32 + *&v125;
+  *v128.i64 = CI::BitmapSampler::read(*(v13 + 8), v120, v121, v122, v125, v124, v123, v126, v127);
+  v173 = v128;
+  v129 = v192;
+  v130 = v201;
+  v129.n128_u32[1] = v201.u32[1];
+  v129.n128_u64[0] = vadd_f32(v129.n128_u64[0], 0x3F0000003F000000);
+  LODWORD(v131) = *(v13 + 24);
   v132.i32[0] = *(v13 + 36);
-  v133.f32[0] = vmuls_lane_f32(*(v13 + 32), *&v134.f64[0], 1);
-  *v134.f64 = *v132.i32 + (v133.f32[0] + (*v134.f64 * *&v135));
-  v131.i32[1] = LODWORD(v134.f64[0]);
-  *v138.i64 = CI::BitmapSampler::read(*(v13 + 8), *v131.i64, v134, *v133.i64, v135, v132, v167, v136, v137);
-  v176 = v138;
-  *v138.f32 = vadd_f32(*v193.i8, 0x3F0000003F000000);
-  LODWORD(v139) = *(v13 + 24);
-  v140.i32[0] = *(v13 + 36);
-  *v141.i32 = vmuls_lane_f32(*(v13 + 32), *v138.f32, 1);
-  *&v142 = *v141.i32 + (v138.f32[0] * *(v13 + 28));
-  v138.f32[0] = *&v139 + (vmuls_lane_f32(*(v13 + 20), *v138.f32, 1) + (v138.f32[0] * *(v13 + 16)));
-  *v143.f64 = *v140.i32 + *&v142;
-  v138.f32[1] = *v140.i32 + *&v142;
-  *v146.i64 = CI::BitmapSampler::read(*(v13 + 8), *v138.i64, v143, v139, v142, v141, v140, v144, v145);
-  v172 = v146;
-  v147 = v189;
-  *v146.f32 = vadd_f32(__PAIR64__(v189.u32[1], v193.u32[0]), 0x3F0000003F000000);
-  LODWORD(v148) = *(v13 + 24);
-  v149.i32[0] = *(v13 + 36);
-  *v150.i32 = vmuls_lane_f32(*(v13 + 32), *v146.f32, 1);
-  *&v151 = *v150.i32 + (v146.f32[0] * *(v13 + 28));
-  v146.f32[0] = *&v148 + (vmuls_lane_f32(*(v13 + 20), *v146.f32, 1) + (v146.f32[0] * *(v13 + 16)));
-  *v147.f64 = *v149.i32 + *&v151;
-  v146.f32[1] = *v149.i32 + *&v151;
-  *v154.i64 = CI::BitmapSampler::read(*(v13 + 8), *v146.i64, v147, v148, v151, v150, v149, v152, v153);
-  v168 = v154;
-  v155 = v189;
-  HIDWORD(v155.f64[0]) = v193.i32[1];
-  *v154.f32 = vadd_f32(*&v155.f64[0], 0x3F0000003F000000);
+  *v133.i32 = vmuls_lane_f32(*(v13 + 32), v129.n128_u64[0], 1);
+  *&v134 = *v133.i32 + (v129.n128_f32[0] * *(v13 + 28));
+  v129.n128_f32[0] = *&v131 + (vmuls_lane_f32(*(v13 + 20), v129.n128_u64[0], 1) + (v129.n128_f32[0] * *(v13 + 16)));
+  *v130.f64 = *v132.i32 + *&v134;
+  v129.n128_f32[1] = *v132.i32 + *&v134;
+  *v137.i64 = CI::BitmapSampler::read(*(v13 + 8), v129, v130, v131, v134, v133, v132, v135, v136);
+  v138 = v183;
+  v139 = vmlaq_n_f32(vmulq_n_f32(v173, 1.0 - v183.f32[0]), v179, v183.f32[0]);
+  v193 = vmlaq_lane_f32(vmulq_n_f32(vmlaq_n_f32(vmulq_n_f32(v175, 1.0 - v183.f32[0]), v137, v183.f32[0]), 1.0 - v183.f32[1]), v139, *v183.f32, 1);
+  v140 = v195;
+  *&v141.f64[1] = v196.i64[1];
+  v140.n128_u32[1] = v196.u32[1];
+  v140.n128_u64[0] = vadd_f32(v140.n128_u64[0], 0xBF000000BF000000);
+  *v139.f32 = vrndm_f32(v140.n128_u64[0]);
+  *&v141.f64[0] = vadd_f32(*v139.f32, _D10);
+  v197 = v139;
+  v202 = v141;
+  v195.n128_u64[0] = vsub_f32(*&v141.f64[0], v140.n128_u64[0]);
+  *&v141.f64[0] = vadd_f32(*v139.f32, 0x3F0000003F000000);
+  LODWORD(v142) = *(v13 + 28);
+  v140.n128_f32[0] = *(v13 + 24) + (vmuls_lane_f32(*(v13 + 20), *&v141.f64[0], 1) + (*v141.f64 * *(v13 + 16)));
+  v138.i32[0] = *(v13 + 36);
+  v139.f32[0] = vmuls_lane_f32(*(v13 + 32), *&v141.f64[0], 1);
+  *v141.f64 = *v138.i32 + (v139.f32[0] + (*v141.f64 * *&v142));
+  v140.n128_u32[1] = LODWORD(v141.f64[0]);
+  v145.n128_f64[0] = CI::BitmapSampler::read(*(v13 + 8), v140, v141, *v139.i64, v142, v138, v175, v143, v144);
+  v184 = v145;
+  v145.n128_u64[1] = v202.n128_u64[1];
+  v145.n128_u64[0] = vadd_f32(v202.n128_u64[0], 0x3F0000003F000000);
+  LODWORD(v146) = *(v13 + 24);
+  v147.i32[0] = *(v13 + 36);
+  *v148.i32 = vmuls_lane_f32(*(v13 + 32), v145.n128_u64[0], 1);
+  *&v149 = *v148.i32 + (v145.n128_f32[0] * *(v13 + 28));
+  v145.n128_f32[0] = *&v146 + (vmuls_lane_f32(*(v13 + 20), v145.n128_u64[0], 1) + (v145.n128_f32[0] * *(v13 + 16)));
+  *v150.f64 = *v147.i32 + *&v149;
+  v145.n128_f32[1] = *v147.i32 + *&v149;
+  *v153.i64 = CI::BitmapSampler::read(*(v13 + 8), v145, v150, v146, v149, v148, v147, v151, v152);
+  v180 = v153;
+  v155 = v197;
+  v154 = v202;
+  v154.n128_u32[1] = v197.u32[1];
+  v154.n128_u64[0] = vadd_f32(v154.n128_u64[0], 0x3F0000003F000000);
   LODWORD(v156) = *(v13 + 24);
   v157.i32[0] = *(v13 + 36);
-  *v158.i32 = vmuls_lane_f32(*(v13 + 32), *v154.f32, 1);
-  *&v159 = *v158.i32 + (v154.f32[0] * *(v13 + 28));
-  v154.f32[0] = *&v156 + (vmuls_lane_f32(*(v13 + 20), *v154.f32, 1) + (v154.f32[0] * *(v13 + 16)));
+  *v158.i32 = vmuls_lane_f32(*(v13 + 32), v154.n128_u64[0], 1);
+  *&v159 = *v158.i32 + (v154.n128_f32[0] * *(v13 + 28));
+  v154.n128_f32[0] = *&v156 + (vmuls_lane_f32(*(v13 + 20), v154.n128_u64[0], 1) + (v154.n128_f32[0] * *(v13 + 16)));
   *v155.f64 = *v157.i32 + *&v159;
-  v154.f32[1] = *v157.i32 + *&v159;
-  *v162.i64 = CI::BitmapSampler::read(*(v13 + 8), *v154.i64, v155, v156, v159, v158, v157, v160, v161);
-  v163 = vsubq_f32(vsubq_f32(vaddq_f32(v181, vmlaq_lane_f32(vmulq_n_f32(vmlaq_n_f32(vmulq_n_f32(v172, 1.0 - *v187.f64), v162, *v187.f64), 1.0 - *(v187.f64 + 1)), vmlaq_n_f32(vmulq_n_f32(v168, 1.0 - *v187.f64), v176, *v187.f64), *&v187.f64[0], 1)), v179), v185);
-  *&result = vdivq_f32(v163, vdupq_laneq_s32(v163, 3)).u64[0];
+  v154.n128_f32[1] = *v157.i32 + *&v159;
+  v162.n128_f64[0] = CI::BitmapSampler::read(*(v13 + 8), v154, v155, v156, v159, v158, v157, v160, v161);
+  v176 = v162;
+  v163 = v197;
+  v162.n128_u64[1] = v202.n128_u64[1];
+  HIDWORD(v163.f64[0]) = v202.n128_u32[1];
+  v162.n128_u64[0] = vadd_f32(*&v163.f64[0], 0x3F0000003F000000);
+  LODWORD(v164) = *(v13 + 24);
+  v165.i32[0] = *(v13 + 36);
+  *v166.i32 = vmuls_lane_f32(*(v13 + 32), v162.n128_u64[0], 1);
+  *&v167 = *v166.i32 + (v162.n128_f32[0] * *(v13 + 28));
+  v162.n128_f32[0] = *&v164 + (vmuls_lane_f32(*(v13 + 20), v162.n128_u64[0], 1) + (v162.n128_f32[0] * *(v13 + 16)));
+  *v163.f64 = *v165.i32 + *&v167;
+  v162.n128_f32[1] = *v165.i32 + *&v167;
+  *v170.i64 = CI::BitmapSampler::read(*(v13 + 8), v162, v163, v164, v167, v166, v165, v168, v169);
+  v171 = vsubq_f32(vsubq_f32(vaddq_f32(v189, vmlaq_lane_f32(vmulq_n_f32(vmlaq_n_f32(vmulq_n_f32(v180, 1.0 - v195.n128_f32[0]), v170, v195.n128_f32[0]), 1.0 - v195.n128_f32[1]), vmlaq_n_f32(vmulq_n_f32(v176, 1.0 - v195.n128_f32[0]), v184, v195.n128_f32[0]), v195.n128_u64[0], 1)), v187), v193);
+  *&result = vdivq_f32(v171, vdupq_laneq_s32(v171, 3)).u64[0];
   return result;
 }
 
@@ -2714,30 +3782,30 @@ double CI::sw_vignetteeffectneg(CI *a1, uint64_t a2, uint64_t a3)
 
 uint64_t CIVNDetectFaces(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v51[1] = *MEMORY[0x1E69E9840];
+  v61[1] = *MEMORY[0x1E69E9840];
   v8 = [MEMORY[0x1E695DF90] dictionary];
   if (a3)
   {
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x2020000000;
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x2020000000;
     v9 = getVNImageOptionCIContextSymbolLoc_ptr;
-    v39 = getVNImageOptionCIContextSymbolLoc_ptr;
+    v49 = getVNImageOptionCIContextSymbolLoc_ptr;
     if (!getVNImageOptionCIContextSymbolLoc_ptr)
     {
-      v41 = MEMORY[0x1E69E9820];
-      v42 = 3221225472;
-      v43 = __getVNImageOptionCIContextSymbolLoc_block_invoke;
-      v44 = &unk_1E75C1E10;
-      v45 = &v36;
+      v51 = MEMORY[0x1E69E9820];
+      v52 = 3221225472;
+      v53 = __getVNImageOptionCIContextSymbolLoc_block_invoke;
+      v54 = &unk_1E75C1E10;
+      v55 = &v46;
       v10 = VisionLibrary_1();
       v11 = dlsym(v10, "VNImageOptionCIContext");
-      *(*(v45 + 1) + 24) = v11;
-      getVNImageOptionCIContextSymbolLoc_ptr = *(*(v45 + 1) + 24);
-      v9 = *(v37 + 24);
+      *(*(v55 + 1) + 24) = v11;
+      getVNImageOptionCIContextSymbolLoc_ptr = *(*(v55 + 1) + 24);
+      v9 = *(v47 + 24);
     }
 
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v46, 8);
     if (!v9)
     {
       CIVNDetectFaces_cold_1();
@@ -2807,46 +3875,46 @@ uint64_t CIVNDetectFaces(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
     v15 = 0;
   }
 
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3052000000;
-  v44 = __Block_byref_object_copy__18;
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x3052000000;
+  v54 = __Block_byref_object_copy__18;
   v16 = getVNImageRequestHandlerClass_softClass;
-  v45 = __Block_byref_object_dispose__18;
-  v46 = getVNImageRequestHandlerClass_softClass;
+  v55 = __Block_byref_object_dispose__18;
+  v56 = getVNImageRequestHandlerClass_softClass;
   if (!getVNImageRequestHandlerClass_softClass)
   {
-    v36 = MEMORY[0x1E69E9820];
-    v37 = 3221225472;
-    v38 = __getVNImageRequestHandlerClass_block_invoke;
-    v39 = &unk_1E75C1E10;
-    v40 = &v41;
-    __getVNImageRequestHandlerClass_block_invoke(&v36);
-    v16 = *(v42 + 40);
+    v46 = MEMORY[0x1E69E9820];
+    v47 = 3221225472;
+    v48 = __getVNImageRequestHandlerClass_block_invoke;
+    v49 = &unk_1E75C1E10;
+    v50 = &v51;
+    __getVNImageRequestHandlerClass_block_invoke(&v46);
+    v16 = *(v52 + 40);
   }
 
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v51, 8);
   v17 = [[v16 alloc] initWithCIImage:a1 orientation:a2 options:v8];
-  v35 = 0;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3052000000;
-  v44 = __Block_byref_object_copy__18;
+  v45 = 0;
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x3052000000;
+  v54 = __Block_byref_object_copy__18;
   v18 = getVNDetectFaceRectanglesRequestClass_softClass;
-  v45 = __Block_byref_object_dispose__18;
-  v46 = getVNDetectFaceRectanglesRequestClass_softClass;
+  v55 = __Block_byref_object_dispose__18;
+  v56 = getVNDetectFaceRectanglesRequestClass_softClass;
   if (!getVNDetectFaceRectanglesRequestClass_softClass)
   {
-    v36 = MEMORY[0x1E69E9820];
-    v37 = 3221225472;
-    v38 = __getVNDetectFaceRectanglesRequestClass_block_invoke;
-    v39 = &unk_1E75C1E10;
-    v40 = &v41;
-    __getVNDetectFaceRectanglesRequestClass_block_invoke(&v36);
-    v18 = *(v42 + 40);
+    v46 = MEMORY[0x1E69E9820];
+    v47 = 3221225472;
+    v48 = __getVNDetectFaceRectanglesRequestClass_block_invoke;
+    v49 = &unk_1E75C1E10;
+    v50 = &v51;
+    __getVNDetectFaceRectanglesRequestClass_block_invoke(&v46);
+    v18 = *(v52 + 40);
   }
 
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v51, 8);
   v19 = objc_alloc_init(v18);
   [v19 setRevision:3];
   if (v13)
@@ -2854,193 +3922,193 @@ uint64_t CIVNDetectFaces(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
     [v19 setDetectionLevel:2];
   }
 
-  v51[0] = v19;
-  [v17 performRequests:objc_msgSend(MEMORY[0x1E695DEC8] error:{"arrayWithObjects:count:", v51, 1, v35, v36), &v35}];
-  if (v35)
+  v61[0] = v19;
+  v20 = [v17 performRequests:objc_msgSend(MEMORY[0x1E695DEC8] error:{"arrayWithObjects:count:", v61, 1, v45, v46), &v45}];
+  if (v45)
   {
-    v20 = ci_logger_api();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v22 = ci_logger_api(v20, v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
-      CIVNDetectFaces_cold_2(&v35);
+      CIVNDetectFaces_cold_2(&v45);
     }
 
-    v21 = 0;
+    v23 = 0;
   }
 
   else
   {
-    v21 = [v19 results];
+    v23 = [v19 results];
   }
 
   if (v14)
   {
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x3052000000;
-    v44 = __Block_byref_object_copy__18;
-    v22 = getVNClassifyFaceAttributesRequestClass_softClass;
-    v45 = __Block_byref_object_dispose__18;
-    v46 = getVNClassifyFaceAttributesRequestClass_softClass;
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x3052000000;
+    v54 = __Block_byref_object_copy__18;
+    v24 = getVNClassifyFaceAttributesRequestClass_softClass;
+    v55 = __Block_byref_object_dispose__18;
+    v56 = getVNClassifyFaceAttributesRequestClass_softClass;
     if (!getVNClassifyFaceAttributesRequestClass_softClass)
     {
-      v36 = MEMORY[0x1E69E9820];
-      v37 = 3221225472;
-      v38 = __getVNClassifyFaceAttributesRequestClass_block_invoke;
-      v39 = &unk_1E75C1E10;
-      v40 = &v41;
-      __getVNClassifyFaceAttributesRequestClass_block_invoke(&v36);
-      v22 = *(v42 + 40);
+      v46 = MEMORY[0x1E69E9820];
+      v47 = 3221225472;
+      v48 = __getVNClassifyFaceAttributesRequestClass_block_invoke;
+      v49 = &unk_1E75C1E10;
+      v50 = &v51;
+      __getVNClassifyFaceAttributesRequestClass_block_invoke(&v46);
+      v24 = *(v52 + 40);
     }
 
-    _Block_object_dispose(&v41, 8);
-    v23 = objc_alloc_init(v22);
-    [v23 setRevision:3737841666 error:0];
-    [v23 setInputFaceObservations:v21];
-    v50 = v23;
-    [v17 performRequests:objc_msgSend(MEMORY[0x1E695DEC8] error:{"arrayWithObjects:count:", &v50, 1), &v35}];
-    if (v35)
+    _Block_object_dispose(&v51, 8);
+    v25 = objc_alloc_init(v24);
+    [v25 setRevision:3737841666 error:0];
+    [v25 setInputFaceObservations:v23];
+    v60 = v25;
+    v26 = [v17 performRequests:objc_msgSend(MEMORY[0x1E695DEC8] error:{"arrayWithObjects:count:", &v60, 1), &v45}];
+    if (v45)
     {
-      v24 = ci_logger_api();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v28 = ci_logger_api(v26, v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
-        CIVNDetectFaces_cold_3(&v35);
+        CIVNDetectFaces_cold_3(&v45);
       }
     }
 
     else
     {
-      v21 = [v23 results];
+      v23 = [v25 results];
     }
   }
 
   if (v12)
   {
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x3052000000;
-    v44 = __Block_byref_object_copy__18;
-    v25 = getVNDetectFaceLandmarksRequestClass_softClass;
-    v45 = __Block_byref_object_dispose__18;
-    v46 = getVNDetectFaceLandmarksRequestClass_softClass;
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x3052000000;
+    v54 = __Block_byref_object_copy__18;
+    v29 = getVNDetectFaceLandmarksRequestClass_softClass;
+    v55 = __Block_byref_object_dispose__18;
+    v56 = getVNDetectFaceLandmarksRequestClass_softClass;
     if (!getVNDetectFaceLandmarksRequestClass_softClass)
     {
-      v36 = MEMORY[0x1E69E9820];
-      v37 = 3221225472;
-      v38 = __getVNDetectFaceLandmarksRequestClass_block_invoke;
-      v39 = &unk_1E75C1E10;
-      v40 = &v41;
-      __getVNDetectFaceLandmarksRequestClass_block_invoke(&v36);
-      v25 = *(v42 + 40);
+      v46 = MEMORY[0x1E69E9820];
+      v47 = 3221225472;
+      v48 = __getVNDetectFaceLandmarksRequestClass_block_invoke;
+      v49 = &unk_1E75C1E10;
+      v50 = &v51;
+      __getVNDetectFaceLandmarksRequestClass_block_invoke(&v46);
+      v29 = *(v52 + 40);
     }
 
-    _Block_object_dispose(&v41, 8);
-    v26 = objc_alloc_init(v25);
-    [v26 setRevision:2];
-    [v26 setInputFaceObservations:v21];
-    v49 = v26;
-    [v17 performRequests:objc_msgSend(MEMORY[0x1E695DEC8] error:{"arrayWithObjects:count:", &v49, 1), &v35}];
-    if (v35)
+    _Block_object_dispose(&v51, 8);
+    v30 = objc_alloc_init(v29);
+    [v30 setRevision:2];
+    [v30 setInputFaceObservations:v23];
+    v59 = v30;
+    v31 = [v17 performRequests:objc_msgSend(MEMORY[0x1E695DEC8] error:{"arrayWithObjects:count:", &v59, 1), &v45}];
+    if (v45)
     {
-      v27 = ci_logger_api();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v33 = ci_logger_api(v31, v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
       {
-        CIVNDetectFaces_cold_4(&v35);
+        CIVNDetectFaces_cold_4(&v45);
       }
     }
 
     else
     {
-      v21 = [v26 results];
+      v23 = [v30 results];
     }
   }
 
   if (v15)
   {
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x3052000000;
-    v44 = __Block_byref_object_copy__18;
-    v28 = getVNDetectFacePoseRequestClass_softClass;
-    v45 = __Block_byref_object_dispose__18;
-    v46 = getVNDetectFacePoseRequestClass_softClass;
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x3052000000;
+    v54 = __Block_byref_object_copy__18;
+    v34 = getVNDetectFacePoseRequestClass_softClass;
+    v55 = __Block_byref_object_dispose__18;
+    v56 = getVNDetectFacePoseRequestClass_softClass;
     if (!getVNDetectFacePoseRequestClass_softClass)
     {
-      v36 = MEMORY[0x1E69E9820];
-      v37 = 3221225472;
-      v38 = __getVNDetectFacePoseRequestClass_block_invoke;
-      v39 = &unk_1E75C1E10;
-      v40 = &v41;
-      __getVNDetectFacePoseRequestClass_block_invoke(&v36);
-      v28 = *(v42 + 40);
+      v46 = MEMORY[0x1E69E9820];
+      v47 = 3221225472;
+      v48 = __getVNDetectFacePoseRequestClass_block_invoke;
+      v49 = &unk_1E75C1E10;
+      v50 = &v51;
+      __getVNDetectFacePoseRequestClass_block_invoke(&v46);
+      v34 = *(v52 + 40);
     }
 
-    _Block_object_dispose(&v41, 8);
-    v29 = objc_alloc_init(v28);
-    [v29 setRevision:1];
-    [v29 setInputFaceObservations:v21];
-    v48 = v29;
-    [v17 performRequests:objc_msgSend(MEMORY[0x1E695DEC8] error:{"arrayWithObjects:count:", &v48, 1), &v35}];
-    if (v35)
+    _Block_object_dispose(&v51, 8);
+    v35 = objc_alloc_init(v34);
+    [v35 setRevision:1];
+    [v35 setInputFaceObservations:v23];
+    v58 = v35;
+    v36 = [v17 performRequests:objc_msgSend(MEMORY[0x1E695DEC8] error:{"arrayWithObjects:count:", &v58, 1), &v45}];
+    if (v45)
     {
-      v30 = ci_logger_api();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v38 = ci_logger_api(v36, v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
       {
-        CIVNDetectFaces_cold_5(&v35);
+        CIVNDetectFaces_cold_5(&v45);
       }
     }
 
     else
     {
-      v21 = [v29 results];
+      v23 = [v35 results];
     }
   }
 
   if (a4)
   {
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x3052000000;
-    v44 = __Block_byref_object_copy__18;
-    v31 = getVNGenerateFaceSegmentsRequestClass_softClass;
-    v45 = __Block_byref_object_dispose__18;
-    v46 = getVNGenerateFaceSegmentsRequestClass_softClass;
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x3052000000;
+    v54 = __Block_byref_object_copy__18;
+    v39 = getVNGenerateFaceSegmentsRequestClass_softClass;
+    v55 = __Block_byref_object_dispose__18;
+    v56 = getVNGenerateFaceSegmentsRequestClass_softClass;
     if (!getVNGenerateFaceSegmentsRequestClass_softClass)
     {
-      v36 = MEMORY[0x1E69E9820];
-      v37 = 3221225472;
-      v38 = __getVNGenerateFaceSegmentsRequestClass_block_invoke;
-      v39 = &unk_1E75C1E10;
-      v40 = &v41;
-      __getVNGenerateFaceSegmentsRequestClass_block_invoke(&v36);
-      v31 = *(v42 + 40);
+      v46 = MEMORY[0x1E69E9820];
+      v47 = 3221225472;
+      v48 = __getVNGenerateFaceSegmentsRequestClass_block_invoke;
+      v49 = &unk_1E75C1E10;
+      v50 = &v51;
+      __getVNGenerateFaceSegmentsRequestClass_block_invoke(&v46);
+      v39 = *(v52 + 40);
     }
 
-    _Block_object_dispose(&v41, 8);
-    v32 = objc_alloc_init(v31);
-    [v32 setInputFaceObservations:v21];
-    v47 = v32;
-    [v17 performRequests:objc_msgSend(MEMORY[0x1E695DEC8] error:{"arrayWithObjects:count:", &v47, 1), &v35}];
-    if (v35)
+    _Block_object_dispose(&v51, 8);
+    v40 = objc_alloc_init(v39);
+    [v40 setInputFaceObservations:v23];
+    v57 = v40;
+    v41 = [v17 performRequests:objc_msgSend(MEMORY[0x1E695DEC8] error:{"arrayWithObjects:count:", &v57, 1), &v45}];
+    if (v45)
     {
-      v33 = ci_logger_api();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+      v43 = ci_logger_api(v41, v42);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
       {
-        CIVNDetectFaces_cold_6(&v35);
+        CIVNDetectFaces_cold_6(&v45);
       }
     }
 
     else
     {
-      v21 = [v32 results];
+      v23 = [v40 results];
     }
   }
 
-  return v21;
+  return v23;
 }
 
-void sub_19CDEFBC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19CDEFBC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3171,9 +4239,10 @@ id CIVNLandmarkInOrientedImage(void *a1, void *a2)
 
 id denormalizedOrientatedLandmarkPoints(void *a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = [a1 pointCount];
   [a2 extent];
-  if ((a3 - 5) >= 4)
+  if ((v3 - 5) >= 4)
   {
     v9 = v7;
   }
@@ -3183,7 +4252,7 @@ id denormalizedOrientatedLandmarkPoints(void *a1, void *a2, uint64_t a3)
     v9 = v8;
   }
 
-  if ((a3 - 5) >= 4)
+  if ((v3 - 5) >= 4)
   {
     v10 = v8;
   }
@@ -3198,7 +4267,7 @@ id denormalizedOrientatedLandmarkPoints(void *a1, void *a2, uint64_t a3)
   memset(&v18, 0, sizeof(v18));
   if (a2)
   {
-    [a2 imageTransformForOrientation:a3];
+    objc_msgSend_imageTransformForOrientation_(a2);
     v12 = 0uLL;
   }
 
@@ -3256,40 +4325,40 @@ void CIVNRectInOrientedImage(void *a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFlo
     v17 = v11;
   }
 
-  memset(&v25, 0, sizeof(v25));
-  CGAffineTransformMakeScale(&v25, v16, v17);
-  v27 = v25;
-  v28.origin.x = a2;
-  v28.origin.y = a3;
-  v28.size.width = a4;
-  v28.size.height = a5;
-  v29 = CGRectApplyAffineTransform(v28, &v27);
-  x = v29.origin.x;
-  y = v29.origin.y;
-  width = v29.size.width;
-  height = v29.size.height;
+  memset(&v24, 0, sizeof(v24));
+  CGAffineTransformMakeScale(&v24, v16, v17);
+  v26 = v24;
+  v27.origin.x = a2;
+  v27.origin.y = a3;
+  v27.size.width = a4;
+  v27.size.height = a5;
+  v28 = CGRectApplyAffineTransform(v27, &v26);
+  x = v28.origin.x;
+  y = v28.origin.y;
+  width = v28.size.width;
+  height = v28.size.height;
   v22 = [objc_msgSend(a1 "properties")];
   if (!v22)
   {
     v22 = &unk_1F1082388;
   }
 
-  v23 = [v22 intValue];
-  memset(&v27, 0, sizeof(v27));
+  [v22 intValue];
+  memset(&v26, 0, sizeof(v26));
   if (a1)
   {
-    [a1 imageTransformForOrientation:v23];
+    objc_msgSend_imageTransformForOrientation_(a1);
   }
 
-  memset(&v24, 0, sizeof(v24));
-  v26 = v27;
-  CGAffineTransformInvert(&v24, &v26);
-  v27 = v24;
-  v30.origin.x = x;
-  v30.origin.y = y;
-  v30.size.width = width;
-  v30.size.height = height;
-  CGRectApplyAffineTransform(v30, &v27);
+  memset(&v23, 0, sizeof(v23));
+  v25 = v26;
+  CGAffineTransformInvert(&v23, &v25);
+  v26 = v23;
+  v29.origin.x = x;
+  v29.origin.y = y;
+  v29.size.width = width;
+  v29.size.height = height;
+  CGRectApplyAffineTransform(v29, &v26);
 }
 
 uint64_t CIVNDenormalizedLandmarks(void *a1, uint64_t a2, void *a3)
@@ -3364,7 +4433,7 @@ uint64_t VisionLibrary_1()
   return v0;
 }
 
-uint64_t __VisionLibraryCore_block_invoke_1()
+uint64_t __VisionLibraryCore_block_invoke_1(uint64_t a1)
 {
   result = _sl_dlopen();
   VisionLibraryCore_frameworkLibrary_1 = result;
@@ -3543,7 +4612,7 @@ float32x2_t CI::sw_wrapMirror(CI *a1, uint64_t a2, uint64_t a3)
   return vminnm_f32(vsub_f32(vadd_f32(v9, v9), vsub_f32(*DC, *v11.i8)), vabd_f32(*DC, *v11.i8));
 }
 
-uint64_t ci_logger_general()
+uint64_t ci_logger_general(uint64_t a1, uint64_t a2)
 {
   if (ci_logger_general_onceToken != -1)
   {
@@ -3560,7 +4629,7 @@ os_log_t __ci_logger_general_block_invoke()
   return result;
 }
 
-uint64_t ci_logger_api()
+uint64_t ci_logger_api(uint64_t a1, uint64_t a2)
 {
   if (ci_logger_api_onceToken != -1)
   {
@@ -3577,7 +4646,7 @@ os_log_t __ci_logger_api_block_invoke()
   return result;
 }
 
-uint64_t ci_logger_render()
+uint64_t ci_logger_render(uint64_t a1, uint64_t a2)
 {
   if (ci_logger_render_onceToken != -1)
   {
@@ -3594,7 +4663,7 @@ os_log_t __ci_logger_render_block_invoke()
   return result;
 }
 
-uint64_t ci_logger_performance()
+uint64_t ci_logger_performance(uint64_t a1, uint64_t a2)
 {
   if (ci_logger_performance_onceToken != -1)
   {
@@ -3611,7 +4680,7 @@ os_log_t __ci_logger_performance_block_invoke()
   return result;
 }
 
-uint64_t ci_logger_compile()
+uint64_t ci_logger_compile(uint64_t a1, uint64_t a2)
 {
   if (ci_logger_compile_onceToken != -1)
   {
@@ -3628,7 +4697,7 @@ os_log_t __ci_logger_compile_block_invoke()
   return result;
 }
 
-uint64_t ci_logger_cache()
+uint64_t ci_logger_cache(uint64_t a1, uint64_t a2)
 {
   if (ci_logger_cache_onceToken != -1)
   {
@@ -3645,7 +4714,7 @@ os_log_t __ci_logger_cache_block_invoke()
   return result;
 }
 
-uint64_t ci_logger_filter()
+uint64_t ci_logger_filter(uint64_t a1, uint64_t a2)
 {
   if (ci_logger_filter_onceToken != -1)
   {
@@ -3662,7 +4731,7 @@ os_log_t __ci_logger_filter_block_invoke()
   return result;
 }
 
-uint64_t ci_signpost_log_render()
+uint64_t ci_signpost_log_render(uint64_t a1, uint64_t a2)
 {
   if (ci_signpost_log_render_onceToken != -1)
   {
@@ -3679,7 +4748,7 @@ os_log_t __ci_signpost_log_render_block_invoke()
   return result;
 }
 
-uint64_t ci_signpost_log_compile()
+uint64_t ci_signpost_log_compile(uint64_t a1, uint64_t a2)
 {
   if (ci_signpost_log_compile_onceToken != -1)
   {
@@ -3696,7 +4765,7 @@ os_log_t __ci_signpost_log_compile_block_invoke()
   return result;
 }
 
-uint64_t ci_signpost_log_cache()
+uint64_t ci_signpost_log_cache(uint64_t a1, uint64_t a2)
 {
   if (ci_signpost_log_cache_onceToken != -1)
   {
@@ -3713,7 +4782,7 @@ os_log_t __ci_signpost_log_cache_block_invoke()
   return result;
 }
 
-uint64_t ci_signpost_log_detector()
+uint64_t ci_signpost_log_detector(uint64_t a1, uint64_t a2)
 {
   if (ci_signpost_log_detector_onceToken != -1)
   {
@@ -3730,7 +4799,7 @@ os_log_t __ci_signpost_log_detector_block_invoke()
   return result;
 }
 
-uint64_t ci_signpost_log_filter()
+uint64_t ci_signpost_log_filter(uint64_t a1, uint64_t a2)
 {
   if (ci_signpost_log_filter_onceToken != -1)
   {
@@ -3747,7 +4816,7 @@ os_log_t __ci_signpost_log_filter_block_invoke()
   return result;
 }
 
-uint64_t ci_signpost_log_kernel()
+uint64_t ci_signpost_log_kernel(uint64_t a1, uint64_t a2)
 {
   if (ci_signpost_log_kernel_onceToken != -1)
   {
@@ -3764,7 +4833,7 @@ os_log_t __ci_signpost_log_kernel_block_invoke()
   return result;
 }
 
-uint64_t ci_signpost_log_dualredeye()
+uint64_t ci_signpost_log_dualredeye(uint64_t a1, uint64_t a2)
 {
   if (ci_signpost_log_dualredeye_onceToken != -1)
   {
@@ -3801,7 +4870,7 @@ CGColorSpaceRef __linearP3ColorSpace_block_invoke()
   return result;
 }
 
-uint64_t SDOFV2MetalLibURL()
+uint64_t SDOFV2MetalLibURL(uint64_t a1, uint64_t a2)
 {
   if (SDOFV2MetalLibURL::onceToken != -1)
   {
@@ -3823,7 +4892,7 @@ void *__SDOFV2MetalLibURL_block_invoke()
   return result;
 }
 
-uint64_t __SDOFV3MetalLibURL_block_invoke()
+void *__SDOFV3MetalLibURL_block_invoke()
 {
   result = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.CoreImage"];
   if (result)
@@ -4039,7 +5108,7 @@ void *SDOFRenderingValue(NSString *a1, void *a2)
   }
 }
 
-uint64_t SDOFSimpleLensModelValue(void *a1, void *a2)
+void *SDOFSimpleLensModelValue(void *a1, void *a2)
 {
   if (a2 && (v3 = [a2 objectForKey:@"SLM"]) != 0 && (v4 = objc_msgSend(v3, "objectForKey:", a1)) != 0)
   {
@@ -4152,9 +5221,9 @@ uint64_t SDOFBlurMapRefinementValue(NSString *a1, NSDictionary *a2)
   return [v4 floatValue];
 }
 
-void sub_19CDF8BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_19CDF8BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4236,7 +5305,7 @@ LABEL_8:
 
 const CGImageMetadata *tuningParametersFromMetaData(const CGImageMetadata *a1)
 {
-  v547 = *MEMORY[0x1E69E9840];
+  v548 = *MEMORY[0x1E69E9840];
   TypeID = CFDictionaryGetTypeID();
   if (TypeID == CFGetTypeID(a1))
   {
@@ -4256,9 +5325,9 @@ const CGImageMetadata *tuningParametersFromMetaData(const CGImageMetadata *a1)
     return &unk_1F1082780;
   }
 
-  [v5 getBytes:&v355 length:12];
-  v7 = HIDWORD(v355);
-  v206 = 1;
+  [v5 getBytes:&v356 length:12];
+  v7 = HIDWORD(v356);
+  v207 = 1;
   v8 = +[CIFilter maxSDOFRenderingVersionSupported];
   if (v8 < 4)
   {
@@ -4267,13 +5336,13 @@ const CGImageMetadata *tuningParametersFromMetaData(const CGImageMetadata *a1)
 
   if (v7 > v8)
   {
-    v9 = ci_logger_api();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = ci_logger_api(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      tuningParametersFromMetaData(v7, v9, v10, v11, v12, v13, v14, v15);
+      tuningParametersFromMetaData(v7, v10, v11, v12, v13, v14, v15, v16);
     }
 
-    v16 = 1;
+    v17 = 1;
     goto LABEL_22;
   }
 
@@ -4283,19 +5352,19 @@ LABEL_15:
     switch(v7)
     {
       case 3:
-        v17 = FigDepthBlurEffectRenderingParametersV3FromCFData(v5, &v207);
+        v18 = FigDepthBlurEffectRenderingParametersV3FromCFData(v5, &v208);
         break;
       case 2:
-        v17 = FigDepthBlurEffectRenderingParametersV2FromCFData(v5, &v207, &v206);
+        v18 = FigDepthBlurEffectRenderingParametersV2FromCFData(v5, &v208, &v207);
         break;
       case 1:
-        v17 = FigDepthBlurEffectRenderingParametersV1FromCFData(v5, &v207);
+        v18 = FigDepthBlurEffectRenderingParametersV1FromCFData(v5, &v208);
         break;
       default:
-        v32 = ci_logger_api();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v33 = ci_logger_api(v8, v9);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          tuningParametersFromMetaData(v7, v32, v33, v34, v35, v36, v37, v38);
+          tuningParametersFromMetaData(v7, v33, v34, v35, v36, v37, v38, v39);
         }
 
         CFRelease(v4);
@@ -4304,1006 +5373,1006 @@ LABEL_15:
           return &unk_1F1082780;
         }
 
-        v18 = 1;
+        v19 = 1;
         goto LABEL_23;
     }
 
-    v16 = v17;
+    v17 = v18;
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
 LABEL_22:
   CFRelease(v4);
-  v18 = v16 != 0;
+  v19 = v17 != 0;
 LABEL_23:
-  v19 = +[CIFilter maxSDOFRenderingVersionSupported];
+  v20 = +[CIFilter maxSDOFRenderingVersionSupported];
   a1 = &unk_1F1082780;
-  if (!v18 && v7 <= v19)
+  if (!v19 && v7 <= v20)
   {
     switch(v7)
     {
       case 3:
-        v104 = v206;
-        v531 = @"BlurMapSmoothing";
-        v529[0] = @"nIterations";
-        v530[0] = [MEMORY[0x1E696AD98] numberWithInt:v243];
-        v529[1] = @"originalBlurValueT0";
-        LODWORD(v105) = v267;
-        v530[1] = [MEMORY[0x1E696AD98] numberWithFloat:v105];
-        v529[2] = @"originalBlurValueT1";
+        v105 = v207;
+        v532 = @"BlurMapSmoothing";
+        v530[0] = @"nIterations";
+        v531[0] = [MEMORY[0x1E696AD98] numberWithInt:v244];
+        v530[1] = @"originalBlurValueT0";
         LODWORD(v106) = v268;
-        v530[2] = [MEMORY[0x1E696AD98] numberWithFloat:v106];
-        v529[3] = @"localMinimumBlurValueT0";
+        v531[1] = [MEMORY[0x1E696AD98] numberWithFloat:v106];
+        v530[2] = @"originalBlurValueT1";
         LODWORD(v107) = v269;
-        v530[3] = [MEMORY[0x1E696AD98] numberWithFloat:v107];
-        v529[4] = @"localMinimumBlurValueT1";
+        v531[2] = [MEMORY[0x1E696AD98] numberWithFloat:v107];
+        v530[3] = @"localMinimumBlurValueT0";
         LODWORD(v108) = v270;
-        v530[4] = [MEMORY[0x1E696AD98] numberWithFloat:v108];
-        v539 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v530 forKeys:v529 count:5];
-        v532 = @"DisparityRefinement";
-        v495 = @"radius";
-        v512 = [MEMORY[0x1E696AD98] numberWithInt:HIDWORD(v207)];
-        v496 = @"weightScaling";
-        v109 = v232;
-        if (!v104)
-        {
-          v109 = 0.2;
-        }
-
-        v513 = [MEMORY[0x1E696AD98] numberWithDouble:v109];
-        v497 = @"maxReconstructionWeight";
+        v531[3] = [MEMORY[0x1E696AD98] numberWithFloat:v108];
+        v530[4] = @"localMinimumBlurValueT1";
+        LODWORD(v109) = v271;
+        v531[4] = [MEMORY[0x1E696AD98] numberWithFloat:v109];
+        v540 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v531 forKeys:v530 count:5];
+        v533 = @"DisparityRefinement";
+        v496 = @"radius";
+        v513 = [MEMORY[0x1E696AD98] numberWithInt:HIDWORD(v208)];
+        v497 = @"weightScaling";
         v110 = v233;
-        if (!v104)
+        if (!v105)
         {
-          v110 = 0.1;
+          v110 = 0.2;
         }
 
         v514 = [MEMORY[0x1E696AD98] numberWithDouble:v110];
-        v498 = @"innerSamplingRadius";
+        v498 = @"maxReconstructionWeight";
         v111 = v234;
-        if (!v104)
+        if (!v105)
         {
-          v111 = 0.5;
+          v111 = 0.1;
         }
 
         v515 = [MEMORY[0x1E696AD98] numberWithDouble:v111];
-        v499 = @"outerSamplingRadius";
+        v499 = @"innerSamplingRadius";
         v112 = v235;
-        if (!v104)
+        if (!v105)
         {
-          v112 = 2.5;
+          v112 = 0.5;
         }
 
         v516 = [MEMORY[0x1E696AD98] numberWithDouble:v112];
-        v500 = @"nSamples";
-        if (v104)
+        v500 = @"outerSamplingRadius";
+        v113 = v236;
+        if (!v105)
         {
-          v113 = v236;
+          v113 = 2.5;
+        }
+
+        v517 = [MEMORY[0x1E696AD98] numberWithDouble:v113];
+        v501 = @"nSamples";
+        if (v105)
+        {
+          v114 = v237;
         }
 
         else
         {
-          v113 = 20;
+          v114 = 20;
         }
 
-        v517 = [MEMORY[0x1E696AD98] numberWithInt:v113];
-        v501 = @"lumaSigma";
-        v114 = v237;
-        if (!v104)
-        {
-          v114 = 0.05;
-        }
-
-        v518 = [MEMORY[0x1E696AD98] numberWithDouble:v114];
-        v502 = @"chromaSigma";
+        v518 = [MEMORY[0x1E696AD98] numberWithInt:v114];
+        v502 = @"lumaSigma";
         v115 = v238;
-        if (!v104)
+        if (!v105)
         {
-          v115 = 0.02;
+          v115 = 0.05;
         }
 
         v519 = [MEMORY[0x1E696AD98] numberWithDouble:v115];
-        v503 = @"disparitySigma";
-        v116 = v208;
-        if (!v104)
+        v503 = @"chromaSigma";
+        v116 = v239;
+        if (!v105)
         {
-          v116 = 0.03;
+          v116 = 0.02;
         }
 
         v520 = [MEMORY[0x1E696AD98] numberWithDouble:v116];
-        v504 = @"accumulatedWeightT0";
-        v117 = v239;
-        if (!v104)
+        v504 = @"disparitySigma";
+        v117 = v209;
+        if (!v105)
         {
-          v117 = 0.01;
+          v117 = 0.03;
         }
 
         v521 = [MEMORY[0x1E696AD98] numberWithDouble:v117];
-        v505 = @"accumulatedWeightT1";
+        v505 = @"accumulatedWeightT0";
         v118 = v240;
-        if (!v104)
+        if (!v105)
         {
-          v118 = 0.1;
+          v118 = 0.01;
         }
 
         v522 = [MEMORY[0x1E696AD98] numberWithDouble:v118];
-        v506 = @"aaLumaSigma";
-        LODWORD(v119) = v209;
-        v523 = [MEMORY[0x1E696AD98] numberWithFloat:v119];
-        v507 = @"aaChromaSigma";
+        v506 = @"accumulatedWeightT1";
+        v119 = v241;
+        if (!v105)
+        {
+          v119 = 0.1;
+        }
+
+        v523 = [MEMORY[0x1E696AD98] numberWithDouble:v119];
+        v507 = @"aaLumaSigma";
         LODWORD(v120) = v210;
         v524 = [MEMORY[0x1E696AD98] numberWithFloat:v120];
-        v508 = @"aaSpatialSigma";
+        v508 = @"aaChromaSigma";
         LODWORD(v121) = v211;
         v525 = [MEMORY[0x1E696AD98] numberWithFloat:v121];
-        v509 = @"segmentationSigma";
-        LODWORD(v122) = v272;
-        if (!v104)
-        {
-          *&v122 = 1000.0;
-        }
-
+        v509 = @"aaSpatialSigma";
+        LODWORD(v122) = v212;
         v526 = [MEMORY[0x1E696AD98] numberWithFloat:v122];
-        v510 = @"aaSegmentationSigma";
-        v123 = v273;
-        if (!v104)
+        v510 = @"segmentationSigma";
+        LODWORD(v123) = v273;
+        if (!v105)
         {
-          v123 = 1.4;
+          *&v123 = 1000.0;
         }
 
-        v527 = [MEMORY[0x1E696AD98] numberWithDouble:v123];
-        v511 = @"Version";
-        if (v104)
+        v527 = [MEMORY[0x1E696AD98] numberWithFloat:v123];
+        v511 = @"aaSegmentationSigma";
+        v124 = v274;
+        if (!v105)
         {
-          v124 = v274;
+          v124 = 1.4;
+        }
+
+        v528 = [MEMORY[0x1E696AD98] numberWithDouble:v124];
+        v512 = @"Version";
+        if (v105)
+        {
+          v125 = v275;
         }
 
         else
         {
-          v124 = 0;
+          v125 = 0;
         }
 
-        v528 = [MEMORY[0x1E696AD98] numberWithInt:v124];
-        v540 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v512 forKeys:&v495 count:17];
-        v533 = @"SLM";
-        v483 = @"shiftDeadZone";
-        LODWORD(v125) = v212;
-        v489 = [MEMORY[0x1E696AD98] numberWithFloat:v125];
-        v484 = @"zeroShiftPercentile";
-        v126 = v241;
-        if (!v104)
-        {
-          v126 = 0.75;
-        }
-
-        v490 = [MEMORY[0x1E696AD98] numberWithDouble:v126];
-        v485 = @"maxFGBlur";
+        v529 = [MEMORY[0x1E696AD98] numberWithInt:v125];
+        v541 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v513 forKeys:&v496 count:17];
+        v534 = @"SLM";
+        v484 = @"shiftDeadZone";
+        LODWORD(v126) = v213;
+        v490 = [MEMORY[0x1E696AD98] numberWithFloat:v126];
+        v485 = @"zeroShiftPercentile";
         v127 = v242;
-        if (!v104)
+        if (!v105)
         {
-          v127 = 0.0002;
+          v127 = 0.75;
         }
 
         v491 = [MEMORY[0x1E696AD98] numberWithDouble:v127];
-        v486 = @"maximumSimulatedAperture";
-        v128 = v271;
-        if (!v104)
+        v486 = @"maxFGBlur";
+        v128 = v243;
+        if (!v105)
         {
-          v128 = 0.0;
+          v128 = 0.0002;
         }
 
         v492 = [MEMORY[0x1E696AD98] numberWithDouble:v128];
-        v487 = @"defaultSimulatedAperture";
-        v129 = v275;
-        if (!v104)
+        v487 = @"maximumSimulatedAperture";
+        v129 = v272;
+        if (!v105)
         {
           v129 = 0.0;
         }
 
         v493 = [MEMORY[0x1E696AD98] numberWithDouble:v129];
-        v488 = @"disparityScalingFactor";
+        v488 = @"defaultSimulatedAperture";
         v130 = v276;
-        if (!v104)
+        if (!v105)
         {
           v130 = 0.0;
         }
 
         v494 = [MEMORY[0x1E696AD98] numberWithDouble:v130];
-        v541 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v489 forKeys:&v483 count:6];
-        v534 = @"HighlightRecovery";
-        v461 = @"iterations";
-        v472 = [MEMORY[0x1E696AD98] numberWithInt:v217];
-        v462 = @"preFilterGain";
-        LODWORD(v131) = v218;
-        v473 = [MEMORY[0x1E696AD98] numberWithFloat:v131];
-        v463 = @"weightGain";
-        LODWORD(v132) = v219;
-        v474 = [MEMORY[0x1E696AD98] numberWithFloat:v132];
-        v464 = @"intensityGain";
-        LODWORD(v133) = v220;
-        v475 = [MEMORY[0x1E696AD98] numberWithFloat:v133];
-        v465 = @"mode";
-        v476 = &unk_1F10823A0;
-        v466 = @"blurRadiusT0";
-        v134 = v251;
-        if (!v104)
+        v489 = @"disparityScalingFactor";
+        v131 = v277;
+        if (!v105)
         {
-          v134 = 0.0025;
+          v131 = 0.0;
         }
 
-        v477 = [MEMORY[0x1E696AD98] numberWithDouble:v134];
-        v467 = @"blurRadiusT1";
+        v495 = [MEMORY[0x1E696AD98] numberWithDouble:v131];
+        v542 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v490 forKeys:&v484 count:6];
+        v535 = @"HighlightRecovery";
+        v462 = @"iterations";
+        v473 = [MEMORY[0x1E696AD98] numberWithInt:v218];
+        v463 = @"preFilterGain";
+        LODWORD(v132) = v219;
+        v474 = [MEMORY[0x1E696AD98] numberWithFloat:v132];
+        v464 = @"weightGain";
+        LODWORD(v133) = v220;
+        v475 = [MEMORY[0x1E696AD98] numberWithFloat:v133];
+        v465 = @"intensityGain";
+        LODWORD(v134) = v221;
+        v476 = [MEMORY[0x1E696AD98] numberWithFloat:v134];
+        v466 = @"mode";
+        v477 = &unk_1F10823A0;
+        v467 = @"blurRadiusT0";
         v135 = v252;
-        if (!v104)
+        if (!v105)
         {
-          v135 = 0.0075;
+          v135 = 0.0025;
         }
 
         v478 = [MEMORY[0x1E696AD98] numberWithDouble:v135];
-        v468 = @"maxIntensityT0";
+        v468 = @"blurRadiusT1";
         v136 = v253;
-        if (!v104)
+        if (!v105)
         {
-          v136 = 0.9;
+          v136 = 0.0075;
         }
 
         v479 = [MEMORY[0x1E696AD98] numberWithDouble:v136];
-        v469 = @"maxIntensityT1";
+        v469 = @"maxIntensityT0";
         v137 = v254;
-        if (!v104)
+        if (!v105)
         {
-          v137 = 1.0;
+          v137 = 0.9;
         }
 
         v480 = [MEMORY[0x1E696AD98] numberWithDouble:v137];
-        v470 = @"minIntensityT0";
+        v470 = @"maxIntensityT1";
         v138 = v255;
-        if (!v104)
+        if (!v105)
         {
-          v138 = 0.0;
+          v138 = 1.0;
         }
 
         v481 = [MEMORY[0x1E696AD98] numberWithDouble:v138];
-        v471 = @"minIntensityT1";
+        v471 = @"minIntensityT0";
         v139 = v256;
-        if (!v104)
+        if (!v105)
         {
-          v139 = 0.2;
+          v139 = 0.0;
         }
 
         v482 = [MEMORY[0x1E696AD98] numberWithDouble:v139];
-        v542 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v472 forKeys:&v461 count:11];
-        v535 = @"Rendering";
-        v405 = @"faces.linearBlurGrowthC";
-        LODWORD(v140) = v214;
-        v433 = [MEMORY[0x1E696AD98] numberWithFloat:v140];
-        v406 = @"faces.linearBlurGrowthM";
-        LODWORD(v141) = v213;
-        v434 = [MEMORY[0x1E696AD98] numberWithFloat:v141];
-        v407 = @"faces.distToBlurScaling";
-        LODWORD(v142) = v215;
-        v435 = [MEMORY[0x1E696AD98] numberWithFloat:v142];
-        v408 = @"faces.eyeToEyebrowRatio";
-        LODWORD(v143) = v216;
-        v436 = [MEMORY[0x1E696AD98] numberWithFloat:v143];
-        v409 = @"faces.maxBlurOnEyes";
-        LODWORD(v144) = v257;
-        v437 = [MEMORY[0x1E696AD98] numberWithFloat:v144];
-        v410 = @"faces.maxBlurDistFromFocus";
-        LODWORD(v145) = v258;
-        v438 = [MEMORY[0x1E696AD98] numberWithFloat:v145];
-        v411 = @"faces.capMultip";
-        LODWORD(v146) = v259;
-        v439 = [MEMORY[0x1E696AD98] numberWithFloat:v146];
-        v412 = @"faces.gainMultip";
-        LODWORD(v147) = v260;
-        v440 = [MEMORY[0x1E696AD98] numberWithFloat:v147];
-        v413 = @"lumaNoiseModelCoeff";
-        LODWORD(v148) = v247;
-        v441 = [MEMORY[0x1E696AD98] numberWithFloat:v148];
-        v414 = @"relativeWeightThreshold";
-        LODWORD(v149) = v222;
-        v442 = [MEMORY[0x1E696AD98] numberWithFloat:v149];
-        v415 = @"highlightBoostGain";
-        LODWORD(v150) = v223;
-        v443 = [MEMORY[0x1E696AD98] numberWithFloat:v150];
-        v416 = @"shapeObstructionCoeff";
-        LODWORD(v151) = v224;
-        v444 = [MEMORY[0x1E696AD98] numberWithFloat:v151];
-        v417 = @"ringAmplitude";
-        LODWORD(v152) = v225;
-        v445 = [MEMORY[0x1E696AD98] numberWithFloat:v152];
-        v418 = @"ringSharpness";
-        LODWORD(v153) = v226;
-        v446 = [MEMORY[0x1E696AD98] numberWithFloat:v153];
-        v419 = @"antiAliasBlurStrength";
-        LODWORD(v154) = v228;
-        v447 = [MEMORY[0x1E696AD98] numberWithFloat:v154];
-        v420 = @"minimumSimulatedAperture";
-        LODWORD(v155) = v229;
-        v448 = [MEMORY[0x1E696AD98] numberWithFloat:v155];
-        v421 = @"antiAliasRadius";
-        v449 = [MEMORY[0x1E696AD98] numberWithInt:v248];
-        v422 = @"alphaEpsilon";
-        LODWORD(v156) = v249;
-        v450 = [MEMORY[0x1E696AD98] numberWithFloat:v156];
-        v423 = @"alphaGain";
-        LODWORD(v157) = v250;
-        v451 = [MEMORY[0x1E696AD98] numberWithFloat:v157];
-        v424 = @"maxBlur";
-        v452 = &unk_1F1085198;
-        v425 = @"nRings";
-        v453 = [MEMORY[0x1E696AD98] numberWithInt:v221];
-        v426 = @"preFilterBlurStrength";
-        LODWORD(v158) = v227;
-        v454 = [MEMORY[0x1E696AD98] numberWithFloat:v158];
-        v427 = @"preFilterRadius";
-        v455 = [MEMORY[0x1E696AD98] numberWithInt:v244];
-        v428 = @"sharpRadius";
-        LODWORD(v159) = v245;
-        v456 = [MEMORY[0x1E696AD98] numberWithFloat:v159];
-        v429 = @"softRadius";
-        v160 = v246;
-        if (!v104)
+        v472 = @"minIntensityT1";
+        v140 = v257;
+        if (!v105)
         {
-          v160 = 1.0;
+          v140 = 0.2;
         }
 
-        v457 = [MEMORY[0x1E696AD98] numberWithDouble:v160];
-        v430 = @"basePixelWeight";
-        v458 = &unk_1F10851A8;
-        v431 = @"blendingQuarterResAlphaGain";
-        v161 = v230;
-        if (!v104)
+        v483 = [MEMORY[0x1E696AD98] numberWithDouble:v140];
+        v543 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v473 forKeys:&v462 count:11];
+        v536 = @"Rendering";
+        v406 = @"faces.linearBlurGrowthC";
+        LODWORD(v141) = v215;
+        v434 = [MEMORY[0x1E696AD98] numberWithFloat:v141];
+        v407 = @"faces.linearBlurGrowthM";
+        LODWORD(v142) = v214;
+        v435 = [MEMORY[0x1E696AD98] numberWithFloat:v142];
+        v408 = @"faces.distToBlurScaling";
+        LODWORD(v143) = v216;
+        v436 = [MEMORY[0x1E696AD98] numberWithFloat:v143];
+        v409 = @"faces.eyeToEyebrowRatio";
+        LODWORD(v144) = v217;
+        v437 = [MEMORY[0x1E696AD98] numberWithFloat:v144];
+        v410 = @"faces.maxBlurOnEyes";
+        LODWORD(v145) = v258;
+        v438 = [MEMORY[0x1E696AD98] numberWithFloat:v145];
+        v411 = @"faces.maxBlurDistFromFocus";
+        LODWORD(v146) = v259;
+        v439 = [MEMORY[0x1E696AD98] numberWithFloat:v146];
+        v412 = @"faces.capMultip";
+        LODWORD(v147) = v260;
+        v440 = [MEMORY[0x1E696AD98] numberWithFloat:v147];
+        v413 = @"faces.gainMultip";
+        LODWORD(v148) = v261;
+        v441 = [MEMORY[0x1E696AD98] numberWithFloat:v148];
+        v414 = @"lumaNoiseModelCoeff";
+        LODWORD(v149) = v248;
+        v442 = [MEMORY[0x1E696AD98] numberWithFloat:v149];
+        v415 = @"relativeWeightThreshold";
+        LODWORD(v150) = v223;
+        v443 = [MEMORY[0x1E696AD98] numberWithFloat:v150];
+        v416 = @"highlightBoostGain";
+        LODWORD(v151) = v224;
+        v444 = [MEMORY[0x1E696AD98] numberWithFloat:v151];
+        v417 = @"shapeObstructionCoeff";
+        LODWORD(v152) = v225;
+        v445 = [MEMORY[0x1E696AD98] numberWithFloat:v152];
+        v418 = @"ringAmplitude";
+        LODWORD(v153) = v226;
+        v446 = [MEMORY[0x1E696AD98] numberWithFloat:v153];
+        v419 = @"ringSharpness";
+        LODWORD(v154) = v227;
+        v447 = [MEMORY[0x1E696AD98] numberWithFloat:v154];
+        v420 = @"antiAliasBlurStrength";
+        LODWORD(v155) = v229;
+        v448 = [MEMORY[0x1E696AD98] numberWithFloat:v155];
+        v421 = @"minimumSimulatedAperture";
+        LODWORD(v156) = v230;
+        v449 = [MEMORY[0x1E696AD98] numberWithFloat:v156];
+        v422 = @"antiAliasRadius";
+        v450 = [MEMORY[0x1E696AD98] numberWithInt:v249];
+        v423 = @"alphaEpsilon";
+        LODWORD(v157) = v250;
+        v451 = [MEMORY[0x1E696AD98] numberWithFloat:v157];
+        v424 = @"alphaGain";
+        LODWORD(v158) = v251;
+        v452 = [MEMORY[0x1E696AD98] numberWithFloat:v158];
+        v425 = @"maxBlur";
+        v453 = &unk_1F1085198;
+        v426 = @"nRings";
+        v454 = [MEMORY[0x1E696AD98] numberWithInt:v222];
+        v427 = @"preFilterBlurStrength";
+        LODWORD(v159) = v228;
+        v455 = [MEMORY[0x1E696AD98] numberWithFloat:v159];
+        v428 = @"preFilterRadius";
+        v456 = [MEMORY[0x1E696AD98] numberWithInt:v245];
+        v429 = @"sharpRadius";
+        LODWORD(v160) = v246;
+        v457 = [MEMORY[0x1E696AD98] numberWithFloat:v160];
+        v430 = @"softRadius";
+        v161 = v247;
+        if (!v105)
         {
           v161 = 1.0;
         }
 
-        v459 = [MEMORY[0x1E696AD98] numberWithDouble:v161];
-        v432 = @"blendingFullResAlphaGain";
+        v458 = [MEMORY[0x1E696AD98] numberWithDouble:v161];
+        v431 = @"basePixelWeight";
+        v459 = &unk_1F10851A8;
+        v432 = @"blendingQuarterResAlphaGain";
         v162 = v231;
-        if (!v104)
+        if (!v105)
         {
           v162 = 1.0;
         }
 
         v460 = [MEMORY[0x1E696AD98] numberWithDouble:v162];
-        v543 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v433 forKeys:&v405 count:28];
-        v536 = @"Fusion";
-        v393 = @"subtractiveLowerAlpha";
-        LODWORD(v163) = v261;
-        if (!v104)
+        v433 = @"blendingFullResAlphaGain";
+        v163 = v232;
+        if (!v105)
         {
-          *&v163 = 0.8;
+          v163 = 1.0;
         }
 
-        v399 = [MEMORY[0x1E696AD98] numberWithFloat:v163];
-        v394 = @"subtractiveUpperAlpha";
+        v461 = [MEMORY[0x1E696AD98] numberWithDouble:v163];
+        v544 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v434 forKeys:&v406 count:28];
+        v537 = @"Fusion";
+        v394 = @"subtractiveLowerAlpha";
         LODWORD(v164) = v262;
-        if (!v104)
+        if (!v105)
         {
-          *&v164 = 1.0;
+          *&v164 = 0.8;
         }
 
         v400 = [MEMORY[0x1E696AD98] numberWithFloat:v164];
-        v395 = @"subtractiveMaxBlur";
-        v165 = v263;
-        if (!v104)
+        v395 = @"subtractiveUpperAlpha";
+        LODWORD(v165) = v263;
+        if (!v105)
         {
-          v165 = 0.0;
+          *&v165 = 1.0;
         }
 
-        v401 = [MEMORY[0x1E696AD98] numberWithDouble:v165];
-        v396 = @"additiveLowerAlpha";
-        LODWORD(v166) = v264;
-        if (!v104)
+        v401 = [MEMORY[0x1E696AD98] numberWithFloat:v165];
+        v396 = @"subtractiveMaxBlur";
+        v166 = v264;
+        if (!v105)
         {
-          *&v166 = 0.0;
+          v166 = 0.0;
         }
 
-        v402 = [MEMORY[0x1E696AD98] numberWithFloat:v166];
-        v397 = @"additiveUpperAlpha";
+        v402 = [MEMORY[0x1E696AD98] numberWithDouble:v166];
+        v397 = @"additiveLowerAlpha";
         LODWORD(v167) = v265;
-        if (!v104)
+        if (!v105)
         {
-          *&v167 = 0.2;
+          *&v167 = 0.0;
         }
 
         v403 = [MEMORY[0x1E696AD98] numberWithFloat:v167];
-        v398 = @"additiveMaxBlur";
-        v168 = v266;
-        if (!v104)
+        v398 = @"additiveUpperAlpha";
+        LODWORD(v168) = v266;
+        if (!v105)
         {
-          v168 = 0.0;
+          *&v168 = 0.2;
         }
 
-        v404 = [MEMORY[0x1E696AD98] numberWithDouble:v168];
-        v544 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v399 forKeys:&v393 count:6];
-        v537 = @"BlurMapRefinement";
-        v317 = @"minimumFocusDistance";
-        LODWORD(v169) = v277;
-        v355 = [MEMORY[0x1E696AD98] numberWithFloat:v169];
-        v318 = @"maximumFocusDistance";
+        v404 = [MEMORY[0x1E696AD98] numberWithFloat:v168];
+        v399 = @"additiveMaxBlur";
+        v169 = v267;
+        if (!v105)
+        {
+          v169 = 0.0;
+        }
+
+        v405 = [MEMORY[0x1E696AD98] numberWithDouble:v169];
+        v545 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v400 forKeys:&v394 count:6];
+        v538 = @"BlurMapRefinement";
+        v318 = @"minimumFocusDistance";
         LODWORD(v170) = v278;
         v356 = [MEMORY[0x1E696AD98] numberWithFloat:v170];
-        v319 = @"subjectDistanceScalingFactor";
+        v319 = @"maximumFocusDistance";
         LODWORD(v171) = v279;
         v357 = [MEMORY[0x1E696AD98] numberWithFloat:v171];
-        v320 = @"subjectDistanceOffset";
+        v320 = @"subjectDistanceScalingFactor";
         LODWORD(v172) = v280;
         v358 = [MEMORY[0x1E696AD98] numberWithFloat:v172];
-        v321 = @"relativeApertureScalingStrength";
-        LODWORD(v173) = v300;
+        v321 = @"subjectDistanceOffset";
+        LODWORD(v173) = v281;
         v359 = [MEMORY[0x1E696AD98] numberWithFloat:v173];
-        v322 = @"protectBodyStrength";
-        LODWORD(v174) = v281;
+        v322 = @"relativeApertureScalingStrength";
+        LODWORD(v174) = v301;
         v360 = [MEMORY[0x1E696AD98] numberWithFloat:v174];
-        v323 = @"distanceAdd";
-        LODWORD(v175) = v285;
+        v323 = @"protectBodyStrength";
+        LODWORD(v175) = v282;
         v361 = [MEMORY[0x1E696AD98] numberWithFloat:v175];
-        v324 = @"hairAdditiveLowerAlpha";
-        LODWORD(v176) = v296;
+        v324 = @"distanceAdd";
+        LODWORD(v176) = v286;
         v362 = [MEMORY[0x1E696AD98] numberWithFloat:v176];
-        v325 = @"hairAdditiveUpperAlpha";
+        v325 = @"hairAdditiveLowerAlpha";
         LODWORD(v177) = v297;
         v363 = [MEMORY[0x1E696AD98] numberWithFloat:v177];
-        v326 = @"hairAdditiveMaxBlur";
+        v326 = @"hairAdditiveUpperAlpha";
         LODWORD(v178) = v298;
         v364 = [MEMORY[0x1E696AD98] numberWithFloat:v178];
-        v327 = @"hairSubtractiveLowerAlpha";
-        LODWORD(v179) = v294;
+        v327 = @"hairAdditiveMaxBlur";
+        LODWORD(v179) = v299;
         v365 = [MEMORY[0x1E696AD98] numberWithFloat:v179];
-        v328 = @"hairSubtractiveUpperAlpha";
+        v328 = @"hairSubtractiveLowerAlpha";
         LODWORD(v180) = v295;
         v366 = [MEMORY[0x1E696AD98] numberWithFloat:v180];
-        v329 = @"hairSubtractiveMaxBlur";
-        LODWORD(v181) = v299;
+        v329 = @"hairSubtractiveUpperAlpha";
+        LODWORD(v181) = v296;
         v367 = [MEMORY[0x1E696AD98] numberWithFloat:v181];
-        v330 = @"faceMaskAdditiveMaxBlur";
-        LODWORD(v182) = v286;
+        v330 = @"hairSubtractiveMaxBlur";
+        LODWORD(v182) = v300;
         v368 = [MEMORY[0x1E696AD98] numberWithFloat:v182];
-        v331 = @"faceMaskSubtractiveMaxBlur";
+        v331 = @"faceMaskAdditiveMaxBlur";
         LODWORD(v183) = v287;
         v369 = [MEMORY[0x1E696AD98] numberWithFloat:v183];
-        v332 = @"smoothstepMin";
-        LODWORD(v184) = v283;
+        v332 = @"faceMaskSubtractiveMaxBlur";
+        LODWORD(v184) = v288;
         v370 = [MEMORY[0x1E696AD98] numberWithFloat:v184];
-        v333 = @"smoothstepMax";
+        v333 = @"smoothstepMin";
         LODWORD(v185) = v284;
         v371 = [MEMORY[0x1E696AD98] numberWithFloat:v185];
-        v334 = @"maxBlur";
-        LODWORD(v186) = v282;
+        v334 = @"smoothstepMax";
+        LODWORD(v186) = v285;
         v372 = [MEMORY[0x1E696AD98] numberWithFloat:v186];
-        v335 = @"personDistance";
-        LODWORD(v187) = v288;
+        v335 = @"maxBlur";
+        LODWORD(v187) = v283;
         v373 = [MEMORY[0x1E696AD98] numberWithFloat:v187];
-        v336 = @"personThreshold";
+        v336 = @"personDistance";
         LODWORD(v188) = v289;
         v374 = [MEMORY[0x1E696AD98] numberWithFloat:v188];
-        v337 = @"personMaxBlur";
+        v337 = @"personThreshold";
         LODWORD(v189) = v290;
         v375 = [MEMORY[0x1E696AD98] numberWithFloat:v189];
-        v338 = @"hairDistance";
+        v338 = @"personMaxBlur";
         LODWORD(v190) = v291;
         v376 = [MEMORY[0x1E696AD98] numberWithFloat:v190];
-        v339 = @"hairThreshold";
+        v339 = @"hairDistance";
         LODWORD(v191) = v292;
         v377 = [MEMORY[0x1E696AD98] numberWithFloat:v191];
-        v340 = @"hairMaxBlur";
+        v340 = @"hairThreshold";
         LODWORD(v192) = v293;
         v378 = [MEMORY[0x1E696AD98] numberWithFloat:v192];
-        v341 = @"eyeProtectionMaxFaces";
-        v379 = [MEMORY[0x1E696AD98] numberWithInt:v301];
-        v342 = @"eyeProtectionFaceWeightsSmoothStepMin";
-        LODWORD(v193) = v302;
-        v380 = [MEMORY[0x1E696AD98] numberWithFloat:v193];
-        v343 = @"eyeProtectionFaceWeightsSmoothStepMax";
+        v341 = @"hairMaxBlur";
+        LODWORD(v193) = v294;
+        v379 = [MEMORY[0x1E696AD98] numberWithFloat:v193];
+        v342 = @"eyeProtectionMaxFaces";
+        v380 = [MEMORY[0x1E696AD98] numberWithInt:v302];
+        v343 = @"eyeProtectionFaceWeightsSmoothStepMin";
         LODWORD(v194) = v303;
         v381 = [MEMORY[0x1E696AD98] numberWithFloat:v194];
-        v344 = @"eyeProtectionOvalDimsDistanceScale";
+        v344 = @"eyeProtectionFaceWeightsSmoothStepMax";
         LODWORD(v195) = v304;
         v382 = [MEMORY[0x1E696AD98] numberWithFloat:v195];
-        v345 = @"eyeProtectionOvalDimsDistanceOffset";
+        v345 = @"eyeProtectionOvalDimsDistanceScale";
         LODWORD(v196) = v305;
         v383 = [MEMORY[0x1E696AD98] numberWithFloat:v196];
-        v346 = @"eyeProtectionOvalDimsRadiusHorizontal";
+        v346 = @"eyeProtectionOvalDimsDistanceOffset";
         LODWORD(v197) = v306;
         v384 = [MEMORY[0x1E696AD98] numberWithFloat:v197];
-        v347 = @"eyeProtectionOvalDimsRadiusVertical";
+        v347 = @"eyeProtectionOvalDimsRadiusHorizontal";
         LODWORD(v198) = v307;
         v385 = [MEMORY[0x1E696AD98] numberWithFloat:v198];
-        v348 = @"eyeProtectionOvalFallOffSmoothStepMin";
+        v348 = @"eyeProtectionOvalDimsRadiusVertical";
         LODWORD(v199) = v308;
         v386 = [MEMORY[0x1E696AD98] numberWithFloat:v199];
-        v349 = @"eyeProtectionOvalFallOffSmoothStepMax";
+        v349 = @"eyeProtectionOvalFallOffSmoothStepMin";
         LODWORD(v200) = v309;
         v387 = [MEMORY[0x1E696AD98] numberWithFloat:v200];
-        v350 = @"eyeProtectionPersonMaskSmoothStepMin";
+        v350 = @"eyeProtectionOvalFallOffSmoothStepMax";
         LODWORD(v201) = v310;
         v388 = [MEMORY[0x1E696AD98] numberWithFloat:v201];
-        v351 = @"eyeProtectionPersonMaskSmoothStepMax";
+        v351 = @"eyeProtectionPersonMaskSmoothStepMin";
         LODWORD(v202) = v311;
         v389 = [MEMORY[0x1E696AD98] numberWithFloat:v202];
-        v352 = @"eyeProtectionPreventStrength";
+        v352 = @"eyeProtectionPersonMaskSmoothStepMax";
         LODWORD(v203) = v312;
         v390 = [MEMORY[0x1E696AD98] numberWithFloat:v203];
-        v353 = @"eyeProtectionSubtractiveMaxBlur";
+        v353 = @"eyeProtectionPreventStrength";
         LODWORD(v204) = v313;
         v391 = [MEMORY[0x1E696AD98] numberWithFloat:v204];
-        v354 = @"eyeProtectionSubtractiveApertureScaling";
+        v354 = @"eyeProtectionSubtractiveMaxBlur";
         LODWORD(v205) = v314;
         v392 = [MEMORY[0x1E696AD98] numberWithFloat:v205];
-        v545 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v355 forKeys:&v317 count:38];
-        v538 = @"Version";
-        v546 = &unk_1F1082430;
-        v28 = MEMORY[0x1E695DF20];
-        v29 = &v539;
-        v30 = &v531;
-        v31 = 8;
+        v355 = @"eyeProtectionSubtractiveApertureScaling";
+        LODWORD(v206) = v315;
+        v393 = [MEMORY[0x1E696AD98] numberWithFloat:v206];
+        v546 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v356 forKeys:&v318 count:38];
+        v539 = @"Version";
+        v547 = &unk_1F1082430;
+        v29 = MEMORY[0x1E695DF20];
+        v30 = &v540;
+        v31 = &v532;
+        v32 = 8;
         break;
       case 2:
-        v39 = v206;
-        v461 = @"BlurMapSmoothing";
-        v393 = @"nIterations";
-        v399 = [MEMORY[0x1E696AD98] numberWithInt:v243];
-        v394 = @"originalBlurValueT0";
-        LODWORD(v40) = v267;
-        v400 = [MEMORY[0x1E696AD98] numberWithFloat:v40];
-        v395 = @"originalBlurValueT1";
+        v40 = v207;
+        v462 = @"BlurMapSmoothing";
+        v394 = @"nIterations";
+        v400 = [MEMORY[0x1E696AD98] numberWithInt:v244];
+        v395 = @"originalBlurValueT0";
         LODWORD(v41) = v268;
         v401 = [MEMORY[0x1E696AD98] numberWithFloat:v41];
-        v396 = @"localMinimumBlurValueT0";
+        v396 = @"originalBlurValueT1";
         LODWORD(v42) = v269;
         v402 = [MEMORY[0x1E696AD98] numberWithFloat:v42];
-        v397 = @"localMinimumBlurValueT1";
+        v397 = @"localMinimumBlurValueT0";
         LODWORD(v43) = v270;
         v403 = [MEMORY[0x1E696AD98] numberWithFloat:v43];
-        v472 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v399 forKeys:&v393 count:5];
-        v462 = @"DisparityRefinement";
-        v405 = @"radius";
-        v433 = [MEMORY[0x1E696AD98] numberWithInt:HIDWORD(v207)];
-        v406 = @"weightScaling";
-        v44 = v232;
-        if (!v39)
-        {
-          v44 = 0.2;
-        }
-
-        v434 = [MEMORY[0x1E696AD98] numberWithDouble:v44];
-        v407 = @"maxReconstructionWeight";
+        v398 = @"localMinimumBlurValueT1";
+        LODWORD(v44) = v271;
+        v404 = [MEMORY[0x1E696AD98] numberWithFloat:v44];
+        v473 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v400 forKeys:&v394 count:5];
+        v463 = @"DisparityRefinement";
+        v406 = @"radius";
+        v434 = [MEMORY[0x1E696AD98] numberWithInt:HIDWORD(v208)];
+        v407 = @"weightScaling";
         v45 = v233;
-        if (!v39)
+        if (!v40)
         {
-          v45 = 0.1;
+          v45 = 0.2;
         }
 
         v435 = [MEMORY[0x1E696AD98] numberWithDouble:v45];
-        v408 = @"innerSamplingRadius";
+        v408 = @"maxReconstructionWeight";
         v46 = v234;
-        if (!v39)
+        if (!v40)
         {
-          v46 = 0.5;
+          v46 = 0.1;
         }
 
         v436 = [MEMORY[0x1E696AD98] numberWithDouble:v46];
-        v409 = @"outerSamplingRadius";
+        v409 = @"innerSamplingRadius";
         v47 = v235;
-        if (!v39)
+        if (!v40)
         {
-          v47 = 2.5;
+          v47 = 0.5;
         }
 
         v437 = [MEMORY[0x1E696AD98] numberWithDouble:v47];
-        v410 = @"nSamples";
-        if (v39)
+        v410 = @"outerSamplingRadius";
+        v48 = v236;
+        if (!v40)
         {
-          v48 = v236;
+          v48 = 2.5;
+        }
+
+        v438 = [MEMORY[0x1E696AD98] numberWithDouble:v48];
+        v411 = @"nSamples";
+        if (v40)
+        {
+          v49 = v237;
         }
 
         else
         {
-          v48 = 20;
+          v49 = 20;
         }
 
-        v438 = [MEMORY[0x1E696AD98] numberWithInt:v48];
-        v411 = @"lumaSigma";
-        v49 = v237;
-        if (!v39)
-        {
-          v49 = 0.05;
-        }
-
-        v439 = [MEMORY[0x1E696AD98] numberWithDouble:v49];
-        v412 = @"chromaSigma";
+        v439 = [MEMORY[0x1E696AD98] numberWithInt:v49];
+        v412 = @"lumaSigma";
         v50 = v238;
-        if (!v39)
+        if (!v40)
         {
-          v50 = 0.02;
+          v50 = 0.05;
         }
 
         v440 = [MEMORY[0x1E696AD98] numberWithDouble:v50];
-        v413 = @"disparitySigma";
-        v51 = v208;
-        if (!v39)
+        v413 = @"chromaSigma";
+        v51 = v239;
+        if (!v40)
         {
-          v51 = 0.03;
+          v51 = 0.02;
         }
 
         v441 = [MEMORY[0x1E696AD98] numberWithDouble:v51];
-        v414 = @"accumulatedWeightT0";
-        v52 = v239;
-        if (!v39)
+        v414 = @"disparitySigma";
+        v52 = v209;
+        if (!v40)
         {
-          v52 = 0.01;
+          v52 = 0.03;
         }
 
         v442 = [MEMORY[0x1E696AD98] numberWithDouble:v52];
-        v415 = @"accumulatedWeightT1";
+        v415 = @"accumulatedWeightT0";
         v53 = v240;
-        if (!v39)
+        if (!v40)
         {
-          v53 = 0.1;
+          v53 = 0.01;
         }
 
         v443 = [MEMORY[0x1E696AD98] numberWithDouble:v53];
-        v416 = @"aaLumaSigma";
-        LODWORD(v54) = v209;
-        v444 = [MEMORY[0x1E696AD98] numberWithFloat:v54];
-        v417 = @"aaChromaSigma";
+        v416 = @"accumulatedWeightT1";
+        v54 = v241;
+        if (!v40)
+        {
+          v54 = 0.1;
+        }
+
+        v444 = [MEMORY[0x1E696AD98] numberWithDouble:v54];
+        v417 = @"aaLumaSigma";
         LODWORD(v55) = v210;
         v445 = [MEMORY[0x1E696AD98] numberWithFloat:v55];
-        v418 = @"aaSpatialSigma";
+        v418 = @"aaChromaSigma";
         LODWORD(v56) = v211;
         v446 = [MEMORY[0x1E696AD98] numberWithFloat:v56];
-        v419 = @"segmentationSigma";
-        LODWORD(v57) = v272;
-        if (!v39)
-        {
-          *&v57 = 1000.0;
-        }
-
+        v419 = @"aaSpatialSigma";
+        LODWORD(v57) = v212;
         v447 = [MEMORY[0x1E696AD98] numberWithFloat:v57];
-        v420 = @"aaSegmentationSigma";
-        v58 = v273;
-        if (!v39)
+        v420 = @"segmentationSigma";
+        LODWORD(v58) = v273;
+        if (!v40)
         {
-          v58 = 1.4;
+          *&v58 = 1000.0;
         }
 
-        v448 = [MEMORY[0x1E696AD98] numberWithDouble:v58];
-        v421 = @"Version";
-        if (v39)
+        v448 = [MEMORY[0x1E696AD98] numberWithFloat:v58];
+        v421 = @"aaSegmentationSigma";
+        v59 = v274;
+        if (!v40)
         {
-          v59 = v274;
+          v59 = 1.4;
+        }
+
+        v449 = [MEMORY[0x1E696AD98] numberWithDouble:v59];
+        v422 = @"Version";
+        if (v40)
+        {
+          v60 = v275;
         }
 
         else
         {
-          v59 = 0;
+          v60 = 0;
         }
 
-        v449 = [MEMORY[0x1E696AD98] numberWithInt:v59];
-        v473 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v433 forKeys:&v405 count:17];
-        v463 = @"SLM";
-        v531 = @"shiftDeadZone";
-        LODWORD(v60) = v212;
-        v539 = [MEMORY[0x1E696AD98] numberWithFloat:v60];
-        v532 = @"zeroShiftPercentile";
-        v61 = v241;
-        if (!v39)
-        {
-          v61 = 0.75;
-        }
-
-        v540 = [MEMORY[0x1E696AD98] numberWithDouble:v61];
-        v533 = @"maxFGBlur";
+        v450 = [MEMORY[0x1E696AD98] numberWithInt:v60];
+        v474 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v434 forKeys:&v406 count:17];
+        v464 = @"SLM";
+        v532 = @"shiftDeadZone";
+        LODWORD(v61) = v213;
+        v540 = [MEMORY[0x1E696AD98] numberWithFloat:v61];
+        v533 = @"zeroShiftPercentile";
         v62 = v242;
-        if (!v39)
+        if (!v40)
         {
-          v62 = 0.0002;
+          v62 = 0.75;
         }
 
         v541 = [MEMORY[0x1E696AD98] numberWithDouble:v62];
-        v534 = @"maximumSimulatedAperture";
-        v63 = v271;
-        if (!v39)
+        v534 = @"maxFGBlur";
+        v63 = v243;
+        if (!v40)
         {
-          v63 = 0.0;
+          v63 = 0.0002;
         }
 
         v542 = [MEMORY[0x1E696AD98] numberWithDouble:v63];
-        v535 = @"defaultSimulatedAperture";
-        v64 = v275;
-        if (!v39)
+        v535 = @"maximumSimulatedAperture";
+        v64 = v272;
+        if (!v40)
         {
           v64 = 0.0;
         }
 
         v543 = [MEMORY[0x1E696AD98] numberWithDouble:v64];
-        v536 = @"disparityScalingFactor";
+        v536 = @"defaultSimulatedAperture";
         v65 = v276;
-        if (!v39)
+        if (!v40)
         {
           v65 = 0.0;
         }
 
         v544 = [MEMORY[0x1E696AD98] numberWithDouble:v65];
-        v474 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v539 forKeys:&v531 count:6];
-        v464 = @"HighlightRecovery";
-        v495 = @"iterations";
-        v512 = [MEMORY[0x1E696AD98] numberWithInt:v217];
-        v496 = @"preFilterGain";
-        LODWORD(v66) = v218;
-        v513 = [MEMORY[0x1E696AD98] numberWithFloat:v66];
-        v497 = @"weightGain";
-        LODWORD(v67) = v219;
-        v514 = [MEMORY[0x1E696AD98] numberWithFloat:v67];
-        v498 = @"intensityGain";
-        LODWORD(v68) = v220;
-        v515 = [MEMORY[0x1E696AD98] numberWithFloat:v68];
-        v499 = @"mode";
-        v516 = &unk_1F10823A0;
-        v500 = @"blurRadiusT0";
-        v69 = v251;
-        if (!v39)
+        v537 = @"disparityScalingFactor";
+        v66 = v277;
+        if (!v40)
         {
-          v69 = 0.0025;
+          v66 = 0.0;
         }
 
-        v517 = [MEMORY[0x1E696AD98] numberWithDouble:v69];
-        v501 = @"blurRadiusT1";
+        v545 = [MEMORY[0x1E696AD98] numberWithDouble:v66];
+        v475 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v540 forKeys:&v532 count:6];
+        v465 = @"HighlightRecovery";
+        v496 = @"iterations";
+        v513 = [MEMORY[0x1E696AD98] numberWithInt:v218];
+        v497 = @"preFilterGain";
+        LODWORD(v67) = v219;
+        v514 = [MEMORY[0x1E696AD98] numberWithFloat:v67];
+        v498 = @"weightGain";
+        LODWORD(v68) = v220;
+        v515 = [MEMORY[0x1E696AD98] numberWithFloat:v68];
+        v499 = @"intensityGain";
+        LODWORD(v69) = v221;
+        v516 = [MEMORY[0x1E696AD98] numberWithFloat:v69];
+        v500 = @"mode";
+        v517 = &unk_1F10823A0;
+        v501 = @"blurRadiusT0";
         v70 = v252;
-        if (!v39)
+        if (!v40)
         {
-          v70 = 0.0075;
+          v70 = 0.0025;
         }
 
         v518 = [MEMORY[0x1E696AD98] numberWithDouble:v70];
-        v502 = @"maxIntensityT0";
+        v502 = @"blurRadiusT1";
         v71 = v253;
-        if (!v39)
+        if (!v40)
         {
-          v71 = 0.9;
+          v71 = 0.0075;
         }
 
         v519 = [MEMORY[0x1E696AD98] numberWithDouble:v71];
-        v503 = @"maxIntensityT1";
+        v503 = @"maxIntensityT0";
         v72 = v254;
-        if (!v39)
+        if (!v40)
         {
-          v72 = 1.0;
+          v72 = 0.9;
         }
 
         v520 = [MEMORY[0x1E696AD98] numberWithDouble:v72];
-        v504 = @"minIntensityT0";
+        v504 = @"maxIntensityT1";
         v73 = v255;
-        if (!v39)
+        if (!v40)
         {
-          v73 = 0.0;
+          v73 = 1.0;
         }
 
         v521 = [MEMORY[0x1E696AD98] numberWithDouble:v73];
-        v505 = @"minIntensityT1";
+        v505 = @"minIntensityT0";
         v74 = v256;
-        if (!v39)
+        if (!v40)
         {
-          v74 = 0.2;
+          v74 = 0.0;
         }
 
         v522 = [MEMORY[0x1E696AD98] numberWithDouble:v74];
-        v475 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v512 forKeys:&v495 count:11];
-        v465 = @"Rendering";
-        v317 = @"faces.linearBlurGrowthC";
-        LODWORD(v75) = v214;
-        v355 = [MEMORY[0x1E696AD98] numberWithFloat:v75];
-        v318 = @"faces.linearBlurGrowthM";
-        LODWORD(v76) = v213;
-        v356 = [MEMORY[0x1E696AD98] numberWithFloat:v76];
-        v319 = @"faces.distToBlurScaling";
-        LODWORD(v77) = v215;
-        v357 = [MEMORY[0x1E696AD98] numberWithFloat:v77];
-        v320 = @"faces.eyeToEyebrowRatio";
-        LODWORD(v78) = v216;
-        v358 = [MEMORY[0x1E696AD98] numberWithFloat:v78];
-        v321 = @"faces.maxBlurOnEyes";
-        LODWORD(v79) = v257;
-        v359 = [MEMORY[0x1E696AD98] numberWithFloat:v79];
-        v322 = @"faces.maxBlurDistFromFocus";
-        LODWORD(v80) = v258;
-        v360 = [MEMORY[0x1E696AD98] numberWithFloat:v80];
-        v323 = @"faces.capMultip";
-        LODWORD(v81) = v259;
-        v361 = [MEMORY[0x1E696AD98] numberWithFloat:v81];
-        v324 = @"faces.gainMultip";
-        LODWORD(v82) = v260;
-        v362 = [MEMORY[0x1E696AD98] numberWithFloat:v82];
-        v325 = @"lumaNoiseModelCoeff";
-        LODWORD(v83) = v247;
-        v363 = [MEMORY[0x1E696AD98] numberWithFloat:v83];
-        v326 = @"relativeWeightThreshold";
-        LODWORD(v84) = v222;
-        v364 = [MEMORY[0x1E696AD98] numberWithFloat:v84];
-        v327 = @"highlightBoostGain";
-        LODWORD(v85) = v223;
-        v365 = [MEMORY[0x1E696AD98] numberWithFloat:v85];
-        v328 = @"shapeObstructionCoeff";
-        LODWORD(v86) = v224;
-        v366 = [MEMORY[0x1E696AD98] numberWithFloat:v86];
-        v329 = @"ringAmplitude";
-        LODWORD(v87) = v225;
-        v367 = [MEMORY[0x1E696AD98] numberWithFloat:v87];
-        v330 = @"ringSharpness";
-        LODWORD(v88) = v226;
-        v368 = [MEMORY[0x1E696AD98] numberWithFloat:v88];
-        v331 = @"antiAliasBlurStrength";
-        LODWORD(v89) = v228;
-        v369 = [MEMORY[0x1E696AD98] numberWithFloat:v89];
-        v332 = @"minimumSimulatedAperture";
-        LODWORD(v90) = v229;
-        v370 = [MEMORY[0x1E696AD98] numberWithFloat:v90];
-        v333 = @"antiAliasRadius";
-        v371 = [MEMORY[0x1E696AD98] numberWithInt:v248];
-        v334 = @"alphaEpsilon";
-        LODWORD(v91) = v249;
-        v372 = [MEMORY[0x1E696AD98] numberWithFloat:v91];
-        v335 = @"alphaGain";
-        LODWORD(v92) = v250;
-        v373 = [MEMORY[0x1E696AD98] numberWithFloat:v92];
-        v336 = @"maxBlur";
-        v374 = &unk_1F1085198;
-        v337 = @"nRings";
-        v375 = [MEMORY[0x1E696AD98] numberWithInt:v221];
-        v338 = @"preFilterBlurStrength";
-        LODWORD(v93) = v227;
-        v376 = [MEMORY[0x1E696AD98] numberWithFloat:v93];
-        v339 = @"preFilterRadius";
-        v377 = [MEMORY[0x1E696AD98] numberWithInt:v244];
-        v340 = @"sharpRadius";
-        LODWORD(v94) = v245;
-        v378 = [MEMORY[0x1E696AD98] numberWithFloat:v94];
-        v341 = @"softRadius";
-        v95 = v246;
-        if (!v39)
+        v506 = @"minIntensityT1";
+        v75 = v257;
+        if (!v40)
         {
-          v95 = 1.0;
+          v75 = 0.2;
         }
 
-        v379 = [MEMORY[0x1E696AD98] numberWithDouble:v95];
-        v342 = @"basePixelWeight";
-        v380 = &unk_1F10851A8;
-        v343 = @"blendingQuarterResAlphaGain";
-        v96 = v230;
-        if (!v39)
+        v523 = [MEMORY[0x1E696AD98] numberWithDouble:v75];
+        v476 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v513 forKeys:&v496 count:11];
+        v466 = @"Rendering";
+        v318 = @"faces.linearBlurGrowthC";
+        LODWORD(v76) = v215;
+        v356 = [MEMORY[0x1E696AD98] numberWithFloat:v76];
+        v319 = @"faces.linearBlurGrowthM";
+        LODWORD(v77) = v214;
+        v357 = [MEMORY[0x1E696AD98] numberWithFloat:v77];
+        v320 = @"faces.distToBlurScaling";
+        LODWORD(v78) = v216;
+        v358 = [MEMORY[0x1E696AD98] numberWithFloat:v78];
+        v321 = @"faces.eyeToEyebrowRatio";
+        LODWORD(v79) = v217;
+        v359 = [MEMORY[0x1E696AD98] numberWithFloat:v79];
+        v322 = @"faces.maxBlurOnEyes";
+        LODWORD(v80) = v258;
+        v360 = [MEMORY[0x1E696AD98] numberWithFloat:v80];
+        v323 = @"faces.maxBlurDistFromFocus";
+        LODWORD(v81) = v259;
+        v361 = [MEMORY[0x1E696AD98] numberWithFloat:v81];
+        v324 = @"faces.capMultip";
+        LODWORD(v82) = v260;
+        v362 = [MEMORY[0x1E696AD98] numberWithFloat:v82];
+        v325 = @"faces.gainMultip";
+        LODWORD(v83) = v261;
+        v363 = [MEMORY[0x1E696AD98] numberWithFloat:v83];
+        v326 = @"lumaNoiseModelCoeff";
+        LODWORD(v84) = v248;
+        v364 = [MEMORY[0x1E696AD98] numberWithFloat:v84];
+        v327 = @"relativeWeightThreshold";
+        LODWORD(v85) = v223;
+        v365 = [MEMORY[0x1E696AD98] numberWithFloat:v85];
+        v328 = @"highlightBoostGain";
+        LODWORD(v86) = v224;
+        v366 = [MEMORY[0x1E696AD98] numberWithFloat:v86];
+        v329 = @"shapeObstructionCoeff";
+        LODWORD(v87) = v225;
+        v367 = [MEMORY[0x1E696AD98] numberWithFloat:v87];
+        v330 = @"ringAmplitude";
+        LODWORD(v88) = v226;
+        v368 = [MEMORY[0x1E696AD98] numberWithFloat:v88];
+        v331 = @"ringSharpness";
+        LODWORD(v89) = v227;
+        v369 = [MEMORY[0x1E696AD98] numberWithFloat:v89];
+        v332 = @"antiAliasBlurStrength";
+        LODWORD(v90) = v229;
+        v370 = [MEMORY[0x1E696AD98] numberWithFloat:v90];
+        v333 = @"minimumSimulatedAperture";
+        LODWORD(v91) = v230;
+        v371 = [MEMORY[0x1E696AD98] numberWithFloat:v91];
+        v334 = @"antiAliasRadius";
+        v372 = [MEMORY[0x1E696AD98] numberWithInt:v249];
+        v335 = @"alphaEpsilon";
+        LODWORD(v92) = v250;
+        v373 = [MEMORY[0x1E696AD98] numberWithFloat:v92];
+        v336 = @"alphaGain";
+        LODWORD(v93) = v251;
+        v374 = [MEMORY[0x1E696AD98] numberWithFloat:v93];
+        v337 = @"maxBlur";
+        v375 = &unk_1F1085198;
+        v338 = @"nRings";
+        v376 = [MEMORY[0x1E696AD98] numberWithInt:v222];
+        v339 = @"preFilterBlurStrength";
+        LODWORD(v94) = v228;
+        v377 = [MEMORY[0x1E696AD98] numberWithFloat:v94];
+        v340 = @"preFilterRadius";
+        v378 = [MEMORY[0x1E696AD98] numberWithInt:v245];
+        v341 = @"sharpRadius";
+        LODWORD(v95) = v246;
+        v379 = [MEMORY[0x1E696AD98] numberWithFloat:v95];
+        v342 = @"softRadius";
+        v96 = v247;
+        if (!v40)
         {
           v96 = 1.0;
         }
 
-        v381 = [MEMORY[0x1E696AD98] numberWithDouble:v96];
-        v344 = @"blendingFullResAlphaGain";
+        v380 = [MEMORY[0x1E696AD98] numberWithDouble:v96];
+        v343 = @"basePixelWeight";
+        v381 = &unk_1F10851A8;
+        v344 = @"blendingQuarterResAlphaGain";
         v97 = v231;
-        if (!v39)
+        if (!v40)
         {
           v97 = 1.0;
         }
 
         v382 = [MEMORY[0x1E696AD98] numberWithDouble:v97];
-        v476 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v355 forKeys:&v317 count:28];
-        v466 = @"Fusion";
-        v483 = @"subtractiveLowerAlpha";
-        LODWORD(v98) = v261;
-        if (!v39)
+        v345 = @"blendingFullResAlphaGain";
+        v98 = v232;
+        if (!v40)
         {
-          *&v98 = 0.8;
+          v98 = 1.0;
         }
 
-        v489 = [MEMORY[0x1E696AD98] numberWithFloat:v98];
-        v484 = @"subtractiveUpperAlpha";
+        v383 = [MEMORY[0x1E696AD98] numberWithDouble:v98];
+        v477 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v356 forKeys:&v318 count:28];
+        v467 = @"Fusion";
+        v484 = @"subtractiveLowerAlpha";
         LODWORD(v99) = v262;
-        if (!v39)
+        if (!v40)
         {
-          *&v99 = 1.0;
+          *&v99 = 0.8;
         }
 
         v490 = [MEMORY[0x1E696AD98] numberWithFloat:v99];
-        v485 = @"subtractiveMaxBlur";
-        v100 = v263;
-        if (!v39)
+        v485 = @"subtractiveUpperAlpha";
+        LODWORD(v100) = v263;
+        if (!v40)
         {
-          v100 = 0.0;
+          *&v100 = 1.0;
         }
 
-        v491 = [MEMORY[0x1E696AD98] numberWithDouble:v100];
-        v486 = @"additiveLowerAlpha";
-        LODWORD(v101) = v264;
-        if (!v39)
+        v491 = [MEMORY[0x1E696AD98] numberWithFloat:v100];
+        v486 = @"subtractiveMaxBlur";
+        v101 = v264;
+        if (!v40)
         {
-          *&v101 = 0.0;
+          v101 = 0.0;
         }
 
-        v492 = [MEMORY[0x1E696AD98] numberWithFloat:v101];
-        v487 = @"additiveUpperAlpha";
+        v492 = [MEMORY[0x1E696AD98] numberWithDouble:v101];
+        v487 = @"additiveLowerAlpha";
         LODWORD(v102) = v265;
-        if (!v39)
+        if (!v40)
         {
-          *&v102 = 0.2;
+          *&v102 = 0.0;
         }
 
         v493 = [MEMORY[0x1E696AD98] numberWithFloat:v102];
-        v488 = @"additiveMaxBlur";
-        v103 = v266;
-        if (!v39)
+        v488 = @"additiveUpperAlpha";
+        LODWORD(v103) = v266;
+        if (!v40)
         {
-          v103 = 0.0;
+          *&v103 = 0.2;
         }
 
-        v494 = [MEMORY[0x1E696AD98] numberWithDouble:v103];
-        v477 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v489 forKeys:&v483 count:6];
-        v467 = @"Version";
-        v478 = &unk_1F10823B8;
-        v28 = MEMORY[0x1E695DF20];
-        v29 = &v472;
-        v30 = &v461;
-        v31 = 7;
+        v494 = [MEMORY[0x1E696AD98] numberWithFloat:v103];
+        v489 = @"additiveMaxBlur";
+        v104 = v267;
+        if (!v40)
+        {
+          v104 = 0.0;
+        }
+
+        v495 = [MEMORY[0x1E696AD98] numberWithDouble:v104];
+        v478 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v490 forKeys:&v484 count:6];
+        v468 = @"Version";
+        v479 = &unk_1F10823B8;
+        v29 = MEMORY[0x1E695DF20];
+        v30 = &v473;
+        v31 = &v462;
+        v32 = 7;
         break;
       case 1:
-        v405 = @"DisparitySmoothing";
-        v461 = @"nIterations";
-        v472 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:HIDWORD(v207)];
-        v433 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v472 forKeys:&v461 count:1];
-        v406 = @"SLM";
-        v495 = @"shiftDeadZone";
-        *&v20 = v208;
-        v512 = [MEMORY[0x1E696AD98] numberWithFloat:v20];
-        v496 = @"maximumSimulatedAperture";
-        v513 = &unk_1F1085138;
-        v497 = @"defaultSimulatedAperture";
+        v406 = @"DisparitySmoothing";
+        v462 = @"nIterations";
+        v473 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:HIDWORD(v208)];
+        v434 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v473 forKeys:&v462 count:1];
+        v407 = @"SLM";
+        v496 = @"shiftDeadZone";
+        *&v21 = v209;
+        v513 = [MEMORY[0x1E696AD98] numberWithFloat:v21];
+        v497 = @"maximumSimulatedAperture";
         v514 = &unk_1F1085138;
-        v434 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v512 forKeys:&v495 count:3];
-        v407 = @"Rendering";
-        v317 = @"faces.linearBlurGrowthC";
-        LODWORD(v21) = v210;
-        v355 = [MEMORY[0x1E696AD98] numberWithFloat:v21];
-        v318 = @"faces.linearBlurGrowthM";
-        LODWORD(v22) = v209;
+        v498 = @"defaultSimulatedAperture";
+        v515 = &unk_1F1085138;
+        v435 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v513 forKeys:&v496 count:3];
+        v408 = @"Rendering";
+        v318 = @"faces.linearBlurGrowthC";
+        LODWORD(v22) = v211;
         v356 = [MEMORY[0x1E696AD98] numberWithFloat:v22];
-        v319 = @"faces.distToBlurScaling";
-        LODWORD(v23) = v211;
+        v319 = @"faces.linearBlurGrowthM";
+        LODWORD(v23) = v210;
         v357 = [MEMORY[0x1E696AD98] numberWithFloat:v23];
-        v320 = @"faces.eyeToEyebrowRatio";
+        v320 = @"faces.distToBlurScaling";
         LODWORD(v24) = v212;
         v358 = [MEMORY[0x1E696AD98] numberWithFloat:v24];
-        v321 = @"relativeWeightThreshold";
+        v321 = @"faces.eyeToEyebrowRatio";
         LODWORD(v25) = v213;
         v359 = [MEMORY[0x1E696AD98] numberWithFloat:v25];
-        v322 = @"highlightBoostGain";
+        v322 = @"relativeWeightThreshold";
         LODWORD(v26) = v214;
         v360 = [MEMORY[0x1E696AD98] numberWithFloat:v26];
-        v323 = @"antiAliasBlurStrength";
+        v323 = @"highlightBoostGain";
         LODWORD(v27) = v215;
         v361 = [MEMORY[0x1E696AD98] numberWithFloat:v27];
-        v435 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v355 forKeys:&v317 count:7];
-        v408 = @"Version";
-        v436 = &unk_1F10823E8;
-        v28 = MEMORY[0x1E695DF20];
-        v29 = &v433;
-        v30 = &v405;
-        v31 = 4;
+        v324 = @"antiAliasBlurStrength";
+        LODWORD(v28) = v216;
+        v362 = [MEMORY[0x1E696AD98] numberWithFloat:v28];
+        v436 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v356 forKeys:&v318 count:7];
+        v409 = @"Version";
+        v437 = &unk_1F10823E8;
+        v29 = MEMORY[0x1E695DF20];
+        v30 = &v434;
+        v31 = &v406;
+        v32 = 4;
         break;
       default:
-        v315 = @"Version";
-        v316 = [MEMORY[0x1E696AD98] numberWithInt:v7];
-        v28 = MEMORY[0x1E695DF20];
-        v29 = &v316;
-        v30 = &v315;
-        v31 = 1;
+        v316 = @"Version";
+        v317 = [MEMORY[0x1E696AD98] numberWithInt:v7];
+        v29 = MEMORY[0x1E695DF20];
+        v30 = &v317;
+        v31 = &v316;
+        v32 = 1;
         break;
     }
 
-    return [v28 dictionaryWithObjects:v29 forKeys:v30 count:v31];
+    return [v29 dictionaryWithObjects:v30 forKeys:v31 count:v32];
   }
 
   return a1;
@@ -5462,35 +6531,36 @@ uint64_t envCCSDOFMetadataClass(void)
   return v0;
 }
 
-void sub_19CDFCCD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19CDFCCD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t FigDepthBlurEffectRenderingParametersV1FromCFData(void *a1, _OWORD *a2)
 {
-  if ([a1 length] > 0x2F)
+  v4 = [a1 length];
+  if (v4 > 0x2F)
   {
-    [a1 getBytes:v10 length:48];
-    if (LODWORD(v10[0]) == 1145980242)
+    v8 = [a1 getBytes:v14 length:48];
+    if (LODWORD(v14[0]) == 1145980242)
     {
-      if (DWORD1(v10[0]) == 1)
+      if (DWORD1(v14[0]) == 1)
       {
-        if (DWORD2(v10[0]) == 48)
+        if (DWORD2(v14[0]) == 48)
         {
           result = 0;
-          v6 = v10[1];
-          *a2 = v10[0];
-          a2[1] = v6;
-          a2[2] = v10[2];
+          v10 = v14[1];
+          *a2 = v14[0];
+          a2[1] = v10;
+          a2[2] = v14[2];
         }
 
         else
         {
-          v9 = ci_logger_api();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v13 = ci_logger_api(v8, v9);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             FigDepthBlurEffectRenderingParametersV1FromCFData();
           }
@@ -5501,8 +6571,8 @@ uint64_t FigDepthBlurEffectRenderingParametersV1FromCFData(void *a1, _OWORD *a2)
 
       else
       {
-        v8 = ci_logger_api();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v12 = ci_logger_api(v8, v9);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           FigDepthBlurEffectRenderingParametersV1FromCFData();
         }
@@ -5513,8 +6583,8 @@ uint64_t FigDepthBlurEffectRenderingParametersV1FromCFData(void *a1, _OWORD *a2)
 
     else
     {
-      v7 = ci_logger_api();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v11 = ci_logger_api(v8, v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         FigDepthBlurEffectRenderingParametersV1FromCFData();
       }
@@ -5525,8 +6595,8 @@ uint64_t FigDepthBlurEffectRenderingParametersV1FromCFData(void *a1, _OWORD *a2)
 
   else
   {
-    v4 = ci_logger_api();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = ci_logger_api(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       FigDepthBlurEffectRenderingParametersV1FromCFData();
     }
@@ -5539,21 +6609,21 @@ uint64_t FigDepthBlurEffectRenderingParametersV1FromCFData(void *a1, _OWORD *a2)
 
 uint64_t FigDepthBlurEffectRenderingParametersV2FromCFData(void *a1, char *a2, BOOL *a3)
 {
-  if ([a1 length] == 112 || objc_msgSend(a1, "length") > 0x13F)
+  if ([a1 length] == 112 || (v6 = objc_msgSend(a1, "length"), v6 > 0x13F))
   {
-    [a1 getBytes:v12 length:{objc_msgSend(a1, "length")}];
-    if (v12[0] == 1145980242)
+    v10 = [a1 getBytes:v16 length:{objc_msgSend(a1, "length")}];
+    if (v16[0] == 1145980242)
     {
-      if (v12[1] == 2)
+      if (v16[1] == 2)
       {
-        v8 = __n;
+        v12 = __n;
         if (__n == 112 || __n == 320)
         {
           *a3 = __n == 320;
-          memcpy(a2, v12, v8);
-          if (v8 != 320)
+          memcpy(a2, v16, v12);
+          if (v12 != 320)
           {
-            bzero(&a2[v8], 320 - v8);
+            bzero(&a2[v12], 320 - v12);
           }
 
           return 0;
@@ -5561,8 +6631,8 @@ uint64_t FigDepthBlurEffectRenderingParametersV2FromCFData(void *a1, char *a2, B
 
         else
         {
-          v11 = ci_logger_api();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          v15 = ci_logger_api(v10, v11);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             FigDepthBlurEffectRenderingParametersV1FromCFData();
           }
@@ -5573,8 +6643,8 @@ uint64_t FigDepthBlurEffectRenderingParametersV2FromCFData(void *a1, char *a2, B
 
       else
       {
-        v10 = ci_logger_api();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v14 = ci_logger_api(v10, v11);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           FigDepthBlurEffectRenderingParametersV1FromCFData();
         }
@@ -5585,8 +6655,8 @@ uint64_t FigDepthBlurEffectRenderingParametersV2FromCFData(void *a1, char *a2, B
 
     else
     {
-      v9 = ci_logger_api();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v13 = ci_logger_api(v10, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         FigDepthBlurEffectRenderingParametersV1FromCFData();
       }
@@ -5597,8 +6667,8 @@ uint64_t FigDepthBlurEffectRenderingParametersV2FromCFData(void *a1, char *a2, B
 
   else
   {
-    v6 = ci_logger_api();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = ci_logger_api(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       FigDepthBlurEffectRenderingParametersV1FromCFData();
     }
@@ -5609,9 +6679,10 @@ uint64_t FigDepthBlurEffectRenderingParametersV2FromCFData(void *a1, char *a2, B
 
 uint64_t FigDepthBlurEffectRenderingParametersV3FromCFData(void *a1, void *a2)
 {
-  if ([a1 length] > 0x1D7)
+  v4 = [a1 length];
+  if (v4 > 0x1D7)
   {
-    [a1 getBytes:__src length:472];
+    v8 = [a1 getBytes:__src length:472];
     if (__src[0] == 1145980242)
     {
       if (__src[1] == 3)
@@ -5624,8 +6695,8 @@ uint64_t FigDepthBlurEffectRenderingParametersV3FromCFData(void *a1, void *a2)
 
         else
         {
-          v8 = ci_logger_api();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+          v12 = ci_logger_api(v8, v9);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             FigDepthBlurEffectRenderingParametersV1FromCFData();
           }
@@ -5636,8 +6707,8 @@ uint64_t FigDepthBlurEffectRenderingParametersV3FromCFData(void *a1, void *a2)
 
       else
       {
-        v7 = ci_logger_api();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v11 = ci_logger_api(v8, v9);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           FigDepthBlurEffectRenderingParametersV1FromCFData();
         }
@@ -5648,8 +6719,8 @@ uint64_t FigDepthBlurEffectRenderingParametersV3FromCFData(void *a1, void *a2)
 
     else
     {
-      v6 = ci_logger_api();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v10 = ci_logger_api(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         FigDepthBlurEffectRenderingParametersV1FromCFData();
       }
@@ -5660,8 +6731,8 @@ uint64_t FigDepthBlurEffectRenderingParametersV3FromCFData(void *a1, void *a2)
 
   else
   {
-    v4 = ci_logger_api();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = ci_logger_api(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       FigDepthBlurEffectRenderingParametersV1FromCFData();
     }
@@ -5726,9 +6797,9 @@ uint64_t envCCMakeBlurMapClass(void)
   return v0;
 }
 
-void sub_19CDFDAB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19CDFDAB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5767,9 +6838,9 @@ uint64_t envCCApplyBlurMapClass(void)
   return v0;
 }
 
-void sub_19CDFDBD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19CDFDBD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5988,7 +7059,7 @@ void CCPortraitLibrary(void)
   }
 }
 
-uint64_t ___ZL21CCPortraitLibraryCorePPc_block_invoke()
+uint64_t ___ZL21CCPortraitLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CCPortraitLibraryCore(char **)::frameworkLibrary = result;
@@ -6069,9 +7140,9 @@ uint64_t envCCApplyBlurMapArgsClass(void)
   return v0;
 }
 
-void sub_19CE01004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19CE01004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6132,126 +7203,126 @@ Class ___ZL22getCCApplyBlurMapClassv_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t ___ZL23prewarmSDOFFilterGraphsP9CIContext_block_invoke(uint64_t a1)
+void *___ZL23prewarmSDOFFilterGraphsP9CIContext_block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) count];
   if (result)
   {
-    v21 = *(a1 + 40);
-    if (!v21)
+    v26 = *(a1 + 40);
+    if (!v26)
     {
-      v36[0] = @"working_format";
-      v37[0] = [MEMORY[0x1E696AD98] numberWithInt:2056];
-      v37[1] = &unk_1F1082448;
-      v36[1] = @"kCIContextIntermediateMemoryTarget";
-      v36[2] = @"kCIContextCacheIntermediates";
-      v36[3] = @"kCIContextUseMetalRenderer";
-      v37[2] = MEMORY[0x1E695E110];
-      v37[3] = MEMORY[0x1E695E118];
-      v21 = +[CIContext contextWithOptions:](CIContext, "contextWithOptions:", [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:4]);
+      v41[0] = @"working_format";
+      v42[0] = [MEMORY[0x1E696AD98] numberWithInt:2056];
+      v42[1] = &unk_1F1082448;
+      v41[1] = @"kCIContextIntermediateMemoryTarget";
+      v41[2] = @"kCIContextCacheIntermediates";
+      v41[3] = @"kCIContextUseMetalRenderer";
+      v42[2] = MEMORY[0x1E695E110];
+      v42[3] = MEMORY[0x1E695E118];
+      v26 = +[CIContext contextWithOptions:](CIContext, "contextWithOptions:", [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:4]);
     }
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
-    v25 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v3 = *(a1 + 32);
-    result = [v3 countByEnumeratingWithState:&v24 objects:v35 count:16];
+    result = [v3 countByEnumeratingWithState:&v29 objects:v40 count:16];
     v5 = result;
     if (result)
     {
-      v6 = *v25;
+      v6 = *v30;
       *&v4 = 138543362;
-      v20 = v4;
+      v25 = v4;
       do
       {
         v7 = 0;
         do
         {
-          if (*v25 != v6)
+          if (*v30 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = [CIFilter prewarmedFilterFromString:*(*(&v24 + 1) + 8 * v7), v20];
-          if (v8)
+          v9 = [CIFilter prewarmedFilterFromString:*(*(&v29 + 1) + 8 * v7), v25];
+          if (v9)
           {
-            v9 = objc_autoreleasePoolPush();
-            v10 = [v8 outputImage];
-            if (v10)
+            v10 = objc_autoreleasePoolPush();
+            v12 = [v9 outputImage];
+            if (v12)
             {
-              v32[0] = 0;
-              v32[1] = v32;
-              v32[2] = 0x3052000000;
-              v32[3] = __Block_byref_object_copy__19;
-              v32[4] = __Block_byref_object_dispose__19;
-              v32[5] = 0;
-              v11 = [CIRenderDestination alloc];
-              [v10 extent];
-              v13 = v12;
-              [v10 extent];
-              v31[0] = MEMORY[0x1E69E9820];
-              v31[1] = 3221225472;
-              v31[2] = ___ZL20renderPrewarmedImageP9CIContextP8CIFilter_block_invoke;
-              v31[3] = &unk_1E75C4010;
-              v31[4] = v32;
-              v15 = [(CIRenderDestination *)v11 initWithWidth:v13 height:v14 pixelFormat:70 commandBuffer:0 mtlTextureProvider:v31];
-              if (v15)
+              v37[0] = 0;
+              v37[1] = v37;
+              v37[2] = 0x3052000000;
+              v37[3] = __Block_byref_object_copy__19;
+              v37[4] = __Block_byref_object_dispose__19;
+              v37[5] = 0;
+              v13 = [CIRenderDestination alloc];
+              [v12 extent];
+              v15 = v14;
+              [v12 extent];
+              v36[0] = MEMORY[0x1E69E9820];
+              v36[1] = 3221225472;
+              v36[2] = ___ZL20renderPrewarmedImageP9CIContextP8CIFilter_block_invoke;
+              v36[3] = &unk_1E75C4010;
+              v36[4] = v37;
+              v18 = [(CIRenderDestination *)v13 initWithWidth:v15 height:v16 pixelFormat:70 commandBuffer:0 mtlTextureProvider:v36];
+              if (v18)
               {
-                v28 = 0;
-                [v10 extent];
-                [CIContext prepareRender:v21 fromRect:"prepareRender:fromRect:toDestination:atPoint:error:" toDestination:v10 atPoint:v15 error:&v28];
-                if (v28)
+                v33 = 0;
+                [v12 extent];
+                v19 = [CIContext prepareRender:v26 fromRect:"prepareRender:fromRect:toDestination:atPoint:error:" toDestination:v12 atPoint:v18 error:&v33];
+                if (v33)
                 {
-                  v16 = ci_logger_api();
-                  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+                  v21 = ci_logger_api(v19, v20);
+                  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
                   {
-                    *buf = v20;
-                    v39 = v28;
-                    _os_log_error_impl(&dword_19CC36000, v16, OS_LOG_TYPE_ERROR, "Error asking CI to prepare render = %{public}@", buf, 0xCu);
+                    *buf = v25;
+                    v44 = v33;
+                    _os_log_error_impl(&dword_19CC36000, v21, OS_LOG_TYPE_ERROR, "Error asking CI to prepare render = %{public}@", buf, 0xCu);
                   }
                 }
               }
 
               else
               {
-                v19 = ci_logger_api();
-                if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+                v24 = ci_logger_api(0, v17);
+                if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
                 {
-                  ___ZL23prewarmSDOFFilterGraphsP9CIContext_block_invoke_cold_1(&v29, v30);
+                  ___ZL23prewarmSDOFFilterGraphsP9CIContext_block_invoke_cold_1(&v34, v35);
                 }
               }
 
-              _Block_object_dispose(v32, 8);
+              _Block_object_dispose(v37, 8);
             }
 
             else
             {
-              v18 = ci_logger_api();
-              if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+              v23 = ci_logger_api(0, v11);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
               {
-                ___ZL23prewarmSDOFFilterGraphsP9CIContext_block_invoke_cold_2(&v33, v34);
+                ___ZL23prewarmSDOFFilterGraphsP9CIContext_block_invoke_cold_2(&v38, v39);
               }
             }
 
-            objc_autoreleasePoolPop(v9);
+            objc_autoreleasePoolPop(v10);
           }
 
           else
           {
-            v17 = ci_logger_api();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            v22 = ci_logger_api(0, v8);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
-              ___ZL23prewarmSDOFFilterGraphsP9CIContext_block_invoke_cold_3(&v22, v23);
+              ___ZL23prewarmSDOFFilterGraphsP9CIContext_block_invoke_cold_3(&v27, v28);
             }
           }
 
-          ++v7;
+          v7 = v7 + 1;
         }
 
         while (v5 != v7);
-        result = [v3 countByEnumeratingWithState:&v24 objects:v35 count:16];
+        result = [v3 countByEnumeratingWithState:&v29 objects:v40 count:16];
         v5 = result;
       }
 
@@ -6262,6 +7333,13 @@ uint64_t ___ZL23prewarmSDOFFilterGraphsP9CIContext_block_invoke(uint64_t a1)
   return result;
 }
 
+void sub_19CE01570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 _BYTE *OUTLINED_FUNCTION_2_9(_BYTE *result, _BYTE *a2)
 {
   *result = 0;
@@ -6269,10 +7347,11 @@ _BYTE *OUTLINED_FUNCTION_2_9(_BYTE *result, _BYTE *a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_3_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 void OUTLINED_FUNCTION_4_3(void *a1, int a2, os_log_t log, const char *a4, uint8_t *a5)
@@ -6584,77 +7663,82 @@ double CI::sw_shapeEffectBlur_1(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-double CI::sw_outerBevelEmboss(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+double CI::sw_outerBevelEmboss(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4, __n128 a5)
 {
-  v4 = *(a1 + 5);
-  v5 = *(v4 + 8);
-  v6 = *(v4 + 40);
-  v7 = *(v4 + 32);
-  v8 = (a3 + 16 * v7);
-  v9 = (a2 + (v7 << 6));
-  if (v6 == 5)
+  v5 = *(a1 + 5);
+  v6 = *(v5 + 8);
+  v7 = *(v5 + 40);
+  v8 = *(v5 + 32);
+  v9 = (a3 + 16 * v8);
+  v10 = (a2 + (v8 << 6));
+  if (v7 == 5)
   {
-    v9 = v8;
+    v10 = v9;
   }
 
-  v10 = a4 + 80 * v5;
-  v53 = *v9;
-  v11 = *CI::getDC(a1);
-  v12 = vadd_f32(vdup_lane_s32(v53, 1), v11);
-  LODWORD(v13) = *(v10 + 24);
-  v14.i32[0] = *(v10 + 36);
-  *v15.i32 = vmuls_lane_f32(*(v10 + 32), v12, 1);
-  *&v16 = *v15.i32 + (v12.f32[0] * *(v10 + 28));
-  v12.f32[0] = *&v13 + (vmuls_lane_f32(*(v10 + 20), v12, 1) + (v12.f32[0] * *(v10 + 16)));
-  *v17.f64 = *v14.i32 + *&v16;
-  v12.f32[1] = *v14.i32 + *&v16;
-  *v20.i64 = CI::BitmapSampler::read(*(v10 + 8), *&v12, v17, v13, v16, v15, v14, v18, v19);
-  v52 = v20;
-  *v20.f32 = vadd_f32(v53, v11);
-  LODWORD(v21) = *(v10 + 24);
-  v22.i32[0] = *(v10 + 36);
-  *v23.i32 = vmuls_lane_f32(*(v10 + 32), *v20.f32, 1);
-  *&v24 = *v23.i32 + (v20.f32[0] * *(v10 + 28));
-  v20.f32[0] = *&v21 + (vmuls_lane_f32(*(v10 + 20), *v20.f32, 1) + (v20.f32[0] * *(v10 + 16)));
-  *v25.f64 = *v22.i32 + *&v24;
-  v20.f32[1] = *v22.i32 + *&v24;
-  *v28.i64 = CI::BitmapSampler::read(*(v10 + 8), *v20.i64, v25, v21, v24, v23, v22, v26, v27);
-  v51 = v28;
-  *v28.f32 = vadd_f32(vrev64_s32(v53), v11);
-  LODWORD(v29) = *(v10 + 24);
-  v30.i32[0] = *(v10 + 36);
-  *v31.i32 = vmuls_lane_f32(*(v10 + 32), *v28.f32, 1);
-  *&v32 = *v31.i32 + (v28.f32[0] * *(v10 + 28));
-  v28.f32[0] = *&v29 + (vmuls_lane_f32(*(v10 + 20), *v28.f32, 1) + (v28.f32[0] * *(v10 + 16)));
-  *v33.f64 = *v30.i32 + *&v32;
-  v28.f32[1] = *v30.i32 + *&v32;
-  *v36.i64 = CI::BitmapSampler::read(*(v10 + 8), *v28.i64, v33, v29, v32, v31, v30, v34, v35);
-  v50 = v36;
-  *v36.f32 = vadd_f32(vdup_lane_s32(v53, 0), v11);
-  LODWORD(v37) = *(v10 + 24);
-  v38.i32[0] = *(v10 + 36);
-  *v39.i32 = vmuls_lane_f32(*(v10 + 32), *v36.f32, 1);
-  *&v40 = *v39.i32 + (v36.f32[0] * *(v10 + 28));
-  v36.f32[0] = *&v37 + (vmuls_lane_f32(*(v10 + 20), *v36.f32, 1) + (v36.f32[0] * *(v10 + 16)));
-  *v41.f64 = *v38.i32 + *&v40;
-  v36.f32[1] = *v38.i32 + *&v40;
-  *v44.i64 = CI::BitmapSampler::read(*(v10 + 8), *v36.i64, v41, v37, v40, v39, v38, v42, v43);
-  v44.f32[0] = COERCE_FLOAT(vaddq_f32(v52, v51).i32[3]) + COERCE_FLOAT(vaddq_f32(v50, v44).i32[3]) * -1.3;
-  v45 = v44.f32[0] * 0.5 + 0.5;
-  v46 = 1.0;
-  if (v45 <= 1.0)
+  v11 = a4 + 80 * v6;
+  a5.n128_u64[0] = *v10;
+  v54 = a5;
+  v12 = *CI::getDC(a1);
+  v13.n128_u64[1] = v54.n128_u64[1];
+  v13.n128_u64[0] = vadd_f32(vdup_lane_s32(v54.n128_u64[0], 1), v12);
+  LODWORD(v14) = *(v11 + 24);
+  v15.i32[0] = *(v11 + 36);
+  *v16.i32 = vmuls_lane_f32(*(v11 + 32), v13.n128_u64[0], 1);
+  *&v17 = *v16.i32 + (v13.n128_f32[0] * *(v11 + 28));
+  v13.n128_f32[0] = *&v14 + (vmuls_lane_f32(*(v11 + 20), v13.n128_u64[0], 1) + (v13.n128_f32[0] * *(v11 + 16)));
+  *v18.f64 = *v15.i32 + *&v17;
+  v13.n128_f32[1] = *v15.i32 + *&v17;
+  v21.n128_f64[0] = CI::BitmapSampler::read(*(v11 + 8), v13, v18, v14, v17, v16, v15, v19, v20);
+  v53 = v21;
+  v21.n128_u64[1] = v54.n128_u64[1];
+  v21.n128_u64[0] = vadd_f32(v54.n128_u64[0], v12);
+  LODWORD(v22) = *(v11 + 24);
+  v23.i32[0] = *(v11 + 36);
+  *v24.i32 = vmuls_lane_f32(*(v11 + 32), v21.n128_u64[0], 1);
+  *&v25 = *v24.i32 + (v21.n128_f32[0] * *(v11 + 28));
+  v21.n128_f32[0] = *&v22 + (vmuls_lane_f32(*(v11 + 20), v21.n128_u64[0], 1) + (v21.n128_f32[0] * *(v11 + 16)));
+  *v26.f64 = *v23.i32 + *&v25;
+  v21.n128_f32[1] = *v23.i32 + *&v25;
+  v29.n128_f64[0] = CI::BitmapSampler::read(*(v11 + 8), v21, v26, v22, v25, v24, v23, v27, v28);
+  v52 = v29;
+  v29.n128_u64[1] = v54.n128_u64[1];
+  v29.n128_u64[0] = vadd_f32(vrev64_s32(v54.n128_u64[0]), v12);
+  LODWORD(v30) = *(v11 + 24);
+  v31.i32[0] = *(v11 + 36);
+  *v32.i32 = vmuls_lane_f32(*(v11 + 32), v29.n128_u64[0], 1);
+  *&v33 = *v32.i32 + (v29.n128_f32[0] * *(v11 + 28));
+  v29.n128_f32[0] = *&v30 + (vmuls_lane_f32(*(v11 + 20), v29.n128_u64[0], 1) + (v29.n128_f32[0] * *(v11 + 16)));
+  *v34.f64 = *v31.i32 + *&v33;
+  v29.n128_f32[1] = *v31.i32 + *&v33;
+  v37.n128_f64[0] = CI::BitmapSampler::read(*(v11 + 8), v29, v34, v30, v33, v32, v31, v35, v36);
+  v51 = v37;
+  v37.n128_u64[1] = v54.n128_u64[1];
+  v37.n128_u64[0] = vadd_f32(vdup_lane_s32(v54.n128_u64[0], 0), v12);
+  LODWORD(v38) = *(v11 + 24);
+  v39.i32[0] = *(v11 + 36);
+  *v40.i32 = vmuls_lane_f32(*(v11 + 32), v37.n128_u64[0], 1);
+  *&v41 = *v40.i32 + (v37.n128_f32[0] * *(v11 + 28));
+  v37.n128_f32[0] = *&v38 + (vmuls_lane_f32(*(v11 + 20), v37.n128_u64[0], 1) + (v37.n128_f32[0] * *(v11 + 16)));
+  *v42.f64 = *v39.i32 + *&v41;
+  v37.n128_f32[1] = *v39.i32 + *&v41;
+  *v45.i64 = CI::BitmapSampler::read(*(v11 + 8), v37, v42, v38, v41, v40, v39, v43, v44);
+  v45.f32[0] = COERCE_FLOAT(vaddq_f32(v53, v52).i32[3]) + COERCE_FLOAT(vaddq_f32(v51, v45).i32[3]) * -1.3;
+  v46 = v45.f32[0] * 0.5 + 0.5;
+  v47 = 1.0;
+  if (v46 <= 1.0)
   {
-    v46 = v45;
+    v47 = v46;
   }
 
-  v47 = v45 < 0.0;
-  v48 = 0;
-  if (!v47)
+  v48 = v46 < 0.0;
+  v49 = 0;
+  if (!v48)
   {
-    *v48.i32 = v46;
+    *v49.i32 = v47;
   }
 
-  *&result = vdupq_lane_s32(v48, 0).u64[0];
+  *&result = vdupq_lane_s32(v49, 0).u64[0];
   return result;
 }
 
@@ -6812,7 +7896,7 @@ double CI::sw_cui_hueSaturation(uint64_t a1, uint64_t a2, uint64_t a3, double a4
 LABEL_37:
         v37 = vsub_f32(*v23.i8, vdup_lane_s32(*&a5, 0));
         v38 = vmls_lane_f32(*v23.i8, v37, *&v21, 0);
-        v37.f32[0] = ((*&v23.i32[2] - ((*&v23.i32[2] - *&a5) * *&v21)) + vaddv_f32(v38)) / 3.0;
+        *v37.i32 = ((*&v23.i32[2] - ((*&v23.i32[2] - *&a5) * *&v21)) + vaddv_f32(v38)) / 3.0;
         *v10.i8 = vmls_lane_f32(v38, vsub_f32(v38, vdup_lane_s32(v37, 0)), *&v22, 0);
         return *v10.i64;
       }
@@ -7048,7 +8132,7 @@ LABEL_66:
     return;
   }
 
-  if ((atomic_load_explicit(&qword_1ED7C4528, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED7C4528, memory_order_acquire) & 1) == 0)
   {
     CI::snprintf_cs();
   }
@@ -8479,29 +9563,29 @@ void CI::Perspective::EDLinesCPU::EDLinesCPU(uint64_t a1, uint64_t a2, uint64_t 
   CI::Perspective::EDLinesCPU::createGradMap(a1);
 }
 
-void sub_19CE06A28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19CE06A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v6 = v2[17];
-  if (v6)
+  va_start(va, a3);
+  v7 = v3[17];
+  if (v7)
   {
-    v2[18] = v6;
-    operator delete(v6);
-  }
-
-  std::vector<std::vector<IRect>>::__destroy_vector::operator()[abi:nn200100](va);
-  v7 = *v4;
-  if (*v4)
-  {
-    v2[12] = v7;
+    v3[18] = v7;
     operator delete(v7);
   }
 
-  v8 = *v3;
-  if (*v3)
+  std::vector<std::vector<IRect>>::__destroy_vector::operator()[abi:nn200100](va);
+  v8 = *v5;
+  if (*v5)
   {
-    v2[8] = v8;
+    v3[12] = v8;
     operator delete(v8);
+  }
+
+  v9 = *v4;
+  if (*v4)
+  {
+    v3[8] = v9;
+    operator delete(v9);
   }
 
   _Unwind_Resume(a1);
@@ -8998,969 +10082,4 @@ void CI::Perspective::EDLinesCPU::extractLines(CI::Perspective::EDLinesCPU *this
       operator delete(__p[0]);
     }
   }
-}
-
-void sub_19CE079D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void CI::Perspective::EDLinesCPU::mergeLines(CI::Perspective::EDLinesCPU *this, double a2, double a3, double a4, double a5, double a6, int32x4_t a7)
-{
-  v8 = *(this + 6);
-  v10 = *v8;
-  v9 = v8[1];
-  if (v10 > v9)
-  {
-    v9 = v10;
-  }
-
-  v11 = *(this + 14);
-  v12 = *(this + 15);
-  if (v11 != v12)
-  {
-    v13 = *(this + 1);
-    v14 = v13[7];
-    v15 = v13[8];
-    v16 = v13[9] * v9;
-    while (1)
-    {
-      v17 = *v11;
-      v18 = v11[1];
-      v19 = 0x2E8BA2E8BA2E8BA3 * (v18 - *v11);
-      if (v19 < 2)
-      {
-        v21 = v17[7];
-        v22 = v17[8];
-        v20 = v17 + 7;
-        v23 = vsub_f32(v21, v22);
-        if (sqrtf(vaddv_f32(vmul_f32(v23, v23))) > v16)
-        {
-          std::vector<CI::Perspective::Line>::push_back[abi:nn200100](this + 136, v20);
-        }
-
-        goto LABEL_26;
-      }
-
-      if (v18 != v17)
-      {
-        break;
-      }
-
-LABEL_26:
-      v11 += 3;
-      if (v11 == v12)
-      {
-        goto LABEL_27;
-      }
-    }
-
-    v24 = 0;
-    while (1)
-    {
-      v25 = &v17[11 * v24];
-      v26 = v24 + 1;
-      if (v24 + 1 >= v19)
-      {
-        break;
-      }
-
-      v27 = &v17[11 * v24 + 19];
-      v28 = v25[1];
-      while (1)
-      {
-        v29 = v27[-11];
-        v30 = v27[-1];
-        v31 = vsub_f32(v29, v30);
-        if (sqrtf(vaddv_f32(vmul_f32(v31, v31))) > v15)
-        {
-          break;
-        }
-
-        v32 = vsub_f32(v29, v27[-12]);
-        v33 = vmul_f32(v32, v32);
-        v33.i32[0] = vadd_f32(v33, vdup_lane_s32(v33, 1)).u32[0];
-        v34 = vrsqrte_f32(v33.u32[0]);
-        v35 = vmul_f32(v34, vrsqrts_f32(v33.u32[0], vmul_f32(v34, v34)));
-        v33.i32[0] = vmul_f32(v35, vrsqrts_f32(v33.u32[0], vmul_f32(v35, v35))).u32[0];
-        v36 = vsub_f32(*v27, v30);
-        v37 = vmul_f32(v36, v36);
-        v37.i32[0] = vadd_f32(v37, vdup_lane_s32(v37, 1)).u32[0];
-        v38 = vmul_n_f32(v32, *v33.i32);
-        v39 = vrsqrte_f32(v37.u32[0]);
-        v40 = vmul_f32(v39, vrsqrts_f32(v37.u32[0], vmul_f32(v39, v39)));
-        v41 = vmul_n_f32(v36, vmul_f32(v40, vrsqrts_f32(v37.u32[0], vmul_f32(v40, v40))).f32[0]);
-        v42 = (-v38.f32[1] * v41.f32[0]) + (v38.f32[0] * v41.f32[1]);
-        v43 = -v42;
-        if (v42 >= 0.0)
-        {
-          v43 = v42;
-        }
-
-        if (v43 > v14)
-        {
-          break;
-        }
-
-        v28 += *&v27[-7];
-        ++v26;
-        v27 += 11;
-        if (v19 == v26)
-        {
-          v24 = v19;
-          goto LABEL_20;
-        }
-      }
-
-      v24 = v26;
-LABEL_20:
-      if (v28 <= *&v25[1])
-      {
-        goto LABEL_22;
-      }
-
-      CI::Perspective::LSRInit<EDAnchor>(*v25, v28, &__p, a7);
-      v44 = v58;
-LABEL_23:
-      v59 = v44;
-      v45 = vsub_f32(*&v44, *(&v44 + 8));
-      if (sqrtf(vaddv_f32(vmul_f32(v45, v45))) > v16)
-      {
-        std::vector<CI::Perspective::Line>::push_back[abi:nn200100](this + 136, &v59);
-      }
-
-      v17 = *v11;
-      v19 = 0x2E8BA2E8BA2E8BA3 * (v11[1] - *v11);
-      if (v24 >= v19)
-      {
-        goto LABEL_26;
-      }
-    }
-
-    ++v24;
-LABEL_22:
-    v44 = *v25[7].f32;
-    goto LABEL_23;
-  }
-
-LABEL_27:
-  if (EDLines_Debug(void)::token != -1)
-  {
-    CI::Perspective::EDLinesCPU::sparseAnchors();
-  }
-
-  if (EDLines_Debug(void)::v)
-  {
-    __p = 0;
-    v56 = 0;
-    v57 = 0;
-    v46 = *(this + 17);
-    v47 = *(this + 18);
-    while (v46 != v47)
-    {
-      v48 = *(*(this + 6) + 8);
-      v49 = *v46;
-      v50 = v46[1];
-      *(&v49 + 1) = v48 - COERCE_FLOAT(HIDWORD(*v46));
-      *(&v50 + 1) = v48 - *(&v50 + 1);
-      *&v59 = v49;
-      *(&v59 + 1) = v50;
-      std::vector<CI::Perspective::Line>::push_back[abi:nn200100](&__p, &v59);
-      v46 += 2;
-    }
-
-    v51 = (*(*this + 32))(this);
-    v52 = CGColorCreateSRGB(0.0, 1.0, 0.0, 1.0);
-    v53 = CI::Perspective::plotLines<CI::Perspective::Line>(v51, v52, &__p);
-    CI::Perspective::CIImageToFile(v53, @"/tmp/ED_linesMerged.png", v54, *MEMORY[0x1E695F050]);
-    if (__p)
-    {
-      v56 = __p;
-      operator delete(__p);
-    }
-  }
-}
-
-void sub_19CE07D44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void CI::Perspective::EDLinesCPU::~EDLinesCPU(CI::Perspective::EDLinesCPU *this)
-{
-  *this = &unk_1F1033038;
-  v2 = *(this + 11);
-  v3 = *(this + 12);
-  while (v2 != v3)
-  {
-    v4 = *v2;
-    v2 += 2;
-    free(v4);
-  }
-
-  v5 = *(this + 6);
-  if (v5)
-  {
-    free(*(v5 + 24));
-    MEMORY[0x19EAF5590](v5, 0x1080C4019856BD9);
-  }
-
-  v6 = *(this + 10);
-  if (v6)
-  {
-    free(*(v6 + 24));
-    MEMORY[0x19EAF5590](v6, 0x1010C40313BCFEBLL);
-  }
-
-  v7 = *(this + 17);
-  if (v7)
-  {
-    *(this + 18) = v7;
-    operator delete(v7);
-  }
-
-  v10 = (this + 112);
-  std::vector<std::vector<IRect>>::__destroy_vector::operator()[abi:nn200100](&v10);
-  v8 = *(this + 11);
-  if (v8)
-  {
-    *(this + 12) = v8;
-    operator delete(v8);
-  }
-
-  v9 = *(this + 7);
-  if (v9)
-  {
-    *(this + 8) = v9;
-    operator delete(v9);
-  }
-}
-
-{
-  CI::Perspective::EDLinesCPU::~EDLinesCPU(this);
-
-  JUMPOUT(0x19EAF5590);
-}
-
-CIImage *CI::Perspective::EDLinesCPU::getAnchorsImage(CI::Perspective::EDLinesCPU *this)
-{
-  v2 = *(this + 6);
-  v4 = *v2;
-  v3 = v2[1];
-  v13[0] = v4;
-  v13[1] = v3;
-  if ((v4 & 7) != 0)
-  {
-    v5 = (v4 >> 3) + 1;
-  }
-
-  else
-  {
-    v5 = v4 >> 3;
-  }
-
-  v13[2] = v5;
-  v6 = v5 * v3;
-  v7 = malloc_type_malloc(v5 * v3, 0x100004077774924uLL);
-  v14 = v7;
-  bzero(v7, v6);
-  v8 = *(this + 7);
-  for (i = *(this + 8); v8 != i; v8 += 2)
-  {
-    v10 = &v7[v5 * v8[1]];
-    v10[*v8 >> 3] |= 1 << (~*v8 & 7);
-  }
-
-  v11 = CI::Perspective::Bitmask::imageRepresentation(v13);
-  free(v14);
-  return v11;
-}
-
-CIImage *CI::Perspective::Bitmask::imageRepresentation(CI::Perspective::Bitmask *this)
-{
-  v15[2] = *MEMORY[0x1E69E9840];
-  v2 = (*this + 15) ^ 0xFFFFFFFFFFFFFFEFLL;
-  v3 = [MEMORY[0x1E695DF88] dataWithLength:*(this + 1) * v2];
-  v4 = [v3 mutableBytes];
-  v5 = *(this + 1);
-  if (v5)
-  {
-    v6 = 0;
-    v7 = *this;
-    do
-    {
-      if (v7)
-      {
-        v8 = 0;
-        do
-        {
-          if ((*(*(this + 3) + *(this + 2) * v6 + (v8 >> 3)) >> (~v8 & 7)))
-          {
-            v9 = -1;
-          }
-
-          else
-          {
-            v9 = 0;
-          }
-
-          *(v4 + v8++) = v9;
-          v7 = *this;
-        }
-
-        while (v8 < *this);
-        v5 = *(this + 1);
-      }
-
-      ++v6;
-      v4 += v2;
-    }
-
-    while (v6 < v5);
-  }
-
-  v10 = off_1EB009000;
-  {
-    v10 = off_1EB009000;
-    if (v13)
-    {
-      CI::Perspective::Bitmask::imageRepresentation(void)const::linearGray = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1A0]);
-      v10 = off_1EB009000;
-    }
-  }
-
-  v11 = v10[344];
-  v14[0] = @"CIImageColorSpace";
-  v14[1] = @"CIImageFlipped";
-  v15[0] = v11;
-  v15[1] = MEMORY[0x1E695E118];
-  return +[CIImage imageWithBitmapData:bytesPerRow:size:format:options:](CIImage, "imageWithBitmapData:bytesPerRow:size:format:options:", v3, v2, 259, [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2], *this, *(this + 1));
-}
-
-CIImage *CI::Perspective::EDLinesCPU::getEdgeDrawingImage(CI::Perspective::EDLinesCPU *this)
-{
-  v26[2] = *MEMORY[0x1E69E9840];
-  v2 = *(this + 3);
-  v3 = *(this + 4);
-  v4 = (4 * v2 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v5 = malloc_type_malloc(v4 * v3, 0x100004052888210uLL);
-  v6 = v5;
-  if (v3)
-  {
-    if (v2 <= 1)
-    {
-      v7 = 1;
-    }
-
-    else
-    {
-      v7 = v2;
-    }
-
-    v8 = 4 * v7;
-    v9 = v3;
-    v10 = v5;
-    v11 = v2;
-    do
-    {
-      if (v11)
-      {
-        memset_pattern16(v10, &unk_19CF2AB40, v8);
-        v11 = v2;
-      }
-
-      v10 += v4;
-      --v9;
-    }
-
-    while (v9);
-  }
-
-  v13 = *(this + 11);
-  for (i = *(this + 12); v13 != i; v13 += 16)
-  {
-    v14 = arc4random();
-    if ((v14 & 0xF80000) <= 0x770000)
-    {
-      v15 = -8978432;
-    }
-
-    else
-    {
-      v15 = v14 & 0xFF0000 | 0xFF000000;
-    }
-
-    if ((v14 & 0xF800) <= 0x7700)
-    {
-      v16 = 30464;
-    }
-
-    else
-    {
-      v16 = v14 & 0xFF00;
-    }
-
-    if ((v14 & 0xF8) <= 0x77)
-    {
-      v17 = 119;
-    }
-
-    else
-    {
-      v17 = v14;
-    }
-
-    if (*(v13 + 8))
-    {
-      v18 = 0;
-      v19 = 0;
-      v20 = v15 | v16 | v17;
-      do
-      {
-        *&v6[4 * *(*v13 + v18) + v4 * *(*v13 + v18 + 2)] = v20;
-        ++v19;
-        v18 += 4;
-      }
-
-      while (v19 < *(v13 + 8));
-    }
-  }
-
-  {
-    CI::Perspective::EDLinesCPU::getEdgeDrawingImage(void)const::sRGB = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1C0]);
-  }
-
-  v21 = CI::Perspective::EDLinesCPU::getEdgeDrawingImage(void)const::sRGB;
-  v22 = [MEMORY[0x1E695DEF0] dataWithBytes:v6 length:v4 * v3];
-  v25[0] = @"CIImageColorSpace";
-  v25[1] = @"CIImageFlipped";
-  v26[0] = v21;
-  v26[1] = MEMORY[0x1E695E118];
-  v23 = +[CIImage imageWithBitmapData:bytesPerRow:size:format:options:](CIImage, "imageWithBitmapData:bytesPerRow:size:format:options:", v22, v4, 264, [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2], v2, v3);
-  free(v6);
-  return v23;
-}
-
-void sub_19CE083C0(_Unwind_Exception *a1)
-{
-  free(v1);
-  _Unwind_Resume(a1);
-}
-
-CIImage *CI::Perspective::Bitmap<float>::imageRepresentation(unint64_t *a1, uint64_t a2, uint64_t a3)
-{
-  v9[2] = *MEMORY[0x1E69E9840];
-  v6 = [MEMORY[0x1E695DEF0] dataWithBytes:a1[3] length:a1[2] * a1[1]];
-  v8[0] = @"CIImageColorSpace";
-  v8[1] = @"CIImageFlipped";
-  v9[0] = a3;
-  v9[1] = MEMORY[0x1E695E118];
-  return +[CIImage imageWithBitmapData:bytesPerRow:size:format:options:](CIImage, "imageWithBitmapData:bytesPerRow:size:format:options:", v6, a1[2], a2, [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2], *a1, a1[1]);
-}
-
-void std::vector<EDAnchor>::push_back[abi:nn200100](uint64_t a1, _DWORD *a2)
-{
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (v5 >= v4)
-  {
-    v7 = (v5 - *a1) >> 2;
-    if ((v7 + 1) >> 62)
-    {
-      std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
-    }
-
-    v8 = v4 - *a1;
-    v9 = v8 >> 1;
-    if (v8 >> 1 <= (v7 + 1))
-    {
-      v9 = v7 + 1;
-    }
-
-    if (v8 >= 0x7FFFFFFFFFFFFFFCLL)
-    {
-      v10 = 0x3FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v10 = v9;
-    }
-
-    if (v10)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<CI::NodeIndex>>(a1, v10);
-    }
-
-    v11 = (4 * v7);
-    *v11 = *a2;
-    v6 = 4 * v7 + 4;
-    v12 = *(a1 + 8) - *a1;
-    v13 = v11 - v12;
-    memcpy(v11 - v12, *a1, v12);
-    v14 = *a1;
-    *a1 = v13;
-    *(a1 + 8) = v6;
-    *(a1 + 16) = 0;
-    if (v14)
-    {
-      operator delete(v14);
-    }
-  }
-
-  else
-  {
-    *v5 = *a2;
-    v6 = (v5 + 1);
-  }
-
-  *(a1 + 8) = v6;
-}
-
-void *std::vector<EDChain>::reserve(void *result, unint64_t a2)
-{
-  if (a2 > (result[2] - *result) >> 4)
-  {
-    if (!(a2 >> 60))
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<EDChain>>(result, a2);
-    }
-
-    std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
-  }
-
-  return result;
-}
-
-uint64_t CI::Perspective::EDLinesCPU::traceForeward(uint64_t a1, unsigned __int16 *a2)
-{
-  v2 = *a2;
-  if (!*a2)
-  {
-    return 0;
-  }
-
-  v3 = a2[1];
-  v4 = *(a1 + 48);
-  v5 = *v4 - 2 < *a2 || v3 == 0;
-  if (v5 || v4[1] - 2 < a2[1])
-  {
-    return 0;
-  }
-
-  v8 = v4 + 2;
-  v7 = v4[2];
-  v6 = v8[1];
-  v9 = v6 + v7 * v3;
-  v10 = *(v9 + 4 * v2);
-  v11 = -v10;
-  if (v10 >= 0.0)
-  {
-    v11 = *(v9 + 4 * v2);
-  }
-
-  if (v11 < *(*(a1 + 8) + 8))
-  {
-    return 0;
-  }
-
-  if (v10 <= 0.0)
-  {
-    v17 = v3 + 1;
-    v21 = v6 + v7 * v17;
-    v22 = *(v21 + 4 * v2);
-    if (v22 >= 0.0)
-    {
-      v23 = *(v21 + 4 * v2);
-    }
-
-    else
-    {
-      v23 = -v22;
-    }
-
-    v24 = v2 - 1;
-    v25 = *(v21 + 4 * (v2 - 1));
-    if (v25 < 0.0)
-    {
-      v25 = -v25;
-    }
-
-    v12 = v2 + 1;
-    v18 = *(v21 + 4 * v12);
-    if (v18 < 0.0)
-    {
-      v18 = -v18;
-    }
-
-    if (v25 <= v18)
-    {
-      v19 = v18;
-    }
-
-    else
-    {
-      v19 = v25;
-    }
-
-    if (v23 > v19)
-    {
-      v19 = v23;
-    }
-
-    if (v19 == v23)
-    {
-      goto LABEL_45;
-    }
-
-    if (v19 == v25)
-    {
-      *a2 = v24;
-      goto LABEL_45;
-    }
-
-LABEL_43:
-    if (v19 != v18)
-    {
-      return 1;
-    }
-
-    *a2 = v12;
-LABEL_45:
-    a2[1] = v17;
-    return 1;
-  }
-
-  v12 = v2 + 1;
-  v13 = *(v9 + 4 * v12);
-  if (v13 >= 0.0)
-  {
-    v14 = *(v9 + 4 * v12);
-  }
-
-  else
-  {
-    v14 = -v13;
-  }
-
-  v15 = v3 - 1;
-  v16 = *(v6 + v7 * (v3 - 1) + 4 * v12);
-  if (v16 < 0.0)
-  {
-    v16 = -v16;
-  }
-
-  v17 = v3 + 1;
-  v18 = *(v6 + v7 * v17 + 4 * v12);
-  if (v18 < 0.0)
-  {
-    v18 = -v18;
-  }
-
-  if (v16 <= v18)
-  {
-    v19 = v18;
-  }
-
-  else
-  {
-    v19 = v16;
-  }
-
-  if (v14 > v19)
-  {
-    v19 = v14;
-  }
-
-  if (v19 != v14)
-  {
-    if (v19 == v16)
-    {
-      *a2 = v12;
-      a2[1] = v15;
-      return 1;
-    }
-
-    goto LABEL_43;
-  }
-
-  *a2 = v12;
-  return 1;
-}
-
-uint64_t CI::Perspective::EDLinesCPU::traceBackward(uint64_t a1, unsigned __int16 *a2)
-{
-  v2 = *a2;
-  if (!*a2)
-  {
-    return 0;
-  }
-
-  v3 = a2[1];
-  v4 = *(a1 + 48);
-  v5 = *v4 - 2 < *a2 || v3 == 0;
-  if (v5 || v4[1] - 2 < a2[1])
-  {
-    return 0;
-  }
-
-  v8 = v4 + 2;
-  v7 = v4[2];
-  v6 = v8[1];
-  v9 = v6 + v7 * v3;
-  v10 = *(v9 + 4 * v2);
-  v11 = -v10;
-  if (v10 >= 0.0)
-  {
-    v11 = *(v9 + 4 * v2);
-  }
-
-  if (v11 < *(*(a1 + 8) + 8))
-  {
-    return 0;
-  }
-
-  if (v10 <= 0.0)
-  {
-    v17 = v3 - 1;
-    v21 = v6 + v7 * v17;
-    v22 = *(v21 + 4 * v2);
-    if (v22 >= 0.0)
-    {
-      v23 = *(v21 + 4 * v2);
-    }
-
-    else
-    {
-      v23 = -v22;
-    }
-
-    v24 = v2 - 1;
-    v25 = *(v21 + 4 * (v2 - 1));
-    if (v25 < 0.0)
-    {
-      v25 = -v25;
-    }
-
-    v12 = v2 + 1;
-    v18 = *(v21 + 4 * v12);
-    if (v18 < 0.0)
-    {
-      v18 = -v18;
-    }
-
-    if (v25 <= v18)
-    {
-      v19 = v18;
-    }
-
-    else
-    {
-      v19 = v25;
-    }
-
-    if (v23 > v19)
-    {
-      v19 = v23;
-    }
-
-    if (v19 == v23)
-    {
-      goto LABEL_45;
-    }
-
-    if (v19 == v25)
-    {
-      *a2 = v24;
-      goto LABEL_45;
-    }
-
-LABEL_43:
-    if (v19 != v18)
-    {
-      return 1;
-    }
-
-    *a2 = v12;
-LABEL_45:
-    a2[1] = v17;
-    return 1;
-  }
-
-  v12 = v2 - 1;
-  v13 = *(v9 + 4 * v12);
-  if (v13 >= 0.0)
-  {
-    v14 = *(v9 + 4 * v12);
-  }
-
-  else
-  {
-    v14 = -v13;
-  }
-
-  v15 = v3 - 1;
-  v16 = *(v6 + v7 * (v3 - 1) + 4 * v12);
-  if (v16 < 0.0)
-  {
-    v16 = -v16;
-  }
-
-  v17 = v3 + 1;
-  v18 = *(v6 + v7 * v17 + 4 * v12);
-  if (v18 < 0.0)
-  {
-    v18 = -v18;
-  }
-
-  if (v16 <= v18)
-  {
-    v19 = v18;
-  }
-
-  else
-  {
-    v19 = v16;
-  }
-
-  if (v14 > v19)
-  {
-    v19 = v14;
-  }
-
-  if (v19 != v14)
-  {
-    if (v19 == v16)
-    {
-      *a2 = v12;
-      a2[1] = v15;
-      return 1;
-    }
-
-    goto LABEL_43;
-  }
-
-  *a2 = v12;
-  return 1;
-}
-
-void *std::vector<std::vector<CI::Perspective::LSR<EDAnchor>>>::reserve(void *result, unint64_t a2)
-{
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
-  {
-    if (a2 < 0xAAAAAAAAAAAAAABLL)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<std::vector<IRect>>>(result, a2);
-    }
-
-    std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
-  }
-
-  return result;
-}
-
-float CI::Perspective::LSRInit<EDAnchor>@<S0>(unsigned __int16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, int32x4_t a4@<Q5>)
-{
-  *(a3 + 16) = 0;
-  *(a3 + 24) = 0;
-  *(a3 + 32) = 0;
-  *a3 = a1;
-  *(a3 + 8) = a2;
-  v5 = xmmword_19CF2AB30;
-  if (a2)
-  {
-    v6 = 0;
-    v7 = 0.0;
-    v8 = 0.0;
-    v9 = 0.0;
-    do
-    {
-      a4.i32[0] = *a1;
-      a4.i32[1] = a1[1];
-      *a4.i8 = vcvt_f32_u32(*a4.i8);
-      v10 = vzip1q_s32(a4, a4);
-      v9 = v9 + *a4.i32;
-      v8 = v8 + *&a4.i32[1];
-      v6 = vmla_f32(v6, *a4.i8, *a4.i8);
-      v7 = v7 + (*a4.i32 * *&a4.i32[1]);
-      a4 = vmovl_s16(vtrn2_s16(vrev32_s16(vmovn_s32(vcgtq_f32(v10, v5))), vmovn_s32(vcgtq_f32(v5, v10))));
-      v5 = vbslq_s8(a4, v5, v10);
-      a1 += 2;
-      --a2;
-    }
-
-    while (a2);
-    *(a3 + 20) = v8;
-    *(a3 + 24) = v6;
-    *(a3 + 32) = v7;
-  }
-
-  else
-  {
-    v9 = 0.0;
-  }
-
-  *(a3 + 16) = v9;
-  *(a3 + 36) = v5;
-  CI::Perspective::LSRUpdateFit<EDAnchor>(a3);
-  v12 = *(a3 + 8);
-  if (v12)
-  {
-    v13 = *(a3 + 72);
-    v14 = *(a3 + 76);
-    v15 = *(a3 + 80);
-    v16 = *(a3 + 44);
-    v17 = *(a3 + 48) - v16;
-    v18 = (*a3 + 2);
-    if ((*(a3 + 40) - *(a3 + 36)) <= v17)
-    {
-      v19 = 0.0;
-      v21 = *(a3 + 8);
-      do
-      {
-        LOWORD(v17) = *(v18 - 1);
-        LOWORD(v16) = *v18;
-        v16 = (v15 + (v14 * LODWORD(v16))) / v13;
-        v17 = v16 + LODWORD(v17);
-        v19 = v19 + (v17 * v17);
-        v18 += 2;
-        --v21;
-      }
-
-      while (v21);
-    }
-
-    else
-    {
-      v19 = 0.0;
-      v20 = *(a3 + 8);
-      do
-      {
-        LOWORD(v17) = *(v18 - 1);
-        LOWORD(v16) = *v18;
-        v16 = LODWORD(v16);
-        v17 = ((v15 + (v13 * LODWORD(v17))) / v14) + v16;
-        v19 = v19 + (v17 * v17);
-        v18 += 2;
-        --v20;
-      }
-
-      while (v20);
-    }
-
-    result = v19 / v12;
-    *(a3 + 84) = result;
-  }
-
-  return result;
 }

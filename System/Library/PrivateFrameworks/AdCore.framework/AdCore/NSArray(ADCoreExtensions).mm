@@ -7,41 +7,40 @@
 
 - (id)AD_arrayForJSON
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
   selfCopy = self;
-  v4 = [selfCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (!v4)
   {
     v6 = 0;
-    goto LABEL_30;
+    goto LABEL_29;
   }
 
   v5 = v4;
   v6 = 0;
-  v7 = 0x277CBE000uLL;
-  v8 = *v21;
+  v7 = *v18;
   do
   {
-    v9 = 0;
+    v8 = 0;
     do
     {
-      if (*v21 != v8)
+      if (*v18 != v7)
       {
         objc_enumerationMutation(selfCopy);
       }
 
-      v10 = *(*(&v20 + 1) + 8 * v9);
+      v9 = *(*(&v17 + 1) + 8 * v8);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        aD_arrayForJSON = [v10 AD_arrayForJSON];
+        aD_arrayForJSON = [v9 AD_arrayForJSON];
 LABEL_14:
-        v13 = aD_arrayForJSON;
+        v11 = aD_arrayForJSON;
         [array addObject:aD_arrayForJSON];
 
         goto LABEL_15;
@@ -50,22 +49,21 @@ LABEL_14:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        aD_arrayForJSON = [v10 AD_dictionaryForJSON];
-        goto LABEL_14;
-      }
-
-      v12 = *(v7 + 2704);
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        aD_arrayForJSON = [v10 AD_dataStringForJSON];
+        aD_arrayForJSON = [v9 AD_dictionaryForJSON];
         goto LABEL_14;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        aD_arrayForJSON = [v10 absoluteString];
+        aD_arrayForJSON = [v9 AD_dataStringForJSON];
+        goto LABEL_14;
+      }
+
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        aD_arrayForJSON = [v9 absoluteString];
         goto LABEL_14;
       }
 
@@ -73,20 +71,20 @@ LABEL_14:
       if (objc_opt_isKindOfClass())
       {
 LABEL_20:
-        [array addObject:v10];
+        [array addObject:v9];
         goto LABEL_15;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        [v10 doubleValue];
-        if (fabs(v14) != INFINITY)
+        [v9 doubleValue];
+        if (fabs(v12) != INFINITY)
         {
           goto LABEL_20;
         }
 
-        selfCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to serialize the following number into JSON. Please file a radar against SearchAds | iOS: %@ (%@). Self: %@", v10, objc_opt_class(), selfCopy];
+        selfCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to serialize the following number into JSON. Please file a radar against SearchAds | iOS: %@ (%@). Self: %@", v9, objc_opt_class(), selfCopy];
 
         [array addObject:@"∞"];
         v6 = selfCopy;
@@ -94,29 +92,26 @@ LABEL_20:
 
       else
       {
-        v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: Unable to serialize the following object into JSON. Please file a radar against SearchAds Framework.\n%@ (%@)", v10, objc_opt_class()];
-        _ADLog(@"ToroLogging", v15, 0);
+        v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: Unable to serialize the following object into JSON. Please file a radar against SearchAds Framework.\n%@ (%@)", v9, objc_opt_class()];
+        _ADLog(@"ToroLogging", v13, 0);
       }
 
-      v7 = 0x277CBE000;
 LABEL_15:
       if (v6)
       {
         ADSimulateCrash(2696598945, v6, 0);
       }
 
-      ++v9;
+      ++v8;
     }
 
-    while (v5 != v9);
-    v17 = [selfCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
-    v5 = v17;
+    while (v5 != v8);
+    v15 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = v15;
   }
 
-  while (v17);
-LABEL_30:
-
-  v18 = *MEMORY[0x277D85DE8];
+  while (v15);
+LABEL_29:
 
   return array;
 }

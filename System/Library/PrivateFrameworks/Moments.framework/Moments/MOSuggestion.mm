@@ -10,13 +10,13 @@
 
 - (MOSuggestion)initWithBundle:(id)bundle modifiedTitle:(id)title isPromptElligibleForTransfer:(BOOL)transfer assetPrototypes:(id)prototypes
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   bundleCopy = bundle;
   titleCopy = title;
   prototypesCopy = prototypes;
-  v32.receiver = self;
-  v32.super_class = MOSuggestion;
-  v14 = [(MOSuggestion *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = MOSuggestion;
+  v14 = [(MOSuggestion *)&v31 init];
   v15 = v14;
   if (v14)
   {
@@ -54,7 +54,7 @@
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v34 = titleCopy;
+          v33 = titleCopy;
           _os_log_impl(&dword_22D8C5000, v29, OS_LOG_TYPE_DEFAULT, "(MOSuggestion) Setting modifiedTitle: %@", buf, 0xCu);
         }
 
@@ -67,7 +67,6 @@
     [(MOSuggestion *)v15 packMetadata];
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

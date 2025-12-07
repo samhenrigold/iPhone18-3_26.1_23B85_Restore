@@ -8,7 +8,6 @@
 - (void)loadResource:(id)resource options:(id)options replyHandler:(id)handler;
 - (void)loadVolume:(id)volume reply:(id)reply;
 - (void)probeResource:(id)resource replyHandler:(id)handler;
-- (void)unloadResource:(id)resource options:(id)options replyHandler:(id)handler;
 @end
 
 @implementation exfatFileSystem
@@ -131,8 +130,8 @@
   altCopy = alt;
   dCopy = d;
   replyCopy = reply;
+  v76 = 0;
   v77 = 0;
-  v78 = 0;
   v10 = 12 * [dCopy blockSize];
   v11 = malloc_type_calloc(1uLL, v10, 0x100004077774924uLL);
   if (!v11)
@@ -180,7 +179,7 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  if (v12[105] << 8 != 256)
+  if (*(v12 + 105) << 8 != 256)
   {
     v16 = fskit_std_log();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -191,13 +190,13 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v21 = v12[108];
+  v21 = *(v12 + 108);
   if ((v21 - 13) <= 0xFFFFFFFB)
   {
     v16 = fskit_std_log();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_100010A8C(v12 + 108);
+      sub_100010A8C();
     }
 
     goto LABEL_21;
@@ -245,26 +244,26 @@ LABEL_22:
     goto LABEL_21;
   }
 
-  v24 = v12[109];
-  v25 = v12[108];
+  v24 = *(v12 + 109);
+  v25 = *(v12 + 108);
   if ((v24 + v25) >= 0x1A)
   {
     v16 = fskit_std_log();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_100010988(v12 + 109);
+      sub_100010988();
     }
 
     goto LABEL_21;
   }
 
-  v27 = v12[110];
+  v27 = *(v12 + 110);
   if ((v27 - 3) <= 0xFFFFFFFD)
   {
     v16 = fskit_std_log();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_100010904(v12 + 110);
+      sub_100010904();
     }
 
     goto LABEL_21;
@@ -281,10 +280,9 @@ LABEL_22:
     goto LABEL_21;
   }
 
-  v28 = *(v12 + 24);
-  if (v28 < 2 || v28 > *(v12 + 23) + 1)
+  v28 = v12[24];
+  if (v28 < 2 || v28 > v12[23] + 1)
   {
-    v55 = *(v12 + 24);
     v16 = fskit_std_log();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
@@ -294,9 +292,9 @@ LABEL_22:
     goto LABEL_21;
   }
 
-  v65 = *(v12 + 24);
-  v61 = *(v12 + 23) + 1;
-  v29 = *(v12 + 22);
+  v64 = v12[24];
+  v60 = v12[23] + 1;
+  v29 = v12[22];
   v30 = malloc_type_calloc(1uLL, 1 << v21, 0x100004077774924uLL);
   if (!v30)
   {
@@ -309,12 +307,12 @@ LABEL_22:
     goto LABEL_21;
   }
 
-  v67 = v30;
-  v63 = malloc_type_calloc(1uLL, 1 << v21, 0x100004077774924uLL);
-  if (!v63)
+  v66 = v30;
+  v62 = malloc_type_calloc(1uLL, 1 << v21, 0x100004077774924uLL);
+  if (!v62)
   {
-    v56 = fskit_std_log();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+    v55 = fskit_std_log();
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
       sub_100010770();
     }
@@ -326,30 +324,30 @@ LABEL_22:
   }
 
   v20 = 0;
-  v68 = 0;
+  v67 = 0;
   v31 = v23 << v24;
-  v58 = (v29 << v25);
-  v57 = (v23 - 1);
-  v32 = v65;
-  v62 = (v23 << v24);
+  v57 = v29 << v25;
+  v56 = (v23 - 1);
+  v32 = v64;
+  v61 = (v23 << v24);
   do
   {
-    v66 = v32;
+    v65 = v32;
     if (v31)
     {
-      v59 = v58 + v31 * (v32 - 2);
-      v33 = v59;
+      v58 = v57 + v31 * (v32 - 2);
+      v33 = v58;
       do
       {
-        v64 = v33;
-        v34 = [exfatFileSystem syncRead:"syncRead:into:startingAt:length:" into:dCopy startingAt:v67 length:?];
+        v63 = v33;
+        v34 = [exfatFileSystem syncRead:"syncRead:into:startingAt:length:" into:dCopy startingAt:v66 length:?];
         if (v34)
         {
           goto LABEL_99;
         }
 
         v35 = 0;
-        v36 = v67;
+        v36 = v66;
         do
         {
           v37 = *v36;
@@ -361,11 +359,11 @@ LABEL_22:
               v45 = *(v36 + 5);
               v46 = *(v36 + 6);
               v47 = *(v36 + 14);
-              LODWORD(v77) = bswap32(*(v36 + 6));
-              WORD2(v77) = bswap32(v45) >> 16;
-              HIWORD(v77) = bswap32(v46) >> 16;
-              v78 = v47;
-              v68 = 1;
+              LODWORD(v76) = bswap32(*(v36 + 6));
+              WORD2(v76) = bswap32(v45) >> 16;
+              HIWORD(v76) = bswap32(v46) >> 16;
+              v77 = v47;
+              v67 = 1;
               goto LABEL_77;
             }
 
@@ -408,13 +406,13 @@ LABEL_63:
 
               else
               {
-                v60 = fskit_std_log();
-                if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+                v59 = fskit_std_log();
+                if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
                 {
-                  sub_10001068C(&v70, &v71);
+                  sub_10001068C(v69, &v70);
                 }
 
-                v43 = v60;
+                v43 = v59;
               }
 
               CFRelease(cf);
@@ -430,14 +428,14 @@ LABEL_76:
             v48 = fskit_std_log();
             if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
             {
-              sub_1000106D8(&v74, &v75);
+              sub_1000106D8(v73, &v74);
             }
           }
 
           v49 = fskit_std_log();
           if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
           {
-            sub_100010724(&v72, &v73);
+            sub_100010724(v71, &v72);
           }
 
           v50 = cf;
@@ -452,17 +450,17 @@ LABEL_77:
         }
 
         while (v35 < v23);
-        v33 = v64 + v23;
+        v33 = v63 + v23;
       }
 
-      while (v64 + v23 - v59 < v62);
+      while (v63 + v23 - v58 < v61);
     }
 
-    v51 = (4 * v66);
-    v52 = *(v12 + 20) + (v51 >> v21);
+    v51 = 4 * v65;
+    v52 = v12[20] + (v51 >> v21);
     if (v52)
     {
-      v34 = [(exfatFileSystem *)self syncRead:dCopy into:v63 startingAt:v52 << v21 length:1 << v21];
+      v34 = [(exfatFileSystem *)self syncRead:dCopy into:v62 startingAt:v52 << v21 length:1 << v21];
       if (v34)
       {
 LABEL_99:
@@ -472,25 +470,25 @@ LABEL_99:
       }
     }
 
-    v53 = *&v63[v51 & v57];
-    v54 = v53 < 2 || v53 > v61;
-    v32 = *&v63[v51 & v57];
-    v31 = v62;
+    v53 = *&v62[v51 & v56];
+    v54 = v53 < 2 || v53 > v60;
+    v32 = *&v62[v51 & v56];
+    v31 = v61;
   }
 
   while (!v54);
 LABEL_86:
-  if ((v68 & 1) == 0)
+  if ((v67 & 1) == 0)
   {
-    uuid_create_md5_from_name(&v77, &unk_100017050, v12 + 100, 4u);
+    uuid_create_md5_from_name(&v76, &unk_100017050, v12 + 25, 4u);
   }
 
-  v19 = [[NSUUID alloc] initWithUUIDBytes:&v77];
+  v19 = [[NSUUID alloc] initWithUUIDBytes:&v76];
   v18 = 0;
 LABEL_89:
-  free(v63);
+  free(v62);
 LABEL_98:
-  free(v67);
+  free(v66);
 LABEL_23:
   free(v12);
 LABEL_24:
@@ -1261,13 +1259,6 @@ LABEL_31:
   _Block_object_dispose(&v32, 8);
 
   _Block_object_dispose(&buf, 8);
-}
-
-- (void)unloadResource:(id)resource options:(id)options replyHandler:(id)handler
-{
-  resource = self->_resource;
-  self->_resource = 0;
-  _objc_release_x1();
 }
 
 @end

@@ -19,11 +19,11 @@
   {
     objc_storeStrong(&v6->_modelURL, l);
     v7->_lock._os_unfair_lock_opaque = 0;
-    v8 = [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:8 options:30.0];
+    v8 = [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:? options:?];
     watchdogTimer = v7->_watchdogTimer;
     v7->_watchdogTimer = v8;
 
-    [(HMFTimer *)v7->_watchdogTimer setDelegate:v7];
+    [(HMFTimer *)v7->_watchdogTimer setDelegate:?];
   }
 
   return v7;
@@ -31,7 +31,7 @@
 
 - (MLModel)underlyingModel
 {
-  v3 = [(HMIMLModel *)self _ensureModelWithError:0];
+  v3 = [(HMIMLModel *)self _ensureModelWithError:?];
   model = 0;
   if (v3)
   {
@@ -44,21 +44,21 @@
 - (id)predictionFromFeatures:(id)features error:(id *)error
 {
   featuresCopy = features;
-  if ([(HMIMLModel *)self _ensureModelWithError:error])
+  if ([(HMIMLModel *)self _ensureModelWithError:?])
   {
     os_unfair_lock_lock_with_options();
     model = [(HMIMLModel *)self model];
-    v8 = [model predictionFromFeatures:featuresCopy error:error];
+    v7 = [model predictionFromFeatures:? error:?];
 
     os_unfair_lock_unlock(&self->_lock);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)_ensureModelWithError:(id *)error
@@ -82,29 +82,29 @@
 
     if (usesCPUOnly)
     {
-      [v8 setComputeUnits:0];
+      [v8 setComputeUnits:?];
     }
 
     else
     {
       v11 = +[HMIPreference sharedInstance];
-      [v8 setAllowBackgroundGPUCompute:{objc_msgSend(v11, "BOOLPreferenceForKey:defaultValue:", @"espressoLowPriority", 1)}];
+      [v11 BOOLPreferenceForKey:? defaultValue:?];
+      [v8 setAllowBackgroundGPUCompute:?];
     }
 
     v12 = MEMORY[0x277CBFF20];
     modelURL = [(HMIMLModel *)self modelURL];
-    v26 = 0;
-    v14 = [v12 modelWithContentsOfURL:modelURL configuration:v8 error:&v26];
-    v15 = v26;
-    [(HMIMLModel *)self setModel:v14];
+    v14 = [v12 modelWithContentsOfURL:? configuration:? error:?];
+    v15 = 0;
+    [(HMIMLModel *)self setModel:?];
 
     model2 = [(HMIMLModel *)self model];
     v7 = model2 != 0;
 
     if (model2)
     {
-      v17 = [objc_alloc(MEMORY[0x277D0F880]) initWithName:@"HMIMLModel"];
-      [(HMIMLModel *)self setTransaction:v17];
+      v17 = [objc_alloc(MEMORY[0x277D0F880]) initWithName:?];
+      [(HMIMLModel *)self setTransaction:?];
 
       watchdogTimer2 = [(HMIMLModel *)self watchdogTimer];
       [watchdogTimer2 resume];
@@ -115,9 +115,9 @@
       v19 = MEMORY[0x277CCACA8];
       modelURL2 = [(HMIMLModel *)self modelURL];
       path = [modelURL2 path];
-      watchdogTimer2 = [v19 stringWithFormat:@"Failed to load model at path: %@", path];
+      watchdogTimer2 = [v19 stringWithFormat:path];
 
-      v22 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1018 description:watchdogTimer2 underlyingError:v15];
+      v22 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
       v23 = v22;
       if (error)
       {
@@ -155,8 +155,8 @@
   }
 
   objc_autoreleasePoolPop(v6);
-  [(HMIMLModel *)selfCopy setModel:0];
-  [(HMIMLModel *)selfCopy setTransaction:0];
+  [(HMIMLModel *)selfCopy setModel:?];
+  [(HMIMLModel *)selfCopy setTransaction:?];
   os_unfair_lock_unlock(&self->_lock);
   objc_autoreleasePoolPop(v5);
 }

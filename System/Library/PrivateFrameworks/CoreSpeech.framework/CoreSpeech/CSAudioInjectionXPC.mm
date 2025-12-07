@@ -1,4 +1,5 @@
 @interface CSAudioInjectionXPC
+- (AudioStreamBasicDescription)_outASBDWithNumChannels:(SEL)channels;
 - (CSAudioInjectionXPC)init;
 - (void)connectDeviceWithUUID:(id)d completion:(id)completion;
 - (void)createAudioInjectionDeviceWithType:(int64_t)type bundlePath:(id)path deviceName:(id)name deviceID:(id)d productID:(id)iD completion:(id)completion;
@@ -13,6 +14,14 @@
 @end
 
 @implementation CSAudioInjectionXPC
+
+- (AudioStreamBasicDescription)_outASBDWithNumChannels:(SEL)channels
+{
+  v4 = *&a4;
+  +[CSConfig inputRecordingSampleRate];
+
+  return [CSFAudioStreamBasicDescriptionFactory lpcmInterleavedASBDWithSampleRate:v4 numberOfChannels:?];
+}
 
 - (void)selectBuiltInInjectionDeivceWithUUID:(id)d completion:(id)completion
 {

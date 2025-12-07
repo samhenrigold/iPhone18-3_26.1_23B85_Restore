@@ -72,7 +72,7 @@
 
     else
     {
-      v12 = _AAUILogSystem();
+      v12 = _AAUILogSystem(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -88,7 +88,7 @@
   }
 
   v13 = [v7 base64EncodedDataWithOptions:0];
-  v14 = _AAUILogSystem();
+  v14 = _AAUILogSystem(v13);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v13, "length")}];
@@ -118,28 +118,28 @@
 
 + (id)_downsampleImage:(id)image fromStartingQuality:(double)quality toEndingQuality:(double)endingQuality increment:(double)increment maxLength:(unint64_t)length
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   imageCopy = image;
   if (quality > endingQuality)
   {
     v13 = 0;
     *&v12 = 138412546;
-    v20 = v12;
+    v22 = v12;
     do
     {
       v14 = v13;
       v13 = UIImageJPEGRepresentation(imageCopy, quality);
 
-      v15 = _AAUILogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = _AAUILogSystem(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = [MEMORY[0x1E696AD98] numberWithDouble:quality];
-        v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v13, "length")}];
-        *buf = v20;
-        v22 = v16;
-        v23 = 2112;
+        v17 = [MEMORY[0x1E696AD98] numberWithDouble:quality];
+        v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v13, "length")}];
+        *buf = v22;
         v24 = v17;
-        _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest compressed image to quality %@ down to length %@", buf, 0x16u);
+        v25 = 2112;
+        v26 = v18;
+        _os_log_impl(&dword_1C5355000, v16, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest compressed image to quality %@ down to length %@", buf, 0x16u);
       }
 
       if ([v13 length] <= length)
@@ -151,7 +151,8 @@
     }
 
     while (quality > endingQuality);
-    if ([v13 length] <= length)
+    v19 = [v13 length];
+    if (v19 <= length)
     {
       if (v13)
       {
@@ -164,17 +165,18 @@
     goto LABEL_11;
   }
 
+  v19 = [0 length];
   v13 = 0;
-  if ([0 length] > length)
+  if (v19 > length)
   {
 LABEL_11:
   }
 
 LABEL_12:
-  v18 = _AAUILogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v20 = _AAUILogSystem(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    [AAUIUpdateMyPhotoRequest _downsampleImage:v18 fromStartingQuality:? toEndingQuality:? increment:? maxLength:?];
+    [AAUIUpdateMyPhotoRequest _downsampleImage:v20 fromStartingQuality:? toEndingQuality:? increment:? maxLength:?];
   }
 
   v13 = 0;
@@ -185,270 +187,271 @@ LABEL_15:
 
 + (id)_fullScreen2ImageFromImage:(id)image cropRect:(id)rect fullScreenCropRect:(id *)cropRect
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   imageCopy = image;
   rectCopy = rect;
-  v9 = _AAUILogSystem();
+  v9 = _AAUILogSystem(rectCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = MEMORY[0x1E696B098];
     [imageCopy size];
     v11 = [v10 valueWithCGSize:?];
     *buf = 138412546;
-    v79 = v11;
-    v80 = 2112;
-    v81 = rectCopy;
+    v94 = v11;
+    v95 = 2112;
+    v96 = rectCopy;
     _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage: of size %@ cropRect: %@", buf, 0x16u);
   }
 
   if (rectCopy)
   {
-    [rectCopy CGRectValue];
-    v13 = v12;
-    v15 = v14;
-    v17 = v16;
-    v19 = v18;
+    cGRectValue = [rectCopy CGRectValue];
+    v14 = v13;
+    v16 = v15;
+    v18 = v17;
+    v20 = v19;
   }
 
   else
   {
     [imageCopy size];
-    v17 = v20;
-    [imageCopy size];
-    v19 = v21;
-    v13 = 0.0;
-    v15 = 0.0;
+    v18 = v21;
+    cGRectValue = [imageCopy size];
+    v20 = v22;
+    v14 = 0.0;
+    v16 = 0.0;
   }
 
-  v22 = _AAUILogSystem();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = _AAUILogSystem(cGRectValue);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = [MEMORY[0x1E696B098] valueWithCGRect:{v13, v15, v17, v19}];
+    v24 = [MEMORY[0x1E696B098] valueWithCGRect:{v14, v16, v18, v20}];
     *buf = 138412290;
-    v79 = v23;
-    _os_log_impl(&dword_1C5355000, v22, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage using importantArea %@", buf, 0xCu);
+    v94 = v24;
+    _os_log_impl(&dword_1C5355000, v23, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage using importantArea %@", buf, 0xCu);
   }
 
-  v24 = _AAUILogSystem();
-  v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-  v75 = v13;
-  v76 = v17;
-  v73 = v15;
-  v74 = v19;
-  if (v17 / v19 <= 0.666666667)
+  v26 = _AAUILogSystem(v25);
+  v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+  v90 = v14;
+  v91 = v18;
+  v88 = v16;
+  v89 = v20;
+  if (v18 / v20 <= 0.666666667)
   {
-    if (v25)
+    if (v27)
     {
-      v44 = [MEMORY[0x1E696AD98] numberWithDouble:v17 / v19];
+      v51 = [MEMORY[0x1E696AD98] numberWithDouble:v18 / v20];
       *buf = 138412290;
-      v79 = v44;
-      _os_log_impl(&dword_1C5355000, v24, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage detected narrow importantAreaAspectRatio %@", buf, 0xCu);
+      v94 = v51;
+      _os_log_impl(&dword_1C5355000, v26, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage detected narrow importantAreaAspectRatio %@", buf, 0xCu);
     }
 
-    v77 = 960.0 / v19;
-    v45 = _AAUILogSystem();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+    v92 = 960.0 / v20;
+    v53 = _AAUILogSystem(v52);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
     {
-      v46 = [MEMORY[0x1E696AD98] numberWithDouble:v77];
+      v54 = [MEMORY[0x1E696AD98] numberWithDouble:v92];
       *buf = 138412290;
-      v79 = v46;
-      _os_log_impl(&dword_1C5355000, v45, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage using scale %@", buf, 0xCu);
+      v94 = v54;
+      _os_log_impl(&dword_1C5355000, v53, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage using scale %@", buf, 0xCu);
     }
 
-    [imageCopy size];
-    if (v19 * 0.666666667 >= v47)
+    v55 = [imageCopy size];
+    if (v20 * 0.666666667 >= v56)
     {
-      v48 = v47;
+      v57 = v56;
     }
 
     else
     {
-      v48 = v19 * 0.666666667;
+      v57 = v20 * 0.666666667;
     }
 
-    v43 = v13 - floor((v48 - v17) * 0.5);
-    v49 = _AAUILogSystem();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+    v50 = v14 - floor((v57 - v18) * 0.5);
+    v58 = _AAUILogSystem(v55);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
     {
-      v50 = [MEMORY[0x1E696B098] valueWithCGRect:{v43, v15, v48, v19}];
+      v59 = [MEMORY[0x1E696B098] valueWithCGRect:{v50, v16, v57, v20}];
       *buf = 138412290;
-      v79 = v50;
-      _os_log_impl(&dword_1C5355000, v49, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage got preliminary sourcePortionOfBaseImage %@", buf, 0xCu);
+      v94 = v59;
+      _os_log_impl(&dword_1C5355000, v58, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage got preliminary sourcePortionOfBaseImage %@", buf, 0xCu);
     }
 
-    if (v43 < 0.0)
+    if (v50 < 0.0)
     {
-      v51 = _AAUILogSystem();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+      v61 = _AAUILogSystem(v60);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
       {
-        v52 = [MEMORY[0x1E696B098] valueWithCGRect:{0.0, v15, v48, v19}];
+        v62 = [MEMORY[0x1E696B098] valueWithCGRect:{0.0, v16, v57, v20}];
         *buf = 138412290;
-        v79 = v52;
-        _os_log_impl(&dword_1C5355000, v51, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage constrained sourcePortionOfBaseImage left => %@", buf, 0xCu);
+        v94 = v62;
+        _os_log_impl(&dword_1C5355000, v61, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage constrained sourcePortionOfBaseImage left => %@", buf, 0xCu);
       }
 
-      v43 = 0.0;
+      v50 = 0.0;
     }
 
-    [imageCopy size];
-    if (v48 + v43 > v53)
+    v63 = [imageCopy size];
+    if (v57 + v50 > v64)
     {
-      [imageCopy size];
-      v43 = v54 - v48;
-      v55 = _AAUILogSystem();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+      v65 = [imageCopy size];
+      v50 = v66 - v57;
+      v67 = _AAUILogSystem(v65);
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
       {
-        v56 = [MEMORY[0x1E696B098] valueWithCGRect:{v43, v15, v48, v19}];
+        v68 = [MEMORY[0x1E696B098] valueWithCGRect:{v50, v16, v57, v20}];
         *buf = 138412290;
-        v79 = v56;
-        _os_log_impl(&dword_1C5355000, v55, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage constrained sourcePortionOfBaseImage right => %@", buf, 0xCu);
+        v94 = v68;
+        _os_log_impl(&dword_1C5355000, v67, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage constrained sourcePortionOfBaseImage right => %@", buf, 0xCu);
       }
     }
 
-    v40 = 960.0;
-    v39 = floor(v48 * 960.0 / v19);
-    v41 = _AAUILogSystem();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v47 = 960.0;
+    v46 = floor(v57 * 960.0 / v20);
+    v48 = _AAUILogSystem(v63);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = 960.0;
-      v57 = [MEMORY[0x1E696B098] valueWithCGSize:{v39, 960.0}];
+      v47 = 960.0;
+      v69 = [MEMORY[0x1E696B098] valueWithCGSize:{v46, 960.0}];
       *buf = 138412290;
-      v79 = v57;
-      _os_log_impl(&dword_1C5355000, v41, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage using contextSize %@", buf, 0xCu);
+      v94 = v69;
+      _os_log_impl(&dword_1C5355000, v48, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage using contextSize %@", buf, 0xCu);
     }
   }
 
   else
   {
-    if (v25)
+    if (v27)
     {
-      v26 = [MEMORY[0x1E696AD98] numberWithDouble:v17 / v19];
+      v28 = [MEMORY[0x1E696AD98] numberWithDouble:v18 / v20];
       *buf = 138412290;
-      v79 = v26;
-      _os_log_impl(&dword_1C5355000, v24, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage detected squat importantAreaAspectRatio %@", buf, 0xCu);
+      v94 = v28;
+      _os_log_impl(&dword_1C5355000, v26, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage detected squat importantAreaAspectRatio %@", buf, 0xCu);
     }
 
-    v77 = 640.0 / v17;
-    v27 = _AAUILogSystem();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v92 = 640.0 / v18;
+    v30 = _AAUILogSystem(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = [MEMORY[0x1E696AD98] numberWithDouble:v77];
+      v31 = [MEMORY[0x1E696AD98] numberWithDouble:v92];
       *buf = 138412290;
-      v79 = v28;
-      _os_log_impl(&dword_1C5355000, v27, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage using scale %@", buf, 0xCu);
+      v94 = v31;
+      _os_log_impl(&dword_1C5355000, v30, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage using scale %@", buf, 0xCu);
     }
 
-    [imageCopy size];
-    if (v17 / 0.666666667 >= v29)
+    v32 = [imageCopy size];
+    if (v18 / 0.666666667 >= v33)
     {
-      v30 = v29;
+      v34 = v33;
     }
 
     else
     {
-      v30 = v17 / 0.666666667;
+      v34 = v18 / 0.666666667;
     }
 
-    v15 = v15 - floor((v30 - v19) * 0.5);
-    v31 = _AAUILogSystem();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v16 = v16 - floor((v34 - v20) * 0.5);
+    v35 = _AAUILogSystem(v32);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = [MEMORY[0x1E696B098] valueWithCGRect:{v13, v15, v17, v30}];
+      v36 = [MEMORY[0x1E696B098] valueWithCGRect:{v14, v16, v18, v34}];
       *buf = 138412290;
-      v79 = v32;
-      _os_log_impl(&dword_1C5355000, v31, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage got preliminary sourcePortionOfBaseImage %@", buf, 0xCu);
+      v94 = v36;
+      _os_log_impl(&dword_1C5355000, v35, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage got preliminary sourcePortionOfBaseImage %@", buf, 0xCu);
     }
 
-    if (v15 < 0.0)
+    if (v16 < 0.0)
     {
-      v33 = _AAUILogSystem();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v38 = _AAUILogSystem(v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
-        v34 = [MEMORY[0x1E696B098] valueWithCGRect:{v13, 0.0, v17, v30}];
+        v39 = [MEMORY[0x1E696B098] valueWithCGRect:{v14, 0.0, v18, v34}];
         *buf = 138412290;
-        v79 = v34;
-        _os_log_impl(&dword_1C5355000, v33, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage constrained sourcePortionOfBaseImage top => %@", buf, 0xCu);
+        v94 = v39;
+        _os_log_impl(&dword_1C5355000, v38, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage constrained sourcePortionOfBaseImage top => %@", buf, 0xCu);
       }
 
-      v15 = 0.0;
+      v16 = 0.0;
     }
 
-    [imageCopy size];
-    if (v30 + v15 > v35)
+    v40 = [imageCopy size];
+    if (v34 + v16 > v41)
     {
-      [imageCopy size];
-      v15 = v36 - v30;
-      v37 = _AAUILogSystem();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v42 = [imageCopy size];
+      v16 = v43 - v34;
+      v44 = _AAUILogSystem(v42);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
-        v38 = [MEMORY[0x1E696B098] valueWithCGRect:{v13, v15, v17, v30}];
+        v45 = [MEMORY[0x1E696B098] valueWithCGRect:{v14, v16, v18, v34}];
         *buf = 138412290;
-        v79 = v38;
-        _os_log_impl(&dword_1C5355000, v37, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage constrained sourcePortionOfBaseImage bottom => %@", buf, 0xCu);
+        v94 = v45;
+        _os_log_impl(&dword_1C5355000, v44, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage constrained sourcePortionOfBaseImage bottom => %@", buf, 0xCu);
       }
     }
 
-    v39 = 640.0;
-    v40 = floor(v30 * 640.0 / v17);
-    v41 = _AAUILogSystem();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v46 = 640.0;
+    v47 = floor(v34 * 640.0 / v18);
+    v48 = _AAUILogSystem(v40);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
     {
-      v39 = 640.0;
-      v42 = [MEMORY[0x1E696B098] valueWithCGSize:{640.0, v40}];
+      v46 = 640.0;
+      v49 = [MEMORY[0x1E696B098] valueWithCGSize:{640.0, v47}];
       *buf = 138412290;
-      v79 = v42;
-      _os_log_impl(&dword_1C5355000, v41, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage using contextSize %@", buf, 0xCu);
+      v94 = v49;
+      _os_log_impl(&dword_1C5355000, v48, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage using contextSize %@", buf, 0xCu);
     }
 
-    v43 = v13;
+    v50 = v14;
   }
 
-  v58 = -(v43 * v77);
+  v70 = -(v50 * v92);
   [imageCopy size];
-  v60 = v77 * v59;
-  v61 = -(v15 * v77);
-  [imageCopy size];
-  v63 = v77 * v62;
-  v64 = _AAUILogSystem();
-  if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+  v72 = v92 * v71;
+  v73 = -(v16 * v92);
+  v74 = [imageCopy size];
+  v76 = v92 * v75;
+  v77 = _AAUILogSystem(v74);
+  if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
   {
-    v65 = [MEMORY[0x1E696B098] valueWithCGRect:{v58, v61, v60, v63}];
+    v78 = [MEMORY[0x1E696B098] valueWithCGRect:{v70, v73, v72, v76}];
     *buf = 138412290;
-    v79 = v65;
-    _os_log_impl(&dword_1C5355000, v64, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage using drawRect %@", buf, 0xCu);
+    v94 = v78;
+    _os_log_impl(&dword_1C5355000, v77, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage using drawRect %@", buf, 0xCu);
   }
 
-  v84.width = v39;
-  v84.height = v40;
-  UIGraphicsBeginImageContext(v84);
-  [imageCopy drawInRect:{v58, v61, v60, v63}];
-  v66 = UIGraphicsGetImageFromCurrentImageContext();
+  v99.width = v46;
+  v99.height = v47;
+  UIGraphicsBeginImageContext(v99);
+  [imageCopy drawInRect:{v70, v73, v72, v76}];
+  v79 = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
-  v67 = _AAUILogSystem();
-  if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+  v81 = _AAUILogSystem(v80);
+  if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
   {
-    v68 = MEMORY[0x1E696B098];
-    [v66 size];
-    v69 = [v68 valueWithCGSize:?];
+    v82 = MEMORY[0x1E696B098];
+    [v79 size];
+    v83 = [v82 valueWithCGSize:?];
     *buf = 138412290;
-    v79 = v69;
-    _os_log_impl(&dword_1C5355000, v67, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage created fullScreen2Image with size %@", buf, 0xCu);
+    v94 = v83;
+    _os_log_impl(&dword_1C5355000, v81, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage created fullScreen2Image with size %@", buf, 0xCu);
   }
 
   if (rectCopy && cropRect)
   {
-    *cropRect = [MEMORY[0x1E696B098] valueWithCGRect:{ceil((v75 - v43) * v77), ceil((v73 - v15) * v77), floor(v76 * v77), floor(v74 * v77)}];
-    v70 = _AAUILogSystem();
-    if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+    v84 = [MEMORY[0x1E696B098] valueWithCGRect:{ceil((v90 - v50) * v92), ceil((v88 - v16) * v92), floor(v91 * v92), floor(v89 * v92)}];
+    *cropRect = v84;
+    v85 = _AAUILogSystem(v84);
+    if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
     {
-      v71 = *cropRect;
+      v86 = *cropRect;
       *buf = 138412290;
-      v79 = v71;
-      _os_log_impl(&dword_1C5355000, v70, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage created fullScreenCropRect %@", buf, 0xCu);
+      v94 = v86;
+      _os_log_impl(&dword_1C5355000, v85, OS_LOG_TYPE_DEFAULT, "AAUIUpdateMyPhotoRequest _fullScreen2ImageFromImage created fullScreenCropRect %@", buf, 0xCu);
     }
   }
 
-  return v66;
+  return v79;
 }
 
 @end

@@ -52,41 +52,39 @@
 
 - (id)jsonRepresentation
 {
-  v25[5] = *MEMORY[0x277D85DE8];
-  v24[0] = @"confidence";
+  v24[5] = *MEMORY[0x277D85DE8];
+  v23[0] = @"confidence";
   v3 = MEMORY[0x277CEB600];
   v4 = MEMORY[0x277CCABB0];
   [(ATXPBUnifiedInferredActivitySession *)self confidence];
-  v23 = [v4 numberWithDouble:?];
-  v5 = [v3 wrapObject:v23];
-  v25[0] = v5;
-  v24[1] = @"inferredActivity";
+  v22 = [v4 numberWithDouble:?];
+  v5 = [v3 wrapObject:v22];
+  v24[0] = v5;
+  v23[1] = @"inferredActivity";
   v6 = MEMORY[0x277CEB600];
   v7 = [MEMORY[0x277CCABB0] numberWithLongLong:{-[ATXPBUnifiedInferredActivitySession inferredActivity](self, "inferredActivity")}];
   v8 = [v6 wrapObject:v7];
-  v25[1] = v8;
-  v24[2] = @"startTime";
+  v24[1] = v8;
+  v23[2] = @"startTime";
   v9 = MEMORY[0x277CEB600];
   v10 = MEMORY[0x277CCABB0];
   [(ATXPBUnifiedInferredActivitySession *)self startTime];
   v11 = [v10 numberWithDouble:?];
   v12 = [v9 wrapObject:v11];
-  v25[2] = v12;
-  v24[3] = @"endTime";
+  v24[2] = v12;
+  v23[3] = @"endTime";
   v13 = MEMORY[0x277CEB600];
   v14 = MEMORY[0x277CCABB0];
   [(ATXPBUnifiedInferredActivitySession *)self endTime];
   v15 = [v14 numberWithDouble:?];
   v16 = [v13 wrapObject:v15];
-  v25[3] = v16;
-  v24[4] = @"source";
+  v24[3] = v16;
+  v23[4] = @"source";
   v17 = MEMORY[0x277CEB600];
   source = [(ATXPBUnifiedInferredActivitySession *)self source];
   v19 = [v17 wrapObject:source];
-  v25[4] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:5];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v24[4] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:5];
 
   return v20;
 }
@@ -207,7 +205,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    startTime = self->_startTime;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 2) == 0)
@@ -227,12 +224,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  endTime = self->_endTime;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    inferredActivity = self->_inferredActivity;
     PBDataWriterWriteInt64Field();
   }
 
@@ -244,7 +239,6 @@ LABEL_5:
 
   if (*&self->_has)
   {
-    confidence = self->_confidence;
     PBDataWriterWriteDoubleField();
   }
 }
@@ -358,7 +352,6 @@ LABEL_5:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 48);
   if ((has & 8) != 0)
   {
     if ((*(equalCopy + 48) & 8) == 0 || self->_startTime != *(equalCopy + 4))
@@ -404,14 +397,14 @@ LABEL_5:
     if (![(NSString *)source isEqual:?])
     {
 LABEL_24:
-      v8 = 0;
+      v7 = 0;
       goto LABEL_25;
     }
 
     has = self->_has;
   }
 
-  v8 = (*(equalCopy + 48) & 1) == 0;
+  v7 = (*(equalCopy + 48) & 1) == 0;
   if (has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_confidence != *(equalCopy + 1))
@@ -419,12 +412,12 @@ LABEL_24:
       goto LABEL_24;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_25:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

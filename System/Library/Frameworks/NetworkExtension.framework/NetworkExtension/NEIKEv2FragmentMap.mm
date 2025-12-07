@@ -6,43 +6,41 @@
 
 - (BOOL)hasFragmentForNumber:(uint64_t)number
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (!number)
   {
-    goto LABEL_10;
+    return 0;
   }
 
   if (!a2)
   {
-    v7 = ne_log_obj();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v6 = ne_log_obj();
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
 LABEL_9:
 
-LABEL_10:
-      v4 = 0;
-      goto LABEL_5;
+      return 0;
     }
 
-    v9 = 136315138;
-    v10 = "[NEIKEv2FragmentMap hasFragmentForNumber:]";
-    v8 = "%s called with null (fragmentNumber >= 1)";
+    v8 = 136315138;
+    v9 = "[NEIKEv2FragmentMap hasFragmentForNumber:]";
+    v7 = "%s called with null (fragmentNumber >= 1)";
 LABEL_12:
-    _os_log_fault_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_FAULT, v8, &v9, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, v7, &v8, 0xCu);
     goto LABEL_9;
   }
 
   if (*(number + 10) < a2)
   {
-    v7 = ne_log_obj();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v6 = ne_log_obj();
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_9;
     }
 
-    v9 = 136315138;
-    v10 = "[NEIKEv2FragmentMap hasFragmentForNumber:]";
-    v8 = "%s called with null (fragmentNumber <= self.expectedCount)";
+    v8 = 136315138;
+    v9 = "[NEIKEv2FragmentMap hasFragmentForNumber:]";
+    v7 = "%s called with null (fragmentNumber <= self.expectedCount)";
     goto LABEL_12;
   }
 
@@ -50,8 +48,6 @@ LABEL_12:
   null = [MEMORY[0x1E695DFB0] null];
   v4 = v2 != null;
 
-LABEL_5:
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

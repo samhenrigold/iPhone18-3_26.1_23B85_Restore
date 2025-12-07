@@ -72,7 +72,7 @@
   stateCopy = state;
   v7 = a4;
   selfCopy = self;
-  v9 = sub_10000FA70();
+  v9 = sub_10000FA70(stateCopy, v7);
 
   return v9;
 }

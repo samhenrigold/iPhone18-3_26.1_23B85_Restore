@@ -27,6 +27,25 @@ void *GPUTools::SM::GL::operator<<(void *a1, int *a2)
   return a1;
 }
 
+void *GPUTools::SM::GL::operator<<(void *a1, _DWORD *a2)
+{
+  if (*a2)
+  {
+    v3 = "GL_TRUE";
+    v4 = 7;
+  }
+
+  else
+  {
+    v3 = "GL_FALSE";
+    v4 = 8;
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v3, v4);
+  return a1;
+}
+
+void *GPUTools::SM::GL::operator<<(void *a1, unsigned int *a2)
 {
   v3 = dy_string_from_enum(*a2);
   v4 = strlen(v3);
@@ -54,40 +73,22 @@ void *GPUTools::SM::GL::operator<<(void *a1, int *a2)
   return v2;
 }
 
-void *GPUTools::SM::GL::operator<<(void *a1, _DWORD *a2)
-{
-  if (*a2)
-  {
-    v3 = "GL_TRUE";
-    v4 = 7;
-  }
-
-  else
-  {
-    v3 = "GL_FALSE";
-    v4 = 8;
-  }
-
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v3, v4);
-  return a1;
-}
-
 void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(void *a1, uint64_t a2, uint64_t a3)
 {
   MEMORY[0x24C255670](v13, a1);
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -110,9 +111,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_24C0F303C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_24C0F303C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x24C255680](&a10);
+  MEMORY[0x24C255680](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -226,10 +227,10 @@ void *GPUTools::SM::GL::BindingPoint::BindingPoint(void *this)
   return this;
 }
 
-void sub_24C0F401C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_24C0F401C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  MEMORY[0x24C255700](v8, 0x10B0C40F47DA5FCLL);
+  va_start(va, a15);
+  MEMORY[0x24C255700](v15, 0x10B0C40F47DA5FCLL, a3, a4, a5, a6, a7, a8);
   std::unique_ptr<GPUTools::FD::Function>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
@@ -248,33 +249,33 @@ GPUTools::FD::Function *std::unique_ptr<GPUTools::FD::Function>::reset[abi:ne200
   return result;
 }
 
-uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(float *a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = *(a1 + 2);
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -282,44 +283,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void std::__throw_bad_array_new_length[abi:ne200100]()
@@ -328,7 +329,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -344,7 +345,7 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -352,7 +353,7 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -376,7 +377,7 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
     {
 LABEL_6:
 
-      std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -1308,9 +1309,9 @@ const char *dy_query_target_string_from_enum(int a1)
   }
 }
 
-void sub_24C0F7478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_24C0F7478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1325,7 +1326,7 @@ void sub_24C0F8780(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -1400,7 +1401,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int>>(uint64
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t DYGetGLGuestAppClient()
+uint64_t DYGetGLGuestAppClient(uint64_t a1, uint64_t a2)
 {
   result = _guestAppClientGL;
   if (!_guestAppClientGL)
@@ -1432,102 +1433,116 @@ uint64_t DYSetContextRemappingBlock(uint64_t a1)
 
 uint64_t init_interpose_api(void *a1)
 {
-  v1 = DYGetGLInterposeDylibPath();
-  v2 = dlopen(v1, 272);
-  if (!v2)
+  v2 = DYGetGLInterposeDylibPath();
+  v3 = dlopen(v2, 272);
+  if (!v3)
   {
     init_interpose_api();
 LABEL_20:
-    v5 = dy_abort();
-    return DYHarvestRenderbuffer(v5);
+    v6 = dy_abort("failed to symlink: %s", v1);
+    return DYHarvestRenderbuffer(v6, v7);
   }
 
-  v3 = v2;
-  g_interpose_api = dlsym(v2, "add_per_function_profiling_data");
+  v4 = v3;
+  v1 = "add_per_function_profiling_data";
+  g_interpose_api = dlsym(v3, "add_per_function_profiling_data");
   if (!g_interpose_api)
   {
     goto LABEL_20;
   }
 
-  g_interpose_api = dlsym(v3, "HarvestRenderbuffer");
+  v1 = "HarvestRenderbuffer";
+  g_interpose_api = dlsym(v4, "HarvestRenderbuffer");
   if (!g_interpose_api)
   {
     goto LABEL_20;
   }
 
-  g_interpose_api = dlsym(v3, "HarvestRenderbufferInfo");
+  v1 = "HarvestRenderbufferInfo";
+  g_interpose_api = dlsym(v4, "HarvestRenderbufferInfo");
   if (!g_interpose_api)
   {
     goto LABEL_20;
   }
 
-  g_interpose_api = dlsym(v3, "ReserveGLObjectsAPI");
+  v1 = "ReserveGLObjectsAPI";
+  g_interpose_api = dlsym(v4, "ReserveGLObjectsAPI");
   if (!g_interpose_api)
   {
     goto LABEL_20;
   }
 
-  g_interpose_api = dlsym(v3, "ReserveGLVAOsAPI");
+  v1 = "ReserveGLVAOsAPI";
+  g_interpose_api = dlsym(v4, "ReserveGLVAOsAPI");
   if (!g_interpose_api)
   {
     goto LABEL_20;
   }
 
-  g_interpose_api = dlsym(v3, "ReserveGLProgramAPI");
+  v1 = "ReserveGLProgramAPI";
+  g_interpose_api = dlsym(v4, "ReserveGLProgramAPI");
   if (!g_interpose_api)
   {
     goto LABEL_20;
   }
 
-  g_interpose_api = dlsym(v3, "ReserveGLShaderAPI");
+  v1 = "ReserveGLShaderAPI";
+  g_interpose_api = dlsym(v4, "ReserveGLShaderAPI");
   if (!g_interpose_api)
   {
     goto LABEL_20;
   }
 
-  g_interpose_api = dlsym(v3, "ReserveGLFenceSyncAPI");
+  v1 = "ReserveGLFenceSyncAPI";
+  g_interpose_api = dlsym(v4, "ReserveGLFenceSyncAPI");
   if (!g_interpose_api)
   {
     goto LABEL_20;
   }
 
-  g_interpose_api = dlsym(v3, "CreatePrivateGLProgram");
+  v1 = "CreatePrivateGLProgram";
+  g_interpose_api = dlsym(v4, "CreatePrivateGLProgram");
   if (!g_interpose_api)
   {
     goto LABEL_20;
   }
 
-  g_interpose_api = dlsym(v3, "CreatePrivateGLShader");
+  v1 = "CreatePrivateGLShader";
+  g_interpose_api = dlsym(v4, "CreatePrivateGLShader");
   if (!g_interpose_api)
   {
     goto LABEL_20;
   }
 
-  g_interpose_api = dlsym(v3, "CreatePrivateGLProgramPipeline");
+  v1 = "CreatePrivateGLProgramPipeline";
+  g_interpose_api = dlsym(v4, "CreatePrivateGLProgramPipeline");
   if (!g_interpose_api)
   {
     goto LABEL_20;
   }
 
-  g_interpose_api = dlsym(v3, "gDYContextRemappingBlock");
+  v1 = "gDYContextRemappingBlock";
+  g_interpose_api = dlsym(v4, "gDYContextRemappingBlock");
   if (!g_interpose_api)
   {
     goto LABEL_20;
   }
 
-  g_interpose_api = dlsym(v3, "gDYResourceUpdateCallbackBlock");
+  v1 = "gDYResourceUpdateCallbackBlock";
+  g_interpose_api = dlsym(v4, "gDYResourceUpdateCallbackBlock");
   if (!g_interpose_api)
   {
     goto LABEL_20;
   }
 
-  g_interpose_api = dlsym(v3, "gEncodeNameReservationSPI");
+  v1 = "gEncodeNameReservationSPI";
+  g_interpose_api = dlsym(v4, "gEncodeNameReservationSPI");
   if (!g_interpose_api)
   {
     goto LABEL_20;
   }
 
-  return dlclose(v3);
+  return dlclose(v4);
 }
 
 uint64_t DYHarvestRenderbuffer(uint64_t a1, uint64_t a2)
@@ -1566,14 +1581,15 @@ uint64_t DYAddPerFunctionProfilingData(uint64_t a1, uint64_t a2, uint64_t a3)
   return v6(a1, a2, a3);
 }
 
-void DYSetNameReservationEncoding(char a1)
+void DYSetNameReservationEncoding(uint64_t result)
 {
+  v1 = result;
   if (g_interpose_api_once != -1)
   {
     DYSetContextRemappingBlock_cold_1();
   }
 
-  *g_interpose_api = a1;
+  *g_interpose_api = v1;
 }
 
 uint64_t DYReserveGLVAOs(uint64_t a1, uint64_t a2, uint64_t a3)

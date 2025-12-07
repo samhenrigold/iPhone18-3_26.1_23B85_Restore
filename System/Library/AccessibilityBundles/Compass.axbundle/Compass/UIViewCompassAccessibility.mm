@@ -84,28 +84,28 @@
 {
   y = test.y;
   x = test.x;
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   eventCopy = event;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   _accessibilitySupplementaryFooterViews = [(UIViewCompassAccessibility *)self _accessibilitySupplementaryFooterViews];
-  v9 = [_accessibilitySupplementaryFooterViews countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [_accessibilitySupplementaryFooterViews countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(_accessibilitySupplementaryFooterViews);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         [(UIViewCompassAccessibility *)self convertPoint:v13 toView:x, y];
         if ([v13 pointInside:eventCopy withEvent:?])
         {
@@ -115,7 +115,7 @@
         }
       }
 
-      v10 = [_accessibilitySupplementaryFooterViews countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [_accessibilitySupplementaryFooterViews countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v10)
       {
         continue;
@@ -125,12 +125,10 @@
     }
   }
 
-  v17.receiver = self;
-  v17.super_class = UIViewCompassAccessibility;
-  v14 = [(UIViewCompassAccessibility *)&v17 _accessibilityHitTest:eventCopy withEvent:x, y];
+  v16.receiver = self;
+  v16.super_class = UIViewCompassAccessibility;
+  v14 = [(UIViewCompassAccessibility *)&v16 _accessibilityHitTest:eventCopy withEvent:x, y];
 LABEL_11:
-
-  v15 = *MEMORY[0x29EDCA608];
 
   return v14;
 }

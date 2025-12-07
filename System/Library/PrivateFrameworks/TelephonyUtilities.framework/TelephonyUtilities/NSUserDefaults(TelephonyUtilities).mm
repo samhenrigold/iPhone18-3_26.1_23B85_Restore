@@ -13,9 +13,9 @@
     +[NSUserDefaults(TelephonyUtilities) tu_defaults];
   }
 
-  v1 = tu_defaults_tu_defaults;
+  v2 = tu_defaults_tu_defaults;
 
-  return v1;
+  return v2;
 }
 
 + (id)sb_defaults
@@ -25,9 +25,9 @@
     +[NSUserDefaults(TelephonyUtilities) sb_defaults];
   }
 
-  v1 = sb_defaults_sb_defaults;
+  v2 = sb_defaults_sb_defaults;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)BOOLForKey:()TelephonyUtilities withDefault:

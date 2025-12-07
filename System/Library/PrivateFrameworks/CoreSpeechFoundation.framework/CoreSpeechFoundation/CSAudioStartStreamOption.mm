@@ -159,7 +159,7 @@
 
 - (void)adjustStartRecordingHostTime:(unint64_t)time
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E6958498] hostTimeForSeconds:10.0];
   if (v5 >= time)
   {
@@ -172,13 +172,13 @@
     v7 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315650;
-      v15 = "[CSAudioStartStreamOption(AVVC) adjustStartRecordingHostTime:]";
-      v16 = 2050;
+      v13 = 136315650;
+      v14 = "[CSAudioStartStreamOption(AVVC) adjustStartRecordingHostTime:]";
+      v15 = 2050;
       timeCopy2 = time;
-      v18 = 2050;
-      v19 = timeCopy;
-      _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s received hostTimeAdjustment of %{public}llu, instead using max of %{public}llu.", &v14, 0x20u);
+      v17 = 2050;
+      v18 = timeCopy;
+      _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s received hostTimeAdjustment of %{public}llu, instead using max of %{public}llu.", &v13, 0x20u);
     }
 
     v8 = +[CSDiagnosticReporter sharedInstance];
@@ -197,16 +197,14 @@
   {
     v11 = v10;
     startRecordingHostTime2 = [(CSAudioStartStreamOption *)self startRecordingHostTime];
-    v14 = 136315650;
-    v15 = "[CSAudioStartStreamOption(AVVC) adjustStartRecordingHostTime:]";
-    v16 = 2050;
+    v13 = 136315650;
+    v14 = "[CSAudioStartStreamOption(AVVC) adjustStartRecordingHostTime:]";
+    v15 = 2050;
     timeCopy2 = startRecordingHostTime;
-    v18 = 2050;
-    v19 = startRecordingHostTime2;
-    _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s Start Recording Host Time: adjustment %{public}llu -> %{public}llu", &v14, 0x20u);
+    v17 = 2050;
+    v18 = startRecordingHostTime2;
+    _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s Start Recording Host Time: adjustment %{public}llu -> %{public}llu", &v13, 0x20u);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)_alertBehaviorTypeFromAVVCOverrideType:(int64_t)type
@@ -282,17 +280,17 @@
 
 - (id)avvcStartRecordSettingsWithAudioStreamHandleId:(unint64_t)id
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = [objc_alloc(MEMORY[0x1E6958570]) initWithStreamID:id atStartHostTime:{-[CSAudioStartStreamOption startRecordingHostTime](self, "startRecordingHostTime")}];
   v5 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
-    v17 = 136315394;
-    v18 = "[CSAudioStartStreamOption(AVVC) avvcStartRecordSettingsWithAudioStreamHandleId:]";
-    v19 = 2050;
+    v16 = 136315394;
+    v17 = "[CSAudioStartStreamOption(AVVC) avvcStartRecordSettingsWithAudioStreamHandleId:]";
+    v18 = 2050;
     startRecordingHostTime = [(CSAudioStartStreamOption *)self startRecordingHostTime];
-    _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Start Recording Host Time = %{public}llu", &v17, 0x16u);
+    _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Start Recording Host Time = %{public}llu", &v16, 0x16u);
   }
 
   avvcAlertBehavior = [(CSAudioStartStreamOption *)self avvcAlertBehavior];
@@ -325,8 +323,6 @@
   }
 
   [v4 setSkipAlert:{-[CSAudioStartStreamOption skipAlertBehavior](self, "skipAlertBehavior")}];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -393,31 +389,31 @@
   keys[16] = "allowRecordWhileBeep";
   keys[17] = "disableRCSelection";
   keys[18] = "potentiallyNeedsCarPlayLatencyCorrection";
-  v9 = xpc_BOOL_create(self->_requestHistoricalAudioDataWithHostTime);
-  v10 = xpc_BOOL_create(self->_requestHistoricalAudioDataSampleCount);
-  v11 = xpc_uint64_create(self->_startRecordingHostTime);
-  v12 = xpc_uint64_create(self->_startRecordingSampleCount);
-  v13 = xpc_BOOL_create(self->_useOpportunisticZLL);
-  v14 = xpc_int64_create(self->_startAlertBehavior);
-  v15 = xpc_int64_create(self->_stopAlertBehavior);
-  v16 = xpc_int64_create(self->_errorAlertBehavior);
-  v17 = xpc_BOOL_create(self->_skipAlertBehavior);
-  v18 = xpc_BOOL_create(self->_requireSingleChannelLookup);
-  v19 = xpc_uint64_create(self->_selectedChannel);
-  v20 = xpc_uint64_create(self->_estimatedStartHostTime);
-  v21 = xpc_BOOL_create(self->_disableEndpointer);
-  v22 = xpc_BOOL_create(self->_disableLocalSpeechRecognizer);
-  v23 = xpc_BOOL_create(self->_disablePrewarmLocalAsrAtStartRecording);
-  v24 = xpc_BOOL_create(self->_disableBoostForDoAP);
-  v25 = xpc_BOOL_create(self->_allowRecordWhileBeep);
-  v26 = xpc_BOOL_create(self->_disableRCSelection);
-  v27 = xpc_BOOL_create(self->_potentiallyNeedsCarPlayLatencyCorrection);
-  v28 = xpc_BOOL_create(self->_enforceAutomaticEndpointing);
-  v3 = xpc_dictionary_create(keys, &v9, 0x13uLL);
+  v8 = xpc_BOOL_create(self->_requestHistoricalAudioDataWithHostTime);
+  v9 = xpc_BOOL_create(self->_requestHistoricalAudioDataSampleCount);
+  v10 = xpc_uint64_create(self->_startRecordingHostTime);
+  v11 = xpc_uint64_create(self->_startRecordingSampleCount);
+  v12 = xpc_BOOL_create(self->_useOpportunisticZLL);
+  v13 = xpc_int64_create(self->_startAlertBehavior);
+  v14 = xpc_int64_create(self->_stopAlertBehavior);
+  v15 = xpc_int64_create(self->_errorAlertBehavior);
+  v16 = xpc_BOOL_create(self->_skipAlertBehavior);
+  v17 = xpc_BOOL_create(self->_requireSingleChannelLookup);
+  v18 = xpc_uint64_create(self->_selectedChannel);
+  v19 = xpc_uint64_create(self->_estimatedStartHostTime);
+  v20 = xpc_BOOL_create(self->_disableEndpointer);
+  v21 = xpc_BOOL_create(self->_disableLocalSpeechRecognizer);
+  v22 = xpc_BOOL_create(self->_disablePrewarmLocalAsrAtStartRecording);
+  v23 = xpc_BOOL_create(self->_disableBoostForDoAP);
+  v24 = xpc_BOOL_create(self->_allowRecordWhileBeep);
+  v25 = xpc_BOOL_create(self->_disableRCSelection);
+  v26 = xpc_BOOL_create(self->_potentiallyNeedsCarPlayLatencyCorrection);
+  v27 = xpc_BOOL_create(self->_enforceAutomaticEndpointing);
+  v3 = xpc_dictionary_create(keys, &v8, 0x13uLL);
   requestMHUUID = self->_requestMHUUID;
   if (requestMHUUID)
   {
-    xpc_dictionary_set_string(v3, "requestMHUUID", [(NSString *)requestMHUUID UTF8String:v9]);
+    xpc_dictionary_set_string(v3, "requestMHUUID", [(NSString *)requestMHUUID UTF8String:v8]);
   }
 
   siriSessionUUID = self->_siriSessionUUID;
@@ -429,8 +425,6 @@
   for (i = 152; i != -8; i -= 8)
   {
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

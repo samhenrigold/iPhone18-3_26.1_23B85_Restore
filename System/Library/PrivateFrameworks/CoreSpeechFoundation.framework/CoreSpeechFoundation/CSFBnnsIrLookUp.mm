@@ -53,7 +53,7 @@
 
 + (id)readBnnsIrFromCacheMapWithMilFile:(id)file
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   fileCopy = file;
   if (fileCopy)
   {
@@ -66,13 +66,13 @@
     v7 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315650;
-      v11 = "+[CSFBnnsIrLookUp readBnnsIrFromCacheMapWithMilFile:]";
-      v12 = 2112;
-      v13 = v6;
-      v14 = 2112;
-      v15 = fileCopy;
-      _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s obtained bnnsir : %@ for milFile: %@", &v10, 0x20u);
+      v9 = 136315650;
+      v10 = "+[CSFBnnsIrLookUp readBnnsIrFromCacheMapWithMilFile:]";
+      v11 = 2112;
+      v12 = v6;
+      v13 = 2112;
+      v14 = fileCopy;
+      _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s obtained bnnsir : %@ for milFile: %@", &v9, 0x20u);
     }
   }
 
@@ -80,8 +80,6 @@
   {
     v6 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -117,9 +115,11 @@
 
 uint64_t __29__CSFBnnsIrLookUp_initialize__block_invoke()
 {
-  modelMilBnnsIrCacheMap = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v1 = modelMilBnnsIrCacheMap;
+  modelMilBnnsIrCacheMap = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

@@ -8,9 +8,30 @@
 + (void)getBookmarkForFirstEventAfterBookmark:(id)bookmark completionHandler:(id)handler;
 + (void)getReversalStateWithBookmark:(id)bookmark completionHandler:(id)handler;
 - (void)getStateWithCompletionHandler:(id)handler;
+- (void)setState:(BOOL)state completionHandler:(id)handler;
 @end
 
 @implementation WFSilentModeSettingsClient
+
+- (void)setState:(BOOL)state completionHandler:(id)handler
+{
+  stateCopy = state;
+  handlerCopy = handler;
+  if (+[WFSilentModeSettingsClient canRunIntent])
+  {
+    v7 = objc_alloc_init(MEMORY[0x1E69E0948]);
+    [v7 setSilentMode:stateCopy reason:@"Shortcuts settings client asked for it" client:2];
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WFSettingsClientErrorDomain" code:4 userInfo:0];
+    v7 = v6;
+  }
+
+  handlerCopy[2](handlerCopy, v6);
+}
 
 - (void)getStateWithCompletionHandler:(id)handler
 {
@@ -50,16 +71,15 @@ void __77__WFSilentModeSettingsClient_getReversalStateWithBookmark_completionHan
   {
     v3 = [a2 starting];
     v4 = *(a1 + 32);
-    v7 = [MEMORY[0x1E696AD98] numberWithBool:v3];
-    (*(v4 + 16))(v4, v7, 0);
+    v6 = [MEMORY[0x1E696AD98] numberWithBool:v3];
+    (*(v4 + 16))(v4, v6, 0);
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 }
 

@@ -21,29 +21,29 @@
   x = test.x;
   if (objc_msgSend_vfxView(self, a2, event, window))
   {
-    v12 = objc_msgSend_layer(self, v9, v10, v11);
-    objc_msgSend_convertPoint_toLayer_(v12, v13, 0, v14, x, y);
-    v37 = 0;
-    objc_msgSend__warpPoint_outOfBounds_(self, v15, &v37, v16);
+    v11 = objc_msgSend_layer(self, v9, v10);
+    objc_msgSend_convertPoint_toLayer_(v11, v12, 0, x, y);
+    v29 = 0;
+    objc_msgSend__warpPoint_outOfBounds_(self, v13, &v29);
     result = 0;
-    if ((v37 & 1) == 0)
+    if ((v29 & 1) == 0)
     {
-      v36.receiver = self;
-      v36.super_class = _VFXSnapshotWindow;
-      for (i = [(_VFXSnapshotWindow *)&v36 hitTest:event withEvent:?]; i; i = objc_msgSend_superview(i, v32, v33, v34))
+      v28.receiver = self;
+      v28.super_class = _VFXSnapshotWindow;
+      for (i = [(_VFXSnapshotWindow *)&v28 hitTest:event withEvent:?]; i; i = objc_msgSend_superview(i, v25, v26))
       {
-        v22 = objc_msgSend_gestureRecognizers(i, v18, v19, v20);
-        if (objc_msgSend_count(v22, v23, v24, v25))
+        v18 = objc_msgSend_gestureRecognizers(i, v15, v16);
+        if (objc_msgSend_count(v18, v19, v20))
         {
           break;
         }
 
-        if (objc_msgSend_isMultipleTouchEnabled(i, v26, v27, v28))
+        if (objc_msgSend_isMultipleTouchEnabled(i, v21, v22))
         {
           break;
         }
 
-        if (objc_msgSend_canBecomeFirstResponder(i, v29, v30, v31))
+        if (objc_msgSend_canBecomeFirstResponder(i, v23, v24))
         {
           break;
         }
@@ -69,9 +69,9 @@
 
   else
   {
-    v35.receiver = self;
-    v35.super_class = _VFXSnapshotWindow;
-    return [(_VFXSnapshotWindow *)&v35 hitTest:event withEvent:x, y];
+    v27.receiver = self;
+    v27.super_class = _VFXSnapshotWindow;
+    return [(_VFXSnapshotWindow *)&v27 hitTest:event withEvent:x, y];
   }
 
   return result;
@@ -81,36 +81,36 @@
 {
   y = point.y;
   x = point.x;
-  v9 = objc_msgSend_vfxView(self, a2, bounds, v4);
-  if (v9)
+  v8 = objc_msgSend_vfxView(self, a2, bounds);
+  if (v8)
   {
-    v12 = v9;
-    objc_msgSend_convertPoint_fromView_(v9, v10, 0, v11, x, y);
-    v15 = objc_msgSend_hitTest_options_(v12, v13, 0, v14);
-    if (objc_msgSend_count(v15, v16, v17, v18) && ((v21 = objc_msgSend_objectAtIndexedSubscript_(v15, v19, 0, v20), v25 = objc_msgSend_node(v21, v22, v23, v24), v29 = objc_msgSend_model(v25, v26, v27, v28), v33 = objc_msgSend_materials(v29, v30, v31, v32), !objc_msgSend_count(v33, v34, v35, v36)) ? (v55 = 0) : (v40 = objc_msgSend_materials(v29, v37, v38, v39), v44 = objc_msgSend_meshElementIndex(v21, v41, v42, v43), v48 = objc_msgSend_materials(v29, v45, v46, v47), v52 = objc_msgSend_count(v48, v49, v50, v51), v55 = objc_msgSend_objectAtIndexedSubscript_(v40, v53, v44 % v52, v54)), (v56 = objc_msgSend_subviews(self, v37, v38, v39), objc_msgSend_count(v56, v57, v58, v59)) && (v63 = objc_msgSend_diffuse(v55, v60, v61, v62), v67 = objc_msgSend_contents(v63, v64, v65, v66), v71 = objc_msgSend_subviews(self, v68, v69, v70), v67 == objc_msgSend_objectAtIndexedSubscript_(v71, v72, 0, v73))))
+    v10 = v8;
+    objc_msgSend_convertPoint_fromView_(v8, v9, 0, x, y);
+    v12 = objc_msgSend_hitTest_options_(v10, v11, 0);
+    if (objc_msgSend_count(v12, v13, v14) && ((v16 = objc_msgSend_objectAtIndexedSubscript_(v12, v15, 0), v19 = objc_msgSend_node(v16, v17, v18), v22 = objc_msgSend_model(v19, v20, v21), v25 = objc_msgSend_materials(v22, v23, v24), !objc_msgSend_count(v25, v26, v27)) ? (v41 = 0) : (v30 = objc_msgSend_materials(v22, v28, v29), v33 = objc_msgSend_meshElementIndex(v16, v31, v32), v36 = objc_msgSend_materials(v22, v34, v35), v39 = objc_msgSend_count(v36, v37, v38), v41 = objc_msgSend_objectAtIndexedSubscript_(v30, v40, v33 % v39)), (v42 = objc_msgSend_subviews(self, v28, v29), objc_msgSend_count(v42, v43, v44)) && (v47 = objc_msgSend_diffuse(v41, v45, v46), v50 = objc_msgSend_contents(v47, v48, v49), v53 = objc_msgSend_subviews(self, v51, v52), v50 == objc_msgSend_objectAtIndexedSubscript_(v53, v54, 0))))
     {
-      objc_msgSend_textureCoordinatesWithMappingChannel_(v21, v74, 0, v75);
-      v77 = v76;
-      v79 = v78;
-      v83 = objc_msgSend_diffuse(v55, v80, v81, v82);
-      objc_msgSend_contentsTransform(v83, v84, v85, v86);
-      v104 = v87;
-      v105 = v88;
-      v106 = v90;
-      v107 = v89;
-      if (!VFXMatrix4IsIdentity(v87, v88, v89, v90))
+      objc_msgSend_textureCoordinatesWithMappingChannel_(v16, v55, 0);
+      v57 = v56;
+      v59 = v58;
+      v62 = objc_msgSend_diffuse(v41, v60, v61);
+      objc_msgSend_contentsTransform(v62, v63, v64);
+      v80 = v65;
+      v81 = v66;
+      v82 = v68;
+      v83 = v67;
+      if (!VFXMatrix4IsIdentity(v65, v66, v67, v68))
       {
-        v94 = v77;
-        v95 = v79;
-        v96 = vaddq_f32(v106, vmlaq_f32(vmlaq_n_f32(vmulq_n_f32(v104, v94), v105, v95), 0, v107)).u64[0];
-        v77 = *&v96;
-        v79 = *(&v96 + 1);
+        v71 = v57;
+        v72 = v59;
+        v73 = vaddq_f32(v82, vmlaq_f32(vmlaq_n_f32(vmulq_n_f32(v80, v71), v81, v72), 0, v83)).u64[0];
+        v57 = *&v73;
+        v59 = *(&v73 + 1);
       }
 
-      objc_msgSend_bounds(self, v91, v92, v93, *&v104, *&v105, *&v106, *&v107);
-      x = v77 * v97;
-      objc_msgSend_bounds(self, v98, v99, v100);
-      y = v79 * v101;
+      objc_msgSend_bounds(self, v69, v70, *&v80, *&v81, *&v82, *&v83);
+      x = v57 * v74;
+      objc_msgSend_bounds(self, v75, v76);
+      y = v59 * v77;
     }
 
     else if (bounds)
@@ -119,10 +119,10 @@
     }
   }
 
-  v102 = x;
-  v103 = y;
-  result.y = v103;
-  result.x = v102;
+  v78 = x;
+  v79 = y;
+  result.y = v79;
+  result.x = v78;
   return result;
 }
 
@@ -130,12 +130,12 @@
 {
   y = point.y;
   x = point.x;
-  v8 = objc_msgSend_layer(self, a2, v3, v4);
-  objc_msgSend_convertPoint_toLayer_(v8, v9, 0, v10, x, y);
+  v7 = objc_msgSend_layer(self, a2, v3);
+  objc_msgSend_convertPoint_toLayer_(v7, v8, 0, x, y);
 
-  objc_msgSend__warpPoint_outOfBounds_(self, v11, 0, v12);
-  result.y = v14;
-  result.x = v13;
+  objc_msgSend__warpPoint_outOfBounds_(self, v9, 0);
+  result.y = v11;
+  result.x = v10;
   return result;
 }
 

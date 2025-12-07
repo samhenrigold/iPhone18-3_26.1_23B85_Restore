@@ -12,19 +12,19 @@
 
 - (WLDetailViewController)initWithContext:(id)context
 {
-  v39[4] = *MEMORY[0x277D85DE8];
+  v38[4] = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v38.receiver = self;
-  v38.super_class = WLDetailViewController;
-  v5 = [(WLDetailViewController *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = WLDetailViewController;
+  v5 = [(WLDetailViewController *)&v37 init];
   if (v5)
   {
-    v37 = 0;
-    v6 = [WLDetailItem items:contextCopy size:&v37];
+    v36 = 0;
+    v6 = [WLDetailItem items:contextCopy size:&v36];
     data = v5->_data;
     v5->_data = v6;
 
-    v36 = contextCopy;
+    v35 = contextCopy;
     if ([(NSArray *)v5->_data count])
     {
       v8 = [(NSArray *)v5->_data objectAtIndexedSubscript:0];
@@ -36,8 +36,8 @@
       v5->_isNothingImported = 0;
     }
 
-    v35 = objc_alloc_init(MEMORY[0x277CCA8E8]);
-    v9 = [v35 stringFromByteCount:v37];
+    v34 = objc_alloc_init(MEMORY[0x277CCA8E8]);
+    v9 = [v34 stringFromByteCount:v36];
     size = v5->_size;
     v5->_size = v9;
 
@@ -53,34 +53,33 @@
     view = [(WLDetailViewController *)v5 view];
     [view addSubview:v12];
 
-    v27 = MEMORY[0x277CCAAD0];
+    v26 = MEMORY[0x277CCAAD0];
     topAnchor = [v12 topAnchor];
     view2 = [(WLDetailViewController *)v5 view];
     topAnchor2 = [view2 topAnchor];
-    v31 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v39[0] = v31;
+    v30 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v38[0] = v30;
     leftAnchor = [v12 leftAnchor];
     view3 = [(WLDetailViewController *)v5 view];
     leftAnchor2 = [view3 leftAnchor];
-    v26 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-    v39[1] = v26;
+    v25 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+    v38[1] = v25;
     rightAnchor = [v12 rightAnchor];
     view4 = [(WLDetailViewController *)v5 view];
     rightAnchor2 = [view4 rightAnchor];
     v17 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-    v39[2] = v17;
+    v38[2] = v17;
     bottomAnchor = [v12 bottomAnchor];
     view5 = [(WLDetailViewController *)v5 view];
     bottomAnchor2 = [view5 bottomAnchor];
     v21 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v39[3] = v21;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:4];
-    [v27 activateConstraints:v22];
+    v38[3] = v21;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:4];
+    [v26 activateConstraints:v22];
 
-    contextCopy = v36;
+    contextCopy = v35;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -101,7 +100,7 @@
 
 - (void)setCustomNavigationTitleView
 {
-  v47[4] = *MEMORY[0x277D85DE8];
+  v46[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D75D18]);
   clearColor = [MEMORY[0x277D75348] clearColor];
   [v3 setBackgroundColor:clearColor];
@@ -137,51 +136,49 @@
   [v10 setText:self->_size];
   [v10 setTranslatesAutoresizingMaskIntoConstraints:0];
   [v3 addSubview:v10];
-  v32 = MEMORY[0x277CCAAD0];
+  v31 = MEMORY[0x277CCAAD0];
   topAnchor = [v5 topAnchor];
   topAnchor2 = [v3 topAnchor];
-  v38 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v47[0] = v38;
+  v37 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v46[0] = v37;
   leftAnchor = [v5 leftAnchor];
-  v45 = v3;
+  v44 = v3;
   leftAnchor2 = [v3 leftAnchor];
   v14 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v47[1] = v14;
+  v46[1] = v14;
   rightAnchor = [v5 rightAnchor];
   rightAnchor2 = [v3 rightAnchor];
   v17 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v47[2] = v17;
+  v46[2] = v17;
   bottomAnchor = [v5 bottomAnchor];
   topAnchor3 = [v10 topAnchor];
   v20 = [bottomAnchor constraintEqualToAnchor:topAnchor3];
-  v47[3] = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:4];
-  [v32 activateConstraints:v21];
+  v46[3] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:4];
+  [v31 activateConstraints:v21];
 
-  v33 = MEMORY[0x277CCAAD0];
+  v32 = MEMORY[0x277CCAAD0];
   topAnchor4 = [v10 topAnchor];
   bottomAnchor2 = [v5 bottomAnchor];
-  v39 = [topAnchor4 constraintEqualToAnchor:bottomAnchor2];
-  v46[0] = v39;
+  v38 = [topAnchor4 constraintEqualToAnchor:bottomAnchor2];
+  v45[0] = v38;
   leftAnchor3 = [v10 leftAnchor];
-  leftAnchor4 = [v45 leftAnchor];
+  leftAnchor4 = [v44 leftAnchor];
   v22 = [leftAnchor3 constraintEqualToAnchor:leftAnchor4];
-  v46[1] = v22;
+  v45[1] = v22;
   rightAnchor3 = [v10 rightAnchor];
-  rightAnchor4 = [v45 rightAnchor];
+  rightAnchor4 = [v44 rightAnchor];
   v25 = [rightAnchor3 constraintEqualToAnchor:rightAnchor4];
-  v46[2] = v25;
+  v45[2] = v25;
   bottomAnchor3 = [v10 bottomAnchor];
-  bottomAnchor4 = [v45 bottomAnchor];
+  bottomAnchor4 = [v44 bottomAnchor];
   v28 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-  v46[3] = v28;
-  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:4];
-  [v33 activateConstraints:v29];
+  v45[3] = v28;
+  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:4];
+  [v32 activateConstraints:v29];
 
   navigationItem = [(WLDetailViewController *)selfCopy navigationItem];
-  [navigationItem setTitleView:v45];
-
-  v31 = *MEMORY[0x277D85DE8];
+  [navigationItem setTitleView:v44];
 }
 
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section

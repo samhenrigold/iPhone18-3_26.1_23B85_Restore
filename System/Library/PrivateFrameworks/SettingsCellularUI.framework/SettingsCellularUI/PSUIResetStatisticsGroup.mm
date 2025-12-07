@@ -96,11 +96,10 @@
 
 - (id)specifiers
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v5 = *&self->_groupSpecifier;
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = *&self->_groupSpecifier;
   resetButtonSpecifier = self->_resetButtonSpecifier;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v4 count:3];
 
   return v2;
 }
@@ -222,18 +221,17 @@ void __54__PSUIResetStatisticsGroup_setStatsEnabled_specifier___block_invoke(uin
   getLogger2 = [(PSUIResetStatisticsGroup *)self getLogger];
   if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEFAULT, "Clearing data usage", v9, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEFAULT, "Clearing data usage", v8, 2u);
   }
 
   [(PSUICoreTelephonyDataCache *)self->_dataCache eraseCellularDataUsageRecords];
-  v6 = *MEMORY[0x277CBECE8];
-  v7 = WiFiManagerClientCreate();
-  if (v7)
+  v6 = WiFiManagerClientCreate();
+  if (v6)
   {
-    v8 = v7;
+    v7 = v6;
     WiFiManagerClientSetProperty();
-    CFRelease(v8);
+    CFRelease(v7);
   }
 
   [(PSUIResetStatisticsGroup *)self _updateFooterText];

@@ -11,7 +11,7 @@
   v10 = a4;
   v11 = a5;
   v12 = a6;
-  if ([v9 count] == 1)
+  if (objc_msgSend_count(v9) == 1)
   {
     firstObject = [v9 firstObject];
     goto LABEL_26;

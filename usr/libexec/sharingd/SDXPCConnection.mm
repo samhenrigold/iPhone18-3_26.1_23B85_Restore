@@ -33,6 +33,7 @@
 - (void)deviceDiscoveryFastScanCancel:(id)cancel;
 - (void)deviceDiscoveryFastScanTrigger:(id)trigger;
 - (void)deviceDiscoveryTriggerEnhancedDiscovery:(id)discovery;
+- (void)deviceDiscoveryTriggerEnhancedDiscovery:(id)discovery useCase:(unsigned int)case completion:(id)completion;
 - (void)deviceDiscoveryUpdate:(id)update;
 - (void)diagnosticBLEModeWithCompletion:(id)completion;
 - (void)diagnosticControl:(id)control completion:(id)completion;
@@ -60,27 +61,31 @@
 - (void)preventExitForLocaleReason:(id)reason;
 - (void)proximityClientActivate:(id)activate completion:(id)completion;
 - (void)proximityClientDismissContentForDevice:(id)device completion:(id)completion;
+- (void)proximityClientProvideContent:(id)content forDevice:(id)device force:(BOOL)force completion:(id)completion;
 - (void)proximityClientRequestScannerTimerReset;
 - (void)proximityClientStopSuppressingDevice:(id)device completion:(id)completion;
 - (void)proximityClientSuppressDevice:(id)device completion:(id)completion;
 - (void)proximityClientUpdate:(id)update;
 - (void)proximityClientUpdateContent:(id)content forDevice:(id)device completion:(id)completion;
-- (void)reenableProxCardType:(unsigned __int8)type completion:(id)completion;
 - (void)remoteInteractionSessionActivate:(id)activate completion:(id)completion;
 - (void)remoteInteractionSessionSendPayload:(id)payload;
+- (void)repairDevice:(id)device flags:(unsigned int)flags completion:(id)completion;
 - (void)requestWithInfo:(id)info completion:(id)completion;
 - (void)retriggerProximityPairing:(id)pairing;
 - (void)retriggerProximitySetup:(id)setup;
 - (void)serviceActivate:(id)activate completion:(id)completion;
 - (void)servicePeerDisconnected:(id)disconnected error:(id)error;
 - (void)serviceSendEvent:(id)event;
+- (void)serviceSendFrameType:(unsigned __int8)type data:(id)data peer:(id)peer;
 - (void)serviceSendRequest:(id)request;
 - (void)serviceSendResponse:(id)response;
 - (void)serviceUpdate:(id)update;
 - (void)sessionActivate:(id)activate completion:(id)completion;
 - (void)sessionSendEvent:(id)event;
+- (void)sessionSendFrameType:(unsigned __int8)type data:(id)data;
 - (void)sessionSendRequest:(id)request;
 - (void)sessionSendResponse:(id)response;
+- (void)setAudioRoutingScore:(int)score completion:(id)completion;
 - (void)setupDevice:(id)device homeIdentifier:(id)identifier completion:(id)completion;
 - (void)shareAudioSessionActivate:(id)activate completion:(id)completion;
 - (void)shareAudioUserConfirmed;
@@ -99,35 +104,32 @@
 
 - (void)_invalidateAssertions
 {
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
   v3 = self->_assertions;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v14;
     do
     {
       v7 = 0;
       do
       {
-        if (*v17 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * v7);
-        v9 = [(NSCountedSet *)self->_server->_assertions countForObject:v8, v13, v14, v15];
+        v8 = *(*(&v13 + 1) + 8 * v7);
+        v9 = [(NSCountedSet *)self->_server->_assertions countForObject:v8];
         [(NSCountedSet *)self->_server->_assertions removeObject:v8];
         if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
         {
-          v14 = v9;
-          v15 = v9 - 1;
-          v13 = v8;
-          LogPrintF();
+          LogPrintF(&dword_100971A10, "[SDXPCConnection _invalidateAssertions]", 30, "Invalidate assertion '%@': %ld -> %ld\n", v8, v9, v9 - 1);
         }
 
         if (v9 == 1)
@@ -158,7 +160,7 @@
               [v11 setPreventNearbyActionAdvertising:0];
 
 LABEL_15:
-              v10 = [SDNearbyAgent sharedNearbyAgent:v13];
+              v10 = +[SDNearbyAgent sharedNearbyAgent];
               [v10 update];
 LABEL_16:
 
@@ -186,7 +188,7 @@ LABEL_16:
 
               if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
               {
-                sub_100192E80();
+                sub_100192E80(v8);
               }
             }
           }
@@ -197,7 +199,7 @@ LABEL_19:
       }
 
       while (v5 != v7);
-      v12 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v12 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
       v5 = v12;
     }
 
@@ -344,7 +346,7 @@ LABEL_19:
   {
     if (dword_100971A10 <= 60 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
     {
-      sub_100192A84(self);
+      sub_100192A84(self, _entitledCopy, labelCopy);
     }
 
     v11 = -6768;
@@ -377,7 +379,7 @@ LABEL_19:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_100192BA8();
+    sub_100192BA8(nCopy);
   }
 
   afsHelper = self->_afsHelper;
@@ -394,7 +396,7 @@ LABEL_19:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_100192C70();
+    sub_100192C70(activateCopy);
   }
 
   afsHelper = self->_afsHelper;
@@ -411,7 +413,7 @@ LABEL_19:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_100192D38();
+    sub_100192D38(dismissCopy);
   }
 
   afsHelper = self->_afsHelper;
@@ -443,7 +445,7 @@ LABEL_25:
     {
       if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
       {
-        sub_100192E40();
+        sub_100192E40(v6);
       }
 
       goto LABEL_25;
@@ -475,10 +477,7 @@ LABEL_25:
     [(NSCountedSet *)v11 addObject:v6];
     if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
     {
-      v18 = v10;
-      v19 = v10 + 1;
-      v17 = v6;
-      LogPrintF();
+      LogPrintF(&dword_100971A10, "[SDXPCConnection activateAssertionWithIdentifier:]", 30, "Activate assertion '%@': %ld -> %ld\n", v6, v10, v10 + 1);
     }
 
     if (v10)
@@ -524,7 +523,7 @@ LABEL_25:
         {
           if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
           {
-            sub_100192E00();
+            sub_100192E00(v6);
           }
 
           goto LABEL_25;
@@ -539,7 +538,7 @@ LABEL_25:
       [v16 setPreventNearbyActionAdvertising:1];
     }
 
-    v15 = [SDNearbyAgent sharedNearbyAgent:v17];
+    v15 = +[SDNearbyAgent sharedNearbyAgent];
     [v15 update];
 LABEL_22:
 
@@ -585,33 +584,32 @@ LABEL_26:
       {
         v8 = 0;
         v10 = 0;
-        goto LABEL_20;
       }
 
-      if (dword_100971A10 == -1)
+      else if (dword_100971A10 == -1)
       {
         v8 = 0;
         if (!_LogCategory_Initialize())
         {
           v6 = -6727;
           v10 = 0;
-          goto LABEL_21;
+          goto LABEL_22;
         }
 
         v10 = 0;
+        LogPrintF(&dword_100971A10, "[SDXPCConnection appleIDInfoWithCompletion:]", 60, "### No appleID?\n");
       }
 
       else
       {
         v8 = 0;
         v10 = 0;
+        LogPrintF(&dword_100971A10, "[SDXPCConnection appleIDInfoWithCompletion:]", 60, "### No appleID?\n");
       }
 
-LABEL_15:
-      LogPrintF();
-LABEL_20:
+LABEL_21:
       v6 = -6727;
-      goto LABEL_21;
+      goto LABEL_22;
     }
 
     v8 = myAppleID;
@@ -631,18 +629,18 @@ LABEL_20:
         goto LABEL_7;
       }
 
-      if (dword_100971A10 > 60 || dword_100971A10 == -1 && !_LogCategory_Initialize())
+      if (dword_100971A10 <= 60 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_20;
+        LogPrintF(&dword_100971A10, "[SDXPCConnection appleIDInfoWithCompletion:]", 60, "### No record data?\n");
       }
 
-      goto LABEL_15;
+      goto LABEL_21;
     }
 
     v6 = -6762;
   }
 
-LABEL_21:
+LABEL_22:
   if (completionCopy)
   {
     v13 = v6;
@@ -869,10 +867,11 @@ LABEL_5:
   contactCopy = contact;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
-  if ([(SDXPCConnection *)self _entitled:@"com.apple.sharing.Client" state:&self->_entitledClient label:@"FindContact"])
+  v10 = [(SDXPCConnection *)self _entitled:@"com.apple.sharing.Client" state:&self->_entitledClient label:@"FindContact"];
+  if (v10)
   {
-    v10 = NSErrorWithOSStatusF();
-    completionCopy[2](completionCopy, 0, v10);
+    v11 = NSErrorWithOSStatusF(v10, "Missing entitlement");
+    completionCopy[2](completionCopy, 0, v11);
   }
 
   else
@@ -880,10 +879,10 @@ LABEL_5:
     contactsQueue = self->_server->_contactsQueue;
     if (!contactsQueue)
     {
-      v12 = dispatch_queue_create("SharingFindContact", 0);
+      v13 = dispatch_queue_create("SharingFindContact", 0);
       server = self->_server;
-      v14 = server->_contactsQueue;
-      server->_contactsQueue = v12;
+      v15 = server->_contactsQueue;
+      server->_contactsQueue = v13;
 
       contactsQueue = self->_server->_contactsQueue;
     }
@@ -892,9 +891,9 @@ LABEL_5:
     block[1] = 3221225472;
     block[2] = sub_100187834;
     block[3] = &unk_1008D21C8;
-    v16 = contactCopy;
+    v17 = contactCopy;
     blockedCopy = blocked;
-    v17 = completionCopy;
+    v18 = completionCopy;
     dispatch_async(contactsQueue, block);
   }
 }
@@ -902,76 +901,82 @@ LABEL_5:
 - (void)getDeviceAssets:(id)assets completion:(id)completion
 {
   assetsCopy = assets;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = sub_100188434;
-  v36 = sub_100188444;
-  v37 = 0;
-  v29[0] = _NSConcreteStackBlock;
-  v29[1] = 3221225472;
-  v29[2] = sub_10018844C;
-  v29[3] = &unk_1008D21F0;
-  v31 = &v32;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = sub_100188434;
+  v33 = sub_100188444;
+  v34 = 0;
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_10018844C;
+  v26[3] = &unk_1008D21F0;
+  v28 = &v29;
   completionCopy = completion;
-  v30 = completionCopy;
-  v8 = objc_retainBlock(v29);
+  v27 = completionCopy;
+  v8 = objc_retainBlock(v26);
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
-  if (-[SDXPCConnection _entitled:state:label:](self, "_entitled:state:label:", @"com.apple.sharing.Session", &self->_entitledClient, @"GetDeviceAssets") || (v9 = arc4random(), v10 = [assetsCopy bluetoothProductID], !v10))
+  if ([(SDXPCConnection *)self _entitled:@"com.apple.sharing.Session" state:&self->_entitledClient label:@"GetDeviceAssets"])
   {
-    v12 = NSErrorF();
-    v13 = v33[5];
-    v33[5] = v12;
+    v12 = NSErrorF(NSOSStatusErrorDomain, 4294896128, "Missing entitlement: '%@'", @"com.apple.sharing.Session");
+    goto LABEL_7;
+  }
+
+  v9 = arc4random();
+  bluetoothProductID = [assetsCopy bluetoothProductID];
+  if (!bluetoothProductID)
+  {
+    v12 = NSErrorF(NSOSStatusErrorDomain, 4294960591, "No productID");
+LABEL_7:
+    v13 = v30[5];
+    v30[5] = v12;
+
+    goto LABEL_12;
+  }
+
+  colorCode = [assetsCopy colorCode];
+  if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&dword_100971A10, "[SDXPCConnection getDeviceAssets:completion:]", 30, "GetDeviceAssets start: XID 0x%X, ProductID 0x%X, ColorCode %u\n", v9, bluetoothProductID, colorCode);
+  }
+
+  if (+[_TtC16DaemoniOSLibrary19SDProductKitWrapper isSupported])
+  {
+    [assetsCopy timeoutSeconds];
+    v15 = v14;
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_100188518;
+    v23[3] = &unk_1008D2240;
+    v23[4] = self;
+    v25 = v9;
+    v24 = completionCopy;
+    [_TtC16DaemoniOSLibrary19SDProductKitWrapper fetchAssetBundleWithProductID:bluetoothProductID color:colorCode model:0 timeout:v23 completionHandler:v15];
   }
 
   else
   {
-    colorCode = [assetsCopy colorCode];
-    if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
-    {
-      v21 = v10;
-      v22 = colorCode;
-      v20 = v9;
-      LogPrintF();
-    }
-
-    if ([_TtC16DaemoniOSLibrary19SDProductKitWrapper isSupported:v20])
-    {
-      [assetsCopy timeoutSeconds];
-      v15 = v14;
-      v26[0] = _NSConcreteStackBlock;
-      v26[1] = 3221225472;
-      v26[2] = sub_100188518;
-      v26[3] = &unk_1008D2240;
-      v26[4] = self;
-      v28 = v9;
-      v27 = completionCopy;
-      [_TtC16DaemoniOSLibrary19SDProductKitWrapper fetchAssetBundleWithProductID:v10 color:colorCode model:0 timeout:v26 completionHandler:v15];
-    }
-
-    else
-    {
-      v16 = [[SFDeviceAssetQuery alloc] initWithBluetoothProductIdentifier:v10 color:colorCode];
-      v17 = objc_alloc_init(SFDeviceAssetManager);
-      [v17 setDispatchQueue:self->_server->_dispatchQueue];
-      v18 = [SFDeviceAssetRequestConfiguration alloc];
-      v23[0] = _NSConcreteStackBlock;
-      v23[1] = 3221225472;
-      v23[2] = sub_100188784;
-      v23[3] = &unk_1008D2268;
-      v25 = v9;
-      v24 = completionCopy;
-      v19 = [v18 initWithQueryResultHandler:v23];
-      [assetsCopy timeoutSeconds];
-      [v19 setTimeout:?];
-      [v17 activate];
-      [v17 getAssetBundleForDeviceQuery:v16 withRequestConfiguration:v19];
-    }
+    v16 = [[SFDeviceAssetQuery alloc] initWithBluetoothProductIdentifier:bluetoothProductID color:colorCode];
+    v17 = objc_alloc_init(SFDeviceAssetManager);
+    [v17 setDispatchQueue:self->_server->_dispatchQueue];
+    v18 = [SFDeviceAssetRequestConfiguration alloc];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100188784;
+    v20[3] = &unk_1008D2268;
+    v22 = v9;
+    v21 = completionCopy;
+    v19 = [v18 initWithQueryResultHandler:v20];
+    [assetsCopy timeoutSeconds];
+    [v19 setTimeout:?];
+    [v17 activate];
+    [v17 getAssetBundleForDeviceQuery:v16 withRequestConfiguration:v19];
   }
 
+LABEL_12:
   (v8[2])(v8);
 
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v29, 8);
 }
 
 - (void)getPeopleSuggestions:(id)suggestions completion:(id)completion
@@ -1021,14 +1026,14 @@ LABEL_5:
   v6 = [contactIDs count];
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_10019303C();
+    sub_10019303C(v6);
     if (v6)
     {
       goto LABEL_5;
     }
 
 LABEL_12:
-    v44 = 0;
+    v41 = 0;
     goto LABEL_13;
   }
 
@@ -1038,69 +1043,69 @@ LABEL_12:
   }
 
 LABEL_5:
-  v59[0] = CNContactEmailAddressesKey;
-  v59[1] = CNContactInstantMessageAddressesKey;
-  v59[2] = CNContactPhoneNumbersKey;
-  v7 = [NSArray arrayWithObjects:v59 count:3];
+  v56[0] = CNContactEmailAddressesKey;
+  v56[1] = CNContactInstantMessageAddressesKey;
+  v56[2] = CNContactPhoneNumbersKey;
+  v7 = [NSArray arrayWithObjects:v56 count:3];
   v8 = objc_alloc_init(CNContactStore);
   v9 = [CNContact predicateForContactsWithIdentifiers:contactIDs];
-  v56 = 0;
-  v10 = [v8 unifiedContactsMatchingPredicate:v9 keysToFetch:v7 error:&v56];
-  v11 = v56;
+  v53 = 0;
+  v10 = [v8 unifiedContactsMatchingPredicate:v9 keysToFetch:v7 error:&v53];
+  v11 = v53;
   v12 = v11;
-  v44 = v10;
+  v41 = v10;
   if ((!v10 || v11) && dword_100971A10 <= 90 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_10019307C();
+    sub_10019307C(v12);
   }
 
 LABEL_13:
-  v42 = objc_alloc_init(NSMutableArray);
+  v39 = objc_alloc_init(NSMutableArray);
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
-  v54 = 0u;
-  v55 = 0u;
   obj = contactIDs;
-  v45 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
-  if (v45)
+  v42 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
+  if (v42)
   {
-    LODWORD(v13) = 0;
-    v46 = 0;
+    v13 = 0;
+    v43 = 0;
     v14 = 0;
-    v43 = *v53;
-    v39 = v6;
-    v40 = 0;
+    v40 = *v50;
+    v36 = v6;
+    v37 = 0;
     do
     {
-      for (i = 0; i != v45; i = i + 1)
+      for (i = 0; i != v42; i = i + 1)
       {
-        v47 = v13;
-        if (*v53 != v43)
+        v44 = v13;
+        if (*v50 != v40)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v52 + 1) + 8 * i);
+        v16 = *(*(&v49 + 1) + 8 * i);
+        v45 = 0u;
+        v46 = 0u;
+        v47 = 0u;
         v48 = 0u;
-        v49 = 0u;
-        v50 = 0u;
-        v51 = 0u;
-        v17 = v44;
-        v18 = [v17 countByEnumeratingWithState:&v48 objects:v57 count:16];
+        v17 = v41;
+        v18 = [v17 countByEnumeratingWithState:&v45 objects:v54 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v49;
+          v20 = *v46;
 LABEL_20:
           v21 = 0;
           while (1)
           {
-            if (*v49 != v20)
+            if (*v46 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = *(*(&v48 + 1) + 8 * v21);
+            v22 = *(*(&v45 + 1) + 8 * v21);
             identifier = [v22 identifier];
             v24 = [identifier isEqual:v16];
 
@@ -1111,7 +1116,7 @@ LABEL_20:
 
             if (v19 == ++v21)
             {
-              v19 = [v17 countByEnumeratingWithState:&v48 objects:v57 count:16];
+              v19 = [v17 countByEnumeratingWithState:&v45 objects:v54 count:16];
               if (v19)
               {
                 goto LABEL_20;
@@ -1136,11 +1141,11 @@ LABEL_20:
             v28 = objc_alloc_init(SFPeopleSuggesterResult);
             [v28 setContactID:v16];
             [v28 setFlags:1];
-            [v42 addObject:v28];
-            ++v40;
+            [v39 addObject:v28];
+            ++v37;
           }
 
-          v29 = v47;
+          v29 = v44;
           emailAddresses = [v25 emailAddresses];
           v31 = &v14[[emailAddresses count]];
 
@@ -1156,36 +1161,38 @@ LABEL_31:
           v25 = objc_alloc_init(SFPeopleSuggesterResult);
           [v25 setContactID:v16];
           [v25 setFlags:2];
-          [v42 addObject:v25];
-          v29 = v47;
-          ++v46;
+          [v39 addObject:v25];
+          v29 = v44;
+          ++v43;
         }
 
-        v13 = (v29 + 1);
+        v13 = v29 + 1;
         if (__ROR8__(0x8F5C28F5C28F5C29 * v14, 2) <= 0x28F5C28F5C28F5CuLL && dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
         {
-          v36 = v40;
-          v37 = v46;
-          v34 = v39;
-          v35 = v14;
-          v33 = v13;
-          LogPrintF();
+          LogPrintF(&dword_100971A10, "[SDXPCConnection _getPeopleInfo:completion:]", 30, "GetPeopleInfo progress: %d of %d, handles %d, blocked %d, notFound %d\n", v13, v36, v14, v37, v43);
         }
       }
 
-      v45 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+      v42 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
     }
 
-    while (v45);
+    while (v42);
+    v33 = v37;
+    v34 = v43;
+  }
+
+  else
+  {
+    v33 = 0;
+    v34 = 0;
   }
 
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    [obj count];
-    LogPrintF();
+    LogPrintF(&dword_100971A10, "-[SDXPCConnection _getPeopleInfo:completion:]", 30, "GetPeopleInfo: requested %d, blocked %d, not found %d\n", [obj count], v33, v34);
   }
 
-  completionCopy[2](completionCopy, v42, 0);
+  completionCopy[2](completionCopy, v39, 0);
 }
 
 - (void)_getPeopleSuggestions:(id)suggestions completion:(id)completion
@@ -1292,7 +1299,7 @@ LABEL_23:
 
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001930BC(obj, v11);
+    sub_1001930BC(obj, v11, maxPeople);
   }
 
   if ([v11 count])
@@ -1337,7 +1344,7 @@ LABEL_23:
   v6 = +[_CDInteractionStore defaultDatabaseDirectory];
   v7 = [_CDInteractionStore storeWithDirectory:v6 readOnly:1];
 
-  v68 = objc_alloc_init(NSMutableArray);
+  v65 = objc_alloc_init(NSMutableArray);
   v8 = objc_alloc_init(NSMutableArray);
   v9 = [NSPredicate predicateWithFormat:@"direction == %i", 1];
   v10 = [NSPredicate predicateWithFormat:@"sender.personId != nil"];
@@ -1346,67 +1353,67 @@ LABEL_23:
   v13 = [v12 dateByAddingTimeInterval:28800.0];
   v14 = [NSPredicate predicateWithFormat:@"endDate < %@", v13];
 
-  v62 = v9;
+  v59 = v9;
   [v8 addObject:v9];
-  v61 = v10;
+  v58 = v10;
   [v8 addObject:v10];
-  v60 = suggestionCopy;
+  v57 = suggestionCopy;
   [v8 addObject:suggestionCopy];
-  v59 = v14;
+  v56 = v14;
   [v8 addObject:v14];
-  v63 = v8;
+  v60 = v8;
   v15 = [NSCompoundPredicate andPredicateWithSubpredicates:v8];
-  v57 = [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:0];
-  v96 = v57;
-  v16 = [NSArray arrayWithObjects:&v96 count:1];
-  v91 = 0;
-  v64 = v7;
-  v58 = v15;
-  v17 = [v7 queryInteractionsUsingPredicate:v15 sortDescriptors:v16 limit:1000 error:&v91];
-  v56 = v91;
+  v54 = [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:0];
+  v93 = v54;
+  v16 = [NSArray arrayWithObjects:&v93 count:1];
+  v88 = 0;
+  v61 = v7;
+  v55 = v15;
+  v17 = [v7 queryInteractionsUsingPredicate:v15 sortDescriptors:v16 limit:1000 error:&v88];
+  v53 = v88;
 
   v18 = objc_alloc_init(NSMutableDictionary);
+  v84 = 0u;
+  v85 = 0u;
+  v86 = 0u;
   v87 = 0u;
-  v88 = 0u;
-  v89 = 0u;
-  v90 = 0u;
   obj = v17;
-  v74 = [obj countByEnumeratingWithState:&v87 objects:v95 count:16];
-  if (v74)
+  v71 = [obj countByEnumeratingWithState:&v84 objects:v92 count:16];
+  if (v71)
   {
-    v72 = *v88;
+    v69 = *v85;
     do
     {
       v19 = 0;
       do
       {
-        if (*v88 != v72)
+        if (*v85 != v69)
         {
           objc_enumerationMutation(obj);
         }
 
-        v76 = v19;
-        v20 = *(*(&v87 + 1) + 8 * v19);
+        v73 = v19;
+        v20 = *(*(&v84 + 1) + 8 * v19);
+        v80 = 0u;
+        v81 = 0u;
+        v82 = 0u;
         v83 = 0u;
-        v84 = 0u;
-        v85 = 0u;
-        v86 = 0u;
         recipients = [v20 recipients];
-        v22 = [recipients countByEnumeratingWithState:&v83 objects:v94 count:16];
+        v22 = [recipients countByEnumeratingWithState:&v80 objects:v91 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v84;
+          v24 = *v81;
           do
           {
             for (i = 0; i != v23; i = i + 1)
             {
-              if (*v84 != v24)
+              if (*v81 != v24)
               {
                 objc_enumerationMutation(recipients);
               }
 
-              v26 = *(*(&v83 + 1) + 8 * i);
+              v26 = *(*(&v80 + 1) + 8 * i);
               personId = [v26 personId];
               v28 = [suggestionCopy containsObject:personId];
 
@@ -1425,54 +1432,54 @@ LABEL_23:
               }
             }
 
-            v23 = [recipients countByEnumeratingWithState:&v83 objects:v94 count:16];
+            v23 = [recipients countByEnumeratingWithState:&v80 objects:v91 count:16];
           }
 
           while (v23);
         }
 
-        v19 = v76 + 1;
+        v19 = v73 + 1;
       }
 
-      while ((v76 + 1) != v74);
-      v74 = [obj countByEnumeratingWithState:&v87 objects:v95 count:16];
+      while ((v73 + 1) != v71);
+      v71 = [obj countByEnumeratingWithState:&v84 objects:v92 count:16];
     }
 
-    while (v74);
+    while (v71);
   }
 
   v32 = objc_alloc_init(CNContactStore);
-  v93[0] = CNContactEmailAddressesKey;
-  v93[1] = CNContactInstantMessageAddressesKey;
-  v93[2] = CNContactPhoneNumbersKey;
-  v73 = [NSArray arrayWithObjects:v93 count:3];
+  v90[0] = CNContactEmailAddressesKey;
+  v90[1] = CNContactInstantMessageAddressesKey;
+  v90[2] = CNContactPhoneNumbersKey;
+  v70 = [NSArray arrayWithObjects:v90 count:3];
+  v76 = 0u;
+  v77 = 0u;
+  v78 = 0u;
   v79 = 0u;
-  v80 = 0u;
-  v81 = 0u;
-  v82 = 0u;
   v33 = v18;
-  v34 = [v33 countByEnumeratingWithState:&v79 objects:v92 count:16];
+  v34 = [v33 countByEnumeratingWithState:&v76 objects:v89 count:16];
   if (v34)
   {
     v35 = v34;
-    v69 = v33;
-    v70 = 0;
-    v66 = v32;
+    v66 = v33;
     v67 = 0;
-    v77 = *v80;
-    v36 = v68;
+    v63 = v32;
+    v64 = 0;
+    v74 = *v77;
+    v36 = v65;
     while (1)
     {
       v37 = 0;
-      v75 = v35;
+      v72 = v35;
       do
       {
-        if (*v80 != v77)
+        if (*v77 != v74)
         {
           objc_enumerationMutation(v33);
         }
 
-        v38 = *(*(&v79 + 1) + 8 * v37);
+        v38 = *(*(&v76 + 1) + 8 * v37);
         identifier2 = [v38 identifier];
         type = [v38 type];
         if (type == 3)
@@ -1513,20 +1520,17 @@ LABEL_34:
           {
             if (dword_100971A10 <= 40 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
             {
-              v54 = v43;
-              v55 = v46;
-              v53 = personId2;
-              LogPrintF();
+              LogPrintF(&dword_100971A10, "[SDXPCConnection _getInteractionsFromDBPerPeopleSuggestion:completion:]", 40, "hybridSuggester: ContactID %{private}@, Handle %{private}@ <-> SKA %{private}@", personId2, v43, v46);
             }
 
             v48 = objc_alloc_init(SFPeopleSuggesterResult);
             [v48 setContactID:personId2];
-            v78 = 0;
-            v49 = [v32 unifiedContactWithIdentifier:personId2 keysToFetch:v73 error:&v78];
-            if (!v49 || v78)
+            v75 = 0;
+            v49 = [v32 unifiedContactWithIdentifier:personId2 keysToFetch:v70 error:&v75];
+            if (!v49 || v75)
             {
-              [v48 setFlags:{2, v53, v54, v55}];
-              ++v70;
+              [v48 setFlags:2];
+              ++v67;
             }
 
             else
@@ -1537,7 +1541,7 @@ LABEL_34:
               if (v51)
               {
                 [v48 setFlags:1];
-                ++v67;
+                ++v64;
               }
 
               else
@@ -1548,14 +1552,14 @@ LABEL_34:
                 [v48 setSendersKnownAlias:v46];
               }
 
-              v36 = v68;
-              v32 = v66;
+              v36 = v65;
+              v32 = v63;
             }
 
-            [v36 addObject:{v48, v53}];
+            [v36 addObject:v48];
 
-            v33 = v69;
-            v35 = v75;
+            v33 = v66;
+            v35 = v72;
           }
         }
 
@@ -1563,7 +1567,7 @@ LABEL_34:
       }
 
       while (v35 != v37);
-      v35 = [v33 countByEnumeratingWithState:&v79 objects:v92 count:16];
+      v35 = [v33 countByEnumeratingWithState:&v76 objects:v89 count:16];
       if (!v35)
       {
         goto LABEL_56;
@@ -1571,13 +1575,14 @@ LABEL_34:
     }
   }
 
-  v36 = v68;
+  v67 = 0;
+  v64 = 0;
+  v36 = v65;
 LABEL_56:
 
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    [v36 count];
-    LogPrintF();
+    LogPrintF(&dword_100971A10, "-[SDXPCConnection _getInteractionsFromDBPerPeopleSuggestion:completion:]", 30, "hybridSuggester: calling completion on %zu total results, %zu removed, %zu blocked", [v36 count], v67, v64);
   }
 
   completionCopy[2](completionCopy, v36, 0);
@@ -1648,9 +1653,36 @@ LABEL_56:
 
 - (void)preheatXPCConnection
 {
-  if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
+  if (dword_100971A10 <= 30)
   {
-    sub_100193334();
+    if (dword_100971A10 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100193334(self, a2, v2);
+    }
+  }
+}
+
+- (void)repairDevice:(id)device flags:(unsigned int)flags completion:(id)completion
+{
+  v6 = *&flags;
+  deviceCopy = device;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(self->_server->_dispatchQueue);
+  v9 = [(SDXPCConnection *)self _entitled:@"com.apple.sharing.Client" state:&self->_entitledClient label:@"RepairDevice"];
+  if (v9)
+  {
+    v11 = NSErrorWithOSStatusF(v9, "Missing entitlement '%@' for RepairDevice", @"com.apple.sharing.Client");
+    v10 = v11;
+    if (completionCopy && v11)
+    {
+      completionCopy[2](completionCopy, v11);
+    }
+  }
+
+  else
+  {
+    [(SDSetupAgent *)self->_server->_setupAgent repairDevice:deviceCopy flags:v6 completion:completionCopy];
+    v10 = 0;
   }
 }
 
@@ -1700,26 +1732,57 @@ LABEL_56:
   }
 }
 
+- (void)setAudioRoutingScore:(int)score completion:(id)completion
+{
+  v4 = *&score;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(self->_server->_dispatchQueue);
+  v6 = [(SDXPCConnection *)self _entitled:@"com.apple.sharing.Client" state:&self->_entitledClient label:@"SetAudioRoutingScore"];
+  if (v6)
+  {
+    NSErrorWithOSStatusF(v6, "Missing entitlement '%@' for SetAudioRoutingScore", @"com.apple.sharing.Client");
+  }
+
+  else
+  {
+    if (v4 < 0x10)
+    {
+      v7 = +[SDNearbyAgent sharedNearbyAgent];
+      [v7 setAudioRoutingScore:v4];
+
+      completionCopy[2](completionCopy, 0);
+      goto LABEL_7;
+    }
+
+    NSErrorWithOSStatusF(4294960591, "Out-of-range score: %d, min %d, max %d");
+  }
+  v8 = ;
+  (completionCopy)[2](completionCopy, v8);
+
+LABEL_7:
+}
+
 - (void)setupDevice:(id)device homeIdentifier:(id)identifier completion:(id)completion
 {
   deviceCopy = device;
   identifierCopy = identifier;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
-  if ([(SDXPCConnection *)self _entitled:@"com.apple.sharing.Client" state:&self->_entitledClient label:@"SetupDevice"])
+  v10 = [(SDXPCConnection *)self _entitled:@"com.apple.sharing.Client" state:&self->_entitledClient label:@"SetupDevice"];
+  if (v10)
   {
-    v11 = NSErrorWithOSStatusF();
-    v10 = v11;
-    if (completionCopy && v11)
+    v12 = NSErrorWithOSStatusF(v10, "Missing entitlement '%@' for SetupDevice", @"com.apple.sharing.Client");
+    v11 = v12;
+    if (completionCopy && v12)
     {
-      completionCopy[2](completionCopy, v11);
+      completionCopy[2](completionCopy, v12);
     }
   }
 
   else
   {
     [(SDSetupAgent *)self->_server->_setupAgent setupDevice:deviceCopy homeIdentifier:identifierCopy completion:completionCopy];
-    v10 = 0;
+    v11 = 0;
   }
 }
 
@@ -1728,20 +1791,21 @@ LABEL_56:
   infoCopy = info;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
-  if ([(SDXPCConnection *)self _entitled:@"com.apple.sharing.Client" state:&self->_entitledClient label:@"ShowDevicePicker"])
+  v7 = [(SDXPCConnection *)self _entitled:@"com.apple.sharing.Client" state:&self->_entitledClient label:@"ShowDevicePicker"];
+  if (v7)
   {
-    v8 = NSErrorWithOSStatusF();
-    v7 = v8;
-    if (completionCopy && v8)
+    v9 = NSErrorWithOSStatusF(v7, "Missing entitlement '%@' for ShowDevicePicker", @"com.apple.sharing.Client");
+    v8 = v9;
+    if (completionCopy && v9)
     {
-      completionCopy[2](completionCopy, v8);
+      completionCopy[2](completionCopy, v9);
     }
   }
 
   else
   {
     [(SDSetupAgent *)self->_server->_setupAgent showDevicePickerWithInfo:infoCopy completion:completionCopy];
-    v7 = 0;
+    v8 = 0;
   }
 }
 
@@ -1754,34 +1818,35 @@ LABEL_56:
   {
     if (completionCopy)
     {
-      v7 = v5;
-      sub_100186CC8();
-      v8 = v7;
-      v14 = NSLocalizedDescriptionKey;
-      v9 = [NSString stringWithUTF8String:DebugGetErrorString()];
-      v10 = v9;
-      v11 = @"?";
-      if (v9)
+      v8 = v5;
+      sub_100186CC8(v5);
+      v9 = v8;
+      v15 = NSLocalizedDescriptionKey;
+      v10 = [NSString stringWithUTF8String:DebugGetErrorString()];
+      v11 = v10;
+      v12 = @"?";
+      if (v10)
       {
-        v11 = v9;
+        v12 = v10;
       }
 
-      v15 = v11;
-      v12 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-      v13 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v8 userInfo:v12];
-      completionCopy[2](completionCopy, 0, v13);
+      v16 = v12;
+      v13 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+      v14 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v9 userInfo:v13];
+      completionCopy[2](completionCopy, 0, v14);
     }
 
-    statusInfo = 0;
+    v7 = 0;
   }
 
   else
   {
     statusInfo = [(SDAppleIDAgent *)self->_server->_appleIDAgent statusInfo];
+    v7 = statusInfo;
     if (completionCopy)
     {
-      sub_100186CC8();
-      (completionCopy)[2](completionCopy, statusInfo, 0);
+      sub_100186CC8(statusInfo);
+      (completionCopy)[2](completionCopy, v7, 0);
     }
   }
 }
@@ -1825,9 +1890,12 @@ LABEL_56:
   lCopy = l;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
-  if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
+  if (dword_100971A10 <= 30)
   {
-    sub_100193428();
+    if (dword_100971A10 != -1 || (v7 = _LogCategory_Initialize(), v7))
+    {
+      sub_100193428(v7, v8, v9);
+    }
   }
 
   [(SDAutoFillAgent *)self->_server->_autoFillAgent triggerProximityAutoFillDetectedWithURL:lCopy completion:completionCopy];
@@ -1848,7 +1916,7 @@ LABEL_56:
 
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_100193508();
+    sub_100193508(wifiPasswordSharingAvailability);
     if (!completionCopy)
     {
       goto LABEL_7;
@@ -1873,21 +1941,28 @@ LABEL_7:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (gSDProxCardsSuppressed == 1)
   {
-    if (dword_100971A10 <= 90 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
+    if (dword_100971A10 <= 90)
     {
-      sub_100193588();
+      if (dword_100971A10 != -1 || (v6 = _LogCategory_Initialize(), v6))
+      {
+        sub_100193588(v6, v7, v8);
+      }
     }
 
 LABEL_31:
-    v11 = 0;
+    v20 = 0;
     goto LABEL_32;
   }
 
-  if ([(SDSetupAgent *)self->_server->_setupAgent uiShowing])
+  uiShowing = [(SDSetupAgent *)self->_server->_setupAgent uiShowing];
+  if (uiShowing)
   {
-    if (dword_100971A10 <= 90 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
+    if (dword_100971A10 <= 90)
     {
-      sub_10019356C();
+      if (dword_100971A10 != -1 || (uiShowing = _LogCategory_Initialize(), uiShowing))
+      {
+        sub_10019356C(uiShowing, v10, v11);
+      }
     }
 
     goto LABEL_31;
@@ -1895,80 +1970,86 @@ LABEL_31:
 
   if ((optionsCopy & 4) != 0)
   {
-    v6 = 509955;
+    v12 = 509955;
   }
 
   else
   {
-    v6 = 509963;
+    v12 = 509963;
   }
 
   if ((optionsCopy & 0x10) != 0)
   {
-    v6 &= 0x7C809u;
+    v12 &= 0x7C809u;
   }
 
   if ((optionsCopy & 8) != 0)
   {
-    v6 &= 0x7880Bu;
+    v12 &= 0x7880Bu;
   }
 
-  v7 = v6 & 0x7C80A;
+  v13 = v12 & 0x7C80A;
   if ((optionsCopy & 1) == 0)
   {
-    v7 = v6;
+    v13 = v12;
   }
 
   if ((optionsCopy & 2) != 0)
   {
-    v7 &= ~0x20000u;
+    v13 &= ~0x20000u;
   }
 
   if ((optionsCopy & 0x20) != 0)
   {
-    v7 &= 0x6C80Bu;
+    v13 &= 0x6C80Bu;
   }
 
   if ((optionsCopy & 0x40) != 0)
   {
-    v8 = v7 & 0xFFFFF7FF;
+    v14 = v13 & 0xFFFFF7FF;
   }
 
   else
   {
-    v8 = v7;
+    v14 = v13;
   }
 
-  v9 = +[SDStatusMonitor sharedMonitor];
-  v10 = [v9 systemUIFlags] & v8;
+  v15 = +[SDStatusMonitor sharedMonitor];
+  v16 = [v15 systemUIFlags] & v14;
 
-  if (v10)
+  if (v16)
   {
-    if (dword_100971A10 <= 90 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
+    if (dword_100971A10 <= 90)
     {
-      sub_100193550();
+      if (dword_100971A10 != -1 || (v17 = _LogCategory_Initialize(), v17))
+      {
+        sub_100193550(v17, v18, v19);
+      }
     }
 
     goto LABEL_31;
   }
 
   [(SDXPCConnection *)self activateAssertionWithIdentifier:@"com.apple.sharing.PreventProxCards"];
-  v11 = 1;
+  v20 = 1;
 LABEL_32:
-  v12 = completionCopy;
+  v21 = completionCopy;
   if (completionCopy)
   {
-    (*(completionCopy + 2))(completionCopy, v11);
-    v12 = completionCopy;
+    (*(completionCopy + 2))(completionCopy, v20);
+    v21 = completionCopy;
   }
 }
 
 - (void)coordinatedAlertsRequestFinish
 {
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
-  if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
+  if (dword_100971A10 <= 30)
   {
-    sub_1001935A4();
+    if (dword_100971A10 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_1001935A4(v3, v4, v5);
+    }
   }
 
   if (self->_caRequest)
@@ -1983,9 +2064,12 @@ LABEL_32:
 - (void)coordinatedAlertsRequestCancel
 {
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
-  if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
+  if (dword_100971A10 <= 30)
   {
-    sub_1001935C0();
+    if (dword_100971A10 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_1001935C0(v3, v4, v5);
+    }
   }
 
   if (self->_caRequest)
@@ -2003,7 +2087,7 @@ LABEL_32:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001935DC(self);
+    sub_1001935DC(self, activateCopy);
   }
 
   if ([(SDXPCConnection *)self _entitled:@"com.apple.sharing.DeviceDiscovery" state:&self->_entitledDeviceDiscovery label:@"DeviceDiscoveryActivate"])
@@ -2056,7 +2140,7 @@ LABEL_32:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_10019363C();
+    sub_10019363C(updateCopy);
   }
 
   if (self->_ddRequest)
@@ -2210,6 +2294,24 @@ LABEL_38:
   }
 }
 
+- (void)deviceDiscoveryTriggerEnhancedDiscovery:(id)discovery useCase:(unsigned int)case completion:(id)completion
+{
+  v6 = *&case;
+  discoveryCopy = discovery;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(self->_server->_dispatchQueue);
+  ddRequest = self->_ddRequest;
+  if (ddRequest)
+  {
+    [(SDNearbyAgent *)self->_server->_nearbyAgent deviceDiscoveryTriggerEnhancedDiscovery:ddRequest reason:discoveryCopy useCase:v6];
+  }
+
+  if (completionCopy)
+  {
+    completionCopy[2](completionCopy, 0);
+  }
+}
+
 - (void)diagnosticBLEModeWithCompletion:(id)completion
 {
   completionCopy = completion;
@@ -2239,7 +2341,7 @@ LABEL_38:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_10019381C();
+    sub_10019381C(controlCopy);
   }
 
   v40 = 0;
@@ -2543,7 +2645,7 @@ LABEL_38:
 
         if (dword_100971A10 <= 50 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
         {
-          sub_100193864();
+          sub_100193864(controlCopy);
         }
 
 LABEL_40:
@@ -2595,7 +2697,7 @@ LABEL_16:
     {
       if (dword_100971A10 <= 50 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001938A4();
+        sub_1001938A4(mockCopy);
         if (!completionCopy)
         {
           goto LABEL_14;
@@ -2637,34 +2739,42 @@ LABEL_14:
 - (void)diagnosticMockStart:(id)start
 {
   startCopy = start;
-  if (dword_100971A10 <= 50 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
+  v8 = startCopy;
+  if (dword_100971A10 <= 50)
   {
-    sub_1001938E4();
+    if (dword_100971A10 != -1 || (startCopy = _LogCategory_Initialize(), startCopy))
+    {
+      sub_1001938E4(startCopy, v5, v6);
+    }
   }
 
   [(SDNearbyAgent *)self->_server->_nearbyAgent diagnosticBLEModeStart:self];
-  v4 = startCopy;
-  if (startCopy)
+  v7 = v8;
+  if (v8)
   {
-    (*(startCopy + 2))(startCopy, 0);
-    v4 = startCopy;
+    (*(v8 + 2))(v8, 0);
+    v7 = v8;
   }
 }
 
 - (void)diagnosticMockStop:(id)stop
 {
   stopCopy = stop;
-  if (dword_100971A10 <= 50 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
+  v8 = stopCopy;
+  if (dword_100971A10 <= 50)
   {
-    sub_100193900();
+    if (dword_100971A10 != -1 || (stopCopy = _LogCategory_Initialize(), stopCopy))
+    {
+      sub_100193900(stopCopy, v5, v6);
+    }
   }
 
   [(SDNearbyAgent *)self->_server->_nearbyAgent diagnosticBLEModeStop:self];
-  v4 = stopCopy;
-  if (stopCopy)
+  v7 = v8;
+  if (v8)
   {
-    (*(stopCopy + 2))(stopCopy, 0);
-    v4 = stopCopy;
+    (*(v8 + 2))(v8, 0);
+    v7 = v8;
   }
 }
 
@@ -2673,76 +2783,79 @@ LABEL_14:
   showCopy = show;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
-  if ([(SDXPCConnection *)self _entitled:@"com.apple.sharing.Diagnostics" state:&self->_entitledDiagnostics label:@"DiagnosticShow"])
+  v8 = [(SDXPCConnection *)self _entitled:@"com.apple.sharing.Diagnostics" state:&self->_entitledDiagnostics label:@"DiagnosticShow"];
+  if (v8)
   {
-    v11 = 0;
+    v13 = 0;
     if (!completionCopy)
     {
-      goto LABEL_16;
+      goto LABEL_17;
     }
 
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
   if ([showCopy isEqual:@"ids"])
   {
     nearbyAgent = self->_server->_nearbyAgent;
-    v67 = 0;
-    [(SDNearbyAgent *)nearbyAgent idsDevicesAppendDescription:&v67];
-    v9 = v67;
+    v78 = 0;
+    [(SDNearbyAgent *)nearbyAgent idsDevicesAppendDescription:&v78];
+    v10 = v78;
 LABEL_11:
-    v11 = 0;
+    v13 = 0;
     goto LABEL_12;
   }
 
   if ([showCopy isEqual:@"prox"])
   {
-    v66[18] = 0;
+    v77 = 0;
     bleProximityInfo = [(SDNearbyAgent *)self->_server->_nearbyAgent bleProximityInfo];
-    NSAppendPrintF();
+    NSAppendPrintF(&v77, "%@", bleProximityInfo);
+    v12 = v77;
 LABEL_10:
-    v9 = 0;
+    v10 = v12;
 
     goto LABEL_11;
   }
 
   if ([showCopy isEqual:@"autofill"])
   {
-    v66[17] = 0;
+    v76 = 0;
     bleProximityInfo = [(SDAutoFillAgent *)self->_server->_autoFillAgent description];
-    NSAppendPrintF();
+    NSAppendPrintF(&v76, "%@", bleProximityInfo);
+    v12 = v76;
     goto LABEL_10;
   }
 
   if ([showCopy isEqual:@"handoff"])
   {
-    v66[16] = 0;
+    v75 = 0;
     bleProximityInfo = [(SDProxHandoffAgent *)self->_server->_proxHandoffAgent description];
-    NSAppendPrintF();
+    NSAppendPrintF(&v75, "%@", bleProximityInfo);
+    v12 = v75;
     goto LABEL_10;
   }
 
-  v13 = [showCopy isEqual:@"ss"];
-  v14 = [(SDNearbyAgent *)self->_server->_nearbyAgent description];
-  v15 = v14;
-  if (v14)
+  v15 = [showCopy isEqual:@"ss"];
+  v16 = [(SDNearbyAgent *)self->_server->_nearbyAgent description];
+  v17 = v16;
+  if (v16)
   {
-    v66[15] = 0;
-    v54 = v14;
-    NSAppendPrintF();
-    v16 = 0;
-    if (v13)
+    v74 = 0;
+    NSAppendPrintF(&v74, "%@\n", v16);
+    v18 = v74;
+    if (v15)
     {
-      goto LABEL_28;
+      goto LABEL_29;
     }
   }
 
   else
   {
-    v16 = 0;
-    if (v13)
+    v18 = 0;
+    if (v15)
     {
-      goto LABEL_28;
+      goto LABEL_29;
     }
   }
 
@@ -2750,229 +2863,220 @@ LABEL_10:
 
   if (detailedDescription)
   {
-    v66[14] = v16;
-    v55 = detailedDescription;
-    NSAppendPrintF();
-    v18 = v16;
+    v73 = v18;
+    NSAppendPrintF(&v73, "%@\n", detailedDescription);
+    v20 = v73;
 
-    v16 = v18;
+    v18 = v20;
   }
 
-  v19 = +[_TtC16DaemoniOSLibrary27SDAirDropContactHashManager shared];
-  detailedDescription2 = [v19 detailedDescription];
+  v21 = +[_TtC16DaemoniOSLibrary27SDAirDropContactHashManager shared];
+  detailedDescription2 = [v21 detailedDescription];
 
   if (detailedDescription2)
   {
-    v66[13] = v16;
-    v56 = detailedDescription2;
-    NSAppendPrintF();
-    v21 = v16;
+    v72 = v18;
+    NSAppendPrintF(&v72, "%@\n", detailedDescription2);
+    v23 = v72;
 
-    v16 = v21;
+    v18 = v23;
   }
 
-  v22 = +[SDStatusMonitor sharedMonitor];
-  v15 = [v22 description];
+  v24 = +[SDStatusMonitor sharedMonitor];
+  v17 = [v24 description];
 
-  if (v15)
+  if (v17)
   {
-    v66[12] = v16;
-    v54 = v15;
-    NSAppendPrintF();
-    v23 = v16;
+    v71 = v18;
+    NSAppendPrintF(&v71, "%@\n", v17);
+    v25 = v71;
 
-    v16 = v23;
+    v18 = v25;
   }
 
-LABEL_28:
-  v24 = [(SDRemoteInteractionAgent *)self->_server->_riAgent description];
-
-  if (v24)
-  {
-    v66[11] = v16;
-    v57 = v24;
-    NSAppendPrintF();
-    v25 = v16;
-
-    v16 = v25;
-  }
-
-  v26 = [(SDAutoFillAgent *)self->_server->_autoFillAgent description];
+LABEL_29:
+  v26 = [(SDRemoteInteractionAgent *)self->_server->_riAgent description];
 
   if (v26)
   {
-    v66[10] = v16;
-    v58 = v26;
-    NSAppendPrintF();
-    v27 = v16;
+    v70 = v18;
+    NSAppendPrintF(&v70, "%@\n", v26);
+    v27 = v70;
 
-    v16 = v27;
+    v18 = v27;
   }
 
-  v28 = [(SDProxHandoffAgent *)self->_server->_proxHandoffAgent description];
+  v28 = [(SDAutoFillAgent *)self->_server->_autoFillAgent description];
 
   if (v28)
   {
-    v66[9] = v16;
-    v59 = v28;
-    NSAppendPrintF();
-    v29 = v16;
+    v69 = v18;
+    NSAppendPrintF(&v69, "%@\n", v28);
+    v29 = v69;
 
-    v16 = v29;
+    v18 = v29;
   }
 
-  if ((v13 & 1) == 0)
+  v30 = [(SDProxHandoffAgent *)self->_server->_proxHandoffAgent description];
+
+  if (v30)
   {
-    v30 = +[SDNotificationManager sharedManager];
-    v31 = [v30 description];
+    v68 = v18;
+    NSAppendPrintF(&v68, "%@\n", v30);
+    v31 = v68;
 
-    if (v31)
+    v18 = v31;
+  }
+
+  if ((v15 & 1) == 0)
+  {
+    v32 = +[SDNotificationManager sharedManager];
+    v33 = [v32 description];
+
+    if (v33)
     {
-      v66[8] = v16;
-      v59 = v31;
-      NSAppendPrintF();
-      v32 = v16;
+      v67 = v18;
+      NSAppendPrintF(&v67, "%@\n", v33);
+      v34 = v67;
 
-      v16 = v32;
+      v18 = v34;
     }
 
-    v33 = +[SDAutoUnlockAKSManager sharedManager];
-    state = [v33 state];
+    v35 = +[SDAutoUnlockAKSManager sharedManager];
+    state = [v35 state];
 
     if (state)
     {
-      v66[7] = v16;
-      v60 = state;
-      NSAppendPrintF();
-      v35 = v16;
+      v66 = v18;
+      NSAppendPrintF(&v66, "%@\n", state);
+      v37 = v66;
 
-      v16 = v35;
+      v18 = v37;
     }
 
-    v36 = +[SDAutoUnlockSessionManager sharedManager];
-    state2 = [v36 state];
+    v38 = +[SDAutoUnlockSessionManager sharedManager];
+    state2 = [v38 state];
 
     if (state2)
     {
-      v66[6] = v16;
-      v61 = state2;
-      NSAppendPrintF();
-      v38 = v16;
+      v65 = v18;
+      NSAppendPrintF(&v65, "%@\n", state2);
+      v40 = v65;
 
-      v16 = v38;
+      v18 = v40;
     }
 
-    v39 = +[SDAutoUnlockTransport sharedTransport];
-    state3 = [v39 state];
+    v41 = +[SDAutoUnlockTransport sharedTransport];
+    state3 = [v41 state];
 
     if (state3)
     {
-      v66[5] = v16;
-      v62 = state3;
-      NSAppendPrintF();
-      v41 = v16;
+      v64 = v18;
+      NSAppendPrintF(&v64, "%@\n", state3);
+      v43 = v64;
 
-      v16 = v41;
+      v18 = v43;
     }
 
-    v42 = +[SDDeviceAssetMonitor sharedAssetMonitor];
-    state4 = [v42 state];
+    v44 = +[SDDeviceAssetMonitor sharedAssetMonitor];
+    state4 = [v44 state];
 
     if (state4)
     {
-      v66[4] = v16;
-      v63 = state4;
-      NSAppendPrintF();
-      v44 = v16;
+      v63 = v18;
+      NSAppendPrintF(&v63, "%@\n", state4);
+      v46 = v63;
 
-      v16 = v44;
+      v18 = v46;
     }
 
-    v45 = +[SDHotspotAgent sharedAgent];
-    v28 = [v45 description];
+    v47 = +[SDHotspotAgent sharedAgent];
+    v30 = [v47 description];
 
-    if (v28)
+    if (v30)
     {
-      v66[3] = v16;
-      v59 = v28;
-      NSAppendPrintF();
-      v46 = v16;
+      v62 = v18;
+      NSAppendPrintF(&v62, "%@\n", v30);
+      v48 = v62;
 
-      v16 = v46;
+      v18 = v48;
     }
   }
 
-  v47 = [(SDProximityPairingAgent *)self->_server->_ppAgent description];
+  v49 = [(SDProximityPairingAgent *)self->_server->_ppAgent description];
 
-  if (v47)
+  if (v49)
   {
-    v66[2] = v16;
-    v64 = v47;
-    NSAppendPrintF();
-    v48 = v16;
+    v61 = v18;
+    NSAppendPrintF(&v61, "%@\n", v49);
+    v50 = v61;
 
-    v16 = v48;
+    v18 = v50;
   }
 
-  setupAgent = self->_server->_setupAgent;
-  v11 = CUDescriptionWithLevel();
+  v13 = CUDescriptionWithLevel();
 
-  if (v11)
+  if (v13)
   {
-    v66[1] = v16;
-    v64 = v11;
-    NSAppendPrintF();
-    v50 = v16;
+    v60 = v18;
+    NSAppendPrintF(&v60, "%@\n", v13);
+    v51 = v60;
 
-    v16 = v50;
+    v18 = v51;
   }
 
   server = self->_server;
-  v66[0] = v16;
-  [(SDXPCServer *)server stateAppendXPCConnections:v66, v64];
-  v9 = v66[0];
+  v59 = v18;
+  [(SDXPCServer *)server stateAppendXPCConnections:&v59];
+  v10 = v59;
 
   if ([showCopy isEqual:@"all"])
   {
-    NSAppendPrintF();
-    v52 = v9;
+    v58 = v10;
+    NSAppendPrintF(&v58, "\n");
+    v53 = v58;
 
-    NSAppendPrintF();
-    v53 = v52;
+    v57 = v53;
+    NSAppendPrintF(&v57, "-- ProximityInfo --\n");
+    v54 = v57;
 
+    v56 = v54;
     bleProximityInfo2 = [(SDNearbyAgent *)self->_server->_nearbyAgent bleProximityInfo];
-    NSAppendPrintF();
-    v9 = v53;
+    NSAppendPrintF(&v56, "%@\n", bleProximityInfo2);
+    v10 = v56;
   }
 
-  if (!v9)
+  if (!v10)
   {
     if (!completionCopy)
     {
-      goto LABEL_16;
+      goto LABEL_17;
     }
 
-    goto LABEL_15;
+    v8 = 4294960568;
+LABEL_16:
+    v14 = NSPrintF("### Error: %#m\n", v8);
+    completionCopy[2](completionCopy, v14);
+
+LABEL_17:
+    v10 = 0;
+    goto LABEL_18;
   }
 
 LABEL_12:
   if (completionCopy)
   {
-    if (v9)
+    if (v10)
     {
-      completionCopy[2](completionCopy, v9);
-      goto LABEL_17;
+      completionCopy[2](completionCopy, v10);
+      goto LABEL_18;
     }
 
-LABEL_15:
-    v12 = NSPrintF();
-    completionCopy[2](completionCopy, v12);
-
-LABEL_16:
-    v9 = 0;
+    v8 = 0;
+    goto LABEL_16;
   }
 
-LABEL_17:
+LABEL_18:
 }
 
 - (void)diagnosticUnlockTestClientWithDevice:(id)device
@@ -3036,7 +3140,7 @@ LABEL_17:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_100193BA0();
+    sub_100193BA0(configurationCopy);
   }
 
   v7 = [(SDXPCConnection *)self _entitled:@"com.apple.sharing.DurianTapPromptClient" state:&self->_entitledB389NFCPromptClient label:@"B389NFCPromptShow"];
@@ -3048,7 +3152,7 @@ LABEL_17:
       v9 = v8;
       if (dword_100971A10 <= 60 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
       {
-        sub_100193BE8();
+        sub_100193BE8(v9);
         if (!handlerCopy)
         {
           goto LABEL_11;
@@ -3078,7 +3182,7 @@ LABEL_13:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_100193C30();
+    sub_100193C30(configurationCopy);
   }
 
   v4 = [(SDXPCConnection *)self _entitled:@"com.apple.sharing.DurianTapPromptClient" state:&self->_entitledB389NFCPromptClient label:@"B389NFCPromptUpdateTitle"];
@@ -3087,7 +3191,7 @@ LABEL_13:
     v6 = v5;
     if (dword_100971A10 <= 60 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
     {
-      sub_100193C78();
+      sub_100193C78(v6);
     }
   }
 
@@ -3115,7 +3219,7 @@ LABEL_13:
     {
       if (dword_100971A10 != -1 || (v6 = _LogCategory_Initialize(), v5 = v7, v6))
       {
-        sub_100193D08();
+        sub_100193D08(v5);
         v5 = v7;
       }
     }
@@ -3134,7 +3238,7 @@ LABEL_13:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_100193D50();
+    sub_100193D50(updateCopy);
   }
 
   if (self->_proxClient)
@@ -3203,6 +3307,61 @@ LABEL_6:
   v14 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
   v15 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v10 userInfo:v14];
   (completionCopy)[2](completionCopy, v15);
+
+LABEL_10:
+}
+
+- (void)proximityClientProvideContent:(id)content forDevice:(id)device force:(BOOL)force completion:(id)completion
+{
+  forceCopy = force;
+  contentCopy = content;
+  deviceCopy = device;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(self->_server->_dispatchQueue);
+  v13 = [(SDXPCConnection *)self _entitled:@"com.apple.sharing.ProximityClient" state:&self->_entitledProximityClient label:@"ProximityClientProvideContent"];
+  if (!v13)
+  {
+    proxClient = self->_proxClient;
+    if (!proxClient)
+    {
+      if (!completionCopy)
+      {
+        goto LABEL_10;
+      }
+
+      v13 = -6720;
+      goto LABEL_6;
+    }
+
+    v13 = [(SDProxHandoffAgent *)self->_server->_proxHandoffAgent proximityClient:proxClient provideContent:contentCopy forDevice:deviceCopy force:forceCopy];
+  }
+
+  if (!completionCopy)
+  {
+    goto LABEL_10;
+  }
+
+  if (!v13)
+  {
+    completionCopy[2](completionCopy, 0);
+    goto LABEL_10;
+  }
+
+LABEL_6:
+  v15 = v13;
+  v21 = NSLocalizedDescriptionKey;
+  v16 = [NSString stringWithUTF8String:DebugGetErrorString()];
+  v17 = v16;
+  v18 = @"?";
+  if (v16)
+  {
+    v18 = v16;
+  }
+
+  v22 = v18;
+  v19 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v20 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v15 userInfo:v19];
+  (completionCopy)[2](completionCopy, v20);
 
 LABEL_10:
 }
@@ -3416,7 +3575,7 @@ LABEL_7:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001940D0();
+    sub_1001940D0(updateCopy);
   }
 
   service = self->_service;
@@ -3439,7 +3598,7 @@ LABEL_7:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 10 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_100194194();
+    sub_100194194(disconnectedCopy);
   }
 
   service = self->_service;
@@ -3460,7 +3619,7 @@ LABEL_7:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 10 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_100194258();
+    sub_100194258(eventCopy);
   }
 
   if (self->_service)
@@ -3474,13 +3633,36 @@ LABEL_7:
   }
 }
 
+- (void)serviceSendFrameType:(unsigned __int8)type data:(id)data peer:(id)peer
+{
+  typeCopy = type;
+  dataCopy = data;
+  peerCopy = peer;
+  dispatch_assert_queue_V2(self->_server->_dispatchQueue);
+  if (dword_100971A10 <= 10 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
+  {
+    sub_10019431C(typeCopy, dataCopy);
+  }
+
+  service = self->_service;
+  if (service)
+  {
+    [(SDNearbyAgent *)self->_server->_nearbyAgent bleNearbyInfoSendFrameType:typeCopy serviceType:[(SFService *)service serviceType] data:dataCopy peer:peerCopy isSession:0];
+  }
+
+  else
+  {
+    sub_1001943A0();
+  }
+}
+
 - (void)serviceSendRequest:(id)request
 {
   requestCopy = request;
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 10 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_10019441C();
+    sub_10019441C(requestCopy);
   }
 
   if (self->_service)
@@ -3500,7 +3682,7 @@ LABEL_7:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 10 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001944E0();
+    sub_1001944E0(responseCopy);
   }
 
   if (self->_service)
@@ -3520,7 +3702,7 @@ LABEL_7:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 10 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001945A4();
+    sub_1001945A4(eventCopy);
   }
 
   if (self->_session)
@@ -3535,13 +3717,35 @@ LABEL_7:
   }
 }
 
+- (void)sessionSendFrameType:(unsigned __int8)type data:(id)data
+{
+  typeCopy = type;
+  dataCopy = data;
+  dispatch_assert_queue_V2(self->_server->_dispatchQueue);
+  if (dword_100971A10 <= 10 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
+  {
+    sub_100194668(typeCopy, dataCopy);
+  }
+
+  session = self->_session;
+  if (session && (-[SFSession peerDevice](session, "peerDevice"), v7 = objc_claimAutoreleasedReturnValue(), [v7 identifier], v8 = objc_claimAutoreleasedReturnValue(), v7, v8))
+  {
+    [(SDNearbyAgent *)self->_server->_nearbyAgent bleNearbyInfoSendFrameType:typeCopy serviceType:[(SFSession *)self->_session serviceType] data:dataCopy peer:v8 isSession:1];
+  }
+
+  else
+  {
+    sub_1001946EC();
+  }
+}
+
 - (void)sessionSendRequest:(id)request
 {
   requestCopy = request;
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 10 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_10019476C();
+    sub_10019476C(requestCopy);
   }
 
   if (self->_session)
@@ -3562,7 +3766,7 @@ LABEL_7:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 10 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    sub_100194830();
+    sub_100194830(responseCopy);
   }
 
   if (self->_session)
@@ -3580,83 +3784,87 @@ LABEL_7:
 - (void)shareAudioSessionActivate:(id)activate completion:(id)completion
 {
   activateCopy = activate;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_100188434;
-  v21 = sub_100188444;
-  v22 = 0;
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_10018F824;
-  v14[3] = &unk_1008D21F0;
-  v16 = &v17;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_100188434;
+  v20 = sub_100188444;
+  v21 = 0;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_10018F824;
+  v13[3] = &unk_1008D21F0;
+  v15 = &v16;
   completionCopy = completion;
-  v15 = completionCopy;
-  v8 = objc_retainBlock(v14);
+  v14 = completionCopy;
+  v8 = objc_retainBlock(v13);
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    v12 = @"ShareAudioSession activate";
-    LogPrintF();
+    LogPrintF(&dword_100971A10, "[SDXPCConnection shareAudioSessionActivate:completion:]", 30, "%@\n", @"ShareAudioSession activate");
   }
 
-  if ([(SDXPCConnection *)self _entitled:@"com.apple.sharing.Session" state:&self->_entitledSession label:@"ShareAudioSession activate", v12]|| self->_shareAudioSession)
+  if ([(SDXPCConnection *)self _entitled:@"com.apple.sharing.Session" state:&self->_entitledSession label:@"ShareAudioSession activate"])
   {
-    v11 = NSErrorF();
-    v9 = v18[5];
-    v18[5] = v11;
+    v11 = NSErrorF(NSOSStatusErrorDomain, 4294896128, "Missing entitlement: '%@'", @"com.apple.sharing.Session");
+LABEL_11:
+    v9 = v17[5];
+    v17[5] = v11;
+    goto LABEL_8;
   }
 
-  else
+  if (self->_shareAudioSession)
   {
-    v9 = objc_alloc_init(SFShareAudioSessionDaemon);
-    objc_storeStrong(&self->_shareAudioSession, v9);
-    [(SFShareAudioSessionDaemon *)v9 setDispatchQueue:self->_server->_dispatchQueue];
-    v10 = +[SDStatusMonitor sharedMonitor];
-    [(SFShareAudioSessionDaemon *)v9 setStatusMonitor:v10];
-
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_10018F8F4;
-    v13[3] = &unk_1008D23E8;
-    v13[4] = v9;
-    v13[5] = self;
-    [(SFShareAudioSessionDaemon *)v9 setProgressHandler:v13];
-    [(SFShareAudioSessionDaemon *)v9 activate];
-    (*(completionCopy + 2))(completionCopy, 0);
+    v11 = NSErrorF(NSOSStatusErrorDomain, 4294960575, "Session already active");
+    goto LABEL_11;
   }
+
+  v9 = objc_alloc_init(SFShareAudioSessionDaemon);
+  objc_storeStrong(&self->_shareAudioSession, v9);
+  [(SFShareAudioSessionDaemon *)v9 setDispatchQueue:self->_server->_dispatchQueue];
+  v10 = +[SDStatusMonitor sharedMonitor];
+  [(SFShareAudioSessionDaemon *)v9 setStatusMonitor:v10];
+
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10018F8F4;
+  v12[3] = &unk_1008D23E8;
+  v12[4] = v9;
+  v12[5] = self;
+  [(SFShareAudioSessionDaemon *)v9 setProgressHandler:v12];
+  [(SFShareAudioSessionDaemon *)v9 activate];
+  (*(completionCopy + 2))(completionCopy, 0);
+LABEL_8:
 
   (v8[2])(v8);
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v16, 8);
 }
 
 - (void)shareAudioUserConfirmed
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = sub_100188434;
-  v15 = sub_100188444;
-  v16 = 0;
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_10018FBB0;
-  v10[3] = &unk_1008CDA20;
-  v10[4] = &v11;
-  v3 = objc_retainBlock(v10);
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = sub_100188434;
+  v14 = sub_100188444;
+  v15 = 0;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_10018FBB0;
+  v9[3] = &unk_1008CDA20;
+  v9[4] = &v10;
+  v3 = objc_retainBlock(v9);
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    v9 = @"ShareAudioSession UserConfirmed";
-    LogPrintF();
+    LogPrintF(&dword_100971A10, "[SDXPCConnection shareAudioUserConfirmed]", 30, "%@\n", @"ShareAudioSession UserConfirmed");
   }
 
-  if ([(SDXPCConnection *)self _entitled:@"com.apple.sharing.Session" state:&self->_entitledSession label:@"ShareAudioSession UserConfirmed", v9])
+  if ([(SDXPCConnection *)self _entitled:@"com.apple.sharing.Session" state:&self->_entitledSession label:@"ShareAudioSession UserConfirmed"])
   {
-    v6 = NSErrorF();
-    v5 = v12[5];
-    v12[5] = v6;
+    v6 = NSErrorF(NSOSStatusErrorDomain, 4294896128, "Missing entitlement: '%@'", @"com.apple.sharing.Session");
+    v5 = v11[5];
+    v11[5] = v6;
   }
 
   else
@@ -3670,27 +3878,27 @@ LABEL_7:
 
     else
     {
-      v7 = NSErrorF();
-      v8 = v12[5];
-      v12[5] = v7;
+      v7 = NSErrorF(NSOSStatusErrorDomain, 4294960575, "No session");
+      v8 = v11[5];
+      v11[5] = v7;
     }
   }
 
   (v3[2])(v3);
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v10, 8);
 }
 
 - (void)userNotificationPresent:(id)present
 {
   presentCopy = present;
-  v4 = presentCopy;
+  v5 = presentCopy;
   if (dword_100971A10 <= 50)
   {
     v6 = presentCopy;
-    if (dword_100971A10 != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
+    if (dword_100971A10 != -1 || (presentCopy = _LogCategory_Initialize(), v5 = v6, presentCopy))
     {
-      sub_1001948F4();
-      v4 = v6;
+      sub_1001948F4(presentCopy, v5, v4);
+      v5 = v6;
     }
   }
 }
@@ -3718,8 +3926,7 @@ LABEL_7:
     {
       if (dword_100971A10 <= 60 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
       {
-        [*(v5 + 136) processIdentifier];
-        LogPrintF();
+        LogPrintF(&dword_100971A10, "-[SDXPCConnection _entitledService:state:]", 60, "### %#{pid} lacks %''@ entitlement for service %''@\n", [*(v5 + 136) processIdentifier], @"com.apple.sharing.Services", v7);
       }
 
       v9 = -6768;
@@ -3737,32 +3944,31 @@ LABEL_7:
   sub_1001900DC();
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    v18 = @"AutoFillHelperActivate";
-    LogPrintF();
+    LogPrintF(&dword_100971A10, "[SDXPCConnection autoFillHelperActivate:completion:]", 30, "%@\n", @"AutoFillHelperActivate");
   }
 
-  v10 = [v6 _entitled:@"com.apple.sharing.RemoteInteractionSession" state:v6 + 55 label:{@"AutoFillHelperActivate", v18}];
+  v10 = [v6 _entitled:@"com.apple.sharing.RemoteInteractionSession" state:v6 + 55 label:@"AutoFillHelperActivate"];
   if (!v10)
   {
     if (!*(v6 + 8))
     {
       sub_1001900C0();
       sub_10018FE68();
-      v28 = 3221225472;
-      v29 = sub_100186480;
-      v30 = &unk_1008CDEA0;
-      v31 = v6;
-      [v8 setDismissUserNotificationHandler:v27];
+      v27 = 3221225472;
+      v28 = sub_100186480;
+      v29 = &unk_1008CDEA0;
+      v30 = v6;
+      [v8 setDismissUserNotificationHandler:v26];
       sub_100021EC8();
-      v24 = sub_1001864E4;
-      v25 = &unk_1008D21A0;
-      v26 = v6;
-      [v8 setPairingResponseHandler:v23];
+      v23 = sub_1001864E4;
+      v24 = &unk_1008D21A0;
+      v25 = v6;
+      [v8 setPairingResponseHandler:v22];
       sub_100035DD4();
-      v20 = sub_10018656C;
-      v21 = &unk_1008CFFB0;
-      v22 = v6;
-      [v8 setPromptForPINHandler:v19];
+      v19 = sub_10018656C;
+      v20 = &unk_1008CFFB0;
+      v21 = v6;
+      [v8 setPromptForPINHandler:v18];
       v10 = [*(*(v6 + 112) + 24) helperStart:v8];
       if (v10)
       {
@@ -3780,11 +3986,11 @@ LABEL_10:
   {
     if (v10)
     {
-      v32 = NSLocalizedDescriptionKey;
-      sub_100190078();
+      v31 = NSLocalizedDescriptionKey;
+      sub_100190078(v10);
       v11 = [sub_10002A810() stringWithUTF8String:?];
       sub_10018FED4();
-      v33 = v12;
+      v32 = v12;
       sub_100190068();
       [v13 dictionaryWithObjects:? forKeys:? count:?];
       objc_claimAutoreleasedReturnValue();
@@ -3811,26 +4017,42 @@ LABEL_10:
   sub_100035138();
   if (v4)
   {
-    if (sub_1001900F8(v9, v10, @"com.apple.sharing.Client") || ([*(*(v5 + 112) + 16) accountForAppleID:v7], (v11 = objc_claimAutoreleasedReturnValue()) == 0))
+    v11 = sub_1001900F8(v9, v10, @"com.apple.sharing.Client");
+    if (v11)
     {
-      sub_100186CC8();
-      v12 = [NSString stringWithUTF8String:sub_100190078()];
-      sub_10018FED4();
-      sub_10018FF00();
-      v16 = [v15 dictionaryWithObjects:? forKeys:? count:?];
-      v17 = [sub_1001900B0() errorWithDomain:? code:? userInfo:?];
-      v18 = sub_10018FEE0();
-      v19(v18, 0, v17);
+      v15 = v11;
     }
 
     else
     {
-      v12 = v11;
-      sub_100186CC8();
-      v13 = sub_10018FEE0();
-      v14(v13, v12, 0);
+      v11 = [*(*(v5 + 112) + 16) accountForAppleID:v7];
+      if (v11)
+      {
+        v12 = v11;
+        sub_100186CC8(v11);
+        v13 = sub_10018FEE0();
+        v14(v13, v12, 0);
+LABEL_5:
+
+        goto LABEL_6;
+      }
+
+      v15 = 201202;
     }
+
+    sub_100186CC8(v11);
+    v12 = [NSString stringWithUTF8String:sub_100190078(v15)];
+    sub_10018FED4();
+    sub_10018FF00();
+    v17 = [v16 dictionaryWithObjects:? forKeys:? count:?];
+    v18 = [sub_1001900B0() errorWithDomain:? code:? userInfo:?];
+    v19 = sub_10018FEE0();
+    v20(v19, 0, v18);
+
+    goto LABEL_5;
   }
+
+LABEL_6:
 
   sub_10019018C();
 }
@@ -3840,22 +4062,23 @@ LABEL_10:
   paramsCopy = params;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
-  if (![(SDXPCConnection *)self _entitled:@"com.apple.sharing.Client" state:&self->_entitledClient label:@"subCredentialPresentCard"])
+  v7 = [(SDXPCConnection *)self _entitled:@"com.apple.sharing.Client" state:&self->_entitledClient label:@"subCredentialPresentCard"];
+  if (!v7)
   {
     if (dword_100971A10 <= 50 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_100971A10, "[SDXPCConnection subCredentialPresentCardWithParams:completion:]", 50, "Client requesting subcredential presentation\n");
     }
 
-    v7 = +[SDSubCredentialAgent sharedAgent];
-    [v7 uiPresentWithParamsDirect:paramsCopy completion:completionCopy];
+    v8 = +[SDSubCredentialAgent sharedAgent];
+    [v8 uiPresentWithParamsDirect:paramsCopy completion:completionCopy];
   }
 
   if (completionCopy)
   {
-    v8 = NSErrorWithOSStatusF();
-    v9 = sub_10002FC98();
-    v10(v9, v8);
+    v9 = NSErrorWithOSStatusF(v7, "Missing entitlement");
+    v10 = sub_10002FC98();
+    v11(v10, v9);
   }
 }
 
@@ -3865,22 +4088,23 @@ LABEL_10:
   optionsCopy = options;
   completionCopy = completion;
   sub_100035138();
-  if (!sub_1001900F8(v9, v10, @"com.apple.sharing.Client"))
+  v11 = sub_1001900F8(v9, v10, @"com.apple.sharing.Client");
+  if (!v11)
   {
     if (dword_100971A10 <= 50 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_100971A10, "[SDXPCConnection broadwayPresentCardWithCode:options:completion:]", 50, "Client requesting broadway presentation\n");
     }
 
-    v11 = +[SDBroadwayAgent sharedAgent];
-    [v11 preparePresentationWithBroadwayActivationCode:codeCopy testInfo:optionsCopy];
+    v12 = +[SDBroadwayAgent sharedAgent];
+    [v12 preparePresentationWithBroadwayActivationCode:codeCopy testInfo:optionsCopy];
   }
 
   if (completion)
   {
-    v12 = NSErrorWithOSStatusF();
-    v13 = sub_10018FEE0();
-    v14(v13, v12);
+    v13 = NSErrorWithOSStatusF(v11, "Missing entitlement");
+    v14 = sub_10018FEE0();
+    v15(v14, v13);
   }
 }
 
@@ -3921,11 +4145,10 @@ LABEL_10:
     {
       if (dword_100971A10 <= 60 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
       {
-        v34 = deviceIdentifierCopy;
-        LogPrintF();
+        LogPrintF(&dword_100971A10, "[SDXPCConnection displayStringForContactIdentifier:deviceIdentifier:completion:]", 60, "### No IDS device found for ID %@\n", deviceIdentifierCopy);
       }
 
-      name = [CNContactFormatter stringFromContact:meCard style:0, v34];
+      name = [CNContactFormatter stringFromContact:meCard style:0];
     }
 
     v22 = name;
@@ -3935,8 +4158,8 @@ LABEL_10:
   {
     v17 = objc_alloc_init(CNContactStore);
     v19 = [CNContactFormatter descriptorForRequiredKeysForStyle:0];
-    v38 = v19;
-    v20 = [NSArray arrayWithObjects:&v38 count:1];
+    v37 = v19;
+    v20 = [NSArray arrayWithObjects:&v37 count:1];
 
     v21 = [v17 unifiedContactWithIdentifier:identifierCopy keysToFetch:v20 error:0];
     v22 = [CNContactFormatter stringFromContact:v21 style:0];
@@ -3949,7 +4172,7 @@ LABEL_10:
 
   else
   {
-    v13 = -6727;
+    v13 = 4294960569;
   }
 
   if (completionCopy)
@@ -3958,12 +4181,12 @@ LABEL_16:
     if (v13)
     {
       v23 = v13;
-      v35 = identifierCopy;
-      v36 = NSLocalizedDescriptionKey;
-      v24 = [NSString stringWithUTF8String:sub_100190078()];
+      v34 = identifierCopy;
+      v35 = NSLocalizedDescriptionKey;
+      v24 = [NSString stringWithUTF8String:sub_100190078(v13)];
       sub_10018FED4();
-      v37 = v25;
-      [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+      v36 = v25;
+      [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
       v26 = meCard;
       v28 = v27 = deviceIdentifierCopy;
       v29 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v23 userInfo:v28];
@@ -3973,7 +4196,7 @@ LABEL_16:
       deviceIdentifierCopy = v27;
       meCard = v26;
 
-      identifierCopy = v35;
+      identifierCopy = v34;
     }
 
     else
@@ -3992,26 +4215,42 @@ LABEL_19:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (completionCopy)
   {
-    if ([(SDXPCConnection *)self _entitled:@"com.apple.sharing.Client" state:&self->_entitledClient label:@"AppleIDAuth"]|| ([(SDAppleIDAgent *)self->_server->_appleIDAgent myAccount], (v5 = objc_claimAutoreleasedReturnValue()) == 0))
+    myAccount = [(SDXPCConnection *)self _entitled:@"com.apple.sharing.Client" state:&self->_entitledClient label:@"AppleIDAuth"];
+    if (myAccount)
     {
-      sub_100186CC8();
-      v6 = [NSString stringWithUTF8String:sub_100190078()];
-      sub_10018FED4();
-      sub_10018FF00();
-      v10 = [v9 dictionaryWithObjects:? forKeys:? count:?];
-      v11 = [sub_10018FE88() errorWithDomain:? code:? userInfo:?];
-      v12 = sub_10002FC98();
-      v13(v12, 0, v11);
+      v9 = myAccount;
     }
 
     else
     {
-      v6 = v5;
-      sub_100186CC8();
-      v7 = sub_10002FC98();
-      v8(v7, v6, 0);
+      myAccount = [(SDAppleIDAgent *)self->_server->_appleIDAgent myAccount];
+      if (myAccount)
+      {
+        v6 = myAccount;
+        sub_100186CC8(myAccount);
+        v7 = sub_10002FC98();
+        v8(v7, v6, 0);
+LABEL_5:
+
+        goto LABEL_6;
+      }
+
+      v9 = 201202;
     }
+
+    sub_100186CC8(myAccount);
+    v6 = [NSString stringWithUTF8String:sub_100190078(v9)];
+    sub_10018FED4();
+    sub_10018FF00();
+    v11 = [v10 dictionaryWithObjects:? forKeys:? count:?];
+    v12 = [sub_10018FE88() errorWithDomain:? code:? userInfo:?];
+    v13 = sub_10002FC98();
+    v14(v13, 0, v12);
+
+    goto LABEL_5;
   }
+
+LABEL_6:
 }
 
 - (void)hashManagerControl:(id)control completion:(id)completion
@@ -4021,133 +4260,153 @@ LABEL_19:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (completionCopy)
   {
-    if (sub_1001900F8(v7, v8, @"com.apple.sharing.Client"))
+    v9 = sub_1001900F8(v7, v8, @"com.apple.sharing.Client");
+    if (v9)
     {
-      v14 = NSErrorWithOSStatusF();
-      v13 = 0;
-      v10 = 0;
+      v15 = NSErrorWithOSStatusF(v9, "Missing entitlement");
+      v14 = 0;
+      v11 = 0;
+      goto LABEL_23;
     }
 
-    else
+    v10 = [controlCopy objectForKeyedSubscript:@"cmd"];
+    v11 = v10;
+    if (v10)
     {
-      v9 = [controlCopy objectForKeyedSubscript:@"cmd"];
-      v10 = v9;
-      if (v9)
+      if ([v10 isEqualToString:@"hmrebuild"])
       {
-        if ([v9 isEqualToString:@"hmrebuild"])
+        v12 = +[_TtC16DaemoniOSLibrary27SDAirDropContactHashManager shared];
+        [v12 rebuildDB];
+
+        airDropService = self->_server->_airDropService;
+        if (airDropService)
         {
-          v11 = +[_TtC16DaemoniOSLibrary27SDAirDropContactHashManager shared];
-          [v11 rebuildDB];
-
-          airDropService = self->_server->_airDropService;
-          if (airDropService)
-          {
-            [(SDAirDropService_objc *)airDropService forceRebuild];
-          }
-
-          v13 = 0;
-          v14 = 0;
-          goto LABEL_22;
+          [(SDAirDropService_objc *)airDropService forceRebuild];
         }
 
-        if ([v10 isEqualToString:@"hmdump"])
+        v14 = 0;
+        v15 = 0;
+        goto LABEL_23;
+      }
+
+      v16 = [v11 isEqualToString:@"hmdump"];
+      if (v16)
+      {
+        v17 = NSTemporaryDirectory();
+        v18 = [v17 stringByAppendingPathComponent:@"airdrop-hash-db.txt"];
+        v19 = [NSURL fileURLWithPath:v18];
+
+        v20 = NSTemporaryDirectory();
+        v21 = [NSURL fileURLWithPath:v20];
+
+        if (v19)
         {
-          v15 = NSTemporaryDirectory();
-          v16 = [v15 stringByAppendingPathComponent:@"airdrop-hash-db.txt"];
-          v17 = [NSURL fileURLWithPath:v16];
+          v22 = +[_TtC16DaemoniOSLibrary27SDAirDropContactHashManager shared];
+          v23 = [v22 dumpDBAtFileURL:v19];
 
-          v18 = NSTemporaryDirectory();
-          v19 = [NSURL fileURLWithPath:v18];
-
-          if (v17 && (+[SDAirDropContactHashManager shared](_TtC16DaemoniOSLibrary27SDAirDropContactHashManager, "shared"), v20 = objc_claimAutoreleasedReturnValue(), v21 = [v20 dumpDBAtFileURL:v17], v20, (v21 & 1) != 0))
+          if (v23)
           {
-            path = [v17 path];
-            v23 = path;
+            path = [v19 path];
+            v25 = path;
             if (path)
             {
-              v24 = path;
+              v26 = path;
             }
 
             else
             {
-              v24 = @"<unknown>";
+              v26 = @"<unknown>";
             }
 
-            v13 = [NSMutableDictionary dictionaryWithObject:v24 forKey:@"filePath"];
+            v14 = [NSMutableDictionary dictionaryWithObject:v26 forKey:@"filePath"];
 
-            v14 = 0;
-            v25 = self->_server->_airDropService;
-            if (v25 && v19)
+            v15 = 0;
+            v27 = self->_server->_airDropService;
+            if (v27 && v21)
             {
-              [(SDAirDropService_objc *)v25 dumpDBWithUrl:v19];
-              path2 = [v19 path];
-              v27 = path2;
+              [(SDAirDropService_objc *)v27 dumpDBWithUrl:v21];
+              path2 = [v21 path];
+              v29 = path2;
               if (path2)
               {
-                v28 = path2;
+                v30 = path2;
               }
 
               else
               {
-                v28 = @"<unknown>";
+                v30 = @"<unknown>";
               }
 
-              [v13 setObject:v28 forKey:@"idmsFilePath"];
+              [v14 setObject:v30 forKey:@"idmsFilePath"];
 
-              v14 = 0;
+              v15 = 0;
             }
+
+            goto LABEL_20;
           }
 
-          else
-          {
-            v14 = NSErrorWithOSStatusF();
-            v13 = 0;
-          }
-
-          goto LABEL_22;
+          NSErrorWithOSStatusF(0, "Failed to perform hash database dump");
         }
+
+        else
+        {
+          NSErrorWithOSStatusF(0, "Failed to create destination URL");
+        }
+        v15 = ;
+        v14 = 0;
+LABEL_20:
+
+LABEL_23:
+        v31 = sub_10002FC98();
+        v32(v31, v14, v15);
+
+        goto LABEL_24;
       }
 
-      v14 = NSErrorWithOSStatusF();
-      v13 = 0;
+      NSErrorWithOSStatusF(v16, "Unknown command");
     }
 
-LABEL_22:
-    v29 = sub_10002FC98();
-    v30(v29, v13, v14);
+    else
+    {
+      NSErrorWithOSStatusF(0, "Missing command");
+    }
+    v15 = ;
+    v14 = 0;
+    goto LABEL_23;
   }
+
+LABEL_24:
 }
 
 - (void)personInfoWithEmailOrPhone:(id)phone completion:(id)completion
 {
   sub_1001901A4();
   sub_10019014C();
-  v7 = v6;
-  v8 = v4;
+  v6 = v5;
+  v7 = v4;
   sub_100035138();
   if (v4)
   {
-    v11 = sub_1001900F8(v9, v10, @"com.apple.sharing.Client");
-    if (v11)
+    v10 = sub_1001900F8(v8, v9, @"com.apple.sharing.Client");
+    if (v10)
     {
-      v14 = v11;
-      sub_100186CC8();
-      v15 = v14;
-      sub_100190078();
-      v16 = [sub_10019003C() stringWithUTF8String:?];
+      v12 = v10;
+      sub_100186CC8(v10);
+      v13 = v12;
+      sub_100190078(v12);
+      v14 = [sub_10019003C() stringWithUTF8String:?];
       sub_10018FED4();
       sub_10018FF00();
-      v18 = [v17 dictionaryWithObjects:? forKeys:? count:?];
-      v19 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v15 userInfo:v18];
-      v20 = sub_10018FEE0();
-      v21(v20, 0, v19);
+      v16 = [v15 dictionaryWithObjects:? forKeys:? count:?];
+      v17 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v13 userInfo:v16];
+      v18 = sub_10018FEE0();
+      v19(v18, 0, v17);
     }
 
     else
     {
-      v12 = *(*(v5 + 112) + 16);
       sub_100190180();
-      [v13 personInfoWithEmailOrPhone:? completion:?];
+      [v11 personInfoWithEmailOrPhone:? completion:?];
     }
   }
 
@@ -4169,23 +4428,22 @@ LABEL_22:
     v15 = [v10 _entitled:@"com.apple.sharing.Client" state:v10 + 50 label:@"AppleIDAuth"];
     if (v15)
     {
-      v18 = v15;
-      sub_100186CC8();
-      v19 = v18;
-      v20 = [NSString stringWithUTF8String:sub_100190078()];
+      v17 = v15;
+      sub_100186CC8(v15);
+      v18 = v17;
+      v19 = [NSString stringWithUTF8String:sub_100190078(v17)];
       sub_10018FED4();
       sub_10018FF00();
-      v22 = [v21 dictionaryWithObjects:? forKeys:? count:?];
-      v23 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v19 userInfo:v22];
-      v24 = sub_100190090();
-      v25(v24, 0, v23);
+      v21 = [v20 dictionaryWithObjects:? forKeys:? count:?];
+      v22 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v18 userInfo:v21];
+      v23 = sub_100190090();
+      v24(v23, 0, v22);
     }
 
     else
     {
-      v16 = *(v10[14] + 16);
       sub_100190180();
-      [v17 altDSIDLookupWithEmails:? phoneNumbers:? completion:?];
+      [v16 altDSIDLookupWithEmails:? phoneNumbers:? completion:?];
     }
   }
 
@@ -4220,67 +4478,6 @@ LABEL_22:
   }
 }
 
-- (void)reenableProxCardType:(unsigned __int8)type completion:(id)completion
-{
-  sub_1001901A4();
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  dispatch_assert_queue_V2(*(*(v7 + 112) + 56));
-  v12 = sub_1001900F8(v10, v11, @"com.apple.sharing.Client");
-  if (v12)
-  {
-LABEL_5:
-    if (!v9)
-    {
-      goto LABEL_17;
-    }
-
-    goto LABEL_6;
-  }
-
-  if ([*(*(v7 + 112) + 120) reenableProxCardType:v5] & 1) != 0 || (objc_msgSend(*(*(v7 + 112) + 104), "reenableProxCardType:", v5))
-  {
-    v12 = 0;
-    goto LABEL_5;
-  }
-
-  if (dword_100971A10 <= 60 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
-  {
-    if (v5 <= 0x66)
-    {
-      v18 = off_1008D2420[v5];
-    }
-
-    LogPrintF();
-  }
-
-  v12 = -6735;
-  if (v9)
-  {
-LABEL_6:
-    if (v12)
-    {
-      v13 = v12;
-      v14 = [NSString stringWithUTF8String:sub_100190078()];
-      sub_10018FED4();
-      sub_10018FF00();
-      v16 = [v15 dictionaryWithObjects:? forKeys:? count:?];
-      v17 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v13 userInfo:v16];
-      v9[2](v9, v17);
-    }
-
-    else
-    {
-      v9[2](v9, 0);
-    }
-  }
-
-LABEL_17:
-
-  sub_10019018C();
-}
-
 - (void)coordinatedAlertsRequestStart:(id)start completion:(id)completion
 {
   startCopy = start;
@@ -4299,20 +4496,17 @@ LABEL_17:
       v10 = off_1008D2758[type];
     }
 
-    v18 = @"CoordinatedAlertStart";
-    v19 = v10;
-    LogPrintF();
+    LogPrintF(&dword_100971A10, "[SDXPCConnection coordinatedAlertsRequestStart:completion:]", 30, "%@ (%s)\n", @"CoordinatedAlertStart", v10);
   }
 
-  if (!CFPrefs_GetInt64() || (v20 = [(SDXPCConnection *)self _entitled:@"com.apple.sharing.CoordinatedAlerts" state:&self->_entitledCoordinatedAlerts label:@"CoordinatedAlertStart"]) == 0)
+  if (!CFPrefs_GetInt64() || (v18 = [(SDXPCConnection *)self _entitled:@"com.apple.sharing.CoordinatedAlerts" state:&self->_entitledCoordinatedAlerts label:@"CoordinatedAlertStart"]) == 0)
   {
     if (self->_caRequest)
     {
-      v20 = -6721;
+      v18 = -6721;
       if (dword_100971A10 <= 60 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
       {
-        [(NSXPCConnection *)self->_xpcCnx processIdentifier:v18];
-        LogPrintF();
+        LogPrintF(&dword_100971A10, "[SDXPCConnection coordinatedAlertsRequestStart:completion:]", 60, "### %@ rejected for %#{pid}: already in use\n", @"CoordinatedAlertStart", [(NSXPCConnection *)self->_xpcCnx processIdentifier]);
       }
     }
 
@@ -4324,19 +4518,19 @@ LABEL_17:
 
       objc_storeStrong(&self->_caRequest, start);
       [(SDNearbyAgent *)self->_server->_nearbyAgent coordinatedAlertRequestStart:startCopy];
-      v20 = 0;
+      v18 = 0;
     }
   }
 
-  if (completion && v20)
+  if (completion && v18)
   {
-    v21 = NSLocalizedDescriptionKey;
-    sub_100190078();
+    v19 = NSLocalizedDescriptionKey;
+    sub_100190078(v18);
     v12 = [sub_10002A810() stringWithUTF8String:?];
     sub_10018FED4();
-    v22 = v13;
-    v14 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-    v15 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v20 userInfo:v14];
+    v20 = v13;
+    v14 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v15 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v18 userInfo:v14];
     v16 = sub_10018FEE0();
     v17(v16, v15, 1, 0);
   }
@@ -4347,11 +4541,10 @@ LABEL_17:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    v3 = @"BluetoothUserInteraction";
-    LogPrintF();
+    LogPrintF(&dword_100971A10, "[SDXPCConnection bluetoothUserInteraction]", 30, "%@\n", @"BluetoothUserInteraction");
   }
 
-  if (![(SDXPCConnection *)self _entitled:@"com.apple.sharing.BluetoothUserInteraction" state:&self->_entitledBluetoothUserInteraction label:@"BluetoothUserInteraction", v3])
+  if (![(SDXPCConnection *)self _entitled:@"com.apple.sharing.BluetoothUserInteraction" state:&self->_entitledBluetoothUserInteraction label:@"BluetoothUserInteraction"])
   {
     [(SDProximityPairingAgent *)self->_server->_ppAgent bluetoothUserInteractionStart:self];
     self->_bluetoothUserInteraction = 1;
@@ -4364,20 +4557,21 @@ LABEL_17:
   v7 = v6;
   v8 = v4;
   dispatch_assert_queue_V2(*(v5[14] + 56));
-  if (![v5 _entitled:@"com.apple.sharing.Diagnostics" state:v5 + 53 label:@"DiagnosticLogControl"])
+  v9 = [v5 _entitled:@"com.apple.sharing.Diagnostics" state:v5 + 53 label:@"DiagnosticLogControl"];
+  if (!v9)
   {
-    if (!v7 || ([v7 UTF8String], !LogControl()))
+    if (!v7 || ([v7 UTF8String], v9 = LogControl(), !v9))
     {
-      LogShow();
+      v9 = LogShow();
     }
   }
 
   if (v8)
   {
-    NSPrintF();
+    NSPrintF("### Error: %#m\n", v9);
     objc_claimAutoreleasedReturnValue();
-    v9 = sub_10018FEB0();
-    v11(v9, v10);
+    v10 = sub_10018FEB0();
+    v12(v10, v11);
   }
 }
 
@@ -4389,11 +4583,10 @@ LABEL_17:
   sub_1001900DC();
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    v18 = @"ProximityClientActivate";
-    LogPrintF();
+    LogPrintF(&dword_100971A10, "[SDXPCConnection proximityClientActivate:completion:]", 30, "%@\n", @"ProximityClientActivate");
   }
 
-  v10 = [v6 _entitled:@"com.apple.sharing.ProximityClient" state:v6 + 54 label:{@"ProximityClientActivate", v18}];
+  v10 = [v6 _entitled:@"com.apple.sharing.ProximityClient" state:v6 + 54 label:@"ProximityClientActivate"];
   if (!v10)
   {
     if (*(v6 + 80))
@@ -4405,60 +4598,60 @@ LABEL_11:
 
     sub_1001900C0();
     sub_10019001C();
-    v41 = 3221225472;
-    v42 = sub_10018D4A0;
-    v43 = &unk_1008CF330;
-    v44 = v6;
-    [v8 setDeviceEnteredImmediateHandler:v40];
+    v40 = 3221225472;
+    v41 = sub_10018D4A0;
+    v42 = &unk_1008CF330;
+    v43 = v6;
+    [v8 setDeviceEnteredImmediateHandler:v39];
     sub_10018FF10();
-    v37 = sub_10018D520;
-    v38 = &unk_1008CF330;
-    v39 = v6;
-    [v8 setDeviceExitedImmediateHandler:v36];
-    v35[0] = _NSConcreteStackBlock;
-    v35[1] = 3221225472;
-    v35[2] = sub_10018D5A0;
-    v35[3] = &unk_1008CF330;
-    v35[4] = v6;
-    [v8 setDeviceEnteredNearbyHandler:v35];
+    v36 = sub_10018D520;
+    v37 = &unk_1008CF330;
+    v38 = v6;
+    [v8 setDeviceExitedImmediateHandler:v35];
     v34[0] = _NSConcreteStackBlock;
     v34[1] = 3221225472;
-    v34[2] = sub_10018D620;
+    v34[2] = sub_10018D5A0;
     v34[3] = &unk_1008CF330;
     v34[4] = v6;
-    [v8 setDeviceExitedNearbyHandler:v34];
+    [v8 setDeviceEnteredNearbyHandler:v34];
     v33[0] = _NSConcreteStackBlock;
     v33[1] = 3221225472;
-    v33[2] = sub_10018D6A0;
+    v33[2] = sub_10018D620;
     v33[3] = &unk_1008CF330;
     v33[4] = v6;
-    [v8 setDeviceWasDismissedHandler:v33];
+    [v8 setDeviceExitedNearbyHandler:v33];
     v32[0] = _NSConcreteStackBlock;
     v32[1] = 3221225472;
-    v32[2] = sub_10018D724;
-    v32[3] = &unk_1008D00C8;
+    v32[2] = sub_10018D6A0;
+    v32[3] = &unk_1008CF330;
     v32[4] = v6;
-    [v8 setDeviceWasDismissedHandlerEx:v32];
+    [v8 setDeviceWasDismissedHandler:v32];
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_10018D724;
+    v31[3] = &unk_1008D00C8;
+    v31[4] = v6;
+    [v8 setDeviceWasDismissedHandlerEx:v31];
     sub_100190048();
-    v28 = 3221225472;
-    v29 = sub_10018D7AC;
-    v30 = &unk_1008CF330;
-    v31 = v6;
-    [v8 setDeviceWasSelectedHandler:v27];
+    v27 = 3221225472;
+    v28 = sub_10018D7AC;
+    v29 = &unk_1008CF330;
+    v30 = v6;
+    [v8 setDeviceWasSelectedHandler:v26];
     sub_10018FF88();
-    v24 = sub_10018D82C;
-    v25 = &unk_1008CF330;
-    v26 = v6;
-    [v8 setDeviceWillTriggerHandler:v23];
+    v23 = sub_10018D82C;
+    v24 = &unk_1008CF330;
+    v25 = v6;
+    [v8 setDeviceWillTriggerHandler:v22];
     sub_10018FF60();
     [sub_10019016C() setDeviceDidUntriggerHandler:?];
     if ([v8 wantsUpdates])
     {
       sub_10018FF38();
-      v20 = sub_10018D92C;
-      v21 = &unk_1008D22F8;
-      v22 = v6;
-      [v8 setDeviceUpdateHandler:v19];
+      v19 = sub_10018D92C;
+      v20 = &unk_1008D22F8;
+      v21 = v6;
+      [v8 setDeviceUpdateHandler:v18];
     }
 
     v10 = [*(*(v6 + 112) + 112) proximityClientStart:v8];
@@ -4474,11 +4667,11 @@ LABEL_12:
   {
     if (v10)
     {
-      v45 = NSLocalizedDescriptionKey;
-      sub_100190078();
+      v44 = NSLocalizedDescriptionKey;
+      sub_100190078(v10);
       v11 = [sub_10002A810() stringWithUTF8String:?];
       sub_10018FED4();
-      v46 = v12;
+      v45 = v12;
       sub_100190068();
       [v13 dictionaryWithObjects:? forKeys:? count:?];
       objc_claimAutoreleasedReturnValue();
@@ -4504,34 +4697,33 @@ LABEL_12:
   sub_1001900DC();
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    v18 = @"RemoteInteractionSessionActivate";
-    LogPrintF();
+    LogPrintF(&dword_100971A10, "[SDXPCConnection remoteInteractionSessionActivate:completion:]", 30, "%@\n", @"RemoteInteractionSessionActivate");
   }
 
-  v10 = [v6 _entitled:@"com.apple.sharing.RemoteInteractionSession" state:v6 + 55 label:{@"RemoteInteractionSessionActivate", v18}];
+  v10 = [v6 _entitled:@"com.apple.sharing.RemoteInteractionSession" state:v6 + 55 label:@"RemoteInteractionSessionActivate"];
   if (!v10)
   {
     if (!*(v6 + 88))
     {
       sub_1001900C0();
       sub_100190048();
-      v28 = 3221225472;
-      v29 = sub_10018E44C;
-      v30 = &unk_1008CF400;
-      v31 = v6;
-      [v8 setRemoteTextEventHandler:v27];
+      v27 = 3221225472;
+      v28 = sub_10018E44C;
+      v29 = &unk_1008CF400;
+      v30 = v6;
+      [v8 setRemoteTextEventHandler:v26];
       sub_10018FF88();
-      v24 = sub_10018E4CC;
-      v25 = &unk_1008D2320;
-      v26 = v6;
-      [v8 setTextSessionDidBegin:v23];
+      v23 = sub_10018E4CC;
+      v24 = &unk_1008D2320;
+      v25 = v6;
+      [v8 setTextSessionDidBegin:v22];
       sub_10018FF60();
       [sub_10019016C() setTextSessionDidEnd:?];
       sub_10018FF38();
-      v20 = sub_10018E5CC;
-      v21 = &unk_1008D2320;
-      v22 = v6;
-      [v8 setTextSessionDidChange:v19];
+      v19 = sub_10018E5CC;
+      v20 = &unk_1008D2320;
+      v21 = v6;
+      [v8 setTextSessionDidChange:v18];
       v10 = [*(*(v6 + 112) + 88) sessionStart:v8];
       if (v10)
       {
@@ -4549,11 +4741,11 @@ LABEL_10:
   {
     if (v10)
     {
-      v32 = NSLocalizedDescriptionKey;
-      sub_100190078();
+      v31 = NSLocalizedDescriptionKey;
+      sub_100190078(v10);
       v11 = [sub_10002A810() stringWithUTF8String:?];
       sub_10018FED4();
-      v33 = v12;
+      v32 = v12;
       sub_100190068();
       [v13 dictionaryWithObjects:? forKeys:? count:?];
       objc_claimAutoreleasedReturnValue();
@@ -4579,13 +4771,12 @@ LABEL_10:
   dispatch_assert_queue_V2(self->_server->_dispatchQueue);
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    v23 = activateCopy;
-    LogPrintF();
+    LogPrintF(&dword_100971A10, "[SDXPCConnection serviceActivate:completion:]", 30, "ServiceActivate: %@\n", activateCopy);
   }
 
   if (!identifier)
   {
-    v15 = -6705;
+    v16 = -6705;
     goto LABEL_20;
   }
 
@@ -4594,25 +4785,26 @@ LABEL_10:
   {
     if (self->_service)
     {
-      v15 = -6721;
+      v16 = -6721;
       goto LABEL_20;
     }
 
     if (CFPrefs_GetInt64())
     {
       identifier2 = [activateCopy identifier];
-      v11 = [identifier2 isEqual:SFServiceIdentifierDeviceDiagnostics];
+      v11 = SFServiceIdentifierDeviceDiagnostics;
+      v12 = [identifier2 isEqual:SFServiceIdentifierDeviceDiagnostics];
 
-      if (v11)
+      if (v12)
       {
         if (dword_100971A10 <= 60 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_100971A10, "[SDXPCConnection serviceActivate:completion:]", 60, "### Service identifier %@ is disabled via pref\n", v11);
         }
 
-        v15 = -71165;
+        v16 = -71165;
 LABEL_20:
-        v47 = v15;
+        v47 = v16;
         if (!completionCopy)
         {
           goto LABEL_24;
@@ -4622,7 +4814,7 @@ LABEL_20:
       }
     }
 
-    [activateCopy setDispatchQueue:{self->_server->_dispatchQueue, v23}];
+    [activateCopy setDispatchQueue:self->_server->_dispatchQueue];
     v46[0] = _NSConcreteStackBlock;
     v46[1] = 3221225472;
     v46[2] = sub_10018E6E8;
@@ -4666,12 +4858,12 @@ LABEL_20:
     {
       objc_storeStrong(&self->_service, activate);
       identifier3 = [(SFService *)self->_service identifier];
-      v13 = [identifier3 isEqualToString:SFServiceIdentifierPasswordSharing];
+      v14 = [identifier3 isEqualToString:SFServiceIdentifierPasswordSharing];
 
-      if (v13)
+      if (v14)
       {
-        v14 = +[NSNotificationCenter defaultCenter];
-        [v14 postNotificationName:SFWiFiPasswordSharingAdvertisingBegan object:0];
+        v15 = +[NSNotificationCenter defaultCenter];
+        [v15 postNotificationName:SFWiFiPasswordSharingAdvertisingBegan object:0];
       }
     }
   }
@@ -4682,23 +4874,23 @@ LABEL_20:
   }
 
 LABEL_21:
-  v16 = v47;
+  v17 = v47;
   if (v47)
   {
     v48 = NSLocalizedDescriptionKey;
-    sub_100190078();
-    v17 = [sub_10019003C() stringWithUTF8String:?];
+    sub_100190078(v47);
+    v18 = [sub_10019003C() stringWithUTF8String:?];
     sub_10018FED4();
-    v49 = v18;
-    v19 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-    v20 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v16 userInfo:v19];
-    completionCopy[2](completionCopy, v20);
+    v49 = v19;
+    v20 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+    v21 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v17 userInfo:v20];
+    completionCopy[2](completionCopy, v21);
   }
 
   else
   {
-    v21 = sub_10018FEF0();
-    v22(v21);
+    v22 = sub_10018FEF0();
+    v23(v22);
   }
 
 LABEL_24:
@@ -4711,16 +4903,15 @@ LABEL_24:
   sub_100035138();
   if (dword_100971A10 <= 30 && (dword_100971A10 != -1 || _LogCategory_Initialize()))
   {
-    v19 = @"SessionActivate";
-    LogPrintF();
+    LogPrintF(&dword_100971A10, "[SDXPCConnection sessionActivate:completion:]", 30, "%@\n", @"SessionActivate");
   }
 
-  v10 = [(SDXPCConnection *)self _entitled:@"com.apple.sharing.Session" state:&self->_entitledSession label:@"SessionActivate", v19];
+  v10 = [(SDXPCConnection *)self _entitled:@"com.apple.sharing.Session" state:&self->_entitledSession label:@"SessionActivate"];
   if (!v10)
   {
     if (self->_session)
     {
-      v10 = -6721;
+      v10 = 4294960575;
     }
 
     else
@@ -4731,49 +4922,49 @@ LABEL_24:
       {
         [activateCopy setDispatchQueue:self->_server->_dispatchQueue];
         sub_10019001C();
-        v46 = 3221225472;
-        v47 = sub_10018EF00;
-        v48 = &unk_1008CEA50;
+        v45 = 3221225472;
+        v46 = sub_10018EF00;
+        v47 = &unk_1008CEA50;
         selfCopy = self;
-        [activateCopy setBluetoothStateChangedHandler:v45];
+        [activateCopy setBluetoothStateChangedHandler:v44];
         sub_10018FF10();
-        v42 = sub_10018EF6C;
-        v43 = &unk_1008CDF90;
+        v41 = sub_10018EF6C;
+        v42 = &unk_1008CDF90;
         selfCopy2 = self;
-        [activateCopy setErrorHandler:v41];
+        [activateCopy setErrorHandler:v40];
         sub_10018FFD8();
-        v38 = sub_10018EFEC;
-        v39 = &unk_1008D1388;
+        v37 = sub_10018EFEC;
+        v38 = &unk_1008D1388;
         selfCopy3 = self;
-        [activateCopy setEventMessageHandler:v37];
+        [activateCopy setEventMessageHandler:v36];
         sub_10018FFB0();
-        v34 = sub_10018F06C;
-        v35 = &unk_1008D23C0;
+        v33 = sub_10018F06C;
+        v34 = &unk_1008D23C0;
         selfCopy4 = self;
-        [activateCopy setReceivedFrameHandler:v33];
+        [activateCopy setReceivedFrameHandler:v32];
         sub_10018FE68();
-        v29 = 3221225472;
-        v30 = sub_10018F0F4;
-        v31 = &unk_1008CEA00;
+        v28 = 3221225472;
+        v29 = sub_10018F0F4;
+        v30 = &unk_1008CEA00;
         selfCopy5 = self;
-        [activateCopy setRequestMessageHandler:v28];
+        [activateCopy setRequestMessageHandler:v27];
         sub_100021EC8();
-        v25 = sub_10018F174;
-        v26 = &unk_1008D2398;
+        v24 = sub_10018F174;
+        v25 = &unk_1008D2398;
         selfCopy6 = self;
-        [activateCopy setResponseMessageInternalHandler:v24];
+        [activateCopy setResponseMessageInternalHandler:v23];
         sub_100035DD4();
-        v21 = sub_10018F1F4;
-        v22 = &unk_1008D23C0;
+        v20 = sub_10018F1F4;
+        v21 = &unk_1008D23C0;
         selfCopy7 = self;
-        [activateCopy setSendFrameHandler:v20];
+        [activateCopy setSendFrameHandler:v19];
         objc_storeStrong(&self->_session, activate);
         v10 = [(SDNearbyAgent *)self->_server->_nearbyAgent sessionStart:activateCopy];
       }
 
       else
       {
-        v10 = -6745;
+        v10 = 4294960551;
       }
     }
   }
@@ -4782,11 +4973,11 @@ LABEL_24:
   {
     if (v10)
     {
-      v50 = NSLocalizedDescriptionKey;
-      sub_100190078();
+      v49 = NSLocalizedDescriptionKey;
+      sub_100190078(v10);
       v12 = [sub_10002A810() stringWithUTF8String:?];
       sub_10018FED4();
-      v51 = v13;
+      v50 = v13;
       sub_100190068();
       [v14 dictionaryWithObjects:? forKeys:? count:?];
       objc_claimAutoreleasedReturnValue();

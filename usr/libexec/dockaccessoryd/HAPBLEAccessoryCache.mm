@@ -254,8 +254,6 @@ LABEL_11:
 - (void)setLastKeyBagIdentityIndexFailingPV:(id)v
 {
   vCopy = v;
-  lastKeyBagIdentityIndexFailingPV = self->_lastKeyBagIdentityIndexFailingPV;
-  v7 = vCopy;
   if ((HMFEqualObjects() & 1) == 0)
   {
     objc_storeStrong(&self->_lastKeyBagIdentityIndexFailingPV, v);
@@ -276,7 +274,7 @@ LABEL_11:
     if ([bagCopy isValidIndex:longLongValue + 1])
     {
       selfCopy = self;
-      v9 = sub_10007FAA0();
+      v9 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = sub_10007FAFC(selfCopy);

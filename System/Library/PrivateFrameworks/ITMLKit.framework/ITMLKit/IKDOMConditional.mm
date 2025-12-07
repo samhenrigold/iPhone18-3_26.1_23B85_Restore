@@ -65,72 +65,72 @@
 
 - (NSSet)dependentPathStrings
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dependentPathStrings = self->_dependentPathStrings;
   if (!dependentPathStrings)
   {
     v4 = [MEMORY[0x277CBEB58] set];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     inclusionExpressions = [(IKDOMConditional *)self inclusionExpressions];
-    v6 = [inclusionExpressions countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v6 = [inclusionExpressions countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v26;
+      v8 = *v25;
       do
       {
         v9 = 0;
         do
         {
-          if (*v26 != v8)
+          if (*v25 != v8)
           {
             objc_enumerationMutation(inclusionExpressions);
           }
 
-          dependentPathStrings = [*(*(&v25 + 1) + 8 * v9) dependentPathStrings];
+          dependentPathStrings = [*(*(&v24 + 1) + 8 * v9) dependentPathStrings];
           [v4 unionSet:dependentPathStrings];
 
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [inclusionExpressions countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v7 = [inclusionExpressions countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v7);
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     exclusionExpressions = [(IKDOMConditional *)self exclusionExpressions];
-    v12 = [exclusionExpressions countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v12 = [exclusionExpressions countByEnumeratingWithState:&v20 objects:v28 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v22;
+      v14 = *v21;
       do
       {
         v15 = 0;
         do
         {
-          if (*v22 != v14)
+          if (*v21 != v14)
           {
             objc_enumerationMutation(exclusionExpressions);
           }
 
-          dependentPathStrings2 = [*(*(&v21 + 1) + 8 * v15) dependentPathStrings];
+          dependentPathStrings2 = [*(*(&v20 + 1) + 8 * v15) dependentPathStrings];
           [v4 unionSet:dependentPathStrings2];
 
           ++v15;
         }
 
         while (v13 != v15);
-        v13 = [exclusionExpressions countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v13 = [exclusionExpressions countByEnumeratingWithState:&v20 objects:v28 count:16];
       }
 
       while (v13);
@@ -142,8 +142,6 @@
 
     dependentPathStrings = self->_dependentPathStrings;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return dependentPathStrings;
 }
@@ -187,28 +185,28 @@
 
 uint64_t __46__IKDOMConditional_passesForDataItem_default___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        if ([*(*(&v11 + 1) + 8 * v7) passesForDataItem:{*(a1 + 32), v11}])
+        if ([*(*(&v10 + 1) + 8 * v7) passesForDataItem:{*(a1 + 32), v10}])
         {
           v8 = 1;
           goto LABEL_11;
@@ -218,7 +216,7 @@ uint64_t __46__IKDOMConditional_passesForDataItem_default___block_invoke(uint64_
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -231,7 +229,6 @@ uint64_t __46__IKDOMConditional_passesForDataItem_default___block_invoke(uint64_
   v8 = 0;
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

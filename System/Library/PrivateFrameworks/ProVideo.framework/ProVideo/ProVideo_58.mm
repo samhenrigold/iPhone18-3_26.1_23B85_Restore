@@ -1,3 +1,55 @@
+uint64_t OZChannelAspectRatio::createOZChannelAspectRatioInfo(OZChannelAspectRatio *this)
+{
+  if (atomic_load_explicit(&OZChannelAspectRatio::createOZChannelAspectRatioInfo(void)::_OZChannelAspectRatioInfo_once, memory_order_acquire) != -1)
+  {
+    v6[1] = v1;
+    v6[2] = v2;
+    v6[0] = &v4;
+    v5 = v6;
+    std::__call_once(&OZChannelAspectRatio::createOZChannelAspectRatioInfo(void)::_OZChannelAspectRatioInfo_once, &v5, std::__call_once_proxy[abi:ne200100]<std::tuple<OZChannelAspectRatio::createOZChannelAspectRatioInfo(void)::{lambda(void)#1} &&>>);
+  }
+
+  return OZChannelAspectRatio::_OZChannelAspectRatioInfo;
+}
+
+uint64_t OZChannelAspectRatio::createOZChannelAspectRatioImpl(OZChannelAspectRatio *this)
+{
+  if (atomic_load_explicit(&OZChannelAspectRatio::createOZChannelAspectRatioImpl(void)::_OZChannelAspectRatioImpl_once, memory_order_acquire) != -1)
+  {
+    v6[1] = v1;
+    v6[2] = v2;
+    v6[0] = &v4;
+    v5 = v6;
+    std::__call_once(&OZChannelAspectRatio::createOZChannelAspectRatioImpl(void)::_OZChannelAspectRatioImpl_once, &v5, std::__call_once_proxy[abi:ne200100]<std::tuple<OZChannelAspectRatio::createOZChannelAspectRatioImpl(void)::{lambda(void)#1} &&>>);
+  }
+
+  return OZChannelAspectRatio::_OZChannelAspectRatioImpl;
+}
+
+void std::__call_once_proxy[abi:ne200100]<std::tuple<OZChannelAspectRatio::createOZChannelAspectRatioInfo(void)::{lambda(void)#1} &&>>()
+{
+  if (!OZChannelAspectRatio::_OZChannelAspectRatioInfo)
+  {
+    operator new();
+  }
+}
+
+void OZChannelAspectRatioInfo::OZChannelAspectRatioInfo(OZChannelAspectRatioInfo *this)
+{
+  OZChannelInfo::OZChannelInfo(this, 0.0, 3.0, 0.0001, 0.1, 1.0, "");
+  PCSingleton::PCSingleton((v2 + 80), 100);
+  *this = &unk_287240EF0;
+  *(this + 10) = &unk_287240F10;
+}
+
+void std::__call_once_proxy[abi:ne200100]<std::tuple<OZChannelAspectRatio::createOZChannelAspectRatioImpl(void)::{lambda(void)#1} &&>>()
+{
+  if (!OZChannelAspectRatio::_OZChannelAspectRatioImpl)
+  {
+    operator new();
+  }
+}
+
 void sub_25FE5C8A8(_Unwind_Exception *a1)
 {
   OZChannelImpl::~OZChannelImpl(v2);
@@ -1125,18 +1177,18 @@ void OZChanObjectRef_Factory::OZChanObjectRef_Factory(OZChanObjectRef_Factory *t
   *(this + 16) = &unk_2872452A8;
 }
 
-uint64_t std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__emplace_unique_key_args<PCUUID,std::piecewise_construct_t const&,std::tuple<PCUUID const&>,std::tuple<>>(uint64_t **a1, unsigned int *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__find_equal<PCUUID>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__find_equal<PCUUID>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t *std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__find_equal<PCUUID>(uint64_t a1, void *a2, unsigned int *a3)
+uint64_t *std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_compare<PCUUID,std::__value_type<PCUUID,OZFactory *>,std::less<PCUUID>,true>,std::allocator<std::__value_type<PCUUID,OZFactory *>>>::__find_equal<PCUUID>(uint64_t a1, uint64_t **a2, unsigned int *a3)
 {
   v5 = *(a1 + 8);
   result = (a1 + 8);
@@ -1150,7 +1202,7 @@ uint64_t *std::__tree<std::__value_type<PCUUID,OZFactory *>,std::__map_value_com
     while (1)
     {
       v10 = v4;
-      v11 = *(v4 + 8);
+      v11 = *(v4 + 32);
       if (v6 != v11)
       {
         break;
@@ -1235,41 +1287,41 @@ LABEL_23:
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -1383,7 +1435,7 @@ uint64_t OZFactory::OZFactory(uint64_t a1, _OWORD *a2, _OWORD *a3, int a4)
   return a1;
 }
 
-uint64_t anonymous namespace::getThreadSpecificForFactory(_anonymous_namespace_ *this, const OZFactory *a2)
+uint64_t *anonymous namespace::getThreadSpecificForFactory(_anonymous_namespace_ *this, const OZFactory *a2)
 {
   if (!v3)
   {
@@ -1420,17 +1472,17 @@ LABEL_11:
   return v5[5];
 }
 
-_BYTE *OZFactory::setNeedsSaving(OZFactory *this, const OZFactory *a2)
+uint64_t *OZFactory::setNeedsSaving(OZFactory *this, const OZFactory *a2)
 {
   v2 = a2;
   *result = v2;
   return result;
 }
 
-uint64_t OZFactory::setFileRefID(OZFactory *this, const OZFactory *a2)
+uint64_t *OZFactory::setFileRefID(OZFactory *this, const OZFactory *a2)
 {
   v2 = a2;
-  *(result + 4) = v2;
+  *(result + 1) = v2;
   return result;
 }
 
@@ -1580,13 +1632,13 @@ uint64_t anonymous namespace::freeThreadSpecific(_anonymous_namespace_ **this, v
   {
     do
     {
-      v5 = *(v4 + 5);
+      v5 = v4[5];
       if (v5)
       {
         MEMORY[0x2666E9F00](v5, 0x1000C404A09149ALL);
       }
 
-      v6 = *(v4 + 1);
+      v6 = v4[1];
       if (v6)
       {
         do
@@ -1602,7 +1654,7 @@ uint64_t anonymous namespace::freeThreadSpecific(_anonymous_namespace_ **this, v
       {
         do
         {
-          v7 = *(v4 + 2);
+          v7 = v4[2];
           v8 = *v7 == v4;
           v4 = v7;
         }
@@ -1760,7 +1812,7 @@ void OZChanObjectRefInfo::OZChanObjectRefInfo(OZChanObjectRefInfo *this)
   *(this + 10) = &unk_2872457C8;
 }
 
-void std::__call_once_proxy[abi:ne200100]<std::tuple<OZChanObjectRef::createOZChanObjectRefImpl(double)::{lambda(void)#1} &&>>()
+void std::__call_once_proxy[abi:ne200100]<std::tuple<OZChanObjectRef::createOZChanObjectRefImpl(double)::{lambda(void)#1} &&>>(OZChannelImpl *result)
 {
   if (!OZChanObjectRef::_OZChanObjectRefImpl)
   {
@@ -1817,7 +1869,7 @@ void OZChannel::OZChannel(OZChannel *this, const OZChannelBase *a2, OZChannelFol
   v5[14] = 0;
   v5[15] = 0;
   var0 = a2[1].var0;
-  if (var0 && (*(var0 + 32) & 1) == 0)
+  if (var0 && (var0[4] & 1) == 0)
   {
     operator new();
   }
@@ -1828,7 +1880,7 @@ void OZChannel::OZChannel(OZChannel *this, const OZChannelBase *a2, OZChannelFol
   this->var16 = 0;
   this->var17 = 0;
   var2 = a2[1].var2;
-  if ((*(var2 + 72) & 1) == 0)
+  if ((var2[9] & 1) == 0)
   {
     operator new();
   }
@@ -1839,7 +1891,7 @@ void OZChannel::OZChannel(OZChannel *this, const OZChannelBase *a2, OZChannelFol
   this->var17 = v10;
   if (v9)
   {
-    v9 = (*(*v9 + 1224))(v9);
+    v9 = (*(v9->isa + 153))(v9);
   }
 
   this->var18 = v9;
@@ -1953,9 +2005,9 @@ OZChannel *OZChannel::installPrototypeCurveInterface(OZChannel *this)
   return this;
 }
 
-void OZChannel::copy(OZChannel *this, const OZChannelBase *a2, char a3)
+void OZChannel::copy(OZChannel *this, const OZChannelBase *a2, BOOL a3)
 {
-  if ((a3 & 1) == 0)
+  if (!a3)
   {
     (*(this->var0 + 58))(this, 1);
   }
@@ -2365,47 +2417,30 @@ uint64_t OZChannel::writeHeader(OZChannel *this, OZFactory *a2, int a3)
   return PCSerializerWriteStream::popScope(a2);
 }
 
-uint64_t OZChannel::writeBody(OZChannel *this, PCSerializerWriteStream *a2, int a3)
+uint64_t OZChannel::writeBody(OZChannel *this, PCSerializerWriteStream *a2, int a3, BOOL a4, BOOL a5)
 {
   if (!OZChannelBase::testFlag(this, 128) || (result = (*(*a2 + 232))(a2), (result & 1) == 0))
   {
     PCSerializerWriteStream::pushScope(a2, &OZChannelScope);
     OZChannelBase::writeBody(this, a2, a3);
     var14 = this->var14;
-    v8 = *(var14 + 2);
-    v9 = MEMORY[0x277CC08F0];
-    if (v8)
+    v10 = *(var14 + 2);
+    v11 = MEMORY[0x277CC08F0];
+    if (v10)
     {
-      v10 = *v8;
-      time1.epoch = *(v8 + 2);
-      *&time1.value = v10;
+      v12 = *v10;
+      time1.epoch = *(v10 + 2);
+      *&time1.value = v12;
       time2 = **&MEMORY[0x277CC08F0];
-      v11 = CMTimeCompare(&time1, &time2);
+      v13 = CMTimeCompare(&time1, &time2);
       var14 = this->var14;
-      if (v11)
+      if (v13)
       {
-        v12 = *(var14 + 2);
-        v13 = *v12;
-        time1.epoch = *(v12 + 2);
-        *&time1.value = v13;
+        v14 = *(var14 + 2);
+        v15 = *v14;
+        time1.epoch = *(v14 + 2);
+        *&time1.value = v15;
         (*(*a2 + 16))(a2, 119);
-        (*(*a2 + 112))(a2, &time1);
-        (*(*a2 + 24))(a2);
-        var14 = this->var14;
-      }
-    }
-
-    v14 = *(var14 + 2);
-    if (v14)
-    {
-      time1 = v14[1];
-      time2 = *v9;
-      v15 = CMTimeCompare(&time1, &time2);
-      var14 = this->var14;
-      if (v15)
-      {
-        time1 = *(*(var14 + 2) + 24);
-        (*(*a2 + 16))(a2, 120);
         (*(*a2 + 112))(a2, &time1);
         (*(*a2 + 24))(a2);
         var14 = this->var14;
@@ -2415,27 +2450,44 @@ uint64_t OZChannel::writeBody(OZChannel *this, PCSerializerWriteStream *a2, int 
     v16 = *(var14 + 2);
     if (v16)
     {
-      v17 = *(v16 + 48);
-      if (!v17 || ((*(*a2 + 16))(a2, 130), (*(*a2 + 56))(a2, v17), (*(*a2 + 24))(a2), var14 = this->var14, (v16 = *(var14 + 2)) != 0))
+      time1 = v16[1];
+      time2 = *v11;
+      v17 = CMTimeCompare(&time1, &time2);
+      var14 = this->var14;
+      if (v17)
       {
-        v18 = *(v16 + 52);
-        if (v18)
+        time1 = *(*(var14 + 2) + 24);
+        (*(*a2 + 16))(a2, 120);
+        (*(*a2 + 112))(a2, &time1);
+        (*(*a2 + 24))(a2);
+        var14 = this->var14;
+      }
+    }
+
+    v18 = *(var14 + 2);
+    if (v18)
+    {
+      v19 = *(v18 + 48);
+      if (!v19 || ((*(*a2 + 16))(a2, 130), (*(*a2 + 56))(a2, v19), (*(*a2 + 24))(a2), var14 = this->var14, (v18 = *(var14 + 2)) != 0))
+      {
+        v20 = *(v18 + 52);
+        if (v20)
         {
           (*(*a2 + 16))(a2, 131);
-          (*(*a2 + 56))(a2, v18);
+          (*(*a2 + 56))(a2, v20);
           (*(*a2 + 24))(a2);
           var14 = this->var14;
         }
       }
     }
 
-    v22 = 0;
-    (*(**(var14 + 1) + 152))(*(var14 + 1), &v22);
-    if ((a3 & 1) != 0 || (*(**(this->var14 + 1) + 512))(*(this->var14 + 1)) || (v20 = *(this->var14 + 2)) != 0 && ((v21 = *v20, time1.epoch = *(v20 + 2), *&time1.value = v21, time2 = *v9, CMTimeCompare(&time1, &time2)) || (time1 = *(*(this->var14 + 2) + 24), time2 = *v9, CMTimeCompare(&time1, &time2))))
+    v24 = 0;
+    (*(**(var14 + 1) + 152))(*(var14 + 1), &v24);
+    if ((a3 & 1) != 0 || (*(**(this->var14 + 1) + 512))(*(this->var14 + 1)) || (v22 = *(this->var14 + 2)) != 0 && ((v23 = *v22, time1.epoch = *(v22 + 2), *&time1.value = v23, time2 = *v11, CMTimeCompare(&time1, &time2)) || (time1 = *(*(this->var14 + 2) + 24), time2 = *v11, CMTimeCompare(&time1, &time2))))
     {
-      v19 = *(this->var14 + 1);
-      (*(*v19 + 16))(v19, a2, 0);
-      (*(*v19 + 24))(v19, a2, 0, 1, 1);
+      v21 = *(this->var14 + 1);
+      (*(*v21 + 16))(v21, a2, 0);
+      (*(*v21 + 24))(v21, a2, 0, 1, 1);
       (*(*a2 + 24))(a2);
     }
 
@@ -3477,7 +3529,7 @@ void OZChannel::copyKeyframesFromChannel(OZChannel *this, const CMTime *a2, OZCh
   v10 = *(v8->var16 + 5);
   memset(&v43, 0, sizeof(v43));
   (*(this->var0 + 41))(&v43, this, a2);
-  OZChannel::getKeyframes(v8, 0, &v41);
+  OZChannel::getKeyframes(&v41, v8, 0);
   if (v42 != v41)
   {
     v11 = 0;
@@ -3635,13 +3687,13 @@ void sub_25FE6F84C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t OZChannel::getKeyframes@<X0>(OZChannel *this@<X0>, int a2@<W1>, void *a3@<X8>)
+uint64_t *OZChannel::getKeyframes@<X0>(uint64_t *__return_ptr a1@<X8>, OZChannel *this@<X0>, int a3@<W1>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v3 = **(this->var14 + 1);
-  if (a2)
+  if (a3)
   {
     v4 = (v3 + 800);
   }
@@ -4250,7 +4302,7 @@ uint64_t OZChannel::setKeyframable(OZChannel *this, uint64_t a2)
   return result;
 }
 
-void OZChannel::keyframesWithChannels(void *a1, _OWORD *a2, uint64_t a3)
+void OZChannel::keyframesWithChannels(void *a1, _OWORD *a2, const void **a3)
 {
   v5 = a2[1];
   v43 = *a2;
@@ -4434,11 +4486,11 @@ void sub_25FE71504(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::pair<OZChannel *,std::vector<_OZKeyframeInfo>>>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+const void **std::vector<std::pair<OZChannel *,std::vector<_OZKeyframeInfo>>>::push_back[abi:ne200100](const void **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = (v4 - *result) >> 5;
@@ -4481,7 +4533,7 @@ uint64_t std::vector<std::pair<OZChannel *,std::vector<_OZKeyframeInfo>>>::push_
     *(a2 + 16) = 0;
     *(a2 + 24) = 0;
     v6 = 32 * v7 + 32;
-    v12 = *(result + 8) - *result;
+    v12 = result[1] - *result;
     v13 = v11 - v12;
     memcpy(v11 - v12, *result, v12);
     v14 = *v3;
@@ -4514,7 +4566,7 @@ uint64_t std::vector<std::pair<OZChannel *,std::vector<_OZKeyframeInfo>>>::push_
   return result;
 }
 
-uint64_t OZChannel::setKeyframesWithInfo(OZChannelBase *a1, CMTime *a2, __int128 **a3)
+uint64_t OZChannel::setKeyframesWithInfo(OZChannelBase *a1, CMTime *a2, char **a3)
 {
   result = OZChannelBase::isLocked(a1, 0);
   if ((result & 1) == 0)
@@ -4532,7 +4584,7 @@ uint64_t OZChannel::setKeyframesWithInfo(OZChannelBase *a1, CMTime *a2, __int128
       v9 = 1;
       do
       {
-        v10 = &v7[6 * v8];
+        v10 = &v7[96 * v8];
         v34 = *v10;
         v35 = 0;
         v11 = *(v10 + 3);
@@ -5296,19 +5348,19 @@ uint64_t OZChannel::resetCurve(OZChannel *this)
   return result;
 }
 
-uint64_t OZChannel::getKeyframeMinTime@<X0>(OZChannel *this@<X0>, uint64_t a2@<X8>)
+uint64_t *OZChannel::getKeyframeMinTime@<X0>(uint64_t *__return_ptr a1@<X8>, OZChannel *this@<X0>)
 {
   v3 = MEMORY[0x277CC08F0];
-  *a2 = *MEMORY[0x277CC08F0];
-  *(a2 + 16) = *(v3 + 16);
+  *a1 = *MEMORY[0x277CC08F0];
+  a1[2] = *(v3 + 16);
   return (*(**(this->var14 + 1) + 232))();
 }
 
-uint64_t OZChannel::getKeyframeMaxTime@<X0>(OZChannel *this@<X0>, uint64_t a2@<X8>)
+uint64_t *OZChannel::getKeyframeMaxTime@<X0>(uint64_t *__return_ptr a1@<X8>, OZChannel *this@<X0>)
 {
   v3 = MEMORY[0x277CC08F0];
-  *a2 = *MEMORY[0x277CC08F0];
-  *(a2 + 16) = *(v3 + 16);
+  *a1 = *MEMORY[0x277CC08F0];
+  a1[2] = *(v3 + 16);
   return (*(**(this->var14 + 1) + 224))();
 }
 
@@ -6096,12 +6148,12 @@ uint64_t OZChannel::getPreviousProcessingNode(OZChannel *this, void *a2)
   return v3;
 }
 
-uint64_t OZChannel::enumerateCurveProcessingNodes@<X0>(OZChannel *this@<X0>, void *a2@<X8>)
+uint64_t *OZChannel::enumerateCurveProcessingNodes@<X0>(uint64_t *__return_ptr a1@<X8>, OZChannel *this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  return (*(**(this->var14 + 1) + 1144))(*(this->var14 + 1), a2);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  return (*(**(this->var14 + 1) + 1144))(*(this->var14 + 1), a1);
 }
 
 void sub_25FE760EC(_Unwind_Exception *exception_object)
@@ -6263,19 +6315,17 @@ void sub_25FE76504(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<CMTime>::reserve(void *result, unint64_t a2)
+void std::vector<CMTime>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0xAAAAAAAAAAAAAABLL)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<PCVector3<double>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<PCVector3<double>>>(a1, a2);
     }
 
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void OZChannelDouble::~OZChannelDouble(OZChannel *this)
@@ -6296,7 +6346,7 @@ void non-virtual thunk toOZChannelDouble::~OZChannelDouble(OZChannelDouble *this
   JUMPOUT(0x2666E9F00);
 }
 
-uint64_t std::vector<_OZKeyframeInfo>::__init_with_size[abi:ne200100]<_OZKeyframeInfo*,_OZKeyframeInfo*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<_OZKeyframeInfo>::__init_with_size[abi:ne200100]<_OZKeyframeInfo*,_OZKeyframeInfo*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6318,7 +6368,7 @@ void sub_25FE76FAC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<_OZKeyframeInfo>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<_OZKeyframeInfo>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x2AAAAAAAAAAAAABLL)
   {
@@ -6368,61 +6418,54 @@ void anonymous namespace::MinMaxValuesVisitor::visitLinear(_anonymous_namespace_
   if (a3 && a4)
   {
     v13 = a9.n128_f64[0];
-    OZLinearInterpolator::OZLinearInterpolator(v25);
-    OZLinearInterpolator::interpolate(v25, a2, MEMORY[0x277CC08F0], a3, a4, a5);
+    OZLinearInterpolator::OZLinearInterpolator(v26);
+    OZLinearInterpolator::interpolate(v26, a2, MEMORY[0x277CC08F0], a3, a4, a5);
     v18 = v17;
-    OZLinearInterpolator::interpolate(v25, a2, MEMORY[0x277CC08F0], a3, a4, a6);
+    OZLinearInterpolator::interpolate(v26, a2, MEMORY[0x277CC08F0], a3, a4, a6);
     v19 = v18 + v13;
     v21 = v20 + v13;
-    OZLinearInterpolator::~OZLinearInterpolator(v25);
+    OZLinearInterpolator::~OZLinearInterpolator(v26, v22);
   }
 
   else
   {
-    v22 = MEMORY[0x277CC08F0];
+    v23 = MEMORY[0x277CC08F0];
     v19 = (*(*a2 + 240))(a2, a7, MEMORY[0x277CC08F0], 0, a5, a6, a9);
-    v21 = (*(*a2 + 240))(a2, a8, v22, 0);
+    v21 = (*(*a2 + 240))(a2, a8, v23, 0);
   }
 
   if (v19 <= v21)
-  {
-    v23 = v19;
-  }
-
-  else
-  {
-    v23 = v21;
-  }
-
-  if (v19 <= v21)
-  {
-    v24 = v21;
-  }
-
-  else
   {
     v24 = v19;
   }
 
-  if (*(this + 1) < v23)
+  else
   {
-    v23 = *(this + 1);
+    v24 = v21;
   }
 
-  if (v24 < *(this + 2))
+  if (v19 <= v21)
   {
-    v24 = *(this + 2);
+    v25 = v21;
   }
 
-  *(this + 1) = v23;
-  *(this + 2) = v24;
-}
+  else
+  {
+    v25 = v19;
+  }
 
-void sub_25FE77238(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  OZLinearInterpolator::~OZLinearInterpolator(va);
-  _Unwind_Resume(a1);
+  if (*(this + 1) < v24)
+  {
+    v24 = *(this + 1);
+  }
+
+  if (v25 < *(this + 2))
+  {
+    v25 = *(this + 2);
+  }
+
+  *(this + 1) = v24;
+  *(this + 2) = v25;
 }
 
 void anonymous namespace::MinMaxValuesVisitor::visitBezier(_anonymous_namespace_::MinMaxValuesVisitor *this, OZSpline *a2, void *a3, void *a4, const CMTime *a5, const CMTime *a6, const CMTime *a7, const CMTime *a8, double a9)
@@ -6473,9 +6516,9 @@ void anonymous namespace::MinMaxValuesVisitor::visitBezier(_anonymous_namespace_
   *(this + 2) = v20;
 }
 
-void sub_25FE77340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FE77340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   OZBezierInterpolator::~OZBezierInterpolator(va);
   _Unwind_Resume(a1);
 }
@@ -6528,22 +6571,22 @@ void anonymous namespace::MinMaxValuesVisitor::visitCatmullRom(_anonymous_namesp
   *(this + 2) = v20;
 }
 
-void sub_25FE77448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FE77448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   OZCatmullRomInterpolator::~OZCatmullRomInterpolator(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t anonymous namespace::MinMaxValuesVisitor::visitEaseIn(_anonymous_namespace_::MinMaxValuesVisitor *this, OZSpline *a2, uint64_t a3, uint64_t a4, CMTime *a5, CMTime *a6, const CMTime *a7, const CMTime *a8, double a9)
+void anonymous namespace::MinMaxValuesVisitor::visitEaseIn(_anonymous_namespace_::MinMaxValuesVisitor *this, OZSpline *a2, uint64_t a3, uint64_t a4, CMTime *a5, CMTime *a6, const CMTime *a7, const CMTime *a8, double a9)
 {
+  v22 = 0.0;
   v23 = 0.0;
-  v24 = 0.0;
-  OZInterpolator::OZInterpolator(&v25);
-  v25.var0 = &unk_287249B90;
-  *&v25.var5 = *a5;
-  *&v25.var1 = *a6;
-  v16 = CMTimeCompare(&v25.var5, &v25.var1);
+  OZInterpolator::OZInterpolator(&v24);
+  v24.var0 = &unk_287249B90;
+  *&v24.var5 = *a5;
+  *&v24.var1 = *a6;
+  v16 = CMTimeCompare(&v24.var5, &v24.var1);
   if (v16 <= 0)
   {
     v17 = a5;
@@ -6564,36 +6607,35 @@ uint64_t anonymous namespace::MinMaxValuesVisitor::visitEaseIn(_anonymous_namesp
     v18 = a5;
   }
 
-  OZEaseInInterpolator::getMinMaxValues(&v25, a2, a3, a4, v17, v18, &v24, &v23);
+  OZEaseInInterpolator::getMinMaxValues(&v24, a2, a3, a4, v17, v18, &v23, &v22);
+  v22 = v22 + a9;
   v23 = v23 + a9;
-  v24 = v24 + a9;
-  result = OZChannelBase::setRangeName(&v25, v19);
-  v21 = v24;
-  if (*(this + 1) < v24)
+  OZChannelBase::setRangeName(&v24, v19);
+  v20 = v23;
+  if (*(this + 1) < v23)
   {
-    v21 = *(this + 1);
+    v20 = *(this + 1);
   }
 
-  v22 = v23;
-  if (v23 < *(this + 2))
+  v21 = v22;
+  if (v22 < *(this + 2))
   {
-    v22 = *(this + 2);
+    v21 = *(this + 2);
   }
 
-  *(this + 1) = v21;
-  *(this + 2) = v22;
-  return result;
+  *(this + 1) = v20;
+  *(this + 2) = v21;
 }
 
-uint64_t anonymous namespace::MinMaxValuesVisitor::visitEaseOut(_anonymous_namespace_::MinMaxValuesVisitor *this, OZSpline *a2, uint64_t a3, uint64_t a4, CMTime *a5, CMTime *a6, const CMTime *a7, const CMTime *a8, double a9)
+void anonymous namespace::MinMaxValuesVisitor::visitEaseOut(_anonymous_namespace_::MinMaxValuesVisitor *this, OZSpline *a2, uint64_t a3, uint64_t a4, CMTime *a5, CMTime *a6, const CMTime *a7, const CMTime *a8, double a9)
 {
+  v22 = 0.0;
   v23 = 0.0;
-  v24 = 0.0;
-  OZInterpolator::OZInterpolator(&v25);
-  v25.var0 = &unk_287249C28;
-  *&v25.var5 = *a5;
-  *&v25.var1 = *a6;
-  v16 = CMTimeCompare(&v25.var5, &v25.var1);
+  OZInterpolator::OZInterpolator(&v24);
+  v24.var0 = &unk_287249C28;
+  *&v24.var5 = *a5;
+  *&v24.var1 = *a6;
+  v16 = CMTimeCompare(&v24.var5, &v24.var1);
   if (v16 <= 0)
   {
     v17 = a5;
@@ -6614,36 +6656,35 @@ uint64_t anonymous namespace::MinMaxValuesVisitor::visitEaseOut(_anonymous_names
     v18 = a5;
   }
 
-  OZEaseInInterpolator::getMinMaxValues(&v25, a2, a3, a4, v17, v18, &v24, &v23);
+  OZEaseInInterpolator::getMinMaxValues(&v24, a2, a3, a4, v17, v18, &v23, &v22);
+  v22 = v22 + a9;
   v23 = v23 + a9;
-  v24 = v24 + a9;
-  result = OZChannelBase::setRangeName(&v25, v19);
-  v21 = v24;
-  if (*(this + 1) < v24)
+  OZChannelBase::setRangeName(&v24, v19);
+  v20 = v23;
+  if (*(this + 1) < v23)
   {
-    v21 = *(this + 1);
+    v20 = *(this + 1);
   }
 
-  v22 = v23;
-  if (v23 < *(this + 2))
+  v21 = v22;
+  if (v22 < *(this + 2))
   {
-    v22 = *(this + 2);
+    v21 = *(this + 2);
   }
 
-  *(this + 1) = v21;
-  *(this + 2) = v22;
-  return result;
+  *(this + 1) = v20;
+  *(this + 2) = v21;
 }
 
 void anonymous namespace::MinMaxValuesVisitor::visitEase(_anonymous_namespace_::MinMaxValuesVisitor *this, OZSpline *a2, uint64_t a3, uint64_t a4, CMTime *a5, CMTime *a6, const CMTime *a7, const CMTime *a8, double a9)
 {
-  v21 = 0.0;
   v22 = 0.0;
-  OZLinearInterpolator::OZLinearInterpolator(&v23);
-  v23 = &unk_287249AF8;
-  time1 = *a5;
-  time2 = *a6;
-  v16 = CMTimeCompare(&time1, &time2);
+  v23 = 0.0;
+  OZLinearInterpolator::OZLinearInterpolator(&v24);
+  v24.var0 = &unk_287249AF8;
+  *&v24.var5 = *a5;
+  *&v24.var1 = *a6;
+  v16 = CMTimeCompare(&v24.var5, &v24.var1);
   if (v16 <= 0)
   {
     v17 = a5;
@@ -6664,42 +6705,35 @@ void anonymous namespace::MinMaxValuesVisitor::visitEase(_anonymous_namespace_::
     v18 = a5;
   }
 
-  OZLinearInterpolator::getMinMaxValues(&v23, a2, a3, a4, v17, v18, &v22, &v21);
-  v21 = v21 + a9;
+  OZLinearInterpolator::getMinMaxValues(&v24, a2, a3, a4, v17, v18, &v23, &v22);
   v22 = v22 + a9;
-  OZEaseInInterpolator::~OZEaseInInterpolator(&v23);
-  v19 = v22;
-  if (*(this + 1) < v22)
+  v23 = v23 + a9;
+  OZEaseInInterpolator::~OZEaseInInterpolator(&v24, v19);
+  v20 = v23;
+  if (*(this + 1) < v23)
   {
-    v19 = *(this + 1);
+    v20 = *(this + 1);
   }
 
-  v20 = v21;
-  if (v21 < *(this + 2))
+  v21 = v22;
+  if (v22 < *(this + 2))
   {
-    v20 = *(this + 2);
+    v21 = *(this + 2);
   }
 
-  *(this + 1) = v19;
-  *(this + 2) = v20;
-}
-
-void sub_25FE777D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  OZEaseInInterpolator::~OZEaseInInterpolator(va);
-  _Unwind_Resume(a1);
+  *(this + 1) = v20;
+  *(this + 2) = v21;
 }
 
 void anonymous namespace::MinMaxValuesVisitor::visitAccelerate(_anonymous_namespace_::MinMaxValuesVisitor *this, OZSpline *a2, uint64_t a3, uint64_t a4, CMTime *a5, CMTime *a6, const CMTime *a7, const CMTime *a8, double a9)
 {
-  v21 = 0.0;
   v22 = 0.0;
-  OZLinearInterpolator::OZLinearInterpolator(&v23);
-  v23 = &unk_287249658;
-  time1 = *a5;
-  time2 = *a6;
-  v16 = CMTimeCompare(&time1, &time2);
+  v23 = 0.0;
+  OZLinearInterpolator::OZLinearInterpolator(&v24);
+  v24.var0 = &unk_287249658;
+  *&v24.var5 = *a5;
+  *&v24.var1 = *a6;
+  v16 = CMTimeCompare(&v24.var5, &v24.var1);
   if (v16 <= 0)
   {
     v17 = a5;
@@ -6720,42 +6754,35 @@ void anonymous namespace::MinMaxValuesVisitor::visitAccelerate(_anonymous_namesp
     v18 = a5;
   }
 
-  OZLinearInterpolator::getMinMaxValues(&v23, a2, a3, a4, v17, v18, &v22, &v21);
-  v21 = v21 + a9;
+  OZLinearInterpolator::getMinMaxValues(&v24, a2, a3, a4, v17, v18, &v23, &v22);
   v22 = v22 + a9;
-  OZEaseInInterpolator::~OZEaseInInterpolator(&v23);
-  v19 = v22;
-  if (*(this + 1) < v22)
+  v23 = v23 + a9;
+  OZEaseInInterpolator::~OZEaseInInterpolator(&v24, v19);
+  v20 = v23;
+  if (*(this + 1) < v23)
   {
-    v19 = *(this + 1);
+    v20 = *(this + 1);
   }
 
-  v20 = v21;
-  if (v21 < *(this + 2))
+  v21 = v22;
+  if (v22 < *(this + 2))
   {
-    v20 = *(this + 2);
+    v21 = *(this + 2);
   }
 
-  *(this + 1) = v19;
-  *(this + 2) = v20;
-}
-
-void sub_25FE77908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  OZEaseInInterpolator::~OZEaseInInterpolator(va);
-  _Unwind_Resume(a1);
+  *(this + 1) = v20;
+  *(this + 2) = v21;
 }
 
 void anonymous namespace::MinMaxValuesVisitor::visitDecelerate(_anonymous_namespace_::MinMaxValuesVisitor *this, OZSpline *a2, uint64_t a3, uint64_t a4, CMTime *a5, CMTime *a6, const CMTime *a7, const CMTime *a8, double a9)
 {
-  v21 = 0.0;
   v22 = 0.0;
-  OZLinearInterpolator::OZLinearInterpolator(&v23);
-  v23 = &unk_287249A60;
-  time1 = *a5;
-  time2 = *a6;
-  v16 = CMTimeCompare(&time1, &time2);
+  v23 = 0.0;
+  OZLinearInterpolator::OZLinearInterpolator(&v24);
+  v24.var0 = &unk_287249A60;
+  *&v24.var5 = *a5;
+  *&v24.var1 = *a6;
+  v16 = CMTimeCompare(&v24.var5, &v24.var1);
   if (v16 <= 0)
   {
     v17 = a5;
@@ -6776,42 +6803,35 @@ void anonymous namespace::MinMaxValuesVisitor::visitDecelerate(_anonymous_namesp
     v18 = a5;
   }
 
-  OZLinearInterpolator::getMinMaxValues(&v23, a2, a3, a4, v17, v18, &v22, &v21);
-  v21 = v21 + a9;
+  OZLinearInterpolator::getMinMaxValues(&v24, a2, a3, a4, v17, v18, &v23, &v22);
   v22 = v22 + a9;
-  OZEaseInInterpolator::~OZEaseInInterpolator(&v23);
-  v19 = v22;
-  if (*(this + 1) < v22)
+  v23 = v23 + a9;
+  OZEaseInInterpolator::~OZEaseInInterpolator(&v24, v19);
+  v20 = v23;
+  if (*(this + 1) < v23)
   {
-    v19 = *(this + 1);
+    v20 = *(this + 1);
   }
 
-  v20 = v21;
-  if (v21 < *(this + 2))
+  v21 = v22;
+  if (v22 < *(this + 2))
   {
-    v20 = *(this + 2);
+    v21 = *(this + 2);
   }
 
-  *(this + 1) = v19;
-  *(this + 2) = v20;
+  *(this + 1) = v20;
+  *(this + 2) = v21;
 }
 
-void sub_25FE77A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void anonymous namespace::MinMaxValuesVisitor::visitExponential(_anonymous_namespace_::MinMaxValuesVisitor *this, OZSpline *a2, uint64_t a3, uint64_t a4, CMTime *a5, CMTime *a6, const CMTime *a7, const CMTime *a8, double a9)
 {
-  va_start(va, a4);
-  OZEaseInInterpolator::~OZEaseInInterpolator(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t anonymous namespace::MinMaxValuesVisitor::visitExponential(_anonymous_namespace_::MinMaxValuesVisitor *this, OZSpline *a2, uint64_t a3, uint64_t a4, CMTime *a5, CMTime *a6, const CMTime *a7, const CMTime *a8, double a9)
-{
+  v22 = 0.0;
   v23 = 0.0;
-  v24 = 0.0;
-  OZInterpolator::OZInterpolator(&v25);
-  v25.var0 = &unk_287249CC0;
-  *&v25.var5 = *a5;
-  *&v25.var1 = *a6;
-  v16 = CMTimeCompare(&v25.var5, &v25.var1);
+  OZInterpolator::OZInterpolator(&v24);
+  v24.var0 = &unk_287249CC0;
+  *&v24.var5 = *a5;
+  *&v24.var1 = *a6;
+  v16 = CMTimeCompare(&v24.var5, &v24.var1);
   if (v16 <= 0)
   {
     v17 = a5;
@@ -6832,36 +6852,35 @@ uint64_t anonymous namespace::MinMaxValuesVisitor::visitExponential(_anonymous_n
     v18 = a5;
   }
 
-  OZEaseInInterpolator::getMinMaxValues(&v25, a2, a3, a4, v17, v18, &v24, &v23);
+  OZEaseInInterpolator::getMinMaxValues(&v24, a2, a3, a4, v17, v18, &v23, &v22);
+  v22 = v22 + a9;
   v23 = v23 + a9;
-  v24 = v24 + a9;
-  result = OZChannelBase::setRangeName(&v25, v19);
-  v21 = v24;
-  if (*(this + 1) < v24)
+  OZChannelBase::setRangeName(&v24, v19);
+  v20 = v23;
+  if (*(this + 1) < v23)
   {
-    v21 = *(this + 1);
+    v20 = *(this + 1);
   }
 
-  v22 = v23;
-  if (v23 < *(this + 2))
+  v21 = v22;
+  if (v22 < *(this + 2))
   {
-    v22 = *(this + 2);
+    v21 = *(this + 2);
   }
 
-  *(this + 1) = v21;
-  *(this + 2) = v22;
-  return result;
+  *(this + 1) = v20;
+  *(this + 2) = v21;
 }
 
-uint64_t anonymous namespace::MinMaxValuesVisitor::visitLogarithmic(_anonymous_namespace_::MinMaxValuesVisitor *this, OZSpline *a2, uint64_t a3, uint64_t a4, CMTime *a5, CMTime *a6, const CMTime *a7, const CMTime *a8, double a9)
+void anonymous namespace::MinMaxValuesVisitor::visitLogarithmic(_anonymous_namespace_::MinMaxValuesVisitor *this, OZSpline *a2, uint64_t a3, uint64_t a4, CMTime *a5, CMTime *a6, const CMTime *a7, const CMTime *a8, double a9)
 {
+  v22 = 0.0;
   v23 = 0.0;
-  v24 = 0.0;
-  OZInterpolator::OZInterpolator(&v25);
-  v25.var0 = &unk_287249F88;
-  *&v25.var5 = *a5;
-  *&v25.var1 = *a6;
-  v16 = CMTimeCompare(&v25.var5, &v25.var1);
+  OZInterpolator::OZInterpolator(&v24);
+  v24.var0 = &unk_287249F88;
+  *&v24.var5 = *a5;
+  *&v24.var1 = *a6;
+  v16 = CMTimeCompare(&v24.var5, &v24.var1);
   if (v16 <= 0)
   {
     v17 = a5;
@@ -6882,25 +6901,24 @@ uint64_t anonymous namespace::MinMaxValuesVisitor::visitLogarithmic(_anonymous_n
     v18 = a5;
   }
 
-  OZEaseInInterpolator::getMinMaxValues(&v25, a2, a3, a4, v17, v18, &v24, &v23);
+  OZEaseInInterpolator::getMinMaxValues(&v24, a2, a3, a4, v17, v18, &v23, &v22);
+  v22 = v22 + a9;
   v23 = v23 + a9;
-  v24 = v24 + a9;
-  result = OZChannelBase::setRangeName(&v25, v19);
-  v21 = v24;
-  if (*(this + 1) < v24)
+  OZChannelBase::setRangeName(&v24, v19);
+  v20 = v23;
+  if (*(this + 1) < v23)
   {
-    v21 = *(this + 1);
+    v20 = *(this + 1);
   }
 
-  v22 = v23;
-  if (v23 < *(this + 2))
+  v21 = v22;
+  if (v22 < *(this + 2))
   {
-    v22 = *(this + 2);
+    v21 = *(this + 2);
   }
 
-  *(this + 1) = v21;
-  *(this + 2) = v22;
-  return result;
+  *(this + 1) = v20;
+  *(this + 2) = v21;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<OZChannel *,std::vector<_OZKeyframeInfo>>>>(uint64_t a1, unint64_t a2)
@@ -6955,37 +6973,37 @@ void OZCurve::OZCurve(OZCurve *this, double a2, double a3, double a4, double a5)
   operator new();
 }
 
-void sub_25FE78098(_Unwind_Exception *a1)
+void sub_25FE78098(_Unwind_Exception *a1, const PCString *a2)
 {
-  OZSplineNode::~OZSplineNode(v2);
-  OZConstantNode::~OZConstantNode(v1);
+  OZSplineNode::~OZSplineNode(v3, a2);
+  OZConstantNode::~OZConstantNode(v2, v5);
   _Unwind_Resume(a1);
 }
 
-void OZCurve::OZCurve(OZCurve *this, const OZCurve *a2)
+void OZCurve::OZCurve(OZCurve *this, const OZCurve *a2, int a3)
 {
   *this = &unk_287248AB0;
-  v4 = (this + 40);
+  v5 = (this + 40);
   OZConstantNode::OZConstantNode((this + 16), 0.0);
-  OZSplineNode::OZSplineNode(v4, this);
+  OZSplineNode::OZSplineNode(v5, this);
   *(this + 13) = 0;
   *(this + 19) = 0;
   *(this + 20) = 0;
-  v5 = *(a2 + 20);
-  if ((*(v5 + 44) & 1) == 0)
+  v6 = *(a2 + 20);
+  if ((*(v6 + 44) & 1) == 0)
   {
     operator new();
   }
 
-  *(this + 20) = v5;
+  *(this + 20) = v6;
   operator new();
 }
 
 void sub_25FE78228(_Unwind_Exception *a1)
 {
   MEMORY[0x2666E9F00](v3, 0x1000C40C6C45C81);
-  OZSplineNode::~OZSplineNode(v2);
-  OZConstantNode::~OZConstantNode(v1);
+  OZSplineNode::~OZSplineNode(v2, v5);
+  OZConstantNode::~OZConstantNode(v1, v6);
   _Unwind_Resume(a1);
 }
 
@@ -7095,10 +7113,10 @@ LABEL_2:
 
   MEMORY[0x2666E9F00](v2, 0x80C40D6874129);
   *(this + 14) = 0;
-  v6 = *(this + 13);
-  if (v6)
+  v7 = *(this + 13);
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
     *(this + 13) = 0;
   }
 
@@ -7108,8 +7126,8 @@ LABEL_2:
     *(this + 20) = 0;
   }
 
-  OZSplineNode::~OZSplineNode((this + 40));
-  OZConstantNode::~OZConstantNode((this + 16));
+  OZSplineNode::~OZSplineNode((this + 40), v6);
+  OZConstantNode::~OZConstantNode((this + 16), v8);
 }
 
 __n128 OZCurve::operator=(uint64_t a1, uint64_t a2)
@@ -7227,7 +7245,7 @@ uint64_t OZCurve::createLocalSplineState(OZCurve *this)
   return result;
 }
 
-uint64_t OZSplineState::createLocalCopy(uint64_t this)
+OZSplineState *OZSplineState::createLocalCopy(OZSplineState *this)
 {
   if (*(this + 44) == 1)
   {
@@ -7450,7 +7468,7 @@ OZCurve *OZCurve::setTreeProperties(OZCurve *this)
   return this;
 }
 
-uint64_t OZCurve::processCurve(OZCurve *this, OZCurveNodeParam *a2, double *a3, void *a4)
+uint64_t OZCurve::processCurve(OZCurve *this, double **a2, double *a3, void *a4)
 {
   if (!a4)
   {
@@ -7494,19 +7512,17 @@ void sub_25FE79464(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<std::pair<OZCurveNode *,OZCurveNodeParam *>>::reserve(void *result, unint64_t a2)
+void std::vector<std::pair<OZCurveNode *,OZCurveNodeParam *>>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<TXTextObject>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<TXTextObject>>>(a1, a2);
     }
 
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::vector<std::pair<OZCurveNode *,OZCurveNodeParam *>>::push_back[abi:ne200100](uint64_t a1, _OWORD *a2)
@@ -7654,7 +7670,7 @@ uint64_t OZCurve::getCurveDerivativesSamples(uint64_t a1, uint64_t a2, uint64_t 
   return 1;
 }
 
-uint64_t OZCurve::getCurveSamples(OZCurve *a1, int *a2, uint64_t a3, uint64_t a4, Float64 a5, Float64 a6)
+uint64_t OZCurve::getCurveSamples(OZCurve *a1, unsigned int *a2, const void **a3, uint64_t a4, Float64 a5, Float64 a6)
 {
   v13 = 1;
   v14 = 0;
@@ -7692,29 +7708,27 @@ uint64_t OZCurve::getCurveSamples(OZCurve *a1, int *a2, uint64_t a3, uint64_t a4
   return 1;
 }
 
-void sub_25FE79C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25FE79C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   OZCurveNodeParam::~OZCurveNodeParam(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<double>::reserve(void *result, unint64_t a2)
+void std::vector<double>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(a1, a2);
     }
 
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-uint64_t OZCurve::getCurveSamples(OZCurve *a1, __int128 *a2, __int128 *a3, int *a4, uint64_t a5, uint64_t a6)
+uint64_t OZCurve::getCurveSamples(OZCurve *a1, __int128 *a2, __int128 *a3, unsigned int *a4, uint64_t a5, uint64_t a6)
 {
   v8 = 1;
   v9 = 0;
@@ -7756,16 +7770,16 @@ uint64_t OZCurve::getCurveSamples(OZCurve *a1, __int128 *a2, __int128 *a3, int *
   return 1;
 }
 
-void sub_25FE79F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FE79F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   OZCurveNodeParam::~OZCurveNodeParam(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t OZCurve::getCurveSamples(OZCurve *a1, void *a2, __int128 *a3, __int128 *a4, int *a5, uint64_t a6, uint64_t a7)
+uint64_t OZCurve::getCurveSamples(OZCurve *a1, void *a2, __int128 *a3, __int128 *a4, unsigned int *a5, uint64_t a6, uint64_t a7)
 {
-  v8 = 1;
+  LOWORD(v8) = 1;
   v9 = 0;
   v14 = 0;
   v15 = 0;
@@ -7792,7 +7806,7 @@ uint64_t OZCurve::getCurveSamples(OZCurve *a1, void *a2, __int128 *a3, __int128 
   v19 = *a4;
   v20 = *(a4 + 2);
   v22 = 0;
-  HIBYTE(v8) = 0;
+  BYTE1(v8) = 0;
   v9 = 0;
   if (a6)
   {
@@ -7804,9 +7818,9 @@ uint64_t OZCurve::getCurveSamples(OZCurve *a1, void *a2, __int128 *a3, __int128 
   return 1;
 }
 
-void sub_25FE7A1BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FE7A1BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   OZCurveNodeParam::~OZCurveNodeParam(va);
   _Unwind_Resume(a1);
 }
@@ -7844,9 +7858,9 @@ uint64_t OZCurve::getCurveSamples(OZCurve *this, Float64 a2, Float64 a3, unsigne
   return 1;
 }
 
-void sub_25FE7A3B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FE7A3B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   OZCurveNodeParam::~OZCurveNodeParam(va);
   _Unwind_Resume(a1);
 }
@@ -7873,9 +7887,9 @@ uint64_t OZCurve::getCurveSamples(OZCurve *this, void *a2, const CMTime *a3, con
   return 1;
 }
 
-void sub_25FE7A490(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE7A490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZCurveNodeParam::~OZCurveNodeParam(va);
   _Unwind_Resume(a1);
 }
@@ -7905,16 +7919,16 @@ uint64_t OZCurve::getCurveSamples(OZCurve *this, const CMTime *a2, const CMTime 
   return 1;
 }
 
-void sub_25FE7A560(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FE7A560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZCurveNodeParam::~OZCurveNodeParam(va);
   _Unwind_Resume(a1);
 }
 
 void OZCurve::getValue(OZCurve *this, const CMTime *a2, void *a3, __n128 a4, __n128 a5)
 {
-  v36 = 0;
+  v35 = 0;
   if (a3)
   {
     if (*(this + 136) == 1)
@@ -7968,25 +7982,25 @@ void OZCurve::getValue(OZCurve *this, const CMTime *a2, void *a3, __n128 a4, __n
 
     else
     {
-      v22 = 1;
-      v23 = 0;
+      LOWORD(v22[0]) = 1;
+      v22[1] = 0;
+      v25 = 0;
       v26 = 0;
       v27 = 0;
-      v28 = 0;
-      v24 = **&MEMORY[0x277CC08F0];
-      v25 = v24;
+      v23 = **&MEMORY[0x277CC08F0];
+      v24 = v23;
+      v32 = 0;
       v33 = 0;
-      v34 = 0;
-      v31 = v24;
+      v30 = v23;
       v14 = *&a2->value;
       epoch = a2->epoch;
-      v29 = v14;
-      v32 = 1;
-      CMTimeMake(&v35, 1, 1);
-      v31 = v35;
-      v33 = &v36;
-      OZCurve::processCurve(this, &v22, v15, a3);
-      OZCurveNodeParam::~OZCurveNodeParam(&v22);
+      v28 = v14;
+      v31 = 1;
+      CMTimeMake(&v34, 1, 1);
+      v30 = v34;
+      v32 = &v35;
+      OZCurve::processCurve(this, v22, v15, a3);
+      OZCurveNodeParam::~OZCurveNodeParam(v22);
     }
   }
 
@@ -8000,7 +8014,7 @@ void OZCurve::getValue(OZCurve *this, const CMTime *a2, void *a3, __n128 a4, __n
 
 void OZCurve::getValue(OZCurve *this, const CMTime *a2, double a3)
 {
-  v29 = 0;
+  v28 = 0;
   v6 = *(this + 14);
   v7 = *v6;
   v8 = v6[1];
@@ -8029,25 +8043,25 @@ void OZCurve::getValue(OZCurve *this, const CMTime *a2, double a3)
 
   else
   {
-    v15 = 1;
-    v16 = 0;
+    LOWORD(v15[0]) = 1;
+    v15[1] = 0;
+    v18 = 0;
     v19 = 0;
     v20 = 0;
-    v21 = 0;
-    v17 = **&MEMORY[0x277CC08F0];
-    v18 = v17;
+    v16 = **&MEMORY[0x277CC08F0];
+    v17 = v16;
+    v25 = 0;
     v26 = 0;
-    v27 = 0;
-    v24 = v17;
+    v23 = v16;
     v9 = *&a2->value;
     epoch = a2->epoch;
-    v22 = v9;
-    v25 = 1;
-    CMTimeMake(&v28, 1, 1);
-    v24 = v28;
-    v26 = &v29;
-    OZCurve::processCurve(this, &v15, v10, *(*(*(this + 14) + 8) - 8));
-    OZCurveNodeParam::~OZCurveNodeParam(&v15);
+    v21 = v9;
+    v24 = 1;
+    CMTimeMake(&v27, 1, 1);
+    v23 = v27;
+    v25 = &v28;
+    OZCurve::processCurve(this, v15, v10, *(*(*(this + 14) + 8) - 8));
+    OZCurveNodeParam::~OZCurveNodeParam(v15);
   }
 }
 
@@ -8558,10 +8572,12 @@ uint64_t OZCurve::appendKeypointNoTangents(OZCurve *this, const CMTime *a2, doub
   return 1;
 }
 
-uint64_t OZCurve::appendKeypointsNoTangents(OZCurve *this, int a2, CMTime *a3, double *a4, int a5)
+uint64_t OZCurve::appendKeypointsNoTangents(OZCurve *this, int a2, CMTime *a3, double *a4, uint64_t a5)
 {
+  v5 = a4;
+  v6 = a3;
   LODWORD(v7) = a2;
-  if ((*(this + 138) & 1) != 0 && (OZCurve::isAnimated(this) || a5))
+  if ((*(this + 138) & 1) != 0 && ((v9 = a5, OZCurve::isAnimated(this)) || v9))
   {
     if (!PVInstructionGraphContext::HGNodeCache((this + 40)))
     {
@@ -8574,7 +8590,7 @@ uint64_t OZCurve::appendKeypointsNoTangents(OZCurve *this, int a2, CMTime *a3, d
     }
 
     v11 = PVInstructionGraphContext::HGNodeCache((this + 40));
-    OZSpline::appendVertexesNoTangents(v11, v7, __p);
+    OZSpline::appendVertexesNoTangents(__p, v11, v7);
     if (__p[0])
     {
       __p[1] = __p[0];
@@ -8587,8 +8603,8 @@ uint64_t OZCurve::appendKeypointsNoTangents(OZCurve *this, int a2, CMTime *a3, d
     v7 = v7;
     do
     {
-      v10 = *a4++;
-      (*(*this + 440))(this, a3++, v10);
+      v10 = *v5++;
+      (*(*this + 440))(this, v6++, a3, a4, a5, v10);
       --v7;
     }
 
@@ -8739,7 +8755,7 @@ char *std::vector<OZCurveNode *>::insert(void *a1, char *__src, char *a3)
       std::vector<double>::__throw_length_error[abi:ne200100]();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 2 > v11)
     {
@@ -8809,7 +8825,7 @@ char *std::vector<OZCurveNode *>::insert(void *a1, char *__src, char *a3)
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 8;
+      v9 = (v6 + 8);
     }
 
     a1[1] = v9;
@@ -8919,7 +8935,7 @@ LABEL_9:
   return v6;
 }
 
-BOOL OZCurve::enumerateCurveProcessingNodes(uint64_t a1, char **a2)
+BOOL OZCurve::enumerateCurveProcessingNodes(uint64_t a1, void **a2)
 {
   v2 = *(a1 + 112);
   if (v2 != a2 && v2 != 0)
@@ -9023,8 +9039,9 @@ uint64_t OZCurve::bakeCurve(OZCurve *this, void *a2, const CMTime *a3, const CMT
   return 0;
 }
 
-void sub_25FE7CB04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, char a22)
+void sub_25FE7CB04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, ...)
 {
+  va_start(va, a21);
   if (__p)
   {
     operator delete(__p);
@@ -9035,11 +9052,11 @@ void sub_25FE7CB04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a19);
   }
 
-  OZCurveNodeParam::~OZCurveNodeParam(&a22);
+  OZCurveNodeParam::~OZCurveNodeParam(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t OZCurve::simplifyCurve(OZCurve *this, const CMTime *a2, const CMTime *a3, const CMTime *a4, double a5, double a6, int a7, int a8)
+uint64_t OZCurve::simplifyCurve(OZCurve *this, const CMTime *a2, const CMTime *a3, CMTime *a4, double a5, double a6, int a7, int a8)
 {
   v65 = 0;
   v66 = 0;
@@ -9273,7 +9290,7 @@ uint64_t OZCurve::simplifyCurve(OZCurve *this, const CMTime *a2, const CMTime *a
   return v9;
 }
 
-void sub_25FE7DB88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *__p, uint64_t a40)
+void sub_25FE7DB88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *__p, uint64_t a40)
 {
   OZCurveNodeParam::~OZCurveNodeParam(&a15);
   v42 = *(v40 - 256);
@@ -9384,22 +9401,22 @@ uint64_t OZCurve::smoothCurve(OZCurve *this, const CMTime *a2, const CMTime *a3,
   return 0;
 }
 
-void sub_25FE7E2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25FE7E2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   OZCurveNodeParam::~OZCurveNodeParam(va);
-  v13 = *(v11 - 208);
-  if (v13)
+  v20 = *(v18 - 208);
+  if (v20)
   {
-    *(v11 - 200) = v13;
-    operator delete(v13);
+    *(v18 - 200) = v20;
+    operator delete(v20);
   }
 
-  v14 = *(v11 - 184);
-  if (v14)
+  v21 = *(v18 - 184);
+  if (v21)
   {
-    *(v11 - 176) = v14;
-    operator delete(v14);
+    *(v18 - 176) = v21;
+    operator delete(v21);
   }
 
   _Unwind_Resume(a1);

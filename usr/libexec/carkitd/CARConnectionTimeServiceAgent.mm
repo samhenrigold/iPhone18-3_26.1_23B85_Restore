@@ -13,6 +13,8 @@
 - (void)fetchPreviousSessionConnectionDataWithReply:(id)reply;
 - (void)recordConnectionEvent:(id)event completion:(id)completion;
 - (void)sessionDidDisconnect:(id)disconnect;
+- (void)setAllowSessionDurationRecordingEvents:(BOOL)events;
+- (void)setAllowUnlimitedConnectionEvents:(BOOL)events;
 - (void)setSessionUUIDString:(id)string;
 - (void)trimConnectionDataBefore:(id)before;
 - (void)trimHistoricalConnectionDataBefore:(id)before completion:(id)completion;
@@ -164,12 +166,32 @@
   dispatch_async(connectionTimeQueue, v7);
 }
 
+- (void)setAllowUnlimitedConnectionEvents:(BOOL)events
+{
+  eventsCopy = events;
+  if ([(CARConnectionTimeServiceAgent *)self allowUnlimitedConnectionEvents]!= events)
+  {
+    v4 = +[CARPrototypePref allowUnlimitedConnectionEvents];
+    [v4 setInternalSettingsState:eventsCopy];
+  }
+}
+
 - (BOOL)allowUnlimitedConnectionEvents
 {
   v2 = +[CARPrototypePref allowUnlimitedConnectionEvents];
   internalSettingsState = [v2 internalSettingsState];
 
   return internalSettingsState;
+}
+
+- (void)setAllowSessionDurationRecordingEvents:(BOOL)events
+{
+  eventsCopy = events;
+  if ([(CARConnectionTimeServiceAgent *)self allowSessionDurationRecordingEvents]!= events)
+  {
+    v4 = +[CARPrototypePref allowSessionDurationRecordingEvents];
+    [v4 setInternalSettingsState:eventsCopy];
+  }
 }
 
 - (BOOL)allowSessionDurationRecordingEvents

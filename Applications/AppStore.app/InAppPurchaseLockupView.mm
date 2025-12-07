@@ -44,7 +44,7 @@
   v5 = type metadata accessor for InAppPurchaseLockupViewLayout.Metrics();
   sub_1000056A8(v5, qword_1009D1F00);
   type metadata accessor for InAppPurchaseLockupViewLayout();
-  sub_1004A2280(&qword_100986CC0, &type metadata accessor for InAppPurchaseLockupViewLayout);
+  sub_1004A2280(&qword_100986CC0, &type metadata accessor for InAppPurchaseLockupViewLayout, &protocol conformance descriptor for InAppPurchaseLockupViewLayout);
   dispatch thunk of static EstimatedMeasurable.estimatedMeasurements(fitting:using:in:)();
   v7 = v6;
   v9 = v8;

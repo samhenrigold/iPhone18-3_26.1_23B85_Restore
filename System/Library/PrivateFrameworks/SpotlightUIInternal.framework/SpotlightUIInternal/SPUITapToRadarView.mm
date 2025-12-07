@@ -35,11 +35,11 @@ void __45__SPUITapToRadarView_shouldDisplayTapToRadar__block_invoke()
 
 - (SPUITapToRadarView)initWithTarget:(id)target action:(SEL)action
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   targetCopy = target;
-  v15.receiver = self;
-  v15.super_class = SPUITapToRadarView;
-  v7 = [(SPUITapToRadarView *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = SPUITapToRadarView;
+  v7 = [(SPUITapToRadarView *)&v14 init];
   if (v7)
   {
     v8 = objc_opt_new();
@@ -56,8 +56,8 @@ void __45__SPUITapToRadarView_shouldDisplayTapToRadar__block_invoke()
     [(SPUITapToRadarView *)v7 setLayoutMarginsRelativeArrangement:1];
     [(NUIContainerBoxView *)v7 setHorizontalAlignment:3];
     [v8 addTarget:targetCopy action:action];
-    v16[0] = v8;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = v8;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
     [(SPUITapToRadarView *)v7 setArrangedSubviews:v11];
 
     [(SPUITapToRadarView *)v7 updateImage];
@@ -65,7 +65,6 @@ void __45__SPUITapToRadarView_shouldDisplayTapToRadar__block_invoke()
     [defaultCenter addObserver:v7 selector:sel_updateImage name:*MEMORY[0x277D76810] object:0];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -82,7 +81,7 @@ void __45__SPUITapToRadarView_shouldDisplayTapToRadar__block_invoke()
 
 + (void)openTapToRadarWithQuery:(id)query sections:(id)sections rankingDebugLog:(id)log
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   sectionsCopy = sections;
   logCopy = log;
@@ -91,7 +90,7 @@ void __45__SPUITapToRadarView_shouldDisplayTapToRadar__block_invoke()
   operatingSystemVersionString = [processInfo operatingSystemVersionString];
 
   selfCopy = self;
-  v62 = operatingSystemVersionString;
+  v61 = operatingSystemVersionString;
   if (operatingSystemVersionString)
   {
     v13 = objc_msgSend(operatingSystemVersionString, "rangeOfString:", @"(Build ");
@@ -110,64 +109,64 @@ void __45__SPUITapToRadarView_shouldDisplayTapToRadar__block_invoke()
   }
 
   string = [MEMORY[0x277CCAB68] string];
-  v64 = v10;
+  v63 = v10;
   [string appendFormat:@"Build: %@\n\n", v10];
-  v63 = queryCopy;
+  v62 = queryCopy;
   [string appendFormat:@"Query: %@\n\n", queryCopy];
   [string appendString:@"Results:\n"];
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
   obj = sectionsCopy;
-  v19 = [obj countByEnumeratingWithState:&v71 objects:v77 count:16];
+  v19 = [obj countByEnumeratingWithState:&v70 objects:v76 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v72;
+    v21 = *v71;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v72 != v21)
+        if (*v71 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v71 + 1) + 8 * i);
+        v23 = *(*(&v70 + 1) + 8 * i);
+        v66 = 0u;
         v67 = 0u;
         v68 = 0u;
         v69 = 0u;
-        v70 = 0u;
         results = [v23 results];
-        v25 = [results countByEnumeratingWithState:&v67 objects:v76 count:16];
+        v25 = [results countByEnumeratingWithState:&v66 objects:v75 count:16];
         if (v25)
         {
           v26 = v25;
-          v27 = *v68;
+          v27 = *v67;
           do
           {
             for (j = 0; j != v26; ++j)
             {
-              if (*v68 != v27)
+              if (*v67 != v27)
               {
                 objc_enumerationMutation(results);
               }
 
-              v29 = [*(*(&v67 + 1) + 8 * j) debugDescription];
+              v29 = [*(*(&v66 + 1) + 8 * j) debugDescription];
               [string appendString:v29];
 
               [string appendString:@"\n"];
             }
 
-            v26 = [results countByEnumeratingWithState:&v67 objects:v76 count:16];
+            v26 = [results countByEnumeratingWithState:&v66 objects:v75 count:16];
           }
 
           while (v26);
         }
       }
 
-      v20 = [obj countByEnumeratingWithState:&v71 objects:v77 count:16];
+      v20 = [obj countByEnumeratingWithState:&v70 objects:v76 count:16];
     }
 
     while (v20);
@@ -175,7 +174,7 @@ void __45__SPUITapToRadarView_shouldDisplayTapToRadar__block_invoke()
 
   v30 = objc_alloc_init(MEMORY[0x277CCACE0]);
   [v30 setScheme:@"tap-to-radar"];
-  v60 = v30;
+  v59 = v30;
   [v30 setHost:@"new"];
   v31 = [MEMORY[0x277CBEB18] arrayWithCapacity:8];
   generateComponentQueryItems = [selfCopy generateComponentQueryItems];
@@ -183,18 +182,18 @@ void __45__SPUITapToRadarView_shouldDisplayTapToRadar__block_invoke()
 
   v33 = SSExtensionIdentifiersForSections();
   v34 = MEMORY[0x277CCAD18];
-  v59 = v33;
-  v58 = [v33 componentsJoinedByString:{@", "}];
-  v57 = [v34 queryItemWithName:@"ExtensionIdentifiers" value:v58];
-  v75[0] = v57;
+  v58 = v33;
+  v57 = [v33 componentsJoinedByString:{@", "}];
+  v56 = [v34 queryItemWithName:@"ExtensionIdentifiers" value:v57];
+  v74[0] = v56;
   v35 = [MEMORY[0x277CCAD18] queryItemWithName:@"Classification" value:@"Other Bug"];
-  v75[1] = v35;
+  v74[1] = v35;
   v36 = [MEMORY[0x277CCAD18] queryItemWithName:@"Reproducibility" value:@"I Didn't Try"];
-  v75[2] = v36;
+  v74[2] = v36;
   v37 = MEMORY[0x277CCAD18];
-  v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@: ", v64];
+  v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@: ", v63];
   v39 = [v37 queryItemWithName:@"Title" value:v38];
-  v75[3] = v39;
+  v74[3] = v39;
   v40 = MEMORY[0x277CCAD18];
   v41 = MEMORY[0x277CCACA8];
   internalReleaseAgreementText = [MEMORY[0x277D65D78] internalReleaseAgreementText];
@@ -207,8 +206,8 @@ void __45__SPUITapToRadarView_shouldDisplayTapToRadar__block_invoke()
 
   v45 = [v41 stringWithFormat:@"Summary: \n\n\n*** Note: Debug info contains the titles of items in the UI. Please review for confidential information.  %@ ***\n\n===  DEBUG INFO  ===\n\n%@\n\n%@", internalReleaseAgreementText, string, v44];
   v46 = [v40 queryItemWithName:@"Description" value:v45];
-  v75[4] = v46;
-  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:5];
+  v74[4] = v46;
+  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:5];
   [v31 addObjectsFromArray:v47];
 
   v48 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
@@ -222,27 +221,23 @@ void __45__SPUITapToRadarView_shouldDisplayTapToRadar__block_invoke()
   v51 = [MEMORY[0x277CCAD18] queryItemWithName:@"Attachments" value:v50];
   [v31 addObject:v51];
 
-  [v60 setQueryItems:v31];
+  [v59 setQueryItems:v31];
   v52 = MEMORY[0x277D4C898];
   v53 = MEMORY[0x277D4C550];
-  v54 = [v60 URL];
+  v54 = [v59 URL];
   v55 = [v53 punchoutWithURL:v54];
   [v52 openPunchout:v55];
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 + (id)generateComponentQueryItems
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentName" value:@"Spotlight (New Bugs)"];
   v3 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentVersion" value:{@"iOS", v2}];
-  v8[1] = v3;
+  v7[1] = v3;
   v4 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentID" value:@"312963"];
-  v8[2] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[2] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
 
   return v5;
 }

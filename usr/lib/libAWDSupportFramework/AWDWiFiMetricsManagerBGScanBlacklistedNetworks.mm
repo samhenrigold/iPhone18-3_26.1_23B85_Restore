@@ -43,7 +43,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   if (*&self->_has)
   {
@@ -59,29 +59,29 @@
   if ([(NSMutableArray *)self->_blacklistingHistorys count])
   {
     v5 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_blacklistingHistorys, "count")}];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     blacklistingHistorys = self->_blacklistingHistorys;
-    v7 = [(NSMutableArray *)blacklistingHistorys countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [(NSMutableArray *)blacklistingHistorys countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(blacklistingHistorys);
           }
 
-          [v5 addObject:{objc_msgSend(*(*(&v13 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v5 addObject:{objc_msgSend(*(*(&v12 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v8 = [(NSMutableArray *)blacklistingHistorys countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [(NSMutableArray *)blacklistingHistorys countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
@@ -90,16 +90,14 @@
     [dictionary setObject:v5 forKey:@"blacklistingHistory"];
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -108,39 +106,36 @@
     PBDataWriterWriteStringField();
   }
 
-  v14 = 0u;
-  v15 = 0u;
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   blacklistingHistorys = self->_blacklistingHistorys;
-  v6 = [(NSMutableArray *)blacklistingHistorys countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v6)
+  v5 = [(NSMutableArray *)blacklistingHistorys countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
   {
-    v7 = v6;
-    v8 = *v13;
+    v6 = v5;
+    v7 = *v10;
     do
     {
-      v9 = 0;
+      v8 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(blacklistingHistorys);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
-        ++v9;
+        ++v8;
       }
 
-      while (v7 != v9);
-      v7 = [(NSMutableArray *)blacklistingHistorys countByEnumeratingWithState:&v12 objects:v16 count:16];
+      while (v6 != v8);
+      v6 = [(NSMutableArray *)blacklistingHistorys countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
-    while (v7);
+    while (v6);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -173,7 +168,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -183,40 +178,39 @@
   }
 
   v6[3] = [(NSString *)self->_interfaceName copyWithZone:zone];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   blacklistingHistorys = self->_blacklistingHistorys;
-  v8 = [(NSMutableArray *)blacklistingHistorys countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSMutableArray *)blacklistingHistorys countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(blacklistingHistorys);
         }
 
-        v12 = [*(*(&v15 + 1) + 8 * v11) copyWithZone:zone];
+        v12 = [*(*(&v14 + 1) + 8 * v11) copyWithZone:zone];
         [v6 addBlacklistingHistory:v12];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSMutableArray *)blacklistingHistorys countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(NSMutableArray *)blacklistingHistorys countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -225,7 +219,6 @@
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 32);
     if (*&self->_has)
     {
       if ((*(equal + 32) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -279,7 +272,7 @@ LABEL_11:
 
 - (void)mergeFrom:(id)from
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if (*(from + 32))
   {
     self->_timestamp = *(from + 1);
@@ -291,35 +284,33 @@ LABEL_11:
     [(AWDWiFiMetricsManagerBGScanBlacklistedNetworks *)self setInterfaceName:?];
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = *(from + 2);
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(AWDWiFiMetricsManagerBGScanBlacklistedNetworks *)self addBlacklistingHistory:*(*(&v11 + 1) + 8 * i)];
+        [(AWDWiFiMetricsManagerBGScanBlacklistedNetworks *)self addBlacklistingHistory:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 @end

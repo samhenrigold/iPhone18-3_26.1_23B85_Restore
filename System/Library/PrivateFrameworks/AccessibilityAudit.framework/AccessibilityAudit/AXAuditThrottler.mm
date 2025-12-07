@@ -1,4 +1,5 @@
 @interface AXAuditThrottler
++ (id)throttlerWithInterval:(double)interval target:(id)target selector:(SEL)selector queue:(id)queue alwaysReschedule:(BOOL)reschedule;
 - (NSObject)_target;
 - (OS_dispatch_queue)_fireQueue;
 - (SEL)_selector;
@@ -9,6 +10,22 @@
 @end
 
 @implementation AXAuditThrottler
+
++ (id)throttlerWithInterval:(double)interval target:(id)target selector:(SEL)selector queue:(id)queue alwaysReschedule:(BOOL)reschedule
+{
+  rescheduleCopy = reschedule;
+  queueCopy = queue;
+  targetCopy = target;
+  v13 = objc_opt_new();
+  [v13 set_interval:interval];
+  [v13 set_selector:selector];
+  [v13 set_target:targetCopy];
+
+  [v13 set_fireQueue:queueCopy];
+  [v13 set_alwaysReschedule:rescheduleCopy];
+
+  return v13;
+}
 
 - (OS_dispatch_queue)_fireQueue
 {

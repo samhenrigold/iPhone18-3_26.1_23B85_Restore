@@ -253,19 +253,19 @@ uint64_t __54__PKPaymentOfferMerchandisingOffer_secondaryOfferItem__block_invoke
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 uint64_t __54__PKPaymentOfferMerchandisingOffer_secondaryOfferItem__block_invoke_2(uint64_t a1, void *a2)
@@ -277,19 +277,19 @@ uint64_t __54__PKPaymentOfferMerchandisingOffer_secondaryOfferItem__block_invoke
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 uint64_t __54__PKPaymentOfferMerchandisingOffer_secondaryOfferItem__block_invoke_3(uint64_t a1, void *a2)
@@ -301,19 +301,19 @@ uint64_t __54__PKPaymentOfferMerchandisingOffer_secondaryOfferItem__block_invoke
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (id)allIdentifiers
@@ -437,9 +437,9 @@ uint64_t __54__PKPaymentOfferMerchandisingOffer_secondaryOfferItem__block_invoke
             goto LABEL_23;
           }
 
-          v11 = [(NSString *)v8 isEqualToString:v9];
+          isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-          if (!v11)
+          if (!isEqualToString)
           {
             goto LABEL_24;
           }
@@ -460,7 +460,7 @@ uint64_t __54__PKPaymentOfferMerchandisingOffer_secondaryOfferItem__block_invoke
             goto LABEL_23;
           }
 
-          v15 = [(NSString *)v8 isEqualToString:v14];
+          v15 = objc_msgSend_isEqualToString_(v8);
 
           if (!v15)
           {
@@ -558,7 +558,7 @@ LABEL_25:
 
         if (v8 && v17)
         {
-          v18 = [(NSString *)v8 isEqualToString:v17];
+          v18 = objc_msgSend_isEqualToString_(v8);
 
           if (!v18)
           {

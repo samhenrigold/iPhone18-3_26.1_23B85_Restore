@@ -9,7 +9,7 @@
 
 - (id)writeMessageToWriter:(id)writer error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   writerCopy = writer;
   v5 = objc_opt_new();
   associatedRunRequestIdentifier = [(WFRemoteExecutionAlertRequest *)self associatedRunRequestIdentifier];
@@ -27,28 +27,28 @@
   alert3 = [(WFRemoteExecutionAlertRequest *)self alert];
   [v7 setPreferredStyle:{objc_msgSend(alert3, "preferredStyle")}];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   alert4 = [(WFRemoteExecutionAlertRequest *)self alert];
   buttons = [alert4 buttons];
 
-  v15 = [buttons countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v15 = [buttons countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v27;
+    v17 = *v26;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v27 != v17)
+        if (*v26 != v17)
         {
           objc_enumerationMutation(buttons);
         }
 
-        v19 = *(*(&v26 + 1) + 8 * i);
+        v19 = *(*(&v25 + 1) + 8 * i);
         v20 = objc_opt_new();
         title2 = [v19 title];
         [v20 setTitle:title2];
@@ -58,7 +58,7 @@
         [v7 addButtons:v20];
       }
 
-      v16 = [buttons countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v16 = [buttons countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v16);
@@ -68,22 +68,20 @@
   [v5 writeTo:writerCopy];
   immutableData = [writerCopy immutableData];
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return immutableData;
 }
 
 - (BOOL)readMessageFromData:(id)data error:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69C65B8];
   dataCopy = data;
   v7 = [[v5 alloc] initWithData:dataCopy];
 
   v8 = objc_alloc_init(WFREPBAlertRequest);
-  v17 = 0;
-  v9 = [(PBCodable *)v8 readFrom:v7 error:&v17];
-  v10 = v17;
+  v16 = 0;
+  v9 = [(PBCodable *)v8 readFrom:v7 error:&v16];
+  v10 = v16;
   if (v9)
   {
     associatedRunRequestIdentifier = [(WFREPBAlertRequest *)v8 associatedRunRequestIdentifier];
@@ -101,14 +99,13 @@
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v19 = "[WFRemoteExecutionAlertRequest readMessageFromData:error:]";
-      v20 = 2114;
-      v21 = v10;
+      v18 = "[WFRemoteExecutionAlertRequest readMessageFromData:error:]";
+      v19 = 2114;
+      v20 = v10;
       _os_log_impl(&dword_1CA256000, p_super, OS_LOG_TYPE_FAULT, "%s Failed to read alert request protobuf, %{public}@", buf, 0x16u);
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

@@ -21,7 +21,7 @@
 
 - (void)activitySummaryDidChangeWithNote:(id)note
 {
-  v5 = sub_100140278(&qword_1008E5718);
+  v5 = sub_100140278(&qword_1008E5718, &unk_1006E3CB0);
   __chkstk_darwin(v5 - 8);
   v7 = &v11 - v6;
   if (note)
@@ -40,12 +40,12 @@
   selfCopy = self;
   sub_100545EF0(v7);
 
-  sub_10000EA04(v7, &qword_1008E5718);
+  sub_10000EA04(v7, &qword_1008E5718, &unk_1006E3CB0);
 }
 
 - (void)updateWithNote:(id)note
 {
-  v5 = sub_100140278(&qword_1008E5718);
+  v5 = sub_100140278(&qword_1008E5718, &unk_1006E3CB0);
   __chkstk_darwin(v5 - 8);
   v7 = &v11 - v6;
   if (note)
@@ -64,7 +64,7 @@
   selfCopy = self;
   sub_10001FF10();
 
-  sub_10000EA04(v7, &qword_1008E5718);
+  sub_10000EA04(v7, &qword_1008E5718, &unk_1006E3CB0);
 }
 
 - (_TtC10FitnessApp25TrendsAvailabilityManager)init

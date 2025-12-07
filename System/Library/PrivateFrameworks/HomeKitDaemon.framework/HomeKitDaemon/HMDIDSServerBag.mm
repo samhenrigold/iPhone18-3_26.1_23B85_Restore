@@ -23,7 +23,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   refreshTimer = [(HMDIDSServerBag *)self refreshTimer];
 
@@ -35,21 +35,19 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Server bag refresh timer fired", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Server bag refresh timer fired", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     [(HMDIDSServerBag *)selfCopy updateCachedValuesWithServerValues];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateCachedValuesWithServerValues
 {
-  v406 = *MEMORY[0x277D85DE8];
+  v405 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = [(HMDIDSServerBag *)self serverBagNumberValueForKey:?];
@@ -71,11 +69,11 @@
         [v2 BOOLValue];
         v9 = HMFBooleanToString();
         *buf = 138543874;
-        v402 = v7;
-        v403 = 2112;
-        *v404 = v8;
-        *&v404[8] = 2112;
-        v405 = v9;
+        v401 = v7;
+        v402 = 2112;
+        *v403 = v8;
+        *&v403[8] = 2112;
+        v404 = v9;
         _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Updating hh2SoftwareReleased from %@ to %@", buf, 0x20u);
       }
 
@@ -86,7 +84,7 @@
 
     v11 = [(HMDIDSServerBag *)self serverBagNumberValueForKey:?];
     v12 = [(HMDIDSServerBag *)self serverBagNumberValueForKey:?];
-    v400 = v11;
+    v399 = v11;
     if ([v11 BOOLValue])
     {
       bOOLValue = 1;
@@ -97,8 +95,8 @@
       bOOLValue = [v12 BOOLValue];
     }
 
-    v393 = v12;
-    if (v400 | v12 && bOOLValue != [self isHH2ManualMigrationEnabled])
+    v392 = v12;
+    if (v399 | v12 && bOOLValue != [self isHH2ManualMigrationEnabled])
     {
       v14 = objc_autoreleasePoolPush();
       selfCopy2 = self;
@@ -110,11 +108,11 @@
         v18 = HMFBooleanToString();
         v19 = HMFBooleanToString();
         *buf = 138543874;
-        v402 = v17;
-        v403 = 2112;
-        *v404 = v18;
-        *&v404[8] = 2112;
-        v405 = v19;
+        v401 = v17;
+        v402 = 2112;
+        *v403 = v18;
+        *&v403[8] = 2112;
+        v404 = v19;
         _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Updating hh2ManualMigrationEnabled from %@ to %@", buf, 0x20u);
       }
 
@@ -135,8 +133,8 @@
       bOOLValue2 = [v21 BOOLValue];
     }
 
-    v392 = v20;
-    v396 = v21;
+    v391 = v20;
+    v395 = v21;
     if (v20 | v21 && bOOLValue2 != [self isHH2AutoMigrationEnabled])
     {
       v23 = objc_autoreleasePoolPush();
@@ -149,11 +147,11 @@
         v27 = HMFBooleanToString();
         v28 = HMFBooleanToString();
         *buf = 138543874;
-        v402 = v26;
-        v403 = 2112;
-        *v404 = v27;
-        *&v404[8] = 2112;
-        v405 = v28;
+        v401 = v26;
+        v402 = 2112;
+        *v403 = v27;
+        *&v403[8] = 2112;
+        v404 = v28;
         _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Updating hh2AutoMigrationEnabled from %@ to %@", buf, 0x20u);
       }
 
@@ -163,7 +161,7 @@
     }
 
     v29 = [(HMDIDSServerBag *)self serverBagNumberValueForKey:?];
-    v394 = v2;
+    v393 = v2;
     if (v29 && ([self hh2AutoMigrationWithoutSharedUserRampDivisor], v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "isEqual:", v29), v30, (v31 & 1) == 0))
     {
       v33 = objc_autoreleasePoolPush();
@@ -174,11 +172,11 @@
         v36 = HMFGetLogIdentifier();
         hh2AutoMigrationWithoutSharedUserRampDivisor = [selfCopy4 hh2AutoMigrationWithoutSharedUserRampDivisor];
         *buf = 138543874;
-        v402 = v36;
-        v403 = 2112;
-        *v404 = hh2AutoMigrationWithoutSharedUserRampDivisor;
-        *&v404[8] = 2112;
-        v405 = v29;
+        v401 = v36;
+        v402 = 2112;
+        *v403 = hh2AutoMigrationWithoutSharedUserRampDivisor;
+        *&v403[8] = 2112;
+        v404 = v29;
         _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_INFO, "%{public}@Updating hh2AutoMigrationWithoutSharedUserRampDivisor from %@ to %@", buf, 0x20u);
       }
 
@@ -208,11 +206,11 @@
           v44 = HMFGetLogIdentifier();
           hh2AutoMigrationWithoutSharedUserRampRemainder2 = [selfCopy5 hh2AutoMigrationWithoutSharedUserRampRemainder];
           *buf = 138543874;
-          v402 = v44;
-          v403 = 2112;
-          *v404 = hh2AutoMigrationWithoutSharedUserRampRemainder2;
-          *&v404[8] = 2112;
-          v405 = v38;
+          v401 = v44;
+          v402 = 2112;
+          *v403 = hh2AutoMigrationWithoutSharedUserRampRemainder2;
+          *&v403[8] = 2112;
+          v404 = v38;
           _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@Updating hh2AutoMigrationWithoutSharedUserRampRemainder from %@ to %@", buf, 0x20u);
         }
 
@@ -238,11 +236,11 @@
           v52 = HMFGetLogIdentifier();
           hh2AutoMigrationWithSharedUserRampDivisor2 = [selfCopy6 hh2AutoMigrationWithSharedUserRampDivisor];
           *buf = 138543874;
-          v402 = v52;
-          v403 = 2112;
-          *v404 = hh2AutoMigrationWithSharedUserRampDivisor2;
-          *&v404[8] = 2112;
-          v405 = v46;
+          v401 = v52;
+          v402 = 2112;
+          *v403 = hh2AutoMigrationWithSharedUserRampDivisor2;
+          *&v403[8] = 2112;
+          v404 = v46;
           _os_log_impl(&dword_229538000, v51, OS_LOG_TYPE_INFO, "%{public}@Updating hh2AutoMigrationWithSharedUserRampDivisor from %@ to %@", buf, 0x20u);
         }
 
@@ -268,11 +266,11 @@
           v60 = HMFGetLogIdentifier();
           hh2AutoMigrationWithSharedUserRampRemainder2 = [selfCopy7 hh2AutoMigrationWithSharedUserRampRemainder];
           *buf = 138543874;
-          v402 = v60;
-          v403 = 2112;
-          *v404 = hh2AutoMigrationWithSharedUserRampRemainder2;
-          *&v404[8] = 2112;
-          v405 = v54;
+          v401 = v60;
+          v402 = 2112;
+          *v403 = hh2AutoMigrationWithSharedUserRampRemainder2;
+          *&v403[8] = 2112;
+          v404 = v54;
           _os_log_impl(&dword_229538000, v59, OS_LOG_TYPE_INFO, "%{public}@Updating hh2AutoMigrationWithSharedUserRampRemainder from %@ to %@", buf, 0x20u);
         }
 
@@ -294,11 +292,11 @@
         HMFGetLogIdentifier();
         v69 = v68 = v32;
         *buf = 138543874;
-        v402 = v69;
-        v403 = 2114;
-        *v404 = minimumHomeKitVersionForSharedUserHH2MigrationByOwnerManual;
-        *&v404[8] = 2114;
-        v405 = v62;
+        v401 = v69;
+        v402 = 2114;
+        *v403 = minimumHomeKitVersionForSharedUserHH2MigrationByOwnerManual;
+        *&v403[8] = 2114;
+        v404 = v62;
         _os_log_impl(&dword_229538000, v67, OS_LOG_TYPE_INFO, "%{public}@Updating minimumHomeKitVersionForSharedUserHH2MigrationByOwnerManual from %{public}@ to %{public}@", buf, 0x20u);
 
         v32 = v68;
@@ -326,11 +324,11 @@
         HMFGetLogIdentifier();
         v76 = v75 = v32;
         *buf = 138543874;
-        v402 = v76;
-        v403 = 2114;
-        *v404 = minimumHomeKitVersionForSharedUserHH2MigrationByOwnerAuto;
-        *&v404[8] = 2114;
-        v405 = v70;
+        v401 = v76;
+        v402 = 2114;
+        *v403 = minimumHomeKitVersionForSharedUserHH2MigrationByOwnerAuto;
+        *&v403[8] = 2114;
+        v404 = v70;
         _os_log_impl(&dword_229538000, v74, OS_LOG_TYPE_INFO, "%{public}@Updating minimumHomeKitVersionForSharedUserHH2MigrationByOwnerAuto from %{public}@ to %{public}@", buf, 0x20u);
 
         v32 = v75;
@@ -354,11 +352,11 @@
         HMFGetLogIdentifier();
         v85 = v84 = v32;
         *buf = 138543874;
-        v402 = v85;
-        v403 = 2114;
-        *v404 = minimumHomeKitVersionForOwnerMeDeviceAutoHH2MigrationWithoutSharedUsers;
-        *&v404[8] = 2114;
-        v405 = v77;
+        v401 = v85;
+        v402 = 2114;
+        *v403 = minimumHomeKitVersionForOwnerMeDeviceAutoHH2MigrationWithoutSharedUsers;
+        *&v403[8] = 2114;
+        v404 = v77;
         _os_log_impl(&dword_229538000, v83, OS_LOG_TYPE_INFO, "%{public}@Updating minimumHomeKitVersionForOwnerMeDeviceAutoHH2MigrationWithoutSharedUsers from %{public}@ to %{public}@", buf, 0x20u);
 
         v32 = v84;
@@ -387,11 +385,11 @@
         HMFGetLogIdentifier();
         v92 = v91 = v32;
         *buf = 138543874;
-        v402 = v92;
-        v403 = 2114;
-        *v404 = minimumHomeKitVersionForOwnerOtherDevicesAutoHH2MigrationWithoutSharedUsers;
-        *&v404[8] = 2114;
-        v405 = v86;
+        v401 = v92;
+        v402 = 2114;
+        *v403 = minimumHomeKitVersionForOwnerOtherDevicesAutoHH2MigrationWithoutSharedUsers;
+        *&v403[8] = 2114;
+        v404 = v86;
         _os_log_impl(&dword_229538000, v90, OS_LOG_TYPE_INFO, "%{public}@Updating minimumHomeKitVersionForOwnerOtherDevicesAutoHH2MigrationWithoutSharedUsers from %{public}@ to %{public}@", buf, 0x20u);
 
         v32 = v91;
@@ -414,11 +412,11 @@
         HMFGetLogIdentifier();
         v99 = v98 = v32;
         *buf = 138543874;
-        v402 = v99;
-        v403 = 2114;
-        *v404 = minimumHomeKitVersionForOwnerResidentDevicesAutoHH2MigrationWithoutSharedUsers;
-        *&v404[8] = 2114;
-        v405 = v93;
+        v401 = v99;
+        v402 = 2114;
+        *v403 = minimumHomeKitVersionForOwnerResidentDevicesAutoHH2MigrationWithoutSharedUsers;
+        *&v403[8] = 2114;
+        v404 = v93;
         _os_log_impl(&dword_229538000, v97, OS_LOG_TYPE_INFO, "%{public}@Updating minimumHomeKitVersionForOwnerResidentDevicesAutoHH2MigrationWithoutSharedUsers from %{public}@ to %{public}@", buf, 0x20u);
 
         v32 = v98;
@@ -442,11 +440,11 @@
       {
         v107 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v402 = v107;
-        v403 = 2114;
-        *v404 = minimumHomeKitVersionForOwnerMeDeviceAutoHH2MigrationWithSharedUsers;
-        *&v404[8] = 2114;
-        v405 = v101;
+        v401 = v107;
+        v402 = 2114;
+        *v403 = minimumHomeKitVersionForOwnerMeDeviceAutoHH2MigrationWithSharedUsers;
+        *&v403[8] = 2114;
+        v404 = v101;
         _os_log_impl(&dword_229538000, v106, OS_LOG_TYPE_INFO, "%{public}@Updating minimumHomeKitVersionForOwnerMeDeviceAutoHH2MigrationWithSharedUsers from %{public}@ to %{public}@", buf, 0x20u);
       }
 
@@ -473,11 +471,11 @@
       {
         v114 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v402 = v114;
-        v403 = 2114;
-        *v404 = minimumHomeKitVersionForOwnerOtherDevicesAutoHH2MigrationWithSharedUsers;
-        *&v404[8] = 2114;
-        v405 = v109;
+        v401 = v114;
+        v402 = 2114;
+        *v403 = minimumHomeKitVersionForOwnerOtherDevicesAutoHH2MigrationWithSharedUsers;
+        *&v403[8] = 2114;
+        v404 = v109;
         _os_log_impl(&dword_229538000, v113, OS_LOG_TYPE_INFO, "%{public}@Updating minimumHomeKitVersionForOwnerOtherDevicesAutoHH2MigrationWithSharedUsers from %{public}@ to %{public}@", buf, 0x20u);
       }
 
@@ -499,11 +497,11 @@
       {
         v121 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v402 = v121;
-        v403 = 2114;
-        *v404 = minimumHomeKitVersionForOwnerResidentDevicesAutoHH2MigrationWithSharedUsers;
-        *&v404[8] = 2114;
-        v405 = v116;
+        v401 = v121;
+        v402 = 2114;
+        *v403 = minimumHomeKitVersionForOwnerResidentDevicesAutoHH2MigrationWithSharedUsers;
+        *&v403[8] = 2114;
+        v404 = v116;
         _os_log_impl(&dword_229538000, v120, OS_LOG_TYPE_INFO, "%{public}@Updating minimumHomeKitVersionForOwnerResidentDevicesAutoHH2MigrationWithSharedUsers from %{public}@ to %{public}@", buf, 0x20u);
       }
 
@@ -514,7 +512,7 @@
 
     v122 = v103 | v115;
     v123 = [(HMDIDSServerBag *)self serverBagNumberValueForKey:?];
-    v399 = v123;
+    v398 = v123;
     if (v123)
     {
       v124 = v123;
@@ -529,25 +527,25 @@
           v129 = HMFGetLogIdentifier();
           [selfCopy16 hh2SuppressDuplicateUserModelBulletins];
           v130 = HMFBooleanToString();
-          [v399 BOOLValue];
+          [v398 BOOLValue];
           v131 = HMFBooleanToString();
           *buf = 138543874;
-          v402 = v129;
-          v403 = 2112;
-          *v404 = v130;
-          *&v404[8] = 2112;
-          v405 = v131;
+          v401 = v129;
+          v402 = 2112;
+          *v403 = v130;
+          *&v403[8] = 2112;
+          v404 = v131;
           _os_log_impl(&dword_229538000, v128, OS_LOG_TYPE_INFO, "%{public}@Updating hh2SuppressDuplicateUserModelBulletins from %@ to %@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v126);
-        [selfCopy16 setHh2SuppressDuplicateUserModelBulletins:{objc_msgSend(v399, "BOOLValue")}];
+        [selfCopy16 setHh2SuppressDuplicateUserModelBulletins:{objc_msgSend(v398, "BOOLValue")}];
         v122 = 1;
       }
     }
 
     v132 = [(HMDIDSServerBag *)self serverBagNumberValueForKey:?];
-    v398 = v132;
+    v397 = v132;
     if (v132)
     {
       v133 = v132;
@@ -562,19 +560,19 @@
           v138 = HMFGetLogIdentifier();
           [selfCopy17 homeSafetySecurityEnabled];
           v139 = HMFBooleanToString();
-          [v398 BOOLValue];
+          [v397 BOOLValue];
           v140 = HMFBooleanToString();
           *buf = 138543874;
-          v402 = v138;
-          v403 = 2112;
-          *v404 = v139;
-          *&v404[8] = 2112;
-          v405 = v140;
+          v401 = v138;
+          v402 = 2112;
+          *v403 = v139;
+          *&v403[8] = 2112;
+          v404 = v140;
           _os_log_impl(&dword_229538000, v137, OS_LOG_TYPE_INFO, "%{public}@Updating homeSafetySecurityEnabled from %@ to %@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v135);
-        [selfCopy17 setHomeSafetySecurityEnabled:{objc_msgSend(v398, "BOOLValue")}];
+        [selfCopy17 setHomeSafetySecurityEnabled:{objc_msgSend(v397, "BOOLValue")}];
         v122 = 1;
       }
     }
@@ -598,11 +596,11 @@
         [v141 BOOLValue];
         v148 = HMFBooleanToString();
         *buf = 138543874;
-        v402 = v146;
-        v403 = 2112;
-        *v404 = v147;
-        *&v404[8] = 2112;
-        v405 = v148;
+        v401 = v146;
+        v402 = 2112;
+        *v403 = v147;
+        *&v403[8] = 2112;
+        v404 = v148;
         _os_log_impl(&dword_229538000, v145, OS_LOG_TYPE_INFO, "%{public}@Updating statusKitResidentStatusEnabled from %@ to %@", buf, 0x20u);
       }
 
@@ -627,11 +625,11 @@
           v156 = HMFGetLogIdentifier();
           statusKitInitialConnectionTimeoutSeconds2 = [selfCopy19 statusKitInitialConnectionTimeoutSeconds];
           *buf = 138543874;
-          v402 = v156;
-          v403 = 2112;
-          *v404 = statusKitInitialConnectionTimeoutSeconds2;
-          *&v404[8] = 2112;
-          v405 = v150;
+          v401 = v156;
+          v402 = 2112;
+          *v403 = statusKitInitialConnectionTimeoutSeconds2;
+          *&v403[8] = 2112;
+          v404 = v150;
           _os_log_impl(&dword_229538000, v155, OS_LOG_TYPE_INFO, "%{public}@Updating statusKitInitialConnectionTimeoutSeconds from %@ to %@", buf, 0x20u);
         }
 
@@ -657,11 +655,11 @@
           v164 = HMFGetLogIdentifier();
           statusKitConnectionTTSUNoReachablePrimaryTimeoutSeconds2 = [selfCopy20 statusKitConnectionTTSUNoReachablePrimaryTimeoutSeconds];
           *buf = 138543874;
-          v402 = v164;
-          v403 = 2112;
-          *v404 = statusKitConnectionTTSUNoReachablePrimaryTimeoutSeconds2;
-          *&v404[8] = 2112;
-          v405 = v158;
+          v401 = v164;
+          v402 = 2112;
+          *v403 = statusKitConnectionTTSUNoReachablePrimaryTimeoutSeconds2;
+          *&v403[8] = 2112;
+          v404 = v158;
           _os_log_impl(&dword_229538000, v163, OS_LOG_TYPE_INFO, "%{public}@Updating statusKitConnectionTTSUNoReachablePrimaryTimeoutSeconds from %@ to %@", buf, 0x20u);
         }
 
@@ -687,11 +685,11 @@
           v172 = HMFGetLogIdentifier();
           statusKitUnsubscribeFromChannelDebounceTimeSec2 = [selfCopy21 statusKitUnsubscribeFromChannelDebounceTimeSec];
           *buf = 138543874;
-          v402 = v172;
-          v403 = 2112;
-          *v404 = statusKitUnsubscribeFromChannelDebounceTimeSec2;
-          *&v404[8] = 2112;
-          v405 = v166;
+          v401 = v172;
+          v402 = 2112;
+          *v403 = statusKitUnsubscribeFromChannelDebounceTimeSec2;
+          *&v403[8] = 2112;
+          v404 = v166;
           _os_log_impl(&dword_229538000, v171, OS_LOG_TYPE_INFO, "%{public}@Updating statusKitUnsubscribeFromChannelDebounceTimeSec from %@ to %@", buf, 0x20u);
         }
 
@@ -712,11 +710,11 @@
         v181 = HMFGetLogIdentifier();
         residentSelectionPreferredResidentEvaluationDelay = [selfCopy22 residentSelectionPreferredResidentEvaluationDelay];
         *buf = 138543874;
-        v402 = v181;
-        v403 = 2112;
-        *v404 = residentSelectionPreferredResidentEvaluationDelay;
-        *&v404[8] = 2112;
-        v405 = v174;
+        v401 = v181;
+        v402 = 2112;
+        *v403 = residentSelectionPreferredResidentEvaluationDelay;
+        *&v403[8] = 2112;
+        v404 = v174;
         _os_log_impl(&dword_229538000, v180, OS_LOG_TYPE_INFO, "%{public}@Updating residentSelectionPreferredResidentEvaluationDelay from %@ to %@", buf, 0x20u);
       }
 
@@ -746,11 +744,11 @@
           v189 = HMFGetLogIdentifier();
           residentSelectionPreferredResidentsListMaxSize2 = [selfCopy23 residentSelectionPreferredResidentsListMaxSize];
           *buf = 138543874;
-          v402 = v189;
-          v403 = 2112;
-          *v404 = residentSelectionPreferredResidentsListMaxSize2;
-          *&v404[8] = 2112;
-          v405 = v183;
+          v401 = v189;
+          v402 = 2112;
+          *v403 = residentSelectionPreferredResidentsListMaxSize2;
+          *&v403[8] = 2112;
+          v404 = v183;
           _os_log_impl(&dword_229538000, v188, OS_LOG_TYPE_INFO, "%{public}@Updating residentSelectionPreferredResidentsListMaxSize from %@ to %@", buf, 0x20u);
         }
 
@@ -776,11 +774,11 @@
           v197 = HMFGetLogIdentifier();
           residentSelectionStatusDebounceInterval2 = [selfCopy24 residentSelectionStatusDebounceInterval];
           *buf = 138543874;
-          v402 = v197;
-          v403 = 2112;
-          *v404 = residentSelectionStatusDebounceInterval2;
-          *&v404[8] = 2112;
-          v405 = v191;
+          v401 = v197;
+          v402 = 2112;
+          *v403 = residentSelectionStatusDebounceInterval2;
+          *&v403[8] = 2112;
+          v404 = v191;
           _os_log_impl(&dword_229538000, v196, OS_LOG_TYPE_INFO, "%{public}@Updating residentSelectionStatusDebounceInterval from %@ to %@", buf, 0x20u);
         }
 
@@ -806,11 +804,11 @@
           v205 = HMFGetLogIdentifier();
           residentSelectionTakeOverIfPrimaryIsNotViableInterval2 = [selfCopy25 residentSelectionTakeOverIfPrimaryIsNotViableInterval];
           *buf = 138543874;
-          v402 = v205;
-          v403 = 2112;
-          *v404 = residentSelectionTakeOverIfPrimaryIsNotViableInterval2;
-          *&v404[8] = 2112;
-          v405 = v199;
+          v401 = v205;
+          v402 = 2112;
+          *v403 = residentSelectionTakeOverIfPrimaryIsNotViableInterval2;
+          *&v403[8] = 2112;
+          v404 = v199;
           _os_log_impl(&dword_229538000, v204, OS_LOG_TYPE_INFO, "%{public}@Updating residentSelectionTakeOverIfPrimaryIsNotViableInterval from %@ to %@", buf, 0x20u);
         }
 
@@ -836,11 +834,11 @@
           v213 = HMFGetLogIdentifier();
           residentSelectionTakeOverInterval2 = [selfCopy26 residentSelectionTakeOverInterval];
           *buf = 138543874;
-          v402 = v213;
-          v403 = 2112;
-          *v404 = residentSelectionTakeOverInterval2;
-          *&v404[8] = 2112;
-          v405 = v207;
+          v401 = v213;
+          v402 = 2112;
+          *v403 = residentSelectionTakeOverInterval2;
+          *&v403[8] = 2112;
+          v404 = v207;
           _os_log_impl(&dword_229538000, v212, OS_LOG_TYPE_INFO, "%{public}@Updating residentSelectionTakeOverInterval from %@ to %@", buf, 0x20u);
         }
 
@@ -866,11 +864,11 @@
           v221 = HMFGetLogIdentifier();
           residentSelectionTakeOverOnlyIfCurrentPrimaryIsNotViableJitter2 = [selfCopy27 residentSelectionTakeOverOnlyIfCurrentPrimaryIsNotViableJitter];
           *buf = 138543874;
-          v402 = v221;
-          v403 = 2112;
-          *v404 = residentSelectionTakeOverOnlyIfCurrentPrimaryIsNotViableJitter2;
-          *&v404[8] = 2112;
-          v405 = v215;
+          v401 = v221;
+          v402 = 2112;
+          *v403 = residentSelectionTakeOverOnlyIfCurrentPrimaryIsNotViableJitter2;
+          *&v403[8] = 2112;
+          v404 = v215;
           _os_log_impl(&dword_229538000, v220, OS_LOG_TYPE_INFO, "%{public}@Updating residentSelectionTakeOverOnlyIfCurrentPrimaryIsNotViableJitter from %@ to %@", buf, 0x20u);
         }
 
@@ -896,11 +894,11 @@
           v229 = HMFGetLogIdentifier();
           residentSelectionPreferredListGenerationStartHour2 = [selfCopy28 residentSelectionPreferredListGenerationStartHour];
           *buf = 138543874;
-          v402 = v229;
-          v403 = 2112;
-          *v404 = residentSelectionPreferredListGenerationStartHour2;
-          *&v404[8] = 2112;
-          v405 = v223;
+          v401 = v229;
+          v402 = 2112;
+          *v403 = residentSelectionPreferredListGenerationStartHour2;
+          *&v403[8] = 2112;
+          v404 = v223;
           _os_log_impl(&dword_229538000, v228, OS_LOG_TYPE_INFO, "%{public}@Updating residentSelectionPreferredListGenerationStartHour from %@ to %@", buf, 0x20u);
         }
 
@@ -926,11 +924,11 @@
           v237 = HMFGetLogIdentifier();
           residentSelectionPreferredListGenerationEndHour2 = [selfCopy29 residentSelectionPreferredListGenerationEndHour];
           *buf = 138543874;
-          v402 = v237;
-          v403 = 2112;
-          *v404 = residentSelectionPreferredListGenerationEndHour2;
-          *&v404[8] = 2112;
-          v405 = v231;
+          v401 = v237;
+          v402 = 2112;
+          *v403 = residentSelectionPreferredListGenerationEndHour2;
+          *&v403[8] = 2112;
+          v404 = v231;
           _os_log_impl(&dword_229538000, v236, OS_LOG_TYPE_INFO, "%{public}@Updating residentSelectionPreferredListGenerationEndHour from %@ to %@", buf, 0x20u);
         }
 
@@ -951,11 +949,11 @@
       {
         v244 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v402 = v244;
-        v403 = 2114;
-        *v404 = residentSelectionMinHomeKitVersion;
-        *&v404[8] = 2114;
-        v405 = v239;
+        v401 = v244;
+        v402 = 2114;
+        *v403 = residentSelectionMinHomeKitVersion;
+        *&v403[8] = 2114;
+        v404 = v239;
         _os_log_impl(&dword_229538000, v243, OS_LOG_TYPE_INFO, "%{public}@Updating residentSelectionMinHomeKitVersion from %{public}@ to %{public}@", buf, 0x20u);
       }
 
@@ -980,11 +978,11 @@
           v251 = HMFGetLogIdentifier();
           residentSelectionReachabilityNotificationAfterConnectivityDelay2 = [selfCopy31 residentSelectionReachabilityNotificationAfterConnectivityDelay];
           *buf = 138543874;
-          v402 = v251;
-          v403 = 2112;
-          *v404 = residentSelectionReachabilityNotificationAfterConnectivityDelay2;
-          *&v404[8] = 2112;
-          v405 = v245;
+          v401 = v251;
+          v402 = 2112;
+          *v403 = residentSelectionReachabilityNotificationAfterConnectivityDelay2;
+          *&v403[8] = 2112;
+          v404 = v245;
           _os_log_impl(&dword_229538000, v250, OS_LOG_TYPE_INFO, "%{public}@Updating residentSelectionReachabilityNotificationAfterConnectivityDelay from %@ to %@", buf, 0x20u);
         }
 
@@ -1010,11 +1008,11 @@
           v259 = HMFGetLogIdentifier();
           residentSelectionUserPreferredReachabilityNotificationDelay2 = [selfCopy32 residentSelectionUserPreferredReachabilityNotificationDelay];
           *buf = 138543874;
-          v402 = v259;
-          v403 = 2112;
-          *v404 = residentSelectionUserPreferredReachabilityNotificationDelay2;
-          *&v404[8] = 2112;
-          v405 = v253;
+          v401 = v259;
+          v402 = 2112;
+          *v403 = residentSelectionUserPreferredReachabilityNotificationDelay2;
+          *&v403[8] = 2112;
+          v404 = v253;
           _os_log_impl(&dword_229538000, v258, OS_LOG_TYPE_INFO, "%{public}@Updating residentSelectionUserPreferredReachabilityNotificationDelay from %@ to %@", buf, 0x20u);
         }
 
@@ -1041,11 +1039,11 @@
           [v261 BOOLValue];
           v268 = HMFBooleanToString();
           *buf = 138543874;
-          v402 = v266;
-          v403 = 2112;
-          *v404 = v267;
-          *&v404[8] = 2112;
-          v405 = v268;
+          v401 = v266;
+          v402 = 2112;
+          *v403 = v267;
+          *&v403[8] = 2112;
+          v404 = v268;
           _os_log_impl(&dword_229538000, v265, OS_LOG_TYPE_INFO, "%{public}@Updating disableResidentSelectionReachableAccessoriesCriteria from %@ to %@", buf, 0x20u);
         }
 
@@ -1072,11 +1070,11 @@
           v276 = HMFGetLogIdentifier();
           residentDeviceManagerBlockPrimaryTakeoverDurationSeconds2 = [selfCopy34 residentDeviceManagerBlockPrimaryTakeoverDurationSeconds];
           *buf = 138543874;
-          v402 = v276;
-          v403 = 2112;
-          *v404 = residentDeviceManagerBlockPrimaryTakeoverDurationSeconds2;
-          *&v404[8] = 2112;
-          v405 = v270;
+          v401 = v276;
+          v402 = 2112;
+          *v403 = residentDeviceManagerBlockPrimaryTakeoverDurationSeconds2;
+          *&v403[8] = 2112;
+          v404 = v270;
           _os_log_impl(&dword_229538000, v275, OS_LOG_TYPE_INFO, "%{public}@Updating residentDeviceManagerBlockPrimaryTakeoverDurationSeconds from %@ to %@", buf, 0x20u);
         }
 
@@ -1104,11 +1102,11 @@
           [v279 BOOLValue];
           v286 = HMFBooleanToString();
           *buf = 138543874;
-          v402 = v284;
-          v403 = 2112;
-          *v404 = v285;
-          *&v404[8] = 2112;
-          v405 = v286;
+          v401 = v284;
+          v402 = 2112;
+          *v403 = v285;
+          *&v403[8] = 2112;
+          v404 = v286;
           _os_log_impl(&dword_229538000, v283, OS_LOG_TYPE_INFO, "%{public}@Updating fetchHomeWiFiInfosMessageDisableNumber from %@ to %@", buf, 0x20u);
         }
 
@@ -1119,7 +1117,7 @@
     }
 
     v287 = [(HMDIDSServerBag *)self serverBagNumberValueForKey:?];
-    v395 = v287;
+    v394 = v287;
     if (v287)
     {
       v288 = v287;
@@ -1134,17 +1132,17 @@
           v293 = HMFGetLogIdentifier();
           [selfCopy36 useDeferredResolutionStrategy];
           v294 = HMFBooleanToString();
-          [v395 BOOLValue];
+          [v394 BOOLValue];
           v295 = HMFBooleanToString();
           *buf = 138543874;
-          v402 = v293;
-          v403 = 2112;
-          *v404 = v294;
-          *&v404[8] = 2112;
-          v405 = v295;
+          v401 = v293;
+          v402 = 2112;
+          *v403 = v294;
+          *&v403[8] = 2112;
+          v404 = v295;
           _os_log_impl(&dword_229538000, v292, OS_LOG_TYPE_INFO, "%{public}@Updating useDeferredResolutionStrategy from %@ to %@", buf, 0x20u);
 
-          v288 = v395;
+          v288 = v394;
         }
 
         objc_autoreleasePoolPop(v290);
@@ -1168,11 +1166,11 @@
           shouldPostHH2UpgradeRequired2 = [selfCopy37 shouldPostHH2UpgradeRequired];
           bOOLValue3 = [v296 BOOLValue];
           *buf = 138543874;
-          v402 = v301;
-          v403 = 1024;
-          *v404 = shouldPostHH2UpgradeRequired2;
-          *&v404[4] = 1024;
-          *&v404[6] = bOOLValue3;
+          v401 = v301;
+          v402 = 1024;
+          *v403 = shouldPostHH2UpgradeRequired2;
+          *&v403[4] = 1024;
+          *&v403[6] = bOOLValue3;
           _os_log_impl(&dword_229538000, v300, OS_LOG_TYPE_INFO, "%{public}@Updating shouldPostHH2UpgradeRequired from %{BOOL}d to %{BOOL}d", buf, 0x18u);
         }
 
@@ -1198,11 +1196,11 @@
           v310 = HMFGetLogIdentifier();
           hh2UpgradeRecommendationRepostInterval2 = [selfCopy38 hh2UpgradeRecommendationRepostInterval];
           *buf = 138543874;
-          v402 = v310;
-          v403 = 2112;
-          *v404 = hh2UpgradeRecommendationRepostInterval2;
-          *&v404[8] = 2112;
-          v405 = v304;
+          v401 = v310;
+          v402 = 2112;
+          *v403 = hh2UpgradeRecommendationRepostInterval2;
+          *&v403[8] = 2112;
+          v404 = v304;
           _os_log_impl(&dword_229538000, v309, OS_LOG_TYPE_INFO, "%{public}@Updating hh2UpgradeRecommendationRepostInterval from %@ to %@", buf, 0x20u);
         }
 
@@ -1213,7 +1211,7 @@
     }
 
     v312 = [(HMDIDSServerBag *)self serverBagNumberValueForKey:?];
-    v397 = v312;
+    v396 = v312;
     if (v312)
     {
       v313 = v312;
@@ -1230,22 +1228,22 @@
           v319 = HMFGetLogIdentifier();
           hh2UpgradeRecommendationDaysToLookBack2 = [selfCopy39 hh2UpgradeRecommendationDaysToLookBack];
           *buf = 138543874;
-          v402 = v319;
-          v403 = 2112;
-          *v404 = hh2UpgradeRecommendationDaysToLookBack2;
-          *&v404[8] = 2112;
-          v405 = v397;
+          v401 = v319;
+          v402 = 2112;
+          *v403 = hh2UpgradeRecommendationDaysToLookBack2;
+          *&v403[8] = 2112;
+          v404 = v396;
           _os_log_impl(&dword_229538000, v318, OS_LOG_TYPE_INFO, "%{public}@Updating hh2UpgradeRecommendationDaysToLookBack from %@ to %@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v316);
-        [selfCopy39 setHh2UpgradeRecommendationDaysToLookBack:v397];
+        [selfCopy39 setHh2UpgradeRecommendationDaysToLookBack:v396];
         v278 = 1;
       }
     }
 
     v321 = [(HMDIDSServerBag *)self serverBagHomeKitVersionForKey:?];
-    v390 = v304;
+    v389 = v304;
     if (v321 && ([self hh2AggressiveMigrationMinimumHomeKitVersion], v322 = objc_claimAutoreleasedReturnValue(), v323 = objc_msgSend(v321, "isEqualToVersion:", v322), v322, (v323 & 1) == 0))
     {
       v325 = objc_autoreleasePoolPush();
@@ -1258,11 +1256,11 @@
         [selfCopy40 hh2AggressiveMigrationMinimumHomeKitVersion];
         v331 = v330 = v279;
         *buf = 138543874;
-        v402 = v329;
-        v403 = 2114;
-        *v404 = v331;
-        *&v404[8] = 2114;
-        v405 = v321;
+        v401 = v329;
+        v402 = 2114;
+        *v403 = v331;
+        *&v403[8] = 2114;
+        v404 = v321;
         _os_log_impl(&dword_229538000, v327, OS_LOG_TYPE_INFO, "%{public}@Updating hh2AggressiveMigrationMinimumHomeKitVersion from %{public}@ to %{public}@", buf, 0x20u);
 
         v279 = v330;
@@ -1294,19 +1292,19 @@
         if (os_log_type_enabled(v338, OS_LOG_TYPE_INFO))
         {
           HMFGetLogIdentifier();
-          v339 = v388 = v279;
+          v339 = v387 = v279;
           [selfCopy41 hh2AggressiveMigrationRampDivisor];
           v341 = v340 = v296;
           *buf = 138543874;
-          v402 = v339;
-          v403 = 2112;
-          *v404 = v341;
-          *&v404[8] = 2112;
-          v405 = v332;
+          v401 = v339;
+          v402 = 2112;
+          *v403 = v341;
+          *&v403[8] = 2112;
+          v404 = v332;
           _os_log_impl(&dword_229538000, v338, OS_LOG_TYPE_INFO, "%{public}@Updating hh2AggressiveMigrationRampDivisor from %@ to %@", buf, 0x20u);
 
           v296 = v340;
-          v279 = v388;
+          v279 = v387;
         }
 
         objc_autoreleasePoolPop(v336);
@@ -1316,7 +1314,7 @@
       }
     }
 
-    v391 = v296;
+    v390 = v296;
     v342 = [(HMDIDSServerBag *)self serverBagNumberValueForKey:?];
     if (v342)
     {
@@ -1325,7 +1323,7 @@
 
       if ((v344 & 1) == 0)
       {
-        v389 = v278;
+        v388 = v278;
         v345 = v279;
         v346 = objc_autoreleasePoolPush();
         selfCopy42 = self;
@@ -1335,11 +1333,11 @@
           v349 = HMFGetLogIdentifier();
           hh2AggressiveMigrationRampRemainder2 = [selfCopy42 hh2AggressiveMigrationRampRemainder];
           *buf = 138543874;
-          v402 = v349;
-          v403 = 2112;
-          *v404 = hh2AggressiveMigrationRampRemainder2;
-          *&v404[8] = 2112;
-          v405 = v342;
+          v401 = v349;
+          v402 = 2112;
+          *v403 = hh2AggressiveMigrationRampRemainder2;
+          *&v403[8] = 2112;
+          v404 = v342;
           _os_log_impl(&dword_229538000, v348, OS_LOG_TYPE_INFO, "%{public}@Updating hh2AggressiveMigrationRampRemainder from %@ to %@", buf, 0x20u);
         }
 
@@ -1347,7 +1345,7 @@
         [selfCopy42 setHh2AggressiveMigrationRampRemainder:v342];
         v324 = 1;
         v279 = v345;
-        v278 = v389;
+        v278 = v388;
       }
     }
 
@@ -1368,11 +1366,11 @@
           v358 = HMFGetLogIdentifier();
           homeUpdateRequiredNotificationThreshold2 = [selfCopy43 homeUpdateRequiredNotificationThreshold];
           *buf = 138543874;
-          v402 = v358;
-          v403 = 2112;
-          *v404 = homeUpdateRequiredNotificationThreshold2;
-          *&v404[8] = 2112;
-          v405 = v352;
+          v401 = v358;
+          v402 = 2112;
+          *v403 = homeUpdateRequiredNotificationThreshold2;
+          *&v403[8] = 2112;
+          v404 = v352;
           _os_log_impl(&dword_229538000, v357, OS_LOG_TYPE_INFO, "%{public}@Updating homeUpdateRequiredNotificationThreshold from %@ to %@", buf, 0x20u);
         }
 
@@ -1398,11 +1396,11 @@
           v366 = HMFGetLogIdentifier();
           hh1EOLMininumControllerHomeKitVersion2 = [selfCopy44 hh1EOLMininumControllerHomeKitVersion];
           *buf = 138543874;
-          v402 = v366;
-          v403 = 2114;
-          *v404 = hh1EOLMininumControllerHomeKitVersion2;
-          *&v404[8] = 2114;
-          v405 = v360;
+          v401 = v366;
+          v402 = 2114;
+          *v403 = hh1EOLMininumControllerHomeKitVersion2;
+          *&v403[8] = 2114;
+          v404 = v360;
           _os_log_impl(&dword_229538000, v365, OS_LOG_TYPE_INFO, "%{public}@Updating hh1EOLMininumControllerHomeKitVersion from %{public}@ to %{public}@", buf, 0x20u);
         }
 
@@ -1434,19 +1432,19 @@
             v377 = HMFGetLogIdentifier();
             hh1EOLMinimumResidentVersion2 = [selfCopy45 hh1EOLMinimumResidentVersion];
             *buf = 138543874;
-            v402 = v377;
-            v403 = 2114;
-            *v404 = hh1EOLMinimumResidentVersion2;
-            *&v404[8] = 2114;
-            v405 = v370;
+            v401 = v377;
+            v402 = 2114;
+            *v403 = hh1EOLMinimumResidentVersion2;
+            *&v403[8] = 2114;
+            v404 = v370;
             _os_log_impl(&dword_229538000, v376, OS_LOG_TYPE_INFO, "%{public}@Updating hh1EOLMinimumResidentVersion from %{public}@ to %{public}@", buf, 0x20u);
           }
 
           objc_autoreleasePoolPop(v374);
           [selfCopy45 setHh1EOLMinimumResidentVersion:v370];
           v279 = v373;
-          v379 = v395;
-          v380 = v390;
+          v379 = v394;
+          v380 = v389;
           goto LABEL_244;
         }
       }
@@ -1457,14 +1455,14 @@
       v370 = 0;
     }
 
-    v379 = v395;
-    v381 = v396;
-    v380 = v390;
+    v379 = v394;
+    v381 = v395;
+    v380 = v389;
     if ((v351 & 1) == 0)
     {
 LABEL_249:
 
-      goto LABEL_250;
+      return;
     }
 
 LABEL_244:
@@ -1475,7 +1473,7 @@ LABEL_244:
     {
       v385 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v402 = v385;
+      v401 = v385;
       _os_log_impl(&dword_229538000, v384, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate of server bag update", buf, 0xCu);
     }
 
@@ -1486,12 +1484,9 @@ LABEL_244:
       [delegate idsServerBagDidUpdate:selfCopy46];
     }
 
-    v381 = v396;
+    v381 = v395;
     goto LABEL_249;
   }
-
-LABEL_250:
-  v387 = *MEMORY[0x277D85DE8];
 }
 
 - (void)serverBagNumberValueForKey:(void *)key
@@ -1550,7 +1545,7 @@ LABEL_250:
 
 - (id)serverBagValueForKey:(void *)key
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   keySuffix = [key keySuffix];
   v5 = [keySuffix length];
@@ -1587,17 +1582,16 @@ LABEL_6:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     v15 = HMFGetLogIdentifier();
-    v18 = 138543874;
-    v19 = v15;
-    v20 = 2112;
-    v21 = v7;
-    v22 = 2112;
-    v23 = v9;
-    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@serverBagValueForKey %@ returned %@", &v18, 0x20u);
+    v17 = 138543874;
+    v18 = v15;
+    v19 = 2112;
+    v20 = v7;
+    v21 = 2112;
+    v22 = v9;
+    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@serverBagValueForKey %@ returned %@", &v17, 0x20u);
   }
 
   objc_autoreleasePoolPop(v12);
-  v16 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1626,7 +1620,7 @@ LABEL_6:
   {
     objc_storeStrong(&v12->_idsServerBag, bag);
     objc_storeStrong(&v13->_refreshTimer, timer);
-    v14 = [suffixCopy copy];
+    v14 = objc_msgSend_copy(suffixCopy);
     keySuffix = v13->_keySuffix;
     v13->_keySuffix = v14;
 
@@ -1674,7 +1668,7 @@ LABEL_6:
 
 - (HMDIDSServerBag)init
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D18A10] sharedInstanceForBagType:0];
   mEMORY[0x277D0F8D0] = [MEMORY[0x277D0F8D0] sharedPreferences];
   v5 = [mEMORY[0x277D0F8D0] preferenceForKey:@"idsServerBagMaximumPollInterval"];
@@ -1702,21 +1696,20 @@ LABEL_6:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     v16 = HMFGetLogIdentifier();
-    v20 = 138544130;
-    v21 = v16;
-    v22 = 2112;
-    v23 = v12;
-    v24 = 2048;
-    v25 = 0x403E000000000000;
-    v26 = 2048;
-    v27 = v8;
-    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Initializing using key suffix %@ with initial timer interval of %fs and maximum of %fs", &v20, 0x2Au);
+    v19 = 138544130;
+    v20 = v16;
+    v21 = 2112;
+    v22 = v12;
+    v23 = 2048;
+    v24 = 0x403E000000000000;
+    v25 = 2048;
+    v26 = v8;
+    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Initializing using key suffix %@ with initial timer interval of %fs and maximum of %fs", &v19, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v13);
   v17 = [(HMDIDSServerBag *)selfCopy initWithIDSServerBag:v3 refreshTimer:v9 keySuffix:v12];
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -1734,10 +1727,9 @@ LABEL_6:
 
 void __30__HMDIDSServerBag_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v51_141938;
-  logCategory__hmf_once_v51_141938 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v51_141938;
+  logCategory__hmf_once_v51_141938 = v0;
 }
 
 @end

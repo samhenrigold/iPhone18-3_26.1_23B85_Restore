@@ -33,7 +33,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v7 = 1;
+    v6 = 1;
   }
 
   else
@@ -42,17 +42,16 @@
     if (objc_opt_isKindOfClass())
     {
       object = [(_REDiffItem *)equalCopy object];
-      object = self->_object;
-      v7 = (*(self->_comparator + 2))();
+      v6 = (*(self->_comparator + 2))();
     }
 
     else
     {
-      v7 = 0;
+      v6 = 0;
     }
   }
 
-  return v7;
+  return v6;
 }
 
 @end

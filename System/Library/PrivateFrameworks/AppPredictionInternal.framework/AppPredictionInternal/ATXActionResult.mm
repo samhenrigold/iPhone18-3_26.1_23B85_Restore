@@ -23,11 +23,9 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  actionKey = self->_actionKey;
-  v5 = [v3 initWithFormat:@"<Key: %@ Scored Action: %@>", actionKey, self->_scoredAction];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"<Key: %@ Scored Action: %@>", self->_actionKey, self->_scoredAction];
 
-  return v5;
+  return v2;
 }
 
 - (ATXActionResult)initWithScoredAction:(id)action predictionItem:(const ATXPredictionItem *)item actionKey:(id)key

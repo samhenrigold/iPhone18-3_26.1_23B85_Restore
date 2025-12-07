@@ -6,7 +6,6 @@
 
 + (char)brightnessEvent:()HIDBrightnessEvent currentBrightness:targetBrightness:transitionTime:options:
 {
-  v9 = *MEMORY[0x277CBECE8];
   v10 = _IOHIDEventCreate();
   v11 = *&v10[*MEMORY[0x277CD2870] + 88];
   *(v11 + 16) = vcvtd_n_s64_f64(self, 0x10uLL);

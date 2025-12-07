@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (OrgApacheLuceneSearchDisjunctionMaxQuery)initWithFloat:(float)float;
 - (id)clone;
+- (id)createWeightWithOrgApacheLuceneSearchIndexSearcher:(id)searcher withBoolean:(BOOL)boolean;
 - (id)iterator;
 - (id)rewriteWithOrgApacheLuceneIndexIndexReader:(id)reader;
 - (id)toStringWithNSString:(id)string;
@@ -58,6 +59,15 @@
   }
 
   return [v3 iterator];
+}
+
+- (id)createWeightWithOrgApacheLuceneSearchIndexSearcher:(id)searcher withBoolean:(BOOL)boolean
+{
+  booleanCopy = boolean;
+  v7 = [OrgApacheLuceneSearchDisjunctionMaxQuery_DisjunctionMaxWeight alloc];
+  OrgApacheLuceneSearchDisjunctionMaxQuery_DisjunctionMaxWeight_initWithOrgApacheLuceneSearchDisjunctionMaxQuery_withOrgApacheLuceneSearchIndexSearcher_withBoolean_(v7, self, searcher, booleanCopy);
+
+  return v7;
 }
 
 - (id)rewriteWithOrgApacheLuceneIndexIndexReader:(id)reader

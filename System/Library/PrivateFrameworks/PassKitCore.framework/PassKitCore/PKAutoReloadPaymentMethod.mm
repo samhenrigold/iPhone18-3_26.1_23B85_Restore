@@ -40,7 +40,7 @@
     v5->_managementURL = v16;
 
     v18 = [dictionaryCopy PKStringForKey:@"type"];
-    if ([v18 isEqualToString:@"pre_paid"])
+    if (objc_msgSend_isEqualToString_(v18))
     {
       v5->_type = 0;
     }

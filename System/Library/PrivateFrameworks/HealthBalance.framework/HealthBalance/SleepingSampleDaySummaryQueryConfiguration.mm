@@ -13,7 +13,7 @@
   v5 = sub_1CFE304B4();
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v6 = OBJC_IVAR____TtC13HealthBalance42SleepingSampleDaySummaryQueryConfiguration_morningIndexRange;
-  sub_1CFDA68BC();
+  sub_1CFDA68BC(0);
   (*(*(v7 - 8) + 56))(self + v6, 1, 1, v7);
   v9.receiver = self;
   v9.super_class = ObjectType;

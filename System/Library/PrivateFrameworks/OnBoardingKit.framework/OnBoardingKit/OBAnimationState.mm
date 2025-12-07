@@ -76,10 +76,10 @@
 
   if (!v8)
   {
-    v9 = _OBLoggingFacility();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _OBLoggingFacility(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(OBAnimationState *)self stateForLayer:v9];
+      [(OBAnimationState *)self stateForLayer:v10];
     }
   }
 
@@ -88,13 +88,11 @@
 
 - (void)stateForLayer:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 name];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1B4FB6000, a2, OS_LOG_TYPE_ERROR, "The layer does not contain a state with %@: Invalid state name", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1B4FB6000, a2, OS_LOG_TYPE_ERROR, "The layer does not contain a state with %@: Invalid state name", &v4, 0xCu);
 }
 
 @end

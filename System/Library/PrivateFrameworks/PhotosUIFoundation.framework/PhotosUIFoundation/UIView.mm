@@ -23,7 +23,7 @@ void __59__UIView_PhotosUIFoundation__px_convertTransform_fromView___block_invok
     {
       if (v6)
       {
-        [v6 transform];
+        objc_msgSend_transform(v6);
       }
 
       else
@@ -73,7 +73,7 @@ void __61__UIView_PhotosUIFoundation__px_convertTransform3D_fromView___block_inv
     {
       if (v6)
       {
-        [v6 transform3D];
+        objc_msgSend_transform3D(v6);
       }
 
       else

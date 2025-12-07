@@ -19,6 +19,7 @@
 - (NSMeasurement)chargingLevel;
 - (NSMeasurement)distanceKM;
 - (NSMeasurement)distanceMiles;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)setChargingLevel:(id)level;
 - (void)unregisterObserver:(id)observer;
@@ -269,6 +270,81 @@
   isInvalid = [distanceMilesCharacteristic isInvalid];
 
   return isInvalid;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x000000004000000D"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    chargingLevelCharacteristic = [(CAFChargingLevel *)self chargingLevelCharacteristic];
+    uniqueIdentifier2 = [chargingLevelCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      chargingLevel = [(CAFChargingLevel *)self chargingLevel];
+      [observers chargingLevelService:self didUpdateChargingLevel:chargingLevel];
+LABEL_12:
+
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x000000003000004A"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    distanceKMCharacteristic = [(CAFChargingLevel *)self distanceKMCharacteristic];
+    uniqueIdentifier4 = [distanceKMCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      chargingLevel = [(CAFChargingLevel *)self distanceKM];
+      [observers chargingLevelService:self didUpdateDistanceKM:chargingLevel];
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x000000003000004B"])
+  {
+LABEL_13:
+
+    goto LABEL_14;
+  }
+
+  uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+  distanceMilesCharacteristic = [(CAFChargingLevel *)self distanceMilesCharacteristic];
+  uniqueIdentifier6 = [distanceMilesCharacteristic uniqueIdentifier];
+  v22 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+  if (v22)
+  {
+    observers = [(CAFService *)self observers];
+    chargingLevel = [(CAFChargingLevel *)self distanceMiles];
+    [observers chargingLevelService:self didUpdateDistanceMiles:chargingLevel];
+    goto LABEL_12;
+  }
+
+LABEL_14:
+  v23.receiver = self;
+  v23.super_class = CAFChargingLevel;
+  [(CAFService *)&v23 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForChargingLevel

@@ -37,9 +37,11 @@
 
 uint64_t __32__AXAssistiveTouchServer_server__block_invoke()
 {
-  server_Server_3 = objc_alloc_init(AXAssistiveTouchServer);
+  v0 = objc_alloc_init(AXAssistiveTouchServer);
+  v1 = server_Server_3;
+  server_Server_3 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)_connectIfNecessary

@@ -1,6 +1,7 @@
 @interface IMBMessagesAppViewController
 - (CGSize)contentSizeThatFits:(CGSize)fits;
 - (IMBMessagesAppViewController)initWithNibName:(id)name bundle:(id)bundle;
+- (IMBMessagesAppViewController)initWithShouldBeSheetPresentationControllerDelegate:(BOOL)delegate;
 - (void)willBecomeActiveWithConversation:(id)conversation;
 - (void)willTransitionToPresentationStyle:(unint64_t)style;
 @end
@@ -11,13 +12,13 @@
 {
   conversationCopy = conversation;
   selfCopy = self;
-  sub_100076270(conversationCopy);
+  sub_100076270(conversationCopy, selfCopy);
 }
 
 - (void)willTransitionToPresentationStyle:(unint64_t)style
 {
   selfCopy = self;
-  sub_100076470(style);
+  sub_100076470(style, selfCopy);
 }
 
 - (CGSize)contentSizeThatFits:(CGSize)fits
@@ -28,19 +29,18 @@
   if (v5)
   {
     v7 = *&self->featureFlagArbiter[OBJC_IVAR___IMBMessagesAppViewController_embeddedTranscriptViewController];
-    v8 = *(&self->super.super.super.super.isa + OBJC_IVAR___IMBMessagesAppViewController_embeddedTranscriptViewController);
     ObjectType = swift_getObjectType();
-    v10 = *(v7 + 16);
+    v9 = *(v7 + 16);
     selfCopy = self;
-    v12 = v5;
-    width = v10(ObjectType, v7, width, height);
-    height = v13;
+    v11 = v5;
+    width = v9(ObjectType, v7, width, height);
+    height = v12;
   }
 
-  v14 = width;
-  v15 = height;
-  result.height = v15;
-  result.width = v14;
+  v13 = width;
+  v14 = height;
+  result.height = v14;
+  result.width = v13;
   return result;
 }
 
@@ -60,6 +60,23 @@
 
   bundleCopy = bundle;
   return sub_1000783AC(v5, v7, bundle);
+}
+
+- (IMBMessagesAppViewController)initWithShouldBeSheetPresentationControllerDelegate:(BOOL)delegate
+{
+  delegateCopy = delegate;
+  v5 = (&self->super.super.super.super.isa + OBJC_IVAR___IMBMessagesAppViewController_featureFlagArbiter);
+  v6 = [objc_allocWithZone(BCFeatureFlag) init];
+  v5[3] = sub_100005A24(0, &unk_1000F23F0, BCFeatureFlag_ptr);
+  v5[4] = &off_1000DB3C8;
+  *v5 = v6;
+  v7 = (&self->super.super.super.super.isa + OBJC_IVAR___IMBMessagesAppViewController_embeddedTranscriptViewController);
+  *v7 = 0;
+  v7[1] = 0;
+  *(&self->super.super.super.super.isa + OBJC_IVAR___IMBMessagesAppViewController____lazy_storage___dismissalDelegator) = 0;
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for IMBMessagesAppViewController();
+  return [(IMBMessagesAppViewController *)&v9 initWithShouldBeSheetPresentationControllerDelegate:delegateCopy];
 }
 
 @end

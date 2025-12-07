@@ -120,7 +120,7 @@ LABEL_19:
 
 - (int)_send:(const char *)_send offset:(unsigned int)offset len:(unsigned int)len error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (len)
   {
     v9 = 0;
@@ -154,9 +154,9 @@ LABEL_19:
     v19 = _ATLogCategoryFramework();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v23 = 138543362;
-      v24 = v18;
-      _os_log_impl(&dword_22392A000, v19, OS_LOG_TYPE_ERROR, "failed to flush socket. err=%{public}@", &v23, 0xCu);
+      v22 = 138543362;
+      v23 = v18;
+      _os_log_impl(&dword_22392A000, v19, OS_LOG_TYPE_ERROR, "failed to flush socket. err=%{public}@", &v22, 0xCu);
     }
 
     if (error)
@@ -182,7 +182,6 @@ LABEL_11:
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -200,16 +199,16 @@ LABEL_11:
 
 void __31__ATSocket_setWriteBufferSize___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*(a1 + 40) != *(*(a1 + 32) + 65616))
   {
     v2 = _ATLogCategoryFramework();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(a1 + 40);
-      v10 = 67109120;
-      LODWORD(v11) = v3;
-      _os_log_impl(&dword_22392A000, v2, OS_LOG_TYPE_DEFAULT, "setting writeBufferSize=%u", &v10, 8u);
+      v9 = 67109120;
+      LODWORD(v10) = v3;
+      _os_log_impl(&dword_22392A000, v2, OS_LOG_TYPE_DEFAULT, "setting writeBufferSize=%u", &v9, 8u);
     }
 
     if ([*(a1 + 32) isOpen] && (objc_msgSend(*(a1 + 32), "_flush"), (v4 = objc_claimAutoreleasedReturnValue()) != 0))
@@ -218,9 +217,9 @@ void __31__ATSocket_setWriteBufferSize___block_invoke(uint64_t a1)
       v6 = _ATLogCategoryFramework();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v10 = 138543362;
-        v11 = v5;
-        _os_log_impl(&dword_22392A000, v6, OS_LOG_TYPE_ERROR, "failed to flush socket. err=%{public}@", &v10, 0xCu);
+        v9 = 138543362;
+        v10 = v5;
+        _os_log_impl(&dword_22392A000, v6, OS_LOG_TYPE_ERROR, "failed to flush socket. err=%{public}@", &v9, 0xCu);
       }
     }
 
@@ -238,8 +237,6 @@ void __31__ATSocket_setWriteBufferSize___block_invoke(uint64_t a1)
       *(*(a1 + 32) + 65560) = malloc_type_malloc(*(v7 + 65616), 0x100004077774924uLL);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeTransportUpgradeException
@@ -255,98 +252,90 @@ void __31__ATSocket_setWriteBufferSize___block_invoke(uint64_t a1)
 
 - (void)notifyHasDataAvailable:(const char *)available length:(int64_t)length
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v7 = [(NSMutableArray *)selfCopy->_delegates copy];
   objc_sync_exit(selfCopy);
 
-  v17 = 0u;
-  v18 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
-    v10 = *v16;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
-        if (v12)
+        v12 = *(*(&v13 + 1) + 8 * v11);
+        if (v12 && (objc_opt_respondsToSelector() & 1) != 0)
         {
-          v13 = *(*(&v15 + 1) + 8 * v11);
-          if (objc_opt_respondsToSelector())
-          {
-            [v12 socket:selfCopy hasDataAvailable:available length:{length, v15}];
-          }
+          [v12 socket:selfCopy hasDataAvailable:available length:{length, v13}];
         }
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifySocketDidClose
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = [(NSMutableArray *)selfCopy->_delegates copy];
   objc_sync_exit(selfCopy);
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
-          [v8 socketDidClose:{selfCopy, v10}];
+          [v8 socketDidClose:{selfCopy, v9}];
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)flush
@@ -373,10 +362,7 @@ void __31__ATSocket_setWriteBufferSize___block_invoke(uint64_t a1)
 
 uint64_t __17__ATSocket_flush__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _flush];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _flush];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -592,10 +578,7 @@ void __31__ATSocket_writeAllData_error___block_invoke(uint64_t a1)
 
   else
   {
-    v7 = [ATInternalError errorWithCode:3 format:@"socket closed"];
-    v8 = *(*(a1 + 48) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    *(*(*(a1 + 48) + 8) + 40) = [ATInternalError errorWithCode:3 format:@"socket closed"];
 
     MEMORY[0x2821F96F8]();
   }
@@ -603,20 +586,20 @@ void __31__ATSocket_writeAllData_error___block_invoke(uint64_t a1)
 
 - (void)close
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = &self->_readBuffer[65512];
   v4 = _ATLogCategoryFramework();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(v3 + 5);
     v6 = *(v3 + 6);
-    v11 = 138543874;
+    v10 = 138543874;
     selfCopy = self;
-    v13 = 2048;
-    v14 = v5;
-    v15 = 2048;
-    v16 = v6;
-    _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: closing. totalBytesSent=%llu, totalReceived=%llu", &v11, 0x20u);
+    v12 = 2048;
+    v13 = v5;
+    v14 = 2048;
+    v15 = v6;
+    _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: closing. totalBytesSent=%llu, totalReceived=%llu", &v10, 0x20u);
   }
 
   if (*(v3 + 7))
@@ -642,12 +625,11 @@ void __31__ATSocket_writeAllData_error___block_invoke(uint64_t a1)
 
   [(ATSocket *)self closeDescriptor];
   [(ATSocket *)self notifySocketDidClose];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)open
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = &self->_readBuffer[65512];
   v4 = _ATLogCategoryFramework();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -666,51 +648,48 @@ void __31__ATSocket_writeAllData_error___block_invoke(uint64_t a1)
     v7 = *(v3 + 7);
     *(v3 + 7) = v6;
 
-    v8 = *(v3 + 7);
     CPSetPowerAssertionWithIdentifier();
-    v9 = [objc_alloc(MEMORY[0x277D27F40]) initWithName:*(v3 + 7) pid:getpid() subsystem:@"com.apple.atc.ATSocket" reason:2 flags:1];
-    v10 = *(v3 + 8);
-    *(v3 + 8) = v9;
+    v8 = [objc_alloc(MEMORY[0x277D27F40]) initWithName:*(v3 + 7) pid:getpid() subsystem:@"com.apple.atc.ATSocket" reason:2 flags:1];
+    v9 = *(v3 + 8);
+    *(v3 + 8) = v8;
 
     if ([(ATSocket *)self socketMode]== 1)
     {
-      v11 = dispatch_source_create(MEMORY[0x277D85D28], *(v3 + 18), 0, *(v3 + 13));
+      v10 = dispatch_source_create(MEMORY[0x277D85D28], *(v3 + 18), 0, *(v3 + 13));
       source = self->_source;
-      self->_source = v11;
+      self->_source = v10;
 
-      v13 = fcntl(*(v3 + 18), 3);
-      fcntl(*(v3 + 18), 4, v13 & 0xFFFFFFFB);
-      v22 = 1;
-      setsockopt(*(v3 + 18), 0xFFFF, 1, &v22, 4u);
+      v12 = fcntl(*(v3 + 18), 3);
+      fcntl(*(v3 + 18), 4, v12 & 0xFFFFFFFB);
+      v20 = 1;
+      setsockopt(*(v3 + 18), 0xFFFF, 1, &v20, 4u);
       *buf = xmmword_22394E530;
       setsockopt(*(v3 + 18), 0xFFFF, 4101, buf, 0x10u);
       objc_initWeak(&location, self);
       objc_initWeak(&from, self->_source);
-      v14 = self->_source;
+      v13 = self->_source;
       handler[0] = MEMORY[0x277D85DD0];
       handler[1] = 3221225472;
       handler[2] = __16__ATSocket_open__block_invoke;
       handler[3] = &unk_2784E8E28;
-      objc_copyWeak(&v18, &location);
+      objc_copyWeak(&v16, &location);
       handler[4] = self;
-      objc_copyWeak(&v19, &from);
-      dispatch_source_set_event_handler(v14, handler);
+      objc_copyWeak(&v17, &from);
+      dispatch_source_set_event_handler(v13, handler);
       dispatch_resume(self->_source);
-      objc_destroyWeak(&v19);
-      objc_destroyWeak(&v18);
+      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v16);
       objc_destroyWeak(&from);
       objc_destroyWeak(&location);
     }
   }
 
-  result = v5 != 0;
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5 != 0;
 }
 
 void __16__ATSocket_open__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -724,17 +703,17 @@ void __16__ATSocket_open__block_invoke(uint64_t a1)
       {
         v7 = *(a1 + 32);
         v8 = *(v7 + 65608);
-        v12 = 138544386;
-        v13 = v7;
-        v14 = 2048;
-        v15 = v4;
-        v16 = 1024;
-        v17 = v8;
-        v18 = 2080;
-        v19 = strerror(v5);
-        v20 = 1024;
-        v21 = v5;
-        _os_log_impl(&dword_22392A000, v6, OS_LOG_TYPE_ERROR, "%{public}@: read failed. bytesRead=%zd, fd=%d, err=%s (%d)", &v12, 0x2Cu);
+        v11 = 138544386;
+        v12 = v7;
+        v13 = 2048;
+        v14 = v4;
+        v15 = 1024;
+        v16 = v8;
+        v17 = 2080;
+        v18 = strerror(v5);
+        v19 = 1024;
+        v20 = v5;
+        _os_log_impl(&dword_22392A000, v6, OS_LOG_TYPE_ERROR, "%{public}@: read failed. bytesRead=%zd, fd=%d, err=%s (%d)", &v11, 0x2Cu);
       }
 
       v9 = objc_loadWeakRetained((a1 + 48));
@@ -751,8 +730,6 @@ void __16__ATSocket_open__block_invoke(uint64_t a1)
       [WeakRetained notifyHasDataAvailable:*(a1 + 32) + 24 length:v3];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDelegate:(id)delegate
@@ -827,8 +804,8 @@ void __16__ATSocket_open__block_invoke(uint64_t a1)
 
 + (id)createBoundPair:(id)pair[2]
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if (socketpair(1, 1, 0, v12))
+  v12 = *MEMORY[0x277D85DE8];
+  if (socketpair(1, 1, 0, v11))
   {
     v4 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:*__error() userInfo:0];
   }
@@ -837,8 +814,8 @@ void __16__ATSocket_open__block_invoke(uint64_t a1)
   {
     v5 = objc_alloc_init(ATSocket);
     v6 = objc_alloc_init(ATSocket);
-    [(ATSocket *)v5 setDescriptor:v12[0]];
-    [(ATSocket *)v6 setDescriptor:v12[1]];
+    [(ATSocket *)v5 setDescriptor:v11[0]];
+    [(ATSocket *)v6 setDescriptor:v11[1]];
     v7 = *pair;
     *pair = v5;
     v8 = v5;
@@ -848,8 +825,6 @@ void __16__ATSocket_open__block_invoke(uint64_t a1)
 
     v4 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

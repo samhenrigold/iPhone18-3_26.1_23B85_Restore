@@ -1,169 +1,6 @@
-uint64_t NFHardwareSerialGetDefaultInterfaceType()
-{
-  v28 = *MEMORY[0x29EDCA608];
-  properties = 0;
-  LODWORD(v0) = sub_297F62950("AppleStockholmControl", "nfc,primary,gpio");
-  if (v0)
-  {
-LABEL_13:
-    IOObjectRelease(v0);
-    v7 = sub_297F62950("AppleStockholmSPMI", "nfc,primary,spmi");
-    v8 = v7;
-    if (v7)
-    {
-      v9 = IORegistryEntryCreateCFProperties(v7, &properties, *MEMORY[0x29EDB8ED8], 0);
-      if (v9)
-      {
-        v10 = 1;
-      }
-
-      else
-      {
-        v10 = properties == 0;
-      }
-
-      if (v10)
-      {
-        v11 = MEMORY[0x29EDC9730];
-        dispatch_get_specific(*MEMORY[0x29EDC9730]);
-        Logger = NFLogGetLogger();
-        if (Logger)
-        {
-          Logger(6, "%s:%i Could not get valid dictionary from from IO service object, err: 0x%x.", "NFHardwareSerialGetDefaultInterfaceType", 471, v9);
-        }
-
-        dispatch_get_specific(*v11);
-        v13 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136446722;
-          v23 = "NFHardwareSerialGetDefaultInterfaceType";
-          v24 = 1024;
-          v25 = 471;
-          v26 = 1024;
-          LODWORD(v27) = v9;
-          _os_log_impl(&dword_297F52000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Could not get valid dictionary from from IO service object, err: 0x%x.", buf, 0x18u);
-        }
-
-        v0 = 2;
-      }
-
-      else
-      {
-        v17 = CFDictionaryContainsKey(properties, @"stockholm-spmi-data-socket");
-        v0 = 2;
-        if (v17)
-        {
-          Value = CFDictionaryGetValue(properties, @"stockholm-spmi-data-socket");
-          if (CFBooleanGetValue(Value))
-          {
-            v0 = 3;
-          }
-
-          else
-          {
-            v0 = 2;
-          }
-        }
-      }
-
-      if (properties)
-      {
-        CFRelease(properties);
-        properties = 0;
-      }
-    }
-
-    else
-    {
-      v14 = MEMORY[0x29EDC9730];
-      dispatch_get_specific(*MEMORY[0x29EDC9730]);
-      v15 = NFLogGetLogger();
-      if (v15)
-      {
-        v15(6, "%s:%i Could not find service: %s", "NFHardwareSerialGetDefaultInterfaceType", 463, "AppleStockholmSPMI");
-      }
-
-      dispatch_get_specific(*v14);
-      v16 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136446722;
-        v23 = "NFHardwareSerialGetDefaultInterfaceType";
-        v24 = 1024;
-        v25 = 463;
-        v26 = 2080;
-        v27 = "AppleStockholmSPMI";
-        _os_log_impl(&dword_297F52000, v16, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Could not find service: %s", buf, 0x1Cu);
-      }
-
-      v0 = 1;
-    }
-
-    IOObjectRelease(v8);
-    goto LABEL_36;
-  }
-
-  v1 = MEMORY[0x29EDC9730];
-  dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v2 = NFLogGetLogger();
-  if (v2)
-  {
-    v2(6, "%s:%i Could not find service, trying slow path: %s", "NFHardwareSerialGetDefaultInterfaceType", 447, "AppleStockholmControl");
-  }
-
-  dispatch_get_specific(*v1);
-  v3 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 136446722;
-    v23 = "NFHardwareSerialGetDefaultInterfaceType";
-    v24 = 1024;
-    v25 = 447;
-    v26 = 2080;
-    v27 = "AppleStockholmControl";
-    _os_log_impl(&dword_297F52000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Could not find service, trying slow path: %s", buf, 0x1Cu);
-  }
-
-  sub_297F62E64();
-  v0 = sub_297F63448("nfc,primary,gpio");
-  if (v0)
-  {
-    v4 = sub_297F62950("AppleStockholmControl", "nfc,primary,gpio");
-    if (v4)
-    {
-      goto LABEL_12;
-    }
-
-    v5 = 100;
-    do
-    {
-      usleep(0x186A0u);
-      v4 = sub_297F62950("AppleStockholmControl", "nfc,primary,gpio");
-      if (v4)
-      {
-        break;
-      }
-    }
-
-    while (v5-- > 1);
-    if (v4)
-    {
-LABEL_12:
-      IOObjectRelease(v4);
-    }
-
-    goto LABEL_13;
-  }
-
-LABEL_36:
-  v19 = *MEMORY[0x29EDCA608];
-  return v0;
-}
-
 uint64_t sub_297F62950(const char *a1, const char *a2)
 {
-  v42 = *MEMORY[0x29EDCA608];
+  v41 = *MEMORY[0x29EDCA608];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 1, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   if (!Mutable)
   {
@@ -180,13 +17,13 @@ uint64_t sub_297F62950(const char *a1, const char *a2)
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v37 = "_NFHardwareFindMatchingService";
-      v38 = 1024;
-      v39 = 364;
+      v36 = "_NFHardwareFindMatchingService";
+      v37 = 1024;
+      v38 = 364;
       _os_log_impl(&dword_297F52000, v20, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to create property matching dictionary", buf, 0x12u);
     }
 
-    goto LABEL_23;
+    return 0;
   }
 
   v5 = Mutable;
@@ -209,9 +46,9 @@ uint64_t sub_297F62950(const char *a1, const char *a2)
     }
 
     *buf = 136446466;
-    v37 = "_NFHardwareFindMatchingService";
-    v38 = 1024;
-    v39 = 369;
+    v36 = "_NFHardwareFindMatchingService";
+    v37 = 1024;
+    v38 = 369;
     v24 = "%{public}s:%i Failed to create CF property string";
     goto LABEL_21;
   }
@@ -238,17 +75,15 @@ uint64_t sub_297F62950(const char *a1, const char *a2)
     }
 
     *buf = 136446466;
-    v37 = "_NFHardwareFindMatchingService";
-    v38 = 1024;
-    v39 = 378;
+    v36 = "_NFHardwareFindMatchingService";
+    v37 = 1024;
+    v38 = 378;
     v24 = "%{public}s:%i Failed to create matching dictionary";
 LABEL_21:
     _os_log_impl(&dword_297F52000, v23, OS_LOG_TYPE_ERROR, v24, buf, 0x12u);
 LABEL_22:
     CFRelease(v5);
-LABEL_23:
-    v27 = 0;
-    goto LABEL_24;
+    return 0;
   }
 
   v9 = v8;
@@ -275,11 +110,11 @@ LABEL_23:
     }
 
     *buf = 136446722;
-    v37 = "_NFHardwareFindMatchingService";
-    v38 = 1024;
-    v39 = 403;
-    v40 = 1024;
-    v41 = v11;
+    v36 = "_NFHardwareFindMatchingService";
+    v37 = 1024;
+    v38 = 403;
+    v39 = 1024;
+    v40 = v11;
     v15 = "%{public}s:%i Failed to lookup service : 0x%x";
     v16 = v14;
     v17 = 24;
@@ -288,25 +123,25 @@ LABEL_23:
 
   if (!existing || !IOIteratorIsValid(existing))
   {
-    v33 = MEMORY[0x29EDC9730];
+    v32 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v34 = NFLogGetLogger();
-    if (v34)
+    v33 = NFLogGetLogger();
+    if (v33)
     {
-      v34(3, "%s:%i Failed to get iterator for service", "_NFHardwareFindMatchingService", 395);
+      v33(3, "%s:%i Failed to get iterator for service", "_NFHardwareFindMatchingService", 395);
     }
 
-    dispatch_get_specific(*v33);
-    v32 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    dispatch_get_specific(*v32);
+    v31 = NFSharedLogGetLogger();
+    if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_38;
     }
 
     *buf = 136446466;
-    v37 = "_NFHardwareFindMatchingService";
-    v38 = 1024;
-    v39 = 395;
+    v36 = "_NFHardwareFindMatchingService";
+    v37 = 1024;
+    v38 = 395;
     v15 = "%{public}s:%i Failed to get iterator for service";
     goto LABEL_36;
   }
@@ -317,25 +152,25 @@ LABEL_23:
     goto LABEL_39;
   }
 
-  v30 = MEMORY[0x29EDC9730];
+  v29 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
-  v31 = NFLogGetLogger();
-  if (v31)
+  v30 = NFLogGetLogger();
+  if (v30)
   {
-    v31(3, "%s:%i Failed to get valid service", "_NFHardwareFindMatchingService", 399);
+    v30(3, "%s:%i Failed to get valid service", "_NFHardwareFindMatchingService", 399);
   }
 
-  dispatch_get_specific(*v30);
-  v32 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+  dispatch_get_specific(*v29);
+  v31 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446466;
-    v37 = "_NFHardwareFindMatchingService";
-    v38 = 1024;
-    v39 = 399;
+    v36 = "_NFHardwareFindMatchingService";
+    v37 = 1024;
+    v38 = 399;
     v15 = "%{public}s:%i Failed to get valid service";
 LABEL_36:
-    v16 = v32;
+    v16 = v31;
     v17 = 18;
 LABEL_37:
     _os_log_impl(&dword_297F52000, v16, OS_LOG_TYPE_ERROR, v15, buf, v17);
@@ -349,14 +184,12 @@ LABEL_39:
     IOObjectRelease(existing);
   }
 
-LABEL_24:
-  v28 = *MEMORY[0x29EDCA608];
   return v27;
 }
 
 void sub_297F62E64()
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v0 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -370,9 +203,9 @@ void sub_297F62E64()
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v28 = "_NFHardwareDumpIOKit";
-    v29 = 1024;
-    v30 = 322;
+    v27 = "_NFHardwareDumpIOKit";
+    v28 = 1024;
+    v29 = 322;
     _os_log_impl(&dword_297F52000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s:%i ----------------------- IOService plane --------------------------", buf, 0x12u);
   }
 
@@ -391,13 +224,13 @@ void sub_297F62E64()
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446978;
-    v28 = "_NFHardwareDumpIOKit";
-    v29 = 1024;
-    v30 = 324;
-    v31 = 2080;
-    v32 = "stockholm";
-    v33 = 1024;
-    v34 = MatchingService;
+    v27 = "_NFHardwareDumpIOKit";
+    v28 = 1024;
+    v29 = 324;
+    v30 = 2080;
+    v31 = "stockholm";
+    v32 = 1024;
+    v33 = MatchingService;
     _os_log_impl(&dword_297F52000, v7, OS_LOG_TYPE_ERROR, "%{public}s:%i Matched name %s, returned 0x%04x", buf, 0x22u);
   }
 
@@ -416,13 +249,13 @@ void sub_297F62E64()
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446978;
-    v28 = "_NFHardwareDumpIOKit";
-    v29 = 1024;
-    v30 = 328;
-    v31 = 2080;
-    v32 = "stockholm-spmi";
-    v33 = 1024;
-    v34 = v9;
+    v27 = "_NFHardwareDumpIOKit";
+    v28 = 1024;
+    v29 = 328;
+    v30 = 2080;
+    v31 = "stockholm-spmi";
+    v32 = 1024;
+    v33 = v9;
     _os_log_impl(&dword_297F52000, v11, OS_LOG_TYPE_ERROR, "%{public}s:%i Matched name %s, returned 0x%04x", buf, 0x22u);
   }
 
@@ -441,13 +274,13 @@ void sub_297F62E64()
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446978;
-    v28 = "_NFHardwareDumpIOKit";
-    v29 = 1024;
-    v30 = 332;
-    v31 = 2080;
-    v32 = "AppleStockholmSPMI";
-    v33 = 1024;
-    v34 = v13;
+    v27 = "_NFHardwareDumpIOKit";
+    v28 = 1024;
+    v29 = 332;
+    v30 = 2080;
+    v31 = "AppleStockholmSPMI";
+    v32 = 1024;
+    v33 = v13;
     _os_log_impl(&dword_297F52000, v15, OS_LOG_TYPE_ERROR, "%{public}s:%i Matched name %s, returned 0x%04x", buf, 0x22u);
   }
 
@@ -466,13 +299,13 @@ void sub_297F62E64()
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446978;
-    v28 = "_NFHardwareDumpIOKit";
-    v29 = 1024;
-    v30 = 336;
-    v31 = 2080;
-    v32 = "AppleStockholmControl";
-    v33 = 1024;
-    v34 = v17;
+    v27 = "_NFHardwareDumpIOKit";
+    v28 = 1024;
+    v29 = 336;
+    v30 = 2080;
+    v31 = "AppleStockholmControl";
+    v32 = 1024;
+    v33 = v17;
     _os_log_impl(&dword_297F52000, v19, OS_LOG_TYPE_ERROR, "%{public}s:%i Matched name %s, returned 0x%04x", buf, 0x22u);
   }
 
@@ -491,13 +324,13 @@ void sub_297F62E64()
   if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446978;
-    v28 = "_NFHardwareDumpIOKit";
-    v29 = 1024;
-    v30 = 340;
-    v31 = 2080;
-    v32 = "AppleStockholmControlUserClient";
-    v33 = 1024;
-    v34 = v21;
+    v27 = "_NFHardwareDumpIOKit";
+    v28 = 1024;
+    v29 = 340;
+    v30 = 2080;
+    v31 = "AppleStockholmControlUserClient";
+    v32 = 1024;
+    v33 = v21;
     _os_log_impl(&dword_297F52000, v23, OS_LOG_TYPE_ERROR, "%{public}s:%i Matched name %s, returned 0x%04x", buf, 0x22u);
   }
 
@@ -514,9 +347,9 @@ void sub_297F62E64()
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v28 = "_NFHardwareDumpIOKit";
-    v29 = 1024;
-    v30 = 344;
+    v27 = "_NFHardwareDumpIOKit";
+    v28 = 1024;
+    v29 = 344;
     _os_log_impl(&dword_297F52000, v25, OS_LOG_TYPE_DEFAULT, "%{public}s:%i ----------------------- IOService plane --------------------------", buf, 0x12u);
   }
 
@@ -528,12 +361,11 @@ void sub_297F62E64()
   sub_297F67B20("hammerfest");
   sub_297F67B20("AppleHammerfestSPMI");
   sub_297F67B20("AppleHammerfestControl");
-  v26 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t sub_297F63448(const char *a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   object = 0;
   RootEntry = IORegistryGetRootEntry(*MEMORY[0x29EDBB110]);
   if (MEMORY[0x29C27C2E0](RootEntry, "IOService", 1, &object))
@@ -551,13 +383,13 @@ uint64_t sub_297F63448(const char *a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v11 = "_NFHardwareLookInTree";
-      v12 = 1024;
-      v13 = 308;
+      v10 = "_NFHardwareLookInTree";
+      v11 = 1024;
+      v12 = 308;
       _os_log_impl(&dword_297F52000, v5, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to create iterator", buf, 0x12u);
     }
 
-    v6 = 0;
+    return 0;
   }
 
   else
@@ -566,13 +398,12 @@ uint64_t sub_297F63448(const char *a1)
     IOObjectRelease(object);
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
 BOOL NFHardwareSerialIsHammerfestAlive()
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v0 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -586,9 +417,9 @@ BOOL NFHardwareSerialIsHammerfestAlive()
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v18 = "NFHardwareSerialIsHammerfestAlive";
-    v19 = 1024;
-    v20 = 501;
+    v17 = "NFHardwareSerialIsHammerfestAlive";
+    v18 = 1024;
+    v19 = 501;
     _os_log_impl(&dword_297F52000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s:%i ", buf, 0x12u);
   }
 
@@ -622,11 +453,11 @@ BOOL NFHardwareSerialIsHammerfestAlive()
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        v18 = "NFHardwareSerialIsHammerfestAlive";
-        v19 = 1024;
-        v20 = 516;
-        v21 = 1024;
-        LODWORD(v22) = v5;
+        v17 = "NFHardwareSerialIsHammerfestAlive";
+        v18 = 1024;
+        v19 = 516;
+        v20 = 1024;
+        LODWORD(v21) = v5;
         _os_log_impl(&dword_297F52000, v8, OS_LOG_TYPE_ERROR, "%{public}s:%i Could not get valid dictionary from from IO service object, err: 0x%x.", buf, 0x18u);
       }
     }
@@ -661,24 +492,23 @@ LABEL_22:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v18 = "NFHardwareSerialIsHammerfestAlive";
-    v19 = 1024;
-    v20 = 508;
-    v21 = 2080;
-    v22 = "AppleHammerfestSPMI";
+    v17 = "NFHardwareSerialIsHammerfestAlive";
+    v18 = 1024;
+    v19 = 508;
+    v20 = 2080;
+    v21 = "AppleHammerfestSPMI";
     _os_log_impl(&dword_297F52000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Could not find service: %s", buf, 0x1Cu);
     v11 = 0;
   }
 
 LABEL_24:
   IOObjectRelease(v4);
-  v14 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
 uint64_t NFHardwareSerialIsSupported(const char *a1)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   v1 = "nfc,primary,gpio";
   if (a1 && strcasestr(a1, "hammerfest"))
   {
@@ -704,11 +534,11 @@ uint64_t NFHardwareSerialIsSupported(const char *a1)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v8 = "NFHardwareSerialIsSupported";
-    v9 = 1024;
-    v10 = 544;
-    v11 = 2080;
-    v12 = v1;
+    v7 = "NFHardwareSerialIsSupported";
+    v8 = 1024;
+    v9 = 544;
+    v10 = 2080;
+    v11 = v1;
     _os_log_impl(&dword_297F52000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Could not find service with: %s, retrying slow path", buf, 0x1Cu);
   }
 
@@ -718,16 +548,15 @@ uint64_t NFHardwareSerialIsSupported(const char *a1)
   {
 LABEL_10:
     IOObjectRelease(result);
-    result = 1;
+    return 1;
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t NFHardwareSerialReadBlockAbort(uint64_t a1)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   sub_297F54914(*(*(a1 + 8) + 88), 4, 0, 0);
   v2 = *(a1 + 8);
   if (!*(v2 + 120))
@@ -741,36 +570,33 @@ uint64_t NFHardwareSerialReadBlockAbort(uint64_t a1)
     {
       v5 = Logger;
       mach_continuous_time();
-      v6 = *(*(a1 + 8) + 128);
       ElapsedTimeInMillisecondsFromMachTime = GetElapsedTimeInMillisecondsFromMachTime();
       v5(6, "%s:%i Read aborted while in progress since %llu.", "NFHardwareSerialReadBlockAbort", 610, ElapsedTimeInMillisecondsFromMachTime);
     }
 
     dispatch_get_specific(*v3);
-    v8 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       mach_continuous_time();
-      v9 = *(*(a1 + 8) + 128);
       *buf = 136446722;
-      v13 = "NFHardwareSerialReadBlockAbort";
-      v14 = 1024;
-      v15 = 610;
-      v16 = 2048;
-      v17 = GetElapsedTimeInMillisecondsFromMachTime();
-      _os_log_impl(&dword_297F52000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Read aborted while in progress since %llu.", buf, 0x1Cu);
+      v10 = "NFHardwareSerialReadBlockAbort";
+      v11 = 1024;
+      v12 = 610;
+      v13 = 2048;
+      v14 = GetElapsedTimeInMillisecondsFromMachTime();
+      _os_log_impl(&dword_297F52000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Read aborted while in progress since %llu.", buf, 0x1Cu);
     }
 
     *(*(a1 + 8) + 128) = 0;
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
 uint64_t NFHardwareSerialWriteBlockAbort(uint64_t a1)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   sub_297F54914(*(*(a1 + 8) + 88), 6, 0, 0);
   v2 = *(a1 + 8);
   if (!*(v2 + 144))
@@ -794,20 +620,19 @@ uint64_t NFHardwareSerialWriteBlockAbort(uint64_t a1)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v10 = "NFHardwareSerialWriteBlockAbort";
-      v11 = 1024;
-      v12 = 628;
+      v9 = "NFHardwareSerialWriteBlockAbort";
+      v10 = 1024;
+      v11 = 628;
       _os_log_impl(&dword_297F52000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Write aborted while in progress.", buf, 0x12u);
     }
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
 uint64_t NFHardwareSerialFlush(int *a1)
 {
-  v39 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 1);
   if (*(v2 + 97) == 1)
   {
@@ -827,7 +652,7 @@ uint64_t NFHardwareSerialFlush(int *a1)
 LABEL_5:
       while (1)
       {
-        v3 = read(*a1, &v30, 1uLL);
+        v3 = read(*a1, &v27, 1uLL);
         if (v3 < 0)
         {
           break;
@@ -848,9 +673,9 @@ LABEL_5:
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             *buf = 136446466;
-            v32 = "NFHardwareSerialFlush";
-            v33 = 1024;
-            v34 = 825;
+            v29 = "NFHardwareSerialFlush";
+            v30 = 1024;
+            v31 = 825;
             v14 = "%{public}s:%i Unexpected result";
             v15 = v19;
             v16 = 18;
@@ -889,13 +714,13 @@ LABEL_18:
           v12 = strerror(*v11);
           v13 = *__error();
           *buf = 136446978;
-          v32 = "NFHardwareSerialFlush";
-          v33 = 1024;
-          v34 = 819;
-          v35 = 2080;
-          v36 = v12;
-          v37 = 1024;
-          v38 = v13;
+          v29 = "NFHardwareSerialFlush";
+          v30 = 1024;
+          v31 = 819;
+          v32 = 2080;
+          v33 = v12;
+          v34 = 1024;
+          v35 = v13;
           v14 = "%{public}s:%i %s errno=%d ";
           v15 = v10;
           v16 = 34;
@@ -932,43 +757,40 @@ LABEL_21:
 
   else
   {
-    v23 = MEMORY[0x29EDC9730];
+    v22 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v24 = NFLogGetLogger();
-    if (v24)
+    v23 = NFLogGetLogger();
+    if (v23)
     {
-      v25 = v24;
+      v24 = v23;
       mach_continuous_time();
-      v26 = *(*(a1 + 1) + 128);
       ElapsedTimeInMillisecondsFromMachTime = GetElapsedTimeInMillisecondsFromMachTime();
-      v25(3, "%s:%i Error : read in progress since %llu", "NFHardwareSerialFlush", 789, ElapsedTimeInMillisecondsFromMachTime);
+      v24(3, "%s:%i Error : read in progress since %llu", "NFHardwareSerialFlush", 789, ElapsedTimeInMillisecondsFromMachTime);
     }
 
-    dispatch_get_specific(*v23);
-    v28 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    dispatch_get_specific(*v22);
+    v26 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       mach_continuous_time();
-      v29 = *(*(a1 + 1) + 128);
       *buf = 136446722;
-      v32 = "NFHardwareSerialFlush";
-      v33 = 1024;
-      v34 = 789;
-      v35 = 2048;
-      v36 = GetElapsedTimeInMillisecondsFromMachTime();
-      _os_log_impl(&dword_297F52000, v28, OS_LOG_TYPE_ERROR, "%{public}s:%i Error : read in progress since %llu", buf, 0x1Cu);
+      v29 = "NFHardwareSerialFlush";
+      v30 = 1024;
+      v31 = 789;
+      v32 = 2048;
+      v33 = GetElapsedTimeInMillisecondsFromMachTime();
+      _os_log_impl(&dword_297F52000, v26, OS_LOG_TYPE_ERROR, "%{public}s:%i Error : read in progress since %llu", buf, 0x1Cu);
     }
 
-    v20 = 0;
+    return 0;
   }
 
-  v21 = *MEMORY[0x29EDCA608];
   return v20;
 }
 
 BOOL sub_297F64074(int *a1, int a2)
 {
-  v44 = *MEMORY[0x29EDCA608];
+  v43 = *MEMORY[0x29EDCA608];
   v4 = fcntl(*a1, 3, 0);
   if (v4 != -1)
   {
@@ -1005,21 +827,20 @@ BOOL sub_297F64074(int *a1, int a2)
         v15 = strerror(*v14);
         v16 = *__error();
         *buf = 136446978;
-        v37 = "_NFHardwareSerialSetNonBlock";
-        v38 = 1024;
-        v39 = 115;
-        v40 = 2080;
-        v41 = v15;
-        v42 = 1024;
-        v43 = v16;
+        v36 = "_NFHardwareSerialSetNonBlock";
+        v37 = 1024;
+        v38 = 115;
+        v39 = 2080;
+        v40 = v15;
+        v41 = 1024;
+        v42 = v16;
         v17 = "%{public}s:%i %s errno=%d Failed to set flags";
 LABEL_14:
         _os_log_impl(&dword_297F52000, v12, OS_LOG_TYPE_ERROR, v17, buf, 0x22u);
-        result = 0;
-        goto LABEL_26;
+        return 0;
       }
 
-      goto LABEL_26;
+      return result;
     }
 
     v27 = fcntl(*a1, 3, 0);
@@ -1037,13 +858,13 @@ LABEL_14:
       v34 = NFSharedLogGetLogger();
       if (!os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_25;
+        return 1;
       }
 
       *buf = 136446466;
-      v37 = "_NFHardwareSerialSetNonBlock";
-      v38 = 1024;
-      v39 = 120;
+      v36 = "_NFHardwareSerialSetNonBlock";
+      v37 = 1024;
+      v38 = 120;
       v31 = "%{public}s:%i Socket is non-blocking";
       v32 = v34;
       v33 = OS_LOG_TYPE_DEFAULT;
@@ -1060,22 +881,20 @@ LABEL_14:
       v30 = NFSharedLogGetLogger();
       if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_25;
+        return 1;
       }
 
       *buf = 136446466;
-      v37 = "_NFHardwareSerialSetNonBlock";
-      v38 = 1024;
-      v39 = 122;
+      v36 = "_NFHardwareSerialSetNonBlock";
+      v37 = 1024;
+      v38 = 122;
       v31 = "%{public}s:%i Socket is blocking !!";
       v32 = v30;
       v33 = OS_LOG_TYPE_ERROR;
     }
 
     _os_log_impl(&dword_297F52000, v32, v33, v31, buf, 0x12u);
-LABEL_25:
-    result = 1;
-    goto LABEL_26;
+    return 1;
   }
 
   v18 = MEMORY[0x29EDC9730];
@@ -1099,25 +918,23 @@ LABEL_25:
     v25 = strerror(*v24);
     v26 = *__error();
     *buf = 136446978;
-    v37 = "_NFHardwareSerialSetNonBlock";
-    v38 = 1024;
-    v39 = 109;
-    v40 = 2080;
-    v41 = v25;
-    v42 = 1024;
-    v43 = v26;
+    v36 = "_NFHardwareSerialSetNonBlock";
+    v37 = 1024;
+    v38 = 109;
+    v39 = 2080;
+    v40 = v25;
+    v41 = 1024;
+    v42 = v26;
     v17 = "%{public}s:%i %s errno=%d Failed to get flags";
     goto LABEL_14;
   }
 
-LABEL_26:
-  v35 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void sub_297F64428()
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v0 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -1131,141 +948,131 @@ void sub_297F64428()
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446466;
-    v5 = "NFHardwareSerialFlush_block_invoke";
-    v6 = 1024;
-    v7 = 838;
+    v4 = "NFHardwareSerialFlush_block_invoke";
+    v5 = 1024;
+    v6 = 838;
     _os_log_impl(&dword_297F52000, v2, OS_LOG_TYPE_ERROR, "%{public}s:%i Error ! Unexpected invocation of read handler", buf, 0x12u);
   }
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 BOOL NFHardwareSerialReset(uint64_t a1)
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   if (a1)
   {
-    if ((**(a1 + 8) & 1) == 0)
+    if (**(a1 + 8))
     {
-      v2 = MEMORY[0x29EDC9730];
-      dispatch_get_specific(*MEMORY[0x29EDC9730]);
-      Logger = NFLogGetLogger();
-      if (Logger)
-      {
-        Logger(6, "%s:%i ", "NFHardwareSerialReset", 863);
-      }
-
-      dispatch_get_specific(*v2);
-      v4 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136446466;
-        v25 = "NFHardwareSerialReset";
-        v26 = 1024;
-        v27 = 863;
-        _os_log_impl(&dword_297F52000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:%i ", buf, 0x12u);
-      }
-
-      v5 = 0;
-      while (1)
-      {
-        v23 = 3;
-        if (setsockopt(*a1, 2, -2147191792, &v23, 4u))
-        {
-          break;
-        }
-
-        if (++v5 == 4)
-        {
-          goto LABEL_10;
-        }
-      }
-
-      dispatch_get_specific(*v2);
-      v13 = NFLogGetLogger();
-      if (v13)
-      {
-        v14 = v13;
-        v15 = __error();
-        v16 = strerror(*v15);
-        v17 = __error();
-        v14(3, "%s:%i %s errno=%d setsockopt: SYSPROTO_CONTROL:TIOCFLUSH - attempt %d - ", "NFHardwareSerialReset", 871, v16, *v17, v5);
-      }
-
-      dispatch_get_specific(*v2);
-      v18 = NFSharedLogGetLogger();
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_20;
-      }
-
-      v19 = __error();
-      v20 = strerror(*v19);
-      v21 = *__error();
-      *buf = 136447234;
-      v25 = "NFHardwareSerialReset";
-      v26 = 1024;
-      v27 = 871;
-      v28 = 2080;
-      v29 = v20;
-      v30 = 1024;
-      v31 = v21;
-      v32 = 1024;
-      v33 = v5;
-      v10 = "%{public}s:%i %s errno=%d setsockopt: SYSPROTO_CONTROL:TIOCFLUSH - attempt %d - ";
-      v11 = v18;
-      v12 = 40;
-LABEL_19:
-      _os_log_impl(&dword_297F52000, v11, OS_LOG_TYPE_ERROR, v10, buf, v12);
-LABEL_20:
-      result = 0;
-      goto LABEL_21;
+      return 1;
     }
 
-LABEL_10:
-    result = 1;
-  }
-
-  else
-  {
-    v7 = MEMORY[0x29EDC9730];
+    v2 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v8 = NFLogGetLogger();
-    if (v8)
+    Logger = NFLogGetLogger();
+    if (Logger)
     {
-      v8(3, "%s:%i Serial device not opened!", "NFHardwareSerialReset", 855);
+      Logger(6, "%s:%i ", "NFHardwareSerialReset", 863);
     }
 
-    dispatch_get_specific(*v7);
-    v9 = NFSharedLogGetLogger();
-    result = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
-    if (result)
+    dispatch_get_specific(*v2);
+    v4 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v25 = "NFHardwareSerialReset";
-      v26 = 1024;
-      v27 = 855;
-      v10 = "%{public}s:%i Serial device not opened!";
-      v11 = v9;
-      v12 = 18;
-      goto LABEL_19;
+      v24 = "NFHardwareSerialReset";
+      v25 = 1024;
+      v26 = 863;
+      _os_log_impl(&dword_297F52000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:%i ", buf, 0x12u);
     }
+
+    v5 = 0;
+    while (1)
+    {
+      v22 = 3;
+      if (setsockopt(*a1, 2, -2147191792, &v22, 4u))
+      {
+        break;
+      }
+
+      if (++v5 == 4)
+      {
+        return 1;
+      }
+    }
+
+    dispatch_get_specific(*v2);
+    v13 = NFLogGetLogger();
+    if (v13)
+    {
+      v14 = v13;
+      v15 = __error();
+      v16 = strerror(*v15);
+      v17 = __error();
+      v14(3, "%s:%i %s errno=%d setsockopt: SYSPROTO_CONTROL:TIOCFLUSH - attempt %d - ", "NFHardwareSerialReset", 871, v16, *v17, v5);
+    }
+
+    dispatch_get_specific(*v2);
+    v18 = NFSharedLogGetLogger();
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      return 0;
+    }
+
+    v19 = __error();
+    v20 = strerror(*v19);
+    v21 = *__error();
+    *buf = 136447234;
+    v24 = "NFHardwareSerialReset";
+    v25 = 1024;
+    v26 = 871;
+    v27 = 2080;
+    v28 = v20;
+    v29 = 1024;
+    v30 = v21;
+    v31 = 1024;
+    v32 = v5;
+    v10 = "%{public}s:%i %s errno=%d setsockopt: SYSPROTO_CONTROL:TIOCFLUSH - attempt %d - ";
+    v11 = v18;
+    v12 = 40;
+LABEL_19:
+    _os_log_impl(&dword_297F52000, v11, OS_LOG_TYPE_ERROR, v10, buf, v12);
+    return 0;
   }
 
-LABEL_21:
-  v22 = *MEMORY[0x29EDCA608];
+  v7 = MEMORY[0x29EDC9730];
+  dispatch_get_specific(*MEMORY[0x29EDC9730]);
+  v8 = NFLogGetLogger();
+  if (v8)
+  {
+    v8(3, "%s:%i Serial device not opened!", "NFHardwareSerialReset", 855);
+  }
+
+  dispatch_get_specific(*v7);
+  v9 = NFSharedLogGetLogger();
+  result = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+  if (result)
+  {
+    *buf = 136446466;
+    v24 = "NFHardwareSerialReset";
+    v25 = 1024;
+    v26 = 855;
+    v10 = "%{public}s:%i Serial device not opened!";
+    v11 = v9;
+    v12 = 18;
+    goto LABEL_19;
+  }
+
   return result;
 }
 
 BOOL NFHardwareSerialSetBaudRate(uint64_t a1, speed_t a2)
 {
-  v63 = *MEMORY[0x29EDCA608];
-  v52 = a2;
+  v62 = *MEMORY[0x29EDCA608];
+  v51 = a2;
   if (a1)
   {
     if (**(a1 + 8))
     {
-      goto LABEL_19;
+      return 1;
     }
 
     v4 = MEMORY[0x29EDC9730];
@@ -1281,19 +1088,19 @@ BOOL NFHardwareSerialSetBaudRate(uint64_t a1, speed_t a2)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446722;
-      v54 = "NFHardwareSerialSetBaudRate";
-      v55 = 1024;
-      v56 = 890;
-      v57 = 2048;
-      v58 = a2;
+      v53 = "NFHardwareSerialSetBaudRate";
+      v54 = 1024;
+      v55 = 890;
+      v56 = 2048;
+      v57 = a2;
       _os_log_impl(&dword_297F52000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s:%i baudRate=%lu", buf, 0x1Cu);
     }
 
     v7 = *(a1 + 8);
     if (*(v7 + 1) == 1)
     {
-      v51 = 72;
-      if (getsockopt(*a1, 2, 1078490131, (v7 + 8), &v51))
+      v50 = 72;
+      if (getsockopt(*a1, 2, 1078490131, (v7 + 8), &v50))
       {
         dispatch_get_specific(*v4);
         v8 = NFLogGetLogger();
@@ -1310,20 +1117,20 @@ BOOL NFHardwareSerialSetBaudRate(uint64_t a1, speed_t a2)
         v13 = NFSharedLogGetLogger();
         if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_31;
+          return 0;
         }
 
         v14 = __error();
         v15 = strerror(*v14);
         v16 = *__error();
         *buf = 136446978;
-        v54 = "NFHardwareSerialSetBaudRate";
-        v55 = 1024;
-        v56 = 897;
-        v57 = 2080;
-        v58 = v15;
-        v59 = 1024;
-        v60 = v16;
+        v53 = "NFHardwareSerialSetBaudRate";
+        v54 = 1024;
+        v55 = 897;
+        v56 = 2080;
+        v57 = v15;
+        v58 = 1024;
+        v59 = v16;
         v17 = "%{public}s:%i %s errno=%d getsockopt: SYSPROTO_CONTROL";
         goto LABEL_13;
       }
@@ -1345,22 +1152,22 @@ BOOL NFHardwareSerialSetBaudRate(uint64_t a1, speed_t a2)
         v29 = NFSharedLogGetLogger();
         if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_31;
+          return 0;
         }
 
         v30 = __error();
         v31 = strerror(*v30);
         v32 = *__error();
         *buf = 136447234;
-        v54 = "NFHardwareSerialSetBaudRate";
-        v55 = 1024;
-        v56 = 902;
-        v57 = 2080;
-        v58 = v31;
-        v59 = 1024;
-        v60 = v32;
-        v61 = 2048;
-        v62 = a2;
+        v53 = "NFHardwareSerialSetBaudRate";
+        v54 = 1024;
+        v55 = 902;
+        v56 = 2080;
+        v57 = v31;
+        v58 = 1024;
+        v59 = v32;
+        v60 = 2048;
+        v61 = a2;
         v17 = "%{public}s:%i %s errno=%d baudRate=%lu";
         v18 = v29;
         goto LABEL_29;
@@ -1369,53 +1176,49 @@ BOOL NFHardwareSerialSetBaudRate(uint64_t a1, speed_t a2)
       if (setsockopt(*a1, 2, -2142735340, (v7 + 8), 0x48u))
       {
         dispatch_get_specific(*v4);
-        v43 = NFLogGetLogger();
-        if (v43)
+        v42 = NFLogGetLogger();
+        if (v42)
         {
-          v44 = v43;
-          v45 = __error();
-          v46 = strerror(*v45);
-          v47 = __error();
-          v44(3, "%s:%i %s errno=%d setsockopt: SYSPROTO_CONTROL", "NFHardwareSerialSetBaudRate", 907, v46, *v47);
+          v43 = v42;
+          v44 = __error();
+          v45 = strerror(*v44);
+          v46 = __error();
+          v43(3, "%s:%i %s errno=%d setsockopt: SYSPROTO_CONTROL", "NFHardwareSerialSetBaudRate", 907, v45, *v46);
         }
 
         dispatch_get_specific(*v4);
         v13 = NFSharedLogGetLogger();
         if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_31;
+          return 0;
         }
 
-        v48 = __error();
-        v49 = strerror(*v48);
-        v50 = *__error();
+        v47 = __error();
+        v48 = strerror(*v47);
+        v49 = *__error();
         *buf = 136446978;
-        v54 = "NFHardwareSerialSetBaudRate";
-        v55 = 1024;
-        v56 = 907;
-        v57 = 2080;
-        v58 = v49;
-        v59 = 1024;
-        v60 = v50;
+        v53 = "NFHardwareSerialSetBaudRate";
+        v54 = 1024;
+        v55 = 907;
+        v56 = 2080;
+        v57 = v48;
+        v58 = 1024;
+        v59 = v49;
         v17 = "%{public}s:%i %s errno=%d setsockopt: SYSPROTO_CONTROL";
 LABEL_13:
         v18 = v13;
         v19 = 34;
 LABEL_30:
         _os_log_impl(&dword_297F52000, v18, OS_LOG_TYPE_ERROR, v17, buf, v19);
-LABEL_31:
-        result = 0;
-        goto LABEL_32;
+        return 0;
       }
 
-      goto LABEL_19;
+      return 1;
     }
 
-    if ((ioctl(*a1, 0x80085402uLL, &v52) & 0x80000000) == 0)
+    if ((ioctl(*a1, 0x80085402uLL, &v51) & 0x80000000) == 0)
     {
-LABEL_19:
-      result = 1;
-      goto LABEL_32;
+      return 1;
     }
 
     dispatch_get_specific(*v4);
@@ -1426,7 +1229,7 @@ LABEL_19:
       v35 = __error();
       v36 = strerror(*v35);
       v37 = __error();
-      v34(3, "%s:%i %s errno=%d baudRate=%lu", "NFHardwareSerialSetBaudRate", 914, v36, *v37, v52);
+      v34(3, "%s:%i %s errno=%d baudRate=%lu", "NFHardwareSerialSetBaudRate", 914, v36, *v37, v51);
     }
 
     dispatch_get_specific(*v4);
@@ -1438,15 +1241,15 @@ LABEL_19:
       v40 = strerror(*v39);
       v41 = *__error();
       *buf = 136447234;
-      v54 = "NFHardwareSerialSetBaudRate";
-      v55 = 1024;
-      v56 = 914;
-      v57 = 2080;
-      v58 = v40;
-      v59 = 1024;
-      v60 = v41;
-      v61 = 2048;
-      v62 = v52;
+      v53 = "NFHardwareSerialSetBaudRate";
+      v54 = 1024;
+      v55 = 914;
+      v56 = 2080;
+      v57 = v40;
+      v58 = 1024;
+      v59 = v41;
+      v60 = 2048;
+      v61 = v51;
       v17 = "%{public}s:%i %s errno=%d baudRate=%lu";
       v18 = v38;
 LABEL_29:
@@ -1471,9 +1274,9 @@ LABEL_29:
     if (result)
     {
       *buf = 136446466;
-      v54 = "NFHardwareSerialSetBaudRate";
-      v55 = 1024;
-      v56 = 881;
+      v53 = "NFHardwareSerialSetBaudRate";
+      v54 = 1024;
+      v55 = 881;
       v17 = "%{public}s:%i Serial device not opened!";
       v18 = v22;
       v19 = 18;
@@ -1481,8 +1284,6 @@ LABEL_29:
     }
   }
 
-LABEL_32:
-  v42 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1497,10 +1298,10 @@ void NFHardwareSerialEnableLog(uint64_t a1, char a2)
 
 int *NFHardwareSerialOpen(const char *a1, NSObject *a2, BOOL a3)
 {
-  v184 = *MEMORY[0x29EDCA608];
+  v183 = *MEMORY[0x29EDCA608];
   if (!a1)
   {
-    v163 = MEMORY[0x29EDC9730];
+    v162 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
     Logger = NFLogGetLogger();
     if (Logger)
@@ -1508,9 +1309,9 @@ int *NFHardwareSerialOpen(const char *a1, NSObject *a2, BOOL a3)
       Logger(3, "%s:%i FAILED: %s", "NFHardwareSerialOpen", 1133, "devicePath != ((void*)0)");
     }
 
-    dispatch_get_specific(*v163);
-    v165 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v165, OS_LOG_TYPE_ERROR))
+    dispatch_get_specific(*v162);
+    v164 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v164, OS_LOG_TYPE_ERROR))
     {
       LODWORD(handler[0]) = 136446722;
       *(handler + 4) = "NFHardwareSerialOpen";
@@ -1518,7 +1319,7 @@ int *NFHardwareSerialOpen(const char *a1, NSObject *a2, BOOL a3)
       *(handler + 14) = 1133;
       WORD1(handler[1]) = 2080;
       *(&handler[1] + 4) = "devicePath != ((void*)0)";
-      _os_log_impl(&dword_297F52000, v165, OS_LOG_TYPE_ERROR, "%{public}s:%i FAILED: %s", handler, 0x1Cu);
+      _os_log_impl(&dword_297F52000, v164, OS_LOG_TYPE_ERROR, "%{public}s:%i FAILED: %s", handler, 0x1Cu);
     }
 
     abort();
@@ -1554,15 +1355,15 @@ int *NFHardwareSerialOpen(const char *a1, NSObject *a2, BOOL a3)
   *v8 = strcasestr(a1, "spmi") != 0;
   if (v8[1])
   {
-    v167 = 0;
-    v168 = 0u;
-    v183 = 0;
-    v181 = 0u;
-    v182 = 0u;
+    v166 = 0;
+    v167 = 0u;
+    v182 = 0;
     v180 = 0u;
+    v181 = 0u;
+    v179 = 0u;
     memset(handler, 0, sizeof(handler));
     v12 = *(v6 + 1);
-    v166 = 72;
+    v165 = 72;
     v13 = socket(32, 1, 2);
     *v6 = v13;
     if (v13 < 0)
@@ -1587,13 +1388,13 @@ int *NFHardwareSerialOpen(const char *a1, NSObject *a2, BOOL a3)
         v39 = strerror(*v38);
         v40 = *__error();
         *buf = 136446978;
-        v170 = "_NFHardwareSerialOpenSocket";
-        v171 = 1024;
-        v172 = 1007;
-        v173 = 2080;
-        v174 = v39;
-        v175 = 1024;
-        v176 = v40;
+        v169 = "_NFHardwareSerialOpenSocket";
+        v170 = 1024;
+        v171 = 1007;
+        v172 = 2080;
+        v173 = v39;
+        v174 = 1024;
+        v175 = v40;
         _os_log_impl(&dword_297F52000, v37, OS_LOG_TYPE_ERROR, "%{public}s:%i %s errno=%d socket", buf, 0x22u);
       }
 
@@ -1601,10 +1402,10 @@ int *NFHardwareSerialOpen(const char *a1, NSObject *a2, BOOL a3)
       goto LABEL_39;
     }
 
-    v183 = 0;
-    v181 = 0u;
-    v182 = 0u;
+    v182 = 0;
     v180 = 0u;
+    v181 = 0u;
+    v179 = 0u;
     memset(handler, 0, sizeof(handler));
     __strlcpy_chk();
     if (ioctl(*v6, 0xC0644E03uLL, handler))
@@ -1632,21 +1433,21 @@ int *NFHardwareSerialOpen(const char *a1, NSObject *a2, BOOL a3)
       v22 = strerror(*v21);
       v23 = *__error();
       *buf = 136446978;
-      v170 = "_NFHardwareSerialOpenSocket";
-      v171 = 1024;
-      v172 = 1016;
-      v173 = 2080;
-      v174 = v22;
-      v175 = 1024;
-      v176 = v23;
+      v169 = "_NFHardwareSerialOpenSocket";
+      v170 = 1024;
+      v171 = 1016;
+      v172 = 2080;
+      v173 = v22;
+      v174 = 1024;
+      v175 = v23;
       v24 = "%{public}s:%i %s errno=%d ioctl: CTLIOCGINFO";
       goto LABEL_37;
     }
 
-    *&v167.sa_len = 139296;
-    *&v167.sa_data[2] = handler[0];
-    *&v167.sa_data[6] = 0;
-    if (connect(*v6, &v167, 0x20u))
+    *&v166.sa_len = 139296;
+    *&v166.sa_data[2] = handler[0];
+    *&v166.sa_data[6] = 0;
+    if (connect(*v6, &v166, 0x20u))
     {
       v62 = MEMORY[0x29EDC9730];
       dispatch_get_specific(*MEMORY[0x29EDC9730]);
@@ -1671,13 +1472,13 @@ int *NFHardwareSerialOpen(const char *a1, NSObject *a2, BOOL a3)
       v69 = strerror(*v68);
       v70 = *__error();
       *buf = 136446978;
-      v170 = "_NFHardwareSerialOpenSocket";
-      v171 = 1024;
-      v172 = 1027;
-      v173 = 2080;
-      v174 = v69;
-      v175 = 1024;
-      v176 = v70;
+      v169 = "_NFHardwareSerialOpenSocket";
+      v170 = 1024;
+      v171 = 1027;
+      v172 = 2080;
+      v173 = v69;
+      v174 = 1024;
+      v175 = v70;
       v24 = "%{public}s:%i %s errno=%d connect";
       goto LABEL_37;
     }
@@ -1697,45 +1498,45 @@ int *NFHardwareSerialOpen(const char *a1, NSObject *a2, BOOL a3)
       if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446466;
-        v170 = "_NFHardwareSerialOpenSocket";
-        v171 = 1024;
-        v172 = 1032;
+        v169 = "_NFHardwareSerialOpenSocket";
+        v170 = 1024;
+        v171 = 1032;
         _os_log_impl(&dword_297F52000, v88, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Using blocking socket for relay", buf, 0x12u);
       }
     }
 
     else if (!sub_297F64074(v6, 1))
     {
-      v113 = MEMORY[0x29EDC9730];
+      v112 = MEMORY[0x29EDC9730];
       dispatch_get_specific(*MEMORY[0x29EDC9730]);
-      v114 = NFLogGetLogger();
-      if (v114)
+      v113 = NFLogGetLogger();
+      if (v113)
       {
-        v115 = v114;
-        v116 = __error();
-        v117 = strerror(*v116);
-        v118 = __error();
-        v115(3, "%s:%i %s errno=%d Failed to set non-blocking.", "_NFHardwareSerialOpenSocket", 1035, v117, *v118);
+        v114 = v113;
+        v115 = __error();
+        v116 = strerror(*v115);
+        v117 = __error();
+        v114(3, "%s:%i %s errno=%d Failed to set non-blocking.", "_NFHardwareSerialOpenSocket", 1035, v116, *v117);
       }
 
-      dispatch_get_specific(*v113);
+      dispatch_get_specific(*v112);
       v20 = NFSharedLogGetLogger();
       if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_39;
       }
 
-      v119 = __error();
-      v120 = strerror(*v119);
-      v121 = *__error();
+      v118 = __error();
+      v119 = strerror(*v118);
+      v120 = *__error();
       *buf = 136446978;
-      v170 = "_NFHardwareSerialOpenSocket";
-      v171 = 1024;
-      v172 = 1035;
-      v173 = 2080;
-      v174 = v120;
-      v175 = 1024;
-      v176 = v121;
+      v169 = "_NFHardwareSerialOpenSocket";
+      v170 = 1024;
+      v171 = 1035;
+      v172 = 2080;
+      v173 = v119;
+      v174 = 1024;
+      v175 = v120;
       v24 = "%{public}s:%i %s errno=%d Failed to set non-blocking.";
 LABEL_37:
       v71 = v20;
@@ -1769,44 +1570,43 @@ LABEL_64:
       _os_log_impl(&dword_297F52000, v75, OS_LOG_TYPE_ERROR, v76, handler, 0x1Cu);
 LABEL_65:
       NFHardwareSerialClose(v6);
-      v6 = 0;
-      goto LABEL_66;
+      return 0;
     }
 
     if ((**(v6 + 1) & 1) == 0)
     {
-      if (getsockopt(*v6, 2, 1078490131, (v12 + 8), &v166))
+      if (getsockopt(*v6, 2, 1078490131, (v12 + 8), &v165))
       {
-        v104 = MEMORY[0x29EDC9730];
+        v103 = MEMORY[0x29EDC9730];
         dispatch_get_specific(*MEMORY[0x29EDC9730]);
-        v105 = NFLogGetLogger();
-        if (v105)
+        v104 = NFLogGetLogger();
+        if (v104)
         {
-          v106 = v105;
-          v107 = __error();
-          v108 = strerror(*v107);
-          v109 = __error();
-          v106(3, "%s:%i %s errno=%d getsockopt: SYSPROTO_CONTROL", "_NFHardwareSerialOpenSocket", 1048, v108, *v109);
+          v105 = v104;
+          v106 = __error();
+          v107 = strerror(*v106);
+          v108 = __error();
+          v105(3, "%s:%i %s errno=%d getsockopt: SYSPROTO_CONTROL", "_NFHardwareSerialOpenSocket", 1048, v107, *v108);
         }
 
-        dispatch_get_specific(*v104);
+        dispatch_get_specific(*v103);
         v20 = NFSharedLogGetLogger();
         if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_39;
         }
 
-        v110 = __error();
-        v111 = strerror(*v110);
-        v112 = *__error();
+        v109 = __error();
+        v110 = strerror(*v109);
+        v111 = *__error();
         *buf = 136446978;
-        v170 = "_NFHardwareSerialOpenSocket";
-        v171 = 1024;
-        v172 = 1048;
-        v173 = 2080;
-        v174 = v111;
-        v175 = 1024;
-        v176 = v112;
+        v169 = "_NFHardwareSerialOpenSocket";
+        v170 = 1024;
+        v171 = 1048;
+        v172 = 2080;
+        v173 = v110;
+        v174 = 1024;
+        v175 = v111;
         v24 = "%{public}s:%i %s errno=%d getsockopt: SYSPROTO_CONTROL";
         goto LABEL_37;
       }
@@ -1816,76 +1616,76 @@ LABEL_65:
       cfmakeraw((v12 + 8));
       if (cfsetspeed((*(v6 + 1) + 8), 0x1C200uLL))
       {
-        v132 = MEMORY[0x29EDC9730];
+        v131 = MEMORY[0x29EDC9730];
         dispatch_get_specific(*MEMORY[0x29EDC9730]);
-        v133 = NFLogGetLogger();
-        if (v133)
+        v132 = NFLogGetLogger();
+        if (v132)
         {
-          v134 = v133;
-          v135 = __error();
-          v136 = strerror(*v135);
-          v137 = __error();
-          v134(3, "%s:%i %s errno=%d baudRate=%d", "_NFHardwareSerialOpenSocket", 1062, v136, *v137, 115200);
+          v133 = v132;
+          v134 = __error();
+          v135 = strerror(*v134);
+          v136 = __error();
+          v133(3, "%s:%i %s errno=%d baudRate=%d", "_NFHardwareSerialOpenSocket", 1062, v135, *v136, 115200);
         }
 
-        dispatch_get_specific(*v132);
-        v138 = NFSharedLogGetLogger();
-        if (!os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
+        dispatch_get_specific(*v131);
+        v137 = NFSharedLogGetLogger();
+        if (!os_log_type_enabled(v137, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_39;
         }
 
-        v139 = __error();
-        v140 = strerror(*v139);
-        v141 = *__error();
+        v138 = __error();
+        v139 = strerror(*v138);
+        v140 = *__error();
         *buf = 136447234;
-        v170 = "_NFHardwareSerialOpenSocket";
-        v171 = 1024;
-        v172 = 1062;
-        v173 = 2080;
-        v174 = v140;
-        v175 = 1024;
-        v176 = v141;
-        v177 = 1024;
-        v178 = 115200;
+        v169 = "_NFHardwareSerialOpenSocket";
+        v170 = 1024;
+        v171 = 1062;
+        v172 = 2080;
+        v173 = v139;
+        v174 = 1024;
+        v175 = v140;
+        v176 = 1024;
+        v177 = 115200;
         v24 = "%{public}s:%i %s errno=%d baudRate=%d";
-        v71 = v138;
+        v71 = v137;
         v72 = 40;
         goto LABEL_38;
       }
 
       if (setsockopt(*v6, 2, -2142735340, (v12 + 8), 0x48u))
       {
-        v142 = MEMORY[0x29EDC9730];
+        v141 = MEMORY[0x29EDC9730];
         dispatch_get_specific(*MEMORY[0x29EDC9730]);
-        v143 = NFLogGetLogger();
-        if (v143)
+        v142 = NFLogGetLogger();
+        if (v142)
         {
-          v144 = v143;
-          v145 = __error();
-          v146 = strerror(*v145);
-          v147 = __error();
-          v144(3, "%s:%i %s errno=%d setsockopt: SYSPROTO_CONTROL", "_NFHardwareSerialOpenSocket", 1067, v146, *v147);
+          v143 = v142;
+          v144 = __error();
+          v145 = strerror(*v144);
+          v146 = __error();
+          v143(3, "%s:%i %s errno=%d setsockopt: SYSPROTO_CONTROL", "_NFHardwareSerialOpenSocket", 1067, v145, *v146);
         }
 
-        dispatch_get_specific(*v142);
+        dispatch_get_specific(*v141);
         v20 = NFSharedLogGetLogger();
         if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_39;
         }
 
-        v148 = __error();
-        v149 = strerror(*v148);
-        v150 = *__error();
+        v147 = __error();
+        v148 = strerror(*v147);
+        v149 = *__error();
         *buf = 136446978;
-        v170 = "_NFHardwareSerialOpenSocket";
-        v171 = 1024;
-        v172 = 1067;
-        v173 = 2080;
-        v174 = v149;
-        v175 = 1024;
-        v176 = v150;
+        v169 = "_NFHardwareSerialOpenSocket";
+        v170 = 1024;
+        v171 = 1067;
+        v172 = 2080;
+        v173 = v148;
+        v174 = 1024;
+        v175 = v149;
         v24 = "%{public}s:%i %s errno=%d setsockopt: SYSPROTO_CONTROL";
         goto LABEL_37;
       }
@@ -2057,36 +1857,36 @@ LABEL_59:
   *(v25 + 56) = 1;
   if (cfsetispeed((*(v6 + 1) + 8), 0x1C200uLL) || cfsetospeed((*(v6 + 1) + 8), 0x1C200uLL))
   {
-    v122 = MEMORY[0x29EDC9730];
+    v121 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v123 = NFLogGetLogger();
-    if (v123)
+    v122 = NFLogGetLogger();
+    if (v122)
     {
-      v124 = v123;
-      v125 = __error();
-      v126 = strerror(*v125);
-      v127 = __error();
-      v124(3, "%s:%i %s errno=%d baudRate=%d", "_NFHardwareSerialOpenDeviceNode", 979, v126, *v127, 115200);
+      v123 = v122;
+      v124 = __error();
+      v125 = strerror(*v124);
+      v126 = __error();
+      v123(3, "%s:%i %s errno=%d baudRate=%d", "_NFHardwareSerialOpenDeviceNode", 979, v125, *v126, 115200);
     }
 
-    dispatch_get_specific(*v122);
-    v128 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
+    dispatch_get_specific(*v121);
+    v127 = NFSharedLogGetLogger();
+    if (!os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_60;
     }
 
-    v129 = __error();
-    v130 = strerror(*v129);
-    v131 = *__error();
+    v128 = __error();
+    v129 = strerror(*v128);
+    v130 = *__error();
     LODWORD(handler[0]) = 136447234;
     *(handler + 4) = "_NFHardwareSerialOpenDeviceNode";
     WORD6(handler[0]) = 1024;
     *(handler + 14) = 979;
     WORD1(handler[1]) = 2080;
-    *(&handler[1] + 4) = v130;
+    *(&handler[1] + 4) = v129;
     WORD6(handler[1]) = 1024;
-    *(&handler[1] + 14) = v131;
+    *(&handler[1] + 14) = v130;
     WORD1(handler[2]) = 1024;
     DWORD1(handler[2]) = 115200;
     v61 = "%{public}s:%i %s errno=%d baudRate=%d";
@@ -2095,64 +1895,64 @@ LABEL_59:
 
   if (tcsetattr(*v6, 0, (*(v6 + 1) + 8)))
   {
-    v151 = MEMORY[0x29EDC9730];
+    v150 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v152 = NFLogGetLogger();
-    if (v152)
+    v151 = NFLogGetLogger();
+    if (v151)
     {
-      v153 = v152;
-      v154 = __error();
-      v155 = strerror(*v154);
-      v156 = __error();
-      v153(3, "%s:%i %s errno=%d baudRate=%d", "_NFHardwareSerialOpenDeviceNode", 984, v155, *v156, 115200);
+      v152 = v151;
+      v153 = __error();
+      v154 = strerror(*v153);
+      v155 = __error();
+      v152(3, "%s:%i %s errno=%d baudRate=%d", "_NFHardwareSerialOpenDeviceNode", 984, v154, *v155, 115200);
     }
 
-    dispatch_get_specific(*v151);
-    v128 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
+    dispatch_get_specific(*v150);
+    v127 = NFSharedLogGetLogger();
+    if (!os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_60;
     }
 
-    v157 = __error();
-    v158 = strerror(*v157);
-    v159 = *__error();
+    v156 = __error();
+    v157 = strerror(*v156);
+    v158 = *__error();
     LODWORD(handler[0]) = 136447234;
     *(handler + 4) = "_NFHardwareSerialOpenDeviceNode";
     WORD6(handler[0]) = 1024;
     *(handler + 14) = 984;
     WORD1(handler[1]) = 2080;
-    *(&handler[1] + 4) = v158;
+    *(&handler[1] + 4) = v157;
     WORD6(handler[1]) = 1024;
-    *(&handler[1] + 14) = v159;
+    *(&handler[1] + 14) = v158;
     WORD1(handler[2]) = 1024;
     DWORD1(handler[2]) = 115200;
     v61 = "%{public}s:%i %s errno=%d baudRate=%d";
 LABEL_84:
-    v98 = v128;
+    v98 = v127;
     v99 = 40;
     goto LABEL_59;
   }
 
   if (*(*(v6 + 1) + 97) == 1)
   {
-    v160 = MEMORY[0x29EDC9730];
+    v159 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v161 = NFLogGetLogger();
-    if (v161)
+    v160 = NFLogGetLogger();
+    if (v160)
     {
-      v161(6, "%s:%i Using blocking socket for relay", "_NFHardwareSerialOpenDeviceNode", 989);
+      v160(6, "%s:%i Using blocking socket for relay", "_NFHardwareSerialOpenDeviceNode", 989);
     }
 
-    dispatch_get_specific(*v160);
-    v162 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v162, OS_LOG_TYPE_DEFAULT))
+    dispatch_get_specific(*v159);
+    v161 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v161, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(handler[0]) = 136446466;
       *(handler + 4) = "_NFHardwareSerialOpenDeviceNode";
       WORD6(handler[0]) = 1024;
       *(handler + 14) = 989;
-      _os_log_impl(&dword_297F52000, v162, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Using blocking socket for relay", handler, 0x12u);
+      _os_log_impl(&dword_297F52000, v161, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Using blocking socket for relay", handler, 0x12u);
     }
 
     goto LABEL_15;
@@ -2218,14 +2018,12 @@ LABEL_15:
     *(v27 + 144) = 1;
   }
 
-LABEL_66:
-  v102 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
 void NFHardwareSerialClose(uint64_t a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v2 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -2239,9 +2037,9 @@ void NFHardwareSerialClose(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v11 = "NFHardwareSerialClose";
-    v12 = 1024;
-    v13 = 1187;
+    v10 = "NFHardwareSerialClose";
+    v11 = 1024;
+    v12 = 1187;
     _os_log_impl(&dword_297F52000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:%i ", buf, 0x12u);
   }
 
@@ -2320,8 +2118,6 @@ void NFHardwareSerialClose(uint64_t a1)
 
     free(a1);
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t NFHardwareSerialHasCTS(uint64_t a1)
@@ -2345,27 +2141,25 @@ uint64_t NFHardwareSerialHasCTS(uint64_t a1)
 
 uint64_t NFHardwareSerialGetCTS(uint64_t result)
 {
-  v47 = *MEMORY[0x29EDCA608];
+  v46 = *MEMORY[0x29EDCA608];
   if (!result)
   {
-    goto LABEL_42;
+    return result;
   }
 
   v1 = *(result + 8);
   if (!v1)
   {
-LABEL_8:
-    result = 0;
-    goto LABEL_42;
+    return 0;
   }
 
   if (*v1 != 1)
   {
-    v38 = 0;
+    v37 = 0;
     if (v1[1] == 1)
     {
-      v37 = 4;
-      v5 = getsockopt(*result, 2, 1074033770, &v38, &v37);
+      v36 = 4;
+      v5 = getsockopt(*result, 2, 1074033770, &v37, &v36);
       v6 = MEMORY[0x29EDC9730];
       dispatch_get_specific(*MEMORY[0x29EDC9730]);
       Logger = NFLogGetLogger();
@@ -2384,37 +2178,35 @@ LABEL_8:
         v12 = NFSharedLogGetLogger();
         if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_21;
+          return 0xFFFFFFFFLL;
         }
 
         v13 = __error();
         v14 = strerror(*v13);
         v15 = *__error();
         *buf = 136446978;
-        v40 = "NFHardwareSerialGetCTS";
-        v41 = 1024;
-        v42 = 1267;
-        v43 = 2080;
-        v44 = v14;
-        v45 = 1024;
-        v46 = v15;
+        v39 = "NFHardwareSerialGetCTS";
+        v40 = 1024;
+        v41 = 1267;
+        v42 = 2080;
+        v43 = v14;
+        v44 = 1024;
+        v45 = v15;
         v16 = "%{public}s:%i %s errno=%d getsockopt: SYSPROTO_CONTROL";
 LABEL_20:
         _os_log_impl(&dword_297F52000, v12, OS_LOG_TYPE_ERROR, v16, buf, 0x22u);
-LABEL_21:
-        result = 0xFFFFFFFFLL;
-        goto LABEL_42;
+        return 0xFFFFFFFFLL;
       }
 
       if (Logger)
       {
         v27 = "HIGH";
-        if ((v38 & 0x20) == 0)
+        if ((v37 & 0x20) == 0)
         {
           v27 = "LOW";
         }
 
-        Logger(6, "%s:%i Flow is %s (line=%x)", "NFHardwareSerialGetCTS", 1271, v27, v38);
+        Logger(6, "%s:%i Flow is %s (line=%x)", "NFHardwareSerialGetCTS", 1271, v27, v37);
       }
 
       dispatch_get_specific(*v6);
@@ -2423,18 +2215,18 @@ LABEL_21:
       {
         v29 = "HIGH";
         *buf = 136446978;
-        v40 = "NFHardwareSerialGetCTS";
-        v41 = 1024;
-        if ((v38 & 0x20) == 0)
+        v39 = "NFHardwareSerialGetCTS";
+        v40 = 1024;
+        if ((v37 & 0x20) == 0)
         {
           v29 = "LOW";
         }
 
-        v42 = 1271;
-        v43 = 2080;
-        v44 = v29;
-        v45 = 1024;
-        v46 = v38;
+        v41 = 1271;
+        v42 = 2080;
+        v43 = v29;
+        v44 = 1024;
+        v45 = v37;
         v30 = "%{public}s:%i Flow is %s (line=%x)";
         v31 = v28;
         v32 = 34;
@@ -2444,7 +2236,7 @@ LABEL_21:
 
     else
     {
-      v17 = ioctl(*result, 0x4004746AuLL, &v38);
+      v17 = ioctl(*result, 0x4004746AuLL, &v37);
       v18 = MEMORY[0x29EDC9730];
       dispatch_get_specific(*MEMORY[0x29EDC9730]);
       v19 = NFLogGetLogger();
@@ -2463,27 +2255,27 @@ LABEL_21:
         v12 = NFSharedLogGetLogger();
         if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_21;
+          return 0xFFFFFFFFLL;
         }
 
         v24 = __error();
         v25 = strerror(*v24);
         v26 = *__error();
         *buf = 136446978;
-        v40 = "NFHardwareSerialGetCTS";
-        v41 = 1024;
-        v42 = 1275;
-        v43 = 2080;
-        v44 = v25;
-        v45 = 1024;
-        v46 = v26;
+        v39 = "NFHardwareSerialGetCTS";
+        v40 = 1024;
+        v41 = 1275;
+        v42 = 2080;
+        v43 = v25;
+        v44 = 1024;
+        v45 = v26;
         v16 = "%{public}s:%i %s errno=%d TIOCMSET";
         goto LABEL_20;
       }
 
       if (v19)
       {
-        if ((v38 & 0x20) != 0)
+        if ((v37 & 0x20) != 0)
         {
           v33 = "HIGH";
         }
@@ -2500,7 +2292,7 @@ LABEL_21:
       v34 = NFSharedLogGetLogger();
       if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        if ((v38 & 0x20) != 0)
+        if ((v37 & 0x20) != 0)
         {
           v35 = "HIGH";
         }
@@ -2511,11 +2303,11 @@ LABEL_21:
         }
 
         *buf = 136446722;
-        v40 = "NFHardwareSerialGetCTS";
-        v41 = 1024;
-        v42 = 1278;
-        v43 = 2080;
-        v44 = v35;
+        v39 = "NFHardwareSerialGetCTS";
+        v40 = 1024;
+        v41 = 1278;
+        v42 = 2080;
+        v43 = v35;
         v30 = "%{public}s:%i Flow is %s";
         v31 = v34;
         v32 = 28;
@@ -2524,8 +2316,7 @@ LABEL_40:
       }
     }
 
-    result = (v38 >> 5) & 1;
-    goto LABEL_42;
+    return (v37 >> 5) & 1;
   }
 
   v2 = MEMORY[0x29EDC9730];
@@ -2542,32 +2333,30 @@ LABEL_40:
   if (result)
   {
     *buf = 136446466;
-    v40 = "NFHardwareSerialGetCTS";
-    v41 = 1024;
-    v42 = 1257;
+    v39 = "NFHardwareSerialGetCTS";
+    v40 = 1024;
+    v41 = 1257;
     _os_log_impl(&dword_297F52000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Ignoring for SPMI", buf, 0x12u);
-    goto LABEL_8;
+    return 0;
   }
 
-LABEL_42:
-  v36 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 BOOL NFHardwareSerialSetCRCEnabled(uint64_t a1, int a2)
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 8);
   if (*v2 != 1)
   {
-    goto LABEL_13;
+    return 1;
   }
 
-  v26 = a2;
+  v25 = a2;
   v3 = *a1;
   if (v2[1] != 1)
   {
-    if (ioctl(v3, 0x80047301uLL, &v26))
+    if (ioctl(v3, 0x80047301uLL, &v25))
     {
       v15 = MEMORY[0x29EDC9730];
       dispatch_get_specific(*MEMORY[0x29EDC9730]);
@@ -2589,25 +2378,23 @@ BOOL NFHardwareSerialSetCRCEnabled(uint64_t a1, int a2)
         v23 = strerror(*v22);
         v24 = *__error();
         *buf = 136446978;
-        v28 = "NFHardwareSerialSetCRCEnabled";
-        v29 = 1024;
-        v30 = 1301;
-        v31 = 2080;
-        v32 = v23;
-        v33 = 1024;
-        v34 = v24;
+        v27 = "NFHardwareSerialSetCRCEnabled";
+        v28 = 1024;
+        v29 = 1301;
+        v30 = 2080;
+        v31 = v23;
+        v32 = 1024;
+        v33 = v24;
         _os_log_impl(&dword_297F52000, v21, OS_LOG_TYPE_ERROR, "%{public}s:%i %s errno=%d IO_STOCKHOLM_CRC", buf, 0x22u);
       }
     }
 
-    goto LABEL_13;
+    return 1;
   }
 
-  if (!setsockopt(v3, 2, -2147192063, &v26, 4u))
+  if (!setsockopt(v3, 2, -2147192063, &v25, 4u))
   {
-LABEL_13:
-    result = 1;
-    goto LABEL_14;
+    return 1;
   }
 
   v4 = MEMORY[0x29EDC9730];
@@ -2631,36 +2418,34 @@ LABEL_13:
     v13 = strerror(*v12);
     v14 = *__error();
     *buf = 136446978;
-    v28 = "NFHardwareSerialSetCRCEnabled";
-    v29 = 1024;
-    v30 = 1295;
-    v31 = 2080;
-    v32 = v13;
-    v33 = 1024;
-    v34 = v14;
+    v27 = "NFHardwareSerialSetCRCEnabled";
+    v28 = 1024;
+    v29 = 1295;
+    v30 = 2080;
+    v31 = v13;
+    v32 = 1024;
+    v33 = v14;
     _os_log_impl(&dword_297F52000, v10, OS_LOG_TYPE_ERROR, "%{public}s:%i %s errno=%d setsockopt: SYSPROTO_CONTROL", buf, 0x22u);
-    result = 0;
+    return 0;
   }
 
-LABEL_14:
-  v25 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 BOOL NFHardwareSerialSetOnDemandClientMode(uint64_t a1, int a2)
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 8);
   if (*v2 != 1)
   {
-    goto LABEL_14;
+    return 1;
   }
 
-  v26 = a2;
+  v25 = a2;
   v3 = *a1;
   if (v2[1] == 1)
   {
-    if (setsockopt(v3, 2, -2147192062, &v26, 4u))
+    if (setsockopt(v3, 2, -2147192062, &v25, 4u))
     {
       v4 = MEMORY[0x29EDC9730];
       dispatch_get_specific(*MEMORY[0x29EDC9730]);
@@ -2683,31 +2468,28 @@ BOOL NFHardwareSerialSetOnDemandClientMode(uint64_t a1, int a2)
         v13 = strerror(*v12);
         v14 = *__error();
         *buf = 136446978;
-        v28 = "NFHardwareSerialSetOnDemandClientMode";
-        v29 = 1024;
-        v30 = 1321;
-        v31 = 2080;
-        v32 = v13;
-        v33 = 1024;
-        v34 = v14;
+        v27 = "NFHardwareSerialSetOnDemandClientMode";
+        v28 = 1024;
+        v29 = 1321;
+        v30 = 2080;
+        v31 = v13;
+        v32 = 1024;
+        v33 = v14;
         v15 = "%{public}s:%i %s errno=%d setsockopt: SYSPROTO_CONTROL:IO_STOCKHOLM_ON_DEMAND_CLIENT";
 LABEL_13:
         _os_log_impl(&dword_297F52000, v10, OS_LOG_TYPE_ERROR, v15, buf, 0x22u);
-        result = 0;
-        goto LABEL_15;
+        return 0;
       }
 
-      goto LABEL_15;
+      return result;
     }
 
-LABEL_14:
-    result = 1;
-    goto LABEL_15;
+    return 1;
   }
 
-  if (!ioctl(v3, 0x80047302uLL, &v26))
+  if (!ioctl(v3, 0x80047302uLL, &v25))
   {
-    goto LABEL_14;
+    return 1;
   }
 
   v16 = MEMORY[0x29EDC9730];
@@ -2731,26 +2513,24 @@ LABEL_14:
     v23 = strerror(*v22);
     v24 = *__error();
     *buf = 136446978;
-    v28 = "NFHardwareSerialSetOnDemandClientMode";
-    v29 = 1024;
-    v30 = 1327;
-    v31 = 2080;
-    v32 = v23;
-    v33 = 1024;
-    v34 = v24;
+    v27 = "NFHardwareSerialSetOnDemandClientMode";
+    v28 = 1024;
+    v29 = 1327;
+    v30 = 2080;
+    v31 = v23;
+    v32 = 1024;
+    v33 = v24;
     v15 = "%{public}s:%i %s errno=%d IO_STOCKHOLM_ON_DEMAND_CLIENT";
     goto LABEL_13;
   }
 
-LABEL_15:
-  v25 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 BOOL NFHardwareSerialQuerySPMIError(uint64_t a1, void *a2, void *a3, int a4)
 {
-  v50 = *MEMORY[0x29EDCA608];
-  v41 = 0;
+  v49 = *MEMORY[0x29EDCA608];
+  v40 = 0;
   v8 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -2764,9 +2544,9 @@ BOOL NFHardwareSerialQuerySPMIError(uint64_t a1, void *a2, void *a3, int a4)
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v43 = "NFHardwareSerialQuerySPMIError";
-    v44 = 1024;
-    v45 = 1340;
+    v42 = "NFHardwareSerialQuerySPMIError";
+    v43 = 1024;
+    v44 = 1340;
     _os_log_impl(&dword_297F52000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s:%i ", buf, 0x12u);
   }
 
@@ -2783,13 +2563,13 @@ BOOL NFHardwareSerialQuerySPMIError(uint64_t a1, void *a2, void *a3, int a4)
     v25 = NFSharedLogGetLogger();
     if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_20;
+      return 0;
     }
 
     *buf = 136446466;
-    v43 = "NFHardwareSerialQuerySPMIError";
-    v44 = 1024;
-    v45 = 1343;
+    v42 = "NFHardwareSerialQuerySPMIError";
+    v43 = 1024;
+    v44 = 1343;
     v21 = "%{public}s:%i Invalid parameter";
 LABEL_18:
     v22 = v25;
@@ -2801,36 +2581,35 @@ LABEL_18:
   if ((*v11 & 1) == 0)
   {
     *a3 = 0;
-    v26 = 1;
-    goto LABEL_22;
+    return 1;
   }
 
   if (v11[1] != 1)
   {
     dispatch_get_specific(*v8);
-    v29 = NFLogGetLogger();
-    if (v29)
+    v28 = NFLogGetLogger();
+    if (v28)
     {
-      v29(3, "%s:%i Not implemented.", "NFHardwareSerialQuerySPMIError", 1368);
+      v28(3, "%s:%i Not implemented.", "NFHardwareSerialQuerySPMIError", 1368);
     }
 
     dispatch_get_specific(*v8);
     v25 = NFSharedLogGetLogger();
     if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_20;
+      return 0;
     }
 
     *buf = 136446466;
-    v43 = "NFHardwareSerialQuerySPMIError";
-    v44 = 1024;
-    v45 = 1368;
+    v42 = "NFHardwareSerialQuerySPMIError";
+    v43 = 1024;
+    v44 = 1368;
     v21 = "%{public}s:%i Not implemented.";
     goto LABEL_18;
   }
 
-  v41 = *a3;
-  if (getsockopt(*a1, 2, 1077965571, a2, &v41))
+  v40 = *a3;
+  if (getsockopt(*a1, 2, 1077965571, a2, &v40))
   {
     dispatch_get_specific(*v8);
     v12 = NFLogGetLogger();
@@ -2847,74 +2626,70 @@ LABEL_18:
     v17 = NFSharedLogGetLogger();
     if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_20;
+      return 0;
     }
 
     v18 = __error();
     v19 = strerror(*v18);
     v20 = *__error();
     *buf = 136446978;
-    v43 = "NFHardwareSerialQuerySPMIError";
-    v44 = 1024;
-    v45 = 1356;
-    v46 = 2080;
-    v47 = v19;
-    v48 = 1024;
-    v49 = v20;
+    v42 = "NFHardwareSerialQuerySPMIError";
+    v43 = 1024;
+    v44 = 1356;
+    v45 = 2080;
+    v46 = v19;
+    v47 = 1024;
+    v48 = v20;
     v21 = "%{public}s:%i %s errno=%d getsockopt: SYSPROTO_CONTROL:IO_STOCKHOLM_SPMIERRORS";
     v22 = v17;
     v23 = 34;
 LABEL_19:
     _os_log_impl(&dword_297F52000, v22, OS_LOG_TYPE_ERROR, v21, buf, v23);
-LABEL_20:
-    v26 = 0;
-    goto LABEL_22;
+    return 0;
   }
 
-  *a3 = v41;
-  v40 = a4;
-  v30 = setsockopt(*a1, 2, -2147192060, &v40, 4u);
-  v26 = v30 == 0;
-  if (v30)
+  *a3 = v40;
+  v39 = a4;
+  v29 = setsockopt(*a1, 2, -2147192060, &v39, 4u);
+  v26 = v29 == 0;
+  if (v29)
   {
     dispatch_get_specific(*v8);
-    v31 = NFLogGetLogger();
-    if (v31)
+    v30 = NFLogGetLogger();
+    if (v30)
     {
-      v32 = v31;
-      v33 = __error();
-      v34 = strerror(*v33);
-      v35 = __error();
-      v32(3, "%s:%i %s errno=%d setsockopt: SYSPROTO_CONTROL:IO_STOCKHOLM_SPMI_CLEAR_ERRORS", "NFHardwareSerialQuerySPMIError", 1363, v34, *v35);
+      v31 = v30;
+      v32 = __error();
+      v33 = strerror(*v32);
+      v34 = __error();
+      v31(3, "%s:%i %s errno=%d setsockopt: SYSPROTO_CONTROL:IO_STOCKHOLM_SPMI_CLEAR_ERRORS", "NFHardwareSerialQuerySPMIError", 1363, v33, *v34);
     }
 
     dispatch_get_specific(*v8);
-    v36 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v35 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      v37 = __error();
-      v38 = strerror(*v37);
-      v39 = *__error();
+      v36 = __error();
+      v37 = strerror(*v36);
+      v38 = *__error();
       *buf = 136446978;
-      v43 = "NFHardwareSerialQuerySPMIError";
-      v44 = 1024;
-      v45 = 1363;
-      v46 = 2080;
-      v47 = v38;
-      v48 = 1024;
-      v49 = v39;
-      _os_log_impl(&dword_297F52000, v36, OS_LOG_TYPE_ERROR, "%{public}s:%i %s errno=%d setsockopt: SYSPROTO_CONTROL:IO_STOCKHOLM_SPMI_CLEAR_ERRORS", buf, 0x22u);
+      v42 = "NFHardwareSerialQuerySPMIError";
+      v43 = 1024;
+      v44 = 1363;
+      v45 = 2080;
+      v46 = v37;
+      v47 = 1024;
+      v48 = v38;
+      _os_log_impl(&dword_297F52000, v35, OS_LOG_TYPE_ERROR, "%{public}s:%i %s errno=%d setsockopt: SYSPROTO_CONTROL:IO_STOCKHOLM_SPMI_CLEAR_ERRORS", buf, 0x22u);
     }
   }
 
-LABEL_22:
-  v27 = *MEMORY[0x29EDCA608];
   return v26;
 }
 
 BOOL NFHardwareSerialRegisterSPMIErrorCallback(void *a1, uint64_t a2, uint64_t a3)
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   v6 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -2928,9 +2703,9 @@ BOOL NFHardwareSerialRegisterSPMIErrorCallback(void *a1, uint64_t a2, uint64_t a
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v32 = "NFHardwareSerialRegisterSPMIErrorCallback";
-    v33 = 1024;
-    v34 = 1416;
+    v31 = "NFHardwareSerialRegisterSPMIErrorCallback";
+    v32 = 1024;
+    v33 = 1416;
     _os_log_impl(&dword_297F52000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s:%i ", buf, 0x12u);
   }
 
@@ -2951,14 +2726,14 @@ BOOL NFHardwareSerialRegisterSPMIErrorCallback(void *a1, uint64_t a2, uint64_t a
       if (result)
       {
         *buf = 136446466;
-        v32 = "NFHardwareSerialRegisterSPMIErrorCallback";
-        v33 = 1024;
-        v34 = 1423;
+        v31 = "NFHardwareSerialRegisterSPMIErrorCallback";
+        v32 = 1024;
+        v33 = 1423;
         v13 = "%{public}s:%i Invalid callback parameter";
         goto LABEL_21;
       }
 
-      goto LABEL_25;
+      return result;
     }
 
     v9 = a1[1];
@@ -2979,61 +2754,60 @@ BOOL NFHardwareSerialRegisterSPMIErrorCallback(void *a1, uint64_t a2, uint64_t a
         if (result)
         {
           *buf = 136446466;
-          v32 = "NFHardwareSerialRegisterSPMIErrorCallback";
-          v33 = 1024;
-          v34 = 1434;
+          v31 = "NFHardwareSerialRegisterSPMIErrorCallback";
+          v32 = 1024;
+          v33 = 1434;
           v13 = "%{public}s:%i Callback already registered";
 LABEL_21:
           _os_log_impl(&dword_297F52000, v11, OS_LOG_TYPE_ERROR, v13, buf, 0x12u);
-          result = 0;
-          goto LABEL_25;
+          return 0;
         }
 
-        goto LABEL_25;
+        return result;
       }
 
       if (!*(v9 + 176))
       {
         if (*(v9 + 96))
         {
-          v17 = "AppleStockholmSPMI";
+          v16 = "AppleStockholmSPMI";
         }
 
         else
         {
-          v17 = "AppleHammerfestSPMI";
+          v16 = "AppleHammerfestSPMI";
         }
 
         dispatch_get_specific(*v6);
-        v18 = NFLogGetLogger();
-        if (v18)
+        v17 = NFLogGetLogger();
+        if (v17)
         {
-          v18(6, "%s:%i Creating IONotificationPort for %s", "NFHardwareSerialRegisterSPMIErrorCallback", 1440, v17);
+          v17(6, "%s:%i Creating IONotificationPort for %s", "NFHardwareSerialRegisterSPMIErrorCallback", 1440, v16);
         }
 
         dispatch_get_specific(*v6);
-        v19 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v18 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446722;
-          v32 = "NFHardwareSerialRegisterSPMIErrorCallback";
-          v33 = 1024;
-          v34 = 1440;
-          v35 = 2080;
-          v36 = v17;
-          _os_log_impl(&dword_297F52000, v19, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Creating IONotificationPort for %s", buf, 0x1Cu);
+          v31 = "NFHardwareSerialRegisterSPMIErrorCallback";
+          v32 = 1024;
+          v33 = 1440;
+          v34 = 2080;
+          v35 = v16;
+          _os_log_impl(&dword_297F52000, v18, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Creating IONotificationPort for %s", buf, 0x1Cu);
         }
 
-        v20 = *MEMORY[0x29EDBB110];
-        v21 = IONotificationPortCreate(*MEMORY[0x29EDBB110]);
-        *(v9 + 176) = v21;
-        if (!v21)
+        v19 = *MEMORY[0x29EDBB110];
+        v20 = IONotificationPortCreate(*MEMORY[0x29EDBB110]);
+        *(v9 + 176) = v20;
+        if (!v20)
         {
           dispatch_get_specific(*v6);
-          v28 = NFLogGetLogger();
-          if (v28)
+          v27 = NFLogGetLogger();
+          if (v27)
           {
-            v28(3, "%s:%i Unable to create notify port", "NFHardwareSerialRegisterSPMIErrorCallback", 1444);
+            v27(3, "%s:%i Unable to create notify port", "NFHardwareSerialRegisterSPMIErrorCallback", 1444);
           }
 
           dispatch_get_specific(*v6);
@@ -3042,77 +2816,77 @@ LABEL_21:
           if (result)
           {
             *buf = 136446466;
-            v32 = "NFHardwareSerialRegisterSPMIErrorCallback";
-            v33 = 1024;
-            v34 = 1444;
+            v31 = "NFHardwareSerialRegisterSPMIErrorCallback";
+            v32 = 1024;
+            v33 = 1444;
             v13 = "%{public}s:%i Unable to create notify port";
             goto LABEL_21;
           }
 
-          goto LABEL_25;
+          return result;
         }
 
-        IONotificationPortSetDispatchQueue(v21, *(v9 + 104));
-        v22 = IOServiceNameMatching(v17);
-        MatchingService = IOServiceGetMatchingService(v20, v22);
+        IONotificationPortSetDispatchQueue(v20, *(v9 + 104));
+        v21 = IOServiceNameMatching(v16);
+        MatchingService = IOServiceGetMatchingService(v19, v21);
         if (!MatchingService)
         {
           dispatch_get_specific(*v6);
-          v29 = NFLogGetLogger();
-          if (v29)
+          v28 = NFLogGetLogger();
+          if (v28)
           {
-            v29(3, "%s:%i Service %s not available", "NFHardwareSerialRegisterSPMIErrorCallback", 1452, v17);
+            v28(3, "%s:%i Service %s not available", "NFHardwareSerialRegisterSPMIErrorCallback", 1452, v16);
           }
 
           dispatch_get_specific(*v6);
-          v30 = NFSharedLogGetLogger();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          v29 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
             *buf = 136446722;
-            v32 = "NFHardwareSerialRegisterSPMIErrorCallback";
-            v33 = 1024;
-            v34 = 1452;
-            v35 = 2080;
-            v36 = v17;
-            _os_log_impl(&dword_297F52000, v30, OS_LOG_TYPE_ERROR, "%{public}s:%i Service %s not available", buf, 0x1Cu);
+            v31 = "NFHardwareSerialRegisterSPMIErrorCallback";
+            v32 = 1024;
+            v33 = 1452;
+            v34 = 2080;
+            v35 = v16;
+            _os_log_impl(&dword_297F52000, v29, OS_LOG_TYPE_ERROR, "%{public}s:%i Service %s not available", buf, 0x1Cu);
           }
 
           IONotificationPortDestroy(*(v9 + 176));
           result = 0;
           *(v9 + 176) = 0;
-          goto LABEL_25;
+          return result;
         }
 
-        v24 = MatchingService;
-        v25 = IOServiceAddInterestNotification(*(v9 + 176), MatchingService, "IOGeneralInterest", sub_297F67880, a1, (v9 + 184));
-        IOObjectRelease(v24);
-        if (v25)
+        v23 = MatchingService;
+        v24 = IOServiceAddInterestNotification(*(v9 + 176), MatchingService, "IOGeneralInterest", sub_297F67880, a1, (v9 + 184));
+        IOObjectRelease(v23);
+        if (v24)
         {
           dispatch_get_specific(*v6);
-          v26 = NFLogGetLogger();
-          if (v26)
+          v25 = NFLogGetLogger();
+          if (v25)
           {
-            v26(3, "%s:%i Notification subscription failed: %d", "NFHardwareSerialRegisterSPMIErrorCallback", 1463, v25);
+            v25(3, "%s:%i Notification subscription failed: %d", "NFHardwareSerialRegisterSPMIErrorCallback", 1463, v24);
           }
 
           dispatch_get_specific(*v6);
-          v27 = NFSharedLogGetLogger();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v26 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             *buf = 136446722;
-            v32 = "NFHardwareSerialRegisterSPMIErrorCallback";
-            v33 = 1024;
-            v34 = 1463;
-            v35 = 1024;
-            LODWORD(v36) = v25;
-            _os_log_impl(&dword_297F52000, v27, OS_LOG_TYPE_ERROR, "%{public}s:%i Notification subscription failed: %d", buf, 0x18u);
+            v31 = "NFHardwareSerialRegisterSPMIErrorCallback";
+            v32 = 1024;
+            v33 = 1463;
+            v34 = 1024;
+            LODWORD(v35) = v24;
+            _os_log_impl(&dword_297F52000, v26, OS_LOG_TYPE_ERROR, "%{public}s:%i Notification subscription failed: %d", buf, 0x18u);
           }
 
           IONotificationPortDestroy(*(v9 + 176));
           result = 0;
           *(v9 + 176) = 0;
           *(v9 + 184) = 0;
-          goto LABEL_25;
+          return result;
         }
       }
 
@@ -3120,8 +2894,7 @@ LABEL_21:
       *(v9 + 200) = a3;
     }
 
-    result = 1;
-    goto LABEL_25;
+    return 1;
   }
 
   dispatch_get_specific(*v6);
@@ -3137,29 +2910,27 @@ LABEL_21:
   if (result)
   {
     *buf = 136446466;
-    v32 = "NFHardwareSerialRegisterSPMIErrorCallback";
-    v33 = 1024;
-    v34 = 1419;
+    v31 = "NFHardwareSerialRegisterSPMIErrorCallback";
+    v32 = 1024;
+    v33 = 1419;
     v13 = "%{public}s:%i Invalid serial parameter";
     goto LABEL_21;
   }
 
-LABEL_25:
-  v16 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void sub_297F67880(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   if (a3 != -469794815)
   {
-    goto LABEL_25;
+    return;
   }
 
   if (!a1)
   {
-    v9 = MEMORY[0x29EDC9730];
+    v8 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
     Logger = NFLogGetLogger();
     if (Logger)
@@ -3167,99 +2938,95 @@ void sub_297F67880(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
       Logger(3, "%s:%i Null serial", "_NFHardwareSerialSPMIIOServiceCallback", 1383);
     }
 
-    dispatch_get_specific(*v9);
-    v11 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    dispatch_get_specific(*v8);
+    v10 = NFSharedLogGetLogger();
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_25;
+      return;
     }
 
     *buf = 136446466;
-    v19 = "_NFHardwareSerialSPMIIOServiceCallback";
-    v20 = 1024;
-    v21 = 1383;
-    v12 = "%{public}s:%i Null serial";
+    v17 = "_NFHardwareSerialSPMIIOServiceCallback";
+    v18 = 1024;
+    v19 = 1383;
+    v11 = "%{public}s:%i Null serial";
 LABEL_24:
-    _os_log_impl(&dword_297F52000, v11, OS_LOG_TYPE_ERROR, v12, buf, 0x12u);
-    goto LABEL_25;
+    _os_log_impl(&dword_297F52000, v10, OS_LOG_TYPE_ERROR, v11, buf, 0x12u);
+    return;
   }
 
   v4 = *(a1 + 8);
   if (!v4)
   {
-    v13 = MEMORY[0x29EDC9730];
+    v12 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v14 = NFLogGetLogger();
-    if (v14)
+    v13 = NFLogGetLogger();
+    if (v13)
     {
-      v14(3, "%s:%i Null serial internals", "_NFHardwareSerialSPMIIOServiceCallback", 1389);
+      v13(3, "%s:%i Null serial internals", "_NFHardwareSerialSPMIIOServiceCallback", 1389);
     }
 
-    dispatch_get_specific(*v13);
-    v11 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    dispatch_get_specific(*v12);
+    v10 = NFSharedLogGetLogger();
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_25;
+      return;
     }
 
     *buf = 136446466;
-    v19 = "_NFHardwareSerialSPMIIOServiceCallback";
-    v20 = 1024;
-    v21 = 1389;
-    v12 = "%{public}s:%i Null serial internals";
+    v17 = "_NFHardwareSerialSPMIIOServiceCallback";
+    v18 = 1024;
+    v19 = 1389;
+    v11 = "%{public}s:%i Null serial internals";
     goto LABEL_24;
   }
 
   v5 = *(v4 + 192);
   if (!v5)
   {
-LABEL_25:
-    v17 = *MEMORY[0x29EDCA608];
     return;
   }
 
-  if (!a4)
+  if (a4)
   {
-    v15 = MEMORY[0x29EDC9730];
-    dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v16 = NFLogGetLogger();
-    if (v16)
+    for (i = 0; i < 0x40; i += *(a4 + i + 1) + 2)
     {
-      v16(3, "%s:%i Got a null buffer", "_NFHardwareSerialSPMIIOServiceCallback", 1400);
+      if (!*(a4 + i))
+      {
+        break;
+      }
     }
 
-    dispatch_get_specific(*v15);
-    v11 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_25;
-    }
+    v7 = *(v4 + 200);
 
+    v5(v7, a4);
+    return;
+  }
+
+  v14 = MEMORY[0x29EDC9730];
+  dispatch_get_specific(*MEMORY[0x29EDC9730]);
+  v15 = NFLogGetLogger();
+  if (v15)
+  {
+    v15(3, "%s:%i Got a null buffer", "_NFHardwareSerialSPMIIOServiceCallback", 1400);
+  }
+
+  dispatch_get_specific(*v14);
+  v10 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
     *buf = 136446466;
-    v19 = "_NFHardwareSerialSPMIIOServiceCallback";
-    v20 = 1024;
-    v21 = 1400;
-    v12 = "%{public}s:%i Got a null buffer";
+    v17 = "_NFHardwareSerialSPMIIOServiceCallback";
+    v18 = 1024;
+    v19 = 1400;
+    v11 = "%{public}s:%i Got a null buffer";
     goto LABEL_24;
   }
-
-  for (i = 0; i < 0x40; i += *(a4 + i + 1) + 2)
-  {
-    if (!*(a4 + i))
-    {
-      break;
-    }
-  }
-
-  v7 = *(v4 + 200);
-  v8 = *MEMORY[0x29EDCA608];
-
-  v5(v7, a4);
 }
 
 void sub_297F67B20(const char *a1)
 {
-  v57 = *MEMORY[0x29EDCA608];
+  v56 = *MEMORY[0x29EDCA608];
   v2 = *MEMORY[0x29EDBB110];
   v3 = IOServiceNameMatching(a1);
   MatchingService = IOServiceGetMatchingService(v2, v3);
@@ -3312,11 +3079,11 @@ void sub_297F67B20(const char *a1)
 
     else if (child)
     {
-      v55 = 0u;
-      v56 = 0u;
       v54 = 0u;
-      v52 = 0u;
+      v55 = 0u;
       v53 = 0u;
+      v51 = 0u;
+      v52 = 0u;
       memset(buf, 0, sizeof(buf));
       if (!MEMORY[0x29C27C310]())
       {
@@ -3331,15 +3098,15 @@ void sub_297F67B20(const char *a1)
         v12 = NFSharedLogGetLogger();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          *v43 = 136446978;
-          v44 = "_NFHardwarePrintNode";
-          v45 = 1024;
-          v46 = 157;
-          v47 = 2080;
-          v48 = a1;
-          v49 = 2080;
-          v50 = buf;
-          _os_log_impl(&dword_297F52000, v12, OS_LOG_TYPE_DEFAULT, "%{public}s:%i %s has child %s", v43, 0x26u);
+          *v42 = 136446978;
+          v43 = "_NFHardwarePrintNode";
+          v44 = 1024;
+          v45 = 157;
+          v46 = 2080;
+          v47 = a1;
+          v48 = 2080;
+          v49 = buf;
+          _os_log_impl(&dword_297F52000, v12, OS_LOG_TYPE_DEFAULT, "%{public}s:%i %s has child %s", v42, 0x26u);
         }
       }
 
@@ -3597,8 +3364,6 @@ void sub_297F67B20(const char *a1)
       _os_log_impl(&dword_297F52000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s:%i %s NOT found", buf, 0x1Cu);
     }
   }
-
-  v41 = *MEMORY[0x29EDCA608];
 }
 
 char *sub_297F682C4(const __CFString *a1)
@@ -3624,8 +3389,8 @@ char *sub_297F682C4(const __CFString *a1)
 
 uint64_t sub_297F6835C(io_iterator_t a1, const char *a2)
 {
-  v36 = *MEMORY[0x29EDCA608];
-  v29 = 0;
+  v35 = *MEMORY[0x29EDCA608];
+  v28 = 0;
   if (a1 && IOIteratorIsValid(a1))
   {
     v4 = MEMORY[0x29EDC9730];
@@ -3634,16 +3399,15 @@ uint64_t sub_297F6835C(io_iterator_t a1, const char *a2)
       v5 = IOIteratorNext(a1);
       if (!v5)
       {
-        v13 = 0;
-        goto LABEL_51;
+        return 0;
       }
 
       v6 = v5;
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
       v33 = 0u;
+      v34 = 0u;
       v31 = 0u;
+      v32 = 0u;
+      v30 = 0u;
       memset(__s1, 0, sizeof(__s1));
       v7 = MEMORY[0x29C27C310](v5, __s1) ? 0 : strdup(__s1);
       CFProperty = IORegistryEntryCreateCFProperty(v6, @"IONameMatch", 0, 0);
@@ -3694,7 +3458,7 @@ uint64_t sub_297F6835C(io_iterator_t a1, const char *a2)
       }
 
 LABEL_13:
-      if (MEMORY[0x29C27C300](v6, "IOService", &v29))
+      if (MEMORY[0x29C27C300](v6, "IOService", &v28))
       {
         v12 = 0;
         v13 = 0;
@@ -3703,9 +3467,9 @@ LABEL_13:
       else
       {
         IOObjectRelease(v6);
-        v13 = sub_297F6835C(v29, a2);
+        v13 = sub_297F6835C(v28, a2);
         v12 = v13 != 0;
-        LODWORD(v6) = v29;
+        LODWORD(v6) = v28;
       }
 
       IOObjectRelease(v6);
@@ -3716,7 +3480,7 @@ LABEL_13:
 
       if (v12)
       {
-        goto LABEL_51;
+        return v13;
       }
 
       if (!IOIteratorIsValid(a1))
@@ -3805,8 +3569,7 @@ LABEL_13:
           free(v7);
         }
 
-        v13 = v6;
-        goto LABEL_51;
+        return v6;
       }
 
 LABEL_11:
@@ -3839,14 +3602,12 @@ LABEL_46:
     _os_log_impl(&dword_297F52000, v26, OS_LOG_TYPE_ERROR, "%{public}s:%i Invalid iterator", __s1, 0x12u);
   }
 
-LABEL_51:
-  v27 = *MEMORY[0x29EDCA608];
   return v13;
 }
 
 void sub_297F68880()
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v0 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -3860,18 +3621,16 @@ void sub_297F68880()
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446466;
-    v5 = "_NFHardwareSerialCreateSources_block_invoke";
-    v6 = 1024;
-    v7 = 1083;
+    v4 = "_NFHardwareSerialCreateSources_block_invoke";
+    v5 = 1024;
+    v6 = 1083;
     _os_log_impl(&dword_297F52000, v2, OS_LOG_TYPE_ERROR, "%{public}s:%i Error ! Unexpected invocation of read handler", buf, 0x12u);
   }
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297F68970()
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v0 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -3885,18 +3644,16 @@ void sub_297F68970()
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446466;
-    v5 = "_NFHardwareSerialCreateSources_block_invoke_2";
-    v6 = 1024;
-    v7 = 1093;
+    v4 = "_NFHardwareSerialCreateSources_block_invoke_2";
+    v5 = 1024;
+    v6 = 1093;
     _os_log_impl(&dword_297F52000, v2, OS_LOG_TYPE_ERROR, "%{public}s:%i Error ! Unexpected invocation of write handler", buf, 0x12u);
   }
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297F68A64()
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v0 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
   Logger = NFLogGetLogger();
@@ -3910,18 +3667,16 @@ void sub_297F68A64()
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446466;
-    v5 = "_NFHardwareSerialDeleteSources_block_invoke";
-    v6 = 1024;
-    v7 = 1106;
+    v4 = "_NFHardwareSerialDeleteSources_block_invoke";
+    v5 = 1024;
+    v6 = 1106;
     _os_log_impl(&dword_297F52000, v2, OS_LOG_TYPE_ERROR, "%{public}s:%i Error ! Unexpected invocation of read handler", buf, 0x12u);
   }
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 char *sub_297F68B54(int a1)
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   if ((!a1 || (v2 = qword_2A18BD258) == 0) && ((a1 & 1) != 0 || (v2 = qword_2A18BD250) == 0))
   {
     v2 = malloc_type_calloc(1uLL, 0x60uLL, 0x1030040A57A3815uLL);
@@ -3987,11 +3742,11 @@ char *sub_297F68B54(int a1)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        v22 = "NFHardwareSerialDebugger";
-        v23 = 1024;
-        v24 = 143;
-        v25 = 2048;
-        v26 = 96;
+        v21 = "NFHardwareSerialDebugger";
+        v22 = 1024;
+        v23 = 143;
+        v24 = 2048;
+        v25 = 96;
         _os_log_impl(&dword_297F52000, v10, OS_LOG_TYPE_ERROR, "%{public}s:%i NFHardwareSerialDebug size = %lu", buf, 0x1Cu);
       }
 
@@ -4007,11 +3762,11 @@ char *sub_297F68B54(int a1)
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        v22 = "NFHardwareSerialDebugger";
-        v23 = 1024;
-        v24 = 144;
-        v25 = 2048;
-        v26 = 16;
+        v21 = "NFHardwareSerialDebugger";
+        v22 = 1024;
+        v23 = 144;
+        v24 = 2048;
+        v25 = 16;
         _os_log_impl(&dword_297F52000, v12, OS_LOG_TYPE_ERROR, "%{public}s:%i NFHardwareSerialDebugMsg size = %lu", buf, 0x1Cu);
       }
 
@@ -4027,11 +3782,11 @@ char *sub_297F68B54(int a1)
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        v22 = "NFHardwareSerialDebugger";
-        v23 = 1024;
-        v24 = 145;
-        v25 = 2048;
-        v26 = 4;
+        v21 = "NFHardwareSerialDebugger";
+        v22 = 1024;
+        v23 = 145;
+        v24 = 2048;
+        v25 = 4;
         _os_log_impl(&dword_297F52000, v14, OS_LOG_TYPE_ERROR, "%{public}s:%i s_compactTime size = %lu", buf, 0x1Cu);
       }
 
@@ -4048,11 +3803,11 @@ char *sub_297F68B54(int a1)
       {
         v17 = *(v2 + 6);
         *buf = 136446722;
-        v22 = "NFHardwareSerialDebugger";
-        v23 = 1024;
-        v24 = 146;
-        v25 = 1024;
-        LODWORD(v26) = v17;
+        v21 = "NFHardwareSerialDebugger";
+        v22 = 1024;
+        v23 = 146;
+        v24 = 1024;
+        LODWORD(v25) = v17;
         _os_log_impl(&dword_297F52000, v16, OS_LOG_TYPE_ERROR, "%{public}s:%i debugger->msgListLength size = %d", buf, 0x18u);
       }
 
@@ -4066,7 +3821,6 @@ char *sub_297F68B54(int a1)
     }
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
@@ -4116,7 +3870,7 @@ char *NFHardwareSerialDebugLastMessage(int a1)
 
 void sub_297F6902C(int *a1, void (*a2)(void, CFDataRef))
 {
-  v71 = *MEMORY[0x29EDCA608];
+  v67 = *MEMORY[0x29EDCA608];
   os_unfair_lock_lock(a1 + 23);
   v4 = MEMORY[0x29EDC9730];
   if (*(a1 + 2))
@@ -4258,9 +4012,9 @@ LABEL_27:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446466;
-        v66 = "_NFHardwareSerialDebugSaveLastMessage";
-        v67 = 1024;
-        v68 = 201;
+        v62 = "_NFHardwareSerialDebugSaveLastMessage";
+        v63 = 1024;
+        v64 = 201;
         _os_log_impl(&dword_297F52000, v28, OS_LOG_TYPE_ERROR, "%{public}s:%i failed to allocate last msg buffer", buf, 0x12u);
       }
     }
@@ -4270,162 +4024,159 @@ LABEL_41:
     if (!sub_297F68F68())
     {
       buf[0] = 0;
-      v30 = *MEMORY[0x29EDB8FA0];
-      v31 = *(a1 + 60) ? @"com.apple.stockholm" : *MEMORY[0x29EDB8FA0];
-      CFPreferencesAppSynchronize(v31);
-      AppIntegerValue = CFPreferencesGetAppIntegerValue(@"UARTDumpMaxEntries", v31, buf);
+      v30 = *(a1 + 60) ? @"com.apple.stockholm" : *MEMORY[0x29EDB8FA0];
+      CFPreferencesAppSynchronize(v30);
+      AppIntegerValue = CFPreferencesGetAppIntegerValue(@"UARTDumpMaxEntries", v30, buf);
       if (buf[0])
       {
         v29 = AppIntegerValue;
       }
     }
 
-    v33 = MEMORY[0x29EDC9730];
+    v32 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
-    v34 = NFLogGetLogger();
-    if (v34)
+    v33 = NFLogGetLogger();
+    if (v33)
     {
-      v34(6, "%s:%i Printing last %ld messages", "NFHardwareSerialDebugDump_wCB", 412, v29);
+      v33(6, "%s:%i Printing last %ld messages", "NFHardwareSerialDebugDump_wCB", 412, v29);
     }
 
-    dispatch_get_specific(*v33);
-    v35 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    dispatch_get_specific(*v32);
+    v34 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446722;
-      v66 = "NFHardwareSerialDebugDump_wCB";
-      v67 = 1024;
-      v68 = 412;
-      v69 = 2048;
-      v70 = v29;
-      _os_log_impl(&dword_297F52000, v35, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Printing last %ld messages", buf, 0x1Cu);
+      v62 = "NFHardwareSerialDebugDump_wCB";
+      v63 = 1024;
+      v64 = 412;
+      v65 = 2048;
+      v66 = v29;
+      _os_log_impl(&dword_297F52000, v34, OS_LOG_TYPE_DEFAULT, "%{public}s:%i Printing last %ld messages", buf, 0x1Cu);
     }
 
-    v36 = malloc_type_calloc(1uLL, *a1, 0x100004077774924uLL);
-    v37 = *MEMORY[0x29EDB8ED8];
-    v38 = *(a1 + 4);
+    v35 = malloc_type_calloc(1uLL, *a1, 0x100004077774924uLL);
+    v36 = *MEMORY[0x29EDB8ED8];
+    v37 = *(a1 + 4);
     while (1)
     {
-      if (*(v38 + 14))
+      if (*(v37 + 14))
       {
-        if (*(v38 + 14) < 0xCu)
+        if (*(v37 + 14) < 0xCu)
         {
-          v39 = a1[14];
-          if (v29 > v39)
+          v38 = a1[14];
+          if (v29 > v38)
           {
-            v40 = *(&unk_29EE86C70 + *(v38 + 14));
-            v41 = "";
-            if (*a1 < *(v38 + 6))
+            v39 = *(&unk_29EE86C70 + *(v37 + 14));
+            v40 = "";
+            if (*a1 < *(v37 + 6))
             {
-              v41 = "TRUNCATED";
+              v40 = "TRUNCATED";
             }
 
-            v42 = *(v38 + 2);
-            v43 = *(a1 + 9) + (*&v42 & 0x3FFFFFLL);
-            v44 = a1[20] + 1000 * (v42 >> 22);
-            if (v44 > 0xF423F)
+            v41 = *(v37 + 2);
+            v42 = *(a1 + 9) + (*&v41 & 0x3FFFFFLL);
+            v43 = a1[20] + 1000 * (v41 >> 22);
+            if (v43 > 0xF423F)
             {
-              v44 -= 1000000;
-              ++v43;
+              v43 -= 1000000;
+              ++v42;
             }
 
-            snprintf(buf, 0x80uLL, "%ld.%.3d %s %s", v43, v44, v40, v41);
-            v45 = *(a1 + 4);
-            v46 = *(v45 + 12);
-            if (*a1 >= v46)
+            snprintf(buf, 0x80uLL, "%ld.%.3d %s %s", v42, v43, v39, v40);
+            v44 = *(a1 + 4);
+            v45 = *(v44 + 12);
+            if (*a1 >= v45)
             {
-              v47._os_unfair_lock_opaque = *(v45 + 12);
+              v46._os_unfair_lock_opaque = *(v44 + 12);
             }
 
             else
             {
-              v47._os_unfair_lock_opaque = *a1;
+              v46._os_unfair_lock_opaque = *a1;
             }
 
-            v48 = (v45 + 15);
-            v49 = v45 + 15 + v46;
-            v50 = *(a1 + 2) + a1[6];
-            if (v49 > v50)
+            v47 = (v44 + 15);
+            v48 = v44 + 15 + v45;
+            v49 = *(a1 + 2) + a1[6];
+            if (v48 > v49)
             {
-              v51 = v50 - v48;
-              if (v47._os_unfair_lock_opaque >= v51)
+              v50 = v49 - v47;
+              if (v46._os_unfair_lock_opaque >= v50)
               {
-                v52 = v51;
+                v51 = v50;
               }
 
               else
               {
-                v52 = v47._os_unfair_lock_opaque;
+                v51 = v46._os_unfair_lock_opaque;
               }
 
-              memcpy(v36, v48, v52);
-              memcpy(&v36[v52], *(a1 + 2), v47._os_unfair_lock_opaque - v52);
-              v48 = v36;
+              memcpy(v35, v47, v51);
+              memcpy(&v35[v51], *(a1 + 2), v46._os_unfair_lock_opaque - v51);
+              v47 = v35;
             }
 
             if (a2)
             {
-              v53 = CFDataCreate(v37, v48, v47._os_unfair_lock_opaque);
-              if (v53)
+              v52 = CFDataCreate(v36, v47, v46._os_unfair_lock_opaque);
+              if (v52)
               {
-                v54 = v53;
-                a2(*(*(a1 + 4) + 14), v53);
-                CFRelease(v54);
+                v53 = v52;
+                a2(*(*(a1 + 4) + 14), v52);
+                CFRelease(v53);
               }
 
               else
               {
                 dispatch_get_specific(*MEMORY[0x29EDC9730]);
-                v55 = NFLogGetLogger();
-                if (v55)
+                v54 = NFLogGetLogger();
+                if (v54)
                 {
-                  v55(3, "%s:%i failed to msg", "NFHardwareSerialDebugDump_wCB", 476);
+                  v54(3, "%s:%i failed to msg", "NFHardwareSerialDebugDump_wCB", 476);
                 }
 
                 dispatch_get_specific(*MEMORY[0x29EDC9730]);
-                v56 = NFSharedLogGetLogger();
-                if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+                v55 = NFSharedLogGetLogger();
+                if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
                 {
-                  *v61 = 136446466;
-                  v62 = "NFHardwareSerialDebugDump_wCB";
-                  v63 = 1024;
-                  v64 = 476;
-                  _os_log_impl(&dword_297F52000, v56, OS_LOG_TYPE_ERROR, "%{public}s:%i failed to msg", v61, 0x12u);
+                  *v57 = 136446466;
+                  v58 = "NFHardwareSerialDebugDump_wCB";
+                  v59 = 1024;
+                  v60 = 476;
+                  _os_log_impl(&dword_297F52000, v55, OS_LOG_TYPE_ERROR, "%{public}s:%i failed to msg", v57, 0x12u);
                 }
               }
             }
 
-            v57 = *(a1 + 60);
             NFSharedDumpTransport();
-            v38 = *(a1 + 4);
-            LODWORD(v39) = a1[14];
+            v37 = *(a1 + 4);
+            LODWORD(v38) = a1[14];
           }
 
-          *(v38 + 14) = 0;
-          v38 = *v38;
-          *(a1 + 4) = v38;
+          *(v37 + 14) = 0;
+          v37 = *v37;
+          *(a1 + 4) = v37;
           goto LABEL_78;
         }
 
-        *(v38 + 14) = 0;
+        *(v37 + 14) = 0;
       }
 
-      v38 = *v38;
-      *(a1 + 4) = v38;
-      LODWORD(v39) = a1[14];
+      v37 = *v37;
+      *(a1 + 4) = v37;
+      LODWORD(v38) = a1[14];
 LABEL_78:
-      a1[14] = v39 - 1;
-      if (v38 == **(a1 + 5))
+      a1[14] = v38 - 1;
+      if (v37 == **(a1 + 5))
       {
-        free(v36);
-        v58 = *(a1 + 2);
-        *(a1 + 4) = v58;
-        *(a1 + 5) = v58;
-        *v58 = v58;
-        v59 = *(a1 + 60);
+        free(v35);
+        v56 = *(a1 + 2);
+        *(a1 + 4) = v56;
+        *(a1 + 5) = v56;
+        *v56 = v56;
         NFSharedDumpTransport();
         os_unfair_lock_unlock(a1 + 23);
-        goto LABEL_80;
+        return;
       }
     }
   }
@@ -4442,14 +4193,11 @@ LABEL_78:
   if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446466;
-    v66 = "NFHardwareSerialDebugDump_wCB";
-    v67 = 1024;
-    v68 = 390;
+    v62 = "NFHardwareSerialDebugDump_wCB";
+    v63 = 1024;
+    v64 = 390;
     _os_log_impl(&dword_297F52000, v26, OS_LOG_TYPE_ERROR, "%{public}s:%i Buffers not allocated", buf, 0x12u);
   }
-
-LABEL_80:
-  v60 = *MEMORY[0x29EDCA608];
 }
 
 void NFHardwareSerialDump_0()
@@ -4470,7 +4218,7 @@ void NFHardwareSerialDump_0()
 
 char **NFHardwareInterfaceOpen(const char *a1, NSObject *a2)
 {
-  v68 = *MEMORY[0x29EDCA608];
+  v67 = *MEMORY[0x29EDCA608];
   v4 = malloc_type_calloc(1uLL, 8uLL, 0x80040B8603338uLL);
   if (!v4)
   {
@@ -4487,15 +4235,15 @@ char **NFHardwareInterfaceOpen(const char *a1, NSObject *a2)
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v63 = "NFHardwareInterfaceOpen";
-      v64 = 1024;
-      v65 = 66;
-      v66 = 2080;
-      v67 = a1;
+      v62 = "NFHardwareInterfaceOpen";
+      v63 = 1024;
+      v64 = 66;
+      v65 = 2080;
+      v66 = a1;
       _os_log_impl(&dword_297F52000, v15, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to allocate interface %s", buf, 0x1Cu);
     }
 
-    goto LABEL_50;
+    return 0;
   }
 
   v5 = v4;
@@ -4515,11 +4263,11 @@ char **NFHardwareInterfaceOpen(const char *a1, NSObject *a2)
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v63 = "NFHardwareInterfaceOpen";
-      v64 = 1024;
-      v65 = 72;
-      v66 = 2080;
-      v67 = a1;
+      v62 = "NFHardwareInterfaceOpen";
+      v63 = 1024;
+      v64 = 72;
+      v65 = 2080;
+      v66 = a1;
       _os_log_impl(&dword_297F52000, v18, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to allocate interface %s", buf, 0x1Cu);
     }
 
@@ -4556,7 +4304,7 @@ char **NFHardwareInterfaceOpen(const char *a1, NSObject *a2)
     *(v7 + 10) = NFHardwareSerialReset;
     *(v7 + 11) = NFHardwareSerialSetLogFunction;
     *(v7 + 12) = NFHardwareSerialEnableLog;
-    v61 = v8;
+    v60 = v8;
     if (!v19 || (v20 = *(v19 + 1)) == 0 || (v21 = NFHardwareSerialGetCTS, *v20 == 1))
     {
       v21 = 0;
@@ -4625,11 +4373,11 @@ char **NFHardwareInterfaceOpen(const char *a1, NSObject *a2)
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        v63 = "NFHardwareInterfaceOpen";
-        v64 = 1024;
-        v65 = 257;
-        v66 = 2080;
-        v67 = v8;
+        v62 = "NFHardwareInterfaceOpen";
+        v63 = 1024;
+        v64 = 257;
+        v65 = 2080;
+        v66 = v8;
         _os_log_impl(&dword_297F52000, v12, OS_LOG_TYPE_ERROR, "%{public}s:%i Unknown interface %s", buf, 0x1Cu);
       }
 
@@ -4638,9 +4386,7 @@ LABEL_48:
       free(v7);
 LABEL_49:
       free(v5);
-LABEL_50:
-      v5 = 0;
-      goto LABEL_51;
+      return 0;
     }
 
     v50 = NFHardwareSerialOpen(v9, a2, 0);
@@ -4657,7 +4403,7 @@ LABEL_50:
     *(v7 + 10) = NFHardwareSerialReset;
     *(v7 + 11) = NFHardwareSerialSetLogFunction;
     *(v7 + 12) = NFHardwareSerialEnableLog;
-    v61 = v8;
+    v60 = v8;
     if (!v50 || (v51 = *(v50 + 1)) == 0 || (v52 = NFHardwareSerialGetCTS, *v51 == 1))
     {
       v52 = 0;
@@ -4726,7 +4472,7 @@ LABEL_50:
     v55 = NFLogGetLogger();
     if (v55)
     {
-      v55(3, "%s:%i Failed to create context for interface %s", "NFHardwareInterfaceOpen", 265, v61);
+      v55(3, "%s:%i Failed to create context for interface %s", "NFHardwareInterfaceOpen", 265, v60);
     }
 
     dispatch_get_specific(*v54);
@@ -4734,11 +4480,11 @@ LABEL_50:
     if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v63 = "NFHardwareInterfaceOpen";
-      v64 = 1024;
-      v65 = 265;
-      v66 = 2080;
-      v67 = v61;
+      v62 = "NFHardwareInterfaceOpen";
+      v63 = 1024;
+      v64 = 265;
+      v65 = 2080;
+      v66 = v60;
       _os_log_impl(&dword_297F52000, v56, OS_LOG_TYPE_ERROR, "%{public}s:%i Failed to create context for interface %s", buf, 0x1Cu);
     }
 
@@ -4763,15 +4509,13 @@ LABEL_50:
     goto LABEL_48;
   }
 
-LABEL_51:
-  v59 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
-void NFHardwareInterfaceClose(void **a1)
+void NFHardwareInterfaceClose(void ***a1)
 {
   v2 = *a1;
-  v3 = *(*a1 + 17);
+  v3 = (*a1)[17];
   if (v3)
   {
     v3(v2[18]);
@@ -4792,7 +4536,7 @@ void NFHardwareInterfaceClose(void **a1)
 
 uint64_t NFHardwareInterfaceResetSerial(uint64_t *a1)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v1 = *a1;
   v2 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
@@ -4807,25 +4551,22 @@ uint64_t NFHardwareInterfaceResetSerial(uint64_t *a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v9 = "NFHardwareInterfaceResetSerial";
-    v10 = 1024;
-    v11 = 300;
+    v8 = "NFHardwareInterfaceResetSerial";
+    v9 = 1024;
+    v10 = 300;
     _os_log_impl(&dword_297F52000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:%i ", buf, 0x12u);
   }
 
   v5 = *(v1 + 80);
   if (v5)
   {
-    result = v5(*(v1 + 144));
+    return v5(*(v1 + 144));
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t NFHardwareInterfaceSetPower(uint64_t a1)
@@ -4953,19 +4694,18 @@ uint64_t NFHardwareInterfaceSetBaudRate(uint64_t a1)
 
 uint64_t NFHardwareInterfaceRead(uint64_t a1)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v1 = *(*a1 + 16);
   if (v1)
   {
     v2 = *(*a1 + 144);
-    v3 = *MEMORY[0x29EDCA608];
 
     return v1(v2);
   }
 
   else
   {
-    v5 = MEMORY[0x29EDC9730];
+    v4 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
     Logger = NFLogGetLogger();
     if (Logger)
@@ -4973,18 +4713,17 @@ uint64_t NFHardwareInterfaceRead(uint64_t a1)
       Logger(3, "%s:%i No interface defined for reading", "NFHardwareInterfaceRead", 385);
     }
 
-    dispatch_get_specific(*v5);
-    v7 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    dispatch_get_specific(*v4);
+    v6 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v10 = "NFHardwareInterfaceRead";
-      v11 = 1024;
-      v12 = 385;
-      _os_log_impl(&dword_297F52000, v7, OS_LOG_TYPE_ERROR, "%{public}s:%i No interface defined for reading", buf, 0x12u);
+      v8 = "NFHardwareInterfaceRead";
+      v9 = 1024;
+      v10 = 385;
+      _os_log_impl(&dword_297F52000, v6, OS_LOG_TYPE_ERROR, "%{public}s:%i No interface defined for reading", buf, 0x12u);
     }
 
-    v8 = *MEMORY[0x29EDCA608];
     return 0;
   }
 }
@@ -5157,9 +4896,9 @@ uint64_t NFHardwareInterfaceRegisterSPMIErrorCallback(uint64_t a1)
   }
 }
 
-BOOL NFHardwareDebug(void **a1)
+BOOL NFHardwareDebug(void ***a1)
 {
-  v91 = *MEMORY[0x29EDCA608];
+  v90 = *MEMORY[0x29EDCA608];
   if (!a1)
   {
     global_queue = dispatch_get_global_queue(25, 0);
@@ -5175,15 +4914,13 @@ BOOL NFHardwareDebug(void **a1)
       NFHardwareInterfaceClose(v4);
     }
 
-LABEL_136:
-    result = 1;
-    goto LABEL_137;
+    return 1;
   }
 
   v2 = a1;
-  if (!*(*a1 + 13))
+  if (!(*a1)[13])
   {
-    goto LABEL_136;
+    return 1;
   }
 
 LABEL_6:
@@ -5200,16 +4937,16 @@ LABEL_6:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v86 = "NFHardwareDebug";
-    v87 = 1024;
-    v88 = 557;
+    v85 = "NFHardwareDebug";
+    v86 = 1024;
+    v87 = 557;
     _os_log_impl(&dword_297F52000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s:%i HW Debugging - current FLOW CHECK", buf, 0x12u);
   }
 
-  v8 = *(*v2 + 13);
+  v8 = (*v2)[13];
   if (v8)
   {
-    v9 = v8(*(*v2 + 18)) != 0;
+    v9 = v8((*v2)[18]) != 0;
   }
 
   else
@@ -5230,14 +4967,14 @@ LABEL_6:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v86 = "NFHardwareDebug";
-    v87 = 1024;
-    v88 = 563;
+    v85 = "NFHardwareDebug";
+    v86 = 1024;
+    v87 = 563;
     _os_log_impl(&dword_297F52000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s:%i HW Debugging starting - OFF", buf, 0x12u);
   }
 
-  v12 = *(*v2 + 20);
-  if (v12 && (v12(*(*v2 + 33), 0) & 1) == 0)
+  v12 = (*v2)[20];
+  if (v12 && (v12((*v2)[33], 0) & 1) == 0)
   {
     dispatch_get_specific(*v5);
     v13 = NFLogGetLogger();
@@ -5251,9 +4988,9 @@ LABEL_6:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v86 = "NFHardwareDebug";
-      v87 = 1024;
-      v88 = 566;
+      v85 = "NFHardwareDebug";
+      v86 = 1024;
+      v87 = 566;
       _os_log_impl(&dword_297F52000, v14, OS_LOG_TYPE_ERROR, "%{public}s:%i Error", buf, 0x12u);
     }
   }
@@ -5271,16 +5008,16 @@ LABEL_6:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v86 = "NFHardwareDebug";
-    v87 = 1024;
-    v88 = 574;
+    v85 = "NFHardwareDebug";
+    v86 = 1024;
+    v87 = 574;
     _os_log_impl(&dword_297F52000, v16, OS_LOG_TYPE_DEFAULT, "%{public}s:%i HW Debugging - FLOW CHECK - EXPECTED OFF", buf, 0x12u);
   }
 
-  v17 = *(*v2 + 13);
+  v17 = (*v2)[13];
   if (v17)
   {
-    v18 = 2 * (v17(*(*v2 + 18)) != 0);
+    v18 = 2 * (v17((*v2)[18]) != 0);
   }
 
   else
@@ -5288,7 +5025,7 @@ LABEL_6:
     v18 = 2;
   }
 
-  v84 = v18;
+  v83 = v18;
   dispatch_get_specific(*v5);
   v19 = NFLogGetLogger();
   if (v19)
@@ -5301,14 +5038,14 @@ LABEL_6:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v86 = "NFHardwareDebug";
-    v87 = 1024;
-    v88 = 578;
+    v85 = "NFHardwareDebug";
+    v86 = 1024;
+    v87 = 578;
     _os_log_impl(&dword_297F52000, v20, OS_LOG_TYPE_DEFAULT, "%{public}s:%i HW Debugging - ON", buf, 0x12u);
   }
 
-  v21 = *(*v2 + 20);
-  if (v21 && (v21(*(*v2 + 33), 1) & 1) == 0)
+  v21 = (*v2)[20];
+  if (v21 && (v21((*v2)[33], 1) & 1) == 0)
   {
     dispatch_get_specific(*v5);
     v22 = NFLogGetLogger();
@@ -5322,9 +5059,9 @@ LABEL_6:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v86 = "NFHardwareDebug";
-      v87 = 1024;
-      v88 = 587;
+      v85 = "NFHardwareDebug";
+      v86 = 1024;
+      v87 = 587;
       _os_log_impl(&dword_297F52000, v23, OS_LOG_TYPE_ERROR, "%{public}s:%i Error", buf, 0x12u);
     }
   }
@@ -5342,16 +5079,16 @@ LABEL_6:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v86 = "NFHardwareDebug";
-    v87 = 1024;
-    v88 = 591;
+    v85 = "NFHardwareDebug";
+    v86 = 1024;
+    v87 = 591;
     _os_log_impl(&dword_297F52000, v25, OS_LOG_TYPE_DEFAULT, "%{public}s:%i HW Debugging - FLOW CHECK - EXPECTED ON", buf, 0x12u);
   }
 
-  v26 = *(*v2 + 13);
+  v26 = (*v2)[13];
   if (v26)
   {
-    v27 = 4 * (v26(*(*v2 + 18)) != 0);
+    v27 = 4 * (v26((*v2)[18]) != 0);
   }
 
   else
@@ -5359,7 +5096,7 @@ LABEL_6:
     v27 = 4;
   }
 
-  v83 = v27;
+  v82 = v27;
   dispatch_get_specific(*v5);
   v28 = NFLogGetLogger();
   if (v28)
@@ -5372,14 +5109,14 @@ LABEL_6:
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v86 = "NFHardwareDebug";
-    v87 = 1024;
-    v88 = 596;
+    v85 = "NFHardwareDebug";
+    v86 = 1024;
+    v87 = 596;
     _os_log_impl(&dword_297F52000, v29, OS_LOG_TYPE_DEFAULT, "%{public}s:%i HW Debugging - SLEEP + wait 1.5s", buf, 0x12u);
   }
 
-  v30 = *(*v2 + 19);
-  if (v30 && (v30(*(*v2 + 33), 0) & 1) == 0)
+  v30 = (*v2)[19];
+  if (v30 && (v30((*v2)[33], 0) & 1) == 0)
   {
     dispatch_get_specific(*v5);
     v31 = NFLogGetLogger();
@@ -5393,18 +5130,18 @@ LABEL_6:
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v86 = "NFHardwareDebug";
-      v87 = 1024;
-      v88 = 599;
+      v85 = "NFHardwareDebug";
+      v86 = 1024;
+      v87 = 599;
       _os_log_impl(&dword_297F52000, v32, OS_LOG_TYPE_ERROR, "%{public}s:%i Error", buf, 0x12u);
     }
   }
 
   usleep(0x30D40u);
-  v33 = *(*v2 + 13);
+  v33 = (*v2)[13];
   if (v33)
   {
-    v34 = 8 * (v33(*(*v2 + 18)) != 0);
+    v34 = 8 * (v33((*v2)[18]) != 0);
   }
 
   else
@@ -5413,10 +5150,10 @@ LABEL_6:
   }
 
   usleep(0x30D40u);
-  v35 = *(*v2 + 13);
+  v35 = (*v2)[13];
   if (v35)
   {
-    v36 = 16 * (v35(*(*v2 + 18)) != 0);
+    v36 = 16 * (v35((*v2)[18]) != 0);
   }
 
   else
@@ -5424,12 +5161,12 @@ LABEL_6:
     v36 = 16;
   }
 
-  v79 = v36;
+  v78 = v36;
   usleep(0x30D40u);
-  v37 = *(*v2 + 13);
+  v37 = (*v2)[13];
   if (v37)
   {
-    v38 = 32 * (v37(*(*v2 + 18)) != 0);
+    v38 = 32 * (v37((*v2)[18]) != 0);
   }
 
   else
@@ -5437,12 +5174,12 @@ LABEL_6:
     v38 = 32;
   }
 
-  v82 = v38;
+  v81 = v38;
   usleep(0x30D40u);
-  v39 = *(*v2 + 13);
+  v39 = (*v2)[13];
   if (v39)
   {
-    v40 = (v39(*(*v2 + 18)) != 0) << 6;
+    v40 = (v39((*v2)[18]) != 0) << 6;
   }
 
   else
@@ -5450,12 +5187,12 @@ LABEL_6:
     v40 = 64;
   }
 
-  v81 = v40;
+  v80 = v40;
   usleep(0x30D40u);
-  v41 = *(*v2 + 13);
+  v41 = (*v2)[13];
   if (v41)
   {
-    v42 = (v41(*(*v2 + 18)) != 0) << 7;
+    v42 = (v41((*v2)[18]) != 0) << 7;
   }
 
   else
@@ -5463,12 +5200,12 @@ LABEL_6:
     v42 = 128;
   }
 
-  v80 = v42;
+  v79 = v42;
   usleep(0x30D40u);
-  v43 = *(*v2 + 13);
+  v43 = (*v2)[13];
   if (v43)
   {
-    v44 = (v43(*(*v2 + 18)) != 0) << 8;
+    v44 = (v43((*v2)[18]) != 0) << 8;
   }
 
   else
@@ -5476,12 +5213,12 @@ LABEL_6:
     v44 = 256;
   }
 
-  v78 = v44;
+  v77 = v44;
   usleep(0x30D40u);
-  v45 = *(*v2 + 13);
+  v45 = (*v2)[13];
   if (v45)
   {
-    v46 = (v45(*(*v2 + 18)) != 0) << 9;
+    v46 = (v45((*v2)[18]) != 0) << 9;
   }
 
   else
@@ -5502,16 +5239,16 @@ LABEL_6:
   if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v86 = "NFHardwareDebug";
-    v87 = 1024;
-    v88 = 632;
+    v85 = "NFHardwareDebug";
+    v86 = 1024;
+    v87 = 632;
     _os_log_impl(&dword_297F52000, v48, OS_LOG_TYPE_DEFAULT, "%{public}s:%i HW Debugging - FLOW CHECK - EXPECTED OFF", buf, 0x12u);
   }
 
-  v49 = *(*v2 + 13);
+  v49 = (*v2)[13];
   if (v49)
   {
-    v50 = (v49(*(*v2 + 18)) != 0) << 10;
+    v50 = (v49((*v2)[18]) != 0) << 10;
   }
 
   else
@@ -5531,14 +5268,14 @@ LABEL_6:
   if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v86 = "NFHardwareDebug";
-    v87 = 1024;
-    v88 = 636;
+    v85 = "NFHardwareDebug";
+    v86 = 1024;
+    v87 = 636;
     _os_log_impl(&dword_297F52000, v52, OS_LOG_TYPE_DEFAULT, "%{public}s:%i HW Debugging - WAKE", buf, 0x12u);
   }
 
-  v53 = *(*v2 + 19);
-  if (v53 && (v53(*(*v2 + 33), 1) & 1) == 0)
+  v53 = (*v2)[19];
+  if (v53 && (v53((*v2)[33], 1) & 1) == 0)
   {
     dispatch_get_specific(*v5);
     v54 = NFLogGetLogger();
@@ -5552,9 +5289,9 @@ LABEL_6:
     if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v86 = "NFHardwareDebug";
-      v87 = 1024;
-      v88 = 639;
+      v85 = "NFHardwareDebug";
+      v86 = 1024;
+      v87 = 639;
       _os_log_impl(&dword_297F52000, v55, OS_LOG_TYPE_ERROR, "%{public}s:%i Error", buf, 0x12u);
     }
   }
@@ -5572,16 +5309,16 @@ LABEL_6:
   if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v86 = "NFHardwareDebug";
-    v87 = 1024;
-    v88 = 643;
+    v85 = "NFHardwareDebug";
+    v86 = 1024;
+    v87 = 643;
     _os_log_impl(&dword_297F52000, v57, OS_LOG_TYPE_DEFAULT, "%{public}s:%i HW Debugging - FLOW CHECK - EXPECTED ON", buf, 0x12u);
   }
 
-  v58 = *(*v2 + 13);
+  v58 = (*v2)[13];
   if (v58)
   {
-    v59 = (v58(*(*v2 + 18)) != 0) << 11;
+    v59 = (v58((*v2)[18]) != 0) << 11;
   }
 
   else
@@ -5596,21 +5333,21 @@ LABEL_6:
     v60(6, "%s:%i HW Debugging - POWERING OFF", "NFHardwareDebug", 647);
   }
 
-  v61 = v84 | v9 | v83;
+  v61 = v83 | v9 | v82;
   dispatch_get_specific(*v5);
   v62 = NFSharedLogGetLogger();
   if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v86 = "NFHardwareDebug";
-    v87 = 1024;
-    v88 = 647;
+    v85 = "NFHardwareDebug";
+    v86 = 1024;
+    v87 = 647;
     _os_log_impl(&dword_297F52000, v62, OS_LOG_TYPE_DEFAULT, "%{public}s:%i HW Debugging - POWERING OFF", buf, 0x12u);
   }
 
   v63 = v61 | v34;
-  v64 = *(*v2 + 19);
-  if (v64 && (v64(*(*v2 + 33), 0) & 1) == 0)
+  v64 = (*v2)[19];
+  if (v64 && (v64((*v2)[33], 0) & 1) == 0)
   {
     dispatch_get_specific(*v5);
     v65 = NFLogGetLogger();
@@ -5624,16 +5361,16 @@ LABEL_6:
     if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v86 = "NFHardwareDebug";
-      v87 = 1024;
-      v88 = 649;
+      v85 = "NFHardwareDebug";
+      v86 = 1024;
+      v87 = 649;
       _os_log_impl(&dword_297F52000, v66, OS_LOG_TYPE_ERROR, "%{public}s:%i Error", buf, 0x12u);
     }
   }
 
-  v67 = v63 | v79;
-  v68 = *(*v2 + 20);
-  if (v68 && (v68(*(*v2 + 33), 0) & 1) == 0)
+  v67 = v63 | v78;
+  v68 = (*v2)[20];
+  if (v68 && (v68((*v2)[33], 0) & 1) == 0)
   {
     dispatch_get_specific(*v5);
     v69 = NFLogGetLogger();
@@ -5647,9 +5384,9 @@ LABEL_6:
     if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v86 = "NFHardwareDebug";
-      v87 = 1024;
-      v88 = 651;
+      v85 = "NFHardwareDebug";
+      v86 = 1024;
+      v87 = 651;
       _os_log_impl(&dword_297F52000, v70, OS_LOG_TYPE_ERROR, "%{public}s:%i Error", buf, 0x12u);
     }
   }
@@ -5659,7 +5396,7 @@ LABEL_6:
     NFHardwareInterfaceClose(v2);
   }
 
-  v71 = v67 | v82 | v81 | v80 | v78 | v46 | v50 | v59;
+  v71 = v67 | v81 | v80 | v79 | v77 | v46 | v50 | v59;
   dispatch_get_specific(*v5);
   v72 = NFLogGetLogger();
   if (v71 == 4095)
@@ -5675,9 +5412,9 @@ LABEL_6:
     if (result)
     {
       *buf = 136446466;
-      v86 = "NFHardwareDebug";
-      v87 = 1024;
-      v88 = 667;
+      v85 = "NFHardwareDebug";
+      v86 = 1024;
+      v87 = 667;
       v75 = "%{public}s:%i HW error : unit is not powering cycling.";
       goto LABEL_130;
     }
@@ -5697,15 +5434,15 @@ LABEL_6:
       if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        v86 = "NFHardwareDebug";
-        v87 = 1024;
-        v88 = 670;
-        v89 = 1024;
-        v90 = v67 | v82 | v81 | v80 | v78 | v46 | v50 | v59;
+        v85 = "NFHardwareDebug";
+        v86 = 1024;
+        v87 = 670;
+        v88 = 1024;
+        v89 = v67 | v81 | v80 | v79 | v77 | v46 | v50 | v59;
         _os_log_impl(&dword_297F52000, v76, OS_LOG_TYPE_ERROR, "%{public}s:%i HW debugging result : 0x%04X", buf, 0x18u);
       }
 
-      goto LABEL_136;
+      return 1;
     }
 
     if (v72)
@@ -5719,18 +5456,16 @@ LABEL_6:
     if (result)
     {
       *buf = 136446466;
-      v86 = "NFHardwareDebug";
-      v87 = 1024;
-      v88 = 664;
+      v85 = "NFHardwareDebug";
+      v86 = 1024;
+      v87 = 664;
       v75 = "%{public}s:%i HW error : unit is not powering on.";
 LABEL_130:
       _os_log_impl(&dword_297F52000, v73, OS_LOG_TYPE_ERROR, v75, buf, 0x12u);
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_137:
-  v77 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -5778,10 +5513,9 @@ uint64_t NFHardwareInterfaceWasItNACK(uint64_t a1)
 
 uint64_t NFHardwareInterfaceIsSupported(char *__s2)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   if (!__s2 || !strncmp("com.apple.", __s2, 0xAuLL) || !strncmp("/dev/", __s2, 5uLL))
   {
-    v7 = *MEMORY[0x29EDCA608];
 
     return NFHardwareSerialIsSupported(__s2);
   }
@@ -5801,59 +5535,53 @@ uint64_t NFHardwareInterfaceIsSupported(char *__s2)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v9 = "NFHardwareInterfaceIsSupported";
-      v10 = 1024;
-      v11 = 720;
-      v12 = 2080;
-      v13 = __s2;
+      v7 = "NFHardwareInterfaceIsSupported";
+      v8 = 1024;
+      v9 = 720;
+      v10 = 2080;
+      v11 = __s2;
       _os_log_impl(&dword_297F52000, v4, OS_LOG_TYPE_ERROR, "%{public}s:%i Unmatched interface %s", buf, 0x1Cu);
     }
 
-    v5 = *MEMORY[0x29EDCA608];
     return 0;
   }
 }
 
 uint64_t NFHardwareInterfaceHasExternalSPMIIRQ(UInt8 *a1)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v2 = *MEMORY[0x29EDBB110];
   v3 = IOServiceNameMatching("stockholm-spmi");
   MatchingService = IOServiceGetMatchingService(v2, v3);
-  if (MatchingService)
+  if (!MatchingService)
   {
-    IOObjectRelease(MatchingService);
-    v5 = IOServiceNameMatching("stockholm");
-    v6 = IOServiceGetMatchingService(v2, v5);
-    if (v6)
+    return 0;
+  }
+
+  IOObjectRelease(MatchingService);
+  v5 = IOServiceNameMatching("stockholm");
+  v6 = IOServiceGetMatchingService(v2, v5);
+  if (v6)
+  {
+    v7 = v6;
+    v8 = IORegistryEntrySearchCFProperty(v6, "IOService", @"se-spmi-irq", *MEMORY[0x29EDB8ED8], 0);
+    if (v8)
     {
-      v7 = v6;
-      v8 = IORegistryEntrySearchCFProperty(v6, "IOService", @"se-spmi-irq", *MEMORY[0x29EDB8ED8], 0);
-      if (v8)
+      v9 = v8;
+      TypeID = CFDataGetTypeID();
+      if (TypeID == CFGetTypeID(v9))
       {
-        v9 = v8;
-        TypeID = CFDataGetTypeID();
-        if (TypeID == CFGetTypeID(v9))
+        BytePtr = CFDataGetBytePtr(v9);
+        if (BytePtr)
         {
-          BytePtr = CFDataGetBytePtr(v9);
-          if (BytePtr)
+          v12 = BytePtr;
+          if (CFDataGetLength(v9))
           {
-            v12 = BytePtr;
-            if (CFDataGetLength(v9))
-            {
-              *a1 = *v12;
-            }
+            *a1 = *v12;
           }
-
-          v13 = 1;
         }
 
-        else
-        {
-          v13 = 0;
-        }
-
-        CFRelease(v9);
+        v13 = 1;
       }
 
       else
@@ -5861,39 +5589,40 @@ uint64_t NFHardwareInterfaceHasExternalSPMIIRQ(UInt8 *a1)
         v13 = 0;
       }
 
-      IOObjectRelease(v7);
+      CFRelease(v9);
     }
 
     else
     {
-      v14 = MEMORY[0x29EDC9730];
-      dispatch_get_specific(*MEMORY[0x29EDC9730]);
-      Logger = NFLogGetLogger();
-      if (Logger)
-      {
-        Logger(3, "%s:%i Unexpected state.", "NFHardwareInterfaceHasExternalSPMIIRQ", 753);
-      }
-
-      dispatch_get_specific(*v14);
-      v16 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136446466;
-        v20 = "NFHardwareInterfaceHasExternalSPMIIRQ";
-        v21 = 1024;
-        v22 = 753;
-        _os_log_impl(&dword_297F52000, v16, OS_LOG_TYPE_ERROR, "%{public}s:%i Unexpected state.", buf, 0x12u);
-      }
-
-      v13 = 0xFFFFFFFFLL;
+      v13 = 0;
     }
+
+    IOObjectRelease(v7);
   }
 
   else
   {
-    v13 = 0;
+    v14 = MEMORY[0x29EDC9730];
+    dispatch_get_specific(*MEMORY[0x29EDC9730]);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      Logger(3, "%s:%i Unexpected state.", "NFHardwareInterfaceHasExternalSPMIIRQ", 753);
+    }
+
+    dispatch_get_specific(*v14);
+    v16 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446466;
+      v19 = "NFHardwareInterfaceHasExternalSPMIIRQ";
+      v20 = 1024;
+      v21 = 753;
+      _os_log_impl(&dword_297F52000, v16, OS_LOG_TYPE_ERROR, "%{public}s:%i Unexpected state.", buf, 0x12u);
+    }
+
+    return 0xFFFFFFFFLL;
   }
 
-  v17 = *MEMORY[0x29EDCA608];
   return v13;
 }

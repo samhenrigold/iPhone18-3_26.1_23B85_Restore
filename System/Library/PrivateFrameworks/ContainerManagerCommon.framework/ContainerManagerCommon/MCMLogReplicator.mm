@@ -1,22 +1,14 @@
 @interface MCMLogReplicator
 - (MCMLogReplicator)initWithWorkloop:(id)workloop;
-- (OS_dispatch_queue)queue;
 - (id)volumeChangedDispatchQueue;
 - (void)volumeChangedWithEvents:(unint64_t)events newVolumeState:(unint64_t)state;
 @end
 
 @implementation MCMLogReplicator
 
-- (OS_dispatch_queue)queue
-{
-  result = self->_queue;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (void)volumeChangedWithEvents:(unint64_t)events newVolumeState:(unint64_t)state
 {
+  v6 = *MEMORY[0x1E69E9840];
   if ((state & 3) != 0)
   {
     container_internal_get_first_boot_uuid();
@@ -24,14 +16,10 @@
     defaultUser = [v4 defaultUser];
     [defaultUser UID];
     container_log_replication_enable_to_uid_relative_path();
-
-    v6 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v7 = *MEMORY[0x1E69E9840];
-    v8 = *MEMORY[0x1E69E9840];
 
     MEMORY[0x1EEE71AA0](self, a2, events);
   }
@@ -39,19 +27,17 @@
 
 - (id)volumeChangedDispatchQueue
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
 
   return [(MCMLogReplicator *)self queue];
 }
 
 - (MCMLogReplicator)initWithWorkloop:(id)workloop
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   workloopCopy = workloop;
-  v12.receiver = self;
-  v12.super_class = MCMLogReplicator;
-  v5 = [(MCMLogReplicator *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = MCMLogReplicator;
+  v5 = [(MCMLogReplicator *)&v11 init];
   if (v5)
   {
     v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -62,7 +48,6 @@
     v5->_queue = v8;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

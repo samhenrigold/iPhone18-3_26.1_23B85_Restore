@@ -41,7 +41,7 @@
   selfCopy = self;
   v13 = sub_10042195C(v7, v9, v10, normalizedAddress);
 
-  return v13;
+  return v13 & 1;
 }
 
 @end

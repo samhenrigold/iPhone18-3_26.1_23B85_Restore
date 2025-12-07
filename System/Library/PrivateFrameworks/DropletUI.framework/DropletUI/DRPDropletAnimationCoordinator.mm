@@ -17,7 +17,6 @@
 
 - (void)setDefaultBehaviorSettings:(id)settings
 {
-  v3 = *(&self->super.isa + OBJC_IVAR___DRPDropletAnimationCoordinator____lazy_storage___defaultBehaviorSettings);
   *(&self->super.isa + OBJC_IVAR___DRPDropletAnimationCoordinator____lazy_storage___defaultBehaviorSettings) = settings;
   swift_unknownObjectRetain();
 

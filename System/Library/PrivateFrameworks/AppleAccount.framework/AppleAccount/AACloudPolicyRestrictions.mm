@@ -54,52 +54,51 @@ void __71__AACloudPolicyRestrictions__managedIcloudPolicyIdentifierForDataclass_
   if (v4)
   {
     AppBooleanValue = CFPreferencesGetAppBooleanValue(v4, @"com.apple.icloud.managed", 0);
-    v7 = AppBooleanValue != 0;
-    v8 = _AALogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v7 = AppBooleanValue;
+    v8 = AppBooleanValue != 0;
+    v9 = _AALogSystem(AppBooleanValue);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [(AACloudPolicyRestrictions *)dataclassCopy policyRestrictsDataclass:v8];
+      [(AACloudPolicyRestrictions *)dataclassCopy policyRestrictsDataclass:v9];
     }
   }
 
   else
   {
-    v8 = _AALogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = _AALogSystem(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [(AACloudPolicyRestrictions *)dataclassCopy policyRestrictsDataclass:v8];
+      [(AACloudPolicyRestrictions *)dataclassCopy policyRestrictsDataclass:v9];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 + (void)policyRestrictsDataclass:(os_log_t)log .cold.1(uint64_t a1, char a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = @"YES";
   if ((a2 & 1) == 0)
   {
     v3 = @"NO";
   }
 
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_1B6F6A000, log, OS_LOG_TYPE_DEBUG, "Policy restriction for %@ is %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_debug_impl(&dword_1B6F6A000, log, OS_LOG_TYPE_DEBUG, "Policy restriction for %@ is %@", &v4, 0x16u);
 }
 
 + (void)policyRestrictsDataclass:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_DEBUG, "Policy identifier does not exist for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_DEBUG, "Policy identifier does not exist for %@", &v2, 0xCu);
 }
 
 @end

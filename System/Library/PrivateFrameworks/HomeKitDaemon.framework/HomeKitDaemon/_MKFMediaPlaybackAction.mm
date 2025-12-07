@@ -33,10 +33,10 @@
 
 - (void)willSave
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = _MKFMediaPlaybackAction;
-  [(_MKFModel *)&v11 willSave];
+  v13 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = _MKFMediaPlaybackAction;
+  [(_MKFModel *)&v10 willSave];
   if (([(_MKFMediaPlaybackAction *)self isDeleted]& 1) == 0)
   {
     if ([(_MKFMediaPlaybackAction *)self hasChanges])
@@ -53,7 +53,7 @@
         {
           v8 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v13 = v8;
+          v12 = v8;
           _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Deleting playback action as it no longer has any accessories", buf, 0xCu);
         }
 
@@ -63,8 +63,6 @@
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)modelIDForParentRelationshipTo:(id)to

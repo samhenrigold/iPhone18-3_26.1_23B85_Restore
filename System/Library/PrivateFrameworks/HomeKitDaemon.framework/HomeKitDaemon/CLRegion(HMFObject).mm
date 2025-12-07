@@ -7,18 +7,18 @@
 
 - (id)shortDescription
 {
-  v0 = MEMORY[0x277CCACA8];
+  v1 = MEMORY[0x277CCACA8];
   shortDescription = [objc_opt_class() shortDescription];
-  v2 = [v0 stringWithFormat:@"<%@>", shortDescription];
+  v3 = [v1 stringWithFormat:@"<%@>", shortDescription];
 
-  return v2;
+  return v3;
 }
 
 + (NSString)shortDescription
 {
-  v0 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v1);
 }
 
 @end

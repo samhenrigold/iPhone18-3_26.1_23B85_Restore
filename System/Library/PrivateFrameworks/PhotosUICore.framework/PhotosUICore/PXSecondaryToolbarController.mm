@@ -256,8 +256,9 @@ LABEL_10:
   return result;
 }
 
-void __61__PXSecondaryToolbarController__updateSecondaryToolbarLayout__block_invoke(uint64_t a1, void *a2, CGRectEdge a3)
+void __61__PXSecondaryToolbarController__updateSecondaryToolbarLayout__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v5 = a2;
   if (v5)
   {
@@ -269,7 +270,7 @@ void __61__PXSecondaryToolbarController__updateSecondaryToolbarLayout__block_inv
     [v5 sizeThatFits:{*(a1 + 64), *(a1 + 72)}];
     memset(&slice, 0, sizeof(slice));
     memset(&v7, 0, sizeof(v7));
-    CGRectDivide(*(*(*(a1 + 32) + 8) + 32), &slice, &v7, v6, a3);
+    CGRectDivide(*(*(*(a1 + 32) + 8) + 32), &slice, &v7, v6, v3);
     CGRectGetMidX(slice);
     CGRectGetMidY(*(a1 + 80));
     PXRectWithCenterAndSize();
@@ -310,21 +311,22 @@ void __61__PXSecondaryToolbarController__updateSecondaryToolbarLayout__block_inv
 
   WeakRetained = objc_loadWeakRetained(&self->_styleGuideProvider);
   [WeakRetained secondaryToolbarControllerMaximumAccessoryViewPaddingToContentView:self];
+  v6 = v5;
 
-  PXFloatApproximatelyEqualToFloat();
+  PXFloatApproximatelyEqualToFloat(v6);
 }
 
-void __59__PXSecondaryToolbarController__updateAccessoryViewsLayout__block_invoke(uint64_t a1, void *a2)
+void __59__PXSecondaryToolbarController__updateAccessoryViewsLayout__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
-  if (v3)
+  v4 = a2;
+  if (v4)
   {
     if (*(a1 + 72) == 1)
     {
       PXRectEdgeFlippedHorizontally();
     }
 
-    [v3 frame];
+    [v4 frame];
     PXRectEdgeAxis();
   }
 }

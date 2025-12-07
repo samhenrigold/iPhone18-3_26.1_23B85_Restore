@@ -4,8 +4,8 @@
 - (id)iconView;
 - (id)newExecutor;
 - (id)newSimplePreviewElement;
+- (id)removeObserver:(id *)result;
 - (uint64_t)properties;
-- (uint64_t)removeObserver:(uint64_t)result;
 - (void)addObserver:(uint64_t)observer;
 - (void)controlInstanceDescriptorDidChange:(id)change;
 - (void)controlInstanceViewModelDidChange:(id)change;
@@ -157,11 +157,11 @@ uint64_t __68__SBControlSystemAction_acquireContentVisibilityAssertionForReason_
   }
 }
 
-- (uint64_t)removeObserver:(uint64_t)result
+- (id)removeObserver:(id *)result
 {
   if (result)
   {
-    return [*(result + 72) removeObject:a2];
+    return [result[9] removeObject:a2];
   }
 
   return result;

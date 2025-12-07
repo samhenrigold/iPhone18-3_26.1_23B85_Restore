@@ -282,9 +282,9 @@ LABEL_11:
         v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 type] == 1)
         {
-          layout = [v10 layout];
+          v11 = objc_msgSend_layout(v10);
 
-          initialLayout = layout;
+          initialLayout = v11;
           goto LABEL_11;
         }
       }

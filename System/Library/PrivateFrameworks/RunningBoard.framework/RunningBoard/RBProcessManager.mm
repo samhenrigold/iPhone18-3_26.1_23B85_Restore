@@ -27,6 +27,7 @@
 - (void)executeLaunchRequest:(id)request withCompletion:(id)completion;
 - (void)executeTerminateRequest:(id)request completion:(id)completion;
 - (void)start;
+- (void)systemPreventIdleSleepStateDidChange:(BOOL)change;
 @end
 
 @implementation RBProcessManager
@@ -154,32 +155,32 @@ uint64_t __41__RBProcessManager_stateApplicationQueue__block_invoke()
 
 void __25__RBProcessManager_start__block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v2 = [*(*(a1 + 32) + 8) synchronizeJobs];
-  v3 = [v2 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v19;
+    v5 = *v18;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v19 != v5)
+        if (*v18 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v18 + 1) + 8 * i);
+        v7 = *(*(&v17 + 1) + 8 * i);
         v8 = rbs_process_log();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v23 = v7;
+          v22 = v7;
           _os_log_impl(&dword_262485000, v8, OS_LOG_TYPE_DEFAULT, "Reestablishing with %{public}@...", buf, 0xCu);
         }
 
@@ -193,7 +194,7 @@ void __25__RBProcessManager_start__block_invoke(uint64_t a1)
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v4);
@@ -205,8 +206,6 @@ void __25__RBProcessManager_start__block_invoke(uint64_t a1)
   v15 = [*(v12 + 88) allProcesses];
   v16 = [v14 setWithArray:v15];
   [v13 processManager:v12 didReconnectProcesses:v16];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)processForAuditToken:(id)token
@@ -261,39 +260,39 @@ void __25__RBProcessManager_start__block_invoke(uint64_t a1)
 - (id)_processForIdentifier:(id)identifier withAuditToken:(id)token forceStartTracking:(BOOL)tracking
 {
   trackingCopy = tracking;
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   tokenCopy = token;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = __Block_byref_object_copy__5;
-  v54 = __Block_byref_object_dispose__5;
-  v55 = [(RBProcessManager *)self _processForIdentifier:identifierCopy];
-  v10 = v51[5];
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = __Block_byref_object_copy__5;
+  v53 = __Block_byref_object_dispose__5;
+  v54 = [(RBProcessManager *)self _processForIdentifier:identifierCopy];
+  v10 = v50[5];
   if (!v10)
   {
-    v49 = 0;
-    v17 = [(RBProcessManager *)self _resolveProcessWithIdentifier:identifierCopy auditToken:tokenCopy properties:&v49];
-    v18 = v49;
+    v48 = 0;
+    v17 = [(RBProcessManager *)self _resolveProcessWithIdentifier:identifierCopy auditToken:tokenCopy properties:&v48];
+    v18 = v48;
     identity = [v17 identity];
     if (identity)
     {
       if (trackingCopy)
       {
-        v44[0] = MEMORY[0x277D85DD0];
-        v44[1] = 3221225472;
-        v44[2] = __76__RBProcessManager__processForIdentifier_withAuditToken_forceStartTracking___block_invoke;
-        v44[3] = &unk_279B33BA0;
-        v48 = &v50;
-        v44[4] = self;
-        v45 = identifierCopy;
-        v46 = v17;
-        v47 = v18;
-        [(RBProcessManager *)self _executeLifecycleEventForIdentity:identity sync:1 withBlock:v44];
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = __76__RBProcessManager__processForIdentifier_withAuditToken_forceStartTracking___block_invoke;
+        v43[3] = &unk_279B33BA0;
+        v47 = &v49;
+        v43[4] = self;
+        v44 = identifierCopy;
+        v45 = v17;
+        v46 = v18;
+        [(RBProcessManager *)self _executeLifecycleEventForIdentity:identity sync:1 withBlock:v43];
 
 LABEL_15:
-        v30 = v51[5];
+        v30 = v50[5];
 LABEL_34:
 
         goto LABEL_35;
@@ -305,16 +304,16 @@ LABEL_34:
       if (v20 && auditToken)
       {
         v23 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v18, "hostPid")}];
-        v43 = [(RBProcessManager *)self processForIdentifierWithoutStartingTracking:v23];
+        v42 = [(RBProcessManager *)self processForIdentifierWithoutStartingTracking:v23];
 
         v24 = [(RBBundlePropertiesManaging *)self->_bundlePropertiesManager propertiesForIdentity:identity identifier:identifierCopy];
         jetsamPropertytManager = self->_jetsamPropertytManager;
         rbs_pid = [identifierCopy rbs_pid];
-        [v22 realToken];
+        objc_msgSend_realToken(v22);
         v27 = [(RBJetsamPropertyManaging *)jetsamPropertytManager jetsamPropertiesForProcess:rbs_pid identity:identity bundleProperties:v24 isPlatformBinary:RBSAuditTokenRepresentsPlatformBinary()];
-        v28 = [[RBProcess alloc] _initThinWithInstance:v17 auditToken:v22 bundleProperties:v24 jetsamProperties:v27 hostProcess:v43 properties:v18];
-        v29 = v51[5];
-        v51[5] = v28;
+        v28 = [[RBProcess alloc] _initThinWithInstance:v17 auditToken:v22 bundleProperties:v24 jetsamProperties:v27 hostProcess:v42 properties:v18];
+        v29 = v50[5];
+        v50[5] = v28;
 
         goto LABEL_15;
       }
@@ -340,13 +339,13 @@ LABEL_34:
 
     else if (!auditToken2 || (v13 = [tokenCopy isEqual:auditToken2], v12, (v13 & 1) == 0))
     {
-      [tokenCopy realToken];
+      objc_msgSend_realToken(tokenCopy);
       v14 = audit_token_to_auid(&atoken);
-      auditToken3 = [v51[5] auditToken];
+      auditToken3 = [v50[5] auditToken];
       v16 = auditToken3;
       if (auditToken3)
       {
-        [auditToken3 realToken];
+        objc_msgSend_realToken(auditToken3);
       }
 
       else
@@ -361,18 +360,18 @@ LABEL_34:
         v32 = rbs_process_log();
         if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
         {
-          auditToken4 = [v51[5] auditToken];
+          auditToken4 = [v50[5] auditToken];
           [(RBProcessManager *)auditToken4 _processForIdentifier:tokenCopy withAuditToken:buf forceStartTracking:v32];
         }
       }
 
-      [tokenCopy realToken];
+      objc_msgSend_realToken(tokenCopy);
       v34 = audit_token_to_euid(&atoken);
-      auditToken5 = [v51[5] auditToken];
+      auditToken5 = [v50[5] auditToken];
       v36 = auditToken5;
       if (auditToken5)
       {
-        [auditToken5 realToken];
+        objc_msgSend_realToken(auditToken5);
       }
 
       else
@@ -387,7 +386,7 @@ LABEL_34:
         v38 = rbs_process_log();
         if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
-          auditToken6 = [v51[5] auditToken];
+          auditToken6 = [v50[5] auditToken];
           atoken.val[0] = 138543618;
           *&atoken.val[1] = auditToken6;
           LOWORD(atoken.val[3]) = 2114;
@@ -396,16 +395,14 @@ LABEL_34:
         }
       }
 
-      [v51[5] setAuditToken:tokenCopy];
-      [(RBEntitlementManaging *)self->_entitlementManager purgeEntitlementsForProcess:v51[5]];
+      [v50[5] setAuditToken:tokenCopy];
+      [(RBEntitlementManaging *)self->_entitlementManager purgeEntitlementsForProcess:v50[5]];
     }
   }
 
-  v30 = v51[5];
+  v30 = v50[5];
 LABEL_35:
-  _Block_object_dispose(&v50, 8);
-
-  v41 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v49, 8);
 
   return v30;
 }
@@ -419,10 +416,7 @@ void __76__RBProcessManager__processForIdentifier_withAuditToken_forceStartTrack
 
   if (!*(*(*(a1 + 64) + 8) + 40))
   {
-    v5 = [*(a1 + 32) _lifecycleQueue_addProcessWithInstance:*(a1 + 48) properties:*(a1 + 56)];
-    v6 = *(*(a1 + 64) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    *(*(*(a1 + 64) + 8) + 40) = [*(a1 + 32) _lifecycleQueue_addProcessWithInstance:*(a1 + 48) properties:*(a1 + 56)];
 
     MEMORY[0x2821F96F8]();
   }
@@ -448,36 +442,36 @@ void __76__RBProcessManager__processForIdentifier_withAuditToken_forceStartTrack
 
 - (id)processesMatchingPredicate:(id)predicate
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   processIdentifiers = [predicateCopy processIdentifiers];
   if (processIdentifiers)
   {
     v6 = [MEMORY[0x277CBEB58] set];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     processIdentity = processIdentifiers;
-    v8 = [processIdentity countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v8 = [processIdentity countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (!v8)
     {
       goto LABEL_30;
     }
 
     v9 = v8;
-    v31 = processIdentifiers;
-    v10 = *v37;
+    v30 = processIdentifiers;
+    v10 = *v36;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v37 != v10)
+        if (*v36 != v10)
         {
           objc_enumerationMutation(processIdentity);
         }
 
-        v12 = [(RBProcessManager *)self processForIdentifierWithoutStartingTracking:*(*(&v36 + 1) + 8 * i)];
+        v12 = [(RBProcessManager *)self processForIdentifierWithoutStartingTracking:*(*(&v35 + 1) + 8 * i)];
         v13 = v12;
         if (v12)
         {
@@ -491,7 +485,7 @@ void __76__RBProcessManager__processForIdentifier_withAuditToken_forceStartTrack
         }
       }
 
-      v9 = [processIdentity countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v9 = [processIdentity countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v9);
@@ -501,28 +495,28 @@ void __76__RBProcessManager__processForIdentifier_withAuditToken_forceStartTrack
   processIdentity = [predicateCopy processIdentity];
   if (!processIdentity)
   {
-    v31 = 0;
+    v30 = 0;
     v6 = [MEMORY[0x277CBEB58] set];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     allProcesses = [(RBProcessIndex *)self->_processIndex allProcesses];
-    v22 = [allProcesses countByEnumeratingWithState:&v32 objects:v40 count:16];
+    v22 = [allProcesses countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v33;
+      v24 = *v32;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v33 != v24)
+          if (*v32 != v24)
           {
             objc_enumerationMutation(allProcesses);
           }
 
-          v26 = *(*(&v32 + 1) + 8 * j);
+          v26 = *(*(&v31 + 1) + 8 * j);
           handle2 = [v26 handle];
           v28 = [predicateCopy matchesProcess:handle2];
 
@@ -532,14 +526,14 @@ void __76__RBProcessManager__processForIdentifier_withAuditToken_forceStartTrack
           }
         }
 
-        v23 = [allProcesses countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v23 = [allProcesses countByEnumeratingWithState:&v31 objects:v39 count:16];
       }
 
       while (v23);
     }
 
 LABEL_29:
-    processIdentifiers = v31;
+    processIdentifiers = v30;
     goto LABEL_30;
   }
 
@@ -558,14 +552,63 @@ LABEL_29:
   v6 = v20;
 
 LABEL_30:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
+- (void)systemPreventIdleSleepStateDidChange:(BOOL)change
+{
+  changeCopy = change;
+  v19 = *MEMORY[0x277D85DE8];
+  os_unfair_lock_lock(&self->_lock);
+  self->_systemPreventsIdleSleep = changeCopy;
+  os_unfair_lock_unlock(&self->_lock);
+  if (!changeCopy)
+  {
+    v5 = rbs_process_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_262485000, v5, OS_LOG_TYPE_DEFAULT, "Shutdown sockets for all suspended processes", buf, 2u);
+    }
+  }
+
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v6 = self->_processIndex;
+  v7 = [(RBProcessIndex *)v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v14;
+    do
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v14 != v9)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        v11 = *(*(&v13 + 1) + 8 * i);
+        identity = [v11 identity];
+        [(RBProcessManager *)self _executeLifecycleEventForIdentity:identity sync:1 withBlock:&__block_literal_global_93];
+
+        [v11 _systemPreventIdleSleepStateDidChange:changeCopy];
+      }
+
+      v8 = [(RBProcessIndex *)v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+    }
+
+    while (v8);
+  }
+}
+
 - (void)executeLaunchRequest:(id)request withCompletion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   completionCopy = completion;
   if (!completionCopy)
@@ -573,37 +616,37 @@ LABEL_30:
     [RBProcessManager executeLaunchRequest:withCompletion:];
   }
 
-  v30 = 0;
-  v8 = [(RBProcessManager *)self _executeLaunchRequest:requestCopy withError:&v30];
-  v9 = v30;
+  v29 = 0;
+  v8 = [(RBProcessManager *)self _executeLaunchRequest:requestCopy withError:&v29];
+  v9 = v29;
   v10 = v9;
   if (v8)
   {
-    v24 = v9;
-    v25 = completionCopy;
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
+    v23 = v9;
+    v24 = completionCopy;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     context = [requestCopy context];
     managedEndpointLaunchIdentifiers = [context managedEndpointLaunchIdentifiers];
 
-    v13 = [managedEndpointLaunchIdentifiers countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v13 = [managedEndpointLaunchIdentifiers countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v13)
     {
       v14 = v13;
       v15 = 0;
-      v16 = *v27;
+      v16 = *v26;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v27 != v16)
+          if (*v26 != v16)
           {
             objc_enumerationMutation(managedEndpointLaunchIdentifiers);
           }
 
-          v18 = *(*(&v26 + 1) + 8 * i);
+          v18 = *(*(&v25 + 1) + 8 * i);
           managedEndpointByLaunchIdentifier = [v8 managedEndpointByLaunchIdentifier];
           v20 = [managedEndpointByLaunchIdentifier objectForKey:v18];
 
@@ -621,7 +664,7 @@ LABEL_30:
           }
         }
 
-        v14 = [managedEndpointLaunchIdentifiers countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v14 = [managedEndpointLaunchIdentifiers countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v14);
@@ -634,17 +677,15 @@ LABEL_30:
 
     handle = [v8 handle];
     v22 = [v15 copy];
-    v10 = v24;
-    completionCopy = v25;
-    (*(v25 + 2))(v25, handle, v22, v24);
+    v10 = v23;
+    completionCopy = v24;
+    (*(v24 + 2))(v24, handle, v22, v23);
   }
 
   else
   {
     (*(completionCopy + 2))(completionCopy, 0, 0, v9);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_executeLaunchRequest:(id)request withError:(id *)error
@@ -773,7 +814,7 @@ LABEL_24:
 
 void __52__RBProcessManager__executeLaunchRequest_withError___block_invoke(void *a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = [*(a1[4] + 88) processForIdentity:a1[5]];
   v3 = v2;
   if (a1[6])
@@ -785,9 +826,9 @@ void __52__RBProcessManager__executeLaunchRequest_withError___block_invoke(void 
       {
         v7 = a1[5];
         *buf = 138543618;
-        v32 = v7;
-        v33 = 2114;
-        v34 = v3;
+        v31 = v7;
+        v32 = 2114;
+        v33 = v3;
         _os_log_impl(&dword_262485000, v6, OS_LOG_TYPE_INFO, "%{public}@ is already running as %{public}@ which matches the requiredExistingProcess", buf, 0x16u);
       }
 
@@ -814,11 +855,11 @@ void __52__RBProcessManager__executeLaunchRequest_withError___block_invoke(void 
         v17 = a1[5];
         v18 = a1[6];
         *buf = 138543874;
-        v32 = v17;
-        v33 = 2114;
-        v34 = v3;
-        v35 = 2112;
-        v36 = v18;
+        v31 = v17;
+        v32 = 2114;
+        v33 = v3;
+        v34 = 2112;
+        v35 = v18;
         _os_log_impl(&dword_262485000, v16, OS_LOG_TYPE_INFO, "%{public}@ is already running as %{public}@ which doesn't match requiredExistingProcess of %@", buf, 0x20u);
       }
 
@@ -834,9 +875,9 @@ void __52__RBProcessManager__executeLaunchRequest_withError___block_invoke(void 
     v21 = a1[5];
     v22 = *(a1[4] + 56);
     v23 = a1[7];
-    v30 = 0;
-    v24 = [v22 executeLaunchRequest:v23 existingProcess:v3 requestIdentity:v21 withError:&v30];
-    v25 = v30;
+    v29 = 0;
+    v24 = [v22 executeLaunchRequest:v23 existingProcess:v3 requestIdentity:v21 withError:&v29];
+    v25 = v29;
     v26 = *(a1[9] + 8);
     v27 = *(v26 + 40);
     *(v26 + 40) = v24;
@@ -845,13 +886,11 @@ void __52__RBProcessManager__executeLaunchRequest_withError___block_invoke(void 
     v15 = *(v28 + 40);
     *(v28 + 40) = v25;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_canTerminateProcess:(id)process withContext:(id)context error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   processCopy = process;
   contextCopy = context;
   identity = [processCopy identity];
@@ -876,8 +915,8 @@ void __52__RBProcessManager__executeLaunchRequest_withError___block_invoke(void 
       goto LABEL_15;
     }
 
-    v26 = 138543362;
-    v27 = processCopy;
+    v25 = 138543362;
+    v26 = processCopy;
     v18 = "Termination request for %{public}@ failed due to termination resistance";
     goto LABEL_14;
   }
@@ -902,11 +941,11 @@ void __52__RBProcessManager__executeLaunchRequest_withError___block_invoke(void 
   v17 = rbs_process_log();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 138543362;
-    v27 = processCopy;
+    v25 = 138543362;
+    v26 = processCopy;
     v18 = "Termination request for %{public}@ failed due to target being debugged";
 LABEL_14:
-    _os_log_impl(&dword_262485000, v17, OS_LOG_TYPE_DEFAULT, v18, &v26, 0xCu);
+    _os_log_impl(&dword_262485000, v17, OS_LOG_TYPE_DEFAULT, v18, &v25, 0xCu);
   }
 
 LABEL_15:
@@ -914,13 +953,12 @@ LABEL_15:
   v23 = 0;
 LABEL_17:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 - (void)executeTerminateRequest:(id)request completion:(id)completion
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   completionCopy = completion;
   if (!requestCopy)
@@ -941,7 +979,7 @@ LABEL_17:
     }
 
     *buf = 138543362;
-    v90 = v10;
+    v89 = v10;
     _os_log_impl(&dword_262485000, v9, OS_LOG_TYPE_DEFAULT, "Executing termination request for: %{public}@", buf, 0xCu);
   }
 
@@ -978,87 +1016,87 @@ LABEL_17:
   }
 
   v12 = [MEMORY[0x277CBEB58] set];
-  v70 = v12;
+  v69 = v12;
   if (targetsAllManagedProcesses)
   {
-    v87 = 0uLL;
-    v88 = 0uLL;
-    v85 = 0uLL;
     v86 = 0uLL;
+    v87 = 0uLL;
+    v84 = 0uLL;
+    v85 = 0uLL;
     allProcesses = [(RBProcessIndex *)self->_processIndex allProcesses];
-    v14 = [allProcesses countByEnumeratingWithState:&v85 objects:v95 count:16];
+    v14 = [allProcesses countByEnumeratingWithState:&v84 objects:v94 count:16];
     if (v14)
     {
       v15 = v14;
-      v65 = targetsAllManagedProcesses;
+      v64 = targetsAllManagedProcesses;
       v16 = predicate;
-      v17 = *v86;
+      v17 = *v85;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v86 != v17)
+          if (*v85 != v17)
           {
             objc_enumerationMutation(allProcesses);
           }
 
-          v19 = *(*(&v85 + 1) + 8 * i);
+          v19 = *(*(&v84 + 1) + 8 * i);
           if ([v19 isReported])
           {
             [v12 addObject:v19];
           }
         }
 
-        v15 = [allProcesses countByEnumeratingWithState:&v85 objects:v95 count:16];
+        v15 = [allProcesses countByEnumeratingWithState:&v84 objects:v94 count:16];
       }
 
       while (v15);
 LABEL_37:
       predicate = v16;
-      targetsAllManagedProcesses = v65;
+      targetsAllManagedProcesses = v64;
     }
   }
 
   else
   {
-    v83 = 0uLL;
-    v84 = 0uLL;
-    v81 = 0uLL;
     v82 = 0uLL;
+    v83 = 0uLL;
+    v80 = 0uLL;
+    v81 = 0uLL;
     allProcesses = [(RBProcessIndex *)self->_processIndex allProcesses];
-    v23 = [allProcesses countByEnumeratingWithState:&v81 objects:v94 count:16];
+    v23 = [allProcesses countByEnumeratingWithState:&v80 objects:v93 count:16];
     if (v23)
     {
       v24 = v23;
-      v65 = 0;
+      v64 = 0;
       v16 = predicate;
-      v61 = completionCopy;
-      v25 = *v82;
+      v60 = completionCopy;
+      v25 = *v81;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v82 != v25)
+          if (*v81 != v25)
           {
             objc_enumerationMutation(allProcesses);
           }
 
-          v27 = *(*(&v81 + 1) + 8 * j);
+          v27 = *(*(&v80 + 1) + 8 * j);
           handle = [v27 handle];
           v29 = [(__CFString *)v16 matchesProcess:handle];
 
-          v12 = v70;
+          v12 = v69;
           if (v29)
           {
-            [v70 addObject:v27];
+            [v69 addObject:v27];
           }
         }
 
-        v24 = [allProcesses countByEnumeratingWithState:&v81 objects:v94 count:16];
+        v24 = [allProcesses countByEnumeratingWithState:&v80 objects:v93 count:16];
       }
 
       while (v24);
-      completionCopy = v61;
+      completionCopy = v60;
       goto LABEL_37;
     }
   }
@@ -1068,7 +1106,7 @@ LABEL_37:
   {
     v31 = [v12 count];
     *buf = 134217984;
-    v90 = v31;
+    v89 = v31;
     _os_log_impl(&dword_262485000, v30, OS_LOG_TYPE_DEFAULT, "Found %lu processes to terminate", buf, 0xCu);
   }
 
@@ -1099,9 +1137,9 @@ LABEL_37:
     if ([v12 count] == 1)
     {
       anyObject = [v12 anyObject];
-      v80 = 0;
-      v33 = [(RBProcessManager *)self _canTerminateProcess:anyObject withContext:context error:&v80];
-      v34 = v80;
+      v79 = 0;
+      v33 = [(RBProcessManager *)self _canTerminateProcess:anyObject withContext:context error:&v79];
+      v34 = v79;
       if (v33)
       {
         reportType = [context reportType];
@@ -1109,16 +1147,16 @@ LABEL_37:
         exceptionDomain = [context exceptionDomain];
         exceptionCode = [context exceptionCode];
         additionalPayload = [context additionalPayload];
-        v76[0] = MEMORY[0x277D85DD0];
-        v76[1] = 3221225472;
-        v76[2] = __55__RBProcessManager_executeTerminateRequest_completion___block_invoke;
-        v76[3] = &unk_279B33BF0;
-        v77 = context;
-        v78 = anyObject;
-        v79 = completionCopy;
+        v75[0] = MEMORY[0x277D85DD0];
+        v75[1] = 3221225472;
+        v75[2] = __55__RBProcessManager_executeTerminateRequest_completion___block_invoke;
+        v75[3] = &unk_279B33BF0;
+        v76 = context;
+        v77 = anyObject;
+        v78 = completionCopy;
         v39 = exceptionCode;
-        v12 = v70;
-        [v78 collectDiagnostic:reportType description:explanation domain:exceptionDomain code:v39 additionalPayload:additionalPayload completion:v76];
+        v12 = v69;
+        [v77 collectDiagnostic:reportType description:explanation domain:exceptionDomain code:v39 additionalPayload:additionalPayload completion:v75];
       }
 
       else if (completionCopy)
@@ -1138,43 +1176,43 @@ LABEL_37:
     [context setReportType:1];
   }
 
-  v60 = predicate;
-  v62 = completionCopy;
-  v59 = requestCopy;
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
+  v59 = predicate;
+  v61 = completionCopy;
+  v58 = requestCopy;
   v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
   v44 = v12;
-  v45 = [v44 countByEnumeratingWithState:&v72 objects:v93 count:16];
+  v45 = [v44 countByEnumeratingWithState:&v71 objects:v92 count:16];
   if (!v45)
   {
     anyObject = 0;
-    v66 = 1;
+    v65 = 1;
     goto LABEL_75;
   }
 
   v46 = v45;
   v47 = targetsAllManagedProcesses;
   anyObject = 0;
-  v48 = *v73;
-  v63 = *MEMORY[0x277CCA470];
-  v64 = *MEMORY[0x277D47088];
-  v66 = 1;
+  v48 = *v72;
+  v62 = *MEMORY[0x277CCA470];
+  v63 = *MEMORY[0x277D47088];
+  v65 = 1;
   v49 = context;
   do
   {
     for (k = 0; k != v46; ++k)
     {
-      if (*v73 != v48)
+      if (*v72 != v48)
       {
         objc_enumerationMutation(v44);
       }
 
-      v51 = *(*(&v72 + 1) + 8 * k);
-      v71 = 0;
-      v52 = [(RBProcessManager *)self _canTerminateProcess:v51 withContext:v49 error:&v71];
-      v53 = v71;
+      v51 = *(*(&v71 + 1) + 8 * k);
+      v70 = 0;
+      v52 = [(RBProcessManager *)self _canTerminateProcess:v51 withContext:v49 error:&v70];
+      v53 = v70;
 
       if (v52)
       {
@@ -1187,7 +1225,7 @@ LABEL_37:
         if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v90 = v51;
+          v89 = v51;
           _os_log_error_impl(&dword_262485000, v54, OS_LOG_TYPE_ERROR, "failed to terminate %{public}@", buf, 0xCu);
         }
 
@@ -1199,10 +1237,10 @@ LABEL_63:
         }
 
         v57 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:2];
-        [v57 setObject:@"Termination failed" forKey:v63];
-        anyObject = [MEMORY[0x277CCA9B8] errorWithDomain:v64 code:5 userInfo:v57];
+        [v57 setObject:@"Termination failed" forKey:v62];
+        anyObject = [MEMORY[0x277CCA9B8] errorWithDomain:v63 code:5 userInfo:v57];
 
-        v66 = 0;
+        v65 = 0;
       }
 
       else
@@ -1212,15 +1250,15 @@ LABEL_63:
         {
           localizedFailureReason = [v53 localizedFailureReason];
           *buf = 138543618;
-          v90 = v51;
-          v91 = 2114;
-          v92 = localizedFailureReason;
+          v89 = v51;
+          v90 = 2114;
+          v91 = localizedFailureReason;
           _os_log_impl(&dword_262485000, v55, OS_LOG_TYPE_INFO, "skipping %{public}@ for reason : %{public}@", buf, 0x16u);
         }
 
         if (!v47)
         {
-          v66 = 0;
+          v65 = 0;
           anyObject = v53;
           v49 = context;
           continue;
@@ -1231,27 +1269,25 @@ LABEL_63:
       }
     }
 
-    v46 = [v44 countByEnumeratingWithState:&v72 objects:v93 count:16];
+    v46 = [v44 countByEnumeratingWithState:&v71 objects:v92 count:16];
   }
 
   while (v46);
 LABEL_75:
 
-  completionCopy = v62;
-  if (v62)
+  completionCopy = v61;
+  if (v61)
   {
-    v62[2](v62, v66 & 1, anyObject);
+    v61[2](v61, v65 & 1, anyObject);
   }
 
-  requestCopy = v59;
-  predicate = v60;
-  v12 = v70;
+  requestCopy = v58;
+  predicate = v59;
+  v12 = v69;
 LABEL_81:
 
 LABEL_82:
 LABEL_83:
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 void __55__RBProcessManager_executeTerminateRequest_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1299,37 +1335,37 @@ void __55__RBProcessManager_executeTerminateRequest_completion___block_invoke(ui
 
 - (id)busyExtensionInstancesFromSet:(id)set
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   setCopy = set;
   v5 = rbs_process_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v23 = setCopy;
+    v22 = setCopy;
     _os_log_impl(&dword_262485000, v5, OS_LOG_TYPE_INFO, "matching extension instances: %{public}@", buf, 0xCu);
   }
 
   v6 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   allProcesses = [(RBProcessIndex *)self->_processIndex allProcesses];
-  v8 = [allProcesses countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [allProcesses countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(allProcesses);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         if (([v12 isSuspended] & 1) == 0)
         {
           identity = [v12 identity];
@@ -1342,20 +1378,18 @@ void __55__RBProcessManager_executeTerminateRequest_completion___block_invoke(ui
         }
       }
 
-      v9 = [allProcesses countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [allProcesses countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (void)_enqueueGuaranteedRunningLaunchForIdentity:(id)identity atTime:(double)time
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   RBSMachAbsoluteTime();
   v8 = v7;
@@ -1365,39 +1399,37 @@ void __55__RBProcessManager_executeTerminateRequest_completion___block_invoke(ui
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v24 = identityCopy;
-    v25 = 2048;
-    v26 = v10;
+    v23 = identityCopy;
+    v24 = 2048;
+    v25 = v10;
     _os_log_impl(&dword_262485000, v11, OS_LOG_TYPE_DEFAULT, "Enqueueing GuaranteedRunning launch for %@ in %0.2fs", buf, 0x16u);
   }
 
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 3221225472;
-  v19 = __70__RBProcessManager__enqueueGuaranteedRunningLaunchForIdentity_atTime___block_invoke;
-  v20 = &unk_279B32B80;
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __70__RBProcessManager__enqueueGuaranteedRunningLaunchForIdentity_atTime___block_invoke;
+  v19 = &unk_279B32B80;
   selfCopy = self;
   v12 = identityCopy;
-  v22 = v12;
-  v13 = MEMORY[0x266729AD0](&v17);
+  v21 = v12;
+  v13 = MEMORY[0x266729AD0](&v16);
   if (v10 >= 2.22044605e-16)
   {
     v15 = dispatch_time(v9, (v10 * 1000000000.0));
-    v14 = [RBProcessManager stateApplicationQueue:v17];
+    v14 = [RBProcessManager stateApplicationQueue:v16];
     dispatch_after(v15, v14, v13);
   }
 
   else
   {
-    v14 = [RBProcessManager stateApplicationQueue:v17];
+    v14 = [RBProcessManager stateApplicationQueue:v16];
     dispatch_async(v14, v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __70__RBProcessManager__enqueueGuaranteedRunningLaunchForIdentity_atTime___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 40);
   v3 = [*(*(a1 + 32) + 112) valueForIdentity:*(a1 + 40)];
   v4 = v3;
@@ -1413,20 +1445,20 @@ LABEL_10:
       {
         v14 = *v2;
         *buf = 138412290;
-        v35 = v14;
+        v34 = v14;
         _os_log_impl(&dword_262485000, v13, OS_LOG_TYPE_DEFAULT, "Applying state after GuaranteedRunning launch of %@", buf, 0xCu);
       }
 
       v16 = *(a1 + 32);
       v15 = *(a1 + 40);
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __70__RBProcessManager__enqueueGuaranteedRunningLaunchForIdentity_atTime___block_invoke_134;
-      v30[3] = &unk_279B329D0;
-      v30[4] = v16;
-      v31 = v15;
-      v32 = v4;
-      [v16 _executeLifecycleEventForIdentity:v31 sync:0 withBlock:v30];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __70__RBProcessManager__enqueueGuaranteedRunningLaunchForIdentity_atTime___block_invoke_134;
+      v29[3] = &unk_279B329D0;
+      v29[4] = v16;
+      v30 = v15;
+      v31 = v4;
+      [v16 _executeLifecycleEventForIdentity:v30 sync:0 withBlock:v29];
 
       goto LABEL_13;
     }
@@ -1434,20 +1466,20 @@ LABEL_10:
     v8 = [MEMORY[0x277D46EB0] contextWithIdentity:*(a1 + 40)];
     v9 = [objc_alloc(MEMORY[0x277D46EC0]) initWithContext:v8];
     v10 = *(a1 + 32);
-    v33 = 0;
-    v11 = [v10 _executeLaunchRequest:v9 withError:&v33];
-    v12 = v33;
+    v32 = 0;
+    v11 = [v10 _executeLaunchRequest:v9 withError:&v32];
+    v12 = v32;
     if (v11)
     {
 
       goto LABEL_10;
     }
 
-    v18 = rbs_process_log();
-    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
+    v17 = rbs_process_log();
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
     if (v12)
     {
-      if (v19)
+      if (v18)
       {
         __70__RBProcessManager__enqueueGuaranteedRunningLaunchForIdentity_atTime___block_invoke_cold_1(v2);
       }
@@ -1457,26 +1489,26 @@ LABEL_10:
         goto LABEL_26;
       }
 
-      v18 = [v12 userInfo];
-      v26 = [v18 objectForKey:*MEMORY[0x277D470A0]];
-      if (!v26)
+      v17 = [v12 userInfo];
+      v25 = [v17 objectForKey:*MEMORY[0x277D470A0]];
+      if (!v25)
       {
-        v27 = rbs_general_log();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+        v26 = rbs_general_log();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
         {
           __70__RBProcessManager__enqueueGuaranteedRunningLaunchForIdentity_atTime___block_invoke_cold_2();
         }
       }
 
-      v29 = *(a1 + 32);
-      v28 = *(a1 + 40);
-      [v26 doubleValue];
-      [v29 _enqueueGuaranteedRunningLaunchForIdentity:v28 atTime:?];
+      v28 = *(a1 + 32);
+      v27 = *(a1 + 40);
+      [v25 doubleValue];
+      [v28 _enqueueGuaranteedRunningLaunchForIdentity:v27 atTime:?];
     }
 
-    else if (v19)
+    else if (v18)
     {
-      __70__RBProcessManager__enqueueGuaranteedRunningLaunchForIdentity_atTime___block_invoke_cold_3(v2, v18, v20, v21, v22, v23, v24, v25);
+      __70__RBProcessManager__enqueueGuaranteedRunningLaunchForIdentity_atTime___block_invoke_cold_3(v2, v17, v19, v20, v21, v22, v23, v24);
     }
 
 LABEL_26:
@@ -1488,12 +1520,11 @@ LABEL_26:
   {
     v7 = *v2;
     *buf = 138412290;
-    v35 = v7;
+    v34 = v7;
     _os_log_impl(&dword_262485000, v6, OS_LOG_TYPE_DEFAULT, "Bailing previously enqueued GuaranteedRunning launch of %@ because it is now out-of-state", buf, 0xCu);
   }
 
 LABEL_13:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __70__RBProcessManager__enqueueGuaranteedRunningLaunchForIdentity_atTime___block_invoke_134(void *a1)
@@ -1509,58 +1540,58 @@ void __70__RBProcessManager__enqueueGuaranteedRunningLaunchForIdentity_atTime___
 
 - (void)didUpdateProcessStates:(id)states completion:(id)completion
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   statesCopy = states;
   block = completion;
   [statesCopy processIdentities];
+  v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  obj = v35 = 0u;
-  v7 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v33 = 0u;
+  obj = v34 = 0u;
+  v7 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v7)
   {
-    v8 = *v35;
+    v8 = *v34;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v35 != v8)
+        if (*v34 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v34 + 1) + 8 * i);
+        v10 = *(*(&v33 + 1) + 8 * i);
         v11 = [statesCopy processStateChangeForIdentity:v10];
         updatedState = [v11 updatedState];
 
         v13 = [(RBProcessMap *)self->_processState setValue:updatedState forIdentity:v10];
-        v28 = 0;
-        v29 = &v28;
-        v30 = 0x3032000000;
-        v31 = __Block_byref_object_copy__5;
-        v32 = __Block_byref_object_dispose__5;
-        v33 = [(RBProcessIndex *)self->_processIndex processForIdentity:v10];
-        if (!v29[5] && [updatedState guaranteedRunning])
+        v27 = 0;
+        v28 = &v27;
+        v29 = 0x3032000000;
+        v30 = __Block_byref_object_copy__5;
+        v31 = __Block_byref_object_dispose__5;
+        v32 = [(RBProcessIndex *)self->_processIndex processForIdentity:v10];
+        if (!v28[5] && [updatedState guaranteedRunning])
         {
           [(RBProcessManager *)self _enqueueGuaranteedRunningLaunchForIdentity:v10 atTime:0.0];
         }
 
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __54__RBProcessManager_didUpdateProcessStates_completion___block_invoke;
-        v25[3] = &unk_279B33C18;
-        v27 = &v28;
-        v25[4] = self;
-        v25[5] = v10;
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __54__RBProcessManager_didUpdateProcessStates_completion___block_invoke;
+        v24[3] = &unk_279B33C18;
+        v26 = &v27;
+        v24[4] = self;
+        v24[5] = v10;
         v14 = updatedState;
-        v26 = v14;
-        [(RBProcessManager *)self _executeLifecycleEventForIdentity:v10 sync:0 withBlock:v25];
+        v25 = v14;
+        [(RBProcessManager *)self _executeLifecycleEventForIdentity:v10 sync:0 withBlock:v24];
 
-        _Block_object_dispose(&v28, 8);
+        _Block_object_dispose(&v27, 8);
       }
 
-      v7 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v7 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v7);
@@ -1573,16 +1604,16 @@ void __70__RBProcessManager__enqueueGuaranteedRunningLaunchForIdentity_atTime___
     v17 = v16;
     if (currentContext)
     {
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __54__RBProcessManager_didUpdateProcessStates_completion___block_invoke_2;
-      v21[3] = &unk_279B32F78;
-      v22 = obj;
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __54__RBProcessManager_didUpdateProcessStates_completion___block_invoke_2;
+      v20[3] = &unk_279B32F78;
+      v21 = obj;
       selfCopy = self;
-      v24 = block;
-      [currentContext handoffToQueue:v17 block:v21];
+      v23 = block;
+      [currentContext handoffToQueue:v17 block:v20];
 
-      v17 = v22;
+      v17 = v21;
     }
 
     else
@@ -1590,8 +1621,6 @@ void __70__RBProcessManager__enqueueGuaranteedRunningLaunchForIdentity_atTime___
       dispatch_async(v16, block);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void *__54__RBProcessManager_didUpdateProcessStates_completion___block_invoke(void *a1)
@@ -1614,32 +1643,32 @@ void *__54__RBProcessManager_didUpdateProcessStates_completion___block_invoke(vo
 
 uint64_t __54__RBProcessManager_didUpdateProcessStates_completion___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) _executeLifecycleEventForIdentity:*(*(&v10 + 1) + 8 * v6++) sync:1 withBlock:{&__block_literal_global_138, v10}];
+        [*(a1 + 40) _executeLifecycleEventForIdentity:*(*(&v9 + 1) + 8 * v6++) sync:1 withBlock:{&__block_literal_global_138, v9}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -1648,9 +1677,7 @@ uint64_t __54__RBProcessManager_didUpdateProcessStates_completion___block_invoke
   v7 = +[RBProcess processStateApplicationQueue];
   dispatch_async_and_wait(v7, &__block_literal_global_140);
 
-  result = (*(*(a1 + 48) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)applySystemState:(id)state
@@ -1739,7 +1766,7 @@ LABEL_10:
 
 - (id)_resolveProcessWithIdentifier:(id)identifier auditToken:(id)token properties:(id *)properties
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   rbs_pid = [identifier rbs_pid];
   if (rbs_pid < 1)
@@ -1760,7 +1787,7 @@ LABEL_10:
   memset(&buf[1], 0, sizeof(audit_token_t));
   if (tokenCopy)
   {
-    [tokenCopy realToken];
+    objc_msgSend_realToken(tokenCopy);
   }
 
   else
@@ -1770,7 +1797,7 @@ LABEL_10:
     v17 = auditToken;
     if (auditToken)
     {
-      [auditToken realToken];
+      objc_msgSend_realToken(auditToken);
     }
 
     else
@@ -1866,11 +1893,11 @@ LABEL_23:
     if (auditToken2)
     {
       memset(buf, 0, 32);
-      [auditToken2 realToken];
-      v48 = buf[0];
-      LODWORD(v21) = audit_token_to_euid(&v48);
-      v48 = buf[0];
-      v30 = audit_token_to_auid(&v48);
+      objc_msgSend_realToken(auditToken2);
+      v47 = buf[0];
+      LODWORD(v21) = audit_token_to_euid(&v47);
+      v47 = buf[0];
+      v30 = audit_token_to_auid(&v47);
       if (v30 + 1 >= 2)
       {
         v21 = v30;
@@ -1884,11 +1911,11 @@ LABEL_23:
       v31 = rbs_process_log();
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
-        v48.val[0] = 67109376;
-        v48.val[1] = v10;
-        LOWORD(v48.val[2]) = 1024;
-        *(&v48.val[2] + 2) = v21;
-        _os_log_impl(&dword_262485000, v31, OS_LOG_TYPE_DEFAULT, "_resolveProcessWithIdentifier pid %d host is auid %d", &v48, 0xEu);
+        v47.val[0] = 67109376;
+        v47.val[1] = v10;
+        LOWORD(v47.val[2]) = 1024;
+        *(&v47.val[2] + 2) = v21;
+        _os_log_impl(&dword_262485000, v31, OS_LOG_TYPE_DEFAULT, "_resolveProcessWithIdentifier pid %d host is auid %d", &v47, 0xEu);
       }
     }
 
@@ -2010,8 +2037,6 @@ LABEL_53:
 LABEL_58:
 LABEL_59:
 
-  v46 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
@@ -2123,7 +2148,7 @@ uint64_t __69__RBProcessManager__executeLifecycleEventForIdentity_sync_withBlock
 
 - (id)_lifecycleQueue_addProcessWithInstance:(id)instance properties:(id)properties
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   instanceCopy = instance;
   propertiesCopy = properties;
   if (!instanceCopy)
@@ -2131,15 +2156,15 @@ uint64_t __69__RBProcessManager__executeLifecycleEventForIdentity_sync_withBlock
     [RBProcessManager _lifecycleQueue_addProcessWithInstance:properties:];
   }
 
-  v69 = 0;
-  v70 = &v69;
-  v71 = 0x3032000000;
-  v72 = __Block_byref_object_copy__5;
-  v73 = __Block_byref_object_dispose__5;
+  v68 = 0;
+  v69 = &v68;
+  v70 = 0x3032000000;
+  v71 = __Block_byref_object_copy__5;
+  v72 = __Block_byref_object_dispose__5;
   identity = [instanceCopy identity];
   identifier = [instanceCopy identifier];
-  v58 = identifier;
-  if (v70[5])
+  v57 = identifier;
+  if (v69[5])
   {
     if (identifier)
     {
@@ -2152,7 +2177,7 @@ uint64_t __69__RBProcessManager__executeLifecycleEventForIdentity_sync_withBlock
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"RBProcessManager.m" lineNumber:1170 description:{@"Invalid parameter not satisfying: %@", @"identity"}];
 
-    if (v58)
+    if (v57)
     {
       goto LABEL_5;
     }
@@ -2177,10 +2202,10 @@ LABEL_5:
     v9 = 3;
   }
 
-  [v70[5] setOsServiceType:v9];
+  [v69[5] setOsServiceType:v9];
 LABEL_10:
   os_unfair_lock_lock(&self->_pendingExitBlockLock);
-  v60 = [(NSMutableDictionary *)self->_identityToPendingExitBlock objectForKeyedSubscript:v70[5]];
+  v59 = [(NSMutableDictionary *)self->_identityToPendingExitBlock objectForKeyedSubscript:v69[5]];
   os_unfair_lock_unlock(&self->_pendingExitBlockLock);
   processIndex = self->_processIndex;
   identifier2 = [instanceCopy identifier];
@@ -2207,12 +2232,12 @@ LABEL_10:
 
   else
   {
-    v59 = [(RBProcessIndex *)self->_processIndex processForIdentity:v70[5]];
-    if (v60)
+    v58 = [(RBProcessIndex *)self->_processIndex processForIdentity:v69[5]];
+    if (v59)
     {
-      if (v59)
+      if (v58)
       {
-        handle = [v59 handle];
+        handle = [v58 handle];
         [handle pid];
         v19 = RBSPIDExists();
 
@@ -2229,15 +2254,15 @@ LABEL_10:
       v21 = rbs_process_log();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = v70[5];
+        v22 = v69[5];
         *buf = 138543618;
         *&buf[4] = v22;
         *&buf[12] = 2114;
-        *&buf[14] = v59;
+        *&buf[14] = v58;
         _os_log_impl(&dword_262485000, v21, OS_LOG_TYPE_DEFAULT, "New process with identity (%{public}@) detected with pending exit from a prior process (%{public}@).  Forcing cleanup of the prior instance immediately.", buf, 0x16u);
       }
 
-      v60[2]();
+      v59[2]();
     }
 
     v23 = [MEMORY[0x277D46ED8] taskNameForPID:{objc_msgSend(instanceCopy, "rbs_pid")}];
@@ -2247,19 +2272,19 @@ LABEL_10:
     {
       v26 = self->_processIndex;
       v27 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(propertiesCopy, "hostPid")}];
-      v57 = [(RBProcessIndex *)v26 processForIdentifier:v27];
+      v56 = [(RBProcessIndex *)v26 processForIdentifier:v27];
 
-      v56 = [(RBProcessMap *)self->_processState valueForIdentity:v70[5]];
-      v28 = [(RBBundlePropertiesManaging *)self->_bundlePropertiesManager propertiesForIdentity:v70[5] identifier:v58];
+      v55 = [(RBProcessMap *)self->_processState valueForIdentity:v69[5]];
+      v28 = [(RBBundlePropertiesManaging *)self->_bundlePropertiesManager propertiesForIdentity:v69[5] identifier:v57];
       jetsamPropertytManager = self->_jetsamPropertytManager;
-      rbs_pid = [v58 rbs_pid];
-      v31 = v70[5];
-      [v25 realToken];
-      v55 = [(RBJetsamPropertyManaging *)jetsamPropertytManager jetsamPropertiesForProcess:rbs_pid identity:v31 bundleProperties:v28 isPlatformBinary:RBSAuditTokenRepresentsPlatformBinary()];
-      v54 = v28;
+      rbs_pid = [v57 rbs_pid];
+      v31 = v69[5];
+      objc_msgSend_realToken(v25);
+      v54 = [(RBJetsamPropertyManaging *)jetsamPropertytManager jetsamPropertiesForProcess:rbs_pid identity:v31 bundleProperties:v28 isPlatformBinary:RBSAuditTokenRepresentsPlatformBinary()];
+      v53 = v28;
       v32 = [RBProcess alloc];
-      LOBYTE(v52) = self->_systemPreventsIdleSleep;
-      v17 = [(RBProcess *)v32 _initWithInstance:instanceCopy auditToken:v25 bundleProperties:v28 jetsamProperties:v55 initialState:v56 hostProcess:v57 properties:propertiesCopy systemPreventsIdleSleep:v52];
+      LOBYTE(v51) = self->_systemPreventsIdleSleep;
+      v17 = [(RBProcess *)v32 _initWithInstance:instanceCopy auditToken:v25 bundleProperties:v28 jetsamProperties:v54 initialState:v55 hostProcess:v56 properties:propertiesCopy systemPreventsIdleSleep:v51];
       if (v17)
       {
         v33 = rbs_ttl_log();
@@ -2271,9 +2296,9 @@ LABEL_10:
         }
 
         v34 = self->_processIndex;
-        v68 = 0;
-        [(RBProcessIndex *)v34 addProcess:v17 existingProcess:&v68];
-        v35 = v68;
+        v67 = 0;
+        [(RBProcessIndex *)v34 addProcess:v17 existingProcess:&v67];
+        v35 = v67;
         v36 = rbs_ttl_log();
         if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
@@ -2308,7 +2333,7 @@ LABEL_10:
           }
         }
 
-        v53 = [(RBProcessManager *)self _getLifecycleQueueForIdentity:v70[5]];
+        v52 = [(RBProcessManager *)self _getLifecycleQueueForIdentity:v69[5]];
         mEMORY[0x277D47028] = [MEMORY[0x277D47028] sharedBackgroundWorkloop];
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
@@ -2316,30 +2341,30 @@ LABEL_10:
         block[3] = &unk_279B32B80;
         block[4] = self;
         v43 = v17;
-        v67 = v43;
+        v66 = v43;
         dispatch_async(mEMORY[0x277D47028], block);
 
-        [(RBProcessManagerDelegate *)self->_delegate processManager:self didAddProcess:v43 withState:v56];
+        [(RBProcessManagerDelegate *)self->_delegate processManager:self didAddProcess:v43 withState:v55];
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
-        v76 = 0;
-        v62[0] = MEMORY[0x277D85DD0];
-        v62[1] = 3221225472;
-        v62[2] = __70__RBProcessManager__lifecycleQueue_addProcessWithInstance_properties___block_invoke_2;
-        v62[3] = &unk_279B33C68;
-        v64 = buf;
-        v62[4] = self;
-        v65 = &v69;
+        v75 = 0;
+        v61[0] = MEMORY[0x277D85DD0];
+        v61[1] = 3221225472;
+        v61[2] = __70__RBProcessManager__lifecycleQueue_addProcessWithInstance_properties___block_invoke_2;
+        v61[3] = &unk_279B33C68;
+        v63 = buf;
+        v61[4] = self;
+        v64 = &v68;
         v44 = v43;
-        v63 = v44;
-        v45 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, v62);
+        v62 = v44;
+        v45 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, v61);
         os_unfair_lock_lock(&self->_pendingExitBlockLock);
         v46 = MEMORY[0x266729AD0](v45);
-        [(NSMutableDictionary *)self->_identityToPendingExitBlock setObject:v46 forKeyedSubscript:v70[5]];
+        [(NSMutableDictionary *)self->_identityToPendingExitBlock setObject:v46 forKeyedSubscript:v69[5]];
 
         os_unfair_lock_unlock(&self->_pendingExitBlockLock);
-        [(RBLaunchdJobManager *)self->_jobManager invokeOnProcessDeath:v44 handler:v45 onQueue:v53];
+        [(RBLaunchdJobManager *)self->_jobManager invokeOnProcessDeath:v44 handler:v45 onQueue:v52];
         v47 = v44;
 
         _Block_object_dispose(buf, 8);
@@ -2357,8 +2382,8 @@ LABEL_10:
 
     else
     {
-      v57 = rbs_process_log();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v56 = rbs_process_log();
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
       {
         [RBProcessManager _lifecycleQueue_addProcessWithInstance:properties:];
       }
@@ -2367,15 +2392,14 @@ LABEL_10:
     }
   }
 
-  _Block_object_dispose(&v69, 8);
-  v48 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v68, 8);
 
   return v17;
 }
 
 void __70__RBProcessManager__lifecycleQueue_addProcessWithInstance_properties___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v1 = *(*(a1 + 48) + 8);
   if ((*(v1 + 24) & 1) == 0)
   {
@@ -2392,27 +2416,25 @@ void __70__RBProcessManager__lifecycleQueue_addProcessWithInstance_properties___
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         v5 = *(*(*(a1 + 56) + 8) + 40);
-        v7 = 138412290;
-        v8 = v5;
-        _os_log_impl(&dword_262485000, v4, OS_LOG_TYPE_DEFAULT, "Exiting process %@ is GuaranteedRunning", &v7, 0xCu);
+        v6 = 138412290;
+        v7 = v5;
+        _os_log_impl(&dword_262485000, v4, OS_LOG_TYPE_DEFAULT, "Exiting process %@ is GuaranteedRunning", &v6, 0xCu);
       }
 
       [*(a1 + 32) _enqueueGuaranteedRunningLaunchForIdentity:*(*(*(a1 + 56) + 8) + 40) atTime:0.0];
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeProcess:(id)process
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   processCopy = process;
   v5 = rbs_process_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v18 = processCopy;
+    v17 = processCopy;
     _os_log_impl(&dword_262485000, v5, OS_LOG_TYPE_DEFAULT, "Removing process: %{public}@", buf, 0xCu);
   }
 
@@ -2423,9 +2445,9 @@ void __70__RBProcessManager__lifecycleQueue_addProcessWithInstance_properties___
   lastExitContext = [processCopy lastExitContext];
   jobManager = self->_jobManager;
   instance = [processCopy instance];
-  v16 = 0;
-  v9 = [(RBLaunchdJobManager *)jobManager removeJobWithInstance:instance error:&v16];
-  v10 = v16;
+  v15 = 0;
+  v9 = [(RBLaunchdJobManager *)jobManager removeJobWithInstance:instance error:&v15];
+  v10 = v15;
 
   if (!v9)
   {
@@ -2434,9 +2456,9 @@ void __70__RBProcessManager__lifecycleQueue_addProcessWithInstance_properties___
     {
       shortDescription = [processCopy shortDescription];
       *buf = 138543618;
-      v18 = shortDescription;
-      v19 = 2114;
-      v20 = v10;
+      v17 = shortDescription;
+      v18 = 2114;
+      v19 = v10;
       _os_log_impl(&dword_262485000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ Error deleting launchd job: <%{public}@>", buf, 0x16u);
     }
   }
@@ -2446,8 +2468,6 @@ void __70__RBProcessManager__lifecycleQueue_addProcessWithInstance_properties___
   prewarmManager = self->_prewarmManager;
   identity = [processCopy identity];
   [(RBPrewarmManager *)prewarmManager identityDidTerminate:identity];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processForIdentifier:(uint8_t *)buf withAuditToken:(os_log_t)log forceStartTracking:.cold.1(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -2457,14 +2477,6 @@ void __70__RBProcessManager__lifecycleQueue_addProcessWithInstance_properties___
   *(buf + 6) = 2114;
   *(buf + 14) = a2;
   _os_log_fault_impl(&dword_262485000, log, OS_LOG_TYPE_FAULT, "AUID of process has changed from %{public}@ to %{public}@", buf, 0x16u);
-}
-
-- (void)_processForIdentifier:withAuditToken:forceStartTracking:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_2(&dword_262485000, v0, v1, "%{public}@ queried in _processForIdentifier but is already dead!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)executeLaunchRequest:withCompletion:.cold.1()
@@ -2491,84 +2503,60 @@ void __70__RBProcessManager__lifecycleQueue_addProcessWithInstance_properties___
   [v0 handleFailureInMethod:@"request" object:? file:? lineNumber:? description:?];
 }
 
-- (void)executeTerminateRequest:completion:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_2(&dword_262485000, v0, v1, "invalid terminate request : %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)executeTerminateRequest:completion:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_2(&dword_262485000, v0, v1, "Terminate request attempted with multiple stackshots : %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)executeTerminateRequest:completion:.cold.4()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_262485000, v0, OS_LOG_TYPE_DEBUG, "no process found to terminate : %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_262485000, v0, OS_LOG_TYPE_DEBUG, "no process found to terminate : %{public}@", v1, 0xCu);
 }
 
 void __55__RBProcessManager_executeTerminateRequest_completion___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_2_2(&dword_262485000, a2, a3, "failed to terminate %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_2_2(&dword_262485000, a2, a3, "failed to terminate %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __70__RBProcessManager__enqueueGuaranteedRunningLaunchForIdentity_atTime___block_invoke_cold_1(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_5_3();
-  OUTLINED_FUNCTION_4(&dword_262485000, v1, v2, "Failed GuaranteedRunning launch of %@ because of %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_262485000, v1, v2, "Failed GuaranteedRunning launch of %@ because of %@", v3, DWORD2(v3));
 }
 
 void __70__RBProcessManager__enqueueGuaranteedRunningLaunchForIdentity_atTime___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_fault_impl(&dword_262485000, v1, OS_LOG_TYPE_FAULT, "Backoff triggered without backoff time %{public}@ : %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_fault_impl(&dword_262485000, v1, OS_LOG_TYPE_FAULT, "Backoff triggered without backoff time %{public}@ : %{public}@", v2, 0x16u);
 }
 
 void __70__RBProcessManager__enqueueGuaranteedRunningLaunchForIdentity_atTime___block_invoke_cold_3(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_2_2(&dword_262485000, a2, a3, "Failed GuaranteedRunning launch of %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_2_2(&dword_262485000, a2, a3, "Failed GuaranteedRunning launch of %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_resolveProcessWithIdentifier:(uint64_t)a1 auditToken:(int)a2 properties:(os_log_t)log .cold.1(uint64_t a1, int a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109378;
-  v4[1] = a2;
-  v5 = 2114;
-  v6 = a1;
-  _os_log_fault_impl(&dword_262485000, log, OS_LOG_TYPE_FAULT, "_resolveProcessWithIdentifier could not get auid/euid for pid %d auditToken %{public}@", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109378;
+  v3[1] = a2;
+  v4 = 2114;
+  v5 = a1;
+  _os_log_fault_impl(&dword_262485000, log, OS_LOG_TYPE_FAULT, "_resolveProcessWithIdentifier could not get auid/euid for pid %d auditToken %{public}@", v3, 0x12u);
 }
 
 - (void)_resolveProcessWithIdentifier:(int)a1 auditToken:(NSObject *)a2 properties:.cold.2(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_fault_impl(&dword_262485000, a2, OS_LOG_TYPE_FAULT, "failed to determine identity for pid=%d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_fault_impl(&dword_262485000, a2, OS_LOG_TYPE_FAULT, "failed to determine identity for pid=%d", v2, 8u);
 }
 
 - (void)_executeLifecycleEventForIdentity:sync:withBlock:.cold.1()
@@ -2618,30 +2606,6 @@ void __70__RBProcessManager__enqueueGuaranteedRunningLaunchForIdentity_atTime___
   *(buf + 6) = 1024;
   *(buf + 14) = a3;
   _os_log_error_impl(&dword_262485000, log, OS_LOG_TYPE_ERROR, "We already have an extension %@ with this pid: %d, were two launches for the same extension executed? Returning the existing instance.", buf, 0x12u);
-}
-
-- (void)_lifecycleQueue_addProcessWithInstance:properties:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_2(&dword_262485000, v0, v1, "Prior process for %@ is reporting a pid when we're not expecting it to (should be dead).", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_lifecycleQueue_addProcessWithInstance:properties:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_2(&dword_262485000, v0, v1, "Failed to create process object for %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_lifecycleQueue_addProcessWithInstance:properties:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_2(&dword_262485000, v0, v1, "%{public}@ Cannot track instance that is already dead!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

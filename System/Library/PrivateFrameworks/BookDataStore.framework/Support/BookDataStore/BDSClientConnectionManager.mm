@@ -74,19 +74,19 @@
   clientsByConnection = [(BDSClientConnectionManager *)self clientsByConnection];
   [clientsByConnection setObject:clientCopy forKey:v6];
 
-  v9 = sub_100002614();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100002614(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     clients2 = [(BDSClientConnectionManager *)self clients];
-    v11 = [clients2 count];
+    v12 = [clients2 count];
     clientsByConnection2 = [(BDSClientConnectionManager *)self clientsByConnection];
-    v13 = 138543874;
-    v14 = clientCopy;
-    v15 = 2048;
-    v16 = v11;
-    v17 = 2048;
-    v18 = [clientsByConnection2 count];
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Added client %{public}@, count = %lu, %lu", &v13, 0x20u);
+    v14 = 138543874;
+    v15 = clientCopy;
+    v16 = 2048;
+    v17 = v12;
+    v18 = 2048;
+    v19 = [clientsByConnection2 count];
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Added client %{public}@, count = %lu, %lu", &v14, 0x20u);
   }
 
   os_unfair_lock_unlock(&self->_stateLock);
@@ -106,21 +106,21 @@
   clientsByConnection = [(BDSClientConnectionManager *)self clientsByConnection];
   [clientsByConnection removeObjectForKey:v9];
 
-  v12 = sub_100002614();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100002614(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     clients2 = [(BDSClientConnectionManager *)self clients];
-    v14 = [clients2 count];
+    v15 = [clients2 count];
     clientsByConnection2 = [(BDSClientConnectionManager *)self clientsByConnection];
-    v16 = 138544130;
-    v17 = clientCopy;
-    v18 = 2114;
-    v19 = reasonCopy;
-    v20 = 2048;
-    v21 = v14;
-    v22 = 2048;
-    v23 = [clientsByConnection2 count];
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Removed %{public}@ client %{public}@, count = %lu, %lu", &v16, 0x2Au);
+    v17 = 138544130;
+    v18 = clientCopy;
+    v19 = 2114;
+    v20 = reasonCopy;
+    v21 = 2048;
+    v22 = v15;
+    v23 = 2048;
+    v24 = [clientsByConnection2 count];
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Removed %{public}@ client %{public}@, count = %lu, %lu", &v17, 0x2Au);
   }
 
   os_unfair_lock_unlock(&self->_stateLock);
@@ -137,47 +137,47 @@
   v13 = [clientsByConnection objectForKeyedSubscript:v11];
 
   os_unfair_lock_unlock(&self->_stateLock);
-  v14 = sub_100002614();
-  v15 = v14;
+  v15 = sub_100002614(v14);
+  v16 = v15;
   if (v13)
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v25 = v13;
-      v26 = 2114;
-      v27 = tokenCopy;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "monitorServiceNotifications: %{public}@, changeToken: %{public}@", buf, 0x16u);
+      v26 = v13;
+      v27 = 2114;
+      v28 = tokenCopy;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "monitorServiceNotifications: %{public}@, changeToken: %{public}@", buf, 0x16u);
     }
 
     objc_initWeak(buf, self);
     notificationStore = [(BDSClientConnectionManager *)self notificationStore];
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_100033108;
-    v20[3] = &unk_100240BD0;
-    objc_copyWeak(&v23, buf);
-    v21 = v13;
-    v22 = completionCopy;
-    [notificationStore fetchNotificationNamesAfterToken:tokenCopy withCompletion:v20];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_100033108;
+    v21[3] = &unk_100240BD0;
+    objc_copyWeak(&v24, buf);
+    v22 = v13;
+    v23 = completionCopy;
+    [notificationStore fetchNotificationNamesAfterToken:tokenCopy withCompletion:v21];
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      sub_1001BFC40(v11, v15);
+      sub_1001BFC40(v11, v16);
     }
 
-    v17 = [NSError errorWithDomain:@"BDSErrorDomain" code:1000 userInfo:0];
-    v18 = objc_retainBlock(completionCopy);
-    v19 = v18;
-    if (v18)
+    v18 = [NSError errorWithDomain:@"BDSErrorDomain" code:1000 userInfo:0];
+    v19 = objc_retainBlock(completionCopy);
+    v20 = v19;
+    if (v19)
     {
-      (*(v18 + 2))(v18, v17);
+      (*(v19 + 2))(v19, v18);
     }
   }
 }
@@ -274,7 +274,7 @@
   namesCopy = names;
   clientsCopy = clients;
   v10 = [[BDSOSTransaction alloc] initWithTransactionName:"BDSClientConnectionManagerPostServiceNotificationNames"];
-  v11 = sub_100002614();
+  v11 = sub_100002614(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -315,15 +315,16 @@
     v13 = *v20;
     do
     {
-      for (i = 0; i != v12; i = i + 1)
+      v14 = 0;
+      do
       {
         if (*v20 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * i);
-        v16 = sub_100002614();
+        v15 = *(*(&v19 + 1) + 8 * v14);
+        v16 = sub_100002614(v11);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
@@ -337,12 +338,15 @@
         remoteObjectProxy = [connection remoteObjectProxy];
 
         [remoteObjectProxy handleServiceNotificationNames:namesCopy latestChangeToken:token];
+        v14 = v14 + 1;
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      while (v12 != v14);
+      v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v12 = v11;
     }
 
-    while (v12);
+    while (v11);
   }
 }
 

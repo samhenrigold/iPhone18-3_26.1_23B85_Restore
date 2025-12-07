@@ -21,9 +21,11 @@
 
 uint64_t __66__WLKFederatedAnalyticsReporter_defaultFederatedAnalyticsReporter__block_invoke()
 {
-  defaultFederatedAnalyticsReporter_defaultReporter = objc_alloc_init(WLKFederatedAnalyticsReporter);
+  v0 = objc_alloc_init(WLKFederatedAnalyticsReporter);
+  v1 = defaultFederatedAnalyticsReporter_defaultReporter;
+  defaultFederatedAnalyticsReporter_defaultReporter = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)reportPunchout:(id)punchout
@@ -40,17 +42,15 @@ uint64_t __66__WLKFederatedAnalyticsReporter_defaultFederatedAnalyticsReporter__
 
 void __48__WLKFederatedAnalyticsReporter_reportPunchout___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = WLKPlaybackTrackingLogObject();
+  v3 = WLKPlaybackTrackingLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKFederatedAnalyticsReporter - Error: Unable to communicate with the remote object proxy (%@)", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKFederatedAnalyticsReporter - Error: Unable to communicate with the remote object proxy (%@)", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (NSXPCConnection)connection
@@ -93,13 +93,13 @@ void __48__WLKFederatedAnalyticsReporter_reportPunchout___block_invoke(uint64_t 
   return v10;
 }
 
-void __43__WLKFederatedAnalyticsReporter_connection__block_invoke()
+void __43__WLKFederatedAnalyticsReporter_connection__block_invoke(uint64_t a1)
 {
-  v0 = WLKPlaybackTrackingLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = WLKPlaybackTrackingLogObject(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_272A0F000, v0, OS_LOG_TYPE_DEFAULT, "WLKFederatedAnalyticsReporter - Connection interrupted.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_272A0F000, v1, OS_LOG_TYPE_DEFAULT, "WLKFederatedAnalyticsReporter - Connection interrupted.", v2, 2u);
   }
 }
 
@@ -111,7 +111,7 @@ void __43__WLKFederatedAnalyticsReporter_connection__block_invoke_8(uint64_t a1)
 
 - (void)_invalidationHandler
 {
-  v3 = WLKPlaybackTrackingLogObject();
+  v3 = WLKPlaybackTrackingLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

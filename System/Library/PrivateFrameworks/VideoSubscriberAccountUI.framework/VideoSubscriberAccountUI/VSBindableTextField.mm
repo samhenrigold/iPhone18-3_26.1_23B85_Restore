@@ -11,6 +11,7 @@
 - (void)setKeyboardType:(int64_t)type;
 - (void)setPlaceholder:(id)placeholder;
 - (void)setReturnKeyType:(int64_t)type;
+- (void)setSecureTextEntry:(BOOL)entry;
 - (void)setText:(id)text;
 @end
 
@@ -81,6 +82,13 @@
   v3.receiver = self;
   v3.super_class = VSBindableTextField;
   return [(VSBindableTextField *)&v3 isSecureTextEntry];
+}
+
+- (void)setSecureTextEntry:(BOOL)entry
+{
+  v3.receiver = self;
+  v3.super_class = VSBindableTextField;
+  [(VSBindableTextField *)&v3 setSecureTextEntry:entry];
 }
 
 - (int64_t)keyboardType

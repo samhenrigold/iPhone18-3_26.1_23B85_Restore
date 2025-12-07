@@ -112,10 +112,11 @@
   v6 = (self + OBJC_IVAR___ICSidecarInsertMenuController_menuDidChange);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_2151AF750(v7);
+  sub_2151AF750(v7, v8);
 }
 
 - (id)menu
@@ -176,10 +177,11 @@
   v6 = (self + OBJC_IVAR___ICSidecarInsertMenuController_didReceiveItems);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_2151AF750(v7);
+  sub_2151AF750(v7, v8);
 }
 
 - (void)sidecarDevicesDidChange:(id)change

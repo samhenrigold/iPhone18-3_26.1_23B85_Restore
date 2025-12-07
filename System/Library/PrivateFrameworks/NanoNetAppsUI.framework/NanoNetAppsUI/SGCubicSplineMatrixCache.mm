@@ -1,5 +1,7 @@
 @interface SGCubicSplineMatrixCache
 + (id)sharedInstance;
+- ($6F5639B62F6C861EB4A71773F5DCFA27)closedSplineMatrixWithDimension:(int)dimension;
+- ($6F5639B62F6C861EB4A71773F5DCFA27)openSplineMatrixWithDimension:(int)dimension;
 - ($6F5639B62F6C861EB4A71773F5DCFA27)splineMatrixWithDimension:(int)dimension cache:(id)cache matrixGenerator:(id)generator;
 - (SGCubicSplineMatrixCache)init;
 @end
@@ -98,6 +100,28 @@ void __76__SGCubicSplineMatrixCache_splineMatrixWithDimension_cache_matrixGenera
     v6 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 56)];
     [v5 setObject:v7 forKeyedSubscript:v6];
   }
+}
+
+- ($6F5639B62F6C861EB4A71773F5DCFA27)openSplineMatrixWithDimension:(int)dimension
+{
+  openMatrixCache = self->_openMatrixCache;
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __58__SGCubicSplineMatrixCache_openSplineMatrixWithDimension___block_invoke;
+  v5[3] = &__block_descriptor_36_e14______d_fi_8__0l;
+  dimensionCopy = dimension;
+  return [(SGCubicSplineMatrixCache *)self splineMatrixWithDimension:*&dimension cache:openMatrixCache matrixGenerator:v5];
+}
+
+- ($6F5639B62F6C861EB4A71773F5DCFA27)closedSplineMatrixWithDimension:(int)dimension
+{
+  closedMatrixCache = self->_closedMatrixCache;
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __60__SGCubicSplineMatrixCache_closedSplineMatrixWithDimension___block_invoke;
+  v5[3] = &__block_descriptor_36_e14______d_fi_8__0l;
+  dimensionCopy = dimension;
+  return [(SGCubicSplineMatrixCache *)self splineMatrixWithDimension:*&dimension cache:closedMatrixCache matrixGenerator:v5];
 }
 
 @end

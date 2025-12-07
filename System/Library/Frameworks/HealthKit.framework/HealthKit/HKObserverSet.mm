@@ -65,35 +65,35 @@
 
 - (NSArray)allObservers
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   keyEnumerator = [(NSMapTable *)self->_queuesByObserver keyEnumerator];
-  v5 = [keyEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [keyEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        if (*(*(&v12 + 1) + 8 * i))
+        if (*(*(&v11 + 1) + 8 * i))
         {
           [v3 addObject:?];
         }
       }
 
-      v6 = [keyEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [keyEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -101,8 +101,6 @@
 
   os_unfair_lock_unlock(&self->_lock);
   v9 = [v3 copy];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -187,33 +185,33 @@
 
 - (void)_notifyObserversInGroup:(void *)group handler:
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   groupCopy = group;
   if (self)
   {
     os_unfair_lock_lock((self + 24));
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     keyEnumerator = [*(self + 32) keyEnumerator];
-    v8 = [keyEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [keyEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         v11 = 0;
         do
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(keyEnumerator);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * v11);
+          v12 = *(*(&v14 + 1) + 8 * v11);
           if (v5)
           {
             dispatch_group_enter(v5);
@@ -226,7 +224,7 @@
         }
 
         while (v9 != v11);
-        v9 = [keyEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [keyEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -234,8 +232,6 @@
 
     os_unfair_lock_unlock((self + 24));
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyObserver:(NSObject *)observer queue:(void *)queue handler:

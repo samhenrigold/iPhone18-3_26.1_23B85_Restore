@@ -46,61 +46,52 @@ LABEL_12:
 
 - (unsigned)symbolsShouldHaveReceived:(unint64_t)received
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   firstESI = self->_firstESI;
   if (firstESI == -1)
   {
-    result = 0;
+    return 0;
+  }
+
+  lastESI = self->_lastESI;
+  if (lastESI >= firstESI)
+  {
+    return lastESI - firstESI + 1;
+  }
+
+  largestESI = self->_largestESI;
+  v6 = largestESI / received;
+  v7 = ceil(v6);
+  if (v7 - v6 <= 0.1)
+  {
+    largestESI = (v7 * received);
   }
 
   else
   {
+    if (MIBUOnceToken != -1)
+    {
+      [_SKRaptorQRReceptionDetails symbolsShouldHaveReceived:];
+    }
+
+    v10 = MIBUConnObj;
+    if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = self->_largestESI;
+      v13 = 134218496;
+      v14 = v6;
+      v15 = 1024;
+      v16 = v11;
+      v17 = 2048;
+      receivedCopy = received;
+      _os_log_impl(&dword_259B04000, v10, OS_LOG_TYPE_DEFAULT, "_largestESI / symbolCount = %lf (%u / %lu), not close to an integer. Using a non-integer repair factor, or a lot of packets get lost while host sends packets with largest esi?", &v13, 0x1Cu);
+    }
+
+    firstESI = self->_firstESI;
     lastESI = self->_lastESI;
-    if (lastESI >= firstESI)
-    {
-      result = lastESI - firstESI + 1;
-    }
-
-    else
-    {
-      largestESI = self->_largestESI;
-      v6 = largestESI / received;
-      v7 = ceil(v6);
-      if (v7 - v6 <= 0.1)
-      {
-        largestESI = (v7 * received);
-      }
-
-      else
-      {
-        if (MIBUOnceToken != -1)
-        {
-          [_SKRaptorQRReceptionDetails symbolsShouldHaveReceived:];
-        }
-
-        v10 = MIBUConnObj;
-        if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
-        {
-          v11 = self->_largestESI;
-          v14 = 134218496;
-          v15 = v6;
-          v16 = 1024;
-          v17 = v11;
-          v18 = 2048;
-          receivedCopy = received;
-          _os_log_impl(&dword_259B04000, v10, OS_LOG_TYPE_DEFAULT, "_largestESI / symbolCount = %lf (%u / %lu), not close to an integer. Using a non-integer repair factor, or a lot of packets get lost while host sends packets with largest esi?", &v14, 0x1Cu);
-        }
-
-        firstESI = self->_firstESI;
-        lastESI = self->_lastESI;
-      }
-
-      result = largestESI - firstESI + lastESI + 2;
-    }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return largestESI - firstESI + lastESI + 2;
 }
 
 @end

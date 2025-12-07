@@ -13,24 +13,23 @@
   [(PLBatteryUIResponseTypeAutoBrightnessSuggestion *)self setHasALSPowerSaved:+[PLDisplayAgent shouldLogALSPowerSaved]];
   -[PLBatteryUIResponseTypeAutoBrightnessSuggestion setIsALSEnabled:](self, "setIsALSEnabled:", [v8 BOOLValue]);
   responderService = [(PLBatteryUIResponseTypeAutoBrightnessSuggestion *)self responderService];
-  storage = [responderService storage];
+  v5 = objc_msgSend_storage(responderService);
   v6 = [(PLOperator *)PLDisplayAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"ALSPowerSaved"];
-  v7 = [storage entriesForKey:v6];
+  v7 = [v5 entriesForKey:v6];
   [(PLBatteryUIResponseTypeAutoBrightnessSuggestion *)self setAlsPowerSavedEntries:v7];
 }
 
 - (void)run
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109120;
-  v4[1] = [self isALSEnabled];
-  _os_log_debug_impl(&dword_25EE51000, a2, OS_LOG_TYPE_DEBUG, "Auto Brightness Suggestion: ALS is %d", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = [self isALSEnabled];
+  _os_log_debug_impl(&dword_25EE51000, a2, OS_LOG_TYPE_DEBUG, "Auto Brightness Suggestion: ALS is %d", v3, 8u);
 }
 
 - (id)result
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   [(PLBatteryUIResponseTypeAutoBrightnessSuggestion *)self setAlsPowerSavedEntries:0];
   if ([(PLBatteryUIResponseTypeAutoBrightnessSuggestion *)self suggest])
   {
@@ -38,26 +37,24 @@
     v3 = objc_opt_new();
     [v3 setObject:@"suggestion" forKeyedSubscript:@"category"];
     [v3 setObject:@"autoBrightness" forKeyedSubscript:@"type"];
-    v10 = MEMORY[0x277D85DD0];
-    v11 = v3;
+    v9 = MEMORY[0x277D85DD0];
+    v10 = v3;
     v4 = v3;
     AnalyticsSendEventLazy();
-    v12[0] = @"PLBatteryUISuggestionTypeKey";
-    v12[1] = @"PLBatteryUISuggestionEnergyPercentKey";
-    v13[0] = &unk_2871456B8;
+    v11[0] = @"PLBatteryUISuggestionTypeKey";
+    v11[1] = @"PLBatteryUISuggestionEnergyPercentKey";
+    v12[0] = &unk_2871456B8;
     v5 = MEMORY[0x277CCABB0];
-    [(PLBatteryUIResponseTypeAutoBrightnessSuggestion *)self energyPercent:v10];
+    [(PLBatteryUIResponseTypeAutoBrightnessSuggestion *)self energyPercent:v9];
     v6 = [v5 numberWithDouble:?];
-    v13[1] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v12[1] = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
   }
 
   else
   {
     v7 = MEMORY[0x277CBEC10];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

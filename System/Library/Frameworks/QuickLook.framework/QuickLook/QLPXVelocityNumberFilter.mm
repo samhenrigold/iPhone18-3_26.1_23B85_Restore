@@ -32,7 +32,7 @@
 {
   [(QLPXNumberFilter *)self input];
   v4 = v3;
-  [(QLPXNumberFilter *)self currentTime];
+  objc_msgSend_currentTime(self);
   lastTime = self->_lastTime;
   if (v5 < lastTime + self->_minimumSampleInterval)
   {

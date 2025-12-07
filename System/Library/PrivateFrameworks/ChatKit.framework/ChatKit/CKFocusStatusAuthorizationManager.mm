@@ -471,62 +471,63 @@ LABEL_9:
 - (void)displayFocusStatusAuthorizationInconsistencyRepairAlertFromViewController:(id)controller
 {
   controllerCopy = controller;
-  [(CKFocusStatusAuthorizationManager *)self setPresentingInconsistentFocusStatusAuthorizationPrompt:1];
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle([(CKFocusStatusAuthorizationManager *)self setPresentingInconsistentFocusStatusAuthorizationPrompt:1]);
   v5 = [v4 localizedStringForKey:@"INCONSISTENT_FOCUS_STATUS_AUTHORIZATION_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-  LODWORD(v4) = CKIsRunningInMacCatalyst();
-  v6 = CKFrameworkBundle();
-  v7 = v6;
+  v6 = CKIsRunningInMacCatalyst();
+  LODWORD(v4) = v6;
+  v7 = CKFrameworkBundle(v6);
+  v8 = v7;
   if (v4)
   {
-    v8 = @"INCONSISTENT_FOCUS_STATUS_AUTHORIZATION_ALERT_BODY_MAC";
+    v9 = @"INCONSISTENT_FOCUS_STATUS_AUTHORIZATION_ALERT_BODY_MAC";
   }
 
   else
   {
-    v8 = @"INCONSISTENT_FOCUS_STATUS_AUTHORIZATION_ALERT_BODY";
+    v9 = @"INCONSISTENT_FOCUS_STATUS_AUTHORIZATION_ALERT_BODY";
   }
 
-  v9 = [v6 localizedStringForKey:v8 value:&stru_1F04268F8 table:@"ChatKit"];
+  v10 = [v7 localizedStringForKey:v9 value:&stru_1F04268F8 table:@"ChatKit"];
 
-  v10 = [CKAlertController alertControllerWithTitle:v5 message:v9 preferredStyle:1];
-  if (CKIsRunningInMacCatalyst())
+  v11 = [CKAlertController alertControllerWithTitle:v5 message:v10 preferredStyle:1];
+  v12 = CKIsRunningInMacCatalyst();
+  if (v12)
   {
-    v11 = @"INCONSISTENT_FOCUS_STATUS_AUTHORIZATION_SETTINGS_ACTION_TITLE_MAC";
+    v13 = @"INCONSISTENT_FOCUS_STATUS_AUTHORIZATION_SETTINGS_ACTION_TITLE_MAC";
   }
 
   else
   {
-    v11 = @"INCONSISTENT_FOCUS_STATUS_AUTHORIZATION_SETTINGS_ACTION_TITLE";
+    v13 = @"INCONSISTENT_FOCUS_STATUS_AUTHORIZATION_SETTINGS_ACTION_TITLE";
   }
 
-  v12 = CKFrameworkBundle();
-  v13 = [v12 localizedStringForKey:v11 value:&stru_1F04268F8 table:@"ChatKit"];
+  v14 = CKFrameworkBundle(v12);
+  v15 = [v14 localizedStringForKey:v13 value:&stru_1F04268F8 table:@"ChatKit"];
 
   objc_initWeak(&location, self);
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __111__CKFocusStatusAuthorizationManager_displayFocusStatusAuthorizationInconsistencyRepairAlertFromViewController___block_invoke;
+  v23[3] = &unk_1E72EC698;
+  objc_copyWeak(&v24, &location);
+  v16 = [CKAlertAction actionWithTitle:v15 style:0 handler:v23];
+  v17 = CKFrameworkBundle(v16);
+  v18 = [v17 localizedStringForKey:@"INCONSISTENT_FOCUS_STATUS_AUTHORIZATION_CANCEL_ACTION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+
   v21[0] = MEMORY[0x1E69E9820];
   v21[1] = 3221225472;
-  v21[2] = __111__CKFocusStatusAuthorizationManager_displayFocusStatusAuthorizationInconsistencyRepairAlertFromViewController___block_invoke;
+  v21[2] = __111__CKFocusStatusAuthorizationManager_displayFocusStatusAuthorizationInconsistencyRepairAlertFromViewController___block_invoke_2;
   v21[3] = &unk_1E72EC698;
   objc_copyWeak(&v22, &location);
-  v14 = [CKAlertAction actionWithTitle:v13 style:0 handler:v21];
-  v15 = CKFrameworkBundle();
-  v16 = [v15 localizedStringForKey:@"INCONSISTENT_FOCUS_STATUS_AUTHORIZATION_CANCEL_ACTION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __111__CKFocusStatusAuthorizationManager_displayFocusStatusAuthorizationInconsistencyRepairAlertFromViewController___block_invoke_2;
-  v19[3] = &unk_1E72EC698;
-  objc_copyWeak(&v20, &location);
-  v17 = [CKAlertAction actionWithTitle:v16 style:1 handler:v19];
-  [v10 addAction:v14];
-  [v10 addAction:v17];
-  [v10 presentFromViewController:controllerCopy animated:1 completion:0];
+  v19 = [CKAlertAction actionWithTitle:v18 style:1 handler:v21];
+  [v11 addAction:v16];
+  [v11 addAction:v19];
+  [v11 presentFromViewController:controllerCopy animated:1 completion:0];
   IMSetDomainBoolForKey();
 
-  objc_destroyWeak(&v20);
   objc_destroyWeak(&v22);
+  objc_destroyWeak(&v24);
   objc_destroyWeak(&location);
 }
 

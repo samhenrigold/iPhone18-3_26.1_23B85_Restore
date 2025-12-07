@@ -15,15 +15,57 @@
 - (void)_handleSoftLimitErrorForCurrentContextWithDevice:(id)device completion:(id)completion;
 - (void)_populateUserInfo:(id)info recoveryIndexHandlers:(id)handlers withRecoveryOption:(id)option;
 - (void)_showEntryLimitError:(id)error withRecoveryOptionHandlers:(id)handlers defaultIndex:(int64_t)index completion:(id)completion;
+- (void)beginInteractiveRecoveryForDevices:(id)devices isUsingMultipleICSC:(BOOL)c usingValidator:(id)validator;
 - (void)beginRemoteApprovalWithValidator:(id)validator;
 - (void)cancelRemoteSecretValidatorApplicationToJoinCircle:(id)circle;
+- (void)recoveryValidatorWithDevices:(id)devices forMultipleICSC:(BOOL)c validationHandler:(id)handler completion:(id)completion;
 - (void)remoteSecretValidator:(id)validator applyToJoinCircleWithJoinHandler:(id)handler;
 - (void)secretValidator:(id)validator didFailRecovery:(id)recovery withError:(id)error completion:(id)completion;
 - (void)secretValidatorWillAttemptRecovery;
+- (void)sendRemoteApprovalCompletedEventWithContext:(id)context didApprove:(BOOL)approve error:(id)error;
 - (void)sendRemoteApprovalStartedBreadCrumbEventWithContext:(id)context;
 @end
 
 @implementation CDPDSOSRecoveryValidatedJoinFlowController
+
+- (void)recoveryValidatorWithDevices:(id)devices forMultipleICSC:(BOOL)c validationHandler:(id)handler completion:(id)completion
+{
+  cCopy = c;
+  devicesCopy = devices;
+  handlerCopy = handler;
+  completionCopy = completion;
+  v27[0] = 0;
+  v27[1] = v27;
+  v27[2] = 0x3032000000;
+  v27[3] = __Block_byref_object_copy__9;
+  v27[4] = __Block_byref_object_dispose__9;
+  selfCopy = self;
+  v28 = selfCopy;
+  v14 = [CDPDRemoteDeviceSecretValidator alloc];
+  recoveryContext = [(CDPDRecoveryFlowController *)selfCopy recoveryContext];
+  context = [recoveryContext context];
+  v17 = [(CDPDDeviceSecretValidator *)v14 initWithContext:context delegate:selfCopy];
+
+  [(CDPDDeviceSecretValidator *)v17 setIsUsingMultipleICSC:cCopy];
+  v21 = MEMORY[0x277D85DD0];
+  v22 = 3221225472;
+  v23 = __120__CDPDSOSRecoveryValidatedJoinFlowController_recoveryValidatorWithDevices_forMultipleICSC_validationHandler_completion___block_invoke;
+  v24 = &unk_278E246B8;
+  v18 = handlerCopy;
+  v25 = v18;
+  v26 = v27;
+  [(CDPDRemoteDeviceSecretValidator *)v17 setValidSecretHandler:&v21];
+  v19 = [(CDPDRecoveryFlowController *)selfCopy recoveryContext:v21];
+  -[CDPDDeviceSecretValidator setSupportedEscapeOfferMask:](v17, "setSupportedEscapeOfferMask:", -[CDPDSOSRecoveryValidatedJoinFlowController _escapeOfferForDevices:remoteApproval:forMultipleICSC:](selfCopy, "_escapeOfferForDevices:remoteApproval:forMultipleICSC:", devicesCopy, [v19 hasPeersForRemoteApproval] | !cCopy, cCopy));
+
+  v20 = v17;
+  if (completionCopy)
+  {
+    completionCopy[2](completionCopy, v20);
+  }
+
+  _Block_object_dispose(v27, 8);
+}
 
 void __120__CDPDSOSRecoveryValidatedJoinFlowController_recoveryValidatorWithDevices_forMultipleICSC_validationHandler_completion___block_invoke(uint64_t a1)
 {
@@ -84,16 +126,83 @@ LABEL_9:
   return v11;
 }
 
+- (void)beginInteractiveRecoveryForDevices:(id)devices isUsingMultipleICSC:(BOOL)c usingValidator:(id)validator
+{
+  cCopy = c;
+  devicesCopy = devices;
+  validatorCopy = validator;
+  if (![devicesCopy count])
+  {
+    v10 = _CDPLogSystem();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_24510B000, v10, OS_LOG_TYPE_DEFAULT, "User attempted to get into SOS after burning out all recovery options, present remote approval option", buf, 2u);
+    }
+
+    uiProvider = [(CDPDRecoveryFlowController *)self uiProvider];
+
+    if (uiProvider)
+    {
+      recoveryContext = [(CDPDRecoveryFlowController *)self recoveryContext];
+      hasPeersForRemoteApproval = [recoveryContext hasPeersForRemoteApproval];
+
+      if (hasPeersForRemoteApproval)
+      {
+        recoveryContext2 = [(CDPDRecoveryFlowController *)self recoveryContext];
+        context = [recoveryContext2 context];
+        [(CDPDSOSRecoveryValidatedJoinFlowController *)self sendRemoteApprovalStartedBreadCrumbEventWithContext:context];
+
+        uiProvider2 = [(CDPDRecoveryFlowController *)self uiProvider];
+        recoveryContext3 = [(CDPDRecoveryFlowController *)self recoveryContext];
+        context2 = [recoveryContext3 context];
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __116__CDPDSOSRecoveryValidatedJoinFlowController_beginInteractiveRecoveryForDevices_isUsingMultipleICSC_usingValidator___block_invoke;
+        v22[3] = &unk_278E24BB0;
+        v19 = validatorCopy;
+        v23 = v19;
+        [uiProvider2 cdpContext:context2 presentRemoteApprovalWithCompletion:v22];
+
+        [(CDPDSOSRecoveryValidatedJoinFlowController *)self beginRemoteApprovalWithValidator:v19];
+        goto LABEL_13;
+      }
+
+      v20 = _CDPLogSystem();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      {
+        [CDPDSOSRecoveryValidatedJoinFlowController beginInteractiveRecoveryForDevices:isUsingMultipleICSC:usingValidator:];
+      }
+    }
+
+    else
+    {
+      v20 = _CDPLogSystem();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      {
+        [CDPDSOSRecoveryValidatedJoinFlowController beginInteractiveRecoveryForDevices:isUsingMultipleICSC:usingValidator:];
+      }
+    }
+
+    goto LABEL_13;
+  }
+
+  v21.receiver = self;
+  v21.super_class = CDPDSOSRecoveryValidatedJoinFlowController;
+  [(CDPDRecoveryFlowController *)&v21 beginInteractiveRecoveryForDevices:devicesCopy isUsingMultipleICSC:cCopy usingValidator:validatorCopy];
+LABEL_13:
+}
+
 void __116__CDPDSOSRecoveryValidatedJoinFlowController_beginInteractiveRecoveryForDevices_isUsingMultipleICSC_usingValidator___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = _CDPLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = v4;
-    _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "presentRemoteApprovalWithCompletion completed with error: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v4;
+    _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "presentRemoteApprovalWithCompletion completed with error: %@", &v8, 0xCu);
   }
 
   if ([v4 code] == -5307)
@@ -103,8 +212,6 @@ void __116__CDPDSOSRecoveryValidatedJoinFlowController_beginInteractiveRecoveryF
     v7 = _CDPStateError();
     [v6 cancelValidationWithError:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendRemoteApprovalStartedBreadCrumbEventWithContext:(id)context
@@ -112,6 +219,13 @@ void __116__CDPDSOSRecoveryValidatedJoinFlowController_beginInteractiveRecoveryF
   v4 = [(CDPDSOSRecoveryValidatedJoinFlowController *)self _makeRemoteApprovalStartedBreadCrumbEventWithContext:context];
   rtcAnalyticsReporter = [MEMORY[0x277CFD490] rtcAnalyticsReporter];
   [rtcAnalyticsReporter sendEvent:v4];
+}
+
+- (void)sendRemoteApprovalCompletedEventWithContext:(id)context didApprove:(BOOL)approve error:(id)error
+{
+  v6 = [(CDPDSOSRecoveryValidatedJoinFlowController *)self _makeRemoteApprovalCompletedEventWithContext:context didApprove:approve error:error];
+  rtcAnalyticsReporter = [MEMORY[0x277CFD490] rtcAnalyticsReporter];
+  [rtcAnalyticsReporter sendEvent:v6];
 }
 
 - (id)_makeRemoteApprovalCompletedEventWithContext:(id)context didApprove:(BOOL)approve error:(id)error
@@ -224,7 +338,7 @@ void __88__CDPDSOSRecoveryValidatedJoinFlowController_secretValidator_shouldAcce
 
 - (void)secretValidator:(id)validator didFailRecovery:(id)recovery withError:(id)error completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   validatorCopy = validator;
   recoveryCopy = recovery;
   errorCopy = error;
@@ -237,15 +351,15 @@ void __88__CDPDSOSRecoveryValidatedJoinFlowController_secretValidator_shouldAcce
   v14 = completionCopy;
   if ([errorCopy isLoginHardLimit])
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __99__CDPDSOSRecoveryValidatedJoinFlowController_secretValidator_didFailRecovery_withError_completion___block_invoke;
-    v19[3] = &unk_278E25E00;
-    v19[4] = self;
-    v20 = errorCopy;
-    v21 = validatorCopy;
-    v22 = v14;
-    [(CDPDSOSRecoveryValidatedJoinFlowController *)self _handleHardLimitErrorForCurrentContextWithDevice:recoveryCopy completion:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __99__CDPDSOSRecoveryValidatedJoinFlowController_secretValidator_didFailRecovery_withError_completion___block_invoke;
+    v18[3] = &unk_278E25E00;
+    v18[4] = self;
+    v19 = errorCopy;
+    v20 = validatorCopy;
+    v21 = v14;
+    [(CDPDSOSRecoveryValidatedJoinFlowController *)self _handleHardLimitErrorForCurrentContextWithDevice:recoveryCopy completion:v18];
   }
 
   else if ([errorCopy isLoginSoftLimit])
@@ -270,14 +384,12 @@ void __88__CDPDSOSRecoveryValidatedJoinFlowController_secretValidator_shouldAcce
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v24 = v16;
+      v23 = v16;
       _os_log_impl(&dword_24510B000, v17, OS_LOG_TYPE_DEFAULT, "Non-terminating error detected, with retry option: %{BOOL}d", buf, 8u);
     }
 
     (v14)[2](v14, v16, errorCopy);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __99__CDPDSOSRecoveryValidatedJoinFlowController_secretValidator_didFailRecovery_withError_completion___block_invoke(id *a1, char a2, void *a3)
@@ -613,7 +725,7 @@ void __78__CDPDSOSRecoveryValidatedJoinFlowController__okRecoveryOptionWithCompl
 
 - (void)_showEntryLimitError:(id)error withRecoveryOptionHandlers:(id)handlers defaultIndex:(int64_t)index completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   handlersCopy = handlers;
   completionCopy = completion;
@@ -622,9 +734,9 @@ void __78__CDPDSOSRecoveryValidatedJoinFlowController__okRecoveryOptionWithCompl
   {
     uiProvider = [(CDPDRecoveryFlowController *)self uiProvider];
     *buf = 138412546;
-    v24 = uiProvider;
-    v25 = 2112;
-    v26 = errorCopy;
+    v23 = uiProvider;
+    v24 = 2112;
+    v25 = errorCopy;
     _os_log_impl(&dword_24510B000, v13, OS_LOG_TYPE_DEFAULT, "Attempting to preset alert (using: %@) for error: %@", buf, 0x16u);
   }
 
@@ -635,33 +747,31 @@ void __78__CDPDSOSRecoveryValidatedJoinFlowController__okRecoveryOptionWithCompl
     uiProvider3 = [(CDPDRecoveryFlowController *)self uiProvider];
     recoveryContext = [(CDPDRecoveryFlowController *)self recoveryContext];
     context = [recoveryContext context];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __118__CDPDSOSRecoveryValidatedJoinFlowController__showEntryLimitError_withRecoveryOptionHandlers_defaultIndex_completion___block_invoke;
-    v20[3] = &unk_278E24910;
-    v21 = handlersCopy;
-    v22 = completionCopy;
-    [uiProvider3 cdpContext:context showError:errorCopy withDefaultIndex:index withCompletion:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __118__CDPDSOSRecoveryValidatedJoinFlowController__showEntryLimitError_withRecoveryOptionHandlers_defaultIndex_completion___block_invoke;
+    v19[3] = &unk_278E24910;
+    v20 = handlersCopy;
+    v21 = completionCopy;
+    [uiProvider3 cdpContext:context showError:errorCopy withDefaultIndex:index withCompletion:v19];
   }
 
   else
   {
     (*(completionCopy + 2))(completionCopy, 0, errorCopy);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __118__CDPDSOSRecoveryValidatedJoinFlowController__showEntryLimitError_withRecoveryOptionHandlers_defaultIndex_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = _CDPLogSystem();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithInteger:a2];
-    v12 = 138412290;
-    v13 = v5;
-    _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "User responded to presented alert with option: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v5;
+    _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "User responded to presented alert with option: %@", &v11, 0xCu);
   }
 
   v6 = *(a1 + 32);
@@ -679,8 +789,6 @@ void __118__CDPDSOSRecoveryValidatedJoinFlowController__showEntryLimitError_with
     v10 = _CDPStateError();
     (*(v9 + 16))(v9, 0, v10);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_entryLimitTitleForDevice:(id)device forLimitType:(unint64_t)type
@@ -780,26 +888,23 @@ void __118__CDPDSOSRecoveryValidatedJoinFlowController__showEntryLimitError_with
 
 - (void)_escapeOfferForDevices:(void *)a1 remoteApproval:(NSObject *)a2 forMultipleICSC:.cold.1(void *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = [a1 recoveryContext];
   v5 = [v4 context];
   v6 = [v3 numberWithInteger:{objc_msgSend(v5, "type")}];
-  v8 = 138412290;
-  v9 = v6;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Context Type: %@", &v8, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412290;
+  v8 = v6;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Context Type: %@", &v7, 0xCu);
 }
 
 void __99__CDPDSOSRecoveryValidatedJoinFlowController_secretValidator_didFailRecovery_withError_completion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "presentRemoteApprovalWithCompletion completed with error: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "presentRemoteApprovalWithCompletion completed with error: %@", &v3, 0xCu);
 }
 
 @end

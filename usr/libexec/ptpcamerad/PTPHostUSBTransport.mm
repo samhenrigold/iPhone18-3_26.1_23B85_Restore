@@ -5,6 +5,7 @@
 - (PTPHostUSBTransport)initWithLocationID:(unsigned int)d delegate:(id)delegate;
 - (id)delegate;
 - (id)getTransaction:(id)transaction;
+- (id)sendTransaction:(id)transaction timeout:(unsigned int)timeout;
 - (int)readInterruptData;
 - (int)readResponseData:(id)data withTimeout:(unsigned int)timeout;
 - (unsigned)cancelRequest:(id)request;
@@ -12,8 +13,10 @@
 - (void)abortPendingIO;
 - (void)addTransaction:(id)transaction;
 - (void)clearBulkInPipeStall;
+- (void)clearPipeStall:(unsigned __int8)stall;
 - (void)dealloc;
 - (void)deviceReset;
+- (void)handleBulkData:(unint64_t)data result:(int)result forTxID:(id)d;
 - (void)handleInterruptData:(unint64_t)data;
 - (void)removeTransaction:(id)transaction;
 - (void)sendData:(id)data;
@@ -612,6 +615,40 @@ LABEL_14:
     self->_role = 0;
     self->_connected = 0;
   }
+}
+
+- (id)sendTransaction:(id)transaction timeout:(unsigned int)timeout
+{
+  v4 = *&timeout;
+  transactionCopy = transaction;
+  [(PTPHostUSBTransport *)self addTransaction:transactionCopy];
+  v7 = objc_autoreleasePoolPush();
+  if (self->_connected)
+  {
+    requestPacket = [transactionCopy requestPacket];
+    v9 = [(PTPHostUSBTransport *)self sendRequest:requestPacket];
+
+    if (v9)
+    {
+      txDataPacket = [transactionCopy txDataPacket];
+
+      if (txDataPacket)
+      {
+        txDataPacket2 = [transactionCopy txDataPacket];
+        [(PTPHostUSBTransport *)self sendData:txDataPacket2];
+      }
+
+      [(PTPHostUSBTransport *)self readResponseData:transactionCopy withTimeout:v4];
+    }
+  }
+
+  objc_autoreleasePoolPop(v7);
+  txID = [transactionCopy txID];
+  [(PTPHostUSBTransport *)self removeTransaction:txID];
+
+  responsePacket = [transactionCopy responsePacket];
+
+  return responsePacket;
 }
 
 - (BOOL)sendRequest:(id)request
@@ -1444,6 +1481,183 @@ LABEL_30:
   [transactions2 removeObjectForKey:transactionCopy];
 
   objc_sync_exit(transactions);
+}
+
+- (void)handleBulkData:(unint64_t)data result:(int)result forTxID:(id)d
+{
+  v5 = *&result;
+  v8 = [(PTPHostUSBTransport *)self getTransaction:d];
+  v9 = v8;
+  if (v5)
+  {
+    __ICOSLogCreate();
+    v10 = @"HostUSB";
+    if ([@"HostUSB" length] >= 0x15)
+    {
+      v11 = [@"HostUSB" substringWithRange:{0, 18}];
+      v10 = [v11 stringByAppendingString:@".."];
+    }
+
+    v12 = [NSString stringWithFormat:@"Read failed: %d", v5];
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_ERROR))
+    {
+      sub_10001D1F0();
+    }
+
+    if (v9)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  else if (self->_connected && v8 != 0)
+  {
+    bufMutableBytes = [v8 bufMutableBytes];
+    bufSize = [v9 bufSize];
+    if (!bufMutableBytes || !bufSize)
+    {
+LABEL_7:
+      [v9 setTxComplete:1];
+      goto LABEL_13;
+    }
+
+    containerType = [v9 containerType];
+    containerType2 = [v9 containerType];
+    if (data >= 0xC && !containerType2)
+    {
+      v18 = *bufMutableBytes;
+      if (v18 >= 0xC && (bufMutableBytes[1] & 0xFFFE) == 2)
+      {
+        [v9 setContainerType:?];
+        [v9 setContainerLength:v18];
+        rxDataBuffer = [v9 rxDataBuffer];
+        [rxDataBuffer setHeaderOffset:12];
+      }
+    }
+
+    if ([v9 containerType])
+    {
+      containerType3 = [v9 containerType];
+      if (containerType3 == 3)
+      {
+        if ([v9 containerLength] <= data)
+        {
+          if (([v9 dataReceived] & 1) == 0 && objc_msgSend(v9, "dataExpected"))
+          {
+            bufMutableBytes = [v9 rxDataMutableBytes];
+          }
+
+          v24 = [[PTPOperationResponsePacket alloc] initWithUSBBuffer:bufMutableBytes];
+          [v9 setResponsePacket:v24];
+          if (!v24)
+          {
+            __ICOSLogCreate();
+            v25 = @"HostUSB";
+            if ([@"HostUSB" length] >= 0x15)
+            {
+              v26 = [@"HostUSB" substringWithRange:{0, 18}];
+              v25 = [v26 stringByAppendingString:@".."];
+            }
+
+            v27 = [NSString stringWithFormat:@"PTP PTPHostUSBTransport received bad response!"];
+            if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_ERROR))
+            {
+              sub_10001D1F0();
+            }
+          }
+        }
+
+        goto LABEL_7;
+      }
+
+      if (containerType3 == 2)
+      {
+        if (data > 0xB || containerType)
+        {
+          rxCopyDataBuffer = [v9 rxCopyDataBuffer];
+          rxDataBuffer2 = [v9 rxDataBuffer];
+          v23 = rxDataBuffer2;
+          if (rxCopyDataBuffer)
+          {
+            [rxDataBuffer2 appendBytes:bufMutableBytes length:data];
+          }
+
+          else
+          {
+            [rxDataBuffer2 setLength:data];
+          }
+        }
+
+        rxDataBuffer3 = [v9 rxDataBuffer];
+        v32 = [rxDataBuffer3 length];
+        containerLength = [v9 containerLength];
+
+        if (v32 == containerLength)
+        {
+          if (containerType || (v36 = [v9 containerLength], data != 12) || v36 <= 0xC)
+          {
+            [v9 setContainerType:0];
+            [v9 setContainerLength:0];
+          }
+
+          rxDataBuffer4 = [v9 rxDataBuffer];
+          rxDataBuffer5 = [v9 rxDataBuffer];
+          [rxDataBuffer4 setLength:{objc_msgSend(rxDataBuffer5, "length") - 12}];
+
+          [v9 setDataReceived:1];
+        }
+      }
+
+      else
+      {
+        __ICOSLogCreate();
+        v28 = @"HostUSB";
+        if ([@"HostUSB" length] >= 0x15)
+        {
+          v29 = [@"HostUSB" substringWithRange:{0, 18}];
+          v28 = [v29 stringByAppendingString:@".."];
+        }
+
+        v30 = [NSString stringWithFormat:@"PTP PTPHostUSBTransport received unrecognizable packet!"];
+        if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_ERROR))
+        {
+          sub_10001D1F0();
+        }
+      }
+    }
+  }
+
+LABEL_13:
+}
+
+- (void)clearPipeStall:(unsigned __int8)stall
+{
+  interfaceInterfaceRef = self->_interfaceInterfaceRef;
+  if (interfaceInterfaceRef)
+  {
+    stallCopy = stall;
+    v14 = 0;
+    v13 = 0;
+    v12 = 0;
+    v11 = 0;
+    ((*interfaceInterfaceRef)->GetPipeProperties)(interfaceInterfaceRef, stall, &v14 + 1, &v14, &v13 + 1, &v12, &v13);
+    v7 = 258;
+    if (HIBYTE(v14) == 1)
+    {
+      v6 = v14 + 128;
+    }
+
+    else
+    {
+      v6 = v14;
+    }
+
+    v8 = v6;
+    v9 = 0;
+    v10 = 0;
+    ((*self->_interfaceInterfaceRef)->ControlRequest)(self->_interfaceInterfaceRef, 0, &v7);
+    ((*self->_interfaceInterfaceRef)->ClearPipeStall)(self->_interfaceInterfaceRef, stallCopy);
+  }
 }
 
 - (void)clearBulkInPipeStall

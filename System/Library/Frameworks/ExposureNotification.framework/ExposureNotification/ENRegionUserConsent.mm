@@ -293,7 +293,7 @@ LABEL_15:
   self->_differentialPrivacyConsentTimestamp = v4;
 }
 
-- (uint64_t)initWithCoder:(uint64_t)result .cold.1(uint64_t result)
+- (void)initWithCoder:(void *)result .cold.1(void *result)
 {
   v1 = result;
   if (gLogCategory_ENRegionConfiguration <= 30)

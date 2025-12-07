@@ -17,9 +17,9 @@
     dispatch_once(&qword_1ED49D808, &__block_literal_global_143);
   }
 
-  v0 = _MergedGlobals_1054;
+  v1 = _MergedGlobals_1054;
 
-  return v0;
+  return v1;
 }
 
 - (_UICoreMediaOverridePIDManager)init
@@ -53,36 +53,36 @@
 
 - (id)acquireOverrideAssertionWithPID:(void *)d forReason:
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (self)
   {
     BSDispatchQueueAssertMain();
     if (a2 <= 0)
     {
-      v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to acquire media override assertion for pid %d", a2];
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to acquire media override assertion for pid %d", a2];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v12 = NSStringFromSelector(sel_acquireOverrideAssertionWithPID_forReason_);
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
+        v13 = NSStringFromSelector(sel_acquireOverrideAssertionWithPID_forReason_);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
         *location = 138544642;
-        *&location[4] = v12;
-        v20 = 2114;
-        v21 = v14;
-        v22 = 2048;
+        *&location[4] = v13;
+        v21 = 2114;
+        v22 = v15;
+        v23 = 2048;
         selfCopy = self;
-        v24 = 2114;
-        v25 = @"_UICoreMediaOverridePIDManager.m";
-        v26 = 1024;
-        v27 = 53;
-        v28 = 2114;
-        v29 = v11;
+        v25 = 2114;
+        v26 = @"_UICoreMediaOverridePIDManager.m";
+        v27 = 1024;
+        v28 = 53;
+        v29 = 2114;
+        v30 = v12;
         _os_log_error_impl(&dword_188A29000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", location, 0x3Au);
       }
 
-      v15 = v11;
-      [v11 UTF8String];
+      v16 = v12;
+      [v12 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x189621448);
@@ -91,18 +91,18 @@
     v6 = [[_UICoreMediaOverridePIDAssertionToken alloc] initWithPID:a2 reason:dCopy];
     objc_initWeak(location, self);
     v7 = objc_alloc(MEMORY[0x1E698E778]);
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __76___UICoreMediaOverridePIDManager_acquireOverrideAssertionWithPID_forReason___block_invoke;
-    v16[3] = &unk_1E71030A0;
-    objc_copyWeak(&v18, location);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __76___UICoreMediaOverridePIDManager_acquireOverrideAssertionWithPID_forReason___block_invoke;
+    v17[3] = &unk_1E71030A0;
+    objc_copyWeak(&v19, location);
     v8 = v6;
-    v17 = v8;
-    v9 = [v7 initWithIdentifier:@"com.apple.UIKit._UICoreMediaOverridePIDManager" forReason:dCopy invalidationBlock:v16];
+    v18 = v8;
+    v9 = [v7 initWithIdentifier:@"com.apple.UIKit._UICoreMediaOverridePIDManager" forReason:dCopy invalidationBlock:v17];
     [self[2] addObject:v8];
     [(_UICoreMediaOverridePIDManager *)self evaluateActiveOverridePID];
 
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(location);
   }
 
@@ -116,10 +116,10 @@
 
 - (void)evaluateActiveOverridePID
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   BSDispatchQueueAssertMain();
   lastObject = [*(self + 16) lastObject];
-  v24 = lastObject;
+  v25 = lastObject;
   if (lastObject)
   {
     if (*(self + 8) == lastObject[2])
@@ -127,9 +127,9 @@
       goto LABEL_21;
     }
 
-    v3 = lastObject;
-    *(self + 8) = v24[2];
-    v4 = [MEMORY[0x1E696AD98] numberWithInteger:?];
+    v4 = lastObject;
+    *(self + 8) = v25[2];
+    v5 = [MEMORY[0x1E696AD98] numberWithInteger:?];
   }
 
   else
@@ -139,103 +139,103 @@
       goto LABEL_21;
     }
 
-    v4 = 0;
+    v5 = 0;
     *(self + 8) = -1;
   }
 
-  v5 = *(__UILogGetCategoryCachedImpl("UICoreMediaOverridePIDManager", &qword_1ED49D810) + 8);
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = *(__UILogGetCategoryCachedImpl("UICoreMediaOverridePIDManager", &qword_1ED49D810) + 8);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
-    if (v24)
+    v7 = v6;
+    if (v25)
     {
-      v7 = *(v24 + 2);
+      v8 = *(v25 + 2);
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    v8 = v7;
     v9 = v8;
-    v10 = @"assertions invalidated";
-    if (v8)
+    v10 = v9;
+    v11 = @"assertions invalidated";
+    if (v9)
     {
-      v10 = v8;
+      v11 = v9;
     }
 
     *buf = 138412546;
-    *&buf[4] = v4;
+    *&buf[4] = v5;
     *&buf[12] = 2112;
-    *&buf[14] = v10;
-    _os_log_impl(&dword_188A29000, v6, OS_LOG_TYPE_DEFAULT, "Using %@ for core media override pid: %@", buf, 0x16u);
+    *&buf[14] = v11;
+    _os_log_impl(&dword_188A29000, v7, OS_LOG_TYPE_DEFAULT, "Using %@ for core media override pid: %@", buf, 0x16u);
   }
 
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2050000000;
-  v11 = qword_1ED49D820;
-  v29 = qword_1ED49D820;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2050000000;
+  v12 = qword_1ED49D820;
+  v30 = qword_1ED49D820;
   if (!qword_1ED49D820)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getAVSystemControllerClass_block_invoke;
-    v31 = &unk_1E70F2F20;
-    v32 = &v26;
+    v32 = &unk_1E70F2F20;
+    v33 = &v27;
     __getAVSystemControllerClass_block_invoke(buf);
-    v11 = v27[3];
+    v12 = v28[3];
   }
 
-  v12 = v11;
-  _Block_object_dispose(&v26, 8);
-  sharedAVSystemController = [v11 sharedAVSystemController];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v14 = qword_1ED49D828;
-  v29 = qword_1ED49D828;
+  v13 = v12;
+  _Block_object_dispose(&v27, 8);
+  sharedAVSystemController = [v12 sharedAVSystemController];
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v15 = qword_1ED49D828;
+  v30 = qword_1ED49D828;
   if (!qword_1ED49D828)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getAVSystemController_PIDToInheritApplicationStateFromSymbolLoc_block_invoke;
-    v31 = &unk_1E70F2F20;
-    v32 = &v26;
-    v15 = MediaExperienceLibrary();
-    v16 = dlsym(v15, "AVSystemController_PIDToInheritApplicationStateFrom");
-    *(v32[1] + 24) = v16;
-    qword_1ED49D828 = *(v32[1] + 24);
-    v14 = v27[3];
+    v32 = &unk_1E70F2F20;
+    v33 = &v27;
+    v16 = MediaExperienceLibrary();
+    v17 = dlsym(v16, "AVSystemController_PIDToInheritApplicationStateFrom");
+    *(v33[1] + 24) = v17;
+    qword_1ED49D828 = *(v33[1] + 24);
+    v15 = v28[3];
   }
 
-  _Block_object_dispose(&v26, 8);
-  if (!v14)
+  _Block_object_dispose(&v27, 8);
+  if (!v15)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getAVSystemController_PIDToInheritApplicationStateFrom(void)"];
-    [currentHandler handleFailureInFunction:v23 file:@"_UICoreMediaOverridePIDManager.m" lineNumber:19 description:{@"%s", dlerror()}];
+    v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getAVSystemController_PIDToInheritApplicationStateFrom(void)"];
+    [currentHandler handleFailureInFunction:v24 file:@"_UICoreMediaOverridePIDManager.m" lineNumber:19 description:{@"%s", dlerror()}];
 
     __break(1u);
   }
 
-  v17 = *v14;
-  v25 = 0;
-  v18 = v17;
-  v19 = [sharedAVSystemController setAttribute:v4 forKey:v18 error:&v25];
-  v20 = v25;
+  v18 = *v15;
+  v26 = 0;
+  v19 = v18;
+  v20 = [sharedAVSystemController setAttribute:v5 forKey:v19 error:&v26];
+  v21 = v26;
 
-  if ((v19 & 1) == 0)
+  if ((v20 & 1) == 0)
   {
-    v21 = *(__UILogGetCategoryCachedImpl("UICoreMediaOverridePIDManager", &qword_1ED49D818) + 8);
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = *(__UILogGetCategoryCachedImpl("UICoreMediaOverridePIDManager", &qword_1ED49D818) + 8);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      *&buf[4] = v4;
+      *&buf[4] = v5;
       *&buf[12] = 2112;
-      *&buf[14] = v20;
-      _os_log_impl(&dword_188A29000, v21, OS_LOG_TYPE_ERROR, "Failed to inherit CoreMedia permissions from %@: %@", buf, 0x16u);
+      *&buf[14] = v21;
+      _os_log_impl(&dword_188A29000, v22, OS_LOG_TYPE_ERROR, "Failed to inherit CoreMedia permissions from %@: %@", buf, 0x16u);
     }
   }
 

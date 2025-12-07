@@ -30,7 +30,7 @@ LABEL_7:
   _Unwind_Resume(a1);
 }
 
-uint64_t std::string::find[abi:ne200100](uint64_t *a1, char *a2, unint64_t a3)
+unint64_t std::string::find[abi:ne200100](uint64_t *a1, char *a2, unint64_t a3)
 {
   v3 = a1;
   v4 = *(a1 + 23);
@@ -69,10 +69,10 @@ uint64_t std::string::find[abi:ne200100](uint64_t *a1, char *a2, unint64_t a3)
 
   if (v7)
   {
-    v10 = (v3 + v4);
+    v10 = v3 + v4;
     if (v8 >= v7)
     {
-      v12 = (v3 + a3);
+      v12 = v3 + a3;
       v13 = *v6;
       do
       {
@@ -109,7 +109,7 @@ LABEL_15:
 
     else
     {
-      return &v11[-v3];
+      return v11 - v3;
     }
   }
 
@@ -127,9 +127,9 @@ void HG_RENDERER_ENV::DOT_GRAPH_OUTPUT_DIR(std::string *a1@<X8>)
 
   if (byte_280C5E41F < 0)
   {
-    v3 = xmmword_280C5E408;
+    v2 = xmmword_280C5E408;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -150,9 +150,9 @@ void HG_RENDERER_ENV::BUFFER_DUMP_DIR(std::string *a1@<X8>)
 
   if (byte_280C5E437 < 0)
   {
-    v3 = xmmword_280C5E420;
+    v2 = xmmword_280C5E420;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -316,7 +316,7 @@ LABEL_5:
   _Unwind_Resume(a1);
 }
 
-uint64_t HGRenderer::GetCachedLimits(HGRenderer *this, unsigned int a2)
+_OWORD *HGRenderer::GetCachedLimits(HGRenderer *this, uint64_t a2)
 {
   v2 = *(this + 135);
   v5 = *(v2 + 8);
@@ -499,7 +499,7 @@ LABEL_13:
   }
 
   HGBufferDumper::~HGBufferDumper(this + 116);
-  HGDotGraph::~HGDotGraph((this + 840));
+  HGDotGraph::~HGDotGraph(this + 105);
   HGCache::~HGCache((this + 704));
   v19 = *(this + 31);
   if (v19)
@@ -524,43 +524,43 @@ LABEL_13:
   HGObject::operator delete(v1);
 }
 
-uint64_t HGRenderer::label(HGRenderer *this)
+uint64_t *HGRenderer::label(HGRenderer *this)
 {
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v8);
-  v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, "Renderer #", 10);
-  v3 = MEMORY[0x2666E9B60](v2, *(this + 254));
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, ": ", 2);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v9);
+  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "Renderer #", 10);
+  v4 = MEMORY[0x2666E9B60](v3, *(this + 254));
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, ": ", 2);
   if ((*(*this + 304))(this))
   {
-    v5 = "CPU";
+    v6 = "CPU";
   }
 
   else
   {
-    v5 = "GPU";
+    v6 = "GPU";
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v5, 3);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v6, 3);
   std::stringbuf::str();
-  v8[0] = *MEMORY[0x277D82818];
-  v6 = *(MEMORY[0x277D82818] + 72);
-  *(v8 + *(v8[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v9 = v6;
-  v10 = MEMORY[0x277D82878] + 16;
-  if (v12 < 0)
+  v9[0] = *MEMORY[0x277D82818];
+  v7 = *(MEMORY[0x277D82818] + 72);
+  *(v9 + *(v9[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v10 = v7;
+  v11 = MEMORY[0x277D82878] + 16;
+  if (v13 < 0)
   {
-    operator delete(v11[7].__locale_);
+    operator delete(v12[7].__locale_);
   }
 
-  v10 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v11);
+  v11 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v12);
   std::iostream::~basic_iostream();
-  return MEMORY[0x2666E9E10](&v13);
+  return MEMORY[0x2666E9E10](&v14);
 }
 
-void sub_25FC9D948(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FC9D948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -836,8 +836,8 @@ uint64_t HGRenderer::SetParameter(uint64_t result, int a2, char *a3)
 
 LABEL_88:
         v29 = result;
-        *(result + 816) = HGRenderer::GetCachedLimits(result, 0x60410u);
-        result = HGRenderer::GetCachedLimits(v29, 0x50420u);
+        *(result + 816) = HGRenderer::GetCachedLimits(result, 394256);
+        result = HGRenderer::GetCachedLimits(v29, 328736);
         *(v29 + 824) = result;
         **(v29 + 816) = 394256;
         *result = 328736;
@@ -853,8 +853,8 @@ LABEL_88:
       {
 LABEL_89:
         v30 = result;
-        *(result + 816) = HGRenderer::GetCachedLimits(result, 0x60420u);
-        result = HGRenderer::GetCachedLimits(v30, 0x50430u);
+        *(result + 816) = HGRenderer::GetCachedLimits(result, 394272);
+        result = HGRenderer::GetCachedLimits(v30, 328752);
         *(v30 + 824) = result;
         **(v30 + 816) = 394272;
         *result = 328752;
@@ -884,8 +884,8 @@ LABEL_96:
 
       else
       {
-        v37 = v33 | 0x60000;
-        v38 = v33 | 0x50000;
+        v37 = v33 | 0x60000u;
+        v38 = v33 | 0x50000u;
         *(v34 + 816) = HGRenderer::GetCachedLimits(v34, v37);
         result = HGRenderer::GetCachedLimits(v34, v38);
         *(v34 + 824) = result;
@@ -1188,7 +1188,7 @@ void HGRenderer::RenderInput(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint
         v30 = v28;
         *(a2 + 36) = 0;
         *(a2 + 112) = *(a1 + 628);
-        HGStats::ProfilerScopeGuard::ProfilerScopeGuard(v36, *(a2 + 424), 1, v25, *(v29 + 56) * v25);
+        HGStats::ProfilerScopeGuard::ProfilerScopeGuard(v36, *(a2 + 424), 1u, v25, *(v29 + 56) * v25);
         HGSampler::ReadTile(a2, *(v30 + 192), 0, Stack, a6, a7, 0);
         HGStats::ProfilerScopeGuard::~ProfilerScopeGuard(v36);
         v31 = *(a2 + 160);
@@ -1227,9 +1227,9 @@ void HGRenderer::RenderInput(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint
   }
 }
 
-void sub_25FC9E98C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC9E98C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGStats::ProfilerScopeGuard::~ProfilerScopeGuard(va);
   _Unwind_Resume(a1);
 }
@@ -1273,7 +1273,7 @@ void HGRenderer::RenderTile(uint64_t a1, uint64_t a2, char *a3, unint64_t a4, un
     v24 = v23;
     if (HGRectIsNull(v22, v23))
     {
-      HGStats::ProfilerScopeGuard::ProfilerScopeGuard(&v74, *(a2 + 424), 3, v21, 16 * v21);
+      HGStats::ProfilerScopeGuard::ProfilerScopeGuard(&v74, *(a2 + 424), 3u, v21, 16 * v21);
       if (a7)
       {
         v25 = HIDWORD(a5) - HIDWORD(a4);
@@ -1309,7 +1309,7 @@ LABEL_36:
         v97 = 0;
         v95 = 0u;
         v96 = 0u;
-        HGExecutionUnit::GetStackState(a2, &v95);
+        HGExecutionUnit::GetStackState(&v95, a2);
         v94 = a2;
         *&v74 = a4;
         *(&v74 + 1) = a5;
@@ -1389,15 +1389,15 @@ LABEL_48:
         v76 = 0;
         v74 = 0u;
         v75 = 0u;
-        HGExecutionUnit::GetStackState(a2, &v74);
+        HGExecutionUnit::GetStackState(&v74, a2);
         if (v67 >= v69)
         {
           v53 = (HIDWORD(a5) + HIDWORD(a4)) >> 1;
-          v54 = HGRectMake4i(a4, HIDWORD(a4), a5, v53);
+          v54 = HGRectMake4i(a4, SHIDWORD(a4), a5, v53);
           HGRenderer::RenderTile(a1, a2, a3, v54, v55, a6, a7);
-          v56 = (v53 - HIDWORD(a4)) * (v69 + a7);
+          v56 = ((v53 - HIDWORD(a4)) * (v69 + a7));
           HGExecutionUnit::CommitStack(a2, a3, v56);
-          v45 = HGRectMake4i(a4, v53, a5, HIDWORD(a5));
+          v45 = HGRectMake4i(a4, v53, a5, SHIDWORD(a5));
           v47 = v57;
           v49 = a1;
           v50 = a2;
@@ -1410,9 +1410,9 @@ LABEL_48:
         {
           v42 = (a5 + a4) >> 1;
           HGExecutionUnit::CommitStack(a2, a3, ((v69 + a7) * v67));
-          v43 = HGRectMake4i(a4, HIDWORD(a4), v42, HIDWORD(a5));
+          v43 = HGRectMake4i(a4, SHIDWORD(a4), v42, SHIDWORD(a5));
           HGRenderer::RenderTile(a1, a2, a3, v43, v44, a6, (a5 + a7 - v42));
-          v45 = HGRectMake4i(v42, HIDWORD(a4), a5, HIDWORD(a5));
+          v45 = HGRectMake4i(v42, SHIDWORD(a4), a5, SHIDWORD(a5));
           v47 = v46;
           v48 = (a7 - a4 + v42);
           v49 = a1;
@@ -1435,7 +1435,7 @@ LABEL_48:
     v76 = 0;
     v74 = 0u;
     v75 = 0u;
-    HGExecutionUnit::GetStackState(a2, &v74);
+    HGExecutionUnit::GetStackState(&v74, a2);
     v65 = v69 + a7;
     v63 = a4;
     v33 = v22 - a4;
@@ -1446,7 +1446,7 @@ LABEL_48:
     HGRenderer::RenderTile(a1, a2, &a3[16 * v64 + 16 * v33], v22, v24, a6, (v33 + a7 + a5 - v24));
     v35 = HIDWORD(v24);
     v36 = (v67 * v69 + (HIDWORD(v24) - HIDWORD(v22)) * (v22 - v24));
-    HGStats::ProfilerScopeGuard::ProfilerScopeGuard(v72, *(a2 + 424), 3, v36, 16 * v36);
+    HGStats::ProfilerScopeGuard::ProfilerScopeGuard(v72, *(a2 + 424), 3u, v36, 16 * v36);
     if (HIDWORD(v22) != v70)
     {
       if (!a7)
@@ -1577,14 +1577,14 @@ LABEL_57:
   }
 }
 
-void sub_25FC9F1DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_25FC9F1DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   HGStats::ProfilerScopeGuard::~ProfilerScopeGuard(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t HGRenderer::RenderInputTile(uint64_t a1, uint64_t a2, char *a3, unint64_t a4, unint64_t a5, HGNode *a6, unsigned int a7, uint64_t a8, signed int a9)
+uint64_t HGRenderer::RenderInputTile(uint64_t a1, uint64_t a2, char *a3, unint64_t a4, unint64_t a5, HGNode *a6, unsigned int a7, uint64_t a8, unsigned int a9)
 {
   v9 = a8 + 16 * a9;
   if (*(a6 + 22) <= a9)
@@ -1690,7 +1690,7 @@ LABEL_33:
               v59 = v38;
               v60 = v53;
               v61 = v52;
-              HGStats::ProfilerScopeGuard::ProfilerScopeGuard(v87, *(v38 + 424), 1, v28, *(v57 + 56) * v28);
+              HGStats::ProfilerScopeGuard::ProfilerScopeGuard(v87, *(v38 + 424), 1u, v28, *(v57 + 56) * v28);
               v62 = v59;
               v63 = v60;
               v64 = v60;
@@ -1754,7 +1754,7 @@ LABEL_33:
           }
 
           *(v11 + 8) = v52 + v80;
-          *v11 = v53 + 16 * (v77 - v85 + (v12 - v34) * v80);
+          *v11 = &v53[16 * (v77 - v85) + 16 * (v12 - v34) * v80];
           HGExecutionUnit::CommitStack(v38, v53, v50);
           return v83;
         }
@@ -1846,9 +1846,9 @@ LABEL_33:
   return result;
 }
 
-void sub_25FC9F740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_25FC9F740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   HGStats::ProfilerScopeGuard::~ProfilerScopeGuard(va);
   _Unwind_Resume(a1);
 }
@@ -2230,10 +2230,10 @@ uint64_t HGRenderer::DotLogNodeBufferFormat(uint64_t this, HGNode *a2, HGBitmap 
   return this;
 }
 
-uint64_t HGRenderer::DotLogBufferOutput(uint64_t this, HGBitmap *a2, HGBitmap *a3)
+uint64_t *HGRenderer::DotLogBufferOutput(uint64_t *this, HGBitmap *a2, HGBitmap *a3)
 {
   v19 = *MEMORY[0x277D85DE8];
-  if (*(this + 656) < 3)
+  if (*(this + 164) < 3)
   {
     return this;
   }
@@ -2288,12 +2288,12 @@ LABEL_6:
   v16 = v13 - v14;
   v17 = HGFormatUtils::toString(v10);
   snprintf(__str, 0x40uLL, "{ %s | %dx%d | %s }", v12, v15, v16, v17);
-  HGDotGraph::node(v4 + 840, v7, "bitmap", 0);
-  HGDotGraph::filled(v4 + 840, v7, "#e0e0e0");
-  HGDotGraph::fontSize(v4 + 840, v7, 9);
-  HGDotGraph::link(v4 + 840, a2, v7, "", 1);
-  HGDotGraph::linkStyle(v4 + 840, a2, v7, 1, 0);
-  return HGDotGraph::record(v4 + 840, v7, __str);
+  HGDotGraph::node(v4 + 105, v7, "bitmap", 0);
+  HGDotGraph::filled((v4 + 105), v7, "#e0e0e0");
+  HGDotGraph::fontSize(v4 + 105, v7, 9);
+  HGDotGraph::link(v4 + 105, a2, v7, "", 1);
+  HGDotGraph::linkStyle(v4 + 105, a2, v7, 1, 0);
+  return HGDotGraph::record(v4 + 105, v7, __str);
 }
 
 BOOL HGRenderer::ReleaseBufferedOutput(HGRenderer *this, HGNode *a2)
@@ -2370,14 +2370,14 @@ uint64_t HGRenderer::FinalizeInputsOfBufferedNodes(uint64_t this, HGNode *a2)
   return this;
 }
 
-uint64_t HGRenderer::RenderTilesBegin(uint64_t result, uint64_t a2)
+unsigned int *HGRenderer::RenderTilesBegin(unsigned int *result, uint64_t a2)
 {
   v2 = *(a2 + 212);
   *(a2 + 212) = v2 + 1;
   if (!v2)
   {
     v4 = result;
-    ++*(result + 696);
+    ++result[174];
     v5 = *(a2 + 16);
     if ((v5 & 0x20000) != 0)
     {
@@ -2469,7 +2469,7 @@ uint64_t HGRenderer::GenProgram(HGRenderer *this, HGNode *a2)
   return result;
 }
 
-void *HGRenderer::RenderTilesEnd(void *this, HGNode *a2)
+uint64_t *HGRenderer::RenderTilesEnd(uint64_t *this, HGNode *a2)
 {
   v2 = *(a2 + 52) - 1;
   *(a2 + 52) = v2;
@@ -2686,12 +2686,12 @@ uint64_t HGRenderer::SetROI(HGRenderer *this, HGNode *a2, HGRect a3, int a4, uin
 
     v21 = (*(*a2 + 48))(a2);
     HGLogger::log("graph", 1, "%d: %p = %s: ROI [%d %d %d %d] DOD [%d %d %d %d]\n", v22, v23, a5, a2, v21, v18, HIDWORD(v18), v19, HIDWORD(v19), *(a2 + 38), *(a2 + 39), *(a2 + 40), *(a2 + 41));
-    v25 = *(this + 161);
-    if (v25 < 2)
+    v24 = *(this + 161);
+    if (v24 < 2)
     {
 LABEL_15:
-      v27 = *(a2 + 53);
-      if (v27 != *(a2 + 52))
+      v26 = *(a2 + 53);
+      if (v26 != *(a2 + 52))
       {
         return HGLogger::indent(v11);
       }
@@ -2699,35 +2699,35 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    v46 = 0;
-    LOBYTE(v45) = 0;
-    HGLogger::getNewlinePreamble(v43, v24);
-    (*(*a2 + 64))(__p, a2, (v25 - 1), &v45, v43);
-    if (v42 < 0)
+    v45 = 0;
+    LOBYTE(v44) = 0;
+    HGLogger::getNewlinePreamble();
+    (*(*a2 + 64))(__p, a2, (v24 - 1), &v44, &v42);
+    if (v41 < 0)
     {
       if (!__p[1])
       {
         goto LABEL_30;
       }
 
-      v26 = __p[0];
+      v25 = __p[0];
     }
 
     else
     {
-      if (!v42)
+      if (!v41)
       {
         goto LABEL_13;
       }
 
-      v26 = __p;
+      v25 = __p;
     }
 
-    HGLogger::log("graph", *(this + 161), "%s\n", v16, v17, v26);
-    if ((v42 & 0x80000000) == 0)
+    HGLogger::log("graph", *(this + 161), "%s\n", v16, v17, v25);
+    if ((v41 & 0x80000000) == 0)
     {
 LABEL_13:
-      if ((v44 & 0x80000000) == 0)
+      if ((v43 & 0x80000000) == 0)
       {
         goto LABEL_14;
       }
@@ -2737,10 +2737,10 @@ LABEL_13:
 
 LABEL_30:
     operator delete(__p[0]);
-    if ((v44 & 0x80000000) == 0)
+    if ((v43 & 0x80000000) == 0)
     {
 LABEL_14:
-      if ((v46 & 0x80000000) == 0)
+      if ((v45 & 0x80000000) == 0)
       {
         goto LABEL_15;
       }
@@ -2749,16 +2749,16 @@ LABEL_14:
     }
 
 LABEL_31:
-    operator delete(v43[0]);
-    if ((v46 & 0x80000000) == 0)
+    operator delete(v42);
+    if ((v45 & 0x80000000) == 0)
     {
       goto LABEL_15;
     }
 
 LABEL_32:
-    operator delete(v45);
-    v27 = *(a2 + 53);
-    if (v27 != *(a2 + 52))
+    operator delete(v44);
+    v26 = *(a2 + 53);
+    if (v26 != *(a2 + 52))
     {
       return HGLogger::indent(v11);
     }
@@ -2766,66 +2766,66 @@ LABEL_32:
 LABEL_16:
     *(a2 + 53) = 0;
     *(a2 + 34) |= 8u;
-    if (v27 >= 2 && *(this + 161) >= 1)
+    if (v26 >= 2 && *(this + 161) >= 1)
     {
-      HGLogger::log("graph", 1, " + Total ROI from %d branches [%d %d %d %d]\n", v16, v17, v27, *(a2 + 42), *(a2 + 43), *(a2 + 44), *(a2 + 45));
+      HGLogger::log("graph", 1, " + Total ROI from %d branches [%d %d %d %d]\n", v16, v17, v26, *(a2 + 42), *(a2 + 43), *(a2 + 44), *(a2 + 45));
     }
 
     HGLogger::indent(1);
     ++a4;
-    v28 = *(a2 + 22);
-    if (v28 > 1)
+    v27 = *(a2 + 22);
+    if (v27 > 1)
     {
-      v29 = v28 - 1;
+      v28 = v27 - 1;
       do
       {
-        v31 = *(*(a2 + 10) + 8 * v29);
-        if (v31 && *(v31 + 16))
+        v30 = *(*(a2 + 10) + 8 * v28);
+        if (v30 && *(v30 + 16))
         {
-          *&v47.var0 = (*(*a2 + 400))(a2, this, v29, *(a2 + 21), *(a2 + 22));
-          *&v47.var2 = v32;
-          v33 = *(*(a2 + 10) + 8 * v29);
-          *(v33 + 32) = *&v47.var0;
-          *(v33 + 40) = v32;
-          HGRenderer::SetROI(this, *(*(*(*(a2 + 10) + 8 * v29) + 16) + 144), v47, a4, v29);
+          *&v46.var0 = (*(*a2 + 400))(a2, this, v28, *(a2 + 21), *(a2 + 22));
+          *&v46.var2 = v31;
+          v32 = *(*(a2 + 10) + 8 * v28);
+          *(v32 + 32) = *&v46.var0;
+          *(v32 + 40) = v31;
+          HGRenderer::SetROI(this, *(*(*(*(a2 + 10) + 8 * v28) + 16) + 144), v46, a4, v28);
         }
 
-        v30 = v29-- + 1;
+        v29 = v28-- + 1;
       }
 
-      while (v30 > 2);
+      while (v29 > 2);
     }
 
     v11 = (v11 - 1);
-    v34 = *(a2 + 10);
+    v33 = *(a2 + 10);
+    if (!v33)
+    {
+      break;
+    }
+
+    v34 = *v33;
     if (!v34)
     {
       break;
     }
 
-    v35 = *v34;
+    v35 = *(v34 + 16);
     if (!v35)
     {
       break;
     }
 
-    v36 = *(v35 + 16);
-    if (!v36)
-    {
-      break;
-    }
-
-    v37 = *(v36 + 144);
+    v36 = *(v35 + 144);
     v8 = (*(*a2 + 400))(a2, this, 0, *(a2 + 21), *(a2 + 22));
-    v7 = v38;
+    v7 = v37;
     a5 = 0;
-    v39 = **(a2 + 10);
-    *(v39 + 32) = v8;
-    *(v39 + 40) = v38;
-    a2 = v37;
+    v38 = **(a2 + 10);
+    *(v38 + 32) = v8;
+    *(v38 + 40) = v37;
+    a2 = v36;
   }
 
-  while (v37);
+  while (v36);
   return HGLogger::indent(v11);
 }
 
@@ -3186,7 +3186,7 @@ LABEL_40:
     v18 = *(a2 + 106);
   }
 
-  HGDotGraph::node(this + 840, a2, p_dst, v18);
+  HGDotGraph::node(this + 105, a2, p_dst, v18);
   v19 = *(a2 + 22);
   if (v19 >= 1)
   {
@@ -3216,7 +3216,7 @@ LABEL_40:
           v27 = v25;
         }
 
-        HGDotGraph::link(this + 840, v23, a2, v27, IsMergedWithInput);
+        HGDotGraph::link(this + 105, v23, a2, v27, IsMergedWithInput);
         if (v45 < 0)
         {
           operator delete(v44[0]);
@@ -3292,7 +3292,7 @@ void HGRenderer::SetBufferDumpDir(uint64_t a1, const char *a2)
   HGBufferDumper::setPath((a1 + 928), a2);
 }
 
-void HGRenderer::SetDotGraphOutputDir(uint64_t a1, const void **a2)
+void HGRenderer::SetDotGraphOutputDir(uint64_t a1, const std::string *a2)
 {
   HG_RENDERER_ENV::DOT_GRAPH_OUTPUT_DIR(&v16);
   if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
@@ -3311,7 +3311,7 @@ void HGRenderer::SetDotGraphOutputDir(uint64_t a1, const void **a2)
   }
 
   v5 = (a1 + 1024);
-  v6 = *(a2 + 23);
+  v6 = HIBYTE(a2->__r_.__value_.__r.__words[2]);
   v7 = *(a1 + 1047);
   v8 = (a1 + 1024);
   if ((v7 & 0x8000000000000000) != 0)
@@ -3322,12 +3322,12 @@ void HGRenderer::SetDotGraphOutputDir(uint64_t a1, const void **a2)
 
   if (v6 >= 0)
   {
-    v9 = *(a2 + 23);
+    v9 = HIBYTE(a2->__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v9 = a2[1];
+    v9 = a2->__r_.__value_.__l.__size_;
   }
 
   if (v6 >= 0)
@@ -3337,7 +3337,7 @@ void HGRenderer::SetDotGraphOutputDir(uint64_t a1, const void **a2)
 
   else
   {
-    v10 = *a2;
+    v10 = a2->__r_.__value_.__r.__words[0];
   }
 
   if (v9 >= v7)
@@ -3430,18 +3430,18 @@ void sub_25FCA20A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t HGRenderer::DotLogHWBlending(HGRenderer *this, HGNode *a2, HGNode *a3, int a4)
+uint64_t *HGRenderer::DotLogHWBlending(HGRenderer *this, HGNode *a2, HGNode *a3, uint64_t a4)
 {
   if (a4)
   {
-    HGDotGraph::linkStyle(this + 840, a2, a3, 0, 3);
+    HGDotGraph::linkStyle(this + 105, a2, a3, 0, 3);
 
-    return HGDotGraph::dashed(this + 840, a2);
+    return HGDotGraph::dashed(this + 105, a2);
   }
 
   else
   {
-    v8 = this + 840;
+    v8 = (this + 840);
 
     return HGDotGraph::linkStyle(v8, a2, a3, 0, 2);
   }
@@ -3494,7 +3494,7 @@ void HGRenderer::RenderBgn(HGRenderer *this, int a2)
       p_p = __p;
     }
 
-    HGDotGraph::begin((this + 840), p_p);
+    HGDotGraph::begin(this + 840, p_p);
     if (v14 < 0)
     {
       operator delete(__p);
@@ -3575,7 +3575,7 @@ void sub_25FCA2540(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t HGRenderer::RenderEnd(HGRenderer *this, int a2)
 {
-  if (atomic_load_explicit(&qword_280C5E3D8, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E3D8, memory_order_acquire))
   {
     if (_MergedGlobals_20 != 1)
     {
@@ -3663,9 +3663,9 @@ LABEL_20:
   return kdebug_trace();
 }
 
-uint64_t HGRenderer::StatsProbes(HGProfiler ****this)
+uint64_t HGRenderer::StatsProbes(HGStats::GraphStats **this)
 {
-  if (((*this)[38])(this))
+  if ((*(*this + 38))(this))
   {
     v2 = *(this + 149);
   }
@@ -3676,8 +3676,8 @@ uint64_t HGRenderer::StatsProbes(HGProfiler ****this)
   }
 
   v3 = (HGStats::GraphStats::time(this[70]) * 1000.0);
-  ((*this)[38])(this, v2, v3);
-  if (((*this)[38])(this))
+  (*(*this + 38))(this, v2, v3);
+  if ((*(*this + 38))(this))
   {
     v4 = *(this + 149);
   }
@@ -3689,7 +3689,7 @@ uint64_t HGRenderer::StatsProbes(HGProfiler ****this)
 
   v5 = (HGStats::RendererStats::time(this[71]) * 1000.0);
   v6 = HGStats::RendererStats::count(this[71]);
-  result = ((*this)[38])(this, v4, v5, v6);
+  result = (*(*this + 38))(this, v4, v5, v6);
   if (result)
   {
     return 0;
@@ -3698,7 +3698,7 @@ uint64_t HGRenderer::StatsProbes(HGProfiler ****this)
   return result;
 }
 
-unint64_t HGRenderer::DumpStats(unint64_t this)
+uint64_t HGRenderer::DumpStats(uint64_t this)
 {
   v1 = atomic_load(HGLogger::_enabled);
   if (v1)
@@ -4262,23 +4262,23 @@ LABEL_37:
   return this;
 }
 
-void sub_25FCA3178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25FCA3178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCA318C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25FCA318C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCA31A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25FCA31A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -4312,36 +4312,39 @@ uint64_t HGRenderer::AdjustForBufferLocation(uint64_t a1, uint64_t a2)
 
 void HGRenderer::PreRenderTraversal(HGRenderer *this, HGNode *a2)
 {
+  v6 = 4098;
   kdebug_trace();
   if ((*(a2 + 136) & 2) == 0)
   {
-    HGTraversal::IterativeUniqueTraversal<(HGTraversal::NodeInput)0,(HGTraversal::IteratorOrder)0,(HGTraversal::TraversalOrder)0,(HGTraversal::InputOrder)0>::operator()();
+    v5 = &unk_28721B008;
+    HGTraversal::IterativeUniqueTraversal<(HGTraversal::NodeInput)0,(HGTraversal::IteratorOrder)0,(HGTraversal::TraversalOrder)0,(HGTraversal::InputOrder)0>::operator()(&v4, this, a2, &v5);
   }
 
-  HGTraversal::IterativeUniqueTraversal<(HGTraversal::NodeInput)1,(HGTraversal::IteratorOrder)0,(HGTraversal::TraversalOrder)0,(HGTraversal::InputOrder)0>::operator()();
+  v5 = &unk_28721B040;
+  HGTraversal::IterativeUniqueTraversal<(HGTraversal::NodeInput)1,(HGTraversal::IteratorOrder)0,(HGTraversal::TraversalOrder)0,(HGTraversal::InputOrder)0>::operator()(&v4, this, a2, &v5);
 }
 
-void HGRenderer::Render(HGRenderer *a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
+void HGRenderer::Render(HGRenderer *a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, BOOL a6)
 {
-  v5[0] = a5;
-  v5[1] = 0;
-  v5[2] = a2;
-  v5[3] = a3;
-  v6 = a4;
-  v7 = 0;
-  HGRenderer::RenderNode(a1, v5);
+  v6[0] = a5;
+  v6[1] = 0;
+  v6[2] = a2;
+  v6[3] = a3;
+  v7 = a4;
+  v8 = 0;
+  HGRenderer::RenderNode(a1, v6);
 }
 
-void HGRenderer::RenderNode(HGRenderer *this, const HGRendererOutput *a2)
+void HGRenderer::RenderNode(HGRenderer *this, const HGRendererOutput *a3)
 {
-  v2 = *(a2 + 1);
-  *__p = *a2;
-  v4 = v2;
-  v5 = *(a2 + 4);
+  v4 = *(a3 + 1);
+  *__p = *a3;
+  v6 = v4;
+  v7 = *(a3 + 4);
   operator new();
 }
 
-void sub_25FCA355C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9)
+void sub_25FCA355C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   std::vector<HGRef<HGBitmap>>::~vector[abi:ne200100](&a9);
   operator delete(v9);
@@ -4371,7 +4374,7 @@ uint64_t HGRenderer::RenderBitmap(HGRenderer *this, HGBitmap *a2, HGNode *a3)
   return v6(this, a2, a3);
 }
 
-void HGRenderer::RenderNodes(uint64_t a1, int a2, uint64_t a3, const char *a4, char *a5, int *a6, char *a7)
+void HGRenderer::RenderNodes(uint64_t a1, unsigned int a2, uint64_t a3, const char *a4, char *a5, int *a6, char *a7)
 {
   v7 = a3;
   v8 = a2;
@@ -4694,10 +4697,10 @@ void HGRenderer::RenderNodes(uint64_t a1@<X0>, const char *a2@<X1>, char *a3@<X2
       __p = 0;
       v72 = 0;
       v73 = 0;
-      v33 = v68[1];
+      v33 = *(v68 + 1);
       if (*v68 != v33)
       {
-        v34 = (*v68 + 3);
+        v34 = *v68 + 24;
         while (1)
         {
           v35 = v34 - 24;
@@ -4727,7 +4730,7 @@ void HGRenderer::RenderNodes(uint64_t a1@<X0>, const char *a2@<X1>, char *a3@<X2
 
 LABEL_40:
           v34 += 40;
-          if ((v35 + 40) == v33)
+          if (v35 + 40 == v33)
           {
             goto LABEL_60;
           }
@@ -4816,7 +4819,7 @@ LABEL_39:
 
 LABEL_60:
       v48 = *v68;
-      v49 = v68[1];
+      v49 = *(v68 + 1);
       if (*v68 != v49)
       {
         do
@@ -4832,13 +4835,13 @@ LABEL_60:
 
         while (v48 != v49);
         v51 = *v68;
-        v52 = v68[1];
+        v52 = *(v68 + 1);
         if (*v68 != v52)
         {
           v53 = 0;
-          while (*(*v51 + 144))
+          while (*(*v51 + 18))
           {
-            v55 = (*(*a1 + 280))(a1, *(__p + v53), v51[9]);
+            v55 = (*(*a1 + 280))(a1, *(__p + v53), *(v51 + 9));
             v69 = v55;
             v56 = a6[1];
             if (v56 < a6[2])
@@ -4859,7 +4862,7 @@ LABEL_68:
             }
 
 LABEL_69:
-            v51 += 10;
+            v51 += 5;
             v53 += 8;
             if (v51 == v52)
             {
@@ -4867,7 +4870,7 @@ LABEL_69:
             }
           }
 
-          v59 = v51[8];
+          v59 = *(v51 + 8);
           v60 = HGObject::operator new(0x80uLL);
           HGBitmap::HGBitmap(v60, 0, 0, v59);
           v69 = v60;
@@ -4955,15 +4958,15 @@ LABEL_78:
 
   else
   {
-    HGLogger::warning("Invalid Renderer", a2, a3);
+    HGLogger::warning("Invalid Renderer", a2, a3, a4, a5);
   }
 }
 
-void sub_25FCA4580(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, char a22)
+void sub_25FCA4580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, HGProfiler *a22)
 {
   if (a13)
   {
-    (*(*a13 + 24))(a13);
+    (*(*a13 + 24))(a13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::vector<HGRef<HGBitmap>>::~vector[abi:ne200100](&__p);
@@ -4972,7 +4975,7 @@ void sub_25FCA4580(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void HGRenderer::RenderBitmaps(HGRenderer *this, int a2, HGBitmap **a3, HGNode **a4, char *a5)
+void HGRenderer::RenderBitmaps(HGRenderer *this, unsigned int a2, HGBitmap **a3, HGNode **a4, char *a5)
 {
   v30 = 0;
   v31 = 0;
@@ -5808,9 +5811,9 @@ uint64_t HGRenderer::GetLimits(HGRenderer *this, int a2)
   return 0;
 }
 
-BOOL HGRenderer::IsMergeable(HGRenderer *this, HGNode *a2, unsigned int a3, int a4)
+BOOL HGRenderer::IsMergeable(HGRenderer *this, HGNode *a2, signed int a3, int a4)
 {
-  if ((a3 & 0x80000000) != 0)
+  if (a3 < 0)
   {
     v6 = *(a2 + 4);
     if ((v6 & 0x26) != 0)
@@ -5836,7 +5839,7 @@ BOOL HGRenderer::IsMergeable(HGRenderer *this, HGNode *a2, unsigned int a3, int 
           Output = HGRenderer::GetOutput(this, v7);
           a4 = v10;
           a2 = v9;
-          v6 |= v8 | *(Output + 16);
+          v6 |= v8 | *(Output + 4);
         }
 
         if ((v6 & 0x26) == 0)
@@ -5935,7 +5938,7 @@ uint64_t HGRenderer::GetROI(HGRenderer *this, HGNode *a2)
   return *v3;
 }
 
-HGNode *HGRenderer::GetInput(HGRenderer *this, HGNode *a2, unsigned int a3)
+HGNode *HGRenderer::GetInput(HGRenderer *this, HGNode *a2, signed int a3)
 {
   if (a2 && (a3 & 0x80000000) == 0 && *(a2 + 22) > a3 && (v3 = *(*(a2 + 10) + 8 * a3)) != 0)
   {
@@ -5948,14 +5951,12 @@ HGNode *HGRenderer::GetInput(HGRenderer *this, HGNode *a2, unsigned int a3)
   }
 }
 
-uint64_t HGRenderer::CreateDepthBufferManagers(uint64_t this)
+void HGRenderer::CreateDepthBufferManagers(HGRenderer *this)
 {
-  if (*(this + 596) > ((*(this + 232) - *(this + 224)) >> 3))
+  if (*(this + 149) > ((*(this + 29) - *(this + 28)) >> 3))
   {
     operator new();
   }
-
-  return this;
 }
 
 void StatsAccumulator::~StatsAccumulator(StatsAccumulator *this)
@@ -6070,12 +6071,12 @@ void sub_25FCA5D7C(_Unwind_Exception *exception_object)
 
 void HGRenderer::RenderEnd()
 {
-  if (__cxa_guard_acquire(&qword_280C5E3D8))
+  if (__cxa_guard_acquire(byte_280C5E3D8))
   {
     LOBYTE(_MergedGlobals_20) = 0;
     __cxa_atexit(StaticInitTracker::~StaticInitTracker, &_MergedGlobals_20, &dword_25F8F0000);
 
-    __cxa_guard_release(&qword_280C5E3D8);
+    __cxa_guard_release(byte_280C5E3D8);
   }
 }
 
@@ -6121,7 +6122,7 @@ void HGSampler::~HGSampler(HGSampler *this)
   HGObject::operator delete(v3);
 }
 
-void HGSampler::ReadTile(float32x4_t *a1, _DWORD *a2, uint64_t a3, int8x16_t *a4, unint64_t a5, unint64_t a6, uint64_t a7)
+void HGSampler::ReadTile(uint64_t a1, _DWORD *a2, uint64_t a3, int8x16_t *a4, unint64_t a5, unint64_t a6, uint64_t a7)
 {
   if (a3)
   {
@@ -6134,7 +6135,7 @@ void HGSampler::ReadTile(float32x4_t *a1, _DWORD *a2, uint64_t a3, int8x16_t *a4
   }
 }
 
-void HGSampler::GetTile(float32x4_t *a1, _DWORD *a2, uint64_t a3, int8x16_t *a4, unint64_t a5, unint64_t a6, uint64_t a7)
+void HGSampler::GetTile(uint64_t a1, _DWORD *a2, uint64_t a3, int8x16_t *a4, unint64_t a5, unint64_t a6, uint64_t a7)
 {
   v14 = HIDWORD(a5);
   v15 = HIDWORD(a6);
@@ -6156,10 +6157,10 @@ void HGSampler::GetTile(float32x4_t *a1, _DWORD *a2, uint64_t a3, int8x16_t *a4,
   v18.i32[0] = v312.i32[3];
   _Q0.i32[0] = v313.i32[3];
   v297 = v14;
-  if (((*&v310.i32[3] < 0.00024414) | (4 * (*&v312.i32[3] < 0.00024414)) | (2 * (*&v311.i32[3] < 0.00024414)) | (8 * (v313.f32[3] < 0.00024414))) == 0xF)
+  if (((*&v310.i32[3] < 0.00024414) | (4 * (*&v312.i32[3] < 0.00024414)) | (2 * (*&v311.i32[3] < 0.00024414)) | (8 * (*&v313.i32[3] < 0.00024414))) == 0xF)
   {
 LABEL_39:
-    v51 = (*&v310.i32[3] < 0.00024414) | (4 * (*&v312.i32[3] < 0.00024414)) | (2 * (*&v311.i32[3] < 0.00024414)) | (8 * (v313.f32[3] < 0.00024414));
+    v51 = (*&v310.i32[3] < 0.00024414) | (4 * (*&v312.i32[3] < 0.00024414)) | (2 * (*&v311.i32[3] < 0.00024414)) | (8 * (*&v313.i32[3] < 0.00024414));
     v52 = a7;
     v296 = v15;
     if (a7)
@@ -6183,7 +6184,7 @@ LABEL_39:
         while (v55);
       }
 
-      if ((a1[7].i8[0] & 1) == 0)
+      if ((*(a1 + 112) & 1) == 0)
       {
         return;
       }
@@ -6194,7 +6195,7 @@ LABEL_39:
       v54 = a6;
       v53 = a5;
       bzero(a4, 16 * (a6 - a5) * (v15 - v14));
-      if ((a1[7].i8[0] & 1) == 0)
+      if ((*(a1 + 112) & 1) == 0)
       {
         return;
       }
@@ -6233,7 +6234,7 @@ LABEL_29:
     v33.f32[2] = *&v312.i32[2] / *&v312.i32[3];
     v33.i32[3] = v312.i32[3];
     v34 = xmmword_260345860;
-    if (v313.f32[3] < 0.00024414)
+    if (*&v313.i32[3] < 0.00024414)
     {
       goto LABEL_16;
     }
@@ -6242,7 +6243,7 @@ LABEL_29:
   }
 
   v20 = 2;
-  if (v313.f32[3] >= 0.00024414)
+  if (*&v313.i32[3] >= 0.00024414)
   {
     v20 = 3;
   }
@@ -6288,7 +6289,7 @@ LABEL_8:
 
 LABEL_13:
   v30 = *&v311.i32[3] >= 0.00024414;
-  if (v313.f32[3] >= 0.00024414)
+  if (*&v313.i32[3] >= 0.00024414)
   {
     v30 = 3;
   }
@@ -6299,7 +6300,7 @@ LABEL_13:
   v33.f32[2] = (*&v312.i32[2] + (v32 * (v31[1].f32[0] - *&v312.i32[2]))) * 4096.0;
   v33.i32[3] = 964689920;
   v34 = xmmword_260345860;
-  if (v313.f32[3] < 0.00024414)
+  if (*&v313.i32[3] < 0.00024414)
   {
 LABEL_16:
     if (*&v310.i32[3] < 0.00024414)
@@ -6327,11 +6328,11 @@ LABEL_16:
       v24 = v310.i32[v37];
     }
 
-    v38 = (0.00024414 - v313.f32[3]) / (v16.f32[0] - v313.f32[3]);
-    *v39.f32 = vmul_f32(vadd_f32(*v313.f32, vmul_n_f32(vsub_f32(v23, *v313.f32), v38)), vdup_n_s32(0x45800000u));
-    v39.f32[2] = (v313.f32[2] + (v38 * (*&v24 - v313.f32[2]))) * 4096.0;
+    v38 = (0.00024414 - *&v313.i32[3]) / (v16.f32[0] - *&v313.i32[3]);
+    *v39.f32 = vmul_f32(vadd_f32(*v313.i8, vmul_n_f32(vsub_f32(v23, *v313.i8), v38)), vdup_n_s32(0x45800000u));
+    v39.f32[2] = (*&v313.i32[2] + (v38 * (*&v24 - *&v313.i32[2]))) * 4096.0;
     v39.i32[3] = 964689920;
-    v40 = a1[2].i32[1];
+    v40 = *(a1 + 36);
     if (v40)
     {
       goto LABEL_25;
@@ -6346,10 +6347,10 @@ LABEL_31:
   }
 
 LABEL_30:
-  *v39.f32 = vdiv_f32(*v313.f32, vdup_lane_s32(*_Q0.f32, 0));
-  v39.f32[2] = v313.f32[2] / v313.f32[3];
+  *v39.f32 = vdiv_f32(*v313.i8, vdup_lane_s32(*_Q0.f32, 0));
+  v39.f32[2] = *&v313.i32[2] / *&v313.i32[3];
   v39.i32[3] = v313.i32[3];
-  v40 = a1[2].i32[1];
+  v40 = *(a1 + 36);
   if (!v40)
   {
     goto LABEL_31;
@@ -6442,22 +6443,22 @@ LABEL_33:
         v302 = 0;
         v300 = 0u;
         v301 = 0u;
-        HGExecutionUnit::GetStackState(a1[1].i64[0], &v300);
+        HGExecutionUnit::GetStackState(&v300, *(a1 + 16));
         v270 = HGRectMake4i(v295, v14, v269, v299);
         HGSampler::GetTile(a1, a2, a3, a4, v270, v271, (a6 - v269 + a7));
         v290 = (v299 - v14) * (v62 + a7);
-        HGExecutionUnit::CommitStack(a1[1].i64[0], a4, v290);
+        HGExecutionUnit::CommitStack(*(a1 + 16), a4, v290);
         v272 = (a6 + v295) >> 1;
         v273 = HGRectMake4i(v272, v297, a6, v299);
-        HGSampler::GetTile(a1, a2, a3, &a4[v269 - v295], v273, v274, v272 - v295 + a7);
-        i64 = a4[v290].i64;
+        HGSampler::GetTile(a1, a2, a3, &a4[v269 - v295], v273, v274, (v272 - v295 + a7));
+        v275 = &a4[v290];
         v276 = HGRectMake4i(v295, v299, v272, v15);
-        HGSampler::GetTile(a1, a2, a3, i64, v276, v277, (a6 - v269 + a7));
-        HGExecutionUnit::CommitStack(a1[1].i64[0], i64, ((v15 - v299) * (v62 + a7)));
-        v267 = i64 + 16 * (v272 - v295);
+        HGSampler::GetTile(a1, a2, a3, v275, v276, v277, (a6 - v269 + a7));
+        HGExecutionUnit::CommitStack(*(a1 + 16), v275, (v15 - v299) * (v62 + a7));
+        v267 = &v275[v272 - v295];
         v83 = HGRectMake4i(v272, v299, a6, v15);
         v85 = v278;
-        v90 = v272 - v295 + a7;
+        v90 = (v272 - v295 + a7);
         goto LABEL_99;
       }
     }
@@ -6488,11 +6489,11 @@ LABEL_33:
   *v71.i8 = vmax_s32(v288, v68);
   v292 = v71;
   v294 = v70;
-  v72 = HGRectMake4i(v71.u32[0], v71.u32[1], v70.u32[0], v70.u32[1]);
+  v72 = HGRectMake4i(v71.i32[0], v71.i32[1], v70.i32[0], v70.i32[1]);
   v289 = v73;
   v281 = vsub_s32(*v294.i8, *v292.i8);
   v74 = v281.i32[1] * v281.i32[0];
-  if (v74 >= (2 * (*(**(a1[1].i64[0] + 152) + 128))(*(a1[1].i64[0] + 152), 3)))
+  if (v74 >= (2 * (*(**(*(a1 + 16) + 152) + 128))(*(*(a1 + 16) + 152), 3)))
   {
     if (v287 >= a6 - v295 && v287 >= 2)
     {
@@ -6500,21 +6501,21 @@ LABEL_33:
       v302 = 0;
       v300 = 0u;
       v301 = 0u;
-      HGExecutionUnit::GetStackState(a1[1].i64[0], &v300);
+      HGExecutionUnit::GetStackState(&v300, *(a1 + 16));
       v80 = HGRectMake4i(v295, v14, a6, v79);
       HGSampler::GetTile(a1, a2, a3, a4, v80, v81, a7);
       v82 = (v79 - v14) * (a6 - v295 + a7);
-      HGExecutionUnit::CommitStack(a1[1].i64[0], a4, v82);
+      HGExecutionUnit::CommitStack(*(a1 + 16), a4, v82);
       v83 = HGRectMake4i(v295, v79, a6, v15);
       v85 = v84;
       v86 = a1;
       v87 = a2;
       v88 = a3;
-      i8 = a4[v82].i8;
+      v89 = &a4[v82];
       v90 = a7;
 LABEL_100:
-      HGSampler::GetTile(v86, v87, v88, i8, v83, v85, v90);
-      v279 = a1[1].i64[0];
+      HGSampler::GetTile(v86, v87, v88, v89, v83, v85, v90);
+      v279 = *(a1 + 16);
       v308[0] = v300;
       v308[1] = v301;
       v309 = v302;
@@ -6528,11 +6529,11 @@ LABEL_100:
       v302 = 0;
       v300 = 0u;
       v301 = 0u;
-      HGExecutionUnit::GetStackState(a1[1].i64[0], &v300);
+      HGExecutionUnit::GetStackState(&v300, *(a1 + 16));
       v265 = HGRectMake4i(v295, v14, v264, v15);
       HGSampler::GetTile(a1, a2, a3, a4, v265, v266, (a6 + a7 - v264));
-      HGExecutionUnit::CommitStack(a1[1].i64[0], a4, (a6 - v295 + a7) * v287);
-      v267 = a4[v264 - v295].i64;
+      HGExecutionUnit::CommitStack(*(a1 + 16), a4, (a6 - v295 + a7) * v287);
+      v267 = &a4[v264 - v295];
       v83 = HGRectMake4i(v264, v14, a6, v15);
       v85 = v268;
       v90 = (a7 - v295 + v264);
@@ -6540,26 +6541,26 @@ LABEL_99:
       v86 = a1;
       v87 = a2;
       v88 = a3;
-      i8 = v267;
+      v89 = v267;
       goto LABEL_100;
     }
   }
 
-  Stack = HGExecutionUnit::GetStack(a1[1].i64[0], 0);
+  Stack = HGExecutionUnit::GetStack(*(a1 + 16), 0);
   if (Stack == a4)
   {
-    HGExecutionUnit::SwapStack(a1[1].i64[0]);
+    HGExecutionUnit::SwapStack(*(a1 + 16));
   }
 
-  v75 = HGExecutionUnit::GetStack(a1[1].i64[0], v74);
+  v75 = HGExecutionUnit::GetStack(*(a1 + 16), v74);
   (*(*a2 + 72))(a2, v75, v72, v289, 0);
-  a1[8].i64[0] = HgcSampler::Init(a1[7].i64[1], a3, a1[2].i32[1]);
+  *(a1 + 128) = HgcSampler::Init(*(a1 + 120), a3, *(a1 + 36));
   if (Stack == a4)
   {
-    HGExecutionUnit::SwapStack(a1[1].i64[0]);
+    HGExecutionUnit::SwapStack(*(a1 + 16));
   }
 
-  v78 = a1[2].i32[1];
+  v78 = *(a1 + 36);
   if (v78 <= 1)
   {
     *&v300 = v295;
@@ -6570,8 +6571,8 @@ LABEL_99:
     v303 = &v75[-16 * (v72 - v295) + -16 * (HIDWORD(v72) - v14) * (v289 - v72)];
     v305 = v72;
     v306 = v289;
-    v307 = a1[1].i64[0];
-    (a1[8].i64[0])(&v300, a1[7].i64[1], 0);
+    v307 = *(a1 + 16);
+    (*(a1 + 128))(&v300, *(a1 + 120), 0);
     return;
   }
 
@@ -6630,7 +6631,7 @@ LABEL_99:
     v118 = vmulq_f32(vsubq_f32(v111, v97), v108);
     v119 = vsubq_f32(v117, v118);
     v120 = vmulq_f32(v116, v119);
-    v119.i32[0] = a1[7].i32[0] & 1;
+    v119.i32[0] = *(a1 + 112) & 1;
     v121 = vdupq_lane_s32(*&vceqq_s32(v119, v77), 0);
     v122 = vandq_s8(v120, v121);
     v123 = vandq_s8(v118, v121);
@@ -6679,13 +6680,13 @@ LABEL_99:
           v173 = vsubq_f32(v168, v170);
           v174 = vsubq_f32(v169, v171);
           v175 = vshlq_n_s32(v172, 4uLL);
-          v176 = a1[5];
-          v177 = a1[6];
+          v176 = *(a1 + 80);
+          v177 = *(a1 + 96);
           v178 = vaddq_f32(v176, vmulq_n_f32(v177, v173.f32[0]));
           v179 = vaddq_f32(v176, vmulq_n_f32(v177, v174.f32[0]));
           v180 = vmulq_n_f32(v178, v173.f32[0]);
-          v182 = a1[3];
-          v181 = a1[4];
+          v182 = *(a1 + 48);
+          v181 = *(a1 + 64);
           v183 = vaddq_f32(v182, vmulq_n_f32(vaddq_f32(v181, v180), v173.f32[0]));
           v184 = vaddq_f32(v182, vmulq_n_f32(vaddq_f32(v181, vmulq_n_f32(v179, v174.f32[0])), v174.f32[0]));
           v185 = vmulq_n_f32(v183, v184.f32[0]);
@@ -6695,13 +6696,13 @@ LABEL_99:
           v189 = &v127[v175.i32[0]];
           v190 = vmulq_laneq_f32(v183, v184, 3);
           *v94 = vaddq_f32(vmulq_laneq_f32(v189[3], v190, 3), vaddq_f32(vmulq_laneq_f32(v189[2], v190, 2), vaddq_f32(vmulq_lane_f32(v189[1], *v190.f32, 1), vaddq_f32(vmulq_n_f32(*v189, v190.f32[0]), vaddq_f32(vmulq_laneq_f32(*&v126[v175.i32[0] + 48], v188, 3), vaddq_f32(vmulq_laneq_f32(*&v126[v175.i32[0] + 32], v188, 2), vaddq_f32(vmulq_lane_f32(*&v126[v175.i32[0] + 16], *v188.f32, 1), vaddq_f32(vmulq_n_f32(*&v126[v175.i32[0]], v188.f32[0]), vaddq_f32(vmulq_laneq_f32(v186[3], v187, 3), vaddq_f32(vmulq_laneq_f32(v186[2], v187, 2), vaddq_f32(vmulq_lane_f32(v186[1], *v187.f32, 1), vaddq_f32(vmulq_n_f32(*v186, v187.f32[0]), vaddq_f32(vmulq_laneq_f32(*&v75[v175.i32[0] + 48], v185, 3), vaddq_f32(vmulq_laneq_f32(*&v75[v175.i32[0] + 32], v185, 2), vaddq_f32(vmulq_lane_f32(*&v75[v175.i32[0] + 16], *v185.f32, 1), vmulq_n_f32(*&v75[v175.i32[0]], v185.f32[0]))))))))))))))));
-          v191 = a1[5];
-          v192 = a1[6];
+          v191 = *(a1 + 80);
+          v192 = *(a1 + 96);
           v193 = vaddq_f32(v191, vmulq_lane_f32(v192, *v173.f32, 1));
           v194 = vaddq_f32(v191, vmulq_lane_f32(v192, *v174.f32, 1));
           v195 = vmulq_lane_f32(v193, *v173.f32, 1);
-          v197 = a1[3];
-          v196 = a1[4];
+          v197 = *(a1 + 48);
+          v196 = *(a1 + 64);
           v198 = vaddq_f32(v197, vmulq_lane_f32(vaddq_f32(v196, v195), *v173.f32, 1));
           v199 = vaddq_f32(v197, vmulq_lane_f32(vaddq_f32(v196, vmulq_lane_f32(v194, *v174.f32, 1)), *v174.f32, 1));
           v200 = vmulq_n_f32(v198, v199.f32[0]);
@@ -6711,12 +6712,12 @@ LABEL_99:
           v204 = vmulq_laneq_f32(v198, v199, 3);
           v205 = &v127[v175.i32[1]];
           v94[1] = vaddq_f32(vmulq_laneq_f32(v205[3], v204, 3), vaddq_f32(vmulq_laneq_f32(v205[2], v204, 2), vaddq_f32(vmulq_lane_f32(v205[1], *v204.f32, 1), vaddq_f32(vmulq_n_f32(*v205, v204.f32[0]), vaddq_f32(vmulq_laneq_f32(*&v126[v175.i32[1] + 48], v203, 3), vaddq_f32(vmulq_laneq_f32(*&v126[v175.i32[1] + 32], v203, 2), vaddq_f32(vmulq_lane_f32(*&v126[v175.i32[1] + 16], *v203.f32, 1), vaddq_f32(vmulq_n_f32(*&v126[v175.i32[1]], v203.f32[0]), vaddq_f32(vmulq_laneq_f32(v202[3], v201, 3), vaddq_f32(vmulq_laneq_f32(v202[2], v201, 2), vaddq_f32(vmulq_lane_f32(v202[1], *v201.f32, 1), vaddq_f32(vmulq_n_f32(*v202, v201.f32[0]), vaddq_f32(vmulq_laneq_f32(*&v75[v175.i32[1] + 48], v200, 3), vaddq_f32(vmulq_laneq_f32(*&v75[v175.i32[1] + 32], v200, 2), vaddq_f32(vmulq_lane_f32(*&v75[v175.i32[1] + 16], *v200.f32, 1), vmulq_n_f32(*&v75[v175.i32[1]], v200.f32[0]))))))))))))))));
-          v206 = a1[5];
-          v207 = a1[6];
+          v206 = *(a1 + 80);
+          v207 = *(a1 + 96);
           v208 = vaddq_f32(v206, vmulq_laneq_f32(v207, v173, 2));
           v209 = vaddq_f32(v206, vmulq_laneq_f32(v207, v174, 2));
-          v211 = a1[3];
-          v210 = a1[4];
+          v211 = *(a1 + 48);
+          v210 = *(a1 + 64);
           v212 = vaddq_f32(v210, vmulq_laneq_f32(v209, v174, 2));
           v213 = vaddq_f32(v211, vmulq_laneq_f32(vaddq_f32(v210, vmulq_laneq_f32(v208, v173, 2)), v173, 2));
           v214 = vaddq_f32(v211, vmulq_laneq_f32(v212, v174, 2));
@@ -6729,13 +6730,13 @@ LABEL_99:
           v221 = &v127[v175.i32[2]];
           v222 = vmulq_laneq_f32(v213, v214, 3);
           v94[2] = vaddq_f32(vmulq_laneq_f32(v221[3], v222, 3), vaddq_f32(vmulq_laneq_f32(v221[2], v222, 2), vaddq_f32(vmulq_lane_f32(v221[1], *v222.f32, 1), vaddq_f32(vmulq_n_f32(*v221, v222.f32[0]), vaddq_f32(vmulq_laneq_f32(v219[3], v220, 3), vaddq_f32(vmulq_laneq_f32(v219[2], v220, 2), vaddq_f32(vmulq_lane_f32(v219[1], *v220.f32, 1), vaddq_f32(vmulq_n_f32(*v219, v220.f32[0]), v218))))))));
-          v223 = a1[5];
-          v224 = a1[6];
+          v223 = *(a1 + 80);
+          v224 = *(a1 + 96);
           v225 = vaddq_f32(v223, vmulq_laneq_f32(v224, v173, 3));
           v226 = vaddq_f32(v223, vmulq_laneq_f32(v224, v174, 3));
           v227 = vmulq_laneq_f32(v225, v173, 3);
-          v229 = a1[3];
-          v228 = a1[4];
+          v229 = *(a1 + 48);
+          v228 = *(a1 + 64);
           v230 = vaddq_f32(v229, vmulq_laneq_f32(vaddq_f32(v228, v227), v173, 3));
           v231 = vaddq_f32(v229, vmulq_laneq_f32(vaddq_f32(v228, vmulq_laneq_f32(v226, v174, 3)), v174, 3));
           v232 = vmulq_n_f32(v230, v231.f32[0]);
@@ -6775,13 +6776,13 @@ LABEL_99:
           goto LABEL_85;
         }
 
-        v248 = a1[5];
-        v249 = a1[6];
+        v248 = *(a1 + 80);
+        v249 = *(a1 + 96);
         v250 = vaddq_f32(v248, vmulq_laneq_f32(v249, v246, 2));
         v251 = vaddq_f32(v248, vmulq_laneq_f32(v249, v247, 2));
         v252 = vmulq_laneq_f32(v250, v246, 2);
-        v254 = a1[3];
-        v253 = a1[4];
+        v254 = *(a1 + 48);
+        v253 = *(a1 + 64);
         v255 = vaddq_f32(v254, vmulq_laneq_f32(vaddq_f32(v253, v252), v246, 2));
         v256 = vaddq_f32(v254, vmulq_laneq_f32(vaddq_f32(v253, vmulq_laneq_f32(v251, v247, 2)), v247, 2));
         v257 = vmulq_n_f32(v255, v256.f32[0]);
@@ -6794,13 +6795,13 @@ LABEL_99:
         v94[2] = vaddq_f32(vmulq_laneq_f32(v262[3], v263, 3), vaddq_f32(vmulq_laneq_f32(v262[2], v263, 2), vaddq_f32(vmulq_lane_f32(v262[1], *v263.f32, 1), vaddq_f32(vmulq_n_f32(*v262, v263.f32[0]), vaddq_f32(vmulq_laneq_f32(*&v126[v245.i32[2] + 48], v261, 3), vaddq_f32(vmulq_laneq_f32(*&v126[v245.i32[2] + 32], v261, 2), vaddq_f32(vmulq_lane_f32(*&v126[v245.i32[2] + 16], *v261.f32, 1), vaddq_f32(vmulq_n_f32(*&v126[v245.i32[2]], v261.f32[0]), v260))))))));
       }
 
-      v131 = a1[5];
-      v132 = a1[6];
+      v131 = *(a1 + 80);
+      v132 = *(a1 + 96);
       v133 = vaddq_f32(v131, vmulq_lane_f32(v132, *v246.f32, 1));
       v134 = vaddq_f32(v131, vmulq_lane_f32(v132, *v247.f32, 1));
       v135 = vmulq_lane_f32(v133, *v246.f32, 1);
-      v137 = a1[3];
-      v136 = a1[4];
+      v137 = *(a1 + 48);
+      v136 = *(a1 + 64);
       v138 = vaddq_f32(v137, vmulq_lane_f32(vaddq_f32(v136, v135), *v246.f32, 1));
       v139 = vaddq_f32(v137, vmulq_lane_f32(vaddq_f32(v136, vmulq_lane_f32(v134, *v247.f32, 1)), *v247.f32, 1));
       v140 = vmulq_n_f32(v138, v139.f32[0]);
@@ -6812,13 +6813,13 @@ LABEL_99:
       v146 = vmulq_laneq_f32(v138, v139, 3);
       v94[1] = vaddq_f32(vmulq_laneq_f32(v145[3], v146, 3), vaddq_f32(vmulq_laneq_f32(v145[2], v146, 2), vaddq_f32(vmulq_lane_f32(v145[1], *v146.f32, 1), vaddq_f32(vmulq_n_f32(*v145, v146.f32[0]), vaddq_f32(vmulq_laneq_f32(*&v126[v245.i32[1] + 48], v144, 3), vaddq_f32(vmulq_laneq_f32(*&v126[v245.i32[1] + 32], v144, 2), vaddq_f32(vmulq_lane_f32(*&v126[v245.i32[1] + 16], *v144.f32, 1), vaddq_f32(vmulq_n_f32(*&v126[v245.i32[1]], v144.f32[0]), v143))))))));
 LABEL_85:
-      v147 = a1[5];
-      v148 = a1[6];
+      v147 = *(a1 + 80);
+      v148 = *(a1 + 96);
       v149 = vaddq_f32(v147, vmulq_n_f32(v148, v246.f32[0]));
       v150 = vaddq_f32(v147, vmulq_n_f32(v148, v247.f32[0]));
       v151 = vmulq_n_f32(v149, v246.f32[0]);
-      v153 = a1[3];
-      v152 = a1[4];
+      v153 = *(a1 + 48);
+      v152 = *(a1 + 64);
       v154 = vaddq_f32(v153, vmulq_n_f32(vaddq_f32(v152, v151), v246.f32[0]));
       v155 = vaddq_f32(v153, vmulq_n_f32(vaddq_f32(v152, vmulq_n_f32(v150, v247.f32[0])), v247.f32[0]));
       v156 = v245.i32[0];
@@ -7085,7 +7086,7 @@ const char *HGRenderCinema::SetFXParameter(const char *result, const char *a2, c
       {
 LABEL_13:
 
-        return HGLogger::error("HGRenderCinema : Valid FX Parameter type not provided while setting parameter value.", a2, a3);
+        return HGLogger::error("HGRenderCinema : Valid FX Parameter type not provided while setting parameter value.", a2, a3, a4.n128_f64[0], a5.n128_f64[0], a6.n128_f64[0], a7.n128_f64[0]);
       }
 
       if (*(result + 106) != 2)
@@ -7121,7 +7122,7 @@ LABEL_13:
 
         v14 = "HGRenderCinema : Focus distance not set.";
 
-        return HGLogger::warning(v14, a2, a3);
+        return HGLogger::warning(v14, a2, a3, a4.n128_f64[0], a5.n128_f64[0], a6.n128_f64[0], a7.n128_f64[0]);
       }
 
       goto LABEL_13;
@@ -7131,7 +7132,7 @@ LABEL_13:
     {
       v14 = "HGRenderCinema : Aperture not set.";
 
-      return HGLogger::warning(v14, a2, a3);
+      return HGLogger::warning(v14, a2, a3, a4.n128_f64[0], a5.n128_f64[0], a6.n128_f64[0], a7.n128_f64[0]);
     }
 
     return HGCinematic::setAperture(v12, v11);
@@ -7218,7 +7219,7 @@ uint64_t HGRenderCinema::GetOutput(HGNode *this, HGRenderer *a2)
   if ((*(this + 106) | 4) == 4)
   {
     v6 = *(this + 51);
-    v7 = HGRenderer::GetInput(a2, this, 1u);
+    v7 = HGRenderer::GetInput(a2, this, 1);
     (*(*v6 + 120))(v6, 1, v7);
   }
 
@@ -7228,7 +7229,7 @@ uint64_t HGRenderCinema::GetOutput(HGNode *this, HGRenderer *a2)
     HGCinematic::HGCinematic(v9);
     v10 = HGRenderer::GetInput(a2, this, 0);
     (*(*v9 + 120))(v9, 0, v10);
-    v11 = HGRenderer::GetInput(a2, this, 1u);
+    v11 = HGRenderer::GetInput(a2, this, 1);
     (*(*v9 + 120))(v9, 1, v11);
     HGCinematic::setRenderDisparity(v9);
     (*(**(this + 51) + 120))(*(this + 51), 1, v9);
@@ -7304,17 +7305,18 @@ void HGRenderCinema::~HGRenderCinema(HGNode *this)
   HGObject::operator delete(v4);
 }
 
-void sub_25FCA8838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
+void sub_25FCA8838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   std::shared_ptr<HGPool::ServicingPolicy>::~shared_ptr[abi:ne200100](&a9);
-  MEMORY[0x2666E9F00](v11, 0x10B3C40C3EE8A59);
-  std::shared_ptr<HGPool::ServicingPolicy>::~shared_ptr[abi:ne200100](&a11);
+  MEMORY[0x2666E9F00](v10, 0x10B3C40C3EE8A59);
+  std::shared_ptr<HGPool::ServicingPolicy>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCA886C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FCA886C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<HGPool::ServicingPolicy>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7334,7 +7336,7 @@ void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Desc
     v2 = 0;
     do
     {
-      HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,false>::_pop_front((a1 + 152));
+      HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,false>::_pop_front((a1 + 152), 1);
       --v2;
     }
 
@@ -7350,68 +7352,68 @@ void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Desc
   std::mutex::unlock((a1 + 256));
 }
 
-void sub_25FCA923C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FCA923C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::shared_ptr<HGPool::ServicingPolicy>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCA9250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FCA9250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   std::shared_ptr<HGPool::ServicingPolicy>::~shared_ptr[abi:ne200100](va);
   std::shared_ptr<HGPool::ServicingPolicy>::~shared_ptr[abi:ne200100](va1);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCA927C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FCA927C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::shared_ptr<HGPool::ServicingPolicy>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCA9290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FCA9290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::shared_ptr<HGPool::ServicingPolicy>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCA92A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FCA92A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v7 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   std::shared_ptr<HGPool::ServicingPolicy>::~shared_ptr[abi:ne200100](va);
-  MEMORY[0x2666E9F00](v3, 0x10B3C40C3EE8A59);
+  MEMORY[0x2666E9F00](v5, 0x10B3C40C3EE8A59);
   std::shared_ptr<HGPool::ServicingPolicy>::~shared_ptr[abi:ne200100](va1);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCA92D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FCA92D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::shared_ptr<HGPool::ServicingPolicy>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor>::newObject(uint64_t a1, uint64_t a2, char a3)
+void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor>::newObject(uint64_t a1, __int128 *a2, char a3)
 {
   if ((a3 & 1) != 0 || (v4 = *(a1 + 32)) == 0)
   {
-    v5 = *(a2 + 32);
-    v6 = *(a2 + 48);
+    v5 = a2[2];
+    v6 = a2[3];
     v7 = *a2;
-    v8[1] = *(a2 + 16);
+    v8[1] = a2[1];
     v8[2] = v5;
     v8[3] = v6;
-    v9 = *(a2 + 64);
+    v9 = *(a2 + 8);
     v8[0] = v7;
   }
 
@@ -7439,7 +7441,7 @@ void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInf
     v2 = 0;
     do
     {
-      HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor,false>::_pop_front((a1 + 152));
+      HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor,false>::_pop_front((a1 + 152), 1);
       --v2;
     }
 
@@ -7484,17 +7486,17 @@ void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Desc
   JUMPOUT(0x2666E9F00);
 }
 
-void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>::service(uint64_t a1)
+void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>::service(std::mutex *a1)
 {
-  std::mutex::lock((a1 + 256));
-  if (HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,false>::service((a1 + 152), a1))
+  std::mutex::lock(a1 + 4);
+  if (HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,false>::service(&a1[2].__m_.__opaque[16], a1))
   {
-    (*(*a1 + 24))(a1);
-    (*(*a1 + 40))(a1);
+    (*(a1->__m_.__sig + 24))(a1);
+    (*(a1->__m_.__sig + 40))(a1);
     kdebug_trace();
   }
 
-  std::mutex::unlock((a1 + 256));
+  std::mutex::unlock(a1 + 4);
 }
 
 void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>::trace(std::mutex *a1)
@@ -7513,10 +7515,10 @@ void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Desc
   std::mutex::unlock(a1 + 4);
 }
 
-void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>::log(uint64_t a1, const char *a2)
+void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>::log(std::mutex *a1, const char *a2)
 {
-  v3 = (a1 + 344);
-  if (*(a1 + 367) < 0)
+  v3 = &a1[5].__m_.__opaque[16];
+  if (a1[5].__m_.__opaque[39] < 0)
   {
     v3 = *v3;
     if (HGLogger::getLevel(v3, a2) < 2)
@@ -7525,22 +7527,22 @@ void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Desc
     }
   }
 
-  else if (HGLogger::getLevel((a1 + 344), a2) < 2)
+  else if (HGLogger::getLevel(&a1[5].__m_.__opaque[16], a2) < 2)
   {
     return;
   }
 
-  std::mutex::lock((a1 + 256));
+  std::mutex::lock(a1 + 4);
   v6 = atomic_load(HGLogger::_enabled);
   if (v6)
   {
-    v7 = (a1 + 320);
-    if (*(a1 + 343) < 0)
+    sig = a1 + 5;
+    if (a1[5].__m_.__opaque[15] < 0)
     {
-      v7 = *v7;
+      sig = sig->__m_.__sig;
     }
 
-    HGLogger::log(v3, 2, "pool '%s' (%p)\n", v4, v5, v7, a1);
+    HGLogger::log(v3, 2, "pool '%s' (%p)\n", v4, v5, sig, a1);
   }
 
   HGLogger::indent(1);
@@ -7550,24 +7552,24 @@ void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Desc
     HGLogger::log(v3, 2, "live objects:\n", v8, v9);
   }
 
-  HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,true>::log((a1 + 48), v3);
+  HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,true>::log(&a1->__m_.__opaque[40], v3);
   v13 = atomic_load(HGLogger::_enabled);
   if (v13)
   {
     HGLogger::log(v3, 2, "free objects:\n", v11, v12);
   }
 
-  HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,false>::log((a1 + 152), v3);
+  HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,false>::log(&a1[2].__m_.__opaque[16], v3);
   HGLogger::indent(0xFFFFFFFFLL);
 
-  std::mutex::unlock((a1 + 256));
+  std::mutex::unlock(a1 + 4);
 }
 
 int64x2_t *HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,false>::~List(int64x2_t *a1)
 {
   while (a1[4].i64[1])
   {
-    HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,false>::_pop_front(a1);
+    HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,false>::_pop_front(a1, 1);
   }
 
   std::deque<HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>>::~deque[abi:ne200100](a1[2].i64);
@@ -7589,33 +7591,33 @@ int64x2_t *HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool
   return a1;
 }
 
-uint64_t HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,false>::_pop_front(int64x2_t *a1)
+uint64_t HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,false>::_pop_front(int64x2_t *a1, int a2)
 {
-  v2 = (*(a1[2].i64[1] + 8 * (a1[4].i64[0] / 0x2EuLL)) + 88 * (a1[4].i64[0] % 0x2EuLL));
-  v4 = *v2;
-  v3 = v2[1];
-  v5 = v2[2];
-  v6 = v2[3];
-  v7 = v2[4];
+  v3 = (*(a1[2].i64[1] + 8 * (a1[4].i64[0] / 0x2EuLL)) + 88 * (a1[4].i64[0] % 0x2EuLL));
+  v5 = *v3;
+  v4 = v3[1];
+  v6 = v3[2];
+  v7 = v3[3];
+  v8 = v3[4];
   atomic_fetch_add(a1[5].i64, 0xFFFFFFFFFFFFFFFFLL);
-  atomic_fetch_add(&a1[5].i64[1], -(v6 * v5 * HGMetalUtils::bytesPerPixel(v7)));
-  v8 = a1[2].i64[1];
-  v9 = vaddq_s64(a1[4], xmmword_260342880);
-  a1[4] = v9;
-  if (v9.i64[0] >= 0x5CuLL)
+  atomic_fetch_add(&a1[5].i64[1], -(v7 * v6 * HGMetalUtils::bytesPerPixel(v8)));
+  v9 = a1[2].i64[1];
+  v10 = vaddq_s64(a1[4], xmmword_260342880);
+  a1[4] = v10;
+  if (v10.i64[0] >= 0x5CuLL)
   {
-    operator delete(*v8);
+    operator delete(*v9);
     a1[2].i64[1] += 8;
     a1[4].i64[0] -= 46;
   }
 
-  HGMetalUtils::bytesPerPixel(v7);
+  HGMetalUtils::bytesPerPixel(v8);
   kdebug_trace();
   kdebug_trace();
-  (*(*a1->i64[0] + 24))(a1->i64[0], v4);
-  if (v3)
+  (*(*a1->i64[0] + 24))(a1->i64[0], v5);
+  if (v4)
   {
-    (*(*a1->i64[0] + 24))(a1->i64[0], v3);
+    (*(*a1->i64[0] + 24))(a1->i64[0], v4);
   }
 
   return kdebug_trace();
@@ -7737,38 +7739,51 @@ LABEL_3:
   return a1;
 }
 
-uint64_t HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,false>::service(int64x2_t *a1, uint64_t a2)
+uint64_t HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,false>::service(uint64_t a1, uint64_t a2)
 {
-  if (!a1[1].i64[0] || !a1[4].i64[1])
+  if (*(a1 + 16) && *(a1 + 72))
   {
-    return 0;
-  }
-
-  v4 = 0;
-  do
-  {
-    v5 = atomic_load(&a1[5]);
-    if (v5 <= (*(*a1[1].i64[0] + 16))(a1[1].i64[0], a2))
+    v4 = 0;
+    while (1)
     {
-      v6 = atomic_load(&a1[5].u64[1]);
-      if (v6 <= (*(*a1[1].i64[0] + 24))(a1[1].i64[0], a2))
+      v6 = atomic_load((a1 + 80));
+      if (v6 > (*(**(a1 + 16) + 16))(*(a1 + 16), a2))
       {
-        v7 = a1[4].u64[0];
-        v8 = *(a1[2].i64[1] + 8 * (v7 / 0x2E));
-        v9 = std::chrono::steady_clock::now().__d_.__rep_ - *(v8 + 88 * (v7 % 0x2E) + 64);
-        if (v9 <= (*(*a1[1].i64[0] + 32))(a1[1].i64[0], a2))
+        v5 = 4;
+      }
+
+      else
+      {
+        v7 = atomic_load((a1 + 88));
+        if (v7 <= (*(**(a1 + 16) + 24))(*(a1 + 16), a2))
         {
-          break;
+          v8 = *(a1 + 64);
+          v9 = *(*(a1 + 40) + 8 * (v8 / 0x2E));
+          v10 = std::chrono::steady_clock::now().__d_.__rep_ - *(v9 + 88 * (v8 % 0x2E) + 64);
+          if (v10 <= (*(**(a1 + 16) + 32))(*(a1 + 16), a2))
+          {
+            return v4;
+          }
+
+          v5 = 6;
+        }
+
+        else
+        {
+          v5 = 5;
         }
       }
-    }
 
-    HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,false>::_pop_front(a1);
-    ++v4;
+      HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,false>::_pop_front(a1, v5);
+      ++v4;
+      if (!*(a1 + 72))
+      {
+        return v4;
+      }
+    }
   }
 
-  while (a1[4].i64[1]);
-  return v4;
+  return 0;
 }
 
 void HGPool::EntryTrace<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>::trace(uint64_t a1)
@@ -7806,34 +7821,34 @@ void sub_25FCAACC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t HGPool::DescriptorString<HGMetalTexturePool::Descriptor>::str(uint64_t a1)
 {
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v10);
-  v2 = MEMORY[0x2666E9B80](&v11, *a1);
-  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, " x ", 3);
-  v4 = MEMORY[0x2666E9B80](v3, *(a1 + 8));
-  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, ", ", 2);
-  v6 = HGMetalUtils::toString(*(a1 + 16));
-  v7 = strlen(v6);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v6, v7);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v11);
+  v3 = MEMORY[0x2666E9B80](&v12, *a1);
+  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, " x ", 3);
+  v5 = MEMORY[0x2666E9B80](v4, *(a1 + 8));
+  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, ", ", 2);
+  v7 = HGMetalUtils::toString(*(a1 + 16));
+  v8 = strlen(v7);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v7, v8);
   std::stringbuf::str();
-  v10[0] = *MEMORY[0x277D82818];
-  v8 = *(MEMORY[0x277D82818] + 72);
-  *(v10 + *(v10[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v11 = v8;
-  v12 = MEMORY[0x277D82878] + 16;
-  if (v14 < 0)
+  v11[0] = *MEMORY[0x277D82818];
+  v9 = *(MEMORY[0x277D82818] + 72);
+  *(v11 + *(v11[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v12 = v9;
+  v13 = MEMORY[0x277D82878] + 16;
+  if (v15 < 0)
   {
-    operator delete(v13[7].__locale_);
+    operator delete(v14[7].__locale_);
   }
 
-  v12 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v13);
+  v13 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v14);
   std::iostream::~basic_iostream();
-  return MEMORY[0x2666E9E10](&v15);
+  return MEMORY[0x2666E9E10](&v16);
 }
 
-void sub_25FCAAEBC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FCAAEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -7985,7 +8000,7 @@ void sub_25FCAB1F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void HGPool::EntryLog<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>::log(uint64_t *a1, HGLogger *a2, const char *a3)
 {
   v6 = *a1;
-  v7 = (a1 + 2);
+  v7 = a1 + 2;
   v8 = a1[3] * a1[2];
   v9 = HGMetalUtils::bytesPerPixel(a1[4]);
   HGLoggerUtils::bytesPrettyString((v8 * v9));
@@ -8141,13 +8156,12 @@ void HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Desc
   operator new();
 }
 
-void sub_25FCABDF4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FCABDF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -8156,23 +8170,23 @@ void sub_25FCABDF4(_Unwind_Exception *a1, uint64_t a2, ...)
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   va_copy(va2, va1);
-  v14 = va_arg(va2, void);
-  v16 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   v17 = va_arg(va2, void);
   v18 = va_arg(va2, void);
+  v19 = va_arg(va2, void);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va1);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va2);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCABE18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FCABE18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -8185,6 +8199,7 @@ void sub_25FCABE18(_Unwind_Exception *a1, uint64_t a2, ...)
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va1);
   _Unwind_Resume(a1);
@@ -8343,16 +8358,16 @@ LABEL_25:
   return std::deque<HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>>::erase(a1 + 2, v22, v23);
 }
 
-void sub_25FCAC1C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FCAC1C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCAC1D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FCAC1D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va);
   _Unwind_Resume(a1);
 }
@@ -8377,7 +8392,7 @@ uint64_t std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture
   }
 }
 
-void **std::deque<HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>>::erase(int64x2_t *a1, void *a2, char *a3)
+void **std::deque<HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>>::erase(int64x2_t *a1, void *a2, const void **a3)
 {
   v6 = a1[2].u64[0];
   v7 = a1->i64[1];
@@ -8409,14 +8424,14 @@ LABEL_10:
 
   else
   {
-    v10 = *v9 + 88 * (v6 % 0x2E);
+    v10 = (*v9 + 88 * (v6 % 0x2E));
     if (a3 == v10)
     {
       goto LABEL_3;
     }
   }
 
-  v16 = 46 * (a2 - v9) + 0x2E8BA2E8BA2E8BA3 * (&a3[-*a2] >> 3);
+  v16 = 46 * (a2 - v9) + 0x2E8BA2E8BA2E8BA3 * ((a3 - *a2) >> 3);
   v17 = *v9;
   v18 = (v10 - *v9) >> 3;
   v11 = v16 - 0x2E8BA2E8BA2E8BA3 * v18;
@@ -8439,7 +8454,7 @@ LABEL_10:
   {
     v13 = &v9[-((45 - v16) / 0x2EuLL)];
     v19 = *v13;
-    a3 = *v13 + 88 * (46 * ((45 - v16) / 0x2EuLL) - (45 - v16)) + 3960;
+    a3 = (*v13 + 88 * (46 * ((45 - v16) / 0x2EuLL) - (45 - v16)) + 3960);
     v20 = a1[2].i64[1];
     if (v11 <= (v20 - 1) >> 1)
     {
@@ -8478,7 +8493,7 @@ LABEL_13:
   {
     v13 = &v9[v16 / 0x2EuLL];
     v19 = *v13;
-    a3 = *v13 + 88 * (v16 % 0x2EuLL);
+    a3 = (*v13 + 88 * (v16 % 0x2EuLL));
     v20 = a1[2].i64[1];
     if (v11 <= (v20 - 1) >> 1)
     {
@@ -8520,7 +8535,7 @@ LABEL_13:
   std::__for_each_segment[abi:ne200100]<std::__deque_iterator<HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>,HGMetalTexturePool::Descriptor*,HGMetalTexturePool::Descriptor&,HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>*,long,46l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>*,HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>*>>(v36, v37, v41, v42, v46);
   v29 = a1->i64[1];
   v43 = a1[1].i64[0];
-  v44 = 46 * (v43 - v29) - 1;
+  v44 = 46 * ((v43 - v29) >> 3) - 1;
   v28 = a1[2].u64[0];
   v45 = a1[2].i64[1];
   a1[2].i64[1] = v45 - 1;
@@ -8531,7 +8546,7 @@ LABEL_13:
 
   if (v44 - (v45 + v28) + 1 >= 0x5C)
   {
-    operator delete(*(v43 - 1));
+    operator delete(*(v43 - 8));
     v12 = 0;
     v29 = a1->i64[1];
     a1[1].i64[0] -= 8;
@@ -8577,7 +8592,7 @@ LABEL_15:
   return result;
 }
 
-void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>,HGMetalTexturePool::Descriptor*,HGMetalTexturePool::Descriptor&,HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>*,long,46l>,HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>*,0>@<X0>(const void **a1@<X1>, char *a2@<X2>, const void **a3@<X3>, char *a4@<X4>, const void **a5@<X5>, char *a6@<X6>, const void ***a7@<X8>)
+void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>,HGMetalTexturePool::Descriptor*,HGMetalTexturePool::Descriptor&,HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>*,long,46l>,HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>*,0>@<X0>(const void **a1@<X1>, const void **a2@<X2>, const void **a3@<X3>, const void **a4@<X4>, const void **a5@<X5>, char *a6@<X6>, const void ***a7@<X8>)
 {
   v8 = a5;
   v9 = a4;
@@ -8591,7 +8606,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
       v14 = a4;
       while (1)
       {
-        v16 = 0x2E8BA2E8BA2E8BA3 * (&a6[-v13] >> 3);
+        v16 = 0x2E8BA2E8BA2E8BA3 * ((a6 - v13) >> 3);
         if (0x2E8BA2E8BA2E8BA3 * ((v14 - a2) >> 3) < v16)
         {
           v16 = 0x2E8BA2E8BA2E8BA3 * ((v14 - a2) >> 3);
@@ -8611,7 +8626,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
 
         v18 = *--v8;
         v13 = v18;
-        a6 = (v18 + 4048);
+        a6 = v18 + 4048;
       }
 
       if (*v8 + 4048 == a6)
@@ -8636,7 +8651,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
       v22 = a4;
       while (1)
       {
-        v23 = 0x2E8BA2E8BA2E8BA3 * (&a6[-v21] >> 3);
+        v23 = 0x2E8BA2E8BA2E8BA3 * ((a6 - v21) >> 3);
         if (0x2E8BA2E8BA2E8BA3 * ((v22 - v20) >> 3) < v23)
         {
           v23 = 0x2E8BA2E8BA2E8BA3 * ((v22 - v20) >> 3);
@@ -8656,7 +8671,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
 
         v24 = *--v8;
         v21 = v24;
-        a6 = (v24 + 4048);
+        a6 = v24 + 4048;
       }
 
       if (*v8 + 4048 == a6)
@@ -8731,7 +8746,7 @@ LABEL_32:
       v34 = *v8;
       while (1)
       {
-        v35 = 0x2E8BA2E8BA2E8BA3 * (&a6[-v34] >> 3);
+        v35 = 0x2E8BA2E8BA2E8BA3 * ((a6 - v34) >> 3);
         if (0x2E8BA2E8BA2E8BA3 * ((v33 - a2) >> 3) < v35)
         {
           v35 = 0x2E8BA2E8BA2E8BA3 * ((v33 - a2) >> 3);
@@ -8751,7 +8766,7 @@ LABEL_32:
 
         v36 = *--v8;
         v34 = v36;
-        a6 = (v36 + 4048);
+        a6 = v36 + 4048;
       }
 
       if (*v8 + 4048 == a6)
@@ -9133,19 +9148,19 @@ uint64_t std::__function::__func<HGPool::MatchDescription<objc_object  {objcprot
   return 0;
 }
 
-void *std::deque<HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>>::__add_back_capacity(void *a1)
+void std::deque<HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x2E;
   v3 = v1 - 46;
   if (!v2)
   {
-    v7 = a1[2];
-    v6 = a1[3];
-    v8 = v6 - *a1;
-    if (v7 - a1[1] < v8)
+    v6 = a1[2];
+    v5 = a1[3];
+    v7 = v5 - *a1;
+    if (v6 - a1[1] < v7)
     {
-      if (v6 != v7)
+      if (v5 != v6)
       {
         operator new();
       }
@@ -9153,18 +9168,18 @@ void *std::deque<HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalText
       operator new();
     }
 
-    v9 = v8 >> 2;
-    if (v6 == *a1)
+    v8 = v7 >> 2;
+    if (v5 == *a1)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9;
+      v9 = v8;
     }
 
-    if (!(v10 >> 61))
+    if (!(v9 >> 61))
     {
       operator new();
     }
@@ -9174,9 +9189,9 @@ void *std::deque<HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalText
 
   a1[4] = v3;
   v4 = a1[1];
-  v11 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *,std::allocator<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *>>::emplace_back<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *&>(a1, &v11);
+  v10 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *,std::allocator<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *>>::emplace_back<HGPool::Entry<__CVBuffer *,HGCVPixelBufferPool::Descriptor> *&>(a1, &v10);
 }
 
 void sub_25FCAD5AC(_Unwind_Exception *a1)
@@ -9198,33 +9213,32 @@ void HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Desc
   operator new();
 }
 
-void sub_25FCAD7FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FCAD7FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v10 = va_arg(va2, void);
   v12 = va_arg(va2, void);
   v13 = va_arg(va2, void);
+  v14 = va_arg(va2, void);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va1);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va2);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCAD820(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FCAD820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -9232,50 +9246,50 @@ void sub_25FCAD820(_Unwind_Exception *a1, uint64_t a2, ...)
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va1);
   _Unwind_Resume(a1);
 }
 
-void HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,false>::retrieveObject(uint64_t a1, uint64_t *a2)
+void HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor,false>::retrieveObject(void *a1, uint64_t *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = *a2;
+  v7 = 0;
+  v8 = v3;
+  v4 = 0;
+  v5 = v3;
   v6 = 0;
-  v7 = v2;
-  v3 = 0;
-  v4 = v2;
-  v5 = 0;
   operator new();
 }
 
-void sub_25FCADA34(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FCADA34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v10 = va_arg(va2, void);
   v12 = va_arg(va2, void);
   v13 = va_arg(va2, void);
+  v14 = va_arg(va2, void);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va1);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va2);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCADA58(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FCADA58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -9283,6 +9297,7 @@ void sub_25FCADA58(_Unwind_Exception *a1, uint64_t a2, ...)
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va1);
   _Unwind_Resume(a1);
@@ -9441,16 +9456,16 @@ LABEL_25:
   return std::deque<HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor>>::erase(a1 + 2, v22, v23);
 }
 
-void sub_25FCADE00(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FCADE00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FCADE14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FCADE14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::function<BOOL ()(HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTexturePool::Descriptor> const&)>::~function(va);
   _Unwind_Resume(a1);
 }
@@ -9609,17 +9624,17 @@ void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInf
   JUMPOUT(0x2666E9F00);
 }
 
-void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor>::service(uint64_t a1)
+void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor>::service(std::mutex *a1)
 {
-  std::mutex::lock((a1 + 256));
-  if (HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor,false>::service((a1 + 152), a1))
+  std::mutex::lock(a1 + 4);
+  if (HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor,false>::service(&a1[2].__m_.__opaque[16], a1))
   {
-    (*(*a1 + 24))(a1);
-    (*(*a1 + 40))(a1);
+    (*(a1->__m_.__sig + 24))(a1);
+    (*(a1->__m_.__sig + 40))(a1);
     kdebug_trace();
   }
 
-  std::mutex::unlock((a1 + 256));
+  std::mutex::unlock(a1 + 4);
 }
 
 void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor>::trace(std::mutex *a1)
@@ -9638,10 +9653,10 @@ void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInf
   std::mutex::unlock(a1 + 4);
 }
 
-void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor>::log(uint64_t a1, const char *a2)
+void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor>::log(std::mutex *a1, const char *a2)
 {
-  v3 = (a1 + 344);
-  if (*(a1 + 367) < 0)
+  v3 = &a1[5].__m_.__opaque[16];
+  if (a1[5].__m_.__opaque[39] < 0)
   {
     v3 = *v3;
     if (HGLogger::getLevel(v3, a2) < 2)
@@ -9650,22 +9665,22 @@ void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInf
     }
   }
 
-  else if (HGLogger::getLevel((a1 + 344), a2) < 2)
+  else if (HGLogger::getLevel(&a1[5].__m_.__opaque[16], a2) < 2)
   {
     return;
   }
 
-  std::mutex::lock((a1 + 256));
+  std::mutex::lock(a1 + 4);
   v6 = atomic_load(HGLogger::_enabled);
   if (v6)
   {
-    v7 = (a1 + 320);
-    if (*(a1 + 343) < 0)
+    sig = a1 + 5;
+    if (a1[5].__m_.__opaque[15] < 0)
     {
-      v7 = *v7;
+      sig = sig->__m_.__sig;
     }
 
-    HGLogger::log(v3, 2, "pool '%s' (%p)\n", v4, v5, v7, a1);
+    HGLogger::log(v3, 2, "pool '%s' (%p)\n", v4, v5, sig, a1);
   }
 
   HGLogger::indent(1);
@@ -9675,24 +9690,24 @@ void HGPool::Pool<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInf
     HGLogger::log(v3, 2, "live objects:\n", v8, v9);
   }
 
-  HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor,true>::log((a1 + 48), v3);
+  HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor,true>::log(&a1->__m_.__opaque[40], v3);
   v13 = atomic_load(HGLogger::_enabled);
   if (v13)
   {
     HGLogger::log(v3, 2, "free objects:\n", v11, v12);
   }
 
-  HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor,false>::log((a1 + 152), v3);
+  HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor,false>::log(&a1[2].__m_.__opaque[16], v3);
   HGLogger::indent(0xFFFFFFFFLL);
 
-  std::mutex::unlock((a1 + 256));
+  std::mutex::unlock(a1 + 4);
 }
 
 int64x2_t *HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor,false>::~List(int64x2_t *a1)
 {
   while (a1[4].i64[1])
   {
-    HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor,false>::_pop_front(a1);
+    HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor,false>::_pop_front(a1, 1);
   }
 
   std::deque<HGPool::Entry<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor>>::~deque[abi:ne200100](a1[2].i64);
@@ -9714,38 +9729,38 @@ int64x2_t *HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrap
   return a1;
 }
 
-uint64_t HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor,false>::_pop_front(int64x2_t *a1)
+uint64_t HGPool::List<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor,false>::_pop_front(int64x2_t *a1, uint64_t a2)
 {
-  v2 = (*(a1[2].i64[1] + 8 * (a1[4].i64[0] / 0x24uLL)) + 112 * (a1[4].i64[0] % 0x24uLL));
-  v4 = v2[1];
-  v3 = v2[2];
-  v11 = *v2;
-  v12 = v4;
-  v13 = v3;
-  v5 = v2[6];
-  v7 = v2[3];
-  v6 = v2[4];
-  v16 = v2[5];
-  v17 = v5;
-  v14 = v7;
-  v15 = v6;
+  v3 = (*(a1[2].i64[1] + 8 * (a1[4].i64[0] / 0x24uLL)) + 112 * (a1[4].i64[0] % 0x24uLL));
+  v5 = v3[1];
+  v4 = v3[2];
+  v12 = *v3;
+  v13 = v5;
+  v14 = v4;
+  v6 = v3[6];
+  v8 = v3[3];
+  v7 = v3[4];
+  v17 = v3[5];
+  v18 = v6;
+  v15 = v8;
+  v16 = v7;
   atomic_fetch_add(a1[5].i64, 0xFFFFFFFFFFFFFFFFLL);
-  atomic_fetch_add(&a1[5].i64[1], -*(&v12 + 1));
-  v8 = a1[2].i64[1];
-  v9 = vaddq_s64(a1[4], xmmword_260342880);
-  a1[4] = v9;
-  if (v9.i64[0] >= 0x48uLL)
+  atomic_fetch_add(&a1[5].i64[1], -*(&v13 + 1));
+  v9 = a1[2].i64[1];
+  v10 = vaddq_s64(a1[4], xmmword_260342880);
+  a1[4] = v10;
+  if (v10.i64[0] >= 0x48uLL)
   {
-    operator delete(*v8);
+    operator delete(*v9);
     a1[2].i64[1] += 8;
     a1[4].i64[0] -= 36;
   }
 
-  HGPool::EntryEventHandler<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor>::deleted(&v11);
+  HGPool::EntryEventHandler<objc_object  {objcproto10MTLTexture}*,HGMetalTextureWrapperInfinipool::Descriptor>::deleted(&v12);
   kdebug_trace();
   kdebug_trace();
-  (*(*a1->i64[0] + 24))(a1->i64[0], v11);
-  if (*(&v11 + 1))
+  (*(*a1->i64[0] + 24))(a1->i64[0], v12);
+  if (*(&v12 + 1))
   {
     (*(*a1->i64[0] + 24))();
   }
@@ -9786,33 +9801,4 @@ void sub_25FCAECFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
-}
-
-uint64_t HGPool::DescriptorString<HGMetalTextureWrapperInfinipool::Descriptor>::str(uint64_t a1)
-{
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v12);
-  v2 = MEMORY[0x2666E9B80](&v13, *(a1 + 32));
-  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, " x ", 3);
-  v4 = MEMORY[0x2666E9B80](v3, *(a1 + 40));
-  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, ", ", 2);
-  v6 = HGMetalUtils::toString(*(a1 + 48));
-  v7 = strlen(v6);
-  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v6, v7);
-  v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ", ptr=", 6);
-  MEMORY[0x2666E9B10](v9, *a1);
-  std::stringbuf::str();
-  v12[0] = *MEMORY[0x277D82818];
-  v10 = *(MEMORY[0x277D82818] + 72);
-  *(v12 + *(v12[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v13 = v10;
-  v14 = MEMORY[0x277D82878] + 16;
-  if (v16 < 0)
-  {
-    operator delete(v15[7].__locale_);
-  }
-
-  v14 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v15);
-  std::iostream::~basic_iostream();
-  return MEMORY[0x2666E9E10](&v17);
 }

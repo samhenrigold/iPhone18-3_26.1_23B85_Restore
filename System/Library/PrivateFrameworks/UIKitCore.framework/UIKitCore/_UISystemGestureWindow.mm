@@ -89,7 +89,7 @@ LABEL_13:
 
   if (_UIApplicationProcessIsSpringBoard() && !_systemGestureView)
   {
-    [(_UIRootWindow *)self _additionalRootLayerAffineTransform];
+    objc_msgSend__additionalRootLayerAffineTransform(self);
     if (CGAffineTransformIsIdentity(&v9))
     {
       _systemGestureView = 0;

@@ -7,6 +7,7 @@
 - (UITextField)entryField;
 - (id)generateExampleLabelText;
 - (void)autofillValue:(id)value;
+- (void)entryFieldContentDidChange:(id)change validator:(id)validator userEntered:(BOOL)entered;
 @end
 
 @implementation IPPronounPickerPronounInfo
@@ -34,7 +35,7 @@
 
 - (UITextField)entryField
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   entryField = self->_entryField;
   if (!entryField)
   {
@@ -50,8 +51,8 @@
     v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     localizations = [v9 localizations];
     language2 = [(IPPronounPickerPronounInfo *)self language];
-    v22[0] = language2;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v21[0] = language2;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
     v13 = [v8 preferredLocalizationsFromArray:localizations forPreferences:v12];
     firstObject = [v13 firstObject];
 
@@ -73,8 +74,6 @@
     [(UITextField *)self->_entryField setAdjustsFontForContentSizeCategory:1];
     entryField = self->_entryField;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return entryField;
 }
@@ -152,6 +151,46 @@
   return hasValue;
 }
 
+- (void)entryFieldContentDidChange:(id)change validator:(id)validator userEntered:(BOOL)entered
+{
+  enteredCopy = entered;
+  changeCopy = change;
+  validatorCopy = validator;
+  [(IPPronounPickerPronounInfo *)self setValue:0];
+  [(IPPronounPickerPronounInfo *)self setValidationErrorMessage:0];
+  [(IPPronounPickerPronounInfo *)self setTextWasEnteredByUser:enteredCopy];
+  if (changeCopy && [changeCopy length])
+  {
+    if ([validatorCopy pronounIsValidLength:changeCopy])
+    {
+      if ([validatorCopy pronounHasValidChars:changeCopy])
+      {
+        [(IPPronounPickerPronounInfo *)self setValue:changeCopy];
+      }
+
+      else
+      {
+        v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v14 = [v13 localizedStringForKey:@"Pronouns cannot include special characters." value:&stru_286773B58 table:@"PronounPicker"];
+        [(IPPronounPickerPronounInfo *)self setValidationErrorMessage:v14];
+      }
+    }
+
+    else
+    {
+      v9 = MEMORY[0x277CCACA8];
+      v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v11 = [v10 localizedStringForKey:@"Pronouns cannot exceed %ld characters." value:&stru_286773B58 table:@"PronounPicker"];
+      v12 = [v9 localizedStringWithFormat:v11, objc_msgSend(validatorCopy, "maxPronounLength")];
+      [(IPPronounPickerPronounInfo *)self setValidationErrorMessage:v12];
+    }
+  }
+
+  generateExampleLabelText = [(IPPronounPickerPronounInfo *)self generateExampleLabelText];
+  exampleLabel = [(IPPronounPickerPronounInfo *)self exampleLabel];
+  [exampleLabel setAttributedText:generateExampleLabelText];
+}
+
 - (void)autofillValue:(id)value
 {
   valueCopy = value;
@@ -168,17 +207,17 @@
 
 - (id)generateExampleLabelText
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   validationErrorMessage = [(IPPronounPickerPronounInfo *)self validationErrorMessage];
 
   if (validationErrorMessage)
   {
     v4 = objc_alloc(MEMORY[0x277CCA898]);
     validationErrorMessage2 = [(IPPronounPickerPronounInfo *)self validationErrorMessage];
-    v25 = *MEMORY[0x277D740C0];
+    v23 = *MEMORY[0x277D740C0];
     systemRedColor = [MEMORY[0x277D75348] systemRedColor];
-    v26[0] = systemRedColor;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24[0] = systemRedColor;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v8 = [v4 initWithString:validationErrorMessage2 attributes:v7];
   }
 
@@ -190,16 +229,15 @@
     systemRedColor = [v9 initWithString:exampleText];
 
     v11 = *MEMORY[0x277D741F0];
-    v24[0] = &unk_286774E30;
+    v22[0] = &unk_286774E30;
     v12 = *MEMORY[0x277D740A8];
-    v23[0] = v11;
-    v23[1] = v12;
+    v21[0] = v11;
+    v21[1] = v12;
     v13 = MEMORY[0x277D74300];
     [validationErrorMessage2 pointSize];
-    v14 = *MEMORY[0x277D743F8];
-    v15 = [v13 systemFontOfSize:? weight:?];
-    v24[1] = v15;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v14 = [v13 systemFontOfSize:? weight:?];
+    v22[1] = v14;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
 
     if ([(IPPronounPickerPronounInfo *)self hasValue])
     {
@@ -210,22 +248,20 @@
     {
       [(IPPronounPickerPronounInfo *)self examplePlaceholder];
     }
-    v16 = ;
+    v15 = ;
     exampleText2 = [(IPPronounPickerPronounInfo *)self exampleText];
-    v18 = [exampleText2 hasPrefix:@"%@"];
+    v17 = [exampleText2 hasPrefix:@"%@"];
 
-    if (v18)
+    if (v17)
     {
-      localizedCapitalizedString = [v16 localizedCapitalizedString];
+      localizedCapitalizedString = [v15 localizedCapitalizedString];
 
-      v16 = localizedCapitalizedString;
+      v15 = localizedCapitalizedString;
     }
 
-    v20 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v16 attributes:v7];
-    v8 = [MEMORY[0x277CCA898] localizedAttributedStringWithFormat:systemRedColor, v20];
+    v19 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v15 attributes:v7];
+    v8 = [MEMORY[0x277CCA898] localizedAttributedStringWithFormat:systemRedColor, v19];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

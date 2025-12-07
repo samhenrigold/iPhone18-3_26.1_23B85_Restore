@@ -3,7 +3,7 @@
 + (BOOL)isSyncPolicyDisabledForFeature:(unint64_t)feature transportType:(int64_t)type;
 + (BOOL)rapportSyncDisabled;
 + (NSObject)configurationPlistForFilename:(uint64_t)filename;
-+ (id)_policyForSyncTransportType:(uint64_t)type;
++ (_DKSync2Policy)_policyForSyncTransportType:(uint64_t)type;
 + (id)disabledFeaturesForSyncType:(id)type transports:(int64_t)transports;
 + (id)featureNameFromFeatureType:(unint64_t)type;
 + (id)getDisabledFeaturesForTransportType:(uint64_t)type;
@@ -15,6 +15,7 @@
 + (id)removeDisabledFeaturesStreamsForTransportType:(void *)type fromDictionary:;
 + (id)syncPolicyConfigPathForFilename:(uint64_t)filename;
 + (id)userDefaults;
++ (void)disableSyncPolicyForFeature:(unint64_t)feature transportType:(int64_t)type disabled:(BOOL)disabled;
 + (void)handleDownloadSyncPolicyResponse:(void *)response data:(void *)data error:;
 + (void)possiblyDownloadSyncPolicyWithPolicyDownloadIntervalInDays:(uint64_t)days;
 + (void)setOkToDownloadPolicyUpdates:(BOOL)updates;
@@ -37,9 +38,9 @@
 + (id)userDefaults
 {
   objc_opt_self();
-  v0 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.CoreDuet"];
+  v1 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.CoreDuet"];
 
-  return v0;
+  return v1;
 }
 
 + (id)policyCache
@@ -50,70 +51,68 @@
     +[_DKSync2Policy policyCache];
   }
 
-  v0 = policyCache_policyCache;
+  v1 = policyCache_policyCache;
 
-  return v0;
+  return v1;
 }
 
 + (id)policyForSyncTransportType:(int64_t)type
 {
   v20 = *MEMORY[0x1E69E9840];
-  v4 = @"CloudDown";
-  v5 = &stru_1F05B9908;
+  v5 = @"CloudDown";
+  v6 = &stru_1F05B9908;
   if (type == 8)
   {
-    v5 = @"CloudUp";
+    v6 = @"CloudUp";
   }
 
   if (type != 4)
   {
-    v4 = v5;
+    v5 = v6;
   }
 
   if (type == 1)
   {
-    v6 = @"Rapport";
+    v7 = @"Rapport";
   }
 
   else
   {
-    v6 = v4;
+    v7 = v5;
   }
 
-  v7 = +[_DKSync2Policy policyCache];
-  v8 = [v7 objectForKey:v6];
+  v8 = +[(_DKSync2Policy *)self];
+  v9 = [v8 objectForKey:v7];
 
-  if (!v8)
+  if (!v9)
   {
-    v8 = [_DKSync2Policy _policyForSyncTransportType:type];
-    if (v8)
+    v9 = [_DKSync2Policy _policyForSyncTransportType:type];
+    if (v9)
     {
-      v9 = +[_DKSync2Policy policyCache];
-      [v9 setObject:v8 forKey:v6];
+      v10 = +[(_DKSync2Policy *)self];
+      [v10 setObject:v9 forKey:v7];
 
-      v10 = +[_CDLogging syncChannel];
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = +[_CDLogging syncChannel];
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         v13 = [objc_opt_class() description];
         v14 = 138543874;
         v15 = v13;
         v16 = 2114;
-        v17 = v6;
+        v17 = v7;
         v18 = 2114;
-        v19 = v8;
-        _os_log_debug_impl(&dword_191750000, v10, OS_LOG_TYPE_DEBUG, "%{public}@: Policy for transport %{public}@: %{public}@", &v14, 0x20u);
+        v19 = v9;
+        _os_log_debug_impl(&dword_191750000, v11, OS_LOG_TYPE_DEBUG, "%{public}@: Policy for transport %{public}@: %{public}@", &v14, 0x20u);
       }
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v9;
 }
 
-+ (id)_policyForSyncTransportType:(uint64_t)type
++ (_DKSync2Policy)_policyForSyncTransportType:(uint64_t)type
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_self();
   switch(a2)
   {
@@ -138,7 +137,7 @@ LABEL_7:
       [v7 floatValue];
       v9 = v8;
 
-      v10 = +[_DKSync2Policy userDefaults];
+      v10 = +[(_DKSync2Policy *)v3];
       v11 = [v10 objectForKey:@"CloudSync2Policies"];
 
       objc_opt_class();
@@ -178,15 +177,15 @@ LABEL_7:
               v18 = +[_CDLogging syncChannel];
               if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
               {
-                v30 = [objc_opt_class() description];
+                v29 = [objc_opt_class() description];
                 *buf = 138543618;
-                v32 = v30;
-                v33 = 2112;
-                v34 = v14;
+                v31 = v29;
+                v32 = 2112;
+                v33 = v14;
                 _os_log_impl(&dword_191750000, v18, OS_LOG_TYPE_INFO, "%{public}@: Cloud policy for %@ is invalid and/or old. Removing saved policies from defaults.", buf, 0x16u);
               }
 
-              v19 = +[_DKSync2Policy userDefaults];
+              v19 = +[(_DKSync2Policy *)v3];
               [v19 removeObjectForKey:@"CloudSync2Policies"];
 
               v15 = MEMORY[0x1E695E0F8];
@@ -200,13 +199,13 @@ LABEL_7:
           v20 = +[_CDLogging syncChannel];
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
-            v29 = [objc_opt_class() description];
+            v28 = [objc_opt_class() description];
             *buf = 138543874;
-            v32 = v29;
-            v33 = 2114;
-            v34 = v14;
-            v35 = 2114;
-            v36 = v15;
+            v31 = v28;
+            v32 = 2114;
+            v33 = v14;
+            v34 = 2114;
+            v35 = v15;
             _os_log_debug_impl(&dword_191750000, v20, OS_LOG_TYPE_DEBUG, "%{public}@: Using remote policy override for %{public}@: %{public}@", buf, 0x20u);
           }
         }
@@ -214,7 +213,7 @@ LABEL_7:
         [v5 addEntriesFromDictionary:v15];
       }
 
-      v21 = +[_DKSync2Policy userDefaults];
+      v21 = +[(_DKSync2Policy *)v3];
       v22 = [v21 objectForKey:@"CloudSync2Policy"];
 
       objc_opt_class();
@@ -243,7 +242,7 @@ LABEL_7:
         {
           v26 = [objc_opt_class() description];
           *buf = 138543362;
-          v32 = v26;
+          v31 = v26;
           _os_log_impl(&dword_191750000, v25, OS_LOG_TYPE_INFO, "%{public}@: Enabling sync due to unit testing", buf, 0xCu);
         }
 
@@ -258,12 +257,10 @@ LABEL_7:
   v5 = +[_CDLogging syncChannel];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    +[_DKSync2Policy _policyForSyncTransportType:];
+    [(_DKSync2Policy *)v3 _policyForSyncTransportType:v5];
   }
 
 LABEL_45:
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
@@ -275,10 +272,10 @@ LABEL_45:
     return @"ScreenTime";
   }
 
-  v4 = +[_CDLogging syncChannel];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = +[_CDLogging syncChannel];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    +[_DKSync2Policy featureNameFromFeatureType:];
+    [(_DKSync2Policy *)self featureNameFromFeatureType:v5];
   }
 
   return 0;
@@ -306,12 +303,65 @@ LABEL_45:
   return v4;
 }
 
++ (void)disableSyncPolicyForFeature:(unint64_t)feature transportType:(int64_t)type disabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  v27 = *MEMORY[0x1E69E9840];
+  v7 = [_DKSync2Policy featureNameFromFeatureType:feature];
+  v8 = _DKSyncTransportName(type);
+  v9 = +[_CDLogging syncChannel];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    v10 = [objc_opt_class() description];
+    v21 = 138543874;
+    v22 = v10;
+    v23 = 2114;
+    v24 = v7;
+    v25 = 2114;
+    v26 = v8;
+    _os_log_impl(&dword_191750000, v9, OS_LOG_TYPE_INFO, "%{public}@: Disable sync policy for feature: %{public}@ on transport: %{public}@", &v21, 0x20u);
+  }
+
+  v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v12 = +[_DKSync2Policy userDefaults];
+  v13 = [v12 valueForKey:@"DKSync2PolicyDisableSyncForFeature"];
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    [v11 addEntriesFromDictionary:v13];
+  }
+
+  v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v15 = [v11 valueForKey:v7];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    [v14 addEntriesFromDictionary:v15];
+  }
+
+  v16 = [MEMORY[0x1E696AD98] numberWithBool:disabledCopy];
+  [v14 setValue:v16 forKey:v8];
+
+  [v11 setValue:v14 forKey:v7];
+  v17 = +[_DKSync2Policy userDefaults];
+  [v17 setValue:v11 forKey:@"DKSync2PolicyDisableSyncForFeature"];
+
+  v18 = _DKSync2PolicyDisableSyncPolicyForFeatures;
+  _DKSync2PolicyDisableSyncPolicyForFeatures = v11;
+  v19 = v11;
+
+  v20 = +[_DKSync2Policy policyCache];
+
+  [v20 removeAllObjects];
+}
+
 + (id)getDisabledFeaturesForTransportType:(uint64_t)type
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   v3 = _DKSyncTransportName(a2);
-  v34 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v33 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v4 = &getkUTTypeEmailMessageSymbolLoc_ptr;
   v5 = _DKSync2PolicyDisableSyncPolicyForFeatures;
   v6 = 0x1E7366000uLL;
@@ -334,46 +384,46 @@ LABEL_45:
     }
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = v5;
-  v13 = [obj countByEnumeratingWithState:&v36 objects:v47 count:16];
+  v13 = [obj countByEnumeratingWithState:&v35 objects:v46 count:16];
   if (v13)
   {
     v15 = v13;
-    v16 = *v37;
+    v16 = *v36;
     *&v14 = 138543874;
-    v33 = v14;
+    v32 = v14;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v37 != v16)
+        if (*v36 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v36 + 1) + 8 * i);
-        v19 = [v4[75] valueForKey:{v18, v33}];
+        v18 = *(*(&v35 + 1) + 8 * i);
+        v19 = [v4[75] valueForKey:{v18, v32}];
         v20 = [v19 valueForKey:v3];
         if ([v20 BOOLValue])
         {
           v21 = v16;
           v22 = [*(v6 + 2312) internalFeatureNameFromFeatureName:v18];
-          [v34 addObject:v22];
+          [v33 addObject:v22];
 
           v23 = +[_CDLogging syncChannel];
           if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
           {
             v24 = [objc_opt_class() description];
-            *buf = v33;
-            v42 = v24;
-            v43 = 2114;
-            v44 = v18;
-            v45 = 2114;
-            v46 = v3;
+            *buf = v32;
+            v41 = v24;
+            v42 = 2114;
+            v43 = v18;
+            v44 = 2114;
+            v45 = v3;
             _os_log_impl(&dword_191750000, v23, OS_LOG_TYPE_INFO, "%{public}@: Sync policy is disabled for feature: %{public}@ on transport: %{public}@", buf, 0x20u);
 
             v4 = &getkUTTypeEmailMessageSymbolLoc_ptr;
@@ -384,7 +434,7 @@ LABEL_45:
         }
       }
 
-      v15 = [obj countByEnumeratingWithState:&v36 objects:v47 count:16];
+      v15 = [obj countByEnumeratingWithState:&v35 objects:v46 count:16];
     }
 
     while (v15);
@@ -392,16 +442,16 @@ LABEL_45:
 
   if (_os_feature_enabled_impl())
   {
-    v40[0] = @"Eucalyptus";
-    v40[1] = @"IDSMessageGating";
-    v40[2] = @"OptimizedBatteryCharging";
-    v40[3] = @"SiriPortrait";
-    v40[4] = @"Supergreen";
-    v40[5] = @"Tips";
-    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:6];
-    [v34 addObjectsFromArray:v25];
+    v39[0] = @"Eucalyptus";
+    v39[1] = @"IDSMessageGating";
+    v39[2] = @"OptimizedBatteryCharging";
+    v39[3] = @"SiriPortrait";
+    v39[4] = @"Supergreen";
+    v39[5] = @"Tips";
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:6];
+    [v33 addObjectsFromArray:v25];
 
-    LODWORD(v25) = [v34 containsObject:@"DigitalHealth"];
+    LODWORD(v25) = [v33 containsObject:@"DigitalHealth"];
     v26 = +[_CDLogging syncChannel];
     v27 = os_log_type_enabled(v26, OS_LOG_TYPE_INFO);
     if (v25)
@@ -410,7 +460,7 @@ LABEL_45:
       {
         v28 = [objc_opt_class() description];
         *buf = 138543362;
-        v42 = v28;
+        v41 = v28;
         v29 = "%{public}@: Sync is decommisioned on this platform. All features, except DigitalHealth, have been disabled";
 LABEL_21:
         _os_log_impl(&dword_191750000, v26, OS_LOG_TYPE_INFO, v29, buf, 0xCu);
@@ -421,22 +471,20 @@ LABEL_21:
     {
       v28 = [objc_opt_class() description];
       *buf = 138543362;
-      v42 = v28;
+      v41 = v28;
       v29 = "%{public}@: Sync is decommisioned on this platform. All features, including DigitalHealth, have been disabled";
       goto LABEL_21;
     }
   }
 
-  allObjects = [v34 allObjects];
-
-  v31 = *MEMORY[0x1E69E9840];
+  allObjects = [v33 allObjects];
 
   return allObjects;
 }
 
 + (id)removeDisabledFeaturesStreamsForTransportType:(void *)type fromDictionary:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   objc_opt_self();
   v5 = [_DKSync2Policy getDisabledFeaturesForTransportType:a2];
@@ -444,34 +492,34 @@ LABEL_21:
   if ([v5 count] && objc_msgSend(v6, "count"))
   {
     v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
-          if (([v5 containsObject:{v13, v18}] & 1) == 0)
+          v13 = *(*(&v17 + 1) + 8 * i);
+          if (([v5 containsObject:{v13, v17}] & 1) == 0)
           {
             v14 = [v8 valueForKey:v13];
             [v7 setValue:v14 forKey:v13];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
@@ -487,16 +535,14 @@ LABEL_21:
     {
       v15 = [objc_opt_class() description];
       *buf = 138543874;
-      v24 = v15;
-      v25 = 2048;
-      v26 = [v5 count];
-      v27 = 2048;
-      v28 = [v6 count];
+      v23 = v15;
+      v24 = 2048;
+      v25 = [v5 count];
+      v26 = 2048;
+      v27 = [v6 count];
       _os_log_impl(&dword_191750000, v7, OS_LOG_TYPE_INFO, "%{public}@: No disabled features, featuresCount = %lu, originalFeatureCount = %lu", buf, 0x20u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return typeCopy;
 }
@@ -535,7 +581,7 @@ LABEL_9:
 
 + (BOOL)rapportSyncDisabled
 {
-  v2 = +[_DKSync2Policy userDefaults];
+  v2 = +[(_DKSync2Policy *)self];
   v3 = [v2 objectForKey:@"CloudSync2Policy"];
 
   objc_opt_class();
@@ -555,7 +601,7 @@ LABEL_9:
 
 + (BOOL)isSyncPolicyDisabledForFeature:(unint64_t)feature transportType:(int64_t)type
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = [_DKSync2Policy policyForSyncTransportType:type];
   v6 = v5;
   if (v5 && ![v5 syncDisabled])
@@ -568,15 +614,15 @@ LABEL_9:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = [objc_opt_class() description];
-      v18 = 138544130;
-      v19 = v15;
-      v20 = 2112;
-      v21 = v7;
-      v22 = 2112;
-      v23 = v10;
-      v24 = 2048;
-      v25 = [v12 count];
-      _os_log_impl(&dword_191750000, v14, OS_LOG_TYPE_INFO, "%{public}@: isSyncPolicyDisabledForFeature: featureName:%@ internal:%@ streamNamesToSync.count = %lu", &v18, 0x2Au);
+      v17 = 138544130;
+      v18 = v15;
+      v19 = 2112;
+      v20 = v7;
+      v21 = 2112;
+      v22 = v10;
+      v23 = 2048;
+      v24 = [v12 count];
+      _os_log_impl(&dword_191750000, v14, OS_LOG_TYPE_INFO, "%{public}@: isSyncPolicyDisabledForFeature: featureName:%@ internal:%@ streamNamesToSync.count = %lu", &v17, 0x2Au);
     }
 
     v8 = v13 == 0;
@@ -595,21 +641,20 @@ LABEL_9:
       v11 = @"is nil";
     }
 
-    v18 = 138543618;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v11;
-    _os_log_impl(&dword_191750000, v7, OS_LOG_TYPE_INFO, "%{public}@: Sync Policy %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v9;
+    v19 = 2112;
+    v20 = v11;
+    _os_log_impl(&dword_191750000, v7, OS_LOG_TYPE_INFO, "%{public}@: Sync Policy %@", &v17, 0x16u);
 LABEL_10:
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 + (BOOL)cloudSyncDisabled
 {
-  v2 = +[_DKSync2Policy userDefaults];
+  v2 = +[(_DKSync2Policy *)self];
   v3 = [v2 objectForKey:@"CloudSync2Policy"];
 
   objc_opt_class();
@@ -629,10 +674,10 @@ LABEL_10:
 
 + (void)setOkToDownloadPolicyUpdates:(BOOL)updates
 {
-  v4 = +[_CDLogging syncChannel];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = +[_CDLogging syncChannel];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    +[_DKSync2Policy setOkToDownloadPolicyUpdates:];
+    [(_DKSync2Policy *)self setOkToDownloadPolicyUpdates:v5];
   }
 
   _DKSync2PolicyOkToDownloadPolicyUpdates = updates;
@@ -657,20 +702,20 @@ LABEL_10:
 + (id)productVersion
 {
   objc_opt_self();
-  v0 = _CFCopySystemVersionDictionary();
-  if (v0)
+  v1 = _CFCopySystemVersionDictionary();
+  if (v1)
   {
-    v1 = v0;
-    v2 = [v0 objectForKey:*MEMORY[0x1E695E208]];
-    CFRelease(v1);
+    v2 = v1;
+    v3 = [v1 objectForKey:*MEMORY[0x1E695E208]];
+    CFRelease(v2);
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 + (void)handleDownloadSyncPolicyResponse:(void *)response data:(void *)data error:
@@ -722,7 +767,7 @@ LABEL_26:
     [v17 setValue:v11 forKey:@"CloudSync2Policies"];
     if (([v11 isEqualToDictionary:v21]& 1) == 0)
     {
-      v22 = +[_DKSync2Policy policyCache];
+      v22 = +[(_DKSync2Policy *)v9];
       [v22 removeAllObjects];
 
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -778,7 +823,7 @@ LABEL_5:
     v11 = +[_CDLogging syncChannel];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      +[_DKSync2Policy handleDownloadSyncPolicyResponse:data:error:];
+      [_DKSync2Policy handleDownloadSyncPolicyResponse:v9 data:v11 error:?];
     }
 
 LABEL_32:
@@ -852,7 +897,7 @@ LABEL_32:
 
 - (id)streamNamesToSyncWithDisabledFeatures:(id)features
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   featuresCopy = features;
   if (self->_streamNamesToAlwaysSync)
   {
@@ -865,42 +910,40 @@ LABEL_32:
   }
 
   v6 = v5;
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v7 = self->_streamNamesToSync;
-  v8 = [(NSDictionary *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [(NSDictionary *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
-        if (!featuresCopy || ([featuresCopy containsObject:{*(*(&v17 + 1) + 8 * i), v17}] & 1) == 0)
+        v12 = *(*(&v16 + 1) + 8 * i);
+        if (!featuresCopy || ([featuresCopy containsObject:{*(*(&v16 + 1) + 8 * i), v16}] & 1) == 0)
         {
-          v13 = [(NSDictionary *)self->_streamNamesToSync objectForKeyedSubscript:v12, v17];
+          v13 = [(NSDictionary *)self->_streamNamesToSync objectForKeyedSubscript:v12, v16];
           [v6 addObjectsFromArray:v13];
         }
       }
 
-      v9 = [(NSDictionary *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [(NSDictionary *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
 
   allObjects = [v6 allObjects];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return allObjects;
 }
@@ -955,7 +998,7 @@ LABEL_17:
       v15 = +[_CDLogging syncChannel];
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        [_DKSync2Policy canPerformSyncOperationWithSyncType:lastSyncDate:lastDaySyncCount:isCharging:];
+        [_DKSync2Policy canPerformSyncOperationWithSyncType:v15 lastSyncDate:? lastDaySyncCount:? isCharging:?];
       }
 
       goto LABEL_4;
@@ -970,7 +1013,7 @@ LABEL_17:
           v15 = +[_CDLogging syncChannel];
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            [_DKSync2Policy canPerformSyncOperationWithSyncType:lastSyncDate:lastDaySyncCount:isCharging:];
+            [_DKSync2Policy canPerformSyncOperationWithSyncType:v15 lastSyncDate:? lastDaySyncCount:? isCharging:?];
           }
 
           goto LABEL_4;
@@ -989,7 +1032,7 @@ LABEL_17:
             v15 = +[_CDLogging syncChannel];
             if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
-              [_DKSync2Policy canPerformSyncOperationWithSyncType:lastSyncDate:lastDaySyncCount:isCharging:];
+              [_DKSync2Policy canPerformSyncOperationWithSyncType:v15 lastSyncDate:? lastDaySyncCount:? isCharging:?];
             }
 
             v16 = 1;
@@ -1002,7 +1045,7 @@ LABEL_17:
           v15 = +[_CDLogging syncChannel];
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            [_DKSync2Policy canPerformSyncOperationWithSyncType:lastSyncDate:lastDaySyncCount:isCharging:];
+            [_DKSync2Policy canPerformSyncOperationWithSyncType:v15 lastSyncDate:? lastDaySyncCount:? isCharging:?];
           }
 
           goto LABEL_4;
@@ -1016,7 +1059,7 @@ LABEL_17:
           v15 = +[_CDLogging syncChannel];
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            [_DKSync2Policy canPerformSyncOperationWithSyncType:lastSyncDate:lastDaySyncCount:isCharging:];
+            [_DKSync2Policy canPerformSyncOperationWithSyncType:v15 lastSyncDate:? lastDaySyncCount:? isCharging:?];
           }
 
           goto LABEL_4;
@@ -1032,7 +1075,7 @@ LABEL_7:
   v15 = +[_CDLogging syncChannel];
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    [_DKSync2Policy canPerformSyncOperationWithSyncType:lastSyncDate:lastDaySyncCount:isCharging:];
+    [_DKSync2Policy canPerformSyncOperationWithSyncType:v15 lastSyncDate:? lastDaySyncCount:? isCharging:?];
   }
 
 LABEL_4:
@@ -1326,13 +1369,13 @@ LABEL_22:
 
 - (uint64_t)initWithDictionary:(uint64_t *)dictionary
 {
-  v295 = *MEMORY[0x1E69E9840];
+  v308 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (dictionary)
   {
-    v284.receiver = dictionary;
-    v284.super_class = _DKSync2Policy;
-    v4 = objc_msgSendSuper2(&v284, sel_init);
+    v297.receiver = dictionary;
+    v297.super_class = _DKSync2Policy;
+    v4 = objc_msgSendSuper2(&v297, sel_init);
 
     if (!v4)
     {
@@ -1368,44 +1411,43 @@ LABEL_152:
       v13 = +[_CDLogging syncChannel];
       if (OUTLINED_FUNCTION_18(v13))
       {
-        v283 = [objc_opt_class() description];
-        v281 = [OUTLINED_FUNCTION_21() objectForKeyedSubscript:?];
+        v296 = [objc_opt_class() description];
+        v294 = [OUTLINED_FUNCTION_21() objectForKeyedSubscript:?];
         isKindOfClass = [OUTLINED_FUNCTION_21() objectForKeyedSubscript:?];
-        v109 = objc_opt_class();
+        v122 = objc_opt_class();
         *buf = 138544386;
-        v286 = v283;
+        v299 = v296;
         OUTLINED_FUNCTION_10_0();
-        v288 = @"Name";
-        v289 = v110;
-        v111 = v281;
-        v290 = v281;
-        v291 = v110;
-        v292 = v112;
-        v113 = v112;
-        v293 = v110;
-        v294 = v6;
-        OUTLINED_FUNCTION_6_2(&dword_191750000, v114, v115, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v116, v117, v118, v119, v281, v283, v284.receiver, v284.super_class, buf[0]);
+        v301 = @"Name";
+        v302 = v123;
+        v124 = v294;
+        v303 = v294;
+        v304 = v123;
+        v305 = v125;
+        v126 = v125;
+        v306 = v123;
+        v307 = v6;
+        OUTLINED_FUNCTION_6_2(&dword_191750000, v127, v128, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v129, v130, v131, v132, v294, v296, v297.receiver, v297.super_class);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_9:
-    [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    objc_claimAutoreleasedReturnValue();
-    v14 = OUTLINED_FUNCTION_19_0();
+    v14 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v15 = OUTLINED_FUNCTION_19_0(v14);
 
-    v15 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    v16 = v15;
-    if (v14)
+    v16 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v17 = v16;
+    if (v15)
     {
-      [v4 setVersion:v15];
+      [v4 setVersion:v16];
     }
 
     else
     {
 
-      if (!v16)
+      if (!v17)
       {
         goto LABEL_15;
       }
@@ -1417,31 +1459,30 @@ LABEL_9:
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_3_1() objectForKeyedSubscript:?];
         objc_claimAutoreleasedReturnValue();
-        v120 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
-        v121 = objc_opt_class();
+        v133 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
+        v134 = objc_opt_class();
         OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_6_2(&dword_191750000, v122, v123, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v124, v125, v126, v127, v280, v282, v284.receiver, v284.super_class, buf[0]);
+        OUTLINED_FUNCTION_6_2(&dword_191750000, v135, v136, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v137, v138, v139, v140, v293, v295, v297.receiver, v297.super_class);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_15:
-    [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    objc_claimAutoreleasedReturnValue();
-    v18 = OUTLINED_FUNCTION_19_0();
-
     v19 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    v20 = v19;
-    if (v18)
+    v20 = OUTLINED_FUNCTION_19_0(v19);
+
+    v21 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v22 = v21;
+    if (v20)
     {
-      [v4 setSyncDisabled:{objc_msgSend(v19, "BOOLValue")}];
+      [v4 setSyncDisabled:{objc_msgSend(v21, "BOOLValue")}];
     }
 
     else
     {
 
-      if (!v20)
+      if (!v22)
       {
         goto LABEL_21;
       }
@@ -1453,32 +1494,31 @@ LABEL_15:
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_3_1() objectForKeyedSubscript:?];
         objc_claimAutoreleasedReturnValue();
-        v128 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
-        v129 = objc_opt_class();
+        v141 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
+        v142 = objc_opt_class();
         OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_6_2(&dword_191750000, v130, v131, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v132, v133, v134, v135, v280, v282, v284.receiver, v284.super_class, buf[0]);
+        OUTLINED_FUNCTION_6_2(&dword_191750000, v143, v144, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v145, v146, v147, v148, v293, v295, v297.receiver, v297.super_class);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_21:
-    [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    objc_claimAutoreleasedReturnValue();
-    v22 = OUTLINED_FUNCTION_19_0();
+    v24 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v25 = OUTLINED_FUNCTION_19_0(v24);
 
-    v23 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    v24 = v23;
-    if (v22)
+    v26 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v27 = v26;
+    if (v25)
     {
-      [v23 unsignedIntegerValue];
+      [v26 unsignedIntegerValue];
       [OUTLINED_FUNCTION_12() setMaxBatchesPerSync:?];
     }
 
     else
     {
 
-      if (!v24)
+      if (!v27)
       {
         goto LABEL_27;
       }
@@ -1490,32 +1530,31 @@ LABEL_21:
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_3_1() objectForKeyedSubscript:?];
         objc_claimAutoreleasedReturnValue();
-        v136 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
-        v137 = objc_opt_class();
+        v149 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
+        v150 = objc_opt_class();
         OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_6_2(&dword_191750000, v138, v139, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v140, v141, v142, v143, v280, v282, v284.receiver, v284.super_class, buf[0]);
+        OUTLINED_FUNCTION_6_2(&dword_191750000, v151, v152, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v153, v154, v155, v156, v293, v295, v297.receiver, v297.super_class);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_27:
-    [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    objc_claimAutoreleasedReturnValue();
-    v26 = OUTLINED_FUNCTION_19_0();
+    v29 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v30 = OUTLINED_FUNCTION_19_0(v29);
 
-    v27 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    v28 = v27;
-    if (v26)
+    v31 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v32 = v31;
+    if (v30)
     {
-      [v27 unsignedIntegerValue];
+      [v31 unsignedIntegerValue];
       [OUTLINED_FUNCTION_12() setMaxSyncPeriodInDays:?];
     }
 
     else
     {
 
-      if (!v28)
+      if (!v32)
       {
         goto LABEL_33;
       }
@@ -1527,32 +1566,31 @@ LABEL_27:
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_3_1() objectForKeyedSubscript:?];
         objc_claimAutoreleasedReturnValue();
-        v144 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
-        v145 = objc_opt_class();
+        v157 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
+        v158 = objc_opt_class();
         OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_6_2(&dword_191750000, v146, v147, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v148, v149, v150, v151, v280, v282, v284.receiver, v284.super_class, buf[0]);
+        OUTLINED_FUNCTION_6_2(&dword_191750000, v159, v160, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v161, v162, v163, v164, v293, v295, v297.receiver, v297.super_class);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_33:
-    [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    objc_claimAutoreleasedReturnValue();
-    v30 = OUTLINED_FUNCTION_19_0();
+    v34 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v35 = OUTLINED_FUNCTION_19_0(v34);
 
-    v31 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    v32 = v31;
-    if (v30)
+    v36 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v37 = v36;
+    if (v35)
     {
-      [v31 unsignedIntegerValue];
+      [v36 unsignedIntegerValue];
       [OUTLINED_FUNCTION_12() setMaxSyncDownIntervalInDays:?];
     }
 
     else
     {
 
-      if (!v32)
+      if (!v37)
       {
         goto LABEL_39;
       }
@@ -1564,32 +1602,31 @@ LABEL_33:
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_3_1() objectForKeyedSubscript:?];
         objc_claimAutoreleasedReturnValue();
-        v152 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
-        v153 = objc_opt_class();
+        v165 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
+        v166 = objc_opt_class();
         OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_6_2(&dword_191750000, v154, v155, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v156, v157, v158, v159, v280, v282, v284.receiver, v284.super_class, buf[0]);
+        OUTLINED_FUNCTION_6_2(&dword_191750000, v167, v168, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v169, v170, v171, v172, v293, v295, v297.receiver, v297.super_class);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_39:
-    [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    objc_claimAutoreleasedReturnValue();
-    v34 = OUTLINED_FUNCTION_19_0();
+    v39 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v40 = OUTLINED_FUNCTION_19_0(v39);
 
-    v35 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    v36 = v35;
-    if (v34)
+    v41 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v42 = v41;
+    if (v40)
     {
-      [v35 unsignedIntegerValue];
+      [v41 unsignedIntegerValue];
       [OUTLINED_FUNCTION_12() setMinSyncIntervalInSeconds:?];
     }
 
     else
     {
 
-      if (!v36)
+      if (!v42)
       {
         goto LABEL_45;
       }
@@ -1601,32 +1638,31 @@ LABEL_39:
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_3_1() objectForKeyedSubscript:?];
         objc_claimAutoreleasedReturnValue();
-        v160 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
-        v161 = objc_opt_class();
+        v173 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
+        v174 = objc_opt_class();
         OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_6_2(&dword_191750000, v162, v163, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v164, v165, v166, v167, v280, v282, v284.receiver, v284.super_class, buf[0]);
+        OUTLINED_FUNCTION_6_2(&dword_191750000, v175, v176, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v177, v178, v179, v180, v293, v295, v297.receiver, v297.super_class);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_45:
-    [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    objc_claimAutoreleasedReturnValue();
-    v38 = OUTLINED_FUNCTION_19_0();
+    v44 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v45 = OUTLINED_FUNCTION_19_0(v44);
 
-    v39 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    v40 = v39;
-    if (v38)
+    v46 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v47 = v46;
+    if (v45)
     {
-      [v39 unsignedIntegerValue];
+      [v46 unsignedIntegerValue];
       [OUTLINED_FUNCTION_12() setMinSyncWindowInSeconds:?];
     }
 
     else
     {
 
-      if (!v40)
+      if (!v47)
       {
         goto LABEL_51;
       }
@@ -1638,32 +1674,31 @@ LABEL_45:
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_3_1() objectForKeyedSubscript:?];
         objc_claimAutoreleasedReturnValue();
-        v168 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
-        v169 = objc_opt_class();
+        v181 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
+        v182 = objc_opt_class();
         OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_6_2(&dword_191750000, v170, v171, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v172, v173, v174, v175, v280, v282, v284.receiver, v284.super_class, buf[0]);
+        OUTLINED_FUNCTION_6_2(&dword_191750000, v183, v184, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v185, v186, v187, v188, v293, v295, v297.receiver, v297.super_class);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_51:
-    [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    objc_claimAutoreleasedReturnValue();
-    v42 = OUTLINED_FUNCTION_19_0();
+    v49 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v50 = OUTLINED_FUNCTION_19_0(v49);
 
-    v43 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    v44 = v43;
-    if (v42)
+    v51 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v52 = v51;
+    if (v50)
     {
-      [v43 unsignedIntegerValue];
+      [v51 unsignedIntegerValue];
       [OUTLINED_FUNCTION_12() setMinSyncsPerDay:?];
     }
 
     else
     {
 
-      if (!v44)
+      if (!v52)
       {
         goto LABEL_57;
       }
@@ -1675,32 +1710,31 @@ LABEL_51:
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_3_1() objectForKeyedSubscript:?];
         objc_claimAutoreleasedReturnValue();
-        v176 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
-        v177 = objc_opt_class();
+        v189 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
+        v190 = objc_opt_class();
         OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_6_2(&dword_191750000, v178, v179, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v180, v181, v182, v183, v280, v282, v284.receiver, v284.super_class, buf[0]);
+        OUTLINED_FUNCTION_6_2(&dword_191750000, v191, v192, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v193, v194, v195, v196, v293, v295, v297.receiver, v297.super_class);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_57:
-    [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    objc_claimAutoreleasedReturnValue();
-    v46 = OUTLINED_FUNCTION_19_0();
+    v54 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v55 = OUTLINED_FUNCTION_19_0(v54);
 
-    v47 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    v48 = v47;
-    if (v46)
+    v56 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v57 = v56;
+    if (v55)
     {
-      [v47 unsignedIntegerValue];
+      [v56 unsignedIntegerValue];
       [OUTLINED_FUNCTION_12() setMaxSyncsPerDay:?];
     }
 
     else
     {
 
-      if (!v48)
+      if (!v57)
       {
         goto LABEL_63;
       }
@@ -1712,32 +1746,31 @@ LABEL_57:
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_3_1() objectForKeyedSubscript:?];
         objc_claimAutoreleasedReturnValue();
-        v184 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
-        v185 = objc_opt_class();
+        v197 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
+        v198 = objc_opt_class();
         OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_6_2(&dword_191750000, v186, v187, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v188, v189, v190, v191, v280, v282, v284.receiver, v284.super_class, buf[0]);
+        OUTLINED_FUNCTION_6_2(&dword_191750000, v199, v200, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v201, v202, v203, v204, v293, v295, v297.receiver, v297.super_class);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_63:
-    [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    objc_claimAutoreleasedReturnValue();
-    v50 = OUTLINED_FUNCTION_19_0();
+    v59 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v60 = OUTLINED_FUNCTION_19_0(v59);
 
-    v51 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    v52 = v51;
-    if (v50)
+    v61 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v62 = v61;
+    if (v60)
     {
-      [v51 unsignedIntegerValue];
+      [v61 unsignedIntegerValue];
       [OUTLINED_FUNCTION_12() setNumChangesTriggeringSync:?];
     }
 
     else
     {
 
-      if (!v52)
+      if (!v62)
       {
         goto LABEL_69;
       }
@@ -1749,32 +1782,31 @@ LABEL_63:
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_3_1() objectForKeyedSubscript:?];
         objc_claimAutoreleasedReturnValue();
-        v192 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
-        v193 = objc_opt_class();
+        v205 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
+        v206 = objc_opt_class();
         OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_6_2(&dword_191750000, v194, v195, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v196, v197, v198, v199, v280, v282, v284.receiver, v284.super_class, buf[0]);
+        OUTLINED_FUNCTION_6_2(&dword_191750000, v207, v208, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v209, v210, v211, v212, v293, v295, v297.receiver, v297.super_class);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_69:
-    [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    objc_claimAutoreleasedReturnValue();
-    v54 = OUTLINED_FUNCTION_19_0();
+    v64 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v65 = OUTLINED_FUNCTION_19_0(v64);
 
-    v55 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    v56 = v55;
-    if (v54)
+    v66 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v67 = v66;
+    if (v65)
     {
-      [v55 unsignedIntegerValue];
+      [v66 unsignedIntegerValue];
       [OUTLINED_FUNCTION_12() setPolicyDownloadIntervalInDays:?];
     }
 
     else
     {
 
-      if (!v56)
+      if (!v67)
       {
         goto LABEL_75;
       }
@@ -1786,31 +1818,30 @@ LABEL_69:
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_3_1() objectForKeyedSubscript:?];
         objc_claimAutoreleasedReturnValue();
-        v200 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
-        v201 = objc_opt_class();
+        v213 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
+        v214 = objc_opt_class();
         OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_6_2(&dword_191750000, v202, v203, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v204, v205, v206, v207, v280, v282, v284.receiver, v284.super_class, buf[0]);
+        OUTLINED_FUNCTION_6_2(&dword_191750000, v215, v216, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v217, v218, v219, v220, v293, v295, v297.receiver, v297.super_class);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_75:
-    [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    objc_claimAutoreleasedReturnValue();
-    v58 = OUTLINED_FUNCTION_19_0();
+    v69 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v70 = OUTLINED_FUNCTION_19_0(v69);
 
-    v59 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    v60 = v59;
-    if (v58)
+    v71 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v72 = v71;
+    if (v70)
     {
-      [v4 setPushTriggersSync:{objc_msgSend(v59, "BOOLValue")}];
+      [v4 setPushTriggersSync:{objc_msgSend(v71, "BOOLValue")}];
     }
 
     else
     {
 
-      if (!v60)
+      if (!v72)
       {
         goto LABEL_81;
       }
@@ -1822,31 +1853,30 @@ LABEL_75:
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_3_1() objectForKeyedSubscript:?];
         objc_claimAutoreleasedReturnValue();
-        v208 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
-        v209 = objc_opt_class();
+        v221 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
+        v222 = objc_opt_class();
         OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_6_2(&dword_191750000, v210, v211, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v212, v213, v214, v215, v280, v282, v284.receiver, v284.super_class, buf[0]);
+        OUTLINED_FUNCTION_6_2(&dword_191750000, v223, v224, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v225, v226, v227, v228, v293, v295, v297.receiver, v297.super_class);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_81:
-    [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    objc_claimAutoreleasedReturnValue();
-    v62 = OUTLINED_FUNCTION_19_0();
+    v74 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v75 = OUTLINED_FUNCTION_19_0(v74);
 
-    v63 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    v64 = v63;
-    if (v62)
+    v76 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v77 = v76;
+    if (v75)
     {
-      [v4 setRequireCharging:{objc_msgSend(v63, "BOOLValue")}];
+      [v4 setRequireCharging:{objc_msgSend(v76, "BOOLValue")}];
     }
 
     else
     {
 
-      if (!v64)
+      if (!v77)
       {
         goto LABEL_87;
       }
@@ -1858,32 +1888,31 @@ LABEL_81:
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_3_1() objectForKeyedSubscript:?];
         objc_claimAutoreleasedReturnValue();
-        v216 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
-        v217 = objc_opt_class();
+        v229 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
+        v230 = objc_opt_class();
         OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_6_2(&dword_191750000, v218, v219, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v220, v221, v222, v223, v280, v282, v284.receiver, v284.super_class, buf[0]);
+        OUTLINED_FUNCTION_6_2(&dword_191750000, v231, v232, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v233, v234, v235, v236, v293, v295, v297.receiver, v297.super_class);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_87:
-    [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    objc_claimAutoreleasedReturnValue();
-    v66 = OUTLINED_FUNCTION_19_0();
+    v79 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v80 = OUTLINED_FUNCTION_19_0(v79);
 
-    v67 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    v68 = v67;
-    if (v66)
+    v81 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v82 = v81;
+    if (v80)
     {
-      [v67 unsignedIntegerValue];
+      [v81 unsignedIntegerValue];
       [OUTLINED_FUNCTION_12() setSingleDeviceSyncIntervalInDays:?];
     }
 
     else
     {
 
-      if (!v68)
+      if (!v82)
       {
         goto LABEL_93;
       }
@@ -1895,30 +1924,30 @@ LABEL_87:
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_3_1() objectForKeyedSubscript:?];
         objc_claimAutoreleasedReturnValue();
-        v224 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
-        v225 = objc_opt_class();
+        v237 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
+        v238 = objc_opt_class();
         OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_6_2(&dword_191750000, v226, v227, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v228, v229, v230, v231, v280, v282, v284.receiver, v284.super_class, buf[0]);
+        OUTLINED_FUNCTION_6_2(&dword_191750000, v239, v240, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v241, v242, v243, v244, v293, v295, v297.receiver, v297.super_class);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_93:
-    v70 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    v71 = objc_opt_isKindOfClass();
+    v84 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v85 = objc_opt_isKindOfClass();
 
-    v72 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
-    v73 = v72;
-    if (v71)
+    v86 = [OUTLINED_FUNCTION_9() objectForKeyedSubscript:?];
+    v87 = v86;
+    if (v85)
     {
-      [v4 setStreamNamesToSync:v72];
+      [v4 setStreamNamesToSync:v86];
     }
 
     else
     {
 
-      if (!v73)
+      if (!v87)
       {
         goto LABEL_99;
       }
@@ -1930,32 +1959,32 @@ LABEL_93:
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_3_1() objectForKeyedSubscript:?];
         objc_claimAutoreleasedReturnValue();
-        v232 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
-        v233 = objc_opt_class();
+        v245 = [OUTLINED_FUNCTION_4_1() objectForKeyedSubscript:?];
+        v246 = objc_opt_class();
         *buf = 138544386;
-        v286 = isKindOfClass;
+        v299 = isKindOfClass;
         OUTLINED_FUNCTION_10_0();
-        v288 = @"StreamNamesToSync";
-        v289 = v234;
-        v235 = v282;
-        v290 = v282;
+        v301 = @"StreamNamesToSync";
+        v302 = v247;
+        v248 = v295;
+        v303 = v295;
         OUTLINED_FUNCTION_2_2();
-        v294 = v7;
-        OUTLINED_FUNCTION_6_2(&dword_191750000, v236, v237, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v238, v239, v240, v241, v280, v282, v284.receiver, v284.super_class, buf[0]);
+        v307 = v7;
+        OUTLINED_FUNCTION_6_2(&dword_191750000, v249, v250, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", v251, v252, v253, v254, v293, v295, v297.receiver, v297.super_class);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_99:
-    v75 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
-    v76 = objc_opt_isKindOfClass();
+    v89 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
+    v90 = objc_opt_isKindOfClass();
 
-    v77 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
-    syncChannel16 = v77;
-    if (v76)
+    v91 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
+    syncChannel16 = v91;
+    if (v90)
     {
-      [v4 setStreamNamesToAlwaysSync:v77];
+      [v4 setStreamNamesToAlwaysSync:v91];
     }
 
     else
@@ -1969,33 +1998,33 @@ LABEL_99:
       syncChannel16 = [*(v12 + 648) syncChannel];
       if (os_log_type_enabled(syncChannel16, OS_LOG_TYPE_ERROR))
       {
-        v242 = [objc_opt_class() description];
-        v243 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
-        v244 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
-        v245 = objc_opt_class();
+        v255 = [objc_opt_class() description];
+        v256 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
+        v257 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
+        v258 = objc_opt_class();
         *buf = 138544386;
-        v286 = v242;
+        v299 = v255;
         OUTLINED_FUNCTION_10_0();
-        v288 = @"StreamNamesToAlwaysSync";
-        v289 = v246;
-        v290 = v243;
+        v301 = @"StreamNamesToAlwaysSync";
+        v302 = v259;
+        v303 = v256;
         OUTLINED_FUNCTION_2_2();
-        v294 = v5;
-        OUTLINED_FUNCTION_17(&dword_191750000, syncChannel16, v247, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", buf);
+        v307 = v5;
+        OUTLINED_FUNCTION_17(&dword_191750000, syncChannel16, v260, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", buf);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_105:
-    v79 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
-    v80 = objc_opt_isKindOfClass();
+    v93 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
+    v94 = objc_opt_isKindOfClass();
 
-    v81 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
-    syncChannel17 = v81;
-    if (v80)
+    v95 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
+    syncChannel17 = v95;
+    if (v94)
     {
-      [v4 setStreamNamesWithAdditionsTriggeringSync:v81];
+      [v4 setStreamNamesWithAdditionsTriggeringSync:v95];
     }
 
     else
@@ -2009,33 +2038,33 @@ LABEL_105:
       syncChannel17 = [*(v12 + 648) syncChannel];
       if (os_log_type_enabled(syncChannel17, OS_LOG_TYPE_ERROR))
       {
-        v248 = [objc_opt_class() description];
-        v249 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
-        v250 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
-        v251 = objc_opt_class();
+        v261 = [objc_opt_class() description];
+        v262 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
+        v263 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
+        v264 = objc_opt_class();
         *buf = 138544386;
-        v286 = v248;
+        v299 = v261;
         OUTLINED_FUNCTION_10_0();
-        v288 = @"StreamNamesWithAdditionsTriggeringSync";
-        v289 = v252;
-        v290 = v249;
+        v301 = @"StreamNamesWithAdditionsTriggeringSync";
+        v302 = v265;
+        v303 = v262;
         OUTLINED_FUNCTION_2_2();
-        v294 = v5;
-        OUTLINED_FUNCTION_17(&dword_191750000, syncChannel17, v253, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", buf);
+        v307 = v5;
+        OUTLINED_FUNCTION_17(&dword_191750000, syncChannel17, v266, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", buf);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_111:
-    v83 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
-    v84 = objc_opt_isKindOfClass();
+    v97 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
+    v98 = objc_opt_isKindOfClass();
 
-    v85 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
-    syncChannel18 = v85;
-    if (v84)
+    v99 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
+    syncChannel18 = v99;
+    if (v98)
     {
-      [v4 setStreamNamesWithDeletionsTriggeringSync:v85];
+      [v4 setStreamNamesWithDeletionsTriggeringSync:v99];
     }
 
     else
@@ -2049,33 +2078,33 @@ LABEL_111:
       syncChannel18 = [*(v12 + 648) syncChannel];
       if (os_log_type_enabled(syncChannel18, OS_LOG_TYPE_ERROR))
       {
-        v254 = [objc_opt_class() description];
-        v255 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
-        v256 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
-        v257 = objc_opt_class();
+        v267 = [objc_opt_class() description];
+        v268 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
+        v269 = [OUTLINED_FUNCTION_13_0() objectForKeyedSubscript:?];
+        v270 = objc_opt_class();
         *buf = 138544386;
-        v286 = v254;
+        v299 = v267;
         OUTLINED_FUNCTION_10_0();
-        v288 = @"StreamNamesWithDeletionsTriggeringSync";
-        v289 = v258;
-        v290 = v255;
+        v301 = @"StreamNamesWithDeletionsTriggeringSync";
+        v302 = v271;
+        v303 = v268;
         OUTLINED_FUNCTION_2_2();
-        v294 = v5;
-        OUTLINED_FUNCTION_17(&dword_191750000, syncChannel18, v259, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", buf);
+        v307 = v5;
+        OUTLINED_FUNCTION_17(&dword_191750000, syncChannel18, v272, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", buf);
 
         v12 = 0x1E7366000;
       }
     }
 
 LABEL_117:
-    v87 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
-    v88 = objc_opt_isKindOfClass();
+    v101 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
+    v102 = objc_opt_isKindOfClass();
 
-    v89 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
-    syncChannel19 = v89;
-    if (v88)
+    v103 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
+    syncChannel19 = v103;
+    if (v102)
     {
-      [v89 unsignedIntegerValue];
+      [v103 unsignedIntegerValue];
       [OUTLINED_FUNCTION_12() setSyncBatchSizeInEvents:?];
     }
 
@@ -2090,29 +2119,29 @@ LABEL_117:
       syncChannel19 = [*(v12 + 648) syncChannel];
       if (os_log_type_enabled(syncChannel19, OS_LOG_TYPE_ERROR))
       {
-        v260 = [objc_opt_class() description];
-        v261 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
-        v262 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
-        v263 = objc_opt_class();
+        v273 = [objc_opt_class() description];
+        v274 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
+        v275 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
+        v276 = objc_opt_class();
         *buf = 138544386;
-        v286 = v260;
+        v299 = v273;
         OUTLINED_FUNCTION_10_0();
-        v288 = @"SyncBatchSizeInEvents";
-        v289 = v264;
+        v301 = @"SyncBatchSizeInEvents";
+        v302 = v277;
         OUTLINED_FUNCTION_1_1();
-        OUTLINED_FUNCTION_17(&dword_191750000, syncChannel19, v265, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", buf);
+        OUTLINED_FUNCTION_17(&dword_191750000, syncChannel19, v278, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", buf);
       }
     }
 
 LABEL_123:
-    v91 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
-    v92 = objc_opt_isKindOfClass();
+    v105 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
+    v106 = objc_opt_isKindOfClass();
 
-    v93 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
-    syncChannel20 = v93;
-    if (v92)
+    v107 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
+    syncChannel20 = v107;
+    if (v106)
     {
-      [v93 unsignedIntegerValue];
+      [v107 unsignedIntegerValue];
       [OUTLINED_FUNCTION_12() setSyncTimeoutInSeconds:?];
     }
 
@@ -2127,29 +2156,29 @@ LABEL_123:
       syncChannel20 = [*(v12 + 648) syncChannel];
       if (os_log_type_enabled(syncChannel20, OS_LOG_TYPE_ERROR))
       {
-        v266 = [objc_opt_class() description];
-        v267 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
-        v268 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
-        v269 = objc_opt_class();
+        v279 = [objc_opt_class() description];
+        v280 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
+        v281 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
+        v282 = objc_opt_class();
         *buf = 138544386;
-        v286 = v266;
+        v299 = v279;
         OUTLINED_FUNCTION_10_0();
-        v288 = @"SyncTimeoutInSeconds";
-        v289 = v270;
+        v301 = @"SyncTimeoutInSeconds";
+        v302 = v283;
         OUTLINED_FUNCTION_1_1();
-        OUTLINED_FUNCTION_17(&dword_191750000, syncChannel20, v271, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", buf);
+        OUTLINED_FUNCTION_17(&dword_191750000, syncChannel20, v284, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", buf);
       }
     }
 
 LABEL_129:
-    v95 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
-    v96 = objc_opt_isKindOfClass();
+    v109 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
+    v110 = objc_opt_isKindOfClass();
 
-    v97 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
-    syncChannel23 = v97;
-    if (v96)
+    v111 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
+    syncChannel23 = v111;
+    if (v110)
     {
-      [v97 unsignedIntegerValue];
+      [v111 unsignedIntegerValue];
       [OUTLINED_FUNCTION_12() setTriggeredSyncDelayInSeconds:?];
     }
 
@@ -2165,29 +2194,29 @@ LABEL_135:
           syncChannel21 = [*(v12 + 648) syncChannel];
           if (os_log_type_enabled(syncChannel21, OS_LOG_TYPE_DEBUG))
           {
-            v108 = [objc_opt_class() description];
+            v121 = [objc_opt_class() description];
             *buf = 138543362;
-            v286 = v108;
+            v299 = v121;
             _os_log_debug_impl(&dword_191750000, syncChannel21, OS_LOG_TYPE_DEBUG, "%{public}@: Enabling always sync stream", buf, 0xCu);
           }
 
-          v100 = v4[20];
-          if (v100)
+          v114 = v4[20];
+          if (v114)
           {
-            v101 = [v100 mutableCopy];
+            v115 = [v114 mutableCopy];
           }
 
           else
           {
-            v101 = objc_opt_new();
+            v115 = objc_opt_new();
           }
 
-          v102 = v101;
+          v116 = v115;
 
-          [v102 addObject:@"/always/sync"];
-          v103 = [v102 copy];
-          v104 = v4[20];
-          v4[20] = v103;
+          [v116 addObject:@"/always/sync"];
+          v117 = [v116 copy];
+          v118 = v4[20];
+          v4[20] = v117;
         }
 
         if ([v3 count] && (v4[1] & 1) == 0 && !v4[16])
@@ -2196,12 +2225,12 @@ LABEL_135:
           syncChannel22 = [*(v12 + 648) syncChannel];
           if (os_log_type_enabled(syncChannel22, OS_LOG_TYPE_ERROR))
           {
-            v278 = [objc_opt_class() description];
-            v279 = v4[2];
+            v291 = [objc_opt_class() description];
+            v292 = v4[2];
             *buf = 138543618;
-            v286 = v278;
-            v287 = 2114;
-            v288 = v279;
+            v299 = v291;
+            v300 = 2114;
+            v301 = v292;
             _os_log_error_impl(&dword_191750000, syncChannel22, OS_LOG_TYPE_ERROR, "%{public}@: Disabling %{public}@ sync policy due to invalid MaxBatchesPerSync", buf, 0x16u);
           }
         }
@@ -2217,17 +2246,17 @@ LABEL_135:
       syncChannel23 = [*(v12 + 648) syncChannel];
       if (os_log_type_enabled(syncChannel23, OS_LOG_TYPE_ERROR))
       {
-        v272 = [objc_opt_class() description];
-        v273 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
-        v274 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
-        v275 = objc_opt_class();
+        v285 = [objc_opt_class() description];
+        v286 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
+        v287 = [OUTLINED_FUNCTION_14_0() objectForKeyedSubscript:?];
+        v288 = objc_opt_class();
         *buf = 138544386;
-        v286 = v272;
+        v299 = v285;
         OUTLINED_FUNCTION_10_0();
-        v288 = @"TriggeredSyncDelayInSeconds";
-        v289 = v276;
+        v301 = @"TriggeredSyncDelayInSeconds";
+        v302 = v289;
         OUTLINED_FUNCTION_1_1();
-        OUTLINED_FUNCTION_17(&dword_191750000, syncChannel23, v277, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", buf);
+        OUTLINED_FUNCTION_17(&dword_191750000, syncChannel23, v290, "%{public}@: Not setting %@ because %@ is a %@ instead of a %@", buf);
       }
     }
 
@@ -2236,7 +2265,6 @@ LABEL_135:
 
 LABEL_153:
 
-  v106 = *MEMORY[0x1E69E9840];
   return dictionary;
 }
 
@@ -2256,7 +2284,7 @@ LABEL_153:
 
 - (id)queryStartDateWithSyncType:(void *)type lastSyncDate:(uint64_t)date lastDaySyncCount:(void *)count
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   countCopy = count;
   if (type)
   {
@@ -2273,9 +2301,9 @@ LABEL_153:
       v10 = +[_CDLogging syncChannel];
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v13 = 138412290;
-        v14 = v9;
-        _os_log_debug_impl(&dword_191750000, v10, OS_LOG_TYPE_DEBUG, "No last sync date, using: %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = v9;
+        _os_log_debug_impl(&dword_191750000, v10, OS_LOG_TYPE_DEBUG, "No last sync date, using: %@", &v12, 0xCu);
       }
     }
   }
@@ -2284,8 +2312,6 @@ LABEL_153:
   {
     v9 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -2322,201 +2348,151 @@ LABEL_153:
 + (void)_policyForSyncTransportType:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_20();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-+ (void)_policyForSyncTransportType:.cold.2()
++ (void)_policyForSyncTransportType:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = [objc_opt_class() description];
+  v2 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-+ (void)featureNameFromFeatureType:.cold.1()
++ (void)featureNameFromFeatureType:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = [objc_opt_class() description];
+  v2 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 + (void)internalFeatureNameFromFeatureName:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_20();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)configurationPlistForFilename:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = [objc_opt_class() description];
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)configurationPlistForFilename:.cold.2()
 {
   OUTLINED_FUNCTION_16();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = [objc_opt_class() description];
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-+ (void)setOkToDownloadPolicyUpdates:.cold.1()
++ (void)setOkToDownloadPolicyUpdates:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = [objc_opt_class() description];
+  v2 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 + (void)handleDownloadSyncPolicyResponse:data:error:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [objc_opt_class() description];
   v2 = [v0 domain];
   [v0 code];
   OUTLINED_FUNCTION_15_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)handleDownloadSyncPolicyResponse:data:error:.cold.2()
 {
   OUTLINED_FUNCTION_16();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [objc_opt_class() description];
   v2 = [v0 domain];
   [v0 code];
   OUTLINED_FUNCTION_15_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)handleDownloadSyncPolicyResponse:data:error:.cold.3()
 {
   OUTLINED_FUNCTION_16();
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = [objc_opt_class() description];
   OUTLINED_FUNCTION_8_0();
-  v5 = v1;
-  _os_log_fault_impl(&dword_191750000, v0, OS_LOG_TYPE_FAULT, "%{public}@: Policy download returned status 200 but no data. Response: %@", v4, 0x16u);
-
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = v1;
+  _os_log_fault_impl(&dword_191750000, v0, OS_LOG_TYPE_FAULT, "%{public}@: Policy download returned status 200 but no data. Response: %@", v3, 0x16u);
 }
 
-+ (void)handleDownloadSyncPolicyResponse:data:error:.cold.4()
++ (void)handleDownloadSyncPolicyResponse:(uint64_t)a1 data:(uint64_t)a2 error:.cold.4(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = [objc_opt_class() description];
+  v2 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)canPerformSyncOperationWithSyncType:lastSyncDate:lastDaySyncCount:isCharging:.cold.1()
+- (void)canPerformSyncOperationWithSyncType:(uint64_t)a1 lastSyncDate:(uint64_t)a2 lastDaySyncCount:isCharging:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = [objc_opt_class() description];
+  v2 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)canPerformSyncOperationWithSyncType:lastSyncDate:lastDaySyncCount:isCharging:.cold.2()
+- (void)canPerformSyncOperationWithSyncType:(uint64_t)a1 lastSyncDate:(uint64_t)a2 lastDaySyncCount:isCharging:.cold.2(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = [objc_opt_class() description];
+  v2 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)canPerformSyncOperationWithSyncType:lastSyncDate:lastDaySyncCount:isCharging:.cold.3()
+- (void)canPerformSyncOperationWithSyncType:(uint64_t)a1 lastSyncDate:(uint64_t)a2 lastDaySyncCount:isCharging:.cold.3(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = [objc_opt_class() description];
+  v2 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)canPerformSyncOperationWithSyncType:lastSyncDate:lastDaySyncCount:isCharging:.cold.4()
+- (void)canPerformSyncOperationWithSyncType:(uint64_t)a1 lastSyncDate:(uint64_t)a2 lastDaySyncCount:isCharging:.cold.4(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = [objc_opt_class() description];
+  v2 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)canPerformSyncOperationWithSyncType:lastSyncDate:lastDaySyncCount:isCharging:.cold.5()
+- (void)canPerformSyncOperationWithSyncType:(uint64_t)a1 lastSyncDate:(uint64_t)a2 lastDaySyncCount:isCharging:.cold.5(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = [objc_opt_class() description];
+  v2 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)canPerformSyncOperationWithSyncType:lastSyncDate:lastDaySyncCount:isCharging:.cold.6()
+- (void)canPerformSyncOperationWithSyncType:(uint64_t)a1 lastSyncDate:(uint64_t)a2 lastDaySyncCount:isCharging:.cold.6(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = [objc_opt_class() description];
+  v2 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 @end

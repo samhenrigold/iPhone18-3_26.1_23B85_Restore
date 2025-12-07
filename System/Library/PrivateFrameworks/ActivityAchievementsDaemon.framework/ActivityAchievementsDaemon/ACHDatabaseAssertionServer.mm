@@ -29,72 +29,71 @@
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   allKeys = [(NSMutableDictionary *)self->_assertionByToken allKeys];
-  v4 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v8 = [(NSMutableDictionary *)self->_assertionByToken objectForKeyedSubscript:*(*(&v11 + 1) + 8 * v7)];
+        v8 = [(NSMutableDictionary *)self->_assertionByToken objectForKeyedSubscript:*(*(&v10 + 1) + 8 * v7)];
         [v8 invalidate];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
-  v10.receiver = self;
-  v10.super_class = ACHDatabaseAssertionServer;
-  [(ACHDatabaseAssertionServer *)&v10 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = ACHDatabaseAssertionServer;
+  [(ACHDatabaseAssertionServer *)&v9 dealloc];
 }
 
 - (void)_queue_cleanup
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   assertionByToken = [(ACHDatabaseAssertionServer *)self assertionByToken];
   allKeys = [assertionByToken allKeys];
 
-  v5 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       v8 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * v8);
+        v9 = *(*(&v15 + 1) + 8 * v8);
         assertionByToken2 = [(ACHDatabaseAssertionServer *)self assertionByToken];
         v11 = [assertionByToken2 objectForKeyedSubscript:v9];
 
@@ -111,13 +110,11 @@
       }
 
       while (v6 != v8);
-      v6 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_acquireDatabaseAssertionWithIdentifier:(id)identifier duration:(double)duration completion:(id)completion
@@ -219,7 +216,7 @@ void __96__ACHDatabaseAssertionServer_remote_acquireDatabaseAssertionWithIdentif
 
 void __77__ACHDatabaseAssertionServer_remote_invalidateAssertionWithToken_completion___block_invoke(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _queue_cleanup];
   v2 = [*(a1 + 32) assertionByToken];
   v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
@@ -236,9 +233,9 @@ void __77__ACHDatabaseAssertionServer_remote_invalidateAssertionWithToken_comple
   else
   {
     v6 = MEMORY[0x277CCA9B8];
-    v12 = *MEMORY[0x277CCA450];
-    v13[0] = @"Assertion not found";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12[0] = @"Assertion not found";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v8 = [v6 errorWithDomain:@"com.apple.ActivityAchievements.DatabaseAssertion" code:-3 userInfo:v7];
     v9 = *(*(a1 + 56) + 8);
     v10 = *(v9 + 40);
@@ -248,8 +245,6 @@ void __77__ACHDatabaseAssertionServer_remote_invalidateAssertionWithToken_comple
   }
 
   *(*(*(a1 + 48) + 8) + 24) = v5;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

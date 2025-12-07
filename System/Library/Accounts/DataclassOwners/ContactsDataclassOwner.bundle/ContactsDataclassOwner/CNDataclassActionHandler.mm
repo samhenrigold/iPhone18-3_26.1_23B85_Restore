@@ -13,8 +13,11 @@
 - (BOOL)removeContactsAccountForACAccount:(id)account withChildren:(id)children;
 - (CNDataclassActionHandler)initWithParameters:(id)parameters;
 - (id)copyABAccountForACAccount:(id)account withChildren:(id)children;
+- (id)copyDefaultAddressBookSourceForAccount:(id)account withChildren:(id)children createIfNecessary:(BOOL)necessary;
 - (void)disableLocalSourceIfNeededAddingAccount:(id)account;
 - (void)enableLocalSourceIfNecessaryIgnoringAccount:(id)account;
+- (void)setLocalSourceEnabled:(BOOL)enabled;
+- (void)setSourceEnabled:(BOOL)enabled forAccount:(id)account withChildren:(id)children;
 @end
 
 @implementation CNDataclassActionHandler
@@ -274,6 +277,17 @@ LABEL_10:
   return v9;
 }
 
+- (id)copyDefaultAddressBookSourceForAccount:(id)account withChildren:(id)children createIfNecessary:(BOOL)necessary
+{
+  necessaryCopy = necessary;
+  childrenCopy = children;
+  accountCopy = account;
+  implementation = [(CNDataclassActionHandler *)self implementation];
+  v11 = [implementation defaultContainerForParentAccount:accountCopy withChildAccounts:childrenCopy createIfNecessary:necessaryCopy];
+
+  return v11;
+}
+
 - (void)disableLocalSourceIfNeededAddingAccount:(id)account
 {
   if (([account MCIsManaged] & 1) == 0)
@@ -287,6 +301,22 @@ LABEL_10:
 
     [(CNDataclassActionHandler *)self setLocalSourceEnabled:0];
   }
+}
+
+- (void)setLocalSourceEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  implementation = [(CNDataclassActionHandler *)self implementation];
+  [implementation setLocalContainerEnabled:enabledCopy];
+}
+
+- (void)setSourceEnabled:(BOOL)enabled forAccount:(id)account withChildren:(id)children
+{
+  enabledCopy = enabled;
+  childrenCopy = children;
+  accountCopy = account;
+  implementation = [(CNDataclassActionHandler *)self implementation];
+  [implementation setContainersEnabled:enabledCopy forParentAccount:accountCopy withChildAccounts:childrenCopy];
 }
 
 - (void)enableLocalSourceIfNecessaryIgnoringAccount:(id)account

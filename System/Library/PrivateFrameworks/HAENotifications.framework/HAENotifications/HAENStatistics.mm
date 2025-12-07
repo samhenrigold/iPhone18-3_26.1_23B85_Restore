@@ -65,7 +65,7 @@ uint64_t __32__HAENStatistics_sharedInstance__block_invoke()
 
 void __39__HAENStatistics_processStatsForEvent___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) eventType];
   v3 = @"loud";
   if (v2 == 2003133803)
@@ -75,9 +75,9 @@ void __39__HAENStatistics_processStatsForEvent___block_invoke(uint64_t a1)
 
   v4 = MEMORY[0x277CCABB0];
   v5 = *(a1 + 32);
-  v34 = v3;
+  v33 = v3;
   [v5 level];
-  v31 = [v4 numberWithDouble:?];
+  v30 = [v4 numberWithDouble:?];
   LODWORD(v6) = *(a1 + 48);
   v7 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
   LODWORD(v8) = *(a1 + 52);
@@ -85,7 +85,7 @@ void __39__HAENStatistics_processStatsForEvent___block_invoke(uint64_t a1)
   v10 = [*(a1 + 40) volumeActionString:*(a1 + 56)];
   v11 = MEMORY[0x277CCABB0];
   v12 = +[HAENDefaults sharedInstance];
-  v32 = [v11 numberWithBool:{objc_msgSend(v12, "isHAENFeatureOptedIn")}];
+  v31 = [v11 numberWithBool:{objc_msgSend(v12, "isHAENFeatureOptedIn")}];
 
   v13 = MEMORY[0x277CCABB0];
   v14 = +[HAENDefaults sharedInstance];
@@ -112,22 +112,19 @@ void __39__HAENStatistics_processStatsForEvent___block_invoke(uint64_t a1)
     v24 = &unk_2862C9748;
   }
 
-  v33 = v9;
-  v30 = v9;
+  v32 = v9;
+  v29 = v9;
   v25 = v18;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{v24, @"dose", v31, @"level", v34, @"event_type", v15, @"feature_mandatory", v18, @"eu_volume_limit", v21, @"sk_volume_lmit", v32, @"feature_opt_in", v7, @"current_volume", v30, @"target_volume", v10, @"volume_action", 0}];
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{v24, @"dose", v30, @"level", v33, @"event_type", v15, @"feature_mandatory", v18, @"eu_volume_limit", v21, @"sk_volume_lmit", v31, @"feature_opt_in", v7, @"current_volume", v29, @"target_volume", v10, @"volume_action", 0}];
 
-  [*(a1 + 40) _sendMessage:v26];
-  v27 = HAENotificationsLog();
+  v27 = HAENotificationsLog([*(a1 + 40) _sendMessage:v26]);
   if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     v28 = [*(a1 + 32) uuid];
     *buf = 138412290;
-    v36 = v28;
+    v35 = v28;
     _os_log_impl(&dword_25081E000, v27, OS_LOG_TYPE_DEFAULT, "HAENStatistics sent %@", buf, 0xCu);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (id)volumeActionString:(unsigned int)string
@@ -202,11 +199,11 @@ void __48__HAENStatistics_processStatsForLocationGating___block_invoke(uint64_t 
   v14 = [v11 dictionaryWithObjectsAndKeys:{v12, @"feature_mandatory", v3, @"disposition", v5, @"countryCode", v8, @"source", v13, @"eu_volume_limit", v10, @"sk_volume_limit", 0}];
 
   [*(a1 + 32) _sendMessage:v14];
-  v15 = HAENotificationsLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = HAENotificationsLog(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_25081E000, v15, OS_LOG_TYPE_DEFAULT, "HAENStatistics location gating stats sent", buf, 2u);
+    _os_log_impl(&dword_25081E000, v16, OS_LOG_TYPE_DEFAULT, "HAENStatistics location gating stats sent", buf, 2u);
   }
 }
 

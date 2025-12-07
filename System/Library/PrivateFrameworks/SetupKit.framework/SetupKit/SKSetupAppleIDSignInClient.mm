@@ -55,10 +55,10 @@ LABEL_15:
         return;
       }
 
-      var0 = self->super._ucat->var0;
-      if (var0 <= 30)
+      ucat = self->super._ucat;
+      if (ucat->var0 <= 30)
       {
-        if (var0 != -1)
+        if (ucat->var0 != -1)
         {
           goto LABEL_19;
         }
@@ -73,12 +73,32 @@ LABEL_19:
             v8 = off_279BB8768[runState];
           }
 
-          if (v4 < 0xF && ((0x78FFu >> v4) & 1) != 0)
+          else if (runState <= 9)
           {
-            v10 = off_279BB8768[v4];
+            v8 = "?";
           }
 
-          LogPrintF();
+          else
+          {
+            v8 = "User";
+          }
+
+          if (v4 < 0xF && ((0x78FFu >> v4) & 1) != 0)
+          {
+            v9 = off_279BB8768[v4];
+          }
+
+          else if (v4 <= 9)
+          {
+            v9 = "?";
+          }
+
+          else
+          {
+            v9 = "User";
+          }
+
+          LogPrintF(ucat, "[SKSetupAppleIDSignInClient _run]", 30, "State: %s -> %s", v8, v9);
         }
       }
     }

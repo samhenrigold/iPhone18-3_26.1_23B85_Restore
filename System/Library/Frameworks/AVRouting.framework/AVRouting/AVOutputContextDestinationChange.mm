@@ -13,7 +13,6 @@
 
 - (void)changeToTerminalStatusBasedOnRouteChangeEndedReason:(__CFString *)reason
 {
-  v4 = *MEMORY[0x1E69AF450];
   if (FigCFEqual())
   {
 
@@ -21,24 +20,20 @@
     return;
   }
 
-  v5 = *MEMORY[0x1E69AF448];
   if (FigCFEqual())
   {
     goto LABEL_6;
   }
 
-  v6 = *MEMORY[0x1E69AF460];
   if (!FigCFEqual())
   {
-    v9 = *MEMORY[0x1E69AF458];
     if (FigCFEqual())
     {
-      v8 = @"AVOutputContextDestinationChangeCancellationReasonAuthorizationSkipped";
+      v5 = @"AVOutputContextDestinationChangeCancellationReasonAuthorizationSkipped";
       selfCopy2 = self;
       goto LABEL_13;
     }
 
-    v10 = *MEMORY[0x1E69AF440];
     if (!FigCFEqual())
     {
 LABEL_6:
@@ -49,15 +44,14 @@ LABEL_6:
   }
 
   selfCopy2 = self;
-  v8 = 0;
+  v5 = 0;
 LABEL_13:
 
-  [(AVOutputContextDestinationChange *)selfCopy2 markAsCancelledWithReason:v8];
+  [(AVOutputContextDestinationChange *)selfCopy2 markAsCancelledWithReason:v5];
 }
 
 - (void)changeToTerminalStatusBasedOnRouteConfigUpdatedReason:(__CFString *)reason
 {
-  v4 = *MEMORY[0x1E69AF3E8];
   if (FigCFEqual())
   {
 LABEL_2:
@@ -66,38 +60,22 @@ LABEL_2:
     return;
   }
 
-  v5 = *MEMORY[0x1E69AF3D0];
   if (FigCFEqual())
   {
     goto LABEL_6;
   }
 
-  v6 = *MEMORY[0x1E69AF400];
   if (FigCFEqual())
   {
     selfCopy2 = self;
-    v8 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v9 = *MEMORY[0x1E69AF3F8];
     if (!FigCFEqual())
     {
-      v10 = *MEMORY[0x1E69AF3E0];
-      if (FigCFEqual())
-      {
-        goto LABEL_2;
-      }
-
-      v11 = *MEMORY[0x1E69AF3C8];
-      if (FigCFEqual())
-      {
-        goto LABEL_2;
-      }
-
-      v12 = *MEMORY[0x1E69AF3C0];
-      if (FigCFEqual())
+      if (FigCFEqual() || FigCFEqual() || FigCFEqual())
       {
         goto LABEL_2;
       }
@@ -108,11 +86,11 @@ LABEL_6:
       return;
     }
 
-    v8 = @"AVOutputContextDestinationChangeCancellationReasonAuthorizationSkipped";
+    v5 = @"AVOutputContextDestinationChangeCancellationReasonAuthorizationSkipped";
     selfCopy2 = self;
   }
 
-  [(AVOutputContextDestinationChange *)selfCopy2 markAsCancelledWithReason:v8];
+  [(AVOutputContextDestinationChange *)selfCopy2 markAsCancelledWithReason:v5];
 }
 
 - (void)dealloc
@@ -182,7 +160,7 @@ LABEL_6:
   return v3;
 }
 
-uint64_t __54__AVOutputContextDestinationChange_cancellationReason__block_invoke(uint64_t a1)
+void *__54__AVOutputContextDestinationChange_cancellationReason__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 24) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -202,7 +180,7 @@ uint64_t __54__AVOutputContextDestinationChange_cancellationReason__block_invoke
   av_readwrite_dispatch_queue_write(ivarAccessQueue, block);
 }
 
-uint64_t __66__AVOutputContextDestinationChange__setStatus_cancellationReason___block_invoke(uint64_t a1)
+void *__66__AVOutputContextDestinationChange__setStatus_cancellationReason___block_invoke(uint64_t a1)
 {
   *(*(*(a1 + 32) + 8) + 16) = *(a1 + 48);
   result = [*(a1 + 40) copy];

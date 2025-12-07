@@ -22,7 +22,7 @@ void ___AsyncConnection_StartNANDataSession_block_invoke(uint64_t a1, void *a2, 
       }
 
       v12 = [*(a1 + 32) peerEndpoint];
-      LogPrintF(v9, "OSStatus _AsyncConnection_StartNANDataSession(AsyncConnectionRef, CFTypeRef)_block_invoke", 0x5Au, "### NAN data session failed: %@, %{error}\n", v13, v14, v15, v16, v12);
+      LogPrintF(v9, "OSStatus _AsyncConnection_StartNANDataSession(AsyncConnectionRef, CFTypeRef)_block_invoke", 90, "### NAN data session failed: %@, %{error}\n", v13, v14, v15, v16, v12);
     }
 
 LABEL_9:
@@ -57,7 +57,7 @@ LABEL_9:
       v9 = *(*(a1 + 40) + 152);
     }
 
-    LogPrintF(v9, "OSStatus _AsyncConnection_StartNANDataSession(AsyncConnectionRef, CFTypeRef)_block_invoke", 0x32u, "NAN data session started: %@\n", a5, a6, a7, a8, *(a1 + 32));
+    LogPrintF(v9, "OSStatus _AsyncConnection_StartNANDataSession(AsyncConnectionRef, CFTypeRef)_block_invoke", 50, "NAN data session started: %@\n", a5, a6, a7, a8, *(a1 + 32));
   }
 
 LABEL_16:
@@ -66,7 +66,7 @@ LABEL_16:
   v21 = *(a1 + 32);
   if (v21)
   {
-    [v21 peerAddress];
+    objc_msgSend_peerAddress(v21);
     v21 = *(a1 + 32);
   }
 

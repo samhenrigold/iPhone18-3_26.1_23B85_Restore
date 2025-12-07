@@ -72,7 +72,7 @@ LABEL_7:
   return result;
 }
 
-int64_t static AudioBufferList.allocate(maximumBuffers:)@<X0>(int64_t result@<X0>, int64_t *a2@<X8>)
+size_t static AudioBufferList.allocate(maximumBuffers:)@<X0>(size_t result@<X0>, size_t *a2@<X8>)
 {
   if (result < 1)
   {
@@ -209,7 +209,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t (*UnsafeMutableAudioBufferListPointer.subscript.read(uint64_t a1, unint64_t a2))()
+void (*UnsafeMutableAudioBufferListPointer.subscript.read(uint64_t a1, unint64_t a2))()
 {
   if ((a2 & 0x8000000000000000) != 0)
   {
@@ -218,9 +218,6 @@ uint64_t (*UnsafeMutableAudioBufferListPointer.subscript.read(uint64_t a1, unint
 
   else if (**v2 > a2)
   {
-    v3 = *v2 + 16 * a2;
-    v4 = *(v3 + 8);
-    v5 = *(v3 + 16);
     return UnsafeMutableAudioBufferListPointer.unsafeMutablePointer.modify;
   }
 
@@ -228,7 +225,7 @@ uint64_t (*UnsafeMutableAudioBufferListPointer.subscript.read(uint64_t a1, unint
   return result;
 }
 
-uint64_t (*UnsafeMutableAudioBufferListPointer.subscript.modify(uint64_t a1, unint64_t a2))()
+void (*UnsafeMutableAudioBufferListPointer.subscript.modify(uint64_t a1, unint64_t a2))()
 {
   if ((a2 & 0x8000000000000000) != 0)
   {
@@ -237,9 +234,7 @@ uint64_t (*UnsafeMutableAudioBufferListPointer.subscript.modify(uint64_t a1, uni
 
   else if (**v2 > a2)
   {
-    result = UnsafeMutableAudioBufferListPointer.unsafeMutablePointer.modify;
-    v4 = *v2 + 16 * a2 + 8;
-    return result;
+    return UnsafeMutableAudioBufferListPointer.unsafeMutablePointer.modify;
   }
 
   __break(1u);
@@ -286,19 +281,16 @@ void *protocol witness for MutableCollection.subscript.setter in conformance Uns
   return result;
 }
 
-uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance UnsafeMutableAudioBufferListPointer(uint64_t a1, unint64_t *a2))()
+void (*protocol witness for MutableCollection.subscript.modify in conformance UnsafeMutableAudioBufferListPointer(uint64_t a1, void *a2))()
 {
-  v3 = *a2;
   if ((*a2 & 0x8000000000000000) != 0)
   {
     __break(1u);
   }
 
-  else if (v3 < **v2)
+  else if (*a2 < **v2)
   {
-    result = UnsafeMutableAudioBufferListPointer.unsafeMutablePointer.modify;
-    v5 = *v2 + 16 * v3 + 8;
-    return result;
+    return UnsafeMutableAudioBufferListPointer.unsafeMutablePointer.modify;
   }
 
   __break(1u);
@@ -322,7 +314,7 @@ uint64_t (*protocol witness for MutableCollection.subscript.modify in conformanc
   return protocol witness for MutableCollection.subscript.modify in conformance UnsafeMutableAudioBufferListPointer;
 }
 
-void (*specialized MutableCollection<>.subscript.modify(void (**a1)(uint64_t a1, uint64_t a2), uint64_t a2, uint64_t a3))(uint64_t a1, uint64_t a2)
+uint64_t (*specialized MutableCollection<>.subscript.modify(uint64_t (**a1)(), uint64_t a2, uint64_t a3))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -395,24 +387,6 @@ void (*specialized MutableCollection<>.subscript.modify(void (**a1)(uint64_t a1,
   return result;
 }
 
-void MutableCollection<>.subscript.modifyspecialized (uint64_t a1, uint64_t a2)
-{
-  MutableCollection<>.subscript.modifyspecialized (a1, a2, specialized _writeBackMutableSlice<A, B>(_:bounds:slice:));
-}
-
-{
-  MutableCollection<>.subscript.modifyspecialized (a1, a2, specialized _writeBackMutableSlice<A, B>(_:bounds:slice:));
-}
-
-void MutableCollection<>.subscript.modifyspecialized (uint64_t a1, uint64_t a2, void (*a3)(void, void, void, void, void, void))
-{
-  v3 = *a1;
-  a3(*(*a1 + 40), v3[3], *(*a1 + 32), *v3, v3[1], v3[2]);
-
-  free(v3);
-}
-
-void (*specialized MutableCollection<>.subscript.modify(void (**a1)(unint64_t **a1, char a2), uint64_t a2, uint64_t a3))(unint64_t **a1, char a2)
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -453,39 +427,52 @@ void (*specialized MutableCollection<>.subscript.modify(void (**a1)(unint64_t **
   return result;
 }
 
+void MutableCollection<>.subscript.modifyspecialized (uint64_t a1, uint64_t a2)
+{
+  MutableCollection<>.subscript.modifyspecialized (a1, a2, specialized _writeBackMutableSlice<A, B>(_:bounds:slice:));
+}
+
+{
+  MutableCollection<>.subscript.modifyspecialized (a1, a2, specialized _writeBackMutableSlice<A, B>(_:bounds:slice:));
+}
+
+void MutableCollection<>.subscript.modifyspecialized (uint64_t a1, uint64_t a2, void (*a3)(void, void, void, void, void, void))
+{
+  v3 = *a1;
+  a3(*(*a1 + 40), v3[3], *(*a1 + 32), *v3, v3[1], v3[2]);
+
+  free(v3);
+}
+
 void MutableCollection<>.subscript.modifyspecialized (unint64_t **a1, char a2)
 {
   v2 = *a1;
   v3 = **a1;
   v4 = (*a1)[1];
   v5 = (*a1)[2];
-  v6 = *(*a1 + 24);
-  v7 = (*a1)[5];
-  v8 = (*a1)[6];
-  v9 = (*a1)[4];
+  v6 = (*a1)[5];
+  v7 = (*a1)[6];
+  v8 = (*a1)[4];
   if (a2)
   {
-    v10 = (*a1)[2];
 
-    specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(v8, v9, v7, v3, v4, v5);
+    specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(v7, v8, v6, v3, v4, v5);
   }
 
   else
   {
-    specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)((*a1)[6], v9, v7, v3, v4, v5);
+    specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)((*a1)[6], v8, v6, v3, v4, v5);
   }
-
-  v11 = v2[2];
 
   free(v2);
 }
 
-unint64_t protocol witness for MutableCollection.partition(by:) in conformance UnsafeMutableAudioBufferListPointer@<X0>(unint64_t a1@<X0>, unint64_t *a2@<X8>)
+uint64_t protocol witness for MutableCollection.partition(by:) in conformance UnsafeMutableAudioBufferListPointer@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X0>)
 {
-  result = specialized MutableCollection<>._partitionImpl(by:)(a1);
+  result = specialized MutableCollection<>._partitionImpl(by:)(a2);
   if (!v2)
   {
-    *a2 = result;
+    *a1 = result;
   }
 
   return result;
@@ -807,7 +794,7 @@ LABEL_17:
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance UnsafeMutableAudioBufferListPointer(uint64_t (*result)(), unint64_t *a2))()
+void (*protocol witness for Collection.subscript.read in conformance UnsafeMutableAudioBufferListPointer(void (*result)(), unint64_t *a2))()
 {
   v3 = *a2;
   if ((*a2 & 0x8000000000000000) != 0)
@@ -1140,7 +1127,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t (*AudioChannelLayout.UnsafeMutablePointer.subscript.read(uint64_t (*result)(), unint64_t a2))()
+void (*AudioChannelLayout.UnsafeMutablePointer.subscript.read(void (*result)(), unint64_t a2))()
 {
   if ((a2 & 0x8000000000000000) != 0)
   {
@@ -1149,10 +1136,7 @@ uint64_t (*AudioChannelLayout.UnsafeMutablePointer.subscript.read(uint64_t (*res
 
   else if (*(*v2 + 8) > a2)
   {
-    v3 = *v2 + 20 * a2;
-    v4 = *(v3 + 12);
-    v5 = *(v3 + 20);
-    *result = *(v3 + 24);
+    *result = *(*v2 + 20 * a2 + 24);
     return UnsafeMutableAudioBufferListPointer.unsafeMutablePointer.modify;
   }
 
@@ -1160,7 +1144,7 @@ uint64_t (*AudioChannelLayout.UnsafeMutablePointer.subscript.read(uint64_t (*res
   return result;
 }
 
-uint64_t (*AudioChannelLayout.UnsafeMutablePointer.subscript.modify(uint64_t a1, unint64_t a2))()
+void (*AudioChannelLayout.UnsafeMutablePointer.subscript.modify(uint64_t a1, unint64_t a2))()
 {
   if ((a2 & 0x8000000000000000) != 0)
   {
@@ -1169,9 +1153,7 @@ uint64_t (*AudioChannelLayout.UnsafeMutablePointer.subscript.modify(uint64_t a1,
 
   else if (*(*v2 + 8) > a2)
   {
-    result = UnsafeMutableAudioBufferListPointer.unsafeMutablePointer.modify;
-    v4 = *v2 + 20 * a2 + 12;
-    return result;
+    return UnsafeMutableAudioBufferListPointer.unsafeMutablePointer.modify;
   }
 
   __break(1u);
@@ -1222,26 +1204,23 @@ uint64_t protocol witness for MutableCollection.subscript.setter in conformance 
   return result;
 }
 
-uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance AudioChannelLayout.UnsafeMutablePointer(uint64_t a1, unint64_t *a2))()
+void (*protocol witness for MutableCollection.subscript.modify in conformance AudioChannelLayout.UnsafeMutablePointer(uint64_t a1, void *a2))()
 {
-  v3 = *a2;
   if ((*a2 & 0x8000000000000000) != 0)
   {
     __break(1u);
   }
 
-  else if (v3 < *(*v2 + 8))
+  else if (*a2 < *(*v2 + 8))
   {
-    result = UnsafeMutableAudioBufferListPointer.unsafeMutablePointer.modify;
-    v5 = *v2 + 20 * v3 + 12;
-    return result;
+    return UnsafeMutableAudioBufferListPointer.unsafeMutablePointer.modify;
   }
 
   __break(1u);
   return result;
 }
 
-uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance AudioChannelLayout.UnsafeMutablePointer(uint64_t *a1, uint64_t *a2))()
+uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance AudioChannelLayout.UnsafeMutablePointer(uint64_t (***a1)(), uint64_t *a2))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -1258,12 +1237,12 @@ uint64_t (*protocol witness for MutableCollection.subscript.modify in conformanc
   return protocol witness for MutableCollection.subscript.modify in conformance AudioChannelLayout.UnsafeMutablePointer;
 }
 
-unint64_t protocol witness for MutableCollection.partition(by:) in conformance AudioChannelLayout.UnsafeMutablePointer@<X0>(unint64_t a1@<X0>, unint64_t *a2@<X8>)
+uint64_t protocol witness for MutableCollection.partition(by:) in conformance AudioChannelLayout.UnsafeMutablePointer@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X0>)
 {
-  result = specialized MutableCollection<>._partitionImpl(by:)(a1);
+  result = specialized MutableCollection<>._partitionImpl(by:)(a2);
   if (!v2)
   {
-    *a2 = result;
+    *a1 = result;
   }
 
   return result;
@@ -1277,7 +1256,7 @@ unint64_t protocol witness for BidirectionalCollection.index(_:offsetBy:limitedB
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance AudioChannelLayout.UnsafeMutablePointer(uint64_t (*result)(), unint64_t *a2))()
+void (*protocol witness for Collection.subscript.read in conformance AudioChannelLayout.UnsafeMutablePointer(void (*result)(), unint64_t *a2))()
 {
   v3 = *a2;
   if ((*a2 & 0x8000000000000000) != 0)
@@ -1300,7 +1279,7 @@ uint64_t (*protocol witness for Collection.subscript.read in conformance AudioCh
   return result;
 }
 
-uint64_t (*AudioChannelLayout.UnsafePointer.subscript.read(uint64_t (*result)(), unint64_t a2))()
+void (*AudioChannelLayout.UnsafePointer.subscript.read(void (*result)(), unint64_t a2))()
 {
   if ((a2 & 0x8000000000000000) != 0)
   {
@@ -1309,10 +1288,7 @@ uint64_t (*AudioChannelLayout.UnsafePointer.subscript.read(uint64_t (*result)(),
 
   else if (*(*v2 + 8) > a2)
   {
-    v3 = *v2 + 20 * a2;
-    v4 = *(v3 + 12);
-    v5 = *(v3 + 20);
-    *result = *(v3 + 24);
+    *result = *(*v2 + 20 * a2 + 24);
     return UnsafeMutableAudioBufferListPointer.unsafeMutablePointer.modify;
   }
 
@@ -1475,10 +1451,10 @@ uint64_t ManagedAudioChannelLayout.Storage.__deallocating_deinit()
   if (v2)
   {
     v3 = *(v0 + 32);
-    v6 = v1[2];
+    v5 = v1[2];
 
-    v2(&v6);
-    outlined consume of (@escaping @callee_guaranteed (@in_guaranteed AudioChannelLayout.UnsafePointer) -> ())?(v2);
+    v2(&v5);
+    outlined consume of (@escaping @callee_guaranteed (@in_guaranteed AudioChannelLayout.UnsafePointer) -> ())?(v2, v3);
   }
 
   else
@@ -1486,8 +1462,7 @@ uint64_t ManagedAudioChannelLayout.Storage.__deallocating_deinit()
     free(*(v0 + 16));
   }
 
-  v4 = v1[4];
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed AudioChannelLayout.UnsafePointer) -> ())?(v1[3]);
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed AudioChannelLayout.UnsafePointer) -> ())?(v1[3], v1[4]);
 
   return MEMORY[0x2A1C73398](v1, 40, 7);
 }
@@ -1541,24 +1516,23 @@ LABEL_11:
   return result;
 }
 
-uint64_t ManagedAudioChannelLayout.ensureUniqueMutableReference()()
+int64_t ManagedAudioChannelLayout.ensureUniqueMutableReference()()
 {
   v1 = v0;
-  v2 = *v0;
   result = swift_isUniquelyReferenced_nonNull_native();
-  v4 = *v0;
-  if (!result || *(v4 + 24))
+  v3 = *v0;
+  if (!result || *(v3 + 24))
   {
-    v5 = *(v4 + 16);
-    v6 = v5[2];
+    v4 = *(v3 + 16);
+    v5 = v4[2];
     type metadata accessor for ManagedAudioChannelLayout.Storage();
-    v7 = swift_allocObject();
-    result = ManagedAudioChannelLayout.Storage.init(maximumDescriptions:)(v6);
-    if (v6)
+    v6 = swift_allocObject();
+    result = ManagedAudioChannelLayout.Storage.init(maximumDescriptions:)(v5);
+    if (v5)
     {
-      memcpy(*(v7 + 16), v5, 20 * v6 + 12);
+      memcpy(*(v6 + 16), v4, 20 * v5 + 12);
 
-      *v1 = v7;
+      *v1 = v6;
     }
 
     else
@@ -1585,8 +1559,9 @@ void *ManagedAudioChannelLayout.init(audioChannelLayoutPointer:deallocator:)@<X0
   return result;
 }
 
-uint64_t ManagedAudioChannelLayout.init(tag:)@<X0>(int a1@<W0>, uint64_t a2@<X8>)
+_DWORD *ManagedAudioChannelLayout.init(tag:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
+  v2 = a1;
   *(a2 + 8) = -1;
   type metadata accessor for ManagedAudioChannelLayout.Storage();
   *(a2 + 20) = 0;
@@ -1595,12 +1570,12 @@ uint64_t ManagedAudioChannelLayout.init(tag:)@<X0>(int a1@<W0>, uint64_t a2@<X8>
   result = calloc(0x20uLL, 1uLL);
   if (result)
   {
-    *(result + 8) = 1;
+    result[2] = 1;
     v4[3] = 0;
     v4[4] = 0;
     v4[2] = result;
     *a2 = v4;
-    ManagedAudioChannelLayout.tag.setter(a1);
+    ManagedAudioChannelLayout.tag.setter(v2);
     result = ManagedAudioChannelLayout.bitmap.setter(0);
     v6 = *(*a2 + 16);
     if (*(v6 + 8))
@@ -1623,30 +1598,29 @@ uint64_t ManagedAudioChannelLayout.init(tag:)@<X0>(int a1@<W0>, uint64_t a2@<X8>
   return result;
 }
 
-uint64_t ManagedAudioChannelLayout.tag.setter(int a1)
+int64_t ManagedAudioChannelLayout.tag.setter(int a1)
 {
   v2 = v1;
-  v4 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *v1;
-  if (result && !*(v6 + 24))
+  v5 = *v1;
+  if (result && !*(v5 + 24))
   {
     goto LABEL_5;
   }
 
-  v7 = *(v6 + 16);
-  v8 = v7[2];
+  v6 = *(v5 + 16);
+  v7 = v6[2];
   type metadata accessor for ManagedAudioChannelLayout.Storage();
-  v9 = swift_allocObject();
-  result = ManagedAudioChannelLayout.Storage.init(maximumDescriptions:)(v8);
-  if (v8)
+  v8 = swift_allocObject();
+  result = ManagedAudioChannelLayout.Storage.init(maximumDescriptions:)(v7);
+  if (v7)
   {
-    memcpy(*(v9 + 16), v7, 20 * v8 + 12);
+    memcpy(*(v8 + 16), v6, 20 * v7 + 12);
 
-    *v2 = v9;
-    v6 = v9;
+    *v2 = v8;
+    v5 = v8;
 LABEL_5:
-    **(v6 + 16) = a1;
+    **(v5 + 16) = a1;
     return result;
   }
 
@@ -1654,30 +1628,29 @@ LABEL_5:
   return result;
 }
 
-uint64_t ManagedAudioChannelLayout.bitmap.setter(int a1)
+int64_t ManagedAudioChannelLayout.bitmap.setter(int a1)
 {
   v2 = v1;
-  v4 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *v1;
-  if (result && !*(v6 + 24))
+  v5 = *v1;
+  if (result && !*(v5 + 24))
   {
     goto LABEL_5;
   }
 
-  v7 = *(v6 + 16);
-  v8 = v7[2];
+  v6 = *(v5 + 16);
+  v7 = v6[2];
   type metadata accessor for ManagedAudioChannelLayout.Storage();
-  v9 = swift_allocObject();
-  result = ManagedAudioChannelLayout.Storage.init(maximumDescriptions:)(v8);
-  if (v8)
+  v8 = swift_allocObject();
+  result = ManagedAudioChannelLayout.Storage.init(maximumDescriptions:)(v7);
+  if (v7)
   {
-    memcpy(*(v9 + 16), v7, 20 * v8 + 12);
+    memcpy(*(v8 + 16), v6, 20 * v7 + 12);
 
-    *v2 = v9;
-    v6 = v9;
+    *v2 = v8;
+    v5 = v8;
 LABEL_5:
-    *(*(v6 + 16) + 4) = a1;
+    *(*(v5 + 16) + 4) = a1;
     return result;
   }
 
@@ -1766,7 +1739,7 @@ Swift::Void __swiftcall ManagedAudioChannelLayout.setAllToUnknown()()
   }
 }
 
-uint64_t ManagedAudioChannelLayout.init(channelDescriptions:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+int64_t ManagedAudioChannelLayout.init(channelDescriptions:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = *(a1 + 16);
   type metadata accessor for ManagedAudioChannelLayout.Storage();
@@ -1832,27 +1805,26 @@ uint64_t ManagedAudioChannelLayout.tag.modify(uint64_t a1, char a2)
     return ManagedAudioChannelLayout.tag.setter(v3);
   }
 
-  v5 = *v2;
   result = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *v2;
-  if (result && !*(v6 + 24))
+  v5 = *v2;
+  if (result && !*(v5 + 24))
   {
     goto LABEL_7;
   }
 
-  v7 = *(v6 + 16);
-  v8 = v7[2];
+  v6 = *(v5 + 16);
+  v7 = v6[2];
   type metadata accessor for ManagedAudioChannelLayout.Storage();
-  v9 = swift_allocObject();
-  result = ManagedAudioChannelLayout.Storage.init(maximumDescriptions:)(v8);
-  if (v8)
+  v8 = swift_allocObject();
+  result = ManagedAudioChannelLayout.Storage.init(maximumDescriptions:)(v7);
+  if (v7)
   {
-    memcpy(*(v9 + 16), v7, 20 * v8 + 12);
+    memcpy(*(v8 + 16), v6, 20 * v7 + 12);
 
-    *v2 = v9;
-    v6 = v9;
+    *v2 = v8;
+    v5 = v8;
 LABEL_7:
-    **(v6 + 16) = v3;
+    **(v5 + 16) = v3;
     return result;
   }
 
@@ -1876,27 +1848,26 @@ uint64_t ManagedAudioChannelLayout.bitmap.modify(uint64_t a1, char a2)
     return ManagedAudioChannelLayout.bitmap.setter(v3);
   }
 
-  v5 = *v2;
   result = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *v2;
-  if (result && !*(v6 + 24))
+  v5 = *v2;
+  if (result && !*(v5 + 24))
   {
     goto LABEL_7;
   }
 
-  v7 = *(v6 + 16);
-  v8 = v7[2];
+  v6 = *(v5 + 16);
+  v7 = v6[2];
   type metadata accessor for ManagedAudioChannelLayout.Storage();
-  v9 = swift_allocObject();
-  result = ManagedAudioChannelLayout.Storage.init(maximumDescriptions:)(v8);
-  if (v8)
+  v8 = swift_allocObject();
+  result = ManagedAudioChannelLayout.Storage.init(maximumDescriptions:)(v7);
+  if (v7)
   {
-    memcpy(*(v9 + 16), v7, 20 * v8 + 12);
+    memcpy(*(v8 + 16), v6, 20 * v7 + 12);
 
-    *v2 = v9;
-    v6 = v9;
+    *v2 = v8;
+    v5 = v8;
 LABEL_7:
-    *(*(v6 + 16) + 4) = v3;
+    *(*(v5 + 16) + 4) = v3;
     return result;
   }
 
@@ -1910,13 +1881,13 @@ uint64_t ManagedAudioChannelLayout.channelDescriptions.getter@<X0>(uint64_t a1@<
   *(a1 + 8) = 0;
 }
 
-uint64_t key path getter for ManagedAudioChannelLayout.channelDescriptions : ManagedAudioChannelLayout@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+uint64_t key path getter for ManagedAudioChannelLayout.channelDescriptions : ManagedAudioChannelLayout@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   *a2 = *a1;
   *(a2 + 8) = 0;
 }
 
-uint64_t (*ManagedAudioChannelLayout.channelDescriptions.read(uint64_t a1))(uint64_t *a1)
+uint64_t (*ManagedAudioChannelLayout.channelDescriptions.read(uint64_t a1))()
 {
   *a1 = *v1;
   *(a1 + 8) = 0;
@@ -1929,40 +1900,38 @@ uint64_t key path setter for ManagedAudioChannelLayout.channelDescriptions : Man
   v1 = *a1;
   v2 = *(a1 + 8);
 
-  v3 = ManagedAudioChannelLayout.channelDescriptions.modify(v7);
-  v5 = *v4;
+  v3 = ManagedAudioChannelLayout.channelDescriptions.modify(v6);
   *v4 = v1;
   *(v4 + 8) = v2;
 
-  return v3(v7, 0);
+  return v3(v6, 0);
 }
 
 int64_t (*ManagedAudioChannelLayout.channelDescriptions.modify(uint64_t a1))(uint64_t *a1, char a2)
 {
   v2 = v1;
   *(a1 + 16) = v1;
-  v4 = *v1;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *v1;
-  if (isUniquelyReferenced_nonNull_native && !*(v6 + 24))
+  v5 = *v1;
+  if (isUniquelyReferenced_nonNull_native && !*(v5 + 24))
   {
     goto LABEL_5;
   }
 
-  v7 = *(v6 + 16);
-  v8 = v7[2];
+  v6 = *(v5 + 16);
+  v7 = v6[2];
   type metadata accessor for ManagedAudioChannelLayout.Storage();
-  v9 = swift_allocObject();
-  result = ManagedAudioChannelLayout.Storage.init(maximumDescriptions:)(v8);
-  if (v8)
+  v8 = swift_allocObject();
+  result = ManagedAudioChannelLayout.Storage.init(maximumDescriptions:)(v7);
+  if (v7)
   {
-    memcpy(*(v9 + 16), v7, 20 * v8 + 12);
+    memcpy(*(v8 + 16), v6, 20 * v7 + 12);
 
-    *v2 = v9;
-    v6 = v9;
+    *v2 = v8;
+    v5 = v8;
 LABEL_5:
-    *(a1 + 24) = v6;
-    *a1 = v6;
+    *(a1 + 24) = v5;
+    *a1 = v5;
     *(a1 + 8) = 1;
 
     return ManagedAudioChannelLayout.channelDescriptions.modify;
@@ -2046,47 +2015,46 @@ uint64_t ManagedAudioChannelLayout.sizeInBytes.getter()
   return result;
 }
 
-uint64_t ManagedAudioChannelLayout.numberOfChannels.getter()
+uint64_t ManagedAudioChannelLayout.numberOfChannels.getter(uint64_t a1)
 {
-  v1 = *(*v0 + 16);
-  if (*v1 == 0x10000)
+  v2 = *(*v1 + 16);
+  if (*v2 == 0x10000)
   {
-    v14 = v1[1];
     lazy protocol witness table accessor for type UInt32 and conformance UInt32();
     String.init<A>(_:radix:uppercase:)();
-    v8 = String.Iterator.next()();
-    countAndFlagsBits = v8.value._countAndFlagsBits;
-    object = v8.value._object;
-    if (v8.value._object)
+    v9 = String.Iterator.next()();
+    countAndFlagsBits = v9.value._countAndFlagsBits;
+    object = v9.value._object;
+    if (v9.value._object)
     {
       do
       {
-        if (countAndFlagsBits == 49 && object == 0xE100000000000000 || (v11 = countAndFlagsBits, v12 = _stringCompareWithSmolCheck(_:_:expecting:)(), countAndFlagsBits = v11, (v12 & 1) != 0))
+        if (countAndFlagsBits == 49 && object == 0xE100000000000000 || (v12 = countAndFlagsBits, v13 = _stringCompareWithSmolCheck(_:_:expecting:)(), countAndFlagsBits = v12, (v13 & 1) != 0))
         {
-          MEMORY[0x29C2A9BE0](countAndFlagsBits, object, v4, v5, v6, v7);
+          MEMORY[0x29C2A9BE0](countAndFlagsBits, object, v5, v6, v7, v8);
         }
 
-        v10 = String.Iterator.next()();
-        countAndFlagsBits = v10.value._countAndFlagsBits;
-        object = v10.value._object;
+        v11 = String.Iterator.next()();
+        countAndFlagsBits = v11.value._countAndFlagsBits;
+        object = v11.value._object;
       }
 
-      while (v10.value._object);
+      while (v11.value._object);
     }
 
-    v13 = String.count.getter();
+    v14 = String.count.getter();
 
-    return v13;
+    return v14;
   }
 
-  else if (*v1)
+  else if (*v2)
   {
-    return *v1;
+    return *v2;
   }
 
   else
   {
-    return v1[2];
+    return v2[2];
   }
 }
 
@@ -2114,12 +2082,7 @@ unint64_t ManagedAudioChannelLayout.ChannelDescriptions.subscript.getter(unint64
     v2 = *(*v1 + 16);
     if (*(v2 + 8) > result)
     {
-      v3 = v2 + 20 * result;
-      result = *(v3 + 12);
-      v4 = *(v3 + 20);
-      v5 = *(v3 + 24);
-      v6 = *(v3 + 28);
-      return result;
+      return *(v2 + 20 * result + 12);
     }
   }
 
@@ -2154,7 +2117,7 @@ uint64_t key path getter for ManagedAudioChannelLayout.ChannelDescriptions.subsc
   return result;
 }
 
-uint64_t (*ManagedAudioChannelLayout.ChannelDescriptions.subscript.read(uint64_t (*result)(), unint64_t a2))()
+void (*ManagedAudioChannelLayout.ChannelDescriptions.subscript.read(void (*result)(), unint64_t a2))()
 {
   if ((a2 & 0x8000000000000000) != 0)
   {
@@ -2166,10 +2129,7 @@ uint64_t (*ManagedAudioChannelLayout.ChannelDescriptions.subscript.read(uint64_t
     v3 = *(*v2 + 16);
     if (*(v3 + 8) > a2)
     {
-      v4 = v3 + 20 * a2;
-      v5 = *(v4 + 12);
-      v6 = *(v4 + 20);
-      *result = *(v4 + 24);
+      *result = *(v3 + 20 * a2 + 24);
       return UnsafeMutableAudioBufferListPointer.unsafeMutablePointer.modify;
     }
   }
@@ -2178,12 +2138,12 @@ uint64_t (*ManagedAudioChannelLayout.ChannelDescriptions.subscript.read(uint64_t
   return result;
 }
 
-uint64_t key path setter for ManagedAudioChannelLayout.ChannelDescriptions.subscript(_:) : ManagedAudioChannelLayout.ChannelDescriptions(uint64_t result, _BYTE *a2, unint64_t *a3)
+uint64_t *key path setter for ManagedAudioChannelLayout.ChannelDescriptions.subscript(_:) : ManagedAudioChannelLayout.ChannelDescriptions(uint64_t *result, _BYTE *a2, unint64_t *a3)
 {
   v4 = *a3;
   v5 = *result;
-  v6 = *(result + 8);
-  v7 = *(result + 16);
+  v6 = result[1];
+  v7 = *(result + 4);
   if ((a2[8] & 1) == 0)
   {
     result = ManagedAudioChannelLayout.ensureUniqueMutableReference()();
@@ -2235,7 +2195,7 @@ uint64_t (*ManagedAudioChannelLayout.ChannelDescriptions.subscript.modify(uint64
   return ManagedAudioChannelLayout.ChannelDescriptions.subscript.modify;
 }
 
-uint64_t ManagedAudioChannelLayout.ChannelDescriptions.subscript.setter(uint64_t result, unint64_t a2, float a3, float a4, float a5)
+int64_t ManagedAudioChannelLayout.ChannelDescriptions.subscript.setter(int64_t result, unint64_t a2, float a3, float a4, float a5)
 {
   v10 = result;
   if ((v5[8] & 1) == 0)
@@ -2299,13 +2259,12 @@ void ManagedAudioChannelLayout.ChannelDescriptions.subscript.modify(void *a1)
   free(v1);
 }
 
-uint64_t protocol witness for MutableCollection.subscript.setter in conformance ManagedAudioChannelLayout.ChannelDescriptions(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for MutableCollection.subscript.setter in conformance ManagedAudioChannelLayout.ChannelDescriptions(uint64_t a1, unint64_t *a2)
 {
-  v3 = *(a1 + 24);
-  specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(v2, *a2, *(a2 + 8), *a1, *(a1 + 8), *(a1 + 16));
+  specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(v2, *a2, a2[1], *a1, *(a1 + 8), *(a1 + 16));
 }
 
-uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance ManagedAudioChannelLayout.ChannelDescriptions(uint64_t *a1, uint64_t *a2))()
+uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance ManagedAudioChannelLayout.ChannelDescriptions(uint64_t (***a1)(), uint64_t *a2))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -2330,18 +2289,18 @@ void protocol witness for MutableCollection.subscript.modify in conformance Unsa
   free(v1);
 }
 
-unint64_t protocol witness for MutableCollection.partition(by:) in conformance ManagedAudioChannelLayout.ChannelDescriptions@<X0>(unint64_t a1@<X0>, unint64_t *a2@<X8>)
+unint64_t protocol witness for MutableCollection.partition(by:) in conformance ManagedAudioChannelLayout.ChannelDescriptions@<X0>(unint64_t *a1@<X8>, unint64_t a2@<X0>)
 {
-  result = specialized MutableCollection<>._partitionImpl(by:)(a1);
+  result = specialized MutableCollection<>._partitionImpl(by:)(a2);
   if (!v2)
   {
-    *a2 = result;
+    *a1 = result;
   }
 
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance ManagedAudioChannelLayout.ChannelDescriptions(uint64_t (*result)(), unint64_t *a2))()
+void (*protocol witness for Collection.subscript.read in conformance ManagedAudioChannelLayout.ChannelDescriptions(void (*result)(), unint64_t *a2))()
 {
   v3 = *a2;
   if ((*a2 & 0x8000000000000000) != 0)
@@ -2530,10 +2489,9 @@ void *protocol witness for RandomAccessCollection.index(_:offsetBy:) in conforma
 
 unint64_t protocol witness for RandomAccessCollection.index(_:offsetBy:limitedBy:) in conformance ManagedAudioChannelLayout.ChannelDescriptions@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X2>, uint64_t a4@<X8>)
 {
-  v6 = *(v4 + 8);
   result = specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(*a1, a2, *a3, *v4);
   *a4 = result;
-  *(a4 + 8) = v8 & 1;
+  *(a4 + 8) = v7 & 1;
   return result;
 }
 
@@ -2697,7 +2655,7 @@ LABEL_26:
   return result;
 }
 
-unint64_t specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(unint64_t result, unint64_t a2, uint64_t a3, unint64_t a4, int64_t a5, uint64_t a6)
+uint64_t *specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(uint64_t *result, unint64_t a2, uint64_t a3, unint64_t a4, int64_t a5, uint64_t a6)
 {
   if ((a2 & 0x8000000000000000) != 0)
   {
@@ -2764,7 +2722,7 @@ LABEL_25:
       if (v12 != a2)
       {
         ++a2;
-        result = v15 + 1;
+        result = (v15 + 1);
         v10 += 20;
         if (v14 != v15++)
         {
@@ -2837,11 +2795,11 @@ LABEL_34:
     v17 = 20 * a2;
     v18 = a3 - 1;
     v19 = a4;
-    v35 = result;
-    v34 = 20 * a4;
-    v38 = 20 * a2;
-    v39 = a5 - 1;
-    v37 = a3 - 1;
+    v34 = result;
+    v33 = 20 * a4;
+    v37 = 20 * a2;
+    v38 = a5 - 1;
+    v36 = a3 - 1;
     while (v19 < v8)
     {
       if ((v9 & 0x8000000000000000) != 0)
@@ -2859,63 +2817,61 @@ LABEL_34:
       v22 = *(v21 + 12);
       v23 = *(v21 + 20);
       v24 = *(v21 + 28);
-      if ((v6[1] & 1) == 0)
+      if ((v6[2] & 1) == 0)
       {
-        v25 = *v6;
         result = swift_isUniquelyReferenced_nonNull_native();
         v7 = *v6;
         if (!result || v7[3])
         {
-          v40 = *v6;
-          v26 = v7[2];
-          v27 = v26[2];
+          v25 = v7[2];
+          v26 = v25[2];
           type metadata accessor for ManagedAudioChannelLayout.Storage();
           result = swift_allocObject();
-          if (!v27)
+          if (!v26)
           {
             goto LABEL_31;
           }
 
           v7 = result;
-          v28 = v8;
-          v29 = a6;
-          v30 = 20 * v27;
-          result = calloc(v30 + 12, 1uLL);
+          v27 = v8;
+          v28 = a6;
+          v29 = 20 * v26;
+          result = calloc(v29 + 12, 1uLL);
           if (!result)
           {
             goto LABEL_32;
           }
 
-          result[2] = v27;
+          result[2] = v26;
           v7[3] = 0;
           v7[4] = 0;
           v7[2] = result;
-          memcpy(result, v26, v30 + 12);
+          memcpy(result, v25, v29 + 12);
 
-          v15 = v34;
-          v6 = v35;
-          *v35 = v7;
-          a6 = v29;
-          v8 = v28;
+          v15 = v33;
+          v6 = v34;
+          *v34 = v7;
+          a6 = v28;
+          v8 = v27;
           v9 = a4;
         }
 
-        v17 = v38;
-        v16 = v39;
-        v18 = v37;
+        v17 = v37;
+        v16 = v38;
+        v18 = v36;
       }
 
-      v31 = v7[2];
-      if (v10 >= *(v31 + 8))
+      v30 = v7[2];
+      if (v10 >= *(v30 + 8))
       {
         goto LABEL_28;
       }
 
-      v32 = v31 + v17 + v14;
-      *(v32 + 12) = v22;
-      *(v32 + 20) = v23;
-      *(v32 + 28) = v24;
-      if (v10 >= *(v31 + 8))
+      v31 = v30 + v17 + v14;
+      *(v31 + 12) = v22;
+      *(v31 + 20) = v23;
+      *(v31 + 28) = v24;
+      if (v10 >= *(v30 + 8))
       {
         goto LABEL_29;
       }
@@ -2975,7 +2931,7 @@ LABEL_36:
   return result;
 }
 
-unint64_t specialized MutableCollection<>._partitionImpl(by:)(unint64_t result)
+uint64_t specialized MutableCollection<>._partitionImpl(by:)(uint64_t result)
 {
   v3 = *v1;
   v4 = **v1;
@@ -3160,6 +3116,7 @@ LABEL_23:
   return result;
 }
 
+unint64_t specialized MutableCollection<>._partitionImpl(by:)(unint64_t result)
 {
   v3 = *v1;
   v4 = *(*v1 + 16);
@@ -3383,7 +3340,7 @@ LABEL_11:
     if (v4)
     {
       v5 = 0;
-      v6 = (a4 + 4);
+      v6 = a4 + 4;
       while (v5 < v4)
       {
         v7 = *v6;
@@ -3396,7 +3353,7 @@ LABEL_11:
 
         v4 = *a4;
         ++v5;
-        v6 += 2;
+        v6 += 4;
         a2 += 2;
         if (v5 == v4)
         {
@@ -3711,7 +3668,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -3731,7 +3687,7 @@ unint64_t lazy protocol witness table accessor for type Int and conformance Int(
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -4009,7 +3965,7 @@ unint64_t lazy protocol witness table accessor for type Slice<ManagedAudioChanne
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<UnsafeMutableAudioBufferListPointer> and conformance Slice<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t lazy protocol witness table accessor for type Slice<UnsafeMutableAudioBufferListPointer> and conformance Slice<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -4406,7 +4362,7 @@ uint64_t storeEnumTagSinglePayload for AudioBuffer(uint64_t result, int a2, int 
   return result;
 }
 
-uint64_t outlined consume of (@escaping @callee_guaranteed (@in_guaranteed AudioChannelLayout.UnsafePointer) -> ())?(uint64_t result)
+uint64_t outlined consume of (@escaping @callee_guaranteed (@in_guaranteed AudioChannelLayout.UnsafePointer) -> ())?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -4420,7 +4376,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -4428,12 +4383,12 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   return result;
 }
 
-void type metadata accessor for AudioBufferList(uint64_t a1, unint64_t *a2)
+void type metadata accessor for AudioBufferList(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }

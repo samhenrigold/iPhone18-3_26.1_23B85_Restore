@@ -138,11 +138,10 @@ LABEL_10:
 
 void __101__FCSWeeklyGoalRecommendationEngine__numberOfDaysInMostRecentWinningStreakForSummariesOrderedByDate___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = *(a1 + 40);
-  v7 = a2;
-  LODWORD(v6) = [objc_opt_class() _isMoveGoalAchievedForActivitySummary:v7];
+  v6 = a2;
+  v7 = [objc_opt_class() _isMoveGoalAchievedForActivitySummary:v6];
 
-  if (v6)
+  if (v7)
   {
     ++*(*(*(a1 + 32) + 8) + 24);
   }
@@ -164,29 +163,29 @@ void __101__FCSWeeklyGoalRecommendationEngine__numberOfDaysInMostRecentWinningSt
 
 + (unint64_t)_numSamplesWithMoveGreaterThanTheGoalByPercent:(double)percent forSummaries:(id)summaries
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   summariesCopy = summaries;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v6 = [summariesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [summariesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
     v9 = percent + 1.0;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(summariesCopy);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         v13 = MoveValueAsDoubleWithSummary(v12);
         if (v13 > v9 * MoveGoalValueAsDoubleWithSummary(v12))
         {
@@ -194,7 +193,7 @@ void __101__FCSWeeklyGoalRecommendationEngine__numberOfDaysInMostRecentWinningSt
         }
       }
 
-      v7 = [summariesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [summariesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -205,7 +204,6 @@ void __101__FCSWeeklyGoalRecommendationEngine__numberOfDaysInMostRecentWinningSt
     v8 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -682,31 +680,31 @@ LABEL_43:
 
 + (int64_t)_numberOfDaysGoalAchievedInSummaries:(id)summaries
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   summariesCopy = summaries;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [summariesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [summariesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(summariesCopy);
         }
 
-        v6 += [objc_opt_class() _isMoveGoalAchievedForActivitySummary:*(*(&v11 + 1) + 8 * i)];
+        v6 += [objc_opt_class() _isMoveGoalAchievedForActivitySummary:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v5 = [summariesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [summariesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -717,7 +715,6 @@ LABEL_43:
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

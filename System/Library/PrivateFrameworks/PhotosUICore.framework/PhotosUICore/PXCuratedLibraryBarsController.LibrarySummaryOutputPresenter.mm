@@ -12,7 +12,7 @@
   *v3 = 0;
   v3[1] = 0;
   v4 = (self + OBJC_IVAR____TtCE12PhotosUICoreCSo30PXCuratedLibraryBarsControllerP33_04793EA4CCDB9CADD5EFC766B5CE4AAD29LibrarySummaryOutputPresenter_onChange);
-  v5 = _s29LibrarySummaryOutputPresenterCMa();
+  v5 = _s29LibrarySummaryOutputPresenterCMa(self, a2);
   *v4 = 0;
   v4[1] = 0;
   v7.receiver = self;

@@ -4,6 +4,7 @@
 - (int)return_code;
 - (void)setLanguage_pairs:(id)language_pairs;
 - (void)setRequest_id:(id)request_id;
+- (void)setReturn_code:(int)return_code;
 - (void)setReturn_string:(id)return_string;
 @end
 
@@ -46,6 +47,12 @@
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setReturn_code:(int)return_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&return_code];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (void)setReturn_string:(id)return_string

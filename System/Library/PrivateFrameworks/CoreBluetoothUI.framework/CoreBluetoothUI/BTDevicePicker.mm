@@ -4,6 +4,7 @@
 - (void)dealloc;
 - (void)didDismissWithResult:(int64_t)result deviceAddress:(id)address;
 - (void)discoveredDevice:(id)device deviceAddress:(id)address;
+- (void)dismissAnimated:(BOOL)animated;
 - (void)show;
 @end
 
@@ -104,7 +105,7 @@
 
 void __22__BTDevicePicker_show__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -120,9 +121,9 @@ void __22__BTDevicePicker_show__block_invoke(uint64_t a1, void *a2, void *a3, vo
     v15 = CBUILogComponent;
     if (os_log_type_enabled(CBUILogComponent, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = v9;
-      _os_log_impl(&dword_245106000, v15, OS_LOG_TYPE_DEFAULT, "Failed to launch extension 'com.apple.CoreBluetoothUI.BTDevicePickerUI' due to error: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v9;
+      _os_log_impl(&dword_245106000, v15, OS_LOG_TYPE_DEFAULT, "Failed to launch extension 'com.apple.CoreBluetoothUI.BTDevicePickerUI' due to error: %@", &v16, 0xCu);
     }
   }
 
@@ -136,8 +137,8 @@ void __22__BTDevicePicker_show__block_invoke(uint64_t a1, void *a2, void *a3, vo
     v12 = CBUILogComponent;
     if (os_log_type_enabled(CBUILogComponent, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_245106000, v12, OS_LOG_TYPE_DEFAULT, "Extension 'com.apple.CoreBluetoothUI.BTDevicePickerUI' launched successfully!", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_245106000, v12, OS_LOG_TYPE_DEFAULT, "Extension 'com.apple.CoreBluetoothUI.BTDevicePickerUI' launched successfully!", &v16, 2u);
     }
 
     [v8 set_delegate:v11];
@@ -149,13 +150,11 @@ void __22__BTDevicePicker_show__block_invoke(uint64_t a1, void *a2, void *a3, vo
     v14 = [v8 serviceViewControllerProxy];
     [v14 showBTDevicePickerWithTitle:*(v11 + 2) Service:v11[6]];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createAlertWindowForRootViewController:(id)controller
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
   delegate = [mEMORY[0x277D75128] delegate];
@@ -184,12 +183,12 @@ void __22__BTDevicePicker_show__block_invoke(uint64_t a1, void *a2, void *a3, vo
   mEMORY[0x277D75128]3 = [MEMORY[0x277D75128] sharedApplication];
   connectedScenes = [mEMORY[0x277D75128]3 connectedScenes];
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v14 = connectedScenes;
-  v15 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (!v15)
   {
 LABEL_14:
@@ -210,17 +209,17 @@ LABEL_18:
   }
 
   v16 = v15;
-  v17 = *v29;
+  v17 = *v28;
 LABEL_6:
   v18 = 0;
   while (1)
   {
-    if (*v29 != v17)
+    if (*v28 != v17)
     {
       objc_enumerationMutation(v14);
     }
 
-    v19 = *(*(&v28 + 1) + 8 * v18);
+    v19 = *(*(&v27 + 1) + 8 * v18);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -236,7 +235,7 @@ LABEL_6:
 LABEL_12:
     if (v16 == ++v18)
     {
-      v16 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v16)
       {
         goto LABEL_6;
@@ -263,13 +262,20 @@ LABEL_12:
   [(UIWindow_Custom *)self->_alertWindow makeKeyAndVisible];
 
 LABEL_22:
-  v27 = *MEMORY[0x277D85DE8];
+}
+
+- (void)dismissAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  serviceViewControllerProxy = [(_UIRemoteViewController *)self->_devicePickerRemoteViewController serviceViewControllerProxy];
+  [serviceViewControllerProxy dismissAnimated:animatedCopy];
+  rootViewController = [(UIWindow_Custom *)self->_alertWindow rootViewController];
+  [rootViewController dismissViewControllerAnimated:animatedCopy completion:0];
 }
 
 - (void)didDismissWithResult:(int64_t)result deviceAddress:(id)address
 {
   addressCopy = address;
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
     if (CBUILogInitOnce != -1)
@@ -277,11 +283,11 @@ LABEL_22:
       [BTDevicePicker dealloc];
     }
 
-    v8 = CBUILogComponent;
+    v7 = CBUILogComponent;
     if (os_log_type_enabled(CBUILogComponent, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_245106000, v8, OS_LOG_TYPE_DEFAULT, "Calling didDismissWithResult delegate", v9, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_245106000, v7, OS_LOG_TYPE_DEFAULT, "Calling didDismissWithResult delegate", v8, 2u);
     }
 
     [(BTDevicePickerDelegate *)self->_delegate devicePicker:self didDismissWithResult:result deviceAddress:addressCopy];

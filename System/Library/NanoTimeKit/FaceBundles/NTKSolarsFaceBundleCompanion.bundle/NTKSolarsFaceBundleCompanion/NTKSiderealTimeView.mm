@@ -101,7 +101,7 @@
 {
   device = [(NTKSiderealTimeView *)self device];
   sub_1744(device, v5);
-  v3 = v5[0];
+  v3 = *v5;
 
   return v3;
 }

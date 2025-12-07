@@ -118,15 +118,15 @@ uint64_t __42__MXPowerlogService_sharedPowerlogService__block_invoke(uint64_t a1
 
 - (BOOL)_updateService
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   [(NSMutableArray *)self->_powerlogDataPaths removeAllObjects];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v4 = +[MXUtilities containerPath];
   v5 = [&unk_286A1CB30 objectAtIndexedSubscript:2];
   v6 = [v4 stringByAppendingPathComponent:v5];
-  v18 = 0;
-  v7 = [defaultManager contentsOfDirectoryAtPath:v6 error:&v18];
-  v8 = v18;
+  v17 = 0;
+  v7 = [defaultManager contentsOfDirectoryAtPath:v6 error:&v17];
+  v8 = v17;
 
   if (v8)
   {
@@ -150,18 +150,17 @@ uint64_t __42__MXPowerlogService_sharedPowerlogService__block_invoke(uint64_t a1
     {
       v15 = self->_powerlogDataPaths;
       *buf = 138412290;
-      v20 = v15;
+      v19 = v15;
       _os_log_impl(&dword_258D95000, v14, OS_LOG_TYPE_DEFAULT, "Found log files: %@", buf, 0xCu);
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8 == 0;
 }
 
 - (id)getMetricsForClient:(id)client
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   selfCopy = self;
@@ -179,26 +178,26 @@ uint64_t __42__MXPowerlogService_sharedPowerlogService__block_invoke(uint64_t a1
     unarchivedPowerlogData = selfCopy->_unarchivedPowerlogData;
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v8 = unarchivedPowerlogData;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v29;
+    v11 = *v28;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v29 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v28 + 1) + 8 * i);
+        v13 = *(*(&v27 + 1) + 8 * i);
         metrics = [v13 metrics];
         v15 = [metrics objectForKey:clientCopy];
 
@@ -215,7 +214,7 @@ uint64_t __42__MXPowerlogService_sharedPowerlogService__block_invoke(uint64_t a1
         }
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v10);
@@ -233,51 +232,49 @@ uint64_t __42__MXPowerlogService_sharedPowerlogService__block_invoke(uint64_t a1
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v33 = clientCopy;
+      v32 = clientCopy;
       _os_log_impl(&dword_258D95000, v24, OS_LOG_TYPE_DEFAULT, "No data for client: %@", buf, 0xCu);
     }
 
     v23 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
 - (void)unarchivePowerlogData
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   unarchivedPowerlogData = self->_unarchivedPowerlogData;
   self->_unarchivedPowerlogData = v3;
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   obj = self->_powerlogDataPaths;
-  v31 = [(NSMutableArray *)obj countByEnumeratingWithState:&v35 objects:v43 count:16];
-  if (v31)
+  v30 = [(NSMutableArray *)obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+  if (v30)
   {
-    v30 = *v36;
+    v29 = *v35;
     *&v5 = 134218240;
-    v28 = v5;
+    v27 = v5;
     do
     {
-      for (i = 0; i != v31; ++i)
+      for (i = 0; i != v30; ++i)
       {
-        if (*v36 != v30)
+        if (*v35 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v35 + 1) + 8 * i);
+        v7 = *(*(&v34 + 1) + 8 * i);
         MXPowerLogServiceLogHandle = self->_MXPowerLogServiceLogHandle;
         if (os_log_type_enabled(MXPowerLogServiceLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v40 = v7;
+          v39 = v7;
           _os_log_impl(&dword_258D95000, MXPowerLogServiceLogHandle, OS_LOG_TYPE_DEFAULT, "Found log file: %@", buf, 0xCu);
         }
 
@@ -292,16 +289,16 @@ uint64_t __42__MXPowerlogService_sharedPowerlogService__block_invoke(uint64_t a1
         {
           v15 = MEMORY[0x277CCAAC8];
           v16 = objc_opt_class();
-          v34 = 0;
-          v17 = [v15 unarchivedObjectOfClass:v16 fromData:v14 error:&v34];
-          v18 = v34;
+          v33 = 0;
+          v17 = [v15 unarchivedObjectOfClass:v16 fromData:v14 error:&v33];
+          v18 = v33;
           if (v18)
           {
             v19 = self->_MXPowerLogServiceLogHandle;
             if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v40 = v18;
+              v39 = v18;
               _os_log_error_impl(&dword_258D95000, v19, OS_LOG_TYPE_ERROR, "Failed to unarchive powerlog data: %@", buf, 0xCu);
             }
           }
@@ -315,7 +312,7 @@ uint64_t __42__MXPowerlogService_sharedPowerlogService__block_invoke(uint64_t a1
             {
               if (os_log_type_enabled(self->_MXPowerLogServiceLogHandle, OS_LOG_TYPE_DEBUG))
               {
-                [(MXSpaceAttributionService *)&v32 unarchiveSpaceAttributionData];
+                [(MXSpaceAttributionService *)&v31 unarchiveSpaceAttributionData];
               }
 
               [(NSMutableArray *)self->_unarchivedPowerlogData addObject:v17];
@@ -326,10 +323,10 @@ uint64_t __42__MXPowerlogService_sharedPowerlogService__block_invoke(uint64_t a1
               v24 = v23;
               sourceID3 = [v17 sourceID];
               sourceID4 = [(MXService *)self sourceID];
-              *buf = v28;
-              v40 = sourceID3;
-              v41 = 2048;
-              v42 = sourceID4;
+              *buf = v27;
+              v39 = sourceID3;
+              v40 = 2048;
+              v41 = sourceID4;
               _os_log_error_impl(&dword_258D95000, v24, OS_LOG_TYPE_ERROR, "Bad source type: (%ld, expected %ld)", buf, 0x16u);
             }
           }
@@ -341,19 +338,17 @@ uint64_t __42__MXPowerlogService_sharedPowerlogService__block_invoke(uint64_t a1
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v40 = v7;
+            v39 = v7;
             _os_log_debug_impl(&dword_258D95000, v20, OS_LOG_TYPE_DEBUG, "Failed to read powerlog data contents: %@", buf, 0xCu);
           }
         }
       }
 
-      v31 = [(NSMutableArray *)obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v30 = [(NSMutableArray *)obj countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 @end

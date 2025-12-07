@@ -441,10 +441,10 @@ LABEL_8:
   currentItem = [player currentItem];
   v48 = 0uLL;
   v49 = 0;
-  [(CRLAVPlayerController *)self p_startCMTime];
+  objc_msgSend_p_startCMTime(self);
   v46 = 0uLL;
   v47 = 0;
-  [(CRLAVPlayerController *)self p_endCMTime];
+  objc_msgSend_p_endCMTime(self);
   memset(&v45, 0, sizeof(v45));
   *&start.start.value = v48;
   start.start.epoch = v49;
@@ -477,7 +477,7 @@ LABEL_8:
   memset(&end, 0, 24);
   if (currentItem)
   {
-    [currentItem currentTime];
+    objc_msgSend_currentTime(currentItem);
   }
 
   if (mPlayerLooper)
@@ -663,7 +663,7 @@ LABEL_43:
   player = [(CRLAVPlayerController *)self player];
   currentItem = [player currentItem];
 
-  if (currentItem && (memset(&v10[1], 0, sizeof(CMTime)), [currentItem duration], 0 >> 96 == 1))
+  if (currentItem && (memset(&v10[1], 0, sizeof(CMTime)), objc_msgSend_duration(currentItem), 0 >> 96 == 1))
   {
     [(CRLAVPlayerController *)self endTime];
     v10[0] = v10[1];
@@ -685,7 +685,7 @@ LABEL_43:
   player = [(CRLAVPlayerController *)self player];
   currentItem = [player currentItem];
 
-  if (currentItem && (memset(&v6[1], 0, sizeof(CMTime)), [currentItem duration], 0 >> 96 == 1))
+  if (currentItem && (memset(&v6[1], 0, sizeof(CMTime)), objc_msgSend_duration(currentItem), 0 >> 96 == 1))
   {
     v6[0] = v6[1];
     Seconds = CMTimeGetSeconds(v6);
@@ -702,7 +702,7 @@ LABEL_43:
 - (double)startTime
 {
   memset(&v3[1], 0, sizeof(CMTime));
-  [(CRLAVPlayerController *)self p_startCMTime];
+  objc_msgSend_p_startCMTime(self, a2);
   if (0 >> 96 != 1)
   {
     return NAN;
@@ -754,7 +754,7 @@ LABEL_43:
 - (double)endTime
 {
   memset(&v3[1], 0, sizeof(CMTime));
-  [(CRLAVPlayerController *)self p_endCMTime];
+  objc_msgSend_p_endCMTime(self, a2);
   if (0 >> 96 != 1)
   {
     return NAN;
@@ -784,7 +784,7 @@ LABEL_43:
       v8 = asset;
       if (asset)
       {
-        [asset duration];
+        objc_msgSend_duration(asset);
       }
 
       else
@@ -921,7 +921,7 @@ LABEL_43:
       mPlayer = self->mPlayer;
       if (mPlayer)
       {
-        [(AVQueuePlayer *)mPlayer currentTime];
+        objc_msgSend_currentTime(mPlayer);
       }
 
       memset(&v45, 0, sizeof(v45));
@@ -1134,7 +1134,7 @@ LABEL_43:
 
     if (currentItem)
     {
-      [currentItem currentTime];
+      objc_msgSend_currentTime(currentItem);
     }
 
     else
@@ -1158,7 +1158,7 @@ LABEL_43:
 
     if (currentItem)
     {
-      [currentItem currentTime];
+      objc_msgSend_currentTime(currentItem);
     }
 
     else
@@ -1188,7 +1188,7 @@ LABEL_43:
     v7 = v6;
     if (currentItem)
     {
-      [currentItem currentTime];
+      objc_msgSend_currentTime(currentItem);
     }
 
     else
@@ -1346,7 +1346,7 @@ LABEL_11:
       v9 = player;
       if (player)
       {
-        [player currentTime];
+        objc_msgSend_currentTime(player);
       }
 
       else
@@ -1355,7 +1355,7 @@ LABEL_11:
       }
 
       memset(&v22, 0, sizeof(v22));
-      [(CRLAVPlayerController *)self p_endCMTime];
+      objc_msgSend_p_endCMTime(self);
       if (0 >> 96 == 1)
       {
         time1 = buf;
@@ -1369,7 +1369,7 @@ LABEL_11:
       }
 
       memset(&time1, 0, sizeof(time1));
-      [(CRLAVPlayerController *)self p_startCMTime];
+      objc_msgSend_p_startCMTime(self);
       if ((time1.flags & 0x1D) == 1)
       {
         time2 = buf;
@@ -1429,13 +1429,13 @@ LABEL_11:
   player = [(CRLAVPlayerController *)self player];
   currentItem = [player currentItem];
 
-  if (currentItem && (memset(&v10, 0, sizeof(v10)), [(CRLAVPlayerController *)self p_endCMTime], 0 >> 96 == 1))
+  if (currentItem && (memset(&v10, 0, sizeof(v10)), objc_msgSend_p_endCMTime(self), 0 >> 96 == 1))
   {
     player2 = [(CRLAVPlayerController *)self player];
     v6 = player2;
     if (player2)
     {
-      [player2 currentTime];
+      objc_msgSend_currentTime(player2);
     }
 
     else
@@ -1463,13 +1463,13 @@ LABEL_11:
   player = [(CRLAVPlayerController *)self player];
   currentItem = [player currentItem];
 
-  if (currentItem && (memset(&v10, 0, sizeof(v10)), [(CRLAVPlayerController *)self p_startCMTime], 0 >> 96 == 1))
+  if (currentItem && (memset(&v10, 0, sizeof(v10)), objc_msgSend_p_startCMTime(self), 0 >> 96 == 1))
   {
     player2 = [(CRLAVPlayerController *)self player];
     v6 = player2;
     if (player2)
     {
-      [player2 currentTime];
+      objc_msgSend_currentTime(player2);
     }
 
     else
@@ -1495,14 +1495,14 @@ LABEL_11:
 - (void)seekToBeginning
 {
   player = [(CRLAVPlayerController *)self player];
-  [(CRLAVPlayerController *)self p_startCMTime];
+  objc_msgSend_p_startCMTime(self);
   [player seekToTime:v4];
 }
 
 - (void)seekToEnd
 {
   player = [(CRLAVPlayerController *)self player];
-  [(CRLAVPlayerController *)self p_endCMTime];
+  objc_msgSend_p_endCMTime(self);
   [player seekToTime:v4];
 }
 
@@ -1588,13 +1588,13 @@ LABEL_8:
         memset(&buf, 0, sizeof(buf));
         if (currentItem)
         {
-          [currentItem currentTime];
+          objc_msgSend_currentTime(currentItem);
         }
 
         memset(&v16, 0, sizeof(v16));
-        [(CRLAVPlayerController *)self p_startCMTime];
+        objc_msgSend_p_startCMTime(self);
         memset(&v15, 0, sizeof(v15));
-        [(CRLAVPlayerController *)self p_endCMTime];
+        objc_msgSend_p_endCMTime(self);
         CMTimeMake(&rhs, 1, 100);
         CMTimeSubtract(&v15, &lhs, &rhs);
         lhs = buf;
@@ -1799,11 +1799,11 @@ LABEL_8:
       memset(&v10[1], 0, sizeof(CMTime));
       if (currentItem)
       {
-        [currentItem currentTime];
+        objc_msgSend_currentTime(currentItem);
       }
 
       memset(v10, 0, 24);
-      [(CRLAVPlayerController *)self p_startCMTime];
+      objc_msgSend_p_startCMTime(self);
       time1 = v10[1];
       v8 = v10[0];
       v6 = CMTimeCompare(&time1, &v8) > 0;
@@ -1906,11 +1906,11 @@ LABEL_8:
       memset(&v10[1], 0, sizeof(CMTime));
       if (currentItem)
       {
-        [currentItem currentTime];
+        objc_msgSend_currentTime(currentItem);
       }
 
       memset(v10, 0, 24);
-      [(CRLAVPlayerController *)self p_endCMTime];
+      objc_msgSend_p_endCMTime(self);
       time1 = v10[1];
       v8 = v10[0];
       v6 = CMTimeCompare(&time1, &v8) >> 31;
@@ -2232,12 +2232,12 @@ LABEL_8:
       memset(buf, 0, sizeof(buf));
       if (rate >= 0.0)
       {
-        [(CRLAVPlayerController *)self p_endCMTime];
+        objc_msgSend_p_endCMTime(self);
       }
 
       else
       {
-        [(CRLAVPlayerController *)self p_startCMTime];
+        objc_msgSend_p_startCMTime(self);
       }
 
       player2 = [(CRLAVPlayerController *)self player];
@@ -2255,12 +2255,12 @@ LABEL_8:
       memset(buf, 0, sizeof(buf));
       if (rate >= 0.0)
       {
-        [(CRLAVPlayerController *)self p_startCMTime];
+        objc_msgSend_p_startCMTime(self);
       }
 
       else
       {
-        [(CRLAVPlayerController *)self p_endCMTime];
+        objc_msgSend_p_endCMTime(self);
       }
 
       player2 = [(CRLAVPlayerController *)self player];
@@ -2758,7 +2758,7 @@ LABEL_60:
 
   if (currentItem)
   {
-    [currentItem currentTime];
+    objc_msgSend_currentTime(currentItem);
   }
 
   else
@@ -2773,7 +2773,7 @@ LABEL_60:
   v13 = asset;
   if (asset)
   {
-    [asset duration];
+    objc_msgSend_duration(asset);
   }
 
   else

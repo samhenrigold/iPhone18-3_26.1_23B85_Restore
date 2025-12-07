@@ -59,13 +59,13 @@
 
     v9 = operator new(v10);
     __dst[1] = v8;
-    v23 = v10 | 0x8000000000000000;
+    v22 = v10 | 0x8000000000000000;
     __dst[0] = v9;
   }
 
   else
   {
-    HIBYTE(v23) = v7;
+    HIBYTE(v22) = v7;
     v9 = __dst;
     if (!v7)
     {
@@ -76,22 +76,21 @@
   memmove(v9, v6, v8);
 LABEL_12:
   *(v8 + v9) = 0;
-  v11 = self->fQueue.fObj.fObj;
   abm::client::CreateManager();
-  v12 = v24;
-  v24 = 0;
+  v11 = v23;
+  v23 = 0;
   cntrl = self->fManager.__cntrl_;
-  self->fManager = v12;
+  self->fManager = v11;
   if (cntrl && !atomic_fetch_add(cntrl + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
     (*(*cntrl + 16))(cntrl);
     std::__shared_weak_count::__release_weak(cntrl);
   }
 
-  v14 = v24.__cntrl_;
-  if (!v24.__cntrl_ || atomic_fetch_add(v24.__cntrl_ + 1, 0xFFFFFFFFFFFFFFFFLL))
+  v13 = v23.__cntrl_;
+  if (!v23.__cntrl_ || atomic_fetch_add(v23.__cntrl_ + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
-    if ((SHIBYTE(v23) & 0x80000000) == 0)
+    if ((SHIBYTE(v22) & 0x80000000) == 0)
     {
       goto LABEL_19;
     }
@@ -99,37 +98,37 @@ LABEL_12:
     goto LABEL_18;
   }
 
-  (v14->__on_zero_shared)(v14);
-  std::__shared_weak_count::__release_weak(v14);
-  if (SHIBYTE(v23) < 0)
+  (v13->__on_zero_shared)(v13);
+  std::__shared_weak_count::__release_weak(v13);
+  if (SHIBYTE(v22) < 0)
   {
 LABEL_18:
     operator delete(__dst[0]);
   }
 
 LABEL_19:
-  v15 = dispatch_group_create();
+  v14 = dispatch_group_create();
   gr_name = self->fGroupLogDump.gr_name;
-  self->fGroupLogDump.gr_name = v15;
+  self->fGroupLogDump.gr_name = v14;
   if (gr_name)
   {
     dispatch_release(gr_name);
   }
 
-  v17 = dispatch_group_create();
+  v16 = dispatch_group_create();
   gr_passwd = self->fGroupLogDump.gr_passwd;
-  self->fGroupLogDump.gr_passwd = v17;
+  self->fGroupLogDump.gr_passwd = v16;
   if (gr_passwd)
   {
     dispatch_release(gr_passwd);
   }
 
-  v19 = *&self->fGroupLogDump.gr_gid;
+  v18 = *&self->fGroupLogDump.gr_gid;
   *&self->fGroupLogDump.gr_gid = 0;
-  if (v19)
+  if (v18)
   {
-    dispatch_group_leave(v19);
-    dispatch_release(v19);
+    dispatch_group_leave(v18);
+    dispatch_release(v18);
   }
 
   gr_mem = self->fGroupLogDump.gr_mem;
@@ -151,7 +150,7 @@ LABEL_19:
     objc_initWeak(&location, self);
     cntrl = self->fManager.__cntrl_;
     ptr = self->fManager.__ptr_;
-    v35 = cntrl;
+    v33 = cntrl;
     if (cntrl)
     {
       atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
@@ -178,40 +177,40 @@ LABEL_19:
       }
 
       v7 = operator new(v9);
-      v32 = v6;
-      v33 = v9 | 0x8000000000000000;
+      v30 = v6;
+      v31 = v9 | 0x8000000000000000;
       *buf = v7;
     }
 
     else
     {
-      HIBYTE(v33) = v5;
+      HIBYTE(v31) = v5;
       v7 = buf;
       if (!v5)
       {
 LABEL_15:
         v7[v6] = 0;
-        v26 = _NSConcreteStackBlock;
-        v27 = 3221225472;
-        v28 = sub_10001D3B8;
-        v29 = &unk_1000311C8;
-        objc_copyWeak(&v30, &location);
+        v24 = _NSConcreteStackBlock;
+        v25 = 3221225472;
+        v26 = sub_10001D3B8;
+        v27 = &unk_1000311C8;
+        objc_copyWeak(&v28, &location);
         abm::client::RegisterEventHandler();
-        if (SHIBYTE(v33) < 0)
+        if (SHIBYTE(v31) < 0)
         {
           operator delete(*buf);
         }
 
-        v10 = v35;
-        if (v35 && !atomic_fetch_add(v35 + 1, 0xFFFFFFFFFFFFFFFFLL))
+        v10 = v33;
+        if (v33 && !atomic_fetch_add(v33 + 1, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v10->__on_zero_shared)(v10);
           std::__shared_weak_count::__release_weak(v10);
         }
 
         v11 = self->fManager.__cntrl_;
-        v24[1] = self->fManager.__ptr_;
-        v25 = v11;
+        v22[1] = self->fManager.__ptr_;
+        v23 = v11;
         if (v11)
         {
           atomic_fetch_add_explicit(v11 + 1, 1uLL, memory_order_relaxed);
@@ -238,14 +237,14 @@ LABEL_15:
           }
 
           v15 = operator new(v16);
-          v32 = v14;
-          v33 = v16 | 0x8000000000000000;
+          v30 = v14;
+          v31 = v16 | 0x8000000000000000;
           *buf = v15;
         }
 
         else
         {
-          HIBYTE(v33) = v13;
+          HIBYTE(v31) = v13;
           v15 = buf;
           if (!v13)
           {
@@ -256,55 +255,53 @@ LABEL_15:
         memmove(v15, v12, v14);
 LABEL_31:
         *(v15 + v14) = 0;
-        objc_copyWeak(v24, &location);
+        objc_copyWeak(v22, &location);
         abm::client::RegisterEventHandler();
-        if (SHIBYTE(v33) < 0)
+        if (SHIBYTE(v31) < 0)
         {
           operator delete(*buf);
         }
 
-        v17 = v25;
-        if (v25 && !atomic_fetch_add(v25 + 1, 0xFFFFFFFFFFFFFFFFLL))
+        v17 = v23;
+        if (v23 && !atomic_fetch_add(v23 + 1, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v17->__on_zero_shared)(v17);
           std::__shared_weak_count::__release_weak(v17);
         }
 
         v18 = self->fManager.__cntrl_;
-        v22 = self->fManager.__ptr_;
-        v23 = v18;
+        v21 = v18;
         if (v18)
         {
           atomic_fetch_add_explicit(v18 + 1, 1uLL, memory_order_relaxed);
         }
 
         abm::client::EventsOff();
-        if (v23 && !atomic_fetch_add(&v23->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        if (v21 && !atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          (v23->__on_zero_shared)(v23);
-          std::__shared_weak_count::__release_weak(v23);
+          (v21->__on_zero_shared)(v21);
+          std::__shared_weak_count::__release_weak(v21);
         }
 
         v19 = self->fManager.__cntrl_;
-        v20 = self->fManager.__ptr_;
-        v21 = v19;
+        v20 = v19;
         if (v19)
         {
           atomic_fetch_add_explicit(v19 + 1, 1uLL, memory_order_relaxed);
         }
 
         abm::client::EventsOn();
-        if (v21)
+        if (v20)
         {
-          if (!atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          if (!atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            (v21->__on_zero_shared)(v21);
-            std::__shared_weak_count::__release_weak(v21);
+            (v20->__on_zero_shared)(v20);
+            std::__shared_weak_count::__release_weak(v20);
           }
         }
 
-        objc_destroyWeak(v24);
-        objc_destroyWeak(&v30);
+        objc_destroyWeak(v22);
+        objc_destroyWeak(&v28);
         objc_destroyWeak(&location);
         return;
       }
@@ -325,20 +322,19 @@ LABEL_31:
 - (void)stop
 {
   cntrl = self->fManager.__cntrl_;
-  ptr = self->fManager.__ptr_;
-  v4 = cntrl;
+  v3 = cntrl;
   if (cntrl)
   {
     atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
   }
 
   abm::client::EventsOff();
-  if (v4)
+  if (v3)
   {
-    if (!atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(&v3->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v4->__on_zero_shared)(v4);
-      std::__shared_weak_count::__release_weak(v4);
+      (v3->__on_zero_shared)(v3);
+      std::__shared_weak_count::__release_weak(v3);
     }
   }
 }
@@ -1372,7 +1368,7 @@ LABEL_224:
     xpc_release(v117);
     v163.__r_.__value_.__r.__words[0] = 0xAAAAAAAAAAAAAAAALL;
     v163.__r_.__value_.__l.__size_ = 0xAAAAAAAAAAAAAAAALL;
-    abm::HelperClient::create(&v163, abm::helper::kBasebandLogDEHelperName, v119);
+    abm::HelperClient::create(abm::helper::kBasebandLogDEHelperName, v119);
     if (!v163.__r_.__value_.__r.__words[0])
     {
 LABEL_260:
@@ -1661,7 +1657,7 @@ LABEL_301:
             *&v170 = xpc_null_create();
           }
 
-          xpc::dyn_cast_or_default(v168, &v170, "", v152);
+          xpc::dyn_cast_or_default(&v170, "", v152);
           xpc_release(v170);
           if ((v168[23] & 0x80000000) == 0)
           {
@@ -1797,8 +1793,8 @@ LABEL_264:
   v3 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Try baseband blind scanning", buf, 2u);
+    LOWORD(buf) = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Try baseband blind scanning", &buf, 2u);
   }
 
   v4 = xpc_dictionary_create(0, 0, 0);
@@ -1878,7 +1874,7 @@ LABEL_21:
 
   *(v11 + v12) = 0;
   abm::client::PerformCommand();
-  v14 = *buf;
+  v14 = buf;
   v15 = v24;
   v16 = v25;
   HIBYTE(v25) = 0;
@@ -1906,9 +1902,9 @@ LABEL_21:
 
 - (BOOL)checkBasebandOperatingModeAndSet
 {
-  v70 = 0xAAAAAAAAE020E002;
+  v67 = 0xAAAAAAAAE020E002;
   __p = 0uLL;
-  v72 = 0;
+  v69 = 0;
   object = xpc_null_create();
   v3 = xpc_dictionary_create(0, 0, 0);
   if (v3 || (v3 = xpc_null_create()) != 0)
@@ -1944,8 +1940,7 @@ LABEL_21:
   xpc_release(v5);
   xpc_release(v7);
   cntrl = self->fManager.__cntrl_;
-  ptr = self->fManager.__ptr_;
-  v68 = cntrl;
+  v65 = cntrl;
   if (cntrl)
   {
     atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
@@ -1989,14 +1984,14 @@ LABEL_19:
 
   v12[v11] = 0;
   abm::client::PerformCommand();
-  LODWORD(v70) = *buf;
-  if (SHIBYTE(v72) < 0)
+  LODWORD(v67) = *buf;
+  if (SHIBYTE(v69) < 0)
   {
     operator delete(__p);
   }
 
   __p = *&buf[8];
-  v72 = *&buf[24];
+  v69 = *&buf[24];
   buf[31] = 0;
   buf[8] = 0;
   if ((__dst[23] & 0x80000000) != 0)
@@ -2004,10 +1999,10 @@ LABEL_19:
     operator delete(*__dst);
   }
 
-  if (v68 && !atomic_fetch_add(&v68->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v65 && !atomic_fetch_add(&v65->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v68->__on_zero_shared)(v68);
-    std::__shared_weak_count::__release_weak(v68);
+    (v65->__on_zero_shared)(v65);
+    std::__shared_weak_count::__release_weak(v65);
     v14 = object;
     if (object)
     {
@@ -2046,12 +2041,12 @@ LABEL_30:
 
 LABEL_33:
   xpc_release(v14);
-  if (v70)
+  if (v67)
   {
     v16 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_10001F3AC(buf, &v70);
+      sub_10001F3AC(buf, &v67);
       v17 = (buf[23] & 0x80u) == 0 ? buf : *buf;
       *__dst = 136315138;
       *&__dst[4] = v17;
@@ -2212,8 +2207,7 @@ LABEL_42:
   *buf = v37;
   *&buf[16] = v37;
   v38 = self->fManager.__cntrl_;
-  v65 = self->fManager.__ptr_;
-  v66 = v38;
+  v64 = v38;
   if (v38)
   {
     atomic_fetch_add_explicit(v38 + 1, 1uLL, memory_order_relaxed);
@@ -2261,10 +2255,10 @@ LABEL_84:
     operator delete(*__dst);
   }
 
-  if (v66 && !atomic_fetch_add(&v66->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v64 && !atomic_fetch_add(&v64->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v66->__on_zero_shared)(v66);
-    std::__shared_weak_count::__release_weak(v66);
+    (v64->__on_zero_shared)(v64);
+    std::__shared_weak_count::__release_weak(v64);
     if (!*buf)
     {
       goto LABEL_91;
@@ -2281,9 +2275,9 @@ LABEL_84:
   {
     sub_10001F3AC(__dst, buf);
     v59 = __dst[23] >= 0 ? __dst : *__dst;
-    LODWORD(v73) = 136315138;
-    *(&v73 + 4) = v59;
-    _os_log_error_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "Setting BB mode to LowPower failed : %s", &v73, 0xCu);
+    LODWORD(v70) = 136315138;
+    *(&v70 + 4) = v59;
+    _os_log_error_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "Setting BB mode to LowPower failed : %s", &v70, 0xCu);
     if ((__dst[23] & 0x80000000) != 0)
     {
       operator delete(*__dst);
@@ -2335,8 +2329,7 @@ LABEL_95:
   xpc_release(v49);
   xpc_release(v50);
   v51 = self->fManager.__cntrl_;
-  v63 = self->fManager.__ptr_;
-  v64 = v51;
+  v63 = v51;
   if (v51)
   {
     atomic_fetch_add_explicit(v51 + 1, 1uLL, memory_order_relaxed);
@@ -2362,14 +2355,14 @@ LABEL_95:
     }
 
     v54 = operator new(v55);
-    *(&v73 + 1) = v53;
-    v74 = v55 | 0x8000000000000000;
-    *&v73 = v54;
+    *(&v70 + 1) = v53;
+    v71 = v55 | 0x8000000000000000;
+    *&v70 = v54;
     goto LABEL_107;
   }
 
-  HIBYTE(v74) = v52;
-  v54 = &v73;
+  HIBYTE(v71) = v52;
+  v54 = &v70;
   if (v52)
   {
 LABEL_107:
@@ -2385,18 +2378,18 @@ LABEL_107:
   }
 
   *&buf[8] = *&__dst[8];
-  *&buf[24] = v76;
-  HIBYTE(v76) = 0;
+  *&buf[24] = v73;
+  HIBYTE(v73) = 0;
   __dst[8] = 0;
-  if (SHIBYTE(v74) < 0)
+  if (SHIBYTE(v71) < 0)
   {
-    operator delete(v73);
+    operator delete(v70);
   }
 
-  if (v64 && !atomic_fetch_add(&v64->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v63 && !atomic_fetch_add(&v63->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v64->__on_zero_shared)(v64);
-    std::__shared_weak_count::__release_weak(v64);
+    (v63->__on_zero_shared)(v63);
+    std::__shared_weak_count::__release_weak(v63);
     if (*buf)
     {
       goto LABEL_115;
@@ -2411,9 +2404,9 @@ LABEL_115:
     {
       sub_10001F3AC(__dst, buf);
       v60 = __dst[23] >= 0 ? __dst : *__dst;
-      LODWORD(v73) = 136315138;
-      *(&v73 + 4) = v60;
-      _os_log_error_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "Setting BB mode to Online failed : %s", &v73, 0xCu);
+      LODWORD(v70) = 136315138;
+      *(&v70 + 4) = v60;
+      _os_log_error_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "Setting BB mode to Online failed : %s", &v70, 0xCu);
       if ((__dst[23] & 0x80000000) != 0)
       {
         operator delete(*__dst);
@@ -2431,7 +2424,7 @@ LABEL_119:
 
   xpc_release(v15);
   xpc_release(v62);
-  if (SHIBYTE(v72) < 0)
+  if (SHIBYTE(v69) < 0)
   {
     operator delete(__p);
   }
@@ -2441,9 +2434,9 @@ LABEL_119:
 
 - (BOOL)checkBasebandBootStateAndReset
 {
-  v87 = 0xAAAAAAAAE020E002;
+  v85 = 0xAAAAAAAAE020E002;
   __p = 0uLL;
-  v89 = 0;
+  v87 = 0;
   object = xpc_null_create();
   v3 = xpc_dictionary_create(0, 0, 0);
   if (v3 || (v3 = xpc_null_create()) != 0)
@@ -2480,7 +2473,7 @@ LABEL_119:
   xpc_release(v7);
   cntrl = self->fManager.__cntrl_;
   ptr = self->fManager.__ptr_;
-  v85 = cntrl;
+  v83 = cntrl;
   if (cntrl)
   {
     atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
@@ -2524,21 +2517,21 @@ LABEL_19:
 
   v12[v11] = 0;
   abm::client::PerformCommand();
-  LODWORD(v87) = *v92;
-  if (SHIBYTE(v89) < 0)
+  LODWORD(v85) = *v90;
+  if (SHIBYTE(v87) < 0)
   {
     operator delete(__p);
   }
 
-  __p = *&v92[8];
-  v89 = v93;
-  HIBYTE(v93) = 0;
-  v92[8] = 0;
+  __p = *&v90[8];
+  v87 = v91;
+  HIBYTE(v91) = 0;
+  v90[8] = 0;
   if ((__dst[23] & 0x80000000) != 0)
   {
     operator delete(*__dst);
-    v14 = v85;
-    if (!v85)
+    v14 = v83;
+    if (!v83)
     {
       goto LABEL_27;
     }
@@ -2546,8 +2539,8 @@ LABEL_19:
 
   else
   {
-    v14 = v85;
-    if (!v85)
+    v14 = v83;
+    if (!v83)
     {
       goto LABEL_27;
     }
@@ -2625,7 +2618,7 @@ LABEL_48:
     memmove(v20, v17, v19);
     v20[v19] = 0;
     v21 = &CellularExtension__metaData;
-    if (v87)
+    if (v85)
     {
       goto LABEL_38;
     }
@@ -2642,20 +2635,20 @@ LABEL_48:
 
   __dst[0] = 0;
   v21 = &CellularExtension__metaData;
-  if (v87)
+  if (v85)
   {
 LABEL_38:
     getOSLogHandler = [&v21[19].base_props getOSLogHandler];
     if (os_log_type_enabled(getOSLogHandler, OS_LOG_TYPE_ERROR))
     {
-      sub_10001F3AC(v92, &v87);
-      v23 = v92[23] >= 0 ? v92 : *v92;
+      sub_10001F3AC(v90, &v85);
+      v23 = v90[23] >= 0 ? v90 : *v90;
       *buf = 136315138;
       *&buf[4] = v23;
       _os_log_error_impl(&_mh_execute_header, getOSLogHandler, OS_LOG_TYPE_ERROR, "Check baseband boot state failed : %s", buf, 0xCu);
-      if ((v92[23] & 0x80000000) != 0)
+      if ((v90[23] & 0x80000000) != 0)
       {
-        operator delete(*v92);
+        operator delete(*v90);
       }
     }
 
@@ -2677,16 +2670,16 @@ LABEL_49:
       *buf = xpc_null_create();
     }
 
-    xpc::dyn_cast_or_default(v92, buf, v17, v26);
+    xpc::dyn_cast_or_default(buf, v17, v26);
     if ((__dst[23] & 0x80000000) != 0)
     {
       operator delete(*__dst);
     }
 
-    *__dst = *v92;
-    *&__dst[16] = *&v92[16];
-    v92[23] = 0;
-    v92[0] = 0;
+    *__dst = *v90;
+    *&__dst[16] = *&v90[16];
+    v90[23] = 0;
+    v90[0] = 0;
     xpc_release(*buf);
   }
 
@@ -2700,9 +2693,9 @@ LABEL_56:
       v28 = *__dst;
     }
 
-    *v92 = 136315138;
-    *&v92[4] = v28;
-    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Baseband boot state: %s", v92, 0xCu);
+    *v90 = 136315138;
+    *&v90[4] = v28;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Baseband boot state: %s", v90, 0xCu);
   }
 
   v29 = strlen(v17);
@@ -2811,13 +2804,13 @@ LABEL_74:
 
       v44 = operator new(v45);
       *&buf[8] = v43;
-      v91 = v45 | 0x8000000000000000;
+      v89 = v45 | 0x8000000000000000;
       *buf = v44;
     }
 
     else
     {
-      HIBYTE(v91) = v42;
+      HIBYTE(v89) = v42;
       v44 = buf;
       if (!v42)
       {
@@ -2825,15 +2818,15 @@ LABEL_97:
         v44[v43] = 0;
         v46 = operator new(0x38uLL);
         strcpy(v46, ": Detected baseband is not ready, attempting reset.");
-        v47 = SHIBYTE(v91);
-        if ((SHIBYTE(v91) & 0x8000000000000000) != 0)
+        v47 = SHIBYTE(v89);
+        if ((SHIBYTE(v89) & 0x8000000000000000) != 0)
         {
           v47 = *&buf[8];
-          v51 = (v91 & 0x7FFFFFFFFFFFFFFFLL) - 1;
+          v51 = (v89 & 0x7FFFFFFFFFFFFFFFLL) - 1;
           if (v51 - *&buf[8] < 0x33)
           {
             v49 = *&buf[8] + 51;
-            if (0x7FFFFFFFFFFFFFF7 - (v91 & 0x7FFFFFFFFFFFFFFFLL) < *&buf[8] + 51 - v51)
+            if (0x7FFFFFFFFFFFFFF7 - (v89 & 0x7FFFFFFFFFFFFFFFLL) < *&buf[8] + 51 - v51)
             {
               sub_100001210();
             }
@@ -2864,25 +2857,25 @@ LABEL_112:
               }
 
               *&buf[8] = v49;
-              v91 = v54 | 0x8000000000000000;
+              v89 = v54 | 0x8000000000000000;
               *buf = v57;
               v60 = &v57[v49];
               v16 = v48;
               v4 = v79;
 LABEL_120:
               *v60 = 0;
-              *&v92[16] = v91;
-              *v92 = *buf;
-              v91 = 0;
+              *&v90[16] = v89;
+              *v90 = *buf;
+              v89 = 0;
               memset(buf, 0, sizeof(buf));
-              if (v92[23] >= 0)
+              if (v90[23] >= 0)
               {
-                v63 = v92;
+                v63 = v90;
               }
 
               else
               {
-                v63 = *v92;
+                v63 = *v90;
               }
 
               v64 = xpc_string_create(v63);
@@ -2895,16 +2888,15 @@ LABEL_120:
               v65 = xpc_null_create();
               xpc_release(v64);
               xpc_release(v65);
-              if ((v92[23] & 0x80000000) != 0)
+              if ((v90[23] & 0x80000000) != 0)
               {
-                operator delete(*v92);
+                operator delete(*v90);
                 operator delete(v46);
-                if ((SHIBYTE(v91) & 0x80000000) == 0)
+                if ((SHIBYTE(v89) & 0x80000000) == 0)
                 {
 LABEL_127:
                   v66 = self->fManager.__cntrl_;
-                  v80 = self->fManager.__ptr_;
-                  v82 = v66;
+                  v80 = v66;
                   if (!v66)
                   {
                     goto LABEL_129;
@@ -2917,7 +2909,7 @@ LABEL_127:
               else
               {
                 operator delete(v46);
-                if ((SHIBYTE(v91) & 0x80000000) == 0)
+                if ((SHIBYTE(v89) & 0x80000000) == 0)
                 {
                   goto LABEL_127;
                 }
@@ -2925,8 +2917,7 @@ LABEL_127:
 
               operator delete(*buf);
               v66 = self->fManager.__cntrl_;
-              v81 = self->fManager.__ptr_;
-              v82 = v66;
+              v80 = v66;
               if (!v66)
               {
 LABEL_129:
@@ -2952,35 +2943,35 @@ LABEL_129:
 
                   v70 = operator new(v71);
                   *&buf[8] = v69;
-                  v91 = v71 | 0x8000000000000000;
+                  v89 = v71 | 0x8000000000000000;
                   *buf = v70;
                 }
 
                 else
                 {
-                  HIBYTE(v91) = v68;
+                  HIBYTE(v89) = v68;
                   v70 = buf;
                   if (!v68)
                   {
 LABEL_138:
                     v70[v69] = 0;
                     abm::client::PerformCommand();
-                    LODWORD(v87) = *v92;
-                    if (SHIBYTE(v89) < 0)
+                    LODWORD(v85) = *v90;
+                    if (SHIBYTE(v87) < 0)
                     {
                       operator delete(__p);
                     }
 
-                    __p = *&v92[8];
-                    v89 = v93;
-                    HIBYTE(v93) = 0;
-                    v92[8] = 0;
-                    if (SHIBYTE(v91) < 0)
+                    __p = *&v90[8];
+                    v87 = v91;
+                    HIBYTE(v91) = 0;
+                    v90[8] = 0;
+                    if (SHIBYTE(v89) < 0)
                     {
                       operator delete(*buf);
-                      v72 = v82;
+                      v72 = v80;
                       v73 = &CellularExtension__metaData;
-                      if (!v82)
+                      if (!v80)
                       {
                         goto LABEL_148;
                       }
@@ -2988,9 +2979,9 @@ LABEL_138:
 
                     else
                     {
-                      v72 = v82;
+                      v72 = v80;
                       v73 = &CellularExtension__metaData;
-                      if (!v82)
+                      if (!v80)
                       {
                         goto LABEL_148;
                       }
@@ -3001,7 +2992,7 @@ LABEL_138:
                       (v72->__on_zero_shared)(v72);
                       std::__shared_weak_count::__release_weak(v72);
                       p_base_props = &v73[19].base_props;
-                      if (v87)
+                      if (v85)
                       {
                         goto LABEL_149;
                       }
@@ -3011,20 +3002,20 @@ LABEL_138:
 
 LABEL_148:
                     p_base_props = &v73[19].base_props;
-                    if (v87)
+                    if (v85)
                     {
 LABEL_149:
                       getOSLogHandler2 = [p_base_props getOSLogHandler];
                       if (os_log_type_enabled(getOSLogHandler2, OS_LOG_TYPE_ERROR))
                       {
-                        sub_10001F3AC(v92, &v87);
-                        v76 = v92[23] >= 0 ? v92 : *v92;
+                        sub_10001F3AC(v90, &v85);
+                        v76 = v90[23] >= 0 ? v90 : *v90;
                         *buf = 136315138;
                         *&buf[4] = v76;
                         _os_log_error_impl(&_mh_execute_header, getOSLogHandler2, OS_LOG_TYPE_ERROR, "Baseband soft-reset failed : %s", buf, 0xCu);
-                        if ((v92[23] & 0x80000000) != 0)
+                        if ((v90[23] & 0x80000000) != 0)
                         {
-                          operator delete(*v92);
+                          operator delete(*v90);
                         }
                       }
 
@@ -3035,8 +3026,8 @@ LABEL_156:
                     getOSLogHandler3 = [p_base_props getOSLogHandler];
                     if (os_log_type_enabled(getOSLogHandler3, OS_LOG_TYPE_DEFAULT))
                     {
-                      *v92 = 0;
-                      _os_log_impl(&_mh_execute_header, getOSLogHandler3, OS_LOG_TYPE_DEFAULT, "Baseband soft-reset success", v92, 2u);
+                      *v90 = 0;
+                      _os_log_impl(&_mh_execute_header, getOSLogHandler3, OS_LOG_TYPE_DEFAULT, "Baseband soft-reset success", v90, 2u);
                     }
 
 LABEL_158:
@@ -3099,19 +3090,19 @@ LABEL_103:
 
         else
         {
-          if (SHIBYTE(v91) < 0x17)
+          if (SHIBYTE(v89) < 0x17)
           {
             v48 = v16;
-            v49 = SHIBYTE(v91) + 51;
+            v49 = SHIBYTE(v89) + 51;
             v50 = buf;
             v51 = 22;
             goto LABEL_103;
           }
 
           v61 = buf;
-          qmemcpy(&buf[SHIBYTE(v91)], ": Detected baseband is not ready, attempting reset.", 51);
+          qmemcpy(&buf[SHIBYTE(v89)], ": Detected baseband is not ready, attempting reset.", 51);
           v62 = v47 + 51;
-          HIBYTE(v91) = (v47 + 51) & 0x7F;
+          HIBYTE(v89) = (v47 + 51) & 0x7F;
         }
 
         v60 = &v61[v62];
@@ -3150,7 +3141,7 @@ LABEL_159:
 LABEL_160:
   xpc_release(v16);
   xpc_release(v4);
-  if (SHIBYTE(v89) < 0)
+  if (SHIBYTE(v87) < 0)
   {
     operator delete(__p);
   }
@@ -3325,7 +3316,7 @@ LABEL_35:
       object = xpc_null_create();
     }
 
-    xpc::dyn_cast_or_default(&v32, &object, abm::kUnknown, v22);
+    xpc::dyn_cast_or_default(&object, abm::kUnknown, v22);
     if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__dst.__r_.__value_.__l.__data_);
@@ -3557,7 +3548,7 @@ LABEL_35:
       object = xpc_null_create();
     }
 
-    xpc::dyn_cast_or_default(&v26, &object, "0", v22);
+    xpc::dyn_cast_or_default(&object, "0", v22);
     if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__dst.__r_.__value_.__l.__data_);
@@ -3853,7 +3844,7 @@ LABEL_35:
         v15 = __p[1];
       }
 
-      sub_100002558(&self->fGroupUpdate.gr_name, v14, v15);
+      sub_100002558(&self->fGroupUpdate, v14, v15);
     }
 
     else if ((HIBYTE(__p[2]) & 0x80) != 0)
@@ -4410,7 +4401,7 @@ LABEL_137:
         v9 = __p[1];
       }
 
-      sub_100002558(&self->fGroupUpdate.gr_name, v8, v9);
+      sub_100002558(&self->fGroupUpdate, v8, v9);
     }
 
     else if ((HIBYTE(__p[2]) & 0x80) != 0)
@@ -5093,7 +5084,7 @@ LABEL_37:
     v33[0] = xpc_null_create();
   }
 
-  xpc::dyn_cast_or_default(&__dst, v33, abm::kUnknown, v23);
+  xpc::dyn_cast_or_default(v33, abm::kUnknown, v23);
   memset(&buf, 0, sizeof(buf));
   std::to_string(&v35, 1);
   buf = v35;
@@ -5197,7 +5188,7 @@ LABEL_41:
 {
   v23 = 0xAAAAAAAAAAAAAAAALL;
   v24 = 0xAAAAAAAAAAAAAAAALL;
-  abm::HelperClient::create(&v23, abm::helper::kBasebandLogDEHelperName, a2);
+  abm::HelperClient::create(abm::helper::kBasebandLogDEHelperName, a2);
   v2 = xpc_dictionary_create(0, 0, 0);
   if (v2 || (v2 = xpc_null_create()) != 0)
   {
@@ -5349,7 +5340,7 @@ LABEL_17:
 {
   v24 = 0xAAAAAAAAAAAAAAAALL;
   v25 = 0xAAAAAAAAAAAAAAAALL;
-  abm::HelperClient::create(&v24, abm::helper::kBasebandLogDEHelperName, a2);
+  abm::HelperClient::create(abm::helper::kBasebandLogDEHelperName, a2);
   v2 = xpc_dictionary_create(0, 0, 0);
   if (v2 || (v2 = xpc_null_create()) != 0)
   {
@@ -5490,7 +5481,7 @@ LABEL_19:
 {
   v22 = 0xAAAAAAAAAAAAAAAALL;
   v23 = 0xAAAAAAAAAAAAAAAALL;
-  abm::HelperClient::create(&v22, abm::helper::kBasebandLogDEHelperName, a2);
+  abm::HelperClient::create(abm::helper::kBasebandLogDEHelperName, a2);
   v2 = xpc_dictionary_create(0, 0, 0);
   if (v2 || (v2 = xpc_null_create()) != 0)
   {
@@ -5791,7 +5782,7 @@ LABEL_39:
         *buf = xpc_null_create();
       }
 
-      xpc::dyn_cast_or_default(v52, buf, "", v28);
+      xpc::dyn_cast_or_default(buf, "", v28);
       xpc_release(*buf);
       *&v29 = 0xAAAAAAAAAAAAAAAALL;
       *(&v29 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -6018,7 +6009,7 @@ LABEL_16:
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Update trace property with logConfig: %@", cf, 0xCu);
   }
 
-  ctu::cf_to_xpc(cf, v10, v14);
+  ctu::cf_to_xpc(v10, v14);
   v15 = *cf;
   v18 = *cf;
   if (*cf && xpc_get_type(*cf) == &_xpc_type_dictionary)

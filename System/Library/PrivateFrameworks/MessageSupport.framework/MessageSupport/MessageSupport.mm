@@ -1,13 +1,13 @@
-id MFLogGeneral()
+id MFLogGeneral(uint64_t a1)
 {
   if (MFLogGeneral_mf_once_token_0 != -1)
   {
     MFLogGeneral_cold_1();
   }
 
-  v1 = MFLogGeneral_mf_once_object_0;
+  v2 = MFLogGeneral_mf_once_object_0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __MFLogGeneral_block_invoke()
@@ -55,31 +55,31 @@ uint64_t __MFMessageListLoadingSignpostLog_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id MFAutoFetchLog()
+id MFAutoFetchLog(uint64_t a1)
 {
   if (MFAutoFetchLog_mf_once_token_3 != -1)
   {
     MFAutoFetchLog_cold_1();
   }
 
-  v1 = MFAutoFetchLog_mf_once_object_3;
+  v2 = MFAutoFetchLog_mf_once_object_3;
 
-  return v1;
+  return v2;
 }
 
-id MFPowerLog()
+id MFPowerLog(uint64_t a1)
 {
   if (MFPowerLog_mf_once_token_2 != -1)
   {
     MFPowerLog_cold_1();
   }
 
-  v1 = MFPowerLog_mf_once_object_2;
+  v2 = MFPowerLog_mf_once_object_2;
 
-  return v1;
+  return v2;
 }
 
-uint64_t MFIsMobileMail()
+uint64_t MFIsMobileMail(uint64_t a1, uint64_t a2)
 {
   if (MFIsMobileMail_onceToken != -1)
   {
@@ -96,7 +96,7 @@ void __MFIsMobileMail_block_invoke()
   MFIsMobileMail_sIsMobileMail = [v0 isEqualToString:@"com.apple.mobilemail"];
 }
 
-uint64_t MFMobileMailContainerPath()
+uint64_t MFMobileMailContainerPath(uint64_t a1, uint64_t a2)
 {
   if (MFMobileMailContainerPath_onceToken != -1)
   {
@@ -116,7 +116,7 @@ void __MFMobileMailContainerPath_block_invoke()
   MFMobileMailContainerPath_containerPath = v2;
 }
 
-uint64_t MFDeviceSupportsHighRefreshRate()
+uint64_t MFDeviceSupportsHighRefreshRate(uint64_t a1, uint64_t a2)
 {
   if (MFDeviceSupportsHighRefreshRate_onceToken != -1)
   {
@@ -183,16 +183,16 @@ LABEL_9:
   return v7;
 }
 
-id MFLogNetwork()
+id MFLogNetwork(uint64_t a1)
 {
   if (MFLogNetwork_mf_once_token_1 != -1)
   {
     MFLogNetwork_cold_1();
   }
 
-  v1 = MFLogNetwork_mf_once_object_1;
+  v2 = MFLogNetwork_mf_once_object_1;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __MFLogNetwork_block_invoke()
@@ -216,16 +216,16 @@ uint64_t __MFAutoFetchLog_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id MFPersistenceLog()
+id MFPersistenceLog(uint64_t a1)
 {
   if (MFPersistenceLog_mf_once_token_4 != -1)
   {
     MFPersistenceLog_cold_1();
   }
 
-  v1 = MFPersistenceLog_mf_once_object_4;
+  v2 = MFPersistenceLog_mf_once_object_4;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __MFPersistenceLog_block_invoke()
@@ -235,16 +235,16 @@ uint64_t __MFPersistenceLog_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id MFExchangeLog()
+id MFExchangeLog(uint64_t a1)
 {
   if (MFExchangeLog_mf_once_token_6 != -1)
   {
     MFExchangeLog_cold_1();
   }
 
-  v1 = MFExchangeLog_mf_once_object_6;
+  v2 = MFExchangeLog_mf_once_object_6;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __MFExchangeLog_block_invoke()
@@ -254,16 +254,16 @@ uint64_t __MFExchangeLog_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id MFComposeLog()
+id MFComposeLog(uint64_t a1)
 {
   if (MFComposeLog_mf_once_token_7 != -1)
   {
     MFComposeLog_cold_1();
   }
 
-  v1 = MFComposeLog_mf_once_object_7;
+  v2 = MFComposeLog_mf_once_object_7;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __MFComposeLog_block_invoke()
@@ -273,16 +273,16 @@ uint64_t __MFComposeLog_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id MFReconciliationLog()
+id MFReconciliationLog(uint64_t a1)
 {
   if (MFReconciliationLog_mf_once_token_8 != -1)
   {
     MFReconciliationLog_cold_1();
   }
 
-  v1 = MFReconciliationLog_mf_once_object_8;
+  v2 = MFReconciliationLog_mf_once_object_8;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __MFReconciliationLog_block_invoke()
@@ -292,16 +292,16 @@ uint64_t __MFReconciliationLog_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id MFMessageSelectionLifecycleSignpostLog()
+id MFMessageSelectionLifecycleSignpostLog(uint64_t a1)
 {
   if (MFMessageSelectionLifecycleSignpostLog_mf_once_token_6 != -1)
   {
     MFMessageSelectionLifecycleSignpostLog_cold_1();
   }
 
-  v1 = MFMessageSelectionLifecycleSignpostLog_mf_once_object_6;
+  v2 = MFMessageSelectionLifecycleSignpostLog_mf_once_object_6;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __MFMessageSelectionLifecycleSignpostLog_block_invoke()
@@ -311,16 +311,16 @@ uint64_t __MFMessageSelectionLifecycleSignpostLog_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id MFMessageLoadingSignpostLog()
+id MFMessageLoadingSignpostLog(uint64_t a1)
 {
   if (MFMessageLoadingSignpostLog_mf_once_token_7 != -1)
   {
     MFMessageLoadingSignpostLog_cold_1();
   }
 
-  v1 = MFMessageLoadingSignpostLog_mf_once_object_7;
+  v2 = MFMessageLoadingSignpostLog_mf_once_object_7;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __MFMessageLoadingSignpostLog_block_invoke()
@@ -330,16 +330,16 @@ uint64_t __MFMessageLoadingSignpostLog_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id MFReconciliationSignpostLog()
+id MFReconciliationSignpostLog(uint64_t a1)
 {
   if (MFReconciliationSignpostLog_mf_once_token_8 != -1)
   {
     MFReconciliationSignpostLog_cold_1();
   }
 
-  v1 = MFReconciliationSignpostLog_mf_once_object_8;
+  v2 = MFReconciliationSignpostLog_mf_once_object_8;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __MFReconciliationSignpostLog_block_invoke()
@@ -349,16 +349,16 @@ uint64_t __MFReconciliationSignpostLog_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id MFMessageComposeLoadingSignpostLog()
+id MFMessageComposeLoadingSignpostLog(uint64_t a1)
 {
   if (MFMessageComposeLoadingSignpostLog_mf_once_token_9 != -1)
   {
     MFMessageComposeLoadingSignpostLog_cold_1();
   }
 
-  v1 = MFMessageComposeLoadingSignpostLog_mf_once_object_9;
+  v2 = MFMessageComposeLoadingSignpostLog_mf_once_object_9;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __MFMessageComposeLoadingSignpostLog_block_invoke()

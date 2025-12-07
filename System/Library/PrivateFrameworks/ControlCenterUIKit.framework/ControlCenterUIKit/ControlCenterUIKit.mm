@@ -34,9 +34,9 @@ const char *sub_1D168C344()
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -204,16 +204,16 @@ double CCUIScreenBounds()
       break;
   }
 
-  memset(&v4, 0, sizeof(v4));
-  CGAffineTransformMakeRotation(&v4, v1);
-  v5.origin.x = CCUIReferenceScreenBounds();
-  v3 = v4;
-  CGRectApplyAffineTransform(v5, &v3);
+  memset(&v6, 0, sizeof(v6));
+  Rotation = CGAffineTransformMakeRotation(&v6, v1);
+  v7.origin.x = CCUIReferenceScreenBounds(Rotation, v3);
+  v5 = v6;
+  CGRectApplyAffineTransform(v7, &v5);
   UIRectIntegralWithScale();
   return *MEMORY[0x1E695EFF8];
 }
 
-double CCUIReferenceScreenBounds()
+double CCUIReferenceScreenBounds(uint64_t a1, uint64_t a2)
 {
   if (CCUIReferenceScreenBounds_onceToken != -1)
   {
@@ -227,225 +227,255 @@ double CCUIExpandedModuleEdgeInsets()
 {
   ShouldBePortrait = CCUILayoutShouldBePortrait(0);
 
-  return CCUILayoutEdgeInsetsForcePortrait(ShouldBePortrait);
+  return CCUILayoutEdgeInsetsForcePortrait(ShouldBePortrait, v1);
 }
 
-double CCUILayoutEdgeInsetsForcePortrait(char a1)
+double CCUILayoutEdgeInsetsForcePortrait(_BOOL8 ShouldBePortrait, uint64_t a2)
 {
-  if ((a1 & 1) == 0 && !CCUILayoutShouldBePortrait(0))
+  if (!ShouldBePortrait)
   {
-    v20.origin.x = CCUIReferenceScreenBounds();
-    Width = CGRectGetWidth(v20);
-    if (Width >= 1024.0)
+    ShouldBePortrait = CCUILayoutShouldBePortrait(0);
+    if (!ShouldBePortrait)
     {
-      v1 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v1 userInterfaceIdiom] == 1)
+      v73.origin.x = CCUIReferenceScreenBounds(ShouldBePortrait, a2);
+      Width = CGRectGetWidth(v73);
+      if (Width >= 1024.0)
       {
-        v6 = 27.0;
-        if (SBFEffectiveHomeButtonType() != 2)
+        v2 = [MEMORY[0x1E69DC938] currentDevice];
+        v26 = [v2 userInterfaceIdiom];
+        if (v26 == 1)
         {
-          goto LABEL_60;
-        }
-      }
-    }
-
-    v21.origin.x = CCUIReferenceScreenBounds();
-    v7 = CGRectGetWidth(v21);
-    if (v7 >= 1024.0)
-    {
-      v2 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v2 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
-      {
-LABEL_27:
-
-        v6 = 27.0;
-        if (Width < 1024.0)
-        {
-          return v6;
-        }
-
-        goto LABEL_60;
-      }
-    }
-
-    v22.origin.x = CCUIReferenceScreenBounds();
-    v8 = CGRectGetWidth(v22);
-    if (v8 >= 834.0)
-    {
-      v3 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v3 userInterfaceIdiom] == 1)
-      {
-        v6 = 20.0;
-        if (SBFEffectiveHomeButtonType() == 2)
-        {
-          goto LABEL_56;
-        }
-      }
-    }
-
-    v23.origin.x = CCUIReferenceScreenBounds();
-    v9 = CGRectGetWidth(v23);
-    if (v9 >= 834.0)
-    {
-      v4 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v4 userInterfaceIdiom] == 1)
-      {
-        v6 = 20.0;
-        if (SBFEffectiveHomeButtonType() != 2)
-        {
-          goto LABEL_54;
-        }
-      }
-    }
-
-    v10 = [MEMORY[0x1E69DC938] currentDevice];
-    v6 = 20.0;
-    if ([v10 userInterfaceIdiom] == 1)
-    {
-      goto LABEL_53;
-    }
-
-    v24.origin.x = CCUIReferenceScreenBounds();
-    if (CGRectGetWidth(v24) >= 430.0)
-    {
-      v6 = 37.0;
-      goto LABEL_53;
-    }
-
-    v25.origin.x = CCUIReferenceScreenBounds();
-    if (CGRectGetWidth(v25) >= 428.0)
-    {
-      v6 = 36.0;
-      goto LABEL_53;
-    }
-
-    v26.origin.x = CCUIReferenceScreenBounds();
-    if (CGRectGetWidth(v26) >= 420.0 && SBFEffectiveHomeButtonType() == 2)
-    {
-LABEL_40:
-      v6 = 27.0;
-      goto LABEL_53;
-    }
-
-    v32.origin.x = CCUIReferenceScreenBounds();
-    if (CGRectGetWidth(v32) >= 414.0 && SBFEffectiveHomeButtonType() == 2 || (v33.origin.x = CCUIReferenceScreenBounds(), CGRectGetWidth(v33) >= 414.0))
-    {
-      v6 = 34.0;
-      goto LABEL_53;
-    }
-
-    v34.origin.x = CCUIReferenceScreenBounds();
-    v6 = 30.0;
-    if (CGRectGetWidth(v34) < 393.0)
-    {
-      v35.origin.x = CCUIReferenceScreenBounds();
-      if (CGRectGetWidth(v35) < 390.0)
-      {
-        v36.origin.x = CCUIReferenceScreenBounds();
-        if (CGRectGetWidth(v36) >= 375.0 && SBFEffectiveHomeButtonType() == 2)
-        {
-          goto LABEL_40;
-        }
-
-        v37.origin.x = CCUIReferenceScreenBounds();
-        v6 = 27.0;
-        if (CGRectGetWidth(v37) < 375.0)
-        {
-          v38.origin.x = CCUIReferenceScreenBounds();
-          if (CGRectGetWidth(v38) < 320.0)
+          v26 = SBFEffectiveHomeButtonType();
+          v9 = 27.0;
+          if (v26 != 2)
           {
-            v6 = 16.0;
+            goto LABEL_60;
           }
         }
       }
-    }
+
+      v74.origin.x = CCUIReferenceScreenBounds(v26, v27);
+      v12 = CGRectGetWidth(v74);
+      if (v12 >= 1024.0)
+      {
+        v3 = [MEMORY[0x1E69DC938] currentDevice];
+        v28 = [v3 userInterfaceIdiom];
+        if (v28 == 1)
+        {
+          v28 = SBFEffectiveHomeButtonType();
+          if (v28 == 2)
+          {
+LABEL_27:
+
+            v9 = 27.0;
+            if (Width < 1024.0)
+            {
+              return v9;
+            }
+
+            goto LABEL_60;
+          }
+        }
+      }
+
+      v75.origin.x = CCUIReferenceScreenBounds(v28, v29);
+      v15 = CGRectGetWidth(v75);
+      if (v15 >= 834.0)
+      {
+        v4 = [MEMORY[0x1E69DC938] currentDevice];
+        v30 = [v4 userInterfaceIdiom];
+        if (v30 == 1)
+        {
+          v30 = SBFEffectiveHomeButtonType();
+          v9 = 20.0;
+          if (v30 == 2)
+          {
+            goto LABEL_56;
+          }
+        }
+      }
+
+      v76.origin.x = CCUIReferenceScreenBounds(v30, v31);
+      v16 = CGRectGetWidth(v76);
+      if (v16 >= 834.0)
+      {
+        v5 = [MEMORY[0x1E69DC938] currentDevice];
+        if ([v5 userInterfaceIdiom] == 1)
+        {
+          v9 = 20.0;
+          if (SBFEffectiveHomeButtonType() != 2)
+          {
+            goto LABEL_54;
+          }
+        }
+      }
+
+      v17 = [MEMORY[0x1E69DC938] currentDevice];
+      v32 = [v17 userInterfaceIdiom];
+      v9 = 20.0;
+      if (v32 == 1)
+      {
+        goto LABEL_53;
+      }
+
+      v77.origin.x = CCUIReferenceScreenBounds(v32, v33);
+      if (CGRectGetWidth(v77) >= 430.0)
+      {
+        v9 = 37.0;
+        goto LABEL_53;
+      }
+
+      v78.origin.x = CCUIReferenceScreenBounds(v34, v35);
+      if (CGRectGetWidth(v78) >= 428.0)
+      {
+        v9 = 36.0;
+        goto LABEL_53;
+      }
+
+      v79.origin.x = CCUIReferenceScreenBounds(v36, v37);
+      if (CGRectGetWidth(v79) >= 420.0)
+      {
+        v38 = SBFEffectiveHomeButtonType();
+        if (v38 == 2)
+        {
+LABEL_40:
+          v9 = 27.0;
+          goto LABEL_53;
+        }
+      }
+
+      v85.origin.x = CCUIReferenceScreenBounds(v38, v39);
+      if (CGRectGetWidth(v85) >= 414.0 && (v51 = SBFEffectiveHomeButtonType(), v51 == 2) || (v86.origin.x = CCUIReferenceScreenBounds(v51, v52), CGRectGetWidth(v86) >= 414.0))
+      {
+        v9 = 34.0;
+        goto LABEL_53;
+      }
+
+      v87.origin.x = CCUIReferenceScreenBounds(v53, v54);
+      v9 = 30.0;
+      if (CGRectGetWidth(v87) < 393.0)
+      {
+        v88.origin.x = CCUIReferenceScreenBounds(v55, v56);
+        if (CGRectGetWidth(v88) < 390.0)
+        {
+          v89.origin.x = CCUIReferenceScreenBounds(v57, v58);
+          if (CGRectGetWidth(v89) >= 375.0)
+          {
+            v59 = SBFEffectiveHomeButtonType();
+            if (v59 == 2)
+            {
+              goto LABEL_40;
+            }
+          }
+
+          v90.origin.x = CCUIReferenceScreenBounds(v59, v60);
+          v9 = 27.0;
+          if (CGRectGetWidth(v90) < 375.0)
+          {
+            v91.origin.x = CCUIReferenceScreenBounds(v61, v62);
+            if (CGRectGetWidth(v91) < 320.0)
+            {
+              v9 = 16.0;
+            }
+          }
+        }
+      }
 
 LABEL_53:
 
-    if (v9 < 834.0)
-    {
-      goto LABEL_55;
-    }
+      if (v16 < 834.0)
+      {
+        goto LABEL_55;
+      }
 
-    goto LABEL_54;
+      goto LABEL_54;
+    }
   }
 
-  v13.origin.x = CCUIReferenceScreenBounds();
-  Width = CGRectGetWidth(v13);
+  v66.origin.x = CCUIReferenceScreenBounds(ShouldBePortrait, a2);
+  Width = CGRectGetWidth(v66);
   if (Width >= 1024.0)
   {
-    v1 = [MEMORY[0x1E69DC938] currentDevice];
-    if ([v1 userInterfaceIdiom] == 1)
+    v2 = [MEMORY[0x1E69DC938] currentDevice];
+    v6 = [v2 userInterfaceIdiom];
+    if (v6 == 1)
     {
-      v6 = 27.0;
-      if (SBFEffectiveHomeButtonType() != 2)
+      v6 = SBFEffectiveHomeButtonType();
+      v9 = 27.0;
+      if (v6 != 2)
       {
 LABEL_60:
 
-        return v6;
+        return v9;
       }
     }
   }
 
-  v14.origin.x = CCUIReferenceScreenBounds();
-  v7 = CGRectGetWidth(v14);
-  if (v7 >= 1024.0)
+  v67.origin.x = CCUIReferenceScreenBounds(v6, v7);
+  v12 = CGRectGetWidth(v67);
+  if (v12 >= 1024.0)
   {
-    v2 = [MEMORY[0x1E69DC938] currentDevice];
-    if ([v2 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
+    v3 = [MEMORY[0x1E69DC938] currentDevice];
+    v10 = [v3 userInterfaceIdiom];
+    if (v10 == 1)
     {
-      goto LABEL_27;
+      v10 = SBFEffectiveHomeButtonType();
+      if (v10 == 2)
+      {
+        goto LABEL_27;
+      }
     }
   }
 
-  v15.origin.x = CCUIReferenceScreenBounds();
-  v8 = CGRectGetWidth(v15);
-  if (v8 < 834.0 || ([MEMORY[0x1E69DC938] currentDevice], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "userInterfaceIdiom") != 1) || (v6 = 20.0, SBFEffectiveHomeButtonType() != 2))
+  v68.origin.x = CCUIReferenceScreenBounds(v10, v11);
+  v15 = CGRectGetWidth(v68);
+  if (v15 < 834.0 || ([MEMORY[0x1E69DC938] currentDevice], v4 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v4, "userInterfaceIdiom"), v13 != 1) || (v13 = SBFEffectiveHomeButtonType(), v9 = 20.0, v13 != 2))
   {
-    v16.origin.x = CCUIReferenceScreenBounds();
-    v9 = CGRectGetWidth(v16);
-    if (v9 < 834.0 || ([MEMORY[0x1E69DC938] currentDevice], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "userInterfaceIdiom") != 1) || (v6 = 20.0, SBFEffectiveHomeButtonType() == 2))
+    v69.origin.x = CCUIReferenceScreenBounds(v13, v14);
+    v16 = CGRectGetWidth(v69);
+    if (v16 < 834.0 || ([MEMORY[0x1E69DC938] currentDevice], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "userInterfaceIdiom") != 1) || (v9 = 20.0, SBFEffectiveHomeButtonType() == 2))
     {
-      v10 = [MEMORY[0x1E69DC938] currentDevice];
-      v6 = 20.0;
-      if ([v10 userInterfaceIdiom] != 1)
+      v17 = [MEMORY[0x1E69DC938] currentDevice];
+      v18 = [v17 userInterfaceIdiom];
+      v9 = 20.0;
+      if (v18 != 1)
       {
-        v17.origin.x = CCUIReferenceScreenBounds();
-        if (CGRectGetWidth(v17) >= 430.0)
+        v70.origin.x = CCUIReferenceScreenBounds(v18, v19);
+        if (CGRectGetWidth(v70) >= 430.0)
         {
-          v6 = 64.0;
+          v9 = 64.0;
         }
 
         else
         {
-          v18.origin.x = CCUIReferenceScreenBounds();
-          if (CGRectGetWidth(v18) >= 428.0 || (v19.origin.x = CCUIReferenceScreenBounds(), CGRectGetWidth(v19) >= 420.0) && SBFEffectiveHomeButtonType() == 2)
+          v71.origin.x = CCUIReferenceScreenBounds(v20, v21);
+          if (CGRectGetWidth(v71) >= 428.0 || (v72.origin.x = CCUIReferenceScreenBounds(v22, v23), CGRectGetWidth(v72) >= 420.0) && (v24 = SBFEffectiveHomeButtonType(), v24 == 2))
           {
-            v6 = 64.0;
+            v9 = 64.0;
           }
 
           else
           {
-            v27.origin.x = CCUIReferenceScreenBounds();
-            if (CGRectGetWidth(v27) >= 414.0 && SBFEffectiveHomeButtonType() == 2 || (v28.origin.x = CCUIReferenceScreenBounds(), CGRectGetWidth(v28) >= 414.0))
+            v80.origin.x = CCUIReferenceScreenBounds(v24, v25);
+            if (CGRectGetWidth(v80) >= 414.0 && (v40 = SBFEffectiveHomeButtonType(), v40 == 2) || (v81.origin.x = CCUIReferenceScreenBounds(v40, v41), CGRectGetWidth(v81) >= 414.0))
             {
-              v6 = 64.0;
+              v9 = 64.0;
             }
 
             else
             {
-              v29.origin.x = CCUIReferenceScreenBounds();
-              if (CGRectGetWidth(v29) >= 393.0 || (v30.origin.x = CCUIReferenceScreenBounds(), CGRectGetWidth(v30) >= 390.0) || (v31.origin.x = CCUIReferenceScreenBounds(), CGRectGetWidth(v31) >= 375.0) && SBFEffectiveHomeButtonType() == 2 || (v39.origin.x = CCUIReferenceScreenBounds(), CGRectGetWidth(v39) >= 375.0) || (v40.origin.x = CCUIReferenceScreenBounds(), CGRectGetWidth(v40) >= 320.0))
+              v82.origin.x = CCUIReferenceScreenBounds(v42, v43);
+              if (CGRectGetWidth(v82) >= 393.0 || (v83.origin.x = CCUIReferenceScreenBounds(v44, v45), CGRectGetWidth(v83) >= 390.0) || (v84.origin.x = CCUIReferenceScreenBounds(v46, v47), CGRectGetWidth(v84) >= 375.0) && (v48 = SBFEffectiveHomeButtonType(), v48 == 2) || (v92.origin.x = CCUIReferenceScreenBounds(v48, v49), CGRectGetWidth(v92) >= 375.0) || (v93.origin.x = CCUIReferenceScreenBounds(v63, v64), CGRectGetWidth(v93) >= 320.0))
               {
-                v12 = 0x4050000000000000;
+                v65 = 0x4050000000000000;
               }
 
               else
               {
-                v12 = 0x404C000000000000;
+                v65 = 0x404C000000000000;
               }
 
-              v6 = *&v12;
+              v9 = *&v65;
             }
           }
         }
@@ -457,7 +487,7 @@ LABEL_60:
 LABEL_54:
 
 LABEL_55:
-    if (v8 < 834.0)
+    if (v15 < 834.0)
     {
       goto LABEL_57;
     }
@@ -466,7 +496,7 @@ LABEL_55:
 LABEL_56:
 
 LABEL_57:
-  if (v7 >= 1024.0)
+  if (v12 >= 1024.0)
   {
   }
 
@@ -475,7 +505,7 @@ LABEL_57:
     goto LABEL_60;
   }
 
-  return v6;
+  return v9;
 }
 
 double CCUIDefaultExpandedContentModuleFullWidth()
@@ -485,27 +515,27 @@ double CCUIDefaultExpandedContentModuleFullWidth()
 
   if (v1 == 1)
   {
-    CCUILayoutEdgeInsetsForcePortrait(1);
-    v3 = v2;
-    v5 = v4;
-    v6 = CCUIPortraitMainListGridGeometryInfo();
-    return v5 + v3 + v7 * 3.0 + v6 * 4.0;
+    CCUILayoutEdgeInsetsForcePortrait(1, v2);
+    v4 = v3;
+    v6 = v5;
+    v9 = CCUIPortraitMainListGridGeometryInfo(v7, v8);
+    return v6 + v4 + v10 * 3.0 + v9 * 4.0;
   }
 
   else
   {
     ShouldBePortrait = CCUILayoutShouldBePortrait(0);
-    v10 = CCUIScreenBounds();
+    v13 = CCUIScreenBounds();
     if (ShouldBePortrait)
     {
 
-      return CGRectGetWidth(*&v10);
+      return CGRectGetWidth(*&v13);
     }
 
     else
     {
 
-      return CGRectGetHeight(*&v10);
+      return CGRectGetHeight(*&v13);
     }
   }
 }
@@ -513,10 +543,10 @@ double CCUIDefaultExpandedContentModuleFullWidth()
 CGFloat CCUIMaximumExpandedContentModuleHeight()
 {
   ShouldBePortrait = CCUILayoutShouldBePortrait(0);
-  v1 = CCUILayoutEdgeInsetsForcePortrait(ShouldBePortrait);
-  v3 = v2;
-  v5.origin.x = CCUIScreenBounds();
-  return CGRectGetHeight(v5) - v1 - v3;
+  v2 = CCUILayoutEdgeInsetsForcePortrait(ShouldBePortrait, v1);
+  v4 = v3;
+  v6.origin.x = CCUIScreenBounds();
+  return CGRectGetHeight(v6) - v2 - v4;
 }
 
 CGFloat CCUISliderExpandedContentModuleHeight()
@@ -639,7 +669,7 @@ void sub_1D168E910(void *a1, uint64_t a2, void *a3)
   }
 }
 
-uint64_t sub_1D168EE64(uint64_t a1, unint64_t *a2)
+uint64_t sub_1D168EE64(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -665,7 +695,7 @@ char *sub_1D168EFF0(uint64_t a1, uint64_t a2)
   *v5 = a1;
   *(v5 + 1) = a2;
   v13 = sub_1D16CC474();
-  v6 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC641B68));
+  v6 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC641B68, &unk_1D16D24C0));
   v7 = sub_1D16CC404();
   [v7 setBackgroundColor_];
   sub_1D16CC424();
@@ -684,7 +714,7 @@ char *sub_1D168EFF0(uint64_t a1, uint64_t a2)
   return v10;
 }
 
-void sub_1D168F1D0(id a1, void *a2, unint64_t *a3, uint64_t a4, void (*a5)(void))
+void sub_1D168F1D0(id a1, void *a2, unint64_t *a3, void *a4, void (*a5)(void))
 {
   v8 = *(v5 + *a2);
   *(v5 + *a2) = a1;
@@ -701,7 +731,7 @@ void sub_1D168F1D0(id a1, void *a2, unint64_t *a3, uint64_t a4, void (*a5)(void)
   }
 
   v12 = v8;
-  if (!a1 || (sub_1D168EE64(0, a3), a1 = a1, v9 = v12, v10 = sub_1D16CC5A4(), v9, (v10 & 1) == 0))
+  if (!a1 || (sub_1D168EE64(0, a3, a4), a1 = a1, v9 = v12, v10 = sub_1D16CC5A4(), v9, (v10 & 1) == 0))
   {
 LABEL_7:
     a5();
@@ -719,41 +749,41 @@ uint64_t sub_1D168FA54()
   v1 = v0;
   v2 = sub_1D16CC294();
   v3 = *(v2 - 8);
-  v4 = (MEMORY[0x1EEE9AC00])();
-  v6 = v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
-  MEMORY[0x1EEE9AC00](v4);
-  v8 = v17 - v7 + 16;
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
+  *&v7 = MEMORY[0x1EEE9AC00](v6).n128_u64[0];
+  v9 = v18 - v8 + 16;
   if (![v1 glyphTintColor])
   {
-    v9 = [objc_opt_self() whiteColor];
+    v10 = [objc_opt_self() whiteColor];
   }
 
   sub_1D16CC464();
   if (([v1 isActive] & 1) == 0)
   {
-    v10 = [v1 glyphTintColor];
-    if (v10)
+    v11 = [v1 glyphTintColor];
+    if (v11)
     {
     }
   }
 
-  v11 = [v1 systemImageName];
+  v12 = [v1 systemImageName];
   sub_1D16CC4A4();
 
   sub_1D16CC284();
   sub_1D16CC274();
-  v12 = *(v3 + 8);
-  v12(v6, v2);
-  v17[3] = v2;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v17);
-  (*(v3 + 16))(boxed_opaque_existential_1, v8, v2);
-  v14 = OBJC_IVAR___CCUIControlImageView__controlIconView;
+  v13 = *(v3 + 8);
+  v13(v5, v2);
+  v18[3] = v2;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v18);
+  (*(v3 + 16))(boxed_opaque_existential_1, v9, v2);
+  v15 = OBJC_IVAR___CCUIControlImageView__controlIconView;
   swift_beginAccess();
-  sub_1D1690038(v17, v1 + v14);
+  sub_1D1690038(v18, v1 + v15);
   swift_endAccess();
   sub_1D168FD84();
 
-  return (v12)(v8, v2);
+  return (v13)(v9, v2);
 }
 
 uint64_t *__swift_allocate_boxed_opaque_existential_1(uint64_t *result)
@@ -771,34 +801,34 @@ void sub_1D168FD84()
 {
   v1 = sub_1D16CC294();
   v2 = *(v1 - 8);
-  MEMORY[0x1EEE9AC00]();
-  v4 = &v14 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC641B58);
-  MEMORY[0x1EEE9AC00]();
-  v7 = &v14 - v6;
-  v8 = [v0 font];
-  if (!v8)
+  MEMORY[0x1EEE9AC00](v1);
+  v4 = &v15 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC641B58, &qword_1D16D2480);
+  *&v6 = MEMORY[0x1EEE9AC00](v5).n128_u64[0];
+  v8 = &v15 - v7;
+  v9 = [v0 font];
+  if (!v9)
   {
-    v8 = [objc_opt_self() systemFontOfSize:22.0 weight:*MEMORY[0x1E69DB980]];
+    v9 = [objc_opt_self() systemFontOfSize:22.0 weight:*MEMORY[0x1E69DB980]];
   }
 
-  v9 = OBJC_IVAR___CCUIControlImageView__controlIconView;
+  v10 = OBJC_IVAR___CCUIControlImageView__controlIconView;
   swift_beginAccess();
-  sub_1D16900A8(v0 + v9, &v15);
-  if (v16)
+  sub_1D16900A8(v0 + v10, &v16);
+  if (v17)
   {
-    sub_1D16901B4(&v15, &v17);
+    sub_1D16901B4(&v16, &v18);
     swift_dynamicCast();
-    v10 = v8;
-    v11 = sub_1D16CC454();
+    v11 = v9;
+    v12 = sub_1D16CC454();
     KeyPath = swift_getKeyPath();
-    (*(v2 + 16))(v7, v4, v1);
-    v13 = &v7[*(v5 + 36)];
-    *v13 = KeyPath;
-    v13[1] = v11;
+    (*(v2 + 16))(v8, v4, v1);
+    v14 = &v8[*(v5 + 36)];
+    *v14 = KeyPath;
+    v14[1] = v12;
     (*(v2 + 8))(v4, v1);
     sub_1D1690128();
-    *&v17 = sub_1D16CC474();
+    *&v18 = sub_1D16CC474();
     sub_1D16CC414();
   }
 
@@ -817,14 +847,14 @@ uint64_t sub_1D168FFE0@<X0>(uint64_t *a1@<X8>)
 
 uint64_t sub_1D1690038(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC641620);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC641620, &qword_1D16D2180);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_1D16900A8(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC641620);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC641620, &qword_1D16D2180);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -834,7 +864,7 @@ unint64_t sub_1D1690128()
   result = qword_1EC640B40;
   if (!qword_1EC640B40)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EC641B58);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EC641B58, &qword_1D16D2480);
     sub_1D16CBC70();
     sub_1D16CBCC8();
     result = swift_getWitnessTable();
@@ -921,7 +951,7 @@ void *__swift_project_boxed_opaque_existential_0(void *result, uint64_t a2)
 
 uint64_t sub_1D169159C(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC641620);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC641620, &qword_1D16D2180);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -1045,14 +1075,26 @@ uint64_t sub_1D1691998()
   return MEMORY[0x1EEE6BDD0](v0, 56, 7);
 }
 
-double sub_1D1691A00@<D0>(uint64_t a1@<X8>)
+double sub_1D1691A00@<D0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X8>)
 {
-  UIMutableTraits.moduleResizingConfiguration.getter();
-  result = *&v3;
-  *a1 = v3;
-  *(a1 + 16) = v4;
-  *(a1 + 24) = v5;
+  UIMutableTraits.moduleResizingConfiguration.getter(*(a1 + a2 - 16), *(a1 + a2 - 8));
+  result = *&v5;
+  *a3 = v5;
+  *(a3 + 16) = v6;
+  *(a3 + 24) = v7;
   return result;
+}
+
+uint64_t sub_1D1691A54(__int128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = *(a3 + a4 - 16);
+  v5 = *(a3 + a4 - 8);
+  v6 = *(a1 + 2);
+  v7 = *(a1 + 24);
+  v9 = *a1;
+  v10 = v6;
+  v11 = v7;
+  return UIMutableTraits.moduleResizingConfiguration.setter(&v9, v4, v5);
 }
 
 __n128 sub_1D1691AB0(__n128 *a1, __n128 *a2)
@@ -1136,12 +1178,12 @@ uint64_t sub_1D1691DCC()
   return MEMORY[0x1EEE6BDD0](v0, 32, 7);
 }
 
-uint64_t CCUISignpostImpulse(NSObject *a1)
+uint64_t CCUISignpostImpulse(NSObject *a1, __int16 a2)
 {
   if (os_signpost_enabled(a1))
   {
-    *v3 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1D168A000, a1, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "signpost", " enableTelemetry=YES ", v3, 2u);
+    *v4 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1D168A000, a1, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "signpost", " enableTelemetry=YES ", v4, 2u);
   }
 
   return kdebug_trace();
@@ -1211,7 +1253,7 @@ void __CCUIReferenceScreenBounds_block_invoke()
   CCUIReferenceScreenBounds___referenceScreenBounds_3 = v3;
 }
 
-double CCUIScreenSafeAreaInsets()
+double CCUIScreenSafeAreaInsets(uint64_t a1, uint64_t a2)
 {
   if (CCUIScreenSafeAreaInsets_onceToken != -1)
   {
@@ -1234,7 +1276,7 @@ void __CCUIScreenSafeAreaInsets_block_invoke()
   CCUIScreenSafeAreaInsets___screenSafeAreaInsets_3 = v5;
 }
 
-double CCUIPortraitMainListGridGeometryInfo()
+double CCUIPortraitMainListGridGeometryInfo(uint64_t a1, uint64_t a2)
 {
   if (CCUIPortraitMainListGridGeometryInfo_onceToken != -1)
   {
@@ -1251,8 +1293,8 @@ void __CCUIPortraitMainListGridGeometryInfo_block_invoke()
 
   if (v1 == 1)
   {
-    v2 = 10.0;
-    v3 = 66.0;
+    v4 = 10.0;
+    v5 = 66.0;
   }
 
   else
@@ -1262,21 +1304,21 @@ void __CCUIPortraitMainListGridGeometryInfo_block_invoke()
       __CCUIPortraitMainListGridGeometryInfo_block_invoke_cold_1();
     }
 
-    v4 = *&CCUIPortraitGridLayoutSideMargin_margin;
-    v7.origin.x = CCUIReferenceScreenBounds();
-    v5 = CGRectGetWidth(v7) + v4 * -2.0;
-    v6 = [MEMORY[0x1E69DCEB0] mainScreen];
-    [v6 scale];
+    v6 = *&CCUIPortraitGridLayoutSideMargin_margin;
+    v9.origin.x = CCUIReferenceScreenBounds(v2, v3);
+    v7 = CGRectGetWidth(v9) + v6 * -2.0;
+    v8 = [MEMORY[0x1E69DCEB0] mainScreen];
+    [v8 scale];
 
-    v3 = round(v5 / 4.66176471);
+    v5 = round(v7 / 4.66176471);
     UIFloorToScale();
   }
 
-  CCUIPortraitMainListGridGeometryInfo_gridGeometryInfo_0 = *&v3;
-  CCUIPortraitMainListGridGeometryInfo_gridGeometryInfo_1 = *&v2;
+  CCUIPortraitMainListGridGeometryInfo_gridGeometryInfo_0 = *&v5;
+  CCUIPortraitMainListGridGeometryInfo_gridGeometryInfo_1 = *&v4;
 }
 
-double CCUIPortraitGridLayoutSideMargin()
+double CCUIPortraitGridLayoutSideMargin(uint64_t a1, uint64_t a2)
 {
   if (CCUIPortraitGridLayoutSideMargin_onceToken != -1)
   {
@@ -1286,14 +1328,14 @@ double CCUIPortraitGridLayoutSideMargin()
   return *&CCUIPortraitGridLayoutSideMargin_margin;
 }
 
-double CCUICalculateGridGeometryInfo(uint64_t a1, double a2, double a3)
+double CCUICalculateGridGeometryInfo(uint64_t a1, double a2, double a3, double a4)
 {
-  v3 = round(a2 / (a1 + (a1 + -1.0) * a3));
+  v4 = round(a2 / (a1 + (a1 + -1.0) * a3));
   UIFloorToScale();
-  return v3;
+  return v4;
 }
 
-double CCUICompactModuleContinuousCornerRadius()
+double CCUICompactModuleContinuousCornerRadius(uint64_t a1, uint64_t a2)
 {
   if (CCUICompactModuleContinuousCornerRadius_onceToken != -1)
   {
@@ -1303,119 +1345,134 @@ double CCUICompactModuleContinuousCornerRadius()
   return *&CCUICompactModuleContinuousCornerRadius_radius;
 }
 
-void __CCUICompactModuleContinuousCornerRadius_block_invoke()
+void __CCUICompactModuleContinuousCornerRadius_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12.origin.x = CCUIReferenceScreenBounds();
-  Width = CGRectGetWidth(v12);
-  if (Width < 1024.0 || ([MEMORY[0x1E69DC938] currentDevice], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "userInterfaceIdiom") != 1) || SBFEffectiveHomeButtonType() == 2)
+  v40.origin.x = CCUIReferenceScreenBounds(a1, a2);
+  Width = CGRectGetWidth(v40);
+  if (Width < 1024.0 || ([MEMORY[0x1E69DC938] currentDevice], v38 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v38, "userInterfaceIdiom"), v5 != 1) || (v5 = SBFEffectiveHomeButtonType(), v5 == 2))
   {
-    v13.origin.x = CCUIReferenceScreenBounds();
-    v4 = CGRectGetWidth(v13);
-    if (v4 >= 1024.0)
+    v41.origin.x = CCUIReferenceScreenBounds(v5, v6);
+    v10 = CGRectGetWidth(v41);
+    if (v10 >= 1024.0)
     {
-      v0 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v0 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
+      v2 = [MEMORY[0x1E69DC938] currentDevice];
+      v8 = [v2 userInterfaceIdiom];
+      if (v8 == 1)
       {
-        CCUICompactModuleContinuousCornerRadius_radius = 0x4033000000000000;
+        v8 = SBFEffectiveHomeButtonType();
+        if (v8 == 2)
+        {
+          CCUICompactModuleContinuousCornerRadius_radius = 0x4033000000000000;
 LABEL_31:
 
 LABEL_32:
-        v9 = v10;
-        if (Width < 1024.0)
-        {
-          return;
-        }
+          v27 = v38;
+          if (Width < 1024.0)
+          {
+            return;
+          }
 
-        goto LABEL_33;
+          goto LABEL_33;
+        }
       }
     }
 
-    v14.origin.x = CCUIReferenceScreenBounds();
-    v5 = CGRectGetWidth(v14);
-    if (v5 >= 834.0)
+    v42.origin.x = CCUIReferenceScreenBounds(v8, v9);
+    v13 = CGRectGetWidth(v42);
+    if (v13 >= 834.0)
     {
-      v1 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v1 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
+      v3 = [MEMORY[0x1E69DC938] currentDevice];
+      v11 = [v3 userInterfaceIdiom];
+      if (v11 == 1)
       {
-        CCUICompactModuleContinuousCornerRadius_radius = 0x4031000000000000;
+        v11 = SBFEffectiveHomeButtonType();
+        if (v11 == 2)
+        {
+          CCUICompactModuleContinuousCornerRadius_radius = 0x4031000000000000;
 LABEL_29:
 
 LABEL_30:
-        if (v4 < 1024.0)
-        {
-          goto LABEL_32;
-        }
+          if (v10 < 1024.0)
+          {
+            goto LABEL_32;
+          }
 
-        goto LABEL_31;
+          goto LABEL_31;
+        }
       }
     }
 
-    v15.origin.x = CCUIReferenceScreenBounds();
-    v6 = CGRectGetWidth(v15);
-    if (v6 >= 834.0)
+    v43.origin.x = CCUIReferenceScreenBounds(v11, v12);
+    v14 = CGRectGetWidth(v43);
+    if (v14 >= 834.0)
     {
-      v2 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v2 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() != 2)
+      v4 = [MEMORY[0x1E69DC938] currentDevice];
+      if ([v4 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() != 2)
       {
         CCUICompactModuleContinuousCornerRadius_radius = 0x4031000000000000;
         goto LABEL_27;
       }
     }
 
-    v7 = [MEMORY[0x1E69DC938] currentDevice];
-    v8 = 17.0;
-    if ([v7 userInterfaceIdiom] != 1)
+    v15 = [MEMORY[0x1E69DC938] currentDevice];
+    v16 = [v15 userInterfaceIdiom];
+    v18 = 17.0;
+    if (v16 != 1)
     {
-      v16.origin.x = CCUIReferenceScreenBounds();
-      if (CGRectGetWidth(v16) >= 430.0)
+      v44.origin.x = CCUIReferenceScreenBounds(v16, v17);
+      if (CGRectGetWidth(v44) >= 430.0)
       {
         goto LABEL_22;
       }
 
-      v17.origin.x = CCUIReferenceScreenBounds();
-      if (CGRectGetWidth(v17) >= 428.0)
+      v45.origin.x = CCUIReferenceScreenBounds(v19, v20);
+      if (CGRectGetWidth(v45) >= 428.0)
       {
         goto LABEL_22;
       }
 
-      v18.origin.x = CCUIReferenceScreenBounds();
-      if (CGRectGetWidth(v18) < 420.0 || (v8 = 19.0, SBFEffectiveHomeButtonType() != 2))
+      v46.origin.x = CCUIReferenceScreenBounds(v21, v22);
+      if (CGRectGetWidth(v46) < 420.0 || (v23 = SBFEffectiveHomeButtonType(), v18 = 19.0, v23 != 2))
       {
-        v19.origin.x = CCUIReferenceScreenBounds();
-        if (CGRectGetWidth(v19) >= 414.0 && SBFEffectiveHomeButtonType() == 2)
+        v47.origin.x = CCUIReferenceScreenBounds(v23, v24);
+        if (CGRectGetWidth(v47) >= 414.0)
         {
+          v25 = SBFEffectiveHomeButtonType();
+          if (v25 == 2)
+          {
 LABEL_22:
-          v8 = 21.0;
-          goto LABEL_23;
+            v18 = 21.0;
+            goto LABEL_23;
+          }
         }
 
-        v20.origin.x = CCUIReferenceScreenBounds();
-        v8 = 21.0;
-        if (CGRectGetWidth(v20) < 414.0)
+        v48.origin.x = CCUIReferenceScreenBounds(v25, v26);
+        v18 = 21.0;
+        if (CGRectGetWidth(v48) < 414.0)
         {
-          v21.origin.x = CCUIReferenceScreenBounds();
-          v8 = 20.0;
-          if (CGRectGetWidth(v21) < 393.0)
+          v49.origin.x = CCUIReferenceScreenBounds(v28, v29);
+          v18 = 20.0;
+          if (CGRectGetWidth(v49) < 393.0)
           {
-            v22.origin.x = CCUIReferenceScreenBounds();
-            if (CGRectGetWidth(v22) < 390.0)
+            v50.origin.x = CCUIReferenceScreenBounds(v30, v31);
+            if (CGRectGetWidth(v50) < 390.0)
             {
-              v23.origin.x = CCUIReferenceScreenBounds();
-              if (CGRectGetWidth(v23) < 375.0 || (v8 = 19.0, SBFEffectiveHomeButtonType() != 2))
+              v51.origin.x = CCUIReferenceScreenBounds(v32, v33);
+              if (CGRectGetWidth(v51) < 375.0 || (v34 = SBFEffectiveHomeButtonType(), v18 = 19.0, v34 != 2))
               {
-                v24.origin.x = CCUIReferenceScreenBounds();
-                v8 = 19.0;
-                if (CGRectGetWidth(v24) < 375.0)
+                v52.origin.x = CCUIReferenceScreenBounds(v34, v35);
+                v18 = 19.0;
+                if (CGRectGetWidth(v52) < 375.0)
                 {
-                  v25.origin.x = CCUIReferenceScreenBounds();
-                  if (CGRectGetWidth(v25) < 320.0)
+                  v53.origin.x = CCUIReferenceScreenBounds(v36, v37);
+                  if (CGRectGetWidth(v53) < 320.0)
                   {
-                    v8 = 17.0;
+                    v18 = 17.0;
                   }
 
                   else
                   {
-                    v8 = 19.0;
+                    v18 = 19.0;
                   }
                 }
               }
@@ -1426,12 +1483,12 @@ LABEL_22:
     }
 
 LABEL_23:
-    CCUICompactModuleContinuousCornerRadius_radius = *&v8;
+    CCUICompactModuleContinuousCornerRadius_radius = *&v18;
 
-    if (v6 < 834.0)
+    if (v14 < 834.0)
     {
 LABEL_28:
-      if (v5 < 834.0)
+      if (v13 < 834.0)
       {
         goto LABEL_30;
       }
@@ -1445,11 +1502,11 @@ LABEL_27:
   }
 
   CCUICompactModuleContinuousCornerRadius_radius = 0x4033000000000000;
-  v9 = v10;
+  v27 = v38;
 LABEL_33:
 }
 
-double CCUIExpandedModuleContinuousCornerRadius()
+double CCUIExpandedModuleContinuousCornerRadius(uint64_t a1, uint64_t a2)
 {
   if (CCUIExpandedModuleContinuousCornerRadius_onceToken[0] != -1)
   {
@@ -1459,65 +1516,75 @@ double CCUIExpandedModuleContinuousCornerRadius()
   return *&CCUIExpandedModuleContinuousCornerRadius_radius;
 }
 
-void __CCUIExpandedModuleContinuousCornerRadius_block_invoke()
+void __CCUIExpandedModuleContinuousCornerRadius_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14.origin.x = CCUIReferenceScreenBounds();
-  Width = CGRectGetWidth(v14);
-  if (Width < 1024.0 || ([MEMORY[0x1E69DC938] currentDevice], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "userInterfaceIdiom") != 1) || SBFEffectiveHomeButtonType() == 2)
+  v42.origin.x = CCUIReferenceScreenBounds(a1, a2);
+  Width = CGRectGetWidth(v42);
+  if (Width < 1024.0 || ([MEMORY[0x1E69DC938] currentDevice], v40 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v40, "userInterfaceIdiom"), v5 != 1) || (v5 = SBFEffectiveHomeButtonType(), v5 == 2))
   {
-    v15.origin.x = CCUIReferenceScreenBounds();
-    v4 = CGRectGetWidth(v15);
-    if (v4 >= 1024.0)
+    v43.origin.x = CCUIReferenceScreenBounds(v5, v6);
+    v10 = CGRectGetWidth(v43);
+    if (v10 >= 1024.0)
     {
-      v0 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v0 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
+      v2 = [MEMORY[0x1E69DC938] currentDevice];
+      v8 = [v2 userInterfaceIdiom];
+      if (v8 == 1)
       {
-        CCUIExpandedModuleContinuousCornerRadius_radius = 0x4043000000000000;
+        v8 = SBFEffectiveHomeButtonType();
+        if (v8 == 2)
+        {
+          CCUIExpandedModuleContinuousCornerRadius_radius = 0x4043000000000000;
 LABEL_42:
 
 LABEL_43:
-        v9 = v12;
-        if (Width < 1024.0)
-        {
-          return;
-        }
+          v25 = v40;
+          if (Width < 1024.0)
+          {
+            return;
+          }
 
-        goto LABEL_44;
+          goto LABEL_44;
+        }
       }
     }
 
-    v16.origin.x = CCUIReferenceScreenBounds();
-    v5 = CGRectGetWidth(v16);
-    if (v5 >= 834.0)
+    v44.origin.x = CCUIReferenceScreenBounds(v8, v9);
+    v13 = CGRectGetWidth(v44);
+    if (v13 >= 834.0)
     {
-      v1 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v1 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
+      v3 = [MEMORY[0x1E69DC938] currentDevice];
+      v11 = [v3 userInterfaceIdiom];
+      if (v11 == 1)
       {
-        CCUIExpandedModuleContinuousCornerRadius_radius = 0x4041000000000000;
+        v11 = SBFEffectiveHomeButtonType();
+        if (v11 == 2)
+        {
+          CCUIExpandedModuleContinuousCornerRadius_radius = 0x4041000000000000;
 LABEL_40:
 
 LABEL_41:
-        if (v4 < 1024.0)
-        {
-          goto LABEL_43;
-        }
+          if (v10 < 1024.0)
+          {
+            goto LABEL_43;
+          }
 
-        goto LABEL_42;
+          goto LABEL_42;
+        }
       }
     }
 
-    v17.origin.x = CCUIReferenceScreenBounds();
-    v6 = CGRectGetWidth(v17);
-    if (v6 >= 834.0)
+    v45.origin.x = CCUIReferenceScreenBounds(v11, v12);
+    v14 = CGRectGetWidth(v45);
+    if (v14 >= 834.0)
     {
-      v2 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v2 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() != 2)
+      v4 = [MEMORY[0x1E69DC938] currentDevice];
+      if ([v4 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() != 2)
       {
         CCUIExpandedModuleContinuousCornerRadius_radius = 0x4041000000000000;
 LABEL_38:
 
 LABEL_39:
-        if (v5 < 834.0)
+        if (v13 < 834.0)
         {
           goto LABEL_41;
         }
@@ -1526,60 +1593,65 @@ LABEL_39:
       }
     }
 
-    v7 = [MEMORY[0x1E69DC938] currentDevice];
-    if ([v7 userInterfaceIdiom] == 1)
+    v15 = [MEMORY[0x1E69DC938] currentDevice];
+    v16 = [v15 userInterfaceIdiom];
+    if (v16 == 1)
     {
-      v8 = 0x4041000000000000;
+      v18 = 0x4041000000000000;
 LABEL_36:
-      v11 = *&v8;
+      v39 = *&v18;
       goto LABEL_37;
     }
 
-    v18.origin.x = CCUIReferenceScreenBounds();
-    if (CGRectGetWidth(v18) < 430.0)
+    v46.origin.x = CCUIReferenceScreenBounds(v16, v17);
+    if (CGRectGetWidth(v46) < 430.0)
     {
-      v19.origin.x = CCUIReferenceScreenBounds();
-      if (CGRectGetWidth(v19) < 428.0)
+      v47.origin.x = CCUIReferenceScreenBounds(v19, v20);
+      if (CGRectGetWidth(v47) < 428.0)
       {
-        v20.origin.x = CCUIReferenceScreenBounds();
-        if (CGRectGetWidth(v20) >= 420.0 && SBFEffectiveHomeButtonType() == 2)
+        v48.origin.x = CCUIReferenceScreenBounds(v21, v22);
+        if (CGRectGetWidth(v48) >= 420.0)
         {
+          v23 = SBFEffectiveHomeButtonType();
+          if (v23 == 2)
+          {
 LABEL_21:
-          v8 = 0x4043000000000000;
-          goto LABEL_36;
+            v18 = 0x4043000000000000;
+            goto LABEL_36;
+          }
         }
 
-        v21.origin.x = CCUIReferenceScreenBounds();
-        if (CGRectGetWidth(v21) < 414.0 || SBFEffectiveHomeButtonType() != 2)
+        v49.origin.x = CCUIReferenceScreenBounds(v23, v24);
+        if (CGRectGetWidth(v49) < 414.0 || (v26 = SBFEffectiveHomeButtonType(), v26 != 2))
         {
-          v22.origin.x = CCUIReferenceScreenBounds();
-          if (CGRectGetWidth(v22) < 414.0)
+          v50.origin.x = CCUIReferenceScreenBounds(v26, v27);
+          if (CGRectGetWidth(v50) < 414.0)
           {
-            v23.origin.x = CCUIReferenceScreenBounds();
-            if (CGRectGetWidth(v23) >= 393.0 || (v24.origin.x = CCUIReferenceScreenBounds(), CGRectGetWidth(v24) >= 390.0))
+            v51.origin.x = CCUIReferenceScreenBounds(v28, v29);
+            if (CGRectGetWidth(v51) >= 393.0 || (v52.origin.x = CCUIReferenceScreenBounds(v30, v31), CGRectGetWidth(v52) >= 390.0))
             {
-              v8 = 0x4044000000000000;
+              v18 = 0x4044000000000000;
               goto LABEL_36;
             }
 
-            v25.origin.x = CCUIReferenceScreenBounds();
-            if (CGRectGetWidth(v25) < 375.0 || SBFEffectiveHomeButtonType() != 2)
+            v53.origin.x = CCUIReferenceScreenBounds(v32, v33);
+            if (CGRectGetWidth(v53) < 375.0 || (v34 = SBFEffectiveHomeButtonType(), v34 != 2))
             {
-              v26.origin.x = CCUIReferenceScreenBounds();
-              if (CGRectGetWidth(v26) < 375.0)
+              v54.origin.x = CCUIReferenceScreenBounds(v34, v35);
+              if (CGRectGetWidth(v54) < 375.0)
               {
-                v27.origin.x = CCUIReferenceScreenBounds();
-                v10 = CGRectGetWidth(v27) < 320.0;
-                v11 = 34.0;
-                if (!v10)
+                v55.origin.x = CCUIReferenceScreenBounds(v36, v37);
+                v38 = CGRectGetWidth(v55) < 320.0;
+                v39 = 34.0;
+                if (!v38)
                 {
-                  v11 = 38.0;
+                  v39 = 38.0;
                 }
 
 LABEL_37:
-                CCUIExpandedModuleContinuousCornerRadius_radius = *&v11;
+                CCUIExpandedModuleContinuousCornerRadius_radius = *&v39;
 
-                if (v6 < 834.0)
+                if (v14 < 834.0)
                 {
                   goto LABEL_39;
                 }
@@ -1594,16 +1666,16 @@ LABEL_37:
       }
     }
 
-    v8 = 0x4045000000000000;
+    v18 = 0x4045000000000000;
     goto LABEL_36;
   }
 
   CCUIExpandedModuleContinuousCornerRadius_radius = 0x4043000000000000;
-  v9 = v12;
+  v25 = v40;
 LABEL_44:
 }
 
-double CCUISliderExpandedModuleContinuousCornerRadius()
+double CCUISliderExpandedModuleContinuousCornerRadius(uint64_t a1, uint64_t a2)
 {
   if (CCUISliderExpandedContentModuleWidth_onceToken != -1)
   {
@@ -1613,7 +1685,7 @@ double CCUISliderExpandedModuleContinuousCornerRadius()
   return *&CCUISliderExpandedContentModuleWidth_width * 0.5;
 }
 
-double CCUISliderExpandedContentModuleWidth()
+double CCUISliderExpandedContentModuleWidth(uint64_t a1, uint64_t a2)
 {
   if (CCUISliderExpandedContentModuleWidth_onceToken != -1)
   {
@@ -1623,58 +1695,68 @@ double CCUISliderExpandedContentModuleWidth()
   return *&CCUISliderExpandedContentModuleWidth_width;
 }
 
-void __CCUISliderExpandedContentModuleWidth_block_invoke()
+void __CCUISliderExpandedContentModuleWidth_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14.origin.x = CCUIReferenceScreenBounds();
-  Width = CGRectGetWidth(v14);
+  v43.origin.x = CCUIReferenceScreenBounds(a1, a2);
+  Width = CGRectGetWidth(v43);
   if (Width >= 1024.0)
   {
-    v0 = [MEMORY[0x1E69DC938] currentDevice];
-    if ([v0 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() != 2)
+    v2 = [MEMORY[0x1E69DC938] currentDevice];
+    v6 = [v2 userInterfaceIdiom];
+    if (v6 == 1)
     {
-      CCUISliderExpandedContentModuleWidth_width = 0x405EC00000000000;
+      v6 = SBFEffectiveHomeButtonType();
+      if (v6 != 2)
+      {
+        CCUISliderExpandedContentModuleWidth_width = 0x405EC00000000000;
 LABEL_42:
 
-      goto LABEL_43;
+        goto LABEL_43;
+      }
     }
   }
 
-  v15.origin.x = CCUIReferenceScreenBounds();
-  v5 = CGRectGetWidth(v15);
-  if (v5 < 1024.0 || ([MEMORY[0x1E69DC938] currentDevice], v1 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v1, "userInterfaceIdiom") != 1) || SBFEffectiveHomeButtonType() != 2)
+  v44.origin.x = CCUIReferenceScreenBounds(v6, v7);
+  v11 = CGRectGetWidth(v44);
+  if (v11 < 1024.0 || ([MEMORY[0x1E69DC938] currentDevice], v3 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v3, "userInterfaceIdiom"), v9 != 1) || (v9 = SBFEffectiveHomeButtonType(), v9 != 2))
   {
-    v16.origin.x = CCUIReferenceScreenBounds();
-    v6 = CGRectGetWidth(v16);
-    if (v6 >= 834.0)
+    v45.origin.x = CCUIReferenceScreenBounds(v9, v10);
+    v14 = CGRectGetWidth(v45);
+    if (v14 >= 834.0)
     {
-      v2 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v2 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
+      v4 = [MEMORY[0x1E69DC938] currentDevice];
+      v12 = [v4 userInterfaceIdiom];
+      if (v12 == 1)
       {
-        CCUISliderExpandedContentModuleWidth_width = 0x405EC00000000000;
+        v12 = SBFEffectiveHomeButtonType();
+        if (v12 == 2)
+        {
+          CCUISliderExpandedContentModuleWidth_width = 0x405EC00000000000;
 LABEL_38:
 
 LABEL_39:
-        if (v5 < 1024.0)
-        {
-          goto LABEL_41;
-        }
+          if (v11 < 1024.0)
+          {
+            goto LABEL_41;
+          }
 
-        goto LABEL_40;
+          goto LABEL_40;
+        }
       }
     }
 
-    v17.origin.x = CCUIReferenceScreenBounds();
-    v7 = CGRectGetWidth(v17);
-    if (v7 >= 834.0)
+    v46.origin.x = CCUIReferenceScreenBounds(v12, v13);
+    v15 = CGRectGetWidth(v46);
+    if (v15 >= 834.0)
     {
-      v3 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v3 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() != 2)
+      v5 = [MEMORY[0x1E69DC938] currentDevice];
+      if ([v5 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() != 2)
       {
         CCUISliderExpandedContentModuleWidth_width = 0x405EC00000000000;
 LABEL_36:
 
 LABEL_37:
-        if (v6 < 834.0)
+        if (v14 < 834.0)
         {
           goto LABEL_39;
         }
@@ -1683,63 +1765,72 @@ LABEL_37:
       }
     }
 
-    v8 = [MEMORY[0x1E69DC938] currentDevice];
-    if ([v8 userInterfaceIdiom] == 1)
+    v16 = [MEMORY[0x1E69DC938] currentDevice];
+    v17 = [v16 userInterfaceIdiom];
+    if (v17 == 1)
     {
-      v9 = 0x405EC00000000000;
+      v19 = 0x405EC00000000000;
       goto LABEL_35;
     }
 
-    v18.origin.x = CCUIReferenceScreenBounds();
-    v9 = 0x4062C00000000000;
-    if (CGRectGetWidth(v18) < 430.0)
+    v47.origin.x = CCUIReferenceScreenBounds(v17, v18);
+    v19 = 0x4062C00000000000;
+    if (CGRectGetWidth(v47) < 430.0)
     {
-      v19.origin.x = CCUIReferenceScreenBounds();
-      if (CGRectGetWidth(v19) < 428.0)
+      v48.origin.x = CCUIReferenceScreenBounds(v20, v21);
+      if (CGRectGetWidth(v48) < 428.0)
       {
-        v20.origin.x = CCUIReferenceScreenBounds();
-        if (CGRectGetWidth(v20) >= 420.0 && SBFEffectiveHomeButtonType() == 2)
+        v49.origin.x = CCUIReferenceScreenBounds(v22, v23);
+        if (CGRectGetWidth(v49) >= 420.0)
         {
-          goto LABEL_21;
+          v24 = SBFEffectiveHomeButtonType();
+          if (v24 == 2)
+          {
+            goto LABEL_21;
+          }
         }
 
-        v21.origin.x = CCUIReferenceScreenBounds();
-        if (CGRectGetWidth(v21) >= 414.0 && SBFEffectiveHomeButtonType() == 2)
+        v50.origin.x = CCUIReferenceScreenBounds(v24, v25);
+        if (CGRectGetWidth(v50) >= 414.0 && (v26 = SBFEffectiveHomeButtonType(), v26 == 2))
         {
-          v9 = 0x4062400000000000;
+          v19 = 0x4062400000000000;
         }
 
         else
         {
-          v22.origin.x = CCUIReferenceScreenBounds();
-          if (CGRectGetWidth(v22) >= 414.0)
+          v51.origin.x = CCUIReferenceScreenBounds(v26, v27);
+          if (CGRectGetWidth(v51) >= 414.0)
           {
-            v9 = 0x4060800000000000;
+            v19 = 0x4060800000000000;
           }
 
           else
           {
-            v23.origin.x = CCUIReferenceScreenBounds();
-            v9 = 0x4061800000000000;
-            if (CGRectGetWidth(v23) < 393.0)
+            v52.origin.x = CCUIReferenceScreenBounds(v28, v29);
+            v19 = 0x4061800000000000;
+            if (CGRectGetWidth(v52) < 393.0)
             {
-              v24.origin.x = CCUIReferenceScreenBounds();
-              if (CGRectGetWidth(v24) < 390.0)
+              v53.origin.x = CCUIReferenceScreenBounds(v30, v31);
+              if (CGRectGetWidth(v53) < 390.0)
               {
-                v25.origin.x = CCUIReferenceScreenBounds();
-                if (CGRectGetWidth(v25) >= 375.0 && SBFEffectiveHomeButtonType() == 2)
+                v54.origin.x = CCUIReferenceScreenBounds(v32, v33);
+                if (CGRectGetWidth(v54) >= 375.0)
                 {
+                  v34 = SBFEffectiveHomeButtonType();
+                  if (v34 == 2)
+                  {
 LABEL_21:
-                  v9 = 0x4060E00000000000;
-                  goto LABEL_35;
+                    v19 = 0x4060E00000000000;
+                    goto LABEL_35;
+                  }
                 }
 
-                v26.origin.x = CCUIReferenceScreenBounds();
-                v9 = 0x405EC00000000000;
-                if (CGRectGetWidth(v26) < 375.0)
+                v55.origin.x = CCUIReferenceScreenBounds(v34, v35);
+                v19 = 0x405EC00000000000;
+                if (CGRectGetWidth(v55) < 375.0)
                 {
-                  v27.origin.x = CCUIReferenceScreenBounds();
-                  v9 = qword_1D16D1D30[CGRectGetWidth(v27) >= 320.0];
+                  v56.origin.x = CCUIReferenceScreenBounds(v36, v37);
+                  v19 = qword_1D16D1D30[CGRectGetWidth(v56) >= 320.0];
                 }
               }
             }
@@ -1749,9 +1840,9 @@ LABEL_21:
     }
 
 LABEL_35:
-    CCUISliderExpandedContentModuleWidth_width = v9;
+    CCUISliderExpandedContentModuleWidth_width = v19;
 
-    if (v7 < 834.0)
+    if (v15 < 834.0)
     {
       goto LABEL_37;
     }
@@ -1769,135 +1860,154 @@ LABEL_41:
   }
 
 LABEL_43:
-  v12 = [MEMORY[0x1E69DC938] currentDevice];
-  if ([v12 userInterfaceIdiom] || SBFEffectiveHomeButtonType() != 2)
+  v41 = [MEMORY[0x1E69DC938] currentDevice];
+  if ([v41 userInterfaceIdiom] || SBFEffectiveHomeButtonType() != 2)
   {
   }
 
   else
   {
-    v28.origin.x = CCUIReferenceScreenBounds();
-    v10 = CGRectGetWidth(v28);
+    v57.origin.x = CCUIReferenceScreenBounds(2, v38);
+    v39 = CGRectGetWidth(v57);
 
-    if (v10 < 375.0)
+    if (v39 < 375.0)
     {
-      v11 = *&CCUISliderExpandedContentModuleWidth_width;
+      v40 = *&CCUISliderExpandedContentModuleWidth_width;
       if (*&CCUISliderExpandedContentModuleWidth_width < 135.0)
       {
-        v11 = 135.0;
+        v40 = 135.0;
       }
 
-      CCUISliderExpandedContentModuleWidth_width = *&v11;
+      CCUISliderExpandedContentModuleWidth_width = *&v40;
     }
   }
 }
 
-void __CCUISliderExpandedContentModuleHeight_block_invoke()
+void __CCUISliderExpandedContentModuleHeight_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14.origin.x = CCUIReferenceScreenBounds();
-  Width = CGRectGetWidth(v14);
+  v43.origin.x = CCUIReferenceScreenBounds(a1, a2);
+  Width = CGRectGetWidth(v43);
   if (Width >= 1024.0)
   {
-    v0 = [MEMORY[0x1E69DC938] currentDevice];
-    if ([v0 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() != 2)
+    v2 = [MEMORY[0x1E69DC938] currentDevice];
+    v6 = [v2 userInterfaceIdiom];
+    if (v6 == 1)
     {
-      CCUISliderExpandedContentModuleHeight_height = 0x4075400000000000;
+      v6 = SBFEffectiveHomeButtonType();
+      if (v6 != 2)
+      {
+        CCUISliderExpandedContentModuleHeight_height = 0x4075400000000000;
 LABEL_32:
 
-      goto LABEL_33;
+        goto LABEL_33;
+      }
     }
   }
 
-  v15.origin.x = CCUIReferenceScreenBounds();
-  v5 = CGRectGetWidth(v15);
-  if (v5 < 1024.0 || ([MEMORY[0x1E69DC938] currentDevice], v1 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v1, "userInterfaceIdiom") != 1) || SBFEffectiveHomeButtonType() != 2)
+  v44.origin.x = CCUIReferenceScreenBounds(v6, v7);
+  v11 = CGRectGetWidth(v44);
+  if (v11 < 1024.0 || ([MEMORY[0x1E69DC938] currentDevice], v3 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v3, "userInterfaceIdiom"), v9 != 1) || (v9 = SBFEffectiveHomeButtonType(), v9 != 2))
   {
-    v16.origin.x = CCUIReferenceScreenBounds();
-    v6 = CGRectGetWidth(v16);
-    if (v6 >= 834.0)
+    v45.origin.x = CCUIReferenceScreenBounds(v9, v10);
+    v14 = CGRectGetWidth(v45);
+    if (v14 >= 834.0)
     {
-      v2 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v2 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
+      v4 = [MEMORY[0x1E69DC938] currentDevice];
+      v12 = [v4 userInterfaceIdiom];
+      if (v12 == 1)
       {
-        CCUISliderExpandedContentModuleHeight_height = 0x4075400000000000;
+        v12 = SBFEffectiveHomeButtonType();
+        if (v12 == 2)
+        {
+          CCUISliderExpandedContentModuleHeight_height = 0x4075400000000000;
 LABEL_28:
 
 LABEL_29:
-        if (v5 < 1024.0)
-        {
-          goto LABEL_31;
-        }
+          if (v11 < 1024.0)
+          {
+            goto LABEL_31;
+          }
 
-        goto LABEL_30;
+          goto LABEL_30;
+        }
       }
     }
 
-    v17.origin.x = CCUIReferenceScreenBounds();
-    v7 = CGRectGetWidth(v17);
-    if (v7 >= 834.0)
+    v46.origin.x = CCUIReferenceScreenBounds(v12, v13);
+    v15 = CGRectGetWidth(v46);
+    if (v15 >= 834.0)
     {
-      v3 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v3 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() != 2)
+      v5 = [MEMORY[0x1E69DC938] currentDevice];
+      if ([v5 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() != 2)
       {
         CCUISliderExpandedContentModuleHeight_height = 0x4075400000000000;
         goto LABEL_26;
       }
     }
 
-    v8 = [MEMORY[0x1E69DC938] currentDevice];
-    v9 = 0x4075400000000000;
-    if ([v8 userInterfaceIdiom] != 1)
+    v16 = [MEMORY[0x1E69DC938] currentDevice];
+    v17 = [v16 userInterfaceIdiom];
+    v19 = 0x4075400000000000;
+    if (v17 != 1)
     {
-      v18.origin.x = CCUIReferenceScreenBounds();
-      if (CGRectGetWidth(v18) >= 430.0 || (v19.origin.x = CCUIReferenceScreenBounds(), CGRectGetWidth(v19) >= 428.0))
+      v47.origin.x = CCUIReferenceScreenBounds(v17, v18);
+      if (CGRectGetWidth(v47) >= 430.0 || (v48.origin.x = CCUIReferenceScreenBounds(v20, v21), CGRectGetWidth(v48) >= 428.0))
       {
-        v9 = 0x4079000000000000;
+        v19 = 0x4079000000000000;
       }
 
       else
       {
-        v20.origin.x = CCUIReferenceScreenBounds();
-        if (CGRectGetWidth(v20) >= 420.0 && SBFEffectiveHomeButtonType() == 2)
+        v49.origin.x = CCUIReferenceScreenBounds(v22, v23);
+        if (CGRectGetWidth(v49) >= 420.0)
         {
-          goto LABEL_20;
+          v24 = SBFEffectiveHomeButtonType();
+          if (v24 == 2)
+          {
+            goto LABEL_20;
+          }
         }
 
-        v22.origin.x = CCUIReferenceScreenBounds();
-        if (CGRectGetWidth(v22) >= 414.0 && SBFEffectiveHomeButtonType() == 2)
+        v51.origin.x = CCUIReferenceScreenBounds(v24, v25);
+        if (CGRectGetWidth(v51) >= 414.0 && (v29 = SBFEffectiveHomeButtonType(), v29 == 2))
         {
-          v9 = 0x4078600000000000;
+          v19 = 0x4078600000000000;
         }
 
         else
         {
-          v23.origin.x = CCUIReferenceScreenBounds();
-          if (CGRectGetWidth(v23) < 414.0)
+          v52.origin.x = CCUIReferenceScreenBounds(v29, v30);
+          if (CGRectGetWidth(v52) < 414.0)
           {
-            v24.origin.x = CCUIReferenceScreenBounds();
-            v9 = 0x4077200000000000;
-            if (CGRectGetWidth(v24) < 393.0)
+            v53.origin.x = CCUIReferenceScreenBounds(v31, v32);
+            v19 = 0x4077200000000000;
+            if (CGRectGetWidth(v53) < 393.0)
             {
-              v25.origin.x = CCUIReferenceScreenBounds();
-              if (CGRectGetWidth(v25) < 390.0)
+              v54.origin.x = CCUIReferenceScreenBounds(v33, v34);
+              if (CGRectGetWidth(v54) < 390.0)
               {
-                v26.origin.x = CCUIReferenceScreenBounds();
-                if (CGRectGetWidth(v26) >= 375.0 && SBFEffectiveHomeButtonType() == 2)
+                v55.origin.x = CCUIReferenceScreenBounds(v35, v36);
+                if (CGRectGetWidth(v55) >= 375.0)
                 {
+                  v37 = SBFEffectiveHomeButtonType();
+                  if (v37 == 2)
+                  {
 LABEL_20:
-                  v9 = 0x4076800000000000;
-                  goto LABEL_22;
+                    v19 = 0x4076800000000000;
+                    goto LABEL_22;
+                  }
                 }
 
-                v27.origin.x = CCUIReferenceScreenBounds();
-                if (CGRectGetWidth(v27) >= 375.0)
+                v56.origin.x = CCUIReferenceScreenBounds(v37, v38);
+                if (CGRectGetWidth(v56) >= 375.0)
                 {
-                  v9 = 0x4073B00000000000;
+                  v19 = 0x4073B00000000000;
                 }
 
                 else
                 {
-                  v28.origin.x = CCUIReferenceScreenBounds();
-                  v9 = qword_1D16D1D40[CGRectGetWidth(v28) >= 320.0];
+                  v57.origin.x = CCUIReferenceScreenBounds(v39, v40);
+                  v19 = qword_1D16D1D40[CGRectGetWidth(v57) >= 320.0];
                 }
               }
             }
@@ -1907,12 +2017,12 @@ LABEL_20:
     }
 
 LABEL_22:
-    CCUISliderExpandedContentModuleHeight_height = v9;
+    CCUISliderExpandedContentModuleHeight_height = v19;
 
-    if (v7 < 834.0)
+    if (v15 < 834.0)
     {
 LABEL_27:
-      if (v6 < 834.0)
+      if (v14 < 834.0)
       {
         goto LABEL_29;
       }
@@ -1935,25 +2045,25 @@ LABEL_31:
   }
 
 LABEL_33:
-  v12 = [MEMORY[0x1E69DC938] currentDevice];
-  if ([v12 userInterfaceIdiom] || SBFEffectiveHomeButtonType() != 2)
+  v41 = [MEMORY[0x1E69DC938] currentDevice];
+  if ([v41 userInterfaceIdiom] || SBFEffectiveHomeButtonType() != 2)
   {
   }
 
   else
   {
-    v21.origin.x = CCUIReferenceScreenBounds();
-    v10 = CGRectGetWidth(v21);
+    v50.origin.x = CCUIReferenceScreenBounds(2, v26);
+    v27 = CGRectGetWidth(v50);
 
-    if (v10 < 375.0)
+    if (v27 < 375.0)
     {
-      v11 = *&CCUISliderExpandedContentModuleHeight_height;
+      v28 = *&CCUISliderExpandedContentModuleHeight_height;
       if (*&CCUISliderExpandedContentModuleHeight_height < 360.0)
       {
-        v11 = 360.0;
+        v28 = 360.0;
       }
 
-      CCUISliderExpandedContentModuleHeight_height = *&v11;
+      CCUISliderExpandedContentModuleHeight_height = *&v28;
     }
   }
 }
@@ -1983,124 +2093,143 @@ double CCUIAlertCompactPresentationTopMarginForOrientation(uint64_t a1)
   return *v1;
 }
 
-void __CCUIAlertCompactPresentationTopMarginForOrientation_block_invoke()
+void __CCUIAlertCompactPresentationTopMarginForOrientation_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12.origin.x = CCUIReferenceScreenBounds();
-  Width = CGRectGetWidth(v12);
-  if (Width < 1024.0 || ([MEMORY[0x1E69DC938] currentDevice], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "userInterfaceIdiom") != 1) || SBFEffectiveHomeButtonType() == 2)
+  v40.origin.x = CCUIReferenceScreenBounds(a1, a2);
+  Width = CGRectGetWidth(v40);
+  if (Width < 1024.0 || ([MEMORY[0x1E69DC938] currentDevice], v38 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v38, "userInterfaceIdiom"), v5 != 1) || (v5 = SBFEffectiveHomeButtonType(), v5 == 2))
   {
-    v13.origin.x = CCUIReferenceScreenBounds();
-    v4 = CGRectGetWidth(v13);
-    if (v4 >= 1024.0)
+    v41.origin.x = CCUIReferenceScreenBounds(v5, v6);
+    v10 = CGRectGetWidth(v41);
+    if (v10 >= 1024.0)
     {
-      v0 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v0 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
+      v2 = [MEMORY[0x1E69DC938] currentDevice];
+      v8 = [v2 userInterfaceIdiom];
+      if (v8 == 1)
       {
-        CCUIAlertCompactPresentationTopMarginForOrientation_topMarginForPortrait = 0x4038000000000000;
+        v8 = SBFEffectiveHomeButtonType();
+        if (v8 == 2)
+        {
+          CCUIAlertCompactPresentationTopMarginForOrientation_topMarginForPortrait = 0x4038000000000000;
 LABEL_36:
 
 LABEL_37:
-        v9 = v10;
-        if (Width < 1024.0)
-        {
-          return;
-        }
+          v35 = v38;
+          if (Width < 1024.0)
+          {
+            return;
+          }
 
-        goto LABEL_38;
+          goto LABEL_38;
+        }
       }
     }
 
-    v14.origin.x = CCUIReferenceScreenBounds();
-    v5 = CGRectGetWidth(v14);
-    if (v5 >= 834.0)
+    v42.origin.x = CCUIReferenceScreenBounds(v8, v9);
+    v13 = CGRectGetWidth(v42);
+    if (v13 >= 834.0)
     {
-      v1 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v1 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
+      v3 = [MEMORY[0x1E69DC938] currentDevice];
+      v11 = [v3 userInterfaceIdiom];
+      if (v11 == 1)
       {
-        CCUIAlertCompactPresentationTopMarginForOrientation_topMarginForPortrait = 0x4038000000000000;
+        v11 = SBFEffectiveHomeButtonType();
+        if (v11 == 2)
+        {
+          CCUIAlertCompactPresentationTopMarginForOrientation_topMarginForPortrait = 0x4038000000000000;
 LABEL_34:
 
 LABEL_35:
-        if (v4 < 1024.0)
-        {
-          goto LABEL_37;
-        }
+          if (v10 < 1024.0)
+          {
+            goto LABEL_37;
+          }
 
-        goto LABEL_36;
+          goto LABEL_36;
+        }
       }
     }
 
-    v15.origin.x = CCUIReferenceScreenBounds();
-    v6 = CGRectGetWidth(v15);
-    if (v6 >= 834.0)
+    v43.origin.x = CCUIReferenceScreenBounds(v11, v12);
+    v14 = CGRectGetWidth(v43);
+    if (v14 >= 834.0)
     {
-      v2 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v2 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() != 2)
+      v4 = [MEMORY[0x1E69DC938] currentDevice];
+      if ([v4 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() != 2)
       {
         CCUIAlertCompactPresentationTopMarginForOrientation_topMarginForPortrait = 0x4038000000000000;
         goto LABEL_32;
       }
     }
 
-    v7 = [MEMORY[0x1E69DC938] currentDevice];
-    v8 = 24.0;
-    if ([v7 userInterfaceIdiom] != 1)
+    v15 = [MEMORY[0x1E69DC938] currentDevice];
+    v16 = [v15 userInterfaceIdiom];
+    v18 = 24.0;
+    if (v16 != 1)
     {
-      v16.origin.x = CCUIReferenceScreenBounds();
-      if (CGRectGetWidth(v16) >= 430.0)
+      v44.origin.x = CCUIReferenceScreenBounds(v16, v17);
+      if (CGRectGetWidth(v44) >= 430.0)
       {
         goto LABEL_27;
       }
 
-      v17.origin.x = CCUIReferenceScreenBounds();
-      if (CGRectGetWidth(v17) >= 428.0)
+      v45.origin.x = CCUIReferenceScreenBounds(v19, v20);
+      if (CGRectGetWidth(v45) >= 428.0)
       {
         goto LABEL_27;
       }
 
-      v18.origin.x = CCUIReferenceScreenBounds();
-      if (CGRectGetWidth(v18) >= 420.0 && SBFEffectiveHomeButtonType() == 2)
+      v46.origin.x = CCUIReferenceScreenBounds(v21, v22);
+      if (CGRectGetWidth(v46) >= 420.0)
       {
-        goto LABEL_27;
+        v23 = SBFEffectiveHomeButtonType();
+        if (v23 == 2)
+        {
+          goto LABEL_27;
+        }
       }
 
-      v19.origin.x = CCUIReferenceScreenBounds();
-      if (CGRectGetWidth(v19) >= 414.0 && SBFEffectiveHomeButtonType() == 2)
+      v47.origin.x = CCUIReferenceScreenBounds(v23, v24);
+      if (CGRectGetWidth(v47) >= 414.0)
       {
-        goto LABEL_27;
+        v25 = SBFEffectiveHomeButtonType();
+        if (v25 == 2)
+        {
+          goto LABEL_27;
+        }
       }
 
-      v20.origin.x = CCUIReferenceScreenBounds();
-      if (CGRectGetWidth(v20) >= 414.0)
+      v48.origin.x = CCUIReferenceScreenBounds(v25, v26);
+      if (CGRectGetWidth(v48) >= 414.0)
       {
         goto LABEL_28;
       }
 
-      v21.origin.x = CCUIReferenceScreenBounds();
-      if (CGRectGetWidth(v21) >= 393.0 || (v22.origin.x = CCUIReferenceScreenBounds(), CGRectGetWidth(v22) >= 390.0) || (v23.origin.x = CCUIReferenceScreenBounds(), CGRectGetWidth(v23) >= 375.0) && SBFEffectiveHomeButtonType() == 2)
+      v49.origin.x = CCUIReferenceScreenBounds(v27, v28);
+      if (CGRectGetWidth(v49) >= 393.0 || (v50.origin.x = CCUIReferenceScreenBounds(v29, v30), CGRectGetWidth(v50) >= 390.0) || (v51.origin.x = CCUIReferenceScreenBounds(v31, v32), CGRectGetWidth(v51) >= 375.0) && (v33 = SBFEffectiveHomeButtonType(), v33 == 2))
       {
 LABEL_27:
-        v8 = 48.0;
+        v18 = 48.0;
       }
 
       else
       {
-        v24.origin.x = CCUIReferenceScreenBounds();
-        if (CGRectGetWidth(v24) < 375.0)
+        v52.origin.x = CCUIReferenceScreenBounds(v33, v34);
+        if (CGRectGetWidth(v52) < 375.0)
         {
-          v25.origin.x = CCUIReferenceScreenBounds();
-          CGRectGetWidth(v25);
+          v53.origin.x = CCUIReferenceScreenBounds(v36, v37);
+          CGRectGetWidth(v53);
         }
       }
     }
 
 LABEL_28:
-    CCUIAlertCompactPresentationTopMarginForOrientation_topMarginForPortrait = *&v8;
+    CCUIAlertCompactPresentationTopMarginForOrientation_topMarginForPortrait = *&v18;
 
-    if (v6 < 834.0)
+    if (v14 < 834.0)
     {
 LABEL_33:
-      if (v5 < 834.0)
+      if (v13 < 834.0)
       {
         goto LABEL_35;
       }
@@ -2114,98 +2243,109 @@ LABEL_32:
   }
 
   CCUIAlertCompactPresentationTopMarginForOrientation_topMarginForPortrait = 0x4038000000000000;
-  v9 = v10;
+  v35 = v38;
 LABEL_38:
 }
 
-void __CCUIAlertCompactPresentationTopMarginForOrientation_block_invoke_2()
+void __CCUIAlertCompactPresentationTopMarginForOrientation_block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v11.origin.x = CCUIReferenceScreenBounds();
-  Width = CGRectGetWidth(v11);
-  if (Width < 1024.0 || ([MEMORY[0x1E69DC938] currentDevice], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "userInterfaceIdiom") != 1) || SBFEffectiveHomeButtonType() == 2)
+  v39.origin.x = CCUIReferenceScreenBounds(a1, a2);
+  Width = CGRectGetWidth(v39);
+  if (Width < 1024.0 || ([MEMORY[0x1E69DC938] currentDevice], v37 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v37, "userInterfaceIdiom"), v5 != 1) || (v5 = SBFEffectiveHomeButtonType(), v5 == 2))
   {
-    v12.origin.x = CCUIReferenceScreenBounds();
-    v4 = CGRectGetWidth(v12);
-    if (v4 >= 1024.0)
+    v40.origin.x = CCUIReferenceScreenBounds(v5, v6);
+    v10 = CGRectGetWidth(v40);
+    if (v10 >= 1024.0)
     {
-      v0 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v0 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
+      v2 = [MEMORY[0x1E69DC938] currentDevice];
+      v8 = [v2 userInterfaceIdiom];
+      if (v8 == 1)
       {
-        CCUIAlertCompactPresentationTopMarginForOrientation_topMarginForLandscape = 0x4038000000000000;
+        v8 = SBFEffectiveHomeButtonType();
+        if (v8 == 2)
+        {
+          CCUIAlertCompactPresentationTopMarginForOrientation_topMarginForLandscape = 0x4038000000000000;
 LABEL_37:
 
 LABEL_38:
-        v8 = v9;
-        if (Width < 1024.0)
-        {
-          return;
-        }
+          v36 = v37;
+          if (Width < 1024.0)
+          {
+            return;
+          }
 
-        goto LABEL_39;
+          goto LABEL_39;
+        }
       }
     }
 
-    v13.origin.x = CCUIReferenceScreenBounds();
-    v5 = CGRectGetWidth(v13);
-    if (v5 >= 834.0)
+    v41.origin.x = CCUIReferenceScreenBounds(v8, v9);
+    v13 = CGRectGetWidth(v41);
+    if (v13 >= 834.0)
     {
-      v1 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v1 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
+      v3 = [MEMORY[0x1E69DC938] currentDevice];
+      v11 = [v3 userInterfaceIdiom];
+      if (v11 == 1)
       {
-        CCUIAlertCompactPresentationTopMarginForOrientation_topMarginForLandscape = 0x4038000000000000;
+        v11 = SBFEffectiveHomeButtonType();
+        if (v11 == 2)
+        {
+          CCUIAlertCompactPresentationTopMarginForOrientation_topMarginForLandscape = 0x4038000000000000;
 LABEL_35:
 
 LABEL_36:
-        if (v4 < 1024.0)
-        {
-          goto LABEL_38;
-        }
+          if (v10 < 1024.0)
+          {
+            goto LABEL_38;
+          }
 
-        goto LABEL_37;
+          goto LABEL_37;
+        }
       }
     }
 
-    v14.origin.x = CCUIReferenceScreenBounds();
-    v6 = CGRectGetWidth(v14);
-    if (v6 >= 834.0 && ([MEMORY[0x1E69DC938] currentDevice], v2 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v2, "userInterfaceIdiom") == 1) && SBFEffectiveHomeButtonType() != 2)
+    v42.origin.x = CCUIReferenceScreenBounds(v11, v12);
+    v14 = CGRectGetWidth(v42);
+    if (v14 >= 834.0 && ([MEMORY[0x1E69DC938] currentDevice], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "userInterfaceIdiom") == 1) && SBFEffectiveHomeButtonType() != 2)
     {
       CCUIAlertCompactPresentationTopMarginForOrientation_topMarginForLandscape = 0x4038000000000000;
     }
 
     else
     {
-      v7 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v7 userInterfaceIdiom] != 1)
+      v15 = [MEMORY[0x1E69DC938] currentDevice];
+      v16 = [v15 userInterfaceIdiom];
+      if (v16 != 1)
       {
-        v15.origin.x = CCUIReferenceScreenBounds();
-        if (CGRectGetWidth(v15) < 430.0)
+        v43.origin.x = CCUIReferenceScreenBounds(v16, v17);
+        if (CGRectGetWidth(v43) < 430.0)
         {
-          v16.origin.x = CCUIReferenceScreenBounds();
-          if (CGRectGetWidth(v16) < 428.0)
+          v44.origin.x = CCUIReferenceScreenBounds(v18, v19);
+          if (CGRectGetWidth(v44) < 428.0)
           {
-            v17.origin.x = CCUIReferenceScreenBounds();
-            if (CGRectGetWidth(v17) < 420.0 || SBFEffectiveHomeButtonType() != 2)
+            v45.origin.x = CCUIReferenceScreenBounds(v20, v21);
+            if (CGRectGetWidth(v45) < 420.0 || (v22 = SBFEffectiveHomeButtonType(), v22 != 2))
             {
-              v18.origin.x = CCUIReferenceScreenBounds();
-              if (CGRectGetWidth(v18) < 414.0 || SBFEffectiveHomeButtonType() != 2)
+              v46.origin.x = CCUIReferenceScreenBounds(v22, v23);
+              if (CGRectGetWidth(v46) < 414.0 || (v24 = SBFEffectiveHomeButtonType(), v24 != 2))
               {
-                v19.origin.x = CCUIReferenceScreenBounds();
-                if (CGRectGetWidth(v19) < 414.0)
+                v47.origin.x = CCUIReferenceScreenBounds(v24, v25);
+                if (CGRectGetWidth(v47) < 414.0)
                 {
-                  v20.origin.x = CCUIReferenceScreenBounds();
-                  if (CGRectGetWidth(v20) < 393.0)
+                  v48.origin.x = CCUIReferenceScreenBounds(v26, v27);
+                  if (CGRectGetWidth(v48) < 393.0)
                   {
-                    v21.origin.x = CCUIReferenceScreenBounds();
-                    if (CGRectGetWidth(v21) < 390.0)
+                    v49.origin.x = CCUIReferenceScreenBounds(v28, v29);
+                    if (CGRectGetWidth(v49) < 390.0)
                     {
-                      v22.origin.x = CCUIReferenceScreenBounds();
-                      if (CGRectGetWidth(v22) < 375.0 || SBFEffectiveHomeButtonType() != 2)
+                      v50.origin.x = CCUIReferenceScreenBounds(v30, v31);
+                      if (CGRectGetWidth(v50) < 375.0 || (v32 = SBFEffectiveHomeButtonType(), v32 != 2))
                       {
-                        v23.origin.x = CCUIReferenceScreenBounds();
-                        if (CGRectGetWidth(v23) < 375.0)
+                        v51.origin.x = CCUIReferenceScreenBounds(v32, v33);
+                        if (CGRectGetWidth(v51) < 375.0)
                         {
-                          v24.origin.x = CCUIReferenceScreenBounds();
-                          CGRectGetWidth(v24);
+                          v52.origin.x = CCUIReferenceScreenBounds(v34, v35);
+                          CGRectGetWidth(v52);
                         }
                       }
                     }
@@ -2219,10 +2359,10 @@ LABEL_36:
 
       CCUIAlertCompactPresentationTopMarginForOrientation_topMarginForLandscape = 0x4038000000000000;
 
-      if (v6 < 834.0)
+      if (v14 < 834.0)
       {
 LABEL_34:
-        if (v5 < 834.0)
+        if (v13 < 834.0)
         {
           goto LABEL_36;
         }
@@ -2235,11 +2375,11 @@ LABEL_34:
   }
 
   CCUIAlertCompactPresentationTopMarginForOrientation_topMarginForLandscape = 0x4038000000000000;
-  v8 = v9;
+  v36 = v37;
 LABEL_39:
 }
 
-double CCUIAlertCompactPresentationMargin()
+double CCUIAlertCompactPresentationMargin(uint64_t a1, uint64_t a2)
 {
   if (CCUIAlertCompactPresentationMargin_onceToken != -1)
   {
@@ -2249,94 +2389,105 @@ double CCUIAlertCompactPresentationMargin()
   return *&CCUIAlertCompactPresentationMargin_defaultMargin;
 }
 
-void __CCUIAlertCompactPresentationMargin_block_invoke()
+void __CCUIAlertCompactPresentationMargin_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11.origin.x = CCUIReferenceScreenBounds();
-  Width = CGRectGetWidth(v11);
-  if (Width < 1024.0 || ([MEMORY[0x1E69DC938] currentDevice], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "userInterfaceIdiom") != 1) || SBFEffectiveHomeButtonType() == 2)
+  v39.origin.x = CCUIReferenceScreenBounds(a1, a2);
+  Width = CGRectGetWidth(v39);
+  if (Width < 1024.0 || ([MEMORY[0x1E69DC938] currentDevice], v37 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v37, "userInterfaceIdiom"), v5 != 1) || (v5 = SBFEffectiveHomeButtonType(), v5 == 2))
   {
-    v12.origin.x = CCUIReferenceScreenBounds();
-    v4 = CGRectGetWidth(v12);
-    if (v4 >= 1024.0)
+    v40.origin.x = CCUIReferenceScreenBounds(v5, v6);
+    v10 = CGRectGetWidth(v40);
+    if (v10 >= 1024.0)
     {
-      v0 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v0 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
+      v2 = [MEMORY[0x1E69DC938] currentDevice];
+      v8 = [v2 userInterfaceIdiom];
+      if (v8 == 1)
       {
-        CCUIAlertCompactPresentationMargin_defaultMargin = 0x4038000000000000;
+        v8 = SBFEffectiveHomeButtonType();
+        if (v8 == 2)
+        {
+          CCUIAlertCompactPresentationMargin_defaultMargin = 0x4038000000000000;
 LABEL_37:
 
 LABEL_38:
-        v8 = v9;
-        if (Width < 1024.0)
-        {
-          return;
-        }
+          v36 = v37;
+          if (Width < 1024.0)
+          {
+            return;
+          }
 
-        goto LABEL_39;
+          goto LABEL_39;
+        }
       }
     }
 
-    v13.origin.x = CCUIReferenceScreenBounds();
-    v5 = CGRectGetWidth(v13);
-    if (v5 >= 834.0)
+    v41.origin.x = CCUIReferenceScreenBounds(v8, v9);
+    v13 = CGRectGetWidth(v41);
+    if (v13 >= 834.0)
     {
-      v1 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v1 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
+      v3 = [MEMORY[0x1E69DC938] currentDevice];
+      v11 = [v3 userInterfaceIdiom];
+      if (v11 == 1)
       {
-        CCUIAlertCompactPresentationMargin_defaultMargin = 0x4038000000000000;
+        v11 = SBFEffectiveHomeButtonType();
+        if (v11 == 2)
+        {
+          CCUIAlertCompactPresentationMargin_defaultMargin = 0x4038000000000000;
 LABEL_35:
 
 LABEL_36:
-        if (v4 < 1024.0)
-        {
-          goto LABEL_38;
-        }
+          if (v10 < 1024.0)
+          {
+            goto LABEL_38;
+          }
 
-        goto LABEL_37;
+          goto LABEL_37;
+        }
       }
     }
 
-    v14.origin.x = CCUIReferenceScreenBounds();
-    v6 = CGRectGetWidth(v14);
-    if (v6 >= 834.0 && ([MEMORY[0x1E69DC938] currentDevice], v2 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v2, "userInterfaceIdiom") == 1) && SBFEffectiveHomeButtonType() != 2)
+    v42.origin.x = CCUIReferenceScreenBounds(v11, v12);
+    v14 = CGRectGetWidth(v42);
+    if (v14 >= 834.0 && ([MEMORY[0x1E69DC938] currentDevice], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "userInterfaceIdiom") == 1) && SBFEffectiveHomeButtonType() != 2)
     {
       CCUIAlertCompactPresentationMargin_defaultMargin = 0x4038000000000000;
     }
 
     else
     {
-      v7 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([v7 userInterfaceIdiom] != 1)
+      v15 = [MEMORY[0x1E69DC938] currentDevice];
+      v16 = [v15 userInterfaceIdiom];
+      if (v16 != 1)
       {
-        v15.origin.x = CCUIReferenceScreenBounds();
-        if (CGRectGetWidth(v15) < 430.0)
+        v43.origin.x = CCUIReferenceScreenBounds(v16, v17);
+        if (CGRectGetWidth(v43) < 430.0)
         {
-          v16.origin.x = CCUIReferenceScreenBounds();
-          if (CGRectGetWidth(v16) < 428.0)
+          v44.origin.x = CCUIReferenceScreenBounds(v18, v19);
+          if (CGRectGetWidth(v44) < 428.0)
           {
-            v17.origin.x = CCUIReferenceScreenBounds();
-            if (CGRectGetWidth(v17) < 420.0 || SBFEffectiveHomeButtonType() != 2)
+            v45.origin.x = CCUIReferenceScreenBounds(v20, v21);
+            if (CGRectGetWidth(v45) < 420.0 || (v22 = SBFEffectiveHomeButtonType(), v22 != 2))
             {
-              v18.origin.x = CCUIReferenceScreenBounds();
-              if (CGRectGetWidth(v18) < 414.0 || SBFEffectiveHomeButtonType() != 2)
+              v46.origin.x = CCUIReferenceScreenBounds(v22, v23);
+              if (CGRectGetWidth(v46) < 414.0 || (v24 = SBFEffectiveHomeButtonType(), v24 != 2))
               {
-                v19.origin.x = CCUIReferenceScreenBounds();
-                if (CGRectGetWidth(v19) < 414.0)
+                v47.origin.x = CCUIReferenceScreenBounds(v24, v25);
+                if (CGRectGetWidth(v47) < 414.0)
                 {
-                  v20.origin.x = CCUIReferenceScreenBounds();
-                  if (CGRectGetWidth(v20) < 393.0)
+                  v48.origin.x = CCUIReferenceScreenBounds(v26, v27);
+                  if (CGRectGetWidth(v48) < 393.0)
                   {
-                    v21.origin.x = CCUIReferenceScreenBounds();
-                    if (CGRectGetWidth(v21) < 390.0)
+                    v49.origin.x = CCUIReferenceScreenBounds(v28, v29);
+                    if (CGRectGetWidth(v49) < 390.0)
                     {
-                      v22.origin.x = CCUIReferenceScreenBounds();
-                      if (CGRectGetWidth(v22) < 375.0 || SBFEffectiveHomeButtonType() != 2)
+                      v50.origin.x = CCUIReferenceScreenBounds(v30, v31);
+                      if (CGRectGetWidth(v50) < 375.0 || (v32 = SBFEffectiveHomeButtonType(), v32 != 2))
                       {
-                        v23.origin.x = CCUIReferenceScreenBounds();
-                        if (CGRectGetWidth(v23) < 375.0)
+                        v51.origin.x = CCUIReferenceScreenBounds(v32, v33);
+                        if (CGRectGetWidth(v51) < 375.0)
                         {
-                          v24.origin.x = CCUIReferenceScreenBounds();
-                          CGRectGetWidth(v24);
+                          v52.origin.x = CCUIReferenceScreenBounds(v34, v35);
+                          CGRectGetWidth(v52);
                         }
                       }
                     }
@@ -2350,10 +2501,10 @@ LABEL_36:
 
       CCUIAlertCompactPresentationMargin_defaultMargin = 0x4038000000000000;
 
-      if (v6 < 834.0)
+      if (v14 < 834.0)
       {
 LABEL_34:
-        if (v5 < 834.0)
+        if (v13 < 834.0)
         {
           goto LABEL_36;
         }
@@ -2366,7 +2517,7 @@ LABEL_34:
   }
 
   CCUIAlertCompactPresentationMargin_defaultMargin = 0x4038000000000000;
-  v8 = v9;
+  v36 = v37;
 LABEL_39:
 }
 
@@ -2377,33 +2528,33 @@ void __CCUIPortraitGridLayoutSideMargin_block_invoke()
 
   if (v1)
   {
-    v5.origin.x = CCUIReferenceScreenBounds();
-    v2 = CGRectGetWidth(v5) < 1024.0;
-    v3 = 60.0;
-    v4 = 50.0;
+    v8.origin.x = CCUIReferenceScreenBounds(v2, v3);
+    v4 = CGRectGetWidth(v8) < 1024.0;
+    v5 = 60.0;
+    v6 = 50.0;
   }
 
   else
   {
     if (SBFEffectiveHomeButtonType() != 2)
     {
-      v3 = 44.0;
+      v5 = 44.0;
       goto LABEL_7;
     }
 
-    v6.origin.x = CCUIReferenceScreenBounds();
-    v2 = CGRectGetWidth(v6) < 414.0;
-    v3 = 46.0;
-    v4 = 38.0;
+    v9.origin.x = CCUIReferenceScreenBounds(2, v7);
+    v4 = CGRectGetWidth(v9) < 414.0;
+    v5 = 46.0;
+    v6 = 38.0;
   }
 
-  if (v2)
+  if (v4)
   {
-    v3 = v4;
+    v5 = v6;
   }
 
 LABEL_7:
-  CCUIPortraitGridLayoutSideMargin_margin = *&v3;
+  CCUIPortraitGridLayoutSideMargin_margin = *&v5;
 }
 
 __CFString *NSStringFromCCUIContentRenderingMode(uint64_t a1)
@@ -2429,7 +2580,7 @@ __CFString *NSStringFromCCUIContentRenderingMode(uint64_t a1)
   return v2;
 }
 
-double _CCUIRoundButtonSize()
+double _CCUIRoundButtonSize(uint64_t a1, uint64_t a2)
 {
   if (_CCUIRoundButtonSize_onceToken != -1)
   {
@@ -2439,9 +2590,9 @@ double _CCUIRoundButtonSize()
   return *&_CCUIRoundButtonSize_size;
 }
 
-void sub_1D169AEA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1D169AEA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2453,9 +2604,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1D169B250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1D169B250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2532,9 +2683,9 @@ uint64_t CCUIAdjustGridSizeClassForAccessibility(uint64_t result, int a2)
   return result;
 }
 
-void sub_1D16A6BF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D16A6BF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2546,7 +2697,7 @@ void sub_1D16A7628(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void CCUIRegisterControlCenterLogging()
+void CCUIRegisterControlCenterLogging(uint64_t result, uint64_t a2)
 {
   if (CCUIRegisterControlCenterLogging_onceToken != -1)
   {
@@ -2871,11 +3022,11 @@ uint64_t sub_1D16B35E0()
   return sub_1D16CC744();
 }
 
-uint64_t sub_1D16B3654()
+uint64_t sub_1D16B3654(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_1D16CC724();
-  MEMORY[0x1D388E8D0](v1);
+  MEMORY[0x1D388E8D0](v2);
   return sub_1D16CC744();
 }
 
@@ -2914,7 +3065,7 @@ char *sub_1D16B36A8(void *a1, double a2, double a3, double a4, double a5)
   }
 
   [v27 setUserInteractionEnabled_];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC6414A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC6414A0, &qword_1D16D20B0);
   v28 = swift_allocObject();
   *(v28 + 16) = xmmword_1D16D1ED0;
   v29 = sub_1D16CC354();
@@ -2930,7 +3081,7 @@ char *sub_1D16B36A8(void *a1, double a2, double a3, double a4, double a5)
   return v27;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -3014,12 +3165,12 @@ unint64_t sub_1D16B3988()
   return result;
 }
 
-void sub_1D16B3A1C(uint64_t a1, unint64_t *a2)
+void sub_1D16B3A1C(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -3074,7 +3225,7 @@ id CCUIControlTemplateView.init(frame:)(double a1, double a2, double a3, double 
   v20.super_class = CCUIControlTemplateView;
   v13 = objc_msgSendSuper2(&v20, sel_initWithFrame_, a1, a2, a3, a4);
   [v13 addTarget:v13 action:sel_primaryActionTriggered forControlEvents:64];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC6414A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC6414A0, &qword_1D16D20B0);
   v14 = swift_allocObject();
   *(v14 + 16) = xmmword_1D16D1ED0;
   v15 = sub_1D16CC354();
@@ -3161,11 +3312,11 @@ LABEL_10:
   if (*&v1[OBJC_IVAR___CCUIControlTemplateView_blurPocket])
   {
 
-    sub_1D16B4170();
+    sub_1D16B4170(v8, v9);
   }
 }
 
-void sub_1D16B4170()
+void sub_1D16B4170(uint64_t a1, uint64_t a2)
 {
   Strong = swift_unknownObjectWeakLoadStrong();
   if (!Strong)
@@ -3173,49 +3324,49 @@ void sub_1D16B4170()
     return;
   }
 
-  v2 = Strong;
-  v3 = [Strong layer];
+  v4 = Strong;
+  v5 = [Strong layer];
 
-  if (!v3)
+  if (!v5)
   {
     return;
   }
 
-  v4 = *(v0 + 40);
-  if (v4)
+  v6 = *(v2 + 40);
+  if (v6)
   {
-    v5 = *(v0 + 64);
-    if (v5)
+    v7 = *(v2 + 64);
+    if (v7)
     {
-      v6 = swift_unknownObjectWeakLoadStrong();
-      v7 = v4;
-      v14 = v5;
-      if (v6 && (v8 = sub_1D16BE678(), v6, v8) && (v9 = [v8 layer], v8, v9))
+      v8 = swift_unknownObjectWeakLoadStrong();
+      v9 = v6;
+      v16 = v7;
+      if (v8 && (v10 = sub_1D16BE678(), v8, v10) && (v11 = [v10 layer], v10, v11))
       {
-        [v3 insertSublayer:v7 below:v9];
+        [v5 insertSublayer:v9 below:v11];
       }
 
       else
       {
-        v11 = swift_unknownObjectWeakLoadStrong();
-        if (!v11 || (v12 = v11, v13 = [v11 backgroundView], v12, !v13) || (v9 = objc_msgSend(v13, sel_layer), v13, !v9))
+        v13 = swift_unknownObjectWeakLoadStrong();
+        if (!v13 || (v14 = v13, v15 = [v13 backgroundView], v14, !v15) || (v11 = objc_msgSend(v15, sel_layer), v15, !v11))
         {
-          [v3 insertSublayer:v7 below:0];
+          [v5 insertSublayer:v9 below:0];
           goto LABEL_17;
         }
 
-        [v3 insertSublayer:v7 above:v9];
+        [v5 insertSublayer:v9 above:v11];
       }
 
 LABEL_17:
-      [v3 insertSublayer:v14 above:0];
+      [v5 insertSublayer:v16 above:0];
 
-      v10 = v14;
+      v12 = v16;
       goto LABEL_18;
     }
   }
 
-  v10 = v3;
+  v12 = v5;
 LABEL_18:
 }
 
@@ -3263,7 +3414,7 @@ LABEL_7:
   if (v6)
   {
     v7 = v6;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC641630);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC641630, &qword_1D16D2188);
     v8 = swift_allocObject();
     *(v8 + 16) = xmmword_1D16D1ED0;
     *(v8 + 56) = swift_getObjectType();
@@ -3760,42 +3911,42 @@ uint64_t sub_1D16B4DD8(uint64_t result, uint64_t a2)
   return [v3 setNeedsLayout];
 }
 
-uint64_t sub_1D16B5288(SEL *a1, void (*a2)(uint64_t *, uint64_t), void (*a3)(uint64_t *))
+uint64_t sub_1D16B5288(SEL *a1, void (*a2)(uint64_t *, uint64_t), uint64_t (*a3)(uint64_t *))
 {
   v7 = v3;
   v8 = sub_1D16CC1F4();
   v9 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = v30 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = [v3 *a1];
-  if (!v12)
+  *&v10 = MEMORY[0x1EEE9AC00](v8).n128_u64[0];
+  v12 = v31 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = [v3 *a1];
+  if (!v13)
   {
     goto LABEL_7;
   }
 
-  v13 = v12;
-  v14 = sub_1D16CC4A4();
-  v16 = v15;
+  v14 = v13;
+  v15 = sub_1D16CC4A4();
+  v17 = v16;
 
-  v30[0] = v14;
-  v30[1] = v16;
+  v31[0] = v15;
+  v31[1] = v17;
   sub_1D16CC1E4();
   sub_1D16C2810();
-  v17 = sub_1D16CC5C4();
-  v19 = v18;
-  (*(v9 + 8))(v11, v8);
+  v18 = sub_1D16CC5C4();
+  v20 = v19;
+  (*(v9 + 8))(v12, v8);
 
-  v20 = HIBYTE(v19) & 0xF;
-  if ((v19 & 0x2000000000000000) == 0)
+  v21 = HIBYTE(v20) & 0xF;
+  if ((v20 & 0x2000000000000000) == 0)
   {
-    v20 = v17 & 0xFFFFFFFFFFFFLL;
+    v21 = v18 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v20)
+  if (!v21)
   {
 LABEL_7:
     a3(&OBJC_IVAR___CCUIControlTemplateView_horizontalLayoutLabels);
-    return (a3)(&OBJC_IVAR___CCUIControlTemplateView_verticalLayoutLabels);
+    return a3(&OBJC_IVAR___CCUIControlTemplateView_verticalLayoutLabels);
   }
 
   if ([v7 isResizing])
@@ -3803,28 +3954,28 @@ LABEL_7:
     goto LABEL_6;
   }
 
-  v22 = [v7 gridSizeClass];
-  v23 = CCUINumberOfRowsForGridSizeClass(v22);
-  v24 = CCUINumberOfColumnsForGridSizeClass(v22);
-  if (v23 >= 2)
+  v23 = [v7 gridSizeClass];
+  v24 = CCUINumberOfRowsForGridSizeClass(v23);
+  v25 = CCUINumberOfColumnsForGridSizeClass(v23);
+  if (v24 >= 2)
   {
-    v25 = v24;
+    v26 = v25;
     if (([v7 supportsAccessibilityContentSizeCategories] & 1) == 0)
     {
       goto LABEL_15;
     }
 
-    v26 = [v7 traitCollection];
-    v27 = [v26 preferredContentSizeCategory];
+    v27 = [v7 traitCollection];
+    v28 = [v27 preferredContentSizeCategory];
 
-    LOBYTE(v26) = sub_1D16CC544();
-    if ((v26 & 1) == 0 || v25 < 2)
+    LOBYTE(v27) = sub_1D16CC544();
+    if ((v27 & 1) == 0 || v26 < 2)
     {
       goto LABEL_15;
     }
   }
 
-  else if (v24 <= 1)
+  else if (v25 <= 1)
   {
 LABEL_15:
     a3(&OBJC_IVAR___CCUIControlTemplateView_horizontalLayoutLabels);
@@ -3838,19 +3989,19 @@ LABEL_16:
   {
     if ([v7 supportsAccessibilityContentSizeCategories])
     {
-      v28 = [v7 traitCollection];
-      v29 = [v28 preferredContentSizeCategory];
+      v29 = [v7 traitCollection];
+      v30 = [v29 preferredContentSizeCategory];
 
-      LOBYTE(v28) = sub_1D16CC544();
-      if (v28)
+      LOBYTE(v29) = sub_1D16CC544();
+      if (v29)
       {
-        return (a3)(&OBJC_IVAR___CCUIControlTemplateView_verticalLayoutLabels);
+        return a3(&OBJC_IVAR___CCUIControlTemplateView_verticalLayoutLabels);
       }
     }
 
     if (CCUINumberOfRowsForGridSizeClass([v7 gridSizeClass]) < 2)
     {
-      return (a3)(&OBJC_IVAR___CCUIControlTemplateView_verticalLayoutLabels);
+      return a3(&OBJC_IVAR___CCUIControlTemplateView_verticalLayoutLabels);
     }
   }
 
@@ -5040,77 +5191,77 @@ __C::CGRect __swiftcall CCUIControlTemplateView.glyphContentFrame()()
   v15 = [v0 contentMetrics];
   if (v15)
   {
-    v16 = v15;
+    v17 = v15;
     [v15 gridGeometryInfo];
-    v18 = v17;
+    v19 = v18;
   }
 
   else
   {
-    v18 = CCUIPortraitMainListGridGeometryInfo();
+    v19 = CCUIPortraitMainListGridGeometryInfo(0, v16);
   }
 
-  v131.origin.x = v2;
-  v131.origin.y = v4;
-  v131.size.width = v6;
-  v131.size.height = v8;
-  Height = CGRectGetHeight(v131);
-  if (v18 >= Height)
+  v132.origin.x = v2;
+  v132.origin.y = v4;
+  v132.size.width = v6;
+  v132.size.height = v8;
+  Height = CGRectGetHeight(v132);
+  if (v19 >= Height)
   {
-    v18 = Height;
+    v19 = Height;
   }
 
-  v20 = 0.0;
+  v21 = 0.0;
   if (v9)
   {
-    v132.origin.x = v2;
-    v132.origin.y = v4;
-    v132.size.width = v6;
-    v132.size.height = v8;
-    v20 = CGRectGetMaxX(v132) - v18;
+    v133.origin.x = v2;
+    v133.origin.y = v4;
+    v133.size.width = v6;
+    v133.size.height = v8;
+    v21 = CGRectGetMaxX(v133) - v19;
   }
 
-  v21 = 0;
-  v22 = v18;
-  v23 = v18;
-  v133 = CGRectInset(*&v20, v14, v14);
-  x = v133.origin.x;
-  v25 = v4;
-  y = v133.origin.y;
-  width = v133.size.width;
-  v28 = v133.size.height;
-  v133.origin.x = v2;
-  rect = v25;
-  v133.origin.y = v25;
-  v133.size.width = v6;
-  v133.size.height = v8;
-  v159 = CGRectInset(v133, v14, v14);
-  v134.origin.x = x;
-  v134.origin.y = y;
-  v134.size.width = width;
-  v134.size.height = v28;
-  v135 = CGRectIntersection(v134, v159);
-  v29 = v135.origin.x;
-  v30 = v135.origin.y;
-  v31 = v135.size.width;
-  v32 = v135.size.height;
+  v22 = 0;
+  v23 = v19;
+  v24 = v19;
+  v134 = CGRectInset(*&v21, v14, v14);
+  x = v134.origin.x;
+  v26 = v4;
+  y = v134.origin.y;
+  width = v134.size.width;
+  v29 = v134.size.height;
+  v134.origin.x = v2;
+  rect = v26;
+  v134.origin.y = v26;
+  v134.size.width = v6;
+  v134.size.height = v8;
+  v160 = CGRectInset(v134, v14, v14);
+  v135.origin.x = x;
+  v135.origin.y = y;
+  v135.size.width = width;
+  v135.size.height = v29;
+  v136 = CGRectIntersection(v135, v160);
+  v30 = v136.origin.x;
+  v31 = v136.origin.y;
+  v32 = v136.size.width;
+  v33 = v136.size.height;
   if (v9)
   {
-    MaxX = CGRectGetMaxX(v135);
-    v136.origin.x = v29;
-    v136.origin.y = v30;
-    v136.size.width = v31;
-    v136.size.height = v32;
-    v29 = MaxX - CGRectGetWidth(v136);
+    MaxX = CGRectGetMaxX(v136);
+    v137.origin.x = v30;
+    v137.origin.y = v31;
+    v137.size.width = v32;
+    v137.size.height = v33;
+    v30 = MaxX - CGRectGetWidth(v137);
   }
 
-  v34 = [v0 traitCollection];
-  [v34 displayScale];
-  v36 = v35;
+  v35 = [v0 traitCollection];
+  [v35 displayScale];
+  v37 = v36;
 
   if ([v0 isExpanded])
   {
-    v111 = v36;
+    v112 = v37;
     if (CCUINumberOfColumnsForGridSizeClass([v0 gridSizeClass]) > 1)
     {
       UIRectCenteredYInRectScale();
@@ -5121,10 +5272,10 @@ __C::CGRect __swiftcall CCUIControlTemplateView.glyphContentFrame()()
       UIRectCenteredIntegralRectScale();
     }
 
-    v29 = v37;
     v30 = v38;
     v31 = v39;
     v32 = v40;
+    v33 = v41;
   }
 
   if (![v0 supportsAccessibilityContentSizeCategories])
@@ -5132,11 +5283,11 @@ __C::CGRect __swiftcall CCUIControlTemplateView.glyphContentFrame()()
     goto LABEL_49;
   }
 
-  v41 = [v0 traitCollection];
-  v42 = [v41 preferredContentSizeCategory];
+  v42 = [v0 traitCollection];
+  v43 = [v42 preferredContentSizeCategory];
 
-  LOBYTE(v41) = sub_1D16CC544();
-  if ((v41 & 1) == 0)
+  LOBYTE(v42) = sub_1D16CC544();
+  if ((v42 & 1) == 0)
   {
     goto LABEL_49;
   }
@@ -5156,220 +5307,220 @@ __C::CGRect __swiftcall CCUIControlTemplateView.glyphContentFrame()()
     goto LABEL_49;
   }
 
-  v43 = &v0[OBJC_IVAR___CCUIControlTemplateView_horizontalLayoutLabels];
-  v44 = *&v0[OBJC_IVAR___CCUIControlTemplateView_horizontalLayoutLabels];
-  if (v44 < 2)
+  v44 = &v0[OBJC_IVAR___CCUIControlTemplateView_horizontalLayoutLabels];
+  v45 = *&v0[OBJC_IVAR___CCUIControlTemplateView_horizontalLayoutLabels];
+  if (v45 < 2)
   {
     goto LABEL_49;
   }
 
-  v45 = *(v43 + 1);
-  v126 = *(v43 + 2);
-  sub_1D16C2014(*&v0[OBJC_IVAR___CCUIControlTemplateView_horizontalLayoutLabels], v45, v126);
-  v116 = v44;
-  v46 = [v0 _shouldReverseLayoutDirection];
-  v47 = [v0 traitCollection];
-  [v47 displayScale];
-  v119 = v48;
+  v46 = *(v44 + 1);
+  v127 = *(v44 + 2);
+  sub_1D16C2014(*&v0[OBJC_IVAR___CCUIControlTemplateView_horizontalLayoutLabels], v46, v127);
+  v117 = v45;
+  v47 = [v0 _shouldReverseLayoutDirection];
+  v48 = [v0 traitCollection];
+  [v48 displayScale];
+  v120 = v49;
 
   sub_1D16BD040();
   CCUIEdgeInsetsFromDirectionalEdgeInsets();
-  v122 = v50;
-  v124 = v51;
-  v120 = v49;
-  if (v46)
+  v123 = v51;
+  v125 = v52;
+  v121 = v50;
+  if (v47)
   {
     if ([v0 isResizing])
     {
-      v52 = [v0 contentMetrics];
-      if (v52)
+      v53 = [v0 contentMetrics];
+      if (v53)
       {
-        v53 = v52;
-        [v52 metricsScaleFactor];
-        v54 = [v0 traitCollection];
-        [v54 displayScale];
+        v54 = v53;
+        [v53 metricsScaleFactor];
+        v55 = [v0 traitCollection];
+        [v55 displayScale];
 
         UIRoundToScale();
-        v56 = v55;
+        v57 = v56;
 
-        v57 = v56 + v56;
+        v58 = v57 + v57;
       }
 
       else
       {
-        v57 = 28.0;
+        v58 = 28.0;
       }
 
-      v60 = v126;
-      v140.origin.x = v2;
-      v140.origin.y = rect;
-      v140.size.width = v6;
-      v140.size.height = v8;
-      v113 = CGRectGetMaxX(v140) - v31 - v57 - v124;
-      v59 = v2;
+      v61 = v127;
+      v141.origin.x = v2;
+      v141.origin.y = rect;
+      v141.size.width = v6;
+      v141.size.height = v8;
+      v114 = CGRectGetMaxX(v141) - v32 - v58 - v125;
+      v60 = v2;
     }
 
     else
     {
-      v139.origin.x = v29;
-      v139.origin.y = v30;
-      v139.size.width = v31;
-      v139.size.height = v32;
-      v113 = CGRectGetMinX(v139) - v124;
-      v59 = v2;
-      v60 = v126;
+      v140.origin.x = v30;
+      v140.origin.y = v31;
+      v140.size.width = v32;
+      v140.size.height = v33;
+      v114 = CGRectGetMinX(v140) - v125;
+      v60 = v2;
+      v61 = v127;
     }
   }
 
   else
   {
-    v137.origin.x = v29;
-    v58 = v49;
-    v137.origin.y = v30;
-    v137.size.width = v31;
-    v137.size.height = v32;
-    v59 = v58 + CGRectGetMaxX(v137);
-    v138.origin.x = v2;
-    v138.origin.y = rect;
-    v138.size.width = v6;
-    v138.size.height = v8;
-    v113 = CGRectGetMaxX(v138);
-    v60 = v126;
+    v138.origin.x = v30;
+    v59 = v50;
+    v138.origin.y = v31;
+    v138.size.width = v32;
+    v138.size.height = v33;
+    v60 = v59 + CGRectGetMaxX(v138);
+    v139.origin.x = v2;
+    v139.origin.y = rect;
+    v139.size.width = v6;
+    v139.size.height = v8;
+    v114 = CGRectGetMaxX(v139);
+    v61 = v127;
   }
 
-  v141.origin.x = v59;
-  v141.origin.y = rect;
-  v141.size.width = v6;
-  v141.size.height = v8;
-  v114 = v113 - CGRectGetMinX(v141);
-  v160.origin.x = UIEdgeInsetsInsetRect(v2, rect, v6, v8, v122, v120);
-  v160.origin.y = v61;
-  v160.size.width = v62;
-  v160.size.height = v63;
-  v142.origin.x = v59;
-  v142.size.width = v114;
+  v142.origin.x = v60;
   v142.origin.y = rect;
+  v142.size.width = v6;
   v142.size.height = v8;
-  v143 = CGRectIntersection(v142, v160);
-  v64 = v143.origin.x;
-  v65 = v143.origin.y;
-  v66 = v143.size.width;
-  v67 = v143.size.height;
-  v123 = v143.size.width;
-  if (v60)
+  v115 = v114 - CGRectGetMinX(v142);
+  v161.origin.x = UIEdgeInsetsInsetRect(v2, rect, v6, v8, v123, v121);
+  v161.origin.y = v62;
+  v161.size.width = v63;
+  v161.size.height = v64;
+  v143.origin.x = v60;
+  v143.size.width = v115;
+  v143.origin.y = rect;
+  v143.size.height = v8;
+  v144 = CGRectIntersection(v143, v161);
+  v65 = v144.origin.x;
+  v66 = v144.origin.y;
+  v67 = v144.size.width;
+  v68 = v144.size.height;
+  v124 = v144.size.width;
+  if (v61)
   {
-    v68 = v60;
-    [v68 sizeThatFits_];
-    v115 = v69;
-    rectb = v70;
-    v144.origin.x = v64;
-    v144.origin.y = v65;
-    v144.size.width = v66;
-    v144.size.height = v67;
-    CGRectGetWidth(v144);
-    v145.origin.x = v64;
-    v145.origin.y = v65;
-    v145.size.width = v66;
-    v145.size.height = v67;
-    v71 = v65;
-    v72 = v67;
-    v73 = CGRectGetHeight(v145);
+    v69 = v61;
+    [v69 sizeThatFits_];
+    v116 = v70;
+    rectb = v71;
+    v145.origin.x = v65;
+    v145.origin.y = v66;
+    v145.size.width = v67;
+    v145.size.height = v68;
+    CGRectGetWidth(v145);
+    v146.origin.x = v65;
+    v146.origin.y = v66;
+    v146.size.width = v67;
+    v146.size.height = v68;
+    v72 = v66;
+    v73 = v68;
+    v74 = CGRectGetHeight(v146);
 
-    v60 = v126;
-    v74 = rectb;
-    if (v73 < rectb)
+    v61 = v127;
+    v75 = rectb;
+    if (v74 < rectb)
     {
-      v74 = v73;
+      v75 = v74;
     }
 
-    recta = v74;
-    v67 = v72;
-    v65 = v71;
-    v66 = v123;
+    recta = v75;
+    v68 = v73;
+    v66 = v72;
+    v67 = v124;
   }
 
   else
   {
     recta = 0.0;
-    v115 = 0.0;
+    v116 = 0.0;
   }
 
-  v75 = v116;
-  v146.origin.x = v64;
-  v146.origin.y = v65;
-  v146.size.width = v66;
-  v146.size.height = v67;
-  v76 = CGRectGetWidth(v146);
-  v77 = v64;
-  v78 = v76;
-  v121 = v77;
-  v147.origin.x = v77;
-  v147.size.width = v66;
-  v79 = v65;
-  v147.origin.y = v65;
-  v125 = v67;
-  v147.size.height = v67;
-  v80 = CGRectGetHeight(v147) - recta;
-  [v75 sizeThatFits_];
-  if (v80 < v81)
+  v76 = v117;
+  v147.origin.x = v65;
+  v147.origin.y = v66;
+  v147.size.width = v67;
+  v147.size.height = v68;
+  v77 = CGRectGetWidth(v147);
+  v78 = v65;
+  v79 = v77;
+  v122 = v78;
+  v148.origin.x = v78;
+  v148.size.width = v67;
+  v80 = v66;
+  v148.origin.y = v66;
+  v126 = v68;
+  v148.size.height = v68;
+  v81 = CGRectGetHeight(v148) - recta;
+  [v76 sizeThatFits_];
+  if (v81 < v82)
   {
     if ([v0 supportsAccessibilityContentSizeCategories])
     {
-      v82 = [v0 traitCollection];
-      v83 = [v82 preferredContentSizeCategory];
+      v83 = [v0 traitCollection];
+      v84 = [v83 preferredContentSizeCategory];
 
-      LOBYTE(v82) = sub_1D16CC544();
-      v60 = v126;
-      v81 = v80;
-      if (v82)
+      LOBYTE(v83) = sub_1D16CC544();
+      v61 = v127;
+      v82 = v81;
+      if (v83)
       {
-        v148.origin.x = v121;
-        v148.origin.y = v65;
-        v148.size.width = v123;
-        v148.size.height = v125;
-        v117 = CGRectGetWidth(v148) - v115;
-        v149.origin.x = v121;
-        v149.origin.y = v65;
-        v149.size.width = v123;
-        v149.size.height = v125;
-        [v75 sizeThatFits_];
-        v150.origin.x = v121;
-        v150.origin.y = v65;
-        v150.size.width = v123;
-        v150.size.height = v125;
-        CGRectGetHeight(v150);
+        v149.origin.x = v122;
+        v149.origin.y = v66;
+        v149.size.width = v124;
+        v149.size.height = v126;
+        v118 = CGRectGetWidth(v149) - v116;
+        v150.origin.x = v122;
+        v150.origin.y = v66;
+        v150.size.width = v124;
+        v150.size.height = v126;
+        [v76 sizeThatFits_];
+        v151.origin.x = v122;
+        v151.origin.y = v66;
+        v151.size.width = v124;
+        v151.size.height = v126;
+        CGRectGetHeight(v151);
 
-        v151.origin.x = v121;
-        v151.origin.y = v65;
-        v151.size.width = v123;
-        v151.size.height = v125;
-        CGRectGetMinX(v151);
-        v152.origin.x = v121;
-        v152.origin.y = v65;
-        v152.size.width = v123;
-        v152.size.height = v125;
-        CGRectGetMinY(v152);
+        v152.origin.x = v122;
+        v152.origin.y = v66;
+        v152.size.width = v124;
+        v152.size.height = v126;
+        CGRectGetMinX(v152);
+        v153.origin.x = v122;
+        v153.origin.y = v66;
+        v153.size.width = v124;
+        v153.size.height = v126;
+        CGRectGetMinY(v153);
         UIRectCenteredYInRectScale();
-        if (v46)
+        if (v47)
         {
-          v153.origin.x = v121;
-          v153.origin.y = v65;
-          v153.size.width = v123;
-          v153.size.height = v125;
-          CGRectGetMinX(v153);
+          v154.origin.x = v122;
+          v154.origin.y = v66;
+          v154.size.width = v124;
+          v154.size.height = v126;
+          CGRectGetMinX(v154);
         }
 
         else
         {
-          CGRectGetMaxX(*&v84);
+          CGRectGetMaxX(*&v85);
         }
 
-        v157.origin.x = v121;
-        v157.origin.y = v65;
-        v157.size.width = v123;
-        v157.size.height = v125;
-        CGRectGetMinY(v157);
-        v112 = v119;
+        v158.origin.x = v122;
+        v158.origin.y = v66;
+        v158.size.width = v124;
+        v158.size.height = v126;
+        CGRectGetMinY(v158);
+        v113 = v120;
         UIRectCenteredYInRectScale();
         goto LABEL_46;
       }
@@ -5377,82 +5528,82 @@ __C::CGRect __swiftcall CCUIControlTemplateView.glyphContentFrame()()
 
     else
     {
-      v81 = v80;
+      v82 = v81;
     }
   }
 
-  v154.origin.x = v121;
-  v88 = v81;
-  v154.origin.y = v79;
-  v154.size.width = v123;
-  v154.size.height = v125;
-  v118 = CGRectGetWidth(v154);
+  v155.origin.x = v122;
+  v89 = v82;
+  v155.origin.y = v80;
+  v155.size.width = v124;
+  v155.size.height = v126;
+  v119 = CGRectGetWidth(v155);
 
-  v127 = v88;
-  v112 = v119;
+  v128 = v89;
+  v113 = v120;
   UIRectCenteredYInRectScale();
-  v92 = v91;
-  if (v46)
+  v93 = v92;
+  if (v47)
   {
-    v93 = v90;
+    v94 = v91;
     sub_1D16BD040();
     CCUIEdgeInsetsFromDirectionalEdgeInsets();
-    v95 = v94;
-    v155.origin.x = v29;
-    v155.origin.y = v30;
-    v155.size.width = v31;
-    v155.size.height = v32;
-    v89 = CGRectGetMinX(v155) - v95 - v93;
+    v96 = v95;
+    v156.origin.x = v30;
+    v156.origin.y = v31;
+    v156.size.width = v32;
+    v156.size.height = v33;
+    v90 = CGRectGetMinX(v156) - v96 - v94;
   }
 
-  v96 = v89;
-  v97 = v92;
-  v98 = v118;
-  v99 = v127;
-  CGRectGetMinX(*&v89);
-  v156.origin.x = v96;
-  v156.origin.y = v92;
-  v156.size.width = v118;
-  v156.size.height = v127;
-  CGRectGetMaxY(v156);
+  v97 = v90;
+  v98 = v93;
+  v99 = v119;
+  v100 = v128;
+  CGRectGetMinX(*&v90);
+  v157.origin.x = v97;
+  v157.origin.y = v93;
+  v157.size.width = v119;
+  v157.size.height = v128;
+  CGRectGetMaxY(v157);
 LABEL_46:
 
   ObjectType = swift_getObjectType();
-  v101 = *(v45 + 8);
-  v102 = v101(ObjectType, v45);
-  if (!v102)
+  v102 = *(v46 + 8);
+  v103 = v102(ObjectType, v46);
+  if (!v103)
   {
     __break(1u);
     goto LABEL_53;
   }
 
-  v107 = v102;
-  [v102 ascender];
+  v108 = v103;
+  [v103 ascender];
 
-  v108 = v101(ObjectType, v45);
-  if (!v108)
+  v109 = v102(ObjectType, v46);
+  if (!v109)
   {
 LABEL_53:
     __break(1u);
     goto LABEL_54;
   }
 
-  v109 = v108;
-  [v108 capHeight];
+  v110 = v109;
+  [v109 capHeight];
 
   UIRoundToScale();
-  v30 = v110;
+  v31 = v111;
 
 LABEL_49:
-  v103 = v29;
   v104 = v30;
   v105 = v31;
   v106 = v32;
+  v107 = v33;
 LABEL_54:
-  result.size.height = v106;
-  result.size.width = v105;
-  result.origin.y = v104;
-  result.origin.x = v103;
+  result.size.height = v107;
+  result.size.width = v106;
+  result.origin.y = v105;
+  result.origin.x = v104;
   return result;
 }
 
@@ -6026,41 +6177,41 @@ LABEL_32:
   }
 }
 
-id CCUIControlTemplateView.visualStylingProvider(for:)(uint64_t a1)
+id CCUIControlTemplateView.visualStylingProvider(for:)(uint64_t a1, uint64_t a2)
 {
-  v2 = v1;
-  v4 = sub_1D16B9BF8();
-  if (*(v4 + 16) && (v5 = sub_1D16C1A54(a1), (v6 & 1) != 0))
+  v3 = v2;
+  v5 = sub_1D16B9BF8(a1, a2);
+  if (*(v5 + 16) && (v6 = sub_1D16C1A54(a1), (v7 & 1) != 0))
   {
-    v7 = *(*(v4 + 56) + 8 * v5);
+    v8 = *(*(v5 + 56) + 8 * v6);
 
-    return v7;
+    return v8;
   }
 
   else
   {
 
-    v9.receiver = v2;
-    v9.super_class = CCUIControlTemplateView;
-    return objc_msgSendSuper2(&v9, sel_visualStylingProviderForCategory_, a1);
+    v10.receiver = v3;
+    v10.super_class = CCUIControlTemplateView;
+    return objc_msgSendSuper2(&v10, sel_visualStylingProviderForCategory_, a1);
   }
 }
 
-unint64_t sub_1D16B9BF8()
+unint64_t sub_1D16B9BF8(uint64_t a1, uint64_t a2)
 {
-  v1 = OBJC_IVAR___CCUIControlTemplateView____lazy_storage___visualStyleCategoriesToProviders;
-  if (*(v0 + OBJC_IVAR___CCUIControlTemplateView____lazy_storage___visualStyleCategoriesToProviders))
+  v3 = OBJC_IVAR___CCUIControlTemplateView____lazy_storage___visualStyleCategoriesToProviders;
+  if (*(v2 + OBJC_IVAR___CCUIControlTemplateView____lazy_storage___visualStyleCategoriesToProviders))
   {
-    v2 = *(v0 + OBJC_IVAR___CCUIControlTemplateView____lazy_storage___visualStyleCategoriesToProviders);
+    v4 = *(v2 + OBJC_IVAR___CCUIControlTemplateView____lazy_storage___visualStyleCategoriesToProviders);
   }
 
   else
   {
-    v2 = sub_1D16CB67C(MEMORY[0x1E69E7CC0]);
-    *(v0 + v1) = v2;
+    v4 = sub_1D16CB67C(MEMORY[0x1E69E7CC0]);
+    *(v2 + v3) = v4;
   }
 
-  return v2;
+  return v4;
 }
 
 void sub_1D16B9DA4(void *a1, uint64_t a2)
@@ -6071,7 +6222,7 @@ void sub_1D16B9DA4(void *a1, uint64_t a2)
   }
 
   v3 = v2;
-  v6 = sub_1D16B9BF8();
+  v6 = sub_1D16B9BF8(a1, a2);
   if (*(v6 + 16) && (v7 = sub_1D16C1A54(a2), (v8 & 1) != 0))
   {
     v9 = *(*(v6 + 56) + 8 * v7);
@@ -6093,7 +6244,7 @@ void sub_1D16B9DA4(void *a1, uint64_t a2)
     goto LABEL_11;
   }
 
-  if (!v9 || (sub_1D168EE64(0, &unk_1EC640AF0), v11 = a1, v16 = v9, v12 = sub_1D16CC5A4(), v11, v16, v13 = v16, (v12 & 1) == 0))
+  if (!v9 || (sub_1D168EE64(0, &unk_1EC640AF0, 0x1E69AE170), v11 = a1, v16 = v9, v12 = sub_1D16CC5A4(), v11, v16, v13 = v16, (v12 & 1) == 0))
   {
 LABEL_11:
     v14 = OBJC_IVAR___CCUIControlTemplateView____lazy_storage___visualStyleCategoriesToProviders;
@@ -6116,8 +6267,8 @@ LABEL_11:
 
 Swift::Void __swiftcall CCUIControlTemplateView.layoutSubviews()()
 {
-  v200.super_class = CCUIControlTemplateView;
-  objc_msgSendSuper2(&v200, sel_layoutSubviews);
+  v201.super_class = CCUIControlTemplateView;
+  objc_msgSendSuper2(&v201, sel_layoutSubviews);
   [v0 bounds];
   v2 = v1;
   v4 = v3;
@@ -6127,652 +6278,652 @@ Swift::Void __swiftcall CCUIControlTemplateView.layoutSubviews()()
   v10 = &selRef_ccui_systemImageName;
   [v9 setFrame_];
 
-  v195 = [v0 contentMetrics];
-  if (v195)
+  v196 = [v0 contentMetrics];
+  if (v196)
   {
-    [v195 gridGeometryInfo];
+    [v196 gridGeometryInfo];
   }
 
   else
   {
-    v11 = CCUIPortraitMainListGridGeometryInfo();
+    v12 = CCUIPortraitMainListGridGeometryInfo(0, v11);
   }
 
-  v13 = v11;
   v14 = v12;
+  v15 = v13;
   [v0 glyphContentFrame];
-  v197 = v16;
-  v198 = v15;
-  v199 = v17;
-  rect = v18;
-  v19 = &v0[OBJC_IVAR___CCUIControlTemplateView_horizontalLayoutLabels];
-  v20 = *&v0[OBJC_IVAR___CCUIControlTemplateView_horizontalLayoutLabels];
-  if (v20 != 1)
+  v198 = v17;
+  v199 = v16;
+  v200 = v18;
+  rect = v19;
+  v20 = &v0[OBJC_IVAR___CCUIControlTemplateView_horizontalLayoutLabels];
+  v21 = *&v0[OBJC_IVAR___CCUIControlTemplateView_horizontalLayoutLabels];
+  if (v21 != 1)
   {
-    v192 = v2;
-    v22 = *(v19 + 1);
-    v21 = *(v19 + 2);
-    v186 = *(v19 + 3);
-    v23 = v21;
-    v24 = v20;
-    v25 = &selRef_ccui_systemImageName;
-    if (([v0 isResizing] & 1) != 0 || (v26 = v2, v27 = v4, v189 = v6, Height = v8, objc_msgSend(v0, sel_isExpanded)))
+    v193 = v2;
+    v23 = *(v20 + 1);
+    v22 = *(v20 + 2);
+    v187 = *(v20 + 3);
+    v24 = v22;
+    v25 = v21;
+    v26 = &selRef_ccui_systemImageName;
+    if (([v0 isResizing] & 1) != 0 || (v27 = v2, v28 = v4, v190 = v6, Height = v8, objc_msgSend(v0, sel_isExpanded)))
     {
-      if ([v0 supportsAccessibilityContentSizeCategories] && (v29 = objc_msgSend(v0, sel_traitCollection), v30 = v21, v31 = v23, v32 = v24, v33 = objc_msgSend(v29, sel_preferredContentSizeCategory), v29, LOBYTE(v29) = sub_1D16CC544(), v33, v24 = v32, v23 = v31, v21 = v30, v25 = &selRef_ccui_systemImageName, (v29 & 1) != 0))
+      if ([v0 supportsAccessibilityContentSizeCategories] && (v30 = objc_msgSend(v0, sel_traitCollection), v31 = v22, v32 = v24, v33 = v25, v34 = objc_msgSend(v30, sel_preferredContentSizeCategory), v30, LOBYTE(v30) = sub_1D16CC544(), v34, v25 = v33, v24 = v32, v22 = v31, v26 = &selRef_ccui_systemImageName, (v30 & 1) != 0))
       {
-        v34 = 3;
+        v35 = 3;
       }
 
       else
       {
-        v34 = 2;
+        v35 = 2;
       }
 
-      v189 = CCUIBoundsSizeForGridSizeClassWithGeometry(v34, v13, v14);
-      Height = v35;
-      v26 = 0.0;
+      v190 = CCUIBoundsSizeForGridSizeClassWithGeometry(v35, v14, v15);
+      Height = v36;
+      v27 = 0.0;
       if ([v0 isExpanded])
       {
-        v201.origin.x = v192;
-        v201.origin.y = v4;
-        v201.size.width = v6;
-        v201.size.height = v8;
-        Height = CGRectGetHeight(v201);
+        v202.origin.x = v193;
+        v202.origin.y = v4;
+        v202.size.width = v6;
+        v202.size.height = v8;
+        Height = CGRectGetHeight(v202);
       }
 
-      v27 = 0.0;
+      v28 = 0.0;
     }
 
-    v181 = v13;
-    v184 = v6;
-    if ([v0 v25[470]])
+    v182 = v14;
+    v185 = v6;
+    if ([v0 v26[470]])
     {
-      v36 = [v0 traitCollection];
-      v37 = v23;
+      v37 = [v0 traitCollection];
       v38 = v24;
-      v39 = [v36 preferredContentSizeCategory];
+      v39 = v25;
+      v40 = [v37 preferredContentSizeCategory];
 
-      LOBYTE(v36) = sub_1D16CC544();
+      LOBYTE(v37) = sub_1D16CC544();
+      v25 = v39;
       v24 = v38;
-      v23 = v37;
-      if ((v36 & 1) != 0 && ([v0 isLimitingTitleToSingleLineForAccessibility] & 1) == 0)
+      if ((v37 & 1) != 0 && ([v0 isLimitingTitleToSingleLineForAccessibility] & 1) == 0)
       {
-        sub_1D16BAF08(v20, v22, v21, v186, v26, v27, v189, Height, v198, v197, v199, rect);
+        sub_1D16BAF08(v21, v23, v22, v187, v27, v28, v190, Height, v199, v198, v200, rect);
       }
     }
 
-    v40 = [v0 _shouldReverseLayoutDirection];
-    v41 = [v0 traitCollection];
-    [v41 displayScale];
-    v187 = v42;
+    v41 = [v0 _shouldReverseLayoutDirection];
+    v42 = [v0 traitCollection];
+    [v42 displayScale];
+    v188 = v43;
 
     sub_1D16BD040();
     CCUIEdgeInsetsFromDirectionalEdgeInsets();
-    v178 = v43;
-    v45 = v44;
-    v47 = v46;
-    v182 = v4;
-    v183 = v8;
-    v180 = v14;
-    if (v40)
+    v179 = v44;
+    v46 = v45;
+    v48 = v47;
+    v183 = v4;
+    v184 = v8;
+    v181 = v15;
+    if (v41)
     {
       if ([v0 isResizing])
       {
-        v48 = [v0 contentMetrics];
-        if (v48)
+        v49 = [v0 contentMetrics];
+        if (v49)
         {
-          v49 = v48;
-          [v48 metricsScaleFactor];
-          v50 = [v0 traitCollection];
-          [v50 displayScale];
+          v50 = v49;
+          [v49 metricsScaleFactor];
+          v51 = [v0 traitCollection];
+          [v51 displayScale];
 
           UIRoundToScale();
-          v52 = v51;
+          v53 = v52;
 
-          v53 = v52 + v52;
+          v54 = v53 + v53;
         }
 
         else
         {
-          v53 = 28.0;
+          v54 = 28.0;
         }
 
-        v205.origin.x = v26;
-        v205.origin.y = v27;
-        v57 = v189;
-        v205.size.width = v189;
-        v205.size.height = Height;
-        v58 = CGRectGetMaxX(v205) - v199 - v53 - v47;
-        v56 = v26;
+        v206.origin.x = v27;
+        v206.origin.y = v28;
+        v58 = v190;
+        v206.size.width = v190;
+        v206.size.height = Height;
+        v59 = CGRectGetMaxX(v206) - v200 - v54 - v48;
+        v57 = v27;
       }
 
       else
       {
-        v204.origin.y = v197;
-        v204.origin.x = v198;
-        v204.size.width = v199;
-        v204.size.height = rect;
-        v58 = CGRectGetMinX(v204) - v47;
-        v56 = v26;
-        v57 = v189;
+        v205.origin.y = v198;
+        v205.origin.x = v199;
+        v205.size.width = v200;
+        v205.size.height = rect;
+        v59 = CGRectGetMinX(v205) - v48;
+        v57 = v27;
+        v58 = v190;
       }
     }
 
     else
     {
-      v202.origin.y = v197;
-      v202.origin.x = v198;
-      v202.size.width = v199;
-      v202.size.height = rect;
-      MaxX = CGRectGetMaxX(v202);
-      v55 = v26;
-      v26 = v45 + MaxX;
-      v56 = v55;
-      v203.origin.x = v55;
-      v203.origin.y = v27;
-      v57 = v189;
-      v203.size.width = v189;
-      v203.size.height = Height;
-      v58 = CGRectGetMaxX(v203);
+      v203.origin.y = v198;
+      v203.origin.x = v199;
+      v203.size.width = v200;
+      v203.size.height = rect;
+      MaxX = CGRectGetMaxX(v203);
+      v56 = v27;
+      v27 = v46 + MaxX;
+      v57 = v56;
+      v204.origin.x = v56;
+      v204.origin.y = v28;
+      v58 = v190;
+      v204.size.width = v190;
+      v204.size.height = Height;
+      v59 = CGRectGetMaxX(v204);
     }
 
-    v206.origin.x = v26;
-    v206.origin.y = v27;
-    v206.size.width = v57;
-    v206.size.height = Height;
-    v59 = v58 - CGRectGetMinX(v206);
-    v250.origin.x = UIEdgeInsetsInsetRect(v56, v27, v57, Height, v178, v45);
-    v250.origin.y = v60;
-    v250.size.width = v61;
-    v250.size.height = v62;
-    v207.origin.x = v26;
-    v207.origin.y = v27;
-    v207.size.width = v59;
+    v207.origin.x = v27;
+    v207.origin.y = v28;
+    v207.size.width = v58;
     v207.size.height = Height;
-    v208 = CGRectIntersection(v207, v250);
-    x = v208.origin.x;
-    y = v208.origin.y;
-    width = v208.size.width;
-    v66 = v208.size.height;
-    v67 = 0.0;
+    v60 = v59 - CGRectGetMinX(v207);
+    v251.origin.x = UIEdgeInsetsInsetRect(v57, v28, v58, Height, v179, v46);
+    v251.origin.y = v61;
+    v251.size.width = v62;
+    v251.size.height = v63;
+    v208.origin.x = v27;
+    v208.origin.y = v28;
+    v208.size.width = v60;
+    v208.size.height = Height;
+    v209 = CGRectIntersection(v208, v251);
+    x = v209.origin.x;
+    y = v209.origin.y;
+    width = v209.size.width;
+    v67 = v209.size.height;
     v68 = 0.0;
     v69 = 0.0;
-    v179 = 0.0;
-    if (v21)
+    v70 = 0.0;
+    v180 = 0.0;
+    if (v22)
     {
-      v70 = v23;
-      [v70 sizeThatFits_];
-      v179 = v71;
-      v69 = v72;
-      v209.origin.x = x;
-      v209.origin.y = y;
-      v209.size.width = width;
-      v209.size.height = v66;
-      v68 = CGRectGetWidth(v209);
+      v71 = v24;
+      [v71 sizeThatFits_];
+      v180 = v72;
+      v70 = v73;
       v210.origin.x = x;
       v210.origin.y = y;
       v210.size.width = width;
-      v210.size.height = v66;
-      v73 = CGRectGetHeight(v210);
-
-      if (v73 < v69)
-      {
-        v69 = v73;
-      }
-    }
-
-    v177 = v68;
-    v74 = 0.0;
-    v190 = v69;
-    if (v20)
-    {
-      v75 = v24;
+      v210.size.height = v67;
+      v69 = CGRectGetWidth(v210);
       v211.origin.x = x;
       v211.origin.y = y;
       v211.size.width = width;
-      v211.size.height = v66;
-      v76 = CGRectGetWidth(v211);
+      v211.size.height = v67;
+      v74 = CGRectGetHeight(v211);
+
+      if (v74 < v70)
+      {
+        v70 = v74;
+      }
+    }
+
+    v178 = v69;
+    v75 = 0.0;
+    v191 = v70;
+    if (v21)
+    {
+      v76 = v25;
       v212.origin.x = x;
       v212.origin.y = y;
       v212.size.width = width;
-      v212.size.height = v66;
-      v77 = CGRectGetHeight(v212) - v69;
-      [v75 sizeThatFits_];
-      v74 = v78;
-      if (v77 < v78)
+      v212.size.height = v67;
+      v77 = CGRectGetWidth(v212);
+      v213.origin.x = x;
+      v213.origin.y = y;
+      v213.size.width = width;
+      v213.size.height = v67;
+      v78 = CGRectGetHeight(v213) - v70;
+      [v76 sizeThatFits_];
+      v75 = v79;
+      if (v78 < v79)
       {
         if ([v0 supportsAccessibilityContentSizeCategories])
         {
-          v79 = [v0 traitCollection];
-          v80 = v21;
-          v81 = v23;
+          v80 = [v0 traitCollection];
+          v81 = v22;
           v82 = v24;
-          v83 = [v79 preferredContentSizeCategory];
+          v83 = v25;
+          v84 = [v80 preferredContentSizeCategory];
 
-          LOBYTE(v79) = sub_1D16CC544();
+          LOBYTE(v80) = sub_1D16CC544();
+          v25 = v83;
           v24 = v82;
-          v23 = v81;
-          v21 = v80;
-          v74 = v77;
-          if (v79)
+          v22 = v81;
+          v75 = v78;
+          if (v80)
           {
-            v213.origin.x = x;
-            v213.origin.y = y;
-            v213.size.width = width;
-            v213.size.height = v66;
-            v84 = CGRectGetWidth(v213) - v179;
             v214.origin.x = x;
             v214.origin.y = y;
             v214.size.width = width;
-            v214.size.height = v66;
-            [v75 sizeThatFits_];
+            v214.size.height = v67;
+            v85 = CGRectGetWidth(v214) - v180;
             v215.origin.x = x;
             v215.origin.y = y;
             v215.size.width = width;
-            v215.size.height = v66;
-            CGRectGetHeight(v215);
-
+            v215.size.height = v67;
+            [v76 sizeThatFits_];
             v216.origin.x = x;
             v216.origin.y = y;
             v216.size.width = width;
-            v216.size.height = v66;
-            CGRectGetMinX(v216);
+            v216.size.height = v67;
+            CGRectGetHeight(v216);
+
             v217.origin.x = x;
             v217.origin.y = y;
             v217.size.width = width;
-            v217.size.height = v66;
-            CGRectGetMinY(v217);
+            v217.size.height = v67;
+            CGRectGetMinX(v217);
+            v218.origin.x = x;
+            v218.origin.y = y;
+            v218.size.width = width;
+            v218.size.height = v67;
+            CGRectGetMinY(v218);
             UIRectCenteredYInRectScale();
-            v89 = v85;
             v90 = v86;
             v91 = v87;
             v92 = v88;
-            if (v40)
+            v93 = v89;
+            if (v41)
             {
-              v218.origin.x = x;
-              v218.origin.y = y;
-              v218.size.width = width;
-              v218.size.height = v66;
-              CGRectGetMinX(v218);
+              v219.origin.x = x;
+              v219.origin.y = y;
+              v219.size.width = width;
+              v219.size.height = v67;
+              CGRectGetMinX(v219);
             }
 
             else
             {
-              CGRectGetMaxX(*&v85);
+              CGRectGetMaxX(*&v86);
             }
 
             v10 = &selRef_ccui_systemImageName;
-            v248.origin.x = x;
-            v248.origin.y = y;
-            v248.size.width = width;
-            v248.size.height = v66;
-            CGRectGetMinY(v248);
+            v249.origin.x = x;
+            v249.origin.y = y;
+            v249.size.width = width;
+            v249.size.height = v67;
+            CGRectGetMinY(v249);
             UIRectCenteredYInRectScale();
-            MinX = v168;
-            MaxY = v169;
-            v177 = v170;
-            v190 = v171;
-            v2 = v192;
-            v4 = v182;
-            [v24 setFrame_];
+            MinX = v169;
+            MaxY = v170;
+            v178 = v171;
+            v191 = v172;
+            v2 = v193;
+            v4 = v183;
+            [v25 setFrame_];
 LABEL_42:
-            v8 = v183;
-            v6 = v184;
-            v13 = v181;
-            if (v21)
+            v8 = v184;
+            v6 = v185;
+            v14 = v182;
+            if (v22)
             {
-              v103 = v10[340];
-              v104 = v23;
-              [v104 v103];
+              v104 = v10[340];
+              v105 = v24;
+              [v105 v104];
             }
 
-            v14 = v180;
+            v15 = v181;
             goto LABEL_45;
           }
         }
 
         else
         {
-          v74 = v77;
+          v75 = v78;
         }
       }
 
-      v219.origin.x = x;
-      v219.origin.y = y;
-      v219.size.width = width;
-      v219.size.height = v66;
-      v67 = CGRectGetWidth(v219);
+      v220.origin.x = x;
+      v220.origin.y = y;
+      v220.size.width = width;
+      v220.size.height = v67;
+      v68 = CGRectGetWidth(v220);
     }
 
-    v176 = v187;
+    v177 = v188;
     UIRectCenteredYInRectScale();
-    v96 = v95;
-    if (v40)
+    v97 = v96;
+    if (v41)
     {
-      v97 = v94;
+      v98 = v95;
       sub_1D16BD040();
       CCUIEdgeInsetsFromDirectionalEdgeInsets();
-      v99 = v98;
-      v220.origin.y = v197;
-      v220.origin.x = v198;
-      v220.size.width = v199;
-      v220.size.height = rect;
-      v100 = CGRectGetMinX(v220) - v99 - v97;
+      v100 = v99;
+      v221.origin.y = v198;
+      v221.origin.x = v199;
+      v221.size.width = v200;
+      v221.size.height = rect;
+      v101 = CGRectGetMinX(v221) - v100 - v98;
     }
 
     else
     {
-      v100 = v93;
+      v101 = v94;
     }
 
     v10 = &selRef_ccui_systemImageName;
-    v2 = v192;
-    v4 = v182;
-    v221.origin.x = v100;
-    v221.origin.y = v96;
-    v221.size.width = v67;
-    v221.size.height = v74;
-    MinX = CGRectGetMinX(v221);
-    v222.origin.x = v100;
-    v222.origin.y = v96;
-    v222.size.width = v67;
-    v222.size.height = v74;
-    MaxY = CGRectGetMaxY(v222);
-    if (v20)
+    v2 = v193;
+    v4 = v183;
+    v222.origin.x = v101;
+    v222.origin.y = v97;
+    v222.size.width = v68;
+    v222.size.height = v75;
+    MinX = CGRectGetMinX(v222);
+    v223.origin.x = v101;
+    v223.origin.y = v97;
+    v223.size.width = v68;
+    v223.size.height = v75;
+    MaxY = CGRectGetMaxY(v223);
+    if (v21)
     {
-      [v24 setFrame_];
+      [v25 setFrame_];
     }
 
     goto LABEL_42;
   }
 
 LABEL_45:
-  v105 = *&v0[OBJC_IVAR___CCUIControlTemplateView_verticalLayoutLabels];
-  if (v105 == 1)
+  v106 = *&v0[OBJC_IVAR___CCUIControlTemplateView_verticalLayoutLabels];
+  if (v106 == 1)
   {
     goto LABEL_77;
   }
 
-  v106 = *&v0[OBJC_IVAR___CCUIControlTemplateView_verticalLayoutLabels + 16];
-  v107 = v106;
-  v108 = v105;
+  v107 = *&v0[OBJC_IVAR___CCUIControlTemplateView_verticalLayoutLabels + 16];
+  v108 = v107;
+  v109 = v106;
   if (([v0 isResizing] & 1) != 0 || objc_msgSend(v0, sel_isExpanded))
   {
-    if ([v0 supportsAccessibilityContentSizeCategories] && (v109 = objc_msgSend(v0, sel_traitCollection), v110 = objc_msgSend(v109, sel_preferredContentSizeCategory), v109, LOBYTE(v109) = sub_1D16CC544(), v110, (v109 & 1) != 0))
+    if ([v0 supportsAccessibilityContentSizeCategories] && (v110 = objc_msgSend(v0, sel_traitCollection), v111 = objc_msgSend(v110, sel_preferredContentSizeCategory), v110, LOBYTE(v110) = sub_1D16CC544(), v111, (v110 & 1) != 0))
     {
-      v111 = 5;
+      v112 = 5;
     }
 
     else
     {
-      v111 = 4;
+      v112 = 4;
     }
 
-    v112 = CCUIBoundsSizeForGridSizeClassWithGeometry(v111, v13, v14);
-    v223.origin.x = v2;
-    v223.origin.y = v4;
-    v223.size.width = v6;
-    v223.size.height = v8;
-    v113 = CGRectGetHeight(v223);
-    v114 = 0.0;
+    v113 = CCUIBoundsSizeForGridSizeClassWithGeometry(v112, v14, v15);
+    v224.origin.x = v2;
+    v224.origin.y = v4;
+    v224.size.width = v6;
+    v224.size.height = v8;
+    v114 = CGRectGetHeight(v224);
+    v115 = 0.0;
     v4 = 0.0;
-    v115 = v112;
+    v116 = v113;
   }
 
   else
   {
-    v113 = v8;
-    v114 = v2;
-    v115 = v6;
+    v114 = v8;
+    v115 = v2;
+    v116 = v6;
   }
 
-  v116 = [v0 _shouldReverseLayoutDirection];
-  v117 = [v0 traitCollection];
-  [v117 displayScale];
-  v185 = v118;
+  v117 = [v0 _shouldReverseLayoutDirection];
+  v118 = [v0 traitCollection];
+  [v118 displayScale];
+  v186 = v119;
 
   sub_1D16BD17C();
   CCUIEdgeInsetsFromDirectionalEdgeInsets();
-  v120 = v119;
-  v193 = v121;
-  v122 = v4;
+  v121 = v120;
+  v194 = v122;
+  v123 = v4;
   if (([v0 isResizing] & 1) == 0)
   {
-    v224.origin.y = v197;
-    v224.origin.x = v198;
-    v224.size.width = v199;
-    v224.size.height = rect;
-    v122 = v120 + CGRectGetMaxY(v224);
+    v225.origin.y = v198;
+    v225.origin.x = v199;
+    v225.size.width = v200;
+    v225.size.height = rect;
+    v123 = v121 + CGRectGetMaxY(v225);
   }
 
-  v225.origin.x = v114;
-  v225.origin.y = v4;
-  v225.size.width = v115;
-  v225.size.height = v113;
-  v123 = v4;
-  v124 = CGRectGetMaxY(v225);
-  v226.origin.x = v114;
-  v226.origin.y = v122;
-  v226.size.width = v115;
-  v226.size.height = v113;
-  v125 = v124 - CGRectGetMinY(v226);
-  v251.origin.x = UIEdgeInsetsInsetRect(v114, v123, v115, v113, v120, v193);
-  v251.origin.y = v126;
-  v251.size.width = v127;
-  v251.size.height = v128;
-  v227.origin.x = v114;
-  v227.origin.y = v122;
-  v227.size.width = v115;
-  v227.size.height = v125;
-  v228 = CGRectIntersection(v227, v251);
-  v129 = v228.origin.x;
-  v130 = v228.origin.y;
-  v131 = v228.size.width;
-  v132 = v228.size.height;
-  v133 = 0.0;
-  v194 = 0.0;
+  v226.origin.x = v115;
+  v226.origin.y = v4;
+  v226.size.width = v116;
+  v226.size.height = v114;
+  v124 = v4;
+  v125 = CGRectGetMaxY(v226);
+  v227.origin.x = v115;
+  v227.origin.y = v123;
+  v227.size.width = v116;
+  v227.size.height = v114;
+  v126 = v125 - CGRectGetMinY(v227);
+  v252.origin.x = UIEdgeInsetsInsetRect(v115, v124, v116, v114, v121, v194);
+  v252.origin.y = v127;
+  v252.size.width = v128;
+  v252.size.height = v129;
+  v228.origin.x = v115;
+  v228.origin.y = v123;
+  v228.size.width = v116;
+  v228.size.height = v126;
+  v229 = CGRectIntersection(v228, v252);
+  v130 = v229.origin.x;
+  v131 = v229.origin.y;
+  v132 = v229.size.width;
+  v133 = v229.size.height;
   v134 = 0.0;
-  v188 = 0.0;
-  if (v106)
+  v195 = 0.0;
+  v135 = 0.0;
+  v189 = 0.0;
+  if (v107)
   {
-    v135 = v107;
-    [v135 sizeThatFits_];
-    v188 = v136;
-    v138 = v137;
-    v229.origin.x = v129;
-    v229.origin.y = v130;
-    v229.size.width = v131;
-    v229.size.height = v132;
-    v194 = CGRectGetWidth(v229);
-    v230.origin.x = v129;
-    v230.origin.y = v130;
-    v230.size.width = v131;
-    v230.size.height = v132;
-    v139 = CGRectGetHeight(v230);
+    v136 = v108;
+    [v136 sizeThatFits_];
+    v189 = v137;
+    v139 = v138;
+    v230.origin.x = v130;
+    v230.origin.y = v131;
+    v230.size.width = v132;
+    v230.size.height = v133;
+    v195 = CGRectGetWidth(v230);
+    v231.origin.x = v130;
+    v231.origin.y = v131;
+    v231.size.width = v132;
+    v231.size.height = v133;
+    v140 = CGRectGetHeight(v231);
 
-    if (v139 >= v138)
+    if (v140 >= v139)
     {
-      v134 = v138;
+      v135 = v139;
     }
 
     else
     {
-      v134 = v139;
+      v135 = v140;
     }
   }
 
-  v140 = 0.0;
-  v191 = v134;
-  if (!v105)
+  v141 = 0.0;
+  v192 = v135;
+  if (!v106)
   {
     goto LABEL_68;
   }
 
-  v141 = v108;
-  v231.origin.x = v129;
-  v231.origin.y = v130;
-  v231.size.width = v131;
-  v231.size.height = v132;
-  v142 = CGRectGetWidth(v231);
-  v232.origin.x = v129;
-  v232.origin.y = v130;
-  v232.size.width = v131;
-  v232.size.height = v132;
-  v143 = CGRectGetHeight(v232) - v134;
-  [v141 sizeThatFits_];
-  v140 = v144;
-  if (v143 >= v144)
+  v142 = v109;
+  v232.origin.x = v130;
+  v232.origin.y = v131;
+  v232.size.width = v132;
+  v232.size.height = v133;
+  v143 = CGRectGetWidth(v232);
+  v233.origin.x = v130;
+  v233.origin.y = v131;
+  v233.size.width = v132;
+  v233.size.height = v133;
+  v144 = CGRectGetHeight(v233) - v135;
+  [v142 sizeThatFits_];
+  v141 = v145;
+  if (v144 >= v145)
   {
     goto LABEL_67;
   }
 
   if (![v0 supportsAccessibilityContentSizeCategories])
   {
-    v140 = v143;
+    v141 = v144;
     goto LABEL_67;
   }
 
-  v145 = [v0 traitCollection];
-  v146 = v108;
-  v147 = v10;
-  v148 = [v145 preferredContentSizeCategory];
+  v146 = [v0 traitCollection];
+  v147 = v109;
+  v148 = v10;
+  v149 = [v146 preferredContentSizeCategory];
 
-  LOBYTE(v145) = sub_1D16CC544();
-  v10 = v147;
-  v108 = v146;
-  v140 = v143;
-  if ((v145 & 1) == 0)
+  LOBYTE(v146) = sub_1D16CC544();
+  v10 = v148;
+  v109 = v147;
+  v141 = v144;
+  if ((v146 & 1) == 0)
   {
 LABEL_67:
-    v239.origin.x = v129;
-    v239.origin.y = v130;
-    v239.size.width = v131;
-    v239.size.height = v132;
-    v133 = CGRectGetWidth(v239);
+    v240.origin.x = v130;
+    v240.origin.y = v131;
+    v240.size.width = v132;
+    v240.size.height = v133;
+    v134 = CGRectGetWidth(v240);
 
 LABEL_68:
-    v158 = v134 + v140;
-    v240.origin.x = v129;
-    v240.origin.y = v130;
-    v240.size.width = v131;
-    v240.size.height = v132;
-    v159 = CGRectGetMaxY(v240);
-    v241.origin.x = v129;
-    v241.origin.y = v130;
-    v241.size.width = v131;
-    v241.size.height = v134 + v140;
-    v160 = v159 - CGRectGetHeight(v241);
+    v159 = v135 + v141;
+    v241.origin.x = v130;
+    v241.origin.y = v131;
+    v241.size.width = v132;
+    v241.size.height = v133;
+    v160 = CGRectGetMaxY(v241);
+    v242.origin.x = v130;
+    v242.origin.y = v131;
+    v242.size.width = v132;
+    v242.size.height = v135 + v141;
+    v161 = v160 - CGRectGetHeight(v242);
     sub_1D16BD17C();
     CCUIEdgeInsetsFromDirectionalEdgeInsets();
-    v162 = v161;
-    v242.origin.y = v197;
-    v242.origin.x = v198;
-    v242.size.width = v199;
-    v242.size.height = rect;
-    if (v160 <= CGRectGetMaxY(v242) + v162)
+    v163 = v162;
+    v243.origin.y = v198;
+    v243.origin.x = v199;
+    v243.size.width = v200;
+    v243.size.height = rect;
+    if (v161 <= CGRectGetMaxY(v243) + v163)
     {
-      v243.origin.y = v197;
-      v243.origin.x = v198;
-      v243.size.width = v199;
-      v243.size.height = rect;
-      v160 = v162 + CGRectGetMaxY(v243);
-      v158 = v140;
-    }
-
-    if (v116)
-    {
-      v244.origin.y = v197;
-      v244.origin.x = v198;
-      v244.size.width = v199;
+      v244.origin.y = v198;
+      v244.origin.x = v199;
+      v244.size.width = v200;
       v244.size.height = rect;
-      v163 = CGRectGetMaxX(v244);
-      v245.origin.x = v129;
-      v245.origin.y = v160;
-      v245.size.width = v131;
-      v245.size.height = v158;
-      v129 = v163 - CGRectGetWidth(v245);
+      v161 = v163 + CGRectGetMaxY(v244);
+      v159 = v141;
     }
 
-    v246.origin.x = v129;
-    v246.origin.y = v160;
-    v246.size.width = v133;
-    v246.size.height = v140;
-    v164 = CGRectGetMinX(v246);
-    v247.origin.x = v129;
-    v247.origin.y = v160;
-    v247.size.width = v133;
-    v247.size.height = v140;
-    v165 = CGRectGetMaxY(v247);
-    if (v105)
+    if (v117)
     {
-      [v108 v10[340]];
+      v245.origin.y = v198;
+      v245.origin.x = v199;
+      v245.size.width = v200;
+      v245.size.height = rect;
+      v164 = CGRectGetMaxX(v245);
+      v246.origin.x = v130;
+      v246.origin.y = v161;
+      v246.size.width = v132;
+      v246.size.height = v159;
+      v130 = v164 - CGRectGetWidth(v246);
+    }
+
+    v247.origin.x = v130;
+    v247.origin.y = v161;
+    v247.size.width = v134;
+    v247.size.height = v141;
+    v165 = CGRectGetMinX(v247);
+    v248.origin.x = v130;
+    v248.origin.y = v161;
+    v248.size.width = v134;
+    v248.size.height = v141;
+    v166 = CGRectGetMaxY(v248);
+    if (v106)
+    {
+      [v109 v10[340]];
     }
 
     goto LABEL_74;
   }
 
-  v233.origin.x = v129;
-  v233.origin.y = v130;
-  v233.size.width = v131;
-  v233.size.height = v132;
-  v149 = CGRectGetWidth(v233) - v188;
-  v234.origin.x = v129;
-  v234.origin.y = v130;
-  v234.size.width = v131;
-  v234.size.height = v132;
-  [v141 sizeThatFits_];
-  v235.origin.x = v129;
-  v235.origin.y = v130;
-  v235.size.width = v131;
-  v235.size.height = v132;
-  CGRectGetHeight(v235);
+  v234.origin.x = v130;
+  v234.origin.y = v131;
+  v234.size.width = v132;
+  v234.size.height = v133;
+  v150 = CGRectGetWidth(v234) - v189;
+  v235.origin.x = v130;
+  v235.origin.y = v131;
+  v235.size.width = v132;
+  v235.size.height = v133;
+  [v142 sizeThatFits_];
+  v236.origin.x = v130;
+  v236.origin.y = v131;
+  v236.size.width = v132;
+  v236.size.height = v133;
+  CGRectGetHeight(v236);
 
-  v236.origin.x = v129;
-  v236.origin.y = v130;
-  v236.size.width = v131;
-  v236.size.height = v132;
-  CGRectGetMinX(v236);
-  v237.origin.x = v129;
-  v237.origin.y = v130;
-  v237.size.width = v131;
-  v237.size.height = v132;
-  CGRectGetMinY(v237);
+  v237.origin.x = v130;
+  v237.origin.y = v131;
+  v237.size.width = v132;
+  v237.size.height = v133;
+  CGRectGetMinX(v237);
+  v238.origin.x = v130;
+  v238.origin.y = v131;
+  v238.size.width = v132;
+  v238.size.height = v133;
+  CGRectGetMinY(v238);
   UIRectCenteredYInRectScale();
-  v154 = v150;
   v155 = v151;
   v156 = v152;
   v157 = v153;
-  if (v116)
+  v158 = v154;
+  if (v117)
   {
-    v238.origin.x = v129;
-    v238.origin.y = v130;
-    v238.size.width = v131;
-    v238.size.height = v132;
-    CGRectGetMinX(v238);
+    v239.origin.x = v130;
+    v239.origin.y = v131;
+    v239.size.width = v132;
+    v239.size.height = v133;
+    CGRectGetMinX(v239);
   }
 
   else
   {
-    CGRectGetMaxX(*&v150);
+    CGRectGetMaxX(*&v151);
   }
 
-  v249.origin.x = v129;
-  v249.origin.y = v130;
-  v249.size.width = v131;
-  v249.size.height = v132;
-  CGRectGetMinY(v249);
+  v250.origin.x = v130;
+  v250.origin.y = v131;
+  v250.size.width = v132;
+  v250.size.height = v133;
+  CGRectGetMinY(v250);
   UIRectCenteredYInRectScale();
-  v164 = v172;
   v165 = v173;
-  v191 = v175;
-  v194 = v174;
-  [v146 v10[340]];
+  v166 = v174;
+  v192 = v176;
+  v195 = v175;
+  [v147 v10[340]];
 LABEL_74:
-  if (v106)
+  if (v107)
   {
-    v166 = v10[340];
-    v167 = v107;
-    [v167 v166];
+    v167 = v10[340];
+    v168 = v108;
+    [v168 v167];
   }
 
 LABEL_77:
@@ -6937,7 +7088,7 @@ void sub_1D16BAF08(void *a1, uint64_t a2, void *a3, uint64_t a4, CGFloat a5, CGF
         *v44 = a1;
         v28 = v28;
         _os_log_impl(&dword_1D168A000, oslog, v42, "Unexpectedly missing font on title label: %@", v43, 0xCu);
-        sub_1D16C2BE4(v44, &unk_1EC641670);
+        sub_1D16C2BE4(v44, &unk_1EC641670, qword_1D16D21B0);
         MEMORY[0x1D388F3F0](v44, -1, -1);
         MEMORY[0x1D388F3F0](v43, -1, -1);
       }
@@ -6982,7 +7133,7 @@ void (*sub_1D16BB9E8(uint64_t a1, uint64_t a2))(uint64_t a1, uint64_t a2)
   if (v7)
   {
     sub_1D16901B4(&v6, &v8);
-    sub_1D168EE64(0, &qword_1EC640AD8);
+    sub_1D168EE64(0, &qword_1EC640AD8, 0x1E69DD250);
     swift_dynamicCast();
     [v5 alpha];
     v4 = v3;
@@ -7005,7 +7156,7 @@ void sub_1D16BBABC(double a1, uint64_t a2, uint64_t a3)
   if (v6)
   {
     sub_1D16901B4(&v5, &v7);
-    sub_1D168EE64(0, &qword_1EC640AD8);
+    sub_1D168EE64(0, &qword_1EC640AD8, 0x1E69DD250);
     swift_dynamicCast();
     [v4 setAlpha_];
   }
@@ -7036,7 +7187,7 @@ id sub_1D16BBB64(uint64_t a1, void *a2, uint64_t a3)
   v7 = v5(a2, v16);
   v9 = v8;
 
-  sub_1D16C2BE4(v16, &unk_1EC641620);
+  sub_1D16C2BE4(v16, &unk_1EC641620, &qword_1D16D2180);
   if (v7)
   {
     v14 = v7;
@@ -7070,7 +7221,7 @@ uint64_t sub_1D16BBC98(uint64_t a1, void *a2, uint64_t a3)
   swift_unknownObjectRetain();
   v5(a2, v10);
 
-  return sub_1D16C2BE4(v10, &unk_1EC641620);
+  return sub_1D16C2BE4(v10, &unk_1EC641620, &qword_1D16D2180);
 }
 
 void sub_1D16BBD50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, void *a7, void *a8, uint64_t a9, uint64_t a10, char a11)
@@ -7263,54 +7414,54 @@ void sub_1D16BC38C(void (*a1)(void), uint64_t a2, void *a3, uint64_t a4, void *a
   }
 }
 
-uint64_t sub_1D16BC434(void *a1, uint64_t a2, void *a3, uint64_t a4, void *a5, uint64_t a6, uint64_t (*a7)(void), uint64_t a8, uint64_t (*a9)(void))
+uint64_t sub_1D16BC434(void *a1, uint64_t a2, void *a3, double a4, uint64_t a5, void *a6, uint64_t a7, uint64_t (*a8)(uint64_t (*)()), uint64_t a9, uint64_t (*a10)(id (*)(void *a1), __n128))
 {
-  v12 = *a2;
-  v30 = *(a2 + 16);
-  v31 = *(a2 + 8);
-  v13 = *(a2 + 32);
-  v28.origin.x = *(a2 + 40);
-  v28.origin.y = *(a2 + 48);
-  v28.size.width = *(a2 + 56);
-  v28.size.height = *(a2 + 64);
-  v29 = *(a2 + 24);
-  v14 = *(a2 + 72);
+  v13 = *a2;
+  v33 = *(a2 + 16);
+  v34 = *(a2 + 8);
+  v14 = *(a2 + 32);
+  v31.origin.x = *(a2 + 40);
+  v31.origin.y = *(a2 + 48);
+  v31.size.width = *(a2 + 56);
+  v31.size.height = *(a2 + 64);
+  v32 = *(a2 + 24);
+  v15 = *(a2 + 72);
   [a1 layoutIfNeeded];
   if (!a3)
   {
 LABEL_5:
-    v27 = v12;
-    if (a5)
+    v30 = v13;
+    if (a6)
     {
-      [a5 frame];
-      CGRectGetMinY(v33);
+      [a6 frame];
+      CGRectGetMinY(v36);
     }
 
-    v16 = BSFloatApproximatelyEqualToFloat();
-    v15 = a3;
+    v17 = BSFloatApproximatelyEqualToFloat();
+    v16 = a3;
     if (a3)
     {
-      if (v13)
+      if (v14)
       {
-        if (v14)
+        if (v15)
         {
 
           goto LABEL_11;
         }
 
-        x = v28.origin.x;
-        y = v28.origin.y;
-        width = v28.size.width;
-        height = v28.size.height;
-        v24 = v15;
-        CGRectGetMinY(v28);
-        [v24 frame];
-        CGRectGetHeight(v37);
-        [v24 frame];
-        [v24 setFrame_];
+        x = v31.origin.x;
+        y = v31.origin.y;
+        width = v31.size.width;
+        height = v31.size.height;
+        v25 = v16;
+        CGRectGetMinY(v31);
+        [v25 frame];
+        CGRectGetHeight(v40);
+        [v25 frame];
+        [v25 setFrame_];
 
-        v17 = a7;
-        if (!a5)
+        v18 = a8;
+        if (!a6)
         {
           goto LABEL_21;
         }
@@ -7318,73 +7469,73 @@ LABEL_5:
         goto LABEL_19;
       }
 
-      v18 = v15;
-      v34.origin.x = v27;
-      v34.origin.y = v31;
-      v34.size.width = v30;
-      v34.size.height = v29;
-      CGRectGetMaxY(v34);
-      [v18 frame];
-      CGRectGetHeight(v35);
-      [v18 frame];
-      [v18 setFrame_];
+      v19 = v16;
+      v37.origin.x = v30;
+      v37.origin.y = v34;
+      v37.size.width = v33;
+      v37.size.height = v32;
+      CGRectGetMaxY(v37);
+      [v19 frame];
+      CGRectGetHeight(v38);
+      [v19 frame];
+      [v19 setFrame_];
     }
 
-    v17 = a7;
-    if (!a5)
+    v18 = a8;
+    if (!a6)
     {
       goto LABEL_21;
     }
 
-    if (v14)
+    if (v15)
     {
-      if (v13 & 1 | ((v16 & 1) == 0))
+      if (v14 & 1 | ((v17 & 1) == 0))
       {
         goto LABEL_21;
       }
 
-      v19 = a5;
-      v36.origin.x = v27;
-      v36.origin.y = v31;
-      v36.size.width = v30;
-      v36.size.height = v29;
-      CGRectGetMaxY(v36);
+      v20 = a6;
+      v39.origin.x = v30;
+      v39.origin.y = v34;
+      v39.size.width = v33;
+      v39.size.height = v32;
+      CGRectGetMaxY(v39);
 LABEL_20:
-      [v19 frame];
-      [v19 setFrame_];
+      [v20 frame];
+      [v20 setFrame_];
 
       goto LABEL_21;
     }
 
-    x = v28.origin.x;
-    y = v28.origin.y;
-    width = v28.size.width;
-    height = v28.size.height;
+    x = v31.origin.x;
+    y = v31.origin.y;
+    width = v31.size.width;
+    height = v31.size.height;
 LABEL_19:
-    v19 = a5;
-    v38.origin.x = x;
-    v38.origin.y = y;
-    v38.size.width = width;
-    v38.size.height = height;
-    CGRectGetMinY(v38);
+    v20 = a6;
+    v41.origin.x = x;
+    v41.origin.y = y;
+    v41.size.width = width;
+    v41.size.height = height;
+    CGRectGetMinY(v41);
     goto LABEL_20;
   }
 
   if (a3 != 1)
   {
     [a3 frame];
-    CGRectGetMaxY(v32);
+    CGRectGetMaxY(v35);
     goto LABEL_5;
   }
 
-  v15 = BSFloatApproximatelyEqualToFloat();
+  v16 = BSFloatApproximatelyEqualToFloat();
 LABEL_11:
-  v17 = a7;
+  v18 = a8;
 LABEL_21:
-  MEMORY[0x1EEE9AC00](v15);
-  v25 = v17(sub_1D16C2BAC);
-  MEMORY[0x1EEE9AC00](v25);
-  return a9(sub_1D16C2BB4);
+  v26 = MEMORY[0x1EEE9AC00](v16);
+  v27 = (v18)(sub_1D16C2BAC, v26);
+  v28 = MEMORY[0x1EEE9AC00](v27);
+  return a10(sub_1D16C2BB4, v28);
 }
 
 void sub_1D16BC77C(void *a1)
@@ -7448,7 +7599,7 @@ void sub_1D16BC878()
 
         sub_1D16C27B0(v6, v16);
         sub_1D16C27B0(v16, v15);
-        sub_1D168EE64(0, &qword_1EC640AC0);
+        sub_1D168EE64(0, &qword_1EC640AC0, 0x1E6979378);
         if (swift_dynamicCast())
         {
           v7 = [v14 name];
@@ -7532,111 +7683,111 @@ id sub_1D16BCAC8(void *a1)
   return [a1 setAlpha_];
 }
 
-void sub_1D16BCB4C(void *a1, void (*a2)(id (*)(void *a1), void), uint64_t a3, void (*a4)(id (*)(void *a1), void), uint64_t a5, uint64_t a6, void *a7, uint64_t a8, void *a9, uint64_t a10, void *a11, uint64_t a12, void *a13)
+void sub_1D16BCB4C(void *a1, void (*a2)(uint64_t (*)(), void), double a3, uint64_t a4, uint64_t (*a5)(uint64_t (*)(), void), uint64_t a6, uint64_t a7, void *a8, uint64_t a9, void *a10, uint64_t a11, void *a12, uint64_t a13, void *a14, uint64_t a15)
 {
-  v17 = a13;
-  v18 = *a6;
-  v19 = *(a6 + 8);
-  v21 = *(a6 + 16);
-  v20 = *(a6 + 24);
-  v22 = *(a6 + 32);
-  v33 = *(a6 + 48);
-  v34 = *(a6 + 40);
-  v23 = *(a6 + 56);
-  v24 = *(a6 + 64);
-  v25 = *(a6 + 72);
+  v19 = a14;
+  v20 = *a7;
+  v21 = *(a7 + 8);
+  v23 = *(a7 + 16);
+  v22 = *(a7 + 24);
+  v24 = *(a7 + 32);
+  v35 = *(a7 + 48);
+  v36 = *(a7 + 40);
+  v25 = *(a7 + 56);
+  v26 = *(a7 + 64);
+  v27 = *(a7 + 72);
   [a1 setNeedsLayout];
   [a1 layoutIfNeeded];
   _sSo23CCUIControlTemplateViewC18ControlCenterUIKitE21contentStateDidChangeyyF_0();
   a2(sub_1D16BCE6C, 0);
-  a4(sub_1D16BCEBC, 0);
-  if ((v22 & 1) == 0)
+  a5(sub_1D16BCEBC, 0);
+  if ((v24 & 1) == 0)
   {
-    v37.origin.x = v18;
-    v37.origin.y = v19;
-    v37.size.width = v21;
-    v37.size.height = v20;
-    CGRectGetMaxY(v37);
+    v39.origin.x = v20;
+    v39.origin.y = v21;
+    v39.size.width = v23;
+    v39.size.height = v22;
+    CGRectGetMaxY(v39);
   }
 
-  if ((v25 & 1) == 0)
+  if ((v27 & 1) == 0)
   {
-    v38.origin.y = v33;
-    v38.origin.x = v34;
-    v38.size.width = v23;
-    v38.size.height = v24;
-    CGRectGetMinY(v38);
+    v40.origin.y = v35;
+    v40.origin.x = v36;
+    v40.size.width = v25;
+    v40.size.height = v26;
+    CGRectGetMinY(v40);
   }
 
-  v26 = BSFloatApproximatelyEqualToFloat();
-  if (a7)
+  v28 = BSFloatApproximatelyEqualToFloat();
+  if (a8)
   {
-    if (a11 == 1)
+    if (a12 == 1)
     {
       return;
     }
 
-    v27 = a7;
-    sub_1D16C2014(a11, a12, a13);
+    v29 = a8;
+    sub_1D16C2014(a12, a13, a14);
 
-    if (a11)
+    if (a12)
     {
-      v28 = v27;
-      [a11 frame];
-      CGRectGetMaxY(v39);
-      v29 = a11;
+      v30 = v29;
+      [a12 frame];
+      CGRectGetMaxY(v41);
+      v31 = a12;
     }
 
     else
     {
-      if (!a13)
+      if (!a14)
       {
 LABEL_12:
 
         goto LABEL_13;
       }
 
-      v30 = v27;
-      v29 = a13;
-      [v29 frame];
-      CGRectGetMinY(v40);
+      v32 = v29;
+      v31 = a14;
+      [v31 frame];
+      CGRectGetMinY(v42);
     }
 
-    [v27 frame];
-    CGRectGetHeight(v41);
-    [v27 frame];
-    [v27 setFrame_];
+    [v29 frame];
+    CGRectGetHeight(v43);
+    [v29 frame];
+    [v29 setFrame_];
 
     goto LABEL_12;
   }
 
 LABEL_13:
-  if (!a9 || a11 == 1)
+  if (!a10 || a12 == 1)
   {
     return;
   }
 
-  sub_1D16C2014(a11, a12, a13);
-  v35 = a9;
+  sub_1D16C2014(a12, a13, a14);
+  v37 = a10;
 
-  if (a13)
+  if (a14)
   {
-    v31 = v35;
-    [a13 frame];
-    CGRectGetMinY(v42);
+    v33 = v37;
+    [a14 frame];
+    CGRectGetMinY(v44);
 LABEL_20:
-    [v35 frame];
-    [v35 setFrame_];
+    [v37 frame];
+    [v37 setFrame_];
 
     goto LABEL_21;
   }
 
-  if (((a11 != 0) & v26) == 1)
+  if (((a12 != 0) & v28) == 1)
   {
-    v32 = v35;
-    v17 = a11;
-    [v17 frame];
-    CGRectGetMaxY(v43);
+    v34 = v37;
+    v19 = a12;
+    [v19 frame];
+    CGRectGetMaxY(v45);
     goto LABEL_20;
   }
 
@@ -7650,7 +7801,7 @@ id sub_1D16BCE6C(void *a1)
   return [a1 setGaussianBlurRadius_];
 }
 
-void sub_1D16BCECC(uint64_t a1, uint64_t a2, void (*a3)(id (*)(void *a1), _BYTE *), uint64_t a4, char *a5, void (*a6)(void (*)(uint64_t a1), void *))
+void sub_1D16BCECC(uint64_t a1, uint64_t a2, void (*a3)(uint64_t (*)(), _BYTE *), uint64_t a4, char *a5, void (*a6)(uint64_t (*)(), void *))
 {
   v15 = a5;
   a3(sub_1D16C2AF8, v14);
@@ -7853,13 +8004,13 @@ void sub_1D16BD504(void *a1, char a2)
       *(v10 + 1) = v14;
       *(v10 + 2) = v18;
       *(v10 + 3) = v19;
-      v22 = v12;
+      v24 = v12;
       sub_1D168E910(v15, v21, v16);
       [v2 addSubview_];
       if (*&v2[OBJC_IVAR___CCUIControlTemplateView_blurPocket])
       {
 
-        sub_1D16B4170();
+        sub_1D16B4170(v22, v23);
       }
     }
   }
@@ -7936,13 +8087,13 @@ void sub_1D16BD740(void *a1, char a2)
       *(v10 + 1) = v18;
       *(v10 + 2) = v12;
       *(v10 + 3) = v14;
-      v21 = v12;
+      v23 = v12;
       sub_1D168E910(v15, v16, v20);
       [v2 addSubview_];
       if (*&v2[OBJC_IVAR___CCUIControlTemplateView_blurPocket])
       {
 
-        sub_1D16B4170();
+        sub_1D16B4170(v21, v22);
       }
     }
 
@@ -8239,38 +8390,38 @@ uint64_t sub_1D16BE21C()
 {
   v1 = sub_1D16CC1F4();
   v2 = *(v1 - 8);
-  MEMORY[0x1EEE9AC00](v1);
-  v4 = v15 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *&v3 = MEMORY[0x1EEE9AC00](v1).n128_u64[0];
+  v5 = v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   if ([v0 isLimitingTitleToSingleLineForAccessibility])
   {
     return 1;
   }
 
-  v6 = [v0 subtitle];
-  if (!v6)
+  v7 = [v0 subtitle];
+  if (!v7)
   {
     return 3;
   }
 
-  v7 = v6;
-  v8 = sub_1D16CC4A4();
-  v10 = v9;
+  v8 = v7;
+  v9 = sub_1D16CC4A4();
+  v11 = v10;
 
-  v15[0] = v8;
-  v15[1] = v10;
+  v16[0] = v9;
+  v16[1] = v11;
   sub_1D16CC1E4();
   sub_1D16C2810();
-  v11 = sub_1D16CC5C4();
-  v13 = v12;
-  (*(v2 + 8))(v4, v1);
+  v12 = sub_1D16CC5C4();
+  v14 = v13;
+  (*(v2 + 8))(v5, v1);
 
-  v14 = HIBYTE(v13) & 0xF;
-  if ((v13 & 0x2000000000000000) == 0)
+  v15 = HIBYTE(v14) & 0xF;
+  if ((v14 & 0x2000000000000000) == 0)
   {
-    v14 = v11 & 0xFFFFFFFFFFFFLL;
+    v15 = v12 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v14)
+  if (v15)
   {
     return 2;
   }
@@ -8399,7 +8550,7 @@ id sub_1D16BE678()
   }
 
   v9 = [v0 subviews];
-  sub_1D168EE64(0, &qword_1EC640AD8);
+  sub_1D168EE64(0, &qword_1EC640AD8, 0x1E69DD250);
   v10 = sub_1D16CC4F4();
 
   if (v10 >> 62)
@@ -8922,10 +9073,10 @@ id sub_1D16BF66C(void *a1)
   v12.receiver = v1;
   v12.super_class = ObjectType;
   v5 = objc_msgSendSuper2(&v12, sel_initWithFrame_);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC641630);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC641630, &qword_1D16D2188);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_1D16D1ED0;
-  *(v6 + 56) = sub_1D168EE64(0, &qword_1EC640AD8);
+  *(v6 + 56) = sub_1D168EE64(0, &qword_1EC640AD8, 0x1E69DD250);
   *(v6 + 32) = v4;
   v7 = v5;
   v8 = v4;
@@ -9013,7 +9164,7 @@ void sub_1D16BF91C(uint64_t a1, void *a2)
   v27 = [objc_allocWithZone(MEMORY[0x1E69793B8]) init];
   [v27 setSourceLayer_];
   [v27 setUsesNormalizedCoordinates_];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC641648);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC641648, &unk_1D16D2198);
   v28 = swift_allocObject();
   v85 = xmmword_1D16D2070;
   *(v28 + 16) = xmmword_1D16D2070;
@@ -9036,7 +9187,7 @@ void sub_1D16BF91C(uint64_t a1, void *a2)
 
   *(v28 + 32) = [v29 valueWithCGPoint_];
   *(v28 + 40) = [v30 &selRef:v31 :1.0resetPackage + 5];
-  v84 = sub_1D168EE64(0, &unk_1EC641650);
+  v84 = sub_1D168EE64(0, &unk_1EC641650, 0x1E696B098);
   v32 = sub_1D16CC4E4();
 
   [v27 setSourcePoints_];
@@ -9066,7 +9217,7 @@ void sub_1D16BF91C(uint64_t a1, void *a2)
   v39 = [objc_allocWithZone(MEMORY[0x1E69793B8]) init];
   [v39 setSourceLayer_];
   [v39 setUsesNormalizedCoordinates_];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC641648);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC641648, &unk_1D16D2198);
   v40 = swift_allocObject();
   *(v40 + 16) = v85;
   v41 = objc_opt_self();
@@ -9102,7 +9253,7 @@ void sub_1D16BF91C(uint64_t a1, void *a2)
   v50 = v45;
   [v49 setSourceLayer_];
   [v49 setUsesNormalizedCoordinates_];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC641648);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC641648, &unk_1D16D2198);
   v51 = swift_allocObject();
   *(v51 + 16) = v85;
   v52 = v23;
@@ -9139,7 +9290,7 @@ void sub_1D16BF91C(uint64_t a1, void *a2)
   v59 = sub_1D16CC244();
   [v57 setValue:v59 forKey:*MEMORY[0x1E6979BA8]];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC641648);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC641648, &unk_1D16D2198);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1D16D2080;
   *(inited + 32) = v57;
@@ -9237,7 +9388,7 @@ char *sub_1D16C0738(unint64_t a1)
       for (i = 0; i != v2; ++i)
       {
         MEMORY[0x1D388E7D0](i, a1);
-        sub_1D168EE64(0, &qword_1EC640AC0);
+        sub_1D168EE64(0, &qword_1EC640AC0, 0x1E6979378);
         swift_dynamicCast();
         v13 = v3;
         v7 = *(v3 + 16);
@@ -9256,7 +9407,7 @@ char *sub_1D16C0738(unint64_t a1)
     else
     {
       v8 = (a1 + 32);
-      sub_1D168EE64(0, &qword_1EC640AC0);
+      sub_1D168EE64(0, &qword_1EC640AC0, 0x1E6979378);
       do
       {
         v9 = *v8;
@@ -9321,7 +9472,7 @@ void sub_1D16C098C()
       v7 = MEMORY[0x1E69E7CC0];
     }
 
-    v15 = sub_1D168EE64(0, &qword_1EC640AC0);
+    v15 = sub_1D168EE64(0, &qword_1EC640AC0, 0x1E6979378);
     *&v14 = v3;
     sub_1D16901B4(&v14, v13);
     v8 = *(v7 + 16);
@@ -9377,7 +9528,7 @@ void sub_1D16C0BDC()
 
         sub_1D16C27B0(v8, v28);
         sub_1D16C27B0(v28, v27);
-        sub_1D168EE64(0, v9);
+        sub_1D168EE64(0, v9, 0x1E6979378);
         if (!swift_dynamicCast())
         {
           goto LABEL_20;
@@ -9495,114 +9646,4 @@ LABEL_26:
   }
 
   [v22 setFilters_];
-}
-
-void sub_1D16C0F28(void *a1)
-{
-  v1 = a1;
-  sub_1D16C0BDC();
-}
-
-double sub_1D16C0F70(void *a1)
-{
-  v1 = a1;
-  v2 = sub_1D16C0FAC();
-
-  return v2;
-}
-
-double sub_1D16C0FAC()
-{
-  v1 = [v0 layer];
-  if (qword_1EC641298 != -1)
-  {
-    swift_once();
-  }
-
-  v2 = sub_1D16CC494();
-  v3 = [v1 valueForKeyPath_];
-
-  if (v3)
-  {
-    sub_1D16CC5D4();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v6 = 0u;
-    v7 = 0u;
-  }
-
-  v8[0] = v6;
-  v8[1] = v7;
-  if (*(&v7 + 1))
-  {
-    if (swift_dynamicCast())
-    {
-      return v5;
-    }
-  }
-
-  else
-  {
-    sub_1D16C2BE4(v8, &unk_1EC641620);
-  }
-
-  return 0.0;
-}
-
-void sub_1D16C10E0(void *a1)
-{
-  v4 = a1;
-  v1 = [v4 layer];
-  v2 = sub_1D16CC244();
-  if (qword_1EC641298 != -1)
-  {
-    swift_once();
-  }
-
-  v3 = sub_1D16CC494();
-  [v1 setValue:v2 forKeyPath:v3];
-}
-
-uint64_t sub_1D16C11C0()
-{
-  result = sub_1D16CC4A4();
-  qword_1EC640B90 = result;
-  *algn_1EC640B98 = v1;
-  return result;
-}
-
-uint64_t sub_1D16C11F0()
-{
-  if (qword_1EC640B80 != -1)
-  {
-    swift_once();
-  }
-
-  v0 = qword_1EC640B90;
-  v1 = *algn_1EC640B98;
-
-  MEMORY[0x1D388E650](v0, v1);
-
-  MEMORY[0x1D388E650](46, 0xE100000000000000);
-  v2 = sub_1D16CC4A4();
-  MEMORY[0x1D388E650](v2);
-
-  qword_1EC6413D0 = 0x2E737265746C6966;
-  *algn_1EC6413D8 = 0xE800000000000000;
-  return result;
-}
-
-id sub_1D16C12D4()
-{
-  v1 = [v0 font];
-
-  return v1;
-}
-
-void sub_1D16C130C(void *a1)
-{
-  [v1 setFont_];
 }

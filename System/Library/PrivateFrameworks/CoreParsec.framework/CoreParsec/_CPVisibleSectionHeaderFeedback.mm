@@ -61,24 +61,21 @@ LABEL_10:
   toCopy = to;
   if ([(_CPVisibleSectionHeaderFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPVisibleSectionHeaderFeedback *)self headerType])
   {
-    headerType = self->_headerType;
     PBDataWriterWriteInt32Field();
   }
 
   sectionId = [(_CPVisibleSectionHeaderFeedback *)self sectionId];
 
-  v7 = toCopy;
+  v5 = toCopy;
   if (sectionId)
   {
-    sectionId = self->_sectionId;
     PBDataWriterWriteStringField();
-    v7 = toCopy;
+    v5 = toCopy;
   }
 }
 

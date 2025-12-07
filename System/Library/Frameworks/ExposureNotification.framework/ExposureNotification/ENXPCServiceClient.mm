@@ -148,14 +148,14 @@ void *__54__ENXPCServiceClient__ensureXPCStartedAndReturnError___block_invoke(ui
 
       else
       {
-        v8 = ENErrorF(1);
+        v8 = ENErrorF(1, "XPC event error");
       }
 
       v10 = v8;
 
       if (gLogCategory__ENXPCServiceClient <= 90 && (gLogCategory__ENXPCServiceClient != -1 || _LogCategory_Initialize()))
       {
-        [ENXPCServiceClient _xpcReceivedEvent:];
+        [(ENXPCServiceClient *)v10 _xpcReceivedEvent:v11];
       }
     }
 
@@ -180,16 +180,16 @@ LABEL_15:
   {
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
-    *a1 = ENErrorF(10);
+    *a1 = ENErrorF(10, "%@ invalidated", v6);
   }
 
   *a3 = 0;
 }
 
-- (void)_xpcReceivedEvent:.cold.1()
+- (void)_xpcReceivedEvent:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v1 = CUPrintNSError();
-  v0 = CUPrintXPC();
+  v3 = CUPrintNSError();
+  v2 = CUPrintXPC();
   LogPrintF_safe();
 }
 

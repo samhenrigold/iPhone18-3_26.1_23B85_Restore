@@ -178,63 +178,13 @@ void __93__MOAppEngagementReporter_didAppEntryUpdateUsingSuggestions_onEvent_dur
   return v3;
 }
 
-- (void)didAppEntryUpdateUsingSuggestions:onEvent:duringInterval:withInfo:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_22D8C5000, v0, v1, "MOAppEngagementReporter:didAppEntryUpdateUsingSuggestions: missing suggestionIdentifiers (in %s:%d)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)didAppEntryUpdateUsingSuggestions:onEvent:duringInterval:withInfo:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_22D8C5000, v0, v1, "MOAppEngagementReporter:didAppEntryUpdateUsingSuggestions: suggestionIdentifiers count should be up to kMOMaxAppEntrySuggestionsCount (in %s:%d)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)didAppEntryUpdateUsingSuggestions:onEvent:duringInterval:withInfo:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_22D8C5000, v0, v1, "MOAppEngagementReporter:didAppEntryUpdateUsingSuggestions: can't update entries in the future (in %s:%d)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)didAppEntryUpdateUsingSuggestions:onEvent:duringInterval:withInfo:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_22D8C5000, v0, v1, "MOAppEngagementReporter:didAppEntryUpdateUsingSuggestions: Missing .addedCharacters key (in %s:%d)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)didAppEntryUpdateUsingSuggestions:onEvent:duringInterval:withInfo:.cold.6()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_22D8C5000, v0, v1, "MOAppEngagementReporter:didAppEntryUpdateUsingSuggestions: Missing .totalCharacters key (in %s:%d)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)didAppEntryUpdateUsingSuggestions:onEvent:duringInterval:withInfo:.cold.7()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_22D8C5000, v0, v1, "MOAppEngagementReporter:didAppEntryUpdateUsingSuggestions: Unexpected update event (in %s:%d)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __93__MOAppEngagementReporter_didAppEntryUpdateUsingSuggestions_onEvent_duringInterval_withInfo___block_invoke_2_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_ERROR, "Error: %@, didAppEntryUpdateUsingSuggestions", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_ERROR, "Error: %@, didAppEntryUpdateUsingSuggestions", &v4, 0xCu);
 }
 
 @end

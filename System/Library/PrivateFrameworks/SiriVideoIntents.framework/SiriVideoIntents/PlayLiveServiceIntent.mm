@@ -25,14 +25,15 @@
 
 - (PlayLiveServiceIntent)initWithDomain:(id)domain verb:(id)verb parametersByName:(id)name
 {
-  sub_269854A94();
+  v6 = sub_269854A94();
+  v8 = v7;
   sub_269854A94();
   if (name)
   {
     sub_2698549E4();
   }
 
-  return PlayLiveServiceIntent.init(domain:verb:parametersByName:)();
+  return PlayLiveServiceIntent.init(domain:verb:parametersByName:)(v6, v8);
 }
 
 @end

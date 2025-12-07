@@ -7,7 +7,7 @@
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VideoConference [%s] %s:%d VideoConference: onCaptureFrame failed to acquire rdlock, FRAME SKIPPED", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VideoConference [%s] %s:%d VideoConference: onCaptureFrame failed to acquire rdlock, FRAME SKIPPED", v2, v3, v4, v5);
 }
 
 - (void)avConferencePreviewError:()VideoProcessing .cold.1()
@@ -21,7 +21,7 @@
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_21();
-  OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v1, v2, "VideoConference [%s] %s:%d VideoConference: received error from camera: %s", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v1, v2, "VideoConference [%s] %s:%d VideoConference: received error from camera: %s", v3, v4, v5, v6);
 }
 
 - (void)avConferenceScreenCaptureError:()VideoProcessing .cold.1()
@@ -51,7 +51,7 @@
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_21();
-  OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v1, v2, "VideoConference [%s] %s:%d VideoConference: received error from Screen Capture: %s", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v1, v2, "VideoConference [%s] %s:%d VideoConference: received error from Screen Capture: %s", v3, v4, v5, v6);
 }
 
 @end

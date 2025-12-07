@@ -1,6 +1,7 @@
 @interface SESGDPRViewController
 - (void)present;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SESGDPRViewController
@@ -17,6 +18,13 @@
   v4.receiver = self;
   v4.super_class = SESGDPRViewController;
   [(SESGDPRViewController *)&v4 viewDidLoad];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = SESGDPRViewController;
+  [(SESGDPRViewController *)&v3 viewWillDisappear:disappear];
 }
 
 - (void)present

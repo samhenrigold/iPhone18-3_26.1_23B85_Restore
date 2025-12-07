@@ -16,7 +16,10 @@
 - (void)_goToKBArticleAboutChangingBirthday;
 - (void)_invalidateLookupConnection;
 - (void)_main_dismissAndExit;
+- (void)_persistUserHaveSeenAlertWithAction:(int)action;
 - (void)_prepareMessagesInvitation;
+- (void)_respondToCustodianInvitationWithResponse:(BOOL)response;
+- (void)_respondToInheritanceInvitationWithResponse:(BOOL)response;
 - (void)_setupRemoteProxy;
 - (void)_showCustodianInvitationAcceptedView;
 - (void)_showInheritanceInvitationAcceptedView;
@@ -30,9 +33,58 @@
 - (void)prepareViewServiceForPresentation;
 - (void)setUpHostProxy;
 - (void)setUpLookupConnection:(id)connection;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AAUIRemoteViewController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = AAUIRemoteViewController;
+  [(AAUIRemoteViewController *)&v12 viewWillAppear:appear];
+  view = [(AAUIRemoteViewController *)self view];
+  window = [view window];
+  _rootSheetPresentationController = [window _rootSheetPresentationController];
+  [_rootSheetPresentationController _setShouldScaleDownBehindDescendantSheets:0];
+
+  [(AAUIRemoteViewController *)self setNeedsStatusBarAppearanceUpdate];
+  [(AAUIRemoteViewController *)self _setupRemoteProxy];
+  viewServiceFlowType = [(AAUIRemoteViewController *)self viewServiceFlowType];
+  if (viewServiceFlowType >= 4)
+  {
+    if (viewServiceFlowType == 4)
+    {
+      v8 = +[AAUIFeatureFlags isU13InferPromptEnabled];
+      v9 = _AAUILogSystem();
+      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+      if (v8)
+      {
+        if (v10)
+        {
+          *v11 = 0;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Showing misconfigured age prompt", v11, 2u);
+        }
+
+        [(AAUIRemoteViewController *)self _displayMisconfiguredAgePrompt];
+      }
+
+      else
+      {
+        if (v10)
+        {
+          *v11 = 0;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "misconfigure age prompt feature not enabled.", v11, 2u);
+        }
+      }
+    }
+  }
+
+  else
+  {
+    [(AAUIRemoteViewController *)self _showInvitedAsFlow];
+  }
+}
 
 - (unint64_t)supportedInterfaceOrientations
 {
@@ -225,6 +277,33 @@ LABEL_25:
   }
 }
 
+- (void)_persistUserHaveSeenAlertWithAction:(int)action
+{
+  v3 = *&action;
+  v5 = _AAUILogSystem();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315394;
+    v13 = "[AAUIRemoteViewController _persistUserHaveSeenAlertWithAction:]";
+    v14 = 1024;
+    v15 = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s: Persisting user action: %d", buf, 0x12u);
+  }
+
+  v6 = [AAAgeMisconfiguredPromptContext alloc];
+  altDSID = [(AAAgeMigrationPromptModelProtocol *)self->_ageMigrationPromptModel altDSID];
+  bundleID = [(AAAgeMigrationPromptModelProtocol *)self->_ageMigrationPromptModel bundleID];
+  v9 = [v6 initWithAltDSID:altDSID bundleID:bundleID];
+
+  v10 = objc_alloc_init(AAAgeMigrationController);
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100002C88;
+  v11[3] = &unk_100010410;
+  v11[4] = self;
+  [v10 saveUserAcknowledgeMisconfiguredAgedPromptWithContext:v9 action:v3 completion:v11];
+}
+
 - (void)_buildViewModelWithContextInfo:(id)info
 {
   infoCopy = info;
@@ -399,18 +478,17 @@ LABEL_29:
   welcomeController = self->_welcomeController;
   self->_welcomeController = v3;
 
-  viewModel = self->_viewModel;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     custodianshipInfo = [(AAUIOBWelcomeControllerViewModelProtocol *)self->_viewModel custodianshipInfo];
     status = [custodianshipInfo status];
 
-    v8 = _AAUILogSystem();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+    v7 = _AAUILogSystem();
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
     if (status == 1)
     {
-      if (v9)
+      if (v8)
       {
         sub_1000061A8();
       }
@@ -419,13 +497,13 @@ LABEL_29:
       [primaryButton addTarget:self action:"_acceptInheritanceInvite" forEvents:64];
 
       secondaryButton = [(AAUIOBWelcomeController *)self->_welcomeController secondaryButton];
-      v12 = secondaryButton;
-      v13 = "_declineInheritanceInvite";
+      v11 = secondaryButton;
+      v12 = "_declineInheritanceInvite";
     }
 
     else
     {
-      if (v9)
+      if (v8)
       {
         sub_10000616C();
       }
@@ -434,22 +512,21 @@ LABEL_29:
       [primaryButton2 addTarget:self action:"_legacyContactExitWithoutSettings" forEvents:64];
 
       secondaryButton = [(AAUIOBWelcomeController *)self->_welcomeController secondaryButton];
-      v12 = secondaryButton;
-      v13 = "_goToAccountBeneficiarySettings";
+      v11 = secondaryButton;
+      v12 = "_goToAccountBeneficiarySettings";
     }
   }
 
   else
   {
-    v14 = _AAUILogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v13 = _AAUILogSystem();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       sub_10000607C();
     }
 
     self->_isCustodianFlow = 1;
-    v15 = self->_viewModel;
-    if ((objc_opt_respondsToSelector() & 1) == 0 || ([(AAUIOBWelcomeControllerViewModelProtocol *)self->_viewModel custodianshipInfo], v16 = objc_claimAutoreleasedReturnValue(), v16, !v16))
+    if ((objc_opt_respondsToSelector() & 1) == 0 || ([(AAUIOBWelcomeControllerViewModelProtocol *)self->_viewModel custodianshipInfo], v14 = objc_claimAutoreleasedReturnValue(), v14, !v14))
     {
       [(AAUIOBWelcomeController *)self->_welcomeController setDelegate:self];
       return;
@@ -460,8 +537,8 @@ LABEL_29:
 
     if (status2 == 1)
     {
-      v19 = _AAUILogSystem();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v17 = _AAUILogSystem();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         sub_100006130();
       }
@@ -477,11 +554,11 @@ LABEL_29:
       custodianshipInfo3 = [(AAUIOBWelcomeControllerViewModelProtocol *)self->_viewModel custodianshipInfo];
       status3 = [custodianshipInfo3 status];
 
-      v24 = _AAUILogSystem();
-      v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG);
+      v22 = _AAUILogSystem();
+      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
       if (status3 != 5)
       {
-        if (v25)
+        if (v23)
         {
           sub_1000060B8();
         }
@@ -490,12 +567,12 @@ LABEL_29:
         [primaryButton4 addTarget:self action:"_dismissAndExit" forEvents:64];
 
         secondaryButton = [(AAUIOBWelcomeController *)self->_welcomeController secondaryButton];
-        v12 = secondaryButton;
-        v13 = "_goToAccountRecoverySettings";
+        v11 = secondaryButton;
+        v12 = "_goToAccountRecoverySettings";
         goto LABEL_26;
       }
 
-      if (v25)
+      if (v23)
       {
         sub_1000060F4();
       }
@@ -503,12 +580,12 @@ LABEL_29:
       secondaryButton = [(AAUIOBWelcomeController *)self->_welcomeController primaryButton];
     }
 
-    v12 = secondaryButton;
-    v13 = "_declineCustodianshipInvite";
+    v11 = secondaryButton;
+    v12 = "_declineCustodianshipInvite";
   }
 
 LABEL_26:
-  [secondaryButton addTarget:self action:v13 forEvents:64];
+  [secondaryButton addTarget:self action:v12 forEvents:64];
 }
 
 - (void)prepareViewServiceForPresentation
@@ -765,6 +842,35 @@ LABEL_26:
   [(AAUIRemoteViewController *)self _respondToInheritanceInvitationWithResponse:0];
 }
 
+- (void)_respondToInheritanceInvitationWithResponse:(BOOL)response
+{
+  responseCopy = response;
+  v5 = _AAUILogSystem();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"Declining";
+    if (responseCopy)
+    {
+      v6 = @"Accepting";
+    }
+
+    *buf = 138543362;
+    v13 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "LCInvite: %{public}@ the Inheritance invitation...", buf, 0xCu);
+  }
+
+  v7 = objc_alloc_init(AAInheritanceController);
+  custodianshipInfo = [(AAUIOBWelcomeControllerViewModelProtocol *)self->_viewModel custodianshipInfo];
+  custodianID = [custodianshipInfo custodianID];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_100004798;
+  v10[3] = &unk_100010518;
+  v10[4] = self;
+  v11 = responseCopy;
+  [v7 respondToInvitation:custodianID accepted:responseCopy completion:v10];
+}
+
 - (void)_acceptCustodianshipInvite
 {
   v3 = [[AAUID2DEncryptionFlowContext alloc] initWithType:0];
@@ -781,6 +887,38 @@ LABEL_26:
   objc_destroyWeak(&v8);
 
   objc_destroyWeak(&location);
+}
+
+- (void)_respondToCustodianInvitationWithResponse:(BOOL)response
+{
+  responseCopy = response;
+  v5 = _AAUILogSystem();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"Declining";
+    if (responseCopy)
+    {
+      v6 = @"Accepting";
+    }
+
+    *buf = 138412290;
+    v15 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ the custodian invitation...", buf, 0xCu);
+  }
+
+  v7 = [AACustodianInvitationResponseContext alloc];
+  custodianshipInfo = [(AAUIOBWelcomeControllerViewModelProtocol *)self->_viewModel custodianshipInfo];
+  custodianID = [custodianshipInfo custodianID];
+  v10 = [v7 initWithCustodianID:custodianID didAccept:responseCopy];
+
+  v11 = objc_opt_new();
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_100004BBC;
+  v12[3] = &unk_100010518;
+  v12[4] = self;
+  v13 = responseCopy;
+  [v11 respondToCustodianRequestWithResponse:v10 completion:v12];
 }
 
 - (void)_showCustodianInvitationAcceptedView

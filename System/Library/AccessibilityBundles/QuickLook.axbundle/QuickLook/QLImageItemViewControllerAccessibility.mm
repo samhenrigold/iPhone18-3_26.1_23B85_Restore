@@ -3,6 +3,7 @@
 - (id)_axPhotoDescriptionFromContents:(id)contents context:(id)context;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
+- (void)previewDidAppear:(BOOL)appear;
 @end
 
 @implementation QLImageItemViewControllerAccessibility
@@ -43,6 +44,14 @@
   v6.receiver = self;
   v6.super_class = QLImageItemViewControllerAccessibility;
   [(QLImageItemViewControllerAccessibility *)&v6 loadPreviewControllerWithContents:contents context:context completionHandler:handler];
+  [(QLImageItemViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)previewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = QLImageItemViewControllerAccessibility;
+  [(QLImageItemViewControllerAccessibility *)&v4 previewDidAppear:appear];
   [(QLImageItemViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
@@ -121,10 +130,7 @@ LABEL_13:
 
 uint64_t __82__QLImageItemViewControllerAccessibility__axPhotoDescriptionFromContents_context___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) frameAtTime:0.0];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) frameAtTime:0.0];
 
   return MEMORY[0x2A1C71028]();
 }

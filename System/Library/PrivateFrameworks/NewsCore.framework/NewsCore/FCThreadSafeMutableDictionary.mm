@@ -46,10 +46,10 @@ uint64_t __42__FCThreadSafeMutableDictionary_allValues__block_invoke(uint64_t a1
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
-uint64_t __38__FCThreadSafeMutableDictionary_count__block_invoke(uint64_t a1)
+void *__38__FCThreadSafeMutableDictionary_count__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -126,7 +126,7 @@ uint64_t __40__FCThreadSafeMutableDictionary_allKeys__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSDictionary)readOnlyDictionary
@@ -158,7 +158,7 @@ uint64_t __51__FCThreadSafeMutableDictionary_readOnlyDictionary__block_invoke(ui
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (FCThreadSafeMutableDictionary)initWithDictionary:(id)dictionary
@@ -342,41 +342,39 @@ uint64_t __54__FCThreadSafeMutableDictionary_subdictionaryForKeys___block_invoke
 
 void __66__FCThreadSafeMutableDictionary_subdictionaryForKeys_passingTest___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
-        v8 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:{v7, v10}];
+        v7 = *(*(&v9 + 1) + 8 * i);
+        v8 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:{v7, v9}];
         if (v8 && (*(*(a1 + 56) + 16))())
         {
           [*(a1 + 48) setObject:v8 forKeyedSubscript:v7];
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateKeysAndObjectsUsingBlock:(id)block

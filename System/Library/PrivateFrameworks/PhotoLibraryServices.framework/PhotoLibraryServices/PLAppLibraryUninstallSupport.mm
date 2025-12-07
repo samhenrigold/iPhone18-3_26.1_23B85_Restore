@@ -137,7 +137,7 @@ LABEL_18:
   if (!v4)
   {
     domain = [v5 domain];
-    if ([domain isEqualToString:*MEMORY[0x1E696A768]])
+    if (objc_msgSend_isEqualToString_(domain))
     {
       code = [v6 code];
 
@@ -201,7 +201,7 @@ LABEL_12:
   v7 = [MEMORY[0x1E695DFA8] set];
   v74 = v6;
   v75 = applicationCopy;
-  if ([v6 count])
+  if (objc_msgSend_count(v6))
   {
     v8 = v7;
     v94 = 0u;
@@ -255,7 +255,7 @@ LABEL_12:
     v7 = v8;
   }
 
-  if ([applicationCopy isEqualToString:*MEMORY[0x1E69BFEC0]])
+  if (objc_msgSend_isEqualToString_(applicationCopy))
   {
     containerIdentifier = [v76 containerIdentifier];
     v18 = [PLPhotoLibraryFinder defaultLibraryURLForLibraryDomain:3 container:containerIdentifier uuid:@"00000000-0000-0000-0000-000000000001"];
@@ -277,7 +277,7 @@ LABEL_12:
     }
   }
 
-  if (![v7 count])
+  if (!objc_msgSend_count(v7))
   {
     v65 = PLBackendGetLog();
     v32 = v65;
@@ -541,7 +541,7 @@ LABEL_73:
   }
 
   [(PLPhotoLibrarySearchCriteria *)v5 setDomain:3];
-  if ([(__CFString *)identifierCopy isEqualToString:*MEMORY[0x1E69BFEC0]])
+  if (objc_msgSend_isEqualToString_(identifierCopy))
   {
     v8 = @"com.apple.GenerativePlayground";
   }
@@ -570,7 +570,7 @@ LABEL_73:
 
   v6 = [notificationCopy objectForKeyedSubscript:@"bundleIDs"];
   applicationBundlesToValidateForUninstallCleanup = [objc_opt_class() applicationBundlesToValidateForUninstallCleanup];
-  if ([v6 count])
+  if (objc_msgSend_count(v6))
   {
     v8 = [MEMORY[0x1E695DFA8] setWithArray:v6];
     [v8 intersectSet:applicationBundlesToValidateForUninstallCleanup];
@@ -578,7 +578,7 @@ LABEL_73:
     applicationBundlesToValidateForUninstallCleanup = v8;
   }
 
-  if ([applicationBundlesToValidateForUninstallCleanup count])
+  if (objc_msgSend_count(applicationBundlesToValidateForUninstallCleanup))
   {
     v20 = 0u;
     v21 = 0u;

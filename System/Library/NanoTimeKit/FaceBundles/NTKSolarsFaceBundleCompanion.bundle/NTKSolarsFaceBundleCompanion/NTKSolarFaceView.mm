@@ -16,7 +16,6 @@
 - (void)_applyDataMode;
 - (void)_applyShowContentForUnadornedSnapshot;
 - (void)_asyncUpdateLocale;
-- (void)_buttonPressTimerFired;
 - (void)_cleanupAfterEditing;
 - (void)_cleanupAfterSettingViewMode:(int64_t)mode;
 - (void)_configureForEditMode:(int64_t)mode;
@@ -34,6 +33,7 @@
 - (void)_prepareForEditing;
 - (void)_prepareForSettingViewMode:(int64_t)mode;
 - (void)_setSolarBezierPath:(id)path animated:(BOOL)animated;
+- (void)_setViewMode:(int64_t)mode animated:(BOOL)animated completion:(id)completion;
 - (void)_setupViews;
 - (void)_sharedLocationManagerUpdatedLocation:(id)location error:(id)error;
 - (void)_solarDiskPercentageChanged:(double)changed;
@@ -564,13 +564,6 @@
   }
 }
 
-- (void)_buttonPressTimerFired
-{
-  buttonPressTimer = self->_buttonPressTimer;
-  self->_buttonPressTimer = 0;
-  _objc_release_x1();
-}
-
 - (void)_updateTimeScrubbingContentForViewMode:(int64_t)mode
 {
   _isAnimating = [(NTKSolarFaceView *)self _isAnimating];
@@ -880,20 +873,18 @@ LABEL_12:
 
 - (void)_updateLocale
 {
-  v6 = +[NSLocale currentLocale];
-  v3 = CLKLocaleIs24HourMode();
-  overrideDateFormatter = self->_overrideDateFormatter;
-  if (v3)
+  v4 = +[NSLocale currentLocale];
+  if (CLKLocaleIs24HourMode())
   {
-    v5 = @"H:mm";
+    v3 = @"H:mm";
   }
 
   else
   {
-    v5 = @"h:mm a";
+    v3 = @"h:mm a";
   }
 
-  [(NSDateFormatter *)self->_overrideDateFormatter setLocalizedDateFormatFromTemplate:v5];
+  [(NSDateFormatter *)self->_overrideDateFormatter setLocalizedDateFormatFromTemplate:v3];
 }
 
 - (void)_handleViewModeTapGesture:(id)gesture
@@ -2058,6 +2049,51 @@ LABEL_5:
   [(NTKDigitialUtilitarianFaceViewComplicationFactory *)self->_faceViewComplicationFactory setAlpha:self faceView:?];
 }
 
+- (void)_setViewMode:(int64_t)mode animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  if ((*(self + 368) & 1) != 0 && (!mode || [(NTKSolarFaceView *)self viewMode]!= mode))
+  {
+    self->_previousViewMode = [(NTKSolarFaceView *)self viewMode];
+    self->_nextViewMode = mode;
+    [(NTKSolarFaceView *)self _prepareForSettingViewMode:mode];
+    v9 = [(NTKSolarFaceView *)self _updateTimeScrubbingContentForViewMode:mode];
+    if (mode == 2)
+    {
+      scrubLabel = self->_scrubLabel;
+      v11 = sub_83B0(v9);
+      [(UILabel *)scrubLabel setText:v11];
+    }
+
+    delegate = [(NTKSolarFaceView *)self delegate];
+    [delegate faceViewWantsStatusBarHidden:mode == 2 animated:animatedCopy];
+
+    [(NTKSolarFaceView *)self _interpolateFromViewMode:self->_previousViewMode toViewMode:mode progress:1.0];
+    [(NTKSolarFaceView *)self _transitionToViewMode:mode];
+    [(NTKSolarFaceView *)self invalidateDigitalTimeLabelStyle];
+    v14.receiver = self;
+    v14.super_class = NTKSolarFaceView;
+    [(NTKSolarFaceView *)&v14 setViewMode:mode];
+    if (mode == 2 || self->_previousViewMode == 2)
+    {
+      _createSolarBezierPath = [(NTKSolarFaceView *)self _createSolarBezierPath];
+      [(NTKSolarFaceView *)self _setSolarBezierPath:_createSolarBezierPath animated:0];
+    }
+
+    [(NTKSolarFaceView *)self _cleanupAfterSettingViewMode:mode];
+    [(NTKSolarFaceView *)self _solarDiskRestPercentage];
+    [(NTKSolarFaceView *)self _solarDiskPercentageChanged:?];
+    [(NTKSolarFaceView *)self setNeedsLayout];
+    [(NTKSolarFaceView *)self layoutIfNeeded];
+  }
+
+  if (completionCopy)
+  {
+    completionCopy[2](completionCopy);
+  }
+}
+
 - (void)_prepareForSettingViewMode:(int64_t)mode
 {
   if (mode == 2)
@@ -2298,7 +2334,7 @@ LABEL_9:
   v9 = v8;
   *&recta.origin.y = [(UILabel *)self->_overrideDateLabel text];
   overrideDateLabel = self->_overrideDateLabel;
-  v11 = sub_83B0();
+  v11 = sub_83B0(*&recta.origin.y);
   [(UILabel *)overrideDateLabel setText:v11];
 
   [(UILabel *)self->_overrideDateLabel sizeToFit];
@@ -2306,39 +2342,38 @@ LABEL_9:
   v13 = v12;
   [(UILabel *)self->_overrideDateLabel setText:*&recta.origin.y];
   device = [(NTKSolarFaceView *)self device];
-  sub_9538(device, v33);
-  v15 = v34;
+  sub_9538(device, v32);
+  v15 = v33;
 
   device2 = [(NTKSolarFaceView *)self device];
   sub_9538(device2, &recta.size);
-  v17 = v32;
+  v17 = v31;
 
   v18 = self->_overrideDateLabel;
   timeView = [(NTKSolarFaceView *)self timeView];
   [timeView frame];
-  [(UILabel *)v18 setFrame:v17, v15, CGRectGetMinX(v36) - v17 + -8.0, v13];
+  [(UILabel *)v18 setFrame:v17, v15, CGRectGetMinX(v35) - v17 + -8.0, v13];
 
   [(UILabel *)self->_scrubLabel setFrame:v17, v9 - v13 - v15, v7 - v17 * 2.0, v13];
-  y = CGRectZero.origin.y;
-  v37.origin.x = recta.origin.x;
-  v37.origin.y = v5;
-  v37.size.width = v7;
-  v37.size.height = v9;
-  CGRectGetWidth(v37);
+  v36.origin.x = recta.origin.x;
+  v36.origin.y = v5;
+  v36.size.width = v7;
+  v36.size.height = v9;
+  CGRectGetWidth(v36);
   path = [(NTKBezierPathView *)self->_solarBezierPathView path];
   [path bounds];
-  CGRectGetMinY(v38);
+  CGRectGetMinY(v37);
   [(NTKSolarDiskView *)self->_solarDiskView bounds];
-  CGRectGetHeight(v39);
+  CGRectGetHeight(v38);
 
   device3 = [(NTKSolarFaceView *)self device];
   CLKRectCenteredYInRectForDevice();
-  v24 = v23;
-  v26 = v25;
-  v28 = v27;
-  v30 = v29;
+  v23 = v22;
+  v25 = v24;
+  v27 = v26;
+  v29 = v28;
 
-  [(UILabel *)self->_waypointLabel setFrame:v24, v15 + v26, v28, v30];
+  [(UILabel *)self->_waypointLabel setFrame:v23, v15 + v25, v27, v29];
 }
 
 - (void)_prepareForEditing

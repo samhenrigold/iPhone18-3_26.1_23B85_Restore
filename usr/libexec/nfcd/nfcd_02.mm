@@ -1,360 +1,4 @@
-uint64_t sub_100039A54(uint64_t a1, void *a2, void *a3)
-{
-  v4 = sub_100039AC8(*(a1 + 32), a3, a2, *(a1 + 40));
-  v5 = v4;
-  if (v4)
-  {
-    v7 = v4;
-    objc_storeStrong((*(*(a1 + 48) + 8) + 40), v4);
-    v5 = v7;
-  }
-
-  return _objc_release_x1(v4, v5);
-}
-
-id sub_100039AC8(void **a1, void *a2, void *a3, void *a4)
-{
-  v7 = a2;
-  v8 = a3;
-  v9 = a4;
-  if (a1)
-  {
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    Logger = NFLogGetLogger();
-    if (Logger)
-    {
-      v11 = Logger;
-      Class = object_getClass(a1);
-      isMetaClass = class_isMetaClass(Class);
-      ClassName = object_getClassName(a1);
-      Name = sel_getName("_disableAuthOnKeys:forApplet:authorization:uid:");
-      v15 = 45;
-      if (isMetaClass)
-      {
-        v15 = 43;
-      }
-
-      v11(6, "%c[%{public}s %{public}s]:%i AID: %{public}@ keys: %{public}@", v15, ClassName, Name, 1621, v8, v7);
-    }
-
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v16 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-    {
-      v17 = object_getClass(a1);
-      if (class_isMetaClass(v17))
-      {
-        v18 = 43;
-      }
-
-      else
-      {
-        v18 = 45;
-      }
-
-      v19 = object_getClassName(a1);
-      v20 = sel_getName("_disableAuthOnKeys:forApplet:authorization:uid:");
-      *buf = 67110402;
-      v96 = v18;
-      v97 = 2082;
-      v98 = v19;
-      v99 = 2082;
-      v100 = v20;
-      v101 = 1024;
-      v102 = 1621;
-      v103 = 2114;
-      v104 = v8;
-      v105 = 2114;
-      v106 = v7;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i AID: %{public}@ keys: %{public}@", buf, 0x36u);
-    }
-
-    v83 = v9;
-    if (v7 && [v7 count])
-    {
-      v84 = 0;
-      v21 = sub_1000366B4(a1, v8, &v84);
-      v22 = v84;
-      v23 = v22;
-      v82 = v7;
-      if (!v21 || v22)
-      {
-        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v47 = NFLogGetLogger();
-        v80 = v23;
-        if (v47)
-        {
-          v48 = v47;
-          v49 = object_getClass(a1);
-          v50 = class_isMetaClass(v49);
-          v51 = v21;
-          v52 = object_getClassName(a1);
-          v53 = sel_getName("_disableAuthOnKeys:forApplet:authorization:uid:");
-          v54 = [v8 identifier];
-          v73 = v52;
-          v55 = 45;
-          if (v50)
-          {
-            v55 = 43;
-          }
-
-          v21 = v51;
-          v48(3, "%c[%{public}s %{public}s]:%i Failed to load SE for applet: %{public}@", v55, v73, v53, 1631, v54);
-
-          v23 = v80;
-        }
-
-        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v56 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
-        {
-          v57 = object_getClass(a1);
-          if (class_isMetaClass(v57))
-          {
-            v58 = 43;
-          }
-
-          else
-          {
-            v58 = 45;
-          }
-
-          v59 = object_getClassName(a1);
-          v60 = sel_getName("_disableAuthOnKeys:forApplet:authorization:uid:");
-          v61 = [v8 identifier];
-          *buf = 67110146;
-          v96 = v58;
-          v97 = 2082;
-          v98 = v59;
-          v23 = v80;
-          v99 = 2082;
-          v100 = v60;
-          v101 = 1024;
-          v102 = 1631;
-          v103 = 2114;
-          v104 = v61;
-          _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to load SE for applet: %{public}@", buf, 0x2Cu);
-        }
-
-        v62 = [NSError alloc];
-        v63 = [NSString stringWithUTF8String:"nfcd"];
-        if (v23)
-        {
-          sel = [v23 code];
-          v91[0] = NSLocalizedDescriptionKey;
-          v64 = v62;
-          v39 = v8;
-          if ([v23 code] > 75)
-          {
-            v65 = 76;
-          }
-
-          else
-          {
-            v65 = [v23 code];
-          }
-
-          v41 = [NSString stringWithUTF8String:off_100315B58[v65]];
-          v92[0] = v41;
-          v92[1] = v23;
-          v91[1] = NSUnderlyingErrorKey;
-          v91[2] = @"Line";
-          v92[2] = &off_100330258;
-          v91[3] = @"Method";
-          v42 = [[NSString alloc] initWithFormat:@"%s", sel_getName("_disableAuthOnKeys:forApplet:authorization:uid:")];
-          v92[3] = v42;
-          v91[4] = NSDebugDescriptionErrorKey;
-          v43 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName("_disableAuthOnKeys:forApplet:authorization:uid:"), 1632];
-          v92[4] = v43;
-          v69 = [NSDictionary dictionaryWithObjects:v92 forKeys:v91 count:5];
-          v45 = [v64 initWithDomain:v63 code:sel userInfo:v69];
-
-          v25 = v80;
-          v40 = v63;
-        }
-
-        else
-        {
-          v39 = v8;
-          v89[0] = NSLocalizedDescriptionKey;
-          v40 = [NSString stringWithUTF8String:"Unknown Error"];
-          v90[0] = v40;
-          v90[1] = &off_100330258;
-          v89[1] = @"Line";
-          v89[2] = @"Method";
-          v68 = v62;
-          v41 = [[NSString alloc] initWithFormat:@"%s", sel_getName("_disableAuthOnKeys:forApplet:authorization:uid:")];
-          v90[2] = v41;
-          v89[3] = NSDebugDescriptionErrorKey;
-          v42 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName("_disableAuthOnKeys:forApplet:authorization:uid:"), 1632];
-          v90[3] = v42;
-          v43 = [NSDictionary dictionaryWithObjects:v90 forKeys:v89 count:4];
-          v45 = [v68 initWithDomain:v63 code:6 userInfo:v43];
-          v25 = v63;
-        }
-      }
-
-      else
-      {
-        v24 = [v8 identifierAsData];
-        v25 = sub_100257F24(v21, v24, 0);
-
-        if (v25 && ([v25 lifecycleState] == 130 || objc_msgSend(v25, "lifecycleState") == 129))
-        {
-          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          v26 = NFLogGetLogger();
-          if (v26)
-          {
-            v27 = v26;
-            v28 = object_getClass(a1);
-            v29 = v25;
-            v30 = class_isMetaClass(v28);
-            v72 = object_getClassName(a1);
-            v75 = sel_getName("_disableAuthOnKeys:forApplet:authorization:uid:");
-            v31 = !v30;
-            v25 = v29;
-            v32 = 45;
-            if (!v31)
-            {
-              v32 = 43;
-            }
-
-            v27(3, "%c[%{public}s %{public}s]:%i Applet %{public}@ is frozen or terminated", v32, v72, v75, 1637, v8);
-          }
-
-          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          v33 = NFSharedLogGetLogger();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
-          {
-            v34 = object_getClass(a1);
-            if (class_isMetaClass(v34))
-            {
-              v35 = 43;
-            }
-
-            else
-            {
-              v35 = 45;
-            }
-
-            v36 = v25;
-            v37 = object_getClassName(a1);
-            v38 = sel_getName("_disableAuthOnKeys:forApplet:authorization:uid:");
-            *buf = 67110146;
-            v96 = v35;
-            v97 = 2082;
-            v98 = v37;
-            v25 = v36;
-            v99 = 2082;
-            v100 = v38;
-            v101 = 1024;
-            v102 = 1637;
-            v103 = 2114;
-            v104 = v8;
-            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Applet %{public}@ is frozen or terminated", buf, 0x2Cu);
-          }
-
-          v39 = v8;
-
-          v76 = [NSError alloc];
-          v40 = [NSString stringWithUTF8String:"nfcd"];
-          v87[0] = NSLocalizedDescriptionKey;
-          v41 = [NSString stringWithUTF8String:"Invalid Parameter"];
-          v88[0] = v41;
-          v88[1] = &off_100330270;
-          v87[1] = @"Line";
-          v87[2] = @"Method";
-          v42 = [[NSString alloc] initWithFormat:@"%s", sel_getName("_disableAuthOnKeys:forApplet:authorization:uid:")];
-          v88[2] = v42;
-          v87[3] = NSDebugDescriptionErrorKey;
-          v43 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName("_disableAuthOnKeys:forApplet:authorization:uid:"), 1638];
-          v88[3] = v43;
-          v44 = [NSDictionary dictionaryWithObjects:v88 forKeys:v87 count:4];
-          v45 = [v76 initWithDomain:v40 code:10 userInfo:v44];
-        }
-
-        else
-        {
-          v66 = sub_10000E24C(a1[5], v7, v25, 1, v9, 0xFFFFFFFF);
-          if (!v66)
-          {
-            v45 = 0;
-LABEL_53:
-
-            v9 = v83;
-            goto LABEL_54;
-          }
-
-          v40 = v66;
-          sela = [NSError alloc];
-          v41 = [NSString stringWithUTF8String:"nfcd"];
-          v77 = [v40 code];
-          v85[0] = NSLocalizedDescriptionKey;
-          v81 = v25;
-          v39 = v8;
-          if ([v40 code] > 75)
-          {
-            v67 = 76;
-          }
-
-          else
-          {
-            v67 = [v40 code];
-          }
-
-          v42 = [NSString stringWithUTF8String:off_100315B58[v67]];
-          v86[0] = v42;
-          v86[1] = v40;
-          v85[1] = NSUnderlyingErrorKey;
-          v85[2] = @"Line";
-          v86[2] = &off_100330288;
-          v85[3] = @"Method";
-          v43 = [[NSString alloc] initWithFormat:@"%s", sel_getName("_disableAuthOnKeys:forApplet:authorization:uid:")];
-          v86[3] = v43;
-          v85[4] = NSDebugDescriptionErrorKey;
-          v44 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName("_disableAuthOnKeys:forApplet:authorization:uid:"), 1647];
-          v86[4] = v44;
-          v70 = [NSDictionary dictionaryWithObjects:v86 forKeys:v85 count:5];
-          v45 = [sela initWithDomain:v41 code:v77 userInfo:v70];
-
-          v25 = v81;
-        }
-      }
-
-      v7 = v82;
-    }
-
-    else
-    {
-      v39 = v8;
-      v46 = [NSError alloc];
-      v21 = [NSString stringWithUTF8String:"nfcd"];
-      v93[0] = NSLocalizedDescriptionKey;
-      v25 = [NSString stringWithUTF8String:"Success"];
-      v94[0] = v25;
-      v94[1] = &off_100330240;
-      v93[1] = @"Line";
-      v93[2] = @"Method";
-      v40 = [[NSString alloc] initWithFormat:@"%s", sel_getName("_disableAuthOnKeys:forApplet:authorization:uid:")];
-      v94[2] = v40;
-      v93[3] = NSDebugDescriptionErrorKey;
-      v41 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName("_disableAuthOnKeys:forApplet:authorization:uid:"), 1624];
-      v94[3] = v41;
-      v42 = [NSDictionary dictionaryWithObjects:v94 forKeys:v93 count:4];
-      v45 = [v46 initWithDomain:v21 code:0 userInfo:v42];
-    }
-
-    v8 = v39;
-    goto LABEL_53;
-  }
-
-  v45 = 0;
-LABEL_54:
-
-  return v45;
-}
-
-id sub_10003A6A0(uint64_t a1, uint64_t a2)
+NSMutableArray *sub_10003A6A0(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -392,7 +36,7 @@ id *sub_10003A754(id *a1)
   return a1;
 }
 
-id sub_10003A788(id *a1, void *a2)
+NSMutableDictionary *sub_10003A788(id *a1, void *a2)
 {
   if (a1)
   {
@@ -512,7 +156,7 @@ id sub_10003A788(id *a1, void *a2)
   return v15;
 }
 
-id sub_10003AB1C(uint64_t a1)
+NSMutableDictionary *sub_10003AB1C(uint64_t a1)
 {
   if (a1)
   {
@@ -651,7 +295,7 @@ id sub_10003AB1C(uint64_t a1)
   return v2;
 }
 
-uint64_t sub_10003AE30(uint64_t a1, void *a2)
+uint64_t sub_10003AE30(void *a1, void *a2)
 {
   v3 = a2;
   v4 = v3;
@@ -682,7 +326,7 @@ uint64_t sub_10003AE30(uint64_t a1, void *a2)
             }
 
             v10 = *(*(&v32 + 1) + 8 * v9);
-            v11 = *(a1 + 40);
+            v11 = a1[5];
             if (v10)
             {
               v12 = *(v10 + 8);
@@ -766,7 +410,7 @@ uint64_t sub_10003AE30(uint64_t a1, void *a2)
 
       if ([v5 count])
       {
-        v26 = sub_10003B14C(a1, v5, *(a1 + 56));
+        v26 = sub_10003B14C(a1, v5, a1[7]);
       }
 
       else
@@ -779,7 +423,7 @@ uint64_t sub_10003AE30(uint64_t a1, void *a2)
 
     else
     {
-      v26 = sub_10003B14C(a1, 0, *(a1 + 56));
+      v26 = sub_10003B14C(a1, 0, a1[7]);
     }
   }
 
@@ -1228,7 +872,7 @@ void sub_10003BB9C(uint64_t a1, char a2)
   [v3 synchronize];
 }
 
-id **sub_10003BC08(uint64_t a1, unsigned int a2)
+id **sub_10003BC08(id **a1, unsigned int a2)
 {
   v2 = a1;
   if (a1)
@@ -2135,7 +1779,7 @@ LABEL_94:
     }
 
     [*(v13 + 1) handleExpressModeExited];
-    sub_10026449C();
+    sub_10026449C(NFSecureElementWrapper);
     return;
   }
 
@@ -3181,35 +2825,18 @@ id *sub_100042C70(id *a1, void *a2)
 void sub_100042CF8(id a1)
 {
   sub_10027E988(v1);
-  v3 = *v2;
-  if (!objc_opt_class())
+  if (objc_opt_class() && (sub_10027E9F4(v2), objc_opt_class()) && (sub_10027E9AC(v3), objc_opt_class()) && (sub_10027E940(v4), objc_opt_class()) && (sub_10027E91C(v5), objc_opt_class()))
   {
-    goto LABEL_7;
-  }
-
-  sub_10027E9F4(v4);
-  v6 = *(v5 + 16);
-  if (!objc_opt_class())
-  {
-    goto LABEL_7;
-  }
-
-  sub_10027E9AC(v7);
-  v9 = *(v8 + 8);
-  if (objc_opt_class() && (sub_10027E940(v10), v12 = *(v11 + 4088), objc_opt_class()) && (sub_10027E91C(v13), v15 = *(v14 + 4080), objc_opt_class()))
-  {
-    sub_10027EA18(v16);
-    v18 = *(v17 + 24);
-    v19 = objc_opt_class() != 0;
+    sub_10027EA18(v6);
+    v7 = objc_opt_class() != 0;
   }
 
   else
   {
-LABEL_7:
-    v19 = 0;
+    v7 = 0;
   }
 
-  byte_10035D928 = v19;
+  byte_10035D928 = v7;
 }
 
 void sub_100042E08(os_unfair_lock_s *a1, void *a2)
@@ -6773,7 +6400,7 @@ LABEL_13:
   }
 }
 
-id sub_10004B24C(uint64_t a1)
+NSMutableDictionary *sub_10004B24C(uint64_t a1)
 {
   if (a1)
   {
@@ -7168,28 +6795,28 @@ LABEL_33:
   }
 }
 
-NFRoutingConfig *sub_10004BD00()
+NFRoutingConfig *sub_10004BD00(uint64_t a1)
 {
   objc_opt_self();
-  v0 = [NFRoutingConfig alloc];
-  if (v0)
+  v1 = [NFRoutingConfig alloc];
+  if (v1)
   {
-    v0 = sub_10004B388(&v0->super.isa, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0);
+    v1 = sub_10004B388(&v1->super.isa, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0);
   }
 
-  return v0;
+  return v1;
 }
 
-NFRoutingConfig *sub_10004BD70()
+NFRoutingConfig *sub_10004BD70(uint64_t a1)
 {
   objc_opt_self();
-  v0 = [NFRoutingConfig alloc];
-  if (v0)
+  v1 = [NFRoutingConfig alloc];
+  if (v1)
   {
-    v0 = sub_10004B388(&v0->super.isa, 0, 0, 0, 0, 3, 2, 0, 2, 0, 0, 0);
+    v1 = sub_10004B388(&v1->super.isa, 0, 0, 0, 0, 3, 2, 0, 2, 0, 0, 0);
   }
 
-  return v0;
+  return v1;
 }
 
 NFRoutingConfig *sub_10004BDE4(uint64_t a1, int a2)
@@ -7236,7 +6863,7 @@ id *sub_10004BE6C(uint64_t a1, void *a2, int a3, int a4, int a5)
   return v12;
 }
 
-NFRoutingConfig *sub_10004BF2C()
+NFRoutingConfig *sub_10004BF2C(uint64_t a1)
 {
   objc_opt_self();
 
@@ -7255,16 +6882,16 @@ NFRoutingConfig *sub_10004BF60(uint64_t a1, void *a2)
   return v3;
 }
 
-NFRoutingConfig *sub_10004BFDC()
+NFRoutingConfig *sub_10004BFDC(uint64_t a1)
 {
   objc_opt_self();
-  v0 = [NFRoutingConfig alloc];
-  if (v0)
+  v1 = [NFRoutingConfig alloc];
+  if (v1)
   {
-    v0 = sub_10004B388(&v0->super.isa, 0, 0, 0, 0, 3, 2, 1, 2, 0, 0, 0);
+    v1 = sub_10004B388(&v1->super.isa, 0, 0, 0, 0, 3, 2, 1, 2, 0, 0, 0);
   }
 
-  return v0;
+  return v1;
 }
 
 NFRoutingConfig *sub_10004C050(uint64_t a1, unsigned __int8 a2, int a3)
@@ -7296,7 +6923,7 @@ NFRoutingConfig *sub_10004C050(uint64_t a1, unsigned __int8 a2, int a3)
   return v6;
 }
 
-id *sub_10004C144()
+id *sub_10004C144(uint64_t a1)
 {
   objc_opt_self();
 
@@ -7328,7 +6955,7 @@ id *sub_10004C224(uint64_t a1, void *a2)
   return sub_10004C17C(NFRoutingConfig, a2, 0);
 }
 
-id *sub_10004C268()
+id *sub_10004C268(uint64_t a1)
 {
   objc_opt_self();
   objc_opt_self();
@@ -7462,7 +7089,7 @@ LABEL_4:
   }
 }
 
-id *sub_10004C51C()
+id *sub_10004C51C(uint64_t a1)
 {
   objc_opt_self();
 
@@ -7504,22 +7131,22 @@ id *sub_10004C61C(uint64_t a1, void *a2)
   return sub_10004C55C(NFRoutingConfig, 0, a2, 0, 0);
 }
 
-id *sub_10004C668()
+id *sub_10004C668(uint64_t a1)
 {
   objc_opt_self();
 
   return sub_10004C55C(NFRoutingConfig, 1, 1, 0, 0);
 }
 
-double sub_10004C6A8()
+double sub_10004C6A8(uint64_t a1)
 {
   objc_opt_self();
   objc_opt_self();
-  v0 = sub_10004C55C(NFRoutingConfig, 1, 1, 0, 0);
-  if (v0)
+  v1 = sub_10004C55C(NFRoutingConfig, 1, 1, 0, 0);
+  if (v1)
   {
     *&result = 0x3EFF000000EFLL;
-    *(v0 + 28) = 0x3EFF000000EFLL;
+    *(v1 + 28) = 0x3EFF000000EFLL;
   }
 
   return result;
@@ -7534,17 +7161,17 @@ id sub_10004C6FC(uint64_t a1, int a2, int a3)
   return v5;
 }
 
-id sub_10004C790()
+id sub_10004C790(uint64_t a1)
 {
   objc_opt_self();
-  v0 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___NFReaderSessionInternalInterface];
-  [NFReaderSessionInterface _configureInterface:v0];
-  v1 = [NSSet alloc];
-  v2 = objc_opt_class();
-  v3 = [v1 initWithObjects:{v2, objc_opt_class(), 0}];
-  [v0 setClasses:v3 forSelector:"startPollingWithConfig:completion:" argumentIndex:0 ofReply:0];
+  v1 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___NFReaderSessionInternalInterface];
+  [NFReaderSessionInterface _configureInterface:v1];
+  v2 = [NSSet alloc];
+  v3 = objc_opt_class();
+  v4 = [v2 initWithObjects:{v3, objc_opt_class(), 0}];
+  [v1 setClasses:v4 forSelector:"startPollingWithConfig:completion:" argumentIndex:0 ofReply:0];
 
-  return v0;
+  return v1;
 }
 
 id *sub_10004CA40(void *a1, uint64_t a2, void *a3, void *a4, void *a5, uint64_t a6)
@@ -7956,7 +7583,7 @@ void sub_10004F2E0(uint64_t a1, void *a2)
   }
 }
 
-uint64_t sub_10004F478(uint64_t result)
+void *sub_10004F478(void *result)
 {
   if (result)
   {
@@ -8010,7 +7637,7 @@ uint64_t sub_10004F478(uint64_t result)
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i type=0x%lx", buf, 0x2Cu);
     }
 
-    return (16 * (v1[23] & 1)) | (v1[23] >> 1) & 0xFLL;
+    return ((16 * (v1[23] & 1)) | (v1[23] >> 1) & 0xFLL);
   }
 
   return result;
@@ -8389,7 +8016,7 @@ void sub_100050308(uint64_t a1, void *a2)
   if (!v6)
   {
     v3 = +[_NFHardwareManager sharedHardwareManager];
-    v4 = sub_10004BFDC();
+    v4 = sub_10004BFDC(NFRoutingConfig);
     v5 = [v3 setRoutingConfig:v4];
   }
 
@@ -8547,15 +8174,15 @@ void sub_100051094(uint64_t a1)
       v14 = sel_getName(*(a1 + 64));
       v15 = [*(a1 + 32) sessionUID];
       *buf = 67110146;
-      v70 = v12;
+      v68 = v12;
+      v69 = 2082;
+      v70 = v13;
       v71 = 2082;
-      v72 = v13;
-      v73 = 2082;
-      v74 = v14;
-      v75 = 1024;
-      v76 = 452;
-      v77 = 2114;
-      v78 = v15;
+      v72 = v14;
+      v73 = 1024;
+      v74 = 452;
+      v75 = 2114;
+      v76 = v15;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", buf, 0x2Cu);
     }
 
@@ -8564,10 +8191,10 @@ void sub_100051094(uint64_t a1)
     {
       v17 = [NSError alloc];
       v18 = [NSString stringWithUTF8String:"nfcd"];
-      v67 = NSLocalizedDescriptionKey;
+      v65 = NSLocalizedDescriptionKey;
       v19 = [NSString stringWithUTF8String:"Session not active"];
-      v68 = v19;
-      v20 = [NSDictionary dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+      v66 = v19;
+      v20 = [NSDictionary dictionaryWithObjects:&v66 forKeys:&v65 count:1];
       v21 = [v17 initWithDomain:v18 code:54 userInfo:v20];
       (*(v16 + 16))(v16, v21);
 
@@ -8577,55 +8204,54 @@ LABEL_15:
 
   else
   {
-    v57 = 0u;
-    v58 = 0u;
     v55 = 0u;
     v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     v18 = *(a1 + 40);
-    v22 = [v18 countByEnumeratingWithState:&v55 objects:v66 count:16];
+    v22 = [v18 countByEnumeratingWithState:&v53 objects:v64 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v56;
+      v24 = *v54;
       while (2)
       {
-        for (i = 0; i != v23; i = i + 1)
+        for (i = 0; i != v23; ++i)
         {
-          if (*v56 != v24)
+          if (*v54 != v24)
           {
             objc_enumerationMutation(v18);
           }
 
-          v26 = *(*(&v55 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v35 = *(a1 + 56);
-            v36 = [NSError alloc];
-            v37 = [NSString stringWithUTF8String:"nfcd"];
-            v64[0] = NSLocalizedDescriptionKey;
-            v38 = [NSString stringWithUTF8String:"Invalid Parameter"];
-            v65[0] = v38;
-            v65[1] = &off_100330378;
-            v64[1] = @"Line";
-            v64[2] = @"Method";
-            v39 = [[NSString alloc] initWithFormat:@"%s", sel_getName(*(a1 + 64))];
-            v65[2] = v39;
-            v64[3] = NSDebugDescriptionErrorKey;
-            v40 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(*(a1 + 64)), 456];
-            v65[3] = v40;
-            v41 = v65;
-            v42 = v64;
+            v33 = *(a1 + 56);
+            v34 = [NSError alloc];
+            v35 = [NSString stringWithUTF8String:"nfcd"];
+            v62[0] = NSLocalizedDescriptionKey;
+            v36 = [NSString stringWithUTF8String:"Invalid Parameter"];
+            v63[0] = v36;
+            v63[1] = &off_100330378;
+            v62[1] = @"Line";
+            v62[2] = @"Method";
+            v37 = [[NSString alloc] initWithFormat:@"%s", sel_getName(*(a1 + 64))];
+            v63[2] = v37;
+            v62[3] = NSDebugDescriptionErrorKey;
+            v38 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(*(a1 + 64)), 456];
+            v63[3] = v38;
+            v39 = v63;
+            v40 = v62;
 LABEL_42:
-            v43 = [NSDictionary dictionaryWithObjects:v41 forKeys:v42 count:4];
-            v44 = [v36 initWithDomain:v37 code:10 userInfo:v43];
-            (*(v35 + 16))(v35, v44);
+            v41 = [NSDictionary dictionaryWithObjects:v39 forKeys:v40 count:4];
+            v42 = [v34 initWithDomain:v35 code:10 userInfo:v41];
+            (*(v33 + 16))(v33, v42);
 
             goto LABEL_15;
           }
         }
 
-        v23 = [v18 countByEnumeratingWithState:&v55 objects:v66 count:16];
+        v23 = [v18 countByEnumeratingWithState:&v53 objects:v64 count:16];
         if (v23)
         {
           continue;
@@ -8635,51 +8261,50 @@ LABEL_42:
       }
     }
 
-    v53 = 0u;
-    v54 = 0u;
     v51 = 0u;
     v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v18 = *(a1 + 48);
-    v27 = [v18 countByEnumeratingWithState:&v51 objects:v63 count:16];
-    if (v27)
+    v26 = [v18 countByEnumeratingWithState:&v49 objects:v61 count:16];
+    if (v26)
     {
-      v28 = v27;
-      v29 = *v52;
+      v27 = v26;
+      v28 = *v50;
       while (2)
       {
-        for (j = 0; j != v28; j = j + 1)
+        for (j = 0; j != v27; ++j)
         {
-          if (*v52 != v29)
+          if (*v50 != v28)
           {
             objc_enumerationMutation(v18);
           }
 
-          v31 = *(*(&v51 + 1) + 8 * j);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v35 = *(a1 + 56);
-            v36 = [NSError alloc];
-            v37 = [NSString stringWithUTF8String:"nfcd"];
-            v61[0] = NSLocalizedDescriptionKey;
-            v38 = [NSString stringWithUTF8String:"Invalid Parameter"];
-            v62[0] = v38;
-            v62[1] = &off_100330390;
-            v61[1] = @"Line";
-            v61[2] = @"Method";
-            v39 = [[NSString alloc] initWithFormat:@"%s", sel_getName(*(a1 + 64))];
-            v62[2] = v39;
-            v61[3] = NSDebugDescriptionErrorKey;
-            v40 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(*(a1 + 64)), 462];
-            v62[3] = v40;
-            v41 = v62;
-            v42 = v61;
+            v33 = *(a1 + 56);
+            v34 = [NSError alloc];
+            v35 = [NSString stringWithUTF8String:"nfcd"];
+            v59[0] = NSLocalizedDescriptionKey;
+            v36 = [NSString stringWithUTF8String:"Invalid Parameter"];
+            v60[0] = v36;
+            v60[1] = &off_100330390;
+            v59[1] = @"Line";
+            v59[2] = @"Method";
+            v37 = [[NSString alloc] initWithFormat:@"%s", sel_getName(*(a1 + 64))];
+            v60[2] = v37;
+            v59[3] = NSDebugDescriptionErrorKey;
+            v38 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(*(a1 + 64)), 462];
+            v60[3] = v38;
+            v39 = v60;
+            v40 = v59;
             goto LABEL_42;
           }
         }
 
-        v28 = [v18 countByEnumeratingWithState:&v51 objects:v63 count:16];
-        if (v28)
+        v27 = [v18 countByEnumeratingWithState:&v49 objects:v61 count:16];
+        if (v27)
         {
           continue;
         }
@@ -8688,23 +8313,23 @@ LABEL_42:
       }
     }
 
-    v32 = *(a1 + 32);
-    if (!v32 || ((v33 = *(v32 + 176)) != 0 ? (v34 = v33 == 3) : (v34 = 1), v34))
+    v30 = *(a1 + 32);
+    if (!v30 || ((v31 = *(v30 + 176)) != 0 ? (v32 = v31 == 3) : (v32 = 1), v32))
     {
-      sub_100050034(v32, *(a1 + 40), *(a1 + 48), *(a1 + 56));
+      sub_100050034(v30, *(a1 + 40), *(a1 + 48), *(a1 + 56));
     }
 
     else
     {
-      v45 = *(a1 + 56);
-      v46 = [NSError alloc];
-      v47 = [NSString stringWithUTF8String:"nfcd"];
-      v59 = NSLocalizedDescriptionKey;
-      v48 = [NSString stringWithUTF8String:"Invalid State"];
-      v60 = v48;
-      v49 = [NSDictionary dictionaryWithObjects:&v60 forKeys:&v59 count:1];
-      v50 = [v46 initWithDomain:v47 code:12 userInfo:v49];
-      (*(v45 + 16))(v45, v50);
+      v43 = *(a1 + 56);
+      v44 = [NSError alloc];
+      v45 = [NSString stringWithUTF8String:"nfcd"];
+      v57 = NSLocalizedDescriptionKey;
+      v46 = [NSString stringWithUTF8String:"Invalid State"];
+      v58 = v46;
+      v47 = [NSDictionary dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+      v48 = [v44 initWithDomain:v45 code:12 userInfo:v47];
+      (*(v43 + 16))(v43, v48);
     }
   }
 }
@@ -9458,6 +9083,436 @@ void sub_100052BA8(uint64_t a1)
       v50 = [NSDictionary dictionaryWithObjects:&v55 forKeys:&v54 count:1];
       v51 = [v47 initWithDomain:v48 code:12 userInfo:v50];
       (*(v46 + 16))(v46, v51);
+    }
+  }
+}
+
+void sub_100053248(uint64_t a1)
+{
+  if (![*(a1 + 32) didStart] || (objc_msgSend(*(a1 + 32), "isSuspended") & 1) != 0 || objc_msgSend(*(a1 + 32), "didEnd"))
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      v3 = Logger;
+      Class = object_getClass(*(a1 + 32));
+      isMetaClass = class_isMetaClass(Class);
+      ClassName = object_getClassName(*(a1 + 32));
+      Name = sel_getName(*(a1 + 56));
+      v8 = [*(a1 + 32) sessionUID];
+      v9 = 45;
+      if (isMetaClass)
+      {
+        v9 = 43;
+      }
+
+      v3(3, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", v9, ClassName, Name, 543, v8);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v10 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v11 = object_getClass(*(a1 + 32));
+      if (class_isMetaClass(v11))
+      {
+        v12 = 43;
+      }
+
+      else
+      {
+        v12 = 45;
+      }
+
+      v13 = object_getClassName(*(a1 + 32));
+      v14 = sel_getName(*(a1 + 56));
+      v15 = [*(a1 + 32) sessionUID];
+      *buf = 67110146;
+      v59 = v12;
+      v60 = 2082;
+      v61 = v13;
+      v62 = 2082;
+      v63 = v14;
+      v64 = 1024;
+      v65 = 543;
+      v66 = 2114;
+      v67 = v15;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", buf, 0x2Cu);
+    }
+
+    v16 = *(a1 + 48);
+    if (v16)
+    {
+      v17 = [NSError alloc];
+      v18 = [NSString stringWithUTF8String:"nfcd"];
+      v56 = NSLocalizedDescriptionKey;
+      v19 = [NSString stringWithUTF8String:"Session not active"];
+      v57 = v19;
+      v20 = [NSDictionary dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+      v21 = [v17 initWithDomain:v18 code:54 userInfo:v20];
+      (*(v16 + 16))(v16, 0, v21);
+    }
+  }
+
+  else
+  {
+    v22 = *(a1 + 32);
+    if (v22)
+    {
+      v23 = *(v22 + 232);
+    }
+
+    else
+    {
+      v23 = 0;
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v24 = NFLogGetLogger();
+    v25 = v24;
+    if (v23)
+    {
+      if (v24)
+      {
+        v26 = object_getClass(*(a1 + 32));
+        v27 = class_isMetaClass(v26);
+        v28 = object_getClassName(*(a1 + 32));
+        v52 = sel_getName(*(a1 + 56));
+        v29 = 45;
+        if (v27)
+        {
+          v29 = 43;
+        }
+
+        v25(6, "%c[%{public}s %{public}s]:%i ", v29, v28, v52, 549);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v30 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      {
+        v31 = object_getClass(*(a1 + 32));
+        if (class_isMetaClass(v31))
+        {
+          v32 = 43;
+        }
+
+        else
+        {
+          v32 = 45;
+        }
+
+        v33 = object_getClassName(*(a1 + 32));
+        v34 = sel_getName(*(a1 + 56));
+        *buf = 67109890;
+        v59 = v32;
+        v60 = 2082;
+        v61 = v33;
+        v62 = 2082;
+        v63 = v34;
+        v64 = 1024;
+        v65 = 549;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i ", buf, 0x22u);
+      }
+
+      v35 = *(a1 + 32);
+      if (v35)
+      {
+        v36 = *(v35 + 232);
+      }
+
+      else
+      {
+        v36 = 0;
+      }
+
+      [v36 tnepReaderSend:*(a1 + 40) callback:*(a1 + 48)];
+    }
+
+    else
+    {
+      if (v24)
+      {
+        v37 = object_getClass(*(a1 + 32));
+        v38 = class_isMetaClass(v37);
+        v39 = object_getClassName(*(a1 + 32));
+        v53 = sel_getName(*(a1 + 56));
+        v40 = 45;
+        if (v38)
+        {
+          v40 = 43;
+        }
+
+        v25(3, "%c[%{public}s %{public}s]:%i Missing tnepHandler", v40, v39, v53, 546);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v41 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      {
+        v42 = object_getClass(*(a1 + 32));
+        if (class_isMetaClass(v42))
+        {
+          v43 = 43;
+        }
+
+        else
+        {
+          v43 = 45;
+        }
+
+        v44 = object_getClassName(*(a1 + 32));
+        v45 = sel_getName(*(a1 + 56));
+        *buf = 67109890;
+        v59 = v43;
+        v60 = 2082;
+        v61 = v44;
+        v62 = 2082;
+        v63 = v45;
+        v64 = 1024;
+        v65 = 546;
+        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Missing tnepHandler", buf, 0x22u);
+      }
+
+      v46 = *(a1 + 48);
+      v47 = [NSError alloc];
+      v48 = [NSString stringWithUTF8String:"nfcd"];
+      v54 = NSLocalizedDescriptionKey;
+      v49 = [NSString stringWithUTF8String:"Invalid State"];
+      v55 = v49;
+      v50 = [NSDictionary dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+      v51 = [v47 initWithDomain:v48 code:12 userInfo:v50];
+      (*(v46 + 16))(v46, 0, v51);
+    }
+  }
+}
+
+void sub_1000538C8(uint64_t a1)
+{
+  if (![*(a1 + 32) didStart] || (objc_msgSend(*(a1 + 32), "isSuspended") & 1) != 0 || objc_msgSend(*(a1 + 32), "didEnd"))
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      v3 = Logger;
+      Class = object_getClass(*(a1 + 32));
+      isMetaClass = class_isMetaClass(Class);
+      ClassName = object_getClassName(*(a1 + 32));
+      Name = sel_getName(*(a1 + 48));
+      v8 = [*(a1 + 32) sessionUID];
+      v9 = 45;
+      if (isMetaClass)
+      {
+        v9 = 43;
+      }
+
+      v3(3, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", v9, ClassName, Name, 558, v8);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v10 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v11 = object_getClass(*(a1 + 32));
+      if (class_isMetaClass(v11))
+      {
+        v12 = 43;
+      }
+
+      else
+      {
+        v12 = 45;
+      }
+
+      v13 = object_getClassName(*(a1 + 32));
+      v14 = sel_getName(*(a1 + 48));
+      v15 = [*(a1 + 32) sessionUID];
+      *buf = 67110146;
+      v65 = v12;
+      v66 = 2082;
+      v67 = v13;
+      v68 = 2082;
+      v69 = v14;
+      v70 = 1024;
+      v71 = 558;
+      v72 = 2114;
+      v73 = v15;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", buf, 0x2Cu);
+    }
+
+    v16 = *(a1 + 40);
+    if (v16)
+    {
+      v17 = [NSError alloc];
+      v18 = [NSString stringWithUTF8String:"nfcd"];
+      v62 = NSLocalizedDescriptionKey;
+      v19 = [NSString stringWithUTF8String:"Session not active"];
+      v63 = v19;
+      v20 = [NSDictionary dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+      v21 = [v17 initWithDomain:v18 code:54 userInfo:v20];
+      (*(v16 + 16))(v16, v21);
+    }
+  }
+
+  else
+  {
+    v22 = *(a1 + 32);
+    if (v22)
+    {
+      v23 = *(v22 + 232);
+    }
+
+    else
+    {
+      v23 = 0;
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v24 = NFLogGetLogger();
+    v25 = v24;
+    if (v23)
+    {
+      if (v24)
+      {
+        v26 = object_getClass(*(a1 + 32));
+        v27 = class_isMetaClass(v26);
+        v28 = object_getClassName(*(a1 + 32));
+        v58 = sel_getName(*(a1 + 48));
+        v29 = 45;
+        if (v27)
+        {
+          v29 = 43;
+        }
+
+        v25(6, "%c[%{public}s %{public}s]:%i ", v29, v28, v58, 564);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v30 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      {
+        v31 = object_getClass(*(a1 + 32));
+        if (class_isMetaClass(v31))
+        {
+          v32 = 43;
+        }
+
+        else
+        {
+          v32 = 45;
+        }
+
+        v33 = object_getClassName(*(a1 + 32));
+        v34 = sel_getName(*(a1 + 48));
+        *buf = 67109890;
+        v65 = v32;
+        v66 = 2082;
+        v67 = v33;
+        v68 = 2082;
+        v69 = v34;
+        v70 = 1024;
+        v71 = 564;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i ", buf, 0x22u);
+      }
+
+      v35 = *(a1 + 32);
+      if (v35)
+      {
+        v36 = *(v35 + 200);
+        v37 = *(v35 + 224);
+      }
+
+      else
+      {
+        v36 = 0;
+        v37 = 0;
+      }
+
+      v38 = v36;
+      sub_10019117C(v38, v37, 0);
+
+      v39 = *(a1 + 32);
+      if (v39)
+      {
+        v40 = *(v39 + 232);
+      }
+
+      else
+      {
+        v40 = 0;
+      }
+
+      [v40 tnepReaderRestartPollingWithCallback:*(a1 + 40)];
+      v41 = *(a1 + 32);
+      if (v41)
+      {
+        v42 = *(v41 + 200);
+      }
+
+      else
+      {
+        v42 = 0;
+      }
+
+      sub_10021E364(v42);
+    }
+
+    else
+    {
+      if (v24)
+      {
+        v43 = object_getClass(*(a1 + 32));
+        v44 = class_isMetaClass(v43);
+        v45 = object_getClassName(*(a1 + 32));
+        v59 = sel_getName(*(a1 + 48));
+        v46 = 45;
+        if (v44)
+        {
+          v46 = 43;
+        }
+
+        v25(3, "%c[%{public}s %{public}s]:%i Missing tnepHandler", v46, v45, v59, 561);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v47 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      {
+        v48 = object_getClass(*(a1 + 32));
+        if (class_isMetaClass(v48))
+        {
+          v49 = 43;
+        }
+
+        else
+        {
+          v49 = 45;
+        }
+
+        v50 = object_getClassName(*(a1 + 32));
+        v51 = sel_getName(*(a1 + 48));
+        *buf = 67109890;
+        v65 = v49;
+        v66 = 2082;
+        v67 = v50;
+        v68 = 2082;
+        v69 = v51;
+        v70 = 1024;
+        v71 = 561;
+        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Missing tnepHandler", buf, 0x22u);
+      }
+
+      v52 = *(a1 + 40);
+      v53 = [NSError alloc];
+      v54 = [NSString stringWithUTF8String:"nfcd"];
+      v60 = NSLocalizedDescriptionKey;
+      v55 = [NSString stringWithUTF8String:"Invalid State"];
+      v61 = v55;
+      v56 = [NSDictionary dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+      v57 = [v53 initWithDomain:v54 code:12 userInfo:v56];
+      (*(v52 + 16))(v52, v57);
     }
   }
 }

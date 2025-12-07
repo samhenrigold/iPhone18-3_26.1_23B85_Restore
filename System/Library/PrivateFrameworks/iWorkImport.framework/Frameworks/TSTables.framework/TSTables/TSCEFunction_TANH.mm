@@ -7,39 +7,39 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v7 = **arguments;
-  v36 = 0;
-  v9 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v36);
-  v14 = v36;
-  if (v14)
+  v30 = 0;
+  v9 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v30);
+  v13 = v30;
+  if (v13)
   {
-    v15 = objc_msgSend_raiseErrorOrConvert_(context, v10, v14, v12, v13);
+    v14 = objc_msgSend_raiseErrorOrConvert_(context, v10, v13, v12);
   }
 
-  else if (objc_msgSend_hasUnits(v9, v10, v11, v12, v13))
+  else if (objc_msgSend_hasUnits(v9, v10, v11, v12))
   {
-    v20 = objc_msgSend_functionName(spec, v16, v17, v18, v19);
-    v23 = objc_msgSend_unitsNotAllowedErrorForFunctionName_argumentNumber_(TSCEError, v21, v20, 1, v22);
-    v15 = objc_msgSend_raiseErrorOrConvert_(context, v24, v23, v25, v26);
+    v18 = objc_msgSend_functionName(spec, v15, v16, v17);
+    v20 = objc_msgSend_unitsNotAllowedErrorForFunctionName_argumentNumber_(TSCEError, v19, v18, 1);
+    v14 = objc_msgSend_raiseErrorOrConvert_(context, v21, v20, v22);
   }
 
   else
   {
-    v15 = objc_msgSend_tanh(v9, v16, v17, v18, v19);
+    v14 = objc_msgSend_tanh(v9, v15, v16, v17);
     if (v7)
     {
-      objc_msgSend_formatWithContext_(v7, v27, context, v28, v29);
+      objc_msgSend_formatWithContext_(v7, v23, context, v24);
     }
 
     else
     {
-      memset(&v34, 0, sizeof(v34));
+      memset(&v28, 0, sizeof(v28));
     }
 
-    TSCEFormat::TSCEFormat(&v35, &v34);
-    objc_msgSend_setFormat_(v15, v30, &v35, v31, v32);
+    TSCEFormat::TSCEFormat(&v29, &v28);
+    objc_msgSend_setFormat_(v14, v25, &v29, v26);
   }
 
-  return v15;
+  return v14;
 }
 
 @end

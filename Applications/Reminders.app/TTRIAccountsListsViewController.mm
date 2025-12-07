@@ -93,7 +93,7 @@
 
   v8 = sub_1000B2634(action, v10);
 
-  sub_1000079B4(v10, &qword_10076AE40);
+  sub_1000079B4(v10, &qword_10076AE40, &qword_10062EE50);
   return v8 & 1;
 }
 
@@ -161,7 +161,7 @@
 
   sub_1000B7EB0();
 
-  sub_1000079B4(v6, &qword_10076AE40);
+  sub_1000079B4(v6, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)beginSearchAction:(id)action
@@ -186,7 +186,7 @@
     searchBar = [v6 searchBar];
     [searchBar becomeFirstResponder];
 
-    sub_1000079B4(v8, &qword_10076AE40);
+    sub_1000079B4(v8, &qword_10076AE40, &qword_10062EE50);
   }
 
   else
@@ -233,7 +233,7 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  sub_1000C2328();
+  sub_1000C2328(controllerCopy);
 }
 
 - (void)didDismissSearchController:(id)controller

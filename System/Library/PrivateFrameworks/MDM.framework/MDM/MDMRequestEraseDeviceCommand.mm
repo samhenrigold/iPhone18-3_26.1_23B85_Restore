@@ -188,7 +188,7 @@
 
 intptr_t __74__MDMRequestEraseDeviceCommand_Handler__processRequest_completionHandler___block_invoke(intptr_t result, uint64_t a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v3 = result;
@@ -203,15 +203,14 @@ intptr_t __74__MDMRequestEraseDeviceCommand_Handler__processRequest_completionHa
       v8 = *(*(*(v3 + 48) + 8) + 40);
       v9 = v7;
       v10 = [v8 DMCVerboseDescription];
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_2561F5000, v9, OS_LOG_TYPE_ERROR, "Could not erase device: %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_2561F5000, v9, OS_LOG_TYPE_ERROR, "Could not erase device: %{public}@", &v11, 0xCu);
     }
 
-    result = dispatch_semaphore_signal(*(v3 + 40));
+    return dispatch_semaphore_signal(*(v3 + 40));
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 

@@ -16,7 +16,7 @@
 
 - (id)unarchive
 {
-  v31[3] = *MEMORY[0x277D85DE8];
+  v30[3] = *MEMORY[0x277D85DE8];
   v3 = eventCountersDataStoreLegacyPath;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v5 = [defaultManager fileExistsAtPath:v3];
@@ -24,16 +24,16 @@
   if (v5)
   {
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v26 = 0;
-    [defaultManager2 removeItemAtPath:v3 error:&v26];
+    v25 = 0;
+    [defaultManager2 removeItemAtPath:v3 error:&v25];
   }
 
   v7 = eventCountersDataStorePath;
   v8 = +[HMDEventCountersManager allowedSpecifierClasses];
-  v31[0] = objc_opt_class();
-  v31[1] = objc_opt_class();
-  v31[2] = objc_opt_class();
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:3];
+  v30[0] = objc_opt_class();
+  v30[1] = objc_opt_class();
+  v30[2] = objc_opt_class();
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:3];
   v10 = [v8 setByAddingObjectsFromArray:v9];
 
   persistentStore = [(HMDEventCountersPersistentStore *)self persistentStore];
@@ -49,7 +49,7 @@
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v22;
+      v27 = v22;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Archived event counters not found", buf, 0xCu);
     }
 
@@ -61,9 +61,9 @@
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v28 = v17;
-    v29 = 2112;
-    v30 = v12;
+    v27 = v17;
+    v28 = 2112;
+    v29 = v12;
     _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Unarchived event counters: %@", buf, 0x16u);
   }
 
@@ -84,7 +84,6 @@ LABEL_11:
   v23 = [v12 objectForKeyedSubscript:@"HMDEventCountersArchivedEventCountersKey"];
 
 LABEL_13:
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -94,7 +93,7 @@ LABEL_13:
   v4 = MEMORY[0x277CBEB38];
   dictionaryCopy = dictionary;
   dictionary = [v4 dictionary];
-  v6 = [dictionaryCopy copy];
+  v6 = objc_msgSend_copy(dictionaryCopy);
 
   [dictionary setObject:v6 forKeyedSubscript:@"HMDEventCountersArchivedEventCountersKey"];
   date = [MEMORY[0x277CBEAA8] date];

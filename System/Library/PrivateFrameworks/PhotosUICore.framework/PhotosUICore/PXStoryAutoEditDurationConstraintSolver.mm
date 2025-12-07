@@ -57,7 +57,7 @@
   [v7 appendFormat:@"    XCTAssertLessThanOrEqual(constrainedOverall.specificDurationInfo.minimumSeconds, %f)\n", *&Seconds];
   [v7 appendFormat:@"    XCTAssertLessThanOrEqual(constrainedOverall.specificDurationInfo.preferredSeconds, %f)\n", *&Seconds];
   [v7 appendFormat:@"    XCTAssertEqual(constrainedOverall.specificDurationInfo.maximumSeconds, %f)\n", *&Seconds];
-  [v7 appendFormat:@"    XCTFail(\"Success criteria needs to be defined\""];
+  [v7 appendFormat:@"    XCTFail(Success criteria needs to be defined"];
   [v7 appendFormat:@"}\n"];
 
   return v7;
@@ -98,7 +98,7 @@
   [v7 appendFormat:@"    XCTAssertLessThanOrEqual(constrainedOverall.specificDurationInfo.minimumSeconds, %f)\n", *&Seconds];
   [v7 appendFormat:@"    XCTAssertEqual(constrainedOverall.specificDurationInfo.preferredSeconds, %f)\n", *&Seconds];
   [v7 appendFormat:@"    XCTAssertGreaterThanOrEqual(constrainedOverall.specificDurationInfo.maximumSeconds, %f)\n", *&Seconds];
-  [v7 appendFormat:@"    XCTFail(\"Success criteria needs to be defined\""];
+  [v7 appendFormat:@"    XCTFail(Success criteria needs to be defined"];
   [v7 appendFormat:@"}\n"];
 
   return v7;

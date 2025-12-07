@@ -1,8 +1,11 @@
 @interface ATXUniversalBiomeUIStream
 - (ATXUniversalBiomeUIStream)initWithStoreConfig:(id)config;
+- (id)_innerStreamForConsumerSubType:(unsigned __int8)type;
 - (id)_innerStreamForStreamId:(id)id;
+- (id)_streamIdForConsumerSubType:(unsigned __int8)type;
 - (id)deprecatedGenericEventPublisherFromStartTime:(double)time;
 - (id)genericEventPublisherFromStartTime:(double)time;
+- (id)genericEventPublisherFromStartTime:(double)time consumerSubType:(unsigned __int8)type;
 - (id)streamIdentifiers;
 - (void)donateGenericUIEvent:(id)event;
 @end
@@ -11,42 +14,41 @@
 
 - (id)streamIdentifiers
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   _validUIStreamConsumerSubTypes = [(ATXUniversalBiomeUIStream *)self _validUIStreamConsumerSubTypes];
-  v5 = [_validUIStreamConsumerSubTypes countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [_validUIStreamConsumerSubTypes countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(_validUIStreamConsumerSubTypes);
         }
 
-        v9 = -[ATXUniversalBiomeUIStream _streamIdForConsumerSubType:](self, "_streamIdForConsumerSubType:", [*(*(&v13 + 1) + 8 * i) unsignedIntValue]);
+        v9 = -[ATXUniversalBiomeUIStream _streamIdForConsumerSubType:](self, "_streamIdForConsumerSubType:", [*(*(&v12 + 1) + 8 * i) unsignedIntValue]);
         if (v9)
         {
           [v3 addObject:v9];
         }
       }
 
-      v6 = [_validUIStreamConsumerSubTypes countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [_validUIStreamConsumerSubTypes countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [v3 copy];
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -125,6 +127,26 @@ uint64_t __64__ATXUniversalBiomeUIStream_genericEventPublisherFromStartTime___bl
   return v11;
 }
 
+- (id)genericEventPublisherFromStartTime:(double)time consumerSubType:(unsigned __int8)type
+{
+  v5 = [(ATXUniversalBiomeUIStream *)self _innerStreamForConsumerSubType:type];
+  v6 = [v5 publisherFromStartTime:time];
+  v7 = v6;
+  if (v6)
+  {
+    bpsPublisher = v6;
+  }
+
+  else
+  {
+    bpsPublisher = [MEMORY[0x1E695E0F0] bpsPublisher];
+  }
+
+  v9 = bpsPublisher;
+
+  return v9;
+}
+
 - (id)deprecatedGenericEventPublisherFromStartTime:(double)time
 {
   v4 = [objc_alloc(MEMORY[0x1E698F318]) initWithPrivateStreamIdentifier:@"homeScreen" storeConfig:self->_storeConfig];
@@ -141,6 +163,16 @@ uint64_t __64__ATXUniversalBiomeUIStream_genericEventPublisherFromStartTime___bl
   [source sendEvent:eventCopy];
 }
 
+- (id)_streamIdForConsumerSubType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v4 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v5 = [MEMORY[0x1E698B028] stringForConsumerSubtype:typeCopy];
+  v6 = [v4 initWithFormat:@"blendingUI%@", v5];
+
+  return v6;
+}
+
 - (id)_innerStreamForStreamId:(id)id
 {
   idCopy = id;
@@ -149,38 +181,38 @@ uint64_t __64__ATXUniversalBiomeUIStream_genericEventPublisherFromStartTime___bl
 
   if (v6)
   {
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x3032000000;
-    v18 = __Block_byref_object_copy__6;
-    v19 = __Block_byref_object_dispose__6;
-    v20 = 0;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x3032000000;
+    v19 = __Block_byref_object_copy__6;
+    v20 = __Block_byref_object_dispose__6;
+    v21 = 0;
     lock = self->_lock;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __53__ATXUniversalBiomeUIStream__innerStreamForStreamId___block_invoke;
-    v11[3] = &unk_1E86A4578;
-    v14 = &v15;
-    v12 = idCopy;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __53__ATXUniversalBiomeUIStream__innerStreamForStreamId___block_invoke;
+    v12[3] = &unk_1E86A4578;
+    v15 = &v16;
+    v13 = idCopy;
     selfCopy = self;
-    [(_PASLock *)lock runWithLockAcquired:v11];
-    v8 = v16[5];
+    [(_PASLock *)lock runWithLockAcquired:v12];
+    v9 = v17[5];
 
-    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v16, 8);
   }
 
   else
   {
-    v9 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_blending(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      [(ATXUniversalBiomeUIStream *)self _innerStreamForStreamId:idCopy, v9];
+      [(ATXUniversalBiomeUIStream *)self _innerStreamForStreamId:idCopy, v10];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 void __53__ATXUniversalBiomeUIStream__innerStreamForStreamId___block_invoke(void *a1, void *a2)
@@ -202,18 +234,24 @@ void __53__ATXUniversalBiomeUIStream__innerStreamForStreamId___block_invoke(void
   }
 }
 
+- (id)_innerStreamForConsumerSubType:(unsigned __int8)type
+{
+  v4 = [(ATXUniversalBiomeUIStream *)self _streamIdForConsumerSubType:type];
+  v5 = [(ATXUniversalBiomeUIStream *)self _innerStreamForStreamId:v4];
+
+  return v5;
+}
+
 - (void)_innerStreamForStreamId:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 138412546;
-  v9 = v6;
-  v10 = 2112;
-  v11 = a2;
-  _os_log_fault_impl(&dword_1DEFC4000, a3, OS_LOG_TYPE_FAULT, "%@ - could not create BMStoreStream for streamId: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = v6;
+  v9 = 2112;
+  v10 = a2;
+  _os_log_fault_impl(&dword_1DEFC4000, a3, OS_LOG_TYPE_FAULT, "%@ - could not create BMStoreStream for streamId: %@", &v7, 0x16u);
 }
 
 @end

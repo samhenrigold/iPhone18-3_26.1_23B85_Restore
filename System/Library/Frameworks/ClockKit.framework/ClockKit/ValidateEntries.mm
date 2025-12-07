@@ -29,7 +29,7 @@ void ___ValidateEntries_block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_
   }
 }
 
-uint64_t ___ValidateEntries_block_invoke_2(uint64_t a1)
+void *___ValidateEntries_block_invoke_2(uint64_t a1)
 {
   result = _ValidateEntry(*(a1 + 32), *(a1 + 48));
   if ((result & 1) == 0)

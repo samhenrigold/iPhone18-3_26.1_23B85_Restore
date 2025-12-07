@@ -15,9 +15,9 @@
 {
   delegateCopy = delegate;
   v10 = [PNPDoubleTapViewController alloc];
-  v11 = PencilPairingUIBundle();
+  v11 = PencilPairingUIBundle(v10);
   v12 = [v11 localizedStringForKey:@"QUICK_SWAP_TITLE" value:&stru_286FDFDB8 table:0];
-  v13 = PencilPairingUIBundle();
+  v13 = PencilPairingUIBundle(v12);
   v14 = [v13 localizedStringForKey:@"QUICK_SWAP_DESCRIPTION" value:&stru_286FDFDB8 table:0];
   v15 = [(PNPWelcomeController *)v10 initWithTitle:v12 detailText:v14 icon:0];
 

@@ -19,7 +19,7 @@
   {
     v6 = isConversationDetectionEnabled;
     self->_conversationAwarenessEnabled = isConversationDetectionEnabled;
-    v7 = MCLogCategoryVolume();
+    v7 = MCLogCategoryVolume(isConversationDetectionEnabled);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138543874;
@@ -38,36 +38,38 @@
 
 - (void)updateConversationAwarenessSupported
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   primaryOutputDeviceRoute = [(MRUSystemOutputDeviceRouteController *)self->_outputDeviceRouteController primaryOutputDeviceRoute];
   logicalLeaderOutputDevice = [primaryOutputDeviceRoute logicalLeaderOutputDevice];
-  if ([(MRUSystemOutputDeviceRouteController *)self->_outputDeviceRouteController isSplitRoute])
+  isSplitRoute = [(MRUSystemOutputDeviceRouteController *)self->_outputDeviceRouteController isSplitRoute];
+  if (isSplitRoute)
   {
-    supportsConversationDetection = 0;
+    v6 = 0;
   }
 
   else
   {
-    supportsConversationDetection = [logicalLeaderOutputDevice supportsConversationDetection];
+    isSplitRoute = [logicalLeaderOutputDevice supportsConversationDetection];
+    v6 = isSplitRoute;
   }
 
-  if (self->_conversationAwarenessSupported != supportsConversationDetection)
+  if (self->_conversationAwarenessSupported != v6)
   {
-    self->_conversationAwarenessSupported = supportsConversationDetection;
-    v6 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    self->_conversationAwarenessSupported = v6;
+    v7 = MCLogCategoryVolume(isSplitRoute);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543874;
-      v9 = objc_opt_class();
-      v10 = 1024;
-      v11 = supportsConversationDetection;
-      v12 = 2114;
-      v13 = logicalLeaderOutputDevice;
-      _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ conversation detection supported: %{BOOL}u | device: %{public}@", &v8, 0x1Cu);
+      v9 = 138543874;
+      v10 = objc_opt_class();
+      v11 = 1024;
+      v12 = v6;
+      v13 = 2114;
+      v14 = logicalLeaderOutputDevice;
+      _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ conversation detection supported: %{BOOL}u | device: %{public}@", &v9, 0x1Cu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    [WeakRetained conversationAwarenessController:self didChangeConversationAwarenessSupported:supportsConversationDetection];
+    [WeakRetained conversationAwarenessController:self didChangeConversationAwarenessSupported:v6];
   }
 }
 
@@ -99,7 +101,7 @@
     self->_conversationAwarenessEnabled = enabledCopy;
     primaryOutputDeviceRoute = [(MRUSystemOutputDeviceRouteController *)self->_outputDeviceRouteController primaryOutputDeviceRoute];
     logicalLeaderOutputDevice = [primaryOutputDeviceRoute logicalLeaderOutputDevice];
-    v9 = MCLogCategoryVolume();
+    v9 = MCLogCategoryVolume(logicalLeaderOutputDevice);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;

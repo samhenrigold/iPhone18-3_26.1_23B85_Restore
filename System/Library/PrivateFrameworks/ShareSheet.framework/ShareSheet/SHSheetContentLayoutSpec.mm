@@ -22,9 +22,9 @@
   width = size.width;
   collectionCopy = collection;
   colorCopy = color;
-  v33.receiver = self;
-  v33.super_class = SHSheetContentLayoutSpec;
-  v14 = [(SHSheetContentLayoutSpec *)&v33 init];
+  v35.receiver = self;
+  v35.super_class = SHSheetContentLayoutSpec;
+  v14 = [(SHSheetContentLayoutSpec *)&v35 init];
   v15 = v14;
   if (!v14)
   {
@@ -78,9 +78,9 @@ LABEL_23:
       goto LABEL_27;
     }
 
-    v20 = 0x4074E00000000000;
+    v22 = 0x4074E00000000000;
 LABEL_22:
-    *&v15->_customViewSectionHeight = v20;
+    *&v15->_customViewSectionHeight = v22;
     v15->_peopleIconWidth = 66.0;
     goto LABEL_23;
   }
@@ -89,22 +89,22 @@ LABEL_22:
   {
     if (class != 6)
     {
-      v21 = 0x406BE00000000000;
+      v23 = 0x406BE00000000000;
 LABEL_19:
-      *&v15->_customViewSectionHeight = v21;
+      *&v15->_customViewSectionHeight = v23;
 LABEL_20:
       v15->_peopleSectionHeight = 128.0;
       goto LABEL_27;
     }
 
-    v20 = 0x4076000000000000;
+    v22 = 0x4076000000000000;
     goto LABEL_22;
   }
 
   switch(class)
   {
     case 8uLL:
-      v21 = 0x4071800000000000;
+      v23 = 0x4071800000000000;
       goto LABEL_19;
     case 9uLL:
       v15->_customViewSectionHeight = 280.0;
@@ -114,7 +114,7 @@ LABEL_20:
       *&v15->_horizontalSectionBottomInset = xmmword_18B433C80;
 LABEL_25:
       v15->_estimatedActionFooterHeight = 84.0;
-      if (_ShareSheetIsRealityLauncher())
+      if (_ShareSheetIsRealityLauncher(v20, v21))
       {
         *&v15->_topContentSectionHeaderInsets.top = xmmword_18B433C90;
         *&v15->_topContentSectionHeaderInsets.bottom = xmmword_18B433CA0;
@@ -146,24 +146,24 @@ LABEL_27:
       width = _ShareSheetPopoverSize();
     }
 
-    v28 = floor(width / 402.0 * 70.0);
-    v29 = v28 + 32.0 + 6.0;
-    v30 = floor(width / 402.0 * 68.0);
-    v15->_sharingAppIconWidth = v30;
+    v30 = floor(width / 402.0 * 70.0);
+    v31 = v30 + 32.0 + 6.0;
+    v32 = floor(width / 402.0 * 68.0);
+    v15->_sharingAppIconWidth = v32;
     v15->_peopleSectionTopInset = 16.0;
-    v15->_peopleIconWidth = v28;
-    v15->_peopleSectionHeight = v29;
-    peopleSectionHeight = v30 + 32.0 + 8.0;
+    v15->_peopleIconWidth = v30;
+    v15->_peopleSectionHeight = v31;
+    peopleSectionHeight = v32 + 32.0 + 8.0;
   }
 
   else
   {
     peopleSectionHeight = v15->_peopleSectionHeight;
-    v29 = peopleSectionHeight;
+    v31 = peopleSectionHeight;
   }
 
   v15->_sharingAppSectionHeight = peopleSectionHeight;
-  v15->_topActionsSectionHeight = v29;
+  v15->_topActionsSectionHeight = v31;
 LABEL_33:
 
   return v15;

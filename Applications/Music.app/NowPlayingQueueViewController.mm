@@ -79,7 +79,7 @@
   v5 = OBJC_IVAR____TtC5Music29NowPlayingQueueViewController_didAppearOnce;
   if ((v4[OBJC_IVAR____TtC5Music29NowPlayingQueueViewController_didAppearOnce] & 1) == 0)
   {
-    sub_1002DDD7C(3);
+    sub_1002DDD7C(3u);
     v4[v5] = 1;
   }
 
@@ -196,7 +196,7 @@
 {
   v8 = type metadata accessor for IndexPath();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
+  __chkstk_darwin();
   v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
@@ -211,13 +211,13 @@
 {
   v9 = type metadata accessor for IndexPath();
   v10 = *(v9 - 8);
-  __chkstk_darwin(v9);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   supplementaryViewCopy = supplementaryView;
   selfCopy = self;
-  sub_100307EC8(supplementaryViewCopy);
+  sub_100307EC8(supplementaryViewCopy, v16);
 
   (*(v10 + 8))(v12, v9);
 }
@@ -228,7 +228,7 @@
   x = offset.x;
   viewCopy = view;
   selfCopy = self;
-  v9 = sub_1002F9EC0(x, y);
+  v9 = sub_1002F9EC0(viewCopy, x, y);
   v11 = v10;
 
   v12 = v9;
@@ -243,41 +243,41 @@
   selfCopy = self;
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
-  v10 = &v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v11);
-  v13 = &v25 - v12;
-  __chkstk_darwin(v14);
-  v16 = &v25 - v15;
-  __chkstk_darwin(v17);
-  v19 = &v25 - v18;
+  __chkstk_darwin();
+  v10 = &v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v12 = &v22 - v11;
+  __chkstk_darwin();
+  v14 = &v22 - v13;
+  __chkstk_darwin();
+  v16 = &v22 - v15;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
-  v21 = selfCopy;
-  sub_1002FA024(v16, v10, v19);
+  v18 = selfCopy;
+  sub_1002FA024(v14, v10, v16);
 
-  v22 = *(v8 + 8);
-  v22(v10, v7);
-  v22(v13, v7);
-  v22(v16, v7);
-  v23.super.isa = IndexPath._bridgeToObjectiveC()().super.isa;
-  v22(v19, v7);
+  v19 = *(v8 + 8);
+  v19(v10, v7);
+  v19(v12, v7);
+  v19(v14, v7);
+  v20.super.isa = IndexPath._bridgeToObjectiveC()().super.isa;
+  v19(v16, v7);
 
-  return v23.super.isa;
+  return v20.super.isa;
 }
 
 - (BOOL)collectionView:(id)view shouldSelectItemAtIndexPath:(id)path
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_1002FAB38(viewCopy);
+  sub_1002FAB38(viewCopy, v9);
   LOBYTE(self) = v12;
 
   (*(v7 + 8))(v9, v6);
@@ -288,7 +288,7 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = (&v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
@@ -313,7 +313,7 @@
 {
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
@@ -346,61 +346,62 @@
 
 - (id)_collectionView:(id)view indexPathOfReferenceItemToPreserveContentOffsetWithProposedReference:(id)reference
 {
-  v5 = sub_10010FC20(&unk_10118BCE0);
-  __chkstk_darwin(v5 - 8);
-  v7 = &v11 - v6;
+  sub_10010FC20(&unk_10118BCE0, &qword_100EC6450);
+  __chkstk_darwin();
+  v6 = &v10 - v5;
   if (reference)
   {
     static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-    v8 = type metadata accessor for IndexPath();
-    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
+    v7 = type metadata accessor for IndexPath();
+    (*(*(v7 - 8) + 56))(v6, 0, 1, v7);
   }
 
   else
   {
-    v9 = type metadata accessor for IndexPath();
-    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
+    v8 = type metadata accessor for IndexPath();
+    (*(*(v8 - 8) + 56))(v6, 1, 1, v8);
   }
 
-  sub_1000095E8(v7, &unk_10118BCE0);
+  sub_1000095E8(v6, &unk_10118BCE0, &qword_100EC6450);
 
   return 0;
 }
 
 - (void)controller:(id)controller defersResponseReplacement:(id)replacement
 {
-  v7 = sub_10010FC20(&unk_101181520);
-  __chkstk_darwin(v7 - 8);
-  v9 = &v18 - v8;
-  v10 = _Block_copy(replacement);
-  v11 = swift_allocObject();
-  *(v11 + 16) = v10;
-  v12 = type metadata accessor for TaskPriority();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  sub_10010FC20(&unk_101181520, &qword_100EBCC60);
+  __chkstk_darwin();
+  v8 = &v17 - v7;
+  v9 = _Block_copy(replacement);
+  v10 = swift_allocObject();
+  *(v10 + 16) = v9;
+  v11 = type metadata accessor for TaskPriority();
+  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
   type metadata accessor for MainActor();
   controllerCopy = controller;
   selfCopy = self;
-  v15 = controllerCopy;
+  v14 = controllerCopy;
 
-  v16 = static MainActor.shared.getter();
-  v17 = swift_allocObject();
-  v17[2] = v16;
-  v17[3] = &protocol witness table for MainActor;
-  v17[4] = selfCopy;
-  v17[5] = sub_100115508;
-  v17[6] = v11;
-  v17[7] = v15;
-  sub_1001F4CB8(0, 0, v9, &unk_100EC6448, v17);
+  v15 = static MainActor.shared.getter();
+  v16 = swift_allocObject();
+  v16[2] = v15;
+  v16[3] = &protocol witness table for MainActor;
+  v16[4] = selfCopy;
+  v16[5] = sub_100115508;
+  v16[6] = v10;
+  v16[7] = v14;
+  sub_1001F4CB8(0, 0, v8, &unk_100EC6448, v16);
 }
 
 - (void)collectionView:(id)view willDisplayContextMenuWithConfiguration:(id)configuration animator:(id)animator
 {
   v5 = (&self->super.super.super.isa + OBJC_IVAR____TtC5Music29NowPlayingQueueViewController_onEndContextMenuInteraction);
   v6 = *(&self->super.super.super.isa + OBJC_IVAR____TtC5Music29NowPlayingQueueViewController_onEndContextMenuInteraction);
+  v7 = *&self->prefetchingController[OBJC_IVAR____TtC5Music29NowPlayingQueueViewController_onEndContextMenuInteraction];
   *v5 = 0;
   v5[1] = 0;
   selfCopy = self;
-  sub_100020438(v6);
+  sub_100020438(v6, v7);
 }
 
 - (void)collectionView:(id)view willEndContextMenuInteractionWithConfiguration:(id)configuration animator:(id)animator

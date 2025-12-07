@@ -89,7 +89,7 @@ void __69__SBSAContainerViewDescription_copyByPixelAligningGeometryWithScale___b
 
     if (!v6)
     {
-      __69__SBSAContainerViewDescription_copyByPixelAligningGeometryWithScale___block_invoke_cold_1(a1);
+      __69__SBSAContainerViewDescription_copyByPixelAligningGeometryWithScale___block_invoke_cold_1(a1, v4);
     }
   }
 
@@ -217,24 +217,24 @@ id __40__SBSAContainerViewDescription_isEqual___block_invoke(uint64_t a1)
   return objc_msgSendSuper2(&v3, sel_isEqual_, v1);
 }
 
-BOOL __40__SBSAContainerViewDescription_isEqual___block_invoke_2(uint64_t a1)
+BOOL __40__SBSAContainerViewDescription_isEqual___block_invoke_2(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  if (v1)
+  v3 = *(a1 + 32);
+  v2 = *(a1 + 40);
+  if (v2)
   {
-    [v1 renderingConfiguration];
+    objc_msgSend_renderingConfiguration(v2, a2);
   }
 
   else
   {
-    memset(v7, 0, sizeof(v7));
+    memset(v8, 0, sizeof(v8));
   }
 
-  v3 = *(v2 + 216);
-  v6 = *(v2 + 232);
-  v5 = v3;
-  return SBSystemApertureContainerRenderingConfigurationEqualToConfiguration(&v5, v7);
+  v4 = *(v3 + 216);
+  v7 = *(v3 + 232);
+  v6 = v4;
+  return SBSystemApertureContainerRenderingConfigurationEqualToConfiguration(&v6, v8);
 }
 
 - (unint64_t)hash
@@ -338,16 +338,16 @@ id __36__SBSAContainerViewDescription_hash__block_invoke(uint64_t a1)
   *&self->_renderingConfiguration.alwaysRenderInSnapshots = v3;
 }
 
-void __69__SBSAContainerViewDescription_copyByPixelAligningGeometryWithScale___block_invoke_cold_1(uint64_t a1)
+void __69__SBSAContainerViewDescription_copyByPixelAligningGeometryWithScale___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v8 = [MEMORY[0x277CCA890] currentHandler];
-  v4 = a1 + 32;
-  v2 = *(a1 + 32);
-  v3 = *(v4 + 8);
-  v5 = NSClassFromString(&cfstr_Sbsacontainerv.isa);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  [v8 handleFailureInMethod:v3 object:v2 file:@"SBSAContainerViewDescription.m" lineNumber:43 description:{@"Unexpected class – expected '%@', got '%@'", v5, v7}];
+  v9 = [MEMORY[0x277CCA890] currentHandler];
+  v5 = a1 + 32;
+  v3 = *(a1 + 32);
+  v4 = *(v5 + 8);
+  v6 = NSClassFromString(&cfstr_Sbsacontainerv.isa);
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  [v9 handleFailureInMethod:v4 object:v3 file:@"SBSAContainerViewDescription.m" lineNumber:43 description:{@"Unexpected class – expected '%@', got '%@'", v6, v8}];
 }
 
 @end

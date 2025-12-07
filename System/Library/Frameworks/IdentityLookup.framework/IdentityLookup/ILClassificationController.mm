@@ -36,7 +36,6 @@
 
 uint64_t __44__ILClassificationController_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_sharedInstance_0 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -77,9 +76,10 @@ void __44__ILClassificationController_shouldActivate__block_invoke()
   v10 = *MEMORY[0x277D85DE8];
   v0 = MGCopyAnswer();
   v1 = CFAutorelease(v0);
-  shouldActivate_shouldActivate = CFEqual(v1, @"iPhone") != 0;
-  v2 = ILDefaultLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v2 = CFEqual(v1, @"iPhone");
+  shouldActivate_shouldActivate = v2 != 0;
+  v3 = ILDefaultLog(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412802;
     v5 = v1;
@@ -87,16 +87,14 @@ void __44__ILClassificationController_shouldActivate__block_invoke()
     v7 = @"iPhone";
     v8 = 1024;
     v9 = shouldActivate_shouldActivate;
-    _os_log_impl(&dword_238A41000, v2, OS_LOG_TYPE_DEFAULT, "determined device class to be %@ (requires %@), should activate: %d", &v4, 0x1Cu);
+    _os_log_impl(&dword_238A41000, v3, OS_LOG_TYPE_DEFAULT, "determined device class to be %@ (requires %@), should activate: %d", &v4, 0x1Cu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = ILDefaultLog();
+  v5 = ILDefaultLog(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -118,40 +116,41 @@ void __53__ILClassificationController_activateWithCompletion___block_invoke(uint
 {
   v2 = *(*(a1 + 32) + 16);
   v3 = [objc_opt_class() shouldActivate];
-  v4 = ILDefaultLog();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v4 = v3;
+  v5 = ILDefaultLog(v3);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (v2)
   {
-    if (v5)
-    {
-      *buf = 0;
-      _os_log_impl(&dword_238A41000, v4, OS_LOG_TYPE_DEFAULT, "classification controller already activated", buf, 2u);
-    }
-
-    v6 = *(a1 + 40);
     if (v6)
     {
-      v7 = dispatch_get_global_queue(21, 0);
+      *buf = 0;
+      _os_log_impl(&dword_238A41000, v5, OS_LOG_TYPE_DEFAULT, "classification controller already activated", buf, 2u);
+    }
+
+    v7 = *(a1 + 40);
+    if (v7)
+    {
+      v8 = dispatch_get_global_queue(21, 0);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __53__ILClassificationController_activateWithCompletion___block_invoke_8;
       block[3] = &unk_278A5E608;
-      v8 = v6;
+      v9 = v7;
       block[4] = *(a1 + 32);
-      v15 = v8;
-      dispatch_async(v7, block);
+      v16 = v9;
+      dispatch_async(v8, block);
 
-      v9 = v15;
+      v10 = v16;
 LABEL_14:
     }
   }
 
-  else if (v3)
+  else if (v4)
   {
-    if (v5)
+    if (v6)
     {
       *buf = 0;
-      _os_log_impl(&dword_238A41000, v4, OS_LOG_TYPE_DEFAULT, "activating classification controller", buf, 2u);
+      _os_log_impl(&dword_238A41000, v5, OS_LOG_TYPE_DEFAULT, "activating classification controller", buf, 2u);
     }
 
     [*(a1 + 32) beginMatchingExtensionsWithFirstCompletion:*(a1 + 40)];
@@ -159,24 +158,24 @@ LABEL_14:
 
   else
   {
-    if (v5)
+    if (v6)
     {
       *buf = 0;
-      _os_log_impl(&dword_238A41000, v4, OS_LOG_TYPE_DEFAULT, "shouldn't activate classification controller", buf, 2u);
+      _os_log_impl(&dword_238A41000, v5, OS_LOG_TYPE_DEFAULT, "shouldn't activate classification controller", buf, 2u);
     }
 
-    v10 = *(a1 + 40);
-    if (v10)
+    v11 = *(a1 + 40);
+    if (v11)
     {
-      v11 = dispatch_get_global_queue(21, 0);
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __53__ILClassificationController_activateWithCompletion___block_invoke_9;
-      v12[3] = &unk_278A5E420;
-      v13 = v10;
-      dispatch_async(v11, v12);
+      v12 = dispatch_get_global_queue(21, 0);
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __53__ILClassificationController_activateWithCompletion___block_invoke_9;
+      v13[3] = &unk_278A5E420;
+      v14 = v11;
+      dispatch_async(v12, v13);
 
-      v9 = v13;
+      v10 = v14;
       goto LABEL_14;
     }
   }
@@ -184,44 +183,42 @@ LABEL_14:
 
 - (void)beginMatchingExtensionsWithFirstCompletion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = ILDefaultLog();
+  v5 = ILDefaultLog(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = _Block_copy(completionCopy);
     *buf = 138412290;
-    v17 = v6;
+    v16 = v6;
     _os_log_impl(&dword_238A41000, v5, OS_LOG_TYPE_DEFAULT, "begin matching extensions with first match completion: %@", buf, 0xCu);
   }
 
   [(ILClassificationController *)self setFirstMatchCompletionBlock:completionCopy];
   objc_initWeak(buf, self);
-  v14 = *MEMORY[0x277CCA0F8];
-  v15 = @"com.apple.identitylookup.classification-ui";
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v13 = *MEMORY[0x277CCA0F8];
+  v14 = @"com.apple.identitylookup.classification-ui";
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
   v8 = MEMORY[0x277CCA9C8];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __73__ILClassificationController_beginMatchingExtensionsWithFirstCompletion___block_invoke;
-  v12[3] = &unk_278A5E658;
-  objc_copyWeak(&v13, buf);
-  v9 = [v8 beginMatchingExtensionsWithAttributes:v7 completion:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __73__ILClassificationController_beginMatchingExtensionsWithFirstCompletion___block_invoke;
+  v11[3] = &unk_278A5E658;
+  objc_copyWeak(&v12, buf);
+  v9 = [v8 beginMatchingExtensionsWithAttributes:v7 completion:v11];
   matchingExtensionToken = self->_matchingExtensionToken;
   self->_matchingExtensionToken = v9;
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(buf);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __73__ILClassificationController_beginMatchingExtensionsWithFirstCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = ILDefaultLog();
+  v7 = ILDefaultLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
@@ -231,73 +228,70 @@ void __73__ILClassificationController_beginMatchingExtensionsWithFirstCompletion
 
   if (v6)
   {
-    v8 = ILDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = ILDefaultLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __73__ILClassificationController_beginMatchingExtensionsWithFirstCompletion___block_invoke_cold_1(v6, v8);
+      __73__ILClassificationController_beginMatchingExtensionsWithFirstCompletion___block_invoke_cold_1(v6, v9);
     }
   }
 
   else
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v8 = WeakRetained;
+    v9 = WeakRetained;
     if (WeakRetained)
     {
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v21 = 0x3032000000;
-      v22 = __Block_byref_object_copy_;
-      v23 = __Block_byref_object_dispose_;
-      v24 = 0;
-      v10 = [WeakRetained queue];
+      v22 = 0x3032000000;
+      v23 = __Block_byref_object_copy_;
+      v24 = __Block_byref_object_dispose_;
+      v25 = 0;
+      v11 = [WeakRetained queue];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __73__ILClassificationController_beginMatchingExtensionsWithFirstCompletion___block_invoke_12;
       block[3] = &unk_278A5E630;
       p_buf = &buf;
-      block[4] = v8;
-      v11 = v5;
-      v18 = v11;
-      dispatch_sync(v10, block);
+      block[4] = v9;
+      v12 = v5;
+      v19 = v12;
+      dispatch_sync(v11, block);
 
-      v12 = [v8 firstMatchCompletionBlock];
+      v13 = [v9 firstMatchCompletionBlock];
 
-      if (v12)
+      if (v13)
       {
-        v13 = ILDefaultLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v15 = ILDefaultLog(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          *v16 = 0;
-          _os_log_impl(&dword_238A41000, v13, OS_LOG_TYPE_DEFAULT, "Invoking first matching completion", v16, 2u);
+          *v17 = 0;
+          _os_log_impl(&dword_238A41000, v15, OS_LOG_TYPE_DEFAULT, "Invoking first matching completion", v17, 2u);
         }
 
-        v14 = [v8 firstMatchCompletionBlock];
-        (v14)[2](v14, *(*(&buf + 1) + 40), v11);
+        v16 = [v9 firstMatchCompletionBlock];
+        (v16)[2](v16, *(*(&buf + 1) + 40), v12);
 
-        [v8 setFirstMatchCompletionBlock:0];
+        [v9 setFirstMatchCompletionBlock:0];
       }
 
       _Block_object_dispose(&buf, 8);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__ILClassificationController_beginMatchingExtensionsWithFirstCompletion___block_invoke_12(void *a1)
 {
-  v2 = a1[4];
-  v3 = [objc_opt_class() electedExtensionFromExtensions:a1[5]];
-  v4 = *(a1[6] + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v2 = [objc_opt_class() electedExtensionFromExtensions:a1[5]];
+  v3 = *(a1[6] + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  v6 = a1[4];
-  v7 = a1[5];
-  v8 = *(*(a1[6] + 8) + 40);
+  v5 = a1[4];
+  v6 = a1[5];
+  v7 = *(*(a1[6] + 8) + 40);
 
-  return [v6 updateExtensions:v7 electedExtensions:v8];
+  return [v5 updateExtensions:v6 electedExtensions:v7];
 }
 
 - (void)updateExtensions:(id)extensions electedExtensions:(id)electedExtensions
@@ -308,8 +302,8 @@ uint64_t __73__ILClassificationController_beginMatchingExtensionsWithFirstComple
   queue = [(ILClassificationController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v10 = ILDefaultLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = ILDefaultLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
     v29 = extensionsCopy;
@@ -317,7 +311,7 @@ uint64_t __73__ILClassificationController_beginMatchingExtensionsWithFirstComple
     v31 = electedExtensionsCopy;
     v32 = 2112;
     v33 = @"com.apple.identitylookup.classification-ui";
-    _os_log_impl(&dword_238A41000, v10, OS_LOG_TYPE_DEFAULT, "updating extensions: %@ elected extension: %@ for point name: %@", buf, 0x20u);
+    _os_log_impl(&dword_238A41000, v11, OS_LOG_TYPE_DEFAULT, "updating extensions: %@ elected extension: %@ for point name: %@", buf, 0x20u);
   }
 
   v20 = electedExtensionsCopy;
@@ -332,42 +326,40 @@ uint64_t __73__ILClassificationController_beginMatchingExtensionsWithFirstComple
   delegates = [(ILClassificationController *)self delegates];
   allObjects = [delegates allObjects];
 
-  v13 = [allObjects countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v13)
+  v14 = [allObjects countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (v14)
   {
-    v14 = v13;
-    v15 = *v24;
+    v15 = v14;
+    v16 = *v24;
     do
     {
-      v16 = 0;
+      v17 = 0;
       do
       {
-        if (*v24 != v15)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v17 = *(*(&v23 + 1) + 8 * v16);
-        v18 = dispatch_get_global_queue(17, 0);
+        v18 = *(*(&v23 + 1) + 8 * v17);
+        v19 = dispatch_get_global_queue(17, 0);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __65__ILClassificationController_updateExtensions_electedExtensions___block_invoke;
         block[3] = &unk_278A5E680;
-        block[4] = v17;
+        block[4] = v18;
         block[5] = self;
-        dispatch_async(v18, block);
+        dispatch_async(v19, block);
 
-        ++v16;
+        ++v17;
       }
 
-      while (v14 != v16);
-      v14 = [allObjects countByEnumeratingWithState:&v23 objects:v27 count:{16, v20, v21}];
+      while (v15 != v17);
+      v15 = [allObjects countByEnumeratingWithState:&v23 objects:v27 count:{16, v20, v21}];
     }
 
-    while (v14);
+    while (v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __65__ILClassificationController_updateExtensions_electedExtensions___block_invoke(uint64_t a1)
@@ -450,68 +442,68 @@ void __65__ILClassificationController_updateExtensions_electedExtensions___block
 
 void __50__ILClassificationController_setElectedExtension___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
-  v3 = (a1 + 40);
+  v3 = v2;
+  v4 = (a1 + 40);
   if (v2 != *(a1 + 40))
   {
-    v4 = ILDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = ILDefaultLog(v2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 40);
-      v6 = *(*(a1 + 32) + 16);
+      v6 = *(a1 + 40);
+      v7 = *(*(a1 + 32) + 16);
       *buf = 138412546;
-      v18 = v5;
-      v19 = 2112;
       v20 = v6;
-      _os_log_impl(&dword_238A41000, v4, OS_LOG_TYPE_DEFAULT, "set elected: %@ in extensions: %@", buf, 0x16u);
+      v21 = 2112;
+      v22 = v7;
+      _os_log_impl(&dword_238A41000, v5, OS_LOG_TYPE_DEFAULT, "set elected: %@ in extensions: %@", buf, 0x16u);
     }
 
-    if (v2)
+    if (v3)
     {
-      v16 = 0;
-      v7 = [v2 attemptOptOut:&v16];
-      v8 = v16;
-      if ((v7 & 1) == 0)
+      v18 = 0;
+      v8 = [v3 attemptOptOut:&v18];
+      v9 = v18;
+      v10 = v9;
+      if ((v8 & 1) == 0)
       {
-        v9 = ILDefaultLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v11 = ILDefaultLog(v9);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          __50__ILClassificationController_setElectedExtension___block_invoke_cold_1(v2, v8, v9);
+          __50__ILClassificationController_setElectedExtension___block_invoke_cold_1(v3, v10, v11);
         }
       }
     }
 
     else
     {
-      v8 = 0;
+      v10 = 0;
     }
 
     objc_storeStrong((*(a1 + 32) + 8), *(a1 + 40));
-    v10 = *(a1 + 40);
-    if (v10)
+    v12 = *(a1 + 40);
+    if (v12)
     {
-      v15 = v8;
-      v11 = [v10 attemptOptIn:&v15];
-      v12 = v15;
+      v17 = v10;
+      v13 = [v12 attemptOptIn:&v17];
+      v14 = v17;
 
-      if ((v11 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        v13 = ILDefaultLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v16 = ILDefaultLog(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          __50__ILClassificationController_setElectedExtension___block_invoke_cold_2(v3, v12, v13);
+          __50__ILClassificationController_setElectedExtension___block_invoke_cold_2(v4, v14, v16);
         }
       }
     }
 
     else
     {
-      v12 = v8;
+      v14 = v10;
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDelegate:(id)delegate
@@ -556,26 +548,26 @@ void __45__ILClassificationController_removeDelegate___block_invoke(uint64_t a1)
 
 + (id)electedExtensionFromExtensions:(id)extensions
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   extensionsCopy = extensions;
-  v4 = [extensionsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [extensionsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(extensionsCopy);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         if ([v7 optedIn])
         {
           v4 = v7;
@@ -583,7 +575,7 @@ void __45__ILClassificationController_removeDelegate___block_invoke(uint64_t a1)
         }
       }
 
-      v4 = [extensionsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [extensionsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -594,8 +586,6 @@ void __45__ILClassificationController_removeDelegate___block_invoke(uint64_t a1)
   }
 
 LABEL_11:
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -613,33 +603,30 @@ LABEL_11:
 
 void __73__ILClassificationController_beginMatchingExtensionsWithFirstCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2112;
-  v6 = @"com.apple.identitylookup.classification-ui";
-  _os_log_error_impl(&dword_238A41000, a2, OS_LOG_TYPE_ERROR, "Error (%@) finding extensions for point name: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2112;
+  v5 = @"com.apple.identitylookup.classification-ui";
+  _os_log_error_impl(&dword_238A41000, a2, OS_LOG_TYPE_ERROR, "Error (%@) finding extensions for point name: %@", &v2, 0x16u);
 }
 
 void __50__ILClassificationController_setElectedExtension___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_0_0(&dword_238A41000, a2, a3, "Error opting out extension %@: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_0_0(&dword_238A41000, a2, a3, "Error opting out extension %@: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __50__ILClassificationController_setElectedExtension___block_invoke_cold_2(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_0_0(&dword_238A41000, a2, a3, "Error opting in extension %@: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_0_0(&dword_238A41000, a2, a3, "Error opting in extension %@: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

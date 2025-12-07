@@ -120,7 +120,7 @@
 - (int64_t)entityVisibility
 {
   selfCopy = self;
-  v3 = sub_1CA629BD8();
+  v3 = sub_1CA629BD8(selfCopy);
 
   return v3;
 }

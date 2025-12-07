@@ -138,12 +138,12 @@
 - (void)encodeToMPSCommandEncoder:(id)encoder commandBuffer:(id)buffer sourceArrays:(id)arrays resultState:(id)state destinationArray:(id)array kernelDAGObject:(id)object
 {
   arrayCopy = array;
-  v165[1] = *MEMORY[0x277D85DE8];
+  v164[1] = *MEMORY[0x277D85DE8];
   arrayCopy2 = array;
   objectCopy = object;
-  v142 = 0x2B2B032C2B2B0328;
+  v141 = 0x2B2B032C2B2B0328;
+  v142 = 0u;
   v143 = 0u;
-  v144 = 0u;
   kdebug_trace();
   if ((vmaxvq_u32(vorrq_s8(vorrq_s8(vceqzq_s32(*&arrayCopy[*MEMORY[0x277CD7410]]), vceqzq_s32(*&arrayCopy[*MEMORY[0x277CD7410] + 32])), vorrq_s8(vceqzq_s32(*&arrayCopy[*MEMORY[0x277CD7410] + 16]), vceqzq_s32(*&arrayCopy[*MEMORY[0x277CD7410] + 48])))) & 0x80000000) != 0)
   {
@@ -189,13 +189,13 @@ LABEL_9:
   [(MPSNDArrayMultiaryBase *)v15 kernelDAGObjectSetup:&objectCopy sourceArrays:arrays sourceGradient:0 destination:arrayCopy];
   v17 = v15;
   v18 = [(MPSNDArrayMultiaryKernel *)v15 encodePreProcessingToCommandEncoder:encoder commandBuffer:buffer sourceArrays:arrays destinationArray:&arrayCopy2 kernelDAGObject:&objectCopy];
-  v165[0] = arrayCopy2;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v165 count:1];
+  v164[0] = arrayCopy2;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v164 count:1];
   v20 = [(MPSNDArrayMultiaryBase *)v15 kernelDimensionalityForSourceArrays:v18 destinationArrays:v19 kernelDAGObject:objectCopy];
   [(MPSNDArrayMultiaryBase *)v15 setIndexingArithmaticTypeMask:&objectCopy sourceArrays:v18 sourceGradient:0 destination:arrayCopy2 tileDimensions:v20];
   numberOfDimensions = [arrayCopy2 numberOfDimensions];
   v22 = [(MPSNDArrayMultiaryBase *)v15 maxSupportedDimensionsForSourceArrays:v18 destinationArray:arrayCopy2];
-  v123 = v20;
+  v122 = v20;
   encoderCopy = encoder;
   graph = [objectCopy graph];
   v23 = 0;
@@ -225,12 +225,12 @@ LABEL_9:
       v33 = v25;
       do
       {
-        v126 = v32;
-        v127[0] = v31;
-        v127[1] = v30;
-        v127[2] = v29;
-        v127[3] = v28;
-        v34 = *(v127 + (*(&v126 | v33 & 0xF) & 0xF));
+        v125 = v32;
+        v126[0] = v31;
+        v126[1] = v30;
+        v126[2] = v29;
+        v126[3] = v28;
+        v34 = *(v126 + (*(&v125 | v33 & 0xF) & 0xF));
         v35 = v33 + 1;
         if (v33 + 1 > numberOfDimensions)
         {
@@ -267,12 +267,12 @@ LABEL_9:
     v43 = numberOfDimensions;
     do
     {
-      v134 = v42;
-      v135[0] = v41;
-      v135[1] = v40;
-      v135[2] = v39;
-      v135[3] = v38;
-      v44 = *(v135 + (*(&v134 | v43 & 0xF) & 0xF));
+      v133 = v42;
+      v134[0] = v41;
+      v134[1] = v40;
+      v134[2] = v39;
+      v134[3] = v38;
+      v44 = *(v134 + (*(&v133 | v43 & 0xF) & 0xF));
       v45 = v43 + 1;
       if (v43 + 1 > numberOfDimensions)
       {
@@ -297,7 +297,7 @@ LABEL_9:
 
   if (v25 > v22 && MTLReportFailureTypeEnabled())
   {
-    v118 = v22;
+    v117 = v22;
     MTLReportFailure();
   }
 
@@ -322,30 +322,30 @@ LABEL_37:
     goto LABEL_37;
   }
 
-  v148[0] = v17->super._srcCount;
-  v148[1] = 0;
-  v148[2] = v18;
-  v148[3] = state;
+  v147[0] = v17->super._srcCount;
+  v147[1] = 0;
+  v147[2] = v18;
+  v147[3] = state;
   *&v50 = 0x100000001;
   *(&v50 + 1) = 0x100000001;
-  v152 = v50;
   v151 = v50;
   v150 = v50;
   v149 = v50;
+  v148 = v50;
+  v152 = 0;
   v153 = 0;
-  v154 = 0;
-  v158 = v50;
   v157 = v50;
   v156 = v50;
   v155 = v50;
+  v154 = v50;
   offset = [v47 offset];
-  v160 = 0;
-  v161 = v47;
+  v159 = 0;
+  v160 = v47;
+  v161 = 0;
   v162 = 0;
-  v163 = 0;
-  v164 = objectCopy;
-  v121 = *MEMORY[0x277CD7378];
-  if (*(&v17->super.super.super.isa + v121))
+  v163 = objectCopy;
+  v120 = *MEMORY[0x277CD7378];
+  if (*(&v17->super.super.super.isa + v120))
   {
     goto LABEL_80;
   }
@@ -380,22 +380,22 @@ LABEL_37:
     v70 = *(v67 + 1);
     do
     {
-      v131 = v66;
-      v133[0] = v65;
-      v133[1] = v64;
-      v133[2] = v63;
-      v133[3] = v62;
-      v133[4] = v61;
-      v133[5] = v60;
-      v133[6] = v59;
-      v133[7] = v58;
-      v72 = *(&v131 | v56 & 0xF) & 0xF;
-      v73 = *(v133 + v72);
-      v132[0] = v71;
-      v132[1] = v70;
-      v132[2] = v69;
-      v132[3] = v68;
-      v74 = v73 * *(v132 + v72);
+      v130 = v66;
+      v132[0] = v65;
+      v132[1] = v64;
+      v132[2] = v63;
+      v132[3] = v62;
+      v132[4] = v61;
+      v132[5] = v60;
+      v132[6] = v59;
+      v132[7] = v58;
+      v72 = *(&v130 | v56 & 0xF) & 0xF;
+      v73 = *(v132 + v72);
+      v131[0] = v71;
+      v131[1] = v70;
+      v131[2] = v69;
+      v131[3] = v68;
+      v74 = v73 * *(v131 + v72);
       if (v74 > v55)
       {
         v55 = v74;
@@ -440,35 +440,35 @@ LABEL_48:
 LABEL_54:
   if (v78 > v51 && MTLReportFailureTypeEnabled())
   {
-    v117 = objc_opt_class();
-    v119 = NSStringFromClass(v117);
-    v120 = [v47 debugDescription];
+    v116 = objc_opt_class();
+    v118 = NSStringFromClass(v116);
+    v119 = [v47 debugDescription];
     MTLReportFailure();
   }
 
 LABEL_55:
-  v140 = 0u;
-  v141 = 0u;
-  v138 = 0u;
   v139 = 0u;
-  v79 = [v18 countByEnumeratingWithState:&v138 objects:v147 count:{16, v119, v120}];
+  v140 = 0u;
+  v137 = 0u;
+  v138 = 0u;
+  v79 = [v18 countByEnumeratingWithState:&v137 objects:v146 count:{16, v118, v119}];
   if (!v79)
   {
     goto LABEL_80;
   }
 
-  v80 = *v139;
+  v80 = *v138;
   do
   {
     v81 = 0;
     do
     {
-      if (*v139 != v80)
+      if (*v138 != v80)
       {
         objc_enumerationMutation(v18);
       }
 
-      v82 = *(*(&v138 + 1) + 8 * v81);
+      v82 = *(*(&v137 + 1) + 8 * v81);
       if (v82)
       {
         v83 = *&v82[*MEMORY[0x277CD73F0]];
@@ -493,22 +493,22 @@ LABEL_55:
           v99 = *(v96 + 1);
           do
           {
-            v128 = v95;
-            v130[0] = v94;
-            v130[1] = v93;
-            v130[2] = v92;
-            v130[3] = v91;
-            v130[4] = v90;
-            v130[5] = v89;
-            v130[6] = v88;
-            v130[7] = v87;
-            v101 = *(&v128 | v85 & 0xF) & 0xF;
-            v102 = *(v130 + v101);
-            v129[0] = v100;
-            v129[1] = v99;
-            v129[2] = v98;
-            v129[3] = v97;
-            v103 = v102 * *(v129 + v101);
+            v127 = v95;
+            v129[0] = v94;
+            v129[1] = v93;
+            v129[2] = v92;
+            v129[3] = v91;
+            v129[4] = v90;
+            v129[5] = v89;
+            v129[6] = v88;
+            v129[7] = v87;
+            v101 = *(&v127 | v85 & 0xF) & 0xF;
+            v102 = *(v129 + v101);
+            v128[0] = v100;
+            v128[1] = v99;
+            v128[2] = v98;
+            v128[3] = v97;
+            v103 = v102 * *(v128 + v101);
             if (v103 > v84)
             {
               v84 = v103;
@@ -561,8 +561,8 @@ LABEL_71:
         if (MTLReportFailureTypeEnabled())
         {
           v107 = objc_opt_class();
-          v119 = NSStringFromClass(v107);
-          v120 = [v82 debugDescription];
+          v118 = NSStringFromClass(v107);
+          v119 = [v82 debugDescription];
           MTLReportFailure();
         }
       }
@@ -572,7 +572,7 @@ LABEL_75:
     }
 
     while (v81 != v79);
-    v108 = [v18 countByEnumeratingWithState:&v138 objects:v147 count:16];
+    v108 = [v18 countByEnumeratingWithState:&v137 objects:v146 count:16];
     v79 = v108;
   }
 
@@ -590,24 +590,24 @@ LABEL_80:
       v109 = numberOfDimensions;
     }
 
-    CallNDArrayEncode(selfCopy, encoderCopy, buffer, v109 - 1, v123, v148);
+    CallNDArrayEncode(selfCopy, encoderCopy, buffer, v109 - 1, v122, v147);
   }
 
   else
   {
     v110 = [objc_alloc(MEMORY[0x277CD7210]) initWithCommandBuffer:buffer withDispatchType:0];
-    v136 = v110;
-    v137 = selfCopy;
-    if ((*(&selfCopy->super.super.super.isa + v121) & 0x18) != 0)
+    v135 = v110;
+    v136 = selfCopy;
+    if ((*(&selfCopy->super.super.super.isa + v120) & 0x18) != 0)
     {
       v111 = *(&selfCopy->super.super.super.isa + *MEMORY[0x277CD7360]);
       if (v111 || (v112 = objc_opt_class(), v111 = NSStringFromClass(v112), [(MPSKernel *)selfCopy setLabel:v111], v111))
       {
-        [v110 setLabel:{v111, v119, v120}];
+        [v110 setLabel:{v111, v118, v119}];
       }
     }
 
-    CallNDArrayEncode(selfCopy, v110, buffer, numberOfDimensions - 1, v123, v148);
+    CallNDArrayEncode(selfCopy, v110, buffer, numberOfDimensions - 1, v122, v147);
     [v110 endEncoding];
   }
 
@@ -632,7 +632,6 @@ LABEL_80:
 
 LABEL_97:
   kdebug_trace();
-  v116 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeToCommandBuffer:(id)buffer sourceArrays:(id)arrays resultState:(id)state destinationArray:(id)array kernelDAGObject:(id)object
@@ -727,24 +726,24 @@ LABEL_97:
   bufferCopy = buffer;
   stateCopy = state;
   encoderCopy = encoder;
-  v93 = *MEMORY[0x277D85DE8];
-  v73[1] = 0x2B2B032C2B2B0328;
+  v92 = *MEMORY[0x277D85DE8];
+  v72[1] = 0x2B2B032C2B2B0328;
+  v73 = 0u;
   v74 = 0u;
-  v75 = 0u;
   kdebug_trace();
-  v73[0] = 0;
-  v13 = [(MPSNDArrayMultiaryKernel *)self firstGradientDestinationFromDestinationGradients:gradients outMaxNumDimensions:v73];
+  v72[0] = 0;
+  v13 = [(MPSNDArrayMultiaryKernel *)self firstGradientDestinationFromDestinationGradients:gradients outMaxNumDimensions:v72];
   if (v13)
   {
     [(MPSNDArrayMultiaryBase *)self kernelDAGObjectSetup:&object sourceArrays:arrays sourceGradient:gradient destination:v13];
     v14 = [(MPSNDArrayMultiaryBase *)self kernelDimensionalityForSourceArrays:arrays];
     [(MPSNDArrayMultiaryBase *)self setIndexingArithmaticTypeMask:&object sourceArrays:arrays sourceGradient:gradient destination:v13 tileDimensions:v14];
-    v62 = v14;
+    v61 = v14;
     v15 = [(MPSNDArrayMultiaryBase *)self maxSupportedDimensionsForSourceArrays:arrays destinationArray:v13];
     for (i = 0; ; ++i)
     {
       v17 = [arrays count];
-      v18 = v73[0];
+      v18 = v72[0];
       if (i >= v17)
       {
         break;
@@ -761,22 +760,22 @@ LABEL_97:
         v20 = v18;
       }
 
-      v73[0] = v20;
+      v72[0] = v20;
     }
 
-    if (v73[0] > v15 && MTLReportFailureTypeEnabled())
+    if (v72[0] > v15 && MTLReportFailureTypeEnabled())
     {
       MTLReportFailure();
     }
 
     v21 = [arrays count];
     v28 = MEMORY[0x28223BE20](v21, v22, v23, v24, v25, v26, v27);
-    v30 = v60 - v29;
+    v30 = v59 - v29;
     if (v28)
     {
       *&v31 = 0x100000001;
       *(&v31 + 1) = 0x100000001;
-      v32 = v60 - v29;
+      v32 = v59 - v29;
       do
       {
         *(v32 + 2) = v31;
@@ -791,20 +790,20 @@ LABEL_97:
     }
 
     v33 = [gradients count];
-    v60[1] = v60;
+    v59[1] = v59;
     MEMORY[0x28223BE20](v33, v34, v35, v36, v37, v38, v39);
-    v66 = v60 - v40;
+    v65 = v59 - v40;
     v41 = 0;
     v42 = v30 + 64;
     if (self)
     {
       while (v41 < [arrays count])
       {
-        [(MPSNDArrayMultiaryBase *)self stridesAtSourceIndex:v41];
-        v43 = v69;
-        v44 = v70;
-        v45 = v72;
-        *(v42 - 2) = v71;
+        objc_msgSend_stridesAtSourceIndex_(self);
+        v43 = v68;
+        v44 = v69;
+        v45 = v71;
+        *(v42 - 2) = v70;
         *(v42 - 1) = v45;
         *(v42 - 4) = v43;
         *(v42 - 3) = v44;
@@ -830,7 +829,7 @@ LABEL_97:
 
     gradientCopy = gradient;
     v46 = 0;
-    v47 = v66 + 64;
+    v47 = v65 + 64;
     while (v46 < [gradients count])
     {
       v47[8] = 0;
@@ -852,42 +851,42 @@ LABEL_97:
       v47 += 80;
     }
 
-    v76[0] = self->super._srcCount;
-    v76[1] = v30;
-    v76[2] = arrays;
-    v76[3] = stateCopy;
+    v75[0] = self->super._srcCount;
+    v75[1] = v30;
+    v75[2] = arrays;
+    v75[3] = stateCopy;
     *&v49 = 0x100000001;
     *(&v49 + 1) = 0x100000001;
-    v79 = v49;
-    v80 = v49;
-    v77 = v49;
     v78 = v49;
+    v79 = v49;
+    v76 = v49;
+    v77 = v49;
     offset2 = 0;
     v50 = gradientCopy;
-    v82 = gradientCopy;
-    v85 = v49;
-    v86 = v49;
-    v83 = v49;
+    v81 = gradientCopy;
     v84 = v49;
+    v85 = v49;
+    v82 = v49;
+    v83 = v49;
     offset = [v13 offset];
-    v88 = 0;
-    v89 = v13;
-    v90 = v66;
+    v87 = 0;
+    v88 = v13;
+    v89 = v65;
     gradientsCopy = gradients;
     objectCopy = object;
     offset2 = [(MPSTemporaryNDArray *)v50 offset];
     if (encoderCopy)
     {
-      CallNDArrayNewGradientEncode(self, encoderCopy, bufferCopy, v73[0] - 1, v62, v76);
+      CallNDArrayNewGradientEncode(self, encoderCopy, bufferCopy, v72[0] - 1, v61, v75);
     }
 
     else
     {
       v51 = objc_alloc(MEMORY[0x277CD7210]);
       v52 = bufferCopy;
-      v53 = v62;
+      v53 = v61;
       v54 = [v51 initWithCommandBuffer:bufferCopy withDispatchType:0];
-      v67 = v54;
+      v66 = v54;
       selfCopy = self;
       if ((*(&self->super.super.super.isa + *MEMORY[0x277CD7378]) & 0x18) != 0)
       {
@@ -898,7 +897,7 @@ LABEL_97:
         }
       }
 
-      CallNDArrayNewGradientEncode(self, v54, v52, v73[0] - 1, v53, v76);
+      CallNDArrayNewGradientEncode(self, v54, v52, v72[0] - 1, v53, v75);
       [v54 endEncoding];
     }
 
@@ -920,7 +919,6 @@ LABEL_97:
   }
 
   kdebug_trace();
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeGradientsToCommandBuffer:(id)buffer sourceArrays:(id)arrays sourceGradient:(id)gradient gradientState:(id)state destinationGradients:(id)gradients kernelDAGObject:(id)object

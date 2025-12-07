@@ -13,9 +13,23 @@
 - (void)handleURL:(id)l withCompletion:(id)completion;
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CalendarSettingsController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = CalendarSettingsController;
+  [(CalendarSettingsController *)&v7 viewWillAppear:appear];
+  navigationItem = [(CalendarSettingsController *)self navigationItem];
+  v5 = [NSBundle bundleForClass:objc_opt_class()];
+  v6 = [v5 localizedStringForKey:@"CALENDAR_LABEL" value:&stru_14AB8 table:@"calendarSettings"];
+  [navigationItem setTitle:v6];
+
+  [navigationItem setHidesBackButton:0];
+}
 
 - (void)viewDidLoad
 {
@@ -75,7 +89,8 @@
       _calendarCardViewSpecifier = [(CalendarSettingsController *)self _calendarCardViewSpecifier];
       [v5 addObjectsFromArray:_calendarCardViewSpecifier];
 
-      if ([(CalendarSettingsController *)self _showSendReceive])
+      _showSendReceive = [(CalendarSettingsController *)self _showSendReceive];
+      if (_showSendReceive)
       {
         _loadSendReceiveSpecifier = [(CalendarSettingsController *)self _loadSendReceiveSpecifier];
         [v5 addObjectsFromArray:_loadSendReceiveSpecifier];
@@ -87,32 +102,32 @@
         [v5 addObjectsFromArray:_loadCalendarSettingInfoSpecifier];
       }
 
-      v14 = _CalLogSystem();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = _CalLogSystem(_showSendReceive);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        *v20 = 0;
-        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "calendar settings card view loaded", v20, 2u);
+        *v22 = 0;
+        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "calendar settings card view loaded", v22, 2u);
       }
     }
 
     else
     {
-      v14 = _CalLogSystem();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = _CalLogSystem(v10);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        sub_AFC8(&self->_userInfoDictionary);
+        sub_AFC8();
       }
     }
 
-    v15 = *&self->ACUIDataclassConfigurationViewController_opaque[v3];
+    v17 = *&self->ACUIDataclassConfigurationViewController_opaque[v3];
     *&self->ACUIDataclassConfigurationViewController_opaque[v3] = v5;
-    v16 = v5;
+    v18 = v5;
 
-    v17 = +[NSNotificationCenter defaultCenter];
-    [v17 removeObserver:self name:@"CALENDAR_SETTING_REFRESH_NOTIFICATION" object:0];
+    v19 = +[NSNotificationCenter defaultCenter];
+    [v19 removeObserver:self name:@"CALENDAR_SETTING_REFRESH_NOTIFICATION" object:0];
 
-    v18 = +[NSNotificationCenter defaultCenter];
-    [v18 addObserver:self selector:"_calendarSettingRefreshNotification:" name:@"CALENDAR_SETTING_REFRESH_NOTIFICATION" object:0];
+    v20 = +[NSNotificationCenter defaultCenter];
+    [v20 addObserver:self selector:"_calendarSettingRefreshNotification:" name:@"CALENDAR_SETTING_REFRESH_NOTIFICATION" object:0];
 
     v4 = *&self->ACUIDataclassConfigurationViewController_opaque[v3];
   }
@@ -319,7 +334,7 @@ LABEL_12:
 
   else
   {
-    v6 = _CalLogSystem();
+    v6 = _CalLogSystem(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_B040();
@@ -363,41 +378,41 @@ LABEL_12:
 {
   updateCopy = update;
   specifierCopy = specifier;
-  v8 = _CalLogSystem();
+  v8 = _CalLogSystem(specifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = updateCopy;
+    v20 = updateCopy;
     _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "setting %@ for shared calendar update", buf, 0xCu);
   }
 
   if (self->_getSettingsResponse)
   {
-    v9 = [SharedCalendarEmailUpdateRequest alloc];
+    v10 = [SharedCalendarEmailUpdateRequest alloc];
     appleAccount = self->_appleAccount;
     accountStore = [(ACAccount *)appleAccount accountStore];
-    v12 = -[SharedCalendarEmailUpdateRequest initWithAccount:accountStore:sharedCalendarEmail:](v9, "initWithAccount:accountStore:sharedCalendarEmail:", appleAccount, accountStore, [updateCopy BOOLValue]);
+    v13 = -[SharedCalendarEmailUpdateRequest initWithAccount:accountStore:sharedCalendarEmail:](v10, "initWithAccount:accountStore:sharedCalendarEmail:", appleAccount, accountStore, [updateCopy BOOLValue]);
 
     [specifierCopy setProperty:&__kCFBooleanTrue forKey:PSControlIsLoadingKey];
     objc_initWeak(buf, self);
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_342C;
-    v13[3] = &unk_146C8;
-    objc_copyWeak(&v17, buf);
-    v14 = specifierCopy;
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_342C;
+    v14[3] = &unk_146C8;
+    objc_copyWeak(&v18, buf);
+    v15 = specifierCopy;
     selfCopy = self;
-    v16 = updateCopy;
-    [v12 performRequestWithCallback:v13];
+    v17 = updateCopy;
+    [v13 performRequestWithCallback:v14];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v12 = _CalLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _CalLogSystem(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_B080();
     }
@@ -444,34 +459,35 @@ LABEL_12:
   lCopy = l;
   completionCopy = completion;
   v8 = [lCopy objectForKey:@"path"];
-  v9 = _CalLogSystem();
+  v9 = _CalLogSystem(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     sub_B0C0();
   }
 
-  if ([v8 isEqualToString:@"CALENDAR_SEND_RECEIVE"])
+  v10 = [v8 isEqualToString:@"CALENDAR_SEND_RECEIVE"];
+  if (v10)
   {
-    v10 = _CalLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = _CalLogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_B128();
     }
 
     if (self->_getSettingsResponse)
     {
-      v11 = [CalendarSendReceiveController alloc];
+      v13 = [CalendarSendReceiveController alloc];
       emails = [(CalGetSettingsResponse *)self->_getSettingsResponse emails];
-      v13 = [(CalendarSendReceiveController *)v11 initWithEmailData:emails userAccount:self->_appleAccount];
+      v15 = [(CalendarSendReceiveController *)v13 initWithEmailData:emails userAccount:self->_appleAccount];
 
-      [(CalendarSettingsController *)self showController:v13];
+      [(CalendarSettingsController *)self showController:v15];
     }
 
     else
     {
       self->needsToNavigateToSendAndReceive = 1;
-      v13 = _CalLogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = _CalLogSystem(v12);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_B040();
       }
@@ -540,7 +556,7 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v13 = _CalLogSystem();
+  v13 = _CalLogSystem(0);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     sub_B268(pathCopy);

@@ -3,24 +3,24 @@
 
 @implementation WFReferencedEntityMetadataFromMetadata
 
-void ____WFReferencedEntityMetadataFromMetadata_block_invoke_2(uint64_t a1, void *a2)
+void ____WFReferencedEntityMetadataFromMetadata_block_invoke_2(void **a1, void *a2)
 {
-  v3 = *(a1 + 32);
+  v3 = a1[4];
   v4 = [a2 identifier];
-  v13 = [v3 entityWithIdentifier:v4 fromBundleIdentifier:*(a1 + 40)];
+  v13 = [v3 entityWithIdentifier:v4 fromBundleIdentifier:a1[5]];
 
   v5 = v13;
   if (v13)
   {
     v6 = [v13 identifier];
-    v7 = [*(a1 + 48) identifier];
-    if ([v6 isEqualToString:v7])
+    v7 = [a1[6] identifier];
+    if (objc_msgSend_isEqualToString_(v6))
     {
     }
 
     else
     {
-      v8 = *(a1 + 56);
+      v8 = a1[7];
       v9 = [v13 identifier];
       v10 = [v8 objectForKey:v9];
 
@@ -30,11 +30,11 @@ void ____WFReferencedEntityMetadataFromMetadata_block_invoke_2(uint64_t a1, void
         goto LABEL_7;
       }
 
-      v11 = *(a1 + 56);
+      v11 = a1[7];
       v12 = [v13 identifier];
       [v11 setObject:v13 forKey:v12];
 
-      __WFReferencedEntityMetadataFromMetadata(v13, *(a1 + 48), *(a1 + 40), *(a1 + 32), *(a1 + 56));
+      __WFReferencedEntityMetadataFromMetadata(v13, a1[6], a1[5], a1[4], a1[7]);
     }
 
     v5 = v13;

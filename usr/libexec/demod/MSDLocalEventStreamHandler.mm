@@ -38,7 +38,7 @@
   if (type != &_xpc_type_dictionary)
   {
     v7 = type;
-    v8 = sub_100063B64();
+    v8 = sub_100063B64(type);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1000D784C(v7, v8);
@@ -48,7 +48,7 @@
   }
 
   string = xpc_dictionary_get_string(eventCopy, _xpc_event_key_name);
-  v10 = sub_100063B64();
+  v10 = sub_100063B64(string);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 136315394;

@@ -39,7 +39,7 @@ void __116___UIComplexBoundingPath__largestInscribedPortraitPixelRectInBoundingP
   }
 }
 
-uint64_t __116___UIComplexBoundingPath__largestInscribedPortraitPixelRectInBoundingPathWithPortraitPixelRect_portraitAspectRatio___block_invoke_2(uint64_t a1)
+unint64_t __116___UIComplexBoundingPath__largestInscribedPortraitPixelRectInBoundingPathWithPortraitPixelRect_portraitAspectRatio___block_invoke_2(uint64_t a1)
 {
   v1 = *(*(a1 + 32) + 8);
   v2 = *(v1 + 32);
@@ -52,7 +52,7 @@ uint64_t __116___UIComplexBoundingPath__largestInscribedPortraitPixelRectInBound
   return _UIBoundingPathBitmapDataRowHitTest(v6, v2, v3) & 1;
 }
 
-uint64_t __116___UIComplexBoundingPath__largestInscribedPortraitPixelRectInBoundingPathWithPortraitPixelRect_portraitAspectRatio___block_invoke_3(uint64_t a1)
+unint64_t __116___UIComplexBoundingPath__largestInscribedPortraitPixelRectInBoundingPathWithPortraitPixelRect_portraitAspectRatio___block_invoke_3(uint64_t a1)
 {
   v1 = *(*(a1 + 32) + 8);
   v3 = v1[4];
@@ -66,7 +66,7 @@ uint64_t __116___UIComplexBoundingPath__largestInscribedPortraitPixelRectInBound
   return _UIBoundingPathBitmapDataRowHitTest(v7, v4 + v3, v2) & 1;
 }
 
-uint64_t __116___UIComplexBoundingPath__largestInscribedPortraitPixelRectInBoundingPathWithPortraitPixelRect_portraitAspectRatio___block_invoke_4(uint64_t a1)
+unint64_t __116___UIComplexBoundingPath__largestInscribedPortraitPixelRectInBoundingPathWithPortraitPixelRect_portraitAspectRatio___block_invoke_4(uint64_t a1)
 {
   v1 = *(*(a1 + 32) + 8);
   v2 = v1[4];
@@ -80,7 +80,7 @@ uint64_t __116___UIComplexBoundingPath__largestInscribedPortraitPixelRectInBound
   return _UIBoundingPathBitmapDataRowHitTest(v7, v2, v4 + v3) & 1;
 }
 
-uint64_t __116___UIComplexBoundingPath__largestInscribedPortraitPixelRectInBoundingPathWithPortraitPixelRect_portraitAspectRatio___block_invoke_5(uint64_t a1)
+unint64_t __116___UIComplexBoundingPath__largestInscribedPortraitPixelRectInBoundingPathWithPortraitPixelRect_portraitAspectRatio___block_invoke_5(uint64_t a1)
 {
   v1 = vaddq_s64(*(*(*(a1 + 32) + 8) + 48), *(*(*(a1 + 32) + 8) + 32));
   v2 = *(a1 + 56);

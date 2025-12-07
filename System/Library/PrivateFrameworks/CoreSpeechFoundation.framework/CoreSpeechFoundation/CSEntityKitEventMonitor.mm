@@ -84,9 +84,11 @@ void __60__CSEntityKitEventMonitor_entityKitManagerDidReceiveUpdate___block_invo
 
 uint64_t __40__CSEntityKitEventMonitor_sharedMonitor__block_invoke()
 {
-  sharedMonitor_sharedMonitor_5645 = objc_alloc_init(CSEntityKitEventMonitor);
+  v0 = objc_alloc_init(CSEntityKitEventMonitor);
+  v1 = sharedMonitor_sharedMonitor_5645;
+  sharedMonitor_sharedMonitor_5645 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

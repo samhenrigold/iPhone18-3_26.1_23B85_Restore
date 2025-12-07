@@ -11,9 +11,9 @@
 - (_DASSwapPredictionManager)initWithAlgorithms:(id)algorithms
 {
   algorithmsCopy = algorithms;
-  v24.receiver = self;
-  v24.super_class = _DASSwapPredictionManager;
-  v5 = [(_DASSwapPredictionManager *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = _DASSwapPredictionManager;
+  v5 = [(_DASSwapPredictionManager *)&v23 init];
   if (v5)
   {
     v6 = [[_DASSwapModelCustomAggregator alloc] initWithAlgorithms:algorithmsCopy];
@@ -33,24 +33,23 @@
     v14 = *(v5 + 5);
     *(v5 + 5) = v13;
 
-    v15 = *(v5 + 5);
     dispatch_set_qos_class_fallback();
-    v16 = *(v5 + 5);
+    v15 = *(v5 + 5);
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_1000B78AC;
     handler[3] = &unk_1001B5668;
-    v17 = v5;
-    v23 = v17;
-    dispatch_source_set_event_handler(v16, handler);
-    v17[2] = -1;
-    v18 = *(v5 + 4);
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_1000B78F4;
-    v20[3] = &unk_1001B5B78;
-    v21 = v17;
-    notify_register_dispatch("com.apple.dasd.updateswapscores", v17 + 2, v18, v20);
+    v16 = v5;
+    v22 = v16;
+    dispatch_source_set_event_handler(v15, handler);
+    v16[2] = -1;
+    v17 = *(v5 + 4);
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_1000B78F4;
+    v19[3] = &unk_1001B5B78;
+    v20 = v16;
+    notify_register_dispatch("com.apple.dasd.updateswapscores", v16 + 2, v17, v19);
   }
 
   return v5;
@@ -77,7 +76,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating scores to %@", buf, 0xCu);
   }
 
-  if ([dictionaryCopy count])
+  if (objc_msgSend_count(dictionaryCopy))
   {
     selfCopy = self;
     v6 = [dictionaryCopy mutableCopy];
@@ -86,7 +85,7 @@
     v7 = [v6 copy];
 
     v25[1] = v25;
-    v25[0] = [v7 count];
+    v25[0] = objc_msgSend_count(v7);
     v28 = v25 - ((56 * v25[0] + 15) & 0xFFFFFFFFFFFFFFF0);
     v35 = 0u;
     v34 = 0u;

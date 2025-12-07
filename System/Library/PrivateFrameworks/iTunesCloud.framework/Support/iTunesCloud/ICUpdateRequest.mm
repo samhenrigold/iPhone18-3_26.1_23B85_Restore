@@ -1,9 +1,18 @@
 @interface ICUpdateRequest
++ (id)requestWithDatabaseRevision:(unsigned int)revision;
+- (ICUpdateRequest)initWithDatabaseRevision:(unsigned int)revision;
 - (id)_bodyDataForDatabaseRevision:(unsigned int)revision;
 - (id)canonicalResponseForResponse:(id)response;
 @end
 
 @implementation ICUpdateRequest
+
++ (id)requestWithDatabaseRevision:(unsigned int)revision
+{
+  v3 = [objc_alloc(objc_opt_class()) initWithDatabaseRevision:*&revision];
+
+  return v3;
+}
 
 - (id)_bodyDataForDatabaseRevision:(unsigned int)revision
 {
@@ -41,6 +50,23 @@
   }
 
   return v4;
+}
+
+- (ICUpdateRequest)initWithDatabaseRevision:(unsigned int)revision
+{
+  v3 = *&revision;
+  v4 = [(ICDRequest *)self initWithAction:@"update"];
+  v5 = v4;
+  if (v4)
+  {
+    [(ICDRequest *)v4 setMethod:1];
+    v6 = [(ICUpdateRequest *)v5 _bodyDataForDatabaseRevision:v3];
+    [(ICDRequest *)v5 setBodyData:v6];
+
+    [(ICDRequest *)v5 setRequestPersonalizationStyle:2];
+  }
+
+  return v5;
 }
 
 @end

@@ -251,7 +251,7 @@ LABEL_9:
 - (void)preLoadAllScorers
 {
   v21 = *MEMORY[0x1E69E9840];
-  if (MapsSuggestionsLoggingIsVerbose())
+  if (MapsSuggestionsLoggingIsVerbose(self, a2))
   {
     v3 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
@@ -379,83 +379,90 @@ LABEL_15:
 
 - (id)_postProcessConfidences:(id)confidences
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v25 = a2;
+  v37 = *MEMORY[0x1E69E9840];
+  v27 = a2;
   if (confidences)
   {
     null = [MEMORY[0x1E695DFB0] null];
-    v23 = [[MapsSuggestionsRelevanceScore alloc] initWithConfidence:MapsSuggestionsConfidenceDontKnow()];
-    obj = [v25 finalRelevanceScores];
+    v25 = [[MapsSuggestionsRelevanceScore alloc] initWithConfidence:MapsSuggestionsConfidenceDontKnow()];
+    obj = [v27 finalRelevanceScores];
     objc_sync_enter(obj);
-    for (i = 0; i < [v25 inputCount]; ++i)
+    for (i = 0; i < [v27 inputCount]; ++i)
     {
-      finalRelevanceScores = [v25 finalRelevanceScores];
+      finalRelevanceScores = [v27 finalRelevanceScores];
       v5 = [finalRelevanceScores objectAtIndexedSubscript:i];
 
       if (null == v5)
       {
-        finalRelevanceScores2 = [v25 finalRelevanceScores];
-        [finalRelevanceScores2 setObject:v23 atIndexedSubscript:i];
+        finalRelevanceScores2 = [v27 finalRelevanceScores];
+        [finalRelevanceScores2 setObject:v25 atIndexedSubscript:i];
       }
     }
 
+    v30 = 0u;
+    v31 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    finalRelevanceScores3 = [v25 finalRelevanceScores];
-    v8 = [finalRelevanceScores3 countByEnumeratingWithState:&v26 objects:v34 count:16];
-    if (v8)
+    finalRelevanceScores3 = [v27 finalRelevanceScores];
+    IsVerbose = [finalRelevanceScores3 countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v10 = IsVerbose;
+    if (IsVerbose)
     {
-      v9 = *v27;
+      v11 = *v29;
       do
       {
-        for (j = 0; j != v8; ++j)
+        v12 = 0;
+        do
         {
-          if (*v27 != v9)
+          if (*v29 != v11)
           {
             objc_enumerationMutation(finalRelevanceScores3);
           }
 
-          v11 = *(*(&v26 + 1) + 8 * j);
-          if (MapsSuggestionsLoggingIsVerbose())
+          v13 = *(*(&v28 + 1) + 8 * v12);
+          IsVerbose = MapsSuggestionsLoggingIsVerbose(IsVerbose, v9);
+          if (IsVerbose)
           {
-            v12 = GEOFindOrCreateLog();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+            v14 = GEOFindOrCreateLog();
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
             {
-              [v11 confidence];
-              v14 = v13;
-              lastInteractionTime = [v11 lastInteractionTime];
+              [v13 confidence];
+              v16 = v15;
+              lastInteractionTime = [v13 lastInteractionTime];
               *buf = 134218242;
-              *&buf[4] = v14;
-              v32 = 2112;
-              v33 = lastInteractionTime;
-              _os_log_impl(&dword_1C5126000, v12, OS_LOG_TYPE_DEBUG, "finalConfidence: %f, Time: %@", buf, 0x16u);
+              *&buf[4] = v16;
+              v34 = 2112;
+              v35 = lastInteractionTime;
+              _os_log_impl(&dword_1C5126000, v14, OS_LOG_TYPE_DEBUG, "finalConfidence: %f, Time: %@", buf, 0x16u);
             }
           }
+
+          ++v12;
         }
 
-        v8 = [finalRelevanceScores3 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        while (v10 != v12);
+        IsVerbose = [finalRelevanceScores3 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v10 = IsVerbose;
       }
 
-      while (v8);
+      while (IsVerbose);
     }
 
-    finalRelevanceScores4 = [v25 finalRelevanceScores];
-    v17 = [finalRelevanceScores4 count];
-    v18 = v17 == [v25 inputCount];
+    finalRelevanceScores4 = [v27 finalRelevanceScores];
+    v19 = [finalRelevanceScores4 count];
+    v20 = v19 == [v27 inputCount];
 
-    if (v18)
+    if (v20)
     {
-      finalRelevanceScores5 = [v25 finalRelevanceScores];
+      finalRelevanceScores5 = [v27 finalRelevanceScores];
       confidences = [finalRelevanceScores5 copy];
     }
 
     else
     {
-      v20 = GEOFindOrCreateLog();
-      [(MapsSuggestionsRelevanceScorer *)v20 _postProcessConfidences:buf];
-      finalRelevanceScores5 = v30;
+      v22 = GEOFindOrCreateLog();
+      [(MapsSuggestionsRelevanceScorer *)v22 _postProcessConfidences:buf];
+      finalRelevanceScores5 = v32;
       confidences = *buf;
     }
 
@@ -556,111 +563,118 @@ void __71__MapsSuggestionsRelevanceScorer__confidenceForData_scorerIndex_group__
 
 - (void)_processScorerConfidences:(void *)confidences data:(void *)data error:
 {
-  v74 = *MEMORY[0x1E69E9840];
-  v61 = a2;
+  v77 = *MEMORY[0x1E69E9840];
+  v64 = a2;
   confidencesCopy = confidences;
   dataCopy = data;
   if (self)
   {
-    v60 = dataCopy;
+    v63 = dataCopy;
     if (dataCopy)
     {
       [MapsSuggestionsRelevanceScorer _processScorerConfidences:dataCopy data:buf error:?];
-      v8 = *buf;
+      v9 = *buf;
 LABEL_44:
 
-      dataCopy = v60;
+      dataCopy = v63;
       goto LABEL_45;
     }
 
-    if (MapsSuggestionsLoggingIsVerbose())
+    if (MapsSuggestionsLoggingIsVerbose(0, v8))
     {
-      v9 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
         *&buf[4] = @"Scorer confidence is: ";
-        _os_log_impl(&dword_1C5126000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        _os_log_impl(&dword_1C5126000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
 
-    v68 = 0u;
+    v71 = 0u;
+    v72 = 0u;
     v69 = 0u;
-    v66 = 0u;
-    v67 = 0u;
-    obj = v61;
-    v10 = [obj countByEnumeratingWithState:&v66 objects:v73 count:16];
-    if (v10)
+    v70 = 0u;
+    obj = v64;
+    IsVerbose = [obj countByEnumeratingWithState:&v69 objects:v76 count:16];
+    v13 = IsVerbose;
+    if (IsVerbose)
     {
-      v11 = *v67;
+      v14 = *v70;
       do
       {
-        for (i = 0; i != v10; ++i)
+        v15 = 0;
+        do
         {
-          if (*v67 != v11)
+          if (*v70 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v66 + 1) + 8 * i);
-          if (MapsSuggestionsLoggingIsVerbose())
+          v16 = *(*(&v69 + 1) + 8 * v15);
+          IsVerbose = MapsSuggestionsLoggingIsVerbose(IsVerbose, v12);
+          if (IsVerbose)
           {
-            v14 = GEOFindOrCreateLog();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+            v17 = GEOFindOrCreateLog();
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
             {
-              [v13 confidence];
-              v16 = v15;
-              lastInteractionTime = [v13 lastInteractionTime];
+              [v16 confidence];
+              v19 = v18;
+              lastInteractionTime = [v16 lastInteractionTime];
               *buf = 134218242;
-              *&buf[4] = v16;
-              v71 = 2112;
-              v72 = lastInteractionTime;
-              _os_log_impl(&dword_1C5126000, v14, OS_LOG_TYPE_DEBUG, "Confidence: %f, Time: %@", buf, 0x16u);
+              *&buf[4] = v19;
+              v74 = 2112;
+              v75 = lastInteractionTime;
+              _os_log_impl(&dword_1C5126000, v17, OS_LOG_TYPE_DEBUG, "Confidence: %f, Time: %@", buf, 0x16u);
             }
           }
+
+          ++v15;
         }
 
-        v10 = [obj countByEnumeratingWithState:&v66 objects:v73 count:16];
+        while (v13 != v15);
+        IsVerbose = [obj countByEnumeratingWithState:&v69 objects:v76 count:16];
+        v13 = IsVerbose;
       }
 
-      while (v10);
+      while (IsVerbose);
     }
 
     dataCopy = 0;
     if (obj)
     {
-      v64 = [obj count];
-      v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v64];
-      v59 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v64];
-      v58 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v64];
-      v62 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v64];
-      if (v64)
+      v67 = [obj count];
+      v9 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v67];
+      v62 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v67];
+      v61 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v67];
+      v65 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v67];
+      if (v67)
       {
-        v19 = 0;
-        *&v18 = 134217984;
-        v57 = v18;
+        v22 = 0;
+        *&v21 = 134217984;
+        v60 = v21;
         do
         {
-          v20 = [obj objectAtIndexedSubscript:{v19, v57}];
-          [v20 confidence];
-          if (v21 == MapsSuggestionsConfidenceDefinitelyTrue())
+          v23 = [obj objectAtIndexedSubscript:{v22, v60}];
+          [v23 confidence];
+          if (v24 == MapsSuggestionsConfidenceDefinitelyTrue())
           {
-            v39 = GEOFindOrCreateLog();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+            v42 = GEOFindOrCreateLog();
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v57;
-              *&buf[4] = v19;
-              _os_log_impl(&dword_1C5126000, v39, OS_LOG_TYPE_DEBUG, "Scorer returned high confidence for %lu", buf, 0xCu);
+              *buf = v60;
+              *&buf[4] = v22;
+              _os_log_impl(&dword_1C5126000, v42, OS_LOG_TYPE_DEBUG, "Scorer returned high confidence for %lu", buf, 0xCu);
             }
 
             finalRelevanceScores = [confidencesCopy finalRelevanceScores];
             objc_sync_enter(finalRelevanceScores);
             finalRelevanceScores2 = [confidencesCopy finalRelevanceScores];
             indexMapping = [confidencesCopy indexMapping];
-            v42 = [indexMapping objectAtIndexedSubscript:v19];
-            unsignedIntegerValue = [v42 unsignedIntegerValue];
-            v44 = [obj objectAtIndexedSubscript:v19];
-            [finalRelevanceScores2 replaceObjectAtIndex:unsignedIntegerValue withObject:v44];
+            v45 = [indexMapping objectAtIndexedSubscript:v22];
+            unsignedIntegerValue = [v45 unsignedIntegerValue];
+            v47 = [obj objectAtIndexedSubscript:v22];
+            [finalRelevanceScores2 replaceObjectAtIndex:unsignedIntegerValue withObject:v47];
 
             objc_sync_exit(finalRelevanceScores);
           }
@@ -671,13 +685,13 @@ LABEL_44:
             if (names)
             {
               names2 = [confidencesCopy names];
-              v24 = [names2 count] == 0;
+              v27 = [names2 count] == 0;
 
-              if (!v24)
+              if (!v27)
               {
                 names3 = [confidencesCopy names];
-                v26 = [names3 objectAtIndexedSubscript:v19];
-                [v8 addObject:v26];
+                v29 = [names3 objectAtIndexedSubscript:v22];
+                [v9 addObject:v29];
               }
             }
 
@@ -685,13 +699,13 @@ LABEL_44:
             if (addresses)
             {
               addresses2 = [confidencesCopy addresses];
-              v29 = [addresses2 count] == 0;
+              v32 = [addresses2 count] == 0;
 
-              if (!v29)
+              if (!v32)
               {
                 addresses3 = [confidencesCopy addresses];
-                v31 = [addresses3 objectAtIndexedSubscript:v19];
-                [v59 addObject:v31];
+                v34 = [addresses3 objectAtIndexedSubscript:v22];
+                [v62 addObject:v34];
               }
             }
 
@@ -699,64 +713,64 @@ LABEL_44:
             if (mapItems)
             {
               mapItems2 = [confidencesCopy mapItems];
-              v34 = [mapItems2 count] == 0;
+              v37 = [mapItems2 count] == 0;
 
-              if (!v34)
+              if (!v37)
               {
                 mapItems3 = [confidencesCopy mapItems];
-                v36 = [mapItems3 objectAtIndexedSubscript:v19];
-                [v58 addObject:v36];
+                v39 = [mapItems3 objectAtIndexedSubscript:v22];
+                [v61 addObject:v39];
               }
             }
 
             finalRelevanceScores = [confidencesCopy indexMapping];
-            v38 = [finalRelevanceScores objectAtIndexedSubscript:v19];
-            [v62 addObject:v38];
+            v41 = [finalRelevanceScores objectAtIndexedSubscript:v22];
+            [v65 addObject:v41];
           }
 
-          ++v19;
+          ++v22;
         }
 
-        while (v64 != v19);
+        while (v67 != v22);
       }
 
       names4 = [confidencesCopy names];
-      v46 = names4 == 0;
+      v49 = names4 == 0;
 
-      if (!v46)
+      if (!v49)
       {
         names5 = [confidencesCopy names];
         [names5 removeAllObjects];
 
         names6 = [confidencesCopy names];
-        [names6 addObjectsFromArray:v8];
+        [names6 addObjectsFromArray:v9];
       }
 
       addresses4 = [confidencesCopy addresses];
-      v50 = addresses4 == 0;
+      v53 = addresses4 == 0;
 
-      if (!v50)
+      if (!v53)
       {
         addresses5 = [confidencesCopy addresses];
         [addresses5 removeAllObjects];
 
         addresses6 = [confidencesCopy addresses];
-        [addresses6 addObjectsFromArray:v59];
+        [addresses6 addObjectsFromArray:v62];
       }
 
       mapItems4 = [confidencesCopy mapItems];
-      v54 = mapItems4 == 0;
+      v57 = mapItems4 == 0;
 
-      if (!v54)
+      if (!v57)
       {
         mapItems5 = [confidencesCopy mapItems];
         [mapItems5 removeAllObjects];
 
         mapItems6 = [confidencesCopy mapItems];
-        [mapItems6 addObjectsFromArray:v58];
+        [mapItems6 addObjectsFromArray:v61];
       }
 
-      [confidencesCopy setIndexMapping:v62];
+      [confidencesCopy setIndexMapping:v65];
 
       goto LABEL_44;
     }

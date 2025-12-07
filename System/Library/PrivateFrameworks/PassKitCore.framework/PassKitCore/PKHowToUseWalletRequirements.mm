@@ -245,9 +245,9 @@ LABEL_14:
     goto LABEL_8;
   }
 
-  v9 = [v6 isEqualToString:v7];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if ((v9 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_8:
     v13 = [v3 languageIdentifier];
@@ -265,7 +265,7 @@ LABEL_8:
       v10 = 0;
       if (v12 && v15)
       {
-        v10 = [v12 isEqualToString:v15];
+        v10 = objc_msgSend_isEqualToString_(v12);
       }
     }
 
@@ -311,19 +311,19 @@ uint64_t __55__PKHowToUseWalletRequirements_explicitlyMatchesRegion__block_invok
   v7 = v6;
   if (v6 == v5)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 + (id)requirementsToPrioritize:(id)prioritize otherRequirements:(id)requirements

@@ -58,7 +58,7 @@
 
 - (void)registerColumn:(id)column forClass:(Class)class property:(SEL)property lookupKeys:(id)keys
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   columnCopy = column;
   keysCopy = keys;
   if (!class_getInstanceMethod(class, property))
@@ -68,7 +68,7 @@
   }
 
   v13 = _keyForClassInstanceProperty(@"EFSQLPropertyMapperLookupKeyQualifiedColumnByProperty", class, property);
-  v27 = v13;
+  v26 = v13;
   lookupValues = [(EFSQLPropertyMapper *)self lookupValues];
   v15 = [lookupValues objectForKeyedSubscript:v13];
 
@@ -83,49 +83,47 @@
 
   [(EFSQLPropertyMapper *)self _findAllProtocolsOfClass:class withProperty:property];
   v17 = a2;
+  v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v18 = v35 = 0u;
-  v19 = [v18 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v33 = 0u;
+  v18 = v34 = 0u;
+  v19 = [v18 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v19)
   {
-    v20 = *v35;
+    v20 = *v34;
     do
     {
       v21 = 0;
       do
       {
-        if (*v35 != v20)
+        if (*v34 != v20)
         {
           objc_enumerationMutation(v18);
         }
 
-        [(EFSQLPropertyMapper *)self registerColumn:columnCopy forProtocol:*(*(&v34 + 1) + 8 * v21++) property:property lookupKeys:keysCopy];
+        [(EFSQLPropertyMapper *)self registerColumn:columnCopy forProtocol:*(*(&v33 + 1) + 8 * v21++) property:property lookupKeys:keysCopy];
       }
 
       while (v19 != v21);
-      v19 = [v18 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v19);
   }
 
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __67__EFSQLPropertyMapper_registerColumn_forClass_property_lookupKeys___block_invoke;
-  v28[3] = &unk_1E8249E18;
-  v28[4] = self;
-  v31 = v17;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __67__EFSQLPropertyMapper_registerColumn_forClass_property_lookupKeys___block_invoke;
+  v27[3] = &unk_1E8249E18;
+  v27[4] = self;
+  v30 = v17;
   v22 = columnCopy;
-  v29 = v22;
+  v28 = v22;
   classCopy = class;
   propertyCopy = property;
-  v23 = v27;
-  v30 = v23;
-  [keysCopy enumerateKeysAndObjectsUsingBlock:v28];
-
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = v26;
+  v29 = v23;
+  [keysCopy enumerateKeysAndObjectsUsingBlock:v27];
 }
 
 void __67__EFSQLPropertyMapper_registerColumn_forClass_property_lookupKeys___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -289,21 +287,20 @@ id __67__EFSQLPropertyMapper_registerColumnNames_table_forClass_property___block
 
 - (void)registerColumnName:(id)name table:(id)table lookupKeys:(id)keys forClass:(Class)class property:(SEL)property
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   tableCopy = table;
   keysCopy = keys;
   v15 = [EFPair pairWithFirst:tableCopy second:nameCopy];
-  v18[0] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  v17[0] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
 
   [(EFSQLPropertyMapper *)self _registerQualifiedColumns:v16 lookupKeys:keysCopy forClass:class property:property];
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerQualifiedColumns:(id)columns lookupKeys:(id)keys forClass:(Class)class property:(SEL)property
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   columnsCopy = columns;
   keysCopy = keys;
   classCopy = class;
@@ -324,38 +321,38 @@ id __67__EFSQLPropertyMapper_registerColumnNames_table_forClass_property___block
     [(EFSQLPropertyMapper *)self registerColumnName:second table:first lookupKeys:keysCopy];
   }
 
-  v32 = _keyForClassInstanceProperty(@"EFSQLPropertyMapperLookupKeyQualifiedColumnByProperty", classCopy, property);
+  v31 = _keyForClassInstanceProperty(@"EFSQLPropertyMapperLookupKeyQualifiedColumnByProperty", classCopy, property);
   lookupValues = [(EFSQLPropertyMapper *)self lookupValues];
-  v15 = [lookupValues objectForKeyedSubscript:v32];
+  v15 = [lookupValues objectForKeyedSubscript:v31];
 
   if (v15)
   {
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler2 handleFailureInMethod:a2 object:self file:@"EFSQLPropertyMapper.m" lineNumber:251 description:{@"A column is already registed for key=%@", v32}];
+    [currentHandler2 handleFailureInMethod:a2 object:self file:@"EFSQLPropertyMapper.m" lineNumber:251 description:{@"A column is already registed for key=%@", v31}];
   }
 
   lookupValues2 = [(EFSQLPropertyMapper *)self lookupValues];
-  [lookupValues2 setObject:columnsCopy forKeyedSubscript:v32];
+  [lookupValues2 setObject:columnsCopy forKeyedSubscript:v31];
 
   [(EFSQLPropertyMapper *)self _findAllProtocolsOfClass:classCopy withProperty:property];
+  v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
-  obj = v47 = 0u;
-  v17 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+  v45 = 0u;
+  obj = v46 = 0u;
+  v17 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
   if (v17)
   {
-    v18 = *v47;
+    v18 = *v46;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v47 != v18)
+        if (*v46 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v46 + 1) + 8 * i);
+        v20 = *(*(&v45 + 1) + 8 * i);
         v21 = _keyForProtocolInstanceProperty(@"EFSQLPropertyMapperLookupKeyQualifiedColumnByProperty", v20, property);
         lookupValues3 = [(EFSQLPropertyMapper *)self lookupValues];
         v23 = [lookupValues3 objectForKeyedSubscript:v21];
@@ -369,38 +366,36 @@ id __67__EFSQLPropertyMapper_registerColumnNames_table_forClass_property___block
         lookupValues4 = [(EFSQLPropertyMapper *)self lookupValues];
         [lookupValues4 setObject:columnsCopy forKeyedSubscript:v21];
 
-        v42[0] = MEMORY[0x1E69E9820];
-        v42[1] = 3221225472;
-        v42[2] = __78__EFSQLPropertyMapper__registerQualifiedColumns_lookupKeys_forClass_property___block_invoke;
-        v42[3] = &unk_1E8249E40;
-        v42[4] = v20;
-        v42[5] = self;
+        v41[0] = MEMORY[0x1E69E9820];
+        v41[1] = 3221225472;
+        v41[2] = __78__EFSQLPropertyMapper__registerQualifiedColumns_lookupKeys_forClass_property___block_invoke;
+        v41[3] = &unk_1E8249E40;
+        v41[4] = v20;
+        v41[5] = self;
         propertyCopy = property;
-        v45 = a2;
+        v44 = a2;
         v25 = v21;
-        v43 = v25;
-        [keysCopy enumerateKeysAndObjectsUsingBlock:v42];
+        v42 = v25;
+        [keysCopy enumerateKeysAndObjectsUsingBlock:v41];
       }
 
-      v17 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v17 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
     }
 
     while (v17);
   }
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __78__EFSQLPropertyMapper__registerQualifiedColumns_lookupKeys_forClass_property___block_invoke_2;
-  v37[3] = &unk_1E8249E90;
-  v39 = classCopy;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __78__EFSQLPropertyMapper__registerQualifiedColumns_lookupKeys_forClass_property___block_invoke_2;
+  v36[3] = &unk_1E8249E90;
+  v38 = classCopy;
   propertyCopy2 = property;
-  v37[4] = self;
-  v41 = a2;
-  v27 = v32;
-  v38 = v27;
-  [keysCopy enumerateKeysAndObjectsUsingBlock:v37];
-
-  v28 = *MEMORY[0x1E69E9840];
+  v36[4] = self;
+  v40 = a2;
+  v27 = v31;
+  v37 = v27;
+  [keysCopy enumerateKeysAndObjectsUsingBlock:v36];
 }
 
 void __78__EFSQLPropertyMapper__registerQualifiedColumns_lookupKeys_forClass_property___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -441,25 +436,23 @@ void __78__EFSQLPropertyMapper__registerQualifiedColumns_lookupKeys_forClass_pro
 
 - (void)registerColumnName:(id)name table:(id)table lookupKeys:(id)keys
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   tableCopy = table;
   keysCopy = keys;
   v12 = [EFPair pairWithFirst:tableCopy second:nameCopy];
-  v19[0] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  v18[0] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __59__EFSQLPropertyMapper_registerColumnName_table_lookupKeys___block_invoke;
-  v16[3] = &unk_1E8249EB8;
-  v17 = v13;
-  v18 = a2;
-  v16[4] = self;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __59__EFSQLPropertyMapper_registerColumnName_table_lookupKeys___block_invoke;
+  v15[3] = &unk_1E8249EB8;
+  v16 = v13;
+  v17 = a2;
+  v15[4] = self;
   v14 = v13;
-  [keysCopy enumerateKeysAndObjectsUsingBlock:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [keysCopy enumerateKeysAndObjectsUsingBlock:v15];
 }
 
 void __59__EFSQLPropertyMapper_registerColumnName_table_lookupKeys___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -602,13 +595,13 @@ void __59__EFSQLPropertyMapper_registerColumnName_table_lookupKeys___block_invok
 - (id)_qualifiedColumnExpressionsForColumn:(id)column availableTables:(id)tables replaceNULL:(BOOL)l
 {
   lCopy = l;
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   columnCopy = column;
   tablesCopy = tables;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   v10 = columnCopy;
-  v30 = v10;
+  v29 = v10;
   if (isKindOfClass)
   {
     table = [v10 table];
@@ -617,9 +610,9 @@ void __59__EFSQLPropertyMapper_registerColumnName_table_lookupKeys___block_invok
 
     if (v13)
     {
-      v14 = [v30 fullNameWithDatabaseName:0];
-      v36[0] = v14;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
+      v14 = [v29 fullNameWithDatabaseName:0];
+      v35[0] = v14;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
     }
 
     else if (lCopy)
@@ -635,27 +628,27 @@ void __59__EFSQLPropertyMapper_registerColumnName_table_lookupKeys___block_invok
 
   else
   {
-    v29 = columnCopy;
+    v28 = columnCopy;
     v15 = objc_opt_new();
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v16 = v30;
-    v17 = [v16 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v16 = v29;
+    v17 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v17)
     {
-      v18 = *v32;
+      v18 = *v31;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v32 != v18)
+          if (*v31 != v18)
           {
             objc_enumerationMutation(v16);
           }
 
-          v20 = *(*(&v31 + 1) + 8 * i);
+          v20 = *(*(&v30 + 1) + 8 * i);
           first = [v20 first];
           v22 = [tablesCopy containsObject:first];
 
@@ -664,7 +657,7 @@ void __59__EFSQLPropertyMapper_registerColumnName_table_lookupKeys___block_invok
             v23 = MEMORY[0x1E696AEC0];
             first2 = [v20 first];
             second = [v20 second];
-            v26 = [v23 stringWithFormat:@"%@.%@", first2, second, v29];
+            v26 = [v23 stringWithFormat:@"%@.%@", first2, second, v28];
             [v15 addObject:v26];
           }
 
@@ -674,14 +667,12 @@ void __59__EFSQLPropertyMapper_registerColumnName_table_lookupKeys___block_invok
           }
         }
 
-        v17 = [v16 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v17);
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -733,39 +724,39 @@ void __59__EFSQLPropertyMapper_registerColumnName_table_lookupKeys___block_invok
 
 - (BOOL)_hasAllowedPrefix:(id)prefix
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   prefixCopy = prefix;
   allowedProtocolPrefixes = [(EFSQLPropertyMapper *)self allowedProtocolPrefixes];
   v6 = [allowedProtocolPrefixes count];
 
   if (v6)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     allowedProtocolPrefixes2 = [(EFSQLPropertyMapper *)self allowedProtocolPrefixes];
-    v8 = [allowedProtocolPrefixes2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [allowedProtocolPrefixes2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
-      v9 = *v14;
+      v9 = *v13;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(allowedProtocolPrefixes2);
           }
 
-          if ([prefixCopy hasPrefix:*(*(&v13 + 1) + 8 * i)])
+          if ([prefixCopy hasPrefix:*(*(&v12 + 1) + 8 * i)])
           {
             LOBYTE(v8) = 1;
             goto LABEL_12;
           }
         }
 
-        v8 = [allowedProtocolPrefixes2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [allowedProtocolPrefixes2 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v8)
         {
           continue;
@@ -783,7 +774,6 @@ LABEL_12:
     LOBYTE(v8) = 1;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

@@ -42,7 +42,7 @@
   v8 = v5;
   v9 = v4;
 
-  [(PUIScalingContainerView *)self _derivedContentViewTransform];
+  objc_msgSend__derivedContentViewTransform(self);
   v6 = vmlaq_n_f64(vmulq_n_f64(0, v8), 0, v9);
   v7 = v6.f64[1];
   result.width = v6.f64[0];
@@ -59,7 +59,7 @@
   [(PUIScalingContainerView *)self bounds];
   [(UIView *)containerView pui_setBoundsAndPositionFromFrame:?];
   v4 = self->_containerView;
-  [(PUIScalingContainerView *)self _derivedContentViewTransform];
+  objc_msgSend__derivedContentViewTransform(self);
   [(PUITransformContainerView *)v4 setContentViewTransform:&v5];
 }
 

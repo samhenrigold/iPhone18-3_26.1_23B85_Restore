@@ -3136,7 +3136,7 @@ uint64_t *std::unique_ptr<SmoothedNoiseEstimator<float,NoiseSuppression::Noise::
   return result;
 }
 
-void *CWeight<float>::Generate(void *a1, unint64_t a2, float a3)
+uint64_t *CWeight<float>::Generate(uint64_t *a1, unint64_t a2, float a3)
 {
   result = std::vector<float>::vector[abi:ne200100](a1, a2);
   if (a2)
@@ -4037,13 +4037,13 @@ uint64_t AUPeakPowerGuard::GetPropertyInfo(AUPeakPowerGuard *this, int a2, unsig
   return 0;
 }
 
-uint64_t AUPeakPowerGuard::Initialize(AUPeakPowerGuard *this)
+uint64_t AUPeakPowerGuard::Initialize(DspLib::PeakPowerGuard::Algorithm **this)
 {
   v2 = AUDspLib::Initialize(this);
-  v3 = *(this + 268);
+  v3 = this[268];
   if (v3)
   {
-    v4 = *(this + 66);
+    v4 = this[66];
     if (v4)
     {
       DspLib::PeakPowerGuard::Algorithm::setAdmittanceFilterCoeffSet(v4, v3);
@@ -4911,7 +4911,7 @@ BOOL ca::concurrent::deferred_deletion_queue<DspLib::XTC::FIRMatrix,10ul,std::de
   return result;
 }
 
-uint64_t read_W_dictionary(void *a1, uint64_t a2, void *a3)
+uint64_t read_W_dictionary(void *a1, void **a2, void *a3)
 {
   v5 = a1;
   v6 = a3;
@@ -4929,7 +4929,7 @@ LABEL_55:
       goto LABEL_56;
     }
 
-    *(a2 + 8) = v11;
+    *(a2 + 2) = v11;
     v12 = [v8 objectForKey:@"W"];
     v13 = v12;
     if (v12)
@@ -4967,11 +4967,11 @@ LABEL_55:
                       {
                         v17 = [v64 count];
                         *a2 = v17;
-                        v49 = (a2 + 16);
+                        v49 = (a2 + 2);
                         v50 = v17;
-                        for (i = 16; i != 336; i += 80)
+                        for (i = 2; i != 42; i += 10)
                         {
-                          DspLib::ComplexVector::setLength((a2 + i), *a2);
+                          DspLib::ComplexVector::setLength(&a2[i], *a2);
                         }
 
                         if (v50)
@@ -5057,7 +5057,7 @@ LABEL_44:
                             [v30 floatValue];
                             v66.imag = v31;
                             v66.real = v29;
-                            DspLib::ComplexSpan::setElement((a2 + 176), v19, v66);
+                            DspLib::ComplexSpan::setElement(a2 + 22, v19, v66);
 
                             v32 = [v60 objectAtIndex:v19];
                             [v32 floatValue];
@@ -5066,7 +5066,7 @@ LABEL_44:
                             [v35 floatValue];
                             v67.imag = v36;
                             v67.real = v34;
-                            DspLib::ComplexSpan::setElement((a2 + 96), v19, v67);
+                            DspLib::ComplexSpan::setElement(a2 + 12, v19, v67);
 
                             v37 = [v58 objectAtIndex:v19];
                             [v37 floatValue];
@@ -5075,7 +5075,7 @@ LABEL_44:
                             [v40 floatValue];
                             v68.imag = v41;
                             v68.real = v39;
-                            DspLib::ComplexSpan::setElement((a2 + 256), v19, v68);
+                            DspLib::ComplexSpan::setElement(a2 + 32, v19, v68);
 
                             if (v50 == ++v19)
                             {
@@ -5121,9 +5121,9 @@ LABEL_54:
     else
     {
       *a2 = 0;
-      for (j = 16; j != 336; j += 80)
+      for (j = 2; j != 42; j += 10)
       {
-        DspLib::ComplexVector::setLength((a2 + j), *a2);
+        DspLib::ComplexVector::setLength(&a2[j], *a2);
       }
     }
 
@@ -5137,7 +5137,7 @@ LABEL_56:
   return v42;
 }
 
-uint64_t parseCoefficientsData(void *a1, unint64_t *a2)
+uint64_t parseCoefficientsData(void *a1, uint64_t a2)
 {
   v68[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
@@ -5351,38 +5351,38 @@ LABEL_49:
     v49 = [v4 length];
     v57 = (v49 >> 2);
     *a2 = v57;
-    v55 = a2 + 2;
-    for (i = 2; i != 42; i += 10)
+    v55 = (a2 + 16);
+    for (i = 16; i != 336; i += 80)
     {
-      DspLib::ComplexVector::setLength(&a2[i], *a2);
+      DspLib::ComplexVector::setLength((a2 + i), *a2);
     }
 
     v48[1] = v48;
     v19 = 4 * v57;
-    *&v20 = MEMORY[0x1EEE9AC00](v18).n128_u64[0];
+    v20 = MEMORY[0x1EEE9AC00](v18);
     v59 = v48 - ((v19 + 15) & 0x7FFFFFFF0);
     v21 = [v4 length];
     v22 = [v4 getBytes:v59 length:v21];
-    *&v23 = MEMORY[0x1EEE9AC00](v22).n128_u64[0];
+    v23 = MEMORY[0x1EEE9AC00](v22);
     v58 = v48 - ((v19 + 15) & 0x7FFFFFFF0);
     v24 = [v5 length];
     v25 = [v5 getBytes:v58 length:v24];
-    *&v26 = MEMORY[0x1EEE9AC00](v25).n128_u64[0];
+    v26 = MEMORY[0x1EEE9AC00](v25);
     v56 = v48 - ((v19 + 15) & 0x7FFFFFFF0);
     v27 = [v52 length];
     v28 = [v52 getBytes:v56 length:v27];
-    *&v29 = MEMORY[0x1EEE9AC00](v28).n128_u64[0];
+    v29 = MEMORY[0x1EEE9AC00](v28);
     v30 = v48 - ((v19 + 15) & 0x7FFFFFFF0);
     v31 = [v53 length];
     v32 = [v53 getBytes:v30 length:v31];
-    v33 = [v16 getBytes:v30 length:{objc_msgSend(v16, "length", MEMORY[0x1EEE9AC00](v32).n128_f64[0])}];
-    *&v34 = MEMORY[0x1EEE9AC00](v33).n128_u64[0];
+    v33 = [v16 getBytes:v30 length:{objc_msgSend(v16, "length", MEMORY[0x1EEE9AC00](v32))}];
+    v34 = MEMORY[0x1EEE9AC00](v33);
     v35 = [v54 length];
     v36 = [v54 getBytes:v30 length:v35];
-    *&v37 = MEMORY[0x1EEE9AC00](v36).n128_u64[0];
+    v37 = MEMORY[0x1EEE9AC00](v36);
     v38 = [v51 length];
     v39 = [v51 getBytes:v30 length:v38];
-    *&v40 = MEMORY[0x1EEE9AC00](v39).n128_u64[0];
+    v40 = MEMORY[0x1EEE9AC00](v39);
     v41 = [v50 length];
     [v50 getBytes:v30 length:v41];
     if ((v49 & 0x3FFFFFFFCLL) != 0)
@@ -5395,13 +5395,13 @@ LABEL_49:
         DspLib::ComplexSpan::setElement(v55, v42, v69);
         v70.real = *&v30[4 * v42];
         v70.imag = v70.real;
-        DspLib::ComplexSpan::setElement(a2 + 22, v42, v70);
+        DspLib::ComplexSpan::setElement((a2 + 176), v42, v70);
         v71.real = *&v56[4 * v42];
         v71.imag = *&v30[4 * v42];
-        DspLib::ComplexSpan::setElement(a2 + 12, v42, v71);
+        DspLib::ComplexSpan::setElement((a2 + 96), v42, v71);
         v72.real = *&v30[4 * v42];
         v72.imag = v72.real;
-        DspLib::ComplexSpan::setElement(a2 + 32, v42++, v72);
+        DspLib::ComplexSpan::setElement((a2 + 256), v42++, v72);
       }
 
       while (v57 != v42);

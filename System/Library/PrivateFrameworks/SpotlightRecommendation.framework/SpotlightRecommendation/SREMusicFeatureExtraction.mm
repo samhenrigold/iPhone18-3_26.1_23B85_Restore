@@ -85,7 +85,7 @@ void __71__SREMusicFeatureExtraction_retrieveNowPlayingHistoryWithLength_error__
 
 - (BOOL)_handleSongEvent:(id)event context:(id)context numMusic:(unint64_t)music outputSequence:(id)sequence
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   contextCopy = context;
   sequenceCopy = sequence;
@@ -114,13 +114,13 @@ void __71__SREMusicFeatureExtraction_retrieveNowPlayingHistoryWithLength_error__
           date = [eventCopy date];
           startDate = [date startDate];
           songAdamId = [v16 songAdamId];
-          v29 = 138412802;
-          v30 = name;
-          v31 = 2112;
-          v32 = startDate;
-          v33 = 2112;
-          v34 = songAdamId;
-          _os_log_impl(&dword_26B806000, v17, OS_LOG_TYPE_DEFAULT, "Now playing sequence: Song name: %@ Song event start date: %@ Adam ID: %@", &v29, 0x20u);
+          v28 = 138412802;
+          v29 = name;
+          v30 = 2112;
+          v31 = startDate;
+          v32 = 2112;
+          v33 = songAdamId;
+          _os_log_impl(&dword_26B806000, v17, OS_LOG_TYPE_DEFAULT, "Now playing sequence: Song name: %@ Song event start date: %@ Adam ID: %@", &v28, 0x20u);
         }
 
         v22 = objc_alloc_init(SREMusicMetadata);
@@ -160,39 +160,34 @@ void __71__SREMusicFeatureExtraction_retrieveNowPlayingHistoryWithLength_error__
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 - (void)retrieveNowPlayingHistoryWithLength:(uint64_t *)a1 error:(NSObject *)a2 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_26B806000, a2, OS_LOG_TYPE_ERROR, "Enumerate apple music events failed. Error: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_26B806000, a2, OS_LOG_TYPE_ERROR, "Enumerate apple music events failed. Error: %@", &v3, 0xCu);
 }
 
 - (void)retrieveNowPlayingHistoryWithLength:(uint64_t *)a1 error:(NSObject *)a2 .cold.2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_26B806000, a2, OS_LOG_TYPE_ERROR, "GDGraphAppleMusicEventContext creation failed. error=%@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_26B806000, a2, OS_LOG_TYPE_ERROR, "GDGraphAppleMusicEventContext creation failed. error=%@", &v3, 0xCu);
 }
 
 - (void)_handleSongEvent:(void *)a1 context:(NSObject *)a2 numMusic:outputSequence:.cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 songAdamId];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_26B806000, a2, OS_LOG_TYPE_ERROR, "Invalid adamID from now playing stream: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_26B806000, a2, OS_LOG_TYPE_ERROR, "Invalid adamID from now playing stream: %@", &v4, 0xCu);
 }
 
 @end

@@ -786,32 +786,17 @@ void __72__HKGraphSeries__expandYRange_withXRange_dateZoom_resolution_chartRect_
 {
   rangeCopy = range;
   yAxis = [(HKGraphSeries *)self yAxis];
-  v10 = yAxis;
-  v11 = 0;
+  v8 = yAxis;
+  v9 = 0;
   if (rangeCopy && yAxis)
   {
-    v24 = 0uLL;
-    v25 = 0;
+    v22 = 0uLL;
+    v23 = 0;
     dataSource = [(HKGraphSeries *)self dataSource];
     minValue = [rangeCopy minValue];
     if (dataSource)
     {
-      [dataSource blockPathForX:minValue zoom:zoom resolution:resolution];
-    }
-
-    else
-    {
-      v24 = 0uLL;
-      v25 = 0;
-    }
-
-    v22 = 0uLL;
-    v23 = 0;
-    dataSource2 = [(HKGraphSeries *)self dataSource];
-    maxValue = [rangeCopy maxValue];
-    if (dataSource2)
-    {
-      [dataSource2 blockPathForX:maxValue zoom:zoom resolution:resolution];
+      objc_msgSend_blockPathForX_zoom_resolution_(dataSource);
     }
 
     else
@@ -820,22 +805,37 @@ void __72__HKGraphSeries__expandYRange_withXRange_dateZoom_resolution_chartRect_
       v23 = 0;
     }
 
-    *&v24 = v24 - 1;
-    *&v22 = v22 + 1;
-    v20 = v24;
-    v21 = v25;
+    v20 = 0uLL;
+    v21 = 0;
+    dataSource2 = [(HKGraphSeries *)self dataSource];
+    maxValue = [rangeCopy maxValue];
+    if (dataSource2)
+    {
+      objc_msgSend_blockPathForX_zoom_resolution_(dataSource2);
+    }
+
+    else
+    {
+      v20 = 0uLL;
+      v21 = 0;
+    }
+
+    *&v22 = v22 - 1;
+    *&v20 = v20 + 1;
     v18 = v22;
     v19 = v23;
-    [(HKGraphSeries *)self _requestDataSourceBlocksFromPath:&v20 toPath:&v18];
+    v16 = v20;
+    v17 = v21;
+    [(HKGraphSeries *)self _requestDataSourceBlocksFromPath:&v18 toPath:&v16];
     dataSource3 = [(HKGraphSeries *)self dataSource];
-    v20 = v24;
-    v21 = v25;
     v18 = v22;
     v19 = v23;
-    v11 = [dataSource3 hasAllBlocksAvailableBetweenStartPath:&v20 endPath:&v18];
+    v16 = v20;
+    v17 = v21;
+    v9 = [dataSource3 hasAllBlocksAvailableBetweenStartPath:&v18 endPath:&v16];
   }
 
-  return v11;
+  return v9;
 }
 
 - (id)valueRangeForYAxisWithXAxisRange:(id)range dateZoom:(int64_t)zoom resolution:(int64_t)resolution chartRect:(CGRect)rect
@@ -1277,7 +1277,7 @@ LABEL_25:
   v7[0] = *&rect->a;
   v7[1] = v5;
   v7[2] = *&rect->tx;
-  return [(HKGraphSeries *)self coordinateTransformForChartRect:v7 xAxisTransform:a5.origin.x, a5.origin.y, a5.size.width, a5.size.height];
+  return objc_msgSend_coordinateTransformForChartRect_xAxisTransform_(self, transform, v7, a5.origin.x, a5.origin.y, a5.size.width, a5.size.height);
 }
 
 - (void)drawWithChartRect:(CGRect)rect seriesCoordinates:(id)coordinates zoomLevelConfiguration:(id)configuration coordinateTransform:(CGAffineTransform *)transform inContext:(CGContext *)context secondaryRenderContext:(id)renderContext seriesRenderingDelegate:(id)delegate
@@ -1404,31 +1404,31 @@ uint64_t __104__HKGraphSeries_containsCoordinatesInChartRect_xAxis_zoomScale_res
   }
 
   v26 = [(HKGraphSeries *)self _coordinateListsForGeneratorWithXAxis:axisCopy zoomScale:resolution chartRect:scale contentOffset:v22 resolution:v21, width, height, x, y];
-  v46 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v47 = 0u;
-  v45 = 0u;
   v27 = *&transform->c;
-  v44[0] = *&transform->a;
-  v44[1] = v27;
-  v44[2] = *&transform->tx;
-  [(HKGraphSeries *)self coordinateTransformForChartRect:v44 xAxisTransform:v22, v21, width, height];
-  v48.origin.x = v22;
-  v48.origin.y = v21;
-  v48.size.width = width;
-  v48.size.height = height;
-  MinX = CGRectGetMinX(v48);
-  v49.origin.x = v22;
-  v49.origin.y = v21;
-  v49.size.width = width;
-  v49.size.height = height;
-  MaxX = CGRectGetMaxX(v49);
+  v44 = *&transform->a;
+  v45 = v27;
+  v46 = *&transform->tx;
+  objc_msgSend_coordinateTransformForChartRect_xAxisTransform_(self, v22, v21, width, height);
+  v50.origin.x = v22;
+  v50.origin.y = v21;
+  v50.size.width = width;
+  v50.size.height = height;
+  MinX = CGRectGetMinX(v50);
+  v51.origin.x = v22;
+  v51.origin.y = v21;
+  v51.size.width = width;
+  v51.size.height = height;
+  MaxX = CGRectGetMaxX(v51);
   v31[0] = MEMORY[0x1E69E9820];
   v31[1] = 3221225472;
   v31[2] = __145__HKGraphSeries_enumerateCoordinatesInChartRect_xAxis_zoomScale_resolution_contentOffset_xAxisTransform_roundToViewScale_exclusionOptions_block___block_invoke;
   v31[3] = &unk_1E81BB0E0;
-  v33 = v45;
-  v34 = v46;
-  v35 = v47;
+  v33 = v47;
+  v34 = v48;
+  v35 = v49;
   viewScaleCopy = viewScale;
   v36 = MaxX;
   v37 = MinX;
@@ -1653,28 +1653,13 @@ void __38__HKGraphSeries__setDirtyWithNewData___block_invoke(uint64_t a1)
 {
   rangeCopy = range;
   blockCopy = block;
-  v24 = 0uLL;
-  v25 = 0;
+  v22 = 0uLL;
+  v23 = 0;
   dataSource = [(HKGraphSeries *)self dataSource];
   minValue = [rangeCopy minValue];
   if (dataSource)
   {
-    [dataSource blockPathForX:minValue zoom:level resolution:resolution];
-  }
-
-  else
-  {
-    v24 = 0uLL;
-    v25 = 0;
-  }
-
-  v22 = 0uLL;
-  v23 = 0;
-  dataSource2 = [(HKGraphSeries *)self dataSource];
-  maxValue = [rangeCopy maxValue];
-  if (dataSource2)
-  {
-    [dataSource2 blockPathForX:maxValue zoom:level resolution:resolution];
+    objc_msgSend_blockPathForX_zoom_resolution_(dataSource);
   }
 
   else
@@ -1683,27 +1668,42 @@ void __38__HKGraphSeries__setDirtyWithNewData___block_invoke(uint64_t a1)
     v23 = 0;
   }
 
-  *&v24 = v24 - 1;
-  *&v22 = v22 + 1;
-  v20 = v24;
-  v21 = v25;
+  v20 = 0uLL;
+  v21 = 0;
+  dataSource2 = [(HKGraphSeries *)self dataSource];
+  maxValue = [rangeCopy maxValue];
+  if (dataSource2)
+  {
+    objc_msgSend_blockPathForX_zoom_resolution_(dataSource2);
+  }
+
+  else
+  {
+    v20 = 0uLL;
+    v21 = 0;
+  }
+
+  *&v22 = v22 - 1;
+  *&v20 = v20 + 1;
   v18 = v22;
   v19 = v23;
-  [(HKGraphSeries *)self _requestDataSourceBlocksFromPath:&v20 toPath:&v18];
-  v16 = v24;
-  if (v24 <= v22)
+  v16 = v20;
+  v17 = v21;
+  [(HKGraphSeries *)self _requestDataSourceBlocksFromPath:&v18 toPath:&v16];
+  v14 = v22;
+  if (v22 <= v20)
   {
     do
     {
-      LOBYTE(v20) = 0;
-      blockCopy[2](blockCopy, v16, &v20);
-      if (v20 == 1)
+      LOBYTE(v18) = 0;
+      blockCopy[2](blockCopy, v14, &v18);
+      if (v18 == 1)
       {
         break;
       }
     }
 
-    while (v16++ < v22);
+    while (v14++ < v20);
   }
 }
 
@@ -2068,7 +2068,7 @@ LABEL_13:
 
 - (BOOL)isHighlighted
 {
-  [(HKGraphSeries *)self selectedPathRange];
+  objc_msgSend_selectedPathRange(self, a2);
   v4[0] = v3[2];
   v4[1] = v3[3];
   v3[0] = HKGraphSeriesDataPointPathNone;
@@ -2079,7 +2079,7 @@ LABEL_13:
 - (void)selectPathsinPathRange:(id *)range coordinateRange:(id)coordinateRange
 {
   coordinateRangeCopy = coordinateRange;
-  [(HKGraphSeries *)self selectedPathRange];
+  objc_msgSend_selectedPathRange(self);
   v7 = *&range->var0.var0.resolution;
   v11[0] = *&range->var0.var0.index;
   v11[1] = v7;
@@ -2145,7 +2145,7 @@ LABEL_13:
   return v20;
 }
 
-uint64_t __108__HKGraphSeries_distanceFromTouchPoint_inChartRect_xAxis_zoomScale_resolution_contentOffset_xAxisTransform___block_invoke(uint64_t a1)
+void *__108__HKGraphSeries_distanceFromTouchPoint_inChartRect_xAxis_zoomScale_resolution_contentOffset_xAxisTransform___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) distanceFromPoint:*(a1 + 48) blockCoordinate:*(a1 + 56) chartRect:{*(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88)}];
   v4 = *(*(a1 + 40) + 8);
@@ -2187,7 +2187,7 @@ uint64_t __108__HKGraphSeries_distanceFromTouchPoint_inChartRect_xAxis_zoomScale
     v43 = v25;
     v44 = *&transform->tx;
     v45 = 0u;
-    [(HKGraphSeries *)self coordinateTransformForChartRect:&v42 xAxisTransform:v16, v15, width, height];
+    objc_msgSend_coordinateTransformForChartRect_xAxisTransform_(self, v16, v15, width, height);
     *&v42 = 0;
     *(&v42 + 1) = &v42;
     *&v43 = 0x3032000000;
@@ -2300,7 +2300,7 @@ LABEL_12:
   v15 = dataSource;
   if (dataSource)
   {
-    [dataSource blockPathForX:minValue zoom:scope resolution:resolution];
+    objc_msgSend_blockPathForX_zoom_resolution_(dataSource);
   }
 
   else
@@ -2315,7 +2315,7 @@ LABEL_12:
   v17 = dataSource2;
   if (dataSource2)
   {
-    [dataSource2 blockPathForX:maxValue zoom:scope resolution:resolution];
+    objc_msgSend_blockPathForX_zoom_resolution_(dataSource2);
   }
 
   else

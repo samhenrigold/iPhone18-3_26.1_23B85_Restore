@@ -77,7 +77,7 @@ uint64_t __82___SFFluidProgressView_fluidProgressController_updateFluidProgressB
     v11 = *(a1 + 32);
     if (v11[52])
     {
-      [v11[52] transform];
+      objc_msgSend_transform(v11[52]);
       v12 = *&v15;
       v11 = *(a1 + 32);
     }

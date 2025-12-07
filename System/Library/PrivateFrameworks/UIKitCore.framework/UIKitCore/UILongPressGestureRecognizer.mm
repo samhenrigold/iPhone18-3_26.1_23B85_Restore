@@ -485,7 +485,7 @@ LABEL_11:
   return v6 & 1;
 }
 
-uint64_t __117__UILongPressGestureRecognizer__touchesMayBeRecognizedByForcePreviewingRevealGestureRecognizerWhichShouldDelayTimer___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__117__UILongPressGestureRecognizer__touchesMayBeRecognizedByForcePreviewingRevealGestureRecognizerWhichShouldDelayTimer___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 _isGestureType:11];
   if (result)
@@ -855,7 +855,7 @@ LABEL_24:
   [quietness ifObservation:v4 ifReset:v3];
 }
 
-uint64_t __82__UILongPressGestureRecognizer__incorporateTouchForceMessageIntoImpulseQuietness___block_invoke(uint64_t a1, void *a2)
+void *__82__UILongPressGestureRecognizer__incorporateTouchForceMessageIntoImpulseQuietness___block_invoke(uint64_t a1, void *a2)
 {
   if (++*(*(a1 + 32) + 408) >= 2)
   {

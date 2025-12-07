@@ -19,7 +19,7 @@
   return notATextLocation_notATextLocation;
 }
 
-id __38__NSNotATextLocation_notATextLocation__block_invoke()
+id __38__NSNotATextLocation_notATextLocation__block_invoke(uint64_t a1)
 {
   result = objc_alloc_init(objc_opt_class());
   notATextLocation_notATextLocation = result;

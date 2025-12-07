@@ -85,7 +85,7 @@ void __84__NCNotificationListMigrationScheduler_addMigrationForNotificationReque
 {
   v75 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v5 = a1 + 32;
+  v5 = (a1 + 32);
   v4 = *(a1 + 32);
   if (!v4[2])
   {
@@ -821,14 +821,18 @@ void __90__NCNotificationListMigrationScheduler__sendNotificationRequestMigratio
   return WeakRetained;
 }
 
-void __84__NCNotificationListMigrationScheduler_addMigrationForNotificationRequests_forDate___block_invoke_cold_1(uint64_t a1, void *a2, void *a3)
+void __84__NCNotificationListMigrationScheduler_addMigrationForNotificationRequests_forDate___block_invoke_cold_1(uint64_t *a1, void *a2, void *a3)
 {
   v4 = a2;
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   v7 = [a3 notificationIdentifier];
-  v14 = [v7 un_logDigest];
-  OUTLINED_FUNCTION_0_4(&dword_21E77E000, v8, v9, "%{public}@ no migration date found for request %{public}@", v10, v11, v12, v13, 2u);
+  v8 = [v7 un_logDigest];
+  *v15 = 138543618;
+  *&v15[4] = v6;
+  *&v15[12] = 2114;
+  *&v15[14] = v8;
+  OUTLINED_FUNCTION_0_4(&dword_21E77E000, v9, v10, "%{public}@ no migration date found for request %{public}@", v11, v12, v13, v14, *v15, *&v15[8], *&v15[16]);
 }
 
 - (void)_scheduleMigrationTimerForDate:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3)
@@ -836,8 +840,12 @@ void __84__NCNotificationListMigrationScheduler_addMigrationForNotificationReque
   v5 = a1;
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v14 = [*(a2 + 40) stringFromDate:a3];
-  OUTLINED_FUNCTION_0_4(&dword_21E77E000, v8, v9, "%{public}@ attempting to schedule migration timer for a date in the past %@", v10, v11, v12, v13, 2u);
+  v8 = [*(a2 + 40) stringFromDate:a3];
+  *v15 = 138543618;
+  *&v15[4] = v7;
+  *&v15[12] = 2112;
+  *&v15[14] = v8;
+  OUTLINED_FUNCTION_0_4(&dword_21E77E000, v9, v10, "%{public}@ attempting to schedule migration timer for a date in the past %@", v11, v12, v13, v14, *v15, *&v15[8], *&v15[16]);
 }
 
 @end

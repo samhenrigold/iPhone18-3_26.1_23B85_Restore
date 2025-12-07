@@ -19,7 +19,7 @@
   *(&self->super.super.super.isa + OBJC_IVAR____TtC18HealthExperienceUI21PromotionTileHeroView_imageTopConstraint) = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC18HealthExperienceUI21PromotionTileHeroView_imageHeightConstraint) = 0;
   v11.receiver = self;
-  v11.super_class = type metadata accessor for PromotionTileHeroView();
+  v11.super_class = type metadata accessor for PromotionTileHeroView(0);
   return [(PromotionTileHeroView *)&v11 initWithFrame:x, y, width, height];
 }
 

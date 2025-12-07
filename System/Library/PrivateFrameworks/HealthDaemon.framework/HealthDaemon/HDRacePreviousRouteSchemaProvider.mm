@@ -7,22 +7,20 @@
 
 + (id)databaseEntitiesForProtectionClass:(int64_t)class
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   if (class == 2)
   {
-    v6[0] = objc_opt_class();
-    v6[1] = objc_opt_class();
-    v6[2] = objc_opt_class();
-    v6[3] = objc_opt_class();
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
+    v5[0] = objc_opt_class();
+    v5[1] = objc_opt_class();
+    v5[2] = objc_opt_class();
+    v5[3] = objc_opt_class();
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
   }
 
   else
   {
     v3 = MEMORY[0x277CBEBF8];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -208,15 +206,12 @@ uint64_t __72__HDRacePreviousRouteSchemaProvider__addRouteSnapshotTableWithMigra
 
 uint64_t __72__HDRacePreviousRouteSchemaProvider__addRouteSnapshotTableWithMigrator___block_invoke_4(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_double(a2, 2, *(a1 + 64));
   sqlite3_bind_int64(a2, 3, *(a1 + 72));
   sqlite3_bind_int64(a2, 4, *(a1 + 80));
   sqlite3_bind_int64(a2, 5, *(*(*(a1 + 56) + 8) + 24));
-  v5 = *(a1 + 40);
   HDSQLiteBindFoundationValueToStatement();
-  v6 = *(a1 + 48);
 
   return HDSQLiteBindFoundationValueToStatement();
 }
@@ -320,38 +315,30 @@ uint64_t __72__HDRacePreviousRouteSchemaProvider__addRouteSnapshotTableWithMigra
 
 uint64_t __72__HDRacePreviousRouteSchemaProvider__addRouteSnapshotTableWithMigrator___block_invoke_7(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(a1 + 40);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_double(a2, 3, *(a1 + 104));
   sqlite3_bind_int64(a2, 4, *(a1 + 112));
   sqlite3_bind_int64(a2, 5, *(a1 + 120));
-  v6 = *(a1 + 48);
   HDSQLiteBindFoundationValueToStatement();
-  v7 = *(a1 + 56);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_double(a2, 8, *(a1 + 128));
   sqlite3_bind_double(a2, 9, *(a1 + 136));
   sqlite3_bind_int64(a2, 10, *(a1 + 144));
-  v8 = *(a1 + 64);
   HDSQLiteBindFoundationValueToStatement();
-  v9 = *(a1 + 72);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_double(a2, 13, *(a1 + 152));
   sqlite3_bind_double(a2, 14, *(a1 + 160));
   sqlite3_bind_int64(a2, 15, *(a1 + 168));
   sqlite3_bind_int64(a2, 16, *(*(*(a1 + 96) + 8) + 24));
-  v10 = *(a1 + 80);
   HDSQLiteBindFoundationValueToStatement();
-  v11 = *(a1 + 88);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 19, *(a1 + 176));
   sqlite3_bind_int64(a2, 20, *(a1 + 184));
   sqlite3_bind_int64(a2, 21, *(a1 + 192));
-  v12 = *(a1 + 200);
+  v4 = *(a1 + 200);
 
-  return sqlite3_bind_int64(a2, 22, v12);
+  return sqlite3_bind_int64(a2, 22, v4);
 }
 
 uint64_t __66__HDRacePreviousRouteSchemaProvider__addWorkoutTableWithMigrator___block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
@@ -497,7 +484,6 @@ LABEL_9:
 
 uint64_t __66__HDRacePreviousRouteSchemaProvider__addWorkoutTableWithMigrator___block_invoke_3(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 2, *(a1 + 40));
 
@@ -506,7 +492,6 @@ uint64_t __66__HDRacePreviousRouteSchemaProvider__addWorkoutTableWithMigrator___
 
 uint64_t __66__HDRacePreviousRouteSchemaProvider__addWorkoutTableWithMigrator___block_invoke_4(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 2, *(a1 + 40));
 
@@ -515,43 +500,35 @@ uint64_t __66__HDRacePreviousRouteSchemaProvider__addWorkoutTableWithMigrator___
 
 uint64_t __66__HDRacePreviousRouteSchemaProvider__addWorkoutTableWithMigrator___block_invoke_5(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(a1 + 40);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_double(a2, 3, *(a1 + 112));
   sqlite3_bind_int64(a2, 4, *(a1 + 120));
   sqlite3_bind_int64(a2, 5, *(a1 + 128));
-  v6 = *(a1 + 48);
   HDSQLiteBindFoundationValueToStatement();
-  v7 = *(a1 + 56);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_double(a2, 8, *(a1 + 136));
   sqlite3_bind_double(a2, 9, *(a1 + 144));
   sqlite3_bind_int64(a2, 10, [*(a1 + 64) longLongValue]);
-  v8 = *(a1 + 72);
   HDSQLiteBindFoundationValueToStatement();
-  v9 = *(a1 + 80);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_double(a2, 13, *(a1 + 152));
   sqlite3_bind_double(a2, 14, *(a1 + 160));
   sqlite3_bind_int64(a2, 15, [*(a1 + 88) longLongValue]);
   sqlite3_bind_int64(a2, 16, *(a1 + 168));
-  v10 = *(a1 + 96);
   HDSQLiteBindFoundationValueToStatement();
-  v11 = *(a1 + 104);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 19, *(a1 + 176));
   sqlite3_bind_int64(a2, 20, *(a1 + 184));
   sqlite3_bind_int64(a2, 21, *(a1 + 192));
-  v12 = *(a1 + 200);
+  v4 = *(a1 + 200);
 
-  return sqlite3_bind_int64(a2, 22, v12);
+  return sqlite3_bind_int64(a2, 22, v4);
 }
 
 uint64_t __88__HDRacePreviousRouteSchemaProvider__addSyncIdentityToConcreteClusterTableWithMigrator___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = [v8 protectedDatabase];
@@ -564,16 +541,16 @@ uint64_t __88__HDRacePreviousRouteSchemaProvider__addSyncIdentityToConcreteClust
   {
     v11 = v10;
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO RacePreviousRoute_concrete_cluster_new (ROWID, uuid, workout_cluster_uuid, relevance, workout_activity_type, workout_cluster_size, last_workout_uuid, last_workout_date, last_workout_distance, last_workout_duration, last_workout_rowid, best_workout_uuid, best_workout_date, best_workout_distance, best_workout_duration, best_workout_rowid, snapshot_id, route_label, modified_date, sync_provenance, frozen, sync_anchor, relevance_anchor, sync_identity) SELECT ROWID, uuid, workout_cluster_uuid, relevance, workout_activity_type, workout_cluster_size, last_workout_uuid, last_workout_date, last_workout_distance, last_workout_duration, last_workout_rowid, best_workout_uuid, best_workout_date, best_workout_distance, best_workout_duration, best_workout_rowid, snapshot_id, route_label, modified_date, sync_provenance, frozen, sync_anchor, relevance_anchor, ? FROM RacePreviousRoute_concrete_cluster"];;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __88__HDRacePreviousRouteSchemaProvider__addSyncIdentityToConcreteClusterTableWithMigrator___block_invoke_2;
-    v17[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-    v17[4] = v11;
-    if ([v9 executeSQL:v12 error:a5 bindingHandler:v17 enumerationHandler:0])
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __88__HDRacePreviousRouteSchemaProvider__addSyncIdentityToConcreteClusterTableWithMigrator___block_invoke_2;
+    v16[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+    v16[4] = v11;
+    if ([v9 executeSQL:v12 error:a5 bindingHandler:v16 enumerationHandler:0])
     {
-      v18[0] = @"DROP TABLE RacePreviousRoute_concrete_cluster;";
-      v18[1] = @"ALTER TABLE RacePreviousRoute_concrete_cluster_new RENAME TO RacePreviousRoute_concrete_cluster;";
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+      v17[0] = @"DROP TABLE RacePreviousRoute_concrete_cluster;";
+      v17[1] = @"ALTER TABLE RacePreviousRoute_concrete_cluster_new RENAME TO RacePreviousRoute_concrete_cluster;";
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
       v14 = [v9 executeSQLStatements:v13 error:a5] ^ 1;
     }
 
@@ -583,7 +560,6 @@ uint64_t __88__HDRacePreviousRouteSchemaProvider__addSyncIdentityToConcreteClust
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

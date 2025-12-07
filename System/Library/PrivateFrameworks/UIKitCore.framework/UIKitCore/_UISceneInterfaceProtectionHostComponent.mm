@@ -139,33 +139,33 @@
 
 - (void)configureSelfMonitoringWithConfiguration:(id)configuration
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   if ((*&self->_flags & 2) != 0)
   {
-    v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_UISceneInterfaceProtectionHostComponent is already configured for self monitoring"];
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_UISceneInterfaceProtectionHostComponent is already configured for self monitoring"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v13 = NSStringFromSelector(a2);
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
+      v14 = NSStringFromSelector(a2);
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
       *buf = 138544642;
-      *&buf[4] = v13;
+      *&buf[4] = v14;
       *&buf[12] = 2114;
-      *&buf[14] = v15;
+      *&buf[14] = v16;
       *&buf[22] = 2048;
       selfCopy8 = self;
-      *v59 = 2114;
-      *&v59[2] = @"_UISceneInterfaceProtectionHostComponent.m";
-      v60 = 1024;
-      v61 = 107;
-      v62 = 2114;
-      v63 = v12;
+      *v60 = 2114;
+      *&v60[2] = @"_UISceneInterfaceProtectionHostComponent.m";
+      v61 = 1024;
+      v62 = 107;
+      v63 = 2114;
+      v64 = v13;
       _os_log_error_impl(&dword_188A29000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v16 = v12;
-    [v12 UTF8String];
+    v17 = v13;
+    [v13 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x189F68BD8);
@@ -173,29 +173,29 @@
 
   if (*&self->_flags)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"reentrancy to %s is not allowed", "-[_UISceneInterfaceProtectionHostComponent configureSelfMonitoringWithConfiguration:]"];
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"reentrancy to %s is not allowed", "-[_UISceneInterfaceProtectionHostComponent configureSelfMonitoringWithConfiguration:]"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v18 = NSStringFromSelector(a2);
-      v19 = objc_opt_class();
-      v20 = NSStringFromClass(v19);
+      v19 = NSStringFromSelector(a2);
+      v20 = objc_opt_class();
+      v21 = NSStringFromClass(v20);
       *buf = 138544642;
-      *&buf[4] = v18;
+      *&buf[4] = v19;
       *&buf[12] = 2114;
-      *&buf[14] = v20;
+      *&buf[14] = v21;
       *&buf[22] = 2048;
       selfCopy8 = self;
-      *v59 = 2114;
-      *&v59[2] = @"_UISceneInterfaceProtectionHostComponent.m";
-      v60 = 1024;
-      v61 = 108;
-      v62 = 2114;
-      v63 = v17;
+      *v60 = 2114;
+      *&v60[2] = @"_UISceneInterfaceProtectionHostComponent.m";
+      v61 = 1024;
+      v62 = 108;
+      v63 = 2114;
+      v64 = v18;
       _os_log_error_impl(&dword_188A29000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v21 = v17;
-    [v17 UTF8String];
+    v22 = v18;
+    [v18 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x189F68CD4);
@@ -203,29 +203,29 @@
 
   if ([(_UISceneInterfaceProtectionHostComponent *)self isUnderAppProtection])
   {
-    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Self monitoring can not be configured after underAppProtection has been manually set"];
+    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Self monitoring can not be configured after underAppProtection has been manually set"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v23 = NSStringFromSelector(a2);
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
+      v24 = NSStringFromSelector(a2);
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
       *buf = 138544642;
-      *&buf[4] = v23;
+      *&buf[4] = v24;
       *&buf[12] = 2114;
-      *&buf[14] = v25;
+      *&buf[14] = v26;
       *&buf[22] = 2048;
       selfCopy8 = self;
-      *v59 = 2114;
-      *&v59[2] = @"_UISceneInterfaceProtectionHostComponent.m";
-      v60 = 1024;
-      v61 = 109;
-      v62 = 2114;
-      v63 = v22;
+      *v60 = 2114;
+      *&v60[2] = @"_UISceneInterfaceProtectionHostComponent.m";
+      v61 = 1024;
+      v62 = 109;
+      v63 = 2114;
+      v64 = v23;
       _os_log_error_impl(&dword_188A29000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v26 = v22;
-    [v22 UTF8String];
+    v27 = v23;
+    [v23 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x189F68DC4);
@@ -235,29 +235,29 @@
   configurationCopy[2](configurationCopy, self);
   if (!self->_apExtension)
   {
-    v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_apExtension"];
+    v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_apExtension"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v28 = NSStringFromSelector(a2);
-      v29 = objc_opt_class();
-      v30 = NSStringFromClass(v29);
+      v29 = NSStringFromSelector(a2);
+      v30 = objc_opt_class();
+      v31 = NSStringFromClass(v30);
       *buf = 138544642;
-      *&buf[4] = v28;
+      *&buf[4] = v29;
       *&buf[12] = 2114;
-      *&buf[14] = v30;
+      *&buf[14] = v31;
       *&buf[22] = 2048;
       selfCopy8 = self;
-      *v59 = 2114;
-      *&v59[2] = @"_UISceneInterfaceProtectionHostComponent.m";
-      v60 = 1024;
-      v61 = 112;
-      v62 = 2114;
-      v63 = v27;
+      *v60 = 2114;
+      *&v60[2] = @"_UISceneInterfaceProtectionHostComponent.m";
+      v61 = 1024;
+      v62 = 112;
+      v63 = 2114;
+      v64 = v28;
       _os_log_error_impl(&dword_188A29000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v31 = v27;
-    [v27 UTF8String];
+    v32 = v28;
+    [v28 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x189F68EC0);
@@ -265,29 +265,29 @@
 
   if (!self->_appIconBundleIdentifier)
   {
-    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_appIconBundleIdentifier"];
+    v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_appIconBundleIdentifier"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v33 = NSStringFromSelector(a2);
-      v34 = objc_opt_class();
-      v35 = NSStringFromClass(v34);
+      v34 = NSStringFromSelector(a2);
+      v35 = objc_opt_class();
+      v36 = NSStringFromClass(v35);
       *buf = 138544642;
-      *&buf[4] = v33;
+      *&buf[4] = v34;
       *&buf[12] = 2114;
-      *&buf[14] = v35;
+      *&buf[14] = v36;
       *&buf[22] = 2048;
       selfCopy8 = self;
-      *v59 = 2114;
-      *&v59[2] = @"_UISceneInterfaceProtectionHostComponent.m";
-      v60 = 1024;
-      v61 = 113;
-      v62 = 2114;
-      v63 = v32;
+      *v60 = 2114;
+      *&v60[2] = @"_UISceneInterfaceProtectionHostComponent.m";
+      v61 = 1024;
+      v62 = 113;
+      v63 = 2114;
+      v64 = v33;
       _os_log_error_impl(&dword_188A29000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v36 = v32;
-    [v32 UTF8String];
+    v37 = v33;
+    [v33 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x189F68FBCLL);
@@ -295,29 +295,29 @@
 
   if (!self->_shieldParentView)
   {
-    v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_shieldParentView"];
+    v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_shieldParentView"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v38 = NSStringFromSelector(a2);
-      v39 = objc_opt_class();
-      v40 = NSStringFromClass(v39);
+      v39 = NSStringFromSelector(a2);
+      v40 = objc_opt_class();
+      v41 = NSStringFromClass(v40);
       *buf = 138544642;
-      *&buf[4] = v38;
+      *&buf[4] = v39;
       *&buf[12] = 2114;
-      *&buf[14] = v40;
+      *&buf[14] = v41;
       *&buf[22] = 2048;
       selfCopy8 = self;
-      *v59 = 2114;
-      *&v59[2] = @"_UISceneInterfaceProtectionHostComponent.m";
-      v60 = 1024;
-      v61 = 114;
-      v62 = 2114;
-      v63 = v37;
+      *v60 = 2114;
+      *&v60[2] = @"_UISceneInterfaceProtectionHostComponent.m";
+      v61 = 1024;
+      v62 = 114;
+      v63 = 2114;
+      v64 = v38;
       _os_log_error_impl(&dword_188A29000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v41 = v37;
-    [v37 UTF8String];
+    v42 = v38;
+    [v38 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x189F690B8);
@@ -332,35 +332,35 @@
   *&buf[8] = 3221225472;
   *&buf[16] = __67___UISceneInterfaceProtectionHostComponent__setUnderAppProtection___block_invoke;
   selfCopy8 = &__block_descriptor_33_e70_v16__0__FBSMutableSceneSettings__UISceneInterfaceProtectionSettings__8l;
-  v59[0] = isLocked;
+  v60[0] = isLocked;
   [(_UISceneInterfaceProtectionHostComponent *)self updateSettings:buf];
   if ((*&self->_flags & 6) == 2)
   {
     if (self->_subjectMonitorRegistry)
     {
-      v42 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"!_subjectMonitorRegistry"];
+      v43 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"!_subjectMonitorRegistry"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v43 = NSStringFromSelector(sel_configureAppProtectionIfNecessary);
-        v44 = objc_opt_class();
-        v45 = NSStringFromClass(v44);
+        v44 = NSStringFromSelector(sel_configureAppProtectionIfNecessary);
+        v45 = objc_opt_class();
+        v46 = NSStringFromClass(v45);
         *buf = 138544642;
-        *&buf[4] = v43;
+        *&buf[4] = v44;
         *&buf[12] = 2114;
-        *&buf[14] = v45;
+        *&buf[14] = v46;
         *&buf[22] = 2048;
         selfCopy8 = self;
-        *v59 = 2114;
-        *&v59[2] = @"_UISceneInterfaceProtectionHostComponent.m";
-        v60 = 1024;
-        v61 = 191;
-        v62 = 2114;
-        v63 = v42;
+        *v60 = 2114;
+        *&v60[2] = @"_UISceneInterfaceProtectionHostComponent.m";
+        v61 = 1024;
+        v62 = 191;
+        v63 = 2114;
+        v64 = v43;
         _os_log_error_impl(&dword_188A29000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v46 = v42;
-      [v42 UTF8String];
+      v47 = v43;
+      [v43 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x189F691B4);
@@ -368,52 +368,52 @@
 
     if (self->_shieldViewIfExists)
     {
-      v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"!_shieldViewIfExists"];
+      v48 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"!_shieldViewIfExists"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v48 = NSStringFromSelector(sel_configureAppProtectionIfNecessary);
-        v49 = objc_opt_class();
-        v50 = NSStringFromClass(v49);
+        v49 = NSStringFromSelector(sel_configureAppProtectionIfNecessary);
+        v50 = objc_opt_class();
+        v51 = NSStringFromClass(v50);
         *buf = 138544642;
-        *&buf[4] = v48;
+        *&buf[4] = v49;
         *&buf[12] = 2114;
-        *&buf[14] = v50;
+        *&buf[14] = v51;
         *&buf[22] = 2048;
         selfCopy8 = self;
-        *v59 = 2114;
-        *&v59[2] = @"_UISceneInterfaceProtectionHostComponent.m";
-        v60 = 1024;
-        v61 = 192;
-        v62 = 2114;
-        v63 = v47;
+        *v60 = 2114;
+        *&v60[2] = @"_UISceneInterfaceProtectionHostComponent.m";
+        v61 = 1024;
+        v62 = 192;
+        v63 = 2114;
+        v64 = v48;
         _os_log_error_impl(&dword_188A29000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v51 = v47;
-      [v47 UTF8String];
+      v52 = v48;
+      [v48 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x189F692B0);
     }
 
-    v53 = 0;
-    v54 = &v53;
-    v55 = 0x2050000000;
+    v54 = 0;
+    v55 = &v54;
+    v56 = 0x2050000000;
     v7 = getAPExtensionSubjectMonitorRegistryClass_softClass;
-    v56 = getAPExtensionSubjectMonitorRegistryClass_softClass;
+    v57 = getAPExtensionSubjectMonitorRegistryClass_softClass;
     if (!getAPExtensionSubjectMonitorRegistryClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getAPExtensionSubjectMonitorRegistryClass_block_invoke;
       selfCopy8 = &unk_1E70F2F20;
-      *v59 = &v53;
+      *v60 = &v54;
       __getAPExtensionSubjectMonitorRegistryClass_block_invoke(buf);
-      v7 = v54[3];
+      v7 = v55[3];
     }
 
     v8 = v7;
-    _Block_object_dispose(&v53, 8);
+    _Block_object_dispose(&v54, 8);
     v9 = [[v7 alloc] initWithExtensionSubject:self->_apExtension];
     subjectMonitorRegistry = self->_subjectMonitorRegistry;
     self->_subjectMonitorRegistry = v9;
@@ -643,7 +643,7 @@
 
 - (void)presentAppProtectionShieldView
 {
-  v22[4] = *MEMORY[0x1E69E9840];
+  v23[4] = *MEMORY[0x1E69E9840];
   if (self)
   {
     BSDispatchQueueAssertMain();
@@ -651,32 +651,32 @@
     {
       shieldView = [(_UISceneInterfaceProtectionHostComponent *)self shieldView];
       [*(self + 56) addSubview:shieldView];
-      v16 = MEMORY[0x1E69977A0];
+      v17 = MEMORY[0x1E69977A0];
       leftAnchor = [shieldView leftAnchor];
       leftAnchor2 = [*(self + 56) leftAnchor];
-      v19 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-      v22[0] = v19;
+      v20 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+      v23[0] = v20;
       topAnchor = [shieldView topAnchor];
       topAnchor2 = [*(self + 56) topAnchor];
-      v3 = [topAnchor constraintEqualToAnchor:topAnchor2];
-      v22[1] = v3;
+      v4 = [topAnchor constraintEqualToAnchor:topAnchor2];
+      v23[1] = v4;
       rightAnchor = [shieldView rightAnchor];
       rightAnchor2 = [*(self + 56) rightAnchor];
-      v6 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-      v22[2] = v6;
+      v7 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
+      v23[2] = v7;
       bottomAnchor = [shieldView bottomAnchor];
       bottomAnchor2 = [*(self + 56) bottomAnchor];
-      v9 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-      v22[3] = v9;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:4];
-      [v16 activateConstraints:v10];
+      v10 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+      v23[3] = v10;
+      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:4];
+      [v17 activateConstraints:v11];
 
       hostScene = [self hostScene];
       uiSceneHostingController = [hostScene uiSceneHostingController];
       _remoteSheetProvider = [uiSceneHostingController _remoteSheetProvider];
-      v14 = [_remoteSheetProvider sheetDisconnectionAssertionForReason:@"app protection"];
-      v15 = *(self + 80);
-      *(self + 80) = v14;
+      v15 = [_remoteSheetProvider sheetDisconnectionAssertionForReason:@"app protection"];
+      v16 = *(self + 80);
+      *(self + 80) = v15;
 
       [self setExtensionShieldCurrentlyShown:1];
     }
@@ -713,7 +713,7 @@
       [shieldView removeFromSuperview];
 
       [self[10] invalidate];
-      v3 = self[10];
+      v4 = self[10];
       self[10] = 0;
     }
   }

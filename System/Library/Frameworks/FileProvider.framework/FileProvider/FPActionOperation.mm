@@ -84,7 +84,7 @@ void __45__FPActionOperation_initWithProvider_action___block_invoke(uint64_t a1)
 
 - (FPActionOperation)initWithItemsOfDifferentProviders:(id)providers action:(id)action
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   providersCopy = providers;
   actionCopy = action;
   if (![providersCopy count])
@@ -99,27 +99,27 @@ void __45__FPActionOperation_initWithProvider_action___block_invoke(uint64_t a1)
     v8->_multiProviders = 1;
     [(FPActionOperation *)v8 setSourceItemsToPreflight:providersCopy];
     v10 = objc_opt_new();
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v22 = providersCopy;
+    v21 = providersCopy;
     v11 = providersCopy;
-    v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v24;
+      v14 = *v23;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v24 != v14)
+          if (*v23 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v23 + 1) + 8 * i);
+          v16 = *(*(&v22 + 1) + 8 * i);
           providerDomainID = [v16 providerDomainID];
           v18 = [(NSDictionary *)v10 objectForKeyedSubscript:providerDomainID];
           if (!v18)
@@ -131,7 +131,7 @@ void __45__FPActionOperation_initWithProvider_action___block_invoke(uint64_t a1)
           [v18 addObject:v16];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v13);
@@ -140,10 +140,9 @@ void __45__FPActionOperation_initWithProvider_action___block_invoke(uint64_t a1)
     itemsByDomainID = v9->_itemsByDomainID;
     v9->_itemsByDomainID = v10;
 
-    providersCopy = v22;
+    providersCopy = v21;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -198,37 +197,37 @@ void __45__FPActionOperation_initWithProvider_action___block_invoke(uint64_t a1)
 
 - (void)_dispatchToSubOperations
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v16 = objc_opt_new();
+  v31 = *MEMORY[0x1E69E9840];
+  v15 = objc_opt_new();
   v3 = dispatch_group_create();
-  v25[0] = 0;
-  v25[1] = v25;
-  v25[2] = 0x3032000000;
-  v25[3] = __Block_byref_object_copy__26;
-  v25[4] = __Block_byref_object_dispose__26;
-  v26 = 0;
+  v24[0] = 0;
+  v24[1] = v24;
+  v24[2] = 0x3032000000;
+  v24[3] = __Block_byref_object_copy__26;
+  v24[4] = __Block_byref_object_dispose__26;
+  v25 = 0;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = self->_itemsByDomainID;
-  v4 = [(NSDictionary *)obj countByEnumeratingWithState:&v21 objects:v31 count:16];
+  v4 = [(NSDictionary *)obj countByEnumeratingWithState:&v20 objects:v30 count:16];
   if (v4)
   {
-    v6 = *v22;
+    v6 = *v21;
     *&v5 = 138412546;
-    v14 = v5;
+    v13 = v5;
     do
     {
       v7 = 0;
       do
       {
-        if (*v22 != v6)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = [(NSDictionary *)self->_itemsByDomainID objectForKeyedSubscript:*(*(&v21 + 1) + 8 * v7), v14];
+        v8 = [(NSDictionary *)self->_itemsByDomainID objectForKeyedSubscript:*(*(&v20 + 1) + 8 * v7), v13];
         v9 = [(FPActionOperation *)self replicateForItems:v8];
         [v9 setHaveStitching:0];
         v10 = self->_havePreflight && !self->_skipPreflight;
@@ -238,30 +237,30 @@ void __45__FPActionOperation_initWithProvider_action___block_invoke(uint64_t a1)
         [v9 setErrorRecoveryHandler:self->_errorRecoveryHandler];
         [v9 setSkipPreflight:self->_skipPreflight];
         dispatch_group_enter(v3);
-        v18[0] = MEMORY[0x1E69E9820];
-        v18[1] = 3221225472;
-        v18[2] = __45__FPActionOperation__dispatchToSubOperations__block_invoke;
-        v18[3] = &unk_1E79391C0;
-        v18[4] = self;
-        v20 = v25;
-        v19 = v3;
-        [v9 setActionCompletionBlock:v18];
+        v17[0] = MEMORY[0x1E69E9820];
+        v17[1] = 3221225472;
+        v17[2] = __45__FPActionOperation__dispatchToSubOperations__block_invoke;
+        v17[3] = &unk_1E79391C0;
+        v17[4] = self;
+        v19 = v24;
+        v18 = v3;
+        [v9 setActionCompletionBlock:v17];
         v11 = fp_current_or_default_log();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v14;
-          v28 = v9;
-          v29 = 2112;
+          *buf = v13;
+          v27 = v9;
+          v28 = 2112;
           selfCopy = self;
           _os_log_debug_impl(&dword_1AAAE1000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] created suboperation %@ for %@", buf, 0x16u);
         }
 
-        [v16 addOperation:v9];
+        [v15 addOperation:v9];
         ++v7;
       }
 
       while (v4 != v7);
-      v4 = [(NSDictionary *)obj countByEnumeratingWithState:&v21 objects:v31 count:16];
+      v4 = [(NSDictionary *)obj countByEnumeratingWithState:&v20 objects:v30 count:16];
     }
 
     while (v4);
@@ -273,11 +272,10 @@ void __45__FPActionOperation_initWithProvider_action___block_invoke(uint64_t a1)
   block[2] = __45__FPActionOperation__dispatchToSubOperations__block_invoke_24;
   block[3] = &unk_1E793AD20;
   block[4] = self;
-  block[5] = v25;
+  block[5] = v24;
   dispatch_group_notify(v3, callbackQueue, block);
 
-  _Block_object_dispose(v25, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v24, 8);
 }
 
 void __45__FPActionOperation__dispatchToSubOperations__block_invoke(uint64_t a1, void *a2)
@@ -303,19 +301,18 @@ void __45__FPActionOperation__dispatchToSubOperations__block_invoke(uint64_t a1,
 
 void __45__FPActionOperation__dispatchToSubOperations__block_invoke_24(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 328);
-  v6 = v2;
+  v5 = v2;
   v3 = fp_current_or_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = [*(*(*(a1 + 40) + 8) + 40) fp_prettyDescription];
-    __45__FPActionOperation__dispatchToSubOperations__block_invoke_24_cold_1(v4, v7, v2);
+    __45__FPActionOperation__dispatchToSubOperations__block_invoke_24_cold_1(v4, v6, v2);
   }
 
   [*(a1 + 32) completedWithResult:0 error:*(*(*(a1 + 40) + 8) + 40)];
-  __fp_leave_section_Debug(&v6);
-  v5 = *MEMORY[0x1E69E9840];
+  __fp_leave_section_Debug(&v5);
 }
 
 - (id)operationDescription
@@ -383,7 +380,7 @@ LABEL_7:
 
 void __50__FPActionOperation_runUserInteractionsPreflight___block_invoke(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -391,8 +388,8 @@ void __50__FPActionOperation_runUserInteractionsPreflight___block_invoke(uint64_
     if ([v3 count])
     {
       v5 = [v4 objectAtIndex:0];
-      v8[0] = v5;
-      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+      v7[0] = v5;
+      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
     }
 
     else
@@ -407,8 +404,6 @@ void __50__FPActionOperation_runUserInteractionsPreflight___block_invoke(uint64_
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_runUserInteractionsPreflight:(id)preflight
@@ -561,10 +556,41 @@ uint64_t __45__FPActionOperation_preflightWithCompletion___block_invoke(uint64_t
 
 - (void)_preflightAndRun
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] %@: no preflight, finishing after preflight", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  if (self->_havePreflight)
+  {
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __37__FPActionOperation__preflightAndRun__block_invoke;
+    v6[3] = &unk_1E793DF70;
+    v6[4] = self;
+    [(FPActionOperation *)self preflightWithCompletion:v6];
+  }
+
+  else
+  {
+    finishAfterPreflight = self->_finishAfterPreflight;
+    v4 = fp_current_or_default_log();
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+    if (finishAfterPreflight)
+    {
+      if (v5)
+      {
+        [FPActionOperation _preflightAndRun];
+      }
+
+      [(FPOperation *)self completedWithResult:0 error:0];
+    }
+
+    else
+    {
+      if (v5)
+      {
+        [FPActionOperation _preflightAndRun];
+      }
+
+      [(FPActionOperation *)self actionMain];
+    }
+  }
 }
 
 void __37__FPActionOperation__preflightAndRun__block_invoke(uint64_t a1, char a2, void *a3)
@@ -585,16 +611,16 @@ void __37__FPActionOperation__preflightAndRun__block_invoke(uint64_t a1, char a2
 
 void __37__FPActionOperation__preflightAndRun__block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (*(a1 + 48) != 1 || *(a1 + 32) || [*(a1 + 40) finishAfterPreflight])
   {
     v2 = *(*(a1 + 40) + 328);
-    v10 = v2;
+    v8 = v2;
     v3 = fp_current_or_default_log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       v4 = [*(a1 + 32) fp_prettyDescription];
-      __37__FPActionOperation__preflightAndRun__block_invoke_2_cold_1(v4, v11, v2);
+      __37__FPActionOperation__preflightAndRun__block_invoke_2_cold_1(v4, v9, v2);
     }
 
     v5 = *(a1 + 32);
@@ -606,26 +632,86 @@ void __37__FPActionOperation__preflightAndRun__block_invoke_2(uint64_t a1)
 
     [*(a1 + 40) completedWithResult:0 error:v6];
 
-    __fp_leave_section_Debug(&v10);
-    v7 = *MEMORY[0x1E69E9840];
+    __fp_leave_section_Debug(&v8);
   }
 
   else
   {
-    v8 = *(a1 + 40);
-    v9 = *MEMORY[0x1E69E9840];
+    v7 = *(a1 + 40);
 
-    [v8 actionMain];
+    [v7 actionMain];
   }
 }
 
 - (void)main
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *self;
-  OUTLINED_FUNCTION_14_0();
-  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v2, v3, "[DEBUG] ┳%llx starting action %@");
-  v4 = *MEMORY[0x1E69E9840];
+  logSection = self->_logSection;
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [FPActionOperation main];
+  }
+
+  if ([(NSDictionary *)self->_itemsByDomainID count]< 2)
+  {
+    if ([(NSDictionary *)self->_itemsByDomainID count]== 1)
+    {
+      v14 = fp_current_or_default_log();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      {
+        [(FPActionOperation *)v14 main:v15];
+      }
+
+      allValues = [(NSDictionary *)self->_itemsByDomainID allValues];
+      v23 = [allValues objectAtIndexedSubscript:0];
+      v24 = [v23 objectAtIndexedSubscript:0];
+      providerDomainID = [v24 providerDomainID];
+      providerIdentifier = self->_providerIdentifier;
+      self->_providerIdentifier = providerDomainID;
+    }
+
+    if (self->_setupRemoteOperationService && (self->_providerIdentifier || ([MEMORY[0x1E696AAA8] currentHandler], v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "handleFailureInMethod:object:file:lineNumber:description:", a2, self, @"FPActionOperation.m", 340, @"we don't know what provider to use"), v27, self->_setupRemoteOperationService)) && (-[FPActionOperation remoteService](self, "remoteService"), v28 = objc_claimAutoreleasedReturnValue(), v28, !v28))
+    {
+      itemManager = [(FPActionOperation *)self itemManager];
+      v30 = self->_providerIdentifier;
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __25__FPActionOperation_main__block_invoke_2;
+      v31[3] = &unk_1E793ACD0;
+      v31[4] = self;
+      [itemManager fetchOperationServiceForProviderDomainID:v30 handler:v31];
+    }
+
+    else
+    {
+      itemManager = [(FPOperation *)self callbackQueue];
+      block[0] = MEMORY[0x1E69E9820];
+      block[1] = 3221225472;
+      block[2] = __25__FPActionOperation_main__block_invoke;
+      block[3] = &unk_1E79399B0;
+      block[4] = self;
+      dispatch_async(itemManager, block);
+    }
+  }
+
+  else
+  {
+    if (!self->_multiProviders)
+    {
+      currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+      [currentHandler handleFailureInMethod:a2 object:self file:@"FPActionOperation.m" lineNumber:326 description:@"bad state!"];
+    }
+
+    v6 = fp_current_or_default_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    {
+      [(FPActionOperation *)v6 main:v7];
+    }
+
+    [(FPActionOperation *)self _dispatchToSubOperations];
+  }
+
+  __fp_leave_section_Debug(&logSection);
 }
 
 void __25__FPActionOperation_main__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -681,7 +767,7 @@ uint64_t __25__FPActionOperation_main__block_invoke_3(uint64_t a1)
 
 - (void)finishWithResult:(id)result error:(id)error
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
   [(FPActionOperation *)self resetStitcher];
@@ -698,27 +784,27 @@ uint64_t __25__FPActionOperation_main__block_invoke_3(uint64_t a1)
   }
 
   logSection = self->_logSection;
-  v18 = logSection;
+  v17 = logSection;
   v12 = fp_current_or_default_log();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v15 = resultCopy;
+    v14 = resultCopy;
     if (isKindOfClass)
     {
-      v15 = FPAbbreviatedArrayDescription(resultCopy);
+      v14 = FPAbbreviatedArrayDescription(resultCopy);
     }
 
     fp_prettyDescription = [errorCopy fp_prettyDescription];
     *buf = 134218754;
-    v20 = logSection;
-    v21 = 2112;
+    v19 = logSection;
+    v20 = 2112;
     selfCopy = self;
-    v23 = 2112;
-    v24 = v15;
-    v25 = 2112;
-    v26 = fp_prettyDescription;
+    v22 = 2112;
+    v23 = v14;
+    v24 = 2112;
+    v25 = fp_prettyDescription;
     _os_log_debug_impl(&dword_1AAAE1000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx action finished %@ with (result=%@, error=%@)", buf, 0x2Au);
 
     if (isKindOfClass)
@@ -726,17 +812,15 @@ uint64_t __25__FPActionOperation_main__block_invoke_3(uint64_t a1)
     }
   }
 
-  v17.receiver = self;
-  v17.super_class = FPActionOperation;
-  [(FPOperation *)&v17 finishWithResult:resultCopy error:errorCopy];
-  __fp_leave_section_Debug(&v18);
-
-  v13 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = FPActionOperation;
+  [(FPOperation *)&v16 finishWithResult:resultCopy error:errorCopy];
+  __fp_leave_section_Debug(&v17);
 }
 
 - (void)tryRecoveringFromError:(id)error completion:(id)completion
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   completionCopy = completion;
   haveErrorRecovery = [(FPActionOperation *)self haveErrorRecovery];
@@ -798,10 +882,10 @@ LABEL_9:
     v33 = [MEMORY[0x1E696AD98] numberWithBool:bOOLValue2 & 1];
     *buf = 138412802;
     selfCopy = self;
-    v41 = 2112;
-    v42 = v32;
-    v43 = 2112;
-    v44 = v33;
+    v40 = 2112;
+    v41 = v32;
+    v42 = 2112;
+    v43 = v33;
     _os_log_debug_impl(&dword_1AAAE1000, v20, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: Checking suppression: suppressionIsEnabledForPredicate = %@, suppressionIsCheckedForPredicate = %@", buf, 0x20u);
   }
 
@@ -840,15 +924,15 @@ LABEL_23:
   if (v29)
   {
     itemManager = [(FPActionOperation *)self itemManager];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __55__FPActionOperation_tryRecoveringFromError_completion___block_invoke;
-    v35[3] = &unk_1E793DF98;
-    v35[4] = self;
-    v36 = v29;
-    v38 = completionCopy;
-    v37 = errorCopy;
-    [itemManager fetchOperationServiceForProviderDomainID:v36 handler:v35];
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __55__FPActionOperation_tryRecoveringFromError_completion___block_invoke;
+    v34[3] = &unk_1E793DF98;
+    v34[4] = self;
+    v35 = v29;
+    v37 = completionCopy;
+    v36 = errorCopy;
+    [itemManager fetchOperationServiceForProviderDomainID:v35 handler:v34];
   }
 
   else
@@ -858,7 +942,6 @@ LABEL_23:
   }
 
 LABEL_24:
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __55__FPActionOperation_tryRecoveringFromError_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -869,7 +952,7 @@ void __55__FPActionOperation_tryRecoveringFromError_completion___block_invoke(vo
     v6 = fp_current_or_default_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __55__FPActionOperation_tryRecoveringFromError_completion___block_invoke_cold_1(a1);
+      __55__FPActionOperation_tryRecoveringFromError_completion___block_invoke_cold_1();
     }
 
     (*(a1[7] + 16))();
@@ -986,28 +1069,24 @@ void __81__FPActionOperation_tryRecoveringFromPreflightErrors_recoveryHandler_co
 {
   if (*(a1 + 80) == 1)
   {
-    v2 = *(a1 + 56);
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 72);
     if (((*(*(a1 + 56) + 16))() & 1) == 0)
     {
-      v5 = *(*(a1 + 64) + 16);
+      v2 = *(*(a1 + 64) + 16);
 LABEL_9:
 
-      v5();
+      v2();
       return;
     }
   }
 
   else if (([*(a1 + 32) fp_isWarning] & 1) == 0)
   {
-    v6 = *(a1 + 32);
-    v5 = *(*(a1 + 64) + 16);
+    v2 = *(*(a1 + 64) + 16);
     goto LABEL_9;
   }
 
-  v7 = [FPActionOperation newArrayRemovingFirstElement:*(a1 + 40)];
-  [*(a1 + 48) tryRecoveringFromPreflightErrors:v7 recoveryHandler:*(a1 + 56) completion:*(a1 + 64)];
+  v3 = [FPActionOperation newArrayRemovingFirstElement:*(a1 + 40)];
+  [*(a1 + 48) tryRecoveringFromPreflightErrors:v3 recoveryHandler:*(a1 + 56) completion:*(a1 + 64)];
 }
 
 + (id)newArrayRemovingFirstElement:(id)element
@@ -1020,21 +1099,12 @@ LABEL_9:
 
 - (void)initWithProvider:(uint64_t)a1 action:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  LODWORD(v6) = 134218242;
-  *(&v6 + 4) = a2;
+  v7 = *MEMORY[0x1E69E9840];
+  LODWORD(v5) = 134218242;
+  *(&v5 + 4) = a2;
   OUTLINED_FUNCTION_3_3();
-  *v7 = v2;
-  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v3, v4, "[DEBUG] ┣%llx created operation: %@", v6, DWORD2(v6), *&v7[2], v8);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __45__FPActionOperation_initWithProvider_action___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] cancelling operation via its progress: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  *v6 = v2;
+  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v3, v4, "[DEBUG] ┣%llx created operation: %@", v5, DWORD2(v5), *&v6[2], v7);
 }
 
 - (void)initWithItemsOfDifferentProviders:action:.cold.1()
@@ -1053,33 +1123,19 @@ void __45__FPActionOperation__dispatchToSubOperations__block_invoke_24_cold_1(vo
 void __51__FPActionOperation__runUserInteractionsPreflight___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_14();
-  v9 = *MEMORY[0x1E69E9840];
   [*v1 count];
   v2 = [*(v0 + 40) action];
   OUTLINED_FUNCTION_10_4();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __51__FPActionOperation__runUserInteractionsPreflight___block_invoke_2_cold_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 40) action];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __51__FPActionOperation__runUserInteractionsPreflight___block_invoke_34_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] FPActionOperation, received warning: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __37__FPActionOperation__preflightAndRun__block_invoke_2_cold_1(void *a1, uint64_t a2, uint64_t a3)
@@ -1100,51 +1156,26 @@ void __37__FPActionOperation__preflightAndRun__block_invoke_2_cold_1(void *a1, u
 {
   OUTLINED_FUNCTION_14();
   v2 = v1;
-  v11 = *MEMORY[0x1E69E9840];
   [v1 haveErrorRecovery];
   v3 = [v2 errorRecoveryHandler];
   v4 = [v0 localizedRecoveryOptions];
   OUTLINED_FUNCTION_10_4();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x22u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
-- (void)tryRecoveringFromError:completion:.cold.3()
+void __55__FPActionOperation_tryRecoveringFromError_completion___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] %@: suppression box check, not running pre-flight check.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __55__FPActionOperation_tryRecoveringFromError_completion___block_invoke_cold_1(uint64_t a1)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_14_0();
   OUTLINED_FUNCTION_2_8();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 - (void)tryRecoveringFromPreflightErrors:recoveryHandler:completion:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v0, v1, "[DEBUG] %@: no hard errors, early return from tryRecoveringFromPreflightErrors. errs=%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)tryRecoveringFromPreflightErrors:recoveryHandler:completion:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] %@: no errors, early return from tryRecoveringFromPreflightErrors", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

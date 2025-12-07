@@ -1401,8 +1401,7 @@ LABEL_4:
 - (id)serviceLikeItemWithItem:(id)item itemManager:(id)manager withID:(id)d
 {
   v9 = sub_1000578B4(&unk_1000D9E30, &qword_1000933F0);
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9 - 8);
+  __chkstk_darwin(v9 - 8, v10);
   v12 = &v20 - v11;
   if (d)
   {
@@ -1430,9 +1429,8 @@ LABEL_4:
 - (id)findPreferredAccessoryWithItemManager:(id)manager accessoryID:(id)d with:(id)with
 {
   v9 = sub_1000578B4(&unk_1000D9E30, &qword_1000933F0);
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9 - 8);
-  v12 = &v21 - v11;
+  __chkstk_darwin(v9 - 8, v10);
+  v12 = &v22 - v11;
   v13 = _Block_copy(with);
   if (d)
   {
@@ -1443,27 +1441,26 @@ LABEL_4:
 
   else
   {
-    v16 = type metadata accessor for UUID();
-    v15 = (*(*(v16 - 8) + 56))(v12, 1, 1, v16);
+    v17 = type metadata accessor for UUID();
+    v15 = (*(*(v17 - 8) + 56))(v12, 1, 1, v17);
   }
 
-  __chkstk_darwin(v15);
-  *(&v21 - 2) = v13;
+  __chkstk_darwin(v15, v16);
+  *(&v22 - 2) = v13;
   managerCopy = manager;
   selfCopy = self;
-  v19 = HOAppDelegate.findPreferredAccessory(itemManager:accessoryID:with:)(managerCopy, v12, sub_10007E66C, (&v21 - 4));
+  v20 = HOAppDelegate.findPreferredAccessory(itemManager:accessoryID:with:)(managerCopy, v12, sub_10007E66C, (&v22 - 4));
   _Block_release(v13);
 
   sub_10007E208(v12);
 
-  return v19;
+  return v20;
 }
 
 - (id)findAccessoryWithItemManager:(id)manager accessoryID:(id)d testBlock:(id)block
 {
   v9 = sub_1000578B4(&unk_1000D9E30, &qword_1000933F0);
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9 - 8);
+  __chkstk_darwin(v9 - 8, v10);
   v12 = &v21 - v11;
   v13 = _Block_copy(block);
   if (d)
@@ -1495,8 +1492,7 @@ LABEL_4:
 - (id)homeKitObjectIDFrom:(id)from userDefaultsEnabled:(BOOL)enabled
 {
   v5 = sub_1000578B4(&unk_1000D9E30, &qword_1000933F0);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
+  __chkstk_darwin(v5 - 8, v6);
   v8 = &v17 - v7;
   v9 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
@@ -1531,8 +1527,7 @@ LABEL_4:
 - (id)_cameraProfileForTestingInHome:(id)home withUUID:(id)d
 {
   v7 = sub_1000578B4(&unk_1000D9E30, &qword_1000933F0);
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7 - 8);
+  __chkstk_darwin(v7 - 8, v8);
   v10 = &v17 - v9;
   if (d)
   {

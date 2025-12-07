@@ -4,6 +4,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)recipientAsString:(int)string;
+- (id)sourceAsString:(int)string;
 - (int)StringAsRecipient:(id)recipient;
 - (int)StringAsSource:(id)source;
 - (int)recipient;
@@ -271,19 +273,18 @@ LABEL_7:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    source = self->_source;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -302,15 +303,13 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  recipient = self->_recipient;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_6:
-    accountSetup = self->_accountSetup;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_7:
@@ -450,6 +449,21 @@ LABEL_7:
   return v4;
 }
 
+- (id)recipientAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFABD8[string];
+  }
+
+  return v4;
+}
+
 - (int)recipient
 {
   if (*&self->_has)
@@ -494,6 +508,21 @@ LABEL_7:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)sourceAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFABD8[string];
   }
 
   return v4;

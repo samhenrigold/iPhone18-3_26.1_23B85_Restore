@@ -204,9 +204,9 @@
       _IDSLogV();
     }
 
-    if (([(__CFString *)typeCopy isEqualToIgnoringCase:@"outgoing-messages", v63, v66, v69, intValue2, v72, v73]& 1) == 0 && ![(__CFString *)typeCopy isEqualToIgnoringCase:@"outgoing-fallback-messages"])
+    if ((objc_msgSend_isEqualToIgnoringCase_(typeCopy, v63, v66, v69, intValue2, v72, v73) & 1) == 0 && !objc_msgSend_isEqualToIgnoringCase_(typeCopy))
     {
-      if ([(__CFString *)typeCopy isEqualToIgnoringCase:@"outgoing-server-messages"])
+      if (objc_msgSend_isEqualToIgnoringCase_(typeCopy))
       {
         serviceCopy = [NSString stringWithFormat:@"server-message-budget-daily-%@", serviceCopy];
         v36 = [IDSServerBag sharedInstanceForBagType:1];
@@ -268,7 +268,7 @@
         }
       }
 
-      else if ([(__CFString *)typeCopy isEqualToIgnoringCase:@"query-requests"])
+      else if (objc_msgSend_isEqualToIgnoringCase_(typeCopy))
       {
         serviceCopy = [NSString stringWithFormat:@"query-ui-budget-daily-%@", serviceCopy];
         v47 = [IDSServerBag sharedInstanceForBagType:1];
@@ -332,7 +332,7 @@
 
       else
       {
-        if (![(__CFString *)typeCopy isEqualToIgnoringCase:@"queries"])
+        if (!objc_msgSend_isEqualToIgnoringCase_(typeCopy))
         {
           v23 = 1;
 LABEL_140:
@@ -406,7 +406,7 @@ LABEL_140:
       goto LABEL_139;
     }
 
-    if ([(__CFString *)typeCopy isEqualToIgnoringCase:@"outgoing-messages"])
+    if (objc_msgSend_isEqualToIgnoringCase_(typeCopy))
     {
       v25 = &stru_100C06028;
     }

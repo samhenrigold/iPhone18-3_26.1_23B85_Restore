@@ -1,7 +1,7 @@
 void PrintOneCacheRecordToFD(int a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, _DWORD *a6)
 {
   v7 = *(a2 + 64);
-  for (i = 64; ; i = v14 + 1)
+  for (i = 64; ; i = v13 + 1)
   {
     v9 = malloc_type_calloc(1uLL, i, 0xF405D1F4uLL);
     if (!v9)
@@ -21,9 +21,7 @@ LABEL_13:
     v11 = *(v7 + 32);
     if (v11 == 1)
     {
-      *(v7 + 40);
-      *(v7 + 44);
-      v13 = snprintf(v9, i, "  validated, %s%s");
+      v12 = snprintf(v9, i, "  validated, %s%s");
       goto LABEL_10;
     }
 
@@ -34,45 +32,40 @@ LABEL_13:
 
     if (*(v7 + 40) == 1)
     {
-      v12 = *(v7 + 24);
-      *(v7 + 36);
-      v13 = snprintf(v9, i, "to validate, positive, %-4zu%s");
+      v12 = snprintf(v9, i, "to validate, positive, %-4zu%s");
     }
 
     else
     {
-      *(v7 + 48);
-      v13 = snprintf(v9, i, "to validate, negative, 1   %s");
+      v12 = snprintf(v9, i, "to validate, negative, 1   %s");
     }
 
 LABEL_10:
-    if ((v13 & 0x80000000) != 0)
+    if ((v12 & 0x80000000) != 0)
     {
       goto LABEL_13;
     }
 
-    if (i > v13)
+    if (i > v12)
     {
       goto LABEL_15;
     }
 
-    v14 = v13;
+    v13 = v12;
     free(v10);
   }
 
   free(v9);
   v10 = 0;
 LABEL_15:
-  v15 = *(a2 + 129);
-  *(a2 + 96);
-  *(a2 + 8);
+  v14 = *(a2 + 129);
   DNSTypeName(*(a2 + 12));
-  if (v15 != 1)
+  if (v14 != 1)
   {
     GetRRDisplayString_rdb((a2 + 8), (*(a2 + 48) + 4), word_1001789D0);
   }
 
-  LogToFD(a1, "%3d %s%8d %-7s%s %-6s   %-40s%s", v16, v17, v18, v19, v20, v21, a3);
+  LogToFD(a1, "%3d %s%8d %-7s%s %-6s   %-40s%s", v15, v16, v17, v18, v19, v20, a3);
   ++*a6;
   if (v10)
   {
@@ -81,7 +74,7 @@ LABEL_15:
   }
 }
 
-uint64_t LogAuthRecordsToFD(uint64_t result, int a2, uint64_t a3, _DWORD *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t LogAuthRecordsToFD(uint64_t result, uint64_t a2, uint64_t a3, _DWORD *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = result;
   memset(v31, 0, 20);
@@ -91,6 +84,7 @@ uint64_t LogAuthRecordsToFD(uint64_t result, int a2, uint64_t a3, _DWORD *a4, ui
   }
 
   v10 = a3;
+  v11 = a2;
   v12 = 1;
   do
   {
@@ -165,7 +159,7 @@ uint64_t LogAuthRecordsToFD(uint64_t result, int a2, uint64_t a3, _DWORD *a4, ui
       else
       {
 LABEL_31:
-        result = LogOneAuthRecordToFD(v8, v10, a2);
+        result = LogOneAuthRecordToFD(v8, v10, v11);
       }
 
 LABEL_35:
@@ -239,63 +233,67 @@ const char *RecordTypeName(int a1)
 
 uint64_t LogClientInfoToFD(uint64_t a1, uint64_t a2)
 {
-  *(v85 + 6) = 0;
-  v85[0] = 0;
-  v83[0] = 0;
-  v83[1] = 0;
-  v84 = 0;
-  v50 = *(a2 + 200);
-  mDNS_snprintf(v85);
-  *(a2 + 24);
-  result = mDNS_snprintf(v83);
-  v11 = *(a2 + 112);
-  if (!v11)
+  *&v41[6] = 0;
+  *v41 = 0;
+  v39[0] = 0;
+  v39[1] = 0;
+  v40 = 0;
+  mDNS_snprintf(v41, 14, "[R%u]", *(a2 + 200));
+  if (*(a2 + 24))
   {
-    return LogToFD(a1, "%s No operation yet on this socket", v5, v6, v7, v8, v9, v10, v83);
+    v4 = "->";
   }
 
-  if (v11 == connection_termination)
+  else
   {
-    v12 = *(a2 + 176);
-    if (v12)
+    v4 = "";
+  }
+
+  result = mDNS_snprintf(v39, 18, "%-6s %2s", v41, v4);
+  v12 = *(a2 + 112);
+  if (!v12)
+  {
+    return LogToFD(a1, "%s No operation yet on this socket", v6, v7, v8, v9, v10, v11, v39);
+  }
+
+  if (v12 == connection_termination)
+  {
+    v13 = *(a2 + 176);
+    if (v13)
     {
-      v13 = 0;
+      v14 = 0;
       do
       {
-        ++v13;
-        v12 = *(v12 + 8);
+        ++v14;
+        v13 = *(v13 + 8);
       }
 
-      while (v12);
+      while (v13);
     }
 
-    v20 = *(a2 + 16);
-    if (v20)
+    v21 = *(a2 + 16);
+    if (v21)
     {
-      v21 = 0;
+      v22 = 0;
       do
       {
-        v22 = v20 + 16;
-        v20 = *(v20 + 16);
-        if (*(v22 + 8) == a2)
+        v23 = v21 + 16;
+        v21 = *(v21 + 16);
+        if (*(v23 + 8) == a2)
         {
-          ++v21;
+          ++v22;
         }
       }
 
-      while (v20);
+      while (v21);
     }
 
-    v73 = *(a2 + 188);
-    result = LogToFD(a1, "%s DNSServiceCreateConnection: %d registered record%s, %d kDNSServiceFlagsShareConnection operation%s PID[%d](%s)", v5, v6, v7, v8, v9, v10, v83);
+    result = LogToFD(a1, "%s DNSServiceCreateConnection: %d registered record%s, %d kDNSServiceFlagsShareConnection operation%s PID[%d](%s)", v6, v7, v8, v9, v10, v11, v39);
     for (i = *(a2 + 176); i; i = *(i + 8))
     {
-      v24 = *(a2 + 248);
-      v25 = *(a2 + 252);
-      v26 = *(i + 56);
+      v25 = *(a2 + 248);
       GetRRDisplayString_rdb((*(i + 24) + 8), (*(*(i + 24) + 48) + 4), word_1001789D0);
-      v69 = *(a2 + 188);
-      result = LogToFD(a1, " ->  DNSServiceRegisterRecord   0x%08X %2d %3d %s PID[%d](%s)", v27, v28, v29, v30, v31, v32, v24);
+      result = LogToFD(a1, " ->  DNSServiceRegisterRecord   0x%08X %2d %3d %s PID[%d](%s)", v26, v27, v28, v29, v30, v31, v25);
     }
 
     for (j = *(a2 + 16); j; j = *(j + 16))
@@ -307,120 +305,73 @@ uint64_t LogClientInfoToFD(uint64_t a1, uint64_t a2)
     }
   }
 
-  else if (v11 == regservice_termination_callback)
+  else if (v12 == regservice_termination_callback)
   {
-    v14 = *(a2 + 128);
-    for (k = *(v14 + 1624); k; k = *k)
+    v15 = *(a2 + 128);
+    for (k = *(v15 + 1624); k; k = *k)
     {
-      if (k == *(v14 + 1624))
+      if (k == *(v15 + 1624))
       {
-        v16 = v83;
+        v17 = v39;
       }
 
       else
       {
-        v16 = "";
+        v17 = "";
       }
 
-      v76 = *(a2 + 188);
-      v58 = *(a2 + 252);
-      v64 = k[342];
-      v52 = *(a2 + 248);
-      v67 = bswap32(*(v14 + 24)) >> 16;
-      v72 = bswap32(*(k[343] + 8)) >> 16;
-      result = LogToFD(a1, "%-9s DNSServiceRegister         0x%08X %2d %##s %u/%u PID[%d](%s)", v5, v6, v7, v8, v9, v10, v16);
+      result = LogToFD(a1, "%-9s DNSServiceRegister         0x%08X %2d %##s %u/%u PID[%d](%s)", v6, v7, v8, v9, v10, v11, v17);
     }
   }
 
-  else if (v11 == browse_termination_callback)
+  else if (v12 == browse_termination_callback)
   {
-    v17 = *(a2 + 152);
-    for (m = *(v17 + 272); m; m = *m)
+    v18 = *(a2 + 152);
+    for (m = *(v18 + 272); m; m = *m)
     {
-      if (m == *(v17 + 272))
+      if (m == *(v18 + 272))
       {
-        v19 = v83;
+        v20 = v39;
       }
 
       else
       {
-        v19 = "";
+        v20 = "";
       }
 
-      v68 = *(a2 + 188);
-      v59 = *(a2 + 252);
-      v53 = *(a2 + 248);
-      result = LogToFD(a1, "%-9s DNSServiceBrowse           0x%08X %2d %##s PID[%d](%s)", v5, v6, v7, v8, v9, v10, v19);
+      result = LogToFD(a1, "%-9s DNSServiceBrowse           0x%08X %2d %##s PID[%d](%s)", v6, v7, v8, v9, v10, v11, v20);
     }
   }
 
-  else if (v11 == resolve_termination_callback)
+  else if (v12 == resolve_termination_callback)
   {
-    v70 = *(a2 + 188);
-    v60 = *(a2 + 252);
-    v65 = *(a2 + 136) + 1072;
-    v54 = *(a2 + 248);
-    return LogToFD(a1, "%s DNSServiceResolve          0x%08X %2d %##s PID[%d](%s)", v5, v6, v7, v8, v9, v10, v83);
+    return LogToFD(a1, "%s DNSServiceResolve          0x%08X %2d %##s PID[%d](%s)", v6, v7, v8, v9, v10, v11, v39);
   }
 
-  else if (v11 == queryrecord_termination_callback)
+  else if (v12 == queryrecord_termination_callback)
   {
-    v34 = *(a2 + 144);
-    *(v34 + 690);
-    v35 = *(a2 + 248);
-    v36 = *(a2 + 252);
-    DNSTypeName(*(v34 + 342));
-    v74 = *(a2 + 188);
-    return LogToFD(a1, "%s DNSServiceQueryRecord      0x%08X %2d %##s (%s) PID[%d](%s)", v37, v38, v39, v40, v41, v42, v83);
+    DNSTypeName(*(*(a2 + 144) + 342));
+    return LogToFD(a1, "%s DNSServiceQueryRecord      0x%08X %2d %##s (%s) PID[%d](%s)", v33, v34, v35, v36, v37, v38, v39);
   }
 
-  else if (v11 == enum_termination_callback)
+  else if (v12 == enum_termination_callback)
   {
-    v71 = *(a2 + 188);
-    v61 = *(a2 + 252);
-    v66 = *(a2 + 120) + 384;
-    v55 = *(a2 + 248);
-    return LogToFD(a1, "%s DNSServiceEnumerateDomains 0x%08X %2d %##s PID[%d](%s)", v5, v6, v7, v8, v9, v10, v83);
+    return LogToFD(a1, "%s DNSServiceEnumerateDomains 0x%08X %2d %##s PID[%d](%s)", v6, v7, v8, v9, v10, v11, v39);
   }
 
-  else if (v11 == port_mapping_termination_callback)
+  else if (v12 == port_mapping_termination_callback)
   {
-    v43 = *(a2 + 160);
-    *(v43 + 180);
-    *(v43 + 180);
-    v82 = *(a2 + 188);
-    v80 = *(v43 + 47);
-    v81 = *(v43 + 43);
-    v62 = *(a2 + 252);
-    v56 = *(a2 + 248);
-    v79 = bswap32(v43[84]) >> 16;
-    v75 = bswap32(v43[91]) >> 16;
-    v77 = bswap32(*v43) >> 16;
-    return LogToFD(a1, "%s DNSServiceNATPortMapping   0x%08X %2d %s%s Int %5d Req %5d Ext %.4a:%5d Req TTL %5d Granted TTL %5d PID[%d](%s)", v5, v6, v7, v8, v9, v10, v83);
+    return LogToFD(a1, "%s DNSServiceNATPortMapping   0x%08X %2d %s%s Int %5d Req %5d Ext %.4a:%5d Req TTL %5d Granted TTL %5d PID[%d](%s)", v6, v7, v8, v9, v10, v11, v39);
   }
 
-  else if (v11 == addrinfo_termination_callback)
+  else if (v12 == addrinfo_termination_callback)
   {
-    v44 = *(a2 + 168);
-    v45 = *(v44 + 16);
-    v46 = v45;
-    v47 = (v45 || (v46 = *(v44 + 24)) != 0) && *(v46 + 690) == 1;
-    v48 = *(v44 + 8);
-    if (!v47 && !v45)
-    {
-      v49 = *(v44 + 24);
-    }
-
-    v78 = *(a2 + 188);
-    v63 = *(a2 + 252);
-    v57 = *(a2 + 248);
-    return LogToFD(a1, "%s DNSServiceGetAddrInfo      0x%08X %2d %s%s %##s PID[%d](%s)", v5, v6, v7, v8, v9, v10, v83);
+    return LogToFD(a1, "%s DNSServiceGetAddrInfo      0x%08X %2d %s%s %##s PID[%d](%s)", v6, v7, v8, v9, v10, v11, v39);
   }
 
   else
   {
-    v51 = *(a2 + 112);
-    return LogToFD(a1, "%s Unrecognized operation %p", v5, v6, v7, v8, v9, v10, v83);
+    return LogToFD(a1, "%s Unrecognized operation %p", v6, v7, v8, v9, v10, v11, v39);
   }
 
   return result;
@@ -428,21 +379,21 @@ uint64_t LogClientInfoToFD(uint64_t a1, uint64_t a2)
 
 uint64_t LogOneAuthRecordToFD(int a1, uint64_t a2, int a3)
 {
-  memset(v32, 0, sizeof(v32));
+  memset(v27, 0, sizeof(v27));
   v6 = *(a2 + 648);
-  v29 = 0;
-  v30 = 0;
-  v31.tv_sec = 0;
-  *&v31.tv_usec = 0;
-  gettimeofday(&v31, 0);
+  v24 = 0;
+  v25 = 0;
+  v26.tv_sec = 0;
+  *&v26.tv_usec = 0;
+  gettimeofday(&v26, 0);
   v7 = v6 - a3;
   if (v6 - a3 < 1)
   {
     v11 = 274877907000000 * ((a3 - v6) % 1000);
     LODWORD(v11) = (v11 >> 38) + (v11 >> 63);
-    v13 = v31.tv_usec - v11;
-    v12 = v31.tv_usec < v11;
-    v14 = v31.tv_usec < v11;
+    v13 = v26.tv_usec - v11;
+    v12 = v26.tv_usec < v11;
+    v14 = v26.tv_usec < v11;
     if (v12)
     {
       v15 = 1000000;
@@ -453,104 +404,133 @@ uint64_t LogOneAuthRecordToFD(int a1, uint64_t a2, int a3)
       v15 = 0;
     }
 
-    v9 = v31.tv_sec - (a3 - v6) / 1000 - v14;
+    v9 = v26.tv_sec - (a3 - v6) / 1000 - v14;
     v10 = v13 + v15;
   }
 
   else
   {
-    v8 = v31.tv_usec + (1000000 * (v7 % 0x3E8)) / 1000;
-    v9 = v31.tv_sec + v7 / 0x3E8uLL + v8 / 1000000;
+    v8 = v26.tv_usec + (1000000 * (v7 % 0x3E8)) / 1000;
+    v9 = v26.tv_sec + v7 / 0x3E8uLL + v8 / 1000000;
     v10 = v8 % 1000000;
   }
 
-  v29 = v9;
-  LODWORD(v30) = v10;
-  getLocalTimestampFromTimeval(&v29, v32);
+  v24 = v9;
+  LODWORD(v25) = v10;
+  getLocalTimestampFromTimeval(&v24, v27);
   if (*(a2 + 32) || *(a2 + 122) || IsLocalDomain(*(a2 + 40)))
   {
-    if (*(a2 + 191))
-    {
-      v16 = 274877907 * (*(a2 + 280) - a3 + *(a2 + 284));
-    }
-
-    v17 = *(a2 + 168);
-    v18 = *(a2 + 8);
-    *(a2 + 121);
     GetRRDisplayString_rdb((a2 + 8), (*(a2 + 48) + 4), word_1001789D0);
-    v25 = "%s %7d %7d %7d %-7s 0x%02X %s %s";
+    v22 = "%s %7d %7d %7d %-7s 0x%02X %s %s";
   }
 
   else
   {
-    v27 = 274877907 * (*(a2 + 280) - a3 + *(a2 + 284));
-    *(a2 + 352);
-    *(a2 + 121);
-    v28 = *(a2 + 344);
     GetRRDisplayString_rdb((a2 + 8), (*(a2 + 48) + 4), word_1001789D0);
-    v25 = "%s %7d %7d %7d %-7s %4d %s %s";
+    v22 = "%s %7d %7d %7d %-7s %4d %s %s";
   }
 
-  return LogToFD(a1, v25, v19, v20, v21, v22, v23, v24, v32);
+  return LogToFD(a1, v22, v16, v17, v18, v19, v20, v21, v27);
 }
 
 void LogClientInfo(uint64_t a1)
 {
-  *(v76 + 6) = 0;
-  v76[0] = 0;
-  v74[0] = 0;
-  v74[1] = 0;
-  v75 = 0;
-  v44 = *(a1 + 200);
-  mDNS_snprintf(v76);
-  *(a1 + 24);
-  mDNS_snprintf(v74);
-  v7 = *(a1 + 112);
-  if (v7)
+  *&v39[6] = 0;
+  *v39 = 0;
+  v37[0] = 0;
+  v37[1] = 0;
+  v38 = 0;
+  mDNS_snprintf(v39, 14, "[R%u]", *(a1 + 200));
+  if (*(a1 + 24))
   {
-    if (v7 == connection_termination)
+    v2 = "->";
+  }
+
+  else
+  {
+    v2 = "";
+  }
+
+  mDNS_snprintf(v37, 18, "%-6s %2s", v39, v2);
+  v3 = *(a1 + 112);
+  if (v3)
+  {
+    if (v3 == connection_termination)
     {
-      v8 = *(a1 + 176);
-      if (v8)
+      v4 = *(a1 + 176);
+      if (v4)
       {
-        v9 = 0;
+        v5 = 0;
         do
         {
-          ++v9;
-          v8 = *(v8 + 8);
+          ++v5;
+          v4 = *(v4 + 8);
         }
 
-        while (v8);
+        while (v4);
       }
 
-      v16 = *(a1 + 16);
-      if (v16)
+      else
       {
-        v17 = 0;
+        v5 = 0;
+      }
+
+      v12 = *(a1 + 16);
+      if (v12)
+      {
+        v13 = 0;
         do
         {
-          v18 = v16 + 16;
-          v16 = *(v16 + 16);
-          if (*(v18 + 8) == a1)
+          v14 = v12 + 16;
+          v12 = *(v12 + 16);
+          if (*(v14 + 8) == a1)
           {
-            ++v17;
+            ++v13;
           }
         }
 
-        while (v16);
+        while (v12);
+        v15 = "s";
+        if (v5 == 1)
+        {
+          v16 = "";
+        }
+
+        else
+        {
+          v16 = "s";
+        }
+
+        if (v13 == 1)
+        {
+          v15 = "";
+        }
       }
 
-      v64 = *(a1 + 188);
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%s DNSServiceCreateConnection: %d registered record%s, %d kDNSServiceFlagsShareConnection operation%s PID[%d](%s)", v2, v3, v4, v5, v6, v74);
+      else
+      {
+        v13 = 0;
+        v15 = "s";
+        if (v5 == 1)
+        {
+          v16 = "";
+        }
+
+        else
+        {
+          v16 = "s";
+        }
+      }
+
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%s DNSServiceCreateConnection: %d registered record%s, %d kDNSServiceFlagsShareConnection operation%s PID[%d](%s)", v37, v5, v16, v13, v15, *(a1 + 188), (a1 + 256));
       for (i = *(a1 + 176); i; i = *(i + 8))
       {
-        v20 = mDNSLogCategory_Default;
-        v21 = *(a1 + 248);
-        v22 = *(a1 + 252);
-        v23 = *(i + 56);
+        v18 = mDNSLogCategory_Default;
+        v19 = *(a1 + 248);
+        v20 = *(a1 + 252);
+        v21 = *(i + 56);
         GetRRDisplayString_rdb((*(i + 24) + 8), (*(*(i + 24) + 48) + 4), word_1001789D0);
-        v60 = *(a1 + 188);
-        LogMsgWithLevel(v20, OS_LOG_TYPE_DEFAULT, " ->  DNSServiceRegisterRecord   0x%08X %2d %3d %s PID[%d](%s)", v24, v25, v26, v27, v28, v21);
+        LogMsgWithLevel(v18, OS_LOG_TYPE_DEFAULT, " ->  DNSServiceRegisterRecord   0x%08X %2d %3d %s PID[%d](%s)", v19, v20, v21, word_1001789D0, *(a1 + 188), (a1 + 256));
       }
 
       for (j = *(a1 + 16); j; j = *(j + 16))
@@ -562,141 +542,148 @@ void LogClientInfo(uint64_t a1)
       }
     }
 
-    else if (v7 == regservice_termination_callback)
+    else if (v3 == regservice_termination_callback)
     {
-      v10 = *(a1 + 128);
-      for (k = *(v10 + 1624); k; k = *k)
+      v6 = *(a1 + 128);
+      for (k = *(v6 + 1624); k; k = *k)
       {
-        if (k == *(v10 + 1624))
+        if (k == *(v6 + 1624))
         {
-          v12 = v74;
+          v8 = v37;
         }
 
         else
         {
-          v12 = "";
+          v8 = "";
         }
 
-        v67 = *(a1 + 188);
-        v50 = *(a1 + 252);
-        v55 = k[342];
-        v45 = *(a1 + 248);
-        v58 = bswap32(*(v10 + 24)) >> 16;
-        v63 = bswap32(*(k[343] + 8)) >> 16;
-        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%-9s DNSServiceRegister         0x%08X %2d %##s %u/%u PID[%d](%s)", v2, v3, v4, v5, v6, v12);
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%-9s DNSServiceRegister         0x%08X %2d %##s %u/%u PID[%d](%s)", v8, *(a1 + 248), *(a1 + 252), k[342], bswap32(*(v6 + 24)) >> 16, bswap32(*(k[343] + 8)) >> 16, *(a1 + 188), a1 + 256);
       }
     }
 
-    else if (v7 == browse_termination_callback)
+    else if (v3 == browse_termination_callback)
     {
-      v13 = *(a1 + 152);
-      for (m = *(v13 + 272); m; m = *m)
+      v9 = *(a1 + 152);
+      for (m = *(v9 + 272); m; m = *m)
       {
-        if (m == *(v13 + 272))
+        if (m == *(v9 + 272))
         {
-          v15 = v74;
+          v11 = v37;
         }
 
         else
         {
-          v15 = "";
+          v11 = "";
         }
 
-        v59 = *(a1 + 188);
-        v51 = *(a1 + 252);
-        v46 = *(a1 + 248);
-        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%-9s DNSServiceBrowse           0x%08X %2d %##s PID[%d](%s)", v2, v3, v4, v5, v6, v15);
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%-9s DNSServiceBrowse           0x%08X %2d %##s PID[%d](%s)", v11, *(a1 + 248), *(a1 + 252), m + 80, *(a1 + 188), a1 + 256);
       }
     }
 
-    else if (v7 == resolve_termination_callback)
+    else if (v3 == resolve_termination_callback)
     {
-      v61 = *(a1 + 188);
-      v52 = *(a1 + 252);
-      v56 = *(a1 + 136) + 1072;
-      v47 = *(a1 + 248);
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%s DNSServiceResolve          0x%08X %2d %##s PID[%d](%s)", v2, v3, v4, v5, v6, v74);
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%s DNSServiceResolve          0x%08X %2d %##s PID[%d](%s)", v37, *(a1 + 248), *(a1 + 252), *(a1 + 136) + 1072, *(a1 + 188), a1 + 256);
     }
 
-    else if (v7 == queryrecord_termination_callback)
+    else if (v3 == queryrecord_termination_callback)
     {
-      v30 = mDNSLogCategory_Default;
-      v31 = *(a1 + 248);
-      v32 = *(a1 + 252);
-      DNSTypeName(*(*(a1 + 144) + 342));
-      v65 = *(a1 + 188);
-      LogMsgWithLevel(v30, OS_LOG_TYPE_DEFAULT, "%s DNSServiceQueryRecord      0x%08X %2d %##s (%s) PID[%d](%s)", v33, v34, v35, v36, v37, v74);
+      v23 = mDNSLogCategory_Default;
+      v24 = *(a1 + 144);
+      v25 = v24 + 376;
+      v26 = *(a1 + 248);
+      v27 = *(a1 + 252);
+      v28 = DNSTypeName(*(v24 + 342));
+      LogMsgWithLevel(v23, OS_LOG_TYPE_DEFAULT, "%s DNSServiceQueryRecord      0x%08X %2d %##s (%s) PID[%d](%s)", v37, v26, v27, v25, v28, *(a1 + 188), a1 + 256);
     }
 
-    else if (v7 == enum_termination_callback)
+    else if (v3 == enum_termination_callback)
     {
-      v62 = *(a1 + 188);
-      v53 = *(a1 + 252);
-      v57 = *(a1 + 120) + 384;
-      v48 = *(a1 + 248);
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%s DNSServiceEnumerateDomains 0x%08X %2d %##s PID[%d](%s)", v2, v3, v4, v5, v6, v74);
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%s DNSServiceEnumerateDomains 0x%08X %2d %##s PID[%d](%s)", v37, *(a1 + 248), *(a1 + 252), *(a1 + 120) + 384, *(a1 + 188), a1 + 256);
     }
 
-    else if (v7 == port_mapping_termination_callback)
+    else if (v3 == port_mapping_termination_callback)
     {
-      v38 = *(a1 + 160);
-      *(v38 + 180);
-      *(v38 + 180);
-      v73 = *(a1 + 188);
-      v71 = *(v38 + 47);
-      v72 = *(v38 + 43);
-      v54 = *(a1 + 252);
-      v49 = *(a1 + 248);
-      v70 = bswap32(v38[84]) >> 16;
-      v66 = bswap32(v38[91]) >> 16;
-      v68 = bswap32(*v38) >> 16;
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%s DNSServiceNATPortMapping   0x%08X %2d %s%s Int %5d Req %5d Ext %.4a:%5d Req TTL %5d Granted TTL %5d PID[%d](%s)", v2, v3, v4, v5, v6, v74);
-    }
-
-    else if (v7 == addrinfo_termination_callback)
-    {
-      v39 = *(a1 + 168);
-      v40 = *(a1 + 248);
-      v41 = *(a1 + 252);
-      v42 = *(v39 + 8);
-      if (!*(v39 + 16))
+      v29 = "TCP";
+      if ((*(*(a1 + 160) + 180) & 2) == 0)
       {
-        v43 = *(v39 + 24);
+        v29 = "   ";
       }
 
-      v69 = *(a1 + 188);
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%s DNSServiceGetAddrInfo      0x%08X %2d %s%s %##s PID[%d](%s)", v2, v3, v4, v5, v6, v74);
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%s DNSServiceNATPortMapping   0x%08X %2d %s%s Int %5d Req %5d Ext %.4a:%5d Req TTL %5d Granted TTL %5d PID[%d](%s)", v37, *(a1 + 248), *(a1 + 252), v29);
+    }
+
+    else if (v3 == addrinfo_termination_callback)
+    {
+      v30 = *(a1 + 168);
+      v31 = *(v30 + 8);
+      v32 = "v4";
+      if ((v31 & 1) == 0)
+      {
+        v32 = "  ";
+      }
+
+      if ((v31 & 2) != 0)
+      {
+        v33 = "v6";
+      }
+
+      else
+      {
+        v33 = "  ";
+      }
+
+      v34 = *(v30 + 16);
+      if (v34)
+      {
+        v35 = (v34 + 376);
+      }
+
+      else
+      {
+        v36 = *(v30 + 24);
+        if (v36)
+        {
+          v35 = (v36 + 376);
+        }
+
+        else
+        {
+          v35 = "";
+        }
+      }
+
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%s DNSServiceGetAddrInfo      0x%08X %2d %s%s %##s PID[%d](%s)", v37, *(a1 + 248), *(a1 + 252), v32, v33, v35, *(a1 + 188), a1 + 256);
     }
 
     else
     {
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%s Unrecognized operation %p", v2, v3, v4, v5, v6, v74);
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%s Unrecognized operation %p");
     }
   }
 
   else
   {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%s No operation yet on this socket", v2, v3, v4, v5, v6, v74);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%s No operation yet on this socket");
   }
 }
 
 void _Querier_DNSServiceRegistrationStopHandler(uint64_t a1)
 {
-  v2 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v2, v3, v4, v5, v6, v7, v8, v9);
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
   DNSServiceManager = Querier_GetDNSServiceManager();
   if (DNSServiceManager)
   {
     mdns_dns_service_manager_deregister_native_service(DNSServiceManager, a1);
   }
 
-  v11 = Querier_GetDNSServiceManager();
-  if (v11)
+  v3 = Querier_GetDNSServiceManager();
+  if (v3)
   {
-    mdns_dns_service_manager_deregister_custom_push_service(v11, a1);
+    mdns_dns_service_manager_deregister_custom_push_service(v3, a1);
   }
 
-  KQueueUnlock("DNS service registration stop handler", v12, v13, v14, v15, v16, v17, v18);
+  KQueueUnlock("DNS service registration stop handler");
 }
 
 uint64_t Querier_GetDNSServiceManager()
@@ -858,11 +845,11 @@ uint64_t Querier_GetDNSServiceManager()
 uint64_t Querier_ProcessDNSServiceChanges(uint64_t result)
 {
   v1 = result;
-  v2 = *(&xmmword_10016D2D4 + 4);
-  if (*(&xmmword_10016D2D4 + 4))
+  v2 = xmmword_10016D2D8;
+  if (xmmword_10016D2D8)
   {
     v3 = 0;
-    v4 = *(&xmmword_10016D2D4 + 4);
+    v4 = xmmword_10016D2D8;
     do
     {
       ++v3;
@@ -870,7 +857,7 @@ uint64_t Querier_ProcessDNSServiceChanges(uint64_t result)
     }
 
     while (v4);
-    qword_10016D300 = *(&xmmword_10016D2D4 + 4);
+    qword_10016D300 = xmmword_10016D2D8;
     if (v3)
     {
       v5 = 1;
@@ -1110,7 +1097,7 @@ LABEL_9:
 
 uint64_t Querier_IsMDNSAlternativeServiceAvailableForQuestion(uint64_t a1)
 {
-  result = Querier_GetDNSServiceManager(a1);
+  result = Querier_GetDNSServiceManager();
   if (result)
   {
     return _Querier_GetMDNSAlternativeService(result, a1) != 0;
@@ -1131,7 +1118,7 @@ BOOL _Querier_ExcludeEncryptedDNSServices(_BYTE *a1)
 
 uint64_t _Querier_GetDNSService(uint64_t a1, int a2)
 {
-  DNSServiceManager = Querier_GetDNSServiceManager(a1);
+  DNSServiceManager = Querier_GetDNSServiceManager();
   if (!DNSServiceManager)
   {
     return 0;
@@ -1559,33 +1546,33 @@ uint64_t _Querier_GetCustomPushService(uint64_t a1, uint64_t a2)
 
 uint64_t _Querier_DNSServiceRegistrationStartHandler(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v6, v7, v8, v9, v10, v11, v12, v13);
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
   if (!a1)
   {
     goto LABEL_4;
   }
 
-  v21 = *(a1 + 16);
-  if (v21 == &_mdns_dns_service_definition_kind)
+  v6 = *(a1 + 16);
+  if (v6 == &_mdns_dns_service_definition_kind)
   {
-    v23 = Querier_RegisterNativeDNSService(a1);
+    v8 = Querier_RegisterNativeDNSService(a1);
 LABEL_7:
-    v22 = v23;
+    v7 = v8;
     goto LABEL_8;
   }
 
-  if (v21 == &_mdns_dns_push_service_definition_kind)
+  if (v6 == &_mdns_dns_push_service_definition_kind)
   {
-    v23 = Querier_RegisterCustomPushDNSServiceWithConnectionErrorHandler(a1, a2, a3);
+    v8 = Querier_RegisterCustomPushDNSServiceWithConnectionErrorHandler(a1, a2, a3);
     goto LABEL_7;
   }
 
 LABEL_4:
-  v22 = 0;
+  v7 = 0;
 LABEL_8:
-  KQueueUnlock("DNS service registration start handler", v14, v15, v16, v17, v18, v19, v20);
-  return v22;
+  KQueueUnlock("DNS service registration start handler");
+  return v7;
 }
 
 uint64_t Querier_RegisterNativeDNSService(uint64_t a1)
@@ -1721,7 +1708,7 @@ LABEL_12:
 
 uint64_t _Querier_VPNDNSServiceExistsForQName(uint64_t a1)
 {
-  result = Querier_GetDNSServiceManager(a1);
+  result = Querier_GetDNSServiceManager();
   if (result)
   {
     unscoped_system_service_with_options = mdns_dns_service_manager_get_unscoped_system_service_with_options(result, a1, 0);
@@ -1733,7 +1720,7 @@ uint64_t _Querier_VPNDNSServiceExistsForQName(uint64_t a1)
 
 void Querier_RegisterPathResolver(uint64_t a1)
 {
-  DNSServiceManager = Querier_GetDNSServiceManager(a1);
+  DNSServiceManager = Querier_GetDNSServiceManager();
   if (DNSServiceManager)
   {
     v3 = DNSServiceManager;
@@ -1861,12 +1848,12 @@ LABEL_7:
 
   else
   {
-    v13 = v62;
-    v62[0] = _NSConcreteStackBlock;
-    v62[1] = 0x40000000;
-    v62[2] = __Querier_HandleUnicastQuestion_block_invoke;
-    v62[3] = &__block_descriptor_tmp_14_3265;
-    v63 = v10 & 1;
+    v13 = v56;
+    v56[0] = _NSConcreteStackBlock;
+    v56[1] = 0x40000000;
+    v56[2] = __Querier_HandleUnicastQuestion_block_invoke;
+    v56[3] = &__block_descriptor_tmp_14_3265;
+    v57 = v10 & 1;
   }
 
   v14 = *(a1 + 80);
@@ -1876,31 +1863,31 @@ LABEL_7:
   }
 
   v15 = _Querier_GetOrphanedClientSet(*(v14 + 281) != 5);
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x2000000000;
-  v67 = 0;
+  v58 = 0;
+  v59 = &v58;
+  v60 = 0x2000000000;
+  v61 = 0;
   *buf.val = _NSConcreteStackBlock;
   *&buf.val[2] = 0x40000000;
   *&buf.val[4] = ___Querier_PopMatchedOrphanedClient_block_invoke;
   *&buf.val[6] = &unk_1001507B0;
-  v70 = &v64;
-  v71 = a1;
-  v69 = v13;
+  v64 = &v58;
+  v65 = a1;
+  v63 = v13;
   mdns_cfset_enumerate(v15, &buf);
-  v16 = v65[3];
+  v16 = v59[3];
   if (!v16)
   {
-    _Block_object_dispose(&v64, 8);
+    _Block_object_dispose(&v58, 8);
 LABEL_26:
     v7 = 0;
     goto LABEL_27;
   }
 
   os_retain(v16);
-  CFSetRemoveValue(v15, v65[3]);
-  v7 = v65[3];
-  _Block_object_dispose(&v64, 8);
+  CFSetRemoveValue(v15, v59[3]);
+  v7 = v59[3];
+  _Block_object_dispose(&v58, 8);
   if (!v7)
   {
     goto LABEL_27;
@@ -2136,7 +2123,7 @@ LABEL_90:
   mdns_client_set_queue(v24, _Querier_InternalQueue_sQueue);
   if (v6)
   {
-    v57 = OrphanedClientSet;
+    v51 = OrphanedClientSet;
     os_retain(v6);
     v48 = bswap32(*(a1 + 340)) >> 16;
     v49 = DNSQuestionNeedsSensitiveLogging(a1);
@@ -2156,11 +2143,11 @@ LABEL_90:
     aBlock[2] = __Querier_HandleUnicastQuestion_block_invoke_15;
     aBlock[3] = &__block_descriptor_tmp_18_3273;
     aBlock[4] = v6;
-    v61 = v50;
-    v60 = v48;
+    v55 = v50;
+    v54 = v48;
     mdns_querier_set_result_handler(v6, aBlock);
-    mdns_querier_set_log_label(v6, "Q%u", v51, v52, v53, v54, v55, v56, v48);
-    OrphanedClientSet = v57;
+    mdns_querier_set_log_label(v6, "Q%u", v48);
+    OrphanedClientSet = v51;
     if ((*(v6 + 61) & 1) == 0)
     {
       *(v6 + 232) = v48;
@@ -2170,13 +2157,13 @@ LABEL_90:
   if (v5)
   {
     os_retain(v5);
-    v58[0] = _NSConcreteStackBlock;
-    v58[1] = 0x40000000;
-    v58[2] = __Querier_HandleUnicastQuestion_block_invoke_2;
-    v58[3] = &__block_descriptor_tmp_22_3275;
-    v58[4] = v5;
-    v58[5] = OrphanedClientSet;
-    mdns_subscriber_set_event_handler(v5, v58);
+    v52[0] = _NSConcreteStackBlock;
+    v52[1] = 0x40000000;
+    v52[2] = __Querier_HandleUnicastQuestion_block_invoke_2;
+    v52[3] = &__block_descriptor_tmp_22_3275;
+    v52[4] = v5;
+    v52[5] = OrphanedClientSet;
+    mdns_subscriber_set_event_handler(v5, v52);
   }
 
   mdns_client_replace(v3, v24);
@@ -2467,9 +2454,9 @@ void _Querier_RemoveRecord(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
         v15 = &unk_100162000;
         __s2 = *(a1 + 32);
         v16 = *(a2 + 276);
-        v36 = v4;
-        v37 = a2;
-        v35 = v13;
+        v32 = v4;
+        v33 = a2;
+        v31 = v13;
         do
         {
           if (*(v12 + 32) != a3)
@@ -2500,8 +2487,8 @@ void _Querier_RemoveRecord(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
                 goto LABEL_6;
               }
 
-              v27 = *(v12 + 12);
-              if (v27 != 255 && v27 != v13)
+              v23 = *(v12 + 12);
+              if (v23 != 255 && v23 != v13)
               {
                 goto LABEL_6;
               }
@@ -2526,7 +2513,7 @@ void _Querier_RemoveRecord(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
             }
 
             __memset_chk();
-            putRData(0, _Querier_RemoveRecord_rdataBuf, &_Querier_GetMyPID_sOnce, v12 + 8, v23, v24, v25, v26);
+            putRData(0, _Querier_RemoveRecord_rdataBuf, &_Querier_GetMyPID_sOnce, v12 + 8);
             v15 = &unk_100162000;
             if (memcmp(_Querier_RemoveRecord_rdataBuf, __s2, v4))
             {
@@ -2545,29 +2532,29 @@ void _Querier_RemoveRecord(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
             v19 = *(v12 + 40);
             if (v19)
             {
-              v28 = *(v12 + 40);
+              v24 = *(v12 + 40);
               while (1)
               {
-                if (!v28 || (v29 = *v28, v29 > 0x3F))
+                if (!v24 || (v25 = *v24, v25 > 0x3F))
                 {
 LABEL_40:
                   v22 = 257;
                   goto LABEL_44;
                 }
 
-                if (!*v28)
+                if (!*v24)
                 {
                   break;
                 }
 
-                v28 += v29 + 1;
-                if (&v28[-v19] >= 256)
+                v24 += v25 + 1;
+                if (&v24[-v19] >= 256)
                 {
                   goto LABEL_40;
                 }
               }
 
-              v22 = (v28 - v19 + 1);
+              v22 = (v24 - v19 + 1);
             }
 
             else
@@ -2576,19 +2563,19 @@ LABEL_40:
             }
 
 LABEL_44:
-            v30 = *(v12 + 12);
-            v31 = *(v12 + 20);
-            if (v31 <= 0x1FE)
+            v26 = *(v12 + 12);
+            v27 = *(v12 + 20);
+            if (v27 <= 0x1FE)
             {
 LABEL_50:
-              v33 = *(v12 + 48);
-              word_1001787D0 = __rev16(v30);
-              memcpy(&unk_1001787D2, (v33 + 4), v31);
-              v32 = &word_1001787D0;
+              v29 = *(v12 + 48);
+              word_1001787D0 = __rev16(v26);
+              memcpy(&unk_1001787D2, (v29 + 4), v27);
+              v28 = &word_1001787D0;
               goto LABEL_51;
             }
 
-            v32 = 0;
+            v28 = 0;
           }
 
           else
@@ -2633,37 +2620,37 @@ LABEL_23:
             }
 
 LABEL_48:
-            v30 = *(v12 + 12);
-            v31 = *(v12 + 20);
-            if (v31 <= 0x1FE)
+            v26 = *(v12 + 12);
+            v27 = *(v12 + 20);
+            if (v27 <= 0x1FE)
             {
               goto LABEL_50;
             }
 
-            v32 = 0;
+            v28 = 0;
           }
 
 LABEL_51:
           *buf = 141559811;
-          v39 = 1752392040;
-          v40 = 1040;
-          v41 = v22;
-          v42 = 2101;
-          v43 = v19;
-          v44 = 1024;
-          v45 = v30;
-          v46 = 2160;
-          v47 = 1752392040;
-          v48 = 1040;
-          v49 = v31 + 2;
-          v50 = 2101;
-          v51 = v32;
-          v52 = 1024;
-          v53 = a4;
+          v35 = 1752392040;
+          v36 = 1040;
+          v37 = v22;
+          v38 = 2101;
+          v39 = v19;
+          v40 = 1024;
+          v41 = v26;
+          v42 = 2160;
+          v43 = 1752392040;
+          v44 = 1040;
+          v45 = v27 + 2;
+          v46 = 2101;
+          v47 = v28;
+          v48 = 1024;
+          v49 = a4;
           _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Removing record(s) -- name: %{sensitive, mask.hash, mdnsresponder:domain_name}.*P, type: %{mdns:rrtype}d, rdata: %{sensitive, mask.hash, mdns:rdata}.*P, collectively: %{mdns:yesno}d", buf, 0x42u);
-          v4 = v36;
-          a2 = v37;
-          v13 = v35;
+          v4 = v32;
+          a2 = v33;
+          v13 = v31;
           v15 = &unk_100162000;
 LABEL_52:
           mDNS_PurgeCacheResourceRecord(mDNSStorage, v12);
@@ -2686,8 +2673,8 @@ LABEL_6:
 
 uint64_t Querier_GetDNSQuestion(uint64_t a1, _BYTE *a2)
 {
-  result = *(&xmmword_10016D2D4 + 4);
-  if (!*(&xmmword_10016D2D4 + 4))
+  result = xmmword_10016D2D8;
+  if (!xmmword_10016D2D8)
   {
 LABEL_8:
     v6 = 0;
@@ -2708,7 +2695,7 @@ LABEL_8:
       v5 = 0;
     }
 
-    v4 |= result == *(&xmmword_10016D2D4 + 12);
+    v4 |= result == *(&xmmword_10016D2D8 + 1);
     if (v5 == a1)
     {
       break;
@@ -2755,26 +2742,9 @@ BOOL Client_SameNameCacheRecordIsAnswer(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  if (*(a2 + 16) == &_mdns_querier_kind)
-  {
-    v13 = *(*(a2 + 96) + 70);
-    if ((v13 & 4) != 0)
-    {
-      v11 = (v13 >> 1) & 1;
-    }
+  v6 = *(a2 + 16) == &_mdns_querier_kind && (*(*(a2 + 96) + 70) & 4) != 0 && (*(*(a2 + 96) + 70) & 2) != 0;
 
-    else
-    {
-      v11 = 0;
-    }
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  return RRTypeAnswersQuestionType(a1 + 8, v4, v11, v6, v7, v8, v9, v10);
+  return RRTypeAnswersQuestionType(a1 + 8, v4, v6);
 }
 
 void _DPCSubscribe(uint64_t a1, void *a2)
@@ -3648,59 +3618,59 @@ _BYTE *domain_name_labels_concatenate(_BYTE *__src, _BYTE *a2, char *__dst, int 
   return __src;
 }
 
-BOOL IsEntitled()
+BOOL IsEntitled(uint64_t a1)
 {
-  v0 = xpc_connection_copy_entitlement_value();
-  if (!v0)
+  v1 = xpc_connection_copy_entitlement_value();
+  if (!v1)
   {
-    v3 = mDNSLogCategory_Default;
+    v4 = mDNSLogCategory_Default;
     if (mDNS_SensitiveLoggingEnableCount)
     {
-      v4 = mDNSLogCategory_Default == mDNSLogCategory_State;
+      v5 = mDNSLogCategory_Default == mDNSLogCategory_State;
     }
 
     else
     {
-      v4 = 1;
+      v5 = 1;
     }
 
-    if (v4)
+    if (v5)
     {
       if (!os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_16;
       }
 
-      v12 = 0;
-      v5 = &v12;
+      v13 = 0;
+      v6 = &v13;
     }
 
     else
     {
-      v3 = mDNSLogCategory_Default_redacted;
+      v4 = mDNSLogCategory_Default_redacted;
       if (!os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_16;
       }
 
       *buf = 0;
-      v5 = buf;
+      v6 = buf;
     }
 
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "IsEntitled: Client Entitlement is NULL", v5, 2u);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "IsEntitled: Client Entitlement is NULL", v6, 2u);
     goto LABEL_16;
   }
 
-  v1 = v0;
-  if (xpc_get_type(v0) == &_xpc_type_BOOL && xpc_BOOL_get_value(v1))
+  v2 = v1;
+  if (xpc_get_type(v1) == &_xpc_type_BOOL && xpc_BOOL_get_value(v2))
   {
-    xpc_release(v1);
+    xpc_release(v2);
     return 1;
   }
 
-  xpc_release(v1);
+  xpc_release(v2);
 LABEL_16:
-  v7 = mDNSLogCategory_Default;
+  v8 = mDNSLogCategory_Default;
   if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
   {
     result = os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT);
@@ -3709,29 +3679,30 @@ LABEL_16:
       return result;
     }
 
-    *v10 = 0;
-    v8 = v10;
+    *v11 = 0;
+    v9 = v11;
   }
 
   else
   {
-    v7 = mDNSLogCategory_Default_redacted;
+    v8 = mDNSLogCategory_Default_redacted;
     result = os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT);
     if (!result)
     {
       return result;
     }
 
-    v9 = 0;
-    v8 = &v9;
+    v10 = 0;
+    v9 = &v10;
   }
 
-  _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "IsEntitled: Client is missing Entitlement!", v8, 2u);
+  _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "IsEntitled: Client is missing Entitlement!", v9, 2u);
   return 0;
 }
 
-unsigned __int8 *base_x_encode(int a1, unsigned __int8 *a2, unint64_t a3, char *a4)
+unsigned __int8 *base_x_encode(uint64_t a1, unsigned __int8 *a2, unint64_t a3, unsigned __int8 *a4)
 {
+  v7 = a1;
   result = base_x_get_encoded_string_length(a1, a3);
   v9 = result;
   if (!a4)
@@ -3746,14 +3717,14 @@ unsigned __int8 *base_x_encode(int a1, unsigned __int8 *a2, unint64_t a3, char *
   }
 
   v9[a4] = 0;
-  if (a1 == 2)
+  if (v7 == 2)
   {
     v10 = 1;
     goto LABEL_23;
   }
 
   v10 = 0;
-  if (a1 == 1)
+  if (v7 == 1)
   {
 LABEL_23:
 
@@ -4031,13 +4002,13 @@ uint64_t get_tlv_uint32(unsigned __int8 *a1, uint64_t a2, int a3, int *a4)
     v4 = a1;
     result = 0;
     v6 = -1;
-    v7 = (v4 + 2);
+    v7 = v4 + 4;
     if (v4 == -4)
     {
       goto LABEL_10;
     }
 
-    v8 = __rev16(v4[1]);
+    v8 = __rev16(*(v4 + 1));
     if (a2 - v7 < v8)
     {
       goto LABEL_10;
@@ -4055,7 +4026,7 @@ uint64_t get_tlv_uint32(unsigned __int8 *a1, uint64_t a2, int a3, int *a4)
       break;
     case 2:
       v6 = 0;
-      result = __rev16(v4[2]);
+      result = __rev16(*(v4 + 2));
       break;
     case 1:
       v6 = 0;
@@ -4185,21 +4156,21 @@ uint64_t getLocalTimestampFromTimeval(uint64_t a1, char *a2)
   return snprintf(a2, 0x20uLL, "%s.%03d%s", v8, *(a1 + 8) / 1000, v5);
 }
 
-void FlushRecordCache(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void FlushRecordCache(const char *a1)
 {
-  memset(v27, 0, sizeof(v27));
-  AppendDNSNameString(v27, a1, a3, a4, a5, a6, a7, a8);
-  v8 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v8, v9, v10, v11, v12, v13, v14, v15);
+  memset(v5, 0, sizeof(v5));
+  AppendDNSNameString(v5, a1);
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
   mDNS_Lock_(mDNSStorage, "FlushRecordCache", 9432);
   for (i = 0; i != 499; ++i)
   {
     for (j = mDNSStorage[i + 34]; j; j = *j)
     {
-      v18 = j[4];
-      if (v18)
+      v3 = j[4];
+      if (v3)
       {
-        if (SameDomainNameBytes(v18, v27))
+        if (SameDomainNameBytes(v3, v5))
         {
           for (k = j[2]; k; k = *k)
           {
@@ -4211,30 +4182,30 @@ void FlushRecordCache(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4
   }
 
   mDNS_Unlock_(mDNSStorage, "FlushRecordCache", 9443);
-  KQueueUnlock("FlushRecordCache", v20, v21, v22, v23, v24, v25, v26);
+  KQueueUnlock("FlushRecordCache");
 }
 
-void NotifyOfElusiveBug(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void NotifyOfElusiveBug(const char *a1, const char *a2)
 {
-  v8 = *mDNSStorage;
-  if (*mDNSStorage)
+  v2 = *mDNSStorage[0];
+  if (*mDNSStorage[0])
   {
-    while (*(v8 + 3560) != 4 || *(v8 + 3564) != 17)
+    while (*(v2 + 3560) != 4 || *(v2 + 3564) != 17)
     {
-      v8 = *(v8 + 3680);
-      if (!v8)
+      v2 = *(v2 + 3680);
+      if (!v2)
       {
         return;
       }
     }
 
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "NotifyOfElusiveBug: %s", a4, a5, a6, a7, a8, a1);
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "NotifyOfElusiveBug: %s", v10, v11, v12, v13, v14, a2);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "NotifyOfElusiveBug: %s", a1);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "NotifyOfElusiveBug: %s", a2);
     if (mDNSPlatformRawTime() <= 0x2BF1F)
     {
-      v15 = mDNSLogCategory_Default;
-      v16 = mDNSPlatformRawTime();
-      LogMsgWithLevel(v15, OS_LOG_TYPE_DEFAULT, "Suppressing notification early in boot: %d", v17, v18, v19, v20, v21, v16);
+      v4 = mDNSLogCategory_Default;
+      v5 = mDNSPlatformRawTime();
+      LogMsgWithLevel(v4, OS_LOG_TYPE_DEFAULT, "Suppressing notification early in boot: %d", v5);
     }
   }
 }
@@ -4242,144 +4213,144 @@ void NotifyOfElusiveBug(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, u
 void EnumerateLocalRecords(uint64_t a1)
 {
   Mutable = CFSetCreateMutable(kCFAllocatorDefault, 0, &mdns_domain_name_cf_set_callbacks);
-  v3 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v3, v4, v5, v6, v7, v8, v9, v10);
-  v18 = xmmword_100170360;
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
+  v3 = xmmword_100170360;
   if (Mutable)
   {
-    v19 = xmmword_100170360 == 0;
+    v4 = xmmword_100170360 == 0;
   }
 
   else
   {
-    v19 = 1;
+    v4 = 1;
   }
 
-  if (!v19)
+  if (!v4)
   {
     do
     {
-      if (IsSubdomain(v18[5], "\x05local") && ((v18[1] & 0x32) != 0 || IsSubdomain(v18[5], "\f_device-info\x04_tcp\x05local")))
+      if (IsSubdomain(v3[5], "\x05local") && ((v3[1] & 0x32) != 0 || IsSubdomain(v3[5], "\f_device-info\x04_tcp\x05local")))
       {
-        v20 = mdns_domain_name_create_with_labels(v18[5], 0);
-        if (v20)
+        v5 = mdns_domain_name_create_with_labels(v3[5], 0);
+        if (v5)
         {
-          v21 = v20;
-          CFSetAddValue(Mutable, v20);
-          os_release(v21);
+          v6 = v5;
+          CFSetAddValue(Mutable, v5);
+          os_release(v6);
         }
       }
 
-      v18 = *v18;
+      v3 = *v3;
     }
 
-    while (v18);
+    while (v3);
   }
 
   for (i = 0; i != 499; ++i)
   {
-    v23 = mDNSStorage[i + 34];
-    if (!v23)
+    v8 = mDNSStorage[i + 34];
+    if (!v8)
     {
       continue;
     }
 
     do
     {
-      v24 = *(v23 + 32);
-      if (!v24)
+      v9 = *(v8 + 32);
+      if (!v9)
       {
         goto LABEL_65;
       }
 
-      if (!IsSubdomain(v24, "\x05local"))
+      if (!IsSubdomain(v9, "\x05local"))
       {
         goto LABEL_65;
       }
 
-      v25 = mdns_domain_name_create_with_labels(*(v23 + 32), 0);
-      if (!v25)
+      v10 = mdns_domain_name_create_with_labels(*(v8 + 32), 0);
+      if (!v10)
       {
         goto LABEL_65;
       }
 
-      v26 = v25;
-      if (Mutable && CFSetContainsValue(Mutable, v25))
+      v11 = v10;
+      if (Mutable && CFSetContainsValue(Mutable, v10))
       {
         goto LABEL_64;
       }
 
-      v27 = IsSubdomain(*(v23 + 32), "\f_device-info\x04_tcp\x05local");
-      v28 = *(v23 + 16);
-      if (!v28)
+      v12 = IsSubdomain(*(v8 + 32), "\f_device-info\x04_tcp\x05local");
+      v13 = *(v8 + 16);
+      if (!v13)
       {
         goto LABEL_64;
       }
 
-      LOBYTE(v29) = 0;
-      v30 = 0;
-      v31 = 0;
+      LOBYTE(v14) = 0;
+      v15 = 0;
+      v16 = 0;
       while (1)
       {
-        v32 = *(v28 + 6);
-        if (v32 == 47)
+        v17 = *(v13 + 6);
+        if (v17 == 47)
         {
           goto LABEL_48;
         }
 
-        v33 = v28 + 33;
-        if (v27)
+        v18 = v13 + 33;
+        if (v12)
         {
-          if (v32 == 16)
+          if (v17 == 16)
           {
-            v34 = (v28 + 1);
-            if (*(v28 + 8) != 240)
+            v19 = (v13 + 1);
+            if (*(v13 + 8) != 240)
             {
               goto LABEL_55;
             }
           }
         }
 
-        if (!v30)
+        if (!v15)
         {
           break;
         }
 
-        if (!v29)
+        if (!v14)
         {
-          v29 = 0;
-          v33 = v30;
+          v14 = 0;
+          v18 = v15;
           goto LABEL_45;
         }
 
-        if (*v33 == 6)
+        if (*v18 == 6)
         {
-          if (*(v28 + 136) != 254 || (*(v28 + 137) & 0xC0) != 0x80)
+          if (*(v13 + 136) != 254 || (*(v13 + 137) & 0xC0) != 0x80)
           {
             goto LABEL_44;
           }
         }
 
-        else if (*v33 != 4 || *(v28 + 136) != 169 || *(v28 + 137) != 254)
+        else if (*v18 != 4 || *(v13 + 136) != 169 || *(v13 + 137) != 254)
         {
           goto LABEL_44;
         }
 
-        v31 = 1;
-        LOBYTE(v29) = 1;
+        v16 = 1;
+        LOBYTE(v14) = 1;
 LABEL_48:
-        v28 = *v28;
-        if (!v28)
+        v13 = *v13;
+        if (!v13)
         {
-          if (!v31)
+          if (!v16)
           {
             goto LABEL_64;
           }
 
-          v34 = 0;
-          memset(v38, 0, sizeof(v38));
-          v39 = 0;
-          if (v30)
+          v19 = 0;
+          memset(v23, 0, sizeof(v23));
+          v24 = 0;
+          if (v15)
           {
             goto LABEL_56;
           }
@@ -4388,165 +4359,163 @@ LABEL_48:
         }
       }
 
-      if (*v33 != 6)
+      if (*v18 != 6)
       {
-        if (*v33 != 4)
+        if (*v18 != 4)
         {
-          v30 = 0;
-          v31 = 1;
+          v15 = 0;
+          v16 = 1;
           goto LABEL_48;
         }
 
-        if (*(v28 + 136) == 169)
+        if (*(v13 + 136) == 169)
         {
-          v35 = *(v28 + 137) == 254;
+          v20 = *(v13 + 137) == 254;
           goto LABEL_41;
         }
 
 LABEL_44:
-        v29 = 0;
+        v14 = 0;
         goto LABEL_45;
       }
 
-      if (*(v28 + 136) != 254)
+      if (*(v13 + 136) != 254)
       {
         goto LABEL_44;
       }
 
-      v35 = (*(v28 + 137) & 0xC0) == 128;
+      v20 = (*(v13 + 137) & 0xC0) == 128;
 LABEL_41:
-      v29 = v35;
+      v14 = v20;
 LABEL_45:
-      v31 = 1;
-      if (v27 || v29)
+      v16 = 1;
+      if (v12 || v14)
       {
-        v30 = v33;
+        v15 = v18;
         goto LABEL_48;
       }
 
-      v34 = 0;
+      v19 = 0;
 LABEL_55:
-      memset(v38, 0, sizeof(v38));
-      v39 = 0;
-      v30 = v33;
+      memset(v23, 0, sizeof(v23));
+      v24 = 0;
+      v15 = v18;
 LABEL_56:
-      if (*v30 == 6)
+      if (*v15 == 6)
       {
-        memset(v38 + 4, 0, 20);
-        LODWORD(v38[0]) = 7708;
-        v39 = 0;
-        *&v38[1] = *(v30 + 1);
-        if (v34)
+        memset(v23 + 4, 0, 20);
+        LODWORD(v23[0]) = 7708;
+        v24 = 0;
+        *&v23[1] = *(v15 + 1);
+        if (v19)
         {
 LABEL_60:
-          v37 = *(v34 + 12);
-          v34 = *(v34 + 40) + 4;
+          v22 = *(v19 + 12);
+          v19 = *(v19 + 40) + 4;
           goto LABEL_63;
         }
       }
 
       else
       {
-        if (*v30 == 4)
+        if (*v15 == 4)
         {
-          v36 = v30[1];
-          v38[1] = 0;
-          LODWORD(v38[0]) = 528;
-          HIDWORD(v38[0]) = v36;
+          v21 = v15[1];
+          v23[1] = 0;
+          LODWORD(v23[0]) = 528;
+          HIDWORD(v23[0]) = v21;
         }
 
-        if (v34)
+        if (v19)
         {
           goto LABEL_60;
         }
       }
 
 LABEL_62:
-      v37 = 0;
+      v22 = 0;
 LABEL_63:
-      (*(a1 + 16))(a1, v26[5], v34, v37, v38);
+      (*(a1 + 16))(a1, v11[5], v19, v22, v23);
 LABEL_64:
-      os_release(v26);
+      os_release(v11);
 LABEL_65:
-      v23 = *v23;
+      v8 = *v8;
     }
 
-    while (v23);
+    while (v8);
   }
 
-  KQueueUnlock("enumerate .local records", v11, v12, v13, v14, v15, v16, v17);
+  KQueueUnlock("enumerate .local records");
   if (Mutable)
   {
     CFRelease(Mutable);
   }
 }
 
-void LogFatalError(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+void LogFatalError(char *a1, ...)
 {
+  va_start(va, a1);
   memset(__b, 0, sizeof(__b));
-  mDNS_vsnprintf(__b, 512, a1, &a9);
-  LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "!!!! %s !!!!", v9, v10, v11, v12, v13, __b);
+  mDNS_vsnprintf(__b, 512, a1, va);
+  LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "!!!! %s !!!!", __b);
 }
 
 void __mDNSDynamicStoreSetConfig_block_invoke(uint64_t a1)
 {
-  v2 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v2, v3, v4, v5, v6, v7, v8, v9);
-  v10 = CFWriteStreamCreateWithAllocatedBuffers(0, 0);
-  v16 = v10;
-  if (!v10)
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
+  v2 = CFWriteStreamCreateWithAllocatedBuffers(0, 0);
+  v3 = v2;
+  if (!v2)
   {
-    v34 = mDNSLogCategory_Default;
-    v35 = "mDNSDynamicStoreSetConfig : CFWriteStreamCreateWithAllocatedBuffers failed (Object creation failed)";
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSDynamicStoreSetConfig : CFWriteStreamCreateWithAllocatedBuffers failed (Object creation failed)");
 LABEL_11:
-    LogMsgWithLevel(v34, OS_LOG_TYPE_DEFAULT, v35, v11, v12, v13, v14, v15, v63);
-    v22 = 0;
+    v4 = 0;
     goto LABEL_39;
   }
 
-  CFWriteStreamOpen(v10);
-  if (!CFPropertyListWrite(*(a1 + 32), v16, kCFPropertyListBinaryFormat_v1_0, 0, 0))
+  CFWriteStreamOpen(v2);
+  if (!CFPropertyListWrite(*(a1 + 32), v3, kCFPropertyListBinaryFormat_v1_0, 0, 0))
   {
-    v34 = mDNSLogCategory_Default;
-    v35 = "mDNSDynamicStoreSetConfig : CFPropertyListWriteToStream failed (Could not write property list to stream)";
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSDynamicStoreSetConfig : CFPropertyListWriteToStream failed (Could not write property list to stream)");
     goto LABEL_11;
   }
 
-  v22 = CFWriteStreamCopyProperty(v16, kCFStreamPropertyDataWritten);
-  if (!v22)
+  v4 = CFWriteStreamCopyProperty(v3, kCFStreamPropertyDataWritten);
+  if (!v4)
   {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSDynamicStoreSetConfig : CFWriteStreamCopyProperty failed (Object creation failed) ", v17, v18, v19, v20, v21, v63);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSDynamicStoreSetConfig : CFWriteStreamCopyProperty failed (Object creation failed) ");
     goto LABEL_39;
   }
 
-  CFWriteStreamClose(v16);
-  CFRelease(v16);
-  BytePtr = CFDataGetBytePtr(v22);
-  v24 = *(a1 + 48);
-  v25 = *(a1 + 40);
-  Length = CFDataGetLength(v22);
-  if (v24 > 3)
+  CFWriteStreamClose(v3);
+  CFRelease(v3);
+  BytePtr = CFDataGetBytePtr(v4);
+  v6 = *(a1 + 48);
+  v7 = *(a1 + 40);
+  Length = CFDataGetLength(v4);
+  if (v6 > 3)
   {
-    switch(v24)
+    switch(v6)
     {
       case 4:
-        v32 = 0;
+        v9 = 0;
         Copy = @"State:/Network/BackToMyMac";
         break;
       case 5:
-        if (v25)
+        if (v7)
         {
-          v43 = v25;
+          v11 = v7;
         }
 
         else
         {
-          v43 = "";
+          v11 = "";
         }
 
         Mutable = CFStringCreateMutable(kCFAllocatorDefault, 0);
         CFStringAppend(Mutable, @"State:/Network/Interface/");
-        CFStringAppendCString(Mutable, v43, 0x8000100u);
+        CFStringAppendCString(Mutable, v11, 0x8000100u);
         CFStringAppend(Mutable, @"/SleepProxyServers");
         Copy = CFStringCreateCopy(kCFAllocatorDefault, Mutable);
         if (Mutable)
@@ -4554,10 +4523,10 @@ LABEL_11:
           CFRelease(Mutable);
         }
 
-        v32 = 1;
+        v9 = 1;
         break;
       case 6:
-        v32 = 0;
+        v9 = 0;
         Copy = @"State:/Network/mDNSResponder/DebugState";
         break;
       default:
@@ -4565,44 +4534,44 @@ LABEL_11:
     }
 
 LABEL_27:
-    v45 = CFDataCreateWithBytesNoCopy(0, BytePtr, Length, kCFAllocatorNull);
-    if (v45)
+    v13 = CFDataCreateWithBytesNoCopy(0, BytePtr, Length, kCFAllocatorNull);
+    if (v13)
     {
-      v51 = v45;
-      v52 = CFPropertyListCreateWithData(0, v45, 0, 0, 0);
-      if (v52)
+      v14 = v13;
+      v15 = CFPropertyListCreateWithData(0, v13, 0, 0, 0);
+      if (v15)
       {
-        v58 = v52;
-        CFRelease(v51);
-        SCDynamicStoreSetValue(0, Copy, v58);
-        v59 = v58;
+        v16 = v15;
+        CFRelease(v14);
+        SCDynamicStoreSetValue(0, Copy, v16);
+        v17 = v16;
       }
 
       else
       {
-        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "CFPropertyListCreateWithData of bytes failed", v53, v54, v55, v56, v57, v63);
-        v59 = v51;
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "CFPropertyListCreateWithData of bytes failed");
+        v17 = v14;
       }
 
-      CFRelease(v59);
+      CFRelease(v17);
     }
 
     else
     {
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "CFDataCreateWithBytesNoCopy of value failed", v46, v47, v48, v49, v50, v63);
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "CFDataCreateWithBytesNoCopy of value failed");
     }
 
     if (Copy)
     {
-      v60 = v32;
+      v18 = v9;
     }
 
     else
     {
-      v60 = 0;
+      v18 = 0;
     }
 
-    if (v60 == 1)
+    if (v18 == 1)
     {
       CFRelease(Copy);
     }
@@ -4610,51 +4579,51 @@ LABEL_27:
     goto LABEL_38;
   }
 
-  switch(v24)
+  switch(v6)
   {
     case 1:
-      v32 = 0;
+      v9 = 0;
       Copy = @"State:/Network/MulticastDNS";
       goto LABEL_27;
     case 2:
-      v32 = 0;
+      v9 = 0;
       Copy = @"State:/Network/DynamicDNS";
       goto LABEL_27;
     case 3:
-      v32 = 0;
+      v9 = 0;
       Copy = @"State:/Network/PrivateDNS";
       goto LABEL_27;
   }
 
 LABEL_19:
-  LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "unrecognized key %d", v26, v27, v28, v29, v30, v24);
+  LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "unrecognized key %d", v6);
 LABEL_38:
-  v16 = 0;
+  v3 = 0;
 LABEL_39:
-  v61 = *(a1 + 32);
-  if (v61)
+  v19 = *(a1 + 32);
+  if (v19)
   {
-    CFRelease(v61);
+    CFRelease(v19);
   }
 
-  if (v16)
+  if (v3)
   {
-    CFWriteStreamClose(v16);
-    CFRelease(v16);
+    CFWriteStreamClose(v3);
+    CFRelease(v3);
   }
 
-  if (v22)
+  if (v4)
   {
-    CFRelease(v22);
+    CFRelease(v4);
   }
 
-  v62 = *(a1 + 40);
-  if (v62)
+  v20 = *(a1 + 40);
+  if (v20)
   {
-    free(v62);
+    free(v20);
   }
 
-  KQueueUnlock("mDNSDynamicStoreSetConfig", v36, v37, v38, v39, v40, v41, v42);
+  KQueueUnlock("mDNSDynamicStoreSetConfig");
 }
 
 void SetNetworkChanged(int a1)
@@ -4714,48 +4683,49 @@ void SetNetworkChanged(int a1)
   _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v7, &v11, v9);
 }
 
-uint64_t CountProxyTargets(uint64_t a1, _DWORD *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CountProxyTargets(uint64_t a1, int *a2, int *a3)
 {
-  v10 = xmmword_100170360;
+  v5 = xmmword_100170360;
   if (xmmword_100170360)
   {
-    v12 = 0;
+    v7 = 0;
+    v8 = (a1 + 3606);
     do
     {
-      if (v10[4] == *(a1 + 3552) && *(v10 + 36) == 4)
+      if (v5[4] == *(a1 + 3552) && *(v5 + 36) == 4)
       {
         if (a2 && mDNS_LoggingEnabled)
         {
-          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "CountProxyTargets: fd %d %-7s IP%2d %.4a", a4, a5, a6, a7, a8, *(a1 + 3732));
+          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "CountProxyTargets: fd %d %-7s IP%2d %.4a", *(a1 + 3732), v8, v7, COERCE_DOUBLE((v5 + 148)));
         }
 
-        ++v12;
+        ++v7;
       }
 
-      v10 = *v10;
+      v5 = *v5;
     }
 
-    while (v10);
-    v13 = xmmword_100170360;
+    while (v5);
+    v9 = xmmword_100170360;
     if (xmmword_100170360)
     {
-      v14 = 0;
+      v10 = 0;
       do
       {
-        if (v13[4] == *(a1 + 3552) && *(v13 + 36) == 6)
+        if (v9[4] == *(a1 + 3552) && *(v9 + 36) == 6)
         {
           if (a3 && mDNS_LoggingEnabled)
           {
-            LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "CountProxyTargets: fd %d %-7s IP%2d %.16a", a4, a5, a6, a7, a8, *(a1 + 3732));
+            LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "CountProxyTargets: fd %d %-7s IP%2d %.16a", *(a1 + 3732), v8, v10, COERCE_DOUBLE((v9 + 148)));
           }
 
-          ++v14;
+          ++v10;
         }
 
-        v13 = *v13;
+        v9 = *v9;
       }
 
-      while (v13);
+      while (v9);
       if (a2)
       {
         goto LABEL_20;
@@ -4767,47 +4737,46 @@ uint64_t CountProxyTargets(uint64_t a1, _DWORD *a2, _DWORD *a3, uint64_t a4, uin
 
   else
   {
-    v12 = 0;
+    v7 = 0;
   }
 
-  v14 = 0;
+  v10 = 0;
   if (a2)
   {
 LABEL_20:
-    *a2 = v12;
+    *a2 = v7;
   }
 
 LABEL_21:
   if (a3)
   {
-    *a3 = v14;
+    *a3 = v10;
   }
 
-  return (v14 + v12);
+  return (v10 + v7);
 }
 
-uint64_t CloseBPF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CloseBPF(uint64_t a1)
 {
   if (mDNS_LoggingEnabled == 1)
   {
-    v13 = *(a1 + 3732);
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%s closing BPF fd %d", a4, a5, a6, a7, a8, a1 + 3606);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%s closing BPF fd %d", (a1 + 3606), *(a1 + 3732));
   }
 
   Main = CFRunLoopGetMain();
   CFRunLoopRemoveSource(Main, *(a1 + 3760), kCFRunLoopDefaultMode);
-  v10 = *(a1 + 3760);
-  if (v10)
+  v3 = *(a1 + 3760);
+  if (v3)
   {
-    CFRelease(v10);
+    CFRelease(v3);
     *(a1 + 3760) = 0;
   }
 
   CFSocketInvalidate(*(a1 + 3752));
-  v11 = *(a1 + 3752);
-  if (v11)
+  v4 = *(a1 + 3752);
+  if (v4)
   {
-    CFRelease(v11);
+    CFRelease(v4);
     *(a1 + 3752) = 0;
   }
 
@@ -4822,543 +4791,710 @@ uint64_t CloseBPF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
   return result;
 }
 
-void mDNSPlatformUpdateProxyList(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __mDNSMacOSXNetworkChanged_block_invoke_2(id a1, int a2, int a3)
 {
-  v9 = *mDNSStorage[0];
-  if (!*mDNSStorage[0])
+  if (a2 < 0)
   {
-LABEL_5:
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: ERROR InterfaceID %p not found", a4, a5, a6, a7, a8, a1);
+    v6 = mDNSLogCategory_Default;
+    if (mDNS_SensitiveLoggingEnableCount)
+    {
+      v7 = mDNSLogCategory_Default == mDNSLogCategory_State;
+    }
+
+    else
+    {
+      v7 = 1;
+    }
+
+    if (v7)
+    {
+      if (!os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_ERROR))
+      {
+        return;
+      }
+
+      LODWORD(buf.version) = 134217984;
+      *(&buf.version + 4) = a3;
+    }
+
+    else
+    {
+      v6 = mDNSLogCategory_Default_redacted;
+      if (!os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_ERROR))
+      {
+        return;
+      }
+
+      LODWORD(buf.version) = 134217984;
+      *(&buf.version + 4) = a3;
+    }
+
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "BPF request failed: %ld", &buf, 0xCu);
     return;
   }
 
-  while (*(v9 + 3552) != a1 || (*(v9 + 3732) & 0x80000000) != 0)
+  v3 = *&a2;
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
+  mDNS_Lock_(mDNSStorage, "mDNSPlatformReceiveBPF_fd", 3342);
+  v4 = *mDNSStorage[0];
+  if (*mDNSStorage[0])
   {
-    v9 = *(v9 + 3680);
-    if (!v9)
+    while (*(v4 + 3732) != -2)
+    {
+      v4 = *(v4 + 3680);
+      if (!v4)
+      {
+        goto LABEL_5;
+      }
+    }
+
+    if (mDNS_LoggingEnabled == 1)
+    {
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "%s using   BPF fd %d", (v4 + 3606), v3);
+    }
+
+    v35 = 0;
+    if (ioctl(v3, 0x40044271uLL, &v35) < 0)
+    {
+      v9 = mDNSLogCategory_Default;
+      __error();
+      v10 = __error();
+      strerror(*v10);
+      LogMsgWithLevel(v9, OS_LOG_TYPE_DEFAULT, "mDNSPlatformReceiveBPF_fd: %d %s BIOCVERSION failed %d (%s)");
+    }
+
+    else if (v35 != 1 || HIWORD(v35) != 1)
+    {
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformReceiveBPF_fd: %d %s BIOCVERSION header %d.%d kernel %d.%d", v3);
+    }
+
+    v11 = (v4 + 3740);
+    if (ioctl(v3, 0x40044266uLL, v4 + 3740) < 0)
+    {
+      v12 = mDNSLogCategory_Default;
+      v13 = *__error();
+      v14 = __error();
+      v15 = strerror(*v14);
+      LogMsgWithLevel(v12, OS_LOG_TYPE_DEFAULT, "mDNSPlatformReceiveBPF_fd: %d %s BIOCGBLEN failed %d (%s)", v3, (v4 + 3606), v13, v15);
+    }
+
+    if (*v11 >= 0x22F9u)
+    {
+      *v11 = 8952;
+      if (ioctl(v3, 0xC0044266uLL, v4 + 3740) < 0)
+      {
+        v16 = mDNSLogCategory_Default;
+        __error();
+        v17 = __error();
+        strerror(*v17);
+        LogMsgWithLevel(v16, OS_LOG_TYPE_DEFAULT, "mDNSPlatformReceiveBPF_fd: %d %s BIOCSBLEN failed %d (%s)");
+      }
+
+      else if (mDNS_LoggingEnabled == 1)
+      {
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformReceiveBPF_fd: %d %s BIOCSBLEN %d");
+      }
+    }
+
+    if (ioctl(v3, 0x80044270uLL, &mDNSPlatformReceiveBPF_fd_opt_one) < 0)
+    {
+      v18 = mDNSLogCategory_Default;
+      v19 = *__error();
+      v20 = __error();
+      v21 = strerror(*v20);
+      LogMsgWithLevel(v18, OS_LOG_TYPE_DEFAULT, "mDNSPlatformReceiveBPF_fd: %d %s BIOCIMMEDIATE failed %d (%s)", v3, (v4 + 3606), v19, v21);
+    }
+
+    v22 = fcntl(v3, 3, 0);
+    if (fcntl(v3, 4, v22 | 4u) < 0)
+    {
+      v23 = mDNSLogCategory_Default;
+      v24 = *__error();
+      v25 = __error();
+      v26 = strerror(*v25);
+      LogMsgWithLevel(v23, OS_LOG_TYPE_DEFAULT, "mDNSPlatformReceiveBPF_fd: %d %s O_NONBLOCK failed %d (%s)", v3, (v4 + 3606), v24, v26);
+    }
+
+    v27 = 0;
+    memset(v37, 0, sizeof(v37));
+    while (1)
+    {
+      v28 = *(v4 + 3606 + v27);
+      *(v37 + v27) = v28;
+      if (!v28)
+      {
+        break;
+      }
+
+      if (++v27 == 15)
+      {
+        HIBYTE(v37[0]) = 0;
+        break;
+      }
+    }
+
+    if (ioctl(v3, 0x8020426CuLL, v37) < 0)
+    {
+      v31 = mDNSLogCategory_Default;
+      v32 = *__error();
+      v33 = __error();
+      v34 = strerror(*v33);
+      LogMsgWithLevel(v31, OS_LOG_TYPE_DEFAULT, "mDNSPlatformReceiveBPF_fd: %d %s BIOCSETIF failed %d (%s)", v3, (v4 + 3606), v32, v34);
+      *(v4 + 3732) = -3;
+    }
+
+    else
+    {
+      buf.version = 0;
+      memset(&buf.retain, 0, 24);
+      buf.info = v4;
+      *(v4 + 3732) = v3;
+      v29 = CFSocketCreateWithNative(kCFAllocatorDefault, v3, 1uLL, bpf_callback, &buf);
+      *(v4 + 3752) = v29;
+      *(v4 + 3760) = CFSocketCreateRunLoopSource(kCFAllocatorDefault, v29, 0);
+      Main = CFRunLoopGetMain();
+      CFRunLoopAddSource(Main, *(v4 + 3760), kCFRunLoopDefaultMode);
+      mDNSPlatformUpdateProxyList(*(v4 + 3552));
+    }
+  }
+
+  else
+  {
+LABEL_5:
+    if (mDNS_LoggingEnabled == 1)
+    {
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformReceiveBPF_fd: No Interfaces awaiting BPF fd %d; closing", v3);
+    }
+
+    close(v3);
+  }
+
+  mDNS_Unlock_(mDNSStorage, "mDNSPlatformReceiveBPF_fd", 3413);
+
+  KQueueUnlock("mDNSPlatformReceiveBPF_fd");
+}
+
+void mDNSPlatformUpdateProxyList(uint64_t a1)
+{
+  v2 = *mDNSStorage[0];
+  if (!*mDNSStorage[0])
+  {
+LABEL_5:
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: ERROR InterfaceID %p not found");
+    return;
+  }
+
+  while (*(v2 + 3552) != a1 || (*(v2 + 3732) & 0x80000000) != 0)
+  {
+    v2 = *(v2 + 3680);
+    if (!v2)
     {
       goto LABEL_5;
     }
   }
 
-  v96 = 0;
-  v95 = 0;
-  v10 = CountProxyTargets(v9, &v96, &v95, a4, a5, a6, a7, a8);
-  v16 = v96;
-  v17 = v95;
-  if (v10 >= 251)
+  v43 = 0;
+  v42 = 0;
+  v3 = CountProxyTargets(v2, &v43, &v42);
+  v4 = v43;
+  v5 = v42;
+  if (v3 >= 251)
   {
-    v87 = v95;
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: ERROR Too many address proxy records v4 %d v6 %d", v11, v12, v13, v14, v15, v96);
-    v16 = v96;
-    if (v96 >= 251)
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: ERROR Too many address proxy records v4 %d v6 %d", v43, v42);
+    v4 = v43;
+    if (v43 >= 251)
     {
-      v16 = 250;
-      v96 = 250;
+      v4 = 250;
+      v43 = 250;
     }
 
-    v17 = (250 - v16);
-    v95 = 250 - v16;
+    v5 = 250 - v4;
+    v42 = 250 - v4;
   }
 
-  v18 = &unk_10016D000;
+  v6 = &unk_10016D000;
   if (mDNS_LoggingEnabled == 1)
   {
-    v89 = v16;
-    v90 = v17;
-    v87 = v9 + 3606;
-    v88 = (v9 + 3600);
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: fd %d %-7s MAC  %.6a %d v4 %d v6", v11, v12, v13, v14, v15, *(v9 + 3732));
-    LODWORD(v16) = v96;
-    LODWORD(v17) = v95;
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: fd %d %-7s MAC  %.6a %d v4 %d v6", *(v2 + 3732), (v2 + 3606), COERCE_DOUBLE(v2 + 3600), v4, v5);
+    v4 = v43;
+    v5 = v42;
   }
 
-  v93 = 0;
-  v94 = 0;
-  if (v16 | v17)
+  v40 = 0;
+  v41 = 0;
+  if (v4 | v5)
   {
-    v19 = qword_10016015C;
-    v20 = &qword_10016015C[v16];
-    v21 = &v20[v17];
-    v22 = v21 + 2;
-    byte_100160137 = (v21 + 16 - &mDNSPlatformUpdateProxyList_filter - 40) >> 3;
-    byte_100160147 = (v20 - &mDNSPlatformUpdateProxyList_filter - 48) >> 3;
-    v23 = xmmword_100170360;
+    v7 = qword_10016015C;
+    v8 = &qword_10016015C[v4];
+    v9 = &v8[v5];
+    v10 = v9 + 2;
+    byte_100160137 = (v9 + 16 - &mDNSPlatformUpdateProxyList_filter - 40) >> 3;
+    byte_100160147 = (v8 - &mDNSPlatformUpdateProxyList_filter - 48) >> 3;
+    v11 = xmmword_100170360;
     if (xmmword_100170360)
     {
-      v19 = qword_10016015C;
+      v7 = qword_10016015C;
       do
       {
-        if (v23[4] == a1 && *(v23 + 36) == 4)
+        if (v11[4] == a1 && *(v11 + 36) == 4)
         {
-          v24 = *(v23 + 37);
-          *v19 = 21;
-          *(v19 + 1) = ((v22 - v19) >> 3);
-          *(v19++ + 1) = bswap32(v24);
+          v12 = *(v11 + 37);
+          *v7 = 21;
+          *(v7 + 1) = ((v10 - v7) >> 3);
+          *(v7++ + 1) = bswap32(v12);
         }
 
-        v23 = *v23;
+        v11 = *v11;
       }
 
-      while (v23);
+      while (v11);
     }
 
-    *v19 = 6;
-    if (v19 != v20)
+    *v7 = 6;
+    if (v7 != v8)
     {
-      v87 = (v20 + 1);
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: pc %p != chk6 %p", v11, v12, v13, v14, v15, v19 + 8);
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: pc %p != chk6 %p", v7 + 1, v8 + 1);
     }
 
-    v25 = v19 + 2;
-    v19[1] = 0x3200000020;
-    v26 = *(v9 + 3736);
-    if ((v26 & 0x80000000) == 0)
+    v13 = v7 + 2;
+    v7[1] = 0x3200000020;
+    v14 = *(v2 + 3736);
+    if ((v14 & 0x80000000) == 0)
     {
-      close(v26);
+      close(v14);
     }
 
-    v27 = v21 + 7;
-    *(v9 + 3736) = socket(30, 2, 0);
-    v33 = xmmword_100170360;
+    v37 = v9;
+    v15 = v9 + 7;
+    *(v2 + 3736) = socket(30, 2, 0);
+    v16 = xmmword_100170360;
     if (xmmword_100170360)
     {
-      v34 = v21 + 48;
+      v17 = v9 + 48;
       do
       {
-        if (v33[4] == a1 && *(v33 + 36) == 6)
+        if (v16[4] == a1 && *(v16 + 36) == 6)
         {
-          *v25 = 21;
-          *(v25 + 2) = (v34 - v25) >> 3;
-          *(v25 + 3) = 0;
-          *(v25 + 1) = bswap32(*(v33 + 40));
-          v92 = *(v9 + 3720);
-          v91 = NDP_prefix;
-          *(&v91 + 13) = *(v33 + 161);
-          HIBYTE(v91) = *(v33 + 163);
-          v35 = setsockopt(*(v9 + 3736), 41, 13, &v91, 0x14u);
-          if (v35 < 0)
+          *v13 = 21;
+          *(v13 + 2) = (v17 - v13) >> 3;
+          *(v13 + 3) = 0;
+          *(v13 + 1) = bswap32(*(v16 + 40));
+          v39 = *(v2 + 3720);
+          v38 = NDP_prefix;
+          *(&v38 + 13) = *(v16 + 161);
+          HIBYTE(v38) = *(v16 + 163);
+          v18 = setsockopt(*(v2 + 3736), 41, 13, &v38, 0x14u);
+          if (v18 < 0)
           {
-            v36 = v35;
+            v19 = v18;
             if (*__error() != 49)
             {
-              v37 = mDNSLogCategory_Default;
-              v38 = *__error();
-              v39 = __error();
-              v40 = strerror(*v39);
-              v90 = v92;
-              v88 = v40;
-              v89 = &v91;
-              v87 = v38;
-              v41 = v37;
-              v18 = &unk_10016D000;
-              LogMsgWithLevel(v41, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: IPV6_LEAVE_GROUP error %d errno %d (%s) group %.16a on %u", v42, v43, v44, v45, v46, v36);
+              v20 = mDNSLogCategory_Default;
+              v21 = *__error();
+              v22 = __error();
+              v35 = strerror(*v22);
+              v23 = v20;
+              v6 = &unk_10016D000;
+              LogMsgWithLevel(v23, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: IPV6_LEAVE_GROUP error %d errno %d (%s) group %.16a on %u", v19, v21, v35, COERCE_DOUBLE(&v38), v39);
             }
           }
 
-          v47 = setsockopt(*(v9 + 3736), 41, 12, &v91, 0x14u);
-          if (v47 < 0)
+          v24 = setsockopt(*(v2 + 3736), 41, 12, &v38, 0x14u);
+          if (v24 < 0)
           {
-            v48 = v47;
+            v25 = v24;
             if (*__error() != 48)
             {
-              v49 = mDNSLogCategory_Default;
-              v50 = *__error();
-              v51 = __error();
-              v52 = strerror(*v51);
-              v90 = v92;
-              v88 = v52;
-              v89 = &v91;
-              v87 = v50;
-              v53 = v49;
-              v18 = &unk_10016D000;
-              LogMsgWithLevel(v53, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: IPV6_JOIN_GROUP error %d errno %d (%s) group %.16a on %u", v54, v55, v56, v57, v58, v48);
+              v26 = mDNSLogCategory_Default;
+              v27 = *__error();
+              v28 = __error();
+              v36 = strerror(*v28);
+              v29 = v26;
+              v6 = &unk_10016D000;
+              LogMsgWithLevel(v29, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: IPV6_JOIN_GROUP error %d errno %d (%s) group %.16a on %u", v25, v27, v36, COERCE_DOUBLE(&v38), v39);
             }
           }
 
-          if (v18[208] == 1)
+          if (v6[208] == 1)
           {
-            v87 = v33 + 148;
-            LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "Joined IPv6 ND multicast group %.16a for %.16a", v28, v29, v30, v31, v32, &v91);
+            LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "Joined IPv6 ND multicast group %.16a for %.16a", COERCE_DOUBLE(&v38), COERCE_DOUBLE((v16 + 148)));
           }
 
-          ++v25;
+          ++v13;
         }
 
-        v33 = *v33;
+        v16 = *v16;
       }
 
-      while (v33);
+      while (v16);
     }
 
-    if (v25 == v22)
+    if (v13 == v10)
     {
-      *v22 = xmmword_10010D2E0;
-      *(v22 + 1) = xmmword_10010D2F0;
-      v22[4] = 22;
+      *v10 = xmmword_10010D2E0;
+      *(v10 + 1) = xmmword_10010D2F0;
+      v10[4] = 22;
     }
 
     else
     {
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: pc %p != fail %p", v28, v29, v30, v31, v32, v25);
-      *v25 = 6;
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: pc %p != ret4 %p", v59, v60, v61, v62, v63, v25 + 8);
-      *(v25 + 1) = xmmword_10010D2C0;
-      *(v25 + 3) = xmmword_10010D2D0;
-      v87 = v27;
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: pc %p != ret6 %p", v64, v65, v66, v67, v68, v25 + 40);
-      v27 = v25 + 5;
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: pc %p != fail %p", v13, v10);
+      *v13 = 6;
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: pc %p != ret4 %p", v13 + 1, v37 + 3);
+      *(v13 + 1) = xmmword_10010D2C0;
+      *(v13 + 3) = xmmword_10010D2D0;
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: pc %p != ret6 %p", v13 + 5, v15);
+      v15 = v13 + 5;
     }
 
-    *v27 = 0x5E00000006;
-    LODWORD(v93) = (v25 - &mDNSPlatformUpdateProxyList_filter + 48) >> 3;
-    v94 = &mDNSPlatformUpdateProxyList_filter;
-    v71 = *(v9 + 3732);
+    *v15 = 0x5E00000006;
+    LODWORD(v40) = (v13 - &mDNSPlatformUpdateProxyList_filter + 48) >> 3;
+    v41 = &mDNSPlatformUpdateProxyList_filter;
+    v32 = *(v2 + 3732);
     goto LABEL_54;
   }
 
   if (mDNS_LoggingEnabled == 1)
   {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: No need for filter", v11, v12, v13, v14, v15, v86);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: No need for filter");
   }
 
   if (!dword_10016D258)
   {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: m->timenow == 0", v11, v12, v13, v14, v15, v86);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: m->timenow == 0");
   }
 
-  v69 = *(v9 + 3736);
-  if ((v69 & 0x80000000) == 0)
+  v30 = *(v2 + 3736);
+  if ((v30 & 0x80000000) == 0)
   {
-    close(v69);
-    *(v9 + 3736) = -1;
+    close(v30);
+    *(v2 + 3736) = -1;
   }
 
   if (!dword_10016D220)
   {
-    v70 = dword_10016D258 + 2000;
+    v31 = dword_10016D258 + 2000;
     if ((dword_10016D258 + 2000) <= 1)
     {
-      v70 = 1;
+      v31 = 1;
     }
 
-    dword_10016D220 = v70;
+    dword_10016D220 = v31;
   }
 
-  v71 = *(v9 + 3732);
-  if ((v71 & 0x80000000) == 0)
+  v32 = *(v2 + 3732);
+  if ((v32 & 0x80000000) == 0)
   {
-    LODWORD(v93) = 1;
-    v94 = &mDNSPlatformUpdateProxyList_nullfilter;
+    LODWORD(v40) = 1;
+    v41 = &mDNSPlatformUpdateProxyList_nullfilter;
 LABEL_54:
-    if (ioctl(v71, 0x8010427EuLL, &v93, v87, v88, v89, v90) < 0)
+    if (ioctl(v32, 0x8010427EuLL, &v40) < 0)
     {
-      v77 = mDNSLogCategory_Default;
-      v78 = v93;
-      v79 = *__error();
-      v80 = __error();
-      strerror(*v80);
-      LogMsgWithLevel(v77, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: BIOCSETFNR(%d) failed %d (%s)", v81, v82, v83, v84, v85, v78);
+      v33 = mDNSLogCategory_Default;
+      __error();
+      v34 = __error();
+      strerror(*v34);
+      LogMsgWithLevel(v33, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: BIOCSETFNR(%d) failed %d (%s)");
     }
 
-    else if (v18[208] == 1)
+    else if (v6[208] == 1)
     {
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: BIOCSETFNR(%d) successful", v72, v73, v74, v75, v76, v93);
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateProxyList: BIOCSETFNR(%d) successful");
     }
   }
 }
 
 void bpf_callback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v6, v7, v8, v9, v10, v11, v12, v13);
-  v21 = *(a5 + 3732);
-  if ((v21 & 0x80000000) == 0)
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
+  v6 = *(a5 + 3732);
+  if ((v6 & 0x80000000) == 0)
   {
-    v22 = read(v21, (*(a5 + 3688) + 20008), *(a5 + 3740));
-    if (v22 < 0)
+    v7 = read(v6, (*(a5 + 3688) + 20008), *(a5 + 3740));
+    if (v7 < 0)
     {
-      v76 = __error();
-      v82 = mDNSLogCategory_Default;
-      if (*v76 == 35)
+      v31 = __error();
+      v32 = mDNSLogCategory_Default;
+      if (*v31 == 35)
       {
-        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "bpf_callback got EAGAIN bailing", v77, v78, v79, v80, v81, v98);
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "bpf_callback got EAGAIN bailing");
       }
 
       else
       {
-        v83 = *(a5 + 3732);
-        v84 = *__error();
-        v85 = __error();
-        strerror(*v85);
-        LogMsgWithLevel(v82, OS_LOG_TYPE_DEFAULT, "Closing %s BPF fd %d due to error %d (%s)", v86, v87, v88, v89, v90, a5 + 3606);
-        CloseBPF(a5, v91, v92, v93, v94, v95, v96, v97);
+        v33 = *(a5 + 3732);
+        v34 = *__error();
+        v35 = __error();
+        v36 = strerror(*v35);
+        LogMsgWithLevel(v32, OS_LOG_TYPE_DEFAULT, "Closing %s BPF fd %d due to error %d (%s)", (a5 + 3606), v33, v34, v36);
+        CloseBPF(a5);
       }
     }
 
     else
     {
-      v23 = *(a5 + 3688) + 20008;
-      v24 = v23 + v22;
-      while (v23 < v24)
+      v8 = *(a5 + 3688) + 20008;
+      v9 = v8 + v7;
+      while (v8 < v9)
       {
-        v25 = *(a5 + 3688);
-        v26 = v23 + *(v23 + 16);
-        v20 = v26 + *(v23 + 8);
-        v27 = *(a5 + 3552);
-        v28 = (v26 + 14);
-        memset(v111, 0, 20);
-        memset(v110, 0, 20);
-        if (v26 + 42 <= v20 && *(v26 + 12) == 1544 && *v28 == 256 && *(v26 + 16) == 8)
+        v10 = *(a5 + 3688);
+        v11 = v8 + *(v8 + 16);
+        v12 = (v11 + *(v8 + 8));
+        v13 = *(a5 + 3552);
+        v14 = (v11 + 14);
+        memset(v51, 0, 20);
+        memset(v50, 0, 20);
+        if (v11 + 42 <= v12 && *(v11 + 12) == 1544 && *v14 == 256 && *(v11 + 16) == 8)
         {
-          v29 = v25 + 12656;
+          v15 = v10 + 12656;
           do
           {
-            v29 = *v29;
-            if (!v29)
+            v15 = *v15;
+            if (!v15)
             {
               goto LABEL_57;
             }
           }
 
-          while (*(v29 + 3552) != v27);
-          mDNS_Lock_(v25, "mDNSCoreReceiveRawARP", 18059);
-          if (*(v26 + 20) == 256)
+          while (*(v15 + 3552) != v13);
+          mDNS_Lock_(v10, "mDNSCoreReceiveRawARP", 18059);
+          if (*(v11 + 20) == 256)
           {
-            v30 = (v26 + 38);
-            if (*(v26 + 28) != *(v26 + 38))
+            v47 = (v11 + 28);
+            v16 = (v11 + 38);
+            if (*(v11 + 28) != *(v11 + 38))
             {
-              v31 = *(v25 + 12616);
-              if (v31)
+              v17 = *(v10 + 12616);
+              if (v17)
               {
-                v105 = (v26 + 22);
-                v101 = (v25 + 47032);
+                v42 = (v11 + 38);
+                v43 = (v11 + 22);
+                v37 = (v10 + 47032);
                 do
                 {
-                  if (*(v31 + 32) == v27 && *(v31 + 8) != 1 && *(v31 + 144) == 4 && *(v31 + 148) == *v30)
+                  if (*(v17 + 32) == v13 && *(v17 + 8) != 1 && *(v17 + 144) == 4 && *(v17 + 148) == *v16)
                   {
-                    v32 = *v105;
-                    if (v32 != *(v31 + 132) || *(v26 + 24) != *(v31 + 134) || (v33 = "ARP Req from owner -- re-probing", *(v26 + 26) != *(v31 + 136)))
+                    v18 = *v43;
+                    v41 = (v17 + 132);
+                    if (v18 != *(v17 + 132) || *(v11 + 24) != *(v17 + 134) || (v19 = "ARP Req from owner -- re-probing", *(v11 + 26) != *(v17 + 136)))
                     {
-                      v33 = "Ignoring  ARP Request from      ";
-                      if (*(v31 + 191) != 4)
+                      v19 = "Ignoring  ARP Request from      ";
+                      if (*(v17 + 191) != 4)
                       {
-                        if (v32 == *(v29 + 3600) && *(v26 + 24) == *(v29 + 3602))
+                        if (v18 == *(v15 + 3600) && *(v11 + 24) == *(v15 + 3602))
                         {
-                          if (*(v26 + 26) == *(v29 + 3604))
+                          if (*(v11 + 26) == *(v15 + 3604))
                           {
-                            v33 = "Creating Local ARP Cache entry  ";
+                            v19 = "Creating Local ARP Cache entry  ";
                           }
 
                           else
                           {
-                            v33 = "Answering ARP Request from      ";
+                            v19 = "Answering ARP Request from      ";
                           }
                         }
 
                         else
                         {
-                          v33 = "Answering ARP Request from      ";
+                          v19 = "Answering ARP Request from      ";
                         }
                       }
                     }
 
-                    v107 = v33;
-                    v102 = mDNSLogCategory_Default;
-                    GetRRDisplayString_rdb((v31 + 8), (*(v31 + 48) + 4), v101);
-                    LogMsgWithLevel(v102, OS_LOG_TYPE_DEFAULT, "Arp %-7s %s %.6a %.4a for %.4a -- H-MAC %.6a I-MAC %.6a %s", v34, v35, v36, v37, v38, v29 + 3606);
-                    if (v33 == "ARP Req from owner -- re-probing")
+                    v45 = v19;
+                    v38 = mDNSLogCategory_Default;
+                    GetRRDisplayString_rdb((v17 + 8), (*(v17 + 48) + 4), v37);
+                    LogMsgWithLevel(v38, OS_LOG_TYPE_DEFAULT, "Arp %-7s %s %.6a %.4a for %.4a -- H-MAC %.6a I-MAC %.6a %s", (v15 + 3606), v19, *&v43, *&v47, *&v42, COERCE_DOUBLE(v17 + 126), *&v41, v37);
+                    if (v19 == "ARP Req from owner -- re-probing")
                     {
-                      if (*(v31 + 189) > 0x13u)
+                      if (*(v17 + 189) > 0x13u)
                       {
-                        v30 = (v26 + 38);
+                        v16 = (v11 + 38);
                         if (mDNS_LoggingEnabled == 1)
                         {
-                          v108 = mDNSLogCategory_Default;
-                          GetRRDisplayString_rdb((v31 + 8), (*(v31 + 48) + 4), v101);
-                          LogMsgWithLevel(v108, OS_LOG_TYPE_DEFAULT, "Reached maximum number of restarts for probing - %s", v45, v46, v47, v48, v49, v101);
+                          v46 = mDNSLogCategory_Default;
+                          GetRRDisplayString_rdb((v17 + 8), (*(v17 + 48) + 4), v37);
+                          LogMsgWithLevel(v46, OS_LOG_TYPE_DEFAULT, "Reached maximum number of restarts for probing - %s", v37);
                         }
 
                         goto LABEL_37;
                       }
 
-                      RestartARPProbing(v25, v31);
+                      RestartARPProbing(v10, v17);
                     }
 
                     else
                     {
-                      if (v33 != "Creating Local ARP Cache entry  ")
+                      if (v19 != "Creating Local ARP Cache entry  ")
                       {
-                        v30 = (v26 + 38);
-                        if (v107 == "Answering ARP Request from      ")
+                        v16 = (v11 + 38);
+                        if (v45 == "Answering ARP Request from      ")
                         {
-                          v44 = *(v26 + 38);
-                          v112 = *(v26 + 28);
-                          v113[0] = v44;
-                          SendARP(v25, 2, v31, v113, v105, &v112, v105);
+                          v20 = *v42;
+                          v52 = *v47;
+                          v53[0] = v20;
+                          SendARP(v10, 2, v17, v53, v43, &v52, v43);
                         }
 
                         goto LABEL_37;
                       }
 
-                      mDNSPlatformSetLocalAddressCacheEntry((v31 + 144), (v31 + 132), v27, v39, v40, v41, v42, v43, v99);
+                      mDNSPlatformSetLocalAddressCacheEntry((v17 + 144), v41, v13);
                     }
 
-                    v30 = (v26 + 38);
+                    v16 = (v11 + 38);
                   }
 
 LABEL_37:
-                  v31 = *v31;
+                  v17 = *v17;
                 }
 
-                while (v31);
+                while (v17);
               }
             }
           }
 
-          if (*(v26 + 22) != *(v29 + 3600) || *(v26 + 24) != *(v29 + 3602) || *(v26 + 26) != *(v29 + 3604))
+          v28 = (v11 + 22);
+          if (*(v11 + 22) != *(v15 + 3600) || *(v11 + 24) != *(v15 + 3602) || *(v11 + 26) != *(v15 + 3604))
           {
-            v53 = (v26 + 28);
-            if (*(v26 + 28))
+            if (*(v11 + 28))
             {
-              v54 = *(v25 + 12616);
-              if (v54)
+              v29 = *(v10 + 12616);
+              if (v29)
               {
-                v55 = v29 + 3606;
-                v106 = (v25 + 47032);
+                v30 = (v15 + 3606);
+                v44 = (v10 + 47032);
                 do
                 {
-                  if (*(v54 + 32) == v27 && *(v54 + 8) != 1 && *(v54 + 144) == 4 && *(v54 + 148) == *v53 && *(v54 + 189) <= 0x13u)
+                  if (*(v29 + 32) == v13 && *(v29 + 8) != 1 && *(v29 + 144) == 4 && *(v29 + 148) == *(v11 + 28) && *(v29 + 189) <= 0x13u)
                   {
-                    if (*(v54 + 126) || *(v54 + 128) || *(v54 + 130))
+                    v48 = (v29 + 126);
+                    if (*(v29 + 126) || *(v29 + 128) || *(v29 + 130))
                     {
-                      RestartARPProbing(v25, v54);
-                      if (*(v26 + 22) == *(v54 + 132) && *(v26 + 24) == *(v54 + 134) && *(v26 + 26) == *(v54 + 136))
+                      RestartARPProbing(v10, v29);
+                      if (*v28 == *(v29 + 132) && *(v11 + 24) == *(v29 + 134) && *(v11 + 26) == *(v29 + 136))
                       {
-                        if (*v53 != *(v26 + 38))
-                        {
-                          *(v26 + 20);
-                        }
-
-                        v109 = mDNSLogCategory_Default;
-                        GetRRDisplayString_rdb((v54 + 8), (*(v54 + 48) + 4), v106);
-                        LogMsgWithLevel(v109, OS_LOG_TYPE_DEFAULT, "%-7s ARP %s from owner %.6a %.4a for %-15.4a -- re-starting probing for %s", v56, v57, v58, v59, v60, v55);
+                        v49 = mDNSLogCategory_Default;
+                        GetRRDisplayString_rdb((v29 + 8), (*(v29 + 48) + 4), v44);
+                        LogMsgWithLevel(v49, OS_LOG_TYPE_DEFAULT, "%-7s ARP %s from owner %.6a %.4a for %-15.4a -- re-starting probing for %s");
                       }
 
                       else
                       {
-                        v103 = mDNSLogCategory_Default;
-                        GetRRDisplayString_rdb((v54 + 8), (*(v54 + 48) + 4), v106);
-                        LogMsgWithLevel(v103, OS_LOG_TYPE_DEFAULT, "%-7s Conflicting ARP from %.6a %.4a for %.4a -- waking H-MAC %.6a I-MAC %.6a %s", v61, v62, v63, v64, v65, v55);
-                        ScheduleWakeup(v25, *(v54 + 32), (v54 + 126), v66, v67, v68, v69, v70, v100);
+                        v39 = mDNSLogCategory_Default;
+                        GetRRDisplayString_rdb((v29 + 8), (*(v29 + 48) + 4), v44);
+                        LogMsgWithLevel(v39, OS_LOG_TYPE_DEFAULT, "%-7s Conflicting ARP from %.6a %.4a for %.4a -- waking H-MAC %.6a I-MAC %.6a %s", v30, *&v28, COERCE_DOUBLE(v11 + 28), COERCE_DOUBLE(v11 + 38), *&v48, COERCE_DOUBLE(v29 + 132), v44);
+                        ScheduleWakeup(v10, *(v29 + 32), v48);
                       }
                     }
 
                     else
                     {
-                      v104 = mDNSLogCategory_Default;
-                      GetRRDisplayString_rdb((v54 + 8), (*(v54 + 48) + 4), v106);
-                      LogMsgWithLevel(v104, OS_LOG_TYPE_DEFAULT, "%-7s ARP from %.6a %.4a for %.4a -- Invalid H-MAC %.6a I-MAC %.6a %s", v71, v72, v73, v74, v75, v55);
+                      v40 = mDNSLogCategory_Default;
+                      GetRRDisplayString_rdb((v29 + 8), (*(v29 + 48) + 4), v44);
+                      LogMsgWithLevel(v40, OS_LOG_TYPE_DEFAULT, "%-7s ARP from %.6a %.4a for %.4a -- Invalid H-MAC %.6a I-MAC %.6a %s");
                     }
                   }
 
-                  v54 = *v54;
+                  v29 = *v29;
                 }
 
-                while (v54);
+                while (v29);
               }
             }
           }
 
-          mDNS_Unlock_(v25, "mDNSCoreReceiveRawARP", 18146);
+          mDNS_Unlock_(v10, "mDNSCoreReceiveRawARP", 18146);
         }
 
-        else if (v26 + 34 > v20 || *(v26 + 12) != 8 || (*(v26 + 20) & 0x1F) != 0 || *(v26 + 21))
+        else if (v11 + 34 > v12 || *(v11 + 12) != 8 || (*(v11 + 20) & 0x1F) != 0 || *(v11 + 21))
         {
-          v19 = (v26 + 54);
-          if (v26 + 54 <= v20 && *(v26 + 12) == 56710)
+          v21 = (v11 + 54);
+          if (v11 + 54 <= v12 && *(v11 + 12) == 56710)
           {
-            LODWORD(v111[0]) = 6;
-            *(v111 + 4) = *(v26 + 22);
-            LODWORD(v110[0]) = 6;
-            *(v110 + 4) = *(v26 + 38);
-            v17 = *(v26 + 20);
-            v50 = 24;
-            if (v17 != 58)
+            LODWORD(v51[0]) = 6;
+            *(v51 + 4) = *(v11 + 22);
+            LODWORD(v50[0]) = 6;
+            *(v50 + 4) = *(v11 + 38);
+            v22 = *(v11 + 20);
+            v23 = 24;
+            if (v22 != 58)
             {
-              v50 = 0;
+              v23 = 0;
             }
 
-            if (v17 == 17)
+            if (v22 == 17)
             {
-              v50 = 8;
+              v23 = 8;
             }
 
-            if (v17 == 6)
+            if (v22 == 6)
             {
-              v50 = 20;
+              v23 = 20;
             }
 
-            if (v17 == 1)
+            if (v22 == 1)
             {
-              v50 = 4;
+              v23 = 4;
             }
 
-            if (v19 + v50 <= v20)
+            if (&v21->i8[v23] <= v12)
             {
-              mDNSCoreReceiveRawTransportPacket(v25, (v26 + 6), v111, v110, v17, v26, v19, v20, v27, bswap32(*(v26 + 18)) >> 16);
+              mDNSCoreReceiveRawTransportPacket(v10, (v11 + 6), v51, v50, v22, v11, v21, v12, v13, bswap32(*(v11 + 18)) >> 16);
             }
           }
         }
 
         else
         {
-          v19 = &v28[2 * (*(v26 + 14) & 0xF)];
-          v51 = v28 + (bswap32(*(v26 + 16)) >> 16);
-          if (v51 <= v20)
+          v24 = &v14[2 * (*(v11 + 14) & 0xF)];
+          v25 = (v14 + (bswap32(*(v11 + 16)) >> 16));
+          if (v25 <= v12)
           {
-            v20 = v51;
+            v12 = v25;
           }
 
-          LODWORD(v111[0]) = 4;
-          HIDWORD(v111[0]) = *(v26 + 26);
-          LODWORD(v110[0]) = 4;
-          HIDWORD(v110[0]) = *(v26 + 30);
-          v17 = *(v26 + 23);
-          v52 = 24;
-          if (v17 != 58)
+          LODWORD(v51[0]) = 4;
+          HIDWORD(v51[0]) = *(v11 + 26);
+          LODWORD(v50[0]) = 4;
+          HIDWORD(v50[0]) = *(v11 + 30);
+          v26 = *(v11 + 23);
+          v27 = 24;
+          if (v26 != 58)
           {
-            v52 = 0;
+            v27 = 0;
           }
 
-          if (v17 == 17)
+          if (v26 == 17)
           {
-            v52 = 8;
+            v27 = 8;
           }
 
-          if (v17 == 6)
+          if (v26 == 6)
           {
-            v52 = 20;
+            v27 = 20;
           }
 
-          if (v17 == 1)
+          if (v26 == 1)
           {
-            v52 = 4;
+            v27 = 4;
           }
 
-          if (v20 >= v19 + v52)
+          if (v12 >= &v24->i8[v27])
           {
-            mDNSCoreReceiveRawTransportPacket(v25, (v26 + 6), v111, v110, v17, v26, v19, v20, v27, 0);
+            mDNSCoreReceiveRawTransportPacket(v10, (v11 + 6), v51, v50, v26, v11, v24, v12, v13, 0);
           }
         }
 
 LABEL_57:
-        v23 += (*(v23 + 8) + *(v23 + 16) + 3) & 0x1FFFFFFFCLL;
+        v8 += (*(v8 + 8) + *(v8 + 16) + 3) & 0x1FFFFFFFCLL;
       }
     }
   }
 
-  KQueueUnlock("bpf_callback", v14, v15, v16, v17, v18, v19, v20);
+  KQueueUnlock("bpf_callback");
 }
 
 uint64_t CountMaskBits(int *a1)
@@ -5635,24 +5771,24 @@ LABEL_31:
   }
 }
 
-uint64_t getExtendedFlags(uint64_t a1)
+uint64_t getExtendedFlags(const char *a1)
 {
-  v23 = 0u;
-  v24 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v2 = socket(2, 2, 0);
   if (v2 < 0)
   {
-    v15 = mDNSLogCategory_Default;
-    v16 = *__error();
-    v17 = __error();
-    strerror(*v17);
-    LogMsgWithLevel(v15, OS_LOG_TYPE_DEFAULT, "getExtendedFlags: socket() call failed, errno = %d (%s)", v18, v19, v20, v21, v22, v16);
+    v11 = mDNSLogCategory_Default;
+    v12 = *__error();
+    v13 = __error();
+    v14 = strerror(*v13);
+    LogMsgWithLevel(v11, OS_LOG_TYPE_DEFAULT, "getExtendedFlags: socket() call failed, errno = %d (%s)", v12, v14);
     return 0;
   }
 
   else
   {
-    BYTE1(v24) = 2;
+    BYTE1(v16) = 2;
     if (!a1)
     {
       __break(1u);
@@ -5662,8 +5798,8 @@ uint64_t getExtendedFlags(uint64_t a1)
     v4 = 0;
     while (1)
     {
-      v5 = *(a1 + v4);
-      *(&v23 + v4) = v5;
+      v5 = a1[v4];
+      *(&v15 + v4) = v5;
       if (!v5)
       {
         break;
@@ -5671,23 +5807,23 @@ uint64_t getExtendedFlags(uint64_t a1)
 
       if (++v4 == 15)
       {
-        HIBYTE(v23) = 0;
+        HIBYTE(v15) = 0;
         break;
       }
     }
 
-    if (ioctl(v2, 0xC020698EuLL, &v23) == -1)
+    if (ioctl(v2, 0xC020698EuLL, &v15) == -1)
     {
       v6 = mDNSLogCategory_Default;
       v7 = *__error();
       v8 = __error();
-      strerror(*v8);
-      LogMsgWithLevel(v6, OS_LOG_TYPE_DEFAULT, "getExtendedFlags: SIOCGIFEFLAGS failed for %s, errno = %d (%s)", v9, v10, v11, v12, v13, a1);
-      *&v24 = 0;
+      v9 = strerror(*v8);
+      LogMsgWithLevel(v6, OS_LOG_TYPE_DEFAULT, "getExtendedFlags: SIOCGIFEFLAGS failed for %s, errno = %d (%s)", a1, v7, v9);
+      *&v16 = 0;
     }
 
     close(v3);
-    return v24;
+    return v16;
   }
 }
 
@@ -5961,18 +6097,18 @@ LABEL_44:
   }
 }
 
-void mDNSPlatformSetLocalAddressCacheEntry(int *a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+void mDNSPlatformSetLocalAddressCacheEntry(int *a1, const void *a2, uint64_t a3)
 {
   if (a3)
   {
-    v9 = a3;
-    v10 = *mDNSStorage[0];
+    v3 = a3;
+    v4 = *mDNSStorage[0];
     if (*mDNSStorage[0])
     {
-      while (!*(v10 + 3768) || *(v10 + 3720) != a3)
+      while (!*(v4 + 3768) || *(v4 + 3720) != a3)
       {
-        v10 = *(v10 + 3680);
-        if (!v10)
+        v4 = *(v4 + 3680);
+        if (!v4)
         {
           goto LABEL_6;
         }
@@ -5980,100 +6116,97 @@ void mDNSPlatformSetLocalAddressCacheEntry(int *a1, const void *a2, uint64_t a3,
 
       if (mDNS_AddressIsLocalSubnet(mDNSStorage, a3, a1))
       {
-        v19 = *a1;
+        v8 = *a1;
         if (mDNS_LoggingEnabled == 1)
         {
-          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSSetLocalAddressCacheEntry: Using XPC IPC calling out to Helper: ifindex is [%d] family is [%d]", v14, v15, v16, v17, v18, v9);
+          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSSetLocalAddressCacheEntry: Using XPC IPC calling out to Helper: ifindex is [%d] family is [%d]", v3, v8);
         }
 
-        v20 = xpc_dictionary_create(0, 0, 0);
-        xpc_dictionary_set_uint64(v20, "HelperMode", 7uLL);
-        xpc_dictionary_set_uint64(v20, "slace_ifindex", v9);
-        xpc_dictionary_set_uint64(v20, "slace_family", v19);
-        xpc_dictionary_set_data(v20, "slace_ip", a1 + 1, 0x10uLL);
-        xpc_dictionary_set_data(v20, "slace_eth", a2, 6uLL);
-        v26 = SendDict_ToServer(v20);
-        if (v20)
+        v9 = xpc_dictionary_create(0, 0, 0);
+        xpc_dictionary_set_uint64(v9, "HelperMode", 7uLL);
+        xpc_dictionary_set_uint64(v9, "slace_ifindex", v3);
+        xpc_dictionary_set_uint64(v9, "slace_family", v8);
+        xpc_dictionary_set_data(v9, "slace_ip", a1 + 1, 0x10uLL);
+        xpc_dictionary_set_data(v9, "slace_eth", a2, 6uLL);
+        v10 = SendDict_ToServer(v9);
+        if (v9)
         {
-          xpc_release(v20);
+          xpc_release(v9);
         }
 
         if (mDNS_LoggingEnabled == 1)
         {
-          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSSetLocalAddressCacheEntry: Using XPC IPC returning error_code %d", v21, v22, v23, v24, v25, v26);
+          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSSetLocalAddressCacheEntry: Using XPC IPC returning error_code %d", v10);
         }
 
-        if (v26)
+        if (v10)
         {
-          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "Set local address cache entry for %s %#a %.6a failed: %d", v21, v22, v23, v24, v25, v10 + 3606);
+          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "Set local address cache entry for %s %#a %.6a failed: %d");
         }
 
         else if (mDNS_LoggingEnabled == 1)
         {
-          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "Set local address cache entry for %s %#a %.6a", v21, v22, v23, v24, v25, v10 + 3606);
+          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "Set local address cache entry for %s %#a %.6a");
         }
       }
 
       else if (mDNS_LoggingEnabled == 1)
       {
-        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "Don't need address cache entry for %s %#a %.6a", v14, v15, v16, v17, v18, v10 + 3606);
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "Don't need address cache entry for %s %#a %.6a");
       }
     }
 
     else
     {
 LABEL_6:
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformSetLocalAddressCacheEntry: Invalid interface index %p", a4, a5, a6, a7, a8, a3);
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformSetLocalAddressCacheEntry: Invalid interface index %p");
     }
   }
 
   else
   {
-    v13 = mDNSLogCategory_Default;
+    v7 = mDNSLogCategory_Default;
 
-    LogMsgWithLevel(v13, OS_LOG_TYPE_DEFAULT, "mDNSPlatformSetLocalAddressCacheEntry: No InterfaceID specified", a4, a5, a6, a7, a8, a9);
+    LogMsgWithLevel(v7, OS_LOG_TYPE_DEFAULT, "mDNSPlatformSetLocalAddressCacheEntry: No InterfaceID specified");
   }
 }
 
-void mDNSPlatformSendKeepalive(uint64_t a1, uint64_t a2, unsigned __int16 *a3, unsigned __int16 *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void mDNSPlatformSendKeepalive(uint64_t a1, uint64_t a2, unsigned __int16 *a3, unsigned __int16 *a4, unsigned int a5, unsigned int a6, unsigned int a7)
 {
-  v8 = a7;
-  v9 = a6;
-  v10 = a5;
-  LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformSendKeepalive called\n", a4, a5, a6, a7, a8, v28);
-  v20 = *a3;
-  v21 = *a4;
+  LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformSendKeepalive called\n");
+  v14 = *a3;
+  v15 = *a4;
   if (mDNS_LoggingEnabled == 1)
   {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSSendKeepalive: Using XPC IPC calling out to Helper: lport is[%d] rport is[%d] seq is[%d] ack is[%d] win is[%d]", v15, v16, v17, v18, v19, v20);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSSendKeepalive: Using XPC IPC calling out to Helper: lport is[%d] rport is[%d] seq is[%d] ack is[%d] win is[%d]", v14, v15, a5, a6, a7);
   }
 
-  memset(v34, 0, sizeof(v34));
-  v33 = 0u;
-  memset(v31, 0, sizeof(v31));
-  v30 = 0u;
-  v32 = 0;
-  v29 = 0;
-  inet_ntop(30, (a1 + 4), &v32, 0x2Eu);
-  inet_ntop(30, (a2 + 4), &v29, 0x2Eu);
+  memset(v22, 0, sizeof(v22));
+  v21 = 0u;
+  memset(v19, 0, sizeof(v19));
+  v18 = 0u;
+  v20 = 0;
+  v17 = 0;
+  inet_ntop(30, (a1 + 4), &v20, 0x2Eu);
+  inet_ntop(30, (a2 + 4), &v17, 0x2Eu);
   if (mDNS_LoggingEnabled == 1)
   {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSSendKeepalive: Using XPC IPC calling out to Helper: sadd is %s, dadd is %s", v22, v23, v24, v25, v26, &v32);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSSendKeepalive: Using XPC IPC calling out to Helper: sadd is %s, dadd is %s", &v20, &v17);
   }
 
-  v27 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_uint64(v27, "HelperMode", 8uLL);
-  xpc_dictionary_set_data(v27, "send_keepalive_sadd", (a1 + 4), 0x10uLL);
-  xpc_dictionary_set_data(v27, "send_keepalive_dadd", (a2 + 4), 0x10uLL);
-  xpc_dictionary_set_uint64(v27, "send_keepalive_lport", v20);
-  xpc_dictionary_set_uint64(v27, "send_keepalive_rport", v21);
-  xpc_dictionary_set_uint64(v27, "send_keepalive_seq", v10);
-  xpc_dictionary_set_uint64(v27, "send_keepalive_ack", v9);
-  xpc_dictionary_set_uint64(v27, "send_keepalive_win", v8);
-  SendDict_ToServer(v27);
-  if (v27)
+  v16 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_uint64(v16, "HelperMode", 8uLL);
+  xpc_dictionary_set_data(v16, "send_keepalive_sadd", (a1 + 4), 0x10uLL);
+  xpc_dictionary_set_data(v16, "send_keepalive_dadd", (a2 + 4), 0x10uLL);
+  xpc_dictionary_set_uint64(v16, "send_keepalive_lport", v14);
+  xpc_dictionary_set_uint64(v16, "send_keepalive_rport", v15);
+  xpc_dictionary_set_uint64(v16, "send_keepalive_seq", a5);
+  xpc_dictionary_set_uint64(v16, "send_keepalive_ack", a6);
+  xpc_dictionary_set_uint64(v16, "send_keepalive_win", a7);
+  SendDict_ToServer(v16);
+  if (v16)
   {
-    xpc_release(v27);
+    xpc_release(v16);
   }
 }
 
@@ -6084,7 +6217,7 @@ uint64_t GetRemoteMacinternal(int a1, _DWORD *a2, uint64_t a3)
   __src = 0uLL;
   while (1)
   {
-    memset(v46, 0, sizeof(v46));
+    memset(v30, 0, sizeof(v30));
     bzero(__buf, 0x25CuLL);
     v7 = socket(17, 3, 0);
     if (v7 < 0)
@@ -6093,22 +6226,22 @@ uint64_t GetRemoteMacinternal(int a1, _DWORD *a2, uint64_t a3)
       v13 = *v12;
       v14 = mDNSLogCategory_Default;
       v15 = strerror(*v12);
-      LogMsgWithLevel(v14, OS_LOG_TYPE_DEFAULT, "getMACAddress: Can not open the socket - %s", v16, v17, v18, v19, v20, v15);
+      LogMsgWithLevel(v14, OS_LOG_TYPE_DEFAULT, "getMACAddress: Can not open the socket - %s", v15);
       goto LABEL_24;
     }
 
     v8 = v7;
-    v48 = 0x300000000;
+    v32 = 0x300000000;
     __buf[1] = 4357;
-    v50 = 6368;
+    v34 = 6368;
     if (a1 == 2)
     {
       v9 = 0;
-      LOWORD(v46[0]) = 528;
-      DWORD1(v46[0]) = *a2;
-      *v51 = v46[0];
-      v10 = v46;
-      v11 = &v51[16];
+      LOWORD(v30[0]) = 528;
+      DWORD1(v30[0]) = *a2;
+      *v35 = v30[0];
+      v10 = v30;
+      v11 = &v35[16];
     }
 
     else
@@ -6116,18 +6249,18 @@ uint64_t GetRemoteMacinternal(int a1, _DWORD *a2, uint64_t a3)
       v10 = 0;
       if (a1 == 30)
       {
-        LOWORD(v46[0]) = 7708;
-        *(v46 + 8) = *a2;
-        *v51 = v46[0];
-        *&v51[12] = *(v46 + 12);
-        v9 = v46;
-        v11 = &v52;
+        LOWORD(v30[0]) = 7708;
+        *(v30 + 8) = *a2;
+        *v35 = v30[0];
+        *&v35[12] = *(v30 + 12);
+        v9 = v30;
+        v11 = &v36;
       }
 
       else
       {
         v9 = 0;
-        v11 = v51;
+        v11 = v35;
       }
     }
 
@@ -6138,11 +6271,11 @@ uint64_t GetRemoteMacinternal(int a1, _DWORD *a2, uint64_t a3)
     __buf[0] = v11 - __buf + 20;
     if (write(v7, __buf, __buf[0]) < 0)
     {
-      v31 = __error();
-      v13 = *v31;
-      v32 = mDNSLogCategory_Default;
-      v33 = strerror(*v31);
-      LogMsgWithLevel(v32, OS_LOG_TYPE_DEFAULT, "getMACAddress: writing to routing socket: %s", v34, v35, v36, v37, v38, v33);
+      v21 = __error();
+      v13 = *v21;
+      v22 = mDNSLogCategory_Default;
+      v23 = strerror(*v21);
+      LogMsgWithLevel(v22, OS_LOG_TYPE_DEFAULT, "getMACAddress: writing to routing socket: %s", v23);
       close(v8);
 LABEL_24:
       if (v13 != -1)
@@ -6155,63 +6288,63 @@ LABEL_24:
 
     while (1)
     {
-      v21 = read(v8, __buf, 0x25CuLL);
-      if (v21 < 1)
+      v16 = read(v8, __buf, 0x25CuLL);
+      if (v16 < 1)
       {
         break;
       }
 
-      if (v50 == 6368)
+      if (v34 == 6368)
       {
-        v27 = v49;
-        if (v27 == getpid())
+        v17 = v33;
+        if (v17 == getpid())
         {
           goto LABEL_16;
         }
       }
     }
 
-    if (v21 < 0)
+    if (v16 < 0)
     {
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "getMACAddress: Read from routing socket failed", v22, v23, v24, v25, v26, v43);
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "getMACAddress: Read from routing socket failed");
     }
 
 LABEL_16:
-    v28 = v51;
+    v18 = v35;
     if (a1 != 2)
     {
-      v28 = v10;
-      v9 = v51;
+      v18 = v10;
+      v9 = v35;
       if (a1 != 30)
       {
-        v39 = mDNSLogCategory_Default;
+        v24 = mDNSLogCategory_Default;
         goto LABEL_28;
       }
     }
 
-    v29 = &v51[v51[0]];
-    if (v29)
+    v19 = &v35[v35[0]];
+    if (v19)
     {
       break;
     }
 
-    v39 = mDNSLogCategory_Default;
+    v24 = mDNSLogCategory_Default;
 LABEL_28:
-    LogMsgWithLevel(v39, OS_LOG_TYPE_DEFAULT, "getMACAddress: sdl is NULL for family %d", v22, v23, v24, v25, v26, a1);
+    LogMsgWithLevel(v24, OS_LOG_TYPE_DEFAULT, "getMACAddress: sdl is NULL for family %d", a1);
 LABEL_35:
     close(v8);
 LABEL_36:
     if (v5 == 2)
     {
-      v40 = 4;
+      v25 = 4;
     }
 
     else
     {
-      v40 = 16;
+      v25 = 16;
     }
 
-    memcpy(a2, &__src, v40);
+    memcpy(a2, &__src, v25);
     ++v6;
     a1 = v5;
     if (v6 == 5)
@@ -6220,8 +6353,8 @@ LABEL_36:
     }
   }
 
-  v30 = v29[1];
-  if (v30 == 30)
+  v20 = v19[1];
+  if (v20 == 30)
   {
     if (v9)
     {
@@ -6230,32 +6363,32 @@ LABEL_36:
 
     else
     {
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "getMACAddress: sin6 is NULL", v22, v23, v24, v25, v26, v43);
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "getMACAddress: sin6 is NULL");
     }
 
     v5 = 30;
     goto LABEL_35;
   }
 
-  if (v30 == 2)
+  if (v20 == 2)
   {
-    if (v28)
+    if (v18)
     {
-      LODWORD(__src) = *&v28[*v28 + 4];
+      LODWORD(__src) = *&v18[*v18 + 4];
     }
 
     else
     {
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "getMACAddress: sin is NULL", v22, v23, v24, v25, v26, v43);
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "getMACAddress: sin is NULL");
     }
 
     v5 = 2;
     goto LABEL_35;
   }
 
-  v42 = &v29[v29[5]];
-  *a3 = *(v42 + 2);
-  *(a3 + 4) = *(v42 + 6);
+  v27 = &v19[v19[5]];
+  *a3 = *(v27 + 2);
+  *(a3 + 4) = *(v27 + 6);
   close(v8);
   return 0;
 }
@@ -6307,17 +6440,17 @@ LABEL_11:
     v6 = 30;
   }
 
-  v54 = 0;
-  v55 = 0;
-  v73 = *(a1 + 1);
-  if (!GetRemoteMacinternal(v6, &v73, &v54))
+  v24 = 0;
+  v25 = 0;
+  v43 = *(a1 + 1);
+  if (!GetRemoteMacinternal(v6, &v43, &v24))
   {
     v7 = malloc_type_calloc(1uLL, 0x28uLL, 0xCD7CF3CBuLL);
     if (v7)
     {
       v8 = v7;
       v9 = (v7 + 20);
-      snprintf(v7 + 20, 0x12uLL, "%02x:%02x:%02x:%02x:%02x:%02x", v54, BYTE1(v54), BYTE2(v54), HIBYTE(v54), v55, HIBYTE(v55));
+      snprintf(v7 + 20, 0x12uLL, "%02x:%02x:%02x:%02x:%02x:%02x", v24, BYTE1(v24), BYTE2(v24), HIBYTE(v24), v25, HIBYTE(v25));
       if (v2 == 4)
       {
         v10 = 4;
@@ -6339,110 +6472,119 @@ LABEL_11:
           v13 = *v12 ? *v12 + 1 : 0;
           if (SameDomainLabelPointer(&v12[v13], "\n_keepalive"))
           {
-            v58[0] = 0;
-            v58[1] = 0;
-            v59 = 0;
-            getKeepaliveRaddr(mDNSStorage, v11, v58);
-            if (mDNSSameAddress(v58, v8))
+            v28[0] = 0;
+            v28[1] = 0;
+            v29 = 0;
+            getKeepaliveRaddr(mDNSStorage, v11, v28);
+            if (mDNSSameAddress(v28, v8))
             {
-              v57 = 0;
-              v56 = 0;
-              if (GetValueForMACAddr(v9, v8 + 38, &v56, v14, v15, v16, v17, v18))
+              v27 = 0;
+              v26 = 0;
+              if (GetValueForMACAddr(v9, v8 + 38, &v26))
               {
-                if (HIWORD(v56) | v56 | v57)
+                if (HIWORD(v26) | v26 | v27)
                 {
-                  v70 = 0;
-                  v71 = 0;
-                  v72 = 0;
-                  v67 = 0;
-                  v68 = 0;
-                  v69 = 0;
-                  v66 = 0;
-                  v64 = 0;
-                  v65 = 0;
-                  v63 = 0;
-                  v88 = 0u;
-                  v89 = 0u;
-                  v86 = 0u;
-                  v87 = 0u;
-                  v84 = 0u;
-                  v85 = 0u;
-                  v82 = 0u;
-                  v83 = 0u;
-                  v80 = 0u;
-                  v81 = 0u;
-                  v78 = 0u;
-                  v79 = 0u;
-                  v76 = 0u;
-                  v77 = 0u;
+                  v40 = 0;
+                  v41 = 0;
+                  v42 = 0;
+                  v37 = 0;
+                  v38 = 0;
+                  v39 = 0;
+                  v36 = 0;
+                  v34 = 0;
+                  v35 = 0;
+                  v33 = 0;
+                  v58 = 0u;
+                  v59 = 0u;
+                  v56 = 0u;
+                  v57 = 0u;
+                  v54 = 0u;
+                  v55 = 0u;
+                  v52 = 0u;
+                  v53 = 0u;
+                  v50 = 0u;
+                  v51 = 0u;
+                  v48 = 0u;
+                  v49 = 0u;
+                  v46 = 0u;
+                  v47 = 0u;
                   *buf = 0u;
-                  v75 = 0u;
-                  mDNS_ExtractKeepaliveInfo(v11, &v63, &v70, &v67, &v65, &v62, &v61, &v64 + 1, &v64, &v60);
-                  if (v63 && v70 != 4 && (v70 != 6 || v71 | HIDWORD(v71) | v72 | HIDWORD(v70)) && v67 != 4 && (v67 != 6 || v68 | HIDWORD(v68) | v69 | HIDWORD(v67)) && HIWORD(v64) && v64)
+                  v45 = 0u;
+                  mDNS_ExtractKeepaliveInfo(v11, &v33, &v40, &v37, &v35, &v32, &v31, &v34 + 1, &v34, &v30);
+                  if (v33 && v40 != 4 && (v40 != 6 || v41 | HIDWORD(v41) | v42 | HIDWORD(v40)) && v37 != 4 && (v37 != 6 || v38 | HIDWORD(v38) | v39 | HIDWORD(v37)) && HIWORD(v34) && v34)
                   {
-                    v19 = mDNS_snprintf(&buf[1]);
-                    if (v19 == 255)
+                    if (v40 == 4)
                     {
-                      v20 = mDNSLogCategory_Default;
-                      GetRRDisplayString_rdb((v11 + 8), (*(v11 + 48) + 4), word_1001789D0);
-                      LogMsgWithLevel(v20, OS_LOG_TYPE_DEFAULT, "UpdateKeepaliveRData: could not allocate memory %s", v21, v22, v23, v24, v25, word_1001789D0);
+                      v14 = mDNS_snprintf(&buf[1], 255, "t=%d i=%d c=%d h=%#a d=%#a l=%u r=%u m=%s", v33);
                     }
 
                     else
                     {
-                      buf[0] = v19 + 1;
-                      v32 = v19 + 2;
-                      if ((v19 + 2) <= 0x108u)
+                      v14 = mDNS_snprintf(&buf[1], 255, "t=%d i=%d c=%d H=%#a D=%#a l=%u r=%u m=%s", v33);
+                    }
+
+                    if (v14 == 255)
+                    {
+                      v15 = mDNSLogCategory_Default;
+                      GetRRDisplayString_rdb((v11 + 8), (*(v11 + 48) + 4), word_1001789D0);
+                      LogMsgWithLevel(v15, OS_LOG_TYPE_DEFAULT, "UpdateKeepaliveRData: could not allocate memory %s", word_1001789D0);
+                    }
+
+                    else
+                    {
+                      buf[0] = v14 + 1;
+                      v17 = v14 + 2;
+                      if ((v14 + 2) <= 0x108u)
                       {
-                        v33 = 264;
+                        v18 = 264;
                       }
 
                       else
                       {
-                        v33 = (v19 + 2);
+                        v18 = (v14 + 2);
                       }
 
-                      v34 = malloc_type_malloc(v33 + 4, 0xA985737FuLL);
-                      if (!v34)
+                      v19 = malloc_type_malloc(v18 + 4, 0xA985737FuLL);
+                      if (!v19)
                       {
-                        goto LABEL_56;
+                        goto LABEL_59;
                       }
 
-                      v53 = v34;
-                      *v34 = v33;
-                      memcpy(v34 + 2, buf, v32);
-                      v40 = *(v11 + 48);
-                      if (v40 != (v11 + 908))
+                      v23 = v19;
+                      *v19 = v18;
+                      memcpy(v19 + 2, buf, v17);
+                      v20 = *(v11 + 48);
+                      if (v20 != (v11 + 908))
                       {
                         if (mDNS_LoggingEnabled == 1)
                         {
-                          v52 = mDNSLogCategory_Default;
-                          GetRRDisplayString_rdb((v11 + 8), v40 + 2, word_1001789D0);
-                          LogMsgWithLevel(v52, OS_LOG_TYPE_DEFAULT, "UpdateKeepaliveRData: Freed allocated memory for keep alive packet: %s ", v41, v42, v43, v44, v45, word_1001789D0);
-                          v40 = *(v11 + 48);
+                          v22 = mDNSLogCategory_Default;
+                          GetRRDisplayString_rdb((v11 + 8), v20 + 2, word_1001789D0);
+                          LogMsgWithLevel(v22, OS_LOG_TYPE_DEFAULT, "UpdateKeepaliveRData: Freed allocated memory for keep alive packet: %s ", word_1001789D0);
+                          v20 = *(v11 + 48);
                         }
 
-                        if (v40)
+                        if (v20)
                         {
-                          free(v40);
+                          free(v20);
                         }
                       }
 
-                      SetNewRData(v11 + 8, v53, v32, v35, v36, v37, v38, v39);
+                      SetNewRData(v11 + 8, v23, v17);
                       if (mDNS_LoggingEnabled == 1)
                       {
-                        v46 = mDNSLogCategory_Default;
+                        v21 = mDNSLogCategory_Default;
                         GetRRDisplayString_rdb((v11 + 8), (*(v11 + 48) + 4), word_1001789D0);
-                        LogMsgWithLevel(v46, OS_LOG_TYPE_DEFAULT, "UpdateKeepaliveRData: successfully updated the record %s", v47, v48, v49, v50, v51, word_1001789D0);
+                        LogMsgWithLevel(v21, OS_LOG_TYPE_DEFAULT, "UpdateKeepaliveRData: successfully updated the record %s");
                       }
                     }
                   }
 
                   else
                   {
-                    v26 = mDNSLogCategory_Default;
+                    v16 = mDNSLogCategory_Default;
                     GetRRDisplayString_rdb((v11 + 8), (*(v11 + 48) + 4), word_1001789D0);
-                    LogMsgWithLevel(v26, OS_LOG_TYPE_DEFAULT, "UpdateKeepaliveRData: not a valid record %s for keepalive %#a:%d %#a:%d", v27, v28, v29, v30, v31, word_1001789D0);
+                    LogMsgWithLevel(v16, OS_LOG_TYPE_DEFAULT, "UpdateKeepaliveRData: not a valid record %s for keepalive %#a:%d %#a:%d");
                   }
                 }
               }
@@ -6458,7 +6600,7 @@ LABEL_11:
 
     else
     {
-LABEL_56:
+LABEL_59:
       __break(1u);
     }
   }
@@ -6477,7 +6619,7 @@ const __CFNumber *DictionaryIsEnabled(const __CFDictionary *a1)
 
     else
     {
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "ERROR: DictionaryIsEnabled - CFNumberGetValue", v2, v3, v4, v5, v6, v7);
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "ERROR: DictionaryIsEnabled - CFNumberGetValue");
       return 0;
     }
   }
@@ -6506,37 +6648,39 @@ void mDNSPlatformUpdateDNSStatus(uint64_t a1)
     {
       if (!*(v2 + 689) && (mDNS_LoggingEnabled & 1) != 0)
       {
-        goto LABEL_15;
+        v4 = 0;
+LABEL_15:
+        v5 = mDNSLogCategory_Default;
+        v6 = a1 + 376;
+        v7 = DNSTypeName(v1);
+        LogMsgWithLevel(v5, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateDNSStatus: Trigger needed v4 %d, v6 %d, question %##s (%s)", v3, v4, v6, v7);
       }
     }
 
     else if (mDNS_LoggingEnabled == 1)
     {
       v4 = *(v2 + 689);
-LABEL_15:
-      v5 = mDNSLogCategory_Default;
-      DNSTypeName(v1);
-      LogMsgWithLevel(v5, OS_LOG_TYPE_DEFAULT, "mDNSPlatformUpdateDNSStatus: Trigger needed v4 %d, v6 %d, question %##s (%s)", v6, v7, v8, v9, v10, v3);
+      goto LABEL_15;
     }
   }
 }
 
-void mDNSPlatformTriggerDNSRetry(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+void mDNSPlatformTriggerDNSRetry(uint64_t a1, uint64_t a2)
 {
   mDNS_Lock_(mDNSStorage, "mDNSPlatformTriggerDNSRetry", 5111);
-  v11 = dword_10016D258;
-  v12 = *(mDNSStorage[0] + 692);
-  if (v12)
+  v4 = dword_10016D258;
+  v5 = *(mDNSStorage[0] + 692);
+  if (v5)
   {
-    v13 = dword_10016D258 - v12 <= 179999;
+    v6 = dword_10016D258 - v5 <= 179999;
   }
 
   else
   {
-    v13 = 0;
+    v6 = 0;
   }
 
-  if (v13)
+  if (v6)
   {
 
     mDNS_Unlock_(mDNSStorage, "mDNSPlatformTriggerDNSRetry", 5120);
@@ -6547,35 +6691,35 @@ void mDNSPlatformTriggerDNSRetry(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
     mDNS_Unlock_(mDNSStorage, "mDNSPlatformTriggerDNSRetry", 5123);
     if (a1 && !*(a1 + 354) && *(a1 + 340))
     {
-      v14 = 1;
+      v7 = 1;
       if (!*(a1 + 355))
       {
-        v15 = mDNSStorage[0];
-        v16 = *(mDNSStorage[0] + 688);
+        v8 = mDNSStorage[0];
+        v9 = *(mDNSStorage[0] + 688);
         *(mDNSStorage[0] + 688) = 1;
-        if (!v16)
+        if (!v9)
         {
           if (mDNS_LoggingEnabled == 1)
           {
-            v17 = mDNSLogCategory_Default;
-            v18 = v11 - *(v15 + 692);
-            DNSTypeName(*(a1 + 342));
-            LogMsgWithLevel(v17, OS_LOG_TYPE_DEFAULT, "mDNSPlatformTriggerDNSRetry: Triggering because of IPv4, last trigger %d ms, %##s (%s)", v19, v20, v21, v22, v23, v18);
+            v10 = mDNSLogCategory_Default;
+            v11 = (v4 - *(v8 + 692));
+            v12 = DNSTypeName(*(a1 + 342));
+            LogMsgWithLevel(v10, OS_LOG_TYPE_DEFAULT, "mDNSPlatformTriggerDNSRetry: Triggering because of IPv4, last trigger %d ms, %##s (%s)", v11, a1 + 376, v12);
           }
 
-          v14 = 0;
+          v7 = 0;
         }
       }
     }
 
     else
     {
-      v14 = 1;
+      v7 = 1;
     }
 
-    if (!a2 || *(a2 + 354) || !*(a2 + 340) || *(a2 + 355) || (v24 = mDNSStorage[0], v25 = *(mDNSStorage[0] + 689), *(mDNSStorage[0] + 689) = 1, v25))
+    if (!a2 || *(a2 + 354) || !*(a2 + 340) || *(a2 + 355) || (v13 = mDNSStorage[0], v14 = *(mDNSStorage[0] + 689), *(mDNSStorage[0] + 689) = 1, v14))
     {
-      if (v14)
+      if (v7)
       {
         return;
       }
@@ -6583,18 +6727,18 @@ void mDNSPlatformTriggerDNSRetry(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
 
     else if (mDNS_LoggingEnabled == 1)
     {
-      v26 = mDNSLogCategory_Default;
-      v27 = v11 - *(v24 + 692);
-      DNSTypeName(*(a2 + 342));
-      LogMsgWithLevel(v26, OS_LOG_TYPE_DEFAULT, "mDNSPlatformTriggerDNSRetry: Triggering because of IPv6, last trigger %d ms, %##s (%s)", v28, v29, v30, v31, v32, v27);
+      v15 = mDNSLogCategory_Default;
+      v16 = (v4 - *(v13 + 692));
+      v17 = DNSTypeName(*(a2 + 342));
+      LogMsgWithLevel(v15, OS_LOG_TYPE_DEFAULT, "mDNSPlatformTriggerDNSRetry: Triggering because of IPv6, last trigger %d ms, %##s (%s)", v16, a2 + 376, v17);
     }
 
-    v33 = dns_configuration_copy();
-    if (v33)
+    v18 = dns_configuration_copy();
+    if (v18)
     {
-      v39 = v33;
+      v19 = v18;
       mDNS_Lock_(mDNSStorage, "mDNSPlatformTriggerDNSRetry", 5160);
-      AckConfigd(v39);
+      AckConfigd(v19);
       mDNS_Unlock_(mDNSStorage, "mDNSPlatformTriggerDNSRetry", 5162);
 
       dns_configuration_free();
@@ -6602,9 +6746,9 @@ void mDNSPlatformTriggerDNSRetry(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
 
     else
     {
-      v40 = mDNSLogCategory_Default;
+      v20 = mDNSLogCategory_Default;
 
-      LogMsgWithLevel(v40, OS_LOG_TYPE_DEFAULT, "mDNSPlatformTriggerDNSRetry: ERROR!! configd did not return config", v34, v35, v36, v37, v38, a9);
+      LogMsgWithLevel(v20, OS_LOG_TYPE_DEFAULT, "mDNSPlatformTriggerDNSRetry: ERROR!! configd did not return config");
     }
   }
 }
@@ -6612,14 +6756,10 @@ void mDNSPlatformTriggerDNSRetry(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
 uint64_t AckConfigd(uint64_t a1)
 {
   mDNS_VerifyLockState("Check Lock", 1, dword_10016D248, dword_10016D24C, "AckConfigd", 5086);
+  v2 = dword_10016D258;
   if (dword_10016D258 <= 1)
   {
     v2 = 1;
-  }
-
-  else
-  {
-    v2 = dword_10016D258;
   }
 
   *(mDNSStorage[0] + 692) = v2;
@@ -6652,7 +6792,7 @@ uint64_t UpdateSearchDomainHash(_MD5_CTX *a1, const char *a2, uint64_t a3)
     v6 = a3;
   }
 
-  v7 = mDNS_snprintf(__s);
+  v7 = mDNS_snprintf(__s, 16, "%u", v6);
   v8 = mDNSLogCategory_State;
   if (v7 >= 0x10 && os_log_type_enabled(mDNSLogCategory_State, OS_LOG_TYPE_DEBUG))
   {
@@ -6682,26 +6822,26 @@ void ConfigResolvers(int *a1, uint64_t a2, int a3, int a4, _MD5_CTX *a5)
   v5 = a2;
   if (a2 == 2)
   {
-    v6 = (a1 + 9);
+    v6 = a1 + 9;
     v7 = a1 + 8;
   }
 
   else if (a2 == 1)
   {
-    v6 = (a1 + 4);
+    v6 = a1 + 4;
     v7 = a1 + 3;
   }
 
   else
   {
     v7 = a1;
-    v6 = (a1 + 1);
+    v6 = a1 + 1;
   }
 
   v8 = *v6;
   v9 = *v7;
   qsort(*v6, v9, 8uLL, compare_dns_configs);
-  v99 = v9;
+  v72 = v9;
   if (v9 >= 1)
   {
     v10 = 0;
@@ -6711,49 +6851,49 @@ void ConfigResolvers(int *a1, uint64_t a2, int a3, int a4, _MD5_CTX *a5)
       v12 = mDNSLogCategory_State;
       if (os_log_type_enabled(mDNSLogCategory_State, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = *v11;
-        v19 = *(v11 + 8);
+        v13 = *v11;
+        v14 = *(v11 + 2);
         *buf = 67241219;
         *&buf[4] = v5;
         *&buf[8] = 1024;
         *&buf[10] = v10;
         *&buf[14] = 2160;
-        *&v117[0] = 1752392040;
-        WORD4(v117[0]) = 2085;
-        *(v117 + 10) = v18;
-        WORD1(v117[1]) = 1024;
-        DWORD1(v117[1]) = v19;
+        *&v90[0] = 1752392040;
+        WORD4(v90[0]) = 2085;
+        *(v90 + 10) = v13;
+        WORD1(v90[1]) = 1024;
+        DWORD1(v90[1]) = v14;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "ConfigResolvers -- scope type: %{public, mdnsresponder:dns_scope_type}u, resolver[%d]: {domain: %{sensitive, mask.hash}s, name server count: %d}", buf, 0x28u);
       }
 
-      v20 = *(v11 + 64);
-      if (v20)
+      v15 = *(v11 + 16);
+      if (v15)
       {
-        v21 = *mDNSStorage[0];
+        v16 = *mDNSStorage[0];
         if (*mDNSStorage[0])
         {
-          while (!*(v21 + 3552) || *(v21 + 3720) != v20)
+          while (!*(v16 + 3552) || *(v16 + 3720) != v15)
           {
-            v21 = *(v21 + 3680);
-            if (!v21)
+            v16 = *(v16 + 3680);
+            if (!v16)
             {
               goto LABEL_15;
             }
           }
 
-          v20 = *(v21 + 3552);
+          v15 = *(v16 + 3552);
         }
 
         else
         {
 LABEL_15:
-          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "ConfigParseInterfaceID: interface specific index %d not found (interface may not be UP)", v13, v14, v15, v16, v17, *(v11 + 64));
+          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "ConfigParseInterfaceID: interface specific index %d not found (interface may not be UP)", *(v11 + 16));
         }
       }
 
       else
       {
-        v20 = 0;
+        v15 = 0;
       }
 
       if (!a3)
@@ -6761,472 +6901,472 @@ LABEL_15:
         goto LABEL_72;
       }
 
-      v22 = v8;
-      v23 = v8[v10];
-      v24 = *(a1 + 3);
-      v129 = 0u;
-      v130 = 0u;
-      v127 = 0u;
-      v128 = 0u;
-      v125 = 0u;
-      v126 = 0u;
-      v123 = 0u;
-      v124 = 0u;
-      v121 = 0u;
-      v122 = 0u;
-      v119 = 0u;
-      v120 = 0u;
-      v117[1] = 0u;
-      v118 = 0u;
-      v25 = v5;
-      v26 = v5 ? v20 : 0;
+      v17 = v8;
+      v18 = v8[v10];
+      v19 = *(a1 + 3);
+      v102 = 0u;
+      v103 = 0u;
+      v100 = 0u;
+      v101 = 0u;
+      v98 = 0u;
+      v99 = 0u;
+      v96 = 0u;
+      v97 = 0u;
+      v94 = 0u;
+      v95 = 0u;
+      v92 = 0u;
+      v93 = 0u;
+      v90[1] = 0u;
+      v91 = 0u;
+      v20 = v5;
+      v21 = v5 ? v15 : 0;
       *buf = 0uLL;
-      v117[0] = 0uLL;
-      v27 = v25;
-      if (v25 <= 1)
+      v90[0] = 0uLL;
+      v22 = v20;
+      if (v20 <= 1)
       {
         break;
       }
 
-      v39 = mDNSLogCategory_State;
-      v40 = os_log_type_enabled(mDNSLogCategory_State, OS_LOG_TYPE_DEFAULT);
-      if (v20)
+      v28 = mDNSLogCategory_State;
+      v29 = os_log_type_enabled(mDNSLogCategory_State, OS_LOG_TYPE_DEFAULT);
+      if (v15)
       {
-        if (!v40)
+        if (!v29)
         {
           goto LABEL_71;
         }
 
-        v41 = &xmmword_100170388;
+        v30 = &xmmword_100170388;
         while (1)
         {
-          v41 = *v41;
-          if (!v41)
+          v30 = *v30;
+          if (!v30)
           {
             break;
           }
 
-          v42 = v41;
-          if (*(v41 + 444) == v20)
+          v31 = v30;
+          if (*(v30 + 444) == v15)
           {
             goto LABEL_41;
           }
         }
 
-        v42 = 0;
+        v31 = 0;
 LABEL_41:
-        v49 = v42 + 3606;
-        *v102 = 67240450;
-        if (v41)
+        v38 = v31 + 3606;
+        *v75 = 67240450;
+        if (v30)
         {
-          v50 = v49;
+          v39 = v38;
         }
 
         else
         {
-          v50 = 0;
+          v39 = 0;
         }
 
-        *&v102[4] = 2;
-        *&v102[8] = 2082;
-        *&v102[10] = v50;
-        v43 = v39;
-        v44 = "ConfigSearchDomains: Ignoring search domains for interface -- scope type: %{public, mdnsresponder:dns_scope_type}u, ifname: %{public}s";
-        v45 = 18;
+        *&v75[4] = 2;
+        *&v75[8] = 2082;
+        *&v75[10] = v39;
+        v32 = v28;
+        v33 = "ConfigSearchDomains: Ignoring search domains for interface -- scope type: %{public, mdnsresponder:dns_scope_type}u, ifname: %{public}s";
+        v34 = 18;
       }
 
       else
       {
-        if (!v40)
+        if (!v29)
         {
           goto LABEL_71;
         }
 
-        *v102 = 67240192;
-        *&v102[4] = 2;
-        v43 = v39;
-        v44 = "ConfigSearchDomains: Ignoring search domains for interface -- scope type: %{public, mdnsresponder:dns_scope_type}u";
-        v45 = 8;
+        *v75 = 67240192;
+        *&v75[4] = 2;
+        v32 = v28;
+        v33 = "ConfigSearchDomains: Ignoring search domains for interface -- scope type: %{public, mdnsresponder:dns_scope_type}u";
+        v34 = 8;
       }
 
-      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, v44, v102, v45);
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, v33, v75, v34);
 LABEL_71:
-      v5 = v27;
-      v8 = v22;
+      v5 = v22;
+      v8 = v17;
       if (!a4)
       {
         goto LABEL_76;
       }
 
 LABEL_72:
-      if (*(v11 + 20) != 5353 && *(v11 + 8))
+      if (*(v11 + 10) != 5353 && *(v11 + 2))
       {
         goto LABEL_76;
       }
 
-      v62 = *(v11 + 48);
-      if (!v62)
+      v51 = v11[6];
+      if (!v51)
       {
         goto LABEL_76;
       }
 
-      v63 = strlen(*(v11 + 48));
-      if (strncmp(v62, "mdns", v63))
+      v52 = strlen(v11[6]);
+      if (strncmp(v51, "mdns", v52))
       {
         goto LABEL_76;
       }
 
-      v129 = 0u;
-      v130 = 0u;
-      v127 = 0u;
-      v128 = 0u;
-      v125 = 0u;
-      v126 = 0u;
-      v123 = 0u;
-      v124 = 0u;
-      v121 = 0u;
-      v122 = 0u;
-      v119 = 0u;
-      v120 = 0u;
-      v118 = 0u;
+      v102 = 0u;
+      v103 = 0u;
+      v100 = 0u;
+      v101 = 0u;
+      v98 = 0u;
+      v99 = 0u;
+      v96 = 0u;
+      v97 = 0u;
+      v94 = 0u;
+      v95 = 0u;
+      v92 = 0u;
+      v93 = 0u;
+      v91 = 0u;
       *buf = 0u;
-      memset(v117, 0, sizeof(v117));
-      if (!AppendDNSNameString(buf, *v11, v64, v65, v66, v67, v68, v69))
+      memset(v90, 0, sizeof(v90));
+      if (!AppendDNSNameString(buf, *v11))
       {
-        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "ConfigNonUnicastResolver: config->resolver bad domain %s", v70, v71, v72, v73, v74, *v11);
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "ConfigNonUnicastResolver: config->resolver bad domain %s", *v11);
         goto LABEL_76;
       }
 
-      v75 = *(v11 + 56);
-      v76 = mDNSLogCategory_Default;
+      v53 = *(v11 + 14);
+      v54 = mDNSLogCategory_Default;
       if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
       {
         if (os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEBUG))
         {
-          v80 = buf;
+          v58 = buf;
           while (1)
           {
-            if (!v80 || (v81 = *v80, v81 > 0x3F))
+            if (!v58 || (v59 = *v58, v59 > 0x3F))
             {
 LABEL_95:
-              v79 = 257;
+              v57 = 257;
               goto LABEL_98;
             }
 
-            if (!*v80)
+            if (!*v58)
             {
               break;
             }
 
-            v80 += v81 + 1;
-            if (v80 - buf >= 256)
+            v58 += v59 + 1;
+            if (v58 - buf >= 256)
             {
               goto LABEL_95;
             }
           }
 
-          v79 = (v80 - buf + 1);
+          v57 = (v58 - buf + 1);
           goto LABEL_98;
         }
       }
 
       else
       {
-        v76 = mDNSLogCategory_Default_redacted;
+        v54 = mDNSLogCategory_Default_redacted;
         if (os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEBUG))
         {
-          v77 = buf;
+          v55 = buf;
           while (1)
           {
-            if (!v77 || (v78 = *v77, v78 > 0x3F))
+            if (!v55 || (v56 = *v55, v56 > 0x3F))
             {
 LABEL_87:
-              v79 = 257;
+              v57 = 257;
               goto LABEL_98;
             }
 
-            if (!*v77)
+            if (!*v55)
             {
               break;
             }
 
-            v77 += v78 + 1;
-            if (v77 - buf >= 256)
+            v55 += v56 + 1;
+            if (v55 - buf >= 256)
             {
               goto LABEL_87;
             }
           }
 
-          v79 = (v77 - buf + 1);
+          v57 = (v55 - buf + 1);
 LABEL_98:
-          *v102 = 68158466;
-          *&v102[4] = v79;
-          *&v102[8] = 2098;
-          *&v102[10] = buf;
-          *&v102[18] = 2048;
-          *&v102[20] = 0;
-          *&v102[28] = 1024;
-          *&v102[30] = v75;
-          _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEBUG, "mDNS_AddMcastResolver: Adding %{public, mdnsresponder:domain_name}.*P, InterfaceID %p, timeout %u", v102, 0x22u);
+          *v75 = 68158466;
+          *&v75[4] = v57;
+          *&v75[8] = 2098;
+          *&v75[10] = buf;
+          *&v75[18] = 2048;
+          *&v75[20] = 0;
+          *&v75[28] = 1024;
+          *&v75[30] = v53;
+          _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEBUG, "mDNS_AddMcastResolver: Adding %{public, mdnsresponder:domain_name}.*P, InterfaceID %p, timeout %u", v75, 0x22u);
         }
       }
 
       mDNS_VerifyLockState("Check Lock", 1, dword_10016D248, dword_10016D24C, "mDNS_AddMcastResolver", 14300);
-      v82 = qword_1001703A8;
+      v60 = qword_1001703A8;
       if (qword_1001703A8)
       {
-        v83 = 0;
-        v84 = &qword_1001703A8;
+        v61 = 0;
+        v62 = &qword_1001703A8;
         do
         {
-          if (*(v82 + 8) || (v85 = SameDomainNameBytes((v82 + 20), buf), v82 = *v84, !v85))
+          if (*(v60 + 8) || (v63 = SameDomainNameBytes((v60 + 20), buf), v60 = *v62, !v63))
           {
-            v84 = v82;
+            v62 = v60;
           }
 
           else
           {
-            v91 = *(v82 + 16);
-            if ((v91 & 1) == 0)
+            v64 = *(v60 + 16);
+            if ((v64 & 1) == 0)
             {
-              LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "Note: Mcast Resolver domain %##s (%p) registered more than once", v86, v87, v88, v89, v90, buf);
-              v82 = *v84;
-              v91 = *(*v84 + 16);
+              LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "Note: Mcast Resolver domain %##s (%p) registered more than once", buf, 0);
+              v60 = *v62;
+              v64 = *(*v62 + 16);
             }
 
-            *(v82 + 16) = v91 & 0xFFFFFFFE;
-            *v84 = *v82;
-            *v82 = 0;
-            v83 = v82;
+            *(v60 + 16) = v64 & 0xFFFFFFFE;
+            *v62 = *v60;
+            *v60 = 0;
+            v61 = v60;
           }
 
-          v82 = *v84;
+          v60 = *v62;
         }
 
-        while (*v84);
-        if (v83)
+        while (*v62);
+        if (v61)
         {
-          *v84 = v83;
+          *v62 = v61;
           goto LABEL_76;
         }
       }
 
       else
       {
-        v84 = (&dword_10016D248 + &loc_100003160);
+        v62 = (&dword_10016D248 + &loc_100003160);
       }
 
-      v92 = malloc_type_calloc(1uLL, 0x118uLL, 0x6FC8FA58uLL);
-      if (!v92)
+      v65 = malloc_type_calloc(1uLL, 0x118uLL, 0x6FC8FA58uLL);
+      if (!v65)
       {
         __break(1u);
         return;
       }
 
-      *v84 = v92;
-      v92[1] = 0;
-      v93 = *v84;
-      v93[4] = 2;
-      v93[69] = v75;
-      v94 = buf;
+      *v62 = v65;
+      v65[1] = 0;
+      v66 = *v62;
+      v66[4] = 2;
+      v66[69] = v53;
+      v67 = buf;
       do
       {
-        if (!v94)
+        if (!v67)
         {
           break;
         }
 
-        v95 = *v94;
-        if (v95 > 0x3F)
+        v68 = *v67;
+        if (v68 > 0x3F)
         {
           break;
         }
 
-        if (!*v94)
+        if (!*v67)
         {
-          v96 = v94 - buf + 1;
-          if (v96 <= 0x100u)
+          v69 = v67 - buf + 1;
+          if (v69 <= 0x100u)
           {
-            memcpy(v93 + 5, buf, v96);
+            memcpy(v66 + 5, buf, v69);
             goto LABEL_121;
           }
 
           break;
         }
 
-        v94 += v95 + 1;
+        v67 += v68 + 1;
       }
 
-      while (v94 - buf <= 255);
-      *(v93 + 20) = 0;
+      while (v67 - buf <= 255);
+      *(v66 + 20) = 0;
 LABEL_121:
-      **v84 = 0;
+      **v62 = 0;
 LABEL_76:
-      if (++v10 == v99)
+      if (++v10 == v72)
       {
         return;
       }
     }
 
-    v28 = *(v23 + 24);
-    if (v28 < 1)
+    v23 = *(v18 + 24);
+    if (v23 < 1)
     {
       goto LABEL_71;
     }
 
-    v29 = mDNSLogCategory_State;
-    v30 = os_log_type_enabled(mDNSLogCategory_State, OS_LOG_TYPE_DEFAULT);
-    if (v26)
+    v24 = mDNSLogCategory_State;
+    v25 = os_log_type_enabled(mDNSLogCategory_State, OS_LOG_TYPE_DEFAULT);
+    if (v21)
     {
-      if (!v30)
+      if (!v25)
       {
         goto LABEL_52;
       }
 
-      v37 = &xmmword_100170388;
+      v26 = &xmmword_100170388;
       while (1)
       {
-        v37 = *v37;
-        if (!v37)
+        v26 = *v26;
+        if (!v26)
         {
           break;
         }
 
-        v38 = v37;
-        if (*(v37 + 444) == v26)
+        v27 = v26;
+        if (*(v26 + 444) == v21)
         {
           goto LABEL_47;
         }
       }
 
-      v38 = 0;
+      v27 = 0;
 LABEL_47:
-      v51 = v38 + 3606;
-      *v102 = 67109890;
-      if (v37)
+      v40 = v27 + 3606;
+      *v75 = 67109890;
+      if (v26)
       {
-        v52 = v51;
+        v41 = v40;
       }
 
       else
       {
-        v52 = 0;
+        v41 = 0;
       }
 
-      *&v102[4] = v28;
-      *&v102[8] = 1026;
-      *&v102[10] = v27;
-      *&v102[14] = 2048;
-      *&v102[16] = v24;
-      *&v102[24] = 2082;
-      *&v102[26] = v52;
-      v46 = v29;
-      v47 = "ConfigSearchDomains: configuring search domains -- count: %d, scope type: %{public, mdnsresponder:dns_scope_type}u, generation: %llu, ifname: %{public}s";
-      v48 = 34;
+      *&v75[4] = v23;
+      *&v75[8] = 1026;
+      *&v75[10] = v22;
+      *&v75[14] = 2048;
+      *&v75[16] = v19;
+      *&v75[24] = 2082;
+      *&v75[26] = v41;
+      v35 = v24;
+      v36 = "ConfigSearchDomains: configuring search domains -- count: %d, scope type: %{public, mdnsresponder:dns_scope_type}u, generation: %llu, ifname: %{public}s";
+      v37 = 34;
     }
 
     else
     {
-      if (!v30)
+      if (!v25)
       {
         goto LABEL_52;
       }
 
-      *v102 = 67109632;
-      *&v102[4] = v28;
-      *&v102[8] = 1026;
-      *&v102[10] = v27;
-      *&v102[14] = 2048;
-      *&v102[16] = v24;
-      v46 = v29;
-      v47 = "ConfigSearchDomains: configuring search domains -- count: %d, scope type: %{public, mdnsresponder:dns_scope_type}u, generation: %llu";
-      v48 = 24;
+      *v75 = 67109632;
+      *&v75[4] = v23;
+      *&v75[8] = 1026;
+      *&v75[10] = v22;
+      *&v75[14] = 2048;
+      *&v75[16] = v19;
+      v35 = v24;
+      v36 = "ConfigSearchDomains: configuring search domains -- count: %d, scope type: %{public, mdnsresponder:dns_scope_type}u, generation: %llu";
+      v37 = 24;
     }
 
-    _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, v47, v102, v48);
+    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, v36, v75, v37);
 LABEL_52:
-    if (*(v23 + 24) >= 1)
+    if (*(v18 + 24) >= 1)
     {
-      v53 = 0;
+      v42 = 0;
       do
       {
-        v54 = *(*(v23 + 28) + 8 * v53);
+        v43 = *(*(v18 + 28) + 8 * v42);
         buf[0] = 0;
-        appended = AppendDNSNameString(buf, v54, v31, v32, v33, v34, v35, v36);
-        v56 = mDNSLogCategory_State;
+        appended = AppendDNSNameString(buf, v43);
+        v45 = mDNSLogCategory_State;
         if (appended)
         {
           if (os_log_type_enabled(mDNSLogCategory_State, OS_LOG_TYPE_DEFAULT))
           {
-            v57 = buf;
+            v46 = buf;
             while (1)
             {
-              if (!v57 || (v58 = *v57, v58 > 0x3F))
+              if (!v46 || (v47 = *v46, v47 > 0x3F))
               {
 LABEL_61:
-                v59 = 257;
+                v48 = 257;
                 goto LABEL_65;
               }
 
-              if (!*v57)
+              if (!*v46)
               {
                 break;
               }
 
-              v57 += v58 + 1;
-              if (v57 - buf >= 256)
+              v46 += v47 + 1;
+              if (v46 - buf >= 256)
               {
                 goto LABEL_61;
               }
             }
 
-            v59 = (v57 - buf + 1);
+            v48 = (v46 - buf + 1);
 LABEL_65:
-            *v102 = 141558531;
-            *&v102[4] = 1752392040;
-            *&v102[12] = 1040;
-            *&v102[14] = v59;
-            *&v102[18] = 2101;
-            *&v102[20] = buf;
-            _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "ConfigSearchDomains -- search domain: %{sensitive, mask.hash, mdnsresponder:domain_name}.*P", v102, 0x1Cu);
+            *v75 = 141558531;
+            *&v75[4] = 1752392040;
+            *&v75[12] = 1040;
+            *&v75[14] = v48;
+            *&v75[18] = 2101;
+            *&v75[20] = buf;
+            _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "ConfigSearchDomains -- search domain: %{sensitive, mask.hash, mdnsresponder:domain_name}.*P", v75, 0x1Cu);
           }
 
-          UpdateSearchDomainHash(a5, *(*(v23 + 28) + 8 * v53), v26);
-          v114 = 0u;
-          v115 = 0u;
-          v112 = 0u;
-          v113 = 0u;
-          v110 = 0u;
-          v111 = 0u;
-          v108 = 0u;
-          v109 = 0u;
-          v106 = 0u;
-          v107 = 0u;
-          v104 = 0u;
-          v105 = 0u;
-          v103 = 0u;
-          memset(v102, 0, sizeof(v102));
-          v61 = *(*(v23 + 28) + 8 * v53);
-          if (v61 && AppendDNSNameString(v102, v61, v31, v32, v33, v34, v35, v36) && v102[0])
+          UpdateSearchDomainHash(a5, *(*(v18 + 28) + 8 * v42), v21);
+          v87 = 0u;
+          v88 = 0u;
+          v85 = 0u;
+          v86 = 0u;
+          v83 = 0u;
+          v84 = 0u;
+          v81 = 0u;
+          v82 = 0u;
+          v79 = 0u;
+          v80 = 0u;
+          v77 = 0u;
+          v78 = 0u;
+          v76 = 0u;
+          memset(v75, 0, sizeof(v75));
+          v50 = *(*(v18 + 28) + 8 * v42);
+          if (v50 && AppendDNSNameString(v75, v50) && v75[0])
           {
-            mDNS_AddSearchDomain(v102, v26);
+            mDNS_AddSearchDomain(v75, v21);
           }
         }
 
         else if (os_log_type_enabled(mDNSLogCategory_State, OS_LOG_TYPE_ERROR))
         {
-          v60 = *(v23 + 8);
-          *v102 = 67109376;
-          *&v102[4] = v53;
-          *&v102[8] = 1024;
-          *&v102[10] = v60;
-          _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "ConfigSearchDomains: An invalid search domain was detected -- index: %d, name server count: %d", v102, 0xEu);
+          v49 = *(v18 + 8);
+          *v75 = 67109376;
+          *&v75[4] = v42;
+          *&v75[8] = 1024;
+          *&v75[10] = v49;
+          _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "ConfigSearchDomains: An invalid search domain was detected -- index: %d, name server count: %d", v75, 0xEu);
         }
 
-        ++v53;
+        ++v42;
       }
 
-      while (v53 < *(v23 + 24));
+      while (v42 < *(v18 + 24));
     }
 
     goto LABEL_71;
@@ -7250,72 +7390,72 @@ uint64_t compare_dns_configs(uint64_t a1, uint64_t a2)
   }
 }
 
-void mDNSPlatformDynDNSHostNameStatusChanged(unsigned __int8 *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void mDNSPlatformDynDNSHostNameStatusChanged(unsigned __int8 *a1, uint64_t a2)
 {
   valuePtr = a2;
   if (mDNS_LoggingEnabled == 1)
   {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformDynDNSHostNameStatusChanged %d %##s", a4, a5, a6, a7, a8, a2);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformDynDNSHostNameStatusChanged %d %##s", a2, a1);
   }
 
   bzero(&cStr, 0x3F1uLL);
   ConvertDomainNameToCString_withescape(a1, &cStr);
-  LOBYTE(v9) = cStr;
+  LOBYTE(v3) = cStr;
   if (cStr)
   {
-    v10 = &v43;
+    v4 = &v20;
     do
     {
-      v11 = __tolower(v9);
-      v9 = *v10;
-      if (v11 == 46 && v9 == 0)
+      v5 = __tolower(v3);
+      v3 = *v4;
+      if (v5 == 46 && v3 == 0)
       {
-        v13 = 0;
+        v7 = 0;
       }
 
       else
       {
-        v13 = v11;
+        v7 = v5;
       }
 
-      *(v10++ - 1) = v13;
+      *(v4++ - 1) = v7;
     }
 
-    while (v9);
+    while (v3);
   }
 
-  v41 = @"HostNames";
-  v14 = CFStringCreateWithCString(0, &cStr, 0x8000100u);
+  v18 = @"HostNames";
+  v8 = CFStringCreateWithCString(0, &cStr, 0x8000100u);
   keys = @"Status";
-  v40 = v14;
-  if (!v14)
+  v17 = v8;
+  if (!v8)
   {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "SetDDNSNameStatus: CFStringCreateWithCString(%s) failed", v15, v16, v17, v18, v19, &cStr);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "SetDDNSNameStatus: CFStringCreateWithCString(%s) failed", &cStr);
     return;
   }
 
-  v20 = v14;
+  v9 = v8;
   values = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
   if (!values)
   {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "SetDDNSNameStatus: CFNumberCreate(%d) failed", v21, v22, v23, v24, v25, valuePtr);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "SetDDNSNameStatus: CFNumberCreate(%d) failed", valuePtr);
 LABEL_28:
-    CFRelease(v20);
+    CFRelease(v9);
     return;
   }
 
-  v37 = CFDictionaryCreate(0, &keys, &values, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  if (v37)
+  v14 = CFDictionaryCreate(0, &keys, &values, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  if (v14)
   {
-    cf = CFDictionaryCreate(0, &v40, &v37, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    cf = CFDictionaryCreate(0, &v17, &v14, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     if (cf)
     {
-      v26 = CFDictionaryCreate(0, &v41, &cf, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-      if (v26)
+      v10 = CFDictionaryCreate(0, &v18, &cf, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+      if (v10)
       {
-        v33 = v26;
-        mDNSDynamicStoreSetConfig(2, v26, v27, v28, v29, v30, v31, v32, v34);
-        CFRelease(v33);
+        v11 = v10;
+        mDNSDynamicStoreSetConfig(2, v10);
+        CFRelease(v11);
       }
 
       if (cf)
@@ -7325,10 +7465,10 @@ LABEL_28:
       }
     }
 
-    if (v37)
+    if (v14)
     {
-      CFRelease(v37);
-      v37 = 0;
+      CFRelease(v14);
+      v14 = 0;
     }
   }
 
@@ -7338,8 +7478,8 @@ LABEL_28:
     values = 0;
   }
 
-  v20 = v40;
-  if (v40)
+  v9 = v17;
+  if (v17)
   {
     goto LABEL_28;
   }
@@ -7467,7 +7607,7 @@ LABEL_22:
   return v5;
 }
 
-uint64_t CountProxyRecords(_DWORD *a1)
+uint64_t CountProxyRecords(int *a1)
 {
   *a1 = 0;
   v1 = xmmword_100170360;
@@ -7506,12 +7646,14 @@ LABEL_13:
 
       v7 = (v5 - v4 + 1);
 LABEL_15:
-      *a1 += *(v1 + 11) + v7 + 10;
+      v8 = *(v1 + 11) + v7 + 10;
+      v9 = v8 + *a1;
+      *a1 = v9;
       if (mDNS_LoggingEnabled == 1)
       {
-        v8 = mDNSLogCategory_Default;
+        v10 = mDNSLogCategory_Default;
         GetRRDisplayString_rdb(v1 + 8, (*(v1 + 6) + 4), word_1001789D0);
-        LogMsgWithLevel(v8, OS_LOG_TYPE_DEFAULT, "CountProxyRecords: %3u size %5u total %5u %s", v9, v10, v11, v12, v13, v3);
+        LogMsgWithLevel(v10, OS_LOG_TYPE_DEFAULT, "CountProxyRecords: %3u size %5u total %5u %s", v3, v8, v9, word_1001789D0);
       }
 
       v3 = (v3 + 1);
@@ -7524,62 +7666,66 @@ LABEL_15:
   return v3;
 }
 
-void GetProxyRecords(unint64_t a1, _DWORD *a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void GetProxyRecords(unint64_t a1, _DWORD *a2, uint64_t a3, unsigned int *a4)
 {
-  v8 = a4;
-  v10 = a1 + 12;
-  v11 = *a2;
+  v4 = a4;
+  v6 = a1 + 12;
+  v7 = *a2;
   *a1 = 0;
   *(a1 + 4) = 0;
-  v12 = xmmword_100170360;
+  v8 = xmmword_100170360;
   if (xmmword_100170360)
   {
-    v15 = 0;
-    v16 = a1 + 12;
-    v24 = v11;
+    v11 = 0;
+    v12 = (a1 + 12);
+    v18 = v7;
     do
     {
-      if ((*(v12 + 123) & 1) == 0 && *(v12 + 8) >= 2u && !v12[4] && (*(v12 + 122) || IsLocalDomain(v12[5])))
+      if ((*(v8 + 123) & 1) == 0 && *(v8 + 8) >= 2u && !v8[4] && (*(v8 + 122) || IsLocalDomain(v8[5])))
       {
-        *(a3 + 8 * v15) = v16;
-        if ((v12[1] & 0x32) != 0)
+        *(a3 + 8 * v11) = v12;
+        if ((v8[1] & 0x32) != 0)
         {
-          *(v12 + 7) |= 0x8000u;
+          *(v8 + 7) |= 0x8000u;
         }
 
-        v16 = PutResourceRecordTTLWithLimit(a1, v16, (a1 + 8), (v12 + 1), *(v12 + 4), v10 + v11, a7, a8);
-        *(v12 + 7) &= ~0x8000u;
+        v13 = PutResourceRecordTTLWithLimit(a1, v12, (a1 + 8), (v8 + 1), *(v8 + 4), v6 + v7);
+        v12 = v13;
+        *(v8 + 7) &= ~0x8000u;
         if (mDNS_LoggingEnabled == 1)
         {
-          v17 = v10;
-          v18 = *(a3 + 8 * v15);
-          v26 = mDNSLogCategory_Default;
-          GetRRDisplayString_rdb(v12 + 8, (v12[6] + 4), word_1001789D0);
-          v8 = a4;
-          v10 = v17;
-          v11 = v24;
-          LogMsgWithLevel(v26, OS_LOG_TYPE_DEFAULT, "GetProxyRecords: %3d start %p end %p size %5d total %5d %s", v19, v20, v21, v22, v23, v15);
+          v14 = v6;
+          v15 = *(a3 + 8 * v11);
+          v20 = v13 - v15;
+          v21 = mDNSLogCategory_Default;
+          GetRRDisplayString_rdb(v8 + 8, (v8[6] + 4), word_1001789D0);
+          v17 = v12 - v14;
+          v4 = a4;
+          v16 = v15;
+          v6 = v14;
+          v7 = v18;
+          LogMsgWithLevel(v21, OS_LOG_TYPE_DEFAULT, "GetProxyRecords: %3d start %p end %p size %5d total %5d %s", v11, v16, v12, v20, v17, word_1001789D0);
         }
 
-        ++v15;
+        ++v11;
       }
 
-      v12 = *v12;
+      v8 = *v8;
     }
 
-    while (v12);
+    while (v8);
   }
 
   else
   {
-    v15 = 0;
-    LODWORD(v16) = a1 + 12;
+    v11 = 0;
+    LODWORD(v12) = a1 + 12;
   }
 
-  *a2 = v16 - v10;
-  if (v8)
+  *a2 = v12 - v6;
+  if (v4)
   {
-    *v8 = v15;
+    *v4 = v11;
   }
 }
 
@@ -7686,28 +7832,28 @@ _BYTE *GetRandomUUIDLocalHostname(_BYTE *a1)
   return AppendLiteralLabelString(a1, "local");
 }
 
-void SetLocalDomains(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+void SetLocalDomains()
 {
   Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
   if (Mutable)
   {
-    v15 = Mutable;
+    v1 = Mutable;
     CFArrayAppendValue(Mutable, @"local");
-    CFArrayAppendValue(v15, @"254.169.in-addr.arpa");
-    CFArrayAppendValue(v15, @"8.e.f.ip6.arpa");
-    CFArrayAppendValue(v15, @"9.e.f.ip6.arpa");
-    CFArrayAppendValue(v15, @"a.e.f.ip6.arpa");
-    CFArrayAppendValue(v15, @"b.e.f.ip6.arpa");
-    mDNSDynamicStoreSetConfig(1, v15, v16, v17, v18, v19, v20, v21, v23);
+    CFArrayAppendValue(v1, @"254.169.in-addr.arpa");
+    CFArrayAppendValue(v1, @"8.e.f.ip6.arpa");
+    CFArrayAppendValue(v1, @"9.e.f.ip6.arpa");
+    CFArrayAppendValue(v1, @"a.e.f.ip6.arpa");
+    CFArrayAppendValue(v1, @"b.e.f.ip6.arpa");
+    mDNSDynamicStoreSetConfig(1, v1);
 
-    CFRelease(v15);
+    CFRelease(v1);
   }
 
   else
   {
-    v22 = mDNSLogCategory_Default;
+    v2 = mDNSLogCategory_Default;
 
-    LogMsgWithLevel(v22, OS_LOG_TYPE_DEFAULT, "SetLocalDomains: CFArrayCreateMutable failed", v10, v11, v12, v13, v14, a9);
+    LogMsgWithLevel(v2, OS_LOG_TYPE_DEFAULT, "SetLocalDomains: CFArrayCreateMutable failed");
   }
 }
 
@@ -7769,22 +7915,22 @@ LABEL_13:
   __memcpy_chk();
 LABEL_14:
   memcpy((*(v9 + 48) + 4), a3, a4);
-  v19 = mDNS_Register_internal(mDNSStorage, v9, v13, v14, v15, v16, v17, v18);
-  if (v19)
+  v13 = mDNS_Register_internal(mDNSStorage, v9);
+  if (v13)
   {
-    v20 = v19;
-    v21 = mDNSLogCategory_Default;
+    v14 = v13;
+    v15 = mDNSLogCategory_Default;
     GetRRDisplayString_rdb((v9 + 8), (*(v9 + 48) + 4), word_1001789D0);
-    LogMsgWithLevel(v21, OS_LOG_TYPE_DEFAULT, "RegisterLocalOnlyAddressRecord: mDNS_Register error %d registering %s", v22, v23, v24, v25, v26, v20);
+    LogMsgWithLevel(v15, OS_LOG_TYPE_DEFAULT, "RegisterLocalOnlyAddressRecord: mDNS_Register error %d registering %s", v14, word_1001789D0);
 
     free(v9);
   }
 }
 
-void mDNSMacOSXUpdateEtcHosts_internal()
+void mDNSMacOSXUpdateEtcHosts_internal(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  __chkstk_darwin();
-  bzero(v97, 0xFB0uLL);
+  __chkstk_darwin(a1, a2, a3, a4, a5, a6, a7, a8);
+  bzero(v48, 0xFB0uLL);
   if (!mDNSMacOSXGetEtcHostsFD_etcq)
   {
     mDNSMacOSXGetEtcHostsFD_etcq = &_dispatch_main_q;
@@ -7792,91 +7938,79 @@ void mDNSMacOSXUpdateEtcHosts_internal()
     goto LABEL_89;
   }
 
-  v0 = mDNSMacOSXGetEtcHostsFD_hostssrc;
+  v8 = mDNSMacOSXGetEtcHostsFD_hostssrc;
   if (mDNSMacOSXGetEtcHostsFD_hostssrc)
   {
     goto LABEL_3;
   }
 
-  v71 = open("/etc/hosts", 0);
-  if (v71 == -1)
+  v37 = open("/etc/hosts", 0);
+  if (v37 == -1)
   {
     if (mDNSMacOSXGetEtcHostsFD_etcsrc)
     {
       if (mDNS_LoggingEnabled != 1)
       {
-        goto LABEL_104;
+        goto LABEL_103;
       }
 
-      v91 = mDNSLogCategory_Default;
-      v92 = "mDNSMacOSXGetEtcHostsFD: Returning etcfd because no etchosts";
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXGetEtcHostsFD: Returning etcfd because no etchosts");
+      goto LABEL_89;
     }
 
-    else
+    v45 = open("/etc", 0);
+    if (v45 == -1)
     {
-      v93 = open("/etc", 0);
-      if (v93 == -1)
+      if (mDNS_LoggingEnabled != 1)
       {
-        if (mDNS_LoggingEnabled != 1)
-        {
-          goto LABEL_104;
-        }
-
-        v91 = mDNSLogCategory_Default;
-        v92 = "mDNSMacOSXGetEtcHostsFD: etc does not exist";
+        goto LABEL_103;
       }
 
-      else
-      {
-        v77 = v93;
-        v94 = dispatch_source_create(&_dispatch_source_type_vnode, v93, 0x23uLL, mDNSMacOSXGetEtcHostsFD_etcq);
-        mDNSMacOSXGetEtcHostsFD_etcsrc = v94;
-        if (!v94)
-        {
-          goto LABEL_126;
-        }
-
-        dispatch_source_set_event_handler(v94, &__block_literal_global_493);
-        v102[0] = _NSConcreteStackBlock;
-        v102[1] = 0x40000000;
-        v102[2] = __mDNSMacOSXGetEtcHostsFD_block_invoke_4;
-        v102[3] = &__block_descriptor_tmp_498;
-        v103 = v77;
-        dispatch_source_set_cancel_handler(mDNSMacOSXGetEtcHostsFD_etcsrc, v102);
-        dispatch_resume(mDNSMacOSXGetEtcHostsFD_etcsrc);
-        v71 = open("/etc/hosts", 0x8000);
-        if (v71 != -1)
-        {
-          goto LABEL_92;
-        }
-
-        v91 = mDNSLogCategory_Default;
-        v92 = "mDNSMacOSXGetEtcHostsFD etc hosts does not exist, watching etc";
-      }
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXGetEtcHostsFD: etc does not exist");
+      goto LABEL_89;
     }
 
-    LogMsgWithLevel(v91, OS_LOG_TYPE_DEFAULT, v92, v72, v73, v74, v75, v76, v95);
-    goto LABEL_89;
+    v38 = v45;
+    v46 = dispatch_source_create(&_dispatch_source_type_vnode, v45, 0x23uLL, mDNSMacOSXGetEtcHostsFD_etcq);
+    mDNSMacOSXGetEtcHostsFD_etcsrc = v46;
+    if (!v46)
+    {
+      goto LABEL_124;
+    }
+
+    dispatch_source_set_event_handler(v46, &__block_literal_global_493);
+    v53[0] = _NSConcreteStackBlock;
+    v53[1] = 0x40000000;
+    v53[2] = __mDNSMacOSXGetEtcHostsFD_block_invoke_4;
+    v53[3] = &__block_descriptor_tmp_498;
+    v54 = v38;
+    dispatch_source_set_cancel_handler(mDNSMacOSXGetEtcHostsFD_etcsrc, v53);
+    dispatch_resume(mDNSMacOSXGetEtcHostsFD_etcsrc);
+    v37 = open("/etc/hosts", 0x8000);
+    if (v37 == -1)
+    {
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXGetEtcHostsFD etc hosts does not exist, watching etc");
+      goto LABEL_89;
+    }
   }
 
-LABEL_92:
-  v77 = v71;
-  v78 = dispatch_source_create(&_dispatch_source_type_vnode, v71, 0x7FuLL, mDNSMacOSXGetEtcHostsFD_etcq);
-  mDNSMacOSXGetEtcHostsFD_hostssrc = v78;
-  if (!v78)
+  v38 = v37;
+  v39 = dispatch_source_create(&_dispatch_source_type_vnode, v37, 0x7FuLL, mDNSMacOSXGetEtcHostsFD_etcq);
+  mDNSMacOSXGetEtcHostsFD_hostssrc = v39;
+  if (!v39)
   {
-LABEL_126:
-    close(v77);
+LABEL_124:
+    close(v38);
     goto LABEL_89;
   }
 
-  dispatch_source_set_event_handler(v78, &__block_literal_global_502);
-  *&v121 = _NSConcreteStackBlock;
-  *(&v121 + 1) = 0x40000000;
-  *&v122 = __mDNSMacOSXGetEtcHostsFD_block_invoke_7;
-  *(&v122 + 1) = &__block_descriptor_tmp_508;
-  LODWORD(v123) = v77;
-  dispatch_source_set_cancel_handler(mDNSMacOSXGetEtcHostsFD_hostssrc, &v121);
+  dispatch_source_set_event_handler(v39, &__block_literal_global_502);
+  *&v72 = _NSConcreteStackBlock;
+  *(&v72 + 1) = 0x40000000;
+  *&v73 = __mDNSMacOSXGetEtcHostsFD_block_invoke_7;
+  *(&v73 + 1) = &__block_descriptor_tmp_508;
+  LODWORD(v74) = v38;
+  dispatch_source_set_cancel_handler(mDNSMacOSXGetEtcHostsFD_hostssrc, &v72);
   dispatch_resume(mDNSMacOSXGetEtcHostsFD_hostssrc);
   if (mDNSMacOSXGetEtcHostsFD_etcsrc)
   {
@@ -7890,379 +8024,373 @@ LABEL_126:
 
   if (mDNS_LoggingEnabled == 1)
   {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXGetEtcHostsFD: /etc/hosts being monitored, and not etc", v2, v3, v4, v5, v6, v95);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXGetEtcHostsFD: /etc/hosts being monitored, and not etc");
   }
 
-  v0 = mDNSMacOSXGetEtcHostsFD_hostssrc;
+  v8 = mDNSMacOSXGetEtcHostsFD_hostssrc;
   if (!mDNSMacOSXGetEtcHostsFD_hostssrc)
   {
 LABEL_89:
     if ((mDNS_LoggingEnabled & 1) == 0)
     {
-      goto LABEL_104;
-    }
-
-LABEL_102:
-    v79 = mDNSLogCategory_Default;
-    v80 = "mDNSMacOSXUpdateEtcHosts: /etc/hosts is not present";
-LABEL_103:
-    LogMsgWithLevel(v79, OS_LOG_TYPE_DEFAULT, v80, v2, v3, v4, v5, v6, v95);
-    goto LABEL_104;
-  }
-
-LABEL_3:
-  handle = dispatch_source_get_handle(v0);
-  v7 = &unk_10016D000;
-  if (handle == -1)
-  {
-    if (!mDNS_LoggingEnabled)
-    {
-      goto LABEL_104;
+      goto LABEL_103;
     }
 
     goto LABEL_102;
   }
 
-  if (mDNS_LoggingEnabled)
+LABEL_3:
+  handle = dispatch_source_get_handle(v8);
+  v10 = &unk_10016D000;
+  if (handle == -1)
   {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXUpdateEtcHosts: Parsing /etc/hosts fd %d", v2, v3, v4, v5, v6, handle);
-  }
-
-  v8 = fopen("/etc/hosts", "r");
-  if (!v8)
-  {
-    if (mDNS_LoggingEnabled != 1)
+    if (!mDNS_LoggingEnabled)
     {
-      goto LABEL_104;
+      goto LABEL_103;
     }
 
-    v79 = mDNSLogCategory_Default;
-    v80 = "mDNSMacOSXParseEtcHosts: fp is NULL";
+LABEL_102:
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXUpdateEtcHosts: /etc/hosts is not present");
     goto LABEL_103;
   }
 
-  v9 = v8;
-  bzero(v102, 0x400uLL);
-  while (fgets(v102, 1024, v9))
+  if (mDNS_LoggingEnabled)
   {
-    if (LOBYTE(v102[0]) > 0x23u || ((1 << SLOBYTE(v102[0])) & 0x800002400) == 0)
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXUpdateEtcHosts: Parsing /etc/hosts fd %d", handle);
+  }
+
+  v11 = fopen("/etc/hosts", "r");
+  if (v11)
+  {
+    v12 = v11;
+    bzero(v53, 0x400uLL);
+    while (1)
     {
-      v11 = strlen(v102);
-      if (!v11)
+      while (1)
       {
-        break;
-      }
-
-      v17 = v11 - 1;
-      v18 = *(v102 + v11 - 1);
-      if (v18 == 13 || v18 == 10)
-      {
-        *(v102 + v17) = 0;
-        if (v11 == 1)
+        while (1)
         {
-          goto LABEL_28;
-        }
-
-        v20 = v11 - 2;
-        v18 = *(v102 + v11 - 2);
-      }
-
-      else
-      {
-        v20 = v11 - 1;
-        LODWORD(v17) = v11;
-      }
-
-      v21 = v18 == 13 || v18 == 10;
-      if (!v21 || (*(v102 + v20) = 0, LODWORD(v17) = v20, v20))
-      {
-        for (i = v102; ; ++i)
-        {
-          v23 = *i;
-          if (v23 != 9 && v23 != 32)
-          {
-            break;
-          }
-
-          LODWORD(v17) = v17 - 1;
-        }
-
-        if (v17 < 1)
-        {
-          LODWORD(v24) = 0;
-          v27 = 0;
-        }
-
-        else
-        {
-          v24 = 0;
           while (1)
           {
-            v25 = i[v24];
-            if (v25 <= 0x2C && ((1 << v25) & 0x102100000200) != 0)
+            do
+            {
+              if (!fgets(v53, 1024, v12))
+              {
+LABEL_100:
+                fclose(v12);
+                goto LABEL_103;
+              }
+            }
+
+            while (LOBYTE(v53[0]) <= 0x23u && ((1 << SLOBYTE(v53[0])) & 0x800002400) != 0);
+            v14 = strlen(v53);
+            if (!v14)
+            {
+              goto LABEL_100;
+            }
+
+            v15 = v14 - 1;
+            v16 = *(v53 + v14 - 1);
+            if (v16 == 13 || v16 == 10)
+            {
+              *(v53 + v15) = 0;
+              if (v14 == 1)
+              {
+                goto LABEL_28;
+              }
+
+              v18 = v14 - 2;
+              v16 = *(v53 + v14 - 2);
+            }
+
+            else
+            {
+              v18 = v14 - 1;
+              LODWORD(v15) = v14;
+            }
+
+            if (v16 != 13 && v16 != 10)
             {
               break;
             }
 
-            if (v17 == ++v24)
+            *(v53 + v18) = 0;
+            LODWORD(v15) = v18;
+            if (v18)
             {
-              v27 = 0;
-              LODWORD(v24) = v17;
-              goto LABEL_47;
+              break;
             }
+
+LABEL_28:
+            LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXParseEtcHosts: Length is zero!");
           }
 
-          if (v25 == 37)
+          for (i = v53; ; ++i)
           {
-            v27 = v24 + 1;
+            v21 = *i;
+            if (v21 != 9 && v21 != 32)
+            {
+              break;
+            }
+
+            LODWORD(v15) = v15 - 1;
+          }
+
+          if (v15 < 1)
+          {
+            LODWORD(v22) = 0;
+            v25 = 0;
           }
 
           else
           {
-            v27 = 0;
+            v22 = 0;
+            while (1)
+            {
+              v23 = i[v22];
+              if (v23 <= 0x2C && ((1 << v23) & 0x102100000200) != 0)
+              {
+                break;
+              }
+
+              if (v15 == ++v22)
+              {
+                v25 = 0;
+                LODWORD(v22) = v15;
+                goto LABEL_47;
+              }
+            }
+
+            v25 = v23 == 37 ? v22 + 1 : 0;
+            i[v22] = 0;
           }
 
-          i[v24] = 0;
+LABEL_47:
+          v87 = 0u;
+          v86 = 0u;
+          v85 = 0u;
+          v84 = 0u;
+          v83 = 0u;
+          v82 = 0u;
+          v81 = 0u;
+          v80 = 0u;
+          v79 = 0u;
+          v78 = 0u;
+          v77 = 0u;
+          v76 = 0u;
+          v75 = 0u;
+          v74 = 0u;
+          v73 = 0u;
+          v72 = 0u;
+          memset(v71, 0, sizeof(v71));
+          memset(&v50, 0, sizeof(v50));
+          v50.ai_flags = 4;
+          v49 = 0;
+          if (!getaddrinfo(i, 0, &v50, &v49))
+          {
+            break;
+          }
+
+          if (v10[208] == 1)
+          {
+            LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXParseEtcHostsLine: getaddrinfo returning null");
+          }
         }
 
-LABEL_47:
-        v136 = 0u;
-        v135 = 0u;
-        v134 = 0u;
-        v133 = 0u;
-        v132 = 0u;
-        v131 = 0u;
-        v130 = 0u;
-        v129 = 0u;
-        v128 = 0u;
-        v127 = 0u;
-        v126 = 0u;
-        v125 = 0u;
-        v124 = 0u;
-        v123 = 0u;
-        v122 = 0u;
-        v121 = 0u;
-        memset(v120, 0, sizeof(v120));
-        memset(&v99, 0, sizeof(v99));
-        v99.ai_flags = 4;
-        v98 = 0;
-        if (getaddrinfo(i, 0, &v99, &v98))
+        if (v25)
         {
-          if (v7[208] == 1)
+          v47 = &i[v25];
+          LODWORD(v22) = v15 <= v25 + 1 ? v25 + 1 : v15;
+          v26 = v25 + 1;
+          while (1)
           {
-            LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXParseEtcHostsLine: getaddrinfo returning null", v28, v29, v30, v31, v32, v95);
+            v27 = v26;
+            if (v26 >= v15)
+            {
+              break;
+            }
+
+            v28 = i[v26++];
+            ++v25;
+            v29 = v28 > 0x2C;
+            v30 = (1 << v28) & 0x100100000200;
+            if (!v29 && v30 != 0)
+            {
+              i[v27] = 0;
+              LODWORD(v22) = v25;
+              break;
+            }
           }
         }
 
         else
         {
-          if (v27)
+          v47 = 0;
+        }
+
+        v52 = 0;
+        v51 = 0;
+        v32 = EtcHostsParseOneName((v22 + 1), v15, i, &v52);
+        if (v32 == v15)
+        {
+          v33 = v52;
+          LOBYTE(v72) = 0;
+          if (AppendDNSNameString(&v72, v52))
           {
-            v96 = &i[v27];
-            if (v17 <= v27 + 1)
-            {
-              LODWORD(v24) = v27 + 1;
-            }
-
-            else
-            {
-              LODWORD(v24) = v17;
-            }
-
-            v33 = v27 + 1;
-            while (1)
-            {
-              v34 = v33;
-              if (v33 >= v17)
-              {
-                break;
-              }
-
-              v35 = i[v33++];
-              ++v27;
-              v36 = v35 > 0x2C;
-              v37 = (1 << v35) & 0x100100000200;
-              if (!v36 && v37 != 0)
-              {
-                i[v34] = 0;
-                LODWORD(v24) = v27;
-                break;
-              }
-            }
+            mDNSMacOSXCreateEtcHostsEntry(&v72, v49->ai_addr, 0, v47, v48);
           }
 
           else
           {
-            v96 = 0;
+            LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXParseEtcHostsLine: ERROR!! cannot convert to domain name %s", v33);
           }
 
-          v101 = 0;
-          v100 = 0;
-          v39 = EtcHostsParseOneName((v24 + 1), v17, i, &v101);
-          if (v39 == v17)
-          {
-            v46 = v101;
-            LOBYTE(v121) = 0;
-            if (AppendDNSNameString(&v121, v101, v40, v41, v42, v43, v44, v45))
-            {
-              mDNSMacOSXCreateEtcHostsEntry(&v121, v98->ai_addr, 0, v96, v97, v49, v50, v51);
-            }
+          goto LABEL_83;
+        }
 
-            else
-            {
-              LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXParseEtcHostsLine: ERROR!! cannot convert to domain name %s", v47, v48, v49, v50, v51, v46);
-            }
+        v34 = v32;
+        if (v32 == -1)
+        {
+          goto LABEL_83;
+        }
 
-            goto LABEL_83;
-          }
+        memset(v70, 0, sizeof(v70));
+        v69 = 0u;
+        v68 = 0u;
+        v67 = 0u;
+        v66 = 0u;
+        v65 = 0u;
+        v64 = 0u;
+        v63 = 0u;
+        v62 = 0u;
+        v61 = 0u;
+        v60 = 0u;
+        v59 = 0u;
+        v58 = 0u;
+        v57 = 0u;
+        v56 = 0u;
+        v35 = v52;
+        v55 = 0;
+        if (AppendDNSNameString(&v55, v52))
+        {
+          break;
+        }
 
-          v52 = v39;
-          if (v39 == -1)
-          {
-            goto LABEL_83;
-          }
-
-          memset(v119, 0, sizeof(v119));
-          v118 = 0u;
-          v117 = 0u;
-          v116 = 0u;
-          v115 = 0u;
-          v114 = 0u;
-          v113 = 0u;
-          v112 = 0u;
-          v111 = 0u;
-          v110 = 0u;
-          v109 = 0u;
-          v108 = 0u;
-          v107 = 0u;
-          v106 = 0u;
-          v105 = 0u;
-          v53 = v101;
-          v104 = 0;
-          if (AppendDNSNameString(&v104, v101, v40, v41, v42, v43, v44, v45))
-          {
-            mDNSMacOSXCreateEtcHostsEntry(&v104, v98->ai_addr, 0, v96, v97, v56, v57, v58);
-            if (v52 >= v17)
-            {
-              goto LABEL_81;
-            }
-
-            v59 = 0;
-            while (1)
-            {
-              v52 = EtcHostsParseOneName((v52 + 1), v17, i, &v100);
-              v53 = v100;
-              if (!v100)
-              {
-                break;
-              }
-
-              if (v59 && *i == *v100)
-              {
-                goto LABEL_81;
-              }
-
-              v120[0] = 0;
-              if (!AppendDNSNameString(v120, v100, v60, v61, v62, v63, v64, v65))
-              {
-                goto LABEL_84;
-              }
-
-              if (SameDomainNameBytes(&v104, v120))
-              {
-                if (mDNS_LoggingEnabled == 1)
-                {
-                  LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXParseEtcHostsLine: Ignoring entry with same names first %##s, name2 %##s", v66, v67, v68, v69, v70, &v104);
-                }
-              }
-
-              else if (!mDNSMacOSXCreateEtcHostsEntry(v120, 0, &v104, v96, v97, v68, v69, v70))
-              {
-                goto LABEL_85;
-              }
-
-              ++v59;
-LABEL_80:
-              if (v52 >= v17)
-              {
-                goto LABEL_81;
-              }
-            }
-
-            if (v59)
-            {
-              goto LABEL_80;
-            }
-
-            if (mDNS_LoggingEnabled == 1)
-            {
-              LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXParseEtcHostsLine: White space at the end of %##s", v61, v62, v63, v64, v65, &v104);
-            }
-
-LABEL_81:
-            v7 = &unk_10016D000;
-LABEL_83:
-            freeaddrinfo(v98);
-          }
-
-          else
-          {
 LABEL_84:
-            LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXParseEtcHostsLine: ERROR!! cannot convert to domain name %s", v54, v55, v56, v57, v58, v53);
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXParseEtcHostsLine: ERROR!! cannot convert to domain name %s", v35);
 LABEL_85:
-            freeaddrinfo(v98);
-            v7 = &unk_10016D000;
+        freeaddrinfo(v49);
+        v10 = &unk_10016D000;
+      }
+
+      mDNSMacOSXCreateEtcHostsEntry(&v55, v49->ai_addr, 0, v47, v48);
+      if (v34 >= v15)
+      {
+        goto LABEL_81;
+      }
+
+      v36 = 0;
+      while (1)
+      {
+        v34 = EtcHostsParseOneName((v34 + 1), v15, i, &v51);
+        v35 = v51;
+        if (!v51)
+        {
+          break;
+        }
+
+        if (v36 && *i == *v51)
+        {
+          goto LABEL_81;
+        }
+
+        v71[0] = 0;
+        if (!AppendDNSNameString(v71, v51))
+        {
+          goto LABEL_84;
+        }
+
+        if (SameDomainNameBytes(&v55, v71))
+        {
+          if (mDNS_LoggingEnabled == 1)
+          {
+            LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXParseEtcHostsLine: Ignoring entry with same names first %##s, name2 %##s", &v55, v71);
           }
+        }
+
+        else if (!mDNSMacOSXCreateEtcHostsEntry(v71, 0, &v55, v47, v48))
+        {
+          goto LABEL_85;
+        }
+
+        ++v36;
+LABEL_80:
+        if (v34 >= v15)
+        {
+          goto LABEL_81;
         }
       }
 
-      else
+      if (v36)
       {
-LABEL_28:
-        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXParseEtcHosts: Length is zero!", v12, v13, v14, v15, v16, v95);
+        goto LABEL_80;
       }
+
+      if (mDNS_LoggingEnabled == 1)
+      {
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXParseEtcHostsLine: White space at the end of %##s", &v55);
+      }
+
+LABEL_81:
+      v10 = &unk_10016D000;
+LABEL_83:
+      freeaddrinfo(v49);
     }
   }
 
-  fclose(v9);
-LABEL_104:
-  mDNS_Lock_(mDNSStorage, "mDNSMacOSXUpdateEtcHosts_internal", 7898);
-  if (EtcHostsAddNewEntries(v97, 1) & 1) != 0 || (EtcHostsDeleteOldEntries(v97, 1))
+  if (mDNS_LoggingEnabled == 1)
   {
-    mDNSCoreRestartAddressQueries(0, FlushAllCacheRecords, UpdateEtcHosts, v97);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXParseEtcHosts: fp is NULL");
+  }
+
+LABEL_103:
+  mDNS_Lock_(mDNSStorage, "mDNSMacOSXUpdateEtcHosts_internal", 7898);
+  if (EtcHostsAddNewEntries(v48, 1) & 1) != 0 || (EtcHostsDeleteOldEntries(v48, 1))
+  {
+    mDNSCoreRestartAddressQueries(0, FlushAllCacheRecords, UpdateEtcHosts, v48);
   }
 
   else if (mDNS_LoggingEnabled == 1)
   {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXUpdateEtcHosts: No work", v81, v82, v83, v84, v85, v95);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXUpdateEtcHosts: No work");
   }
 
   for (j = 0; j != 499; ++j)
   {
-    v87 = *&v97[8 * j + 24];
-    if (v87)
+    v41 = *&v48[8 * j + 24];
+    if (v41)
     {
       do
       {
-        v88 = *v87;
-        v89 = v87[2];
-        if (v89)
+        v42 = *v41;
+        v43 = v41[2];
+        if (v43)
         {
           do
           {
-            v90 = *v89;
-            free(v89);
-            v89 = v90;
+            v44 = *v43;
+            free(v43);
+            v43 = v44;
           }
 
-          while (v90);
+          while (v44);
         }
 
-        free(v87);
-        v87 = v88;
+        free(v41);
+        v41 = v42;
       }
 
-      while (v88);
+      while (v42);
     }
   }
 
@@ -8271,16 +8399,16 @@ LABEL_104:
 
 void __mDNSPlatformInit_setup_block_invoke(uint64_t a1)
 {
-  v2 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v2, v3, v4, v5, v6, v7, v8, v9);
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
   mDNS_Lock_(*(a1 + 32), "mDNSPlatformInit_setup_block_invoke", 8406);
   SetNetworkChanged(1000);
   mDNS_Unlock_(*(a1 + 32), "mDNSPlatformInit_setup_block_invoke", 8408);
 
-  KQueueUnlock("util_managed_network_change_handler", v10, v11, v12, v13, v14, v15, v16);
+  KQueueUnlock("util_managed_network_change_handler");
 }
 
-void *CreatePTRRecord(_BYTE *a1)
+char *CreatePTRRecord(_BYTE *a1)
 {
   result = malloc_type_calloc(1uLL, 0x498uLL, 0x3962EBDFuLL);
   if (!result)
@@ -8297,7 +8425,7 @@ void *CreatePTRRecord(_BYTE *a1)
     if (!v4 || (v5 = *v4, v5 > 0x3F))
     {
 LABEL_7:
-      v6 = (v3 + 652);
+      v6 = v3 + 652;
 LABEL_8:
       *v6 = 0;
       goto LABEL_9;
@@ -8315,7 +8443,7 @@ LABEL_8:
     }
   }
 
-  v6 = (v3 + 652);
+  v6 = v3 + 652;
   if ((v4 - a1 + 1) > 0x100u)
   {
     goto LABEL_8;
@@ -8347,15 +8475,15 @@ LABEL_14:
 
   v9 = v7 - "\tlocalhost" + 1;
 LABEL_18:
-  *(v3 + 20) = v9;
-  *(*(v3 + 48) + 4) = 0;
+  *(v3 + 10) = v9;
+  *(*(v3 + 6) + 4) = 0;
   v10 = "\tlocalhost";
   while (2)
   {
     if (!v10 || (v11 = *v10, v11 > 0x3F))
     {
 LABEL_23:
-      v12 = (*(v3 + 48) + 4);
+      v12 = (*(v3 + 6) + 4);
       goto LABEL_24;
     }
 
@@ -8373,7 +8501,7 @@ LABEL_23:
     break;
   }
 
-  v12 = (*(v3 + 48) + 4);
+  v12 = (*(v3 + 6) + 4);
   if ((v10 - "\tlocalhost" + 1) > 0x100u)
   {
 LABEL_24:
@@ -8383,22 +8511,22 @@ LABEL_24:
 
   memcpy(v12, "\tlocalhost", (v10 - "\tlocalhost" + 1));
 LABEL_25:
-  *(v3 + 24) = DomainNameHashValue(*(v3 + 40));
-  SetNewRData(v3 + 8, 0, 0, v13, v14, v15, v16, v17);
+  *(v3 + 6) = DomainNameHashValue(*(v3 + 5));
+  SetNewRData((v3 + 8), 0, 0);
 
   return mDNS_Register(mDNSStorage, v3);
 }
 
-uint64_t __mDNSMacOSXGetEtcHostsFD_block_invoke_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t __mDNSMacOSXGetEtcHostsFD_block_invoke_7(uint64_t a1)
 {
   if (mDNS_LoggingEnabled == 1)
   {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXGetEtcHostsFD: Closing etchosts fd %d", a4, a5, a6, a7, a8, *(a1 + 32));
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXGetEtcHostsFD: Closing etchosts fd %d", *(a1 + 32));
   }
 
-  v9 = *(a1 + 32);
+  v2 = *(a1 + 32);
 
-  return close(v9);
+  return close(v2);
 }
 
 uint64_t EtcHostsParseOneName(uint64_t result, int a2, uint64_t a3, void *a4)
@@ -8465,44 +8593,40 @@ LABEL_13:
   return result;
 }
 
-uint64_t mDNSMacOSXCreateEtcHostsEntry(_BYTE *a1, uint64_t a2, unint64_t a3, char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t mDNSMacOSXCreateEtcHostsEntry(_BYTE *a1, uint64_t a2, unint64_t a3, char *a4, uint64_t a5)
 {
   if (!a1)
   {
-    v22 = mDNSLogCategory_Default;
-    v23 = "mDNSMacOSXCreateEtcHostsEntry: ERROR!! name NULL";
-LABEL_17:
-    LogMsgWithLevel(v22, OS_LOG_TYPE_DEFAULT, v23, a4, a5, a6, a7, a8, v60);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXCreateEtcHostsEntry: ERROR!! name NULL", a4, a5);
     return 0;
   }
 
   if (!(a2 | a3))
   {
-    v22 = mDNSLogCategory_Default;
-    v23 = "mDNSMacOSXCreateEtcHostsEntry: ERROR!! sa and cname both NULL";
-    goto LABEL_17;
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXCreateEtcHostsEntry: ERROR!! sa and cname both NULL", a4, a5);
+    return 0;
   }
 
   if (a2)
   {
-    v12 = *(a2 + 1);
-    if (v12 != 2 && v12 != 30)
+    v10 = *(a2 + 1);
+    if (v10 != 2 && v10 != 30)
     {
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXCreateEtcHostsEntry: ERROR!! sa with bad family %d", a4, a5, a6, a7, a8, *(a2 + 1));
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXCreateEtcHostsEntry: ERROR!! sa with bad family %d", a4, a5);
       return 0;
     }
   }
 
   if (a4)
   {
-    v14 = if_nametoindex(a4);
-    if (!v14)
+    v12 = if_nametoindex(a4);
+    if (!v12)
     {
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXCreateEtcHostsEntry: hosts entry %##s with invalid ifname %s", v15, v16, v17, v18, v19, a1);
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXCreateEtcHostsEntry: hosts entry %##s with invalid ifname %s", v13, v14, a1, a4);
       return 0;
     }
 
-    v20 = v14;
+    v15 = v12;
     if (a2)
     {
       goto LABEL_12;
@@ -8511,66 +8635,66 @@ LABEL_17:
 
   else
   {
-    v20 = -2;
+    v15 = -2;
     if (a2)
     {
 LABEL_12:
       if (*(a2 + 1) == 2)
       {
-        v21 = 1;
+        v16 = 1;
       }
 
       else
       {
-        v21 = 28;
+        v16 = 28;
       }
 
-      goto LABEL_21;
+      goto LABEL_20;
     }
   }
 
-  v21 = 5;
-LABEL_21:
-  v25 = DomainNameHashValue(a1);
-  v26 = AuthGroupForName(a5, v25, a1);
-  if (v26)
+  v16 = 5;
+LABEL_20:
+  v18 = DomainNameHashValue(a1);
+  v19 = AuthGroupForName(a5, v18, a1);
+  if (v19)
   {
-    for (i = v26[2]; i; i = *i)
+    for (i = v19[2]; i; i = *i)
     {
-      if (*(i + 12) == v21)
+      if (*(i + 12) == v16)
       {
-        if (v21 == 28)
+        if (v16 == 28)
         {
-          v33 = *(i + 48);
-          if (v33[1] == *(a2 + 8) && v33[2] == *(a2 + 12) && v33[3] == *(a2 + 16) && v33[4] == *(a2 + 20) && v20 == *(i + 32))
+          v23 = *(i + 48);
+          if (v23[1] == *(a2 + 8) && v23[2] == *(a2 + 12) && v23[3] == *(a2 + 16) && v23[4] == *(a2 + 20) && v15 == *(i + 32))
           {
             if (mDNS_LoggingEnabled == 1)
             {
-              LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXCreateEtcHostsEntry: Same IPv6 address and InterfaceID for name %##s ID %d", v27, v28, v29, v30, v31, a1);
+              LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXCreateEtcHostsEntry: Same IPv6 address and InterfaceID for name %##s ID %d", v20, v21, a1, v15);
             }
 
             return 0;
           }
         }
 
-        else if (v21 == 5)
+        else if (v16 == 5)
         {
           if (SameDomainNameBytes((*(i + 48) + 4), a3))
           {
             if (mDNS_LoggingEnabled == 1)
             {
-              LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXCreateEtcHostsEntry: Same cname %##s for name %##s", v27, v28, v29, v30, v31, a3);
+              LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXCreateEtcHostsEntry: Same cname %##s for name %##s", v20, v21, a3, a1);
             }
 
             return 0;
           }
         }
 
-        else if (*(*(i + 48) + 4) == *(a2 + 4) && v20 == *(i + 32))
+        else if (*(*(i + 48) + 4) == *(a2 + 4) && v15 == *(i + 32))
         {
           if (mDNS_LoggingEnabled == 1)
           {
-            LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXCreateEtcHostsEntry: Same IPv4 address and InterfaceID for name %##s ID %d", v27, v28, v29, v30, v31, a1);
+            LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXCreateEtcHostsEntry: Same IPv4 address and InterfaceID for name %##s ID %d", v20, v21, a1, v15);
           }
 
           return 0;
@@ -8586,16 +8710,114 @@ LABEL_21:
     return result;
   }
 
-  v34 = result;
-  mDNS_SetupResourceRecord(result, 0, v20, v21, 1u, 32, 4, FreeEtcHosts, 0);
-  v35 = a1;
+  v24 = result;
+  mDNS_SetupResourceRecord(result, 0, v15, v16, 1u, 32, 4, FreeEtcHosts, 0);
+  v25 = a1;
+  while (1)
+  {
+    if (!v25 || (v26 = *v25, v26 > 0x3F))
+    {
+LABEL_42:
+      v27 = (v24 + 652);
+      goto LABEL_43;
+    }
+
+    if (!*v25)
+    {
+      break;
+    }
+
+    v25 += v26 + 1;
+    if (v25 - a1 >= 256)
+    {
+      goto LABEL_42;
+    }
+  }
+
+  v27 = (v24 + 652);
+  if ((v25 - a1 + 1) <= 0x100u)
+  {
+    __memcpy_chk();
+    if (!a2)
+    {
+      goto LABEL_53;
+    }
+
+LABEL_44:
+    v28 = *(a2 + 1);
+    v29 = *(v24 + 48);
+    v30 = v28 == 2;
+    if (v28 == 2)
+    {
+      v31 = 4;
+    }
+
+    else
+    {
+      v31 = 16;
+    }
+
+    *(v24 + 20) = v31;
+    if (v30)
+    {
+      *(v29 + 4) = *(a2 + 4);
+    }
+
+    else
+    {
+      *(v29 + 4) = *(a2 + 8);
+      *(*(v24 + 48) + 8) = *(a2 + 12);
+      *(*(v24 + 48) + 12) = *(a2 + 16);
+      *(*(v24 + 48) + 16) = *(a2 + 20);
+    }
+
+    goto LABEL_67;
+  }
+
+LABEL_43:
+  *v27 = 0;
+  if (a2)
+  {
+    goto LABEL_44;
+  }
+
+LABEL_53:
+  v32 = a3;
+  while (1)
+  {
+    if (!v32 || (v33 = *v32, v33 > 0x3F))
+    {
+LABEL_58:
+      v34 = 257;
+      goto LABEL_60;
+    }
+
+    if (!*v32)
+    {
+      break;
+    }
+
+    v32 += v33 + 1;
+    if (&v32[-a3] >= 256)
+    {
+      goto LABEL_58;
+    }
+  }
+
+  v34 = v32 - a3 + 1;
+LABEL_60:
+  *(v24 + 20) = v34;
+  *(*(v24 + 48) + 4) = 0;
+  v35 = a3;
   while (1)
   {
     if (!v35 || (v36 = *v35, v36 > 0x3F))
     {
-LABEL_43:
-      v37 = (v34 + 652);
-      goto LABEL_44;
+LABEL_65:
+      v37 = (*(v24 + 48) + 4);
+LABEL_66:
+      *v37 = 0;
+      goto LABEL_67;
     }
 
     if (!*v35)
@@ -8604,130 +8826,31 @@ LABEL_43:
     }
 
     v35 += v36 + 1;
-    if (v35 - a1 >= 256)
+    if (&v35[-a3] >= 256)
     {
-      goto LABEL_43;
+      goto LABEL_65;
     }
   }
 
-  v37 = (v34 + 652);
-  if ((v35 - a1 + 1) <= 0x100u)
+  v39 = v35 - a3 + 1;
+  v37 = (*(v24 + 48) + 4);
+  if (v39 > 0x100u)
   {
-    __memcpy_chk();
-    if (!a2)
-    {
-      goto LABEL_54;
-    }
-
-LABEL_45:
-    v38 = *(a2 + 1);
-    v39 = *(v34 + 48);
-    v40 = v38 == 2;
-    if (v38 == 2)
-    {
-      v41 = 4;
-    }
-
-    else
-    {
-      v41 = 16;
-    }
-
-    *(v34 + 20) = v41;
-    if (v40)
-    {
-      *(v39 + 4) = *(a2 + 4);
-    }
-
-    else
-    {
-      *(v39 + 4) = *(a2 + 8);
-      *(*(v34 + 48) + 8) = *(a2 + 12);
-      *(*(v34 + 48) + 12) = *(a2 + 16);
-      *(*(v34 + 48) + 16) = *(a2 + 20);
-    }
-
-    goto LABEL_68;
+    goto LABEL_66;
   }
 
-LABEL_44:
-  *v37 = 0;
-  if (a2)
-  {
-    goto LABEL_45;
-  }
-
-LABEL_54:
-  v42 = a3;
-  while (1)
-  {
-    if (!v42 || (v43 = *v42, v43 > 0x3F))
-    {
-LABEL_59:
-      v44 = 257;
-      goto LABEL_61;
-    }
-
-    if (!*v42)
-    {
-      break;
-    }
-
-    v42 += v43 + 1;
-    if (&v42[-a3] >= 256)
-    {
-      goto LABEL_59;
-    }
-  }
-
-  v44 = v42 - a3 + 1;
-LABEL_61:
-  *(v34 + 20) = v44;
-  *(*(v34 + 48) + 4) = 0;
-  v45 = a3;
-  while (1)
-  {
-    if (!v45 || (v46 = *v45, v46 > 0x3F))
-    {
-LABEL_66:
-      v47 = (*(v34 + 48) + 4);
+  memcpy(v37, a3, v39);
 LABEL_67:
-      *v47 = 0;
-      goto LABEL_68;
-    }
-
-    if (!*v45)
-    {
-      break;
-    }
-
-    v45 += v46 + 1;
-    if (&v45[-a3] >= 256)
-    {
-      goto LABEL_66;
-    }
-  }
-
-  v59 = v45 - a3 + 1;
-  v47 = (*(v34 + 48) + 4);
-  if (v59 > 0x100u)
-  {
-    goto LABEL_67;
-  }
-
-  memcpy(v47, a3, v59);
-LABEL_68:
-  *(v34 + 24) = DomainNameHashValue(*(v34 + 40));
-  SetNewRData(v34 + 8, 0, 0, v48, v49, v50, v51, v52);
+  *(v24 + 24) = DomainNameHashValue(*(v24 + 40));
+  SetNewRData(v24 + 8, 0, 0);
   if (mDNS_LoggingEnabled == 1)
   {
-    v53 = mDNSLogCategory_Default;
-    GetRRDisplayString_rdb((v34 + 8), (*(v34 + 48) + 4), word_1001789D0);
-    v61 = *(v34 + 32);
-    LogMsgWithLevel(v53, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXCreateEtcHostsEntry: Adding resource record %s ID %d", v54, v55, v56, v57, v58, word_1001789D0);
+    v38 = mDNSLogCategory_Default;
+    GetRRDisplayString_rdb((v24 + 8), (*(v24 + 48) + 4), word_1001789D0);
+    LogMsgWithLevel(v38, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXCreateEtcHostsEntry: Adding resource record %s ID %d", word_1001789D0, *(v24 + 32));
   }
 
-  InsertAuthRecord(a5, v34);
+  InsertAuthRecord(a5, v24);
   return 1;
 }
 
@@ -8735,10 +8858,10 @@ uint64_t EtcHostsAddNewEntries(uint64_t a1, int a2)
 {
   v2 = 0;
   v3 = a1 + 24;
-  v39 = a1 + 24;
+  v17 = a1 + 24;
   while (1)
   {
-    v40 = v2;
+    v18 = v2;
     v4 = *(v3 + 8 * v2);
     if (v4)
     {
@@ -8746,9 +8869,9 @@ uint64_t EtcHostsAddNewEntries(uint64_t a1, int a2)
     }
 
 LABEL_35:
-    v3 = v39;
-    v2 = v40 + 1;
-    if (v40 == 498)
+    v3 = v17;
+    v2 = v18 + 1;
+    if (v18 == 498)
     {
       return 0;
     }
@@ -8794,28 +8917,28 @@ LABEL_8:
     }
   }
 
-  v16 = AuthGroupForName(&unk_10016EA90, *(v7 + 24), *(v7 + 40));
-  if (v16)
+  v11 = AuthGroupForName(&unk_10016EA90, *(v7 + 24), *(v7 + 40));
+  if (v11)
   {
-    v17 = v16[2];
-    if (v17)
+    v12 = v11[2];
+    if (v12)
     {
       if (!v6)
       {
-        v6 = v16[2];
+        v6 = v11[2];
       }
 
-      while (*(v17 + 24) != *(v7 + 24) || !resource_records_have_same_dnssec_rr_category(*(v17 + 64), *(v7 + 64)) || *(v17 + 12) != *(v7 + 12) || *(v17 + 14) != *(v7 + 14) || *(v17 + 20) != *(v7 + 20) || *(v17 + 28) != *(v7 + 28) || !SameRDataBody(v17 + 8, (*(v7 + 48) + 4), SameDomainName) || !SameDomainNameBytes(*(v17 + 40), *(v7 + 40)) || *(v17 + 32) != *(v7 + 32))
+      while (*(v12 + 24) != *(v7 + 24) || !resource_records_have_same_dnssec_rr_category(*(v12 + 64), *(v7 + 64)) || *(v12 + 12) != *(v7 + 12) || *(v12 + 14) != *(v7 + 14) || *(v12 + 20) != *(v7 + 20) || *(v12 + 28) != *(v7 + 28) || !SameRDataBody(v12 + 8, (*(v7 + 48) + 4), SameDomainName) || !SameDomainNameBytes(*(v12 + 40), *(v7 + 40)) || *(v12 + 32) != *(v7 + 32))
       {
-        v17 = *v17;
-        if (!v17)
+        v12 = *v12;
+        if (!v12)
         {
           goto LABEL_24;
         }
       }
 
-      v7 = v17;
-      v8 = (v17 + 8);
+      v7 = v12;
+      v8 = (v12 + 8);
       v9 = "EtcHostsAddNewEntries: Skipping, not adding %s";
       if ((mDNS_LoggingEnabled & 1) == 0)
       {
@@ -8825,7 +8948,7 @@ LABEL_8:
 LABEL_7:
       v10 = mDNSLogCategory_Default;
       GetRRDisplayString_rdb(v8, (*(v7 + 48) + 4), word_1001789D0);
-      LogMsgWithLevel(v10, OS_LOG_TYPE_DEFAULT, v9, v11, v12, v13, v14, v15, word_1001789D0);
+      LogMsgWithLevel(v10, OS_LOG_TYPE_DEFAULT, v9, word_1001789D0);
       goto LABEL_8;
     }
   }
@@ -8836,26 +8959,25 @@ LABEL_24:
     RemoveAuthRecord(mDNSStorage, a1, v7);
     if (v6)
     {
-      v24 = v6;
+      v13 = v6;
     }
 
     else
     {
-      v24 = v7;
+      v13 = v7;
     }
 
-    *(v7 + 96) = v24;
+    *(v7 + 96) = v13;
     *v7 = 0;
     if (mDNS_LoggingEnabled == 1)
     {
-      v25 = mDNSLogCategory_Default;
+      v14 = mDNSLogCategory_Default;
       GetRRDisplayString_rdb((v7 + 8), (*(v7 + 48) + 4), word_1001789D0);
-      v38 = *(v7 + 32);
-      LogMsgWithLevel(v25, OS_LOG_TYPE_DEFAULT, "EtcHostsAddNewEntries: Adding %s ID %d", v26, v27, v28, v29, v30, word_1001789D0);
+      LogMsgWithLevel(v14, OS_LOG_TYPE_DEFAULT, "EtcHostsAddNewEntries: Adding %s ID %d", word_1001789D0, *(v7 + 32));
     }
 
     v9 = "EtcHostsAddNewEntries: mDNS_Register failed for %s";
-    if (!mDNS_Register_internal(mDNSStorage, v7, v18, v19, v20, v21, v22, v23))
+    if (!mDNS_Register_internal(mDNSStorage, v7))
     {
       goto LABEL_8;
     }
@@ -8865,9 +8987,9 @@ LABEL_24:
 
   if (mDNS_LoggingEnabled == 1)
   {
-    v32 = mDNSLogCategory_Default;
+    v16 = mDNSLogCategory_Default;
     GetRRDisplayString_rdb((v7 + 8), (*(v7 + 48) + 4), word_1001789D0);
-    LogMsgWithLevel(v32, OS_LOG_TYPE_DEFAULT, "EtcHostsAddNewEntries: Entry %s not registered with core yet", v33, v34, v35, v36, v37, word_1001789D0);
+    LogMsgWithLevel(v16, OS_LOG_TYPE_DEFAULT, "EtcHostsAddNewEntries: Entry %s not registered with core yet", word_1001789D0);
   }
 
   return 1;
@@ -8880,7 +9002,7 @@ uint64_t EtcHostsDeleteOldEntries(uint64_t a1, int a2)
   v5 = "\tlocalhost";
   do
   {
-    v47 = v3;
+    v21 = v3;
     v6 = v4[v3 + 786];
     if (v6)
     {
@@ -8891,12 +9013,12 @@ uint64_t EtcHostsDeleteOldEntries(uint64_t a1, int a2)
         {
           v8 = v7;
           v7 = *v7;
-          if (*(v8 + 104) == FreeEtcHosts)
+          if (v8[13] == FreeEtcHosts)
           {
-            v9 = AuthGroupForName(a1, *(v8 + 24), *(v8 + 40));
+            v9 = AuthGroupForName(a1, *(v8 + 6), v8[5]);
             if (v9 && (v10 = v9[2]) != 0)
             {
-              while (*(v10 + 24) != *(v8 + 24) || !resource_records_have_same_dnssec_rr_category(*(v10 + 64), *(v8 + 64)) || *(v10 + 12) != *(v8 + 12) || *(v10 + 14) != *(v8 + 14) || *(v10 + 20) != *(v8 + 20) || *(v10 + 28) != *(v8 + 28) || !SameRDataBody(v10 + 8, (*(v8 + 48) + 4), SameDomainName) || !SameDomainNameBytes(*(v10 + 40), *(v8 + 40)))
+              while (*(v10 + 24) != *(v8 + 6) || !resource_records_have_same_dnssec_rr_category(*(v10 + 64), v8[8]) || *(v10 + 12) != *(v8 + 6) || *(v10 + 14) != *(v8 + 7) || *(v10 + 20) != *(v8 + 10) || *(v10 + 28) != *(v8 + 7) || !SameRDataBody(v10 + 8, (v8[6] + 4), SameDomainName) || !SameDomainNameBytes(*(v10 + 40), v8[5]))
               {
                 v10 = *v10;
                 if (!v10)
@@ -8907,24 +9029,24 @@ uint64_t EtcHostsDeleteOldEntries(uint64_t a1, int a2)
 
               if (mDNS_LoggingEnabled == 1)
               {
-                v33 = mDNSLogCategory_Default;
-                GetRRDisplayString_rdb((v8 + 8), (*(v8 + 48) + 4), word_1001789D0);
-                LogMsgWithLevel(v33, OS_LOG_TYPE_DEFAULT, "EtcHostsDeleteOldEntries: Old record %s found in new, skipping", v34, v35, v36, v37, v38, word_1001789D0);
+                v18 = mDNSLogCategory_Default;
+                GetRRDisplayString_rdb(v8 + 8, (v8[6] + 4), word_1001789D0);
+                LogMsgWithLevel(v18, OS_LOG_TYPE_DEFAULT, "EtcHostsDeleteOldEntries: Old record %s found in new, skipping", word_1001789D0);
               }
             }
 
             else
             {
 LABEL_17:
-              if (!IsSubdomain(*(v8 + 40), v5))
+              if (!IsSubdomain(v8[5], v5))
               {
                 if (a2)
                 {
                   if (mDNS_LoggingEnabled == 1)
                   {
-                    v40 = mDNSLogCategory_Default;
-                    GetRRDisplayString_rdb((v8 + 8), (*(v8 + 48) + 4), word_1001789D0);
-                    LogMsgWithLevel(v40, OS_LOG_TYPE_DEFAULT, "EtcHostsDeleteOldEntries: Record %s not found in new, deleting", v41, v42, v43, v44, v45, word_1001789D0);
+                    v20 = mDNSLogCategory_Default;
+                    GetRRDisplayString_rdb(v8 + 8, (v8[6] + 4), word_1001789D0);
+                    LogMsgWithLevel(v20, OS_LOG_TYPE_DEFAULT, "EtcHostsDeleteOldEntries: Record %s not found in new, deleting", word_1001789D0);
                   }
 
                   return 1;
@@ -8940,24 +9062,23 @@ LABEL_17:
                     v14 = *v8;
                     do
                     {
-                      if (*(v14 + 12) == v8)
+                      if (*(v14 + 96) == v8)
                       {
                         if (mDNS_LoggingEnabled == 1)
                         {
                           v15 = mDNSLogCategory_Default;
-                          GetRRDisplayString_rdb(v14 + 8, (*(v14 + 6) + 4), word_1001789D0);
-                          LogMsgWithLevel(v15, OS_LOG_TYPE_DEFAULT, "EtcHostsDeleteOldEntries: Updating Resource Record %s to primary", v16, v17, v18, v19, v20, word_1001789D0);
+                          GetRRDisplayString_rdb((v14 + 8), (*(v14 + 48) + 4), word_1001789D0);
+                          LogMsgWithLevel(v15, OS_LOG_TYPE_DEFAULT, "EtcHostsDeleteOldEntries: Updating Resource Record %s to primary", word_1001789D0);
                         }
 
-                        *(v14 + 12) = v13;
+                        *(v14 + 96) = v13;
                       }
 
                       else
                       {
-                        v21 = mDNSLogCategory_Default;
-                        GetRRDisplayString_rdb(v14 + 8, (*(v14 + 6) + 4), word_1001789D0);
-                        v46 = *(v14 + 5);
-                        LogMsgWithLevel(v21, OS_LOG_TYPE_DEFAULT, "EtcHostsDeleteOldEntries: ERROR!! Resource Record %s not pointing to primary %##s", v22, v23, v24, v25, v26, word_1001789D0);
+                        v16 = mDNSLogCategory_Default;
+                        GetRRDisplayString_rdb((v14 + 8), (*(v14 + 48) + 4), word_1001789D0);
+                        LogMsgWithLevel(v16, OS_LOG_TYPE_DEFAULT, "EtcHostsDeleteOldEntries: ERROR!! Resource Record %s not pointing to primary %##s", word_1001789D0, *(v14 + 40));
                       }
 
                       v14 = *v14;
@@ -8969,9 +9090,9 @@ LABEL_17:
 
                 if (mDNS_LoggingEnabled == 1)
                 {
-                  v27 = mDNSLogCategory_Default;
-                  GetRRDisplayString_rdb((v8 + 8), (*(v8 + 48) + 4), word_1001789D0);
-                  LogMsgWithLevel(v27, OS_LOG_TYPE_DEFAULT, "EtcHostsDeleteOldEntries: Deleting %s", v28, v29, v30, v31, v32, word_1001789D0);
+                  v17 = mDNSLogCategory_Default;
+                  GetRRDisplayString_rdb(v8 + 8, (v8[6] + 4), word_1001789D0);
+                  LogMsgWithLevel(v17, OS_LOG_TYPE_DEFAULT, "EtcHostsDeleteOldEntries: Deleting %s", word_1001789D0);
                 }
 
                 v4 = v12;
@@ -8992,10 +9113,10 @@ LABEL_17:
       }
     }
 
-    v3 = v47 + 1;
+    v3 = v21 + 1;
   }
 
-  while (v47 != 498);
+  while (v21 != 498);
   return 0;
 }
 
@@ -9007,29 +9128,29 @@ uint64_t UpdateEtcHosts(uint64_t a1, uint64_t a2)
   return EtcHostsAddNewEntries(a2, 0);
 }
 
-uint64_t FlushAllCacheRecords(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t FlushAllCacheRecords(uint64_t result)
 {
-  v8 = result;
-  v9 = 0;
-  v21 = result + 272;
-  v10 = (result + 47032);
+  v1 = result;
+  v2 = 0;
+  v9 = result + 272;
+  v3 = (result + 47032);
   do
   {
-    v22 = v9;
-    v11 = *(v21 + 8 * v9);
-    if (v11)
+    v10 = v2;
+    v4 = *(v9 + 8 * v2);
+    if (v4)
     {
       while (1)
       {
-        v12 = v11[2];
-        if (v12)
+        v5 = v4[2];
+        if (v5)
         {
           break;
         }
 
 LABEL_18:
-        v11 = *v11;
-        if (!v11)
+        v4 = *v4;
+        if (!v4)
         {
           goto LABEL_19;
         }
@@ -9037,21 +9158,21 @@ LABEL_18:
 
       while (1)
       {
-        if (*(v12 + 32))
+        if (*(v5 + 32))
         {
           goto LABEL_17;
         }
 
-        if (!RRTypeAnswersQuestionType(v12 + 8, 1u, 3, a4, a5, a6, a7, a8))
+        if (!RRTypeAnswersQuestionType(v5 + 8, 1u, 3))
         {
-          result = RRTypeAnswersQuestionType(v12 + 8, 0x1Cu, 3, v13, v14, v15, v16, v17);
+          result = RRTypeAnswersQuestionType(v5 + 8, 0x1Cu, 3);
           if (!result)
           {
             goto LABEL_17;
           }
         }
 
-        v18 = mDNSLogCategory_Default;
+        v6 = mDNSLogCategory_Default;
         if (mDNS_SensitiveLoggingEnableCount && mDNSLogCategory_Default != mDNSLogCategory_State)
         {
           break;
@@ -9063,36 +9184,36 @@ LABEL_18:
         }
 
 LABEL_16:
-        result = mDNS_PurgeCacheResourceRecord(v8, v12);
+        result = mDNS_PurgeCacheResourceRecord(v1, v5);
 LABEL_17:
-        v12 = *v12;
-        if (!v12)
+        v5 = *v5;
+        if (!v5)
         {
           goto LABEL_18;
         }
       }
 
-      v18 = mDNSLogCategory_Default_redacted;
+      v6 = mDNSLogCategory_Default_redacted;
       if (!os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_16;
       }
 
 LABEL_15:
-      GetRRDisplayString_rdb((v12 + 8), (*(v12 + 48) + 4), v10);
+      GetRRDisplayString_rdb((v5 + 8), (*(v5 + 48) + 4), v3);
       *buf = 141558275;
-      v24 = 1752392040;
-      v25 = 2085;
-      v26 = v10;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "FlushAllCacheRecords: Purging Resourcerecord - record description: %{sensitive, mask.hash}s.", buf, 0x16u);
+      v12 = 1752392040;
+      v13 = 2085;
+      v14 = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FlushAllCacheRecords: Purging Resourcerecord - record description: %{sensitive, mask.hash}s.", buf, 0x16u);
       goto LABEL_16;
     }
 
 LABEL_19:
-    v9 = v22 + 1;
+    v2 = v10 + 1;
   }
 
-  while (v22 != 498);
+  while (v10 != 498);
   return result;
 }
 
@@ -9101,7 +9222,7 @@ void __mDNSMacOSXGetEtcHostsFD_block_invoke_5(id a1)
   data = dispatch_source_get_data(mDNSMacOSXGetEtcHostsFD_hostssrc);
   if (mDNS_LoggingEnabled == 1)
   {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXGetEtcHostsFD: /etc/hosts changed 0x%x", v1, v2, v3, v4, v5, data);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXGetEtcHostsFD: /etc/hosts changed 0x%x", data);
   }
 
   if ((data & 0x21) != 0)
@@ -9114,36 +9235,37 @@ void __mDNSMacOSXGetEtcHostsFD_block_invoke_5(id a1)
     }
 
     usleep(0xF4240u);
-    v7 = mDNSMacOSXGetEtcHostsFD_etcq;
+    v2 = mDNSMacOSXGetEtcHostsFD_etcq;
 
-    dispatch_async(v7, &__block_literal_global_506);
+    dispatch_async(v2, &__block_literal_global_506);
   }
 
   else if ((data & 2) != 0)
   {
-    v8 = pthread_mutex_lock((mDNSStorage[0] + 616));
-    *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v8, v9, v10, v11, v12, v13, v14, v15);
-    mDNSMacOSXUpdateEtcHosts_internal();
+    pthread_mutex_lock((mDNSStorage[0] + 616));
+    v3 = mDNSPlatformRawTime();
+    *(mDNSStorage[0] + 680) = v3;
+    mDNSMacOSXUpdateEtcHosts_internal(v3, v4, v5, v6, v7, v8, v9, v10);
 
-    KQueueUnlock("/etc/hosts changed", v16, v17, v18, v19, v20, v21, v22);
+    KQueueUnlock("/etc/hosts changed");
   }
 }
 
 void __mDNSMacOSXGetEtcHostsFD_block_invoke_6(id a1)
 {
-  v1 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v1, v2, v3, v4, v5, v6, v7, v8);
-  mDNSMacOSXUpdateEtcHosts_internal();
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  v1 = mDNSPlatformRawTime();
+  *(mDNSStorage[0] + 680) = v1;
+  mDNSMacOSXUpdateEtcHosts_internal(v1, v2, v3, v4, v5, v6, v7, v8);
 
-  KQueueUnlock("/etc/hosts changed", v9, v10, v11, v12, v13, v14, v15);
+  KQueueUnlock("/etc/hosts changed");
 }
 
 void __mDNSMacOSXGetEtcHostsFD_block_invoke_2(id a1)
 {
   data = dispatch_source_get_data(mDNSMacOSXGetEtcHostsFD_etcsrc);
-  v2 = data;
-  LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXGetEtcHostsFD: /etc changed 0x%x", v3, v4, v5, v6, v7, data);
-  if ((v2 & 0x21) != 0)
+  LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSMacOSXGetEtcHostsFD: /etc changed 0x%x", data);
+  if ((data & 0x21) != 0)
   {
     dispatch_source_cancel(mDNSMacOSXGetEtcHostsFD_etcsrc);
     if (mDNSMacOSXGetEtcHostsFD_etcsrc)
@@ -9152,197 +9274,177 @@ void __mDNSMacOSXGetEtcHostsFD_block_invoke_2(id a1)
       mDNSMacOSXGetEtcHostsFD_etcsrc = 0;
     }
 
-    v8 = mDNSMacOSXGetEtcHostsFD_etcq;
+    v2 = mDNSMacOSXGetEtcHostsFD_etcq;
 
-    dispatch_async(v8, &__block_literal_global_497);
+    dispatch_async(v2, &__block_literal_global_497);
   }
 
-  else if ((v2 & 2) != 0 && !mDNSMacOSXGetEtcHostsFD_hostssrc)
+  else if ((data & 2) != 0 && !mDNSMacOSXGetEtcHostsFD_hostssrc)
   {
-    v9 = pthread_mutex_lock((mDNSStorage[0] + 616));
-    *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v9, v10, v11, v12, v13, v14, v15, v16);
-    mDNSMacOSXUpdateEtcHosts_internal();
+    pthread_mutex_lock((mDNSStorage[0] + 616));
+    v3 = mDNSPlatformRawTime();
+    *(mDNSStorage[0] + 680) = v3;
+    mDNSMacOSXUpdateEtcHosts_internal(v3, v4, v5, v6, v7, v8, v9, v10);
 
-    KQueueUnlock("/etc/hosts changed", v17, v18, v19, v20, v21, v22, v23);
+    KQueueUnlock("/etc/hosts changed");
   }
 }
 
 void __mDNSMacOSXGetEtcHostsFD_block_invoke_3(id a1)
 {
-  v1 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v1, v2, v3, v4, v5, v6, v7, v8);
-  mDNSMacOSXUpdateEtcHosts_internal();
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  v1 = mDNSPlatformRawTime();
+  *(mDNSStorage[0] + 680) = v1;
+  mDNSMacOSXUpdateEtcHosts_internal(v1, v2, v3, v4, v5, v6, v7, v8);
 
-  KQueueUnlock("/etc/hosts changed", v9, v10, v11, v12, v13, v14, v15);
+  KQueueUnlock("/etc/hosts changed");
 }
 
 void __mDNSMacOSXGetEtcHostsFD_block_invoke(id a1)
 {
-  v1 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v1, v2, v3, v4, v5, v6, v7, v8);
-  mDNSMacOSXUpdateEtcHosts_internal();
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  v1 = mDNSPlatformRawTime();
+  *(mDNSStorage[0] + 680) = v1;
+  mDNSMacOSXUpdateEtcHosts_internal(v1, v2, v3, v4, v5, v6, v7, v8);
 
-  KQueueUnlock("/etc/hosts changed", v9, v10, v11, v12, v13, v14, v15);
+  KQueueUnlock("/etc/hosts changed");
 }
 
 void PowerChanged(uint64_t a1, uint64_t a2, int a3, intptr_t a4)
 {
-  v7 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v7, v8, v9, v10, v11, v12, v13, v14);
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
   SystemWakeForNetworkAccess();
   *(a1 + 143) = 0;
-  HIDWORD(v23) = a3 + 536870336;
-  LODWORD(v23) = a3 + 536870336;
-  v22 = v23 >> 4;
-  if (v22 <= 3)
+  HIDWORD(v8) = a3 + 536870336;
+  LODWORD(v8) = a3 + 536870336;
+  v7 = v8 >> 4;
+  if (v7 <= 3)
   {
-    if (v22 > 1)
+    if (v7 > 1)
     {
-      if (v22 == 2)
+      if (v7 == 2)
       {
-        if (!mDNS_LoggingEnabled)
+        if (mDNS_LoggingEnabled)
         {
-          goto LABEL_42;
+          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged kIOMessageSystemWillNotPowerOff (no action)");
         }
-
-        v33 = mDNSLogCategory_Default;
-        v34 = "PowerChanged kIOMessageSystemWillNotPowerOff (no action)";
       }
 
-      else
+      else if (mDNS_LoggingEnabled)
       {
-        if (!mDNS_LoggingEnabled)
-        {
-          goto LABEL_42;
-        }
-
-        v33 = mDNSLogCategory_Default;
-        v34 = "PowerChanged kIOMessageCanSystemSleep";
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged kIOMessageCanSystemSleep");
       }
 
       goto LABEL_41;
     }
 
-    if (!v22)
-    {
-      if (!mDNS_LoggingEnabled)
-      {
-        goto LABEL_42;
-      }
-
-      v33 = mDNSLogCategory_Default;
-      v34 = "PowerChanged kIOMessageCanSystemPowerOff     (no action)";
-      goto LABEL_41;
-    }
-
-    if (v22 == 1)
+    if (!v7)
     {
       if (mDNS_LoggingEnabled)
       {
-        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged kIOMessageSystemWillPowerOff", v17, v18, v19, v20, v21, v35);
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged kIOMessageCanSystemPowerOff     (no action)");
+      }
+
+      goto LABEL_41;
+    }
+
+    if (v7 == 1)
+    {
+      if (mDNS_LoggingEnabled)
+      {
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged kIOMessageSystemWillPowerOff");
       }
 
       mDNSCoreMachineSleep(a1, 1);
       if (*(a1 + 141) == 2)
       {
-        mDNSMacOSXNetworkChanged(v32, v15, v16, v17, v18, v19, v20, v21);
+        mDNSMacOSXNetworkChanged();
       }
 
-      goto LABEL_42;
+      goto LABEL_41;
     }
 
 LABEL_39:
-    if (!mDNS_LoggingEnabled)
+    if (mDNS_LoggingEnabled)
     {
-      goto LABEL_42;
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged unknown message %X");
     }
 
-    v33 = mDNSLogCategory_Default;
-    v35 = a3;
-    v34 = "PowerChanged unknown message %X";
     goto LABEL_41;
   }
 
-  if (v22 <= 11)
+  if (v7 <= 11)
   {
-    if (v22 == 4)
+    if (v7 == 4)
     {
       if (mDNS_LoggingEnabled)
       {
-        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged kIOMessageSystemWillSleep", v17, v18, v19, v20, v21, v35);
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged kIOMessageSystemWillSleep");
       }
 
       mDNSCoreMachineSleep(a1, 1);
-      goto LABEL_42;
+      goto LABEL_41;
     }
 
-    if (v22 == 5)
+    if (v7 == 5)
     {
-      if (!mDNS_LoggingEnabled)
+      if (mDNS_LoggingEnabled)
       {
-        goto LABEL_42;
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged kIOMessageSystemWillNotSleep    (no action)");
       }
 
-      v33 = mDNSLogCategory_Default;
-      v34 = "PowerChanged kIOMessageSystemWillNotSleep    (no action)";
       goto LABEL_41;
     }
 
     goto LABEL_39;
   }
 
-  if (v22 != 12)
+  switch(v7)
   {
-    if (v22 != 13)
-    {
-      if (v22 == 14)
+    case 12:
+      if (mDNS_LoggingEnabled)
       {
-        if (mDNS_LoggingEnabled)
-        {
-          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged kIOMessageSystemWillPowerOn", v17, v18, v19, v20, v21, v35);
-        }
-
-        if (*(a1 + 141) != 2)
-        {
-          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "kIOMessageSystemWillPowerOn: ERROR m->SleepState %d", v17, v18, v19, v20, v21, *(a1 + 141));
-          *(a1 + 141) = 2;
-          mDNSMacOSXNetworkChanged(v24, v25, v26, v27, v28, v29, v30, v31);
-        }
-
-        PowerOn(a1);
-        goto LABEL_42;
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged kIOMessageSystemHasPoweredOn");
       }
 
+      if (*(a1 + 141))
+      {
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged kIOMessageSystemHasPoweredOn: ERROR m->SleepState %d", *(a1 + 141));
+        PowerOn(a1);
+      }
+
+      mDNS_Lock_(a1, "PowerChanged", 7081);
+      SetNetworkChanged(2000);
+      mDNS_Unlock_(a1, "PowerChanged", 7083);
+      break;
+    case 13:
+      if (mDNS_LoggingEnabled)
+      {
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged kIOMessageSystemWillRestart     (no action)");
+      }
+
+      break;
+    case 14:
+      if (mDNS_LoggingEnabled)
+      {
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged kIOMessageSystemWillPowerOn");
+      }
+
+      if (*(a1 + 141) != 2)
+      {
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "kIOMessageSystemWillPowerOn: ERROR m->SleepState %d", *(a1 + 141));
+        *(a1 + 141) = 2;
+        mDNSMacOSXNetworkChanged();
+      }
+
+      PowerOn(a1);
+      break;
+    default:
       goto LABEL_39;
-    }
+  }
 
-    if (!mDNS_LoggingEnabled)
-    {
-      goto LABEL_42;
-    }
-
-    v33 = mDNSLogCategory_Default;
-    v34 = "PowerChanged kIOMessageSystemWillRestart     (no action)";
 LABEL_41:
-    LogMsgWithLevel(v33, OS_LOG_TYPE_DEFAULT, v34, v17, v18, v19, v20, v21, v35);
-    goto LABEL_42;
-  }
-
-  if (mDNS_LoggingEnabled)
-  {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged kIOMessageSystemHasPoweredOn", v17, v18, v19, v20, v21, v35);
-  }
-
-  if (*(a1 + 141))
-  {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged kIOMessageSystemHasPoweredOn: ERROR m->SleepState %d", v17, v18, v19, v20, v21, *(a1 + 141));
-    PowerOn(a1);
-  }
-
-  mDNS_Lock_(a1, "PowerChanged", 7081);
-  SetNetworkChanged(2000);
-  mDNS_Unlock_(a1, "PowerChanged", 7083);
-LABEL_42:
   if (a3 == -536870288)
   {
     IOAllowPowerChange(*(*a1 + 568), a4);
@@ -9353,7 +9455,7 @@ LABEL_42:
     *(*a1 + 592) = a4;
   }
 
-  KQueueUnlock("PowerChanged Sleep/Wake", v15, v16, v17, v18, v19, v20, v21);
+  KQueueUnlock("PowerChanged Sleep/Wake");
 }
 
 void PowerOn(_DWORD *a1)
@@ -9361,68 +9463,66 @@ void PowerOn(_DWORD *a1)
   mDNSCoreMachineSleep(a1, 0);
   if (*(*a1 + 600))
   {
-    v7 = time(0);
+    v2 = time(0);
     mdns_power_cancel_all_events(@"com.apple.mDNSResponder");
-    v10 = *(*a1 + 600);
-    v11 = v10 - v7;
-    if (v11 < 31)
+    v3 = *(*a1 + 600);
+    v4 = v3 - v2;
+    if (v4 < 31)
     {
-      v12 = v7 - v10;
-      if (v12 < 31)
+      if (v2 - v3 < 31)
       {
         if (mDNS_LoggingEnabled)
         {
-          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged: Waking for network maintenance operations %d seconds early; re-sleeping in 20 seconds", v2, v3, v4, v5, v6, v11);
+          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged: Waking for network maintenance operations %d seconds early; re-sleeping in 20 seconds", v4);
         }
 
-        *(*a1 + 608) = mDNS_TimeNow(a1, v8, v9, v2, v3, v4, v5, v6) + 20000;
+        *(*a1 + 608) = mDNS_TimeNow(a1) + 20000;
       }
 
       else if (mDNS_LoggingEnabled)
       {
-        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged PowerOn %d seconds late, assuming not maintenance wake", v2, v3, v4, v5, v6, v12);
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged PowerOn %d seconds late, assuming not maintenance wake");
       }
     }
 
     else if (mDNS_LoggingEnabled == 1)
     {
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged PowerOn %d seconds early, assuming not maintenance wake", v2, v3, v4, v5, v6, v11);
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "PowerChanged PowerOn %d seconds early, assuming not maintenance wake");
     }
   }
 
   if (*(mDNSStorage[0] + 584))
   {
-    v13 = mDNS_LoggingEnabled == 0;
+    v5 = mDNS_LoggingEnabled == 0;
   }
 
   else
   {
-    v13 = 1;
+    v5 = 1;
   }
 
-  if (!v13)
+  if (!v5)
   {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "Sleep Assertion is already being held. Will not attempt to get it again for %d seconds for %s", v2, v3, v4, v5, v6, 16);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "Sleep Assertion is already being held. Will not attempt to get it again for %d seconds for %s", 16, "mDNSResponder:maintenance");
   }
 }
 
 void DynamicStoreReconnected(uint64_t a1, uint64_t a2)
 {
-  v3 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  v11 = mDNSPlatformRawTime(v3, v4, v5, v6, v7, v8, v9, v10);
-  *(mDNSStorage[0] + 680) = v11;
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
   if (mDNS_LoggingEnabled == 1)
   {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "DynamicStoreReconnected: Reconnected", v14, v15, v16, v17, v18, v26);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "DynamicStoreReconnected: Reconnected");
   }
 
-  SetLocalDomains(v11, v12, v13, v14, v15, v16, v17, v18, v26);
+  SetLocalDomains();
   if (*(a2 + 14424))
   {
-    mDNSPlatformDynDNSHostNameStatusChanged((a2 + 14424), 1, v20, v21, v22, v23, v24, v25);
+    mDNSPlatformDynDNSHostNameStatusChanged((a2 + 14424), 1);
   }
 
-  KQueueUnlock("DynamicStoreReconnected", v19, v20, v21, v22, v23, v24, v25);
+  KQueueUnlock("DynamicStoreReconnected");
 }
 
 CFTypeRef CopyNameFromKey(CFStringRef theString)
@@ -9574,25 +9674,25 @@ LABEL_11:
   return 0;
 }
 
-void mDNSPlatformSendWakeupPacket(uint64_t a1, const char *a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void mDNSPlatformSendWakeupPacket(uint64_t a1, const char *a2, const char *a3, int a4)
 {
-  v8 = a1;
-  v9 = *mDNSStorage[0];
+  v4 = a1;
+  v5 = *mDNSStorage[0];
   if (!*mDNSStorage[0])
   {
-LABEL_6:
-    v13 = mDNSLogCategory_Default;
+LABEL_5:
+    v9 = mDNSLogCategory_Default;
     if (mDNS_SensitiveLoggingEnableCount)
     {
-      v14 = mDNSLogCategory_Default == mDNSLogCategory_State;
+      v10 = mDNSLogCategory_Default == mDNSLogCategory_State;
     }
 
     else
     {
-      v14 = 1;
+      v10 = 1;
     }
 
-    if (v14)
+    if (v10)
     {
       if (!os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_ERROR))
       {
@@ -9600,48 +9700,47 @@ LABEL_6:
       }
 
       *buf = 134217984;
-      v18 = v8;
+      v14 = v4;
     }
 
     else
     {
-      v13 = mDNSLogCategory_Default_redacted;
+      v9 = mDNSLogCategory_Default_redacted;
       if (!os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_ERROR))
       {
         return;
       }
 
       *buf = 134217984;
-      v18 = v8;
+      v14 = v4;
     }
 
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "GetInterfaceSupportsWakeOnLANPacket: Invalid interface id %p", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "GetInterfaceSupportsWakeOnLANPacket: Invalid interface id %p", buf, 0xCu);
     return;
   }
 
-  v10 = a4;
-  while (!*(v9 + 3768) || *(v9 + 3720) != a1)
+  while (!*(v5 + 3768) || *(v5 + 3720) != a1)
   {
-    v9 = *(v9 + 3680);
-    if (!v9)
+    v5 = *(v5 + 3680);
+    if (!v5)
     {
-      goto LABEL_6;
+      goto LABEL_5;
     }
   }
 
-  if (*(v9 + 3708) == 2)
+  if (*(v5 + 3708) == 2)
   {
     if (a1 > -3)
     {
       if (a1 == -2)
       {
-        LODWORD(v8) = -1;
-        goto LABEL_27;
+        LODWORD(v4) = -1;
+        goto LABEL_26;
       }
 
       if (!a1)
       {
-        goto LABEL_24;
+        goto LABEL_23;
       }
     }
 
@@ -9649,30 +9748,30 @@ LABEL_6:
     {
       if (a1 == -5)
       {
-        LODWORD(v8) = -4;
-        goto LABEL_27;
+        LODWORD(v4) = -4;
+        goto LABEL_26;
       }
 
       if (a1 == -3)
       {
-        LODWORD(v8) = -3;
-LABEL_27:
+        LODWORD(v4) = -3;
+LABEL_26:
         if (mDNS_LoggingEnabled == 1)
         {
-          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSSendWakeupPacket: Entered ethernet address[%s],ip_address[%s], interface_id[%d], iteration[%d]", a4, a5, a6, a7, a8, a2);
+          LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSSendWakeupPacket: Entered ethernet address[%s],ip_address[%s], interface_id[%d], iteration[%d]", a2, a3, v4, a4);
         }
 
-        v16 = xpc_dictionary_create(0, 0, 0);
-        xpc_dictionary_set_uint64(v16, "HelperMode", 6uLL);
-        xpc_dictionary_set_uint64(v16, "interface_index", v8);
-        xpc_dictionary_set_string(v16, "ethernet_address", a2);
-        xpc_dictionary_set_string(v16, "ip_address", a3);
-        xpc_dictionary_set_uint64(v16, "swp_iteration", v10);
-        SendDict_ToServer(v16);
-        if (v16)
+        v12 = xpc_dictionary_create(0, 0, 0);
+        xpc_dictionary_set_uint64(v12, "HelperMode", 6uLL);
+        xpc_dictionary_set_uint64(v12, "interface_index", v4);
+        xpc_dictionary_set_string(v12, "ethernet_address", a2);
+        xpc_dictionary_set_string(v12, "ip_address", a3);
+        xpc_dictionary_set_uint64(v12, "swp_iteration", a4);
+        SendDict_ToServer(v12);
+        if (v12)
         {
 
-          xpc_release(v16);
+          xpc_release(v12);
         }
 
         return;
@@ -9681,10 +9780,10 @@ LABEL_27:
 
     if (a1)
     {
-      goto LABEL_27;
+      goto LABEL_26;
     }
 
-LABEL_24:
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformSendWakeupPacket: ERROR!! Invalid InterfaceID %u", a4, a5, a6, a7, a8, 0);
+LABEL_23:
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "mDNSPlatformSendWakeupPacket: ERROR!! Invalid InterfaceID %u", 0);
   }
 }

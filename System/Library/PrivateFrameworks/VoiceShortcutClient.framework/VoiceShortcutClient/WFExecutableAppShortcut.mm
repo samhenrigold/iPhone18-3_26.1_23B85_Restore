@@ -90,10 +90,10 @@
 
 - (NSString)base64ArchivedData
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v8];
-  v3 = v8;
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v7];
+  v3 = v7;
   if (v2)
   {
     v4 = [v2 base64EncodedStringWithOptions:0];
@@ -105,16 +105,14 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v10 = "[WFExecutableAppShortcut base64ArchivedData]";
-      v11 = 2112;
-      v12 = v3;
+      v9 = "[WFExecutableAppShortcut base64ArchivedData]";
+      v10 = 2112;
+      v11 = v3;
       _os_log_impl(&dword_1B1DE3000, v5, OS_LOG_TYPE_ERROR, "%s Failed to archive auto shortcut into data with error: %@", buf, 0x16u);
     }
 
     v4 = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

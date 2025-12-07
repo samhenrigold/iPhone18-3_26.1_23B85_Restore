@@ -65,10 +65,10 @@
 
 - (uint64_t)hf_eventType
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   presenceEventType = [self presenceEventType];
 
-  return [v2 hf_locationEventTypeForPresenceEventType:presenceEventType];
+  return [v3 hf_locationEventTypeForPresenceEventType:presenceEventType];
 }
 
 @end

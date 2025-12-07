@@ -41,7 +41,7 @@
 + (void)setCloudKitEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = +[_CDLogging syncChannel];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
@@ -51,19 +51,18 @@
       v5 = @"enabled";
     }
 
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_191750000, v4, OS_LOG_TYPE_INFO, "Cloud kit is being %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_191750000, v4, OS_LOG_TYPE_INFO, "Cloud kit is being %@", &v6, 0xCu);
   }
 
   _DKIsCloudKitEnabled = enabledCopy;
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)setUnitTesting:(BOOL)testing
 {
   testingCopy = testing;
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = +[_CDLogging syncChannel];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
@@ -73,19 +72,18 @@
       v5 = @"enabled";
     }
 
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_191750000, v4, OS_LOG_TYPE_INFO, "Unit tesing is being %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_191750000, v4, OS_LOG_TYPE_INFO, "Unit tesing is being %@", &v6, 0xCu);
   }
 
   _DKIsUnitTesting = testingCopy;
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)isSyncAvailableAndEnabledWithVerboseLogging:(BOOL)logging
 {
   loggingCopy = logging;
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = +[_DKCloudUtilities sharedInstance];
   isCloudSyncAvailable = [v5 isCloudSyncAvailable];
 
@@ -119,7 +117,7 @@
         v11 = @"no";
       }
 
-      v16 = 138413570;
+      v15 = 138413570;
       if ([self isUnitTesting])
       {
         v12 = @"yes";
@@ -130,7 +128,7 @@
         v12 = @"no";
       }
 
-      v17 = v10;
+      v16 = v10;
       if (v8)
       {
         v13 = @"yes";
@@ -141,21 +139,20 @@
         v13 = @"no";
       }
 
-      v18 = 2112;
-      v19 = v11;
-      v20 = 2112;
-      v21 = @"yes";
-      v22 = 2112;
-      v23 = @"yes";
-      v24 = 2112;
-      v25 = v12;
-      v26 = 2112;
-      v27 = v13;
-      _os_log_impl(&dword_191750000, v9, OS_LOG_TYPE_INFO, "isCloudKitEnabled = %@, isCloudSyncAvailable = %@, syncEnabledByPolicy = %@, siriCloudSyncEnabled = %@, isUnitTesting = %@, isSyncAvailableAndEnabled = %@", &v16, 0x3Eu);
+      v17 = 2112;
+      v18 = v11;
+      v19 = 2112;
+      v20 = @"yes";
+      v21 = 2112;
+      v22 = @"yes";
+      v23 = 2112;
+      v24 = v12;
+      v25 = 2112;
+      v26 = v13;
+      _os_log_impl(&dword_191750000, v9, OS_LOG_TYPE_INFO, "isCloudKitEnabled = %@, isCloudSyncAvailable = %@, syncEnabledByPolicy = %@, siriCloudSyncEnabled = %@, isUnitTesting = %@, isSyncAvailableAndEnabled = %@", &v15, 0x3Eu);
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -269,25 +266,23 @@
     if (v5)
     {
       objc_initWeak(location, handler);
-      v7[0] = MEMORY[0x1E69E9820];
-      v7[1] = 3221225472;
-      v7[2] = __60___DKCloudUtilities__fetchAccountInfoWithCompletionHandler___block_invoke;
-      v7[3] = &unk_1E7367898;
-      objc_copyWeak(&v9, location);
-      v8 = v3;
-      [v5 accountInfoWithCompletionHandler:v7];
+      v6[0] = MEMORY[0x1E69E9820];
+      v6[1] = 3221225472;
+      v6[2] = __60___DKCloudUtilities__fetchAccountInfoWithCompletionHandler___block_invoke;
+      v6[3] = &unk_1E7367898;
+      objc_copyWeak(&v8, location);
+      v7 = v3;
+      [v5 accountInfoWithCompletionHandler:v6];
 
-      objc_destroyWeak(&v9);
+      objc_destroyWeak(&v8);
       objc_destroyWeak(location);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteRemoteStateWithReply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   if (+[_DKCloudUtilities isUnitTesting](_DKCloudUtilities, "isUnitTesting") || !+[_DKCloudUtilities isCloudKitEnabled])
   {
@@ -305,39 +300,37 @@
     v9 = [objc_alloc(MEMORY[0x1E695BA80]) initWithZoneName:@"com.apple.coredata.cloudkit.zone"];
     v10 = objc_alloc(MEMORY[0x1E695B9B0]);
     zoneID = [v9 zoneID];
-    v22[0] = zoneID;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+    v21[0] = zoneID;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
     v13 = [v10 initWithRecordZonesToSave:0 recordZoneIDsToDelete:v12];
 
-    v16 = MEMORY[0x1E69E9820];
-    v17 = 3221225472;
-    v18 = __48___DKCloudUtilities_deleteRemoteStateWithReply___block_invoke;
-    v19 = &unk_1E73678C0;
-    v20 = v4;
-    v21 = replyCopy;
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = __48___DKCloudUtilities_deleteRemoteStateWithReply___block_invoke;
+    v18 = &unk_1E73678C0;
+    v19 = v4;
+    v20 = replyCopy;
     v14 = v4;
-    [v13 setModifyRecordZonesCompletionBlock:&v16];
-    [privateCloudDatabase addOperation:{v13, v16, v17, v18, v19}];
+    [v13 setModifyRecordZonesCompletionBlock:&v15];
+    [privateCloudDatabase addOperation:{v13, v15, v16, v17, v18}];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)keyValueStore
 {
   if (self)
   {
-    v1 = objc_opt_class();
-    v2 = NSStringFromClass(v1);
-    v3 = [_DKSync2Coordinator keyValueStoreForDomain:v2];
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = [_DKSync2Coordinator keyValueStoreForDomain:v3];
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 - (void)_fetchCloudKitConfigurationAndStatus
@@ -360,31 +353,28 @@
   v10[2] = *MEMORY[0x1E69E9840];
   if (self)
   {
-    v1 = MEMORY[0x1E696AEC0];
-    v2 = objc_opt_class();
-    v3 = NSStringFromClass(v2);
-    v10[0] = v3;
-    v4 = +[_DKCloudUtilities containerIdentifier];
-    v10[1] = v4;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
-    v6 = [v1 pathWithComponents:v5];
+    v2 = MEMORY[0x1E696AEC0];
+    v3 = objc_opt_class();
+    v4 = NSStringFromClass(v3);
+    v10[0] = v4;
+    v5 = +[_DKCloudUtilities containerIdentifier];
+    v10[1] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+    v7 = [v2 pathWithComponents:v6];
 
-    v7 = [_DKSync2Coordinator keyValueStoreForDomain:v6];
+    v8 = [_DKSync2Coordinator keyValueStoreForDomain:v7];
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v8;
 }
 
 - (BOOL)isSingleDevice
 {
-  v21 = *MEMORY[0x1E69E9840];
   keyValueStore = [(_DKCloudUtilities *)self keyValueStore];
   v4 = [keyValueStore arrayForKey:@"_DKCloudSyncDevices"];
 
@@ -407,7 +397,7 @@
     {
       if (v7)
       {
-        v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v4, "count")}];
+        v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v4, "count")}];
         OUTLINED_FUNCTION_0_5();
         _os_log_debug_impl(v8, v9, v10, v11, v12, 0xCu);
       }
@@ -416,13 +406,12 @@
     else if (v7)
     {
       OUTLINED_FUNCTION_0_5();
-      _os_log_debug_impl(v15, v16, v17, v18, v19, 2u);
+      _os_log_debug_impl(v14, v15, v16, v17, v18, 2u);
     }
   }
 
   self->_isSingleDevice = v5;
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -449,7 +438,7 @@
 
 - (void)_updateAccountInfo:(void *)info error:
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v5 = a2;
   infoCopy = info;
   if (self)
@@ -460,9 +449,9 @@
     {
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v34) = 0;
+        LOWORD(v33) = 0;
         OUTLINED_FUNCTION_0_5();
-        _os_log_debug_impl(v16, v17, v18, v19, v20, 2u);
+        _os_log_debug_impl(v15, v16, v17, v18, v19, 2u);
       }
 
       v9 = *(self + 24);
@@ -473,16 +462,16 @@
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           supportsDeviceToDeviceEncryption = [v5 supportsDeviceToDeviceEncryption];
-          v23 = @"disabled";
+          v22 = @"disabled";
           if (supportsDeviceToDeviceEncryption)
           {
-            v23 = @"enabled";
+            v22 = @"enabled";
           }
 
-          LODWORD(v34) = 138412290;
-          *(&v34 + 4) = v23;
+          LODWORD(v33) = 138412290;
+          *(&v33 + 4) = v22;
           OUTLINED_FUNCTION_0_5();
-          _os_log_debug_impl(v24, v25, v26, v27, v28, 0xCu);
+          _os_log_debug_impl(v23, v24, v25, v26, v27, 0xCu);
         }
 
         *(self + 24) = [v5 supportsDeviceToDeviceEncryption];
@@ -498,10 +487,10 @@
       {
         domain = [infoCopy domain];
         [infoCopy code];
-        LODWORD(v34) = 138543874;
-        *(&v34 + 4) = domain;
+        LODWORD(v33) = 138543874;
+        *(&v33 + 4) = domain;
         OUTLINED_FUNCTION_4_3();
-        _os_log_error_impl(&dword_191750000, v8, OS_LOG_TYPE_ERROR, "Failed to fetch account info: %{public}@:%lld (%@)", &v34, 0x20u);
+        _os_log_error_impl(&dword_191750000, v8, OS_LOG_TYPE_ERROR, "Failed to fetch account info: %{public}@:%lld (%@)", &v33, 0x20u);
       }
 
       if (*(self + 24) == 1)
@@ -509,9 +498,9 @@
         v11 = +[_CDLogging syncChannel];
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
-          LOWORD(v34) = 0;
+          LOWORD(v33) = 0;
           OUTLINED_FUNCTION_0_5();
-          _os_log_debug_impl(v29, v30, v31, v32, v33, 2u);
+          _os_log_debug_impl(v28, v29, v30, v31, v32, 2u);
         }
       }
 
@@ -520,109 +509,105 @@
 
     v12 = dispatch_get_global_queue(2, 0);
     v13 = os_transaction_create();
-    *&v34 = MEMORY[0x1E69E9820];
-    *(&v34 + 1) = 3221225472;
-    v35 = __cd_dispatch_async_capture_tx_block_invoke_0;
-    v36 = &unk_1E7367818;
-    v37 = v13;
-    v38 = &__block_literal_global_566;
+    *&v33 = MEMORY[0x1E69E9820];
+    *(&v33 + 1) = 3221225472;
+    v34 = __cd_dispatch_async_capture_tx_block_invoke_0;
+    v35 = &unk_1E7367818;
+    v36 = v13;
+    v37 = &__block_literal_global_566;
     v14 = v13;
-    dispatch_async(v12, &v34);
+    dispatch_async(v12, &v33);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_performUpdateNumberOfSyncedDevicesWithAttempt:(void *)attempt completionHandler:
 {
-  v55[1] = *MEMORY[0x1E69E9840];
+  v56[1] = *MEMORY[0x1E69E9840];
   attemptCopy = attempt;
   if (self)
   {
-    v29 = os_transaction_create();
+    v30 = os_transaction_create();
     v6 = +[_CDLogging syncChannel];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      *v52 = 0;
-      OUTLINED_FUNCTION_5_2(&dword_191750000, v6, v7, "Fetching number of sync devices", v52);
+      *v53 = 0;
+      OUTLINED_FUNCTION_5_2(&dword_191750000, v6, v7, "Fetching number of sync devices", v53);
     }
 
-    v32 = attemptCopy;
+    v33 = attemptCopy;
 
-    v31 = [MEMORY[0x1E695B888] containerWithIdentifier:@"com.apple.knowledgestore4"];
-    privateCloudDatabase = [v31 privateCloudDatabase];
+    v32 = [MEMORY[0x1E695B888] containerWithIdentifier:@"com.apple.knowledgestore4"];
+    privateCloudDatabase = [v32 privateCloudDatabase];
     keyValueStore = [(_DKCloudUtilities *)self keyValueStore];
-    v9 = [objc_alloc(MEMORY[0x1E695BA80]) initWithZoneName:@"metadata_zone"];
-    zoneID = [v9 zoneID];
+    v10 = [objc_alloc(MEMORY[0x1E695BA80]) initWithZoneName:@"metadata_zone"];
+    zoneID = [v10 zoneID];
     containerKeyValueStore = [(_DKCloudUtilities *)self containerKeyValueStore];
-    v12 = [containerKeyValueStore dataForKey:@"_DKCloudSyncMetadataChangeToken"];
-    v55[0] = zoneID;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:1];
-    v14 = objc_opt_new();
-    if (v12)
+    v14 = [containerKeyValueStore dataForKey:@"_DKCloudSyncMetadataChangeToken"];
+    v56[0] = zoneID;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:1];
+    v16 = objc_opt_new();
+    if (v14)
     {
-      v15 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v12 error:0];
-      [v14 setPreviousServerChangeToken:v15];
+      v17 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v14 error:0];
+      [v16 setPreviousServerChangeToken:v17];
     }
 
-    v53 = zoneID;
-    v54 = v14;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
-    v28 = v12;
-    v17 = [objc_alloc(MEMORY[0x1E695B918]) initWithRecordZoneIDs:v13 optionsByRecordZoneID:v16];
-    [v17 setFetchAllChanges:1];
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke;
-    v49[3] = &unk_1E7367910;
-    v18 = keyValueStore;
-    v50 = v18;
+    v54 = zoneID;
+    v55 = v16;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+    v29 = v14;
+    v19 = [objc_alloc(MEMORY[0x1E695B918]) initWithRecordZoneIDs:v15 optionsByRecordZoneID:v18];
+    [v19 setFetchAllChanges:1];
+    v50[0] = MEMORY[0x1E69E9820];
+    v50[1] = 3221225472;
+    v50[2] = __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke;
+    v50[3] = &unk_1E7367910;
+    v20 = keyValueStore;
+    v51 = v20;
     selfCopy = self;
-    [v17 setRecordChangedBlock:v49];
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 3221225472;
-    v46[2] = __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke_596;
-    v46[3] = &unk_1E7367938;
-    v19 = v18;
-    v47 = v19;
+    [v19 setRecordChangedBlock:v50];
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 3221225472;
+    v47[2] = __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke_596;
+    v47[3] = &unk_1E7367938;
+    v21 = v20;
+    v48 = v21;
     selfCopy2 = self;
-    [v17 setRecordWithIDWasDeletedBlock:v46];
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke_2;
-    v44[3] = &unk_1E7367960;
-    v27 = zoneID;
-    v20 = v13;
-    v21 = containerKeyValueStore;
-    v45 = v21;
-    [v17 setRecordZoneFetchCompletionBlock:v44];
+    [v19 setRecordWithIDWasDeletedBlock:v47];
+    v45[0] = MEMORY[0x1E69E9820];
+    v45[1] = 3221225472;
+    v45[2] = __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke_2;
+    v45[3] = &unk_1E7367960;
+    v28 = zoneID;
+    v22 = v15;
+    v23 = containerKeyValueStore;
+    v46 = v23;
+    [v19 setRecordZoneFetchCompletionBlock:v45];
     OUTLINED_FUNCTION_2_4();
-    v34 = 3221225472;
-    v35 = __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke_3;
-    v36 = &unk_1E7367988;
-    v37 = v19;
-    v38 = v9;
-    v43 = a2;
-    v39 = v21;
+    v35 = 3221225472;
+    v36 = __86___DKCloudUtilities__performUpdateNumberOfSyncedDevicesWithAttempt_completionHandler___block_invoke_3;
+    v37 = &unk_1E7367988;
+    v38 = v21;
+    v39 = v10;
+    v44 = a2;
+    v40 = v23;
     selfCopy3 = self;
-    v41 = v29;
-    v42 = v32;
-    v22 = v29;
-    v23 = v21;
-    v24 = v9;
-    v25 = v19;
-    [v17 setFetchRecordZoneChangesCompletionBlock:v33];
-    [privateCloudDatabase addOperation:v17];
+    v42 = v30;
+    v43 = v33;
+    v24 = v30;
+    v25 = v23;
+    v26 = v10;
+    v27 = v21;
+    [v19 setFetchRecordZoneChangesCompletionBlock:v34];
+    [privateCloudDatabase addOperation:v19];
 
-    attemptCopy = v32;
+    attemptCopy = v33;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)init
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (*(self + 24))
   {
     v2 = @"enabled";
@@ -633,19 +618,17 @@
     v2 = @"disabled";
   }
 
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_191750000, a2, OS_LOG_TYPE_DEBUG, "Cloud sync initialized to %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_191750000, a2, OS_LOG_TYPE_DEBUG, "Cloud sync initialized to %@", &v3, 0xCu);
 }
 
 - (void)_fetchAccountInfoWithCompletionHandler:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_191750000, a2, OS_LOG_TYPE_FAULT, "Failed to fetch account info: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_191750000, a2, OS_LOG_TYPE_FAULT, "Failed to fetch account info: %@", &v2, 0xCu);
 }
 
 @end

@@ -205,12 +205,12 @@
   v20 = 0u;
   if (geometryCopy)
   {
-    [geometryCopy transform];
+    objc_msgSend_transform(geometryCopy);
     v17 = v20;
     v18 = v21;
     v19 = v22;
     v6 = sub_1001399E4(&v17);
-    [v5 transform];
+    objc_msgSend_transform(v5);
   }
 
   else
@@ -270,7 +270,7 @@
   x = a4.origin.x;
   v8 = sub_100120414(a4.origin.x, a4.origin.y, a4.size.width, a4.size.height);
 
-  return [(CRLCanvasInfoGeometry *)self transformBasedOnPoint:x centeredAtPoint:y, v8, v7];
+  return objc_msgSend_transformBasedOnPoint_centeredAtPoint_(self, x, y, v8, v7);
 }
 
 - (CGAffineTransform)transformBasedOnPoint:(SEL)point centeredAtPoint:(CGPoint)atPoint withFlips:(CGPoint)flips
@@ -370,7 +370,7 @@
   v5 = v4;
   v7 = v6;
   v9 = v8;
-  [(CRLCanvasInfoGeometry *)self transform];
+  objc_msgSend_transform(self);
   v11.origin.x = v3;
   v11.origin.y = v5;
   v11.size.width = v7;
@@ -585,7 +585,7 @@ LABEL_8:
 
 - (id)geometryByAppendingTransform:(CGAffineTransform *)transform
 {
-  [(CRLCanvasInfoGeometry *)self fullTransform];
+  objc_msgSend_fullTransform(self, a2);
   v5 = *&transform->c;
   *&v8.a = *&transform->a;
   *&v8.c = v5;
@@ -599,10 +599,10 @@ LABEL_8:
 - (CRLCanvasInfoGeometry)geometryWithParentGeometry:(id)geometry
 {
   geometryCopy = geometry;
-  [(CRLCanvasInfoGeometry *)self fullTransform];
+  objc_msgSend_fullTransform(self);
   if (geometryCopy)
   {
-    [geometryCopy transform];
+    objc_msgSend_transform(geometryCopy);
   }
 
   else
@@ -619,10 +619,10 @@ LABEL_8:
 - (id)geometryRelativeToGeometry:(id)geometry
 {
   geometryCopy = geometry;
-  [(CRLCanvasInfoGeometry *)self fullTransform];
+  objc_msgSend_fullTransform(self);
   if (geometryCopy)
   {
-    [geometryCopy transform];
+    objc_msgSend_transform(geometryCopy);
   }
 
   else
@@ -678,7 +678,7 @@ LABEL_8:
   memset(&v24, 0, sizeof(v24));
   if (geometryCopy)
   {
-    [geometryCopy transform];
+    objc_msgSend_transform(geometryCopy);
   }
 
   else
@@ -688,7 +688,7 @@ LABEL_8:
 
   CGAffineTransformInvert(&v24, &v23);
   memset(&v23, 0, sizeof(v23));
-  [(CRLCanvasInfoGeometry *)self transform];
+  objc_msgSend_transform(self);
   t1 = v24;
   memset(&v22, 0, sizeof(v22));
   v20 = v23;
@@ -715,7 +715,7 @@ LABEL_8:
   [(CRLCanvasInfoGeometry *)self size];
   v14 = sub_10011F31C(v9, v11, v13);
   v16 = v15;
-  [(CRLCanvasInfoGeometry *)self transform];
+  objc_msgSend_transform(self);
   v17 = sub_10012119C(v22, v14, v16);
   v19 = v18;
   [(CRLCanvasInfoGeometry *)self center];

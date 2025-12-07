@@ -42,46 +42,46 @@
     v6->_attachments = v11;
 
     v6->_attributed = xpc_dictionary_get_BOOL(v5, "8");
-    objc_opt_class();
-    v13 = SSXPCDictionaryCopyCFObjectWithClass(v5, "0");
+    v13 = objc_opt_class();
+    v14 = SSXPCDictionaryCopyCFObjectWithClass(v5, "0", v13);
     accountIdentifier = v6->_accountIdentifier;
-    v6->_accountIdentifier = v13;
+    v6->_accountIdentifier = v14;
 
-    objc_opt_class();
-    v15 = SSXPCDictionaryCopyCFObjectWithClass(v5, "2");
+    v16 = objc_opt_class();
+    v17 = SSXPCDictionaryCopyCFObjectWithClass(v5, "2", v16);
     authorIdentifier = v6->_authorIdentifier;
-    v6->_authorIdentifier = v15;
+    v6->_authorIdentifier = v17;
 
-    objc_opt_class();
-    v17 = SSXPCDictionaryCopyCFObjectWithClass(v5, "3");
+    v19 = objc_opt_class();
+    v20 = SSXPCDictionaryCopyCFObjectWithClass(v5, "3", v19);
     authorType = v6->_authorType;
-    v6->_authorType = v17;
+    v6->_authorType = v20;
 
-    v19 = xpc_dictionary_get_value(v5, "4");
-    v20 = objc_opt_class();
-    v21 = SSXPCCreateNSArrayFromXPCEncodedArray(v19, v20);
+    v22 = xpc_dictionary_get_value(v5, "4");
+    v23 = objc_opt_class();
+    v24 = SSXPCCreateNSArrayFromXPCEncodedArray(v22, v23);
 
-    v22 = [v21 copy];
+    v25 = [v24 copy];
     contentItems = v6->_contentItems;
-    v6->_contentItems = v22;
+    v6->_contentItems = v25;
 
-    v24 = xpc_dictionary_get_value(v5, "5");
-    v25 = objc_opt_class();
-    self = SSXPCCreateNSArrayFromXPCEncodedArray(v24, v25);
+    v27 = xpc_dictionary_get_value(v5, "5");
+    v28 = objc_opt_class();
+    self = SSXPCCreateNSArrayFromXPCEncodedArray(v27, v28);
 
-    v26 = [(SSVMediaSocialPostDescription *)self copy];
+    v29 = [(SSVMediaSocialPostDescription *)self copy];
     externalServiceDestinations = v6->_externalServiceDestinations;
-    v6->_externalServiceDestinations = v26;
+    v6->_externalServiceDestinations = v29;
 
-    objc_opt_class();
-    v28 = SSXPCDictionaryCopyCFObjectWithClass(v5, "6");
+    v31 = objc_opt_class();
+    v32 = SSXPCDictionaryCopyCFObjectWithClass(v5, "6", v31);
     sourceApplicationIdentifier = v6->_sourceApplicationIdentifier;
-    v6->_sourceApplicationIdentifier = v28;
+    v6->_sourceApplicationIdentifier = v32;
 
-    objc_opt_class();
-    v30 = SSXPCDictionaryCopyCFObjectWithClass(v5, "7");
+    v34 = objc_opt_class();
+    v35 = SSXPCDictionaryCopyCFObjectWithClass(v5, "7", v34);
     text = v6->_text;
-    v6->_text = v30;
+    v6->_text = v35;
   }
 
   else

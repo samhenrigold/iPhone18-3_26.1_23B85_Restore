@@ -149,80 +149,62 @@ LABEL_20:
 
 - (void)setNetworkList:(NSArray *)networkList
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v4 = networkList;
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = networkList;
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v6 = v4;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v7)
+  v5 = v3;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v17;
+    v7 = v6;
+    v8 = *v14;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v14 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * v10);
-        if (v11)
+        v10 = *(*(&v13 + 1) + 8 * v9);
+        if (v10)
         {
-          v12 = *(v11 + 8);
+          v11 = *(v10 + 8);
         }
 
         else
         {
-          v12 = 0;
+          v11 = 0;
         }
 
-        CFArrayAppendValue(Mutable, v12);
-        ++v10;
+        CFArrayAppendValue(Mutable, v11);
+        ++v9;
       }
 
-      while (v8 != v10);
-      v13 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
-      v8 = v13;
+      while (v7 != v9);
+      v12 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = v12;
     }
 
-    while (v13);
+    while (v12);
   }
 
   if (Mutable)
   {
-    if (self)
-    {
-      response = self->_response;
-    }
-
     CNPluginResponseSetNetworkList();
     CFRelease(Mutable);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setNetwork:(NEHotspotNetwork *)network
 {
-  v4 = network;
-  if (self)
-  {
-    response = self->_response;
-  }
-
-  v7 = v4;
-  if (v4)
-  {
-    v6 = v4->_network;
-  }
-
+  v3 = network;
   CNPluginResponseSetNetwork();
 }
 

@@ -36,10 +36,13 @@
 - (void)pushFolderViewForNote:(id)note;
 - (void)rebuildTableItems;
 - (void)refreshTableView;
+- (void)selectNote:(id)note orFolder:(id)folder prefersSystemPaper:(BOOL)paper;
 - (void)setAccounts:(id)accounts;
+- (void)setIsShowingSearchResults:(BOOL)results animated:(BOOL)animated;
 - (void)setRepresentedItem:(id)item;
 - (void)setTableViewHidesEmptyCells:(BOOL)cells;
 - (void)setTableViewItems:(id)items;
+- (void)setUpForIsShowingSearchResults:(BOOL)results animated:(BOOL)animated;
 - (void)setupSearchResultsWithSearchString:(id)string notes:(id)notes;
 - (void)showOrHideCreateNewNoteButton;
 - (void)showOrHideEmptyTableCellsIfNecessary;
@@ -48,9 +51,13 @@
 - (void)tableViewCell:(id)cell setCollapsed:(BOOL)collapsed;
 - (void)updateForSearchText:(id)text;
 - (void)updateSearchResultsForSearchController:(id)controller;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 - (void)viewSafeAreaInsetsDidChange;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)willAppearInContainer:(id)container;
 @end
 
@@ -82,14 +89,14 @@
 
 - (void)viewDidLoad
 {
-  v75.receiver = self;
-  v75.super_class = ICSETableViewController;
-  [(ICSETableViewController *)&v75 viewDidLoad];
-  v71 = [[UISearchController alloc] initWithSearchResultsController:0];
-  [v71 setDelegate:self];
-  [v71 setSearchResultsUpdater:self];
+  v77.receiver = self;
+  v77.super_class = ICSETableViewController;
+  [(ICSETableViewController *)&v77 viewDidLoad];
+  v73 = [[UISearchController alloc] initWithSearchResultsController:0];
+  [v73 setDelegate:self];
+  [v73 setSearchResultsUpdater:self];
   navigationItem = [(ICSETableViewController *)self navigationItem];
-  [navigationItem setSearchController:v71];
+  [navigationItem setSearchController:v73];
 
   navigationItem2 = [(ICSETableViewController *)self navigationItem];
   [navigationItem2 setHidesSearchBarWhenScrolling:0];
@@ -99,7 +106,7 @@
     navigationItem3 = [(ICSETableViewController *)self navigationItem];
     [navigationItem3 setPreferredSearchBarPlacement:2];
 
-    [v71 setObscuresBackgroundDuringPresentation:0];
+    [v73 setObscuresBackgroundDuringPresentation:0];
   }
 
   v6 = [[ICScrollViewKeyboardResizer alloc] initWithDelegate:self];
@@ -117,13 +124,13 @@
   {
     +[UIColor ICTintColor];
   }
-  v70 = ;
+  v72 = ;
   view = [(ICSETableViewController *)self view];
-  [view setTintColor:v70];
+  [view setTintColor:v72];
 
   navigationController = [(ICSETableViewController *)self navigationController];
   navigationBar = [navigationController navigationBar];
-  [navigationBar setTintColor:v70];
+  [navigationBar setTintColor:v72];
 
   navigationController2 = [(ICSETableViewController *)self navigationController];
   navigationBar2 = [navigationController2 navigationBar];
@@ -164,66 +171,67 @@
   tableView7 = [(ICSETableViewController *)self tableView];
   [tableView7 setRowHeight:UITableViewAutomaticDimension];
 
-  if (ICAccessibilityAccessibilityLargerTextSizesEnabled())
+  v27 = ICAccessibilityAccessibilityLargerTextSizesEnabled();
+  if (v27)
   {
-    v27 = 88.0;
+    v29 = 88.0;
   }
 
   else
   {
-    v27 = sub_1000032EC();
+    v29 = sub_1000032EC(v27, v28);
   }
 
   tableView8 = [(ICSETableViewController *)self tableView];
-  [tableView8 setEstimatedRowHeight:v27];
+  [tableView8 setEstimatedRowHeight:v29];
 
   tableView9 = [(ICSETableViewController *)self tableView];
   [tableView9 setSectionHeaderHeight:UITableViewAutomaticDimension];
 
-  v30 = [ICSearchQueryOperation newOperationQueueWithName:@"com.apple.notes.sharing-extension-query-operation-queue"];
-  [(ICSETableViewController *)self setQueryOperationQueue:v30];
+  v32 = [ICSearchQueryOperation newOperationQueueWithName:@"com.apple.notes.sharing-extension-query-operation-queue"];
+  [(ICSETableViewController *)self setQueryOperationQueue:v32];
 
   backBarButtonItem = [(ICSETableViewController *)self backBarButtonItem];
   [backBarButtonItem _setShowsBackButtonIndicator:1];
 
-  v32 = +[NSNotificationCenter defaultCenter];
-  [v32 addObserver:self selector:"contentSizeCategoryDidChange:" name:UIContentSizeCategoryDidChangeNotification object:0];
+  v34 = +[NSNotificationCenter defaultCenter];
+  [v34 addObserver:self selector:"contentSizeCategoryDidChange:" name:UIContentSizeCategoryDidChangeNotification object:0];
 
-  v33 = +[UIDevice ic_isVision];
-  if (v33)
+  v35 = +[UIDevice ic_isVision];
+  if (v35)
   {
-    v34 = 0;
+    v36 = 0;
   }
 
   else
   {
-    v34 = +[UIColor systemGroupedBackgroundColor];
+    v36 = +[UIColor systemGroupedBackgroundColor];
   }
 
   createNewNoteToolbar = [(ICSETableViewController *)self createNewNoteToolbar];
-  [createNewNoteToolbar setBarTintColor:v34];
+  [createNewNoteToolbar setBarTintColor:v36];
 
-  if ((v33 & 1) == 0)
+  if ((v35 & 1) == 0)
   {
   }
 
   if ((+[UIDevice ic_isVision]& 1) == 0)
   {
-    v36 = [_UIScrollPocketContainerInteraction alloc];
+    v38 = [_UIScrollPocketContainerInteraction alloc];
     tableView10 = [(ICSETableViewController *)self tableView];
-    v38 = [v36 initWithScrollView:tableView10 edge:4];
+    v40 = [v38 initWithScrollView:tableView10 edge:4];
 
     createNewNoteToolbar2 = [(ICSETableViewController *)self createNewNoteToolbar];
-    [createNewNoteToolbar2 addInteraction:v38];
+    [createNewNoteToolbar2 addInteraction:v40];
   }
 
   objc_initWeak(&location, self);
-  v72[0] = _NSConcreteStackBlock;
-  v72[1] = 3221225472;
-  v72[2] = sub_1000135D0;
-  v72[3] = &unk_1000F2808;
-  objc_copyWeak(&v73, &location);
-  v69 = [UIAction actionWithHandler:v72];
+  v74[0] = _NSConcreteStackBlock;
+  v74[1] = 3221225472;
+  v74[2] = sub_1000135D0;
+  v74[3] = &unk_1000F2808;
+  objc_copyWeak(&v75, &location);
+  v71 = [UIAction actionWithHandler:v74];
   if (+[UIDevice ic_isVision])
   {
     +[UIButtonConfiguration ic_filledTintedButtonConfiguration];
@@ -233,46 +241,46 @@
   {
     +[UIButtonConfiguration tintedGlassButtonConfiguration];
   }
-  v40 = ;
-  v41 = +[NSBundle mainBundle];
-  v42 = [v41 localizedStringForKey:@"Create New Note" value:&stru_1000F6F48 table:0];
-  [v40 setTitle:v42];
+  v42 = ;
+  v43 = +[NSBundle mainBundle];
+  v44 = [v43 localizedStringForKey:@"Create New Note" value:&stru_1000F6F48 table:0];
+  [v42 setTitle:v44];
 
-  v43 = [UIButton buttonWithConfiguration:v40 primaryAction:v69];
-  [v43 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v44 = [[UIBarButtonItem alloc] initWithCustomView:v43];
-  [v44 setHidesSharedBackground:1];
+  v45 = [UIButton buttonWithConfiguration:v42 primaryAction:v71];
+  [v45 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v46 = [[UIBarButtonItem alloc] initWithCustomView:v45];
+  [v46 setHidesSharedBackground:1];
   createNewNoteToolbar3 = [(ICSETableViewController *)self createNewNoteToolbar];
-  v46 = +[UIBarButtonItem flexibleSpaceItem];
-  v77[0] = v46;
-  v77[1] = v44;
-  v47 = +[UIBarButtonItem flexibleSpaceItem];
-  v77[2] = v47;
-  v48 = [NSArray arrayWithObjects:v77 count:3];
-  [createNewNoteToolbar3 setItems:v48];
+  v48 = +[UIBarButtonItem flexibleSpaceItem];
+  v79[0] = v48;
+  v79[1] = v46;
+  v49 = +[UIBarButtonItem flexibleSpaceItem];
+  v79[2] = v49;
+  v50 = [NSArray arrayWithObjects:v79 count:3];
+  [createNewNoteToolbar3 setItems:v50];
 
   if (+[UIDevice ic_isVision])
   {
-    v49 = 85.0;
+    v51 = 85.0;
   }
 
   else
   {
-    v49 = 50.0;
+    v51 = 50.0;
   }
 
-  widthAnchor = [v43 widthAnchor];
-  v51 = [widthAnchor constraintGreaterThanOrEqualToConstant:360.0];
-  v76[0] = v51;
-  heightAnchor = [v43 heightAnchor];
-  v53 = [heightAnchor constraintGreaterThanOrEqualToConstant:v49];
-  v76[1] = v53;
-  v54 = [NSArray arrayWithObjects:v76 count:2];
-  [NSLayoutConstraint activateConstraints:v54];
+  widthAnchor = [v45 widthAnchor];
+  v53 = [widthAnchor constraintGreaterThanOrEqualToConstant:360.0];
+  v78[0] = v53;
+  heightAnchor = [v45 heightAnchor];
+  v55 = [heightAnchor constraintGreaterThanOrEqualToConstant:v51];
+  v78[1] = v55;
+  v56 = [NSArray arrayWithObjects:v78 count:2];
+  [NSLayoutConstraint activateConstraints:v56];
 
-  [(ICSETableViewController *)self setCreateNewNoteButton:v43];
+  [(ICSETableViewController *)self setCreateNewNoteButton:v45];
   createNewNoteToolbarHeightConstraint = [(ICSETableViewController *)self createNewNoteToolbarHeightConstraint];
-  [createNewNoteToolbarHeightConstraint setConstant:v49 + 16.0];
+  [createNewNoteToolbarHeightConstraint setConstant:v51 + 16.0];
 
   if (+[ICDeviceSupport deviceIsVision])
   {
@@ -287,24 +295,24 @@
   }
 
   tableView11 = [(ICSETableViewController *)self tableView];
-  v58 = objc_opt_class();
-  v59 = objc_opt_class();
-  v60 = NSStringFromClass(v59);
-  [tableView11 registerClass:v58 forHeaderFooterViewReuseIdentifier:v60];
+  v60 = objc_opt_class();
+  v61 = objc_opt_class();
+  v62 = NSStringFromClass(v61);
+  [tableView11 registerClass:v60 forHeaderFooterViewReuseIdentifier:v62];
 
   tableView12 = [(ICSETableViewController *)self tableView];
-  v62 = objc_opt_class();
-  v63 = objc_opt_class();
-  v64 = NSStringFromClass(v63);
-  [tableView12 registerClass:v62 forHeaderFooterViewReuseIdentifier:v64];
+  v64 = objc_opt_class();
+  v65 = objc_opt_class();
+  v66 = NSStringFromClass(v65);
+  [tableView12 registerClass:v64 forHeaderFooterViewReuseIdentifier:v66];
 
   tableView13 = [(ICSETableViewController *)self tableView];
-  v66 = objc_opt_class();
-  v67 = objc_opt_class();
-  v68 = NSStringFromClass(v67);
-  [tableView13 registerClass:v66 forCellReuseIdentifier:v68];
+  v68 = objc_opt_class();
+  v69 = objc_opt_class();
+  v70 = NSStringFromClass(v69);
+  [tableView13 registerClass:v68 forCellReuseIdentifier:v70];
 
-  objc_destroyWeak(&v73);
+  objc_destroyWeak(&v75);
   objc_destroyWeak(&location);
 }
 
@@ -316,6 +324,102 @@
   v4.receiver = self;
   v4.super_class = ICSETableViewController;
   [(ICSETableViewController *)&v4 dealloc];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v29.receiver = self;
+  v29.super_class = ICSETableViewController;
+  [(ICSETableViewController *)&v29 viewWillAppear:appear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 addObserver:self selector:"notesContextRefreshNotification:" name:ICNotesContextRefreshNotification object:0];
+
+  v5 = +[NSNotificationCenter defaultCenter];
+  [v5 addObserver:self selector:"extensionHostDidBecomeActive:" name:NSExtensionHostDidBecomeActiveNotification object:0];
+
+  [(ICSETableViewController *)self setUpForIsShowingSearchResults:[(ICSETableViewController *)self isShowingSearchResults] animated:0];
+  if (![(ICSETableViewController *)self isNotePickerController])
+  {
+    navigationItem = [(ICSETableViewController *)self navigationItem];
+    [navigationItem setLeftBarButtonItem:0];
+
+    backBarButtonItem = [(ICSETableViewController *)self backBarButtonItem];
+    navigationItem2 = [(ICSETableViewController *)self navigationItem];
+    [(ICNavigationTitleView *)navigationItem2 setLeftBarButtonItem:backBarButtonItem];
+LABEL_14:
+
+    goto LABEL_15;
+  }
+
+  navigationController = [(ICSETableViewController *)self navigationController];
+  navigationItem3 = [navigationController navigationItem];
+  [navigationItem3 setLeftBarButtonItems:0];
+
+  representedItem = [(ICSETableViewController *)self representedItem];
+  folder = [representedItem folder];
+  if (folder)
+  {
+    v10 = folder;
+    representedItem2 = [(ICSETableViewController *)self representedItem];
+    folder2 = [representedItem2 folder];
+    isSharedViaICloud = [folder2 isSharedViaICloud];
+
+    if (isSharedViaICloud)
+    {
+      representedItem3 = [(ICSETableViewController *)self representedItem];
+      folder3 = [representedItem3 folder];
+      isOwnedByCurrentUser = [folder3 isOwnedByCurrentUser];
+
+      if (isOwnedByCurrentUser)
+      {
+        sharedOwnerName = +[NSBundle mainBundle];
+        backBarButtonItem = [sharedOwnerName localizedStringForKey:@"Shared by Me" value:&stru_1000F6F48 table:0];
+      }
+
+      else
+      {
+        representedItem4 = [(ICSETableViewController *)self representedItem];
+        folder4 = [representedItem4 folder];
+        sharedOwnerName = [folder4 sharedOwnerName];
+
+        if ([sharedOwnerName length])
+        {
+          v23 = +[NSBundle mainBundle];
+          v24 = [v23 localizedStringForKey:@"Shared by %@" value:&stru_1000F6F48 table:0];
+          backBarButtonItem = [NSString localizedStringWithFormat:v24, sharedOwnerName];
+        }
+
+        else
+        {
+          v23 = +[NSBundle mainBundle];
+          backBarButtonItem = [v23 localizedStringForKey:@"Shared to Me" value:&stru_1000F6F48 table:0];
+        }
+      }
+
+      navigationItem2 = objc_alloc_init(ICNavigationTitleView);
+      title = [(ICSETableViewController *)self title];
+      titleLabel = [(ICNavigationTitleView *)navigationItem2 titleLabel];
+      [titleLabel setText:title];
+
+      subtitleLabel = [(ICNavigationTitleView *)navigationItem2 subtitleLabel];
+      [subtitleLabel setText:backBarButtonItem];
+
+      navigationItem4 = [(ICSETableViewController *)self navigationItem];
+      [navigationItem4 setTitleView:navigationItem2];
+
+      goto LABEL_14;
+    }
+  }
+
+  else
+  {
+  }
+
+  backBarButtonItem = [(ICSETableViewController *)self navigationItem];
+  [backBarButtonItem setTitleView:0];
+LABEL_15:
+
+  [(ICSETableViewController *)self refreshTableView];
 }
 
 - (void)viewDidLayoutSubviews
@@ -339,6 +443,39 @@
     view = [(ICSETableViewController *)self scrollViewResizer];
     [view startAutoResizing];
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ICSETableViewController;
+  [(ICSETableViewController *)&v4 viewDidAppear:appear];
+  UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, 0);
+  UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, 0);
+  [(ICSETableViewController *)self showOrHideCreateNewNoteButton];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = ICSETableViewController;
+  [(ICSETableViewController *)&v7 viewWillDisappear:disappear];
+  scrollViewResizer = [(ICSETableViewController *)self scrollViewResizer];
+  [scrollViewResizer stopAutoResizing];
+
+  v5 = +[NSNotificationCenter defaultCenter];
+  [v5 removeObserver:self name:ICNotesContextRefreshNotification object:0];
+
+  v6 = +[NSNotificationCenter defaultCenter];
+  [v6 removeObserver:self name:NSExtensionHostDidBecomeActiveNotification object:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = ICSETableViewController;
+  [(ICSETableViewController *)&v4 viewDidDisappear:disappear];
+  [(ICSETableViewController *)self setInhibitSearchCancelAnimation:0];
 }
 
 - (void)willAppearInContainer:(id)container
@@ -1458,6 +1595,20 @@ LABEL_41:
   return v7;
 }
 
+- (void)selectNote:(id)note orFolder:(id)folder prefersSystemPaper:(BOOL)paper
+{
+  paperCopy = paper;
+  folderCopy = folder;
+  noteCopy = note;
+  [(ICSETableViewController *)self setInhibitSearchCancelAnimation:1];
+  delegate = [(ICSETableViewController *)self delegate];
+  [delegate tableController:self didSelectNote:noteCopy folder:folderCopy prefersSystemPaper:paperCopy];
+
+  containerViewController = [(ICSETableViewController *)self containerViewController];
+  rootViewController = [containerViewController rootViewController];
+  [rootViewController setIsShowingSearchResults:0 animated:1];
+}
+
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   pathCopy = path;
@@ -1859,6 +2010,47 @@ LABEL_13:
     tableView = [(ICSETableViewController *)self tableView];
     [tableView reloadData];
   }
+}
+
+- (void)setIsShowingSearchResults:(BOOL)results animated:(BOOL)animated
+{
+  if (self->_isShowingSearchResults != results)
+  {
+    animatedCopy = animated;
+    resultsCopy = results;
+    self->_isShowingSearchResults = results;
+    if (![(ICSETableViewController *)self inhibitSearchCancelAnimation])
+    {
+      [(ICSETableViewController *)self setUpForIsShowingSearchResults:resultsCopy animated:animatedCopy];
+    }
+  }
+
+  UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, 0);
+  v7 = UIAccessibilityScreenChangedNotification;
+
+  UIAccessibilityPostNotification(v7, 0);
+}
+
+- (void)setUpForIsShowingSearchResults:(BOOL)results animated:(BOOL)animated
+{
+  self->_isShowingSearchResults = results;
+  if (results)
+  {
+    v5 = [(ICSETableViewController *)self tableView:results];
+    [v5 setTableFooterView:0];
+  }
+
+  else
+  {
+    v5 = objc_alloc_init(UIView);
+    tableView = [(ICSETableViewController *)self tableView];
+    [tableView setTableFooterView:v5];
+  }
+
+  tableView2 = [(ICSETableViewController *)self tableView];
+  [tableView2 reloadData];
+
+  [(ICSETableViewController *)self showOrHideEmptyTableCellsIfNecessary];
 }
 
 - (void)performSearchForString:(id)string

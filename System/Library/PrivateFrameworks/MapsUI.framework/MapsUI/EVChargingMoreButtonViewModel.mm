@@ -9,30 +9,26 @@
 
 - (NSString)titleString
 {
-  v2 = *(self + OBJC_IVAR____TtC6MapsUI29EVChargingMoreButtonViewModel_titleString);
-  v3 = *(self + OBJC_IVAR____TtC6MapsUI29EVChargingMoreButtonViewModel_titleString + 8);
 
-  v4 = sub_1C584F630();
+  v2 = sub_1C584F630();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)symbolName
 {
   if (*(self + OBJC_IVAR____TtC6MapsUI29EVChargingMoreButtonViewModel_symbolName + 8))
   {
-    v2 = *(self + OBJC_IVAR____TtC6MapsUI29EVChargingMoreButtonViewModel_symbolName);
-    v3 = *(self + OBJC_IVAR____TtC6MapsUI29EVChargingMoreButtonViewModel_symbolName + 8);
 
-    v4 = sub_1C584F630();
+    v2 = sub_1C584F630();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (id)actionBlock
@@ -81,7 +77,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1C5632FA8(v7);
+  sub_1C5632FA8(v7, v8);
 }
 
 @end

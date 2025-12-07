@@ -64,7 +64,7 @@ void __112__WBSCyclerTestSuiteBookmarkAuxiliary_fetchAndValidateBookmarksWithExp
 
 - (id)validateBookmarks:(id)bookmarks expectingBookmarks:(id)expectingBookmarks context:(id)context
 {
-  v71[1] = *MEMORY[0x1E69E9840];
+  v81[1] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   bookmarksCopy = bookmarks;
   v9 = [contextCopy filterOutItemsWithoutTitlePrefixInList:expectingBookmarks];
@@ -80,162 +80,165 @@ void __112__WBSCyclerTestSuiteBookmarkAuxiliary_fetchAndValidateBookmarksWithExp
 
   v13 = [(WBSCyclerTestSuiteBookmarkAuxiliary *)self _formattedStringForBookmark:v9 indentationLevel:0];
   v14 = [(WBSCyclerTestSuiteBookmarkAuxiliary *)self _formattedStringForBookmark:v10 indentationLevel:0];
-  v15 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v16 = WBS_LOG_CHANNEL_PREFIXCycler(v14, v15);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+  if (v17)
   {
     [WBSCyclerTestSuiteBookmarkAuxiliary validateBookmarks:expectingBookmarks:context:];
   }
 
-  v16 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v19 = WBS_LOG_CHANNEL_PREFIXCycler(v17, v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     [WBSCyclerTestSuiteBookmarkAuxiliary validateBookmarks:expectingBookmarks:context:];
   }
 
-  if ([v10 isEquivalent:v9])
+  v20 = [v10 isEquivalent:v9];
+  if (v20)
   {
-    v17 = WBS_LOG_CHANNEL_PREFIXCycler();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v22 = WBS_LOG_CHANNEL_PREFIXCycler(v20, v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       [WBSCyclerTestSuiteBookmarkAuxiliary validateBookmarks:expectingBookmarks:context:];
     }
 
-    v18 = [v9 pairsOfItemsWithDifferingExtraAttributesComparedTo:v10];
-    if ([v18 count])
+    v23 = [v9 pairsOfItemsWithDifferingExtraAttributesComparedTo:v10];
+    if ([v23 count])
     {
-      v46 = v14;
-      v47 = title;
-      v51 = v13;
-      v53 = title2;
-      v48 = v10;
-      v49 = v9;
-      v50 = contextCopy;
+      v56 = v14;
+      v57 = title;
+      v61 = v13;
+      v63 = title2;
+      v58 = v10;
+      v59 = v9;
+      v60 = contextCopy;
       array = [MEMORY[0x1E695DF70] array];
-      v61 = 0u;
-      v62 = 0u;
-      v63 = 0u;
-      v64 = 0u;
-      v18 = v18;
-      v19 = [v18 countByEnumeratingWithState:&v61 objects:v69 count:16];
-      if (v19)
+      v71 = 0u;
+      v72 = 0u;
+      v73 = 0u;
+      v74 = 0u;
+      v23 = v23;
+      v25 = [v23 countByEnumeratingWithState:&v71 objects:v79 count:16];
+      if (v25)
       {
-        v20 = v19;
-        v56 = *v62;
-        obj = v18;
+        v26 = v25;
+        v66 = *v72;
+        obj = v23;
         do
         {
-          v21 = 0;
+          v27 = 0;
           do
           {
-            if (*v62 != v56)
+            if (*v72 != v66)
             {
               objc_enumerationMutation(obj);
             }
 
-            v22 = *(*(&v61 + 1) + 8 * v21);
-            v59 = 0;
-            v60 = 0;
-            [v22 getFirst:&v60 second:&v59];
-            v23 = v60;
-            v24 = v59;
-            v25 = [(WBSCyclerTestSuiteBookmarkAuxiliary *)self _expandedDescriptionForBookmark:v23];
-            v26 = [(WBSCyclerTestSuiteBookmarkAuxiliary *)self _expandedDescriptionForBookmark:v24];
-            v27 = WBS_LOG_CHANNEL_PREFIXCycler();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+            v28 = *(*(&v71 + 1) + 8 * v27);
+            v69 = 0;
+            v70 = 0;
+            [v28 getFirst:&v70 second:&v69];
+            v29 = v70;
+            v30 = v69;
+            v31 = [(WBSCyclerTestSuiteBookmarkAuxiliary *)self _expandedDescriptionForBookmark:v29];
+            v32 = [(WBSCyclerTestSuiteBookmarkAuxiliary *)self _expandedDescriptionForBookmark:v30];
+            v34 = WBS_LOG_CHANNEL_PREFIXCycler(v32, v33);
+            v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG);
+            if (v35)
             {
               *buf = 138543362;
-              v68 = v25;
-              _os_log_debug_impl(&dword_1BB6F3000, v27, OS_LOG_TYPE_DEBUG, "Expected bookmark attributes: %{public}@", buf, 0xCu);
+              v78 = v31;
+              _os_log_debug_impl(&dword_1BB6F3000, v34, OS_LOG_TYPE_DEBUG, "Expected bookmark attributes: %{public}@", buf, 0xCu);
             }
 
-            v28 = WBS_LOG_CHANNEL_PREFIXCycler();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+            v37 = WBS_LOG_CHANNEL_PREFIXCycler(v35, v36);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v68 = v26;
-              _os_log_debug_impl(&dword_1BB6F3000, v28, OS_LOG_TYPE_DEBUG, "Actual bookmark attributes: %{public}@", buf, 0xCu);
+              v78 = v32;
+              _os_log_debug_impl(&dword_1BB6F3000, v37, OS_LOG_TYPE_DEBUG, "Actual bookmark attributes: %{public}@", buf, 0xCu);
             }
 
             newlineCharacterSet = [MEMORY[0x1E696AB08] newlineCharacterSet];
-            v30 = [v25 componentsSeparatedByCharactersInSet:newlineCharacterSet];
+            v39 = [v31 componentsSeparatedByCharactersInSet:newlineCharacterSet];
 
             newlineCharacterSet2 = [MEMORY[0x1E696AB08] newlineCharacterSet];
-            v32 = [v26 componentsSeparatedByCharactersInSet:newlineCharacterSet2];
+            v41 = [v32 componentsSeparatedByCharactersInSet:newlineCharacterSet2];
 
-            v33 = [v30 safari_diffWithArray:v32];
-            v34 = WBS_LOG_CHANNEL_PREFIXCycler();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            v42 = [v39 safari_diffWithArray:v41];
+            v44 = WBS_LOG_CHANNEL_PREFIXCycler(v42, v43);
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v68 = v33;
-              _os_log_error_impl(&dword_1BB6F3000, v34, OS_LOG_TYPE_ERROR, "Expected and actual attributes don't match: %{public}@", buf, 0xCu);
+              v78 = v42;
+              _os_log_error_impl(&dword_1BB6F3000, v44, OS_LOG_TYPE_ERROR, "Expected and actual attributes don't match: %{public}@", buf, 0xCu);
             }
 
-            [array addObject:v33];
+            [array addObject:v42];
 
-            ++v21;
+            ++v27;
           }
 
-          while (v20 != v21);
-          v18 = obj;
-          v20 = [obj countByEnumeratingWithState:&v61 objects:v69 count:16];
+          while (v26 != v27);
+          v23 = obj;
+          v26 = [obj countByEnumeratingWithState:&v71 objects:v79 count:16];
         }
 
-        while (v20);
+        while (v26);
       }
 
-      v65 = @"ExpectedAttributesVersusActualAttributes";
-      v66 = array;
-      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
-      v36 = [(WBSCyclerTestSuiteBookmarkAuxiliary *)self _errorWithCode:0 userInfo:v35];
+      v75 = @"ExpectedAttributesVersusActualAttributes";
+      v76 = array;
+      v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+      v46 = [(WBSCyclerTestSuiteBookmarkAuxiliary *)self _errorWithCode:0 userInfo:v45];
 
-      v9 = v49;
-      contextCopy = v50;
-      title = v47;
-      v10 = v48;
-      v13 = v51;
-      title2 = v53;
-      v14 = v46;
+      v9 = v59;
+      contextCopy = v60;
+      title = v57;
+      v10 = v58;
+      v13 = v61;
+      title2 = v63;
+      v14 = v56;
     }
 
     else
     {
-      v44 = WBS_LOG_CHANNEL_PREFIXCycler();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+      v54 = WBS_LOG_CHANNEL_PREFIXCycler(0, v24);
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
       {
         [WBSCyclerTestSuiteBookmarkAuxiliary validateBookmarks:expectingBookmarks:context:];
       }
 
-      v36 = 0;
+      v46 = 0;
     }
   }
 
   else
   {
-    v54 = title2;
+    v64 = title2;
     newlineCharacterSet3 = [MEMORY[0x1E696AB08] newlineCharacterSet];
-    v18 = [v13 componentsSeparatedByCharactersInSet:newlineCharacterSet3];
+    v23 = [v13 componentsSeparatedByCharactersInSet:newlineCharacterSet3];
 
     newlineCharacterSet4 = [MEMORY[0x1E696AB08] newlineCharacterSet];
-    v39 = [v14 componentsSeparatedByCharactersInSet:newlineCharacterSet4];
+    v49 = [v14 componentsSeparatedByCharactersInSet:newlineCharacterSet4];
 
-    v70 = @"ExpectedStateVersusActualState";
-    [v18 safari_diffWithArray:v39];
-    v40 = v52 = v13;
-    v71[0] = v40;
-    [MEMORY[0x1E695DF20] dictionaryWithObjects:v71 forKeys:&v70 count:1];
-    v41 = title;
-    v43 = v42 = v14;
-    v36 = [(WBSCyclerTestSuiteBookmarkAuxiliary *)self _errorWithCode:0 userInfo:v43];
+    v80 = @"ExpectedStateVersusActualState";
+    [v23 safari_diffWithArray:v49];
+    v50 = v62 = v13;
+    v81[0] = v50;
+    [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:&v80 count:1];
+    v51 = title;
+    v53 = v52 = v14;
+    v46 = [(WBSCyclerTestSuiteBookmarkAuxiliary *)self _errorWithCode:0 userInfo:v53];
 
-    v14 = v42;
-    title = v41;
+    v14 = v52;
+    title = v51;
 
-    v13 = v52;
-    title2 = v54;
+    v13 = v62;
+    title2 = v64;
   }
 
-  return v36;
+  return v46;
 }
 
 - (BOOL)hasPerformedOperation:(int64_t)operation
@@ -480,27 +483,27 @@ void __77__WBSCyclerTestSuiteBookmarkAuxiliary__attributeStringForBookmark_multi
 void __96__WBSCyclerTestSuiteBookmarkAuxiliary__attemptInitialClearWithTarget_options_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = WBS_LOG_CHANNEL_PREFIXCycler(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Clearing all local and remote bookmarks before starting cycler", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Clearing all local and remote bookmarks before starting cycler", v9, 2u);
   }
 
-  v5 = [*(a1 + 32) objectForKeyedSubscript:@"forCloudKitTest"];
-  v6 = [v5 isEqual:MEMORY[0x1E695E118]];
+  v6 = [*(a1 + 32) objectForKeyedSubscript:@"forCloudKitTest"];
+  v7 = [v6 isEqual:MEMORY[0x1E695E118]];
 
-  if (v6)
+  if (v7)
   {
-    v7 = 3;
+    v8 = 3;
   }
 
   else
   {
-    v7 = 1;
+    v8 = 1;
   }
 
-  [*(a1 + 40) clearBookmarksWithOptions:v7 completionHandler:v3];
+  [*(a1 + 40) clearBookmarksWithOptions:v8 completionHandler:v3];
 }
 
 void __96__WBSCyclerTestSuiteBookmarkAuxiliary__attemptInitialClearWithTarget_options_completionHandler___block_invoke_47(uint64_t a1, uint64_t a2)
@@ -508,7 +511,7 @@ void __96__WBSCyclerTestSuiteBookmarkAuxiliary__attemptInitialClearWithTarget_op
   switch(a2)
   {
     case 2:
-      v5 = WBS_LOG_CHANNEL_PREFIXCycler();
+      v5 = WBS_LOG_CHANNEL_PREFIXCycler(a1, 2);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         __96__WBSCyclerTestSuiteBookmarkAuxiliary__attemptInitialClearWithTarget_options_completionHandler___block_invoke_47_cold_1();
@@ -520,7 +523,7 @@ void __96__WBSCyclerTestSuiteBookmarkAuxiliary__attemptInitialClearWithTarget_op
 
       break;
     case 1:
-      v4 = WBS_LOG_CHANNEL_PREFIXCycler();
+      v4 = WBS_LOG_CHANNEL_PREFIXCycler(a1, 1);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
       {
         __96__WBSCyclerTestSuiteBookmarkAuxiliary__attemptInitialClearWithTarget_options_completionHandler___block_invoke_47_cold_2();
@@ -565,40 +568,40 @@ void __96__WBSCyclerTestSuiteBookmarkAuxiliary__attemptInitialClearWithTarget_op
 void __83__WBSCyclerTestSuiteBookmarkAuxiliary__attemptResetToDAVModeWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = WBS_LOG_CHANNEL_PREFIXCycler(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v3, OS_LOG_TYPE_INFO, "Resetting bookmark database back to DAV mode", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Resetting bookmark database back to DAV mode", buf, 2u);
   }
 
-  v4 = [MEMORY[0x1E69C8A08] sharedProxy];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __83__WBSCyclerTestSuiteBookmarkAuxiliary__attemptResetToDAVModeWithCompletionHandler___block_invoke_50;
-  v6[3] = &unk_1E7FB8300;
-  v7 = v2;
-  v5 = v2;
-  [v4 resetToDAVDatabaseWithCompletionHandler:v6];
+  v5 = [MEMORY[0x1E69C8A08] sharedProxy];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __83__WBSCyclerTestSuiteBookmarkAuxiliary__attemptResetToDAVModeWithCompletionHandler___block_invoke_50;
+  v7[3] = &unk_1E7FB8300;
+  v8 = v2;
+  v6 = v2;
+  [v5 resetToDAVDatabaseWithCompletionHandler:v7];
 }
 
 void __83__WBSCyclerTestSuiteBookmarkAuxiliary__attemptResetToDAVModeWithCompletionHandler___block_invoke_50(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCycler();
-  v5 = v4;
+  v5 = WBS_LOG_CHANNEL_PREFIXCycler(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __83__WBSCyclerTestSuiteBookmarkAuxiliary__attemptResetToDAVModeWithCompletionHandler___block_invoke_50_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Reset bookmark database to DAV mode successfully", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Reset bookmark database to DAV mode successfully", v7, 2u);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -609,7 +612,7 @@ void __83__WBSCyclerTestSuiteBookmarkAuxiliary__attemptResetToDAVModeWithComplet
   switch(a2)
   {
     case 2:
-      v5 = WBS_LOG_CHANNEL_PREFIXCycler();
+      v5 = WBS_LOG_CHANNEL_PREFIXCycler(a1, 2);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         __83__WBSCyclerTestSuiteBookmarkAuxiliary__attemptResetToDAVModeWithCompletionHandler___block_invoke_52_cold_1();
@@ -621,7 +624,7 @@ void __83__WBSCyclerTestSuiteBookmarkAuxiliary__attemptResetToDAVModeWithComplet
 
       break;
     case 1:
-      v4 = WBS_LOG_CHANNEL_PREFIXCycler();
+      v4 = WBS_LOG_CHANNEL_PREFIXCycler(a1, 1);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
       {
         __83__WBSCyclerTestSuiteBookmarkAuxiliary__attemptResetToDAVModeWithCompletionHandler___block_invoke_52_cold_2();
@@ -666,40 +669,40 @@ void __83__WBSCyclerTestSuiteBookmarkAuxiliary__attemptResetToDAVModeWithComplet
 void __111__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToGenerateDAVServerIDsForExistingBookmarksWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = WBS_LOG_CHANNEL_PREFIXCycler(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v3, OS_LOG_TYPE_INFO, "Generating DAV server IDs for current bookmarks", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Generating DAV server IDs for current bookmarks", buf, 2u);
   }
 
-  v4 = [MEMORY[0x1E69C8A08] sharedProxy];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __111__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToGenerateDAVServerIDsForExistingBookmarksWithCompletionHandler___block_invoke_55;
-  v6[3] = &unk_1E7FB8300;
-  v7 = v2;
-  v5 = v2;
-  [v4 generateDAVServerIDsForExistingBookmarksWithCompletionHandler:v6];
+  v5 = [MEMORY[0x1E69C8A08] sharedProxy];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __111__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToGenerateDAVServerIDsForExistingBookmarksWithCompletionHandler___block_invoke_55;
+  v7[3] = &unk_1E7FB8300;
+  v8 = v2;
+  v6 = v2;
+  [v5 generateDAVServerIDsForExistingBookmarksWithCompletionHandler:v7];
 }
 
 void __111__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToGenerateDAVServerIDsForExistingBookmarksWithCompletionHandler___block_invoke_55(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCycler();
-  v5 = v4;
+  v5 = WBS_LOG_CHANNEL_PREFIXCycler(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __111__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToGenerateDAVServerIDsForExistingBookmarksWithCompletionHandler___block_invoke_55_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Generated DAV server IDs for existing bookmarks", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Generated DAV server IDs for existing bookmarks", v7, 2u);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -710,7 +713,7 @@ void __111__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToGenerateDAVServerIDsFo
   switch(a2)
   {
     case 2:
-      v5 = WBS_LOG_CHANNEL_PREFIXCycler();
+      v5 = WBS_LOG_CHANNEL_PREFIXCycler(a1, 2);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         __111__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToGenerateDAVServerIDsForExistingBookmarksWithCompletionHandler___block_invoke_56_cold_1();
@@ -722,7 +725,7 @@ void __111__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToGenerateDAVServerIDsFo
 
       break;
     case 1:
-      v4 = WBS_LOG_CHANNEL_PREFIXCycler();
+      v4 = WBS_LOG_CHANNEL_PREFIXCycler(a1, 1);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
       {
         __111__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToGenerateDAVServerIDsForExistingBookmarksWithCompletionHandler___block_invoke_56_cold_2();
@@ -767,40 +770,40 @@ void __111__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToGenerateDAVServerIDsFo
 void __86__WBSCyclerTestSuiteBookmarkAuxiliary__attemptCloudKitMigrationWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = WBS_LOG_CHANNEL_PREFIXCycler(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v3, OS_LOG_TYPE_INFO, "Migrating from DAV to CloudKit", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Migrating from DAV to CloudKit", buf, 2u);
   }
 
-  v4 = [MEMORY[0x1E69C8A08] sharedProxy];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __86__WBSCyclerTestSuiteBookmarkAuxiliary__attemptCloudKitMigrationWithCompletionHandler___block_invoke_59;
-  v6[3] = &unk_1E7FB8300;
-  v7 = v2;
-  v5 = v2;
-  [v4 migrateToCloudKitWithCompletionHandler:v6];
+  v5 = [MEMORY[0x1E69C8A08] sharedProxy];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __86__WBSCyclerTestSuiteBookmarkAuxiliary__attemptCloudKitMigrationWithCompletionHandler___block_invoke_59;
+  v7[3] = &unk_1E7FB8300;
+  v8 = v2;
+  v6 = v2;
+  [v5 migrateToCloudKitWithCompletionHandler:v7];
 }
 
 void __86__WBSCyclerTestSuiteBookmarkAuxiliary__attemptCloudKitMigrationWithCompletionHandler___block_invoke_59(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCycler();
-  v5 = v4;
+  v5 = WBS_LOG_CHANNEL_PREFIXCycler(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __86__WBSCyclerTestSuiteBookmarkAuxiliary__attemptCloudKitMigrationWithCompletionHandler___block_invoke_59_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Migrated from DAV to CloudKit successfully", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Migrated from DAV to CloudKit successfully", v7, 2u);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -811,7 +814,7 @@ void __86__WBSCyclerTestSuiteBookmarkAuxiliary__attemptCloudKitMigrationWithComp
   switch(a2)
   {
     case 2:
-      v5 = WBS_LOG_CHANNEL_PREFIXCycler();
+      v5 = WBS_LOG_CHANNEL_PREFIXCycler(a1, 2);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         __86__WBSCyclerTestSuiteBookmarkAuxiliary__attemptCloudKitMigrationWithCompletionHandler___block_invoke_60_cold_1();
@@ -823,7 +826,7 @@ void __86__WBSCyclerTestSuiteBookmarkAuxiliary__attemptCloudKitMigrationWithComp
 
       break;
     case 1:
-      v4 = WBS_LOG_CHANNEL_PREFIXCycler();
+      v4 = WBS_LOG_CHANNEL_PREFIXCycler(a1, 1);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
       {
         __86__WBSCyclerTestSuiteBookmarkAuxiliary__attemptCloudKitMigrationWithCompletionHandler___block_invoke_60_cold_2();
@@ -877,53 +880,53 @@ void __88__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToClearDataWithOptions_co
   v4 = [*(a1 + 32) objectForKeyedSubscript:@"includeMigrationState"];
   v5 = [v4 isEqual:MEMORY[0x1E695E118]];
 
-  v6 = WBS_LOG_CHANNEL_PREFIXCycler();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+  v8 = WBS_LOG_CHANNEL_PREFIXCycler(v6, v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
   if (v5)
   {
-    if (v7)
+    if (v9)
     {
       *buf = 0;
-      v8 = "Asking sync agent to clear local data and migration state";
+      v10 = "Asking sync agent to clear local data and migration state";
 LABEL_6:
-      _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, v8, buf, 2u);
+      _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, v10, buf, 2u);
     }
   }
 
-  else if (v7)
+  else if (v9)
   {
     *buf = 0;
-    v8 = "Asking sync agent to clear local data";
+    v10 = "Asking sync agent to clear local data";
     goto LABEL_6;
   }
 
-  v9 = [MEMORY[0x1E69C8A08] sharedProxy];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __88__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToClearDataWithOptions_completionHandler___block_invoke_61;
-  v11[3] = &unk_1E7FB8300;
+  v11 = [MEMORY[0x1E69C8A08] sharedProxy];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __88__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToClearDataWithOptions_completionHandler___block_invoke_61;
+  v13[3] = &unk_1E7FB8300;
+  v14 = v3;
   v12 = v3;
-  v10 = v3;
-  [v9 clearLocalDataIncludingMigrationState:v5 completionHandler:v11];
+  [v11 clearLocalDataIncludingMigrationState:v5 completionHandler:v13];
 }
 
 void __88__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToClearDataWithOptions_completionHandler___block_invoke_61(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCycler();
-  v5 = v4;
+  v5 = WBS_LOG_CHANNEL_PREFIXCycler(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __88__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToClearDataWithOptions_completionHandler___block_invoke_61_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Cleared local data successfully", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Cleared local data successfully", v7, 2u);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -934,7 +937,7 @@ void __88__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToClearDataWithOptions_co
   switch(a2)
   {
     case 2:
-      v5 = WBS_LOG_CHANNEL_PREFIXCycler();
+      v5 = WBS_LOG_CHANNEL_PREFIXCycler(a1, 2);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         __88__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToClearDataWithOptions_completionHandler___block_invoke_62_cold_1();
@@ -946,7 +949,7 @@ void __88__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToClearDataWithOptions_co
 
       break;
     case 1:
-      v4 = WBS_LOG_CHANNEL_PREFIXCycler();
+      v4 = WBS_LOG_CHANNEL_PREFIXCycler(a1, 1);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
       {
         __88__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToClearDataWithOptions_completionHandler___block_invoke_62_cold_2();
@@ -1032,7 +1035,7 @@ void __96__WBSCyclerTestSuiteBookmarkAuxiliary__attemptInitialClearWithTarget_op
   v2 = v1;
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_9(&dword_1BB6F3000, v3, v4, "Was not able to clear bookmarks. Will try again after %.2f seconds.", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_9(&dword_1BB6F3000, v3, v4, "Was not able to clear bookmarks. Will try again after %.2f seconds.", v5, v6, v7, v8);
 }
 
 void __83__WBSCyclerTestSuiteBookmarkAuxiliary__attemptResetToDAVModeWithCompletionHandler___block_invoke_52_cold_2()
@@ -1041,7 +1044,7 @@ void __83__WBSCyclerTestSuiteBookmarkAuxiliary__attemptResetToDAVModeWithComplet
   v2 = v1;
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_9(&dword_1BB6F3000, v3, v4, "Was not able to reset bookmark database to DAV mode. Will try again after %.2f seconds.", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_9(&dword_1BB6F3000, v3, v4, "Was not able to reset bookmark database to DAV mode. Will try again after %.2f seconds.", v5, v6, v7, v8);
 }
 
 void __111__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToGenerateDAVServerIDsForExistingBookmarksWithCompletionHandler___block_invoke_56_cold_2()
@@ -1050,7 +1053,7 @@ void __111__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToGenerateDAVServerIDsFo
   v2 = v1;
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_9(&dword_1BB6F3000, v3, v4, "Was not able to generate DAV server IDs for existing bookmarks. Will try again after %.2f seconds.", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_9(&dword_1BB6F3000, v3, v4, "Was not able to generate DAV server IDs for existing bookmarks. Will try again after %.2f seconds.", v5, v6, v7, v8);
 }
 
 void __86__WBSCyclerTestSuiteBookmarkAuxiliary__attemptCloudKitMigrationWithCompletionHandler___block_invoke_60_cold_2()
@@ -1059,7 +1062,7 @@ void __86__WBSCyclerTestSuiteBookmarkAuxiliary__attemptCloudKitMigrationWithComp
   v2 = v1;
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_9(&dword_1BB6F3000, v3, v4, "Was not able to migrate from DAV to CloudKit. Will try again after %.2f seconds.", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_9(&dword_1BB6F3000, v3, v4, "Was not able to migrate from DAV to CloudKit. Will try again after %.2f seconds.", v5, v6, v7, v8);
 }
 
 void __88__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToClearDataWithOptions_completionHandler___block_invoke_62_cold_2()
@@ -1068,7 +1071,7 @@ void __88__WBSCyclerTestSuiteBookmarkAuxiliary__attemptToClearDataWithOptions_co
   v2 = v1;
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_9(&dword_1BB6F3000, v3, v4, "Was not able to clear local data. Will try again after %.2f seconds.", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_9(&dword_1BB6F3000, v3, v4, "Was not able to clear local data. Will try again after %.2f seconds.", v5, v6, v7, v8);
 }
 
 @end

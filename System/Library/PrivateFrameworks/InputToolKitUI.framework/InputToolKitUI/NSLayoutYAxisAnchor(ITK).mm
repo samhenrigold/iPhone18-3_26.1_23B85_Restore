@@ -8,7 +8,7 @@
 
 - (id)itk_constraintEqualToSystemSpacingBelowAnchor:()ITK multiplier:priority:
 {
-  v4 = [self constraintEqualToSystemSpacingBelowAnchor:? multiplier:?];
+  v4 = [self constraintEqualToSystemSpacingBelowAnchor:a2 multiplier:?];
   *&v5 = a3;
   [v4 setPriority:v5];
 
@@ -17,7 +17,7 @@
 
 - (id)itk_constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:()ITK multiplier:priority:
 {
-  v4 = [self constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:? multiplier:?];
+  v4 = [self constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:a2 multiplier:?];
   *&v5 = a3;
   [v4 setPriority:v5];
 
@@ -26,7 +26,7 @@
 
 - (id)itk_constraintLessThanOrEqualToSystemSpacingBelowAnchor:()ITK multiplier:priority:
 {
-  v4 = [self constraintLessThanOrEqualToSystemSpacingBelowAnchor:? multiplier:?];
+  v4 = [self constraintLessThanOrEqualToSystemSpacingBelowAnchor:a2 multiplier:?];
   *&v5 = a3;
   [v4 setPriority:v5];
 

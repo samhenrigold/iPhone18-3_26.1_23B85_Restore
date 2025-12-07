@@ -92,18 +92,16 @@ void __39__MOPerformanceMeasurement_description__block_invoke(uint64_t a1, uint6
     if (self->_session)
     {
       pc_session_end();
-      session = self->_session;
       pc_session_destroy();
       startDate = self->_startDate;
       self->_startDate = 0;
       self->_session = 0;
     }
 
-    v5 = *MEMORY[0x277D85DF8];
-    v6 = pc_session_create();
-    if (v6)
+    v4 = pc_session_create();
+    if (v4)
     {
-      v7 = v6;
+      v5 = v4;
       processInfo = [MEMORY[0x277CCAC38] processInfo];
       [processInfo processIdentifier];
       pc_session_set_procpid();
@@ -114,20 +112,20 @@ void __39__MOPerformanceMeasurement_description__block_invoke(uint64_t a1, uint6
         pc_session_add_metric();
       }
 
-      v9 = objc_opt_new();
-      v10 = self->_startDate;
-      self->_startDate = v9;
+      v7 = objc_opt_new();
+      v8 = self->_startDate;
+      self->_startDate = v7;
 
-      self->_session = v7;
+      self->_session = v5;
 
-      MEMORY[0x2821F9B38](v7);
+      MEMORY[0x2821F9B38](v5);
     }
   }
 }
 
 - (void)endSession
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_session)
   {
     pc_session_end();
@@ -136,23 +134,20 @@ void __39__MOPerformanceMeasurement_description__block_invoke(uint64_t a1, uint6
     [v4 timeIntervalSinceDate:self->_startDate];
     [(MOPerformanceMeasurement *)self _evaluateEndedSession:session duration:?];
 
-    v5 = self->_session;
     pc_session_destroy();
     startDate = self->_startDate;
     self->_startDate = 0;
     self->_session = 0;
 
-    v7 = _mo_log_facility_get_os_log(MOLogFacilityPerformance);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v6 = _mo_log_facility_get_os_log(MOLogFacilityPerformance);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [(MOPerformanceMeasurement *)self description];
-      v10 = 136315138;
-      uTF8String = [v9 UTF8String];
-      _os_log_debug_impl(&dword_25E48F000, v7, OS_LOG_TYPE_DEBUG, "METRICS: %s", &v10, 0xCu);
+      v7 = [(MOPerformanceMeasurement *)self description];
+      v8 = 136315138;
+      uTF8String = [v7 UTF8String];
+      _os_log_debug_impl(&dword_25E48F000, v6, OS_LOG_TYPE_DEBUG, "METRICS: %s", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -190,14 +185,13 @@ void __39__MOPerformanceMeasurement_description__block_invoke(uint64_t a1, uint6
 
 void __59__MOPerformanceMeasurement__evaluateEndedSession_duration___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = a3;
-  if ([v4 pcMetricID])
+  v3 = a3;
+  if ([v3 pcMetricID])
   {
-    v5 = *(a1 + 32);
-    [v4 pcMetricID];
+    [v3 pcMetricID];
     if (!pc_session_get_value())
     {
-      [v4 setRawValue:0.0];
+      [v3 setRawValue:0.0];
     }
   }
 }

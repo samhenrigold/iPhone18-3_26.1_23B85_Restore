@@ -66,10 +66,10 @@ uint64_t __81__SBWindowDeclineSwitcherModifier_initWithTransitionID_fromAppLayou
   v16.super_class = SBWindowDeclineSwitcherModifier;
   transitionWillBegin = [(SBTransitionSwitcherModifier *)&v16 transitionWillBegin];
   v4 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-  v5 = SBAppendSwitcherModifierResponse(v4, transitionWillBegin);
+  v5 = SBAppendSwitcherModifierResponse();
 
   v6 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:2 updateMode:2];
-  v7 = SBAppendSwitcherModifierResponse(v6, v5);
+  v7 = SBAppendSwitcherModifierResponse();
 
   appLayouts = [(SBWindowDeclineSwitcherModifier *)self appLayouts];
   v9 = [appLayouts mutableCopy];

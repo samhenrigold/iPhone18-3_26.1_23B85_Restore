@@ -43,7 +43,7 @@
 
 - (UICollectionView)secondaryCollectionView
 {
-  v2 = sub_24E172184();
+  v2 = sub_24E172184(self, a2);
 
   return v2;
 }
@@ -97,9 +97,9 @@
 - (double)mainSecondaryCollectionViewSpacing
 {
   selfCopy = self;
-  v3 = sub_24E1741D8();
+  v4 = sub_24E1741D8(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)shouldDisplayInSplitView

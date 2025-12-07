@@ -367,11 +367,11 @@ LABEL_7:
 
         if (v8)
         {
-          v9 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+          v11 = WBS_LOG_CHANNEL_PREFIXAuthorization(v9, v10);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
           {
-            *v10 = 0;
-            _os_log_impl(&dword_1C20AD000, v9, OS_LOG_TYPE_INFO, "Updating request.", v10, 2u);
+            *v12 = 0;
+            _os_log_impl(&dword_1C20AD000, v11, OS_LOG_TYPE_INFO, "Updating request.", v12, 2u);
           }
 
           self->_requestTypes = 8;
@@ -418,7 +418,8 @@ LABEL_7:
 
 - (void)logRequest
 {
-  v28 = *MEMORY[0x1E69E9840];
+  selfCopy = self;
+  v27 = *MEMORY[0x1E69E9840];
   requestTypes = self->_requestTypes;
   if (requestTypes)
   {
@@ -439,22 +440,24 @@ LABEL_7:
         switch(v4)
         {
           case 1:
-            v13 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+            v13 = WBS_LOG_CHANNEL_PREFIXAuthorization(self, a2);
+            self = os_log_type_enabled(v13, OS_LOG_TYPE_INFO);
+            if (self)
             {
-              *v21 = 0;
+              *v20 = 0;
               v9 = v13;
               v10 = "Password request";
 LABEL_34:
-              _os_log_impl(&dword_1C20AD000, v9, OS_LOG_TYPE_INFO, v10, v21, 2u);
+              _os_log_impl(&dword_1C20AD000, v9, OS_LOG_TYPE_INFO, v10, v20, 2u);
             }
 
             break;
           case 2:
-            v14 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+            v14 = WBS_LOG_CHANNEL_PREFIXAuthorization(self, a2);
+            self = os_log_type_enabled(v14, OS_LOG_TYPE_INFO);
+            if (self)
             {
-              *v21 = 0;
+              *v20 = 0;
               v9 = v14;
               v10 = "Apple ID request";
               goto LABEL_34;
@@ -462,14 +465,14 @@ LABEL_34:
 
             break;
           case 4:
-            v7 = WBS_LOG_CHANNEL_PREFIXAuthorization();
+            v7 = WBS_LOG_CHANNEL_PREFIXAuthorization(self, a2);
             if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
             {
-              *v21 = 0;
-              _os_log_impl(&dword_1C20AD000, v7, OS_LOG_TYPE_INFO, "Platform registration request:", v21, 2u);
+              *v20 = 0;
+              _os_log_impl(&dword_1C20AD000, v7, OS_LOG_TYPE_INFO, "Platform registration request:", v20, 2u);
             }
 
-            platformKeyCredentialCreationOptions = self->_platformKeyCredentialCreationOptions;
+            platformKeyCredentialCreationOptions = selfCopy->_platformKeyCredentialCreationOptions;
             goto LABEL_29;
         }
       }
@@ -485,54 +488,55 @@ LABEL_34:
               goto LABEL_35;
             }
 
-            v8 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-            if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+            v8 = WBS_LOG_CHANNEL_PREFIXAuthorization(self, a2);
+            self = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
+            if (!self)
             {
               goto LABEL_35;
             }
 
-            *v21 = 0;
+            *v20 = 0;
             v9 = v8;
             v10 = "Platform account registration request";
             goto LABEL_34;
           }
 
-          v12 = WBS_LOG_CHANNEL_PREFIXAuthorization();
+          v12 = WBS_LOG_CHANNEL_PREFIXAuthorization(self, a2);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
           {
-            *v21 = 0;
-            _os_log_impl(&dword_1C20AD000, v12, OS_LOG_TYPE_INFO, "Security key assertion request:", v21, 2u);
+            *v20 = 0;
+            _os_log_impl(&dword_1C20AD000, v12, OS_LOG_TYPE_INFO, "Security key assertion request:", v20, 2u);
           }
 
-          platformKeyCredentialCreationOptions = self->_securityKeyCredentialAssertionOptions;
+          platformKeyCredentialCreationOptions = selfCopy->_securityKeyCredentialAssertionOptions;
           goto LABEL_29;
         }
 
         if (v4 == 8)
         {
-          v11 = WBS_LOG_CHANNEL_PREFIXAuthorization();
+          v11 = WBS_LOG_CHANNEL_PREFIXAuthorization(self, a2);
           if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
           {
-            *v21 = 0;
-            _os_log_impl(&dword_1C20AD000, v11, OS_LOG_TYPE_INFO, "Platform assertion request:", v21, 2u);
+            *v20 = 0;
+            _os_log_impl(&dword_1C20AD000, v11, OS_LOG_TYPE_INFO, "Platform assertion request:", v20, 2u);
           }
 
-          platformKeyCredentialCreationOptions = self->_platformKeyCredentialAssertionOptions;
+          platformKeyCredentialCreationOptions = selfCopy->_platformKeyCredentialAssertionOptions;
           goto LABEL_29;
         }
 
         if (v4 == 16)
         {
-          v5 = WBS_LOG_CHANNEL_PREFIXAuthorization();
+          v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(self, a2);
           if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
           {
-            *v21 = 0;
-            _os_log_impl(&dword_1C20AD000, v5, OS_LOG_TYPE_INFO, "Security key registration request:", v21, 2u);
+            *v20 = 0;
+            _os_log_impl(&dword_1C20AD000, v5, OS_LOG_TYPE_INFO, "Security key registration request:", v20, 2u);
           }
 
-          platformKeyCredentialCreationOptions = self->_securityKeyCredentialCreationOptions;
+          platformKeyCredentialCreationOptions = selfCopy->_securityKeyCredentialCreationOptions;
 LABEL_29:
-          [platformKeyCredentialCreationOptions logRequest];
+          self = [platformKeyCredentialCreationOptions logRequest];
         }
       }
 
@@ -544,10 +548,10 @@ LABEL_35:
     while (requestTypes);
   }
 
-  v15 = WBS_LOG_CHANNEL_PREFIXAuthorization();
+  v15 = WBS_LOG_CHANNEL_PREFIXAuthorization(self, a2);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    requestStyle = self->_requestStyle;
+    requestStyle = selfCopy->_requestStyle;
     if (requestStyle > 2)
     {
       v17 = @"Unknown";
@@ -558,20 +562,18 @@ LABEL_35:
       v17 = off_1E8160218[requestStyle];
     }
 
-    requestOptions = self->_requestOptions;
-    globalFrameID = self->_globalFrameID;
-    *v21 = 138544130;
-    *&v21[4] = v17;
-    v22 = 2114;
-    v23 = globalFrameID;
-    v24 = 2050;
-    v25 = requestOptions;
-    v26 = 2114;
-    v27 = @"authenticatedContext";
-    _os_log_impl(&dword_1C20AD000, v15, OS_LOG_TYPE_INFO, "style: %{public}@\nframeID: %{public}@\noptions: %{public}lx\ncontext: %{public}@\n", v21, 0x2Au);
+    requestOptions = selfCopy->_requestOptions;
+    globalFrameID = selfCopy->_globalFrameID;
+    *v20 = 138544130;
+    *&v20[4] = v17;
+    v21 = 2114;
+    v22 = globalFrameID;
+    v23 = 2050;
+    v24 = requestOptions;
+    v25 = 2114;
+    v26 = @"authenticatedContext";
+    _os_log_impl(&dword_1C20AD000, v15, OS_LOG_TYPE_INFO, "style: %{public}@\nframeID: %{public}@\noptions: %{public}lx\ncontext: %{public}@\n", v20, 0x2Au);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 @end

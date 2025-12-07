@@ -1,274 +1,3 @@
-uint64_t ps_prm_opts_set_forwarding_count(uint64_t result, uint64_t a2)
-{
-  if (result)
-  {
-    *(result + 80) = a2;
-  }
-
-  else
-  {
-    v7 = v2;
-    v8 = v3;
-    v4 = ps_prm_opts_set_forwarding_count_cold_1(v6);
-    return ps_prm_opts_set_data_size(v4, v5);
-  }
-
-  return result;
-}
-
-uint64_t ps_prm_opts_set_data_size(uint64_t result, uint64_t a2)
-{
-  if (result)
-  {
-    *(result + 144) = a2;
-  }
-
-  else
-  {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_data_size_cold_1(v5);
-    return ps_prm_opts_set_iosurface_width(v4);
-  }
-
-  return result;
-}
-
-uint64_t ps_prm_opts_set_iosurface_width(uint64_t result, int a2)
-{
-  if (result)
-  {
-    *(result + 144) = a2;
-  }
-
-  else
-  {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_iosurface_width_cold_1(v5);
-    return ps_prm_opts_set_iosurface_height(v4);
-  }
-
-  return result;
-}
-
-uint64_t ps_prm_opts_set_iosurface_height(uint64_t result, int a2)
-{
-  if (result)
-  {
-    *(result + 148) = a2;
-  }
-
-  else
-  {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_iosurface_height_cold_1(v5);
-    return ps_prm_opts_set_iosurface_pixelformat(v4);
-  }
-
-  return result;
-}
-
-uint64_t ps_prm_opts_set_iosurface_pixelformat(uint64_t result, int a2)
-{
-  if (result)
-  {
-    *(result + 152) = a2;
-  }
-
-  else
-  {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_iosurface_pixelformat_cold_1(v5);
-    return ps_prm_opts_set_iosurface_properties(v4);
-  }
-
-  return result;
-}
-
-uint64_t ps_prm_opts_set_iosurface_properties(uint64_t result, uint64_t a2)
-{
-  if (result)
-  {
-    *(result + 160) = a2;
-  }
-
-  else
-  {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_iosurface_properties_cold_1(v5);
-    return ps_prm_opts_set_iosurface_allocator(v4);
-  }
-
-  return result;
-}
-
-uint64_t ps_prm_opts_set_iosurface_allocator(uint64_t result, uint64_t a2, uint64_t a3)
-{
-  if (result)
-  {
-    *(result + 168) = a2;
-    *(result + 176) = a3;
-  }
-
-  else
-  {
-    v7 = v3;
-    v8 = v4;
-    v5 = ps_prm_opts_set_iosurface_allocator_cold_1(v6);
-    return ps_prm_opts_set_cvpixelbuffer_width(v5);
-  }
-
-  return result;
-}
-
-uint64_t ps_prm_opts_set_cvpixelbuffer_width(uint64_t result, int a2)
-{
-  if (result)
-  {
-    *(result + 144) = a2;
-  }
-
-  else
-  {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_cvpixelbuffer_width_cold_1(v5);
-    return ps_prm_opts_set_cvpixelbuffer_height(v4);
-  }
-
-  return result;
-}
-
-uint64_t ps_prm_opts_set_cvpixelbuffer_height(uint64_t result, int a2)
-{
-  if (result)
-  {
-    *(result + 148) = a2;
-  }
-
-  else
-  {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_cvpixelbuffer_height_cold_1(v5);
-    return ps_prm_opts_set_cvpixelbuffer_pixelformat(v4);
-  }
-
-  return result;
-}
-
-uint64_t ps_prm_opts_set_cvpixelbuffer_pixelformat(uint64_t result, int a2)
-{
-  if (result)
-  {
-    *(result + 152) = a2;
-  }
-
-  else
-  {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_cvpixelbuffer_pixelformat_cold_1(v5);
-    return ps_prm_opts_set_cvpixelbuffer_properties(v4);
-  }
-
-  return result;
-}
-
-uint64_t ps_prm_opts_set_cvpixelbuffer_properties(uint64_t result, uint64_t a2)
-{
-  if (result)
-  {
-    *(result + 160) = a2;
-  }
-
-  else
-  {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_cvpixelbuffer_properties_cold_1(v5);
-    return ps_prm_opts_set_cvpixelbuffer_allocator(v4);
-  }
-
-  return result;
-}
-
-uint64_t ps_prm_opts_set_cvpixelbuffer_allocator(uint64_t result, uint64_t a2, uint64_t a3)
-{
-  if (result)
-  {
-    *(result + 176) = a2;
-    *(result + 184) = a3;
-  }
-
-  else
-  {
-    v8 = v3;
-    v9 = v4;
-    v5 = ps_prm_opts_set_cvpixelbuffer_allocator_cold_1(v7);
-    return ps_prm_opts_set_cvpixelbuffer_metadata_iosurface_properties(v5, v6);
-  }
-
-  return result;
-}
-
-CFTypeRef ps_prm_opts_set_cvpixelbuffer_metadata_iosurface_properties(uint64_t a1, CFTypeRef cf)
-{
-  if (a1)
-  {
-    result = CFRetain(cf);
-    *(a1 + 168) = cf;
-  }
-
-  else
-  {
-    v5 = ps_prm_opts_set_cvpixelbuffer_metadata_iosurface_properties_cold_1(v6, cf);
-    return ps_prm_opts_set_cvdatabuffer_width(v5);
-  }
-
-  return result;
-}
-
-uint64_t ps_prm_opts_set_cvdatabuffer_width(uint64_t result, int a2)
-{
-  if (result)
-  {
-    *(result + 144) = a2;
-  }
-
-  else
-  {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_cvdatabuffer_width_cold_1(v5);
-    return ps_prm_opts_set_cvdatabuffer_height(v4);
-  }
-
-  return result;
-}
-
-uint64_t ps_prm_opts_set_cvdatabuffer_height(uint64_t result, int a2)
-{
-  if (result)
-  {
-    *(result + 148) = a2;
-  }
-
-  else
-  {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_cvdatabuffer_height_cold_1(v5);
-    return ps_prm_opts_set_cvdatabuffer_pixelformat(v4);
-  }
-
-  return result;
-}
-
 uint64_t ps_prm_opts_set_cvdatabuffer_pixelformat(uint64_t result, int a2)
 {
   if (result)
@@ -278,29 +7,25 @@ uint64_t ps_prm_opts_set_cvdatabuffer_pixelformat(uint64_t result, int a2)
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_cvdatabuffer_pixelformat_cold_1(v5);
-    return ps_prm_opts_set_cvdatabuffer_allocator(v4);
+    v2 = ps_prm_opts_set_cvdatabuffer_pixelformat_cold_1();
+    return ps_prm_opts_set_cvdatabuffer_allocator(v2, v3, v4);
   }
 
   return result;
 }
 
-uint64_t ps_prm_opts_set_cvdatabuffer_allocator(uint64_t result, uint64_t a2, uint64_t a3)
+void *ps_prm_opts_set_cvdatabuffer_allocator(void *result, uint64_t a2, uint64_t a3)
 {
   if (result)
   {
-    *(result + 168) = a2;
-    *(result + 176) = a3;
+    result[21] = a2;
+    result[22] = a3;
   }
 
   else
   {
-    v8 = v3;
-    v9 = v4;
-    v5 = ps_prm_opts_set_cvdatabuffer_allocator_cold_1(v7);
-    return ps_prm_opts_set_cvdatabuffer_metadata_iosurface_properties(v5, v6);
+    v3 = ps_prm_opts_set_cvdatabuffer_allocator_cold_1();
+    return ps_prm_opts_set_cvdatabuffer_metadata_iosurface_properties(v3, v4);
   }
 
   return result;
@@ -316,8 +41,8 @@ CFTypeRef ps_prm_opts_set_cvdatabuffer_metadata_iosurface_properties(uint64_t a1
 
   else
   {
-    v5 = ps_prm_opts_set_cvdatabuffer_metadata_iosurface_properties_cold_1(v6, cf);
-    return ps_prm_opts_set_jasperbuffer_width(v5);
+    v5 = ps_prm_opts_set_cvdatabuffer_metadata_iosurface_properties_cold_1();
+    return ps_prm_opts_set_jasperbuffer_width(v5, v6);
   }
 
   return result;
@@ -332,10 +57,8 @@ uint64_t ps_prm_opts_set_jasperbuffer_width(uint64_t result, int a2)
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_jasperbuffer_width_cold_1(v5);
-    return ps_prm_opts_set_jasperbuffer_height(v4);
+    v2 = ps_prm_opts_set_jasperbuffer_width_cold_1();
+    return ps_prm_opts_set_jasperbuffer_height(v2, v3);
   }
 
   return result;
@@ -350,34 +73,30 @@ uint64_t ps_prm_opts_set_jasperbuffer_height(uint64_t result, int a2)
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_jasperbuffer_height_cold_1(v5);
-    return ps_prm_opts_set_jasperbuffer_pixelformat(v4);
+    v2 = ps_prm_opts_set_jasperbuffer_height_cold_1();
+    return ps_prm_opts_set_jasperbuffer_pixelformat(v2, v3);
   }
 
   return result;
 }
 
-uint64_t ps_prm_opts_set_jasperbuffer_pixelformat(uint64_t result, int a2)
+_DWORD *ps_prm_opts_set_jasperbuffer_pixelformat(_DWORD *result, int a2)
 {
   if (result)
   {
-    *(result + 152) = a2;
+    result[38] = a2;
   }
 
   else
   {
-    v7 = v2;
-    v8 = v3;
-    v4 = ps_prm_opts_set_jasperbuffer_pixelformat_cold_1(v6);
-    return ps_prm_opts_set_jasperbuffer_metadata_iosurface_properties(v4, v5);
+    v2 = ps_prm_opts_set_jasperbuffer_pixelformat_cold_1();
+    return ps_prm_opts_set_jasperbuffer_metadata_iosurface_properties(v2, v3);
   }
 
   return result;
 }
 
-CFTypeRef ps_prm_opts_set_jasperbuffer_metadata_iosurface_properties(uint64_t a1, CFTypeRef cf)
+_DWORD *ps_prm_opts_set_jasperbuffer_metadata_iosurface_properties(uint64_t a1, CFTypeRef cf)
 {
   if (a1)
   {
@@ -387,8 +106,8 @@ CFTypeRef ps_prm_opts_set_jasperbuffer_metadata_iosurface_properties(uint64_t a1
 
   else
   {
-    v5 = ps_prm_opts_set_jasperbuffer_metadata_iosurface_properties_cold_1(v6, cf);
-    return ps_prm_opts_set_pearlbuffer_width(v5);
+    v5 = ps_prm_opts_set_jasperbuffer_metadata_iosurface_properties_cold_1();
+    return ps_prm_opts_set_pearlbuffer_width(v5, v6, v7, v8, v9);
   }
 
   return result;
@@ -406,10 +125,8 @@ _DWORD *ps_prm_opts_set_pearlbuffer_width(_DWORD *result, int a2, int a3, int a4
 
   else
   {
-    v9 = v5;
-    v10 = v6;
-    v7 = ps_prm_opts_set_pearlbuffer_width_cold_1(v8);
-    return ps_prm_opts_set_pearlbuffer_height(v7);
+    v5 = ps_prm_opts_set_pearlbuffer_width_cold_1();
+    return ps_prm_opts_set_pearlbuffer_height(v5, v6, v7, v8, v9);
   }
 
   return result;
@@ -427,10 +144,8 @@ _DWORD *ps_prm_opts_set_pearlbuffer_height(_DWORD *result, int a2, int a3, int a
 
   else
   {
-    v9 = v5;
-    v10 = v6;
-    v7 = ps_prm_opts_set_pearlbuffer_height_cold_1(v8);
-    return ps_prm_opts_set_pearlbuffer_pixelformat(v7);
+    v5 = ps_prm_opts_set_pearlbuffer_height_cold_1();
+    return ps_prm_opts_set_pearlbuffer_pixelformat(v5, v6, v7, v8, v9);
   }
 
   return result;
@@ -448,10 +163,8 @@ _DWORD *ps_prm_opts_set_pearlbuffer_pixelformat(_DWORD *result, int a2, int a3, 
 
   else
   {
-    v9 = v5;
-    v10 = v6;
-    v7 = ps_prm_opts_set_pearlbuffer_pixelformat_cold_1(v8);
-    return ps_prm_opts_set_pearlbuffer_has_attachments(v7);
+    v5 = ps_prm_opts_set_pearlbuffer_pixelformat_cold_1();
+    return ps_prm_opts_set_pearlbuffer_has_attachments(v5, v6);
   }
 
   return result;
@@ -466,10 +179,8 @@ uint64_t ps_prm_opts_set_pearlbuffer_has_attachments(uint64_t result, char a2)
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    has_attachments_cold_1 = ps_prm_opts_set_pearlbuffer_has_attachments_cold_1(v5);
-    return ps_prm_opts_set_pearlbuffer_properties(has_attachments_cold_1);
+    has_attachments_cold_1 = ps_prm_opts_set_pearlbuffer_has_attachments_cold_1();
+    return ps_prm_opts_set_pearlbuffer_properties(has_attachments_cold_1, v3);
   }
 
   return result;
@@ -484,10 +195,8 @@ void *ps_prm_opts_set_pearlbuffer_properties(void *result, uint64_t a2)
 
   else
   {
-    v7 = v2;
-    v8 = v3;
-    v4 = ps_prm_opts_set_pearlbuffer_properties_cold_1(v6);
-    return ps_prm_opts_set_pearlbuffer_metadata_iosurface_properties(v4, v5);
+    v2 = ps_prm_opts_set_pearlbuffer_properties_cold_1();
+    return ps_prm_opts_set_pearlbuffer_metadata_iosurface_properties(v2, v3);
   }
 
   return result;
@@ -503,8 +212,8 @@ CFTypeRef ps_prm_opts_set_pearlbuffer_metadata_iosurface_properties(uint64_t a1,
 
   else
   {
-    v5 = ps_prm_opts_set_pearlbuffer_metadata_iosurface_properties_cold_1(v6, cf);
-    return ps_prm_opts_set_matting_params(v5);
+    v5 = ps_prm_opts_set_pearlbuffer_metadata_iosurface_properties_cold_1();
+    return ps_prm_opts_set_matting_params(v5, v6, v7, v8);
   }
 
   return result;
@@ -522,10 +231,8 @@ uint64_t ps_prm_opts_set_matting_params(uint64_t result, uint64_t a2, uint64_t a
 
   else
   {
-    v9 = v4;
-    v10 = v5;
-    v6 = ps_prm_opts_set_matting_params_cold_1(v8);
-    return ps_prm_opts_set_resource_avail_context(v6, v7);
+    v4 = ps_prm_opts_set_matting_params_cold_1();
+    return ps_prm_opts_set_resource_avail_context(v4, v5);
   }
 
   return result;
@@ -540,10 +247,8 @@ uint64_t ps_prm_opts_set_resource_avail_context(uint64_t result, uint64_t a2)
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_resource_avail_context_cold_1(v5);
-    return ps_prm_opts_set_object_stream(v4);
+    v2 = ps_prm_opts_set_resource_avail_context_cold_1();
+    return ps_prm_opts_set_object_stream(v2, v3);
   }
 
   return result;
@@ -558,10 +263,8 @@ uint64_t ps_prm_opts_set_object_stream(uint64_t result, uint64_t a2)
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_object_stream_cold_1(v5);
-    return ps_prm_opts_set_opaque_stream(v4);
+    v2 = ps_prm_opts_set_object_stream_cold_1();
+    return ps_prm_opts_set_opaque_stream(v2, v3);
   }
 
   return result;
@@ -576,10 +279,8 @@ uint64_t ps_prm_opts_set_opaque_stream(uint64_t result, uint64_t a2)
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_opaque_stream_cold_1(v5);
-    return ps_prm_opts_set_fastpath_stream(v4);
+    v2 = ps_prm_opts_set_opaque_stream_cold_1();
+    return ps_prm_opts_set_fastpath_stream(v2, v3);
   }
 
   return result;
@@ -594,10 +295,8 @@ uint64_t ps_prm_opts_set_fastpath_stream(uint64_t result, uint64_t a2)
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_fastpath_stream_cold_1(v5);
-    return ps_prm_opts_get_resource_key(v4);
+    v2 = ps_prm_opts_set_fastpath_stream_cold_1();
+    return ps_prm_opts_get_resource_key(v2);
   }
 
   return result;
@@ -610,9 +309,7 @@ uint64_t ps_prm_opts_get_resource_key(uint64_t a1)
     return *(a1 + 56);
   }
 
-  v6 = v1;
-  v7 = v2;
-  resource_key_cold_1 = ps_prm_opts_get_resource_key_cold_1(v5);
+  resource_key_cold_1 = ps_prm_opts_get_resource_key_cold_1();
   return ps_prm_opts_get_resource_class(resource_key_cold_1);
 }
 
@@ -623,9 +320,7 @@ uint64_t ps_prm_opts_get_resource_class(uint64_t a1)
     return *(a1 + 40);
   }
 
-  v6 = v1;
-  v7 = v2;
-  resource_class_cold_1 = ps_prm_opts_get_resource_class_cold_1(v5);
+  resource_class_cold_1 = ps_prm_opts_get_resource_class_cold_1();
   return ps_prm_opts_get_return_capacity(resource_class_cold_1);
 }
 
@@ -636,9 +331,7 @@ uint64_t ps_prm_opts_get_return_capacity(uint64_t a1)
     return *(a1 + 48);
   }
 
-  v6 = v1;
-  v7 = v2;
-  return_capacity_cold_1 = ps_prm_opts_get_return_capacity_cold_1(v5);
+  return_capacity_cold_1 = ps_prm_opts_get_return_capacity_cold_1();
   return ps_prm_opts_get_forwarding_count(return_capacity_cold_1);
 }
 
@@ -649,9 +342,7 @@ uint64_t ps_prm_opts_get_forwarding_count(uint64_t a1)
     return *(a1 + 80);
   }
 
-  v6 = v1;
-  v7 = v2;
-  forwarding_count_cold_1 = ps_prm_opts_get_forwarding_count_cold_1(v5);
+  forwarding_count_cold_1 = ps_prm_opts_get_forwarding_count_cold_1();
   return ps_prm_opts_get_writer_depth(forwarding_count_cold_1);
 }
 
@@ -662,10 +353,8 @@ uint64_t ps_prm_opts_get_writer_depth(uint64_t a1)
     return *(a1 + 72);
   }
 
-  v7 = v1;
-  v8 = v2;
-  writer_depth_cold_1 = ps_prm_opts_get_writer_depth_cold_1(v6);
-  return ps_prm_opts_set_resource_metadata_type(writer_depth_cold_1, v5);
+  writer_depth_cold_1 = ps_prm_opts_get_writer_depth_cold_1();
+  return ps_prm_opts_set_resource_metadata_type(writer_depth_cold_1, v3);
 }
 
 uint64_t ps_prm_opts_set_resource_metadata_type(uint64_t result, int a2)
@@ -677,10 +366,8 @@ uint64_t ps_prm_opts_set_resource_metadata_type(uint64_t result, int a2)
 
   else
   {
-    v6 = v2;
-    v7 = v3;
-    v4 = ps_prm_opts_set_resource_metadata_type_cold_1(v5);
-    return ps_prm_opts_get_resource_metadata_type(v4);
+    v2 = ps_prm_opts_set_resource_metadata_type_cold_1();
+    return ps_prm_opts_get_resource_metadata_type(v2);
   }
 
   return result;
@@ -693,9 +380,7 @@ uint64_t ps_prm_opts_get_resource_metadata_type(uint64_t a1)
     return *(a1 + 108);
   }
 
-  v6 = v1;
-  v7 = v2;
-  resource_metadata_type_cold_1 = ps_prm_opts_get_resource_metadata_type_cold_1(v5);
+  resource_metadata_type_cold_1 = ps_prm_opts_get_resource_metadata_type_cold_1();
   return ps_prm_opts_get_reader_depth(resource_metadata_type_cold_1);
 }
 
@@ -706,10 +391,8 @@ uint64_t ps_prm_opts_get_reader_depth(uint64_t a1)
     return *(a1 + 68);
   }
 
-  v6 = v1;
-  v7 = v2;
-  reader_depth_cold_1 = ps_prm_opts_get_reader_depth_cold_1(v5);
-  return ps_prm_opts_set_ane_chained_stream(reader_depth_cold_1);
+  reader_depth_cold_1 = ps_prm_opts_get_reader_depth_cold_1();
+  return ps_prm_opts_set_ane_chained_stream(reader_depth_cold_1, v3, v4, v5, v6, v7);
 }
 
 uint64_t ps_prm_opts_set_ane_chained_stream(uint64_t result, uint64_t a2, int a3, unsigned int a4, int a5, int a6)
@@ -731,14 +414,14 @@ uint64_t ps_prm_opts_set_ane_chained_stream(uint64_t result, uint64_t a2, int a3
 
   else
   {
-    ps_prm_opts_set_ane_chained_stream_cold_2(v11);
+    ps_prm_opts_set_ane_chained_stream_cold_2();
   }
 
-  v7 = ps_prm_opts_set_ane_chained_stream_cold_1(v11);
+  v7 = ps_prm_opts_set_ane_chained_stream_cold_1();
   return ps_prm_get_iosurface_count(v7, v8, v9, v10);
 }
 
-uint64_t ps_prm_opts_set_camera_cvpixelbuffer(uint64_t result, int a2, int a3, uint64_t a4, uint64_t a5, int a6)
+uint64_t ps_prm_opts_set_camera_cvpixelbuffer(uint64_t result, int a2, int a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
   if (result)
   {
@@ -755,11 +438,11 @@ uint64_t ps_prm_opts_set_camera_cvpixelbuffer(uint64_t result, int a2, int a3, u
 
   else
   {
-    ps_prm_opts_set_camera_cvpixelbuffer_cold_2(v7);
+    ps_prm_opts_set_camera_cvpixelbuffer_cold_2();
   }
 
-  v6 = ps_prm_opts_set_camera_cvpixelbuffer_cold_1(v7);
-  return ps_prm_opts_set_camera_cvpixelbuffer_superframe(v6);
+  v15 = ps_prm_opts_set_camera_cvpixelbuffer_cold_1();
+  return ps_prm_opts_set_camera_cvpixelbuffer_superframe(v15, v16, v17, v18, v19, v20, v21, v22, a9, a10, a11, a12, a13, a14, a15);
 }
 
 uint64_t ps_prm_opts_set_camera_cvpixelbuffer_superframe(uint64_t result, int a2, int a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
@@ -788,14 +471,14 @@ uint64_t ps_prm_opts_set_camera_cvpixelbuffer_superframe(uint64_t result, int a2
 
   else
   {
-    ps_prm_opts_set_camera_cvpixelbuffer_superframe_cold_2(v16);
+    ps_prm_opts_set_camera_cvpixelbuffer_superframe_cold_2();
   }
 
-  v15 = ps_prm_opts_set_camera_cvpixelbuffer_superframe_cold_1(v16);
-  return ps_prm_opts_set_camera_cvdatabuffer(v15);
+  v15 = ps_prm_opts_set_camera_cvpixelbuffer_superframe_cold_1();
+  return ps_prm_opts_set_camera_cvdatabuffer(v15, v16, v17, v18, v19, v20);
 }
 
-uint64_t ps_prm_opts_set_camera_cvdatabuffer(uint64_t result, int a2, int a3, uint64_t a4, uint64_t a5, int a6)
+uint64_t ps_prm_opts_set_camera_cvdatabuffer(uint64_t result, int a2, int a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, int a9)
 {
   if (result)
   {
@@ -812,14 +495,14 @@ uint64_t ps_prm_opts_set_camera_cvdatabuffer(uint64_t result, int a2, int a3, ui
 
   else
   {
-    ps_prm_opts_set_camera_cvdatabuffer_cold_2(v7);
+    ps_prm_opts_set_camera_cvdatabuffer_cold_2();
   }
 
-  v6 = ps_prm_opts_set_camera_cvdatabuffer_cold_1(v7);
-  return ps_prm_opts_set_camera_jasperbuffer(v6);
+  v9 = ps_prm_opts_set_camera_cvdatabuffer_cold_1();
+  return ps_prm_opts_set_camera_jasperbuffer(v9, v10, v11, v12, v13, v14, v15, v16, a9);
 }
 
-uint64_t ps_prm_opts_set_camera_jasperbuffer(uint64_t result, int a2, int a3, uint64_t a4, uint64_t a5, int a6)
+uint64_t ps_prm_opts_set_camera_jasperbuffer(uint64_t result, int a2, int a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, int a9)
 {
   if (result)
   {
@@ -836,11 +519,11 @@ uint64_t ps_prm_opts_set_camera_jasperbuffer(uint64_t result, int a2, int a3, ui
 
   else
   {
-    ps_prm_opts_set_camera_jasperbuffer_cold_2(v7);
+    ps_prm_opts_set_camera_jasperbuffer_cold_2();
   }
 
-  v6 = ps_prm_opts_set_camera_jasperbuffer_cold_1(v7);
-  return ps_prm_opts_set_camera_pearlbuffer(v6);
+  v9 = ps_prm_opts_set_camera_jasperbuffer_cold_1();
+  return ps_prm_opts_set_camera_pearlbuffer(v9, v10, v11, v12, v13, v14, v15, v16, a9);
 }
 
 uint64_t ps_prm_opts_set_camera_pearlbuffer(uint64_t result, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
@@ -863,10 +546,10 @@ uint64_t ps_prm_opts_set_camera_pearlbuffer(uint64_t result, int a2, int a3, uin
 
   else
   {
-    ps_prm_opts_set_camera_pearlbuffer_cold_2(v11);
+    ps_prm_opts_set_camera_pearlbuffer_cold_2();
   }
 
-  v9 = ps_prm_opts_set_camera_pearlbuffer_cold_1(v11);
+  v9 = ps_prm_opts_set_camera_pearlbuffer_cold_1();
   return ps_prm_opts_set_fastpath_data_type(v9, v10);
 }
 
@@ -909,7 +592,7 @@ void sub_25EAB3BEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t PSResourceManager::PSResourceManager(uint64_t a1, uint64_t a2, int a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   *a1 = 0u;
   *(a1 + 16) = 0u;
   *(a1 + 32) = 1065353216;
@@ -930,8 +613,6 @@ uint64_t PSResourceManager::PSResourceManager(uint64_t a1, uint64_t a2, int a3)
   *(a1 + 368) = a3 == 1;
   if (a3 == 2)
   {
-LABEL_9:
-    v7 = *MEMORY[0x277D85DE8];
     return a1;
   }
 
@@ -940,16 +621,17 @@ LABEL_9:
   if (v4)
   {
     snprintf(__str, 0x80uLL, "com.apple.%s.local_res_fact", v4);
-    if (MEMORY[0x25F8C8F10](__str))
+    v5 = MEMORY[0x25F8C8F10](__str);
+    if (v5)
     {
-      v5 = __PSResourceManagerLogSharedInstance();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
         *&buf[4] = "PSResourceManager";
-        v12 = 2080;
-        v13 = __str;
-        _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_DEBUG, "%s: Local Resource Factory %s already exists. PRM will suffix pid before creating local resource factory..", buf, 0x16u);
+        v16 = 2080;
+        v17 = __str;
+        _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEBUG, "%s: Local Resource Factory %s already exists. PRM will suffix pid before creating local resource factory..", buf, 0x16u);
       }
 
       getpid();
@@ -961,27 +643,27 @@ LABEL_9:
       snprintf((a1 + 224), 0x80uLL, "%s");
     }
 
-    v6 = *(a1 + 352);
     *(a1 + 360) = ps_buffer_create_local_factory();
-    goto LABEL_9;
+    return a1;
   }
 
   *buf = 0;
-  asprintf(buf, "proc_name = null");
-  v9 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+  v9 = asprintf(buf, "proc_name = null");
+  v11 = __PSResourceManagerLogSharedInstance(v9, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
   {
     *__str = 136315394;
-    v15 = "PSResourceManager";
-    v16 = 1024;
-    v17 = 65;
-    _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_FAULT, "%s:%d proc_name = null", __str, 0x12u);
+    v19 = "PSResourceManager";
+    v20 = 1024;
+    v21 = 65;
+    _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_FAULT, "%s:%d proc_name = null", __str, 0x12u);
   }
 
-  if (OSLogFlushBuffers())
+  v12 = OSLogFlushBuffers();
+  if (v12)
   {
-    v10 = __PSResourceManagerLogSharedInstance();
-    PSResourceManager::PSResourceManager(v10);
+    v14 = __PSResourceManagerLogSharedInstance(v12, v13);
+    PSResourceManager::PSResourceManager(v14);
   }
 
   else
@@ -996,12 +678,10 @@ LABEL_9:
 
 void PSResourceManager::~PSResourceManager(PSResourceManager *this)
 {
-  v2 = *(this + 45);
   ps_buffer_delete_factory();
-  v3 = *(this + 44);
   ps_delete_comms_server();
   std::mutex::~mutex((this + 144));
-  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(this + 104);
+  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(this + 13);
   std::mutex::~mutex((this + 40));
 
   std::__hash_table<std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>>>::~__hash_table(this);
@@ -1009,10 +689,10 @@ void PSResourceManager::~PSResourceManager(PSResourceManager *this)
 
 uint64_t PSResourceManager::createReaderInstance(PSResourceManager *this, PSResourceManagerOptions *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v4 = __PSResourceManagerLogSharedInstance();
+    v4 = __PSResourceManagerLogSharedInstance(this, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v6 = *(a2 + 6);
@@ -1022,18 +702,18 @@ uint64_t PSResourceManager::createReaderInstance(PSResourceManager *this, PSReso
       v9 = *(a2 + 10);
       buf[0] = 136381699;
       *&buf[1] = v5;
-      v23 = 1024;
-      LODWORD(v24) = v7;
-      WORD2(v24) = 1024;
-      *(&v24 + 6) = v6;
-      WORD5(v24) = 1024;
-      HIDWORD(v24) = v8;
-      v25 = 1024;
-      v26 = v9;
+      v31 = 1024;
+      LODWORD(v32) = v7;
+      WORD2(v32) = 1024;
+      *(&v32 + 6) = v6;
+      WORD5(v32) = 1024;
+      HIDWORD(v32) = v8;
+      v33 = 1024;
+      v34 = v9;
       _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEBUG, "Creating reader instance with opts: key (%{private}s), cls (%d), capacity (%d), storage_mode (%d) fwd_count (%d)", buf, 0x24u);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&__p, *(a2 + 7));
+    v10 = std::string::basic_string[abi:ne200100]<0>(&__p, *(a2 + 7));
     if (*(a2 + 105) == 1)
     {
       if (*(a2 + 106) == 1)
@@ -1044,52 +724,53 @@ uint64_t PSResourceManager::createReaderInstance(PSResourceManager *this, PSReso
       operator new();
     }
 
-    v10 = *(a2 + 5);
-    if (v10 == 10)
+    v12 = *(a2 + 5);
+    if (v12 == 10)
     {
       operator new();
     }
 
-    if (v10 != 12)
+    if (v12 != 12)
     {
       operator new();
     }
 
-    v11 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(a2 + 7);
+      v14 = *(a2 + 7);
       buf[0] = 136315395;
       *&buf[1] = "createReaderInstance";
-      v23 = 2081;
-      *&v24 = v12;
-      _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_DEFAULT, "%s creating fast path reader for key %{private}s", buf, 0x16u);
+      v31 = 2081;
+      *&v32 = v14;
+      _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_DEFAULT, "%s creating fast path reader for key %{private}s", buf, 0x16u);
     }
 
-    v13 = *(a2 + 7);
-    if (!strncmp(v13, "compass.compass200", 0x12uLL))
+    v15 = *(a2 + 7);
+    if (!strncmp(v15, "compass.compass200", 0x12uLL))
     {
       if (*(this + 368) == 1)
       {
         operator new();
       }
 
-      v20 = 0;
-      asprintf(&v20, "ERROR! Unsupported fastpath resource: %s", v13);
-      v17 = __PSResourceManagerLogSharedInstance();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v28 = 0;
+      v23 = asprintf(&v28, "ERROR! Unsupported fastpath resource: %s", v15);
+      v25 = __PSResourceManagerLogSharedInstance(v23, v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
       {
-        v18 = *(a2 + 7);
+        v26 = *(a2 + 7);
         buf[0] = 136315650;
         *&buf[1] = "createReaderInstance";
-        v23 = 1024;
-        LODWORD(v24) = 150;
-        WORD2(v24) = 2080;
-        *(&v24 + 6) = v18;
-        _os_log_impl(&dword_25EA3A000, v17, OS_LOG_TYPE_FAULT, "%s:%d ERROR! Unsupported fastpath resource: %s", buf, 0x1Cu);
+        v31 = 1024;
+        LODWORD(v32) = 150;
+        WORD2(v32) = 2080;
+        *(&v32 + 6) = v26;
+        _os_log_impl(&dword_25EA3A000, v25, OS_LOG_TYPE_FAULT, "%s:%d ERROR! Unsupported fastpath resource: %s", buf, 0x1Cu);
       }
 
-      if (!OSLogFlushBuffers())
+      v21 = OSLogFlushBuffers();
+      if (!v21)
       {
         goto LABEL_27;
       }
@@ -1097,27 +778,28 @@ uint64_t PSResourceManager::createReaderInstance(PSResourceManager *this, PSReso
 
     else
     {
-      if (!strncmp(v13, "accessory-tracking.", 0x13uLL))
+      if (!strncmp(v15, "accessory-tracking.", 0x13uLL))
       {
         operator new();
       }
 
-      v20 = 0;
-      asprintf(&v20, "ERROR! Unsupported fastpath resource: %s", v13);
-      v15 = __PSResourceManagerLogSharedInstance();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      v28 = 0;
+      v17 = asprintf(&v28, "ERROR! Unsupported fastpath resource: %s", v15);
+      v19 = __PSResourceManagerLogSharedInstance(v17, v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
-        v16 = *(a2 + 7);
+        v20 = *(a2 + 7);
         buf[0] = 136315650;
         *&buf[1] = "createReaderInstance";
-        v23 = 1024;
-        LODWORD(v24) = 174;
-        WORD2(v24) = 2080;
-        *(&v24 + 6) = v16;
-        _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_FAULT, "%s:%d ERROR! Unsupported fastpath resource: %s", buf, 0x1Cu);
+        v31 = 1024;
+        LODWORD(v32) = 174;
+        WORD2(v32) = 2080;
+        *(&v32 + 6) = v20;
+        _os_log_impl(&dword_25EA3A000, v19, OS_LOG_TYPE_FAULT, "%s:%d ERROR! Unsupported fastpath resource: %s", buf, 0x1Cu);
       }
 
-      if (!OSLogFlushBuffers())
+      v21 = OSLogFlushBuffers();
+      if (!v21)
       {
 LABEL_27:
         usleep(0x1E8480u);
@@ -1127,12 +809,12 @@ LABEL_29:
       }
     }
 
-    v19 = __PSResourceManagerLogSharedInstance();
-    PSResourceManager::createReaderInstance(v19);
+    v27 = __PSResourceManagerLogSharedInstance(v21, v22);
+    PSResourceManager::createReaderInstance(v27);
     goto LABEL_29;
   }
 
-  result = PSResourceManager::createReaderInstance(buf);
+  result = PSResourceManager::createReaderInstance();
 LABEL_30:
   __break(1u);
   return result;
@@ -1150,20 +832,20 @@ void sub_25EAB4508(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void PSResourceManager::deleteReaderInstance(PSResourceManager *this, PRMReaderInstance *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-    PSResourceManager::deleteReaderInstance(__p);
+    PSResourceManager::deleteReaderInstance();
     __break(1u);
   }
 
   Key = PRMReaderInstance::getKey(a2);
-  std::string::basic_string[abi:ne200100]<0>(&v18, Key);
+  std::string::basic_string[abi:ne200100]<0>(&v21, Key);
   std::mutex::lock((this + 40));
   std::string::basic_string[abi:ne200100]<0>(__p, Key);
   v5 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>>>::find<std::string>(this, __p);
-  v6 = v5;
-  if ((SHIBYTE(v23) & 0x80000000) == 0)
+  v7 = v5;
+  if ((SHIBYTE(v26) & 0x80000000) == 0)
   {
     if (v5)
     {
@@ -1171,110 +853,112 @@ void PSResourceManager::deleteReaderInstance(PSResourceManager *this, PRMReaderI
     }
 
 LABEL_14:
-    v11 = __PSResourceManagerLogSharedInstance();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = __PSResourceManagerLogSharedInstance(v5, v6);
+    v5 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+    if (!v5)
     {
       goto LABEL_19;
     }
 
     *__p = 136315650;
     *&__p[4] = "deleteReaderInstance";
-    v21 = 2048;
-    v22 = a2;
-    v23 = 2080;
-    v24 = Key;
-    v12 = "%s:Did not find entry for PRMReaderInstance %p with key %s";
+    v24 = 2048;
+    v25 = a2;
+    v26 = 2080;
+    v27 = Key;
+    v14 = "%s:Did not find entry for PRMReaderInstance %p with key %s";
 LABEL_18:
-    _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_ERROR, v12, __p, 0x20u);
+    _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_ERROR, v14, __p, 0x20u);
     goto LABEL_19;
   }
 
   operator delete(*__p);
-  if (!v6)
+  if (!v7)
   {
     goto LABEL_14;
   }
 
 LABEL_4:
-  v8 = v6[5];
-  v7 = v6[6];
-  if (v8 != v7)
+  v9 = *(v7 + 40);
+  v8 = *(v7 + 48);
+  if (v9 != v8)
   {
-    v9 = v6[5];
-    while (*v9 != a2)
+    v10 = *(v7 + 40);
+    while (*v10 != a2)
     {
+      ++v10;
       ++v9;
-      ++v8;
-      if (v9 == v7)
+      if (v10 == v8)
       {
-        v8 = v6[6];
+        v9 = *(v7 + 48);
         break;
       }
     }
   }
 
-  if (v7 == v8)
+  if (v8 == v9)
   {
-    v11 = __PSResourceManagerLogSharedInstance();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = __PSResourceManagerLogSharedInstance(v5, v6);
+    v5 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+    if (!v5)
     {
       goto LABEL_19;
     }
 
     *__p = 136315650;
     *&__p[4] = "deleteReaderInstance";
-    v21 = 2080;
-    v22 = Key;
-    v23 = 2048;
-    v24 = a2;
-    v12 = "%s:key %s exists but didn't find PRMReaderInstance %p";
+    v24 = 2080;
+    v25 = Key;
+    v26 = 2048;
+    v27 = a2;
+    v14 = "%s:key %s exists but didn't find PRMReaderInstance %p";
     goto LABEL_18;
   }
 
-  v10 = (v7 - (v8 + 1));
-  if (v7 != v8 + 1)
+  v11 = v9 + 1;
+  v12 = v8 - (v9 + 1);
+  if (v8 != v9 + 1)
   {
-    memmove(v8, v8 + 1, v7 - (v8 + 1));
+    v5 = memmove(v9, v11, v8 - (v9 + 1));
   }
 
-  v6[6] = &v10[v8];
+  *(v7 + 48) = v9 + v12;
 LABEL_19:
-  v13 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v15 = __PSResourceManagerLogSharedInstance(v5, v11);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *__p = 136380675;
     *&__p[4] = Key;
-    _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_DEBUG, "Deleting reader instance for key %{private}s", __p, 0xCu);
+    _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_DEBUG, "Deleting reader instance for key %{private}s", __p, 0xCu);
   }
 
-  v14 = (*(*a2 + 32))(a2);
-  (*(*v14 + 24))(v14, a2);
-  if (PRMReader::isInitialized(v14))
+  v16 = (*(*a2 + 32))(a2);
+  (*(*v16 + 24))(v16, a2);
+  isInitialized = PRMReader::isInitialized(v16);
+  if (isInitialized)
   {
-    v15 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v19 = __PSResourceManagerLogSharedInstance(isInitialized, v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      RefCount = PRMReader::getRefCount(v14);
+      RefCount = PRMReader::getRefCount(v16);
       *__p = 136315394;
       *&__p[4] = "deleteReaderInstance";
-      v21 = 1024;
-      LODWORD(v22) = RefCount;
-      _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_ERROR, "%s:expected the reader to have been deinitialized, refCount=%d", __p, 0x12u);
+      v24 = 1024;
+      LODWORD(v25) = RefCount;
+      _os_log_impl(&dword_25EA3A000, v19, OS_LOG_TYPE_ERROR, "%s:expected the reader to have been deinitialized, refCount=%d", __p, 0x12u);
     }
   }
 
   else
   {
-    (*(*v14 + 8))(v14);
+    (*(*v16 + 8))(v16);
   }
 
   std::mutex::unlock((this + 40));
-  if (v19 < 0)
+  if (v22 < 0)
   {
-    operator delete(v18);
+    operator delete(v21);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25EAB4918(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -1290,14 +974,14 @@ void sub_25EAB4918(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 PRMWriterInstance *PSResourceManager::createWriterInstance(PSResourceManager *this, PSResourceManagerOptions *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-    PSResourceManager::createWriterInstance(buf);
+    PSResourceManager::createWriterInstance();
     __break(1u);
   }
 
-  v4 = __PSResourceManagerLogSharedInstance();
+  v4 = __PSResourceManagerLogSharedInstance(this, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     v6 = *(a2 + 6);
@@ -1309,35 +993,35 @@ PRMWriterInstance *PSResourceManager::createWriterInstance(PSResourceManager *th
     v11 = *(a2 + 18);
     *buf = 136382211;
     *&buf[4] = v5;
-    v21 = 1024;
-    v22 = v7;
     v23 = 1024;
-    v24 = v6;
-    v25 = 1025;
-    v26 = v8;
-    v27 = 1024;
-    v28 = v9;
+    v24 = v7;
+    v25 = 1024;
+    v26 = v6;
+    v27 = 1025;
+    v28 = v8;
     v29 = 1024;
-    v30 = v10;
+    v30 = v9;
     v31 = 1024;
-    v32 = v11;
+    v32 = v10;
+    v33 = 1024;
+    v34 = v11;
     _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEBUG, "Creating writer instance with opts: key (%{private}s), cls (%d), capacity (%d), storage_mode (%{private}d), creation_mode (%d), reader_depth (%d), writer_depth (%d)", buf, 0x30u);
   }
 
   std::string::basic_string[abi:ne200100]<0>(buf, *(a2 + 7));
   std::mutex::lock((this + 144));
-  if (!std::__hash_table<std::__hash_value_type<std::string,PRMWriterInstance *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PRMWriterInstance *>>>::find<std::string>(this + 13, buf))
+  v12 = std::__hash_table<std::__hash_value_type<std::string,PRMWriterInstance *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PRMWriterInstance *>>>::find<std::string>(this + 13, buf);
+  if (!v12)
   {
-    v15 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v17 = __PSResourceManagerLogSharedInstance(0, v13);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v16 = *(a2 + 7);
-      *v19 = 136380675;
-      *&v19[4] = v16;
-      _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_DEBUG, "Creating a PBS writer for key %{private}s", v19, 0xCu);
+      v18 = *(a2 + 7);
+      *v21 = 136380675;
+      *&v21[4] = v18;
+      _os_log_impl(&dword_25EA3A000, v17, OS_LOG_TYPE_DEBUG, "Creating a PBS writer for key %{private}s", v21, 0xCu);
     }
 
-    *(a2 + 15);
     if (*(a2 + 105))
     {
       operator new();
@@ -1351,31 +1035,30 @@ PRMWriterInstance *PSResourceManager::createWriterInstance(PSResourceManager *th
     operator new();
   }
 
-  v12 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v14 = __PSResourceManagerLogSharedInstance(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v13 = *(a2 + 7);
-    *v19 = 136380675;
-    *&v19[4] = v13;
-    _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_DEBUG, "Found existing writer for key %{private}s, returning immediately", v19, 0xCu);
+    v15 = *(a2 + 7);
+    *v21 = 136380675;
+    *&v21[4] = v15;
+    _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_DEBUG, "Found existing writer for key %{private}s, returning immediately", v21, 0xCu);
   }
 
-  *v19 = buf;
-  v14 = std::__hash_table<std::__hash_value_type<std::string,PRMWriterInstance *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PRMWriterInstance *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 13, buf)[5];
-  PRMWriterInstance::incrementRefCount(v14);
+  *v21 = buf;
+  v16 = std::__hash_table<std::__hash_value_type<std::string,PRMWriterInstance *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PRMWriterInstance *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 13, buf, &std::piecewise_construct, v21, &v20)[5];
+  PRMWriterInstance::incrementRefCount(v16);
   std::mutex::unlock((this + 144));
-  if (SHIBYTE(v24) < 0)
+  if (SHIBYTE(v26) < 0)
   {
     operator delete(*buf);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v16;
 }
 
-void sub_25EAB4C5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_25EAB4C5C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
-  MEMORY[0x25F8C7C50](v19, 0x10F3C4081794B78);
+  MEMORY[0x25F8C7C50](v19, 0x10F3C4081794B78, a3, a4, a5, a6, a7, a8);
   std::mutex::unlock((v18 + 144));
   if (a18 < 0)
   {
@@ -1387,36 +1070,34 @@ void sub_25EAB4C5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void PSResourceManager::deleteWriterInstance(PSResourceManager *this, PRMWriterInstance *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-    PSResourceManager::deleteWriterInstance(__p);
+    PSResourceManager::deleteWriterInstance();
     __break(1u);
   }
 
   if (!PRMWriterInstance::decrementRefCount(a2))
   {
     Key = PRMWriterInstance::getKey(a2);
-    std::string::basic_string[abi:ne200100]<0>(__p, Key);
-    v5 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v5 = std::string::basic_string[abi:ne200100]<0>(__p, Key);
+    v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136380675;
-      v10 = Key;
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_DEBUG, "Deleting writer for key %{private}s", buf, 0xCu);
+      v11 = Key;
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEBUG, "Deleting writer for key %{private}s", buf, 0xCu);
     }
 
     (*(*a2 + 8))(a2);
     std::mutex::lock((this + 144));
     std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__erase_unique<std::string>(this + 13, __p);
     std::mutex::unlock((this + 144));
-    if (v8 < 0)
+    if (v9 < 0)
     {
       operator delete(__p[0]);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25EAB4E00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1520,52 +1201,51 @@ uint64_t PSResourceManager::deleteActionTaker(PSResourceManager *this, PSActionT
 {
   if (!a2)
   {
-    PSResourceManager::deleteActionTaker(v6);
-    goto LABEL_7;
+    PSResourceManager::deleteActionTaker();
   }
 
   ActionTakerManager = PSActionTaker::getActionTakerManager(a2);
-  if (!ActionTakerManager)
+  if (ActionTakerManager)
   {
-LABEL_7:
-    v5 = PSResourceManager::deleteActionTaker(v6);
-    return PSResourceManager::getThreadCreatorFunc(v5);
+
+    return PSActionTakerManager::requestRemoveActionTaker(ActionTakerManager, a2);
   }
 
-  return PSActionTakerManager::requestRemoveActionTaker(ActionTakerManager, a2);
+  else
+  {
+    v5 = PSResourceManager::deleteActionTaker();
+    return PSResourceManager::getThreadCreatorFunc(v5);
+  }
 }
 
 uint64_t PSResourceManager::getIOSurfaceCount(PSResourceManager *this, PRMWriterInstance *a2, PRMReaderInstance *a3, const char *a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v4 = *MEMORY[0x277D85DE8];
 
     return PRMWriterInstance::getIOSurfaceCount(a2);
   }
 
   else if (a3)
   {
-    v6 = *(*(*(*a3 + 32))(a3) + 72);
-    v7 = *MEMORY[0x277D85DE8];
+    v5 = *(*(*(*a3 + 32))(a3) + 72);
 
-    return v6();
+    return v5();
   }
 
   else
   {
-    v9 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = __PSResourceManagerLogSharedInstance(this, 0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315394;
-      v12 = "getIOSurfaceCount";
-      v13 = 2080;
-      v14 = a4;
-      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_ERROR, "%s: reader/writer instance nil for key (%s)", &v11, 0x16u);
+      v8 = 136315394;
+      v9 = "getIOSurfaceCount";
+      v10 = 2080;
+      v11 = a4;
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%s: reader/writer instance nil for key (%s)", &v8, 0x16u);
     }
 
-    v10 = *MEMORY[0x277D85DE8];
     return 0xFFFFFFFFLL;
   }
 }
@@ -1639,35 +1319,35 @@ void std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::vector<PRM
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -1675,49 +1355,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_25EAB55D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25EAB55D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::vector<PRMReaderInstance *>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1749,7 +1429,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<PRMReaderInstance *>>
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,PRMWriterInstance *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PRMWriterInstance *>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,PRMWriterInstance *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PRMWriterInstance *>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -1818,35 +1498,35 @@ const void **std::__hash_table<std::__hash_value_type<std::string,PRMWriterInsta
   return i;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,PRMWriterInstance *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PRMWriterInstance *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,PRMWriterInstance *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PRMWriterInstance *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,PRMWriterInstance *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PRMWriterInstance *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PRMWriterInstance *>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -1854,44 +1534,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_25EAB5A84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -1911,15 +1591,16 @@ void sub_25EAB5B4C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_3_6(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_3_6(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_impl(a1, v11, OS_LOG_TYPE_FAULT, a4, &buf, 0x1Cu);
+  _os_log_impl(a1, v10, OS_LOG_TYPE_FAULT, a4, va, 0x1Cu);
 }
 
-uint64_t ps_prm_allocate_retained_nsobject_array(void *a1, unsigned int a2)
+void *ps_prm_allocate_retained_nsobject_array(void *a1, unsigned int a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   v5 = a1;
   v6 = [v5 retainableAllocator];
@@ -1962,46 +1643,45 @@ LABEL_10:
     }
 
     objc_autoreleasePoolPop(v4);
-    v12 = *MEMORY[0x277D85DE8];
     return v10;
   }
 
 LABEL_11:
-  v23 = 0;
-  v14 = [v5 key];
-  asprintf(&v23, "NSObject allocator returned an incorrect count for key %s. Expected: %d, received: %lu", [v14 UTF8String], a2, objc_msgSend(v6, "count"));
+  v26 = 0;
+  v13 = [v5 key];
+  asprintf(&v26, "NSObject allocator returned an incorrect count for key %s. Expected: %d, received: %lu", [v13 UTF8String], a2, objc_msgSend(v6, "count"));
 
-  v15 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+  v16 = __PSResourceManagerLogSharedInstance(v14, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
   {
-    v16 = [v5 key];
-    v17 = [v16 UTF8String];
-    v18 = [v6 count];
+    v17 = [v5 key];
+    v18 = [v17 UTF8String];
+    v19 = [v6 count];
     *buf = 136316162;
-    v25 = "ps_prm_allocate_retained_nsobject_array";
-    v26 = 1024;
-    v27 = 48;
-    v28 = 2080;
-    v29 = v17;
-    v30 = 1024;
-    v31 = a2;
-    v32 = 2048;
-    v33 = v18;
-    _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_FAULT, "%s:%d NSObject allocator returned an incorrect count for key %s. Expected: %d, received: %lu", buf, 0x2Cu);
+    v28 = "ps_prm_allocate_retained_nsobject_array";
+    v29 = 1024;
+    v30 = 48;
+    v31 = 2080;
+    v32 = v18;
+    v33 = 1024;
+    v34 = a2;
+    v35 = 2048;
+    v36 = v19;
+    _os_log_impl(&dword_25EA3A000, v16, OS_LOG_TYPE_FAULT, "%s:%d NSObject allocator returned an incorrect count for key %s. Expected: %d, received: %lu", buf, 0x2Cu);
   }
 
-  v19 = OSLogFlushBuffers();
-  if (v19)
+  v20 = OSLogFlushBuffers();
+  if (v20)
   {
-    v20 = v19;
-    v21 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = v20;
+    v23 = __PSResourceManagerLogSharedInstance(v20, v21);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "ps_prm_allocate_retained_nsobject_array";
-      v26 = 1024;
-      v27 = v20;
-      _os_log_impl(&dword_25EA3A000, v21, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v28 = "ps_prm_allocate_retained_nsobject_array";
+      v29 = 1024;
+      v30 = v22;
+      _os_log_impl(&dword_25EA3A000, v23, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -2010,13 +1690,13 @@ LABEL_11:
     usleep(0x1E8480u);
   }
 
-  v22 = abort_with_reason();
-  return ps_prm_allocate_opaque_array(v22);
+  v24 = abort_with_reason();
+  return ps_prm_allocate_opaque_array(v24, v25);
 }
 
-uint64_t ps_prm_allocate_opaque_array(void *a1, unsigned int a2)
+void ps_prm_allocate_opaque_array(void *a1, unsigned int a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   v6 = a1;
   if (![v6 allocator])
@@ -2057,46 +1737,45 @@ LABEL_10:
     }
 
     objc_autoreleasePoolPop(v5);
-    v12 = *MEMORY[0x277D85DE8];
-    return v10;
+    return;
   }
 
 LABEL_11:
-  v23 = 0;
-  v14 = [v6 key];
-  asprintf(&v23, "Opaque allocator returned an incorrect count for key %s. Expected: %d, received: %lu", [v14 UTF8String], a2, objc_msgSend(v2, "count"));
+  v26 = 0;
+  v12 = [v6 key];
+  asprintf(&v26, "Opaque allocator returned an incorrect count for key %s. Expected: %d, received: %lu", [v12 UTF8String], a2, objc_msgSend(v2, "count"));
 
-  v15 = __PSResourceManagerLogSharedInstance();
+  v15 = __PSResourceManagerLogSharedInstance(v13, v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
   {
     v16 = [v6 key];
     v17 = [v16 UTF8String];
     v18 = [v2 count];
     *buf = 136316162;
-    v25 = "ps_prm_allocate_opaque_array";
-    v26 = 1024;
-    v27 = 99;
-    v28 = 2080;
-    v29 = v17;
-    v30 = 1024;
-    v31 = a2;
-    v32 = 2048;
-    v33 = v18;
+    v28 = "ps_prm_allocate_opaque_array";
+    v29 = 1024;
+    v30 = 99;
+    v31 = 2080;
+    v32 = v17;
+    v33 = 1024;
+    v34 = a2;
+    v35 = 2048;
+    v36 = v18;
     _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_FAULT, "%s:%d Opaque allocator returned an incorrect count for key %s. Expected: %d, received: %lu", buf, 0x2Cu);
   }
 
   v19 = OSLogFlushBuffers();
   if (v19)
   {
-    v20 = v19;
-    v21 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v21 = v19;
+    v22 = __PSResourceManagerLogSharedInstance(v19, v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "ps_prm_allocate_opaque_array";
-      v26 = 1024;
-      v27 = v20;
-      _os_log_impl(&dword_25EA3A000, v21, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v28 = "ps_prm_allocate_opaque_array";
+      v29 = 1024;
+      v30 = v21;
+      _os_log_impl(&dword_25EA3A000, v22, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -2105,8 +1784,8 @@ LABEL_11:
     usleep(0x1E8480u);
   }
 
-  v22 = abort_with_reason();
-  return ps_prm_deallocate_retained_nsobject_array(v22);
+  v23 = abort_with_reason();
+  ps_prm_deallocate_retained_nsobject_array(v23, v24, v25);
 }
 
 void ps_prm_deallocate_retained_nsobject_array(void *a1, void **a2, unsigned int a3)
@@ -2213,7 +1892,7 @@ uint64_t __ps_frame_history_notify_end_frame_data_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __PolarisGSMLogSharedInstance()
+uint64_t __PolarisGSMLogSharedInstance(uint64_t a1, uint64_t a2)
 {
   if (__PolarisGSMLogSharedInstance_onceToken != -1)
   {
@@ -2223,9 +1902,9 @@ uint64_t __PolarisGSMLogSharedInstance()
   return sharedInstance_2;
 }
 
-char *ps_gsm_create_local()
+char *ps_gsm_create_local(uint64_t a1)
 {
-  (MEMORY[0x28223BE20])();
+  MEMORY[0x28223BE20](a1);
   v49 = *MEMORY[0x277D85DE8];
   v44 = 0;
   v45 = &v44;
@@ -2249,7 +1928,7 @@ char *ps_gsm_create_local()
   v31[3] = &unk_279A48A68;
   v31[4] = &v44;
   gst_container = ps_gsm_create_gst_container(0x400uLL, v31);
-  v23 = v1;
+  v23 = v2;
   v24 = gst_container;
   v30[0] = MEMORY[0x277D85DD0];
   v30[1] = 0x40000000;
@@ -2257,50 +1936,49 @@ char *ps_gsm_create_local()
   v30[3] = &unk_279A48A90;
   v30[4] = &v40;
   source_container = ps_gsm_create_source_container(0x400uLL, v30);
-  v3 = v2;
+  v4 = v3;
   v29[0] = MEMORY[0x277D85DD0];
   v29[1] = 0x40000000;
   v29[2] = __ps_gsm_create_local_block_invoke_3;
   v29[3] = &unk_279A48AB8;
   v29[4] = &v36;
-  v4 = ps_gsm_create_source_container(0x400uLL, v29);
-  v6 = v5;
+  v5 = ps_gsm_create_source_container(0x400uLL, v29);
+  v7 = v6;
   v28[0] = MEMORY[0x277D85DD0];
   v28[1] = 0x40000000;
   v28[2] = __ps_gsm_create_local_block_invoke_4;
   v28[3] = &unk_279A48AE0;
   v28[4] = &v32;
   shared_trigger_container = ps_gsm_create_shared_trigger_container(0x80uLL, v28);
-  v9 = v8;
-  v10 = 0;
-  v11 = MEMORY[0x277D85F48];
+  v10 = v9;
+  v11 = 0;
+  v12 = MEMORY[0x277D85F48];
   do
   {
-    v12 = semaphore_create(*v11, &v48[v10++], 0, 0);
+    v13 = semaphore_create(*v12, &v48[v11++], 0, 0);
   }
 
-  while (v10 != 1024);
-  MEMORY[0x28223BE20](v12);
+  while (v11 != 1024);
+  MEMORY[0x28223BE20](v13);
   for (i = 0; i != 128; ++i)
   {
-    semaphore_create(*v11, &v21[i], 0, 0);
+    semaphore_create(*v12, &v21[i], 0, 0);
   }
 
-  v15 = v41[3];
-  v16 = v37[3];
-  v17 = v33[3];
+  v16 = v41[3];
+  v17 = v37[3];
+  v18 = v33[3];
   v25[0] = v45[3];
-  v25[1] = v15;
-  v25[2] = v16;
-  v25[3] = v17;
+  v25[1] = v16;
+  v25[2] = v17;
+  v25[3] = v18;
   v26 = xmmword_25EB77780;
   v27 = 0;
-  gsm = ps_gsm_create_gsm(0, v24, v23, source_container, v3, v4, v6, v14, shared_trigger_container, v9, 1024, v48, 128, v21, v25);
+  gsm = ps_gsm_create_gsm(0, v24, v23, source_container, v4, v5, v7, v15, shared_trigger_container, v10, 1024, v48, 128, v21, v25);
   _Block_object_dispose(&v32, 8);
   _Block_object_dispose(&v36, 8);
   _Block_object_dispose(&v40, 8);
   _Block_object_dispose(&v44, 8);
-  v19 = *MEMORY[0x277D85DE8];
   return gsm;
 }
 
@@ -2445,37 +2123,33 @@ char *ps_gsm_create_shared(unint64_t a1, unint64_t a2)
 void *__ps_gsm_create_shared_block_invoke(uint64_t a1, size_t a2)
 {
   *(*(*(a1 + 32) + 8) + 24) = ps_buffer_create_serial_data_writer();
-  v4 = *(*(*(a1 + 32) + 8) + 24);
-  v5 = ps_buffer_get_serial_data_write_buffer();
-  bzero(v5, a2);
-  return v5;
+  v3 = ps_buffer_get_serial_data_write_buffer();
+  bzero(v3, a2);
+  return v3;
 }
 
 void *__ps_gsm_create_shared_block_invoke_2(uint64_t a1, size_t a2)
 {
   *(*(*(a1 + 32) + 8) + 24) = ps_buffer_create_serial_data_writer();
-  v4 = *(*(*(a1 + 32) + 8) + 24);
-  v5 = ps_buffer_get_serial_data_write_buffer();
-  bzero(v5, a2);
-  return v5;
+  v3 = ps_buffer_get_serial_data_write_buffer();
+  bzero(v3, a2);
+  return v3;
 }
 
 void *__ps_gsm_create_shared_block_invoke_3(uint64_t a1, size_t a2)
 {
   *(*(*(a1 + 32) + 8) + 24) = ps_buffer_create_serial_data_writer();
-  v4 = *(*(*(a1 + 32) + 8) + 24);
-  v5 = ps_buffer_get_serial_data_write_buffer();
-  bzero(v5, a2);
-  return v5;
+  v3 = ps_buffer_get_serial_data_write_buffer();
+  bzero(v3, a2);
+  return v3;
 }
 
 void *__ps_gsm_create_shared_block_invoke_4(uint64_t a1, size_t a2)
 {
   *(*(*(a1 + 32) + 8) + 24) = ps_buffer_create_serial_data_writer();
-  v4 = *(*(*(a1 + 32) + 8) + 24);
-  v5 = ps_buffer_get_serial_data_write_buffer();
-  bzero(v5, a2);
-  return v5;
+  v3 = ps_buffer_get_serial_data_write_buffer();
+  bzero(v3, a2);
+  return v3;
 }
 
 char *ps_gsm_map_shared()
@@ -2546,13 +2220,10 @@ void ps_gsm_remove_gsm(unsigned __int8 *a1)
   v2 = *a1;
   if (v2 == 2)
   {
-    v13 = *(a1 + 1);
     ps_buffer_destroy_serial_data_reader();
-    v14 = *(a1 + 2);
     ps_buffer_destroy_serial_data_reader();
     if (PLSSettingsEnableFastTransition())
     {
-      v15 = *(a1 + 4);
       ps_buffer_destroy_serial_data_reader();
     }
 
@@ -2561,11 +2232,8 @@ void ps_gsm_remove_gsm(unsigned __int8 *a1)
       free(*(a1 + 3));
     }
 
-    v16 = *(a1 + 5);
     ps_buffer_destroy_serial_data_reader();
-    v17 = *(a1 + 6);
     ps_buffer_destroy_semaphore_array();
-    v18 = *(a1 + 7);
 LABEL_20:
     ps_buffer_destroy_semaphore_array();
     goto LABEL_21;
@@ -2573,21 +2241,15 @@ LABEL_20:
 
   if (v2 == 1)
   {
-    v7 = *(a1 + 1);
     ps_buffer_destroy_serial_data_writer();
-    v8 = *(a1 + 2);
     ps_buffer_destroy_serial_data_writer();
     if (PLSSettingsEnableFastTransition())
     {
-      v9 = *(a1 + 3);
       ps_buffer_destroy_serial_data_writer();
     }
 
-    v10 = *(a1 + 4);
     ps_buffer_destroy_serial_data_writer();
-    v11 = *(a1 + 5);
     ps_buffer_destroy_semaphore_array();
-    v12 = *(a1 + 6);
     goto LABEL_20;
   }
 
@@ -2638,12 +2300,13 @@ LABEL_21:
   free(a1);
 }
 
-unint64_t *ps_gsm_handle_process_death(unint64_t *a1, int a2)
+unint64_t *ps_gsm_handle_process_death(unint64_t *a1, uint64_t a2)
 {
+  v2 = a2;
   ps_gsm_gst_handle_process_death(a1, a2);
-  ps_gsm_source_handle_process_death(a1, a2);
+  ps_gsm_source_handle_process_death(a1, v2);
 
-  return ps_gsm_shared_trigger_handle_process_death(a1, a2);
+  return ps_gsm_shared_trigger_handle_process_death(a1, v2);
 }
 
 void *ps_gsm_set_deterministic_replay(uint64_t a1, void *aBlock)
@@ -2655,7 +2318,7 @@ void *ps_gsm_set_deterministic_replay(uint64_t a1, void *aBlock)
   return result;
 }
 
-uint64_t ps_gsm_gst_notify_complete(uint64_t result)
+uint64_t ps_gsm_gst_notify_complete(uint64_t result, uint64_t a2)
 {
   if (*(result + 128) == 1)
   {
@@ -2677,68 +2340,65 @@ uint64_t ps_gsm_gst_notify_start(uint64_t result)
 
 uint64_t ps_gsm_wait_on_sem(semaphore_t a1, mach_timespec_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = semaphore_timedwait(a1, a2);
   if (result)
   {
     if (result == 49)
     {
-      result = 2;
+      return 2;
     }
 
     else
     {
       if (result != 37)
       {
-        ps_gsm_wait_on_sem_cold_1(&v5, result);
+        ps_gsm_wait_on_sem_cold_1(&v4, result);
       }
 
-      v4 = __PolarisGSMLogSharedInstance();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v3 = __PolarisGSMLogSharedInstance(result, result);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
-        v5 = 136315650;
-        v6 = "ps_gsm_wait_on_sem";
-        v7 = 1024;
-        v8 = 37;
-        v9 = 2080;
-        v10 = mach_error_string(37);
-        _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_ERROR, "%s: semaphore_timedwait failed because it was terminated: code %d (%s)", &v5, 0x1Cu);
+        v4 = 136315650;
+        v5 = "ps_gsm_wait_on_sem";
+        v6 = 1024;
+        v7 = 37;
+        v8 = 2080;
+        v9 = mach_error_string(37);
+        _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_ERROR, "%s: semaphore_timedwait failed because it was terminated: code %d (%s)", &v4, 0x1Cu);
       }
 
       sleep(0x3Cu);
-      result = 1;
+      return 1;
     }
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void ps_gsm_signal_sem()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x25F8C9890]();
   if (v0)
   {
     if (v0 != 37)
     {
-      ps_gsm_signal_sem_cold_1(&v3, v0);
+      ps_gsm_signal_sem_cold_1(&v2, v0);
     }
 
-    v2 = __PolarisGSMLogSharedInstance();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v1 = __PolarisGSMLogSharedInstance(v0, v0);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
-      v3 = 136315650;
-      v4 = "ps_gsm_signal_sem";
-      v5 = 1024;
-      v6 = 37;
-      v7 = 2080;
-      v8 = mach_error_string(37);
-      _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_ERROR, "%s: semaphore_signal failed because it was terminated: code %d (%s)", &v3, 0x1Cu);
+      v2 = 136315650;
+      v3 = "ps_gsm_signal_sem";
+      v4 = 1024;
+      v5 = 37;
+      v6 = 2080;
+      v7 = mach_error_string(37);
+      _os_log_impl(&dword_25EA3A000, v1, OS_LOG_TYPE_ERROR, "%s: semaphore_signal failed because it was terminated: code %d (%s)", &v2, 0x1Cu);
     }
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 char *OUTLINED_FUNCTION_1_6(void *a1, mach_error_t error_value)
@@ -2748,13 +2408,14 @@ char *OUTLINED_FUNCTION_1_6(void *a1, mach_error_t error_value)
   return mach_error_string(error_value);
 }
 
-void OUTLINED_FUNCTION_2_6(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void OUTLINED_FUNCTION_2_6(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_impl(a1, v13, OS_LOG_TYPE_FAULT, a4, &buf, 0x2Cu);
+  _os_log_impl(a1, v12, OS_LOG_TYPE_FAULT, a4, va, 0x2Cu);
 }
 
-void ps_gsm_remove_waiter_async(uint64_t a1, int *a2)
+void ps_gsm_remove_waiter_async(uint64_t a1, unsigned int *a2)
 {
   v4 = xpc_dictionary_create(0, 0, 0);
   populateRemoveWaiterInfo(v4, 4uLL, *a2);
@@ -2763,101 +2424,101 @@ void ps_gsm_remove_waiter_async(uint64_t a1, int *a2)
   xpc_release(v4);
 }
 
-uint64_t ps_gsm_create_gst_internal(uint64_t a1, unsigned int a2, const char *a3, int a4, uint64_t a5, int a6, char *a7, char *a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12)
+uint64_t ps_gsm_create_gst_internal(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, char *a7, char *a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12)
 {
-  v56 = *MEMORY[0x277D85DE8];
-  v20 = __PolarisGSMLogSharedInstance();
+  v14 = a6;
+  v16 = a4;
+  v18 = a2;
+  v69 = *MEMORY[0x277D85DE8];
+  v20 = __PolarisGSMLogSharedInstance(a1, a2);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316674;
-    v43 = "ps_gsm_create_gst_internal";
-    v44 = 1024;
-    v45 = a2;
-    v46 = 2080;
-    v47 = a3;
-    v48 = 1024;
-    v49 = a4;
-    v50 = 1024;
-    v51 = a6;
-    v52 = 1024;
-    v53 = a9;
-    v54 = 1024;
-    v55 = HIDWORD(a9);
+    v56 = "ps_gsm_create_gst_internal";
+    v57 = 1024;
+    v58 = v18;
+    v59 = 2080;
+    v60 = a3;
+    v61 = 1024;
+    v62 = v16;
+    v63 = 1024;
+    v64 = v14;
+    v65 = 1024;
+    v66 = a9;
+    v67 = 1024;
+    v68 = HIDWORD(a9);
     _os_log_impl(&dword_25EA3A000, v20, OS_LOG_TYPE_DEBUG, "%s pid %d graph name %s num sources %u group synced %u stride %u offset %u", buf, 0x34u);
   }
 
-  started = ps_gsm_start_gst_reservation(a1, a2, a4);
+  started = ps_gsm_start_gst_reservation(a1, v18, v16);
   if (!started)
   {
-    v36 = __PolarisGSMLogSharedInstance();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v42 = __PolarisGSMLogSharedInstance(0, v22);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v43 = a3;
-      v37 = "GST (%s) reservation failed, returning NULL";
+      v56 = a3;
+      v43 = "GST (%s) reservation failed, returning NULL";
 LABEL_24:
-      _os_log_impl(&dword_25EA3A000, v36, OS_LOG_TYPE_ERROR, v37, buf, 0xCu);
+      _os_log_impl(&dword_25EA3A000, v42, OS_LOG_TYPE_ERROR, v43, buf, 0xCu);
     }
 
-LABEL_25:
-    v22 = 0;
-LABEL_26:
-    v39 = *MEMORY[0x277D85DE8];
-    return v22;
+    return 0;
   }
 
-  v22 = started;
-  ps_gsm_init_gst(a1, started, a3, a4, a5, a6, a7, a8, a9);
+  v23 = started;
+  ps_gsm_init_gst(a1, started, a3, v16, a5, v14, a7, a8, a9);
   if (!a10)
   {
 LABEL_7:
-    if (a4 < 1)
+    if (v16 < 1)
     {
 LABEL_13:
-      v33 = **(a1 + 64);
-      ps_util_assert_less_than_equal_unsigned(v33);
-      ps_reservation_complete(*(a1 + 64) + 8, v33, *v22);
-      v34 = __PolarisGSMLogSharedInstance();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v37 = **(a1 + 64);
+      ps_util_assert_less_than_equal_unsigned(v37);
+      v38 = ps_reservation_complete(*(a1 + 64) + 8, v37, *v23);
+      v40 = __PolarisGSMLogSharedInstance(v38, v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
-        v35 = *v22;
+        v41 = *v23;
         *buf = 136315394;
-        v43 = (v22 + 16);
-        v44 = 1024;
-        v45 = v35;
-        _os_log_impl(&dword_25EA3A000, v34, OS_LOG_TYPE_DEFAULT, "Reserved GST (%s) on idx (%d)", buf, 0x12u);
+        v56 = (v23 + 16);
+        v57 = 1024;
+        v58 = v41;
+        _os_log_impl(&dword_25EA3A000, v40, OS_LOG_TYPE_DEFAULT, "Reserved GST (%s) on idx (%d)", buf, 0x12u);
       }
 
-      goto LABEL_26;
+      return v23;
     }
 
-    v24 = 0;
-    v25 = a4;
+    v26 = 0;
+    v27 = v16;
     while (1)
     {
-      v26 = v22 + 4 * v24;
-      v27 = *(v26 + 148);
-      v28 = a8[v24];
-      v29 = *v22;
-      v30 = atomic_load((v22 + 8));
-      v31 = ps_gsm_add_gst_to_source(a1, v28, v27, v29, v24, v30 & 0xFFFFFFFFFFLL);
-      v32 = __PolarisGSMLogSharedInstance();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      v28 = v23 + 4 * v26;
+      v29 = *(v28 + 148);
+      v30 = a8[v26];
+      v31 = *v23;
+      v32 = atomic_load((v23 + 8));
+      v33 = ps_gsm_add_gst_to_source(a1, v30, v29, v31, v26, v32 & 0xFFFFFFFFFFLL);
+      v34 = v33;
+      v36 = __PolarisGSMLogSharedInstance(v33, v35);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v43 = a3;
-        v44 = 1024;
-        v45 = v31;
-        _os_log_impl(&dword_25EA3A000, v32, OS_LOG_TYPE_DEBUG, "Add GST (%s) to Source - Idx %d", buf, 0x12u);
+        v56 = a3;
+        v57 = 1024;
+        v58 = v34;
+        _os_log_impl(&dword_25EA3A000, v36, OS_LOG_TYPE_DEBUG, "Add GST (%s) to Source - Idx %d", buf, 0x12u);
       }
 
-      if (v31 >= 0x40)
+      if (v34 >= 0x40)
       {
         break;
       }
 
-      *(v26 + 212) = v31;
-      if (v25 == ++v24)
+      *(v28 + 212) = v34;
+      if (v27 == ++v26)
       {
         goto LABEL_13;
       }
@@ -2865,46 +2526,46 @@ LABEL_13:
 
     if (a10)
     {
-      ps_gsm_shared_trigger_remove_reservation(a1, *(v22 + 1202), *(v22 + 1200));
+      ps_gsm_shared_trigger_remove_reservation(a1, *(v23 + 1202), *(v23 + 1200));
     }
 
-    ps_gsm_clear_gst_reservation(a1, v22);
-    v36 = __PolarisGSMLogSharedInstance();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v45 = ps_gsm_clear_gst_reservation(a1, v23);
+    v42 = __PolarisGSMLogSharedInstance(v45, v46);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v43 = a3;
-      v37 = "Ran out of space in the source array that contains GST (%s), clearing reservation and returning NULL";
+      v56 = a3;
+      v43 = "Ran out of space in the source array that contains GST (%s), clearing reservation and returning NULL";
       goto LABEL_24;
     }
 
-    goto LABEL_25;
+    return 0;
   }
 
   if (a11)
   {
-    *(v22 + 1192) = a12;
-    v23 = ps_gsm_shared_trigger_add_reservation(a1, a11, *v22, (v22 + 1200), (v22 + 1202));
-    *(v22 + 1184) = v23;
-    if ((v23 & 1) == 0)
+    *(v23 + 1192) = a12;
+    v24 = ps_gsm_shared_trigger_add_reservation(a1, a11, *v23, (v23 + 1200), (v23 + 1202));
+    *(v23 + 1184) = v24;
+    if ((v24 & 1) == 0)
     {
-      v38 = __PolarisGSMLogSharedInstance();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      v44 = __PolarisGSMLogSharedInstance(v24, v25);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v43 = a3;
-        _os_log_impl(&dword_25EA3A000, v38, OS_LOG_TYPE_ERROR, "GST (%s) Unable to add to Shared Trigger", buf, 0xCu);
+        v56 = a3;
+        _os_log_impl(&dword_25EA3A000, v44, OS_LOG_TYPE_ERROR, "GST (%s) Unable to add to Shared Trigger", buf, 0xCu);
       }
 
-      ps_gsm_clear_gst_reservation(a1, v22);
-      goto LABEL_25;
+      ps_gsm_clear_gst_reservation(a1, v23);
+      return 0;
     }
 
     goto LABEL_7;
   }
 
-  gst_internal_cold_1 = ps_gsm_create_gst_internal_cold_1(buf, v22);
-  return ps_gsm_create_gst_with_cadence(gst_internal_cold_1);
+  gst_internal_cold_1 = ps_gsm_create_gst_internal_cold_1(buf, v23);
+  return ps_gsm_create_gst_with_cadence(gst_internal_cold_1, v49, v50, v51, v52, v53, v54);
 }
 
 uint64_t ps_gsm_start_gst_reservation(uint64_t a1, unsigned int a2, char a3)
@@ -2912,98 +2573,98 @@ uint64_t ps_gsm_start_gst_reservation(uint64_t a1, unsigned int a2, char a3)
   v4 = (a2 | (atomic_fetch_add((*(a1 + 64) + 136), 1u) << 32) | (0xFFFFFF0000000000 << a3) & 0xFFFF0000000000) ^ 0x1FFFF0000000000;
   v5 = **(a1 + 64);
   ps_util_assert_less_than_equal_unsigned(v5);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 0x40000000;
-  v10[2] = __ps_gsm_start_gst_reservation_block_invoke;
-  v10[3] = &__block_descriptor_tmp_15;
-  v11 = v5;
-  v10[4] = a1;
-  v10[5] = v4;
-  v6 = ps_reservation_retry(v10);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 0x40000000;
+  v11[2] = __ps_gsm_start_gst_reservation_block_invoke;
+  v11[3] = &__block_descriptor_tmp_15;
+  v12 = v5;
+  v11[4] = a1;
+  v11[5] = v4;
+  v6 = ps_reservation_retry(v11);
   if (v6 != -1)
   {
     return *(a1 + 72) + 1320 * v6;
   }
 
-  v8 = __PolarisGSMLogSharedInstance();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = __PolarisGSMLogSharedInstance(v6, v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_ERROR, "No free slot found for adding GST", v9, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_ERROR, "No free slot found for adding GST", v10, 2u);
   }
 
   return 0;
 }
 
-uint64_t ps_gsm_init_gst(uint64_t a1, int *a2, const char *a3, int a4, uint64_t a5, char a6, char *a7, char *a8, uint64_t a9)
+uint64_t ps_gsm_init_gst(uint64_t a1, int *a2, const char *a3, unsigned int a4, uint64_t a5, char a6, char *a7, char *a8, uint64_t a9)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   __strlcpy_chk();
   a2[36] = a4;
   if (a4 <= 0)
   {
-    v24 = a4;
+    v25 = a4;
   }
 
   else
   {
-    v33 = a3;
-    v15 = a2 + 53;
-    v16 = a2 + 69;
-    v17 = a4;
-    v34 = a4;
-    v18 = a5;
+    v36 = a3;
+    v16 = a2 + 53;
+    v17 = a2 + 69;
+    v18 = a4;
+    v37 = a4;
     v19 = a5;
+    v20 = a5;
     do
     {
-      v20 = *a8;
+      v21 = *a8;
       if (a5)
       {
-        v21 = ps_gsm_source_index(a1, v20, v18);
-        v15[23] = *(v18 + 128);
-        v22 = *(v18 + 132);
+        v22 = ps_gsm_source_index(a1, v21, v19);
+        v16[23] = *(v19 + 128);
+        v23 = *(v19 + 132);
       }
 
       else
       {
-        v21 = ps_gsm_source_index(a1, v20, a7);
-        v22 = 0;
-        v15[23] = 0;
+        v22 = ps_gsm_source_index(a1, v21, a7);
+        v23 = 0;
+        v16[23] = 0;
       }
 
-      v15[39] = v22;
-      if (v21 == -1)
+      v16[39] = v23;
+      if (v22 == -1)
       {
-        v37 = 0;
-        asprintf(&v37, "%s GST (%s) Unable to find source name %s in source name cache", "ps_gsm_init_gst", v33, v18);
-        v29 = __PolarisGSMLogSharedInstance();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+        v40 = 0;
+        v29 = asprintf(&v40, "%s GST (%s) Unable to find source name %s in source name cache", "ps_gsm_init_gst", v36, v19);
+        v31 = __PolarisGSMLogSharedInstance(v29, v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
         {
           *buf = 136316162;
-          v39 = "ps_gsm_init_gst";
-          v40 = 1024;
-          v41 = 272;
-          v42 = 2080;
-          v43 = "ps_gsm_init_gst";
-          v44 = 2080;
-          v45 = v33;
-          v46 = 2080;
-          v47 = v19;
-          _os_log_impl(&dword_25EA3A000, v29, OS_LOG_TYPE_FAULT, "%s:%d %s GST (%s) Unable to find source name %s in source name cache", buf, 0x30u);
+          v42 = "ps_gsm_init_gst";
+          v43 = 1024;
+          v44 = 272;
+          v45 = 2080;
+          v46 = "ps_gsm_init_gst";
+          v47 = 2080;
+          v48 = v36;
+          v49 = 2080;
+          v50 = v20;
+          _os_log_impl(&dword_25EA3A000, v31, OS_LOG_TYPE_FAULT, "%s:%d %s GST (%s) Unable to find source name %s in source name cache", buf, 0x30u);
         }
 
-        v30 = OSLogFlushBuffers();
-        if (v30)
+        v32 = OSLogFlushBuffers();
+        if (v32)
         {
-          v31 = v30;
-          v32 = __PolarisGSMLogSharedInstance();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          v34 = v32;
+          v35 = __PolarisGSMLogSharedInstance(v32, v33);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v39 = "ps_gsm_init_gst";
-            v40 = 1024;
-            v41 = v31;
-            _os_log_impl(&dword_25EA3A000, v32, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+            v42 = "ps_gsm_init_gst";
+            v43 = 1024;
+            v44 = v34;
+            _os_log_impl(&dword_25EA3A000, v35, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
           }
         }
 
@@ -3015,23 +2676,24 @@ uint64_t ps_gsm_init_gst(uint64_t a1, int *a2, const char *a3, int a4, uint64_t 
         abort_with_reason();
       }
 
-      *(v15 - 16) = v21;
-      *v15++ = 64;
+      *(v16 - 16) = v22;
+      *v16++ = 64;
       *(a2 + 432) = a6;
       *(a2 + 55) = a9;
-      v23 = *a8++;
-      *v16++ = v23;
+      v24 = *a8++;
+      *v17 = v24;
+      v17 = (v17 + 1);
+      v20 += 136;
       v19 += 136;
-      v18 += 136;
       a7 += 128;
-      --v17;
+      --v18;
     }
 
-    while (v17);
-    v24 = v34;
+    while (v18);
+    v25 = v37;
   }
 
-  *(a2 + 37) = (~(-1 << v24) << 48) | 0x8000000000000000;
+  *(a2 + 37) = (~(-1 << v25) << 48) | 0x8000000000000000;
   atomic_store(0, a2 + 147);
   for (i = 112; i != 294; i += 2)
   {
@@ -3040,51 +2702,49 @@ uint64_t ps_gsm_init_gst(uint64_t a1, int *a2, const char *a3, int a4, uint64_t 
 
   *(a2 + 1184) = 0;
   a2[300] = -1;
-  ps_gsm_gst_command_queue_init((a2 + 302));
+  ps_gsm_gst_command_queue_init((a2 + 302), v15);
   *(a2 + 1312) = *(a1 + 4776);
   result = MEMORY[0x25F8C98A0](*(a1 + 4 * *a2 + 168));
-  v27 = atomic_load(a2 + 1);
-  atomic_store(v27 | 0x400000000000000, a2 + 1);
-  v28 = *MEMORY[0x277D85DE8];
+  v28 = atomic_load(a2 + 1);
+  atomic_store(v28 | 0x400000000000000, a2 + 1);
   return result;
 }
 
-unint64_t *ps_gsm_clear_gst_reservation(uint64_t a1, uint64_t a2)
+unint64_t *ps_gsm_clear_gst_reservation(uint64_t a1, unsigned int *a2)
 {
   v4 = **(a1 + 64);
   ps_util_assert_less_than_equal_unsigned(v4);
   v5 = *a2;
   v6 = (*(a1 + 64) + 8);
 
-  return ps_reservation_clear(v6, v4, v5, (a2 + 8));
+  return ps_reservation_clear(v6, v4, v5, a2 + 1);
 }
 
 void ps_gsm_gst_handle_source_death(uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x400)
   {
-    v9[1] = v2;
-    v9[2] = v3;
-    v8 = ps_gsm_gst_handle_source_death_cold_1(v9, a2);
-    ps_util_assert_less_than_equal_unsigned(v8);
+    v8[1] = v2;
+    v8[2] = v3;
+    v7 = ps_gsm_gst_handle_source_death_cold_1(v8, a2);
+    ps_util_assert_less_than_equal_unsigned(v7);
   }
 
   else
   {
-    v4 = (*(a1 + 72) + 1320 * a2);
-    if ((atomic_load_explicit(v4 + 147, memory_order_acquire) & 0x4000000000000) != 0)
+    v4 = *(a1 + 72) + 1320 * a2;
+    if ((atomic_load_explicit((v4 + 1176), memory_order_acquire) & 0x4000000000000) != 0)
     {
       if (*(v4 + 1184) == 1)
       {
-        v5 = *(v4 + 601);
-        v6 = *(v4 + 600);
+        v5 = *(v4 + 1202);
+        v6 = *(v4 + 1200);
 
         ps_gsm_shared_trigger_handle_source_death(a1, v5, v6);
       }
 
       else
       {
-        v7 = *(a1 + 4 * *v4 + 168);
 
         ps_gsm_signal_sem();
       }
@@ -3105,13 +2765,13 @@ unint64_t ps_util_assert_less_than_equal_unsigned(unint64_t result)
   return result;
 }
 
-void ps_gsm_request_waiter_sequenced_teardown(uint64_t a1, atomic_ullong *a2)
+void ps_gsm_request_waiter_sequenced_teardown(uint64_t a1, uint64_t a2)
 {
-  explicit = atomic_load_explicit(a2 + 147, memory_order_acquire);
+  explicit = atomic_load_explicit((a2 + 1176), memory_order_acquire);
   do
   {
     v3 = explicit;
-    atomic_compare_exchange_strong(a2 + 147, &explicit, explicit & 0xE001FFFFFFFFFFFFLL | 0x6000000000000);
+    atomic_compare_exchange_strong((a2 + 1176), &explicit, explicit & 0xE001FFFFFFFFFFFFLL | 0x6000000000000);
   }
 
   while (explicit != v3);
@@ -3119,13 +2779,12 @@ void ps_gsm_request_waiter_sequenced_teardown(uint64_t a1, atomic_ullong *a2)
   {
     if (*(a2 + 1184) == 1)
     {
-      v5 = ps_gsm_request_waiter_sequenced_teardown_cold_1(&v6, a2);
-      ps_gsm_gst_trigger_set_stride(v5);
+      v4 = ps_gsm_request_waiter_sequenced_teardown_cold_1(&v6, a2);
+      ps_gsm_gst_trigger_set_stride(v4, v5);
     }
 
     else
     {
-      v4 = *(a1 + 4 * *a2 + 168);
 
       ps_gsm_signal_sem();
     }
@@ -3170,23 +2829,23 @@ uint64_t ps_gsm_remove_gst(unint64_t *a1, uint64_t a2)
   return 0;
 }
 
-void ps_gsm_request_waiter_removal(uint64_t a1, atomic_ullong *a2)
+void ps_gsm_request_waiter_removal(uint64_t a1, uint64_t a2)
 {
-  explicit = atomic_load_explicit(a2 + 147, memory_order_acquire);
+  explicit = atomic_load_explicit((a2 + 1176), memory_order_acquire);
   do
   {
     v5 = explicit;
-    atomic_compare_exchange_strong(a2 + 147, &explicit, explicit | 0x5000000000000);
+    atomic_compare_exchange_strong((a2 + 1176), &explicit, explicit | 0x5000000000000);
   }
 
   while (explicit != v5);
   if (*(a2 + 1184) == 1)
   {
-    ps_gsm_shared_trigger_terminate_reservation(a1, *(a2 + 601), *(a2 + 600));
+    ps_gsm_shared_trigger_terminate_reservation(a1, *(a2 + 1202), *(a2 + 1200));
     if ((v5 & 0x4000000000000) == 0)
     {
-      v6 = *(a2 + 601);
-      v7 = *(a2 + 600);
+      v6 = *(a2 + 1202);
+      v7 = *(a2 + 1200);
 
       ps_gsm_shared_trigger_signal(a1, v6, v7);
     }
@@ -3194,24 +2853,23 @@ void ps_gsm_request_waiter_removal(uint64_t a1, atomic_ullong *a2)
 
   else if ((v5 & 0x4000000000000) == 0)
   {
-    v8 = *(a1 + 4 * *a2 + 168);
 
     ps_gsm_signal_sem();
   }
 }
 
-unint64_t *ps_gsm_remove_gst_reference(unint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
+unint64_t *ps_gsm_remove_gst_reference(unint64_t *result, atomic_ullong *a2, uint64_t a3, uint64_t a4)
 {
   v5 = result;
-  v6 = (a2 + 8);
-  explicit = atomic_load_explicit((a2 + 8), memory_order_acquire);
+  v6 = (a2 + 1);
+  explicit = atomic_load_explicit(a2 + 1, memory_order_acquire);
   while ((explicit & 0xFFFFFFFFFFLL) == a3)
   {
     if (explicit == (a3 & 0xFFFFFFFFFFLL | a4 | 0x400000000000000))
     {
       if (*(a2 + 1184) == 1)
       {
-        ps_gsm_shared_trigger_remove_reservation(result, *(a2 + 1202), *(a2 + 1200));
+        ps_gsm_shared_trigger_remove_reservation(result, *(a2 + 601), *(a2 + 600));
       }
 
       v10 = *v5[8];
@@ -3239,45 +2897,45 @@ unint64_t *ps_gsm_remove_source_from_gst(unint64_t *a1, int a2, int a3, uint64_t
 {
   ps_util_assert_less_than_signed(a2, 1024);
   ps_util_assert_less_than_signed(a3, 16);
-  v8 = a1[9] + 1320 * a2;
+  v8 = (a1[9] + 1320 * a2);
 
   return ps_gsm_remove_gst_reference(a1, v8, a4, (1 << a3) << 40);
 }
 
 uint64_t ps_util_assert_less_than_signed(uint64_t result, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (result >= a2)
   {
-    v4 = result;
-    v9 = 0;
-    asprintf(&v9, "Out of bounds assert error (%llud>= %lld)", result, a2);
-    v5 = __PSUtilitiesLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v3 = result;
+    v11 = 0;
+    v4 = asprintf(&v11, "Out of bounds assert error (%llud>= %lld)", result, a2);
+    v6 = __PSUtilitiesLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315906;
-      v11 = "ps_util_assert_less_than_signed";
-      v12 = 1024;
-      v13 = 213;
-      v14 = 2048;
-      v15 = v4;
+      v13 = "ps_util_assert_less_than_signed";
+      v14 = 1024;
+      v15 = 213;
       v16 = 2048;
-      v17 = a2;
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_FAULT, "%s:%d Out of bounds assert error (%llud>= %lld)", buf, 0x26u);
+      v17 = v3;
+      v18 = 2048;
+      v19 = a2;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_FAULT, "%s:%d Out of bounds assert error (%llud>= %lld)", buf, 0x26u);
     }
 
-    v6 = OSLogFlushBuffers();
-    if (v6)
+    v7 = OSLogFlushBuffers();
+    if (v7)
     {
-      v7 = v6;
-      v8 = __PSUtilitiesLogSharedInstance();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = v7;
+      v10 = __PSUtilitiesLogSharedInstance(v7, v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v11 = "ps_util_assert_less_than_signed";
-        v12 = 1024;
-        v13 = v7;
-        _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+        v13 = "ps_util_assert_less_than_signed";
+        v14 = 1024;
+        v15 = v9;
+        _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
       }
     }
 
@@ -3289,21 +2947,20 @@ uint64_t ps_util_assert_less_than_signed(uint64_t result, uint64_t a2)
     abort_with_reason();
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t ps_gsm_notify_legacy_gst(uint64_t a1, int a2, int a3, uint64_t a4)
 {
   v5 = a3;
-  v7 = (*(a1 + 72) + 1320 * a2);
-  v8 = &v7[a3];
-  v9 = v8[76];
-  v10 = v8[92];
+  v7 = *(a1 + 72) + 1320 * a2;
+  v8 = v7 + 4 * a3;
+  v9 = *(v8 + 304);
+  v10 = *(v8 + 368);
   v11 = *(v7 + 432);
-  v12 = *(v7 + 37);
-  v13 = v7[36];
-  ps_gsm_get_source_name(a1, *(v7 + a3 + 276), v8[37]);
+  v12 = *(v7 + 296);
+  v13 = *(v7 + 144);
+  ps_gsm_get_source_name(a1, *(v7 + a3 + 276), *(v8 + 148));
   v14 = a4 & 0xFFFFFFFFFFFFLL;
   if (v9)
   {
@@ -3327,7 +2984,7 @@ uint64_t ps_gsm_notify_legacy_gst(uint64_t a1, int a2, int a3, uint64_t a4)
     LOBYTE(v17) = 1;
     if (v16 != 0xFFFFFFFFFFFFLL)
     {
-      v18 = &v7[2 * (v16 - 91 * ((v16 * 0x2D02D02D02D02D1uLL) >> 64)) + 112];
+      v18 = (v7 + 448 + 8 * (v16 - 91 * ((v16 * 0x2D02D02D02D02D1uLL) >> 64)));
       v19 = atomic_load(v18);
       v20 = (1 << v5);
       v21 = v20 << 48;
@@ -3364,8 +3021,8 @@ uint64_t ps_gsm_notify_legacy_gst(uint64_t a1, int a2, int a3, uint64_t a4)
             break;
           }
 
-          v43 = 0;
-          explicit = atomic_load_explicit(v7 + 147, memory_order_acquire);
+          v41 = 0;
+          explicit = atomic_load_explicit((v7 + 1176), memory_order_acquire);
           v29 = v24 & 0xFFFFFFFFFFFFLL;
           do
           {
@@ -3386,9 +3043,9 @@ uint64_t ps_gsm_notify_legacy_gst(uint64_t a1, int a2, int a3, uint64_t a4)
               v32 = 0;
             }
 
-            v43 = v29 | explicit & 0xFFF9000000000000 | v32 | 0x4000000000000;
-            ps_gsm_gst_trigger_set_stride(&v43, v10 * v9);
-            atomic_compare_exchange_strong(v7 + 147, &explicit, v43);
+            v41 = v29 | explicit & 0xFFF9000000000000 | v32 | 0x4000000000000;
+            ps_gsm_gst_trigger_set_stride(&v41, v10 * v9);
+            atomic_compare_exchange_strong((v7 + 1176), &explicit, v41);
           }
 
           while (explicit != v30);
@@ -3398,12 +3055,11 @@ uint64_t ps_gsm_notify_legacy_gst(uint64_t a1, int a2, int a3, uint64_t a4)
             ps_gsm_gst_notify_start(a1);
             if (*(v7 + 1184) == 1)
             {
-              ps_gsm_shared_trigger_signal(a1, *(v7 + 601), *(v7 + 600));
+              ps_gsm_shared_trigger_signal(a1, *(v7 + 1202), *(v7 + 1200));
             }
 
             else
             {
-              v42 = *(a1 + 4 * *v7 + 168);
               ps_gsm_signal_sem();
             }
           }
@@ -3420,13 +3076,13 @@ LABEL_43:
   else
   {
     LOBYTE(v17) = 1;
-    atomic_fetch_or(v7 + 56, (1 << v5) << 48);
+    atomic_fetch_or((v7 + 448), (1 << v5) << 48);
     v33 = v12;
-    atomic_compare_exchange_strong(v7 + 56, &v33, 0x8000000000000000);
+    atomic_compare_exchange_strong((v7 + 448), &v33, 0x8000000000000000);
     if (v33 == v12)
     {
       v34 = a4 & 0xFFFFFFFFFFFFLL;
-      v35 = atomic_load_explicit(v7 + 147, memory_order_acquire);
+      v35 = atomic_load_explicit((v7 + 1176), memory_order_acquire);
       if (v13 != 1)
       {
         v34 = 0xFFFFFFFFFFFFLL;
@@ -3451,7 +3107,7 @@ LABEL_43:
           v38 = 0;
         }
 
-        atomic_compare_exchange_strong(v7 + 147, &v35, v35 & 0xE001000000000000 | v34 | v38 | 0x4000000000000);
+        atomic_compare_exchange_strong((v7 + 1176), &v35, v35 & 0xE001000000000000 | v34 | v38 | 0x4000000000000);
       }
 
       while (v35 != v36);
@@ -3460,12 +3116,11 @@ LABEL_43:
         ps_gsm_gst_notify_start(a1);
         if (*(v7 + 1184) == 1)
         {
-          ps_gsm_shared_trigger_signal(a1, *(v7 + 601), *(v7 + 600));
+          ps_gsm_shared_trigger_signal(a1, *(v7 + 1202), *(v7 + 1200));
         }
 
         else
         {
-          v40 = *(a1 + 4 * *v7 + 168);
           ps_gsm_signal_sem();
         }
 
@@ -3493,8 +3148,8 @@ LABEL_47:
 
 uint64_t ps_gsm_notify_gst(uint64_t a1, int a2, char a3, uint64_t a4)
 {
-  v6 = (*(a1 + 72) + 1320 * a2);
-  if (*(v6 + 110))
+  v6 = *(a1 + 72) + 1320 * a2;
+  if (*(v6 + 440))
   {
     v7 = a4 & 0xFFFFFFFFFFFFLL;
     should_be_recorded = ps_gsm_gst_frameid_should_be_recorded(*(a1 + 72) + 1320 * a2, a4 & 0xFFFFFFFFFFFFLL);
@@ -3503,7 +3158,7 @@ uint64_t ps_gsm_notify_gst(uint64_t a1, int a2, char a3, uint64_t a4)
       goto LABEL_20;
     }
 
-    explicit = atomic_load_explicit(&v6[v7 - 91 * ((v7 * 0x2D02D02D02D02D1uLL) >> 64) + 56], memory_order_acquire);
+    explicit = atomic_load_explicit((v6 + 448 + 8 * (v7 - 91 * ((v7 * 0x2D02D02D02D02D1uLL) >> 64))), memory_order_acquire);
     v10 = explicit & 0xFFFFFFFFFFFFLL;
     if ((explicit & 0xFFFFFFFFFFFFLL) <= v7)
     {
@@ -3519,7 +3174,7 @@ uint64_t ps_gsm_notify_gst(uint64_t a1, int a2, char a3, uint64_t a4)
           v11 = v15;
         }
 
-        atomic_compare_exchange_strong(&v6[v7 - 91 * ((v7 * 0x2D02D02D02D02D1uLL) >> 64) + 56], &v16, v11);
+        atomic_compare_exchange_strong((v6 + 448 + 8 * (v7 - 91 * ((v7 * 0x2D02D02D02D02D1uLL) >> 64))), &v16, v11);
         if (v16 == explicit)
         {
           break;
@@ -3537,17 +3192,17 @@ uint64_t ps_gsm_notify_gst(uint64_t a1, int a2, char a3, uint64_t a4)
       v11 = 0;
     }
 
-    if (v11 == (v6[37] | v7))
+    if (v11 == (*(v6 + 296) | v7))
     {
       ps_gsm_gst_did_trigger_so_execute_gst_commands_upto_frameid(v6, v7);
-      v21 = 0;
-      v17 = atomic_load_explicit(v6 + 147, memory_order_acquire);
+      v20 = 0;
+      v17 = atomic_load_explicit((v6 + 1176), memory_order_acquire);
       do
       {
         v18 = v17;
-        v21 = v7 | v17 & 0xFFFF000000000000 | 0x4000000000000;
-        ps_gsm_gst_trigger_set_stride(&v21, *(v6 + 110));
-        atomic_compare_exchange_strong(v6 + 147, &v17, v21);
+        v20 = v7 | v17 & 0xFFFF000000000000 | 0x4000000000000;
+        ps_gsm_gst_trigger_set_stride(&v20, *(v6 + 440));
+        atomic_compare_exchange_strong((v6 + 1176), &v17, v20);
       }
 
       while (v17 != v18);
@@ -3557,12 +3212,11 @@ uint64_t ps_gsm_notify_gst(uint64_t a1, int a2, char a3, uint64_t a4)
         ps_gsm_gst_notify_start(a1);
         if (*(v6 + 1184) == 1)
         {
-          ps_gsm_shared_trigger_signal(a1, *(v6 + 601), *(v6 + 600));
+          ps_gsm_shared_trigger_signal(a1, *(v6 + 1202), *(v6 + 1200));
         }
 
         else
         {
-          v20 = *(a1 + 4 * *v6 + 168);
           ps_gsm_signal_sem();
         }
       }
@@ -3595,13 +3249,18 @@ LABEL_20:
 uint64_t ps_gsm_wait_gst(unint64_t *a1, atomic_ullong *a2, unint64_t *a3, mach_timespec_t a4)
 {
   v8 = a1 + 21;
-  while (*(a2 + 1184) != 1)
+  while (1)
   {
+    if (*(a2 + 1184) == 1)
+    {
+      ps_gsm_wait_gst_cold_3(&v15, a2);
+    }
+
     v9 = a4;
     v10 = ps_gsm_wait_on_sem(*(v8 + *a2), v9);
     if (v10)
     {
-      goto LABEL_14;
+      break;
     }
 
     *a3 = *a3 & 0xFC00000000000000 | 0xFFFFFFFFFFFFLL;
@@ -3638,8 +3297,6 @@ uint64_t ps_gsm_wait_gst(unint64_t *a1, atomic_ullong *a2, unint64_t *a3, mach_t
     }
   }
 
-  v10 = ps_gsm_wait_gst_cold_3(&v15, a2);
-LABEL_14:
   if (v10 == 1)
   {
     return 3;
@@ -3669,24 +3326,24 @@ unint64_t *ps_gsm_create_gst_container(unint64_t a1, uint64_t a2)
       v10 = vmovn_s64(vcgeq_u64(v6, v7));
       if (vuzp1_s16(v10, *v5.i8).u8[0])
       {
-        *(v9 + 36) = v4;
+        v9[36] = v4;
       }
 
       if (vuzp1_s16(v10, *&v5).i8[2])
       {
-        *(v9 + 366) = v4 + 1;
+        v9[366] = v4 + 1;
       }
 
       if (vuzp1_s16(*&v5, vmovn_s64(vcgeq_u64(v6, *&v5))).i32[1])
       {
-        *(v9 + 696) = v4 + 2;
-        *(v9 + 1026) = v4 + 3;
+        v9[696] = v4 + 2;
+        v9[1026] = v4 + 3;
       }
 
       v4 += 4;
       v5 = vaddq_s64(v5, v8);
       v7 = vaddq_s64(v7, v8);
-      v9 += 660;
+      v9 += 1320;
     }
 
     while (((a1 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v4);
@@ -3695,64 +3352,61 @@ unint64_t *ps_gsm_create_gst_container(unint64_t a1, uint64_t a2)
   return v3;
 }
 
-uint64_t ps_gsm_print_gst_to_buffer(uint64_t a1, char *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ps_gsm_print_gst_to_buffer(uint64_t a1, char *a2, int a3)
 {
-  v120 = a2;
-  v119 = a3;
-  v118 = *(a1 + 432);
-  ps_gsm_print_gst_data_to_buffer(&v120, &v119, "Name: %s group-synced:%d\n", a4, a5, a6, a7, a8, a1 + 16);
+  v12 = a2;
+  v11 = a3;
+  ps_gsm_print_gst_data_to_buffer(&v12, &v11, "Name: %s group-synced:%d\n", (a1 + 16), *(a1 + 432));
   explicit = atomic_load_explicit((a1 + 8), memory_order_acquire);
-  ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\nToken:\n", v10, v11, v12, v13, v14, v111);
-  ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\tpid: %u\n", v15, v16, v17, v18, v19, explicit);
-  ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\tcounter: %u\n", v20, v21, v22, v23, v24, SBYTE4(explicit));
-  ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\tnonce: %llu\n", v25, v26, v27, v28, v29, explicit);
-  ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\tsources: %0x\n", v30, v31, v32, v33, v34, SBYTE5(explicit));
-  ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\twaiter: %u\n", v35, v36, v37, v38, v39, HIBYTE(explicit) & 1);
-  ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\nInit complete: %d\n", v40, v41, v42, v43, v44, (explicit & 0x400000000000000) != 0);
-  ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\nSources:\n", v45, v46, v47, v48, v49, v112);
+  ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\nToken:\n");
+  ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\tpid: %u\n", explicit);
+  ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\tcounter: %u\n", BYTE4(explicit));
+  ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\tnonce: %llu\n", explicit & 0xFFFFFFFFFFLL);
+  ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\tsources: %0x\n", (HIDWORD(explicit) >> 8));
+  ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\twaiter: %u\n", HIBYTE(explicit) & 1);
+  ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\nInit complete: %d\n", (explicit & 0x400000000000000) != 0);
+  ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\nSources:\n");
   if (*(a1 + 144) >= 1)
   {
-    v55 = 0;
-    v56 = (a1 + 212);
+    v5 = 0;
+    v6 = (a1 + 212);
     do
     {
-      ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\tglobal_source_index: %u\n", v50, v51, v52, v53, v54, *(v56 - 16));
-      ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\tlocal_gst_index: %u\n", v57, v58, v59, v60, v61, *v56);
-      ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\tdown sample: %u\n", v62, v63, v64, v65, v66, v56[23]);
-      ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\tstride: %u\n", v67, v68, v69, v70, v71, v56[39]);
-      ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\n", v72, v73, v74, v75, v76, v114);
-      ++v55;
-      ++v56;
+      ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\tglobal_source_index: %u\n", *(v6 - 16));
+      ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\tlocal_gst_index: %u\n", *v6);
+      ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\tdown sample: %u\n", v6[23]);
+      ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\tstride: %u\n", v6[39]);
+      ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\n");
+      ++v5;
+      ++v6;
     }
 
-    while (v55 < *(a1 + 144));
+    while (v5 < *(a1 + 144));
   }
 
-  v77 = atomic_load_explicit((a1 + 1176), memory_order_acquire);
-  ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\nTrigger:\n", v50, v51, v52, v53, v54, v113);
-  if ((v77 & 0xFFFFFFFFFFFFLL) == 0xFFFFFFFFFFFFLL)
+  v7 = atomic_load_explicit((a1 + 1176), memory_order_acquire);
+  ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\nTrigger:\n");
+  if ((v7 & 0xFFFFFFFFFFFFLL) == 0xFFFFFFFFFFFFLL)
   {
-    v83 = "\ttag: TAG_READ\n";
+    ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\ttag: TAG_READ\n");
   }
 
   else
   {
-    v115 = v77;
-    v83 = "\ttag: %llu\n";
+    ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\ttag: %llu\n");
   }
 
-  ps_gsm_print_gst_data_to_buffer(&v120, &v119, v83, v78, v79, v80, v81, v82, v115);
-  ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\tshould_exit: %d\n", v84, v85, v86, v87, v88, BYTE6(v77) & 1);
-  ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\tsequenced_teardown: %d\n", v89, v90, v91, v92, v93, (v77 & 0x2000000000000) != 0);
-  ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\tsem_signaled: %d\n", v94, v95, v96, v97, v98, (v77 & 0x4000000000000) != 0);
-  ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\nReady sources:\n", v99, v100, v101, v102, v103, v116);
+  ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\tshould_exit: %d\n", HIWORD(v7) & 1);
+  ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\tsequenced_teardown: %d\n", (v7 >> 49) & 1);
+  ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\tsem_signaled: %d\n", (v7 >> 50) & 1);
+  ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\nReady sources:\n");
   for (i = 0; i != 91; ++i)
   {
-    atomic_load_explicit((a1 + 448 + 8 * i), memory_order_acquire);
-    ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\t%d: tag: %llu ready: %0x", v104, v105, v106, v107, v108, i);
+    v9 = atomic_load_explicit((a1 + 448 + 8 * i), memory_order_acquire);
+    ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\t%d: tag: %llu ready: %0x", i, v9 & 0xFFFFFFFFFFFFLL, HIWORD(v9) & 0x3FFF);
   }
 
-  return ps_gsm_print_gst_data_to_buffer(&v120, &v119, "\n", v104, v105, v106, v107, v108, v117);
+  return ps_gsm_print_gst_data_to_buffer(&v12, &v11, "\n");
 }
 
 unint64_t ps_gsm_gst_handle_process_death(uint64_t a1, int a2)
@@ -3763,8 +3417,8 @@ unint64_t ps_gsm_gst_handle_process_death(uint64_t a1, int a2)
   {
     for (i = 0; i != v4; ++i)
     {
-      v7 = *(a1 + 72) + 1320 * i;
-      explicit = atomic_load_explicit((v7 + 8), memory_order_acquire);
+      v7 = (*(a1 + 72) + 1320 * i);
+      explicit = atomic_load_explicit(v7 + 1, memory_order_acquire);
       while (1)
       {
         v9 = explicit;
@@ -3773,7 +3427,7 @@ unint64_t ps_gsm_gst_handle_process_death(uint64_t a1, int a2)
           break;
         }
 
-        atomic_compare_exchange_strong((v7 + 8), &explicit, explicit | 0x200000000000000);
+        atomic_compare_exchange_strong(v7 + 1, &explicit, explicit | 0x200000000000000);
         if (explicit == v9)
         {
           ps_gsm_gst_handle_death(a1, v7);
@@ -3789,70 +3443,66 @@ unint64_t ps_gsm_gst_handle_process_death(uint64_t a1, int a2)
 
 unint64_t *ps_gsm_gst_handle_death(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v4 = __PolarisGSMLogSharedInstance();
+  v19 = *MEMORY[0x277D85DE8];
+  v4 = __PolarisGSMLogSharedInstance(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *a2;
-    v16 = 136315394;
-    v17 = a2 + 16;
-    v18 = 1024;
-    v19 = v5;
-    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEFAULT, "Handling death for GST (%s) on idx (%d)", &v16, 0x12u);
+    v15 = 136315394;
+    v16 = a2 + 16;
+    v17 = 1024;
+    v18 = v5;
+    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEFAULT, "Handling death for GST (%s) on idx (%d)", &v15, 0x12u);
   }
 
   explicit = atomic_load_explicit((a2 + 8), memory_order_acquire);
-  if ((explicit & 0x400000000000000) != 0)
+  if ((explicit & 0x400000000000000) == 0)
   {
-    v8 = atomic_load((a2 + 8));
-    result = ps_gsm_remove_gst_reference(a1, a2, v8 & 0xFFFFFFFFFFLL, 0x100000000000000);
-    if (*(a2 + 144) >= 1)
+    return ps_gsm_clear_gst_reservation(a1, a2);
+  }
+
+  v8 = atomic_load((a2 + 8));
+  result = ps_gsm_remove_gst_reference(a1, a2, v8 & 0xFFFFFFFFFFLL, 0x100000000000000);
+  if (*(a2 + 144) >= 1)
+  {
+    v9 = 0;
+    do
     {
-      v9 = 0;
-      do
+      v10 = a2 + 4 * v9;
+      gst_in_source = *(v10 + 212);
+      v12 = *(v10 + 148);
+      v13 = *(a2 + v9 + 276);
+      if (gst_in_source == 64 && (gst_in_source = ps_gsm_find_gst_in_source(a1, v12, explicit & 0xFFFFFFFFFFLL), gst_in_source == 64))
       {
-        v10 = a2 + 4 * v9;
-        gst_in_source = *(v10 + 212);
-        v12 = *(v10 + 148);
-        v13 = *(a2 + v9 + 276);
-        if (gst_in_source == 64 && (gst_in_source = ps_gsm_find_gst_in_source(a1, v12, explicit & 0xFFFFFFFFFFLL), gst_in_source == 64))
-        {
-          result = ps_gsm_remove_source_from_gst(a1, *a2, v9, explicit & 0xFFFFFFFFFFLL);
-        }
-
-        else if (v13)
-        {
-          if (v13 != 1)
-          {
-            ps_gsm_gst_handle_death_cold_1(v13, &v16);
-          }
-
-          result = ps_gsm_request_gst_removal_from_source(a1, 1, v12, gst_in_source, explicit & 0xFFFFFFFFFFLL);
-        }
-
-        else
-        {
-          result = ps_gsm_remove_source_from_gst(a1, *a2, v9, explicit & 0xFFFFFFFFFFLL);
-          if (*(a1 + 4776) == 1)
-          {
-            v14 = *(a1 + 104) + 672 * v12;
-            result = ps_reservation_clear((v14 + 152), 0x40uLL, gst_in_source, (v14 + 8 * gst_in_source + 160));
-          }
-        }
-
-        ++v9;
+        result = ps_gsm_remove_source_from_gst(a1, *a2, v9, explicit & 0xFFFFFFFFFFLL);
       }
 
-      while (v9 < *(a2 + 144));
+      else if (v13)
+      {
+        if (v13 != 1)
+        {
+          ps_gsm_gst_handle_death_cold_1(v13, &v15);
+        }
+
+        result = ps_gsm_request_gst_removal_from_source(a1, 1, v12, gst_in_source, explicit & 0xFFFFFFFFFFLL);
+      }
+
+      else
+      {
+        result = ps_gsm_remove_source_from_gst(a1, *a2, v9, explicit & 0xFFFFFFFFFFLL);
+        if (*(a1 + 4776) == 1)
+        {
+          v14 = *(a1 + 104) + 672 * v12;
+          result = ps_reservation_clear((v14 + 152), 0x40uLL, gst_in_source, (v14 + 8 * gst_in_source + 160));
+        }
+      }
+
+      ++v9;
     }
+
+    while (v9 < *(a2 + 144));
   }
 
-  else
-  {
-    result = ps_gsm_clear_gst_reservation(a1, a2);
-  }
-
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3897,7 +3547,7 @@ uint64_t ps_gsm_gst_process_execution_for_shared_trigger(unint64_t *a1, unsigned
   return result;
 }
 
-uint64_t ps_gsm_get_gst(uint64_t a1, unint64_t a2)
+unint64_t ps_gsm_get_gst(uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x400)
   {
@@ -3907,7 +3557,7 @@ uint64_t ps_gsm_get_gst(uint64_t a1, unint64_t a2)
   return *(a1 + 72) + 1320 * a2;
 }
 
-uint64_t ps_gsm_get_gst_index(int *a1)
+uint64_t ps_gsm_get_gst_index(int *a1, uint64_t a2)
 {
   result = *a1;
   if (result >= 1024)
@@ -3918,9 +3568,10 @@ uint64_t ps_gsm_get_gst_index(int *a1)
   return result;
 }
 
-uint64_t ps_gsm_print_gst_data_to_buffer(char **a1, _DWORD *a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t ps_gsm_print_gst_data_to_buffer(char **a1, _DWORD *a2, const char *a3, ...)
 {
-  result = vsnprintf(*a1, *a2, a3, &a9);
+  va_start(va, a3);
+  result = vsnprintf(*a1, *a2, a3, va);
   if (result < 1 || *a2 <= result)
   {
     *a2 = 0;
@@ -3942,13 +3593,14 @@ unint64_t *OUTLINED_FUNCTION_5_3(unint64_t *a1, uint64_t a2)
   return ps_gsm_remove_gst_reference(a1, a2, v3 & 0xFFFFFFFFFFLL, 0x100000000000000);
 }
 
-void OUTLINED_FUNCTION_6_3(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_6_3(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_impl(a1, v11, OS_LOG_TYPE_FAULT, a4, &buf, 0x26u);
+  _os_log_impl(a1, v10, OS_LOG_TYPE_FAULT, a4, va, 0x26u);
 }
 
-uint64_t ps_gsm_gst_command_queue_init(uint64_t result)
+uint64_t ps_gsm_gst_command_queue_init(uint64_t result, uint64_t a2)
 {
   if (!result)
   {
@@ -4006,7 +3658,7 @@ BOOL ps_gsm_gst_frameid_should_be_recorded(uint64_t a1, unint64_t a2)
   return a2 % v6 == HIDWORD(v6);
 }
 
-uint64_t ps_gsm_gst_change_cadence_on_next_valid_frame_id_for_cadence(uint64_t a1, unint64_t a2)
+uint64_t ps_gsm_gst_change_cadence_on_next_valid_frame_id_for_cadence(unint64_t a1, unint64_t a2)
 {
   if (*(a1 + 1312) == 1)
   {
@@ -4019,24 +3671,26 @@ uint64_t ps_gsm_gst_change_cadence_on_next_valid_frame_id_for_cadence(uint64_t a
   }
 }
 
-uint64_t ps_gsm_gst_schedule_stride_change_command(uint64_t a1, unint64_t a2, unint64_t a3)
+uint64_t ps_gsm_gst_schedule_stride_change_command(unint64_t a1, unint64_t a2, unint64_t a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (a2 >= 0xFFFFFFFFFFFFLL)
   {
     ps_gsm_gst_schedule_stride_change_command_cold_2();
   }
 
   v3 = a3;
+  v4 = a2;
+  v5 = a1;
   v6 = a1 + 1208;
   explicit = atomic_load_explicit((a1 + 1304), memory_order_acquire);
   v8 = HIDWORD(a3);
   while ((explicit & 0x1C000000000000) != 0x10000000000000)
   {
     v9 = explicit & 0xFFFFFFFFFFFFLL;
-    if ((explicit & 0xFFFFFFFFFFFFLL) <= a2)
+    if ((explicit & 0xFFFFFFFFFFFFLL) <= v4)
     {
-      v9 = a2;
+      v9 = v4;
     }
 
     if (HIDWORD(a3) >= a3)
@@ -4056,57 +3710,55 @@ uint64_t ps_gsm_gst_schedule_stride_change_command(uint64_t a1, unint64_t a2, un
       v9 = v11 - v10;
     }
 
+    a2 = explicit & 0xFFE3000000000000;
     v12 = v9 & 0xFFFFFFFFFFFFLL;
     v13 = v6 + 24 * ((BYTE6(explicit) + (explicit >> 50)) & 3);
     *v13 = 1;
     *(v13 + 8) = v9 & 0xFFFFFFFFFFFFLL;
     *(v13 + 16) = a3;
-    v14 = explicit;
-    atomic_compare_exchange_strong((a1 + 1304), &v14, (explicit + 0x4000000000000) & 0x1C000000000000 | explicit & 0xFFE3000000000000 | (v9 + 1) & 0xFFFFFFFFFFFFLL);
-    v15 = v14 == explicit;
-    explicit = v14;
-    if (v15)
+    a1 = explicit;
+    atomic_compare_exchange_strong((v5 + 1304), &a1, (explicit + 0x4000000000000) & 0x1C000000000000 | explicit & 0xFFE3000000000000 | (v9 + 1) & 0xFFFFFFFFFFFFLL);
+    v14 = a1 == explicit;
+    explicit = a1;
+    if (v14)
     {
-      v16 = __PolarisGSMLogSharedInstance();
-      if (os_signpost_enabled(v16))
+      v15 = __PolarisGSMLogSharedInstance(a1, a2);
+      if (os_signpost_enabled(v15))
       {
-        v17 = *(a1 + 440);
-        v21 = 136316419;
-        *v22 = a1 + 16;
-        *&v22[8] = 2048;
-        *&v22[10] = v12;
+        v16 = *(v5 + 440);
+        v19 = 136316419;
+        *v20 = v5 + 16;
+        *&v20[8] = 2048;
+        *&v20[10] = v12;
+        v21 = 1025;
+        v22 = v16;
         v23 = 1025;
-        v24 = v17;
+        v24 = HIDWORD(v16);
         v25 = 1025;
-        v26 = HIDWORD(v17);
+        v26 = v3;
         v27 = 1025;
-        v28 = v3;
-        v29 = 1025;
-        v30 = v8;
-        _os_signpost_emit_unreliably_with_name_impl();
+        v28 = v8;
+        _os_signpost_emit_unreliably_with_name_impl(&dword_25EA3A000, v15, 0, 0xEEEEB0B5B2B2EEEELL, "PSGSM Log", "Graph stride change scheduled for graph %s at frame ID %llu. Current cadence: (%{private}u, %{private}u). Requested cadence: (%{private}u, %{private}u).", &v19, 46);
       }
 
-      goto LABEL_18;
+      return v12;
     }
   }
 
-  v18 = __PolarisGSMLogSharedInstance();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v17 = __PolarisGSMLogSharedInstance(a1, a2);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v21 = 67109376;
-    *v22 = 1;
-    *&v22[4] = 2048;
-    *&v22[6] = a2;
-    _os_log_impl(&dword_25EA3A000, v18, OS_LOG_TYPE_ERROR, "Command Queue Full: Request (command=%d, frameid=%lld)", &v21, 0x12u);
+    v19 = 67109376;
+    *v20 = 1;
+    *&v20[4] = 2048;
+    *&v20[6] = v4;
+    _os_log_impl(&dword_25EA3A000, v17, OS_LOG_TYPE_ERROR, "Command Queue Full: Request (command=%d, frameid=%lld)", &v19, 0x12u);
   }
 
-  v12 = -1;
-LABEL_18:
-  v19 = *MEMORY[0x277D85DE8];
-  return v12;
+  return -1;
 }
 
-uint64_t ps_gsm_gst_change_cadence_at_or_after_frame_id(uint64_t a1, unint64_t a2, unint64_t a3)
+uint64_t ps_gsm_gst_change_cadence_at_or_after_frame_id(unint64_t a1, unint64_t a2, unint64_t a3)
 {
   if (*(a1 + 1312) == 1)
   {
@@ -4121,7 +3773,7 @@ uint64_t ps_gsm_gst_change_cadence_at_or_after_frame_id(uint64_t a1, unint64_t a
 
 uint64_t ps_gsm_gst_did_trigger_so_execute_gst_commands_upto_frameid(uint64_t result, unint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (HIWORD(a2))
   {
     ps_gsm_gst_did_trigger_so_execute_gst_commands_upto_frameid_cold_1();
@@ -4130,50 +3782,61 @@ uint64_t ps_gsm_gst_did_trigger_so_execute_gst_commands_upto_frameid(uint64_t re
   v2 = atomic_load((result + 1304));
   if ((v2 & 0x1C000000000000) != 0)
   {
-    v4 = result + 1208;
-    v5 = *(result + 440);
+    v3 = result + 1208;
+    v4 = *(result + 440);
     explicit = atomic_load_explicit((result + 1304), memory_order_acquire);
-    while (*(v4 + 24 * (HIWORD(explicit) & 3) + 8) <= a2)
+    while (*(v3 + 24 * (HIWORD(explicit) & 3) + 8) <= a2)
     {
-      v13 = v5;
+      v13 = v4;
       v14 = a2;
       v15 = result;
       v12 = explicit;
       do
       {
-        ps_gsm_gst_command_queue_execute_queue_entry(v15, v4 + 24 * (HIWORD(explicit) & 3));
-        v7 = explicit + 0x1000000000000;
-        v8 = ((explicit + 0x1C000000000000) & 0x1C000000000000) == 0;
+        ps_gsm_gst_command_queue_execute_queue_entry(v15, v3 + 24 * (HIWORD(explicit) & 3));
+        v6 = explicit + 0x1000000000000;
+        v7 = ((explicit + 0x1C000000000000) & 0x1C000000000000) == 0;
         explicit = (explicit + 0x1000000000000) & 0x3000000000000 | explicit & 0xFFE0FFFFFFFFFFFFLL | (explicit + 0x1C000000000000) & 0x1C000000000000;
       }
 
-      while (!v8 && *(v4 + 24 * (HIWORD(v7) & 3) + 8) <= v14);
+      while (!v7 && *(v3 + 24 * (HIWORD(v6) & 3) + 8) <= v14);
       a2 = v14;
       result = v15;
+      v8 = v12;
       v9 = v12;
-      v10 = v12;
-      atomic_compare_exchange_strong((v15 + 1304), &v10, explicit);
-      explicit = v10;
-      v5 = v13;
-      if (v10 == v9)
+      atomic_compare_exchange_strong((v15 + 1304), &v9, explicit);
+      explicit = v9;
+      v4 = v13;
+      if (v9 == v8)
       {
         if (*(v15 + 440) != v13)
         {
-          v11 = __PolarisGSMLogSharedInstance();
-          result = os_signpost_enabled(v11);
+          v10 = __PolarisGSMLogSharedInstance(v15, v14);
+          result = os_signpost_enabled(v10);
           if (result)
           {
-            v16 = *(v15 + 440);
-            result = _os_signpost_emit_unreliably_with_name_impl();
+            v11 = *(v15 + 440);
+            v16 = 136316419;
+            v17 = v15 + 16;
+            v18 = 2048;
+            v19 = v14;
+            v20 = 1025;
+            v21 = v13;
+            v22 = 1025;
+            v23 = HIDWORD(v13);
+            v24 = 1025;
+            v25 = v11;
+            v26 = 1025;
+            v27 = HIDWORD(v11);
+            return _os_signpost_emit_unreliably_with_name_impl(&dword_25EA3A000, v10, 0, 0xEEEEB0B5B2B2EEEELL, "PSGSM Log", "Graph stride changed for graph %s at frame ID %llu. Previous cadence: (%{private}u, %{private}u). Current cadence: (%{private}u, %{private}u).", &v16, 46);
           }
         }
 
-        break;
+        return result;
       }
     }
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4267,38 +3930,38 @@ uint64_t ps_gsm_shared_trigger_terminate_reservation(uint64_t a1, unsigned int a
 
 unint64_t ps_util_assert_less_than_unsigned(unint64_t result, unint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (result >= a2)
   {
-    v4 = result;
-    v9 = 0;
-    asprintf(&v9, "Out of bounds assert error (%llu >= %llu)", result, a2);
-    v5 = __PSUtilitiesLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v3 = result;
+    v11 = 0;
+    v4 = asprintf(&v11, "Out of bounds assert error (%llu >= %llu)", result, a2);
+    v6 = __PSUtilitiesLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315906;
-      v11 = "ps_util_assert_less_than_unsigned";
-      v12 = 1024;
-      v13 = 192;
-      v14 = 2048;
-      v15 = v4;
+      v13 = "ps_util_assert_less_than_unsigned";
+      v14 = 1024;
+      v15 = 192;
       v16 = 2048;
-      v17 = a2;
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_FAULT, "%s:%d Out of bounds assert error (%llu >= %llu)", buf, 0x26u);
+      v17 = v3;
+      v18 = 2048;
+      v19 = a2;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_FAULT, "%s:%d Out of bounds assert error (%llu >= %llu)", buf, 0x26u);
     }
 
-    v6 = OSLogFlushBuffers();
-    if (v6)
+    v7 = OSLogFlushBuffers();
+    if (v7)
     {
-      v7 = v6;
-      v8 = __PSUtilitiesLogSharedInstance();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = v7;
+      v10 = __PSUtilitiesLogSharedInstance(v7, v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v11 = "ps_util_assert_less_than_unsigned";
-        v12 = 1024;
-        v13 = v7;
-        _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+        v13 = "ps_util_assert_less_than_unsigned";
+        v14 = 1024;
+        v15 = v9;
+        _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
       }
     }
 
@@ -4310,7 +3973,6 @@ unint64_t ps_util_assert_less_than_unsigned(unint64_t result, unint64_t a2)
     abort_with_reason();
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4326,8 +3988,8 @@ void ps_gsm_shared_trigger_signal(uint64_t a1, unsigned int a2, unsigned int a3)
     ps_gsm_shared_trigger_signal_cold_1();
   }
 
-  v3 = (*(a1 + 120) + 312 * a2);
-  explicit = atomic_load_explicit(v3 + 18, memory_order_acquire);
+  v3 = *(a1 + 120) + 312 * a2;
+  explicit = atomic_load_explicit((v3 + 144), memory_order_acquire);
   v5 = 1 << a3;
   do
   {
@@ -4338,13 +4000,12 @@ void ps_gsm_shared_trigger_signal(uint64_t a1, unsigned int a2, unsigned int a3)
       v7 = (explicit | v5) & 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    atomic_compare_exchange_strong(v3 + 18, &explicit, v7);
+    atomic_compare_exchange_strong((v3 + 144), &explicit, v7);
   }
 
   while (explicit != v6);
   if (v6 < 0)
   {
-    v8 = *(a1 + 4 * *v3 + 4264);
 
     ps_gsm_signal_sem();
   }
@@ -4365,30 +4026,8 @@ void ps_gsm_shared_trigger_get_available_index(uint64_t a1, uint64_t a2)
     }
 
     v8 = v7 & explicit;
-    if ((v7 & explicit) != 0)
+    if ((v7 & explicit) != 0 && (first_bit_from_offset = ps_reservation_get_first_bit_from_offset(v7 & explicit, 0x40uLL, 0), first_bit_from_offset != -1) || (v7 & v6) != 0 && (first_bit_from_offset = ps_reservation_get_first_bit_from_offset(v7 & v6, 0x40uLL, *(a2 + 304)), first_bit_from_offset != -1))
     {
-      first_bit_from_offset = ps_reservation_get_first_bit_from_offset(v7 & explicit, 0x40uLL, 0);
-      if (first_bit_from_offset != -1)
-      {
-        goto LABEL_9;
-      }
-    }
-
-    if ((v7 & v6) != 0)
-    {
-      first_bit_from_offset = ps_reservation_get_first_bit_from_offset(v7 & v6, 0x40uLL, *(a2 + 304));
-      if (first_bit_from_offset != -1)
-      {
-        goto LABEL_9;
-      }
-    }
-
-    v10 = v6;
-    atomic_compare_exchange_strong(v4, &v10, v7);
-    if (v10 != v6)
-    {
-      first_bit_from_offset = ps_gsm_shared_trigger_get_available_index_cold_2(&v17, a2);
-LABEL_9:
       v11 = first_bit_from_offset;
       do
       {
@@ -4419,61 +4058,64 @@ LABEL_9:
 
       return;
     }
+
+    v10 = v6;
+    atomic_compare_exchange_strong(v4, &v10, v7);
+    if (v10 != v6)
+    {
+      ps_gsm_shared_trigger_get_available_index_cold_2(&v17, a2);
+    }
   }
 }
 
-void ps_gsm_shared_trigger_remove_reservation(uint64_t a1, unsigned int a2, unsigned int a3)
+void ps_gsm_shared_trigger_remove_reservation(uint64_t a1, unsigned int a2, uint64_t a3)
 {
   v19 = *MEMORY[0x277D85DE8];
   ps_util_assert_less_than_unsigned(a2, 0x80uLL);
-  ps_util_assert_less_than_unsigned(a3, 0x40uLL);
-  v6 = (*(a1 + 120) + 312 * a2);
-  if ((atomic_load_explicit(v6 + 21, memory_order_acquire) >> a3))
+  v6 = ps_util_assert_less_than_unsigned(a3, 0x40uLL);
+  v8 = (*(a1 + 120) + 312 * a2);
+  if ((atomic_load_explicit(v8 + 21, memory_order_acquire) >> a3))
   {
-    v7 = __PolarisGSMLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = __PolarisGSMLogSharedInstance(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v17 = 136315138;
-      v18 = v6 + 1;
-      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "Shared Trigger (%s) Could not repair. The shared trigger will go out of commission.", &v17, 0xCu);
+      v18 = v8 + 1;
+      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_ERROR, "Shared Trigger (%s) Could not repair. The shared trigger will go out of commission.", &v17, 0xCu);
     }
-
-LABEL_14:
-    v13 = *MEMORY[0x277D85DE8];
-    return;
   }
 
-  explicit = atomic_load_explicit(v6 + 17, memory_order_acquire);
-  ps_reservation_set_mask_value_at_index((v6 + 18), a3, 0);
-  ps_reservation_remove(v6 + 21, 0x40uLL, a3);
-  do
+  else
   {
-    v9 = explicit;
-    if ((explicit & 0xFF00000000) != 0)
+    explicit = atomic_load_explicit(v8 + 17, memory_order_acquire);
+    ps_reservation_set_mask_value_at_index((v8 + 72), a3, 0);
+    ps_reservation_remove(v8 + 21, 0x40uLL, a3);
+    do
     {
-      v10 = explicit & 0xFFFFFF00FFFFFFFFLL | (((explicit + 0xFF00000000) >> 32) << 32);
+      v11 = explicit;
+      if ((explicit & 0xFF00000000) != 0)
+      {
+        v12 = explicit & 0xFFFFFF00FFFFFFFFLL | (((explicit + 0xFF00000000) >> 32) << 32);
+      }
+
+      else
+      {
+        v12 = explicit;
+      }
+
+      atomic_compare_exchange_strong(v8 + 17, &explicit, v12);
     }
 
-    else
+    while (explicit != v11);
+    v13 = v11 & 0x10000000000;
+    if ((v12 & 0xFF00000000) == 0 && v13 != 0)
     {
-      v10 = explicit;
+      v15 = *(a1 + 112);
+      v16 = *v8;
+
+      ps_reservation_clear(v15, 0x80uLL, v16, v8 + 17);
     }
-
-    atomic_compare_exchange_strong(v6 + 17, &explicit, v10);
   }
-
-  while (explicit != v9);
-  v11 = v9 & 0x10000000000;
-  if ((v10 & 0xFF00000000) != 0 || v11 == 0)
-  {
-    goto LABEL_14;
-  }
-
-  v14 = *(a1 + 112);
-  v15 = *v6;
-  v16 = *MEMORY[0x277D85DE8];
-
-  ps_reservation_clear(v14, 0x80uLL, v15, v6 + 17);
 }
 
 unint64_t *ps_gsm_remove_shared_trigger(unint64_t *result, atomic_ullong *a2)
@@ -4508,15 +4150,15 @@ uint64_t ps_gsm_shared_trigger_add_reservation(uint64_t a1, uint64_t a2, __int16
   v9 = ps_reservation_retry(v17);
   if (v9 == -1)
   {
-    v14 = __PolarisGSMLogSharedInstance();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = __PolarisGSMLogSharedInstance(v9, v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
       v19 = a2 + 2;
-      _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_ERROR, "Shared Trigger (%s) Out of reservation spots", buf, 0xCu);
+      _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_ERROR, "Shared Trigger (%s) Out of reservation spots", buf, 0xCu);
     }
 
-    v11 = 0;
+    return 0;
   }
 
   else
@@ -4524,29 +4166,27 @@ uint64_t ps_gsm_shared_trigger_add_reservation(uint64_t a1, uint64_t a2, __int16
     explicit = atomic_load_explicit((a2 + 136), memory_order_acquire);
     while (1)
     {
-      v11 = 0;
+      v12 = 0;
       if (!explicit || (explicit & 0x10000000000) != 0)
       {
         break;
       }
 
-      v12 = explicit;
-      atomic_compare_exchange_strong((a2 + 136), &v12, (explicit + 0x100000000) & 0xFF00000000 | explicit & 0xFFFFFE00FFFFFFFFLL);
-      v13 = v12 == explicit;
-      explicit = v12;
-      if (v13)
+      v13 = explicit;
+      atomic_compare_exchange_strong((a2 + 136), &v13, (explicit + 0x100000000) & 0xFF00000000 | explicit & 0xFFFFFE00FFFFFFFFLL);
+      v14 = v13 == explicit;
+      explicit = v13;
+      if (v14)
       {
         *(a2 + 2 * v9 + 176) = a3;
         *a4 = v9;
         *a5 = *a2;
-        v11 = 1;
-        break;
+        return 1;
       }
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 unint64_t *ps_gsm_shared_trigger_handle_process_death(unint64_t *result, int a2)
@@ -4582,44 +4222,43 @@ unint64_t *ps_gsm_create_shared_trigger_internal(uint64_t a1, uint64_t a2, unsig
   v5 = ps_reservation_retry(v11);
   if (v5 == -1)
   {
-    v8 = __PolarisGSMLogSharedInstance();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __PolarisGSMLogSharedInstance(v5, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
       v13 = a2;
-      _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_ERROR, "Shared Trigger (%s) No free slot available reserving a new shared trigger", buf, 0xCu);
+      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_ERROR, "Shared Trigger (%s) No free slot available reserving a new shared trigger", buf, 0xCu);
     }
 
-    v7 = 0;
+    return 0;
   }
 
   else
   {
-    v6 = v5;
+    v7 = v5;
     ps_reservation_complete(*(a1 + 112), 0x80uLL, v5);
-    v7 = (*(a1 + 120) + 312 * v6);
-    atomic_store(0, v7 + 18);
-    atomic_store(0, v7 + 19);
-    atomic_store(0, v7 + 20);
-    atomic_store(0x3FFFFFFFFFFFFFFFuLL, v7 + 21);
-    *(v7 + 152) = 0;
+    v8 = (*(a1 + 120) + 312 * v7);
+    atomic_store(0, v8 + 18);
+    atomic_store(0, v8 + 19);
+    atomic_store(0, v8 + 20);
+    atomic_store(0x3FFFFFFFFFFFFFFFuLL, v8 + 21);
+    *(v8 + 152) = 0;
     if (a2)
     {
       __strlcpy_chk();
     }
 
-    MEMORY[0x25F8C98A0](*(a1 + 4 * *v7 + 4264));
+    MEMORY[0x25F8C98A0](*(a1 + 4 * *v8 + 4264));
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v8;
 }
 
 uint64_t ps_gsm_wait_shared_trigger(uint64_t result, atomic_ullong *a2, void *a3, unint64_t *a4, mach_timespec_t a5)
 {
   v9 = result;
   v10 = result + 4264;
-  v11 = (a2 + 22);
+  v11 = a2 + 22;
 LABEL_2:
   while (2)
   {
@@ -4642,7 +4281,7 @@ LABEL_2:
 
         if (((atomic_load_explicit(a2 + 21, memory_order_acquire) >> result) & 1) == 0)
         {
-          v17 = v11[result];
+          v17 = *(v11 + result);
           if (v17 != 0xFFFF)
           {
             result = ps_gsm_gst_process_execution_for_shared_trigger(v9, v17, a3, a4);
@@ -4650,7 +4289,7 @@ LABEL_2:
             {
               if (result == 1)
               {
-                v11[v16] = -1;
+                *(v11 + v16) = -1;
               }
 
               return result;
@@ -4695,22 +4334,19 @@ void ps_gsm_shared_trigger_handle_source_death(uint64_t a1, unsigned int a2, uns
 {
   ps_util_assert_less_than_unsigned(a2, 0x80uLL);
   ps_util_assert_less_than_unsigned(a3, 0x40uLL);
-  v6 = (*(a1 + 120) + 312 * a2);
-  ps_reservation_set_mask_value_at_index((v6 + 72), a3, 1);
-  v7 = *(a1 + 4 * *v6 + 4264);
+  ps_reservation_set_mask_value_at_index(*(a1 + 120) + 312 * a2 + 144, a3, 1);
 
   ps_gsm_signal_sem();
 }
 
-void ps_gsm_shared_trigger_remove_waiter(uint64_t a1, unsigned __int16 *a2)
+void ps_gsm_shared_trigger_remove_waiter(uint64_t a1, uint64_t a2)
 {
-  ps_reservation_set_mask_value_at_index((a2 + 72), 62, 1);
-  v4 = *(a1 + 4 * *a2 + 4264);
+  ps_reservation_set_mask_value_at_index(a2 + 144, 62, 1);
 
   ps_gsm_signal_sem();
 }
 
-uint64_t ps_gsm_get_shared_trigger(uint64_t a1, unint64_t a2)
+unint64_t ps_gsm_get_shared_trigger(uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x80)
   {
@@ -4720,32 +4356,33 @@ uint64_t ps_gsm_get_shared_trigger(uint64_t a1, unint64_t a2)
   return *(a1 + 120) + 312 * a2;
 }
 
-void ps_gsm_finish_clear_gst_async(uint64_t a1, uint64_t a2, int a3)
+void ps_gsm_finish_clear_gst_async(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
+  v3 = a3;
   v13 = *MEMORY[0x277D85DE8];
   v6 = xpc_dictionary_create(0, 0, 0);
-  populateSourceInfo(v6, 3uLL, *a2, a3, *(a2 + 144));
+  populateSourceInfo(v6, 3uLL, *a2, v3, *(a2 + 144));
   v7 = xpc_session_send_message(*(a1 + 4784), v6);
   if (v7)
   {
     v8 = xpc_rich_error_copy_description(v7);
-    v9 = __PolarisGSMLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __PolarisGSMLogSharedInstance(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = 136315138;
       v12 = v8;
-      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_ERROR, "Failed to send an XPC message for graphsAddedRemoved to polarisd, aborting! Error = %s", &v11, 0xCu);
+      _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_ERROR, "Failed to send an XPC message for graphsAddedRemoved to polarisd, aborting! Error = %s", &v11, 0xCu);
     }
 
     free(v8);
   }
 
   xpc_release(v6);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t ps_gsm_source_index(uint64_t a1, int a2, char *cStr)
+uint64_t ps_gsm_source_index(uint64_t a1, uint64_t a2, char *cStr)
 {
+  v3 = a2;
   v5 = 152;
   if (!a2)
   {
@@ -4756,7 +4393,7 @@ uint64_t ps_gsm_source_index(uint64_t a1, int a2, char *cStr)
   v7 = CFStringCreateWithCStringNoCopy(0, cStr, 0x8000100u, *MEMORY[0x277CBED00]);
   if (!CFDictionaryContainsKey(v6, v7))
   {
-    ps_gsm_update_source_name_cache(a1, a2);
+    ps_gsm_update_source_name_cache(a1, v3);
   }
 
   valuePtr = 0;
@@ -4852,7 +4489,7 @@ unint64_t ps_util_assert_less_than_equal_unsigned_0(unint64_t result)
 
 uint64_t ps_gsm_add_gst_to_source(uint64_t a1, int a2, int a3, int a4, int a5, uint64_t a6)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   ps_util_assert_less_than_signed(a3, 1024);
   ps_util_assert_less_than_signed(a4, 1024);
   ps_util_assert_less_than_signed(a5, 16);
@@ -4863,31 +4500,32 @@ uint64_t ps_gsm_add_gst_to_source(uint64_t a1, int a2, int a3, int a4, int a5, u
   }
 
   v13 = *(a1 + v12) + 672 * a3;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 0x40000000;
-  v18[2] = __ps_gsm_add_gst_to_source_block_invoke;
-  v18[3] = &__block_descriptor_tmp_17;
-  v18[4] = v13;
-  v18[5] = a6 & 0xFFFFFFFFFFLL | ((a4 & 0x3FF) << 40) & 0xFFC3FFFFFFFFFFFFLL | ((a5 & 0xF) << 50);
-  v14 = ps_reservation_retry(v18);
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 0x40000000;
+  v19[2] = __ps_gsm_add_gst_to_source_block_invoke;
+  v19[3] = &__block_descriptor_tmp_17;
+  v19[4] = v13;
+  v19[5] = a6 & 0xFFFFFFFFFFLL | ((a4 & 0x3FF) << 40) & 0xFFC3FFFFFFFFFFFFLL | ((a5 & 0xF) << 50);
+  v14 = ps_reservation_retry(v19);
+  v16 = v14;
   if (v14 == -1)
   {
-    v15 = __PolarisGSMLogSharedInstance();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = __PolarisGSMLogSharedInstance(v14, v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v20 = v13 + 16;
-      v21 = 1024;
-      v22 = a3;
-      v23 = 1024;
-      v24 = a4;
-      v25 = 1024;
-      v26 = a5;
-      v27 = 2048;
-      v28 = a6;
-      v29 = 1024;
-      v30 = -1;
-      _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_ERROR, "No free slot found for adding trigger to source (%s) - global source idx %d gst idx %d, local source idx (%d), nonce (%llu), free_slot (%d)", buf, 0x2Eu);
+      v21 = v13 + 16;
+      v22 = 1024;
+      v23 = a3;
+      v24 = 1024;
+      v25 = a4;
+      v26 = 1024;
+      v27 = a5;
+      v28 = 2048;
+      v29 = a6;
+      v30 = 1024;
+      v31 = -1;
+      _os_log_impl(&dword_25EA3A000, v17, OS_LOG_TYPE_ERROR, "No free slot found for adding trigger to source (%s) - global source idx %d gst idx %d, local source idx (%d), nonce (%llu), free_slot (%d)", buf, 0x2Eu);
     }
   }
 
@@ -4896,11 +4534,10 @@ uint64_t ps_gsm_add_gst_to_source(uint64_t a1, int a2, int a3, int a4, int a5, u
     ps_reservation_complete(v13 + 152, 0x40uLL, v14);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v16;
 }
 
-unint64_t *ps_gsm_request_gst_removal_from_source(unint64_t *a1, int a2, int a3, int a4, uint64_t a5)
+unint64_t *ps_gsm_request_gst_removal_from_source(unint64_t *a1, int a2, int a3, uint64_t a4, uint64_t a5)
 {
   ps_util_assert_less_than_signed(a3, 1024);
   result = ps_util_assert_less_than_signed(a4, 64);
@@ -4944,7 +4581,7 @@ unint64_t *ps_gsm_request_gst_removal_from_source(unint64_t *a1, int a2, int a3,
   return result;
 }
 
-unint64_t *ps_gsm_finish_clear_gst(unint64_t *a1, uint64_t a2, int a3)
+unint64_t *ps_gsm_finish_clear_gst(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v5 = (a2 + 8 * a3 + 160);
   explicit = atomic_load_explicit(v5, memory_order_acquire);
@@ -4953,14 +4590,14 @@ unint64_t *ps_gsm_finish_clear_gst(unint64_t *a1, uint64_t a2, int a3)
   return ps_reservation_clear((a2 + 152), 0x40uLL, a3, v5);
 }
 
-uint64_t ps_gsm_create_source(uint64_t a1, int a2, char *a3)
+uint64_t ps_gsm_create_source(uint64_t a1, uint64_t a2, char *a3)
 {
   v6 = getpid();
 
   return ps_gsm_create_source_internal(a1, a2, a3, v6);
 }
 
-uint64_t ps_gsm_create_source_internal(uint64_t a1, int a2, char *a3, int a4)
+uint64_t ps_gsm_create_source_internal(uint64_t a1, uint64_t a2, char *a3, int a4)
 {
   v6 = a2;
   v28 = *MEMORY[0x277D85DE8];
@@ -4997,36 +4634,36 @@ uint64_t ps_gsm_create_source_internal(uint64_t a1, int a2, char *a3, int a4)
     valuePtr = v18;
     if (v18 == -1)
     {
-      v22 = __PolarisGSMLogSharedInstance();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = __PolarisGSMLogSharedInstance(v18, v19);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
         v27 = a3;
-        _os_log_impl(&dword_25EA3A000, v22, OS_LOG_TYPE_ERROR, "No free slot found for adding source - key %s", buf, 0xCu);
+        _os_log_impl(&dword_25EA3A000, v23, OS_LOG_TYPE_ERROR, "No free slot found for adding source - key %s", buf, 0xCu);
       }
 
-      v14 = 0;
+      return 0;
     }
 
     else
     {
       v14 = v11 + 672 * v18;
       __strlcpy_chk();
-      v19 = 0;
+      v20 = 0;
       *(v14 + 144) = v6;
       atomic_store(0xFFFFFFFFFFFFFFFFLL, (v14 + 152));
       do
       {
-        atomic_store(0, (v14 + 160 + v19));
-        v19 += 8;
+        atomic_store(0, (v14 + 160 + v20));
+        v20 += 8;
       }
 
-      while (v19 != 512);
-      v20 = CFStringCreateWithCString(0, a3, 0x8000100u);
-      v21 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-      CFDictionaryAddValue(v12, v20, v21);
+      while (v20 != 512);
+      v21 = CFStringCreateWithCString(0, a3, 0x8000100u);
+      v22 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+      CFDictionaryAddValue(v12, v21, v22);
+      CFRelease(v22);
       CFRelease(v21);
-      CFRelease(v20);
       ps_reservation_complete(v15, v16, *v14);
     }
   }
@@ -5037,7 +4674,6 @@ uint64_t ps_gsm_create_source_internal(uint64_t a1, int a2, char *a3, int a4)
     atomic_store(a4, (v14 + 8));
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -5066,7 +4702,7 @@ uint64_t ps_gsm_remove_source(uint64_t a1, uint64_t a2)
   }
 
   v5 = 3758097084;
-  v7 = __PolarisGSMLogSharedInstance();
+  v7 = __PolarisGSMLogSharedInstance(a1, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     *v8 = 0;
@@ -5152,7 +4788,7 @@ LABEL_21:
     while (v7);
   }
 
-  return ps_gsm_gst_notify_complete(a1);
+  return ps_gsm_gst_notify_complete(a1, 0);
 }
 
 uint64_t ps_gsm_create_source_container(unint64_t a1, uint64_t a2)
@@ -5209,68 +4845,67 @@ uint64_t ps_gsm_find_gst_in_source(uint64_t a1, int a2, uint64_t a3)
 
 void ps_gsm_source_handle_process_death(uint64_t a1, int a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = **(a1 + 80);
-  ps_util_assert_less_than_equal_unsigned_0(v4);
+  v5 = ps_util_assert_less_than_equal_unsigned_0(v4);
   if (v4)
   {
     for (i = 0; i != v4; ++i)
     {
-      v6 = *(a1 + 88) + 672 * i;
-      if (atomic_load_explicit((v6 + 8), memory_order_acquire) == a2)
+      v8 = *(a1 + 88) + 672 * i;
+      if (atomic_load_explicit((v8 + 8), memory_order_acquire) == a2)
       {
-        v7 = __PolarisGSMLogSharedInstance();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v9 = __PolarisGSMLogSharedInstance(v5, v6);
+        v5 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+        if (v5)
         {
-          v8 = *v6;
+          v10 = *v8;
           *buf = 136315394;
-          v18 = v6 + 16;
-          v19 = 1024;
-          v20 = v8;
-          _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEFAULT, "Handling death for source (%s) on idx (%d)", buf, 0x12u);
+          v19 = v8 + 16;
+          v20 = 1024;
+          v21 = v10;
+          _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_DEFAULT, "Handling death for source (%s) on idx (%d)", buf, 0x12u);
         }
 
         for (j = 0; j != 64; ++j)
         {
-          v10 = (v6 + 160 + 8 * j);
-          if (atomic_load(v10))
+          v12 = (v8 + 160 + 8 * j);
+          if (atomic_load(v12))
           {
-            explicit = atomic_load_explicit(v10, memory_order_acquire);
+            explicit = atomic_load_explicit(v12, memory_order_acquire);
             do
             {
-              v13 = explicit;
-              atomic_compare_exchange_strong(v10, &explicit, explicit & 0xFF7FFFFFFFFFFFFFLL);
+              v15 = explicit;
+              atomic_compare_exchange_strong(v12, &explicit, explicit & 0xFF7FFFFFFFFFFFFFLL);
             }
 
-            while (explicit != v13);
-            v14 = __PolarisGSMLogSharedInstance();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+            while (explicit != v15);
+            v16 = __PolarisGSMLogSharedInstance(v5, v6);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
-              v15 = *v6;
+              v17 = *v8;
               *buf = 136315650;
-              v18 = v6 + 16;
-              v19 = 1024;
-              v20 = v15;
-              v21 = 1024;
-              v22 = (v13 >> 40) & 0x3FF;
-              _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_DEFAULT, "Handling death for source (%s) on idx (%d), for gst (%d)", buf, 0x18u);
+              v19 = v8 + 16;
+              v20 = 1024;
+              v21 = v17;
+              v22 = 1024;
+              v23 = (v15 >> 40) & 0x3FF;
+              _os_log_impl(&dword_25EA3A000, v16, OS_LOG_TYPE_DEFAULT, "Handling death for source (%s) on idx (%d), for gst (%d)", buf, 0x18u);
             }
 
-            ps_gsm_gst_handle_source_death(a1, (v13 >> 40) & 0x3FF);
-            if ((v13 & 0x100000000000000) != 0)
+            ps_gsm_gst_handle_source_death(a1, (v15 >> 40) & 0x3FF);
+            if ((v15 & 0x100000000000000) != 0)
             {
-              ps_gsm_finish_clear_gst(a1, v6, j);
+              v5 = ps_gsm_finish_clear_gst(a1, v8, j);
             }
           }
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t ps_gsm_get_source(uint64_t a1, unint64_t a2, int a3)
+unint64_t ps_gsm_get_source(uint64_t a1, unint64_t a2, int a3)
 {
   if (a2 >= 0x400)
   {
@@ -5321,7 +4956,7 @@ uint64_t _liveness_get_node_metadata_address(uint64_t a1, int a2)
   }
 }
 
-void ps_liveness_init(const char *a1)
+void ps_liveness_init(char *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
   block[0] = MEMORY[0x277D85DD0];
@@ -5346,101 +4981,79 @@ void ps_liveness_init(const char *a1)
   }
 
   _liveness_cleanup_session_by_name(v2, 2);
-  v3 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = __PLSLogSharedInstance(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136446210;
     v7 = a1;
-    _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_DEBUG, "Liveness: initalized (session=%{public}s)\n", buf, 0xCu);
+    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEBUG, "Liveness: initalized (session=%{public}s)\n", buf, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __ps_liveness_init_block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   **(a1 + 32) = ps_buffer_create_serial_data_reader();
-  if (!**(a1 + 32))
+  if (**(a1 + 32))
   {
-    v24 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    *(*(a1 + 32) + 8) = ps_buffer_get_serial_data_read_buffer();
+    if (*(*(a1 + 32) + 8))
     {
-      LOWORD(v28[0]) = 0;
-      _os_log_impl(&dword_25EA3A000, v24, OS_LOG_TYPE_ERROR, "Liveness: Can't access SDR, disabling\n", v28, 2u);
+      *(*(a1 + 32) + 16) = ps_buffer_get_serial_data_read_buffer();
+      *(*(a1 + 32) + 24) = ps_buffer_get_serial_data_read_buffer();
+      *(*(a1 + 32) + 32) = ps_buffer_get_serial_data_read_buffer();
+      *(*(a1 + 32) + 56) = ps_buffer_get_serial_data_read_buffer();
+      *(*(a1 + 32) + 40) = ps_buffer_get_serial_data_read_buffer();
+      *(*(a1 + 32) + 48) = ps_buffer_get_serial_data_read_buffer();
+      v2 = getpid();
+      v3 = *(a1 + 32);
+      v3[11].numer = v2;
+      mach_timebase_info(v3 + 8);
+      memset(v8, 0, sizeof(v8));
+      proc_pidinfo(*(*(a1 + 32) + 88), 13, 0, v8, 64);
+      __strlcpy_chk();
+      v4 = *(a1 + 32);
+      atomic_store(0, (v4 + 148));
+      atomic_store(1u, (v4 + 92));
+    }
+
+    else
+    {
+      v6 = __ps_liveness_init_block_invoke_cold_1(v8);
+      _liveness_cleanup_session_by_name(v6, v7);
+    }
+  }
+
+  else
+  {
+    v5 = __PLSLogSharedInstance(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v8[0]) = 0;
+      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "Liveness: Can't access SDR, disabling\n", v8, 2u);
     }
 
     *(*(a1 + 32) + 8) = 0;
-    goto LABEL_9;
   }
-
-  *(*(a1 + 32) + 8) = ps_buffer_get_serial_data_read_buffer();
-  v2 = *(a1 + 32);
-  v3 = v2[1];
-  if (v3)
-  {
-    v4 = *v2;
-    v5 = *(v3 + 8);
-    *(*(a1 + 32) + 16) = ps_buffer_get_serial_data_read_buffer();
-    v6 = *(a1 + 32);
-    v7 = *v6;
-    v8 = *(v6[1] + 12);
-    v6[3] = ps_buffer_get_serial_data_read_buffer();
-    v9 = *(a1 + 32);
-    v10 = *v9;
-    v11 = *(v9[1] + 16);
-    v9[4] = ps_buffer_get_serial_data_read_buffer();
-    v12 = *(a1 + 32);
-    v13 = *v12;
-    v14 = *(v12[1] + 20);
-    v12[7] = ps_buffer_get_serial_data_read_buffer();
-    v15 = *(a1 + 32);
-    v16 = *v15;
-    v17 = *(v15[1] + 24);
-    v15[5] = ps_buffer_get_serial_data_read_buffer();
-    v18 = *(a1 + 32);
-    v19 = *v18;
-    v20 = *(v18[1] + 28);
-    v18[6] = ps_buffer_get_serial_data_read_buffer();
-    v21 = getpid();
-    v22 = *(a1 + 32);
-    v22[11].numer = v21;
-    mach_timebase_info(v22 + 8);
-    memset(v28, 0, sizeof(v28));
-    if (proc_pidinfo(*(*(a1 + 32) + 88), 13, 0, v28, 64) == 64)
-    {
-      *(*(a1 + 32) + 88);
-    }
-
-    __strlcpy_chk();
-    v23 = *(a1 + 32);
-    atomic_store(0, (v23 + 148));
-    atomic_store(1u, (v23 + 92));
-LABEL_9:
-    v25 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v26 = __ps_liveness_init_block_invoke_cold_1(v28);
-  _liveness_cleanup_session_by_name(v26, v27);
 }
 
-void _liveness_cleanup_session_by_name(const char *a1, int a2)
+void _liveness_cleanup_session_by_name(const char *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (qword_27FD127D0)
   {
-    v4 = __PLSLogSharedInstance();
+    v2 = a2;
+    v4 = __PLSLogSharedInstance(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      LODWORD(v9) = 136315138;
-      *(&v9 + 4) = a1;
-      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEBUG, "Liveness: cleaning session name %s\n", &v9, 0xCu);
+      LODWORD(v8) = 136315138;
+      *(&v8 + 4) = a1;
+      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEBUG, "Liveness: cleaning session name %s\n", &v8, 0xCu);
     }
 
     if (a1)
     {
-      v9 = 0uLL;
+      v8 = 0uLL;
       if (*(qword_27FD127D0 + 32))
       {
         v5 = 0;
@@ -5448,9 +5061,12 @@ void _liveness_cleanup_session_by_name(const char *a1, int a2)
         do
         {
           v7 = atomic_load((xmmword_27FD127E8 + v5));
-          if (v7 && !strcmp((xmmword_27FD127E8 + v5 + 88), a1))
+          if (v7)
           {
-            _liveness_cleanup_session_by_name_cold_1(v6, &v9, v7, a2);
+            if (!strcmp((xmmword_27FD127E8 + v5 + 88), a1))
+            {
+              _liveness_cleanup_session_by_name_cold_1(v6, &v8, v7, v2);
+            }
           }
 
           ++v6;
@@ -5461,21 +5077,19 @@ void _liveness_cleanup_session_by_name(const char *a1, int a2)
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void ps_liveness_destroy(const char *a1)
+void ps_liveness_destroy(const char *a1, uint64_t a2)
 {
-  v1 = qword_27FD127D0;
+  v2 = qword_27FD127D0;
   if (qword_27FD127D0)
   {
-    v2 = &gClientLiveness;
+    v3 = &gClientLiveness;
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
   if (qword_27FD127D0)
@@ -5486,30 +5100,29 @@ void ps_liveness_destroy(const char *a1)
     }
 
     _liveness_cleanup_session_by_name(a1, 8);
-    v3 = &xmmword_27FD12818 + 12;
+    v4 = &xmmword_27FD12818 + 12;
   }
 
   else
   {
-    v3 = 92;
+    v4 = 92;
   }
 
-  if (atomic_fetch_add(v3, 0xFFFFFFFF) == 2)
+  if (atomic_fetch_add(v4, 0xFFFFFFFF) == 2)
   {
-    v4 = *v2;
-    v5 = &xmmword_27FD12838 + 8;
-    *v2 = 0;
-    if (!v1)
+    v5 = *v3;
+    v6 = &xmmword_27FD12838 + 8;
+    *v3 = 0;
+    if (!v2)
     {
-      v5 = 120;
+      v6 = 120;
     }
 
-    v6 = *v5;
-    *v5 = 0;
-    if (v4)
+    *v6 = 0;
+    if (v5)
     {
       ps_buffer_destroy_serial_data_reader();
-      ps_buffer_destroy_semaphore_array();
+      v5 = ps_buffer_destroy_semaphore_array();
     }
 
     qword_27FD12858 = 0;
@@ -5523,13 +5136,13 @@ void ps_liveness_destroy(const char *a1)
     xmmword_27FD127D8 = 0u;
     xmmword_27FD12828 = 0u;
     v7 = 96;
-    if (v1)
+    if (v2)
     {
       v7 = &xmmword_27FD12828;
     }
 
     *v7 = 0;
-    v8 = __PLSLogSharedInstance();
+    v8 = __PLSLogSharedInstance(v5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *v9 = 0;
@@ -5538,13 +5151,13 @@ void ps_liveness_destroy(const char *a1)
   }
 }
 
-double ps_liveness_disable_global_access()
+double ps_liveness_disable_global_access(uint64_t a1, uint64_t a2)
 {
-  v0 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = __PLSLogSharedInstance(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_25EA3A000, v0, OS_LOG_TYPE_DEBUG, "Liveness: globally disabled\n", v2, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEBUG, "Liveness: globally disabled\n", v4, 2u);
   }
 
   qword_27FD12858 = 0;
@@ -5640,17 +5253,15 @@ LABEL_16:
 uint64_t ps_liveness_node_free(int a1)
 {
   v1 = 0;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if ((a1 & 0x80000000) == 0 || !qword_27FD127D0)
   {
-    goto LABEL_16;
+    return v1;
   }
 
   if (a1 == -1)
   {
-LABEL_15:
-    v1 = 0;
-    goto LABEL_16;
+    return 0;
   }
 
   v2 = a1 & 0x7FFFFFF;
@@ -5665,7 +5276,7 @@ LABEL_15:
       ps_ringbuffer_close_allocation();
     }
 
-    goto LABEL_15;
+    return 0;
   }
 
   v3 = ps_ringbuffer_allocate();
@@ -5679,195 +5290,196 @@ LABEL_15:
   __strlcpy_chk();
   strlcpy((v3 + 104), (xmmword_27FD127E8 + 400 * v2 + 88), 0x10uLL);
   *(v3 + 20) = *(xmmword_27FD127E8 + 400 * v2 + 108);
-  ps_ringbuffer_close_allocation();
+  v5 = ps_ringbuffer_close_allocation();
   if (v2 < *(qword_27FD127D0 + 32))
   {
-    v5 = (qword_27FD127D0 + (16 * *(qword_27FD127D0 + 12)) + 16 * v2);
-    v6 = *v5;
+    v6 = (qword_27FD127D0 + (16 * *(qword_27FD127D0 + 12)) + 16 * v2);
+    v5 = *v6;
     _X2 = -1;
     do
     {
-      _X5 = v5[1];
+      _X5 = v6[1];
       __asm { CASPAL          X4, X5, X2, X3, [X8] }
 
-      _ZF = _X4 == v6;
-      v6 = _X4;
+      _ZF = _X4 == v5;
+      v5 = _X4;
     }
 
     while (!_ZF);
   }
 
-  v14 = __PLSLogSharedInstance();
+  v14 = __PLSLogSharedInstance(v5);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v15 = xmmword_27FD127E8 + 400 * v2;
     *buf = 67109890;
-    v20 = v2;
-    v21 = 2082;
-    v22 = v15 + 8;
-    v23 = 2082;
-    v24 = v15 + 72;
-    v25 = 2082;
-    v26 = v15 + 88;
+    v19 = v2;
+    v20 = 2082;
+    v21 = v15 + 8;
+    v22 = 2082;
+    v23 = v15 + 72;
+    v24 = 2082;
+    v25 = v15 + 88;
     _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_DEFAULT, "Liveness: node %08x deleted (key=%{public}s, aux=%{public}s, session=%{public}s)\n", buf, 0x26u);
   }
 
-  v1 = 1;
-LABEL_16:
-  v17 = *MEMORY[0x277D85DE8];
-  return v1;
+  return 1;
 }
 
 uint64_t ps_liveness_node_set_base_info(int a1, int a2, _BYTE *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if ((a1 & 0x80000000) == 0 || a1 == -1 || !qword_27FD127D0)
   {
-    goto LABEL_2;
+    return 0;
   }
 
-  v5 = a1 & 0x7FFFFFF;
-  if (v5 >= *(qword_27FD127D0 + 32))
+  v4 = a1 & 0x7FFFFFF;
+  if (v4 >= *(qword_27FD127D0 + 32))
   {
     snprintf(__str, 0x200uLL, "(%s) Node %x: out of range", "_liveness_is_node_valid_and_initializing", a1);
     if (qword_27FD127D0 && strlen(__str))
     {
-      v20 = ps_ringbuffer_allocate();
-      *v20 = SDWORD2(xmmword_27FD12818);
-      strlcpy((v20 + 8), __str, 0x200uLL);
+      v19 = ps_ringbuffer_allocate();
+      *v19 = SDWORD2(xmmword_27FD12818);
+      strlcpy((v19 + 8), __str, 0x200uLL);
       ps_ringbuffer_close_allocation();
     }
 
-    goto LABEL_2;
+    return 0;
   }
 
   _X2 = 0;
   _X3 = 0;
   __asm { CASPAL          X2, X3, X2, X3, [X8] }
 
-  if (_X2 != -1 || (v14 = atomic_load((*(&xmmword_27FD127F8 + 1) + 4 * v5)), a2))
+  if (_X2 != -1)
   {
-LABEL_2:
-    result = 0;
-    goto LABEL_3;
+    return 0;
   }
 
-  v15 = -2128831035;
+  v13 = atomic_load((*(&xmmword_27FD127F8 + 1) + 4 * v4));
+  if (a2)
+  {
+    return 0;
+  }
+
+  v14 = -2128831035;
   if (a3)
   {
-    v16 = *a3;
-    v17 = -2128831035;
+    v15 = *a3;
+    v16 = -2128831035;
     if (*a3)
     {
-      v18 = a3 + 1;
+      v17 = a3 + 1;
       do
       {
-        v17 = 16777619 * (v17 ^ v16);
-        v19 = *v18++;
-        v16 = v19;
+        v16 = 16777619 * (v16 ^ v15);
+        v18 = *v17++;
+        v15 = v18;
       }
 
-      while (v19);
+      while (v18);
     }
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  v21 = [MEMORY[0x277CCAC38] processInfo];
-  v22 = [v21 processName];
-  v23 = [v22 UTF8String];
-  if (v23)
+  v20 = [MEMORY[0x277CCAC38] processInfo];
+  v21 = [v20 processName];
+  v22 = [v21 UTF8String];
+  if (v22)
   {
-    v24 = *v23;
-    if (*v23)
+    v23 = *v22;
+    if (*v22)
     {
-      v25 = v23 + 1;
+      v24 = v22 + 1;
       do
       {
-        v15 = 16777619 * (v15 ^ v24);
-        v26 = *v25++;
-        v24 = v26;
+        v14 = 16777619 * (v14 ^ v23);
+        v25 = *v24++;
+        v23 = v25;
       }
 
-      while (v26);
+      while (v25);
     }
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
   __strlcpy_chk();
-  *(xmmword_27FD127E8 + 400 * v5 + 72) = 0u;
+  *(xmmword_27FD127E8 + 400 * v4 + 72) = 0u;
   __strlcpy_chk();
-  v27 = xmmword_27FD127E8 + 400 * v5;
-  *(v27 + 104) = v15;
-  *(v27 + 108) = v17;
-  *(v27 + 112) = 0;
-  *(v27 + 116) = v14;
-  *&v28 = -1;
-  *(&v28 + 1) = -1;
-  *(v27 + 120) = v28;
-  *(v27 + 160) = 0u;
-  *(v27 + 208) = xmmword_25EB777F0;
-  v29 = mach_absolute_time();
-  v30 = xmmword_27FD127E8 + 400 * v5;
-  *(v30 + 176) = v29;
-  *(v30 + 184) = 0u;
-  v32 = xmmword_27FD12808;
-  v31 = DWORD1(xmmword_27FD12808);
-  *(v30 + 360) = 4000000000u * DWORD1(xmmword_27FD12808) / xmmword_27FD12808;
-  *(v30 + 368) = 20000000000 * v31 / v32;
-  *(v30 + 376) = 1000000000 * v31 / v32;
-  *(v30 + 392) = 0;
-  *(v30 + 144) = 0u;
-  *(v30 + 136) = -1;
-  atomic_store(SDWORD2(xmmword_27FD12818), v30);
-  result = 1;
-LABEL_3:
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v26 = xmmword_27FD127E8 + 400 * v4;
+  *(v26 + 104) = v14;
+  *(v26 + 108) = v16;
+  *(v26 + 112) = 0;
+  *(v26 + 116) = v13;
+  *&v27 = -1;
+  *(&v27 + 1) = -1;
+  *(v26 + 120) = v27;
+  *(v26 + 160) = 0u;
+  *(v26 + 208) = xmmword_25EB777F0;
+  v28 = mach_absolute_time();
+  v29 = xmmword_27FD127E8 + 400 * v4;
+  *(v29 + 176) = v28;
+  *(v29 + 184) = 0u;
+  v31 = xmmword_27FD12808;
+  v30 = DWORD1(xmmword_27FD12808);
+  *(v29 + 360) = 4000000000u * DWORD1(xmmword_27FD12808) / xmmword_27FD12808;
+  *(v29 + 368) = 20000000000 * v30 / v31;
+  *(v29 + 376) = 1000000000 * v30 / v31;
+  *(v29 + 392) = 0;
+  *(v29 + 144) = 0u;
+  *(v29 + 136) = -1;
+  atomic_store(SDWORD2(xmmword_27FD12818), v29);
+  return 1;
 }
 
 uint64_t ps_liveness_node_set_aux_string(int a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ((a1 & 0x80000000) == 0 || a1 == -1 || !qword_27FD127D0)
   {
-    goto LABEL_2;
+    return 0;
   }
 
-  v4 = a1 & 0x7FFFFFF;
+  v3 = a1 & 0x7FFFFFF;
   if ((a1 & 0x7FFFFFFu) >= *(qword_27FD127D0 + 32))
   {
     snprintf(__str, 0x200uLL, "(%s) Node %x: out of range", "_liveness_is_node_valid_and_initializing", a1);
     if (qword_27FD127D0 && strlen(__str))
     {
-      v14 = ps_ringbuffer_allocate();
-      *v14 = SDWORD2(xmmword_27FD12818);
-      strlcpy((v14 + 8), __str, 0x200uLL);
+      v13 = ps_ringbuffer_allocate();
+      *v13 = SDWORD2(xmmword_27FD12818);
+      strlcpy((v13 + 8), __str, 0x200uLL);
       ps_ringbuffer_close_allocation();
     }
 
-    goto LABEL_2;
+    return 0;
   }
 
   _X2 = 0;
   _X3 = 0;
   __asm { CASPAL          X2, X3, X2, X3, [X9] }
 
-  if (_X2 != -1 || (v12 = atomic_load((xmmword_27FD127E8 + 400 * v4))) == 0)
+  if (_X2 != -1)
   {
-LABEL_2:
-    result = 0;
-    goto LABEL_3;
+    return 0;
   }
 
-  v13 = xmmword_27FD127E8 + 400 * v4;
+  if (!atomic_load((xmmword_27FD127E8 + 400 * v3)))
+  {
+    return 0;
+  }
+
+  v12 = xmmword_27FD127E8 + 400 * v3;
   if (a2)
   {
     __strlcpy_chk();
@@ -5875,95 +5487,90 @@ LABEL_2:
 
   else
   {
-    *(v13 + 72) = 0;
-    *(v13 + 80) = 0;
+    *(v12 + 72) = 0;
+    *(v12 + 80) = 0;
   }
 
-  result = 1;
-LABEL_3:
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t ps_liveness_node_set_session(int a1, _BYTE *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if ((a1 & 0x80000000) == 0 || a1 == -1 || !qword_27FD127D0)
   {
-    goto LABEL_2;
+    return 0;
   }
 
-  v4 = a1 & 0x7FFFFFF;
+  v3 = a1 & 0x7FFFFFF;
   if ((a1 & 0x7FFFFFFu) >= *(qword_27FD127D0 + 32))
   {
     snprintf(__str, 0x200uLL, "(%s) Node %x: out of range", "_liveness_is_node_valid_and_initializing", a1);
     if (qword_27FD127D0 && strlen(__str))
     {
-      v20 = ps_ringbuffer_allocate();
-      *v20 = SDWORD2(xmmword_27FD12818);
-      strlcpy((v20 + 8), __str, 0x200uLL);
+      v19 = ps_ringbuffer_allocate();
+      *v19 = SDWORD2(xmmword_27FD12818);
+      strlcpy((v19 + 8), __str, 0x200uLL);
       ps_ringbuffer_close_allocation();
     }
 
-    goto LABEL_2;
+    return 0;
   }
 
   _X0 = 0;
   _X1 = 0;
   __asm { CASPAL          X0, X1, X0, X1, [X8] }
 
-  if (_X0 != -1 || (v13 = atomic_load((xmmword_27FD127E8 + 400 * v4))) == 0)
+  if (_X0 != -1)
   {
-LABEL_2:
-    result = 0;
-    goto LABEL_3;
+    return 0;
+  }
+
+  if (!atomic_load((xmmword_27FD127E8 + 400 * v3)))
+  {
+    return 0;
   }
 
   if (a2)
   {
-    v14 = 2166136261;
+    v13 = 2166136261;
     __strlcpy_chk();
-    v15 = *a2;
+    v14 = *a2;
     if (*a2)
     {
-      v16 = a2 + 1;
+      v15 = a2 + 1;
       do
       {
-        v14 = 16777619 * (v14 ^ v15);
-        v17 = *v16++;
-        v15 = v17;
+        v13 = 16777619 * (v13 ^ v14);
+        v16 = *v15++;
+        v14 = v16;
       }
 
-      while (v17);
+      while (v16);
     }
 
-    v18 = xmmword_27FD127E8 + 400 * v4;
-    *(v18 + 104) = v14;
-    v19 = SDWORD2(xmmword_27FD12818) | (v14 << 32);
+    v17 = xmmword_27FD127E8 + 400 * v3;
+    *(v17 + 104) = v13;
+    v18 = SDWORD2(xmmword_27FD12818) | (v13 << 32);
   }
 
   else
   {
     __strlcpy_chk();
-    v19 = SDWORD2(xmmword_27FD12818);
-    v18 = xmmword_27FD127E8 + 400 * v4;
+    v18 = SDWORD2(xmmword_27FD12818);
+    v17 = xmmword_27FD127E8 + 400 * v3;
   }
 
-  atomic_store(v19, v18);
-  result = 1;
-LABEL_3:
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  atomic_store(v18, v17);
+  return 1;
 }
 
 uint64_t ps_liveness_node_set_deadlines(int a1, unint64_t a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a1 == -1 || !qword_27FD127D0)
   {
-LABEL_10:
-    result = 0;
-    goto LABEL_13;
+    return 0;
   }
 
   v3 = a1 & 0x7FFFFFF;
@@ -5978,7 +5585,7 @@ LABEL_10:
       ps_ringbuffer_close_allocation();
     }
 
-    goto LABEL_10;
+    return 0;
   }
 
   v6 = xmmword_27FD12808;
@@ -6005,58 +5612,54 @@ LABEL_10:
     }
   }
 
-  result = 1;
-LABEL_13:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t ps_liveness_node_set_qos(int a1, unsigned int a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  if (a1 < 0 && a1 != -1 && qword_27FD127D0)
+  v14 = *MEMORY[0x277D85DE8];
+  if ((a1 & 0x80000000) == 0 || a1 == -1 || !qword_27FD127D0)
   {
-    v4 = a1 & 0x7FFFFFF;
-    if ((a1 & 0x7FFFFFFu) >= *(qword_27FD127D0 + 32))
-    {
-      snprintf(__str, 0x200uLL, "(%s) Node %x: out of range", "_liveness_is_node_valid_and_initializing", a1);
-      if (qword_27FD127D0 && strlen(__str))
-      {
-        v13 = ps_ringbuffer_allocate();
-        *v13 = SDWORD2(xmmword_27FD12818);
-        strlcpy((v13 + 8), __str, 0x200uLL);
-        ps_ringbuffer_close_allocation();
-      }
-    }
-
-    else
-    {
-      _X2 = 0;
-      _X3 = 0;
-      __asm { CASPAL          X2, X3, X2, X3, [X9] }
-
-      if (_X2 == -1)
-      {
-        if (atomic_load((xmmword_27FD127E8 + 400 * v4)))
-        {
-          *(xmmword_27FD127E8 + 400 * v4 + 160) = a2;
-          result = 1;
-          goto LABEL_3;
-        }
-      }
-    }
+    return 0;
   }
 
-  result = 0;
-LABEL_3:
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3 = a1 & 0x7FFFFFF;
+  if ((a1 & 0x7FFFFFFu) >= *(qword_27FD127D0 + 32))
+  {
+    snprintf(__str, 0x200uLL, "(%s) Node %x: out of range", "_liveness_is_node_valid_and_initializing", a1);
+    if (qword_27FD127D0 && strlen(__str))
+    {
+      v12 = ps_ringbuffer_allocate();
+      *v12 = SDWORD2(xmmword_27FD12818);
+      strlcpy((v12 + 8), __str, 0x200uLL);
+      ps_ringbuffer_close_allocation();
+    }
+
+    return 0;
+  }
+
+  _X2 = 0;
+  _X3 = 0;
+  __asm { CASPAL          X2, X3, X2, X3, [X9] }
+
+  if (_X2 != -1)
+  {
+    return 0;
+  }
+
+  if (!atomic_load((xmmword_27FD127E8 + 400 * v3)))
+  {
+    return 0;
+  }
+
+  *(xmmword_27FD127E8 + 400 * v3 + 160) = a2;
+  return 1;
 }
 
 uint64_t ps_liveness_node_set_startup_idle_timeout(int a1, uint64_t a2)
 {
   result = 0;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a1 < 0 && qword_27FD127D0)
   {
     if (a1 != -1)
@@ -6085,25 +5688,22 @@ uint64_t ps_liveness_node_set_startup_idle_timeout(int a1, uint64_t a2)
           if (atomic_load((xmmword_27FD127E8 + 400 * v4)))
           {
             *(xmmword_27FD127E8 + 400 * v4 + 360) = DWORD1(xmmword_27FD12808) * a2 / xmmword_27FD12808;
-            result = 1;
-            goto LABEL_12;
+            return 1;
           }
         }
       }
     }
 
-    result = 0;
+    return 0;
   }
 
-LABEL_12:
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t ps_liveness_node_set_runtime_hung_timeout(int a1, uint64_t a2)
 {
   result = 0;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a1 < 0 && qword_27FD127D0)
   {
     if (a1 != -1)
@@ -6132,28 +5732,24 @@ uint64_t ps_liveness_node_set_runtime_hung_timeout(int a1, uint64_t a2)
           if (atomic_load((xmmword_27FD127E8 + 400 * v4)))
           {
             *(xmmword_27FD127E8 + 400 * v4 + 376) = DWORD1(xmmword_27FD12808) * a2 / xmmword_27FD12808;
-            result = 1;
-            goto LABEL_12;
+            return 1;
           }
         }
       }
     }
 
-    result = 0;
+    return 0;
   }
 
-LABEL_12:
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 BOOL ps_liveness_node_finalize(int a1, int a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (!qword_27FD127D0)
   {
-    v6 = 0;
-    goto LABEL_21;
+    return 0;
   }
 
   if ((a1 & 0x80000000) == 0 || a1 == -1)
@@ -6167,9 +5763,9 @@ BOOL ps_liveness_node_finalize(int a1, int a2)
     snprintf(buf, 0x200uLL, "(%s) Node %x: out of range", "_liveness_is_node_valid_and_initializing", a1);
     if (qword_27FD127D0 && strlen(buf))
     {
-      v28 = ps_ringbuffer_allocate();
-      *v28 = SDWORD2(xmmword_27FD12818);
-      strlcpy((v28 + 8), buf, 0x200uLL);
+      v27 = ps_ringbuffer_allocate();
+      *v27 = SDWORD2(xmmword_27FD12818);
+      strlcpy((v27 + 8), buf, 0x200uLL);
       ps_ringbuffer_close_allocation();
     }
 
@@ -6226,12 +5822,13 @@ LABEL_4:
     ps_ringbuffer_close_allocation();
     if (a2)
     {
-      ps_liveness_node_finalize_cold_1(v4, v4);
+      _X0 = ps_liveness_node_finalize_cold_1(v4, v4);
     }
 
     else
     {
-      *(xmmword_27FD127E8 + 400 * v4 + 192) = mach_absolute_time();
+      _X0 = mach_absolute_time();
+      *(xmmword_27FD127E8 + 400 * v4 + 192) = _X0;
       if (v4 < *(qword_27FD127D0 + 32))
       {
         _X0 = 0;
@@ -6250,67 +5847,66 @@ LABEL_4:
       }
     }
 
-    v19 = __PLSLogSharedInstance();
+    v19 = __PLSLogSharedInstance(_X0);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       v20 = xmmword_27FD127E8 + 400 * v4;
       *buf = 67109890;
-      v30 = v4;
-      v31 = 2082;
-      v32 = v20 + 8;
-      v33 = 2082;
-      v34 = v20 + 72;
-      v35 = 2082;
-      v36 = v20 + 88;
+      v29 = v4;
+      v30 = 2082;
+      v31 = v20 + 8;
+      v32 = 2082;
+      v33 = v20 + 72;
+      v34 = 2082;
+      v35 = v20 + 88;
       _os_log_impl(&dword_25EA3A000, v19, OS_LOG_TYPE_DEFAULT, "Liveness: node %08x finalized (key=%{public}s, aux=%{public}s, session=%{public}s)\n", buf, 0x26u);
     }
   }
 
-LABEL_21:
-  v26 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-uint64_t ps_liveness_node_start_execution(int a1, unint64_t a2)
+uint64_t ps_liveness_node_start_execution(uint64_t a1, unint64_t a2, __n128 a3)
 {
+  v3 = a1;
   v9 = *MEMORY[0x277D85DE8];
   ps_liveness_reset_deadline_if_needed(a1, a2);
   result = 0;
-  if (a1 < 0 && qword_27FD127D0)
+  if (v3 < 0 && qword_27FD127D0)
   {
-    if (a1 != -1)
+    if (v3 != -1)
     {
-      v4 = a1 & 0x7FFFFFF;
-      if ((a1 & 0x7FFFFFFu) < *(qword_27FD127D0 + 32))
+      v5 = v3 & 0x7FFFFFF;
+      if ((v3 & 0x7FFFFFFu) < *(qword_27FD127D0 + 32))
       {
-        v5 = xmmword_27FD127E8;
-        *(v5 + 400 * v4 + 168) = mach_absolute_time();
-        result = 1;
-        goto LABEL_10;
+        v6 = xmmword_27FD127E8;
+        *(v6 + 400 * v5 + 168) = mach_absolute_time();
+        return 1;
       }
 
-      snprintf(__str, 0x200uLL, "(%s) Node %x: out of range", "ps_liveness_node_start_execution", a1);
-      if (qword_27FD127D0 && strlen(__str))
+      snprintf(__str, 0x200uLL, "(%s) Node %x: out of range", "ps_liveness_node_start_execution", v3);
+      if (qword_27FD127D0)
       {
-        v6 = ps_ringbuffer_allocate();
-        *v6 = SDWORD2(xmmword_27FD12818);
-        strlcpy((v6 + 8), __str, 0x200uLL);
-        ps_ringbuffer_close_allocation();
+        if (strlen(__str))
+        {
+          v7 = ps_ringbuffer_allocate();
+          *v7 = SDWORD2(xmmword_27FD12818);
+          strlcpy((v7 + 8), __str, 0x200uLL);
+          ps_ringbuffer_close_allocation();
+        }
       }
     }
 
-    result = 0;
+    return 0;
   }
 
-LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t ps_liveness_node_end_execution(int a1)
 {
   result = 0;
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (a1 < 0 && qword_27FD127D0)
   {
     if (a1 != -1)
@@ -6321,9 +5917,9 @@ uint64_t ps_liveness_node_end_execution(int a1)
         snprintf(__str, 0x200uLL, "(%s) Node %x: out of range", "ps_liveness_node_end_execution", a1);
         if (qword_27FD127D0 && strlen(__str))
         {
-          v21 = ps_ringbuffer_allocate();
-          *v21 = SDWORD2(xmmword_27FD12818);
-          strlcpy((v21 + 8), __str, 0x200uLL);
+          v20 = ps_ringbuffer_allocate();
+          *v20 = SDWORD2(xmmword_27FD12818);
+          strlcpy((v20 + 8), __str, 0x200uLL);
           ps_ringbuffer_close_allocation();
         }
       }
@@ -6342,22 +5938,21 @@ uint64_t ps_liveness_node_end_execution(int a1)
           v10 = v6 - *(v9 + 168);
         }
 
-        v11 = *(v9 + 120);
         __asm { CASPAL          X2, X3, X2, X3, [X11] }
 
         while (_X2 != -1)
         {
           if (v10 <= (_X2 >> 4))
           {
-            v17 = _X2;
+            v16 = _X2;
           }
 
           else
           {
-            v17 = _X2 & 0xFFFFFFF00000000FLL | (16 * v10);
+            v16 = _X2 & 0xFFFFFFF00000000FLL | (16 * v10);
           }
 
-          _X0 = v17 & 0xFFFFFFFFFLL | (v10 << 36);
+          _X0 = v16 & 0xFFFFFFFFFLL | (v10 << 36);
           _X5 = 0;
           __asm { CASPAL          X4, X5, X0, X1, [X12] }
 
@@ -6367,37 +5962,33 @@ uint64_t ps_liveness_node_end_execution(int a1)
           {
             result = 1;
             atomic_fetch_and((v5 + 8 * (v3 >> 6)), ~(1 << a1));
-            goto LABEL_19;
+            return result;
           }
         }
       }
     }
 
-    result = 0;
+    return 0;
   }
 
-LABEL_19:
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t ps_liveness_schedule_reset_deadline_at_frameid(int a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t ps_liveness_schedule_reset_deadline_at_frameid(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = 0;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if ((a1 & 0x80000000) == 0 || !qword_27FD127D0)
   {
-    goto LABEL_12;
+    return v4;
   }
 
   if (a1 == -1)
   {
-LABEL_11:
-    v4 = 0;
-    goto LABEL_12;
+    return 0;
   }
 
-  if ((a1 & 0x7FFFFFFu) >= *(qword_27FD127D0 + 32))
+  if ((a1 & 0x7FFFFFF) >= *(qword_27FD127D0 + 32))
   {
     snprintf(buf, 0x200uLL, "(%s) Node %x: out of range", "ps_liveness_schedule_reset_deadline_at_frameid", a1);
     if (qword_27FD127D0 && strlen(buf))
@@ -6408,7 +5999,7 @@ LABEL_11:
       ps_ringbuffer_close_allocation();
     }
 
-    goto LABEL_11;
+    return 0;
   }
 
   _X4 = 0;
@@ -6419,27 +6010,24 @@ LABEL_11:
   v7[18] = a3;
   v7[19] = a4;
   v7[17] = a2;
-  v13 = __PLSLogSharedInstance();
+  v13 = __PLSLogSharedInstance(a1);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v15 = v7[17];
     v14 = v7[18];
     v16 = v7[16];
     *buf = 134284291;
-    v21 = v15;
-    v22 = 2081;
-    v23 = v7 + 1;
-    v24 = 2049;
-    v25 = v14;
-    v26 = 2049;
-    v27 = v16;
+    v20 = v15;
+    v21 = 2081;
+    v22 = v7 + 1;
+    v23 = 2049;
+    v24 = v14;
+    v25 = 2049;
+    v26 = v16;
     _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_DEFAULT, "PSLiveness - reset at %{private}llu for %{private}s to %{private}llu from %{private}llu", buf, 0x2Au);
   }
 
-  v4 = 1;
-LABEL_12:
-  v18 = *MEMORY[0x277D85DE8];
-  return v4;
+  return 1;
 }
 
 uint64_t ps_liveness_get_node_count(int a1)
@@ -6457,32 +6045,26 @@ uint64_t ps_liveness_get_node_count(int a1)
   return atomic_load((qword_27FD127D0 + 40));
 }
 
-_DWORD *ps_liveness_enable_history(_DWORD *result, int a2)
+uint64_t ps_liveness_enable_history(uint64_t result, int a2)
 {
-  v2 = result[1];
+  v2 = *(result + 4);
   if (a2)
   {
-    result[1] = v2 | 1;
+    *(result + 4) = v2 | 1;
   }
 
   else
   {
-    result[1] = v2 & 0xFFFFFFFE;
-    v3 = result[8];
+    *(result + 4) = v2 & 0xFFFFFFFE;
+    v3 = *(result + 32);
     if (v3)
     {
       _X22 = 0;
-      v5 = 0;
-      v6 = result + (16 * result[3]);
-      do
+      for (i = 0; i != v3; ++i)
       {
         _X1 = 0;
         __asm { CASPAL          X0, X1, X22, X23, [X8] }
-
-        ++v5;
       }
-
-      while (v3 != v5);
     }
   }
 
@@ -6516,7 +6098,7 @@ uint64_t ps_liveness_enable_ringbuffer_logging_node(uint64_t result, int a2, int
   return result;
 }
 
-uint64_t ps_liveness_get_client_node_by_name(int a1, _BYTE *a2, const char *a3)
+uint64_t ps_liveness_get_client_node_by_name(uint64_t a1, const char *a2, const char *a3)
 {
   if (qword_27FD127D0)
   {
@@ -6529,16 +6111,14 @@ uint64_t ps_liveness_get_client_node_by_name(int a1, _BYTE *a2, const char *a3)
   }
 }
 
-uint64_t _liveness_get_node_by_name(int a1, _BYTE *a2, const char *a3, const char *a4, uint64_t a5)
+uint64_t _liveness_get_node_by_name(int a1, const char *a2, const char *a3, const char *a4, uint64_t a5)
 {
   v59 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     if ((a1 & 0x80000000) == 0)
     {
-LABEL_47:
-      v38 = 0xFFFFFFFFLL;
-      goto LABEL_48;
+      return 0xFFFFFFFFLL;
     }
 
     v7 = (a1 & 0x7FFFFFF) + 1;
@@ -6551,7 +6131,7 @@ LABEL_47:
 
   if (!qword_27FD127D0)
   {
-    goto LABEL_47;
+    return 0xFFFFFFFFLL;
   }
 
   if (a2)
@@ -6600,9 +6180,9 @@ LABEL_47:
   if (v7 >= v13)
   {
 LABEL_44:
-    ps_ringbuffer_close_allocation();
-    v37 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v37 = ps_ringbuffer_close_allocation();
+    v38 = __PLSLogSharedInstance(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       *buf = 67110146;
       v50 = v41;
@@ -6614,10 +6194,10 @@ LABEL_44:
       v56 = a4;
       v57 = 2048;
       v58 = a5;
-      _os_log_impl(&dword_25EA3A000, v37, OS_LOG_TYPE_ERROR, "Liveness: node not found (start=%08x, name=%{public}s, aux=%{public}s, session=%{public}s, client=%llx)\n", buf, 0x30u);
+      _os_log_impl(&dword_25EA3A000, v38, OS_LOG_TYPE_ERROR, "Liveness: node not found (start=%08x, name=%{public}s, aux=%{public}s, session=%{public}s, client=%llx)\n", buf, 0x30u);
     }
 
-    goto LABEL_47;
+    return 0xFFFFFFFFLL;
   }
 
   _X2 = 0;
@@ -6670,7 +6250,7 @@ LABEL_44:
       v35 = !v34;
       v36 = (v48 != v32) | v47 | a3;
       a3 = v44;
-      if ((v36 & 1) == 0 && !v33 && !v35)
+      if ((v36 & 1) == 0 && (v33 & 1) == 0 && !v35)
       {
         break;
       }
@@ -6684,65 +6264,58 @@ LABEL_44:
     }
   }
 
-  v38 = v15 | (v48 << 27) | 0x80000000;
-  *(v11 + 16) = v38;
+  v39 = v15 | (v48 << 27) | 0x80000000;
+  *(v11 + 16) = v39;
   ps_ringbuffer_close_allocation();
-LABEL_48:
-  v39 = *MEMORY[0x277D85DE8];
-  return v38;
+  return v39;
 }
 
 uint64_t ps_liveness_node_get_status(int a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  if (!qword_27FD127D0)
+  v14 = *MEMORY[0x277D85DE8];
+  if (qword_27FD127D0)
   {
-    goto LABEL_9;
-  }
+    _X2 = 0;
+    _X3 = 0;
+    __asm { CASPAL          X2, X3, X2, X3, [X8] }
 
-  _X2 = 0;
-  _X3 = 0;
-  __asm { CASPAL          X2, X3, X2, X3, [X8] }
-
-  if (a1 == -1 || !qword_27FD127D0)
-  {
-LABEL_9:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_10;
-  }
-
-  if ((a1 & 0x7FFFFFFu) >= *(qword_27FD127D0 + 32))
-  {
-    snprintf(__str, 0x200uLL, "(%s) Node %x: out of range", "ps_liveness_node_get_status", a1);
-    if (qword_27FD127D0 && strlen(__str))
+    if (a1 != -1)
     {
-      v12 = ps_ringbuffer_allocate();
-      *v12 = SDWORD2(xmmword_27FD12818);
-      strlcpy((v12 + 8), __str, 0x200uLL);
-      ps_ringbuffer_close_allocation();
-    }
+      if (qword_27FD127D0)
+      {
+        if ((a1 & 0x7FFFFFFu) < *(qword_27FD127D0 + 32))
+        {
+          _X0 = 0;
+          _X1 = 0;
+          __asm { CASPAL          X0, X1, X0, X1, [X8] }
 
-    goto LABEL_9;
+          return 0;
+        }
+
+        snprintf(__str, 0x200uLL, "(%s) Node %x: out of range", "ps_liveness_node_get_status", a1);
+        if (qword_27FD127D0)
+        {
+          if (strlen(__str))
+          {
+            v12 = ps_ringbuffer_allocate();
+            *v12 = SDWORD2(xmmword_27FD12818);
+            strlcpy((v12 + 8), __str, 0x200uLL);
+            ps_ringbuffer_close_allocation();
+          }
+        }
+      }
+    }
   }
 
-  _X0 = 0;
-  _X1 = 0;
-  __asm { CASPAL          X0, X1, X0, X1, [X8] }
-
-  result = 0;
-LABEL_10:
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t ps_liveness_node_get_name(int a1, char *__dst, unsigned int a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (a1 == -1 || !qword_27FD127D0)
   {
-LABEL_17:
-    _X23 = 0xFFFFFFFFLL;
-    goto LABEL_18;
+    return 0xFFFFFFFFLL;
   }
 
   v3 = a1 & 0x7FFFFFF;
@@ -6757,7 +6330,7 @@ LABEL_17:
       ps_ringbuffer_close_allocation();
     }
 
-    goto LABEL_17;
+    return 0xFFFFFFFFLL;
   }
 
   _X0 = 0;
@@ -6798,24 +6371,19 @@ LABEL_17:
     _X22 = _X0;
     if (_ZF)
     {
-      _X23 = 0;
-      break;
+      return 0;
     }
   }
 
-LABEL_18:
-  v20 = *MEMORY[0x277D85DE8];
   return _X23;
 }
 
 uint64_t ps_liveness_node_get_aux_string(int a1, char *__dst, unsigned int a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (a1 == -1 || !qword_27FD127D0)
   {
-LABEL_17:
-    _X23 = 0xFFFFFFFFLL;
-    goto LABEL_18;
+    return 0xFFFFFFFFLL;
   }
 
   v3 = a1 & 0x7FFFFFF;
@@ -6830,7 +6398,7 @@ LABEL_17:
       ps_ringbuffer_close_allocation();
     }
 
-    goto LABEL_17;
+    return 0xFFFFFFFFLL;
   }
 
   _X0 = 0;
@@ -6871,24 +6439,19 @@ LABEL_17:
     _X22 = _X0;
     if (_ZF)
     {
-      _X23 = 0;
-      break;
+      return 0;
     }
   }
 
-LABEL_18:
-  v20 = *MEMORY[0x277D85DE8];
   return _X23;
 }
 
 uint64_t ps_liveness_node_get_session_name(int a1, char *__dst, unsigned int a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (a1 == -1 || !qword_27FD127D0)
   {
-LABEL_17:
-    _X23 = 0xFFFFFFFFLL;
-    goto LABEL_18;
+    return 0xFFFFFFFFLL;
   }
 
   v3 = a1 & 0x7FFFFFF;
@@ -6903,7 +6466,7 @@ LABEL_17:
       ps_ringbuffer_close_allocation();
     }
 
-    goto LABEL_17;
+    return 0xFFFFFFFFLL;
   }
 
   _X0 = 0;
@@ -6944,24 +6507,19 @@ LABEL_17:
     _X22 = _X0;
     if (_ZF)
     {
-      _X23 = 0;
-      break;
+      return 0;
     }
   }
 
-LABEL_18:
-  v20 = *MEMORY[0x277D85DE8];
   return _X23;
 }
 
 uint64_t _liveness_node_get_data(int a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (a1 == -1 || !qword_27FD127D0)
   {
-LABEL_14:
-    _X5 = 0xFFFFFFFFLL;
-    goto LABEL_15;
+    return 0xFFFFFFFFLL;
   }
 
   if ((a1 & 0x7FFFFFFu) >= *(qword_27FD127D0 + 32))
@@ -6975,7 +6533,7 @@ LABEL_14:
       ps_ringbuffer_close_allocation();
     }
 
-    goto LABEL_14;
+    return 0xFFFFFFFFLL;
   }
 
   _X4 = 0;
@@ -7006,13 +6564,10 @@ LABEL_14:
     _X4 = _X6;
     if (_ZF)
     {
-      _X5 = 0;
-      break;
+      return 0;
     }
   }
 
-LABEL_15:
-  v17 = *MEMORY[0x277D85DE8];
   return _X5;
 }
 
@@ -7174,12 +6729,10 @@ uint64_t ps_liveness_node_get_watchdog_hung_time_out(int a1, unint64_t *a2)
 
 uint64_t ps_liveness_node_get_tag(int a1, unint64_t *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (a1 == -1 || !qword_27FD127D0)
   {
-LABEL_14:
-    _X3 = 0xFFFFFFFFLL;
-    goto LABEL_15;
+    return 0xFFFFFFFFLL;
   }
 
   v2 = a1 & 0x7FFFFFF;
@@ -7194,7 +6747,7 @@ LABEL_14:
       ps_ringbuffer_close_allocation();
     }
 
-    goto LABEL_14;
+    return 0xFFFFFFFFLL;
   }
 
   _X2 = 0;
@@ -7230,8 +6783,7 @@ LABEL_14:
 
       if (_X4 == _X2)
       {
-        _X3 = 0;
-        break;
+        return 0;
       }
     }
 
@@ -7242,8 +6794,6 @@ LABEL_14:
     v13 = _X2 == -1;
   }
 
-LABEL_15:
-  v23 = *MEMORY[0x277D85DE8];
   return _X3;
 }
 
@@ -7253,9 +6803,9 @@ uint64_t ps_liveness_start_hung_node_monitor(void *a1, uint64_t a2, uint64_t a3)
   ps_liveness_init(0);
   if (!qword_27FD127D0)
   {
-    ps_liveness_destroy(0);
+    ps_liveness_destroy(0, v7);
 LABEL_6:
-    v8 = 0;
+    v9 = 0;
     goto LABEL_7;
   }
 
@@ -7278,33 +6828,34 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v8 = 0xFFFFFFFFLL;
+  v9 = 0xFFFFFFFFLL;
 LABEL_7:
 
-  return v8;
+  return v9;
 }
 
 void __ps_liveness_start_hung_node_monitor_block_invoke(uint64_t a1)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v50 = *(v1 + 48);
-  *(v1 + 144) = MEMORY[0x25F8C8180]();
+  v55 = *(v1 + 48);
+  v2 = MEMORY[0x25F8C8180]();
+  *(v1 + 144) = v2;
   if (!atomic_load((v1 + 148)))
   {
     goto LABEL_62;
   }
 
-  v46 = v1 + 72;
-  *&v2 = 136446210;
-  v45 = v2;
-  v53 = v1;
+  v51 = v1 + 72;
+  *&v3 = 136446210;
+  v50 = v3;
+  v58 = v1;
   while (1)
   {
-    v4 = objc_autoreleasePoolPush();
-    v5 = MEMORY[0x25F8C98D0](*(v1 + 112));
-    context = v4;
-    if (v5)
+    v5 = objc_autoreleasePoolPush();
+    v6 = MEMORY[0x25F8C98D0](*(v1 + 112));
+    context = v5;
+    if (v6)
     {
       break;
     }
@@ -7314,210 +6865,211 @@ void __ps_liveness_start_hung_node_monitor_block_invoke(uint64_t a1)
       goto LABEL_61;
     }
 
-    v8 = atomic_load((*(v1 + 8) + 40));
+    v9 = atomic_load((*(v1 + 8) + 40));
     *buf = 0u;
-    v58 = 0u;
-    v56 = 32;
-    if (sysctlbyname("kern.stackshot_stats", buf, &v56, 0, 0))
+    v63 = 0u;
+    v61 = 32;
+    v10 = sysctlbyname("kern.stackshot_stats", buf, &v61, 0, 0);
+    if (v10)
     {
-      v9 = __PLSLogSharedInstance();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = __PLSLogSharedInstance(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        *v59 = 136315138;
-        *&v59[4] = "ps_liveness_get_last_stackshot_stats";
-        v10 = v9;
-        v11 = "%s: Unable to query sysctl 'kern.stackshot_stats'";
+        *v64 = 136315138;
+        *&v64[4] = "ps_liveness_get_last_stackshot_stats";
+        v12 = v11;
+        v13 = "%s: Unable to query sysctl 'kern.stackshot_stats'";
 LABEL_16:
-        _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_ERROR, v11, v59, 0xCu);
+        _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_ERROR, v13, v64, 0xCu);
       }
     }
 
     else
     {
-      if (v56 == 32)
+      if (v61 == 32)
       {
-        v54 = ps_util_mach_time_to_ns(*buf);
-        v12 = ps_util_mach_time_to_ns(*&buf[8]);
+        v59 = ps_util_mach_time_to_ns(*buf);
+        v14 = ps_util_mach_time_to_ns(*&buf[8]);
         goto LABEL_18;
       }
 
-      v9 = __PLSLogSharedInstance();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = __PLSLogSharedInstance(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        *v59 = 136315138;
-        *&v59[4] = "ps_liveness_get_last_stackshot_stats";
-        v10 = v9;
-        v11 = "%s: Unable to query sysctl 'kern.stackshot_stats', wrong size";
+        *v64 = 136315138;
+        *&v64[4] = "ps_liveness_get_last_stackshot_stats";
+        v12 = v11;
+        v13 = "%s: Unable to query sysctl 'kern.stackshot_stats', wrong size";
         goto LABEL_16;
       }
     }
 
-    v54 = 0;
-    v12 = 0;
+    v59 = 0;
+    v14 = 0;
 LABEL_18:
-    if (v8 + 63 >= 0x40)
+    if (v9 + 63 >= 0x40)
     {
-      v13 = 0;
-      v51 = (v8 + 63) >> 6;
-      if (v54)
+      v15 = 0;
+      v56 = (v9 + 63) >> 6;
+      if (v59)
       {
-        v14 = v12 > v54;
+        v16 = v14 > v59;
       }
 
       else
       {
-        v14 = 0;
+        v16 = 0;
       }
 
-      v15 = v14;
-      v55 = v15;
-      v48 = 100 * (v12 - v54);
-      v49 = v12 - v54;
+      v17 = v16;
+      v60 = v17;
+      v53 = 100 * (v14 - v59);
+      v54 = v14 - v59;
       while (1)
       {
-        v52 = v13;
-        v16 = atomic_load((v50 + 8 * v13));
-        if (v16)
+        v57 = v15;
+        v18 = atomic_load((v55 + 8 * v15));
+        if (v18)
         {
           break;
         }
 
 LABEL_55:
-        v13 = v52 + 1;
-        if (v52 + 1 == v51)
+        v15 = v57 + 1;
+        if (v57 + 1 == v56)
         {
           goto LABEL_56;
         }
       }
 
-      v17 = v13 << 6;
+      v19 = v15 << 6;
       while (2)
       {
-        v18 = __clz(__rbit64(v16));
-        if (!ps_liveness_node_get_status(v17 | v18))
+        v20 = __clz(__rbit64(v18));
+        if (!ps_liveness_node_get_status(v19 | v20))
         {
-          v56 = 0;
+          v61 = 0;
           while (1)
           {
-            ps_liveness_node_get_tag(v17 | v18, &v56);
-            v19 = v56;
+            ps_liveness_node_get_tag(v19 | v20, &v61);
+            v21 = v61;
             *buf = 0;
-            _liveness_node_get_data(v17 | v18, 168, buf);
-            v20 = *buf;
-            v22 = xmmword_27FD12808;
-            v21 = DWORD1(xmmword_27FD12808);
-            *buf = 0;
-            _liveness_node_get_data(v17 | v18, 384, buf);
-            v23 = *buf;
+            _liveness_node_get_data(v19 | v20, 168, buf);
+            v22 = *buf;
             v24 = xmmword_27FD12808;
-            v25 = DWORD1(xmmword_27FD12808);
-            if (ps_liveness_node_get_tag(v17 | v18, &v56))
+            v23 = DWORD1(xmmword_27FD12808);
+            *buf = 0;
+            _liveness_node_get_data(v19 | v20, 384, buf);
+            v25 = *buf;
+            v26 = xmmword_27FD12808;
+            v27 = DWORD1(xmmword_27FD12808);
+            if (ps_liveness_node_get_tag(v19 | v20, &v61))
             {
               break;
             }
 
-            if (v19 == v56)
+            if (v21 == v61)
             {
-              v26 = v20 * v22;
-              v27 = v20 * v22 / v21;
-              v28 = v23 * v24 / v25 == v27;
+              v28 = v22 * v24;
+              v29 = v22 * v24 / v23;
+              v30 = v25 * v26 / v27 == v29;
               goto LABEL_34;
             }
           }
 
-          v28 = 0;
-          v26 = v20 * v22;
-          v27 = v20 * v22 / v21;
+          v30 = 0;
+          v28 = v22 * v24;
+          v29 = v22 * v24 / v23;
 LABEL_34:
-          ps_liveness_node_get_name(v17 | v18, buf, 0x40u);
-          *v59 = 0;
-          _liveness_node_get_data(v17 | v18, 176, v59);
-          if (v55)
+          ps_liveness_node_get_name(v19 | v20, buf, 0x40u);
+          *v64 = 0;
+          data = _liveness_node_get_data(v19 | v20, 176, v64);
+          if (v60)
           {
-            v29 = *v59 * xmmword_27FD12808 / DWORD1(xmmword_27FD12808);
-            v30 = mach_absolute_time();
-            v31 = ps_util_mach_time_to_ns(v30);
-            if (v26 >= v21)
+            v32 = *v64 * xmmword_27FD12808 / DWORD1(xmmword_27FD12808);
+            v33 = mach_absolute_time();
+            v34 = ps_util_mach_time_to_ns(v33);
+            if (v28 >= v23)
             {
-              v32 = v27;
+              v35 = v29;
             }
 
             else
             {
-              v32 = v29;
+              v35 = v32;
             }
 
-            if (v32 <= v54)
+            if (v35 <= v59)
             {
-              v33 = v31 - v32;
-              if (v31 == v32)
+              v36 = v34 - v35;
+              if (v34 == v35)
               {
-                v34 = 0;
+                v37 = 0;
               }
 
               else
               {
-                v34 = v48 / v33;
+                v37 = v53 / v36;
               }
 
-              v36 = [PLSSettings currentSettings:v45];
-              v37 = [v36 stackShotDurationPctForGraphHang];
+              v39 = [PLSSettings currentSettings:v50];
+              v40 = [v39 stackShotDurationPctForGraphHang];
 
-              v38 = __PLSLogSharedInstance();
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+              v42 = __PLSLogSharedInstance(v41);
+              if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
               {
-                *v59 = 134218496;
-                *&v59[4] = v49;
-                v60 = 2048;
-                v61 = v33;
-                v62 = 2048;
-                v63 = v34;
-                _os_log_impl(&dword_25EA3A000, v38, OS_LOG_TYPE_DEBUG, "stackShotDurationNs %llu graphHangDurationNs %llu stackShotPct %llu", v59, 0x20u);
+                *v64 = 134218496;
+                *&v64[4] = v54;
+                v65 = 2048;
+                v66 = v36;
+                v67 = 2048;
+                v68 = v37;
+                _os_log_impl(&dword_25EA3A000, v42, OS_LOG_TYPE_DEBUG, "stackShotDurationNs %llu graphHangDurationNs %llu stackShotPct %llu", v64, 0x20u);
               }
 
-              if (v34 > v37)
+              if (v37 > v40)
               {
-                v39 = __PLSLogSharedInstance();
-                if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+                v44 = __PLSLogSharedInstance(v43);
+                if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
                 {
-                  *v59 = 136315394;
-                  *&v59[4] = "ps_liveness_stackshot_duration_exceeds_threshold";
-                  v60 = 2080;
-                  v61 = buf;
-                  _os_log_impl(&dword_25EA3A000, v39, OS_LOG_TYPE_ERROR, "%s: Graph [%s] hang could be due to the stackshot in progress. Not taking any action.", v59, 0x16u);
+                  *v64 = 136315394;
+                  *&v64[4] = "ps_liveness_stackshot_duration_exceeds_threshold";
+                  v65 = 2080;
+                  v66 = buf;
+                  _os_log_impl(&dword_25EA3A000, v44, OS_LOG_TYPE_ERROR, "%s: Graph [%s] hang could be due to the stackshot in progress. Not taking any action.", v64, 0x16u);
                 }
 
                 goto LABEL_54;
               }
             }
 
-            if (!v28)
+            if (!v30)
             {
               goto LABEL_54;
             }
 
 LABEL_53:
-            (*(v53 + 128))(v17 | v18, *(v53 + 136));
+            (*(v58 + 128))(v19 | v20, *(v58 + 136));
             goto LABEL_54;
           }
 
-          v35 = __PLSLogSharedInstance();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+          v38 = __PLSLogSharedInstance(data);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
           {
-            *v59 = 136315138;
-            *&v59[4] = "ps_liveness_graph_hang_caused_by_stackshot";
-            _os_log_impl(&dword_25EA3A000, v35, OS_LOG_TYPE_DEBUG, "%s: Last stackshot stats not available or invalid", v59, 0xCu);
+            *v64 = 136315138;
+            *&v64[4] = "ps_liveness_graph_hang_caused_by_stackshot";
+            _os_log_impl(&dword_25EA3A000, v38, OS_LOG_TYPE_DEBUG, "%s: Last stackshot stats not available or invalid", v64, 0xCu);
           }
 
-          if (v28)
+          if (v30)
           {
             goto LABEL_53;
           }
         }
 
 LABEL_54:
-        v16 &= ~(1 << v18);
-        if (!v16)
+        v18 &= ~(1 << v20);
+        if (!v18)
         {
           goto LABEL_55;
         }
@@ -7528,83 +7080,66 @@ LABEL_54:
 
 LABEL_56:
     objc_autoreleasePoolPop(context);
-    v1 = v53;
-    if (!atomic_load((v53 + 148)))
+    v1 = v58;
+    if (!atomic_load((v58 + 148)))
     {
       goto LABEL_62;
     }
   }
 
-  if (v5 == 49)
+  if (v6 == 49)
   {
-    v6 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = __PLSLogSharedInstance(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      *buf = v45;
-      *&buf[4] = v46;
-      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEBUG, "Liveness : %{public}s - Hung Monitor : Sem Wait Timedout\n", buf, 0xCu);
+      *buf = v50;
+      *&buf[4] = v51;
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEBUG, "Liveness : %{public}s - Hung Monitor : Sem Wait Timedout\n", buf, 0xCu);
     }
 
     goto LABEL_56;
   }
 
-  v41 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+  v46 = __PLSLogSharedInstance(v6);
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
   {
-    *buf = v45;
-    *&buf[4] = v46;
-    _os_log_impl(&dword_25EA3A000, v41, OS_LOG_TYPE_DEBUG, "Liveness : %{public}s - Hung Monitor : Sem Wait Error exiting ..\n", buf, 0xCu);
+    *buf = v50;
+    *&buf[4] = v51;
+    _os_log_impl(&dword_25EA3A000, v46, OS_LOG_TYPE_DEBUG, "Liveness : %{public}s - Hung Monitor : Sem Wait Error exiting ..\n", buf, 0xCu);
   }
 
 LABEL_61:
-  objc_autoreleasePoolPop(v4);
+  objc_autoreleasePoolPop(v5);
 LABEL_62:
-  v42 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+  v47 = __PLSLogSharedInstance(v2);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
     *&buf[4] = v1 + 72;
-    _os_log_impl(&dword_25EA3A000, v42, OS_LOG_TYPE_DEFAULT, "Liveness : %{public}s - Exiting Hung Node Monitor\n", buf, 0xCu);
+    _os_log_impl(&dword_25EA3A000, v47, OS_LOG_TYPE_DEFAULT, "Liveness : %{public}s - Exiting Hung Node Monitor\n", buf, 0xCu);
   }
 
   atomic_store(0, (v1 + 148));
-  v43 = *(v1 + 104);
+  v48 = *(v1 + 104);
   *(v1 + 104) = 0;
 
   *(v1 + 128) = 0;
   *(v1 + 136) = 0;
   *(v1 + 144) = 0;
-  ps_liveness_destroy(0);
-  v44 = *MEMORY[0x277D85DE8];
+  ps_liveness_destroy(0, v49);
 }
 
 void ps_liveness_stop_hung_node_monitor()
 {
-  v1 = &qword_27FD12858 + 4;
-  v0 = qword_27FD127D0;
+  v0 = &qword_27FD12858 + 4;
   if (!qword_27FD127D0)
   {
-    v1 = 148;
+    v0 = 148;
   }
 
-  if (atomic_load(v1))
+  if (atomic_load(v0))
   {
-    atomic_store(0, v1);
-    v3 = v0 == 0;
-    v4 = 112;
-    if (!v3)
-    {
-      v4 = &xmmword_27FD12838;
-    }
-
-    v5 = *v4;
-    v6 = &qword_27FD12858;
-    if (v3)
-    {
-      v6 = 144;
-    }
-
-    v7 = *v6;
+    atomic_store(0, v0);
     JUMPOUT(0x25F8C98B0);
   }
 }
@@ -7615,27 +7150,19 @@ void OUTLINED_FUNCTION_0_5(uint64_t a1, uint64_t a2, uint64_t _X2)
   __asm { CASPAL          X4, X5, X2, X3, [X8] }
 }
 
-size_t OUTLINED_FUNCTION_2_7(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char __source)
+size_t OUTLINED_FUNCTION_2_7(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  *a1 = *(v14 + 48);
-  v16 = (a1 + 1);
+  va_start(va, a13);
+  *a1 = *(v13 + 48);
+  v15 = (a1 + 1);
 
-  return strlcpy(v16, &__source, 0x200uLL);
+  return strlcpy(v15, va, 0x200uLL);
 }
 
-uint64_t OUTLINED_FUNCTION_3_8()
+uint64_t OUTLINED_FUNCTION_3_8(uint64_t a2, uint64_t a3, ...)
 {
-  v2 = *v0;
 
   return ps_ringbuffer_allocate();
-}
-
-uint64_t OUTLINED_FUNCTION_4_5@<X0>(uint64_t a1@<X8>)
-{
-  v2 = (a1 + 16 * v1);
-  result = *v2;
-  v4 = v2[1];
-  return result;
 }
 
 void ps_liveness_server_init_state(int a1, int a2)
@@ -7644,10 +7171,10 @@ void ps_liveness_server_init_state(int a1, int a2)
   v3 = (a1 + 63) & 0xFFFFFFC0;
   v4 = (v3 >> 3) + 15;
   v5 = (v4 >> 4) + 5;
-  v26 = (a1 + 63) & 0xFFFFFC0;
-  v6 = v5 + v26;
-  v27 = ((a1 + 63) >> 2) & 0xFFFFFF0;
-  v7 = v5 + v26 + v27 + ((25 * v3) & 0xFFFFFFF);
+  v22 = (a1 + 63) & 0xFFFFFC0;
+  v6 = v5 + v22;
+  v23 = ((a1 + 63) >> 2) & 0xFFFFFF0;
+  v7 = v5 + v22 + v23 + ((25 * v3) & 0xFFFFFFF);
   v8 = v7 + ((((a2 + 63) & 0xFFFFFFC0) + 16399) >> 4);
   gLiveness = ps_buffer_create_serial_data_writer();
   if (gLiveness)
@@ -7658,7 +7185,7 @@ void ps_liveness_server_init_state(int a1, int a2)
     *v9 = v8 + (v4 >> 4);
     *(v9 + 4) = 0x500000002;
     *(v9 + 12) = v5;
-    *(v9 + 16) = v6 + v27;
+    *(v9 + 16) = v6 + v23;
     *(v9 + 20) = v6;
     *(v9 + 24) = v7;
     *(v9 + 28) = v8;
@@ -7682,48 +7209,43 @@ void ps_liveness_server_init_state(int a1, int a2)
     dword_27FD128C8 = 0;
     dword_27FD128A8 = 1;
     qword_27FD12870 = ps_buffer_get_serial_data_write_buffer();
-    v19 = *(qword_27FD12868 + 12);
     qword_27FD12878 = ps_buffer_get_serial_data_write_buffer();
-    v20 = *(qword_27FD12868 + 16);
     qword_27FD12880 = ps_buffer_get_serial_data_write_buffer();
-    v21 = *(qword_27FD12868 + 20);
     qword_27FD12898 = ps_buffer_get_serial_data_write_buffer();
-    v22 = *(qword_27FD12868 + 24);
     ps_buffer_get_serial_data_write_buffer();
     qword_27FD12888 = ps_ringbuffer_create_inplace();
-    v23 = *(qword_27FD12868 + 28);
     qword_27FD12890 = ps_buffer_get_serial_data_write_buffer();
     qword_27FD128C0 = ps_buffer_create_semaphore_array();
     dword_27FD128B8 = *ps_buffer_get_semaphore_array();
     memset(qword_27FD12870, 255, v4 & 0x3FFFFFF0);
-    memset(qword_27FD12878, 255, (16 * v26));
+    memset(qword_27FD12878, 255, (16 * v22));
     bzero(qword_27FD12880, 400 * v3);
-    bzero(qword_27FD12898, 16 * v27);
-    v24 = qword_27FD12890;
+    bzero(qword_27FD12898, 16 * v23);
+    v19 = qword_27FD12890;
 
-    bzero(v24, v4 & 0x3FFFFFF0);
+    bzero(v19, v4 & 0x3FFFFFF0);
   }
 
   else
   {
-    inited = ps_liveness_server_init_state_cold_1(&v28);
-    ps_liveness_server_init(inited);
+    inited = ps_liveness_server_init_state_cold_1(&v24);
+    ps_liveness_server_init(inited, v21);
   }
 }
 
 uint64_t ps_liveness_server_init(int a1, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   ps_liveness_server_init_state(a1, a2);
   qword_27FD128D0 = pbs_ringbuffer_get_shared_error_log();
-  memset(v10, 0, sizeof(v10));
-  v9 = 0u;
+  memset(v9, 0, sizeof(v9));
   v8 = 0u;
-  v7 = 799564724;
+  v7 = 0u;
+  v6 = 799564724;
   v2 = os_workgroup_attr_set_interval_type();
   if (v2)
   {
-    ps_liveness_server_init_cold_1(&v6, v2);
+    ps_liveness_server_init_cold_1(&v5, v2);
     goto LABEL_6;
   }
 
@@ -7731,9 +7253,9 @@ uint64_t ps_liveness_server_init(int a1, int a2)
   if (!qword_27FD128B0)
   {
 LABEL_6:
-    inited = ps_liveness_server_init_cold_3(&v6);
+    inited = ps_liveness_server_init_cold_3(&v5);
 LABEL_7:
-    ps_liveness_server_init_cold_2(&v7, inited);
+    ps_liveness_server_init_cold_2(&v6, inited);
   }
 
   inited = pthread_create_with_workgroup_np();
@@ -7742,88 +7264,86 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  result = ps_death_notifier_register_callback_for_death_notification();
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return ps_death_notifier_register_callback_for_death_notification();
 }
 
-uint64_t _liveness_watchdog_thread(uint64_t a1)
+void _liveness_watchdog_thread(uint64_t a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v2 = "Liveness watchdog";
   v3 = pthread_setname_np("Liveness watchdog");
   if (v3)
   {
-    v4 = v3;
-    v5 = _polarisdLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v5 = v3;
+    v6 = _polarisdLogSharedInstance(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v41 = "Liveness watchdog";
-      v42 = 1024;
-      v43 = v4;
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "pthread_setname_np failed with name %s and return code %d", buf, 0x12u);
+      v47 = "Liveness watchdog";
+      v48 = 1024;
+      v49 = v5;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "pthread_setname_np failed with name %s and return code %d", buf, 0x12u);
     }
   }
 
   mach_absolute_time();
-  v38 = 0;
-  v39 = mach_absolute_time();
+  v44 = 0;
+  v45 = mach_absolute_time();
   info = 0;
   mach_timebase_info(&info);
-  v8 = _liveness_mach_time_converter(&info, 0x5F5E100uLL, v6, v7);
-  v9 = 0xC80uLL % *MEMORY[0x277D85FA0];
-  if (v9)
+  v9 = _liveness_mach_time_converter(&info, 0x5F5E100uLL, v7, v8);
+  v10 = 0xC80uLL % *MEMORY[0x277D85FA0];
+  if (v10)
   {
-    v10 = *MEMORY[0x277D85FA0] - v9 + 3200;
+    v11 = *MEMORY[0x277D85FA0] - v10 + 3200;
   }
 
   else
   {
-    v10 = 3200;
+    v11 = 3200;
   }
 
-  v11 = malloc_type_aligned_alloc(*MEMORY[0x277D85FA0], v10, 0x1000040451B5BE8uLL);
-  *(a1 + 120) = v11;
-  if (!v11)
+  v12 = malloc_type_aligned_alloc(*MEMORY[0x277D85FA0], v11, 0x1000040451B5BE8uLL);
+  *(a1 + 120) = v12;
+  if (!v12)
   {
     _liveness_watchdog_thread_cold_2(buf);
     goto LABEL_23;
   }
 
-  v2 = v11;
-  bzero(v11, v10);
-  if (mlock(v2, v10))
+  v2 = v12;
+  bzero(v12, v11);
+  if (mlock(v2, v11))
   {
 LABEL_23:
-    v36 = 0;
+    v42 = 0;
     v29 = __error();
     v30 = strerror(*v29);
-    asprintf(&v36, "Failed to mlock %s (addr%p size=%zu)\n", v30, v2, v10);
-    v31 = _polarisdLogSharedInstance();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+    v31 = asprintf(&v42, "Failed to mlock %s (addr%p size=%zu)\n", v30, v2, v11);
+    v33 = _polarisdLogSharedInstance(v31, v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315650;
-      v41 = "_liveness_watchdog_thread";
-      v42 = 1024;
-      v43 = 624;
-      v44 = 2080;
-      v45 = v36;
-      _os_log_impl(&dword_25EA3A000, v31, OS_LOG_TYPE_FAULT, "%s:%d %s", buf, 0x1Cu);
+      v47 = "_liveness_watchdog_thread";
+      v48 = 1024;
+      v49 = 624;
+      v50 = 2080;
+      v51 = v42;
+      _os_log_impl(&dword_25EA3A000, v33, OS_LOG_TYPE_FAULT, "%s:%d %s", buf, 0x1Cu);
     }
 
-    v32 = OSLogFlushBuffers();
-    if (v32)
+    v34 = OSLogFlushBuffers();
+    if (v34)
     {
-      v33 = v32;
-      v34 = _polarisdLogSharedInstance();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v36 = v34;
+      v37 = _polarisdLogSharedInstance(v34, v35);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v41 = "_liveness_watchdog_thread";
-        v42 = 1024;
-        v43 = v33;
-        _os_log_impl(&dword_25EA3A000, v34, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+        v47 = "_liveness_watchdog_thread";
+        v48 = 1024;
+        v49 = v36;
+        _os_log_impl(&dword_25EA3A000, v37, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
       }
     }
 
@@ -7832,8 +7352,9 @@ LABEL_23:
       usleep(0x1E8480u);
     }
 
-    v35 = abort_with_reason();
-    return _liveness_death_notifier_callback(v35);
+    v38 = abort_with_reason();
+    _liveness_death_notifier_callback(v38, v39, v40, v41);
+    return;
   }
 
   if (_liveness_set_pthread_rt_annotation(&info))
@@ -7841,71 +7362,70 @@ LABEL_23:
     _liveness_watchdog_thread_cold_1(buf);
   }
 
-  v12 = 0;
+  v13 = 0;
   while (*(a1 + 72))
   {
     mach_get_times();
-    v13 = mach_absolute_time();
-    _liveness_watchdog_process(a1, *&info);
     v14 = mach_absolute_time();
-    ps_util_mach_time_to_ns(v14 - v13);
-    _X0 = v38;
-    v16 = &v2[16 * v12];
-    v17 = *v16;
-    v18 = *(v16 + 1);
+    _liveness_watchdog_process(a1, *&info);
+    v15 = mach_absolute_time();
+    ps_util_mach_time_to_ns(v15 - v14);
+    _X0 = v44;
+    v17 = &v2[16 * v13];
+    v18 = *v17;
     do
     {
-      _X5 = *(v16 + 1);
+      _X5 = *(v17 + 1);
       __asm { CASPAL          X4, X5, X0, X1, [X8] }
 
-      _ZF = _X4 == v17;
-      v17 = _X4;
+      _ZF = _X4 == v18;
+      v18 = _X4;
     }
 
     while (!_ZF);
-    if (v12 == 199)
+    if (v13 == 199)
     {
-      v12 = 0;
+      v13 = 0;
     }
 
     else
     {
-      ++v12;
+      ++v13;
     }
 
     ++*(a1 + 104);
-    v25 = v39 + v8;
-    atomic_store(v39 + v8, (a1 + 136));
-    if (mach_wait_until(v25) == 14)
+    v25 = v45 + v9;
+    atomic_store(v45 + v9, (a1 + 136));
+    v26 = mach_wait_until(v25);
+    if (v26 == 14)
     {
-      v26 = _polarisdLogSharedInstance();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v28 = _polarisdLogSharedInstance(v26, v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_25EA3A000, v26, OS_LOG_TYPE_ERROR, "ret = KERN_ABORTED, exiting RT Liveness thread...", buf, 2u);
+        _os_log_impl(&dword_25EA3A000, v28, OS_LOG_TYPE_ERROR, "ret = KERN_ABORTED, exiting RT Liveness thread...", buf, 2u);
       }
 
       break;
     }
   }
 
-  munlock(v2, v10);
+  munlock(v2, v11);
   free(v2);
   *(a1 + 120) = 0;
-  v27 = *MEMORY[0x277D85DE8];
-  return 0;
 }
 
 void _liveness_death_notifier_callback(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v6 = a2;
+  v42 = *MEMORY[0x277D85DE8];
   v7 = a4[4];
   v8 = atomic_load((a4[1] + 40));
-  v9 = _polarisdLogSharedInstance();
+  v9 = _polarisdLogSharedInstance(a1, a2);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 134218242;
-    *&buf[4] = a2;
+    *&buf[4] = v6;
     *&buf[12] = 2080;
     *&buf[14] = a3;
     _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_ERROR, "Liveness Process Death Handler: pid %llu (%s) is dead; Removing all associated nodes\n", buf, 0x16u);
@@ -7916,11 +7436,10 @@ void _liveness_death_notifier_callback(uint64_t a1, uint64_t a2, uint64_t a3, vo
     _X4 = 0;
     v11 = 0;
     _X26 = -1;
-    v39 = v8;
-    v40 = a2;
+    v37 = v8;
+    v38 = v6;
     do
     {
-      v13 = a4[3] + 16 * v11;
       _X1 = 0;
       __asm { CASPAL          X0, X1, X4, X5, [X8] }
 
@@ -7939,60 +7458,60 @@ void _liveness_death_notifier_callback(uint64_t a1, uint64_t a2, uint64_t a3, vo
       }
 
       while (!_ZF);
-      v22 = (v7 + 400 * v11);
-      v23 = atomic_load(v22);
-      if (a2 == v23)
+      v21 = (v7 + 400 * v11);
+      v22 = atomic_load(v21);
+      if (v6 == v22)
       {
-        v24 = v7;
-        v26 = a4[3];
-        v25 = a4[4];
-        v27 = a4[7];
+        v23 = v7;
+        v25 = a4[3];
+        v24 = a4[4];
+        v26 = a4[7];
         *buf = 0;
         *&buf[8] = 0;
-        v28 = a4[5];
-        v29 = ps_ringbuffer_allocate();
-        v30 = v25 + 400 * v11;
-        v31 = atomic_load(v30);
-        *v29 = v31;
-        *(v29 + 8) = 1;
-        *(v29 + 12) = *(v30 + 116);
-        LODWORD(v31) = atomic_load((v27 + 4 * v11));
-        *(v29 + 16) = v31;
+        v27 = ps_ringbuffer_allocate();
+        v28 = v24 + 400 * v11;
+        v29 = atomic_load(v28);
+        *v27 = v29;
+        *(v27 + 8) = 1;
+        *(v27 + 12) = *(v28 + 116);
+        LODWORD(v29) = atomic_load((v26 + 4 * v11));
+        *(v27 + 16) = v29;
         __strlcpy_chk();
         __strlcpy_chk();
-        strlcpy((v29 + 104), (v30 + 88), 0x10uLL);
-        *(v29 + 20) = *(v30 + 108);
+        strlcpy((v27 + 104), (v28 + 88), 0x10uLL);
+        *(v27 + 20) = *(v28 + 108);
         ps_ringbuffer_close_allocation();
-        v32 = (v26 + 16 * v11);
-        v33 = *v32;
+        v30 = (v25 + 16 * v11);
+        v31 = *v30;
+        v32 = v30[1];
         do
         {
-          _X3 = v32[1];
+          _X3 = v30[1];
           __asm { CASPAL          X2, X3, X26, X27, [X8] }
 
-          _ZF = _X2 == v33;
-          v33 = _X2;
+          _ZF = _X2 == v31;
+          v31 = _X2;
         }
 
         while (!_ZF);
         atomic_fetch_and((a4[6] + 8 * ((v11 >> 6) & 0x1FFFFF)), ~(1 << v11));
-        v36 = _polarisdLogSharedInstance();
-        v37 = os_log_type_enabled(v36, OS_LOG_TYPE_ERROR);
-        v7 = v24;
-        v8 = v39;
-        a2 = v40;
+        v35 = _polarisdLogSharedInstance(_X2, v32);
+        v36 = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
+        v7 = v23;
+        v8 = v37;
+        v6 = v38;
         _X4 = 0;
-        if (v37)
+        if (v36)
         {
           *buf = 67109890;
           *&buf[4] = v11;
           *&buf[8] = 2082;
-          *&buf[10] = v22 + 1;
+          *&buf[10] = v21 + 1;
           *&buf[18] = 2082;
-          *&buf[20] = v22 + 9;
-          v42 = 2082;
-          v43 = v22 + 11;
-          _os_log_impl(&dword_25EA3A000, v36, OS_LOG_TYPE_ERROR, "Liveness Process Death Handler: node %08x marked for deletion  (key=%{public}s, aux=%{public}s, session=%{public}s)\n", buf, 0x26u);
+          *&buf[20] = v21 + 9;
+          v40 = 2082;
+          v41 = v21 + 11;
+          _os_log_impl(&dword_25EA3A000, v35, OS_LOG_TYPE_ERROR, "Liveness Process Death Handler: node %08x marked for deletion  (key=%{public}s, aux=%{public}s, session=%{public}s)\n", buf, 0x26u);
           _X4 = 0;
         }
       }
@@ -8002,8 +7521,6 @@ void _liveness_death_notifier_callback(uint64_t a1, uint64_t a2, uint64_t a3, vo
 
     while (v11 != v8);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ps_liveness_server_destroy()
@@ -8027,250 +7544,232 @@ uint64_t _liveness_watchdog_process(uint64_t a1, uint64_t a2)
 {
   _X0 = 0;
   _X1 = 0;
-  v71 = *MEMORY[0x277D85DE8];
-  v58 = *(a1 + 24);
-  v57 = *(a1 + 32);
+  v52 = *(a1 + 32);
   atomic_fetch_add((*(a1 + 8) + 56), 1uLL);
-  v6 = *(a1 + 8);
   __asm { CASPAL          X0, X1, X0, X1, [X8] }
 
-  atomic_load((v6 + 56));
+  atomic_load((*(a1 + 8) + 56));
   ps_ringbuffer_allocate_closed();
-  v12 = mach_absolute_time();
-  v13 = atomic_load((*(a1 + 8) + 40));
-  v14 = *(a1 + 8);
-  atomic_store(v12, (v14 + 48));
+  v11 = mach_absolute_time();
+  v12 = atomic_load((*(a1 + 8) + 40));
+  v13 = *(a1 + 8);
+  atomic_store(v11, (v13 + 48));
   *(a1 + 128) = 0;
-  if (v13)
+  if (v12)
   {
     _X26 = 0;
-    v59 = 0;
-    v52 = 0;
-    v53 = a2;
-    v16 = HIDWORD(a2);
-    v17 = 0;
-    v54 = v12;
-    v55 = a1;
-    v56 = v13;
+    v53 = 0;
+    v47 = 0;
+    v48 = a2;
+    v15 = HIDWORD(a2);
+    v16 = 0;
+    v49 = v11;
+    v50 = a1;
+    v51 = v12;
     while (1)
     {
-      v18 = v17++;
+      v17 = v16++;
       _X0 = 0;
       _X1 = 0;
       __asm { CASPAL          X0, X1, X0, X1, [X8] }
 
       do
       {
-        v22 = _X0;
+        v21 = _X0;
         if (_X0 == -1)
         {
-          ++v59;
+          ++v53;
           goto LABEL_27;
         }
 
         __asm { CASPAL          X0, X1, X26, X27, [X8] }
       }
 
-      while (_X0 != v22);
-      v23 = v57 + 400 * v18;
-      atomic_fetch_add((v23 + 224), 1uLL);
-      if (v22)
+      while (_X0 != v21);
+      v22 = v52 + 400 * v17;
+      atomic_fetch_add((v22 + 224), 1uLL);
+      if (v21)
       {
         break;
       }
 
-      v29 = *(v23 + 240);
-      if (!v29)
+      v28 = *(v22 + 240);
+      if (!v28)
       {
-        v61 = *(v23 + 108);
         __strlcpy_chk();
-        v70 = *(v23 + 104);
         __strlcpy_chk();
         *(a1 + 128) = 3;
-        v30 = *(a1 + 112);
         pbs_ringbufferlogger_shared_write_decode_data();
-        v29 = *(v23 + 240);
+        v28 = *(v22 + 240);
       }
 
-      v31 = v29 + 1;
-      *(v23 + 240) = v29 + 1;
-      *(v23 + 208) = v12;
-      v32 = *(a1 + 8) + 64;
+      v29 = v28 + 1;
+      *(v22 + 240) = v28 + 1;
+      *(v22 + 208) = v11;
       _X24 = 0;
       _X25 = 0;
       __asm { CASPAL          X24, X25, X24, X25, [X8] }
 
-      if (mach_absolute_time() >= _X24 && v31 > *(v23 + 392))
+      if (mach_absolute_time() >= _X24 && v29 > *(v22 + 392))
       {
-        v36 = *(v23 + 168);
-        if (v36)
+        v33 = *(v22 + 168);
+        if (v33)
         {
-          v37 = 376;
-          if (*(v23 + 192) <= v36)
+          v34 = 376;
+          if (*(v22 + 192) <= v33)
           {
-            v38 = *(v23 + 168);
+            v35 = *(v22 + 168);
           }
 
           else
           {
-            v37 = 368;
-            v38 = *(v23 + 192);
+            v34 = 368;
+            v35 = *(v22 + 192);
           }
         }
 
         else
         {
-          v38 = *(v23 + 176);
-          v37 = 360;
+          v35 = *(v22 + 176);
+          v34 = 360;
         }
 
-        v12 = v54;
-        a1 = v55;
-        v40 = v54 - v38;
-        if (v54 - v38 >= *(v23 + v37) + *(v23 + v37) * *(v23 + 336))
+        v11 = v49;
+        a1 = v50;
+        v37 = v49 - v35;
+        if (v49 - v35 >= *(v22 + v34) + *(v22 + v34) * *(v22 + 336))
         {
-          v51 = v38;
-          v63 = *(v23 + 108);
-          v65 = *(v23 + 104);
-          v68 = *(v23 + 240);
-          atomic_load(v23);
+          v46 = v35;
+          atomic_load(v22);
           pbs_ringbuffer_get_shared_error_log();
           pbs_ringbufferlogger_shared_write();
-          v41 = v40;
-          *(v23 + 344) = v40;
-          v13 = v56;
-          if (*(v23 + 352) == 1 && *(v23 + 216) <= v41)
+          v38 = v37;
+          *(v22 + 344) = v37;
+          v12 = v51;
+          if (*(v22 + 352) == 1 && *(v22 + 216) <= v38)
           {
-            *(v55 + 128) = 1;
-            v62 = vrev64_s32(*(v23 + 104));
-            atomic_load(v23);
-            v66 = *(v23 + 160);
-            v69 = *(v23 + 344);
+            *(v50 + 128) = 1;
+            atomic_load(v22);
             pbs_ringbufferlogger_shared_write();
-            *(v23 + 352) = 0;
+            *(v22 + 352) = 0;
           }
 
-          ++HIDWORD(v52);
-          if (*(v23 + 160) <= 1uLL)
+          ++HIDWORD(v47);
+          if (*(v22 + 160) <= 1uLL)
           {
-            atomic_fetch_or((*(v55 + 48) + 8 * ((v18 >> 6) & 0x1FFFFF)), 1 << v18);
-            ++*(v23 + 336);
-            *(v23 + 384) = *(v23 + 168);
-            LODWORD(v52) = v52 + 1;
-            v42 = *(v55 + 40);
-            v50 = ps_ringbuffer_allocate();
-            v43 = atomic_load(v23);
-            *v50 = v43;
-            *(v50 + 8) = *(v23 + 160);
-            *(v50 + 16) = v51;
+            atomic_fetch_or((*(v50 + 48) + 8 * ((v17 >> 6) & 0x1FFFFF)), 1 << v17);
+            ++*(v22 + 336);
+            *(v22 + 384) = *(v22 + 168);
+            LODWORD(v47) = v47 + 1;
+            v45 = ps_ringbuffer_allocate();
+            v39 = atomic_load(v22);
+            *v45 = v39;
+            *(v45 + 8) = *(v22 + 160);
+            *(v45 + 16) = v46;
             __strlcpy_chk();
-            strlcpy((v50 + 88), (v23 + 88), 0x10uLL);
+            strlcpy((v45 + 88), (v22 + 88), 0x10uLL);
             ps_ringbuffer_close_allocation();
           }
         }
 
         else
         {
-          v13 = v56;
+          v12 = v51;
         }
 
-        *(v23 + 240) = 0;
+        *(v22 + 240) = 0;
         goto LABEL_11;
       }
 
-      atomic_fetch_add((v23 + 224), 1uLL);
-      v12 = v54;
-      a1 = v55;
-      v13 = v56;
+      atomic_fetch_add((v22 + 224), 1uLL);
+      v11 = v49;
+      a1 = v50;
+      v12 = v51;
 LABEL_27:
-      if (v17 == v13)
+      if (v16 == v12)
       {
-        v14 = *(a1 + 8);
-        v45 = v52;
-        v44 = HIDWORD(v52);
-        v46 = v59;
+        v13 = *(a1 + 8);
+        v41 = v47;
+        v40 = HIDWORD(v47);
+        v42 = v53;
         goto LABEL_39;
       }
     }
 
-    if (*(v23 + 352) == 1 && *(v23 + 344))
+    if (*(v22 + 352) == 1 && *(v22 + 344))
     {
       *(a1 + 128) = 1;
-      v60 = vrev64_s32(*(v23 + 104));
-      atomic_load(v23);
-      v64 = *(v23 + 160);
-      v67 = *(v23 + 344);
+      atomic_load(v22);
       pbs_ringbufferlogger_shared_write();
     }
 
-    *(v23 + 240) = 0;
-    *(v23 + 336) = 0;
-    *(v23 + 344) = 0;
-    *(v23 + 352) = 1;
+    *(v22 + 240) = 0;
+    *(v22 + 336) = 0;
+    *(v22 + 344) = 0;
+    *(v22 + 352) = 1;
 LABEL_11:
-    v24 = *(v23 + 232);
-    *(v23 + 232) = v12;
-    v25 = *(v23 + 264);
-    v26.i64[0] = 255;
-    v26.i64[1] = 255;
-    v27 = vandq_s8(vshlq_u64(vdupq_n_s64(0), xmmword_25EB77810), v26);
-    *(v23 + 272) = v27;
-    *(v23 + 248) = vaddq_s64(*(v23 + 248), v27);
-    *(v23 + 264) = v25;
-    *(v23 + 304) = 0;
-    *(v23 + 312) = v22 >> 36;
-    *(v23 + 320) = (v22 >> 4);
-    v28 = *(v23 + 296);
-    if (v28 >= 1.0)
+    v23 = *(v22 + 232);
+    *(v22 + 232) = v11;
+    v24 = *(v22 + 264);
+    v25.i64[0] = 255;
+    v25.i64[1] = 255;
+    v26 = vandq_s8(vshlq_u64(vdupq_n_s64(0), xmmword_25EB77810), v25);
+    *(v22 + 272) = v26;
+    *(v22 + 248) = vaddq_s64(*(v22 + 248), v26);
+    *(v22 + 264) = v24;
+    *(v22 + 304) = 0;
+    *(v22 + 312) = v21 >> 36;
+    *(v22 + 320) = (v21 >> 4);
+    v27 = *(v22 + 296);
+    if (v27 >= 1.0)
     {
-      *(v23 + 328) = *(v23 + 288);
-      *(v23 + 288) = 0;
-      *(v23 + 296) = 0;
+      *(v22 + 328) = *(v22 + 288);
+      *(v22 + 288) = 0;
+      *(v22 + 296) = 0;
     }
 
     else
     {
-      *(v23 + 296) = ((v12 - v24) * v53) / v16 / 1000000000.0 + v28;
-      *(v23 + 288) += v27.i64[1];
+      *(v22 + 296) = ((v11 - v23) * v48) / v15 / 1000000000.0 + v27;
+      *(v22 + 288) += v26.i64[1];
     }
 
-    atomic_fetch_add((v23 + 224), 1uLL);
-    if (*(*(a1 + 8) + 4) & 2) != 0 || (*(v23 + 112))
+    atomic_fetch_add((v22 + 224), 1uLL);
+    if (*(*(a1 + 8) + 4) & 2) != 0 || (*(v22 + 112))
     {
-      v39 = ps_ringbuffer_allocate();
-      *v39 = v22;
-      *(v39 + 8) = 0;
-      *(v39 + 24) = *(v23 + 116);
-      *(v39 + 16) = *(v23 + 168);
+      v36 = ps_ringbuffer_allocate();
+      *v36 = v21;
+      *(v36 + 8) = 0;
+      *(v36 + 24) = *(v22 + 116);
+      *(v36 + 16) = *(v22 + 168);
       ps_ringbuffer_close_allocation();
     }
 
     goto LABEL_27;
   }
 
-  v45 = 0;
-  v44 = 0;
-  v46 = 0;
+  v41 = 0;
+  v40 = 0;
+  v42 = 0;
 LABEL_39:
-  atomic_load((v14 + 56));
-  v47 = ps_ringbuffer_allocate();
-  *(v47 + 40) = v45;
-  if (v45)
+  atomic_load((v13 + 56));
+  v43 = ps_ringbuffer_allocate();
+  *(v43 + 40) = v41;
+  if (v41)
   {
     MEMORY[0x25F8C98A0](*(a1 + 88));
   }
 
-  *(v47 + 16) = 0;
-  *(v47 + 24) = 0;
-  *(v47 + 32) = 0;
-  *v47 = v13;
-  *(v47 + 4) = v46;
-  *(v47 + 8) = 0;
-  *(v47 + 12) = v44;
+  *(v43 + 16) = 0;
+  *(v43 + 24) = 0;
+  *(v43 + 32) = 0;
+  *v43 = v12;
+  *(v43 + 4) = v42;
+  *(v43 + 8) = 0;
+  *(v43 + 12) = v40;
   ps_ringbuffer_close_allocation();
   *(a1 + 128) = 4;
-  v48 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v11;
 }
 
 void ps_liveness_server_pause_liveness()
@@ -8291,7 +7790,7 @@ void ps_liveness_server_pause_liveness()
     }
 
     while (!_ZF);
-    v9 = _polarisdLogSharedInstance();
+    v9 = _polarisdLogSharedInstance(0, 0x8000000000000000);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *v10 = 0;
@@ -8314,20 +7813,13 @@ void ps_liveness_server_resume_liveness()
   }
 }
 
-uint64_t ps_liveness_log_decode_init()
-{
-  pbs_ringbuffer_declare_format_string();
-
-  return pbs_ringbuffer_declare_format_string();
-}
-
 void OUTLINED_FUNCTION_1_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint8_t *a5)
 {
 
   _os_log_impl(a1, v5, OS_LOG_TYPE_FAULT, a4, a5, 0x1Cu);
 }
 
-uint64_t __PSSGLogSharedInstance()
+uint64_t __PSSGLogSharedInstance(uint64_t a1, uint64_t a2)
 {
   if (__PSSGLogSharedInstance_onceToken != -1)
   {
@@ -8337,7 +7829,7 @@ uint64_t __PSSGLogSharedInstance()
   return __PSSGLogSharedInstance_sharedInstance;
 }
 
-uint64_t __PSSysHealthLogSharedInstance()
+uint64_t __PSSysHealthLogSharedInstance(uint64_t a1, uint64_t a2)
 {
   if (__PSSysHealthLogSharedInstance_onceToken != -1)
   {
@@ -8349,7 +7841,7 @@ uint64_t __PSSysHealthLogSharedInstance()
 
 id PSSH::getProcessMonitorConfigDict(PSSH *this)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v1 = PSSH::getProcessMonitorConfigDict(void)::configDict;
   if (PSSH::getProcessMonitorConfigDict(void)::configDict)
   {
@@ -8357,106 +7849,112 @@ id PSSH::getProcessMonitorConfigDict(PSSH *this)
   }
 
   size = 0;
-  if (sysctlbyname("kern.bootargs", 0, &size, 0, 0) || (v9 = malloc_type_malloc(size, 0x100004077774924uLL)) == 0 || sysctlbyname("kern.bootargs", v9, &size, 0, 0))
+  if (sysctlbyname("kern.bootargs", 0, &size, 0, 0) || (v12 = malloc_type_malloc(size, 0x100004077774924uLL)) == 0 || sysctlbyname("kern.bootargs", v12, &size, 0, 0))
   {
     v2 = 0;
   }
 
   else
   {
-    v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:v9];
-    free(v9);
-    if ([v2 containsString:@"polaris_systemhealth=0"])
+    v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:v12];
+    free(v12);
+    v13 = [v2 containsString:@"polaris_systemhealth=0"];
+    if (v13)
     {
-      v10 = __PSSysHealthLogSharedInstance();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v15 = __PSSysHealthLogSharedInstance(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v33 = "getConfigKey";
-        v34 = 2112;
-        v35 = PSSH::DISABLE_CONFIG_KEY;
-        _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_DEFAULT, "%s() boot-args : %@", buf, 0x16u);
+        v46 = "getConfigKey";
+        v47 = 2112;
+        v48 = PSSH::DISABLE_CONFIG_KEY;
+        _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_DEFAULT, "%s() boot-args : %@", buf, 0x16u);
       }
 
-      v11 = PSSH::DISABLE_CONFIG_KEY;
+      v16 = PSSH::DISABLE_CONFIG_KEY;
 LABEL_42:
-      v12 = v11;
+      v19 = v16;
       goto LABEL_24;
     }
 
-    if ([v2 containsString:@"polaris_systemhealth=1"])
+    v38 = [v2 containsString:@"polaris_systemhealth=1"];
+    if (v38)
     {
-      v29 = __PSSysHealthLogSharedInstance();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v40 = __PSSysHealthLogSharedInstance(v38, v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v33 = "getConfigKey";
-        v34 = 2112;
-        v35 = PSSH::PROFILE_1_CONFIG_KEY;
-        _os_log_impl(&dword_25EA3A000, v29, OS_LOG_TYPE_DEFAULT, "%s() boot-args : %@", buf, 0x16u);
+        v46 = "getConfigKey";
+        v47 = 2112;
+        v48 = PSSH::PROFILE_1_CONFIG_KEY;
+        _os_log_impl(&dword_25EA3A000, v40, OS_LOG_TYPE_DEFAULT, "%s() boot-args : %@", buf, 0x16u);
       }
 
-      v11 = PSSH::PROFILE_1_CONFIG_KEY;
+      v16 = PSSH::PROFILE_1_CONFIG_KEY;
       goto LABEL_42;
     }
 
-    if ([v2 containsString:@"polaris_systemhealth=2"])
+    v41 = [v2 containsString:@"polaris_systemhealth=2"];
+    if (v41)
     {
-      v30 = __PSSysHealthLogSharedInstance();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v43 = __PSSysHealthLogSharedInstance(v41, v42);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v33 = "getConfigKey";
-        v34 = 2112;
-        v35 = PSSH::PROFILE_2_CONFIG_KEY;
-        _os_log_impl(&dword_25EA3A000, v30, OS_LOG_TYPE_DEFAULT, "%s() boot-args : %@", buf, 0x16u);
+        v46 = "getConfigKey";
+        v47 = 2112;
+        v48 = PSSH::PROFILE_2_CONFIG_KEY;
+        _os_log_impl(&dword_25EA3A000, v43, OS_LOG_TYPE_DEFAULT, "%s() boot-args : %@", buf, 0x16u);
       }
 
-      v11 = PSSH::PROFILE_2_CONFIG_KEY;
+      v16 = PSSH::PROFILE_2_CONFIG_KEY;
       goto LABEL_42;
     }
   }
 
   v3 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.polaris"];
   v4 = [v3 stringForKey:@"systemHealthConfig"];
-  v5 = v4;
+  v6 = v4;
   if (!v4)
   {
     goto LABEL_20;
   }
 
-  if ([v4 isEqualToString:PSSH::PROFILE_1_CONFIG_KEY])
+  v7 = [v4 isEqualToString:PSSH::PROFILE_1_CONFIG_KEY];
+  if (v7)
   {
-    v6 = __PSSysHealthLogSharedInstance();
-    v7 = &PSSH::PROFILE_1_CONFIG_KEY;
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v9 = __PSSysHealthLogSharedInstance(v7, v8);
+    v10 = &PSSH::PROFILE_1_CONFIG_KEY;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v33 = "getConfigKey";
-      v34 = 2112;
-      v35 = PSSH::PROFILE_1_CONFIG_KEY;
-      v8 = "%s() defaults write : %@";
+      v46 = "getConfigKey";
+      v47 = 2112;
+      v48 = PSSH::PROFILE_1_CONFIG_KEY;
+      v11 = "%s() defaults write : %@";
 LABEL_22:
-      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEFAULT, v8, buf, 0x16u);
+      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_DEFAULT, v11, buf, 0x16u);
       goto LABEL_23;
     }
 
     goto LABEL_23;
   }
 
-  if (![v5 isEqualToString:PSSH::PROFILE_2_CONFIG_KEY])
+  v17 = [v6 isEqualToString:PSSH::PROFILE_2_CONFIG_KEY];
+  if (!v17)
   {
-    if ([v5 isEqualToString:PSSH::DISABLE_CONFIG_KEY])
+    v4 = [v6 isEqualToString:PSSH::DISABLE_CONFIG_KEY];
+    if (v4)
     {
-      v6 = __PSSysHealthLogSharedInstance();
-      v7 = &PSSH::DISABLE_CONFIG_KEY;
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v9 = __PSSysHealthLogSharedInstance(v4, v5);
+      v10 = &PSSH::DISABLE_CONFIG_KEY;
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v33 = "getConfigKey";
-        v34 = 2112;
-        v35 = PSSH::DISABLE_CONFIG_KEY;
-        v8 = "%s() defaults write : %@";
+        v46 = "getConfigKey";
+        v47 = 2112;
+        v48 = PSSH::DISABLE_CONFIG_KEY;
+        v11 = "%s() defaults write : %@";
         goto LABEL_22;
       }
 
@@ -8464,107 +7962,106 @@ LABEL_22:
     }
 
 LABEL_20:
-    v6 = __PSSysHealthLogSharedInstance();
-    v7 = &PSSH::DEFAULT_CONFIG;
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v9 = __PSSysHealthLogSharedInstance(v4, v5);
+    v10 = &PSSH::DEFAULT_CONFIG;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v33 = "getConfigKey";
-      v34 = 2112;
-      v35 = PSSH::DEFAULT_CONFIG;
-      v8 = "%s() Build default : %@";
+      v46 = "getConfigKey";
+      v47 = 2112;
+      v48 = PSSH::DEFAULT_CONFIG;
+      v11 = "%s() Build default : %@";
       goto LABEL_22;
     }
 
     goto LABEL_23;
   }
 
-  v6 = __PSSysHealthLogSharedInstance();
-  v7 = &PSSH::PROFILE_2_CONFIG_KEY;
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v9 = __PSSysHealthLogSharedInstance(v17, v18);
+  v10 = &PSSH::PROFILE_2_CONFIG_KEY;
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v33 = "getConfigKey";
-    v34 = 2112;
-    v35 = PSSH::PROFILE_2_CONFIG_KEY;
-    v8 = "%s() defaults write : %@";
+    v46 = "getConfigKey";
+    v47 = 2112;
+    v48 = PSSH::PROFILE_2_CONFIG_KEY;
+    v11 = "%s() defaults write : %@";
     goto LABEL_22;
   }
 
 LABEL_23:
 
-  v12 = *v7;
+  v19 = *v10;
 LABEL_24:
 
-  v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v14 = [v13 resourcePath];
+  v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v21 = [v20 resourcePath];
 
-  v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@/PolarisSystemHealth.plist", v14];
-  v16 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@/PolarisSystemHealth.plist", v21];
+  v24 = __PSSysHealthLogSharedInstance(v22, v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = v15;
-    v18 = [v15 UTF8String];
-    v19 = v12;
-    v20 = [(__CFString *)v12 UTF8String];
+    v25 = v22;
+    v26 = [v22 UTF8String];
+    v27 = v19;
+    v28 = [(__CFString *)v19 UTF8String];
     *buf = 136315650;
-    v33 = "getProcessMonitorConfigDict";
-    v34 = 2080;
-    v35 = v18;
-    v36 = 2080;
-    v37 = v20;
-    _os_log_impl(&dword_25EA3A000, v16, OS_LOG_TYPE_DEFAULT, "%s() reading config file from %s. using %s config", buf, 0x20u);
+    v46 = "getProcessMonitorConfigDict";
+    v47 = 2080;
+    v48 = v26;
+    v49 = 2080;
+    v50 = v28;
+    _os_log_impl(&dword_25EA3A000, v24, OS_LOG_TYPE_DEFAULT, "%s() reading config file from %s. using %s config", buf, 0x20u);
   }
 
-  v21 = [MEMORY[0x277CBEB38] dictionaryWithContentsOfFile:v15];
-  v22 = [v21 objectForKeyedSubscript:v12];
-  v23 = PSSH::getProcessMonitorConfigDict(void)::configDict;
-  PSSH::getProcessMonitorConfigDict(void)::configDict = v22;
+  v29 = [MEMORY[0x277CBEB38] dictionaryWithContentsOfFile:v22];
+  v30 = [v29 objectForKeyedSubscript:v19];
+  v31 = PSSH::getProcessMonitorConfigDict(void)::configDict;
+  PSSH::getProcessMonitorConfigDict(void)::configDict = v30;
 
   if (!PSSH::getProcessMonitorConfigDict(void)::configDict)
   {
-    v24 = __PSSysHealthLogSharedInstance();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v34 = __PSSysHealthLogSharedInstance(v32, v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      v25 = v15;
-      v26 = [v15 UTF8String];
+      v35 = v22;
+      v36 = [v22 UTF8String];
       *buf = 136315394;
-      v33 = "getProcessMonitorConfigDict";
-      v34 = 2080;
-      v35 = v26;
-      _os_log_impl(&dword_25EA3A000, v24, OS_LOG_TYPE_ERROR, "%s() Failed reading config file from %s.", buf, 0x16u);
+      v46 = "getProcessMonitorConfigDict";
+      v47 = 2080;
+      v48 = v36;
+      _os_log_impl(&dword_25EA3A000, v34, OS_LOG_TYPE_ERROR, "%s() Failed reading config file from %s.", buf, 0x16u);
     }
   }
 
   v1 = PSSH::getProcessMonitorConfigDict(void)::configDict;
 LABEL_31:
-  v27 = *MEMORY[0x277D85DE8];
 
   return v1;
 }
 
-uint64_t PSSH::getProcessDeathParams(uint64_t a1, uint64_t *a2)
+uint64_t PSSH::getProcessDeathParams(uint64_t *a1, uint64_t a2)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v4 = PSSH::getProcessConfig(a1);
-  v5 = v4;
+  v6 = v4;
   if (v4)
   {
-    v6 = [v4 objectForKey:PSSH::MINIMAL_DEATH_INTERVAL_KEY];
-    *a2 = [v6 intValue];
+    v7 = [v4 objectForKey:PSSH::MINIMAL_DEATH_INTERVAL_KEY];
+    *a2 = [v7 intValue];
 
-    v7 = [v5 objectForKey:PSSH::DEATH_COUNT_THRESHOLD_KEY];
-    a2[1] = [v7 intValue];
+    v8 = [v6 objectForKey:PSSH::DEATH_COUNT_THRESHOLD_KEY];
+    *(a2 + 8) = [v8 intValue];
 
-    v8 = [v5 objectForKey:PSSH::PAUSE_SYSTEM_ACTION_DURATION_KEY];
-    a2[5] = [v8 intValue];
+    v9 = [v6 objectForKey:PSSH::PAUSE_SYSTEM_ACTION_DURATION_KEY];
+    *(a2 + 40) = [v9 intValue];
 
-    v9 = [v5 objectForKey:PSSH::ENABLE_APPLE_PAY_LOCK_KEY];
+    v10 = [v6 objectForKey:PSSH::ENABLE_APPLE_PAY_LOCK_KEY];
 
-    if (v9)
+    if (v10)
     {
-      v10 = [v5 objectForKey:PSSH::ENABLE_APPLE_PAY_LOCK_KEY];
-      *(a2 + 48) = [v10 BOOLValue];
+      v11 = [v6 objectForKey:PSSH::ENABLE_APPLE_PAY_LOCK_KEY];
+      *(a2 + 48) = [v11 BOOLValue];
     }
 
     else
@@ -8572,173 +8069,171 @@ uint64_t PSSH::getProcessDeathParams(uint64_t a1, uint64_t *a2)
       *(a2 + 48) = 1;
     }
 
-    v14 = [v5 objectForKey:PSSH::DEATH_PST_TRANSITION_KEY];
+    v15 = [v6 objectForKey:PSSH::DEATH_PST_TRANSITION_KEY];
 
-    if (v14)
+    if (v15)
     {
-      v15 = [v5 objectForKey:PSSH::DEATH_PST_TRANSITION_KEY];
-      MEMORY[0x25F8C7A80](a2 + 2, [v15 UTF8String]);
+      v16 = [v6 objectForKey:PSSH::DEATH_PST_TRANSITION_KEY];
+      MEMORY[0x25F8C7A80](a2 + 16, [v16 UTF8String]);
     }
 
     else
     {
-      MEMORY[0x25F8C7A80](a2 + 2, "");
+      MEMORY[0x25F8C7A80](a2 + 16, "");
     }
 
-    PSSH::getKillDaemonList(v5, __s1);
-    std::vector<std::string>::__vdeallocate((a2 + 7));
-    *(a2 + 7) = *__s1;
-    a2[9] = *&__s1[16];
+    PSSH::getKillDaemonList(__s1, v6);
+    std::vector<std::string>::__vdeallocate((a2 + 56));
+    *(a2 + 56) = *__s1;
+    *(a2 + 72) = *&__s1[16];
     memset(__s1, 0, 24);
-    *v34 = __s1;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v34);
-    v11 = __PSSysHealthLogSharedInstance();
-    if (os_signpost_enabled(v11))
+    *v37 = __s1;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v37);
+    v12 = __PSSysHealthLogSharedInstance(v17, v18);
+    if (os_signpost_enabled(v12))
     {
       if (*(a1 + 23) >= 0)
       {
-        v16 = a1;
+        v19 = a1;
       }
 
       else
       {
-        v16 = *a1;
+        v19 = *a1;
       }
 
-      v29 = *a2;
-      v31 = a2[1];
+      v32 = *a2;
+      v34 = *(a2 + 8);
       if (*(a2 + 39) >= 0)
       {
-        v17 = a2 + 2;
+        v20 = a2 + 16;
       }
 
       else
       {
-        v17 = a2[2];
+        v20 = *(a2 + 16);
       }
 
-      v18 = a2[5];
-      v30 = *(a2 + 48);
-      v60 = 0;
-      v58 = 0u;
+      v21 = *(a2 + 40);
+      HIDWORD(v33) = *(a2 + 48);
+      v61 = 0;
       v59 = 0u;
-      v56 = 0u;
+      v60 = 0u;
       v57 = 0u;
-      v54 = 0u;
+      v58 = 0u;
       v55 = 0u;
-      v52 = 0u;
+      v56 = 0u;
       v53 = 0u;
-      v50 = 0u;
+      v54 = 0u;
       v51 = 0u;
+      v52 = 0u;
       memset(__s1, 0, sizeof(__s1));
-      v19 = a2[7];
-      v20 = a2[8];
-      if (v19 != v20)
+      v22 = *(a2 + 56);
+      v23 = *(a2 + 64);
+      if (v22 != v23)
       {
-        v21 = 199;
+        v24 = 199;
         do
         {
-          if (*(v19 + 23) < 0)
+          if (*(v22 + 23) < 0)
           {
-            v22 = *v19;
-            strncat(__s1, *v19, v21);
+            v25 = *v22;
+            strncat(__s1, *v22, v24);
           }
 
           else
           {
-            strncat(__s1, v19, v21);
-            v22 = v19;
+            strncat(__s1, v22, v24);
+            v25 = v22;
           }
 
-          v23 = strlen(v22);
-          v24 = v21 > v23;
-          v25 = v21 - v23;
-          if (!v24)
+          v26 = strlen(v25);
+          v27 = v24 > v26;
+          v28 = v24 - v26;
+          if (!v27)
           {
             break;
           }
 
-          strncat(__s1, ", ", v25);
-          if (v25 < 3)
+          strncat(__s1, ", ", v28);
+          if (v28 < 3)
           {
             break;
           }
 
-          v21 = v25 - 2;
-          v19 += 24;
+          v24 = v28 - 2;
+          v22 += 24;
         }
 
-        while (v19 != v20);
+        while (v22 != v23);
       }
 
       std::string::basic_string[abi:ne200100]<0>(__p, __s1);
-      if (v33 >= 0)
+      if (v36 >= 0)
       {
-        v26 = __p;
+        v29 = __p;
       }
 
       else
       {
-        v26 = __p[0];
+        v29 = __p[0];
       }
 
-      *v34 = 136316930;
-      *&v34[4] = "getProcessDeathParams";
-      v35 = 2080;
-      v36 = v16;
-      v37 = 2048;
-      v38 = v29;
-      v39 = 2048;
-      v40 = v31;
-      v41 = 2080;
-      v42 = v17;
-      v43 = 2048;
-      v44 = v18;
-      v45 = 1024;
-      v46 = v30;
-      v47 = 2080;
-      v48 = v26;
-      _os_signpost_emit_unreliably_with_name_impl();
-      if (v33 < 0)
+      *&v37[4] = "getProcessDeathParams";
+      *&v37[12] = 2080;
+      *&v37[14] = v19;
+      v38 = 2048;
+      v39 = v32;
+      v40 = 2048;
+      v41 = v34;
+      v42 = 2080;
+      v43 = v20;
+      v44 = 2048;
+      v45 = v21;
+      v46 = 1024;
+      v47 = HIDWORD(v33);
+      v48 = 2080;
+      v49 = v29;
+      _os_signpost_emit_unreliably_with_name_impl(&dword_25EA3A000, v12, 0, 0xEEEEB0B5B2B2EEEELL, "PSSH Log", "%s() processName=[%s] deathIntervalMs=[%llu] deathCountThreshold=[%llu] deathTransition=[%s] pauseSystemActionDurationMs=[%llu] enableApplePayLock=[%d] killDaemonList=[%s]", v32, v33, v34, __p[0], __p[1], v36, 136316930, *&v37[8]);
+      if (SHIBYTE(v36) < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v11 = __PSSysHealthLogSharedInstance();
-    v12 = 3758097136;
-    if (os_signpost_enabled(v11))
+    v12 = __PSSysHealthLogSharedInstance(0, v5);
+    v13 = 3758097136;
+    if (os_signpost_enabled(v12))
     {
       if (*(a1 + 23) >= 0)
       {
-        v13 = a1;
+        v14 = a1;
       }
 
       else
       {
-        v13 = *a1;
+        v14 = *a1;
       }
 
       *__s1 = 136315394;
       *&__s1[4] = "getProcessDeathParams";
       *&__s1[12] = 2080;
-      *&__s1[14] = v13;
-      _os_signpost_emit_unreliably_with_name_impl();
+      *&__s1[14] = v14;
+      _os_signpost_emit_unreliably_with_name_impl(&dword_25EA3A000, v12, 0, 0xEEEEB0B5B2B2EEEELL, "PSSH Log", "%s() process %s config not found", v31, v33);
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v13;
 }
 
 id PSSH::getProcessConfig(uint64_t *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (*(a1 + 23) >= 0)
   {
     v1 = a1;
@@ -8753,26 +8248,26 @@ id PSSH::getProcessConfig(uint64_t *a1)
   v3 = PSSH::getProcessMonitorConfigDict(v2);
   v4 = [v3 objectForKey:PSSH::PROCESS_MONITOR_CONFIG_KEY];
   [v4 allKeys];
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v5 = v15 = 0u;
+  v13 = 0u;
+  v5 = v14 = 0u;
   v6 = 0;
-  v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        if ([v10 hasPrefix:{v2, v14}])
+        v10 = *(*(&v13 + 1) + 8 * i);
+        if ([v10 hasPrefix:{v2, v13}])
         {
           v11 = [v4 objectForKey:v10];
 
@@ -8780,109 +8275,107 @@ id PSSH::getProcessConfig(uint64_t *a1)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
-void PSSH::getKillDaemonList(PSSH *this@<X0>, uint64_t a2@<X8>)
+void PSSH::getKillDaemonList(std::allocator<std::string> *__return_ptr a1@<X8>, PSSH *this@<X0>)
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v28 = this;
-  v4 = [(PSSH *)v28 objectForKey:PSSH::KILL_DAEMON_LIST_KEY];
-  v5 = v4;
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  if (v4)
+  v36 = *MEMORY[0x277D85DE8];
+  v26 = this;
+  v3 = [(PSSH *)v26 objectForKey:PSSH::KILL_DAEMON_LIST_KEY];
+  v4 = v3;
+  *a1 = 0;
+  *(a1 + 1) = 0;
+  *(a1 + 2) = 0;
+  if (v3)
   {
-    v34 = 0u;
-    v35 = 0u;
     v32 = 0u;
     v33 = 0u;
-    obj = v4;
-    v6 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
-    if (v6)
+    v30 = 0u;
+    v31 = 0u;
+    obj = v3;
+    v5 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+    if (v5)
     {
-      v7 = *v33;
-      v8 = v5;
+      v6 = *v31;
+      v7 = v4;
       do
       {
-        v9 = 0;
+        v8 = 0;
         do
         {
-          if (*v33 != v7)
+          if (*v31 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v32 + 1) + 8 * v9);
-          v11 = v10;
-          std::string::basic_string[abi:ne200100]<0>(__p, [v10 UTF8String]);
-          v13 = *(a2 + 8);
-          v12 = *(a2 + 16);
-          if (v13 >= v12)
+          v9 = *(*(&v30 + 1) + 8 * v8);
+          v10 = v9;
+          std::string::basic_string[abi:ne200100]<0>(__p, [v9 UTF8String]);
+          v12 = *(a1 + 1);
+          v11 = *(a1 + 2);
+          if (v12 >= v11)
           {
-            v15 = 0xAAAAAAAAAAAAAAABLL * ((v13 - *a2) >> 3);
-            v16 = v15 + 1;
-            if (v15 + 1 > 0xAAAAAAAAAAAAAAALL)
+            v14 = 0xAAAAAAAAAAAAAAABLL * ((v12 - *a1) >> 3);
+            v15 = v14 + 1;
+            if (v14 + 1 > 0xAAAAAAAAAAAAAAALL)
             {
               std::vector<unsigned int>::__throw_length_error[abi:ne200100]();
             }
 
-            v17 = 0xAAAAAAAAAAAAAAABLL * ((v12 - *a2) >> 3);
-            if (2 * v17 > v16)
+            v16 = 0xAAAAAAAAAAAAAAABLL * ((v11 - *a1) >> 3);
+            if (2 * v16 > v15)
             {
-              v16 = 2 * v17;
+              v15 = 2 * v16;
             }
 
-            if (v17 >= 0x555555555555555)
+            if (v16 >= 0x555555555555555)
             {
-              v18 = 0xAAAAAAAAAAAAAAALL;
+              v17 = 0xAAAAAAAAAAAAAAALL;
             }
 
             else
             {
-              v18 = v16;
+              v17 = v15;
             }
 
-            v36.__end_cap_.__value_ = a2;
-            if (v18)
+            v34.__end_cap_.__value_ = a1;
+            if (v17)
             {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(a2, v18);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(a1, v17);
             }
 
-            v19 = 24 * v15;
-            v20 = *__p;
-            *(v19 + 16) = v31;
-            *v19 = v20;
+            v18 = 24 * v14;
+            v19 = *__p;
+            *(v18 + 16) = v29;
+            *v18 = v19;
             __p[1] = 0;
-            v31 = 0;
+            v29 = 0;
             __p[0] = 0;
-            v21 = 24 * v15 + 24;
-            v22 = *(a2 + 8) - *a2;
-            v23 = 24 * v15 - v22;
-            memcpy((v19 - v22), *a2, v22);
-            v24 = *a2;
-            *a2 = v23;
-            *(a2 + 8) = v21;
-            v25 = *(a2 + 16);
-            *(a2 + 16) = 0;
-            v36.__end_ = v24;
-            v36.__end_cap_.__value_ = v25;
-            v36.__first_ = v24;
-            v36.__begin_ = v24;
-            std::__split_buffer<std::string>::~__split_buffer(&v36);
-            v26 = SHIBYTE(v31);
-            *(a2 + 8) = v21;
-            v5 = v8;
-            if (v26 < 0)
+            v20 = 24 * v14 + 24;
+            v21 = *(a1 + 1) - *a1;
+            v22 = 24 * v14 - v21;
+            memcpy((v18 - v21), *a1, v21);
+            v23 = *a1;
+            *a1 = v22;
+            *(a1 + 1) = v20;
+            v24 = *(a1 + 2);
+            *(a1 + 2) = 0;
+            v34.__end_ = v23;
+            v34.__end_cap_.__value_ = v24;
+            v34.__first_ = v23;
+            v34.__begin_ = v23;
+            std::__split_buffer<std::string>::~__split_buffer(&v34);
+            v25 = SHIBYTE(v29);
+            *(a1 + 1) = v20;
+            v4 = v7;
+            if (v25 < 0)
             {
               operator delete(__p[0]);
             }
@@ -8890,24 +8383,22 @@ void PSSH::getKillDaemonList(PSSH *this@<X0>, uint64_t a2@<X8>)
 
           else
           {
-            v14 = *__p;
-            *(v13 + 16) = v31;
-            *v13 = v14;
-            *(a2 + 8) = v13 + 24;
+            v13 = *__p;
+            *(v12 + 16) = v29;
+            *v12 = v13;
+            *(a1 + 1) = v12 + 24;
           }
 
-          ++v9;
+          ++v8;
         }
 
-        while (v6 != v9);
-        v6 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+        while (v5 != v8);
+        v5 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
-      while (v6);
+      while (v5);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25EAC1B2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -8925,9 +8416,9 @@ BOOL PSSH::processHasDeathParams(uint64_t *a1)
   return v2;
 }
 
-uint64_t PSSH::getGraphRecoveryAction(const char *a1, uint64_t *a2, int *a3, uint64_t *a4)
+uint64_t PSSH::getGraphRecoveryAction(const char *a1, char *a2, int *a3, void **a4)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   if (a1[23] >= 0)
   {
     v8 = a1;
@@ -8940,7 +8431,7 @@ uint64_t PSSH::getGraphRecoveryAction(const char *a1, uint64_t *a2, int *a3, uin
 
   v9 = [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
   v10 = MEMORY[0x277CCACA8];
-  v11 = *(a2 + 23);
+  v11 = a2[23];
   v12 = *a2;
   v13 = [MEMORY[0x277CCACA8] defaultCStringEncoding];
   if (v11 >= 0)
@@ -8960,47 +8451,47 @@ uint64_t PSSH::getGraphRecoveryAction(const char *a1, uint64_t *a2, int *a3, uin
 
   if (v18)
   {
-    if (ps_util_is_internal_build())
+    if (ps_util_is_internal_build(v19, v20))
     {
-      v19 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.polaris"];
-      v20 = [v19 integerForKey:@"waitTimeBeforeKillMs"];
+      v21 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.polaris"];
+      v22 = [v21 integerForKey:@"waitTimeBeforeKillMs"];
     }
 
     else
     {
-      v19 = [v17 objectForKey:PSSH::WAIT_BEFORE_KILL_KEY];
-      v20 = [v19 integerValue];
+      v21 = [v17 objectForKey:PSSH::WAIT_BEFORE_KILL_KEY];
+      v22 = [v21 integerValue];
     }
 
-    *a4 = v20;
+    *a4 = v22;
 
-    v21 = __PSSysHealthLogSharedInstance();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v25 = __PSSysHealthLogSharedInstance(v23, v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      v22 = *a4;
-      v42 = 136315394;
-      v43 = "getGraphRecoveryAction";
-      v44 = 2048;
-      v45 = v22;
-      _os_log_impl(&dword_25EA3A000, v21, OS_LOG_TYPE_DEBUG, "%s() waitTimeBeforeKillMs: %llu", &v42, 0x16u);
+      v26 = *a4;
+      v51 = 136315394;
+      v52 = "getGraphRecoveryAction";
+      v53 = 2048;
+      v54 = v26;
+      _os_log_impl(&dword_25EA3A000, v25, OS_LOG_TYPE_DEBUG, "%s() waitTimeBeforeKillMs: %llu", &v51, 0x16u);
     }
   }
 
-  v23 = [v17 objectForKey:v9];
-  v24 = v23 == 0;
+  v27 = [v17 objectForKey:v9];
+  v28 = v27 == 0;
 
-  if (v24)
+  if (v28)
   {
-    v34 = __PSSysHealthLogSharedInstance();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    v44 = __PSSysHealthLogSharedInstance(v29, v30);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
     {
-      v35 = v9;
-      v36 = [v9 UTF8String];
-      v42 = 136315394;
-      v43 = "getGraphRecoveryAction";
-      v44 = 2080;
-      v45 = v36;
-      _os_log_impl(&dword_25EA3A000, v34, OS_LOG_TYPE_DEBUG, "%s() sessionName %s config not found", &v42, 0x16u);
+      v45 = v9;
+      v46 = [v9 UTF8String];
+      v51 = 136315394;
+      v52 = "getGraphRecoveryAction";
+      v53 = 2080;
+      v54 = v46;
+      _os_log_impl(&dword_25EA3A000, v44, OS_LOG_TYPE_DEBUG, "%s() sessionName %s config not found", &v51, 0x16u);
     }
 
     GraphDefaultAction = PSSH::getGraphDefaultAction(v17, a3);
@@ -9008,22 +8499,22 @@ uint64_t PSSH::getGraphRecoveryAction(const char *a1, uint64_t *a2, int *a3, uin
 
   else
   {
-    v25 = [v17 objectForKeyedSubscript:v9];
-    v26 = [v25 objectForKey:v15];
-    v27 = v26 == 0;
+    v31 = [v17 objectForKeyedSubscript:v9];
+    v32 = [v31 objectForKey:v15];
+    v33 = v32 == 0;
 
-    if (v27)
+    if (v33)
     {
-      v37 = __PSSysHealthLogSharedInstance();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+      v47 = __PSSysHealthLogSharedInstance(v34, v35);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
       {
-        v38 = v15;
-        v39 = [(PSSH *)v15 UTF8String];
-        v42 = 136315394;
-        v43 = "getGraphRecoveryAction";
-        v44 = 2080;
-        v45 = v39;
-        _os_log_impl(&dword_25EA3A000, v37, OS_LOG_TYPE_DEBUG, "%s() graphName %s config not found", &v42, 0x16u);
+        v48 = v15;
+        v49 = [(PSSH *)v15 UTF8String];
+        v51 = 136315394;
+        v52 = "getGraphRecoveryAction";
+        v53 = 2080;
+        v54 = v49;
+        _os_log_impl(&dword_25EA3A000, v47, OS_LOG_TYPE_DEBUG, "%s() graphName %s config not found", &v51, 0x16u);
       }
 
       GraphDefaultAction = PSSH::getGraphDefaultAction(v17, a3);
@@ -9031,42 +8522,42 @@ uint64_t PSSH::getGraphRecoveryAction(const char *a1, uint64_t *a2, int *a3, uin
 
     else
     {
-      v28 = [v25 objectForKeyedSubscript:v15];
-      GraphDefaultAction = PSSH::parseGraphActionStr(v28, a3);
+      v36 = [v31 objectForKeyedSubscript:v15];
+      GraphDefaultAction = PSSH::parseGraphActionStr(v36, a3);
 
       if (!GraphDefaultAction)
       {
-        v30 = __PSSysHealthLogSharedInstance();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v40 = __PSSysHealthLogSharedInstance(v38, v39);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           if (a1[23] >= 0)
           {
-            v31 = a1;
+            v41 = a1;
           }
 
           else
           {
-            v31 = *a1;
+            v41 = *a1;
           }
 
-          if (*(a2 + 23) >= 0)
+          if (a2[23] >= 0)
           {
-            v32 = a2;
+            v42 = a2;
           }
 
           else
           {
-            v32 = *a2;
+            v42 = *a2;
           }
 
-          v33 = *a3;
-          v42 = 136315650;
-          v43 = v31;
-          v44 = 2080;
-          v45 = v32;
-          v46 = 1024;
-          v47 = v33;
-          _os_log_impl(&dword_25EA3A000, v30, OS_LOG_TYPE_DEFAULT, "getGraphRecoveryAction() sessionName=[%s] graphName=[%s] recoveryAction=%d", &v42, 0x1Cu);
+          v43 = *a3;
+          v51 = 136315650;
+          v52 = v41;
+          v53 = 2080;
+          v54 = v42;
+          v55 = 1024;
+          v56 = v43;
+          _os_log_impl(&dword_25EA3A000, v40, OS_LOG_TYPE_DEFAULT, "getGraphRecoveryAction() sessionName=[%s] graphName=[%s] recoveryAction=%d", &v51, 0x1Cu);
         }
 
         GraphDefaultAction = 0;
@@ -9074,42 +8565,40 @@ uint64_t PSSH::getGraphRecoveryAction(const char *a1, uint64_t *a2, int *a3, uin
     }
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return GraphDefaultAction;
 }
 
 uint64_t PSSH::getGraphDefaultAction(void *a1, int *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [v3 objectForKey:PSSH::GRAPH_HANG_DEFAULT_ACTION_KEY];
 
   if (v4)
   {
-    v5 = [v3 objectForKeyedSubscript:PSSH::GRAPH_HANG_DEFAULT_ACTION_KEY];
-    v6 = PSSH::parseGraphActionStr(v5, a2);
+    v7 = [v3 objectForKeyedSubscript:PSSH::GRAPH_HANG_DEFAULT_ACTION_KEY];
+    v8 = PSSH::parseGraphActionStr(v7, a2);
   }
 
   else
   {
-    v7 = __PSSysHealthLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = __PSSysHealthLogSharedInstance(v5, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "getGraphDefaultAction";
-      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEFAULT, "%s() default graph hang key not found", &v10, 0xCu);
+      v11 = 136315138;
+      v12 = "getGraphDefaultAction";
+      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_DEFAULT, "%s() default graph hang key not found", &v11, 0xCu);
     }
 
-    v6 = 3758097136;
+    v8 = 3758097136;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v8;
 }
 
 uint64_t PSSH::parseGraphActionStr(void *a1, int *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a1;
   if ([v3 isEqualToString:@"KillProcess"])
   {
@@ -9127,62 +8616,61 @@ LABEL_7:
     goto LABEL_11;
   }
 
-  if ([v3 isEqualToString:@"Ignore"])
+  v6 = [v3 isEqualToString:@"Ignore"];
+  if (v6)
   {
     v4 = 0;
     v5 = 2;
     goto LABEL_7;
   }
 
-  v6 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v8 = __PSSysHealthLogSharedInstance(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "parseGraphActionStr";
-    v11 = 2080;
-    v12 = [v3 UTF8String];
-    _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEFAULT, "%s() action %s not familiar", &v9, 0x16u);
+    v10 = 136315394;
+    v11 = "parseGraphActionStr";
+    v12 = 2080;
+    v13 = [v3 UTF8String];
+    _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEFAULT, "%s() action %s not familiar", &v10, 0x16u);
   }
 
   v4 = 3758097136;
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t PSSH::checkIsPanicEnabled(PSSH *this, BOOL *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = PSSH::getProcessMonitorConfigDict(this);
   v4 = [v3 objectForKey:PSSH::SYSTEM_ACTION_CONFIG_KEY];
   v5 = [v4 objectForKey:PSSH::ENABLE_PANIC_KEY];
 
   if (v5)
   {
-    v6 = [v4 objectForKey:PSSH::ENABLE_PANIC_KEY];
-    *this = [v6 BOOLValue];
+    v8 = [v4 objectForKey:PSSH::ENABLE_PANIC_KEY];
+    *this = [v8 BOOLValue];
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = __PSSysHealthLogSharedInstance();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = __PSSysHealthLogSharedInstance(v6, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315394;
-      v12 = "checkIsPanicEnabled";
-      v13 = 2080;
-      v14 = [PSSH::ENABLE_PANIC_KEY UTF8String];
-      _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEFAULT, "%s() [%s] key not found", &v11, 0x16u);
+      v12 = 136315394;
+      v13 = "checkIsPanicEnabled";
+      v14 = 2080;
+      v15 = [PSSH::ENABLE_PANIC_KEY UTF8String];
+      _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_DEFAULT, "%s() [%s] key not found", &v12, 0x16u);
     }
 
-    v7 = 3758097136;
+    v9 = 3758097136;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v9;
 }
 
 uint64_t PSSH::isKillDaemon(PSSH *a1)
@@ -9210,13 +8698,13 @@ LABEL_3:
       }
 
       v6 = [v2 objectForKey:*(*(&v29 + 1) + 8 * v5)];
-      PSSH::getKillDaemonList(v6, &v27);
+      PSSH::getKillDaemonList(&v27, v6);
       v8 = v27;
       v7 = v28;
       if (v27 == v28)
       {
-        v18 = 0;
-        v19 = 1;
+        v19 = 0;
+        v20 = 1;
       }
 
       else
@@ -9239,43 +8727,43 @@ LABEL_3:
           v8 += 24;
           if (v8 == v7)
           {
-            v18 = 0;
-            v19 = 1;
+            v19 = 0;
+            v20 = 1;
             v2 = v25;
             goto LABEL_35;
           }
         }
 
         v2 = v25;
-        v20 = __PSSysHealthLogSharedInstance();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v21 = __PSSysHealthLogSharedInstance(v16, v17);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           if (*(a1 + 23) >= 0)
           {
-            v21 = a1;
+            v22 = a1;
           }
 
           else
           {
-            v21 = *a1;
+            v22 = *a1;
           }
 
           *buf = 136315394;
           *&buf[4] = "isKillDaemon";
           v34 = 2080;
-          v35 = v21;
-          _os_log_impl(&dword_25EA3A000, v20, OS_LOG_TYPE_DEFAULT, "%s() process [%s] is a killDaemon", buf, 0x16u);
+          v35 = v22;
+          _os_log_impl(&dword_25EA3A000, v21, OS_LOG_TYPE_DEFAULT, "%s() process [%s] is a killDaemon", buf, 0x16u);
         }
 
-        v19 = 0;
-        v18 = 1;
+        v20 = 0;
+        v19 = 1;
       }
 
 LABEL_35:
       *buf = &v27;
       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](buf);
 
-      if (!v19)
+      if (!v20)
       {
         break;
       }
@@ -9296,11 +8784,10 @@ LABEL_35:
   else
   {
 LABEL_38:
-    v18 = 0;
+    v19 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v19;
 }
 
 void std::vector<std::string>::__vdeallocate(std::vector<std::string> *this)
@@ -9317,12 +8804,11 @@ void std::vector<std::string>::__vdeallocate(std::vector<std::string> *this)
 
 id ps_syshealth_print_graph(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   __strlcpy_chk();
   __strlcpy_chk();
   snprintf(__str, 0x28uLL, "%4s(%2u) | %4s(%2u) | %4s(%2u)", off_279A48CA8[*(a1 + 352)], *(a1 + 356), off_279A48CA8[*(a1 + 353)], *(a1 + 360), off_279A48CA8[*(a1 + 354)], *(a1 + 364));
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"%60s %30s %16llu %16llu %16llu %40s\n", v7, v6, *(a1 + 328), *(a1 + 344), *(a1 + 336), __str];
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"%60s %30s %16llu %16llu %16llu %40s\n", v6, v5, *(a1 + 328), *(a1 + 344), *(a1 + 336), __str];
 
   return v2;
 }
@@ -9388,16 +8874,16 @@ void *ps_buffer_writer_init(uint64_t a1, uint64_t a2)
 
   else
   {
-    inited = ps_buffer_writer_init_cold_1(&v6);
-    return ps_buffer_writer_setkey(inited);
+    inited = ps_buffer_writer_init_cold_1(&v7);
+    return ps_buffer_writer_setkey(inited, v6);
   }
 
   return result;
 }
 
-uint64_t ps_buffer_writer_create_resource(uint64_t a1)
+const char *ps_buffer_writer_create_resource(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   source = ps_gsm_create_source(*(a1 + 144), 1, a1);
   *(a1 + 152) = source;
   if (!source)
@@ -9408,44 +8894,38 @@ uint64_t ps_buffer_writer_create_resource(uint64_t a1)
   if (*(a1 + 128))
   {
     *(a1 + 160) = ps_buffer_create_group_writer();
-    v3 = *(a1 + 168);
-    v4 = *(v3 + 24);
-    if ((v4 - 8) < 2)
+    v3 = *(*(a1 + 168) + 24);
+    if ((v3 - 8) < 2)
     {
-      v7 = *(v3 + 32);
       MEMORY[0x25F8C8D90]();
       goto LABEL_10;
     }
 
-    if (v4 == 4)
+    if (v3 == 4)
     {
-      v12 = *(v3 + 32);
       MEMORY[0x25F8C8DB0]();
-      v8 = *(a1 + 160);
-      v9 = 8;
+      v5 = *(a1 + 160);
+      v6 = 8;
       goto LABEL_18;
     }
 
-    if (v4 == 7)
+    if (v3 == 7)
     {
-      v5 = *(v3 + 32);
       MEMORY[0x25F8C8DA0]();
 LABEL_10:
-      v8 = *(a1 + 160);
-      v9 = 90112;
+      v5 = *(a1 + 160);
+      v6 = 90112;
 LABEL_18:
-      MEMORY[0x25F8C8900](v8, v9);
+      MEMORY[0x25F8C8900](v5, v6);
       MEMORY[0x25F8C8C70](*(a1 + 160));
-LABEL_29:
-      v22 = *MEMORY[0x277D85DE8];
       return 0;
     }
 
     goto LABEL_32;
   }
 
-  v6 = *(a1 + 168);
-  if (*(v6 + 88) > 1u)
+  v4 = *(a1 + 168);
+  if (*(v4 + 88) > 1u)
   {
     ps_buffer_writer_create_resource_cold_2(buf, a1);
 LABEL_32:
@@ -9453,118 +8933,112 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  v10 = *(v6 + 92);
-  switch(v10)
+  v7 = *(v4 + 92);
+  switch(v7)
   {
     case 0:
-      v11 = __PLSLogSharedInstance();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v8 = __PLSLogSharedInstance(source);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v32 = "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/RealityCamera/BufferResource/PSBufferWriter.m";
-        v33 = 2080;
-        *v34 = "ps_buffer_writer_create_resource";
-        *&v34[8] = 1024;
-        *&v34[10] = 335;
-        _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_DEFAULT, "%s:%s:%d - Constructing a Surface camera stream writer", buf, 0x1Cu);
+        v23 = "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/RealityCamera/BufferResource/PSBufferWriter.m";
+        v24 = 2080;
+        *v25 = "ps_buffer_writer_create_resource";
+        *&v25[8] = 1024;
+        *&v25[10] = 335;
+        _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEFAULT, "%s:%s:%d - Constructing a Surface camera stream writer", buf, 0x1Cu);
       }
 
       goto LABEL_28;
     case 2:
-      v13 = *(v6 + 16);
-      v11 = __PLSLogSharedInstance();
-      v14 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-      if (v13 == 11)
+      v9 = *(v4 + 16);
+      v8 = __PLSLogSharedInstance(source);
+      v10 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+      if (v9 == 11)
       {
-        if (v14)
+        if (v10)
         {
           *buf = 136315650;
-          v32 = "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/RealityCamera/BufferResource/PSBufferWriter.m";
-          v33 = 2080;
-          *v34 = "ps_buffer_writer_create_resource";
-          *&v34[8] = 1024;
-          *&v34[10] = 313;
-          _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_DEFAULT, "%s:%s:%d - Constructing a Pearl camera stream writer", buf, 0x1Cu);
+          v23 = "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/RealityCamera/BufferResource/PSBufferWriter.m";
+          v24 = 2080;
+          *v25 = "ps_buffer_writer_create_resource";
+          *&v25[8] = 1024;
+          *&v25[10] = 313;
+          _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEFAULT, "%s:%s:%d - Constructing a Pearl camera stream writer", buf, 0x1Cu);
         }
       }
 
-      else if (v14)
+      else if (v10)
       {
         *buf = 136315650;
-        v32 = "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/RealityCamera/BufferResource/PSBufferWriter.m";
-        v33 = 2080;
-        *v34 = "ps_buffer_writer_create_resource";
-        *&v34[8] = 1024;
-        *&v34[10] = 324;
-        _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_DEFAULT, "%s:%s:%d - Constructing a ISP camera stream writer", buf, 0x1Cu);
+        v23 = "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/RealityCamera/BufferResource/PSBufferWriter.m";
+        v24 = 2080;
+        *v25 = "ps_buffer_writer_create_resource";
+        *&v25[8] = 1024;
+        *&v25[10] = 324;
+        _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEFAULT, "%s:%s:%d - Constructing a ISP camera stream writer", buf, 0x1Cu);
       }
 
       goto LABEL_28;
     case 1:
-      v11 = __PLSLogSharedInstance();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v8 = __PLSLogSharedInstance(source);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v32 = "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/RealityCamera/BufferResource/PSBufferWriter.m";
-        v33 = 2080;
-        *v34 = "ps_buffer_writer_create_resource";
-        *&v34[8] = 1024;
-        *&v34[10] = 303;
-        _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_DEFAULT, "%s:%s:%d: Constructing a FIFO camera stream writer", buf, 0x1Cu);
+        v23 = "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/RealityCamera/BufferResource/PSBufferWriter.m";
+        v24 = 2080;
+        *v25 = "ps_buffer_writer_create_resource";
+        *&v25[8] = 1024;
+        *&v25[10] = 303;
+        _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEFAULT, "%s:%s:%d: Constructing a FIFO camera stream writer", buf, 0x1Cu);
       }
 
 LABEL_28:
 
-      v15 = *(a1 + 168);
-      v16 = v15[20];
-      v17 = *v15;
-      v18 = v15[1];
-      v20 = v15[2];
-      v19 = v15[3];
       *(a1 + 160) = ps_buffer_create_camera_stream_writer_with_capacity();
-      v21 = ps_liveness_node_allocate();
-      *(a1 + 136) = v21;
-      ps_liveness_node_set_base_info(v21, 0, a1);
+      v11 = ps_liveness_node_allocate();
+      *(a1 + 136) = v11;
+      ps_liveness_node_set_base_info(v11, 0, a1);
       ps_liveness_node_set_aux_string(*(a1 + 136), "CamStream");
       ps_liveness_node_set_deadlines(*(a1 + 136), *(*(a1 + 168) + 40), 0x3B9ACA00uLL / *(*(a1 + 168) + 40));
       ps_liveness_node_finalize(*(a1 + 136), 0);
-      goto LABEL_29;
+      return 0;
   }
 
 LABEL_33:
-  v30 = 0;
-  asprintf(&v30, "%s:%s:%d - The camera attribute that is being used to construct the camera stream writer is being passed an unknown stream type: %d", "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/RealityCamera/BufferResource/PSBufferWriter.m", "ps_buffer_writer_create_resource", 346, v10);
-  v24 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+  v21 = 0;
+  v13 = asprintf(&v21, "%s:%s:%d - The camera attribute that is being used to construct the camera stream writer is being passed an unknown stream type: %d", "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/RealityCamera/BufferResource/PSBufferWriter.m", "ps_buffer_writer_create_resource", 346, v7);
+  v14 = __PLSLogSharedInstance(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
   {
-    v25 = *(*(a1 + 168) + 92);
+    v15 = *(*(a1 + 168) + 92);
     *buf = 136316418;
-    v32 = "ps_buffer_writer_create_resource";
-    v33 = 1024;
-    *v34 = 346;
-    *&v34[4] = 2080;
-    *&v34[6] = "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/RealityCamera/BufferResource/PSBufferWriter.m";
-    v35 = 2080;
-    v36 = "ps_buffer_writer_create_resource";
-    v37 = 1024;
-    v38 = 346;
-    v39 = 1024;
-    v40 = v25;
-    _os_log_impl(&dword_25EA3A000, v24, OS_LOG_TYPE_FAULT, "%s:%d %s:%s:%d - The camera attribute that is being used to construct the camera stream writer is being passed an unknown stream type: %d", buf, 0x32u);
+    v23 = "ps_buffer_writer_create_resource";
+    v24 = 1024;
+    *v25 = 346;
+    *&v25[4] = 2080;
+    *&v25[6] = "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/RealityCamera/BufferResource/PSBufferWriter.m";
+    v26 = 2080;
+    v27 = "ps_buffer_writer_create_resource";
+    v28 = 1024;
+    v29 = 346;
+    v30 = 1024;
+    v31 = v15;
+    _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_FAULT, "%s:%d %s:%s:%d - The camera attribute that is being used to construct the camera stream writer is being passed an unknown stream type: %d", buf, 0x32u);
   }
 
-  v26 = OSLogFlushBuffers();
-  if (v26)
+  v16 = OSLogFlushBuffers();
+  if (v16)
   {
-    v27 = v26;
-    v28 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v17 = v16;
+    v18 = __PLSLogSharedInstance(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v32 = "ps_buffer_writer_create_resource";
-      v33 = 1024;
-      *v34 = v27;
-      _os_log_impl(&dword_25EA3A000, v28, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v23 = "ps_buffer_writer_create_resource";
+      v24 = 1024;
+      *v25 = v17;
+      _os_log_impl(&dword_25EA3A000, v18, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -9573,88 +9047,88 @@ LABEL_33:
     usleep(0x1E8480u);
   }
 
-  v29 = abort_with_reason();
-  return cvdataBufferAllocator_0(v29);
+  v19 = abort_with_reason();
+  return cvdataBufferAllocator_0(v19, v20);
 }
 
-uint64_t cvdataBufferAllocator_0(uint64_t a1)
+const char *cvdataBufferAllocator_0(uint64_t a1, uint64_t a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 16);
-  v4 = (a1 + 8);
-  v3 = *(a1 + 8);
-  v5 = *a1 * v3;
-  v6 = !is_mul_ok(*a1, v3);
-  v7 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v34 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 16);
+  v5 = (a1 + 8);
+  v4 = *(a1 + 8);
+  v6 = *a1 * v4;
+  v7 = !is_mul_ok(*a1, v4);
+  v8 = __PLSLogSharedInstance(a1);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v8 = *a1;
-    v9 = *(a1 + 8);
-    v10 = *(a1 + 16);
+    v9 = *a1;
+    v10 = *(a1 + 8);
+    v11 = *(a1 + 16);
     *buf = 136316162;
-    v24 = "cvdataBufferAllocator";
-    v25 = 2048;
-    v26 = v8;
-    v27 = 2048;
-    v28 = v9;
-    v29 = 2048;
-    v30 = v5;
-    v31 = 1024;
-    v32 = v10;
-    _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEBUG, "PSCVDataBufferResource in %s width=%lu height=%lu allocSize=%llu pixelFormat=%#x\n", buf, 0x30u);
+    v25 = "cvdataBufferAllocator";
+    v26 = 2048;
+    v27 = v9;
+    v28 = 2048;
+    v29 = v10;
+    v30 = 2048;
+    v31 = v6;
+    v32 = 1024;
+    v33 = v11;
+    _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEBUG, "PSCVDataBufferResource in %s width=%lu height=%lu allocSize=%llu pixelFormat=%#x\n", buf, 0x30u);
   }
 
-  if (v6)
+  if (v7)
   {
-    cvdataBufferAllocator_cold_2_0(a1, v4);
+    cvdataBufferAllocator_cold_2_0(a1, v5);
   }
 
   else
   {
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    CFDictionarySetValue(Mutable, *MEMORY[0x277CD2948], [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v5]);
-    CFDictionarySetValue(Mutable, *MEMORY[0x277CD2A70], [MEMORY[0x277CCABB0] numberWithUnsignedInt:v2]);
-    v12 = IOSurfaceCreate(Mutable);
-    if (v12)
+    CFDictionarySetValue(Mutable, *MEMORY[0x277CD2948], [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v6]);
+    CFDictionarySetValue(Mutable, *MEMORY[0x277CD2A70], [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3]);
+    v13 = IOSurfaceCreate(Mutable);
+    if (v13)
     {
-      v13 = v12;
+      v14 = v13;
       CFDictionarySetValue(Mutable, *MEMORY[0x277CC4B50], *MEMORY[0x277CBED28]);
-      v14 = CVDataBufferCreateWithIOSurface();
-      if (v14)
+      v15 = CVDataBufferCreateWithIOSurface();
+      if (v15)
       {
-        v19 = v14;
-        v20 = __PLSLogSharedInstance();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v20 = v15;
+        v21 = __PLSLogSharedInstance(v15);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          LODWORD(v24) = v19;
-          v21 = "failed to create CV Data Buffer for resource ret=%d";
+          LODWORD(v25) = v20;
+          v22 = "failed to create CV Data Buffer for resource ret=%d";
 LABEL_19:
-          _os_log_impl(&dword_25EA3A000, v20, OS_LOG_TYPE_ERROR, v21, buf, 8u);
+          _os_log_impl(&dword_25EA3A000, v21, OS_LOG_TYPE_ERROR, v22, buf, 8u);
         }
       }
 
       else
       {
-        v15 = CVDataBufferIncrementUseCountForCategory();
-        if (!v15)
+        v16 = CVDataBufferIncrementUseCountForCategory();
+        if (!v16)
         {
           goto LABEL_7;
         }
 
-        v22 = v15;
-        v20 = __PLSLogSharedInstance();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v23 = v16;
+        v21 = __PLSLogSharedInstance(v16);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          LODWORD(v24) = v22;
-          v21 = "failed to increment category 1 use count for CV Data Buffer ret=%d";
+          LODWORD(v25) = v23;
+          v22 = "failed to increment category 1 use count for CV Data Buffer ret=%d";
           goto LABEL_19;
         }
       }
 
 LABEL_7:
-      CFRelease(v13);
+      CFRelease(v14);
       if (!Mutable)
       {
         goto LABEL_9;
@@ -9663,7 +9137,7 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    cvdataBufferAllocator_cold_1_0();
+    cvdataBufferAllocator_cold_1_0(0);
     if (Mutable)
     {
 LABEL_8:
@@ -9672,87 +9146,641 @@ LABEL_8:
   }
 
 LABEL_9:
-  v16 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v18 = __PLSLogSharedInstance(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    v24 = 0;
-    _os_log_impl(&dword_25EA3A000, v16, OS_LOG_TYPE_DEBUG, "PSCVDataBufferResource in cvdataBufferAllocator dataBufferRef=%p\n", buf, 0xCu);
+    v25 = 0;
+    _os_log_impl(&dword_25EA3A000, v18, OS_LOG_TYPE_DEBUG, "PSCVDataBufferResource in cvdataBufferAllocator dataBufferRef=%p\n", buf, 0xCu);
   }
 
-  result = 0;
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 void ps_buffer_writer_camerastream_install_bufferpool(void *a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (a1[16])
   {
-LABEL_2:
-    v2 = *MEMORY[0x277D85DE8];
     return;
   }
 
-  v5 = a1[20];
-  ps_buffer_camera_stream_writer_start();
-  v6 = a1[21];
-  v7 = *(v6 + 2);
-  if (v7 == 11)
+  v4 = ps_buffer_camera_stream_writer_start();
+  v5 = *(a1[21] + 16);
+  if (v5 != 11)
   {
-    v8 = *v6;
-LABEL_11:
-    if (a2)
+    if ((v5 - 8) < 2)
     {
-      v12 = __PLSLogSharedInstance();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v6 = __PLSLogSharedInstance(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        v15 = 136315650;
-        v16 = "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/RealityCamera/BufferResource/PSBufferWriter.m";
-        v17 = 2080;
-        v18 = "ps_buffer_writer_camerastream_install_bufferpool";
-        v19 = 1024;
-        v20 = 413;
-        _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_DEBUG, "%s:%s:%d - Installing surfaces for a CVPixelBuffer Writer", &v15, 0x1Cu);
+        v10 = 136315650;
+        v11 = "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/RealityCamera/BufferResource/PSBufferWriter.m";
+        v12 = 2080;
+        v13 = "ps_buffer_writer_camerastream_install_bufferpool";
+        v14 = 1024;
+        v15 = 421;
+        _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEBUG, "%s:%s:%d - Installing surfaces for a CVDataBuffer Writer", &v10, 0x1Cu);
       }
 
-      v13 = a1[20];
-      ps_buffer_camera_stream_writer_install_cvpixelbufferbackingsurfaces();
+      if (a2)
+      {
+        ps_buffer_camera_stream_writer_install_cvdatabufferbackingsurfaces();
+      }
+
+      return;
     }
 
-    goto LABEL_2;
-  }
-
-  v9 = *(v6 + 3) + (*(v6 + 2) + *(v6 + 1)) * *(v6 + 10) + *v6;
-  if ((v7 - 8) < 2)
-  {
-    v10 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    if (v5 != 7)
     {
-      v15 = 136315650;
-      v16 = "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/RealityCamera/BufferResource/PSBufferWriter.m";
-      v17 = 2080;
-      v18 = "ps_buffer_writer_camerastream_install_bufferpool";
-      v19 = 1024;
-      v20 = 421;
-      _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_DEBUG, "%s:%s:%d - Installing surfaces for a CVDataBuffer Writer", &v15, 0x1Cu);
+      v8 = ps_buffer_writer_camerastream_install_bufferpool_cold_1(&v10);
+      ps_buffer_writer_camerastream_install_metadata_bufferpool(v8, v9);
+      return;
     }
-
-    if (a2)
-    {
-      v11 = a1[20];
-      ps_buffer_camera_stream_writer_install_cvdatabufferbackingsurfaces();
-    }
-
-    goto LABEL_2;
   }
 
-  if (v7 == 7)
+  if (a2)
   {
-    goto LABEL_11;
+    v7 = __PLSLogSharedInstance(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      v10 = 136315650;
+      v11 = "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/RealityCamera/BufferResource/PSBufferWriter.m";
+      v12 = 2080;
+      v13 = "ps_buffer_writer_camerastream_install_bufferpool";
+      v14 = 1024;
+      v15 = 413;
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEBUG, "%s:%s:%d - Installing surfaces for a CVPixelBuffer Writer", &v10, 0x1Cu);
+    }
+
+    ps_buffer_camera_stream_writer_install_cvpixelbufferbackingsurfaces();
+  }
+}
+
+uint64_t ps_buffer_writer_camerastream_install_metadata_bufferpool(uint64_t result, uint64_t a2)
+{
+  v9 = *MEMORY[0x277D85DE8];
+  if (!*(result + 128))
+  {
+    if (*(*(result + 168) + 16) == 11)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+    }
+
+    else if (!a2)
+    {
+      return result;
+    }
+
+    v2 = __PLSLogSharedInstance(result);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    {
+      v3 = 136315650;
+      v4 = "/Library/Caches/com.apple.xbs/Sources/ApplePolaris/Polaris/RealityCamera/BufferResource/PSBufferWriter.m";
+      v5 = 2080;
+      v6 = "ps_buffer_writer_camerastream_install_metadata_bufferpool";
+      v7 = 1024;
+      v8 = 452;
+      _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEBUG, "%s:%s:%d - Installing surfaces for camera stream", &v3, 0x1Cu);
+    }
+
+    return ps_buffer_camera_stream_writer_install_metadatasurfaces();
   }
 
-  v14 = ps_buffer_writer_camerastream_install_bufferpool_cold_1(&v15);
-  ps_buffer_writer_camerastream_install_metadata_bufferpool(v14);
+  return result;
+}
+
+void *ps_buffer_writer_get_cam_stream_attr(uint64_t a1)
+{
+  if (*(a1 + 128) == 1)
+  {
+    cam_stream_attr_cold_1 = ps_buffer_writer_get_cam_stream_attr_cold_1(&v7);
+    return _serializeMetadata(cam_stream_attr_cold_1, v4, v5, v6);
+  }
+
+  else
+  {
+    result = *(a1 + 168);
+    if (!result)
+    {
+      result = malloc_type_calloc(1uLL, 0x60uLL, 0x10200409F2A63CEuLL);
+      *(a1 + 168) = result;
+    }
+  }
+
+  return result;
+}
+
+uint64_t _serializeMetadata(const __CFData *Length, uint64_t a2, unsigned int a3, unint64_t a4)
+{
+  v13 = *MEMORY[0x277D85DE8];
+  if (Length)
+  {
+    v7 = Length;
+    Length = CFDataGetLength(Length);
+    if (Length + 16 < a3)
+    {
+      v8.length = Length;
+      *a2 = Length;
+      *(a2 + 8) = a4;
+      if (Length)
+      {
+        v8.location = 0;
+        CFDataGetBytes(v7, v8, (a2 + 16));
+      }
+
+      return 0;
+    }
+  }
+
+  else if (a3 >= 0x11)
+  {
+    result = 0;
+    *a2 = 0;
+    *(a2 + 8) = a4;
+    return result;
+  }
+
+  v10 = __PLSLogSharedInstance(Length);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    v11 = 136315138;
+    v12 = "_serializeMetadata";
+    _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_ERROR, "(%s): Metadata size exceeds allocated size!", &v11, 0xCu);
+  }
+
+  return 0xFFFFFFFFLL;
+}
+
+uint64_t _copyCVPixelBuffer(__CVBuffer *a1, __CVBuffer *a2)
+{
+  CVPixelBufferLockBaseAddress(a1, 0);
+  CVPixelBufferLockBaseAddress(a2, 0);
+  PlaneCount = CVPixelBufferGetPlaneCount(a2);
+  v5 = 0;
+  if (PlaneCount <= 1)
+  {
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = PlaneCount;
+  }
+
+  do
+  {
+    HeightOfPlane = CVPixelBufferGetHeightOfPlane(a2, v5);
+    v8 = CVPixelBufferGetHeightOfPlane(a1, v5);
+    if (HeightOfPlane >= v8)
+    {
+      v9 = v8;
+    }
+
+    else
+    {
+      v9 = HeightOfPlane;
+    }
+
+    BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(a1, v5);
+    BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(a1, v5);
+    v12 = CVPixelBufferGetBaseAddressOfPlane(a2, v5);
+    v13 = CVPixelBufferGetBytesPerRowOfPlane(a2, v5);
+    if (BytesPerRowOfPlane >= v13)
+    {
+      v14 = v13;
+    }
+
+    else
+    {
+      v14 = BytesPerRowOfPlane;
+    }
+
+    if (v9 >= 1)
+    {
+      v15 = v13;
+      do
+      {
+        memcpy(v12, BaseAddressOfPlane, v14);
+        BaseAddressOfPlane += BytesPerRowOfPlane;
+        v12 += v15;
+        --v9;
+      }
+
+      while (v9);
+    }
+
+    ++v5;
+  }
+
+  while (v5 != v6);
+  CVPixelBufferUnlockBaseAddress(a2, 0);
+
+  return CVPixelBufferUnlockBaseAddress(a1, 0);
+}
+
+uint64_t _copyCVDataBuffer(uint64_t a1, uint64_t a2)
+{
+  DataSize = CVDataBufferGetDataSize();
+  IOSurface = CVDataBufferGetIOSurface();
+  v4 = CVDataBufferGetIOSurface();
+  IOSurfaceLock(v4, 0, 0);
+  BaseAddress = IOSurfaceGetBaseAddress(v4);
+  IOSurfaceLock(IOSurface, 0, 0);
+  v6 = IOSurfaceGetBaseAddress(IOSurface);
+  memcpy(BaseAddress, v6, DataSize);
+  IOSurfaceUnlock(IOSurface, 0, 0);
+
+  return IOSurfaceUnlock(v4, 0, 0);
+}
+
+uint64_t _copyIOSurface(__IOSurface *a1, __IOSurface *a2)
+{
+  IOSurfaceLock(a1, 0, 0);
+  IOSurfaceLock(a2, 0, 0);
+  PlaneCount = IOSurfaceGetPlaneCount(a2);
+  v5 = 0;
+  if (PlaneCount <= 1)
+  {
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = PlaneCount;
+  }
+
+  do
+  {
+    HeightOfPlane = IOSurfaceGetHeightOfPlane(a2, v5);
+    v8 = IOSurfaceGetHeightOfPlane(a1, v5);
+    if (HeightOfPlane >= v8)
+    {
+      v9 = v8;
+    }
+
+    else
+    {
+      v9 = HeightOfPlane;
+    }
+
+    BaseAddressOfPlane = IOSurfaceGetBaseAddressOfPlane(a1, v5);
+    BytesPerRowOfPlane = IOSurfaceGetBytesPerRowOfPlane(a1, v5);
+    v12 = IOSurfaceGetBaseAddressOfPlane(a2, v5);
+    v13 = IOSurfaceGetBytesPerRowOfPlane(a2, v5);
+    if (BytesPerRowOfPlane >= v13)
+    {
+      v14 = v13;
+    }
+
+    else
+    {
+      v14 = BytesPerRowOfPlane;
+    }
+
+    if (v9 >= 1)
+    {
+      v15 = v13;
+      do
+      {
+        memcpy(v12, BaseAddressOfPlane, v14);
+        BaseAddressOfPlane += BytesPerRowOfPlane;
+        v12 += v15;
+        --v9;
+      }
+
+      while (v9);
+    }
+
+    ++v5;
+  }
+
+  while (v5 != v6);
+  IOSurfaceUnlock(a2, 0, 0);
+
+  return IOSurfaceUnlock(a1, 0, 0);
+}
+
+uint64_t _publishCVPixelBuffer(uint64_t a1, const __CFData *a2, __CVBuffer *a3, unint64_t a4)
+{
+  v7 = ps_buffer_get_write_buffers();
+  v8 = *(v7 + 40);
+  _copyCVPixelBuffer(a3, *(v7 + 8));
+  if (_serializeMetadata(a2, v8, 0x16000u, a4))
+  {
+    v10 = _publishCVPixelBuffer_cold_1(&v14);
+    return _publishCVDataBuffer(v10, v11, v12, v13);
+  }
+
+  else
+  {
+    ps_buffer_release_write_buffers();
+    return 0;
+  }
+}
+
+uint64_t _publishCVDataBuffer(uint64_t a1, const __CFData *a2, uint64_t a3, unint64_t a4)
+{
+  v7 = ps_buffer_get_write_buffers();
+  v8 = *(v7 + 40);
+  _copyCVDataBuffer(a3, *(v7 + 8));
+  if (_serializeMetadata(a2, v8, 0x16000u, a4))
+  {
+    v10 = _publishCVDataBuffer_cold_1(&v13);
+    return _publishIOSurface(v10, v11, v12);
+  }
+
+  else
+  {
+    ps_buffer_release_write_buffers();
+    return 0;
+  }
+}
+
+uint64_t _publishIOSurface(uint64_t a1, __IOSurface *a2, uint64_t a3)
+{
+  v5 = ps_buffer_get_write_buffers();
+  v6 = *(v5 + 8);
+  **(v5 + 40) = a3;
+  _copyIOSurface(a2, v6);
+  ps_buffer_release_write_buffers();
+  return 0;
+}
+
+uint64_t ps_buffer_writer_publish_resource(uint64_t a1, uint64_t a2, unint64_t a3)
+{
+  v54 = *MEMORY[0x277D85DE8];
+  v5 = *(a1 + 128);
+  if (v5)
+  {
+    if (v5 != 1)
+    {
+      return 0;
+    }
+
+    v6 = *(*(a1 + 168) + 24);
+    switch(v6)
+    {
+      case 4:
+        MEMORY[0x25F8C9230](a2, 0, a3);
+        iosurface = ps_resource_surface_get_iosurface();
+        v21 = MEMORY[0x25F8C9240](a2, 0);
+        _publishIOSurface(a1, iosurface, v21);
+        return 0;
+      case 8:
+        MEMORY[0x25F8C9160](a2, 0, a3);
+        metadata = ps_resource_databuffer_get_metadata();
+        databuffer = ps_resource_databuffer_get_databuffer();
+        v19 = MEMORY[0x25F8C9240](a2, 0);
+        _publishCVDataBuffer(a1, metadata, databuffer, v19);
+        return 0;
+      case 7:
+        MEMORY[0x25F8C9210](a2, 0, a3);
+        v7 = ps_resource_pixelbuffer_get_metadata();
+        cvpixelbuffer = ps_resource_pixelbuffer_get_cvpixelbuffer();
+        v9 = MEMORY[0x25F8C9240](a2, 0);
+        _publishCVPixelBuffer(a1, v7, cvpixelbuffer, v9);
+        return 0;
+    }
+
+    ps_buffer_writer_publish_resource_cold_6(v42);
+    goto LABEL_45;
+  }
+
+  v43 = 0u;
+  memset(v42, 0, sizeof(v42));
+  v11 = *(a1 + 168);
+  WORD4(v43) = *(v11 + 56);
+  v12 = *(v11 + 16);
+  if (v12 <= 8)
+  {
+    if (v12 == 7)
+    {
+      MEMORY[0x25F8C9210](a2, 0);
+      ps_resource_pixelbuffer_get_cvpixelbuffer();
+      v22 = MEMORY[0x25F8C9240](a2, 0);
+      v14 = ps_util_mct_to_mat(v22);
+      MEMORY[0x25F8C9200](a2, 0);
+      *&v42[0] = v14;
+      ps_telemetry_emit_event_internal(0, v42, 0x30uLL, 8);
+      ps_liveness_node_start_execution(*(a1 + 136), a3, v23);
+      if (MEMORY[0x25F8C91C0](a2, 0))
+      {
+        if (MEMORY[0x25F8C91C0](a2, 0) != 1)
+        {
+LABEL_48:
+          ps_buffer_writer_publish_resource_cold_4(&v38, a2);
+          goto LABEL_49;
+        }
+
+        ps_resource_pixelbuffer_get_iosurface_metadata();
+      }
+
+      else
+      {
+        ps_resource_pixelbuffer_get_cfdata_metadata();
+      }
+
+      goto LABEL_33;
+    }
+
+    if (v12 == 8)
+    {
+      MEMORY[0x25F8C9160](a2, 0);
+      if (MEMORY[0x25F8C91C0](a2, 0))
+      {
+        if (MEMORY[0x25F8C91C0](a2, 0) != 1)
+        {
+LABEL_46:
+          ps_buffer_writer_publish_resource_cold_3(&v38, a2);
+          goto LABEL_47;
+        }
+
+        ps_resource_databuffer_get_iosurface_metadata();
+      }
+
+      else
+      {
+        ps_resource_databuffer_get_cfdata_metadata();
+      }
+
+      ps_resource_databuffer_get_databuffer();
+      v33 = MEMORY[0x25F8C9240](a2, 0);
+      v14 = ps_util_mct_to_mat(v33);
+      MEMORY[0x25F8C9200](a2, 0);
+      *&v42[0] = v14;
+      ps_telemetry_emit_event_internal(0, v42, 0x30uLL, 8);
+      ps_liveness_node_start_execution(*(a1 + 136), a3, v34);
+LABEL_33:
+      v28 = ps_buffer_camera_stream_writer_write_buffers();
+      v29 = *(a1 + 136);
+      if (v28 != 1000)
+      {
+        ps_liveness_node_end_execution(v29);
+        v30 = *(a1 + 168);
+        v31 = v30[3];
+        if (!v31)
+        {
+          *&v48 = a3;
+          ps_buffer_writer_camerastream_attach_synctag(a1);
+          dxbuffer = a3;
+          dybuffer = v28;
+          v41 = 0;
+          v40 = 0u;
+          v39 = 0u;
+          LOWORD(v41) = *(*(a1 + 168) + 56);
+          v38 = v14;
+          ps_telemetry_emit_event_internal(2, &v38, 0x30uLL, 8);
+          v32 = &dxbuffer;
+          goto LABEL_42;
+        }
+
+        goto LABEL_40;
+      }
+
+      goto LABEL_38;
+    }
+
+LABEL_45:
+    ps_buffer_writer_publish_resource_cold_5(&v38);
+    goto LABEL_46;
+  }
+
+  if (v12 != 9)
+  {
+    if (v12 == 11)
+    {
+      MEMORY[0x25F8C91F0](a2, 0);
+      dxbuffer = ps_resource_pearlbuffer_get_dxbuffer();
+      dybuffer = ps_resource_pearlbuffer_get_dybuffer();
+      scorebuffer = ps_resource_pearlbuffer_get_scorebuffer();
+      depthbuffer = ps_resource_pearlbuffer_get_depthbuffer();
+      v13 = MEMORY[0x25F8C9240](a2, 0);
+      v14 = ps_util_mct_to_mat(v13);
+      MEMORY[0x25F8C9200](a2, 0);
+      *&v42[0] = v14;
+      ps_telemetry_emit_event_internal(0, v42, 0x30uLL, 8);
+      ps_liveness_node_start_execution(*(a1 + 136), a3, v15);
+      *(&v48 + 1) = 0;
+      v49 = 0uLL;
+      if (MEMORY[0x25F8C91C0](a2, 0))
+      {
+        if (MEMORY[0x25F8C91C0](a2, 0) != 1)
+        {
+LABEL_47:
+          ps_buffer_writer_publish_resource_cold_1(&v38, a2);
+          goto LABEL_48;
+        }
+
+        iosurface_metadata = ps_resource_pearlbuffer_get_iosurface_metadata();
+      }
+
+      else
+      {
+        iosurface_metadata = ps_resource_pearlbuffer_get_cfdata_metadata();
+      }
+
+      *&v48 = iosurface_metadata;
+      v46 = 0;
+      v47 = 0;
+      v44 = v14;
+      v45 = 0;
+      v28 = ps_buffer_camera_stream_writer_write_multiple_buffers();
+      v29 = *(a1 + 136);
+      if (v28 != 1000)
+      {
+        ps_liveness_node_end_execution(v29);
+        v30 = *(a1 + 168);
+        v31 = v30[3];
+        if (!v31)
+        {
+          v37[2] = a3;
+          ps_buffer_writer_camerastream_attach_synctag(a1);
+          v37[0] = a3;
+          v37[1] = v28;
+          v41 = 0;
+          v40 = 0u;
+          v39 = 0u;
+          LOWORD(v41) = *(*(a1 + 168) + 56);
+          v38 = v14;
+          ps_telemetry_emit_event_internal(2, &v38, 0x30uLL, 8);
+          v32 = v37;
+          goto LABEL_42;
+        }
+
+        goto LABEL_40;
+      }
+
+      goto LABEL_38;
+    }
+
+    goto LABEL_45;
+  }
+
+  MEMORY[0x25F8C91A0](a2, 0);
+  v24 = MEMORY[0x25F8C9240](a2, 0);
+  v14 = ps_util_mct_to_mat(v24);
+  MEMORY[0x25F8C9200](a2, 0);
+  *&v42[0] = v14;
+  ps_telemetry_emit_event_internal(0, v42, 0x30uLL, 8);
+  ps_liveness_node_start_execution(*(a1 + 136), a3, v25);
+  dxbuffer = v14;
+  dybuffer = v14;
+  depthbuffer = v14;
+  scorebuffer = v14;
+  databuffer_array = ps_resource_jasperbuffer_get_databuffer_array();
+  v27 = databuffer_array[1];
+  v48 = *databuffer_array;
+  v49 = v27;
+  if (!MEMORY[0x25F8C91C0](a2, 0))
+  {
+    ps_resource_jasperbuffer_get_cfdata_metadata_array();
+LABEL_28:
+    v28 = ps_buffer_camera_stream_writer_write_multiple_buffers();
+    v29 = *(a1 + 136);
+    if (v28 != 1000)
+    {
+      ps_liveness_node_end_execution(v29);
+      v30 = *(a1 + 168);
+      v31 = v30[3];
+      if (!v31)
+      {
+        v37[0] = a3;
+        ps_buffer_writer_camerastream_attach_synctag(a1);
+        v44 = a3;
+        v45 = v28;
+        v41 = 0;
+        v40 = 0u;
+        v39 = 0u;
+        LOWORD(v41) = *(*(a1 + 168) + 56);
+        v38 = v14;
+        ps_telemetry_emit_event_internal(2, &v38, 0x30uLL, 8);
+        v32 = &v44;
+LABEL_42:
+        ps_buffer_writer_broadcast_resource(a1, v32);
+        return 0;
+      }
+
+LABEL_40:
+      ps_synchronizer_check_time_and_broadcast(v31, v14, v30[4], v30[6], v28);
+      return 0;
+    }
+
+LABEL_38:
+    ps_liveness_node_end_execution(v29);
+    return 0;
+  }
+
+  if (MEMORY[0x25F8C91C0](a2, 0) == 1)
+  {
+    ps_resource_jasperbuffer_get_iosurface_metadata_array();
+    goto LABEL_28;
+  }
+
+LABEL_49:
+  v36 = ps_buffer_writer_publish_resource_cold_2(&v38, a2);
+  return ps_buffer_writer_camerastream_attach_synctag(v36);
 }

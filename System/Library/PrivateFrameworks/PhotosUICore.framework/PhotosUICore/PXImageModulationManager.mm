@@ -78,7 +78,7 @@
   [(PXImageModulationManager *)self performChanges:v7];
 }
 
-uint64_t __56__PXImageModulationManager_settings_changedValueForKey___block_invoke(uint64_t a1)
+void *__56__PXImageModulationManager_settings_changedValueForKey___block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) isEqualToString:@"enabled"])
   {

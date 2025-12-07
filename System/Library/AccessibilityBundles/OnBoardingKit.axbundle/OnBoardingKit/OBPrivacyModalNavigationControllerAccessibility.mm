@@ -46,7 +46,7 @@
   return accessibilityPerformEscape & 1;
 }
 
-uint64_t __77__OBPrivacyModalNavigationControllerAccessibility_accessibilityPerformEscape__block_invoke(uint64_t a1)
+void *__77__OBPrivacyModalNavigationControllerAccessibility_accessibilityPerformEscape__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _doneButtonPressed];
   *(*(*(a1 + 40) + 8) + 24) = 1;

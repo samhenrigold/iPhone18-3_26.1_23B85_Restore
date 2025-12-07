@@ -234,7 +234,7 @@
   {
     v8[9] = v2;
     v8[10] = v3;
-    if (sub_10000C1E0())
+    if (sub_10000C1E0(0))
     {
       dispatch_group_enter(self->_reportingGroup);
       location = self->_location;

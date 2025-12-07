@@ -6,55 +6,53 @@
 
 - (BOOL)ec_isHorizontalSeparator
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = [self length];
   if ((v2 - 201) < 0xFFFFFFFFFFFFFF3ALL)
   {
-    result = 0;
-LABEL_8:
-    v8 = *MEMORY[0x277D85DE8];
-    return result;
+    return 0;
   }
 
   v4 = v2;
   _fastCharacterContents = [self _fastCharacterContents];
-  if (!_fastCharacterContents)
+  if (_fastCharacterContents)
   {
-    *&v7 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v9[23] = v7;
-    v9[24] = v7;
-    v9[21] = v7;
-    v9[22] = v7;
-    v9[19] = v7;
-    v9[20] = v7;
-    v9[17] = v7;
-    v9[18] = v7;
-    v9[15] = v7;
-    v9[16] = v7;
-    v9[13] = v7;
-    v9[14] = v7;
-    v9[11] = v7;
-    v9[12] = v7;
-    v9[9] = v7;
-    v9[10] = v7;
-    v9[7] = v7;
-    v9[8] = v7;
-    v9[5] = v7;
-    v9[6] = v7;
-    v9[3] = v7;
-    v9[4] = v7;
-    v9[1] = v7;
-    v9[2] = v7;
-    v9[0] = v7;
-    [self getCharacters:v9 range:{0, v4}];
-    result = bufferIsHorizontalSeparator(v9, v9 + 2 * v4);
-    goto LABEL_8;
+
+    return bufferIsHorizontalSeparator(_fastCharacterContents, &_fastCharacterContents[2 * v4]);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
-  return bufferIsHorizontalSeparator(_fastCharacterContents, &_fastCharacterContents[2 * v4]);
+  else
+  {
+    *&v6 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v7[23] = v6;
+    v7[24] = v6;
+    v7[21] = v6;
+    v7[22] = v6;
+    v7[19] = v6;
+    v7[20] = v6;
+    v7[17] = v6;
+    v7[18] = v6;
+    v7[15] = v6;
+    v7[16] = v6;
+    v7[13] = v6;
+    v7[14] = v6;
+    v7[11] = v6;
+    v7[12] = v6;
+    v7[9] = v6;
+    v7[10] = v6;
+    v7[7] = v6;
+    v7[8] = v6;
+    v7[5] = v6;
+    v7[6] = v6;
+    v7[3] = v6;
+    v7[4] = v6;
+    v7[1] = v6;
+    v7[2] = v6;
+    v7[0] = v6;
+    [self getCharacters:v7 range:{0, v4}];
+    return bufferIsHorizontalSeparator(v7, v7 + 2 * v4);
+  }
 }
 
 @end

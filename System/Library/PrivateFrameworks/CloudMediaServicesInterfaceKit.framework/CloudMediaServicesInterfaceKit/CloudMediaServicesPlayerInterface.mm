@@ -42,30 +42,30 @@
   return v2;
 }
 
-void __41__CloudMediaServicesPlayerInterface_init__block_invoke()
+void __41__CloudMediaServicesPlayerInterface_init__block_invoke(uint64_t a1)
 {
-  v0 = _CMSILogingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = _CMSILogingFacility(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_2439AD000, v0, OS_LOG_TYPE_DEFAULT, "Connection to CloudMediaServices server was interrupted!", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_2439AD000, v1, OS_LOG_TYPE_DEFAULT, "Connection to CloudMediaServices server was interrupted!", v2, 2u);
   }
 }
 
-void __41__CloudMediaServicesPlayerInterface_init__block_invoke_72()
+void __41__CloudMediaServicesPlayerInterface_init__block_invoke_72(uint64_t a1)
 {
-  v0 = _CMSILogingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = _CMSILogingFacility(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_2439AD000, v0, OS_LOG_TYPE_DEFAULT, "Connection to CloudMediaServices server was invalidated!", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_2439AD000, v1, OS_LOG_TYPE_DEFAULT, "Connection to CloudMediaServices server was invalidated!", v2, 2u);
   }
 }
 
 void __41__CloudMediaServicesPlayerInterface_init__block_invoke_75(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _CMSILogingFacility();
+  v3 = _CMSILogingFacility(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __41__CloudMediaServicesPlayerInterface_init__block_invoke_75_cold_1(v2, v3);
@@ -110,11 +110,10 @@ uint64_t __108__CloudMediaServicesPlayerInterface_getCloudExtensionConfiguration
 
 void __41__CloudMediaServicesPlayerInterface_init__block_invoke_75_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2439AD000, a2, OS_LOG_TYPE_ERROR, "Error associating NSXPCConnection to remoteobject proxy %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2439AD000, a2, OS_LOG_TYPE_ERROR, "Error associating NSXPCConnection to remoteobject proxy %@", &v2, 0xCu);
 }
 
 @end

@@ -11,10 +11,10 @@
 
 - (MTLTelemetryHeap)initWithHeap:(id)heap descriptor:(id)descriptor device:(id)device
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = MTLTelemetryHeap;
-  v7 = [(MTLToolsObject *)&v13 initWithBaseObject:heap parent:device];
+  v15 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = MTLTelemetryHeap;
+  v7 = [(MTLToolsObject *)&v12 initWithBaseObject:heap parent:device];
   v8 = v7;
   if (v7)
   {
@@ -25,7 +25,7 @@
       {
         if (*MEMORY[0x277CD7168] != 1)
         {
-          goto LABEL_8;
+          return v8;
         }
 
         printf("\n\nHeap, size=%u", [descriptor size]);
@@ -36,14 +36,12 @@
       {
         v10 = [descriptor size];
         *buf = 67109120;
-        v15 = v10;
+        v14 = v10;
         _os_log_impl(&dword_22E0FF000, telemetryLog, OS_LOG_TYPE_DEFAULT, "Heap, size=%u", buf, 8u);
       }
     }
   }
 
-LABEL_8:
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

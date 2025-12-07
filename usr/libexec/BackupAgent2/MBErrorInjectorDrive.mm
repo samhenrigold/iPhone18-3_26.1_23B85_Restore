@@ -400,54 +400,49 @@
     index = self->_index;
     subindex = self->_subindex;
     *buf = 138413058;
-    v27 = pathsCopy;
-    v28 = 2048;
-    v29 = index;
-    v30 = 2048;
-    v31 = index;
-    v32 = 2048;
-    v33 = subindex;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "[MBErrorInjectorDrive remoteItemsAtPath:%@]: %lu %lu %lu", buf, 0x2Au);
-    index2 = [(MBDriveScript *)self->_script index];
-    v24 = self->_index;
-    v25 = self->_subindex;
     v22 = pathsCopy;
-    v23 = index2;
-    _MBLog();
+    v23 = 2048;
+    v24 = index;
+    v25 = 2048;
+    v26 = index;
+    v27 = 2048;
+    v28 = subindex;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "[MBErrorInjectorDrive remoteItemsAtPath:%@]: %lu %lu %lu", buf, 0x2Au);
+    _MBLog(@"I ", "[MBErrorInjectorDrive remoteItemsAtPath:%@]: %lu %lu %lu", pathsCopy, [(MBDriveScript *)self->_script index], self->_index, self->_subindex);
   }
 
   if ([(MBDriveScript *)self->_script index]== self->_index)
   {
     if ([pathsCopy count])
     {
-      v17 = self->_subindex;
-      if (v17 >= [pathsCopy count])
+      v16 = self->_subindex;
+      if (v16 >= [pathsCopy count])
       {
         sub_10009F014();
       }
 
-      v18 = [pathsCopy subarrayWithRange:{0, self->_subindex, v22, v23, v24, v25}];
-      v19 = [(MBDrive *)self->_delegate removeItemsAtPaths:v18 options:optionsCopy results:results error:error];
-      if (error && v19)
+      v17 = [pathsCopy subarrayWithRange:{0, self->_subindex}];
+      v18 = [(MBDrive *)self->_delegate removeItemsAtPaths:v17 options:optionsCopy results:results error:error];
+      if (error && v18)
       {
         *error = [MBError errorWithCode:100 format:@"Simulated I/O error"];
       }
 
-      v20 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v20 = 1;
+      v19 = 1;
     }
   }
 
   else
   {
-    v20 = [(MBDrive *)self->_delegate removeItemsAtPaths:pathsCopy options:optionsCopy results:results error:error];
+    v19 = [(MBDrive *)self->_delegate removeItemsAtPaths:pathsCopy options:optionsCopy results:results error:error];
   }
 
-  return v20;
+  return v19;
 }
 
 @end

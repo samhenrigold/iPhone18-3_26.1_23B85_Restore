@@ -45,21 +45,20 @@
   }
 
   v3 = objc_autoreleasePoolPush();
-  v4 = sub_100091778();
+  v4 = sub_100091778(v3);
   v5 = MBGetDefaultLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v25 = v4;
+    v23 = v4;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Loading system domains versions from %{public}@", buf, 0xCu);
-    v19 = v4;
-    _MBLog();
+    _MBLog(@"Df", "Loading system domains versions from %{public}@", v4);
   }
 
   v6 = [NSURL fileURLWithPath:v4 isDirectory:0];
-  v23 = 0;
-  v7 = [NSDictionary dictionaryWithContentsOfURL:v6 error:&v23];
-  v8 = v23;
+  v21 = 0;
+  v7 = [NSDictionary dictionaryWithContentsOfURL:v6 error:&v21];
+  v8 = v21;
   if (!v7)
   {
     v18 = [[MBException alloc] initWithCode:11 format:{@"Error loading system domains from %@: %@", v4, v8}];
@@ -88,17 +87,15 @@ LABEL_12:
     minSupportedVersion = v2->_minSupportedVersion;
     maxSupportedVersion = v2->_maxSupportedVersion;
     *buf = 138544130;
-    v25 = v4;
+    v23 = v4;
+    v24 = 2048;
+    v25 = version;
     v26 = 2048;
-    v27 = version;
+    v27 = minSupportedVersion;
     v28 = 2048;
-    v29 = minSupportedVersion;
-    v30 = 2048;
-    v31 = maxSupportedVersion;
+    v29 = maxSupportedVersion;
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Loaded system domains versions from %{public}@: (%.1f,%.1f,%.1f)", buf, 0x2Au);
-    v22 = v2->_maxSupportedVersion;
-    v21 = *&v2->_version;
-    _MBLog();
+    _MBLog(@"Df", "Loaded system domains versions from %{public}@: (%.1f,%.1f,%.1f)", v4, *&v2->_version, *&v2->_minSupportedVersion, *&v2->_maxSupportedVersion);
   }
 
   objc_autoreleasePoolPop(v3);

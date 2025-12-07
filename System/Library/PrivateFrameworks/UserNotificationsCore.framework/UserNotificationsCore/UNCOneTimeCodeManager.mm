@@ -39,22 +39,25 @@
 
 - (void)foundCode:(id)code displayCode:(id)displayCode application:(id)application notification:(id)notification timestamp:(id)timestamp
 {
-  v13[1] = timestamp;
+  v24[1] = timestamp;
   v8 = sub_1DA93FAF4();
-  v14 = *(v8 - 8);
-  v15 = v8;
-  v9 = *(v14 + 64);
+  v25 = *(v8 - 8);
+  v26 = v8;
   MEMORY[0x1EEE9AC00](v8);
-  v11 = v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1DA940A14();
-  sub_1DA940A14();
-  sub_1DA940A14();
-  sub_1DA940A14();
+  v10 = v24 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = sub_1DA940A14();
+  v13 = v12;
+  v14 = sub_1DA940A14();
+  v16 = v15;
+  v17 = sub_1DA940A14();
+  v19 = v18;
+  v20 = sub_1DA940A14();
+  v22 = v21;
   sub_1DA93FAB4();
   selfCopy = self;
-  UNCOneTimeCodeManager.foundCode(_:displayCode:application:notification:timestamp:)();
+  UNCOneTimeCodeManager.foundCode(_:displayCode:application:notification:timestamp:)(v11, v13, v14, v16, v17, v19, v20, v22);
 
-  (*(v14 + 8))(v11, v15);
+  (*(v25 + 8))(v10, v26);
 }
 
 @end

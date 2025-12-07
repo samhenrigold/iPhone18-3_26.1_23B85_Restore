@@ -9,6 +9,7 @@
 - (void)layoutSubviews;
 - (void)setDateString:(id)string;
 - (void)setDisplayValue:(id)value;
+- (void)setDisplayValueAdjustsFontSizeToFitWidth:(BOOL)width;
 @end
 
 @implementation WDDataTableViewCell
@@ -300,6 +301,14 @@
   [detailTextLabel setText:stringCopy];
 
   [(WDDataTableViewCell *)self setNeedsLayout];
+}
+
+- (void)setDisplayValueAdjustsFontSizeToFitWidth:(BOOL)width
+{
+  widthCopy = width;
+  self->_displayValueAdjustsFontSizeToFitWidth = width;
+  textLabel = [(WDDataTableViewCell *)self textLabel];
+  [textLabel setAdjustsFontSizeToFitWidth:widthCopy];
 }
 
 - (void)_contentSizeCategoryDidChange:(id)change

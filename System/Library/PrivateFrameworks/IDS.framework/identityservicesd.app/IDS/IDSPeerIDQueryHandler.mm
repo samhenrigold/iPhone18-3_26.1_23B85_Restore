@@ -135,7 +135,7 @@
 
   if (v3)
   {
-    [v3 doubleValue];
+    objc_msgSend_doubleValue(v3);
     v5 = v4;
   }
 
@@ -173,7 +173,7 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v3 doubleValue];
+    objc_msgSend_doubleValue(v3);
     v5 = v4;
   }
 
@@ -193,7 +193,7 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v3 doubleValue];
+    objc_msgSend_doubleValue(v3);
     v5 = v4;
   }
 
@@ -1043,7 +1043,7 @@ LABEL_7:
   v191 = sub_10000AAC4;
   v192 = sub_10000BCD4;
   v193 = 0;
-  if ([v150 isEqualToIgnoringCase:@"com.apple.madrid"])
+  if (objc_msgSend_isEqualToIgnoringCase_(v150))
   {
     v17 = 20.0;
   }

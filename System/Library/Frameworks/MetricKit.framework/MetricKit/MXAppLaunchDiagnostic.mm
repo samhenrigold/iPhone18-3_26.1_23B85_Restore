@@ -1,11 +1,38 @@
 @interface MXAppLaunchDiagnostic
 - (MXAppLaunchDiagnostic)initWithCoder:(id)coder;
 - (MXAppLaunchDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version callStack:(id)stack launchDuration:(id)duration;
+- (MXAppLaunchDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version signpostData:(id)signpostData pid:(int)pid callStack:(id)stack launchDuration:(id)duration;
 - (id)toDictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation MXAppLaunchDiagnostic
+
+- (MXAppLaunchDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version signpostData:(id)signpostData pid:(int)pid callStack:(id)stack launchDuration:(id)duration
+{
+  v10 = *&pid;
+  stackCopy = stack;
+  durationCopy = duration;
+  v21.receiver = self;
+  v21.super_class = MXAppLaunchDiagnostic;
+  v17 = [(MXDiagnostic *)&v21 initWithMetaData:data applicationVersion:version signpostData:signpostData andPID:v10];
+  if (v17)
+  {
+    if (!stackCopy || ([durationCopy doubleValue], v18 <= 0.0))
+    {
+      v19 = 0;
+      goto LABEL_7;
+    }
+
+    objc_storeStrong(&v17->_callStackTree, stack);
+    objc_storeStrong(&v17->_launchDuration, duration);
+  }
+
+  v19 = v17;
+LABEL_7:
+
+  return v19;
+}
 
 - (MXAppLaunchDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version callStack:(id)stack launchDuration:(id)duration
 {

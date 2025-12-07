@@ -51,7 +51,7 @@
   ams_DSID = [ams_activeiTunesAccount ams_DSID];
 
   v27 = 0;
-  v15 = sub_100405768();
+  v15 = sub_100405768(FamilyManager);
   if (self)
   {
     v16 = self->super._options;

@@ -21,7 +21,7 @@
 
 - (void)handleDidUnpairNotification:(id)notification
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   userInfo = [notification userInfo];
   v5 = [userInfo objectForKeyedSubscript:*MEMORY[0x277D2BC40]];
 
@@ -30,13 +30,13 @@
   {
     pairingID = [v5 pairingID];
     *buf = 136315394;
-    v30 = "[VCWatchSyncCoordinator handleDidUnpairNotification:]";
-    v31 = 2114;
-    v32 = pairingID;
+    v29 = "[VCWatchSyncCoordinator handleDidUnpairNotification:]";
+    v30 = 2114;
+    v31 = pairingID;
     _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_INFO, "%s received DidUnpair notification for pairingID=%{public}@", buf, 0x16u);
   }
 
-  v23 = v5;
+  v22 = v5;
   if (v5)
   {
     v8 = [VCNRDeviceSyncService alloc];
@@ -49,31 +49,31 @@
     v10 = 0;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   syncDataEndpoint = [(VCWatchSyncCoordinator *)self syncDataEndpoint];
   syncDataHandlers = [syncDataEndpoint syncDataHandlers];
 
-  v13 = [syncDataHandlers countByEnumeratingWithState:&v25 objects:v35 count:16];
+  v13 = [syncDataHandlers countByEnumeratingWithState:&v24 objects:v34 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v26;
+    v15 = *v25;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v26 != v15)
+        if (*v25 != v15)
         {
           objc_enumerationMutation(syncDataHandlers);
         }
 
-        v17 = *(*(&v25 + 1) + 8 * i);
-        v24 = 0;
-        v18 = [v17 resetSyncStateForService:v10 error:&v24];
-        v19 = v24;
+        v17 = *(*(&v24 + 1) + 8 * i);
+        v23 = 0;
+        v18 = [v17 resetSyncStateForService:v10 error:&v23];
+        v19 = v23;
         if ((v18 & 1) == 0)
         {
           v20 = getWFWatchSyncLogObject();
@@ -81,38 +81,35 @@
           {
             syncServiceIdentifier = [(VCNRDeviceSyncService *)v10 syncServiceIdentifier];
             *buf = 136315650;
-            v30 = "[VCWatchSyncCoordinator handleDidUnpairNotification:]";
-            v31 = 2114;
-            v32 = syncServiceIdentifier;
-            v33 = 2114;
-            v34 = v19;
+            v29 = "[VCWatchSyncCoordinator handleDidUnpairNotification:]";
+            v30 = 2114;
+            v31 = syncServiceIdentifier;
+            v32 = 2114;
+            v33 = v19;
             _os_log_impl(&dword_23103C000, v20, OS_LOG_TYPE_ERROR, "%s Error removing sync state for sync service with identifier=%{public}@: %{public}@", buf, 0x20u);
           }
         }
       }
 
-      v14 = [syncDataHandlers countByEnumeratingWithState:&v25 objects:v35 count:16];
+      v14 = [syncDataHandlers countByEnumeratingWithState:&v24 objects:v34 count:16];
     }
 
     while (v14);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDeviceDidChangeVersionNotification
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = getWFWatchSyncLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[VCWatchSyncCoordinator handleDeviceDidChangeVersionNotification]";
-    _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_INFO, "%s Received PairedDeviceDidChangeVersion notification", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[VCWatchSyncCoordinator handleDeviceDidChangeVersionNotification]";
+    _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_INFO, "%s Received PairedDeviceDidChangeVersion notification", &v4, 0xCu);
   }
 
   [(VCWatchSyncCoordinator *)self requestSyncIfUnrestricted];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopObservingWatchChangeNotifications
@@ -139,7 +136,7 @@
 
 - (void)companionSyncService:(id)service outgoingSyncSession:(id)session didUpdateProgress:(double)progress
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = [(VCWatchSyncCoordinator *)self pairedSyncCoordinator:service];
   activeSyncSession = [v6 activeSyncSession];
 
@@ -150,22 +147,20 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       sessionIdentifier = [activeSyncSession sessionIdentifier];
-      v11 = 136315650;
-      v12 = "[VCWatchSyncCoordinator companionSyncService:outgoingSyncSession:didUpdateProgress:]";
-      v13 = 2048;
+      v10 = 136315650;
+      v11 = "[VCWatchSyncCoordinator companionSyncService:outgoingSyncSession:didUpdateProgress:]";
+      v12 = 2048;
       progressCopy = progress;
-      v15 = 2114;
-      v16 = sessionIdentifier;
-      _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_INFO, "%s Reported progress %f for PairedSync session %{public}@", &v11, 0x20u);
+      v14 = 2114;
+      v15 = sessionIdentifier;
+      _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_INFO, "%s Reported progress %f for PairedSync session %{public}@", &v10, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)companionSyncService:(id)service outgoingSyncSessionDidFinishSendingChanges:(id)changes
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = [(VCWatchSyncCoordinator *)self pairedSyncCoordinator:service];
   activeSyncSession = [v4 activeSyncSession];
 
@@ -176,20 +171,18 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       sessionIdentifier = [activeSyncSession sessionIdentifier];
-      v9 = 136315394;
-      v10 = "[VCWatchSyncCoordinator companionSyncService:outgoingSyncSessionDidFinishSendingChanges:]";
-      v11 = 2114;
-      v12 = sessionIdentifier;
-      _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_INFO, "%s Finished sending changes for PairedSync session %{public}@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[VCWatchSyncCoordinator companionSyncService:outgoingSyncSessionDidFinishSendingChanges:]";
+      v10 = 2114;
+      v11 = sessionIdentifier;
+      _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_INFO, "%s Finished sending changes for PairedSync session %{public}@", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)companionSyncService:(id)service didRejectSessionWithError:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   pairedSyncCoordinator = [(VCWatchSyncCoordinator *)self pairedSyncCoordinator];
   activeSyncSession = [pairedSyncCoordinator activeSyncSession];
@@ -203,18 +196,18 @@
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sessionIdentifier = [activeSyncSession sessionIdentifier];
-        v15 = 136315650;
-        v16 = "[VCWatchSyncCoordinator companionSyncService:didRejectSessionWithError:]";
-        v17 = 2114;
-        v18 = sessionIdentifier;
-        v19 = 2114;
-        v20 = errorCopy;
+        v14 = 136315650;
+        v15 = "[VCWatchSyncCoordinator companionSyncService:didRejectSessionWithError:]";
+        v16 = 2114;
+        v17 = sessionIdentifier;
+        v18 = 2114;
+        v19 = errorCopy;
         v10 = "%s PairedSync session %{public}@ failed to start syncing with error: %{public}@";
         v11 = v8;
         v12 = OS_LOG_TYPE_ERROR;
         v13 = 32;
 LABEL_7:
-        _os_log_impl(&dword_23103C000, v11, v12, v10, &v15, v13);
+        _os_log_impl(&dword_23103C000, v11, v12, v10, &v14, v13);
       }
     }
 
@@ -225,10 +218,10 @@ LABEL_7:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         sessionIdentifier = [activeSyncSession sessionIdentifier];
-        v15 = 136315394;
-        v16 = "[VCWatchSyncCoordinator companionSyncService:didRejectSessionWithError:]";
-        v17 = 2114;
-        v18 = sessionIdentifier;
+        v14 = 136315394;
+        v15 = "[VCWatchSyncCoordinator companionSyncService:didRejectSessionWithError:]";
+        v16 = 2114;
+        v17 = sessionIdentifier;
         v10 = "%s Completed PairedSync session %{public}@ succesfully because no changes had to be sent";
         v11 = v8;
         v12 = OS_LOG_TYPE_INFO;
@@ -237,13 +230,11 @@ LABEL_7:
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)companionSyncService:(id)service didFinishSyncSession:(id)session withError:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   pairedSyncCoordinator = [(VCWatchSyncCoordinator *)self pairedSyncCoordinator];
   activeSyncSession = [pairedSyncCoordinator activeSyncSession];
@@ -257,18 +248,18 @@ LABEL_7:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sessionIdentifier = [activeSyncSession sessionIdentifier];
-        v16 = 136315650;
-        v17 = "[VCWatchSyncCoordinator companionSyncService:didFinishSyncSession:withError:]";
-        v18 = 2114;
-        v19 = sessionIdentifier;
-        v20 = 2114;
-        v21 = errorCopy;
+        v15 = 136315650;
+        v16 = "[VCWatchSyncCoordinator companionSyncService:didFinishSyncSession:withError:]";
+        v17 = 2114;
+        v18 = sessionIdentifier;
+        v19 = 2114;
+        v20 = errorCopy;
         v11 = "%s PairedSync session %{public}@ failed with error: %{public}@";
         v12 = v9;
         v13 = OS_LOG_TYPE_ERROR;
         v14 = 32;
 LABEL_7:
-        _os_log_impl(&dword_23103C000, v12, v13, v11, &v16, v14);
+        _os_log_impl(&dword_23103C000, v12, v13, v11, &v15, v14);
       }
     }
 
@@ -279,10 +270,10 @@ LABEL_7:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         sessionIdentifier = [activeSyncSession sessionIdentifier];
-        v16 = 136315394;
-        v17 = "[VCWatchSyncCoordinator companionSyncService:didFinishSyncSession:withError:]";
-        v18 = 2114;
-        v19 = sessionIdentifier;
+        v15 = 136315394;
+        v16 = "[VCWatchSyncCoordinator companionSyncService:didFinishSyncSession:withError:]";
+        v17 = 2114;
+        v18 = sessionIdentifier;
         v11 = "%s Completed PairedSync session %{public}@ succesfully";
         v12 = v9;
         v13 = OS_LOG_TYPE_INFO;
@@ -291,8 +282,6 @@ LABEL_7:
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)companionSyncService:(id)service typeForSession:(id)session
@@ -324,7 +313,7 @@ LABEL_7:
 
 - (BOOL)companionSyncServiceShouldStartSession:(id)session
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   pairedSyncCoordinator = [(VCWatchSyncCoordinator *)self pairedSyncCoordinator];
   syncRestriction = [pairedSyncCoordinator syncRestriction];
 
@@ -333,79 +322,73 @@ LABEL_7:
     v5 = getWFWatchSyncLogObject();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8 = 136315138;
-      v9 = "[VCWatchSyncCoordinator companionSyncServiceShouldStartSession:]";
-      _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_INFO, "%s Not syncing because of PSYSyncRestrictionLimitPush", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[VCWatchSyncCoordinator companionSyncServiceShouldStartSession:]";
+      _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_INFO, "%s Not syncing because of PSYSyncRestrictionLimitPush", &v7, 0xCu);
     }
   }
 
-  result = syncRestriction != 1;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return syncRestriction != 1;
 }
 
 - (void)syncCoordinatorDidChangeSyncRestriction:(id)restriction
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   restrictionCopy = restriction;
   v5 = getWFWatchSyncLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[VCWatchSyncCoordinator syncCoordinatorDidChangeSyncRestriction:]";
-    v9 = 2048;
+    v6 = 136315394;
+    v7 = "[VCWatchSyncCoordinator syncCoordinatorDidChangeSyncRestriction:]";
+    v8 = 2048;
     syncRestriction = [restrictionCopy syncRestriction];
-    _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_INFO, "%s Sync restriction changed to %lu", &v7, 0x16u);
+    _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_INFO, "%s Sync restriction changed to %lu", &v6, 0x16u);
   }
 
   [(VCWatchSyncCoordinator *)self requestSyncIfUnrestricted];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncCoordinator:(id)coordinator didInvalidateSyncSession:(id)session
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   v6 = getWFWatchSyncLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     sessionIdentifier = [sessionCopy sessionIdentifier];
-    v11 = 136315394;
-    v12 = "[VCWatchSyncCoordinator syncCoordinator:didInvalidateSyncSession:]";
-    v13 = 2114;
-    v14 = sessionIdentifier;
-    _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_DEFAULT, "%s Invalidated PairedSync session %{public}@", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "[VCWatchSyncCoordinator syncCoordinator:didInvalidateSyncSession:]";
+    v12 = 2114;
+    v13 = sessionIdentifier;
+    _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_DEFAULT, "%s Invalidated PairedSync session %{public}@", &v10, 0x16u);
   }
 
   startedSessions = [(VCWatchSyncCoordinator *)self startedSessions];
   sessionIdentifier2 = [sessionCopy sessionIdentifier];
   [startedSessions removeObject:sessionIdentifier2];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncCoordinator:(id)coordinator beginSyncSession:(id)session
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   v6 = getWFWatchSyncLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     sessionIdentifier = [sessionCopy sessionIdentifier];
-    v9 = 136315394;
-    v10 = "[VCWatchSyncCoordinator syncCoordinator:beginSyncSession:]";
-    v11 = 2114;
-    v12 = sessionIdentifier;
-    _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_INFO, "%s Starting PairedSync session %{public}@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[VCWatchSyncCoordinator syncCoordinator:beginSyncSession:]";
+    v10 = 2114;
+    v11 = sessionIdentifier;
+    _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_INFO, "%s Starting PairedSync session %{public}@", &v8, 0x16u);
   }
 
   [(VCWatchSyncCoordinator *)self requestSyncIfUnrestricted];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestSyncIfUnrestricted
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   service = [(VCWatchSyncCoordinator *)self service];
   v4 = [(VCWatchSyncCoordinator *)self companionSyncServiceShouldStartSession:service];
 
@@ -441,11 +424,11 @@ LABEL_7:
         v14 = getWFWatchSyncLogObject();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
-          v16 = 136315394;
-          v17 = "[VCWatchSyncCoordinator requestSyncIfUnrestricted]";
-          v18 = 2114;
-          v19 = sessionIdentifier;
-          _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_INFO, "%s Requested CompanionSync session for PairedSync session %{public}@", &v16, 0x16u);
+          v15 = 136315394;
+          v16 = "[VCWatchSyncCoordinator requestSyncIfUnrestricted]";
+          v17 = 2114;
+          v18 = sessionIdentifier;
+          _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_INFO, "%s Requested CompanionSync session for PairedSync session %{public}@", &v15, 0x16u);
         }
       }
     }
@@ -456,8 +439,6 @@ LABEL_7:
       [sessionIdentifier requestSync];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -470,11 +451,11 @@ LABEL_7:
 
 - (VCWatchSyncCoordinator)initWithSyncDataEndpoint:(id)endpoint eventHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   endpointCopy = endpoint;
-  v23.receiver = self;
-  v23.super_class = VCWatchSyncCoordinator;
-  v7 = [(VCWatchSyncCoordinator *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = VCWatchSyncCoordinator;
+  v7 = [(VCWatchSyncCoordinator *)&v22 init];
   if (v7)
   {
     currentDevice = [MEMORY[0x277D79F18] currentDevice];
@@ -484,7 +465,7 @@ LABEL_7:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v25 = "[VCWatchSyncCoordinator initWithSyncDataEndpoint:eventHandler:]";
+        v24 = "[VCWatchSyncCoordinator initWithSyncDataEndpoint:eventHandler:]";
         v10 = "%s Not running WatchSync on iPad";
 LABEL_16:
         _os_log_impl(&dword_23103C000, v9, OS_LOG_TYPE_INFO, v10, buf, 0xCu);
@@ -535,7 +516,7 @@ LABEL_16:
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v25 = "[VCWatchSyncCoordinator initWithSyncDataEndpoint:eventHandler:]";
+          v24 = "[VCWatchSyncCoordinator initWithSyncDataEndpoint:eventHandler:]";
           v10 = "%s The NanoRegistry framework is not present on this device";
           goto LABEL_16;
         }
@@ -548,7 +529,7 @@ LABEL_16:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v25 = "[VCWatchSyncCoordinator initWithSyncDataEndpoint:eventHandler:]";
+        v24 = "[VCWatchSyncCoordinator initWithSyncDataEndpoint:eventHandler:]";
         v10 = "%s The PairedSync framework is not present on this device";
         goto LABEL_16;
       }
@@ -563,7 +544,6 @@ LABEL_18:
   v11 = 0;
 LABEL_19:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

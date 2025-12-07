@@ -67,7 +67,7 @@
 
   else
   {
-    v5 = sub_100002880();
+    v5 = sub_100002880(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100226D88(self, v5);
@@ -99,27 +99,28 @@
 + (id)directoryURLForContextKey:(id)key
 {
   keyCopy = key;
+  v4 = keyCopy;
   if (keyCopy)
   {
     rootDirectoryURL = [objc_opt_class() rootDirectoryURL];
-    lastPathComponent = [keyCopy lastPathComponent];
-    v6 = [rootDirectoryURL URLByAppendingPathComponent:lastPathComponent isDirectory:1];
+    lastPathComponent = [v4 lastPathComponent];
+    v7 = [rootDirectoryURL URLByAppendingPathComponent:lastPathComponent isDirectory:1];
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v7 = sub_100002880();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = sub_100002880(keyCopy);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "New protected context directory URL %@", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = v7;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "New protected context directory URL %@", &v10, 0xCu);
   }
 
-  return v6;
+  return v7;
 }
 
 + (id)rootDirectoryURL
@@ -138,8 +139,8 @@
     uRLByDeletingLastPathComponent = [v5 URLByDeletingLastPathComponent];
     v2 = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:@"protectedContexts" isDirectory:1];
 
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = sub_100002880(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       sub_100226E1C();
     }
@@ -159,7 +160,7 @@
     uUIDString = [contextUUID2 UUIDString];
 
     contextUUID = [v4 URLByAppendingPathComponent:uUIDString isDirectory:0];
-    v8 = sub_100002880();
+    v8 = sub_100002880(contextUUID);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       sub_100226E84();
@@ -177,49 +178,49 @@
 
   if (!v8)
   {
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = sub_100002880(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_100226EEC();
     }
 
     dataArchiver = [(FMDProtectedContext *)self dataArchiver];
-    v11 = [NSSet setWithObject:objc_opt_class()];
-    v20 = 0;
-    v8 = [dataArchiver readDictionaryAndClasses:v11 error:&v20];
-    v12 = v20;
+    v12 = [NSSet setWithObject:objc_opt_class()];
+    v22 = 0;
+    v8 = [dataArchiver readDictionaryAndClasses:v12 error:&v22];
+    v13 = v22;
 
-    if (v12)
+    if (v13)
     {
-      v13 = sub_100002880();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100002880(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v24 = keyCopy;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Unable to read %@", buf, 0xCu);
+        v26 = keyCopy;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Unable to read %@", buf, 0xCu);
       }
 
-      v14 = +[FMDEventLoggerGeneral sharedInstance];
-      [v14 sendError:v12 forEventName:@"FMDProtectedContextFailedReadEventName"];
+      v16 = +[FMDEventLoggerGeneral sharedInstance];
+      [v16 sendError:v13 forEventName:@"FMDProtectedContextFailedReadEventName"];
 
-      v21 = NSUnderlyingErrorKey;
-      v22 = v12;
-      v15 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-      v16 = [NSError errorWithDomain:@"com.apple.icloud.findmydeviced.protectedcontext" code:1 userInfo:v15];
+      v23 = NSUnderlyingErrorKey;
+      v24 = v13;
+      v17 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v18 = [NSError errorWithDomain:@"com.apple.icloud.findmydeviced.protectedcontext" code:1 userInfo:v17];
 
       if (error)
       {
-        v17 = v16;
-        *error = v16;
+        v19 = v18;
+        *error = v18;
       }
     }
 
     [(FMDProtectedContext *)self setContextDictionary:v8];
   }
 
-  v18 = [v8 objectForKeyedSubscript:keyCopy];
+  v20 = [v8 objectForKeyedSubscript:keyCopy];
 
-  return v18;
+  return v20;
 }
 
 - (void)saveForContextKey:(id)key
@@ -228,22 +229,22 @@
 
   if (contextDictionary)
   {
-    v5 = sub_100002880();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = sub_100002880(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      sub_100226F54(self, v5);
+      sub_100226F54(self, v6);
     }
 
     dataArchiver = [(FMDProtectedContext *)self dataArchiver];
     contextDictionary2 = [(FMDProtectedContext *)self contextDictionary];
-    v8 = [dataArchiver saveDictionary:contextDictionary2];
+    v9 = [dataArchiver saveDictionary:contextDictionary2];
 
-    if (v8)
+    if (v9)
     {
-      v9 = sub_100002880();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = sub_100002880(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        sub_100226FE8(v8, v9);
+        sub_100226FE8(v9, v11);
       }
     }
   }

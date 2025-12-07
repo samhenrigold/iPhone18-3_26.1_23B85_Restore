@@ -17,6 +17,19 @@
 - (id)_confirmAwakeOnServer;
 - (id)_dismissGoodMorningOnServer;
 - (id)_dismissSleepLockOnServer;
+- (id)_getSleepEventRecordDoSync:(BOOL)sync;
+- (id)_getSleepEventRecordFromServerDoSync:(BOOL)sync;
+- (id)_getSleepModeDoSync:(BOOL)sync;
+- (id)_getSleepModeFromServerDoSync:(BOOL)sync;
+- (id)_getSleepScheduleDoSync:(BOOL)sync;
+- (id)_getSleepScheduleFromServerDoSync:(BOOL)sync;
+- (id)_getSleepScheduleModelDoSync:(BOOL)sync;
+- (id)_getSleepScheduleModelFromServerDoSync:(BOOL)sync;
+- (id)_getSleepScheduleStateFromServerDoSync:(BOOL)sync;
+- (id)_getSleepScheduleStateOnDoSync:(BOOL)sync;
+- (id)_getSleepSettingsDoSync:(BOOL)sync;
+- (id)_getSleepSettingsFromServerDoSync:(BOOL)sync;
+- (id)_getSleepWidgetStateFromServerDoSync:(BOOL)sync;
 - (id)_prepareObjectForSave:(id)save options:(unint64_t)options;
 - (id)_publishNotificationOnServerWithIdentifier:(id)identifier userInfo:(id)info;
 - (id)_publishWakeUpResultsNotificationOnServer;
@@ -89,6 +102,8 @@
 - (void)setSleepModeOn:(BOOL)on reason:(unint64_t)reason completion:(id)completion;
 - (void)setSleepTrackingOnboardingCompletedVersion:(int64_t)version completion:(id)completion;
 - (void)setSleepWindDownShortcutsOnboardingCompletedVersion:(int64_t)version completion:(id)completion;
+- (void)setUpcomingWakeUpAlarmEnabled:(BOOL)enabled date:(id)date completion:(id)completion;
+- (void)setWakeUpAlarmEnabled:(BOOL)enabled resolvedOccurrence:(id)occurrence date:(id)date completion:(id)completion;
 - (void)setWidgetOverrideState:(int64_t)state completion:(id)completion;
 - (void)sleepAlarmWasDismissedOnDate:(id)date source:(unint64_t)source completion:(id)completion;
 - (void)sleepAlarmWasModifiedFromSource:(unint64_t)source completion:(id)completion;
@@ -175,7 +190,7 @@ void __97__HKSPSleepStore_Analytics__trackSleepDataInteractionEventWithType_isOn
 
 - (void)suggestedSleepScheduleWithProviders:(id)providers completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   providersCopy = providers;
   completionCopy = completion;
   v8 = HKSPLogForCategory(1uLL);
@@ -186,23 +201,21 @@ void __97__HKSPSleepStore_Analytics__trackSleepDataInteractionEventWithType_isOn
     _os_log_impl(&dword_269A84000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ requesting suggested sleep schedule", buf, 0xCu);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_completion___block_invoke;
-  v12[3] = &unk_279C74550;
-  v13 = providersCopy;
-  v14 = completionCopy;
-  v12[4] = self;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_completion___block_invoke;
+  v11[3] = &unk_279C74550;
+  v12 = providersCopy;
+  v13 = completionCopy;
+  v11[4] = self;
   v9 = providersCopy;
   v10 = completionCopy;
-  [(HKSPSleepStore *)self currentSleepScheduleWithCompletion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(HKSPSleepStore *)self currentSleepScheduleWithCompletion:v11];
 }
 
 void __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (a3)
@@ -214,26 +227,26 @@ void __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_complet
   {
     if (![v5 hasOccurrences])
     {
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_completion___block_invoke_295;
-      v18[3] = &unk_279C744D8;
-      v11 = *(a1 + 40);
-      v18[4] = *(a1 + 32);
-      v12 = [v11 na_map:v18];
       v17[0] = MEMORY[0x277D85DD0];
       v17[1] = 3221225472;
-      v17[2] = __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_completion___block_invoke_300;
-      v17[3] = &unk_279C74500;
+      v17[2] = __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_completion___block_invoke_295;
+      v17[3] = &unk_279C744D8;
+      v10 = *(a1 + 40);
       v17[4] = *(a1 + 32);
-      v13 = [MEMORY[0x277D2C900] hksp_chainFutures:v12 returningFirstPassingTest:v17 ignoreErrors:1];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_completion___block_invoke_2_302;
-      v15[3] = &unk_279C74528;
-      v15[4] = *(a1 + 32);
-      v16 = *(a1 + 48);
-      v14 = [v13 addCompletionBlock:v15];
+      v11 = [v10 na_map:v17];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_completion___block_invoke_300;
+      v16[3] = &unk_279C74500;
+      v16[4] = *(a1 + 32);
+      v12 = [MEMORY[0x277D2C900] hksp_chainFutures:v11 returningFirstPassingTest:v16 ignoreErrors:1];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_completion___block_invoke_2_302;
+      v14[3] = &unk_279C74528;
+      v14[4] = *(a1 + 32);
+      v15 = *(a1 + 48);
+      v13 = [v12 addCompletionBlock:v14];
 
       goto LABEL_8;
     }
@@ -243,9 +256,9 @@ void __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_complet
     {
       v9 = *(a1 + 32);
       *buf = 138543618;
-      v20 = v9;
-      v21 = 2114;
-      v22 = v6;
+      v19 = v9;
+      v20 = 2114;
+      v21 = v6;
       _os_log_impl(&dword_269A84000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ returning existing sleep schedule: %{public}@", buf, 0x16u);
     }
 
@@ -254,8 +267,6 @@ void __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_complet
 
   v7();
 LABEL_8:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 id __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_completion___block_invoke_295(uint64_t a1, void *a2)
@@ -292,7 +303,7 @@ void __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_complet
 
 void __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = HKSPLogForCategory(1uLL);
@@ -303,15 +314,15 @@ void __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_complet
     {
       v9 = *(a1 + 32);
       v10 = *(a1 + 40);
-      v16 = 138543874;
-      v17 = v9;
-      v18 = 2114;
-      v19 = v10;
-      v20 = 2114;
-      v21 = v6;
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2114;
+      v18 = v10;
+      v19 = 2114;
+      v20 = v6;
       v11 = "%{public}@ provider %{public}@ failed to suggest sleep schedule: %{public}@";
 LABEL_6:
-      _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, v11, &v16, 0x20u);
+      _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, v11, &v15, 0x20u);
     }
   }
 
@@ -319,12 +330,12 @@ LABEL_6:
   {
     v12 = *(a1 + 32);
     v13 = *(a1 + 40);
-    v16 = 138543874;
-    v17 = v12;
-    v18 = 2114;
-    v19 = v13;
-    v20 = 2114;
-    v21 = v5;
+    v15 = 138543874;
+    v16 = v12;
+    v17 = 2114;
+    v18 = v13;
+    v19 = 2114;
+    v20 = v5;
     v11 = "%{public}@ provider %{public}@ suggested sleep schedule: %{public}@";
     goto LABEL_6;
   }
@@ -333,8 +344,6 @@ LABEL_6:
   [(_HKSPScheduleAndProviderPair *)v14 setProvider:*(a1 + 40)];
   [(_HKSPScheduleAndProviderPair *)v14 setSchedule:v5];
   [*(a1 + 48) finishWithResult:v14 error:v6];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_completion___block_invoke_300(uint64_t a1, void *a2)
@@ -355,7 +364,7 @@ uint64_t __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_com
 
 void __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_completion___block_invoke_2_302(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NAEmptyResult();
@@ -367,12 +376,12 @@ void __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_complet
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v18 = *(a1 + 32);
-      v19 = 138543618;
-      v20 = v18;
-      v21 = 2114;
-      v22 = v6;
-      _os_log_error_impl(&dword_269A84000, v10, OS_LOG_TYPE_ERROR, "%{public}@ no suggested sleep schedule found (error: %{public}@)", &v19, 0x16u);
+      v17 = *(a1 + 32);
+      v18 = 138543618;
+      v19 = v17;
+      v20 = 2114;
+      v21 = v6;
+      _os_log_error_impl(&dword_269A84000, v10, OS_LOG_TYPE_ERROR, "%{public}@ no suggested sleep schedule found (error: %{public}@)", &v18, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -385,13 +394,13 @@ void __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_complet
       v11 = *(a1 + 32);
       v12 = [v5 schedule];
       v13 = [v5 provider];
-      v19 = 138543874;
-      v20 = v11;
-      v21 = 2114;
-      v22 = v12;
-      v23 = 2114;
-      v24 = v13;
-      _os_log_impl(&dword_269A84000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ returning suggested sleep schedule: %{public}@ (provider: %{public}@)", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v11;
+      v20 = 2114;
+      v21 = v12;
+      v22 = 2114;
+      v23 = v13;
+      _os_log_impl(&dword_269A84000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ returning suggested sleep schedule: %{public}@ (provider: %{public}@)", &v18, 0x20u);
     }
 
     v14 = *(a1 + 40);
@@ -399,8 +408,6 @@ void __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_complet
     v16 = [v5 provider];
     (*(v14 + 16))(v14, v15, v16, v6);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_resultHasSchedule:(id)schedule
@@ -413,7 +420,7 @@ void __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_complet
 
 - (BOOL)_resultScheduleMeetsDefaultGoal:(id)goal
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   schedule = [goal schedule];
   meetsDefaultSleepGoal = [schedule meetsDefaultSleepGoal];
 
@@ -423,29 +430,28 @@ void __76__HKSPSleepStore_Proactive__suggestedSleepScheduleWithProviders_complet
   {
     if (v7)
     {
-      v11 = 138543362;
+      v10 = 138543362;
       selfCopy2 = self;
       v8 = "%{public}@ suggested schedule meets default sleep goal";
 LABEL_6:
-      _os_log_impl(&dword_269A84000, v6, OS_LOG_TYPE_DEFAULT, v8, &v11, 0xCu);
+      _os_log_impl(&dword_269A84000, v6, OS_LOG_TYPE_DEFAULT, v8, &v10, 0xCu);
     }
   }
 
   else if (v7)
   {
-    v11 = 138543362;
+    v10 = 138543362;
     selfCopy2 = self;
     v8 = "%{public}@ suggested schedule doesn't meet default sleep goal";
     goto LABEL_6;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return meetsDefaultSleepGoal;
 }
 
 - (BOOL)_resultScheduleIsValid:(id)valid
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   validCopy = valid;
   v5 = [(HKSPSleepStore *)self sleepScheduleModelWithError:0];
   schedule = [validCopy schedule];
@@ -466,23 +472,22 @@ LABEL_6:
   {
     if (v16)
     {
-      v20 = 138543362;
+      v19 = 138543362;
       selfCopy2 = self;
       v17 = "%{public}@ suggested schedule is invalid";
 LABEL_6:
-      _os_log_impl(&dword_269A84000, v15, OS_LOG_TYPE_DEFAULT, v17, &v20, 0xCu);
+      _os_log_impl(&dword_269A84000, v15, OS_LOG_TYPE_DEFAULT, v17, &v19, 0xCu);
     }
   }
 
   else if (v16)
   {
-    v20 = 138543362;
+    v19 = 138543362;
     selfCopy2 = self;
     v17 = "%{public}@ suggested schedule is valid";
     goto LABEL_6;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return sleepScheduleInvalid ^ 1;
 }
 
@@ -560,7 +565,7 @@ HKSPThrottler *__84__HKSPSleepStore_initWithConnectionProviderProvider_identifie
 
 - (HKSPSleepStore)initWithConnectionProviderProvider:(id)provider identifier:(id)identifier healthStore:(id)store options:(unint64_t)options analyticsManager:(id)manager throttlerProvider:(id)throttlerProvider callbackScheduler:(id)scheduler sleepFocusModeBridgeProvider:(id)self0 widgetTimelineControllersProvider:(id)self1 widgetRelevanceControllerProvider:(id)self2 currentDateProvider:(id)self3
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   identifierCopy = identifier;
   storeCopy = store;
@@ -572,9 +577,9 @@ HKSPThrottler *__84__HKSPSleepStore_initWithConnectionProviderProvider_identifie
   controllersProviderCopy = controllersProvider;
   controllerProviderCopy = controllerProvider;
   dateProviderCopy = dateProvider;
-  v65.receiver = self;
-  v65.super_class = HKSPSleepStore;
-  v22 = [(HKSPSleepStore *)&v65 init];
+  v64.receiver = self;
+  v64.super_class = HKSPSleepStore;
+  v22 = [(HKSPSleepStore *)&v64 init];
   if (v22)
   {
     v23 = [HKSPXPCClientIdentifier alloc];
@@ -587,7 +592,7 @@ HKSPThrottler *__84__HKSPSleepStore_initWithConnectionProviderProvider_identifie
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v67 = v22;
+      v66 = v22;
       _os_log_impl(&dword_269A84000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ initializing...", buf, 0xCu);
     }
 
@@ -692,12 +697,12 @@ HKSPThrottler *__84__HKSPSleepStore_initWithConnectionProviderProvider_identifie
 
     [(HKSPSleepWidgetManager *)v22->_widgetManager setDelegate:v22];
     objc_initWeak(buf, v22);
-    v63[0] = MEMORY[0x277D85DD0];
-    v63[1] = 3221225472;
-    v63[2] = __254__HKSPSleepStore_initWithConnectionProviderProvider_identifier_healthStore_options_analyticsManager_throttlerProvider_callbackScheduler_sleepFocusModeBridgeProvider_widgetTimelineControllersProvider_widgetRelevanceControllerProvider_currentDateProvider___block_invoke;
-    v63[3] = &unk_279C74E70;
-    objc_copyWeak(&v64, buf);
-    v50 = throttlerProviderCopy[2](throttlerProviderCopy, v63);
+    v62[0] = MEMORY[0x277D85DD0];
+    v62[1] = 3221225472;
+    v62[2] = __254__HKSPSleepStore_initWithConnectionProviderProvider_identifier_healthStore_options_analyticsManager_throttlerProvider_callbackScheduler_sleepFocusModeBridgeProvider_widgetTimelineControllersProvider_widgetRelevanceControllerProvider_currentDateProvider___block_invoke;
+    v62[3] = &unk_279C74E70;
+    objc_copyWeak(&v63, buf);
+    v50 = throttlerProviderCopy[2](throttlerProviderCopy, v62);
     reconnectThrottler = v22->_reconnectThrottler;
     v22->_reconnectThrottler = v50;
 
@@ -707,11 +712,10 @@ HKSPThrottler *__84__HKSPSleepStore_initWithConnectionProviderProvider_identifie
     }
 
     v52 = v22;
-    objc_destroyWeak(&v64);
+    objc_destroyWeak(&v63);
     objc_destroyWeak(buf);
   }
 
-  v53 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -723,23 +727,22 @@ void __254__HKSPSleepStore_initWithConnectionProviderProvider_identifier_healthS
 
 - (void)reconnect
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_269A84000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ reconnecting", &v5, 0xCu);
+    _os_log_impl(&dword_269A84000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ reconnecting", &v4, 0xCu);
   }
 
   [(HKSPThrottler *)self->_reconnectThrottler execute];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectSynchronously:(BOOL)synchronously
 {
   synchronouslyCopy = synchronously;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
 
@@ -766,25 +769,23 @@ void __254__HKSPSleepStore_initWithConnectionProviderProvider_identifier_healthS
       v10 = 2;
     }
 
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __39__HKSPSleepStore_connectSynchronously___block_invoke;
-    v19[3] = &unk_279C74EC0;
-    objc_copyWeak(&v20, buf);
-    v14 = MEMORY[0x277D85DD0];
-    v15 = 3221225472;
-    v16 = __39__HKSPSleepStore_connectSynchronously___block_invoke_3;
-    v17 = &unk_279C74EE8;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __39__HKSPSleepStore_connectSynchronously___block_invoke;
+    v18[3] = &unk_279C74EC0;
+    objc_copyWeak(&v19, buf);
+    v13 = MEMORY[0x277D85DD0];
+    v14 = 3221225472;
+    v15 = __39__HKSPSleepStore_connectSynchronously___block_invoke_3;
+    v16 = &unk_279C74EE8;
     v11 = v8;
-    v18 = v11;
-    v12 = [(HKSPXPCMessage *)v9 initWithIdentifier:@"connect" block:v19 options:v10 errorHandler:&v14];
-    [(HKSPXPCConnectionProvider *)self->_connectionProvider sendMessage:v12, v14, v15, v16, v17];
+    v17 = v11;
+    v12 = [(HKSPXPCMessage *)v9 initWithIdentifier:@"connect" block:v18 options:v10 errorHandler:&v13];
+    [(HKSPXPCConnectionProvider *)self->_connectionProvider sendMessage:v12, v13, v14, v15, v16];
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(buf);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __39__HKSPSleepStore_connectSynchronously___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -816,25 +817,23 @@ void __39__HKSPSleepStore_connectSynchronously___block_invoke_2(uint64_t a1, voi
 
 void __39__HKSPSleepStore_connectSynchronously___block_invoke_3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to connect: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to connect: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkInWithCurrentSyncAnchor
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
 
@@ -846,29 +845,27 @@ void __39__HKSPSleepStore_connectSynchronously___block_invoke_3(uint64_t a1, voi
       syncAnchorContainer = [(HKSPSleepStore *)self syncAnchorContainer];
       *buf = 138543618;
       selfCopy = self;
-      v20 = 2114;
-      v21 = syncAnchorContainer;
+      v19 = 2114;
+      v20 = syncAnchorContainer;
       _os_log_impl(&dword_269A84000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ checking in with sync anchor container: %{public}@", buf, 0x16u);
     }
 
     v7 = [(HKSPSleepStore *)self description];
     v8 = [HKSPXPCMessage alloc];
-    v16 = v7;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __47__HKSPSleepStore__checkInWithCurrentSyncAnchor__block_invoke;
-    v17[3] = &unk_279C74F10;
-    v17[4] = self;
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __47__HKSPSleepStore__checkInWithCurrentSyncAnchor__block_invoke_2;
-    v15 = &unk_279C74EE8;
+    v15 = v7;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __47__HKSPSleepStore__checkInWithCurrentSyncAnchor__block_invoke;
+    v16[3] = &unk_279C74F10;
+    v16[4] = self;
+    v11 = MEMORY[0x277D85DD0];
+    v12 = 3221225472;
+    v13 = __47__HKSPSleepStore__checkInWithCurrentSyncAnchor__block_invoke_2;
+    v14 = &unk_279C74EE8;
     v9 = v7;
-    v10 = [(HKSPXPCMessage *)v8 initWithIdentifier:@"checkIn" block:v17 options:2 errorHandler:&v12];
-    [(HKSPXPCConnectionProvider *)self->_connectionProvider sendMessage:v10, v12, v13, v14, v15];
+    v10 = [(HKSPXPCMessage *)v8 initWithIdentifier:@"checkIn" block:v16 options:2 errorHandler:&v11];
+    [(HKSPXPCConnectionProvider *)self->_connectionProvider sendMessage:v10, v11, v12, v13, v14];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __47__HKSPSleepStore__checkInWithCurrentSyncAnchor__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -882,20 +879,68 @@ void __47__HKSPSleepStore__checkInWithCurrentSyncAnchor__block_invoke(uint64_t a
 
 void __47__HKSPSleepStore__checkInWithCurrentSyncAnchor__block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to check in: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to check in: %{public}@", &v6, 0x16u);
+  }
+}
+
+- (id)_getSleepScheduleFromServerDoSync:(BOOL)sync
+{
+  syncCopy = sync;
+  v27 = *MEMORY[0x277D85DE8];
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
+
+  if (hksp_supportsSleepDaemon)
+  {
+    v7 = HKSPLogForCategory(1uLL);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      selfCopy = self;
+      _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ requesting sleep schedule from server", buf, 0xCu);
+    }
+
+    v8 = objc_alloc_init(MEMORY[0x277D2C900]);
+    v9 = [(HKSPSleepStore *)self description];
+    connectionProvider = self->_connectionProvider;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __52__HKSPSleepStore__getSleepScheduleFromServerDoSync___block_invoke;
+    v21[3] = &unk_279C74F38;
+    v22 = v8;
+    v23 = v9;
+    selfCopy2 = self;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __52__HKSPSleepStore__getSleepScheduleFromServerDoSync___block_invoke_346;
+    v18[3] = &unk_279C74F60;
+    v19 = v23;
+    v11 = v22;
+    v20 = v11;
+    v12 = v23;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v21 withErrorHandler:v18 doSynchronously:syncCopy];
+    v13 = v20;
+    v14 = v11;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v15 = MEMORY[0x277D2C900];
+    _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
+    v14 = [v15 futureWithError:_sleepDisabledError];
+  }
+
+  return v14;
 }
 
 void __52__HKSPSleepStore__getSleepScheduleFromServerDoSync___block_invoke(uint64_t a1, void *a2)
@@ -914,7 +959,7 @@ void __52__HKSPSleepStore__getSleepScheduleFromServerDoSync___block_invoke(uint6
 
 void __52__HKSPSleepStore__getSleepScheduleFromServerDoSync___block_invoke_2(void *a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = a1[4];
@@ -928,44 +973,64 @@ void __52__HKSPSleepStore__getSleepScheduleFromServerDoSync___block_invoke_2(voi
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = a1[5];
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v6;
-      _os_log_error_impl(&dword_269A84000, v10, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep schedule: %{public}@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2114;
+      v16 = v6;
+      _os_log_error_impl(&dword_269A84000, v10, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep schedule: %{public}@", &v13, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v12 = a1[6];
-    v14 = 138543618;
-    v15 = v12;
-    v16 = 2114;
-    v17 = v5;
-    _os_log_impl(&dword_269A84000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received sleep schedule from server: %{public}@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v12;
+    v15 = 2114;
+    v16 = v5;
+    _os_log_impl(&dword_269A84000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received sleep schedule from server: %{public}@", &v13, 0x16u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __52__HKSPSleepStore__getSleepScheduleFromServerDoSync___block_invoke_346(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep schedule: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep schedule: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+- (id)_getSleepScheduleDoSync:(BOOL)sync
+{
+  syncCopy = sync;
+  if ([(HKSPSleepStore *)self _cachingEnabled])
+  {
+    sleepStoreCache = self->_sleepStoreCache;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __42__HKSPSleepStore__getSleepScheduleDoSync___block_invoke;
+    v8[3] = &unk_279C74F88;
+    v8[4] = self;
+    v9 = syncCopy;
+    v6 = [(HKSPSleepStoreModelCache *)sleepStoreCache cachedSleepScheduleWithMissHandler:v8];
+  }
+
+  else
+  {
+    v6 = [(HKSPSleepStore *)self _getSleepScheduleFromServerDoSync:syncCopy];
+  }
+
+  return v6;
 }
 
 - (void)currentSleepScheduleWithCompletion:(id)completion
@@ -1130,6 +1195,56 @@ id __60__HKSPSleepStore_upcomingScheduleOccurrenceAfterDateFuture___block_invoke
   return v5;
 }
 
+- (id)_getSleepSettingsFromServerDoSync:(BOOL)sync
+{
+  syncCopy = sync;
+  v27 = *MEMORY[0x277D85DE8];
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
+
+  if (hksp_supportsSleepDaemon)
+  {
+    v7 = HKSPLogForCategory(1uLL);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      selfCopy = self;
+      _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ requesting sleep settings from server", buf, 0xCu);
+    }
+
+    v8 = objc_alloc_init(MEMORY[0x277D2C900]);
+    v9 = [(HKSPSleepStore *)self description];
+    connectionProvider = self->_connectionProvider;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __52__HKSPSleepStore__getSleepSettingsFromServerDoSync___block_invoke;
+    v21[3] = &unk_279C74F38;
+    v22 = v8;
+    v23 = v9;
+    selfCopy2 = self;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __52__HKSPSleepStore__getSleepSettingsFromServerDoSync___block_invoke_351;
+    v18[3] = &unk_279C74F60;
+    v19 = v23;
+    v11 = v22;
+    v20 = v11;
+    v12 = v23;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v21 withErrorHandler:v18 doSynchronously:syncCopy];
+    v13 = v20;
+    v14 = v11;
+  }
+
+  else
+  {
+    v15 = MEMORY[0x277D2C900];
+    _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
+    v14 = [v15 futureWithError:_sleepDisabledError];
+  }
+
+  return v14;
+}
+
 void __52__HKSPSleepStore__getSleepSettingsFromServerDoSync___block_invoke(uint64_t a1, void *a2)
 {
   v6[0] = MEMORY[0x277D85DD0];
@@ -1146,7 +1261,7 @@ void __52__HKSPSleepStore__getSleepSettingsFromServerDoSync___block_invoke(uint6
 
 void __52__HKSPSleepStore__getSleepSettingsFromServerDoSync___block_invoke_2(void *a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = a1[4];
@@ -1160,44 +1275,64 @@ void __52__HKSPSleepStore__getSleepSettingsFromServerDoSync___block_invoke_2(voi
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = a1[5];
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v6;
-      _os_log_error_impl(&dword_269A84000, v10, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep settings: %{public}@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2114;
+      v16 = v6;
+      _os_log_error_impl(&dword_269A84000, v10, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep settings: %{public}@", &v13, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v12 = a1[6];
-    v14 = 138543618;
-    v15 = v12;
-    v16 = 2114;
-    v17 = v5;
-    _os_log_impl(&dword_269A84000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received sleep settings from server: %{public}@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v12;
+    v15 = 2114;
+    v16 = v5;
+    _os_log_impl(&dword_269A84000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received sleep settings from server: %{public}@", &v13, 0x16u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __52__HKSPSleepStore__getSleepSettingsFromServerDoSync___block_invoke_351(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep settings: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep settings: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+- (id)_getSleepSettingsDoSync:(BOOL)sync
+{
+  syncCopy = sync;
+  if ([(HKSPSleepStore *)self _cachingEnabled])
+  {
+    sleepStoreCache = self->_sleepStoreCache;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __42__HKSPSleepStore__getSleepSettingsDoSync___block_invoke;
+    v8[3] = &unk_279C74F88;
+    v8[4] = self;
+    v9 = syncCopy;
+    v6 = [(HKSPSleepStoreModelCache *)sleepStoreCache cachedSleepSettingsWithMissHandler:v8];
+  }
+
+  else
+  {
+    v6 = [(HKSPSleepStore *)self _getSleepSettingsFromServerDoSync:syncCopy];
+  }
+
+  return v6;
 }
 
 - (void)currentSleepSettingsWithCompletion:(id)completion
@@ -1273,6 +1408,56 @@ void __48__HKSPSleepStore_currentSleepSettingsWithError___block_invoke(uint64_t 
   *(v9 + 40) = v5;
 }
 
+- (id)_getSleepEventRecordFromServerDoSync:(BOOL)sync
+{
+  syncCopy = sync;
+  v27 = *MEMORY[0x277D85DE8];
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
+
+  if (hksp_supportsSleepDaemon)
+  {
+    v7 = HKSPLogForCategory(1uLL);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      selfCopy = self;
+      _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ requesting sleep event record from server", buf, 0xCu);
+    }
+
+    v8 = objc_alloc_init(MEMORY[0x277D2C900]);
+    v9 = [(HKSPSleepStore *)self description];
+    connectionProvider = self->_connectionProvider;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __55__HKSPSleepStore__getSleepEventRecordFromServerDoSync___block_invoke;
+    v21[3] = &unk_279C74F38;
+    v22 = v8;
+    v23 = v9;
+    selfCopy2 = self;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __55__HKSPSleepStore__getSleepEventRecordFromServerDoSync___block_invoke_353;
+    v18[3] = &unk_279C74F60;
+    v19 = v23;
+    v11 = v22;
+    v20 = v11;
+    v12 = v23;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v21 withErrorHandler:v18 doSynchronously:syncCopy];
+    v13 = v20;
+    v14 = v11;
+  }
+
+  else
+  {
+    v15 = MEMORY[0x277D2C900];
+    _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
+    v14 = [v15 futureWithError:_sleepDisabledError];
+  }
+
+  return v14;
+}
+
 void __55__HKSPSleepStore__getSleepEventRecordFromServerDoSync___block_invoke(uint64_t a1, void *a2)
 {
   v6[0] = MEMORY[0x277D85DD0];
@@ -1289,7 +1474,7 @@ void __55__HKSPSleepStore__getSleepEventRecordFromServerDoSync___block_invoke(ui
 
 void __55__HKSPSleepStore__getSleepEventRecordFromServerDoSync___block_invoke_2(void *a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = a1[4];
@@ -1303,44 +1488,64 @@ void __55__HKSPSleepStore__getSleepEventRecordFromServerDoSync___block_invoke_2(
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = a1[5];
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v6;
-      _os_log_error_impl(&dword_269A84000, v10, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep event record: %{public}@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2114;
+      v16 = v6;
+      _os_log_error_impl(&dword_269A84000, v10, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep event record: %{public}@", &v13, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v12 = a1[6];
-    v14 = 138543618;
-    v15 = v12;
-    v16 = 2114;
-    v17 = v5;
-    _os_log_impl(&dword_269A84000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received sleep event record from server: %{public}@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v12;
+    v15 = 2114;
+    v16 = v5;
+    _os_log_impl(&dword_269A84000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received sleep event record from server: %{public}@", &v13, 0x16u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HKSPSleepStore__getSleepEventRecordFromServerDoSync___block_invoke_353(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep event record: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep event record: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+- (id)_getSleepEventRecordDoSync:(BOOL)sync
+{
+  syncCopy = sync;
+  if ([(HKSPSleepStore *)self _cachingEnabled])
+  {
+    sleepStoreCache = self->_sleepStoreCache;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __45__HKSPSleepStore__getSleepEventRecordDoSync___block_invoke;
+    v8[3] = &unk_279C74F88;
+    v8[4] = self;
+    v9 = syncCopy;
+    v6 = [(HKSPSleepStoreModelCache *)sleepStoreCache cachedSleepEventRecordWithMissHandler:v8];
+  }
+
+  else
+  {
+    v6 = [(HKSPSleepStore *)self _getSleepEventRecordFromServerDoSync:syncCopy];
+  }
+
+  return v6;
 }
 
 - (void)currentSleepEventRecordWithCompletion:(id)completion
@@ -1416,6 +1621,56 @@ void __51__HKSPSleepStore_currentSleepEventRecordWithError___block_invoke(uint64
   *(v9 + 40) = v5;
 }
 
+- (id)_getSleepScheduleModelFromServerDoSync:(BOOL)sync
+{
+  syncCopy = sync;
+  v27 = *MEMORY[0x277D85DE8];
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
+
+  if (hksp_supportsSleepDaemon)
+  {
+    v7 = HKSPLogForCategory(1uLL);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      selfCopy = self;
+      _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ requesting sleep schedule model from server", buf, 0xCu);
+    }
+
+    v8 = objc_alloc_init(MEMORY[0x277D2C900]);
+    v9 = [(HKSPSleepStore *)self description];
+    connectionProvider = self->_connectionProvider;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __57__HKSPSleepStore__getSleepScheduleModelFromServerDoSync___block_invoke;
+    v21[3] = &unk_279C74F38;
+    v22 = v8;
+    v23 = v9;
+    selfCopy2 = self;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __57__HKSPSleepStore__getSleepScheduleModelFromServerDoSync___block_invoke_355;
+    v18[3] = &unk_279C74F60;
+    v19 = v23;
+    v11 = v22;
+    v20 = v11;
+    v12 = v23;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v21 withErrorHandler:v18 doSynchronously:syncCopy];
+    v13 = v20;
+    v14 = v11;
+  }
+
+  else
+  {
+    v15 = MEMORY[0x277D2C900];
+    _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
+    v14 = [v15 futureWithError:_sleepDisabledError];
+  }
+
+  return v14;
+}
+
 void __57__HKSPSleepStore__getSleepScheduleModelFromServerDoSync___block_invoke(uint64_t a1, void *a2)
 {
   v6[0] = MEMORY[0x277D85DD0];
@@ -1432,7 +1687,7 @@ void __57__HKSPSleepStore__getSleepScheduleModelFromServerDoSync___block_invoke(
 
 void __57__HKSPSleepStore__getSleepScheduleModelFromServerDoSync___block_invoke_2(void *a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = a1[4];
@@ -1446,44 +1701,64 @@ void __57__HKSPSleepStore__getSleepScheduleModelFromServerDoSync___block_invoke_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = a1[5];
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v6;
-      _os_log_error_impl(&dword_269A84000, v10, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep schedule model: %{public}@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2114;
+      v16 = v6;
+      _os_log_error_impl(&dword_269A84000, v10, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep schedule model: %{public}@", &v13, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v12 = a1[6];
-    v14 = 138543618;
-    v15 = v12;
-    v16 = 2114;
-    v17 = v5;
-    _os_log_impl(&dword_269A84000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received sleep schedule model from server: %{public}@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v12;
+    v15 = 2114;
+    v16 = v5;
+    _os_log_impl(&dword_269A84000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received sleep schedule model from server: %{public}@", &v13, 0x16u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HKSPSleepStore__getSleepScheduleModelFromServerDoSync___block_invoke_355(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep schedule model: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep schedule model: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+- (id)_getSleepScheduleModelDoSync:(BOOL)sync
+{
+  syncCopy = sync;
+  if ([(HKSPSleepStore *)self _cachingEnabled])
+  {
+    sleepStoreCache = self->_sleepStoreCache;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __47__HKSPSleepStore__getSleepScheduleModelDoSync___block_invoke;
+    v8[3] = &unk_279C74F88;
+    v8[4] = self;
+    v9 = syncCopy;
+    v6 = [(HKSPSleepStoreModelCache *)sleepStoreCache cachedSleepScheduleModelWithMissHandler:v8];
+  }
+
+  else
+  {
+    v6 = [(HKSPSleepStore *)self _getSleepScheduleModelFromServerDoSync:syncCopy];
+  }
+
+  return v6;
 }
 
 - (void)sleepScheduleModelWithCompletion:(id)completion
@@ -1559,6 +1834,55 @@ void __46__HKSPSleepStore_sleepScheduleModelWithError___block_invoke(uint64_t a1
   *(v9 + 40) = v5;
 }
 
+- (id)_getSleepModeFromServerDoSync:(BOOL)sync
+{
+  syncCopy = sync;
+  v26 = *MEMORY[0x277D85DE8];
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
+
+  if (hksp_supportsSleepDaemon)
+  {
+    v7 = HKSPLogForCategory(1uLL);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      selfCopy = self;
+      _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ requesting sleep mode from server", buf, 0xCu);
+    }
+
+    v8 = objc_alloc_init(MEMORY[0x277D2C900]);
+    v9 = [(HKSPSleepStore *)self description];
+    connectionProvider = self->_connectionProvider;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __48__HKSPSleepStore__getSleepModeFromServerDoSync___block_invoke;
+    v21[3] = &unk_279C751E0;
+    v22 = v8;
+    v23 = v9;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __48__HKSPSleepStore__getSleepModeFromServerDoSync___block_invoke_358;
+    v18[3] = &unk_279C74F60;
+    v19 = v23;
+    v11 = v22;
+    v20 = v11;
+    v12 = v23;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v21 withErrorHandler:v18 doSynchronously:syncCopy];
+    v13 = v20;
+    v14 = v11;
+  }
+
+  else
+  {
+    v15 = MEMORY[0x277D2C900];
+    _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
+    v14 = [v15 futureWithError:_sleepDisabledError];
+  }
+
+  return v14;
+}
+
 void __48__HKSPSleepStore__getSleepModeFromServerDoSync___block_invoke(uint64_t a1, void *a2)
 {
   v4[0] = MEMORY[0x277D85DD0];
@@ -1572,7 +1896,7 @@ void __48__HKSPSleepStore__getSleepModeFromServerDoSync___block_invoke(uint64_t 
 
 void __48__HKSPSleepStore__getSleepModeFromServerDoSync___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *(a1 + 32);
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:a2];
@@ -1583,35 +1907,55 @@ void __48__HKSPSleepStore__getSleepModeFromServerDoSync___block_invoke_2(uint64_
     v8 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = 138543618;
-      v12 = v10;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_269A84000, v8, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep mode: %{public}@", &v11, 0x16u);
+      v9 = *(a1 + 40);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_269A84000, v8, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep mode: %{public}@", &v10, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HKSPSleepStore__getSleepModeFromServerDoSync___block_invoke_358(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep mode: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep mode: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+- (id)_getSleepModeDoSync:(BOOL)sync
+{
+  syncCopy = sync;
+  if ([(HKSPSleepStore *)self _cachingEnabled])
+  {
+    sleepStoreCache = self->_sleepStoreCache;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __38__HKSPSleepStore__getSleepModeDoSync___block_invoke;
+    v8[3] = &unk_279C74F88;
+    v8[4] = self;
+    v9 = syncCopy;
+    v6 = [(HKSPSleepStoreModelCache *)sleepStoreCache cachedSleepModeWithMissHandler:v8];
+  }
+
+  else
+  {
+    v6 = [(HKSPSleepStore *)self _getSleepModeFromServerDoSync:syncCopy];
+  }
+
+  return v6;
 }
 
 - (id)sleepModeOnFuture
@@ -1707,6 +2051,55 @@ void __37__HKSPSleepStore_sleepModeWithError___block_invoke(uint64_t a1, void *a
   *(*(*(a1 + 32) + 8) + 24) = [v3 integerValue];
 }
 
+- (id)_getSleepWidgetStateFromServerDoSync:(BOOL)sync
+{
+  syncCopy = sync;
+  v26 = *MEMORY[0x277D85DE8];
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
+
+  if (hksp_supportsSleepDaemon)
+  {
+    v7 = HKSPLogForCategory(1uLL);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      selfCopy = self;
+      _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ requesting sleep widget state from server", buf, 0xCu);
+    }
+
+    v8 = objc_alloc_init(MEMORY[0x277D2C900]);
+    v9 = [(HKSPSleepStore *)self description];
+    connectionProvider = self->_connectionProvider;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __55__HKSPSleepStore__getSleepWidgetStateFromServerDoSync___block_invoke;
+    v21[3] = &unk_279C751E0;
+    v22 = v8;
+    v23 = v9;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __55__HKSPSleepStore__getSleepWidgetStateFromServerDoSync___block_invoke_363;
+    v18[3] = &unk_279C74F60;
+    v19 = v23;
+    v11 = v22;
+    v20 = v11;
+    v12 = v23;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v21 withErrorHandler:v18 doSynchronously:syncCopy];
+    v13 = v20;
+    v14 = v11;
+  }
+
+  else
+  {
+    v15 = MEMORY[0x277D2C900];
+    _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
+    v14 = [v15 futureWithError:_sleepDisabledError];
+  }
+
+  return v14;
+}
+
 void __55__HKSPSleepStore__getSleepWidgetStateFromServerDoSync___block_invoke(uint64_t a1, void *a2)
 {
   v4[0] = MEMORY[0x277D85DD0];
@@ -1720,7 +2113,7 @@ void __55__HKSPSleepStore__getSleepWidgetStateFromServerDoSync___block_invoke(ui
 
 void __55__HKSPSleepStore__getSleepWidgetStateFromServerDoSync___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *(a1 + 32);
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:a2];
@@ -1731,35 +2124,32 @@ void __55__HKSPSleepStore__getSleepWidgetStateFromServerDoSync___block_invoke_2(
     v8 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = 138543618;
-      v12 = v10;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_269A84000, v8, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep widget state: %{public}@", &v11, 0x16u);
+      v9 = *(a1 + 40);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_269A84000, v8, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep widget state: %{public}@", &v10, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HKSPSleepStore__getSleepWidgetStateFromServerDoSync___block_invoke_363(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep widget state: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep widget state: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sleepWidgetStateWithCompletion:(id)completion
@@ -1813,42 +2203,87 @@ void __44__HKSPSleepStore_sleepWidgetStateWithError___block_invoke(uint64_t a1, 
 
 - (BOOL)shouldReloadWidgetOfKind:(id)kind
 {
-  v17 = *MEMORY[0x277D85DE8];
-  if ([kind isEqualToString:@"com.apple.health.SleepWidget"])
+  v16 = *MEMORY[0x277D85DE8];
+  if (![kind isEqualToString:@"com.apple.health.SleepWidget"])
   {
-    v12 = 0;
-    v4 = [(HKSPSleepStore *)self sleepWidgetStateWithError:&v12];
-    v5 = v12;
-    if (v5)
-    {
-      v6 = HKSPLogForCategory(0x12uLL);
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        v10 = objc_opt_class();
-        *buf = 138543618;
-        v14 = v10;
-        v15 = 2114;
-        v16 = v5;
-        v11 = v10;
-        _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] failed to fetch sleep widget state with error: %{public}@", buf, 0x16u);
-      }
+    return 1;
+  }
 
-      v7 = 0;
+  v11 = 0;
+  v4 = [(HKSPSleepStore *)self sleepWidgetStateWithError:&v11];
+  v5 = v11;
+  if (v5)
+  {
+    v6 = HKSPLogForCategory(0x12uLL);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v9 = objc_opt_class();
+      *buf = 138543618;
+      v13 = v9;
+      v14 = 2114;
+      v15 = v5;
+      v10 = v9;
+      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] failed to fetch sleep widget state with error: %{public}@", buf, 0x16u);
     }
 
-    else
-    {
-      v7 = (v4 - 6) < 0xFFFFFFFFFFFFFFFCLL;
-    }
+    v7 = 0;
   }
 
   else
   {
-    v7 = 1;
+    v7 = (v4 - 6) < 0xFFFFFFFFFFFFFFFCLL;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
+}
+
+- (id)_getSleepScheduleStateFromServerDoSync:(BOOL)sync
+{
+  syncCopy = sync;
+  v26 = *MEMORY[0x277D85DE8];
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
+
+  if (hksp_supportsSleepDaemon)
+  {
+    v7 = HKSPLogForCategory(1uLL);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      selfCopy = self;
+      _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ requesting sleep schedule state from server", buf, 0xCu);
+    }
+
+    v8 = objc_alloc_init(MEMORY[0x277D2C900]);
+    v9 = [(HKSPSleepStore *)self description];
+    connectionProvider = self->_connectionProvider;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __57__HKSPSleepStore__getSleepScheduleStateFromServerDoSync___block_invoke;
+    v21[3] = &unk_279C751E0;
+    v22 = v8;
+    v23 = v9;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __57__HKSPSleepStore__getSleepScheduleStateFromServerDoSync___block_invoke_365;
+    v18[3] = &unk_279C74F60;
+    v19 = v23;
+    v11 = v22;
+    v20 = v11;
+    v12 = v23;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v21 withErrorHandler:v18 doSynchronously:syncCopy];
+    v13 = v20;
+    v14 = v11;
+  }
+
+  else
+  {
+    v15 = MEMORY[0x277D2C900];
+    _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
+    v14 = [v15 futureWithError:_sleepDisabledError];
+  }
+
+  return v14;
 }
 
 void __57__HKSPSleepStore__getSleepScheduleStateFromServerDoSync___block_invoke(uint64_t a1, void *a2)
@@ -1864,7 +2299,7 @@ void __57__HKSPSleepStore__getSleepScheduleStateFromServerDoSync___block_invoke(
 
 void __57__HKSPSleepStore__getSleepScheduleStateFromServerDoSync___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *(a1 + 32);
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
@@ -1875,35 +2310,55 @@ void __57__HKSPSleepStore__getSleepScheduleStateFromServerDoSync___block_invoke_
     v8 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = 138543618;
-      v12 = v10;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_269A84000, v8, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep schedule state: %{public}@", &v11, 0x16u);
+      v9 = *(a1 + 40);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_269A84000, v8, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep schedule state: %{public}@", &v10, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HKSPSleepStore__getSleepScheduleStateFromServerDoSync___block_invoke_365(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep schedule state: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to get sleep schedule state: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+- (id)_getSleepScheduleStateOnDoSync:(BOOL)sync
+{
+  syncCopy = sync;
+  if ([(HKSPSleepStore *)self _cachingEnabled])
+  {
+    sleepStoreCache = self->_sleepStoreCache;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __49__HKSPSleepStore__getSleepScheduleStateOnDoSync___block_invoke;
+    v8[3] = &unk_279C74F88;
+    v8[4] = self;
+    v9 = syncCopy;
+    v6 = [(HKSPSleepStoreModelCache *)sleepStoreCache cachedSleepScheduleStateWithMissHandler:v8];
+  }
+
+  else
+  {
+    v6 = [(HKSPSleepStore *)self _getSleepScheduleStateFromServerDoSync:syncCopy];
+  }
+
+  return v6;
 }
 
 - (void)currentSleepScheduleStateWithCompletion:(id)completion
@@ -1954,7 +2409,7 @@ void __53__HKSPSleepStore_currentSleepScheduleStateWithError___block_invoke(uint
 
 - (id)_saveCurrentSleepScheduleOnServer:(id)server options:(unint64_t)options
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
@@ -1966,38 +2421,38 @@ void __53__HKSPSleepStore_currentSleepScheduleStateWithError___block_invoke(uint
     {
       *buf = 138543618;
       selfCopy = self;
-      v31 = 2114;
-      v32 = serverCopy;
+      v30 = 2114;
+      v31 = serverCopy;
       _os_log_impl(&dword_269A84000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ updating current sleep schedule on server: %{public}@", buf, 0x16u);
     }
 
     [(HKSPSleepStoreModelCache *)self->_sleepStoreCache updateCachedSleepSchedule:serverCopy];
     v9 = objc_alloc_init(MEMORY[0x277D2C900]);
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __60__HKSPSleepStore__saveCurrentSleepScheduleOnServer_options___block_invoke;
-    v28[3] = &unk_279C74EE8;
-    v28[4] = self;
-    v10 = [v9 addFailureBlock:v28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __60__HKSPSleepStore__saveCurrentSleepScheduleOnServer_options___block_invoke;
+    v27[3] = &unk_279C74EE8;
+    v27[4] = self;
+    v10 = [v9 addFailureBlock:v27];
     v11 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __60__HKSPSleepStore__saveCurrentSleepScheduleOnServer_options___block_invoke_2;
-    v24[3] = &unk_279C74F38;
-    v25 = serverCopy;
-    v26 = v11;
-    v27 = v9;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __60__HKSPSleepStore__saveCurrentSleepScheduleOnServer_options___block_invoke_366;
-    v21[3] = &unk_279C74F60;
-    v22 = v26;
-    v13 = v27;
-    v23 = v13;
-    v14 = v26;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v24 withErrorHandler:v21];
-    v15 = v23;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __60__HKSPSleepStore__saveCurrentSleepScheduleOnServer_options___block_invoke_2;
+    v23[3] = &unk_279C74F38;
+    v24 = serverCopy;
+    v25 = v11;
+    v26 = v9;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __60__HKSPSleepStore__saveCurrentSleepScheduleOnServer_options___block_invoke_366;
+    v20[3] = &unk_279C74F60;
+    v21 = v25;
+    v13 = v26;
+    v22 = v13;
+    v14 = v25;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v23 withErrorHandler:v20];
+    v15 = v22;
     v16 = v13;
   }
 
@@ -2007,8 +2462,6 @@ void __53__HKSPSleepStore_currentSleepScheduleStateWithError___block_invoke(uint
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     v16 = [v17 futureWithError:_sleepDisabledError];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -2027,19 +2480,19 @@ void __60__HKSPSleepStore__saveCurrentSleepScheduleOnServer_options___block_invo
 
 void __60__HKSPSleepStore__saveCurrentSleepScheduleOnServer_options___block_invoke_3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
-      v7 = 138543618;
-      v8 = v6;
-      v9 = 2114;
-      v10 = v3;
-      _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to save sleep schedule on server: %{public}@", &v7, 0x16u);
+      v5 = *(a1 + 32);
+      v6 = 138543618;
+      v7 = v5;
+      v8 = 2114;
+      v9 = v3;
+      _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to save sleep schedule on server: %{public}@", &v6, 0x16u);
     }
 
     [*(a1 + 40) finishWithError:v3];
@@ -2049,27 +2502,24 @@ void __60__HKSPSleepStore__saveCurrentSleepScheduleOnServer_options___block_invo
   {
     [*(a1 + 40) finishWithNoResult];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HKSPSleepStore__saveCurrentSleepScheduleOnServer_options___block_invoke_366(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to save sleep schedule on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to save sleep schedule on server: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)saveCurrentSleepSchedule:(id)schedule options:(unint64_t)options context:(id)context
@@ -2143,7 +2593,7 @@ id __59__HKSPSleepStore_saveCurrentSleepSchedule_options_context___block_invoke(
 
 void __59__HKSPSleepStore__sendScheduleChangedAnalyticsWithContext___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = HKSPLogForCategory(1uLL);
@@ -2153,11 +2603,11 @@ void __59__HKSPSleepStore__sendScheduleChangedAnalyticsWithContext___block_invok
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v9 = *(a1 + 32);
-      v19 = 138543618;
-      v20 = v9;
-      v21 = 2114;
-      v22 = v6;
-      _os_log_error_impl(&dword_269A84000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to fetch current sleep settings with error: %{public}@", &v19, 0x16u);
+      v17 = 138543618;
+      v18 = v9;
+      v19 = 2114;
+      v20 = v6;
+      _os_log_error_impl(&dword_269A84000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to fetch current sleep settings with error: %{public}@", &v17, 0x16u);
     }
   }
 
@@ -2166,25 +2616,22 @@ void __59__HKSPSleepStore__sendScheduleChangedAnalyticsWithContext___block_invok
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v19 = 138543618;
-      v20 = v10;
-      v21 = 2112;
-      v22 = v5;
-      _os_log_impl(&dword_269A84000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Fetched current sleep settings: %@", &v19, 0x16u);
+      v17 = 138543618;
+      v18 = v10;
+      v19 = 2112;
+      v20 = v5;
+      _os_log_impl(&dword_269A84000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Fetched current sleep settings: %@", &v17, 0x16u);
     }
 
-    v11 = *(*(a1 + 32) + 8);
     v8 = [objc_opt_class() activePairedWatchProductType];
-    v12 = [v5 sleepTracking];
-    v13 = [*(a1 + 40) objectForKeyedSubscript:@"HKSPAnalyticsSleepScheduleChangeApplication"];
-    v14 = [[HKSPAnalyticsSleepScheduleChangeInfo alloc] initWithApplication:HKSPAnalyticsSleepScheduleChangeApplicationFromValue(v13) activePairedWatchProductType:v8 isSleepTrackingEnabled:v12];
-    v15 = [*(a1 + 40) objectForKeyedSubscript:@"HKSPAnalyticsSleepScheduleChangeProvenanceInfo"];
-    v16 = *(*(a1 + 32) + 8);
-    v17 = [[HKSPAnalyticsSleepScheduleChangeEvent alloc] initWithScheduleChangeInfo:v14 provenanceInfo:v15];
-    [v16 trackEvent:v17];
+    v11 = [v5 sleepTracking];
+    v12 = [*(a1 + 40) objectForKeyedSubscript:@"HKSPAnalyticsSleepScheduleChangeApplication"];
+    v13 = [[HKSPAnalyticsSleepScheduleChangeInfo alloc] initWithApplication:HKSPAnalyticsSleepScheduleChangeApplicationFromValue(v12) activePairedWatchProductType:v8 isSleepTrackingEnabled:v11];
+    v14 = [*(a1 + 40) objectForKeyedSubscript:@"HKSPAnalyticsSleepScheduleChangeProvenanceInfo"];
+    v15 = *(*(a1 + 32) + 8);
+    v16 = [[HKSPAnalyticsSleepScheduleChangeEvent alloc] initWithScheduleChangeInfo:v13 provenanceInfo:v14];
+    [v15 trackEvent:v16];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveCurrentSleepSchedule:(id)schedule options:(unint64_t)options context:(id)context completion:(id)completion
@@ -2235,7 +2682,7 @@ void __59__HKSPSleepStore__sendScheduleChangedAnalyticsWithContext___block_invok
 
 void __51__HKSPSleepStore__writeHistoricalSchedule_options___block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = HKSPLogForCategory(1uLL);
   v7 = v6;
@@ -2246,33 +2693,31 @@ void __51__HKSPSleepStore__writeHistoricalSchedule_options___block_invoke(void *
       v8 = a1[4];
       v9 = a1[5];
       v10 = a1[6];
-      v13 = 138543874;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v10;
-      _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updated current sleep schedules: %@ and sleep goal: %@ in HealthKit", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v10;
+      _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updated current sleep schedules: %@ and sleep goal: %@ in HealthKit", &v12, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v12 = a1[4];
-    v13 = 138543618;
-    v14 = v12;
-    v15 = 2114;
-    v16 = v5;
-    _os_log_error_impl(&dword_269A84000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to update current sleep schedules in HealthKit with error: %{public}@", &v13, 0x16u);
+    v11 = a1[4];
+    v12 = 138543618;
+    v13 = v11;
+    v14 = 2114;
+    v15 = v5;
+    _os_log_error_impl(&dword_269A84000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to update current sleep schedules in HealthKit with error: %{public}@", &v12, 0x16u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_updatedHistoricalSleepSchedulesFromSleepSchedule:(id)schedule options:(unint64_t)options date:(id)date
 {
   optionsCopy = options;
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   scheduleCopy = schedule;
   dateCopy = date;
   if (!scheduleCopy || (optionsCopy & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [scheduleCopy hasChangeAffectingScheduling])
@@ -2282,18 +2727,18 @@ void __51__HKSPSleepStore__writeHistoricalSchedule_options___block_invoke(void *
 
     if ([v10 count] && objc_msgSend(scheduleCopy, "isEnabled"))
     {
-      v34 = MEMORY[0x277D85DD0];
-      v35 = 3221225472;
-      v36 = __81__HKSPSleepStore__updatedHistoricalSleepSchedulesFromSleepSchedule_options_date___block_invoke_2;
-      v37 = &unk_279C75368;
+      v33 = MEMORY[0x277D85DD0];
+      v34 = 3221225472;
+      v35 = __81__HKSPSleepStore__updatedHistoricalSleepSchedulesFromSleepSchedule_options_date___block_invoke_2;
+      v36 = &unk_279C75368;
       v11 = dateCopy;
-      v38 = v11;
-      v12 = [v10 na_map:&v34];
+      v37 = v11;
+      v12 = [v10 na_map:&v33];
       if ([scheduleCopy weekdaysWithoutOccurrences])
       {
         v13 = MEMORY[0x277CCD9E8];
         v14 = HKSleepScheduleWeekdaysFromHKSPWeekdays([scheduleCopy weekdaysWithoutOccurrences]);
-        v15 = [v13 sleepScheduleWithDate:v11 weekdays:v14 wakeTimeComponents:0 bedTimeComponents:0 overrideDayIndex:0 device:0 metadata:{0, v34, v35, v36, v37}];
+        v15 = [v13 sleepScheduleWithDate:v11 weekdays:v14 wakeTimeComponents:0 bedTimeComponents:0 overrideDayIndex:0 device:0 metadata:{0, v33, v34, v35, v36}];
         v16 = [v12 arrayByAddingObject:v15];
 
         v12 = v16;
@@ -2320,14 +2765,14 @@ void __51__HKSPSleepStore__writeHistoricalSchedule_options___block_invoke(void *
         }
       }
 
-      wakeUpComponents = v38;
+      wakeUpComponents = v37;
     }
 
     else
     {
       v25 = [MEMORY[0x277CCD9E8] sleepScheduleWithDate:dateCopy weekdays:*MEMORY[0x277CCCDD0] wakeTimeComponents:0 bedTimeComponents:0 overrideDayIndex:0 device:0 metadata:0];
-      v39[0] = v25;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+      v38[0] = v25;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
 
       overrideOccurrence = [scheduleCopy overrideOccurrence];
 
@@ -2358,8 +2803,6 @@ LABEL_20:
 
   v12 = 0;
 LABEL_22:
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -2392,7 +2835,7 @@ id __81__HKSPSleepStore__updatedHistoricalSleepSchedulesFromSleepSchedule_option
 + (id)_updatedHistoricalSleepGoalForSleepSchedule:(id)schedule options:(unint64_t)options date:(id)date
 {
   optionsCopy = options;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   scheduleCopy = schedule;
   dateCopy = date;
   if (!scheduleCopy || (optionsCopy & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [scheduleCopy hasChangeToSleepDurationGoal])
@@ -2400,9 +2843,9 @@ id __81__HKSPSleepStore__updatedHistoricalSleepSchedulesFromSleepSchedule_option
     v10 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138543362;
+      v19 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_269A84000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ sleep duration goal changed", &v20, 0xCu);
+      _os_log_impl(&dword_269A84000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ sleep duration goal changed", &v19, 0xCu);
     }
 
     v11 = MEMORY[0x277CCD800];
@@ -2420,14 +2863,12 @@ id __81__HKSPSleepStore__updatedHistoricalSleepSchedulesFromSleepSchedule_option
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)_saveCurrentSleepSettingsOnServer:(id)server options:(unint64_t)options
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
@@ -2439,38 +2880,38 @@ id __81__HKSPSleepStore__updatedHistoricalSleepSchedulesFromSleepSchedule_option
     {
       *buf = 138543618;
       selfCopy = self;
-      v31 = 2114;
-      v32 = serverCopy;
+      v30 = 2114;
+      v31 = serverCopy;
       _os_log_impl(&dword_269A84000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ updating current sleep settings on server: %{public}@", buf, 0x16u);
     }
 
     [(HKSPSleepStoreModelCache *)self->_sleepStoreCache updateCachedSleepSettings:serverCopy];
     v9 = objc_alloc_init(MEMORY[0x277D2C900]);
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __60__HKSPSleepStore__saveCurrentSleepSettingsOnServer_options___block_invoke;
-    v28[3] = &unk_279C74EE8;
-    v28[4] = self;
-    v10 = [v9 addFailureBlock:v28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __60__HKSPSleepStore__saveCurrentSleepSettingsOnServer_options___block_invoke;
+    v27[3] = &unk_279C74EE8;
+    v27[4] = self;
+    v10 = [v9 addFailureBlock:v27];
     v11 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __60__HKSPSleepStore__saveCurrentSleepSettingsOnServer_options___block_invoke_2;
-    v24[3] = &unk_279C74F38;
-    v25 = serverCopy;
-    v26 = v11;
-    v27 = v9;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __60__HKSPSleepStore__saveCurrentSleepSettingsOnServer_options___block_invoke_389;
-    v21[3] = &unk_279C74F60;
-    v22 = v26;
-    v13 = v27;
-    v23 = v13;
-    v14 = v26;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v24 withErrorHandler:v21];
-    v15 = v23;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __60__HKSPSleepStore__saveCurrentSleepSettingsOnServer_options___block_invoke_2;
+    v23[3] = &unk_279C74F38;
+    v24 = serverCopy;
+    v25 = v11;
+    v26 = v9;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __60__HKSPSleepStore__saveCurrentSleepSettingsOnServer_options___block_invoke_389;
+    v20[3] = &unk_279C74F60;
+    v21 = v25;
+    v13 = v26;
+    v22 = v13;
+    v14 = v25;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v23 withErrorHandler:v20];
+    v15 = v22;
     v16 = v13;
   }
 
@@ -2480,8 +2921,6 @@ id __81__HKSPSleepStore__updatedHistoricalSleepSchedulesFromSleepSchedule_option
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     v16 = [v17 futureWithError:_sleepDisabledError];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -2500,19 +2939,19 @@ void __60__HKSPSleepStore__saveCurrentSleepSettingsOnServer_options___block_invo
 
 void __60__HKSPSleepStore__saveCurrentSleepSettingsOnServer_options___block_invoke_3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
-      v7 = 138543618;
-      v8 = v6;
-      v9 = 2114;
-      v10 = v3;
-      _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to save sleep settings on server: %{public}@", &v7, 0x16u);
+      v5 = *(a1 + 32);
+      v6 = 138543618;
+      v7 = v5;
+      v8 = 2114;
+      v9 = v3;
+      _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to save sleep settings on server: %{public}@", &v6, 0x16u);
     }
 
     [*(a1 + 40) finishWithError:v3];
@@ -2522,27 +2961,24 @@ void __60__HKSPSleepStore__saveCurrentSleepSettingsOnServer_options___block_invo
   {
     [*(a1 + 40) finishWithNoResult];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HKSPSleepStore__saveCurrentSleepSettingsOnServer_options___block_invoke_389(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to save sleep settings on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to save sleep settings on server: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)saveCurrentSleepSettings:(id)settings options:(unint64_t)options
@@ -2592,7 +3028,7 @@ void __60__HKSPSleepStore__saveCurrentSleepSettingsOnServer_options___block_invo
 
 - (id)_saveCurrentSleepEventRecordOnServer:(id)server options:(unint64_t)options
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
@@ -2604,38 +3040,38 @@ void __60__HKSPSleepStore__saveCurrentSleepSettingsOnServer_options___block_invo
     {
       *buf = 138543618;
       selfCopy = self;
-      v31 = 2114;
-      v32 = serverCopy;
+      v30 = 2114;
+      v31 = serverCopy;
       _os_log_impl(&dword_269A84000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ updating current sleep event record on server: %{public}@", buf, 0x16u);
     }
 
     [(HKSPSleepStoreModelCache *)self->_sleepStoreCache updateCachedSleepEventRecord:serverCopy];
     v9 = objc_alloc_init(MEMORY[0x277D2C900]);
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __63__HKSPSleepStore__saveCurrentSleepEventRecordOnServer_options___block_invoke;
-    v28[3] = &unk_279C74EE8;
-    v28[4] = self;
-    v10 = [v9 addFailureBlock:v28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __63__HKSPSleepStore__saveCurrentSleepEventRecordOnServer_options___block_invoke;
+    v27[3] = &unk_279C74EE8;
+    v27[4] = self;
+    v10 = [v9 addFailureBlock:v27];
     v11 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __63__HKSPSleepStore__saveCurrentSleepEventRecordOnServer_options___block_invoke_2;
-    v24[3] = &unk_279C74F38;
-    v25 = serverCopy;
-    v26 = v11;
-    v27 = v9;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __63__HKSPSleepStore__saveCurrentSleepEventRecordOnServer_options___block_invoke_485;
-    v21[3] = &unk_279C74F60;
-    v22 = v26;
-    v13 = v27;
-    v23 = v13;
-    v14 = v26;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v24 withErrorHandler:v21];
-    v15 = v23;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __63__HKSPSleepStore__saveCurrentSleepEventRecordOnServer_options___block_invoke_2;
+    v23[3] = &unk_279C74F38;
+    v24 = serverCopy;
+    v25 = v11;
+    v26 = v9;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __63__HKSPSleepStore__saveCurrentSleepEventRecordOnServer_options___block_invoke_485;
+    v20[3] = &unk_279C74F60;
+    v21 = v25;
+    v13 = v26;
+    v22 = v13;
+    v14 = v25;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v23 withErrorHandler:v20];
+    v15 = v22;
     v16 = v13;
   }
 
@@ -2645,8 +3081,6 @@ void __60__HKSPSleepStore__saveCurrentSleepSettingsOnServer_options___block_invo
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     v16 = [v17 futureWithError:_sleepDisabledError];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -2665,19 +3099,19 @@ void __63__HKSPSleepStore__saveCurrentSleepEventRecordOnServer_options___block_i
 
 void __63__HKSPSleepStore__saveCurrentSleepEventRecordOnServer_options___block_invoke_3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
-      v7 = 138543618;
-      v8 = v6;
-      v9 = 2114;
-      v10 = v3;
-      _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to save sleep event record on server: %{public}@", &v7, 0x16u);
+      v5 = *(a1 + 32);
+      v6 = 138543618;
+      v7 = v5;
+      v8 = 2114;
+      v9 = v3;
+      _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to save sleep event record on server: %{public}@", &v6, 0x16u);
     }
 
     [*(a1 + 40) finishWithError:v3];
@@ -2687,27 +3121,24 @@ void __63__HKSPSleepStore__saveCurrentSleepEventRecordOnServer_options___block_i
   {
     [*(a1 + 40) finishWithNoResult];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HKSPSleepStore__saveCurrentSleepEventRecordOnServer_options___block_invoke_485(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to save sleep event record on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to save sleep event record on server: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)saveCurrentSleepEventRecord:(id)record options:(unint64_t)options
@@ -2733,7 +3164,7 @@ void __63__HKSPSleepStore__saveCurrentSleepEventRecordOnServer_options___block_i
 
 - (id)_setSleepModeOnServer:(int64_t)server reason:(unint64_t)reason
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
 
@@ -2746,41 +3177,41 @@ void __63__HKSPSleepStore__saveCurrentSleepEventRecordOnServer_options___block_i
       v11 = NSStringFromHKSPSleepModeChangeReason(reason);
       *buf = 138543874;
       selfCopy = self;
-      v35 = 2114;
-      v36 = v10;
-      v37 = 2114;
-      v38 = v11;
+      v34 = 2114;
+      v35 = v10;
+      v36 = 2114;
+      v37 = v11;
       _os_log_impl(&dword_269A84000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ updating sleep mode on server: %{public}@ (%{public}@)", buf, 0x20u);
     }
 
     [(HKSPSleepStoreModelCache *)self->_sleepStoreCache updateCachedSleepMode:server];
     v12 = objc_alloc_init(MEMORY[0x277D2C900]);
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __47__HKSPSleepStore__setSleepModeOnServer_reason___block_invoke;
-    v32[3] = &unk_279C74EE8;
-    v32[4] = self;
-    v13 = [v12 addFailureBlock:v32];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __47__HKSPSleepStore__setSleepModeOnServer_reason___block_invoke;
+    v31[3] = &unk_279C74EE8;
+    v31[4] = self;
+    v13 = [v12 addFailureBlock:v31];
     v14 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __47__HKSPSleepStore__setSleepModeOnServer_reason___block_invoke_2;
-    v27[3] = &unk_279C75390;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __47__HKSPSleepStore__setSleepModeOnServer_reason___block_invoke_2;
+    v26[3] = &unk_279C75390;
     serverCopy = server;
     reasonCopy = reason;
-    v28 = v14;
-    v29 = v12;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __47__HKSPSleepStore__setSleepModeOnServer_reason___block_invoke_486;
-    v24[3] = &unk_279C74F60;
-    v25 = v28;
-    v16 = v29;
-    v26 = v16;
-    v17 = v28;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v27 withErrorHandler:v24];
-    v18 = v26;
+    v27 = v14;
+    v28 = v12;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __47__HKSPSleepStore__setSleepModeOnServer_reason___block_invoke_486;
+    v23[3] = &unk_279C74F60;
+    v24 = v27;
+    v16 = v28;
+    v25 = v16;
+    v17 = v27;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v26 withErrorHandler:v23];
+    v18 = v25;
     v19 = v16;
   }
 
@@ -2790,8 +3221,6 @@ void __63__HKSPSleepStore__saveCurrentSleepEventRecordOnServer_options___block_i
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     v19 = [v20 futureWithError:_sleepDisabledError];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -2811,19 +3240,19 @@ void __47__HKSPSleepStore__setSleepModeOnServer_reason___block_invoke_2(uint64_t
 
 void __47__HKSPSleepStore__setSleepModeOnServer_reason___block_invoke_3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
-      v7 = 138543618;
-      v8 = v6;
-      v9 = 2114;
-      v10 = v3;
-      _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to set sleep mode on server: %{public}@", &v7, 0x16u);
+      v5 = *(a1 + 32);
+      v6 = 138543618;
+      v7 = v5;
+      v8 = 2114;
+      v9 = v3;
+      _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to set sleep mode on server: %{public}@", &v6, 0x16u);
     }
 
     [*(a1 + 40) finishWithError:v3];
@@ -2833,33 +3262,30 @@ void __47__HKSPSleepStore__setSleepModeOnServer_reason___block_invoke_3(uint64_t
   {
     [*(a1 + 40) finishWithNoResult];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47__HKSPSleepStore__setSleepModeOnServer_reason___block_invoke_486(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to set sleep mode on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ failed to set sleep mode on server: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSleepModeOn:(BOOL)on reason:(unint64_t)reason completion:(id)completion
 {
   onCopy = on;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (reason <= 0xA && ((1 << reason) & 0x60C) != 0)
   {
@@ -2870,9 +3296,9 @@ void __47__HKSPSleepStore__setSleepModeOnServer_reason___block_invoke_486(uint64
       v11 = v10;
       v12 = NSStringFromHKSPSleepModeChangeReason(reason);
       *buf = 138543618;
-      v20 = v10;
-      v21 = 2114;
-      v22 = v12;
+      v19 = v10;
+      v20 = 2114;
+      v21 = v12;
       _os_log_impl(&dword_269A84000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] ignoring set sleep mode with reason: %{public}@", buf, 0x16u);
     }
 
@@ -2883,24 +3309,22 @@ void __47__HKSPSleepStore__setSleepModeOnServer_reason___block_invoke_486(uint64
   {
     if (onCopy)
     {
-      v14 = 2;
+      v13 = 2;
     }
 
     else
     {
-      v14 = 0;
+      v13 = 0;
     }
 
-    v15 = [(HKSPSleepStore *)self _setSleepModeOnServer:v14 reason:reason];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __51__HKSPSleepStore_setSleepModeOn_reason_completion___block_invoke;
-    v17[3] = &unk_279C75318;
-    v18 = completionCopy;
-    v16 = [v15 addCompletionBlock:v17];
+    v14 = [(HKSPSleepStore *)self _setSleepModeOnServer:v13 reason:reason];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __51__HKSPSleepStore_setSleepModeOn_reason_completion___block_invoke;
+    v16[3] = &unk_279C75318;
+    v17 = completionCopy;
+    v15 = [v14 addCompletionBlock:v16];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__HKSPSleepStore_setSleepModeOn_reason_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -2916,7 +3340,7 @@ uint64_t __51__HKSPSleepStore_setSleepModeOn_reason_completion___block_invoke(ui
 
 - (id)_confirmAwakeOnServer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
 
@@ -2933,22 +3357,22 @@ uint64_t __51__HKSPSleepStore_setSleepModeOn_reason_completion___block_invoke(ui
     v6 = objc_alloc_init(MEMORY[0x277D2C900]);
     v7 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __39__HKSPSleepStore__confirmAwakeOnServer__block_invoke;
-    v19[3] = &unk_279C751E0;
-    v20 = v6;
-    v21 = v7;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __39__HKSPSleepStore__confirmAwakeOnServer__block_invoke_488;
-    v16[3] = &unk_279C74F60;
-    v17 = v21;
-    v9 = v20;
-    v18 = v9;
-    _sleepDisabledError = v21;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v19 withErrorHandler:v16];
-    v11 = v18;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __39__HKSPSleepStore__confirmAwakeOnServer__block_invoke;
+    v18[3] = &unk_279C751E0;
+    v19 = v6;
+    v20 = v7;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __39__HKSPSleepStore__confirmAwakeOnServer__block_invoke_488;
+    v15[3] = &unk_279C74F60;
+    v16 = v20;
+    v9 = v19;
+    v17 = v9;
+    _sleepDisabledError = v20;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v18 withErrorHandler:v15];
+    v11 = v17;
     v12 = v9;
   }
 
@@ -2958,8 +3382,6 @@ uint64_t __51__HKSPSleepStore_setSleepModeOn_reason_completion___block_invoke(ui
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     v12 = [v13 futureWithError:_sleepDisabledError];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -2977,7 +3399,7 @@ void __39__HKSPSleepStore__confirmAwakeOnServer__block_invoke(uint64_t a1, void 
 
 void __39__HKSPSleepStore__confirmAwakeOnServer__block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -2989,12 +3411,12 @@ void __39__HKSPSleepStore__confirmAwakeOnServer__block_invoke_2(uint64_t a1, int
     v6 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = 138543618;
-      v12 = v10;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to confirm awake on server: %{public}@", &v11, 0x16u);
+      v9 = *(a1 + 40);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to confirm awake on server: %{public}@", &v10, 0x16u);
     }
 
     v7 = *(a1 + 32);
@@ -3009,27 +3431,24 @@ void __39__HKSPSleepStore__confirmAwakeOnServer__block_invoke_2(uint64_t a1, int
       [v7 finishWithError:v8];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __39__HKSPSleepStore__confirmAwakeOnServer__block_invoke_488(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to confirn awake on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to confirn awake on server: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)confirmAwakeWithCompletion:(id)completion
@@ -3058,7 +3477,7 @@ uint64_t __45__HKSPSleepStore_confirmAwakeWithCompletion___block_invoke(uint64_t
 
 - (id)_dismissGoodMorningOnServer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
 
@@ -3075,22 +3494,22 @@ uint64_t __45__HKSPSleepStore_confirmAwakeWithCompletion___block_invoke(uint64_t
     v6 = objc_alloc_init(MEMORY[0x277D2C900]);
     v7 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __45__HKSPSleepStore__dismissGoodMorningOnServer__block_invoke;
-    v19[3] = &unk_279C751E0;
-    v20 = v6;
-    v21 = v7;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __45__HKSPSleepStore__dismissGoodMorningOnServer__block_invoke_489;
-    v16[3] = &unk_279C74F60;
-    v17 = v21;
-    v9 = v20;
-    v18 = v9;
-    _sleepDisabledError = v21;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v19 withErrorHandler:v16];
-    v11 = v18;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __45__HKSPSleepStore__dismissGoodMorningOnServer__block_invoke;
+    v18[3] = &unk_279C751E0;
+    v19 = v6;
+    v20 = v7;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __45__HKSPSleepStore__dismissGoodMorningOnServer__block_invoke_489;
+    v15[3] = &unk_279C74F60;
+    v16 = v20;
+    v9 = v19;
+    v17 = v9;
+    _sleepDisabledError = v20;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v18 withErrorHandler:v15];
+    v11 = v17;
     v12 = v9;
   }
 
@@ -3100,8 +3519,6 @@ uint64_t __45__HKSPSleepStore_confirmAwakeWithCompletion___block_invoke(uint64_t
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     v12 = [v13 futureWithError:_sleepDisabledError];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -3119,7 +3536,7 @@ void __45__HKSPSleepStore__dismissGoodMorningOnServer__block_invoke(uint64_t a1,
 
 void __45__HKSPSleepStore__dismissGoodMorningOnServer__block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -3131,12 +3548,12 @@ void __45__HKSPSleepStore__dismissGoodMorningOnServer__block_invoke_2(uint64_t a
     v6 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = 138543618;
-      v12 = v10;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to dismiss good morning on server: %{public}@", &v11, 0x16u);
+      v9 = *(a1 + 40);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to dismiss good morning on server: %{public}@", &v10, 0x16u);
     }
 
     v7 = *(a1 + 32);
@@ -3151,27 +3568,24 @@ void __45__HKSPSleepStore__dismissGoodMorningOnServer__block_invoke_2(uint64_t a
       [v7 finishWithError:v8];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __45__HKSPSleepStore__dismissGoodMorningOnServer__block_invoke_489(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to dismiss good morning on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to dismiss good morning on server: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dismissGoodMorningWithCompletion:(id)completion
@@ -3200,7 +3614,7 @@ uint64_t __51__HKSPSleepStore_dismissGoodMorningWithCompletion___block_invoke(ui
 
 - (id)_dismissSleepLockOnServer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
 
@@ -3217,22 +3631,22 @@ uint64_t __51__HKSPSleepStore_dismissGoodMorningWithCompletion___block_invoke(ui
     v6 = objc_alloc_init(MEMORY[0x277D2C900]);
     v7 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __43__HKSPSleepStore__dismissSleepLockOnServer__block_invoke;
-    v19[3] = &unk_279C751E0;
-    v20 = v6;
-    v21 = v7;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __43__HKSPSleepStore__dismissSleepLockOnServer__block_invoke_490;
-    v16[3] = &unk_279C74F60;
-    v17 = v21;
-    v9 = v20;
-    v18 = v9;
-    _sleepDisabledError = v21;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v19 withErrorHandler:v16];
-    v11 = v18;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __43__HKSPSleepStore__dismissSleepLockOnServer__block_invoke;
+    v18[3] = &unk_279C751E0;
+    v19 = v6;
+    v20 = v7;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __43__HKSPSleepStore__dismissSleepLockOnServer__block_invoke_490;
+    v15[3] = &unk_279C74F60;
+    v16 = v20;
+    v9 = v19;
+    v17 = v9;
+    _sleepDisabledError = v20;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v18 withErrorHandler:v15];
+    v11 = v17;
     v12 = v9;
   }
 
@@ -3242,8 +3656,6 @@ uint64_t __51__HKSPSleepStore_dismissGoodMorningWithCompletion___block_invoke(ui
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     v12 = [v13 futureWithError:_sleepDisabledError];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -3261,7 +3673,7 @@ void __43__HKSPSleepStore__dismissSleepLockOnServer__block_invoke(uint64_t a1, v
 
 void __43__HKSPSleepStore__dismissSleepLockOnServer__block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -3273,12 +3685,12 @@ void __43__HKSPSleepStore__dismissSleepLockOnServer__block_invoke_2(uint64_t a1,
     v6 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = 138543618;
-      v12 = v10;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to dismiss sleep lock on server: %{public}@", &v11, 0x16u);
+      v9 = *(a1 + 40);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to dismiss sleep lock on server: %{public}@", &v10, 0x16u);
     }
 
     v7 = *(a1 + 32);
@@ -3293,27 +3705,24 @@ void __43__HKSPSleepStore__dismissSleepLockOnServer__block_invoke_2(uint64_t a1,
       [v7 finishWithError:v8];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __43__HKSPSleepStore__dismissSleepLockOnServer__block_invoke_490(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to dismiss good morning on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to dismiss good morning on server: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dismissSleepLockWithCompletion:(id)completion
@@ -3366,7 +3775,7 @@ uint64_t __65__HKSPSleepStore_sleepAlarmWasDismissedOnDate_source_completion___b
 
 - (id)_sleepAlarmWasDismissedOnDateOnServer:(id)server source:(unint64_t)source
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
@@ -3390,34 +3799,34 @@ uint64_t __65__HKSPSleepStore_sleepAlarmWasDismissedOnDate_source_completion___b
       v11 = v10;
       *buf = 138543874;
       selfCopy = self;
-      v33 = 2114;
-      v34 = serverCopy;
-      v35 = 2114;
-      v36 = v11;
+      v32 = 2114;
+      v33 = serverCopy;
+      v34 = 2114;
+      v35 = v11;
       _os_log_impl(&dword_269A84000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ Sleep alarm was dismissed on date %{public}@ (%{public}@)", buf, 0x20u);
     }
 
     v12 = objc_alloc_init(MEMORY[0x277D2C900]);
     v13 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __63__HKSPSleepStore__sleepAlarmWasDismissedOnDateOnServer_source___block_invoke;
-    v26[3] = &unk_279C753E0;
-    v27 = serverCopy;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __63__HKSPSleepStore__sleepAlarmWasDismissedOnDateOnServer_source___block_invoke;
+    v25[3] = &unk_279C753E0;
+    v26 = serverCopy;
     sourceCopy = source;
-    v28 = v12;
-    v29 = v13;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __63__HKSPSleepStore__sleepAlarmWasDismissedOnDateOnServer_source___block_invoke_491;
-    v23[3] = &unk_279C74F60;
-    v24 = v29;
-    v15 = v28;
-    v25 = v15;
-    v16 = v29;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v26 withErrorHandler:v23];
-    v17 = v25;
+    v27 = v12;
+    v28 = v13;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __63__HKSPSleepStore__sleepAlarmWasDismissedOnDateOnServer_source___block_invoke_491;
+    v22[3] = &unk_279C74F60;
+    v23 = v28;
+    v15 = v27;
+    v24 = v15;
+    v16 = v28;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v25 withErrorHandler:v22];
+    v17 = v24;
     v18 = v15;
   }
 
@@ -3427,8 +3836,6 @@ uint64_t __65__HKSPSleepStore_sleepAlarmWasDismissedOnDate_source_completion___b
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     v18 = [v19 futureWithError:_sleepDisabledError];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -3448,7 +3855,7 @@ void __63__HKSPSleepStore__sleepAlarmWasDismissedOnDateOnServer_source___block_i
 
 void __63__HKSPSleepStore__sleepAlarmWasDismissedOnDateOnServer_source___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -3460,12 +3867,12 @@ void __63__HKSPSleepStore__sleepAlarmWasDismissedOnDateOnServer_source___block_i
     v6 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = 138543618;
-      v12 = v10;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to dismiss sleep alarm on server: %{public}@", &v11, 0x16u);
+      v9 = *(a1 + 40);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to dismiss sleep alarm on server: %{public}@", &v10, 0x16u);
     }
 
     v7 = *(a1 + 32);
@@ -3480,27 +3887,24 @@ void __63__HKSPSleepStore__sleepAlarmWasDismissedOnDateOnServer_source___block_i
       [v7 finishWithError:v8];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HKSPSleepStore__sleepAlarmWasDismissedOnDateOnServer_source___block_invoke_491(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to dismiss sleep alarm on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to dismiss sleep alarm on server: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sleepAlarmWasSnoozedUntilDate:(id)date source:(unint64_t)source completion:(id)completion
@@ -3529,7 +3933,7 @@ uint64_t __66__HKSPSleepStore_sleepAlarmWasSnoozedUntilDate_source_completion___
 
 - (id)_sleepAlarmWasSnoozedUntilDateOnServer:(id)server source:(unint64_t)source
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
@@ -3553,34 +3957,34 @@ uint64_t __66__HKSPSleepStore_sleepAlarmWasSnoozedUntilDate_source_completion___
       v11 = v10;
       *buf = 138543874;
       selfCopy = self;
-      v33 = 2114;
-      v34 = serverCopy;
-      v35 = 2114;
-      v36 = v11;
+      v32 = 2114;
+      v33 = serverCopy;
+      v34 = 2114;
+      v35 = v11;
       _os_log_impl(&dword_269A84000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ Sleep alarm was snoozed until date %{public}@ (%{public}@)", buf, 0x20u);
     }
 
     v12 = objc_alloc_init(MEMORY[0x277D2C900]);
     v13 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __64__HKSPSleepStore__sleepAlarmWasSnoozedUntilDateOnServer_source___block_invoke;
-    v26[3] = &unk_279C753E0;
-    v27 = serverCopy;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __64__HKSPSleepStore__sleepAlarmWasSnoozedUntilDateOnServer_source___block_invoke;
+    v25[3] = &unk_279C753E0;
+    v26 = serverCopy;
     sourceCopy = source;
-    v28 = v12;
-    v29 = v13;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __64__HKSPSleepStore__sleepAlarmWasSnoozedUntilDateOnServer_source___block_invoke_492;
-    v23[3] = &unk_279C74F60;
-    v24 = v29;
-    v15 = v28;
-    v25 = v15;
-    v16 = v29;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v26 withErrorHandler:v23];
-    v17 = v25;
+    v27 = v12;
+    v28 = v13;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __64__HKSPSleepStore__sleepAlarmWasSnoozedUntilDateOnServer_source___block_invoke_492;
+    v22[3] = &unk_279C74F60;
+    v23 = v28;
+    v15 = v27;
+    v24 = v15;
+    v16 = v28;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v25 withErrorHandler:v22];
+    v17 = v24;
     v18 = v15;
   }
 
@@ -3590,8 +3994,6 @@ uint64_t __66__HKSPSleepStore_sleepAlarmWasSnoozedUntilDate_source_completion___
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     v18 = [v19 futureWithError:_sleepDisabledError];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -3611,7 +4013,7 @@ void __64__HKSPSleepStore__sleepAlarmWasSnoozedUntilDateOnServer_source___block_
 
 void __64__HKSPSleepStore__sleepAlarmWasSnoozedUntilDateOnServer_source___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -3623,12 +4025,12 @@ void __64__HKSPSleepStore__sleepAlarmWasSnoozedUntilDateOnServer_source___block_
     v6 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = 138543618;
-      v12 = v10;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to snooze sleep alarm on server: %{public}@", &v11, 0x16u);
+      v9 = *(a1 + 40);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to snooze sleep alarm on server: %{public}@", &v10, 0x16u);
     }
 
     v7 = *(a1 + 32);
@@ -3643,27 +4045,24 @@ void __64__HKSPSleepStore__sleepAlarmWasSnoozedUntilDateOnServer_source___block_
       [v7 finishWithError:v8];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HKSPSleepStore__sleepAlarmWasSnoozedUntilDateOnServer_source___block_invoke_492(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to snooze sleep alarm on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to snooze sleep alarm on server: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sleepAlarmWasModifiedFromSource:(unint64_t)source completion:(id)completion
@@ -3692,7 +4091,7 @@ uint64_t __61__HKSPSleepStore_sleepAlarmWasModifiedFromSource_completion___block
 
 - (id)_sleepAlarmWasModifiedOnServer:(unint64_t)server
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
 
@@ -3715,31 +4114,31 @@ uint64_t __61__HKSPSleepStore_sleepAlarmWasModifiedFromSource_completion___block
       v9 = v8;
       *buf = 138543618;
       selfCopy = self;
-      v30 = 2114;
-      v31 = v9;
+      v29 = 2114;
+      v30 = v9;
       _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Sleep alarm was modified (%{public}@)", buf, 0x16u);
     }
 
     v10 = objc_alloc_init(MEMORY[0x277D2C900]);
     v11 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __49__HKSPSleepStore__sleepAlarmWasModifiedOnServer___block_invoke;
-    v24[3] = &unk_279C75408;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __49__HKSPSleepStore__sleepAlarmWasModifiedOnServer___block_invoke;
+    v23[3] = &unk_279C75408;
     serverCopy = server;
-    v25 = v10;
-    v26 = v11;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __49__HKSPSleepStore__sleepAlarmWasModifiedOnServer___block_invoke_493;
-    v21[3] = &unk_279C74F60;
-    v22 = v26;
-    v13 = v25;
-    v23 = v13;
-    v14 = v26;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v24 withErrorHandler:v21];
-    v15 = v23;
+    v24 = v10;
+    v25 = v11;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __49__HKSPSleepStore__sleepAlarmWasModifiedOnServer___block_invoke_493;
+    v20[3] = &unk_279C74F60;
+    v21 = v25;
+    v13 = v24;
+    v22 = v13;
+    v14 = v25;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v23 withErrorHandler:v20];
+    v15 = v22;
     v16 = v13;
   }
 
@@ -3749,8 +4148,6 @@ uint64_t __61__HKSPSleepStore_sleepAlarmWasModifiedFromSource_completion___block
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     v16 = [v17 futureWithError:_sleepDisabledError];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -3769,7 +4166,7 @@ void __49__HKSPSleepStore__sleepAlarmWasModifiedOnServer___block_invoke(uint64_t
 
 void __49__HKSPSleepStore__sleepAlarmWasModifiedOnServer___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -3781,12 +4178,12 @@ void __49__HKSPSleepStore__sleepAlarmWasModifiedOnServer___block_invoke_2(uint64
     v6 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = 138543618;
-      v12 = v10;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to modify sleep alarm on server: %{public}@", &v11, 0x16u);
+      v9 = *(a1 + 40);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to modify sleep alarm on server: %{public}@", &v10, 0x16u);
     }
 
     v7 = *(a1 + 32);
@@ -3801,32 +4198,96 @@ void __49__HKSPSleepStore__sleepAlarmWasModifiedOnServer___block_invoke_2(uint64
       [v7 finishWithError:v8];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __49__HKSPSleepStore__sleepAlarmWasModifiedOnServer___block_invoke_493(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to modify sleep alarm on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to modify sleep alarm on server: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+- (void)setUpcomingWakeUpAlarmEnabled:(BOOL)enabled date:(id)date completion:(id)completion
+{
+  enabledCopy = enabled;
+  v16 = *MEMORY[0x277D85DE8];
+  dateCopy = date;
+  completionCopy = completion;
+  v13 = 0;
+  v10 = [(HKSPSleepStore *)self upcomingResolvedScheduleOccurrenceAfterDate:dateCopy error:&v13];
+  v11 = v13;
+  if (v10)
+  {
+    [(HKSPSleepStore *)self setWakeUpAlarmEnabled:enabledCopy resolvedOccurrence:v10 date:dateCopy completion:completionCopy];
+  }
+
+  else
+  {
+    v12 = HKSPLogForCategory(1uLL);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      selfCopy = self;
+      _os_log_impl(&dword_269A84000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ no upcoming occurrence", buf, 0xCu);
+    }
+
+    completionCopy[2](completionCopy, v11 != 0, v11);
+  }
+}
+
+- (void)setWakeUpAlarmEnabled:(BOOL)enabled resolvedOccurrence:(id)occurrence date:(id)date completion:(id)completion
+{
+  enabledCopy = enabled;
+  v30 = *MEMORY[0x277D85DE8];
+  occurrenceCopy = occurrence;
+  completionCopy = completion;
+  dateCopy = date;
+  v13 = HKSPLogForCategory(1uLL);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543874;
+    selfCopy = self;
+    v26 = 1024;
+    v27 = enabledCopy;
+    v28 = 2114;
+    v29 = occurrenceCopy;
+    _os_log_impl(&dword_269A84000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ setting wake up alarm to %d for %{public}@", buf, 0x1Cu);
+  }
+
+  hk_gregorianCalendar = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
+  v15 = [occurrenceCopy generateOverrideOccurrenceForCurrentDate:dateCopy gregorianCalendar:hk_gregorianCalendar];
+
+  alarmConfiguration = [v15 alarmConfiguration];
+  v17 = [alarmConfiguration mutableCopy];
+
+  [v17 setEnabled:enabledCopy];
+  [v15 setAlarmConfiguration:v17];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __75__HKSPSleepStore_setWakeUpAlarmEnabled_resolvedOccurrence_date_completion___block_invoke;
+  v20[3] = &unk_279C75430;
+  v21 = v15;
+  selfCopy2 = self;
+  v23 = completionCopy;
+  v18 = completionCopy;
+  v19 = v15;
+  [(HKSPSleepStore *)self currentSleepScheduleWithCompletion:v20];
 }
 
 void __75__HKSPSleepStore_setWakeUpAlarmEnabled_resolvedOccurrence_date_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -3840,23 +4301,21 @@ void __75__HKSPSleepStore_setWakeUpAlarmEnabled_resolvedOccurrence_date_completi
     v7 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 40);
-      v10 = 138543618;
-      v11 = v9;
-      v12 = 2114;
-      v13 = v5;
-      _os_log_error_impl(&dword_269A84000, v7, OS_LOG_TYPE_ERROR, "%{public}@ failed to fetch sleep schedule: %{public}@", &v10, 0x16u);
+      v8 = *(a1 + 40);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2114;
+      v12 = v5;
+      _os_log_error_impl(&dword_269A84000, v7, OS_LOG_TYPE_ERROR, "%{public}@ failed to fetch sleep schedule: %{public}@", &v9, 0x16u);
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_publishNotificationOnServerWithIdentifier:(id)identifier userInfo:(id)info
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   infoCopy = info;
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
@@ -3869,32 +4328,32 @@ void __75__HKSPSleepStore_setWakeUpAlarmEnabled_resolvedOccurrence_date_completi
     {
       *buf = 138543618;
       selfCopy = self;
-      v31 = 2114;
-      v32 = identifierCopy;
+      v30 = 2114;
+      v31 = identifierCopy;
       _os_log_impl(&dword_269A84000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ Publishing notification with identifier on server: %{public}@", buf, 0x16u);
     }
 
     v11 = objc_alloc_init(MEMORY[0x277D2C900]);
     v12 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __70__HKSPSleepStore__publishNotificationOnServerWithIdentifier_userInfo___block_invoke;
-    v24[3] = &unk_279C75458;
-    v25 = identifierCopy;
-    v26 = infoCopy;
-    v27 = v11;
-    v28 = v12;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __70__HKSPSleepStore__publishNotificationOnServerWithIdentifier_userInfo___block_invoke_495;
-    v21[3] = &unk_279C74F60;
-    v22 = v28;
-    v14 = v27;
-    v23 = v14;
-    _sleepDisabledError = v28;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v24 withErrorHandler:v21];
-    v16 = v23;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __70__HKSPSleepStore__publishNotificationOnServerWithIdentifier_userInfo___block_invoke;
+    v23[3] = &unk_279C75458;
+    v24 = identifierCopy;
+    v25 = infoCopy;
+    v26 = v11;
+    v27 = v12;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __70__HKSPSleepStore__publishNotificationOnServerWithIdentifier_userInfo___block_invoke_495;
+    v20[3] = &unk_279C74F60;
+    v21 = v27;
+    v14 = v26;
+    v22 = v14;
+    _sleepDisabledError = v27;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v23 withErrorHandler:v20];
+    v16 = v22;
     v17 = v14;
   }
 
@@ -3904,8 +4363,6 @@ void __75__HKSPSleepStore_setWakeUpAlarmEnabled_resolvedOccurrence_date_completi
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     v17 = [v18 futureWithError:_sleepDisabledError];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -3925,7 +4382,7 @@ void __70__HKSPSleepStore__publishNotificationOnServerWithIdentifier_userInfo___
 
 void __70__HKSPSleepStore__publishNotificationOnServerWithIdentifier_userInfo___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -3937,12 +4394,12 @@ void __70__HKSPSleepStore__publishNotificationOnServerWithIdentifier_userInfo___
     v6 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = 138543618;
-      v12 = v10;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to publish notification on server: %{public}@", &v11, 0x16u);
+      v9 = *(a1 + 40);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to publish notification on server: %{public}@", &v10, 0x16u);
     }
 
     v7 = *(a1 + 32);
@@ -3957,27 +4414,24 @@ void __70__HKSPSleepStore__publishNotificationOnServerWithIdentifier_userInfo___
       [v7 finishWithError:v8];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HKSPSleepStore__publishNotificationOnServerWithIdentifier_userInfo___block_invoke_495(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to publish notification on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to publish notification on server: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishNotificationWithIdentifier:(id)identifier userInfo:(id)info completion:(id)completion
@@ -4009,7 +4463,7 @@ uint64_t __72__HKSPSleepStore_publishNotificationWithIdentifier_userInfo_complet
 
 - (id)_setLockScreenOverrideStateOnServerWithState:(int64_t)state userInfo:(id)info
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
@@ -4022,34 +4476,34 @@ uint64_t __72__HKSPSleepStore_publishNotificationWithIdentifier_userInfo_complet
       v10 = NSStringFromHKSPSleepLockScreenState(state);
       *buf = 138543874;
       selfCopy = self;
-      v32 = 2114;
-      v33 = v10;
-      v34 = 2114;
-      v35 = infoCopy;
+      v31 = 2114;
+      v32 = v10;
+      v33 = 2114;
+      v34 = infoCopy;
       _os_log_impl(&dword_269A84000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ Overriding lock screen state on server: %{public}@ (userInfo: %{public}@)", buf, 0x20u);
     }
 
     v11 = objc_alloc_init(MEMORY[0x277D2C900]);
     v12 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __72__HKSPSleepStore__setLockScreenOverrideStateOnServerWithState_userInfo___block_invoke;
-    v25[3] = &unk_279C753E0;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __72__HKSPSleepStore__setLockScreenOverrideStateOnServerWithState_userInfo___block_invoke;
+    v24[3] = &unk_279C753E0;
     stateCopy = state;
-    v26 = infoCopy;
-    v27 = v11;
-    v28 = v12;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __72__HKSPSleepStore__setLockScreenOverrideStateOnServerWithState_userInfo___block_invoke_496;
-    v22[3] = &unk_279C74F60;
-    v23 = v28;
-    v14 = v27;
-    v24 = v14;
-    v15 = v28;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v25 withErrorHandler:v22];
-    v16 = v24;
+    v25 = infoCopy;
+    v26 = v11;
+    v27 = v12;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __72__HKSPSleepStore__setLockScreenOverrideStateOnServerWithState_userInfo___block_invoke_496;
+    v21[3] = &unk_279C74F60;
+    v22 = v27;
+    v14 = v26;
+    v23 = v14;
+    v15 = v27;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v24 withErrorHandler:v21];
+    v16 = v23;
     v17 = v14;
   }
 
@@ -4059,8 +4513,6 @@ uint64_t __72__HKSPSleepStore_publishNotificationWithIdentifier_userInfo_complet
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     v17 = [v18 futureWithError:_sleepDisabledError];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -4080,7 +4532,7 @@ void __72__HKSPSleepStore__setLockScreenOverrideStateOnServerWithState_userInfo_
 
 void __72__HKSPSleepStore__setLockScreenOverrideStateOnServerWithState_userInfo___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -4092,12 +4544,12 @@ void __72__HKSPSleepStore__setLockScreenOverrideStateOnServerWithState_userInfo_
     v6 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = 138543618;
-      v12 = v10;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to override lock screen state on server: %{public}@", &v11, 0x16u);
+      v9 = *(a1 + 40);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to override lock screen state on server: %{public}@", &v10, 0x16u);
     }
 
     v7 = *(a1 + 32);
@@ -4112,27 +4564,24 @@ void __72__HKSPSleepStore__setLockScreenOverrideStateOnServerWithState_userInfo_
       [v7 finishWithError:v8];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HKSPSleepStore__setLockScreenOverrideStateOnServerWithState_userInfo___block_invoke_496(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to override lock screen state on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to override lock screen state on server: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLockScreenOverrideState:(int64_t)state userInfo:(id)info completion:(id)completion
@@ -4162,7 +4611,7 @@ uint64_t __65__HKSPSleepStore_setLockScreenOverrideState_userInfo_completion___b
 
 - (void)createSleepFocusInState:(unint64_t)state completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
@@ -4175,27 +4624,27 @@ uint64_t __65__HKSPSleepStore_setLockScreenOverrideState_userInfo_completion___b
       v10 = NSStringFromHKSPSleepFocusConfigurationState(state);
       *buf = 138543618;
       selfCopy = self;
-      v23 = 2114;
-      v24 = v10;
+      v22 = 2114;
+      v23 = v10;
       _os_log_impl(&dword_269A84000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ Creating sleep focus (%{public}@) mode on server", buf, 0x16u);
     }
 
     v11 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __53__HKSPSleepStore_createSleepFocusInState_completion___block_invoke;
-    v18[3] = &unk_279C75480;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __53__HKSPSleepStore_createSleepFocusInState_completion___block_invoke;
+    v17[3] = &unk_279C75480;
     stateCopy = state;
-    v19 = completionCopy;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __53__HKSPSleepStore_createSleepFocusInState_completion___block_invoke_2;
-    v15[3] = &unk_279C754A8;
-    v16 = v11;
-    v17 = v19;
+    v18 = completionCopy;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __53__HKSPSleepStore_createSleepFocusInState_completion___block_invoke_2;
+    v14[3] = &unk_279C754A8;
+    v15 = v11;
+    v16 = v18;
     _sleepDisabledError = v11;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v18 withErrorHandler:v15];
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v17 withErrorHandler:v14];
   }
 
   else
@@ -4203,32 +4652,29 @@ uint64_t __65__HKSPSleepStore_setLockScreenOverrideState_userInfo_completion___b
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     (*(completionCopy + 2))(completionCopy, 0, _sleepDisabledError);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HKSPSleepStore_createSleepFocusInState_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to create sleep focus mode on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to create sleep focus mode on server: %{public}@", &v6, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteSleepFocusModeWithCompletion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
@@ -4245,19 +4691,19 @@ void __53__HKSPSleepStore_createSleepFocusInState_completion___block_invoke_2(ui
 
     v8 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __53__HKSPSleepStore_deleteSleepFocusModeWithCompletion___block_invoke;
-    v16[3] = &unk_279C754D0;
-    v17 = completionCopy;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __53__HKSPSleepStore_deleteSleepFocusModeWithCompletion___block_invoke_2;
-    v13[3] = &unk_279C754A8;
-    v14 = v8;
-    v15 = v17;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __53__HKSPSleepStore_deleteSleepFocusModeWithCompletion___block_invoke;
+    v15[3] = &unk_279C754D0;
+    v16 = completionCopy;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __53__HKSPSleepStore_deleteSleepFocusModeWithCompletion___block_invoke_2;
+    v12[3] = &unk_279C754A8;
+    v13 = v8;
+    v14 = v16;
     v10 = v8;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v16 withErrorHandler:v13];
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v15 withErrorHandler:v12];
   }
 
   else
@@ -4265,32 +4711,29 @@ void __53__HKSPSleepStore_createSleepFocusInState_completion___block_invoke_2(ui
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     (*(completionCopy + 2))(completionCopy, 0, _sleepDisabledError);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HKSPSleepStore_deleteSleepFocusModeWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to delete sleep focus mode on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to delete sleep focus mode on server: %{public}@", &v6, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureSleepFocusWithState:(unint64_t)state completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
@@ -4303,27 +4746,27 @@ void __53__HKSPSleepStore_deleteSleepFocusModeWithCompletion___block_invoke_2(ui
       v10 = NSStringFromHKSPSleepFocusConfigurationState(state);
       *buf = 138543618;
       selfCopy = self;
-      v23 = 2114;
-      v24 = v10;
+      v22 = 2114;
+      v23 = v10;
       _os_log_impl(&dword_269A84000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ Configuring sleep focus (state: %{public}@) on server", buf, 0x16u);
     }
 
     v11 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __58__HKSPSleepStore_configureSleepFocusWithState_completion___block_invoke;
-    v18[3] = &unk_279C75480;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __58__HKSPSleepStore_configureSleepFocusWithState_completion___block_invoke;
+    v17[3] = &unk_279C75480;
     stateCopy = state;
-    v19 = completionCopy;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __58__HKSPSleepStore_configureSleepFocusWithState_completion___block_invoke_2;
-    v15[3] = &unk_279C754A8;
-    v16 = v11;
-    v17 = v19;
+    v18 = completionCopy;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __58__HKSPSleepStore_configureSleepFocusWithState_completion___block_invoke_2;
+    v14[3] = &unk_279C754A8;
+    v15 = v11;
+    v16 = v18;
     _sleepDisabledError = v11;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v18 withErrorHandler:v15];
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v17 withErrorHandler:v14];
   }
 
   else
@@ -4331,32 +4774,29 @@ void __53__HKSPSleepStore_deleteSleepFocusModeWithCompletion___block_invoke_2(ui
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     (*(completionCopy + 2))(completionCopy, 0, _sleepDisabledError);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HKSPSleepStore_configureSleepFocusWithState_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to configure sleep focus mode on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to configure sleep focus mode on server: %{public}@", &v6, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_setWidgetOverrideStateOnServerWithState:(int64_t)state
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
 
@@ -4368,31 +4808,31 @@ void __58__HKSPSleepStore_configureSleepFocusWithState_completion___block_invoke
       v8 = NSStringFromHKSPSleepWidgetState(state);
       *buf = 138543618;
       selfCopy = self;
-      v29 = 2114;
-      v30 = v8;
+      v28 = 2114;
+      v29 = v8;
       _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Overriding sleep widget state on server: %{public}@", buf, 0x16u);
     }
 
     v9 = objc_alloc_init(MEMORY[0x277D2C900]);
     v10 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __59__HKSPSleepStore__setWidgetOverrideStateOnServerWithState___block_invoke;
-    v23[3] = &unk_279C75408;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __59__HKSPSleepStore__setWidgetOverrideStateOnServerWithState___block_invoke;
+    v22[3] = &unk_279C75408;
     stateCopy = state;
-    v24 = v9;
-    v25 = v10;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __59__HKSPSleepStore__setWidgetOverrideStateOnServerWithState___block_invoke_497;
-    v20[3] = &unk_279C74F60;
-    v21 = v25;
-    v12 = v24;
-    v22 = v12;
-    v13 = v25;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v23 withErrorHandler:v20];
-    v14 = v22;
+    v23 = v9;
+    v24 = v10;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __59__HKSPSleepStore__setWidgetOverrideStateOnServerWithState___block_invoke_497;
+    v19[3] = &unk_279C74F60;
+    v20 = v24;
+    v12 = v23;
+    v21 = v12;
+    v13 = v24;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v22 withErrorHandler:v19];
+    v14 = v21;
     v15 = v12;
   }
 
@@ -4402,8 +4842,6 @@ void __58__HKSPSleepStore_configureSleepFocusWithState_completion___block_invoke
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     v15 = [v16 futureWithError:_sleepDisabledError];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -4422,7 +4860,7 @@ void __59__HKSPSleepStore__setWidgetOverrideStateOnServerWithState___block_invok
 
 void __59__HKSPSleepStore__setWidgetOverrideStateOnServerWithState___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -4434,12 +4872,12 @@ void __59__HKSPSleepStore__setWidgetOverrideStateOnServerWithState___block_invok
     v6 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = 138543618;
-      v12 = v10;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to override sleep widget state on server: %{public}@", &v11, 0x16u);
+      v9 = *(a1 + 40);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to override sleep widget state on server: %{public}@", &v10, 0x16u);
     }
 
     v7 = *(a1 + 32);
@@ -4454,27 +4892,24 @@ void __59__HKSPSleepStore__setWidgetOverrideStateOnServerWithState___block_invok
       [v7 finishWithError:v8];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HKSPSleepStore__setWidgetOverrideStateOnServerWithState___block_invoke_497(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to override sleep widget state on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to override sleep widget state on server: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setWidgetOverrideState:(int64_t)state completion:(id)completion
@@ -4503,7 +4938,7 @@ uint64_t __52__HKSPSleepStore_setWidgetOverrideState_completion___block_invoke(u
 
 - (id)_clearWidgetOverrideOnServer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
 
@@ -4520,22 +4955,22 @@ uint64_t __52__HKSPSleepStore_setWidgetOverrideState_completion___block_invoke(u
     v6 = objc_alloc_init(MEMORY[0x277D2C900]);
     v7 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __46__HKSPSleepStore__clearWidgetOverrideOnServer__block_invoke;
-    v19[3] = &unk_279C751E0;
-    v20 = v6;
-    v21 = v7;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __46__HKSPSleepStore__clearWidgetOverrideOnServer__block_invoke_498;
-    v16[3] = &unk_279C74F60;
-    v17 = v21;
-    v9 = v20;
-    v18 = v9;
-    _sleepDisabledError = v21;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v19 withErrorHandler:v16];
-    v11 = v18;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __46__HKSPSleepStore__clearWidgetOverrideOnServer__block_invoke;
+    v18[3] = &unk_279C751E0;
+    v19 = v6;
+    v20 = v7;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __46__HKSPSleepStore__clearWidgetOverrideOnServer__block_invoke_498;
+    v15[3] = &unk_279C74F60;
+    v16 = v20;
+    v9 = v19;
+    v17 = v9;
+    _sleepDisabledError = v20;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v18 withErrorHandler:v15];
+    v11 = v17;
     v12 = v9;
   }
 
@@ -4545,8 +4980,6 @@ uint64_t __52__HKSPSleepStore_setWidgetOverrideState_completion___block_invoke(u
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     v12 = [v13 futureWithError:_sleepDisabledError];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -4564,7 +4997,7 @@ void __46__HKSPSleepStore__clearWidgetOverrideOnServer__block_invoke(uint64_t a1
 
 void __46__HKSPSleepStore__clearWidgetOverrideOnServer__block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -4576,12 +5009,12 @@ void __46__HKSPSleepStore__clearWidgetOverrideOnServer__block_invoke_2(uint64_t 
     v6 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = 138543618;
-      v12 = v10;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to clear sleep widget override on server: %{public}@", &v11, 0x16u);
+      v9 = *(a1 + 40);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to clear sleep widget override on server: %{public}@", &v10, 0x16u);
     }
 
     v7 = *(a1 + 32);
@@ -4596,27 +5029,24 @@ void __46__HKSPSleepStore__clearWidgetOverrideOnServer__block_invoke_2(uint64_t 
       [v7 finishWithError:v8];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __46__HKSPSleepStore__clearWidgetOverrideOnServer__block_invoke_498(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to clear sleep widget override on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to clear sleep widget override on server: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearWidgetOverrideWithCompletion:(id)completion
@@ -4645,7 +5075,7 @@ uint64_t __52__HKSPSleepStore_clearWidgetOverrideWithCompletion___block_invoke(u
 
 - (id)_publishWakeUpResultsNotificationOnServer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   hksp_supportsSleepDaemon = [mEMORY[0x277CCDD30] hksp_supportsSleepDaemon];
 
@@ -4662,22 +5092,22 @@ uint64_t __52__HKSPSleepStore_clearWidgetOverrideWithCompletion___block_invoke(u
     v6 = objc_alloc_init(MEMORY[0x277D2C900]);
     v7 = [(HKSPSleepStore *)self description];
     connectionProvider = self->_connectionProvider;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __59__HKSPSleepStore__publishWakeUpResultsNotificationOnServer__block_invoke;
-    v19[3] = &unk_279C751E0;
-    v20 = v6;
-    v21 = v7;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __59__HKSPSleepStore__publishWakeUpResultsNotificationOnServer__block_invoke_500;
-    v16[3] = &unk_279C74F60;
-    v17 = v21;
-    v9 = v20;
-    v18 = v9;
-    _sleepDisabledError = v21;
-    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v19 withErrorHandler:v16];
-    v11 = v18;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __59__HKSPSleepStore__publishWakeUpResultsNotificationOnServer__block_invoke;
+    v18[3] = &unk_279C751E0;
+    v19 = v6;
+    v20 = v7;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __59__HKSPSleepStore__publishWakeUpResultsNotificationOnServer__block_invoke_500;
+    v15[3] = &unk_279C74F60;
+    v16 = v20;
+    v9 = v19;
+    v17 = v9;
+    _sleepDisabledError = v20;
+    [(HKSPXPCConnectionProvider *)connectionProvider performRemoteBlock:v18 withErrorHandler:v15];
+    v11 = v17;
     v12 = v9;
   }
 
@@ -4687,8 +5117,6 @@ uint64_t __52__HKSPSleepStore_clearWidgetOverrideWithCompletion___block_invoke(u
     _sleepDisabledError = [objc_opt_class() _sleepDisabledError];
     v12 = [v13 futureWithError:_sleepDisabledError];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -4706,19 +5134,19 @@ void __59__HKSPSleepStore__publishWakeUpResultsNotificationOnServer__block_invok
 
 void __59__HKSPSleepStore__publishWakeUpResultsNotificationOnServer__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
     v6 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
-      v11 = 138543618;
-      v12 = v10;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to publish wake up results notification on server: %{public}@", &v11, 0x16u);
+      v9 = *(a1 + 40);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Failed to publish wake up results notification on server: %{public}@", &v10, 0x16u);
     }
 
     [*(a1 + 32) finishWithError:v5];
@@ -4730,27 +5158,24 @@ void __59__HKSPSleepStore__publishWakeUpResultsNotificationOnServer__block_invok
     v8 = HKSPNullify(a2);
     [v7 finishWithResult:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HKSPSleepStore__publishWakeUpResultsNotificationOnServer__block_invoke_500(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to publish wake up results notification on server: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_269A84000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to publish wake up results notification on server: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishWakeUpResultsNotificationWithCompletion:(id)completion
@@ -4896,7 +5321,7 @@ id __61__HKSPSleepStore_nextEventWithIdentifierFuture_dueAfterDate___block_invok
 
 - (void)setSleepCoachingOnboardingCompletedVersion:(int64_t)version completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -4904,28 +5329,26 @@ id __61__HKSPSleepStore_nextEventWithIdentifierFuture_dueAfterDate___block_invok
     v8 = [MEMORY[0x277CCABB0] numberWithInteger:version];
     *buf = 138543618;
     selfCopy = self;
-    v18 = 2114;
-    v19 = v8;
+    v17 = 2114;
+    v18 = v8;
     _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting sleep coaching onboarding version to %{public}@", buf, 0x16u);
   }
 
   currentSleepEventRecordFuture = [(HKSPSleepStore *)self currentSleepEventRecordFuture];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __72__HKSPSleepStore_setSleepCoachingOnboardingCompletedVersion_completion___block_invoke;
-  v13[3] = &unk_279C755C0;
-  v13[4] = self;
-  v14 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __72__HKSPSleepStore_setSleepCoachingOnboardingCompletedVersion_completion___block_invoke;
+  v12[3] = &unk_279C755C0;
+  v12[4] = self;
+  v13 = completionCopy;
   versionCopy = version;
   v10 = completionCopy;
-  v11 = [currentSleepEventRecordFuture addCompletionBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [currentSleepEventRecordFuture addCompletionBlock:v12];
 }
 
 void __72__HKSPSleepStore_setSleepCoachingOnboardingCompletedVersion_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = HKSPNilify(a2);
   v7 = [v6 mutableCopy];
@@ -4935,12 +5358,12 @@ void __72__HKSPSleepStore_setSleepCoachingOnboardingCompletedVersion_completion_
     v10 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = 138543618;
-      v15 = v13;
-      v16 = 2114;
-      v17 = v5;
-      _os_log_error_impl(&dword_269A84000, v10, OS_LOG_TYPE_ERROR, "%{public}@ Failed to retrieve event record for setting sleep coaching onboarding: %{public}@", &v14, 0x16u);
+      v12 = *(a1 + 32);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2114;
+      v16 = v5;
+      _os_log_error_impl(&dword_269A84000, v10, OS_LOG_TYPE_ERROR, "%{public}@ Failed to retrieve event record for setting sleep coaching onboarding: %{public}@", &v13, 0x16u);
     }
 
     v11 = *(*(a1 + 40) + 16);
@@ -4961,13 +5384,11 @@ LABEL_8:
 
   [*(a1 + 32) saveCurrentSleepEventRecord:v7 completion:*(a1 + 40)];
 LABEL_9:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSleepTrackingOnboardingCompletedVersion:(int64_t)version completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -4975,28 +5396,26 @@ LABEL_9:
     v8 = [MEMORY[0x277CCABB0] numberWithInteger:version];
     *buf = 138543618;
     selfCopy = self;
-    v18 = 2114;
-    v19 = v8;
+    v17 = 2114;
+    v18 = v8;
     _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting sleep tracking onboarding version to %{public}@", buf, 0x16u);
   }
 
   currentSleepEventRecordFuture = [(HKSPSleepStore *)self currentSleepEventRecordFuture];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __72__HKSPSleepStore_setSleepTrackingOnboardingCompletedVersion_completion___block_invoke;
-  v13[3] = &unk_279C755C0;
-  v13[4] = self;
-  v14 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __72__HKSPSleepStore_setSleepTrackingOnboardingCompletedVersion_completion___block_invoke;
+  v12[3] = &unk_279C755C0;
+  v12[4] = self;
+  v13 = completionCopy;
   versionCopy = version;
   v10 = completionCopy;
-  v11 = [currentSleepEventRecordFuture addCompletionBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [currentSleepEventRecordFuture addCompletionBlock:v12];
 }
 
 void __72__HKSPSleepStore_setSleepTrackingOnboardingCompletedVersion_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = HKSPNilify(a2);
   v7 = [v6 mutableCopy];
@@ -5006,12 +5425,12 @@ void __72__HKSPSleepStore_setSleepTrackingOnboardingCompletedVersion_completion_
     v10 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = 138543618;
-      v15 = v13;
-      v16 = 2114;
-      v17 = v5;
-      _os_log_error_impl(&dword_269A84000, v10, OS_LOG_TYPE_ERROR, "%{public}@ Failed to retrieve event record for setting sleep tracking onboarding: %{public}@", &v14, 0x16u);
+      v12 = *(a1 + 32);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2114;
+      v16 = v5;
+      _os_log_error_impl(&dword_269A84000, v10, OS_LOG_TYPE_ERROR, "%{public}@ Failed to retrieve event record for setting sleep tracking onboarding: %{public}@", &v13, 0x16u);
     }
 
     v11 = *(*(a1 + 40) + 16);
@@ -5032,13 +5451,11 @@ LABEL_8:
 
   [*(a1 + 32) saveCurrentSleepEventRecord:v7 completion:*(a1 + 40)];
 LABEL_9:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSleepWindDownShortcutsOnboardingCompletedVersion:(int64_t)version completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -5046,28 +5463,26 @@ LABEL_9:
     v8 = [MEMORY[0x277CCABB0] numberWithInteger:version];
     *buf = 138543618;
     selfCopy = self;
-    v18 = 2114;
-    v19 = v8;
+    v17 = 2114;
+    v18 = v8;
     _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting sleep wind down shortcuts onboarding version to %{public}@", buf, 0x16u);
   }
 
   currentSleepEventRecordFuture = [(HKSPSleepStore *)self currentSleepEventRecordFuture];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __81__HKSPSleepStore_setSleepWindDownShortcutsOnboardingCompletedVersion_completion___block_invoke;
-  v13[3] = &unk_279C755C0;
-  v13[4] = self;
-  v14 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __81__HKSPSleepStore_setSleepWindDownShortcutsOnboardingCompletedVersion_completion___block_invoke;
+  v12[3] = &unk_279C755C0;
+  v12[4] = self;
+  v13 = completionCopy;
   versionCopy = version;
   v10 = completionCopy;
-  v11 = [currentSleepEventRecordFuture addCompletionBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [currentSleepEventRecordFuture addCompletionBlock:v12];
 }
 
 void __81__HKSPSleepStore_setSleepWindDownShortcutsOnboardingCompletedVersion_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = HKSPNilify(a2);
   v7 = [v6 mutableCopy];
@@ -5077,12 +5492,12 @@ void __81__HKSPSleepStore_setSleepWindDownShortcutsOnboardingCompletedVersion_co
     v10 = HKSPLogForCategory(1uLL);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = 138543618;
-      v15 = v13;
-      v16 = 2114;
-      v17 = v5;
-      _os_log_error_impl(&dword_269A84000, v10, OS_LOG_TYPE_ERROR, "%{public}@ Failed to retrieve event record for setting sleep wind down shortcuts onboarding: %{public}@", &v14, 0x16u);
+      v12 = *(a1 + 32);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2114;
+      v16 = v5;
+      _os_log_error_impl(&dword_269A84000, v10, OS_LOG_TYPE_ERROR, "%{public}@ Failed to retrieve event record for setting sleep wind down shortcuts onboarding: %{public}@", &v13, 0x16u);
     }
 
     v11 = *(*(a1 + 40) + 16);
@@ -5103,35 +5518,31 @@ LABEL_8:
 
   [*(a1 + 32) saveCurrentSleepEventRecord:v7 completion:*(a1 + 40)];
 LABEL_9:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyObserversForChangedSleepSchedule:(id)schedule
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   scheduleCopy = schedule;
   v5 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v13 = 2114;
-    v14 = scheduleCopy;
+    v12 = 2114;
+    v13 = scheduleCopy;
     _os_log_impl(&dword_269A84000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ notifying observers for changed sleep schedule: %{public}@", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __58__HKSPSleepStore__notifyObserversForChangedSleepSchedule___block_invoke;
-  v9[3] = &unk_279C75610;
-  v9[4] = self;
-  v10 = scheduleCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __58__HKSPSleepStore__notifyObserversForChangedSleepSchedule___block_invoke;
+  v8[3] = &unk_279C75610;
+  v8[4] = self;
+  v9 = scheduleCopy;
   v7 = scheduleCopy;
-  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v8];
 }
 
 void __58__HKSPSleepStore__notifyObserversForChangedSleepSchedule___block_invoke(uint64_t a1, void *a2)
@@ -5172,29 +5583,27 @@ void __58__HKSPSleepStore__notifyObserversForChangedSleepSchedule___block_invoke
 
 - (void)_notifyObserversForChangedSleepSettings:(id)settings
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v5 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v13 = 2114;
-    v14 = settingsCopy;
+    v12 = 2114;
+    v13 = settingsCopy;
     _os_log_impl(&dword_269A84000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ notifying observers for changed sleep settings: %{public}@", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __58__HKSPSleepStore__notifyObserversForChangedSleepSettings___block_invoke;
-  v9[3] = &unk_279C75610;
-  v9[4] = self;
-  v10 = settingsCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __58__HKSPSleepStore__notifyObserversForChangedSleepSettings___block_invoke;
+  v8[3] = &unk_279C75610;
+  v8[4] = self;
+  v9 = settingsCopy;
   v7 = settingsCopy;
-  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v8];
 }
 
 void __58__HKSPSleepStore__notifyObserversForChangedSleepSettings___block_invoke(uint64_t a1, void *a2)
@@ -5235,29 +5644,27 @@ void __58__HKSPSleepStore__notifyObserversForChangedSleepSettings___block_invoke
 
 - (void)_notifyObserversForChangedSleepEventRecord:(id)record
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v5 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v13 = 2114;
-    v14 = recordCopy;
+    v12 = 2114;
+    v13 = recordCopy;
     _os_log_impl(&dword_269A84000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ notifying observers for changed sleep event record: %{public}@", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __61__HKSPSleepStore__notifyObserversForChangedSleepEventRecord___block_invoke;
-  v9[3] = &unk_279C75610;
-  v9[4] = self;
-  v10 = recordCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __61__HKSPSleepStore__notifyObserversForChangedSleepEventRecord___block_invoke;
+  v8[3] = &unk_279C75610;
+  v8[4] = self;
+  v9 = recordCopy;
   v7 = recordCopy;
-  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v8];
 }
 
 void __61__HKSPSleepStore__notifyObserversForChangedSleepEventRecord___block_invoke(uint64_t a1, void *a2)
@@ -5297,7 +5704,7 @@ void __61__HKSPSleepStore__notifyObserversForChangedSleepEventRecord___block_inv
 
 - (void)_notifyObserversForChangedSleepMode:(int64_t)mode reason:(unint64_t)reason
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v7 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
@@ -5305,23 +5712,22 @@ void __61__HKSPSleepStore__notifyObserversForChangedSleepEventRecord___block_inv
     v9 = NSStringFromHKSPSleepModeChangeReason(reason);
     *buf = 138543874;
     selfCopy = self;
-    v15 = 2114;
-    v16 = v8;
-    v17 = 2114;
-    v18 = v9;
+    v14 = 2114;
+    v15 = v8;
+    v16 = 2114;
+    v17 = v9;
     _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ notifying observers for changed sleep mode: %{public}@ (%{public}@)", buf, 0x20u);
   }
 
   observers = self->_observers;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __61__HKSPSleepStore__notifyObserversForChangedSleepMode_reason___block_invoke;
-  v12[3] = &unk_279C75638;
-  v12[4] = self;
-  v12[5] = mode;
-  v12[6] = reason;
-  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v12];
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __61__HKSPSleepStore__notifyObserversForChangedSleepMode_reason___block_invoke;
+  v11[3] = &unk_279C75638;
+  v11[4] = self;
+  v11[5] = mode;
+  v11[6] = reason;
+  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v11];
 }
 
 void __61__HKSPSleepStore__notifyObserversForChangedSleepMode_reason___block_invoke(void *a1, void *a2)
@@ -5340,29 +5746,27 @@ void __61__HKSPSleepStore__notifyObserversForChangedSleepMode_reason___block_inv
 
 - (void)_notifyObserversForSleepEvent:(id)event
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v13 = 2114;
-    v14 = eventCopy;
+    v12 = 2114;
+    v13 = eventCopy;
     _os_log_impl(&dword_269A84000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ notifying observers for sleep event: %{public}@", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __48__HKSPSleepStore__notifyObserversForSleepEvent___block_invoke;
-  v9[3] = &unk_279C75610;
-  v9[4] = self;
-  v10 = eventCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __48__HKSPSleepStore__notifyObserversForSleepEvent___block_invoke;
+  v8[3] = &unk_279C75610;
+  v8[4] = self;
+  v9 = eventCopy;
   v7 = eventCopy;
-  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v8];
 }
 
 void __48__HKSPSleepStore__notifyObserversForSleepEvent___block_invoke(uint64_t a1, void *a2)
@@ -5376,7 +5780,7 @@ void __48__HKSPSleepStore__notifyObserversForSleepEvent___block_invoke(uint64_t 
 
 - (void)_notifyObserversForChangedSleepScheduleState:(unint64_t)state reason:(unint64_t)reason
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v7 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
@@ -5384,23 +5788,22 @@ void __48__HKSPSleepStore__notifyObserversForSleepEvent___block_invoke(uint64_t 
     v9 = NSStringFromHKSPSleepScheduleStateChangeReason(reason);
     *buf = 138543874;
     selfCopy = self;
-    v15 = 2114;
-    v16 = v8;
-    v17 = 2114;
-    v18 = v9;
+    v14 = 2114;
+    v15 = v8;
+    v16 = 2114;
+    v17 = v9;
     _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ notifying observers for sleep state: %{public}@ (%{public}@)", buf, 0x20u);
   }
 
   observers = self->_observers;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __70__HKSPSleepStore__notifyObserversForChangedSleepScheduleState_reason___block_invoke;
-  v12[3] = &unk_279C75638;
-  v12[4] = self;
-  v12[5] = state;
-  v12[6] = reason;
-  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v12];
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __70__HKSPSleepStore__notifyObserversForChangedSleepScheduleState_reason___block_invoke;
+  v11[3] = &unk_279C75638;
+  v11[4] = self;
+  v11[5] = state;
+  v11[6] = reason;
+  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v11];
 }
 
 void __70__HKSPSleepStore__notifyObserversForChangedSleepScheduleState_reason___block_invoke(void *a1, void *a2)
@@ -5443,18 +5846,18 @@ void __70__HKSPSleepStore__notifyObserversForChangedSleepScheduleState_reason___
 
 - (void)_updateAndNotifyForChangedSleepSchedule:(id)schedule clientIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   scheduleCopy = schedule;
   v8 = HKSPSleepScheduleUnwrap(scheduleCopy);
   v9 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138543618;
+    v14 = 138543618;
     selfCopy = self;
-    v17 = 2114;
-    v18 = v8;
-    _os_log_impl(&dword_269A84000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ sleepScheduleChanged: %{public}@", &v15, 0x16u);
+    v16 = 2114;
+    v17 = v8;
+    _os_log_impl(&dword_269A84000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ sleepScheduleChanged: %{public}@", &v14, 0x16u);
   }
 
   syncAnchorContainer = [(HKSPSleepStore *)self syncAnchorContainer];
@@ -5474,23 +5877,21 @@ void __70__HKSPSleepStore__notifyObserversForChangedSleepScheduleState_reason___
   {
     [(HKSPSleepStore *)self _notifyObserversForChangedSleepSchedule:v8];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAndNotifyForChangedSleepSettings:(id)settings clientIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   identifierCopy = identifier;
   v8 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138543618;
+    v13 = 138543618;
     selfCopy = self;
-    v16 = 2114;
-    v17 = settingsCopy;
-    _os_log_impl(&dword_269A84000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ sleepSettingsChanged: %{public}@", &v14, 0x16u);
+    v15 = 2114;
+    v16 = settingsCopy;
+    _os_log_impl(&dword_269A84000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ sleepSettingsChanged: %{public}@", &v13, 0x16u);
   }
 
   syncAnchorContainer = [(HKSPSleepStore *)self syncAnchorContainer];
@@ -5510,23 +5911,21 @@ void __70__HKSPSleepStore__notifyObserversForChangedSleepScheduleState_reason___
   {
     [(HKSPSleepStore *)self _notifyObserversForChangedSleepSettings:settingsCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAndNotifyForChangedSleepEventRecord:(id)record clientIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   identifierCopy = identifier;
   v8 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138543618;
+    v13 = 138543618;
     selfCopy = self;
-    v16 = 2114;
-    v17 = recordCopy;
-    _os_log_impl(&dword_269A84000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ sleepEventRecordChanged: %{public}@", &v14, 0x16u);
+    v15 = 2114;
+    v16 = recordCopy;
+    _os_log_impl(&dword_269A84000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ sleepEventRecordChanged: %{public}@", &v13, 0x16u);
   }
 
   syncAnchorContainer = [(HKSPSleepStore *)self syncAnchorContainer];
@@ -5546,22 +5945,20 @@ void __70__HKSPSleepStore__notifyObserversForChangedSleepScheduleState_reason___
   {
     [(HKSPSleepStore *)self _notifyObserversForChangedSleepEventRecord:recordCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAndNotifyForSleepEvent:(id)event
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543618;
+    v8 = 138543618;
     selfCopy = self;
-    v11 = 2114;
-    v12 = eventCopy;
-    _os_log_impl(&dword_269A84000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ sleepEventOccurred: %{public}@", &v9, 0x16u);
+    v10 = 2114;
+    v11 = eventCopy;
+    _os_log_impl(&dword_269A84000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ sleepEventOccurred: %{public}@", &v8, 0x16u);
   }
 
   syncAnchorContainer = [(HKSPSleepStore *)self syncAnchorContainer];
@@ -5569,12 +5966,11 @@ void __70__HKSPSleepStore__notifyObserversForChangedSleepScheduleState_reason___
   [syncAnchorContainer updateSleepEventSyncAnchor:syncAnchor];
 
   [(HKSPSleepStore *)self _notifyObserversForSleepEvent:eventCopy];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAndNotifyForChangedSleepScheduleState:(id)state
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   scheduleState = [stateCopy scheduleState];
   changeReason = [stateCopy changeReason];
@@ -5583,13 +5979,13 @@ void __70__HKSPSleepStore__notifyObserversForChangedSleepScheduleState_reason___
   {
     v8 = NSStringFromHKSPSleepScheduleState(scheduleState);
     v9 = NSStringFromHKSPSleepScheduleStateChangeReason(changeReason);
-    v14 = 138543874;
+    v13 = 138543874;
     selfCopy = self;
-    v16 = 2114;
-    v17 = v8;
-    v18 = 2114;
-    v19 = v9;
-    _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ sleepScheduleStateChanged: %{public}@ (%{public}@)", &v14, 0x20u);
+    v15 = 2114;
+    v16 = v8;
+    v17 = 2114;
+    v18 = v9;
+    _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ sleepScheduleStateChanged: %{public}@ (%{public}@)", &v13, 0x20u);
   }
 
   syncAnchorContainer = [(HKSPSleepStore *)self syncAnchorContainer];
@@ -5600,12 +5996,11 @@ void __70__HKSPSleepStore__notifyObserversForChangedSleepScheduleState_reason___
   [sleepStoreCache updateCachedSleepScheduleState:scheduleState];
 
   [(HKSPSleepStore *)self _notifyObserversForChangedSleepScheduleState:scheduleState reason:changeReason];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAndNotifyForChangedSleepMode:(id)mode
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   modeCopy = mode;
   sleepMode = [modeCopy sleepMode];
   changeReason = [modeCopy changeReason];
@@ -5614,13 +6009,13 @@ void __70__HKSPSleepStore__notifyObserversForChangedSleepScheduleState_reason___
   {
     v8 = NSStringFromHKSPSleepMode(sleepMode);
     v9 = NSStringFromHKSPSleepModeChangeReason(changeReason);
-    v14 = 138543874;
+    v13 = 138543874;
     selfCopy = self;
-    v16 = 2114;
-    v17 = v8;
-    v18 = 2114;
-    v19 = v9;
-    _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ sleepModeChanged: %{public}@ (%{public}@)", &v14, 0x20u);
+    v15 = 2114;
+    v16 = v8;
+    v17 = 2114;
+    v18 = v9;
+    _os_log_impl(&dword_269A84000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ sleepModeChanged: %{public}@ (%{public}@)", &v13, 0x20u);
   }
 
   syncAnchorContainer = [(HKSPSleepStore *)self syncAnchorContainer];
@@ -5631,12 +6026,11 @@ void __70__HKSPSleepStore__notifyObserversForChangedSleepScheduleState_reason___
   [sleepStoreCache updateCachedSleepMode:sleepMode];
 
   [(HKSPSleepStore *)self _notifyObserversForChangedSleepMode:sleepMode reason:changeReason];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -5647,23 +6041,22 @@ void __70__HKSPSleepStore__notifyObserversForChangedSleepScheduleState_reason___
 
   [(HKSPXPCConnectionProvider *)self->_connectionProvider invalidate];
   [(HKSPSleepFocusModeBridge *)self->_sleepFocusModeBridge invalidate];
-  v5.receiver = self;
-  v5.super_class = HKSPSleepStore;
-  [(HKSPSleepStore *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = HKSPSleepStore;
+  [(HKSPSleepStore *)&v4 dealloc];
 }
 
 - (void)sleepFocusModeBridge:(id)bridge didUpdateSleepFocusConfiguration:(id)configuration
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v6 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v15 = 2114;
-    v16 = configurationCopy;
+    v14 = 2114;
+    v15 = configurationCopy;
     _os_log_impl(&dword_269A84000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ notifying observers for sleep focus mode update: %{public}@", buf, 0x16u);
   }
 
@@ -5671,16 +6064,14 @@ void __70__HKSPSleepStore__notifyObserversForChangedSleepScheduleState_reason___
   [sleepStoreCache purgeCachedSleepMode];
 
   observers = self->_observers;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __72__HKSPSleepStore_sleepFocusModeBridge_didUpdateSleepFocusConfiguration___block_invoke;
-  v11[3] = &unk_279C75610;
-  v11[4] = self;
-  v12 = configurationCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __72__HKSPSleepStore_sleepFocusModeBridge_didUpdateSleepFocusConfiguration___block_invoke;
+  v10[3] = &unk_279C75610;
+  v10[4] = self;
+  v11 = configurationCopy;
   v9 = configurationCopy;
-  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v10];
 }
 
 void __72__HKSPSleepStore_sleepFocusModeBridge_didUpdateSleepFocusConfiguration___block_invoke(uint64_t a1, void *a2)
@@ -5702,15 +6093,15 @@ void __72__HKSPSleepStore_sleepFocusModeBridge_didUpdateSleepFocusConfiguration_
 
 - (HKSPSleepFocusConfiguration)sleepFocusConfiguration
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   sleepFocusModeBridge = [(HKSPSleepStore *)self sleepFocusModeBridge];
 
   if (sleepFocusModeBridge)
   {
     sleepFocusModeBridge2 = [(HKSPSleepStore *)self sleepFocusModeBridge];
-    v11 = 0;
-    v5 = [sleepFocusModeBridge2 sleepFocusConfiguration:&v11];
-    v6 = v11;
+    v10 = 0;
+    v5 = [sleepFocusModeBridge2 sleepFocusConfiguration:&v10];
+    v6 = v10;
 
     v7 = HKSPLogForCategory(1uLL);
     v8 = v7;
@@ -5720,8 +6111,8 @@ void __72__HKSPSleepStore_sleepFocusModeBridge_didUpdateSleepFocusConfiguration_
       {
         *buf = 138543618;
         selfCopy2 = self;
-        v14 = 2114;
-        v15 = v6;
+        v13 = 2114;
+        v14 = v6;
         _os_log_error_impl(&dword_269A84000, v8, OS_LOG_TYPE_ERROR, "%{public}@ error retrieving sleep focus config: %{public}@", buf, 0x16u);
       }
     }
@@ -5730,8 +6121,8 @@ void __72__HKSPSleepStore_sleepFocusModeBridge_didUpdateSleepFocusConfiguration_
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v14 = 2114;
-      v15 = v5;
+      v13 = 2114;
+      v14 = v5;
       _os_log_impl(&dword_269A84000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ sleepFocusConfiguration: %{public}@", buf, 0x16u);
     }
   }
@@ -5740,8 +6131,6 @@ void __72__HKSPSleepStore_sleepFocusModeBridge_didUpdateSleepFocusConfiguration_
   {
     v5 = [[HKSPSleepFocusConfiguration alloc] initWithUUID:0 mirrorsFocusModes:0 state:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

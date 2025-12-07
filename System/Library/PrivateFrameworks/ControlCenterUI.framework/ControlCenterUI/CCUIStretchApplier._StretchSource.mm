@@ -21,7 +21,7 @@
 - (void)setStretchValue:(double)value
 {
   selfCopy = self;
-  sub_21EA555F4(value);
+  sub_21EA555F4(selfCopy, value);
 }
 
 - (void)invalidate

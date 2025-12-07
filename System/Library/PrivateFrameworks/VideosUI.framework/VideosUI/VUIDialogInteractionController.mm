@@ -314,7 +314,7 @@ void __52__VUIDialogInteractionController_animateTransition___block_invoke(uint6
   }
 }
 
-uint64_t __52__VUIDialogInteractionController_animateTransition___block_invoke_2(uint64_t a1, int a2)
+void *__52__VUIDialogInteractionController_animateTransition___block_invoke_2(uint64_t a1, int a2)
 {
   v3 = *(a1 + 32);
   if (a2)

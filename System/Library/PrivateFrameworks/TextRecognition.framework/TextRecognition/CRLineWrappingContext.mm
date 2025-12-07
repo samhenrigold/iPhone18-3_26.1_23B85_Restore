@@ -108,7 +108,7 @@
   if (v14)
   {
     paragraphText2 = [resultCopy paragraphText];
-    [(CRLineWrappingContext *)self tokenizeStringIntoWords:paragraphText2];
+    objc_msgSend_tokenizeStringIntoWords_(self);
 
     [(CRLineWrappingContext *)&v18 contextByAddingNewTokens:buf];
     begin = self->_contextTokens.__begin_;
@@ -303,7 +303,7 @@ LABEL_18:
 
   if (resultCopy)
   {
-    [resultCopy featureTokens];
+    objc_msgSend_featureTokens(resultCopy);
   }
 
   else
@@ -322,7 +322,7 @@ LABEL_18:
 
   if (&self->_contextTokens != buf)
   {
-    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&self->_contextTokens.__begin_, *buf, *&buf[8], (*&buf[8] - *buf) >> 2);
+    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&self->_contextTokens, *buf, *&buf[8], (*&buf[8] - *buf) >> 2);
   }
 
   paragraphText = [resultCopy paragraphText];
@@ -517,7 +517,7 @@ LABEL_18:
   return result;
 }
 
-void __49__CRLineWrappingContext_tokenizeStringIntoWords___block_invoke(uint64_t a1, void *a2)
+void __49__CRLineWrappingContext_tokenizeStringIntoWords___block_invoke(void *a1, void *a2)
 {
   v2 = a2;
   [v2 wordTokenizer];
@@ -526,8 +526,9 @@ void __49__CRLineWrappingContext_tokenizeStringIntoWords___block_invoke(uint64_t
   LMStreamTokenizerPushBytes();
 }
 
-void __49__CRLineWrappingContext_tokenizeStringIntoWords___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+void __49__CRLineWrappingContext_tokenizeStringIntoWords___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   TokenIDForString = a4;
   v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:a2 length:a3 encoding:4];
   v7 = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
@@ -537,7 +538,7 @@ void __49__CRLineWrappingContext_tokenizeStringIntoWords___block_invoke_2(uint64
   {
     [*(a1 + 32) wordLanguageModel];
     v8 = LMLanguageModelTokenIDisUnknown() ^ 1;
-    if (!a4)
+    if (!v4)
     {
       LOBYTE(v8) = 0;
     }
@@ -659,7 +660,7 @@ void __43__CRLineWrappingContext_isValidWordString___block_invoke(uint64_t a1, v
     }
 
     v11 = v30;
-    if (&v31[-v30] == 12)
+    if (v31 - v30 == 12)
     {
       break;
     }
@@ -719,7 +720,7 @@ LABEL_10:
     v24 = 0;
     v25 = 0;
     __p = 0;
-    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&__p, v30, v31, &v31[-v30] >> 2);
+    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&__p, v30, v31, (v31 - v30) >> 2);
     [v18 lockResourcesForLocale:locale sender:self block:v22];
 
     v20 = *(v27 + 3);

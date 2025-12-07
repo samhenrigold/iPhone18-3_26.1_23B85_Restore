@@ -30,19 +30,19 @@
   v14 = [(HDWatchSettingKeys *)&v24 init];
   if (v14)
   {
-    v15 = [identifierCopy copy];
+    v15 = objc_msgSend_copy(identifierCopy);
     featureIdentifier = v14->_featureIdentifier;
     v14->_featureIdentifier = v15;
 
-    v17 = [keyCopy copy];
+    v17 = objc_msgSend_copy(keyCopy);
     featureSettingEnabledKey = v14->_featureSettingEnabledKey;
     v14->_featureSettingEnabledKey = v17;
 
-    v19 = [enabledKeyCopy copy];
+    v19 = objc_msgSend_copy(enabledKeyCopy);
     defaultsEnabledKey = v14->_defaultsEnabledKey;
     v14->_defaultsEnabledKey = v19;
 
-    v21 = [reconciledEnabledKeyCopy copy];
+    v21 = objc_msgSend_copy(reconciledEnabledKeyCopy);
     lastReconciledEnabledKey = v14->_lastReconciledEnabledKey;
     v14->_lastReconciledEnabledKey = v21;
   }

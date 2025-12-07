@@ -101,19 +101,19 @@
   os_unfair_lock_unlock(&self->_lock);
 }
 
-void __55__AACXPCClient__serverQueue_initializeDaemonConnection__block_invoke()
+void __55__AACXPCClient__serverQueue_initializeDaemonConnection__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = ACHLogXPC();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = ACHLogXPC();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __55__AACXPCClient__serverQueue_initializeDaemonConnection__block_invoke_cold_1();
   }
 }
 
-void __55__AACXPCClient__serverQueue_initializeDaemonConnection__block_invoke_346()
+void __55__AACXPCClient__serverQueue_initializeDaemonConnection__block_invoke_346(uint64_t a1, uint64_t a2)
 {
-  v0 = ACHLogXPC();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = ACHLogXPC();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __55__AACXPCClient__serverQueue_initializeDaemonConnection__block_invoke_346_cold_1();
   }
@@ -502,87 +502,84 @@ void __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_355(uint64_t a1
   objc_destroyWeak(&v18);
 }
 
-void __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_2_356(uint64_t a1)
+void __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_2_356(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32) == 0;
-  v3 = ACHLogXPC();
-  v4 = v3;
-  if (v2)
+  v22 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 32) == 0;
+  v4 = ACHLogXPC();
+  v5 = v4;
+  if (v3)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_2_356_cold_1();
     }
 
-    v13 = *(a1 + 48);
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23E4F1000, v4, OS_LOG_TYPE_DEFAULT, "Creating endpoint connection", buf, 2u);
+      _os_log_impl(&dword_23E4F1000, v5, OS_LOG_TYPE_DEFAULT, "Creating endpoint connection", buf, 2u);
     }
 
-    v5 = [objc_alloc(MEMORY[0x277CCAE80]) initWithListenerEndpoint:*(a1 + 32)];
-    v6 = *(*(a1 + 72) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
-
-    v8 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2850D1FC8];
-    [*(*(*(a1 + 72) + 8) + 40) setRemoteObjectInterface:v8];
+    v6 = [objc_alloc(MEMORY[0x277CCAE80]) initWithListenerEndpoint:*(a1 + 32)];
+    v7 = *(*(a1 + 72) + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
 
     v9 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2850D1FC8];
-    [*(*(*(a1 + 72) + 8) + 40) setExportedInterface:v9];
+    [*(*(*(a1 + 72) + 8) + 40) setRemoteObjectInterface:v9];
+
+    v10 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2850D1FC8];
+    [*(*(*(a1 + 72) + 8) + 40) setExportedInterface:v10];
 
     [*(*(*(a1 + 72) + 8) + 40) setExportedObject:*(a1 + 40)];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_364;
-    v19[3] = &unk_278C459B8;
-    objc_copyWeak(&v20, (a1 + 80));
-    [*(*(*(a1 + 72) + 8) + 40) setInvalidationHandler:v19];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_365;
-    v17[3] = &unk_278C459B8;
-    objc_copyWeak(&v18, (a1 + 80));
-    [*(*(*(a1 + 72) + 8) + 40) setInterruptionHandler:v17];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_364;
+    v18[3] = &unk_278C459B8;
+    objc_copyWeak(&v19, (a1 + 80));
+    [*(*(*(a1 + 72) + 8) + 40) setInvalidationHandler:v18];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_365;
+    v16[3] = &unk_278C459B8;
+    objc_copyWeak(&v17, (a1 + 80));
+    [*(*(*(a1 + 72) + 8) + 40) setInterruptionHandler:v16];
     [*(*(*(a1 + 72) + 8) + 40) resume];
     os_unfair_lock_lock((*(a1 + 40) + 8));
     [*(*(a1 + 40) + 40) invalidate];
     objc_storeStrong((*(a1 + 40) + 40), *(*(*(a1 + 72) + 8) + 40));
     os_unfair_lock_unlock((*(a1 + 40) + 8));
-    v10 = *(*(*(a1 + 72) + 8) + 40);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_366;
-    v15[3] = &unk_278C45918;
-    v16 = *(a1 + 56);
-    v11 = [v10 remoteObjectProxyWithErrorHandler:v15];
+    v11 = *(*(*(a1 + 72) + 8) + 40);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_366;
+    v14[3] = &unk_278C45918;
+    v15 = *(a1 + 56);
+    v12 = [v11 remoteObjectProxyWithErrorHandler:v14];
     (*(*(a1 + 64) + 16))();
-    v12 = ACHLogXPC();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = ACHLogXPC();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v22 = @"AAC_XPC_Endpoint_Awards_Client";
-      _os_log_impl(&dword_23E4F1000, v12, OS_LOG_TYPE_DEFAULT, "XPC endpoint setup complete for %{public}@.", buf, 0xCu);
+      v21 = @"AAC_XPC_Endpoint_Awards_Client";
+      _os_log_impl(&dword_23E4F1000, v13, OS_LOG_TYPE_DEFAULT, "XPC endpoint setup complete for %{public}@.", buf, 0xCu);
     }
 
-    objc_destroyWeak(&v18);
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v19);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-void __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_364(uint64_t a1)
+void __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_364(uint64_t a1, uint64_t a2)
 {
-  v2 = ACHLogXPC();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = ACHLogXPC();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_364_cold_1();
   }
@@ -591,10 +588,10 @@ void __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_364(uint64_t a1
   [WeakRetained _resetEndpointConnection];
 }
 
-void __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_365(uint64_t a1)
+void __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_365(uint64_t a1, uint64_t a2)
 {
-  v2 = ACHLogXPC();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = ACHLogXPC();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_365_cold_1();
   }
@@ -755,19 +752,19 @@ void __53__AACXPCClient__remoteSynchronousProxy_errorHandler___block_invoke_4(vo
   }
 }
 
-void __53__AACXPCClient__remoteSynchronousProxy_errorHandler___block_invoke_368()
+void __53__AACXPCClient__remoteSynchronousProxy_errorHandler___block_invoke_368(uint64_t a1, uint64_t a2)
 {
-  v0 = ACHLogXPC();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = ACHLogXPC();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __53__AACXPCClient__remoteSynchronousProxy_errorHandler___block_invoke_368_cold_1();
   }
 }
 
-void __53__AACXPCClient__remoteSynchronousProxy_errorHandler___block_invoke_371()
+void __53__AACXPCClient__remoteSynchronousProxy_errorHandler___block_invoke_371(uint64_t a1, uint64_t a2)
 {
-  v0 = ACHLogXPC();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = ACHLogXPC();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __53__AACXPCClient__remoteSynchronousProxy_errorHandler___block_invoke_371_cold_1();
   }
@@ -783,84 +780,11 @@ void __53__AACXPCClient__remoteSynchronousProxy_errorHandler___block_invoke_374(
   }
 }
 
-void __61__AACXPCClient_sendSynchronousRequest_payload_resultHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_0(&dword_23E4F1000, v0, v1, "Error serializing paylod: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_0(&dword_23E4F1000, v0, v1, "Failed to fetch endpoint proxy with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_2_356_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E4F1000, v0, v1, "Unable to establish XPC endpoint connection for %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_364_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E4F1000, v0, v1, "XPC client-side connection invalidated for %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __42__AACXPCClient__remoteProxy_errorHandler___block_invoke_365_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E4F1000, v0, v1, "XPC client-side connection interrupted for %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __53__AACXPCClient__remoteSynchronousProxy_errorHandler___block_invoke_4_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_23E4F1000, v0, OS_LOG_TYPE_DEBUG, "Sync XPC endpoint setup complete for %{public}@, passing proxy to handler.", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-void __53__AACXPCClient__remoteSynchronousProxy_errorHandler___block_invoke_4_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E4F1000, v0, v1, "Unable to establish Sync XPC endpoint connection for %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __53__AACXPCClient__remoteSynchronousProxy_errorHandler___block_invoke_368_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E4F1000, v0, v1, "Sync XPC client-side connection invalidated for %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __53__AACXPCClient__remoteSynchronousProxy_errorHandler___block_invoke_371_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E4F1000, v0, v1, "Sync XPC client-side connection interrupted for %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __53__AACXPCClient__remoteSynchronousProxy_errorHandler___block_invoke_374_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_0(&dword_23E4F1000, v0, v1, "Sync XPC failed to fetch endpoint proxy with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_23E4F1000, v0, OS_LOG_TYPE_DEBUG, "Sync XPC endpoint setup complete for %{public}@, passing proxy to handler.", v1, 0xCu);
 }
 
 @end

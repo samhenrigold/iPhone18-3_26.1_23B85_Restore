@@ -133,9 +133,9 @@
 
 + (WKWebsiteDataStore)defaultDataStore
 {
-  WebKit::WebsiteDataStore::defaultDataStore(self, &v8);
+  WebKit::WebsiteDataStore::defaultDataStore(&v8, self);
   v2 = v8;
-  v3 = *(v8 + 8);
+  v3 = v8[1];
   if (!v3)
   {
     v6 = 0;
@@ -147,7 +147,7 @@
   {
     v4 = v3;
     v5 = v3;
-    v6 = *(v2 + 8);
+    v6 = v2[1];
 LABEL_5:
     CFRelease(v6);
     return v3;
@@ -291,13 +291,13 @@ void __41__WKWebsiteDataStore_allWebsiteDataTypes__block_invoke()
 
 - (void)removeDataOfTypes:(NSSet *)dataTypes modifiedSince:(NSDate *)date completionHandler:(void *)completionHandler
 {
-  v25[16] = *MEMORY[0x1E69E9840];
+  v26[16] = *MEMORY[0x1E69E9840];
   v8 = _Block_copy(completionHandler);
-  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v10 = [(NSSet *)dataTypes countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v25 = 0u;
+  v10 = [(NSSet *)dataTypes countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (!v10)
   {
     v11 = 0;
@@ -310,17 +310,17 @@ void __41__WKWebsiteDataStore_allWebsiteDataTypes__block_invoke()
   }
 
   v11 = 0;
-  v12 = *v22;
+  v12 = *v23;
   do
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v22 != v12)
+      if (*v23 != v12)
       {
         objc_enumerationMutation(dataTypes);
       }
 
-      v14 = WebKit::toWebsiteDataType(*(*(&v21 + 1) + 8 * i), v9);
+      v14 = WebKit::toWebsiteDataType(*(*(&v22 + 1) + 8 * i), v9);
       if (v14 <= 0x100000000)
       {
         v15 = 0;
@@ -334,7 +334,7 @@ void __41__WKWebsiteDataStore_allWebsiteDataTypes__block_invoke()
       v11 |= v15;
     }
 
-    v10 = [(NSSet *)dataTypes countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v10 = [(NSSet *)dataTypes countByEnumeratingWithState:&v22 objects:v26 count:16];
   }
 
   while (v10);
@@ -348,16 +348,16 @@ LABEL_15:
   [(NSDate *)date timeIntervalSince1970];
   v17 = v16;
   v18 = _Block_copy(v8);
-  v19 = WTF::fastMalloc(0x10);
-  *v19 = &unk_1F10FA128;
-  v19[1] = v18;
-  v25[0] = v19;
-  WebKit::WebsiteDataStore::removeData(&self->_websiteDataStore, v11, v25, v17);
-  v20 = v25[0];
-  v25[0] = 0;
-  if (v20)
+  v20 = WTF::fastMalloc(v19, 0x10);
+  *v20 = &unk_1F10FA128;
+  v20[1] = v18;
+  v26[0] = v20;
+  WebKit::WebsiteDataStore::removeData(&self->_websiteDataStore, v11, v26, v17);
+  v21 = v26[0];
+  v26[0] = 0;
+  if (v21)
   {
-    (*(*v20 + 8))(v20);
+    (*(*v21 + 8))(v21);
   }
 
   _Block_release(0);
@@ -366,27 +366,27 @@ LABEL_15:
 
 - (void)removeDataOfTypes:(NSSet *)dataTypes forDataRecords:(NSArray *)dataRecords completionHandler:(void *)completionHandler
 {
-  v31[16] = *MEMORY[0x1E69E9840];
+  v32[16] = *MEMORY[0x1E69E9840];
   v8 = _Block_copy(completionHandler);
-  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v10 = [(NSSet *)dataTypes countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v31 = 0u;
+  v10 = [(NSSet *)dataTypes countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v10)
   {
     v11 = 0;
-    v12 = *v28;
+    v12 = *v29;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v28 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(dataTypes);
         }
 
-        v14 = WebKit::toWebsiteDataType(*(*(&v27 + 1) + 8 * i), v9);
+        v14 = WebKit::toWebsiteDataType(*(*(&v28 + 1) + 8 * i), v9);
         if (v14 <= 0x100000000)
         {
           v15 = 0;
@@ -400,7 +400,7 @@ LABEL_15:
         v11 |= v15;
       }
 
-      v10 = [(NSSet *)dataTypes countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v10 = [(NSSet *)dataTypes countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v10);
@@ -411,57 +411,57 @@ LABEL_15:
     v11 = 0;
   }
 
-  v26 = 0;
-  v27 = 0u;
+  v27 = 0;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v16 = [(NSArray *)dataRecords countByEnumeratingWithState:&v27 objects:v31 count:16, 0];
+  v31 = 0u;
+  v16 = [(NSArray *)dataRecords countByEnumeratingWithState:&v28 objects:v32 count:16, 0];
   if (v16)
   {
-    v17 = *v28;
+    v17 = *v29;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v28 != v17)
+        if (*v29 != v17)
         {
           objc_enumerationMutation(dataRecords);
         }
 
-        v19 = (*(*(&v27 + 1) + 8 * j) + 24);
-        v20 = HIDWORD(v26);
-        if (HIDWORD(v26) == v26)
+        v19 = (*(*(&v28 + 1) + 8 * j) + 24);
+        v20 = HIDWORD(v27);
+        if (HIDWORD(v27) == v27)
         {
-          v19 = WTF::Vector<WebKit::WebsiteDataRecord,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v25, HIDWORD(v26) + 1, v19);
-          v20 = HIDWORD(v26);
+          v19 = WTF::Vector<WebKit::WebsiteDataRecord,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v26, HIDWORD(v27) + 1, v19);
+          v20 = HIDWORD(v27);
         }
 
-        WebKit::WebsiteDataRecord::WebsiteDataRecord((v25 + 80 * v20), v19);
-        ++HIDWORD(v26);
+        WebKit::WebsiteDataRecord::WebsiteDataRecord((v26 + 80 * v20), v19);
+        ++HIDWORD(v27);
       }
 
-      v16 = [(NSArray *)dataRecords countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v16 = [(NSArray *)dataRecords countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v16);
   }
 
   v21 = _Block_copy(v8);
-  v22 = WTF::fastMalloc(0x10);
-  *v22 = &unk_1F10FA150;
-  v22[1] = v21;
-  v31[0] = v22;
-  WebKit::WebsiteDataStore::removeData(&self->_websiteDataStore, v11, &v25, v31);
-  v23 = v31[0];
-  v31[0] = 0;
-  if (v23)
+  v23 = WTF::fastMalloc(v22, 0x10);
+  *v23 = &unk_1F10FA150;
+  v23[1] = v21;
+  v32[0] = v23;
+  WebKit::WebsiteDataStore::removeData(&self->_websiteDataStore, v11, &v26, v32);
+  v24 = v32[0];
+  v32[0] = 0;
+  if (v24)
   {
-    (*(*v23 + 8))(v23);
+    (*(*v24 + 8))(v24);
   }
 
   _Block_release(0);
-  WTF::Vector<WebKit::WebsiteDataRecord,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v25, v24);
+  WTF::Vector<WebKit::WebsiteDataRecord,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v26, v25);
   _Block_release(v8);
 }
 
@@ -518,7 +518,7 @@ LABEL_15:
     }
   }
 
-  WebKit::WebsiteDataStore::dataStoreForIdentifier(&v17, &v16);
+  WebKit::WebsiteDataStore::dataStoreForIdentifier(&v16, &v17);
   v9 = v16;
   v10 = *(v16 + 1);
   if (!v10)
@@ -603,7 +603,7 @@ LABEL_19:
               return;
             }
 
-            v17 = WTF::fastMalloc(v15);
+            v17 = WTF::fastMalloc(0, v15);
             LODWORD(v27) = v16;
             v26 = v17;
             do
@@ -701,63 +701,63 @@ LABEL_32:
 
 - (void)fetchDataOfTypes:(id)types completionHandler:(id)handler
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v32 = 0;
-  v33 = 0;
-  v28 = 0u;
-  v29 = 0u;
+  v39 = *MEMORY[0x1E69E9840];
+  v34 = 0;
+  v35 = 0;
   v30 = 0u;
   v31 = 0u;
-  v6 = [types countByEnumeratingWithState:&v28 objects:v36 count:16];
-  if (v6)
+  v32 = 0u;
+  v33 = 0u;
+  v7 = [types countByEnumeratingWithState:&v30 objects:v38 count:16];
+  if (v7)
   {
-    v7 = 0;
     v8 = 0;
-    v9 = *v29;
+    v9 = 0;
+    v10 = *v31;
     while (2)
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v29 != v9)
+        if (*v31 != v10)
         {
           objc_enumerationMutation(types);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * i);
-        if (![v11 isEqualToString:@"WKWebsiteDataTypeLocalStorage"])
+        v12 = *(*(&v30 + 1) + 8 * i);
+        if (![v12 isEqualToString:@"WKWebsiteDataTypeLocalStorage"])
         {
-          v13 = [@"This API does not support fetching: " stringByAppendingString:v11];
-          v34 = *MEMORY[0x1E696A578];
-          v35 = v13;
-          v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-          v15 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"WKErrorDomain" code:1 userInfo:v14];
-          (*(handler + 2))(handler, 0, v15);
-          if (v15)
+          v14 = [@"This API does not support fetching: " stringByAppendingString:v12];
+          v36 = *MEMORY[0x1E696A578];
+          v37 = v14;
+          v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+          v16 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"WKErrorDomain" code:1 userInfo:v15];
+          (*(handler + 2))(handler, 0, v16);
+          if (v16)
           {
           }
 
           goto LABEL_20;
         }
 
-        LODWORD(v27) = 32;
-        if (v8 == v33)
+        LODWORD(v29) = 32;
+        if (v9 == v35)
         {
-          v12 = WTF::Vector<WebKit::WebViewDataType,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v32, v8 + 1, &v27);
-          v8 = HIDWORD(v33);
-          v7 = v32;
-          *(v32 + HIDWORD(v33)) = *v12;
+          v13 = WTF::Vector<WebKit::WebViewDataType,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v34, v9 + 1, &v29);
+          v9 = HIDWORD(v35);
+          v8 = v34;
+          *(v34 + HIDWORD(v35)) = *v13;
         }
 
         else
         {
-          *(v7 + v8) = 32;
+          *(v8 + v9) = 32;
         }
 
-        HIDWORD(v33) = ++v8;
+        HIDWORD(v35) = ++v9;
       }
 
-      v6 = [types countByEnumeratingWithState:&v28 objects:v36 count:16];
-      if (v6)
+      v7 = [types countByEnumeratingWithState:&v30 objects:v38 count:16];
+      if (v7)
       {
         continue;
       }
@@ -768,54 +768,52 @@ LABEL_32:
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  v17 = WTF::fastMalloc(0x18);
-  *v17 = 1;
-  *(v17 + 8) = 0;
-  *(v17 + 16) = 0;
-  v18 = _Block_copy(handler);
-  v19 = v32;
-  v20 = v33;
-  v32 = 0;
-  v33 = 0;
-  atomic_fetch_add(v17, 1u);
-  v21 = WTF::fastMalloc(0x28);
-  *v21 = &unk_1F10FA178;
-  *(v21 + 8) = v18;
-  *(v21 + 16) = v19;
-  *(v21 + 24) = v20;
-  *(v21 + 28) = v8;
-  *(v21 + 32) = v17;
-  v22 = WTF::fastMalloc(0x10);
-  *v22 = 1;
-  *(v22 + 8) = v21;
+  v18 = WTF::fastMalloc(v6, 0x18);
+  *v18 = 1;
+  v18[1] = 0;
+  v18[2] = 0;
+  v19 = _Block_copy(handler);
+  v20 = v34;
+  v21 = v35;
+  v34 = 0;
+  v35 = 0;
+  v22 = WTF::fastMalloc(atomic_fetch_add(v18, 1u), 0x28);
+  *v22 = &unk_1F10FA178;
+  v22[1] = v19;
+  v22[2] = v20;
+  *(v22 + 6) = v21;
+  *(v22 + 7) = v9;
+  v22[4] = v18;
+  v24 = WTF::fastMalloc(v23, 0x10);
+  *v24 = 1;
+  v24[1] = v22;
   _Block_release(0);
   if ([types containsObject:@"WKWebsiteDataTypeLocalStorage"])
   {
-    atomic_fetch_add(v22, 1u);
-    atomic_fetch_add(v17, 1u);
-    v23 = WTF::fastMalloc(0x18);
-    *v23 = &unk_1F10FA1A0;
-    v23[1] = v22;
-    v23[2] = v17;
-    v27 = v23;
-    WebKit::WebsiteDataStore::fetchLocalStorage(&self->_websiteDataStore, &v27);
-    v24 = v27;
-    v27 = 0;
-    if (v24)
+    atomic_fetch_add(v24, 1u);
+    v25 = WTF::fastMalloc(atomic_fetch_add(v18, 1u), 0x18);
+    *v25 = &unk_1F10FA1A0;
+    v25[1] = v24;
+    v25[2] = v18;
+    v29 = v25;
+    WebKit::WebsiteDataStore::fetchLocalStorage(&self->_websiteDataStore, &v29);
+    v26 = v29;
+    v29 = 0;
+    if (v26)
     {
-      (*(*v24 + 8))(v24);
+      (*(*v26 + 8))(v26);
     }
   }
 
-  WTF::ThreadSafeRefCounted<WTF::CallbackAggregatorOnThread<(WTF::DestructionThread)0>,(WTF::DestructionThread)0>::deref(v22);
-  WTF::ThreadSafeRefCounted<WTF::Box<WKWebViewData>::Data,(WTF::DestructionThread)0>::deref(v17, v25);
+  WTF::ThreadSafeRefCounted<WTF::CallbackAggregatorOnThread<(WTF::DestructionThread)0>,(WTF::DestructionThread)0>::deref(v24);
+  WTF::ThreadSafeRefCounted<WTF::Box<WKWebViewData>::Data,(WTF::DestructionThread)0>::deref(v18, v27);
 LABEL_20:
-  if (v32)
+  if (v34)
   {
-    WTF::fastFree(v32, v16);
+    WTF::fastFree(v34, v17);
   }
 }
 
@@ -905,16 +903,16 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 {
   v3 = _Block_copy(identifiers);
   v4 = _Block_copy(v3);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10FA218;
-  v5[1] = v4;
-  v7 = v5;
-  WebKit::WebsiteDataStore::fetchAllDataStoreIdentifiers(&v7);
-  v6 = v7;
-  v7 = 0;
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10FA218;
+  v6[1] = v4;
+  v8 = v6;
+  WebKit::WebsiteDataStore::fetchAllDataStoreIdentifiers(&v8);
+  v7 = v8;
+  v8 = 0;
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
   }
 
   _Block_release(0);
@@ -923,24 +921,24 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 
 + (void)_removeDataStoreWithIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   if (identifier)
   {
     v6 = _Block_copy(handler);
-    WTF::UUID::fromNSUUID(v18, identifier, v7);
-    if (v19)
+    WTF::UUID::fromNSUUID(v19, identifier, v7);
+    if (v20)
     {
       v8 = _Block_copy(v6);
-      v9 = WTF::fastMalloc(0x10);
-      *v9 = &unk_1F10FA240;
-      v9[1] = v8;
-      v15 = v9;
-      WebKit::WebsiteDataStore::removeDataStoreWithIdentifier(v18, &v15);
-      v10 = v15;
-      v15 = 0;
-      if (v10)
+      v10 = WTF::fastMalloc(v9, 0x10);
+      *v10 = &unk_1F10FA240;
+      v10[1] = v8;
+      v16 = v10;
+      WebKit::WebsiteDataStore::removeDataStoreWithIdentifier(v19, &v16);
+      v11 = v16;
+      v16 = 0;
+      if (v11)
       {
-        (*(*v10 + 8))(v10);
+        (*(*v11 + 8))(v11);
       }
 
       _Block_release(0);
@@ -948,12 +946,12 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 
     else
     {
-      v13 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v16 = *MEMORY[0x1E696A578];
-      v17 = @"Identifier is invalid";
-      v14 = [v13 initWithDomain:@"WKWebSiteDataStore" code:1 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v17, &v16, 1)}];
-      (*(handler + 2))(handler, v14);
-      if (v14)
+      v14 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v17 = *MEMORY[0x1E696A578];
+      v18 = @"Identifier is invalid";
+      v15 = [v14 initWithDomain:@"WKWebSiteDataStore" code:1 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v18, &v17, 1)}];
+      (*(handler + 2))(handler, v15);
+      if (v15)
       {
       }
     }
@@ -963,12 +961,12 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 
   else
   {
-    v11 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v20 = *MEMORY[0x1E696A578];
-    v21[0] = @"Identifier is nil";
-    v12 = [v11 initWithDomain:@"WKWebSiteDataStore" code:1 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v21, &v20, 1)}];
-    (*(handler + 2))(handler, v12);
-    if (v12)
+    v12 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v21 = *MEMORY[0x1E696A578];
+    v22[0] = @"Identifier is nil";
+    v13 = [v12 initWithDomain:@"WKWebSiteDataStore" code:1 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v22, &v21, 1)}];
+    (*(handler + 2))(handler, v13);
+    if (v13)
     {
     }
   }
@@ -1007,59 +1005,59 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 - (void)_fetchDataRecordsOfTypes:(id)types withOptions:(unint64_t)options completionHandler:(id)handler
 {
   optionsCopy = options;
-  v21[16] = *MEMORY[0x1E69E9840];
+  v22[16] = *MEMORY[0x1E69E9840];
   v8 = _Block_copy(handler);
-  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v10 = [types countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v10)
+  v21 = 0u;
+  v11 = [types countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v11)
   {
-    v11 = 0;
-    v12 = *v18;
+    v12 = 0;
+    v13 = *v19;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(types);
         }
 
-        v14 = WebKit::toWebsiteDataType(*(*(&v17 + 1) + 8 * i), v9);
-        if (v14 <= 0x100000000)
+        v15 = WebKit::toWebsiteDataType(*(*(&v18 + 1) + 8 * i), v9);
+        if (v15 <= 0x100000000)
         {
-          v15 = 0;
+          v16 = 0;
         }
 
         else
         {
-          v15 = v14;
+          v16 = v15;
         }
 
-        v11 |= v15;
+        v12 |= v16;
       }
 
-      v10 = [types countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [types countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
-    while (v10);
+    while (v11);
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  v16 = WTF::fastMalloc(0x10);
-  *v16 = &unk_1F10FA268;
-  v16[1] = v8;
-  v21[0] = v16;
-  WebKit::WebsiteDataStore::fetchData(&self->_websiteDataStore, v11, optionsCopy & 1, v21);
-  if (v21[0])
+  v17 = WTF::fastMalloc(v10, 0x10);
+  *v17 = &unk_1F10FA268;
+  v17[1] = v8;
+  v22[0] = v17;
+  WebKit::WebsiteDataStore::fetchData(&self->_websiteDataStore, v12, optionsCopy & 1, v22);
+  if (v22[0])
   {
-    (*(*v21[0] + 8))(v21[0]);
+    (*(*v22[0] + 8))(v22[0]);
   }
 
   _Block_release(0);
@@ -1105,7 +1103,7 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
       v7 = WTF::HashTable<WTF::URL,WTF::URL,WTF::IdentityExtractor,WTF::DefaultHash<WTF::URL>,WTF::HashTraits<WTF::URL>,WTF::HashTraits<WTF::URL>,WTF::FastMalloc>::begin(v4);
       v8 = v7;
       v10 = v9;
-      v11 = *v4 ? *v4 + 40 * *(*v4 - 4) : 0;
+      v11 = *v4 ? &(*v4)[5 * *(*v4 - 1)] : 0;
       if (v11 != v7)
       {
         do
@@ -1295,15 +1293,15 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
     {
       v4 = _Block_copy(callback);
       selfCopy = self;
-      v6 = WTF::fastMalloc(0x18);
-      *v6 = &unk_1F10FA290;
-      v6[1] = v4;
-      v6[2] = self;
-      v7 = v6;
-      WebKit::WebsiteDataStore::setStatisticsTestingCallback(&self->_websiteDataStore, &v7);
-      if (v7)
+      v7 = WTF::fastMalloc(v6, 0x18);
+      *v7 = &unk_1F10FA290;
+      v7[1] = v4;
+      v7[2] = self;
+      v8 = v7;
+      WebKit::WebsiteDataStore::setStatisticsTestingCallback(&self->_websiteDataStore, &v8);
+      if (v8)
       {
-        (*(*v7 + 8))(v7);
+        (*(*v8 + 8))(v8);
       }
 
       _Block_release(0);
@@ -1311,11 +1309,11 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 
     else
     {
-      v7 = 0;
-      WebKit::WebsiteDataStore::setStatisticsTestingCallback(&self->_websiteDataStore, &v7);
-      if (v7)
+      v8 = 0;
+      WebKit::WebsiteDataStore::setStatisticsTestingCallback(&self->_websiteDataStore, &v8);
+      if (v8)
       {
-        (*(*v7 + 8))(v7);
+        (*(*v8 + 8))(v8);
       }
     }
   }
@@ -1325,45 +1323,45 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 {
   if (*&self->_websiteDataStore.m_storage.data[24] <= -2)
   {
-    v19 = *(handler + 2);
+    v20 = *(handler + 2);
 
-    v19(handler);
+    v20(handler);
   }
 
   else
   {
-    MEMORY[0x19EB02040](&v22, testing);
-    *v20 = domains;
+    MEMORY[0x19EB02040](&v23, testing);
+    *v21 = domains;
     v10 = [domains count];
-    pagesCopy = v20;
-    WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::makeVector<WTF::String>(NSArray *)::{lambda(unsigned long)#1}>(v21, v10, &pagesCopy, 0);
+    pagesCopy = v21;
+    WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::makeVector<WTF::String>(NSArray *)::{lambda(unsigned long)#1}>(v22, v10, &pagesCopy, 0);
     pagesCopy = pages;
     v11 = [pages count];
-    v23 = &pagesCopy;
-    WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::makeVector<WTF::String>(NSArray *)::{lambda(unsigned long)#1}>(v20, v11, &v23, 0);
+    v24 = &pagesCopy;
+    WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::makeVector<WTF::String>(NSArray *)::{lambda(unsigned long)#1}>(v21, v11, &v24, 0);
     v12 = _Block_copy(handler);
-    v13 = WTF::fastMalloc(0x10);
-    *v13 = &unk_1F10F8FE8;
-    *(v13 + 8) = v12;
-    pagesCopy = v13;
-    WebKit::WebsiteDataStore::setStorageAccessPromptQuirkForTesting(&self->_websiteDataStore, &v22, v21, v20, &pagesCopy);
-    v14 = pagesCopy;
+    v14 = WTF::fastMalloc(v13, 0x10);
+    *v14 = &unk_1F10F8FE8;
+    v14[1] = v12;
+    pagesCopy = v14;
+    WebKit::WebsiteDataStore::setStorageAccessPromptQuirkForTesting(&self->_websiteDataStore, &v23, v22, v21, &pagesCopy);
+    v15 = pagesCopy;
     pagesCopy = 0;
-    if (v14)
+    if (v15)
     {
-      (*(*v14 + 1))(v14);
+      (*(*v15 + 1))(v15);
     }
 
     _Block_release(0);
-    WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v20, v15);
     WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v21, v16);
-    v18 = v22;
-    v22 = 0;
-    if (v18)
+    WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v22, v17);
+    v19 = v23;
+    v23 = 0;
+    if (v19)
     {
-      if (atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      if (atomic_fetch_add_explicit(v19, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        WTF::StringImpl::destroy(v18, v17);
+        WTF::StringImpl::destroy(v19, v18);
       }
     }
   }
@@ -1373,40 +1371,40 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 {
   if (*&self->_websiteDataStore.m_storage.data[24] <= -2)
   {
-    v15 = *(handler + 2);
+    v16 = *(handler + 2);
 
-    v15(handler);
+    v16(handler);
   }
 
   else
   {
-    MEMORY[0x19EB02040](&v17, testing);
+    MEMORY[0x19EB02040](&v18, testing);
     domainsCopy = domains;
     v8 = [domains count];
-    v18 = &domainsCopy;
-    WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::makeVector<WTF::String>(NSArray *)::{lambda(unsigned long)#1}>(v16, v8, &v18, 0);
+    v19 = &domainsCopy;
+    WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::makeVector<WTF::String>(NSArray *)::{lambda(unsigned long)#1}>(v17, v8, &v19, 0);
     v9 = _Block_copy(handler);
-    v10 = WTF::fastMalloc(0x10);
-    *v10 = &unk_1F10F8FE8;
-    v10[1] = v9;
-    domainsCopy = v10;
-    WebKit::WebsiteDataStore::grantStorageAccessForTesting(&self->_websiteDataStore, &v17, v16, &domainsCopy);
-    v11 = domainsCopy;
+    v11 = WTF::fastMalloc(v10, 0x10);
+    *v11 = &unk_1F10F8FE8;
+    v11[1] = v9;
+    domainsCopy = v11;
+    WebKit::WebsiteDataStore::grantStorageAccessForTesting(&self->_websiteDataStore, &v18, v17, &domainsCopy);
+    v12 = domainsCopy;
     domainsCopy = 0;
-    if (v11)
+    if (v12)
     {
-      (*(*v11 + 8))(v11);
+      (*(*v12 + 8))(v12);
     }
 
     _Block_release(0);
-    WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v16, v12);
-    v14 = v17;
-    v17 = 0;
-    if (v14)
+    WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v17, v13);
+    v15 = v18;
+    v18 = 0;
+    if (v15)
     {
-      if (atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      if (atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        WTF::StringImpl::destroy(v14, v13);
+        WTF::StringImpl::destroy(v15, v14);
       }
     }
   }
@@ -1415,16 +1413,16 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 - (void)_setResourceLoadStatisticsTimeAdvanceForTesting:(double)testing completionHandler:(id)handler
 {
   v6 = _Block_copy(handler);
-  v7 = WTF::fastMalloc(0x10);
-  *v7 = &unk_1F10F8FE8;
-  v7[1] = v6;
-  v9 = v7;
-  WebKit::WebsiteDataStore::setResourceLoadStatisticsTimeAdvanceForTesting(&self->_websiteDataStore, &v9, testing);
-  v8 = v9;
-  v9 = 0;
-  if (v8)
+  v8 = WTF::fastMalloc(v7, 0x10);
+  *v8 = &unk_1F10F8FE8;
+  v8[1] = v6;
+  v10 = v8;
+  WebKit::WebsiteDataStore::setResourceLoadStatisticsTimeAdvanceForTesting(&self->_websiteDataStore, &v10, testing);
+  v9 = v10;
+  v10 = 0;
+  if (v9)
   {
-    (*(*v8 + 8))(v8);
+    (*(*v9 + 8))(v9);
   }
 
   _Block_release(0);
@@ -1434,21 +1432,21 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 {
   if (for)
   {
-    [for _page];
-    v5 = v11;
-    if (v11)
+    objc_msgSend__page(for, a2);
+    v5 = v12;
+    if (v12)
     {
       v6 = _Block_copy(handler);
-      v7 = WTF::fastMalloc(0x10);
-      *v7 = &unk_1F10FA2B8;
-      v7[1] = v6;
-      v10 = v7;
-      WebKit::WebPageProxy::sendWithAsyncReply<Messages::WebPage::GetLoadedSubresourceDomains,WTF::CompletionHandler<void ()(WTF::Vector<WebCore::RegistrableDomain,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>>(v5, &v12, &v10);
-      v8 = v10;
-      v10 = 0;
-      if (v8)
+      v8 = WTF::fastMalloc(v7, 0x10);
+      *v8 = &unk_1F10FA2B8;
+      v8[1] = v6;
+      v11 = v8;
+      WebKit::WebPageProxy::sendWithAsyncReply<Messages::WebPage::GetLoadedSubresourceDomains,WTF::CompletionHandler<void ()(WTF::Vector<WebCore::RegistrableDomain,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>>(v5, &v13, &v11);
+      v9 = v11;
+      v11 = 0;
+      if (v9)
       {
-        (*(*v8 + 8))(v8);
+        (*(*v9 + 8))(v9);
       }
 
       _Block_release(0);
@@ -1462,9 +1460,9 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 
   else
   {
-    v9 = *(handler + 2);
+    v10 = *(handler + 2);
 
-    v9(handler, 0);
+    v10(handler, 0);
   }
 }
 
@@ -1472,7 +1470,7 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 {
   if (for)
   {
-    [for _page];
+    objc_msgSend__page(for, a2);
     if (v3)
     {
       WebKit::WebPageProxy::send<Messages::WebPage::ClearLoadedSubresourceDomains>(v3, &v4);
@@ -1483,16 +1481,16 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 - (void)_scheduleCookieBlockingUpdate:(id)update
 {
   v4 = _Block_copy(update);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10FA2E0;
-  v5[1] = v4;
-  v7 = v5;
-  WebKit::WebsiteDataStore::scheduleCookieBlockingUpdate(&self->_websiteDataStore, &v7);
-  v6 = v7;
-  v7 = 0;
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10FA2E0;
+  v6[1] = v4;
+  v8 = v6;
+  WebKit::WebsiteDataStore::scheduleCookieBlockingUpdate(&self->_websiteDataStore, &v8);
+  v7 = v8;
+  v8 = 0;
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
   }
 
   _Block_release(0);
@@ -1500,112 +1498,112 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 
 - (void)_logUserInteraction:(id)interaction completionHandler:(id)handler
 {
-  MEMORY[0x19EB01DE0](v12, interaction);
+  MEMORY[0x19EB01DE0](v13, interaction);
   v6 = _Block_copy(handler);
-  v7 = WTF::fastMalloc(0x10);
-  *v7 = &unk_1F10FA308;
-  v7[1] = v6;
-  v11 = v7;
-  WebKit::WebsiteDataStore::logUserInteraction(&self->_websiteDataStore, v12, &v11);
-  v8 = v11;
-  v11 = 0;
-  if (v8)
+  v8 = WTF::fastMalloc(v7, 0x10);
+  *v8 = &unk_1F10FA308;
+  v8[1] = v6;
+  v12 = v8;
+  WebKit::WebsiteDataStore::logUserInteraction(&self->_websiteDataStore, v13, &v12);
+  v9 = v12;
+  v12 = 0;
+  if (v9)
   {
-    (*(*v8 + 8))(v8);
+    (*(*v9 + 8))(v9);
   }
 
   _Block_release(0);
-  v10 = v12[0];
-  v12[0] = 0;
-  if (v10)
+  v11 = v13[0];
+  v13[0] = 0;
+  if (v11)
   {
-    if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v10, v9);
+      WTF::StringImpl::destroy(v11, v10);
     }
   }
 }
 
 - (void)_setPrevalentDomain:(id)domain completionHandler:(id)handler
 {
-  MEMORY[0x19EB01DE0](v12, domain);
+  MEMORY[0x19EB01DE0](v13, domain);
   v6 = _Block_copy(handler);
-  v7 = WTF::fastMalloc(0x10);
-  *v7 = &unk_1F10FA330;
-  v7[1] = v6;
-  v11 = v7;
-  WebKit::WebsiteDataStore::setPrevalentResource(&self->_websiteDataStore, v12, &v11);
-  v8 = v11;
-  v11 = 0;
-  if (v8)
+  v8 = WTF::fastMalloc(v7, 0x10);
+  *v8 = &unk_1F10FA330;
+  v8[1] = v6;
+  v12 = v8;
+  WebKit::WebsiteDataStore::setPrevalentResource(&self->_websiteDataStore, v13, &v12);
+  v9 = v12;
+  v12 = 0;
+  if (v9)
   {
-    (*(*v8 + 8))(v8);
+    (*(*v9 + 8))(v9);
   }
 
   _Block_release(0);
-  v10 = v12[0];
-  v12[0] = 0;
-  if (v10)
+  v11 = v13[0];
+  v13[0] = 0;
+  if (v11)
   {
-    if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v10, v9);
+      WTF::StringImpl::destroy(v11, v10);
     }
   }
 }
 
 - (void)_getIsPrevalentDomain:(id)domain completionHandler:(id)handler
 {
-  MEMORY[0x19EB01DE0](v12, domain);
+  MEMORY[0x19EB01DE0](v13, domain);
   v6 = _Block_copy(handler);
-  v7 = WTF::fastMalloc(0x10);
-  *v7 = &unk_1F10FA358;
-  v7[1] = v6;
-  v11 = v7;
-  WebKit::WebsiteDataStore::isPrevalentResource(&self->_websiteDataStore, v12, &v11);
-  v8 = v11;
-  v11 = 0;
-  if (v8)
+  v8 = WTF::fastMalloc(v7, 0x10);
+  *v8 = &unk_1F10FA358;
+  v8[1] = v6;
+  v12 = v8;
+  WebKit::WebsiteDataStore::isPrevalentResource(&self->_websiteDataStore, v13, &v12);
+  v9 = v12;
+  v12 = 0;
+  if (v9)
   {
-    (*(*v8 + 8))(v8);
+    (*(*v9 + 8))(v9);
   }
 
   _Block_release(0);
-  v10 = v12[0];
-  v12[0] = 0;
-  if (v10)
+  v11 = v13[0];
+  v13[0] = 0;
+  if (v11)
   {
-    if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v10, v9);
+      WTF::StringImpl::destroy(v11, v10);
     }
   }
 }
 
 - (void)_clearPrevalentDomain:(id)domain completionHandler:(id)handler
 {
-  MEMORY[0x19EB01DE0](v12, domain);
+  MEMORY[0x19EB01DE0](v13, domain);
   v6 = _Block_copy(handler);
-  v7 = WTF::fastMalloc(0x10);
-  *v7 = &unk_1F10FA380;
-  v7[1] = v6;
-  v11 = v7;
-  WebKit::WebsiteDataStore::clearPrevalentResource(&self->_websiteDataStore, v12, &v11);
-  v8 = v11;
-  v11 = 0;
-  if (v8)
+  v8 = WTF::fastMalloc(v7, 0x10);
+  *v8 = &unk_1F10FA380;
+  v8[1] = v6;
+  v12 = v8;
+  WebKit::WebsiteDataStore::clearPrevalentResource(&self->_websiteDataStore, v13, &v12);
+  v9 = v12;
+  v12 = 0;
+  if (v9)
   {
-    (*(*v8 + 8))(v8);
+    (*(*v9 + 8))(v9);
   }
 
   _Block_release(0);
-  v10 = v12[0];
-  v12[0] = 0;
-  if (v10)
+  v11 = v13[0];
+  v13[0] = 0;
+  if (v11)
   {
-    if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v10, v9);
+      WTF::StringImpl::destroy(v11, v10);
     }
   }
 }
@@ -1613,16 +1611,16 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 - (void)_clearResourceLoadStatistics:(id)statistics
 {
   v4 = _Block_copy(statistics);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10FA3A8;
-  v5[1] = v4;
-  v7 = v5;
-  WebKit::WebsiteDataStore::scheduleClearInMemoryAndPersistent(&self->_websiteDataStore, 0, &v7);
-  v6 = v7;
-  v7 = 0;
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10FA3A8;
+  v6[1] = v4;
+  v8 = v6;
+  WebKit::WebsiteDataStore::scheduleClearInMemoryAndPersistent(&self->_websiteDataStore, 0, &v8);
+  v7 = v8;
+  v8 = 0;
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
   }
 
   _Block_release(0);
@@ -1631,16 +1629,16 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 - (void)_closeDatabases:(id)databases
 {
   v4 = _Block_copy(databases);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10FA3D0;
-  v5[1] = v4;
-  v7 = v5;
-  WebKit::WebsiteDataStore::closeDatabases(&self->_websiteDataStore, &v7);
-  v6 = v7;
-  v7 = 0;
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10FA3D0;
+  v6[1] = v4;
+  v9 = v6;
+  WebKit::WebsiteDataStore::closeDatabases(&self->_websiteDataStore, &v9, v7);
+  v8 = v9;
+  v9 = 0;
+  if (v8)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v8 + 8))(v8);
   }
 
   _Block_release(0);
@@ -1649,16 +1647,16 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 - (void)_getResourceLoadStatisticsDataSummary:(id)summary
 {
   v4 = _Block_copy(summary);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10FA3F8;
-  v5[1] = v4;
-  v7 = v5;
-  WebKit::WebsiteDataStore::getResourceLoadStatisticsDataSummary(&self->_websiteDataStore, &v7);
-  v6 = v7;
-  v7 = 0;
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10FA3F8;
+  v6[1] = v4;
+  v9 = v6;
+  WebKit::WebsiteDataStore::getResourceLoadStatisticsDataSummary(&self->_websiteDataStore, &v9, v7);
+  v8 = v9;
+  v9 = 0;
+  if (v8)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v8 + 8))(v8);
   }
 
   _Block_release(0);
@@ -1666,72 +1664,72 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 
 - (void)_isRelationshipOnlyInDatabaseOnce:(id)once thirdParty:(id)party completionHandler:(id)handler
 {
-  MEMORY[0x19EB01DE0](v16, party);
-  MEMORY[0x19EB01DE0](v15, once);
+  MEMORY[0x19EB01DE0](v17, party);
+  MEMORY[0x19EB01DE0](v16, once);
   v8 = _Block_copy(handler);
-  v9 = WTF::fastMalloc(0x10);
-  *v9 = &unk_1F10FA448;
-  v9[1] = v8;
-  v14 = v9;
-  WebKit::WebsiteDataStore::isRelationshipOnlyInDatabaseOnce(&self->_websiteDataStore, v16, v15, &v14);
-  v10 = v14;
-  v14 = 0;
-  if (v10)
+  v10 = WTF::fastMalloc(v9, 0x10);
+  *v10 = &unk_1F10FA448;
+  v10[1] = v8;
+  v15 = v10;
+  WebKit::WebsiteDataStore::isRelationshipOnlyInDatabaseOnce(&self->_websiteDataStore, v17, v16, &v15);
+  v11 = v15;
+  v15 = 0;
+  if (v11)
   {
-    (*(*v10 + 8))(v10);
+    (*(*v11 + 8))(v11);
   }
 
   _Block_release(0);
-  v12 = v15[0];
-  v15[0] = 0;
-  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v12, v11);
-  }
-
   v13 = v16[0];
   v16[0] = 0;
-  if (v13)
+  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    if (atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    WTF::StringImpl::destroy(v13, v12);
+  }
+
+  v14 = v17[0];
+  v17[0] = 0;
+  if (v14)
+  {
+    if (atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v13, v11);
+      WTF::StringImpl::destroy(v14, v12);
     }
   }
 }
 
 - (void)_isRegisteredAsSubresourceUnderFirstParty:(id)party thirdParty:(id)thirdParty completionHandler:(id)handler
 {
-  MEMORY[0x19EB01DE0](v16, thirdParty);
-  MEMORY[0x19EB01DE0](v15, party);
+  MEMORY[0x19EB01DE0](v17, thirdParty);
+  MEMORY[0x19EB01DE0](v16, party);
   v8 = _Block_copy(handler);
-  v9 = WTF::fastMalloc(0x10);
-  *v9 = &unk_1F10FA470;
-  v9[1] = v8;
-  v14 = v9;
-  WebKit::WebsiteDataStore::isRegisteredAsSubresourceUnder(&self->_websiteDataStore, v16, v15, &v14);
-  v10 = v14;
-  v14 = 0;
-  if (v10)
+  v10 = WTF::fastMalloc(v9, 0x10);
+  *v10 = &unk_1F10FA470;
+  v10[1] = v8;
+  v15 = v10;
+  WebKit::WebsiteDataStore::isRegisteredAsSubresourceUnder(&self->_websiteDataStore, v17, v16, &v15);
+  v11 = v15;
+  v15 = 0;
+  if (v11)
   {
-    (*(*v10 + 8))(v10);
+    (*(*v11 + 8))(v11);
   }
 
   _Block_release(0);
-  v12 = v15[0];
-  v15[0] = 0;
-  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v12, v11);
-  }
-
   v13 = v16[0];
   v16[0] = 0;
-  if (v13)
+  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    if (atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    WTF::StringImpl::destroy(v13, v12);
+  }
+
+  v14 = v17[0];
+  v17[0] = 0;
+  if (v14)
+  {
+    if (atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v13, v11);
+      WTF::StringImpl::destroy(v14, v12);
     }
   }
 }
@@ -1739,16 +1737,16 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 - (void)_statisticsDatabaseHasAllTables:(id)tables
 {
   v4 = _Block_copy(tables);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10FA498;
-  v5[1] = v4;
-  v7 = v5;
-  WebKit::WebsiteDataStore::statisticsDatabaseHasAllTables(&self->_websiteDataStore, &v7);
-  v6 = v7;
-  v7 = 0;
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10FA498;
+  v6[1] = v4;
+  v8 = v6;
+  WebKit::WebsiteDataStore::statisticsDatabaseHasAllTables(&self->_websiteDataStore, &v8);
+  v7 = v8;
+  v8 = 0;
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
   }
 
   _Block_release(0);
@@ -1757,16 +1755,16 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 - (void)_processStatisticsAndDataRecords:(id)records
 {
   v4 = _Block_copy(records);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10FA4C0;
-  v5[1] = v4;
-  v7 = v5;
-  WebKit::WebsiteDataStore::scheduleStatisticsAndDataRecordsProcessing(&self->_websiteDataStore, &v7);
-  v6 = v7;
-  v7 = 0;
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10FA4C0;
+  v6[1] = v4;
+  v8 = v6;
+  WebKit::WebsiteDataStore::scheduleStatisticsAndDataRecordsProcessing(&self->_websiteDataStore, &v8);
+  v7 = v8;
+  v8 = 0;
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
   }
 
   _Block_release(0);
@@ -1777,34 +1775,34 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
   interactionCopy = interaction;
   modeCopy = mode;
   v8 = _Block_copy(handler);
-  v9 = WTF::fastMalloc(0x10);
+  v10 = WTF::fastMalloc(v9, 0x10);
   if (interactionCopy)
   {
-    v10 = 4;
+    v11 = 4;
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
   if (modeCopy)
   {
-    v11 = v10;
+    v12 = v11;
   }
 
   else
   {
-    v11 = 5;
+    v12 = 5;
   }
 
-  *v9 = &unk_1F10FA4E8;
-  v9[1] = v8;
-  v12 = v9;
-  WebKit::WebsiteDataStore::setThirdPartyCookieBlockingMode(&self->_websiteDataStore, v11, &v12);
-  if (v12)
+  *v10 = &unk_1F10FA4E8;
+  v10[1] = v8;
+  v13 = v10;
+  WebKit::WebsiteDataStore::setThirdPartyCookieBlockingMode(&self->_websiteDataStore, v12, &v13, v11);
+  if (v13)
   {
-    (*(*v12 + 8))(v12);
+    (*(*v13 + 8))(v13);
   }
 
   _Block_release(0);
@@ -1812,7 +1810,7 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 
 - (void)_renameOrigin:(id)origin to:(id)to forDataOfTypes:(id)types completionHandler:(id)handler
 {
-  v34[16] = *MEMORY[0x1E69E9840];
+  v35[16] = *MEMORY[0x1E69E9840];
   if ([types count])
   {
     if (([types isSubsetOfSet:{objc_msgSend(MEMORY[0x1E695DFD8], "setWithObjects:", @"WKWebsiteDataTypeLocalStorage", @"WKWebsiteDataTypeIndexedDBDatabases", 0)}] & 1) == 0)
@@ -1820,43 +1818,43 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
       [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"_renameOrigin can only be called with WKWebsiteDataTypeLocalStorage and WKWebsiteDataTypeIndexedDBDatabases right now."];
     }
 
-    MEMORY[0x19EB01DE0](v34, origin);
-    WebCore::SecurityOriginData::fromURLWithoutStrictOpaqueness(v33, v34, v11);
-    v13 = v34[0];
-    v34[0] = 0;
+    MEMORY[0x19EB01DE0](v35, origin);
+    WebCore::SecurityOriginData::fromURLWithoutStrictOpaqueness(v34, v35, v11);
+    v13 = v35[0];
+    v35[0] = 0;
     if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(v13, v12);
     }
 
-    MEMORY[0x19EB01DE0](v34, to);
-    WebCore::SecurityOriginData::fromURLWithoutStrictOpaqueness(v32, v34, v14);
-    v16 = v34[0];
-    v34[0] = 0;
+    MEMORY[0x19EB01DE0](v35, to);
+    WebCore::SecurityOriginData::fromURLWithoutStrictOpaqueness(v33, v35, v14);
+    v16 = v35[0];
+    v35[0] = 0;
     if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(v16, v15);
     }
 
-    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v18 = [types countByEnumeratingWithState:&v28 objects:v34 count:16];
+    v32 = 0u;
+    v18 = [types countByEnumeratingWithState:&v29 objects:v35 count:16];
     if (v18)
     {
       v19 = 0;
-      v20 = *v29;
+      v20 = *v30;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v29 != v20)
+          if (*v30 != v20)
           {
             objc_enumerationMutation(types);
           }
 
-          v22 = WebKit::toWebsiteDataType(*(*(&v28 + 1) + 8 * i), v17);
+          v22 = WebKit::toWebsiteDataType(*(*(&v29 + 1) + 8 * i), v17);
           if (v22 <= 0x100000000)
           {
             v23 = 0;
@@ -1870,7 +1868,7 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
           v19 |= v23;
         }
 
-        v18 = [types countByEnumeratingWithState:&v28 objects:v34 count:16];
+        v18 = [types countByEnumeratingWithState:&v29 objects:v35 count:16];
       }
 
       while (v18);
@@ -1882,21 +1880,21 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
     }
 
     v25 = _Block_copy(handler);
-    v26 = WTF::fastMalloc(0x10);
-    *v26 = &unk_1F10FA510;
-    *(v26 + 1) = v25;
-    v34[0] = v26;
-    WebKit::WebsiteDataStore::renameOriginInWebsiteData(&self->_websiteDataStore, v33, v32, v19, v34);
-    v27 = v34[0];
-    v34[0] = 0;
-    if (v27)
+    v27 = WTF::fastMalloc(v26, 0x10);
+    *v27 = &unk_1F10FA510;
+    v27[1] = v25;
+    v35[0] = v27;
+    WebKit::WebsiteDataStore::renameOriginInWebsiteData(&self->_websiteDataStore, v34, v33, v19, v35);
+    v28 = v35[0];
+    v35[0] = 0;
+    if (v28)
     {
-      (*(*v27 + 8))(v27);
+      (*(*v28 + 8))(v28);
     }
 
     _Block_release(0);
-    mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(v32);
     mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(v33);
+    mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(v34);
   }
 
   else
@@ -1924,34 +1922,34 @@ void __69__WKWebsiteDataStore_WKPrivate___allWebsiteDataTypesIncludingPrivate__b
 - (void)_setUserAgentStringQuirkForTesting:(id)testing withUserAgent:(id)agent completionHandler:(id)handler
 {
   selfCopy = self;
-  MEMORY[0x19EB02040](&v15, testing);
-  MEMORY[0x19EB02040](&v14, agent);
+  MEMORY[0x19EB02040](&v16, testing);
+  MEMORY[0x19EB02040](&v15, agent);
   v8 = _Block_copy(handler);
-  v9 = WTF::fastMalloc(0x10);
-  *v9 = &unk_1F10FA538;
-  v9[1] = v8;
-  v13 = v9;
-  WebKit::WebsiteDataStore::setUserAgentStringQuirkForTesting(selfCopy + 8, &v15, &v14, &v13);
-  if (v13)
+  v10 = WTF::fastMalloc(v9, 0x10);
+  *v10 = &unk_1F10FA538;
+  v10[1] = v8;
+  v14 = v10;
+  WebKit::WebsiteDataStore::setUserAgentStringQuirkForTesting(selfCopy + 8, &v16, &v15, &v14);
+  if (v14)
   {
-    (*(*v13 + 8))(v13);
+    (*(*v14 + 8))(v14);
   }
 
   _Block_release(0);
-  v11 = v14;
-  v14 = 0;
-  if (v11 && atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v11, v10);
-  }
-
   v12 = v15;
   v15 = 0;
-  if (v12)
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    if (atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    WTF::StringImpl::destroy(v12, v11);
+  }
+
+  v13 = v16;
+  v16 = 0;
+  if (v13)
+  {
+    if (atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v12, v10);
+      WTF::StringImpl::destroy(v13, v11);
     }
   }
 }
@@ -2148,14 +2146,14 @@ LABEL_6:
 - (void)_appBoundDomains:(id)domains
 {
   v4 = _Block_copy(domains);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10FA6C0;
-  v5[1] = v4;
-  v6 = v5;
-  WebKit::WebsiteDataStore::getAppBoundDomains(&self->_websiteDataStore, &v6);
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10FA6C0;
+  v6[1] = v4;
+  v8 = v6;
+  WebKit::WebsiteDataStore::getAppBoundDomains(&self->_websiteDataStore, &v8, v7);
+  if (v8)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v8 + 8))(v8);
   }
 
   _Block_release(0);
@@ -2164,14 +2162,14 @@ LABEL_6:
 - (void)_appBoundSchemes:(id)schemes
 {
   v4 = _Block_copy(schemes);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10FA6E8;
-  v5[1] = v4;
-  v6 = v5;
-  WebKit::WebsiteDataStore::getAppBoundSchemes(&self->_websiteDataStore, &v6);
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10FA6E8;
+  v6[1] = v4;
+  v8 = v6;
+  WebKit::WebsiteDataStore::getAppBoundSchemes(&self->_websiteDataStore, &v8, v7);
+  if (v8)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v8 + 8))(v8);
   }
 
   _Block_release(0);
@@ -2180,16 +2178,16 @@ LABEL_6:
 - (void)_sendNetworkProcessPrepareToSuspend:(id)suspend
 {
   v4 = _Block_copy(suspend);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10FA710;
-  v5[1] = v4;
-  v7 = v5;
-  WebKit::WebsiteDataStore::sendNetworkProcessPrepareToSuspendForTesting(&self->_websiteDataStore, &v7);
-  v6 = v7;
-  v7 = 0;
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10FA710;
+  v6[1] = v4;
+  v8 = v6;
+  WebKit::WebsiteDataStore::sendNetworkProcessPrepareToSuspendForTesting(&self->_websiteDataStore, &v8);
+  v7 = v8;
+  v8 = 0;
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
   }
 
   _Block_release(0);
@@ -2203,7 +2201,7 @@ LABEL_6:
   atomic_fetch_add(v4 + 4, 1u);
   WebKit::NetworkProcessProxy::synthesizeAppIsBackground(v4, backgroundCopy);
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v5);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v5, v6);
 }
 
 - (int)_networkProcessIdentifier
@@ -2231,9 +2229,9 @@ LABEL_6:
     {
       atomic_fetch_add((v3 + 16), 1u);
       WebKit::ProcessThrottler::invalidateAllActivitiesAndDropAssertion((v2 + 144));
-      WebKit::ProcessThrottler::deref((v2 + 144));
+      WebKit::ProcessThrottler::deref((v2 + 144), v4);
 
-      WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v2 + 16));
+      WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v2 + 16), v5);
     }
 
     else
@@ -2261,16 +2259,16 @@ LABEL_6:
 - (void)_countNonDefaultSessionSets:(id)sets
 {
   v4 = _Block_copy(sets);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10FA738;
-  v5[1] = v4;
-  v7 = v5;
-  WebKit::WebsiteDataStore::countNonDefaultSessionSets(self->_websiteDataStore.m_storage.data, &v7);
-  v6 = v7;
-  v7 = 0;
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10FA738;
+  v6[1] = v4;
+  v8 = v6;
+  WebKit::WebsiteDataStore::countNonDefaultSessionSets(&self->_websiteDataStore, &v8);
+  v7 = v8;
+  v8 = 0;
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
   }
 
   _Block_release(0);
@@ -2289,22 +2287,22 @@ LABEL_6:
   atomic_fetch_add((v7 + 16), 1u);
   v8 = *&self->_websiteDataStore.m_storage.data[24];
   v9 = _Block_copy(message);
-  v10 = WTF::fastMalloc(0x10);
-  *v10 = &unk_1F10FA760;
-  v10[1] = v9;
+  v11 = WTF::fastMalloc(v10, 0x10);
+  *v11 = &unk_1F10FA760;
+  v11[1] = v9;
   *buf = v8;
-  v12 = v10;
-  v13 = buf;
-  WebKit::AuxiliaryProcessProxy::sendWithAsyncReply<Messages::NetworkProcess::GetPendingPushMessage,WTF::CompletionHandler<void ()(std::optional<WebKit::WebPushMessage> const&)>>(v7, &v13, &v12, 0, 0, 1);
-  v11 = v12;
-  v12 = 0;
-  if (v11)
+  v14 = v11;
+  v15 = buf;
+  WebKit::AuxiliaryProcessProxy::sendWithAsyncReply<Messages::NetworkProcess::GetPendingPushMessage,WTF::CompletionHandler<void ()(std::optional<WebKit::WebPushMessage> const&)>>(v7, &v15, &v14, 0, 0, 1);
+  v12 = v14;
+  v14 = 0;
+  if (v12)
   {
-    (*(*v11 + 8))(v11);
+    (*(*v12 + 8))(v12);
   }
 
   _Block_release(0);
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v7 + 16));
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v7 + 16), v13);
 }
 
 - (void)_getPendingPushMessages:(id)messages
@@ -2320,40 +2318,40 @@ LABEL_6:
   atomic_fetch_add((v7 + 16), 1u);
   v8 = *&self->_websiteDataStore.m_storage.data[24];
   v9 = _Block_copy(messages);
-  v10 = WTF::fastMalloc(0x10);
-  *v10 = &unk_1F10FA788;
-  v10[1] = v9;
+  v11 = WTF::fastMalloc(v10, 0x10);
+  *v11 = &unk_1F10FA788;
+  v11[1] = v9;
   *buf = v8;
-  v12 = v10;
-  v13 = buf;
-  WebKit::AuxiliaryProcessProxy::sendWithAsyncReply<Messages::NetworkProcess::GetPendingPushMessages,WTF::CompletionHandler<void ()(WTF::Vector<WebKit::WebPushMessage,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> const&)>>(v7, &v13, &v12, 0, 0, 1);
-  v11 = v12;
-  v12 = 0;
-  if (v11)
+  v14 = v11;
+  v15 = buf;
+  WebKit::AuxiliaryProcessProxy::sendWithAsyncReply<Messages::NetworkProcess::GetPendingPushMessages,WTF::CompletionHandler<void ()(WTF::Vector<WebKit::WebPushMessage,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> const&)>>(v7, &v15, &v14, 0, 0, 1);
+  v12 = v14;
+  v14 = 0;
+  if (v12)
   {
-    (*(*v11 + 8))(v11);
+    (*(*v12 + 8))(v12);
   }
 
   _Block_release(0);
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v7 + 16));
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v7 + 16), v13);
 }
 
 - (void)_processPushMessage:(id)message completionHandler:(id)handler
 {
-  WebKit::WebPushMessage::fromDictionary(message, v12);
-  if (v13)
+  WebKit::WebPushMessage::fromDictionary(v13, message);
+  if (v14)
   {
     v6 = _Block_copy(handler);
-    v7 = WTF::fastMalloc(0x10);
-    *v7 = &unk_1F10FA7B0;
-    v7[1] = v6;
-    v11[0] = v7;
-    WebKit::WebsiteDataStore::processPushMessage(&self->_websiteDataStore, v12, v11);
-    v8 = v11[0];
-    v11[0] = 0;
-    if (v8)
+    v8 = WTF::fastMalloc(v7, 0x10);
+    *v8 = &unk_1F10FA7B0;
+    v8[1] = v6;
+    *v12 = v8;
+    WebKit::WebsiteDataStore::processPushMessage(&self->_websiteDataStore, v13, v12);
+    v9 = *v12;
+    *v12 = 0;
+    if (v9)
     {
-      (*(*v8 + 8))(v8);
+      (*(*v9 + 8))(v9);
     }
 
     _Block_release(0);
@@ -2361,27 +2359,27 @@ LABEL_6:
 
   else
   {
-    v10 = qword_1ED6410A8;
+    v11 = qword_1ED6410A8;
     if (os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v11[0]) = 0;
-      _os_log_error_impl(&dword_19D52D000, v10, OS_LOG_TYPE_ERROR, "Asked to handle an invalid push message", v11, 2u);
+      *v12 = 0;
+      _os_log_error_impl(&dword_19D52D000, v11, OS_LOG_TYPE_ERROR, "Asked to handle an invalid push message", v12, 2u);
     }
 
     (*(handler + 2))(handler, 0);
   }
 
-  if (v13 == 1)
+  if (v14 == 1)
   {
-    WebKit::WebPushMessage::~WebPushMessage(v12, v9);
+    WebKit::WebPushMessage::~WebPushMessage(v13, v10);
   }
 }
 
 - (void)_processWebCorePersistentNotificationClick:(const void *)click completionHandler:(id)handler
 {
-  v17[33] = *MEMORY[0x1E69E9840];
-  WebCore::NotificationData::NotificationData(v17, click);
-  if (v17[0] && *(v17[0] + 4) && *(*&self->_anon_38[176] + 491) == 1)
+  v19[33] = *MEMORY[0x1E69E9840];
+  WebCore::NotificationData::NotificationData(v19, click);
+  if (v19[0] && *(v19[0] + 4) && *(*&self->_anon_38[176] + 491) == 1)
   {
     v6 = qword_1ED6410A8;
     if (os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_DEFAULT))
@@ -2390,7 +2388,7 @@ LABEL_6:
       _os_log_impl(&dword_19D52D000, v6, OS_LOG_TYPE_DEFAULT, "Sending persistent notification clicked with default action URL. Requesting navigation to it now.", buf, 2u);
     }
 
-    (*(**&self->_anon_38[368] + 88))(*&self->_anon_38[368], v17);
+    (*(**&self->_anon_38[368] + 88))(*&self->_anon_38[368], v19);
     (*(handler + 2))(handler, 1);
   }
 
@@ -2400,45 +2398,45 @@ LABEL_6:
     if (os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_DEFAULT))
     {
       WTF::String::utf8();
-      v10 = v15 ? v15 + 16 : 0;
+      v10 = v17 ? v17 + 16 : 0;
       *buf = 136642819;
       *&buf[4] = v10;
       _os_log_impl(&dword_19D52D000, v8, OS_LOG_TYPE_DEFAULT, "Sending persistent notification click from origin %{sensitive}s to network process to handle", buf, 0xCu);
-      if (v15)
+      if (v17)
       {
-        if (*v15 == 1)
+        if (*v17 == 1)
         {
-          WTF::fastFree(v15, v9);
+          WTF::fastFree(v17, v9);
         }
 
         else
         {
-          --*v15;
+          --*v17;
         }
       }
     }
 
-    v17[26] = *&self->_websiteDataStore.m_storage.data[24];
+    v19[26] = *&self->_websiteDataStore.m_storage.data[24];
     v11 = WebKit::WebsiteDataStore::networkProcess(&self->_websiteDataStore, v9);
     atomic_fetch_add((v11 + 16), 1u);
     v12 = _Block_copy(handler);
-    v13 = WTF::fastMalloc(0x10);
-    *v13 = &unk_1F10FA7D8;
-    v13[1] = v12;
-    *buf = v13;
-    WebKit::NetworkProcessProxy::processNotificationEvent(v11, v17, 0, buf);
-    v14 = *buf;
+    v14 = WTF::fastMalloc(v13, 0x10);
+    *v14 = &unk_1F10FA7D8;
+    v14[1] = v12;
+    *buf = v14;
+    WebKit::NetworkProcessProxy::processNotificationEvent(v11, v19, 0, buf);
+    v15 = *buf;
     *buf = 0;
-    if (v14)
+    if (v15)
     {
-      (*(*v14 + 8))(v14);
+      (*(*v15 + 8))(v15);
     }
 
     _Block_release(0);
-    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v11 + 16));
+    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v11 + 16), v16);
   }
 
-  WebCore::NotificationData::~NotificationData(v17, v7);
+  WebCore::NotificationData::~NotificationData(v19, v7);
 }
 
 - (void)_processPersistentNotificationClick:(id)click completionHandler:(id)handler
@@ -2470,25 +2468,25 @@ LABEL_6:
 
 - (void)_processWebCorePersistentNotificationClose:(const void *)close completionHandler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v7 = qword_1ED6410A8;
   if (os_log_type_enabled(qword_1ED6410A8, OS_LOG_TYPE_DEFAULT))
   {
     WTF::String::utf8();
-    v9 = v14 ? v14 + 16 : 0;
+    v9 = v16 ? v16 + 16 : 0;
     *buf = 136642819;
     *&buf[4] = v9;
     _os_log_impl(&dword_19D52D000, v7, OS_LOG_TYPE_DEFAULT, "Sending persistent notification close from origin %{sensitive}s to network process to handle", buf, 0xCu);
-    if (v14)
+    if (v16)
     {
-      if (*v14 == 1)
+      if (*v16 == 1)
       {
-        WTF::fastFree(v14, v8);
+        WTF::fastFree(v16, v8);
       }
 
       else
       {
-        --*v14;
+        --*v16;
       }
     }
   }
@@ -2496,20 +2494,20 @@ LABEL_6:
   v10 = WebKit::WebsiteDataStore::networkProcess(&self->_websiteDataStore, v8);
   atomic_fetch_add((v10 + 16), 1u);
   v11 = _Block_copy(handler);
-  v12 = WTF::fastMalloc(0x10);
-  *v12 = &unk_1F10FA800;
-  v12[1] = v11;
-  *buf = v12;
+  v13 = WTF::fastMalloc(v12, 0x10);
+  *v13 = &unk_1F10FA800;
+  v13[1] = v11;
+  *buf = v13;
   WebKit::NetworkProcessProxy::processNotificationEvent(v10, close, 1, buf);
-  v13 = *buf;
+  v14 = *buf;
   *buf = 0;
-  if (v13)
+  if (v14)
   {
-    (*(*v13 + 8))(v13);
+    (*(*v14 + 8))(v14);
   }
 
   _Block_release(0);
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v10 + 16));
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v10 + 16), v15);
 }
 
 - (void)_processPersistentNotificationClose:(id)close completionHandler:(id)handler
@@ -2545,20 +2543,20 @@ LABEL_6:
   atomic_fetch_add((v5 + 16), 1u);
   v6 = *&self->_websiteDataStore.m_storage.data[24];
   v7 = _Block_copy(identifiers);
-  v8 = WTF::fastMalloc(0x10);
-  *v8 = &unk_1F10FA828;
-  v8[1] = v7;
-  v10 = v8;
-  WebKit::NetworkProcessProxy::getAllBackgroundFetchIdentifiers(v5, v6, &v10);
-  v9 = v10;
-  v10 = 0;
-  if (v9)
+  v9 = WTF::fastMalloc(v8, 0x10);
+  *v9 = &unk_1F10FA828;
+  v9[1] = v7;
+  v12 = v9;
+  WebKit::NetworkProcessProxy::getAllBackgroundFetchIdentifiers(v5, v6, &v12);
+  v10 = v12;
+  v12 = 0;
+  if (v10)
   {
-    (*(*v9 + 8))(v9);
+    (*(*v10 + 8))(v10);
   }
 
   _Block_release(0);
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v5 + 16));
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v5 + 16), v11);
 }
 
 - (void)_getBackgroundFetchState:(id)state completionHandler:(id)handler
@@ -2566,29 +2564,29 @@ LABEL_6:
   v7 = WebKit::WebsiteDataStore::networkProcess(&self->_websiteDataStore, a2);
   atomic_fetch_add((v7 + 16), 1u);
   v8 = *&self->_websiteDataStore.m_storage.data[24];
-  MEMORY[0x19EB02040](&v15, state);
+  MEMORY[0x19EB02040](&v16, state);
   v9 = _Block_copy(handler);
-  v10 = WTF::fastMalloc(0x10);
-  *v10 = &unk_1F10FA850;
-  v10[1] = v9;
-  v14 = v10;
-  WebKit::NetworkProcessProxy::getBackgroundFetchState(v7, v8, &v15, &v14);
-  v11 = v14;
-  v14 = 0;
-  if (v11)
+  v11 = WTF::fastMalloc(v10, 0x10);
+  *v11 = &unk_1F10FA850;
+  v11[1] = v9;
+  v15 = v11;
+  WebKit::NetworkProcessProxy::getBackgroundFetchState(v7, v8, &v16, &v15);
+  v12 = v15;
+  v15 = 0;
+  if (v12)
   {
-    (*(*v11 + 8))(v11);
+    (*(*v12 + 8))(v12);
   }
 
   _Block_release(0);
-  v13 = v15;
-  v15 = 0;
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v14 = v16;
+  v16 = 0;
+  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, v12);
+    WTF::StringImpl::destroy(v14, v13);
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v7 + 16));
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v7 + 16), v13);
 }
 
 - (void)_abortBackgroundFetch:(id)fetch completionHandler:(id)handler
@@ -2596,42 +2594,42 @@ LABEL_6:
   handlerCopy = handler;
   if (!handler)
   {
-    handlerCopy = v16;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3321888768;
-    v16[2] = __73__WKWebsiteDataStore_WKPrivate___abortBackgroundFetch_completionHandler___block_invoke;
-    v16[3] = &__block_descriptor_33_e8_32c88_ZTSKZ73__WKWebsiteDataStore_WKPrivate___abortBackgroundFetch_completionHandler__E5__177_e5_v8__0l;
+    handlerCopy = v17;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3321888768;
+    v17[2] = __73__WKWebsiteDataStore_WKPrivate___abortBackgroundFetch_completionHandler___block_invoke;
+    v17[3] = &__block_descriptor_33_e8_32c88_ZTSKZ73__WKWebsiteDataStore_WKPrivate___abortBackgroundFetch_completionHandler__E5__177_e5_v8__0l;
   }
 
   v7 = WebKit::WebsiteDataStore::networkProcess(&self->_websiteDataStore, a2);
   atomic_fetch_add((v7 + 16), 1u);
   v8 = *&self->_websiteDataStore.m_storage.data[24];
-  MEMORY[0x19EB02040](&v15, fetch);
+  MEMORY[0x19EB02040](&v16, fetch);
   v9 = _Block_copy(handlerCopy);
-  v10 = WTF::fastMalloc(0x10);
-  *v10 = &unk_1F10FA878;
-  v10[1] = v9;
-  v14 = v10;
-  v18 = v8;
-  v17[0] = &v18;
-  v17[1] = &v15;
-  WebKit::AuxiliaryProcessProxy::sendWithAsyncReply<Messages::NetworkProcess::AbortBackgroundFetch,WTF::CompletionHandler<void ()(void)>>(v7, v17, &v14, 0, 0, 1);
-  v11 = v14;
-  v14 = 0;
-  if (v11)
+  v11 = WTF::fastMalloc(v10, 0x10);
+  *v11 = &unk_1F10FA878;
+  v11[1] = v9;
+  v15 = v11;
+  v19 = v8;
+  v18[0] = &v19;
+  v18[1] = &v16;
+  WebKit::AuxiliaryProcessProxy::sendWithAsyncReply<Messages::NetworkProcess::AbortBackgroundFetch,WTF::CompletionHandler<void ()(void)>>(v7, v18, &v15, 0, 0, 1);
+  v12 = v15;
+  v15 = 0;
+  if (v12)
   {
-    (*(*v11 + 8))(v11);
+    (*(*v12 + 8))(v12);
   }
 
   _Block_release(0);
-  v13 = v15;
-  v15 = 0;
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v14 = v16;
+  v16 = 0;
+  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, v12);
+    WTF::StringImpl::destroy(v14, v13);
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v7 + 16));
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v7 + 16), v13);
 }
 
 - (void)_pauseBackgroundFetch:(id)fetch completionHandler:(id)handler
@@ -2639,42 +2637,42 @@ LABEL_6:
   handlerCopy = handler;
   if (!handler)
   {
-    handlerCopy = v16;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3321888768;
-    v16[2] = __73__WKWebsiteDataStore_WKPrivate___pauseBackgroundFetch_completionHandler___block_invoke;
-    v16[3] = &__block_descriptor_33_e8_32c88_ZTSKZ73__WKWebsiteDataStore_WKPrivate___pauseBackgroundFetch_completionHandler__E5__179_e5_v8__0l;
+    handlerCopy = v17;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3321888768;
+    v17[2] = __73__WKWebsiteDataStore_WKPrivate___pauseBackgroundFetch_completionHandler___block_invoke;
+    v17[3] = &__block_descriptor_33_e8_32c88_ZTSKZ73__WKWebsiteDataStore_WKPrivate___pauseBackgroundFetch_completionHandler__E5__179_e5_v8__0l;
   }
 
   v7 = WebKit::WebsiteDataStore::networkProcess(&self->_websiteDataStore, a2);
   atomic_fetch_add((v7 + 16), 1u);
   v8 = *&self->_websiteDataStore.m_storage.data[24];
-  MEMORY[0x19EB02040](&v15, fetch);
+  MEMORY[0x19EB02040](&v16, fetch);
   v9 = _Block_copy(handlerCopy);
-  v10 = WTF::fastMalloc(0x10);
-  *v10 = &unk_1F10FA8A0;
-  v10[1] = v9;
-  v14 = v10;
-  v18 = v8;
-  v17[0] = &v18;
-  v17[1] = &v15;
-  WebKit::AuxiliaryProcessProxy::sendWithAsyncReply<Messages::NetworkProcess::PauseBackgroundFetch,WTF::CompletionHandler<void ()(void)>>(v7, v17, &v14, 0, 0, 1);
-  v11 = v14;
-  v14 = 0;
-  if (v11)
+  v11 = WTF::fastMalloc(v10, 0x10);
+  *v11 = &unk_1F10FA8A0;
+  v11[1] = v9;
+  v15 = v11;
+  v19 = v8;
+  v18[0] = &v19;
+  v18[1] = &v16;
+  WebKit::AuxiliaryProcessProxy::sendWithAsyncReply<Messages::NetworkProcess::PauseBackgroundFetch,WTF::CompletionHandler<void ()(void)>>(v7, v18, &v15, 0, 0, 1);
+  v12 = v15;
+  v15 = 0;
+  if (v12)
   {
-    (*(*v11 + 8))(v11);
+    (*(*v12 + 8))(v12);
   }
 
   _Block_release(0);
-  v13 = v15;
-  v15 = 0;
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v14 = v16;
+  v16 = 0;
+  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, v12);
+    WTF::StringImpl::destroy(v14, v13);
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v7 + 16));
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v7 + 16), v13);
 }
 
 - (void)_resumeBackgroundFetch:(id)fetch completionHandler:(id)handler
@@ -2682,42 +2680,42 @@ LABEL_6:
   handlerCopy = handler;
   if (!handler)
   {
-    handlerCopy = v16;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3321888768;
-    v16[2] = __74__WKWebsiteDataStore_WKPrivate___resumeBackgroundFetch_completionHandler___block_invoke;
-    v16[3] = &__block_descriptor_33_e8_32c89_ZTSKZ74__WKWebsiteDataStore_WKPrivate___resumeBackgroundFetch_completionHandler__E5__181_e5_v8__0l;
+    handlerCopy = v17;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3321888768;
+    v17[2] = __74__WKWebsiteDataStore_WKPrivate___resumeBackgroundFetch_completionHandler___block_invoke;
+    v17[3] = &__block_descriptor_33_e8_32c89_ZTSKZ74__WKWebsiteDataStore_WKPrivate___resumeBackgroundFetch_completionHandler__E5__181_e5_v8__0l;
   }
 
   v7 = WebKit::WebsiteDataStore::networkProcess(&self->_websiteDataStore, a2);
   atomic_fetch_add((v7 + 16), 1u);
   v8 = *&self->_websiteDataStore.m_storage.data[24];
-  MEMORY[0x19EB02040](&v15, fetch);
+  MEMORY[0x19EB02040](&v16, fetch);
   v9 = _Block_copy(handlerCopy);
-  v10 = WTF::fastMalloc(0x10);
-  *v10 = &unk_1F10FA8C8;
-  v10[1] = v9;
-  v14 = v10;
-  v18 = v8;
-  v17[0] = &v18;
-  v17[1] = &v15;
-  WebKit::AuxiliaryProcessProxy::sendWithAsyncReply<Messages::NetworkProcess::ResumeBackgroundFetch,WTF::CompletionHandler<void ()(void)>>(v7, v17, &v14, 0, 0, 1);
-  v11 = v14;
-  v14 = 0;
-  if (v11)
+  v11 = WTF::fastMalloc(v10, 0x10);
+  *v11 = &unk_1F10FA8C8;
+  v11[1] = v9;
+  v15 = v11;
+  v19 = v8;
+  v18[0] = &v19;
+  v18[1] = &v16;
+  WebKit::AuxiliaryProcessProxy::sendWithAsyncReply<Messages::NetworkProcess::ResumeBackgroundFetch,WTF::CompletionHandler<void ()(void)>>(v7, v18, &v15, 0, 0, 1);
+  v12 = v15;
+  v15 = 0;
+  if (v12)
   {
-    (*(*v11 + 8))(v11);
+    (*(*v12 + 8))(v12);
   }
 
   _Block_release(0);
-  v13 = v15;
-  v15 = 0;
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v14 = v16;
+  v16 = 0;
+  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, v12);
+    WTF::StringImpl::destroy(v14, v13);
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v7 + 16));
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v7 + 16), v13);
 }
 
 - (void)_clickBackgroundFetch:(id)fetch completionHandler:(id)handler
@@ -2725,57 +2723,57 @@ LABEL_6:
   handlerCopy = handler;
   if (!handler)
   {
-    handlerCopy = v16;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3321888768;
-    v16[2] = __73__WKWebsiteDataStore_WKPrivate___clickBackgroundFetch_completionHandler___block_invoke;
-    v16[3] = &__block_descriptor_33_e8_32c88_ZTSKZ73__WKWebsiteDataStore_WKPrivate___clickBackgroundFetch_completionHandler__E5__183_e5_v8__0l;
+    handlerCopy = v17;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3321888768;
+    v17[2] = __73__WKWebsiteDataStore_WKPrivate___clickBackgroundFetch_completionHandler___block_invoke;
+    v17[3] = &__block_descriptor_33_e8_32c88_ZTSKZ73__WKWebsiteDataStore_WKPrivate___clickBackgroundFetch_completionHandler__E5__183_e5_v8__0l;
   }
 
   v7 = WebKit::WebsiteDataStore::networkProcess(&self->_websiteDataStore, a2);
   atomic_fetch_add((v7 + 16), 1u);
   v8 = *&self->_websiteDataStore.m_storage.data[24];
-  MEMORY[0x19EB02040](&v15, fetch);
+  MEMORY[0x19EB02040](&v16, fetch);
   v9 = _Block_copy(handlerCopy);
-  v10 = WTF::fastMalloc(0x10);
-  *v10 = &unk_1F10FA8F0;
-  v10[1] = v9;
-  v14 = v10;
-  v18 = v8;
-  v17[0] = &v18;
-  v17[1] = &v15;
-  WebKit::AuxiliaryProcessProxy::sendWithAsyncReply<Messages::NetworkProcess::ClickBackgroundFetch,WTF::CompletionHandler<void ()(void)>>(v7, v17, &v14, 0, 0, 1);
-  v11 = v14;
-  v14 = 0;
-  if (v11)
+  v11 = WTF::fastMalloc(v10, 0x10);
+  *v11 = &unk_1F10FA8F0;
+  v11[1] = v9;
+  v15 = v11;
+  v19 = v8;
+  v18[0] = &v19;
+  v18[1] = &v16;
+  WebKit::AuxiliaryProcessProxy::sendWithAsyncReply<Messages::NetworkProcess::ClickBackgroundFetch,WTF::CompletionHandler<void ()(void)>>(v7, v18, &v15, 0, 0, 1);
+  v12 = v15;
+  v15 = 0;
+  if (v12)
   {
-    (*(*v11 + 8))(v11);
+    (*(*v12 + 8))(v12);
   }
 
   _Block_release(0);
-  v13 = v15;
-  v15 = 0;
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v14 = v16;
+  v16 = 0;
+  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, v12);
+    WTF::StringImpl::destroy(v14, v13);
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v7 + 16));
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v7 + 16), v13);
 }
 
 - (void)_storeServiceWorkerRegistrations:(id)registrations
 {
   v4 = _Block_copy(registrations);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10FA918;
-  v5[1] = v4;
-  v7 = v5;
-  WebKit::WebsiteDataStore::storeServiceWorkerRegistrations(self->_websiteDataStore.m_storage.data, &v7);
-  v6 = v7;
-  v7 = 0;
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10FA918;
+  v6[1] = v4;
+  v8 = v6;
+  WebKit::WebsiteDataStore::storeServiceWorkerRegistrations(&self->_websiteDataStore, &v8);
+  v7 = v8;
+  v8 = 0;
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
   }
 
   _Block_release(0);
@@ -2814,74 +2812,74 @@ LABEL_6:
   v8 = WebKit::WebsiteDataStore::networkProcess(&self->_websiteDataStore, v7);
   atomic_fetch_add((v8 + 16), 1u);
   v9 = *&self->_websiteDataStore.m_storage.data[24];
-  MEMORY[0x19EB01DE0](v16, l);
+  MEMORY[0x19EB01DE0](v17, l);
   v10 = _Block_copy(v6);
-  v11 = WTF::fastMalloc(0x10);
-  *v11 = &unk_1F10FA940;
-  v11[1] = v10;
-  v15 = v11;
-  v18 = v9;
-  v17[0] = &v18;
-  v17[1] = v16;
-  WebKit::AuxiliaryProcessProxy::sendWithAsyncReply<Messages::NetworkProcess::HasPushSubscriptionForTesting,WTF::CompletionHandler<void ()(BOOL)>>(v8, v17, &v15, 0, 0, 1);
-  v12 = v15;
-  v15 = 0;
-  if (v12)
+  v12 = WTF::fastMalloc(v11, 0x10);
+  *v12 = &unk_1F10FA940;
+  v12[1] = v10;
+  v16 = v12;
+  v19 = v9;
+  v18[0] = &v19;
+  v18[1] = v17;
+  WebKit::AuxiliaryProcessProxy::sendWithAsyncReply<Messages::NetworkProcess::HasPushSubscriptionForTesting,WTF::CompletionHandler<void ()(BOOL)>>(v8, v18, &v16, 0, 0, 1);
+  v13 = v16;
+  v16 = 0;
+  if (v13)
   {
-    (*(*v12 + 8))(v12);
+    (*(*v13 + 8))(v13);
   }
 
   _Block_release(0);
-  v14 = v16[0];
-  v16[0] = 0;
-  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v15 = v17[0];
+  v17[0] = 0;
+  if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v14, v13);
+    WTF::StringImpl::destroy(v15, v14);
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v8 + 16));
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v8 + 16), v14);
   _Block_release(v6);
 }
 
 - (void)_originDirectoryForTesting:(id)testing topOrigin:(id)origin type:(id)type completionHandler:(id)handler
 {
-  v25[4] = *MEMORY[0x1E69E9840];
+  v26[4] = *MEMORY[0x1E69E9840];
   v10 = WebKit::toWebsiteDataType(type, a2);
   if (HIDWORD(v10))
   {
     v12 = v10;
     v13 = _Block_copy(handler);
-    MEMORY[0x19EB01DE0](v23, origin);
-    WebCore::SecurityOriginData::fromURLWithoutStrictOpaqueness(v24, v23, v14);
-    MEMORY[0x19EB01DE0](v22, testing);
-    WebCore::SecurityOriginData::fromURLWithoutStrictOpaqueness(v25, v22, v15);
-    v16 = WTF::fastMalloc(0x10);
-    *v16 = &unk_1F10FA968;
-    v16[1] = v13;
-    v21 = v16;
-    WebKit::WebsiteDataStore::originDirectoryForTesting(&self->_websiteDataStore, v24, v12, &v21);
-    v17 = v21;
-    v21 = 0;
-    if (v17)
+    MEMORY[0x19EB01DE0](v24, origin);
+    WebCore::SecurityOriginData::fromURLWithoutStrictOpaqueness(v25, v24, v14);
+    MEMORY[0x19EB01DE0](v23, testing);
+    WebCore::SecurityOriginData::fromURLWithoutStrictOpaqueness(v26, v23, v15);
+    v17 = WTF::fastMalloc(v16, 0x10);
+    *v17 = &unk_1F10FA968;
+    v17[1] = v13;
+    v22 = v17;
+    WebKit::WebsiteDataStore::originDirectoryForTesting(&self->_websiteDataStore, v25, v12, &v22);
+    v18 = v22;
+    v22 = 0;
+    if (v18)
     {
-      (*(*v17 + 8))(v17);
+      (*(*v18 + 8))(v18);
     }
 
     _Block_release(0);
+    mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(v26);
     mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(v25);
-    mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(v24);
-    v19 = v22[0];
-    v22[0] = 0;
-    if (v19 && atomic_fetch_add_explicit(v19, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v19, v18);
-    }
-
     v20 = v23[0];
     v23[0] = 0;
     if (v20 && atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v20, v18);
+      WTF::StringImpl::destroy(v20, v19);
+    }
+
+    v21 = v24[0];
+    v24[0] = 0;
+    if (v21 && atomic_fetch_add_explicit(v21, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(v21, v19);
     }
 
     _Block_release(0);
@@ -2898,16 +2896,16 @@ LABEL_6:
 - (void)_setBackupExclusionPeriodForTesting:(double)testing completionHandler:(id)handler
 {
   v6 = _Block_copy(handler);
-  v7 = WTF::fastMalloc(0x10);
-  *v7 = &unk_1F10FA990;
-  v7[1] = v6;
-  v9 = v7;
-  WebKit::WebsiteDataStore::setBackupExclusionPeriodForTesting(&self->_websiteDataStore, &v9, testing);
-  v8 = v9;
-  v9 = 0;
-  if (v8)
+  v8 = WTF::fastMalloc(v7, 0x10);
+  *v8 = &unk_1F10FA990;
+  v8[1] = v6;
+  v10 = v8;
+  WebKit::WebsiteDataStore::setBackupExclusionPeriodForTesting(&self->_websiteDataStore, &v10, testing);
+  v9 = v10;
+  v10 = 0;
+  if (v9)
   {
-    (*(*v8 + 8))(v8);
+    (*(*v9 + 8))(v9);
   }
 
   _Block_release(0);
@@ -2952,14 +2950,14 @@ LABEL_7:
 - (void)_setCompletionHandlerForRemovalFromNetworkProcess:(id)process
 {
   v4 = _Block_copy(process);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10FA9B8;
-  v5[1] = v4;
-  v6 = v5;
-  WebKit::WebsiteDataStore::setCompletionHandlerForRemovalFromNetworkProcess(&self->_websiteDataStore, &v6);
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10FA9B8;
+  v6[1] = v4;
+  v7 = v6;
+  WebKit::WebsiteDataStore::setCompletionHandlerForRemovalFromNetworkProcess(&self->_websiteDataStore, &v7);
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
   }
 
   _Block_release(0);
@@ -3003,16 +3001,16 @@ LABEL_7:
 - (void)_getAppBadgeForTesting:(id)testing
 {
   v4 = _Block_copy(testing);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10FA9E0;
-  v5[1] = v4;
-  v7 = v5;
-  WebKit::WebsiteDataStore::getAppBadgeForTesting(&self->_websiteDataStore, &v7);
-  v6 = v7;
-  v7 = 0;
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10FA9E0;
+  v6[1] = v4;
+  v8 = v6;
+  WebKit::WebsiteDataStore::getAppBadgeForTesting(&self->_websiteDataStore, &v8);
+  v7 = v8;
+  v8 = 0;
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
   }
 
   _Block_release(0);
@@ -3030,7 +3028,7 @@ LABEL_7:
   [v4 setWebPushActionHandler:handler];
 }
 
-uint64_t __58__WKWebsiteDataStore_WKPrivate___setWebPushActionHandler___block_invoke()
+void *__58__WKWebsiteDataStore_WKPrivate___setWebPushActionHandler___block_invoke()
 {
   [objc_msgSend(MEMORY[0x1E69DC668] "sharedApplication")];
   result = [objc_msgSend(MEMORY[0x1E6983308] "currentNotificationCenter")];
@@ -3110,10 +3108,10 @@ uint64_t __77__WKWebsiteDataStore_WKPrivate___handleNextPushMessageWithCompletio
 
   if ([objc_msgSend(action "type")])
   {
-    if (action && ([action coreNotificationData], (v18 & 1) != 0))
+    if (action && (objc_msgSend_coreNotificationData(action), (v18 & 1) != 0))
     {
       WebCore::NotificationData::~NotificationData(buf, v6);
-      [action coreNotificationData];
+      objc_msgSend_coreNotificationData(action);
       if (v18)
       {
         v11[0] = MEMORY[0x1E69E9820];
@@ -3141,14 +3139,14 @@ uint64_t __77__WKWebsiteDataStore_WKPrivate___handleNextPushMessageWithCompletio
       goto LABEL_21;
     }
 
-    [action coreNotificationData];
+    objc_msgSend_coreNotificationData(action);
     if ((v18 & 1) == 0)
     {
       goto LABEL_21;
     }
 
     WebCore::NotificationData::~NotificationData(buf, v8);
-    [action coreNotificationData];
+    objc_msgSend_coreNotificationData(action);
     if (v18)
     {
       v10[0] = MEMORY[0x1E69E9820];
@@ -3195,16 +3193,16 @@ uint64_t __54__WKWebsiteDataStore_WKPrivate___handleWebPushAction___block_invoke
 - (void)_runningOrTerminatingServiceWorkerCountForTesting:(id)testing
 {
   v4 = _Block_copy(testing);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10FAA08;
-  v5[1] = v4;
-  v7 = v5;
-  WebKit::WebsiteDataStore::runningOrTerminatingServiceWorkerCountForTesting(&self->_websiteDataStore, &v7);
-  v6 = v7;
-  v7 = 0;
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10FAA08;
+  v6[1] = v4;
+  v8 = v6;
+  WebKit::WebsiteDataStore::runningOrTerminatingServiceWorkerCountForTesting(&self->_websiteDataStore, &v8);
+  v7 = v8;
+  v8 = 0;
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
   }
 
   _Block_release(0);
@@ -3297,64 +3295,64 @@ uint64_t __54__WKWebsiteDataStore_WKPrivate___handleWebPushAction___block_invoke
 
 - (void)fetchDataOfTypes:(uint64_t)types completionHandler:
 {
-  v1 = MEMORY[0x1EEE9AC00](types);
-  v12[1] = *MEMORY[0x1E69E9840];
-  WTF::Persistence::Encoder::Encoder(&v9);
+  v3 = MEMORY[0x1EEE9AC00](self, a2, types);
+  v14[1] = *MEMORY[0x1E69E9840];
+  WTF::Persistence::Encoder::Encoder(&v11);
   WTF::Persistence::Encoder::operator<<();
   WTF::Persistence::Encoder::operator<<();
-  if (!*(v1 + 28))
+  if (!*(v3 + 28))
   {
     goto LABEL_10;
   }
 
-  v2 = 0;
+  v4 = 0;
   do
   {
     WTF::Persistence::Encoder::operator<<();
-    ++v2;
-    v3 = *(v1 + 28);
+    ++v4;
+    v5 = *(v3 + 28);
   }
 
-  while (v2 < v3);
-  if (!v3)
+  while (v4 < v5);
+  if (!v5)
   {
 LABEL_10:
-    v7 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v9 length:v10];
-    (*(*(v1 + 8) + 16))();
+    v9 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v11 length:v12];
+    (*(*(v3 + 8) + 16))();
     goto LABEL_11;
   }
 
-  v4 = *(v1 + 16);
-  v5 = 4 * v3;
-  while (*v4 != 32)
+  v6 = *(v3 + 16);
+  v7 = 4 * v5;
+  while (*v6 != 32)
   {
 LABEL_9:
-    ++v4;
-    v5 -= 4;
-    if (!v5)
+    ++v6;
+    v7 -= 4;
+    if (!v7)
     {
       goto LABEL_10;
     }
   }
 
-  v6 = *(v1 + 32);
-  if (*(v6 + 16))
+  v8 = *(v3 + 32);
+  if (*(v8 + 16))
   {
-    WTF::Persistence::Coder<WTF::HashMap<WebCore::ClientOrigin,WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::DefaultHash<WebCore::ClientOrigin>,WTF::HashTraits<WebCore::ClientOrigin>,WTF::HashTraits<WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>::encodeForPersistence<WTF::Persistence::Encoder>(&v9, (v6 + 8));
+    WTF::Persistence::Coder<WTF::HashMap<WebCore::ClientOrigin,WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::DefaultHash<WebCore::ClientOrigin>,WTF::HashTraits<WebCore::ClientOrigin>,WTF::HashTraits<WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>>::encodeForPersistence<WTF::Persistence::Encoder>(&v11, (v8 + 8));
     goto LABEL_9;
   }
 
-  v11 = *MEMORY[0x1E696A578];
-  v12[0] = @"Unknown error occurred while fetching data.";
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-  v7 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"WKErrorDomain" code:1 userInfo:v8];
-  (*(*(v1 + 8) + 16))();
+  v13 = *MEMORY[0x1E696A578];
+  v14[0] = @"Unknown error occurred while fetching data.";
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"WKErrorDomain" code:1 userInfo:v10];
+  (*(*(v3 + 8) + 16))();
 LABEL_11:
-  if (v7)
+  if (v9)
   {
   }
 
-  WTF::Persistence::Encoder::~Encoder(&v9);
+  WTF::Persistence::Encoder::~Encoder(&v11);
 }
 
 - (void)fetchDataOfTypes:()WTF::ShouldValidateKey completionHandler:

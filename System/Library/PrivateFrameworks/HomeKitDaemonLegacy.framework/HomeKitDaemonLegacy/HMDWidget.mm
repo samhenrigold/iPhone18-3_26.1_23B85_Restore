@@ -11,18 +11,16 @@
 
 - (NSArray)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   identifier = [(HMDWidget *)self identifier];
   v5 = [v3 initWithName:@"Identifier" value:identifier];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   kind = [(HMDWidget *)self kind];
   v8 = [v6 initWithName:@"Kind" value:kind];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -105,11 +103,11 @@ LABEL_7:
   v9 = [(HMDWidget *)&v17 init];
   if (v9)
   {
-    v10 = [identifierCopy copy];
+    v10 = objc_msgSend_copy(identifierCopy);
     identifier = v9->_identifier;
     v9->_identifier = v10;
 
-    v12 = [v8 copy];
+    v12 = objc_msgSend_copy(v8);
     kind = v9->_kind;
     v9->_kind = v12;
   }

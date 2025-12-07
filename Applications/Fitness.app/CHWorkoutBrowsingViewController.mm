@@ -46,14 +46,14 @@
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_1003D4E18();
+  sub_1003D4E18(v7);
 
   (*(v5 + 8))(v7, v4);
 }
 
 - (void)handleWorkoutConfigurationData:(id)data
 {
-  v5 = sub_100140278(&qword_1008E1760);
+  v5 = sub_100140278(&qword_1008E1760, &qword_1006D4490);
   __chkstk_darwin(v5 - 8);
   v7 = &v17 - v6;
   dataCopy = data;
@@ -96,7 +96,7 @@
 
 - (void)handleQuickStartWorkoutActionContext:(id)context
 {
-  v5 = sub_100140278(&qword_1008E1760);
+  v5 = sub_100140278(&qword_1008E1760, &qword_1006D4490);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = type metadata accessor for TaskPriority();
@@ -118,7 +118,7 @@
 {
   activityCopy = activity;
   selfCopy = self;
-  sub_10068F1D8(activityCopy);
+  sub_10068F1D8(activityCopy, v6);
 }
 
 - (void)scrollToTop

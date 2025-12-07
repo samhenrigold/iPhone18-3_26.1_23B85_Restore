@@ -35,7 +35,7 @@
   v15 = payloadCopy;
   if (!identifierCopy)
   {
-    v28 = sub_10007FAA0();
+    v28 = sub_10007FAA0(0);
     if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_17;
@@ -46,7 +46,7 @@
 
   if (![payloadCopy length])
   {
-    v28 = sub_10007FAA0();
+    v28 = sub_10007FAA0(0);
     if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_17;
@@ -65,7 +65,7 @@ LABEL_9:
 
   if (!length)
   {
-    v28 = sub_10007FAA0();
+    v28 = sub_10007FAA0(0);
     if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_17;
@@ -86,7 +86,7 @@ LABEL_16:
 
   if (interval <= 0.0)
   {
-    v28 = sub_10007FAA0();
+    v28 = sub_10007FAA0(0);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       v29 = sub_10007FAFC(0);
@@ -283,7 +283,7 @@ LABEL_18:
 {
   if ([(HAPBTLEControlOutputStream *)self isComplete])
   {
-    v7 = sub_10007FAA0();
+    v7 = sub_10007FAA0(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = sub_10007FAFC(0);
@@ -331,7 +331,7 @@ LABEL_18:
 
     else
     {
-      v22 = sub_10007FAA0();
+      v22 = sub_10007FAA0(0);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         v23 = sub_10007FAFC(0);

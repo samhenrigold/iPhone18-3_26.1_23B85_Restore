@@ -217,7 +217,7 @@ void __88__DOCRenameSupport__spi_renameDocumentAtURL_proposedName_synchronous_co
 
 void __88__DOCRenameSupport__spi_renameDocumentAtURL_proposedName_synchronous_completionHandler___block_invoke_7(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = docRenameLogHandle;
@@ -245,13 +245,13 @@ void __88__DOCRenameSupport__spi_renameDocumentAtURL_proposedName_synchronous_co
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v11 = 136315650;
-      v12 = "+[DOCRenameSupport _spi_renameDocumentAtURL:proposedName:synchronous:completionHandler:]_block_invoke";
-      v13 = 2112;
-      v14 = v5;
-      v15 = 2112;
-      v16 = 0;
-      _os_log_impl(&dword_249340000, v7, OS_LOG_TYPE_INFO, "%s new url: %@ error: %@", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "+[DOCRenameSupport _spi_renameDocumentAtURL:proposedName:synchronous:completionHandler:]_block_invoke";
+      v12 = 2112;
+      v13 = v5;
+      v14 = 2112;
+      v15 = 0;
+      _os_log_impl(&dword_249340000, v7, OS_LOG_TYPE_INFO, "%s new url: %@ error: %@", &v10, 0x20u);
     }
   }
 
@@ -264,8 +264,6 @@ void __88__DOCRenameSupport__spi_renameDocumentAtURL_proposedName_synchronous_co
   }
 
   [*(a1 + 32) invalidate];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)interface
@@ -288,13 +286,12 @@ void __88__DOCRenameSupport__spi_renameDocumentAtURL_proposedName_synchronous_co
 
 void __88__DOCRenameSupport__spi_renameDocumentAtURL_proposedName_synchronous_completionHandler___block_invoke_7_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_249340000, log, OS_LOG_TYPE_ERROR, "ERROR: Remote object renameDocumentAtURL: call returned bookmark data: %@ error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_249340000, log, OS_LOG_TYPE_ERROR, "ERROR: Remote object renameDocumentAtURL: call returned bookmark data: %@ error: %@", &v3, 0x16u);
 }
 
 @end

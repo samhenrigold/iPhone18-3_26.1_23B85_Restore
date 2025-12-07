@@ -22,20 +22,18 @@
 
 - (void)presentNotificationForSession:(id)session
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
-  v5 = LogEnhancedLoggingNotifier();
+  v5 = LogEnhancedLoggingNotifier(sessionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = sessionCopy;
-    _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "Notifying enhancedloggingd for bug session [%{public}@]", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = sessionCopy;
+    _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "Notifying enhancedloggingd for bug session [%{public}@]", &v7, 0xCu);
   }
 
   statusProvider = [(DEDEnhancedLoggingNotifier *)self statusProvider];
   [statusProvider collectionDidCompleteWithSessionIdentifier:sessionCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

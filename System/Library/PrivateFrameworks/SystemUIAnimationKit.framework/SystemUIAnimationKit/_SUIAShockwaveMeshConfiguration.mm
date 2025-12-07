@@ -94,8 +94,8 @@
   meshPointsAnimationSettings = [settingsCopy meshPointsAnimationSettings];
   meshPointsCancelledAnimationSettings = [settingsCopy meshPointsCancelledAnimationSettings];
   meshPositionAnimationSettings = [settingsCopy meshPositionAnimationSettings];
-  v89 = v15;
-  v24 = SUIAScreenEdgeForNormalizedButtonRect();
+  v91 = v15;
+  v24 = SUIAScreenEdgeForNormalizedButtonRect(meshPositionAnimationSettings);
   v25 = 0;
   if (variant > 1)
   {
@@ -134,11 +134,11 @@ LABEL_9:
   }
 
 LABEL_10:
-  memset(&v94, 0, sizeof(v94));
-  CATransform3DMakeScale(&v94, 1.0, -1.0, 1.0);
+  memset(&v96, 0, sizeof(v96));
+  CATransform3DMakeScale(&v96, 1.0, -1.0, 1.0);
   if (v24 == 2)
   {
-    v92 = v94;
+    v94 = v96;
     v27 = 1.57079633;
   }
 
@@ -149,7 +149,7 @@ LABEL_10:
       goto LABEL_19;
     }
 
-    v92 = v94;
+    v94 = v96;
     if (v24 == 8)
     {
       v27 = -1.57079633;
@@ -161,17 +161,17 @@ LABEL_10:
     }
   }
 
-  CATransform3DRotate(&v93, &v92, v27, 0.0, 0.0, 1.0);
-  v94 = v93;
+  CATransform3DRotate(&v95, &v94, v27, 0.0, 0.0, 1.0);
+  v96 = v95;
 LABEL_19:
   v28 = v16;
-  v90 = v14;
-  v88 = v13;
-  v93 = v94;
-  [(_SUIAShockwaveMeshConfiguration *)v20 _setViewTransform:&v93];
+  v92 = v14;
+  v90 = v13;
+  v95 = v96;
+  [(_SUIAShockwaveMeshConfiguration *)v20 _setViewTransform:&v95];
   v29 = height;
   v30 = width;
-  BSRectWithSize();
+  v31 = BSRectWithSize();
   if (state > 5)
   {
     goto LABEL_55;
@@ -179,109 +179,109 @@ LABEL_19:
 
   if (((1 << state) & 0x2C) != 0)
   {
-    v96.origin.x = x;
-    v96.origin.y = y;
-    v96.size.width = width;
-    v96.size.height = height;
-    CGRectGetWidth(v96);
-    v97.origin.x = x;
-    v97.origin.y = y;
-    v97.size.width = width;
-    v97.size.height = height;
-    CGRectGetHeight(v97);
+    v98.origin.x = x;
+    v98.origin.y = y;
+    v98.size.width = width;
+    v98.size.height = height;
+    CGRectGetWidth(v98);
+    v99.origin.x = x;
+    v99.origin.y = y;
+    v99.size.width = width;
+    v99.size.height = height;
+    CGRectGetHeight(v99);
     [settingsCopy meshSquareFinalSizeDiagonalRatio];
     if (v24 == 4 || v24 == 1)
     {
-      v98.origin.x = x;
-      v98.origin.y = y;
-      v98.size.width = width;
-      v98.size.height = height;
-      CGRectGetWidth(v98);
+      v100.origin.x = x;
+      v100.origin.y = y;
+      v100.size.width = width;
+      v100.size.height = height;
+      CGRectGetWidth(v100);
       [settingsCopy meshRectangularFinalShortDimensionRatio];
-      v99.origin.x = x;
-      v99.origin.y = y;
-      v99.size.width = width;
-      v99.size.height = height;
-      CGRectGetHeight(v99);
+      v101.origin.x = x;
+      v101.origin.y = y;
+      v101.size.width = width;
+      v101.size.height = height;
+      CGRectGetHeight(v101);
       [settingsCopy meshRectangularFinalLongDimensionRatio];
     }
 
-    v100.origin.x = SUIAExpandNormalizedRect(x, y, width, height, v16);
-    v61 = v100.origin.x;
-    v62 = v100.origin.y;
-    v63 = v29;
-    v64 = v100.size.width;
-    v65 = y;
-    v66 = v100.size.height;
-    CGRectGetMidX(v100);
-    v101.origin.x = v61;
-    v101.origin.y = v62;
-    v101.size.width = v64;
-    v101.size.height = v66;
-    CGRectGetMidY(v101);
+    v102.origin.x = SUIAExpandNormalizedRect(x, y, width, height, v16);
+    v63 = v102.origin.x;
+    v64 = v102.origin.y;
+    v65 = v29;
+    v66 = v102.size.width;
+    v67 = y;
+    v68 = v102.size.height;
+    CGRectGetMidX(v102);
+    v103.origin.x = v63;
+    v103.origin.y = v64;
+    v103.size.width = v66;
+    v103.size.height = v68;
+    CGRectGetMidY(v103);
     if ([settingsCopy shouldBehaveLikeLargeScreenIdiom:idiom])
     {
       [settingsCopy meshFinalProportionTowardsCenterOnLargeDisplays];
       UIRectGetCenter();
-      v67 = v63;
-      v68 = x;
       v69 = v65;
-      v70 = v67;
+      v70 = x;
+      v71 = v67;
+      v72 = v69;
       UIRectGetCenter();
     }
 
     else
     {
-      v70 = v63;
-      v68 = x;
-      v69 = v65;
+      v72 = v65;
+      v70 = x;
+      v71 = v67;
     }
 
     if (v24 == 2)
     {
-      v102.origin.x = v68;
-      v102.origin.y = v69;
-      v102.size.width = width;
-      v102.size.height = v70;
-      CGRectGetWidth(v102);
-      v103.origin.x = v68;
-      v103.origin.y = v69;
-      v103.size.width = width;
-      v103.size.height = v70;
-      CGRectGetWidth(v103);
+      v104.origin.x = v70;
+      v104.origin.y = v71;
+      v104.size.width = width;
+      v104.size.height = v72;
+      CGRectGetWidth(v104);
+      v105.origin.x = v70;
+      v105.origin.y = v71;
+      v105.size.width = width;
+      v105.size.height = v72;
+      CGRectGetWidth(v105);
       [settingsCopy meshFinalProportionAcrossScreenLongEdge];
     }
 
     else if (v24 == 1)
     {
-      v104.origin.x = v68;
-      v104.origin.y = v69;
-      v104.size.width = width;
-      v104.size.height = v70;
-      CGRectGetHeight(v104);
+      v106.origin.x = v70;
+      v106.origin.y = v71;
+      v106.size.width = width;
+      v106.size.height = v72;
+      CGRectGetHeight(v106);
       [settingsCopy meshFinalProportionAcrossScreenShortEdge];
     }
 
     else
     {
-      v71 = v68;
-      v72 = v69;
-      v73 = width;
-      v74 = v70;
+      v73 = v70;
+      v74 = v71;
+      v75 = width;
+      v76 = v72;
       if (v24 == 8)
       {
-        CGRectGetWidth(*&v71);
+        CGRectGetWidth(*&v73);
         [settingsCopy meshFinalProportionAcrossScreenLongEdge];
       }
 
       else
       {
-        CGRectGetHeight(*&v71);
-        v105.origin.y = v69;
-        v105.origin.x = v68;
-        v105.size.width = width;
-        v105.size.height = v70;
-        CGRectGetHeight(v105);
+        CGRectGetHeight(*&v73);
+        v107.origin.y = v71;
+        v107.origin.x = v70;
+        v107.size.width = width;
+        v107.size.height = v72;
+        CGRectGetHeight(v107);
         [settingsCopy meshFinalProportionAcrossScreenShortEdge];
       }
     }
@@ -290,7 +290,7 @@ LABEL_19:
     [(_SUIAShockwaveMeshConfiguration *)v20 _setMeshFrame:?];
     if (variant)
     {
-      v75 = 7;
+      v77 = 7;
     }
 
     else
@@ -305,49 +305,49 @@ LABEL_19:
         [settingsCopy captureHintRetargetImpulse];
       }
 
-      v77 = v76;
-      v78 = [meshPointsAnimationSettings copy];
-
-      [v78 retargetImpulse];
-      [v78 setRetargetImpulse:v77 + v79];
-      v80 = [meshPointsCancelledAnimationSettings copy];
+      v79 = v78;
+      v80 = [meshPointsAnimationSettings copy];
 
       [v80 retargetImpulse];
-      [v80 setRetargetImpulse:v77 + v81];
-      v82 = [meshPositionAnimationSettings copy];
+      [v80 setRetargetImpulse:v79 + v81];
+      v82 = [meshPointsCancelledAnimationSettings copy];
 
       [v82 retargetImpulse];
-      [v82 setRetargetImpulse:v77 + v83];
+      [v82 setRetargetImpulse:v79 + v83];
+      v84 = [meshPositionAnimationSettings copy];
+
+      [v84 retargetImpulse];
+      [v84 setRetargetImpulse:v79 + v85];
       if ([settingsCopy useSiriMeshForCapture])
       {
-        v75 = 7;
+        v77 = 7;
       }
 
       else
       {
-        v75 = 9;
+        v77 = 9;
       }
 
-      meshPositionAnimationSettings = v82;
-      meshPointsCancelledAnimationSettings = v80;
-      meshPointsAnimationSettings = v78;
+      meshPositionAnimationSettings = v84;
+      meshPointsCancelledAnimationSettings = v82;
+      meshPointsAnimationSettings = v80;
     }
 
     [(_SUIAAbstractDictionaryBackedConfiguration *)v20 _setBehaviorSettings:meshPositionAnimationSettings forKeypath:@"meshFrame"];
-    v84 = [_SUIAShockwaveMeshes identityMeshTransformRows:v75 columns:v75];
-    [(_SUIAShockwaveMeshConfiguration *)v20 _setMeshTransform:v84];
+    v86 = [_SUIAShockwaveMeshes identityMeshTransformRows:v77 columns:v77];
+    [(_SUIAShockwaveMeshConfiguration *)v20 _setMeshTransform:v86];
 
     if (state == 5)
     {
-      v85 = meshPointsCancelledAnimationSettings;
+      v87 = meshPointsCancelledAnimationSettings;
     }
 
     else
     {
-      v85 = meshPointsAnimationSettings;
+      v87 = meshPointsAnimationSettings;
     }
 
-    [(_SUIAAbstractDictionaryBackedConfiguration *)v20 _setBehaviorSettings:v85 forKeypath:@"meshTransform"];
+    [(_SUIAAbstractDictionaryBackedConfiguration *)v20 _setBehaviorSettings:v87 forKeypath:@"meshTransform"];
     if (state != 5)
     {
       [settingsCopy meshPointsEndTransitionDelay];
@@ -357,13 +357,13 @@ LABEL_19:
 
   else
   {
-    v38 = v31;
     v39 = v32;
     v40 = v33;
     v41 = v34;
+    v42 = v35;
     if (((1 << state) & 0x11) != 0)
     {
-      [(_SUIAShockwaveMeshConfiguration *)v20 _setMeshFrame:SAUIRectMovedOffscreenByProportionToNormalizedButtonRectInContextOfShockwaveBounds(v31, v32, v33, v34, 1.0, v35, v36, v37, v28, v89, v90, v88, x, y, v30, v29)];
+      [(_SUIAShockwaveMeshConfiguration *)v20 _setMeshFrame:SAUIRectMovedOffscreenByProportionToNormalizedButtonRectInContextOfShockwaveBounds(v32, v33, v34, v35, 1.0, v36, v37, v38, v31, v28, v91, v92, v90, x, y, v30, v29)];
       [(_SUIAShockwaveMeshConfiguration *)v20 _setMeshTransform:v25];
       if (state != 4)
       {
@@ -371,40 +371,40 @@ LABEL_19:
       }
 
       [(_SUIAAbstractDictionaryBackedConfiguration *)v20 _setBehaviorSettings:meshPositionAnimationSettings forKeypath:@"meshFrame"];
-      v42 = v20;
-      v43 = meshPointsCancelledAnimationSettings;
+      v43 = v20;
+      v44 = meshPointsCancelledAnimationSettings;
     }
 
     else
     {
-      v44 = SAUIRectMovedOffscreenByProportionToNormalizedButtonRectInContextOfShockwaveBounds(v31, v32, v33, v34, 1.0, v35, v36, v37, v28, v89, v90, v88, x, y, v30, v29);
+      v45 = SAUIRectMovedOffscreenByProportionToNormalizedButtonRectInContextOfShockwaveBounds(v32, v33, v34, v35, 1.0, v36, v37, v38, v31, v28, v91, v92, v90, x, y, v30, v29);
       if (!variant)
       {
-        [settingsCopy captureHintMeshOffset];
-        v52 = SAUIRectMovedOffscreenByProportionToNormalizedButtonRectInContextOfShockwaveBounds(v38, v39, v40, v41, v48, v49, v50, v51, v28, v89, v90, v88, x, y, v30, v29);
-        v54 = v53;
+        captureHintMeshOffset = [settingsCopy captureHintMeshOffset];
+        v54 = SAUIRectMovedOffscreenByProportionToNormalizedButtonRectInContextOfShockwaveBounds(v39, v40, v41, v42, v50, v51, v52, v53, captureHintMeshOffset, v28, v91, v92, v90, x, y, v30, v29);
         v56 = v55;
         v58 = v57;
+        v60 = v59;
         captureHintAnimationSettings = [settingsCopy captureHintAnimationSettings];
 
         captureHintAnimationSettings2 = [settingsCopy captureHintAnimationSettings];
 
+        v48 = v60;
         v47 = v58;
         v46 = v56;
         v45 = v54;
-        v44 = v52;
         meshPositionAnimationSettings = captureHintAnimationSettings;
         meshPointsAnimationSettings = captureHintAnimationSettings2;
       }
 
-      [(_SUIAShockwaveMeshConfiguration *)v20 _setMeshFrame:v44, v45, v46, v47];
+      [(_SUIAShockwaveMeshConfiguration *)v20 _setMeshFrame:v45, v46, v47, v48];
       [(_SUIAAbstractDictionaryBackedConfiguration *)v20 _setBehaviorSettings:meshPositionAnimationSettings forKeypath:@"meshFrame"];
       [(_SUIAShockwaveMeshConfiguration *)v20 _setMeshTransform:v25];
-      v42 = v20;
-      v43 = meshPointsAnimationSettings;
+      v43 = v20;
+      v44 = meshPointsAnimationSettings;
     }
 
-    [(_SUIAAbstractDictionaryBackedConfiguration *)v42 _setBehaviorSettings:v43 forKeypath:@"meshTransform"];
+    [(_SUIAAbstractDictionaryBackedConfiguration *)v43 _setBehaviorSettings:v44 forKeypath:@"meshTransform"];
   }
 
 LABEL_55:

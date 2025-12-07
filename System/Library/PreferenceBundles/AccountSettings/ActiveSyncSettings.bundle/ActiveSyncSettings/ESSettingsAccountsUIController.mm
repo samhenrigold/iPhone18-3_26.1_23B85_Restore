@@ -21,6 +21,7 @@
 - (void)_dismissAndUpdateParent;
 - (void)_finishSaveAccountDismissWhenDone:(BOOL)done;
 - (void)_saveAccountDismissWhenDone:(BOOL)done;
+- (void)account:(id)account isValid:(BOOL)valid validationError:(id)error;
 - (void)cancelButtonTapped:(id)tapped;
 - (void)dealloc;
 - (void)deleteAccountButtonTapped;
@@ -29,6 +30,8 @@
 - (void)doneButtonTapped:(id)tapped;
 - (void)finishedAccountSetup;
 - (void)hideProgressWithPrompt:(id)prompt;
+- (void)operationsHelper:(id)helper didRemoveAccount:(id)account withSuccess:(BOOL)success error:(id)error;
+- (void)operationsHelper:(id)helper didSaveAccount:(id)account withSuccess:(BOOL)success error:(id)error;
 - (void)propertyValueChanged:(id)changed;
 - (void)reloadAccount;
 - (void)setAccountBooleanProperty:(id)property withSpecifier:(id)specifier;
@@ -40,6 +43,8 @@
 - (void)showIdenticalAccountFailureView;
 - (void)showSSLFailureView;
 - (void)updateDoneButton;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ESSettingsAccountsUIController
@@ -258,6 +263,16 @@
   return v7;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(ESSettingsAccountsUIController *)self reloadSpecifiers];
+  [(ESSettingsAccountsUIController *)self updateDoneButton];
+  v5.receiver = self;
+  v5.super_class = ESSettingsAccountsUIController;
+  [(ESSettingsAccountsUIController *)&v5 viewWillAppear:appearCopy];
+}
+
 - (void)showAlertWithButtons:(id)buttons title:(id)title message:(id)message completion:(id)completion
 {
   selfCopy = self;
@@ -428,6 +443,25 @@
 
     [(ESSettingsAccountsUIController *)self setTaskCompletionAssertionEnabled:1];
   }
+}
+
+- (void)account:(id)account isValid:(BOOL)valid validationError:(id)error
+{
+  if (valid)
+  {
+    if ([(ESSettingsAccountsUIController *)self validatedSuccessfully:account]&& ![(ESSettingsAccountsUIController *)self confirmedUnvalidatedAccount]&& ([(ESSettingsAccountsUIController *)self transitionsAfterInitialSetup]|| [(ESSettingsAccountsUIController *)self dismissesAfterInitialSetup]))
+    {
+      [(ESSettingsAccountsUIController *)self setCellsChecked:1];
+    }
+
+    [(ESSettingsAccountsUIController *)self setTransitioningToFinishedAccountSetup:1];
+    doneButton = [(ESSettingsAccountsUIController *)self doneButton];
+    [doneButton setEnabled:0];
+
+    [(ESSettingsAccountsUIController *)self performSelector:"finishedAccountSetup" withObject:0 afterDelay:1.0];
+  }
+
+  [(ESSettingsAccountsUIController *)self setTaskCompletionAssertionEnabled:0];
 }
 
 - (void)finishedAccountSetup
@@ -895,6 +929,28 @@ LABEL_5:
   [accountOperationsHelper removeAccount:backingAccountInfo];
 }
 
+- (void)operationsHelper:(id)helper didRemoveAccount:(id)account withSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  accountCopy = account;
+  helperCopy = helper;
+  v13 = dataaccess_get_global_queue();
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_4B78;
+  block[3] = &unk_30870;
+  v19 = successCopy;
+  v17 = errorCopy;
+  selfCopy = self;
+  v14 = errorCopy;
+  dispatch_async(v13, block);
+
+  v15.receiver = self;
+  v15.super_class = ESSettingsAccountsUIController;
+  [(ESSettingsAccountsUIController *)&v15 operationsHelper:helperCopy didRemoveAccount:accountCopy withSuccess:successCopy error:v14];
+}
+
 - (void)_finishSaveAccountDismissWhenDone:(BOOL)done
 {
   doneCopy = done;
@@ -945,6 +1001,28 @@ LABEL_5:
   }
 }
 
+- (void)operationsHelper:(id)helper didSaveAccount:(id)account withSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  accountCopy = account;
+  helperCopy = helper;
+  v13 = dataaccess_get_global_queue();
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_4F6C;
+  block[3] = &unk_30870;
+  v19 = successCopy;
+  v17 = errorCopy;
+  selfCopy = self;
+  v14 = errorCopy;
+  dispatch_async(v13, block);
+
+  v15.receiver = self;
+  v15.super_class = ESSettingsAccountsUIController;
+  [(ESSettingsAccountsUIController *)&v15 operationsHelper:helperCopy didSaveAccount:accountCopy withSuccess:successCopy error:v14];
+}
+
 - (BOOL)isRunningFromMobileMailApp
 {
   v2 = +[NSBundle mainBundle];
@@ -985,6 +1063,39 @@ LABEL_5:
   v4.receiver = self;
   v4.super_class = ESSettingsAccountsUIController;
   [(ESSettingsAccountsUIController *)&v4 dealloc];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = +[UIApplication sharedApplication];
+  isSuspended = [v5 isSuspended];
+
+  rootController = [(ESSettingsAccountsUIController *)self rootController];
+  deallocating = [rootController deallocating];
+
+  rootController2 = [(ESSettingsAccountsUIController *)self rootController];
+  viewControllers = [rootController2 viewControllers];
+  v11 = [viewControllers containsObject:self];
+
+  if ((isSuspended & 1) != 0 || (deallocating & 1) != 0 || !v11)
+  {
+    if ([(ESSettingsAccountsUIController *)self validationInProgress])
+    {
+      [(ESSettingsAccountsUIController *)self updateDoneButton];
+      [(ESSettingsAccountsUIController *)self hideProgressWithPrompt:0];
+    }
+
+    else if ([(ESSettingsAccountsUIController *)self accountNeedsAdd])
+    {
+      account = [(ESSettingsAccountsUIController *)self account];
+      [account cleanupAccountFiles];
+    }
+  }
+
+  v13.receiver = self;
+  v13.super_class = ESSettingsAccountsUIController;
+  [(ESSettingsAccountsUIController *)&v13 viewWillDisappear:disappearCopy];
 }
 
 - (int)indexOfCurrentlyEditingCell

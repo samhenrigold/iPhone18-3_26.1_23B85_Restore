@@ -3,6 +3,7 @@
 - (BOOL)isLocked;
 - (EFObservable)lockStateObservable;
 - (MFLockStateMonitor)init;
+- (void)_receiveLockState:(BOOL)state;
 - (void)dealloc;
 @end
 
@@ -95,14 +96,12 @@ void __26__MFLockStateMonitor_init__block_invoke(uint64_t a1, int a2)
 
 - (EFObservable)lockStateObservable
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   distinctUntilChanged = [(EFObserver *)self->_observable distinctUntilChanged];
   v4 = [MEMORY[0x277CCABB0] numberWithBool:{-[MFLockStateMonitor isLocked](self, "isLocked")}];
-  v9[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v6 = [distinctUntilChanged startWith:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -124,6 +123,22 @@ void __26__MFLockStateMonitor_init__block_invoke(uint64_t a1, int a2)
   v3 = *(v7 + 24);
   _Block_object_dispose(&v6, 8);
   return v3;
+}
+
+- (void)_receiveLockState:(BOOL)state
+{
+  stateCopy = state;
+  queue = self->_queue;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __40__MFLockStateMonitor__receiveLockState___block_invoke;
+  v8[3] = &unk_2798B7488;
+  v8[4] = self;
+  stateCopy2 = state;
+  dispatch_barrier_sync(queue, v8);
+  observable = self->_observable;
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:stateCopy];
+  [(EFObserver *)observable observerDidReceiveResult:v7];
 }
 
 @end

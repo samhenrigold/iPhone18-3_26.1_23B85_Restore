@@ -9,7 +9,7 @@
 - (BOOL)packEntryWithName:(id)name itemType:(int64_t)type itemID:(unint64_t)d nextCookie:(unint64_t)cookie attributes:(id)attributes
 {
   typeCopy = type;
-  v44 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   attributesCopy = attributes;
   selfCopy = self;
@@ -19,39 +19,40 @@
 
   if (v16)
   {
-    v17 = 0;
+    v18 = 0;
     while (1)
     {
       data2 = [nameCopy data];
-      v19 = *([data2 bytes] + v17);
+      v20 = *([data2 bytes] + v18);
 
-      if (v19 == 47)
+      if (v20 == 47)
       {
         break;
       }
 
-      if (v16 == ++v17)
+      if (v16 == ++v18)
       {
         goto LABEL_5;
       }
     }
 
     string = [nameCopy string];
+    v33 = string;
     if (string)
     {
-      v30 = fskit_std_log();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v34 = fskit_std_log(string);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        [FSDirectoryEntryPacker packEntryWithName:string itemType:v30 itemID:? nextCookie:? attributes:?];
+        [FSDirectoryEntryPacker packEntryWithName:v33 itemType:v34 itemID:? nextCookie:? attributes:?];
       }
     }
 
     else
     {
-      v30 = fskit_std_log();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v34 = fskit_std_log(0);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        [FSDirectoryEntryPacker packEntryWithName:v30 itemType:? itemID:? nextCookie:? attributes:?];
+        [FSDirectoryEntryPacker packEntryWithName:v34 itemType:? itemID:? nextCookie:? attributes:?];
       }
     }
 
@@ -64,8 +65,9 @@ LABEL_5:
     if (attributesCopy)
     {
       bytesPacked = selfCopy->_bytesPacked;
-      v21 = (v16 + 208) & 0xFFFFFFF8;
-      if (bytesPacked + v21 > [(FSMutableFileDataBuffer *)selfCopy->_buffer length])
+      v22 = [(FSMutableFileDataBuffer *)selfCopy->_buffer length];
+      v23 = (v16 + 208) & 0xFFFFFFF8;
+      if (bytesPacked + v23 > v22)
       {
         lastEntry = selfCopy->_lastEntry;
         if (lastEntry)
@@ -73,95 +75,95 @@ LABEL_5:
           lastEntry[4] = 0;
         }
 
-        v23 = fskit_std_log();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        v25 = fskit_std_log(v22);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v43 = "[FSDirectoryEntryPacker packEntryWithName:itemType:itemID:nextCookie:attributes:]";
-          _os_log_impl(&dword_24A929000, v23, OS_LOG_TYPE_INFO, "%s: Packer out of space", buf, 0xCu);
+          v46 = "[FSDirectoryEntryPacker packEntryWithName:itemType:itemID:nextCookie:attributes:]";
+          _os_log_impl(&dword_24A929000, v25, OS_LOG_TYPE_INFO, "%s: Packer out of space", buf, 0xCu);
         }
 
         goto LABEL_18;
       }
 
       cookieCopy = cookie;
-      v37 = ([(FSMutableFileDataBuffer *)selfCopy->_buffer mutableBytes]+ selfCopy->_bytesPacked);
-      [attributesCopy getLIAttributes:v37 + 16];
+      v41 = ([(FSMutableFileDataBuffer *)selfCopy->_buffer mutableBytes]+ selfCopy->_bytesPacked);
+      [attributesCopy getLIAttributes:v41 + 16];
       data3 = [nameCopy data];
-      memcpy((v37 + 200), [data3 bytes], v16);
+      memcpy((v41 + 200), [data3 bytes], v16);
 
-      *(v37 + 200 + v16) = 0;
-      *(v37 + 10) = 200;
-      *(v37 + 12) = v16;
-      *(v37 + 8) = (v16 + 208) & 0xFFF8;
-      *v37 = cookieCopy;
-      selfCopy->_bytesPacked += v21;
-      selfCopy->_lastEntry = v37;
+      *(v41 + 200 + v16) = 0;
+      *(v41 + 10) = 200;
+      *(v41 + 12) = v16;
+      *(v41 + 8) = (v16 + 208) & 0xFFF8;
+      *v41 = cookieCopy;
+      selfCopy->_bytesPacked += v23;
+      selfCopy->_lastEntry = v41;
     }
 
     else
     {
-      v35 = fskit_std_log();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v39 = fskit_std_log(v17);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        [FSDirectoryEntryPacker packEntryWithName:v35 itemType:? itemID:? nextCookie:? attributes:?];
+        [FSDirectoryEntryPacker packEntryWithName:v39 itemType:? itemID:? nextCookie:? attributes:?];
       }
     }
 
 LABEL_30:
-    v28 = 1;
+    v31 = 1;
     goto LABEL_31;
   }
 
-  v24 = selfCopy->_bytesPacked;
+  v26 = selfCopy->_bytesPacked;
+  v27 = [(FSMutableFileDataBuffer *)selfCopy->_buffer length];
   cookieCopy2 = cookie;
-  v25 = attributesCopy;
-  v26 = (v16 + 29) & 0xFFFFFFFFFFFFFFF8;
-  if (v24 + v26 <= [(FSMutableFileDataBuffer *)selfCopy->_buffer length])
+  v28 = attributesCopy;
+  v29 = (v16 + 29) & 0xFFFFFFFFFFFFFFF8;
+  if (v26 + v29 <= v27)
   {
     mutableBytes = [(FSMutableFileDataBuffer *)selfCopy->_buffer mutableBytes];
-    v32 = selfCopy->_bytesPacked;
+    v36 = selfCopy->_bytesPacked;
     data4 = [nameCopy data];
-    v34 = (mutableBytes + v32);
-    memcpy(v34 + 21, [data4 bytes], v16);
+    v38 = (mutableBytes + v36);
+    memcpy(v38 + 21, [data4 bytes], v16);
 
-    v34[v16 + 21] = 0;
-    *(v34 + 9) = v16;
-    v34[20] = typeCopy;
-    *(v34 + 8) = v26;
-    *v34 = d;
-    *(v34 + 1) = cookieCopy2;
-    selfCopy->_bytesPacked += v26;
-    selfCopy->_lastEntry = v34;
-    v28 = 1;
-    attributesCopy = v25;
+    v38[v16 + 21] = 0;
+    *(v38 + 9) = v16;
+    v38[20] = typeCopy;
+    *(v38 + 8) = v29;
+    *v38 = d;
+    *(v38 + 1) = cookieCopy2;
+    selfCopy->_bytesPacked += v29;
+    selfCopy->_lastEntry = v38;
+    v31 = 1;
+    attributesCopy = v28;
     goto LABEL_31;
   }
 
-  v27 = selfCopy->_lastEntry;
-  if (v27)
+  v30 = selfCopy->_lastEntry;
+  if (v30)
   {
-    v27[8] = 0;
+    v30[8] = 0;
   }
 
-  v23 = fskit_std_log();
-  attributesCopy = v25;
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+  v25 = fskit_std_log(v27);
+  attributesCopy = v28;
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v43 = "[FSDirectoryEntryPacker packEntryWithName:itemType:itemID:nextCookie:attributes:]";
-    _os_log_impl(&dword_24A929000, v23, OS_LOG_TYPE_INFO, "%s: Packer out of space", buf, 0xCu);
+    v46 = "[FSDirectoryEntryPacker packEntryWithName:itemType:itemID:nextCookie:attributes:]";
+    _os_log_impl(&dword_24A929000, v25, OS_LOG_TYPE_INFO, "%s: Packer out of space", buf, 0xCu);
   }
 
 LABEL_18:
 
-  v28 = 0;
+  v31 = 0;
   selfCopy->_outOfSpace = 1;
 LABEL_31:
   objc_sync_exit(selfCopy);
 
-  v39 = *MEMORY[0x277D85DE8];
-  return v28;
+  return v31;
 }
 
 - (FSDirectoryEntryPacker)initWithBuffer:(id)buffer withAttributes:(BOOL)attributes
@@ -209,31 +211,28 @@ LABEL_31:
 
 - (void)packEntryWithName:(uint64_t)a1 itemType:(NSObject *)a2 itemID:nextCookie:attributes:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[FSDirectoryEntryPacker packEntryWithName:itemType:itemID:nextCookie:attributes:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_24A929000, a2, OS_LOG_TYPE_ERROR, "%s:error: Invalid entry name (%@)", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[FSDirectoryEntryPacker packEntryWithName:itemType:itemID:nextCookie:attributes:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_24A929000, a2, OS_LOG_TYPE_ERROR, "%s:error: Invalid entry name (%@)", &v2, 0x16u);
 }
 
 - (void)packEntryWithName:(os_log_t)log itemType:itemID:nextCookie:attributes:.cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[FSDirectoryEntryPacker packEntryWithName:itemType:itemID:nextCookie:attributes:]";
-  _os_log_error_impl(&dword_24A929000, log, OS_LOG_TYPE_ERROR, "%s:error: Invalid entry name", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[FSDirectoryEntryPacker packEntryWithName:itemType:itemID:nextCookie:attributes:]";
+  _os_log_error_impl(&dword_24A929000, log, OS_LOG_TYPE_ERROR, "%s:error: Invalid entry name", &v1, 0xCu);
 }
 
 - (void)packEntryWithName:(os_log_t)log itemType:itemID:nextCookie:attributes:.cold.3(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[FSDirectoryEntryPacker packEntryWithName:itemType:itemID:nextCookie:attributes:]";
-  _os_log_error_impl(&dword_24A929000, log, OS_LOG_TYPE_ERROR, "%s:error: No attributes found, while we were requeste to pack with attributes", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[FSDirectoryEntryPacker packEntryWithName:itemType:itemID:nextCookie:attributes:]";
+  _os_log_error_impl(&dword_24A929000, log, OS_LOG_TYPE_ERROR, "%s:error: No attributes found, while we were requeste to pack with attributes", &v1, 0xCu);
 }
 
 @end

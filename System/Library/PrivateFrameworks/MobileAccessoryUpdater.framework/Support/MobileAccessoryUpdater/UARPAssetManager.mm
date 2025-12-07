@@ -17,6 +17,7 @@
 - (int64_t)downloadReleaseNotesForAccessoryID:(id)d assetID:(id)iD;
 - (int64_t)downloadReleaseNotesFromLocalPathForAccessory:(id)accessory assetID:(id)d;
 - (int64_t)getAttestationCertificates:(id)certificates assetID:(id)d;
+- (int64_t)getSupportedAccessories:(id)accessories assetID:(id)d batchRequest:(BOOL)request;
 - (int64_t)performLocalUpdateCheckForAccessory:(id)accessory;
 - (int64_t)performRemoteUpdateCheckForAccessoryID:(id)d;
 - (int64_t)qCheckDropBoxForAccessory:(id)accessory;
@@ -503,9 +504,9 @@ LABEL_18:
   {
     if (v10)
     {
-      v15 = 138412290;
-      v16 = v8;
-      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "File created %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v8;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "File created %@", &v14, 0xCu);
     }
 
     [d setLocalURL:v8];
@@ -525,12 +526,11 @@ LABEL_18:
   v12 = self->_log;
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v15 = 134217984;
-    v16 = v11;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "uarpError = %ld", &v15, 0xCu);
+    v14 = 134217984;
+    v15 = v11;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "uarpError = %ld", &v14, 0xCu);
   }
 
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
     [(UARPAssetManagerDelegate *)self->_delegate removeSandboxExtensionWithURL:v7];
@@ -1331,7 +1331,7 @@ LABEL_5:
 
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
   {
-    sub_10004E5F0(buf);
+    sub_10004E5F0();
   }
 }
 
@@ -1385,14 +1385,35 @@ LABEL_5:
       v8 = &off_1000881F0;
       if (![(NSFileManager *)v5 setAttributes:[NSDictionary dictionaryWithObjects:&v7 forKeys:1 count:?], folder, &v6]&& os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
       {
-        sub_10004E750(folder, &v6);
+        sub_10004E750();
       }
     }
 
     else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_10004E6E0(folder, &v6);
+      sub_10004E6E0();
     }
+  }
+}
+
+- (int64_t)getSupportedAccessories:(id)accessories assetID:(id)d batchRequest:(BOOL)request
+{
+  requestCopy = request;
+  v8 = [(UARPAssetManager *)self containerIDForAssetID:d];
+  if (v8)
+  {
+    [(UARPiCloudAssetManager *)self->_iCloudAssetManager getSupportedAccessories:accessories batchRequest:requestCopy inContainer:v8];
+    return 0;
+  }
+
+  else
+  {
+    if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E7C0();
+    }
+
+    return 4;
   }
 }
 

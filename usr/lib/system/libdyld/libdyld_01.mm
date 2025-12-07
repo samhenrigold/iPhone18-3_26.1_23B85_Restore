@@ -1,86 +1,3 @@
-uint64_t dyld3::open(dyld3 *this, const char *a2, uint64_t a3)
-{
-  v4 = a2;
-  for (result = open(this, a2, a3); result == -1; result = open(this, v4, a3))
-  {
-    if (*__error() != 35 && *__error() != 4)
-    {
-      return 0xFFFFFFFFLL;
-    }
-  }
-
-  return result;
-}
-
-_DWORD *dyld3::FatFile::isFatFile(_DWORD *this, const void *a2)
-{
-  if ((*this | 0x1000000) != 0xBFBAFECA)
-  {
-    return 0;
-  }
-
-  return this;
-}
-
-BOOL dyld3::FatFile::isValidSlice(dyld3::FatFile *this, Diagnostics *a2, unint64_t a3, unsigned int a4, int a5, int a6, unint64_t a7, unint64_t a8)
-{
-  if (a3 < a7 || a3 - a7 < a8)
-  {
-    Diagnostics::error(a2, "slice %d extends beyond end of file");
-  }
-
-  else
-  {
-    v12 = this + a7;
-    result = dyld3::MachOFile::isMachO((this + a7), a2, a8);
-    if (!result)
-    {
-      return result;
-    }
-
-    if (*(v12 + 1) == a5)
-    {
-      v14 = *(v12 + 2);
-      if (((v14 ^ a6) & 0xFFFFFF) != 0)
-      {
-        v16 = *(v12 + 2);
-        Diagnostics::error(a2, "cpu subtype in slice (0x%08X) does not match fat header (0x%08X)");
-      }
-
-      else
-      {
-        if (a5 == 33554444 || a5 == 16777228 || (v15 = 4095, a5 == 12) && v14 == 12 && *(v12 + 3) != 11)
-        {
-          v15 = 0x3FFFLL;
-        }
-
-        if ((v15 & a7) == 0)
-        {
-          return 1;
-        }
-
-        if (!strncmp(v12, "!<arch>", 7uLL))
-        {
-          Diagnostics::error(a2, "file is static library");
-        }
-
-        else
-        {
-          Diagnostics::error(a2, "slice is not page aligned");
-        }
-      }
-    }
-
-    else
-    {
-      v17 = *(v12 + 1);
-      Diagnostics::error(a2, "cpu type in slice (0x%08X) does not match fat header (0x%08X)");
-    }
-  }
-
-  return 0;
-}
-
 BOOL dyld3::MachOFile::isMachO(dyld3::MachOFile *this, Diagnostics *a2, unint64_t a3)
 {
   if (a3 <= 0x1B)
@@ -171,7 +88,7 @@ void dyld3::FatFile::forEachSlice(dyld3::FatFile *this, Diagnostics *a2, unint64
     v12 = "not a fat file";
 LABEL_22:
 
-    Diagnostics::error(a2, v12);
+    Diagnostics::error(a2, v12, a3);
     return;
   }
 
@@ -262,7 +179,7 @@ uint64_t dyld3::MachOFile::pointerSize(dyld3::MachOFile *this)
   }
 }
 
-unsigned int *dyld3::MachOFile::forEachLoadCommand(unsigned int *result, Diagnostics *this, uint64_t a3)
+_DWORD *dyld3::MachOFile::forEachLoadCommand(_DWORD *result, Diagnostics *this, uint64_t a3)
 {
   v5 = result;
   v6 = *result;
@@ -277,8 +194,6 @@ unsigned int *dyld3::MachOFile::forEachLoadCommand(unsigned int *result, Diagnos
     {
       if ((v6 & 0xFEFFFFFF) != 0xCEFAEDFE)
       {
-        v16 = *result;
-        v17 = result[1];
         return Diagnostics::error(this, "file does not start with MH_MAGIC[_64]: 0x%08X 0x%08X");
       }
 
@@ -288,62 +203,57 @@ unsigned int *dyld3::MachOFile::forEachLoadCommand(unsigned int *result, Diagnos
     v7 = 7;
   }
 
-  if (result[3] < 0xD)
+  if (result[3] >= 0xDu)
   {
-    if (result[4])
-    {
-      v8 = 0;
-      v9 = &result[v7];
-      v10 = &result[v7] + result[5];
-      v11 = &result[v7];
-      while (1)
-      {
-        if (v11 > v10 - 8)
-        {
-          return Diagnostics::error(this, "malformed load command #%u of %u at %p with mh=%p, extends past sizeofcmds");
-        }
-
-        v12 = *(v11 + 4);
-        if (v12 <= 7)
-        {
-          return Diagnostics::error(this, "malformed load command #%u of %u at %p with mh=%p, size (0x%X) too small");
-        }
-
-        if ((v12 & 3) != 0)
-        {
-          break;
-        }
-
-        v13 = v11 + v12;
-        if (v11 + v12 > v10 || v13 < v9)
-        {
-          v18 = *(v11 + 4);
-          return Diagnostics::error(this, "malformed load command #%u of %u at %p with mh=%p, size (0x%X) is too large, load commands end at %p");
-        }
-
-        result = (*(a3 + 16))(a3);
-        ++v8;
-        v11 = v13;
-        if (v8 >= v5[4])
-        {
-          return result;
-        }
-      }
-
-      return Diagnostics::error(this, "malformed load command #%u of %u at %p with mh=%p, size (0x%X) not multiple of 4");
-    }
+    return Diagnostics::error(this, "unknown mach-o filetype (%u)");
   }
 
-  else
+  if (result[4])
   {
-    v15 = result[3];
-    return Diagnostics::error(this, "unknown mach-o filetype (%u)");
+    v8 = 0;
+    v9 = &result[v7];
+    v10 = &result[v7] + result[5];
+    v11 = &result[v7];
+    while (1)
+    {
+      if (v11 > v10 - 2)
+      {
+        return Diagnostics::error(this, "malformed load command #%u of %u at %p with mh=%p, extends past sizeofcmds");
+      }
+
+      v12 = v11[1];
+      if (v12 <= 7)
+      {
+        return Diagnostics::error(this, "malformed load command #%u of %u at %p with mh=%p, size (0x%X) too small");
+      }
+
+      if ((v12 & 3) != 0)
+      {
+        break;
+      }
+
+      v13 = (v11 + v12);
+      if (v11 + v12 > v10 || v13 < v9)
+      {
+        return Diagnostics::error(this, "malformed load command #%u of %u at %p with mh=%p, size (0x%X) is too large, load commands end at %p");
+      }
+
+      result = (*(a3 + 16))(a3);
+      ++v8;
+      v11 = v13;
+      if (v8 >= v5[4])
+      {
+        return result;
+      }
+    }
+
+    return Diagnostics::error(this, "malformed load command #%u of %u at %p with mh=%p, size (0x%X) not multiple of 4");
   }
 
   return result;
 }
 
-uint64_t deviceSupportsMTE()
+uint64_t deviceSupportsMTE(uint64_t a1, uint64_t a2)
 {
   if (deviceSupportsMTE::onceToken != -1)
   {
@@ -966,36 +876,17 @@ BOOL dyld4::Atlas::Image::forEachSegment(dyld4::Atlas::Image *a1, uint64_t a2)
   return v4 != 0;
 }
 
-uint64_t ___ZN5dyld45Atlas5Image14forEachSegmentEU13block_pointerFvPKcyyiE_block_invoke(void *a1, uint64_t *a2)
+uint64_t ___ZN5dyld45Atlas5Image14forEachSegmentEU13block_pointerFvPKcyyiE_block_invoke(uint64_t a1, void *a2)
 {
-  v4 = a1[6];
-  if (v4[152] == 1)
+  v4 = *(a1 + 48);
+  if (*(v4 + 152) == 1 || (v5 = dyld4::Atlas::Image::ml(v4), !dyld3::MachOFile::isMainExecutable(v5)) || (result = std::string_view::starts_with[abi:nn200100](a2, "__PAGEZERO"), (result & 1) == 0))
   {
-    v5 = v4 + 144;
+    v7 = *(*(a1 + 32) + 16);
+
+    return v7();
   }
 
-  else
-  {
-    v6 = dyld4::Atlas::Image::ml(v4);
-    if (dyld3::MachOFile::isMainExecutable(v6))
-    {
-      result = std::string_view::starts_with[abi:nn200100](a2, "__PAGEZERO");
-      if (result)
-      {
-        return result;
-      }
-    }
-
-    v5 = (*(a1[5] + 8) + 24);
-  }
-
-  v8 = *a2;
-  v9 = a2[3];
-  v10 = *(a1[4] + 16);
-  v11 = *(a2 + 47);
-  v12 = *v5 + a2[2];
-
-  return v10();
+  return result;
 }
 
 BOOL dyld4::Atlas::Image::forEachSection(dyld4::Atlas::Image *a1, uint64_t a2)
@@ -1022,27 +913,6 @@ BOOL dyld4::Atlas::Image::forEachSection(dyld4::Atlas::Image *a1, uint64_t a2)
   }
 
   return v4 != 0;
-}
-
-uint64_t ___ZN5dyld45Atlas5Image14forEachSectionEU13block_pointerFvPKcS3_yyE_block_invoke(void *a1, uint64_t *a2)
-{
-  v2 = a1[6];
-  if (*(v2 + 152) == 1)
-  {
-    v3 = (v2 + 144);
-  }
-
-  else
-  {
-    v3 = (*(a1[5] + 8) + 24);
-  }
-
-  v4 = *v3;
-  v5 = a2[2];
-  v6 = *a2;
-  v7 = a2[8];
-  v8 = v4 + a2[7];
-  return (*(a1[4] + 16))();
 }
 
 uint64_t dyld4::Atlas::Image::contentForSegment(dyld4::Atlas::Image *a1, uint64_t a2, uint64_t a3)
@@ -1131,7 +1001,6 @@ uint64_t ___ZN5dyld45Atlas5Image17contentForSegmentEPKcU13block_pointerFvPKvyyE_
 
         v16 = dyld4::Atlas::Mapper::map(v15, v12 + *(a2 + 16), *(a2 + 24));
         v18 = v17;
-        v19 = *(a2 + 24);
         result = (*(a1[4] + 16))();
         if (v16)
         {
@@ -1230,7 +1099,6 @@ uint64_t ___ZN5dyld45Atlas5Image17contentForSectionEPKcS3_U13block_pointerFvPKvy
 
             v16 = dyld4::Atlas::Mapper::map(v15, v12 + *(a2 + 56), *(a2 + 64));
             v18 = v17;
-            v19 = *(a2 + 64);
             result = (*(*(a1 + 32) + 16))();
             if (v16)
             {
@@ -1271,7 +1139,7 @@ atomic_uint **dyld4::Atlas::SharedCacheLocals::SharedCacheLocals(atomic_uint **a
     *(a1 + 40) = a3;
     if (v5)
     {
-      v6 = *(v5 + 1);
+      v6 = *(v5 + 8);
     }
 
     else
@@ -1314,7 +1182,7 @@ atomic_uint **dyld4::Atlas::SharedCacheLocals::SharedCacheLocals(atomic_uint **a
   *(a1 + 32) = v17;
   if (v15 && v16)
   {
-    munmap((v15 & -vm_page_size), v15 + v14 - (v15 & -vm_page_size));
+    munmap((v15 & -vm_page_size), v14 + v15 - (v15 & -vm_page_size));
   }
 
   if (v8 && (v10 & 1) != 0)
@@ -1333,23 +1201,23 @@ void dyld4::Atlas::SharedCache::forEachInstalledCacheWithSystemPath(uint64_t a1)
   v7 = v6;
   v8 = v1;
   v9 = 0;
-  v35 = 0;
-  v36 = v1;
-  v37 = 0;
+  v36 = 0;
+  v37 = v1;
   v38 = 0;
+  v39 = 0;
   do
   {
-    v30[0] = 0;
-    if ((!v5 || dyld4::Utils::concatenatePaths(v30, v5, 0x400) <= 0x3FF) && dyld4::Utils::concatenatePaths(v30, dyld4::Atlas::SharedCache::forEachInstalledCacheWithSystemPath(lsl::Allocator &,dyld4::FileManager &,char const*,void({block_pointer})(dyld4::Atlas::SharedCache*))::cacheDirPaths[v9], 0x400) <= 0x3FF)
+    v31[0] = 0;
+    if ((!v5 || dyld4::Utils::concatenatePaths(v31, v5, 0x400) <= 0x3FF) && dyld4::Utils::concatenatePaths(v31, dyld4::Atlas::SharedCache::forEachInstalledCacheWithSystemPath(lsl::Allocator &,dyld4::FileManager &,char const*,void({block_pointer})(dyld4::Atlas::SharedCache*))::cacheDirPaths[v9], 0x400) <= 0x3FF)
     {
       __source[0] = 0;
-      if (realpath_DARWIN_EXTSN(v30, __source))
+      if (realpath_DARWIN_EXTSN(v31, __source))
       {
         if (dyld4::Utils::concatenatePaths(__source, "/", 0x400) <= 0x3FF)
         {
           v23 = lsl::Allocator::strdup(v8, __source);
-          lsl::OrderedSet<char const*,lsl::ConstCharStarCompare>::insert(&v35, &v23, v27);
-          if (v27[104])
+          lsl::OrderedSet<char const*,lsl::ConstCharStarCompare>::insert(&v36, &v23, v27);
+          if (v28)
           {
             v10 = opendir(__source);
             if (v10)
@@ -1361,7 +1229,7 @@ void dyld4::Atlas::SharedCache::forEachInstalledCacheWithSystemPath(uint64_t a1)
               {
                 if (v22->d_type == 8 && !DyldSharedCache::isSubCachePath(v22->d_name, v12) && strlcpy(__dst, __source, 0x400uLL) <= 0x3FF && dyld4::Utils::concatenatePaths(__dst, v22->d_name, 0x400) <= 0x3FF)
                 {
-                  dyld4::FileManager::fileRecordForPath(v7, v8, __dst, v24);
+                  dyld4::FileManager::fileRecordForPath(v24, v7, v8, __dst);
                   dyld4::Atlas::SharedCache::createForFileRecord(v8, v24, &v21);
                   v13 = v21;
                   if (v21)
@@ -1390,40 +1258,40 @@ void dyld4::Atlas::SharedCache::forEachInstalledCacheWithSystemPath(uint64_t a1)
   }
 
   while (v9 != 17);
-  v26.d_ino = &v35;
+  v26.d_ino = &v36;
   memset(&v26.d_seekoff, 0, 91);
   v14 = lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::const_iterator::operator++(&v26);
   v15 = *v14;
-  v31[0] = *(v14 + 1);
+  v32[0] = *(v14 + 1);
   v16 = *(v14 + 9);
   v17 = *(v14 + 7);
   v18 = *(v14 + 5);
-  v31[1] = *(v14 + 3);
-  v31[2] = v18;
-  v31[3] = v17;
-  v31[4] = v16;
+  v32[1] = *(v14 + 3);
+  v32[2] = v18;
+  v32[3] = v17;
+  v32[4] = v16;
   v19 = v14[11];
-  v33 = *(v14 + 48);
+  v34 = *(v14 + 48);
   v20 = *(v14 + 98);
-  v32 = v19;
-  *v30 = v15;
-  v34 = v20;
-  v29 = 0u;
+  v33 = v19;
+  *v31 = v15;
+  v35 = v20;
+  v30 = 0u;
   memset(&v26.d_seekoff, 0, 91);
-  v26.d_ino = &v35;
-  while (lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::const_iterator::operator<=>(v30, &v26))
+  v26.d_ino = &v36;
+  while (lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::const_iterator::operator<=>(v31, &v26))
   {
-    lsl::Allocator::free(v8, *(*(v31 + v34 - 1) + 8 * *(&v32 + v34 - 1)));
-    lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::const_iterator::operator++(v30);
+    lsl::Allocator::free(v8, *(*(v32 + v35 - 1) + 8 * *(&v33 + v35 - 1)));
+    lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::const_iterator::operator++(v31);
   }
 
-  if (v35)
+  if (v36)
   {
-    lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::NodeCore<31u,15u>::deallocate(v35, v36);
+    lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::NodeCore<31u,15u>::deallocate(v36, v37);
   }
 }
 
-double lsl::OrderedSet<char const*,lsl::ConstCharStarCompare>::insert@<D0>(uint64_t *a1@<X0>, char **a2@<X1>, uint64_t a3@<X8>)
+double lsl::OrderedSet<char const*,lsl::ConstCharStarCompare>::insert@<D0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v8 = *a2;
   lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::const_iterator::const_iterator(v19, a1, &v8);
@@ -1446,7 +1314,7 @@ double lsl::OrderedSet<char const*,lsl::ConstCharStarCompare>::insert@<D0>(uint6
 
 void dyld4::Atlas::SharedCache::createForFileRecord(uint64_t a1@<X0>, dyld4::FileRecord *a2@<X1>, void *a3@<X8>)
 {
-  dyld4::Atlas::Mapper::mapperForSharedCache();
+  dyld4::Atlas::Mapper::mapperForSharedCache(a1);
   v7 = v12;
   if (!v12)
   {
@@ -1634,7 +1502,7 @@ void dyld4::Atlas::SharedCache::withImageForIndex(void *a1, unsigned int a2, uin
   dyld4::FileRecord::~FileRecord(v8);
 }
 
-void dyld4::Atlas::SharedCache::localSymbols(dyld4::Atlas::SharedCache *this@<X0>, atomic_uint ***a2@<X8>)
+void dyld4::Atlas::SharedCache::localSymbols(atomic_uint ***__return_ptr a1@<X8>, dyld4::Atlas::SharedCache *this@<X0>)
 {
   Path = dyld4::FileRecord::getPath((this + 8));
   strlcpy(__dst, Path, 0x400uLL);
@@ -1648,7 +1516,7 @@ void dyld4::Atlas::SharedCache::localSymbols(dyld4::Atlas::SharedCache *this@<X0
     }
 
 LABEL_12:
-    *a2 = 0;
+    *a1 = 0;
     return;
   }
 
@@ -1665,7 +1533,7 @@ LABEL_12:
   strlcat(__dst, ".symbols", 0x400uLL);
 LABEL_8:
   v7 = dyld4::FileRecord::fileManager((this + 8));
-  dyld4::FileManager::fileRecordForPath(v7, *this, __dst, v17);
+  dyld4::FileManager::fileRecordForPath(v17, v7, *this, __dst);
   dyld4::Atlas::Mapper::mapperForSharedCacheLocals(v8, v17, v9);
   v11 = v16;
   if (v16)
@@ -1678,7 +1546,7 @@ LABEL_8:
       v15 = lsl::Allocator::aligned_alloc(v14, 8uLL, 0x30uLL);
       dyld4::Atlas::SharedCacheLocals::SharedCacheLocals(v15, &v16, v12);
       v11 = v16;
-      *a2 = v15;
+      *a1 = v15;
       if (!v11)
       {
         goto LABEL_16;
@@ -1687,7 +1555,7 @@ LABEL_8:
 
     else
     {
-      *a2 = 0;
+      *a1 = 0;
     }
 
     lsl::SharedPtr<dyld4::Atlas::Mapper>::Ctrl::decrementRefCount(v11, v10);
@@ -1695,7 +1563,7 @@ LABEL_8:
 
   else
   {
-    *a2 = 0;
+    *a1 = 0;
   }
 
 LABEL_16:
@@ -1755,7 +1623,7 @@ dyld4::Atlas::Process *dyld4::Atlas::Process::Process(dyld4::Atlas::Process *thi
   *(this + 16) = 0;
   v12 = (this + 128);
   *(this + 34) = 1;
-  dyld4::Atlas::Process::getSnapshot(this, a5, &v16);
+  dyld4::Atlas::Process::getSnapshot(&v16, this, a5);
   if (&v16 != (this + 128))
   {
     v14 = *v12;
@@ -1937,7 +1805,7 @@ NSObject *dyld4::Atlas::Process::teardownNotifications(dispatch_queue_t *this)
   return result;
 }
 
-void **dyld4::Atlas::Process::synthesizeSnapshot@<X0>(mach_port_name_t *this@<X0>, unsigned int *a2@<X1>, void **a3@<X8>)
+void **dyld4::Atlas::Process::synthesizeSnapshot@<X0>(mach_port_name_t *this@<X0>, unsigned int *a2@<X1>, dyld4::Atlas::ProcessSnapshot **a3@<X8>)
 {
   v6 = lsl::MemoryManager::memoryManager(this);
   v7 = lsl::MemoryManager::defaultAllocator(v6);
@@ -2042,7 +1910,7 @@ LABEL_57:
         v24 = *(this + 1);
         v25 = lsl::MemoryManager::memoryManager(v23);
         v26 = lsl::MemoryManager::defaultAllocator(v25);
-        dyld4::FileManager::fileRecordForPath(v24, v26, buffer, v70);
+        dyld4::FileManager::fileRecordForPath(v70, v24, v26, buffer);
         v69 = 0uLL;
         Uuid = mach_o::Header::getUuid(v22, &v69);
         v68 = v69;
@@ -2091,7 +1959,7 @@ LABEL_57:
         v34 = *(this + 1);
         v35 = lsl::MemoryManager::memoryManager(v33);
         v36 = lsl::MemoryManager::defaultAllocator(v35);
-        dyld4::FileManager::fileRecordForPath(v34, v36, buffer, v70);
+        dyld4::FileManager::fileRecordForPath(v70, v34, v36, buffer);
         v69 = 0uLL;
         v37 = mach_o::Header::getUuid(v22, &v69);
         v68 = v69;
@@ -2363,7 +2231,7 @@ void dyld4::Atlas::Process::handleNotifications(dyld4::Atlas::Process *this)
           else
           {
             v19[0] = 0;
-            dyld4::Atlas::Process::getSnapshot(v2, v19, &v24);
+            dyld4::Atlas::Process::getSnapshot(&v24, v2, v19);
             if (!v19[0])
             {
               lsl::UniquePtr<dyld4::Atlas::ProcessSnapshot>::withUnsafe<dyld4::Atlas::Process::handleNotifications(void)::$_0>(&v24, v2);
@@ -2521,12 +2389,12 @@ void ___ZN5dyld45Atlas7Process32registerAtlasChangedEventHandlerEPiP16dispatch_q
   }
 
   v5 = *(v3 + 128);
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 0x40000000;
-  v12[2] = ___ZN5dyld45Atlas7Process32registerAtlasChangedEventHandlerEPiP16dispatch_queue_sU13block_pointerFvPNS0_5ImageEbE_block_invoke_2;
-  v12[3] = &unk_1EEE9C388;
-  v12[4] = *(a1 + 32);
-  dyld4::Atlas::ProcessSnapshot::forEachImage(v5, v12);
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 0x40000000;
+  v11[2] = ___ZN5dyld45Atlas7Process32registerAtlasChangedEventHandlerEPiP16dispatch_queue_sU13block_pointerFvPNS0_5ImageEbE_block_invoke_2;
+  v11[3] = &unk_1EEE9C388;
+  v11[4] = *(a1 + 32);
+  dyld4::Atlas::ProcessSnapshot::forEachImage(v5, v11);
   if (*(v3 + 40) != 1)
   {
     ___ZN5dyld45Atlas7Process32registerAtlasChangedEventHandlerEPiP16dispatch_queue_sU13block_pointerFvPNS0_5ImageEbE_block_invoke_cold_1();
@@ -2540,12 +2408,11 @@ void ___ZN5dyld45Atlas7Process32registerAtlasChangedEventHandlerEPiP16dispatch_q
   v8 = *(*(a1 + 40) + 8);
   v9 = *(a1 + 64);
   v10 = _Block_copy(v7);
-  v13 = *(v8 + 24);
-  v14 = v9;
-  v15 = v10;
-  v11 = *(v3 + 104);
-  lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::const_iterator(v17, (v3 + 88), &v13);
-  lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::insert_internal(v3 + 88, v17, &v13, v16);
+  v12 = *(v8 + 24);
+  v13 = v9;
+  v14 = v10;
+  lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::const_iterator(v16, (v3 + 88), &v12);
+  lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::insert_internal(v3 + 88, v16, &v12, v15);
 }
 
 void dyld4::Atlas::ProcessSnapshot::forEachImage(uint64_t a1, uint64_t a2)
@@ -2714,13 +2581,12 @@ void ___ZN5dyld45Atlas7Process20registerEventHandlerEPijP16dispatch_queue_sU13bl
   v6 = *(a1 + 64);
   v7 = _Block_copy(*(a1 + 32));
   v8 = *(a1 + 72);
-  v10 = *(v5 + 24);
-  v11 = v6;
-  v12 = v7;
-  v13 = v8;
-  v9 = *(v2 + 64);
-  lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::const_iterator(v15, (v2 + 48), &v10);
-  lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::insert_internal(v2 + 48, v15, &v10, v14);
+  v9 = *(v5 + 24);
+  v10 = v6;
+  v11 = v7;
+  v12 = v8;
+  lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::const_iterator(v14, (v2 + 48), &v9);
+  lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::insert_internal(v2 + 48, v14, &v9, v13);
 }
 
 void dyld4::Atlas::Process::unregisterEventHandler(dyld4::Atlas::Process *this, int a2)
@@ -2741,7 +2607,7 @@ double ___ZN5dyld45Atlas7Process22unregisterEventHandlerEj_block_invoke(uint64_t
   *&v34[8] = 0;
   *&v34[16] = 0;
   *v34 = *(a1 + 40);
-  lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::find(v2 + 88, v34, &v36);
+  lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::find((v2 + 88), v34, &v36);
   v29 = v41;
   v30 = v42;
   v31 = v43;
@@ -2807,7 +2673,7 @@ double ___ZN5dyld45Atlas7Process22unregisterEventHandlerEj_block_invoke(uint64_t
   {
     memset(&v34[8], 0, 24);
     *v34 = *(a1 + 40);
-    lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::find(v2 + 48, v34, &v36);
+    lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::find((v2 + 48), v34, &v36);
     v13 = v36;
     v18 = v41;
     v19 = v42;
@@ -3080,19 +2946,19 @@ void dyld4::Atlas::ProcessSnapshot::forEachImageNotIn(uint64_t a1, uint64_t a2, 
   }
 }
 
-void **dyld4::Atlas::ProcessSnapshot::addImage(lsl::MemoryManager *a1, dyld4::Atlas::Image *a2)
+void **dyld4::Atlas::ProcessSnapshot::addImage(uint64_t *a1, dyld4::Atlas::Image *a2)
 {
   v4 = lsl::MemoryManager::memoryManager(a1);
   v5 = lsl::MemoryManager::defaultAllocator(v4);
   lsl::Allocator::makeUnique<dyld4::Atlas::Image,dyld4::Atlas::Image>(v5, a2, &v7);
-  lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr<dyld4::Atlas::Image>>,false>::const_iterator::const_iterator(v9, a1 + 16, &v7);
-  lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr<dyld4::Atlas::Image>>,false>::insert_internal(a1 + 16, v9, &v7, v8);
+  lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr<dyld4::Atlas::Image>>,false>::const_iterator::const_iterator(v9, a1 + 2, &v7);
+  lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr<dyld4::Atlas::Image>>,false>::insert_internal((a1 + 2), v9, &v7, v8);
   return lsl::UniquePtr<dyld4::Atlas::Image>::~UniquePtr(&v7);
 }
 
-void lsl::Vector<char>::reserve(uint64_t a1, unint64_t a2)
+void lsl::Vector<char>::reserve(uint64_t result, unint64_t a2)
 {
-  if (*(a1 + 24) < a2)
+  if (*(result + 24) < a2)
   {
     if (a2 >= 0x10)
     {
@@ -3106,17 +2972,17 @@ void lsl::Vector<char>::reserve(uint64_t a1, unint64_t a2)
       v2 = 16;
     }
 
-    lsl::Vector<char>::reserveExact(a1, v2);
+    lsl::Vector<char>::reserveExact(result, v2);
   }
 }
 
-void lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::NodeCore<31u,15u>::deallocate(char *a1, lsl::Allocator *a2)
+void lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::NodeCore<31u,15u>::deallocate(char **a1, lsl::Allocator *a2)
 {
-  v4 = a1[248];
+  v4 = *(a1 + 248);
   if ((v4 & 0x80000000) == 0)
   {
     v5 = 8 * (v4 + 1);
-    v6 = (a1 + 120);
+    v6 = a1 + 15;
     do
     {
       v7 = *v6++;
@@ -3130,13 +2996,13 @@ void lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::NodeCore<31u,15u>:
   lsl::Allocator::free(a2, a1);
 }
 
-void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::NodeCore<10u,7u>::deallocate(char *a1, lsl::Allocator *a2)
+void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::NodeCore<10u,7u>::deallocate(char **a1, lsl::Allocator *a2)
 {
-  v4 = a1[240];
+  v4 = *(a1 + 240);
   if ((v4 & 0x80000000) == 0)
   {
     v5 = 8 * (v4 + 1);
-    v6 = (a1 + 168);
+    v6 = a1 + 21;
     do
     {
       v7 = *v6++;
@@ -3150,13 +3016,13 @@ void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecor
   lsl::Allocator::free(a2, a1);
 }
 
-void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::NodeCore<7u,6u>::deallocate(char *a1, lsl::Allocator *a2)
+void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::NodeCore<7u,6u>::deallocate(char **a1, lsl::Allocator *a2)
 {
-  v4 = a1[248];
+  v4 = *(a1 + 248);
   if ((v4 & 0x80000000) == 0)
   {
     v5 = 8 * (v4 + 1);
-    v6 = (a1 + 192);
+    v6 = a1 + 24;
     do
     {
       v7 = *v6++;
@@ -3526,9 +3392,9 @@ void lsl::Vector<char const*>::resize(uint64_t a1, unint64_t a2)
   }
 }
 
-void lsl::Vector<char const*>::reserve(uint64_t a1, unint64_t a2)
+void lsl::Vector<char const*>::reserve(uint64_t result, unint64_t a2)
 {
-  if (*(a1 + 24) < a2)
+  if (*(result + 24) < a2)
   {
     if (a2 >= 0x10)
     {
@@ -3542,7 +3408,7 @@ void lsl::Vector<char const*>::reserve(uint64_t a1, unint64_t a2)
       v2 = 16;
     }
 
-    lsl::Vector<char const*>::reserveExact(a1, v2);
+    lsl::Vector<char const*>::reserveExact(result, v2);
   }
 }
 
@@ -3836,7 +3702,7 @@ uint64_t *lsl::Vector<dyld4::Atlas::Mapper::Mapping>::swap(uint64_t *result, uin
   return result;
 }
 
-uint64_t lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::insert_internal@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char **a3@<X2>, uint64_t a4@<X8>)
+uint64_t lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::insert_internal@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
 {
   if (*a1)
   {
@@ -3851,7 +3717,7 @@ uint64_t lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::insert_interna
     {
       v12 = *v10;
       v13 = v10 + 1;
-      v14 = *a3 + 1;
+      v14 = (*a3 + 1);
       while (v12 && v12 >= v11)
       {
         if (v11)
@@ -4034,7 +3900,7 @@ unsigned __int8 *lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::const_
     v6 = 0;
     do
     {
-      if (*(v3[v5] + 248) >= 0)
+      if (*(*&v3[8 * v5] + 248) >= 0)
       {
         v7 = 15;
       }
@@ -4044,7 +3910,7 @@ unsigned __int8 *lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::const_
         v7 = 31;
       }
 
-      if ((*(v3[v5] + 248) & 0x7F) != v7)
+      if ((*(*&v3[8 * v5] + 248) & 0x7F) != v7)
       {
         v6 = v5;
       }
@@ -4083,7 +3949,7 @@ LABEL_15:
         **v2 = result;
         if (v2[98] && (result = memmove(v2 + 89, v2 + 88, v2[98]), v2[98]))
         {
-          result = memmove(v3 + 1, v3, 8 * v2[98]);
+          result = memmove(v3 + 8, v3, 8 * v2[98]);
           LOBYTE(v1) = v2[98] + 1;
         }
 
@@ -4113,8 +3979,8 @@ LABEL_15:
       do
       {
         v13 = v12;
-        result = lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::NodeCore<31u,15u>::splitChild(v3[v12], v11[v12], *(*v2 + 8));
-        v14 = v3[v12];
+        result = lsl::BTree<char const*,lsl::ConstCharStarCompare,false>::NodeCore<31u,15u>::splitChild(*&v3[8 * v12], v11[v12], *(*v2 + 8));
+        v14 = *&v3[8 * v12];
         if (*(v14 + 248) < 0)
         {
           lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
@@ -4128,7 +3994,7 @@ LABEL_15:
           v18 = v15 + 1;
           v11[v12] = v18;
           v2[v12 + 89] = v17 + (~*(v16 + 248) | 0x80);
-          v19 = v3[v12];
+          v19 = *&v3[8 * v12];
           if (*(v19 + 248) < 0)
           {
             lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
@@ -4395,7 +4261,7 @@ LABEL_8:
 
       else
       {
-        v6 = (*v4 + 1);
+        v6 = *v4 + 1;
         v7 = (*a2 + 1);
         v8 = **a2;
         while (v8 && v8 >= v5)
@@ -4988,7 +4854,7 @@ unsigned __int8 *lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::Proces
     v6 = 0;
     do
     {
-      if (*(v3[v5] + 240) >= 0)
+      if (*(*&v3[8 * v5] + 240) >= 0)
       {
         v7 = 7;
       }
@@ -4998,7 +4864,7 @@ unsigned __int8 *lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::Proces
         v7 = 10;
       }
 
-      if ((*(v3[v5] + 240) & 0x7F) != v7)
+      if ((*(*&v3[8 * v5] + 240) & 0x7F) != v7)
       {
         v6 = v5;
       }
@@ -5027,7 +4893,7 @@ LABEL_15:
         **v2 = result;
         if (v2[143] && (result = memmove(v2 + 129, v2 + 128, v2[143]), v2[143]))
         {
-          result = memmove(v3 + 1, v3, 8 * v2[143]);
+          result = memmove(v3 + 8, v3, 8 * v2[143]);
           LOBYTE(v1) = v2[143] + 1;
         }
 
@@ -5057,8 +4923,8 @@ LABEL_15:
       do
       {
         v13 = v12;
-        result = lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::NodeCore<10u,7u>::splitChild(v3[v12], v11[v12], *(*v2 + 8));
-        v14 = v3[v12];
+        result = lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::NodeCore<10u,7u>::splitChild(*&v3[8 * v12], v11[v12], *(*v2 + 8));
+        v14 = *&v3[8 * v12];
         if (*(v14 + 240) < 0)
         {
           lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
@@ -5072,7 +4938,7 @@ LABEL_15:
           v18 = v15 + 1;
           v11[v12] = v18;
           v2[v12 + 129] = v17 + (~*(v16 + 240) | 0x80);
-          v19 = v3[v12];
+          v19 = *&v3[8 * v12];
           if (*(v19 + 240) < 0)
           {
             lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
@@ -5223,9 +5089,9 @@ void *lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateReco
     do
     {
       *v35 = *v33;
-      *(v35 + 8) = *(v33 + 8);
+      *(v35 + 1) = *(v33 + 8);
       v33 += 24;
-      v35 += 24;
+      v35 += 3;
     }
 
     while (v33 != v34);
@@ -5246,8 +5112,8 @@ void *lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateReco
   }
 
   *(v32 + 240) = v36 + ~v31;
-  v37 = v25[240] + v31;
-  v25[240] = v37;
+  v37 = *(v25 + 240) + v31;
+  *(v25 + 240) = v37;
   if (v37 >= 0)
   {
     v38 = 7;
@@ -5693,7 +5559,7 @@ unsigned __int8 *lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::Proces
     v6 = 0;
     do
     {
-      if (*(v3[v5] + 248) >= 0)
+      if (*(*&v3[8 * v5] + 248) >= 0)
       {
         v7 = 6;
       }
@@ -5703,7 +5569,7 @@ unsigned __int8 *lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::Proces
         v7 = 7;
       }
 
-      if ((*(v3[v5] + 248) & 0x7F) != v7)
+      if ((*(*&v3[8 * v5] + 248) & 0x7F) != v7)
       {
         v6 = v5;
       }
@@ -5732,7 +5598,7 @@ LABEL_15:
         **v2 = result;
         if (v2[152] && (result = memmove(v2 + 137, v2 + 136, v2[152]), v2[152]))
         {
-          result = memmove(v3 + 1, v3, 8 * v2[152]);
+          result = memmove(v3 + 8, v3, 8 * v2[152]);
           LOBYTE(v1) = v2[152] + 1;
         }
 
@@ -5762,8 +5628,8 @@ LABEL_15:
       do
       {
         v13 = v12;
-        result = lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::NodeCore<7u,6u>::splitChild(v3[v12], v11[v12], *(*v2 + 8));
-        v14 = v3[v12];
+        result = lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::NodeCore<7u,6u>::splitChild(*&v3[8 * v12], v11[v12], *(*v2 + 8));
+        v14 = *&v3[8 * v12];
         if (*(v14 + 248) < 0)
         {
           lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
@@ -5777,7 +5643,7 @@ LABEL_15:
           v18 = v15 + 1;
           v11[v12] = v18;
           v2[v12 + 137] = v17 + (~*(v16 + 248) | 0x80);
-          v19 = v3[v12];
+          v19 = *&v3[8 * v12];
           if (*(v19 + 248) < 0)
           {
             lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
@@ -5924,10 +5790,10 @@ void *lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRe
     {
       *v34 = *v32;
       v35 = *(v32 + 8);
-      *(v34 + 24) = *(v32 + 24);
-      *(v34 + 8) = v35;
+      v34[3] = *(v32 + 24);
+      *(v34 + 1) = v35;
       v32 += 32;
-      v34 += 32;
+      v34 += 4;
     }
 
     while (v32 != v33);
@@ -5948,8 +5814,8 @@ void *lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRe
   }
 
   *(v30 + 248) = v36 + ~v29;
-  v37 = v23[248] + v29;
-  v23[248] = v37;
+  v37 = *(v23 + 248) + v29;
+  *(v23 + 248) = v37;
   if (v37 >= 0)
   {
     v38 = 6;
@@ -6083,11 +5949,11 @@ uint64_t lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifie
   return result;
 }
 
-double lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::find@<D0>(uint64_t a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
+double lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::find@<D0>(uint64_t *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
 {
-  v6 = *(a1 + 16);
-  lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::const_iterator(&v24, a1, a2);
-  v14 = a1;
+  lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::const_iterator(&v23, a1, a2);
+  v13 = a1;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
@@ -6095,28 +5961,27 @@ double lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRec
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v23 = 0;
-  if (lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::operator<=>(&v24, &v14) && (v7 = v33, *a2 >= *(*(v25 + v33 - 1) + 24 * v32[v33 - 1])))
+  v22 = 0;
+  if (lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::operator<=>(&v23, &v13) && (v6 = v32, *a2 >= *(*(v24 + v32 - 1) + 24 * v31[v32 - 1])))
   {
-    v9 = v29;
-    *(a3 + 72) = v28;
-    *(a3 + 88) = v9;
-    *(a3 + 104) = v30;
-    v10 = v25[1];
-    *(a3 + 8) = v25[0];
-    *(a3 + 24) = v10;
-    result = *&v26;
-    v11 = v27;
-    *(a3 + 40) = v26;
-    *a3 = v24;
-    v12 = v31;
-    *(a3 + 56) = v11;
-    *(a3 + 135) = *&v32[7];
-    v13 = *v32;
-    *(a3 + 120) = v12;
-    *(a3 + 128) = v13;
-    *(a3 + 143) = v7;
+    v8 = v28;
+    *(a3 + 72) = v27;
+    *(a3 + 88) = v8;
+    *(a3 + 104) = v29;
+    v9 = v24[1];
+    *(a3 + 8) = v24[0];
+    *(a3 + 24) = v9;
+    result = *&v25;
+    v10 = v26;
+    *(a3 + 40) = v25;
+    *a3 = v23;
+    v11 = v30;
+    *(a3 + 56) = v10;
+    *(a3 + 135) = *&v31[7];
+    v12 = *v31;
+    *(a3 + 120) = v11;
+    *(a3 + 128) = v12;
+    *(a3 + 143) = v6;
   }
 
   else
@@ -6261,7 +6126,7 @@ void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecor
 
       v10 = v6[v7];
       v11 = *&v5[8 * v7];
-      v12 = *(v11 + 240);
+      v12 = v11[240];
       if (v10 == (v12 & 0x7F))
       {
         v13 = 0;
@@ -6278,7 +6143,7 @@ void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecor
           lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
         }
 
-        v18 = *(*(v11 + 8 * v10 + 176) + 240);
+        v18 = *(*&v11[8 * v10 + 176] + 240);
         v19 = v18 & 0x7F;
         if (v18 >= 0)
         {
@@ -6299,7 +6164,7 @@ LABEL_10:
             lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
           }
 
-          v14 = *(*(v11 + 8 * v10 + 160) + 240);
+          v14 = *(*&v11[8 * v10 + 160] + 240);
           v15 = v14 & 0x7F;
           if (v14 >= 0)
           {
@@ -6330,7 +6195,7 @@ LABEL_21:
             }
 
             v6[v7] = v10 - 1;
-            v6[v8] += (*(*(v11 + 8 * (v10 - 1) + 168) + 240) & 0x7F) + 1;
+            v6[v8] += (*(*&v11[8 * (v10 - 1) + 168] + 240) & 0x7F) + 1;
             lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::NodeCore<10u,7u>::merge(*&v5[8 * v7], *(v2 + 8), (v10 - 1));
             v23 = *&v5[8 * v7];
             if (*(v23 + 240) < 0)
@@ -6354,7 +6219,7 @@ LABEL_21:
             lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
           }
 
-          v21 = *(*(v11 + 8 * v10 + 168) + 240);
+          v21 = *(*&v11[8 * v10 + 168] + 240);
           lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::NodeCore<10u,7u>::rotateFromLeft(v11, v6[v7]);
           v22 = *&v5[8 * v7];
           if (*(v22 + 240) < 0)
@@ -6577,10 +6442,10 @@ void *lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateReco
   v16 = &result[3 * v2];
   v17 = v4 + 24 * v8;
   *(v17 - 24) = *v16;
-  *(v17 - 16) = *(v16 + 8);
+  *(v17 - 16) = *(v16 + 1);
   v18 = v3 + 24 * ((*(v3 + 240) & 0x7F) - v8);
   *v16 = *v18;
-  *(v16 + 8) = *(v18 + 8);
+  *(v16 + 1) = *(v18 + 8);
   v19 = *(v3 + 240);
   if ((v19 & 0x80000000) == 0)
   {
@@ -6613,29 +6478,29 @@ void *lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateReco
   return result;
 }
 
-void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::NodeCore<10u,7u>::merge(uint64_t a1, lsl::Allocator *this, unsigned int a3)
+void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::NodeCore<10u,7u>::merge(_BYTE *a1, lsl::Allocator *this, unsigned int a3)
 {
-  if (*(a1 + 240) < 0)
+  if (a1[240] < 0)
   {
     lsl::BTree<int,std::less<int>,false>::NodeCore<62u,20u>::merge();
   }
 
-  if (*(a1 + 240) <= a3)
+  if (a1[240] <= a3)
   {
     lsl::BTree<int,std::less<int>,false>::NodeCore<62u,20u>::merge();
   }
 
   v5 = a1 + 168;
-  v6 = (a1 + 168 + 8 * a3);
+  v6 = &a1[8 * a3 + 168];
   v8 = *v6;
   v7 = v6[1];
-  v9 = a1 + 24 * a3;
+  v9 = &a1[24 * a3];
   v10 = v8 + 24 * (*(v8 + 240) & 0x7F);
   *v10 = *v9;
   *(v10 + 8) = *(v9 + 8);
-  v11 = *(a1 + 240);
+  v11 = a1[240];
   v12 = v9 + 24;
-  v13 = a1 + 24 * (v11 & 0x7F);
+  v13 = &a1[24 * (v11 & 0x7F)];
   if (v9 + 24 != v13)
   {
     do
@@ -6647,7 +6512,7 @@ void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecor
     }
 
     while (v12 != v13);
-    v11 = *(a1 + 240);
+    v11 = a1[240];
   }
 
   if (v11 < 0)
@@ -6655,11 +6520,11 @@ void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecor
     lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
   }
 
-  v14 = v5 + 8 * a3;
-  v15 = v5 + 8 * (v11 + 1);
+  v14 = &v5[8 * a3];
+  v15 = &v5[8 * (v11 + 1)];
   if (v14 + 16 != v15)
   {
-    memmove((v14 + 8), (v14 + 16), v15 - (v14 + 16));
+    memmove(v14 + 8, v14 + 16, v15 - (v14 + 16));
   }
 
   v16 = v7[240];
@@ -6695,16 +6560,16 @@ void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecor
   }
 
   *(v8 + 240) = (v16 & 0x7F) + v17 + 1;
-  --*(a1 + 240);
+  --a1[240];
 
   lsl::Allocator::free(this, v7);
 }
 
-__n128 lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::find@<Q0>(uint64_t a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
+__n128 lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::find@<Q0>(uint64_t *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
 {
-  v6 = *(a1 + 16);
-  lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::const_iterator(&v24, a1, a2);
-  v13 = a1;
+  lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::const_iterator(&v23, a1, a2);
+  v12 = a1;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
@@ -6713,26 +6578,25 @@ __n128 lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierR
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v23 = 0;
-  if (lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::operator<=>(&v24, &v13) && (v8 = v27, *a2 >= *(*(v25 + v27 - 1) + 32 * v26.n128_u8[v27 - 1])))
+  v22 = 0;
+  if (lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::operator<=>(&v23, &v12) && (v7 = v26, *a2 >= *(*(v24 + v26 - 1) + 32 * v25.n128_u8[v26 - 1])))
   {
-    v9 = v25[5];
-    *(a3 + 72) = v25[4];
-    *(a3 + 88) = v9;
-    v10 = v25[7];
-    *(a3 + 104) = v25[6];
-    *(a3 + 120) = v10;
-    v11 = v25[1];
-    *(a3 + 8) = v25[0];
-    *(a3 + 24) = v11;
-    v12 = v25[3];
-    *(a3 + 40) = v25[2];
-    *a3 = v24;
-    *(a3 + 56) = v12;
-    result = v26;
-    *(a3 + 136) = v26;
-    *(a3 + 152) = v8;
+    v8 = v24[5];
+    *(a3 + 72) = v24[4];
+    *(a3 + 88) = v8;
+    v9 = v24[7];
+    *(a3 + 104) = v24[6];
+    *(a3 + 120) = v9;
+    v10 = v24[1];
+    *(a3 + 8) = v24[0];
+    *(a3 + 24) = v10;
+    v11 = v24[3];
+    *(a3 + 40) = v24[2];
+    *a3 = v23;
+    *(a3 + 56) = v11;
+    result = v25;
+    *(a3 + 136) = v25;
+    *(a3 + 152) = v7;
   }
 
   else
@@ -6873,7 +6737,7 @@ void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRec
 
       v9 = v6[v7];
       v10 = *&v5[8 * v7];
-      v11 = *(v10 + 248);
+      v11 = v10[248];
       if (v9 == (v11 & 0x7F))
       {
         v12 = 0;
@@ -6890,7 +6754,7 @@ void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRec
           lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
         }
 
-        v12 = (*(*(v10 + 8 * v9 + 200) + 248) & 0x7F) - 3;
+        v12 = (*(*&v10[8 * v9 + 200] + 248) & 0x7F) - 3;
         if (v6[v7])
         {
 LABEL_7:
@@ -6899,7 +6763,7 @@ LABEL_7:
             lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
           }
 
-          v13 = (*(*(v10 + 8 * v9 + 184) + 248) & 0x7F) - 3;
+          v13 = (*(*&v10[8 * v9 + 184] + 248) & 0x7F) - 3;
           goto LABEL_12;
         }
       }
@@ -6918,7 +6782,7 @@ LABEL_12:
             }
 
             v6[v7] = v9 - 1;
-            v6[v8] += (*(*(v10 + 8 * (v9 - 1) + 192) + 248) & 0x7F) + 1;
+            v6[v8] += (*(*&v10[8 * (v9 - 1) + 192] + 248) & 0x7F) + 1;
             lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::NodeCore<7u,6u>::merge(*&v5[8 * v7], *(v2 + 8), (v9 - 1));
             v16 = *&v5[8 * v7];
             if (*(v16 + 248) < 0)
@@ -6942,7 +6806,7 @@ LABEL_12:
             lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
           }
 
-          v14 = *(*(v10 + 8 * v9 + 192) + 248);
+          v14 = *(*&v10[8 * v9 + 192] + 248);
           lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::NodeCore<7u,6u>::rotateFromLeft(v10, v6[v7]);
           v15 = *&v5[8 * v7];
           if (*(v15 + 248) < 0)
@@ -7179,14 +7043,14 @@ void *lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRe
   v19 = &result[4 * v2];
   v20 = v4 + 32 * v8;
   *(v20 - 32) = *v19;
-  v21 = *(v19 + 8);
-  *(v20 - 8) = *(v19 + 3);
+  v21 = *(v19 + 1);
+  *(v20 - 8) = v19[3];
   *(v20 - 24) = v21;
   v22 = v3 + 32 * ((*(v3 + 248) & 0x7F) - v8);
   *v19 = *v22;
   v23 = *(v22 + 8);
-  *(v19 + 3) = *(v22 + 24);
-  *(v19 + 8) = v23;
+  v19[3] = *(v22 + 24);
+  *(v19 + 1) = v23;
   v24 = *(v3 + 248);
   if ((v24 & 0x80000000) == 0)
   {
@@ -7219,45 +7083,45 @@ void *lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRe
   return result;
 }
 
-void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::NodeCore<7u,6u>::merge(uint64_t a1, lsl::Allocator *this, unsigned int a3)
+void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessNotifierRecord,std::less<unsigned int>>::value_compare,false>::NodeCore<7u,6u>::merge(_BYTE *a1, lsl::Allocator *this, unsigned int a3)
 {
-  if (*(a1 + 248) < 0)
+  if (a1[248] < 0)
   {
     lsl::BTree<int,std::less<int>,false>::NodeCore<62u,20u>::merge();
   }
 
-  if (*(a1 + 248) <= a3)
+  if (a1[248] <= a3)
   {
     lsl::BTree<int,std::less<int>,false>::NodeCore<62u,20u>::merge();
   }
 
   v5 = a1 + 192;
-  v6 = (a1 + 192 + 8 * a3);
+  v6 = &a1[8 * a3 + 192];
   v8 = *v6;
   v7 = v6[1];
-  v9 = a1 + 32 * a3;
+  v9 = &a1[32 * a3];
   v10 = v8 + 32 * (*(v8 + 248) & 0x7F);
   *v10 = *v9;
-  v11 = *(v9 + 24);
+  v11 = *(v9 + 3);
   *(v10 + 8) = *(v9 + 8);
   *(v10 + 24) = v11;
-  v12 = *(a1 + 248);
+  v12 = a1[248];
   v13 = v9 + 32;
-  v14 = a1 + 32 * (v12 & 0x7F);
+  v14 = &a1[32 * (v12 & 0x7F)];
   if (v9 + 32 != v14)
   {
     do
     {
       *v9 = *v13;
       v15 = *(v13 + 8);
-      *(v9 + 24) = *(v13 + 24);
+      *(v9 + 3) = *(v13 + 3);
       *(v9 + 8) = v15;
       v13 += 32;
       v9 += 32;
     }
 
     while (v13 != v14);
-    v12 = *(a1 + 248);
+    v12 = a1[248];
   }
 
   if (v12 < 0)
@@ -7265,11 +7129,11 @@ void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRec
     lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
   }
 
-  v16 = v5 + 8 * a3;
-  v17 = v5 + 8 * (v12 + 1);
+  v16 = &v5[8 * a3];
+  v17 = &v5[8 * (v12 + 1)];
   if (v16 + 16 != v17)
   {
-    memmove((v16 + 8), (v16 + 16), v17 - (v16 + 16));
+    memmove(v16 + 8, v16 + 16, v17 - (v16 + 16));
   }
 
   v18 = v7[248];
@@ -7306,7 +7170,7 @@ void lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessNotifierRec
   }
 
   *(v8 + 248) = (v18 & 0x7F) + v23 + 1;
-  --*(a1 + 248);
+  --a1[248];
 
   lsl::Allocator::free(this, v7);
 }
@@ -7348,9 +7212,9 @@ void lsl::Vector<lsl::UUID>::resize(uint64_t a1, unint64_t a2)
   }
 }
 
-void lsl::Vector<lsl::UUID>::reserve(uint64_t a1, unint64_t a2)
+void lsl::Vector<lsl::UUID>::reserve(uint64_t result, unint64_t a2)
 {
-  if (*(a1 + 24) < a2)
+  if (*(result + 24) < a2)
   {
     if (a2 >= 0x10)
     {
@@ -7364,7 +7228,7 @@ void lsl::Vector<lsl::UUID>::reserve(uint64_t a1, unint64_t a2)
       v2 = 16;
     }
 
-    lsl::Vector<lsl::UUID>::reserveExact(a1, v2);
+    lsl::Vector<lsl::UUID>::reserveExact(result, v2);
   }
 }
 
@@ -7533,7 +7397,7 @@ char *lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr<dy
   if (v29)
   {
     v30 = (v28 + 8 * v14 + 8);
-    v31 = &v30[v29 / 8];
+    v31 = &v30[v29];
     v32 = result;
     do
     {
@@ -7544,8 +7408,8 @@ char *lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr<dy
         *v30 = v33;
       }
 
-      ++v30;
-      ++v32;
+      v30 += 8;
+      v32 += 8;
     }
 
     while (v30 != v31);
@@ -7669,22 +7533,22 @@ uint64_t dyld4::FileManager::FileManager(uint64_t a1, lsl::Allocator *this, uint
   return a1;
 }
 
-double dyld4::FileManager::fileRecordForVolumeUUIDAndObjID@<D0>(dyld4::FileManager *this@<X0>, const UUID *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+double dyld4::FileManager::fileRecordForVolumeUUIDAndObjID@<D0>(uint64_t *__return_ptr a1@<X8>, dyld4::FileManager *this@<X0>, const UUID *a3@<X1>, uint64_t a4@<X2>)
 {
-  *(a4 + 24) = *a2;
-  *a4 = this;
-  *(a4 + 8) = a3;
-  *(a4 + 16) = 0;
-  *(a4 + 40) = 0;
-  *(a4 + 48) = 0u;
+  *(a1 + 3) = *a3;
+  *a1 = this;
+  a1[1] = a4;
+  a1[2] = 0;
+  a1[5] = 0;
+  *(a1 + 3) = 0u;
   *&result = 0x1FFFFFFFFLL;
-  *(a4 + 64) = 0x1FFFFFFFFLL;
-  *(a4 + 72) = 0;
-  *(a4 + 74) = 1;
+  a1[8] = 0x1FFFFFFFFLL;
+  *(a1 + 36) = 0;
+  *(a1 + 74) = 1;
   return result;
 }
 
-void dyld4::FileManager::reloadFSInfos(dyld4::FileManager *this)
+void dyld4::FileManager::reloadFSInfos(uint64_t **this)
 {
   v2 = lsl::MemoryManager::defaultAllocator(this);
   v3 = getfsstat(0, 0, 2);
@@ -7716,7 +7580,7 @@ void dyld4::FileManager::reloadFSInfos(dyld4::FileManager *this)
         __asm { PRFM            #0, [X21,#0x1998] }
 
         v12 = _X21->f_fsid.val[0];
-        v13 = *(this + 2);
+        v13 = this[2];
         *&v38 = 0;
         v37 = v12;
         lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::find(v13, &v37, &v19);
@@ -7732,7 +7596,7 @@ void dyld4::FileManager::reloadFSInfos(dyld4::FileManager *this)
         v34 = v27;
         *v35 = *v28;
         v36 = v29;
-        v14 = *(this + 2);
+        v14 = this[2];
         v43 = 0u;
         memset(v44, 0, sizeof(v44));
         v41 = 0u;
@@ -7762,14 +7626,14 @@ void dyld4::FileManager::reloadFSInfos(dyld4::FileManager *this)
             *(&v37 + 4) = 0x8006000000000006;
             if (!getattrlist(_X21->f_mntonname, &v37, &v30, 0x40uLL, 0) && (BYTE8(v31) & 1) != 0)
             {
-              v15 = *(this + 2);
+              v15 = this[2];
               v17 = v12;
               v18 = *(v33 + 8);
             }
 
             else
             {
-              v15 = *(this + 2);
+              v15 = this[2];
               v18 = 0uLL;
               v17 = v12;
             }
@@ -7779,7 +7643,7 @@ void dyld4::FileManager::reloadFSInfos(dyld4::FileManager *this)
 
           else
           {
-            v15 = *(this + 2);
+            v15 = this[2];
             v31 = 0uLL;
             v30 = v12;
             v16 = &v30;
@@ -7799,29 +7663,28 @@ void dyld4::FileManager::reloadFSInfos(dyld4::FileManager *this)
   }
 }
 
-double lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::insert@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+double lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::insert@<D0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
-  v10 = *a2;
-  v11 = *(a2 + 8);
-  v5 = *(a1 + 16);
-  lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::const_iterator::const_iterator(v23, a1, &v10);
-  lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::insert_internal(a1, v23, &v10, &v12);
-  v6 = v12;
-  *(a3 + 72) = v17;
-  *(a3 + 88) = v18;
-  *(a3 + 104) = v19;
-  *(a3 + 8) = v13;
-  *(a3 + 24) = v14;
-  *(a3 + 40) = v15;
-  result = *&v16;
-  *(a3 + 56) = v16;
-  *(a3 + 135) = *&v21[7];
-  v8 = *v21;
-  *(a3 + 120) = v20;
-  *(a3 + 128) = v8;
-  v9 = v22;
-  *a3 = v6;
-  *(a3 + 143) = v9;
+  v9 = *a2;
+  v10 = *(a2 + 1);
+  lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::const_iterator::const_iterator(v22, a1, &v9);
+  lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::insert_internal(a1, v22, &v9, &v11);
+  v5 = v11;
+  *(a3 + 72) = v16;
+  *(a3 + 88) = v17;
+  *(a3 + 104) = v18;
+  *(a3 + 8) = v12;
+  *(a3 + 24) = v13;
+  *(a3 + 40) = v14;
+  result = *&v15;
+  *(a3 + 56) = v15;
+  *(a3 + 135) = *&v20[7];
+  v7 = *v20;
+  *(a3 + 120) = v19;
+  *(a3 + 128) = v7;
+  v8 = v21;
+  *a3 = v5;
+  *(a3 + 143) = v8;
   return result;
 }
 
@@ -7829,121 +7692,119 @@ uint64_t dyld4::FileManager::uuidForFileSystem(os_unfair_lock_s *this, unsigned 
 {
   os_unfair_lock_lock(this + 6);
   v4 = *&this[4]._os_unfair_lock_opaque;
-  *&v26[8] = 0;
-  *&v26[16] = 0;
-  *v26 = a2;
-  lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::find(v4, v26, &v15);
-  v29[4] = v20;
-  v29[5] = v21;
-  v29[6] = v22;
-  v28 = v15;
-  v29[0] = v16;
-  v29[1] = v17;
-  v29[2] = v18;
-  v29[3] = v19;
-  *&v31[7] = *&v24[7];
+  *&v24[8] = 0;
+  *&v24[16] = 0;
+  *v24 = a2;
+  lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::find(v4, v24, &v13);
+  v27[4] = v18;
+  v27[5] = v19;
+  v27[6] = v20;
+  v26 = v13;
+  v27[0] = v14;
+  v27[1] = v15;
+  v27[2] = v16;
+  v27[3] = v17;
+  *&v29[7] = *&v22[7];
+  v28 = v21;
+  *v29 = *v22;
   v30 = v23;
-  *v31 = *v24;
-  v32 = v25;
   v5 = *&this[4]._os_unfair_lock_opaque;
-  memset(v26, 0, 135);
-  v15 = v5;
+  memset(v24, 0, 135);
+  v13 = v5;
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  v21 = 0;
+  memset(v22, 0, sizeof(v22));
   v23 = 0;
-  memset(v24, 0, sizeof(v24));
-  v25 = 0;
-  if (!lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::operator<=>(&v28, &v15))
+  if (!lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::operator<=>(&v26, &v13))
   {
     dyld4::FileManager::reloadFSInfos(this);
     v6 = *&this[4]._os_unfair_lock_opaque;
-    v34 = 0;
-    v35 = 0;
-    v33 = a2;
-    lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::find(v6, &v33, &v15);
-    *&v26[72] = v20;
-    *&v26[88] = v21;
-    *&v26[104] = v22;
-    *v26 = v15;
-    *&v26[8] = v16;
-    *&v26[24] = v17;
-    *&v26[40] = v18;
-    *&v26[56] = v19;
-    *&v26[135] = *&v24[7];
-    *&v26[120] = v23;
-    *&v26[128] = *v24;
-    v27 = v25;
-    lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::const_iterator::swap(&v28, v26);
+    v32 = 0;
+    v33 = 0;
+    v31 = a2;
+    lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::find(v6, &v31, &v13);
+    *&v24[72] = v18;
+    *&v24[88] = v19;
+    *&v24[104] = v20;
+    *v24 = v13;
+    *&v24[8] = v14;
+    *&v24[24] = v15;
+    *&v24[40] = v16;
+    *&v24[56] = v17;
+    *&v24[135] = *&v22[7];
+    *&v24[120] = v21;
+    *&v24[128] = *v22;
+    v25 = v23;
+    lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::const_iterator::swap(&v26, v24);
   }
 
   v7 = *&this[4]._os_unfair_lock_opaque;
-  memset(v26, 0, 135);
-  v15 = v7;
+  memset(v24, 0, 135);
+  v13 = v7;
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  v21 = 0;
+  memset(v22, 0, sizeof(v22));
   v23 = 0;
-  memset(v24, 0, sizeof(v24));
-  v25 = 0;
-  if (!lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::operator<=>(&v28, &v15))
+  if (!lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::operator<=>(&v26, &v13))
   {
     v8 = *&this[4]._os_unfair_lock_opaque;
-    *&v26[8] = 0;
-    *&v26[16] = 0;
-    *v26 = a2;
-    lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::insert(v8, v26, &v15);
+    *&v24[8] = 0;
+    *&v24[16] = 0;
+    *v24 = a2;
+    lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::insert(v8, v24, &v13);
     v9 = *&this[4]._os_unfair_lock_opaque;
-    v34 = 0;
-    v35 = 0;
-    v33 = a2;
-    lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::find(v9, &v33, &v15);
-    *&v26[72] = v20;
-    *&v26[88] = v21;
-    *&v26[104] = v22;
-    *v26 = v15;
-    *&v26[8] = v16;
-    *&v26[24] = v17;
-    *&v26[40] = v18;
-    *&v26[56] = v19;
-    *&v26[135] = *&v24[7];
-    *&v26[120] = v23;
-    *&v26[128] = *v24;
-    v27 = v25;
-    lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::const_iterator::swap(&v28, v26);
+    v32 = 0;
+    v33 = 0;
+    v31 = a2;
+    lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::find(v9, &v31, &v13);
+    *&v24[72] = v18;
+    *&v24[88] = v19;
+    *&v24[104] = v20;
+    *v24 = v13;
+    *&v24[8] = v14;
+    *&v24[24] = v15;
+    *&v24[40] = v16;
+    *&v24[56] = v17;
+    *&v24[135] = *&v22[7];
+    *&v24[120] = v21;
+    *&v24[128] = *v22;
+    v25 = v23;
+    lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::const_iterator::swap(&v26, v24);
   }
 
   v10 = *&this[4]._os_unfair_lock_opaque;
-  memset(v26, 0, 135);
-  v15 = v10;
+  memset(v24, 0, 135);
+  v13 = v10;
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  v21 = 0;
+  memset(v22, 0, sizeof(v22));
   v23 = 0;
-  memset(v24, 0, sizeof(v24));
-  v25 = 0;
-  if (!lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::operator<=>(&v28, &v15))
+  if (!lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::operator<=>(&v26, &v13))
   {
     dyld4::FileManager::uuidForFileSystem();
   }
 
-  v11 = *(v29 + v32 - 1) + 24 * v31[v32 - 1];
-  v12 = *(v11 + 8);
-  v13 = *(v11 + 16);
+  v11 = *(*(v27 + v30 - 1) + 24 * v29[v30 - 1] + 8);
   os_unfair_lock_unlock(this + 6);
-  return v12;
+  return v11;
 }
 
 uint64_t dyld4::FileManager::fsidForUUID(os_unfair_lock_s *this, const UUID *a2)
@@ -8104,14 +7965,14 @@ LABEL_21:
   return v33;
 }
 
-char *dyld4::FileManager::getPath@<X0>(char *this@<X0>, const UUID *a2@<X1>, uint64_t a3@<X2>, char **a4@<X8>)
+char *dyld4::FileManager::getPath@<X0>(char **__return_ptr a1@<X8>, char *this@<X0>, const UUID *a3@<X1>, uint64_t a4@<X2>)
 {
   v5 = this;
   v7 = 0;
   do
   {
-    v8 = (*a2)[v7];
-    if ((*a2)[v7])
+    v8 = (*a3)[v7];
+    if ((*a3)[v7])
     {
       v9 = 1;
     }
@@ -8127,41 +7988,41 @@ char *dyld4::FileManager::getPath@<X0>(char *this@<X0>, const UUID *a2@<X1>, uin
   while (!v9);
   if (v8)
   {
-    v10 = dyld4::FileManager::fsidForUUID(this, a2);
+    v10 = dyld4::FileManager::fsidForUUID(this, a3);
 
-    return dyld4::FileManager::getPath(v5, v10, a3, a4);
+    return dyld4::FileManager::getPath(a1, v5, v10, a4);
   }
 
   else
   {
-    *a4 = 0;
+    *a1 = 0;
   }
 
   return this;
 }
 
-char *dyld4::FileManager::getPath@<X0>(char *this@<X0>, fsid_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X8>)
+char *dyld4::FileManager::getPath@<X0>(char **__return_ptr a1@<X8>, char *this@<X0>, fsid_t a3@<X1>, uint64_t a4@<X2>)
 {
-  if (*&a2 && a3)
+  if (*&a3 && a4)
   {
     v5 = this;
-    v6 = a2;
-    if (fsgetpath(__s, 0x400uLL, &v6, a3) == -1)
+    v6 = a3;
+    if (fsgetpath(__s, 0x400uLL, &v6, a4) == -1)
     {
       this = 0;
     }
 
     else
     {
-      this = lsl::Allocator::strdup(*(v5 + 8), __s);
+      this = lsl::Allocator::strdup(*(v5 + 1), __s);
     }
 
-    *a4 = this;
+    *a1 = this;
   }
 
   else
   {
-    *a4 = 0;
+    *a1 = 0;
   }
 
   return this;
@@ -8179,13 +8040,14 @@ uint64_t dyld4::FileRecord::close(dyld4::FileRecord *this)
   return result;
 }
 
-uint64_t dyld4::FileRecord::open(dyld4::FileRecord *this, int a2)
+uint64_t dyld4::FileRecord::open(dyld4::FileRecord *this, uint64_t a2)
 {
   if (*(this + 16) != -1)
   {
     dyld4::FileRecord::open();
   }
 
+  v2 = a2;
   v4 = 24;
   do
   {
@@ -8211,7 +8073,7 @@ uint64_t dyld4::FileRecord::open(dyld4::FileRecord *this, int a2)
   if (result == -1)
   {
     Path = dyld4::FileRecord::getPath(this);
-    result = open(Path, a2);
+    result = open(Path, v2);
     *(this + 16) = result;
   }
 
@@ -8312,11 +8174,11 @@ uint64_t *lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<uns
   return result;
 }
 
-double lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::find@<D0>(uint64_t a1@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+double lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::find@<D0>(uint64_t *a1@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
-  v6 = *(a1 + 16);
-  lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::const_iterator::const_iterator(&v24, a1, a2);
-  v14 = a1;
+  lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::const_iterator::const_iterator(&v23, a1, a2);
+  v13 = a1;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
@@ -8324,28 +8186,27 @@ double lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsign
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v23 = 0;
-  if (lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::operator<=>(&v24, &v14) && (v7 = v33, *a2 >= *(*(v25 + v33 - 1) + 24 * v32[v33 - 1])))
+  v22 = 0;
+  if (lsl::BTree<std::pair<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord>,lsl::OrderedMap<unsigned int,dyld4::Atlas::Process::ProcessUpdateRecord,std::less<unsigned int>>::value_compare,false>::const_iterator::operator<=>(&v23, &v13) && (v6 = v32, *a2 >= *(*(v24 + v32 - 1) + 24 * v31[v32 - 1])))
   {
-    v9 = v29;
-    *(a3 + 72) = v28;
-    *(a3 + 88) = v9;
-    *(a3 + 104) = v30;
-    v10 = v25[1];
-    *(a3 + 8) = v25[0];
-    *(a3 + 24) = v10;
-    result = *&v26;
-    v11 = v27;
-    *(a3 + 40) = v26;
-    *a3 = v24;
-    v12 = v31;
-    *(a3 + 56) = v11;
-    *(a3 + 135) = *&v32[7];
-    v13 = *v32;
-    *(a3 + 120) = v12;
-    *(a3 + 128) = v13;
-    *(a3 + 143) = v7;
+    v8 = v28;
+    *(a3 + 72) = v27;
+    *(a3 + 88) = v8;
+    *(a3 + 104) = v29;
+    v9 = v24[1];
+    *(a3 + 8) = v24[0];
+    *(a3 + 24) = v9;
+    result = *&v25;
+    v10 = v26;
+    *(a3 + 40) = v25;
+    *a3 = v23;
+    v11 = v30;
+    *(a3 + 56) = v10;
+    *(a3 + 135) = *&v31[7];
+    v12 = *v31;
+    *(a3 + 120) = v11;
+    *(a3 + 128) = v12;
+    *(a3 + 143) = v6;
   }
 
   else
@@ -8669,7 +8530,7 @@ unsigned __int8 *lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::Ordered
     v6 = 0;
     do
     {
-      if (*(v3[v5] + 240) >= 0)
+      if (*(*&v3[8 * v5] + 240) >= 0)
       {
         v7 = 7;
       }
@@ -8679,7 +8540,7 @@ unsigned __int8 *lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::Ordered
         v7 = 10;
       }
 
-      if ((*(v3[v5] + 240) & 0x7F) != v7)
+      if ((*(*&v3[8 * v5] + 240) & 0x7F) != v7)
       {
         v6 = v5;
       }
@@ -8721,7 +8582,7 @@ LABEL_15:
         **v2 = result;
         if (v2[143] && (result = memmove(v2 + 129, v2 + 128, v2[143]), v2[143]))
         {
-          result = memmove(v3 + 1, v3, 8 * v2[143]);
+          result = memmove(v3 + 8, v3, 8 * v2[143]);
           LOBYTE(v1) = v2[143] + 1;
         }
 
@@ -8751,8 +8612,8 @@ LABEL_15:
       do
       {
         v13 = v12;
-        result = lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::NodeCore<10u,7u>::splitChild(v3[v12], v11[v12], *(*v2 + 8));
-        v14 = v3[v12];
+        result = lsl::BTree<std::pair<unsigned long long,lsl::UUID>,lsl::OrderedMap<unsigned long long,lsl::UUID,std::less<unsigned long long>>::value_compare,false>::NodeCore<10u,7u>::splitChild(*&v3[8 * v12], v11[v12], *(*v2 + 8));
+        v14 = *&v3[8 * v12];
         if (*(v14 + 240) < 0)
         {
           lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
@@ -8766,7 +8627,7 @@ LABEL_15:
           v18 = v15 + 1;
           v11[v12] = v18;
           v2[v12 + 129] = v17 + (~*(v16 + 240) | 0x80);
-          v19 = v3[v12];
+          v19 = *&v3[8 * v12];
           if (*(v19 + 240) < 0)
           {
             lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
@@ -9006,7 +8867,7 @@ int8x8_t mach_o::Architecture::Architecture(int8x8_t *this, const fat_arch *a2)
   return result;
 }
 
-uint64_t mach_o::Architecture::byName@<X0>(uint64_t __s1@<X0>, int64_t __n@<X1>, unint64_t *a3@<X8>)
+uint64_t *mach_o::Architecture::byName@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *__s1@<X0>, int64_t __n@<X1>)
 {
   v4 = __s1;
   if (__n > 7)
@@ -9191,7 +9052,7 @@ LABEL_54:
 
   if (__n == 6)
   {
-    if (*__s1 == 1597388920 && *(__s1 + 4) == 13366)
+    if (*__s1 == 1597388920 && *(__s1 + 2) == 13366)
     {
       v6 = 0x301000007;
       goto LABEL_63;
@@ -9263,7 +9124,7 @@ LABEL_48:
 
   v6 = 24;
 LABEL_63:
-  *a3 = v6;
+  *a1 = v6;
   return __s1;
 }
 
@@ -9553,7 +9414,7 @@ __n128 __Block_byref_object_copy__2(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void mach_o::Header::forEachPlatformLoadCommand(mach_o::Error *a1, uint64_t a2)
+void mach_o::Header::forEachPlatformLoadCommand(mach_o::Header *a1, uint64_t a2)
 {
   v4 = 0;
   v5 = &v4;
@@ -9576,16 +9437,16 @@ void mach_o::Header::forEachPlatformLoadCommand(mach_o::Error *a1, uint64_t a2)
   _Block_object_dispose(&v4, 8);
 }
 
-void ___ZNK6mach_o6Header19platformAndVersionsEv_block_invoke(uint64_t a1, uint64_t a2, int a3, int a4)
+void ___ZNK6mach_o6Header19platformAndVersionsEv_block_invoke(uint64_t a1, uint64_t *a2, int a3, int a4)
 {
   v4 = *(*(a1 + 32) + 8);
   v5 = *a2;
-  v6 = *(a2 + 8);
+  v6 = *(a2 + 2);
   v7 = a3;
   v8 = a4;
   v9 = 0x1000000010000;
-  mach_o::PlatformAndVersions::zip((v4 + 40), &v5, v10);
-  mach_o::Error::~Error(v10);
+  mach_o::PlatformAndVersions::zip((v4 + 40), &v5, &v10);
+  mach_o::Error::~Error(&v10);
 }
 
 void mach_o::Header::validSemanticsPlatform(mach_o::Header *this@<X0>, mach_o::Error *a2@<X8>)
@@ -9786,35 +9647,34 @@ void mach_o::Header::validStructureLoadCommands(mach_o::Header *this@<X0>, unint
     v5 = *(this + 3);
     if (v5 > 0xC || ((1 << v5) & 0x1BE6) == 0)
     {
-      v7 = *(this + 3);
       mach_o::Error::Error(a3, "unknown filetype %d");
     }
 
     else
     {
-      v15[0] = 0;
-      v15[1] = v15;
-      v15[2] = 0x2000000000;
-      v16 = 1;
-      v9 = 0;
-      v10 = &v9;
-      v11 = 0x3002000000;
-      v12 = __Block_byref_object_copy__19;
-      v13 = __Block_byref_object_dispose__20;
-      v14 = 0;
-      v8[0] = _NSConcreteStackBlock;
-      v8[1] = 0x40000000;
-      v8[2] = ___ZNK6mach_o6Header26validStructureLoadCommandsEy_block_invoke;
-      v8[3] = &unk_1EEE9C600;
-      v8[4] = &v9;
-      v8[5] = v15;
-      mach_o::Header::forEachLoadCommand(this, v8, a3);
+      v14[0] = 0;
+      v14[1] = v14;
+      v14[2] = 0x2000000000;
+      v15 = 1;
+      v8 = 0;
+      v9 = &v8;
+      v10 = 0x3002000000;
+      v11 = __Block_byref_object_copy__19;
+      v12 = __Block_byref_object_dispose__20;
+      v13 = 0;
+      v7[0] = _NSConcreteStackBlock;
+      v7[1] = 0x40000000;
+      v7[2] = ___ZNK6mach_o6Header26validStructureLoadCommandsEy_block_invoke;
+      v7[3] = &unk_1EEE9C600;
+      v7[4] = &v8;
+      v7[5] = v14;
+      mach_o::Header::forEachLoadCommand(this, v7, a3);
       if (!*a3)
       {
         mach_o::Error::~Error(a3);
-        if (v10[5])
+        if (v9[5])
         {
-          mach_o::Error::Error(a3, v10 + 5);
+          mach_o::Error::Error(a3, v9 + 5);
         }
 
         else
@@ -9823,9 +9683,9 @@ void mach_o::Header::validStructureLoadCommands(mach_o::Header *this@<X0>, unint
         }
       }
 
-      _Block_object_dispose(&v9, 8);
-      mach_o::Error::~Error(&v14);
-      _Block_object_dispose(v15, 8);
+      _Block_object_dispose(&v8, 8);
+      mach_o::Error::~Error(&v13);
+      _Block_object_dispose(v14, 8);
     }
   }
 
@@ -9833,4 +9693,135 @@ void mach_o::Header::validStructureLoadCommands(mach_o::Header *this@<X0>, unint
   {
     mach_o::Error::Error(a3, "load commands length (%llu) exceeds length of file (%llu)");
   }
+}
+
+void mach_o::Header::validSemanticsUUID(mach_o::Header *this@<X0>, const mach_o::Policy *a2@<X1>, mach_o::Error *a3@<X8>)
+{
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2000000000;
+  v11 = 0;
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 0x40000000;
+  v7[2] = ___ZNK6mach_o6Header18validSemanticsUUIDERKNS_6PolicyE_block_invoke;
+  v7[3] = &unk_1EEE9C628;
+  v7[4] = &v8;
+  mach_o::Header::forEachLoadCommand(this, v7, v12);
+  mach_o::Error::~Error(v12);
+  v6 = *(v9 + 6);
+  if (v6 < 2)
+  {
+    if (v6 || !mach_o::Policy::enforceHasUUID(a2) || mach_o::Header::hasSection(this, "__TEXT", 6, "__playground", 12, 0) && (mach_o::Header::platformAndVersions(this, v12), (mach_o::Platform::isSimulator(v12) & 1) != 0))
+    {
+      *a3 = 0;
+    }
+
+    else
+    {
+      mach_o::Error::Error(a3, "missing LC_UUID load command");
+    }
+  }
+
+  else
+  {
+    mach_o::Error::Error(a3, "too many LC_UUID load commands");
+  }
+
+  _Block_object_dispose(&v8, 8);
+}
+
+void mach_o::Header::validSemanticsInstallName(mach_o::Header *this@<X0>, mach_o::Error *a2@<X8>)
+{
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2000000000;
+  v13 = 0;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2000000000;
+  v9 = 0;
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 0x40000000;
+  v5[2] = ___ZNK6mach_o6Header25validSemanticsInstallNameERKNS_6PolicyE_block_invoke;
+  v5[3] = &unk_1EEE9C650;
+  v5[4] = &v10;
+  v5[5] = &v6;
+  mach_o::Header::forEachLoadCommand(this, v5, v14);
+  mach_o::Error::~Error(v14);
+  if (v7[6] < 2)
+  {
+    v4 = *(this + 3);
+    if (v4 == 9 || v4 == 6)
+    {
+      if (!v11[3])
+      {
+        mach_o::Error::Error(a2, "MH_DYLIB is missing LC_ID_DYLIB");
+        goto LABEL_10;
+      }
+    }
+
+    else if (v11[3])
+    {
+      mach_o::Error::Error(a2, "found LC_ID_DYLIB found in non-MH_DYLIB");
+      goto LABEL_10;
+    }
+
+    *a2 = 0;
+    goto LABEL_10;
+  }
+
+  mach_o::Error::Error(a2, "multiple LC_ID_DYLIB found");
+LABEL_10:
+  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v10, 8);
+}
+
+void mach_o::Header::validSemanticsLinkedDylibs(mach_o::Header *this@<X0>, const mach_o::Policy *a2@<X1>, mach_o::Error *a3@<X8>)
+{
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3002000000;
+  v24 = __Block_byref_object_copy__19;
+  v25 = __Block_byref_object_dispose__20;
+  v26 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2000000000;
+  v20 = 0;
+  memset(v29, 0, 512);
+  v6 = mach_o::Policy::enforceNoDuplicateDylibs(a2);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 0x40000000;
+  v14[2] = ___ZNK6mach_o6Header26validSemanticsLinkedDylibsERKNS_6PolicyE_block_invoke;
+  v14[3] = &unk_1EEE9C678;
+  v15 = v6;
+  hasWarningHandler = mach_o::hasWarningHandler(v6);
+  v14[6] = this;
+  v14[7] = v29;
+  v14[4] = &v17;
+  v14[5] = &v21;
+  mach_o::Header::forEachLoadCommand(this, v14, v12);
+  mach_o::Error::~Error(v12);
+  if (v22[5])
+  {
+    mach_o::Error::Error(a3, v22 + 5);
+  }
+
+  else
+  {
+    v7 = *(this + 3);
+    if ((v7 == 8 || v7 == 6 || v7 == 2 && (*(this + 24) & 4) != 0) && mach_o::Policy::enforceHasLinkedDylibs(a2) && !*(v18 + 6) && ((v12[0] = 0, v27 = 0x10000, v28 = 0x10000, !mach_o::Header::getDylibInstallName(this, v12, &v28, &v27)) ? (v8 = 0) : (v8 = v12[0]), !v8 ? (v9 = 0) : (v9 = strlen(v8)), (v13[0] = v8, v13[1] = v9, mach_o::Header::platformAndVersions(this, v12), v10 = mach_o::Platform::libSystemDir(v12), v9 < v11) || std::string_view::compare[abi:nn200100](v13, 0, v11, v10, v11)))
+    {
+      mach_o::Error::Error(a3, "missing LC_LOAD_DYLIB (must link with at least libSystem.dylib)");
+    }
+
+    else
+    {
+      *a3 = 0;
+    }
+  }
+
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v21, 8);
+  mach_o::Error::~Error(&v26);
 }

@@ -3,20 +3,20 @@
 
 @implementation MLCANEIOSurface
 
-void __30___MLCANEIOSurface_initialize__block_invoke()
+void __30___MLCANEIOSurface_initialize__block_invoke(uint64_t a1)
 {
   if (AppleNeuralEngineLibrary_onceToken != -1)
   {
     __30___MLCANEIOSurface_initialize__block_invoke_cold_1();
   }
 
-  v0 = AppleNeuralEngineLibrary_frameworkLibrary;
+  v1 = AppleNeuralEngineLibrary_frameworkLibrary;
   if (AppleNeuralEngineLibrary_frameworkLibrary)
   {
-    v0 = softLinkClass_ANEIOSurfaceObject() != 0;
+    v1 = softLinkClass_ANEIOSurfaceObject(a1) != 0;
   }
 
-  gIsAppleNeuralEngineAvailable = v0;
+  gIsAppleNeuralEngineAvailable = v1;
 }
 
 @end

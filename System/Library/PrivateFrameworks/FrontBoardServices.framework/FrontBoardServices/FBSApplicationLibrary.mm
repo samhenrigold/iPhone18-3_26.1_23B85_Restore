@@ -1,5 +1,6 @@
 @interface FBSApplicationLibrary
 - (BOOL)isUsingNetwork;
+- (FBSALOToken)_observeType:(void *)type withBlock:;
 - (FBSApplicationLibrary)init;
 - (FBSApplicationLibrary)initWithConfiguration:(id)configuration;
 - (NSString)description;
@@ -39,10 +40,7 @@
 - (void)_handleApplicationStateDidChange:(int)change notifyForUpdateInsteadOfReplacement:;
 - (void)_load;
 - (void)_notifyDidChangeNetworkUsage:(uint64_t)usage;
-- (void)_notifyDidDemoteApplications:(uint64_t)applications;
-- (void)_notifyDidRemoveApplications:(uint64_t)applications;
 - (void)_notifyForType:(int)type synchronously:(void *)synchronously withCastingBlock:;
-- (void)_observeType:(void *)type withBlock:;
 - (void)_reloadPlaceholdersNotificationFired;
 - (void)_workQueue_addApplication:(uint64_t)application;
 - (void)_workQueue_addApplicationProxy:(uint64_t)proxy;
@@ -142,17 +140,17 @@ void __84__FBSApplicationLibrary__workQueue_executeInstallSynchronizationBlocksI
   }
 }
 
-uint64_t __84__FBSApplicationLibrary__workQueue_executeInstallSynchronizationBlocksIfAppropriate__block_invoke_2(uint64_t result)
+void *__84__FBSApplicationLibrary__workQueue_executeInstallSynchronizationBlocksIfAppropriate__block_invoke_2(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (!*(v1 + 88))
   {
     v2 = result;
     result = [*(v1 + 96) count];
     if (result)
     {
-      [*(v2 + 40) addObjectsFromArray:*(*(v2 + 32) + 96)];
-      v3 = *(*(v2 + 32) + 96);
+      [v2[5] addObjectsFromArray:*(v2[4] + 96)];
+      v3 = *(v2[4] + 96);
 
       return [v3 removeAllObjects];
     }
@@ -181,7 +179,7 @@ uint64_t __84__FBSApplicationLibrary__workQueue_executeInstallSynchronizationBlo
 
 - (id)_initWithApplicationWorkspace:(id)workspace configuration:(id)configuration
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   workspaceCopy = workspace;
   configurationCopy = configuration;
   if (!workspaceCopy)
@@ -195,53 +193,54 @@ uint64_t __84__FBSApplicationLibrary__workQueue_executeInstallSynchronizationBlo
     [FBSApplicationLibrary _initWithApplicationWorkspace:a2 configuration:?];
   }
 
-  v21.receiver = self;
-  v21.super_class = FBSApplicationLibrary;
-  v10 = [(FBSApplicationLibrary *)&v21 init];
+  v23.receiver = self;
+  v23.super_class = FBSApplicationLibrary;
+  v10 = [(FBSApplicationLibrary *)&v23 init];
   v11 = v10;
   if (v10)
   {
     v10->_lock._os_unfair_lock_opaque = 0;
     v13 = [v9 copy];
-    configuration = v11->_configuration;
-    v11->_configuration = v13;
+    v14 = *(v11 + 8);
+    *(v11 + 8) = v13;
 
-    if (([(objc_class *)[(FBSApplicationLibraryConfiguration *)v11->_configuration applicationInfoClass] isSubclassOfClass:objc_opt_class()]& 1) != 0)
+    if ([objc_msgSend(*(v11 + 8) "applicationInfoClass")])
     {
-      if (([(objc_class *)[(FBSApplicationLibraryConfiguration *)v11->_configuration applicationPlaceholderClass] isSubclassOfClass:objc_opt_class()]& 1) != 0)
+      v15 = [objc_msgSend(*(v11 + 8) "applicationPlaceholderClass")];
+      if (v15)
       {
-        v15 = FBSLogApplicationLibrary();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v16 = FBSLogApplicationLibrary(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          installedApplicationFilter = [(FBSApplicationLibraryConfiguration *)v11->_configuration installedApplicationFilter];
-          v17 = @"YES";
+          installedApplicationFilter = [*(v11 + 8) installedApplicationFilter];
+          v18 = @"YES";
           if (!installedApplicationFilter)
           {
-            v17 = @"NO";
+            v18 = @"NO";
           }
 
           *buf = 134218242;
-          v23 = v11;
-          v24 = 2112;
-          v25 = v17;
-          _os_log_impl(&dword_1A2DBB000, v15, OS_LOG_TYPE_DEFAULT, "FBSApplicationLibrary<%p> has custom app inclusion filter defined? %@", buf, 0x16u);
+          v25 = v11;
+          v26 = 2112;
+          v27 = v18;
+          _os_log_impl(&dword_1A2DBB000, v16, OS_LOG_TYPE_DEFAULT, "FBSApplicationLibrary<%p> has custom app inclusion filter defined? %@", buf, 0x16u);
         }
 
-        v18 = FBSLogApplicationLibrary();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v20 = FBSLogApplicationLibrary(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          placeholderFilter = [(FBSApplicationLibraryConfiguration *)v11->_configuration placeholderFilter];
-          v20 = @"YES";
+          placeholderFilter = [*(v11 + 8) placeholderFilter];
+          v22 = @"YES";
           if (!placeholderFilter)
           {
-            v20 = @"NO";
+            v22 = @"NO";
           }
 
           *buf = 134218242;
-          v23 = v11;
-          v24 = 2112;
-          v25 = v20;
-          _os_log_impl(&dword_1A2DBB000, v18, OS_LOG_TYPE_DEFAULT, "FBSApplicationLibrary<%p> has custom placeholder inclusion filter defined? %@", buf, 0x16u);
+          v25 = v11;
+          v26 = 2112;
+          v27 = v22;
+          _os_log_impl(&dword_1A2DBB000, v20, OS_LOG_TYPE_DEFAULT, "FBSApplicationLibrary<%p> has custom placeholder inclusion filter defined? %@", buf, 0x16u);
         }
 
         [off_1E76BC9B8 serial];
@@ -250,10 +249,10 @@ uint64_t __84__FBSApplicationLibrary__workQueue_executeInstallSynchronizationBlo
         BSDispatchQueueCreate();
       }
 
-      [FBSApplicationLibrary _initWithApplicationWorkspace:a2 configuration:?];
+      [(FBSApplicationLibrary *)(v11 + 8) _initWithApplicationWorkspace:a2 configuration:v11];
     }
 
-    [FBSApplicationLibrary _initWithApplicationWorkspace:a2 configuration:?];
+    [(FBSApplicationLibrary *)(v11 + 8) _initWithApplicationWorkspace:a2 configuration:v11];
   }
 
   return 0;
@@ -463,17 +462,18 @@ uint64_t __57__FBSApplicationLibrary_installedApplicationForIdentity___block_inv
 - (id)installedApplicationWithBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if ([(FBSApplicationLibraryConfiguration *)self->_configuration isPersonaAware])
+  isPersonaAware = [(FBSApplicationLibraryConfiguration *)self->_configuration isPersonaAware];
+  if (isPersonaAware)
   {
-    v5 = FBSLogApplicationLibrary();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = FBSLogApplicationLibrary(isPersonaAware);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(FBSApplicationLibrary *)v5 installedApplicationWithBundleIdentifier:v6, v7, v8, v9, v10, v11, v12];
+      [(FBSApplicationLibrary *)v6 installedApplicationWithBundleIdentifier:v7, v8, v9, v10, v11, v12, v13];
     }
   }
 
-  v13 = [(FBSApplicationLibrary *)self installedApplicationsForBundleIdentifier:identifierCopy];
-  firstObject = [v13 firstObject];
+  v14 = [(FBSApplicationLibrary *)self installedApplicationsForBundleIdentifier:identifierCopy];
+  firstObject = [v14 firstObject];
 
   return firstObject;
 }
@@ -482,12 +482,13 @@ uint64_t __57__FBSApplicationLibrary_installedApplicationForIdentity___block_inv
 {
   identifierCopy = identifier;
   handlerCopy = handler;
-  if ([(FBSApplicationLibraryConfiguration *)self->_configuration isPersonaAware])
+  isPersonaAware = [(FBSApplicationLibraryConfiguration *)self->_configuration isPersonaAware];
+  if (isPersonaAware)
   {
-    v9 = FBSLogApplicationLibrary();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = FBSLogApplicationLibrary(isPersonaAware);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(FBSApplicationLibrary *)v9 installedApplicationWithBundleIdentifier:v10 completionHandler:v11, v12, v13, v14, v15, v16];
+      [(FBSApplicationLibrary *)v10 installedApplicationWithBundleIdentifier:v11 completionHandler:v12, v13, v14, v15, v16, v17];
     }
   }
 
@@ -501,11 +502,11 @@ uint64_t __57__FBSApplicationLibrary_installedApplicationForIdentity___block_inv
   block[1] = 3221225472;
   block[2] = __84__FBSApplicationLibrary_installedApplicationWithBundleIdentifier_completionHandler___block_invoke;
   block[3] = &unk_1E76BD4E0;
-  v21 = identifierCopy;
-  v22 = handlerCopy;
+  v22 = identifierCopy;
+  v23 = handlerCopy;
   block[4] = self;
-  v18 = identifierCopy;
-  v19 = handlerCopy;
+  v19 = identifierCopy;
+  v20 = handlerCopy;
   dispatch_async(completionQueue, block);
 }
 
@@ -551,17 +552,18 @@ uint64_t __40__FBSApplicationLibrary_allPlaceholders__block_invoke(uint64_t a1)
 - (id)placeholderWithBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if ([(FBSApplicationLibraryConfiguration *)self->_configuration isPersonaAware])
+  isPersonaAware = [(FBSApplicationLibraryConfiguration *)self->_configuration isPersonaAware];
+  if (isPersonaAware)
   {
-    v5 = FBSLogApplicationLibrary();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = FBSLogApplicationLibrary(isPersonaAware);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(FBSApplicationLibrary *)v5 placeholderWithBundleIdentifier:v6, v7, v8, v9, v10, v11, v12];
+      [(FBSApplicationLibrary *)v6 placeholderWithBundleIdentifier:v7, v8, v9, v10, v11, v12, v13];
     }
   }
 
-  v13 = [(FBSApplicationLibrary *)self placeholdersForBundleIdentifier:identifierCopy];
-  firstObject = [v13 firstObject];
+  v14 = [(FBSApplicationLibrary *)self placeholdersForBundleIdentifier:identifierCopy];
+  firstObject = [v14 firstObject];
 
   return firstObject;
 }
@@ -728,19 +730,20 @@ uint64_t __57__FBSApplicationLibrary_uninstallApplication_completion___block_inv
   applicationCopy = application;
   optionsCopy = options;
   completionCopy = completion;
-  if ([(FBSApplicationLibraryConfiguration *)self->_configuration isPersonaAware])
+  isPersonaAware = [(FBSApplicationLibraryConfiguration *)self->_configuration isPersonaAware];
+  if (isPersonaAware)
   {
-    v11 = FBSLogApplicationLibrary();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = FBSLogApplicationLibrary(isPersonaAware);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(FBSApplicationLibrary *)v11 uninstallApplication:v12 withOptions:v13 completion:v14, v15, v16, v17, v18];
+      [(FBSApplicationLibrary *)v12 uninstallApplication:v13 withOptions:v14 completion:v15, v16, v17, v18, v19];
     }
   }
 
-  v19 = [(FBSApplicationLibrary *)self installedApplicationWithBundleIdentifier:applicationCopy];
-  applicationIdentity = [v19 applicationIdentity];
+  v20 = [(FBSApplicationLibrary *)self installedApplicationWithBundleIdentifier:applicationCopy];
+  applicationIdentity = [v20 applicationIdentity];
 
-  if (applicationIdentity || (-[FBSApplicationLibrary placeholderWithBundleIdentifier:](self, "placeholderWithBundleIdentifier:", applicationCopy), v21 = objc_claimAutoreleasedReturnValue(), [v21 applicationIdentity], applicationIdentity = objc_claimAutoreleasedReturnValue(), v21, applicationIdentity))
+  if (applicationIdentity || (-[FBSApplicationLibrary placeholderWithBundleIdentifier:](self, "placeholderWithBundleIdentifier:", applicationCopy), v22 = objc_claimAutoreleasedReturnValue(), [v22 applicationIdentity], applicationIdentity = objc_claimAutoreleasedReturnValue(), v22, applicationIdentity))
   {
     [(FBSApplicationLibrary *)self uninstallApplicationIdentity:applicationIdentity withOptions:optionsCopy completion:completionCopy];
 LABEL_8:
@@ -748,8 +751,8 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v22 = FBSLogApplicationLibrary();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v24 = FBSLogApplicationLibrary(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
     [FBSApplicationLibrary uninstallApplication:withOptions:completion:];
   }
@@ -757,15 +760,15 @@ LABEL_8:
   if (completionCopy)
   {
     completionQueue = self->_completionQueue;
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __69__FBSApplicationLibrary_uninstallApplication_withOptions_completion___block_invoke;
-    v24[3] = &unk_1E76BD750;
-    v26 = completionCopy;
-    v25 = applicationCopy;
-    dispatch_async(completionQueue, v24);
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __69__FBSApplicationLibrary_uninstallApplication_withOptions_completion___block_invoke;
+    v26[3] = &unk_1E76BD750;
+    v28 = completionCopy;
+    v27 = applicationCopy;
+    dispatch_async(completionQueue, v26);
 
-    applicationIdentity = v26;
+    applicationIdentity = v28;
     goto LABEL_8;
   }
 
@@ -791,153 +794,153 @@ void __69__FBSApplicationLibrary_uninstallApplication_withOptions_completion___b
 
 - (void)uninstallApplicationIdentity:(id)identity withOptions:(id)options completion:(id)completion
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   optionsCopy = options;
   completionCopy = completion;
-  v12 = FBSLogApplicationLibrary();
+  v12 = FBSLogApplicationLibrary(completionCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     fbs_shortDescription = [identityCopy fbs_shortDescription];
     *buf = 138412290;
-    *v67 = fbs_shortDescription;
+    *v68 = fbs_shortDescription;
     _os_log_impl(&dword_1A2DBB000, v12, OS_LOG_TYPE_DEFAULT, "Uninstalling %@...", buf, 0xCu);
   }
 
-  v62[0] = MEMORY[0x1E69E9820];
-  v62[1] = 3221225472;
-  v62[2] = __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_completion___block_invoke;
-  v62[3] = &unk_1E76BF090;
+  v63[0] = MEMORY[0x1E69E9820];
+  v63[1] = 3221225472;
+  v63[2] = __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_completion___block_invoke;
+  v63[3] = &unk_1E76BF090;
   v14 = identityCopy;
-  v63 = v14;
+  v64 = v14;
   v15 = completionCopy;
   selfCopy = self;
-  v65 = v15;
-  v16 = [off_1E76BC9A0 sentinelWithCompletion:v62];
+  v66 = v15;
+  v16 = [off_1E76BC9A0 sentinelWithCompletion:v63];
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x2020000000;
+  v62 = 0;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x3032000000;
+  v56 = __Block_byref_object_copy__8;
+  v57 = __Block_byref_object_dispose__8;
   v58 = 0;
-  v59 = &v58;
-  v60 = 0x2020000000;
-  v61 = 0;
+  v51[0] = 0;
+  v51[1] = v51;
+  v51[2] = 0x3032000000;
+  v51[3] = __Block_byref_object_copy__8;
+  v51[4] = __Block_byref_object_dispose__8;
   v52 = 0;
-  v53 = &v52;
-  v54 = 0x3032000000;
-  v55 = __Block_byref_object_copy__8;
-  v56 = __Block_byref_object_dispose__8;
-  v57 = 0;
-  v50[0] = 0;
-  v50[1] = v50;
-  v50[2] = 0x3032000000;
-  v50[3] = __Block_byref_object_copy__8;
-  v50[4] = __Block_byref_object_dispose__8;
-  v51 = 0;
   workQueue = self->_workQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_completion___block_invoke_2;
   block[3] = &unk_1E76BF0B8;
-  v47 = v50;
+  v48 = v51;
   block[4] = self;
   v18 = v14;
-  v44 = v18;
-  v48 = &v58;
+  v45 = v18;
+  v49 = &v59;
   v19 = optionsCopy;
-  v45 = v19;
-  v49 = &v52;
+  v46 = v19;
+  v50 = &v53;
   v20 = v16;
-  v46 = v20;
+  v47 = v20;
   dispatch_sync(workQueue, block);
-  if (*(v59 + 24) == 1)
+  if (*(v60 + 24) == 1)
   {
-    v21 = FBSLogApplicationLibrary();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = FBSLogApplicationLibrary(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       isUserInitiated = [v19 isUserInitiated];
       fbs_shortDescription2 = [v18 fbs_shortDescription];
       *buf = 67109378;
-      *v67 = isUserInitiated;
-      *&v67[4] = 2114;
-      *&v67[6] = fbs_shortDescription2;
-      _os_log_impl(&dword_1A2DBB000, v21, OS_LOG_TYPE_DEFAULT, "Requesting uninstallation with prompt=%{BOOL}u of %{public}@ from install coordinator", buf, 0x12u);
+      *v68 = isUserInitiated;
+      *&v68[4] = 2114;
+      *&v68[6] = fbs_shortDescription2;
+      _os_log_impl(&dword_1A2DBB000, v22, OS_LOG_TYPE_DEFAULT, "Requesting uninstallation with prompt=%{BOOL}u of %{public}@ from install coordinator", buf, 0x12u);
     }
 
     if (FBSApplicationLibraryLogTransactionEnabled())
     {
-      v24 = v53[5];
-      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Requesting uninstallation from install coordinator."];
-      _FBSApplicationLibraryLogTransaction(0, 1, 1, v24, v25);
+      v25 = v54[5];
+      v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Requesting uninstallation from install coordinator."];
+      _FBSApplicationLibraryLogTransaction(0, 1, 1, v25, v26);
     }
 
-    v26 = objc_alloc_init(getIXUninstallOptionsClass());
-    [v26 setRequestUserConfirmation:{objc_msgSend(v19, "isUserInitiated")}];
-    [v26 setShowArchiveOption:{objc_msgSend(v19, "showsArchiveOption")}];
-    v27 = objc_alloc(getIXApplicationIdentityClass());
-    v28 = [v27 initWithBundleIdentifier:v53[5]];
+    v27 = objc_alloc_init(getIXUninstallOptionsClass());
+    [v27 setRequestUserConfirmation:{objc_msgSend(v19, "isUserInitiated")}];
+    [v27 setShowArchiveOption:{objc_msgSend(v19, "showsArchiveOption")}];
+    v28 = objc_alloc(getIXApplicationIdentityClass());
+    v29 = [v28 initWithBundleIdentifier:v54[5]];
     IXAppInstallCoordinatorClass = getIXAppInstallCoordinatorClass();
     if (!IXAppInstallCoordinatorClass)
     {
-      v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"IXAppInstallCoordinator does not exist"];
-      v31 = MEMORY[0x1E69E9C10];
+      v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"IXAppInstallCoordinator does not exist"];
       v32 = MEMORY[0x1E69E9C10];
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v33 = MEMORY[0x1E69E9C10];
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        v33 = NSStringFromSelector(a2);
-        v34 = objc_opt_class();
-        v35 = NSStringFromClass(v34);
+        v34 = NSStringFromSelector(a2);
+        v35 = objc_opt_class();
+        v36 = NSStringFromClass(v35);
         *buf = 138544642;
-        *v67 = v33;
-        *&v67[8] = 2114;
-        *&v67[10] = v35;
-        v68 = 2048;
+        *v68 = v34;
+        *&v68[8] = 2114;
+        *&v68[10] = v36;
+        v69 = 2048;
         selfCopy2 = self;
-        v70 = 2114;
-        v71 = @"FBSApplicationLibrary.m";
-        v72 = 1024;
-        v73 = 384;
-        v74 = 2114;
-        v75 = v30;
+        v71 = 2114;
+        v72 = @"FBSApplicationLibrary.m";
+        v73 = 1024;
+        v74 = 384;
+        v75 = 2114;
+        v76 = v31;
         _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v36 = v30;
-      [v30 UTF8String];
+      v37 = v31;
+      [v31 UTF8String];
       _bs_set_crash_log_message();
     }
 
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_completion___block_invoke_109;
-    v37[3] = &unk_1E76BF108;
-    v37[4] = self;
-    v38 = v18;
-    v40 = &v52;
-    v41 = v50;
-    v42 = a2;
-    v39 = v20;
-    [IXAppInstallCoordinatorClass uninstallAppWithIdentity:v28 options:v26 completion:v37];
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_completion___block_invoke_109;
+    v38[3] = &unk_1E76BF108;
+    v38[4] = self;
+    v39 = v18;
+    v41 = &v53;
+    v42 = v51;
+    v43 = a2;
+    v40 = v20;
+    [IXAppInstallCoordinatorClass uninstallAppWithIdentity:v29 options:v27 completion:v38];
   }
 
-  _Block_object_dispose(v50, 8);
-  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(v51, 8);
+  _Block_object_dispose(&v53, 8);
 
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v59, 8);
 }
 
 void __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v25[3] = *MEMORY[0x1E69E9840];
+  v26[3] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 isFailed])
   {
     v4 = MEMORY[0x1E696ABC0];
     v5 = *MEMORY[0x1E696A588];
-    v25[0] = @"InstallCoordination dropped uninstall completion block on the floor.";
-    v24[0] = v5;
-    v24[1] = @"FBSALIdentity";
+    v26[0] = @"InstallCoordination dropped uninstall completion block on the floor.";
+    v25[0] = v5;
+    v25[1] = @"FBSALIdentity";
     v6 = [*(a1 + 32) fbs_mediumDescription];
-    v24[2] = *off_1E76BC958;
-    v25[1] = v6;
-    v25[2] = @"Failed";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
+    v25[2] = *off_1E76BC958;
+    v26[1] = v6;
+    v26[2] = @"Failed";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3];
     v8 = [v4 errorWithDomain:@"FBSApplicationLibraryErrorDomain" code:1 userInfo:v7];
   }
 
@@ -969,30 +972,30 @@ void __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_comple
 
   if (v8)
   {
-    v12 = FBSLogApplicationLibrary();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = FBSLogApplicationLibrary(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [*(a1 + 32) fbs_shortDescription];
-      v14 = [v8 descriptionWithMultilinePrefix:0];
+      v14 = [*(a1 + 32) fbs_shortDescription];
+      v15 = [v8 descriptionWithMultilinePrefix:0];
       *buf = 138412546;
-      v21 = v13;
-      v22 = 2114;
-      v23 = v14;
-      _os_log_impl(&dword_1A2DBB000, v12, OS_LOG_TYPE_DEFAULT, "Uninstallation of %@ completed with error: %{public}@", buf, 0x16u);
+      v22 = v14;
+      v23 = 2114;
+      v24 = v15;
+      _os_log_impl(&dword_1A2DBB000, v13, OS_LOG_TYPE_DEFAULT, "Uninstallation of %@ completed with error: %{public}@", buf, 0x16u);
     }
   }
 
-  v15 = *(a1 + 48);
-  if (v15)
+  v16 = *(a1 + 48);
+  if (v16)
   {
-    v16 = *(*(a1 + 40) + 112);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_completion___block_invoke_95;
-    v17[3] = &unk_1E76BD750;
-    v19 = v15;
-    v18 = v8;
-    dispatch_async(v16, v17);
+    v17 = *(*(a1 + 40) + 112);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_completion___block_invoke_95;
+    v18[3] = &unk_1E76BD750;
+    v20 = v16;
+    v19 = v8;
+    dispatch_async(v17, v18);
   }
 }
 
@@ -1139,7 +1142,7 @@ uint64_t __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_co
 {
   v17 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v3 = FBSLogApplicationLibrary();
+  v3 = FBSLogApplicationLibrary(a1);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2)
   {
@@ -1262,7 +1265,7 @@ void __48__FBSApplicationLibrary_removeObserverForToken___block_invoke(uint64_t 
   return v5;
 }
 
-- (void)_observeType:(void *)type withBlock:
+- (FBSALOToken)_observeType:(void *)type withBlock:
 {
   typeCopy = type;
   v6 = typeCopy;
@@ -1388,7 +1391,7 @@ void __48__FBSApplicationLibrary_removeObserverForToken___block_invoke(uint64_t 
 
 uint64_t __61__FBSApplicationLibrary__reloadPlaceholdersNotificationFired__block_invoke(uint64_t a1)
 {
-  v2 = FBSLogApplicationLibrary();
+  v2 = FBSLogApplicationLibrary(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -1739,7 +1742,7 @@ void __30__FBSApplicationLibrary__load__block_invoke_3(uint64_t a1)
 
 - (void)_workQueue_addApplication:(uint64_t)application
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (application)
@@ -1767,20 +1770,20 @@ void __30__FBSApplicationLibrary__load__block_invoke_3(uint64_t a1)
 
     [*(application + 64) setObject:v5 forKey:identityString];
     [(FBSApplicationLibrary *)application _workQueue_didAddBundleInfo:v5];
-    v9 = FBSLogApplicationLibrary();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = FBSLogApplicationLibrary(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       succinctDescription = [v5 succinctDescription];
-      v11 = 138412290;
-      v12 = succinctDescription;
-      _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "Added application: %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = succinctDescription;
+      _os_log_impl(&dword_1A2DBB000, v10, OS_LOG_TYPE_DEFAULT, "Added application: %@", &v12, 0xCu);
     }
   }
 }
 
 - (void)_workQueue_addPlaceholder:(uint64_t)placeholder
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (placeholder)
@@ -1809,58 +1812,60 @@ void __30__FBSApplicationLibrary__load__block_invoke_3(uint64_t a1)
     [*(placeholder + 72) setObject:v5 forKey:identityString];
     [v5 setAppLibrary:placeholder];
     [(FBSApplicationLibrary *)placeholder _workQueue_didAddBundleInfo:v5];
-    v9 = FBSLogApplicationLibrary();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = FBSLogApplicationLibrary(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       succinctDescription = [v5 succinctDescription];
-      v11 = 138412290;
-      v12 = succinctDescription;
-      _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "Added placeholder: %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = succinctDescription;
+      _os_log_impl(&dword_1A2DBB000, v10, OS_LOG_TYPE_DEFAULT, "Added placeholder: %@", &v12, 0xCu);
     }
   }
 }
 
 - (void)applicationInstallsDidStart:(id)start
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   startCopy = start;
-  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v4 = [startCopy countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v40 = 0u;
+  v4 = [startCopy countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v6 = v4;
   if (v4)
   {
-    v6 = *v37;
+    v7 = *v38;
     *&v5 = 136315394;
-    v21 = v5;
+    v22 = v5;
     do
     {
-      v7 = 0;
+      v8 = 0;
       do
       {
-        if (*v37 != v6)
+        if (*v38 != v7)
         {
           objc_enumerationMutation(startCopy);
         }
 
-        v8 = *(*(&v36 + 1) + 8 * v7);
-        v9 = FBSLogApplicationLibraryObserver();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v9 = *(*(&v37 + 1) + 8 * v8);
+        v10 = FBSLogApplicationLibraryObserver(v4);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          bundleIdentifier = [v8 bundleIdentifier];
-          *buf = v21;
+          bundleIdentifier = [v9 bundleIdentifier];
+          *buf = v22;
           *&buf[4] = "[FBSApplicationLibrary applicationInstallsDidStart:]";
           *&buf[12] = 2114;
           *&buf[14] = bundleIdentifier;
-          _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
+          _os_log_impl(&dword_1A2DBB000, v10, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
         }
 
-        ++v7;
+        ++v8;
       }
 
-      while (v4 != v7);
-      v4 = [startCopy countByEnumeratingWithState:&v36 objects:v44 count:16];
+      while (v6 != v8);
+      v4 = [startCopy countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v6 = v4;
     }
 
     while (v4);
@@ -1869,37 +1874,37 @@ void __30__FBSApplicationLibrary__load__block_invoke_3(uint64_t a1)
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v41 = __Block_byref_object_copy__8;
-  v42 = __Block_byref_object_dispose__8;
-  v43 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__8;
-  v34 = __Block_byref_object_dispose__8;
-  v35 = 0;
+  v42 = __Block_byref_object_copy__8;
+  v43 = __Block_byref_object_dispose__8;
+  v44 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__8;
+  v35 = __Block_byref_object_dispose__8;
+  v36 = 0;
   workQueue = self->_workQueue;
   block = MEMORY[0x1E69E9820];
-  v23 = 3221225472;
-  v24 = __53__FBSApplicationLibrary_applicationInstallsDidStart___block_invoke;
-  v25 = &unk_1E76BF210;
-  v12 = startCopy;
-  v26 = v12;
+  v24 = 3221225472;
+  v25 = __53__FBSApplicationLibrary_applicationInstallsDidStart___block_invoke;
+  v26 = &unk_1E76BF210;
+  v13 = startCopy;
+  v27 = v13;
   selfCopy = self;
-  v28 = buf;
-  v29 = &v30;
+  v29 = buf;
+  v30 = &v31;
   dispatch_sync(workQueue, &block);
-  if ([v31[5] count])
+  if ([v32[5] count])
   {
     [(FBSApplicationLibrary *)self _notifyDidAddPlaceholders:?];
   }
 
   if ([*(*&buf[8] + 40) count])
   {
-    [(FBSApplicationLibrary *)self _notifyDidDemoteApplications:v13, v14, v15, v16, v17, v18, v19, self, v21, *(&v21 + 1), block, v23, v24, v25];
+    [(FBSApplicationLibrary *)self _notifyDidDemoteApplications:v14, v15, v16, v17, v18, v19, v20, self, v22, *(&v22 + 1), block, v24, v25, v26];
   }
 
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v31, 8);
   _Block_object_dispose(buf, 8);
 }
 
@@ -1950,7 +1955,7 @@ void __53__FBSApplicationLibrary_applicationInstallsDidStart___block_invoke(uint
               v11 = *(*(&v20 + 1) + 8 * v10);
               if (FBSInstallTypeIsCloudDemoted([v5 installType]))
               {
-                __53__FBSApplicationLibrary_applicationInstallsDidStart___block_invoke_cold_1((a1 + 40), v11, a1 + 48, &v19);
+                __53__FBSApplicationLibrary_applicationInstallsDidStart___block_invoke_cold_1((a1 + 40), v11, a1 + 48, v19);
               }
 
               v12 = [(FBSApplicationLibrary *)*(a1 + 40) _workQueue_placeholderForIdentity:v11];
@@ -2007,15 +2012,16 @@ void __53__FBSApplicationLibrary_applicationInstallsDidStart___block_invoke(uint
     v6 = *v18;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v18 != v6)
         {
           objc_enumerationMutation(changeCopy);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
-        v9 = FBSLogApplicationLibraryObserver();
+        v8 = *(*(&v17 + 1) + 8 * v7);
+        v9 = FBSLogApplicationLibraryObserver(v4);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
           bundleIdentifier = [v8 bundleIdentifier];
@@ -2025,12 +2031,16 @@ void __53__FBSApplicationLibrary_applicationInstallsDidStart___block_invoke(uint
           v24 = bundleIdentifier;
           _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_INFO, "%s %{public}@", buf, 0x16u);
         }
+
+        ++v7;
       }
 
-      v5 = [changeCopy countByEnumeratingWithState:&v17 objects:v25 count:16];
+      while (v5 != v7);
+      v4 = [changeCopy countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 
   workQueue = self->_workQueue;
@@ -2097,7 +2107,7 @@ void __54__FBSApplicationLibrary_applicationInstallsDidChange___block_invoke(uin
 
               else
               {
-                v12 = FBSLogApplicationLibrary();
+                v12 = FBSLogApplicationLibrary(0);
                 if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
                 {
                   v13 = [v9 fbs_shortDescription];
@@ -2140,15 +2150,16 @@ void __54__FBSApplicationLibrary_applicationInstallsDidChange___block_invoke(uin
     v6 = *v18;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v18 != v6)
         {
           objc_enumerationMutation(iconCopy);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
-        v9 = FBSLogApplicationLibraryObserver();
+        v8 = *(*(&v17 + 1) + 8 * v7);
+        v9 = FBSLogApplicationLibraryObserver(v4);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           bundleIdentifier = [v8 bundleIdentifier];
@@ -2158,12 +2169,16 @@ void __54__FBSApplicationLibrary_applicationInstallsDidChange___block_invoke(uin
           v24 = bundleIdentifier;
           _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
         }
+
+        ++v7;
       }
 
-      v5 = [iconCopy countByEnumeratingWithState:&v17 objects:v25 count:16];
+      while (v5 != v7);
+      v4 = [iconCopy countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 
   workQueue = self->_workQueue;
@@ -2252,59 +2267,65 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
 
 - (void)applicationsDidInstall:(id)install
 {
-  v24 = a2;
+  v25 = a2;
   selfCopy = self;
-  v67 = *MEMORY[0x1E69E9840];
-  v58 = 0u;
+  v68 = *MEMORY[0x1E69E9840];
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
   installCopy = install;
-  v4 = [installCopy countByEnumeratingWithState:&v58 objects:v66 count:16];
+  v4 = [installCopy countByEnumeratingWithState:&v59 objects:v67 count:16];
+  v6 = v4;
   if (v4)
   {
-    v6 = *v59;
+    v7 = *v60;
     *&v5 = 136315394;
-    v27 = v5;
+    v28 = v5;
     do
     {
-      for (i = 0; i != v4; ++i)
+      v8 = 0;
+      do
       {
-        if (*v59 != v6)
+        if (*v60 != v7)
         {
           objc_enumerationMutation(installCopy);
         }
 
-        v8 = *(*(&v58 + 1) + 8 * i);
-        v9 = FBSLogApplicationLibraryObserver();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v9 = *(*(&v59 + 1) + 8 * v8);
+        v10 = FBSLogApplicationLibraryObserver(v4);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          bundleIdentifier = [v8 bundleIdentifier];
-          *buf = v27;
+          bundleIdentifier = [v9 bundleIdentifier];
+          *buf = v28;
           *&buf[4] = "[FBSApplicationLibrary applicationsDidInstall:]";
           *&buf[12] = 2114;
           *&buf[14] = bundleIdentifier;
-          _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
+          _os_log_impl(&dword_1A2DBB000, v10, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
         }
 
-        appState = [v8 appState];
+        appState = [v9 appState];
         isPlaceholder = [appState isPlaceholder];
 
         if (isPlaceholder)
         {
-          [(FBSApplicationLibrary *)v8 applicationsDidInstall:v24];
+          [(FBSApplicationLibrary *)v9 applicationsDidInstall:v25];
         }
 
-        appState2 = [v8 appState];
+        appState2 = [v9 appState];
         isInstalled = [appState2 isInstalled];
 
         if ((isInstalled & 1) == 0)
         {
-          [(FBSApplicationLibrary *)v8 applicationsDidInstall:v24];
+          [(FBSApplicationLibrary *)v9 applicationsDidInstall:v25];
         }
+
+        ++v8;
       }
 
-      v4 = [installCopy countByEnumeratingWithState:&v58 objects:v66 count:16];
+      while (v6 != v8);
+      v4 = [installCopy countByEnumeratingWithState:&v59 objects:v67 count:16];
+      v6 = v4;
     }
 
     while (v4);
@@ -2313,48 +2334,48 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v63 = __Block_byref_object_copy__8;
-  v64 = __Block_byref_object_dispose__8;
-  v65 = 0;
+  v64 = __Block_byref_object_copy__8;
+  v65 = __Block_byref_object_dispose__8;
+  v66 = 0;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x3032000000;
+  v56 = __Block_byref_object_copy__8;
+  v57 = __Block_byref_object_dispose__8;
+  v58 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__8;
+  v51 = __Block_byref_object_dispose__8;
   v52 = 0;
-  v53 = &v52;
-  v54 = 0x3032000000;
-  v55 = __Block_byref_object_copy__8;
-  v56 = __Block_byref_object_dispose__8;
-  v57 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__8;
+  v45 = __Block_byref_object_dispose__8;
   v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__8;
-  v50 = __Block_byref_object_dispose__8;
-  v51 = 0;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = __Block_byref_object_copy__8;
-  v44 = __Block_byref_object_dispose__8;
-  v45 = 0;
   workQueue = selfCopy->_workQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __48__FBSApplicationLibrary_applicationsDidInstall___block_invoke;
   block[3] = &unk_1E76BF238;
   block[4] = selfCopy;
-  v16 = installCopy;
-  v35 = v16;
-  v36 = &v46;
-  v37 = &v52;
-  v38 = buf;
-  v39 = &v40;
+  v17 = installCopy;
+  v36 = v17;
+  v37 = &v47;
+  v38 = &v53;
+  v39 = buf;
+  v40 = &v41;
   dispatch_sync(workQueue, block);
-  if ([v47[5] count])
+  if ([v48[5] count])
   {
     [(FBSApplicationLibrary *)selfCopy _notifyDidCancelPlaceholders:?];
   }
 
-  if ([v53[5] count])
+  if ([v54[5] count])
   {
-    [(FBSApplicationLibrary *)selfCopy _notifyDidRemoveApplications:v17, v18, v19, v20, v21, v22, v25, selfCopy, v27, *(&v27 + 1), v28, v29, v30, v31];
+    [(FBSApplicationLibrary *)selfCopy _notifyDidRemoveApplications:v18, v19, v20, v21, v22, v23, v26, selfCopy, v28, *(&v28 + 1), v29, v30, v31, v32];
   }
 
   if ([*(*&buf[8] + 40) count])
@@ -2362,63 +2383,69 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
     [(FBSApplicationLibrary *)selfCopy _notifyDidAddApplications:?];
   }
 
-  if ([v41[5] count])
+  if ([v42[5] count])
   {
     [(FBSApplicationLibrary *)selfCopy _notifyDidReplaceApplications:?];
   }
 
-  v23 = selfCopy->_workQueue;
-  v29 = MEMORY[0x1E69E9820];
-  v30 = 3221225472;
-  v31 = __48__FBSApplicationLibrary_applicationsDidInstall___block_invoke_241;
-  v32 = &unk_1E76BCDB0;
-  v33 = selfCopy;
-  dispatch_sync(v23, &v29);
+  v24 = selfCopy->_workQueue;
+  v30 = MEMORY[0x1E69E9820];
+  v31 = 3221225472;
+  v32 = __48__FBSApplicationLibrary_applicationsDidInstall___block_invoke_241;
+  v33 = &unk_1E76BCDB0;
+  v34 = selfCopy;
+  dispatch_sync(v24, &v30);
 
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v47, 8);
 
-  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v53, 8);
   _Block_object_dispose(buf, 8);
 }
 
 - (void)applicationsDidUninstall:(id)uninstall
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   uninstallCopy = uninstall;
-  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v4 = [uninstallCopy countByEnumeratingWithState:&v40 objects:v48 count:16];
+  v44 = 0u;
+  v4 = [uninstallCopy countByEnumeratingWithState:&v41 objects:v49 count:16];
+  v6 = v4;
   if (v4)
   {
-    v6 = *v41;
+    v7 = *v42;
     *&v5 = 136315394;
-    v23 = v5;
+    v24 = v5;
     do
     {
-      for (i = 0; i != v4; ++i)
+      v8 = 0;
+      do
       {
-        if (*v41 != v6)
+        if (*v42 != v7)
         {
           objc_enumerationMutation(uninstallCopy);
         }
 
-        v8 = *(*(&v40 + 1) + 8 * i);
-        v9 = FBSLogApplicationLibraryObserver();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v9 = *(*(&v41 + 1) + 8 * v8);
+        v10 = FBSLogApplicationLibraryObserver(v4);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          bundleIdentifier = [v8 bundleIdentifier];
-          *buf = v23;
+          bundleIdentifier = [v9 bundleIdentifier];
+          *buf = v24;
           *&buf[4] = "[FBSApplicationLibrary applicationsDidUninstall:]";
           *&buf[12] = 2114;
           *&buf[14] = bundleIdentifier;
-          _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
+          _os_log_impl(&dword_1A2DBB000, v10, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
         }
+
+        ++v8;
       }
 
-      v4 = [uninstallCopy countByEnumeratingWithState:&v40 objects:v48 count:16];
+      while (v6 != v8);
+      v4 = [uninstallCopy countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v6 = v4;
     }
 
     while (v4);
@@ -2427,15 +2454,15 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v45 = __Block_byref_object_copy__8;
-  v46 = __Block_byref_object_dispose__8;
-  v47 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__8;
-  v38 = __Block_byref_object_dispose__8;
-  v39 = 0;
+  v46 = __Block_byref_object_copy__8;
+  v47 = __Block_byref_object_dispose__8;
+  v48 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__8;
+  v39 = __Block_byref_object_dispose__8;
+  v40 = 0;
   selfCopy = self;
   workQueue = self->_workQueue;
   block[0] = MEMORY[0x1E69E9820];
@@ -2443,30 +2470,30 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
   block[2] = __50__FBSApplicationLibrary_applicationsDidUninstall___block_invoke;
   block[3] = &unk_1E76BF210;
   block[4] = self;
-  v13 = uninstallCopy;
-  v31 = v13;
-  v32 = &v34;
-  v33 = buf;
+  v14 = uninstallCopy;
+  v32 = v14;
+  v33 = &v35;
+  v34 = buf;
   dispatch_sync(workQueue, block);
   if ([*(*&buf[8] + 40) count])
   {
     [(FBSApplicationLibrary *)self _notifyDidCancelPlaceholders:?];
   }
 
-  if ([v35[5] count])
+  if ([v36[5] count])
   {
-    [(FBSApplicationLibrary *)self _notifyDidRemoveApplications:v14, v15, v16, v17, v18, v19, v21, self, v23, *(&v23 + 1), v24, v25, v26, v27];
+    [(FBSApplicationLibrary *)self _notifyDidRemoveApplications:v15, v16, v17, v18, v19, v20, v22, self, v24, *(&v24 + 1), v25, v26, v27, v28];
   }
 
-  v20 = selfCopy->_workQueue;
-  v25 = MEMORY[0x1E69E9820];
-  v26 = 3221225472;
-  v27 = __50__FBSApplicationLibrary_applicationsDidUninstall___block_invoke_2;
-  v28 = &unk_1E76BCDB0;
-  v29 = selfCopy;
-  dispatch_sync(v20, &v25);
+  v21 = selfCopy->_workQueue;
+  v26 = MEMORY[0x1E69E9820];
+  v27 = 3221225472;
+  v28 = __50__FBSApplicationLibrary_applicationsDidUninstall___block_invoke_2;
+  v29 = &unk_1E76BCDB0;
+  v30 = selfCopy;
+  dispatch_sync(v21, &v26);
 
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v35, 8);
   _Block_object_dispose(buf, 8);
 }
 
@@ -2586,15 +2613,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
     v6 = *v13;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v13 != v6)
         {
           objc_enumerationMutation(changeCopy);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
-        v9 = FBSLogApplicationLibraryObserver();
+        v8 = *(*(&v12 + 1) + 8 * v7);
+        v9 = FBSLogApplicationLibraryObserver(v4);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           bundleIdentifier = [v8 bundleIdentifier];
@@ -2604,12 +2632,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
           v19 = bundleIdentifier;
           _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
         }
+
+        ++v7;
       }
 
-      v5 = [changeCopy countByEnumeratingWithState:&v12 objects:v20 count:16];
+      while (v5 != v7);
+      v4 = [changeCopy countByEnumeratingWithState:&v12 objects:v20 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 
   [(FBSApplicationLibrary *)self _handleApplicationStateDidChange:changeCopy notifyForUpdateInsteadOfReplacement:0];
@@ -2642,15 +2674,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
     v6 = *v13;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v13 != v6)
         {
           objc_enumerationMutation(changeCopy);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
-        v9 = FBSLogApplicationLibraryObserver();
+        v8 = *(*(&v12 + 1) + 8 * v7);
+        v9 = FBSLogApplicationLibraryObserver(v4);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           bundleIdentifier = [v8 bundleIdentifier];
@@ -2660,12 +2693,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
           v19 = bundleIdentifier;
           _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
         }
+
+        ++v7;
       }
 
-      v5 = [changeCopy countByEnumeratingWithState:&v12 objects:v20 count:16];
+      while (v5 != v7);
+      v4 = [changeCopy countByEnumeratingWithState:&v12 objects:v20 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 
   [(FBSApplicationLibrary *)self _handleApplicationStateDidChange:changeCopy notifyForUpdateInsteadOfReplacement:1];
@@ -2686,15 +2723,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
     v6 = *v13;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v13 != v6)
         {
           objc_enumerationMutation(personasCopy);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
-        v9 = FBSLogApplicationLibraryObserver();
+        v8 = *(*(&v12 + 1) + 8 * v7);
+        v9 = FBSLogApplicationLibraryObserver(v4);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           bundleIdentifier = [v8 bundleIdentifier];
@@ -2704,12 +2742,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
           v19 = bundleIdentifier;
           _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
         }
+
+        ++v7;
       }
 
-      v5 = [personasCopy countByEnumeratingWithState:&v12 objects:v20 count:16];
+      while (v5 != v7);
+      v4 = [personasCopy countByEnumeratingWithState:&v12 objects:v20 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 
   [(FBSApplicationLibrary *)self _handleApplicationStateDidChange:personasCopy notifyForUpdateInsteadOfReplacement:0];
@@ -2731,15 +2773,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
     v8 = *v28;
     do
     {
-      for (i = 0; i != v7; ++i)
+      v9 = 0;
+      do
       {
         if (*v28 != v8)
         {
           objc_enumerationMutation(prioritizedCopy);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
-        v11 = FBSLogApplicationLibraryObserver();
+        v10 = *(*(&v27 + 1) + 8 * v9);
+        v11 = FBSLogApplicationLibraryObserver(v6);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           bundleIdentifier = [v10 bundleIdentifier];
@@ -2749,12 +2792,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
           v35 = bundleIdentifier;
           _os_log_impl(&dword_1A2DBB000, v11, OS_LOG_TYPE_DEFAULT, "%s %{public}@ (prioritized)", buf, 0x16u);
         }
+
+        ++v9;
       }
 
-      v7 = [prioritizedCopy countByEnumeratingWithState:&v27 objects:v36 count:16];
+      while (v7 != v9);
+      v6 = [prioritizedCopy countByEnumeratingWithState:&v27 objects:v36 count:16];
+      v7 = v6;
     }
 
-    while (v7);
+    while (v6);
   }
 
   v22 = prioritizedCopy;
@@ -2770,15 +2817,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
     v16 = *v24;
     do
     {
-      for (j = 0; j != v15; ++j)
+      v17 = 0;
+      do
       {
         if (*v24 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v23 + 1) + 8 * j);
-        v19 = FBSLogApplicationLibraryObserver();
+        v18 = *(*(&v23 + 1) + 8 * v17);
+        v19 = FBSLogApplicationLibraryObserver(v14);
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           bundleIdentifier2 = [v18 bundleIdentifier];
@@ -2788,12 +2836,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
           v35 = bundleIdentifier2;
           _os_log_impl(&dword_1A2DBB000, v19, OS_LOG_TYPE_DEFAULT, "%s %{public}@ (paused)", buf, 0x16u);
         }
+
+        ++v17;
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      while (v15 != v17);
+      v14 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v15 = v14;
     }
 
-    while (v15);
+    while (v14);
   }
 }
 
@@ -2812,15 +2864,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
     v6 = *v12;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v12 != v6)
         {
           objc_enumerationMutation(pauseCopy);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
-        v9 = FBSLogApplicationLibraryObserver();
+        v8 = *(*(&v11 + 1) + 8 * v7);
+        v9 = FBSLogApplicationLibraryObserver(v4);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           bundleIdentifier = [v8 bundleIdentifier];
@@ -2830,12 +2883,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
           v18 = bundleIdentifier;
           _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
         }
+
+        ++v7;
       }
 
-      v5 = [pauseCopy countByEnumeratingWithState:&v11 objects:v19 count:16];
+      while (v5 != v7);
+      v4 = [pauseCopy countByEnumeratingWithState:&v11 objects:v19 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 }
 
@@ -2854,15 +2911,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
     v6 = *v12;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v12 != v6)
         {
           objc_enumerationMutation(resumeCopy);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
-        v9 = FBSLogApplicationLibraryObserver();
+        v8 = *(*(&v11 + 1) + 8 * v7);
+        v9 = FBSLogApplicationLibraryObserver(v4);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           bundleIdentifier = [v8 bundleIdentifier];
@@ -2872,12 +2930,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
           v18 = bundleIdentifier;
           _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
         }
+
+        ++v7;
       }
 
-      v5 = [resumeCopy countByEnumeratingWithState:&v11 objects:v19 count:16];
+      while (v5 != v7);
+      v4 = [resumeCopy countByEnumeratingWithState:&v11 objects:v19 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 }
 
@@ -2896,15 +2958,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
     v6 = *v12;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v12 != v6)
         {
           objc_enumerationMutation(cancelCopy);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
-        v9 = FBSLogApplicationLibraryObserver();
+        v8 = *(*(&v11 + 1) + 8 * v7);
+        v9 = FBSLogApplicationLibraryObserver(v4);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           bundleIdentifier = [v8 bundleIdentifier];
@@ -2914,12 +2977,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
           v18 = bundleIdentifier;
           _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
         }
+
+        ++v7;
       }
 
-      v5 = [cancelCopy countByEnumeratingWithState:&v11 objects:v19 count:16];
+      while (v5 != v7);
+      v4 = [cancelCopy countByEnumeratingWithState:&v11 objects:v19 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 }
 
@@ -2938,15 +3005,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
     v6 = *v12;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v12 != v6)
         {
           objc_enumerationMutation(prioritizeCopy);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
-        v9 = FBSLogApplicationLibraryObserver();
+        v8 = *(*(&v11 + 1) + 8 * v7);
+        v9 = FBSLogApplicationLibraryObserver(v4);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           bundleIdentifier = [v8 bundleIdentifier];
@@ -2956,12 +3024,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
           v18 = bundleIdentifier;
           _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
         }
+
+        ++v7;
       }
 
-      v5 = [prioritizeCopy countByEnumeratingWithState:&v11 objects:v19 count:16];
+      while (v5 != v7);
+      v4 = [prioritizeCopy countByEnumeratingWithState:&v11 objects:v19 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 }
 
@@ -2980,15 +3052,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
     v6 = *v17;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v17 != v6)
         {
           objc_enumerationMutation(installCopy);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
-        v9 = FBSLogApplicationLibraryObserver();
+        v8 = *(*(&v16 + 1) + 8 * v7);
+        v9 = FBSLogApplicationLibraryObserver(v4);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           bundleIdentifier = [v8 bundleIdentifier];
@@ -2998,12 +3071,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
           v23 = bundleIdentifier;
           _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
         }
+
+        ++v7;
       }
 
-      v5 = [installCopy countByEnumeratingWithState:&v16 objects:v24 count:16];
+      while (v5 != v7);
+      v4 = [installCopy countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 
   workQueue = self->_workQueue;
@@ -3032,15 +3109,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
     v6 = *v17;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v17 != v6)
         {
           objc_enumerationMutation(installCopy);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
-        v9 = FBSLogApplicationLibraryObserver();
+        v8 = *(*(&v16 + 1) + 8 * v7);
+        v9 = FBSLogApplicationLibraryObserver(v4);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           bundleIdentifier = [v8 bundleIdentifier];
@@ -3050,12 +3128,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
           v23 = bundleIdentifier;
           _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
         }
+
+        ++v7;
       }
 
-      v5 = [installCopy countByEnumeratingWithState:&v16 objects:v24 count:16];
+      while (v5 != v7);
+      v4 = [installCopy countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 
   workQueue = self->_workQueue;
@@ -3084,15 +3166,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
     v6 = *v17;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v17 != v6)
         {
           objc_enumerationMutation(uninstallCopy);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
-        v9 = FBSLogApplicationLibraryObserver();
+        v8 = *(*(&v16 + 1) + 8 * v7);
+        v9 = FBSLogApplicationLibraryObserver(v4);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           bundleIdentifier = [v8 bundleIdentifier];
@@ -3102,12 +3185,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
           v23 = bundleIdentifier;
           _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
         }
+
+        ++v7;
       }
 
-      v5 = [uninstallCopy countByEnumeratingWithState:&v16 objects:v24 count:16];
+      while (v5 != v7);
+      v4 = [uninstallCopy countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 
   workQueue = self->_workQueue;
@@ -3136,15 +3223,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
     v6 = *v17;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v17 != v6)
         {
           objc_enumerationMutation(uninstallCopy);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
-        v9 = FBSLogApplicationLibraryObserver();
+        v8 = *(*(&v16 + 1) + 8 * v7);
+        v9 = FBSLogApplicationLibraryObserver(v4);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           bundleIdentifier = [v8 bundleIdentifier];
@@ -3154,12 +3242,16 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
           v23 = bundleIdentifier;
           _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
         }
+
+        ++v7;
       }
 
-      v5 = [uninstallCopy countByEnumeratingWithState:&v16 objects:v24 count:16];
+      while (v5 != v7);
+      v4 = [uninstallCopy countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 
   workQueue = self->_workQueue;
@@ -3191,17 +3283,17 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   if (!self->_lock_invalidated)
   {
     self->_lock_invalidated = 1;
-    v3 = FBSLogApplicationLibrary();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = FBSLogApplicationLibrary(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 134217984;
+      v7 = 134217984;
       selfCopy = self;
-      _os_log_impl(&dword_1A2DBB000, v3, OS_LOG_TYPE_DEFAULT, "FBSApplicationLibrary<%p> invalidated", &v6, 0xCu);
+      _os_log_impl(&dword_1A2DBB000, v4, OS_LOG_TYPE_DEFAULT, "FBSApplicationLibrary<%p> invalidated", &v7, 0xCu);
     }
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -3272,114 +3364,12 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
   }
 }
 
-- (void)_notifyDidRemoveApplications:(uint64_t)applications
-{
-  OUTLINED_FUNCTION_15_0();
-  v18 = v17;
-  v20 = v19;
-  if (v18)
-  {
-    v21 = FBSLogApplicationLibrary();
-    if (OUTLINED_FUNCTION_32(v21))
-    {
-      OUTLINED_FUNCTION_37(5.8381e-34);
-      OUTLINED_FUNCTION_11_2(&dword_1A2DBB000, v22, v23, "Notifying observers of applications removed: %{public}@");
-    }
-
-    OUTLINED_FUNCTION_5_6();
-    v24 = v20;
-    if (OUTLINED_FUNCTION_8_3(v24, v25, v26, v27, v28, v29, v30, v31))
-    {
-      OUTLINED_FUNCTION_3_4();
-      do
-      {
-        OUTLINED_FUNCTION_7_1();
-        if (!v32)
-        {
-          objc_enumerationMutation(v16);
-        }
-
-        v33 = *a16;
-        if (FBSApplicationLibraryLogTransactionEnabled())
-        {
-          bundleIdentifier = [v33 bundleIdentifier];
-          v35 = [OUTLINED_FUNCTION_24() stringWithFormat:?];
-          OUTLINED_FUNCTION_9_3(12);
-        }
-
-        OUTLINED_FUNCTION_21_0();
-      }
-
-      while (!v32 || OUTLINED_FUNCTION_10_2(v36, v37, v38, v39, v40, v41));
-    }
-
-    OUTLINED_FUNCTION_0_2();
-    OUTLINED_FUNCTION_16();
-    v42 = v16;
-    v43 = OUTLINED_FUNCTION_6_1();
-    [(FBSApplicationLibrary *)v43 _notifyForType:1 synchronously:v44 withCastingBlock:?];
-  }
-
-  OUTLINED_FUNCTION_18_0();
-}
-
-- (void)_notifyDidDemoteApplications:(uint64_t)applications
-{
-  OUTLINED_FUNCTION_15_0();
-  v18 = v17;
-  v20 = v19;
-  if (v18)
-  {
-    v21 = FBSLogApplicationLibrary();
-    if (OUTLINED_FUNCTION_32(v21))
-    {
-      OUTLINED_FUNCTION_37(5.8381e-34);
-      OUTLINED_FUNCTION_11_2(&dword_1A2DBB000, v22, v23, "Notifying observers of applications demoted: %{public}@");
-    }
-
-    OUTLINED_FUNCTION_5_6();
-    v24 = v20;
-    if (OUTLINED_FUNCTION_8_3(v24, v25, v26, v27, v28, v29, v30, v31))
-    {
-      OUTLINED_FUNCTION_3_4();
-      do
-      {
-        OUTLINED_FUNCTION_7_1();
-        if (!v32)
-        {
-          objc_enumerationMutation(v16);
-        }
-
-        v33 = *a16;
-        if (FBSApplicationLibraryLogTransactionEnabled())
-        {
-          bundleIdentifier = [v33 bundleIdentifier];
-          v35 = [OUTLINED_FUNCTION_24() stringWithFormat:?];
-          OUTLINED_FUNCTION_9_3(13);
-        }
-
-        OUTLINED_FUNCTION_21_0();
-      }
-
-      while (!v32 || OUTLINED_FUNCTION_10_2(v36, v37, v38, v39, v40, v41));
-    }
-
-    OUTLINED_FUNCTION_0_2();
-    OUTLINED_FUNCTION_16();
-    v42 = v16;
-    v43 = OUTLINED_FUNCTION_6_1();
-    [(FBSApplicationLibrary *)v43 _notifyForType:1 synchronously:v44 withCastingBlock:?];
-  }
-
-  OUTLINED_FUNCTION_18_0();
-}
-
 - (void)_notifyDidChangeNetworkUsage:(uint64_t)usage
 {
   v12 = *MEMORY[0x1E69E9840];
   if (usage)
   {
-    v5 = FBSLogApplicationLibrary();
+    v5 = FBSLogApplicationLibrary(usage);
     if (OUTLINED_FUNCTION_32(v5))
     {
       *buf = 67109120;
@@ -3399,7 +3389,7 @@ void __58__FBSApplicationLibrary_applicationInstallsDidUpdateIcon___block_invoke
 void __30__FBSApplicationLibrary__load__block_invoke(uint64_t a1)
 {
   v10 = *MEMORY[0x1E69E9840];
-  v3 = FBSLogApplicationLibrary();
+  v3 = FBSLogApplicationLibrary(a1);
   if (OUTLINED_FUNCTION_54(v3))
   {
     *buf = 0;
@@ -3413,7 +3403,7 @@ void __30__FBSApplicationLibrary__load__block_invoke(uint64_t a1)
 
 - (id)_workQueue_addPlaceholderWithIdentity:(void *)identity forProxy:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   identityCopy = identity;
   v7 = identityCopy;
@@ -3432,24 +3422,25 @@ void __30__FBSApplicationLibrary__load__block_invoke(uint64_t a1)
       if (v15)
       {
         v17 = OUTLINED_FUNCTION_44();
-        if ([(FBSApplicationLibrary *)v17 _workQueue_placeholderPassesFilter:v18 record:v14 identity:v5])
+        v19 = [(FBSApplicationLibrary *)v17 _workQueue_placeholderPassesFilter:v18 record:v14 identity:v5];
+        if (v19)
         {
-          v19 = objc_autoreleasePoolPush();
+          v20 = objc_autoreleasePoolPush();
           [objc_alloc(objc_msgSend(self[1] "applicationPlaceholderClass"))];
-          v20 = OUTLINED_FUNCTION_26();
-          [(FBSApplicationLibrary *)v20 _workQueue_addPlaceholder:?];
-          objc_autoreleasePoolPop(v19);
+          v21 = OUTLINED_FUNCTION_26();
+          [(FBSApplicationLibrary *)v21 _workQueue_addPlaceholder:?];
+          objc_autoreleasePoolPop(v20);
         }
 
         else
         {
-          v21 = FBSLogApplicationLibrary();
-          if (OUTLINED_FUNCTION_38(v21))
+          v22 = FBSLogApplicationLibrary(v19);
+          if (OUTLINED_FUNCTION_38(v22))
           {
             fbs_shortDescription = [v5 fbs_shortDescription];
-            v25 = 138412290;
-            v26 = fbs_shortDescription;
-            OUTLINED_FUNCTION_22(&dword_1A2DBB000, v23, v24, "Not creating placeholder because it is filtered: %@", &v25);
+            v26 = 138412290;
+            v27 = fbs_shortDescription;
+            OUTLINED_FUNCTION_22(&dword_1A2DBB000, v24, v25, "Not creating placeholder because it is filtered: %@", &v26);
           }
         }
       }
@@ -3461,7 +3452,7 @@ void __30__FBSApplicationLibrary__load__block_invoke(uint64_t a1)
 
 - (id)_workQueue_addApplicationWithIdentity:(void *)identity forProxy:
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = a2;
   identityCopy = identity;
   v7 = identityCopy;
@@ -3480,26 +3471,27 @@ void __30__FBSApplicationLibrary__load__block_invoke(uint64_t a1)
       if (v15)
       {
         v17 = OUTLINED_FUNCTION_44();
-        if ([(FBSApplicationLibrary *)v17 _workQueue_applicationPassesFilter:v18 record:v14 identity:v5])
+        v19 = [(FBSApplicationLibrary *)v17 _workQueue_applicationPassesFilter:v18 record:v14 identity:v5];
+        if (v19)
         {
-          v19 = objc_autoreleasePoolPush();
-          v20 = [v14 fbs_processIdentityForApplicationIdentity:v5];
+          v20 = objc_autoreleasePoolPush();
+          v21 = [v14 fbs_processIdentityForApplicationIdentity:v5];
           [objc_alloc(objc_msgSend(self[1] "applicationInfoClass"))];
-          v21 = OUTLINED_FUNCTION_26();
-          [(FBSApplicationLibrary *)v21 _workQueue_addApplication:?];
+          v22 = OUTLINED_FUNCTION_26();
+          [(FBSApplicationLibrary *)v22 _workQueue_addApplication:?];
 
-          objc_autoreleasePoolPop(v19);
+          objc_autoreleasePoolPop(v20);
         }
 
         else
         {
-          v22 = FBSLogApplicationLibrary();
-          if (OUTLINED_FUNCTION_38(v22))
+          v23 = FBSLogApplicationLibrary(v19);
+          if (OUTLINED_FUNCTION_38(v23))
           {
             fbs_shortDescription = [v5 fbs_shortDescription];
-            v26 = 138412290;
-            v27 = fbs_shortDescription;
-            OUTLINED_FUNCTION_22(&dword_1A2DBB000, v24, v25, "Not creating app because it is filtered: %@", &v26);
+            v27 = 138412290;
+            v28 = fbs_shortDescription;
+            OUTLINED_FUNCTION_22(&dword_1A2DBB000, v25, v26, "Not creating app because it is filtered: %@", &v27);
           }
         }
       }
@@ -3580,35 +3572,36 @@ void __30__FBSApplicationLibrary__load__block_invoke(uint64_t a1)
 
 - (id)_workQueue_removeApplicationForIdentity:(id *)identity
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (identity)
   {
     v6 = [(FBSApplicationLibrary *)identity _workQueue_applicationForIdentity:v5];
+    v7 = v6;
     if (v6)
     {
-      v8 = FBSLogApplicationLibrary();
-      if (OUTLINED_FUNCTION_38(v8))
+      v9 = FBSLogApplicationLibrary(v6);
+      if (OUTLINED_FUNCTION_38(v9))
       {
-        succinctDescription = [v6 succinctDescription];
+        succinctDescription = [v7 succinctDescription];
         OUTLINED_FUNCTION_5_5();
-        OUTLINED_FUNCTION_22(&dword_1A2DBB000, v9, v10, "Removed application: %@", v11);
+        OUTLINED_FUNCTION_22(&dword_1A2DBB000, v10, v11, "Removed application: %@", v12);
       }
 
       [v5 identityString];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_26() removeObjectForKey:succinctDescription];
 
-      [(FBSApplicationLibrary *)identity _workQueue_didRemoveBundleInfo:v6];
+      [(FBSApplicationLibrary *)identity _workQueue_didRemoveBundleInfo:v7];
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)_workQueue_didRemoveBundleInfo:(id *)info
@@ -3641,36 +3634,37 @@ void __30__FBSApplicationLibrary__load__block_invoke(uint64_t a1)
 
 - (id)_workQueue_removePlaceholderForIdentity:(id *)identity
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (identity)
   {
     v6 = [(FBSApplicationLibrary *)identity _workQueue_placeholderForIdentity:v5];
+    v7 = v6;
     if (v6)
     {
-      v8 = FBSLogApplicationLibrary();
-      if (OUTLINED_FUNCTION_38(v8))
+      v9 = FBSLogApplicationLibrary(v6);
+      if (OUTLINED_FUNCTION_38(v9))
       {
-        succinctDescription = [v6 succinctDescription];
+        succinctDescription = [v7 succinctDescription];
         OUTLINED_FUNCTION_5_5();
-        OUTLINED_FUNCTION_22(&dword_1A2DBB000, v9, v10, "Removed placeholder: %@", v11);
+        OUTLINED_FUNCTION_22(&dword_1A2DBB000, v10, v11, "Removed placeholder: %@", v12);
       }
 
       [v5 identityString];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_26() removeObjectForKey:succinctDescription];
 
-      [v6 setAppLibrary:0];
-      [(FBSApplicationLibrary *)identity _workQueue_didRemoveBundleInfo:v6];
+      [v7 setAppLibrary:0];
+      [(FBSApplicationLibrary *)identity _workQueue_didRemoveBundleInfo:v7];
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)_workQueue_applicationsForProxies:
@@ -3751,7 +3745,7 @@ void __30__FBSApplicationLibrary__load__block_invoke(uint64_t a1)
 
 - (uint64_t)_workQueue_applicationNeedsRegeneration:(void *)regeneration fromProxy:
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   regenerationCopy = regeneration;
   v7 = regenerationCopy;
@@ -3772,35 +3766,35 @@ void __30__FBSApplicationLibrary__load__block_invoke(uint64_t a1)
         BSModificationDateForPath();
       }
 
-      v14 = FBSLogApplicationLibrary();
-      if (OUTLINED_FUNCTION_38(v14))
+      v15 = FBSLogApplicationLibrary(v13);
+      if (OUTLINED_FUNCTION_38(v15))
       {
         applicationIdentity = [v5 applicationIdentity];
         fbs_shortDescription = [applicationIdentity fbs_shortDescription];
         OUTLINED_FUNCTION_5_5();
-        OUTLINED_FUNCTION_22(&dword_1A2DBB000, v17, v18, "Regenerating application %{public}@ due to bundle path mismatch", v20);
+        OUTLINED_FUNCTION_22(&dword_1A2DBB000, v18, v19, "Regenerating application %{public}@ due to bundle path mismatch", v21);
       }
 
-      v13 = 1;
+      v14 = 1;
     }
 
     else
     {
-      v13 = 1;
+      v14 = 1;
     }
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 - (void)_fixupAdded:(void *)added removed:(id *)removed replaced:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v8 = a2;
   addedCopy = added;
   if (self && ([*(self + 8) isPersonaAware] & 1) == 0 && objc_msgSend(addedCopy, "count") == 1 && objc_msgSend(v8, "count") == 1)
@@ -3814,25 +3808,25 @@ void __30__FBSApplicationLibrary__load__block_invoke(uint64_t a1)
 
     if (v13)
     {
-      v14 = FBSLogApplicationLibrary();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = FBSLogApplicationLibrary(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         bundleIdentifier3 = [v4 bundleIdentifier];
         OUTLINED_FUNCTION_5_5();
-        _os_log_impl(&dword_1A2DBB000, v14, OS_LOG_TYPE_DEFAULT, "[59555749] making persona change of %{public}@ a replacement instead of remove+add", v18, 0xCu);
+        _os_log_impl(&dword_1A2DBB000, v15, OS_LOG_TYPE_DEFAULT, "[59555749] making persona change of %{public}@ a replacement instead of remove+add", v19, 0xCu);
       }
 
       [v8 removeObjectIdenticalTo:v4];
       [addedCopy removeObjectIdenticalTo:firstObject];
-      v16 = *removed;
-      if (!v16)
+      v17 = *removed;
+      if (!v17)
       {
-        v17 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:512 valueOptions:512];
-        *removed = v17;
-        v16 = v17;
+        v18 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:512 valueOptions:512];
+        *removed = v18;
+        v17 = v18;
       }
 
-      [v16 setObject:v4 forKey:firstObject];
+      [v17 setObject:v4 forKey:firstObject];
     }
   }
 }
@@ -3841,7 +3835,7 @@ void __48__FBSApplicationLibrary_applicationsDidInstall___block_invoke()
 {
   OUTLINED_FUNCTION_50();
   v2 = v1;
-  v120[16] = *MEMORY[0x1E69E9840];
+  v122[16] = *MEMORY[0x1E69E9840];
   v3 = *(v1 + 32);
   if (v3)
   {
@@ -3850,10 +3844,10 @@ void __48__FBSApplicationLibrary_applicationsDidInstall___block_invoke()
 
   v4 = [MEMORY[0x1E695DFA8] set];
   v5 = objc_opt_new();
-  memset(v116, 0, sizeof(v116));
-  v100 = v2;
+  memset(v118, 0, sizeof(v118));
+  v102 = v2;
   v6 = *(v2 + 40);
-  for (i = OUTLINED_FUNCTION_55(v6, v7, v116, v120); i; i = OUTLINED_FUNCTION_52(v18, v19, v116, v120, v20, v21, v22, v23, v95, obj))
+  for (i = OUTLINED_FUNCTION_55(v6, v7, v118, v122); i; i = OUTLINED_FUNCTION_52(v18, v19, v118, v122, v20, v21, v22, v23, v97, obj))
   {
     for (j = 0; j != i; j = j + 1)
     {
@@ -3863,36 +3857,36 @@ void __48__FBSApplicationLibrary_applicationsDidInstall___block_invoke()
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v116[0] + 1) + 8 * j);
+      v10 = *(*(&v118[0] + 1) + 8 * j);
       v11 = [v10 bundleIdentifier];
-      v12 = [*(*(v100 + 32) + 56) objectForKey:v11];
+      v12 = [*(*(v102 + 32) + 56) objectForKey:v11];
       [v4 unionSet:v12];
 
+      v116 = 0u;
+      v117 = 0u;
       v114 = 0u;
       v115 = 0u;
-      v112 = 0u;
-      v113 = 0u;
-      v13 = [(FBSApplicationLibrary *)*(v100 + 32) _identitiesForProxy:v10 outRecord:0];
-      v14 = [v13 countByEnumeratingWithState:&v112 objects:v119 count:16];
+      v13 = [(FBSApplicationLibrary *)*(v102 + 32) _identitiesForProxy:v10 outRecord:0];
+      v14 = [v13 countByEnumeratingWithState:&v114 objects:v121 count:16];
       if (v14)
       {
         v0 = v14;
-        v15 = *v113;
+        v15 = *v115;
         do
         {
           for (k = 0; k != v0; k = k + 1)
           {
-            if (*v113 != v15)
+            if (*v115 != v15)
             {
               objc_enumerationMutation(v13);
             }
 
-            v17 = *(*(&v112 + 1) + 8 * k);
+            v17 = *(*(&v114 + 1) + 8 * k);
             [v5 setObject:v10 forKey:v17];
             [v4 removeObject:v17];
           }
 
-          v0 = [v13 countByEnumeratingWithState:&v112 objects:v119 count:16];
+          v0 = [v13 countByEnumeratingWithState:&v114 objects:v121 count:16];
         }
 
         while (v0);
@@ -3900,14 +3894,14 @@ void __48__FBSApplicationLibrary_applicationsDidInstall___block_invoke()
     }
   }
 
-  memset(v111, 0, sizeof(v111));
+  memset(v113, 0, sizeof(v113));
   v24 = v4;
-  v26 = OUTLINED_FUNCTION_56(v24, v25, v111, v118);
+  v26 = OUTLINED_FUNCTION_56(v24, v25, v113, v120);
   if (v26)
   {
     v28 = v26;
     *&v27 = 138543362;
-    v97 = v27;
+    v99 = v27;
     do
     {
       for (m = 0; m != v28; ++m)
@@ -3918,165 +3912,166 @@ void __48__FBSApplicationLibrary_applicationsDidInstall___block_invoke()
           objc_enumerationMutation(i);
         }
 
-        v30 = *(*(&v111[0] + 1) + 8 * m);
-        v31 = FBSLogApplicationLibrary();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v31 = *(*(&v113[0] + 1) + 8 * m);
+        v32 = FBSLogApplicationLibrary(v30);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          v0 = [v30 fbs_shortDescription];
-          OUTLINED_FUNCTION_33(v0, v32, v33, v34, v35, v36, v37, v38, v95, obj, v97);
-          _os_log_error_impl(&dword_1A2DBB000, v31, OS_LOG_TYPE_ERROR, "Abandoned identity: %{public}@", v39, 0xCu);
+          v0 = [v31 fbs_shortDescription];
+          OUTLINED_FUNCTION_33(v0, v33, v34, v35, v36, v37, v38, v39, v97, obj, v99);
+          _os_log_error_impl(&dword_1A2DBB000, v32, OS_LOG_TYPE_ERROR, "Abandoned identity: %{public}@", v40, 0xCu);
         }
 
-        v40 = [(FBSApplicationLibrary *)*(v100 + 32) _workQueue_removePlaceholderForIdentity:v30];
-        if (v40)
+        v41 = [(FBSApplicationLibrary *)*(v102 + 32) _workQueue_removePlaceholderForIdentity:v31];
+        if (v41)
         {
           OUTLINED_FUNCTION_29();
-          v110 = v41;
-          _addResultToArrayCreatingArrayIfNecessary(&v110, v40);
-          objc_storeStrong(v0, v110);
+          v112 = v42;
+          _addResultToArrayCreatingArrayIfNecessary(&v112, v41);
+          objc_storeStrong(v0, v112);
         }
 
-        v42 = [(FBSApplicationLibrary *)*(v100 + 32) _workQueue_removeApplicationForIdentity:v30];
-        if (v42)
+        v43 = [(FBSApplicationLibrary *)*(v102 + 32) _workQueue_removeApplicationForIdentity:v31];
+        if (v43)
         {
           OUTLINED_FUNCTION_29();
-          v109 = v43;
-          _addResultToArrayCreatingArrayIfNecessary(&v109, v42);
-          objc_storeStrong(v0, v109);
+          v111 = v44;
+          _addResultToArrayCreatingArrayIfNecessary(&v111, v43);
+          objc_storeStrong(v0, v111);
         }
       }
 
-      v28 = OUTLINED_FUNCTION_53(v44, v45, v111, v118, v46, v47, v48, v49, v95, obj, v97, *(&v97 + 1), i);
+      v28 = OUTLINED_FUNCTION_53(v45, v46, v113, v120, v47, v48, v49, v50, v97, obj, v99, *(&v99 + 1), i);
     }
 
     while (v28);
   }
 
+  v109 = 0u;
+  v110 = 0u;
   v107 = 0u;
   v108 = 0u;
-  v105 = 0u;
-  v106 = 0u;
-  v50 = v5;
-  v51 = [v50 countByEnumeratingWithState:&v105 objects:v117 count:16];
-  v53 = v100;
-  if (v51)
+  v51 = v5;
+  v52 = [v51 countByEnumeratingWithState:&v107 objects:v119 count:16];
+  v54 = v102;
+  if (v52)
   {
-    v54 = v51;
-    v55 = *v106;
-    *&v52 = 138543362;
-    v98 = v52;
+    v55 = v52;
+    v56 = *v108;
+    *&v53 = 138543362;
+    v100 = v53;
     do
     {
-      v56 = 0;
+      v57 = 0;
       do
       {
-        if (*v106 != v55)
+        if (*v108 != v56)
         {
-          objc_enumerationMutation(v50);
+          objc_enumerationMutation(v51);
         }
 
-        v57 = *(*(&v105 + 1) + 8 * v56);
-        v58 = [v50 objectForKey:v57];
-        v59 = OUTLINED_FUNCTION_34();
-        v61 = [(FBSApplicationLibrary *)v59 _workQueue_removePlaceholderForIdentity:v60];
-        v62 = OUTLINED_FUNCTION_34();
-        v64 = [(FBSApplicationLibrary *)v62 _workQueue_applicationForIdentity:v63];
-        if (([(FBSApplicationLibrary *)v53[4] _workQueue_applicationNeedsRegeneration:v64 fromProxy:v58]& 1) == 0)
+        v58 = *(*(&v107 + 1) + 8 * v57);
+        v59 = [v51 objectForKey:v58];
+        v60 = OUTLINED_FUNCTION_34();
+        v62 = [(FBSApplicationLibrary *)v60 _workQueue_removePlaceholderForIdentity:v61];
+        v63 = OUTLINED_FUNCTION_34();
+        v65 = [(FBSApplicationLibrary *)v63 _workQueue_applicationForIdentity:v64];
+        v66 = [(FBSApplicationLibrary *)v54[4] _workQueue_applicationNeedsRegeneration:v65 fromProxy:v59];
+        if ((v66 & 1) == 0)
         {
-          v65 = FBSLogApplicationLibrary();
-          if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+          v67 = FBSLogApplicationLibrary(v66);
+          if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
           {
-            v66 = [v57 fbs_shortDescription];
-            OUTLINED_FUNCTION_33(v66, v67, v68, v69, v70, v71, v72, v73, v95, obj, v98);
-            _os_log_impl(&dword_1A2DBB000, v65, OS_LOG_TYPE_DEFAULT, "Not regenerating app for identity: %{public}@", v74, 0xCu);
+            v68 = [v58 fbs_shortDescription];
+            OUTLINED_FUNCTION_33(v68, v69, v70, v71, v72, v73, v74, v75, v97, obj, v100);
+            _os_log_impl(&dword_1A2DBB000, v67, OS_LOG_TYPE_DEFAULT, "Not regenerating app for identity: %{public}@", v76, 0xCu);
           }
 
-          [v64 _setInstalling:0];
-          v75 = 0;
+          [v65 _setInstalling:0];
+          v77 = 0;
 LABEL_38:
 
           goto LABEL_39;
         }
 
-        v78 = OUTLINED_FUNCTION_34();
-        v75 = [(FBSApplicationLibrary *)v78 _workQueue_removeApplicationForIdentity:v79];
-
         v80 = OUTLINED_FUNCTION_34();
-        v82 = [(FBSApplicationLibrary *)v80 _workQueue_addApplicationWithIdentity:v81 forProxy:v58];
-        v77 = v82;
-        if (v82 && !v75)
+        v77 = [(FBSApplicationLibrary *)v80 _workQueue_removeApplicationForIdentity:v81];
+
+        v82 = OUTLINED_FUNCTION_34();
+        v84 = [(FBSApplicationLibrary *)v82 _workQueue_addApplicationWithIdentity:v83 forProxy:v59];
+        v79 = v84;
+        if (v84 && !v77)
         {
-          v83 = *(v53[8] + 8);
-          v104 = *(v83 + 40);
-          _addResultToArrayCreatingArrayIfNecessary(&v104, v82);
-          objc_storeStrong((v83 + 40), v104);
+          v85 = *(v54[8] + 8);
+          v106 = *(v85 + 40);
+          _addResultToArrayCreatingArrayIfNecessary(&v106, v84);
+          objc_storeStrong((v85 + 40), v106);
           goto LABEL_42;
         }
 
-        if (!v82 || !v75 || v82 == v75)
+        if (!v84 || !v77 || v84 == v77)
         {
-          if (v82)
+          if (v84)
           {
             goto LABEL_42;
           }
 
-          if (v75)
+          if (v77)
           {
-            v88 = *(v53[7] + 8);
-            v103 = *(v88 + 40);
-            _addResultToArrayCreatingArrayIfNecessary(&v103, v75);
-            v89 = v103;
-            v64 = *(v88 + 40);
-            *(v88 + 40) = v89;
-            v53 = v100;
+            v90 = *(v54[7] + 8);
+            v105 = *(v90 + 40);
+            _addResultToArrayCreatingArrayIfNecessary(&v105, v77);
+            v91 = v105;
+            v65 = *(v90 + 40);
+            *(v90 + 40) = v91;
+            v54 = v102;
             goto LABEL_38;
           }
 
 LABEL_39:
-          if (v61)
+          if (v62)
           {
-            v76 = *(v53[6] + 8);
-            v102 = *(v76 + 40);
-            _addResultToArrayCreatingArrayIfNecessary(&v102, v61);
-            objc_storeStrong((v76 + 40), v102);
+            v78 = *(v54[6] + 8);
+            v104 = *(v78 + 40);
+            _addResultToArrayCreatingArrayIfNecessary(&v104, v62);
+            objc_storeStrong((v78 + 40), v104);
           }
 
-          v77 = 0;
+          v79 = 0;
           goto LABEL_42;
         }
 
-        v84 = OUTLINED_FUNCTION_45(v53[9]);
-        if (!v84)
+        v86 = OUTLINED_FUNCTION_45(v54[9]);
+        if (!v86)
         {
-          v85 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:512 valueOptions:512];
-          v86 = *(v53[9] + 8);
-          v87 = *(v86 + 40);
-          *(v86 + 40) = v85;
+          v87 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:512 valueOptions:512];
+          v88 = *(v54[9] + 8);
+          v89 = *(v88 + 40);
+          *(v88 + 40) = v87;
 
-          v84 = OUTLINED_FUNCTION_45(v53[9]);
+          v86 = OUTLINED_FUNCTION_45(v54[9]);
         }
 
-        [v84 setObject:v77 forKey:v75];
+        [v86 setObject:v79 forKey:v77];
 LABEL_42:
 
-        ++v56;
+        ++v57;
       }
 
-      while (v54 != v56);
-      v90 = [v50 countByEnumeratingWithState:&v105 objects:v117 count:16];
-      v54 = v90;
+      while (v55 != v57);
+      v92 = [v51 countByEnumeratingWithState:&v107 objects:v119 count:16];
+      v55 = v92;
     }
 
-    while (v90);
+    while (v92);
   }
 
-  v91 = v53[4];
-  v92 = *(*(v53[8] + 8) + 40);
-  v93 = *(*(v53[7] + 8) + 40);
-  v94 = *(v53[9] + 8);
-  v101 = *(v94 + 40);
-  [(FBSApplicationLibrary *)v91 _fixupAdded:v92 removed:v93 replaced:&v101];
-  objc_storeStrong((v94 + 40), v101);
+  v93 = v54[4];
+  v94 = *(*(v54[8] + 8) + 40);
+  v95 = *(*(v54[7] + 8) + 40);
+  v96 = *(v54[9] + 8);
+  v103 = *(v96 + 40);
+  [(FBSApplicationLibrary *)v93 _fixupAdded:v94 removed:v95 replaced:&v103];
+  objc_storeStrong((v96 + 40), v103);
 
   OUTLINED_FUNCTION_47();
 }
@@ -4190,7 +4185,7 @@ void __94__FBSApplicationLibrary__handleApplicationStateDidChange_notifyForUpdat
 {
   OUTLINED_FUNCTION_50();
   v2 = v1;
-  v143[16] = *MEMORY[0x1E69E9840];
+  v144[16] = *MEMORY[0x1E69E9840];
   v3 = *(v1 + 32);
   if (v3)
   {
@@ -4200,19 +4195,19 @@ void __94__FBSApplicationLibrary__handleApplicationStateDidChange_notifyForUpdat
   v4 = [MEMORY[0x1E695DFA8] set];
   v5 = objc_opt_new();
   v6 = objc_opt_new();
-  v133 = 0u;
   v134 = 0u;
   v135 = 0u;
   v136 = 0u;
+  v137 = 0u;
   v7 = *(v2 + 40);
-  v106 = OUTLINED_FUNCTION_55(v7, v8, &v133, v143);
-  v107 = v2;
-  if (v106)
+  v107 = OUTLINED_FUNCTION_55(v7, v8, &v134, v144);
+  v108 = v2;
+  if (v107)
   {
-    v104 = *v134;
+    v105 = *v135;
     do
     {
-      for (i = 0; i != v106; i = i + 1)
+      for (i = 0; i != v107; i = i + 1)
       {
         OUTLINED_FUNCTION_30();
         if (!v10)
@@ -4220,31 +4215,31 @@ void __94__FBSApplicationLibrary__handleApplicationStateDidChange_notifyForUpdat
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v133 + 1) + 8 * i);
-        v108 = [v11 bundleIdentifier];
+        v11 = *(*(&v134 + 1) + 8 * i);
+        v109 = [v11 bundleIdentifier];
         v12 = [*(*(v2 + 32) + 56) objectForKey:?];
         [v4 unionSet:v12];
 
-        v131 = 0u;
         v132 = 0u;
-        v129 = 0u;
+        v133 = 0u;
         v130 = 0u;
+        v131 = 0u;
         v0 = [(FBSApplicationLibrary *)*(v2 + 32) _identitiesForProxy:v11 outRecord:0];
-        v13 = [v0 countByEnumeratingWithState:&v129 objects:v142 count:16];
+        v13 = [v0 countByEnumeratingWithState:&v130 objects:v143 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v130;
+          v15 = *v131;
           do
           {
             for (j = 0; j != v14; ++j)
             {
-              if (*v130 != v15)
+              if (*v131 != v15)
               {
                 objc_enumerationMutation(v0);
               }
 
-              v17 = *(*(&v129 + 1) + 8 * j);
+              v17 = *(*(&v130 + 1) + 8 * j);
               if ([v4 containsObject:v17])
               {
                 v18 = v6;
@@ -4259,91 +4254,98 @@ void __94__FBSApplicationLibrary__handleApplicationStateDidChange_notifyForUpdat
               [v4 removeObject:v17];
             }
 
-            v14 = [v0 countByEnumeratingWithState:&v129 objects:v142 count:16];
+            v14 = [v0 countByEnumeratingWithState:&v130 objects:v143 count:16];
           }
 
           while (v14);
         }
 
-        v2 = v107;
+        v2 = v108;
       }
 
-      v106 = OUTLINED_FUNCTION_52(v19, v20, &v133, v143, v21, v22, v23, v24, v102, obj);
+      v107 = OUTLINED_FUNCTION_52(v19, v20, &v134, v144, v21, v22, v23, v24, v103, obj);
     }
 
-    while (v106);
+    while (v107);
   }
 
-  v127 = 0u;
   v128 = 0u;
-  v125 = 0u;
+  v129 = 0u;
   v126 = 0u;
+  v127 = 0u;
   v25 = v4;
-  if (OUTLINED_FUNCTION_56(v25, v26, &v125, v141))
+  v27 = OUTLINED_FUNCTION_56(v25, v26, &v126, v142);
+  if (v27)
   {
-    v27 = *v126;
-    do
+    v28 = *v127;
+    while (1)
     {
-      if (*v126 != v27)
+      if (*v127 != v28)
       {
-        objc_enumerationMutation(v106);
+        objc_enumerationMutation(v107);
       }
 
-      v28 = **(&v125 + 1);
-      v29 = FBSLogApplicationLibrary();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v29 = **(&v126 + 1);
+      v30 = FBSLogApplicationLibrary(v27);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        v0 = [v28 fbs_shortDescription];
+        v0 = [v29 fbs_shortDescription];
         OUTLINED_FUNCTION_14_0(v0, 5.7779e-34);
-        OUTLINED_FUNCTION_49(&dword_1A2DBB000, v30, v31, v32, v33);
+        OUTLINED_FUNCTION_49(&dword_1A2DBB000, v31, v32, v33, v34);
       }
 
-      v34 = [(FBSApplicationLibrary *)*(v107 + 32) _workQueue_removePlaceholderForIdentity:v28];
-      if (v34)
+      v35 = [(FBSApplicationLibrary *)*(v108 + 32) _workQueue_removePlaceholderForIdentity:v29];
+      if (v35)
       {
         OUTLINED_FUNCTION_29();
-        v124 = v35;
-        _addResultToArrayCreatingArrayIfNecessary(&v124, v34);
-        objc_storeStrong(v0, v124);
+        v125 = v36;
+        _addResultToArrayCreatingArrayIfNecessary(&v125, v35);
+        objc_storeStrong(v0, v125);
       }
 
-      v4 = [(FBSApplicationLibrary *)*(v107 + 32) _workQueue_removeApplicationForIdentity:v28];
+      v4 = [(FBSApplicationLibrary *)*(v108 + 32) _workQueue_removeApplicationForIdentity:v29];
       if (v4)
       {
         OUTLINED_FUNCTION_29();
-        v123 = v36;
-        _addResultToArrayCreatingArrayIfNecessary(&v123, v4);
-        objc_storeStrong(v0, v123);
+        v124 = v37;
+        _addResultToArrayCreatingArrayIfNecessary(&v124, v4);
+        objc_storeStrong(v0, v124);
       }
 
       OUTLINED_FUNCTION_21_0();
+      if (v10)
+      {
+        v27 = OUTLINED_FUNCTION_53(v27, v38, &v126, v142, v39, v40, v41, v42, v103, obj, v105, v106, v107);
+        if (!v27)
+        {
+          break;
+        }
+      }
     }
-
-    while (!v10 || OUTLINED_FUNCTION_53(v37, v38, &v125, v141, v39, v40, v41, v42, v102, obj, v104, v105, v106));
   }
 
-  v121 = 0u;
   v122 = 0u;
-  v119 = 0u;
+  v123 = 0u;
   v120 = 0u;
+  v121 = 0u;
   v43 = v6;
-  v44 = [v43 countByEnumeratingWithState:&v119 objects:v138 count:16];
+  v44 = [v43 countByEnumeratingWithState:&v120 objects:v139 count:16];
   if (v44)
   {
     v45 = v44;
-    v109 = *v120;
+    v110 = *v121;
     do
     {
       v46 = 0;
       do
       {
-        if (*v120 != v109)
+        if (*v121 != v110)
         {
           objc_enumerationMutation(v43);
         }
 
-        v47 = *(*(&v119 + 1) + 8 * v46);
-        v48 = FBSLogApplicationLibrary();
+        v47 = *(*(&v120 + 1) + 8 * v46);
+        v48 = FBSLogApplicationLibrary(v44);
         if (OUTLINED_FUNCTION_54(v48))
         {
           v49 = [v47 fbs_shortDescription];
@@ -4353,7 +4355,7 @@ void __94__FBSApplicationLibrary__handleApplicationStateDidChange_notifyForUpdat
         }
 
         v54 = [v43 objectForKey:v47];
-        v55 = [(FBSApplicationLibrary *)*(v107 + 32) _workQueue_removeApplicationForIdentity:v47];
+        v55 = [(FBSApplicationLibrary *)*(v108 + 32) _workQueue_removeApplicationForIdentity:v47];
         if (v55)
         {
           v4 = [v54 appState];
@@ -4361,87 +4363,87 @@ void __94__FBSApplicationLibrary__handleApplicationStateDidChange_notifyForUpdat
 
           if (v56)
           {
-            v4 = [(FBSApplicationLibrary *)*(v107 + 32) _workQueue_addApplicationWithIdentity:v47 forProxy:v54];
+            v4 = [(FBSApplicationLibrary *)*(v108 + 32) _workQueue_addApplicationWithIdentity:v47 forProxy:v54];
             if (v4)
             {
-              v69 = OUTLINED_FUNCTION_45(*(v107 + 64));
-              if (!v69)
+              v71 = OUTLINED_FUNCTION_45(*(v108 + 64));
+              if (!v71)
               {
-                v70 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:512 valueOptions:512];
-                v71 = *(*(v107 + 64) + 8);
-                v72 = *(v71 + 40);
-                *(v71 + 40) = v70;
+                v72 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:512 valueOptions:512];
+                v73 = *(*(v108 + 64) + 8);
+                v74 = *(v73 + 40);
+                *(v73 + 40) = v72;
 
-                v69 = OUTLINED_FUNCTION_45(*(v107 + 64));
+                v71 = OUTLINED_FUNCTION_45(*(v108 + 64));
               }
 
-              [v69 setObject:v4 forKey:v55];
+              [v71 setObject:v4 forKey:v55];
             }
 
             else
             {
-              v74 = *(*(v107 + 56) + 8);
-              v118 = *(v74 + 40);
-              _addResultToArrayCreatingArrayIfNecessary(&v118, v55);
-              objc_storeStrong((v74 + 40), v118);
+              v76 = *(*(v108 + 56) + 8);
+              v119 = *(v76 + 40);
+              _addResultToArrayCreatingArrayIfNecessary(&v119, v55);
+              objc_storeStrong((v76 + 40), v119);
             }
           }
 
           else
           {
-            v57 = FBSLogApplicationLibrary();
-            if (OUTLINED_FUNCTION_54(v57))
+            v58 = FBSLogApplicationLibrary(v57);
+            if (OUTLINED_FUNCTION_54(v58))
             {
               *buf = 0;
               OUTLINED_FUNCTION_43();
-              _os_log_impl(v58, v59, v60, "Found an app with updated identity, but proxy is not a app. Ignoring.", v61, 2u);
+              _os_log_impl(v59, v60, v61, "Found an app with updated identity, but proxy is not a app. Ignoring.", v62, 2u);
             }
           }
         }
 
-        v62 = [(FBSApplicationLibrary *)*(v107 + 32) _workQueue_placeholderForIdentity:v47];
-        if (v62)
+        v63 = [(FBSApplicationLibrary *)*(v108 + 32) _workQueue_placeholderForIdentity:v47];
+        if (v63)
         {
           v4 = [v54 appState];
-          v63 = [v4 isPlaceholder];
+          v64 = [v4 isPlaceholder];
 
-          if (v63)
+          if (v64)
           {
             v4 = [v54 fbs_correspondingApplicationRecord];
             if (!v4)
             {
-              v73 = FBSLogApplicationLibrary();
-              if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+              v75 = FBSLogApplicationLibrary(0);
+              if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v140 = v54;
-                _os_log_error_impl(&dword_1A2DBB000, v73, OS_LOG_TYPE_ERROR, "No corresponding record for placeholder: %@", buf, 0xCu);
+                v141 = v54;
+                _os_log_error_impl(&dword_1A2DBB000, v75, OS_LOG_TYPE_ERROR, "No corresponding record for placeholder: %@", buf, 0xCu);
               }
             }
 
-            if ([(FBSApplicationLibrary *)*(v107 + 32) _workQueue_placeholderPassesFilter:v54 record:v4 identity:v47])
+            if ([(FBSApplicationLibrary *)*(v108 + 32) _workQueue_placeholderPassesFilter:v54 record:v4 identity:v47])
             {
-              [v62 _setProxy:v54];
+              [v63 _setProxy:v54];
             }
 
             else
             {
-              v75 = [(FBSApplicationLibrary *)*(v107 + 32) _workQueue_removePlaceholderForIdentity:v47];
-              v76 = *(*(v107 + 48) + 8);
-              v117 = *(v76 + 40);
-              _addResultToArrayCreatingArrayIfNecessary(&v117, v55);
-              objc_storeStrong((v76 + 40), v117);
+              v77 = [(FBSApplicationLibrary *)*(v108 + 32) _workQueue_removePlaceholderForIdentity:v47];
+              v78 = *(*(v108 + 48) + 8);
+              v118 = *(v78 + 40);
+              _addResultToArrayCreatingArrayIfNecessary(&v118, v55);
+              objc_storeStrong((v78 + 40), v118);
             }
           }
 
           else
           {
-            v64 = FBSLogApplicationLibrary();
-            if (OUTLINED_FUNCTION_54(v64))
+            v66 = FBSLogApplicationLibrary(v65);
+            if (OUTLINED_FUNCTION_54(v66))
             {
               *buf = 0;
               OUTLINED_FUNCTION_43();
-              _os_log_impl(v65, v66, v67, "Found a placeholder with updated identity, but proxy is not a placeholder. Ignoring.", v68, 2u);
+              _os_log_impl(v67, v68, v69, "Found a placeholder with updated identity, but proxy is not a placeholder. Ignoring.", v70, 2u);
             }
           }
         }
@@ -4450,79 +4452,84 @@ void __94__FBSApplicationLibrary__handleApplicationStateDidChange_notifyForUpdat
       }
 
       while (v45 != v46);
-      v77 = [v43 countByEnumeratingWithState:&v119 objects:v138 count:16];
-      v45 = v77;
+      v44 = [v43 countByEnumeratingWithState:&v120 objects:v139 count:16];
+      v45 = v44;
     }
 
-    while (v77);
+    while (v44);
   }
 
-  v115 = 0u;
   v116 = 0u;
-  v113 = 0u;
+  v117 = 0u;
   v114 = 0u;
-  v78 = v5;
-  v79 = [v78 countByEnumeratingWithState:&v113 objects:v137 count:16];
-  v80 = v107;
-  if (v79)
+  v115 = 0u;
+  v79 = v5;
+  v80 = [v79 countByEnumeratingWithState:&v114 objects:v138 count:16];
+  v81 = v108;
+  if (v80)
   {
-    v81 = v79;
-    v82 = *v114;
+    v82 = v80;
+    v83 = *v115;
     do
     {
-      for (k = 0; k != v81; ++k)
+      v84 = 0;
+      do
       {
-        if (*v114 != v82)
+        if (*v115 != v83)
         {
-          objc_enumerationMutation(v78);
+          objc_enumerationMutation(v79);
         }
 
-        v84 = *(*(&v113 + 1) + 8 * k);
-        v85 = FBSLogApplicationLibrary();
-        if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+        v85 = *(*(&v114 + 1) + 8 * v84);
+        v86 = FBSLogApplicationLibrary(v80);
+        if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
         {
-          v86 = [v84 fbs_shortDescription];
-          OUTLINED_FUNCTION_14_0(v86, 5.7779e-34);
-          OUTLINED_FUNCTION_49(&dword_1A2DBB000, v87, v88, v89, v90);
+          v87 = [v85 fbs_shortDescription];
+          OUTLINED_FUNCTION_14_0(v87, 5.7779e-34);
+          OUTLINED_FUNCTION_49(&dword_1A2DBB000, v88, v89, v90, v91);
         }
 
-        v91 = [v78 objectForKey:v84];
-        v92 = [(FBSApplicationLibrary *)*(v80 + 32) _workQueue_addApplicationWithIdentity:v84 forProxy:v91];
-        if (v92)
+        v92 = [v79 objectForKey:v85];
+        v93 = [(FBSApplicationLibrary *)*(v81 + 32) _workQueue_addApplicationWithIdentity:v85 forProxy:v92];
+        if (v93)
         {
-          v93 = *(*(v80 + 72) + 8);
-          v112 = *(v93 + 40);
-          _addResultToArrayCreatingArrayIfNecessary(&v112, v92);
-          v94 = (v93 + 40);
-          v80 = v107;
-          objc_storeStrong(v94, v112);
+          v94 = *(*(v81 + 72) + 8);
+          v113 = *(v94 + 40);
+          _addResultToArrayCreatingArrayIfNecessary(&v113, v93);
+          v95 = (v94 + 40);
+          v81 = v108;
+          objc_storeStrong(v95, v113);
         }
 
-        v95 = [(FBSApplicationLibrary *)*(v80 + 32) _workQueue_addPlaceholderWithIdentity:v84 forProxy:v91];
-        if (v95)
+        v96 = [(FBSApplicationLibrary *)*(v81 + 32) _workQueue_addPlaceholderWithIdentity:v85 forProxy:v92];
+        if (v96)
         {
-          v96 = *(*(v80 + 80) + 8);
-          v111 = *(v96 + 40);
-          _addResultToArrayCreatingArrayIfNecessary(&v111, v95);
-          v97 = (v96 + 40);
-          v80 = v107;
-          objc_storeStrong(v97, v111);
+          v97 = *(*(v81 + 80) + 8);
+          v112 = *(v97 + 40);
+          _addResultToArrayCreatingArrayIfNecessary(&v112, v96);
+          v98 = (v97 + 40);
+          v81 = v108;
+          objc_storeStrong(v98, v112);
         }
+
+        ++v84;
       }
 
-      v81 = [v78 countByEnumeratingWithState:&v113 objects:v137 count:16];
+      while (v82 != v84);
+      v80 = [v79 countByEnumeratingWithState:&v114 objects:v138 count:16];
+      v82 = v80;
     }
 
-    while (v81);
+    while (v80);
   }
 
-  v98 = *(v80 + 32);
-  v99 = *(*(*(v80 + 72) + 8) + 40);
-  v100 = *(*(*(v80 + 56) + 8) + 40);
-  v101 = *(*(v80 + 64) + 8);
-  v110 = *(v101 + 40);
-  [(FBSApplicationLibrary *)v98 _fixupAdded:v99 removed:v100 replaced:&v110];
-  objc_storeStrong((v101 + 40), v110);
+  v99 = *(v81 + 32);
+  v100 = *(*(*(v81 + 72) + 8) + 40);
+  v101 = *(*(*(v81 + 56) + 8) + 40);
+  v102 = *(*(v81 + 64) + 8);
+  v111 = *(v102 + 40);
+  [(FBSApplicationLibrary *)v99 _fixupAdded:v100 removed:v101 replaced:&v111];
+  objc_storeStrong((v102 + 40), v111);
 
   OUTLINED_FUNCTION_47();
 }
@@ -4544,7 +4551,7 @@ void __49__FBSApplicationLibrary_applicationsWillInstall___block_invoke()
 {
   v15 = *MEMORY[0x1E69E9840];
   v0 = [FBSApplicationLibrary _workQueue_applicationsForProxies:];
-  v1 = FBSLogApplicationLibrary();
+  v1 = FBSLogApplicationLibrary(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_36(buf, 5.8382e-34);
@@ -4583,7 +4590,7 @@ void __54__FBSApplicationLibrary_applicationsDidFailToInstall___block_invoke()
 {
   v15 = *MEMORY[0x1E69E9840];
   v0 = [FBSApplicationLibrary _workQueue_applicationsForProxies:];
-  v1 = FBSLogApplicationLibrary();
+  v1 = FBSLogApplicationLibrary(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_36(buf, 5.8382e-34);
@@ -4621,59 +4628,57 @@ void __54__FBSApplicationLibrary_applicationsDidFailToInstall___block_invoke()
 void __51__FBSApplicationLibrary_applicationsWillUninstall___block_invoke()
 {
   v1 = [FBSApplicationLibrary _workQueue_applicationsForProxies:];
-  if (OUTLINED_FUNCTION_28(v1, v2))
+  if (OUTLINED_FUNCTION_28(v1, v2, v3, v4, v5, v6, v7, v8, v26, v29, v32, v35, v38))
   {
     OUTLINED_FUNCTION_17_0();
     do
     {
       OUTLINED_FUNCTION_16_0();
-      if (!v11)
+      if (!v17)
       {
         objc_enumerationMutation(v0);
       }
 
-      [OUTLINED_FUNCTION_42(v3 v4];
+      [OUTLINED_FUNCTION_42(v9 v10];
       OUTLINED_FUNCTION_40();
     }
 
-    while (!v11 || OUTLINED_FUNCTION_21(v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29));
+    while (!v17 || OUTLINED_FUNCTION_21(v18, v19, v20, v21, v22, v23, v24, v25, v27, v28, v30, v31, v33, v34, v36, v37, v39));
   }
 }
 
 void __56__FBSApplicationLibrary_applicationsDidFailToUninstall___block_invoke()
 {
   v1 = [FBSApplicationLibrary _workQueue_applicationsForProxies:];
-  if (OUTLINED_FUNCTION_28(v1, v2))
+  if (OUTLINED_FUNCTION_28(v1, v2, v3, v4, v5, v6, v7, v8, v26, v29, v32, v35, v38))
   {
     OUTLINED_FUNCTION_17_0();
     do
     {
       OUTLINED_FUNCTION_16_0();
-      if (!v11)
+      if (!v17)
       {
         objc_enumerationMutation(v0);
       }
 
-      [OUTLINED_FUNCTION_42(v3 v4];
+      [OUTLINED_FUNCTION_42(v9 v10];
       OUTLINED_FUNCTION_40();
     }
 
-    while (!v11 || OUTLINED_FUNCTION_21(v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29));
+    while (!v17 || OUTLINED_FUNCTION_21(v18, v19, v20, v21, v22, v23, v24, v25, v27, v28, v30, v31, v33, v34, v36, v37, v39));
   }
 }
 
-- (void)_initWithApplicationWorkspace:(id *)a1 configuration:(const char *)a2 .cold.1(id *a1, const char *a2)
+- (void)_initWithApplicationWorkspace:(uint64_t)a3 configuration:.cold.1(id *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v14 = [*a1 applicationInfoClass];
-  v4 = [v3 stringWithFormat:@"Must specify a class that subclasses from FBSApplicationInfo : was passed %@"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Must specify a class that subclasses from FBSApplicationInfo : was passed %@", objc_msgSend(*a1, "applicationInfoClass")];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_12_0();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v14, v15, v16);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v14, v15);
   }
 
   v13 = v4;
@@ -4681,18 +4686,16 @@ void __56__FBSApplicationLibrary_applicationsDidFailToUninstall___block_invoke()
   _bs_set_crash_log_message();
 }
 
-- (void)_initWithApplicationWorkspace:(id *)a1 configuration:(const char *)a2 .cold.2(id *a1, const char *a2)
+- (void)_initWithApplicationWorkspace:(uint64_t)a3 configuration:.cold.2(id *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v14 = [*a1 applicationPlaceholderClass];
-  v4 = [v3 stringWithFormat:@"Must specify a class that subclasses from FBSApplicationPlaceholder : was passed %@"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Must specify a class that subclasses from FBSApplicationPlaceholder : was passed %@", objc_msgSend(*a1, "applicationPlaceholderClass")];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_12_0();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v14, v15, v16);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v14, v15);
   }
 
   v13 = v4;
@@ -4702,89 +4705,112 @@ void __56__FBSApplicationLibrary_applicationsDidFailToUninstall___block_invoke()
 
 - (void)_initWithApplicationWorkspace:(char *)a1 configuration:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"configuration"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"configuration", v11, v12);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v10 = v2;
+  v12 = v2;
   [v2 UTF8String];
   _bs_set_crash_log_message();
 }
 
 - (void)_initWithApplicationWorkspace:(char *)a1 configuration:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"workspace"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"workspace", v11, v12);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v10 = v2;
+  v12 = v2;
   [v2 UTF8String];
   _bs_set_crash_log_message();
 }
 
 - (void)_workQueue_applicationForIdentity:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"identity"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"identity", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
   _bs_set_crash_log_message();
+}
+
+- (void)installedApplicationWithBundleIdentifier:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FBSApplicationLibrary installedApplicationWithBundleIdentifier:]";
+  OUTLINED_FUNCTION_7_0(&dword_1A2DBB000, a1, a3, "Persona-aware client is using deprecated bundleID-based method: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)installedApplicationWithBundleIdentifier:(uint64_t)a3 completionHandler:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FBSApplicationLibrary installedApplicationWithBundleIdentifier:completionHandler:]";
+  OUTLINED_FUNCTION_7_0(&dword_1A2DBB000, a1, a3, "Persona-aware client is using deprecated bundleID-based method: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)installedApplicationWithBundleIdentifier:(char *)a1 completionHandler:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"completionHandler != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"completionHandler != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
   _bs_set_crash_log_message();
 }
 
+- (void)placeholderWithBundleIdentifier:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FBSApplicationLibrary placeholderWithBundleIdentifier:]";
+  OUTLINED_FUNCTION_7_0(&dword_1A2DBB000, a1, a3, "Persona-aware client is using deprecated bundleID-based method: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)_workQueue_placeholderForIdentity:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"identity"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"identity", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
   _bs_set_crash_log_message();
+}
+
+- (void)uninstallApplication:(uint64_t)a3 withOptions:(uint64_t)a4 completion:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[FBSApplicationLibrary uninstallApplication:withOptions:completion:]";
+  OUTLINED_FUNCTION_7_0(&dword_1A2DBB000, a1, a3, "Persona-aware client is using deprecated bundleID-based method: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_completion___block_invoke_109_cold_1(uint64_t a1, uint64_t *a2)
@@ -4817,15 +4843,14 @@ void __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_comple
 
 - (void)addApplicationProxy:(char *)a1 withOverrideURL:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"url == ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"url == ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -4834,15 +4859,14 @@ void __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_comple
 
 - (void)addApplicationProxy:(char *)a1 withOverrideURL:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"proxy"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"proxy", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -4851,15 +4875,14 @@ void __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_comple
 
 - (void)_identitiesForProxy:(char *)a1 outRecord:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"proxy"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"proxy", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -4868,15 +4891,14 @@ void __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_comple
 
 - (void)_workQueue_addApplication:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSApplicationInfoClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSApplicationInfoClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -4885,15 +4907,14 @@ void __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_comple
 
 - (void)_workQueue_addApplication:(uint64_t)a1 .cold.2(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"existing app for %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"existing app for %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_12();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_12(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];
@@ -4902,15 +4923,14 @@ void __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_comple
 
 - (void)_workQueue_addApplication:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -4919,15 +4939,14 @@ void __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_comple
 
 - (void)_workQueue_addPlaceholder:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSApplicationPlaceholderClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSApplicationPlaceholderClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -4936,15 +4955,14 @@ void __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_comple
 
 - (void)_workQueue_addPlaceholder:(uint64_t)a1 .cold.2(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"existing placeholder for %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"existing placeholder for %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_12();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_12(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];
@@ -4953,15 +4971,14 @@ void __77__FBSApplicationLibrary_uninstallApplicationIdentity_withOptions_comple
 
 - (void)_workQueue_addPlaceholder:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -4982,36 +4999,34 @@ void __53__FBSApplicationLibrary_applicationInstallsDidStart___block_invoke_cold
 
 - (void)applicationsDidInstall:(uint64_t)a1 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"was handed a not-installed appProxy during applicationsDidInstall: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"was handed a not-installed appProxy during applicationsDidInstall: %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_12();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_12(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v13, v14);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v14, v15);
   }
 
-  v11 = v3;
+  v13 = v3;
   [v3 UTF8String];
   _bs_set_crash_log_message();
 }
 
 - (void)applicationsDidInstall:(uint64_t)a1 .cold.2(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"was handed a placeholder appProxy during applicationsDidInstall: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"was handed a placeholder appProxy during applicationsDidInstall: %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_12();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_12(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v13, v14);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v14, v15);
   }
 
-  v11 = v3;
+  v13 = v3;
   [v3 UTF8String];
   _bs_set_crash_log_message();
 }

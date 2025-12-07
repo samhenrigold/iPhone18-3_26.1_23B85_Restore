@@ -42,7 +42,7 @@
   resultCopy = result;
   selfCopy = self;
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEAC470);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEAC470, &unk_21E1531E0);
 
   sub_21E11EFC8(result);
 }
@@ -73,9 +73,9 @@
 - (BOOL)isDraggingSheet
 {
   v3 = self + OBJC_IVAR___VIUVisualIntelligenceView_overlayView;
-  v4 = *(*&v3[*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEAC470) + 52)] + OBJC_IVAR____TtC20VisualIntelligenceUI22SheetTrackingAssistant_sheetModel);
+  v4 = *(*&v3[*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEAC470, &unk_21E1531E0) + 52)] + OBJC_IVAR____TtC20VisualIntelligenceUI22SheetTrackingAssistant_sheetModel);
   swift_getKeyPath();
-  sub_21E08CE80(&qword_280F6C000, type metadata accessor for SheetModel);
+  sub_21E08CE80(&qword_280F6C000, type metadata accessor for SheetModel, &protocol conformance descriptor for SheetModel);
   selfCopy = self;
 
   sub_21E13D3C4();

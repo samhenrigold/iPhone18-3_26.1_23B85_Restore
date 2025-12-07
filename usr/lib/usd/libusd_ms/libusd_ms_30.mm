@@ -1,17 +1,16 @@
-double sub_29A16A1E0(uint64_t a1, unint64_t *a2, uint64_t *a3, double a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8)
+double sub_29A16A1E0(double *a1, double *a2, double *a3, uint64_t a4, uint64_t a5, uint64_t a6, double *a7, double a8)
 {
-  if (a6 <= a7)
+  if (a5 <= a6)
   {
-    v14 = a8;
+    v14 = a7;
     if (a1 != a2)
     {
-      v14 = a8;
+      v14 = a7;
       v15 = a1;
       do
       {
-        v16 = *v15;
-        v15 += 2;
-        a4 = *&v16;
+        v16 = *v15++;
+        a8 = *&v16;
         *v14 = v16;
         v14 += 2;
       }
@@ -19,33 +18,31 @@ double sub_29A16A1E0(uint64_t a1, unint64_t *a2, uint64_t *a3, double a4, uint64
       while (v15 != a2);
     }
 
-    return sub_29A16A308(a8, v14, a2, a3, a1, a4);
+    return sub_29A16A308(a7, v14, a2, a3, a1, a8);
   }
 
   else
   {
-    v10 = a8;
+    v10 = a7;
     if (a2 != a3)
     {
-      v10 = a8;
+      v10 = a7;
       v11 = a2;
       do
       {
-        v12 = *v11;
-        v11 += 2;
-        a4 = *&v12;
-        *v10 = v12;
-        v10 += 2;
+        v12 = *v11++;
+        a8 = *&v12;
+        *v10++ = v12;
       }
 
       while (v11 != a3);
     }
 
-    return sub_29A16A3A0(a4, v10, v10, a8, a8, a2, a2, a1, a1, a3, a3);
+    return sub_29A16A3A0(a8, v10, v10, a7, a7, a2, a2, a1, a1, a3, a3);
   }
 }
 
-uint64_t sub_29A16A2B4(uint64_t result, uint64_t a2, unint64_t *a3)
+uint64_t sub_29A16A2B4(uint64_t result, uint64_t a2, double *a3)
 {
   if (a2 != result)
   {
@@ -55,7 +52,7 @@ uint64_t sub_29A16A2B4(uint64_t result, uint64_t a2, unint64_t *a3)
     {
       v5 = v3 >> 1;
       v6 = result + 16 * (v3 >> 1);
-      if (v4 >= *v6 && (*v6 < v4 || *(a3 + 1) >= *(v6 + 8)))
+      if (*&v4 >= *v6 && (*v6 < *&v4 || a3[1] >= *(v6 + 8)))
       {
         result = v6 + 16;
         v5 = v3 + ~v5;
@@ -70,7 +67,7 @@ uint64_t sub_29A16A2B4(uint64_t result, uint64_t a2, unint64_t *a3)
   return result;
 }
 
-double sub_29A16A308(uint64_t *a1, uint64_t *a2, unint64_t *a3, uint64_t *a4, uint64_t a5, double result)
+double sub_29A16A308(double *a1, double *a2, double *a3, double *a4, double *a5, double result)
 {
   while (a1 != a2)
   {
@@ -79,11 +76,11 @@ double sub_29A16A308(uint64_t *a1, uint64_t *a2, unint64_t *a3, uint64_t *a4, ui
       v9 = 0;
       do
       {
-        v10 = a5 + v9 * 8;
+        v10 = &a5[v9];
         v11 = &a1[v9];
         *v10 = a1[v9];
-        result = *&a1[v9 + 1];
-        *(v10 + 8) = result;
+        result = a1[v9 + 1];
+        v10[1] = result;
         v9 += 2;
       }
 
@@ -95,18 +92,18 @@ double sub_29A16A308(uint64_t *a1, uint64_t *a2, unint64_t *a3, uint64_t *a4, ui
     v7 = *a1;
     if (*a3 < *a1)
     {
-      result = *(a3 + 1);
+      result = a3[1];
 LABEL_5:
       *a5 = v6;
-      *(a5 + 8) = result;
+      a5[1] = result;
       a3 += 2;
       goto LABEL_10;
     }
 
-    if (v7 >= v6)
+    if (*&v7 >= *&v6)
     {
-      result = *(a3 + 1);
-      v8 = *(a1 + 1);
+      result = a3[1];
+      v8 = a1[1];
       if (result < v8)
       {
         goto LABEL_5;
@@ -115,14 +112,14 @@ LABEL_5:
 
     else
     {
-      v8 = *(a1 + 1);
+      v8 = a1[1];
     }
 
     *a5 = v7;
-    *(a5 + 8) = v8;
+    a5[1] = v8;
     a1 += 2;
 LABEL_10:
-    a5 += 16;
+    a5 += 2;
   }
 
   return result;
@@ -238,7 +235,7 @@ uint64_t *sub_29A16A43C(uint64_t *a1, uint64_t *a2, uint64_t *a3)
   return result;
 }
 
-uint64_t sub_29A16A500(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A16A500(uint64_t *a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -254,12 +251,12 @@ uint64_t sub_29A16A500(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
       {
         sub_29A16A6E4(a1, a2, a1[1], a2 + 32 * a5);
         v24 = 0;
-        v25 = (v7 + 32 * a5);
+        v25 = &v7[32 * a5];
         v26 = v7;
         do
         {
           v27 = *v26;
-          v26 += 4;
+          v26 += 32;
           *(v24 + v5) = v27;
           std::string::operator=((v24 + v5 + 8), (v7 + 8));
           v24 += 32;
@@ -271,8 +268,8 @@ uint64_t sub_29A16A500(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
 
       else
       {
-        v20 = (v18 + a3);
-        a1[1] = sub_29A15A758(a1, v18 + a3, a4, a1[1]);
+        v20 = &a3[v18];
+        a1[1] = sub_29A15A758(a1, &a3[v18], a4, a1[1]);
         if (v19 >= 1)
         {
           sub_29A16A6E4(a1, v5, v10, v5 + 32 * a5);
@@ -283,7 +280,7 @@ uint64_t sub_29A16A500(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
             do
             {
               v23 = *v22;
-              v22 += 4;
+              v22 += 32;
               *(v21 + v5) = v23;
               std::string::operator=((v21 + v5 + 8), (v7 + 8));
               v21 += 32;
@@ -530,7 +527,7 @@ void sub_29A16AA58(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__n128 sub_29A16AA70(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+__n128 sub_29A16AA70(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7, uint64_t a8)
 {
   if (a6)
   {
@@ -619,7 +616,7 @@ __n128 sub_29A16AA70(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uin
       v21 = v8 - v27;
       if (v28 + v27 >= v8 - (v28 + v27) - v13)
       {
-        sub_29A16AA70(v20, v18, a3, a4, -(v28 + v13), v8 - v27, a7, a8);
+        result.n128_u64[0] = sub_29A16AA70(v20, v18, a3, a4, -(v28 + v13), v8 - v27, a7, a8).n128_u64[0];
         a1 = (a1 + v12 * 8);
         v18 = v19;
         v21 = v27;
@@ -629,7 +626,7 @@ __n128 sub_29A16AA70(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uin
 
       else
       {
-        sub_29A16AA70(&a1[v12], v19, v20, a4, v28, v27, a7, a8);
+        result.n128_u64[0] = sub_29A16AA70(&a1[v12], v19, v20, a4, v28, v27, a7, a8).n128_u64[0];
         a1 = v20;
       }
 
@@ -643,7 +640,7 @@ __n128 sub_29A16AA70(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uin
   return result;
 }
 
-void sub_29A16AD24(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+void sub_29A16AD24(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7)
 {
   if (a5 <= a6)
   {
@@ -662,14 +659,14 @@ void sub_29A16AD24(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uint6
       {
         *v13 = *v16;
         v17 = *(v16 + 1);
-        *(v13 + 24) = v16[3];
-        *(v13 + 8) = v17;
+        v13[3] = v16[3];
+        *(v13 + 1) = v17;
         v16[2] = 0;
         v16[3] = 0;
         v16[1] = 0;
         ++v12;
         v16 += 4;
-        v13 += 32;
+        v13 += 4;
       }
 
       while (v16 != a2);
@@ -696,14 +693,14 @@ void sub_29A16AD24(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uint6
       {
         *v11 = *v14;
         v15 = *(v14 + 1);
-        *(v11 + 24) = v14[3];
-        *(v11 + 8) = v15;
+        v11[3] = v14[3];
+        *(v11 + 1) = v15;
         v14[2] = 0;
         v14[3] = 0;
         v14[1] = 0;
         ++v10;
         v14 += 4;
-        v11 += 32;
+        v11 += 4;
       }
 
       while (v14 != a3);
@@ -754,7 +751,7 @@ char *sub_29A16AE88(char *a1, char *a2, void *a3)
   return v3;
 }
 
-void sub_29A16AF10(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+void sub_29A16AF10(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
 {
   if (a1 != a2)
   {
@@ -778,7 +775,7 @@ void sub_29A16AF10(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_
           goto LABEL_12;
         }
 
-        if (!pxrInternal__aapl__pxrReserved__::TraceThreadId::operator<(a3 + 1, (v11 + 8)))
+        if (!pxrInternal__aapl__pxrReserved__::TraceThreadId::operator<(a3 + 1, v11 + 1))
         {
           v13 = *v11;
 LABEL_12:
@@ -788,12 +785,12 @@ LABEL_12:
             operator delete(*(a5 + 8));
           }
 
-          v15 = *(v11 + 8);
-          *(a5 + 24) = *(v11 + 24);
+          v15 = *(v11 + 1);
+          *(a5 + 24) = v11[3];
           *(a5 + 8) = v15;
           *(v11 + 31) = 0;
           *(v11 + 8) = 0;
-          v11 += 32;
+          v11 += 4;
           goto LABEL_15;
         }
 
@@ -820,7 +817,7 @@ LABEL_15:
   }
 }
 
-void sub_29A16B028(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t *a6, uint64_t a7, unint64_t *a8, uint64_t a9, uint64_t a10)
+void sub_29A16B028(uint64_t a1, unint64_t *a2, uint64_t a3, unint64_t *a4, uint64_t a5, unint64_t *a6, uint64_t a7, unint64_t *a8, uint64_t a9, uint64_t a10)
 {
   if (a2 != a4)
   {
@@ -838,8 +835,8 @@ void sub_29A16B028(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
       v17 = a6 - 4;
       v16 = *(a6 - 4);
-      v19 = (v12 - 32);
-      v18 = *(v12 - 32);
+      v19 = v12 - 4;
+      v18 = *(v12 - 4);
       if (v18 >= v16)
       {
         if (v16 < v18)
@@ -847,7 +844,7 @@ void sub_29A16B028(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
           goto LABEL_13;
         }
 
-        if (!pxrInternal__aapl__pxrReserved__::TraceThreadId::operator<((v12 - 24), a6 - 3))
+        if (!pxrInternal__aapl__pxrReserved__::TraceThreadId::operator<(v12 - 3, a6 - 3))
         {
           v18 = *v19;
 LABEL_13:
@@ -855,7 +852,7 @@ LABEL_13:
           v20 = v14 + 8;
           v21 = v12;
           v17 = a6;
-          v12 -= 32;
+          v12 -= 4;
           if ((*(v14 + 31) & 0x80000000) == 0)
           {
             goto LABEL_7;
@@ -880,8 +877,8 @@ LABEL_6:
       }
 
 LABEL_7:
-      v22 = *(v21 - 24);
-      *(v20 + 16) = *(v21 - 8);
+      v22 = *(v21 - 3);
+      *(v20 + 16) = *(v21 - 1);
       *v20 = v22;
       v15 -= 32;
       *(v21 - 1) = 0;
@@ -1120,7 +1117,7 @@ void pxrInternal__aapl__pxrReserved__::TraceReporterTokens_StaticTokenType::~Tra
 pxrInternal__aapl__pxrReserved__::TraceReporterTokens_StaticTokenType *pxrInternal__aapl__pxrReserved__::TraceReporterTokens_StaticTokenType::TraceReporterTokens_StaticTokenType(pxrInternal__aapl__pxrReserved__::TraceReporterTokens_StaticTokenType *this)
 {
   v9 = *MEMORY[0x29EDCA608];
-  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "WARNING:", 0);
+  v2 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(this, "WARNING:");
   v5 = *v2;
   v3 = v2 + 1;
   v4 = v5;
@@ -1146,7 +1143,7 @@ pxrInternal__aapl__pxrReserved__::TraceReporterTokens_StaticTokenType *pxrIntern
   return this;
 }
 
-void pxrInternal__aapl__pxrReserved__::TraceReporter::TraceReporter(uint64_t a1, __int128 *a2, uint64_t *a3)
+void pxrInternal__aapl__pxrReserved__::TraceReporter::TraceReporter(uint64_t a1, __int128 *a2, void **a3)
 {
   v5 = *a3;
   *a3 = 0;
@@ -1192,7 +1189,7 @@ void sub_29A16B828(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x29A16B820);
 }
 
-uint64_t sub_29A16B840@<X0>(pxrInternal__aapl__pxrReserved__::TraceAggregateTree **a1@<X8>)
+pxrInternal__aapl__pxrReserved__::TraceAggregateTree *sub_29A16B840@<X0>(pxrInternal__aapl__pxrReserved__::TraceAggregateTree **a1@<X8>)
 {
   v2 = operator new(0x90uLL);
   result = pxrInternal__aapl__pxrReserved__::TraceAggregateTree::TraceAggregateTree(v2);
@@ -1203,7 +1200,7 @@ uint64_t sub_29A16B840@<X0>(pxrInternal__aapl__pxrReserved__::TraceAggregateTree
 void pxrInternal__aapl__pxrReserved__::TraceReporter::~TraceReporter(pxrInternal__aapl__pxrReserved__::TraceReporter *this)
 {
   *this = &unk_2A2041328;
-  sub_29A153364();
+  sub_29A153364(this + 17);
 }
 
 {
@@ -1465,8 +1462,10 @@ void pxrInternal__aapl__pxrReserved__::TraceReporter::Report(uint64_t a1, void *
   pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::TraceAggregateNode>::_AddRef();
 }
 
-void sub_29A16BF70(void *a1, uint64_t *a2, int a3, unsigned int a4)
+void sub_29A16BF70(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
   if (*(sub_29A160CEC(a2) + 24) != 1)
   {
 LABEL_105:
@@ -1509,7 +1508,7 @@ LABEL_105:
     }
 
     sub_29A16BC24(&v55, &v56);
-    v15 = pxrInternal__aapl__pxrReserved__::ArchTicksToSeconds(((v9 * 1000.0) / a4));
+    v15 = pxrInternal__aapl__pxrReserved__::ArchTicksToSeconds(((v9 * 1000.0) / v4));
     pxrInternal__aapl__pxrReserved__::TfStringPrintf("%9.3f ms ", v16, v17, *&v15);
     if (!v9)
     {
@@ -1532,7 +1531,7 @@ LABEL_105:
       v62 = __p;
     }
 
-    v19 = pxrInternal__aapl__pxrReserved__::ArchTicksToSeconds(((ExclusiveTime * 1000.0) / a4));
+    v19 = pxrInternal__aapl__pxrReserved__::ArchTicksToSeconds(((ExclusiveTime * 1000.0) / v4));
     pxrInternal__aapl__pxrReserved__::TfStringPrintf("%9.3f ms ", v20, v21, *&v19);
     if (!ExclusiveTime)
     {
@@ -1556,14 +1555,14 @@ LABEL_105:
     }
 
     memset(&__b, 0, sizeof(__b));
-    if (a4 == 1)
+    if (v4 == 1)
     {
       pxrInternal__aapl__pxrReserved__::TfStringPrintf("%7.0f samples ", v22, v23, v13);
     }
 
     else
     {
-      pxrInternal__aapl__pxrReserved__::TfStringPrintf("%10.3f samples ", v22, v23, v13 / a4);
+      pxrInternal__aapl__pxrReserved__::TfStringPrintf("%10.3f samples ", v22, v23, v13 / v4);
     }
 
     __b = v59;
@@ -1653,7 +1652,7 @@ LABEL_105:
 
     v47 = sub_29A00911C(v44, p_b, v46);
     sub_29A00911C(v47, " ", 1);
-    sub_29A16DBB0(a3, &v59);
+    sub_29A16DBB0(v5, &v59);
     if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v48 = &v59;
@@ -1756,7 +1755,7 @@ LABEL_89:
   strcpy(&__p, "             ");
   *(&__b.__r_.__value_.__s + 23) = 16;
   strcpy(&__b, "                ");
-  sub_29A16DBB0(a3 - 1, &v59);
+  sub_29A16DBB0(v5 - 1, &v59);
   v26 = sub_29A00911C(a1, &v62, 13);
   v27 = sub_29A00911C(v26, &__p, 13);
   v28 = sub_29A00911C(v27, &__b, 16);
@@ -1926,7 +1925,7 @@ LABEL_5:
         }
 
         sub_29A153394(v39);
-        sub_29A16DC44();
+        sub_29A16DC44(&locale);
       }
 
       if ((v5 & 1) == 0)
@@ -1974,7 +1973,7 @@ LABEL_5:
 
       v13 = strlen(v11);
       v5 = 1;
-      if (sub_29A0D5434(&unk_2A173F220, v11, v11 + v13, v42, 4160))
+      if (sub_29A0D5434(&unk_2A173F220, v11, v11 + v13, v42, 0x1040u))
       {
         if (v46 != 1)
         {
@@ -2021,7 +2020,7 @@ LABEL_34:
       }
     }
 
-    pxrInternal__aapl__pxrReserved__::TfStringTrim(" \n\t\r", &v38, __dst);
+    pxrInternal__aapl__pxrReserved__::TfStringTrim(__dst, " \n\t\r", &v38);
     if (SBYTE7(v36) < 0)
     {
       v14 = __dst[1].__locale_;
@@ -2055,7 +2054,7 @@ LABEL_59:
 
     v16 = strlen(v15);
     v5 = 0;
-    if (sub_29A0D5434(&unk_2A173F288, v15, v15 + v16, v42, 4160))
+    if (sub_29A0D5434(&unk_2A173F288, v15, v15 + v16, v42, 0x1040u))
     {
       if (v46 != 1)
       {
@@ -2135,7 +2134,7 @@ LABEL_59:
           operator delete(__dst[0].__locale_);
         }
 
-        sub_29A152A08(v26 + 16 * v25);
+        sub_29A152A08((v26 + 16 * v25));
       }
 
       v5 = 0;
@@ -2413,9 +2412,10 @@ void pxrInternal__aapl__pxrReserved__::TraceReporter::ReportChromeTracing(uint64
   pxrInternal__aapl__pxrReserved__::JsWriter::~JsWriter(&v5);
 }
 
-void sub_29A16D534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9, char a10)
+void sub_29A16D534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, ...)
 {
-  sub_29A15F538(&a10);
+  va_start(va, a9);
+  sub_29A15F538(va);
   pxrInternal__aapl__pxrReserved__::JsWriter::~JsWriter(&a9);
   _Unwind_Resume(a1);
 }
@@ -2434,7 +2434,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::TraceReporter::_RebuildEventAndAggreg
   return sub_29B28F9E0(v6);
 }
 
-void sub_29A16D6FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, atomic_uint *a19)
+void sub_29A16D6FC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, atomic_uint *a19)
 {
   if ((a16 & 7) != 0)
   {
@@ -2450,7 +2450,7 @@ void sub_29A16D6FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   {
     if (atomic_fetch_add_explicit(a19 + 2, 0xFFFFFFFF, memory_order_release) == 1)
     {
-      (*(*a19 + 8))(a19);
+      (*(*a19 + 8))(a19, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -2485,30 +2485,30 @@ uint64_t pxrInternal__aapl__pxrReserved__::TraceReporter::AddCounter(pxrInternal
   return pxrInternal__aapl__pxrReserved__::TraceAggregateTree::AddCounter(v7, a2, a3, a4);
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::TraceReporter::_ProcessCollection(uint64_t result, pxrInternal__aapl__pxrReserved__::TraceCollection ***a2)
+void *pxrInternal__aapl__pxrReserved__::TraceReporter::_ProcessCollection(void *result, pxrInternal__aapl__pxrReserved__::TraceCollection ****a2)
 {
   if (*a2)
   {
-    v3 = sub_29A152A58((result + 136));
+    v3 = sub_29A152A58(result + 17);
     pxrInternal__aapl__pxrReserved__::TraceEventTree::Add(v3, *a2);
   }
 
   return result;
 }
 
-void *pxrInternal__aapl__pxrReserved__::TraceReporter::GetGlobalReporter@<X0>(void *a1@<X8>)
+uint64_t *pxrInternal__aapl__pxrReserved__::TraceReporter::GetGlobalReporter@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
   if ((atomic_load_explicit(&qword_2A173F2D0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A173F2D0))
   {
-    sub_29A0ECEEC(&v8, "Trace", "TraceReporter");
-    v4 = malloc(0x90uLL);
-    sub_29A0E9CEC(&v8);
-    sub_29A008E78(&v8, "Trace global reporter");
-    sub_29A16DB68(&v6);
-    v5 = v6;
-    v6 = 0;
-    v7 = v5;
-    pxrInternal__aapl__pxrReserved__::TraceReporter::TraceReporter(v4, &v8, &v7);
+    sub_29A0ECEEC(&v7, "Trace", "TraceReporter");
+    v3 = malloc(0x90uLL);
+    sub_29A0E9CEC(&v7);
+    sub_29A008E78(&v7, "Trace global reporter");
+    sub_29A16DB68(&v5);
+    v4 = v5;
+    v5 = 0;
+    v6 = v4;
+    pxrInternal__aapl__pxrReserved__::TraceReporter::TraceReporter(v3, &v7, &v6);
   }
 
   return sub_29B2904AC(a1);
@@ -2536,8 +2536,7 @@ pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceCollector *sub_29A16DB6
 
 void sub_29A16DBB0(int a1@<W0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   v4 = a1;
   std::string::resize(a2, a1, 32);
@@ -2590,14 +2589,14 @@ void sub_29A16DC74(uint64_t a1, void *a2)
   }
 }
 
-uint64_t *sub_29A16DCE0(uint64_t **a1, __int128 *a2)
+uint64_t *sub_29A16DCE0(uint64_t a1, __int128 *a2)
 {
   v4 = operator new(0x30uLL);
   v5 = *a2;
   *(v4 + 2) = *a2;
   *(a2 + 1) = 0;
-  v6 = a1 + 1;
-  v7 = a1[1];
+  v6 = (a1 + 8);
+  v7 = *(a1 + 8);
   if (v7)
   {
     do
@@ -2627,7 +2626,7 @@ uint64_t *sub_29A16DCE0(uint64_t **a1, __int128 *a2)
 
   else
   {
-    v8 = a1 + 1;
+    v8 = (a1 + 8);
   }
 
 LABEL_8:
@@ -2635,7 +2634,7 @@ LABEL_8:
   return v4;
 }
 
-const std::locale *sub_29A16DD78(const std::locale *a1, uint64_t a2, int a3)
+const std::locale *sub_29A16DD78(const std::locale *a1, unsigned __int8 **a2, int a3)
 {
   v6 = sub_29A0CD748(a1);
   LODWORD(v6[3].__locale_) = a3;
@@ -2655,7 +2654,7 @@ const std::locale *sub_29A16DD78(const std::locale *a1, uint64_t a2, int a3)
 
   if ((v7 & 0x80u) != 0)
   {
-    v7 = *(a2 + 8);
+    v7 = a2[1];
   }
 
   if (sub_29A16DE18(v6, v8, &v8[v7]) != &v8[v7])
@@ -3409,7 +3408,7 @@ unsigned __int8 *sub_29A16ECD4(uint64_t a1, unsigned __int8 *a2, unsigned __int8
   v3 = a2;
   if (a2 != a3 && *a2 == 92)
   {
-    v5 = (a2 + 1);
+    v5 = a2 + 1;
     if (a2 + 1 == a3)
     {
       sub_29A0D0A38();
@@ -4033,7 +4032,7 @@ void sub_29A16F584(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unsigned __int8 *sub_29A16F5FC(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
+unsigned __int8 *sub_29A16F5FC(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t a4)
 {
   v22 = 23869;
   LOBYTE(__p[0]) = 0;
@@ -4044,7 +4043,7 @@ unsigned __int8 *sub_29A16F5FC(uint64_t a1, unsigned __int8 *a2, uint64_t a3, ui
   }
 
   v9 = v8;
-  sub_29A0D2A34(a1, a2, v8, &v19);
+  sub_29A0D2A34(a1, a2, &v19, v8);
   v10 = v21;
   if ((v21 & 0x8000000000000000) == 0)
   {
@@ -4134,7 +4133,7 @@ void sub_29A16F78C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unsigned __int8 *sub_29A16F7C4(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
+unsigned __int8 *sub_29A16F7C4(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t a4)
 {
   strcpy(v12, ":]");
   v8 = sub_29A16FC64(a2, a3, v12, &v12[2]);
@@ -4154,7 +4153,7 @@ unsigned __int8 *sub_29A16F7C4(uint64_t a1, unsigned __int8 *a2, uint64_t a3, ui
   return v9 + 2;
 }
 
-unsigned __int8 *sub_29A16F87C(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
+unsigned __int8 *sub_29A16F87C(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t a4)
 {
   v15 = 23854;
   v16[1] = 0;
@@ -4165,7 +4164,7 @@ unsigned __int8 *sub_29A16F87C(uint64_t a1, unsigned __int8 *a2, uint64_t a3, ui
   }
 
   v9 = v8;
-  sub_29A0D2A34(a1, a2, v8, &v13);
+  sub_29A0D2A34(a1, a2, &v13, v8);
   if (*(a4 + 23) < 0)
   {
     operator delete(*a4);
@@ -4469,7 +4468,7 @@ unsigned __int8 *sub_29A16FC64(unsigned __int8 *result, uint64_t a2, unsigned __
       return a2;
     }
 
-    v5 = a2 - v4 + 1;
+    v5 = (a2 - v4 + 1);
     if (v5 == result)
     {
       return a2;
@@ -4562,7 +4561,7 @@ uint64_t sub_29A16FD80(uint64_t a1, uint64_t a2, uint64_t a3)
   return v5;
 }
 
-unsigned __int8 *sub_29A16FDCC(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
+unsigned __int8 *sub_29A16FDCC(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   if (a2 == a3)
   {
@@ -4582,7 +4581,7 @@ unsigned __int8 *sub_29A16FDCC(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
   return sub_29A16FF70(a1, v8, a3, v6, v7 + 1, v10);
 }
 
-unsigned __int8 *sub_29A16FE68(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
+unsigned __int8 *sub_29A16FE68(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   v3 = a3;
   v6 = sub_29A17013C(a1, a2, a3);
@@ -4597,7 +4596,7 @@ unsigned __int8 *sub_29A16FE68(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
     return a2;
   }
 
-  v8 = *(a2 + 1);
+  v8 = a2[1];
   if (v8 == 40)
   {
     v9 = a2 + 2;
@@ -4622,7 +4621,7 @@ unsigned __int8 *sub_29A16FE68(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
 
       if (v12[1] == 41)
       {
-        v3 = (v12 + 2);
+        v3 = v12 + 2;
       }
 
       else
@@ -4853,7 +4852,7 @@ unsigned __int8 *sub_29A170364(uint64_t a1, unsigned __int8 *a2, unsigned __int8
         sub_29A0D07A0(a1);
         v11 = *(a1 + 28);
         ++*(a1 + 36);
-        v12 = sub_29A16E1BC(a1, v9 + 1, a3);
+        v12 = sub_29A16E1BC(a1, (v9 + 1), a3);
         if (v12 == a3 || (v9 = v12, *v12 != 41))
         {
           sub_29A0CED70();
@@ -4949,15 +4948,15 @@ void sub_29A170644(void ***a1)
   v2 = **a1;
   if (v2)
   {
-    v3 = **a1;
-    if (v1[1] != v2)
+    v3 = v1[1];
+    if (v3 != v2)
     {
-      sub_29A16DC44();
+      sub_29A16DC44(v3 - 2);
     }
 
     v1[1] = v2;
 
-    operator delete(v3);
+    operator delete(v2);
   }
 }
 
@@ -5022,9 +5021,9 @@ uint64_t sub_29A1706C8(char **a1, uint64_t a2)
   return v17;
 }
 
-void sub_29A1707D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A1707D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29A17089C(va);
   _Unwind_Resume(a1);
 }
@@ -5040,9 +5039,9 @@ void sub_29A1707E8(uint64_t a1, void *a2, void *a3, void *a4)
 
 void sub_29A170874(_Unwind_Exception *exception_object)
 {
-  if (v1)
+  if (v2)
   {
-    sub_29A16DC44();
+    sub_29A16DC44((v1 - 16));
   }
 
   _Unwind_Resume(exception_object);
@@ -5054,7 +5053,7 @@ uint64_t sub_29A17089C(uint64_t a1)
   if (v2 != *(a1 + 8))
   {
     *(a1 + 16) = v2 - 16;
-    sub_29A16DC44();
+    sub_29A16DC44((v2 - 16));
   }
 
   if (*a1)
@@ -5065,23 +5064,23 @@ uint64_t sub_29A17089C(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_29A1708EC(uint64_t a1, uint64_t a2)
+uint64_t sub_29A1708EC(void *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
+  v4 = a1[1];
+  v5 = a1[2];
   if (v5 == v4)
   {
-    v6 = (a1 + 40);
-    v5 = *(a1 + 8);
+    v6 = a1 + 5;
+    v5 = a1[1];
   }
 
   else
   {
-    v6 = (a1 + 40);
-    v7 = *(a1 + 32);
+    v6 = a1 + 5;
+    v7 = a1[4];
     v8 = &v4[v7 >> 8];
     v9 = *v8 + 16 * v7;
-    v10 = *(v4 + (((*(a1 + 40) + v7) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(a1 + 40) + v7);
+    v10 = *(v4 + (((a1[5] + v7) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(a1 + 40) + v7);
     if (v9 != v10)
     {
       do
@@ -5102,8 +5101,8 @@ uint64_t sub_29A1708EC(uint64_t a1, uint64_t a2)
       }
 
       while (v9 != v10);
-      v4 = *(a1 + 8);
-      v5 = *(a1 + 16);
+      v4 = a1[1];
+      v5 = a1[2];
     }
   }
 
@@ -5114,9 +5113,9 @@ uint64_t sub_29A1708EC(uint64_t a1, uint64_t a2)
     do
     {
       operator delete(*v4);
-      v14 = *(a1 + 16);
-      v4 = (*(a1 + 8) + 8);
-      *(a1 + 8) = v4;
+      v14 = a1[2];
+      v4 = (a1[1] + 8);
+      a1[1] = v4;
       v13 = (v14 - v4) >> 3;
     }
 
@@ -5133,13 +5132,13 @@ uint64_t sub_29A1708EC(uint64_t a1, uint64_t a2)
   {
     v15 = 256;
 LABEL_17:
-    *(a1 + 32) = v15;
+    a1[4] = v15;
   }
 
   sub_29A170A5C(a1);
   result = sub_29A170C20(a1, a2);
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 40) = *(a2 + 40);
+  a1[4] = *(a2 + 32);
+  a1[5] = *(a2 + 40);
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
   return result;
@@ -5221,7 +5220,7 @@ void sub_29A170B40(void **a1)
     if (v7 < v4 >> 3)
     {
       v8 = a1[1];
-      v9 = a1[2] - v8;
+      v9 = (a1[2] - v8);
       if (v9)
       {
         v10 = v6;
@@ -5275,7 +5274,7 @@ uint64_t sub_29A170C20(uint64_t a1, _OWORD *a2)
   return a1;
 }
 
-unint64_t sub_29A170C88(atomic_ullong *a1)
+pxrInternal__aapl__pxrReserved__::TraceReporterTokens_StaticTokenType *sub_29A170C88(atomic_ullong *a1)
 {
   v2 = sub_29A170D08();
   v3 = v2;
@@ -5571,8 +5570,7 @@ __n128 pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceCollection::Trac
   result = *a2;
   *(a1 + 1) = *a2;
   a1[3] = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   return result;
 }
@@ -5585,8 +5583,7 @@ __n128 pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceCollection::Trac
   result = *a2;
   *(a1 + 1) = *a2;
   a1[3] = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   return result;
 }
@@ -5640,8 +5637,8 @@ void *sub_29A1714CC(void *result, void *a2, void *a3, unint64_t a4)
   {
     v6 = result;
     sub_29A0D0518(result, a4);
-    result = sub_29A171554(v6, a2, a3, *(v6 + 8));
-    *(v6 + 8) = result;
+    result = sub_29A171554(v6, a2, a3, v6[1]);
+    v6[1] = result;
   }
 
   return result;
@@ -5718,9 +5715,9 @@ pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceCollector *pxrInternal_
   return this;
 }
 
-void sub_29A1716B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A1716B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A171D3C(va);
   _Unwind_Resume(a1);
 }
@@ -5752,9 +5749,9 @@ void sub_29A1717D4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_29A1718EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A1718EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A171D3C(va);
   _Unwind_Resume(a1);
 }
@@ -5779,7 +5776,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceCollector::_On
   return result;
 }
 
-void pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceCollector::ConsumeData(pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceCollector *this@<X0>, const void **a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceCollector::ConsumeData(pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceCollector *this@<X0>, char **a2@<X8>)
 {
   v4 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::TraceCollector>::_instance);
   if (!v4)
@@ -5859,7 +5856,7 @@ void pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceCollector::Consume
     else
     {
       *v6 = v21;
-      v7 = v6 + 1;
+      v7 = v6 + 16;
       v21 = 0uLL;
     }
 
@@ -5925,23 +5922,23 @@ void sub_29A171BC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29A171BE0(uint64_t *a1)
+void sub_29A171BE0(pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceBase *a1)
 {
   *a1 = &unk_2A2041450;
-  v2 = a1 + 1;
+  v2 = (a1 + 8);
   sub_29A171E8C(a1 + 6);
-  sub_29A171D3C((a1 + 2));
+  sub_29A171D3C(a1 + 16);
   sub_29A0F6078(v2, v3);
 
   pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceBase::~TraceReporterDataSourceBase(a1);
 }
 
-void sub_29A171C4C(uint64_t *a1)
+void sub_29A171C4C(pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceBase *a1)
 {
   *a1 = &unk_2A2041450;
-  v2 = a1 + 1;
+  v2 = (a1 + 8);
   sub_29A171E8C(a1 + 6);
-  sub_29A171D3C((a1 + 2));
+  sub_29A171D3C(a1 + 16);
   sub_29A0F6078(v2, v3);
   pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceBase::~TraceReporterDataSourceBase(a1);
 
@@ -6120,7 +6117,7 @@ void *sub_29A1720FC(void *a1, uint64_t a2, uint64_t a3)
 
 void sub_29A1721AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void (**a11)(void))
 {
-  (*a11)(&a11);
+  (*a11)(&a11, a2, a3, a4, a5, a6, a7, a8);
   operator delete(v11);
   _Unwind_Resume(a1);
 }
@@ -6136,7 +6133,7 @@ uint64_t sub_29A1721E8(uint64_t a1, const std::type_info *a2)
     v12[3] = "virtual TfType pxrInternal__aapl__pxrReserved__::TfNotice::_StandardDeliverer<pxrInternal__aapl__pxrReserved__::TfNotice::_Deliverer<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceCollector>, pxrInternal__aapl__pxrReserved__::TfAnyWeakPtr, void (pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceCollector::*)(const pxrInternal__aapl__pxrReserved__::TraceCollectionAvailable &), pxrInternal__aapl__pxrReserved__::TraceCollectionAvailable>>::GetNoticeType() const [Derived = pxrInternal__aapl__pxrReserved__::TfNotice::_Deliverer<pxrInternal__aapl__pxrReserved__::TfWeakPtr<pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceCollector>, pxrInternal__aapl__pxrReserved__::TfAnyWeakPtr, void (pxrInternal__aapl__pxrReserved__::TraceReporterDataSourceCollector::*)(const pxrInternal__aapl__pxrReserved__::TraceCollectionAvailable &), pxrInternal__aapl__pxrReserved__::TraceCollectionAvailable>]";
     v13 = 0;
     v14 = 4;
-    pxrInternal__aapl__pxrReserved__::ArchGetDemangled((off_2A2041198 & 0x7FFFFFFFFFFFFFFFLL), &v8);
+    pxrInternal__aapl__pxrReserved__::ArchGetDemangled(&v8.__r_.__value_.__l.__data_, (off_2A2041198 & 0x7FFFFFFFFFFFFFFFLL));
     v3 = std::string::insert(&v8, 0, "notice type ");
     v4 = *&v3->__r_.__value_.__l.__data_;
     v9.__r_.__value_.__r.__words[2] = v3->__r_.__value_.__r.__words[2];
@@ -6229,14 +6226,14 @@ void *sub_29A172430(uint64_t a1)
   return v2;
 }
 
-void sub_29A1724C0(uint64_t a1)
+void sub_29A1724C0(uint64_t *a1)
 {
-  if (*(a1 + 8))
+  if (a1[1])
   {
     pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::Tf_Remnant>::operator->();
   }
 
-  sub_29B290920();
+  sub_29B290920(v1);
 }
 
 BOOL sub_29A172510(uint64_t a1, uint64_t a2)
@@ -6431,7 +6428,7 @@ void *sub_29A172810(void *result, void *a2)
   return result;
 }
 
-uint64_t sub_29A17282C(void *a1, uint64_t a2, unint64_t a3, uint64_t *a4, uint64_t (*a5)(void *, uint64_t))
+uint64_t sub_29A17282C(void *a1, uint64_t a2, unint64_t a3, void *a4, uint64_t (*a5)(void *, uint64_t))
 {
   v9 = a3 & 0xFFFFFFFFFFFFFFF8;
   v10 = (*(a4[1] + 256) - 1) & (a3 >> 3);
@@ -6585,30 +6582,6 @@ BOOL pxrInternal__aapl__pxrReserved__::TraceSerialization::Write(uint64_t a1, ui
   return v4;
 }
 
-{
-  pxrInternal__aapl__pxrReserved__::JsValue::JsValue(v10);
-  v4 = *a2;
-  v5 = a2[1];
-  if (*a2 != v5)
-  {
-    v7[0] = "trace/serialization.cpp";
-    v7[1] = "Write";
-    v7[2] = 38;
-    v7[3] = "static BOOL pxrInternal__aapl__pxrReserved__::TraceSerialization::Write(std::ostream &, const std::vector<std::shared_ptr<TraceCollection>> &)";
-    v8 = 0;
-    pxrInternal__aapl__pxrReserved__::TfScopeDescription::TfScopeDescription(v9, "Writing JSON", v7);
-    pxrInternal__aapl__pxrReserved__::JsWriter::JsWriter(v7, a1, 0);
-    pxrInternal__aapl__pxrReserved__::Trace_JSONSerialization::WriteCollectionsToJSON();
-  }
-
-  if (v11)
-  {
-    sub_29A014BEC(v11);
-  }
-
-  return v4 != v5;
-}
-
 void sub_29A172B94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void **a13, uint64_t a14, std::__shared_weak_count *a15)
 {
   sub_29A0176E4(&a13);
@@ -6620,27 +6593,52 @@ void sub_29A172B94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_29A172C84(_Unwind_Exception *a1, uint64_t a2, ...)
+BOOL pxrInternal__aapl__pxrReserved__::TraceSerialization::Write(uint64_t a1, const pxrInternal__aapl__pxrReserved__::TraceCollection ***a2)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, uint64_t *);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  pxrInternal__aapl__pxrReserved__::JsWriter::~JsWriter(va);
-  pxrInternal__aapl__pxrReserved__::TfScopeDescription::~TfScopeDescription(va1);
-  v4 = *(v2 - 40);
-  if (v4)
+  pxrInternal__aapl__pxrReserved__::JsValue::JsValue(v12);
+  v4 = *a2;
+  v5 = a2[1];
+  if (*a2 != v5)
   {
-    sub_29A014BEC(v4);
+    *&v7 = "trace/serialization.cpp";
+    *(&v7 + 1) = "Write";
+    v8 = 38;
+    v9 = "static BOOL pxrInternal__aapl__pxrReserved__::TraceSerialization::Write(std::ostream &, const std::vector<std::shared_ptr<TraceCollection>> &)";
+    v10 = 0;
+    pxrInternal__aapl__pxrReserved__::TfScopeDescription::TfScopeDescription(v11, "Writing JSON", &v7);
+    pxrInternal__aapl__pxrReserved__::JsWriter::JsWriter(&v7, a1, 0);
+    pxrInternal__aapl__pxrReserved__::Trace_JSONSerialization::WriteCollectionsToJSON(&v7, a2);
+  }
+
+  if (v13)
+  {
+    sub_29A014BEC(v13);
+  }
+
+  return v4 != v5;
+}
+
+void sub_29A172C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va1, a3);
+  va_start(va, a3);
+  v8 = va_arg(va1, void *);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  pxrInternal__aapl__pxrReserved__::JsWriter::~JsWriter(va);
+  pxrInternal__aapl__pxrReserved__::TfScopeDescription::~TfScopeDescription(va1, v5, v6);
+  v7 = *(v3 - 40);
+  if (v7)
+  {
+    sub_29A014BEC(v7);
   }
 
   _Unwind_Resume(a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::TraceSerialization::Read(void *a1@<X0>, uint64_t a2@<X1>, uint64_t ***a3@<X8>)
+void pxrInternal__aapl__pxrReserved__::TraceSerialization::Read(void *a1@<X0>, uint64_t a2@<X1>, uint64_t ****a3@<X8>)
 {
   v12 = 0u;
   v13 = 0u;
@@ -6742,12 +6740,12 @@ BOOL pxrInternal__aapl__pxrReserved__::TraceStaticKeyData::operator==(const char
   return result;
 }
 
-void pxrInternal__aapl__pxrReserved__::TraceStaticKeyData::GetString(pxrInternal__aapl__pxrReserved__::TraceStaticKeyData *this@<X0>, uint64_t a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::TraceStaticKeyData::GetString(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::TraceStaticKeyData *this@<X0>)
 {
   v22[2] = *MEMORY[0x29EDCA608];
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v4 = *this;
   if (*this && *(this + 1))
   {
@@ -6779,11 +6777,11 @@ void pxrInternal__aapl__pxrReserved__::TraceStaticKeyData::GetString(pxrInternal
       v9->__r_.__value_.__r.__words[2] = 0;
       v9->__r_.__value_.__r.__words[0] = 0;
       v12 = SHIBYTE(v21.__r_.__value_.__r.__words[2]);
-      *(a2 + 15) = *(v22 + 7);
+      *(a1 + 15) = *(v22 + 7);
       v13 = v22[0];
-      *a2 = v10;
-      *(a2 + 8) = v13;
-      *(a2 + 23) = v11;
+      *a1 = v10;
+      a1[1] = v13;
+      *(a1 + 23) = v11;
       if (v12 < 0)
       {
         operator delete(v21.__r_.__value_.__l.__data_);
@@ -6818,7 +6816,7 @@ LABEL_20:
       sub_29A008E78(&v19, *(this + 1));
       pxrInternal__aapl__pxrReserved__::ArchGetPrettierFunctionName(&v20, &v19, &v21);
       v15 = SHIBYTE(v19.__r_.__value_.__r.__words[2]);
-      *a2 = v21;
+      *a1 = v21;
       *(&v21.__r_.__value_.__s + 23) = 0;
       v21.__r_.__value_.__s.__data_[0] = 0;
       if (v15 < 0)
@@ -6836,7 +6834,7 @@ LABEL_20:
 
   else
   {
-    MEMORY[0x29C2C1A60](a2, *(this + 2));
+    MEMORY[0x29C2C1A60](a1, *(this + 2));
   }
 }
 
@@ -6897,13 +6895,13 @@ pxrInternal__aapl__pxrReserved__::TraceThreadId *pxrInternal__aapl__pxrReserved_
   return this;
 }
 
-void sub_29A1732E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A1732E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29A00B848(va);
-  if (*(v4 + 23) < 0)
+  if (*(v7 + 23) < 0)
   {
-    operator delete(*v4);
+    operator delete(*v7);
   }
 
   _Unwind_Resume(a1);
@@ -7065,7 +7063,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::Work_GetDetachedDispatcher(pxrInterna
   if ((atomic_load_explicit(&qword_2A173F2F0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A173F2F0))
   {
     v2 = operator new(0x158uLL);
-    pxrInternal__aapl__pxrReserved__::WorkDispatcher::WorkDispatcher(v2);
+    pxrInternal__aapl__pxrReserved__::WorkDispatcher::WorkDispatcher(v2, v3, v4, v5);
     qword_2A173F2E8 = v2;
     __cxa_guard_release(&qword_2A173F2F0);
   }
@@ -7080,7 +7078,7 @@ void sub_29A173550(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::Work_EnsureDetachedTaskProgress(pxrInternal__aapl__pxrReserved__ *this)
+void pxrInternal__aapl__pxrReserved__::Work_EnsureDetachedTaskProgress(uint64_t this)
 {
   if (!atomic_load(&qword_2A173F2F8))
   {
@@ -7124,7 +7122,7 @@ void sub_29A173678(uint64_t a1)
   }
 }
 
-uint64_t **sub_29A1736E0(uint64_t **a1)
+void **sub_29A1736E0(void **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -7176,17 +7174,17 @@ pxrInternal__aapl__pxrReserved__::WorkDispatcher *pxrInternal__aapl__pxrReserved
 void sub_29A17381C(_Unwind_Exception *a1)
 {
   sub_29A173B78(v1 + 34);
-  tbb::task_group_context::~task_group_context(v1);
+  tbb::task_group_context::~task_group_context(v1, v3);
   _Unwind_Resume(a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::WorkDispatcher::~WorkDispatcher(pxrInternal__aapl__pxrReserved__::WorkDispatcher *this)
+void pxrInternal__aapl__pxrReserved__::WorkDispatcher::~WorkDispatcher(tbb::interface5::internal::task_base **this)
 {
   pxrInternal__aapl__pxrReserved__::WorkDispatcher::Wait(this);
-  tbb::interface5::internal::task_base::destroy(*(this + 32), v2);
+  tbb::interface5::internal::task_base::destroy(this[32], v2);
   sub_29A173B78(this + 34);
 
-  tbb::task_group_context::~task_group_context(this);
+  tbb::task_group_context::~task_group_context(this, v3);
 }
 
 unint64_t pxrInternal__aapl__pxrReserved__::WorkDispatcher::Wait(pxrInternal__aapl__pxrReserved__::WorkDispatcher *this)
@@ -7328,7 +7326,7 @@ void *tbb::concurrent_vector<pxrInternal__aapl__pxrReserved__::TfErrorTransport,
   return result;
 }
 
-void sub_29A173C3C()
+void sub_29A173C3C(uint64_t result, uint64_t a2)
 {
   if (!atomic_load(PXR_WORK_THREAD_LIMIT))
   {
@@ -7445,7 +7443,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::WorkSetConcurrencyLimitArgument(pxrIn
   return pxrInternal__aapl__pxrReserved__::WorkSetConcurrencyLimit(v1);
 }
 
-void sub_29A173E8C()
+void sub_29A173E8C(uint64_t result, uint64_t a2)
 {
   if (!atomic_load(pxrInternal__aapl__pxrReserved__::WORK_SYNCHRONIZE_ASYNC_DESTROY_CALLS))
   {
@@ -7518,7 +7516,7 @@ void sub_29A173F08()
     __p = v30;
   }
 
-  pxrInternal__aapl__pxrReserved__::TfGetPathName(&__p, &v30);
+  pxrInternal__aapl__pxrReserved__::TfGetPathName(&v30, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -7663,15 +7661,15 @@ void sub_29A174298(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_29A174368(const void **a1, std::string *a2, const void **a3)
 {
-  sub_29A008E78(__p, ":");
-  pxrInternal__aapl__pxrReserved__::TfStringSplit(a2, __p, v10);
-  if (v9 < 0)
+  sub_29A008E78(&__p, ":");
+  pxrInternal__aapl__pxrReserved__::TfStringSplit(a2, &__p, v9);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v6 = v10[0];
-  v7 = v10[1];
+  v6 = v9[0];
+  v7 = v9[1];
   while (v6 != v7)
   {
     if ((*(v6 + 23) & 0x8000000000000000) != 0)
@@ -7692,19 +7690,19 @@ void sub_29A174368(const void **a1, std::string *a2, const void **a3)
       sub_29A070BA0(a1);
     }
 
-    pxrInternal__aapl__pxrReserved__::TfStringCatPaths(a3, v6, __p);
-    sub_29A091654(a1, __p);
-    if (v9 < 0)
+    pxrInternal__aapl__pxrReserved__::TfStringCatPaths(a3, v6, &__p);
+    sub_29A091654(a1, &__p);
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(__p[0]);
+      operator delete(__p.__r_.__value_.__l.__data_);
     }
 
 LABEL_13:
     v6 += 24;
   }
 
-  __p[0] = v10;
-  sub_29A012C90(__p);
+  __p.__r_.__value_.__r.__words[0] = v9;
+  sub_29A012C90(&__p);
 }
 
 void sub_29A174454(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -7774,9 +7772,9 @@ void *sub_29A1744A4(uint64_t a1, char *a2)
   return v8;
 }
 
-void sub_29A1745B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A1745B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A01FF14(va);
   _Unwind_Resume(a1);
 }
@@ -7838,68 +7836,68 @@ void *sub_29A1745C4(uint64_t a1, char *a2)
   return v8;
 }
 
-void sub_29A1746D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A1746D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A01FF14(va);
   _Unwind_Resume(a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::Plug_SetUSDLibInitEntitlements(void *a1)
+void pxrInternal__aapl__pxrReserved__::Plug_SetUSDLibInitEntitlements(void *a1, uint64_t a2)
 {
-  sub_29A1747C8();
-  v4 = *a1;
-  v2 = a1 + 1;
-  v3 = v4;
-  if (v4 != v2)
+  sub_29A1747C8(a1, a2);
+  v5 = *a1;
+  v3 = a1 + 1;
+  v4 = v5;
+  if (v5 != v3)
   {
     do
     {
-      if (*(v3 + 55) < 0)
+      if (*(v4 + 55) < 0)
       {
-        sub_29A008D14(__p, v3[4], v3[5]);
+        sub_29A008D14(__p, v4[4], v4[5]);
       }
 
       else
       {
-        *__p = *(v3 + 2);
-        v9 = v3[6];
+        *__p = *(v4 + 2);
+        v10 = v4[6];
       }
 
       sub_29A095658(&qword_2A173F310, __p, __p);
-      if (SHIBYTE(v9) < 0)
+      if (SHIBYTE(v10) < 0)
       {
         operator delete(__p[0]);
       }
 
-      v5 = v3[1];
-      if (v5)
+      v6 = v4[1];
+      if (v6)
       {
         do
         {
-          v6 = v5;
-          v5 = *v5;
+          v7 = v6;
+          v6 = *v6;
         }
 
-        while (v5);
+        while (v6);
       }
 
       else
       {
         do
         {
-          v6 = v3[2];
-          v7 = *v6 == v3;
-          v3 = v6;
+          v7 = v4[2];
+          v8 = *v7 == v4;
+          v4 = v7;
         }
 
-        while (!v7);
+        while (!v8);
       }
 
-      v3 = v6;
+      v4 = v7;
     }
 
-    while (v6 != v2);
+    while (v7 != v3);
   }
 }
 
@@ -7913,20 +7911,20 @@ void sub_29A1747AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29A1747C8()
+void sub_29A1747C8(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_2A173F308, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_2A173F308, memory_order_acquire) & 1) == 0)
   {
     sub_29B290AAC();
   }
 }
 
-BOOL pxrInternal__aapl__pxrReserved__::Plug_RegistrationMetadata::PassesEntitlementCheck(pxrInternal__aapl__pxrReserved__::Plug_RegistrationMetadata *this)
+uint64_t pxrInternal__aapl__pxrReserved__::Plug_RegistrationMetadata::PassesEntitlementCheck(pxrInternal__aapl__pxrReserved__::Plug_RegistrationMetadata *this, uint64_t a2)
 {
-  sub_29A1747C8();
-  v2 = *(this + 19);
-  v3 = *(this + 20);
-  if (v2 == v3)
+  sub_29A1747C8(this, a2);
+  v3 = *(this + 19);
+  v4 = *(this + 20);
+  if (v3 == v4)
   {
 LABEL_4:
     if (*(this + 17) == *(this + 16))
@@ -7934,52 +7932,52 @@ LABEL_4:
       return 1;
     }
 
-    v4 = SecTaskCreateFromSelf(0);
-    if (!v4 && sub_29A174A74(0))
+    v5 = SecTaskCreateFromSelf(0);
+    if (!v5 && sub_29A174A74(0))
     {
-      v7 = (this + 8);
+      v8 = (this + 8);
       if (*(this + 31) < 0)
       {
-        v7 = *v7;
+        v8 = *v8;
       }
 
-      pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg("Failed to fetch entitlement task for %s\n", v5, v6, v7);
+      pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg("Failed to fetch entitlement task for %s\n", v6, v7, v8);
     }
 
-    v8 = *(this + 16);
-    v27 = *(this + 17);
+    v9 = *(this + 16);
+    v28 = *(this + 17);
     error = 0;
-    if (v8 == v27)
+    if (v9 == v28)
     {
-      v12 = 0;
+      v13 = 0;
       goto LABEL_44;
     }
 
-    v9 = *MEMORY[0x29EDB8ED8];
+    v10 = *MEMORY[0x29EDB8ED8];
 LABEL_12:
-    v11 = *v8;
-    v10 = v8[1];
-    v12 = *v8 == v10;
-    if (*v8 == v10)
+    v12 = *v9;
+    v11 = v9[1];
+    v13 = *v9 == v11;
+    if (*v9 == v11)
     {
       goto LABEL_44;
     }
 
     while (1)
     {
-      v13 = sub_29A01BCCC(&qword_2A173F310, v11);
-      if (v4 && v13 == &qword_2A173F318)
+      v14 = sub_29A01BCCC(&qword_2A173F310, v12);
+      if (v5 && v14 == &qword_2A173F318)
       {
-        v14 = v11;
-        if (*(v11 + 23) < 0)
+        v15 = v12;
+        if (*(v12 + 23) < 0)
         {
-          v14 = *v11;
+          v15 = *v12;
         }
 
-        v15 = CFStringCreateWithCString(v9, v14, 0x8000100u);
-        v16 = SecTaskCopyValueForEntitlement(v4, v15, &error);
-        CFRelease(v15);
-        if (!v16)
+        v16 = CFStringCreateWithCString(v10, v15, 0x8000100u);
+        v17 = SecTaskCopyValueForEntitlement(v5, v16, &error);
+        CFRelease(v16);
+        if (!v17)
         {
           if (!error)
           {
@@ -7988,90 +7986,90 @@ LABEL_12:
 
           if (sub_29A174A74(0))
           {
-            if (*(v11 + 23) < 0)
+            if (*(v12 + 23) < 0)
             {
-              v11 = *v11;
+              v12 = *v12;
             }
 
-            pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg("Failed to check entitlement %s\n", v19, v20, v11);
+            pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg("Failed to check entitlement %s\n", v20, v21, v12);
           }
 
-          v21 = error;
+          v22 = error;
 LABEL_35:
-          CFRelease(v21);
+          CFRelease(v22);
 LABEL_36:
-          v8 += 3;
-          if (v8 == v27)
+          v9 += 3;
+          if (v9 == v28)
           {
 LABEL_44:
-            CFRelease(v4);
-            return v12;
+            CFRelease(v5);
+            return v13;
           }
 
           goto LABEL_12;
         }
 
-        v17 = CFGetTypeID(v16);
-        if (v17 != CFBooleanGetTypeID())
+        v18 = CFGetTypeID(v17);
+        if (v18 != CFBooleanGetTypeID())
         {
           if (sub_29A174A74(0))
           {
-            if (*(v11 + 23) < 0)
+            if (*(v12 + 23) < 0)
             {
-              v11 = *v11;
+              v12 = *v12;
             }
 
-            pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg("Entitlement is not a BOOLean %s\n", v22, v23, v11);
+            pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg("Entitlement is not a BOOLean %s\n", v23, v24, v12);
           }
 
-          v21 = v16;
+          v22 = v17;
           goto LABEL_35;
         }
 
-        Value = CFBooleanGetValue(v16);
-        CFRelease(v16);
+        Value = CFBooleanGetValue(v17);
+        CFRelease(v17);
         if (!Value)
         {
           goto LABEL_36;
         }
       }
 
-      else if (v13 == &qword_2A173F318)
+      else if (v14 == &qword_2A173F318)
       {
         goto LABEL_36;
       }
 
-      v11 += 3;
-      if (v11 == v10)
+      v12 += 3;
+      if (v12 == v11)
       {
-        v12 = 1;
+        v13 = 1;
         goto LABEL_44;
       }
     }
   }
 
-  while (sub_29A01BCCC(&qword_2A173F310, v2) == &qword_2A173F318)
+  while (sub_29A01BCCC(&qword_2A173F310, v3) == &qword_2A173F318)
   {
-    v2 += 3;
-    if (v2 == v3)
+    v3 += 3;
+    if (v3 == v4)
     {
       goto LABEL_4;
     }
   }
 
-  v12 = 0;
+  v13 = 0;
   if (sub_29A174A74(0))
   {
-    if (*(v2 + 23) < 0)
+    if (*(v3 + 23) < 0)
     {
-      v2 = *v2;
+      v3 = *v3;
     }
 
-    pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg("Found superseding entitlement %s. Disabling this plugin.\n", v24, v25, v2);
+    pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg("Found superseding entitlement %s. Disabling this plugin.\n", v25, v26, v3);
     return 0;
   }
 
-  return v12;
+  return v13;
 }
 
 BOOL sub_29A174A74(int a1)
@@ -8105,16 +8103,16 @@ uint64_t sub_29A174B04()
 
 void sub_29A174B80()
 {
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2041690, 0, "PLUG_LOAD", 0);
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2041690, 0, "PLUG_LOAD", 0);
   v0 = sub_29A174B04();
   pxrInternal__aapl__pxrReserved__::TfDebug::_RegisterDebugSymbolImpl(v0, "PLUG_LOAD", "Plugin loading");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2041690, 1, "PLUG_REGISTRATION", 0);
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2041690, 1, "PLUG_REGISTRATION", 0);
   v1 = sub_29A174B04();
   pxrInternal__aapl__pxrReserved__::TfDebug::_RegisterDebugSymbolImpl(v1 + 4, "PLUG_REGISTRATION", "Plugin registration");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2041690, 2, "PLUG_LOAD_IN_SECONDARY_THREAD", 0);
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2041690, 2, "PLUG_LOAD_IN_SECONDARY_THREAD", 0);
   v2 = sub_29A174B04();
   pxrInternal__aapl__pxrReserved__::TfDebug::_RegisterDebugSymbolImpl(v2 + 8, "PLUG_LOAD_IN_SECONDARY_THREAD", "Plugins loaded from non-main threads");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2041690, 3, "PLUG_INFO_SEARCH", 0);
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2041690, 3, "PLUG_INFO_SEARCH", 0);
   v3 = sub_29A174B04() + 12;
 
   pxrInternal__aapl__pxrReserved__::TfDebug::_RegisterDebugSymbolImpl(v3, "PLUG_INFO_SEARCH", "Plugin info file search");
@@ -8122,12 +8120,12 @@ void sub_29A174B80()
 
 uint64_t pxrInternal__aapl__pxrReserved__::GetEmbeddedPlugInfo@<X0>(uint64_t a1@<X8>)
 {
-  v241 = *MEMORY[0x29EDCA608];
+  v240 = *MEMORY[0x29EDCA608];
   if ((atomic_load_explicit(&qword_2A173F350, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A173F350))
   {
-    v4 = a1;
+    v3 = a1;
     sub_29A008E78(__src, "aaplHttpResolver");
-    if (SHIBYTE(v99) < 0)
+    if (SHIBYTE(v98) < 0)
     {
       sub_29A008D14(&__dst, __src[0], __src[1]);
     }
@@ -8135,36 +8133,36 @@ uint64_t pxrInternal__aapl__pxrReserved__::GetEmbeddedPlugInfo@<X0>(uint64_t a1@
     else
     {
       __dst = *__src;
-      v101 = v99;
+      v100 = v98;
     }
 
-    v102 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    AaplHttpResolver: {\n                        bases: [ArResolver],\n                        uriSchemes: [http, https]\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: aaplHttpResolver,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library,\n            Entitlements: [[com.apple.private.usd.enablehttp-resolver]]\n        }\n    ]\n}\n";
-    sub_29A008E78(&v96, "aaplUsdGclCodec");
-    if (SHIBYTE(v97) < 0)
+    v101 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    AaplHttpResolver: {\n                        bases: [ArResolver],\n                        uriSchemes: [http, https]\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: aaplHttpResolver,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library,\n            Entitlements: [[com.apple.private.usd.enablehttp-resolver]]\n        }\n    ]\n}\n";
+    sub_29A008E78(&v95, "aaplUsdGclCodec");
+    if (SHIBYTE(v96) < 0)
     {
-      sub_29A008D14(&v103, v96, *(&v96 + 1));
+      sub_29A008D14(&v102, v95, *(&v95 + 1));
     }
 
     else
     {
+      v102 = v95;
       v103 = v96;
-      v104 = v97;
     }
 
-    v105 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    AaplUsdGclCodecFileFormat: {\n                        bases: [\n                            SdfFileFormat\n                        ], \n                        displayName: Apple USD GCL Codec, \n                        extensions: [\n                            gcl, \n                            pmc\n                        ], \n                        formatId: gcl, \n                        primary: true, \n                        target: usd\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: aaplUsdGclCodec, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v94, "aaplUsdInteractive");
-    if (SHIBYTE(v95) < 0)
+    v104 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    AaplUsdGclCodecFileFormat: {\n                        bases: [\n                            SdfFileFormat\n                        ], \n                        displayName: Apple USD GCL Codec, \n                        extensions: [\n                            gcl, \n                            pmc\n                        ], \n                        formatId: gcl, \n                        primary: true, \n                        target: usd\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: aaplUsdGclCodec, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v93, "aaplUsdInteractive");
+    if (SHIBYTE(v94) < 0)
     {
-      sub_29A008D14(&v106, v94, *(&v94 + 1));
+      sub_29A008D14(&v105, v93, *(&v93 + 1));
     }
 
     else
     {
+      v105 = v93;
       v106 = v94;
-      v107 = v95;
     }
 
-    v108 = "{\n"
+    v107 = "{\n"
            "    Plugins: [\n"
            "        {\n"
            "            Info: {\n"
@@ -8245,19 +8243,19 @@ uint64_t pxrInternal__aapl__pxrReserved__::GetEmbeddedPlugInfo@<X0>(uint64_t a1@
            "        }\n"
            "    ]\n"
            "}\n";
-    sub_29A008E78(&v92, "aaplUsdPhysics");
-    if (SHIBYTE(v93) < 0)
+    sub_29A008E78(&v91, "aaplUsdPhysics");
+    if (SHIBYTE(v92) < 0)
     {
-      sub_29A008D14(&v109, v92, *(&v92 + 1));
+      sub_29A008D14(&v108, v91, *(&v91 + 1));
     }
 
     else
     {
+      v108 = v91;
       v109 = v92;
-      v110 = v93;
     }
 
-    v111 = "{\n"
+    v110 = "{\n"
            "    Plugins: [\n"
            "        {\n"
            "            Info: {\n"
@@ -8338,448 +8336,448 @@ uint64_t pxrInternal__aapl__pxrReserved__::GetEmbeddedPlugInfo@<X0>(uint64_t a1@
            "        }\n"
            "    ]\n"
            "}\n";
-    sub_29A008E78(&v90, "aaplUsdSplats");
-    if (SHIBYTE(v91) < 0)
+    sub_29A008E78(&v89, "aaplUsdSplats");
+    if (SHIBYTE(v90) < 0)
     {
-      sub_29A008D14(&v112, v90, *(&v90 + 1));
+      sub_29A008D14(&v111, v89, *(&v89 + 1));
     }
 
     else
     {
+      v111 = v89;
       v112 = v90;
-      v113 = v91;
     }
 
-    v114 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdSplatsPreliminary_GaussianSplatsAPI: {\n                        alias: {\n                            UsdSchemaBase: Preliminary_GaussianSplatsAPI\n                        }, \n                        apiSchemaCanOnlyApplyTo: [\n                            UsdGeomPoints\n                        ], \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: Preliminary_GaussianSplatsAPI, \n                        schemaKind: singleApplyAPI\n                    }, \n                    UsdSplatsPreliminary_SphericalHarmonicsAPI: {\n                        alias: {\n                            UsdSchemaBase: Preliminary_SphericalHarmonicsAPI\n                        }, \n                        apiSchemaCanOnlyApplyTo: [\n                            UsdGeomPoints\n                        ], \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: Preliminary_SphericalHarmonicsAPI, \n                        schemaKind: singleApplyAPI\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdSplats, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v88, "appleAnnotation");
-    if (SHIBYTE(v89) < 0)
+    v113 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdSplatsPreliminary_GaussianSplatsAPI: {\n                        alias: {\n                            UsdSchemaBase: Preliminary_GaussianSplatsAPI\n                        }, \n                        apiSchemaCanOnlyApplyTo: [\n                            UsdGeomPoints\n                        ], \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: Preliminary_GaussianSplatsAPI, \n                        schemaKind: singleApplyAPI\n                    }, \n                    UsdSplatsPreliminary_SphericalHarmonicsAPI: {\n                        alias: {\n                            UsdSchemaBase: Preliminary_SphericalHarmonicsAPI\n                        }, \n                        apiSchemaCanOnlyApplyTo: [\n                            UsdGeomPoints\n                        ], \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: Preliminary_SphericalHarmonicsAPI, \n                        schemaKind: singleApplyAPI\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdSplats, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v87, "appleAnnotation");
+    if (SHIBYTE(v88) < 0)
     {
-      sub_29A008D14(&v115, v88, *(&v88 + 1));
+      sub_29A008D14(&v114, v87, *(&v87 + 1));
     }
 
     else
     {
+      v114 = v87;
       v115 = v88;
-      v116 = v89;
     }
 
-    v117 = aPluginsInfo_4;
-    sub_29A008E78(&v86, "appleCamera");
-    if (SHIBYTE(v87) < 0)
+    v116 = aPluginsInfo_4;
+    sub_29A008E78(&v85, "appleCamera");
+    if (SHIBYTE(v86) < 0)
     {
-      sub_29A008D14(&v118, v86, *(&v86 + 1));
+      sub_29A008D14(&v117, v85, *(&v85 + 1));
     }
 
     else
     {
+      v117 = v85;
       v118 = v86;
-      v119 = v87;
     }
 
-    v120 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    AppleCameraRenderingAPI: {\n                        apiSchemaCanOnlyApplyTo: [\n                            UsdGeomCamera\n                        ], \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: AppleCameraRenderingAPI, \n                        schemaKind: singleApplyAPI\n                    }, \n                    AppleFisheyeCamera: {\n                        autoGenerated: true, \n                        bases: [\n                            UsdGeomCamera\n                        ], \n                        schemaIdentifier: AppleFisheyeCamera, \n                        schemaKind: concreteTyped\n                    }, \n                    AppleImmersiveCamera: {\n                        autoGenerated: true, \n                        bases: [\n                            UsdGeomCamera\n                        ], \n                        schemaIdentifier: AppleImmersiveCamera, \n                        schemaKind: concreteTyped\n                    }, \n                    ApplePanoramicCamera: {\n                        autoGenerated: true, \n                        bases: [\n                            UsdGeomCamera\n                        ], \n                        schemaIdentifier: ApplePanoramicCamera, \n                        schemaKind: concreteTyped\n                    }, \n                    ApplePhysicalCameraAPI: {\n                        apiSchemaCanOnlyApplyTo: [\n                            UsdGeomCamera\n                        ], \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: ApplePhysicalCameraAPI, \n                        schemaKind: singleApplyAPI\n                    }, \n                    AppleSpatialCameraAPI: {\n                        apiSchemaCanOnlyApplyTo: [\n                            UsdGeomCamera\n                        ], \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: AppleSpatialCameraAPI, \n                        schemaKind: singleApplyAPI\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: appleCamera, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v84, "ar");
-    if (SHIBYTE(v85) < 0)
+    v119 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    AppleCameraRenderingAPI: {\n                        apiSchemaCanOnlyApplyTo: [\n                            UsdGeomCamera\n                        ], \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: AppleCameraRenderingAPI, \n                        schemaKind: singleApplyAPI\n                    }, \n                    AppleFisheyeCamera: {\n                        autoGenerated: true, \n                        bases: [\n                            UsdGeomCamera\n                        ], \n                        schemaIdentifier: AppleFisheyeCamera, \n                        schemaKind: concreteTyped\n                    }, \n                    AppleImmersiveCamera: {\n                        autoGenerated: true, \n                        bases: [\n                            UsdGeomCamera\n                        ], \n                        schemaIdentifier: AppleImmersiveCamera, \n                        schemaKind: concreteTyped\n                    }, \n                    ApplePanoramicCamera: {\n                        autoGenerated: true, \n                        bases: [\n                            UsdGeomCamera\n                        ], \n                        schemaIdentifier: ApplePanoramicCamera, \n                        schemaKind: concreteTyped\n                    }, \n                    ApplePhysicalCameraAPI: {\n                        apiSchemaCanOnlyApplyTo: [\n                            UsdGeomCamera\n                        ], \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: ApplePhysicalCameraAPI, \n                        schemaKind: singleApplyAPI\n                    }, \n                    AppleSpatialCameraAPI: {\n                        apiSchemaCanOnlyApplyTo: [\n                            UsdGeomCamera\n                        ], \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: AppleSpatialCameraAPI, \n                        schemaKind: singleApplyAPI\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: appleCamera, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v83, "ar");
+    if (SHIBYTE(v84) < 0)
     {
-      sub_29A008D14(&v121, v84, *(&v84 + 1));
+      sub_29A008D14(&v120, v83, *(&v83 + 1));
     }
 
     else
     {
+      v120 = v83;
       v121 = v84;
-      v122 = v85;
     }
 
-    v123 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    ArResolver: {},\n                    ArDefaultResolver: {\n                        bases: [\n                            ArResolver\n                        ],\n                        implementsContexts: true\n                    },\n                    ArPackageResolver: {}\n                }\n            },\n            LibraryPath: , \n            Name: ar, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v82, "arCustom");
-    if (SHIBYTE(v83) < 0)
+    v122 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    ArResolver: {},\n                    ArDefaultResolver: {\n                        bases: [\n                            ArResolver\n                        ],\n                        implementsContexts: true\n                    },\n                    ArPackageResolver: {}\n                }\n            },\n            LibraryPath: , \n            Name: ar, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v81, "arCustom");
+    if (SHIBYTE(v82) < 0)
     {
-      sub_29A008D14(&v124, v82, *(&v82 + 1));
+      sub_29A008D14(&v123, v81, *(&v81 + 1));
     }
 
     else
     {
+      v123 = v81;
       v124 = v82;
-      v125 = v83;
     }
 
-    v126 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    ArMemoryResolver: {\n                        bases: [ArResolver],\n                        uriSchemes: [memory]\n                    }\n                }\n            },\n            LibraryPath: , \n            Name: arCustom, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v80, "hdGp");
-    if (SHIBYTE(v81) < 0)
+    v125 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    ArMemoryResolver: {\n                        bases: [ArResolver],\n                        uriSchemes: [memory]\n                    }\n                }\n            },\n            LibraryPath: , \n            Name: arCustom, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v79, "hdGp");
+    if (SHIBYTE(v80) < 0)
     {
-      sub_29A008D14(&v127, v80, *(&v80 + 1));
+      sub_29A008D14(&v126, v79, *(&v79 + 1));
     }
 
     else
     {
+      v126 = v79;
       v127 = v80;
-      v128 = v81;
     }
 
-    v129 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    HdGpSceneIndexPlugin: {\n                        bases: [\n                            HdSceneIndexPlugin\n                        ], \n                        displayName:\n                            HdGpGenerativeProceduralResolvingSceneIndex,\n                        loadWithRenderer: ,\n                        priority: 0\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: hdGp, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v78, "hdStorm");
-    if (SHIBYTE(v79) < 0)
+    v128 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    HdGpSceneIndexPlugin: {\n                        bases: [\n                            HdSceneIndexPlugin\n                        ], \n                        displayName:\n                            HdGpGenerativeProceduralResolvingSceneIndex,\n                        loadWithRenderer: ,\n                        priority: 0\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: hdGp, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v77, "hdStorm");
+    if (SHIBYTE(v78) < 0)
     {
-      sub_29A008D14(&v130, v78, *(&v78 + 1));
+      sub_29A008D14(&v129, v77, *(&v77 + 1));
     }
 
     else
     {
+      v129 = v77;
       v130 = v78;
-      v131 = v79;
     }
 
-    v132 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    HdStormRendererPlugin: {\n                        bases: [\n                            HdRendererPlugin\n                        ],\n                        displayName: GL,\n                        priority: 0\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: hdStorm,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v76, "hgiGL");
-    if (SHIBYTE(v77) < 0)
+    v131 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    HdStormRendererPlugin: {\n                        bases: [\n                            HdRendererPlugin\n                        ],\n                        displayName: GL,\n                        priority: 0\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: hdStorm,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v75, "hgiGL");
+    if (SHIBYTE(v76) < 0)
     {
-      sub_29A008D14(&v133, v76, *(&v76 + 1));
+      sub_29A008D14(&v132, v75, *(&v75 + 1));
     }
 
     else
     {
+      v132 = v75;
       v133 = v76;
-      v134 = v77;
     }
 
-    v135 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    HgiGL : {\n                        bases: [Hgi]\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: hgiGL,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v74, "hgiMetal");
-    if (SHIBYTE(v75) < 0)
+    v134 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    HgiGL : {\n                        bases: [Hgi]\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: hgiGL,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v73, "hgiMetal");
+    if (SHIBYTE(v74) < 0)
     {
-      sub_29A008D14(&v136, v74, *(&v74 + 1));
+      sub_29A008D14(&v135, v73, *(&v73 + 1));
     }
 
     else
     {
+      v135 = v73;
       v136 = v74;
-      v137 = v75;
     }
 
-    v138 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    HgiMetal : {\n                        bases: [Hgi]\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: hgiMetal,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v72, "hio");
-    if (SHIBYTE(v73) < 0)
+    v137 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    HgiMetal : {\n                        bases: [Hgi]\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: hgiMetal,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v71, "hio");
+    if (SHIBYTE(v72) < 0)
     {
-      sub_29A008D14(&v139, v72, *(&v72 + 1));
+      sub_29A008D14(&v138, v71, *(&v71 + 1));
     }
 
     else
     {
+      v138 = v71;
       v139 = v72;
-      v140 = v73;
     }
 
-    v141 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                   Hio_OpenEXRImage : {\n                        bases: [HioImage],\n                        imageTypes: [exr],\n                        precedence: 30\n                    },\n                    Hio_StbImage : {\n                        bases: [HioImage],\n                        imageTypes: [bmp, jpg, jpeg, png, tga, hdr],\n                        precedence: 30\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: hio,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v70, "hioImageIO");
-    if (SHIBYTE(v71) < 0)
+    v140 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                   Hio_OpenEXRImage : {\n                        bases: [HioImage],\n                        imageTypes: [exr],\n                        precedence: 30\n                    },\n                    Hio_StbImage : {\n                        bases: [HioImage],\n                        imageTypes: [bmp, jpg, jpeg, png, tga, hdr],\n                        precedence: 30\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: hio,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v69, "hioImageIO");
+    if (SHIBYTE(v70) < 0)
     {
-      sub_29A008D14(&v142, v70, *(&v70 + 1));
+      sub_29A008D14(&v141, v69, *(&v69 + 1));
     }
 
     else
     {
+      v141 = v69;
       v142 = v70;
-      v143 = v71;
     }
 
-    v144 = "{\n  Plugins: [\n    {\n      Info: {\n        Types: {\n          HioImageIO_Image : {\n            bases: [HioImage],\n            imageTypes: [tif, tiff, zfile, tx, avif],\n            precedence: 10\n          }\n        }\n      },\n      LibraryPath: ,\n      Name: hioImageIO,\n      ResourcePath: resources,\n      Root: ..,\n      Type: library\n    }\n  ]\n}\n";
-    sub_29A008E78(&v68, "ndr");
-    if (SHIBYTE(v69) < 0)
+    v143 = "{\n  Plugins: [\n    {\n      Info: {\n        Types: {\n          HioImageIO_Image : {\n            bases: [HioImage],\n            imageTypes: [tif, tiff, zfile, tx, avif],\n            precedence: 10\n          }\n        }\n      },\n      LibraryPath: ,\n      Name: hioImageIO,\n      ResourcePath: resources,\n      Root: ..,\n      Type: library\n    }\n  ]\n}\n";
+    sub_29A008E78(&v67, "ndr");
+    if (SHIBYTE(v68) < 0)
     {
-      sub_29A008D14(&v145, v68, *(&v68 + 1));
+      sub_29A008D14(&v144, v67, *(&v67 + 1));
     }
 
     else
     {
+      v144 = v67;
       v145 = v68;
-      v146 = v69;
     }
 
-    v147 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    NdrDiscoveryPlugin: {},\n                    _NdrFilesystemDiscoveryPlugin : {\n                        bases: [NdrDiscoveryPlugin],\n                        displayName: Filesystem Discovery\n                    },\n                    NdrParserPlugin: {}\n                }\n            },\n            LibraryPath: , \n            Name: ndr, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v66, "sdf");
-    if (SHIBYTE(v67) < 0)
+    v146 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    NdrDiscoveryPlugin: {},\n                    _NdrFilesystemDiscoveryPlugin : {\n                        bases: [NdrDiscoveryPlugin],\n                        displayName: Filesystem Discovery\n                    },\n                    NdrParserPlugin: {}\n                }\n            },\n            LibraryPath: , \n            Name: ndr, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v65, "sdf");
+    if (SHIBYTE(v66) < 0)
     {
-      sub_29A008D14(&v148, v66, *(&v66 + 1));
+      sub_29A008D14(&v147, v65, *(&v65 + 1));
     }
 
     else
     {
+      v147 = v65;
       v148 = v66;
-      v149 = v67;
     }
 
-    v150 = "{\n    Plugins: [\n        {\n            Info: {\n                SdfMetadata: {\n                    payloadAssetDependencies: {\n                        appliesTo: prims,\n                        displayGroup: Pipeline,\n                        type: asset[]\n                    }\n                },\n                Types: {\n                    SdfFileFormat: {\n                        displayName: Sdf file format base class,\n                        target: sdf\n                    },\n                    SdfTextFileFormat: {\n                        bases: [\n                            SdfFileFormat\n                        ],\n                        displayName: Sdf Text File Format,\n                        extensions: [\n                            sdf\n                        ],\n                        formatId: sdf\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: sdf,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v64, "sdrGlslfx");
-    if (SHIBYTE(v65) < 0)
+    v149 = "{\n    Plugins: [\n        {\n            Info: {\n                SdfMetadata: {\n                    payloadAssetDependencies: {\n                        appliesTo: prims,\n                        displayGroup: Pipeline,\n                        type: asset[]\n                    }\n                },\n                Types: {\n                    SdfFileFormat: {\n                        displayName: Sdf file format base class,\n                        target: sdf\n                    },\n                    SdfTextFileFormat: {\n                        bases: [\n                            SdfFileFormat\n                        ],\n                        displayName: Sdf Text File Format,\n                        extensions: [\n                            sdf\n                        ],\n                        formatId: sdf\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: sdf,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v63, "sdrGlslfx");
+    if (SHIBYTE(v64) < 0)
     {
-      sub_29A008D14(&v151, v64, *(&v64 + 1));
+      sub_29A008D14(&v150, v63, *(&v63 + 1));
     }
 
     else
     {
+      v150 = v63;
       v151 = v64;
-      v152 = v65;
     }
 
-    v153 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    SdrGlslfxParserPlugin: {\n                        bases: [NdrParserPlugin], \n                        displayName: Glslfx-based shader definition parser plugin\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: sdrGlslfx,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v62, "usd");
-    if (SHIBYTE(v63) < 0)
+    v152 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    SdrGlslfxParserPlugin: {\n                        bases: [NdrParserPlugin], \n                        displayName: Glslfx-based shader definition parser plugin\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: sdrGlslfx,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v61, "usd");
+    if (SHIBYTE(v62) < 0)
     {
-      sub_29A008D14(&v154, v62, *(&v62 + 1));
+      sub_29A008D14(&v153, v61, *(&v61 + 1));
     }
 
     else
     {
+      v153 = v61;
       v154 = v62;
-      v155 = v63;
     }
 
-    v156 = aPluginsInfo_16;
-    sub_29A008E78(&v60, "usdAbc");
-    if (SHIBYTE(v61) < 0)
+    v155 = aPluginsInfo_16;
+    sub_29A008E78(&v59, "usdAbc");
+    if (SHIBYTE(v60) < 0)
     {
-      sub_29A008D14(&v157, v60, *(&v60 + 1));
+      sub_29A008D14(&v156, v59, *(&v59 + 1));
     }
 
     else
     {
+      v156 = v59;
       v157 = v60;
-      v158 = v61;
     }
 
-    v159 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdAbcAlembicFileFormat: {\n                        bases: [\n                            SdfFileFormat\n                        ],\n                        displayName: USD Alembic File Format,\n                        extensions: [\n                            abc\n                        ],\n                        formatId: abc,\n                        primary: true,\n                        target: usd,\n                        supportsWriting: false,\n                        supportsEditing: false\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: usdAbc,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v58, "usdDeformers");
-    if (SHIBYTE(v59) < 0)
+    v158 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdAbcAlembicFileFormat: {\n                        bases: [\n                            SdfFileFormat\n                        ],\n                        displayName: USD Alembic File Format,\n                        extensions: [\n                            abc\n                        ],\n                        formatId: abc,\n                        primary: true,\n                        target: usd,\n                        supportsWriting: false,\n                        supportsEditing: false\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: usdAbc,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v57, "usdDeformers");
+    if (SHIBYTE(v58) < 0)
     {
-      sub_29A008D14(&v160, v58, *(&v58 + 1));
+      sub_29A008D14(&v159, v57, *(&v57 + 1));
     }
 
     else
     {
+      v159 = v57;
       v160 = v58;
-      v161 = v59;
     }
 
-    v162 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdDeformersBlendShape: {\n                        alias: {\n                            UsdSchemaBase: AAPLBlendShape\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdTyped\n                        ], \n                        schemaIdentifier: AAPLBlendShape, \n                        schemaKind: concreteTyped\n                    }, \n                    UsdDeformersDeformableMesh: {\n                        alias: {\n                            UsdSchemaBase: DeformableMesh\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdGeomMesh\n                        ], \n                        schemaIdentifier: DeformableMesh, \n                        schemaKind: concreteTyped\n                    }, \n                    UsdDeformersMorphDeformerAPI: {\n                        alias: {\n                            UsdSchemaBase: MorphDeformerAPI\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: MorphDeformerAPI, \n                        schemaKind: singleApplyAPI\n                    }, \n                    UsdDeformersSkinDeformerAPI: {\n                        alias: {\n                            UsdSchemaBase: SkinDeformerAPI\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: SkinDeformerAPI, \n                        schemaKind: singleApplyAPI\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdDeformers, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v56, "usdGeom");
-    if (SHIBYTE(v57) < 0)
+    v161 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdDeformersBlendShape: {\n                        alias: {\n                            UsdSchemaBase: AAPLBlendShape\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdTyped\n                        ], \n                        schemaIdentifier: AAPLBlendShape, \n                        schemaKind: concreteTyped\n                    }, \n                    UsdDeformersDeformableMesh: {\n                        alias: {\n                            UsdSchemaBase: DeformableMesh\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdGeomMesh\n                        ], \n                        schemaIdentifier: DeformableMesh, \n                        schemaKind: concreteTyped\n                    }, \n                    UsdDeformersMorphDeformerAPI: {\n                        alias: {\n                            UsdSchemaBase: MorphDeformerAPI\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: MorphDeformerAPI, \n                        schemaKind: singleApplyAPI\n                    }, \n                    UsdDeformersSkinDeformerAPI: {\n                        alias: {\n                            UsdSchemaBase: SkinDeformerAPI\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: SkinDeformerAPI, \n                        schemaKind: singleApplyAPI\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdDeformers, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v55, "usdGeom");
+    if (SHIBYTE(v56) < 0)
     {
-      sub_29A008D14(&v163, v56, *(&v56 + 1));
+      sub_29A008D14(&v162, v55, *(&v55 + 1));
     }
 
     else
     {
+      v162 = v55;
       v163 = v56;
-      v164 = v57;
     }
 
-    v165 = aPluginsInfo_19;
-    sub_29A008E78(&v54, "usdGeomValidators");
-    if (SHIBYTE(v55) < 0)
+    v164 = aPluginsInfo_19;
+    sub_29A008E78(&v53, "usdGeomValidators");
+    if (SHIBYTE(v54) < 0)
     {
-      sub_29A008D14(&v166, v54, *(&v54 + 1));
+      sub_29A008D14(&v165, v53, *(&v53 + 1));
     }
 
     else
     {
+      v165 = v53;
       v166 = v54;
-      v167 = v55;
     }
 
-    v168 = "{\n    Plugins: [\n        {\n            Info: {\n                Validators: {\n                    StageMetadataChecker: {\n                        doc: All stages must declare their 'upAxis' and 'metersPerUnit'.\n                    }, \n                    SubsetFamilies: {\n                        doc: Validates all of the geom subset families authored beneath an Imageable prim., \n                        keywords: [\n                            UsdGeomSubset\n                        ], \n                        schemaTypes: [\n                            UsdGeomImageable\n                        ]\n                    }, \n                    SubsetParentIsImageable: {\n                        doc: Validates that GeomSubset prims are direct descendants of an Imageable prim., \n                        keywords: [\n                            UsdGeomSubset\n                        ], \n                        schemaTypes: [\n                            UsdGeomSubset\n                        ]\n                    }, \n                    keywords: [\n                        UsdGeomValidators\n                    ]\n                }\n            }, \n            LibraryPath: , \n            Name: usdGeomValidators, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v52, "usdGltf");
-    if (SHIBYTE(v53) < 0)
+    v167 = "{\n    Plugins: [\n        {\n            Info: {\n                Validators: {\n                    StageMetadataChecker: {\n                        doc: All stages must declare their 'upAxis' and 'metersPerUnit'.\n                    }, \n                    SubsetFamilies: {\n                        doc: Validates all of the geom subset families authored beneath an Imageable prim., \n                        keywords: [\n                            UsdGeomSubset\n                        ], \n                        schemaTypes: [\n                            UsdGeomImageable\n                        ]\n                    }, \n                    SubsetParentIsImageable: {\n                        doc: Validates that GeomSubset prims are direct descendants of an Imageable prim., \n                        keywords: [\n                            UsdGeomSubset\n                        ], \n                        schemaTypes: [\n                            UsdGeomSubset\n                        ]\n                    }, \n                    keywords: [\n                        UsdGeomValidators\n                    ]\n                }\n            }, \n            LibraryPath: , \n            Name: usdGeomValidators, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v51, "usdGltf");
+    if (SHIBYTE(v52) < 0)
     {
-      sub_29A008D14(&v169, v52, *(&v52 + 1));
+      sub_29A008D14(&v168, v51, *(&v51 + 1));
     }
 
     else
     {
+      v168 = v51;
       v169 = v52;
-      v170 = v53;
     }
 
-    v171 = "{\n    Plugins: [\n        {\n            Info: {\n                SdfMetadata: {\n                    gltfAssetsPath: {\n                        appliesTo: [ prims ], \n                        displayGroup: Core, \n                        documentation:: Path to store assets to, instead of resolving from the source file, \n                        type: string\n                    }\n                },\n                Types: {\n                    UsdGltfFileFormat: {\n                        bases: [SdfFileFormat],\n                        displayName: GLTF file format,\n                        extensions: [ gltf, glb ],\n                        formatId: gltf,\n                        primary: true,\n                        supportsWriting: false,\n                        supportsEditing: false,\n                        target: usd\n                    },\n                    adobe::usd::GltfResolver : {\n                        bases: [ ArPackageResolver ],\n                        extensions: [ gltf, glb ]\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: usdGltf_plugin,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library,\n            Entitlements: [[com.apple.private.usd.enableusdgltf]]\n        }\n    ]\n}\n";
-    sub_29A008E78(&v50, "usdImaging");
-    if (SHIBYTE(v51) < 0)
+    v170 = "{\n    Plugins: [\n        {\n            Info: {\n                SdfMetadata: {\n                    gltfAssetsPath: {\n                        appliesTo: [ prims ], \n                        displayGroup: Core, \n                        documentation:: Path to store assets to, instead of resolving from the source file, \n                        type: string\n                    }\n                },\n                Types: {\n                    UsdGltfFileFormat: {\n                        bases: [SdfFileFormat],\n                        displayName: GLTF file format,\n                        extensions: [ gltf, glb ],\n                        formatId: gltf,\n                        primary: true,\n                        supportsWriting: false,\n                        supportsEditing: false,\n                        target: usd\n                    },\n                    adobe::usd::GltfResolver : {\n                        bases: [ ArPackageResolver ],\n                        extensions: [ gltf, glb ]\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: usdGltf_plugin,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library,\n            Entitlements: [[com.apple.private.usd.enableusdgltf]]\n        }\n    ]\n}\n";
+    sub_29A008E78(&v49, "usdImaging");
+    if (SHIBYTE(v50) < 0)
     {
-      sub_29A008D14(&v172, v50, *(&v50 + 1));
+      sub_29A008D14(&v171, v49, *(&v49 + 1));
     }
 
     else
     {
+      v171 = v49;
       v172 = v50;
-      v173 = v51;
     }
 
-    v174 = aPluginsInfo_22;
-    sub_29A008E78(&v48, "usdImagingGL");
-    if (SHIBYTE(v49) < 0)
+    v173 = aPluginsInfo_22;
+    sub_29A008E78(&v47, "usdImagingGL");
+    if (SHIBYTE(v48) < 0)
     {
-      sub_29A008D14(&v175, v48, *(&v48 + 1));
+      sub_29A008D14(&v174, v47, *(&v47 + 1));
     }
 
     else
     {
+      v174 = v47;
       v175 = v48;
-      v176 = v49;
     }
 
-    v177 = "{\n    Plugins: [\n        {\n            Info : {},\n            LibraryPath: ,\n            Name: usdImagingGL,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v46, "usdLux");
-    if (SHIBYTE(v47) < 0)
+    v176 = "{\n    Plugins: [\n        {\n            Info : {},\n            LibraryPath: ,\n            Name: usdImagingGL,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v45, "usdLux");
+    if (SHIBYTE(v46) < 0)
     {
-      sub_29A008D14(&v178, v46, *(&v46 + 1));
+      sub_29A008D14(&v177, v45, *(&v45 + 1));
     }
 
     else
     {
+      v177 = v45;
       v178 = v46;
-      v179 = v47;
     }
 
-    v180 = aPluginsInfo_24;
-    sub_29A008E78(&v44, "usdMedia");
-    if (SHIBYTE(v45) < 0)
+    v179 = aPluginsInfo_24;
+    sub_29A008E78(&v43, "usdMedia");
+    if (SHIBYTE(v44) < 0)
     {
-      sub_29A008D14(&v181, v44, *(&v44 + 1));
+      sub_29A008D14(&v180, v43, *(&v43 + 1));
     }
 
     else
     {
+      v180 = v43;
       v181 = v44;
-      v182 = v45;
     }
 
-    v183 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdMediaAssetPreviewsAPI: {\n                        alias: {\n                            UsdSchemaBase: AssetPreviewsAPI\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: AssetPreviewsAPI, \n                        schemaKind: singleApplyAPI\n                    }, \n                    UsdMediaSpatialAudio: {\n                        alias: {\n                            UsdSchemaBase: SpatialAudio\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdGeomXformable\n                        ], \n                        schemaIdentifier: SpatialAudio, \n                        schemaKind: concreteTyped\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdMedia, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v42, "usdMtlx");
-    if (SHIBYTE(v43) < 0)
+    v182 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdMediaAssetPreviewsAPI: {\n                        alias: {\n                            UsdSchemaBase: AssetPreviewsAPI\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: AssetPreviewsAPI, \n                        schemaKind: singleApplyAPI\n                    }, \n                    UsdMediaSpatialAudio: {\n                        alias: {\n                            UsdSchemaBase: SpatialAudio\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdGeomXformable\n                        ], \n                        schemaIdentifier: SpatialAudio, \n                        schemaKind: concreteTyped\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdMedia, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v41, "usdMtlx");
+    if (SHIBYTE(v42) < 0)
     {
-      sub_29A008D14(&v184, v42, *(&v42 + 1));
+      sub_29A008D14(&v183, v41, *(&v41 + 1));
     }
 
     else
     {
+      v183 = v41;
       v184 = v42;
-      v185 = v43;
     }
 
-    v186 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdMtlxDiscoveryPlugin: {\n                        bases: [\n                            NdrDiscoveryPlugin\n                        ], \n                        displayName: MaterialX Discovery\n                    }, \n                    UsdMtlxFileFormat: {\n                        bases: [\n                            SdfFileFormat\n                        ], \n                        displayName: USD MaterialX File Format, \n                        extensions: [\n                            mtlx\n                        ], \n                        formatId: mtlx, \n                        primary: true, \n                        supportsEditing: false, \n                        supportsWriting: false, \n                        target: usd\n                    }, \n                    UsdMtlxMaterialXConfigAPI: {\n                        alias: {\n                            UsdSchemaBase: MaterialXConfigAPI\n                        }, \n                        apiSchemaCanOnlyApplyTo: [\n                            UsdShadeMaterial\n                        ], \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: MaterialXConfigAPI, \n                        schemaKind: singleApplyAPI\n                    }, \n                    UsdMtlxParserPlugin: {\n                        bases: [\n                            NdrParserPlugin\n                        ], \n                        displayName: MaterialX Node Parser\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdMtlx, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v40, "usdObj");
-    if (SHIBYTE(v41) < 0)
+    v185 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdMtlxDiscoveryPlugin: {\n                        bases: [\n                            NdrDiscoveryPlugin\n                        ], \n                        displayName: MaterialX Discovery\n                    }, \n                    UsdMtlxFileFormat: {\n                        bases: [\n                            SdfFileFormat\n                        ], \n                        displayName: USD MaterialX File Format, \n                        extensions: [\n                            mtlx\n                        ], \n                        formatId: mtlx, \n                        primary: true, \n                        supportsEditing: false, \n                        supportsWriting: false, \n                        target: usd\n                    }, \n                    UsdMtlxMaterialXConfigAPI: {\n                        alias: {\n                            UsdSchemaBase: MaterialXConfigAPI\n                        }, \n                        apiSchemaCanOnlyApplyTo: [\n                            UsdShadeMaterial\n                        ], \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: MaterialXConfigAPI, \n                        schemaKind: singleApplyAPI\n                    }, \n                    UsdMtlxParserPlugin: {\n                        bases: [\n                            NdrParserPlugin\n                        ], \n                        displayName: MaterialX Node Parser\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdMtlx, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v39, "usdObj");
+    if (SHIBYTE(v40) < 0)
     {
-      sub_29A008D14(&v187, v40, *(&v40 + 1));
+      sub_29A008D14(&v186, v39, *(&v39 + 1));
     }
 
     else
     {
+      v186 = v39;
       v187 = v40;
-      v188 = v41;
     }
 
-    v189 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdObjFileFormat: {\n                        bases: [SdfFileFormat],\n                        displayName: OBJ file format,\n                        extensions: [ obj ],\n                        formatId: obj,\n                        primary: true,\n                        supportsWriting: false,\n                        supportsEditing: false,\n                        target: usd\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: usdObj_plugin,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library,\n            Entitlements: [[com.apple.private.usd.enableadobefileformats]]\n        }\n    ]\n}\n";
-    sub_29A008E78(&v38, "usdPhysics");
-    if (SHIBYTE(v39) < 0)
+    v188 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdObjFileFormat: {\n                        bases: [SdfFileFormat],\n                        displayName: OBJ file format,\n                        extensions: [ obj ],\n                        formatId: obj,\n                        primary: true,\n                        supportsWriting: false,\n                        supportsEditing: false,\n                        target: usd\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: usdObj_plugin,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library,\n            Entitlements: [[com.apple.private.usd.enableadobefileformats]]\n        }\n    ]\n}\n";
+    sub_29A008E78(&v37, "usdPhysics");
+    if (SHIBYTE(v38) < 0)
     {
-      sub_29A008D14(&v190, v38, *(&v38 + 1));
+      sub_29A008D14(&v189, v37, *(&v37 + 1));
     }
 
     else
     {
+      v189 = v37;
       v190 = v38;
-      v191 = v39;
     }
 
-    v192 = aPluginsInfo_28;
-    sub_29A008E78(&v36, "usdPly");
-    if (SHIBYTE(v37) < 0)
+    v191 = aPluginsInfo_28;
+    sub_29A008E78(&v35, "usdPly");
+    if (SHIBYTE(v36) < 0)
     {
-      sub_29A008D14(&v193, v36, *(&v36 + 1));
+      sub_29A008D14(&v192, v35, *(&v35 + 1));
     }
 
     else
     {
+      v192 = v35;
       v193 = v36;
-      v194 = v37;
     }
 
-    v195 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdPlyFileFormat: {\n                        bases: [SdfFileFormat],\n                        displayName: PLY file format,\n                        extensions: [ ply ],\n                        formatId: ply,\n                        primary: true,\n                        supportsWriting: false,\n                        supportsEditing: false,\n                        target: usd\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: usdPly_plugin,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library,\n            Entitlements: [[com.apple.private.usd.enableadobefileformats]]\n        }\n    ]\n}\n";
-    sub_29A008E78(&v34, "usdProc");
-    if (SHIBYTE(v35) < 0)
+    v194 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdPlyFileFormat: {\n                        bases: [SdfFileFormat],\n                        displayName: PLY file format,\n                        extensions: [ ply ],\n                        formatId: ply,\n                        primary: true,\n                        supportsWriting: false,\n                        supportsEditing: false,\n                        target: usd\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: usdPly_plugin,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library,\n            Entitlements: [[com.apple.private.usd.enableadobefileformats]]\n        }\n    ]\n}\n";
+    sub_29A008E78(&v33, "usdProc");
+    if (SHIBYTE(v34) < 0)
     {
-      sub_29A008D14(&v196, v34, *(&v34 + 1));
+      sub_29A008D14(&v195, v33, *(&v33 + 1));
     }
 
     else
     {
+      v195 = v33;
       v196 = v34;
-      v197 = v35;
     }
 
-    v198 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdProcGenerativeProcedural: {\n                        alias: {\n                            UsdSchemaBase: GenerativeProcedural\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdGeomBoundable\n                        ], \n                        schemaIdentifier: GenerativeProcedural, \n                        schemaKind: concreteTyped\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdProc, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v32, "usdProcImaging");
-    if (SHIBYTE(v33) < 0)
+    v197 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdProcGenerativeProcedural: {\n                        alias: {\n                            UsdSchemaBase: GenerativeProcedural\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdGeomBoundable\n                        ], \n                        schemaIdentifier: GenerativeProcedural, \n                        schemaKind: concreteTyped\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdProc, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v31, "usdProcImaging");
+    if (SHIBYTE(v32) < 0)
     {
-      sub_29A008D14(&v199, v32, *(&v32 + 1));
+      sub_29A008D14(&v198, v31, *(&v31 + 1));
     }
 
     else
     {
+      v198 = v31;
       v199 = v32;
-      v200 = v33;
     }
 
-    v201 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    \n                    UsdProcImagingGenerativeProceduralAdapter: {\n                        bases: [\n                            UsdImagingInstanceablePrimAdapter\n                        ], \n                        primTypeName: GenerativeProcedural\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdProcImaging, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v30, "usdRender");
-    if (SHIBYTE(v31) < 0)
+    v200 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    \n                    UsdProcImagingGenerativeProceduralAdapter: {\n                        bases: [\n                            UsdImagingInstanceablePrimAdapter\n                        ], \n                        primTypeName: GenerativeProcedural\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdProcImaging, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v29, "usdRender");
+    if (SHIBYTE(v30) < 0)
     {
-      sub_29A008D14(&v202, v30, *(&v30 + 1));
+      sub_29A008D14(&v201, v29, *(&v29 + 1));
     }
 
     else
     {
+      v201 = v29;
       v202 = v30;
-      v203 = v31;
     }
 
-    v204 = "{\n    Plugins: [\n        {\n            Info: {\n                SdfMetadata: {\n                    renderSettingsPrimPath: {\n                        appliesTo: layers, \n                        default: , \n                        type: string\n                    }\n                }, \n                Types: {\n                    UsdRenderPass: {\n                        alias: {\n                            UsdSchemaBase: RenderPass\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdTyped\n                        ], \n                        schemaIdentifier: RenderPass, \n                        schemaKind: concreteTyped\n                    }, \n                    UsdRenderProduct: {\n                        alias: {\n                            UsdSchemaBase: RenderProduct\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdRenderSettingsBase\n                        ], \n                        schemaIdentifier: RenderProduct, \n                        schemaKind: concreteTyped\n                    }, \n                    UsdRenderSettings: {\n                        alias: {\n                            UsdSchemaBase: RenderSettings\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdRenderSettingsBase\n                        ], \n                        schemaIdentifier: RenderSettings, \n                        schemaKind: concreteTyped\n                    }, \n                    UsdRenderSettingsBase: {\n                        alias: {\n                            UsdSchemaBase: RenderSettingsBase\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdTyped\n                        ], \n                        schemaIdentifier: RenderSettingsBase, \n                        schemaKind: abstractTyped\n                    }, \n                    UsdRenderVar: {\n                        alias: {\n                            UsdSchemaBase: RenderVar\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdTyped\n                        ], \n                        schemaIdentifier: RenderVar, \n                        schemaKind: concreteTyped\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdRender, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(&v28, "usdSemantics");
-    if (SHIBYTE(v29) < 0)
+    v203 = "{\n    Plugins: [\n        {\n            Info: {\n                SdfMetadata: {\n                    renderSettingsPrimPath: {\n                        appliesTo: layers, \n                        default: , \n                        type: string\n                    }\n                }, \n                Types: {\n                    UsdRenderPass: {\n                        alias: {\n                            UsdSchemaBase: RenderPass\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdTyped\n                        ], \n                        schemaIdentifier: RenderPass, \n                        schemaKind: concreteTyped\n                    }, \n                    UsdRenderProduct: {\n                        alias: {\n                            UsdSchemaBase: RenderProduct\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdRenderSettingsBase\n                        ], \n                        schemaIdentifier: RenderProduct, \n                        schemaKind: concreteTyped\n                    }, \n                    UsdRenderSettings: {\n                        alias: {\n                            UsdSchemaBase: RenderSettings\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdRenderSettingsBase\n                        ], \n                        schemaIdentifier: RenderSettings, \n                        schemaKind: concreteTyped\n                    }, \n                    UsdRenderSettingsBase: {\n                        alias: {\n                            UsdSchemaBase: RenderSettingsBase\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdTyped\n                        ], \n                        schemaIdentifier: RenderSettingsBase, \n                        schemaKind: abstractTyped\n                    }, \n                    UsdRenderVar: {\n                        alias: {\n                            UsdSchemaBase: RenderVar\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdTyped\n                        ], \n                        schemaIdentifier: RenderVar, \n                        schemaKind: concreteTyped\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdRender, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(&v27, "usdSemantics");
+    if (SHIBYTE(v28) < 0)
     {
-      sub_29A008D14(&v205, v28, *(&v28 + 1));
+      sub_29A008D14(&v204, v27, *(&v27 + 1));
     }
 
     else
     {
+      v204 = v27;
       v205 = v28;
-      v206 = v29;
     }
 
-    v207 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdSemanticsLabelsAPI: {\n                        alias: {\n                            UsdSchemaBase: SemanticsLabelsAPI\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: SemanticsLabelsAPI, \n                        schemaKind: multipleApplyAPI\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdSemantics, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(v26, "usdShade");
-    if (SHIBYTE(v27) < 0)
+    v206 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdSemanticsLabelsAPI: {\n                        alias: {\n                            UsdSchemaBase: SemanticsLabelsAPI\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: SemanticsLabelsAPI, \n                        schemaKind: multipleApplyAPI\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdSemantics, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(v25, "usdShade");
+    if (SHIBYTE(v26) < 0)
     {
-      sub_29A008D14(&v208, v26[0], v26[1]);
-    }
-
-    else
-    {
-      v208 = *v26;
-      v209 = v27;
-    }
-
-    v210 = aPluginsInfo_34;
-    sub_29A008E78(&v24, "usdShadeValidators");
-    if (SHIBYTE(v25) < 0)
-    {
-      sub_29A008D14(&v211, v24, *(&v24 + 1));
+      sub_29A008D14(&v207, v25[0], v25[1]);
     }
 
     else
     {
+      v207 = *v25;
+      v208 = v26;
+    }
+
+    v209 = aPluginsInfo_34;
+    sub_29A008E78(&v23, "usdShadeValidators");
+    if (SHIBYTE(v24) < 0)
+    {
+      sub_29A008D14(&v210, v23, *(&v23 + 1));
+    }
+
+    else
+    {
+      v210 = v23;
       v211 = v24;
-      v212 = v25;
     }
 
-    v213 = "{\n"
+    v212 = "{\n"
            "    Plugins: [\n"
            "        {\n"
            "            Info: {\n"
@@ -8842,19 +8840,19 @@ uint64_t pxrInternal__aapl__pxrReserved__::GetEmbeddedPlugInfo@<X0>(uint64_t a1@
            "        }\n"
            "    ]\n"
            "}\n";
-    sub_29A008E78(v22, "usdSkel");
-    if (SHIBYTE(v23) < 0)
+    sub_29A008E78(v21, "usdSkel");
+    if (SHIBYTE(v22) < 0)
     {
-      sub_29A008D14(&v214, v22[0], v22[1]);
+      sub_29A008D14(&v213, v21[0], v21[1]);
     }
 
     else
     {
-      v214 = *v22;
-      v215 = v23;
+      v213 = *v21;
+      v214 = v22;
     }
 
-    v216 = "{\n"
+    v215 = "{\n"
            "    Plugins: [\n"
            "        {\n"
            "            Info: {\n"
@@ -8937,361 +8935,361 @@ uint64_t pxrInternal__aapl__pxrReserved__::GetEmbeddedPlugInfo@<X0>(uint64_t a1@
            "        }\n"
            "    ]\n"
            "}\n";
-    sub_29A008E78(&v20, "usdSkelValidators");
-    if (SHIBYTE(v21) < 0)
+    sub_29A008E78(&v19, "usdSkelValidators");
+    if (SHIBYTE(v20) < 0)
     {
-      sub_29A008D14(&v217, v20, *(&v20 + 1));
+      sub_29A008D14(&v216, v19, *(&v19 + 1));
     }
 
     else
     {
+      v216 = v19;
       v217 = v20;
-      v218 = v21;
     }
 
-    v219 = "{\n    Plugins: [\n        {\n            Info: {\n                Validators: {\n                    SkelBindingApiAppliedValidator: {\n                        doc: Verify a prim has the SkelBindingAPI applied if it has a UsdSkelBinding property.\n                    }, \n                    SkelBindingApiValidator: {\n                        doc: Verify that a prim with SkelBindingAPI applied, is either of SkelRoot type or parented by a SkelRoot prim., \n                        schemaTypes: [\n                            UsdSkelBindingAPI\n                        ]\n                    }, \n                    keywords: [\n                        UsdSkelValidators\n                    ]\n                }\n            }, \n            LibraryPath: , \n            Name: usdSkelValidators, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(v18, "usdStl");
-    if (SHIBYTE(v19) < 0)
+    v218 = "{\n    Plugins: [\n        {\n            Info: {\n                Validators: {\n                    SkelBindingApiAppliedValidator: {\n                        doc: Verify a prim has the SkelBindingAPI applied if it has a UsdSkelBinding property.\n                    }, \n                    SkelBindingApiValidator: {\n                        doc: Verify that a prim with SkelBindingAPI applied, is either of SkelRoot type or parented by a SkelRoot prim., \n                        schemaTypes: [\n                            UsdSkelBindingAPI\n                        ]\n                    }, \n                    keywords: [\n                        UsdSkelValidators\n                    ]\n                }\n            }, \n            LibraryPath: , \n            Name: usdSkelValidators, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(v17, "usdStl");
+    if (SHIBYTE(v18) < 0)
     {
-      sub_29A008D14(&v220, v18[0], v18[1]);
+      sub_29A008D14(&v219, v17[0], v17[1]);
     }
 
     else
     {
-      v220 = *v18;
-      v221 = v19;
+      v219 = *v17;
+      v220 = v18;
     }
 
-    v222 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdStlFileFormat: {\n                        bases: [SdfFileFormat],\n                        displayName: STL file format,\n                        extensions: [ stl ],\n                        formatId: stl,\n                        primary: true,\n                        supportsWriting: false,\n                        supportsEditing: false,\n                        target: usd\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: usdStl_plugin,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library,\n            Entitlements: [[com.apple.private.usd.enableadobefileformats]]\n        }\n    ]\n}\n";
-    sub_29A008E78(v16, "usdUI");
-    if (SHIBYTE(v17) < 0)
+    v221 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdStlFileFormat: {\n                        bases: [SdfFileFormat],\n                        displayName: STL file format,\n                        extensions: [ stl ],\n                        formatId: stl,\n                        primary: true,\n                        supportsWriting: false,\n                        supportsEditing: false,\n                        target: usd\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: usdStl_plugin,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library,\n            Entitlements: [[com.apple.private.usd.enableadobefileformats]]\n        }\n    ]\n}\n";
+    sub_29A008E78(v15, "usdUI");
+    if (SHIBYTE(v16) < 0)
     {
-      sub_29A008D14(&v223, v16[0], v16[1]);
+      sub_29A008D14(&v222, v15[0], v15[1]);
     }
 
     else
     {
-      v223 = *v16;
-      v224 = v17;
+      v222 = *v15;
+      v223 = v16;
     }
 
-    v225 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdUIAccessibilityAPI: {\n                        alias: {\n                            UsdSchemaBase: AccessibilityAPI\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: AccessibilityAPI, \n                        schemaKind: multipleApplyAPI\n                    }, \n                    UsdUIBackdrop: {\n                        alias: {\n                            UsdSchemaBase: Backdrop\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdTyped\n                        ], \n                        schemaIdentifier: Backdrop, \n                        schemaKind: concreteTyped\n                    }, \n                    UsdUINodeGraphNodeAPI: {\n                        alias: {\n                            UsdSchemaBase: NodeGraphNodeAPI\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: NodeGraphNodeAPI, \n                        schemaKind: singleApplyAPI\n                    }, \n                    UsdUISceneGraphPrimAPI: {\n                        alias: {\n                            UsdSchemaBase: SceneGraphPrimAPI\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: SceneGraphPrimAPI, \n                        schemaKind: singleApplyAPI\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdUI, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(v14, "usdUtilsValidators");
-    if (SHIBYTE(v15) < 0)
+    v224 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdUIAccessibilityAPI: {\n                        alias: {\n                            UsdSchemaBase: AccessibilityAPI\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: AccessibilityAPI, \n                        schemaKind: multipleApplyAPI\n                    }, \n                    UsdUIBackdrop: {\n                        alias: {\n                            UsdSchemaBase: Backdrop\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdTyped\n                        ], \n                        schemaIdentifier: Backdrop, \n                        schemaKind: concreteTyped\n                    }, \n                    UsdUINodeGraphNodeAPI: {\n                        alias: {\n                            UsdSchemaBase: NodeGraphNodeAPI\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: NodeGraphNodeAPI, \n                        schemaKind: singleApplyAPI\n                    }, \n                    UsdUISceneGraphPrimAPI: {\n                        alias: {\n                            UsdSchemaBase: SceneGraphPrimAPI\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdAPISchemaBase\n                        ], \n                        schemaIdentifier: SceneGraphPrimAPI, \n                        schemaKind: singleApplyAPI\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdUI, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(v13, "usdUtilsValidators");
+    if (SHIBYTE(v14) < 0)
     {
-      sub_29A008D14(&v226, v14[0], v14[1]);
+      sub_29A008D14(&v225, v13[0], v13[1]);
     }
 
     else
     {
-      v226 = *v14;
-      v227 = v15;
+      v225 = *v13;
+      v226 = v14;
     }
 
-    v228 = "{\n    Plugins: [\n        {\n            Info: {\n                Validators: {\n                    FileExtensionValidator: {\n                        doc: Only valid core layer extensions (.usd, .usda, .usdc, .usdz), valid core texture extensions (.exr, .jpg, .jpeg, .png) and embedded audio files (.M4A, .MP3, .WAV) are allowed in a package.,\n                        keywords: [\n                            UsdzValidators\n                        ]\n                    },\n                    MissingReferenceValidator: {\n                        doc: The composed USD stage should not contain any unresolvable asset dependencies (in every possible variation of the asset), when using the default asset resolver.\n                    },\n                    PackageEncapsulationValidator: {\n                        doc: If the root layer is a package, then its recommended for the composed stage to not contain references to files outside the package. The package should be self-contained, warn if not., \n                        keywords: [\n                            UsdzValidators\n                        ]\n                    },\n                    RootPackageValidator: {\n                        doc: Files within the root layer of a usdz package should not be compressed or encrypted, and should be aligned to 64 bytes.,\n                        keywords: [\n                            UsdzValidators\n                        ]\n                    },\n                    UsdzPackageValidator: {\n                        doc: Files within all usdz packages within a stage should not be compressed or encrypted, and should be aligned to 64 bytes.,\n                        keywords: [\n                            UsdzValidators\n                        ]\n                    },\n                    keywords: [\n                        UsdUtilsValidators\n                    ]\n                }\n            },\n            LibraryPath: ,\n            Name: usdUtilsValidators, \n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(v12, "usdValidation");
-    if (SHIBYTE(v13) < 0)
+    v227 = "{\n    Plugins: [\n        {\n            Info: {\n                Validators: {\n                    FileExtensionValidator: {\n                        doc: Only valid core layer extensions (.usd, .usda, .usdc, .usdz), valid core texture extensions (.exr, .jpg, .jpeg, .png) and embedded audio files (.M4A, .MP3, .WAV) are allowed in a package.,\n                        keywords: [\n                            UsdzValidators\n                        ]\n                    },\n                    MissingReferenceValidator: {\n                        doc: The composed USD stage should not contain any unresolvable asset dependencies (in every possible variation of the asset), when using the default asset resolver.\n                    },\n                    PackageEncapsulationValidator: {\n                        doc: If the root layer is a package, then its recommended for the composed stage to not contain references to files outside the package. The package should be self-contained, warn if not., \n                        keywords: [\n                            UsdzValidators\n                        ]\n                    },\n                    RootPackageValidator: {\n                        doc: Files within the root layer of a usdz package should not be compressed or encrypted, and should be aligned to 64 bytes.,\n                        keywords: [\n                            UsdzValidators\n                        ]\n                    },\n                    UsdzPackageValidator: {\n                        doc: Files within all usdz packages within a stage should not be compressed or encrypted, and should be aligned to 64 bytes.,\n                        keywords: [\n                            UsdzValidators\n                        ]\n                    },\n                    keywords: [\n                        UsdUtilsValidators\n                    ]\n                }\n            },\n            LibraryPath: ,\n            Name: usdUtilsValidators, \n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(v11, "usdValidation");
+    if (SHIBYTE(v12) < 0)
     {
-      sub_29A008D14(&v229, v12[0], v12[1]);
+      sub_29A008D14(&v228, v11[0], v11[1]);
     }
 
     else
     {
-      v229 = *v12;
-      v230 = v13;
+      v228 = *v11;
+      v229 = v12;
     }
 
-    v231 = "{\n    Plugins: [\n        {\n            Info: {\n                Validators: {\n                    CompositionErrorTest: {\n                        doc: Validator aims at providing all composition errors, which were generated while composing the stage.\n                    }, \n                    StageMetadataChecker: {\n                        doc: Stages that can be consumed as referenceable assets must have a valid 'defaultPrim' specified.\n                    }, \n                    keywords: [\n                        UsdCoreValidators\n                    ]\n                }\n            }, \n            LibraryPath: , \n            Name: usdValidation, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(v10, "usdVol");
-    if (SHIBYTE(v11) < 0)
+    v230 = "{\n    Plugins: [\n        {\n            Info: {\n                Validators: {\n                    CompositionErrorTest: {\n                        doc: Validator aims at providing all composition errors, which were generated while composing the stage.\n                    }, \n                    StageMetadataChecker: {\n                        doc: Stages that can be consumed as referenceable assets must have a valid 'defaultPrim' specified.\n                    }, \n                    keywords: [\n                        UsdCoreValidators\n                    ]\n                }\n            }, \n            LibraryPath: , \n            Name: usdValidation, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(v9, "usdVol");
+    if (SHIBYTE(v10) < 0)
     {
-      sub_29A008D14(&v232, v10[0], v10[1]);
+      sub_29A008D14(&v231, v9[0], v9[1]);
     }
 
     else
     {
-      v232 = *v10;
-      v233 = v11;
+      v231 = *v9;
+      v232 = v10;
     }
 
-    v234 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdVolField3DAsset: {\n                        alias: {\n                            UsdSchemaBase: Field3DAsset\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdVolFieldAsset\n                        ], \n                        schemaIdentifier: Field3DAsset, \n                        schemaKind: concreteTyped\n                    }, \n                    UsdVolFieldAsset: {\n                        alias: {\n                            UsdSchemaBase: FieldAsset\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdVolFieldBase\n                        ], \n                        schemaIdentifier: FieldAsset, \n                        schemaKind: abstractTyped\n                    }, \n                    UsdVolFieldBase: {\n                        alias: {\n                            UsdSchemaBase: FieldBase\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdGeomXformable\n                        ], \n                        schemaIdentifier: FieldBase, \n                        schemaKind: abstractTyped\n                    }, \n                    UsdVolOpenVDBAsset: {\n                        alias: {\n                            UsdSchemaBase: OpenVDBAsset\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdVolFieldAsset\n                        ], \n                        schemaIdentifier: OpenVDBAsset, \n                        schemaKind: concreteTyped\n                    }, \n                    UsdVolVolume: {\n                        alias: {\n                            UsdSchemaBase: Volume\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdGeomGprim\n                        ], \n                        schemaIdentifier: Volume, \n                        schemaKind: concreteTyped\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdVol, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
-    sub_29A008E78(v8, "usdVolImaging");
-    if (SHIBYTE(v9) < 0)
+    v233 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdVolField3DAsset: {\n                        alias: {\n                            UsdSchemaBase: Field3DAsset\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdVolFieldAsset\n                        ], \n                        schemaIdentifier: Field3DAsset, \n                        schemaKind: concreteTyped\n                    }, \n                    UsdVolFieldAsset: {\n                        alias: {\n                            UsdSchemaBase: FieldAsset\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdVolFieldBase\n                        ], \n                        schemaIdentifier: FieldAsset, \n                        schemaKind: abstractTyped\n                    }, \n                    UsdVolFieldBase: {\n                        alias: {\n                            UsdSchemaBase: FieldBase\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdGeomXformable\n                        ], \n                        schemaIdentifier: FieldBase, \n                        schemaKind: abstractTyped\n                    }, \n                    UsdVolOpenVDBAsset: {\n                        alias: {\n                            UsdSchemaBase: OpenVDBAsset\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdVolFieldAsset\n                        ], \n                        schemaIdentifier: OpenVDBAsset, \n                        schemaKind: concreteTyped\n                    }, \n                    UsdVolVolume: {\n                        alias: {\n                            UsdSchemaBase: Volume\n                        }, \n                        autoGenerated: true, \n                        bases: [\n                            UsdGeomGprim\n                        ], \n                        schemaIdentifier: Volume, \n                        schemaKind: concreteTyped\n                    }\n                }\n            }, \n            LibraryPath: , \n            Name: usdVol, \n            ResourcePath: resources, \n            Root: .., \n            Type: library\n        }\n    ]\n}\n";
+    sub_29A008E78(v7, "usdVolImaging");
+    if (SHIBYTE(v8) < 0)
     {
-      sub_29A008D14(&v235, v8[0], v8[1]);
+      sub_29A008D14(&v234, v7[0], v7[1]);
     }
 
     else
     {
-      v235 = *v8;
-      v236 = v9;
+      v234 = *v7;
+      v235 = v8;
     }
 
-    v237 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdImagingOpenVDBAssetAdapter: {\n                        bases: [\n                            UsdImagingFieldAdapter\n                        ],\n                        isInternal: true,\n                        primTypeName: OpenVDBAsset\n                    },\n                    UsdImagingField3DAssetAdapter: {\n                        bases: [\n                            UsdImagingFieldAdapter\n                        ],\n                        isInternal: true,\n                        primTypeName: Field3DAsset\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: usdVolImaging,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
+    v236 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdImagingOpenVDBAssetAdapter: {\n                        bases: [\n                            UsdImagingFieldAdapter\n                        ],\n                        isInternal: true,\n                        primTypeName: OpenVDBAsset\n                    },\n                    UsdImagingField3DAssetAdapter: {\n                        bases: [\n                            UsdImagingFieldAdapter\n                        ],\n                        isInternal: true,\n                        primTypeName: Field3DAsset\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: usdVolImaging,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library\n        }\n    ]\n}\n";
     sub_29A008E78(__p, "usdXpc");
-    if (SHIBYTE(v7) < 0)
+    if (SHIBYTE(v6) < 0)
     {
-      sub_29A008D14(&v238, __p[0], __p[1]);
+      sub_29A008D14(&v237, __p[0], __p[1]);
     }
 
     else
     {
-      v238 = *__p;
-      v239 = v7;
+      v237 = *__p;
+      v238 = v6;
     }
 
-    v240 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdXpcFileFormat: {\n                        bases: [\n                            SdfFileFormat\n                        ],\n                        displayName: USD XPC Service for legacy 3D format loader,\n                        extensions: [\n                            obj, ply, stl\n                        ],\n                        formatId: xpc,\n                        primary: true,\n                        supportsWriting: false,\n                        supportsEditing: false,\n                        target: usd\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: usdXpc,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library,\n            SupersedingEntitlements: [com.apple.private.usd.enableadobefileformats]\n        }\n    ]\n}\n";
+    v239 = "{\n    Plugins: [\n        {\n            Info: {\n                Types: {\n                    UsdXpcFileFormat: {\n                        bases: [\n                            SdfFileFormat\n                        ],\n                        displayName: USD XPC Service for legacy 3D format loader,\n                        extensions: [\n                            obj, ply, stl\n                        ],\n                        formatId: xpc,\n                        primary: true,\n                        supportsWriting: false,\n                        supportsEditing: false,\n                        target: usd\n                    }\n                }\n            },\n            LibraryPath: ,\n            Name: usdXpc,\n            ResourcePath: resources,\n            Root: ..,\n            Type: library,\n            SupersedingEntitlements: [com.apple.private.usd.enableadobefileformats]\n        }\n    ]\n}\n";
     sub_29A177F50(&unk_2A173F328, &__dst, 47);
-    v5 = 188;
+    v4 = 188;
     do
     {
-      if (SHIBYTE(__src[v5 + 1]) < 0)
+      if (SHIBYTE(__src[v4 + 1]) < 0)
       {
-        operator delete(__src[v5 - 1]);
+        operator delete(__src[v4 - 1]);
       }
 
-      v5 -= 4;
+      v4 -= 4;
     }
 
-    while (v5 * 8);
-    if (SHIBYTE(v7) < 0)
+    while (v4 * 8);
+    if (SHIBYTE(v6) < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (SHIBYTE(v9) < 0)
+    if (SHIBYTE(v8) < 0)
     {
-      operator delete(v8[0]);
+      operator delete(v7[0]);
     }
 
-    if (SHIBYTE(v11) < 0)
+    if (SHIBYTE(v10) < 0)
     {
-      operator delete(v10[0]);
+      operator delete(v9[0]);
     }
 
-    if (SHIBYTE(v13) < 0)
+    if (SHIBYTE(v12) < 0)
     {
-      operator delete(v12[0]);
+      operator delete(v11[0]);
     }
 
-    if (SHIBYTE(v15) < 0)
+    if (SHIBYTE(v14) < 0)
     {
-      operator delete(v14[0]);
+      operator delete(v13[0]);
     }
 
-    if (SHIBYTE(v17) < 0)
+    if (SHIBYTE(v16) < 0)
     {
-      operator delete(v16[0]);
+      operator delete(v15[0]);
     }
 
-    if (SHIBYTE(v19) < 0)
+    if (SHIBYTE(v18) < 0)
     {
-      operator delete(v18[0]);
+      operator delete(v17[0]);
     }
 
-    if (SHIBYTE(v21) < 0)
+    if (SHIBYTE(v20) < 0)
     {
-      operator delete(v20);
+      operator delete(v19);
     }
 
-    if (SHIBYTE(v23) < 0)
+    if (SHIBYTE(v22) < 0)
     {
-      operator delete(v22[0]);
+      operator delete(v21[0]);
     }
 
-    if (SHIBYTE(v25) < 0)
+    if (SHIBYTE(v24) < 0)
     {
-      operator delete(v24);
+      operator delete(v23);
     }
 
-    if (SHIBYTE(v27) < 0)
+    if (SHIBYTE(v26) < 0)
     {
-      operator delete(v26[0]);
+      operator delete(v25[0]);
     }
 
-    if (SHIBYTE(v29) < 0)
+    if (SHIBYTE(v28) < 0)
     {
-      operator delete(v28);
+      operator delete(v27);
     }
 
-    if (SHIBYTE(v31) < 0)
+    if (SHIBYTE(v30) < 0)
     {
-      operator delete(v30);
+      operator delete(v29);
     }
 
-    if (SHIBYTE(v33) < 0)
+    if (SHIBYTE(v32) < 0)
     {
-      operator delete(v32);
+      operator delete(v31);
     }
 
-    if (SHIBYTE(v35) < 0)
+    if (SHIBYTE(v34) < 0)
     {
-      operator delete(v34);
+      operator delete(v33);
     }
 
-    if (SHIBYTE(v37) < 0)
+    if (SHIBYTE(v36) < 0)
     {
-      operator delete(v36);
+      operator delete(v35);
     }
 
-    if (SHIBYTE(v39) < 0)
+    if (SHIBYTE(v38) < 0)
     {
-      operator delete(v38);
+      operator delete(v37);
     }
 
-    if (SHIBYTE(v41) < 0)
+    if (SHIBYTE(v40) < 0)
     {
-      operator delete(v40);
+      operator delete(v39);
     }
 
-    if (SHIBYTE(v43) < 0)
+    if (SHIBYTE(v42) < 0)
     {
-      operator delete(v42);
+      operator delete(v41);
     }
 
-    if (SHIBYTE(v45) < 0)
+    if (SHIBYTE(v44) < 0)
     {
-      operator delete(v44);
+      operator delete(v43);
     }
 
-    if (SHIBYTE(v47) < 0)
+    if (SHIBYTE(v46) < 0)
     {
-      operator delete(v46);
+      operator delete(v45);
     }
 
-    if (SHIBYTE(v49) < 0)
+    if (SHIBYTE(v48) < 0)
     {
-      operator delete(v48);
+      operator delete(v47);
     }
 
-    if (SHIBYTE(v51) < 0)
+    if (SHIBYTE(v50) < 0)
     {
-      operator delete(v50);
+      operator delete(v49);
     }
 
-    if (SHIBYTE(v53) < 0)
+    if (SHIBYTE(v52) < 0)
     {
-      operator delete(v52);
+      operator delete(v51);
     }
 
-    if (SHIBYTE(v55) < 0)
+    if (SHIBYTE(v54) < 0)
     {
-      operator delete(v54);
+      operator delete(v53);
     }
 
-    if (SHIBYTE(v57) < 0)
+    if (SHIBYTE(v56) < 0)
     {
-      operator delete(v56);
+      operator delete(v55);
     }
 
-    if (SHIBYTE(v59) < 0)
+    if (SHIBYTE(v58) < 0)
     {
-      operator delete(v58);
+      operator delete(v57);
     }
 
-    if (SHIBYTE(v61) < 0)
+    if (SHIBYTE(v60) < 0)
     {
-      operator delete(v60);
+      operator delete(v59);
     }
 
-    if (SHIBYTE(v63) < 0)
+    if (SHIBYTE(v62) < 0)
     {
-      operator delete(v62);
+      operator delete(v61);
     }
 
-    if (SHIBYTE(v65) < 0)
+    if (SHIBYTE(v64) < 0)
     {
-      operator delete(v64);
+      operator delete(v63);
     }
 
-    if (SHIBYTE(v67) < 0)
+    if (SHIBYTE(v66) < 0)
     {
-      operator delete(v66);
+      operator delete(v65);
     }
 
-    if (SHIBYTE(v69) < 0)
+    if (SHIBYTE(v68) < 0)
     {
-      operator delete(v68);
+      operator delete(v67);
     }
 
-    if (SHIBYTE(v71) < 0)
+    if (SHIBYTE(v70) < 0)
     {
-      operator delete(v70);
+      operator delete(v69);
     }
 
-    if (SHIBYTE(v73) < 0)
+    if (SHIBYTE(v72) < 0)
     {
-      operator delete(v72);
+      operator delete(v71);
     }
 
-    if (SHIBYTE(v75) < 0)
+    if (SHIBYTE(v74) < 0)
     {
-      operator delete(v74);
+      operator delete(v73);
     }
 
-    if (SHIBYTE(v77) < 0)
+    if (SHIBYTE(v76) < 0)
     {
-      operator delete(v76);
+      operator delete(v75);
     }
 
-    if (SHIBYTE(v79) < 0)
+    if (SHIBYTE(v78) < 0)
     {
-      operator delete(v78);
+      operator delete(v77);
     }
 
-    if (SHIBYTE(v81) < 0)
+    if (SHIBYTE(v80) < 0)
     {
-      operator delete(v80);
+      operator delete(v79);
     }
 
-    if (SHIBYTE(v83) < 0)
+    if (SHIBYTE(v82) < 0)
     {
-      operator delete(v82);
+      operator delete(v81);
     }
 
-    if (SHIBYTE(v85) < 0)
+    if (SHIBYTE(v84) < 0)
     {
-      operator delete(v84);
+      operator delete(v83);
     }
 
-    if (SHIBYTE(v87) < 0)
+    if (SHIBYTE(v86) < 0)
     {
-      operator delete(v86);
+      operator delete(v85);
     }
 
-    if (SHIBYTE(v89) < 0)
+    if (SHIBYTE(v88) < 0)
     {
-      operator delete(v88);
+      operator delete(v87);
     }
 
-    if (SHIBYTE(v91) < 0)
+    if (SHIBYTE(v90) < 0)
     {
-      operator delete(v90);
+      operator delete(v89);
     }
 
-    if (SHIBYTE(v93) < 0)
+    if (SHIBYTE(v92) < 0)
     {
-      operator delete(v92);
+      operator delete(v91);
     }
 
-    if (SHIBYTE(v95) < 0)
+    if (SHIBYTE(v94) < 0)
     {
-      operator delete(v94);
+      operator delete(v93);
     }
 
-    if (SHIBYTE(v97) < 0)
+    if (SHIBYTE(v96) < 0)
     {
-      operator delete(v96);
+      operator delete(v95);
     }
 
-    if (SHIBYTE(v99) < 0)
+    if (SHIBYTE(v98) < 0)
     {
       operator delete(__src[0]);
     }
 
     __cxa_atexit(sub_29A17657C, &unk_2A173F328, &dword_299FE7000);
     __cxa_guard_release(&qword_2A173F350);
-    a1 = v4;
+    a1 = v3;
   }
 
   return sub_29A178228(a1, &unk_2A173F328);
@@ -9344,64 +9342,64 @@ void sub_29A175F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a58);
   }
 
-  if (a69 < 0)
+  if (a65 < 0)
   {
     operator delete(a64);
   }
 
-  if (a72 < 0)
+  if (a67 < 0)
+  {
+    operator delete(a66);
+  }
+
+  if (a69 < 0)
+  {
+    operator delete(a68);
+  }
+
+  if (a71 < 0)
   {
     operator delete(a70);
   }
 
-  if (a74 < 0)
+  if (a73 < 0)
   {
-    operator delete(a73);
+    operator delete(a72);
   }
 
-  if (a76 < 0)
+  if (a75 < 0)
   {
-    operator delete(a75);
+    operator delete(a74);
   }
 
-  if (a78 < 0)
+  if (a77 < 0)
   {
-    operator delete(a77);
+    operator delete(a76);
   }
 
-  if (a80 < 0)
+  if (a79 < 0)
   {
-    operator delete(a79);
+    operator delete(a78);
   }
 
-  if (a82 < 0)
+  if (a81 < 0)
   {
-    operator delete(a81);
+    operator delete(a80);
   }
 
-  if (a84 < 0)
+  if (a83 < 0)
   {
-    operator delete(a83);
+    operator delete(a82);
   }
 
-  if (a86 < 0)
+  if (a85 < 0)
   {
-    operator delete(a85);
+    operator delete(a84);
   }
 
-  if (a88 < 0)
+  if (a87 < 0)
   {
-    operator delete(a87);
-  }
-
-  if (a90 < 0)
-  {
-    operator delete(a89);
-  }
-
-  if (a92 < 0)
-  {
-    operator delete(a91);
+    operator delete(a86);
   }
 
   if (SLOBYTE(STACK[0x217]) < 0)
@@ -9534,13 +9532,13 @@ void sub_29A175F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x458]);
   }
 
-  while (v92 != &STACK[0x470])
+  while (v87 != &STACK[0x470])
   {
-    v94 = *(v92 - 9);
-    v92 -= 4;
-    if (v94 < 0)
+    v89 = *(v87 - 9);
+    v87 -= 4;
+    if (v89 < 0)
     {
-      operator delete(*v92);
+      operator delete(*v87);
     }
   }
 
@@ -9551,7 +9549,7 @@ void sub_29A175F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 pxrInternal__aapl__pxrReserved__::Plug_TaskArena *pxrInternal__aapl__pxrReserved__::Plug_TaskArena::Plug_TaskArena(pxrInternal__aapl__pxrReserved__::Plug_TaskArena *this)
 {
   v2 = operator new(0x158uLL);
-  pxrInternal__aapl__pxrReserved__::WorkDispatcher::WorkDispatcher(v2);
+  pxrInternal__aapl__pxrReserved__::WorkDispatcher::WorkDispatcher(v2, v3, v4, v5);
   *this = v2;
   return this;
 }
@@ -9567,7 +9565,7 @@ void *pxrInternal__aapl__pxrReserved__::Plug_TaskArena::Plug_TaskArena(void *res
   return result;
 }
 
-void pxrInternal__aapl__pxrReserved__::Plug_TaskArena::~Plug_TaskArena(pxrInternal__aapl__pxrReserved__::WorkDispatcher **this)
+void pxrInternal__aapl__pxrReserved__::Plug_TaskArena::~Plug_TaskArena(tbb::interface5::internal::task_base ***this)
 {
   sub_29A178BC4(this, 0);
 }
@@ -9811,7 +9809,7 @@ LABEL_32:
   v42 = v41;
   if (v105 == v41)
   {
-    PathName = pxrInternal__aapl__pxrReserved__::TfGetPathName(a3, &v106);
+    PathName = pxrInternal__aapl__pxrReserved__::TfGetPathName(&v106, a3);
     if (*(a1 + 55) < 0)
     {
       operator delete(*(a1 + 32));
@@ -9940,7 +9938,7 @@ LABEL_76:
   v60 = v59;
   if (v105 == v59)
   {
-    v62 = pxrInternal__aapl__pxrReserved__::TfGetPathName((a1 + 32), &v106);
+    v62 = pxrInternal__aapl__pxrReserved__::TfGetPathName(&v106, (a1 + 32));
     if (*(a1 + 127) < 0)
     {
       operator delete(*(a1 + 104));
@@ -10015,7 +10013,7 @@ LABEL_93:
   v70 = pxrInternal__aapl__pxrReserved__::JsValue::GetJsObject((v69 + 56));
   if (v9 != v70)
   {
-    v70 = sub_29A1782A0(v9, *v70, (v70 + 8));
+    v70 = sub_29A1782A0(v9, *v70, (v70 + 1));
   }
 
   v71 = atomic_load(&qword_2A173F358);
@@ -10058,7 +10056,7 @@ LABEL_93:
         v82 = pxrInternal__aapl__pxrReserved__::JsValue::GetJsArray(v81);
         memset(&v106, 0, sizeof(v106));
         v83 = *v82;
-        if (*v82 == *(v82 + 8))
+        if (*v82 == v82[1])
         {
           sub_29A17742C(v11);
         }
@@ -10110,7 +10108,7 @@ LABEL_93:
 
     v90 = pxrInternal__aapl__pxrReserved__::JsValue::GetJsArray((v89 + 56));
     v91 = *v90;
-    if (*v90 != *(v90 + 8))
+    if (*v90 != v90[1])
     {
       v27 = "conflictingEntitlement is not a string";
       if (pxrInternal__aapl__pxrReserved__::JsValue::IsString(v91))
@@ -10135,7 +10133,7 @@ LABEL_93:
       }
 
       v94 = (v92 + 4);
-      if (!pxrInternal__aapl__pxrReserved__::TfToken::operator==((v93 + 24), v92 + 4))
+      if (!pxrInternal__aapl__pxrReserved__::TfToken::operator==((v93 + 3), v92 + 4))
       {
         v95 = atomic_load(&qword_2A173F358);
         if (!v95)
@@ -10143,7 +10141,7 @@ LABEL_93:
           v95 = sub_29A178550();
         }
 
-        if (!pxrInternal__aapl__pxrReserved__::TfToken::operator==((v95 + 32), v92 + 4))
+        if (!pxrInternal__aapl__pxrReserved__::TfToken::operator==((v95 + 4), v92 + 4))
         {
           v96 = atomic_load(&qword_2A173F358);
           if (!v96)
@@ -10151,7 +10149,7 @@ LABEL_93:
             v96 = sub_29A178550();
           }
 
-          if (!pxrInternal__aapl__pxrReserved__::TfToken::operator==((v96 + 40), v92 + 4))
+          if (!pxrInternal__aapl__pxrReserved__::TfToken::operator==((v96 + 5), v92 + 4))
           {
             v97 = atomic_load(&qword_2A173F358);
             if (!v97)
@@ -10159,7 +10157,7 @@ LABEL_93:
               v97 = sub_29A178550();
             }
 
-            if (!pxrInternal__aapl__pxrReserved__::TfToken::operator==((v97 + 48), v92 + 4))
+            if (!pxrInternal__aapl__pxrReserved__::TfToken::operator==((v97 + 6), v92 + 4))
             {
               v98 = atomic_load(&qword_2A173F358);
               if (!v98)
@@ -10167,7 +10165,7 @@ LABEL_93:
                 v98 = sub_29A178550();
               }
 
-              if (!pxrInternal__aapl__pxrReserved__::TfToken::operator==((v98 + 56), v92 + 4))
+              if (!pxrInternal__aapl__pxrReserved__::TfToken::operator==((v98 + 7), v92 + 4))
               {
                 v99 = atomic_load(&qword_2A173F358);
                 if (!v99)
@@ -10175,7 +10173,7 @@ LABEL_93:
                   v99 = sub_29A178550();
                 }
 
-                if (!pxrInternal__aapl__pxrReserved__::TfToken::operator==((v99 + 64), v92 + 4))
+                if (!pxrInternal__aapl__pxrReserved__::TfToken::operator==((v99 + 8), v92 + 4))
                 {
                   v100 = atomic_load(&qword_2A173F358);
                   if (!v100)
@@ -10183,7 +10181,7 @@ LABEL_93:
                     v100 = sub_29A178550();
                   }
 
-                  if (!pxrInternal__aapl__pxrReserved__::TfToken::operator==((v100 + 72), v92 + 4))
+                  if (!pxrInternal__aapl__pxrReserved__::TfToken::operator==((v100 + 9), v92 + 4))
                   {
                     v101 = atomic_load(&qword_2A173F358);
                     if (!v101)
@@ -10191,7 +10189,7 @@ LABEL_93:
                       v101 = sub_29A178550();
                     }
 
-                    if (!pxrInternal__aapl__pxrReserved__::TfToken::operator==((v101 + 80), v92 + 4))
+                    if (!pxrInternal__aapl__pxrReserved__::TfToken::operator==((v101 + 10), v92 + 4))
                     {
                       v106.__r_.__value_.__r.__words[0] = "plug/info.cpp";
                       v106.__r_.__value_.__l.__size_ = "Plug_RegistrationMetadata";

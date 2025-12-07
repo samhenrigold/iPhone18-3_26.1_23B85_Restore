@@ -41,7 +41,7 @@
 
 - (BOOL)getCurrentTime:(uint64_t)time
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (time)
   {
     if (getCurrentTime__onceToken != -1)
@@ -56,39 +56,36 @@
 
   else
   {
-    v5 = ne_log_obj();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v4 = ne_log_obj();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      v6 = 136315138;
-      v7 = "[NEIKEv2RTT getCurrentTime:]";
-      _os_log_fault_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_FAULT, "%s called with null now", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[NEIKEv2RTT getCurrentTime:]";
+      _os_log_fault_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_FAULT, "%s called with null now", &v5, 0xCu);
     }
   }
 
-  result = time != 0;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return time != 0;
 }
 
 uint64_t __29__NEIKEv2RTT_getCurrentTime___block_invoke()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   result = mach_timebase_info(&getCurrentTime__tb_info);
   if (result)
   {
-    v3 = result;
-    v2 = ne_log_obj();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v2 = result;
+    v1 = ne_log_obj();
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109120;
-      v5 = v3;
-      _os_log_fault_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_FAULT, "mach_timebase_info returned %u", buf, 8u);
+      v4 = v2;
+      _os_log_fault_impl(&dword_1BA83C000, v1, OS_LOG_TYPE_FAULT, "mach_timebase_info returned %u", buf, 8u);
     }
 
     abort();
   }
 
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 

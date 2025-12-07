@@ -6,6 +6,7 @@
 + (unint64_t)partOfDayForPartOfDayName:(id)name;
 - (BOOL)hasProperties:(id)properties;
 - (NSString)name;
+- (PGGraphPartOfDayNode)initWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties;
 - (PGGraphPartOfDayNode)initWithPartOfDay:(unint64_t)day;
 - (id)description;
 - (id)propertyDictionary;
@@ -41,13 +42,11 @@
 
 - (id)propertyDictionary
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = [objc_opt_class() partOfDayNameForPartOfDay:self->_partOfDay];
-  v6 = @"name";
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = @"name";
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -72,6 +71,14 @@
   return v9;
 }
 
+- (PGGraphPartOfDayNode)initWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties
+{
+  v6 = [properties objectForKeyedSubscript:{@"name", domain}];
+  v7 = -[PGGraphPartOfDayNode initWithPartOfDay:](self, "initWithPartOfDay:", [objc_opt_class() partOfDayForPartOfDayName:v6]);
+
+  return v7;
+}
+
 - (PGGraphPartOfDayNode)initWithPartOfDay:(unint64_t)day
 {
   v5.receiver = self;
@@ -88,7 +95,7 @@
 + (id)partOfDayNameForPartOfDay:(unint64_t)day
 {
   dayCopy = day;
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (day <= 7)
   {
     if (day == 2)
@@ -122,26 +129,25 @@ LABEL_12:
     }
   }
 
-  v8 = +[PGLogging sharedLogging];
-  loggingConnection = [v8 loggingConnection];
+  v7 = +[PGLogging sharedLogging];
+  loggingConnection = [v7 loggingConnection];
 
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
   {
-    v10[0] = 67109120;
-    v10[1] = dayCopy;
-    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Unknown part of day %d", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = dayCopy;
+    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Unknown part of day %d", v9, 8u);
   }
 
   v5 = @"Unknown";
 LABEL_13:
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (unint64_t)partOfDayForPartOfDayName:(id)name
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if ([nameCopy isEqualToString:*MEMORY[0x277D275D0]])
   {
@@ -175,15 +181,14 @@ LABEL_13:
 
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = nameCopy;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Unknown part of day name %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = nameCopy;
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Unknown part of day name %@", &v8, 0xCu);
     }
 
     v4 = 1;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -267,15 +272,13 @@ LABEL_9:
 
 + (id)filterWithPartOfDay:(unint64_t)day
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = [objc_opt_class() partOfDayNameForPartOfDay:day];
   filter = [self filter];
-  v10 = @"name";
-  v11[0] = v4;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"name";
+  v10[0] = v4;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [filter filterBySettingProperties:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

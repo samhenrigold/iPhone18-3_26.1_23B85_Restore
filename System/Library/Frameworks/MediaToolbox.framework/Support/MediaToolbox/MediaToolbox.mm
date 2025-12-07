@@ -166,46 +166,41 @@ std::logic_error *std::length_error::length_error[abi:ne200100](std::logic_error
 
 void getkFigSTSLabel_Global(void)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
   v0 = getkFigSTSLabel_GlobalSymbolLoc(void)::ptr;
-  v8 = getkFigSTSLabel_GlobalSymbolLoc(void)::ptr;
+  v7 = getkFigSTSLabel_GlobalSymbolLoc(void)::ptr;
   if (!getkFigSTSLabel_GlobalSymbolLoc(void)::ptr)
   {
-    v4[0] = MEMORY[0x277D85DD0];
-    v4[1] = 3221225472;
-    v4[2] = ___ZL31getkFigSTSLabel_GlobalSymbolLocv_block_invoke;
-    v4[3] = &unk_278AA47E0;
-    v4[4] = &v5;
-    ___ZL31getkFigSTSLabel_GlobalSymbolLocv_block_invoke(v4);
-    v0 = v6[3];
+    v3[0] = MEMORY[0x277D85DD0];
+    v3[1] = 3221225472;
+    v3[2] = ___ZL31getkFigSTSLabel_GlobalSymbolLocv_block_invoke;
+    v3[3] = &unk_278AA47E0;
+    v3[4] = &v4;
+    ___ZL31getkFigSTSLabel_GlobalSymbolLocv_block_invoke(v3);
+    v0 = v5[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (v0)
+  _Block_object_dispose(&v4, 8);
+  if (!v0)
   {
-    v1 = *v0;
-  }
-
-  else
-  {
-    v2 = [MEMORY[0x277CCA890] currentHandler];
-    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"CFStringRef getkFigSTSLabel_Global()"];
-    [v2 handleFailureInFunction:v3 file:@"STS_N_Singleton.mm" lineNumber:21 description:{@"%s", dlerror()}];
+    v1 = [MEMORY[0x277CCA890] currentHandler];
+    v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"CFStringRef getkFigSTSLabel_Global()"];
+    [v1 handleFailureInFunction:v2 file:@"STS_N_Singleton.mm" lineNumber:21 description:{@"%s", dlerror()}];
 
     __break(1u);
   }
 }
 
-void sub_23988F880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23988F880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -219,13 +214,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -360,17 +355,17 @@ void std::__destroy_at[abi:ne200100]<std::pair<OpaqueAudioComponentInstance * co
 
 void *___ZL31getkFigSTSLabel_GlobalSymbolLocv_block_invoke(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   if (!MediaExperienceLibraryCore(char **)::frameworkLibrary)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = ___ZL26MediaExperienceLibraryCorePPc_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_278AA4790;
-    v8 = 0;
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = ___ZL26MediaExperienceLibraryCorePPc_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_278AA4790;
+    v7 = 0;
     MediaExperienceLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
   }
 
@@ -379,14 +374,14 @@ void *___ZL31getkFigSTSLabel_GlobalSymbolLocv_block_invoke(void *a1)
   {
     a1 = [MEMORY[0x277CCA890] currentHandler];
     v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *MediaExperienceLibrary()"];
-    [a1 handleFailureInFunction:v2 file:@"STS_N_Singleton.mm" lineNumber:20 description:{@"%s", v6[0]}];
+    [a1 handleFailureInFunction:v2 file:@"STS_N_Singleton.mm" lineNumber:20 description:{@"%s", v5[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v3 = v6[0];
-  if (v6[0])
+  v3 = v5[0];
+  if (v5[0])
   {
 LABEL_7:
     free(v3);
@@ -395,24 +390,20 @@ LABEL_7:
   result = dlsym(v2, "kFigSTSLabel_Global");
   *(*(a1[4] + 8) + 24) = result;
   getkFigSTSLabel_GlobalSymbolLoc(void)::ptr = *(*(a1[4] + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t ___ZL26MediaExperienceLibraryCorePPc_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MediaExperienceLibraryCore(char **)::frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void STS_N::UpdateGlobalState(uint64_t a1, __int128 *a2)
+void STS_N::UpdateGlobalState(uint64_t a1, uint64_t a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  STS_N_CalculateQuaternionOrientationFromTransform(a2 + 1, &inData);
+  v25 = *MEMORY[0x277D85DE8];
+  STS_N_CalculateQuaternionOrientationFromTransform((a2 + 16), &inData);
   os_unfair_lock_lock(a1);
   for (i = *(a1 + 24); i; i = *i)
   {
@@ -439,11 +430,11 @@ LABEL_7:
           if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
-            v22 = "UpdateGlobalState";
+            v20 = "UpdateGlobalState";
+            v21 = 1024;
+            v22 = 178;
             v23 = 1024;
-            v24 = 178;
-            v25 = 1024;
-            v26 = v7;
+            v24 = v7;
             _os_log_error_impl(&dword_23988E000, v8, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
           }
         }
@@ -468,10 +459,10 @@ LABEL_7:
 LABEL_15:
       if (v5[15].i8[0])
       {
-        v9 = vsubq_f32(v5[13], *(a2 + 4));
-        v19[0] = v9.i32[0];
-        *&v19[1] = -v9.f32[2];
-        v19[2] = v9.i32[1];
+        v9 = vsubq_f32(v5[13], *(a2 + 64));
+        v17[0] = v9.i32[0];
+        *&v17[1] = -v9.f32[2];
+        v17[2] = v9.i32[1];
         v10 = v5[5].i64[0];
         if (v10)
         {
@@ -485,18 +476,18 @@ LABEL_15:
           }
 
 LABEL_21:
-          v11 = AudioUnitSetProperty(*(v10 + 16), 0xC2Bu, 0, 0, v19, 0xCu);
+          v11 = AudioUnitSetProperty(*(v10 + 16), 0xC2Bu, 0, 0, v17, 0xCu);
           if (v11)
           {
             v12 = STS_N_Log();
             if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315650;
-              v22 = "UpdateGlobalState";
+              v20 = "UpdateGlobalState";
+              v21 = 1024;
+              v22 = 192;
               v23 = 1024;
-              v24 = 192;
-              v25 = 1024;
-              v26 = v11;
+              v24 = v11;
               _os_log_error_impl(&dword_23988E000, v12, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
             }
           }
@@ -522,24 +513,22 @@ LABEL_19:
     ;
   }
 
-  v13 = *a2;
   kdebug_trace();
-  v14 = *(a1 + 176);
+  v13 = *(a1 + 176);
   *(a1 + 96) = *a2;
-  v15 = a2[4];
-  v17 = a2[1];
-  v16 = a2[2];
-  *(a1 + 144) = a2[3];
-  *(a1 + 160) = v15;
-  *(a1 + 112) = v17;
-  *(a1 + 128) = v16;
-  if ((v14 & 1) == 0)
+  v14 = *(a2 + 64);
+  v16 = *(a2 + 16);
+  v15 = *(a2 + 32);
+  *(a1 + 144) = *(a2 + 48);
+  *(a1 + 160) = v14;
+  *(a1 + 112) = v16;
+  *(a1 + 128) = v15;
+  if ((v13 & 1) == 0)
   {
     *(a1 + 176) = 1;
   }
 
   os_unfair_lock_unlock(a1);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t STS_N::InfoForLabel(uint64_t a1, void *a2)
@@ -553,18 +542,18 @@ uint64_t STS_N::InfoForLabel(uint64_t a1, void *a2)
   return v2[5];
 }
 
-void sub_239890748(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_239890748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   va_copy(va2, va1);
-  v5 = va_arg(va2, void);
-  v7 = va_arg(va2, void);
+  v6 = va_arg(va2, void);
   v8 = va_arg(va2, void);
   v9 = va_arg(va2, void);
   v10 = va_arg(va2, void);
+  v11 = va_arg(va2, void);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,void *>>>>::~unique_ptr[abi:ne200100](va2);
   std::pair<std::string const,std::unique_ptr<STS_N::PerLabelInfo>>::~pair(va1);
   std::unique_ptr<STS_N::PerLabelInfo>::~unique_ptr[abi:ne200100](va);
@@ -760,7 +749,7 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-void STS_N::LabelValidityDidChange(STS_N *a1, uint64_t *a2)
+void STS_N::LabelValidityDidChange(STS_N *a1, uint64_t a2)
 {
   v4 = STS_N::InfoForLabel(a1, a2);
   v5 = *(a1 + 8);
@@ -776,12 +765,12 @@ void STS_N::LabelValidityDidChange(STS_N *a1, uint64_t *a2)
     v8 = v5[2];
     if (*(v5 + 47) < 0)
     {
-      std::string::__init_copy_ctor_external(&v38, v5[3], v5[4]);
+      std::string::__init_copy_ctor_external(&v37, v5[3], v5[4]);
     }
 
     else
     {
-      v38 = *(v5 + 1);
+      v37 = *(v5 + 1);
     }
 
     if (*(v5 + 71) < 0)
@@ -794,21 +783,21 @@ void STS_N::LabelValidityDidChange(STS_N *a1, uint64_t *a2)
       __p = *(v5 + 2);
     }
 
-    if ((v38.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v38.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v37.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v38.__r_.__value_.__l.__size_;
+      size = v37.__r_.__value_.__l.__size_;
     }
 
     v10 = *(a2 + 23);
     v11 = v10;
     if ((v10 & 0x80u) != 0)
     {
-      v10 = a2[1];
+      v10 = *(a2 + 8);
     }
 
     if (size != v10)
@@ -816,98 +805,97 @@ void STS_N::LabelValidityDidChange(STS_N *a1, uint64_t *a2)
       goto LABEL_49;
     }
 
-    v12 = (v38.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v38 : v38.__r_.__value_.__r.__words[0];
-    v13 = *a2;
-    v14 = v11 >= 0 ? a2 : *a2;
-    if (memcmp(v12, v14, size))
+    v12 = (v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v37 : v37.__r_.__value_.__r.__words[0];
+    v13 = v11 >= 0 ? a2 : *a2;
+    if (memcmp(v12, v13, size))
     {
       goto LABEL_49;
     }
 
-    v15 = std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>>>::find<std::string>(a1 + 1, &__p);
-    if (!v15)
+    v14 = std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>>>::find<std::string>(a1 + 1, &__p);
+    if (!v14)
     {
       goto LABEL_39;
     }
 
-    v16 = v15[5];
-    v17 = v16[9];
-    if (!*&v17)
+    v15 = v14[5];
+    v16 = v15[9];
+    if (!*&v16)
     {
       goto LABEL_39;
     }
 
-    v18 = 0x9DDFEA08EB382D69 * ((8 * (v8 & 0x1FFFFFFF) + 8) ^ (v8 >> 32));
-    v19 = 0x9DDFEA08EB382D69 * ((v8 >> 32) ^ (v18 >> 47) ^ v18);
-    v20 = 0x9DDFEA08EB382D69 * (v19 ^ (v19 >> 47));
-    v21 = vcnt_s8(v17);
-    v21.i16[0] = vaddlv_u8(v21);
-    if (v21.u32[0] > 1uLL)
+    v17 = 0x9DDFEA08EB382D69 * ((8 * (v8 & 0x1FFFFFFF) + 8) ^ (v8 >> 32));
+    v18 = 0x9DDFEA08EB382D69 * ((v8 >> 32) ^ (v17 >> 47) ^ v17);
+    v19 = 0x9DDFEA08EB382D69 * (v18 ^ (v18 >> 47));
+    v20 = vcnt_s8(v16);
+    v20.i16[0] = vaddlv_u8(v20);
+    if (v20.u32[0] > 1uLL)
     {
-      v22 = v20;
-      if (v20 >= *&v17)
+      v21 = v19;
+      if (v19 >= *&v16)
       {
-        v22 = v20 % *&v17;
+        v21 = v19 % *&v16;
       }
     }
 
     else
     {
-      v22 = v20 & (*&v17 - 1);
+      v21 = v19 & (*&v16 - 1);
     }
 
-    v23 = *(*&v16[8] + 8 * v22);
-    if (!v23 || (v24 = *v23) == 0)
+    v22 = *(*&v15[8] + 8 * v21);
+    if (!v22 || (v23 = *v22) == 0)
     {
 LABEL_39:
-      v30 = 0;
-      v32 = *(v6 + 48) != 0;
+      v29 = 0;
+      v31 = *(v6 + 48) != 0;
       goto LABEL_40;
     }
 
     while (1)
     {
-      v25 = v24[1];
-      if (v20 == v25)
+      v24 = v23[1];
+      if (v19 == v24)
       {
         break;
       }
 
-      if (v21.u32[0] > 1uLL)
+      if (v20.u32[0] > 1uLL)
       {
-        if (v25 >= *&v17)
+        if (v24 >= *&v16)
         {
-          v25 %= *&v17;
+          v24 %= *&v16;
         }
       }
 
       else
       {
-        v25 &= *&v17 - 1;
+        v24 &= *&v16 - 1;
       }
 
-      if (v25 != v22)
+      if (v24 != v21)
       {
         goto LABEL_39;
       }
 
 LABEL_38:
-      v24 = *v24;
-      if (!v24)
+      v23 = *v23;
+      if (!v23)
       {
         goto LABEL_39;
       }
     }
 
-    if (v24[2] != v8)
+    if (v23[2] != v8)
     {
       goto LABEL_38;
     }
 
-    v30 = *(v24 + 24);
-    v31 = *(v6 + 48);
-    v32 = v31 != 0;
-    if (v31 && (v24[3] & 1) != 0)
+    v29 = *(v23 + 24);
+    v30 = *(v6 + 48);
+    v31 = v30 != 0;
+    if (v30 && (v23[3] & 1) != 0)
     {
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
@@ -919,54 +907,54 @@ LABEL_38:
         p_p = __p.__r_.__value_.__r.__words[0];
       }
 
-      v34 = CFStringCreateWithCString(v7, p_p, 0x8000100u);
-      if ((v38.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      v33 = CFStringCreateWithCString(v7, p_p, 0x8000100u);
+      if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v35 = &v38;
+        v34 = &v37;
       }
 
       else
       {
-        v35 = v38.__r_.__value_.__r.__words[0];
+        v34 = v37.__r_.__value_.__r.__words[0];
       }
 
-      v36 = CFStringCreateWithCString(v7, v35, 0x8000100u);
-      STS_N::SetSpatializerActiveUnderLock(a1, v8, v34, 0);
-      STS_N::SetSpatializerActiveUnderLock(a1, v8, v36, 1);
-      CFRelease(v34);
-      CFRelease(v36);
+      v35 = CFStringCreateWithCString(v7, v34, 0x8000100u);
+      STS_N::SetSpatializerActiveUnderLock(a1, v8, v33, 0);
+      STS_N::SetSpatializerActiveUnderLock(a1, v8, v35, 1);
+      CFRelease(v33);
+      CFRelease(v35);
       goto LABEL_49;
     }
 
 LABEL_40:
-    if (!v32 && (v30 & 1) == 0)
+    if (!v31 && (v29 & 1) == 0)
     {
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v26 = &__p;
+        v25 = &__p;
       }
 
       else
       {
-        v26 = __p.__r_.__value_.__r.__words[0];
+        v25 = __p.__r_.__value_.__r.__words[0];
       }
 
-      v27 = CFStringCreateWithCString(v7, v26, 0x8000100u);
-      if ((v38.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      v26 = CFStringCreateWithCString(v7, v25, 0x8000100u);
+      if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v28 = &v38;
+        v27 = &v37;
       }
 
       else
       {
-        v28 = v38.__r_.__value_.__r.__words[0];
+        v27 = v37.__r_.__value_.__r.__words[0];
       }
 
-      v29 = CFStringCreateWithCString(v7, v28, 0x8000100u);
-      STS_N::SetSpatializerActiveUnderLock(a1, v8, v29, 0);
-      STS_N::SetSpatializerActiveUnderLock(a1, v8, v27, 1);
-      CFRelease(v27);
-      CFRelease(v29);
+      v28 = CFStringCreateWithCString(v7, v27, 0x8000100u);
+      STS_N::SetSpatializerActiveUnderLock(a1, v8, v28, 0);
+      STS_N::SetSpatializerActiveUnderLock(a1, v8, v26, 1);
+      CFRelease(v26);
+      CFRelease(v28);
     }
 
 LABEL_49:
@@ -975,9 +963,9 @@ LABEL_49:
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v38.__r_.__value_.__l.__data_);
+      operator delete(v37.__r_.__value_.__l.__data_);
     }
 
     v5 = *v5;
@@ -1080,7 +1068,7 @@ void *std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<STS_N
 
 void STS_N::SetSpatializerActiveUnderLock(STS_N *this, OpaqueAudioComponentInstance *a2, __CFString *a3, int a4)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v8 = STS_N_Log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -1098,8 +1086,8 @@ void STS_N::SetSpatializerActiveUnderLock(STS_N *this, OpaqueAudioComponentInsta
   if (a4)
   {
     *buf = a2;
-    LOBYTE(v51) = 1;
-    v11 = std::__hash_table<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::__unordered_map_hasher<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::hash<OpaqueAudioComponentInstance *>,std::equal_to<OpaqueAudioComponentInstance *>,true>,std::__unordered_map_equal<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::equal_to<OpaqueAudioComponentInstance *>,std::hash<OpaqueAudioComponentInstance *>,true>,std::allocator<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>>>::__emplace_unique_key_args<OpaqueAudioComponentInstance *,OpaqueAudioComponentInstance * const&,BOOL &>((v9 + 64), a2);
+    LOBYTE(v50) = 1;
+    v11 = std::__hash_table<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::__unordered_map_hasher<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::hash<OpaqueAudioComponentInstance *>,std::equal_to<OpaqueAudioComponentInstance *>,true>,std::__unordered_map_equal<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::equal_to<OpaqueAudioComponentInstance *>,std::hash<OpaqueAudioComponentInstance *>,true>,std::allocator<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>>>::__emplace_unique_key_args<OpaqueAudioComponentInstance *,OpaqueAudioComponentInstance * const&,BOOL &>((v9 + 64), a2, buf, &v50);
     if ((v12 & 1) == 0)
     {
       *(v11 + 24) = 1;
@@ -1109,10 +1097,10 @@ void STS_N::SetSpatializerActiveUnderLock(STS_N *this, OpaqueAudioComponentInsta
     v13 = *(v10 + 152);
     v14 = [*(v10 + 104) copy];
     memset(buf, 0, sizeof(buf));
-    v55 = 1065353216;
-    v51 = a2;
-    v50 = 1;
-    v15 = std::__hash_table<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::__unordered_map_hasher<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::hash<OpaqueAudioComponentInstance *>,std::equal_to<OpaqueAudioComponentInstance *>,true>,std::__unordered_map_equal<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::equal_to<OpaqueAudioComponentInstance *>,std::hash<OpaqueAudioComponentInstance *>,true>,std::allocator<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>>>::__emplace_unique_key_args<OpaqueAudioComponentInstance *,OpaqueAudioComponentInstance * const&,BOOL &>(buf, a2);
+    v54 = 1065353216;
+    v50 = a2;
+    v49 = 1;
+    v15 = std::__hash_table<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::__unordered_map_hasher<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::hash<OpaqueAudioComponentInstance *>,std::equal_to<OpaqueAudioComponentInstance *>,true>,std::__unordered_map_equal<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::equal_to<OpaqueAudioComponentInstance *>,std::hash<OpaqueAudioComponentInstance *>,true>,std::allocator<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>>>::__emplace_unique_key_args<OpaqueAudioComponentInstance *,OpaqueAudioComponentInstance * const&,BOOL &>(buf, a2, &v50, &v49);
     if ((v16 & 1) == 0)
     {
       *(v15 + 24) = 1;
@@ -1124,29 +1112,29 @@ void STS_N::SetSpatializerActiveUnderLock(STS_N *this, OpaqueAudioComponentInsta
       getkFigSTSLabel_Global();
       v19 = STS_N::InfoForLabel(this, v18);
       v20 = [*(v19 + 104) copy];
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
       v47 = 0u;
+      v48 = 0u;
+      v45 = 0u;
+      v46 = 0u;
       v21 = v20;
-      v22 = [v21 countByEnumeratingWithState:&v46 objects:v53 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v45 objects:v52 count:16];
       if (!v22)
       {
         goto LABEL_28;
       }
 
-      v23 = *v47;
+      v23 = *v46;
       while (1)
       {
         v24 = 0;
         do
         {
-          if (*v47 != v23)
+          if (*v46 != v23)
           {
             objc_enumerationMutation(v21);
           }
 
-          v25 = *(*(&v46 + 1) + 8 * v24);
+          v25 = *(*(&v45 + 1) + 8 * v24);
           v26 = [v14 objectForKey:v25];
           if (v26)
           {
@@ -1176,7 +1164,7 @@ LABEL_23:
         }
 
         while (v22 != v24);
-        v30 = [v21 countByEnumeratingWithState:&v46 objects:v53 count:16];
+        v30 = [v21 countByEnumeratingWithState:&v45 objects:v52 count:16];
         v22 = v30;
         if (!v30)
         {
@@ -1187,30 +1175,30 @@ LABEL_28:
       }
     }
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v31 = v14;
-    v32 = [v31 countByEnumeratingWithState:&v42 objects:v52 count:16];
+    v32 = [v31 countByEnumeratingWithState:&v41 objects:v51 count:16];
     if (!v32)
     {
       goto LABEL_46;
     }
 
-    v33 = *v43;
+    v33 = *v42;
 LABEL_31:
     v34 = 0;
     while (1)
     {
-      if (*v43 != v33)
+      if (*v42 != v33)
       {
         objc_enumerationMutation(v31);
       }
 
-      v35 = *(*(&v42 + 1) + 8 * v34);
+      v35 = *(*(&v41 + 1) + 8 * v34);
       v36 = v35;
-      if (!v13 || ([(__CFString *)v35 isEqualToString:@"ListenerPose", v42]& 1) != 0 || ([(__CFString *)v36 isEqualToString:@"SourcePose"]& 1) != 0 || ([(__CFString *)v36 isEqualToString:@"SoundStageSize"]& 1) != 0 || ([(__CFString *)v36 isEqualToString:@"SoundStageTransitionTime"]& 1) != 0)
+      if (!v13 || ([(__CFString *)v35 isEqualToString:@"ListenerPose", v41]& 1) != 0 || ([(__CFString *)v36 isEqualToString:@"SourcePose"]& 1) != 0 || ([(__CFString *)v36 isEqualToString:@"SoundStageSize"]& 1) != 0 || ([(__CFString *)v36 isEqualToString:@"SoundStageTransitionTime"]& 1) != 0)
       {
       }
 
@@ -1224,18 +1212,18 @@ LABEL_31:
         }
       }
 
-      STS_N::SetPropertyOnSpatializers(v10, v36, [v31 objectForKey:{v36, v42}], buf);
+      STS_N::SetPropertyOnSpatializers(v10, v36, [v31 objectForKey:{v36, v41}], buf);
 LABEL_41:
       if (v32 == ++v34)
       {
-        v38 = [v31 countByEnumeratingWithState:&v42 objects:v52 count:16];
+        v38 = [v31 countByEnumeratingWithState:&v41 objects:v51 count:16];
         v32 = v38;
         if (!v38)
         {
 LABEL_46:
 
           std::__hash_table<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::__unordered_map_hasher<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::hash<OpaqueAudioComponentInstance *>,std::equal_to<OpaqueAudioComponentInstance *>,true>,std::__unordered_map_equal<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::equal_to<OpaqueAudioComponentInstance *>,std::hash<OpaqueAudioComponentInstance *>,true>,std::allocator<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>>>::~__hash_table(buf);
-          goto LABEL_49;
+          return;
         }
 
         goto LABEL_31;
@@ -1244,15 +1232,12 @@ LABEL_46:
   }
 
   *buf = a2;
-  LOBYTE(v51) = 0;
-  v39 = std::__hash_table<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::__unordered_map_hasher<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::hash<OpaqueAudioComponentInstance *>,std::equal_to<OpaqueAudioComponentInstance *>,true>,std::__unordered_map_equal<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::equal_to<OpaqueAudioComponentInstance *>,std::hash<OpaqueAudioComponentInstance *>,true>,std::allocator<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>>>::__emplace_unique_key_args<OpaqueAudioComponentInstance *,OpaqueAudioComponentInstance * const&,BOOL &>((v9 + 64), a2);
+  LOBYTE(v50) = 0;
+  v39 = std::__hash_table<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::__unordered_map_hasher<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::hash<OpaqueAudioComponentInstance *>,std::equal_to<OpaqueAudioComponentInstance *>,true>,std::__unordered_map_equal<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::equal_to<OpaqueAudioComponentInstance *>,std::hash<OpaqueAudioComponentInstance *>,true>,std::allocator<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>>>::__emplace_unique_key_args<OpaqueAudioComponentInstance *,OpaqueAudioComponentInstance * const&,BOOL &>((v9 + 64), a2, buf, &v50);
   if ((v40 & 1) == 0)
   {
     *(v39 + 24) = 0;
   }
-
-LABEL_49:
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void sub_239891358(_Unwind_Exception *a1)
@@ -1285,35 +1270,35 @@ void sub_239891430(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__hash_table<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::__unordered_map_hasher<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::hash<OpaqueAudioComponentInstance *>,std::equal_to<OpaqueAudioComponentInstance *>,true>,std::__unordered_map_equal<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::equal_to<OpaqueAudioComponentInstance *>,std::hash<OpaqueAudioComponentInstance *>,true>,std::allocator<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>>>::__emplace_unique_key_args<OpaqueAudioComponentInstance *,OpaqueAudioComponentInstance * const&,BOOL &>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::__unordered_map_hasher<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::hash<OpaqueAudioComponentInstance *>,std::equal_to<OpaqueAudioComponentInstance *>,true>,std::__unordered_map_equal<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::equal_to<OpaqueAudioComponentInstance *>,std::hash<OpaqueAudioComponentInstance *>,true>,std::allocator<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>>>::__emplace_unique_key_args<OpaqueAudioComponentInstance *,OpaqueAudioComponentInstance * const&,BOOL &>(float *a1, unint64_t a2, void *a3, _BYTE *a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = *(a1 + 2);
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -1321,66 +1306,66 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != a2)
+  if (v11[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
 uint64_t STS_N::ApplyStoredPerLabelStateToSpatializers(uint64_t a1, uint64_t a2, unint64_t a3)
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
+  v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
-  v59 = 1065353216;
+  v58 = 1065353216;
   if (a3)
   {
     *buf = a3;
-    v60[0] = 1;
-    v5 = std::__hash_table<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::__unordered_map_hasher<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::hash<OpaqueAudioComponentInstance *>,std::equal_to<OpaqueAudioComponentInstance *>,true>,std::__unordered_map_equal<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::equal_to<OpaqueAudioComponentInstance *>,std::hash<OpaqueAudioComponentInstance *>,true>,std::allocator<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>>>::__emplace_unique_key_args<OpaqueAudioComponentInstance *,OpaqueAudioComponentInstance * const&,BOOL &>(&v57, a3);
+    v59[0] = 1;
+    v5 = std::__hash_table<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::__unordered_map_hasher<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::hash<OpaqueAudioComponentInstance *>,std::equal_to<OpaqueAudioComponentInstance *>,true>,std::__unordered_map_equal<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::equal_to<OpaqueAudioComponentInstance *>,std::hash<OpaqueAudioComponentInstance *>,true>,std::allocator<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>>>::__emplace_unique_key_args<OpaqueAudioComponentInstance *,OpaqueAudioComponentInstance * const&,BOOL &>(&v56, a3, buf, v59);
     if ((v6 & 1) == 0)
     {
       *(v5 + 24) = 1;
     }
   }
 
-  else if (&v57 != (a2 + 64))
+  else if (&v56 != (a2 + 64))
   {
-    v59 = *(a2 + 96);
+    v58 = *(a2 + 96);
     if (*(a2 + 80))
     {
       operator new();
@@ -1394,17 +1379,17 @@ uint64_t STS_N::ApplyStoredPerLabelStateToSpatializers(uint64_t a1, uint64_t a2,
     *buf = *MEMORY[0x277D860B8];
     *&buf[16] = v8;
     v9 = *(MEMORY[0x277D860B8] + 48);
-    v67 = *(MEMORY[0x277D860B8] + 32);
-    v68 = v9;
+    v66 = *(MEMORY[0x277D860B8] + 32);
+    v67 = v9;
     STS_N_CalculateQuaternionOrientationFromTransform(buf, &inData);
     v10 = v7[3];
     v10.i32[2] = -1.0;
-    v11 = vsubq_f32(v10, v68);
-    v55[0] = v11.f32[0];
-    v55[1] = -v11.f32[2];
-    v55[2] = v11.f32[1];
-    v12 = v58;
-    if (v58)
+    v11 = vsubq_f32(v10, v67);
+    v54[0] = v11.f32[0];
+    v54[1] = -v11.f32[2];
+    v54[2] = v11.f32[1];
+    v12 = v57;
+    if (v57)
     {
       while ((v12[3] & 1) == 0)
       {
@@ -1416,83 +1401,83 @@ uint64_t STS_N::ApplyStoredPerLabelStateToSpatializers(uint64_t a1, uint64_t a2,
       }
 
 LABEL_57:
-      v28 = AudioUnitSetProperty(v12[2], 0xC1Eu, 0, 0, &inData, 0x10u);
-      if (v28)
+      v27 = AudioUnitSetProperty(v12[2], 0xC1Eu, 0, 0, &inData, 0x10u);
+      if (v27)
       {
-        v29 = STS_N_Log();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v28 = STS_N_Log();
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          *v60 = 136315650;
-          v61 = "ApplyStoredPerLabelStateToSpatializers";
-          v62 = 1024;
-          v63 = 1008;
-          v64 = 1024;
-          v65 = v28;
-          _os_log_error_impl(&dword_23988E000, v29, OS_LOG_TYPE_ERROR, "%s:%d error: %d", v60, 0x18u);
+          *v59 = 136315650;
+          v60 = "ApplyStoredPerLabelStateToSpatializers";
+          v61 = 1024;
+          v62 = 1008;
+          v63 = 1024;
+          v64 = v27;
+          _os_log_error_impl(&dword_23988E000, v28, OS_LOG_TYPE_ERROR, "%s:%d error: %d", v59, 0x18u);
         }
       }
 
-      v30 = AudioUnitSetProperty(v12[2], 0xC2Bu, 0, 0, v55, 0xCu);
-      if (v30)
+      v29 = AudioUnitSetProperty(v12[2], 0xC2Bu, 0, 0, v54, 0xCu);
+      if (v29)
       {
-        v31 = STS_N_Log();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v30 = STS_N_Log();
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          *v60 = 136315650;
-          v61 = "ApplyStoredPerLabelStateToSpatializers";
-          v62 = 1024;
-          v63 = 1015;
-          v64 = 1024;
-          v65 = v30;
-          _os_log_error_impl(&dword_23988E000, v31, OS_LOG_TYPE_ERROR, "%s:%d error: %d", v60, 0x18u);
+          *v59 = 136315650;
+          v60 = "ApplyStoredPerLabelStateToSpatializers";
+          v61 = 1024;
+          v62 = 1015;
+          v63 = 1024;
+          v64 = v29;
+          _os_log_error_impl(&dword_23988E000, v30, OS_LOG_TYPE_ERROR, "%s:%d error: %d", v59, 0x18u);
         }
       }
 
-      v32 = AudioUnitSetParameter(v12[2], 0x16u, 1u, 0, 0.0, 0);
-      if (v32)
+      v31 = AudioUnitSetParameter(v12[2], 0x16u, 1u, 0, 0.0, 0);
+      if (v31)
       {
-        v33 = STS_N_Log();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v32 = STS_N_Log();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          *v60 = 136315650;
-          v61 = "ApplyStoredPerLabelStateToSpatializers";
-          v62 = 1024;
-          v63 = 1020;
-          v64 = 1024;
-          v65 = v32;
-          _os_log_error_impl(&dword_23988E000, v33, OS_LOG_TYPE_ERROR, "%s:%d error: %d", v60, 0x18u);
+          *v59 = 136315650;
+          v60 = "ApplyStoredPerLabelStateToSpatializers";
+          v61 = 1024;
+          v62 = 1020;
+          v63 = 1024;
+          v64 = v31;
+          _os_log_error_impl(&dword_23988E000, v32, OS_LOG_TYPE_ERROR, "%s:%d error: %d", v59, 0x18u);
         }
       }
 
-      v34 = AudioUnitSetParameter(v12[2], 0x17u, 1u, 0, 0.0, 0);
-      if (v34)
+      v33 = AudioUnitSetParameter(v12[2], 0x17u, 1u, 0, 0.0, 0);
+      if (v33)
       {
-        v35 = STS_N_Log();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v34 = STS_N_Log();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
-          *v60 = 136315650;
-          v61 = "ApplyStoredPerLabelStateToSpatializers";
-          v62 = 1024;
-          v63 = 1021;
-          v64 = 1024;
-          v65 = v34;
-          _os_log_error_impl(&dword_23988E000, v35, OS_LOG_TYPE_ERROR, "%s:%d error: %d", v60, 0x18u);
+          *v59 = 136315650;
+          v60 = "ApplyStoredPerLabelStateToSpatializers";
+          v61 = 1024;
+          v62 = 1021;
+          v63 = 1024;
+          v64 = v33;
+          _os_log_error_impl(&dword_23988E000, v34, OS_LOG_TYPE_ERROR, "%s:%d error: %d", v59, 0x18u);
         }
       }
 
-      v36 = AudioUnitSetParameter(v12[2], 0x18u, 1u, 0, 0.0, 0);
-      if (v36)
+      v35 = AudioUnitSetParameter(v12[2], 0x18u, 1u, 0, 0.0, 0);
+      if (v35)
       {
-        v37 = STS_N_Log();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+        v36 = STS_N_Log();
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
-          *v60 = 136315650;
-          v61 = "ApplyStoredPerLabelStateToSpatializers";
-          v62 = 1024;
-          v63 = 1022;
-          v64 = 1024;
-          v65 = v36;
-          _os_log_error_impl(&dword_23988E000, v37, OS_LOG_TYPE_ERROR, "%s:%d error: %d", v60, 0x18u);
+          *v59 = 136315650;
+          v60 = "ApplyStoredPerLabelStateToSpatializers";
+          v61 = 1024;
+          v62 = 1022;
+          v63 = 1024;
+          v64 = v35;
+          _os_log_error_impl(&dword_23988E000, v36, OS_LOG_TYPE_ERROR, "%s:%d error: %d", v59, 0x18u);
         }
       }
 
@@ -1516,9 +1501,9 @@ LABEL_57:
   {
     if (*(a1 + 176) == 1)
     {
-      STS_N_CalculateQuaternionOrientationFromTransform((a1 + 112), v60);
-      v13 = v58;
-      if (v58)
+      STS_N_CalculateQuaternionOrientationFromTransform((a1 + 112), v59);
+      v13 = v57;
+      if (v57)
       {
         while ((v13[3] & 1) == 0)
         {
@@ -1530,19 +1515,19 @@ LABEL_57:
         }
 
 LABEL_91:
-        v42 = AudioUnitSetProperty(v13[2], 0xC1Eu, 0, 0, v60, 0x10u);
-        if (v42)
+        v41 = AudioUnitSetProperty(v13[2], 0xC1Eu, 0, 0, v59, 0x10u);
+        if (v41)
         {
-          v43 = STS_N_Log();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+          v42 = STS_N_Log();
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
             *&buf[4] = "ApplyStoredPerLabelStateToSpatializers";
             *&buf[12] = 1024;
             *&buf[14] = 1036;
             *&buf[18] = 1024;
-            *&buf[20] = v42;
-            _os_log_error_impl(&dword_23988E000, v43, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
+            *&buf[20] = v41;
+            _os_log_error_impl(&dword_23988E000, v42, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
           }
         }
 
@@ -1568,8 +1553,8 @@ LABEL_16:
         LODWORD(inData) = v14.i32[0];
         *(&inData + 1) = -v14.f32[2];
         DWORD2(inData) = v14.i32[1];
-        v15 = v58;
-        if (v58)
+        v15 = v57;
+        if (v57)
         {
           while ((v15[3] & 1) == 0)
           {
@@ -1581,19 +1566,19 @@ LABEL_16:
           }
 
 LABEL_114:
-          v53 = AudioUnitSetProperty(v15[2], 0xC2Bu, 0, 0, &inData, 0xCu);
-          if (v53)
+          v52 = AudioUnitSetProperty(v15[2], 0xC2Bu, 0, 0, &inData, 0xCu);
+          if (v52)
           {
-            v54 = STS_N_Log();
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+            v53 = STS_N_Log();
+            if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315650;
               *&buf[4] = "ApplyStoredPerLabelStateToSpatializers";
               *&buf[12] = 1024;
               *&buf[14] = 1051;
               *&buf[18] = 1024;
-              *&buf[20] = v53;
-              _os_log_error_impl(&dword_23988E000, v54, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
+              *&buf[20] = v52;
+              _os_log_error_impl(&dword_23988E000, v53, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
             }
           }
 
@@ -1617,12 +1602,12 @@ LABEL_114:
 LABEL_20:
     if (*(a2 + 240) == 1)
     {
-      *v60 = 0;
+      *v59 = 0;
       LODWORD(inData) = 0;
-      v55[0] = 0.0;
-      STS_N_CalculateAngularOrientationFromTransform(a2 + 160, &inData, v60, v55);
-      v16 = v58;
-      if (v58)
+      v54[0] = 0.0;
+      STS_N_CalculateAngularOrientationFromTransform(a2 + 160, &inData, v59, v54);
+      v16 = v57;
+      if (v57)
       {
         while ((v16[3] & 1) == 0)
         {
@@ -1633,55 +1618,55 @@ LABEL_20:
           }
         }
 
-        v44 = *&inData;
-        v45 = *v60;
-        v46 = v55[0];
+        v43 = *&inData;
+        v44 = *v59;
+        v45 = v54[0];
 LABEL_99:
-        v47 = AudioUnitSetParameter(v16[2], 0x16u, 1u, 0, v44, 0);
-        if (v47)
+        v46 = AudioUnitSetParameter(v16[2], 0x16u, 1u, 0, v43, 0);
+        if (v46)
         {
-          v48 = STS_N_Log();
-          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+          v47 = STS_N_Log();
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
             *&buf[4] = "ApplyStoredPerLabelStateToSpatializers";
             *&buf[12] = 1024;
             *&buf[14] = 1061;
             *&buf[18] = 1024;
-            *&buf[20] = v47;
-            _os_log_error_impl(&dword_23988E000, v48, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
+            *&buf[20] = v46;
+            _os_log_error_impl(&dword_23988E000, v47, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
           }
         }
 
-        v49 = AudioUnitSetParameter(v16[2], 0x17u, 1u, 0, v45, 0);
-        if (v49)
+        v48 = AudioUnitSetParameter(v16[2], 0x17u, 1u, 0, v44, 0);
+        if (v48)
         {
-          v50 = STS_N_Log();
-          if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+          v49 = STS_N_Log();
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
             *&buf[4] = "ApplyStoredPerLabelStateToSpatializers";
             *&buf[12] = 1024;
             *&buf[14] = 1062;
             *&buf[18] = 1024;
-            *&buf[20] = v49;
-            _os_log_error_impl(&dword_23988E000, v50, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
+            *&buf[20] = v48;
+            _os_log_error_impl(&dword_23988E000, v49, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
           }
         }
 
-        v51 = AudioUnitSetParameter(v16[2], 0x18u, 1u, 0, v46, 0);
-        if (v51)
+        v50 = AudioUnitSetParameter(v16[2], 0x18u, 1u, 0, v45, 0);
+        if (v50)
         {
-          v52 = STS_N_Log();
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+          v51 = STS_N_Log();
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
             *&buf[4] = "ApplyStoredPerLabelStateToSpatializers";
             *&buf[12] = 1024;
             *&buf[14] = 1063;
             *&buf[18] = 1024;
-            *&buf[20] = v51;
-            _os_log_error_impl(&dword_23988E000, v52, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
+            *&buf[20] = v50;
+            _os_log_error_impl(&dword_23988E000, v51, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
           }
         }
 
@@ -1705,8 +1690,8 @@ LABEL_99:
 LABEL_24:
   if ((*(a2 + 152) & 1) == 0)
   {
-    v17 = v58;
-    if (*(a2 + 240) == 1 && v58 != 0)
+    v17 = v57;
+    if (*(a2 + 240) == 1 && v57 != 0)
     {
       while ((v17[3] & 1) == 0)
       {
@@ -1718,35 +1703,35 @@ LABEL_24:
       }
 
 LABEL_80:
-      v38 = AudioUnitSetParameter(v17[2], 3u, 1u, 0, *(a2 + 228), 0);
-      if (v38)
+      v37 = AudioUnitSetParameter(v17[2], 3u, 1u, 0, *(a2 + 228), 0);
+      if (v37)
       {
-        v39 = STS_N_Log();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        v38 = STS_N_Log();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
           *&buf[4] = "ApplyStoredPerLabelStateToSpatializers";
           *&buf[12] = 1024;
           *&buf[14] = 1071;
           *&buf[18] = 1024;
-          *&buf[20] = v38;
-          _os_log_error_impl(&dword_23988E000, v39, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
+          *&buf[20] = v37;
+          _os_log_error_impl(&dword_23988E000, v38, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
         }
       }
 
-      v40 = AudioUnitSetParameter(v17[2], 0x23u, 1u, 0, *(a2 + 232), 0);
-      if (v40)
+      v39 = AudioUnitSetParameter(v17[2], 0x23u, 1u, 0, *(a2 + 232), 0);
+      if (v39)
       {
-        v41 = STS_N_Log();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+        v40 = STS_N_Log();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
           *&buf[4] = "ApplyStoredPerLabelStateToSpatializers";
           *&buf[12] = 1024;
           *&buf[14] = 1072;
           *&buf[18] = 1024;
-          *&buf[20] = v40;
-          _os_log_error_impl(&dword_23988E000, v41, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
+          *&buf[20] = v39;
+          _os_log_error_impl(&dword_23988E000, v40, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
         }
       }
 
@@ -1782,43 +1767,43 @@ LABEL_31:
     v19 = *(a2 + 224);
   }
 
-  *v60 = v19;
-  for (i = v58; i; i = *i)
+  *v59 = v19;
+  for (i = v57; i; i = *i)
   {
     if (i[3])
     {
       while (v19 != 1)
       {
-        v25 = AudioUnitSetProperty(i[2], 0xBBDu, 1u, 0, v60, 4u);
-        if (v25)
+        v24 = AudioUnitSetProperty(i[2], 0xBBDu, 1u, 0, v59, 4u);
+        if (v24)
         {
-          v26 = STS_N_Log();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          v25 = STS_N_Log();
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
             *&buf[4] = "ApplyStoredPerLabelStateToSpatializers";
             *&buf[12] = 1024;
             *&buf[14] = 1095;
             *&buf[18] = 1024;
-            *&buf[20] = v25;
-            _os_log_error_impl(&dword_23988E000, v26, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
+            *&buf[20] = v24;
+            _os_log_error_impl(&dword_23988E000, v25, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
           }
         }
 
         LODWORD(inData) = 0;
-        v27 = AudioUnitSetProperty(i[2], 0xCEEu, 0, 0, &inData, 4u);
-        if (v27)
+        v26 = AudioUnitSetProperty(i[2], 0xCEEu, 0, 0, &inData, 4u);
+        if (v26)
         {
-          v24 = STS_N_Log();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v23 = STS_N_Log();
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
             *&buf[4] = "ApplyStoredPerLabelStateToSpatializers";
             *&buf[12] = 1024;
             *&buf[14] = 1103;
             *&buf[18] = 1024;
-            *&buf[20] = v27;
-            _os_log_error_impl(&dword_23988E000, v24, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
+            *&buf[20] = v26;
+            _os_log_error_impl(&dword_23988E000, v23, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
           }
 
 LABEL_53:
@@ -1832,54 +1817,51 @@ LABEL_54:
           i = *i;
           if (!i)
           {
-            goto LABEL_40;
+            return std::__hash_table<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::__unordered_map_hasher<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::hash<OpaqueAudioComponentInstance *>,std::equal_to<OpaqueAudioComponentInstance *>,true>,std::__unordered_map_equal<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::equal_to<OpaqueAudioComponentInstance *>,std::hash<OpaqueAudioComponentInstance *>,true>,std::allocator<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>>>::~__hash_table(&v56);
           }
         }
 
         while ((i[3] & 1) == 0);
-        v19 = *v60;
+        v19 = *v59;
       }
 
       LODWORD(inData) = 1;
-      v23 = AudioUnitSetProperty(i[2], 0xCEEu, 0, 0, &inData, 4u);
-      if (!v23)
+      v22 = AudioUnitSetProperty(i[2], 0xCEEu, 0, 0, &inData, 4u);
+      if (!v22)
       {
         goto LABEL_54;
       }
 
-      v24 = STS_N_Log();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v23 = STS_N_Log();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
         *&buf[4] = "ApplyStoredPerLabelStateToSpatializers";
         *&buf[12] = 1024;
         *&buf[14] = 1087;
         *&buf[18] = 1024;
-        *&buf[20] = v23;
-        _os_log_error_impl(&dword_23988E000, v24, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
+        *&buf[20] = v22;
+        _os_log_error_impl(&dword_23988E000, v23, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
       }
 
       goto LABEL_53;
     }
   }
 
-LABEL_40:
-  result = std::__hash_table<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::__unordered_map_hasher<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::hash<OpaqueAudioComponentInstance *>,std::equal_to<OpaqueAudioComponentInstance *>,true>,std::__unordered_map_equal<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::equal_to<OpaqueAudioComponentInstance *>,std::hash<OpaqueAudioComponentInstance *>,true>,std::allocator<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>>>::~__hash_table(&v57);
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__hash_table<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::__unordered_map_hasher<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::hash<OpaqueAudioComponentInstance *>,std::equal_to<OpaqueAudioComponentInstance *>,true>,std::__unordered_map_equal<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::equal_to<OpaqueAudioComponentInstance *>,std::hash<OpaqueAudioComponentInstance *>,true>,std::allocator<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>>>::~__hash_table(&v56);
 }
 
-void sub_23989250C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23989250C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::__hash_table<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::__unordered_map_hasher<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::hash<OpaqueAudioComponentInstance *>,std::equal_to<OpaqueAudioComponentInstance *>,true>,std::__unordered_map_equal<OpaqueAudioComponentInstance *,std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>,std::equal_to<OpaqueAudioComponentInstance *>,std::hash<OpaqueAudioComponentInstance *>,true>,std::allocator<std::__hash_value_type<OpaqueAudioComponentInstance *,BOOL>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
 void STS_N::SetPropertyOnSpatializers(uint64_t a1, const __CFString *a2, void *value, uint64_t a4)
 {
-  v83 = *MEMORY[0x277D85DE8];
-  v73 = value;
+  v82 = *MEMORY[0x277D85DE8];
+  v72 = value;
   v8 = *(a1 + 104);
   if (value)
   {
@@ -1898,7 +1880,7 @@ void STS_N::SetPropertyOnSpatializers(uint64_t a1, const __CFString *a2, void *v
 
   if (!*(a4 + 24))
   {
-    goto LABEL_134;
+    return;
   }
 
   if (CFEqual(a2, @"ListenerPose"))
@@ -1906,9 +1888,9 @@ void STS_N::SetPropertyOnSpatializers(uint64_t a1, const __CFString *a2, void *v
     v9 = MEMORY[0x277D860B8];
     if (value)
     {
-      v84.location = 0;
-      v84.length = 64;
-      CFDataGetBytes(value, v84, buffer);
+      v83.location = 0;
+      v83.length = 64;
+      CFDataGetBytes(value, v83, buffer);
     }
 
     else
@@ -1917,29 +1899,29 @@ void STS_N::SetPropertyOnSpatializers(uint64_t a1, const __CFString *a2, void *v
       *buffer = *MEMORY[0x277D860B8];
       *&buffer[16] = v10;
       v11 = *(MEMORY[0x277D860B8] + 48);
-      v81 = *(MEMORY[0x277D860B8] + 32);
-      v82 = v11;
+      v80 = *(MEMORY[0x277D860B8] + 32);
+      v81 = v11;
     }
 
     v12 = v9[1];
     *valuePtr = *v9;
-    v70 = v12;
+    v69 = v12;
     v13 = v9[3];
-    v71 = v9[2];
-    v72 = v13;
+    v70 = v9[2];
+    v71 = v13;
     v14 = CFDictionaryGetValue(*(a1 + 104), @"SourcePose");
     if (v14)
     {
-      v86.location = 0;
-      v86.length = 64;
-      CFDataGetBytes(v14, v86, valuePtr);
+      v85.location = 0;
+      v85.length = 64;
+      CFDataGetBytes(v14, v85, valuePtr);
     }
 
     STS_N_CalculateQuaternionOrientationFromTransform(buffer, &inData);
-    v15 = vsubq_f32(v72, v82);
-    HIDWORD(v65) = v15.i32[0];
-    v66 = -v15.f32[2];
-    v67 = v15.i32[1];
+    v15 = vsubq_f32(v71, v81);
+    HIDWORD(v64) = v15.i32[0];
+    v65 = -v15.f32[2];
+    v66 = v15.i32[1];
     v16 = *(a4 + 16);
     if (v16)
     {
@@ -1948,7 +1930,7 @@ void STS_N::SetPropertyOnSpatializers(uint64_t a1, const __CFString *a2, void *v
         v16 = *v16;
         if (!v16)
         {
-          goto LABEL_134;
+          return;
         }
       }
 
@@ -1961,16 +1943,16 @@ LABEL_20:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v75 = "SetPropertyOnSpatializers";
-          v76 = 1024;
-          v77 = 397;
-          v78 = 1024;
-          v79 = v18;
+          v74 = "SetPropertyOnSpatializers";
+          v75 = 1024;
+          v76 = 397;
+          v77 = 1024;
+          v78 = v18;
           _os_log_error_impl(&dword_23988E000, v19, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
         }
       }
 
-      v20 = AudioUnitSetProperty(v16[2], 0xC2Bu, 0, 0, &v65 + 4, 0xCu);
+      v20 = AudioUnitSetProperty(v16[2], 0xC2Bu, 0, 0, &v64 + 4, 0xCu);
       if (v20)
       {
         v21 = v20;
@@ -1978,11 +1960,11 @@ LABEL_20:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v75 = "SetPropertyOnSpatializers";
-          v76 = 1024;
-          v77 = 404;
-          v78 = 1024;
-          v79 = v21;
+          v74 = "SetPropertyOnSpatializers";
+          v75 = 1024;
+          v76 = 404;
+          v77 = 1024;
+          v78 = v21;
           _os_log_error_impl(&dword_23988E000, v22, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
         }
       }
@@ -2002,16 +1984,16 @@ LABEL_20:
       }
     }
 
-    goto LABEL_134;
+    return;
   }
 
   if (CFEqual(a2, @"SourcePose"))
   {
     if (value)
     {
-      v85.location = 0;
-      v85.length = 64;
-      CFDataGetBytes(value, v85, buffer);
+      v84.location = 0;
+      v84.length = 64;
+      CFDataGetBytes(value, v84, buffer);
     }
 
     else
@@ -2020,28 +2002,28 @@ LABEL_20:
       *buffer = *MEMORY[0x277D860B8];
       *&buffer[16] = v25;
       v26 = *(MEMORY[0x277D860B8] + 48);
-      v81 = *(MEMORY[0x277D860B8] + 32);
-      v82 = v26;
+      v80 = *(MEMORY[0x277D860B8] + 32);
+      v81 = v26;
     }
 
     v27 = *(MEMORY[0x277D860B8] + 16);
     *valuePtr = *MEMORY[0x277D860B8];
-    v70 = v27;
+    v69 = v27;
     v28 = *(MEMORY[0x277D860B8] + 48);
-    v71 = *(MEMORY[0x277D860B8] + 32);
-    v72 = v28;
+    v70 = *(MEMORY[0x277D860B8] + 32);
+    v71 = v28;
     v29 = CFDictionaryGetValue(*(a1 + 104), @"ListenerPose");
     if (v29)
     {
-      v87.location = 0;
-      v87.length = 64;
-      CFDataGetBytes(v29, v87, valuePtr);
+      v86.location = 0;
+      v86.length = 64;
+      CFDataGetBytes(v29, v86, valuePtr);
     }
 
-    v65 = 0;
-    v64 = 0.0;
-    STS_N_CalculateAngularOrientationFromTransform(buffer, &v65, &v65 + 1, &v64);
-    v30 = vsubq_f32(v82, v72);
+    v64 = 0;
+    v63 = 0.0;
+    STS_N_CalculateAngularOrientationFromTransform(buffer, &v64, &v64 + 1, &v63);
+    v30 = vsubq_f32(v81, v71);
     LODWORD(inData) = v30.i32[0];
     *(&inData + 1) = -v30.f32[2];
     DWORD2(inData) = v30.i32[1];
@@ -2053,12 +2035,12 @@ LABEL_20:
         v31 = *v31;
         if (!v31)
         {
-          goto LABEL_134;
+          return;
         }
       }
 
-      v33 = v65;
-      v34 = v64;
+      v33 = v64;
+      v34 = v63;
 LABEL_50:
       v35 = AudioUnitSetParameter(v31[2], 0x16u, 1u, 0, *&v33, 0);
       if (v35)
@@ -2068,11 +2050,11 @@ LABEL_50:
         if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v75 = "SetPropertyOnSpatializers";
-          v76 = 1024;
-          v77 = 431;
-          v78 = 1024;
-          v79 = v36;
+          v74 = "SetPropertyOnSpatializers";
+          v75 = 1024;
+          v76 = 431;
+          v77 = 1024;
+          v78 = v36;
           _os_log_error_impl(&dword_23988E000, v37, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
         }
       }
@@ -2085,11 +2067,11 @@ LABEL_50:
         if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v75 = "SetPropertyOnSpatializers";
-          v76 = 1024;
-          v77 = 432;
-          v78 = 1024;
-          v79 = v39;
+          v74 = "SetPropertyOnSpatializers";
+          v75 = 1024;
+          v76 = 432;
+          v77 = 1024;
+          v78 = v39;
           _os_log_error_impl(&dword_23988E000, v40, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
         }
       }
@@ -2102,11 +2084,11 @@ LABEL_50:
         if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v75 = "SetPropertyOnSpatializers";
-          v76 = 1024;
-          v77 = 433;
-          v78 = 1024;
-          v79 = v42;
+          v74 = "SetPropertyOnSpatializers";
+          v75 = 1024;
+          v76 = 433;
+          v77 = 1024;
+          v78 = v42;
           _os_log_error_impl(&dword_23988E000, v43, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
         }
       }
@@ -2119,11 +2101,11 @@ LABEL_50:
         if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v75 = "SetPropertyOnSpatializers";
-          v76 = 1024;
-          v77 = 440;
-          v78 = 1024;
-          v79 = v45;
+          v74 = "SetPropertyOnSpatializers";
+          v75 = 1024;
+          v76 = 440;
+          v77 = 1024;
+          v78 = v45;
           _os_log_error_impl(&dword_23988E000, v46, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
         }
       }
@@ -2143,7 +2125,7 @@ LABEL_50:
       }
     }
 
-    goto LABEL_134;
+    return;
   }
 
   *buf = 0;
@@ -2157,7 +2139,7 @@ LABEL_50:
   {
     if (!CFStringGetCString(a2, valuePtr, 5, 0x8000100u))
     {
-      goto LABEL_134;
+      return;
     }
 
     v32 = strtoul(valuePtr, 0, 16);
@@ -2200,15 +2182,15 @@ LABEL_90:
       }
 
 LABEL_144:
-      v63 = STS_N_Log();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+      v62 = STS_N_Log();
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
       {
         *buffer = 67109120;
         *&buffer[4] = *buf;
-        _os_log_error_impl(&dword_23988E000, v63, OS_LOG_TYPE_ERROR, "setting unknown property/parameter %u", buffer, 8u);
+        _os_log_error_impl(&dword_23988E000, v62, OS_LOG_TYPE_ERROR, "setting unknown property/parameter %u", buffer, 8u);
       }
 
-      goto LABEL_134;
+      return;
     }
 
     if ((v32 - 3200) <= 9)
@@ -2271,7 +2253,7 @@ LABEL_91:
   {
     if (v48)
     {
-      goto LABEL_134;
+      return;
     }
 
 LABEL_99:
@@ -2284,7 +2266,7 @@ LABEL_99:
       {
         if (((1 << (buf[0] + 0x80)) & 0x8000000155) != 0)
         {
-          BytePtr = &v73;
+          BytePtr = &v72;
           Length = 8;
           goto LABEL_131;
         }
@@ -2373,25 +2355,25 @@ LABEL_131:
         v58 = *v58;
         if (!v58)
         {
-          goto LABEL_134;
+          return;
         }
       }
 
 LABEL_135:
-      v60 = AudioUnitSetProperty(v58[2], *buf, v24, 0, BytePtr, Length);
-      if (v60)
+      v59 = AudioUnitSetProperty(v58[2], *buf, v24, 0, BytePtr, Length);
+      if (v59)
       {
-        v61 = v60;
-        v62 = STS_N_Log();
-        if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+        v60 = v59;
+        v61 = STS_N_Log();
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
         {
           *buffer = 136315650;
           *&buffer[4] = "SetPropertyOnSpatializers";
           *&buffer[12] = 1024;
           *&buffer[14] = 645;
           *&buffer[18] = 1024;
-          *&buffer[20] = v61;
-          _os_log_error_impl(&dword_23988E000, v62, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buffer, 0x18u);
+          *&buffer[20] = v60;
+          _os_log_error_impl(&dword_23988E000, v61, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buffer, 0x18u);
         }
       }
 
@@ -2410,7 +2392,7 @@ LABEL_135:
       }
     }
 
-    goto LABEL_134;
+    return;
   }
 
   *valuePtr = 0;
@@ -2429,7 +2411,7 @@ LABEL_147:
 
 LABEL_112:
 
-    goto LABEL_134;
+    return;
   }
 
   v49 = *(a4 + 16);
@@ -2440,7 +2422,7 @@ LABEL_112:
       v49 = *v49;
       if (!v49)
       {
-        goto LABEL_134;
+        return;
       }
     }
 
@@ -2476,9 +2458,6 @@ LABEL_119:
       }
     }
   }
-
-LABEL_134:
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 void ___ZN5STS_N15GetPropertyInfoEPK10__CFStringPjS3_Ph_block_invoke()
@@ -2948,7 +2927,6 @@ BOOL std::equal_to<std::string>::operator()[abi:ne200100](void *a1, void *a2)
     a1 = *a1;
   }
 
-  v6 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -2996,35 +2974,35 @@ const void **applesauce::CF::ObjectRef<__CFDictionary *>::~ObjectRef(const void 
   return a1;
 }
 
-void *std::__hash_table<OpaqueFigSTS *,std::hash<OpaqueFigSTS *>,std::equal_to<OpaqueFigSTS *>,std::allocator<OpaqueFigSTS *>>::__emplace_unique_key_args<OpaqueFigSTS *,OpaqueFigSTS * const&>(void *result, unint64_t a2)
+void std::__hash_table<OpaqueFigSTS *,std::hash<OpaqueFigSTS *>,std::equal_to<OpaqueFigSTS *>,std::allocator<OpaqueFigSTS *>>::__emplace_unique_key_args<OpaqueFigSTS *,OpaqueFigSTS * const&>(float *a1, unint64_t a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = result[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = *(a1 + 2);
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*result + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -3032,44 +3010,42 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != a2)
+  if (v10[2] != a2)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 void STS_N::SetSoundStageTransitionDurationOnSpatializers(uint64_t a1)
@@ -3108,6 +3084,7 @@ void STS_N::SetSoundStageSizeOnSpatializers(uint64_t a1, int a2)
 void STS_N::SetPropertyForLabel(os_unfair_lock_t lock, unint64_t a2, void *a3, const __CFString *a4, void *a5)
 {
   v7 = a3;
+  v21 = a2;
   if (!a3)
   {
     getkFigSTSLabel_Global();
@@ -3119,46 +3096,44 @@ void STS_N::SetPropertyForLabel(os_unfair_lock_t lock, unint64_t a2, void *a3, c
   v12 = v11;
   if (a2)
   {
-    std::__hash_table<OpaqueFigSTS *,std::hash<OpaqueFigSTS *>,std::equal_to<OpaqueFigSTS *>,std::allocator<OpaqueFigSTS *>>::__emplace_unique_key_args<OpaqueFigSTS *,OpaqueFigSTS * const&>((v11 + 24), a2);
+    std::__hash_table<OpaqueFigSTS *,std::hash<OpaqueFigSTS *>,std::equal_to<OpaqueFigSTS *>,std::allocator<OpaqueFigSTS *>>::__emplace_unique_key_args<OpaqueFigSTS *,OpaqueFigSTS * const&>((v11 + 24), a2, &v21);
   }
 
   STS_N::SetPropertyOnSpatializers(v12, a4, a5, 0);
   getkFigSTSLabel_Global();
   if (CFEqual(v7, v13))
   {
-    v14 = *&lock[6]._os_unfair_lock_opaque;
-    if (v14)
+    for (i = *&lock[6]._os_unfair_lock_opaque; i; i = *i)
     {
-      v15 = lock + 48;
-      do
+      v15 = *(i + 39);
+      if (v15 >= 0)
       {
-        v16 = *(v14 + 39);
-        if (v16 >= 0)
-        {
-          v17 = *(v14 + 39);
-        }
-
-        else
-        {
-          v17 = v14[3];
-        }
-
-        os_unfair_lock_opaque_high = HIBYTE(lock[53]._os_unfair_lock_opaque);
-        v19 = os_unfair_lock_opaque_high;
-        if ((os_unfair_lock_opaque_high & 0x80u) != 0)
-        {
-          os_unfair_lock_opaque_high = *&lock[50]._os_unfair_lock_opaque;
-        }
-
-        if (v17 != os_unfair_lock_opaque_high || (v16 >= 0 ? (v20 = (v14 + 2)) : (v20 = v14[2]), (v21 = *&v15->_os_unfair_lock_opaque, v19 >= 0) ? (v22 = lock + 48) : (v22 = *&v15->_os_unfair_lock_opaque), memcmp(v20, v22, v17)))
-        {
-          STS_N::SetPropertyOnSpatializers(v14[5], a4, a5, 0);
-        }
-
-        v14 = *v14;
+        v16 = *(i + 39);
       }
 
-      while (v14);
+      else
+      {
+        v16 = i[3];
+      }
+
+      os_unfair_lock_opaque_high = HIBYTE(lock[53]._os_unfair_lock_opaque);
+      v18 = os_unfair_lock_opaque_high;
+      if ((os_unfair_lock_opaque_high & 0x80u) != 0)
+      {
+        os_unfair_lock_opaque_high = *&lock[50]._os_unfair_lock_opaque;
+      }
+
+      if (v16 == os_unfair_lock_opaque_high)
+      {
+        v19 = v15 >= 0 ? (i + 2) : i[2];
+        v20 = v18 >= 0 ? &lock[48] : *&lock[48]._os_unfair_lock_opaque;
+        if (!memcmp(v19, v20, v16))
+        {
+          continue;
+        }
+      }
+
+      STS_N::SetPropertyOnSpatializers(i[5], a4, a5, 0);
     }
   }
 
@@ -3401,45 +3376,37 @@ void *std::__hash_table<std::__hash_value_type<OpaqueAudioComponentInstance *,st
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == a3)
       {
-        if (result[2] == a3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= a2)
         {
-          return result;
+          v10 %= a2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= a2)
-          {
-            v10 %= a2;
-          }
-        }
-
-        else
-        {
-          v10 &= a2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= a2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -3448,7 +3415,7 @@ void *std::__hash_table<std::__hash_value_type<OpaqueAudioComponentInstance *,st
 void STS_N::SetSoundStageParametersUnderLock(uint64_t a1, void *a2, uint64_t a3)
 {
   v4 = a2;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v6 = STS_N::InfoForLabel(a1, a2);
   v7 = v6;
   if (*(a3 + 1) == 1)
@@ -3497,10 +3464,10 @@ void STS_N::SetSoundStageParametersUnderLock(uint64_t a1, void *a2, uint64_t a3)
     v12 = STSSoundStageControllerLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v28 = STSSoundStageController::SoundStageSizeToString(*(v7 + 136));
-      v29 = 136315138;
-      *v30 = v28;
-      _os_log_debug_impl(&dword_23988E000, v12, OS_LOG_TYPE_DEBUG, "STSSoundStageController::pickSoundStageSize() picked a new, different sound stage: %s", &v29, 0xCu);
+      v27 = STSSoundStageController::SoundStageSizeToString(*(v7 + 136));
+      v28 = 136315138;
+      *v29 = v27;
+      _os_log_debug_impl(&dword_23988E000, v12, OS_LOG_TYPE_DEBUG, "STSSoundStageController::pickSoundStageSize() picked a new, different sound stage: %s", &v28, 0xCu);
     }
 
     *(v7 + 141) = 1;
@@ -3547,9 +3514,9 @@ void STS_N::SetSoundStageParametersUnderLock(uint64_t a1, void *a2, uint64_t a3)
         v17 = *v4;
       }
 
-      v29 = 136315138;
-      *v30 = v17;
-      _os_log_impl(&dword_23988E000, v16, OS_LOG_TYPE_DEFAULT, "SetSoundStageParameters caused spatializer's soundStageController to update preset for label %s", &v29, 0xCu);
+      v28 = 136315138;
+      *v29 = v17;
+      _os_log_impl(&dword_23988E000, v16, OS_LOG_TYPE_DEFAULT, "SetSoundStageParameters caused spatializer's soundStageController to update preset for label %s", &v28, 0xCu);
     }
 
     [*(v7 + 144) fireAll];
@@ -3567,11 +3534,11 @@ void STS_N::SetSoundStageParametersUnderLock(uint64_t a1, void *a2, uint64_t a3)
         v20 = *v4;
       }
 
-      v29 = 67109378;
-      *v30 = v18;
-      *&v30[4] = 2080;
-      *&v30[6] = v20;
-      _os_log_impl(&dword_23988E000, v19, OS_LOG_TYPE_DEFAULT, "SetSoundStageParameters updating spatialization preference to %d for label %s", &v29, 0x12u);
+      v28 = 67109378;
+      *v29 = v18;
+      *&v29[4] = 2080;
+      *&v29[6] = v20;
+      _os_log_impl(&dword_23988E000, v19, OS_LOG_TYPE_DEFAULT, "SetSoundStageParameters updating spatialization preference to %d for label %s", &v28, 0x12u);
     }
 
     STS_N::ApplyStoredPerLabelStateToSpatializers(a1, v7, 0);
@@ -3589,11 +3556,11 @@ void STS_N::SetSoundStageParametersUnderLock(uint64_t a1, void *a2, uint64_t a3)
         v23 = *v4;
       }
 
-      v29 = 134218242;
-      *v30 = v21;
-      *&v30[8] = 2080;
-      *&v30[10] = v23;
-      _os_log_impl(&dword_23988E000, v22, OS_LOG_TYPE_DEFAULT, "SetSoundStageParameters updating sound stage transition duration to %0.2f for label %s", &v29, 0x16u);
+      v28 = 134218242;
+      *v29 = v21;
+      *&v29[8] = 2080;
+      *&v29[10] = v23;
+      _os_log_impl(&dword_23988E000, v22, OS_LOG_TYPE_DEFAULT, "SetSoundStageParameters updating sound stage transition duration to %0.2f for label %s", &v28, 0x16u);
     }
 
     STS_N::SetSoundStageTransitionDurationOnSpatializers(v7);
@@ -3611,23 +3578,22 @@ void STS_N::SetSoundStageParametersUnderLock(uint64_t a1, void *a2, uint64_t a3)
         v4 = *v4;
       }
 
-      v29 = 136315394;
-      *v30 = v26;
-      *&v30[8] = 2080;
-      *&v30[10] = v4;
-      _os_log_impl(&dword_23988E000, v25, OS_LOG_TYPE_DEFAULT, "SetSoundStageParameters updating sound stage size to %s for label %s", &v29, 0x16u);
+      v28 = 136315394;
+      *v29 = v26;
+      *&v29[8] = 2080;
+      *&v29[10] = v4;
+      _os_log_impl(&dword_23988E000, v25, OS_LOG_TYPE_DEFAULT, "SetSoundStageParameters updating sound stage size to %s for label %s", &v28, 0x16u);
     }
 
     STS_N::SetSoundStageSizeOnSpatializers(v7, v24);
   }
 
   *(v7 + 140) = 0;
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void STSUnregisterSpatializer(unint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = CADeprecated::TSingleton<STS_N>::instance();
   if (a1)
   {
@@ -3737,19 +3703,19 @@ LABEL_21:
       *v10 = v13;
       *v6 = 0;
       --*(v3 + 72);
-      *&v38 = v6;
-      *(&v38 + 1) = v3 + 48;
-      v39 = 1;
-      memset(v40, 0, sizeof(v40));
-      std::unique_ptr<std::__hash_node<std::__hash_value_type<OpaqueAudioComponentInstance *,std::pair<std::string,std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<OpaqueAudioComponentInstance *,std::pair<std::string,std::string>>,void *>>>>::~unique_ptr[abi:ne200100](&v38);
+      *&v37 = v6;
+      *(&v37 + 1) = v3 + 48;
+      v38 = 1;
+      memset(v39, 0, sizeof(v39));
+      std::unique_ptr<std::__hash_node<std::__hash_value_type<OpaqueAudioComponentInstance *,std::pair<std::string,std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<OpaqueAudioComponentInstance *,std::pair<std::string,std::string>>,void *>>>>::~unique_ptr[abi:ne200100](&v37);
     }
 
     v15 = STS_N_Log();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      LODWORD(v38) = 134217984;
-      *(&v38 + 4) = a1;
-      _os_log_debug_impl(&dword_23988E000, v15, OS_LOG_TYPE_DEBUG, "Unregistering spatializer %p", &v38, 0xCu);
+      LODWORD(v37) = 134217984;
+      *(&v37 + 4) = a1;
+      _os_log_debug_impl(&dword_23988E000, v15, OS_LOG_TYPE_DEBUG, "Unregistering spatializer %p", &v37, 0xCu);
     }
 
     v16 = *(v3 + 24);
@@ -3935,8 +3901,8 @@ LABEL_70:
           }
 
           v36 = *v16;
-          std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>>>::remove(&v38, (v3 + 8), v16);
-          std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,void *>>>>::~unique_ptr[abi:ne200100](&v38);
+          std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>>>::remove(&v37, (v3 + 8), v16);
+          std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,void *>>>>::~unique_ptr[abi:ne200100](&v37);
           v16 = v36;
           if (!v36)
           {
@@ -3953,8 +3919,6 @@ LABEL_70:
 LABEL_83:
     os_unfair_lock_unlock(v3);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t CADeprecated::TSingleton<STS_N>::instance()
@@ -3981,7 +3945,7 @@ void sub_2398951E4(_Unwind_Exception *a1)
 
 void STSRegisterSpatializerWithFallback(OpaqueAudioComponentInstance *a1, __CFString *a2, __CFString *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v6 = CADeprecated::TSingleton<STS_N>::instance();
   v7 = 0;
   if (a2 && a3)
@@ -3999,7 +3963,7 @@ void STSRegisterSpatializerWithFallback(OpaqueAudioComponentInstance *a1, __CFSt
       *&buf[12] = 2112;
       *&buf[14] = a2;
       *&buf[22] = 2112;
-      v36 = a3;
+      v34 = a3;
       _os_log_impl(&dword_23988E000, v8, OS_LOG_TYPE_DEFAULT, "registering spatializer:%p with preferredLabel:%@ and backupLabel:%@", buf, 0x20u);
     }
 
@@ -4009,27 +3973,27 @@ void STSRegisterSpatializerWithFallback(OpaqueAudioComponentInstance *a1, __CFSt
     v11 = *(STS_N::InfoForLabel(v6, a2) + 48);
     STS_N::SetSpatializerActiveUnderLock(v6, a1, a2, v11 != 0);
     STS_N::SetSpatializerActiveUnderLock(v6, a1, a3, v11 == 0);
-    std::string::basic_string[abi:ne200100]<0>(v29, CStringPtr);
-    std::string::basic_string[abi:ne200100]<0>(v27, v10);
-    v12 = *v29;
-    v13 = v30;
-    v29[1] = 0;
-    v30 = 0;
-    v33 = *v27;
-    v14 = v28;
-    v27[0] = 0;
+    std::string::basic_string[abi:ne200100]<0>(v27, CStringPtr);
+    std::string::basic_string[abi:ne200100]<0>(v25, v10);
+    v12 = *v27;
+    v13 = v28;
     v27[1] = 0;
     v28 = 0;
-    v29[0] = 0;
+    v31 = *v25;
+    v14 = v26;
+    v25[0] = 0;
+    v25[1] = 0;
+    v26 = 0;
+    v27[0] = 0;
     *buf = a1;
-    v36 = v13;
+    v34 = v13;
     *&buf[8] = v12;
-    v32 = 0;
+    v30 = 0;
+    v29 = 0uLL;
+    v36 = v14;
+    *__p = v31;
     v31 = 0uLL;
-    v38 = v14;
-    *__p = v33;
-    v33 = 0uLL;
-    v34 = 0;
+    v32 = 0;
     v15 = 0x9DDFEA08EB382D69 * ((8 * (a1 & 0x1FFFFFFF) + 8) ^ (a1 >> 32));
     v16 = 0x9DDFEA08EB382D69 * ((a1 >> 32) ^ (v15 >> 47) ^ v15);
     v17 = 0x9DDFEA08EB382D69 * (v16 ^ (v16 >> 47));
@@ -4055,8 +4019,8 @@ void STSRegisterSpatializerWithFallback(OpaqueAudioComponentInstance *a1, __CFSt
       v20 = v17 & (*&v18 - 1);
     }
 
-    v23 = *(*(v6 + 48) + 8 * v20);
-    if (!v23 || (v24 = *v23) == 0)
+    v22 = *(*(v6 + 48) + 8 * v20);
+    if (!v22 || (v23 = *v22) == 0)
     {
 LABEL_30:
       operator new();
@@ -4064,19 +4028,24 @@ LABEL_30:
 
     while (1)
     {
-      v25 = v24[1];
-      if (v25 == v17)
+      v24 = v23[1];
+      if (v24 == v17)
       {
-        if (v24[2] == a1)
+        if (v23[2] == a1)
         {
-          if (SHIBYTE(v38) < 0)
+          if (SHIBYTE(v36) < 0)
           {
             operator delete(__p[0]);
           }
 
-          if (SHIBYTE(v36) < 0)
+          if (SHIBYTE(v34) < 0)
           {
             operator delete(*&buf[8]);
+          }
+
+          if (SHIBYTE(v26) < 0)
+          {
+            operator delete(v25[0]);
           }
 
           if (SHIBYTE(v28) < 0)
@@ -4084,13 +4053,7 @@ LABEL_30:
             operator delete(v27[0]);
           }
 
-          if (SHIBYTE(v30) < 0)
-          {
-            operator delete(v29[0]);
-          }
-
           os_unfair_lock_unlock(v6);
-          v26 = *MEMORY[0x277D85DE8];
           return;
         }
       }
@@ -4099,25 +4062,25 @@ LABEL_30:
       {
         if (v19.u32[0] > 1uLL)
         {
-          if (v25 >= *&v18)
+          if (v24 >= *&v18)
           {
-            v25 %= *&v18;
+            v24 %= *&v18;
           }
         }
 
         else
         {
-          v25 &= *&v18 - 1;
+          v24 &= *&v18 - 1;
         }
 
-        if (v25 != v20)
+        if (v24 != v20)
         {
           goto LABEL_30;
         }
       }
 
-      v24 = *v24;
-      if (!v24)
+      v23 = *v23;
+      if (!v23)
       {
         goto LABEL_30;
       }
@@ -4132,12 +4095,11 @@ LABEL_30:
   }
 
   STS_N::SetSpatializerActiveUnderLock(v6, a1, a2, 1);
-  v22 = *MEMORY[0x277D85DE8];
 
   os_unfair_lock_unlock(v6);
 }
 
-void sub_2398958F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, char a31)
+void sub_2398958F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
 {
   std::unique_ptr<std::__hash_node<std::__hash_value_type<OpaqueAudioComponentInstance *,std::pair<std::string,std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<OpaqueAudioComponentInstance *,std::pair<std::string,std::string>>,void *>>>>::~unique_ptr[abi:ne200100](&a28);
   std::pair<OpaqueAudioComponentInstance *,std::pair<std::string,std::string>>::~pair(&a31);
@@ -4159,7 +4121,7 @@ void sub_2398958F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void STSSetSoundStageParameters(uint64_t a1, __CFString *a2)
 {
   v2 = a2;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
     getkFigSTSLabel_Global();
@@ -4207,18 +4169,18 @@ void STSSetSoundStageParameters(uint64_t a1, __CFString *a2)
 
       if (*(v10 + 71) < 0)
       {
-        std::string::__init_copy_ctor_external(&v15, v10[6], v10[7]);
+        std::string::__init_copy_ctor_external(&v14, v10[6], v10[7]);
       }
 
       else
       {
-        v15 = *(v10 + 2);
+        v14 = *(v10 + 2);
       }
 
-      STS_N::SetSoundStageParametersUnderLock(v5, &v15, a1);
-      if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+      STS_N::SetSoundStageParametersUnderLock(v5, &v14, a1);
+      if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v15.__r_.__value_.__l.__data_);
+        operator delete(v14.__r_.__value_.__l.__data_);
       }
 
       v8 = 1;
@@ -4234,14 +4196,13 @@ LABEL_21:
     CStringPtr = CFStringGetCStringPtr(v2, 0x8000100u);
     std::string::basic_string[abi:ne200100]<0>(__p, CStringPtr);
     STS_N::SetSoundStageParametersUnderLock(v5, __p, a1);
-    if (v14 < 0)
+    if (v13 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
   os_unfair_lock_unlock(v5);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_239895B58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
@@ -4258,7 +4219,7 @@ void sub_239895B58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void STSSetRoomConfigurationDictionary(void *a1, void *a2)
 {
   v2 = a2;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
     getkFigSTSLabel_Global();
@@ -4268,16 +4229,15 @@ void STSSetRoomConfigurationDictionary(void *a1, void *a2)
   v5 = STS_N_Log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
-    v9 = v2;
-    v10 = 2112;
-    v11 = a1;
-    _os_log_impl(&dword_23988E000, v5, OS_LOG_TYPE_DEFAULT, "STSSetRoomConfigurationDictionary with label=%@, config=%@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v2;
+    v9 = 2112;
+    v10 = a1;
+    _os_log_impl(&dword_23988E000, v5, OS_LOG_TYPE_DEFAULT, "STSSetRoomConfigurationDictionary with label=%@, config=%@", &v7, 0x16u);
   }
 
   v6 = CADeprecated::TSingleton<STS_N>::instance();
   STS_N::SetPropertyForLabel(v6, 0, v2, @"RoomConfiguration", a1);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t STSAddForcedReconfigurationCallback(void *a1, void *a2)
@@ -4328,31 +4288,25 @@ uint64_t STSTrackedLabelCount()
 
 char *STSSoundStageController::SoundStageSizeToString(unsigned int a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  if (a1 >= 6)
+  v10 = *MEMORY[0x277D85DE8];
+  if (a1 < 6)
   {
-    v3 = STSSoundStageControllerLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      v5 = 136315650;
-      v6 = "STSSoundStageController.mm";
-      v7 = 1024;
-      v8 = 29;
-      v9 = 1024;
-      v10 = a1;
-      _os_log_impl(&dword_23988E000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d SoundStageSizeToString failed to find string for input SoundStageSize of value: %u. Returning emtpy string", &v5, 0x18u);
-    }
-
-    result = &unk_23989BF89;
+    return off_278AA47A8[a1];
   }
 
-  else
+  v3 = STSSoundStageControllerLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    result = off_278AA47A8[a1];
+    v4 = 136315650;
+    v5 = "STSSoundStageController.mm";
+    v6 = 1024;
+    v7 = 29;
+    v8 = 1024;
+    v9 = a1;
+    _os_log_impl(&dword_23988E000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d SoundStageSizeToString failed to find string for input SoundStageSize of value: %u. Returning emtpy string", &v4, 0x18u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return &unk_23989BF89;
 }
 
 id STSSoundStageControllerLog(void)
@@ -4372,68 +4326,68 @@ id STSSoundStageControllerLog(void)
   return v2;
 }
 
-uint64_t STSCreateFlavorN(uint64_t a1)
+uint64_t STSCreateFlavorN(const __CFAllocator *a1, const void *a2, CFTypeRef *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   cf = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v2 = getFigSTSGetClassIDSymbolLoc(void)::ptr;
-  v20 = getFigSTSGetClassIDSymbolLoc(void)::ptr;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v4 = getFigSTSGetClassIDSymbolLoc(void)::ptr;
+  v21 = getFigSTSGetClassIDSymbolLoc(void)::ptr;
   if (!getFigSTSGetClassIDSymbolLoc(void)::ptr)
   {
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = ___ZL28getFigSTSGetClassIDSymbolLocv_block_invoke;
-    v22 = &unk_278AA47E0;
-    v23 = &v17;
-    v3 = MediaExperienceLibrary();
-    v4 = dlsym(v3, "FigSTSGetClassID");
-    *(v23[1] + 24) = v4;
-    getFigSTSGetClassIDSymbolLoc(void)::ptr = *(v23[1] + 24);
-    v2 = v18[3];
+    v23 = &unk_278AA47E0;
+    v24 = &v18;
+    v5 = MediaExperienceLibrary();
+    v6 = dlsym(v5, "FigSTSGetClassID");
+    *(v24[1] + 24) = v6;
+    getFigSTSGetClassIDSymbolLoc(void)::ptr = *(v24[1] + 24);
+    v4 = v19[3];
   }
 
-  _Block_object_dispose(&v17, 8);
-  if (!v2)
+  _Block_object_dispose(&v18, 8);
+  if (!v4)
   {
-    v14 = [MEMORY[0x277CCA890] currentHandler];
-    [v14 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"CMBaseClassID softLink_FigSTSGetClassID()") description:{@"STS_N.mm", 34, @"%s", dlerror()}];
+    v15 = [MEMORY[0x277CCA890] currentHandler];
+    [v15 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"CMBaseClassID softLink_FigSTSGetClassID()") description:{@"STS_N.mm", 34, @"%s", dlerror()}];
     goto LABEL_16;
   }
 
-  v5 = v2();
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v6 = getCMDerivedObjectCreateSymbolLoc(void)::ptr;
-  v20 = getCMDerivedObjectCreateSymbolLoc(void)::ptr;
+  v7 = v4();
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v8 = getCMDerivedObjectCreateSymbolLoc(void)::ptr;
+  v21 = getCMDerivedObjectCreateSymbolLoc(void)::ptr;
   if (!getCMDerivedObjectCreateSymbolLoc(void)::ptr)
   {
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = ___ZL33getCMDerivedObjectCreateSymbolLocv_block_invoke;
-    v22 = &unk_278AA47E0;
-    v23 = &v17;
-    v7 = CoreMediaLibrary();
-    v8 = dlsym(v7, "CMDerivedObjectCreate");
-    *(v23[1] + 24) = v8;
-    getCMDerivedObjectCreateSymbolLoc(void)::ptr = *(v23[1] + 24);
-    v6 = v18[3];
+    v23 = &unk_278AA47E0;
+    v24 = &v18;
+    v9 = CoreMediaLibrary();
+    v10 = dlsym(v9, "CMDerivedObjectCreate");
+    *(v24[1] + 24) = v10;
+    getCMDerivedObjectCreateSymbolLoc(void)::ptr = *(v24[1] + 24);
+    v8 = v19[3];
   }
 
-  _Block_object_dispose(&v17, 8);
-  if (!v6)
+  _Block_object_dispose(&v18, 8);
+  if (!v8)
   {
-    v15 = [MEMORY[0x277CCA890] currentHandler];
-    [v15 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"OSStatus softLink_CMDerivedObjectCreate(CFAllocatorRef description:{const CMBaseVTable *, CMBaseClassID, CMBaseObjectRef *)"), @"STS_N.mm", 29, @"%s", dlerror()}];
+    v16 = [MEMORY[0x277CCA890] currentHandler];
+    [v16 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"OSStatus softLink_CMDerivedObjectCreate(CFAllocatorRef description:{const CMBaseVTable *, CMBaseClassID, CMBaseObjectRef *)"), @"STS_N.mm", 29, @"%s", dlerror()}];
 LABEL_16:
     __break(1u);
   }
 
-  v9 = v6(a1, &kSTS_N_VTable, v5, &cf);
-  if (!v9)
+  v11 = v8(a1, &kSTS_N_VTable, v7, &cf);
+  if (!v11)
   {
     DerivedStorage = softLink_CMBaseObjectGetDerivedStorage(cf);
     *DerivedStorage = 0;
@@ -4441,16 +4395,16 @@ LABEL_16:
     operator new();
   }
 
-  v10 = STS_N_Log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v12 = STS_N_Log();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
     *&buf[4] = "STSCreateFlavorN";
     *&buf[12] = 1024;
     *&buf[14] = 632;
     *&buf[18] = 1024;
-    *&buf[20] = v9;
-    _os_log_error_impl(&dword_23988E000, v10, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
+    *&buf[20] = v11;
+    _os_log_error_impl(&dword_23988E000, v12, OS_LOG_TYPE_ERROR, "%s:%d error: %d", buf, 0x18u);
   }
 
   if (cf)
@@ -4458,8 +4412,7 @@ LABEL_16:
     CFRelease(cf);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v11;
 }
 
 void sub_239896490(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
@@ -4480,17 +4433,17 @@ void *___ZL28getFigSTSGetClassIDSymbolLocv_block_invoke(uint64_t a1)
 
 void *MediaExperienceLibrary(void)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!MediaExperienceLibraryCore(char **)::frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = ___ZL26MediaExperienceLibraryCorePPc_block_invoke_72;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_278AA4838;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = ___ZL26MediaExperienceLibraryCorePPc_block_invoke_72;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_278AA4838;
+    v6 = 0;
     MediaExperienceLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
   }
 
@@ -4498,20 +4451,19 @@ void *MediaExperienceLibrary(void)
   if (!MediaExperienceLibraryCore(char **)::frameworkLibrary)
   {
     v0 = [MEMORY[0x277CCA890] currentHandler];
-    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *MediaExperienceLibrary()"];
-    v1 = [v0 handleFailureInFunction:v4 file:@"STS_N.mm" lineNumber:33 description:{@"%s", v5[0]}];
+    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *MediaExperienceLibrary()"];
+    v1 = [v0 handleFailureInFunction:v3 file:@"STS_N.mm" lineNumber:33 description:{@"%s", v4[0]}];
     __break(1u);
     goto LABEL_7;
   }
 
-  v1 = v5[0];
-  if (v5[0])
+  v1 = v4[0];
+  if (v4[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
@@ -4526,17 +4478,17 @@ void *___ZL33getCMDerivedObjectCreateSymbolLocv_block_invoke(uint64_t a1)
 
 void *CoreMediaLibrary(void)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!CoreMediaLibraryCore(char **)::frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = ___ZL20CoreMediaLibraryCorePPc_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_278AA4800;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = ___ZL20CoreMediaLibraryCorePPc_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_278AA4800;
+    v6 = 0;
     CoreMediaLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
   }
 
@@ -4544,24 +4496,23 @@ void *CoreMediaLibrary(void)
   if (!CoreMediaLibraryCore(char **)::frameworkLibrary)
   {
     v0 = [MEMORY[0x277CCA890] currentHandler];
-    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *CoreMediaLibrary()"];
-    v1 = [v0 handleFailureInFunction:v4 file:@"STS_N.mm" lineNumber:27 description:{@"%s", v5[0]}];
+    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *CoreMediaLibrary()"];
+    v1 = [v0 handleFailureInFunction:v3 file:@"STS_N.mm" lineNumber:27 description:{@"%s", v4[0]}];
     __break(1u);
     goto LABEL_7;
   }
 
-  v1 = v5[0];
-  if (v5[0])
+  v1 = v4[0];
+  if (v4[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
-uint64_t softLink_CMBaseObjectGetDerivedStorage(uint64_t a1)
+void *softLink_CMBaseObjectGetDerivedStorage(uint64_t a1)
 {
   v6 = 0;
   v7 = &v6;
@@ -4588,9 +4539,9 @@ uint64_t softLink_CMBaseObjectGetDerivedStorage(uint64_t a1)
   return result;
 }
 
-void sub_239896924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_239896924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4605,7 +4556,7 @@ void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak
   }
 }
 
-uint64_t getkFigSTSFlavor_N(void)
+void *getkFigSTSFlavor_N(void)
 {
   v4 = 0;
   v5 = &v4;
@@ -4632,9 +4583,9 @@ uint64_t getkFigSTSFlavor_N(void)
   return result;
 }
 
-void sub_239896AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_239896AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4741,23 +4692,20 @@ void *___ZL41getCMBaseObjectGetDerivedStorageSymbolLocv_block_invoke(uint64_t a1
 
 uint64_t ___ZL20CoreMediaLibraryCorePPc_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreMediaLibraryCore(char **)::frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t STS_N_CopyShmem(uint64_t a1, const void *a2, void *a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v6 = *softLink_CMBaseObjectGetDerivedStorage(a1);
   os_unfair_lock_lock(v6);
   if (!a2)
   {
-    v20 = STS_N_Log();
-    if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v17 = STS_N_Log();
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_21;
     }
@@ -4766,9 +4714,9 @@ uint64_t STS_N_CopyShmem(uint64_t a1, const void *a2, void *a3)
     *(buf.__r_.__value_.__r.__words + 4) = "STS_N_CopyShmem";
     WORD2(buf.__r_.__value_.__r.__words[1]) = 1024;
     *(&buf.__r_.__value_.__r.__words[1] + 6) = 455;
-    v21 = v20;
+    v18 = v17;
 LABEL_43:
-    _os_log_error_impl(&dword_23988E000, v21, OS_LOG_TYPE_ERROR, "%s:%d error", &buf, 0x12u);
+    _os_log_error_impl(&dword_23988E000, v18, OS_LOG_TYPE_ERROR, "%s:%d error", &buf, 0x12u);
     goto LABEL_21;
   }
 
@@ -4788,7 +4736,7 @@ LABEL_43:
     if (!CFEqual(a2, @"SharedStorage"))
     {
       v13 = 0;
-      v22 = 4294951299;
+      v19 = 4294951299;
 LABEL_49:
       *a3 = v13;
       goto LABEL_50;
@@ -4809,12 +4757,12 @@ LABEL_49:
     v12 = *(v6 + 32);
     if (!v12)
     {
-      v23 = mmap(0, v11, 3, 4097, -1, 0);
-      *(v6 + 32) = v23;
-      if (!v23)
+      v20 = mmap(0, v11, 3, 4097, -1, 0);
+      *(v6 + 32) = v20;
+      if (!v20)
       {
-        v34 = STS_N_Log();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v31 = STS_N_Log();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
           *(buf.__r_.__value_.__r.__words + 4) = "STS_N_CopyShmem";
@@ -4826,63 +4774,63 @@ LABEL_49:
         goto LABEL_41;
       }
 
-      bzero(v23, v11);
-      v24 = *(v6 + 32);
-      bzero(v24, 0xE970uLL);
-      *v24 = -1;
-      v25 = v24 + 14;
-      v26 = 336;
+      bzero(v20, v11);
+      v21 = *(v6 + 32);
+      bzero(v21, 0xE970uLL);
+      *v21 = -1;
+      v22 = v21 + 14;
+      v23 = 336;
       do
       {
-        *(v25 - 96) = 0;
-        *v25 = 0;
-        v25 += 112;
-        v26 -= 112;
+        *(v22 - 96) = 0;
+        *v22 = 0;
+        v22 += 112;
+        v23 -= 112;
       }
 
-      while (v26);
-      v27 = 0;
-      v24[44] = 0;
-      v28 = v24 + 48;
+      while (v23);
+      v24 = 0;
+      v21[44] = 0;
+      v25 = v21 + 48;
       do
       {
-        v24[v27 + 46] = 0xFFFFFFFFLL;
-        v29 = v28;
-        v30 = 912;
+        v21[v24 + 46] = 0xFFFFFFFFLL;
+        v26 = v25;
+        v27 = 912;
         do
         {
-          *v29 = 0;
-          v29[288] = 0;
-          v29 += 304;
-          v30 -= 304;
+          *v26 = 0;
+          v26[288] = 0;
+          v26 += 304;
+          v27 -= 304;
         }
 
-        while (v30);
-        v27 += 116;
-        v28 += 928;
+        while (v27);
+        v24 += 116;
+        v25 += 928;
       }
 
-      while (v27 != 7424);
-      v31 = STS_N_Log();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      while (v24 != 7424);
+      v28 = STS_N_Log();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = *v9;
-        v33 = [MEMORY[0x277CBA620] maxNumberOfPerLabelStates];
+        v29 = *v9;
+        v30 = [MEMORY[0x277CBA620] maxNumberOfPerLabelStates];
         LODWORD(buf.__r_.__value_.__l.__data_) = 134219520;
         *(buf.__r_.__value_.__r.__words + 4) = a1;
         WORD2(buf.__r_.__value_.__r.__words[1]) = 2048;
         *(&buf.__r_.__value_.__r.__words[1] + 6) = v11;
         HIWORD(buf.__r_.__value_.__r.__words[2]) = 2048;
-        v41 = v11 / v32;
-        *v42 = 2048;
-        *&v42[2] = v32;
+        v37 = v11 / v29;
+        *v38 = 2048;
+        *&v38[2] = v29;
+        v39 = 2048;
+        v40 = v21;
+        v41 = 2048;
+        v42 = 59760;
         v43 = 2048;
-        v44 = v24;
-        v45 = 2048;
-        v46 = 59760;
-        v47 = 2048;
-        v48 = v33;
-        _os_log_impl(&dword_23988E000, v31, OS_LOG_TYPE_DEFAULT, "sts %p created %zd-byte (%lu pages of %zd bytes each) sharedMemoryRegion %p to cover storage of size %zd bytes with a capacity for %zu labels", &buf, 0x48u);
+        v44 = v30;
+        _os_log_impl(&dword_23988E000, v28, OS_LOG_TYPE_DEFAULT, "sts %p created %zd-byte (%lu pages of %zd bytes each) sharedMemoryRegion %p to cover storage of size %zd bytes with a capacity for %zu labels", &buf, 0x48u);
       }
     }
 
@@ -4894,21 +4842,18 @@ LABEL_49:
       {
         xpc_dictionary_set_value(v13, "sharedstorage", v14);
         xpc_release(v14);
-        v15 = *(v6 + 40);
-        v16 = xpc_mach_send_create();
-        if (v16)
+        v15 = xpc_mach_send_create();
+        if (v15)
         {
-          xpc_dictionary_set_value(v13, "controlsemaphore", v16);
-          xpc_release(v16);
+          xpc_dictionary_set_value(v13, "controlsemaphore", v15);
+          xpc_release(v15);
           xpc_dictionary_set_BOOL(v13, "allowautomaticheadtracking", *(v6 + 49));
           if (!v12)
           {
-            DerivedStorage = softLink_CMBaseObjectGetDerivedStorage(a1);
-            v19 = *DerivedStorage;
-            v18 = DerivedStorage[1];
-            if (v18)
+            v16 = *(softLink_CMBaseObjectGetDerivedStorage(a1) + 1);
+            if (v16)
             {
-              atomic_fetch_add_explicit((v18 + 16), 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit((v16 + 16), 1uLL, memory_order_relaxed);
             }
 
             std::string::basic_string[abi:ne200100]<0>(&__p, "spatial tracking service");
@@ -4922,28 +4867,28 @@ LABEL_49:
               buf = __p;
             }
 
+            LOBYTE(v37) = 1;
+            *v38 = 0x100000037;
+            HIDWORD(v40) = 2;
             LOBYTE(v41) = 1;
-            *v42 = 0x100000037;
-            HIDWORD(v44) = 2;
-            LOBYTE(v45) = 1;
-            *(&v46 + 2) = 1;
-            BYTE6(v46) = 1;
-            if (v18)
+            *(&v42 + 2) = 1;
+            BYTE6(v42) = 1;
+            if (v16)
             {
-              atomic_fetch_add_explicit((v18 + 16), 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit((v16 + 16), 1uLL, memory_order_relaxed);
             }
 
-            v38 = 0;
-            v39 = 0;
+            v34 = 0;
+            v35 = 0;
             operator new();
           }
 
-          v22 = 0;
+          v19 = 0;
           goto LABEL_49;
         }
 
-        v34 = STS_N_Log();
-        if (!os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v31 = STS_N_Log();
+        if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_41;
         }
@@ -4955,8 +4900,8 @@ LABEL_49:
         goto LABEL_40;
       }
 
-      v34 = STS_N_Log();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v31 = STS_N_Log();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
         *(buf.__r_.__value_.__r.__words + 4) = "STS_N_CopyShmem";
@@ -4968,20 +4913,20 @@ LABEL_49:
 
     else
     {
-      v34 = STS_N_Log();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v31 = STS_N_Log();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
         *(buf.__r_.__value_.__r.__words + 4) = "STS_N_CopyShmem";
         WORD2(buf.__r_.__value_.__r.__words[1]) = 1024;
         *(&buf.__r_.__value_.__r.__words[1] + 6) = 482;
 LABEL_40:
-        _os_log_error_impl(&dword_23988E000, v34, OS_LOG_TYPE_ERROR, "%s:%d error", &buf, 0x12u);
+        _os_log_error_impl(&dword_23988E000, v31, OS_LOG_TYPE_ERROR, "%s:%d error", &buf, 0x12u);
       }
     }
 
 LABEL_41:
-    v22 = 4294951305;
+    v19 = 4294951305;
     goto LABEL_50;
   }
 
@@ -4991,16 +4936,15 @@ LABEL_41:
     *(buf.__r_.__value_.__r.__words + 4) = "STS_N_CopyShmem";
     WORD2(buf.__r_.__value_.__r.__words[1]) = 1024;
     *(&buf.__r_.__value_.__r.__words[1] + 6) = 456;
-    v21 = v8;
+    v18 = v8;
     goto LABEL_43;
   }
 
 LABEL_21:
-  v22 = 4294951306;
+  v19 = 4294951306;
 LABEL_50:
   os_unfair_lock_unlock(v6);
-  v35 = *MEMORY[0x277D85DE8];
-  return v22;
+  return v19;
 }
 
 void sub_2398973F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
@@ -5078,13 +5022,13 @@ uint64_t *std::unique_ptr<std::tuple<caulk::thread::attributes,STS_N_CopyShmem(O
 
 void caulk::thread_proxy<std::tuple<caulk::thread::attributes,STS_N_CopyShmem(OpaqueFigSTS *,__CFString const*,NSObject  {objcproto13OS_xpc_object}**)::$_0,std::tuple<>>>(caulk::thread::attributes *a1)
 {
-  v178 = *MEMORY[0x277D85DE8];
-  v162 = a1;
+  v176 = *MEMORY[0x277D85DE8];
+  v160 = a1;
   caulk::thread::attributes::apply_to_this_thread(a1);
-  v1 = v162;
+  v1 = v160;
   *&v2 = 136315650;
-  v153 = v2;
-  v159 = v162;
+  v151 = v2;
+  v157 = v160;
   while (1)
   {
     v3 = *(v1 + 80);
@@ -5092,11 +5036,11 @@ void caulk::thread_proxy<std::tuple<caulk::thread::attributes,STS_N_CopyShmem(Op
     {
       v5 = 0;
 LABEL_307:
-      v150 = STS_N_Log();
-      if (os_log_type_enabled(v150, OS_LOG_TYPE_DEFAULT))
+      v149 = STS_N_Log();
+      if (os_log_type_enabled(v149, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_23988E000, v150, OS_LOG_TYPE_DEFAULT, "exiting spatial tracking service update thread because storage destructed", buf, 2u);
+        _os_log_impl(&dword_23988E000, v149, OS_LOG_TYPE_DEFAULT, "exiting spatial tracking service update thread because storage destructed", buf, 2u);
       }
 
       if (v5)
@@ -5131,12 +5075,12 @@ LABEL_307:
 
     if (v8)
     {
-      v152 = STS_N_Log();
-      if (os_log_type_enabled(v152, OS_LOG_TYPE_ERROR))
+      v150 = STS_N_Log();
+      if (os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
         *&buf[4] = v9;
-        _os_log_error_impl(&dword_23988E000, v152, OS_LOG_TYPE_ERROR, "exiting spatial tracking service update thread because wait returned %d", buf, 8u);
+        _os_log_error_impl(&dword_23988E000, v150, OS_LOG_TYPE_ERROR, "exiting spatial tracking service update thread because wait returned %d", buf, 8u);
       }
 
       goto LABEL_311;
@@ -5169,13 +5113,13 @@ LABEL_14:
       goto LABEL_14;
     }
 
-    v12 = *(v159 + 72);
+    v12 = *(v157 + 72);
     if (!v12)
     {
       goto LABEL_14;
     }
 
-    v160 = *(v159 + 64);
+    v158 = *(v157 + 64);
     os_unfair_lock_lock(v12);
     v13 = *(v12 + 32);
     if (!v13)
@@ -5185,7 +5129,7 @@ LABEL_14:
 
     v14 = atomic_load(v13);
     v15 = HIWORD(v14);
-    v157 = v11;
+    v155 = v11;
     if (HIWORD(v14) == 0xFFFF)
     {
       LOWORD(v16) = v14;
@@ -5201,19 +5145,19 @@ LABEL_23:
         v19 = 0;
         v20 = 0;
         v21 = *(MEMORY[0x277D860B8] + 16);
-        *v169 = *MEMORY[0x277D860B8];
-        *&v169[16] = v21;
+        *v167 = *MEMORY[0x277D860B8];
+        *&v167[16] = v21;
         v22 = *(MEMORY[0x277D860B8] + 48);
-        v170 = *(MEMORY[0x277D860B8] + 32);
-        v171 = v22;
+        v168 = *(MEMORY[0x277D860B8] + 32);
+        v169 = v22;
 LABEL_34:
         v27 = CADeprecated::TSingleton<STS_N>::instance();
         *buf = v20;
         *&buf[8] = v19;
-        v173 = *v169;
-        v174 = *&v169[16];
-        v175 = v170;
-        v176 = v171;
+        v171 = *v167;
+        v172 = *&v167[16];
+        v173 = v168;
+        v174 = v169;
         STS_N::UpdateGlobalState(v27, buf);
         goto LABEL_39;
       }
@@ -5266,10 +5210,10 @@ LABEL_34:
 
       v20 = *(v23 + 4);
       v19 = *(v23 + 5);
-      *v169 = *(v23 + 3);
-      *&v169[16] = *(v23 + 4);
-      v170 = *(v23 + 5);
-      v171 = *(v23 + 6);
+      *v167 = *(v23 + 3);
+      *&v167[16] = *(v23 + 4);
+      v168 = *(v23 + 5);
+      v169 = *(v23 + 6);
       goto LABEL_34;
     }
 
@@ -5285,17 +5229,17 @@ LABEL_34:
 
     *(v12 + 24) = *(v23 + 2);
     v29 = CADeprecated::TSingleton<STS_N>::instance();
-    v173 = *(v23 + 3);
-    v174 = *(v23 + 4);
-    v175 = *(v23 + 5);
-    v176 = *(v23 + 6);
+    v171 = *(v23 + 3);
+    v172 = *(v23 + 4);
+    v173 = *(v23 + 5);
+    v174 = *(v23 + 6);
     *buf = *(v23 + 2);
     STS_N::UpdateGlobalState(v29, buf);
 LABEL_39:
     v30 = *(v12 + 80);
     *buf = 0u;
-    v173 = 0u;
-    LODWORD(v174) = 1065353216;
+    v171 = 0u;
+    LODWORD(v172) = 1065353216;
     std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__rehash<true>(buf, v30);
     v31 = *(v12 + 72);
     if (!v31)
@@ -5307,28 +5251,28 @@ LABEL_39:
     {
       if (*(v31 + 39) < 0)
       {
-        std::string::__init_copy_ctor_external(v169, v31[2], v31[3]);
+        std::string::__init_copy_ctor_external(v167, v31[2], v31[3]);
       }
 
       else
       {
-        *v169 = *(v31 + 1);
-        *&v169[16] = v31[4];
+        *v167 = *(v31 + 1);
+        *&v167[16] = v31[4];
       }
 
-      *&v169[24] = v31[5];
-      v32 = v169[23];
-      if ((v169[23] & 0x80000000) != 0)
+      *&v167[24] = v31[5];
+      v32 = v167[23];
+      if ((v167[23] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(&v177, *v169, *&v169[8]);
+        std::string::__init_copy_ctor_external(&v175, *v167, *&v167[8]);
       }
 
       else
       {
-        v177 = *v169;
+        v175 = *v167;
       }
 
-      v33 = std::__string_hash<char>::operator()[abi:ne200100](&v177);
+      v33 = std::__string_hash<char>::operator()[abi:ne200100](&v175);
       v34 = v33;
       v35 = *&buf[8];
       if (!*&buf[8])
@@ -5394,19 +5338,19 @@ LABEL_61:
         }
       }
 
-      if (!std::equal_to<std::string>::operator()[abi:ne200100](v40 + 2, &v177))
+      if (!std::equal_to<std::string>::operator()[abi:ne200100](v40 + 2, &v175))
       {
         goto LABEL_61;
       }
 
-      if (SHIBYTE(v177.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v175.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v177.__r_.__value_.__l.__data_);
+        operator delete(v175.__r_.__value_.__l.__data_);
       }
 
       if (v32 < 0)
       {
-        operator delete(*v169);
+        operator delete(*v167);
       }
 
       v31 = *v31;
@@ -5416,10 +5360,10 @@ LABEL_61:
 LABEL_69:
     v42 = 0;
     v43 = atomic_load((*(v12 + 32) + 352));
-    v44 = 0x9DDFEA08EB382D69 * ((8 * (v160 & 0x1FFFFFFF) + 8) ^ HIDWORD(v160));
-    v45 = 0x9DDFEA08EB382D69 * (HIDWORD(v160) ^ (v44 >> 47) ^ v44);
-    v158 = 0x9DDFEA08EB382D69 * (v45 ^ (v45 >> 47));
-    v156 = v43;
+    v44 = 0x9DDFEA08EB382D69 * ((8 * (v158 & 0x1FFFFFFF) + 8) ^ HIDWORD(v158));
+    v45 = 0x9DDFEA08EB382D69 * (HIDWORD(v158) ^ (v44 >> 47) ^ v44);
+    v156 = 0x9DDFEA08EB382D69 * (v45 ^ (v45 >> 47));
+    v154 = v43;
     while (v42 < [MEMORY[0x277CBA620] maxNumberOfPerLabelStates])
     {
       if (v42 > 0x3F || ((v43 >> v42) & 1) == 0)
@@ -5469,7 +5413,7 @@ LABEL_78:
 
       if (*(v50 + 2))
       {
-        v161 = v50 + 4;
+        v159 = v50 + 4;
         v51 = v50 + 6;
         std::string::basic_string[abi:ne200100]<0>(__p, v50 + 24);
         v52 = std::__string_hash<char>::operator()[abi:ne200100](__p);
@@ -5531,7 +5475,7 @@ LABEL_78:
                     }
 
                     while (v64 != v60);
-                    if (v65 == &v173)
+                    if (v65 == &v171)
                     {
                       goto LABEL_116;
                     }
@@ -5605,7 +5549,7 @@ LABEL_117:
 
                     *v65 = v68;
                     *v60 = 0;
-                    --*(&v173 + 1);
+                    --*(&v171 + 1);
                     std::__hash_node_destructor<std::allocator<std::__hash_node<std::string,void *>>>::operator()[abi:ne200100](1, v60);
                     break;
                   }
@@ -5643,11 +5587,11 @@ LABEL_117:
         v70 = std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>>>::find<std::string>((v12 + 56), __p);
         if (!v70)
         {
-          v74 = *v161;
+          v74 = *v159;
           v75 = std::__string_hash<char>::operator()[abi:ne200100](__p);
           v76 = v75;
           v77 = *(v12 + 64);
-          v11 = v157;
+          v11 = v155;
           if (!*&v77)
           {
             goto LABEL_148;
@@ -5720,32 +5664,32 @@ LABEL_148:
 
         v71 = v70;
         v72 = v70[5];
-        v11 = v157;
-        if (*v161 != v72)
+        v11 = v155;
+        if (*v159 != v72)
         {
-          if (*v161 < v72)
+          if (*v159 < v72)
           {
             v73 = STS_N_Log();
             if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
             {
-              *v169 = 136315138;
-              *&v169[4] = v51;
-              _os_log_impl(&dword_23988E000, v73, OS_LOG_TYPE_DEFAULT, "label %s cycled state generations", v169, 0xCu);
+              *v167 = 136315138;
+              *&v167[4] = v51;
+              _os_log_impl(&dword_23988E000, v73, OS_LOG_TYPE_DEFAULT, "label %s cycled state generations", v167, 0xCu);
             }
           }
 
-          v71[5] = *v161;
+          v71[5] = *v159;
 LABEL_149:
           v84 = CADeprecated::TSingleton<STS_N>::instance();
-          v85 = *(v161 + 272);
+          v85 = *(v159 + 272);
           *inValue = 0;
-          v168 = v160;
-          v166 = 0.0;
-          STS_N_CalculateAngularOrientationFromTransform((v161 + 48), inValue, &inValue[1], &v166);
+          v166 = v158;
+          v164 = 0.0;
+          STS_N_CalculateAngularOrientationFromTransform((v159 + 48), inValue, &inValue[1], &v164);
           os_unfair_lock_lock(v84);
           v86 = STS_N::InfoForLabel(v84, __p);
           v87 = v86;
-          if (v160)
+          if (v158)
           {
             v88 = *(v86 + 32);
             if (v88)
@@ -5754,16 +5698,16 @@ LABEL_149:
               v89.i16[0] = vaddlv_u8(v89);
               if (v89.u32[0] > 1uLL)
               {
-                v90 = v158;
-                if (v158 >= *&v88)
+                v90 = v156;
+                if (v156 >= *&v88)
                 {
-                  v90 = v158 % *&v88;
+                  v90 = v156 % *&v88;
                 }
               }
 
               else
               {
-                v90 = v158 & (*&v88 - 1);
+                v90 = v156 & (*&v88 - 1);
               }
 
               v91 = *(*(v86 + 24) + 8 * v90);
@@ -5772,9 +5716,9 @@ LABEL_149:
                 for (i = *v91; i; i = *i)
                 {
                   v93 = i[1];
-                  if (v158 == v93)
+                  if (v156 == v93)
                   {
-                    if (i[2] == v160)
+                    if (i[2] == v158)
                     {
                       goto LABEL_171;
                     }
@@ -5804,22 +5748,22 @@ LABEL_149:
               }
             }
 
-            std::__hash_table<OpaqueFigSTS *,std::hash<OpaqueFigSTS *>,std::equal_to<OpaqueFigSTS *>,std::allocator<OpaqueFigSTS *>>::__emplace_unique_key_args<OpaqueFigSTS *,OpaqueFigSTS * const&>((v86 + 24), v160);
-            if (SHIBYTE(v164) < 0)
+            std::__hash_table<OpaqueFigSTS *,std::hash<OpaqueFigSTS *>,std::equal_to<OpaqueFigSTS *>,std::allocator<OpaqueFigSTS *>>::__emplace_unique_key_args<OpaqueFigSTS *,OpaqueFigSTS * const&>((v86 + 24), v158, &v166);
+            if (SHIBYTE(v162) < 0)
             {
-              std::string::__init_copy_ctor_external(v169, __p[0], __p[1]);
+              std::string::__init_copy_ctor_external(v167, __p[0], __p[1]);
             }
 
             else
             {
-              *v169 = *__p;
-              *&v169[16] = v164;
+              *v167 = *__p;
+              *&v167[16] = v162;
             }
 
-            STS_N::LabelValidityDidChange(v84, v169);
-            if ((v169[23] & 0x80000000) != 0)
+            STS_N::LabelValidityDidChange(v84, v167);
+            if ((v167[23] & 0x80000000) != 0)
             {
-              operator delete(*v169);
+              operator delete(*v167);
             }
           }
 
@@ -5833,13 +5777,13 @@ LABEL_171:
               if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
               {
                 v96 = __p;
-                if (v164 < 0)
+                if (v162 < 0)
                 {
                   v96 = __p[0];
                 }
 
-                LODWORD(v177.__r_.__value_.__l.__data_) = 136315138;
-                *(v177.__r_.__value_.__r.__words + 4) = v96;
+                LODWORD(v175.__r_.__value_.__l.__data_) = 136315138;
+                *(v175.__r_.__value_.__r.__words + 4) = v96;
                 v97 = v95;
                 v98 = "STSLabel %s is no longer deferring to system tuning";
                 goto LABEL_182;
@@ -5855,28 +5799,28 @@ LABEL_171:
             if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
             {
               v99 = __p;
-              if (v164 < 0)
+              if (v162 < 0)
               {
                 v99 = __p[0];
               }
 
-              LODWORD(v177.__r_.__value_.__l.__data_) = 136315138;
-              *(v177.__r_.__value_.__r.__words + 4) = v99;
+              LODWORD(v175.__r_.__value_.__l.__data_) = 136315138;
+              *(v175.__r_.__value_.__r.__words + 4) = v99;
               v97 = v95;
               v98 = "STSLabel %s is deferring to system tuning";
 LABEL_182:
-              _os_log_impl(&dword_23988E000, v97, OS_LOG_TYPE_DEFAULT, v98, &v177, 0xCu);
+              _os_log_impl(&dword_23988E000, v97, OS_LOG_TYPE_DEFAULT, v98, &v175, 0xCu);
             }
 
 LABEL_183:
           }
 
           v100 = *(v87 + 240);
-          *(v87 + 160) = *(v161 + 12);
-          v101 = *(v161 + 16);
-          v103 = *(v161 + 13);
-          v102 = *(v161 + 14);
-          *(v87 + 208) = *(v161 + 15);
+          *(v87 + 160) = *(v159 + 12);
+          v101 = *(v159 + 16);
+          v103 = *(v159 + 13);
+          v102 = *(v159 + 14);
+          *(v87 + 208) = *(v159 + 15);
           *(v87 + 224) = v101;
           *(v87 + 176) = v103;
           *(v87 + 192) = v102;
@@ -5890,80 +5834,79 @@ LABEL_183:
           {
             [*(v87 + 144) fireAll];
             STS_N::ApplyStoredPerLabelStateToSpatializers(v84, v87, 0);
-            v104 = *(v87 + 124);
             STS_N::SetSoundStageTransitionDurationOnSpatializers(v87);
             STS_N::SetSoundStageSizeOnSpatializers(v87, *(v87 + 136));
           }
 
-          v105 = *(v87 + 116);
-          if (v105 == 20)
+          v104 = *(v87 + 116);
+          if (v104 == 20)
           {
-            inData = v161 + 64;
-            v155 = v161[64] == 1;
+            inData = v159 + 64;
+            v153 = v159[64] == 1;
           }
 
           else
           {
             if ((*(v87 + 152) & 1) != 0 || *(v87 + 240) != 1)
             {
-              v120 = 3;
+              v119 = 3;
             }
 
             else
             {
-              v120 = *(v87 + 224);
+              v119 = *(v87 + 224);
             }
 
-            inData = v161 + 64;
-            v155 = v120 == v161[64];
-            if (!v105 && (*(v84 + 176) & 1) != 0)
+            inData = v159 + 64;
+            v153 = v119 == v159[64];
+            if (!v104 && (*(v84 + 176) & 1) != 0)
             {
-              v121 = vsubq_f32(*(v161 + 15), *(v84 + 160));
-              v165[0] = v121.i32[0];
-              *&v165[1] = -v121.f32[2];
-              v165[2] = v121.i32[1];
-              v122 = *(v87 + 80);
-              if (v122)
+              v120 = vsubq_f32(*(v159 + 15), *(v84 + 160));
+              v163[0] = v120.i32[0];
+              *&v163[1] = -v120.f32[2];
+              v163[2] = v120.i32[1];
+              v121 = *(v87 + 80);
+              if (v121)
               {
-                while (*(v122 + 24) != 1)
+                while (*(v121 + 24) != 1)
                 {
-                  v122 = *v122;
-                  if (!v122)
+                  v121 = *v121;
+                  if (!v121)
                   {
                     goto LABEL_190;
                   }
                 }
 
-                v123 = v105;
+                v122 = v104;
                 while (1)
                 {
-                  v124 = AudioUnitSetProperty(v122[2], 0xC2Bu, 0, 0, v165, 0xCu);
-                  if (v124)
+                  v123 = AudioUnitSetProperty(v121[2], 0xC2Bu, 0, 0, v163, 0xCu);
+                  if (v123)
                   {
-                    v125 = STS_N_Log();
-                    if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
+                    v124 = STS_N_Log();
+                    if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
                     {
-                      LODWORD(v177.__r_.__value_.__l.__data_) = v153;
-                      *(v177.__r_.__value_.__r.__words + 4) = "UpdateLabelState";
-                      WORD2(v177.__r_.__value_.__r.__words[1]) = 1024;
-                      *(&v177.__r_.__value_.__r.__words[1] + 6) = 280;
-                      WORD1(v177.__r_.__value_.__r.__words[2]) = 1024;
-                      HIDWORD(v177.__r_.__value_.__r.__words[2]) = v124;
-                      _os_log_error_impl(&dword_23988E000, v125, OS_LOG_TYPE_ERROR, "%s:%d error: %d", &v177, 0x18u);
+                      LODWORD(v175.__r_.__value_.__l.__data_) = v151;
+                      *(v175.__r_.__value_.__r.__words + 4) = "UpdateLabelState";
+                      WORD2(v175.__r_.__value_.__r.__words[1]) = 1024;
+                      *(&v175.__r_.__value_.__r.__words[1] + 6) = 280;
+                      WORD1(v175.__r_.__value_.__r.__words[2]) = 1024;
+                      HIDWORD(v175.__r_.__value_.__r.__words[2]) = v123;
+                      _os_log_error_impl(&dword_23988E000, v124, OS_LOG_TYPE_ERROR, "%s:%d error: %d", &v175, 0x18u);
                     }
                   }
 
-                  v122 = *v122;
-                  v105 = v123;
-                  if (!v122)
+                  v121 = *v121;
+                  v104 = v122;
+                  if (!v121)
                   {
                     break;
                   }
 
-                  while ((v122[3] & 1) == 0)
+                  while ((v121[3] & 1) == 0)
                   {
-                    v122 = *v122;
-                    if (!v122)
+                    v121 = *v121;
+                    if (!v121)
                     {
                       goto LABEL_190;
                     }
@@ -5974,13 +5917,13 @@ LABEL_183:
           }
 
 LABEL_190:
-          v106 = *(v87 + 80);
-          if (v106)
+          v105 = *(v87 + 80);
+          if (v105)
           {
-            while ((v106[3] & 1) == 0)
+            while ((v105[3] & 1) == 0)
             {
-              v106 = *v106;
-              if (!v106)
+              v105 = *v105;
+              if (!v105)
               {
                 goto LABEL_193;
               }
@@ -5988,123 +5931,123 @@ LABEL_190:
 
             while (1)
             {
-              v107 = v105;
-              if (!v105)
+              v106 = v104;
+              if (!v104)
               {
-                v108 = AudioUnitSetParameter(v106[2], 0x16u, 1u, 0, inValue[0], 0);
-                if (v108)
+                v107 = AudioUnitSetParameter(v105[2], 0x16u, 1u, 0, inValue[0], 0);
+                if (v107)
                 {
-                  v109 = STS_N_Log();
-                  if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
+                  v108 = STS_N_Log();
+                  if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
                   {
-                    LODWORD(v177.__r_.__value_.__l.__data_) = v153;
-                    *(v177.__r_.__value_.__r.__words + 4) = "UpdateLabelState";
-                    WORD2(v177.__r_.__value_.__r.__words[1]) = 1024;
-                    *(&v177.__r_.__value_.__r.__words[1] + 6) = 288;
-                    WORD1(v177.__r_.__value_.__r.__words[2]) = 1024;
-                    HIDWORD(v177.__r_.__value_.__r.__words[2]) = v108;
-                    _os_log_error_impl(&dword_23988E000, v109, OS_LOG_TYPE_ERROR, "%s:%d error: %d", &v177, 0x18u);
+                    LODWORD(v175.__r_.__value_.__l.__data_) = v151;
+                    *(v175.__r_.__value_.__r.__words + 4) = "UpdateLabelState";
+                    WORD2(v175.__r_.__value_.__r.__words[1]) = 1024;
+                    *(&v175.__r_.__value_.__r.__words[1] + 6) = 288;
+                    WORD1(v175.__r_.__value_.__r.__words[2]) = 1024;
+                    HIDWORD(v175.__r_.__value_.__r.__words[2]) = v107;
+                    _os_log_error_impl(&dword_23988E000, v108, OS_LOG_TYPE_ERROR, "%s:%d error: %d", &v175, 0x18u);
                   }
                 }
 
-                v110 = AudioUnitSetParameter(v106[2], 0x17u, 1u, 0, inValue[1], 0);
-                if (v110)
+                v109 = AudioUnitSetParameter(v105[2], 0x17u, 1u, 0, inValue[1], 0);
+                if (v109)
                 {
-                  v111 = STS_N_Log();
-                  if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
+                  v110 = STS_N_Log();
+                  if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
                   {
-                    LODWORD(v177.__r_.__value_.__l.__data_) = v153;
-                    *(v177.__r_.__value_.__r.__words + 4) = "UpdateLabelState";
-                    WORD2(v177.__r_.__value_.__r.__words[1]) = 1024;
-                    *(&v177.__r_.__value_.__r.__words[1] + 6) = 289;
-                    WORD1(v177.__r_.__value_.__r.__words[2]) = 1024;
-                    HIDWORD(v177.__r_.__value_.__r.__words[2]) = v110;
-                    _os_log_error_impl(&dword_23988E000, v111, OS_LOG_TYPE_ERROR, "%s:%d error: %d", &v177, 0x18u);
+                    LODWORD(v175.__r_.__value_.__l.__data_) = v151;
+                    *(v175.__r_.__value_.__r.__words + 4) = "UpdateLabelState";
+                    WORD2(v175.__r_.__value_.__r.__words[1]) = 1024;
+                    *(&v175.__r_.__value_.__r.__words[1] + 6) = 289;
+                    WORD1(v175.__r_.__value_.__r.__words[2]) = 1024;
+                    HIDWORD(v175.__r_.__value_.__r.__words[2]) = v109;
+                    _os_log_error_impl(&dword_23988E000, v110, OS_LOG_TYPE_ERROR, "%s:%d error: %d", &v175, 0x18u);
                   }
                 }
 
-                v112 = AudioUnitSetParameter(v106[2], 0x18u, 1u, 0, v166, 0);
-                if (v112)
+                v111 = AudioUnitSetParameter(v105[2], 0x18u, 1u, 0, v164, 0);
+                if (v111)
                 {
-                  v113 = STS_N_Log();
-                  if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
+                  v112 = STS_N_Log();
+                  if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
                   {
-                    LODWORD(v177.__r_.__value_.__l.__data_) = v153;
-                    *(v177.__r_.__value_.__r.__words + 4) = "UpdateLabelState";
-                    WORD2(v177.__r_.__value_.__r.__words[1]) = 1024;
-                    *(&v177.__r_.__value_.__r.__words[1] + 6) = 290;
-                    WORD1(v177.__r_.__value_.__r.__words[2]) = 1024;
-                    HIDWORD(v177.__r_.__value_.__r.__words[2]) = v112;
-                    _os_log_error_impl(&dword_23988E000, v113, OS_LOG_TYPE_ERROR, "%s:%d error: %d", &v177, 0x18u);
+                    LODWORD(v175.__r_.__value_.__l.__data_) = v151;
+                    *(v175.__r_.__value_.__r.__words + 4) = "UpdateLabelState";
+                    WORD2(v175.__r_.__value_.__r.__words[1]) = 1024;
+                    *(&v175.__r_.__value_.__r.__words[1] + 6) = 290;
+                    WORD1(v175.__r_.__value_.__r.__words[2]) = 1024;
+                    HIDWORD(v175.__r_.__value_.__r.__words[2]) = v111;
+                    _os_log_error_impl(&dword_23988E000, v112, OS_LOG_TYPE_ERROR, "%s:%d error: %d", &v175, 0x18u);
                   }
                 }
               }
 
               if ((*(v87 + 152) & 1) == 0)
               {
-                v114 = AudioUnitSetParameter(v106[2], 3u, 1u, 0, *(v161 + 65), 0);
-                if (v114)
+                v113 = AudioUnitSetParameter(v105[2], 3u, 1u, 0, *(v159 + 65), 0);
+                if (v113)
                 {
-                  v115 = STS_N_Log();
-                  if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
+                  v114 = STS_N_Log();
+                  if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
                   {
-                    LODWORD(v177.__r_.__value_.__l.__data_) = v153;
-                    *(v177.__r_.__value_.__r.__words + 4) = "UpdateLabelState";
-                    WORD2(v177.__r_.__value_.__r.__words[1]) = 1024;
-                    *(&v177.__r_.__value_.__r.__words[1] + 6) = 296;
-                    WORD1(v177.__r_.__value_.__r.__words[2]) = 1024;
-                    HIDWORD(v177.__r_.__value_.__r.__words[2]) = v114;
-                    _os_log_error_impl(&dword_23988E000, v115, OS_LOG_TYPE_ERROR, "%s:%d error: %d", &v177, 0x18u);
+                    LODWORD(v175.__r_.__value_.__l.__data_) = v151;
+                    *(v175.__r_.__value_.__r.__words + 4) = "UpdateLabelState";
+                    WORD2(v175.__r_.__value_.__r.__words[1]) = 1024;
+                    *(&v175.__r_.__value_.__r.__words[1] + 6) = 296;
+                    WORD1(v175.__r_.__value_.__r.__words[2]) = 1024;
+                    HIDWORD(v175.__r_.__value_.__r.__words[2]) = v113;
+                    _os_log_error_impl(&dword_23988E000, v114, OS_LOG_TYPE_ERROR, "%s:%d error: %d", &v175, 0x18u);
                   }
                 }
 
-                v116 = AudioUnitSetParameter(v106[2], 0x23u, 1u, 0, *(v161 + 66), 0);
-                if (v116)
+                v115 = AudioUnitSetParameter(v105[2], 0x23u, 1u, 0, *(v159 + 66), 0);
+                if (v115)
                 {
-                  v117 = STS_N_Log();
-                  if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+                  v116 = STS_N_Log();
+                  if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
                   {
-                    LODWORD(v177.__r_.__value_.__l.__data_) = v153;
-                    *(v177.__r_.__value_.__r.__words + 4) = "UpdateLabelState";
-                    WORD2(v177.__r_.__value_.__r.__words[1]) = 1024;
-                    *(&v177.__r_.__value_.__r.__words[1] + 6) = 299;
-                    WORD1(v177.__r_.__value_.__r.__words[2]) = 1024;
-                    HIDWORD(v177.__r_.__value_.__r.__words[2]) = v116;
-                    _os_log_error_impl(&dword_23988E000, v117, OS_LOG_TYPE_ERROR, "%s:%d error: %d", &v177, 0x18u);
+                    LODWORD(v175.__r_.__value_.__l.__data_) = v151;
+                    *(v175.__r_.__value_.__r.__words + 4) = "UpdateLabelState";
+                    WORD2(v175.__r_.__value_.__r.__words[1]) = 1024;
+                    *(&v175.__r_.__value_.__r.__words[1] + 6) = 299;
+                    WORD1(v175.__r_.__value_.__r.__words[2]) = 1024;
+                    HIDWORD(v175.__r_.__value_.__r.__words[2]) = v115;
+                    _os_log_error_impl(&dword_23988E000, v116, OS_LOG_TYPE_ERROR, "%s:%d error: %d", &v175, 0x18u);
                   }
                 }
               }
 
-              if (v155)
+              if (v153)
               {
-                v118 = AudioUnitSetProperty(v106[2], 0xBBDu, 1u, 0, inData, 4u);
-                if (v118)
+                v117 = AudioUnitSetProperty(v105[2], 0xBBDu, 1u, 0, inData, 4u);
+                if (v117)
                 {
-                  v119 = STS_N_Log();
-                  if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
+                  v118 = STS_N_Log();
+                  if (os_log_type_enabled(v118, OS_LOG_TYPE_ERROR))
                   {
-                    LODWORD(v177.__r_.__value_.__l.__data_) = v153;
-                    *(v177.__r_.__value_.__r.__words + 4) = "UpdateLabelState";
-                    WORD2(v177.__r_.__value_.__r.__words[1]) = 1024;
-                    *(&v177.__r_.__value_.__r.__words[1] + 6) = 309;
-                    WORD1(v177.__r_.__value_.__r.__words[2]) = 1024;
-                    HIDWORD(v177.__r_.__value_.__r.__words[2]) = v118;
-                    _os_log_error_impl(&dword_23988E000, v119, OS_LOG_TYPE_ERROR, "%s:%d error: %d", &v177, 0x18u);
+                    LODWORD(v175.__r_.__value_.__l.__data_) = v151;
+                    *(v175.__r_.__value_.__r.__words + 4) = "UpdateLabelState";
+                    WORD2(v175.__r_.__value_.__r.__words[1]) = 1024;
+                    *(&v175.__r_.__value_.__r.__words[1] + 6) = 309;
+                    WORD1(v175.__r_.__value_.__r.__words[2]) = 1024;
+                    HIDWORD(v175.__r_.__value_.__r.__words[2]) = v117;
+                    _os_log_error_impl(&dword_23988E000, v118, OS_LOG_TYPE_ERROR, "%s:%d error: %d", &v175, 0x18u);
                   }
                 }
               }
 
-              v106 = *v106;
-              if (!v106)
+              v105 = *v105;
+              if (!v105)
               {
                 break;
               }
 
-              v105 = v107;
-              while ((v106[3] & 1) == 0)
+              v104 = v106;
+              while ((v105[3] & 1) == 0)
               {
-                v106 = *v106;
-                if (!v106)
+                v105 = *v105;
+                if (!v105)
                 {
                   goto LABEL_193;
                 }
@@ -6116,184 +6059,184 @@ LABEL_193:
           os_unfair_lock_unlock(v84);
         }
 
-        if (SHIBYTE(v164) < 0)
+        if (SHIBYTE(v162) < 0)
         {
           operator delete(__p[0]);
         }
 
-        v43 = v156;
+        v43 = v154;
       }
 
 LABEL_197:
       ++v42;
     }
 
-    for (j = v173; j; j = *j)
+    for (j = v171; j; j = *j)
     {
-      v127 = std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>>>::find<std::string>((v12 + 56), j + 2);
-      if (v127)
+      v126 = std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<STS_N::PerLabelInfo>>>>::find<std::string>((v12 + 56), j + 2);
+      if (v126)
       {
-        v128 = *(v12 + 64);
-        v129 = v127[1];
-        v130 = vcnt_s8(v128);
-        v130.i16[0] = vaddlv_u8(v130);
-        if (v130.u32[0] > 1uLL)
+        v127 = *(v12 + 64);
+        v128 = v126[1];
+        v129 = vcnt_s8(v127);
+        v129.i16[0] = vaddlv_u8(v129);
+        if (v129.u32[0] > 1uLL)
         {
-          if (v129 >= *&v128)
+          if (v128 >= *&v127)
           {
-            v129 %= *&v128;
+            v128 %= *&v127;
           }
         }
 
         else
         {
-          v129 &= *&v128 - 1;
+          v128 &= *&v127 - 1;
         }
 
-        v131 = *(v12 + 56);
-        v132 = *(v131 + 8 * v129);
+        v130 = *(v12 + 56);
+        v131 = *(v130 + 8 * v128);
         do
         {
-          v133 = v132;
-          v132 = *v132;
+          v132 = v131;
+          v131 = *v131;
         }
 
-        while (v132 != v127);
-        if (v133 == (v12 + 72))
+        while (v131 != v126);
+        if (v132 == (v12 + 72))
         {
           goto LABEL_269;
         }
 
-        v134 = v133[1];
-        if (v130.u32[0] > 1uLL)
+        v133 = v132[1];
+        if (v129.u32[0] > 1uLL)
         {
-          if (v134 >= *&v128)
+          if (v133 >= *&v127)
           {
-            v134 %= *&v128;
+            v133 %= *&v127;
           }
         }
 
         else
         {
-          v134 &= *&v128 - 1;
+          v133 &= *&v127 - 1;
         }
 
-        if (v134 != v129)
+        if (v133 != v128)
         {
 LABEL_269:
-          if (!*v127)
+          if (!*v126)
           {
             goto LABEL_270;
           }
 
-          v135 = *(*v127 + 1);
-          if (v130.u32[0] > 1uLL)
+          v134 = *(*v126 + 1);
+          if (v129.u32[0] > 1uLL)
           {
-            if (v135 >= *&v128)
+            if (v134 >= *&v127)
             {
-              v135 %= *&v128;
+              v134 %= *&v127;
             }
           }
 
           else
           {
-            v135 &= *&v128 - 1;
+            v134 &= *&v127 - 1;
           }
 
-          if (v135 != v129)
+          if (v134 != v128)
           {
 LABEL_270:
-            *(v131 + 8 * v129) = 0;
+            *(v130 + 8 * v128) = 0;
           }
         }
 
-        v136 = *v127;
-        if (*v127)
+        v135 = *v126;
+        if (*v126)
         {
-          v137 = v136[1];
-          if (v130.u32[0] > 1uLL)
+          v136 = v135[1];
+          if (v129.u32[0] > 1uLL)
           {
-            if (v137 >= *&v128)
+            if (v136 >= *&v127)
             {
-              v137 %= *&v128;
+              v136 %= *&v127;
             }
           }
 
           else
           {
-            v137 &= *&v128 - 1;
+            v136 &= *&v127 - 1;
           }
 
-          if (v137 != v129)
+          if (v136 != v128)
           {
-            *(*(v12 + 56) + 8 * v137) = v133;
-            v136 = *v127;
+            *(*(v12 + 56) + 8 * v136) = v132;
+            v135 = *v126;
           }
         }
 
-        *v133 = v136;
-        *v127 = 0;
+        *v132 = v135;
+        *v126 = 0;
         --*(v12 + 80);
-        std::__hash_node_destructor<std::allocator<std::__hash_node<std::string,void *>>>::operator()[abi:ne200100](1, v127);
+        std::__hash_node_destructor<std::allocator<std::__hash_node<std::string,void *>>>::operator()[abi:ne200100](1, v126);
       }
 
-      v138 = CADeprecated::TSingleton<STS_N>::instance();
-      os_unfair_lock_lock(v138);
-      v139 = std::__string_hash<char>::operator()[abi:ne200100]((j + 2));
-      v140 = *(v138 + 16);
-      if (v140)
+      v137 = CADeprecated::TSingleton<STS_N>::instance();
+      os_unfair_lock_lock(v137);
+      v138 = std::__string_hash<char>::operator()[abi:ne200100]((j + 2));
+      v139 = *(v137 + 16);
+      if (v139)
       {
-        v141 = v139;
-        v142 = vcnt_s8(v140);
-        v142.i16[0] = vaddlv_u8(v142);
-        v143 = v142.u32[0];
-        if (v142.u32[0] > 1uLL)
+        v140 = v138;
+        v141 = vcnt_s8(v139);
+        v141.i16[0] = vaddlv_u8(v141);
+        v142 = v141.u32[0];
+        if (v141.u32[0] > 1uLL)
         {
-          v144 = v139;
-          if (v139 >= *&v140)
+          v143 = v138;
+          if (v138 >= *&v139)
           {
-            v144 = v139 % *&v140;
+            v143 = v138 % *&v139;
           }
         }
 
         else
         {
-          v144 = (*&v140 - 1) & v139;
+          v143 = (*&v139 - 1) & v138;
         }
 
-        v145 = *(*(v138 + 8) + 8 * v144);
-        if (v145)
+        v144 = *(*(v137 + 8) + 8 * v143);
+        if (v144)
         {
-          v146 = *v145;
-          if (*v145)
+          v145 = *v144;
+          if (*v144)
           {
             do
             {
-              v147 = v146[1];
-              if (v141 == v147)
+              v146 = v145[1];
+              if (v140 == v146)
               {
-                if (std::equal_to<std::string>::operator()[abi:ne200100](v146 + 2, j + 2))
+                if (std::equal_to<std::string>::operator()[abi:ne200100](v145 + 2, j + 2))
                 {
-                  v148 = STS_N::InfoForLabel(v138, j + 2);
-                  v149 = *(v148 + 48);
-                  std::__hash_table<OpaqueFigSTS *,std::hash<OpaqueFigSTS *>,std::equal_to<OpaqueFigSTS *>,std::allocator<OpaqueFigSTS *>>::__erase_unique<OpaqueFigSTS *>((v148 + 24), v160);
-                  if (v149 && !*(v148 + 48))
+                  v147 = STS_N::InfoForLabel(v137, j + 2);
+                  v148 = *(v147 + 48);
+                  std::__hash_table<OpaqueFigSTS *,std::hash<OpaqueFigSTS *>,std::equal_to<OpaqueFigSTS *>,std::allocator<OpaqueFigSTS *>>::__erase_unique<OpaqueFigSTS *>((v147 + 24), v158);
+                  if (v148 && !*(v147 + 48))
                   {
                     if (*(j + 39) < 0)
                     {
-                      std::string::__init_copy_ctor_external(v169, j[2], j[3]);
+                      std::string::__init_copy_ctor_external(v167, j[2], j[3]);
                     }
 
                     else
                     {
-                      *v169 = *(j + 1);
-                      *&v169[16] = j[4];
+                      *v167 = *(j + 1);
+                      *&v167[16] = j[4];
                     }
 
-                    STS_N::LabelValidityDidChange(v138, v169);
-                    if ((v169[23] & 0x80000000) != 0)
+                    STS_N::LabelValidityDidChange(v137, v167);
+                    if ((v167[23] & 0x80000000) != 0)
                     {
-                      operator delete(*v169);
+                      operator delete(*v167);
                     }
                   }
 
@@ -6303,34 +6246,34 @@ LABEL_270:
 
               else
               {
-                if (v143 > 1)
+                if (v142 > 1)
                 {
-                  if (v147 >= *&v140)
+                  if (v146 >= *&v139)
                   {
-                    v147 %= *&v140;
+                    v146 %= *&v139;
                   }
                 }
 
                 else
                 {
-                  v147 &= *&v140 - 1;
+                  v146 &= *&v139 - 1;
                 }
 
-                if (v147 != v144)
+                if (v146 != v143)
                 {
                   break;
                 }
               }
 
-              v146 = *v146;
+              v145 = *v145;
             }
 
-            while (v146);
+            while (v145);
           }
         }
       }
 
-      os_unfair_lock_unlock(v138);
+      os_unfair_lock_unlock(v137);
     }
 
     std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(buf);
@@ -6340,12 +6283,11 @@ LABEL_305:
 LABEL_17:
     std::__shared_weak_count::__release_shared[abi:ne200100](v11);
 LABEL_18:
-    v1 = v159;
+    v1 = v157;
     if ((v18 & 1) == 0)
     {
 LABEL_311:
-      std::unique_ptr<std::tuple<caulk::thread::attributes,STS_N_CopyShmem(OpaqueFigSTS *,__CFString const*,NSObject  {objcproto13OS_xpc_object}**)::$_0,std::tuple<>>>::~unique_ptr[abi:ne200100](&v162);
-      v151 = *MEMORY[0x277D85DE8];
+      std::unique_ptr<std::tuple<caulk::thread::attributes,STS_N_CopyShmem(OpaqueFigSTS *,__CFString const*,NSObject  {objcproto13OS_xpc_object}**)::$_0,std::tuple<>>>::~unique_ptr[abi:ne200100](&v160);
       return;
     }
   }
@@ -6481,11 +6423,11 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::string,voi
   operator delete(__p);
 }
 
-uint64_t STS_N_CopyPropertyByLabel(uint64_t a1, const void *a2, const void *a3, CFTypeRef *a4)
+uint64_t STS_N_CopyPropertyByLabel(const char *a1, const void *a2, const void *a3, CFTypeRef *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v8 = *softLink_CMBaseObjectGetDerivedStorage(a1);
-  v16 = 0;
+  v15 = 0;
   os_unfair_lock_lock(v8);
   if (!a2)
   {
@@ -6496,9 +6438,9 @@ uint64_t STS_N_CopyPropertyByLabel(uint64_t a1, const void *a2, const void *a3, 
     }
 
     *buf = 136315394;
-    v18 = "STS_N_CopyPropertyByLabel";
-    v19 = 1024;
-    LODWORD(v20) = 425;
+    v17 = "STS_N_CopyPropertyByLabel";
+    v18 = 1024;
+    LODWORD(v19) = 425;
 LABEL_14:
     _os_log_error_impl(&dword_23988E000, v12, OS_LOG_TYPE_ERROR, "%s:%d error", buf, 0x12u);
     goto LABEL_15;
@@ -6513,9 +6455,9 @@ LABEL_14:
     }
 
     *buf = 136315394;
-    v18 = "STS_N_CopyPropertyByLabel";
-    v19 = 1024;
-    LODWORD(v20) = 426;
+    v17 = "STS_N_CopyPropertyByLabel";
+    v18 = 1024;
+    LODWORD(v19) = 426;
     goto LABEL_14;
   }
 
@@ -6525,9 +6467,9 @@ LABEL_14:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "STS_N_CopyPropertyByLabel";
-      v19 = 1024;
-      LODWORD(v20) = 427;
+      v17 = "STS_N_CopyPropertyByLabel";
+      v18 = 1024;
+      LODWORD(v19) = 427;
       goto LABEL_14;
     }
 
@@ -6536,20 +6478,20 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  STS_N_EnsureInfoForLabel(v8, a2, &v16);
+  STS_N_EnsureInfoForLabel(v8, a2, &v15);
   v9 = STS_N_Log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v18 = a1;
-    v19 = 2112;
-    v20 = a2;
-    v21 = 2112;
-    v22 = a3;
+    v17 = a1;
+    v18 = 2112;
+    v19 = a2;
+    v20 = 2112;
+    v21 = a3;
     _os_log_debug_impl(&dword_23988E000, v9, OS_LOG_TYPE_DEBUG, "sts %p label %@ copying %@", buf, 0x20u);
   }
 
-  Value = CFDictionaryGetValue(*v16, a3);
+  Value = CFDictionaryGetValue(*v15, a3);
   if (Value)
   {
     v11 = 0;
@@ -6558,14 +6500,14 @@ LABEL_15:
 
   else
   {
-    v15 = STS_N_Log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v14 = STS_N_Log();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218242;
-      v18 = a1;
-      v19 = 2112;
-      v20 = a2;
-      _os_log_error_impl(&dword_23988E000, v15, OS_LOG_TYPE_ERROR, "sts %p copying unknown label %@", buf, 0x16u);
+      v17 = a1;
+      v18 = 2112;
+      v19 = a2;
+      _os_log_error_impl(&dword_23988E000, v14, OS_LOG_TYPE_ERROR, "sts %p copying unknown label %@", buf, 0x16u);
     }
 
     v11 = 4294951301;
@@ -6573,23 +6515,21 @@ LABEL_15:
 
 LABEL_16:
   os_unfair_lock_unlock(v8);
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
-const void *STS_N_EnsureInfoForLabel(uint64_t a1, const void *a2, void *a3)
+void STS_N_EnsureInfoForLabel(uint64_t a1, const void *a2, void *a3)
 {
-  result = CFDictionaryGetValue(*(a1 + 16), a2);
-  if (!result)
+  Value = CFDictionaryGetValue(*(a1 + 16), a2);
+  if (!Value)
   {
     operator new();
   }
 
-  *a3 = result;
-  return result;
+  *a3 = Value;
 }
 
-uint64_t getkFigSTSLabel_Global()
+void *getkFigSTSLabel_Global()
 {
   v4 = 0;
   v5 = &v4;
@@ -6616,9 +6556,9 @@ uint64_t getkFigSTSLabel_Global()
   return result;
 }
 
-void sub_2398996CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2398996CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6634,9 +6574,9 @@ void *___ZL31getkFigSTSLabel_GlobalSymbolLocv_block_invoke_56(uint64_t a1)
 
 uint64_t STS_N_SetPropertyByLabel(unint64_t a1, void *a2, const __CFString *a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v8 = *softLink_CMBaseObjectGetDerivedStorage(a1);
-  v16 = 0;
+  v15 = 0;
   os_unfair_lock_lock(v8);
   v9 = 4294951306;
   if (!a2 || !a3)
@@ -6644,21 +6584,21 @@ uint64_t STS_N_SetPropertyByLabel(unint64_t a1, void *a2, const __CFString *a3, 
     goto LABEL_11;
   }
 
-  STS_N_EnsureInfoForLabel(v8, a2, &v16);
+  STS_N_EnsureInfoForLabel(v8, a2, &v15);
   v10 = STS_N_Log();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v18 = v8;
-    v19 = 2112;
-    v20 = a2;
-    v21 = 2112;
-    v22 = a3;
+    v17 = v8;
+    v18 = 2112;
+    v19 = a2;
+    v20 = 2112;
+    v21 = a3;
     _os_log_debug_impl(&dword_23988E000, v10, OS_LOG_TYPE_DEBUG, "sts %p label %@ setting %@", buf, 0x20u);
   }
 
-  v11 = v16;
-  v12 = *v16;
+  v11 = v15;
+  v12 = *v15;
   if (a4)
   {
     CFDictionarySetValue(v12, a3, a4);
@@ -6674,23 +6614,20 @@ uint64_t STS_N_SetPropertyByLabel(unint64_t a1, void *a2, const __CFString *a3, 
     v9 = 0;
 LABEL_11:
     os_unfair_lock_unlock(v8);
-    goto LABEL_12;
+    return v9;
   }
 
   os_unfair_lock_unlock(v8);
   v13 = CADeprecated::TSingleton<STS_N>::instance();
   STS_N::SetPropertyForLabel(v13, a1, a2, a3, a4);
-  v9 = 0;
-LABEL_12:
-  v14 = *MEMORY[0x277D85DE8];
-  return v9;
+  return 0;
 }
 
-uint64_t STS_N_GetActive(uint64_t a1, const void *a2, _BYTE *a3)
+uint64_t STS_N_GetActive(const char *a1, const void *a2, _BYTE *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = *softLink_CMBaseObjectGetDerivedStorage(a1);
-  v16 = 0;
+  v15 = 0;
   os_unfair_lock_lock(v6);
   if (!a2)
   {
@@ -6703,9 +6640,9 @@ LABEL_8:
     }
 
     *buf = 136315394;
-    v18 = "STS_N_GetActive";
-    v19 = 1024;
-    LODWORD(v20) = 352;
+    v17 = "STS_N_GetActive";
+    v18 = 1024;
+    LODWORD(v19) = 352;
 LABEL_15:
     _os_log_error_impl(&dword_23988E000, v11, OS_LOG_TYPE_ERROR, "%s:%d error", buf, 0x12u);
     goto LABEL_8;
@@ -6720,35 +6657,35 @@ LABEL_15:
     }
 
     *buf = 136315394;
-    v18 = "STS_N_GetActive";
-    v19 = 1024;
-    LODWORD(v20) = 353;
+    v17 = "STS_N_GetActive";
+    v18 = 1024;
+    LODWORD(v19) = 353;
     goto LABEL_15;
   }
 
-  STS_N_EnsureInfoForLabel(v6, a2, &v16);
+  STS_N_EnsureInfoForLabel(v6, a2, &v15);
   v7 = STS_N_Log();
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
-  v9 = v16;
+  v9 = v15;
   if (v8)
   {
-    v14 = *(v16 + 8);
+    v13 = *(v15 + 8);
     *buf = 134218498;
-    if (v14)
+    if (v13)
     {
-      v15 = "YES";
+      v14 = "YES";
     }
 
     else
     {
-      v15 = "NO";
+      v14 = "NO";
     }
 
-    v18 = a1;
-    v19 = 2112;
-    v20 = a2;
-    v21 = 2080;
-    v22 = v15;
+    v17 = a1;
+    v18 = 2112;
+    v19 = a2;
+    v20 = 2080;
+    v21 = v14;
     _os_log_debug_impl(&dword_23988E000, v7, OS_LOG_TYPE_DEBUG, "sts %p label %@ active == %s", buf, 0x20u);
   }
 
@@ -6756,48 +6693,47 @@ LABEL_15:
   *a3 = *(v9 + 8);
 LABEL_9:
   os_unfair_lock_unlock(v6);
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
-uint64_t STS_N_SetActive(uint64_t a1, const void *a2, int a3)
+uint64_t STS_N_SetActive(const char *a1, const void *a2, int a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v6 = *softLink_CMBaseObjectGetDerivedStorage(a1);
-  v16 = 0;
+  v15 = 0;
   os_unfair_lock_lock(v6);
   if (a2)
   {
-    STS_N_EnsureInfoForLabel(v6, a2, &v16);
+    STS_N_EnsureInfoForLabel(v6, a2, &v15);
     v7 = STS_N_Log();
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
-    v9 = v16;
+    v9 = v15;
     if (v8)
     {
-      if (*(v16 + 8) == a3)
+      if (*(v15 + 8) == a3)
       {
-        v14 = "already";
+        v13 = "already";
       }
 
       else
       {
-        v14 = "becomes";
+        v13 = "becomes";
       }
 
-      v15 = "active";
+      v14 = "active";
       *buf = 134218754;
-      v18 = a1;
-      v19 = 2112;
-      v20 = a2;
-      v21 = 2080;
+      v17 = a1;
+      v18 = 2112;
+      v19 = a2;
+      v20 = 2080;
       if (!a3)
       {
-        v15 = "inactive";
+        v14 = "inactive";
       }
 
-      v22 = v14;
-      v23 = 2080;
-      v24 = v15;
+      v21 = v13;
+      v22 = 2080;
+      v23 = v14;
       _os_log_debug_impl(&dword_23988E000, v7, OS_LOG_TYPE_DEBUG, "sts %p label %@ %s %s", buf, 0x2Au);
     }
 
@@ -6811,9 +6747,9 @@ uint64_t STS_N_SetActive(uint64_t a1, const void *a2, int a3)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "STS_N_SetActive";
-      v19 = 1024;
-      LODWORD(v20) = 331;
+      v17 = "STS_N_SetActive";
+      v18 = 1024;
+      LODWORD(v19) = 331;
       _os_log_error_impl(&dword_23988E000, v11, OS_LOG_TYPE_ERROR, "%s:%d error", buf, 0x12u);
     }
 
@@ -6821,11 +6757,10 @@ uint64_t STS_N_SetActive(uint64_t a1, const void *a2, int a3)
   }
 
   os_unfair_lock_unlock(v6);
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
-uint64_t softLink_FigBaseObjectStandardNotificationBarrier(uint64_t a1)
+void *softLink_FigBaseObjectStandardNotificationBarrier(uint64_t a1)
 {
   v6 = 0;
   v7 = &v6;
@@ -6852,9 +6787,9 @@ uint64_t softLink_FigBaseObjectStandardNotificationBarrier(uint64_t a1)
   return result;
 }
 
-void sub_239899DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_239899DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6870,31 +6805,31 @@ void *___ZL52getFigBaseObjectStandardNotificationBarrierSymbolLocv_block_invoke(
 
 uint64_t STS_N_CopyProperty(uint64_t a1, const void *a2, uint64_t a3, CFTypeRef *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
+  v31 = *MEMORY[0x277D85DE8];
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
   v7 = getkFigSTSProperty_FlavorSymbolLoc(void)::ptr;
-  v28 = getkFigSTSProperty_FlavorSymbolLoc(void)::ptr;
+  v27 = getkFigSTSProperty_FlavorSymbolLoc(void)::ptr;
   if (!getkFigSTSProperty_FlavorSymbolLoc(void)::ptr)
   {
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = ___ZL34getkFigSTSProperty_FlavorSymbolLocv_block_invoke;
-    v30 = &unk_278AA47E0;
-    v31 = &v25;
+    v29 = &unk_278AA47E0;
+    v30 = &v24;
     v8 = MediaExperienceLibrary();
     v9 = dlsym(v8, "kFigSTSProperty_Flavor");
-    *(v31[1] + 24) = v9;
-    getkFigSTSProperty_FlavorSymbolLoc(void)::ptr = *(v31[1] + 24);
-    v7 = v26[3];
+    *(v30[1] + 24) = v9;
+    getkFigSTSProperty_FlavorSymbolLoc(void)::ptr = *(v30[1] + 24);
+    v7 = v25[3];
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
   if (!v7)
   {
-    v23 = [MEMORY[0x277CCA890] currentHandler];
-    [v23 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"CFStringRef getkFigSTSProperty_Flavor()") description:{@"STS_N.mm", 37, @"%s", dlerror()}];
+    v22 = [MEMORY[0x277CCA890] currentHandler];
+    [v22 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"CFStringRef getkFigSTSProperty_Flavor()") description:{@"STS_N.mm", 37, @"%s", dlerror()}];
     goto LABEL_27;
   }
 
@@ -6917,32 +6852,32 @@ uint64_t STS_N_CopyProperty(uint64_t a1, const void *a2, uint64_t a3, CFTypeRef 
           _os_log_debug_impl(&dword_23988E000, v14, OS_LOG_TYPE_DEBUG, "sts %p copying %@", buf, 0x16u);
         }
 
-        v25 = 0;
-        v26 = &v25;
-        v27 = 0x2020000000;
+        v24 = 0;
+        v25 = &v24;
+        v26 = 0x2020000000;
         v15 = getkFigSTSProperty_OptionsDictSymbolLoc(void)::ptr;
-        v28 = getkFigSTSProperty_OptionsDictSymbolLoc(void)::ptr;
+        v27 = getkFigSTSProperty_OptionsDictSymbolLoc(void)::ptr;
         if (!getkFigSTSProperty_OptionsDictSymbolLoc(void)::ptr)
         {
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = ___ZL39getkFigSTSProperty_OptionsDictSymbolLocv_block_invoke;
-          v30 = &unk_278AA47E0;
-          v31 = &v25;
+          v29 = &unk_278AA47E0;
+          v30 = &v24;
           v16 = MediaExperienceLibrary();
           v17 = dlsym(v16, "kFigSTSProperty_OptionsDict");
-          *(v31[1] + 24) = v17;
-          getkFigSTSProperty_OptionsDictSymbolLoc(void)::ptr = *(v31[1] + 24);
-          v15 = v26[3];
+          *(v30[1] + 24) = v17;
+          getkFigSTSProperty_OptionsDictSymbolLoc(void)::ptr = *(v30[1] + 24);
+          v15 = v25[3];
         }
 
-        _Block_object_dispose(&v25, 8);
+        _Block_object_dispose(&v24, 8);
         if (!v15)
         {
           while (1)
           {
-            v24 = [MEMORY[0x277CCA890] currentHandler];
-            [v24 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"CFStringRef getkFigSTSProperty_OptionsDict()") description:{@"STS_N.mm", 38, @"%s", dlerror()}];
+            v23 = [MEMORY[0x277CCA890] currentHandler];
+            [v23 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"CFStringRef getkFigSTSProperty_OptionsDict()") description:{@"STS_N.mm", 38, @"%s", dlerror()}];
 LABEL_27:
             __break(1u);
           }
@@ -6974,7 +6909,7 @@ LABEL_20:
         v11 = 4294951306;
 LABEL_21:
         os_unfair_lock_unlock(v12);
-        goto LABEL_22;
+        return v11;
       }
 
       *buf = 136315394;
@@ -7006,16 +6941,14 @@ LABEL_21:
   v10 = getkFigSTSFlavor_N();
   v11 = 0;
   *a4 = CFRetain(v10);
-LABEL_22:
-  v21 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
-void sub_23989A228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23989A228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
-  os_unfair_lock_unlock(v3);
+  os_unfair_lock_unlock(v5);
   _Unwind_Resume(a1);
 }
 
@@ -7091,11 +7024,8 @@ LABEL_6:
 
 uint64_t ___ZL26MediaExperienceLibraryCorePPc_block_invoke_72(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MediaExperienceLibraryCore(char **)::frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 

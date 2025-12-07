@@ -7,6 +7,7 @@
 - (void)genericTermsRemoteUI:(id)i acceptedTermsInfo:(id)info;
 - (void)genericTermsRemoteUI:(id)i didFinishWithSuccess:(BOOL)success;
 - (void)genericTermsRemoteUI:(id)i failedToLoadTermsWithError:(id)error;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)viewWillDisappear:(BOOL)disappear;
@@ -18,6 +19,20 @@
 {
   selfCopy = self;
   sub_10003E2A0();
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for HomePodSetupIconContentViewController(0);
+  v4 = v5.receiver;
+  [(HomePodSetupIconContentViewController *)&v5 viewDidAppear:appearCopy];
+  if (swift_unknownObjectWeakLoadStrong())
+  {
+    sub_10007EA04();
+    swift_unknownObjectRelease();
+  }
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
@@ -36,12 +51,11 @@
 {
   v5 = type metadata accessor for URL();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v9 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   sub_100045F60();
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 }
 
 - (void)genericTermsRemoteUI:(id)i didFinishWithSuccess:(BOOL)success

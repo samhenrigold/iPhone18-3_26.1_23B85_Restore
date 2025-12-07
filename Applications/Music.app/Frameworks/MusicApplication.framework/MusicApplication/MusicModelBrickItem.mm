@@ -118,7 +118,7 @@ void __80__MusicModelBrickItem_objectWithStoreLibraryPersonalizationRelativeMode
 {
   forCopy = for;
   selfCopy = self;
-  v6 = sub_272264(forCopy);
+  v6 = sub_272264(forCopy, MusicModelRelationshipBrickItemContentItem);
 
   return v6;
 }

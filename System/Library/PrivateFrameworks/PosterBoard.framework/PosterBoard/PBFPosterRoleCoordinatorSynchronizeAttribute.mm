@@ -5,7 +5,7 @@
 
 uint64_t ___PBFPosterRoleCoordinatorSynchronizeAttribute_block_invoke(uint64_t a1, void *a2, uint64_t *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 attributeType];
   if ([v6 isEqual:*MEMORY[0x277D3EEB8]])
@@ -16,8 +16,8 @@ uint64_t ___PBFPosterRoleCoordinatorSynchronizeAttribute_block_invoke(uint64_t a
 
     if ((v7 & 1) == 0)
     {
-      v9 = PBFLogRoleCoordinator();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v10 = PBFLogRoleCoordinator(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         goto LABEL_11;
       }
@@ -28,46 +28,46 @@ uint64_t ___PBFPosterRoleCoordinatorSynchronizeAttribute_block_invoke(uint64_t a
 
   else if ([v6 isEqual:*MEMORY[0x277D3EEA8]])
   {
-    v10 = MEMORY[0x277D3EDE8];
-    v11 = [*(a1 + 32) _path];
-    LOBYTE(v10) = [v10 storeAmbientConfigurationForPath:v11 ambientConfiguration:v5 error:a3];
+    v11 = MEMORY[0x277D3EDE8];
+    v12 = [*(a1 + 32) _path];
+    LOBYTE(v11) = [v11 storeAmbientConfigurationForPath:v12 ambientConfiguration:v5 error:a3];
 
-    if ((v10 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      v9 = PBFLogRoleCoordinator();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v10 = PBFLogRoleCoordinator(v13);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
 LABEL_11:
-        v14 = [*(a1 + 32) role];
-        v15 = [*(a1 + 32) pbf_posterUUID];
-        v16 = *a3;
-        v17 = 138544130;
-        v18 = v14;
-        v19 = 2114;
-        v20 = v15;
+        v16 = [*(a1 + 32) role];
+        v17 = [*(a1 + 32) pbf_posterUUID];
+        v18 = *a3;
+        v19 = 138544130;
+        v20 = v16;
         v21 = 2114;
-        v22 = v6;
+        v22 = v17;
         v23 = 2114;
-        v24 = v16;
-        _os_log_fault_impl(&dword_21B526000, v9, OS_LOG_TYPE_FAULT, "[%{public}@] Failed to synchronize attribute %{public}@ to disk for posterUUID %{public}@: %{public}@", &v17, 0x2Au);
+        v24 = v6;
+        v25 = 2114;
+        v26 = v18;
+        _os_log_fault_impl(&dword_21B526000, v10, OS_LOG_TYPE_FAULT, "[%{public}@] Failed to synchronize attribute %{public}@ to disk for posterUUID %{public}@: %{public}@", &v19, 0x2Au);
       }
 
 LABEL_9:
 
-      v12 = 0;
+      v14 = 0;
       goto LABEL_10;
     }
   }
 
-  v12 = 1;
+  v14 = 1;
 LABEL_10:
 
-  return v12;
+  return v14;
 }
 
 uint64_t ___PBFPosterRoleCoordinatorSynchronizeAttribute_block_invoke_383(uint64_t a1, void *a2, uint64_t *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = *(a1 + 32);
   v7 = [*(a1 + 40) pbf_posterUUID];
@@ -78,22 +78,22 @@ uint64_t ___PBFPosterRoleCoordinatorSynchronizeAttribute_block_invoke_383(uint64
 
   if ((v6 & 1) == 0)
   {
-    v11 = PBFLogRoleCoordinator();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = PBFLogRoleCoordinator(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      v13 = [*(a1 + 40) role];
-      v14 = [*(a1 + 40) pbf_posterUUID];
-      v15 = [v5 attributeType];
-      v16 = *a3;
-      v17 = 138544130;
-      v18 = v13;
-      v19 = 2114;
-      v20 = v14;
-      v21 = 2114;
-      v22 = v15;
-      v23 = 2114;
-      v24 = v16;
-      _os_log_fault_impl(&dword_21B526000, v11, OS_LOG_TYPE_FAULT, "[%{public}@] Failed to synchronize attribute %{public}@ to database for posterUUID %{public}@: %{public}@", &v17, 0x2Au);
+      v14 = [*(a1 + 40) role];
+      v15 = [*(a1 + 40) pbf_posterUUID];
+      v16 = [v5 attributeType];
+      v17 = *a3;
+      v18 = 138544130;
+      v19 = v14;
+      v20 = 2114;
+      v21 = v15;
+      v22 = 2114;
+      v23 = v16;
+      v24 = 2114;
+      v25 = v17;
+      _os_log_fault_impl(&dword_21B526000, v12, OS_LOG_TYPE_FAULT, "[%{public}@] Failed to synchronize attribute %{public}@ to database for posterUUID %{public}@: %{public}@", &v18, 0x2Au);
     }
   }
 

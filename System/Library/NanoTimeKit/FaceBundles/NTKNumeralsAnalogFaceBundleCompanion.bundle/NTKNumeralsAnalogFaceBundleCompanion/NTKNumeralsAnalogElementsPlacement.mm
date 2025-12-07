@@ -1,9 +1,20 @@
 @interface NTKNumeralsAnalogElementsPlacement
 + (CGPoint)centerPointFor10NumeralInImageForStyle:(unint64_t)style forDevice:(id)device;
++ (CGPoint)hourViewPositionForHour:(int64_t)hour complicationHidden:(BOOL)hidden utilitySlot:(int64_t)slot forDevice:(id)device;
 + (int64_t)complicationPlacementForHour:(int64_t)hour forDevice:(id)device;
 @end
 
 @implementation NTKNumeralsAnalogElementsPlacement
+
++ (CGPoint)hourViewPositionForHour:(int64_t)hour complicationHidden:(BOOL)hidden utilitySlot:(int64_t)slot forDevice:(id)device
+{
+  screenBounds = [device screenBounds];
+
+  _CLKRectGetCenter(screenBounds);
+  result.y = v8;
+  result.x = v7;
+  return result;
+}
 
 + (CGPoint)centerPointFor10NumeralInImageForStyle:(unint64_t)style forDevice:(id)device
 {

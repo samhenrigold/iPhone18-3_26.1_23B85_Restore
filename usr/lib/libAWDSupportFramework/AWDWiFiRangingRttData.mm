@@ -450,7 +450,6 @@ LABEL_16:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    flags = self->_flags;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x1000) == 0)
@@ -470,7 +469,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  rtt = self->_rtt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -485,7 +483,6 @@ LABEL_4:
   }
 
 LABEL_19:
-  rssi = self->_rssi;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -500,7 +497,6 @@ LABEL_5:
   }
 
 LABEL_20:
-  snr = self->_snr;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -515,7 +511,6 @@ LABEL_6:
   }
 
 LABEL_21:
-  coreId = self->_coreId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -530,7 +525,6 @@ LABEL_7:
   }
 
 LABEL_22:
-  losPeakRatio = self->_losPeakRatio;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -545,7 +539,6 @@ LABEL_8:
   }
 
 LABEL_23:
-  bitErrorRate = self->_bitErrorRate;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -560,7 +553,6 @@ LABEL_9:
   }
 
 LABEL_24:
-  phyError = self->_phyError;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x4000) == 0)
@@ -575,7 +567,6 @@ LABEL_10:
   }
 
 LABEL_25:
-  status = self->_status;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -590,7 +581,6 @@ LABEL_11:
   }
 
 LABEL_26:
-  peerSnr = self->_peerSnr;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -605,7 +595,6 @@ LABEL_12:
   }
 
 LABEL_27:
-  peerLosPeakRatio = self->_peerLosPeakRatio;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -620,7 +609,6 @@ LABEL_13:
   }
 
 LABEL_28:
-  peerCoreId = self->_peerCoreId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -632,7 +620,6 @@ LABEL_14:
     }
 
 LABEL_30:
-    peerPhyError = self->_peerPhyError;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -643,7 +630,6 @@ LABEL_30:
   }
 
 LABEL_29:
-  peerBitErrorRate = self->_peerBitErrorRate;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) != 0)
@@ -658,7 +644,6 @@ LABEL_15:
   }
 
 LABEL_31:
-  channel = self->_channel;
 
   PBDataWriterWriteUint32Field();
 }

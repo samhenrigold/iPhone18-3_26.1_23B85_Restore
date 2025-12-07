@@ -7,9 +7,10 @@ void __42__ICAttachmentPreviewImage_UI__imageCache__block_invoke()
 {
   if (!imageCache_imageCache)
   {
-    imageCache_imageCache = objc_alloc_init(MEMORY[0x1E69B7770]);
+    v0 = objc_alloc_init(MEMORY[0x1E69B7770]);
+    imageCache_imageCache = v0;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v0);
   }
 }
 
@@ -108,9 +109,9 @@ void __62__ICAttachmentPreviewImage_UI__asyncImage_aboutToLoadHandler___block_in
     block[1] = 3221225472;
     block[2] = __62__ICAttachmentPreviewImage_UI__asyncImage_aboutToLoadHandler___block_invoke_2;
     block[3] = &unk_1E8469320;
-    *v15 = *(a1 + 48);
-    v12 = v15[0];
-    v17 = *v15;
+    v15 = *(a1 + 48);
+    v12 = v15;
+    v17 = v15;
     v18 = *(a1 + 64);
     dispatch_async(v11, block);
 

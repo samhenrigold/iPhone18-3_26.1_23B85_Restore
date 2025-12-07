@@ -41,7 +41,7 @@
       v6 = v5;
       if (v5)
       {
-        [(PRRenderingServiceMotionEvent *)v5 rotation];
+        objc_msgSend_rotation(v5);
       }
 
       else
@@ -50,7 +50,7 @@
         v14 = 0u;
       }
 
-      [(PRRenderingServiceMotionEvent *)self rotation];
+      objc_msgSend_rotation(self);
       v8 = vandq_s8(vceqq_f64(v13, v11), vceqq_f64(v14, v12));
       if ((vandq_s8(v8, vdupq_laneq_s64(v8, 1)).u64[0] & 0x8000000000000000) != 0)
       {

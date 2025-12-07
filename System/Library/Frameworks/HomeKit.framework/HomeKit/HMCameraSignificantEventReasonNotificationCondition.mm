@@ -12,15 +12,12 @@
 
 - (NSArray)attributeDescriptions
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
-  significantEventTypes = [(HMCameraSignificantEventReasonNotificationCondition *)self significantEventTypes];
-  v4 = NSPrintF();
-  v5 = [v3 initWithName:@"Significant Events" value:{v4, significantEventTypes, &unk_19BE377F8}];
-  v10[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v4 = NSPrintF("%#{flags}", [(HMCameraSignificantEventReasonNotificationCondition *)self significantEventTypes], &unk_19BE377F8);
+  v5 = [v3 initWithName:@"Significant Events" value:v4];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
   return v6;
 }

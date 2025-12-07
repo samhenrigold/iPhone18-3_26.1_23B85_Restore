@@ -28,7 +28,7 @@
 
 void __37__DSProvidersObserver_startObserving__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v5;
@@ -38,9 +38,9 @@ void __37__DSProvidersObserver_startObserving__block_invoke(uint64_t a1, void *a
     v9 = LogObj(4);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_1E5674000, v9, OS_LOG_TYPE_ERROR, "-beginMonitoringProviderDomainChangesWithHandler: received an error: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v8;
+      _os_log_impl(&dword_1E5674000, v9, OS_LOG_TYPE_ERROR, "-beginMonitoringProviderDomainChangesWithHandler: received an error: %{public}@", &v10, 0xCu);
     }
   }
 
@@ -48,8 +48,6 @@ void __37__DSProvidersObserver_startObserving__block_invoke(uint64_t a1, void *a
   {
     [*(a1 + 32) receivedChanges:v7];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)providers
@@ -192,18 +190,16 @@ LABEL_23:
         }
       }
 
-      TNodeFromFINode(selfCopy->fParentNode.fFINode);
+      v24 = TNodeFromFINode(selfCopy->fParentNode.fFINode);
       LODWORD(v33) = 0;
       std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](buf);
       LODWORD(v33) = 21;
       *buf = v22;
-      TNode::RequestInternalTask();
+      TNode::RequestInternalTask(v24, 1000, buf, 0);
     }
   }
 
 LABEL_34:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopObserving
@@ -217,7 +213,7 @@ LABEL_34:
 
 - (void)setProviders:(id)providers
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   providersCopy = providers;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -226,9 +222,9 @@ LABEL_34:
     v6 = LogObj(4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v10 = 138543362;
-      v11 = providersCopy;
-      _os_log_impl(&dword_1E5674000, v6, OS_LOG_TYPE_INFO, "FPProviders update: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = providersCopy;
+      _os_log_impl(&dword_1E5674000, v6, OS_LOG_TYPE_INFO, "FPProviders update: %{public}@", &v9, 0xCu);
     }
   }
 
@@ -237,12 +233,11 @@ LABEL_34:
   selfCopy->_providers = v7;
 
   objc_sync_exit(selfCopy);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)providersByAddingProviderIfNeeded:(id)needed
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -258,8 +253,8 @@ LABEL_34:
 
     else
     {
-      v14[0] = neededCopy;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+      v13[0] = neededCopy;
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
       v10 = selfCopy->_providers;
       selfCopy->_providers = v9;
     }
@@ -267,8 +262,6 @@ LABEL_34:
 
   v11 = selfCopy->_providers;
   objc_sync_exit(selfCopy);
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

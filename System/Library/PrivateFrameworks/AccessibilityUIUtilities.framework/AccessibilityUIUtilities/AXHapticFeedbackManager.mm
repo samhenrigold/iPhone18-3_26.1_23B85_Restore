@@ -42,83 +42,83 @@ uint64_t __40__AXHapticFeedbackManager_sharedManager__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __53__AXHapticFeedbackManager_playHapticFeedbackForType___block_invoke(uint64_t result)
+void *__53__AXHapticFeedbackManager_playHapticFeedbackForType___block_invoke(void *result)
 {
-  switch(*(result + 40))
+  switch(*(result + 5))
   {
     case 0:
     case 0xCLL:
-      v1 = *(result + 32);
+      v1 = *(result + 4);
       v2 = 3;
       goto LABEL_3;
     case 1:
     case 0x12:
-      v1 = *(result + 32);
+      v1 = *(result + 4);
       v2 = 1;
       goto LABEL_3;
     case 2:
-      return [*(result + 32) _playFeedbackImpactBehaviorWithIntensity:1.0];
+      return [*(result + 4) _playFeedbackImpactBehaviorWithIntensity:1.0];
     case 3:
-      v1 = *(result + 32);
+      v1 = *(result + 4);
       v2 = 6;
       goto LABEL_3;
     case 4:
-      v3 = *(result + 32);
+      v3 = *(result + 4);
       v4 = 0.005;
       v5 = 7;
       v6 = 4;
       goto LABEL_15;
     case 5:
     case 8:
-      v1 = *(result + 32);
+      v1 = *(result + 4);
       v2 = 8;
       goto LABEL_3;
     case 6:
-      v1 = *(result + 32);
+      v1 = *(result + 4);
       v2 = 5;
       goto LABEL_3;
     case 7:
-      v3 = *(result + 32);
+      v3 = *(result + 4);
       v4 = 0.1;
       v5 = 5;
       goto LABEL_18;
     case 9:
-      v3 = *(result + 32);
+      v3 = *(result + 4);
       v4 = 0.1;
       v5 = 7;
       goto LABEL_18;
     case 0xALL:
-      v3 = *(result + 32);
+      v3 = *(result + 4);
       v4 = 0.1;
       v5 = 7;
       goto LABEL_21;
     case 0xBLL:
-      return [*(result + 32) _playCancelPatternFeedback];
+      return [*(result + 4) _playCancelPatternFeedback];
     case 0xDLL:
-      v3 = *(result + 32);
+      v3 = *(result + 4);
       v4 = 0.1;
       v5 = 6;
 LABEL_18:
       v6 = 2;
       goto LABEL_15;
     case 0xELL:
-      v1 = *(result + 32);
+      v1 = *(result + 4);
       v2 = 9;
       goto LABEL_3;
     case 0xFLL:
     case 0x13:
-      v1 = *(result + 32);
+      v1 = *(result + 4);
       v2 = 7;
       goto LABEL_3;
     case 0x10:
-      v3 = *(result + 32);
+      v3 = *(result + 4);
       v4 = 0.1;
       v5 = 4;
 LABEL_21:
       v6 = 3;
       goto LABEL_15;
     case 0x11:
-      v3 = *(result + 32);
+      v3 = *(result + 4);
       v4 = 0.1;
       v5 = 6;
       v6 = 1;
@@ -126,7 +126,7 @@ LABEL_15:
       result = [v3 _playPatternFeedback:v5 numberOfRepetitions:v6 atInterval:v4];
       break;
     case 0x14:
-      v1 = *(result + 32);
+      v1 = *(result + 4);
       v2 = 0;
 LABEL_3:
       result = [v1 _playDiscreteFeedbackForType:v2];
@@ -152,11 +152,11 @@ LABEL_3:
   [v4 runWhenReady:v6];
 }
 
-uint64_t __41__AXHapticFeedbackManager__playFeedback___block_invoke(uint64_t result, int a2)
+id *__41__AXHapticFeedbackManager__playFeedback___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) play];
+    return [result[4] play];
   }
 
   return result;

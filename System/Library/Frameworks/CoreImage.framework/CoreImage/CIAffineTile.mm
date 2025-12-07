@@ -34,7 +34,7 @@
 
 - (id)outputImage
 {
-  v27[3] = *MEMORY[0x1E69E9840];
+  v29[3] = *MEMORY[0x1E69E9840];
   if (!self->inputImage)
   {
     return 0;
@@ -43,12 +43,12 @@
   inputTransform = self->inputTransform;
   if (!inputTransform)
   {
-    v5 = *(MEMORY[0x1E695EFD0] + 16);
-    *&v25.a = *MEMORY[0x1E695EFD0];
-    *&v25.c = v5;
-    v6 = *(MEMORY[0x1E695EFD0] + 32);
+    v7 = *(MEMORY[0x1E695EFD0] + 16);
+    *&v27.a = *MEMORY[0x1E695EFD0];
+    *&v27.c = v7;
+    v8 = *(MEMORY[0x1E695EFD0] + 32);
 LABEL_10:
-    *&v25.tx = v6;
+    *&v27.tx = v8;
     goto LABEL_11;
   }
 
@@ -56,9 +56,9 @@ LABEL_10:
   if (objc_opt_isKindOfClass())
   {
     objCType = [(NSValue *)inputTransform objCType];
-    if (!strcmp(objCType, "{CGAffineTransform=dddddd}") || !strcmp(objCType, "{?=dddddd}"))
+    if (!strcmp(objCType, "{CGAffineTransform=dddddd}") || (isKindOfClass = strcmp(objCType, "{?=dddddd}"), !isKindOfClass))
     {
-      [(NSValue *)inputTransform getValue:&v25 size:48];
+      [(NSValue *)inputTransform getValue:&v27 size:48];
       goto LABEL_11;
     }
 
@@ -68,19 +68,20 @@ LABEL_10:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    memset(&v26, 0, sizeof(v26));
-    [(NSValue *)inputTransform transformStruct];
-    memset(&v25, 0, 32);
-    v6 = 0u;
+    memset(&v28, 0, sizeof(v28));
+    objc_msgSend_transformStruct(inputTransform);
+    memset(&v27, 0, 32);
+    v8 = 0u;
     goto LABEL_10;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || [(NSValue *)inputTransform count]!= 6)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0 || (isKindOfClass = [(NSValue *)inputTransform count], isKindOfClass != 6))
   {
 LABEL_17:
-    v22 = ci_logger_filter();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v24 = ci_logger_filter(isKindOfClass, v6);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [(CIAffineClamp *)self outputImage];
     }
@@ -89,42 +90,42 @@ LABEL_17:
   }
 
   [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{0), "doubleValue"}];
-  v25.a = v16;
+  v27.a = v18;
   [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{1), "doubleValue"}];
-  v25.b = v17;
+  v27.b = v19;
   [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{2), "doubleValue"}];
-  v25.c = v18;
+  v27.c = v20;
   [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{3), "doubleValue"}];
-  v25.d = v19;
+  v27.d = v21;
   [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{4), "doubleValue"}];
-  v25.tx = v20;
+  v27.tx = v22;
   [-[NSValue objectAtIndex:](inputTransform objectAtIndex:{5), "doubleValue"}];
-  v25.ty = v21;
+  v27.ty = v23;
 LABEL_11:
   [(CIImage *)self->inputImage extent];
-  IsInfinite = CGRectIsInfinite(v28);
+  IsInfinite = CGRectIsInfinite(v30);
   inputImage = self->inputImage;
   if (IsInfinite)
   {
-    v26 = v25;
-    return [(CIImage *)inputImage imageByApplyingTransform:&v26];
+    v28 = v27;
+    return [(CIImage *)inputImage imageByApplyingTransform:&v28];
   }
 
   else
   {
-    v10 = [(CIImage *)inputImage filteredImage:@"CISimpleTile" keysAndValues:0];
-    v24 = v25;
-    CGAffineTransformInvert(&v26, &v24);
-    v25 = v26;
+    v12 = [(CIImage *)inputImage filteredImage:@"CISimpleTile" keysAndValues:0];
+    v26 = v27;
+    CGAffineTransformInvert(&v28, &v26);
+    v27 = v28;
     _kernel = [(CIAffineTile *)self _kernel];
-    v12 = *MEMORY[0x1E695F040];
-    v13 = *(MEMORY[0x1E695F040] + 8);
-    v15 = *(MEMORY[0x1E695F040] + 16);
-    v14 = *(MEMORY[0x1E695F040] + 24);
-    v27[0] = [CIVector vectorWithX:*&v25.tx Y:MEMORY[0x1E69E9820], 3221225472, __27__CIAffineTile_outputImage__block_invoke, &__block_descriptor_80_e73__CGRect__CGPoint_dd__CGSize_dd__44__0i8_CGRect__CGPoint_dd__CGSize_dd__12l, *&v25.a, *&v25.c, *&v25.tx];
-    v27[1] = [CIVector vectorWithX:v25.a Y:v25.c];
-    v27[2] = [CIVector vectorWithX:v25.b Y:v25.d];
-    return [_kernel applyWithExtent:&v23 roiCallback:v10 inputImage:objc_msgSend(MEMORY[0x1E695DEC8] arguments:{"arrayWithObjects:count:", v27, 3), v12, v13, v15, v14}];
+    v14 = *MEMORY[0x1E695F040];
+    v15 = *(MEMORY[0x1E695F040] + 8);
+    v17 = *(MEMORY[0x1E695F040] + 16);
+    v16 = *(MEMORY[0x1E695F040] + 24);
+    v29[0] = [CIVector vectorWithX:*&v27.tx Y:MEMORY[0x1E69E9820], 3221225472, __27__CIAffineTile_outputImage__block_invoke, &__block_descriptor_80_e73__CGRect__CGPoint_dd__CGSize_dd__44__0i8_CGRect__CGPoint_dd__CGSize_dd__12l, *&v27.a, *&v27.c, *&v27.tx];
+    v29[1] = [CIVector vectorWithX:v27.a Y:v27.c];
+    v29[2] = [CIVector vectorWithX:v27.b Y:v27.d];
+    return [_kernel applyWithExtent:&v25 roiCallback:v12 inputImage:objc_msgSend(MEMORY[0x1E695DEC8] arguments:{"arrayWithObjects:count:", v29, 3), v14, v15, v17, v16}];
   }
 }
 

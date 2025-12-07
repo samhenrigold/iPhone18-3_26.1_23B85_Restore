@@ -8,7 +8,7 @@
 
 - (SUScriptAppleIdAuthenticationOperation)initWithUsername:(id)username password:(id)password viewController:(id)controller
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   usernameCopy = username;
   passwordCopy = password;
   controllerCopy = controller;
@@ -18,47 +18,51 @@
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v17 = shouldLog | 2;
+      LODWORD(v17) = shouldLog | 2;
     }
 
     else
     {
-      v17 = shouldLog;
+      LODWORD(v17) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
 
     if (v17)
     {
-      v24 = 138543362;
-      v25 = objc_opt_class();
-      v19 = v25;
-      LODWORD(v22) = 12;
-      v20 = _os_log_send_and_compose_impl();
+      v23 = 138543362;
+      v24 = objc_opt_class();
+      v19 = v24;
+      v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "[%{public}@]: Failed Apple ID authentication. Missing required presenting view controller.", &v23, 12);
 
       if (!v20)
       {
-LABEL_14:
+LABEL_15:
 
         selfCopy = 0;
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:{4, &v24, v22}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  v23.receiver = self;
-  v23.super_class = SUScriptAppleIdAuthenticationOperation;
-  v11 = [(SUScriptAppleIdAuthenticationOperation *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = SUScriptAppleIdAuthenticationOperation;
+  v11 = [(SUScriptAppleIdAuthenticationOperation *)&v22 init];
   if (v11)
   {
     v12 = objc_alloc_init(getAKAppleIDAuthenticationInAppContextClass());
@@ -78,14 +82,14 @@ LABEL_14:
 
   self = v11;
   selfCopy = self;
-LABEL_15:
+LABEL_16:
 
   return selfCopy;
 }
 
 - (void)run
 {
-  v3 = objc_alloc_init(getAKAppleIDAuthenticationControllerClass());
+  v3 = objc_alloc_init(getAKAppleIDAuthenticationControllerClass(self, a2));
   v4 = dispatch_semaphore_create(0);
   authenticationContext = self->_authenticationContext;
   v8[0] = MEMORY[0x1E69E9820];
@@ -102,7 +106,7 @@ LABEL_15:
 
 void __45__SUScriptAppleIdAuthenticationOperation_run__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v6)
@@ -113,69 +117,73 @@ void __45__SUScriptAppleIdAuthenticationOperation_run__block_invoke(uint64_t a1,
     [v15 setAuthenticationResults:v5];
     [v15 setViewController:*(*(a1 + 32) + 344)];
     v16 = *MEMORY[0x1E698C218];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __45__SUScriptAppleIdAuthenticationOperation_run__block_invoke_32;
-    v21[3] = &unk_1E81651D8;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __45__SUScriptAppleIdAuthenticationOperation_run__block_invoke_32;
+    v20[3] = &unk_1E81651D8;
     v17 = *(a1 + 40);
-    v21[4] = *(a1 + 32);
-    v22 = v17;
-    [v14 signInService:v16 withContext:v15 completion:v21];
+    v20[4] = *(a1 + 32);
+    v21 = v17;
+    [v14 signInService:v16 withContext:v15 completion:v20];
     v18 = *(a1 + 40);
     v19 = dispatch_time(0, 60000000000);
     dispatch_semaphore_wait(v18, v19);
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   v7 = [MEMORY[0x1E69D4938] sharedConfig];
   v8 = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = v8 | 2;
+    LODWORD(v9) = v8 | 2;
   }
 
   else
   {
-    v9 = v8;
+    LODWORD(v9) = v8;
   }
 
   v10 = [v7 OSLogObject];
-  if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (!v9)
   {
-    goto LABEL_10;
+    goto LABEL_11;
   }
 
-  v23 = 138412546;
-  v24 = objc_opt_class();
-  v25 = 2112;
-  v26 = v6;
-  v11 = v24;
-  LODWORD(v20) = 22;
-  v12 = _os_log_send_and_compose_impl();
+  v22 = 138412546;
+  v23 = objc_opt_class();
+  v24 = 2112;
+  v25 = v6;
+  v11 = v23;
+  v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, v10, 16, "%@: AuthKit Authentication Returned With Error: %@", &v22, 22);
 
   if (v12)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v23, v20}];
+    v10 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog();
-LABEL_10:
+LABEL_11:
   }
 
   [*(a1 + 32) setError:v6];
   [*(a1 + 32) setSuccess:0];
-LABEL_13:
+LABEL_14:
   dispatch_semaphore_signal(*(a1 + 40));
 }
 
 void __45__SUScriptAppleIdAuthenticationOperation_run__block_invoke_32(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -183,49 +191,52 @@ void __45__SUScriptAppleIdAuthenticationOperation_run__block_invoke_32(uint64_t 
     v7 = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = v7 | 2;
+      LODWORD(v8) = v7 | 2;
     }
 
     else
     {
-      v8 = v7;
+      LODWORD(v8) = v7;
     }
 
     v9 = [v6 OSLogObject];
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      *v14 = 138412546;
-      *&v14[4] = objc_opt_class();
-      *&v14[12] = 2112;
-      *&v14[14] = v5;
-      v10 = *&v14[4];
-      LODWORD(v13) = 22;
-      v12 = v14;
-      v11 = _os_log_send_and_compose_impl();
+      v13 = 138412546;
+      v14 = objc_opt_class();
+      v15 = 2112;
+      v16 = v5;
+      v10 = v14;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1C21AF000, v9, 16, "%@: AIDA Authentication Returned With Error: %@", &v13, 22);
 
       if (!v11)
       {
-LABEL_11:
+LABEL_12:
 
         [*(a1 + 32) setError:v5];
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      v9 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, v14, v13, *v14, *&v14[16], v15}];
+      v9 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
       free(v11);
       v12 = v9;
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
   [*(a1 + 32) setSuccess:{a2, v12}];
   dispatch_semaphore_signal(*(a1 + 40));
 }
@@ -270,51 +281,56 @@ void __65__SUScriptAppleIdAuthenticationOperation_sendCompletionCallback___block
   v3 = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = v3 | 2;
+    LODWORD(v4) = v3 | 2;
   }
 
   else
   {
-    v4 = v3;
+    LODWORD(v4) = v3;
   }
 
   v5 = [v2 OSLogObject];
-  if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
 
   if (!v4)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
   v6 = objc_opt_class();
   v7 = *(a1 + 32);
   v8 = v6;
-  [v7 status];
+  v9 = [v7 status];
   v15 = 138412546;
   v16 = v6;
-  v18 = v17 = 2112;
-  LODWORD(v13) = 22;
-  v9 = _os_log_send_and_compose_impl();
+  v17 = 2112;
+  v18 = v9;
+  v10 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1C21AF000, v5, 2, "%@: Calling callbackFunction with status %@", &v15, 22);
 
-  if (v9)
+  if (v10)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v15, v13}];
-    free(v9);
+    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+    free(v10);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
-  v10 = [[SUScriptFunction alloc] initWithScriptObject:*(a1 + 40)];
-  [(SUScriptFunction *)v10 setThisObject:*(a1 + 32)];
-  v11 = [*(a1 + 32) status];
-  v14 = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
-  [(SUScriptFunction *)v10 callWithArguments:v12];
+  v11 = [[SUScriptFunction alloc] initWithScriptObject:*(a1 + 40)];
+  [(SUScriptFunction *)v11 setThisObject:*(a1 + 32)];
+  v12 = [*(a1 + 32) status];
+  v14 = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
+  [(SUScriptFunction *)v11 callWithArguments:v13];
 
-  [(SUScriptFunction *)v10 setThisObject:0];
+  [(SUScriptFunction *)v11 setThisObject:0];
 }
 
 @end

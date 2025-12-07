@@ -477,7 +477,7 @@ void __73__CAMLibrarySelectionController__resultQueue_updateAcquiredSignalResult
   dispatch_assert_queue_V2(self->_resultQueue);
   p_resultQueue_currentLocation = &self->__resultQueue_currentLocation;
   resultQueue_currentLocation = self->__resultQueue_currentLocation;
-  if (!resultQueue_currentLocation || (-[CLLocation coordinate](resultQueue_currentLocation, "coordinate"), v9 = v8, [neededCopy coordinate], v9 < v10) || v9 > v10 || (-[CLLocation coordinate](*p_resultQueue_currentLocation, "coordinate"), v12 = v11, objc_msgSend(neededCopy, "coordinate"), v12 < v13) || v12 > v13 || (-[CLLocation horizontalAccuracy](*p_resultQueue_currentLocation, "horizontalAccuracy"), v15 = v14, objc_msgSend(neededCopy, "horizontalAccuracy"), v15 < v16) || v15 > v16 || (-[CLLocation timestamp](*p_resultQueue_currentLocation, "timestamp"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "timeIntervalSinceNow"), v19 = v18, v17, v19 >= 5.0))
+  if (!resultQueue_currentLocation || (-[CLLocation coordinate](resultQueue_currentLocation, "coordinate"), v9 = v8, [neededCopy coordinate], v9 < v10) || v9 > v10 || (-[CLLocation coordinate](*p_resultQueue_currentLocation, "coordinate"), v12 = v11, objc_msgSend(neededCopy, "coordinate"), v12 < v13) || v12 > v13 || (-[CLLocation horizontalAccuracy](*p_resultQueue_currentLocation, "horizontalAccuracy"), v15 = v14, objc_msgSend(neededCopy, "horizontalAccuracy"), v15 < v16) || v15 > v16 || (objc_msgSend_timestamp(*p_resultQueue_currentLocation), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "timeIntervalSinceNow"), v19 = v18, v17, v19 >= 5.0))
   {
     v20 = os_log_create("com.apple.camera", "SharedLibrary");
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
@@ -609,7 +609,7 @@ void __74__CAMLibrarySelectionController__resultQueue_shiftCoordinatesForLocatio
   v9 = v8;
   [*(a1 + 32) verticalAccuracy];
   v11 = v10;
-  v12 = [*(a1 + 32) timestamp];
+  v12 = objc_msgSend_timestamp(*(a1 + 32));
   v13 = [v7 initWithCoordinate:v12 altitude:v6.latitude horizontalAccuracy:v6.longitude verticalAccuracy:v9 timestamp:{a4, v11}];
 
   v14 = os_log_create("com.apple.camera", "SharedLibrary");

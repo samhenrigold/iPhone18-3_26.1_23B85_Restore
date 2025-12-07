@@ -25,10 +25,10 @@
 - (_TtC7Journal14DocumentPicker)init
 {
   v3 = OBJC_IVAR____TtC7Journal14DocumentPicker_delegateContinuation;
-  v4 = sub_1000F24EC(&qword_100AF05F0);
+  v4 = sub_1000F24EC(&qword_100AF05F0, &qword_100966F50);
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   v6.receiver = self;
-  v6.super_class = type metadata accessor for DocumentPicker();
+  v6.super_class = type metadata accessor for DocumentPicker(0);
   return [(DocumentPicker *)&v6 init];
 }
 

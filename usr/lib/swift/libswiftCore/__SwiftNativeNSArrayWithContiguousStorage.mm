@@ -36,7 +36,7 @@
   v12 = var0;
   if (!var0)
   {
-    MEMORY[0x1EEE9AC00](0);
+    MEMORY[0x1EEE9AC00](0, a2);
     v10[2] = &v12;
     v10[3] = v8;
     v9 = *(self->super.super.super.isa + 11);

@@ -9,6 +9,7 @@
 - (void)populateConfiguredAppIntentWithCompletion:(id)completion;
 - (void)populateConfiguredCustomIntentWithCompletion:(id)completion;
 - (void)populateConfiguredIntentWithCompletion:(id)completion;
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion;
 - (void)reloadActionParameterModels;
 - (void)scrollViewDidScroll:(id)scroll;
 - (void)setFillProvider:(id)provider;
@@ -18,6 +19,7 @@
 - (void)setwidgetDescriptionTallScriptCompensatedSpacing:(double)spacing;
 - (void)updateTableHeaderHeight;
 - (void)viewDidLoad;
+- (void)viewIsAppearing:(BOOL)appearing;
 - (void)viewLayoutMarginsDidChange;
 @end
 
@@ -62,6 +64,21 @@
     delegate2 = [(WFConfigurationParametersViewController *)self delegate];
     [delegate2 configurationParametersViewControllerDidRequestToClose:self];
   }
+}
+
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  completionCopy = completion;
+  if ([(WFWidgetConfigurationParametersViewController *)self overrideUserInterfaceStyle])
+  {
+    [controllerCopy setOverrideUserInterfaceStyle:{-[WFWidgetConfigurationParametersViewController overrideUserInterfaceStyle](self, "overrideUserInterfaceStyle")}];
+  }
+
+  v10.receiver = self;
+  v10.super_class = WFWidgetConfigurationParametersViewController;
+  [(WFWidgetConfigurationParametersViewController *)&v10 presentViewController:controllerCopy animated:animatedCopy completion:completionCopy];
 }
 
 - (double)tableView:(id)view heightForHeaderInSection:(int64_t)section
@@ -225,6 +242,14 @@
   v3.receiver = self;
   v3.super_class = WFWidgetConfigurationParametersViewController;
   [(WFWidgetConfigurationParametersViewController *)&v3 viewLayoutMarginsDidChange];
+  [(WFWidgetConfigurationParametersViewController *)self invalidateIntentDescriptionLabelMetrics];
+}
+
+- (void)viewIsAppearing:(BOOL)appearing
+{
+  v4.receiver = self;
+  v4.super_class = WFWidgetConfigurationParametersViewController;
+  [(WFWidgetConfigurationParametersViewController *)&v4 viewIsAppearing:appearing];
   [(WFWidgetConfigurationParametersViewController *)self invalidateIntentDescriptionLabelMetrics];
 }
 

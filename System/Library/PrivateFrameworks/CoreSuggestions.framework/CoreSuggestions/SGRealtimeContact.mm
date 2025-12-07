@@ -1,4 +1,5 @@
 @interface SGRealtimeContact
++ (id)realtimeContactForFields:(id)fields updatedFields:(int)updatedFields addedToCuratedContact:(id)contact;
 + (id)realtimeContactForNewContact:(id)contact;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToRealtimeContact:(id)contact;
@@ -21,7 +22,7 @@
 
 - (void)setExtractionInfo
 {
-  v110 = *MEMORY[0x1E69E9840];
+  v109 = *MEMORY[0x1E69E9840];
   name = [(SGContact *)self->_contact name];
   if (name)
   {
@@ -36,41 +37,41 @@
   }
 
   v7 = objc_opt_new();
+  v101 = 0u;
   v102 = 0u;
   v103 = 0u;
   v104 = 0u;
-  v105 = 0u;
   selfCopy = self;
   phones = [(SGContact *)self->_contact phones];
-  v9 = [phones countByEnumeratingWithState:&v102 objects:v109 count:16];
+  v9 = [phones countByEnumeratingWithState:&v101 objects:v108 count:16];
   __asm { FMOV            V0.2S, #1.0 }
 
-  v88 = DWORD1(_Q0);
+  v87 = DWORD1(_Q0);
   if (v9)
   {
     extractionInfo = v9;
-    v15 = *v103;
+    v15 = *v102;
     *&_Q0 = 0;
-    v89 = _Q0;
+    v88 = _Q0;
     do
     {
       for (i = 0; i != extractionInfo; i = i + 1)
       {
-        if (*v103 != v15)
+        if (*v102 != v15)
         {
           objc_enumerationMutation(phones);
         }
 
-        v17 = *(*(&v102 + 1) + 8 * i);
+        v17 = *(*(&v101 + 1) + 8 * i);
         extractionInfo2 = [v17 extractionInfo];
         extractionType |= [extractionInfo2 extractionType];
 
         extractionInfo3 = [v17 extractionInfo];
         confidence = [extractionInfo3 confidence];
         [confidence floatValue];
-        *(&v21 + 1) = *(&v89 + 1);
-        *&v21 = vadd_f32(*&v89, __PAIR64__(v88, v22));
-        v89 = v21;
+        *(&v21 + 1) = *(&v88 + 1);
+        *&v21 = vadd_f32(*&v88, __PAIR64__(v87, v22));
+        v88 = v21;
 
         extractionInfo4 = [v17 extractionInfo];
         modelVersion = [extractionInfo4 modelVersion];
@@ -88,7 +89,7 @@
         [v7 addObject:v26];
       }
 
-      extractionInfo = [phones countByEnumeratingWithState:&v102 objects:v109 count:16];
+      extractionInfo = [phones countByEnumeratingWithState:&v101 objects:v108 count:16];
     }
 
     while (extractionInfo);
@@ -97,38 +98,38 @@
   else
   {
     *&_Q0 = 0;
-    v89 = _Q0;
+    v88 = _Q0;
   }
 
-  v100 = 0u;
-  v101 = 0u;
-  v98 = 0u;
   v99 = 0u;
+  v100 = 0u;
+  v97 = 0u;
+  v98 = 0u;
   postalAddresses = [(SGContact *)selfCopy->_contact postalAddresses];
-  v28 = [postalAddresses countByEnumeratingWithState:&v98 objects:v108 count:16];
+  v28 = [postalAddresses countByEnumeratingWithState:&v97 objects:v107 count:16];
   if (v28)
   {
     extractionInfo = v28;
-    v29 = *v99;
+    v29 = *v98;
     do
     {
       for (j = 0; j != extractionInfo; j = j + 1)
       {
-        if (*v99 != v29)
+        if (*v98 != v29)
         {
           objc_enumerationMutation(postalAddresses);
         }
 
-        v31 = *(*(&v98 + 1) + 8 * j);
+        v31 = *(*(&v97 + 1) + 8 * j);
         extractionInfo5 = [v31 extractionInfo];
         extractionType |= [extractionInfo5 extractionType];
 
         extractionInfo6 = [v31 extractionInfo];
         confidence2 = [extractionInfo6 confidence];
         [confidence2 floatValue];
-        *(&v35 + 1) = *(&v89 + 1);
-        *&v35 = vadd_f32(*&v89, __PAIR64__(v88, v36));
-        v89 = v35;
+        *(&v35 + 1) = *(&v88 + 1);
+        *&v35 = vadd_f32(*&v88, __PAIR64__(v87, v36));
+        v88 = v35;
 
         extractionInfo7 = [v31 extractionInfo];
         modelVersion2 = [extractionInfo7 modelVersion];
@@ -146,41 +147,41 @@
         [v7 addObject:v40];
       }
 
-      extractionInfo = [postalAddresses countByEnumeratingWithState:&v98 objects:v108 count:16];
+      extractionInfo = [postalAddresses countByEnumeratingWithState:&v97 objects:v107 count:16];
     }
 
     while (extractionInfo);
   }
 
-  v96 = 0u;
-  v97 = 0u;
-  v94 = 0u;
   v95 = 0u;
+  v96 = 0u;
+  v93 = 0u;
+  v94 = 0u;
   emailAddresses = [(SGContact *)selfCopy->_contact emailAddresses];
-  v42 = [emailAddresses countByEnumeratingWithState:&v94 objects:v107 count:16];
+  v42 = [emailAddresses countByEnumeratingWithState:&v93 objects:v106 count:16];
   if (v42)
   {
     extractionInfo = v42;
-    v43 = *v95;
+    v43 = *v94;
     do
     {
       for (k = 0; k != extractionInfo; k = k + 1)
       {
-        if (*v95 != v43)
+        if (*v94 != v43)
         {
           objc_enumerationMutation(emailAddresses);
         }
 
-        v45 = *(*(&v94 + 1) + 8 * k);
+        v45 = *(*(&v93 + 1) + 8 * k);
         extractionInfo8 = [v45 extractionInfo];
         extractionType |= [extractionInfo8 extractionType];
 
         extractionInfo9 = [v45 extractionInfo];
         confidence3 = [extractionInfo9 confidence];
         [confidence3 floatValue];
-        *(&v49 + 1) = *(&v89 + 1);
-        *&v49 = vadd_f32(*&v89, __PAIR64__(v88, v50));
-        v89 = v49;
+        *(&v49 + 1) = *(&v88 + 1);
+        *&v49 = vadd_f32(*&v88, __PAIR64__(v87, v50));
+        v88 = v49;
 
         extractionInfo10 = [v45 extractionInfo];
         modelVersion3 = [extractionInfo10 modelVersion];
@@ -198,41 +199,41 @@
         [v7 addObject:v54];
       }
 
-      extractionInfo = [emailAddresses countByEnumeratingWithState:&v94 objects:v107 count:16];
+      extractionInfo = [emailAddresses countByEnumeratingWithState:&v93 objects:v106 count:16];
     }
 
     while (extractionInfo);
   }
 
-  v92 = 0u;
-  v93 = 0u;
-  v90 = 0u;
   v91 = 0u;
+  v92 = 0u;
+  v89 = 0u;
+  v90 = 0u;
   socialProfiles = [(SGContact *)selfCopy->_contact socialProfiles];
-  v56 = [socialProfiles countByEnumeratingWithState:&v90 objects:v106 count:16];
+  v56 = [socialProfiles countByEnumeratingWithState:&v89 objects:v105 count:16];
   if (v56)
   {
     extractionInfo = v56;
-    v57 = *v91;
+    v57 = *v90;
     do
     {
       for (m = 0; m != extractionInfo; m = m + 1)
       {
-        if (*v91 != v57)
+        if (*v90 != v57)
         {
           objc_enumerationMutation(socialProfiles);
         }
 
-        v59 = *(*(&v90 + 1) + 8 * m);
+        v59 = *(*(&v89 + 1) + 8 * m);
         extractionInfo11 = [v59 extractionInfo];
         extractionType |= [extractionInfo11 extractionType];
 
         extractionInfo12 = [v59 extractionInfo];
         confidence4 = [extractionInfo12 confidence];
         [confidence4 floatValue];
-        *(&v63 + 1) = *(&v89 + 1);
-        *&v63 = vadd_f32(*&v89, __PAIR64__(v88, v64));
-        v89 = v63;
+        *(&v63 + 1) = *(&v88 + 1);
+        *&v63 = vadd_f32(*&v88, __PAIR64__(v87, v64));
+        v88 = v63;
 
         extractionInfo13 = [v59 extractionInfo];
         modelVersion4 = [extractionInfo13 modelVersion];
@@ -250,7 +251,7 @@
         [v7 addObject:v68];
       }
 
-      extractionInfo = [socialProfiles countByEnumeratingWithState:&v90 objects:v106 count:16];
+      extractionInfo = [socialProfiles countByEnumeratingWithState:&v89 objects:v105 count:16];
     }
 
     while (extractionInfo);
@@ -268,7 +269,7 @@
     extractionInfo15 = [birthday3 extractionInfo];
     confidence5 = [extractionInfo15 confidence];
     [confidence5 floatValue];
-    *&v89 = vadd_f32(*&v89, __PAIR64__(v88, v75));
+    *&v88 = vadd_f32(*&v88, __PAIR64__(v87, v75));
 
     birthday4 = [(SGContact *)selfCopy->_contact birthday];
     extractionInfo = [birthday4 extractionInfo];
@@ -299,15 +300,15 @@
     firstObject = &unk_1F38742E0;
   }
 
-  HIDWORD(v82) = DWORD1(v89);
-  if (*(&v89 + 1) <= 0.0)
+  HIDWORD(v82) = DWORD1(v88);
+  if (*(&v88 + 1) <= 0.0)
   {
     v83 = 0;
   }
 
   else
   {
-    *&v82 = *&v89 / *(&v89 + 1);
+    *&v82 = *&v88 / *(&v88 + 1);
     v83 = [MEMORY[0x1E696AD98] numberWithFloat:v82];
   }
 
@@ -315,15 +316,13 @@
   extractionInfo = selfCopy->_extractionInfo;
   selfCopy->_extractionInfo = v84;
 
-  if (*(&v89 + 1) > 0.0)
+  if (*(&v88 + 1) > 0.0)
   {
   }
 
   if (v80 == 1)
   {
   }
-
-  v86 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqualToRealtimeContact:(id)contact
@@ -489,6 +488,16 @@ LABEL_6:
   }
 
   return v14;
+}
+
++ (id)realtimeContactForFields:(id)fields updatedFields:(int)updatedFields addedToCuratedContact:(id)contact
+{
+  v5 = *&updatedFields;
+  contactCopy = contact;
+  fieldsCopy = fields;
+  v9 = [[SGRealtimeContact alloc] initWithState:2 updatedFields:v5 contact:fieldsCopy identifier:contactCopy];
+
+  return v9;
 }
 
 + (id)realtimeContactForNewContact:(id)contact

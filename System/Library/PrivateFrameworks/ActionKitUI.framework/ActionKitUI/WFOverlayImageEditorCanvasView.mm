@@ -10,6 +10,7 @@
 - (void)layoutSubviews;
 - (void)reset;
 - (void)setOverlayImageOpacity:(double)opacity;
+- (void)setRotationEnabled:(BOOL)enabled;
 @end
 
 @implementation WFOverlayImageEditorCanvasView
@@ -47,6 +48,13 @@
   [(WFOverlayImageTransform *)self->_imageTransform setOpacity:opacity];
 
   [(WFOverlayImageEditorCanvasView *)self setNeedsLayout];
+}
+
+- (void)setRotationEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  WeakRetained = objc_loadWeakRetained(&self->_rotateRecognizer);
+  [WeakRetained setEnabled:enabledCopy];
 }
 
 - (BOOL)isRotationEnabled

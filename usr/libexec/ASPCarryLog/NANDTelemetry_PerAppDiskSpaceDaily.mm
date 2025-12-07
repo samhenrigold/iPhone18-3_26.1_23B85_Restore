@@ -320,115 +320,111 @@ LABEL_7:
 {
   strCopy = str;
   v5 = objc_alloc_init(NSMutableArray);
+  v34 = 0u;
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
   v6 = strCopy;
-  v29 = [v6 countByEnumeratingWithState:&v36 objects:v41 count:16];
-  if (v29)
+  v27 = [v6 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  if (v27)
   {
-    v31 = v5;
+    v29 = v5;
     v7 = 0;
     v8 = 0;
-    v9 = *v37;
-    v10 = &MSURetrievePreviousRestoreDate_ptr;
-    v27 = *v37;
-    v28 = v6;
+    v9 = *v35;
+    v25 = *v35;
+    v26 = v6;
     do
     {
-      v11 = 0;
-      v12 = v8;
+      v10 = 0;
+      v11 = v8;
       do
       {
-        if (*v37 != v9)
+        if (*v35 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v30 = v11;
-        v8 = *(*(&v36 + 1) + 8 * v11);
+        v28 = v10;
+        v8 = *(*(&v34 + 1) + 8 * v10);
 
-        v13 = [v6 objectForKeyedSubscript:v8];
-        v14 = v10[237];
+        v12 = [v6 objectForKeyedSubscript:v8];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
 
         if (isKindOfClass)
         {
-          v34 = 0u;
-          v35 = 0u;
           v32 = 0u;
           v33 = 0u;
-          v16 = [v6 objectForKeyedSubscript:v8];
-          v17 = [v16 countByEnumeratingWithState:&v32 objects:v40 count:16];
-          if (v17)
+          v30 = 0u;
+          v31 = 0u;
+          v14 = [v6 objectForKeyedSubscript:v8];
+          v15 = [v14 countByEnumeratingWithState:&v30 objects:v38 count:16];
+          if (v15)
           {
-            v18 = v17;
-            v19 = 0;
-            v20 = *v33;
+            v16 = v15;
+            v17 = 0;
+            v18 = *v31;
             do
             {
-              for (i = 0; i != v18; i = i + 1)
+              for (i = 0; i != v16; i = i + 1)
               {
-                v22 = v19;
-                if (*v33 != v20)
+                v20 = v17;
+                if (*v31 != v18)
                 {
-                  objc_enumerationMutation(v16);
+                  objc_enumerationMutation(v14);
                 }
 
-                v19 = *(*(&v32 + 1) + 8 * i);
+                v17 = *(*(&v30 + 1) + 8 * i);
 
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v23 = [(NANDTelemetry_PerAppDiskSpaceDaily *)self _entityHasNegativeSize:v19];
+                  v21 = [(NANDTelemetry_PerAppDiskSpaceDaily *)self _entityHasNegativeSize:v17];
 
-                  if (v23)
+                  if (v21)
                   {
-                    [v31 addObject:v23];
+                    [v29 addObject:v21];
                   }
 
                   if ([v8 isEqualToString:@"categories"])
                   {
-                    v7 = [(NANDTelemetry_PerAppDiskSpaceDaily *)self _entityFailsCatSystemCheck:v19];
+                    v7 = [(NANDTelemetry_PerAppDiskSpaceDaily *)self _entityFailsCatSystemCheck:v17];
 
                     if (v7)
                     {
-                      [v31 addObject:v7];
+                      [v29 addObject:v7];
                     }
                   }
 
                   else
                   {
-                    v7 = v23;
+                    v7 = v21;
                   }
                 }
               }
 
-              v18 = [v16 countByEnumeratingWithState:&v32 objects:v40 count:16];
+              v16 = [v14 countByEnumeratingWithState:&v30 objects:v38 count:16];
             }
 
-            while (v18);
+            while (v16);
 
-            v9 = v27;
-            v6 = v28;
+            v9 = v25;
+            v6 = v26;
           }
-
-          v10 = &MSURetrievePreviousRestoreDate_ptr;
         }
 
-        v11 = v30 + 1;
-        v12 = v8;
+        v10 = v28 + 1;
+        v11 = v8;
       }
 
-      while ((v30 + 1) != v29);
-      v29 = [v6 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      while ((v28 + 1) != v27);
+      v27 = [v6 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
-    while (v29);
+    while (v27);
 
-    v5 = v31;
+    v5 = v29;
   }
 
   else
@@ -438,17 +434,17 @@ LABEL_7:
 
   if ([v5 count])
   {
-    v24 = [v5 componentsJoinedByString:@"\n"];
+    v22 = [v5 componentsJoinedByString:@"\n"];
   }
 
   else
   {
-    v24 = 0;
+    v22 = 0;
   }
 
-  v25 = v24;
+  v23 = v22;
 
-  return v24;
+  return v22;
 }
 
 - (void)_updateLastUserNotificationDate

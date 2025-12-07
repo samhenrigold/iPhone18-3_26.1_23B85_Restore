@@ -6,33 +6,33 @@
 
 + (id)diffOldRecords:(id)records withNewRecords:(id)newRecords filteredBySourceClientIDs:(id)ds
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   newRecordsCopy = newRecords;
   dsCopy = ds;
-  v46 = objc_opt_new();
   v45 = objc_opt_new();
+  v44 = objc_opt_new();
   v9 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(recordsCopy, "count")}];
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   v10 = recordsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v54 objects:v59 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v53 objects:v58 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v55;
+    v13 = *v54;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v55 != v13)
+        if (*v54 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v54 + 1) + 8 * i);
+        v15 = *(*(&v53 + 1) + 8 * i);
         v16 = [CALNNotificationIdentifier alloc];
         sourceIdentifier = [v15 sourceIdentifier];
         sourceClientIdentifier = [v15 sourceClientIdentifier];
@@ -41,42 +41,42 @@
         [v9 setObject:v15 forKeyedSubscript:v19];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v54 objects:v59 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v53 objects:v58 count:16];
     }
 
     while (v12);
   }
 
-  v42 = v10;
+  v41 = v10;
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   obj = newRecordsCopy;
-  v20 = [obj countByEnumeratingWithState:&v50 objects:v58 count:16];
+  v20 = [obj countByEnumeratingWithState:&v49 objects:v57 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v51;
+    v22 = *v50;
     do
     {
       v23 = 0;
       do
       {
-        if (*v51 != v22)
+        if (*v50 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v50 + 1) + 8 * v23);
+        v24 = *(*(&v49 + 1) + 8 * v23);
         v25 = [CALNNotificationIdentifier alloc];
         sourceIdentifier2 = [v24 sourceIdentifier];
         sourceClientIdentifier2 = [v24 sourceClientIdentifier];
         v28 = [(CALNNotificationIdentifier *)v25 initWithSourceIdentifier:sourceIdentifier2 sourceClientIdentifier:sourceClientIdentifier2];
 
         v29 = [v9 objectForKeyedSubscript:v28];
-        v30 = v46;
+        v30 = v45;
         if (!v29)
         {
           goto LABEL_20;
@@ -99,7 +99,7 @@
         if (v34)
         {
 
-          v30 = v45;
+          v30 = v44;
           if (content == v33)
           {
             goto LABEL_21;
@@ -112,7 +112,7 @@ LABEL_20:
 
         v35 = [content isEqualForDiffingPurposesToContent:content2];
 
-        v30 = v45;
+        v30 = v44;
         if ((v35 & 1) == 0)
         {
           goto LABEL_20;
@@ -124,7 +124,7 @@ LABEL_21:
       }
 
       while (v21 != v23);
-      v36 = [obj countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v36 = [obj countByEnumeratingWithState:&v49 objects:v57 count:16];
       v21 = v36;
     }
 
@@ -134,19 +134,17 @@ LABEL_21:
   if (dsCopy)
   {
     v37 = [v9 copy];
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __89__CALNNotificationRecordsDiffer_diffOldRecords_withNewRecords_filteredBySourceClientIDs___block_invoke;
-    v47[3] = &unk_278D6F0F8;
-    v48 = dsCopy;
-    v49 = v9;
-    [v37 enumerateKeysAndObjectsUsingBlock:v47];
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __89__CALNNotificationRecordsDiffer_diffOldRecords_withNewRecords_filteredBySourceClientIDs___block_invoke;
+    v46[3] = &unk_278D6F0F8;
+    v47 = dsCopy;
+    v48 = v9;
+    [v37 enumerateKeysAndObjectsUsingBlock:v46];
   }
 
   allValues = [v9 allValues];
-  v39 = [CALNNotificationRecordsDiff diffWithAddedRecords:v46 removedRecords:allValues modifiedRecords:v45];
-
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = [CALNNotificationRecordsDiff diffWithAddedRecords:v45 removedRecords:allValues modifiedRecords:v44];
 
   return v39;
 }

@@ -11,32 +11,32 @@
 
 + (BOOL)acceptsComplicationFamily:(int64_t)family forDevice:(id)device
 {
-  if (!objc_msgSend_supportsUrsa(device, a2, family, device))
+  if (!objc_msgSend_supportsUrsa(device, a2, family))
   {
 LABEL_6:
-    LOBYTE(v9) = 0;
-    return v9 & 1;
+    LOBYTE(v8) = 0;
+    return v8 & 1;
   }
 
-  if (objc_msgSend_showingIdealizedData(NCManager, v5, v6, v7))
+  if (objc_msgSend_showingIdealizedData(NCManager, v5, v6))
   {
-    v8 = NCLogForCategory(1uLL);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = NCLogForCategory(1uLL);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_23BD26000, v8, OS_LOG_TYPE_DEFAULT, "running fixture demo mode. disable the compass complication in complicaiton picker.", v11, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_23BD26000, v7, OS_LOG_TYPE_DEFAULT, "running fixture demo mode. disable the compass complication in complicaiton picker.", v10, 2u);
     }
 
     goto LABEL_6;
   }
 
-  v9 = 0x14DDu >> family;
+  v8 = 0x14DDu >> family;
   if (family > 0xC)
   {
-    LOBYTE(v9) = 0;
+    LOBYTE(v8) = 0;
   }
 
-  return v9 & 1;
+  return v8 & 1;
 }
 
 - (CompassComplicationDataSource)initWithComplication:(id)complication family:(int64_t)family forDevice:(id)device
@@ -48,121 +48,121 @@ LABEL_6:
 
 - (id)sampleTemplate
 {
-  v5 = objc_msgSend_idealizedHeading(NCHeading, a2, v2, v3);
-  v7 = objc_msgSend__templateNoData_calibrated_heading_(self, v6, 0, 1, v5);
+  v4 = objc_msgSend_idealizedHeading(NCHeading, a2, v2);
+  v6 = objc_msgSend__templateNoData_calibrated_heading_(self, v5, 0, 1, v4);
 
-  return v7;
+  return v6;
 }
 
 - (id)newTemplate
 {
-  v5 = objc_msgSend_calibrated(self, a2, v2, v3);
-  v9 = objc_msgSend_heading(self, v6, v7, v8);
-  v13 = objc_msgSend_copy(v9, v10, v11, v12);
-  v15 = objc_msgSend__templateNoData_calibrated_heading_(self, v14, 0, v5, v13);
+  v4 = objc_msgSend_calibrated(self, a2, v2);
+  v7 = objc_msgSend_heading(self, v5, v6);
+  v10 = objc_msgSend_copy(v7, v8, v9);
+  v12 = objc_msgSend__templateNoData_calibrated_heading_(self, v11, 0, v4, v10);
 
-  return v15;
+  return v12;
 }
 
 - (id)randomizedTemplate
 {
-  v5 = objc_msgSend_randomizedHeading(NCHeading, a2, v2, v3);
-  v7 = objc_msgSend__templateNoData_calibrated_heading_(self, v6, 0, 1, v5);
+  v4 = objc_msgSend_randomizedHeading(NCHeading, a2, v2);
+  v6 = objc_msgSend__templateNoData_calibrated_heading_(self, v5, 0, 1, v4);
 
-  return v7;
+  return v6;
 }
 
 - (id)_templateNoData:(BOOL)data calibrated:(BOOL)calibrated heading:(id)heading
 {
   calibratedCopy = calibrated;
   dataCopy = data;
-  v101[2] = *MEMORY[0x277D85DE8];
+  v81[2] = *MEMORY[0x277D85DE8];
   headingCopy = heading;
-  v12 = headingCopy;
-  v13 = !calibratedCopy | dataCopy;
-  if (v13 == 1)
+  v11 = headingCopy;
+  v12 = !calibratedCopy | dataCopy;
+  if (v12 == 1)
   {
 
-    v12 = 0;
+    v11 = 0;
   }
 
-  v14 = objc_msgSend_family(self, v9, v10, v11);
-  if (v14 > 5)
+  v13 = objc_msgSend_family(self, v9, v10);
+  if (v13 > 5)
   {
-    if (v14 > 9)
+    if (v13 > 9)
     {
-      if (v14 == 10)
+      if (v13 == 10)
       {
-        v70 = MEMORY[0x277CBBB10];
-        v71 = objc_opt_class();
-        v45 = objc_msgSend_fullColorImageProviderWithImageViewClass_(v70, v72, v71, v73);
-        v100[0] = @"heading";
-        v77 = v12;
-        if (!v12)
+        v58 = MEMORY[0x277CBBB10];
+        v59 = objc_opt_class();
+        v37 = objc_msgSend_fullColorImageProviderWithImageViewClass_(v58, v60, v59);
+        v80[0] = @"heading";
+        v63 = v11;
+        if (!v11)
         {
-          v77 = objc_msgSend_null(MEMORY[0x277CBEB68], v74, v75, v76);
+          v63 = objc_msgSend_null(MEMORY[0x277CBEB68], v61, v62);
         }
 
-        v101[0] = v77;
-        v100[1] = @"nodata";
-        v78 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v74, v13, v76);
-        v101[1] = v78;
-        v80 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v79, v101, v100, 2);
-        objc_msgSend_setMetadata_(v45, v81, v80, v82);
+        v81[0] = v63;
+        v80[1] = @"nodata";
+        v64 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v61, v12);
+        v81[1] = v64;
+        v66 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v65, v81, v80, 2);
+        objc_msgSend_setMetadata_(v37, v67, v66);
 
-        if (!v12)
+        if (!v11)
         {
         }
 
-        objc_msgSend_templateWithImageProvider_(MEMORY[0x277CBB850], v83, v45, v84);
+        objc_msgSend_templateWithImageProvider_(MEMORY[0x277CBB850], v68, v37);
       }
 
       else
       {
-        if (v14 != 12)
+        if (v13 != 12)
         {
           goto LABEL_36;
         }
 
-        v38 = MEMORY[0x277CBBB10];
-        v39 = objc_opt_class();
-        v45 = objc_msgSend_fullColorImageProviderWithImageViewClass_(v38, v40, v39, v41);
-        v98[0] = @"heading";
-        v46 = v12;
-        if (!v12)
+        v32 = MEMORY[0x277CBBB10];
+        v33 = objc_opt_class();
+        v37 = objc_msgSend_fullColorImageProviderWithImageViewClass_(v32, v34, v33);
+        v78[0] = @"heading";
+        v38 = v11;
+        if (!v11)
         {
-          v46 = objc_msgSend_null(MEMORY[0x277CBEB68], v42, v43, v44);
+          v38 = objc_msgSend_null(MEMORY[0x277CBEB68], v35, v36);
         }
 
-        v99[0] = v46;
-        v98[1] = @"nodata";
-        v47 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v42, v13, v44);
-        v99[1] = v47;
-        v49 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v48, v99, v98, 2);
-        objc_msgSend_setMetadata_(v45, v50, v49, v51);
+        v79[0] = v38;
+        v78[1] = @"nodata";
+        v39 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v35, v12);
+        v79[1] = v39;
+        v41 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v40, v79, v78, 2);
+        objc_msgSend_setMetadata_(v37, v42, v41);
 
-        if (!v12)
+        if (!v11)
         {
         }
 
-        objc_msgSend_templateWithImageProvider_(MEMORY[0x277CBB938], v52, v45, v53);
+        objc_msgSend_templateWithImageProvider_(MEMORY[0x277CBB938], v43, v37);
       }
-      v26 = ;
+      v23 = ;
 
       goto LABEL_39;
     }
 
-    if (v14 == 6)
+    if (v13 == 6)
     {
 LABEL_22:
-      if (!v13)
+      if (!v12)
       {
-        v54 = MEMORY[0x277CBBB88];
-        v55 = NanoCompassFormattedHeadingAndDirection(v12, 0, 0);
-        v56 = NanoCompassFormattedHeading(v12, 0, 0);
-        v58 = objc_msgSend_textProviderWithText_shortText_(v54, v57, v55, v56);
+        v44 = MEMORY[0x277CBBB88];
+        v45 = NanoCompassFormattedHeadingAndDirection(v11, 0, 0);
+        v46 = NanoCompassFormattedHeading(v11, 0, 0);
+        v48 = objc_msgSend_textProviderWithText_shortText_(v44, v47, v45, v46);
 
-        v26 = objc_msgSend_templateWithTextProvider_(MEMORY[0x277CBBA90], v59, v58, v60);
+        v23 = objc_msgSend_templateWithTextProvider_(MEMORY[0x277CBBA90], v49, v48);
 
         goto LABEL_39;
       }
@@ -170,18 +170,18 @@ LABEL_22:
       goto LABEL_29;
     }
 
-    if (v14 == 7)
+    if (v13 == 7)
     {
-      v15 = MEMORY[0x277CBBB88];
-      v16 = NanoCompassFormattedHeading(v12, 0, 0);
-      v19 = objc_msgSend_textProviderWithText_(v15, v17, v16, v18);
+      v14 = MEMORY[0x277CBBB88];
+      v15 = NanoCompassFormattedHeading(v11, 0, 0);
+      v17 = objc_msgSend_textProviderWithText_(v14, v16, v15);
 
-      v20 = MEMORY[0x277CBBB88];
-      v21 = NanoCompassFormattedHeadingDirection(v12);
-      v24 = objc_msgSend_textProviderWithText_(v20, v22, v21, v23);
+      v18 = MEMORY[0x277CBBB88];
+      v19 = NanoCompassFormattedHeadingDirection(v11);
+      v21 = objc_msgSend_textProviderWithText_(v18, v20, v19);
 
-      v26 = objc_msgSend_templateWithLine1TextProvider_line2TextProvider_(MEMORY[0x277CBB808], v25, v19, v24);
-      objc_msgSend_setHighlightLine2_(v26, v27, 1, v28);
+      v23 = objc_msgSend_templateWithLine1TextProvider_line2TextProvider_(MEMORY[0x277CBB808], v22, v17, v21);
+      objc_msgSend_setHighlightLine2_(v23, v24, 1);
 LABEL_26:
 
       goto LABEL_27;
@@ -190,11 +190,11 @@ LABEL_26:
 
   else
   {
-    if (v14 <= 2)
+    if (v13 <= 2)
     {
-      if (v14)
+      if (v13)
       {
-        if (v14 != 2)
+        if (v13 != 2)
         {
           goto LABEL_36;
         }
@@ -202,66 +202,67 @@ LABEL_26:
         goto LABEL_22;
       }
 
-      v61 = MEMORY[0x277CBBB88];
-      v62 = NanoCompassFormattedHeading(v12, 0, 0);
-      v19 = objc_msgSend_textProviderWithText_(v61, v63, v62, v64);
+      v51 = MEMORY[0x277CBBB88];
+      v52 = NanoCompassFormattedHeading(v11, 0, 0);
+      v17 = objc_msgSend_textProviderWithText_(v51, v53, v52);
 
-      v65 = MEMORY[0x277CBBB88];
-      v66 = NanoCompassFormattedHeadingDirection(v12);
-      v24 = objc_msgSend_textProviderWithText_(v65, v67, v66, v68);
+      v54 = MEMORY[0x277CBBB88];
+      v55 = NanoCompassFormattedHeadingDirection(v11);
+      v21 = objc_msgSend_textProviderWithText_(v54, v56, v55);
 
-      objc_msgSend_templateWithLine1TextProvider_line2TextProvider_(MEMORY[0x277CBBA70], v69, v19, v24);
+      objc_msgSend_templateWithLine1TextProvider_line2TextProvider_(MEMORY[0x277CBBA70], v57, v17, v21);
       goto LABEL_25;
     }
 
-    if (v14 == 3)
+    if (v13 == 3)
     {
-      if (v13)
+      if (v12)
       {
 LABEL_29:
-        v26 = NanoCompassRedactionLabel();
+        v50 = NanoCompassRedactionLabel(v13);
+        v23 = v50;
         goto LABEL_39;
       }
 
-      v92 = MEMORY[0x277CBBB88];
-      v93 = NanoCompassFormattedHeadingAndDirection(v12, 0, 0);
-      v19 = objc_msgSend_textProviderWithText_(v92, v94, v93, v95);
+      v74 = MEMORY[0x277CBBB88];
+      v75 = NanoCompassFormattedHeadingAndDirection(v11, 0, 0);
+      v17 = objc_msgSend_textProviderWithText_(v74, v76, v75);
 
-      v26 = objc_msgSend_templateWithTextProvider_(MEMORY[0x277CBBA80], v96, v19, v97);
+      v23 = objc_msgSend_templateWithTextProvider_(MEMORY[0x277CBBA80], v77, v17);
 LABEL_27:
 
       goto LABEL_39;
     }
 
-    if (v14 == 4)
+    if (v13 == 4)
     {
-      v29 = MEMORY[0x277CBBB88];
-      v30 = NanoCompassFormattedHeading(v12, 0, 0);
-      v19 = objc_msgSend_textProviderWithText_(v29, v31, v30, v32);
+      v25 = MEMORY[0x277CBBB88];
+      v26 = NanoCompassFormattedHeading(v11, 0, 0);
+      v17 = objc_msgSend_textProviderWithText_(v25, v27, v26);
 
-      v33 = MEMORY[0x277CBBB88];
-      v34 = NanoCompassFormattedHeadingDirection(v12);
-      v24 = objc_msgSend_textProviderWithText_(v33, v35, v34, v36);
+      v28 = MEMORY[0x277CBBB88];
+      v29 = NanoCompassFormattedHeadingDirection(v11);
+      v21 = objc_msgSend_textProviderWithText_(v28, v30, v29);
 
-      objc_msgSend_templateWithLine1TextProvider_line2TextProvider_(MEMORY[0x277CBB7A8], v37, v19, v24);
-      v26 = LABEL_25:;
+      objc_msgSend_templateWithLine1TextProvider_line2TextProvider_(MEMORY[0x277CBB7A8], v31, v17, v21);
+      v23 = LABEL_25:;
       goto LABEL_26;
     }
   }
 
 LABEL_36:
-  v85 = NCLogForCategory(1uLL);
-  if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+  v69 = NCLogForCategory(1uLL);
+  if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
   {
-    sub_23BD654BC(self, v85, v86, v87);
+    sub_23BD654BC(self, v69, v70);
   }
 
-  v26 = 0;
+  v23 = 0;
 LABEL_39:
-  v88 = NanoCompassAppTintColor();
-  objc_msgSend_setTintColor_(v26, v89, v88, v90);
+  v71 = NanoCompassAppTintColor(v50);
+  objc_msgSend_setTintColor_(v23, v72, v71);
 
-  return v26;
+  return v23;
 }
 
 @end

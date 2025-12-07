@@ -287,7 +287,7 @@ LABEL_73:
   v27 = v10;
 LABEL_74:
   v20 = [[HRCDevice alloc] initWithName:v27 manufacturer:v18 model:v12 hardwareVersion:v19 firmwareVersion:firmwareVersion softwareVersion:0 localIdentifier:0 UDIDeviceIdentifier:0 bluetoothIdentifier:identifier];
-  v21 = sub_10000132C();
+  v21 = sub_10000132C(v20);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     name2 = [v20 name];
@@ -313,9 +313,9 @@ LABEL_74:
 - (HRCServiceInfo)initWithService:(id)service
 {
   serviceCopy = service;
-  v28.receiver = self;
-  v28.super_class = HRCServiceInfo;
-  v6 = [(HRCServiceInfo *)&v28 init];
+  v30.receiver = self;
+  v30.super_class = HRCServiceInfo;
+  v6 = [(HRCServiceInfo *)&v30 init];
   objc_storeStrong(&v6->_service, service);
   v7 = objc_opt_new();
   uuid = v6->_uuid;
@@ -336,59 +336,64 @@ LABEL_74:
     v6->_virtualDevice = 1;
   }
 
-  else if (([v13 isEqual:@"BT-AACP"] & 1) == 0)
+  else
   {
-    v16 = sub_10000132C();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v16 = [v13 isEqual:@"BT-AACP"];
+    if ((v16 & 1) == 0)
     {
-      sub_100016F44();
+      v17 = sub_10000132C(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      {
+        sub_100016F44();
+      }
     }
   }
 
-  v17 = sub_10000132C();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = sub_10000132C(v16);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = v6->_bluetoothAddress;
-    v19 = [NSMutableString stringWithCapacity:17];
-    *v37 = _NSConcreteStackBlock;
-    v38 = 3221225472;
-    v39 = sub_100016EA4;
-    v40 = &unk_100040D38;
-    v20 = v19;
-    v41 = v20;
-    [(NSData *)v18 enumerateByteRangesUsingBlock:v37];
+    v19 = v6->_bluetoothAddress;
+    v20 = [NSMutableString stringWithCapacity:17];
+    *v39 = _NSConcreteStackBlock;
+    v40 = 3221225472;
+    v41 = sub_100016EA4;
+    v42 = &unk_100040D38;
+    v21 = v20;
+    v43 = v21;
+    [(NSData *)v19 enumerateByteRangesUsingBlock:v39];
 
-    v21 = v6->_uuid;
+    v22 = v6->_uuid;
     virtualDevice = v6->_virtualDevice;
     *buf = 138544130;
-    v30 = v20;
-    v31 = 2114;
-    v32 = serviceCopy;
+    v32 = v21;
     v33 = 2114;
-    v34 = v21;
-    v35 = 1024;
-    v36 = virtualDevice;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "AACP HR service BT_ADDR:%{public}@ Added:%{public}@ UUID:%{public}@, virtual: %{BOOL}d", buf, 0x26u);
+    v34 = serviceCopy;
+    v35 = 2114;
+    v36 = v22;
+    v37 = 1024;
+    v38 = virtualDevice;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "AACP HR service BT_ADDR:%{public}@ Added:%{public}@ UUID:%{public}@, virtual: %{BOOL}d", buf, 0x26u);
   }
 
-  v23 = [(HIDServiceClient *)v6->_service propertyForKey:@"Simulator"];
-  if (v23)
+  v24 = [(HIDServiceClient *)v6->_service propertyForKey:@"Simulator"];
+  if (v24)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if ([v23 BOOLValue])
+      if ([v24 BOOLValue])
       {
         v6->_simulator = 1;
-        v24 = [serviceCopy propertyForKey:@"ProductID"];
-        v6->_simProductID = [v24 unsignedIntValue];
-        v25 = sub_10000132C();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v25 = [serviceCopy propertyForKey:@"ProductID"];
+        unsignedIntValue = [v25 unsignedIntValue];
+        v6->_simProductID = unsignedIntValue;
+        v27 = sub_10000132C(unsignedIntValue);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           simProductID = v6->_simProductID;
-          *v37 = 67109120;
-          *&v37[4] = simProductID;
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "AACP Simulator detected id 0x%x", v37, 8u);
+          *v39 = 67109120;
+          *&v39[4] = simProductID;
+          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "AACP Simulator detected id 0x%x", v39, 8u);
         }
       }
     }

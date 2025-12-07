@@ -83,6 +83,8 @@
 - (void)setVPNType:(__CFString *)type forSpecifier:(id)specifier;
 - (void)timerUpdated:(id)updated;
 - (void)updateDoneButton;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)vpnConfigurationChanged:(id)changed;
 - (void)warnForPPTP;
 @end
@@ -1323,6 +1325,33 @@ LABEL_18:
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  userInfo = [*&self->PSListController_opaque[OBJC_IVAR___PSViewController__specifier] userInfo];
+  v6 = +[VPNConnectionStore sharedInstance];
+  v7 = [userInfo objectForKeyedSubscript:@"vpn-service-id"];
+  v8 = [v6 connectionWithServiceID:v7 withGrade:{-[VPNSetupListController vpnGrade](self, "vpnGrade")}];
+  objc_initWeak(&location, v8);
+
+  v9 = objc_loadWeakRetained(&location);
+  sub_4760(v9);
+
+  v10.receiver = self;
+  v10.super_class = VPNSetupListController;
+  [(VPNSetupListController *)&v10 viewWillAppear:appearCopy];
+  objc_destroyWeak(&location);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(VPNSetupListController *)self updateDoneButton];
+  v5.receiver = self;
+  v5.super_class = VPNSetupListController;
+  [(VPNSetupListController *)&v5 viewDidAppear:appearCopy];
+}
+
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
   v18.receiver = self;
@@ -1653,36 +1682,14 @@ LABEL_20:
 {
   certificateID = [(VPNSetupListController *)self certificateID];
 
-  if (!certificateID)
+  if (certificateID && (-[VPNSetupListController certificateIDs](self, "certificateIDs"), v5 = objc_claimAutoreleasedReturnValue(), -[VPNSetupListController certificateID](self, "certificateID"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v5 containsObject:v6], v6, v5, v7) && (-[VPNSetupListController certificateIDs](self, "certificateIDs"), v8 = objc_claimAutoreleasedReturnValue(), -[VPNSetupListController certificateID](self, "certificateID"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "indexOfObject:", v9), v9, v8, -[VPNSetupListController certificateObjects](self, "certificateObjects"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "count"), v11, v10 < v12))
   {
-    goto LABEL_5;
-  }
-
-  certificateIDs = [(VPNSetupListController *)self certificateIDs];
-  certificateID2 = [(VPNSetupListController *)self certificateID];
-  v7 = [certificateIDs containsObject:certificateID2];
-
-  if (!v7)
-  {
-    goto LABEL_5;
-  }
-
-  certificateIDs2 = [(VPNSetupListController *)self certificateIDs];
-  certificateID3 = [(VPNSetupListController *)self certificateID];
-  v10 = [certificateIDs2 indexOfObject:certificateID3];
-
-  certificateObjects = [(VPNSetupListController *)self certificateObjects];
-  v12 = [certificateObjects count];
-
-  if (v10 < v12)
-  {
-    certificateObjects2 = [(VPNSetupListController *)self certificateObjects];
-    v14 = [certificateObjects2 objectAtIndexedSubscript:v10];
+    certificateObjects = [(VPNSetupListController *)self certificateObjects];
+    v14 = [certificateObjects objectAtIndexedSubscript:v10];
   }
 
   else
   {
-LABEL_5:
     v14 = 0;
   }
 
@@ -1704,32 +1711,21 @@ LABEL_5:
       v10 = [certificateObjects2 indexOfObject:objectCopy];
 
       certificateID = [(VPNSetupListController *)self certificateID];
-      if (!certificateID)
+      if (!certificateID || (v12 = certificateID, -[VPNSetupListController certificateIDs](self, "certificateIDs"), v13 = objc_claimAutoreleasedReturnValue(), -[VPNSetupListController certificateID](self, "certificateID"), v14 = objc_claimAutoreleasedReturnValue(), v15 = [v13 containsObject:v14], v14, v13, v12, !v15) || (-[VPNSetupListController certificateIDs](self, "certificateIDs"), v16 = objc_claimAutoreleasedReturnValue(), -[VPNSetupListController certificateID](self, "certificateID"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v16, "indexOfObject:", v17), v17, v16, v10 != v18))
       {
-        goto LABEL_6;
-      }
-
-      v12 = certificateID;
-      certificateIDs = [(VPNSetupListController *)self certificateIDs];
-      certificateID2 = [(VPNSetupListController *)self certificateID];
-      v15 = [certificateIDs containsObject:certificateID2];
-
-      if (!v15 || (-[VPNSetupListController certificateIDs](self, "certificateIDs"), v16 = objc_claimAutoreleasedReturnValue(), -[VPNSetupListController certificateID](self, "certificateID"), v17 = objc_claimAutoreleasedReturnValue(), v18 = [v16 indexOfObject:v17], v17, v16, v10 != v18))
-      {
-LABEL_6:
-        certificateIDs2 = [(VPNSetupListController *)self certificateIDs];
-        v20 = [certificateIDs2 count];
+        certificateIDs = [(VPNSetupListController *)self certificateIDs];
+        v20 = [certificateIDs count];
 
         if (v10 < v20)
         {
-          certificateIDs3 = [(VPNSetupListController *)self certificateIDs];
-          v22 = [certificateIDs3 objectAtIndexedSubscript:v10];
+          certificateIDs2 = [(VPNSetupListController *)self certificateIDs];
+          v22 = [certificateIDs2 objectAtIndexedSubscript:v10];
           [(VPNSetupListController *)self setCertificateID:v22];
         }
 
         [(VPNSetupListController *)self setDirty:1];
-        certificateID3 = [(VPNSetupListController *)self certificateID];
-        v24 = [NSNumber numberWithBool:certificateID3 != 0];
+        certificateID2 = [(VPNSetupListController *)self certificateID];
+        v24 = [NSNumber numberWithBool:certificateID2 != 0];
 
         [(VPNSetupListController *)self setUsesCertificates:v24 forSpecifier:specifierCopy];
         [(VPNSetupListController *)self updateDoneButton];
@@ -3533,18 +3529,7 @@ LABEL_238:
 
         else
         {
-          if (intValue != 1)
-          {
-            goto LABEL_244;
-          }
-
-          manualProxySpecifiers = [(VPNSetupListController *)selfCopy manualProxySpecifiers];
-          [v24 addObjectsFromArray:manualProxySpecifiers];
-
-          v378 = [(VPNSetupListController *)selfCopy proxyUsesAuthentication:0];
-          bOOLValue = [v378 BOOLValue];
-
-          if (!bOOLValue)
+          if (intValue != 1 || (-[VPNSetupListController manualProxySpecifiers](selfCopy, "manualProxySpecifiers"), v377 = objc_claimAutoreleasedReturnValue(), [v24 addObjectsFromArray:v377], v377, -[VPNSetupListController proxyUsesAuthentication:](selfCopy, "proxyUsesAuthentication:", 0), v378 = objc_claimAutoreleasedReturnValue(), v379 = objc_msgSend(v378, "BOOLValue"), v378, !v379))
           {
 LABEL_244:
             v382 = OBJC_IVAR___PSListController__specifiers;

@@ -177,42 +177,42 @@
 
 + (id)optionForString:(id)string
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   stringCopy = string;
-  v17[0] = @"bannerAlert";
+  v18[0] = @"bannerAlert";
   v4 = getFLNotificationOptionBannerAlert();
-  v18[0] = v4;
-  v17[1] = @"lockScreen";
+  v19[0] = v4;
+  v18[1] = @"lockScreen";
   v5 = getFLNotificationOptionLockscreen();
-  v18[1] = v5;
-  v17[2] = @"keepOnLockscreen";
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
+  v19[1] = v5;
+  v18[2] = @"keepOnLockscreen";
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
   v6 = getFLNotificationOptionKeepOnLockscreenSymbolLoc_ptr;
-  v16 = getFLNotificationOptionKeepOnLockscreenSymbolLoc_ptr;
+  v17 = getFLNotificationOptionKeepOnLockscreenSymbolLoc_ptr;
   if (!getFLNotificationOptionKeepOnLockscreenSymbolLoc_ptr)
   {
     v7 = CoreFollowUpLibrary_1();
-    v14[3] = dlsym(v7, "FLNotificationOptionKeepOnLockscreen");
-    getFLNotificationOptionKeepOnLockscreenSymbolLoc_ptr = v14[3];
-    v6 = v14[3];
+    v15[3] = dlsym(v7, "FLNotificationOptionKeepOnLockscreen");
+    getFLNotificationOptionKeepOnLockscreenSymbolLoc_ptr = v15[3];
+    v6 = v15[3];
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v14, 8);
   if (!v6)
   {
-    dlerror();
-    abort_report_np();
+    v13 = dlerror();
+    abort_report_np("%s", v13);
     __break(1u);
   }
 
-  v19 = *v6;
-  v17[3] = @"notificationCenter";
-  v8 = v19;
+  v20 = *v6;
+  v18[3] = @"notificationCenter";
+  v8 = v20;
   v9 = getFLNotificationOptionNotificationCenter();
-  v20 = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
+  v21 = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:4];
 
   v11 = [v10 objectForKeyedSubscript:stringCopy];
 

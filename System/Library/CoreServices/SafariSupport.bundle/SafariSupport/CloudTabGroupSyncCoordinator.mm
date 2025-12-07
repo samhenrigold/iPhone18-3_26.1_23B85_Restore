@@ -20,6 +20,7 @@
 - (id)_createCollectionWithConfiguration:(id)configuration;
 - (id)_createSettingCKRecordFromFieldRecord:(id)record;
 - (id)_didFetchBookmarkRecord:(id)record collection:(id)collection operationGroup:(id)group localBookmarkWasCreated:(BOOL *)created;
+- (id)_didFetchRecord:(id)record inCollection:(id)collection operationGroup:(id)group shouldGenerateUpdatedRecord:(BOOL)updatedRecord;
 - (id)_fieldFromSettingsRecord:(id)record;
 - (id)_filteredUpdatedRecordZoneIDs:(id)ds inCollection:(id)collection operationGroup:(id)group;
 - (id)_handleUpdatedSettingRecord:(id)record inCollection:(id)collection operationGroup:(id)group;
@@ -38,6 +39,7 @@
 - (id)_migrationTombstoneRecordsForBookmarkID:(int)d inCollection:(id)collection destinationRecordZoneID:(id)iD operationGroup:(id)group;
 - (id)_nextBatchItemAfterChangeToken:(int64_t)token inCollection:(id)collection operationGroup:(id)group;
 - (id)_nextMigrationRecordBatchWithBookmarkIDQueue:(id)queue inCollection:(id)collection operationGroup:(id)group recordBuilderBlock:(id)block;
+- (id)_privateParticipantRecordsForBookmarkID:(int)d inCollection:(id)collection operationGroup:(id)group;
 - (id)_profileRecordIDForProfileWithIdentifier:(id)identifier inCollection:(id)collection operationGroup:(id)group;
 - (id)_readStatusRecordForBookmark:(id)bookmark syncData:(id)data configuration:(id)configuration changeType:(int)type inCollection:(id)collection;
 - (id)_recordForBookmark:(id)bookmark inCollection:(id)collection changeType:(int)type;
@@ -65,6 +67,8 @@
 - (void)_addAuxiliaryRecord:(id)record forUnknownRecordWithID:(id)d operationGroup:(id)group;
 - (void)_attemptLocalMigrationInCollection:(id)collection operationGroup:(id)group completionHandler:(id)handler;
 - (void)_beginDeletingAuxiliaryRecordsInCollection:(id)collection operationGroup:(id)group completionHandler:(id)handler;
+- (void)_beginSavingMigratedRecordsForRootBookmarkID:(int)d destinationRecordZoneID:(id)iD inCollection:(id)collection operationGroup:(id)group completionHandler:(id)handler;
+- (void)_beginSavingMigrationTombstonesForRootBookmarkID:(int)d destinationRecordZoneID:(id)iD inCollection:(id)collection operationGroup:(id)group completionHandler:(id)handler;
 - (void)_beginSharingTabGroupWithUUID:(id)d inOperationGroup:(id)group completionHandler:(id)handler;
 - (void)_beginSyncingWithOperationGroup:(id)group completionHandler:(id)handler;
 - (void)_clearServerChangeTokensForRecordZoneIDsIfNeeded:(id)needed inCollection:(id)collection;
@@ -82,6 +86,7 @@
 - (void)_didCompleteSyncDownAfterExpiredChangeTokenErrorWithCollection:(id)collection operationGroup:(id)group;
 - (void)_didFailToSyncWithError:(id)error inCollection:(id)collection operationGroup:(id)group completionHandler:(id)handler;
 - (void)_didFinishOperationGroup:(id)group;
+- (void)_didFinishSyncDownInCollection:(id)collection operationGroup:(id)group isSuccessful:(BOOL)successful;
 - (void)_didFinishSyncingWithResult:(int64_t)result error:(id)error inOperationGroup:(id)group completionHandler:(id)handler;
 - (void)_didLoadLastKnownMinimumIOSVersion:(id)version minimumMacOSVersion:(id)sVersion encounteredUnknownOS:(BOOL)s inOperationGroup:(id)group;
 - (void)_didLoadLastKnownMinimumSafariVersionsPerOSNames:(id)names inOperationGroup:(id)group;
@@ -1372,6 +1377,106 @@ LABEL_11:
   [(CloudBookmarkStore *)bookmarkStore createRecordZoneAndEncryptionInfoWithZoneName:v14 inOperationGroup:v19 completionHandler:v20];
 }
 
+- (void)_beginSavingMigrationTombstonesForRootBookmarkID:(int)d destinationRecordZoneID:(id)iD inCollection:(id)collection operationGroup:(id)group completionHandler:(id)handler
+{
+  v10 = *&d;
+  iDCopy = iD;
+  collectionCopy = collection;
+  groupCopy = group;
+  handlerCopy = handler;
+  _log = [(CloudTabGroupSyncCoordinator *)self _log];
+  if (os_log_type_enabled(_log, OS_LOG_TYPE_INFO))
+  {
+    safari_logDescription = [groupCopy safari_logDescription];
+    *buf = 138543362;
+    v40 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, _log, OS_LOG_TYPE_INFO, "Will begin saving migration tombstones to the default zone with %{public}@", buf, 0xCu);
+  }
+
+  v18 = [NSNumber numberWithInt:v10];
+  v38 = v18;
+  v19 = [NSArray arrayWithObjects:&v38 count:1];
+  v20 = [v19 mutableCopy];
+
+  v34[0] = _NSConcreteStackBlock;
+  v34[1] = 3221225472;
+  v34[2] = sub_1000AD11C;
+  v34[3] = &unk_100135E88;
+  v34[4] = self;
+  v35 = collectionCopy;
+  v36 = iDCopy;
+  v37 = groupCopy;
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_1000AD130;
+  v31[3] = &unk_100135EB0;
+  v31[4] = self;
+  v32 = v35;
+  v33 = v37;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_1000AD1C0;
+  v25[3] = &unk_100135ED8;
+  v25[4] = self;
+  v26 = v33;
+  v28 = v36;
+  v29 = handlerCopy;
+  v30 = v10;
+  v27 = v32;
+  v21 = v36;
+  v22 = handlerCopy;
+  v23 = v32;
+  v24 = v33;
+  [(CloudTabGroupSyncCoordinator *)self _saveNextMigrationRecordBatchWithBookmarkIDQueue:v20 inCollection:v23 operationGroup:v24 usingRecordBuilderBlock:v34 mergeHandler:v31 completionHandler:v25];
+}
+
+- (void)_beginSavingMigratedRecordsForRootBookmarkID:(int)d destinationRecordZoneID:(id)iD inCollection:(id)collection operationGroup:(id)group completionHandler:(id)handler
+{
+  v10 = *&d;
+  iDCopy = iD;
+  collectionCopy = collection;
+  groupCopy = group;
+  handlerCopy = handler;
+  _log = [(CloudTabGroupSyncCoordinator *)self _log];
+  if (os_log_type_enabled(_log, OS_LOG_TYPE_INFO))
+  {
+    ckShortDescription = [iDCopy ckShortDescription];
+    safari_logDescription = [groupCopy safari_logDescription];
+    *buf = 138543618;
+    v36 = ckShortDescription;
+    v37 = 2114;
+    v38 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, _log, OS_LOG_TYPE_INFO, "Will begin saving records to the new zone %{public}@ with %{public}@", buf, 0x16u);
+  }
+
+  v19 = [NSNumber numberWithInt:v10];
+  v34 = v19;
+  v20 = [NSArray arrayWithObjects:&v34 count:1];
+  v21 = [v20 mutableCopy];
+
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_1000AD610;
+  v31[3] = &unk_100135F00;
+  v31[4] = self;
+  v32 = collectionCopy;
+  v33 = iDCopy;
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_1000AD624;
+  v26[3] = &unk_100130F68;
+  v26[4] = self;
+  v27 = v33;
+  v28 = groupCopy;
+  v29 = v32;
+  v30 = handlerCopy;
+  v22 = handlerCopy;
+  v23 = v32;
+  v24 = groupCopy;
+  v25 = v33;
+  [(CloudTabGroupSyncCoordinator *)self _saveNextMigrationRecordBatchWithBookmarkIDQueue:v21 inCollection:v23 operationGroup:v24 usingRecordBuilderBlock:v31 completionHandler:v26];
+}
+
 - (void)_setUpSharingInRecordZoneWithID:(id)d collection:(id)collection operationGroup:(id)group completionHandler:(id)handler
 {
   dCopy = d;
@@ -2083,6 +2188,44 @@ LABEL_23:
   [(CloudTabGroupSyncCoordinator *)self _saveNextMigrationRecordBatchWithBookmarkIDQueue:v20 inCollection:v22 operationGroup:v23 usingRecordBuilderBlock:v34 mergeHandler:v29 completionHandler:v25];
 
   _Block_object_dispose(&v38, 8);
+}
+
+- (id)_privateParticipantRecordsForBookmarkID:(int)d inCollection:(id)collection operationGroup:(id)group
+{
+  v5 = *&d;
+  collectionCopy = collection;
+  v8 = [collectionCopy bookmarkWithID:v5];
+  v9 = [(CloudTabGroupSyncCoordinator *)self _configurationForBookmark:v8];
+  if (v9)
+  {
+    v10 = [NSMutableArray arrayWithCapacity:1];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1000B241C;
+    v14[3] = &unk_100136018;
+    v14[4] = self;
+    v15 = v8;
+    v16 = v9;
+    v17 = collectionCopy;
+    v11 = v10;
+    v18 = v11;
+    if ([v17 updateSyncDataForBookmark:v15 usingBlock:v14])
+    {
+      v12 = [v11 copy];
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+  }
+
+  else
+  {
+    v12 = &__NSArray0__struct;
+  }
+
+  return v12;
 }
 
 - (BOOL)_shouldResetLastKnownMinimumVersionsCacheInCollection:(id)collection operationGroup:(id)group
@@ -3641,6 +3784,154 @@ LABEL_8:
   }
 
   return v11;
+}
+
+- (id)_didFetchRecord:(id)record inCollection:(id)collection operationGroup:(id)group shouldGenerateUpdatedRecord:(BOOL)updatedRecord
+{
+  updatedRecordCopy = updatedRecord;
+  recordCopy = record;
+  collectionCopy = collection;
+  groupCopy = group;
+  v13 = objc_alloc_init(WBSScopeExitHandler);
+  v41[0] = _NSConcreteStackBlock;
+  v41[1] = 3221225472;
+  v41[2] = sub_1000B9C14;
+  v41[3] = &unk_1001314F8;
+  v41[4] = self;
+  v14 = recordCopy;
+  v42 = v14;
+  [v13 setHandler:v41];
+  recordID = [v14 recordID];
+  _log = [(CloudTabGroupSyncCoordinator *)self _log];
+  if (os_log_type_enabled(_log, OS_LOG_TYPE_INFO))
+  {
+    ckShortDescription = [recordID ckShortDescription];
+    safari_logDescription = [groupCopy safari_logDescription];
+    *buf = 138543875;
+    v44 = ckShortDescription;
+    v45 = 2117;
+    v46 = v14;
+    v47 = 2114;
+    v48 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, _log, OS_LOG_TYPE_INFO, "Did fetch record with name: %{public}@, data: %{sensitive}@ with %{public}@", buf, 0x20u);
+  }
+
+  [(NSMutableSet *)self->_recordIDsToRefresh removeObject:recordID];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    [(CloudTabGroupSyncCoordinator *)self _handleUpdatedShareRecord:v14 inCollection:collectionCopy operationGroup:groupCopy];
+LABEL_15:
+    v28 = 0;
+    goto LABEL_16;
+  }
+
+  if ([v14 safari_isSyncRequirementsRecord])
+  {
+    [(CloudTabGroupSyncCoordinator *)self _handleUpdatedSyncRequirementRecord:v14 inCollection:collectionCopy operationGroup:groupCopy];
+    goto LABEL_15;
+  }
+
+  zoneID = [recordID zoneID];
+  v20 = [(CloudTabGroupSyncCoordinator *)self _canHandleRecordInZoneWithID:zoneID collection:collectionCopy operationGroup:groupCopy];
+
+  if ((v20 & 1) == 0)
+  {
+    _log2 = [(CloudTabGroupSyncCoordinator *)self _log];
+    if (os_log_type_enabled(_log2, OS_LOG_TYPE_INFO))
+    {
+      ckShortDescription2 = [recordID ckShortDescription];
+      safari_logDescription2 = [groupCopy safari_logDescription];
+      *buf = 138543618;
+      v44 = ckShortDescription2;
+      v45 = 2114;
+      v46 = safari_logDescription2;
+      _os_log_impl(&_mh_execute_header, _log2, OS_LOG_TYPE_INFO, "Deleting record with ID %{public}@ because it belongs to an unsupported record zone with %{public}@", buf, 0x16u);
+    }
+
+    recordType = [v14 recordType];
+    [(CloudTabGroupSyncCoordinator *)self _handleDeletedRecordWithID:recordID type:recordType inCollection:collectionCopy operationGroup:groupCopy];
+
+    goto LABEL_15;
+  }
+
+  recordType2 = [v14 recordType];
+  if ([v14 safari_isEncryptionInfoRecord])
+  {
+    v22 = [[WBSHashGenerator alloc] initWithEncryptionInfoRecord:v14];
+    v23 = v22;
+    if (v22)
+    {
+      v37[0] = _NSConcreteStackBlock;
+      v37[1] = 3221225472;
+      v37[2] = sub_1000B9D40;
+      v37[3] = &unk_100135DC0;
+      v38 = v22;
+      v39 = recordID;
+      selfCopy = self;
+      [collectionCopy updateDatabaseSyncDataUsingBlock:v37];
+    }
+
+    goto LABEL_21;
+  }
+
+  if ([recordType2 isEqualToString:@"TabGroupTabParticipantPresence"])
+  {
+    [(CloudTabGroupSyncCoordinator *)self _handleUpdatedTabPresenceRecord:v14 inCollection:collectionCopy operationGroup:groupCopy];
+LABEL_21:
+    v28 = 0;
+    goto LABEL_29;
+  }
+
+  if ([recordType2 isEqualToString:@"TabGroupParticipantExtras"])
+  {
+    v30 = [(CloudTabGroupSyncCoordinator *)self _handleUpdatedTabGroupParticipantExtrasRecord:v14 inCollection:collectionCopy shouldGenerateUpdatedRecord:updatedRecordCopy operationGroup:groupCopy];
+  }
+
+  else if ([recordType2 isEqualToString:@"TabGroupParticipantPosition"])
+  {
+    v30 = [(CloudTabGroupSyncCoordinator *)self _handleUpdatedTabGroupParticipantPositionRecord:v14 inCollection:collectionCopy shouldGenerateUpdatedRecord:updatedRecordCopy operationGroup:groupCopy];
+  }
+
+  else if ([recordType2 isEqualToString:@"TabGroupTabParticipantStatus"])
+  {
+    v30 = [(CloudTabGroupSyncCoordinator *)self _handleUpdatedTabParticipantStatusRecord:v14 inCollection:collectionCopy operationGroup:groupCopy];
+  }
+
+  else
+  {
+    if (!+[WBSFeatureAvailability isNewTabAndWindowSyncingEnabled](WBSFeatureAvailability, "isNewTabAndWindowSyncingEnabled") || ![recordType2 isEqual:@"Setting"])
+    {
+      buf[0] = 0;
+      v31 = [(CloudTabGroupSyncCoordinator *)self _didFetchBookmarkRecord:v14 collection:collectionCopy operationGroup:groupCopy localBookmarkWasCreated:buf];
+      v33[0] = _NSConcreteStackBlock;
+      v33[1] = 3221225472;
+      v33[2] = sub_1000B9DCC;
+      v33[3] = &unk_100136688;
+      v33[4] = self;
+      v34 = v14;
+      v32 = v31;
+      v35 = v32;
+      v36 = buf[0];
+      [v13 setHandler:v33];
+      v28 = 0;
+      if ([v32 needsSyncUpdate] && updatedRecordCopy)
+      {
+        v28 = [(CloudTabGroupSyncCoordinator *)self _recordForBookmark:v32 inCollection:collectionCopy changeType:1];
+      }
+
+      goto LABEL_29;
+    }
+
+    v30 = [(CloudTabGroupSyncCoordinator *)self _handleUpdatedSettingRecord:v14 inCollection:collectionCopy operationGroup:groupCopy];
+  }
+
+  v28 = v30;
+LABEL_29:
+
+LABEL_16:
+
+  return v28;
 }
 
 - (id)_didFetchBookmarkRecord:(id)record collection:(id)collection operationGroup:(id)group localBookmarkWasCreated:(BOOL *)created
@@ -5911,6 +6202,33 @@ LABEL_13:
   [(CloudTabGroupSyncCoordinator *)self _setUpUnknownRecordIDsToPendingAuxiliaryRecordSetsInOperationGroup:groupCopy];
 }
 
+- (void)_didFinishSyncDownInCollection:(id)collection operationGroup:(id)group isSuccessful:(BOOL)successful
+{
+  successfulCopy = successful;
+  groupCopy = group;
+  collectionCopy = collection;
+  _log = [(CloudTabGroupSyncCoordinator *)self _log];
+  if (os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = @"NO";
+    if (successfulCopy)
+    {
+      v11 = @"YES";
+    }
+
+    v12 = v11;
+    safari_logDescription = [groupCopy safari_logDescription];
+    v14 = 138543618;
+    v15 = v12;
+    v16 = 2114;
+    v17 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, _log, OS_LOG_TYPE_DEFAULT, "Did finish sync down successfully %{public}@ with %{public}@", &v14, 0x16u);
+  }
+
+  [(CloudTabGroupSyncCoordinator *)self _clearUnknownRecordIDsToPendingAuxiliaryRecordSetsInOperationGroup:groupCopy];
+  [(CloudTabGroupSyncCoordinator *)self _saveRecordZoneServerChangeTokensInCollection:collectionCopy operationGroup:groupCopy ifSuccessful:successfulCopy];
+}
+
 - (void)_setUpRecordZoneIDsToPendingServerChangeTokens
 {
   v3 = +[NSMutableDictionary dictionary];
@@ -6737,7 +7055,7 @@ LABEL_6:
     }
 
 LABEL_14:
-    v23 = 0;
+    v22 = 0;
     goto LABEL_18;
   }
 
@@ -6755,40 +7073,39 @@ LABEL_3:
 
   if (v15 == v16)
   {
-    v23 = v15;
+    v22 = v15;
   }
 
   else
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v17 = typesCopy;
-    v18 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v26;
+      v20 = *v25;
       while (2)
       {
-        for (i = 0; i != v19; i = i + 1)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v26 != v20)
+          if (*v25 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v25 + 1) + 8 * i);
           if (objc_opt_isKindOfClass())
           {
-            v23 = v15;
+            v22 = v15;
 
             goto LABEL_17;
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v19)
         {
           continue;
@@ -6798,14 +7115,14 @@ LABEL_3:
       }
     }
 
-    v23 = 0;
+    v22 = 0;
   }
 
 LABEL_17:
 
 LABEL_18:
 
-  return v23;
+  return v22;
 }
 
 - (id)_recordForBookmark:(id)bookmark inCollection:(id)collection changeType:(int)type
@@ -7380,23 +7697,13 @@ LABEL_36:
   zoneID = [recordID zoneID];
   safari_isTabGroupSecondaryRecordZoneID = [zoneID safari_isTabGroupSecondaryRecordZoneID];
 
-  if (!safari_isTabGroupSecondaryRecordZoneID)
-  {
-    goto LABEL_4;
-  }
-
-  v13 = [collectionCopy bookmarkWithID:{objc_msgSend(collectionCopy, "bookmarkIdentifierOfFolderAncestorWithSubtype:forBookmark:", 0, bookmarkCopy)}];
-  v14 = [collectionCopy syncDataForBookmark:v13];
-  shareRecord = [v14 shareRecord];
-
-  if (shareRecord)
+  if (safari_isTabGroupSecondaryRecordZoneID && ([collectionCopy bookmarkWithID:{objc_msgSend(collectionCopy, "bookmarkIdentifierOfFolderAncestorWithSubtype:forBookmark:", 0, bookmarkCopy)}], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(collectionCopy, "syncDataForBookmark:", v13), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "shareRecord"), v15 = objc_claimAutoreleasedReturnValue(), v14, v15, v13, v15))
   {
     v16 = 2;
   }
 
   else
   {
-LABEL_4:
     recordID2 = [recordCopy recordID];
     recordName = [recordID2 recordName];
     v19 = [recordName isEqualToString:WBSDefaultProfileIdentifier];

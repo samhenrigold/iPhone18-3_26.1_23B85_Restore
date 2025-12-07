@@ -34,6 +34,7 @@
 - (void)performAdditionalStorageRequiredCheck;
 - (void)setCloudKitSyncEnabled:(BOOL)enabled;
 - (void)setCloudKitSyncEnabled:(BOOL)enabled withCompletion:(id)completion;
+- (void)setDidPromptForCloudKitSync:(BOOL)sync;
 - (void)startInitialSync;
 - (void)startPeriodicSync;
 - (void)startUserInitiatedSync;
@@ -60,9 +61,9 @@
 
 - (IMCloudKitEventNotificationManager)init
 {
-  v13.receiver = self;
-  v13.super_class = IMCloudKitEventNotificationManager;
-  v2 = [(IMCloudKitEventNotificationManager *)&v13 init];
+  v10.receiver = self;
+  v10.super_class = IMCloudKitEventNotificationManager;
+  v2 = [(IMCloudKitEventNotificationManager *)&v10 init];
   v3 = v2;
   if (v2)
   {
@@ -75,8 +76,8 @@
     notificationManager = v3->_notificationManager;
     v3->_notificationManager = v6;
 
-    v10 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v8, v9);
-    objc_msgSend_addObserver_selector_name_object_(v10, v11, v3, sel__syncStateDidChange_, @"com.apple.IMCore.IMCloudKitHooks.ValuesChanged", 0);
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    [defaultCenter addObserver:v3 selector:sel__syncStateDidChange_ name:@"com.apple.IMCore.IMCloudKitHooks.ValuesChanged" object:0];
   }
 
   return v3;
@@ -84,23 +85,23 @@
 
 - (void)fetchSyncState
 {
-  v5 = objc_msgSend_cloudKitHooks(self, a2, v2);
-  objc_msgSend_broadcastCloudKitState(v5, v3, v4);
+  cloudKitHooks = [(IMCloudKitEventNotificationManager *)self cloudKitHooks];
+  [cloudKitHooks broadcastCloudKitState];
 }
 
 - (BOOL)accountHasiMessageEnabled
 {
-  v4 = objc_msgSend_accountInfoProvider(self, a2, v2);
+  accountInfoProvider = [(IMCloudKitEventNotificationManager *)self accountInfoProvider];
 
-  if (!v4)
+  if (!accountInfoProvider)
   {
     return 1;
   }
 
-  v7 = objc_msgSend_accountInfoProvider(self, v5, v6);
-  v9 = objc_msgSend_cloudKitEventNotificationManagerAccountHasiMessageEnabled_(v7, v8, self);
+  accountInfoProvider2 = [(IMCloudKitEventNotificationManager *)self accountInfoProvider];
+  v5 = [accountInfoProvider2 cloudKitEventNotificationManagerAccountHasiMessageEnabled:self];
 
-  return v9;
+  return v5;
 }
 
 - (IMCloudKitEventHandlerAccountInfoProvider)accountInfoProvider
@@ -114,7 +115,7 @@
 {
   v2 = objc_opt_class();
 
-  return objc_msgSend_logHandle(v2, v3, v4);
+  return [v2 logHandle];
 }
 
 + (id)logHandle
@@ -147,7 +148,7 @@
   v4[2] = sub_1A82A6D1C;
   v4[3] = &unk_1E7810BB0;
   v4[4] = &v5;
-  objc_msgSend_visitEventHandlers_(self, a2, v4);
+  [(IMCloudKitEventNotificationManager *)self visitEventHandlers:v4];
   v2 = *(v6 + 24);
   _Block_object_dispose(&v5, 8);
   return v2;
@@ -155,336 +156,353 @@
 
 - (IMCloudKitSyncState)syncState
 {
-  v4 = objc_msgSend_previousState(self, a2, v2);
-  if (!v4)
+  previousState = [(IMCloudKitEventNotificationManager *)self previousState];
+  if (!previousState)
   {
-    v5 = [IMCloudKitSyncState alloc];
-    v8 = objc_msgSend_accountHasiMessageEnabled(self, v6, v7);
-    v11 = objc_msgSend_cloudKitHooks(self, v9, v10);
-    v14 = objc_msgSend_syncStateDictionary(v11, v12, v13);
-    v4 = objc_msgSend_initWithAccountEnabled_stateDictionary_(v5, v15, v8, v14);
+    v4 = [IMCloudKitSyncState alloc];
+    accountHasiMessageEnabled = [(IMCloudKitEventNotificationManager *)self accountHasiMessageEnabled];
+    cloudKitHooks = [(IMCloudKitEventNotificationManager *)self cloudKitHooks];
+    syncStateDictionary = [cloudKitHooks syncStateDictionary];
+    previousState = [(IMCloudKitSyncState *)v4 initWithAccountEnabled:accountHasiMessageEnabled stateDictionary:syncStateDictionary];
   }
 
-  return v4;
+  return previousState;
 }
 
 - (id)syncStateWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v5 = [IMCloudKitSyncState alloc];
-  v8 = objc_msgSend_accountHasiMessageEnabled(self, v6, v7);
-  v10 = objc_msgSend_initWithAccountEnabled_stateDictionary_(v5, v9, v8, dictionaryCopy);
+  v5 = [[IMCloudKitSyncState alloc] initWithAccountEnabled:[(IMCloudKitEventNotificationManager *)self accountHasiMessageEnabled] stateDictionary:dictionaryCopy];
 
-  return v10;
+  return v5;
 }
 
 - (void)_sendSyncStateChangedEventToEventListeners:(id)listeners
 {
   listenersCopy = listeners;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_1A82A4CC4;
-  v7[3] = &unk_1E78109C8;
-  v7[4] = self;
-  v8 = listenersCopy;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = sub_1A82A4CC4;
+  v6[3] = &unk_1E78109C8;
+  v6[4] = self;
+  v7 = listenersCopy;
   v5 = listenersCopy;
-  objc_msgSend_visitEventHandlers_(self, v6, v7);
+  [(IMCloudKitEventNotificationManager *)self visitEventHandlers:v6];
 }
 
 - (void)_syncStateDidChange:(id)change
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v4 = objc_msgSend_userInfo(change, a2, change);
-  v6 = objc_msgSend_syncStateWithDictionary_(self, v5, v4);
+  v9 = *MEMORY[0x1E69E9840];
+  userInfo = [change userInfo];
+  v5 = [(IMCloudKitEventNotificationManager *)self syncStateWithDictionary:userInfo];
 
-  objc_msgSend_setPreviousState_(self, v7, v6);
-  v10 = objc_msgSend_logHandle(self, v8, v9);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  [(IMCloudKitEventNotificationManager *)self setPreviousState:v5];
+  logHandle = [(IMCloudKitEventNotificationManager *)self logHandle];
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
   {
-    v14 = 138412290;
-    v15 = v6;
-    _os_log_impl(&dword_1A823F000, v10, OS_LOG_TYPE_INFO, "received new sync state: %@", &v14, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_1A823F000, logHandle, OS_LOG_TYPE_INFO, "received new sync state: %@", &v7, 0xCu);
   }
 
-  objc_msgSend__sendSyncStateChangedEventToEventListeners_(self, v11, v6);
-  objc_msgSend__updateProgressWithState_(self, v12, v6);
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(IMCloudKitEventNotificationManager *)self _sendSyncStateChangedEventToEventListeners:v5];
+  [(IMCloudKitEventNotificationManager *)self _updateProgressWithState:v5];
 }
 
 - (void)fetchSyncStateAfterFetchingAccountStatus
 {
   if (IMOSLoggingEnabled())
   {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Requesting to broadcast CloudKit syncState after fetching account status", v9, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "Requesting to broadcast CloudKit syncState after fetching account status", v5, 2u);
     }
   }
 
-  v6 = objc_msgSend_cloudKitHooks(self, v3, v4);
-  objc_msgSend_broadcastCloudKitStateAfterFetchingAccountStatus(v6, v7, v8);
+  cloudKitHooks = [(IMCloudKitEventNotificationManager *)self cloudKitHooks];
+  [cloudKitHooks broadcastCloudKitStateAfterFetchingAccountStatus];
 }
 
 - (void)fetchSyncStateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v7 = objc_msgSend_notificationManager(self, v5, v6);
-  v9 = objc_msgSend_createEventListenerForNotificationName_object_(v7, v8, @"com.apple.IMCore.IMCloudKitHooks.ValuesChanged", 0);
+  notificationManager = [(IMCloudKitEventNotificationManager *)self notificationManager];
+  v6 = [notificationManager createEventListenerForNotificationName:@"com.apple.IMCore.IMCloudKitHooks.ValuesChanged" object:0];
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = sub_1A82A4FF4;
-  v12[3] = &unk_1E7810A10;
-  v12[4] = self;
-  v13 = completionCopy;
-  v10 = completionCopy;
-  objc_msgSend_startListeningForEventTarget_sendStartingEvent_completion_(v9, v11, self, &unk_1F1B6DF60, v12);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = sub_1A82A4FF4;
+  v8[3] = &unk_1E7810A10;
+  v8[4] = self;
+  v9 = completionCopy;
+  v7 = completionCopy;
+  [v6 startListeningForEventTarget:self sendStartingEvent:&unk_1F1B6DF60 completion:v8];
 }
 
 - (void)fetchRampStateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v7 = objc_msgSend_notificationManager(self, v5, v6);
-  v9 = objc_msgSend_createEventListenerForNotificationName_object_(v7, v8, @"IMCloudKitFetchedRampStateNotification", 0);
+  notificationManager = [(IMCloudKitEventNotificationManager *)self notificationManager];
+  v6 = [notificationManager createEventListenerForNotificationName:@"IMCloudKitFetchedRampStateNotification" object:0];
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = sub_1A82A5228;
-  v12[3] = &unk_1E7810A38;
-  v13 = completionCopy;
-  v10 = completionCopy;
-  objc_msgSend_startListeningForEventTarget_sendStartingEvent_completion_(v9, v11, self, &unk_1F1B6DF80, v12);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = sub_1A82A5228;
+  v8[3] = &unk_1E7810A38;
+  v9 = completionCopy;
+  v7 = completionCopy;
+  [v6 startListeningForEventTarget:self sendStartingEvent:&unk_1F1B6DF80 completion:v8];
 }
 
 - (void)fetchSyncStateAfterClearingErrors
 {
-  v4 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], a2, v2);
-  isMessagesIniCloudVersion2 = objc_msgSend_isMessagesIniCloudVersion2(v4, v5, v6);
+  mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
+  isMessagesIniCloudVersion2 = [mEMORY[0x1E69A8070] isMessagesIniCloudVersion2];
 
   if ((isMessagesIniCloudVersion2 & 1) == 0)
   {
-    v12 = objc_msgSend_cloudKitHooks(self, v8, v9);
-    objc_msgSend_broadcastCloudKitStateAfterClearingErrors(v12, v10, v11);
+    cloudKitHooks = [(IMCloudKitEventNotificationManager *)self cloudKitHooks];
+    [cloudKitHooks broadcastCloudKitStateAfterClearingErrors];
   }
 }
 
 - (void)fetchSyncStateAfterClearingErrorsWithRepairSuccess:(BOOL)success completion:(id)completion
 {
   completionCopy = completion;
-  v9 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v7, v8);
-  isMessagesIniCloudVersion2 = objc_msgSend_isMessagesIniCloudVersion2(v9, v10, v11);
+  mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
+  isMessagesIniCloudVersion2 = [mEMORY[0x1E69A8070] isMessagesIniCloudVersion2];
 
   if ((isMessagesIniCloudVersion2 & 1) == 0)
   {
-    v15 = objc_msgSend_notificationManager(self, v13, v14);
-    v17 = objc_msgSend_createEventListenerForNotificationName_object_(v15, v16, @"com.apple.IMCore.IMCloudKitHooks.ValuesChanged", 0);
+    notificationManager = [(IMCloudKitEventNotificationManager *)self notificationManager];
+    v10 = [notificationManager createEventListenerForNotificationName:@"com.apple.IMCore.IMCloudKitHooks.ValuesChanged" object:0];
 
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1A82A5528;
-    v19[3] = &unk_1E7810A60;
-    v19[4] = self;
-    v20 = completionCopy;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = sub_1A82A5528;
+    v11[3] = &unk_1E7810A60;
+    v11[4] = self;
+    v12 = completionCopy;
     successCopy = success;
-    objc_msgSend_startListeningForEventTarget_sendStartingEvent_completion_(v17, v18, self, &unk_1F1B6DFA0, v19);
+    [v10 startListeningForEventTarget:self sendStartingEvent:&unk_1F1B6DFA0 completion:v11];
   }
 }
 
 - (void)setCloudKitSyncEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v18 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v7 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8 = @"NO";
+      v6 = @"NO";
       if (enabledCopy)
       {
-        v8 = @"YES";
+        v6 = @"YES";
       }
 
       *buf = 138412290;
-      v17 = v8;
-      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "set messages in cloud enabled: %@", buf, 0xCu);
+      v12 = v6;
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "set messages in cloud enabled: %@", buf, 0xCu);
     }
   }
 
-  v9 = objc_msgSend_notificationManager(self, v5, v6);
-  v11 = objc_msgSend_createEventListenerForNotificationName_object_(v9, v10, @"com.apple.IMCore.IMCloudKitHooks.SetEnabledReturned", 0);
+  notificationManager = [(IMCloudKitEventNotificationManager *)self notificationManager];
+  v8 = [notificationManager createEventListenerForNotificationName:@"com.apple.IMCore.IMCloudKitHooks.SetEnabledReturned" object:0];
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = sub_1A82A5998;
-  v14[3] = &unk_1E7810AC8;
-  v15 = enabledCopy;
-  objc_msgSend_startListeningForEventTarget_sendStartingEvent_completion_(v11, v12, self, v14, &unk_1F1B6DFC0);
-
-  v13 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_1A82A5998;
+  v9[3] = &unk_1E7810AC8;
+  v10 = enabledCopy;
+  [v8 startListeningForEventTarget:self sendStartingEvent:v9 completion:&unk_1F1B6DFC0];
 }
 
 - (void)setCloudKitSyncEnabled:(BOOL)enabled withCompletion:(id)completion
 {
   enabledCopy = enabled;
-  v24 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v9 = objc_msgSend_logHandle(self, v7, v8);
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  logHandle = [(IMCloudKitEventNotificationManager *)self logHandle];
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v23 = enabledCopy;
-    _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "set messages in cloud enabled: %{BOOL}d", buf, 8u);
+    v16 = enabledCopy;
+    _os_log_impl(&dword_1A823F000, logHandle, OS_LOG_TYPE_INFO, "set messages in cloud enabled: %{BOOL}d", buf, 8u);
   }
 
-  v12 = objc_msgSend_notificationManager(self, v10, v11);
-  v14 = objc_msgSend_createEventListenerForNotificationName_object_(v12, v13, @"com.apple.IMCore.IMCloudKitHooks.SetEnabledReturned", 0);
+  notificationManager = [(IMCloudKitEventNotificationManager *)self notificationManager];
+  v9 = [notificationManager createEventListenerForNotificationName:@"com.apple.IMCore.IMCloudKitHooks.SetEnabledReturned" object:0];
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = sub_1A82A5B94;
-  v20[3] = &unk_1E7810AC8;
-  v21 = enabledCopy;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = sub_1A82A5BE8;
-  v18[3] = &unk_1E7810A38;
-  v19 = completionCopy;
-  v15 = completionCopy;
-  objc_msgSend_startListeningForEventTarget_sendStartingEvent_completion_(v14, v16, self, v20, v18);
-
-  v17 = *MEMORY[0x1E69E9840];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_1A82A5B94;
+  v13[3] = &unk_1E7810AC8;
+  v14 = enabledCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_1A82A5BE8;
+  v11[3] = &unk_1E7810A38;
+  v12 = completionCopy;
+  v10 = completionCopy;
+  [v9 startListeningForEventTarget:self sendStartingEvent:v13 completion:v11];
 }
 
 - (void)startPeriodicSync
 {
   if (IMOSLoggingEnabled())
   {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "beginning periodic sync", v9, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "beginning periodic sync", v5, 2u);
     }
   }
 
-  v6 = objc_msgSend_cloudKitHooks(self, v3, v4);
-  objc_msgSend_initiatePeriodicSync(v6, v7, v8);
+  cloudKitHooks = [(IMCloudKitEventNotificationManager *)self cloudKitHooks];
+  [cloudKitHooks initiatePeriodicSync];
 }
 
 - (void)startUserInitiatedSync
 {
-  v5 = objc_msgSend_cloudKitHooks(self, a2, v2);
-  objc_msgSend_startUserInitiatedSync(v5, v3, v4);
+  cloudKitHooks = [(IMCloudKitEventNotificationManager *)self cloudKitHooks];
+  [cloudKitHooks startUserInitiatedSync];
 }
 
 - (void)startInitialSync
 {
-  v4 = objc_msgSend_logHandle(self, a2, v2);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  logHandle = [(IMCloudKitEventNotificationManager *)self logHandle];
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "beginning initial sync", v9, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1A823F000, logHandle, OS_LOG_TYPE_INFO, "beginning initial sync", v5, 2u);
   }
 
-  v7 = objc_msgSend_cloudKitHooks(self, v5, v6);
-  objc_msgSend_initiateSync_forceRunNow_reply_(v7, v8, @"initial", 1, &unk_1F1B6DFE0);
+  cloudKitHooks = [(IMCloudKitEventNotificationManager *)self cloudKitHooks];
+  [cloudKitHooks initiateSync:@"initial" forceRunNow:1 reply:&unk_1F1B6DFE0];
 }
 
 - (BOOL)didPromptForCloudKitSync
 {
-  v3 = objc_msgSend_standardUserDefaults(MEMORY[0x1E695E000], a2, v2);
-  v5 = objc_msgSend_objectForKey_(v3, v4, @"HasPromptedForMessagesInCloud");
+  standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
+  v3 = [standardUserDefaults objectForKey:@"HasPromptedForMessagesInCloud"];
 
-  if (v5)
+  if (v3)
   {
-    v8 = objc_msgSend_BOOLValue(v5, v6, v7);
+    bOOLValue = [v3 BOOLValue];
   }
 
   else
   {
-    v8 = 0;
+    bOOLValue = 0;
   }
 
-  return v8;
+  return bOOLValue;
+}
+
+- (void)setDidPromptForCloudKitSync:(BOOL)sync
+{
+  syncCopy = sync;
+  v9 = *MEMORY[0x1E69E9840];
+  if (IMOSLoggingEnabled())
+  {
+    v4 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    {
+      v5 = @"NO";
+      if (syncCopy)
+      {
+        v5 = @"YES";
+      }
+
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "set did prompt for cloud kit sync to %@", &v7, 0xCu);
+    }
+  }
+
+  standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
+  [standardUserDefaults setBool:syncCopy forKey:@"HasPromptedForMessagesInCloud"];
 }
 
 - (void)disableAllSyncEnabledCloudKitDevices
 {
   if (IMOSLoggingEnabled())
   {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "attempting to disable all icloud devices", v10, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "attempting to disable all icloud devices", v6, 2u);
     }
   }
 
-  v6 = objc_msgSend_notificationManager(self, v3, v4);
-  v8 = objc_msgSend_createEventListenerForNotificationName_object_(v6, v7, @"com.apple.IMCore.IMCloudKitHooks.tryToDisableAllDevicesReturned", 0);
+  notificationManager = [(IMCloudKitEventNotificationManager *)self notificationManager];
+  v5 = [notificationManager createEventListenerForNotificationName:@"com.apple.IMCore.IMCloudKitHooks.tryToDisableAllDevicesReturned" object:0];
 
-  objc_msgSend_startListeningForEventTarget_sendStartingEvent_completion_(v8, v9, self, &unk_1F1B6E020, &unk_1F1B6E000);
+  [v5 startListeningForEventTarget:self sendStartingEvent:&unk_1F1B6E020 completion:&unk_1F1B6E000];
 }
 
 - (void)performAdditionalStorageRequiredCheck
 {
   if (IMOSLoggingEnabled())
   {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Check if additional storage is required", v10, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "Check if additional storage is required", v6, 2u);
     }
   }
 
-  v6 = objc_msgSend_notificationManager(self, v3, v4);
-  v8 = objc_msgSend_createEventListenerForNotificationName_object_(v6, v7, @"com.apple.IMCore.IMCloudKitHooks.AdditionalStorageCheckReturned", 0);
+  notificationManager = [(IMCloudKitEventNotificationManager *)self notificationManager];
+  v5 = [notificationManager createEventListenerForNotificationName:@"com.apple.IMCore.IMCloudKitHooks.AdditionalStorageCheckReturned" object:0];
 
-  objc_msgSend_startListeningForEventTarget_sendStartingEvent_completion_(v8, v9, self, &unk_1F1B6E060, &unk_1F1B6E040);
+  [v5 startListeningForEventTarget:self sendStartingEvent:&unk_1F1B6E060 completion:&unk_1F1B6E040];
 }
 
 - (void)_fetchSyncStateStatistics:(id)statistics
 {
   statisticsCopy = statistics;
-  v7 = objc_msgSend_logHandle(self, v5, v6);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  logHandle = [(IMCloudKitEventNotificationManager *)self logHandle];
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
   {
-    sub_1A84DF518(v7);
+    sub_1A84DF518(logHandle);
   }
 
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = sub_1A82A6800;
-  v19 = &unk_1E7810A10;
+  v10 = MEMORY[0x1E69E9820];
+  v11 = 3221225472;
+  v12 = sub_1A82A6800;
+  v13 = &unk_1E7810A10;
   selfCopy = self;
-  v21 = statisticsCopy;
-  v8 = statisticsCopy;
-  v9 = _Block_copy(&v16);
-  v12 = objc_msgSend_notificationManager(self, v10, v11, v16, v17, v18, v19, selfCopy);
-  v14 = objc_msgSend_createEventListenerForNotificationName_object_(v12, v13, @"IMCloudKitFetchedSyncStatsNotification", 0);
+  v15 = statisticsCopy;
+  v6 = statisticsCopy;
+  v7 = _Block_copy(&v10);
+  v8 = [(IMCloudKitEventNotificationManager *)self notificationManager:v10];
+  v9 = [v8 createEventListenerForNotificationName:@"IMCloudKitFetchedSyncStatsNotification" object:0];
 
-  objc_msgSend_startListeningForEventTarget_sendStartingEvent_completion_(v14, v15, self, &unk_1F1B6E080, v9);
+  [v9 startListeningForEventTarget:self sendStartingEvent:&unk_1F1B6E080 completion:v7];
 }
 
 - (void)_sendSyncStatisticsToEventHandlers:(id)handlers error:(id)error
 {
   handlersCopy = handlers;
   errorCopy = error;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_1A82A6A5C;
-  v11[3] = &unk_1E7810B38;
-  v11[4] = self;
-  v12 = handlersCopy;
-  v13 = errorCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = sub_1A82A6A5C;
+  v10[3] = &unk_1E7810B38;
+  v10[4] = self;
+  v11 = handlersCopy;
+  v12 = errorCopy;
   v8 = errorCopy;
   v9 = handlersCopy;
-  objc_msgSend_visitEventHandlers_(self, v10, v11);
+  [(IMCloudKitEventNotificationManager *)self visitEventHandlers:v10];
 }
 
 - (void)fetchSyncStateStatistics
@@ -494,183 +512,178 @@
   v2[2] = sub_1A82A6B2C;
   v2[3] = &unk_1E7810B60;
   v2[4] = self;
-  objc_msgSend__fetchSyncStateStatistics_(self, a2, v2);
+  [(IMCloudKitEventNotificationManager *)self _fetchSyncStateStatistics:v2];
 }
 
 - (void)fetchSyncStateStatisticsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_1A82A6BD0;
-  v7[3] = &unk_1E7810B88;
-  v7[4] = self;
-  v8 = completionCopy;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = sub_1A82A6BD0;
+  v6[3] = &unk_1E7810B88;
+  v6[4] = self;
+  v7 = completionCopy;
   v5 = completionCopy;
-  objc_msgSend__fetchSyncStateStatistics_(self, v6, v7);
+  [(IMCloudKitEventNotificationManager *)self _fetchSyncStateStatistics:v6];
 }
 
 - (void)_cancelStatsFetchingTimer
 {
-  v4 = objc_msgSend_fetchStatsTimer(self, a2, v2);
-  if (v4)
+  fetchStatsTimer = [(IMCloudKitEventNotificationManager *)self fetchStatsTimer];
+  if (fetchStatsTimer)
   {
-    v8 = v4;
-    objc_msgSend_invalidate(v4, v5, v6);
-    objc_msgSend_setFetchStatsTimer_(self, v7, 0);
-    v4 = v8;
+    v4 = fetchStatsTimer;
+    [fetchStatsTimer invalidate];
+    [(IMCloudKitEventNotificationManager *)self setFetchStatsTimer:0];
+    fetchStatsTimer = v4;
   }
 }
 
 - (void)_timerExpiredForSyncStatsFetching:(id)fetching
 {
-  v4 = objc_msgSend_logHandle(self, a2, fetching);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  logHandle = [(IMCloudKitEventNotificationManager *)self logHandle];
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "Rescheduled sync progress: firing", v8, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1A823F000, logHandle, OS_LOG_TYPE_INFO, "Rescheduled sync progress: firing", v5, 2u);
   }
 
-  objc_msgSend_fetchSyncState(self, v5, v6);
-  objc_msgSend_setFetchStatsTimer_(self, v7, 0);
+  [(IMCloudKitEventNotificationManager *)self fetchSyncState];
+  [(IMCloudKitEventNotificationManager *)self setFetchStatsTimer:0];
 }
 
 - (void)_rescheduleFetchSyncProgress
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v4 = objc_msgSend_fetchStatsTimer(self, a2, v2);
+  v11 = *MEMORY[0x1E69E9840];
+  fetchStatsTimer = [(IMCloudKitEventNotificationManager *)self fetchStatsTimer];
 
-  if (v4)
+  if (fetchStatsTimer)
   {
-    v7 = objc_msgSend_logHandle(self, v5, v6);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    logHandle = [(IMCloudKitEventNotificationManager *)self logHandle];
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
     {
-      objc_msgSend_progressPollingInterval(self, v8, v9);
-      v23 = 134217984;
-      v24 = v10;
-      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Rescheduled sync progress pending (interval %f secs)", &v23, 0xCu);
+      [(IMCloudKitEventNotificationManager *)self progressPollingInterval];
+      v9 = 134217984;
+      v10 = v5;
+      _os_log_impl(&dword_1A823F000, logHandle, OS_LOG_TYPE_INFO, "Rescheduled sync progress pending (interval %f secs)", &v9, 0xCu);
     }
   }
 
   else
   {
-    objc_msgSend__cancelStatsFetchingTimer(self, v5, v6);
-    v13 = objc_msgSend_logHandle(self, v11, v12);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    [(IMCloudKitEventNotificationManager *)self _cancelStatsFetchingTimer];
+    logHandle2 = [(IMCloudKitEventNotificationManager *)self logHandle];
+    if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_INFO))
     {
-      objc_msgSend_progressPollingInterval(self, v14, v15);
-      v23 = 134217984;
-      v24 = v16;
-      _os_log_impl(&dword_1A823F000, v13, OS_LOG_TYPE_INFO, "Rescheduled sync progress for %f seconds in the future", &v23, 0xCu);
+      [(IMCloudKitEventNotificationManager *)self progressPollingInterval];
+      v9 = 134217984;
+      v10 = v7;
+      _os_log_impl(&dword_1A823F000, logHandle2, OS_LOG_TYPE_INFO, "Rescheduled sync progress for %f seconds in the future", &v9, 0xCu);
     }
 
-    v17 = MEMORY[0x1E695DFF0];
-    objc_msgSend_progressPollingInterval(self, v18, v19);
-    v7 = objc_msgSend_scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(v17, v20, self, sel__timerExpiredForSyncStatsFetching_, 0, 0);
-    objc_msgSend_setFetchStatsTimer_(self, v21, v7);
+    v8 = MEMORY[0x1E695DFF0];
+    [(IMCloudKitEventNotificationManager *)self progressPollingInterval];
+    logHandle = [v8 scheduledTimerWithTimeInterval:self target:sel__timerExpiredForSyncStatsFetching_ selector:0 userInfo:0 repeats:?];
+    [(IMCloudKitEventNotificationManager *)self setFetchStatsTimer:logHandle];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendProgressToEventListenersDeferred
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v4 = objc_msgSend_progressToSend(self, a2, v2);
-  objc_msgSend_setProgressToSend_(self, v5, 0);
-  v8 = objc_msgSend_logHandle(self, v6, v7);
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v10 = *MEMORY[0x1E69E9840];
+  progressToSend = [(IMCloudKitEventNotificationManager *)self progressToSend];
+  [(IMCloudKitEventNotificationManager *)self setProgressToSend:0];
+  logHandle = [(IMCloudKitEventNotificationManager *)self logHandle];
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v15 = v4;
-    _os_log_impl(&dword_1A823F000, v8, OS_LOG_TYPE_INFO, "Sending progress to event handlers: %@", buf, 0xCu);
+    v9 = progressToSend;
+    _os_log_impl(&dword_1A823F000, logHandle, OS_LOG_TYPE_INFO, "Sending progress to event handlers: %@", buf, 0xCu);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = sub_1A82A700C;
-  v12[3] = &unk_1E78109C8;
-  v12[4] = self;
-  v13 = v4;
-  v9 = v4;
-  objc_msgSend_visitEventHandlers_(self, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = sub_1A82A700C;
+  v6[3] = &unk_1E78109C8;
+  v6[4] = self;
+  v7 = progressToSend;
+  v5 = progressToSend;
+  [(IMCloudKitEventNotificationManager *)self visitEventHandlers:v6];
 }
 
 - (void)_sendProgressToEventListeners:(id)listeners
 {
   listenersCopy = listeners;
-  objc_msgSend_setProgressToSend_(self, v5, listenersCopy);
-  v8 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v6, v7);
-  isMessagesIniCloudVersion2 = objc_msgSend_isMessagesIniCloudVersion2(v8, v9, v10);
+  [(IMCloudKitEventNotificationManager *)self setProgressToSend:listenersCopy];
+  mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
+  isMessagesIniCloudVersion2 = [mEMORY[0x1E69A8070] isMessagesIniCloudVersion2];
 
   if (isMessagesIniCloudVersion2)
   {
-    objc_msgSend__sendProgressToEventListenersDeferred(self, v12, v13);
+    [(IMCloudKitEventNotificationManager *)self _sendProgressToEventListenersDeferred];
   }
 
   else
   {
-    objc_msgSend_progressBroadcastDelay(self, v12, v13);
-    v15 = v14;
-    objc_msgSend_broadcastDeferralOverride(listenersCopy, v16, v17);
-    if (v15 <= v20)
+    [(IMCloudKitEventNotificationManager *)self progressBroadcastDelay];
+    v8 = v7;
+    [listenersCopy broadcastDeferralOverride];
+    if (v8 <= v9)
     {
-      objc_msgSend_broadcastDeferralOverride(listenersCopy, v18, v19);
+      [listenersCopy broadcastDeferralOverride];
     }
 
     else
     {
-      objc_msgSend_progressBroadcastDelay(self, v18, v19);
+      [(IMCloudKitEventNotificationManager *)self progressBroadcastDelay];
     }
 
-    v24 = v23;
-    v25 = objc_msgSend_logHandle(self, v21, v22);
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    v11 = v10;
+    logHandle = [(IMCloudKitEventNotificationManager *)self logHandle];
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
     {
-      sub_1A84DF6D0(v25, v24);
+      sub_1A84DF6D0(logHandle, v11);
     }
 
-    objc_msgSend_cancelPreviousPerformRequestsWithTarget_selector_object_(MEMORY[0x1E69E58C0], v26, self, sel__sendProgressToEventListenersDeferred, 0);
-    objc_msgSend_performSelector_withObject_afterDelay_(self, v27, sel__sendProgressToEventListenersDeferred, 0, v24);
+    [MEMORY[0x1E69E58C0] cancelPreviousPerformRequestsWithTarget:self selector:sel__sendProgressToEventListenersDeferred object:0];
+    [(IMCloudKitEventNotificationManager *)self performSelector:sel__sendProgressToEventListenersDeferred withObject:0 afterDelay:v11];
   }
 }
 
 - (void)_sendHiddenProgressToEventListeners
 {
-  v3 = [IMCloudKitSyncProgress alloc];
-  v6 = objc_msgSend_initWithType_syncState_syncStatistics_(v3, v4, 2, 0, 0);
-  objc_msgSend__sendProgressToEventListeners_(self, v5, v6);
+  v3 = [[IMCloudKitSyncProgress alloc] initWithType:2 syncState:0 syncStatistics:0];
+  [(IMCloudKitEventNotificationManager *)self _sendProgressToEventListeners:v3];
 }
 
 - (void)_updateProgressWithState:(id)state
 {
   stateCopy = state;
-  v7 = objc_msgSend_fetchStatsTimer(self, v5, v6);
+  fetchStatsTimer = [(IMCloudKitEventNotificationManager *)self fetchStatsTimer];
 
-  if (v7)
+  if (fetchStatsTimer)
   {
-    v10 = objc_msgSend_logHandle(self, v8, v9);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    logHandle = [(IMCloudKitEventNotificationManager *)self logHandle];
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_1A823F000, v10, OS_LOG_TYPE_INFO, "Rescheduled sync progress: cancelled", v19, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_1A823F000, logHandle, OS_LOG_TYPE_INFO, "Rescheduled sync progress: cancelled", v9, 2u);
     }
 
-    objc_msgSend__cancelStatsFetchingTimer(self, v11, v12);
+    [(IMCloudKitEventNotificationManager *)self _cancelStatsFetchingTimer];
   }
 
-  if (objc_msgSend__hasProgressEventListeners(self, v8, v9))
+  if ([(IMCloudKitEventNotificationManager *)self _hasProgressEventListeners])
   {
-    v15 = objc_msgSend_logHandle(self, v13, v14);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    logHandle2 = [(IMCloudKitEventNotificationManager *)self logHandle];
+    if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_DEBUG))
     {
-      sub_1A84DF74C(v15);
+      sub_1A84DF74C(logHandle2);
     }
 
-    v17 = objc_msgSend_createSyncProgressWithSyncStatistics_(stateCopy, v16, 0);
-    objc_msgSend__sendProgressToEventListeners_(self, v18, v17);
+    v8 = [stateCopy createSyncProgressWithSyncStatistics:0];
+    [(IMCloudKitEventNotificationManager *)self _sendProgressToEventListeners:v8];
   }
 }
 
@@ -679,24 +692,24 @@
   infoCopy = info;
   if (IMOSLoggingEnabled())
   {
-    v7 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Fetching sync state debugging info…", buf, 2u);
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Fetching sync state debugging info…", buf, 2u);
     }
   }
 
-  v8 = objc_msgSend_notificationManager(self, v5, v6);
-  v10 = objc_msgSend_createEventListenerForNotificationName_object_(v8, v9, @"IMCloudKitFetchedSyncDebuggingInfoNotification", 0);
+  notificationManager = [(IMCloudKitEventNotificationManager *)self notificationManager];
+  v7 = [notificationManager createEventListenerForNotificationName:@"IMCloudKitFetchedSyncDebuggingInfoNotification" object:0];
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = sub_1A82A76E0;
-  v13[3] = &unk_1E7810C00;
-  v14 = infoCopy;
-  v11 = infoCopy;
-  objc_msgSend_startListeningForEventTarget_sendStartingEvent_completion_(v10, v12, self, v13, &unk_1F1B6E0A0);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_1A82A76E0;
+  v9[3] = &unk_1E7810C00;
+  v10 = infoCopy;
+  v8 = infoCopy;
+  [v7 startListeningForEventTarget:self sendStartingEvent:v9 completion:&unk_1F1B6E0A0];
 }
 
 @end

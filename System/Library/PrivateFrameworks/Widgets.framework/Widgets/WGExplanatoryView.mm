@@ -37,9 +37,9 @@
 
 - (void)layoutSubviews
 {
-  v80.receiver = self;
-  v80.super_class = WGExplanatoryView;
-  [(WGExplanatoryView *)&v80 layoutSubviews];
+  v82.receiver = self;
+  v82.super_class = WGExplanatoryView;
+  [(WGExplanatoryView *)&v82 layoutSubviews];
   [(WGExplanatoryView *)self _updateVisualStylingIfNecessary];
   [(WGExplanatoryView *)self bounds];
   v7 = v3;
@@ -50,11 +50,11 @@
   if (glyphView)
   {
     v12 = CGRectGetWidth(*&v3) + -16.0;
-    v81.origin.x = v7;
-    v81.origin.y = v8;
-    v81.size.width = v9;
-    v81.size.height = v10;
-    [(UIImageView *)glyphView sizeThatFits:v12, CGRectGetHeight(v81)];
+    v83.origin.x = v7;
+    v83.origin.y = v8;
+    v83.size.width = v9;
+    v83.size.height = v10;
+    [(UIImageView *)glyphView sizeThatFits:v12, CGRectGetHeight(v83)];
     BSRectWithSize();
     v14 = v13;
     v16 = v15;
@@ -73,30 +73,30 @@
   label = self->_label;
   if (label)
   {
-    v82.origin.x = v7;
-    v82.origin.y = v8;
-    v82.size.width = v9;
-    v82.size.height = v10;
-    recta = v18;
-    v22 = v16;
-    v23 = v14;
-    v24 = v20;
-    Width = CGRectGetWidth(v82);
-    v83.origin.x = v23;
-    v83.origin.y = v22;
-    v83.size.width = recta;
-    v83.size.height = v24;
-    v26 = Width - CGRectGetWidth(v83) + -8.0 + -16.0;
     v84.origin.x = v7;
     v84.origin.y = v8;
     v84.size.width = v9;
     v84.size.height = v10;
-    [(UILabel *)label sizeThatFits:v26, CGRectGetHeight(v84)];
-    v85.origin.x = v7;
-    v85.origin.y = v8;
-    v85.size.width = v9;
-    v85.size.height = v10;
-    CGRectGetHeight(v85);
+    recta = v18;
+    v22 = v16;
+    v23 = v14;
+    v24 = v20;
+    Width = CGRectGetWidth(v84);
+    v85.origin.x = v23;
+    v85.origin.y = v22;
+    v85.size.width = recta;
+    v85.size.height = v24;
+    v26 = Width - CGRectGetWidth(v85) + -8.0 + -16.0;
+    v86.origin.x = v7;
+    v86.origin.y = v8;
+    v86.size.width = v9;
+    v86.size.height = v10;
+    [(UILabel *)label sizeThatFits:v26, CGRectGetHeight(v86)];
+    v87.origin.x = v7;
+    v87.origin.y = v8;
+    v87.size.width = v9;
+    v87.size.height = v10;
+    CGRectGetHeight(v87);
     v20 = v24;
     v14 = v23;
     v16 = v22;
@@ -116,90 +116,90 @@
     v34 = *(MEMORY[0x277CBF3A0] + 24);
   }
 
-  v86.origin.x = v14;
-  v86.origin.y = v16;
-  v86.size.width = v18;
-  v86.size.height = v20;
-  v76 = v30;
-  v77 = v28;
-  v74 = v34;
-  v75 = v32;
-  CGRectUnion(v86, *&v28);
-  v87.size.width = v18;
-  v87.origin.x = v14;
-  v87.origin.y = v16;
-  v87.size.height = v20;
-  CGRectGetWidth(v87);
-  v88.origin.y = v76;
-  v88.origin.x = v77;
-  v88.size.height = v74;
-  v88.size.width = v75;
-  CGRectGetWidth(v88);
-  v35 = _WGMainScreenScale();
+  v88.origin.x = v14;
+  v88.origin.y = v16;
+  v88.size.width = v18;
+  v88.size.height = v20;
+  v78 = v30;
+  v79 = v28;
+  v76 = v34;
+  v77 = v32;
+  CGRectUnion(v88, *&v28);
+  v89.size.width = v18;
+  v89.origin.x = v14;
+  v89.origin.y = v16;
+  v89.size.height = v20;
+  CGRectGetWidth(v89);
+  v90.origin.y = v78;
+  v90.origin.x = v79;
+  v90.size.height = v76;
+  v90.size.width = v77;
+  CGRectGetWidth(v90);
+  v37 = _WGMainScreenScale(v35, v36);
   UIRectCenteredIntegralRectScale();
-  v37 = v36;
   v39 = v38;
   v41 = v40;
   v43 = v42;
+  v45 = v44;
   if (self->_glyphView)
   {
     UIRectCenteredYInRectScale();
-    rect = v44;
-    v46 = v45;
+    rect = v46;
     v48 = v47;
     v50 = v49;
+    v52 = v51;
     _shouldReverseLayoutDirection = [(WGExplanatoryView *)self _shouldReverseLayoutDirection];
-    v52 = v37;
-    v53 = v39;
-    v54 = v41;
-    v55 = v43;
+    v54 = v39;
+    v55 = v41;
+    v56 = v43;
+    v57 = v45;
     if (_shouldReverseLayoutDirection)
     {
-      MaxX = CGRectGetMaxX(*&v52);
-      v89.origin.x = rect;
-      v89.origin.y = v46;
-      v89.size.width = v48;
-      v89.size.height = v50;
-      MinX = MaxX - CGRectGetWidth(v89);
+      MaxX = CGRectGetMaxX(*&v54);
+      v91.origin.x = rect;
+      v91.origin.y = v48;
+      v91.size.width = v50;
+      v91.size.height = v52;
+      MinX = MaxX - CGRectGetWidth(v91);
     }
 
     else
     {
-      MinX = CGRectGetMinX(*&v52);
+      MinX = CGRectGetMinX(*&v54);
     }
 
-    [(UIImageView *)self->_glyphView setFrame:MinX, v46, v48, v50];
+    [(UIImageView *)self->_glyphView setFrame:MinX, v48, v50, v52];
   }
 
   if (self->_label)
   {
-    v72 = v35;
+    v74 = v37;
     UIRectCenteredYInRectScale();
-    v58 = v57;
     v60 = v59;
     v62 = v61;
     v64 = v63;
+    v66 = v65;
     _shouldReverseLayoutDirection2 = [(WGExplanatoryView *)self _shouldReverseLayoutDirection];
-    v66 = v37;
-    v67 = v39;
-    v68 = v41;
-    v69 = v43;
+    v68 = v39;
+    v69 = v41;
+    v70 = v43;
+    v71 = v45;
     if (_shouldReverseLayoutDirection2)
     {
-      v70 = CGRectGetMinX(*&v66);
+      v72 = CGRectGetMinX(*&v68);
     }
 
     else
     {
-      v71 = CGRectGetMaxX(*&v66);
-      v90.origin.x = v58;
-      v90.origin.y = v60;
-      v90.size.width = v62;
-      v90.size.height = v64;
-      v70 = v71 - CGRectGetWidth(v90);
+      v73 = CGRectGetMaxX(*&v68);
+      v92.origin.x = v60;
+      v92.origin.y = v62;
+      v92.size.width = v64;
+      v92.size.height = v66;
+      v72 = v73 - CGRectGetWidth(v92);
     }
 
-    [(UILabel *)self->_label setFrame:v70, v60, v62, v64];
+    [(UILabel *)self->_label setFrame:v72, v62, v64, v66];
   }
 }
 

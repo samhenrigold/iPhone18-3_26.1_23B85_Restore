@@ -9,7 +9,7 @@
 
 - (NSArray)preferredFocusEnvironments
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C7629D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C7629D0, &unk_20C14F960);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_20C14F580;
   selfCopy = self;
@@ -17,7 +17,7 @@
   v6 = *&v5[OBJC_IVAR____TtC9SeymourUI11CatalogPage_collectionView];
 
   *(v3 + 32) = v6;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0, &unk_20C14F970);
   v7 = sub_20C13CC54();
 
   return v7;

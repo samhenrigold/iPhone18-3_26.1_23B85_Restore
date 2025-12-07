@@ -50,108 +50,107 @@
 
 - (id)previewActions
 {
-  v16[5] = *MEMORY[0x277D85DE8];
+  v14[5] = *MEMORY[0x277D85DE8];
   url = self->super.super.super._url;
   if (url)
   {
-    v11 = 0;
-    if ([(NSURL *)url dd_isMaps:&v11 isDirections:?])
+    v9 = 0;
+    if ([(NSURL *)url dd_isMaps:&v9 isDirections:?])
     {
-      if (self->super.super.super._contact || self->super.super.super._result && (v10 = *MEMORY[0x277D040E0], DDResultHasType()))
+      if (self->super.super.super._contact || self->super.super.super._result && DDResultHasType())
       {
-        v16[0] = objc_opt_class();
-        v16[1] = objc_opt_class();
-        v16[2] = objc_opt_class();
-        v16[3] = objc_opt_class();
-        v16[4] = objc_opt_class();
+        v14[0] = objc_opt_class();
+        v14[1] = objc_opt_class();
+        v14[2] = objc_opt_class();
+        v14[3] = objc_opt_class();
+        v14[4] = objc_opt_class();
         v4 = MEMORY[0x277CBEA60];
-        v5 = v16;
+        v5 = v14;
         v6 = 5;
       }
 
       else
       {
-        v15[0] = objc_opt_class();
-        v15[1] = objc_opt_class();
-        v15[2] = objc_opt_class();
-        v15[3] = objc_opt_class();
+        v13[0] = objc_opt_class();
+        v13[1] = objc_opt_class();
+        v13[2] = objc_opt_class();
+        v13[3] = objc_opt_class();
         v4 = MEMORY[0x277CBEA60];
-        v5 = v15;
+        v5 = v13;
         v6 = 4;
       }
 
       goto LABEL_10;
     }
 
-    if (v11 == 1)
+    if (v9 == 1)
     {
-      v14[0] = objc_opt_class();
-      v14[1] = objc_opt_class();
-      v14[2] = objc_opt_class();
+      v12[0] = objc_opt_class();
+      v12[1] = objc_opt_class();
+      v12[2] = objc_opt_class();
       v4 = MEMORY[0x277CBEA60];
-      v5 = v14;
+      v5 = v12;
     }
 
     else
     {
-      v13[0] = objc_opt_class();
-      v13[1] = objc_opt_class();
-      v13[2] = objc_opt_class();
+      v11[0] = objc_opt_class();
+      v11[1] = objc_opt_class();
+      v11[2] = objc_opt_class();
       v4 = MEMORY[0x277CBEA60];
-      v5 = v13;
+      v5 = v11;
     }
   }
 
   else
   {
-    v12[0] = objc_opt_class();
-    v12[1] = objc_opt_class();
-    v12[2] = objc_opt_class();
+    v10[0] = objc_opt_class();
+    v10[1] = objc_opt_class();
+    v10[2] = objc_opt_class();
     v4 = MEMORY[0x277CBEA60];
-    v5 = v12;
+    v5 = v10;
   }
 
   v6 = 3;
 LABEL_10:
   v7 = [v4 arrayWithObjects:v5 count:v6];
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)menuActionClasses
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   previewActions = [(DDMapAction *)self previewActions];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = [previewActions countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v5 = [previewActions countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(previewActions);
         }
 
-        v18 = *(*(&v14 + 1) + 8 * v8);
-        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+        v17 = *(*(&v13 + 1) + 8 * v8);
+        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
         [array addObject:v9];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [previewActions countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v6 = [previewActions countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v6);
@@ -169,7 +168,6 @@ LABEL_10:
 
   v11 = v10;
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

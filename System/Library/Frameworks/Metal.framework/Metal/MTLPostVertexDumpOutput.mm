@@ -33,14 +33,14 @@
 
 - (id)formattedDescription:(unint64_t)description withPrintedTypes:(id)types
 {
-  v15[18] = *MEMORY[0x1E69E9840];
+  v14[18] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v6 = MEMORY[0x1E696AEC0];
-  v14.receiver = self;
-  v14.super_class = MTLPostVertexDumpOutput;
-  v7 = [(MTLPostVertexDumpOutput *)&v14 description];
-  v15[0] = v5;
-  v15[1] = @"airMDType =";
+  v13.receiver = self;
+  v13.super_class = MTLPostVertexDumpOutput;
+  v7 = [(MTLPostVertexDumpOutput *)&v13 description];
+  v14[0] = v5;
+  v14[1] = @"airMDType =";
   airMDType = self->_airMDType;
   dataType = self->_dataType;
   if (!airMDType)
@@ -48,17 +48,17 @@
     airMDType = @"<none>";
   }
 
-  v15[2] = airMDType;
-  v15[3] = v5;
-  v15[4] = @"dataType =";
-  v15[5] = MTLDataTypeString(dataType);
-  v15[6] = v5;
-  v15[7] = @"pixelFormat =";
-  v15[8] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName(self->_pixelFormat)];
-  v15[9] = v5;
-  v15[10] = @"aluType =";
-  v15[11] = MTLDataTypeString(self->_aluType);
-  v15[12] = v5;
+  v14[2] = airMDType;
+  v14[3] = v5;
+  v14[4] = @"dataType =";
+  v14[5] = MTLDataTypeString(dataType);
+  v14[6] = v5;
+  v14[7] = @"pixelFormat =";
+  v14[8] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName(self->_pixelFormat)];
+  v14[9] = v5;
+  v14[10] = @"aluType =";
+  v14[11] = MTLDataTypeString(self->_aluType);
+  v14[12] = v5;
   name = self->_name;
   offset = self->_offset;
   if (!name)
@@ -66,14 +66,12 @@
     name = @"<none>";
   }
 
-  v15[13] = @"name =";
-  v15[14] = name;
-  v15[15] = v5;
-  v15[16] = @"offset =";
-  v15[17] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:offset];
-  result = [v6 stringWithFormat:@"%@%@", v7, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v15, 18), "componentsJoinedByString:", @" "];
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  v14[13] = @"name =";
+  v14[14] = name;
+  v14[15] = v5;
+  v14[16] = @"offset =";
+  v14[17] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:offset];
+  return [v6 stringWithFormat:@"%@%@", v7, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v14, 18), "componentsJoinedByString:", @" "];
 }
 
 - (id)description

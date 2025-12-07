@@ -14,47 +14,47 @@
 
 - (id)initForCollector:(id)collector identifier:(id)identifier profile:(id)profile types:(id)types
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   collectorCopy = collector;
   identifierCopy = identifier;
   profileCopy = profile;
   typesCopy = types;
-  v51.receiver = self;
-  v51.super_class = HDDataCollectorMultiplexer;
-  v13 = [(HDDataCollectorMultiplexer *)&v51 init];
+  v50.receiver = self;
+  v50.super_class = HDDataCollectorMultiplexer;
+  v13 = [(HDDataCollectorMultiplexer *)&v50 init];
   v14 = v13;
   if (v13)
   {
-    v43 = profileCopy;
+    v42 = profileCopy;
     objc_storeWeak(&v13->_profile, profileCopy);
-    v44 = collectorCopy;
+    v43 = collectorCopy;
     objc_storeWeak(&v14->_collector, collectorCopy);
     weakToStrongObjectsMapTable = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
     recordsByAggregator = v14->_recordsByAggregator;
     v14->_recordsByAggregator = weakToStrongObjectsMapTable;
 
     v17 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
-    v42 = typesCopy;
+    v41 = typesCopy;
     obj = typesCopy;
-    v18 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
+    v18 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v48;
+      v20 = *v47;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v48 != v20)
+          if (*v47 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v47 + 1) + 8 * i);
+          v22 = *(*(&v46 + 1) + 8 * i);
           v23 = MEMORY[0x277CCACA8];
           identifier = [v22 identifier];
           v25 = [v23 stringWithFormat:@"%@.%@", identifierCopy, identifier];
@@ -69,14 +69,14 @@
           v31 = v25;
           if (v29)
           {
-            v52.receiver = v29;
-            v52.super_class = HDDataCollectorAggregatorRecord;
-            v32 = [(HDDataCollectorMultiplexer *)&v52 init];
+            v51.receiver = v29;
+            v51.super_class = HDDataCollectorAggregatorRecord;
+            v32 = [(HDDataCollectorMultiplexer *)&v51 init];
             v29 = v32;
             if (v32)
             {
               objc_storeStrong(&v32->_collector, v28);
-              v33 = [v31 copy];
+              v33 = objc_msgSend_copy(v31);
               identifier = v29->_identifier;
               v29->_identifier = v33;
 
@@ -94,22 +94,21 @@
           [(NSMapTable *)v14->_recordsByAggregator setObject:v29 forKey:v30];
         }
 
-        v19 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
+        v19 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
       }
 
       while (v19);
     }
 
-    v38 = [v17 copy];
+    v38 = objc_msgSend_copy(v17);
     aggregatorsByType = v14->_aggregatorsByType;
     v14->_aggregatorsByType = v38;
 
-    profileCopy = v43;
-    collectorCopy = v44;
-    typesCopy = v42;
+    profileCopy = v42;
+    collectorCopy = v43;
+    typesCopy = v41;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -209,43 +208,43 @@
 
 - (id)mergedConfiguration
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = +[HDDataCollectorConfiguration disabledConfiguration];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   objectEnumerator = [(NSMapTable *)self->_recordsByAggregator objectEnumerator];
-  v5 = [objectEnumerator countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v5 = [objectEnumerator countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v20;
+    v8 = *v19;
     v9 = MEMORY[0x277CCC298];
     *&v6 = 138543618;
-    v18 = v6;
+    v17 = v6;
     while (2)
     {
       v10 = 0;
       v11 = v3;
       do
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * v10);
+        v12 = *(*(&v18 + 1) + 8 * v10);
         if (!v12 || (*(v12 + 8) & 1) == 0)
         {
           _HKInitializeLogging();
           v15 = *v9;
           if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v18;
+            *buf = v17;
             selfCopy2 = self;
-            v25 = 2114;
-            v26 = v12;
+            v24 = 2114;
+            v25 = v12;
             _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: last sensor dataum has not been set for %{public}@", buf, 0x16u);
           }
 
@@ -258,21 +257,21 @@
         v13 = *v9;
         if (os_log_type_enabled(*v9, OS_LOG_TYPE_INFO))
         {
-          *buf = v18;
+          *buf = v17;
           selfCopy2 = self;
-          v25 = 2114;
-          v26 = v12;
+          v24 = 2114;
+          v25 = v12;
           _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_INFO, "%{public}@: merging configuration for record %{public}@", buf, 0x16u);
         }
 
-        v3 = [v11 mergedConfiguration:{*(v12 + 32), v18}];
+        v3 = [v11 mergedConfiguration:{*(v12 + 32), v17}];
 
         ++v10;
         v11 = v3;
       }
 
       while (v7 != v10);
-      v7 = [objectEnumerator countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v7 = [objectEnumerator countByEnumeratingWithState:&v18 objects:v26 count:16];
       if (v7)
       {
         continue;
@@ -285,8 +284,6 @@
   v11 = v3;
   v14 = v11;
 LABEL_16:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

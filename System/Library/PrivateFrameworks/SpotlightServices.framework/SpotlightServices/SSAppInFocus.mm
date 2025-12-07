@@ -79,7 +79,7 @@ LABEL_5:
 
 - (void)handleEvent:(id)event
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -106,9 +106,9 @@ LABEL_5:
             {
               identifier = [(SSBaseConsumer *)self identifier];
               *buf = 138412546;
-              v22 = identifier;
-              v23 = 2112;
-              v24 = v11;
+              v21 = identifier;
+              v22 = 2112;
+              v23 = v11;
               _os_log_impl(&dword_1D9F69000, v12, OS_LOG_TYPE_DEFAULT, "%@: processing event for bundle %@.", buf, 0x16u);
             }
           }
@@ -121,8 +121,8 @@ LABEL_5:
 
             if (bundleID4)
             {
-              v20 = v15;
-              v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+              v19 = v15;
+              v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
               bundleID5 = [v15 bundleID];
               [(SSBaseConsumer *)self indexItems:v17 protectionClass:@"Priority" bundleID:bundleID5];
             }
@@ -131,33 +131,29 @@ LABEL_5:
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_attributesUpdatesForEvent:(id)event
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   absoluteTimestamp = [eventCopy absoluteTimestamp];
 
   if (absoluteTimestamp)
   {
-    v10[0] = @"_kMDItemLastOutOfSpotlightEngagementDate";
+    v9[0] = @"_kMDItemLastOutOfSpotlightEngagementDate";
     absoluteTimestamp2 = [eventCopy absoluteTimestamp];
-    v11[0] = absoluteTimestamp2;
-    v10[1] = *MEMORY[0x1E6964548];
+    v10[0] = absoluteTimestamp2;
+    v9[1] = *MEMORY[0x1E6964548];
     absoluteTimestamp3 = [eventCopy absoluteTimestamp];
-    v11[1] = absoluteTimestamp3;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v10[1] = absoluteTimestamp3;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   }
 
   else
   {
     v7 = MEMORY[0x1E695E0F8];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -167,7 +163,7 @@ LABEL_5:
   eventCopy = event;
   v5 = [(SSAppInFocus *)self _attributesUpdatesForEvent:eventCopy];
   v6 = v5;
-  if (v5 && [v5 count])
+  if (v5 && objc_msgSend_count(v5))
   {
     v7 = [objc_alloc(MEMORY[0x1E6964E90]) initWithAttributes:v6];
     v8 = objc_alloc(MEMORY[0x1E6964E80]);

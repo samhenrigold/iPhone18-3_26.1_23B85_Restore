@@ -10,29 +10,29 @@ void __95__UIPasteboard_SafariServicesExtras__safari_bestStringForPastingIntoURL
   v7 = [v5 objectForKeyedSubscript:*MEMORY[0x1E69DDCA8]];
   if (v7 || ([v5 objectForKeyedSubscript:*MEMORY[0x1E69DDCA0]], (v7 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(*(a1 + 32), "string"), (v7 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v8 = v7;
+    v9 = v7;
   }
 
   else
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXOther();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXOther(0, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __95__UIPasteboard_SafariServicesExtras__safari_bestStringForPastingIntoURLFieldCompletionHandler___block_invoke_cold_1(v11, v5, v6);
+      __95__UIPasteboard_SafariServicesExtras__safari_bestStringForPastingIntoURLFieldCompletionHandler___block_invoke_cold_1(v12, v5, v6);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __95__UIPasteboard_SafariServicesExtras__safari_bestStringForPastingIntoURLFieldCompletionHandler___block_invoke_1;
-  v12[3] = &unk_1E8490798;
-  v9 = *(a1 + 40);
-  v13 = v8;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __95__UIPasteboard_SafariServicesExtras__safari_bestStringForPastingIntoURLFieldCompletionHandler___block_invoke_1;
+  v13[3] = &unk_1E8490798;
+  v10 = *(a1 + 40);
   v14 = v9;
-  v10 = v8;
-  dispatch_async(MEMORY[0x1E69E96A0], v12);
+  v15 = v10;
+  v11 = v9;
+  dispatch_async(MEMORY[0x1E69E96A0], v13);
 }
 
 void __95__UIPasteboard_SafariServicesExtras__safari_bestStringForPastingIntoURLFieldCompletionHandler___block_invoke_cold_1(void *a1, void *a2, void *a3)

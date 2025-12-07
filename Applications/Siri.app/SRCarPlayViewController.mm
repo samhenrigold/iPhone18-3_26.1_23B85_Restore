@@ -47,7 +47,7 @@
 
 - (NSArray)preferredFocusEnvironments
 {
-  sub_100093B6C(&qword_10018E930);
+  sub_100093B6C(&qword_10018E930, &unk_1000F7A90);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1000F79C0;
   v4 = *(&self->super.super.super.isa + OBJC_IVAR____TtC4Siri23SRCarPlayViewController_currentSnippetViewController);
@@ -64,7 +64,7 @@
 
   *(v3 + 32) = selfCopy;
   v6 = v4;
-  sub_100093B6C(&qword_10018E9A0);
+  sub_100093B6C(&qword_10018E9A0, &unk_1000F7CF0);
   v7.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v7.super.isa;

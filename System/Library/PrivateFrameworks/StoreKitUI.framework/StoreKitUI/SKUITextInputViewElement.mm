@@ -1,6 +1,7 @@
 @interface SKUITextInputViewElement
 + (BOOL)isTextInputType:(id)type;
 + (id)supportedFeatures;
++ (void)supportedFeatures;
 - (SKUITextInputViewElement)initWithDOMElement:(id)element parent:(id)parent elementFactory:(id)factory;
 - (id)applyUpdatesWithElement:(id)element;
 @end
@@ -30,14 +31,14 @@
   if (v19)
   {
     v20 = [elementCopy getAttribute:@"type"];
-    if ([v20 isEqualToString:@"email"])
+    if (objc_msgSend_isEqualToString_(v20))
     {
       v21 = 7;
     }
 
     else
     {
-      if (![v20 isEqualToString:@"number"])
+      if (!objc_msgSend_isEqualToString_(v20))
       {
         v19->_keyboardType = 0;
         goto LABEL_12;
@@ -62,7 +63,7 @@ LABEL_12:
       v19->_secure = [v24 BOOLValue];
     }
 
-    else if ([v20 isEqualToString:@"password"])
+    else if (objc_msgSend_isEqualToString_(v20))
     {
       v19->_secure = 1;
     }
@@ -92,17 +93,17 @@ LABEL_12:
     }
   }
 
-  if ([typeCopy isEqualToString:@"number"] & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", @"email") & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", @"password"))
+  if (objc_msgSend_isEqualToString_(typeCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(typeCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(typeCopy))
   {
-    v12 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v12 = [typeCopy isEqualToString:@"text"];
+    isEqualToString = objc_msgSend_isEqualToString_(typeCopy);
   }
 
-  return v12;
+  return isEqualToString;
 }
 
 + (id)supportedFeatures
@@ -140,6 +141,24 @@ LABEL_12:
   }
 
   return v6;
+}
+
+- (void)initWithDOMElement:(uint64_t)a3 parent:(uint64_t)a4 elementFactory:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITextInputViewElement initWithDOMElement:parent:elementFactory:]";
+}
+
++ (void)isTextInputType:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITextInputViewElement isTextInputType:]";
+}
+
++ (void)supportedFeatures
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITextInputViewElement supportedFeatures]";
 }
 
 @end

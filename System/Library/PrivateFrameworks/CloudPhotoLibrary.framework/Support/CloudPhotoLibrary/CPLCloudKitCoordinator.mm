@@ -4,12 +4,15 @@
 + (BOOL)shouldRegisterClient;
 + (BOOL)usesSandboxEnvironment;
 + (CPLCloudKitCoordinator)sharedCoordinator;
++ (id)_containerOptionsIsZoneish:(BOOL)zoneish;
++ (id)containerIsZoneish:(BOOL)zoneish;
 + (id)newOperationConfiguration;
 + (void)setExecutionIdentifier:(id)identifier;
 - (CPLCloudKitCoordinator)init;
 - (id)_bestClientToReceivePushNotification:(id)notification;
 - (id)_clientsInterestedToReceiveAPushNotificationForZoneID:(id)d;
 - (id)_defaultClient;
+- (id)createGroupAllowsCellular:(BOOL)cellular allowsExpensiveNetwork:(BOOL)network foreground:(BOOL)foreground upload:(BOOL)upload metadata:(BOOL)metadata forClient:(id)client;
 - (id)databaseForOperationType:(int64_t)type relativeToOperationType:(int64_t)operationType forClient:(id)client;
 - (void)_addClient:(id)client interestedInZoneIDs:(id)ds;
 - (void)_addClientInterestedInAllZones:(id)zones;
@@ -151,6 +154,40 @@
   return byte_1002C51B8;
 }
 
++ (id)_containerOptionsIsZoneish:(BOOL)zoneish
+{
+  zoneishCopy = zoneish;
+  v4 = objc_alloc_init(CKContainerOptions);
+  [v4 setUseZoneWidePCS:zoneishCopy];
+  [v4 setMmcsEncryptionSupport:3];
+  [v4 setApplicationBundleIdentifierOverrideForContainerAccess:@"com.apple.photos.cloud"];
+  [v4 setApplicationBundleIdentifierOverrideForNetworkAttribution:@"com.apple.photos.cloud"];
+  [v4 setApplicationBundleIdentifierOverrideForPushTopicGeneration:@"com.apple.photos.cloud"];
+  CPLCloudKitConfigurePhotosCapabilitiesOnContainerOptions(v4);
+
+  return v4;
+}
+
++ (id)containerIsZoneish:(BOOL)zoneish
+{
+  zoneishCopy = zoneish;
+  if ([objc_opt_class() usesSandboxEnvironment])
+  {
+    v5 = 2;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  v6 = [[CKContainerID alloc] initWithContainerIdentifier:@"com.apple.photos.cloud" environment:v5];
+  v7 = [self _containerOptionsIsZoneish:zoneishCopy];
+  v8 = [[CKContainer alloc] initWithContainerID:v6 options:v7];
+
+  return v8;
+}
+
 - (void)_coordinatorWillBeUsed
 {
   if (!self->_hasActivatedCoordinator)
@@ -158,7 +195,7 @@
     self->_hasActivatedCoordinator = 1;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v3 = sub_10005189C();
+      v3 = sub_10005189C(self);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -167,40 +204,41 @@
     }
 
     objc_initWeak(&location, self);
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_100051BE0;
-    v11[3] = &unk_1002749A8;
-    objc_copyWeak(&v12, &location);
-    v4 = objc_retainBlock(v11);
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100051BE0;
+    v12[3] = &unk_1002749A8;
+    objc_copyWeak(&v13, &location);
+    v4 = objc_retainBlock(v12);
+    v5 = v4;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = sub_10005189C();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_10005189C(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v15 = @"com.apple.aps.photos.cloud.datarepair";
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Registering for Asset upload requests with port %@", buf, 0xCu);
+        v16 = @"com.apple.aps.photos.cloud.datarepair";
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Registering for Asset upload requests with port %@", buf, 0xCu);
       }
     }
 
     container = self->_container;
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100051DBC;
+    v10[3] = &unk_1002723C8;
+    v10[4] = self;
+    v8 = v5;
+    v11 = v8;
+    [CPLCallObserver observeSyncCallOn:container selector:"registerForAssetUploadRequests:machServiceName:" block:v10];
     v9[0] = _NSConcreteStackBlock;
     v9[1] = 3221225472;
-    v9[2] = sub_100051DBC;
-    v9[3] = &unk_1002723C8;
+    v9[2] = sub_100051DD0;
+    v9[3] = &unk_100271F40;
     v9[4] = self;
-    v7 = v4;
-    v10 = v7;
-    [CPLCallObserver observeSyncCallOn:container selector:"registerForAssetUploadRequests:machServiceName:" block:v9];
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100051DD0;
-    v8[3] = &unk_100271F40;
-    v8[4] = self;
-    [CPLCallObserver observeSyncCallOn:self selector:"_startWaitingForPushNotifications" block:v8];
+    [CPLCallObserver observeSyncCallOn:self selector:"_startWaitingForPushNotifications" block:v9];
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(&location);
   }
 }
@@ -719,6 +757,34 @@ LABEL_20:
   }
 }
 
+- (id)createGroupAllowsCellular:(BOOL)cellular allowsExpensiveNetwork:(BOOL)network foreground:(BOOL)foreground upload:(BOOL)upload metadata:(BOOL)metadata forClient:(id)client
+{
+  metadataCopy = metadata;
+  uploadCopy = upload;
+  foregroundCopy = foreground;
+  networkCopy = network;
+  cellularCopy = cellular;
+  clientCopy = client;
+  v15 = objc_alloc_init(CKOperationGroup);
+  newOperationConfiguration = [(CPLCloudKitCoordinator *)self newOperationConfiguration];
+  container = [(CPLCloudKitCoordinator *)self container];
+  [newOperationConfiguration setContainer:container];
+
+  [newOperationConfiguration setAllowsCellularAccess:cellularCopy];
+  if (!cellularCopy)
+  {
+    [newOperationConfiguration setAllowsExpensiveNetworkAccess:networkCopy];
+  }
+
+  [newOperationConfiguration setCPLDiscretionary:{objc_msgSend(objc_opt_class(), "networkBehaviorShouldBeDiscretionaryForForegroundOperation:upload:metadata:", foregroundCopy, uploadCopy, metadataCopy)}];
+  defaultSourceBundleIdentifier = [clientCopy defaultSourceBundleIdentifier];
+
+  [newOperationConfiguration setApplicationBundleIdentifierOverrideForNetworkAttribution:defaultSourceBundleIdentifier];
+  [v15 setDefaultConfiguration:newOperationConfiguration];
+
+  return v15;
+}
+
 - (id)databaseForOperationType:(int64_t)type relativeToOperationType:(int64_t)operationType forClient:(id)client
 {
   clientCopy = client;
@@ -1117,7 +1183,7 @@ LABEL_32:
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10005189C();
+    v3 = sub_10005189C(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -1144,56 +1210,58 @@ LABEL_32:
 - (void)center:(id)center didReceivePushNotification:(id)notification
 {
   sub_10002B0F4();
-  v30 = v4;
-  v31 = v5;
+  v32 = v4;
+  v33 = v5;
   v7 = v6;
   v9 = v8;
   dispatch_assert_queue_V2(*(v7 + 8));
   if ([*(v7 + 24) count] == 1)
   {
     anyObject = [*(v7 + 24) anyObject];
+    v11 = anyObject;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = sub_10005189C();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_10005189C(anyObject);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        cloudKitClientIdentifier = [anyObject cloudKitClientIdentifier];
+        cloudKitClientIdentifier = [v11 cloudKitClientIdentifier];
         sub_100054B6C();
-        sub_1000139AC(&_mh_execute_header, v13, v14, "Serving push notification to only client %{public}@: %@", v15, v16, v17, v18, v28);
+        sub_1000139AC(&_mh_execute_header, v14, v15, "Serving push notification to only client %{public}@: %@", v16, v17, v18, v19);
       }
     }
 
 LABEL_12:
-    [anyObject coordinatorDidReceiveAPushNotification:v7];
+    [v11 coordinatorDidReceiveAPushNotification:v7];
     goto LABEL_13;
   }
 
-  anyObject = [v7 _bestClientToReceivePushNotification:v9];
-  if (anyObject)
+  v20 = [v7 _bestClientToReceivePushNotification:v9];
+  v11 = v20;
+  if (v20)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v19 = sub_10005189C();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v21 = sub_10005189C(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        cloudKitClientIdentifier2 = [anyObject cloudKitClientIdentifier];
+        cloudKitClientIdentifier2 = [v11 cloudKitClientIdentifier];
         sub_100054B6C();
-        sub_1000139AC(&_mh_execute_header, v21, v22, "Serving push notification to client %{public}@: %@", v23, v24, v25, v26, v28);
+        sub_1000139AC(&_mh_execute_header, v23, v24, "Serving push notification to client %{public}@: %@", v25, v26, v27, v28);
       }
     }
 
-    objc_storeStrong((v7 + 64), anyObject);
+    objc_storeStrong((v7 + 64), v11);
     goto LABEL_12;
   }
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v27 = sub_10005189C();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v29 = sub_10005189C(0);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 138412290;
-      v29 = v9;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Ignoring push notification as there is no client interested: %@", &v28, 0xCu);
+      v30 = 138412290;
+      v31 = v9;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Ignoring push notification as there is no client interested: %@", &v30, 0xCu);
     }
   }
 

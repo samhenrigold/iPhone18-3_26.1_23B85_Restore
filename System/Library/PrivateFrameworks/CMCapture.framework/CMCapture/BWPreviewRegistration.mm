@@ -75,9 +75,9 @@ LABEL_10:
   dispatch_async(registrationQueue, v4);
 }
 
-void __72__BWPreviewRegistration_allocateResourcesAsynchronouslyWithVideoFormat___block_invoke(uint64_t a1)
+void __72__BWPreviewRegistration_allocateResourcesAsynchronouslyWithVideoFormat___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1E695FF58];
+  v3 = MEMORY[0x1E695FF58];
   if (*MEMORY[0x1E695FF58] == 1)
   {
     kdebug_trace();
@@ -86,8 +86,8 @@ void __72__BWPreviewRegistration_allocateResourcesAsynchronouslyWithVideoFormat_
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = [objc_alloc(MEMORY[0x1E6991778]) initWithbundle:objc_msgSend(MEMORY[0x1E696AAE8] andOptionalCommandQueue:{"bundleForClass:", objc_opt_class()), *(*(a1 + 32) + 32)}];
-    if (!v3)
+    v4 = [objc_alloc(MEMORY[0x1E6991778]) initWithbundle:objc_msgSend(MEMORY[0x1E696AAE8] andOptionalCommandQueue:{"bundleForClass:", objc_opt_class()), *(*(a1 + 32) + 32)}];
+    if (!v4)
     {
       __72__BWPreviewRegistration_allocateResourcesAsynchronouslyWithVideoFormat___block_invoke_cold_1();
     }
@@ -95,12 +95,12 @@ void __72__BWPreviewRegistration_allocateResourcesAsynchronouslyWithVideoFormat_
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  [*(*(a1 + 32) + 16) allocateResourcesWithVideoFormat:*(a1 + 40) metalContext:v3];
+  [*(*(a1 + 32) + 16) allocateResourcesWithVideoFormat:*(a1 + 40) metalContext:v4];
 
-  if (*v2 == 1)
+  if (*v3 == 1)
   {
 
     kdebug_trace();
@@ -148,99 +148,100 @@ void __138__BWPreviewRegistration_registerWiderCamera_narrowerCamera_widerToNarr
     kdebug_trace();
   }
 
-  v27 = 0;
-  v25 = 0u;
+  v28 = 0;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
+  v25 = 0u;
   v4 = *(a1 + 32);
   v5 = *(v4 + 16);
   if (v5)
   {
-    [v5 registerWiderCamera:*(a1 + 48) narrowerCamera:*(a1 + 56) widerToNarrowerCameraScale:*(a1 + 76) isMacroScene:*(a1 + 72) macroTransitionType:*(a1 + 64)];
+    objc_msgSend_registerWiderCamera_narrowerCamera_widerToNarrowerCameraScale_isMacroScene_macroTransitionType_(v5, *(a1 + 64));
     v4 = *(a1 + 32);
   }
 
   if ((*(v4 + 40) & 1) == 0)
   {
-    v6 = [objc_msgSend(CMGetAttachment(*(a1 + 48) *off_1E798A3C8];
-    if (v6)
-    {
-      v7 = 0.05;
-    }
-
-    else
-    {
-      v7 = 0.042;
-    }
-
-    if (v6)
+    v6 = [CMGetAttachment(*(a1 + 48) *off_1E798A3C8];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
+    if (isEqualToString)
     {
       v8 = 0.05;
     }
 
     else
     {
-      v8 = 0.01;
+      v8 = 0.042;
     }
 
-    v9 = *(a1 + 72);
+    if (isEqualToString)
+    {
+      v9 = 0.05;
+    }
+
+    else
+    {
+      v9 = 0.01;
+    }
+
+    v10 = *(a1 + 72);
     if (*(a1 + 76))
     {
-      if (!v9)
+      if (!v10)
       {
-        v10 = 1.5;
+        v11 = 1.5;
 LABEL_18:
-        v7 = v7 * v10;
-        v8 = v8 * v10;
+        v8 = v8 * v11;
+        v9 = v9 * v11;
 LABEL_19:
         ImageBuffer = CMSampleBufferGetImageBuffer(*(a1 + 48));
         Width = CVPixelBufferGetWidth(ImageBuffer);
-        v13 = round(v7 * Width);
         v14 = round(v8 * Width);
-        v15 = &v23;
-        v16 = 3;
+        v15 = round(v9 * Width);
+        v16 = &v24;
+        v17 = 3;
         do
         {
-          if (*v15 == 1 && (fabs(*(v15 + 1)) > v13 || fabs(*(v15 + 2)) > v14))
+          if (*v16 == 1 && (fabs(*(v16 + 1)) > v14 || fabs(*(v16 + 2)) > v15))
           {
-            *v15 = 0;
+            *v16 = 0;
           }
 
-          v15 = (v15 + 24);
-          --v16;
+          v16 = (v16 + 24);
+          --v17;
         }
 
-        while (v16);
+        while (v17);
         goto LABEL_25;
       }
     }
 
-    else if (!v9)
+    else if (!v10)
     {
       goto LABEL_19;
     }
 
-    v10 = 1.5;
+    v11 = 1.5;
     if (*(*(a1 + 32) + 24) == 1)
     {
-      v10 = 2.5;
+      v11 = 2.5;
     }
 
     goto LABEL_18;
   }
 
 LABEL_25:
-  v17 = *(a1 + 48);
-  if (v17)
-  {
-    CFRelease(v17);
-  }
-
-  v18 = *(a1 + 56);
+  v18 = *(a1 + 48);
   if (v18)
   {
     CFRelease(v18);
+  }
+
+  v19 = *(a1 + 56);
+  if (v19)
+  {
+    CFRelease(v19);
   }
 
   if (*v3 == 1)
@@ -248,16 +249,16 @@ LABEL_25:
     kdebug_trace();
   }
 
-  v19 = *(a1 + 40);
-  if (v19)
+  v20 = *(a1 + 40);
+  if (v20)
   {
-    v20 = *(v19 + 16);
-    v21[2] = v25;
-    v21[3] = v26;
-    v22 = v27;
-    v21[0] = v23;
-    v21[1] = v24;
-    v20(v19, v21);
+    v21 = *(v20 + 16);
+    v22[2] = v26;
+    v22[3] = v27;
+    v23 = v28;
+    v22[0] = v24;
+    v22[1] = v25;
+    v21(v20, v22);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -302,27 +303,6 @@ LABEL_25:
   result.y = v11;
   result.x = v10;
   return result;
-}
-
-- (uint64_t)initWithCameraInfoByPortType:sensorBinningFactor:registrationType:metalCommandQueue:excludeStaticComponentFromAlignmentShifts:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithCameraInfoByPortType:sensorBinningFactor:registrationType:metalCommandQueue:excludeStaticComponentFromAlignmentShifts:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t __72__BWPreviewRegistration_allocateResourcesAsynchronouslyWithVideoFormat___block_invoke_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

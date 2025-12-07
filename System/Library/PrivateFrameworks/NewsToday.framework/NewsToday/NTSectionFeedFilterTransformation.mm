@@ -144,34 +144,34 @@ LABEL_11:
     v57 = v42;
     if (v42)
     {
-      v43 = NTSharedLog();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      v44 = NTSharedLog(v43);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
         v86 = v42;
-        _os_log_impl(&dword_25BF21000, v43, OS_LOG_TYPE_DEFAULT, "will treat article as unseen/unread because it's the active audio article, id=%{public}@", buf, 0xCu);
+        _os_log_impl(&dword_25BF21000, v44, OS_LOG_TYPE_DEFAULT, "will treat article as unseen/unread because it's the active audio article, id=%{public}@", buf, 0xCu);
       }
 
       v82[0] = MEMORY[0x277D85DD0];
       v82[1] = 3221225472;
       v82[2] = __259__NTSectionFeedFilterTransformation_initWithTodayData_configurationManager_readArticlesFilterMethod_seenArticlesFilterMethod_minimumTimeSinceFirstSeenToFilter_supplementalFeedFilterOptions_otherArticleIDs_otherClusterIDs_filterDate_paywalledArticlesMaxCount___block_invoke;
       v82[3] = &unk_279982D78;
-      v44 = v42;
-      v83 = v44;
-      v45 = [v36 fc_arrayByRemovingObjectsPassingTest:v82];
+      v45 = v42;
+      v83 = v45;
+      v46 = [v36 fc_arrayByRemovingObjectsPassingTest:v82];
 
       v80[0] = MEMORY[0x277D85DD0];
       v80[1] = 3221225472;
       v80[2] = __259__NTSectionFeedFilterTransformation_initWithTodayData_configurationManager_readArticlesFilterMethod_seenArticlesFilterMethod_minimumTimeSinceFirstSeenToFilter_supplementalFeedFilterOptions_otherArticleIDs_otherClusterIDs_filterDate_paywalledArticlesMaxCount___block_invoke_2;
       v80[3] = &unk_279982D78;
-      v81 = v44;
-      v46 = [v40 fc_arrayByRemovingObjectsPassingTest:v80];
+      v81 = v45;
+      v47 = [v40 fc_arrayByRemovingObjectsPassingTest:v80];
 
-      v40 = v46;
-      v36 = v45;
+      v40 = v47;
+      v36 = v46;
     }
 
-    v47 = MEMORY[0x277CBEA60];
+    v48 = MEMORY[0x277CBEA60];
     v65[0] = MEMORY[0x277D85DD0];
     v65[1] = 3221225472;
     v65[2] = __259__NTSectionFeedFilterTransformation_initWithTodayData_configurationManager_readArticlesFilterMethod_seenArticlesFilterMethod_minimumTimeSinceFirstSeenToFilter_supplementalFeedFilterOptions_otherArticleIDs_otherClusterIDs_filterDate_paywalledArticlesMaxCount___block_invoke_3;
@@ -192,21 +192,20 @@ LABEL_11:
     countCopy = count;
     v59 = v58;
     v61 = v60;
-    v48 = v40;
-    v49 = v36;
-    v50 = [v47 fc_array:v65];
-    v51 = [objc_alloc(MEMORY[0x277D30FF0]) initWithFeedTransformations:v50];
-    [v51 setShouldLogTransformationResults:1];
-    v52 = [[NTFeedTransformationItemFeedTransformation alloc] initWithFeedItemTransformation:v51];
+    v49 = v40;
+    v50 = v36;
+    v51 = [v48 fc_array:v65];
+    v52 = [objc_alloc(MEMORY[0x277D30FF0]) initWithFeedTransformations:v51];
+    [v52 setShouldLogTransformationResults:1];
+    v53 = [[NTFeedTransformationItemFeedTransformation alloc] initWithFeedItemTransformation:v52];
     v25 = v62;
     underlyingTransformation = v62->_underlyingTransformation;
-    v62->_underlyingTransformation = v52;
+    v62->_underlyingTransformation = v53;
 
     managerCopy = v64;
     dsCopy = v63;
   }
 
-  v54 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -348,62 +347,47 @@ LABEL_8:
 
 - (void)initWithTodayData:configurationManager:readArticlesFilterMethod:seenArticlesFilterMethod:minimumTimeSinceFirstSeenToFilter:supplementalFeedFilterOptions:otherArticleIDs:otherClusterIDs:filterDate:paywalledArticlesMaxCount:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "configurationManager"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "configurationManager", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithTodayData:configurationManager:readArticlesFilterMethod:seenArticlesFilterMethod:minimumTimeSinceFirstSeenToFilter:supplementalFeedFilterOptions:otherArticleIDs:otherClusterIDs:filterDate:paywalledArticlesMaxCount:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "otherArticleIDs"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "otherArticleIDs", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithTodayData:configurationManager:readArticlesFilterMethod:seenArticlesFilterMethod:minimumTimeSinceFirstSeenToFilter:supplementalFeedFilterOptions:otherArticleIDs:otherClusterIDs:filterDate:paywalledArticlesMaxCount:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "otherClusterIDs"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "otherClusterIDs", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithTodayData:configurationManager:readArticlesFilterMethod:seenArticlesFilterMethod:minimumTimeSinceFirstSeenToFilter:supplementalFeedFilterOptions:otherArticleIDs:otherClusterIDs:filterDate:paywalledArticlesMaxCount:.cold.4()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "filterDate"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "filterDate", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)transformFeedItems:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "feedItems"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "feedItems", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

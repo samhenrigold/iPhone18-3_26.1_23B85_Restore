@@ -51,26 +51,25 @@
 
 BOOL __110__HDSharingRelationshipSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v20[0] = @"sync_identity";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v19[0] = @"sync_identity";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   v7 = *(*(a1 + 56) + 8) + 24;
   v8 = *(a1 + 32);
   v9 = [*(a1 + 40) database];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __110__HDSharingRelationshipSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2;
-  v16[3] = &unk_2786208A8;
-  v17 = v5;
-  v18 = *(a1 + 40);
-  v19 = *(a1 + 48);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __110__HDSharingRelationshipSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2;
+  v15[3] = &unk_2786208A8;
+  v16 = v5;
+  v17 = *(a1 + 40);
+  v18 = *(a1 + 48);
   v11 = *(a1 + 64);
   v10 = *(a1 + 72);
   v12 = v5;
-  v13 = [(HDHealthEntity *)HDSharingRelationshipEntity enumerateEntitiesForSyncWithProperties:v6 predicate:0 session:v8 syncAnchorRange:v11 limit:v10 lastSyncAnchor:0 healthDatabase:v7 error:v9 block:a3, v16];
+  v13 = [(HDHealthEntity *)HDSharingRelationshipEntity enumerateEntitiesForSyncWithProperties:v6 predicate:0 session:v8 syncAnchorRange:v11 limit:v10 lastSyncAnchor:0 healthDatabase:v7 error:v9 block:a3, v15];
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

@@ -1,5 +1,6 @@
 @interface IRNodeDO
 + (id)nodeDOFromNode:(id)node;
++ (id)nodeDOWithAvOutpuDeviceIdentifier:(id)identifier rapportIdentifier:(id)rapportIdentifier idsIdentifier:(id)idsIdentifier avOutputDevice:(id)device rapportDevice:(id)rapportDevice isLocal:(BOOL)local;
 + (id)nodeFromNodeDO:(id)o;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToNodeDO:(id)o;
@@ -12,6 +13,7 @@
 - (id)copyWithReplacementAvOutpuDeviceIdentifier:(id)identifier;
 - (id)copyWithReplacementAvOutputDevice:(id)device;
 - (id)copyWithReplacementIdsIdentifier:(id)identifier;
+- (id)copyWithReplacementIsLocal:(BOOL)local;
 - (id)copyWithReplacementRapportDevice:(id)device;
 - (id)copyWithReplacementRapportIdentifier:(id)identifier;
 - (id)description;
@@ -238,6 +240,19 @@ LABEL_6:
   return v19;
 }
 
++ (id)nodeDOWithAvOutpuDeviceIdentifier:(id)identifier rapportIdentifier:(id)rapportIdentifier idsIdentifier:(id)idsIdentifier avOutputDevice:(id)device rapportDevice:(id)rapportDevice isLocal:(BOOL)local
+{
+  localCopy = local;
+  rapportDeviceCopy = rapportDevice;
+  deviceCopy = device;
+  idsIdentifierCopy = idsIdentifier;
+  rapportIdentifierCopy = rapportIdentifier;
+  identifierCopy = identifier;
+  v19 = [[self alloc] initWithAvOutpuDeviceIdentifier:identifierCopy rapportIdentifier:rapportIdentifierCopy idsIdentifier:idsIdentifierCopy avOutputDevice:deviceCopy rapportDevice:rapportDeviceCopy isLocal:localCopy];
+
+  return v19;
+}
+
 - (id)copyWithReplacementAvOutpuDeviceIdentifier:(id)identifier
 {
   identifierCopy = identifier;
@@ -278,106 +293,25 @@ LABEL_6:
   return v5;
 }
 
+- (id)copyWithReplacementIsLocal:(BOOL)local
+{
+  localCopy = local;
+  v5 = objc_alloc(objc_opt_class());
+  avOutpuDeviceIdentifier = self->_avOutpuDeviceIdentifier;
+  rapportIdentifier = self->_rapportIdentifier;
+  idsIdentifier = self->_idsIdentifier;
+  avOutputDevice = self->_avOutputDevice;
+  rapportDevice = self->_rapportDevice;
+
+  return [v5 initWithAvOutpuDeviceIdentifier:avOutpuDeviceIdentifier rapportIdentifier:rapportIdentifier idsIdentifier:idsIdentifier avOutputDevice:avOutputDevice rapportDevice:rapportDevice isLocal:localCopy];
+}
+
 - (BOOL)isEqualToNodeDO:(id)o
 {
   oCopy = o;
   v5 = oCopy;
-  if (!oCopy)
+  if (!oCopy || (v6 = self->_avOutpuDeviceIdentifier == 0, [oCopy avOutpuDeviceIdentifier], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (avOutpuDeviceIdentifier = self->_avOutpuDeviceIdentifier) != 0 && (objc_msgSend(v5, "avOutpuDeviceIdentifier"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](avOutpuDeviceIdentifier, "isEqual:", v10), v10, !v11) || (v12 = self->_rapportIdentifier == 0, objc_msgSend(v5, "rapportIdentifier"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (rapportIdentifier = self->_rapportIdentifier) != 0 && (objc_msgSend(v5, "rapportIdentifier"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqual:](rapportIdentifier, "isEqual:", v16), v16, !v17) || (v18 = self->_idsIdentifier == 0, objc_msgSend(v5, "idsIdentifier"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20) || (idsIdentifier = self->_idsIdentifier) != 0 && (objc_msgSend(v5, "idsIdentifier"), v22 = objc_claimAutoreleasedReturnValue(), v23 = -[NSString isEqual:](idsIdentifier, "isEqual:", v22), v22, !v23) || (v24 = self->_avOutputDevice == 0, objc_msgSend(v5, "avOutputDevice"), v25 = objc_claimAutoreleasedReturnValue(), v26 = v25 != 0, v25, v24 == v26) || (avOutputDevice = self->_avOutputDevice) != 0 && (objc_msgSend(v5, "avOutputDevice"), v28 = objc_claimAutoreleasedReturnValue(), v29 = -[IRAVOutputDeviceDO isEqual:](avOutputDevice, "isEqual:", v28), v28, !v29) || (v30 = self->_rapportDevice == 0, objc_msgSend(v5, "rapportDevice"), v31 = objc_claimAutoreleasedReturnValue(), v32 = v31 != 0, v31, v30 == v32) || (rapportDevice = self->_rapportDevice) != 0 && (objc_msgSend(v5, "rapportDevice"), v34 = objc_claimAutoreleasedReturnValue(), v35 = -[IRRapportDeviceDO isEqual:](rapportDevice, "isEqual:", v34), v34, !v35))
   {
-    goto LABEL_18;
-  }
-
-  v6 = self->_avOutpuDeviceIdentifier == 0;
-  avOutpuDeviceIdentifier = [oCopy avOutpuDeviceIdentifier];
-  v8 = avOutpuDeviceIdentifier != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_18;
-  }
-
-  avOutpuDeviceIdentifier = self->_avOutpuDeviceIdentifier;
-  if (avOutpuDeviceIdentifier)
-  {
-    avOutpuDeviceIdentifier2 = [v5 avOutpuDeviceIdentifier];
-    v11 = [(NSString *)avOutpuDeviceIdentifier isEqual:avOutpuDeviceIdentifier2];
-
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  v12 = self->_rapportIdentifier == 0;
-  rapportIdentifier = [v5 rapportIdentifier];
-  v14 = rapportIdentifier != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_18;
-  }
-
-  rapportIdentifier = self->_rapportIdentifier;
-  if (rapportIdentifier)
-  {
-    rapportIdentifier2 = [v5 rapportIdentifier];
-    v17 = [(NSString *)rapportIdentifier isEqual:rapportIdentifier2];
-
-    if (!v17)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  v18 = self->_idsIdentifier == 0;
-  idsIdentifier = [v5 idsIdentifier];
-  v20 = idsIdentifier != 0;
-
-  if (v18 == v20)
-  {
-    goto LABEL_18;
-  }
-
-  idsIdentifier = self->_idsIdentifier;
-  if (idsIdentifier)
-  {
-    idsIdentifier2 = [v5 idsIdentifier];
-    v23 = [(NSString *)idsIdentifier isEqual:idsIdentifier2];
-
-    if (!v23)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  v24 = self->_avOutputDevice == 0;
-  avOutputDevice = [v5 avOutputDevice];
-  v26 = avOutputDevice != 0;
-
-  if (v24 == v26)
-  {
-    goto LABEL_18;
-  }
-
-  avOutputDevice = self->_avOutputDevice;
-  if (avOutputDevice)
-  {
-    avOutputDevice2 = [v5 avOutputDevice];
-    v29 = [(IRAVOutputDeviceDO *)avOutputDevice isEqual:avOutputDevice2];
-
-    if (!v29)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  v30 = self->_rapportDevice == 0;
-  rapportDevice = [v5 rapportDevice];
-  v32 = rapportDevice != 0;
-
-  if (v30 == v32 || (rapportDevice = self->_rapportDevice) != 0 && ([v5 rapportDevice], v34 = objc_claimAutoreleasedReturnValue(), v35 = -[IRRapportDeviceDO isEqual:](rapportDevice, "isEqual:", v34), v34, !v35))
-  {
-LABEL_18:
     v37 = 0;
   }
 
@@ -409,7 +343,7 @@ LABEL_18:
 
 - (IRNodeDO)initWithCoder:(id)coder
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"avOutpuDeviceIdentifier"];
   if (v5)
@@ -422,9 +356,9 @@ LABEL_18:
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
       v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRNodeDO key avOutpuDeviceIdentifier (expected %@, decoded %@)", v7, v9, 0];
-      v37 = *MEMORY[0x277CCA450];
-      v38[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+      v36 = *MEMORY[0x277CCA450];
+      v37[0] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
       v12 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRNodeDOOCNTErrorDomain" code:3 userInfo:v11];
       [coderCopy failWithError:v12];
 LABEL_16:
@@ -451,9 +385,9 @@ LABEL_6:
         v16 = objc_opt_class();
         v10 = NSStringFromClass(v16);
         v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRNodeDO key rapportIdentifier (expected %@, decoded %@)", v9, v10, 0];
-        v35 = *MEMORY[0x277CCA450];
-        v36 = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+        v34 = *MEMORY[0x277CCA450];
+        v35 = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
         v17 = objc_alloc(MEMORY[0x277CCA9B8]);
         v18 = 3;
         goto LABEL_9;
@@ -484,9 +418,9 @@ LABEL_21:
         v22 = objc_opt_class();
         v11 = NSStringFromClass(v22);
         v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRNodeDO key idsIdentifier (expected %@, decoded %@)", v10, v11, 0];
-        v33 = *MEMORY[0x277CCA450];
-        v34 = v12;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+        v32 = *MEMORY[0x277CCA450];
+        v33 = v12;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
         v23 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRNodeDOOCNTErrorDomain" code:3 userInfo:v19];
         [coderCopy failWithError:v23];
 
@@ -528,8 +462,8 @@ LABEL_21:
       }
     }
 
-    v27 = [coderCopy decodeInt64ForKey:@"isLocal"];
-    if (v27)
+    v26 = [coderCopy decodeInt64ForKey:@"isLocal"];
+    if (v26)
     {
       goto LABEL_28;
     }
@@ -544,14 +478,14 @@ LABEL_21:
     if ([coderCopy containsValueForKey:@"isLocal"])
     {
 LABEL_28:
-      self = [(IRNodeDO *)self initWithAvOutpuDeviceIdentifier:v5 rapportIdentifier:v7 idsIdentifier:v9 avOutputDevice:v10 rapportDevice:v11 isLocal:v27 != 0];
+      self = [(IRNodeDO *)self initWithAvOutpuDeviceIdentifier:v5 rapportIdentifier:v7 idsIdentifier:v9 avOutputDevice:v10 rapportDevice:v11 isLocal:v26 != 0];
       selfCopy = self;
       goto LABEL_18;
     }
 
-    v31 = *MEMORY[0x277CCA450];
-    v32 = @"Missing serialized value for IRNodeDO.isLocal";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+    v30 = *MEMORY[0x277CCA450];
+    v31 = @"Missing serialized value for IRNodeDO.isLocal";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
     v17 = objc_alloc(MEMORY[0x277CCA9B8]);
     v18 = 1;
 LABEL_9:
@@ -572,7 +506,6 @@ LABEL_15:
   selfCopy = 0;
 LABEL_22:
 
-  v24 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

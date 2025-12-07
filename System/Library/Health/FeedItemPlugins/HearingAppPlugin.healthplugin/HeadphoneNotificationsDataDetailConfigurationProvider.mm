@@ -19,7 +19,7 @@
   sub_29D5DF448(0, &qword_2A1A1E6F0, 0x29EDBAA68);
   *(&self->super.isa + v6) = MEMORY[0x29ED625C0](*MEMORY[0x29EDBA450]);
   v8.receiver = self;
-  v8.super_class = type metadata accessor for HeadphoneNotificationsDataDetailConfigurationProvider();
+  v8.super_class = type metadata accessor for HeadphoneNotificationsDataDetailConfigurationProvider(0);
   return [(HeadphoneNotificationsDataDetailConfigurationProvider *)&v8 init];
 }
 

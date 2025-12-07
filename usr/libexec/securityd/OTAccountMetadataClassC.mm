@@ -8,12 +8,17 @@
 - (NSDate)memoizedLastEscrowRepairTriggered;
 - (NSDate)memoizedLastHealthCheck;
 - (id)_dateForMillisecondsSinceEpoch:(unint64_t)epoch;
+- (id)attemptedJoinAsString:(int)string;
+- (id)cdpStateAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (id)getTLKSharesPairedWithVoucher;
 - (id)getTPSyncingPolicy;
+- (id)icloudAccountStateAsString:(int)string;
 - (id)parsedSecureElementIdentity;
+- (id)sendingMetricsPermittedAsString:(int)string;
+- (id)trustStateAsString:(int)string;
 - (int)StringAsAttemptedJoin:(id)join;
 - (int)StringAsCdpState:(id)state;
 - (int)StringAsIcloudAccountState:(id)state;
@@ -594,7 +599,6 @@ LABEL_29:
       goto LABEL_97;
     }
 
-    v16 = *(equalCopy + 152);
     if (self->_isInheritedAccount)
     {
       if ((*(equalCopy + 152) & 1) == 0)
@@ -621,7 +625,6 @@ LABEL_29:
       goto LABEL_97;
     }
 
-    v17 = *(equalCopy + 153);
     if (self->_warmedEscrowCache)
     {
       if ((*(equalCopy + 153) & 1) == 0)
@@ -648,7 +651,6 @@ LABEL_29:
       goto LABEL_97;
     }
 
-    v18 = *(equalCopy + 154);
     if (self->_warnedTooManyPeers)
     {
       if ((*(equalCopy + 154) & 1) == 0)
@@ -730,7 +732,7 @@ LABEL_29:
     }
 
 LABEL_97:
-    v21 = 0;
+    v18 = 0;
     goto LABEL_98;
   }
 
@@ -742,17 +744,17 @@ LABEL_92:
       goto LABEL_97;
     }
 
-    v21 = 1;
+    v18 = 1;
   }
 
   else
   {
-    v21 = (v15 & 2) == 0;
+    v18 = (v15 & 2) == 0;
   }
 
 LABEL_98:
 
-  return v21;
+  return v18;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -1158,14 +1160,12 @@ LABEL_31:
   has = self->_has;
   if ((has & 0x80) != 0)
   {
-    icloudAccountState = self->_icloudAccountState;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    epoch = self->_epoch;
     PBDataWriterWriteInt64Field();
   }
 
@@ -1174,16 +1174,15 @@ LABEL_31:
     PBDataWriterWriteStringField();
   }
 
-  v8 = self->_has;
-  if ((v8 & 0x200) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x200) != 0)
   {
-    trustState = self->_trustState;
     PBDataWriterWriteInt32Field();
-    v8 = self->_has;
-    if ((v8 & 0x10) == 0)
+    v6 = self->_has;
+    if ((v6 & 0x10) == 0)
     {
 LABEL_11:
-      if ((v8 & 0x20) == 0)
+      if ((v6 & 0x20) == 0)
       {
         goto LABEL_12;
       }
@@ -1192,18 +1191,17 @@ LABEL_11:
     }
   }
 
-  else if ((v8 & 0x10) == 0)
+  else if ((v6 & 0x10) == 0)
   {
     goto LABEL_11;
   }
 
-  lastHealthCheckup = self->_lastHealthCheckup;
   PBDataWriterWriteUint64Field();
-  v8 = self->_has;
-  if ((v8 & 0x20) == 0)
+  v6 = self->_has;
+  if ((v6 & 0x20) == 0)
   {
 LABEL_12:
-    if ((v8 & 0x40) == 0)
+    if ((v6 & 0x40) == 0)
     {
       goto LABEL_14;
     }
@@ -1212,12 +1210,10 @@ LABEL_12:
   }
 
 LABEL_47:
-  attemptedJoin = self->_attemptedJoin;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_13:
-    cdpState = self->_cdpState;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1237,33 +1233,32 @@ LABEL_14:
     PBDataWriterWriteDataField();
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v10 = self->_tlkSharesForVouchedIdentitys;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
-  if (v11)
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v7 = self->_tlkSharesForVouchedIdentitys;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v8)
   {
-    v12 = v11;
-    v13 = *v29;
+    v9 = v8;
+    v10 = *v15;
     do
     {
-      for (i = 0; i != v12; i = i + 1)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v29 != v13)
+        if (*v15 != v10)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v7);
         }
 
-        v15 = *(*(&v28 + 1) + 8 * i);
         PBDataWriterWriteDataField();
       }
 
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v12);
+    while (v9);
   }
 
   if (self->_secureElementIdentity)
@@ -1271,16 +1266,15 @@ LABEL_14:
     PBDataWriterWriteDataField();
   }
 
-  v16 = self->_has;
-  if ((v16 & 0x400) != 0)
+  v12 = self->_has;
+  if ((v12 & 0x400) != 0)
   {
-    isInheritedAccount = self->_isInheritedAccount;
     PBDataWriterWriteBOOLField();
-    v16 = self->_has;
-    if ((v16 & 0x800) == 0)
+    v12 = self->_has;
+    if ((v12 & 0x800) == 0)
     {
 LABEL_31:
-      if ((v16 & 0x1000) == 0)
+      if ((v12 & 0x1000) == 0)
       {
         goto LABEL_32;
       }
@@ -1294,13 +1288,12 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  warmedEscrowCache = self->_warmedEscrowCache;
   PBDataWriterWriteBOOLField();
-  v16 = self->_has;
-  if ((v16 & 0x1000) == 0)
+  v12 = self->_has;
+  if ((v12 & 0x1000) == 0)
   {
 LABEL_32:
-    if ((v16 & 0x100) == 0)
+    if ((v12 & 0x100) == 0)
     {
       goto LABEL_34;
     }
@@ -1309,12 +1302,10 @@ LABEL_32:
   }
 
 LABEL_51:
-  warnedTooManyPeers = self->_warnedTooManyPeers;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_33:
-    sendingMetricsPermitted = self->_sendingMetricsPermitted;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1324,17 +1315,15 @@ LABEL_34:
     PBDataWriterWriteStringField();
   }
 
-  v18 = self->_has;
-  if ((v18 & 8) != 0)
+  v13 = self->_has;
+  if ((v13 & 8) != 0)
   {
-    lastEscrowRepairTriggered = self->_lastEscrowRepairTriggered;
     PBDataWriterWriteUint64Field();
-    v18 = self->_has;
+    v13 = self->_has;
   }
 
-  if ((v18 & 4) != 0)
+  if ((v13 & 4) != 0)
   {
-    lastEscrowRepairAttempted = self->_lastEscrowRepairAttempted;
     PBDataWriterWriteUint64Field();
   }
 
@@ -1345,7 +1334,6 @@ LABEL_34:
 
   if ((*&self->_has & 2) != 0)
   {
-    escrowRepairAttemptVersion = self->_escrowRepairAttemptVersion;
     PBDataWriterWriteInt64Field();
   }
 }
@@ -2424,6 +2412,21 @@ LABEL_52:
   return v4;
 }
 
+- (id)sendingMetricsPermittedAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100336080 + string);
+  }
+
+  return v4;
+}
+
 - (void)setHasSendingMetricsPermitted:(BOOL)permitted
 {
   if (permitted)
@@ -2541,6 +2544,21 @@ LABEL_52:
   return v4;
 }
 
+- (id)cdpStateAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100336068 + string);
+  }
+
+  return v4;
+}
+
 - (void)setHasCdpState:(BOOL)state
 {
   if (state)
@@ -2590,6 +2608,21 @@ LABEL_52:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)attemptedJoinAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100336050 + string);
   }
 
   return v4;
@@ -2664,6 +2697,21 @@ LABEL_52:
   return v4;
 }
 
+- (id)trustStateAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100336038 + string);
+  }
+
+  return v4;
+}
+
 - (void)setHasTrustState:(BOOL)state
 {
   if (state)
@@ -2718,6 +2766,21 @@ LABEL_52:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)icloudAccountStateAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100336018 + string);
   }
 
   return v4;

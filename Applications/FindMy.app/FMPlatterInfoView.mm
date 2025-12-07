@@ -9,7 +9,7 @@
 
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
-  sub_10000905C(0, &qword_1006B0C30);
+  sub_10000905C(0, &qword_1006B0C30, UITouch_ptr);
   sub_1000D5BCC();
   static Set._unconditionallyBridgeFromObjectiveC(_:)();
   eventCopy = event;
@@ -17,7 +17,7 @@
   isa = Set._bridgeToObjectiveC()().super.isa;
 
   v10.receiver = selfCopy;
-  v10.super_class = type metadata accessor for FMPlatterInfoView();
+  v10.super_class = type metadata accessor for FMPlatterInfoView(0);
   [(FMPlatterInfoView *)&v10 touchesBegan:isa withEvent:eventCopy];
 
   secondarySystemFillColor = [objc_opt_self() secondarySystemFillColor];
@@ -26,7 +26,7 @@
 
 - (void)touchesMoved:(id)moved withEvent:(id)event
 {
-  sub_10000905C(0, &qword_1006B0C30);
+  sub_10000905C(0, &qword_1006B0C30, UITouch_ptr);
   sub_1000D5BCC();
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   eventCopy = event;
@@ -37,7 +37,7 @@
 - (void)traitCollectionDidChange:(id)change
 {
   v8.receiver = self;
-  v8.super_class = type metadata accessor for FMPlatterInfoView();
+  v8.super_class = type metadata accessor for FMPlatterInfoView(0);
   changeCopy = change;
   v5 = v8.receiver;
   [(FMPlatterInfoView *)&v8 traitCollectionDidChange:changeCopy];

@@ -320,7 +320,7 @@
 
         if (*(*(&v17 + 1) + 8 * v14))
         {
-          v15 = [v8 objectForKeyedSubscript:v17];
+          v15 = objc_msgSend_objectForKeyedSubscript_(v8, v17);
           if (v15)
           {
             v16 = [[NoteAttachmentPresentationOccurence alloc] initWithPresentation:v15 element:0];
@@ -377,7 +377,7 @@
         v19 = *(*(&v25 + 1) + 8 * i);
         if (v19)
         {
-          v20 = [v13 objectForKeyedSubscript:*(*(&v25 + 1) + 8 * i)];
+          v20 = objc_msgSend_objectForKeyedSubscript_(v13);
           if (v20)
           {
             v21 = v20;

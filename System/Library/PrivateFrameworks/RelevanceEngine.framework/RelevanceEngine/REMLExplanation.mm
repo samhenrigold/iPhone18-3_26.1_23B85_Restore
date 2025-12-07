@@ -123,10 +123,10 @@
   return name;
 }
 
-void __59__REMLExplanation__formattedFeatureListFromFeatures_style___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __59__REMLExplanation__formattedFeatureListFromFeatures_style___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v8 = a2;
-  if ([*(a1 + 32) count] - 1 == a3)
+  if (([*(a1 + 32) count] - 1) == a3)
   {
     v5 = 48;
   }

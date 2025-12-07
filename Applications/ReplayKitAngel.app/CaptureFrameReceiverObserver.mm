@@ -16,18 +16,17 @@
 
   else
   {
-    memset(v13, 0, sizeof(v13));
+    memset(v12, 0, sizeof(v12));
     selfCopy2 = self;
   }
 
-  v9 = self + OBJC_IVAR____TtC14ReplayKitAngel28CaptureFrameReceiverObserver_captureFrameReceiverDidChange;
+  v9 = (self + OBJC_IVAR____TtC14ReplayKitAngel28CaptureFrameReceiverObserver_captureFrameReceiverDidChange);
   swift_beginAccess();
-  v11 = *v9;
-  v10 = *(v9 + 1);
+  v10 = *v9;
 
-  v11(v12);
+  v10(v11);
 
-  sub_100011940(v13, &qword_100068EB0, &qword_100047EB0);
+  sub_100011940(v12, &qword_100068EB0, &qword_100047EB0);
 }
 
 @end

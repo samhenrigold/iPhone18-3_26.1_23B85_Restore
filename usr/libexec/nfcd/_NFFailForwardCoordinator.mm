@@ -6,9 +6,9 @@
 
 - (_NFFailForwardCoordinator)init
 {
-  v10.receiver = self;
-  v10.super_class = _NFFailForwardCoordinator;
-  v2 = [(_NFFailForwardCoordinator *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = _NFFailForwardCoordinator;
+  v2 = [(_NFFailForwardCoordinator *)&v9 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -29,9 +29,8 @@
     [v6 removeObjectForKey:@"FailForwardDetectedTimestamp"];
     [v6 removeObjectForKey:@"FailForwardLastAttemptTimestamp"];
 
-    v7 = v2->_coordinatorQueue;
-    v9 = v2;
-    v9->_stateCaptureHandle = os_state_add_handler();
+    v8 = v2;
+    v8->_stateCaptureHandle = os_state_add_handler();
   }
 
   return v2;

@@ -1,3 +1,52 @@
+void sub_296BB2E34(_Unwind_Exception *a1)
+{
+  MEMORY[0x29C25FC20](v2, 0x10F0C40E38F14B0);
+  std::unique_ptr<IR::IRData::Implementation>::reset[abi:ne200100](v1, 0);
+  _Unwind_Resume(a1);
+}
+
+void sub_296BB2EFC(_Unwind_Exception *a1)
+{
+  MEMORY[0x29C25FC20](v2, 0x10F0C40E38F14B0);
+  std::unique_ptr<IR::IRData::Implementation>::reset[abi:ne200100](v1, 0);
+  _Unwind_Resume(a1);
+}
+
+void IR::IRData::extractIRDataTypePlist(CFTypeRef *a1@<X0>, int a2@<W1>, _DWORD *a3@<X2>, CFTypeRef *a4@<X8>)
+{
+  v7 = *a1;
+  if (*a1)
+  {
+    CFRetain(*a1);
+  }
+
+  cf = v7;
+  IR::IRData::Implementation::extractIRDataTypePlist(&cf, a2, a3, a4);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+}
+
+void sub_296BB3004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  applesauce::CF::DictionaryRef::~DictionaryRef(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *IR::IRData::Implementation::getDescription@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
+{
+  v3 = this[36];
+  if (v3)
+  {
+    this = CFRetain(this[36]);
+  }
+
+  *a1 = v3;
+  return this;
+}
+
 CFTypeRef IR::IRData::Implementation::getFilePlistDict@<X0>(CFTypeRef this@<X0>, void *a2@<X8>)
 {
   v3 = *(this + 37);
@@ -10,15 +59,15 @@ CFTypeRef IR::IRData::Implementation::getFilePlistDict@<X0>(CFTypeRef this@<X0>,
   return this;
 }
 
-CFTypeRef IR::IRData::Implementation::getUserData@<X0>(CFTypeRef this@<X0>, void *a2@<X8>)
+uint64_t *IR::IRData::Implementation::getUserData@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v3 = *(this + 38);
+  v3 = this[38];
   if (v3)
   {
-    this = CFRetain(*(this + 38));
+    this = CFRetain(this[38]);
   }
 
-  *a2 = v3;
+  *a1 = v3;
   return this;
 }
 
@@ -31,7 +80,7 @@ void IR::IRData::getCoordinateTree(IR::IRData::Implementation **this@<X0>, uint6
   IR::IRData::Implementation::getCoordinateTree(*this, a2);
 }
 
-uint64_t IR::IRData::getBooleanFromDictionary(CFTypeRef *a1, const __CFString *a2, int a3)
+uint64_t IR::IRData::getBooleanFromDictionary(CFTypeRef *a1, const UInt8 *a2, int a3)
 {
   v5 = *a1;
   if (*a1)
@@ -49,27 +98,27 @@ uint64_t IR::IRData::getBooleanFromDictionary(CFTypeRef *a1, const __CFString *a
   return BooleanFromDictionary;
 }
 
-void sub_296BB31CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BB31CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t IR::IRData::createSerializedIRData(uint64_t *a1)
+CFDataRef IR::IRData::createSerializedIRData(uint64_t a1, int a2, int a3)
 {
-  v1 = a1[1];
-  v4[0] = *a1;
-  v4[1] = v1;
-  if (v1)
+  v3 = *(a1 + 8);
+  v6[0] = *a1;
+  v6[1] = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit(&v1->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
-  SerializedIRData = IR::IRData::Implementation::createSerializedIRData(v4);
-  if (v1)
+  SerializedIRData = IR::IRData::Implementation::createSerializedIRData(v6, a2, a3);
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
   return SerializedIRData;
@@ -87,26 +136,26 @@ void sub_296BB3238(_Unwind_Exception *exception_object)
 
 void IR::IRData::loadSerializedIRData(IR::IRData *this@<X0>, const applesauce::CF::DataRef *a2@<X1>, _OWORD *a3@<X8>)
 {
-  v7 = IR::IRDataLoader::instance(this);
-  std::string::basic_string[abi:ne200100]<0>(v10, "");
-  v8 = *this;
-  if (v8)
+  v6 = IR::IRDataLoader::instance(this);
+  std::string::basic_string[abi:ne200100]<0>(v9, "");
+  v7 = *this;
+  if (v7)
   {
-    CFRetain(v8);
+    CFRetain(v7);
   }
 
-  cf = v8;
-  IR::IRDataLoader::load(v7, v10, a2, &cf, &v12);
-  *a3 = v12;
-  v12 = 0uLL;
+  cf = v7;
+  IR::IRDataLoader::load(v6, v9, a2, &cf, &v11);
+  *a3 = v11;
+  v11 = 0uLL;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v11 < 0)
+  if (v10 < 0)
   {
-    operator delete(v10[0]);
+    operator delete(v9[0]);
   }
 }
 
@@ -128,15 +177,15 @@ void sub_296BB3320(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void IR::IRData::loadSerializedIRData(IR::IRData *this@<X0>, const __CFData *const *a2@<X1>, _OWORD *a3@<X8>)
 {
-  v7 = IR::IRDataLoader::instance(this);
-  std::string::basic_string[abi:ne200100]<0>(v12, "");
-  v8 = *this;
-  if (v8)
+  v6 = IR::IRDataLoader::instance(this);
+  std::string::basic_string[abi:ne200100]<0>(v11, "");
+  v7 = *this;
+  if (v7)
   {
-    CFRetain(v8);
-    cf = v8;
-    v9 = CFGetTypeID(v8);
-    if (v9 != CFDataGetTypeID())
+    CFRetain(v7);
+    cf = v7;
+    v8 = CFGetTypeID(v7);
+    if (v8 != CFDataGetTypeID())
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x29C25F8D0](exception, "Could not construct");
@@ -148,21 +197,21 @@ void IR::IRData::loadSerializedIRData(IR::IRData *this@<X0>, const __CFData *con
     cf = 0;
   }
 
-  IR::IRDataLoader::load(v7, v12, a2, &cf, &v14);
-  *a3 = v14;
-  v14 = 0uLL;
+  IR::IRDataLoader::load(v6, v11, a2, &cf, &v13);
+  *a3 = v13;
+  v13 = 0uLL;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v13 < 0)
+  if (v12 < 0)
   {
-    operator delete(v12[0]);
+    operator delete(v11[0]);
   }
 }
 
-void sub_296BB346C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, const void *a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+void sub_296BB346C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
 {
   __cxa_free_exception(v19);
   applesauce::CF::ObjectRef<__CFData const*>::~ObjectRef(&a13);
@@ -174,17 +223,17 @@ void sub_296BB346C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<unsigned char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_296BB3554(_Unwind_Exception *exception_object)
@@ -199,7 +248,7 @@ void sub_296BB3554(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -337,7 +386,7 @@ void IR::IRData::Implementation::~Implementation(IR::IRData::Implementation *thi
   }
 }
 
-uint64_t std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType*,IR::IRCoordinateType*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType*,IR::IRCoordinateType*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -359,7 +408,7 @@ void sub_296BB382C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IR::IRCoordinateType>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<IR::IRCoordinateType>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -369,7 +418,7 @@ void std::vector<IR::IRCoordinateType>::__vallocate[abi:ne200100](uint64_t a1, u
   std::vector<float>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -391,7 +440,7 @@ void sub_296BB38E4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<IR::IRInterpolationMethod>::__init_with_size[abi:ne200100]<IR::IRInterpolationMethod*,IR::IRInterpolationMethod*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<IR::IRInterpolationMethod>::__init_with_size[abi:ne200100]<IR::IRInterpolationMethod*,IR::IRInterpolationMethod*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -440,7 +489,7 @@ uint64_t IR::IRDataAttributes::IRDataAttributes(uint64_t a1, applesauce::CF **a2
   *(a1 + 144) = 0;
   if (*a2)
   {
-    applesauce::CF::get_absolute_path(*a2, &v12);
+    applesauce::CF::get_absolute_path(&v12, *a2);
     v10 = *a1;
     *a1 = v12;
     v12 = v10;
@@ -462,15 +511,15 @@ void sub_296BB3A3C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-const void *applesauce::CF::get_absolute_path@<X0>(applesauce::CF *this@<X0>, void *a2@<X8>)
+uint64_t *applesauce::CF::get_absolute_path@<X0>(uint64_t *__return_ptr a1@<X8>, applesauce::CF *this@<X0>)
 {
   result = CFURLCopyAbsoluteURL(this);
-  *a2 = result;
+  *a1 = result;
   if (result)
   {
-    v5 = CFGetTypeID(result);
+    v4 = CFGetTypeID(result);
     result = CFURLGetTypeID();
-    if (v5 != result)
+    if (v4 != result)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x29C25F8D0](exception, "Could not construct");
@@ -561,20 +610,20 @@ const void **applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(const void
   return a1;
 }
 
-void *std::vector<std::unique_ptr<IR::FFTFilterKernel<float>>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::unique_ptr<IR::FFTFilterKernel<float>>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::unique_ptr<IR::FFTFilterKernel<float>>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::unique_ptr<IR::FFTFilterKernel<float>>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::unique_ptr<IR::FFTFilterKernel<float>>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::unique_ptr<IR::FFTFilterKernel<float>>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -619,29 +668,17 @@ void std::vector<std::unique_ptr<IR::FFTFilterKernel<float>>>::__destroy_vector:
   }
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, __int32 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<IR::IRCoordinateType>::__vallocate[abi:ne200100](result, a2);
+    std::vector<IR::IRCoordinateType>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<IR::IRCoordinateType>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_296BB3ED0(_Unwind_Exception *exception_object)
@@ -656,7 +693,7 @@ void sub_296BB3ED0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -744,7 +781,7 @@ uint64_t std::unique_ptr<IR::FFTFilterKernel<float>>::reset[abi:ne200100](uint64
   return result;
 }
 
-void std::vector<std::vector<std::list<int>>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::vector<std::list<int>>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -985,19 +1022,17 @@ void sub_296BB4414(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<void const*>::reserve(void *result, unint64_t a2)
+void std::vector<void const*>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      std::allocator<void const*>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<void const*>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::allocator<void const*>::allocate_at_least[abi:ne200100](uint64_t a1, unint64_t a2)
@@ -1060,15 +1095,15 @@ void *applesauce::CF::URLRef_proxy::URLRef_proxy(void *this, const applesauce::C
   return this;
 }
 
-const void *applesauce::CF::get_filesystem_path@<X0>(applesauce::CF *this@<X0>, void *a2@<X8>)
+uint64_t *applesauce::CF::get_filesystem_path@<X0>(uint64_t *__return_ptr a1@<X8>, applesauce::CF *this@<X0>)
 {
   result = CFURLCopyFileSystemPath(this, kCFURLPOSIXPathStyle);
-  *a2 = result;
+  *a1 = result;
   if (result)
   {
-    v5 = CFGetTypeID(result);
+    v4 = CFGetTypeID(result);
     result = CFStringGetTypeID();
-    if (v5 != result)
+    if (v4 != result)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x29C25F8D0](exception, "Could not construct");
@@ -1158,6 +1193,19 @@ void *std::__list_imp<int>::clear(void *result)
   }
 
   return result;
+}
+
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<IR::IRCoordinateType>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_296BB48B0(_Unwind_Exception *exception_object)
@@ -1286,7 +1334,7 @@ uint64_t std::unique_ptr<IR::DelayLine<float>>::reset[abi:ne200100](uint64_t *a1
   *a1 = a2;
   if (result)
   {
-    IR::DelayLine<float>::~DelayLine();
+    IR::DelayLine<float>::~DelayLine(result);
 
     JUMPOUT(0x29C25FC20);
   }
@@ -1449,32 +1497,20 @@ uint64_t std::optional<applesauce::CF::DictionaryRef>::~optional(uint64_t a1)
   return a1;
 }
 
-void *std::vector<std::vector<float>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::vector<float>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::vector<float>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::vector<float>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<std::vector<float>>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
-}
-
-void std::vector<std::vector<float>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<float>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -1484,29 +1520,17 @@ void std::vector<std::vector<float>>::__vallocate[abi:ne200100](uint64_t a1, uni
   std::vector<float>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<unsigned int>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<IR::IRCoordinateType>::__vallocate[abi:ne200100](result, a2);
+    std::vector<IR::IRCoordinateType>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<IR::IRCoordinateType>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_296BB4ECC(_Unwind_Exception *exception_object)
@@ -1521,7 +1545,7 @@ void sub_296BB4ECC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -1559,15 +1583,15 @@ void *std::construct_at[abi:ne200100]<applesauce::CF::DictionaryRef,applesauce::
   return a1;
 }
 
-void std::vector<applesauce::CF::DictionaryRef>::__swap_out_circular_buffer(uint64_t a1, void *a2)
+void std::vector<applesauce::CF::DictionaryRef>::__swap_out_circular_buffer(const void ***result, void *a2)
 {
-  v4 = *a1;
-  v5 = *(a1 + 8);
-  v6 = a2[1] + *a1 - v5;
-  if (v5 != *a1)
+  v4 = *result;
+  v5 = result[1];
+  v6 = (a2[1] + *result - v5);
+  if (v5 != *result)
   {
-    v7 = *a1;
-    v8 = (a2[1] + *a1 - v5);
+    v7 = *result;
+    v8 = (a2[1] + *result - v5);
     do
     {
       *v8++ = *v7;
@@ -1581,18 +1605,18 @@ void std::vector<applesauce::CF::DictionaryRef>::__swap_out_circular_buffer(uint
     }
 
     while (v4 != v5);
-    v4 = *a1;
+    v4 = *result;
   }
 
   a2[1] = v6;
-  *a1 = v6;
-  *(a1 + 8) = v4;
+  *result = v6;
+  result[1] = v4;
   a2[1] = v4;
-  v9 = *(a1 + 8);
-  *(a1 + 8) = a2[2];
+  v9 = result[1];
+  result[1] = a2[2];
   a2[2] = v9;
-  v10 = *(a1 + 16);
-  *(a1 + 16) = a2[3];
+  v10 = result[2];
+  result[2] = a2[3];
   a2[3] = v10;
   *a2 = a2[1];
 }
@@ -1633,17 +1657,17 @@ uint64_t std::__split_buffer<applesauce::CF::DictionaryRef>::~__split_buffer(uin
   return a1;
 }
 
-void *std::vector<short>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<short>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<short>::__vallocate[abi:ne200100](result, a2);
+    std::vector<short>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_296BB5164(_Unwind_Exception *exception_object)
@@ -1658,7 +1682,7 @@ void sub_296BB5164(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<short>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<short>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -1668,7 +1692,7 @@ void std::vector<short>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
   std::vector<float>::__throw_length_error[abi:ne200100]();
 }
 
-void std::vector<applesauce::CF::DictionaryRef>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<applesauce::CF::DictionaryRef>::__destroy_vector::operator()[abi:ne200100](const void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -1715,7 +1739,7 @@ std::mersenne_twister_engine<unsigned int, 32, 624, 397, 31, 2567483615, 11, 429
   return (v6 << 15) & 0xEFC60000 ^ v6 ^ (((v6 << 15) & 0xEFC60000 ^ v6) >> 18);
 }
 
-uint64_t std::vector<IR::IRDataNode>::__emplace_back_slow_path<IR::IRDataNode>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<IR::IRDataNode>::__emplace_back_slow_path<IR::IRDataNode>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xEEEEEEEEEEEEEEEFLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -1765,9 +1789,9 @@ uint64_t std::vector<IR::IRDataNode>::__emplace_back_slow_path<IR::IRDataNode>(u
   return v12;
 }
 
-void sub_296BB53FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_296BB53FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<IR::IRDataNode>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1952,7 +1976,7 @@ uint64_t std::vector<IR::IRDataNode>::__move_range(uint64_t a1, uint64_t a2, uni
   return std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<IR::IRDataNode *,IR::IRDataNode *,IR::IRDataNode *>(&v12, a2, v7, v6);
 }
 
-void std::__split_buffer<IR::IRDataNode>::emplace_back<IR::IRDataNode>(void *a1, uint64_t a2)
+void std::__split_buffer<IR::IRDataNode>::emplace_back<IR::IRDataNode>(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
@@ -1977,7 +2001,7 @@ void std::__split_buffer<IR::IRDataNode>::emplace_back<IR::IRDataNode>(void *a1,
     }
 
     v7 = -120 * ((0xEEEEEEEEEEEEEEEFLL * (v6 >> 3) + 1 + ((0xEEEEEEEEEEEEEEEFLL * (v6 >> 3) + 1) >> 63)) >> 1);
-    std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<IR::IRDataNode *,IR::IRDataNode *,IR::IRDataNode *>(v11, v5, v4, v5 - 120 * ((0xEEEEEEEEEEEEEEEFLL * (v6 >> 3) + 1 + ((0xEEEEEEEEEEEEEEEFLL * (v6 >> 3) + 1) >> 63)) >> 1));
+    std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<IR::IRDataNode *,IR::IRDataNode *,IR::IRDataNode *>(v11, v5, v4, (v5 - 120 * ((0xEEEEEEEEEEEEEEEFLL * (v6 >> 3) + 1 + ((0xEEEEEEEEEEEEEEEFLL * (v6 >> 3) + 1) >> 63)) >> 1)));
     v4 = v8;
     a1[1] += v7;
     a1[2] = v8;
@@ -1987,9 +2011,9 @@ void std::__split_buffer<IR::IRDataNode>::emplace_back<IR::IRDataNode>(void *a1,
   a1[2] += 120;
 }
 
-void sub_296BB593C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BB593C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<IR::IRDataNode>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2074,7 +2098,7 @@ void std::vector<IR::IRDataNode>::__vdeallocate(uint64_t *a1)
   }
 }
 
-uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<IR::IRDataNode *,IR::IRDataNode *,IR::IRDataNode *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<IR::IRDataNode *,IR::IRDataNode *,IR::IRDataNode *>(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
   v4 = a2;
   if (a2 == a3)
@@ -2087,33 +2111,33 @@ uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<IR::
   {
     v6 = a4;
     *a4 = *v4;
-    v7 = a4 + 8;
-    std::vector<std::unique_ptr<IR::FFTFilterKernel<float>>>::__vdeallocate((a4 + 8));
-    *(v6 + 8) = *(v4 + 8);
-    *(v6 + 24) = *(v4 + 24);
+    v7 = a4 + 2;
+    std::vector<std::unique_ptr<IR::FFTFilterKernel<float>>>::__vdeallocate(a4 + 1);
+    *(v6 + 2) = *(v4 + 8);
+    *(v6 + 3) = *(v4 + 24);
     *(v4 + 8) = 0;
     *(v4 + 16) = 0;
     v8 = *(v4 + 32);
     *(v4 + 24) = 0;
     *(v4 + 32) = 0;
     *(v4 + 40) = 0;
-    v9 = *(v6 + 40);
-    *(v6 + 32) = v8;
+    v9 = *(v6 + 5);
+    *(v6 + 2) = v8;
     if (v9)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v9);
     }
 
-    std::vector<float>::__move_assign(v7 + 40, (v4 + 48));
-    std::vector<IR::IRDataNode>::__vdeallocate((v7 + 64));
-    *(v6 + 72) = *(v4 + 72);
-    *(v6 + 88) = *(v4 + 88);
+    std::vector<float>::__move_assign((v7 + 10), (v4 + 48));
+    std::vector<IR::IRDataNode>::__vdeallocate(v7 + 8);
+    *(v6 + 18) = *(v4 + 72);
+    *(v6 + 11) = *(v4 + 88);
     *(v4 + 72) = 0;
     *(v4 + 80) = 0;
     *(v4 + 88) = 0;
-    std::vector<float>::__move_assign(v7 + 88, (v4 + 96));
+    std::vector<float>::__move_assign((v7 + 22), (v4 + 96));
     v4 += 120;
-    a4 = v7 + 112;
+    a4 = v7 + 28;
   }
 
   while (v4 != v5);
@@ -2169,7 +2193,7 @@ void std::vector<std::unique_ptr<IR::FFTFilterKernel<float>>>::__vdeallocate(uin
   }
 }
 
-void std::vector<IR::IRCoordinateTree>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<IR::IRCoordinateTree>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v2 = *a1;
   if (*v2)
@@ -2181,25 +2205,25 @@ void std::vector<IR::IRCoordinateTree>::__destroy_vector::operator()[abi:ne20010
   }
 }
 
-void std::vector<IR::IRCoordinateTree>::__base_destruct_at_end[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<IR::IRCoordinateTree>::__base_destruct_at_end[abi:ne200100](uint64_t a1, void **a2)
 {
   v4 = *(a1 + 8);
   if (v4 != a2)
   {
-    v5 = v4 - 24;
+    v5 = v4 - 3;
     do
     {
       v8 = v5;
       std::vector<IR::IRCoordinateTree>::__destroy_vector::operator()[abi:ne200100](&v8);
-      v6 = *(v5 - 24);
+      v6 = *(v5 - 3);
       if (v6)
       {
-        *(v5 - 16) = v6;
+        *(v5 - 2) = v6;
         operator delete(v6);
       }
 
-      v7 = v5 - 32;
-      v5 -= 56;
+      v7 = v5 - 4;
+      v5 -= 7;
     }
 
     while (v7 != a2);
@@ -2288,9 +2312,9 @@ uint64_t std::vector<IR::IRCoordinateTree>::__emplace_back_slow_path<IR::IRCoord
   return v13;
 }
 
-void sub_296BB5F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_296BB5F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<IR::IRCoordinateTree>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2413,13 +2437,13 @@ void std::__split_buffer<IR::IRCoordinateTree>::__destruct_at_end[abi:ne200100](
   }
 }
 
-float std::__split_buffer<float>::emplace_back<float const&>(void *a1, float *a2)
+float std::__split_buffer<float>::emplace_back<float const&>(unint64_t *a1, float *a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
   {
     v5 = a1[1];
-    v6 = &v5[-*a1];
+    v6 = v5 - *a1;
     if (v5 <= *a1)
     {
       if (v4 == *a1)
@@ -2429,7 +2453,7 @@ float std::__split_buffer<float>::emplace_back<float const&>(void *a1, float *a2
 
       else
       {
-        v11 = &v4[-*a1] >> 1;
+        v11 = (v4 - *a1) >> 1;
       }
 
       std::allocator<float>::allocate_at_least[abi:ne200100](a1[4], v11);
@@ -2437,21 +2461,21 @@ float std::__split_buffer<float>::emplace_back<float const&>(void *a1, float *a2
 
     v7 = ((v6 >> 2) + 1) / -2;
     v8 = ((v6 >> 2) + 1) / 2;
-    v9 = &v5[-4 * v8];
+    v9 = &v5[-v8];
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      memmove(&v5[-4 * v8], v5, v4 - v5);
+      memmove(&v5[-v8], v5, v4 - v5);
       v5 = a1[1];
     }
 
-    v4 = &v9[v10];
-    a1[1] = &v5[4 * v7];
+    v4 = (v9 + v10);
+    a1[1] = &v5[v7];
   }
 
   result = *a2;
   *v4 = *a2;
-  a1[2] = v4 + 4;
+  a1[2] = (v4 + 1);
   return result;
 }
 
@@ -2583,7 +2607,7 @@ uint64_t std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200
       v9 = a4 + v7;
       *(a4 + v7 - 56) = *(a3 + v7 - 56);
       std::vector<float>::__move_assign(a4 + v7 - 48, (a3 + v7 - 48));
-      std::vector<IR::IRCoordinateTree>::__vdeallocate((a4 + v7 - 24));
+      std::vector<IR::IRCoordinateTree>::__vdeallocate(a4 + v7 - 24);
       *(v9 - 24) = *(a3 + v7 - 24);
       *(v9 - 8) = *(a3 + v7 - 8);
       *(v8 - 24) = 0;
@@ -2598,15 +2622,15 @@ uint64_t std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200
   return a3;
 }
 
-void std::vector<IR::IRCoordinateTree>::__vdeallocate(uint64_t *a1)
+void std::vector<IR::IRCoordinateTree>::__vdeallocate(uint64_t a1)
 {
   if (*a1)
   {
     std::vector<IR::IRCoordinateTree>::__base_destruct_at_end[abi:ne200100](a1, *a1);
     operator delete(*a1);
     *a1 = 0;
-    a1[1] = 0;
-    a1[2] = 0;
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
   }
 }
 
@@ -2623,7 +2647,7 @@ uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<IR::
   {
     *a4 = *v5;
     std::vector<float>::__move_assign(a4 + 8, (v5 + 8));
-    std::vector<IR::IRCoordinateTree>::__vdeallocate((a4 + 32));
+    std::vector<IR::IRCoordinateTree>::__vdeallocate(a4 + 32);
     *(a4 + 32) = *(v5 + 32);
     *(a4 + 48) = *(v5 + 48);
     *(v5 + 32) = 0;
@@ -2684,20 +2708,20 @@ void std::allocator<IR::IRCoordinates>::allocate_at_least[abi:ne200100](uint64_t
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<IR::FFTFilterKernel<float>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<IR::FFTFilterKernel<float>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<IR::FFTFilterKernel<float>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<IR::FFTFilterKernel<float>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<IR::FFTFilterKernel<float>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<IR::FFTFilterKernel<float>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x666666666666667)
   {
@@ -2884,7 +2908,7 @@ uint64_t std::optional<applesauce::CF::BooleanRef>::~optional(uint64_t a1)
   return a1;
 }
 
-uint64_t std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType const*,IR::IRCoordinateType const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType const*,IR::IRCoordinateType const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2906,7 +2930,7 @@ void sub_296BB6C30(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2928,7 +2952,7 @@ void sub_296BB6CA4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<IR::IRInterpolationMethod>::__init_with_size[abi:ne200100]<IR::IRInterpolationMethod const*,IR::IRInterpolationMethod const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<IR::IRInterpolationMethod>::__init_with_size[abi:ne200100]<IR::IRInterpolationMethod const*,IR::IRInterpolationMethod const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2986,33 +3010,33 @@ IR::IRData::Implementation *IR::IRData::Implementation::Implementation(IR::IRDat
   *(this + 6) = 0;
   *(this + 7) = 0;
   *(this + 8) = 0;
-  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(this + 48, *(a2 + 6), *(a2 + 7), (*(a2 + 7) - *(a2 + 6)) >> 2);
+  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(this + 6, *(a2 + 6), *(a2 + 7), (*(a2 + 7) - *(a2 + 6)) >> 2);
   v6 = *(a2 + 72);
   *(this + 11) = 0;
   *(this + 72) = v6;
   *(this + 12) = 0;
   *(this + 13) = 0;
-  std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType*,IR::IRCoordinateType*>(this + 88, *(a2 + 11), *(a2 + 12), (*(a2 + 12) - *(a2 + 11)) >> 2);
+  std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType*,IR::IRCoordinateType*>(this + 11, *(a2 + 11), *(a2 + 12), (*(a2 + 12) - *(a2 + 11)) >> 2);
   *(this + 14) = 0;
   *(this + 15) = 0;
   *(this + 16) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 112, *(a2 + 14), *(a2 + 15), (*(a2 + 15) - *(a2 + 14)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 14, *(a2 + 14), *(a2 + 15), (*(a2 + 15) - *(a2 + 14)) >> 2);
   *(this + 17) = 0;
   *(this + 18) = 0;
   *(this + 19) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 136, *(a2 + 17), *(a2 + 18), (*(a2 + 18) - *(a2 + 17)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 17, *(a2 + 17), *(a2 + 18), (*(a2 + 18) - *(a2 + 17)) >> 2);
   *(this + 20) = 0;
   *(this + 21) = 0;
   *(this + 22) = 0;
-  std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType*,IR::IRCoordinateType*>(this + 160, *(a2 + 20), *(a2 + 21), (*(a2 + 21) - *(a2 + 20)) >> 2);
+  std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType*,IR::IRCoordinateType*>(this + 20, *(a2 + 20), *(a2 + 21), (*(a2 + 21) - *(a2 + 20)) >> 2);
   *(this + 23) = 0;
   *(this + 24) = 0;
   *(this + 25) = 0;
-  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(this + 184, *(a2 + 23), *(a2 + 24), (*(a2 + 24) - *(a2 + 23)) >> 2);
+  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(this + 23, *(a2 + 23), *(a2 + 24), (*(a2 + 24) - *(a2 + 23)) >> 2);
   *(this + 26) = 0;
   *(this + 27) = 0;
   *(this + 28) = 0;
-  std::vector<IR::IRInterpolationMethod>::__init_with_size[abi:ne200100]<IR::IRInterpolationMethod*,IR::IRInterpolationMethod*>(this + 208, *(a2 + 26), *(a2 + 27), (*(a2 + 27) - *(a2 + 26)) >> 2);
+  std::vector<IR::IRInterpolationMethod>::__init_with_size[abi:ne200100]<IR::IRInterpolationMethod*,IR::IRInterpolationMethod*>(this + 26, *(a2 + 26), *(a2 + 27), (*(a2 + 27) - *(a2 + 26)) >> 2);
   v7 = *(a2 + 232);
   v8 = *(a2 + 248);
   *(this + 66) = *(a2 + 66);
@@ -3050,7 +3074,7 @@ IR::IRData::Implementation *IR::IRData::Implementation::Implementation(IR::IRDat
   *(this + 39) = 0;
   *(this + 40) = 0;
   *(this + 41) = 0;
-  std::vector<IR::FFTFilterKernel<float>>::__init_with_size[abi:ne200100]<IR::FFTFilterKernel<float>*,IR::FFTFilterKernel<float>*>(this + 312, *(a2 + 39), *(a2 + 40), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 40) - *(a2 + 39)) >> 3));
+  std::vector<IR::FFTFilterKernel<float>>::__init_with_size[abi:ne200100]<IR::FFTFilterKernel<float>*,IR::FFTFilterKernel<float>*>(this + 39, *(a2 + 39), *(a2 + 40), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 40) - *(a2 + 39)) >> 3));
   *(this + 336) = *(a2 + 336);
   IR::IRDataAttributes::IRDataAttributes((this + 344), (a2 + 344));
   v13 = *(a2 + 62);
@@ -3059,77 +3083,77 @@ IR::IRData::Implementation *IR::IRData::Implementation::Implementation(IR::IRDat
   *(this + 64) = 0;
   *(this + 66) = 0;
   *(this + 65) = 0;
-  std::vector<std::shared_ptr<IR::VBAPTriangulationKernel>>::__init_with_size[abi:ne200100]<std::shared_ptr<IR::VBAPTriangulationKernel>*,std::shared_ptr<IR::VBAPTriangulationKernel>*>(this + 512, *(a2 + 64), *(a2 + 65), (*(a2 + 65) - *(a2 + 64)) >> 4);
+  std::vector<std::shared_ptr<IR::VBAPTriangulationKernel>>::__init_with_size[abi:ne200100]<std::shared_ptr<IR::VBAPTriangulationKernel>*,std::shared_ptr<IR::VBAPTriangulationKernel>*>(this + 64, *(a2 + 64), *(a2 + 65), (*(a2 + 65) - *(a2 + 64)) >> 4);
   return this;
 }
 
-void sub_296BB6FC0(_Unwind_Exception *a1, void **a2, ...)
+void sub_296BB6FC0(_Unwind_Exception *a1, void **a2, void **a3, ...)
 {
-  va_start(va, a2);
-  IR::IRDataAttributes::~IRDataAttributes((v2 + 344));
+  va_start(va, a3);
+  IR::IRDataAttributes::~IRDataAttributes((v3 + 344));
   std::vector<IR::FFTFilterKernel<float>>::__destroy_vector::operator()[abi:ne200100](va);
-  applesauce::CF::DictionaryRef::~DictionaryRef((v2 + 304));
-  applesauce::CF::DictionaryRef::~DictionaryRef((v2 + 296));
-  applesauce::CF::StringRef::~StringRef((v2 + 288));
-  v10 = *(v2 + 280);
-  if (v10)
+  applesauce::CF::DictionaryRef::~DictionaryRef((v3 + 304));
+  applesauce::CF::DictionaryRef::~DictionaryRef((v3 + 296));
+  applesauce::CF::StringRef::~StringRef((v3 + 288));
+  v11 = *(v3 + 280);
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 
-  v11 = *v8;
-  if (*v8)
+  v12 = *v9;
+  if (*v9)
   {
-    *(v2 + 216) = v11;
-    operator delete(v11);
-  }
-
-  v12 = *v7;
-  if (*v7)
-  {
-    *(v2 + 192) = v12;
+    *(v3 + 216) = v12;
     operator delete(v12);
   }
 
-  v13 = *v6;
-  if (*v6)
+  v13 = *v8;
+  if (*v8)
   {
-    *(v2 + 168) = v13;
+    *(v3 + 192) = v13;
     operator delete(v13);
   }
 
-  v14 = *v5;
-  if (*v5)
+  v14 = *v7;
+  if (*v7)
   {
-    *(v2 + 144) = v14;
+    *(v3 + 168) = v14;
     operator delete(v14);
   }
 
-  v15 = *v4;
-  if (*v4)
+  v15 = *v6;
+  if (*v6)
   {
-    *(v2 + 120) = v15;
+    *(v3 + 144) = v15;
     operator delete(v15);
   }
 
-  v16 = *v3;
-  if (*v3)
+  v16 = *v5;
+  if (*v5)
   {
-    *(v2 + 96) = v16;
+    *(v3 + 120) = v16;
     operator delete(v16);
   }
 
-  v17 = *a2;
-  if (*a2)
+  v17 = *v4;
+  if (*v4)
   {
-    *(v2 + 56) = v17;
+    *(v3 + 96) = v17;
     operator delete(v17);
+  }
+
+  v18 = *a3;
+  if (*a3)
+  {
+    *(v3 + 56) = v18;
+    operator delete(v18);
   }
 
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3151,7 +3175,7 @@ void sub_296BB7110(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3173,7 +3197,7 @@ void sub_296BB718C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<IR::FFTFilterKernel<float>>::__init_with_size[abi:ne200100]<IR::FFTFilterKernel<float>*,IR::FFTFilterKernel<float>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<IR::FFTFilterKernel<float>>::__init_with_size[abi:ne200100]<IR::FFTFilterKernel<float>*,IR::FFTFilterKernel<float>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3210,7 +3234,7 @@ void sub_296BB7290(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::shared_ptr<IR::VBAPTriangulationKernel>>::__init_with_size[abi:ne200100]<std::shared_ptr<IR::VBAPTriangulationKernel>*,std::shared_ptr<IR::VBAPTriangulationKernel>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<IR::VBAPTriangulationKernel>>::__init_with_size[abi:ne200100]<std::shared_ptr<IR::VBAPTriangulationKernel>*,std::shared_ptr<IR::VBAPTriangulationKernel>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3227,7 +3251,7 @@ void sub_296BB731C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::shared_ptr<IR::VBAPTriangulationKernel>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::shared_ptr<IR::VBAPTriangulationKernel>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -3312,16 +3336,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x29EDC93D0]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -3344,9 +3368,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_296BB7604(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_296BB7604(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x29C25F9D0](&a10);
+  MEMORY[0x29C25F9D0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -3415,7 +3439,7 @@ void sub_296BB77D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c)
+void *std::string::basic_string[abi:ne200100](void *__b, size_t __len, int __c)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -3427,13 +3451,13 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c
     operator new();
   }
 
-  __b[23] = __len;
+  *(__b + 23) = __len;
   if (__len)
   {
     memset(__b, __c, __len);
   }
 
-  __b[__len] = 0;
+  *(__b + __len) = 0;
   return __b;
 }
 
@@ -3497,17 +3521,17 @@ CFArrayRef applesauce::CF::details::make_CFArrayRef<void const*>(uint64_t a1)
   return result;
 }
 
-void *std::vector<void const*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<void const*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<void const*>::__vallocate[abi:ne200100](result, a2);
+    std::vector<void const*>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_296BB7A50(_Unwind_Exception *exception_object)
@@ -3522,7 +3546,7 @@ void sub_296BB7A50(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<void const*>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<void const*>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -3532,13 +3556,13 @@ void std::vector<void const*>::__vallocate[abi:ne200100](uint64_t a1, unint64_t 
   std::vector<float>::__throw_length_error[abi:ne200100]();
 }
 
-void applesauce::CF::at_or<applesauce::CF::DictionaryRef>(const __CFArray *a1@<X0>, unint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void applesauce::CF::at_or<applesauce::CF::DictionaryRef>(void *a1@<X2>, void *a2@<X8>, const __CFArray *a3@<X0>, unint64_t a4@<X1>)
 {
-  applesauce::CF::details::at_as<applesauce::CF::DictionaryRef>(a1, a2, &cf);
+  applesauce::CF::details::at_as<applesauce::CF::DictionaryRef>(a3, a4, &cf);
   if (v9 != 1)
   {
-    *a4 = *a3;
-    *a3 = 0;
+    *a2 = *a1;
+    *a1 = 0;
     return;
   }
 
@@ -3547,7 +3571,7 @@ void applesauce::CF::at_or<applesauce::CF::DictionaryRef>(const __CFArray *a1@<X
   {
     CFRetain(cf);
     v7 = v9;
-    *a4 = v6;
+    *a2 = v6;
     if ((v7 & 1) == 0)
     {
       return;
@@ -3556,7 +3580,7 @@ void applesauce::CF::at_or<applesauce::CF::DictionaryRef>(const __CFArray *a1@<X
 
   else
   {
-    *a4 = 0;
+    *a2 = 0;
   }
 
   if (cf)
@@ -3636,16 +3660,16 @@ const UInt8 *applesauce::CF::details::at_key<char const(&)[13]>(const __CFDictio
   return Value;
 }
 
-void sub_296BB7CC8(void *a1, uint64_t a2, ...)
+void sub_296BB7CC8(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
   JUMPOUT(0x296BB7C74);
 }
 
-uint64_t applesauce::CF::convert_as<float,0>(const __CFNumber *a1)
+unint64_t applesauce::CF::convert_as<float,0>(const __CFNumber *a1)
 {
   if (a1 && (TypeID = CFNumberGetTypeID(), TypeID == CFGetTypeID(a1)))
   {
@@ -3835,22 +3859,22 @@ const UInt8 *applesauce::CF::details::at_key<char const(&)[11]>(const __CFDictio
   return Value;
 }
 
-void sub_296BB80B8(void *a1, uint64_t a2, ...)
+void sub_296BB80B8(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
   JUMPOUT(0x296BB8064);
 }
 
-void applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(const __CFDictionary *a1@<X0>, const void **a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(void *a1@<X2>, void *a2@<X8>, const __CFDictionary *a3@<X0>, const void **a4@<X1>)
 {
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,__CFString const*>(a1, a2, &cf);
+  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,__CFString const*>(&cf, a3, a4);
   if (v9 != 1)
   {
-    *a4 = *a3;
-    *a3 = 0;
+    *a2 = *a1;
+    *a1 = 0;
     return;
   }
 
@@ -3859,7 +3883,7 @@ void applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(const __C
   {
     CFRetain(cf);
     v7 = v9;
-    *a4 = v6;
+    *a2 = v6;
     if ((v7 & 1) == 0)
     {
       return;
@@ -3868,7 +3892,7 @@ void applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(const __C
 
   else
   {
-    *a4 = 0;
+    *a2 = 0;
   }
 
   if (cf)
@@ -3877,9 +3901,9 @@ void applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*>(const __C
   }
 }
 
-void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,__CFString const*>(const __CFDictionary *a1@<X0>, const void **a2@<X1>, _BYTE *a3@<X8>)
+void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,__CFString const*>(_BYTE *a1@<X8>, const __CFDictionary *a2@<X0>, const void **a3@<X1>)
 {
-  v4 = applesauce::CF::details::at_key<__CFString const*>(a1, a2);
+  v4 = applesauce::CF::details::at_key<__CFString const*>(a2, a3);
   if (!v4)
   {
     goto LABEL_5;
@@ -3893,14 +3917,14 @@ void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,_
     CFRelease(v5);
 LABEL_5:
     v7 = 0;
-    *a3 = 0;
+    *a1 = 0;
     goto LABEL_6;
   }
 
-  *a3 = v5;
+  *a1 = v5;
   v7 = 1;
 LABEL_6:
-  a3[8] = v7;
+  a1[8] = v7;
 }
 
 const __CFDictionary *applesauce::CF::details::at_key<__CFString const*>(const __CFDictionary *result, const void **a2)
@@ -3922,7 +3946,7 @@ const __CFDictionary *applesauce::CF::details::at_key<__CFString const*>(const _
   return result;
 }
 
-const void *applesauce::CF::details::at_to<applesauce::CF::DictionaryRef>@<X0>(const __CFArray *a1@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
+uint64_t *applesauce::CF::details::at_to<applesauce::CF::DictionaryRef>@<X0>(const __CFArray *a1@<X0>, unint64_t a2@<X1>, uint64_t **a3@<X8>)
 {
   if (!a1 || CFArrayGetCount(a1) <= a2 || (ValueAtIndex = CFArrayGetValueAtIndex(a1, a2)) == 0)
   {
@@ -3930,7 +3954,7 @@ const void *applesauce::CF::details::at_to<applesauce::CF::DictionaryRef>@<X0>(c
     applesauce::CF::not_found(exception);
   }
 
-  return applesauce::CF::DictionaryRef::from_get(ValueAtIndex, a3);
+  return applesauce::CF::DictionaryRef::from_get(a3, ValueAtIndex);
 }
 
 const __CFDictionary *applesauce::CF::details::find_at_key_or_optional<unsigned int,__CFString const*>(const __CFDictionary *a1, const void **a2)
@@ -4153,9 +4177,9 @@ const UInt8 *applesauce::CF::details::at_key<char const(&)[14]>(const __CFDictio
   return Value;
 }
 
-void sub_296BB87B8(void *a1, uint64_t a2, ...)
+void sub_296BB87B8(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
@@ -4197,9 +4221,9 @@ const UInt8 *applesauce::CF::details::at_key<char const(&)[21]>(const __CFDictio
   return Value;
 }
 
-void sub_296BB88F0(void *a1, uint64_t a2, ...)
+void sub_296BB88F0(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
@@ -4311,9 +4335,9 @@ const UInt8 *applesauce::CF::details::at_key<char const(&)[18]>(const __CFDictio
   return Value;
 }
 
-void sub_296BB8B54(void *a1, uint64_t a2, ...)
+void sub_296BB8B54(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
@@ -4472,9 +4496,9 @@ const UInt8 *applesauce::CF::details::at_key<char const(&)[22]>(const __CFDictio
   return Value;
 }
 
-void sub_296BB8F5C(void *a1, uint64_t a2, ...)
+void sub_296BB8F5C(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
@@ -4528,9 +4552,9 @@ const UInt8 *applesauce::CF::details::at_key<char const(&)[12]>(const __CFDictio
   return Value;
 }
 
-void sub_296BB9110(void *a1, uint64_t a2, ...)
+void sub_296BB9110(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
@@ -4572,31 +4596,31 @@ const UInt8 *applesauce::CF::details::at_key<char const(&)[20]>(const __CFDictio
   return Value;
 }
 
-void sub_296BB9248(void *a1, uint64_t a2, ...)
+void sub_296BB9248(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
   JUMPOUT(0x296BB91F4);
 }
 
-void applesauce::CF::at_or<std::string,char const(&)[18]>(const __CFDictionary *a1@<X0>, const UInt8 *a2@<X1>, uint64_t a3@<X2>, std::string *a4@<X8>)
+void applesauce::CF::at_or<std::string,char const(&)[18]>(uint64_t a1@<X2>, std::string *a2@<X8>, const __CFDictionary *a3@<X0>, const UInt8 *a4@<X1>)
 {
-  applesauce::CF::details::find_at_key_or_optional<std::string,char const(&)[18]>(a1, a2, __p);
+  applesauce::CF::details::find_at_key_or_optional<std::string,char const(&)[18]>(a3, a4, __p);
   if ((v8 & 1) == 0)
   {
-    *&a4->__r_.__value_.__l.__data_ = *a3;
-    a4->__r_.__value_.__r.__words[2] = *(a3 + 16);
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
-    *a3 = 0;
+    *&a2->__r_.__value_.__l.__data_ = *a1;
+    a2->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+    *a1 = 0;
     return;
   }
 
   if (SHIBYTE(v7) < 0)
   {
-    std::string::__init_copy_ctor_external(a4, __p[0], __p[1]);
+    std::string::__init_copy_ctor_external(a2, __p[0], __p[1]);
     if ((v8 & 1) == 0)
     {
       return;
@@ -4605,8 +4629,8 @@ void applesauce::CF::at_or<std::string,char const(&)[18]>(const __CFDictionary *
 
   else
   {
-    *&a4->__r_.__value_.__l.__data_ = *__p;
-    a4->__r_.__value_.__r.__words[2] = v7;
+    *&a2->__r_.__value_.__l.__data_ = *__p;
+    a2->__r_.__value_.__r.__words[2] = v7;
   }
 
   if (SHIBYTE(v7) < 0)
@@ -4633,7 +4657,7 @@ const UInt8 *applesauce::CF::details::find_at_key_or_optional<std::string,char c
   return result;
 }
 
-CFTypeID applesauce::CF::convert_as<std::string,0>@<X0>(CFTypeID result@<X0>, uint64_t a2@<X8>)
+const __CFString *applesauce::CF::convert_as<std::string,0>@<X0>(const __CFString *result@<X0>, uint64_t a2@<X8>)
 {
   if (result && (v3 = result, TypeID = CFStringGetTypeID(), result = CFGetTypeID(v3), TypeID == result))
   {
@@ -4652,7 +4676,7 @@ CFTypeID applesauce::CF::convert_as<std::string,0>@<X0>(CFTypeID result@<X0>, ui
   return result;
 }
 
-_BYTE *applesauce::CF::details::CFString_get_value<false>@<X0>(const __CFString *a1@<X0>, UInt8 *a2@<X8>)
+void *applesauce::CF::details::CFString_get_value<false>@<X0>(const __CFString *a1@<X0>, uint64_t a2@<X8>)
 {
   CStringPtr = CFStringGetCStringPtr(a1, 0x8000100u);
   if (CStringPtr)
@@ -4666,7 +4690,7 @@ _BYTE *applesauce::CF::details::CFString_get_value<false>@<X0>(const __CFString 
   v9.length = Length;
   CFStringGetBytes(a1, v9, 0x8000100u, 0, 0, 0, 0, &maxBufLen);
   std::string::basic_string[abi:ne200100](a2, maxBufLen, 0);
-  if ((a2[23] & 0x80u) == 0)
+  if (*(a2 + 23) >= 0)
   {
     v7 = a2;
   }
@@ -4699,22 +4723,22 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-void applesauce::CF::at_or<std::string,char const(&)[12]>(const __CFDictionary *a1@<X0>, const UInt8 *a2@<X1>, uint64_t a3@<X2>, std::string *a4@<X8>)
+void applesauce::CF::at_or<std::string,char const(&)[12]>(uint64_t a1@<X2>, std::string *a2@<X8>, const __CFDictionary *a3@<X0>, const UInt8 *a4@<X1>)
 {
-  applesauce::CF::details::find_at_key_or_optional<std::string,char const(&)[12]>(a1, a2, __p);
+  applesauce::CF::details::find_at_key_or_optional<std::string,char const(&)[12]>(a3, a4, __p);
   if ((v8 & 1) == 0)
   {
-    *&a4->__r_.__value_.__l.__data_ = *a3;
-    a4->__r_.__value_.__r.__words[2] = *(a3 + 16);
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
-    *a3 = 0;
+    *&a2->__r_.__value_.__l.__data_ = *a1;
+    a2->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+    *a1 = 0;
     return;
   }
 
   if (SHIBYTE(v7) < 0)
   {
-    std::string::__init_copy_ctor_external(a4, __p[0], __p[1]);
+    std::string::__init_copy_ctor_external(a2, __p[0], __p[1]);
     if ((v8 & 1) == 0)
     {
       return;
@@ -4723,8 +4747,8 @@ void applesauce::CF::at_or<std::string,char const(&)[12]>(const __CFDictionary *
 
   else
   {
-    *&a4->__r_.__value_.__l.__data_ = *__p;
-    a4->__r_.__value_.__r.__words[2] = v7;
+    *&a2->__r_.__value_.__l.__data_ = *__p;
+    a2->__r_.__value_.__r.__words[2] = v7;
   }
 
   if (SHIBYTE(v7) < 0)
@@ -4733,7 +4757,7 @@ void applesauce::CF::at_or<std::string,char const(&)[12]>(const __CFDictionary *
   }
 }
 
-const UInt8 *applesauce::CF::details::find_at_key_or_optional<std::string,char const(&)[12]>@<X0>(const __CFDictionary *a1@<X0>, const UInt8 *a2@<X1>, _BYTE *a3@<X8>)
+UInt8 *applesauce::CF::details::find_at_key_or_optional<std::string,char const(&)[12]>@<X0>(const __CFDictionary *a1@<X0>, const UInt8 *a2@<X1>, _BYTE *a3@<X8>)
 {
   result = applesauce::CF::details::at_key<char const(&)[12]>(a1, a2);
   if (result)
@@ -4751,22 +4775,22 @@ const UInt8 *applesauce::CF::details::find_at_key_or_optional<std::string,char c
   return result;
 }
 
-void applesauce::CF::at_or<std::string,char const(&)[5]>(const __CFDictionary *a1@<X0>, const UInt8 *a2@<X1>, uint64_t a3@<X2>, std::string *a4@<X8>)
+void applesauce::CF::at_or<std::string,char const(&)[5]>(uint64_t a1@<X2>, std::string *a2@<X8>, const __CFDictionary *a3@<X0>, const UInt8 *a4@<X1>)
 {
-  applesauce::CF::details::find_at_key_or_optional<std::string,char const(&)[5]>(a1, a2, __p);
+  applesauce::CF::details::find_at_key_or_optional<std::string,char const(&)[5]>(a3, a4, __p);
   if ((v8 & 1) == 0)
   {
-    *&a4->__r_.__value_.__l.__data_ = *a3;
-    a4->__r_.__value_.__r.__words[2] = *(a3 + 16);
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
-    *a3 = 0;
+    *&a2->__r_.__value_.__l.__data_ = *a1;
+    a2->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+    *a1 = 0;
     return;
   }
 
   if (SHIBYTE(v7) < 0)
   {
-    std::string::__init_copy_ctor_external(a4, __p[0], __p[1]);
+    std::string::__init_copy_ctor_external(a2, __p[0], __p[1]);
     if ((v8 & 1) == 0)
     {
       return;
@@ -4775,8 +4799,8 @@ void applesauce::CF::at_or<std::string,char const(&)[5]>(const __CFDictionary *a
 
   else
   {
-    *&a4->__r_.__value_.__l.__data_ = *__p;
-    a4->__r_.__value_.__r.__words[2] = v7;
+    *&a2->__r_.__value_.__l.__data_ = *__p;
+    a2->__r_.__value_.__r.__words[2] = v7;
   }
 
   if (SHIBYTE(v7) < 0)
@@ -4785,7 +4809,7 @@ void applesauce::CF::at_or<std::string,char const(&)[5]>(const __CFDictionary *a
   }
 }
 
-const UInt8 *applesauce::CF::details::find_at_key_or_optional<std::string,char const(&)[5]>@<X0>(const __CFDictionary *a1@<X0>, const UInt8 *a2@<X1>, _BYTE *a3@<X8>)
+const __CFString *applesauce::CF::details::find_at_key_or_optional<std::string,char const(&)[5]>@<X0>(const __CFDictionary *a1@<X0>, const UInt8 *a2@<X1>, _BYTE *a3@<X8>)
 {
   result = applesauce::CF::details::at_key<char const(&)[5]>(a1, a2);
   if (result)
@@ -4827,9 +4851,9 @@ const UInt8 *applesauce::CF::details::at_key<char const(&)[5]>(const __CFDiction
   return Value;
 }
 
-void sub_296BB9858(void *a1, uint64_t a2, ...)
+void sub_296BB9858(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
@@ -4858,13 +4882,13 @@ const UInt8 *applesauce::CF::details::find_at_key_or_optional<unsigned int,char 
   return result;
 }
 
-void applesauce::CF::at_or<applesauce::CF::StringRef,__CFString const*>(const __CFDictionary *a1@<X0>, const void **a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void applesauce::CF::at_or<applesauce::CF::StringRef,__CFString const*>(void *a1@<X2>, void *a2@<X8>, const __CFDictionary *a3@<X0>, const void **a4@<X1>)
 {
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::StringRef,__CFString const*>(a1, a2, &cf);
+  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::StringRef,__CFString const*>(a3, a4, &cf);
   if (v9 != 1)
   {
-    *a4 = *a3;
-    *a3 = 0;
+    *a2 = *a1;
+    *a1 = 0;
     return;
   }
 
@@ -4873,7 +4897,7 @@ void applesauce::CF::at_or<applesauce::CF::StringRef,__CFString const*>(const __
   {
     CFRetain(cf);
     v7 = v9;
-    *a4 = v6;
+    *a2 = v6;
     if ((v7 & 1) == 0)
     {
       return;
@@ -4882,7 +4906,7 @@ void applesauce::CF::at_or<applesauce::CF::StringRef,__CFString const*>(const __
 
   else
   {
-    *a4 = 0;
+    *a2 = 0;
   }
 
   if (cf)
@@ -4917,15 +4941,15 @@ LABEL_6:
   a3[8] = v7;
 }
 
-__n128 applesauce::CF::at_or<std::vector<float>,__CFString const*&>@<Q0>(const __CFDictionary *a1@<X0>, const void **a2@<X1>, __n128 *a3@<X2>, __n128 *a4@<X8>)
+__n128 applesauce::CF::at_or<std::vector<float>,__CFString const*&>@<Q0>(__n128 *a1@<X2>, uint64_t *a2@<X8>, const __CFDictionary *a3@<X0>, const void **a4@<X1>)
 {
-  applesauce::CF::details::find_at_key_or_optional<std::vector<float>,__CFString const*&>(a1, a2, &__p);
+  applesauce::CF::details::find_at_key_or_optional<std::vector<float>,__CFString const*&>(a3, a4, &__p);
   if (v9 == 1)
   {
-    a4->n128_u64[0] = 0;
-    a4->n128_u64[1] = 0;
-    a4[1].n128_u64[0] = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a4, __p, v8, (v8 - __p) >> 2);
+    *a2 = 0;
+    a2[1] = 0;
+    a2[2] = 0;
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a2, __p, v8, (v8 - __p) >> 2);
     if (v9)
     {
       if (__p)
@@ -4938,12 +4962,12 @@ __n128 applesauce::CF::at_or<std::vector<float>,__CFString const*&>@<Q0>(const _
 
   else
   {
-    result = *a3;
-    *a4 = *a3;
-    a4[1].n128_u64[0] = a3[1].n128_u64[0];
-    a3->n128_u64[1] = 0;
-    a3[1].n128_u64[0] = 0;
-    a3->n128_u64[0] = 0;
+    result = *a1;
+    *a2 = *a1;
+    a2[2] = a1[1].n128_i64[0];
+    a1->n128_u64[1] = 0;
+    a1[1].n128_u64[0] = 0;
+    a1->n128_u64[0] = 0;
   }
 
   return result;
@@ -4965,12 +4989,12 @@ void applesauce::CF::details::find_at_key_or_optional<std::vector<float>,__CFStr
   }
 }
 
-void applesauce::CF::convert_as<std::vector<float>,0>(const __CFArray *a1@<X0>, _BYTE *a2@<X8>)
+void applesauce::CF::convert_as<std::vector<float>,0>(const __CFArray *result@<X0>, _BYTE *a2@<X8>)
 {
-  if (a1 && (TypeID = CFArrayGetTypeID(), TypeID == CFGetTypeID(a1)))
+  if (result && (TypeID = CFArrayGetTypeID(), TypeID == CFGetTypeID(result)))
   {
 
-    applesauce::CF::details::CFArray_get_value_as<std::vector<float>>(a1, a2);
+    applesauce::CF::details::CFArray_get_value_as<std::vector<float>>(result, a2);
   }
 
   else
@@ -5077,13 +5101,13 @@ LABEL_19:
   }
 }
 
-void applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*&>(const __CFDictionary *a1@<X0>, const void **a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*&>(void *a1@<X2>, void *a2@<X8>, const __CFDictionary *a3@<X0>, const void **a4@<X1>)
 {
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,__CFString const*&>(a1, a2, &cf);
+  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,__CFString const*&>(a3, a4, &cf);
   if (v9 != 1)
   {
-    *a4 = *a3;
-    *a3 = 0;
+    *a2 = *a1;
+    *a1 = 0;
     return;
   }
 
@@ -5092,7 +5116,7 @@ void applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*&>(const __
   {
     CFRetain(cf);
     v7 = v9;
-    *a4 = v6;
+    *a2 = v6;
     if ((v7 & 1) == 0)
     {
       return;
@@ -5101,7 +5125,7 @@ void applesauce::CF::at_or<applesauce::CF::ArrayRef,__CFString const*&>(const __
 
   else
   {
-    *a4 = 0;
+    *a2 = 0;
   }
 
   if (cf)
@@ -5194,13 +5218,13 @@ const UInt8 *applesauce::CF::details::find_at_key_or_optional<unsigned int,char 
   return result;
 }
 
-void applesauce::CF::at_or<applesauce::CF::StringRef,char const* const&>(const __CFDictionary *a1@<X0>, const char **a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void applesauce::CF::at_or<applesauce::CF::StringRef,char const* const&>(void *a1@<X2>, void *a2@<X8>, const __CFDictionary *a3@<X0>, const UInt8 **a4@<X1>)
 {
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::StringRef,char const* const&>(a1, a2, &cf);
+  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::StringRef,char const* const&>(&cf, a3, a4);
   if (v9 != 1)
   {
-    *a4 = *a3;
-    *a3 = 0;
+    *a2 = *a1;
+    *a1 = 0;
     return;
   }
 
@@ -5209,7 +5233,7 @@ void applesauce::CF::at_or<applesauce::CF::StringRef,char const* const&>(const _
   {
     CFRetain(cf);
     v7 = v9;
-    *a4 = v6;
+    *a2 = v6;
     if ((v7 & 1) == 0)
     {
       return;
@@ -5218,7 +5242,7 @@ void applesauce::CF::at_or<applesauce::CF::StringRef,char const* const&>(const _
 
   else
   {
-    *a4 = 0;
+    *a2 = 0;
   }
 
   if (cf)
@@ -5227,9 +5251,9 @@ void applesauce::CF::at_or<applesauce::CF::StringRef,char const* const&>(const _
   }
 }
 
-void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::StringRef,char const* const&>(const __CFDictionary *a1@<X0>, const char **a2@<X1>, _BYTE *a3@<X8>)
+void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::StringRef,char const* const&>(_BYTE *a1@<X8>, const __CFDictionary *a2@<X0>, const UInt8 **a3@<X1>)
 {
-  v4 = applesauce::CF::details::at_key<char const* const&>(a1, a2);
+  v4 = applesauce::CF::details::at_key<char const* const&>(a2, a3);
   if (!v4)
   {
     goto LABEL_5;
@@ -5243,17 +5267,17 @@ void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::StringRef,
     CFRelease(v5);
 LABEL_5:
     v7 = 0;
-    *a3 = 0;
+    *a1 = 0;
     goto LABEL_6;
   }
 
-  *a3 = v5;
+  *a1 = v5;
   v7 = 1;
 LABEL_6:
-  a3[8] = v7;
+  a1[8] = v7;
 }
 
-const UInt8 *applesauce::CF::details::at_key<char const* const&>(const __CFDictionary *a1, const char **a2)
+const UInt8 *applesauce::CF::details::at_key<char const* const&>(const __CFDictionary *a1, const UInt8 **a2)
 {
   Value = *a2;
   v4 = strlen(*a2);
@@ -5306,9 +5330,9 @@ LABEL_9:
   return Value;
 }
 
-void sub_296BBA0B8(void *a1, uint64_t a2, ...)
+void sub_296BBA0B8(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
@@ -5365,22 +5389,22 @@ void sub_296BBA1C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void applesauce::CF::at_or<std::string,char const* const&>(const __CFDictionary *a1@<X0>, const char **a2@<X1>, uint64_t a3@<X2>, std::string *a4@<X8>)
+void applesauce::CF::at_or<std::string,char const* const&>(uint64_t a1@<X2>, std::string *a2@<X8>, const __CFDictionary *a3@<X0>, const UInt8 **a4@<X1>)
 {
-  applesauce::CF::details::find_at_key_or_optional<std::string,char const* const&>(a1, a2, __p);
+  applesauce::CF::details::find_at_key_or_optional<std::string,char const* const&>(a3, a4, __p);
   if ((v8 & 1) == 0)
   {
-    *&a4->__r_.__value_.__l.__data_ = *a3;
-    a4->__r_.__value_.__r.__words[2] = *(a3 + 16);
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
-    *a3 = 0;
+    *&a2->__r_.__value_.__l.__data_ = *a1;
+    a2->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+    *a1 = 0;
     return;
   }
 
   if (SHIBYTE(v7) < 0)
   {
-    std::string::__init_copy_ctor_external(a4, __p[0], __p[1]);
+    std::string::__init_copy_ctor_external(a2, __p[0], __p[1]);
     if ((v8 & 1) == 0)
     {
       return;
@@ -5389,8 +5413,8 @@ void applesauce::CF::at_or<std::string,char const* const&>(const __CFDictionary 
 
   else
   {
-    *&a4->__r_.__value_.__l.__data_ = *__p;
-    a4->__r_.__value_.__r.__words[2] = v7;
+    *&a2->__r_.__value_.__l.__data_ = *__p;
+    a2->__r_.__value_.__r.__words[2] = v7;
   }
 
   if (SHIBYTE(v7) < 0)
@@ -5399,7 +5423,7 @@ void applesauce::CF::at_or<std::string,char const* const&>(const __CFDictionary 
   }
 }
 
-const UInt8 *applesauce::CF::details::find_at_key_or_optional<std::string,char const* const&>@<X0>(const __CFDictionary *a1@<X0>, const char **a2@<X1>, _BYTE *a3@<X8>)
+UInt8 *applesauce::CF::details::find_at_key_or_optional<std::string,char const* const&>@<X0>(const __CFDictionary *a1@<X0>, const UInt8 **a2@<X1>, _BYTE *a3@<X8>)
 {
   result = applesauce::CF::details::at_key<char const* const&>(a1, a2);
   if (result)
@@ -5417,9 +5441,9 @@ const UInt8 *applesauce::CF::details::find_at_key_or_optional<std::string,char c
   return result;
 }
 
-void std::vector<std::vector<std::vector<float>>>::resize(uint64_t a1, unint64_t a2)
+void std::vector<std::vector<std::vector<float>>>::resize(const void **a1, unint64_t a2)
 {
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *a1) >> 3);
   v5 = a2 >= v4;
   v6 = a2 - v4;
@@ -5439,7 +5463,7 @@ void std::vector<std::vector<std::vector<float>>>::resize(uint64_t a1, unint64_t
       std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&v8);
     }
 
-    *(a1 + 8) = v7;
+    a1[1] = v7;
   }
 }
 
@@ -5544,14 +5568,14 @@ __n128 std::__function::__func<void IR::IRData::Implementation::vectorizeIRData<
   return result;
 }
 
-void IR::IRData::Implementation::vectorizeIRData<std::vector<float>>(std::vector<std::vector<float>> &,std::vector<std::vector<float>> &,std::vector<std::vector<std::vector<float>>> &)::{lambda(IR::IRDataNode &,unsigned int)#1}::operator()(uint64_t a1, uint64_t a2, unsigned int a3)
+void IR::IRData::Implementation::vectorizeIRData<std::vector<float>>(std::vector<std::vector<float>> &,std::vector<std::vector<float>> &,std::vector<std::vector<std::vector<float>>> &)::{lambda(IR::IRDataNode &,unsigned int)#1}::operator()(uint64_t *a1, uint64_t a2, unsigned int a3)
 {
-  v3 = *(a1 + 24);
+  v3 = a1[3];
   *(**a1 + 4 * a3) = *a2;
   if (*(a2 + 16) != *(a2 + 8))
   {
-    std::vector<std::vector<float>>::push_back[abi:ne200100](*(a1 + 8), (a2 + 48));
-    std::vector<std::vector<float>>::push_back[abi:ne200100](*(a1 + 16), *a1);
+    std::vector<std::vector<float>>::push_back[abi:ne200100](a1[1], a2 + 48);
+    std::vector<std::vector<float>>::push_back[abi:ne200100](a1[2], *a1);
     std::vector<std::vector<float>>::vector[abi:ne200100](v10, *(v3 + 32));
     if (*(v3 + 32))
     {
@@ -5574,7 +5598,7 @@ void IR::IRData::Implementation::vectorizeIRData<std::vector<float>>(std::vector
       while (v7 < *(v3 + 32));
     }
 
-    std::vector<std::vector<std::vector<float>>>::push_back[abi:ne200100](*(a1 + 32), v10);
+    std::vector<std::vector<std::vector<float>>>::push_back[abi:ne200100](a1[4], v10);
     v11 = v10;
     std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&v11);
   }
@@ -5587,7 +5611,7 @@ void sub_296BBA760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -5598,7 +5622,7 @@ uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t a1, u
   else
   {
     std::vector<std::vector<float>>::__construct_one_at_end[abi:ne200100]<std::vector<float> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
@@ -5652,7 +5676,7 @@ void **std::vector<std::vector<std::vector<float>>>::push_back[abi:ne200100](voi
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
     v12 = result[1] - *result;
-    v13 = v11 - v12;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -5683,32 +5707,32 @@ void **std::vector<std::vector<std::vector<float>>>::push_back[abi:ne200100](voi
   return result;
 }
 
-uint64_t std::vector<std::vector<float>>::__construct_one_at_end[abi:ne200100]<std::vector<float> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<float>>::__construct_one_at_end[abi:ne200100]<std::vector<float> const&>(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
   v3[1] = 0;
   v3[2] = 0;
-  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v3, *a2, a2[1], (a2[1] - *a2) >> 2);
+  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v3, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   *(a1 + 8) = v3 + 3;
   return result;
 }
 
-uint64_t std::vector<std::vector<float>>::__emplace_back_slow_path<std::vector<float> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<float>>::__emplace_back_slow_path<std::vector<float> const&>(char **a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -5732,16 +5756,16 @@ uint64_t std::vector<std::vector<float>>::__emplace_back_slow_path<std::vector<f
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(24 * v2, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((24 * v2), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -5750,11 +5774,24 @@ uint64_t std::vector<std::vector<float>>::__emplace_back_slow_path<std::vector<f
   return v8;
 }
 
-void sub_296BBAA70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BBAA70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
+}
+
+uint64_t *std::vector<std::vector<float>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<std::vector<float>>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 __n128 std::__function::__func<void IR::IRData::Implementation::vectorizeIRData<std::vector<float>>(std::vector<std::vector<float>> &,std::vector<std::vector<float>> &,std::vector<std::vector<std::vector<float>>> &)::{lambda(IR::IRDataNode &,unsigned int)#2},std::allocator<void IR::IRData::Implementation::vectorizeIRData<std::vector<float>>(std::vector<std::vector<float>> &,std::vector<std::vector<float>> &,std::vector<std::vector<std::vector<float>>> &)::{lambda(IR::IRDataNode &,unsigned int)#2}>,void ()(IR::IRDataNode &,unsigned int)>::__clone(uint64_t a1, uint64_t a2)
@@ -5768,7 +5805,7 @@ __n128 std::__function::__func<void IR::IRData::Implementation::vectorizeIRData<
   return result;
 }
 
-char **IR::IRData::Implementation::vectorizeIRData<std::vector<float>>(std::vector<std::vector<float>> &,std::vector<std::vector<float>> &,std::vector<std::vector<std::vector<float>>> &)::{lambda(IR::IRDataNode &,unsigned int)#2}::operator()(char **result, uint64_t a2, unsigned int a3)
+unsigned int **IR::IRData::Implementation::vectorizeIRData<std::vector<float>>(std::vector<std::vector<float>> &,std::vector<std::vector<float>> &,std::vector<std::vector<std::vector<float>>> &)::{lambda(IR::IRDataNode &,unsigned int)#2}::operator()(unsigned int **result, uint64_t a2, unsigned int a3)
 {
   v4 = result;
   v5 = *result;
@@ -5840,7 +5877,7 @@ void sub_296BBAD8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-char **std::vector<std::vector<float>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::vector<float>*>,std::__wrap_iter<std::vector<float>*>>(void *a1, uint64_t a2, char **a3, uint64_t *a4, uint64_t a5)
+char *std::vector<std::vector<float>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::vector<float>*>,std::__wrap_iter<std::vector<float>*>>(void *a1, char *a2, char **a3, uint64_t a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -5853,13 +5890,13 @@ char **std::vector<std::vector<float>>::__insert_with_size[abi:ne200100]<std::__
       if ((0xAAAAAAAAAAAAAAABLL * ((v10 - a2) >> 3)) >= a5)
       {
         v18 = 3 * a5;
-        std::vector<std::vector<float>>::__move_range(a1, a2, a1[1], (a2 + 24 * a5));
+        std::vector<std::vector<float>>::__move_range(a1, a2, a1[1], &a2[24 * a5]);
         v17 = &a3[v18];
       }
 
       else
       {
-        a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(a1, (a3 + v16), a4, a1[1]);
+        a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(a1, a3 + v16, a4, a1[1]);
         if (v16 < 1)
         {
           return v5;
@@ -5880,7 +5917,7 @@ char **std::vector<std::vector<float>>::__insert_with_size[abi:ne200100]<std::__
       std::vector<float>::__throw_length_error[abi:ne200100]();
     }
 
-    v13 = a2 - v11;
+    v13 = &a2[-v11];
     v14 = 0xAAAAAAAAAAAAAAABLL * ((v9 - v11) >> 3);
     if (2 * v14 > v12)
     {
@@ -5934,27 +5971,27 @@ char **std::vector<std::vector<float>>::__insert_with_size[abi:ne200100]<std::__
 void std::vector<std::vector<float>>::__move_range(uint64_t a1, uint64_t a2, unint64_t a3, char *a4)
 {
   v4 = *(a1 + 8);
-  v5 = (a2 + v4 - a4);
+  v5 = a2 + v4 - a4;
   v6 = v4;
   while (v5 < a3)
   {
     *v6 = 0;
-    *(v6 + 1) = 0;
-    *(v6 + 2) = 0;
+    v6[1] = 0;
+    v6[2] = 0;
     *v6 = *v5;
-    *(v6 + 2) = *(v5 + 2);
+    v6[2] = *(v5 + 16);
     *v5 = 0;
-    *(v5 + 1) = 0;
-    *(v5 + 2) = 0;
+    *(v5 + 8) = 0;
+    *(v5 + 16) = 0;
     v5 += 24;
-    v6 += 24;
+    v6 += 3;
   }
 
   *(a1 + 8) = v6;
   if (v4 != a4)
   {
     v7 = (v4 - 24);
-    v8 = a4 - v4;
+    v8 = (a4 - v4);
     v9 = (a2 + v4 - 24 - a4);
     do
     {
@@ -5968,10 +6005,10 @@ void std::vector<std::vector<float>>::__move_range(uint64_t a1, uint64_t a2, uni
   }
 }
 
-uint64_t std::__split_buffer<std::vector<float>>::__construct_at_end_with_size<std::__wrap_iter<std::vector<float>*>>(uint64_t result, uint64_t *a2, uint64_t a3)
+uint64_t *std::__split_buffer<std::vector<float>>::__construct_at_end_with_size<std::__wrap_iter<std::vector<float>*>>(uint64_t *result, uint64_t a2, uint64_t a3)
 {
   v3 = result;
-  v4 = *(result + 16);
+  v4 = result[2];
   if (a3)
   {
     v6 = &v4[3 * a3];
@@ -5981,9 +6018,9 @@ uint64_t std::__split_buffer<std::vector<float>>::__construct_at_end_with_size<s
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *a2, a2[1], (a2[1] - *a2) >> 2);
+      result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
       v4 += 3;
-      a2 += 3;
+      a2 += 24;
       v7 -= 24;
     }
 
@@ -5991,11 +6028,11 @@ uint64_t std::__split_buffer<std::vector<float>>::__construct_at_end_with_size<s
     v4 = v6;
   }
 
-  *(v3 + 16) = v4;
+  v3[2] = v4;
   return result;
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -6012,8 +6049,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *v6, v6[1], (v6[1] - *v6) >> 2);
-      v6 += 3;
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 2);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -6061,7 +6098,7 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<float>>,std::
   }
 }
 
-char **std::__copy_impl::operator()[abi:ne200100]<std::vector<float> *,std::vector<float> *,std::vector<float> *>(int a1, char **a2, char **a3, char **a4)
+char **std::__copy_impl::operator()[abi:ne200100]<std::vector<float> *,std::vector<float> *,std::vector<float> *>(int a1, char **a2, char **a3, uint64_t *a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -6163,7 +6200,7 @@ CFArrayRef applesauce::CF::details::make_CFArrayRef<std::vector<std::vector<floa
   return v11;
 }
 
-void sub_296BBB470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, uint64_t a11, char a12)
+void sub_296BBB470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char *a9, uint64_t a10, uint64_t a11, char a12)
 {
   a9 = &a12;
   std::vector<applesauce::CF::ArrayRef>::__destroy_vector::operator()[abi:ne200100](&a9);
@@ -6185,9 +6222,9 @@ void *std::vector<applesauce::CF::ArrayRef>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_296BBB544(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BBB544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<applesauce::CF::ArrayRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6229,15 +6266,15 @@ void sub_296BBB5D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<applesauce::CF::ArrayRef>::__swap_out_circular_buffer(uint64_t a1, void *a2)
+void std::vector<applesauce::CF::ArrayRef>::__swap_out_circular_buffer(const void ***result, void *a2)
 {
-  v4 = *a1;
-  v5 = *(a1 + 8);
-  v6 = a2[1] + *a1 - v5;
-  if (v5 != *a1)
+  v4 = *result;
+  v5 = result[1];
+  v6 = (a2[1] + *result - v5);
+  if (v5 != *result)
   {
-    v7 = *a1;
-    v8 = (a2[1] + *a1 - v5);
+    v7 = *result;
+    v8 = (a2[1] + *result - v5);
     do
     {
       *v8++ = *v7;
@@ -6251,18 +6288,18 @@ void std::vector<applesauce::CF::ArrayRef>::__swap_out_circular_buffer(uint64_t 
     }
 
     while (v4 != v5);
-    v4 = *a1;
+    v4 = *result;
   }
 
   a2[1] = v6;
-  *a1 = v6;
-  *(a1 + 8) = v4;
+  *result = v6;
+  result[1] = v4;
   a2[1] = v4;
-  v9 = *(a1 + 8);
-  *(a1 + 8) = a2[2];
+  v9 = result[1];
+  result[1] = a2[2];
   a2[2] = v9;
-  v10 = *(a1 + 16);
-  *(a1 + 16) = a2[3];
+  v10 = result[2];
+  result[2] = a2[3];
   a2[3] = v10;
   *a2 = a2[1];
 }
@@ -6293,7 +6330,7 @@ uint64_t std::__split_buffer<applesauce::CF::ArrayRef>::~__split_buffer(uint64_t
   return a1;
 }
 
-uint64_t std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6310,20 +6347,20 @@ void sub_296BBB780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-CFArrayRef applesauce::CF::details::make_CFArrayRef<std::vector<float>>(uint64_t **a1)
+CFArrayRef applesauce::CF::details::make_CFArrayRef<std::vector<float>>(uint64_t *a1)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * (a1[1] - *a1);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v16 = 0;
   v17 = 0;
   v18 = 0;
   std::vector<applesauce::CF::ArrayRef>::reserve(&v16, v2);
   v4 = *a1;
-  for (i = a1[1]; v4 != i; v4 += 3)
+  for (i = a1[1]; v4 != i; v4 += 24)
   {
     __p = 0;
     v14 = 0;
     v15 = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, *v4, v4[1], (v4[1] - *v4) >> 2);
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, *v4, *(v4 + 8), (*(v4 + 8) - *v4) >> 2);
     v5 = v17;
     if (v17 >= v18)
     {
@@ -6468,7 +6505,7 @@ CFArrayRef applesauce::CF::details::make_CFArrayRef<float>(int **a1)
   return v9;
 }
 
-void sub_296BBBAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void **a13)
+void sub_296BBBAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char *a13)
 {
   a13 = &a10;
   std::vector<applesauce::CF::NumberRef>::__destroy_vector::operator()[abi:ne200100](&a13);
@@ -6490,9 +6527,9 @@ void *std::vector<applesauce::CF::NumberRef>::reserve(void *result, unint64_t a2
   return result;
 }
 
-void sub_296BBBB8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BBBB8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<applesauce::CF::NumberRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6534,15 +6571,15 @@ void sub_296BBBC1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<applesauce::CF::NumberRef>::__swap_out_circular_buffer(uint64_t a1, void *a2)
+void std::vector<applesauce::CF::NumberRef>::__swap_out_circular_buffer(const void ***result, void *a2)
 {
-  v4 = *a1;
-  v5 = *(a1 + 8);
-  v6 = a2[1] + *a1 - v5;
-  if (v5 != *a1)
+  v4 = *result;
+  v5 = result[1];
+  v6 = (a2[1] + *result - v5);
+  if (v5 != *result)
   {
-    v7 = *a1;
-    v8 = (a2[1] + *a1 - v5);
+    v7 = *result;
+    v8 = (a2[1] + *result - v5);
     do
     {
       *v8++ = *v7;
@@ -6556,18 +6593,18 @@ void std::vector<applesauce::CF::NumberRef>::__swap_out_circular_buffer(uint64_t
     }
 
     while (v4 != v5);
-    v4 = *a1;
+    v4 = *result;
   }
 
   a2[1] = v6;
-  *a1 = v6;
-  *(a1 + 8) = v4;
+  *result = v6;
+  result[1] = v4;
   a2[1] = v4;
-  v9 = *(a1 + 8);
-  *(a1 + 8) = a2[2];
+  v9 = result[1];
+  result[1] = a2[2];
   a2[2] = v9;
-  v10 = *(a1 + 16);
-  *(a1 + 16) = a2[3];
+  v10 = result[2];
+  result[2] = a2[3];
   a2[3] = v10;
   *a2 = a2[1];
 }
@@ -6612,7 +6649,7 @@ CFNumberRef std::allocator_traits<std::allocator<applesauce::CF::NumberRef>>::co
   return result;
 }
 
-void std::vector<applesauce::CF::NumberRef>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<applesauce::CF::NumberRef>::__destroy_vector::operator()[abi:ne200100](const void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -6637,7 +6674,7 @@ void std::vector<applesauce::CF::NumberRef>::__destroy_vector::operator()[abi:ne
   }
 }
 
-void std::vector<applesauce::CF::ArrayRef>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<applesauce::CF::ArrayRef>::__destroy_vector::operator()[abi:ne200100](const void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -6662,14 +6699,14 @@ void std::vector<applesauce::CF::ArrayRef>::__destroy_vector::operator()[abi:ne2
   }
 }
 
-applesauce::CF::TypeRef *applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[12],std::vector<std::vector<float>> &>(applesauce::CF::TypeRef *a1, char *a2, uint64_t **a3)
+applesauce::CF::TypeRef *applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[12],std::vector<std::vector<float>> &>(applesauce::CF::TypeRef *a1, char *a2, uint64_t *a3)
 {
   applesauce::CF::TypeRef::TypeRef(a1, a2);
   *(a1 + 1) = applesauce::CF::details::make_CFArrayRef<std::vector<float>>(a3);
   return a1;
 }
 
-applesauce::CF::TypeRef *applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[7],std::vector<std::vector<float>> &>(applesauce::CF::TypeRef *a1, char *a2, uint64_t **a3)
+applesauce::CF::TypeRef *applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[7],std::vector<std::vector<float>> &>(applesauce::CF::TypeRef *a1, char *a2, uint64_t *a3)
 {
   applesauce::CF::TypeRef::TypeRef(a1, a2);
   *(a1 + 1) = applesauce::CF::details::make_CFArrayRef<std::vector<float>>(a3);
@@ -6834,13 +6871,13 @@ __n128 std::__function::__func<IR::IRData::Implementation::createSerializedIRDat
   return result;
 }
 
-uint64_t std::__function::__func<IR::IRData::Implementation::createSerializedIRData(IR::IRData const&,BOOL,IR::IRCoeffFormat)::$_0,std::allocator<IR::IRData::Implementation::createSerializedIRData(IR::IRData const&,BOOL,IR::IRCoeffFormat)::$_0>,void ()(IR::IRDataNode &,unsigned int)>::operator()(uint64_t result, uint64_t a2, unsigned int *a3)
+uint64_t *std::__function::__func<IR::IRData::Implementation::createSerializedIRData(IR::IRData const&,BOOL,IR::IRCoeffFormat)::$_0,std::allocator<IR::IRData::Implementation::createSerializedIRData(IR::IRData const&,BOOL,IR::IRCoeffFormat)::$_0>,void ()(IR::IRDataNode &,unsigned int)>::operator()(uint64_t *result, uint64_t a2, unsigned int *a3)
 {
-  *(**(result + 8) + 4 * *a3) = *a2;
+  *(*result[1] + 4 * *a3) = *a2;
   if (*(a2 + 16) != *(a2 + 8))
   {
     v5 = result;
-    v6 = **(result + 16);
+    v6 = *result[2];
     if (v6)
     {
       for (i = 0; i < v6; ++i)
@@ -6855,7 +6892,7 @@ uint64_t std::__function::__func<IR::IRData::Implementation::createSerializedIRD
     }
 
     std::vector<std::vector<float>>::push_back[abi:ne200100](*(v5 + 40), *(v5 + 32));
-    std::vector<std::vector<float>>::push_back[abi:ne200100](*(v5 + 48), (a2 + 48));
+    std::vector<std::vector<float>>::push_back[abi:ne200100](*(v5 + 48), a2 + 48);
     v9 = *(v5 + 56);
     v10 = *(v5 + 8);
 
@@ -7405,7 +7442,7 @@ void sub_296BBD48C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::vector<std::unique_ptr<IR::FFTFilterKernel<float>>>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::vector<std::unique_ptr<IR::FFTFilterKernel<float>>>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -7440,19 +7477,19 @@ __n128 std::__function::__func<IR::IRData::Implementation::createSizeDimension(s
   return result;
 }
 
-void std::__function::__func<IR::IRData::Implementation::createSizeDimension(std::vector<float> const&,applesauce::CF::ArrayRef,IR::DynamicSizeDesignGrid)::$_0,std::allocator<IR::IRData::Implementation::createSizeDimension(std::vector<float> const&,applesauce::CF::ArrayRef,IR::DynamicSizeDesignGrid)::$_0>,void ()(IR::IRDataNode &,unsigned int)>::operator()(void *a1, uint64_t a2, unsigned int *a3)
+void std::__function::__func<IR::IRData::Implementation::createSizeDimension(std::vector<float> const&,applesauce::CF::ArrayRef,IR::DynamicSizeDesignGrid)::$_0,std::allocator<IR::IRData::Implementation::createSizeDimension(std::vector<float> const&,applesauce::CF::ArrayRef,IR::DynamicSizeDesignGrid)::$_0>,void ()(IR::IRDataNode &,unsigned int)>::operator()(void *result, uint64_t a2, unsigned int *a3)
 {
   v5 = *a3;
-  v6 = *(a1[1] + 88);
-  if (v5 < (*(a1[1] + 96) - v6) >> 2)
+  v6 = *(result[1] + 88);
+  if (v5 < (*(result[1] + 96) - v6) >> 2)
   {
-    IR::IRCoordinates::set(a1[2], *(v6 + 4 * v5), *a2);
+    IR::IRCoordinates::set(result[2], *(v6 + 4 * v5), *a2);
   }
 
   if (*(a2 + 16) != *(a2 + 8))
   {
-    v8 = a1[2];
-    v7 = a1[3];
+    v8 = result[2];
+    v7 = result[3];
 
     std::vector<IR::IRCoordinates>::push_back[abi:ne200100](v7, v8);
   }
@@ -7747,9 +7784,9 @@ uint64_t std::__function::__func<IR::IRData::Implementation::computeAverageIR(vo
   return result;
 }
 
-void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::BooleanRef,std::string const&>(const __CFDictionary *a1@<X0>, const __CFString *a2@<X1>, _BYTE *a3@<X8>)
+void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::BooleanRef,std::string const&>(_BYTE *a1@<X8>, const __CFDictionary *a2@<X0>, const UInt8 *a3@<X1>)
 {
-  v4 = applesauce::CF::details::at_key<std::string const&>(a1, a2);
+  v4 = applesauce::CF::details::at_key<std::string const&>(a2, a3);
   if (!v4)
   {
     goto LABEL_5;
@@ -7763,23 +7800,23 @@ void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::BooleanRef
     CFRelease(v5);
 LABEL_5:
     v7 = 0;
-    *a3 = 0;
+    *a1 = 0;
     goto LABEL_6;
   }
 
-  *a3 = v5;
+  *a1 = v5;
   v7 = 1;
 LABEL_6:
-  a3[8] = v7;
+  a1[8] = v7;
 }
 
-const void *applesauce::CF::details::at_key<std::string const&>(const __CFDictionary *a1, CFStringRef a2)
+const void *applesauce::CF::details::at_key<std::string const&>(const __CFDictionary *a1, const UInt8 *a2)
 {
   v3 = a2;
-  data_high = HIBYTE(a2->data);
-  if ((data_high & 0x80u) != 0)
+  v5 = a2[23];
+  if ((v5 & 0x80u) != 0)
   {
-    a2 = a2->isa;
+    a2 = *a2;
   }
 
   if (!a2)
@@ -7799,15 +7836,15 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  info = v3->info;
-  if ((data_high & 0x80u) == 0)
+  v6 = *(v3 + 1);
+  if ((v5 & 0x80u) == 0)
   {
-    v7 = data_high;
+    v7 = v5;
   }
 
   else
   {
-    v7 = info;
+    v7 = v6;
   }
 
   a2 = CFStringCreateWithBytes(0, a2, v7, 0x8000100u, 0);
@@ -7841,9 +7878,9 @@ LABEL_14:
   return Value;
 }
 
-void sub_296BBE0A8(void *a1, uint64_t a2, ...)
+void sub_296BBE0A8(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
@@ -7932,7 +7969,7 @@ uint64_t std::__function::__value_func<void ()(IR::IRDataNode const&,unsigned in
   return a1;
 }
 
-uint64_t std::__function::__func<IR::IRData::Implementation::printNodes(void)::$_0,std::allocator<IR::IRData::Implementation::printNodes(void)::$_0>,void ()(IR::IRDataNode &,unsigned int)>::operator()(uint64_t a1, uint64_t a2, int *a3)
+uint64_t std::__function::__func<IR::IRData::Implementation::printNodes(void)::$_0,std::allocator<IR::IRData::Implementation::printNodes(void)::$_0>,void ()(IR::IRDataNode &,unsigned int)>::operator()(uint64_t a1, float *a2, int *a3)
 {
   v3 = *a3;
   if (*a3)
@@ -7964,7 +8001,7 @@ void std::__shared_ptr_emplace<IR::IRData>::~__shared_ptr_emplace(std::__shared_
   JUMPOUT(0x29C25FC20);
 }
 
-void std::__shared_ptr_emplace<IR::IRData const>::__shared_ptr_emplace[abi:ne200100]<float &,int,int,float,BOOL,unsigned int,unsigned int,unsigned int &,std::vector<IR::IRCoordinateType>,std::vector<float>,std::vector<IR::IRInterpolationMethod>,IR::IRSphericalInterpolation,applesauce::CF::DictionaryRef,applesauce::CF::DictionaryRef,std::allocator<IR::IRData>,0>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15)
+void std::__shared_ptr_emplace<IR::IRData const>::__shared_ptr_emplace[abi:ne200100]<float &,int,int,float,BOOL,unsigned int,unsigned int,unsigned int &,std::vector<IR::IRCoordinateType>,std::vector<float>,std::vector<IR::IRInterpolationMethod>,IR::IRSphericalInterpolation,applesauce::CF::DictionaryRef,applesauce::CF::DictionaryRef,std::allocator<IR::IRData>,0>(void *a1, float *a2, int *a3, int *a4, float *a5, char *a6, int *a7, int *a8, int *a9, uint64_t a10, uint64_t a11, uint64_t a12, int *a13, const void **a14, CFTypeRef *a15)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -7980,11 +8017,24 @@ void std::__shared_ptr_emplace<IR::IRData const>::~__shared_ptr_emplace(std::__s
   JUMPOUT(0x29C25FC20);
 }
 
-void std::construct_at[abi:ne200100]<IR::IRData,float &,int,int,float,BOOL,unsigned int,unsigned int,unsigned int &,std::vector<IR::IRCoordinateType>,std::vector<float>,std::vector<IR::IRInterpolationMethod>,IR::IRSphericalInterpolation,applesauce::CF::DictionaryRef,applesauce::CF::DictionaryRef,IR::IRData*>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15)
+void std::construct_at[abi:ne200100]<IR::IRData,float &,int,int,float,BOOL,unsigned int,unsigned int,unsigned int &,std::vector<IR::IRCoordinateType>,std::vector<float>,std::vector<IR::IRInterpolationMethod>,IR::IRSphericalInterpolation,applesauce::CF::DictionaryRef,applesauce::CF::DictionaryRef,IR::IRData*>(void *a1, float *a2, int *a3, int *a4, float *a5, char *a6, int *a7, int *a8, int *a9, uint64_t a10, uint64_t a11, uint64_t a12, int *a13, const void **a14, CFTypeRef *a15)
 {
+  v15 = *a2;
+  v16 = *a3;
+  v17 = *a4;
+  v18 = *a5;
+  v19 = *a6;
+  v20 = *a7;
+  v21 = *a8;
+  v22 = *a9;
+  v23 = *a13;
+  v24 = *a14;
   *a14 = 0;
+  v26 = *a15;
+  v27 = v24;
   *a15 = 0;
-  IR::IRData::IRData(a1);
+  LODWORD(v25) = v23;
+  IR::IRData::IRData(a1, v16, v17, v19, v20, v21, v22, a10, v15, v18, a11, a12, v25, &v27, &v26);
 }
 
 void sub_296BBE798(_Unwind_Exception *a1)
@@ -7994,13 +8044,14 @@ void sub_296BBE798(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-uint64_t IR::IRData::Implementation::getInterpolatedTimeDomainCoeffs<std::vector<float>>(unint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t a6, unint64_t a7, uint64_t a8, unsigned int a9)
+uint64_t IR::IRData::Implementation::getInterpolatedTimeDomainCoeffs<std::vector<float>>(unint64_t a1, __int128 *a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t a6, unint64_t a7, uint64_t a8, unsigned int a9)
 {
   v45[4] = *MEMORY[0x29EDCA608];
   v15 = *(a1 + 496);
@@ -8081,7 +8132,7 @@ LABEL_14:
           v43 = 0;
           if (v15)
           {
-            v25 = *(a2 + 16);
+            v25 = a2[1];
             v38 = *a2;
             v30 = a1;
             v31 = a5;
@@ -8092,7 +8143,7 @@ LABEL_14:
             v36 = a4;
             v37 = a9;
             v39 = v25;
-            v40 = *(a2 + 32);
+            v40 = *(a2 + 8);
             v41 = v28;
             v42 = &v43;
             v26 = *(a1 + 272);
@@ -8142,6 +8193,13 @@ LABEL_14:
   }
 
   return result;
+}
+
+void sub_296BBEAF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  std::__function::__value_func<void ()(IR::IRDataNode const&,IR::IRDataNode const&,float,float)>::~__value_func[abi:ne200100](va);
+  _Unwind_Resume(a1);
 }
 
 void IR::IRData::Implementation::getNearbyNodesAndInterpolationWeights(IR::IRData::Implementation *a1, uint64_t a2, unsigned int a3, float **a4, uint64_t a5, uint64_t a6, float a7)
@@ -8390,14 +8448,14 @@ LABEL_59:
   std::function<void ()(IR::IRDataNode const&,IR::IRDataNode const&,float,float)>::operator()(v33, v34, EmptyIRDataNode, v35, v32);
 }
 
-void sub_296BBEFCC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BBEFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(IR::IRDataNode const&,IR::IRDataNode const&,float,float)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t IR::IRData::Implementation::getInterpolatedTimeDomainCoeffs<std::span<float,18446744073709551615ul>>(unint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t a6, _DWORD *a7, uint64_t a8, unsigned int a9)
+uint64_t IR::IRData::Implementation::getInterpolatedTimeDomainCoeffs<std::span<float,18446744073709551615ul>>(unint64_t a1, __int128 *a2, unint64_t a3, _DWORD *a4, unint64_t a5, _DWORD *a6, _DWORD *a7, _DWORD *a8, unsigned int a9)
 {
   v47[4] = *MEMORY[0x29EDCA608];
   v14 = *(a1 + 496);
@@ -8486,7 +8544,7 @@ LABEL_14:
           v45 = 0;
           if (v14)
           {
-            v27 = *(a2 + 16);
+            v27 = a2[1];
             v40 = *a2;
             v32 = a1;
             v33 = a5;
@@ -8497,7 +8555,7 @@ LABEL_14:
             v38 = a4;
             v39 = a9;
             v41 = v27;
-            v42 = *(a2 + 32);
+            v42 = *(a2 + 8);
             v43 = v19;
             v44 = &v45;
             v28 = *(a1 + 272);
@@ -8549,7 +8607,14 @@ LABEL_14:
   return result;
 }
 
-uint64_t IR::IRData::Implementation::getInterpolatedCoeffs(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5, unint64_t a6, unint64_t a7, uint64_t a8, unsigned int a9)
+void sub_296BBF2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  std::__function::__value_func<void ()(IR::IRDataNode const&,IR::IRDataNode const&,float,float)>::~__value_func[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t IR::IRData::Implementation::getInterpolatedCoeffs(unint64_t a1, __int128 *a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t a6, unint64_t a7, uint64_t a8, unsigned int a9)
 {
   v34[4] = *MEMORY[0x29EDCA608];
   v10 = *(a1 + 496);
@@ -8617,7 +8682,7 @@ LABEL_14:
         v32 = 0;
         if (v10)
         {
-          v16 = *(a2 + 16);
+          v16 = a2[1];
           v26 = *a2;
           v27 = v16;
           v19 = a1;
@@ -8627,7 +8692,7 @@ LABEL_14:
           v23 = a4;
           v24 = a7;
           v25 = 0;
-          v28 = *(a2 + 32);
+          v28 = *(a2 + 8);
           v29 = a9;
           v30 = v15;
           v31 = &v32;
@@ -8674,7 +8739,14 @@ LABEL_14:
   return result;
 }
 
-uint64_t IR::IRData::Implementation::getInterpolatedAuxData(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5)
+void sub_296BBF5E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  std::__function::__value_func<void ()(IR::IRDataNode const&,IR::IRDataNode const&,float,float)>::~__value_func[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t IR::IRData::Implementation::getInterpolatedAuxData(uint64_t a1, __int128 *a2, void *a3, void *a4, uint64_t a5)
 {
   v26[4] = *MEMORY[0x29EDCA608];
   v10 = *(a1 + 496);
@@ -8704,14 +8776,14 @@ uint64_t IR::IRData::Implementation::getInterpolatedAuxData(uint64_t a1, uint64_
   v24 = 0;
   if (v10)
   {
-    v11 = *(a2 + 16);
+    v11 = a2[1];
     v20 = *a2;
     v16 = a1;
     v17 = a3;
     v18 = a4;
     v19 = a5;
     v21 = v11;
-    v22 = *(a2 + 32);
+    v22 = *(a2 + 8);
     v23 = &v24;
     v12 = *(a1 + 272);
     v26[0] = &unk_2A1DECB08;
@@ -8737,9 +8809,9 @@ uint64_t IR::IRData::Implementation::getInterpolatedAuxData(uint64_t a1, uint64_
   return 0;
 }
 
-void sub_296BBF7FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_296BBF7FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   std::__function::__value_func<void ()(IR::IRDataNode const&,IR::IRDataNode const&,float,float)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8757,30 +8829,30 @@ uint64_t std::function<void ()(IR::IRDataNode const&,IR::IRDataNode const&,float
   return (*(*v5 + 48))(v5, a2, a3, &v8, &v7);
 }
 
-uint64_t IR::IRData::getInterpolatedCoeffs(uint64_t *a1, uint64_t a2, int a3, uint64_t a4, unint64_t a5, unsigned int a6)
+uint64_t IR::IRData::getInterpolatedCoeffs(unint64_t *a1, __int128 *a2, int a3, unint64_t a4, unint64_t a5, unsigned int a6)
 {
   v6 = *a1;
   v8 = a3;
   return IR::IRData::Implementation::getInterpolatedCoeffs(v6, a2, &v8, 1uLL, a4, 1uLL, a5, 1, a6);
 }
 
-uint64_t IR::IRData::getInterpolatedTimeDomainCoeffs(unint64_t *a1, uint64_t a2, int a3, void *a4, _DWORD *a5, unsigned int a6)
+uint64_t IR::IRData::getInterpolatedTimeDomainCoeffs(unint64_t *a1, __int128 *a2, int a3, void *a4, _DWORD *a5, unsigned int a6)
 {
   v6 = *a1;
   v7 = (a4[1] - *a4) >> 2;
   v10[0] = *a4;
   v10[1] = v7;
   v9 = a3;
-  return IR::IRData::Implementation::getInterpolatedTimeDomainCoeffs<std::span<float,18446744073709551615ul>>(v6, a2, &v9, 1uLL, v10, 1uLL, a5, 1, a6);
+  return IR::IRData::Implementation::getInterpolatedTimeDomainCoeffs<std::span<float,18446744073709551615ul>>(v6, a2, &v9, 1, v10, 1, a5, 1, a6);
 }
 
-uint64_t IR::IRData::getInterpolatedTimeDomainCoeffs(unint64_t *a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, _DWORD *a6, unsigned int a7)
+uint64_t IR::IRData::getInterpolatedTimeDomainCoeffs(unint64_t *a1, __int128 *a2, int a3, uint64_t a4, uint64_t a5, _DWORD *a6, unsigned int a7)
 {
   v7 = *a1;
   v10[0] = a4;
   v10[1] = a5;
   v9 = a3;
-  return IR::IRData::Implementation::getInterpolatedTimeDomainCoeffs<std::span<float,18446744073709551615ul>>(v7, a2, &v9, 1uLL, v10, 1uLL, a6, 1, a7);
+  return IR::IRData::Implementation::getInterpolatedTimeDomainCoeffs<std::span<float,18446744073709551615ul>>(v7, a2, &v9, 1, v10, 1, a6, 1, a7);
 }
 
 BOOL IR::IRData::canInterpolateInDimension(uint64_t a1, int a2)
@@ -9445,19 +9517,19 @@ void sub_296BC1790(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void applesauce::CF::DataRef::from_ns_noexcept(applesauce::CF::DataRef *this@<X0>, applesauce::CF::DataRef **a2@<X8>)
+void applesauce::CF::DataRef::from_ns_noexcept(applesauce::CF::DataRef **__return_ptr a1@<X8>, applesauce::CF::DataRef *this@<X0>)
 {
-  v4 = this;
-  if (!v4 || (cf = v4, CFRetain(v4), v5 = CFGetTypeID(cf), v6 = v5 == CFDataGetTypeID(), v4 = cf, v6))
+  v3 = this;
+  if (!v3 || (cf = v3, CFRetain(v3), v4 = CFGetTypeID(cf), v5 = v4 == CFDataGetTypeID(), v3 = cf, v5))
   {
-    *a2 = v4;
+    *a1 = v3;
   }
 
   else
   {
-    *a2 = 0;
+    *a1 = 0;
     CFRelease(cf);
-    v4 = cf;
+    v3 = cf;
   }
 }
 
@@ -9479,9 +9551,9 @@ uint64_t IR::IRDataAttributes::IRDataAttributes(uint64_t a1, CFTypeRef *a2, int 
   return a1;
 }
 
-void sub_296BC197C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BC197C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::URLRef::~URLRef(va);
   _Unwind_Resume(a1);
 }
@@ -9533,7 +9605,7 @@ uint64_t *std::unique_ptr<HOA::RotationMatrix>::reset[abi:ne200100](uint64_t *re
   return result;
 }
 
-uint64_t IR::HOA2BinauralIRRenderer::setEnvironment(IR::HOA2BinauralIRRenderer *this, unsigned int a2, BOOL a3, unsigned int a4)
+uint64_t IR::HOA2BinauralIRRenderer::setEnvironment(IR::HOA2BinauralIRRenderer *this, unsigned int a2, int a3, unsigned int a4)
 {
   v6 = a2;
   *(this + 32) = a2;
@@ -9541,28 +9613,28 @@ uint64_t IR::HOA2BinauralIRRenderer::setEnvironment(IR::HOA2BinauralIRRenderer *
   *(this + 136) = 0;
   v7 = IR::IRDataLoader::instance(this);
   std::string::basic_string[abi:ne200100]<0>(&__p, "HOA2BinauralIRRenderer|");
+  v157 = 0;
   v154 = 0;
-  v151 = 0;
-  v152 = 0;
-  v153 = 0;
-  IR::IRDataLoader::load(&v155, v7, &__p, this + 120, &v154, &v151);
-  if (v151)
-  {
-    v152 = v151;
-    operator delete(v151);
-  }
-
+  v155 = 0;
+  v156 = 0;
+  IR::IRDataLoader::load(v7, &__p, this + 120, &v157, &v154);
   if (v154)
   {
-    CFRelease(v154);
+    v155 = v154;
+    operator delete(v154);
   }
 
-  if (SHIBYTE(v141) < 0)
+  if (v157)
+  {
+    CFRelease(v157);
+  }
+
+  if (SHIBYTE(v144) < 0)
   {
     operator delete(__p);
   }
 
-  if (!v155)
+  if (!v158)
   {
     if (IR::getHOA2BinauralIRRendererLog(void)::onceToken != -1)
     {
@@ -9578,7 +9650,7 @@ uint64_t IR::HOA2BinauralIRRenderer::setEnvironment(IR::HOA2BinauralIRRenderer *
     goto LABEL_17;
   }
 
-  if (IR::IRData::getNumFiltersPerSpatialPoint(v155) < *(this + 113))
+  if (IR::IRData::getNumFiltersPerSpatialPoint(v158) < *(this + 113))
   {
     if (IR::getHOA2BinauralIRRendererLog(void)::onceToken != -1)
     {
@@ -9596,7 +9668,7 @@ LABEL_17:
     goto LABEL_124;
   }
 
-  FilterLength = IR::IRData::getFilterLength(v155);
+  FilterLength = IR::IRData::getFilterLength(v158);
   if (FilterLength >= a4)
   {
     v26 = a4;
@@ -9613,34 +9685,34 @@ LABEL_17:
   }
 
   *(this + 111) = v26;
-  IR::IRCoordinates::IRCoordinates(&v151);
+  IR::IRCoordinates::IRCoordinates(&v154);
   v27 = *(this + 113);
   std::vector<float>::vector[abi:ne200100](&__p, *(this + 111));
-  std::vector<std::vector<float>>::vector[abi:ne200100](v150, v27);
+  std::vector<std::vector<float>>::vector[abi:ne200100](v153, v27, &__p);
   if (__p)
   {
-    v140 = __p;
+    v143 = __p;
     operator delete(__p);
   }
 
-  std::vector<float>::vector[abi:ne200100](v149, *(this + 113));
+  std::vector<float>::vector[abi:ne200100](v152, *(this + 113));
   v28 = (this + 48);
   *(this + 7) = *(this + 6);
-  v128 = (this + 72);
+  v130 = (this + 72);
   *(this + 10) = *(this + 9);
-  v127 = (this + 96);
+  v129 = (this + 96);
   *(this + 13) = *(this + 12);
-  PeriodForCyclicalDimensions = IR::IRData::getPeriodForCyclicalDimensions(v155);
+  PeriodForCyclicalDimensions = IR::IRData::getPeriodForCyclicalDimensions(v158);
+  v149 = 0;
+  v150 = 0;
+  v151 = 0;
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v149, *PeriodForCyclicalDimensions, *(PeriodForCyclicalDimensions + 8), (*(PeriodForCyclicalDimensions + 8) - *PeriodForCyclicalDimensions) >> 2);
+  InterpolationMethod = IR::IRData::getInterpolationMethod(v158);
   v146 = 0;
   v147 = 0;
   v148 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v146, *PeriodForCyclicalDimensions, PeriodForCyclicalDimensions[1], (PeriodForCyclicalDimensions[1] - *PeriodForCyclicalDimensions) >> 2);
-  InterpolationMethod = IR::IRData::getInterpolationMethod(v155);
-  v143 = 0;
-  v144 = 0;
-  v145 = 0;
-  std::vector<IR::IRInterpolationMethod>::__init_with_size[abi:ne200100]<IR::IRInterpolationMethod*,IR::IRInterpolationMethod*>(&v143, *InterpolationMethod, InterpolationMethod[1], (InterpolationMethod[1] - *InterpolationMethod) >> 2);
-  DataLayout = IR::IRData::getDataLayout(v155);
+  std::vector<IR::IRInterpolationMethod>::__init_with_size[abi:ne200100]<IR::IRInterpolationMethod*,IR::IRInterpolationMethod*>(&v146, *InterpolationMethod, *(InterpolationMethod + 8), (*(InterpolationMethod + 8) - *InterpolationMethod) >> 2);
+  DataLayout = IR::IRData::getDataLayout(v158);
   v32 = *DataLayout;
   v33 = DataLayout[1];
   if (*DataLayout != v33)
@@ -9719,8 +9791,8 @@ LABEL_17:
         v49 = *(this + 11);
         if (v50 >= v49)
         {
-          v52 = *v128;
-          v53 = v50 - *v128;
+          v52 = *v130;
+          v53 = v50 - *v130;
           v54 = (v53 >> 2) + 1;
           if (v54 >> 62)
           {
@@ -9742,11 +9814,11 @@ LABEL_17:
 
           if (v56)
           {
-            std::allocator<float>::allocate_at_least[abi:ne200100](v128, v56);
+            std::allocator<float>::allocate_at_least[abi:ne200100](v130, v56);
           }
 
           v57 = (4 * (v53 >> 2));
-          *v57 = v146[v34];
+          *v57 = v149[v34];
           v51 = v57 + 1;
           memcpy(0, v52, v53);
           v58 = *(this + 9);
@@ -9761,7 +9833,7 @@ LABEL_17:
 
         else
         {
-          *v50 = v146[v34];
+          *v50 = v149[v34];
           v51 = v50 + 1;
         }
 
@@ -9770,8 +9842,8 @@ LABEL_17:
         v59 = *(this + 14);
         if (v60 >= v59)
         {
-          v62 = *v127;
-          v63 = v60 - *v127;
+          v62 = *v129;
+          v63 = v60 - *v129;
           v64 = (v63 >> 2) + 1;
           if (v64 >> 62)
           {
@@ -9793,11 +9865,11 @@ LABEL_17:
 
           if (v66)
           {
-            std::allocator<float>::allocate_at_least[abi:ne200100](v127, v66);
+            std::allocator<float>::allocate_at_least[abi:ne200100](v129, v66);
           }
 
           v67 = (4 * (v63 >> 2));
-          *v67 = v143[v34];
+          *v67 = v146[v34];
           v61 = v67 + 1;
           memcpy(0, v62, v63);
           v68 = *(this + 12);
@@ -9812,7 +9884,7 @@ LABEL_17:
 
         else
         {
-          *v60 = v143[v34];
+          *v60 = v146[v34];
           v61 = v60 + 1;
         }
 
@@ -9827,7 +9899,7 @@ LABEL_66:
     while (v32 != v33);
   }
 
-  IR::IRData::getCoordinateTree(v155, &__p);
+  IR::IRData::getCoordinateTree(v158, &__p);
   IR::HOA2BinauralIRRenderer::flattenIRCoordinateTree(this, &__p, &__A);
   v69 = *this;
   if (*this)
@@ -9841,15 +9913,15 @@ LABEL_66:
 
   v70 = __A;
   *this = __A;
-  v129 = v138;
-  *(this + 8) = v138;
+  v131 = v141;
+  *(this + 8) = v141;
   v71 = (*(this + 113) * *(this + 111));
-  LODWORD(v131) = 0;
-  std::vector<float>::vector[abi:ne200100](&__A, v71);
-  std::vector<std::vector<float>>::assign(this + 58, 0x8E38E38E38E38E39 * ((v129 - v70) >> 2), &__A);
+  LODWORD(v134) = 0;
+  std::vector<float>::vector[abi:ne200100](&__A, v71, &v134);
+  std::vector<std::vector<float>>::assign(this + 58, 0x8E38E38E38E38E39 * ((v131 - v70) >> 2), &__A);
   if (__A)
   {
-    *&v138 = __A;
+    *&v141 = __A;
     operator delete(__A);
   }
 
@@ -9865,32 +9937,32 @@ LABEL_66:
   LODWORD(__A) = 0;
   std::vector<float>::resize(this + 61, v73, &__A, v74);
   v75 = *(this + 54);
-  v138 = 0uLL;
+  v141 = 0uLL;
   __A = 0;
   std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__A, *(v75 + 56), *(v75 + 64), (*(v75 + 64) - *(v75 + 56)) >> 2);
   vDSP_mtrans(__A, 1, *(this + 61), 1, *(this + 114), *(this + 113));
   if (__A)
   {
-    *&v138 = __A;
+    *&v141 = __A;
     operator delete(__A);
   }
 
   v77 = (*(this + 113) * *(this + 113));
   LODWORD(__A) = 0;
   std::vector<float>::resize(this + 65, v77, &__A, v76);
-  v130 = *(this + 54);
+  v132 = *(this + 54);
   *(this + 70) = v6;
   v79 = IR::IRDataLoader::instance(v78);
   std::string::basic_string[abi:ne200100]<0>(&__A, "HOA2BinauralIRRenderer|");
-  v133 = 0;
+  v136 = 0;
   cf = 0;
-  v131 = 0;
-  v132 = 0;
-  IR::IRDataLoader::load(&v135, v79, &__A, this + 272, &cf, &v131);
-  if (v131)
+  v134 = 0;
+  v135 = 0;
+  IR::IRDataLoader::load(v79, &__A, this + 272, &cf, &v134);
+  if (v134)
   {
-    v132 = v131;
-    operator delete(v131);
+    v135 = v134;
+    operator delete(v134);
   }
 
   if (cf)
@@ -9898,15 +9970,15 @@ LABEL_66:
     CFRelease(cf);
   }
 
-  if (SHIBYTE(v138) < 0)
+  if (SHIBYTE(v141) < 0)
   {
     operator delete(__A);
   }
 
-  if (v135)
+  if (v138)
   {
-    v80 = IR::IRData::getFilterLength(v135);
-    IR::IRData::getMaxDelay(v135);
+    v80 = IR::IRData::getFilterLength(v138);
+    IR::IRData::getMaxDelay(v138);
     v81 = *(this + 111) + v80;
     v82 = v81 - 1;
     *(this + 112) = v81 - 1;
@@ -9915,12 +9987,12 @@ LABEL_66:
       *(this + 460) = 0;
       v83 = *(this + 110);
       v84 = *(this + 114);
-      LODWORD(v131) = 0;
-      std::vector<float>::vector[abi:ne200100](&__A, v84);
+      LODWORD(v134) = 0;
+      std::vector<float>::vector[abi:ne200100](&__A, v84, &v134);
       std::vector<std::vector<float>>::assign(this + 98, v83, &__A);
       if (__A)
       {
-        *&v138 = __A;
+        *&v141 = __A;
         operator delete(__A);
       }
 
@@ -9948,77 +10020,81 @@ LABEL_66:
       *(this + 74) = vDSP_DFT_zrop_CreateSetup(*(this + 73), *(this + 142), vDSP_DFT_INVERSE);
       v98 = *(this + 110);
       v99 = *(this + 114);
-      std::vector<float>::vector[abi:ne200100](&v131, *(this + 143));
-      std::vector<std::vector<float>>::vector[abi:ne200100](&__A, v99);
-      std::vector<std::vector<std::vector<float>>>::assign(this + 600, v98, &__A);
-      v157[0] = &__A;
-      std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](v157);
-      if (v131)
+      v100 = *(this + 143);
+      v133 = 0;
+      std::vector<float>::vector[abi:ne200100](&v134, v100, &v133);
+      std::vector<std::vector<float>>::vector[abi:ne200100](&__A, v99, &v134);
+      std::vector<std::vector<std::vector<float>>>::assign(this + 75, v98, &__A);
+      v160[0] = &__A;
+      std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](v160);
+      if (v134)
       {
-        v132 = v131;
-        operator delete(v131);
+        v135 = v134;
+        operator delete(v134);
       }
 
-      v100 = *(this + 110);
-      v101 = *(this + 114);
-      std::vector<float>::vector[abi:ne200100](&v131, *(this + 143));
-      std::vector<std::vector<float>>::vector[abi:ne200100](&__A, v101);
-      std::vector<std::vector<std::vector<float>>>::assign(this + 624, v100, &__A);
-      v157[0] = &__A;
-      std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](v157);
-      if (v131)
+      v101 = *(this + 110);
+      v102 = *(this + 114);
+      v103 = *(this + 143);
+      v133 = 0;
+      std::vector<float>::vector[abi:ne200100](&v134, v103, &v133);
+      std::vector<std::vector<float>>::vector[abi:ne200100](&__A, v102, &v134);
+      std::vector<std::vector<std::vector<float>>>::assign(this + 78, v101, &__A);
+      v160[0] = &__A;
+      std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](v160);
+      if (v134)
       {
-        v132 = v131;
-        operator delete(v131);
+        v135 = v134;
+        operator delete(v134);
       }
 
-      v102 = *(this + 110);
+      v104 = *(this + 110);
       std::vector<DSPSplitComplex>::vector[abi:ne200100](&__A, *(this + 114));
-      std::vector<std::vector<DSPSplitComplex>>::resize(this + 81, v102, &__A);
+      std::vector<std::vector<DSPSplitComplex>>::resize(this + 81, v104, &__A);
       if (__A)
       {
-        *&v138 = __A;
+        *&v141 = __A;
         operator delete(__A);
       }
 
-      v103 = *(this + 110);
-      v104 = *(this + 114);
-      LODWORD(v131) = 0;
-      std::vector<float>::vector[abi:ne200100](&__A, v104);
-      std::vector<std::vector<float>>::assign(this + 84, v103, &__A);
+      v105 = *(this + 110);
+      v106 = *(this + 114);
+      LODWORD(v134) = 0;
+      std::vector<float>::vector[abi:ne200100](&__A, v106, &v134);
+      std::vector<std::vector<float>>::assign(this + 84, v105, &__A);
       if (__A)
       {
-        *&v138 = __A;
+        *&v141 = __A;
         operator delete(__A);
       }
 
-      v106 = *(this + 143);
+      v108 = *(this + 143);
       LODWORD(__A) = 0;
-      std::vector<float>::assign(this + 90, v106, &__A, v105);
-      v107 = *(this + 143);
+      std::vector<float>::assign(this + 90, v108, &__A, v107);
+      v109 = *(this + 143);
       LODWORD(__A) = 0;
-      std::vector<float>::assign(this + 93, v107, &__A, v108);
+      std::vector<float>::assign(this + 93, v109, &__A, v110);
       *(this + 96) = *(this + 90);
       *(this + 97) = *(this + 93);
-      v109 = *(this + 110);
-      v110 = *(this + 143);
-      LODWORD(v131) = 0;
-      std::vector<float>::vector[abi:ne200100](&__A, v110);
-      std::vector<std::vector<float>>::assign(this + 98, v109, &__A);
+      v111 = *(this + 110);
+      v112 = *(this + 143);
+      LODWORD(v134) = 0;
+      std::vector<float>::vector[abi:ne200100](&__A, v112, &v134);
+      std::vector<std::vector<float>>::assign(this + 98, v111, &__A);
       if (__A)
       {
-        *&v138 = __A;
+        *&v141 = __A;
         operator delete(__A);
       }
 
-      v111 = *(this + 110);
-      v112 = *(this + 143);
-      LODWORD(v131) = 0;
-      std::vector<float>::vector[abi:ne200100](&__A, v112);
-      std::vector<std::vector<float>>::assign(this + 101, v111, &__A);
+      v113 = *(this + 110);
+      v114 = *(this + 143);
+      LODWORD(v134) = 0;
+      std::vector<float>::vector[abi:ne200100](&__A, v114, &v134);
+      std::vector<std::vector<float>>::assign(this + 101, v113, &__A);
       if (__A)
       {
-        *&v138 = __A;
+        *&v141 = __A;
         operator delete(__A);
       }
 
@@ -10027,55 +10103,55 @@ LABEL_66:
       v86 = *(this + 110);
       if (v86)
       {
-        v113 = *(this + 98);
-        v114 = *(this + 101);
-        v115 = (*(this + 104) + 8);
-        v116 = *(this + 110);
+        v115 = *(this + 98);
+        v116 = *(this + 101);
+        v117 = (*(this + 104) + 8);
+        v118 = *(this + 110);
         do
         {
-          v117 = *v113;
-          v113 += 3;
-          *(v115 - 1) = v117;
-          v118 = *v114;
-          v114 += 3;
-          *v115 = v118;
-          v115 += 2;
-          --v116;
+          v119 = *v115;
+          v115 += 3;
+          *(v117 - 1) = v119;
+          v120 = *v116;
+          v116 += 3;
+          *v117 = v120;
+          v117 += 2;
+          --v118;
         }
 
-        while (v116);
+        while (v118);
       }
     }
 
     LODWORD(__A) = 0;
-    std::vector<float>::assign(v149, v86, &__A, v85);
-    v119 = *(this + 110);
-    LODWORD(v131) = 0;
-    std::vector<float>::vector[abi:ne200100](&__A, v87);
-    std::vector<std::vector<float>>::assign(v150, v119, &__A);
+    std::vector<float>::assign(v152, v86, &__A, v85);
+    v121 = *(this + 110);
+    LODWORD(v134) = 0;
+    std::vector<float>::vector[abi:ne200100](&__A, v87, &v134);
+    std::vector<std::vector<float>>::assign(v153, v121, &__A);
     if (__A)
     {
-      *&v138 = __A;
+      *&v141 = __A;
       operator delete(__A);
     }
 
     if (*(this + 114))
     {
-      v121 = (**(v130 + 128) * 180.0) / 3.14159265;
-      v122 = **(v130 + 152);
-      IR::IRCoordinates::set(&v151, 0, v121);
-      v123 = (v122 * 180.0) / 3.14159265;
-      IR::IRCoordinates::set(&v151, 1u, v123);
-      IR::IRCoordinates::set(&v151, 2u, 1.0);
-      IR::IRCoordinates::set(&v151, 5u, *(this + 106));
+      v123 = (**(v132 + 128) * 180.0) / 3.14159265;
+      v124 = **(v132 + 152);
+      IR::IRCoordinates::set(&v154, 0, v123);
+      v125 = (v124 * 180.0) / 3.14159265;
+      IR::IRCoordinates::set(&v154, 1u, v125);
+      IR::IRCoordinates::set(&v154, 2u, 1.0);
+      IR::IRCoordinates::set(&v154, 5u, *(this + 106));
       IR::IRData::getInterpolatedTimeDomainCoeffs<std::vector<float>>();
     }
 
     LODWORD(__A) = 0;
-    std::vector<float>::assign(this + 87, 0, &__A, v120);
-    v124 = (*(this + 113) * *(this + 114));
+    std::vector<float>::assign(this + 87, 0, &__A, v122);
+    v126 = (*(this + 113) * *(this + 114));
     LODWORD(__A) = 0;
-    std::vector<float>::assign(this + 68, v124, &__A, v125);
+    std::vector<float>::assign(this + 68, v126, &__A, v127);
     v24 = 0;
   }
 
@@ -10095,19 +10171,13 @@ LABEL_66:
     v24 = 4294956425;
   }
 
-  if (v136)
+  if (v139)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v136);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v139);
   }
 
-  __A = &v142;
+  __A = &v145;
   std::vector<IR::IRCoordinateTree>::__destroy_vector::operator()[abi:ne200100](&__A);
-  if (v140)
-  {
-    v141 = v140;
-    operator delete(v140);
-  }
-
   if (v143)
   {
     v144 = v143;
@@ -10120,18 +10190,24 @@ LABEL_66:
     operator delete(v146);
   }
 
-  if (v149[0])
+  if (v149)
   {
-    v149[1] = v149[0];
-    operator delete(v149[0]);
+    v150 = v149;
+    operator delete(v149);
   }
 
-  __p = v150;
+  if (v152[0])
+  {
+    v152[1] = v152[0];
+    operator delete(v152[0]);
+  }
+
+  __p = v153;
   std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&__p);
 LABEL_124:
-  if (v156)
+  if (v159)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v156);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v159);
   }
 
   return v24;

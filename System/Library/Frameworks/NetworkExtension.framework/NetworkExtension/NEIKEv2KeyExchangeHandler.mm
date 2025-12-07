@@ -18,7 +18,7 @@
 
 - (BOOL)processPeerPayload:(id)payload
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v5 = ne_log_obj();
   v6 = v5;
@@ -37,13 +37,13 @@
       }
 
       *buf = 134217984;
-      v17 = method;
+      v16 = method;
       _os_log_debug_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEBUG, "Decapsulate KE %zu secret", buf, 0xCu);
     }
 
-    v15 = 0;
-    v7 = [(NEIKEv2KeyExchangeHandler *)self processPeerPayload:payloadCopy error:&v15];
-    v6 = v15;
+    v14 = 0;
+    v7 = [(NEIKEv2KeyExchangeHandler *)self processPeerPayload:payloadCopy error:&v14];
+    v6 = v14;
     v8 = ne_log_obj();
     v9 = v8;
     if (v7)
@@ -52,16 +52,16 @@
       {
         if (self)
         {
-          v13 = self->_method;
+          v12 = self->_method;
         }
 
         else
         {
-          v13 = 0;
+          v12 = 0;
         }
 
         *buf = 134217984;
-        v17 = v13;
+        v16 = v12;
         _os_log_debug_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEBUG, "Decapsulated KE %zu secret", buf, 0xCu);
       }
     }
@@ -70,18 +70,18 @@
     {
       if (self)
       {
-        v14 = self->_method;
+        v13 = self->_method;
       }
 
       else
       {
-        v14 = 0;
+        v13 = 0;
       }
 
       *buf = 134218242;
-      v17 = v14;
-      v18 = 2112;
-      v19 = v6;
+      v16 = v13;
+      v17 = 2112;
+      v18 = v6;
       _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "Failed to decapsulate KE %zu secret: %@", buf, 0x16u);
     }
   }
@@ -91,20 +91,19 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v17 = "[NEIKEv2KeyExchangeHandler processPeerPayload:]";
+      v16 = "[NEIKEv2KeyExchangeHandler processPeerPayload:]";
       _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "%s called with null peerPayload", buf, 0xCu);
     }
 
     v7 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 + (void)handlerForMethod:(uint64_t)method
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   if (a2 > 0x25)
   {
@@ -115,63 +114,59 @@
   {
     if (((1 << a2) & 0x3180380000) != 0)
     {
-      v6 = ne_log_obj();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v5 = ne_log_obj();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134217984;
-        v16 = a2;
-        _os_log_debug_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEBUG, "Generate KE %zu key", buf, 0xCu);
+        v14 = a2;
+        _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "Generate KE %zu key", buf, 0xCu);
       }
 
-      v14 = 0;
-      v7 = [NEIKEv2KeyExchangeHandlerCryptoKit handlerForMethod:a2 error:&v14];
-      v8 = v14;
-      v9 = ne_log_obj();
-      v10 = v9;
-      if (v7)
+      v12 = 0;
+      v6 = [NEIKEv2KeyExchangeHandlerCryptoKit handlerForMethod:a2 error:&v12];
+      v7 = v12;
+      v8 = ne_log_obj();
+      v9 = v8;
+      if (v6)
       {
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134217984;
-          v16 = a2;
-          _os_log_debug_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_DEBUG, "Generated KE %zu key", buf, 0xCu);
+          v14 = a2;
+          _os_log_debug_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEBUG, "Generated KE %zu key", buf, 0xCu);
         }
 
-        v11 = v7;
+        v10 = v6;
       }
 
       else
       {
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218242;
-          v16 = a2;
-          v17 = 2112;
-          v18 = v8;
-          _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "Failed to generate KE %zu key: %@", buf, 0x16u);
+          v14 = a2;
+          v15 = 2112;
+          v16 = v7;
+          _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "Failed to generate KE %zu key: %@", buf, 0x16u);
         }
       }
 
-LABEL_14:
-      v12 = *MEMORY[0x1E69E9840];
-      return v7;
+      return v6;
     }
 
 LABEL_15:
-    v13 = ne_log_obj();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v11 = ne_log_obj();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109120;
-      LODWORD(v16) = a2;
-      _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, "Unknown KE method %u", buf, 8u);
+      LODWORD(v14) = a2;
+      _os_log_fault_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_FAULT, "Unknown KE method %u", buf, 8u);
     }
 
-    v7 = 0;
-    goto LABEL_14;
+    return 0;
   }
 
   v3 = [NEIKEv2KeyExchangeHandlerMODP alloc];
-  v4 = *MEMORY[0x1E69E9840];
 
   return [(NEIKEv2KeyExchangeHandlerMODP *)v3 initWithMODPMethod:a2];
 }
@@ -211,7 +206,7 @@ LABEL_15:
 
 + (void)handlerForMethod:(void *)method peerPayload:
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   methodCopy = method;
   objc_opt_self();
   if (a2 > 0x25)
@@ -241,13 +236,13 @@ LABEL_15:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v17 = a2;
+      v16 = a2;
       _os_log_debug_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEBUG, "Encapsulate KE %zu secret", buf, 0xCu);
     }
 
-    v15 = 0;
-    v6 = [NEIKEv2KeyExchangeHandlerCryptoKit handlerForMethod:a2 peerPayload:methodCopy error:&v15];
-    v8 = v15;
+    v14 = 0;
+    v6 = [NEIKEv2KeyExchangeHandlerCryptoKit handlerForMethod:a2 peerPayload:methodCopy error:&v14];
+    v8 = v14;
     v9 = ne_log_obj();
     v10 = v9;
     if (v6)
@@ -255,7 +250,7 @@ LABEL_15:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134217984;
-        v17 = a2;
+        v16 = a2;
         _os_log_debug_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_DEBUG, "Encapsulated KE %zu secret", buf, 0xCu);
       }
 
@@ -267,9 +262,9 @@ LABEL_15:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218242;
-        v17 = a2;
-        v18 = 2112;
-        v19 = v8;
+        v16 = a2;
+        v17 = 2112;
+        v18 = v8;
         _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "Failed to encapsulate KE %zu secret: %@", buf, 0x16u);
       }
     }
@@ -278,12 +273,12 @@ LABEL_15:
   else
   {
 LABEL_15:
-    v14 = ne_log_obj();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v13 = ne_log_obj();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109120;
-      LODWORD(v17) = a2;
-      _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, "Unknown KE method %u", buf, 8u);
+      LODWORD(v16) = a2;
+      _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, "Unknown KE method %u", buf, 8u);
     }
 
     v6 = 0;
@@ -291,7 +286,6 @@ LABEL_15:
 
 LABEL_14:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

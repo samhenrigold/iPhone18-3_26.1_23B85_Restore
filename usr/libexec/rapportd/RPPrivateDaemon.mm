@@ -53,42 +53,42 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  v24 = 0;
-  v17 = [(NSMutableSet *)self->_xpcConnections count];
-  NSAppendPrintF();
-  v4 = 0;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
+  v29 = 0;
+  NSAppendPrintF(&v29, "-- RPPrivateDaemon: %d XPC --\n", [(NSMutableSet *)self->_xpcConnections count]);
+  v4 = v29;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   obj = self->_xpcConnections;
-  v5 = [(NSMutableSet *)obj countByEnumeratingWithState:&v20 objects:v25 count:16, v17];
+  v5 = [(NSMutableSet *)obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v26;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v21 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
+        v9 = *(*(&v25 + 1) + 8 * i);
         if ([v9 direct])
         {
-          NSAppendPrintF();
-          v10 = v4;
+          v24 = v4;
+          NSAppendPrintF(&v24, "    direct");
+          v10 = v24;
         }
 
         else
         {
+          v23 = v4;
           xpcCnx = [v9 xpcCnx];
-          processIdentifier = [xpcCnx processIdentifier];
-          NSAppendPrintF();
-          v10 = v4;
+          NSAppendPrintF(&v23, "    %#{pid}", [xpcCnx processIdentifier]);
+          v10 = v23;
 
           v4 = xpcCnx;
         }
@@ -96,28 +96,31 @@
         activatedAdvertiser = [v9 activatedAdvertiser];
         if (activatedAdvertiser)
         {
-          processIdentifier = CUDescriptionWithLevel();
-          NSAppendPrintF();
-          v13 = v10;
+          v22 = v10;
+          v13 = CUDescriptionWithLevel();
+          NSAppendPrintF(&v22, ", %@", v13);
+          v14 = v22;
 
-          v10 = v13;
+          v10 = v14;
         }
 
         activatedDiscovery = [v9 activatedDiscovery];
         if (activatedDiscovery)
         {
-          processIdentifier = CUDescriptionWithLevel();
-          NSAppendPrintF();
-          v15 = v10;
+          v21 = v10;
+          v16 = CUDescriptionWithLevel();
+          NSAppendPrintF(&v21, ", %@", v16);
+          v17 = v21;
 
-          v10 = v15;
+          v10 = v17;
         }
 
-        NSAppendPrintF();
-        v4 = v10;
+        v20 = v10;
+        NSAppendPrintF(&v20, "\n");
+        v4 = v20;
       }
 
-      v6 = [(NSMutableSet *)obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v6 = [(NSMutableSet *)obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v6);
@@ -152,18 +155,22 @@
 {
   if (!self->_invalidateCalled)
   {
-    v8 = v2;
+    v9 = v3;
+    selfCopy = self;
     self->_invalidateCalled = 1;
-    if (dword_1001D4A70 <= 30 && (dword_1001D4A70 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4A70 <= 30)
     {
-      sub_100126A98();
+      if (dword_1001D4A70 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_100126A98(self, a2, v2);
+      }
     }
 
-    [(NSXPCListener *)self->_xpcListener invalidate:v3];
-    xpcListener = self->_xpcListener;
-    self->_xpcListener = 0;
+    [(NSXPCListener *)selfCopy->_xpcListener invalidate:v4];
+    xpcListener = selfCopy->_xpcListener;
+    selfCopy->_xpcListener = 0;
 
-    [(RPPrivateDaemon *)self _invalidated];
+    [(RPPrivateDaemon *)selfCopy _invalidated];
   }
 }
 
@@ -172,9 +179,12 @@
   if (self->_invalidateCalled && !self->_invalidateDone && !self->_xpcListener)
   {
     self->_invalidateDone = 1;
-    if (dword_1001D4A70 <= 30 && (dword_1001D4A70 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D4A70 <= 30)
     {
-      sub_100126AB4();
+      if (dword_1001D4A70 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_100126AB4(self, a2, v2);
+      }
     }
   }
 }
@@ -196,7 +206,7 @@
 {
   if (end - ptr <= 0)
   {
-    sub_100126B10();
+    sub_100126B10(self, a2, ptr);
     return;
   }
 
@@ -218,7 +228,7 @@
 LABEL_23:
         if (dword_1001D4A70 <= 30 && (dword_1001D4A70 != -1 || _LogCategory_Initialize()))
         {
-          sub_100126AD0();
+          sub_100126AD0(v6);
         }
 
         return;
@@ -254,20 +264,24 @@ LABEL_23:
 {
   if (end - ptr <= 31 || end - ptr - 32 <= 3)
   {
-    sub_100126BD0();
+    sub_100126BD0(self, a2, ptr);
   }
 
-  else if (end - (ptr + 36) <= 63)
+  else
   {
-    sub_100126B70();
-  }
-
-  else if (dword_1001D4A70 <= 30)
-  {
-    v4 = *(ptr + 8);
-    if (dword_1001D4A70 != -1 || _LogCategory_Initialize())
+    v6 = ptr + 36;
+    if (end - (ptr + 36) <= 63)
     {
-      LogPrintF();
+      sub_100126B70(self, a2, ptr);
+    }
+
+    else if (dword_1001D4A70 <= 30)
+    {
+      v7 = *(ptr + 8);
+      if (dword_1001D4A70 != -1 || _LogCategory_Initialize())
+      {
+        LogPrintF(&dword_1001D4A70, "[RPPrivateDaemon _processProbePtr:end:]", 30, "Probe: EPK1 <%H>, TS1 %u, SIG1 <%H>, Extra %td\n", ptr, 32, 8, bswap32(v7), v6, 64, 8, end - (ptr + 100));
+      }
     }
   }
 }
@@ -276,17 +290,21 @@ LABEL_23:
 {
   if (end - ptr <= 31)
   {
-    sub_100126C90();
+    sub_100126C90(self, a2, ptr);
   }
 
-  else if (end - (ptr + 32) <= 95)
+  else
   {
-    sub_100126C30();
-  }
+    v6 = ptr + 32;
+    if (end - (ptr + 32) <= 95)
+    {
+      sub_100126C30(self, a2, ptr);
+    }
 
-  else if (dword_1001D4A70 <= 30 && (dword_1001D4A70 != -1 || _LogCategory_Initialize()))
-  {
-    LogPrintF();
+    else if (dword_1001D4A70 <= 30 && (dword_1001D4A70 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_1001D4A70, "[RPPrivateDaemon _processResponsePtr:end:]", 30, "Response: EPK2 <%H>, ESIG2 <%H>, Extra %td\n", ptr, 32, 8, v6, 96, 8, end - (ptr + 128));
+    }
   }
 }
 
@@ -294,47 +312,53 @@ LABEL_23:
 {
   if (end - ptr <= 31 || end - ptr - 32 <= 3)
   {
-    sub_100126D50();
+    sub_100126D50(self, a2, ptr);
   }
 
-  else if (end - (ptr + 36) <= 63)
+  else
   {
-    sub_100126CF0();
-  }
-
-  else if (dword_1001D4A70 <= 30)
-  {
-    v4 = *(ptr + 8);
-    if (dword_1001D4A70 != -1 || _LogCategory_Initialize())
+    v6 = ptr + 36;
+    if (end - (ptr + 36) <= 63)
     {
-      LogPrintF();
+      sub_100126CF0(self, a2, ptr);
+    }
+
+    else if (dword_1001D4A70 <= 30)
+    {
+      v7 = *(ptr + 8);
+      if (dword_1001D4A70 != -1 || _LogCategory_Initialize())
+      {
+        LogPrintF(&dword_1001D4A70, "[RPPrivateDaemon _processAnnouncementPtr:end:]", 30, "Announcement: EPK1 <%H>, TS1 %u, SIG1 <%H>, Extra %td\n", ptr, 32, 8, bswap32(v7), v6, 64, 8, end - (ptr + 100));
+      }
     }
   }
 }
 
 - (void)_processQueryPtr:(const char *)ptr end:(const char *)end
 {
+  v4 = end - ptr;
   if (end - ptr <= 31)
   {
-    sub_100126DB0(dword_1001D4A70 < 31, dword_1001D4A70);
+    sub_100126DB0(dword_1001D4A70 < 31, dword_1001D4A70, ptr);
   }
 
   else if (dword_1001D4A70 <= 30 && (dword_1001D4A70 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001D4A70, "[RPPrivateDaemon _processQueryPtr:end:]", 30, "Query: EMSG1 <%H>\n", ptr, v4, 16);
   }
 }
 
 - (void)_processAnswerPtr:(const char *)ptr end:(const char *)end
 {
+  v4 = end - ptr;
   if (end - ptr <= 31)
   {
-    sub_100126E04(dword_1001D4A70 < 31, dword_1001D4A70);
+    sub_100126E04(dword_1001D4A70 < 31, dword_1001D4A70, ptr);
   }
 
   else if (dword_1001D4A70 <= 30 && (dword_1001D4A70 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001D4A70, "[RPPrivateDaemon _processAnswerPtr:end:]", 30, "Query: EMSG2 <%H>\n", ptr, v4, 16);
   }
 }
 

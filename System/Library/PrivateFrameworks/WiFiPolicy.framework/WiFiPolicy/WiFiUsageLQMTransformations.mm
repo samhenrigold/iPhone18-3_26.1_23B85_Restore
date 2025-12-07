@@ -14,6 +14,7 @@
 + (id)ofdmDesenseReason:(unint64_t)reason;
 + (id)scanClient:(unint64_t)client;
 + (int)maxPhyModeFrom:(int)from;
++ (unint64_t)getMaxPhyrateWithNss:(unint64_t)nss Bw:(unint64_t)bw Phy:(int)phy;
 + (unint64_t)rateFromRatePercentage:(int64_t)percentage linkMaxRate:(unint64_t)rate;
 + (unint64_t)ratioWithValue:(unint64_t)value Over:(unint64_t)over WithScale:(unint64_t)scale;
 + (unint64_t)validateRate:(unint64_t)rate frames:(unint64_t)frames;
@@ -456,30 +457,30 @@
 
 + (id)ofdmDesenseReason:(unint64_t)reason
 {
-  v25[8] = *MEMORY[0x277D85DE8];
-  v24[0] = &unk_2848B9B90;
-  v24[1] = &unk_2848B9BA8;
-  v25[0] = @"GDB(bPhy)";
-  v25[1] = @"GDB(ofdm)";
-  v24[2] = &unk_2848B9BC0;
-  v24[3] = &unk_2848B9BD8;
-  v25[2] = @"BTCoex(bPhy)";
-  v25[3] = @"BTCoex(ofdm)";
-  v24[4] = &unk_2848B9BF0;
-  v24[5] = &unk_2848B9C08;
-  v25[4] = @"LTECoex(bPhy)";
-  v25[5] = @"LTECoex(ofdm)";
-  v24[6] = &unk_2848B9C20;
-  v24[7] = &unk_2848B9C38;
-  v25[6] = @"InitGainOrCRS(bPhy)";
-  v25[7] = @"initGainOrCRS(ofdm)";
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:8];
+  v24[8] = *MEMORY[0x277D85DE8];
+  v23[0] = &unk_2848B9B90;
+  v23[1] = &unk_2848B9BA8;
+  v24[0] = @"GDB(bPhy)";
+  v24[1] = @"GDB(ofdm)";
+  v23[2] = &unk_2848B9BC0;
+  v23[3] = &unk_2848B9BD8;
+  v24[2] = @"BTCoex(bPhy)";
+  v24[3] = @"BTCoex(ofdm)";
+  v23[4] = &unk_2848B9BF0;
+  v23[5] = &unk_2848B9C08;
+  v24[4] = @"LTECoex(bPhy)";
+  v24[5] = @"LTECoex(ofdm)";
+  v23[6] = &unk_2848B9C20;
+  v23[7] = &unk_2848B9C38;
+  v24[6] = @"InitGainOrCRS(bPhy)";
+  v24[7] = @"initGainOrCRS(ofdm)";
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:8];
   v5 = objc_opt_new();
   if (reason)
   {
-    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:reason];
-    v11 = [v4 objectForKeyedSubscript:v10];
-    [v5 appendFormat:@"%@&", v11];
+    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:reason];
+    v10 = [v4 objectForKeyedSubscript:v9];
+    [v5 appendFormat:@"%@&", v10];
 
     if ((reason & 2) == 0)
     {
@@ -498,9 +499,9 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:reason];
-  v13 = [v4 objectForKeyedSubscript:v12];
-  [v5 appendFormat:@"%@&", v13];
+  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:reason];
+  v12 = [v4 objectForKeyedSubscript:v11];
+  [v5 appendFormat:@"%@&", v12];
 
   if ((reason & 4) == 0)
   {
@@ -514,9 +515,9 @@ LABEL_4:
   }
 
 LABEL_15:
-  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:reason];
-  v15 = [v4 objectForKeyedSubscript:v14];
-  [v5 appendFormat:@"%@&", v15];
+  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:reason];
+  v14 = [v4 objectForKeyedSubscript:v13];
+  [v5 appendFormat:@"%@&", v14];
 
   if ((reason & 8) == 0)
   {
@@ -530,9 +531,9 @@ LABEL_5:
   }
 
 LABEL_16:
-  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:reason];
-  v17 = [v4 objectForKeyedSubscript:v16];
-  [v5 appendFormat:@"%@&", v17];
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:reason];
+  v16 = [v4 objectForKeyedSubscript:v15];
+  [v5 appendFormat:@"%@&", v16];
 
   if ((reason & 0x10) == 0)
   {
@@ -546,9 +547,9 @@ LABEL_6:
   }
 
 LABEL_17:
-  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:reason];
-  v19 = [v4 objectForKeyedSubscript:v18];
-  [v5 appendFormat:@"%@&", v19];
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:reason];
+  v18 = [v4 objectForKeyedSubscript:v17];
+  [v5 appendFormat:@"%@&", v18];
 
   if ((reason & 0x20) == 0)
   {
@@ -562,9 +563,9 @@ LABEL_7:
   }
 
 LABEL_18:
-  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:reason];
-  v21 = [v4 objectForKeyedSubscript:v20];
-  [v5 appendFormat:@"%@&", v21];
+  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:reason];
+  v20 = [v4 objectForKeyedSubscript:v19];
+  [v5 appendFormat:@"%@&", v20];
 
   if ((reason & 0x40) == 0)
   {
@@ -578,9 +579,9 @@ LABEL_8:
   }
 
 LABEL_19:
-  v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:reason];
-  v23 = [v4 objectForKeyedSubscript:v22];
-  [v5 appendFormat:@"%@&", v23];
+  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:reason];
+  v22 = [v4 objectForKeyedSubscript:v21];
+  [v5 appendFormat:@"%@&", v22];
 
   if ((reason & 0x80) != 0)
   {
@@ -592,23 +593,19 @@ LABEL_9:
 
 LABEL_10:
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 + (id)scanClient:(unint64_t)client
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = &unk_2848B9C50;
-  v9[1] = &unk_2848B9B90;
-  v10[0] = @"AWDL";
-  v10[1] = @"NAN";
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = &unk_2848B9C50;
+  v8[1] = &unk_2848B9B90;
+  v9[0] = @"AWDL";
+  v9[1] = @"NAN";
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:client];
   v6 = [v4 objectForKeyedSubscript:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -715,33 +712,31 @@ LABEL_25:
 
 + (id)getBinEvery10thOverRatioScale:(unint64_t)scale As:(unint64_t)as
 {
-  v20[11] = *MEMORY[0x277D85DE8];
-  v20[0] = &unk_2848B9C50;
-  v17 = [MEMORY[0x277CCABB0] numberWithDouble:_ratioScale * 0.1];
-  v20[1] = v17;
+  v19[11] = *MEMORY[0x277D85DE8];
+  v19[0] = &unk_2848B9C50;
+  v16 = [MEMORY[0x277CCABB0] numberWithDouble:_ratioScale * 0.1];
+  v19[1] = v16;
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:_ratioScale * 0.2];
-  v20[2] = v4;
+  v19[2] = v4;
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:_ratioScale * 0.3];
-  v20[3] = v5;
+  v19[3] = v5;
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:_ratioScale * 0.4];
-  v20[4] = v6;
+  v19[4] = v6;
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:_ratioScale * 0.5];
-  v20[5] = v7;
+  v19[5] = v7;
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:_ratioScale * 0.6];
-  v20[6] = v8;
+  v19[6] = v8;
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:_ratioScale * 0.7];
-  v20[7] = v9;
+  v19[7] = v9;
   v10 = [MEMORY[0x277CCABB0] numberWithDouble:_ratioScale * 0.8];
-  v20[8] = v10;
+  v19[8] = v10;
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:_ratioScale * 0.9];
-  v20[9] = v11;
+  v19[9] = v11;
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_ratioScale];
-  v20[10] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:11];
+  v19[10] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:11];
 
   v14 = [WiFiUsagePrivacyFilter getBinFor:scale In:v13 WithLowestEdge:@"0" As:as];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -787,34 +782,34 @@ LABEL_25:
 
 + (id)getLabelPingPongStats:(id)stats
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   statsCopy = stats;
   if (statsCopy)
   {
     v4 = objc_opt_new();
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     sequence = [statsCopy sequence];
-    v6 = [sequence countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [sequence countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(sequence);
           }
 
-          [v4 appendFormat:@"%@|", *(*(&v13 + 1) + 8 * i)];
+          [v4 appendFormat:@"%@|", *(*(&v12 + 1) + 8 * i)];
         }
 
-        v7 = [sequence countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [sequence countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -835,8 +830,6 @@ LABEL_25:
   {
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -898,6 +891,116 @@ LABEL_25:
   {
     return v7;
   }
+}
+
++ (unint64_t)getMaxPhyrateWithNss:(unint64_t)nss Bw:(unint64_t)bw Phy:(int)phy
+{
+  if (!phy)
+  {
+    return 0x7FFFFFFFFFFFFFFFLL;
+  }
+
+  v5 = *&phy;
+  v8 = [self maxPhyModeFrom:*&phy];
+  if (v8 == 512)
+  {
+    v9 = 256;
+  }
+
+  else
+  {
+    v9 = v8;
+  }
+
+  v10 = (v9 - 2);
+  if (v10 > 0x3E)
+  {
+    goto LABEL_12;
+  }
+
+  if (((1 << (v9 - 2)) & 0x4000000040000041) != 0)
+  {
+    return 54000;
+  }
+
+  if (v10 == 2)
+  {
+    return 11000;
+  }
+
+  if (v10 == 14)
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+LABEL_12:
+    if (v9 == 128)
+    {
+      v12 = 1;
+    }
+
+    else
+    {
+      if (v9 != 256)
+      {
+        return 0x7FFFFFFFFFFFFFFFLL;
+      }
+
+      v12 = 2;
+    }
+  }
+
+  if (bw > 79)
+  {
+    if (bw == 80)
+    {
+      v13 = 2;
+    }
+
+    else
+    {
+      if (bw != 160)
+      {
+        goto LABEL_24;
+      }
+
+      v13 = 3;
+    }
+  }
+
+  else
+  {
+    if (bw != 20)
+    {
+      if (bw == 40)
+      {
+        v13 = 1;
+        goto LABEL_27;
+      }
+
+LABEL_24:
+      v14 = nss - 1;
+      v13 = 4;
+LABEL_28:
+      v15 = [WiFiUsagePrivacyFilter getLabelForPhyModes:v5];
+      NSLog(&cfstr_SInvalidParame.isa, "+[WiFiUsageLQMTransformations getMaxPhyrateWithNss:Bw:Phy:]", nss, v14, bw, v13, v15, v5, v12);
+
+      return 0x7FFFFFFFFFFFFFFFLL;
+    }
+
+    v13 = 0;
+  }
+
+LABEL_27:
+  v14 = nss - 1;
+  if (nss - 1 >= 3)
+  {
+    goto LABEL_28;
+  }
+
+  return qword_2333AB418[12 * v14 + 3 * v13 + v12];
 }
 
 @end

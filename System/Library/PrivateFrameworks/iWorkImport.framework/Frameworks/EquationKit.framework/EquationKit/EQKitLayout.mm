@@ -45,83 +45,83 @@
       return (self->mBox != 0);
     }
 
-    v11 = objc_msgSend_attributeCollection(self->mRoot, v5, v6, v7);
-    if (!v11)
+    attributeCollection = [(EQKitRootNode *)self->mRoot attributeCollection];
+    if (!attributeCollection)
     {
       return (self->mBox != 0);
     }
 
-    objc_msgSend_beginLayout(self->mEnvironment, v8, v9, v10);
-    sub_275CA30B4(v48, context, self->mEnvironment, v11);
-    mBox = sub_275CA388C(v48, self->mRoot, &self->mAscent, &self->mDescent, &self->mLeading, &self->mNaturalAlignmentOffset, &self->mSingleLineHeight);
+    [(EQKitEnvironmentInstance *)self->mEnvironment beginLayout];
+    sub_275CA30B4(v30, context, self->mEnvironment, attributeCollection);
+    mBox = sub_275CA388C(v30, self->mRoot, &self->mAscent, &self->mDescent, &self->mLeading, &self->mNaturalAlignmentOffset, &self->mSingleLineHeight);
     self->mBox = mBox;
     if (self->mSingleLineHeight)
     {
-      v16 = self->mAscent + self->mDescent;
+      v7 = self->mAscent + self->mDescent;
     }
 
     else
     {
-      objc_msgSend_height(mBox, v13, v14, v15);
+      [(EQKitBox *)mBox height];
       mAscent = self->mAscent;
-      if (v20 + self->mLeading * 0.5 > mAscent)
+      if (v8 + self->mLeading * 0.5 > mAscent)
       {
-        objc_msgSend_height(self->mBox, v17, v18, v19);
-        mAscent = v22 + self->mLeading * 0.5;
+        [(EQKitBox *)self->mBox height];
+        mAscent = v10 + self->mLeading * 0.5;
       }
 
-      objc_msgSend_depth(self->mBox, v17, v18, v19);
+      [(EQKitBox *)self->mBox depth];
       mDescent = self->mDescent;
-      if (v24 + self->mLeading * 0.5 > mDescent)
+      if (v12 + self->mLeading * 0.5 > mDescent)
       {
-        objc_msgSend_depth(self->mBox, v13, v14, v15);
-        mDescent = v25 + self->mLeading * 0.5;
+        [(EQKitBox *)self->mBox depth];
+        mDescent = v13 + self->mLeading * 0.5;
       }
 
-      v16 = mAscent + mDescent;
+      v7 = mAscent + mDescent;
       mBox = self->mBox;
     }
 
-    objc_msgSend_width(mBox, v13, v14, v15);
-    if (v29 > 0.0 && v16 > 0.0)
+    [(EQKitBox *)mBox width];
+    if (v14 > 0.0 && v7 > 0.0)
     {
-      objc_msgSend_targetSize(context, v26, v27, v28);
-      v35 = v34;
-      if (v34 <= 0.0 || (v36 = v33, v33 <= 0.0))
+      [context targetSize];
+      v17 = v16;
+      if (v16 <= 0.0 || (v18 = v15, v15 <= 0.0))
       {
-        objc_msgSend_containerSize(context, v30, v31, v32);
-        v43 = v42;
-        if (v42 <= 0.0)
+        [context containerSize];
+        v25 = v24;
+        if (v24 <= 0.0)
         {
           goto LABEL_20;
         }
 
-        v44 = v41;
-        if (v41 <= 0.0)
+        v26 = v23;
+        if (v23 <= 0.0)
         {
           goto LABEL_20;
         }
 
-        objc_msgSend_width(self->mBox, v26, v27, v28);
-        *&v45 = v43 / v45;
-        v38 = fminf(*&v45, 1.0);
-        v40 = v44 / v16;
+        [(EQKitBox *)self->mBox width];
+        *&v27 = v25 / v27;
+        v20 = fminf(*&v27, 1.0);
+        v22 = v26 / v7;
       }
 
       else
       {
-        objc_msgSend_erasableBounds(self->mBox, v30, v31, v32);
-        v38 = v35 / v37;
-        v40 = v36 / v39;
+        [(EQKitBox *)self->mBox erasableBounds];
+        v20 = v17 / v19;
+        v22 = v18 / v21;
       }
 
-      v46 = v40;
-      self->mScale = fminf(v38, v46);
+      v28 = v22;
+      self->mScale = fminf(v20, v28);
     }
 
 LABEL_20:
-    objc_msgSend_endLayout(self->mEnvironment, v26, v27, v28);
-    sub_275CA314C(v48);
+    [(EQKitEnvironmentInstance *)self->mEnvironment endLayout];
+    sub_275CA314C(v30);
     return (self->mBox != 0);
   }
 
@@ -137,13 +137,13 @@ LABEL_20:
 
   else
   {
-    objc_msgSend_height(self->mBox, a2, v2, v3);
-    v10 = v9 + self->mLeading * 0.5;
+    [(EQKitBox *)self->mBox height];
+    v5 = v4 + self->mLeading * 0.5;
     mAscent = self->mAscent;
-    if (v10 > mAscent)
+    if (v5 > mAscent)
     {
-      objc_msgSend_height(self->mBox, v6, v7, v8);
-      mAscent = v11 + self->mLeading * 0.5;
+      [(EQKitBox *)self->mBox height];
+      mAscent = v6 + self->mLeading * 0.5;
     }
   }
 
@@ -159,12 +159,12 @@ LABEL_20:
 
   else
   {
-    objc_msgSend_depth(self->mBox, a2, v2, v3);
+    [(EQKitBox *)self->mBox depth];
     mDescent = self->mDescent;
-    if (v9 + self->mLeading * 0.5 > mDescent)
+    if (v4 + self->mLeading * 0.5 > mDescent)
     {
-      objc_msgSend_depth(self->mBox, v6, v7, v8);
-      mDescent = v10 + self->mLeading * 0.5;
+      [(EQKitBox *)self->mBox depth];
+      mDescent = v5 + self->mLeading * 0.5;
     }
   }
 
@@ -173,10 +173,10 @@ LABEL_20:
 
 - (double)vsize
 {
-  objc_msgSend_height(self, a2, v2, v3);
-  v6 = v5;
-  objc_msgSend_depth(self, v7, v8, v9);
-  return v6 + v10;
+  [(EQKitLayout *)self height];
+  v4 = v3;
+  [(EQKitLayout *)self depth];
+  return v4 + v5;
 }
 
 - (CGRect)erasableBounds
@@ -184,17 +184,17 @@ LABEL_20:
   mBox = self->mBox;
   if (mBox)
   {
-    objc_msgSend_erasableBounds(mBox, a2, v2, v3);
+    [(EQKitBox *)mBox erasableBounds];
+    v5 = v4;
     v7 = v6;
     v9 = v8;
     v11 = v10;
-    v13 = v12;
-    CGAffineTransformMakeScale(&v14, self->mScale, self->mScale);
-    v15.origin.x = v7;
-    v15.origin.y = v9;
-    v15.size.width = v11;
-    v15.size.height = v13;
-    return CGRectApplyAffineTransform(v15, &v14);
+    CGAffineTransformMakeScale(&v12, self->mScale, self->mScale);
+    v13.origin.x = v5;
+    v13.origin.y = v7;
+    v13.size.width = v9;
+    v13.size.height = v11;
+    return CGRectApplyAffineTransform(v13, &v12);
   }
 
   else
@@ -205,31 +205,31 @@ LABEL_20:
 
 - (CGSize)naturalSize
 {
-  objc_msgSend_erasableBounds(self, a2, v2, v3);
+  [(EQKitLayout *)self erasableBounds];
+  v4 = v3;
   v6 = v5;
-  v8 = v7;
-  objc_msgSend_width(self, v9, v10, v11);
-  if (v15 > v6)
+  [(EQKitLayout *)self width];
+  if (v7 > v4)
   {
-    objc_msgSend_width(self, v12, v13, v14);
-    v6 = v16;
+    [(EQKitLayout *)self width];
+    v4 = v8;
   }
 
-  objc_msgSend_height(self, v12, v13, v14);
-  v18 = v17;
-  objc_msgSend_depth(self, v19, v20, v21);
-  if (v18 + v25 > v8)
+  [(EQKitLayout *)self height];
+  v10 = v9;
+  [(EQKitLayout *)self depth];
+  if (v10 + v11 > v6)
   {
-    objc_msgSend_height(self, v22, v23, v24);
-    v27 = v26;
-    objc_msgSend_depth(self, v28, v29, v30);
-    v8 = v27 + v31;
+    [(EQKitLayout *)self height];
+    v13 = v12;
+    [(EQKitLayout *)self depth];
+    v6 = v13 + v14;
   }
 
-  v32 = v6 + 2.0;
-  v33 = v8 + 2.0;
-  result.height = v33;
-  result.width = v32;
+  v15 = v4 + 2.0;
+  v16 = v6 + 2.0;
+  result.height = v16;
+  result.width = v15;
   return result;
 }
 
@@ -239,8 +239,8 @@ LABEL_20:
   x = offset.x;
   CGContextSaveGState(context);
   CGContextScaleCTM(context, self->mScale, self->mScale);
-  CGAffineTransformMakeScale(&v10, 1.0 / self->mScale, 1.0 / self->mScale);
-  objc_msgSend_renderIntoContext_offset_(self->mBox, v6, context, v7, vaddq_f64(*&v10.tx, vmlaq_n_f64(vmulq_n_f64(*&v10.c, y), *&v10.a, x)));
+  CGAffineTransformMakeScale(&v8, 1.0 / self->mScale, 1.0 / self->mScale);
+  [(EQKitBox *)self->mBox renderIntoContext:context offset:vaddq_f64(*&v8.tx, vmlaq_n_f64(vmulq_n_f64(*&v8.c, y), *&v8.a, x))];
   CGContextRestoreGState(context);
 }
 
@@ -248,8 +248,7 @@ LABEL_20:
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  return objc_msgSend_stringWithFormat_(v3, v6, @"<%@ %p box=%@>", v7, v5, self, self->mBox);
+  return [v3 stringWithFormat:@"<%@ %p box=%@>", NSStringFromClass(v4), self, self->mBox];
 }
 
 @end

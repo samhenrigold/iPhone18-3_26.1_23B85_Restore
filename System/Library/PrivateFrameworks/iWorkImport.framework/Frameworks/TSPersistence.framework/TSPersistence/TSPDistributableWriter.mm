@@ -1,10 +1,41 @@
 @interface TSPDistributableWriter
 - (BOOL)_processEntry:(id)entry tocEntries:(id)entries progressContext:(id)context error:(id *)error;
 - (BOOL)goAndReportProgress:(BOOL)progress error:(id *)error context:(id)context;
+- (TSPDistributableWriter)initWithTangierPath:(id)path fileManager:(id)manager outputStream:(id)stream checkCrc:(unsigned int)crc;
+- (id)_initWithDatabase:(id)database fileManager:(id)manager outputStream:(id)stream checkCrc:(unsigned int)crc includeToc:(BOOL)toc;
 - (void)dealloc;
 @end
 
 @implementation TSPDistributableWriter
+
+- (TSPDistributableWriter)initWithTangierPath:(id)path fileManager:(id)manager outputStream:(id)stream checkCrc:(unsigned int)crc
+{
+  v6 = *&crc;
+  pathCopy = path;
+  managerCopy = manager;
+  streamCopy = stream;
+  v13 = [TSPDatabase alloc];
+  v20 = 0;
+  inited = objc_msgSend_initReadonlyWithPath_error_(v13, v14, pathCopy, &v20);
+  v17 = v20;
+  if (inited)
+  {
+    self = objc_msgSend__initWithDatabase_fileManager_outputStream_checkCrc_includeToc_(self, v16, inited, managerCopy, streamCopy, v6, 0);
+    selfCopy = self;
+  }
+
+  else
+  {
+    if (*MEMORY[0x277D81408] != -1)
+    {
+      sub_276BD6A38();
+    }
+
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
 
 - (void)dealloc
 {
@@ -66,6 +97,91 @@
   return v26;
 }
 
+- (id)_initWithDatabase:(id)database fileManager:(id)manager outputStream:(id)stream checkCrc:(unsigned int)crc includeToc:(BOOL)toc
+{
+  tocCopy = toc;
+  v7 = *&crc;
+  databaseCopy = database;
+  managerCopy = manager;
+  streamCopy = stream;
+  if (!streamCopy)
+  {
+    v15 = MEMORY[0x277D81150];
+    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSPDistributableWriter(Private) _initWithDatabase:fileManager:outputStream:checkCrc:includeToc:]");
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDistributableWriter.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v19, v16, v18, 137, 0, "Invalid parameter not satisfying: %{public}s", "outputStream != nil");
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21);
+  }
+
+  v78.receiver = self;
+  v78.super_class = TSPDistributableWriter;
+  v23 = [(TSPDistributableWriter *)&v78 init];
+  v24 = v23;
+  if (v23)
+  {
+    v72 = databaseCopy;
+    if (!databaseCopy)
+    {
+      v25 = MEMORY[0x277D81150];
+      v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[TSPDistributableWriter(Private) _initWithDatabase:fileManager:outputStream:checkCrc:includeToc:]");
+      v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDistributableWriter.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v29, v26, v28, 143, 0, "invalid nil value for '%{public}s'", "database");
+
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31);
+    }
+
+    if (!managerCopy)
+    {
+      v32 = MEMORY[0x277D81150];
+      v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[TSPDistributableWriter(Private) _initWithDatabase:fileManager:outputStream:checkCrc:includeToc:]");
+      v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDistributableWriter.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v32, v36, v33, v35, 144, 0, "invalid nil value for '%{public}s'", "fileManager");
+
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v37, v38);
+    }
+
+    objc_storeStrong(&v23->_database, database);
+    objc_storeStrong(&v23->_fileManager, manager);
+    v75 = 0;
+    v76 = 0;
+    v40 = objc_msgSend_documentVersion_closedCleanlyToken_error_(v23->_database, v39, v77, &v76, &v75);
+    v42 = v75;
+    if (v40)
+    {
+      v43 = v76;
+      v44 = [TSPDistributableArchiveOutputStream alloc];
+      v46 = objc_msgSend_initWithOutputStream_checkCrc_enableDescriptors_enableToc_closedCleanly_archivedVersions_(v44, v45, streamCopy, v7, 0, tocCopy, v43 != 0, v77[0], v77[1]);
+      outputStream = v23->_outputStream;
+      v23->_outputStream = v46;
+
+      if (v23->_outputStream || (v49 = MEMORY[0x277D81150], objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v48, "[TSPDistributableWriter(Private) _initWithDatabase:fileManager:outputStream:checkCrc:includeToc:]"), v50 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v51, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDistributableWriter.mm"), v52 = objc_claimAutoreleasedReturnValue(), objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v49, v53, v50, v52, 156, 0, "invalid nil value for '%{public}s'", "_outputStream"), v52, v50, objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v54, v55), v23->_outputStream))
+      {
+        operator new();
+      }
+    }
+
+    else
+    {
+      v56 = MEMORY[0x277D81150];
+      v57 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "[TSPDistributableWriter(Private) _initWithDatabase:fileManager:outputStream:checkCrc:includeToc:]");
+      v59 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v58, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDistributableWriter.mm");
+      v60 = objc_opt_class();
+      v61 = NSStringFromClass(v60);
+      v64 = objc_msgSend_domain(v42, v62, v63);
+      v67 = objc_msgSend_code(v42, v65, v66);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v56, v68, v57, v59, 151, 0, "Problem getting the documentVersions/closedCleanly flag from the database. errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v61, v64, v67, v42);
+
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v69, v70);
+    }
+
+    v24 = 0;
+    databaseCopy = v72;
+  }
+
+  return v24;
+}
+
 - (BOOL)_processEntry:(id)entry tocEntries:(id)entries progressContext:(id)context error:(id *)error
 {
   entryCopy = entry;
@@ -124,7 +240,7 @@ LABEL_9:
   }
 
   v67 = objc_msgSend_identifier(entryCopy, v18, v19);
-  sub_276A5B668(v24, &v67);
+  sub_276A5B668(v24, &v67, &v67);
   if (!objc_msgSend_populateDistributableArchiveEntry_database_fileManager_(TSPDatabaseArchiveManager, v35, entryCopy, self->_database, self->_fileManager))
   {
     goto LABEL_38;
@@ -152,7 +268,7 @@ LABEL_38:
 
   typesSeen = self->_typesSeen;
   v66 = objc_msgSend_classType(entryCopy, v43, v44);
-  sub_276AE6AA0(typesSeen, &v66);
+  sub_276AE6AA0(typesSeen, &v66, &v66);
   v48 = objc_msgSend_ownedIds(entryCopy, v46, v47);
   v49 = v48 + 1;
   v50 = *v48;

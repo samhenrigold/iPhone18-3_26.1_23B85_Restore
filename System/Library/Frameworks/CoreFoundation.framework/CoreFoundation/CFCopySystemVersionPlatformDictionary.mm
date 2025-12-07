@@ -10,7 +10,7 @@ void ___CFCopySystemVersionPlatformDictionary_block_invoke()
   CFRelease(Copy);
   if (!v1)
   {
-    v1 = _CFCopySystemVersionDictionary();
+    v1 = _CFCopySystemVersionDictionary(v2);
   }
 
   _CFCopySystemVersionPlatformDictionary_result = v1;

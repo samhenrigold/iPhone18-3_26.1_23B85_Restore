@@ -69,9 +69,9 @@
     goto LABEL_9;
   }
 
-  v11 = [(NSDateComponents *)v8 isEqual:v9];
+  isEqual = objc_msgSend_isEqual_(v8);
 
-  if (v11)
+  if (isEqual)
   {
 LABEL_7:
     [(UICalendarSelectionSingleDate *)self selectAllDatesAnimated:v4];

@@ -232,32 +232,32 @@ void __36__PLBackgroundJobWorker_stopAllWork__block_invoke_2_62(uint64_t a1)
   }
 }
 
-void __36__PLBackgroundJobWorker_stopAllWork__block_invoke_2(uint64_t a1)
+void __36__PLBackgroundJobWorker_stopAllWork__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = PLBackgroundJobServiceGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v11 = *MEMORY[0x1E69E9840];
+  v3 = PLBackgroundJobServiceGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(*(a1 + 32) + 72);
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_INFO, "Going to interrupt %{public}@", &v8, 0xCu);
+    v4 = *(*(a1 + 32) + 72);
+    v9 = 138543362;
+    v10 = v4;
+    _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_INFO, "Going to interrupt %{public}@", &v9, 0xCu);
   }
 
   os_unfair_lock_lock((*(a1 + 32) + 64));
-  v4 = [*(*(a1 + 32) + 48) count];
-  v5 = [*(*(a1 + 32) + 48) firstObject];
+  v5 = objc_msgSend_count(*(*(a1 + 32) + 48));
+  v6 = [*(*(a1 + 32) + 48) firstObject];
   os_unfair_lock_unlock((*(a1 + 32) + 64));
-  if (v4)
+  if (v5)
   {
-    [*(a1 + 32) stopWorkingOnItem:v5];
-    v6 = PLBackgroundJobServiceGetLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    [*(a1 + 32) stopWorkingOnItem:v6];
+    v7 = PLBackgroundJobServiceGetLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = *(*(a1 + 32) + 72);
-      v8 = 138543362;
-      v9 = v7;
-      _os_log_impl(&dword_19BF1F000, v6, OS_LOG_TYPE_INFO, "%{public}@ interrupted!", &v8, 0xCu);
+      v8 = *(*(a1 + 32) + 72);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_19BF1F000, v7, OS_LOG_TYPE_INFO, "%{public}@ interrupted!", &v9, 0xCu);
     }
   }
 }
@@ -273,18 +273,18 @@ void __36__PLBackgroundJobWorker_stopAllWork__block_invoke_2(uint64_t a1)
   self->_workerCompleteCompletionHandler = v13;
 
   os_unfair_lock_lock(&self->_lock);
-  if ([processingCopy count])
+  if (objc_msgSend_count(processingCopy))
   {
     [(NSMutableArray *)self->_pendingJobs addObjectsFromArray:processingCopy];
   }
 
-  self->_totalJobsCount = [(NSMutableArray *)self->_pendingJobs count];
+  self->_totalJobsCount = objc_msgSend_count(self->_pendingJobs);
   os_unfair_lock_unlock(&self->_lock);
   v15 = PLBackgroundJobServiceGetLog();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     workerName = self->_workerName;
-    v17 = [(NSMutableArray *)self->_pendingJobs count];
+    v17 = objc_msgSend_count(self->_pendingJobs);
     *buf = 138543618;
     v26 = workerName;
     v27 = 2048;
@@ -294,7 +294,7 @@ void __36__PLBackgroundJobWorker_stopAllWork__block_invoke_2(uint64_t a1)
 
   blockCopy[2](blockCopy, 2, 0, self->_workerName);
   WeakRetained = objc_loadWeakRetained(&self->_statusCenter);
-  [WeakRetained recordStartingWorker:self withJobCount:{-[NSMutableArray count](self->_pendingJobs, "count")}];
+  [WeakRetained recordStartingWorker:self withJobCount:objc_msgSend_count(self->_pendingJobs)];
 
   v19 = +[PLConcurrencyLimiter sharedLimiter];
   v22[0] = MEMORY[0x1E69E9820];
@@ -395,7 +395,7 @@ void __46__PLBackgroundJobWorker_pendingJobsInLibrary___block_invoke(uint64_t a1
   }
 
   os_unfair_lock_lock(&self->_lock);
-  v13 = [(NSMutableArray *)self->_pendingJobs count];
+  v13 = objc_msgSend_count(self->_pendingJobs);
   firstObject = [(NSMutableArray *)self->_pendingJobs firstObject];
   shouldStop = self->_shouldStop;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -508,7 +508,7 @@ LABEL_17:
   if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
   {
     v33 = self->_workerName;
-    v34 = [(NSMutableArray *)self->_pendingJobs count];
+    v34 = objc_msgSend_count(self->_pendingJobs);
     *buf = 138543618;
     v50 = v33;
     v51 = 2048;
@@ -517,7 +517,7 @@ LABEL_17:
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_statusCenter);
-  [WeakRetained recordStoppingWorker:self withRemainingJobCount:{-[NSMutableArray count](self->_pendingJobs, "count")}];
+  [WeakRetained recordStoppingWorker:self withRemainingJobCount:objc_msgSend_count(self->_pendingJobs)];
 
   [(NSMutableArray *)self->_pendingJobs removeAllObjects];
   v19[2](v19);
@@ -812,7 +812,7 @@ void __121__PLBackgroundJobWorker__processNextManagedObjectInLibrary_continueRun
   libraryServicesManager = [(PLPhotoLibraryBundle *)self->_libraryBundle libraryServicesManager];
   [libraryServicesManager wellKnownPhotoLibraryIdentifier];
   v6 = PLStringFromWellKnownPhotoLibraryIdentifier();
-  v7 = [v3 stringWithFormat:@"%@:%@ - %tu", workerName, v6, -[NSMutableArray count](self->_pendingJobs, "count")];
+  v7 = [v3 stringWithFormat:@"%@:%@ - %tu", workerName, v6, objc_msgSend_count(self->_pendingJobs)];
 
   return v7;
 }

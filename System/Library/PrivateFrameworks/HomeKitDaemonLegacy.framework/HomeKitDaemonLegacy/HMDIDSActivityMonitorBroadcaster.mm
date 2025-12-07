@@ -24,7 +24,7 @@
 
 - (void)dataSourceDidUpdate:(id)update
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   dataSource = [(HMDIDSActivityMonitorBroadcaster *)self dataSource];
   if (dataSource)
@@ -40,22 +40,20 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         v11 = HMFGetLogIdentifier();
-        v13 = 138543362;
-        v14 = v11;
-        _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Data source updated, resuming debounce timer", &v13, 0xCu);
+        v12 = 138543362;
+        v13 = v11;
+        _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Data source updated, resuming debounce timer", &v12, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
       [(HMFTimer *)selfCopy->_debounceTimer resume];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerDidFire:(id)fire
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   queue = [(HMDIDSActivityMonitorBroadcaster *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -66,20 +64,18 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Debounce timer fired, rebuilding observer list", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Debounce timer fired, rebuilding observer list", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   [(HMDIDSActivityMonitorBroadcaster *)selfCopy _refreshBroadcastSubscription];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshBroadcastSubscription
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = +[HMDAppleAccountManager sharedManager];
   account = [v3 account];
   currentDevice = [account currentDevice];
@@ -89,12 +85,12 @@
     dataSource = [(HMDIDSActivityMonitorBroadcaster *)self dataSource];
     v7 = *MEMORY[0x277D18518];
     queue = [(HMDIDSActivityMonitorBroadcaster *)self queue];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __65__HMDIDSActivityMonitorBroadcaster__refreshBroadcastSubscription__block_invoke;
-    v14[3] = &unk_279730038;
-    v14[4] = self;
-    [dataSource pushTokensForDevicesObservingSubjectDevice:currentDevice subActivity:v7 queue:queue completionHandler:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __65__HMDIDSActivityMonitorBroadcaster__refreshBroadcastSubscription__block_invoke;
+    v13[3] = &unk_279730038;
+    v13[4] = self;
+    [dataSource pushTokensForDevicesObservingSubjectDevice:currentDevice subActivity:v7 queue:queue completionHandler:v13];
   }
 
   else
@@ -106,14 +102,12 @@
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v16 = v12;
+      v15 = v12;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Current Device not yet determined, deferring IDS Activty broadcast", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HMDIDSActivityMonitorBroadcaster__refreshBroadcastSubscription__block_invoke(uint64_t a1, void *a2)
@@ -167,7 +161,7 @@ void __65__HMDIDSActivityMonitorBroadcaster__refreshBroadcastSubscription__block
 
 void __55__HMDIDSActivityMonitorBroadcaster__registerForXPCPoll__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -190,19 +184,17 @@ void __55__HMDIDSActivityMonitorBroadcaster__registerForXPCPoll__block_invoke(ui
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v13 = v9;
+      v12 = v9;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@XPCActivity handler was invoked after monitor was deallocated", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithDataSource:(id)source
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   if (!sourceCopy)
   {
@@ -231,21 +223,19 @@ LABEL_9:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Queue and data source set, starting debounce timer", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Queue and data source set, starting debounce timer", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     [(HMFTimer *)selfCopy->_debounceTimer resume];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithQueue:(id)queue
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   if (!queueCopy)
   {
@@ -274,16 +264,14 @@ LABEL_9:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Queue and data source set, starting debounce timer", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Queue and data source set, starting debounce timer", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     [(HMFTimer *)self->_debounceTimer resume];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDIDSActivityMonitorBroadcaster)initWithActivityMonitor:(id)monitor
@@ -338,12 +326,11 @@ LABEL_9:
 
 uint64_t __47__HMDIDSActivityMonitorBroadcaster_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v10_137548;
-  logCategory__hmf_once_v10_137548 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v10_137548;
+  logCategory__hmf_once_v10_137548 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)criteria

@@ -1,6 +1,7 @@
 @interface SKUITracklistColumn
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (void)description;
 - (void)setPreferredWidthForAttributedStrings:(id)strings;
 @end
 
@@ -130,6 +131,24 @@ LABEL_20:
   [v13 setSizesToFit:self->_sizesToFit];
   [v13 setWidth:self->_width];
   return v13;
+}
+
+- (void)setPreferredWidthForAttributedStrings:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITracklistColumn setPreferredWidthForAttributedStrings:]";
+}
+
+- (void)description
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITracklistColumn description]";
+}
+
+- (void)copyWithZone:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITracklistColumn copyWithZone:]";
 }
 
 @end

@@ -41,22 +41,22 @@ void __84___UIDocumentPickerViewServiceViewController__createBookmarkAndDismissW
   v9 = [v8 localizedStringForKey:@"Failed to make file available" value:@"Failed to make file available" table:@"Localizable"];
   v10 = [v7 alertControllerWithTitle:v9 message:v6 preferredStyle:1];
 
-  v11 = cdui_default_log();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+  v12 = cdui_default_log(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
   {
     __84___UIDocumentPickerViewServiceViewController__createBookmarkAndDismissWithCloudURL___block_invoke_2_cold_1(a1);
   }
 
-  v12 = MEMORY[0x277D750F8];
-  v13 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
-  v14 = [v13 localizedStringForKey:@"Dismiss" value:@"Dismiss" table:@"Localizable"];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __84___UIDocumentPickerViewServiceViewController__createBookmarkAndDismissWithCloudURL___block_invoke_92;
-  v16[3] = &unk_278DD6A08;
-  v16[4] = *(a1 + 48);
-  v15 = [v12 actionWithTitle:v14 style:0 handler:v16];
-  [v10 addAction:v15];
+  v13 = MEMORY[0x277D750F8];
+  v14 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
+  v15 = [v14 localizedStringForKey:@"Dismiss" value:@"Dismiss" table:@"Localizable"];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __84___UIDocumentPickerViewServiceViewController__createBookmarkAndDismissWithCloudURL___block_invoke_92;
+  v17[3] = &unk_278DD6A08;
+  v17[4] = *(a1 + 48);
+  v16 = [v13 actionWithTitle:v15 style:0 handler:v17];
+  [v10 addAction:v16];
 
   [*(a1 + 48) presentViewController:v10 animated:1 completion:&__block_literal_global_11];
 }
@@ -69,81 +69,81 @@ void __84___UIDocumentPickerViewServiceViewController__createBookmarkAndDismissW
 
 void __91___UIDocumentPickerViewServiceViewController__dismissWithFileProviderURL_bundleIdentifier___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
   v12 = a5;
+  v13 = v12;
   if (v9)
   {
-    v13 = cdui_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = cdui_default_log(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      __91___UIDocumentPickerViewServiceViewController__dismissWithFileProviderURL_bundleIdentifier___block_invoke_cold_1(a1, v9, v13);
+      __91___UIDocumentPickerViewServiceViewController__dismissWithFileProviderURL_bundleIdentifier___block_invoke_cold_1(a1, v9, v14);
     }
 
-    v14 = [*(a1 + 40) hostingViewController];
-    [v14 _dismissViewController];
+    v15 = [*(a1 + 40) hostingViewController];
+    [v15 _dismissViewController];
   }
 
   else
   {
-    v15 = (a1 + 40);
+    v16 = (a1 + 40);
     if ([*(a1 + 40) pickerMode] == 3)
     {
-      v16 = cdui_default_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v17 = cdui_default_log(3);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v17 = [*(a1 + 40) uploadURL];
-        v18 = *(a1 + 32);
-        v19 = *(a1 + 48);
+        v18 = [*(a1 + 40) uploadURL];
+        v19 = *(a1 + 32);
+        v20 = *(a1 + 48);
         *buf = 138412802;
-        v31 = v17;
-        v32 = 2112;
         v33 = v18;
         v34 = 2112;
         v35 = v19;
-        _os_log_impl(&dword_243823000, v16, OS_LOG_TYPE_INFO, "[INFO] File %@ has been written to %@ by provider %@. Removing original file since we are in Move mode.", buf, 0x20u);
+        v36 = 2112;
+        v37 = v20;
+        _os_log_impl(&dword_243823000, v17, OS_LOG_TYPE_INFO, "[INFO] File %@ has been written to %@ by provider %@. Removing original file since we are in Move mode.", buf, 0x20u);
       }
 
-      v20 = objc_alloc_init(MEMORY[0x277CCA9E8]);
-      v21 = [*v15 uploadURL];
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __91___UIDocumentPickerViewServiceViewController__dismissWithFileProviderURL_bundleIdentifier___block_invoke_99;
-      v28[3] = &unk_278DD6BB0;
-      v28[4] = *v15;
-      v29 = 0;
-      [v20 coordinateWritingItemAtURL:v21 options:1 error:&v29 byAccessor:v28];
-      v22 = v29;
+      v21 = objc_alloc_init(MEMORY[0x277CCA9E8]);
+      v22 = [*v16 uploadURL];
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __91___UIDocumentPickerViewServiceViewController__dismissWithFileProviderURL_bundleIdentifier___block_invoke_99;
+      v30[3] = &unk_278DD6BB0;
+      v30[4] = *v16;
+      v31 = 0;
+      [v21 coordinateWritingItemAtURL:v22 options:1 error:&v31 byAccessor:v30];
+      v23 = v31;
 
-      if (v22)
+      if (v23)
       {
-        v23 = cdui_default_log();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+        v25 = cdui_default_log(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
         {
           __91___UIDocumentPickerViewServiceViewController__dismissWithFileProviderURL_bundleIdentifier___block_invoke_cold_2((a1 + 40));
         }
       }
     }
 
-    [MEMORY[0x277D75ED8] assembleURL:*(a1 + 32) sandbox:v10 physicalURL:v11 physicalSandbox:v12];
-    [*(a1 + 32) ui_setIsFileProviderURL:1];
-    v24 = cdui_default_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    [MEMORY[0x277D75ED8] assembleURL:*(a1 + 32) sandbox:v10 physicalURL:v11 physicalSandbox:v13];
+    v26 = cdui_default_log([*(a1 + 32) ui_setIsFileProviderURL:1]);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
-      v25 = *(a1 + 32);
-      v26 = *(a1 + 56);
+      v27 = *(a1 + 32);
+      v28 = *(a1 + 56);
       *buf = 138412546;
-      v31 = v25;
-      v32 = 2112;
-      v33 = v26;
-      _os_log_impl(&dword_243823000, v24, OS_LOG_TYPE_INFO, "[INFO] Returning selected URL %@ to host app %@", buf, 0x16u);
+      v33 = v27;
+      v34 = 2112;
+      v35 = v28;
+      _os_log_impl(&dword_243823000, v26, OS_LOG_TYPE_INFO, "[INFO] Returning selected URL %@ to host app %@", buf, 0x16u);
     }
 
-    v14 = [*(a1 + 40) hostingViewController];
-    v27 = [MEMORY[0x277D75ED8] wrapperWithURL:*(a1 + 32)];
-    [v14 _didSelectURLWrapper:v27];
+    v15 = [*(a1 + 40) hostingViewController];
+    v29 = [MEMORY[0x277D75ED8] wrapperWithURL:*(a1 + 32)];
+    [v15 _didSelectURLWrapper:v29];
   }
 }
 
@@ -152,22 +152,22 @@ void __91___UIDocumentPickerViewServiceViewController__dismissWithFileProviderUR
   v3 = MEMORY[0x277CCAA00];
   v4 = a2;
   v5 = [v3 defaultManager];
-  v11 = 0;
-  v6 = [v5 removeItemAtURL:v4 error:&v11];
+  v12 = 0;
+  v6 = [v5 removeItemAtURL:v4 error:&v12];
 
-  v7 = v11;
-  v8 = cdui_default_log();
-  v9 = v8;
+  v7 = v12;
+  v9 = cdui_default_log(v8);
+  v10 = v9;
   if (v6)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_243823000, v9, OS_LOG_TYPE_INFO, "[INFO] Removed successfully", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_243823000, v10, OS_LOG_TYPE_INFO, "[INFO] Removed successfully", v11, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+  else if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
   {
     __91___UIDocumentPickerViewServiceViewController__dismissWithFileProviderURL_bundleIdentifier___block_invoke_99_cold_1(a1);
   }
@@ -291,7 +291,7 @@ uint64_t __58___UIDocumentPickerViewServiceViewController__showPicker___block_in
 void __105___UIDocumentPickerViewServiceViewController__didInstantiateThirdPartyPickerWithDescription_placeholder___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = cdui_default_log();
+  v4 = cdui_default_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __105___UIDocumentPickerViewServiceViewController__didInstantiateThirdPartyPickerWithDescription_placeholder___block_invoke_cold_1();
@@ -442,11 +442,11 @@ void __88___UIDocumentPickerViewServiceViewController_documentListController_did
   [v2 _waitForDownloadOfURL:v4 completion:v3];
 }
 
-uint64_t __88___UIDocumentPickerViewServiceViewController_documentListController_didSelectItemAtURL___block_invoke_2(uint64_t result, char a2)
+id *__88___UIDocumentPickerViewServiceViewController_documentListController_didSelectItemAtURL___block_invoke_2(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) dismissWithURL:*(result + 40) forBundleIdentifier:0];
+    return [result[4] dismissWithURL:result[5] forBundleIdentifier:0];
   }
 
   return result;
@@ -541,7 +541,7 @@ void __75___UIDocumentPickerViewServiceViewController__tryExportingFile_toLocati
 
 uint64_t __79___UIDocumentPickerViewServiceViewController__warnSharingForTarget_completion___block_invoke(uint64_t a1)
 {
-  v2 = cdui_default_log();
+  v2 = cdui_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -553,7 +553,7 @@ uint64_t __79___UIDocumentPickerViewServiceViewController__warnSharingForTarget_
 
 uint64_t __79___UIDocumentPickerViewServiceViewController__warnSharingForTarget_completion___block_invoke_239(uint64_t a1)
 {
-  v2 = cdui_default_log();
+  v2 = cdui_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;

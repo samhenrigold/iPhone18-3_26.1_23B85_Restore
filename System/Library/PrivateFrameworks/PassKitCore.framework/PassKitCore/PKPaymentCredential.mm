@@ -151,9 +151,9 @@
       goto LABEL_7;
     }
 
-    v10 = [(NSString *)v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_33;
     }
@@ -179,7 +179,7 @@
       goto LABEL_7;
     }
 
-    v13 = [(NSString *)v6 isEqualToString:v12];
+    v13 = objc_msgSend_isEqualToString_(v6);
 
     if (!v13)
     {
@@ -206,7 +206,7 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  v16 = [(NSString *)v6 isEqualToString:v15];
+  v16 = objc_msgSend_isEqualToString_(v6);
 
   if (!v16)
   {
@@ -229,7 +229,7 @@ LABEL_23:
     goto LABEL_7;
   }
 
-  v19 = [(NSString *)v6 isEqualToString:v18];
+  v19 = objc_msgSend_isEqualToString_(v6);
 
   if (!v19)
   {
@@ -682,16 +682,16 @@ LABEL_9:
   numberCopy = number;
   remoteCredential = [(PKPaymentCredential *)self remoteCredential];
   serialNumber = [remoteCredential serialNumber];
-  v10 = [serialNumber isEqualToString:numberCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(serialNumber);
 
-  if (v10)
+  if (isEqualToString)
   {
     goto LABEL_3;
   }
 
   underlyingPaymentPass = [(PKPaymentCredential *)self underlyingPaymentPass];
   serialNumber2 = [underlyingPaymentPass serialNumber];
-  v13 = [serialNumber2 isEqualToString:numberCopy];
+  v13 = objc_msgSend_isEqualToString_(serialNumber2);
 
   if (v13)
   {
@@ -700,7 +700,7 @@ LABEL_9:
 
   remoteCredential2 = [compareCopy remoteCredential];
   serialNumber3 = [remoteCredential2 serialNumber];
-  v18 = [serialNumber3 isEqualToString:numberCopy];
+  v18 = objc_msgSend_isEqualToString_(serialNumber3);
 
   if (v18)
   {

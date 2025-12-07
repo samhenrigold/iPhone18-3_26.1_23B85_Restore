@@ -1,6 +1,7 @@
 @interface MFMailMessage
 + (id)externalDataTypeIdentifiers;
 + (id)forwardedMessagePrefixWithSpacer:(BOOL)spacer;
++ (unsigned)displayablePriorityForPriority:(int)priority;
 + (unsigned)validatePriority:(int)priority;
 - (BOOL)shouldSetSummary;
 - (MFMailboxUid)mailbox;
@@ -104,6 +105,30 @@
   else
   {
     return 3;
+  }
+}
+
++ (unsigned)displayablePriorityForPriority:(int)priority
+{
+  v3 = [self validatePriority:*&priority];
+  if (v3 == 4)
+  {
+    v4 = 5;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (v3 == 2)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return v4;
   }
 }
 
@@ -416,8 +441,8 @@ LABEL_5:
 
 - (id)bestAlternativePart:(BOOL *)part
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v29 = 0;
+  v30 = *MEMORY[0x277D85DE8];
+  v28 = 0;
   v5 = [(MFMailMessage *)self messageBodyIfAvailableUpdatingFlags:0];
   if (v5)
   {
@@ -430,7 +455,7 @@ LABEL_5:
     {
       if (!v10)
       {
-        v7 = [v8 contentToOffset:1 resultOffset:&v29 downloadIfNecessary:0 asHTML:1 isComplete:part];
+        v7 = [v8 contentToOffset:1 resultOffset:&v28 downloadIfNecessary:0 asHTML:1 isComplete:part];
         v9 = v8;
       }
 
@@ -447,66 +472,61 @@ LABEL_5:
     v7 = 0;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
-  v12 = [v7 countByEnumeratingWithState:&v25 objects:v30 count:16];
-  if (v12)
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v12 = [v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  if (!v12)
   {
-    v13 = v12;
-    v14 = 0;
-    v15 = *v26;
-    do
+    return 0;
+  }
+
+  v13 = v12;
+  v14 = 0;
+  v15 = *v25;
+  do
+  {
+    for (i = 0; i != v13; ++i)
     {
-      for (i = 0; i != v13; ++i)
+      if (*v25 != v15)
       {
-        if (*v26 != v15)
-        {
-          objc_enumerationMutation(v7);
-        }
-
-        v17 = *(*(&v25 + 1) + 8 * i);
-        objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && [v17 htmlData])
-        {
-          preferredEncoding = [v17 preferredEncoding];
-          v19 = MFCreateStringWithData();
-          v20 = v19;
-          if (preferredEncoding != -1 && v19 == 0)
-          {
-            v20 = MFCreateStringWithData();
-          }
-
-          if (v20)
-          {
-            if (v14)
-            {
-              v22 = [v14 stringByAppendingString:v20];
-            }
-
-            else
-            {
-              v22 = v20;
-            }
-
-            v14 = v22;
-          }
-        }
+        objc_enumerationMutation(v7);
       }
 
-      v13 = [v7 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v17 = *(*(&v24 + 1) + 8 * i);
+      objc_opt_class();
+      if ((objc_opt_isKindOfClass() & 1) != 0 && [v17 htmlData])
+      {
+        preferredEncoding = [v17 preferredEncoding];
+        v19 = MFCreateStringWithData();
+        v20 = v19;
+        if (preferredEncoding != -1 && v19 == 0)
+        {
+          v20 = MFCreateStringWithData();
+        }
+
+        if (v20)
+        {
+          if (v14)
+          {
+            v22 = [v14 stringByAppendingString:v20];
+          }
+
+          else
+          {
+            v22 = v20;
+          }
+
+          v14 = v22;
+        }
+      }
     }
 
-    while (v13);
+    v13 = [v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
   }
 
-  else
-  {
-    v14 = 0;
-  }
-
-  v23 = *MEMORY[0x277D85DE8];
+  while (v13);
   return v14;
 }
 

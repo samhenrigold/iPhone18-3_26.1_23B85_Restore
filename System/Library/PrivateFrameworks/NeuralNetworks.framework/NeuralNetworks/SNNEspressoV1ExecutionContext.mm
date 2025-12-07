@@ -35,9 +35,9 @@
   unitsCopy = units;
   deviceCopy = device;
   precisionCopy = precision;
-  v48.receiver = self;
-  v48.super_class = SNNEspressoV1ExecutionContext;
-  v18 = [(SNNEspressoV1ExecutionContext *)&v48 init];
+  v40.receiver = self;
+  v40.super_class = SNNEspressoV1ExecutionContext;
+  v18 = [(SNNEspressoV1ExecutionContext *)&v40 init];
   if (![unitsCopy count])
   {
     __assert_rtn("[SNNEspressoV1ExecutionContext initWithMILProgram:primaryComputeUnit:computeUnits:preferredMetalDevice:computePrecision:error:]", "SNNEspressoExecutors.mm", 139, "computeUnits.count > 0");
@@ -59,14 +59,14 @@
   if (context)
   {
     v22 = [SNNComputeUnit bitmakForComputeUnits:unitsCopy];
-    if (v22 && (v23 = *(v18 + 6), espresso_context_set_int_option()))
+    if (v22 && espresso_context_set_int_option())
     {
       if (error)
       {
-        v24 = NSStringFromSelector(a2);
-        v25 = [SNNError invalidEspressoContextErrorForMethod:v24 description:@"Invalid compute unit selection."];
+        v23 = NSStringFromSelector(a2);
+        v24 = [SNNError invalidEspressoContextErrorForMethod:v23 description:@"Invalid compute unit selection."];
 LABEL_29:
-        *error = v25;
+        *error = v24;
       }
     }
 
@@ -74,77 +74,72 @@ LABEL_29:
     {
       if ([*(v18 + 3) kind] == 2)
       {
-        Espresso::get_internal_context(&v47, *(v18 + 6), v26);
-        v27 = v47;
-        *(v47 + 68) = 0;
-        if (*(&v27 + 1))
+        Espresso::get_internal_context(&v39, *(v18 + 6), v25);
+        v26 = v39;
+        *(v39 + 68) = 0;
+        if (*(&v26 + 1))
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](*(&v27 + 1));
+          std::__shared_weak_count::__release_shared[abi:ne200100](*(&v26 + 1));
         }
       }
 
-      v28 = *(v18 + 6);
       plan = espresso_create_plan();
       *(v18 + 7) = plan;
       if (plan)
       {
-        if ([v19 isReferencingBlobFile] && (objc_msgSend(v19, "milFilePath"), v30 = objc_claimAutoreleasedReturnValue(), v30, v30))
+        if ([v19 isReferencingBlobFile] && (objc_msgSend(v19, "milFilePath"), v28 = objc_claimAutoreleasedReturnValue(), v28, v28))
         {
-          v31 = *(v18 + 7);
           milFilePath = [v19 milFilePath];
           [milFilePath UTF8String];
           [precisionCopy storageType];
-          v33 = espresso_plan_add_network();
+          v30 = espresso_plan_add_network();
 
-          v19 = v44;
+          v19 = v36;
         }
 
         else
         {
-          v34 = *(v18 + 7);
           if (v19)
           {
-            [v19 milProgram];
+            objc_msgSend_milProgram(v19);
           }
 
           else
           {
-            v46 = 0;
+            v38 = 0;
           }
 
           [precisionCopy storageType];
-          v33 = espresso_plan_add_cpp_net_from_mil_program_and_reload();
-          if (v46)
+          v30 = espresso_plan_add_cpp_net_from_mil_program_and_reload();
+          if (v38)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v46);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v38);
           }
         }
 
-        if (v33)
+        if (v30)
         {
           if (error)
           {
-            v24 = NSStringFromSelector(a2);
-            v25 = [SNNError invalidEspressoNetworkErrorForMethod:v24 description:@"Failed to build plan."];
+            v23 = NSStringFromSelector(a2);
+            v24 = [SNNError invalidEspressoNetworkErrorForMethod:v23 description:@"Failed to build plan."];
             goto LABEL_29;
           }
         }
 
         else
         {
-          v37 = *(v18 + 8);
-          v38 = *(v18 + 9);
           Espresso::get_internal_network();
-          v39 = v47;
-          v47 = 0uLL;
-          v40 = *(v18 + 2);
-          *(v18 + 8) = v39;
-          if (v40)
+          v33 = v39;
+          v39 = 0uLL;
+          v34 = *(v18 + 2);
+          *(v18 + 8) = v33;
+          if (v34)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v40);
-            if (*(&v47 + 1))
+            std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+            if (*(&v39 + 1))
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](*(&v47 + 1));
+              std::__shared_weak_count::__release_shared[abi:ne200100](*(&v39 + 1));
             }
           }
 
@@ -155,24 +150,22 @@ LABEL_29:
               goto LABEL_30;
             }
 
-            v24 = NSStringFromSelector(a2);
-            v25 = [SNNError invalidEspressoNetworkErrorForMethod:v24 description:@"Failed to load network."];
+            v23 = NSStringFromSelector(a2);
+            v24 = [SNNError invalidEspressoNetworkErrorForMethod:v23 description:@"Failed to load network."];
             goto LABEL_29;
           }
 
-          v41 = *(v18 + 7);
           espresso_plan_build();
-          v42 = *(v18 + 7);
           if (espresso_plan_get_phase() == 1)
           {
-            v35 = v18;
+            v31 = v18;
             goto LABEL_31;
           }
 
           if (error)
           {
-            v24 = NSStringFromSelector(a2);
-            v25 = [SNNError invalidEspressoConfigurationErrorForMethod:v24 description:@"Invalid built state."];
+            v23 = NSStringFromSelector(a2);
+            v24 = [SNNError invalidEspressoConfigurationErrorForMethod:v23 description:@"Invalid built state."];
             goto LABEL_29;
           }
         }
@@ -180,8 +173,8 @@ LABEL_29:
 
       else if (error)
       {
-        v24 = NSStringFromSelector(a2);
-        v25 = [SNNError invalidEspressoPlanErrorForMethod:v24 description:@"Failed to create plan."];
+        v23 = NSStringFromSelector(a2);
+        v24 = [SNNError invalidEspressoPlanErrorForMethod:v23 description:@"Failed to create plan."];
         goto LABEL_29;
       }
     }
@@ -189,16 +182,16 @@ LABEL_29:
 
   else if (error)
   {
-    v24 = NSStringFromSelector(a2);
-    v25 = [SNNError invalidEspressoContextErrorForMethod:v24 description:@"Failed to create context."];
+    v23 = NSStringFromSelector(a2);
+    v24 = [SNNError invalidEspressoContextErrorForMethod:v23 description:@"Failed to create context."];
     goto LABEL_29;
   }
 
 LABEL_30:
-  v35 = 0;
+  v31 = 0;
 LABEL_31:
 
-  return v35;
+  return v31;
 }
 
 - (void)deallocEspressoResources
@@ -249,7 +242,7 @@ LABEL_31:
 - (NSArray)globalNames
 {
   v3 = [MEMORY[0x277CBEBF8] mutableCopy];
-  Espresso::net::all_globals(self->_cppNetwork.__ptr_, v9);
+  Espresso::net::all_globals(v9, self->_cppNetwork.__ptr_);
   for (i = v10; i; i = *i)
   {
     std::pair<std::string const,std::shared_ptr<MIL::IRValue const>>::pair[abi:ne200100](&__p, i + 1);
@@ -412,12 +405,12 @@ LABEL_31:
 
 - (id)shapeForBlobWithName:(id)name
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   ptr = self->_cppNetwork.__ptr_;
   std::string::basic_string[abi:ne200100]<0>(&__p, [nameCopy UTF8String]);
   p_p = &__p;
-  v6 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(ptr + 17, &__p);
+  v6 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(ptr + 17, &__p, &std::piecewise_construct, &p_p);
   v8 = v6[5];
   v7 = v6[6];
   if (v7)
@@ -425,13 +418,13 @@ LABEL_31:
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  if (v23 < 0)
+  if (v22 < 0)
   {
     operator delete(__p);
   }
 
-  v9 = v8[7];
-  Espresso::abstract_blob_container::shape(v8, &__p);
+  v9 = *(v8 + 7);
+  Espresso::abstract_blob_container::shape(&__p, v8);
   if (v9 > 1)
   {
     v11 = 0;
@@ -439,15 +432,15 @@ LABEL_31:
     {
       if (v9 == 4)
       {
-        v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v21];
-        v28[0] = v10;
-        v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v20];
-        v28[1] = v12;
+        v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v20];
+        v27[0] = v10;
+        v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v19];
+        v27[1] = v12;
         v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:SHIDWORD(__p)];
-        v28[2] = v13;
+        v27[2] = v13;
         v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:__p];
-        v28[3] = v14;
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
+        v27[3] = v14;
+        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:4];
       }
 
       else
@@ -457,17 +450,17 @@ LABEL_31:
           goto LABEL_20;
         }
 
-        v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v22];
-        v27[0] = v10;
-        v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v21];
-        v27[1] = v12;
-        v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v20];
-        v27[2] = v13;
+        v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v21];
+        v26[0] = v10;
+        v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v20];
+        v26[1] = v12;
+        v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v19];
+        v26[2] = v13;
         v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:SHIDWORD(__p)];
-        v27[3] = v14;
+        v26[3] = v14;
         v15 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:__p];
-        v27[4] = v15;
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:5];
+        v26[4] = v15;
+        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:5];
       }
     }
 
@@ -476,10 +469,10 @@ LABEL_31:
       if (v9 == 2)
       {
         v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:SHIDWORD(__p)];
-        v30[0] = v10;
+        v29[0] = v10;
         v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:__p];
-        v30[1] = v12;
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+        v29[1] = v12;
+        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
 LABEL_18:
 
         goto LABEL_19;
@@ -490,37 +483,35 @@ LABEL_18:
         goto LABEL_20;
       }
 
-      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v20];
-      v29[0] = v10;
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v19];
+      v28[0] = v10;
       v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:SHIDWORD(__p)];
-      v29[1] = v12;
+      v28[1] = v12;
       v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:__p];
-      v29[2] = v13;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
+      v28[2] = v13;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
     }
 
     goto LABEL_18;
   }
 
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:__p];
-  v31[0] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+  v30[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
 LABEL_19:
 
 LABEL_20:
   v16 = v11;
-  if (v24)
+  if (v23)
   {
-    v25 = v24;
-    operator delete(v24);
+    v24 = v23;
+    operator delete(v23);
   }
 
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -531,7 +522,7 @@ LABEL_20:
   ptr = self->_cppNetwork.__ptr_;
   std::string::basic_string[abi:ne200100]<0>(__p, [nameCopy UTF8String]);
   v36 = __p;
-  v6 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(ptr + 17, __p);
+  v6 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(ptr + 17, __p, &std::piecewise_construct, &v36);
   v8 = v6[5];
   v7 = v6[6];
   if (v7)
@@ -680,7 +671,7 @@ LABEL_34:
   ptr = self->_cppNetwork.__ptr_;
   std::string::basic_string[abi:ne200100]<0>(__p, [nameCopy UTF8String]);
   v13 = __p;
-  v6 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(ptr + 17, __p);
+  v6 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(ptr + 17, __p, &std::piecewise_construct, &v13);
   v8 = v6[5];
   v7 = v6[6];
   if (v7)
@@ -708,7 +699,7 @@ LABEL_34:
   ptr = self->_cppNetwork.__ptr_;
   std::string::basic_string[abi:ne200100]<0>(__p, [nameCopy UTF8String]);
   v13 = __p;
-  v6 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(ptr + 17, __p);
+  v6 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<Espresso::abstract_blob_container>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(ptr + 17, __p, &std::piecewise_construct, &v13);
   v8 = v6[5];
   v7 = v6[6];
   if (v7)

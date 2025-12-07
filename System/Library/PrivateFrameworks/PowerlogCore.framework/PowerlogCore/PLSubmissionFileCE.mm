@@ -2,8 +2,6 @@
 - (BOOL)copyAndPrepareLog;
 - (BOOL)performCopyTablesToDB:(id)b;
 - (id)getCESQLFile;
-- (void)copyAndPrepareLog;
-- (void)getCESQLFile;
 - (void)submit;
 @end
 
@@ -11,7 +9,7 @@
 
 - (BOOL)copyAndPrepareLog
 {
-  v50[1] = *MEMORY[0x1E69E9840];
+  v57[1] = *MEMORY[0x1E69E9840];
   filePath = [(PLSubmissionFile *)self filePath];
   v4 = [filePath stringByReplacingOccurrencesOfString:@".ce.anon" withString:&stru_1F539D228];
 
@@ -21,155 +19,161 @@
   if (!v6)
   {
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-    v48 = 0;
-    v10 = [defaultManager2 createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:0 error:&v48];
-    v7 = v48;
+    v55 = 0;
+    v11 = [defaultManager2 createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:0 error:&v55];
+    v8 = v55;
 
-    if ((v10 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      v12 = PLLogSubmission();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = PLLogSubmission(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileBG copyAndPrepareLog];
       }
 
-      v8 = 0;
+      v9 = 0;
       goto LABEL_36;
     }
 
     getCESQLFile = [(PLSubmissionFileCE *)self getCESQLFile];
-    v12 = [v4 stringByAppendingPathComponent:getCESQLFile];
+    v14 = [v4 stringByAppendingPathComponent:getCESQLFile];
 
-    v13 = [v12 stringByAppendingFormat:@".gz"];
-    v14 = +[PPSCoreStorage sharedSQLStorage];
-    cESQLConnection = [v14 CESQLConnection];
+    v15 = [v14 stringByAppendingFormat:@".gz"];
+    v16 = +[PPSCoreStorage sharedSQLStorage];
+    cESQLConnection = [v16 CESQLConnection];
 
-    v46 = cESQLConnection;
-    if ([cESQLConnection copyDatabaseToPath:v12 fromDate:0 toDate:0 withTableFilters:0 vacuumDB:0])
+    v53 = cESQLConnection;
+    v18 = [cESQLConnection copyDatabaseToPath:v14 fromDate:0 toDate:0 withTableFilters:0 vacuumDB:0];
+    if (v18)
     {
-      if (_os_feature_enabled_impl() && ![(PLSubmissionFileCE *)self performCopyTablesToDB:v12])
+      if (_os_feature_enabled_impl())
       {
-        v16 = PLLogSubmission();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v19 = [(PLSubmissionFileCE *)self performCopyTablesToDB:v14];
+        if ((v19 & 1) == 0)
         {
-          [PLSubmissionFileCE copyAndPrepareLog];
+          v20 = PLLogSubmission(v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          {
+            [PLSubmissionFileCE copyAndPrepareLog];
+          }
         }
       }
 
-      if (![PLUtilities compressWithSource:v12 withDestination:v13 withLevel:4])
+      v21 = [PLUtilities compressWithSource:v14 withDestination:v15 withLevel:4];
+      if ((v21 & 1) == 0)
       {
-        v17 = PLLogSubmission();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v22 = PLLogSubmission(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           [PLSubmissionFileCE copyAndPrepareLog];
         }
       }
 
       defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-      [defaultManager3 removeItemAtPath:v12 error:0];
+      [defaultManager3 removeItemAtPath:v14 error:0];
 
       defaultManager4 = [MEMORY[0x1E696AC08] defaultManager];
-      v20 = [v12 stringByAppendingString:@"-wal"];
-      [defaultManager4 removeItemAtPath:v20 error:0];
+      v25 = [v14 stringByAppendingString:@"-wal"];
+      [defaultManager4 removeItemAtPath:v25 error:0];
 
       defaultManager5 = [MEMORY[0x1E696AC08] defaultManager];
-      v22 = [v12 stringByAppendingString:@"-shm"];
-      [defaultManager5 removeItemAtPath:v22 error:0];
+      v27 = [v14 stringByAppendingString:@"-shm"];
+      [defaultManager5 removeItemAtPath:v27 error:0];
     }
 
     else
     {
-      defaultManager5 = PLLogSubmission();
+      defaultManager5 = PLLogSubmission(v18);
       if (os_log_type_enabled(defaultManager5, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileCE copyAndPrepareLog];
       }
     }
 
-    v23 = [v4 stringByAppendingPathComponent:@"tag.json"];
+    v28 = [v4 stringByAppendingPathComponent:@"tag.json"];
     array = [MEMORY[0x1E695DF70] array];
-    lastPathComponent = [v13 lastPathComponent];
+    lastPathComponent = [v15 lastPathComponent];
     [array addObject:lastPathComponent];
 
-    v49 = @"LogFiles";
-    v50[0] = array;
-    v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&v49 count:1];
-    if (![(PLSubmissionFile *)self createTagFileWithPath:v23 withInfo:?])
+    v56 = @"LogFiles";
+    v57[0] = array;
+    v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:&v56 count:1];
+    v31 = [(PLSubmissionFile *)self createTagFileWithPath:v28 withInfo:?];
+    if ((v31 & 1) == 0)
     {
-      v26 = PLLogSubmission();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v32 = PLLogSubmission(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileCE copyAndPrepareLog];
       }
     }
 
-    v45 = v23;
-    v27 = MEMORY[0x1E6999F68];
-    v28 = [MEMORY[0x1E695DFF8] fileURLWithPath:v4];
-    v29 = [v27 archiveDirectoryAt:v28 deleteOriginal:1];
+    v52 = v28;
+    v33 = MEMORY[0x1E6999F68];
+    v34 = [MEMORY[0x1E695DFF8] fileURLWithPath:v4];
+    v35 = [v33 archiveDirectoryAt:v34 deleteOriginal:1];
 
-    if (v29)
+    if (v35)
     {
-      v42 = array;
-      v43 = v13;
+      v49 = array;
+      v50 = v15;
       defaultManager6 = [MEMORY[0x1E696AC08] defaultManager];
-      path = [v29 path];
+      path = [v35 path];
       filePath2 = [(PLSubmissionFile *)self filePath];
-      v47 = v7;
-      v33 = [defaultManager6 moveItemAtPath:path toPath:filePath2 error:&v47];
-      v34 = v47;
+      v54 = v8;
+      v40 = [defaultManager6 moveItemAtPath:path toPath:filePath2 error:&v54];
+      v41 = v54;
 
-      if (v33)
+      if (v40)
       {
         [(PLSubmissionFile *)self decorateFile];
-        v8 = 1;
-        v35 = v45;
-        v7 = v34;
-        array = v42;
-        v13 = v43;
+        v9 = 1;
+        v43 = v52;
+        v8 = v41;
+        array = v49;
+        v15 = v50;
 LABEL_35:
 
 LABEL_36:
         goto LABEL_37;
       }
 
-      v36 = PLLogSubmission();
-      v7 = v34;
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v44 = PLLogSubmission(v42);
+      v8 = v41;
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileCE copyAndPrepareLog];
       }
 
       defaultManager7 = [MEMORY[0x1E696AC08] defaultManager];
-      path2 = [v29 path];
+      path2 = [v35 path];
       [defaultManager7 removeItemAtPath:path2 error:0];
 
-      array = v42;
-      v13 = v43;
+      array = v49;
+      v15 = v50;
     }
 
-    v39 = PLLogSubmission();
-    v35 = v45;
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v47 = PLLogSubmission(v36);
+    v43 = v52;
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
-      [(PLSubmissionFileCE *)v39 copyAndPrepareLog];
+      [(PLSubmissionFileCE *)v47 copyAndPrepareLog];
     }
 
-    v8 = 0;
+    v9 = 0;
     goto LABEL_35;
   }
 
-  v7 = PLLogSubmission();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = PLLogSubmission(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [PLSubmissionFileCE copyAndPrepareLog];
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_37:
 
-  v40 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v9;
 }
 
 - (id)getCESQLFile
@@ -192,7 +196,7 @@ LABEL_37:
   }
 
   v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cleanenergy_%@.CESQL", v9];
-  v13 = PLLogSubmission();
+  v13 = PLLogSubmission(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [PLSubmissionFileCE getCESQLFile];
@@ -223,47 +227,47 @@ LABEL_37:
     uUID = [MEMORY[0x1E696AFB0] UUID];
     uUIDString = [uUID UUIDString];
 
-    v17 = PLLogSubmission();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v19 = PLLogSubmission(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       [PLSubmissionFileCE performCopyTablesToDB:];
     }
 
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = __44__PLSubmissionFileCE_performCopyTablesToDB___block_invoke;
-    v26 = &unk_1E851A040;
+    v26 = MEMORY[0x1E69E9820];
+    v27 = 3221225472;
+    v28 = __44__PLSubmissionFileCE_performCopyTablesToDB___block_invoke;
+    v29 = &unk_1E851A040;
     selfCopy = self;
-    v18 = uUIDString;
-    v28 = v18;
-    v19 = v6;
-    v29 = v19;
-    v30 = connection;
-    [tablesToMigrateForCE enumerateObjectsUsingBlock:&v23];
-    v20 = PLLogSubmission();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v20 = uUIDString;
+    v31 = v20;
+    v21 = v6;
+    v32 = v21;
+    v33 = connection;
+    v22 = PLLogSubmission([tablesToMigrateForCE enumerateObjectsUsingBlock:&v26]);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       [PLSubmissionFileCE performCopyTablesToDB:];
     }
 
-    if (![(PLSQLiteConnection *)v19 detachDB:stringByDeletingPathExtension, v23, v24, v25, v26, selfCopy])
+    selfCopy = [(PLSQLiteConnection *)v21 detachDB:stringByDeletingPathExtension, v26, v27, v28, v29, selfCopy];
+    if ((selfCopy & 1) == 0)
     {
-      v21 = PLLogSubmission();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v24 = PLLogSubmission(selfCopy);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileCE performCopyTablesToDB:];
       }
     }
 
-    [(PLSQLiteConnection *)v19 closeConnection];
+    [(PLSQLiteConnection *)v21 closeConnection];
   }
 
   else
   {
-    v18 = PLLogSubmission();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = PLLogSubmission(v15);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [(PLSubmissionFileCE *)connection performCopyTablesToDB:stringByDeletingPathExtension, v18];
+      [(PLSubmissionFileCE *)connection performCopyTablesToDB:stringByDeletingPathExtension, v20];
     }
   }
 
@@ -293,8 +297,8 @@ void __44__PLSubmissionFileCE_performCopyTablesToDB___block_invoke(uint64_t a1, 
 
     v14 = [v8 dateByAddingTimeInterval:-v13];
 
-    v15 = PLLogSubmission();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v16 = PLLogSubmission(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 138413058;
       v32 = v3;
@@ -304,7 +308,7 @@ void __44__PLSubmissionFileCE_performCopyTablesToDB___block_invoke(uint64_t a1, 
       v36 = v14;
       v37 = 2112;
       v38 = v8;
-      _os_log_impl(&dword_1D8611000, v15, OS_LOG_TYPE_INFO, "'%@' has %f seconds to live, modified range: [%@, %@]", buf, 0x2Au);
+      _os_log_impl(&dword_1D8611000, v16, OS_LOG_TYPE_INFO, "'%@' has %f seconds to live, modified range: [%@, %@]", buf, 0x2Au);
     }
   }
 
@@ -313,30 +317,29 @@ void __44__PLSubmissionFileCE_performCopyTablesToDB___block_invoke(uint64_t a1, 
     v14 = v6;
   }
 
-  v16 = [MEMORY[0x1E695DF90] dictionary];
-  v17 = MEMORY[0x1E696AEC0];
+  v17 = [MEMORY[0x1E695DF90] dictionary];
+  v18 = MEMORY[0x1E696AEC0];
   [v14 timeIntervalSince1970];
-  v19 = v18;
+  v20 = v19;
   [v8 timeIntervalSince1970];
-  v21 = [v17 stringWithFormat:@"timestamp BETWEEN %f AND %f", v19, v20];
-  v30 = v21;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
-  [v16 setObject:v22 forKeyedSubscript:@"WHERE"];
+  v22 = [v18 stringWithFormat:@"timestamp BETWEEN %f AND %f", v20, v21];
+  v30 = v22;
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+  [v17 setObject:v23 forKeyedSubscript:@"WHERE"];
 
   if ([PLDefaults BOOLForKey:@"PLDebugService_Enabled" ifNotSet:0])
   {
-    [v16 setObject:*(a1 + 40) forKeyedSubscript:@"uuid"];
+    [v17 setObject:*(a1 + 40) forKeyedSubscript:@"uuid"];
   }
 
-  v24 = *(a1 + 48);
-  v23 = *(a1 + 56);
-  v25 = [v23 filePath];
-  v26 = [v25 lastPathComponent];
-  v27 = [v26 stringByDeletingPathExtension];
-  [v24 copyTable:v3 fromConnection:v23 withDBName:v27 withProperties:v16 andAttach:0];
+  v25 = *(a1 + 48);
+  v24 = *(a1 + 56);
+  v26 = [v24 filePath];
+  v27 = [v26 lastPathComponent];
+  v28 = [v27 stringByDeletingPathExtension];
+  [v25 copyTable:v3 fromConnection:v24 withDBName:v28 withProperties:v17 andAttach:0];
 
   objc_autoreleasePoolPop(context);
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)submit
@@ -348,56 +351,14 @@ void __44__PLSubmissionFileCE_performCopyTablesToDB___block_invoke(uint64_t a1, 
   }
 }
 
-- (void)copyAndPrepareLog
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1D8611000, v0, v1, "Directory %@ already exists", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)getCESQLFile
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1D8611000, v0, v1, "Requested CleanEnergy DB file: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)performCopyTablesToDB:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = [a1 filePath];
   OUTLINED_FUNCTION_2();
-  v8 = 2112;
-  v9 = a2;
-  _os_log_error_impl(&dword_1D8611000, a3, OS_LOG_TYPE_ERROR, "Failed to attach DB at '%@' as '%@'", v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)performCopyTablesToDB:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1D8611000, v0, v1, "starting 'copyTables' with UUID %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)performCopyTablesToDB:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1D8611000, v0, v1, "ending 'copyTables' with UUID %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)performCopyTablesToDB:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1D8611000, v0, v1, "Failed to detach DB at '%@'", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_1D8611000, a3, OS_LOG_TYPE_ERROR, "Failed to attach DB at '%@' as '%@'", v6, 0x16u);
 }
 
 @end

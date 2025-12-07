@@ -260,7 +260,7 @@ void __54__PRUISPosterChannelController_initWithConfiguration___block_invoke_4(u
 {
   v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PRUISLogChannels();
+  v4 = PRUISLogChannels(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 channelIdentifier];
@@ -1178,31 +1178,32 @@ uint64_t __57__PRUISPosterChannelController_reapEverythingForChannel___block_inv
 
 - (void)handleDidUpdateChannel:(id)channel
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   channelCopy = channel;
+  v5 = channelCopy;
   if ((self->_reapOptions & 4) != 0)
   {
-    v5 = PRUISLogChannels();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PRUISLogChannels(channelCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      channelIdentifier = [channelCopy channelIdentifier];
+      channelIdentifier = [v5 channelIdentifier];
       uUIDString = [channelIdentifier UUIDString];
       *buf = 138543362;
-      v13 = uUIDString;
-      _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "[ReapOnChannelUpdate][StateUpdate] Reaping stale data from channel identifier %{public}@", buf, 0xCu);
+      v14 = uUIDString;
+      _os_log_impl(&dword_1CAE63000, v6, OS_LOG_TYPE_DEFAULT, "[ReapOnChannelUpdate][StateUpdate] Reaping stale data from channel identifier %{public}@", buf, 0xCu);
     }
 
-    v8 = [(PRUISPosterChannelController *)self reapEverythingForChannel:channelCopy];
+    v9 = [(PRUISPosterChannelController *)self reapEverythingForChannel:v5];
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __55__PRUISPosterChannelController_handleDidUpdateChannel___block_invoke;
-  v10[3] = &unk_1E83A8508;
-  v10[4] = self;
-  v11 = channelCopy;
-  v9 = channelCopy;
-  [(PRUISPosterChannelController *)self _fireObserversRespondingToSelector:sel_channelController_didUpdateChannel_ handler:v10];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __55__PRUISPosterChannelController_handleDidUpdateChannel___block_invoke;
+  v11[3] = &unk_1E83A8508;
+  v11[4] = self;
+  v12 = v5;
+  v10 = v5;
+  [(PRUISPosterChannelController *)self _fireObserversRespondingToSelector:sel_channelController_didUpdateChannel_ handler:v11];
 }
 
 - (void)handleWillRemoveChannel:(id)channel
@@ -1333,27 +1334,28 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
 
 - (void)channel:(id)channel didUpdateGallery:(id)gallery
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   channelCopy = channel;
+  v6 = channelCopy;
   if ((self->_reapOptions & 4) != 0)
   {
-    v6 = PRUISLogChannels();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PRUISLogChannels(channelCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      channelIdentifier = [channelCopy channelIdentifier];
+      channelIdentifier = [v6 channelIdentifier];
       uUIDString = [channelIdentifier UUIDString];
-      v10 = 138543362;
-      v11 = uUIDString;
-      _os_log_impl(&dword_1CAE63000, v6, OS_LOG_TYPE_DEFAULT, "[ReapOnChannelUpdate][GalleryUpdate] Reaping stale data from channel identifier %{public}@", &v10, 0xCu);
+      v11 = 138543362;
+      v12 = uUIDString;
+      _os_log_impl(&dword_1CAE63000, v7, OS_LOG_TYPE_DEFAULT, "[ReapOnChannelUpdate][GalleryUpdate] Reaping stale data from channel identifier %{public}@", &v11, 0xCu);
     }
 
-    v9 = [(PRUISPosterChannelController *)self reapEverythingForChannel:channelCopy];
+    v10 = [(PRUISPosterChannelController *)self reapEverythingForChannel:v6];
   }
 }
 
 - (void)initWithConfiguration:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"configuration"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1361,7 +1363,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"configuration", v11, v12);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1372,7 +1374,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
 
 - (void)channelFutureForIdentifier:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"channelIdentifier"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1380,7 +1382,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"channelIdentifier", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1390,7 +1392,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
 
 - (void)createChannelWithIdentifier:(char *)a1 updater:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"channelIdentifier"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1398,7 +1400,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"channelIdentifier", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1408,7 +1410,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
 
 - (void)removeChannelWithFuture:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"channel"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1416,7 +1418,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"channel", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1426,7 +1428,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
 
 - (void)updateChannel:(char *)a1 updater:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"channel"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1434,7 +1436,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"channel", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1444,7 +1446,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
 
 - (void)updateChannel:(char *)a1 updater:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"updater"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1452,7 +1454,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"updater", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1462,7 +1464,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
 
 - (void)reapStaleStateForChannel:(char *)a1 omittingLast:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"channel"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1470,7 +1472,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"channel", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1480,7 +1482,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
 
 - (void)reapStaleSnapshotsForChannel:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"channel"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1488,7 +1490,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"channel", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1498,7 +1500,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
 
 - (void)reapEverythingForChannel:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"channel"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1506,7 +1508,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"channel", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1516,7 +1518,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
 
 - (void)addChannelControllerObserver:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"observer"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1524,7 +1526,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"observer", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1534,7 +1536,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
 
 - (void)removeChannelControllerObserver:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"observer"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1542,7 +1544,7 @@ void __75__PRUISPosterChannelController__fireObserversRespondingToSelector_handl
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"observer", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

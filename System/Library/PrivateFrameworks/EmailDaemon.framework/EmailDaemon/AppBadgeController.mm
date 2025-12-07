@@ -6,6 +6,7 @@
 - (void)_createCountQueryPredicateFromNotificationTopics;
 - (void)_nts_getAccountsExcludedFromUnreadCount:(id *)count includeUnreadVIPs:(BOOL *)ps includeUnreadNotifiedThreads:(BOOL *)threads includeUnreadPrimaries:(BOOL *)primaries;
 - (void)_startObservingCountPredicate:(id)predicate serverCountMailboxScope:(id)scope;
+- (void)bucketBarConfigurationController:(id)controller isHidden:(BOOL)hidden forMailboxes:(id)mailboxes;
 - (void)bucketBarConfigurationControllerRequiresReload:(id)reload;
 - (void)countDidChange:(int64_t)change acknowledgementToken:(id)token;
 - (void)currentFocusChanged:(id)changed;
@@ -547,6 +548,17 @@
   v6 = changedCopy;
   v8 = v6;
   [scheduler performBlock:v7];
+}
+
+- (void)bucketBarConfigurationController:(id)controller isHidden:(BOOL)hidden forMailboxes:(id)mailboxes
+{
+  v6 = [(AppBadgeController *)self scheduler:controller];
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_1000093D4;
+  v7[3] = &unk_100156400;
+  v7[4] = self;
+  [v6 performBlock:v7];
 }
 
 - (void)bucketBarConfigurationControllerRequiresReload:(id)reload

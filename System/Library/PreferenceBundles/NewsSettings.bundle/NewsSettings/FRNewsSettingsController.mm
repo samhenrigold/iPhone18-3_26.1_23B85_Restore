@@ -16,6 +16,7 @@
 - (void)showCombinedPrivacyPane;
 - (void)showGameCenterPrivacyScreen;
 - (void)showSportsSyncingPrivacyScreen;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation FRNewsSettingsController
@@ -78,6 +79,25 @@
   return bOOLValue;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = FRNewsSettingsController;
+  [(FRNewsSettingsController *)&v10 viewDidAppear:appear];
+  [(FRNewsSettingsController *)self reloadSpecifiers];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.news"];
+  v5 = [_NSLocalizedStringResource alloc];
+  v6 = +[NSLocale currentLocale];
+  v7 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v7 bundleURL];
+  v9 = [v5 initWithKey:@"News" table:0 locale:v6 bundleURL:bundleURL];
+
+  if (objc_opt_respondsToSelector())
+  {
+    [(FRNewsSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.news" title:v9 localizedNavigationComponents:&__NSArray0__struct deepLink:v4];
+  }
+}
+
 + (id)specifierForDownloadSettingWithTarget:(id)target
 {
   targetCopy = target;
@@ -123,20 +143,20 @@
   v3 = *&self->PSListController_opaque[OBJC_IVAR___PSListController__specifiers];
   if (!v3)
   {
-    v97 = OBJC_IVAR___PSListController__specifiers;
-    v4 = FRNewsSettingsLog();
+    v98 = OBJC_IVAR___PSListController__specifiers;
+    v4 = FRNewsSettingsLog(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
       _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Refreshing News settings items...", buf, 2u);
     }
 
-    v106[0] = _NSConcreteStackBlock;
-    v106[1] = 3221225472;
-    v106[2] = sub_5B08;
-    v106[3] = &unk_10870;
-    v106[4] = self;
-    v98 = objc_retainBlock(v106);
+    v107[0] = _NSConcreteStackBlock;
+    v107[1] = 3221225472;
+    v107[2] = sub_5B08;
+    v107[3] = &unk_10870;
+    v107[4] = self;
+    v99 = objc_retainBlock(v107);
     v5 = [NSBundle bundleForClass:objc_opt_class()];
     v6 = [v5 localizedStringForKey:@"NEWS_SETTINGS_TITLE" value:&stru_10EF0 table:@"Localizable"];
     [(FRNewsSettingsController *)self setTitle:v6];
@@ -146,14 +166,14 @@
 
     appPolicy = [(FRNewsSettingsController *)self appPolicy];
     specifiers = [appPolicy specifiers];
-    v102 = [specifiers mutableCopy];
+    v103 = [specifiers mutableCopy];
 
     v10 = NewsCoreUserDefaults();
     v11 = +[FRNewsSettingsController isSubscribed];
     v12 = FCOfflineModeFeatureFlagEnabledKey;
     v13 = [v10 objectForKey:FCOfflineModeFeatureFlagEnabledKey];
 
-    v100 = v10;
+    v101 = v10;
     selfCopy = self;
     if (v13 && ![v10 BOOLForKey:v12])
     {
@@ -166,13 +186,13 @@
       v18 = PSFooterTextGroupKey;
       [v16 setProperty:v29 forKey:PSFooterTextGroupKey];
 
-      v19 = v102;
-      [v102 addObject:v16];
+      v19 = v103;
+      [v103 addObject:v16];
       v30 = [NSBundle bundleForClass:objc_opt_class()];
       v31 = [v30 localizedStringForKey:@"DOWNLOAD_ISSUES_TITLE" value:&stru_10EF0 table:@"Localizable"];
-      v25 = (v98[2])(v98, v31, 6, FCAutomaticIssueDownloadsEnabledKey, &__kCFBooleanTrue);
+      v25 = (v99[2])(v99, v31, 6, FCAutomaticIssueDownloadsEnabledKey, &__kCFBooleanTrue);
 
-      [v102 addObject:v25];
+      [v103 addObject:v25];
       v32 = +[UIDevice currentDevice];
       userInterfaceIdiom = [v32 userInterfaceIdiom];
 
@@ -183,13 +203,13 @@
         v36 = [v35 localizedStringForKey:@"DOWNLOAD_AUDIO_DESCRIPTION" value:&stru_10EF0 table:@"Localizable"];
         [v34 setProperty:v36 forKey:v18];
 
-        [v102 addObject:v34];
+        [v103 addObject:v34];
         v37 = [NSBundle bundleForClass:objc_opt_class()];
         v38 = [v37 localizedStringForKey:@"DOWNLOAD_AUDIO_TITLE" value:&stru_10EF0 table:@"Localizable"];
-        v39 = (v98[2])(v98, v38, 6, FCAutomaticAudioDownloadsEnabledKey, &__kCFBooleanTrue);
+        v39 = (v99[2])(v99, v38, 6, FCAutomaticAudioDownloadsEnabledKey, &__kCFBooleanTrue);
 
-        [v102 addObject:v39];
-        v19 = v102;
+        [v103 addObject:v39];
+        v19 = v103;
       }
     }
 
@@ -205,8 +225,8 @@
         v18 = PSFooterTextGroupKey;
         [v16 setProperty:offlineModeSubscriberGroupDescription forKey:PSFooterTextGroupKey];
 
-        v19 = v102;
-        [v102 addObject:v16];
+        v19 = v103;
+        [v103 addObject:v16];
       }
 
       else
@@ -216,22 +236,22 @@
         v18 = PSFooterTextGroupKey;
         [v16 setProperty:v21 forKey:PSFooterTextGroupKey];
 
-        [v102 addObject:v16];
+        [v103 addObject:v16];
         v22 = [NSBundle bundleForClass:objc_opt_class()];
         v23 = [v22 localizedStringForKey:@"SUBSCRIBE_NEWS_PLUS_TITLE" value:&stru_10EF0 table:@"Localizable"];
         v24 = [PSSpecifier preferenceSpecifierNamed:v23 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
-        v19 = v102;
+        v19 = v103;
         [v24 setButtonAction:"routeToNewsSubscription"];
-        [v102 addObject:v24];
+        [v103 addObject:v24];
       }
 
       v25 = [FRNewsSettingsController specifierForDownloadSettingWithTarget:self];
       [v19 addObject:v25];
     }
 
-    v99 = v18;
-    if ([v100 BOOLForKey:FCPuzzlesFeatureFlagEnabledKey])
+    v100 = v18;
+    if ([v101 BOOLForKey:FCPuzzlesFeatureFlagEnabledKey])
     {
       v40 = [NSBundle bundleForClass:objc_opt_class()];
       v41 = [v40 localizedStringForKey:@"GAME_CENTER_GROUP_TITLE" value:&stru_10EF0 table:@"Localizable"];
@@ -249,17 +269,17 @@
       [v42 setProperty:v49 forKey:PSFooterCellClassGroupKey];
 
       [v42 setProperty:v47 forKey:PSFooterHyperlinkViewTitleKey];
-      v108.location = [v47 rangeOfString:v44];
-      v50 = NSStringFromRange(v108);
+      v109.location = [v47 rangeOfString:v44];
+      v50 = NSStringFromRange(v109);
       [v42 setProperty:v50 forKey:PSFooterHyperlinkViewLinkRangeKey];
 
       v51 = [NSValue valueWithNonretainedObject:self];
       [v42 setProperty:v51 forKey:PSFooterHyperlinkViewTargetKey];
 
       [v42 setProperty:@"showGameCenterPrivacyScreen" forKey:PSFooterHyperlinkViewActionKey];
-      [v102 addObject:v42];
+      [v103 addObject:v42];
       v52 = [NSBundle bundleForClass:objc_opt_class()];
-      v19 = v102;
+      v19 = v103;
       v53 = [v52 localizedStringForKey:@"GAME_CENTER_ENABLED_TITLE" value:&stru_10EF0 table:@"Localizable"];
       v54 = [PSSpecifier preferenceSpecifierNamed:v53 target:self set:"setValue:forSpecifier:" get:"readPreferenceValue:" detail:0 cell:6 edit:0];
 
@@ -270,112 +290,113 @@
       [v54 setObject:FCDefaultsSuiteName forKeyedSubscript:PSDefaultsKey];
       [v54 setObject:v56 forKeyedSubscript:PSContainerBundleIDKey];
       [v54 setIdentifier:v55];
-      [v102 addObject:v54];
+      [v103 addObject:v54];
 
-      v18 = v99;
+      v18 = v100;
     }
 
-    if ([(FRNewsSettingsController *)self isUserSignedIntoICloud])
+    isUserSignedIntoICloud = [(FRNewsSettingsController *)self isUserSignedIntoICloud];
+    if (isUserSignedIntoICloud)
     {
-      v57 = FRNewsSettingsLog();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+      v58 = FRNewsSettingsLog(isUserSignedIntoICloud);
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_0, v57, OS_LOG_TYPE_DEFAULT, "User is signed into iCloud, adding sports syncing settings group", buf, 2u);
+        _os_log_impl(&dword_0, v58, OS_LOG_TYPE_DEFAULT, "User is signed into iCloud, adding sports syncing settings group", buf, 2u);
       }
 
-      v58 = [NSBundle bundleForClass:objc_opt_class()];
-      v59 = [v58 localizedStringForKey:@"SPORTS_SETTINGS_GROUP_FOOTER_LINK" value:&stru_10EF0 table:@"Localizable"];
+      v59 = [NSBundle bundleForClass:objc_opt_class()];
+      v60 = [v59 localizedStringForKey:@"SPORTS_SETTINGS_GROUP_FOOTER_LINK" value:&stru_10EF0 table:@"Localizable"];
 
-      v60 = [NSBundle bundleForClass:objc_opt_class()];
-      v61 = [v60 localizedStringForKey:@"SPORTS_SETTINGS_GROUP_FOOTER_DESCRIPTION" value:&stru_10EF0 table:@"Localizable"];
-      v62 = [NSString stringWithFormat:@"%@ %@", v61, v59];
+      v61 = [NSBundle bundleForClass:objc_opt_class()];
+      v62 = [v61 localizedStringForKey:@"SPORTS_SETTINGS_GROUP_FOOTER_DESCRIPTION" value:&stru_10EF0 table:@"Localizable"];
+      v63 = [NSString stringWithFormat:@"%@ %@", v62, v60];
 
-      v63 = [NSBundle bundleForClass:objc_opt_class()];
-      v64 = [v63 localizedStringForKey:@"SPORTS_SETTINGS_GROUP_TITLE" value:&stru_10EF0 table:@"Localizable"];
-      v65 = [PSSpecifier groupSpecifierWithID:@"Sports Settings" name:v64];
+      v64 = [NSBundle bundleForClass:objc_opt_class()];
+      v65 = [v64 localizedStringForKey:@"SPORTS_SETTINGS_GROUP_TITLE" value:&stru_10EF0 table:@"Localizable"];
+      v66 = [PSSpecifier groupSpecifierWithID:@"Sports Settings" name:v65];
 
-      v66 = objc_opt_class();
-      v67 = NSStringFromClass(v66);
-      [v65 setProperty:v67 forKey:PSFooterCellClassGroupKey];
+      v67 = objc_opt_class();
+      v68 = NSStringFromClass(v67);
+      [v66 setProperty:v68 forKey:PSFooterCellClassGroupKey];
 
-      [v65 setProperty:v62 forKey:PSFooterHyperlinkViewTitleKey];
-      v109.location = [v62 rangeOfString:v59];
-      v68 = NSStringFromRange(v109);
-      [v65 setProperty:v68 forKey:PSFooterHyperlinkViewLinkRangeKey];
+      [v66 setProperty:v63 forKey:PSFooterHyperlinkViewTitleKey];
+      v110.location = [v63 rangeOfString:v60];
+      v69 = NSStringFromRange(v110);
+      [v66 setProperty:v69 forKey:PSFooterHyperlinkViewLinkRangeKey];
 
-      v69 = [NSValue valueWithNonretainedObject:self];
-      [v65 setProperty:v69 forKey:PSFooterHyperlinkViewTargetKey];
+      v70 = [NSValue valueWithNonretainedObject:self];
+      [v66 setProperty:v70 forKey:PSFooterHyperlinkViewTargetKey];
 
-      [v65 setProperty:@"showSportsSyncingPrivacyScreen" forKey:PSFooterHyperlinkViewActionKey];
-      v19 = v102;
-      [v102 addObject:v65];
+      [v66 setProperty:@"showSportsSyncingPrivacyScreen" forKey:PSFooterHyperlinkViewActionKey];
+      v19 = v103;
+      [v103 addObject:v66];
       sportsSyncManager = [(FRNewsSettingsController *)self sportsSyncManager];
       specifier = [sportsSyncManager specifier];
-      [v102 addObject:specifier];
+      [v103 addObject:specifier];
 
       objc_initWeak(buf, self);
       sportsSyncManager2 = [(FRNewsSettingsController *)self sportsSyncManager];
-      v103[0] = _NSConcreteStackBlock;
-      v103[1] = 3221225472;
-      v103[2] = sub_5C30;
-      v103[3] = &unk_10B38;
-      objc_copyWeak(&v104, buf);
-      [sportsSyncManager2 prepareWithCompletion:v103];
-      v18 = v99;
+      v104[0] = _NSConcreteStackBlock;
+      v104[1] = 3221225472;
+      v104[2] = sub_5C30;
+      v104[3] = &unk_10B38;
+      objc_copyWeak(&v105, buf);
+      [sportsSyncManager2 prepareWithCompletion:v104];
+      v18 = v100;
 
-      objc_destroyWeak(&v104);
+      objc_destroyWeak(&v105);
       objc_destroyWeak(buf);
     }
 
-    v73 = [NSBundle bundleForClass:objc_opt_class()];
-    v74 = [v73 localizedStringForKey:@"TODAY_FEED_GROUP_TITLE" value:&stru_10EF0 table:@"Localizable"];
-    v75 = [PSSpecifier groupSpecifierWithID:@"Today Feed" name:v74];
+    v74 = [NSBundle bundleForClass:objc_opt_class()];
+    v75 = [v74 localizedStringForKey:@"TODAY_FEED_GROUP_TITLE" value:&stru_10EF0 table:@"Localizable"];
+    v76 = [PSSpecifier groupSpecifierWithID:@"Today Feed" name:v75];
 
-    v76 = [NSBundle bundleForClass:objc_opt_class()];
-    v77 = [v76 localizedStringForKey:@"RESTRICT_STORIES_DESCRIPTION" value:&stru_10EF0 table:@"Localizable"];
-    [v75 setProperty:v77 forKey:v18];
+    v77 = [NSBundle bundleForClass:objc_opt_class()];
+    v78 = [v77 localizedStringForKey:@"RESTRICT_STORIES_DESCRIPTION" value:&stru_10EF0 table:@"Localizable"];
+    [v76 setProperty:v78 forKey:v18];
 
-    [v19 addObject:v75];
-    v78 = [NSBundle bundleForClass:objc_opt_class()];
-    v79 = [v78 localizedStringForKey:@"RESTRICT_STORIES_TITLE" value:&stru_10EF0 table:@"Localizable"];
-    v80 = [PSSpecifier preferenceSpecifierNamed:v79 target:self set:"setShowStoriesFromFavorites:specifier:" get:"readPreferenceValue:" detail:0 cell:6 edit:0];
+    [v19 addObject:v76];
+    v79 = [NSBundle bundleForClass:objc_opt_class()];
+    v80 = [v79 localizedStringForKey:@"RESTRICT_STORIES_TITLE" value:&stru_10EF0 table:@"Localizable"];
+    v81 = [PSSpecifier preferenceSpecifierNamed:v80 target:self set:"setShowStoriesFromFavorites:specifier:" get:"readPreferenceValue:" detail:0 cell:6 edit:0];
 
-    v96 = PSAllowMultilineTitleKey;
-    [v80 setProperty:&__kCFBooleanTrue forKey:?];
-    [v80 setIdentifier:@"showStoriesFromFavoritesSpecifierID"];
-    [v80 setObject:FCShowStoriesOnlyFromFavoritesSharedPreferenceKey forKeyedSubscript:PSKeyNameKey];
-    [v80 setObject:&__kCFBooleanFalse forKeyedSubscript:PSDefaultValueKey];
-    v81 = FCDefaultsSuiteName;
-    [v80 setObject:FCDefaultsSuiteName forKeyedSubscript:PSDefaultsKey];
-    [v80 setObject:v81 forKeyedSubscript:PSContainerBundleIDKey];
-    [v19 addObject:v80];
-    v82 = [NSBundle bundleForClass:objc_opt_class()];
-    [v82 localizedStringForKey:@"PRIVACY_GROUP_TITLE" value:&stru_10EF0 table:@"Localizable"];
-    v84 = v83 = v19;
-    v95 = [PSSpecifier groupSpecifierWithID:@"Privacy" name:v84];
+    v97 = PSAllowMultilineTitleKey;
+    [v81 setProperty:&__kCFBooleanTrue forKey:?];
+    [v81 setIdentifier:@"showStoriesFromFavoritesSpecifierID"];
+    [v81 setObject:FCShowStoriesOnlyFromFavoritesSharedPreferenceKey forKeyedSubscript:PSKeyNameKey];
+    [v81 setObject:&__kCFBooleanFalse forKeyedSubscript:PSDefaultValueKey];
+    v82 = FCDefaultsSuiteName;
+    [v81 setObject:FCDefaultsSuiteName forKeyedSubscript:PSDefaultsKey];
+    [v81 setObject:v82 forKeyedSubscript:PSContainerBundleIDKey];
+    [v19 addObject:v81];
+    v83 = [NSBundle bundleForClass:objc_opt_class()];
+    [v83 localizedStringForKey:@"PRIVACY_GROUP_TITLE" value:&stru_10EF0 table:@"Localizable"];
+    v85 = v84 = v19;
+    v96 = [PSSpecifier groupSpecifierWithID:@"Privacy" name:v85];
 
-    v85 = [NSBundle bundleForClass:objc_opt_class()];
-    v86 = [v85 localizedStringForKey:@"PRIVACY_TITLE" value:&stru_10EF0 table:@"Localizable"];
-    v87 = [PSSpecifier preferenceSpecifierNamed:v86 target:selfCopy set:0 get:0 detail:0 cell:13 edit:0];
+    v86 = [NSBundle bundleForClass:objc_opt_class()];
+    v87 = [v86 localizedStringForKey:@"PRIVACY_TITLE" value:&stru_10EF0 table:@"Localizable"];
+    v88 = [PSSpecifier preferenceSpecifierNamed:v87 target:selfCopy set:0 get:0 detail:0 cell:13 edit:0];
 
-    [v87 setButtonAction:"showCombinedPrivacyPane"];
-    [v87 setProperty:&__kCFBooleanTrue forKey:v96];
-    v88 = [NSBundle bundleForClass:objc_opt_class()];
-    v89 = [v88 localizedStringForKey:@"RESET_IDENTIFIER_TITLE" value:&stru_10EF0 table:@"Localizable"];
-    v90 = (v98[2])(v98, v89, 6, @"reset_identifier", &__kCFBooleanFalse);
+    [v88 setButtonAction:"showCombinedPrivacyPane"];
+    [v88 setProperty:&__kCFBooleanTrue forKey:v97];
+    v89 = [NSBundle bundleForClass:objc_opt_class()];
+    v90 = [v89 localizedStringForKey:@"RESET_IDENTIFIER_TITLE" value:&stru_10EF0 table:@"Localizable"];
+    v91 = (v99[2])(v99, v90, 6, @"reset_identifier", &__kCFBooleanFalse);
 
-    v91 = [NSBundle bundleForClass:objc_opt_class()];
-    v92 = [v91 localizedStringForKey:@"RESET_IDENTIFIER_DESCRIPTION" value:&stru_10EF0 table:@"Localizable"];
-    [v95 setProperty:v92 forKey:v99];
+    v92 = [NSBundle bundleForClass:objc_opt_class()];
+    v93 = [v92 localizedStringForKey:@"RESET_IDENTIFIER_DESCRIPTION" value:&stru_10EF0 table:@"Localizable"];
+    [v96 setProperty:v93 forKey:v100];
 
-    [v83 addObject:v95];
-    [v83 addObject:v87];
-    [v83 addObject:v90];
-    v93 = *&selfCopy->PSListController_opaque[v97];
-    *&selfCopy->PSListController_opaque[v97] = v83;
+    [v84 addObject:v96];
+    [v84 addObject:v88];
+    [v84 addObject:v91];
+    v94 = *&selfCopy->PSListController_opaque[v98];
+    *&selfCopy->PSListController_opaque[v98] = v84;
 
-    v3 = *&selfCopy->PSListController_opaque[v97];
+    v3 = *&selfCopy->PSListController_opaque[v98];
   }
 
   return v3;

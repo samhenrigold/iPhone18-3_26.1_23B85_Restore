@@ -84,49 +84,45 @@
 
 void __95__PPAdaptiveCoalescer_coalesceRequestKey_handler_executeRequestAndInvokeHandlersBlock_nowDate___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__40;
-  v24 = __Block_byref_object_dispose__41;
-  v25 = 0;
-  v12 = MEMORY[0x1E69E9820];
-  v13 = 3221225472;
-  v14 = __95__PPAdaptiveCoalescer_coalesceRequestKey_handler_executeRequestAndInvokeHandlersBlock_nowDate___block_invoke_42;
-  v15 = &unk_1E77F67E0;
+  v27 = *MEMORY[0x1E69E9840];
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__40;
+  v21 = __Block_byref_object_dispose__41;
+  v22 = 0;
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __95__PPAdaptiveCoalescer_coalesceRequestKey_handler_executeRequestAndInvokeHandlersBlock_nowDate___block_invoke_42;
+  v12 = &unk_1E77F67E0;
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(a1 + 64);
   v5 = *(a1 + 48);
-  v16 = v3;
-  v17 = v5;
-  v18 = &v20;
-  v19 = v4;
-  [v2 runWithLockAcquired:&v12];
+  v13 = v3;
+  v14 = v5;
+  v15 = &v17;
+  v16 = v4;
+  [v2 runWithLockAcquired:&v9];
   v6 = pp_default_log_handle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 40);
-    v8 = [v21[5] count];
+    v8 = [v18[5] count];
     *buf = 138412546;
-    v27 = v7;
-    v28 = 2048;
-    v29 = v8;
+    v24 = v7;
+    v25 = 2048;
+    v26 = v8;
     _os_log_impl(&dword_1A7FD3000, v6, OS_LOG_TYPE_DEFAULT, "PPAdaptiveCoalescer: executing request for key %@ (handlers: %tu)", buf, 0x16u);
   }
 
-  v9 = *(a1 + 40);
-  v10 = v21[5];
   (*(*(*(*(a1 + 56) + 8) + 40) + 16))();
-
-  _Block_object_dispose(&v20, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v17, 8);
 }
 
 void __95__PPAdaptiveCoalescer_coalesceRequestKey_handler_executeRequestAndInvokeHandlersBlock_nowDate___block_invoke_50(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:*(a1 + 32)];
   v5 = v4;
@@ -155,9 +151,9 @@ void __95__PPAdaptiveCoalescer_coalesceRequestKey_handler_executeRequestAndInvok
       if (v10)
       {
         v11 = *(a1 + 32);
-        v20 = 138412290;
-        v21 = v11;
-        _os_log_impl(&dword_1A7FD3000, v9, OS_LOG_TYPE_DEFAULT, "PPAdaptiveCoalescer: will run immediately for key %@ (handlers: 1)", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = v11;
+        _os_log_impl(&dword_1A7FD3000, v9, OS_LOG_TYPE_DEFAULT, "PPAdaptiveCoalescer: will run immediately for key %@ (handlers: 1)", &v19, 0xCu);
       }
 
       *(*(*(a1 + 72) + 8) + 24) = 1;
@@ -168,11 +164,11 @@ void __95__PPAdaptiveCoalescer_coalesceRequestKey_handler_executeRequestAndInvok
       if (v10)
       {
         v15 = *(a1 + 32);
-        v20 = 134218242;
-        v21 = v8;
-        v22 = 2112;
-        v23 = v15;
-        _os_log_impl(&dword_1A7FD3000, v9, OS_LOG_TYPE_DEFAULT, "PPAdaptiveCoalescer: will delay %f for key %@ (handlers: 1)", &v20, 0x16u);
+        v19 = 134218242;
+        v20 = v8;
+        v21 = 2112;
+        v22 = v15;
+        _os_log_impl(&dword_1A7FD3000, v9, OS_LOG_TYPE_DEFAULT, "PPAdaptiveCoalescer: will delay %f for key %@ (handlers: 1)", &v19, 0x16u);
       }
 
       v16 = [*(*(*(a1 + 80) + 8) + 40) copy];
@@ -191,15 +187,13 @@ void __95__PPAdaptiveCoalescer_coalesceRequestKey_handler_executeRequestAndInvok
     {
       v13 = *(a1 + 32);
       v14 = [(NSMutableArray *)v6->_handlers count];
-      v20 = 138412546;
-      v21 = v13;
-      v22 = 2048;
-      v23 = v14;
-      _os_log_impl(&dword_1A7FD3000, v12, OS_LOG_TYPE_DEFAULT, "PPAdaptiveCoalescer: merging request for %@ into existing pending deferred request (handlers: %tu)", &v20, 0x16u);
+      v19 = 138412546;
+      v20 = v13;
+      v21 = 2048;
+      v22 = v14;
+      _os_log_impl(&dword_1A7FD3000, v12, OS_LOG_TYPE_DEFAULT, "PPAdaptiveCoalescer: merging request for %@ into existing pending deferred request (handlers: %tu)", &v19, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __95__PPAdaptiveCoalescer_coalesceRequestKey_handler_executeRequestAndInvokeHandlersBlock_nowDate___block_invoke_42(void *a1, void *a2)

@@ -2,10 +2,24 @@
 - (_TtC6MapsUI29TransitConnectionsSectionView)initWithCoder:(id)coder;
 - (_TtC6MapsUI29TransitConnectionsSectionView)initWithConfiguration:(id)configuration;
 - (_TtC6MapsUI29TransitConnectionsSectionView)initWithFrame:(CGRect)frame;
+- (_TtC6MapsUI29TransitConnectionsSectionView)initWithShowsSeparators:(BOOL)separators;
 - (void)verticalCardContainerView:(id)view didSelectRow:(id)row atIndex:(int64_t)index;
 @end
 
 @implementation TransitConnectionsSectionView
+
+- (_TtC6MapsUI29TransitConnectionsSectionView)initWithShowsSeparators:(BOOL)separators
+{
+  separatorsCopy = separators;
+  *(&self->super.super.super.super._responderFlags + OBJC_IVAR____TtC6MapsUI29TransitConnectionsSectionView_connectionsDelegate) = 0;
+  swift_unknownObjectWeakInit();
+  *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC6MapsUI29TransitConnectionsSectionView_connectionViewModels) = MEMORY[0x1E69E7CC0];
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for TransitConnectionsSectionView();
+  v5 = [(MUPlaceVerticalCardContainerView *)&v7 initWithShowsSeparators:separatorsCopy];
+  [(MUPlaceVerticalCardContainerView *)v5 setDelegate:v5];
+  return v5;
+}
 
 - (_TtC6MapsUI29TransitConnectionsSectionView)initWithConfiguration:(id)configuration
 {

@@ -58,61 +58,7 @@
       v11 = objc_msgSend_publicCloudDBURL(v5, v9, v10);
       v12 = CKObjectsAreBothNilOrEqual();
 
-      if (!v12)
-      {
-        goto LABEL_13;
-      }
-
-      v15 = objc_msgSend_publicShareServiceURL(self, v13, v14);
-      v18 = objc_msgSend_publicShareServiceURL(v5, v16, v17);
-      v19 = CKObjectsAreBothNilOrEqual();
-
-      if (!v19)
-      {
-        goto LABEL_13;
-      }
-
-      v22 = objc_msgSend_publicDeviceServiceURL(self, v20, v21);
-      v25 = objc_msgSend_publicDeviceServiceURL(v5, v23, v24);
-      v26 = CKObjectsAreBothNilOrEqual();
-
-      if (!v26)
-      {
-        goto LABEL_13;
-      }
-
-      v29 = objc_msgSend_publicCodeServiceURL(self, v27, v28);
-      v32 = objc_msgSend_publicCodeServiceURL(v5, v30, v31);
-      v33 = CKObjectsAreBothNilOrEqual();
-
-      if (!v33)
-      {
-        goto LABEL_13;
-      }
-
-      v36 = objc_msgSend_publicMetricsServiceURL(self, v34, v35);
-      v39 = objc_msgSend_publicMetricsServiceURL(v5, v37, v38);
-      v40 = CKObjectsAreBothNilOrEqual();
-
-      if (!v40)
-      {
-        goto LABEL_13;
-      }
-
-      v43 = objc_msgSend_containerScopedUserID(self, v41, v42);
-      v46 = objc_msgSend_containerScopedUserID(v5, v44, v45);
-      v47 = CKObjectsAreBothNilOrEqual();
-
-      if (!v47)
-      {
-        goto LABEL_13;
-      }
-
-      v50 = objc_msgSend_orgAdminUserID(self, v48, v49);
-      v53 = objc_msgSend_orgAdminUserID(v5, v51, v52);
-      v54 = CKObjectsAreBothNilOrEqual();
-
-      if (v54)
+      if (v12 && (objc_msgSend_publicShareServiceURL(self, v13, v14), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend_publicShareServiceURL(v5, v16, v17), v18 = objc_claimAutoreleasedReturnValue(), v19 = CKObjectsAreBothNilOrEqual(), v18, v15, v19) && (objc_msgSend_publicDeviceServiceURL(self, v20, v21), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend_publicDeviceServiceURL(v5, v23, v24), v25 = objc_claimAutoreleasedReturnValue(), v26 = CKObjectsAreBothNilOrEqual(), v25, v22, v26) && (objc_msgSend_publicCodeServiceURL(self, v27, v28), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend_publicCodeServiceURL(v5, v30, v31), v32 = objc_claimAutoreleasedReturnValue(), v33 = CKObjectsAreBothNilOrEqual(), v32, v29, v33) && (objc_msgSend_publicMetricsServiceURL(self, v34, v35), v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend_publicMetricsServiceURL(v5, v37, v38), v39 = objc_claimAutoreleasedReturnValue(), v40 = CKObjectsAreBothNilOrEqual(), v39, v36, v40) && (objc_msgSend_containerScopedUserID(self, v41, v42), v43 = objc_claimAutoreleasedReturnValue(), objc_msgSend_containerScopedUserID(v5, v44, v45), v46 = objc_claimAutoreleasedReturnValue(), v47 = CKObjectsAreBothNilOrEqual(), v46, v43, v47) && (objc_msgSend_orgAdminUserID(self, v48, v49), v50 = objc_claimAutoreleasedReturnValue(), objc_msgSend_orgAdminUserID(v5, v51, v52), v53 = objc_claimAutoreleasedReturnValue(), v54 = CKObjectsAreBothNilOrEqual(), v53, v50, v54))
       {
         v57 = objc_msgSend_environment(self, v55, v56);
         v60 = v57 == objc_msgSend_environment(v5, v58, v59);
@@ -120,7 +66,6 @@
 
       else
       {
-LABEL_13:
         v60 = 0;
       }
     }

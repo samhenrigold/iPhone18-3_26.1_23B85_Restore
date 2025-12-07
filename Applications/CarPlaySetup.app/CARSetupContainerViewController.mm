@@ -2,6 +2,7 @@
 - (void)_setupPromptPresenter;
 - (void)configureWithContext:(id)context completion:(id)completion;
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -21,6 +22,18 @@
   view = [(CARSetupContainerViewController *)self view];
   v5 = +[UIColor clearColor];
   [view setBackgroundColor:v5];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CARSetupContainerViewController;
+  [(CARSetupContainerViewController *)&v4 viewDidAppear:appear];
+  v3 = CARSetupLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    sub_100008070(v3);
+  }
 }
 
 - (void)_setupPromptPresenter

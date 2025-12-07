@@ -12,7 +12,7 @@
 
 + (void)playMessageSentSoundIfNeeded:(id)needed
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = [objc_opt_class() _soundTypeForMessage:needed];
   if (v4)
   {
@@ -29,23 +29,21 @@
           v8 = @"SMS";
         }
 
-        v10 = 138412546;
-        v11 = v8;
-        v12 = 2112;
-        v13 = guid;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Play message sent sound type: %@, for message: %@", &v10, 0x16u);
+        v9 = 138412546;
+        v10 = v8;
+        v11 = 2112;
+        v12 = guid;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Play message sent sound type: %@, for message: %@", &v9, 0x16u);
       }
     }
 
     [objc_opt_class() _playSoundType:v5];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (int64_t)_soundTypeForMessage:(id)message
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   guid = [message guid];
   result = [objc_opt_class() _smsSoundsToPlay];
   if (result)
@@ -59,17 +57,17 @@
       {
         if (!v8)
         {
-          goto LABEL_29;
+          return 0;
         }
 
         v9 = OSLogHandleForIMFoundationCategory();
         if (!os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          goto LABEL_29;
+          return 0;
         }
 
-        v14 = 138412290;
-        v15 = guid;
+        v13 = 138412290;
+        v14 = guid;
         v10 = "Suppressing play sound for edited scheduled message[%@]";
         goto LABEL_28;
       }
@@ -79,9 +77,9 @@
         v11 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
-          v14 = 138412290;
-          v15 = guid;
-          _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Using IMDSoundTypeSentScheduledMessage for message[%@]", &v14, 0xCu);
+          v13 = 138412290;
+          v14 = guid;
+          _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Using IMDSoundTypeSentScheduledMessage for message[%@]", &v13, 0xCu);
         }
       }
 
@@ -92,17 +90,17 @@
     {
       if (!IMOSLoggingEnabled())
       {
-        goto LABEL_29;
+        return 0;
       }
 
       v9 = OSLogHandleForIMFoundationCategory();
       if (!os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        goto LABEL_29;
+        return 0;
       }
 
-      v14 = 138412290;
-      v15 = guid;
+      v13 = 138412290;
+      v14 = guid;
       v10 = "Suppressing play sound for downgraded message[%@]";
       goto LABEL_28;
     }
@@ -114,23 +112,21 @@
         v12 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          v14 = 138412290;
-          v15 = guid;
-          _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Suppressing play sound because it was already played [%@]", &v14, 0xCu);
+          v13 = 138412290;
+          v14 = guid;
+          _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Suppressing play sound because it was already played [%@]", &v13, 0xCu);
         }
       }
 
       [objc_opt_class() _stopSuppressingForGUID:guid];
-      goto LABEL_29;
+      return 0;
     }
 
     if ([objc_opt_class() _isAssociatedMessage:message])
     {
       if (![objc_opt_class() _isAcknowledgmentMessage:message])
       {
-LABEL_29:
-        result = 0;
-        goto LABEL_30;
+        return 0;
       }
 
       v6 = 2;
@@ -140,36 +136,34 @@ LABEL_29:
     {
       if (!IMOSLoggingEnabled())
       {
-        goto LABEL_29;
+        return 0;
       }
 
       v9 = OSLogHandleForIMFoundationCategory();
       if (!os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        goto LABEL_29;
+        return 0;
       }
 
-      v14 = 138412290;
-      v15 = guid;
+      v13 = 138412290;
+      v14 = guid;
       v10 = "Suppressing play sound for auto-reply message [%@]";
 LABEL_28:
-      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, v10, &v14, 0xCu);
-      goto LABEL_29;
+      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, v10, &v13, 0xCu);
+      return 0;
     }
 
     if ([message isBeingRetried])
     {
-      result = 0;
+      return 0;
     }
 
     else
     {
-      result = v6;
+      return v6;
     }
   }
 
-LABEL_30:
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -197,7 +191,7 @@ LABEL_30:
 
 + (unsigned)_installSystemSound:(id)sound
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "URLForResource:withExtension:", sound, 0}];
   outSystemSoundID = 0;
   v5 = AudioServicesCreateSystemSoundID(v4, &outSystemSoundID);
@@ -212,11 +206,10 @@ LABEL_30:
       {
         *buf = 138412546;
         soundCopy = sound;
-        v15 = 1024;
-        v16 = v5;
+        v14 = 1024;
+        v15 = v5;
         _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Unable to find a sound action ID for %@  errorResult: %d", buf, 0x12u);
-LABEL_11:
-        result = 0;
+        return 0;
       }
     }
   }
@@ -225,33 +218,33 @@ LABEL_11:
   {
     inPropertyData = 0;
     v8 = AudioServicesSetProperty(0x69737569u, 4u, &outSystemSoundID, 4u, &inPropertyData);
-    if (!v8)
+    if (v8)
     {
-      result = outSystemSoundID;
-      goto LABEL_13;
-    }
-
-    if (IMOSLoggingEnabled())
-    {
-      v9 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      if (IMOSLoggingEnabled())
       {
-        *buf = 67109120;
-        LODWORD(soundCopy) = v8;
-        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Unable to set property on sound ID   errorResult: %d", buf, 8u);
+        v9 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        {
+          *buf = 67109120;
+          LODWORD(soundCopy) = v8;
+          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Unable to set property on sound ID   errorResult: %d", buf, 8u);
+        }
+      }
+
+      result = outSystemSoundID;
+      if (outSystemSoundID)
+      {
+        AudioServicesDisposeSystemSoundID(outSystemSoundID);
+        return 0;
       }
     }
 
-    result = outSystemSoundID;
-    if (outSystemSoundID)
+    else
     {
-      AudioServicesDisposeSystemSoundID(outSystemSoundID);
-      goto LABEL_11;
+      return outSystemSoundID;
     }
   }
 
-LABEL_13:
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 

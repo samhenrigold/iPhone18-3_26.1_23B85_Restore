@@ -113,8 +113,8 @@ id __64__HFCameraClipSignificantEventItem__subclass_updateWithOptions___block_in
 {
   v4 = objc_alloc(objc_opt_class());
   event = [(HFCameraClipSignificantEventItem *)self event];
-  home = [(HFCameraClipSignificantEventItem *)self home];
-  v7 = [v4 initWithSignificantEvent:event home:home];
+  v6 = objc_msgSend_home(self);
+  v7 = [v4 initWithSignificantEvent:event home:v6];
 
   [v7 copyLatestResultsFromItem:self];
   return v7;

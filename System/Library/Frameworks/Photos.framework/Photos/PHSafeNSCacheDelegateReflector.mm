@@ -18,9 +18,11 @@
 
 uint64_t __48__PHSafeNSCacheDelegateReflector_sharedInstance__block_invoke()
 {
-  sharedInstance_pl_once_object_17 = objc_alloc_init(PHSafeNSCacheDelegateReflector);
+  v0 = objc_alloc_init(PHSafeNSCacheDelegateReflector);
+  v1 = sharedInstance_pl_once_object_17;
+  sharedInstance_pl_once_object_17 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (PHSafeNSCacheDelegateReflector)init

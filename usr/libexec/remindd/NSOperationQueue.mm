@@ -131,7 +131,7 @@
 
               if ((isCancelled & 1) == 0)
               {
-                v20 = +[REMLog cloudkit];
+                v20 = objc_msgSend_cloudkit(REMLog);
                 if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
                 {
                   ic_loggingDescription = [v17 ic_loggingDescription];

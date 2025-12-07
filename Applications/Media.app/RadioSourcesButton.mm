@@ -9,9 +9,9 @@
 
 - (_TtC5Media18RadioSourcesButton)initWithCoder:(id)coder
 {
-  if (&_swiftEmptyArrayStorage >> 62 && _CocoaArrayWrapper.endIndex.getter())
+  if (_swiftEmptyArrayStorage >> 62 && _CocoaArrayWrapper.endIndex.getter())
   {
-    v4 = sub_100003210(&_swiftEmptyArrayStorage);
+    v4 = sub_100003210(_swiftEmptyArrayStorage);
   }
 
   else

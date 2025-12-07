@@ -3,7 +3,7 @@
 - (BWSinkNode)initWithSinkID:(id)d;
 - (NSString)currentStateDebugString;
 - (int64_t)liveConfigurationID;
-- (uint64_t)_setupSinkNodeStateMachine;
+- (void)_setupSinkNodeStateMachine;
 - (void)configurationWithID:(int64_t)d updatedFormat:(id)format didBecomeLiveForInput:(id)input;
 - (void)dealloc;
 - (void)didReachEndOfDataForConfigurationID:(id)d input:(id)input;
@@ -13,13 +13,13 @@
 
 @implementation BWSinkNode
 
-- (uint64_t)_setupSinkNodeStateMachine
+- (void)_setupSinkNodeStateMachine
 {
   if (result)
   {
     v1 = result;
     v2 = [[FigStateMachine alloc] initWithLabel:@"BWSinkNodeStateMachine" stateCount:4 initialState:1 owner:result];
-    *(v1 + 128) = v2;
+    v1[16] = v2;
     [(FigStateMachine *)v2 setPerformsAtomicStateTransitions:0];
     [OUTLINED_FUNCTION_0_46() setLabel:@"Idle" forState:1];
     [OUTLINED_FUNCTION_0_46() setLabel:@"Activating" forState:2];
@@ -44,7 +44,7 @@
 {
   if (!d)
   {
-    [BWSinkNode initWithSinkID:];
+    [(BWSinkNode *)self initWithSinkID:a2];
   }
 
   v8.receiver = self;

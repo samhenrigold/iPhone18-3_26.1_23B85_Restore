@@ -1014,7 +1014,7 @@ LABEL_9:
           v28 = 0u;
           if (v15)
           {
-            [v15 rectAtIndex:v16];
+            objc_msgSend_rectAtIndex_(v15);
           }
 
           v25 = v27;
@@ -1062,7 +1062,7 @@ LABEL_9:
           v28 = 0u;
           if (v6)
           {
-            [(PXMagazineRectArray *)v6 rectAtIndex:i];
+            objc_msgSend_rectAtIndex_(v6);
           }
 
           tileGrid = self->_tileGrid;
@@ -1082,7 +1082,7 @@ LABEL_9:
             v28 = 0u;
             if (v15)
             {
-              [v15 rectAtIndex:v23];
+              objc_msgSend_rectAtIndex_(v15);
             }
 
             v25 = v27;
@@ -1319,7 +1319,7 @@ LABEL_9:
         v18 = self->_cachedTileRects;
         if (v18)
         {
-          [(PXMagazineRectArray *)v18 rectAtIndex:v14];
+          objc_msgSend_rectAtIndex_(v18);
         }
 
         v33[0] = v34;

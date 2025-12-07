@@ -9,7 +9,7 @@
 - (CFMutableDataRef)encodedDataAndReturnError:()CUByteCodable
 {
   v16 = 0;
-  DataMutable = OPACKEncoderCreateDataMutable(self, 8u, &v16);
+  DataMutable = OPACKEncoderCreateDataMutable(self, 8, &v16);
   v11 = DataMutable;
   if (DataMutable)
   {

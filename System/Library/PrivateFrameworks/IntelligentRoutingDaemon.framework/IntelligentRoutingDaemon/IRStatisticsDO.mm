@@ -5,12 +5,6 @@
 - (IRStatisticsDO)initWithCoder:(id)coder;
 - (IRStatisticsDO)initWithNumberOfContextChanges:(int64_t)changes numberOfMiLoPredictions:(int64_t)predictions numberOfMiLoPredictionsInUpdatesMode:(int64_t)mode lastMiLoLSLItems:(int64_t)items lastMiLoQualityReasonBitmap:(int64_t)bitmap lastMiLoQuality:(int64_t)quality lastMiLoModels:(int64_t)models timeInUpdatesModeInSeconds:(int64_t)self0 numberOfPickerChoiceEvents:(int64_t)self1 numberOfCorrectPickerChoiceEvents:(int64_t)self2 lastClearDate:(id)self3;
 - (id)copyWithReplacementLastClearDate:(id)date;
-- (id)copyWithReplacementLastMiLoLSLItems:(int64_t)items;
-- (id)copyWithReplacementLastMiLoQuality:(int64_t)quality;
-- (id)copyWithReplacementLastMiLoQualityReasonBitmap:(int64_t)bitmap;
-- (id)copyWithReplacementNumberOfContextChanges:(int64_t)changes;
-- (id)copyWithReplacementNumberOfMiLoPredictions:(int64_t)predictions;
-- (id)copyWithReplacementNumberOfMiLoPredictionsInUpdatesMode:(int64_t)mode;
 - (id)description;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -51,48 +45,6 @@
   return v21;
 }
 
-- (id)copyWithReplacementNumberOfContextChanges:(int64_t)changes
-{
-  v5 = objc_alloc(objc_opt_class());
-  v6 = *&self->_lastMiLoModels;
-  return [v5 initWithNumberOfContextChanges:changes numberOfMiLoPredictions:self->_numberOfMiLoPredictions numberOfMiLoPredictionsInUpdatesMode:self->_numberOfMiLoPredictionsInUpdatesMode lastMiLoLSLItems:self->_lastMiLoLSLItems lastMiLoQualityReasonBitmap:self->_lastMiLoQualityReasonBitmap lastMiLoQuality:self->_lastMiLoQuality lastMiLoModels:self->_lastMiLoModels timeInUpdatesModeInSeconds:self->_timeInUpdatesModeInSeconds numberOfPickerChoiceEvents:self->_numberOfPickerChoiceEvents numberOfCorrectPickerChoiceEvents:self->_numberOfCorrectPickerChoiceEvents lastClearDate:self->_lastClearDate];
-}
-
-- (id)copyWithReplacementNumberOfMiLoPredictions:(int64_t)predictions
-{
-  v5 = objc_alloc(objc_opt_class());
-  v6 = *&self->_lastMiLoModels;
-  return [v5 initWithNumberOfContextChanges:self->_numberOfContextChanges numberOfMiLoPredictions:predictions numberOfMiLoPredictionsInUpdatesMode:self->_numberOfMiLoPredictionsInUpdatesMode lastMiLoLSLItems:self->_lastMiLoLSLItems lastMiLoQualityReasonBitmap:self->_lastMiLoQualityReasonBitmap lastMiLoQuality:self->_lastMiLoQuality lastMiLoModels:self->_lastMiLoModels timeInUpdatesModeInSeconds:self->_timeInUpdatesModeInSeconds numberOfPickerChoiceEvents:self->_numberOfPickerChoiceEvents numberOfCorrectPickerChoiceEvents:self->_numberOfCorrectPickerChoiceEvents lastClearDate:self->_lastClearDate];
-}
-
-- (id)copyWithReplacementNumberOfMiLoPredictionsInUpdatesMode:(int64_t)mode
-{
-  v5 = objc_alloc(objc_opt_class());
-  v6 = *&self->_lastMiLoModels;
-  return [v5 initWithNumberOfContextChanges:self->_numberOfContextChanges numberOfMiLoPredictions:self->_numberOfMiLoPredictions numberOfMiLoPredictionsInUpdatesMode:mode lastMiLoLSLItems:self->_lastMiLoLSLItems lastMiLoQualityReasonBitmap:self->_lastMiLoQualityReasonBitmap lastMiLoQuality:self->_lastMiLoQuality lastMiLoModels:self->_lastMiLoModels timeInUpdatesModeInSeconds:self->_timeInUpdatesModeInSeconds numberOfPickerChoiceEvents:self->_numberOfPickerChoiceEvents numberOfCorrectPickerChoiceEvents:self->_numberOfCorrectPickerChoiceEvents lastClearDate:self->_lastClearDate];
-}
-
-- (id)copyWithReplacementLastMiLoLSLItems:(int64_t)items
-{
-  v5 = objc_alloc(objc_opt_class());
-  v6 = *&self->_lastMiLoModels;
-  return [v5 initWithNumberOfContextChanges:self->_numberOfContextChanges numberOfMiLoPredictions:self->_numberOfMiLoPredictions numberOfMiLoPredictionsInUpdatesMode:self->_numberOfMiLoPredictionsInUpdatesMode lastMiLoLSLItems:items lastMiLoQualityReasonBitmap:self->_lastMiLoQualityReasonBitmap lastMiLoQuality:self->_lastMiLoQuality lastMiLoModels:self->_lastMiLoModels timeInUpdatesModeInSeconds:self->_timeInUpdatesModeInSeconds numberOfPickerChoiceEvents:self->_numberOfPickerChoiceEvents numberOfCorrectPickerChoiceEvents:self->_numberOfCorrectPickerChoiceEvents lastClearDate:self->_lastClearDate];
-}
-
-- (id)copyWithReplacementLastMiLoQualityReasonBitmap:(int64_t)bitmap
-{
-  v5 = objc_alloc(objc_opt_class());
-  v6 = *&self->_lastMiLoModels;
-  return [v5 initWithNumberOfContextChanges:self->_numberOfContextChanges numberOfMiLoPredictions:self->_numberOfMiLoPredictions numberOfMiLoPredictionsInUpdatesMode:self->_numberOfMiLoPredictionsInUpdatesMode lastMiLoLSLItems:self->_lastMiLoLSLItems lastMiLoQualityReasonBitmap:bitmap lastMiLoQuality:self->_lastMiLoQuality lastMiLoModels:self->_lastMiLoModels timeInUpdatesModeInSeconds:self->_timeInUpdatesModeInSeconds numberOfPickerChoiceEvents:self->_numberOfPickerChoiceEvents numberOfCorrectPickerChoiceEvents:self->_numberOfCorrectPickerChoiceEvents lastClearDate:self->_lastClearDate];
-}
-
-- (id)copyWithReplacementLastMiLoQuality:(int64_t)quality
-{
-  v5 = objc_alloc(objc_opt_class());
-  v6 = *&self->_lastMiLoModels;
-  return [v5 initWithNumberOfContextChanges:self->_numberOfContextChanges numberOfMiLoPredictions:self->_numberOfMiLoPredictions numberOfMiLoPredictionsInUpdatesMode:self->_numberOfMiLoPredictionsInUpdatesMode lastMiLoLSLItems:self->_lastMiLoLSLItems lastMiLoQualityReasonBitmap:self->_lastMiLoQualityReasonBitmap lastMiLoQuality:quality lastMiLoModels:self->_lastMiLoModels timeInUpdatesModeInSeconds:self->_timeInUpdatesModeInSeconds numberOfPickerChoiceEvents:self->_numberOfPickerChoiceEvents numberOfCorrectPickerChoiceEvents:self->_numberOfCorrectPickerChoiceEvents lastClearDate:self->_lastClearDate];
-}
-
 - (id)copyWithReplacementLastClearDate:(id)date
 {
   dateCopy = date;
@@ -105,61 +57,7 @@
 {
   oCopy = o;
   v5 = oCopy;
-  if (!oCopy)
-  {
-    goto LABEL_15;
-  }
-
-  numberOfContextChanges = self->_numberOfContextChanges;
-  if (numberOfContextChanges != [oCopy numberOfContextChanges])
-  {
-    goto LABEL_15;
-  }
-
-  numberOfMiLoPredictions = self->_numberOfMiLoPredictions;
-  if (numberOfMiLoPredictions != [v5 numberOfMiLoPredictions])
-  {
-    goto LABEL_15;
-  }
-
-  numberOfMiLoPredictionsInUpdatesMode = self->_numberOfMiLoPredictionsInUpdatesMode;
-  if (numberOfMiLoPredictionsInUpdatesMode != [v5 numberOfMiLoPredictionsInUpdatesMode])
-  {
-    goto LABEL_15;
-  }
-
-  lastMiLoLSLItems = self->_lastMiLoLSLItems;
-  if (lastMiLoLSLItems != [v5 lastMiLoLSLItems])
-  {
-    goto LABEL_15;
-  }
-
-  lastMiLoQualityReasonBitmap = self->_lastMiLoQualityReasonBitmap;
-  if (lastMiLoQualityReasonBitmap != [v5 lastMiLoQualityReasonBitmap])
-  {
-    goto LABEL_15;
-  }
-
-  lastMiLoQuality = self->_lastMiLoQuality;
-  if (lastMiLoQuality != [v5 lastMiLoQuality])
-  {
-    goto LABEL_15;
-  }
-
-  lastMiLoModels = self->_lastMiLoModels;
-  if (lastMiLoModels != [v5 lastMiLoModels])
-  {
-    goto LABEL_15;
-  }
-
-  timeInUpdatesModeInSeconds = self->_timeInUpdatesModeInSeconds;
-  if (timeInUpdatesModeInSeconds != [v5 timeInUpdatesModeInSeconds])
-  {
-    goto LABEL_15;
-  }
-
-  numberOfPickerChoiceEvents = self->_numberOfPickerChoiceEvents;
-  if (numberOfPickerChoiceEvents == [v5 numberOfPickerChoiceEvents] && (numberOfCorrectPickerChoiceEvents = self->_numberOfCorrectPickerChoiceEvents, numberOfCorrectPickerChoiceEvents == objc_msgSend(v5, "numberOfCorrectPickerChoiceEvents")) && (v16 = self->_lastClearDate == 0, objc_msgSend(v5, "lastClearDate"), v17 = objc_claimAutoreleasedReturnValue(), v18 = v17 != 0, v17, v16 != v18))
+  if (oCopy && (numberOfContextChanges = self->_numberOfContextChanges, numberOfContextChanges == [oCopy numberOfContextChanges]) && (numberOfMiLoPredictions = self->_numberOfMiLoPredictions, numberOfMiLoPredictions == objc_msgSend(v5, "numberOfMiLoPredictions")) && (numberOfMiLoPredictionsInUpdatesMode = self->_numberOfMiLoPredictionsInUpdatesMode, numberOfMiLoPredictionsInUpdatesMode == objc_msgSend(v5, "numberOfMiLoPredictionsInUpdatesMode")) && (lastMiLoLSLItems = self->_lastMiLoLSLItems, lastMiLoLSLItems == objc_msgSend(v5, "lastMiLoLSLItems")) && (lastMiLoQualityReasonBitmap = self->_lastMiLoQualityReasonBitmap, lastMiLoQualityReasonBitmap == objc_msgSend(v5, "lastMiLoQualityReasonBitmap")) && (lastMiLoQuality = self->_lastMiLoQuality, lastMiLoQuality == objc_msgSend(v5, "lastMiLoQuality")) && (lastMiLoModels = self->_lastMiLoModels, lastMiLoModels == objc_msgSend(v5, "lastMiLoModels")) && (timeInUpdatesModeInSeconds = self->_timeInUpdatesModeInSeconds, timeInUpdatesModeInSeconds == objc_msgSend(v5, "timeInUpdatesModeInSeconds")) && (numberOfPickerChoiceEvents = self->_numberOfPickerChoiceEvents, numberOfPickerChoiceEvents == objc_msgSend(v5, "numberOfPickerChoiceEvents")) && (numberOfCorrectPickerChoiceEvents = self->_numberOfCorrectPickerChoiceEvents, numberOfCorrectPickerChoiceEvents == objc_msgSend(v5, "numberOfCorrectPickerChoiceEvents")) && (v16 = self->_lastClearDate == 0, objc_msgSend(v5, "lastClearDate"), v17 = objc_claimAutoreleasedReturnValue(), v18 = v17 != 0, v17, v16 != v18))
   {
     lastClearDate = self->_lastClearDate;
     if (lastClearDate)
@@ -176,7 +74,6 @@
 
   else
   {
-LABEL_15:
     v21 = 0;
   }
 
@@ -216,7 +113,7 @@ LABEL_15:
 
 - (IRStatisticsDO)initWithCoder:(id)coder
 {
-  v61[1] = *MEMORY[0x277D85DE8];
+  v60[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeInt64ForKey:@"numberOfContextChanges"];
   if (!v5)
@@ -230,11 +127,11 @@ LABEL_15:
 
     if (([coderCopy containsValueForKey:@"numberOfContextChanges"] & 1) == 0)
     {
-      v60 = *MEMORY[0x277CCA450];
-      v61[0] = @"Missing serialized value for IRStatisticsDO.numberOfContextChanges";
+      v59 = *MEMORY[0x277CCA450];
+      v60[0] = @"Missing serialized value for IRStatisticsDO.numberOfContextChanges";
       v21 = MEMORY[0x277CBEAC0];
-      v22 = v61;
-      v23 = &v60;
+      v22 = v60;
+      v23 = &v59;
       goto LABEL_47;
     }
   }
@@ -251,11 +148,11 @@ LABEL_15:
 
     if (([coderCopy containsValueForKey:@"numberOfMiLoPredictions"] & 1) == 0)
     {
-      v58 = *MEMORY[0x277CCA450];
-      v59 = @"Missing serialized value for IRStatisticsDO.numberOfMiLoPredictions";
+      v57 = *MEMORY[0x277CCA450];
+      v58 = @"Missing serialized value for IRStatisticsDO.numberOfMiLoPredictions";
       v21 = MEMORY[0x277CBEAC0];
-      v22 = &v59;
-      v23 = &v58;
+      v22 = &v58;
+      v23 = &v57;
       goto LABEL_47;
     }
   }
@@ -272,11 +169,11 @@ LABEL_15:
 
     if (([coderCopy containsValueForKey:@"numberOfMiLoPredictionsInUpdatesMode"] & 1) == 0)
     {
-      v56 = *MEMORY[0x277CCA450];
-      v57 = @"Missing serialized value for IRStatisticsDO.numberOfMiLoPredictionsInUpdatesMode";
+      v55 = *MEMORY[0x277CCA450];
+      v56 = @"Missing serialized value for IRStatisticsDO.numberOfMiLoPredictionsInUpdatesMode";
       v21 = MEMORY[0x277CBEAC0];
-      v22 = &v57;
-      v23 = &v56;
+      v22 = &v56;
+      v23 = &v55;
       goto LABEL_47;
     }
   }
@@ -293,11 +190,11 @@ LABEL_15:
 
     if (([coderCopy containsValueForKey:@"lastMiLoLSLItems"] & 1) == 0)
     {
-      v54 = *MEMORY[0x277CCA450];
-      v55 = @"Missing serialized value for IRStatisticsDO.lastMiLoLSLItems";
+      v53 = *MEMORY[0x277CCA450];
+      v54 = @"Missing serialized value for IRStatisticsDO.lastMiLoLSLItems";
       v21 = MEMORY[0x277CBEAC0];
-      v22 = &v55;
-      v23 = &v54;
+      v22 = &v54;
+      v23 = &v53;
       goto LABEL_47;
     }
   }
@@ -314,11 +211,11 @@ LABEL_15:
 
     if (([coderCopy containsValueForKey:@"lastMiLoQualityReasonBitmap"] & 1) == 0)
     {
-      v52 = *MEMORY[0x277CCA450];
-      v53 = @"Missing serialized value for IRStatisticsDO.lastMiLoQualityReasonBitmap";
+      v51 = *MEMORY[0x277CCA450];
+      v52 = @"Missing serialized value for IRStatisticsDO.lastMiLoQualityReasonBitmap";
       v21 = MEMORY[0x277CBEAC0];
-      v22 = &v53;
-      v23 = &v52;
+      v22 = &v52;
+      v23 = &v51;
       goto LABEL_47;
     }
   }
@@ -335,11 +232,11 @@ LABEL_15:
 
     if (([coderCopy containsValueForKey:@"lastMiLoQuality"] & 1) == 0)
     {
-      v50 = *MEMORY[0x277CCA450];
-      v51 = @"Missing serialized value for IRStatisticsDO.lastMiLoQuality";
+      v49 = *MEMORY[0x277CCA450];
+      v50 = @"Missing serialized value for IRStatisticsDO.lastMiLoQuality";
       v21 = MEMORY[0x277CBEAC0];
-      v22 = &v51;
-      v23 = &v50;
+      v22 = &v50;
+      v23 = &v49;
       goto LABEL_47;
     }
   }
@@ -356,17 +253,17 @@ LABEL_15:
 
     if (([coderCopy containsValueForKey:@"lastMiLoModels"] & 1) == 0)
     {
-      v48 = *MEMORY[0x277CCA450];
-      v49 = @"Missing serialized value for IRStatisticsDO.lastMiLoModels";
+      v47 = *MEMORY[0x277CCA450];
+      v48 = @"Missing serialized value for IRStatisticsDO.lastMiLoModels";
       v21 = MEMORY[0x277CBEAC0];
-      v22 = &v49;
-      v23 = &v48;
+      v22 = &v48;
+      v23 = &v47;
       goto LABEL_47;
     }
   }
 
-  v39 = [coderCopy decodeInt64ForKey:@"timeInUpdatesModeInSeconds"];
-  if (!v39)
+  v38 = [coderCopy decodeInt64ForKey:@"timeInUpdatesModeInSeconds"];
+  if (!v38)
   {
     error8 = [coderCopy error];
 
@@ -377,17 +274,17 @@ LABEL_15:
 
     if (([coderCopy containsValueForKey:@"timeInUpdatesModeInSeconds"] & 1) == 0)
     {
-      v46 = *MEMORY[0x277CCA450];
-      v47 = @"Missing serialized value for IRStatisticsDO.timeInUpdatesModeInSeconds";
+      v45 = *MEMORY[0x277CCA450];
+      v46 = @"Missing serialized value for IRStatisticsDO.timeInUpdatesModeInSeconds";
       v21 = MEMORY[0x277CBEAC0];
-      v22 = &v47;
-      v23 = &v46;
+      v22 = &v46;
+      v23 = &v45;
       goto LABEL_47;
     }
   }
 
-  v38 = [coderCopy decodeInt64ForKey:@"numberOfPickerChoiceEvents"];
-  if (!v38)
+  v37 = [coderCopy decodeInt64ForKey:@"numberOfPickerChoiceEvents"];
+  if (!v37)
   {
     error9 = [coderCopy error];
 
@@ -398,17 +295,17 @@ LABEL_15:
 
     if (([coderCopy containsValueForKey:@"numberOfPickerChoiceEvents"] & 1) == 0)
     {
-      v44 = *MEMORY[0x277CCA450];
-      v45 = @"Missing serialized value for IRStatisticsDO.numberOfPickerChoiceEvents";
+      v43 = *MEMORY[0x277CCA450];
+      v44 = @"Missing serialized value for IRStatisticsDO.numberOfPickerChoiceEvents";
       v21 = MEMORY[0x277CBEAC0];
-      v22 = &v45;
-      v23 = &v44;
+      v22 = &v44;
+      v23 = &v43;
       goto LABEL_47;
     }
   }
 
-  v37 = [coderCopy decodeInt64ForKey:@"numberOfCorrectPickerChoiceEvents"];
-  if (v37)
+  v36 = [coderCopy decodeInt64ForKey:@"numberOfCorrectPickerChoiceEvents"];
+  if (v36)
   {
     goto LABEL_11;
   }
@@ -431,9 +328,9 @@ LABEL_11:
           v15 = objc_opt_class();
           v16 = NSStringFromClass(v15);
           v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRStatisticsDO key lastClearDate (expected %@, decoded %@)", v14, v16, 0];
-          v40 = *MEMORY[0x277CCA450];
-          v41 = v17;
-          v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+          v39 = *MEMORY[0x277CCA450];
+          v40 = v17;
+          v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
           v19 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRStatisticsDOOCNTErrorDomain" code:3 userInfo:v18];
           [coderCopy failWithError:v19];
 
@@ -454,18 +351,18 @@ LABEL_49:
         }
       }
 
-      self = [(IRStatisticsDO *)self initWithNumberOfContextChanges:v5 numberOfMiLoPredictions:v6 numberOfMiLoPredictionsInUpdatesMode:v7 lastMiLoLSLItems:v8 lastMiLoQualityReasonBitmap:v9 lastMiLoQuality:v10 lastMiLoModels:v11 timeInUpdatesModeInSeconds:v39 numberOfPickerChoiceEvents:v38 numberOfCorrectPickerChoiceEvents:v37 lastClearDate:v12];
+      self = [(IRStatisticsDO *)self initWithNumberOfContextChanges:v5 numberOfMiLoPredictions:v6 numberOfMiLoPredictionsInUpdatesMode:v7 lastMiLoLSLItems:v8 lastMiLoQualityReasonBitmap:v9 lastMiLoQuality:v10 lastMiLoModels:v11 timeInUpdatesModeInSeconds:v38 numberOfPickerChoiceEvents:v37 numberOfCorrectPickerChoiceEvents:v36 lastClearDate:v12];
       selfCopy = self;
 LABEL_50:
 
       goto LABEL_51;
     }
 
-    v42 = *MEMORY[0x277CCA450];
-    v43 = @"Missing serialized value for IRStatisticsDO.numberOfCorrectPickerChoiceEvents";
+    v41 = *MEMORY[0x277CCA450];
+    v42 = @"Missing serialized value for IRStatisticsDO.numberOfCorrectPickerChoiceEvents";
     v21 = MEMORY[0x277CBEAC0];
-    v22 = &v43;
-    v23 = &v42;
+    v22 = &v42;
+    v23 = &v41;
 LABEL_47:
     v12 = [v21 dictionaryWithObjects:v22 forKeys:v23 count:1];
     v14 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRStatisticsDOOCNTErrorDomain" code:1 userInfo:v12];
@@ -477,7 +374,6 @@ LABEL_42:
   selfCopy = 0;
 LABEL_51:
 
-  v34 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

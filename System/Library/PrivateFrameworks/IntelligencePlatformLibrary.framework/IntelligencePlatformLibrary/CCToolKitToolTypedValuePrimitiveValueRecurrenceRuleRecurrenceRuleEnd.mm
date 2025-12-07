@@ -202,9 +202,9 @@ LABEL_21:
         {
           v31 = [CCToolKitToolTimestamp alloc];
           v32 = CCPBReaderReadDataNoCopy();
-          v53 = 0;
-          v33 = [(CCItemMessage *)v31 initWithData:v32 error:&v53];
-          v9 = v53;
+          v51 = 0;
+          v33 = [(CCItemMessage *)v31 initWithData:v32 error:&v51];
+          v9 = v51;
           date = self->_date;
           self->_date = v33;
         }
@@ -273,7 +273,6 @@ LABEL_53:
 
           v44 = objc_opt_class();
           v32 = NSStringFromClass(v44);
-          v45 = *&v5[*v8];
           v9 = CCSkipFieldErrorForMessage();
         }
 
@@ -343,23 +342,22 @@ LABEL_59:
   if (!*&v5[*v8])
   {
     v9 = 0;
-    v50 = 1;
+    v48 = 1;
     goto LABEL_63;
   }
 
 LABEL_60:
-  v46 = objc_opt_class();
-  v47 = NSStringFromClass(v46);
-  v48 = *&v5[*v8];
-  v49 = CCInvalidBufferErrorForMessage();
+  v45 = objc_opt_class();
+  v46 = NSStringFromClass(v45);
+  v47 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v9 = 0;
 LABEL_61:
-  v50 = 0;
+  v48 = 0;
 LABEL_63:
 
-  return v50;
+  return v48;
 }
 
 - (CCToolKitToolTypedValuePrimitiveValueRecurrenceRuleRecurrenceRuleEnd)initWithOccurences:(id)occurences date:(id)date never:(id)never error:(id *)error

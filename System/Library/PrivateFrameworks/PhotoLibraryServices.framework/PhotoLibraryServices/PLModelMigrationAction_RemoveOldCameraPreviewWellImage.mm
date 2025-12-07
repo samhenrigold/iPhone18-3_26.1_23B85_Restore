@@ -69,37 +69,45 @@
           v39 = 0u;
           memset(buf, 0, sizeof(buf));
           v18 = PLMigrationGetLog();
-          os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
-          v19 = objc_opt_class();
-          v20 = NSStringFromClass(v19);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          {
+            v19 = 3;
+          }
+
+          else
+          {
+            v19 = 2;
+          }
+
+          v20 = objc_opt_class();
+          v21 = NSStringFromClass(v20);
           v33 = 138543618;
-          v34 = v20;
+          v34 = v21;
           v35 = 2112;
           v36 = v13;
-          LODWORD(v31) = 22;
-          v21 = _os_log_send_and_compose_impl();
+          v22 = _os_log_send_and_compose_impl(v19, 0, buf, 512, &dword_19BF1F000, v18, 16, "Failed to delete existing camera preview well image %{public}@. Error: %@", &v33, 22);
 
-          v22 = [(PLModelMigrationActionCore *)self logger:&v33];
-          [v22 logWithMessage:v21 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{456, 16}];
+          logger2 = [(PLModelMigrationActionCore *)self logger];
+          [logger2 logWithMessage:v22 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{456, 16}];
 
-          if (v21 != buf)
+          if (v22 != buf)
           {
-            free(v21);
+            free(v22);
           }
         }
 
         else
         {
-          v23 = PLMigrationGetLog();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v24 = PLMigrationGetLog();
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
-            v24 = objc_opt_class();
-            v25 = NSStringFromClass(v24);
+            v25 = objc_opt_class();
+            v26 = NSStringFromClass(v25);
             *buf = 138543618;
-            *&buf[4] = v25;
+            *&buf[4] = v26;
             *&buf[12] = 2112;
             *&buf[14] = v13;
-            _os_log_impl(&dword_19BF1F000, v23, OS_LOG_TYPE_ERROR, "Failed to delete existing camera preview well image %{public}@. Error: %@", buf, 0x16u);
+            _os_log_impl(&dword_19BF1F000, v24, OS_LOG_TYPE_ERROR, "Failed to delete existing camera preview well image %{public}@. Error: %@", buf, 0x16u);
           }
         }
       }
@@ -115,16 +123,16 @@
     v14 = 1;
   }
 
-  v26 = objc_alloc_init(PLCameraPreviewWellManager);
-  [(PLCameraPreviewWellManager *)v26 refreshPreviewWellImageWithContext:contextCopy avoidNotificationIfLinkIsAlreadySet:0];
+  v27 = objc_alloc_init(PLCameraPreviewWellManager);
+  [(PLCameraPreviewWellManager *)v27 refreshPreviewWellImageWithContext:contextCopy avoidNotificationIfLinkIsAlreadySet:0];
 
   [v8 resignCurrent];
-  v27 = v13;
-  v28 = v27;
+  v28 = v13;
+  v29 = v28;
   if ((v14 & 1) == 0 && error)
   {
-    v29 = v27;
-    *error = v28;
+    v30 = v28;
+    *error = v29;
   }
 
   [(PLModelMigrationActionCore *)self finalizeProgress];

@@ -71,29 +71,29 @@
 
 - (id)shareItemsFromDictionary:(id)dictionary
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   array = [MEMORY[0x1E695DF70] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = dictionaryCopy;
-  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * i);
+        v8 = *(*(&v17 + 1) + 8 * i);
         v9 = [v8 objectForKeyedSubscript:{@"kind", array}];
         if ([v9 isEqualToString:@"URL"])
         {
@@ -107,15 +107,13 @@
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
   }
 
   v13 = [MEMORY[0x1E695DEC8] arrayWithArray:array];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

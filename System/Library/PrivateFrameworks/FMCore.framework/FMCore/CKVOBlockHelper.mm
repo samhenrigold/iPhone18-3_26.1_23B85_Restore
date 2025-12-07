@@ -29,43 +29,42 @@
 
 - (void)dealloc
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   observedObject = [(CKVOBlockHelper *)self observedObject];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allValues = [(NSMutableDictionary *)self->_tokensByContext allValues];
-  v5 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         context = [v9 context];
         keypath = [v9 keypath];
         [observedObject removeObserver:self forKeyPath:keypath context:context];
       }
 
-      v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
-  v13.receiver = self;
-  v13.super_class = CKVOBlockHelper;
-  [(CKVOBlockHelper *)&v13 dealloc];
-  v12 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = CKVOBlockHelper;
+  [(CKVOBlockHelper *)&v12 dealloc];
 }
 
 - (id)debugDescription
@@ -170,7 +169,7 @@ void __23__CKVOBlockHelper_dump__block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    block = LogCategory_Unspecified();
+    block = LogCategory_Unspecified(0);
     if (os_log_type_enabled(block, OS_LOG_TYPE_ERROR))
     {
       [(CKVOBlockHelper *)v13 observeValueForKeyPath:block ofObject:v17 change:v18 context:v19, v20, v21, v22];
@@ -187,9 +186,9 @@ void __23__CKVOBlockHelper_dump__block_invoke(uint64_t a1, void *a2)
 
 - (void)observeValueForKeyPath:(uint64_t)a3 ofObject:(uint64_t)a4 change:(uint64_t)a5 context:(uint64_t)a6 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_24A2EE000, a2, a3, "Warning: Could not find block for key: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_24A2EE000, a2, a3, "Warning: Could not find block for key: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

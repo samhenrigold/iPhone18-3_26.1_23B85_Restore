@@ -50,28 +50,28 @@
 
 - (int64_t)database:(id)database willEnqueueOperation:(id)operation error:(id *)error
 {
-  v91[2] = *MEMORY[0x1E69E9840];
+  v90[2] = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   operationCopy = operation;
   objc_opt_class();
   if (operationCopy && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v51 = operationCopy;
+    v50 = operationCopy;
     if (!self || !self->_allowNilDesiredKeys)
     {
-      desiredKeys = [v51 desiredKeys];
+      desiredKeys = [v50 desiredKeys];
 
       if (!desiredKeys && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v48 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"No desired keys given for CKQueryOperation: %@", v51];
+        v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"No desired keys given for CKQueryOperation: %@", v50];
         *aBlock = 136315906;
         *&aBlock[4] = "[FCCKDatabaseLoggingMiddleware database:willEnqueueOperation:error:]";
         *&aBlock[12] = 2080;
         *&aBlock[14] = "FCCKDatabaseLoggingMiddleware.m";
         *&aBlock[22] = 1024;
-        LODWORD(v88) = 56;
-        WORD2(v88) = 2114;
-        *(&v88 + 6) = v48;
+        LODWORD(v87) = 56;
+        WORD2(v87) = 2114;
+        *(&v87 + 6) = v47;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", aBlock, 0x26u);
       }
     }
@@ -82,11 +82,11 @@
   else
   {
     objc_opt_class();
-    v51 = 0;
+    v50 = 0;
     if (!operationCopy)
     {
 LABEL_14:
-      v50 = 0;
+      v49 = 0;
       goto LABEL_15;
     }
   }
@@ -99,27 +99,27 @@ LABEL_14:
   v9 = operationCopy;
   if (self && self->_allowNilDesiredKeys)
   {
-    v50 = v9;
+    v49 = v9;
     v10 = databaseCopy;
     objc_opt_class();
     goto LABEL_17;
   }
 
-  v50 = v9;
+  v49 = v9;
   desiredKeys2 = [v9 desiredKeys];
-  v46 = desiredKeys2 == 0;
+  v45 = desiredKeys2 == 0;
 
-  if (v46 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  if (v45 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"No desired keys given for CKFetchRecordsOperation: %@", v50];
+    v46 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"No desired keys given for CKFetchRecordsOperation: %@", v49];
     *aBlock = 136315906;
     *&aBlock[4] = "[FCCKDatabaseLoggingMiddleware database:willEnqueueOperation:error:]";
     *&aBlock[12] = 2080;
     *&aBlock[14] = "FCCKDatabaseLoggingMiddleware.m";
     *&aBlock[22] = 1024;
-    LODWORD(v88) = 62;
-    WORD2(v88) = 2114;
-    *(&v88 + 6) = v47;
+    LODWORD(v87) = 62;
+    WORD2(v87) = 2114;
+    *(&v87 + 6) = v46;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", aBlock, 0x26u);
   }
 
@@ -150,7 +150,7 @@ LABEL_17:
   }
 
 LABEL_21:
-  v54 = v13;
+  v53 = v13;
   objc_opt_class();
   if (operationCopy)
   {
@@ -190,7 +190,7 @@ LABEL_21:
     v16 = 0;
   }
 
-  v53 = v16;
+  v52 = v16;
   objc_opt_class();
   if (operationCopy)
   {
@@ -210,7 +210,7 @@ LABEL_21:
     v17 = 0;
   }
 
-  v52 = v17;
+  v51 = v17;
   objc_opt_class();
   if (operationCopy)
   {
@@ -293,158 +293,157 @@ LABEL_21:
   v25 = v24;
   [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
   v27 = v26;
-  v83 = 0;
-  v84 = &v83;
-  v85 = 0x2020000000;
-  v86 = 0;
+  v82 = 0;
+  v83 = &v82;
+  v84 = 0x2020000000;
+  v85 = 0;
   array = [MEMORY[0x1E695DF70] array];
   if (objc_opt_respondsToSelector())
   {
-    v81[0] = MEMORY[0x1E69E9820];
-    v81[1] = 3221225472;
-    v81[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke;
-    v81[3] = &unk_1E7C3F4C8;
-    v82 = array;
-    [operationCopy setRequestCompletedBlock:v81];
+    v80[0] = MEMORY[0x1E69E9820];
+    v80[1] = 3221225472;
+    v80[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke;
+    v80[3] = &unk_1E7C3F4C8;
+    v81 = array;
+    [operationCopy setRequestCompletedBlock:v80];
   }
 
   objc_initWeak(&location, operationCopy);
   *aBlock = MEMORY[0x1E69E9820];
   *&aBlock[8] = 3221225472;
   *&aBlock[16] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_2;
-  *&v88 = &unk_1E7C3F518;
-  objc_copyWeak(v91, &location);
-  v91[1] = v27;
-  v49 = array;
-  *(&v88 + 1) = v49;
-  v90 = &v83;
-  v89 = databaseCopy;
+  *&v87 = &unk_1E7C3F518;
+  objc_copyWeak(v90, &location);
+  v90[1] = v27;
+  v48 = array;
+  *(&v87 + 1) = v48;
+  v89 = &v82;
+  v88 = databaseCopy;
   v29 = _Block_copy(aBlock);
-  if (v54)
+  if (v53)
   {
-    *(v84 + 6) = 1;
-    fetchRecordsCompletionBlock = [v54 fetchRecordsCompletionBlock];
-    v77[0] = MEMORY[0x1E69E9820];
-    v77[1] = 3221225472;
-    v77[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_29;
-    v77[3] = &unk_1E7C3F540;
-    v78 = v29;
+    *(v83 + 6) = 1;
+    fetchRecordsCompletionBlock = [v53 fetchRecordsCompletionBlock];
+    v76[0] = MEMORY[0x1E69E9820];
+    v76[1] = 3221225472;
+    v76[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_29;
+    v76[3] = &unk_1E7C3F540;
+    v77 = v29;
     v31 = fetchRecordsCompletionBlock;
-    v79 = v31;
-    [v54 setFetchRecordsCompletionBlock:v77];
+    v78 = v31;
+    [v53 setFetchRecordsCompletionBlock:v76];
   }
 
   if (v15)
   {
-    *(v84 + 6) = 2;
+    *(v83 + 6) = 2;
     modifyRecordsCompletionBlock = [v15 modifyRecordsCompletionBlock];
-    v74[0] = MEMORY[0x1E69E9820];
-    v74[1] = 3221225472;
-    v74[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_2_31;
-    v74[3] = &unk_1E7C3F568;
-    v75 = v29;
+    v73[0] = MEMORY[0x1E69E9820];
+    v73[1] = 3221225472;
+    v73[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_2_31;
+    v73[3] = &unk_1E7C3F568;
+    v74 = v29;
     v33 = modifyRecordsCompletionBlock;
-    v76 = v33;
-    [v15 setModifyRecordsCompletionBlock:v74];
-  }
-
-  if (v53)
-  {
-    *(v84 + 6) = 3;
-    fetchRecordZonesCompletionBlock = [v53 fetchRecordZonesCompletionBlock];
-    v71[0] = MEMORY[0x1E69E9820];
-    v71[1] = 3221225472;
-    v71[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_3_33;
-    v71[3] = &unk_1E7C3F540;
-    v72 = v29;
-    v35 = fetchRecordZonesCompletionBlock;
-    v73 = v35;
-    [v53 setFetchRecordZonesCompletionBlock:v71];
+    v75 = v33;
+    [v15 setModifyRecordsCompletionBlock:v73];
   }
 
   if (v52)
   {
-    *(v84 + 6) = 7;
-    fetchRecordZoneChangesCompletionBlock = [v52 fetchRecordZoneChangesCompletionBlock];
-    v68[0] = MEMORY[0x1E69E9820];
-    v68[1] = 3221225472;
-    v68[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_4;
-    v68[3] = &unk_1E7C3F590;
-    v69 = v29;
+    *(v83 + 6) = 3;
+    fetchRecordZonesCompletionBlock = [v52 fetchRecordZonesCompletionBlock];
+    v70[0] = MEMORY[0x1E69E9820];
+    v70[1] = 3221225472;
+    v70[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_3_33;
+    v70[3] = &unk_1E7C3F540;
+    v71 = v29;
+    v35 = fetchRecordZonesCompletionBlock;
+    v72 = v35;
+    [v52 setFetchRecordZonesCompletionBlock:v70];
+  }
+
+  if (v51)
+  {
+    *(v83 + 6) = 7;
+    fetchRecordZoneChangesCompletionBlock = [v51 fetchRecordZoneChangesCompletionBlock];
+    v67[0] = MEMORY[0x1E69E9820];
+    v67[1] = 3221225472;
+    v67[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_4;
+    v67[3] = &unk_1E7C3F590;
+    v68 = v29;
     v37 = fetchRecordZoneChangesCompletionBlock;
-    v70 = v37;
-    [v52 setFetchRecordZoneChangesCompletionBlock:v68];
+    v69 = v37;
+    [v51 setFetchRecordZoneChangesCompletionBlock:v67];
   }
 
   if (v19)
   {
-    *(v84 + 6) = 4;
+    *(v83 + 6) = 4;
     modifyRecordZonesCompletionBlock = [v19 modifyRecordZonesCompletionBlock];
-    v65[0] = MEMORY[0x1E69E9820];
-    v65[1] = 3221225472;
-    v65[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_5;
-    v65[3] = &unk_1E7C3F5B8;
-    v66 = v29;
+    v64[0] = MEMORY[0x1E69E9820];
+    v64[1] = 3221225472;
+    v64[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_5;
+    v64[3] = &unk_1E7C3F5B8;
+    v65 = v29;
     v39 = modifyRecordZonesCompletionBlock;
-    v67 = v39;
-    [v19 setModifyRecordZonesCompletionBlock:v65];
+    v66 = v39;
+    [v19 setModifyRecordZonesCompletionBlock:v64];
   }
 
   if (v21)
   {
-    *(v84 + 6) = 8;
+    *(v83 + 6) = 8;
     fetchDatabaseChangesCompletionBlock = [v21 fetchDatabaseChangesCompletionBlock];
     if (fetchDatabaseChangesCompletionBlock)
     {
-      v62[0] = MEMORY[0x1E69E9820];
-      v62[1] = 3221225472;
-      v62[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_6;
-      v62[3] = &unk_1E7C3F5E0;
-      v63 = v29;
-      v64 = fetchDatabaseChangesCompletionBlock;
-      [v21 setFetchDatabaseChangesCompletionBlock:v62];
+      v61[0] = MEMORY[0x1E69E9820];
+      v61[1] = 3221225472;
+      v61[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_6;
+      v61[3] = &unk_1E7C3F5E0;
+      v62 = v29;
+      v63 = fetchDatabaseChangesCompletionBlock;
+      [v21 setFetchDatabaseChangesCompletionBlock:v61];
     }
   }
 
   if (v23)
   {
-    *(v84 + 6) = 5;
+    *(v83 + 6) = 5;
     fetchSubscriptionCompletionBlock = [v23 fetchSubscriptionCompletionBlock];
     if (fetchSubscriptionCompletionBlock)
     {
-      v59[0] = MEMORY[0x1E69E9820];
-      v59[1] = 3221225472;
-      v59[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_7;
-      v59[3] = &unk_1E7C3EF48;
-      v60 = v29;
-      v61 = fetchSubscriptionCompletionBlock;
-      [v23 setFetchSubscriptionCompletionBlock:v59];
+      v58[0] = MEMORY[0x1E69E9820];
+      v58[1] = 3221225472;
+      v58[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_7;
+      v58[3] = &unk_1E7C3EF48;
+      v59 = v29;
+      v60 = fetchSubscriptionCompletionBlock;
+      [v23 setFetchSubscriptionCompletionBlock:v58];
     }
   }
 
   if (v25)
   {
-    *(v84 + 6) = 6;
+    *(v83 + 6) = 6;
     modifySubscriptionsCompletionBlock = [v25 modifySubscriptionsCompletionBlock];
     if (modifySubscriptionsCompletionBlock)
     {
-      v56[0] = MEMORY[0x1E69E9820];
-      v56[1] = 3221225472;
-      v56[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_8;
-      v56[3] = &unk_1E7C3F5B8;
-      v57 = v29;
-      v58 = modifySubscriptionsCompletionBlock;
-      [v25 setModifySubscriptionsCompletionBlock:v56];
+      v55[0] = MEMORY[0x1E69E9820];
+      v55[1] = 3221225472;
+      v55[2] = __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_8;
+      v55[3] = &unk_1E7C3F5B8;
+      v56 = v29;
+      v57 = modifySubscriptionsCompletionBlock;
+      [v25 setModifySubscriptionsCompletionBlock:v55];
     }
   }
 
-  objc_destroyWeak(v91);
+  objc_destroyWeak(v90);
   objc_destroyWeak(&location);
 
-  _Block_object_dispose(&v83, 8);
+  _Block_object_dispose(&v82, 8);
 LABEL_81:
 
-  v43 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -468,11 +467,11 @@ void __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block
 
 void __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_3(uint64_t a1, void *a2)
 {
-  v58 = *MEMORY[0x1E69E9840];
-  v39 = a2;
+  v57 = *MEMORY[0x1E69E9840];
+  v38 = a2;
   [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
   v4 = v3 - *(a1 + 64);
-  v40 = a1;
+  v39 = a1;
   if (![*(a1 + 32) count])
   {
     v5 = FCOperationLog;
@@ -481,49 +480,49 @@ void __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block
       v6 = v5;
       v7 = objc_opt_class();
       v8 = v7;
-      v9 = [v39 operationID];
-      v10 = [v39 database];
+      v9 = [v38 operationID];
+      v10 = [v38 database];
       v11 = [v10 container];
       v12 = [v11 containerIdentifier];
       *buf = 138544130;
-      v46 = v7;
-      v47 = 2114;
-      v48 = v9;
-      v49 = 2114;
-      v50 = v12;
-      v51 = 2048;
-      v52 = v4;
+      v45 = v7;
+      v46 = 2114;
+      v47 = v9;
+      v48 = 2114;
+      v49 = v12;
+      v50 = 2048;
+      v51 = v4;
       _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@ ran against %{public}@ with no requests, total time: %f", buf, 0x2Au);
     }
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   obj = *(a1 + 32);
-  v38 = [obj countByEnumeratingWithState:&v41 objects:v57 count:16];
-  if (v38)
+  v37 = [obj countByEnumeratingWithState:&v40 objects:v56 count:16];
+  if (v37)
   {
-    v37 = *v42;
+    v36 = *v41;
     do
     {
-      for (i = 0; i != v38; ++i)
+      for (i = 0; i != v37; ++i)
       {
-        if (*v42 != v37)
+        if (*v41 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v41 + 1) + 8 * i);
+        v14 = *(*(&v40 + 1) + 8 * i);
         v15 = [FCNetworkEvent alloc];
-        v16 = *(*(*(v40 + 7) + 8) + 24);
-        v17 = [v39 operationID];
-        v18 = v40[8];
-        v19 = [v39 database];
+        v16 = *(*(*(v39 + 7) + 8) + 24);
+        v17 = [v38 operationID];
+        v18 = v39[8];
+        v19 = [v38 database];
         v20 = [v19 container];
         v21 = [v20 containerIdentifier];
-        v22 = [(FCNetworkEvent *)v15 initWithType:v16 ckRequestInfo:v14 operationID:v17 startTime:v21 containerName:*(v40 + 5) error:v18];
+        v22 = [(FCNetworkEvent *)v15 initWithType:v16 ckRequestInfo:v14 operationID:v17 startTime:v21 containerName:*(v39 + 5) error:v18];
 
         v23 = FCOperationLog;
         if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
@@ -531,28 +530,28 @@ void __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block
           v24 = v23;
           v25 = objc_opt_class();
           v26 = v25;
-          v27 = [v39 operationID];
-          v28 = [v39 database];
+          v27 = [v38 operationID];
+          v28 = [v38 database];
           v29 = [v28 container];
           v30 = [v29 containerIdentifier];
           v31 = [v14 requestUUID];
           [(FCNetworkEvent *)v22 totalDuration];
           *buf = 138544642;
-          v46 = v25;
-          v47 = 2114;
-          v48 = v27;
-          v49 = 2114;
-          v50 = v30;
-          v51 = 2114;
-          v52 = *&v31;
-          v53 = 2048;
-          v54 = v32;
-          v55 = 2048;
-          v56 = v4;
+          v45 = v25;
+          v46 = 2114;
+          v47 = v27;
+          v48 = 2114;
+          v49 = v30;
+          v50 = 2114;
+          v51 = *&v31;
+          v52 = 2048;
+          v53 = v32;
+          v54 = 2048;
+          v55 = v4;
           _os_log_impl(&dword_1B63EF000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@ ran against %{public}@ with request UUID %{public}@, network time: %f, total time: %f", buf, 0x3Eu);
         }
 
-        v33 = *(v40 + 6);
+        v33 = *(v39 + 6);
         if (v33)
         {
           v33 = v33[3];
@@ -562,13 +561,11 @@ void __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block
         [v34 logNetworkEvent:v22];
       }
 
-      v38 = [obj countByEnumeratingWithState:&v41 objects:v57 count:16];
+      v37 = [obj countByEnumeratingWithState:&v40 objects:v56 count:16];
     }
 
-    while (v38);
+    while (v37);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __65__FCCKDatabaseLoggingMiddleware__addLoggersToOperation_database___block_invoke_29(uint64_t a1, void *a2, void *a3)

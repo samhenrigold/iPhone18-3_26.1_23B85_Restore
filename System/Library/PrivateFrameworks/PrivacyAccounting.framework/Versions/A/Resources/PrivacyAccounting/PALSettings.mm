@@ -5,6 +5,7 @@
 - (PALSettings)initWithSuiteName:(id)name;
 - (int64_t)accessFilteringPolicy;
 - (void)migrateSettingsFromFile:(id)file;
+- (void)setPersistenceEnabled:(BOOL)enabled forCategory:(id)category;
 @end
 
 @implementation PALSettings
@@ -54,61 +55,62 @@
 {
   fileCopy = file;
   v5 = +[NSFileManager defaultManager];
-  if ([v5 fileExistsAtPath:fileCopy])
+  v6 = [v5 fileExistsAtPath:fileCopy];
+  if (v6)
   {
-    v13 = 0;
-    v6 = [PALSettingsPlist settingsFromFile:fileCopy withError:&v13];
-    v7 = v13;
-    if (v6)
+    v16 = 0;
+    v7 = [PALSettingsPlist settingsFromFile:fileCopy withError:&v16];
+    v8 = v16;
+    v9 = v8;
+    if (v7)
     {
-      -[PALSettings setLoggingEnabled:](self, "setLoggingEnabled:", [v6 loggingEnabled]);
-      [v6 lastPreflightCheck];
-      [(PALSettings *)self setLastPreflightCheck:?];
-      v8 = sub_100004C80();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      -[PALSettings setLoggingEnabled:](self, "setLoggingEnabled:", [v7 loggingEnabled]);
+      [v7 lastPreflightCheck];
+      v10 = sub_100004C80([(PALSettings *)self setLastPreflightCheck:?]);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v15 = fileCopy;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Migrated settings plist: %{public}@", buf, 0xCu);
+        v18 = fileCopy;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Migrated settings plist: %{public}@", buf, 0xCu);
       }
 
-      v12 = v7;
-      v9 = [v5 removeItemAtPath:fileCopy error:&v12];
-      v10 = v12;
+      v15 = v9;
+      v11 = [v5 removeItemAtPath:fileCopy error:&v15];
+      v12 = v15;
 
-      if (v9)
+      if (v11)
       {
         goto LABEL_14;
       }
 
-      v11 = sub_100004C80();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v14 = sub_100004C80(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_1000052B8();
       }
 
-      v7 = v10;
+      v9 = v12;
     }
 
     else
     {
-      v11 = sub_100004C80();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v14 = sub_100004C80(v8);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_100005320();
       }
     }
 
-    v10 = v7;
+    v12 = v9;
 LABEL_14:
 
     goto LABEL_15;
   }
 
-  v10 = sub_100004C80();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v12 = sub_100004C80(v6);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    sub_100005240(fileCopy, v10);
+    sub_100005240(fileCopy, v12);
   }
 
 LABEL_15:
@@ -154,6 +156,20 @@ LABEL_15:
   return v7;
 }
 
+- (void)setPersistenceEnabled:(BOOL)enabled forCategory:(id)category
+{
+  enabledCopy = enabled;
+  settingsBackupDisabled = self->_settingsBackupDisabled;
+  categoryCopy = category;
+  v8 = [(NSUserDefaults *)settingsBackupDisabled dictionaryForKey:@"PASettingsCategoryPersistenceOverrides"];
+  v10 = [v8 mutableCopy];
+
+  v9 = [NSNumber numberWithBool:enabledCopy];
+  [v10 setObject:v9 forKeyedSubscript:categoryCopy];
+
+  [(NSUserDefaults *)self->_settingsBackupDisabled setObject:v10 forKey:@"PASettingsCategoryPersistenceOverrides"];
+}
+
 - (NSData)saltForMetricsReduction
 {
   if (!self->_saltForMetricsReduction)
@@ -180,7 +196,7 @@ LABEL_15:
     if (v10)
     {
       v11 = v10;
-      v12 = sub_100004C80();
+      v12 = sub_100004C80(v10);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
         sub_1000053B0(v11, v12);

@@ -31,7 +31,7 @@
   {
     v2 = objc_opt_class();
     NSStringFromClass(v2);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSCNNConvolutionGraphNodes.mm", 0x6E3, @"%@.convolutionGradientState is an invalid operation.  The class doesn't support producing state.", v3, v4, v5, v6);
   }
 
   return 0;
@@ -58,7 +58,7 @@
   {
     v2 = objc_opt_class();
     NSStringFromClass(v2);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSCNNConvolutionGraphNodes.mm", 0x6FB, @"%@.convolutionState is an invalid operation.  The class doesn't support producing state.", v3, v4, v5, v6);
   }
 
   return 0;

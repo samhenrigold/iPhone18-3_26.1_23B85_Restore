@@ -14,7 +14,7 @@
 
 - (void)CBApplicationDidBecomeActive
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   v3 = _os_activity_create(&dword_1D2CD5000, "Notify ApplicationDidBecomeActive", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
@@ -28,30 +28,30 @@
   [(_GCCurrentApplicationForegroundMonitor *)selfCopy willChangeValueForKey:@"appInBackground"];
   atomic_store(0, &selfCopy->_appInBackground);
   [(_GCCurrentApplicationForegroundMonitor *)selfCopy didChangeValueForKey:@"appInBackground"];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v12 + 1) + 8 * v9++) CBApplicationDidBecomeActive];
+        [*(*(&v11 + 1) + 8 * v9++) CBApplicationDidBecomeActive];
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v7);
@@ -61,12 +61,11 @@
   [defaultCenter postNotificationName:@"GCApplicationDidBecomeActiveNotification" object:selfCopy userInfo:0];
 
   os_activity_scope_leave(&state);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)CBApplicationWillResignActive
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   v3 = _os_activity_create(&dword_1D2CD5000, "Notify ApplicationWillResignActive", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
@@ -80,30 +79,30 @@
   [(_GCCurrentApplicationForegroundMonitor *)selfCopy willChangeValueForKey:@"appInBackground"];
   atomic_store(1u, &selfCopy->_appInBackground);
   [(_GCCurrentApplicationForegroundMonitor *)selfCopy didChangeValueForKey:@"appInBackground"];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v12 + 1) + 8 * v9++) CBApplicationWillResignActive];
+        [*(*(&v11 + 1) + 8 * v9++) CBApplicationWillResignActive];
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v7);
@@ -113,7 +112,6 @@
   [defaultCenter postNotificationName:@"GCApplicationWillResignActiveNotification" object:selfCopy userInfo:0];
 
   os_activity_scope_leave(&state);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (void)initialize
@@ -171,11 +169,10 @@
 
 - (void)dealloc
 {
-  state = self->_state;
   os_state_remove_handler();
-  v4.receiver = self;
-  v4.super_class = _GCCurrentApplicationForegroundMonitor;
-  [(_GCCurrentApplicationForegroundMonitor *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = _GCCurrentApplicationForegroundMonitor;
+  [(_GCCurrentApplicationForegroundMonitor *)&v3 dealloc];
 }
 
 - (void)addObserver:(id)observer notifyCurrent:(BOOL)current

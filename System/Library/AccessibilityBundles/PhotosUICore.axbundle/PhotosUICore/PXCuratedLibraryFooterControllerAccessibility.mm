@@ -47,7 +47,7 @@
   return _shouldRevealPhotosFooterView & 1;
 }
 
-uint64_t __78__PXCuratedLibraryFooterControllerAccessibility__shouldRevealPhotosFooterView__block_invoke(uint64_t a1)
+void *__78__PXCuratedLibraryFooterControllerAccessibility__shouldRevealPhotosFooterView__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isScrolledAtEdge:3 tolerance:1.0];
   *(*(*(a1 + 40) + 8) + 24) = result;

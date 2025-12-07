@@ -12,7 +12,7 @@
   v3 = v2;
   if (v2)
   {
-    [(BKSTouchStreamPolicy *)v2 setShouldSendAmbiguityRecommendations:1];
+    [(BKSTouchStreamPolicy *)v2 setShouldSendAmbiguityRecommendations:?];
   }
 
   return v3;

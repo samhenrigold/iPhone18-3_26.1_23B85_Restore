@@ -20,7 +20,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_10040F100();
+  sub_10040F100(selfCopy, v2);
 }
 
 - (void)infoButtonPressed

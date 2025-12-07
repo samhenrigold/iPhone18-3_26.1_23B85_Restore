@@ -113,7 +113,7 @@ id __56__SingleShowEpisodeCellAccessibility__axPlayPauseButton__block_invoke(uin
 
 - (id)accessibilityCustomActions
 {
-  v17[1] = *MEMORY[0x29EDCA608];
+  v16[1] = *MEMORY[0x29EDCA608];
   v2 = [(SingleShowEpisodeCellAccessibility *)self safeValueForKeyPath:@"accessibilityPlayControlsView.accessibilityEpisodeStateControls.accessibilityMoreButton"];
   objc_initWeak(&location, v2);
 
@@ -124,16 +124,16 @@ id __56__SingleShowEpisodeCellAccessibility__axPlayPauseButton__block_invoke(uin
   {
     v5 = objc_alloc(MEMORY[0x29EDC78E0]);
     v6 = accessibilityLocalizedString(@"more.button");
-    v11 = MEMORY[0x29EDCA5F8];
-    v12 = 3221225472;
-    v13 = __64__SingleShowEpisodeCellAccessibility_accessibilityCustomActions__block_invoke;
-    v14 = &unk_29F2EA1C0;
-    objc_copyWeak(&v15, &location);
-    v7 = [v5 initWithName:v6 actionHandler:&v11];
-    v17[0] = v7;
-    v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:v17 count:{1, v11, v12, v13, v14}];
+    v10 = MEMORY[0x29EDCA5F8];
+    v11 = 3221225472;
+    v12 = __64__SingleShowEpisodeCellAccessibility_accessibilityCustomActions__block_invoke;
+    v13 = &unk_29F2EA1C0;
+    objc_copyWeak(&v14, &location);
+    v7 = [v5 initWithName:v6 actionHandler:&v10];
+    v16[0] = v7;
+    v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:v16 count:{1, v10, v11, v12, v13}];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
   }
 
   else
@@ -142,7 +142,6 @@ id __56__SingleShowEpisodeCellAccessibility__axPlayPauseButton__block_invoke(uin
   }
 
   objc_destroyWeak(&location);
-  v9 = *MEMORY[0x29EDCA608];
 
   return v8;
 }

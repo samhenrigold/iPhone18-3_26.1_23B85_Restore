@@ -17,7 +17,7 @@
 
 - (void)messageComposeViewController:(id)controller didFinishWithResult:(int64_t)result
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F21B570);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F21B570, &qword_24F93B020);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = sub_24F92B858();

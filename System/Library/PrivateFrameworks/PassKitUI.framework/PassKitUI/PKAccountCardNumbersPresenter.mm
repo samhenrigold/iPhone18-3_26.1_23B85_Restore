@@ -203,25 +203,25 @@ void __66__PKAccountCardNumbersPresenter_presentCardNumbersWithCompletion___bloc
   }
 }
 
-void __66__PKAccountCardNumbersPresenter_presentCardNumbersWithCompletion___block_invoke_2(uint64_t a1)
+void __66__PKAccountCardNumbersPresenter_presentCardNumbersWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 64) = 0;
   if (*(a1 + 40) && !*(a1 + 48))
   {
-    v6 = [[PKAccountCardNumbersViewController alloc] initWithPass:*(*(a1 + 56) + 40) localAuthenticationContext:*(a1 + 40) virtualCard:*(*(a1 + 56) + 8) context:*(*(a1 + 56) + 48)];
+    v7 = [[PKAccountCardNumbersViewController alloc] initWithPass:*(*(a1 + 56) + 40) localAuthenticationContext:*(a1 + 40) virtualCard:*(*(a1 + 56) + 8) context:*(*(a1 + 56) + 48)];
     (*(*(a1 + 64) + 16))();
   }
 
   else
   {
-    v2 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 48);
+      v4 = *(a1 + 48);
       *buf = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Card information selected: unable to present card numbers UI because auth failed with error: %@", buf, 0xCu);
+      v9 = v4;
+      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Card information selected: unable to present card numbers UI because auth failed with error: %@", buf, 0xCu);
     }
 
     if ([*(a1 + 48) pk_shouldSuppressAfterAuthenticationPolicyWasLocationBased:1])
@@ -231,8 +231,8 @@ void __66__PKAccountCardNumbersPresenter_presentCardNumbersWithCompletion___bloc
 
     else
     {
-      v4 = +[PKCardNumbersAuthentication genericDisplayableVirtualCardError];
-      v5 = PKAlertForDisplayableErrorWithHandlers(v4, 0, 0, 0);
+      v5 = +[PKCardNumbersAuthentication genericDisplayableVirtualCardError];
+      v6 = PKAlertForDisplayableErrorWithHandlers(v5, 0, 0, 0);
       (*(*(a1 + 64) + 16))();
     }
   }
@@ -260,24 +260,24 @@ void __66__PKAccountCardNumbersPresenter_presentCardNumbersWithCompletion___bloc
   }
 }
 
-void __66__PKAccountCardNumbersPresenter_presentCardNumbersWithCompletion___block_invoke_2_19(uint64_t a1)
+void __66__PKAccountCardNumbersPresenter_presentCardNumbersWithCompletion___block_invoke_2_19(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32) && !*(a1 + 40))
   {
-    v6 = -[PKAccountOtherCardNumbersViewController initWithPaymentPass:account:context:localAuthContext:supportsManualFPANEntry:preferDefaultTitle:]([PKAccountOtherCardNumbersViewController alloc], "initWithPaymentPass:account:context:localAuthContext:supportsManualFPANEntry:preferDefaultTitle:", *(*(a1 + 48) + 40), 0, *(*(a1 + 48) + 48), *(a1 + 32), [*(a1 + 56) _supportsManualEntry], *(a1 + 72));
+    v7 = -[PKAccountOtherCardNumbersViewController initWithPaymentPass:account:context:localAuthContext:supportsManualFPANEntry:preferDefaultTitle:]([PKAccountOtherCardNumbersViewController alloc], "initWithPaymentPass:account:context:localAuthContext:supportsManualFPANEntry:preferDefaultTitle:", *(*(a1 + 48) + 40), 0, *(*(a1 + 48) + 48), *(a1 + 32), [*(a1 + 56) _supportsManualEntry], *(a1 + 72));
     (*(*(a1 + 64) + 16))();
   }
 
   else
   {
-    v2 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 40);
+      v4 = *(a1 + 40);
       *buf = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Card information selected: unable to present card numbers UI because auth failed with error: %@", buf, 0xCu);
+      v9 = v4;
+      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Card information selected: unable to present card numbers UI because auth failed with error: %@", buf, 0xCu);
     }
 
     if ([*(a1 + 40) pk_shouldSuppressAfterAuthenticationPolicyWasLocationBased:1])
@@ -287,8 +287,8 @@ void __66__PKAccountCardNumbersPresenter_presentCardNumbersWithCompletion___bloc
 
     else
     {
-      v4 = +[PKCardNumbersAuthentication genericDisplayableVirtualCardError];
-      v5 = PKAlertForDisplayableErrorWithHandlers(v4, 0, 0, 0);
+      v5 = +[PKCardNumbersAuthentication genericDisplayableVirtualCardError];
+      v6 = PKAlertForDisplayableErrorWithHandlers(v5, 0, 0, 0);
       (*(*(a1 + 64) + 16))();
     }
   }
@@ -474,39 +474,39 @@ void __71__PKAccountCardNumbersPresenter__prepareAuthForVirtualCard_completion__
   }
 }
 
-void __71__PKAccountCardNumbersPresenter__prepareAuthForVirtualCard_completion___block_invoke_2(uint64_t a1)
+void __71__PKAccountCardNumbersPresenter__prepareAuthForVirtualCard_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32) && !*(a1 + 40))
   {
-    v8 = [PKAccountCardNumbersViewController alloc];
-    v9 = *(a1 + 48);
-    v7 = [(PKAccountCardNumbersViewController *)v8 initWithPass:v9[5] accountService:v9[7] account:v9[3] cardCredentials:*(a1 + 32) virtualCard:*(a1 + 56) physicalCard:v9[2] context:v9[6]];
+    v9 = [PKAccountCardNumbersViewController alloc];
+    v10 = *(a1 + 48);
+    v8 = [(PKAccountCardNumbersViewController *)v9 initWithPass:v10[5] accountService:v10[7] account:v10[3] cardCredentials:*(a1 + 32) virtualCard:*(a1 + 56) physicalCard:v10[2] context:v10[6]];
   }
 
   else
   {
-    v2 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 40);
+      v4 = *(a1 + 40);
       *buf = 138412290;
-      v11 = v3;
-      _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Auth and decrypt virtual card failed with error: %@", buf, 0xCu);
+      v12 = v4;
+      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Auth and decrypt virtual card failed with error: %@", buf, 0xCu);
     }
 
-    v4 = [*(a1 + 64) domain];
-    v5 = [v4 isEqualToString:*MEMORY[0x1E69B9E00]];
+    v5 = [*(a1 + 64) domain];
+    v6 = [v5 isEqualToString:*MEMORY[0x1E69B9E00]];
 
-    if (v5)
+    if (v6)
     {
-      v6 = +[PKAccountFlowController displayableErrorForError:featureIdentifier:genericErrorTitle:genericErrorMessage:](PKAccountFlowController, "displayableErrorForError:featureIdentifier:genericErrorTitle:genericErrorMessage:", *(a1 + 64), [*(*(a1 + 48) + 24) feature], 0, 0);
-      v7 = PKAlertForDisplayableErrorWithHandlers(v6, 0, 0, 0);
+      v7 = +[PKAccountFlowController displayableErrorForError:featureIdentifier:genericErrorTitle:genericErrorMessage:](PKAccountFlowController, "displayableErrorForError:featureIdentifier:genericErrorTitle:genericErrorMessage:", *(a1 + 64), [*(*(a1 + 48) + 24) feature], 0, 0);
+      v8 = PKAlertForDisplayableErrorWithHandlers(v7, 0, 0, 0);
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
   }
 

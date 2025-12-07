@@ -31,9 +31,11 @@
 
 uint64_t __36__MSDPreferencesFile_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance = objc_alloc_init(MSDPreferencesFile);
+  v0 = objc_alloc_init(MSDPreferencesFile);
+  v1 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (MSDPreferencesFile)init
@@ -90,7 +92,7 @@ uint64_t __36__MSDPreferencesFile_sharedInstance__block_invoke()
 
   else
   {
-    [MSDPreferencesFile objectForKey:];
+    [MSDPreferencesFile objectForKey:?];
     v7 = 0;
   }
 
@@ -99,20 +101,20 @@ uint64_t __36__MSDPreferencesFile_sharedInstance__block_invoke()
 
 - (BOOL)setObject:(id)object forKey:(id)key
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   keyCopy = key;
   v8 = keyCopy;
   if (!objectCopy || !keyCopy)
   {
-    selfCopy = defaultLogHandle();
+    selfCopy = defaultLogHandle(keyCopy);
     if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 136446210;
-      v18 = "[MSDPreferencesFile setObject:forKey:]";
-      v14 = "%{public}s - Both object and key must be non-nil.";
+      v18 = 136446210;
+      v19 = "[MSDPreferencesFile setObject:forKey:]";
+      v16 = "%{public}s - Both object and key must be non-nil.";
 LABEL_13:
-      _os_log_impl(&dword_259B7D000, &selfCopy->super, OS_LOG_TYPE_DEFAULT, v14, &v17, 0xCu);
+      _os_log_impl(&dword_259B7D000, &selfCopy->super, OS_LOG_TYPE_DEFAULT, v16, &v18, 0xCu);
     }
 
 LABEL_14:
@@ -121,42 +123,43 @@ LABEL_14:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    selfCopy = defaultLogHandle();
+    selfCopy = defaultLogHandle(isKindOfClass);
     if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 136446210;
-      v18 = "[MSDPreferencesFile setObject:forKey:]";
-      v14 = "%{public}s - Key must be of type NSString.";
+      v18 = 136446210;
+      v19 = "[MSDPreferencesFile setObject:forKey:]";
+      v16 = "%{public}s - Key must be of type NSString.";
       goto LABEL_13;
     }
 
     goto LABEL_14;
   }
 
-  if (([MEMORY[0x277CCAC58] propertyList:objectCopy isValidForFormat:100] & 1) == 0)
+  v10 = [MEMORY[0x277CCAC58] propertyList:objectCopy isValidForFormat:100];
+  if ((v10 & 1) == 0)
   {
-    [(MSDPreferencesFile *)self raiseInvalidPropertyListObjectExceptionForObject:objectCopy];
+    v10 = [(MSDPreferencesFile *)self raiseInvalidPropertyListObjectExceptionForObject:objectCopy];
   }
 
-  v9 = defaultLogHandle();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v11 = defaultLogHandle(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    [(MSDPreferencesFile *)v8 setObject:objectCopy forKey:v9];
+    [(MSDPreferencesFile *)v8 setObject:objectCopy forKey:v11];
   }
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
   cache = [(MSDPreferencesFile *)selfCopy cache];
-  v12 = [(MSDPreferencesFile *)selfCopy deepCopy:objectCopy];
-  [cache setObject:v12 forKey:v8];
+  v14 = [(MSDPreferencesFile *)selfCopy deepCopy:objectCopy];
+  [cache setObject:v14 forKey:v8];
 
   saveCache = [(MSDPreferencesFile *)selfCopy saveCache];
   objc_sync_exit(selfCopy);
 LABEL_15:
 
-  v15 = *MEMORY[0x277D85DE8];
   return saveCache;
 }
 
@@ -176,7 +179,7 @@ LABEL_15:
 
   else
   {
-    [MSDPreferencesFile removeObjectForKey:];
+    [MSDPreferencesFile removeObjectForKey:?];
     saveCache = 0;
   }
 
@@ -199,7 +202,7 @@ LABEL_15:
 
   else
   {
-    [MSDPreferencesFile removeObjectsForKeys:];
+    [MSDPreferencesFile removeObjectsForKeys:?];
     saveCache = 0;
   }
 
@@ -225,27 +228,26 @@ LABEL_7:
 
   if (!v5)
   {
-    v8 = defaultLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = defaultLogHandle(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = +[MSDPreferencesFile preferencesFilePath];
+      v10 = +[MSDPreferencesFile preferencesFilePath];
       *buf = 136446722;
       v13 = "[MSDPreferencesFile populateCache]";
       v14 = 2114;
-      v15 = v9;
+      v15 = v10;
       v16 = 2114;
       v17 = v6;
-      _os_log_impl(&dword_259B7D000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s - Failed to read preferences file:  %{public}@ - Error:  %{public}@", buf, 0x20u);
+      _os_log_impl(&dword_259B7D000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s - Failed to read preferences file:  %{public}@ - Error:  %{public}@", buf, 0x20u);
     }
 
     goto LABEL_7;
   }
 
-  v7 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v5];
-  [(MSDPreferencesFile *)self setCache:v7];
+  v8 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v5];
+  [(MSDPreferencesFile *)self setCache:v8];
 
 LABEL_8:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)saveCache
@@ -259,44 +261,42 @@ LABEL_8:
 
   if ((v4 & 1) == 0)
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = defaultLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = +[MSDPreferencesFile preferencesFilePath];
+      v8 = +[MSDPreferencesFile preferencesFilePath];
       *buf = 136446722;
       v12 = "[MSDPreferencesFile saveCache]";
       v13 = 2114;
-      v14 = v7;
+      v14 = v8;
       v15 = 2114;
       v16 = v5;
-      _os_log_impl(&dword_259B7D000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s - Failed to save preferences file:  %{public}@ - Error:  %{public}@", buf, 0x20u);
+      _os_log_impl(&dword_259B7D000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s - Failed to save preferences file:  %{public}@ - Error:  %{public}@", buf, 0x20u);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (void)raiseInvalidPropertyListObjectExceptionForObject:(id)object
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   objectCopy = object;
   v5 = [v3 stringWithFormat:@"Object %@ of type %@ is not a valid property list object.", objectCopy, objc_opt_class()];
 
   v6 = [MEMORY[0x277CBEAD8] exceptionWithName:@"InvalidPropertyListObject" reason:v5 userInfo:0];
-  v7 = defaultLogHandle();
+  v7 = defaultLogHandle(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v10 = "[MSDPreferencesFile raiseInvalidPropertyListObjectExceptionForObject:]";
-    v11 = 2114;
-    v12 = v6;
+    v9 = "[MSDPreferencesFile raiseInvalidPropertyListObjectExceptionForObject:]";
+    v10 = 2114;
+    v11 = v6;
     _os_log_impl(&dword_259B7D000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s - Exception:  %{public}@", buf, 0x16u);
   }
 
   [v6 raise];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)preferencesFileUrl
@@ -328,51 +328,47 @@ void __40__MSDPreferencesFile_preferencesFileUrl__block_invoke()
   return DeepCopy;
 }
 
-- (void)objectForKey:.cold.1()
+- (void)objectForKey:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = defaultLogHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = defaultLogHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_0(&dword_259B7D000, v1, v2, "%{public}s - Key is nil.", v3, v4, v5, v6, 2u);
+    LODWORD(v8) = 136446210;
+    *(&v8 + 4) = "[MSDPreferencesFile objectForKey:]";
+    OUTLINED_FUNCTION_0(&dword_259B7D000, v2, v3, "%{public}s - Key is nil.", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setObject:(os_log_t)log forKey:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_debug_impl(&dword_259B7D000, log, OS_LOG_TYPE_DEBUG, "Setting preference %{public}@:%{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_debug_impl(&dword_259B7D000, log, OS_LOG_TYPE_DEBUG, "Setting preference %{public}@:%{public}@", &v3, 0x16u);
 }
 
-- (void)removeObjectForKey:.cold.1()
+- (void)removeObjectForKey:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = defaultLogHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = defaultLogHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_0(&dword_259B7D000, v1, v2, "%{public}s - Key is nil.", v3, v4, v5, v6, 2u);
+    LODWORD(v8) = 136446210;
+    *(&v8 + 4) = "[MSDPreferencesFile removeObjectForKey:]";
+    OUTLINED_FUNCTION_0(&dword_259B7D000, v2, v3, "%{public}s - Key is nil.", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-- (void)removeObjectsForKeys:.cold.1()
+- (void)removeObjectsForKeys:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = defaultLogHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = defaultLogHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_0(&dword_259B7D000, v1, v2, "%{public}s - Keys array pointer is nil.", v3, v4, v5, v6, 2u);
+    LODWORD(v8) = 136446210;
+    *(&v8 + 4) = "[MSDPreferencesFile removeObjectsForKeys:]";
+    OUTLINED_FUNCTION_0(&dword_259B7D000, v2, v3, "%{public}s - Keys array pointer is nil.", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -591,138 +591,136 @@ LABEL_19:
 
   v18 = qword_10195E470;
   v19 = +[NSDate now];
-  v57 = qword_10195E478;
-  v58 = qword_10195E480;
-  sub_100ACAD38(v18, 0, @"%@ <%@>[Maps][%@] : Transmitting photos or videos");
+  sub_100ACAD38(v18, 0, @"%@ <%@>[Maps][%@] : Transmitting photos or videos", v20, v21, v22, v23, v24, v19);
 
-  v20 = objc_alloc_init(GEORPFeedbackRequestParameters);
-  v21 = objc_alloc_init(GEORPFeedbackImageUploadParameters);
-  [v20 setImageUploadParameters:{v21, v19, v57, v58}];
+  v25 = objc_alloc_init(GEORPFeedbackRequestParameters);
+  v26 = objc_alloc_init(GEORPFeedbackImageUploadParameters);
+  [v25 setImageUploadParameters:v26];
 
   submissionParameters = [feedbackCopy submissionParameters];
   isPOIEnrichment = [submissionParameters isPOIEnrichment];
-  imageUploadParameters = [v20 imageUploadParameters];
+  imageUploadParameters = [v25 imageUploadParameters];
   [imageUploadParameters setIsEnrichment:isPOIEnrichment];
 
+  v80 = 0u;
+  v78 = 0u;
+  v79 = 0u;
   v77 = 0u;
-  v75 = 0u;
-  v76 = 0u;
-  v74 = 0u;
-  v25 = imagesCopy;
-  v26 = [v25 countByEnumeratingWithState:&v74 objects:v82 count:16];
-  if (v26)
+  v30 = imagesCopy;
+  v31 = [v30 countByEnumeratingWithState:&v77 objects:v85 count:16];
+  if (v31)
   {
-    v27 = *v75;
+    v32 = *v78;
     do
     {
-      for (i = 0; i != v26; i = i + 1)
+      for (i = 0; i != v31; i = i + 1)
       {
-        if (*v75 != v27)
+        if (*v78 != v32)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v30);
         }
 
-        v29 = *(*(&v74 + 1) + 8 * i);
-        imageUploadParameters2 = [v20 imageUploadParameters];
-        photoMetadata = [v29 photoMetadata];
+        v34 = *(*(&v77 + 1) + 8 * i);
+        imageUploadParameters2 = [v25 imageUploadParameters];
+        photoMetadata = [v34 photoMetadata];
         [imageUploadParameters2 addImage:photoMetadata];
       }
 
-      v26 = [v25 countByEnumeratingWithState:&v74 objects:v82 count:16];
+      v31 = [v30 countByEnumeratingWithState:&v77 objects:v85 count:16];
     }
 
-    while (v26);
+    while (v31);
   }
 
   if ((sub_100742958() & 1) == 0)
   {
-    v32 = +[MKMapService sharedService];
-    v33 = [v32 defaultTraitsWithTraits:traitsCopy];
+    v37 = +[MKMapService sharedService];
+    v38 = [v37 defaultTraitsWithTraits:traitsCopy];
 
-    traitsCopy = v33;
+    traitsCopy = v38;
   }
 
-  v62 = [GEORPFeedbackRequest defaultDebugSettingsMergedWithSettings:settingsCopy];
+  v65 = [GEORPFeedbackRequest defaultDebugSettingsMergedWithSettings:settingsCopy];
 
-  v61 = [[GEORPFeedbackRequest alloc] initWithFeedbackRequestParameters:v20 userInfo:infoCopy traits:traitsCopy debugSettings:v62];
-  v34 = [[GEORPFeedbackRequest alloc] initWithFeedbackRequestParameters:feedbackCopy userInfo:infoCopy traits:traitsCopy debugSettings:v62];
-  v35 = v34;
+  v64 = [[GEORPFeedbackRequest alloc] initWithFeedbackRequestParameters:v25 userInfo:infoCopy traits:traitsCopy debugSettings:v65];
+  v39 = [[GEORPFeedbackRequest alloc] initWithFeedbackRequestParameters:feedbackCopy userInfo:infoCopy traits:traitsCopy debugSettings:v65];
+  v40 = v39;
   if (updateCopy)
   {
-    feedbackRequestParameters = [v34 feedbackRequestParameters];
+    feedbackRequestParameters = [v39 feedbackRequestParameters];
     submissionParameters2 = [feedbackRequestParameters submissionParameters];
     clientSubmissionUuid = [submissionParameters2 clientSubmissionUuid];
 
-    feedbackRequestParameters2 = [v35 feedbackRequestParameters];
+    feedbackRequestParameters2 = [v40 feedbackRequestParameters];
     submissionParameters3 = [feedbackRequestParameters2 submissionParameters];
     hasClientSubmissionUuid = [submissionParameters3 hasClientSubmissionUuid];
     if (clientSubmissionUuid)
     {
-      v42 = hasClientSubmissionUuid;
+      v47 = hasClientSubmissionUuid;
     }
 
     else
     {
-      v42 = 0;
+      v47 = 0;
     }
 
-    if (v42)
+    if (v47)
     {
       [(FeedbackSubmissionPostActionManager *)self->_feedbackSubmissionPostActionManager saveFeedbackObject:updateCopy forSubmissionIdentifier:clientSubmissionUuid];
     }
 
     else
     {
-      v43 = sub_10002E924();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v48 = sub_10002E924();
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "submissionIdentifier is nil", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "submissionIdentifier is nil", buf, 2u);
       }
     }
   }
 
-  v44 = +[NSProgress discreteProgressWithTotalUnitCount:](NSProgress, "discreteProgressWithTotalUnitCount:", ([v25 count] + 2));
-  objc_storeStrong(&self->_currentProgress, v44);
-  v45 = sub_10002E924();
-  if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+  v49 = +[NSProgress discreteProgressWithTotalUnitCount:](NSProgress, "discreteProgressWithTotalUnitCount:", ([v30 count] + 2));
+  objc_storeStrong(&self->_currentProgress, v49);
+  v50 = sub_10002E924();
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
   {
     userCredentials = [infoCopy userCredentials];
     icloudUserPersonId = [userCredentials icloudUserPersonId];
     userCredentials2 = [infoCopy userCredentials];
     icloudUserMapsAuthToken = [userCredentials2 icloudUserMapsAuthToken];
     *buf = 138412546;
-    v79 = icloudUserPersonId;
-    v80 = 2112;
-    v81 = icloudUserMapsAuthToken;
-    _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "Submitting with icloud person id %@ and auth token %@", buf, 0x16u);
+    v82 = icloudUserPersonId;
+    v83 = 2112;
+    v84 = icloudUserMapsAuthToken;
+    _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_INFO, "Submitting with icloud person id %@ and auth token %@", buf, 0x16u);
   }
 
-  v50 = [MSPFeedbackSubmissionTicket ticketForFeedbackRequest:v61 traits:traitsCopy];
-  fakeProgress = [v50 fakeProgress];
-  [v44 addChild:fakeProgress withPendingUnitCount:1];
+  v55 = [MSPFeedbackSubmissionTicket ticketForFeedbackRequest:v64 traits:traitsCopy];
+  fakeProgress = [v55 fakeProgress];
+  [v49 addChild:fakeProgress withPendingUnitCount:1];
 
   [(FeedbackSubmissionManager *)self _logDiscardIfNeededForFeedback:feedbackCopy userInfo:infoCopy feedbackObjectToUpdate:updateCopy];
   objc_initWeak(buf, self);
-  v67[0] = _NSConcreteStackBlock;
-  v67[1] = 3221225472;
-  v67[2] = sub_100AAB014;
-  v67[3] = &unk_101636B48;
-  objc_copyWeak(v73, buf);
-  v52 = completionCopy;
-  v72 = v52;
-  v53 = v25;
-  v68 = v53;
-  v54 = v35;
-  v69 = v54;
-  v73[1] = policyCopy;
-  v55 = traitsCopy;
-  v70 = v55;
-  v56 = v44;
-  v71 = v56;
-  [v50 submitWithHandler:v67 networkActivity:0];
+  v70[0] = _NSConcreteStackBlock;
+  v70[1] = 3221225472;
+  v70[2] = sub_100AAB014;
+  v70[3] = &unk_101636B48;
+  objc_copyWeak(v76, buf);
+  v57 = completionCopy;
+  v75 = v57;
+  v58 = v30;
+  v71 = v58;
+  v59 = v40;
+  v72 = v59;
+  v76[1] = policyCopy;
+  v60 = traitsCopy;
+  v73 = v60;
+  v61 = v49;
+  v74 = v61;
+  [v55 submitWithHandler:v70 networkActivity:0];
 
-  objc_destroyWeak(v73);
+  objc_destroyWeak(v76);
   objc_destroyWeak(buf);
 }
 

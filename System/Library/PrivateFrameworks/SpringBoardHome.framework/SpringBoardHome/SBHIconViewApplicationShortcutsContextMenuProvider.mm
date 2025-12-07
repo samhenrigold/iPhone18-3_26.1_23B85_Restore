@@ -286,7 +286,7 @@ LABEL_21:
               {
                 v31 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"gearshape"];
                 v35 = MEMORY[0x1E69DCC60];
-                v36 = SBHBundle();
+                v36 = SBHBundle(v31);
                 v37 = [v36 localizedStringForKey:@"OPTIONS" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
                 v38 = [v35 menuWithTitle:v37 image:v31 identifier:0 options:32 children:array4];
 
@@ -708,16 +708,16 @@ uint64_t __96__SBHIconViewApplicationShortcutsContextMenuProvider_contextMenuSec
   return v4;
 }
 
-uint64_t __92__SBHIconViewApplicationShortcutsContextMenuProvider_applicationShortcutServiceForIconView___block_invoke(uint64_t a1)
+uint64_t __92__SBHIconViewApplicationShortcutsContextMenuProvider_applicationShortcutServiceForIconView___block_invoke()
 {
-  result = SBHIsRunningInSpringBoard(a1);
+  result = SBHIsRunningInSpringBoard();
   if ((result & 1) == 0)
   {
-    v2 = objc_alloc_init(MEMORY[0x1E69D41C0]);
-    v3 = applicationShortcutServiceForIconView___applicationShortcutService;
-    applicationShortcutServiceForIconView___applicationShortcutService = v2;
+    v1 = objc_alloc_init(MEMORY[0x1E69D41C0]);
+    v2 = applicationShortcutServiceForIconView___applicationShortcutService;
+    applicationShortcutServiceForIconView___applicationShortcutService = v1;
 
-    return MEMORY[0x1EEE66BB8](v2, v3);
+    return MEMORY[0x1EEE66BB8](v1, v2);
   }
 
   return result;
@@ -747,8 +747,7 @@ uint64_t __92__SBHIconViewApplicationShortcutsContextMenuProvider_applicationSho
 {
   viewCopy = view;
   icon = [viewCopy icon];
-  isApplicationIcon = [icon isApplicationIcon];
-  if (isApplicationIcon && (SBHIsRunningInSpringBoard(isApplicationIcon) & 1) == 0 && [objc_opt_class() supportsPreviewInteraction])
+  if ([icon isApplicationIcon] && (SBHIsRunningInSpringBoard() & 1) == 0 && objc_msgSend(objc_opt_class(), "supportsPreviewInteraction"))
   {
     applicationBundleID = [icon applicationBundleID];
     delegate = [(SBHIconViewApplicationShortcutsContextMenuProvider *)self delegate];
@@ -756,28 +755,28 @@ uint64_t __92__SBHIconViewApplicationShortcutsContextMenuProvider_applicationSho
     {
       if ([delegate iconViewShouldIncludeUninstallShortcutItem:viewCopy])
       {
-        v9 = 16777224;
+        v8 = 16777224;
       }
 
       else
       {
-        v9 = 0x1000000;
+        v8 = 0x1000000;
       }
     }
 
     else
     {
-      v9 = 0x1000000;
+      v8 = 0x1000000;
     }
 
-    v10 = [objc_opt_class() applicationShortcutServiceForIconView:viewCopy];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __108__SBHIconViewApplicationShortcutsContextMenuProvider_fetchApplicationShortcutItemsIfAppropriateForIconView___block_invoke;
-    v11[3] = &unk_1E8090B10;
-    v12 = viewCopy;
-    v13 = icon;
-    [v10 fetchApplicationShortcutItemsOfTypes:v9 forBundleIdentifier:applicationBundleID withCompletionHandler:v11];
+    v9 = [objc_opt_class() applicationShortcutServiceForIconView:viewCopy];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __108__SBHIconViewApplicationShortcutsContextMenuProvider_fetchApplicationShortcutItemsIfAppropriateForIconView___block_invoke;
+    v10[3] = &unk_1E8090B10;
+    v11 = viewCopy;
+    v12 = icon;
+    [v9 fetchApplicationShortcutItemsOfTypes:v8 forBundleIdentifier:applicationBundleID withCompletionHandler:v10];
   }
 
   else
@@ -1056,12 +1055,13 @@ uint64_t __104__SBHIconViewApplicationShortcutsContextMenuProvider_activateShort
 void __104__SBHIconViewApplicationShortcutsContextMenuProvider_activateShortcut_withBundleIdentifier_forIconView___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = SBLogIcon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = SBLogIcon(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __104__SBHIconViewApplicationShortcutsContextMenuProvider_activateShortcut_withBundleIdentifier_forIconView___block_invoke_3_cold_1(a1, v4, v5);
+      __104__SBHIconViewApplicationShortcutsContextMenuProvider_activateShortcut_withBundleIdentifier_forIconView___block_invoke_3_cold_1(a1, v5, v6);
     }
   }
 }
@@ -1078,16 +1078,16 @@ void __104__SBHIconViewApplicationShortcutsContextMenuProvider_activateShortcut_
   return v3;
 }
 
-uint64_t __71__SBHIconViewApplicationShortcutsContextMenuProvider_homeScreenService__block_invoke(uint64_t a1)
+uint64_t __71__SBHIconViewApplicationShortcutsContextMenuProvider_homeScreenService__block_invoke()
 {
-  result = SBHIsRunningInSpringBoard(a1);
+  result = SBHIsRunningInSpringBoard();
   if ((result & 1) == 0)
   {
-    v2 = objc_alloc_init(MEMORY[0x1E69D4240]);
-    v3 = homeScreenService__homeScreenService_2;
-    homeScreenService__homeScreenService_2 = v2;
+    v1 = objc_alloc_init(MEMORY[0x1E69D4240]);
+    v2 = homeScreenService__homeScreenService_2;
+    homeScreenService__homeScreenService_2 = v1;
 
-    return MEMORY[0x1EEE66BB8](v2, v3);
+    return MEMORY[0x1EEE66BB8](v1, v2);
   }
 
   return result;

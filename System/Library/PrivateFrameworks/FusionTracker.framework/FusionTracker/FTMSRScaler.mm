@@ -11,7 +11,7 @@
   v5.super_class = FTMSRScaler;
   if ([(FTMSRScaler *)&v5 init])
   {
-    v3 = 1;
+    v3[0] = 1;
     v4 = 4;
     operator new();
   }

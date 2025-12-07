@@ -39,14 +39,14 @@
   return v2;
 }
 
-void __19__ASXPCClient_init__block_invoke()
+void __19__ASXPCClient_init__block_invoke(uint64_t a1)
 {
   ASLoggingInitialize();
-  v0 = *MEMORY[0x277CE8FE8];
+  v1 = *MEMORY[0x277CE8FE8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FE8], OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_23E5E3000, v0, OS_LOG_TYPE_DEFAULT, "ASXPCClient connection interrupted", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_23E5E3000, v1, OS_LOG_TYPE_DEFAULT, "ASXPCClient connection interrupted", v2, 2u);
   }
 }
 
@@ -74,19 +74,17 @@ void __19__ASXPCClient_init__block_invoke_340(uint64_t a1)
 
 - (void)launch
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   remoteObjectProxy = [(NSXPCConnection *)self->_connection remoteObjectProxy];
   [remoteObjectProxy launch];
   ASLoggingInitialize();
   v3 = *MEMORY[0x277CE8FE8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FE8], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = remoteObjectProxy;
-    _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "ASXPCClient launching server %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = remoteObjectProxy;
+    _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "ASXPCClient launching server %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate

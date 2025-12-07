@@ -3,9 +3,18 @@
 - (void)listItemSelected:(id)selected;
 - (void)setupTableViewHeader;
 - (void)updateRotateImage:(int64_t)image;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation BTSDeviceConfigDigitalCrownController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = BTSDeviceConfigDigitalCrownController;
+  [(PSListItemsController *)&v4 viewWillAppear:appear];
+  [(BTSDeviceConfigDigitalCrownController *)self setupTableViewHeader];
+}
 
 - (void)setupTableViewHeader
 {

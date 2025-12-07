@@ -8,14 +8,12 @@
 
 + (id)commandPaths
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CD52F0] commandPathWithEndpointID:&unk_28697C5D0 clusterID:&unk_28697C678 commandID:&unk_28697C600];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [MEMORY[0x277CD52F0] commandPathWithEndpointID:&unk_28697C5D0 clusterID:&unk_28697C678 commandID:&unk_28697C690];
-  v7[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
 
   return v4;
 }
@@ -40,40 +38,40 @@
 - (id)additionalCoreAnalyticsEventDictionary
 {
   selfCopy = self;
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   invokeCommandMetric = [(MTRPluginServiceAreaMetric *)self invokeCommandMetric];
   expectedValues = [invokeCommandMetric expectedValues];
 
   obj = expectedValues;
-  v43 = [expectedValues countByEnumeratingWithState:&v44 objects:v48 count:16];
-  if (!v43)
+  v42 = [expectedValues countByEnumeratingWithState:&v43 objects:v47 count:16];
+  if (!v42)
   {
     v23 = @"allAreasSelected";
     goto LABEL_31;
   }
 
-  v36 = selfCopy;
-  v38 = 0;
-  v42 = *v45;
+  v35 = selfCopy;
+  v37 = 0;
+  v41 = *v44;
   v5 = *MEMORY[0x277CD50B8];
   v6 = *MEMORY[0x277CD50D8];
-  v40 = *MEMORY[0x277CD5188];
-  v39 = *MEMORY[0x277CD50B0];
-  v37 = *MEMORY[0x277CD51A0];
+  v39 = *MEMORY[0x277CD5188];
+  v38 = *MEMORY[0x277CD50B0];
+  v36 = *MEMORY[0x277CD51A0];
   do
   {
-    for (i = 0; i != v43; ++i)
+    for (i = 0; i != v42; ++i)
     {
-      if (*v45 != v42)
+      if (*v44 != v41)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v44 + 1) + 8 * i);
+      v8 = *(*(&v43 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -122,25 +120,25 @@
 
           if (unsignedIntValue == 2)
           {
-            v20 = [v15 objectForKeyedSubscript:v40];
-            v21 = [v20 isEqual:v39];
+            v20 = [v15 objectForKeyedSubscript:v39];
+            v21 = [v20 isEqual:v38];
 
             v5 = v17;
             if (v21)
             {
-              cluster = [v15 objectForKeyedSubscript:v37];
+              cluster = [v15 objectForKeyedSubscript:v36];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v22 = [v15 objectForKeyedSubscript:v37];
-                v38 = [v22 count];
+                v22 = [v15 objectForKeyedSubscript:v36];
+                v37 = [v22 count];
 
                 v5 = v17;
               }
 
               else
               {
-                v38 = [0 count];
+                v37 = [0 count];
               }
 
               goto LABEL_23;
@@ -160,17 +158,17 @@ LABEL_23:
       }
     }
 
-    v43 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+    v42 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
   }
 
-  while (v43);
+  while (v42);
   v23 = @"allAreasSelected";
-  if (v38)
+  if (v37)
   {
     v23 = @"areasSelected";
   }
 
-  selfCopy = v36;
+  selfCopy = v35;
 LABEL_31:
 
   v24 = MEMORY[0x277CBEB38];
@@ -195,10 +193,8 @@ LABEL_31:
   if (!unsignedIntValue3)
   {
 LABEL_34:
-    [v27 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:{v23, v36}];
+    [v27 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:{v23, v35}];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v27;
 }

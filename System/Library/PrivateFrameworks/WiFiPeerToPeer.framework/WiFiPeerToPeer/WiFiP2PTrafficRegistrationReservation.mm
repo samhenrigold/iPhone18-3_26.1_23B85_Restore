@@ -151,9 +151,9 @@ void __51__WiFiP2PTrafficRegistrationReservation_invalidate__block_invoke(uint64
   }
 }
 
-uint64_t __51__WiFiP2PTrafficRegistrationReservation_invalidate__block_invoke_2(uint64_t result)
+void *__51__WiFiP2PTrafficRegistrationReservation_invalidate__block_invoke_2(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (!*(v1 + 16))
   {
     return [*(v1 + 8) stop];

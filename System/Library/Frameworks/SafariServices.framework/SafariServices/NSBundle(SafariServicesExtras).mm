@@ -11,9 +11,9 @@
     +[NSBundle(SafariServicesExtras) _sf_safariServicesBundle];
   }
 
-  v1 = _sf_safariServicesBundle_bundle;
+  v2 = _sf_safariServicesBundle_bundle;
 
-  return v1;
+  return v2;
 }
 
 @end

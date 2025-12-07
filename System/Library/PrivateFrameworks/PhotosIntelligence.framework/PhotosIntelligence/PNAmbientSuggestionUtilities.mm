@@ -105,12 +105,11 @@ LABEL_16:
   return result;
 }
 
-uint64_t __49__PNAmbientSuggestionUtilities__deviceScreenSize__block_invoke()
+void __49__PNAmbientSuggestionUtilities__deviceScreenSize__block_invoke()
 {
-  result = PFDeviceScreenSize();
-  _deviceScreenSize_deviceSize_0 = v1;
-  _deviceScreenSize_deviceSize_1 = v2;
-  return result;
+  PFDeviceScreenSize();
+  _deviceScreenSize_deviceSize_0 = v0;
+  _deviceScreenSize_deviceSize_1 = v1;
 }
 
 + (id)fetchMemoryKeyAssetsInPhotoLibrary:(id)library limit:(unint64_t)limit randomSeed:(unint64_t)seed

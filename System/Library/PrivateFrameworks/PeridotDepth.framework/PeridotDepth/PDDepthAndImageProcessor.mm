@@ -141,7 +141,7 @@
   metadataDictionary = [imageCopy metadataDictionary];
   if (imageCopy)
   {
-    [imageCopy timestamp];
+    objc_msgSend_timestamp(imageCopy);
   }
 
   else
@@ -169,7 +169,7 @@
   pointCloud = [cloudCopy pointCloud];
   if (cloudCopy)
   {
-    [cloudCopy timestamp];
+    objc_msgSend_timestamp(cloudCopy);
   }
 
   else

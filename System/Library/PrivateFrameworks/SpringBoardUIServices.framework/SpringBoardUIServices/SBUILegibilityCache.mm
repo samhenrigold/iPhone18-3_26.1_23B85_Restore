@@ -203,7 +203,7 @@ uint64_t __61__SBUILegibilityCache_templateImageForSettings_matchingSize___block
 
 - (id)cachedStrengthForImage:(id)image strength:(double)strength generator:(id)generator
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   imageCopy = image;
   generatorCopy = generator;
   engine = [(SBUILegibilityCache *)self engine];
@@ -214,24 +214,25 @@ uint64_t __61__SBUILegibilityCache_templateImageForSettings_matchingSize___block
 
   if (v13)
   {
-    v14 = SBLogLegibility();
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v15 = SBLogLegibility(v14);
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_9;
     }
 
-    v18 = 138412802;
-    v19 = engine;
-    v20 = 2112;
-    v21 = imageCopy;
-    v22 = 2048;
+    v20 = 138412802;
+    v21 = engine;
+    v22 = 2112;
+    v23 = imageCopy;
+    v24 = 2048;
     strengthCopy2 = strength;
-    v15 = "(%@) Skipped drawing strength for image %@ / %f";
+    v16 = "(%@) Skipped drawing strength for image %@ / %f";
     goto LABEL_13;
   }
 
-  v13 = generatorCopy[2](generatorCopy, imageCopy, strength);
-  if (v13)
+  v17 = generatorCopy[2](generatorCopy, imageCopy, strength);
+  v13 = v17;
+  if (v17)
   {
     if (!strongToWeakObjectsMapTable)
     {
@@ -239,22 +240,22 @@ uint64_t __61__SBUILegibilityCache_templateImageForSettings_matchingSize___block
       [(NSMapTable *)self->_strengthForImageLookupMap setObject:strongToWeakObjectsMapTable forKey:imageCopy];
     }
 
-    v16 = [MEMORY[0x1E696AD98] numberWithDouble:strength];
-    [strongToWeakObjectsMapTable setObject:v13 forKey:v16];
+    v18 = [MEMORY[0x1E696AD98] numberWithDouble:strength];
+    [strongToWeakObjectsMapTable setObject:v13 forKey:v18];
   }
 
-  v14 = SBLogLegibility();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = SBLogLegibility(v17);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 138412802;
-    v19 = engine;
-    v20 = 2112;
-    v21 = imageCopy;
-    v22 = 2048;
+    v20 = 138412802;
+    v21 = engine;
+    v22 = 2112;
+    v23 = imageCopy;
+    v24 = 2048;
     strengthCopy2 = strength;
-    v15 = "(%@) Drawing strength for image %@ / %f";
+    v16 = "(%@) Drawing strength for image %@ / %f";
 LABEL_13:
-    _os_log_debug_impl(&dword_1A9A79000, v14, OS_LOG_TYPE_DEBUG, v15, &v18, 0x20u);
+    _os_log_debug_impl(&dword_1A9A79000, v15, OS_LOG_TYPE_DEBUG, v16, &v20, 0x20u);
   }
 
 LABEL_9:

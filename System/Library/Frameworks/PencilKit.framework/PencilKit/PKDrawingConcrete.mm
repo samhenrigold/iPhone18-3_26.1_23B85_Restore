@@ -198,8 +198,8 @@
     v10 = *(v5 + 11);
     *(v5 + 11) = v9;
 
-    version = [drawingCopy version];
-    v12 = [version copy];
+    v11 = objc_msgSend_version(drawingCopy);
+    v12 = [v11 copy];
     v13 = *(v5 + 21);
     *(v5 + 21) = v12;
 
@@ -211,7 +211,7 @@
     v18 = *(drawingCopy + 9);
     *(v5 + 8) = *(drawingCopy + 8);
     *(v5 + 9) = v18;
-    [drawingCopy boundsVersion];
+    objc_msgSend_boundsVersion(drawingCopy);
     v19 = v27;
     *(v5 + 12) = v26[1];
     *(v5 + 26) = v19;
@@ -276,8 +276,8 @@ LABEL_8:
 
   if (drawingCopy)
   {
-    version = [drawingCopy version];
-    v14 = [version copy];
+    v13 = objc_msgSend_version(drawingCopy);
+    v14 = [v13 copy];
     version = v8->_version;
     v8->_version = v14;
 
@@ -475,15 +475,15 @@ LABEL_10:
     replicaUUID = [(PKDrawingConcrete *)self replicaUUID];
     [replicaUUID getUUIDBytes:self->_boundsVersion.replicaUUID];
 
-    version = [(PKDrawingConcrete *)self version];
+    v13 = objc_msgSend_version(self);
     replicaUUID2 = [(PKDrawingConcrete *)self replicaUUID];
-    v10 = [version clockForUUID:replicaUUID2];
+    v10 = [v13 clockForUUID:replicaUUID2];
 
     if (!v10)
     {
-      version2 = [(PKDrawingConcrete *)self version];
+      v14 = objc_msgSend_version(self);
       replicaUUID3 = [(PKDrawingConcrete *)self replicaUUID];
-      [version2 setClock:0 forUUID:replicaUUID3];
+      [v14 setClock:0 forUUID:replicaUUID3];
     }
   }
 }
@@ -579,7 +579,7 @@ LABEL_10:
 
     if (lastObject)
     {
-      [lastObject _sortID];
+      objc_msgSend__sortID(lastObject);
       clock = v24.clock;
       subclock = v24.subclock;
     }
@@ -600,9 +600,9 @@ LABEL_10:
     subclock = 0;
   }
 
-  version = [(PKDrawingConcrete *)self version];
+  v11 = objc_msgSend_version(self);
   replicaUUID = [(PKDrawingConcrete *)self replicaUUID];
-  v13 = [version clockElementForUUID:replicaUUID];
+  v13 = [v11 clockElementForUUID:replicaUUID];
 
   v23 = 0uLL;
   replicaUUID2 = [(PKDrawingConcrete *)self replicaUUID];
@@ -628,20 +628,20 @@ LABEL_10:
   v21.clock = clock;
   *v21.replicaUUID = v25;
   v21.subclock = subclock;
-  [(PKDrawingConcrete *)self newStrokeIDGreaterThan:&v21];
+  objc_msgSend_newStrokeIDGreaterThan_(self, *&v21.clock, (v25 >> 32), *&v21.replicaUUID[12]);
   v21 = v24;
   [insertionCopy set_sortID:&v21];
-  version2 = [(PKDrawingConcrete *)self version];
+  v17 = objc_msgSend_version(self);
   v18 = v24.clock;
   v19 = v24.subclock;
   replicaUUID3 = [(PKDrawingConcrete *)self replicaUUID];
-  [version2 setClock:v18 subclock:v19 forUUID:replicaUUID3];
+  [v17 setClock:v18 subclock:v19 forUUID:replicaUUID3];
 }
 
 - (_PKStrokeID)newStrokeIDGreaterThan:(SEL)than
 {
   v4 = [(PKDrawingConcrete *)self replicaUUID:*&a4->clock];
-  [PKDrawingConcrete newStrokeIDGreaterThan:&v6 forUUID:v4];
+  objc_msgSend_newStrokeIDGreaterThan_forUUID_(PKDrawingConcrete);
 
   return result;
 }
@@ -707,7 +707,7 @@ LABEL_10:
     v9 = [strokeCopy ink];
     if (strokeCopy)
     {
-      [strokeCopy _transform];
+      objc_msgSend__transform(strokeCopy);
     }
 
     else
@@ -788,9 +788,9 @@ LABEL_10:
     }
   }
 
-  version = [(PKDrawingConcrete *)self version];
+  v16 = objc_msgSend_version(self);
   replicaUUID = [(PKDrawingConcrete *)self replicaUUID];
-  [version incrementClockForUUID:replicaUUID];
+  [v16 incrementClockForUUID:replicaUUID];
 
   [(PKDrawing *)self setNeedsRecognitionUpdate];
 }
@@ -1045,7 +1045,7 @@ id __39__PKDrawingConcrete_setStrokes_hidden___block_invoke(uint64_t a1, void *a
   {
     if (copyForMutation)
     {
-      [copyForMutation _transform];
+      objc_msgSend__transform(copyForMutation);
     }
 
     else
@@ -1359,9 +1359,9 @@ id __48__PKDrawingConcrete__updateStrokes_updateBlock___block_invoke(void *a1, v
     {
       [(NSMutableArray *)self->_allStrokes insertObject:strokeCopy atIndex:v4];
 LABEL_9:
-      version = [(PKDrawingConcrete *)self version];
+      v17 = objc_msgSend_version(self);
       replicaUUID = [(PKDrawingConcrete *)self replicaUUID];
-      [version incrementClockForUUID:replicaUUID];
+      [v17 incrementClockForUUID:replicaUUID];
 
       [(PKDrawingConcrete *)self invalidateVisibleStrokes];
       [(PKDrawing *)self setNeedsRecognitionUpdate];
@@ -1387,8 +1387,8 @@ LABEL_10:
 - (void)normalizeUUIDsWithDrawing:(id)drawing
 {
   drawingCopy = drawing;
-  version = [(PKDrawingConcrete *)self version];
-  if (([version isEmpty] & 1) == 0)
+  v5 = objc_msgSend_version(self);
+  if (([v5 isEmpty] & 1) == 0)
   {
 
 LABEL_8:
@@ -1409,19 +1409,19 @@ LABEL_8:
     goto LABEL_18;
   }
 
-  version2 = [drawingCopy version];
-  isEmpty = [version2 isEmpty];
+  v6 = objc_msgSend_version(drawingCopy);
+  isEmpty = [v6 isEmpty];
 
   if ((isEmpty & 1) == 0)
   {
     goto LABEL_8;
   }
 
-  version3 = [(PKDrawingConcrete *)self version];
-  if ([version3 isEmpty])
+  v8 = objc_msgSend_version(self);
+  if ([v8 isEmpty])
   {
-    version4 = [drawingCopy version];
-    isEmpty2 = [version4 isEmpty];
+    v9 = objc_msgSend_version(drawingCopy);
+    isEmpty2 = [v9 isEmpty];
 
     if (isEmpty2)
     {
@@ -1447,8 +1447,8 @@ LABEL_8:
   {
   }
 
-  version5 = [(PKDrawingConcrete *)self version];
-  isEmpty3 = [version5 isEmpty];
+  v17 = objc_msgSend_version(self);
+  isEmpty3 = [v17 isEmpty];
 
   if (isEmpty3)
   {
@@ -1470,7 +1470,7 @@ LABEL_18:
     [(PKDrawingConcrete *)drawingCopy willMergeWithDrawing:self];
     if (drawingCopy)
     {
-      [(PKDrawingConcrete *)drawingCopy boundsVersion];
+      objc_msgSend_boundsVersion(drawingCopy);
       v5 = *buf;
     }
 
@@ -1480,7 +1480,7 @@ LABEL_18:
       memset(buf, 0, sizeof(buf));
     }
 
-    [(PKDrawingConcrete *)self boundsVersion];
+    objc_msgSend_boundsVersion(self);
     if (v5 < v56)
     {
       goto LABEL_11;
@@ -1488,7 +1488,7 @@ LABEL_18:
 
     if (drawingCopy)
     {
-      [(PKDrawingConcrete *)drawingCopy boundsVersion];
+      objc_msgSend_boundsVersion(drawingCopy);
     }
 
     else
@@ -1519,9 +1519,9 @@ LABEL_11:
       self->__canvasBounds.size.height = v14;
     }
 
-    version = [(PKDrawingConcrete *)self version];
-    version2 = [(PKDrawingConcrete *)drawingCopy version];
-    v17 = [version compareTo:version2];
+    v15 = objc_msgSend_version(self);
+    v16 = objc_msgSend_version(drawingCopy);
+    v17 = [v15 compareTo:v16];
 
     if ((v17 & 1) == 0)
     {
@@ -1549,8 +1549,8 @@ LABEL_11:
       allStrokes = self->_allStrokes;
       self->_allStrokes = v23;
 
-      version3 = [(PKDrawingConcrete *)drawingCopy version];
-      v26 = [version3 copy];
+      v25 = objc_msgSend_version(drawingCopy);
+      v26 = [v25 copy];
       version = self->_version;
       self->_version = v26;
 
@@ -1598,9 +1598,9 @@ LABEL_39:
     if (v41 - 1 < 0)
     {
 LABEL_35:
-      version4 = [(PKDrawingConcrete *)self version];
-      version5 = [(PKDrawingConcrete *)drawingCopy version];
-      [version4 mergeWithTimestamp:version5];
+      v50 = objc_msgSend_version(self);
+      v51 = objc_msgSend_version(drawingCopy);
+      [v50 mergeWithTimestamp:v51];
 
       [(PKDrawingConcrete *)self invalidateVisibleStrokes];
       [(PKDrawing *)self setNeedsRecognitionUpdate];
@@ -1690,9 +1690,9 @@ LABEL_37:
 
 - (void)didUpdate
 {
-  version = [(PKDrawingConcrete *)self version];
+  v4 = objc_msgSend_version(self, a2);
   replicaUUID = [(PKDrawingConcrete *)self replicaUUID];
-  [version incrementClockForUUID:replicaUUID];
+  [v4 incrementClockForUUID:replicaUUID];
 }
 
 - (unint64_t)hash
@@ -1700,8 +1700,8 @@ LABEL_37:
   v3 = [objc_opt_class() hash];
   uuid = [(PKDrawingConcrete *)self uuid];
   v5 = [uuid hash];
-  version = [(PKDrawingConcrete *)self version];
-  v7 = [version hash];
+  v6 = objc_msgSend_version(self);
+  v7 = [v6 hash];
 
   return v5 ^ v3 ^ v7;
 }
@@ -1730,9 +1730,9 @@ LABEL_37:
     goto LABEL_7;
   }
 
-  version = [(PKDrawingConcrete *)self version];
-  version2 = [equalCopy version];
-  if (![version isEqual:version2])
+  v9 = objc_msgSend_version(self);
+  v10 = objc_msgSend_version(equalCopy);
+  if (![v9 isEqual:v10])
   {
 
 LABEL_7:
@@ -1740,8 +1740,8 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  [equalCopy boundsVersion];
-  [(PKDrawingConcrete *)self boundsVersion];
+  objc_msgSend_boundsVersion(equalCopy);
+  objc_msgSend_boundsVersion(self);
   v11 = _PKStrokeIDCompare(&v14, &v13) == 0;
 
 LABEL_8:
@@ -2099,51 +2099,53 @@ void __62__PKDrawingConcrete_UpgradeAdditions___defaultConversionQueue__block_in
 
 - (id)_upgradeOnQueue:(id)queue isLegacyDrawing:(BOOL)drawing completionBlock:(id)block
 {
-  drawingCopy = drawing;
   queueCopy = queue;
   blockCopy = block;
-  v32 = 0u;
-  v33 = 0u;
-  [(PKDrawingConcrete *)self _drawingStrokeInfoIsLegacyDrawing:drawingCopy];
+  v34 = 0u;
+  v35 = 0u;
+  objc_msgSend__drawingStrokeInfoIsLegacyDrawing_(self);
   [(PKDrawingConcrete *)self _unscaledOrientedDrawingSize];
-  memset(&v31, 0, sizeof(v31));
-  [PKDrawingConcrete _orientationTransform:[(PKDrawingConcrete *)self _orientation] size:v10, v11];
+  v11 = v10;
+  v13 = v12;
+  memset(&v33, 0, sizeof(v33));
+  [(PKDrawingConcrete *)self _orientation];
+  objc_msgSend__orientationTransform_size_(PKDrawingConcrete, v11, v13);
   [(PKDrawingConcrete *)self _conversionScaleFactor];
-  if (v12 != 1.0)
+  if (v14 != 1.0)
   {
-    t1 = v31;
-    CGAffineTransformMakeScale(&t2, v12, v12);
-    CGAffineTransformConcat(&v30, &t1, &t2);
-    v31 = v30;
+    t1 = v33;
+    CGAffineTransformMakeScale(&t2, v14, v14);
+    CGAffineTransformConcat(&v32, &t1, &t2);
+    v33 = v32;
   }
 
-  v30 = v31;
-  v13 = !CGAffineTransformIsIdentity(&v30);
-  v14 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:*(&v32 + 1) + v33 + v13 + *(&v33 + 1)];
+  v32 = v33;
+  v15 = !CGAffineTransformIsIdentity(&v32);
+  v16 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:*(&v34 + 1) + v35 + v15 + *(&v35 + 1)];
   if (!queueCopy)
   {
     queueCopy = [objc_opt_class() _defaultConversionQueue];
   }
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v23 = v32;
-  v20[2] = __87__PKDrawingConcrete_UpgradeAdditions___upgradeOnQueue_isLegacyDrawing_completionBlock___block_invoke;
-  v20[3] = &unk_1E82D9090;
-  v20[4] = self;
-  v24 = v33;
-  v15 = v14;
-  v26 = drawingCopy;
-  v27 = v13;
-  v25 = v31;
-  v21 = v15;
-  v22 = blockCopy;
-  v16 = blockCopy;
-  dispatch_async(queueCopy, v20);
-  v17 = v22;
-  v18 = v15;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v25 = v34;
+  v22[2] = __87__PKDrawingConcrete_UpgradeAdditions___upgradeOnQueue_isLegacyDrawing_completionBlock___block_invoke;
+  v22[3] = &unk_1E82D9090;
+  v22[4] = self;
+  v26 = v35;
+  v17 = v16;
+  drawingCopy = drawing;
+  v29 = v15;
+  v27 = v33;
+  v23 = v17;
+  v24 = blockCopy;
+  v18 = blockCopy;
+  dispatch_async(queueCopy, v22);
+  v19 = v24;
+  v20 = v17;
 
-  return v18;
+  return v20;
 }
 
 void __87__PKDrawingConcrete_UpgradeAdditions___upgradeOnQueue_isLegacyDrawing_completionBlock___block_invoke(uint64_t a1)
@@ -2314,24 +2316,27 @@ void __87__PKDrawingConcrete_UpgradeAdditions___upgradeOnQueue_isLegacyDrawing_c
 
 - (CGAffineTransform)_transformForImageWithSize:(SEL)size
 {
+  height = a4.height;
+  width = a4.width;
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   *&retstr->a = 0u;
-  [PKDrawingConcrete _orientationTransform:[(PKDrawingConcrete *)self _orientation] size:a4.width, a4.height];
-  CGAffineTransformInvert(retstr, &v12);
+  [(PKDrawingConcrete *)self _orientation];
+  objc_msgSend__orientationTransform_size_(PKDrawingConcrete, width, height);
+  CGAffineTransformInvert(retstr, &v14);
   result = [(PKDrawingConcrete *)self _conversionScaleFactor];
-  if (v7 != 1.0)
+  if (v9 != 1.0)
   {
-    v8 = *&retstr->c;
+    v10 = *&retstr->c;
     *&t1.a = *&retstr->a;
-    *&t1.c = v8;
+    *&t1.c = v10;
     *&t1.tx = *&retstr->tx;
-    CGAffineTransformMakeScale(&v10, v7, v7);
-    result = CGAffineTransformConcat(&v12, &t1, &v10);
-    v9 = *&v12.c;
-    *&retstr->a = *&v12.a;
-    *&retstr->c = v9;
-    *&retstr->tx = *&v12.tx;
+    CGAffineTransformMakeScale(&v12, v9, v9);
+    result = CGAffineTransformConcat(&v14, &t1, &v12);
+    v11 = *&v14.c;
+    *&retstr->a = *&v14.a;
+    *&retstr->c = v11;
+    *&retstr->tx = *&v14.tx;
   }
 
   return result;
@@ -2417,7 +2422,7 @@ void __87__PKDrawingConcrete_UpgradeAdditions___upgradeOnQueue_isLegacyDrawing_c
 
         v8 = *(*(&v24 + 1) + 8 * i);
         v9 = [v8 ink];
-        if (![v9 version])
+        if (!objc_msgSend_version(v9))
         {
           identifier = [v9 identifier];
           v11 = [identifier isEqualToString:@"com.apple.ink.pen"];
@@ -3202,10 +3207,10 @@ LABEL_31:
       {
         for (i = 1; i != v11; ++i)
         {
-          version = [(PKDrawingConcrete *)v5 version];
+          v13 = objc_msgSend_version(v5);
           timestamps3 = [(PKVectorMultiTimestamp *)v6 timestamps];
           v15 = [timestamps3 objectAtIndexedSubscript:i];
-          [version mergeWithTimestamp:v15];
+          [v13 mergeWithTimestamp:v15];
         }
       }
 
@@ -3280,8 +3285,8 @@ LABEL_31:
 {
   v71 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E695DFA0];
-  version = [(PKDrawingConcrete *)self version];
-  allUUIDs = [version allUUIDs];
+  v6 = objc_msgSend_version(self, a2);
+  allUUIDs = [v6 allUUIDs];
   v8 = [v5 orderedSetWithArray:allUUIDs];
 
   v62 = 0u;
@@ -3345,11 +3350,11 @@ LABEL_31:
     memset(v68, 0, sizeof(v68));
     [v14 getUUIDBytes:v68];
     PB::Data::assign(*(archive + 6), v68, &v69);
-    version2 = [(PKDrawingConcrete *)self version];
-    [version2 clockElementForUUID:v14];
+    v17 = objc_msgSend_version(self);
+    [v17 clockElementForUUID:v14];
     objc_claimAutoreleasedReturnValue();
 
-    PB::PtrVector<drawing::StrokeID>::emplace_back<>();
+    PB::PtrVector<drawing::StrokeID>::emplace_back<>(archive + 13);
   }
 
   orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
@@ -3408,7 +3413,7 @@ LABEL_31:
   v26 = orderedSet;
   if ([v26 countByEnumeratingWithState:v55 objects:v65 count:16])
   {
-    PB::PtrVector<drawing::Ink>::emplace_back<>();
+    PB::PtrVector<drawing::Ink>::emplace_back<>(archive + 3);
   }
 
   _allStrokes3 = [(PKDrawingConcrete *)self _allStrokes];
@@ -3419,7 +3424,7 @@ LABEL_31:
   _allStrokes4 = [(PKDrawingConcrete *)self _allStrokes];
   if ([_allStrokes4 countByEnumeratingWithState:v54 objects:v64 count:16])
   {
-    PB::PtrVector<drawing::Stroke>::emplace_back<>();
+    PB::PtrVector<drawing::Stroke>::emplace_back<>(archive + 9);
   }
 
   [(PKDrawingConcrete *)self _canvasBounds];
@@ -3445,19 +3450,19 @@ LABEL_31:
 
   drawing::Drawing::makeBoundsVersion(archive);
   v39 = *(archive + 2);
-  [(PKDrawingConcrete *)self boundsVersion];
+  objc_msgSend_boundsVersion(self);
   v40 = *v68;
   *(v39 + 32) |= 1u;
   *(v39 + 8) = v40;
   v41 = objc_alloc(MEMORY[0x1E696AFB0]);
-  [(PKDrawingConcrete *)self boundsVersion];
+  objc_msgSend_boundsVersion(self);
   v42 = [v41 initWithUUIDBytes:&v68[4]];
   v43 = [v8 indexOfObject:v42];
   v44 = *(archive + 2);
   *(v44 + 32) |= 2u;
   *(v44 + 16) = v43;
   v45 = *(archive + 2);
-  [(PKDrawingConcrete *)self boundsVersion];
+  objc_msgSend_boundsVersion(self);
   v46 = HIDWORD(v69);
   *(v45 + 32) |= 4u;
   *(v45 + 24) = v46;
@@ -3478,7 +3483,7 @@ LABEL_31:
     PB::Data::assign(*(archive + 12), v68, &v69);
   }
 
-  [(PKDrawingConcrete *)self _unknownFields];
+  objc_msgSend__unknownFields(self);
   v49 = *v68;
   memset(v68, 0, sizeof(v68));
   v50 = *(archive + 17);
@@ -3499,8 +3504,8 @@ LABEL_31:
 {
   v71 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E695DFA0];
-  version = [(PKDrawingConcrete *)self version];
-  allUUIDs = [version allUUIDs];
+  v6 = objc_msgSend_version(self, a2);
+  allUUIDs = [v6 allUUIDs];
   v52 = [v5 orderedSetWithArray:allUUIDs];
 
   v61 = 0u;
@@ -3566,11 +3571,11 @@ LABEL_31:
     v68 = 0;
     [v13 getUUIDBytes:v67];
     PB::Data::assign(*(archive + 6), v67, &v69);
-    version2 = [(PKDrawingConcrete *)self version];
-    [version2 clockElementForUUID:v13];
+    v16 = objc_msgSend_version(self);
+    [v16 clockElementForUUID:v13];
     objc_claimAutoreleasedReturnValue();
 
-    PB::PtrVector<drawingV1::StrokeID>::emplace_back<>();
+    PB::PtrVector<drawingV1::StrokeID>::emplace_back<>(archive + 14);
   }
 
   orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
@@ -3618,7 +3623,7 @@ LABEL_31:
   v23 = orderedSet;
   if ([v23 countByEnumeratingWithState:v54 objects:v64 count:16])
   {
-    PB::PtrVector<drawingV1::Ink>::emplace_back<>();
+    PB::PtrVector<drawingV1::Ink>::emplace_back<>(archive + 3);
   }
 
   [(PKDrawingConcrete *)self uuid];
@@ -3639,7 +3644,7 @@ LABEL_31:
   _allStrokes4 = [(PKDrawingConcrete *)self _allStrokes];
   if ([_allStrokes4 countByEnumeratingWithState:v53 objects:v63 count:16])
   {
-    PB::PtrVector<drawingV1::Stroke>::emplace_back<>();
+    PB::PtrVector<drawingV1::Stroke>::emplace_back<>(archive + 10);
   }
 
   [(PKDrawingConcrete *)self _canvasBounds];
@@ -3665,19 +3670,19 @@ LABEL_31:
 
   drawingV1::Drawing::makeBoundsVersion(archive);
   v37 = *(archive + 2);
-  [(PKDrawingConcrete *)self boundsVersion];
+  objc_msgSend_boundsVersion(self);
   v38 = *v67;
   *(v37 + 32) |= 1u;
   *(v37 + 8) = v38;
   v39 = objc_alloc(MEMORY[0x1E696AFB0]);
-  [(PKDrawingConcrete *)self boundsVersion];
+  objc_msgSend_boundsVersion(self);
   v40 = [v39 initWithUUIDBytes:&v67[4]];
   v41 = [v52 indexOfObject:v40];
   v42 = *(archive + 2);
   *(v42 + 32) |= 2u;
   *(v42 + 16) = v41;
   v43 = *(archive + 2);
-  [(PKDrawingConcrete *)self boundsVersion];
+  objc_msgSend_boundsVersion(self);
   v44 = HIDWORD(v69);
   *(v43 + 32) |= 4u;
   *(v43 + 24) = v44;

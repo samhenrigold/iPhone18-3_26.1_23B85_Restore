@@ -1,8 +1,10 @@
 @interface PREAMResponseListGenerated
 - (BOOL)isEqual:(id)equal;
+- (id)ageGroupAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)generationStatusAsString:(int)string;
 - (int)StringAsAgeGroup:(id)group;
 - (int)StringAsGenerationStatus:(id)status;
 - (int)ageGroup;
@@ -243,7 +245,6 @@ LABEL_14:
     goto LABEL_49;
   }
 
-  v5 = *(equalCopy + 92);
   if ((*&self->_has & 0x40) != 0)
   {
     if ((*(equalCopy + 92) & 0x40) == 0)
@@ -251,7 +252,6 @@ LABEL_14:
       goto LABEL_49;
     }
 
-    v6 = *(equalCopy + 89);
     if (self->_isCached)
     {
       if ((*(equalCopy + 89) & 1) == 0)
@@ -382,7 +382,7 @@ LABEL_14:
     }
 
 LABEL_49:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_50;
   }
 
@@ -391,7 +391,6 @@ LABEL_49:
     goto LABEL_49;
   }
 
-  v15 = *(equalCopy + 88);
   if (self->_isApricotDevice)
   {
     if ((*(equalCopy + 88) & 1) == 0)
@@ -406,7 +405,7 @@ LABEL_49:
   }
 
 LABEL_44:
-  v13 = (*(equalCopy + 92) & 1) == 0;
+  v11 = (*(equalCopy + 92) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 92) & 1) == 0 || self->_ageGroup != *(equalCopy + 2))
@@ -414,12 +413,12 @@ LABEL_44:
       goto LABEL_49;
     }
 
-    v13 = 1;
+    v11 = 1;
   }
 
 LABEL_50:
 
-  return v13;
+  return v11;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -654,7 +653,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    isCached = self->_isCached;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 2) == 0)
@@ -674,7 +672,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  generationStatus = self->_generationStatus;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -689,7 +686,6 @@ LABEL_4:
   }
 
 LABEL_28:
-  numberOfResponsesGenerated = self->_numberOfResponsesGenerated;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -704,12 +700,10 @@ LABEL_5:
   }
 
 LABEL_29:
-  numberOfCustomResponses = self->_numberOfCustomResponses;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_6:
-    numberOfRobotResponses = self->_numberOfRobotResponses;
     PBDataWriterWriteUint32Field();
   }
 
@@ -744,17 +738,15 @@ LABEL_7:
     PBDataWriterWriteStringField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x20) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x20) != 0)
   {
-    isApricotDevice = self->_isApricotDevice;
     PBDataWriterWriteBOOLField();
-    v6 = self->_has;
+    v5 = self->_has;
   }
 
-  if (v6)
+  if (v5)
   {
-    ageGroup = self->_ageGroup;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -961,6 +953,21 @@ LABEL_7:
   return v4;
 }
 
+- (id)ageGroupAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279ABAE50[string];
+  }
+
+  return v4;
+}
+
 - (int)ageGroup
 {
   if (*&self->_has)
@@ -1070,6 +1077,21 @@ LABEL_7:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)generationStatusAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279ABAE20[string];
   }
 
   return v4;

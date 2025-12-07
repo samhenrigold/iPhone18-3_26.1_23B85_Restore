@@ -56,10 +56,7 @@
 
 - (void)setLocalizedLabel:(id)label
 {
-  v4 = [label copy];
-  symmetricKeyAttributesInternal = self->_symmetricKeyAttributesInternal;
-  v6 = symmetricKeyAttributesInternal[1];
-  symmetricKeyAttributesInternal[1] = v4;
+  *(self->_symmetricKeyAttributesInternal + 1) = [label copy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -73,10 +70,7 @@
 
 - (void)setLocalizedDescription:(id)description
 {
-  v4 = [description copy];
-  symmetricKeyAttributesInternal = self->_symmetricKeyAttributesInternal;
-  v6 = symmetricKeyAttributesInternal[2];
-  symmetricKeyAttributesInternal[2] = v4;
+  *(self->_symmetricKeyAttributesInternal + 2) = [description copy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -90,10 +84,7 @@
 
 - (void)setKeySpecifier:(id)specifier
 {
-  v4 = [specifier copy];
-  symmetricKeyAttributesInternal = self->_symmetricKeyAttributesInternal;
-  v6 = symmetricKeyAttributesInternal[3];
-  symmetricKeyAttributesInternal[3] = v4;
+  *(self->_symmetricKeyAttributesInternal + 3) = [specifier copy];
 
   MEMORY[0x2821F96F8]();
 }

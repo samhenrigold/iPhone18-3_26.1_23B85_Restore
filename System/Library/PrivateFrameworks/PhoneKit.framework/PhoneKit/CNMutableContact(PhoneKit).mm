@@ -8,7 +8,7 @@
 
 + (id)contactForHandle:()PhoneKit isoCountryCode:metadataCache:
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   v10 = a5;
@@ -65,18 +65,18 @@ LABEL_15:
     switch(type2)
     {
       case 3:
-        v28 = v23;
-        v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+        v27 = v23;
+        v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
         [v11 setEmailAddresses:v25];
         break;
       case 2:
-        v29 = v23;
-        v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+        v28 = v23;
+        v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
         [v11 setPhoneNumbers:v25];
         break;
       case 1:
-        v30[0] = v23;
-        v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+        v29[0] = v23;
+        v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
         [v11 setSocialProfiles:v25];
         break;
       default:
@@ -89,8 +89,6 @@ LABEL_22:
   }
 
 LABEL_23:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -107,95 +105,89 @@ LABEL_23:
     {
       if (![isoCountryCode length])
       {
-        callStatus = [v6 callStatus];
-        if (callStatus != *MEMORY[0x277CF7D90] && callStatus != *MEMORY[0x277CF7D78])
-        {
-          v13 = *MEMORY[0x277CF7DA0];
-        }
+        [v6 callStatus];
+        v11 = TUCountryCodeForIncomingCall();
 
-        v14 = TUCountryCodeForIncomingCall();
-
-        isoCountryCode = v14;
+        isoCountryCode = v11;
       }
 
       if ([isoCountryCode length])
       {
-        v15 = TUHomeCountryCode();
-        if (([isoCountryCode isEqualToString:v15] & 1) == 0)
+        v12 = TUHomeCountryCode();
+        if (([isoCountryCode isEqualToString:v12] & 1) == 0)
         {
           value = [v8 value];
-          v17 = TUNumberToDial();
+          v14 = TUNumberToDial();
 
-          v18 = [objc_alloc(MEMORY[0x277D6EEE8]) initWithType:objc_msgSend(v8 value:{"type"), v17}];
-          v8 = v18;
+          v15 = [objc_alloc(MEMORY[0x277D6EEE8]) initWithType:objc_msgSend(v8 value:{"type"), v14}];
+          v8 = v15;
         }
       }
     }
 
-    v12 = [self contactForHandle:v8 isoCountryCode:isoCountryCode metadataCache:v7];
+    v10 = [self contactForHandle:v8 isoCountryCode:isoCountryCode metadataCache:v7];
     imageURL = [v6 imageURL];
 
     if (imageURL)
     {
       name = [v6 name];
-      [v12 setOrganizationName:name];
+      [v10 setOrganizationName:name];
 
-      [v12 setContactType:1];
+      [v10 setContactType:1];
     }
 
     else
     {
-      [v12 setContactType:{objc_msgSend(v6, "callDirectoryIdentityType") == 2}];
-      if ([v12 contactType])
+      [v10 setContactType:{objc_msgSend(v6, "callDirectoryIdentityType") == 2}];
+      if ([v10 contactType])
       {
         fullName = [v6 fullName];
-        [v12 setOrganizationName:fullName];
+        [v10 setOrganizationName:fullName];
       }
 
       else
       {
         givenName = [v6 givenName];
-        [v12 setGivenName:givenName];
+        [v10 setGivenName:givenName];
 
         fullName = [v6 familyName];
-        [v12 setFamilyName:fullName];
+        [v10 setFamilyName:fullName];
       }
     }
   }
 
   else
   {
-    v12 = 0;
+    v10 = 0;
   }
 
-  return v12;
+  return v10;
 }
 
 + (void)suggestedContactForHandle:()PhoneKit isoCountryCode:metadataCache:
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = a5;
   [v9 providers];
+  v24 = 0u;
+  v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v10 = v29 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v10 = v27 = 0u;
+  v11 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v11)
   {
-    v12 = *v27;
+    v12 = *v25;
 LABEL_3:
     v13 = 0;
     while (1)
     {
-      if (*v27 != v12)
+      if (*v25 != v12)
       {
         objc_enumerationMutation(v10);
       }
 
-      v14 = *(*(&v26 + 1) + 8 * v13);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -204,7 +196,7 @@ LABEL_3:
 
       if (v11 == ++v13)
       {
-        v11 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v11)
         {
           goto LABEL_3;
@@ -214,29 +206,29 @@ LABEL_3:
       }
     }
 
-    v17 = objc_opt_class();
+    v16 = objc_opt_class();
     value = [v7 value];
-    v15 = [v17 newestSuggestedContactForDestinationID:value];
+    v14 = [v16 newestSuggestedContactForDestinationID:value];
 
-    if (!v15)
+    if (!v14)
     {
       v11 = 0;
       goto LABEL_17;
     }
 
-    v11 = [v15 mutableCopy];
-    v19 = objc_alloc(MEMORY[0x277D6EF00]);
+    v11 = [v14 mutableCopy];
+    v18 = objc_alloc(MEMORY[0x277D6EF00]);
     value2 = [v7 value];
-    v16 = [v19 initWithDestinationID:value2 isoCountryCode:v8];
+    v15 = [v18 initWithDestinationID:value2 isoCountryCode:v8];
 
-    if (v16)
+    if (v15)
     {
-      v21 = [v9 metadataForDestinationID:v16];
-      v22 = [v21 metadataForProvider:objc_opt_class()];
-      if ([v22 length])
+      v20 = [v9 metadataForDestinationID:v15];
+      v21 = [v20 metadataForProvider:objc_opt_class()];
+      if ([v21 length])
       {
         [v11 setContactType:1];
-        [v11 setOrganizationName:v22];
+        [v11 setOrganizationName:v21];
       }
     }
   }
@@ -244,14 +236,13 @@ LABEL_3:
   else
   {
 LABEL_9:
-    v15 = 0;
-    v16 = v10;
+    v14 = 0;
+    v15 = v10;
   }
 
 LABEL_17:
-  v23 = v11;
+  v22 = v11;
 
-  v24 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

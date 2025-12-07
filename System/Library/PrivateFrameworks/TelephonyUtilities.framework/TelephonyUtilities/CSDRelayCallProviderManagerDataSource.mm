@@ -58,24 +58,24 @@
   v5 = [userInfo objectForKey:NSUbiquitousKeyValueStoreChangeReasonKey];
   unsignedIntValue = [v5 unsignedIntValue];
 
-  v7 = sub_100004778();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100004778(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = [NSNumber numberWithUnsignedInteger:unsignedIntValue];
+    v9 = [NSNumber numberWithUnsignedInteger:unsignedIntValue];
     *buf = 138412290;
-    v15 = v8;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Relay call providers changed due to reason = %@", buf, 0xCu);
+    v17 = v9;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Relay call providers changed due to reason = %@", buf, 0xCu);
   }
 
   if (unsignedIntValue <= 1)
   {
     if (!unsignedIntValue)
     {
-      v9 = sub_100004778();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100004778(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v10 = "Relay call providers changed due to reason = NSUbiquitousKeyValueStoreServerChange";
+        v12 = "Relay call providers changed due to reason = NSUbiquitousKeyValueStoreServerChange";
         goto LABEL_14;
       }
 
@@ -84,13 +84,13 @@
 
     if (unsignedIntValue == 1)
     {
-      v9 = sub_100004778();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100004778(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v10 = "Relay call providers changed due to reason = NSUbiquitousKeyValueStoreInitialSyncChange";
+        v12 = "Relay call providers changed due to reason = NSUbiquitousKeyValueStoreInitialSyncChange";
 LABEL_14:
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, v10, buf, 2u);
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v12, buf, 2u);
         goto LABEL_15;
       }
 
@@ -104,11 +104,11 @@ LABEL_14:
   {
     if (unsignedIntValue == 3)
     {
-      v9 = sub_100004778();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100004778(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v10 = "Relay call providers changed due to reason = NSUbiquitousKeyValueStoreAccountChange";
+        v12 = "Relay call providers changed due to reason = NSUbiquitousKeyValueStoreAccountChange";
         goto LABEL_14;
       }
 
@@ -127,17 +127,17 @@ LABEL_16:
     return;
   }
 
-  v12 = sub_100004778();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100004778(v10);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Relay call providers changed due to reason = NSUbiquitousKeyValueStoreQuotaViolationChange", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Relay call providers changed due to reason = NSUbiquitousKeyValueStoreQuotaViolationChange", buf, 2u);
   }
 }
 
 - (void)handleOutgoingCallerIDChange:(id)change
 {
-  v4 = sub_100004778();
+  v4 = sub_100004778(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -155,7 +155,7 @@ LABEL_16:
 
 - (void)handleIDSDeviceListChange:(id)change
 {
-  v4 = sub_100004778();
+  v4 = sub_100004778(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -173,13 +173,14 @@ LABEL_16:
 
 - (BOOL)_relayHostDeviceIdentifierChanged
 {
-  if (+[TUCallCapabilities supportsPrimaryCalling])
+  v3 = +[TUCallCapabilities supportsPrimaryCalling];
+  if (v3)
   {
-    v3 = sub_100004778();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100004778(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Not updating call providers on primary calling device", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Not updating call providers on primary calling device", v11, 2u);
     }
 
     return 0;
@@ -187,25 +188,25 @@ LABEL_16:
 
   else
   {
-    v5 = +[NSUserDefaults tu_defaults];
-    v6 = [v5 stringForKey:@"kLastKnownOutgoingCallerDeviceIdentifier"];
+    v6 = +[NSUserDefaults tu_defaults];
+    v7 = [v6 stringForKey:@"kLastKnownOutgoingCallerDeviceIdentifier"];
 
     _getIdsIdentifierForHostRelayDevice = [(CSDRelayCallProviderManagerDataSource *)self _getIdsIdentifierForHostRelayDevice];
-    if (_getIdsIdentifierForHostRelayDevice && ([v6 isEqualToString:_getIdsIdentifierForHostRelayDevice] & 1) == 0)
+    if (_getIdsIdentifierForHostRelayDevice && ([v7 isEqualToString:_getIdsIdentifierForHostRelayDevice] & 1) == 0)
     {
-      v8 = +[NSUserDefaults tu_defaults];
-      [v8 setObject:_getIdsIdentifierForHostRelayDevice forKey:@"kLastKnownOutgoingCallerDeviceIdentifier"];
+      v9 = +[NSUserDefaults tu_defaults];
+      [v9 setObject:_getIdsIdentifierForHostRelayDevice forKey:@"kLastKnownOutgoingCallerDeviceIdentifier"];
 
-      v4 = 1;
+      v5 = 1;
     }
 
     else
     {
-      v4 = 0;
+      v5 = 0;
     }
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)syncRelayCallProvidersWithKVS
@@ -225,20 +226,20 @@ LABEL_16:
   v3 = +[CSDRelayIDSService sharedInstance];
   devices = [v3 devices];
 
-  v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
+  v28 = 0u;
   v5 = devices;
-  v21 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (!v21)
+  v22 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  if (!v22)
   {
 
 LABEL_21:
-    v17 = sub_100004778();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = sub_100004778(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_100479214(v2, v5, v17);
+      sub_100479214(v2, v5, v18);
     }
 
     v6 = 0;
@@ -247,37 +248,37 @@ LABEL_21:
 
   v6 = 0;
   obj = v5;
-  v20 = *v27;
+  v21 = *v28;
   do
   {
-    for (i = 0; i != v21; i = i + 1)
+    for (i = 0; i != v22; i = i + 1)
     {
-      if (*v27 != v20)
+      if (*v28 != v21)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v26 + 1) + 8 * i);
-      v22 = 0u;
+      v8 = *(*(&v27 + 1) + 8 * i);
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
       linkedUserURIs = [v8 linkedUserURIs];
-      v10 = [linkedUserURIs countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v10 = [linkedUserURIs countByEnumeratingWithState:&v23 objects:v31 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v23;
+        v12 = *v24;
         while (2)
         {
           for (j = 0; j != v11; j = j + 1)
           {
-            if (*v23 != v12)
+            if (*v24 != v12)
             {
               objc_enumerationMutation(linkedUserURIs);
             }
 
-            _stripFZIDPrefix = [*(*(&v22 + 1) + 8 * j) _stripFZIDPrefix];
+            _stripFZIDPrefix = [*(*(&v23 + 1) + 8 * j) _stripFZIDPrefix];
             v15 = [v2 isEqualToString:_stripFZIDPrefix];
 
             if (v15)
@@ -289,7 +290,7 @@ LABEL_21:
             }
           }
 
-          v11 = [linkedUserURIs countByEnumeratingWithState:&v22 objects:v30 count:16];
+          v11 = [linkedUserURIs countByEnumeratingWithState:&v23 objects:v31 count:16];
           if (v11)
           {
             continue;
@@ -303,10 +304,10 @@ LABEL_16:
     }
 
     v5 = obj;
-    v21 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v22 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
   }
 
-  while (v21);
+  while (v22);
 
   if (!v6)
   {

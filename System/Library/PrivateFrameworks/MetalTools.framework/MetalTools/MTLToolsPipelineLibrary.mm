@@ -6,6 +6,7 @@
 - (NSString)label;
 - (id)newComputePipelineStateWithName:(id)name options:(unint64_t)options reflection:(id *)reflection error:(id *)error;
 - (id)newRenderPipelineStateWithName:(id)name options:(unint64_t)options reflection:(id *)reflection error:(id *)error;
+- (void)setDisableRunTimeCompilation:(BOOL)compilation;
 - (void)setLabel:(id)label;
 @end
 
@@ -37,6 +38,14 @@
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject disableRunTimeCompilation];
+}
+
+- (void)setDisableRunTimeCompilation:(BOOL)compilation
+{
+  compilationCopy = compilation;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setDisableRunTimeCompilation:compilationCopy];
 }
 
 - (id)newComputePipelineStateWithName:(id)name options:(unint64_t)options reflection:(id *)reflection error:(id *)error

@@ -33,7 +33,7 @@
 {
   if (context)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA5A548);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA5A548, &qword_2154BE2F0);
     v5 = swift_allocObject();
     *(v5 + 16) = xmmword_2154BDB50;
     selfCopy = self;
@@ -51,7 +51,7 @@
 
 - (void)setActiveContexts:(id)contexts
 {
-  sub_2151A6C9C(0, &qword_2811994B0);
+  sub_2151A6C9C(0, &qword_2811994B0, 0x277CCABB0);
   v4 = sub_2154A1F4C();
   selfCopy = self;
   ICNoteEditorContextualMenuButton.setActiveContextsAsNumbers(_:)(v4);
@@ -65,7 +65,7 @@
 
 - (NSArray)accessibilityElements
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA5A340);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA5A340, &unk_2154C27B0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_2154BDB50;
   v4 = *(self + OBJC_IVAR___ICNoteEditorContextualMenuButton_button);
@@ -86,7 +86,7 @@
     selfCopy = self;
     accessibilityCustomContentFor_ = [Strong accessibilityCustomContentFor_];
     swift_unknownObjectRelease();
-    sub_2151A6C9C(0, &qword_27CA5C4D0);
+    sub_2151A6C9C(0, &qword_27CA5C4D0, 0x277CB88D0);
     sub_2154A1F4C();
 
     Strong = sub_2154A1F3C();

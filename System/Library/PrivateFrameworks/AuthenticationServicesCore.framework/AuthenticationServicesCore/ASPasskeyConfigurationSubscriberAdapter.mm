@@ -30,31 +30,28 @@
 
 - (id)allDeclarationKeys
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC26AuthenticationServicesCore39ASPasskeyConfigurationSubscriberAdapter_currentConfiguration);
-  if (v3)
+  if (*(&self->super.isa + OBJC_IVAR____TtC26AuthenticationServicesCore39ASPasskeyConfigurationSubscriberAdapter_currentConfiguration))
   {
-    v4 = OBJC_IVAR____TtC26AuthenticationServicesCore22ASManagedConfiguration_declarationKeyToPasskeyAttestationConfigurationKey;
     swift_beginAccess();
-    v5 = *(v3 + v4);
     selfCopy = self;
 
-    v8 = sub_1C214A74C(v7);
-    v9 = sub_1C214FBB4(v8);
+    v5 = sub_1C214A74C(v4);
+    v6 = sub_1C214FBB4(v5);
   }
 
   else
   {
     selfCopy2 = self;
-    v9 = MEMORY[0x1E69E7CC0];
+    v6 = MEMORY[0x1E69E7CC0];
   }
 
-  sub_1C214F854(v9);
+  sub_1C214F854(v6);
 
   sub_1C20DB8B8(0, &unk_1EDD4ADE8, 0x1E69C6DC0);
   sub_1C214FAC4();
-  v11 = sub_1C2170C04();
+  v8 = sub_1C2170C04();
 
-  return v11;
+  return v8;
 }
 
 - (BOOL)applyConfiguration:(id)configuration scope:(int64_t)scope returningReasons:(id *)reasons error:(id *)error

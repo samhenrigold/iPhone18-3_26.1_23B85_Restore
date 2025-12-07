@@ -1,3 +1,92 @@
+CFArrayRef copyPreferredLabels(int a1, uint64_t a2, const __CFDictionary *a3)
+{
+  result = getPreferredLabels(a1, a2, a3);
+  if (result)
+  {
+    v4 = result;
+    v5 = *MEMORY[0x1E695E480];
+
+    return CFArrayCreateCopy(v5, v4);
+  }
+
+  return result;
+}
+
+uint64_t shouldAddRecord(uint64_t a1, const void *a2, const __CFDictionary *a3, CFErrorRef *a4)
+{
+  if (ABPolicyRecordIsWriteable(a2, 0))
+  {
+    v7 = copyRecordTypes(a3);
+    RecordType = ABRecordGetRecordType(a2);
+    v11.length = CFArrayGetCount(v7);
+    v11.location = 0;
+    FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v7, v11, RecordType);
+    CFRelease(v7);
+    if (FirstIndexOfValue != -1)
+    {
+      return 1;
+    }
+  }
+
+  ABPolicyPopulateRecordReadOnlyError(a4, 0, @"SourceNotWritable");
+  return 0;
+}
+
+uint64_t shouldRemoveRecord(uint64_t a1, const void *a2, uint64_t a3, CFErrorRef *a4)
+{
+  IsWriteable = ABPolicyRecordIsWriteable(a2, 0);
+  if ((IsWriteable & 1) == 0)
+  {
+    ABPolicyPopulateRecordReadOnlyError(a4, 0, @"SourceNotWritable");
+  }
+
+  return IsWriteable;
+}
+
+uint64_t shouldSetValue(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4, const __CFDictionary *a5)
+{
+  if (a4)
+  {
+    *a4 = 0;
+  }
+
+  v10 = 0;
+  do
+  {
+    result = (*(&off_1F2FE1DE0 + v10))(a1, a2, a3, a4, a5);
+    if (result)
+    {
+      v12 = v10 >= 3;
+    }
+
+    else
+    {
+      v12 = 1;
+    }
+
+    ++v10;
+  }
+
+  while (!v12);
+  return result;
+}
+
+void setShouldIgnoreCapabilitiesRestrictions(int a1, CFMutableDictionaryRef theDict)
+{
+  if (theDict)
+  {
+    if (a1)
+    {
+      CFDictionarySetValue(theDict, @"OverrideReadonly", *MEMORY[0x1E695E4D0]);
+    }
+
+    else
+    {
+      CFDictionaryRemoveValue(theDict, @"OverrideReadonly");
+    }
+  }
+}
+
 const __CFDictionary *shouldIgnoreCapabilitiesRestrictions(const __CFDictionary *result)
 {
   if (result)
@@ -8,7 +97,7 @@ const __CFDictionary *shouldIgnoreCapabilitiesRestrictions(const __CFDictionary 
   return result;
 }
 
-BOOL propertyIsSupported(int a1, int a2, int a3, int a4, CFDictionaryRef theDict)
+BOOL propertyIsSupported(int a1, uint64_t a2, int a3, int a4, CFDictionaryRef theDict)
 {
   if (a1)
   {
@@ -40,7 +129,7 @@ BOOL propertyIsSupported(int a1, int a2, int a3, int a4, CFDictionaryRef theDict
   return CFArrayContainsValue(v11, v13, v9) == 0;
 }
 
-BOOL notTooManyValuesForSet(int a1, ABPropertyID property, const void *a3, uint64_t a4, const __CFDictionary *a5)
+BOOL notTooManyValuesForSet(int a1, uint64_t property, const void *a3, uint64_t a4, const __CFDictionary *a5)
 {
   result = 1;
   if (!a1 && a3)
@@ -59,7 +148,7 @@ BOOL notTooManyValuesForSet(int a1, ABPropertyID property, const void *a3, uint6
   return result;
 }
 
-uint64_t correctUnsupportedValueKeys(int a1, ABPropertyID property, const void *a3, _BYTE *a4, const __CFDictionary *a5)
+uint64_t correctUnsupportedValueKeys(int a1, uint64_t property, const void *a3, _BYTE *a4, const __CFDictionary *a5)
 {
   TypeOfProperty = ABPersonGetTypeOfProperty(property);
   if (!a1)
@@ -732,7 +821,7 @@ uint64_t _identifierRowHandler(uint64_t a1, void *a2)
 
 uint64_t ABPopulateSyncTableForLimitedAccessAboveSequenceNumber(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AD60] string];
   v5 = [MEMORY[0x1E696AD60] string];
   v6 = [MEMORY[0x1E696AD60] string];
@@ -745,14 +834,15 @@ uint64_t ABPopulateSyncTableForLimitedAccessAboveSequenceNumber(uint64_t a1, voi
 
   v9 = v8;
   CPRecordStoreGetDatabase();
-  if (CPSqliteDatabaseConnectionForReading())
+  v10 = CPSqliteDatabaseConnectionForReading();
+  if (v10)
   {
-    v10 = ABOSLogGeneral();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = ABOSLogGeneral(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = a2;
-      _os_log_impl(&dword_1B7EFB000, v10, OS_LOG_TYPE_DEFAULT, "ABPopulateSyncTableForLimitedAccessAboveSequenceNumber %@", buf, 0xCu);
+      v15 = a2;
+      _os_log_impl(&dword_1B7EFB000, v12, OS_LOG_TYPE_DEFAULT, "ABPopulateSyncTableForLimitedAccessAboveSequenceNumber %@", buf, 0xCu);
     }
 
     [MEMORY[0x1E696AEC0] stringWithFormat:@"select * from LimitedAccess WHERE SequenceNumber > %i ;", objc_msgSend(a2, "intValue")];
@@ -866,81 +956,81 @@ void *convertStringtoIntArray(void *a1)
 
 uint64_t ABLimitedAccessUpdateTable(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v17 = MEMORY[0x1E695DF30];
-    v18 = *MEMORY[0x1E695D940];
-    v19 = @"parameter ‘addressBook’ must be nonnull";
+    v18 = MEMORY[0x1E695DF30];
+    v19 = *MEMORY[0x1E695D940];
+    v20 = @"parameter ‘addressBook’ must be nonnull";
     goto LABEL_18;
   }
 
   if (!a2)
   {
-    v17 = MEMORY[0x1E695DF30];
-    v18 = *MEMORY[0x1E695D940];
-    v19 = @"parameter ‘table’ must be nonnull";
+    v18 = MEMORY[0x1E695DF30];
+    v19 = *MEMORY[0x1E695D940];
+    v20 = @"parameter ‘table’ must be nonnull";
 LABEL_18:
-    objc_exception_throw([v17 exceptionWithName:v18 reason:v19 userInfo:0]);
+    objc_exception_throw([v18 exceptionWithName:v19 reason:v20 userInfo:0]);
   }
 
   v4 = [objc_msgSend(a2 objectForKey:{@"BundleID", "componentsSeparatedByString:", @", "}];
-  v20 = [objc_msgSend(a2 objectForKey:{@"guid", "componentsSeparatedByString:", @", "}];
+  v21 = [objc_msgSend(a2 objectForKey:{@"guid", "componentsSeparatedByString:", @", "}];
   v5 = convertStringtoIntArray([a2 objectForKey:@"SequenceNumber"]);
   v6 = convertStringtoIntArray([a2 objectForKey:@"IsActive"]);
   v7 = [v4 count];
   WriterConnection = _getWriterConnection(*(a1 + 16), "BOOL ABLimitedAccessUpdateTable(ABAddressBookRef, NSDictionary *)");
   if (WriterConnection)
   {
-    v9 = WriterConnection;
-    v10 = (v7 - 1);
-    v11 = ABOSLogGeneral();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = WriterConnection;
+    v11 = (v7 - 1);
+    v12 = ABOSLogGeneral(WriterConnection, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v22 = v7 - 1;
-      _os_log_impl(&dword_1B7EFB000, v11, OS_LOG_TYPE_DEFAULT, "ABLimitedAccessUpdateTable update %d rows", buf, 8u);
+      v23 = v7 - 1;
+      _os_log_impl(&dword_1B7EFB000, v12, OS_LOG_TYPE_DEFAULT, "ABLimitedAccessUpdateTable update %d rows", buf, 8u);
     }
 
     if (v7 < 2)
     {
-      v13 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v12 = 0;
       v13 = 0;
+      v14 = 0;
       do
       {
-        v14 = CPSqliteConnectionStatementForSQL();
-        if (v14)
+        v15 = CPSqliteConnectionStatementForSQL();
+        if (v15)
         {
-          v15 = v14;
-          v13 = 1;
-          sqlite3_bind_text(*(v14 + 8), 1, [objc_msgSend(v4 objectAtIndex:{v12), "UTF8String"}], -1, 0);
-          sqlite3_bind_text(*(v15 + 8), 2, [objc_msgSend(v20 objectAtIndex:{v12), "UTF8String"}], -1, 0);
-          sqlite3_bind_int(*(v15 + 8), 3, [objc_msgSend(v5 objectAtIndex:{v12), "intValue"}]);
-          sqlite3_bind_int(*(v15 + 8), 4, [objc_msgSend(v6 objectAtIndex:{v12), "intValue"}]);
+          v16 = v15;
+          v14 = 1;
+          sqlite3_bind_text(*(v15 + 8), 1, [objc_msgSend(v4 objectAtIndex:{v13), "UTF8String"}], -1, 0);
+          sqlite3_bind_text(*(v16 + 8), 2, [objc_msgSend(v21 objectAtIndex:{v13), "UTF8String"}], -1, 0);
+          sqlite3_bind_int(*(v16 + 8), 3, [objc_msgSend(v5 objectAtIndex:{v13), "intValue"}]);
+          sqlite3_bind_int(*(v16 + 8), 4, [objc_msgSend(v6 objectAtIndex:{v13), "intValue"}]);
           CPSqliteStatementPerform();
           CPSqliteStatementReset();
         }
 
-        ++v12;
+        ++v13;
       }
 
-      while (v10 != v12);
+      while (v11 != v13);
     }
 
-    _commitWriterConnection(v9, "BOOL ABLimitedAccessUpdateTable(ABAddressBookRef, NSDictionary *)");
+    _commitWriterConnection(v10, "BOOL ABLimitedAccessUpdateTable(ABAddressBookRef, NSDictionary *)");
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13 & 1;
+  return v14 & 1;
 }
 
 uint64_t ABAddLimitedAccessForBundle(uint64_t a1, void *a2, uint64_t a3)
@@ -952,7 +1042,7 @@ uint64_t ABAddLimitedAccessForBundle(uint64_t a1, void *a2, uint64_t a3)
 
 uint64_t ABAddLimitedAccessIdentifiersForBundle(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"parameter ‘addressBook’ must be nonnull" userInfo:0]);
@@ -965,50 +1055,51 @@ uint64_t ABAddLimitedAccessIdentifiersForBundle(uint64_t a1, void *a2, void *a3)
   }
 
   result = _getWriterConnection(*(a1 + 16), "BOOL ABAddLimitedAccessIdentifiersForBundle(ABAddressBookRef, NSString *, NSArray<NSString *> *)");
-  v20 = result;
+  v23 = result;
   if (result)
   {
-    v18 = [a3 count];
-    v22 = 0u;
-    v23 = 0u;
-    v24 = 0u;
+    v21 = [a3 count];
     v25 = 0u;
-    v7 = [a3 countByEnumeratingWithState:&v22 objects:v28 count:16];
+    v26 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v7 = [a3 countByEnumeratingWithState:&v25 objects:v31 count:16];
     if (v7)
     {
       v8 = v7;
-      v19 = a2;
+      v22 = a2;
       v9 = 0;
-      v10 = *v23;
+      v10 = *v26;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v23 != v10)
+          if (*v26 != v10)
           {
             objc_enumerationMutation(a3);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
+          v12 = *(*(&v25 + 1) + 8 * i);
           if (((*(v5 + 16))(v5, v12) & 1) == 0)
           {
-            FreshSequenceNumber = getFreshSequenceNumber(a1);
-            v14 = ABOSLogGeneral();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+            FreshSequenceNumber = getFreshSequenceNumber(a1, v13);
+            v15 = FreshSequenceNumber;
+            v17 = ABOSLogGeneral(FreshSequenceNumber, v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
             {
               *buf = 67109120;
-              v27 = FreshSequenceNumber;
-              _os_log_debug_impl(&dword_1B7EFB000, v14, OS_LOG_TYPE_DEBUG, "ABAddLimitedAccessForBundle sequenceNumber %d ", buf, 8u);
+              v30 = v15;
+              _os_log_debug_impl(&dword_1B7EFB000, v17, OS_LOG_TYPE_DEBUG, "ABAddLimitedAccessForBundle sequenceNumber %d ", buf, 8u);
             }
 
-            v15 = CPSqliteConnectionStatementForSQL();
-            if (v15)
+            v18 = CPSqliteConnectionStatementForSQL();
+            if (v18)
             {
-              v16 = v15;
-              _bindStringAtIndex(*(v15 + 8), 1, v19);
-              _bindStringAtIndex(*(v16 + 8), 2, v12);
-              sqlite3_bind_int(*(v16 + 8), 3, FreshSequenceNumber);
-              sqlite3_bind_int(*(v16 + 8), 4, 1);
+              v19 = v18;
+              _bindStringAtIndex(*(v18 + 8), 1, v22);
+              _bindStringAtIndex(*(v19 + 8), 2, v12);
+              sqlite3_bind_int(*(v19 + 8), 3, v15);
+              sqlite3_bind_int(*(v19 + 8), 4, 1);
               CPSqliteStatementPerform();
               CPSqliteStatementReset();
               ++v9;
@@ -1016,7 +1107,7 @@ uint64_t ABAddLimitedAccessIdentifiersForBundle(uint64_t a1, void *a2, void *a3)
           }
         }
 
-        v8 = [a3 countByEnumeratingWithState:&v22 objects:v28 count:16];
+        v8 = [a3 countByEnumeratingWithState:&v25 objects:v31 count:16];
       }
 
       while (v8);
@@ -1029,24 +1120,24 @@ uint64_t ABAddLimitedAccessIdentifiersForBundle(uint64_t a1, void *a2, void *a3)
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, @"CNContactStoreLimitedAccessDidChangeNotification", 0, 0, 1u);
-    _commitWriterConnection(v20, "BOOL ABAddLimitedAccessIdentifiersForBundle(ABAddressBookRef, NSString *, NSArray<NSString *> *)");
-    return v18 == v9;
+    _commitWriterConnection(v23, "BOOL ABAddLimitedAccessIdentifiersForBundle(ABAddressBookRef, NSString *, NSArray<NSString *> *)");
+    return v21 == v9;
   }
 
   return result;
 }
 
-uint64_t getFreshSequenceNumber(uint64_t a1)
+uint64_t getFreshSequenceNumber(uint64_t a1, uint64_t a2)
 {
-  v2 = ABOSLogGeneral();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = ABOSLogGeneral(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_1B7EFB000, v2, OS_LOG_TYPE_DEFAULT, "getFreshSequenceNumber", &v10, 2u);
+    *v11 = 0;
+    _os_log_impl(&dword_1B7EFB000, v3, OS_LOG_TYPE_DEFAULT, "getFreshSequenceNumber", v11, 2u);
   }
 
   LastUsedSequenceNumber = getLastUsedSequenceNumber(a1);
-  ABAddressBookSetIntegerProperty(a1, @"ABlimitedAccessLastSequenceNumber", (LastUsedSequenceNumber + 1), v4, v5, v6, v7, v8, v10);
+  ABAddressBookSetIntegerProperty(a1, @"ABlimitedAccessLastSequenceNumber", (LastUsedSequenceNumber + 1), v5, v6, v7, v8, v9, *v11);
   return (LastUsedSequenceNumber + 1);
 }
 
@@ -1075,7 +1166,7 @@ uint64_t ABRemoveLimitedAccessForBundle(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t ABRemoveLimitedAccessIdentifiersForBundle(uint64_t a1, uint64_t a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"parameter ‘addressBook’ must be nonnull" userInfo:0]);
@@ -1090,81 +1181,81 @@ uint64_t ABRemoveLimitedAccessIdentifiersForBundle(uint64_t a1, uint64_t a2, voi
   result = _getWriterConnection(*(a1 + 16), "BOOL ABRemoveLimitedAccessIdentifiersForBundle(ABAddressBookRef, NSString *, NSArray<NSString *> *)");
   if (result)
   {
-    v6 = result;
-    v7 = ABOSLogGeneral();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v7 = result;
+    v8 = ABOSLogGeneral(result, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      ABRemoveLimitedAccessIdentifiersForBundle_cold_1(a2, a3, v7);
+      ABRemoveLimitedAccessIdentifiersForBundle_cold_1(a2, a3, v8);
     }
 
-    v18 = [a3 count];
-    v22 = 0u;
-    v23 = 0u;
+    v20 = [a3 count];
     v24 = 0u;
     v25 = 0u;
-    v8 = [a3 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v8)
+    v26 = 0u;
+    v27 = 0u;
+    v9 = [a3 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v19 = a2;
-      v10 = 0;
-      v11 = *v23;
+      v10 = v9;
+      v21 = a2;
+      v11 = 0;
+      v12 = *v25;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v23 != v11)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(a3);
           }
 
-          v13 = *(*(&v22 + 1) + 8 * i);
-          if (((*(v4 + 16))(v4, v13) & 1) == 0)
+          v14 = *(*(&v24 + 1) + 8 * i);
+          if (((*(v4 + 16))(v4, v14) & 1) == 0)
           {
-            FreshSequenceNumber = getFreshSequenceNumber(a1);
-            v15 = CPSqliteConnectionStatementForSQL();
-            if (v15)
+            FreshSequenceNumber = getFreshSequenceNumber(a1, v15);
+            v17 = CPSqliteConnectionStatementForSQL();
+            if (v17)
             {
-              v16 = v15;
-              sqlite3_bind_int(*(v15 + 8), 1, FreshSequenceNumber);
-              sqlite3_bind_int(*(v16 + 8), 2, 0);
-              _bindStringAtIndex(*(v16 + 8), 3, v19);
-              _bindStringAtIndex(*(v16 + 8), 4, v13);
+              v18 = v17;
+              sqlite3_bind_int(*(v17 + 8), 1, FreshSequenceNumber);
+              sqlite3_bind_int(*(v18 + 8), 2, 0);
+              _bindStringAtIndex(*(v18 + 8), 3, v21);
+              _bindStringAtIndex(*(v18 + 8), 4, v14);
               CPSqliteStatementPerform();
               CPSqliteStatementReset();
-              ++v10;
+              ++v11;
             }
           }
         }
 
-        v9 = [a3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v10 = [a3 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
 
     else
     {
-      v10 = 0;
+      v11 = 0;
     }
 
-    _commitWriterConnection(v6, "BOOL ABRemoveLimitedAccessIdentifiersForBundle(ABAddressBookRef, NSString *, NSArray<NSString *> *)");
+    _commitWriterConnection(v7, "BOOL ABRemoveLimitedAccessIdentifiersForBundle(ABAddressBookRef, NSString *, NSArray<NSString *> *)");
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, @"CNContactStoreLimitedAccessDidChangeNotification", 0, 0, 1u);
-    return v18 == v10;
+    return v20 == v11;
   }
 
   return result;
 }
 
-uint64_t ABRemoveContactIdentifierFromLimitedAccessForAllBundles(uint64_t a1, uint64_t a2)
+BOOL ABRemoveContactIdentifierFromLimitedAccessForAllBundles(uint64_t a1, uint64_t a2)
 {
   v3[1] = *MEMORY[0x1E69E9840];
   v3[0] = a2;
   return ABRemoveContactIdentifiersFromLimitedAccessForAllBundles(a1, [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1]);
 }
 
-uint64_t ABRemoveContactIdentifiersFromLimitedAccessForAllBundles(uint64_t a1, void *a2)
+BOOL ABRemoveContactIdentifiersFromLimitedAccessForAllBundles(uint64_t a1, void *a2)
 {
   v4 = [a2 _cn_filter:CNLogicalNot()];
   if ((*(*MEMORY[0x1E6996530] + 16))())
@@ -1183,43 +1274,43 @@ uint64_t ABRemoveContactIdentifiersFromLimitedAccessForAllBundles(uint64_t a1, v
     return 0;
   }
 
-  v7 = WriterConnection;
-  v8 = ABOSLogGeneral();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v8 = WriterConnection;
+  v9 = ABOSLogGeneral(WriterConnection, v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    ABRemoveContactIdentifiersFromLimitedAccessForAllBundles_cold_1(a2, v8);
+    ABRemoveContactIdentifiersFromLimitedAccessForAllBundles_cold_1(a2, v9);
   }
 
   [MEMORY[0x1E696AEC0] stringWithFormat:@"DELETE FROM LimitedAccess WHERE guid IN %@;", SQLInClauseStringForParameterCount(objc_msgSend(v4, "count"))];
-  v9 = CPSqliteConnectionStatementForSQL();
-  v5 = v9 != 0;
-  if (v9)
+  v10 = CPSqliteConnectionStatementForSQL();
+  v5 = v10 != 0;
+  if (v10)
   {
-    v13[0] = 0;
-    v13[1] = v13;
-    v13[2] = 0x2020000000;
-    v14 = 1;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __ABRemoveContactIdentifiersFromLimitedAccessForAllBundles_block_invoke;
-    v12[3] = &unk_1E7CCCE20;
-    v12[4] = v13;
-    v12[5] = v9;
-    [v4 _cn_each:v12];
+    v14[0] = 0;
+    v14[1] = v14;
+    v14[2] = 0x2020000000;
+    v15 = 1;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __ABRemoveContactIdentifiersFromLimitedAccessForAllBundles_block_invoke;
+    v13[3] = &unk_1E7CCCE20;
+    v13[4] = v14;
+    v13[5] = v10;
+    [v4 _cn_each:v13];
     CPSqliteStatementPerform();
     CPSqliteStatementReset();
-    _Block_object_dispose(v13, 8);
+    _Block_object_dispose(v14, 8);
   }
 
-  _commitWriterConnection(v7, "BOOL ABRemoveContactIdentifiersFromLimitedAccessForAllBundles(ABAddressBookRef, NSArray<NSString *> *)");
+  _commitWriterConnection(v8, "BOOL ABRemoveContactIdentifiersFromLimitedAccessForAllBundles(ABAddressBookRef, NSArray<NSString *> *)");
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotification(DarwinNotifyCenter, @"CNContactStoreLimitedAccessDidChangeNotification", 0, 0, 1u);
   return v5;
 }
 
-void sub_1B7F3BF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B7F3BF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1234,7 +1325,7 @@ uint64_t __ABRemoveContactIdentifiersFromLimitedAccessForAllBundles_block_invoke
   return _bindStringAtIndex(v4, v6, a2);
 }
 
-uint64_t ABLimitedAccessContactsCountForBundle(uint64_t a1, void *a2)
+void *ABLimitedAccessContactsCountForBundle(uint64_t a1, void *a2)
 {
   if (!a1)
   {
@@ -1248,22 +1339,22 @@ uint64_t ABLimitedAccessContactsCountForBundle(uint64_t a1, void *a2)
     if (((*(*MEMORY[0x1E6996568] + 16))() & 1) == 0)
     {
       v4 = CPSqliteConnectionStatementForSQL();
-      if (v4 && (v5 = v4, (v6 = *(v4 + 8)) != 0) && !sqlite3_bind_text(v6, 1, [a2 UTF8String], -1, 0) && !sqlite3_bind_int(*(v5 + 8), 2, 1))
+      if (v4 && (v6 = v4, (v7 = *(v4 + 8)) != 0) && (v4 = sqlite3_bind_text(v7, 1, [a2 UTF8String], -1, 0), !v4) && (v4 = sqlite3_bind_int(*(v6 + 8), 2, 1), !v4))
       {
-        v8 = CPSqliteStatementIntegerResult();
+        v9 = CPSqliteStatementIntegerResult();
         CPSqliteStatementReset();
-        if (v8 >= 1)
+        if (v9 >= 1)
         {
-          return [MEMORY[0x1E696AD98] numberWithInt:v8];
+          return [MEMORY[0x1E696AD98] numberWithInt:v9];
         }
       }
 
       else
       {
-        v7 = ABOSLogGeneral();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = ABOSLogGeneral(v4, v5);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          ABLimitedAccessContactsCountForBundle_cold_1(a2, v7);
+          ABLimitedAccessContactsCountForBundle_cold_1(a2, v8);
         }
       }
     }
@@ -1274,58 +1365,60 @@ uint64_t ABLimitedAccessContactsCountForBundle(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t ABGetLimitedAccessLastSyncSequenceNumber(uint64_t a1)
+uint64_t ABGetLimitedAccessLastSyncSequenceNumber(uint64_t a1, uint64_t a2)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"parameter ‘addressBook’ must be nonnull" userInfo:0]);
   }
 
-  v2 = ABOSLogGeneral();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = ABOSLogGeneral(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13[0]) = 0;
-    _os_log_impl(&dword_1B7EFB000, v2, OS_LOG_TYPE_DEFAULT, "ABGetLimitedAccessLastSyncSequenceNumber", v13, 2u);
+    LOWORD(v18[0]) = 0;
+    _os_log_impl(&dword_1B7EFB000, v3, OS_LOG_TYPE_DEFAULT, "ABGetLimitedAccessLastSyncSequenceNumber", v18, 2u);
   }
 
-  v3 = MEMORY[0x1E696AD98];
-  IntegerProperty = ABAddressBookGetIntegerProperty(a1);
+  v4 = MEMORY[0x1E696AD98];
+  IntegerProperty = ABAddressBookGetIntegerProperty(a1, @"ABlimitedAccessTableCurrentSequenceNumber");
+  SequenceNumber = IntegerProperty;
   if (IntegerProperty == -1)
   {
     CPRecordStoreGetDatabase();
-    if (!CPSqliteDatabaseConnectionForReading())
+    v8 = CPSqliteDatabaseConnectionForReading();
+    if (!v8)
     {
-      IntegerProperty = 0xFFFFFFFFLL;
-      return [v3 numberWithInt:IntegerProperty];
+      SequenceNumber = 0xFFFFFFFFLL;
+      return [v4 numberWithInt:SequenceNumber];
     }
 
-    IntegerProperty = lastSequenceNumber();
-    v5 = ABOSLogGeneral();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    SequenceNumber = lastSequenceNumber(v8);
+    v10 = ABOSLogGeneral(SequenceNumber, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v13[0]) = 67109120;
-      HIDWORD(v13[0]) = IntegerProperty;
-      _os_log_impl(&dword_1B7EFB000, v5, OS_LOG_TYPE_DEFAULT, "getCurrentSequenceNumber key not found, save %d", v13, 8u);
+      LODWORD(v18[0]) = 67109120;
+      HIDWORD(v18[0]) = SequenceNumber;
+      _os_log_impl(&dword_1B7EFB000, v10, OS_LOG_TYPE_DEFAULT, "getCurrentSequenceNumber key not found, save %d", v18, 8u);
     }
 
-    ABAddressBookSetIntegerProperty(a1, @"ABlimitedAccessTableCurrentSequenceNumber", IntegerProperty, v6, v7, v8, v9, v10, v13[0]);
+    ABAddressBookSetIntegerProperty(a1, @"ABlimitedAccessTableCurrentSequenceNumber", SequenceNumber, v11, v12, v13, v14, v15, v18[0]);
   }
 
-  v11 = ABOSLogGeneral();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v16 = ABOSLogGeneral(IntegerProperty, v6);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v13[0]) = 67109120;
-    HIDWORD(v13[0]) = IntegerProperty;
-    _os_log_impl(&dword_1B7EFB000, v11, OS_LOG_TYPE_DEFAULT, "getCurrentSequenceNumber %d", v13, 8u);
+    LODWORD(v18[0]) = 67109120;
+    HIDWORD(v18[0]) = SequenceNumber;
+    _os_log_impl(&dword_1B7EFB000, v16, OS_LOG_TYPE_DEFAULT, "getCurrentSequenceNumber %d", v18, 8u);
   }
 
-  return [v3 numberWithInt:IntegerProperty];
+  return [v4 numberWithInt:SequenceNumber];
 }
 
 BOOL ABPurgeLimitedAccessRecordsForBundle(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"parameter ‘addressBook’ must be nonnull" userInfo:0]);
@@ -1336,70 +1429,71 @@ BOOL ABPurgeLimitedAccessRecordsForBundle(uint64_t a1, void *a2)
     return 0;
   }
 
-  markFullSyncRequired(a1);
+  markFullSyncRequired(a1, v4);
   WriterConnection = _getWriterConnection(*(a1 + 16), "BOOL ABPurgeLimitedAccessRecordsForBundle(ABAddressBookRef, NSString *)");
   if (!WriterConnection)
   {
     return 0;
   }
 
-  v5 = WriterConnection;
-  v6 = ABOSLogGeneral();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = WriterConnection;
+  v8 = ABOSLogGeneral(WriterConnection, v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = a2;
-    _os_log_impl(&dword_1B7EFB000, v6, OS_LOG_TYPE_DEFAULT, "ABPurgeLimitedAccessRecordsForBundle bundleId:%@", &v13, 0xCu);
+    v15 = 138412290;
+    v16 = a2;
+    _os_log_impl(&dword_1B7EFB000, v8, OS_LOG_TYPE_DEFAULT, "ABPurgeLimitedAccessRecordsForBundle bundleId:%@", &v15, 0xCu);
   }
 
-  v7 = CPSqliteConnectionStatementForSQL();
-  v8 = v7 != 0;
-  if (v7)
+  v9 = CPSqliteConnectionStatementForSQL();
+  v10 = v9 != 0;
+  if (v9)
   {
-    v9 = *(v7 + 8);
-    v10 = sqlite3_bind_parameter_index(v9, ":bundleId");
-    if (v10 >= 1)
+    v11 = *(v9 + 8);
+    v12 = sqlite3_bind_parameter_index(v11, ":bundleId");
+    if (v12 >= 1)
     {
-      _bindStringAtIndex(v9, v10, a2);
+      _bindStringAtIndex(v11, v12, a2);
     }
 
     CPSqliteStatementPerform();
     CPSqliteStatementReset();
   }
 
-  _commitWriterConnection(v5, "BOOL ABPurgeLimitedAccessRecordsForBundle(ABAddressBookRef, NSString *)");
+  _commitWriterConnection(v7, "BOOL ABPurgeLimitedAccessRecordsForBundle(ABAddressBookRef, NSString *)");
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotification(DarwinNotifyCenter, @"CNContactStoreLimitedAccessDidChangeNotification", 0, 0, 1u);
-  return v8;
+  return v10;
 }
 
-void markFullSyncRequired(uint64_t a1)
+void markFullSyncRequired(uint64_t a1, uint64_t a2)
 {
-  v2 = ABOSLogGeneral();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = ABOSLogGeneral(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v9) = 0;
-    _os_log_impl(&dword_1B7EFB000, v2, OS_LOG_TYPE_DEFAULT, "markFullSyncRequired", &v9, 2u);
+    *v11 = 0;
+    _os_log_impl(&dword_1B7EFB000, v3, OS_LOG_TYPE_DEFAULT, "markFullSyncRequired", v11, 2u);
   }
 
-  FreshSequenceNumber = getFreshSequenceNumber(a1);
-  ABAddressBookSetIntegerProperty(a1, @"ABlimitedAccessLastFullSyncSequencenumber", FreshSequenceNumber, v4, v5, v6, v7, v8, v9);
+  FreshSequenceNumber = getFreshSequenceNumber(a1, v4);
+  ABAddressBookSetIntegerProperty(a1, @"ABlimitedAccessLastFullSyncSequencenumber", FreshSequenceNumber, v6, v7, v8, v9, v10, *v11);
 }
 
 ABLimitedAccessSyncData *ABGetWatchLimitedAccessSyncDataStartingAtSequenceNumber(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"parameter ‘addressBook’ must be nonnull" userInfo:0]);
   }
 
-  v4 = ABOSLogGeneral();
+  v2 = a2;
+  v4 = ABOSLogGeneral(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v21) = 67109120;
-    HIDWORD(v21) = a2;
-    _os_log_impl(&dword_1B7EFB000, v4, OS_LOG_TYPE_DEFAULT, "ABGetWatchLimitedAccessSyncDataStartingAtSequenceNumber requesterSeqNum:%d", &v21, 8u);
+    LODWORD(v27) = 67109120;
+    HIDWORD(v27) = v2;
+    _os_log_impl(&dword_1B7EFB000, v4, OS_LOG_TYPE_DEFAULT, "ABGetWatchLimitedAccessSyncDataStartingAtSequenceNumber requesterSeqNum:%d", &v27, 8u);
   }
 
   CPRecordStoreGetDatabase();
@@ -1411,32 +1505,34 @@ ABLimitedAccessSyncData *ABGetWatchLimitedAccessSyncDataStartingAtSequenceNumber
   v5 = objc_alloc_init(ABLimitedAccessSyncData);
   [(ABLimitedAccessSyncData *)v5 setFullSyncRequired:0];
   v6 = [MEMORY[0x1E695DF70] array];
-  LODWORD(SequenceNumber) = ABAddressBookGetIntegerProperty(a1);
-  if (SequenceNumber != -1)
+  IntegerProperty = ABAddressBookGetIntegerProperty(a1, @"ABlimitedAccessLastFullSyncSequencenumber");
+  LODWORD(SequenceNumber) = IntegerProperty;
+  if (IntegerProperty != -1)
   {
     goto LABEL_10;
   }
 
   CPRecordStoreGetDatabase();
-  if (CPSqliteDatabaseConnectionForReading())
+  v10 = CPSqliteDatabaseConnectionForReading();
+  if (v10)
   {
-    SequenceNumber = lastSequenceNumber();
-    v8 = ABOSLogGeneral();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    SequenceNumber = lastSequenceNumber(v10);
+    v12 = ABOSLogGeneral(SequenceNumber, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v21) = 67109120;
-      HIDWORD(v21) = SequenceNumber;
-      _os_log_impl(&dword_1B7EFB000, v8, OS_LOG_TYPE_DEFAULT, "getFullSyncSequenceNumber key not found, save %d", &v21, 8u);
+      LODWORD(v27) = 67109120;
+      HIDWORD(v27) = SequenceNumber;
+      _os_log_impl(&dword_1B7EFB000, v12, OS_LOG_TYPE_DEFAULT, "getFullSyncSequenceNumber key not found, save %d", &v27, 8u);
     }
 
-    ABAddressBookSetIntegerProperty(a1, @"ABlimitedAccessLastFullSyncSequencenumber", SequenceNumber, v9, v10, v11, v12, v13, v21);
+    ABAddressBookSetIntegerProperty(a1, @"ABlimitedAccessLastFullSyncSequencenumber", SequenceNumber, v13, v14, v15, v16, v17, v27);
 LABEL_10:
-    v14 = ABOSLogGeneral();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v18 = ABOSLogGeneral(IntegerProperty, v8);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v21) = 67109120;
-      HIDWORD(v21) = SequenceNumber;
-      _os_log_impl(&dword_1B7EFB000, v14, OS_LOG_TYPE_DEFAULT, "getFullSyncSequenceNumber %d", &v21, 8u);
+      LODWORD(v27) = 67109120;
+      HIDWORD(v27) = SequenceNumber;
+      _os_log_impl(&dword_1B7EFB000, v18, OS_LOG_TYPE_DEFAULT, "getFullSyncSequenceNumber %d", &v27, 8u);
     }
 
     goto LABEL_14;
@@ -1444,34 +1540,34 @@ LABEL_10:
 
   LODWORD(SequenceNumber) = -1;
 LABEL_14:
-  if (SequenceNumber > a2)
+  if (SequenceNumber > v2)
   {
     [(ABLimitedAccessSyncData *)v5 setFullSyncRequired:1];
-    LODWORD(a2) = 0;
+    LODWORD(v2) = 0;
   }
 
-  [(ABLimitedAccessSyncData *)v5 setCurrentSequenceNumber:getLastUsedSequenceNumber(a1)];
-  v15 = ABOSLogGeneral();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v19 = [(ABLimitedAccessSyncData *)v5 setCurrentSequenceNumber:getLastUsedSequenceNumber(a1)];
+  v21 = ABOSLogGeneral(v19, v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = [(ABLimitedAccessSyncData *)v5 currentSequenceNumber];
-    LODWORD(v21) = 67109632;
-    HIDWORD(v21) = a2;
-    v22 = 1024;
-    v23 = SequenceNumber;
-    v24 = 1024;
-    v25 = v16;
-    _os_log_impl(&dword_1B7EFB000, v15, OS_LOG_TYPE_DEFAULT, "ABLimitedAccess requesterSeqNum %d fullSyncVersion %d currentversion %d", &v21, 0x14u);
+    v22 = [(ABLimitedAccessSyncData *)v5 currentSequenceNumber];
+    LODWORD(v27) = 67109632;
+    HIDWORD(v27) = v2;
+    v28 = 1024;
+    v29 = SequenceNumber;
+    v30 = 1024;
+    v31 = v22;
+    _os_log_impl(&dword_1B7EFB000, v21, OS_LOG_TYPE_DEFAULT, "ABLimitedAccess requesterSeqNum %d fullSyncVersion %d currentversion %d", &v27, 0x14u);
   }
 
-  v17 = CPSqliteConnectionStatementForSQL();
-  if (v17)
+  v23 = CPSqliteConnectionStatementForSQL();
+  if (v23)
   {
-    v18 = *(v17 + 8);
-    v19 = sqlite3_bind_parameter_index(v18, ":seqNumber");
-    if (v19 >= 1)
+    v24 = *(v23 + 8);
+    v25 = sqlite3_bind_parameter_index(v24, ":seqNumber");
+    if (v25 >= 1)
     {
-      sqlite3_bind_int(v18, v19, a2);
+      sqlite3_bind_int(v24, v25, v2);
     }
 
     CPSqliteStatementSendResults();
@@ -1484,37 +1580,39 @@ LABEL_14:
 
 uint64_t getLastUsedSequenceNumber(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  IntegerProperty = ABAddressBookGetIntegerProperty(a1);
+  v15[1] = *MEMORY[0x1E69E9840];
+  IntegerProperty = ABAddressBookGetIntegerProperty(a1, @"ABlimitedAccessLastSequenceNumber");
+  SequenceNumber = IntegerProperty;
   if (IntegerProperty == -1)
   {
     CPRecordStoreGetDatabase();
-    if (!CPSqliteDatabaseConnectionForReading())
+    v5 = CPSqliteDatabaseConnectionForReading();
+    if (!v5)
     {
       return 0xFFFFFFFFLL;
     }
 
-    IntegerProperty = lastSequenceNumber();
-    v3 = ABOSLogGeneral();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    SequenceNumber = lastSequenceNumber(v5);
+    v7 = ABOSLogGeneral(SequenceNumber, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v11[0]) = 67109120;
-      HIDWORD(v11[0]) = IntegerProperty;
-      _os_log_impl(&dword_1B7EFB000, v3, OS_LOG_TYPE_DEFAULT, "getLastUsedSequenceNumber key not found, save %d", v11, 8u);
+      LODWORD(v15[0]) = 67109120;
+      HIDWORD(v15[0]) = SequenceNumber;
+      _os_log_impl(&dword_1B7EFB000, v7, OS_LOG_TYPE_DEFAULT, "getLastUsedSequenceNumber key not found, save %d", v15, 8u);
     }
 
-    ABAddressBookSetIntegerProperty(a1, @"ABlimitedAccessLastSequenceNumber", IntegerProperty, v4, v5, v6, v7, v8, v11[0]);
+    ABAddressBookSetIntegerProperty(a1, @"ABlimitedAccessLastSequenceNumber", SequenceNumber, v8, v9, v10, v11, v12, v15[0]);
   }
 
-  v9 = ABOSLogGeneral();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v13 = ABOSLogGeneral(IntegerProperty, v3);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v11[0]) = 67109120;
-    HIDWORD(v11[0]) = IntegerProperty;
-    _os_log_impl(&dword_1B7EFB000, v9, OS_LOG_TYPE_DEFAULT, "getLastUsedSequenceNumber %d", v11, 8u);
+    LODWORD(v15[0]) = 67109120;
+    HIDWORD(v15[0]) = SequenceNumber;
+    _os_log_impl(&dword_1B7EFB000, v13, OS_LOG_TYPE_DEFAULT, "getLastUsedSequenceNumber %d", v15, 8u);
   }
 
-  return IntegerProperty;
+  return SequenceNumber;
 }
 
 uint64_t _syncDataRowHandler(uint64_t a1, void *a2)
@@ -1557,7 +1655,7 @@ uint64_t _syncDataRowHandler(uint64_t a1, void *a2)
 uint64_t ABApplyLimitedAccessSyncEvents(uint64_t a1, void *a2)
 {
   v25 = *MEMORY[0x1E69E9840];
-  v4 = ABOSLogGeneral();
+  v4 = ABOSLogGeneral(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1575,51 +1673,56 @@ uint64_t ABApplyLimitedAccessSyncEvents(uint64_t a1, void *a2)
     v7 = [a2 countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v7)
     {
-      v8 = v7;
-      v9 = 0;
-      v10 = *v19;
+      v9 = v7;
+      v10 = 0;
+      v11 = *v19;
       do
       {
-        for (i = 0; i != v8; ++i)
+        v12 = 0;
+        do
         {
-          if (*v19 != v10)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(a2);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * i);
-          v13 = ABOSLogGeneral();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v13 = *(*(&v18 + 1) + 8 * v12);
+          v14 = ABOSLogGeneral(v7, v8);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            v14 = [v12 sequenceNumber];
+            v15 = [v13 sequenceNumber];
             *buf = 67109120;
-            v23 = v14;
-            _os_log_impl(&dword_1B7EFB000, v13, OS_LOG_TYPE_DEFAULT, "ABApplyLimitedAccessSyncEvents sequenceNumber %d", buf, 8u);
+            v23 = v15;
+            _os_log_impl(&dword_1B7EFB000, v14, OS_LOG_TYPE_DEFAULT, "ABApplyLimitedAccessSyncEvents sequenceNumber %d", buf, 8u);
           }
 
-          v15 = CPSqliteConnectionStatementForSQL();
-          if (v15)
+          v7 = CPSqliteConnectionStatementForSQL();
+          if (v7)
           {
-            v16 = v15;
-            v9 = 1;
-            sqlite3_bind_text(*(v15 + 8), 1, [objc_msgSend(v12 "bundleID")], -1, 0);
-            sqlite3_bind_text(*(v16 + 8), 2, [objc_msgSend(v12 "contactID")], -1, 0);
-            sqlite3_bind_int(*(v16 + 8), 3, [v12 sequenceNumber]);
-            sqlite3_bind_int(*(v16 + 8), 4, [v12 isActive]);
+            v16 = v7;
+            v10 = 1;
+            sqlite3_bind_text(*(v7 + 8), 1, [objc_msgSend(v13 "bundleID")], -1, 0);
+            sqlite3_bind_text(*(v16 + 8), 2, [objc_msgSend(v13 "contactID")], -1, 0);
+            sqlite3_bind_int(*(v16 + 8), 3, [v13 sequenceNumber]);
+            sqlite3_bind_int(*(v16 + 8), 4, [v13 isActive]);
             CPSqliteStatementPerform();
-            CPSqliteStatementReset();
+            v7 = CPSqliteStatementReset();
           }
+
+          ++v12;
         }
 
-        v8 = [a2 countByEnumeratingWithState:&v18 objects:v24 count:16];
+        while (v9 != v12);
+        v7 = [a2 countByEnumeratingWithState:&v18 objects:v24 count:16];
+        v9 = v7;
       }
 
-      while (v8);
+      while (v7);
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
     _commitWriterConnection(v6, "BOOL ABApplyLimitedAccessSyncEvents(ABAddressBookRef, NSArray<ABLimitedAccessSyncEvent *> *)");
@@ -1627,26 +1730,27 @@ uint64_t ABApplyLimitedAccessSyncEvents(uint64_t a1, void *a2)
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9 & 1;
+  return v10 & 1;
 }
 
-BOOL ABDropAllLimitedAccessRows(uint64_t a1, int a2)
+BOOL ABDropAllLimitedAccessRows(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v4 = ABOSLogGeneral();
+  v2 = a2;
+  v10 = *MEMORY[0x1E69E9840];
+  v4 = ABOSLogGeneral(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = a2;
-    _os_log_impl(&dword_1B7EFB000, v4, OS_LOG_TYPE_DEFAULT, "ABDropAllLimitedAccessRows enableFullSyncNotify %d", v8, 8u);
+    v9[0] = 67109120;
+    v9[1] = v2;
+    _os_log_impl(&dword_1B7EFB000, v4, OS_LOG_TYPE_DEFAULT, "ABDropAllLimitedAccessRows enableFullSyncNotify %d", v9, 8u);
   }
 
-  if (a2)
+  if (v2)
   {
-    markFullSyncRequired(a1);
+    markFullSyncRequired(a1, v5);
   }
 
   WriterConnection = _getWriterConnection(*(a1 + 16), "BOOL ABDropAllLimitedAccessRows(ABAddressBookRef, BOOL)");
@@ -1654,7 +1758,7 @@ BOOL ABDropAllLimitedAccessRows(uint64_t a1, int a2)
   {
     CPSqliteConnectionPerformSQL();
     _commitWriterConnection(WriterConnection, "BOOL ABDropAllLimitedAccessRows(ABAddressBookRef, BOOL)");
-    if (a2)
+    if (v2)
     {
       DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
       CFNotificationCenterPostNotification(DarwinNotifyCenter, @"CNContactStoreLimitedAccessDidChangeNotification", 0, 0, 1u);
@@ -1664,16 +1768,16 @@ BOOL ABDropAllLimitedAccessRows(uint64_t a1, int a2)
   return WriterConnection != 0;
 }
 
-uint64_t lastSequenceNumber()
+uint64_t lastSequenceNumber(uint64_t a1)
 {
   if (!CPSqliteConnectionStatementForSQL())
   {
     return 0;
   }
 
-  v0 = CPSqliteStatementIntegerResult();
+  v1 = CPSqliteStatementIntegerResult();
   CPSqliteStatementReset();
-  return v0;
+  return v1;
 }
 
 const __CFDictionary *ABGetLocalizedAddressFormatDictionaryForCountryCode(const void *a1)
@@ -1865,7 +1969,7 @@ void ABDeviceRegisterCallbackForFirstUnlock(uint64_t a1)
   }
 }
 
-uint64_t __ABDeviceRegisterCallbackForFirstUnlock_block_invoke(uint64_t result)
+void *__ABDeviceRegisterCallbackForFirstUnlock_block_invoke(void *result)
 {
   if (__isBeforeFirstUnlockWithDataProtected == 1)
   {
@@ -1884,7 +1988,7 @@ uint64_t __ABDeviceRegisterCallbackForFirstUnlock_block_invoke(uint64_t result)
         v4[1] = 3221225472;
         v4[2] = __ABDeviceRegisterCallbackForFirstUnlock_block_invoke_2;
         v4[3] = &__block_descriptor_40_e8_v12__0i8l;
-        v4[4] = *(v1 + 32);
+        v4[4] = v1[4];
         return notify_register_dispatch(v2, &out_token, global_queue, v4);
       }
     }
@@ -1926,8 +2030,9 @@ LABEL_6:
   return result;
 }
 
-id buildTokenTable(int a1)
+id buildTokenTable(uint64_t a1)
 {
+  v1 = a1;
   v21 = 10;
   if (!ABReturnDelimiterData)
   {
@@ -1941,40 +2046,40 @@ id buildTokenTable(int a1)
   v3 = CFArrayCreateMutable(0, 9, &callBacks);
   [v2 addObject:v3];
   CFRelease(v3);
-  Token = createToken(@";", 4097, a1);
+  Token = createToken(@";", 4097, v1);
   CFArrayAppendValue(v3, Token);
-  v5 = createToken(@":", 8193, a1);
+  v5 = createToken(@":", 8193, v1);
   CFArrayAppendValue(v3, v5);
-  v6 = createToken(@" ", 16385, a1);
+  v6 = createToken(@" ", 16385, v1);
   CFArrayAppendValue(v3, v6);
-  v7 = createToken(@"=", 1025, a1);
+  v7 = createToken(@"=", 1025, v1);
   CFArrayAppendValue(v3, v7);
-  v8 = createToken(@"\r", 32770, a1);
+  v8 = createToken(@"\r", 32770, v1);
   CFArrayAppendValue(v3, v8);
-  v9 = createToken(@"\n", 32769, a1);
+  v9 = createToken(@"\n", 32769, v1);
   CFArrayAppendValue(v3, v9);
-  v10 = createToken(@"\", 513, a1);
+  v10 = createToken(@"\"", 513, v1);
   CFArrayAppendValue(v3, v10);
-  v11 = createToken(@".", 257, a1);
+  v11 = createToken(@".", 257, v1);
   CFArrayAppendValue(v3, v11);
-  v12 = createToken(@",", 193, a1);
+  v12 = createToken(@",", 193, v1);
   CFArrayAppendValue(v3, v12);
   v13 = CFArrayCreateMutable(0, 1, &callBacks);
   [v2 addObject:v13];
   CFRelease(v13);
-  v14 = createToken(@"END", 7, a1);
+  v14 = createToken(@"END", 7, v1);
   CFArrayAppendValue(v13, v14);
   v15 = CFArrayCreateMutable(0, 2, &callBacks);
   [v2 addObject:v15];
   CFRelease(v15);
-  v16 = createToken(@"BEGIN", 5, a1);
+  v16 = createToken(@"BEGIN", 5, v1);
   CFArrayAppendValue(v15, v16);
-  v17 = createToken(@"VCARD", 6, a1);
+  v17 = createToken(@"VCARD", 6, v1);
   CFArrayAppendValue(v15, v17);
   v18 = CFArrayCreateMutable(0, 1, &callBacks);
   [v2 addObject:v18];
   CFRelease(v18);
-  v19 = createToken(@"VERSION", 2049, a1);
+  v19 = createToken(@"VERSION", 2049, v1);
   CFArrayAppendValue(v18, v19);
   return v2;
 }
@@ -2005,7 +2110,7 @@ _DWORD *createToken(__CFString *a1, int a2, int a3)
   return v6;
 }
 
-uint64_t ABIsDataAccess()
+uint64_t ABIsDataAccess(uint64_t a1, uint64_t a2)
 {
   if (dataAccessOnceToken != -1)
   {
@@ -2033,7 +2138,7 @@ id __ABIsDataAccess_block_invoke()
   return result;
 }
 
-uint64_t ABIsDatabaseDoctor()
+uint64_t ABIsDatabaseDoctor(uint64_t a1, uint64_t a2)
 {
   if (databaseDoctorOnceToken != -1)
   {
@@ -2055,7 +2160,7 @@ id __ABIsDatabaseDoctor_block_invoke()
   return result;
 }
 
-CFComparisonResult _SortPeople(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t _SortPeople(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = *(a3 + 320);
   if (v5 && ![v5 isValid])
@@ -2369,7 +2474,7 @@ CGImageRef ABImageUtilsCreateImageFromImageWithCropRect(CGImage *a1, double a2, 
   return CGImageCreateWithImageInRect(a1, *&v22);
 }
 
-uint64_t _ABImageUtilsImageIsNormalOrientation(const __CFData *a1)
+BOOL _ABImageUtilsImageIsNormalOrientation(const __CFData *a1)
 {
   if (!a1)
   {
@@ -2412,7 +2517,7 @@ uint64_t _ABImageUtilsImageIsNormalOrientation(const __CFData *a1)
   return v6;
 }
 
-uint64_t ABImageUtilsCopyImageSourceAndGetSizeFromData(const __CFData *a1, CGImageSource **a2, int *a3, int *a4)
+BOOL ABImageUtilsCopyImageSourceAndGetSizeFromData(const __CFData *a1, CGImageSource **a2, int *a3, int *a4)
 {
   if (ABLogAPIUsage())
   {
@@ -2592,85 +2697,82 @@ BOOL _ABImageUtilsCropRectMatchesOrignalSizeCropRectWithScalingFactor(double a1,
 
 BOOL ABImageUtilsOriginalSizeCropRectMatchesSyncedCropRect(uint64_t a1, const __CFData *a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
 {
-  v40 = *MEMORY[0x1E69E9840];
-  v24 = 0;
-  v25 = 0;
-  v11 = ABPersonCopyImageDataAndInvertedCropRect(a1, 2, &v25 + 1, &v25, &v24 + 1, &v24);
-  v12 = SHIDWORD(v25);
-  v13 = v25;
-  v14 = SHIDWORD(v24);
-  v15 = v24;
-  v16 = ABOSLogGeneral();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v42 = *MEMORY[0x1E69E9840];
+  v26 = 0;
+  v27 = 0;
+  v11 = ABPersonCopyImageDataAndInvertedCropRect(a1, 2, &v27 + 1, &v27, &v26 + 1, &v26);
+  v12 = SHIDWORD(v27);
+  v13 = v27;
+  v14 = SHIDWORD(v26);
+  v15 = v26;
+  v17 = ABOSLogGeneral(v11, v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134219776;
-    *v27 = v12;
-    *&v27[8] = 2048;
-    *v28 = v13;
-    *&v28[8] = 2048;
-    v29 = v14;
-    v30 = 2048;
-    v31 = v15;
+    *v29 = v12;
+    *&v29[8] = 2048;
+    *v30 = v13;
+    *&v30[8] = 2048;
+    v31 = v14;
     v32 = 2048;
-    v33 = a3;
+    v33 = v15;
     v34 = 2048;
-    v35 = a4;
+    v35 = a3;
     v36 = 2048;
-    v37 = a5;
+    v37 = a4;
     v38 = 2048;
-    v39 = a6;
-    _os_log_debug_impl(&dword_1B7EFB000, v16, OS_LOG_TYPE_DEBUG, "[Likeness Update] original cropRect {%.2f, %.2f, %.2f, %.2f} vs syncedCropRect: {%.2f, %.2f, %.2f, %.2f}", buf, 0x52u);
+    v39 = a5;
+    v40 = 2048;
+    v41 = a6;
+    _os_log_debug_impl(&dword_1B7EFB000, v17, OS_LOG_TYPE_DEBUG, "[Likeness Update] original cropRect {%.2f, %.2f, %.2f, %.2f} vs syncedCropRect: {%.2f, %.2f, %.2f, %.2f}", buf, 0x52u);
   }
 
-  v41.origin.x = a3;
-  v41.origin.y = a4;
-  v41.size.width = a5;
-  v41.size.height = a6;
-  v42.origin.x = v12;
-  v42.origin.y = v13;
-  v42.size.width = v14;
-  v42.size.height = v15;
-  if (CGRectEqualToRect(v41, v42))
+  v43.origin.x = a3;
+  v43.origin.y = a4;
+  v43.size.width = a5;
+  v43.size.height = a6;
+  v44.origin.x = v12;
+  v44.origin.y = v13;
+  v44.size.width = v14;
+  v44.size.height = v15;
+  if (CGRectEqualToRect(v43, v44))
   {
-    v17 = 1;
+    v18 = 1;
   }
 
   else
   {
-    v23 = 0;
-    SizeFromData = ABImageUtilsCopyImageSourceAndGetSizeFromData(v11, 0, 0, &v23 + 1);
-    v19 = ABImageUtilsCopyImageSourceAndGetSizeFromData(a2, 0, 0, &v23);
-    v17 = 0;
-    if (SizeFromData)
+    v25 = 0;
+    SizeFromData = ABImageUtilsCopyImageSourceAndGetSizeFromData(v11, 0, 0, &v25 + 1);
+    v20 = ABImageUtilsCopyImageSourceAndGetSizeFromData(a2, 0, 0, &v25);
+    v18 = 0;
+    if (SizeFromData && v20)
     {
-      if (v19)
+      v18 = _ABImageUtilsCropRectMatchesOrignalSizeCropRectWithScalingFactor(a3, a4, a5, a6, v12, v13, v14, v15, v25 / SHIDWORD(v25));
+      v22 = ABOSLogGeneral(v18, v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        v17 = _ABImageUtilsCropRectMatchesOrignalSizeCropRectWithScalingFactor(a3, a4, a5, a6, v12, v13, v14, v15, v23 / SHIDWORD(v23));
-        v20 = ABOSLogGeneral();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v24 = @"NO";
+        if (v18)
         {
-          v22 = @"NO";
-          if (v17)
-          {
-            v22 = @"YES";
-          }
-
-          *buf = 67109634;
-          *v27 = HIDWORD(v23);
-          *&v27[4] = 1024;
-          *&v27[6] = v23;
-          *v28 = 2112;
-          *&v28[2] = v22;
-          _os_log_debug_impl(&dword_1B7EFB000, v20, OS_LOG_TYPE_DEBUG, "[Likeness Update] original height %i vs sync height: %i, cropRect is scaled down: %@", buf, 0x18u);
+          v24 = @"YES";
         }
+
+        *buf = 67109634;
+        *v29 = HIDWORD(v25);
+        *&v29[4] = 1024;
+        *&v29[6] = v25;
+        *v30 = 2112;
+        *&v30[2] = v24;
+        _os_log_debug_impl(&dword_1B7EFB000, v22, OS_LOG_TYPE_DEBUG, "[Likeness Update] original height %i vs sync height: %i, cropRect is scaled down: %@", buf, 0x18u);
       }
     }
   }
 
-  return v17;
+  return v18;
 }
 
-__CFData *ABImageUtilsCreateScaledImageData(CGImage *a1, unsigned int a2, const __CFString *a3, void *a4, double a5, double a6, double a7)
+CFDataRef ABImageUtilsCreateScaledImageData(CGImage *a1, unsigned int a2, const __CFString *a3, CFTypeRef *a4, double a5, double a6, double a7)
 {
   if (a2 != 5 && a2 != 8)
   {
@@ -2883,10 +2985,12 @@ BOOL ABPersonImageFormatIsLessThanOrEqualToPixelSize(unsigned int a1, signed int
   return v5 <= a3;
 }
 
-__CFData *ABImageUtilsCopySyncImageForPerson(const void *a1, unsigned int a2, _BYTE *a3, _DWORD *a4, int a5, int *a6, int *a7, int *a8, int *a9)
+__CFData *ABImageUtilsCopySyncImageForPerson(const void *a1, uint64_t a2, _BYTE *a3, _DWORD *a4, uint64_t a5, int *a6, int *a7, int *a8, int *a9)
 {
-  v66 = *MEMORY[0x1E69E9840];
-  v17 = ABOSLogGeneral();
+  v12 = a5;
+  v15 = a2;
+  v80 = *MEMORY[0x1E69E9840];
+  v17 = ABOSLogGeneral(a1, a2);
   if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     if (!a3)
@@ -2898,11 +3002,11 @@ __CFData *ABImageUtilsCopySyncImageForPerson(const void *a1, unsigned int a2, _B
   }
 
   *buf = 67109632;
-  *v60 = ABRecordGetRecordID(a1);
-  *&v60[4] = 1024;
-  *&v60[6] = a2;
-  *v61 = 1024;
-  *&v61[2] = a5;
+  *v74 = ABRecordGetRecordID(a1);
+  *&v74[4] = 1024;
+  *&v74[6] = v15;
+  *v75 = 1024;
+  *&v75[2] = v12;
   _os_log_debug_impl(&dword_1B7EFB000, v17, OS_LOG_TYPE_DEBUG, "[Likeness Update] Enter ABImageUtilsCopySyncImageForPerson: ABRecordID = %i, maxSize = %i, allowOverflow = %i", buf, 0x14u);
   if (a3)
   {
@@ -2936,17 +3040,17 @@ LABEL_4:
     *a4 = 2;
   }
 
-  v57 = 0;
-  v58 = 1.0;
-  v55 = 0;
-  v56 = 0;
+  v71 = 0;
+  v72 = 1.0;
+  v69 = 0;
+  v70 = 0;
   isrc = 0;
-  v18 = ABPersonCopyImageDataAndInvertedCropRect(a1, 2, &v57 + 1, &v57, &v56 + 1, &v56);
-  v19 = ABOSLogGeneral();
-  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
+  v18 = ABPersonCopyImageDataAndInvertedCropRect(a1, 2, &v71 + 1, &v71, &v70 + 1, &v70);
+  v20 = ABOSLogGeneral(v18, v19);
+  v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
   if (!v18)
   {
-    if (v20)
+    if (v21)
     {
       ABImageUtilsCopySyncImageForPerson_cold_7();
       if (a3)
@@ -2958,28 +3062,28 @@ LABEL_4:
     else if (a3)
     {
 LABEL_33:
-      v27 = 0;
+      v30 = 0;
       *a3 = 0;
-      return v27;
+      return v30;
     }
 
     return 0;
   }
 
-  if (v20)
+  if (v21)
   {
-    v50 = [(__CFData *)v18 length];
+    v64 = [(__CFData *)v18 length];
     *buf = 134219008;
-    *v60 = v50;
-    *&v60[8] = 1024;
-    *v61 = HIDWORD(v57);
-    *&v61[4] = 1024;
-    *v62 = v57;
-    *&v62[4] = 1024;
-    v63 = HIDWORD(v56);
-    v64 = 1024;
-    v65 = v56;
-    _os_log_debug_impl(&dword_1B7EFB000, v19, OS_LOG_TYPE_DEBUG, "Original image has length = %lu with thumbnail crop rect (%i, %i, %i, %i)", buf, 0x24u);
+    *v74 = v64;
+    *&v74[8] = 1024;
+    *v75 = HIDWORD(v71);
+    *&v75[4] = 1024;
+    *v76 = v71;
+    *&v76[4] = 1024;
+    v77 = HIDWORD(v70);
+    v78 = 1024;
+    v79 = v70;
+    _os_log_debug_impl(&dword_1B7EFB000, v20, OS_LOG_TYPE_DEBUG, "Original image has length = %lu with thumbnail crop rect (%i, %i, %i, %i)", buf, 0x24u);
   }
 
   if (ABLogDebugLevelEnabled())
@@ -2987,15 +3091,17 @@ LABEL_33:
     -[__CFData writeToFile:atomically:](v18, "writeToFile:atomically:", [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/%i-origImage.jpg", ABRecordGetRecordID(a1)], 1);
   }
 
-  if ((ABImageUtilsCopyImageSourceAndGetSizeFromData(v18, &isrc, &v55 + 1, &v55) & 1) == 0)
+  SizeFromData = ABImageUtilsCopyImageSourceAndGetSizeFromData(v18, &isrc, &v69 + 1, &v69);
+  if ((SizeFromData & 1) == 0)
   {
     isrc = 0;
-    v55 = 0;
+    v69 = 0;
     goto LABEL_31;
   }
 
-  if (v55 < 1 || v55 <= 0)
+  if (v69 < 1 || v69 <= 0)
   {
+    SizeFromData = isrc;
     if (isrc)
     {
       CFRelease(isrc);
@@ -3003,8 +3109,8 @@ LABEL_33:
     }
 
 LABEL_31:
-    v28 = ABOSLogGeneral();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v31 = ABOSLogGeneral(SizeFromData, v23);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       ABImageUtilsCopySyncImageForPerson_cold_6();
       if (a3)
@@ -3021,56 +3127,57 @@ LABEL_31:
     return 0;
   }
 
-  v52 = a2;
-  v21 = *MEMORY[0x1E6963860];
+  v66 = v15;
+  v24 = *MEMORY[0x1E6963860];
   Type = CGImageSourceGetType(isrc);
-  v23 = UTTypeConformsTo(v21, Type);
-  if (v23 && (ImageAtIndex = CGImageSourceCreateImageAtIndex(isrc, 0, 0)) != 0)
+  v26 = UTTypeConformsTo(v24, Type);
+  if (v26 && (ImageAtIndex = CGImageSourceCreateImageAtIndex(isrc, 0, 0)) != 0)
   {
-    v25 = ImageAtIndex;
+    v28 = ImageAtIndex;
     AlphaInfo = CGImageGetAlphaInfo(ImageAtIndex);
-    v51 = (AlphaInfo > kCGImageAlphaNoneSkipFirst) | (0x1Eu >> AlphaInfo);
-    CFRelease(v25);
+    v65 = (AlphaInfo > kCGImageAlphaNoneSkipFirst) | (0x1Eu >> AlphaInfo);
+    CFRelease(v28);
   }
 
   else
   {
-    LOBYTE(v51) = 0;
+    LOBYTE(v65) = 0;
   }
 
-  v30 = ABPersonCopyImageDataAndCropRect(a1, 5, 0, 0, 0, 0);
-  if (v30)
+  v33 = ABPersonCopyImageDataAndCropRect(a1, 5, 0, 0, 0, 0);
+  if (v33)
   {
-    v27 = v30;
-    v31 = ABOSLogGeneral();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+    v30 = v33;
+    v35 = ABOSLogGeneral(v33, v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
     {
       ABImageUtilsCopySyncImageForPerson_cold_1();
     }
 
     if (ABLogDebugLevelEnabled())
     {
-      -[__CFData writeToFile:atomically:](v27, "writeToFile:atomically:", [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/%i-savedSyncImage.jpg", ABRecordGetRecordID(a1)], 1);
+      -[__CFData writeToFile:atomically:](v30, "writeToFile:atomically:", [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/%i-savedSyncImage.jpg", ABRecordGetRecordID(a1)], 1);
     }
 
-    v53 = 0;
-    if (ABImageUtilsCopyImageSourceAndGetSizeFromData(v27, 0, &v53 + 1, &v53))
+    v67 = 0;
+    v36 = ABImageUtilsCopyImageSourceAndGetSizeFromData(v30, 0, &v67 + 1, &v67);
+    if (v36)
     {
-      v58 = v53 / v55;
-      if (vabdd_f64(v58, SHIDWORD(v53) / SHIDWORD(v55)) > 1.0)
+      v72 = v67 / v69;
+      if (vabdd_f64(v72, SHIDWORD(v67) / SHIDWORD(v69)) > 1.0)
       {
-        v32 = ABOSLogGeneral();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v38 = ABOSLogGeneral(v36, v37);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109888;
-          *v60 = HIDWORD(v53);
-          *&v60[4] = 1024;
-          *&v60[6] = v53;
-          *v61 = 1024;
-          *&v61[2] = HIDWORD(v55);
-          *v62 = 1024;
-          *&v62[2] = v55;
-          _os_log_error_impl(&dword_1B7EFB000, v32, OS_LOG_TYPE_ERROR, "[Likeness Update] ABImageUtilsCopySyncImageForPerson: inconsistent sync image ratio (%ix%i) vs original image ratio (%ix%i). Crop rect will be messed up", buf, 0x1Au);
+          *v74 = HIDWORD(v67);
+          *&v74[4] = 1024;
+          *&v74[6] = v67;
+          *v75 = 1024;
+          *&v75[2] = HIDWORD(v69);
+          *v76 = 1024;
+          *&v76[2] = v69;
+          _os_log_error_impl(&dword_1B7EFB000, v38, OS_LOG_TYPE_ERROR, "[Likeness Update] ABImageUtilsCopySyncImageForPerson: inconsistent sync image ratio (%ix%i) vs original image ratio (%ix%i). Crop rect will be messed up", buf, 0x1Au);
           if (!a3)
           {
             goto LABEL_77;
@@ -3091,8 +3198,8 @@ LABEL_75:
       goto LABEL_76;
     }
 
-    v41 = ABOSLogGeneral();
-    if (!os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v55 = ABOSLogGeneral(v36, v37);
+    if (!os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_75;
     }
@@ -3104,22 +3211,22 @@ LABEL_75:
     }
 
 LABEL_77:
-    v42 = v58;
-    if (v58 == 1.0)
+    v56 = v72;
+    if (v72 == 1.0)
     {
       if (a6)
       {
-        *a6 = HIDWORD(v57);
+        *a6 = HIDWORD(v71);
       }
 
       if (a7)
       {
-        *a7 = v57;
+        *a7 = v71;
       }
 
       if (a8)
       {
-        *a8 = HIDWORD(v56);
+        *a8 = HIDWORD(v70);
       }
 
       if (!a9)
@@ -3127,24 +3234,24 @@ LABEL_77:
         goto LABEL_95;
       }
 
-      v43 = v56;
+      v57 = v70;
     }
 
     else
     {
       if (a6)
       {
-        *a6 = vcvtmd_s64_f64(v58 * SHIDWORD(v57));
+        *a6 = vcvtmd_s64_f64(v72 * SHIDWORD(v71));
       }
 
       if (a7)
       {
-        *a7 = vcvtmd_s64_f64(v42 * v57);
+        *a7 = vcvtmd_s64_f64(v56 * v71);
       }
 
       if (a8)
       {
-        *a8 = vcvtpd_s64_f64(v42 * SHIDWORD(v56));
+        *a8 = vcvtpd_s64_f64(v56 * SHIDWORD(v70));
       }
 
       if (!a9)
@@ -3152,44 +3259,45 @@ LABEL_77:
         goto LABEL_95;
       }
 
-      v43 = vcvtpd_s64_f64(v42 * v56);
+      v57 = vcvtpd_s64_f64(v56 * v70);
     }
 
-    *a9 = v43;
+    *a9 = v57;
 LABEL_95:
     if (ABLogDebugLevelEnabled())
     {
-      -[__CFData writeToFile:atomically:](v27, "writeToFile:atomically:", [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/%i-syncImage.jpg", ABRecordGetRecordID(a1)], 1);
+      -[__CFData writeToFile:atomically:](v30, "writeToFile:atomically:", [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/%i-syncImage.jpg", ABRecordGetRecordID(a1)], 1);
     }
 
-    ABPersonSetImageHashForImageData(a1, v27, 0);
+    v53 = ABPersonSetImageHashForImageData(a1, v30, 0);
     goto LABEL_98;
   }
 
-  if ((_ABImageUtilsImageIsNormalOrientation(v18) & 1) == 0)
+  IsNormalOrientation = _ABImageUtilsImageIsNormalOrientation(v18);
+  if (!IsNormalOrientation)
   {
-    v33 = ABOSLogGeneral();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+    v41 = ABOSLogGeneral(IsNormalOrientation, v40);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
     {
       ABImageUtilsCopySyncImageForPerson_cold_3();
     }
 
     ImageFromData = ABImageUtilsCreateImageFromData(v18);
-    v35 = ImageFromData;
-    if (v23)
+    v43 = ImageFromData;
+    if (v26)
     {
-      v36 = @"public.png";
+      v44 = @"public.png";
     }
 
     else
     {
-      v36 = @"public.jpeg";
+      v44 = @"public.jpeg";
     }
 
-    v18 = _ABImageUtilsCreateImageData(ImageFromData, v36, 1.0);
-    if (v35)
+    v18 = _ABImageUtilsCreateImageData(ImageFromData, v44, 1.0);
+    if (v43)
     {
-      CFRelease(v35);
+      CFRelease(v43);
     }
 
     if (ABLogDebugLevelEnabled())
@@ -3198,36 +3306,45 @@ LABEL_95:
     }
   }
 
-  v37 = [(__CFData *)v18 length];
-  if (v18 && v37 <= v52 && ABImageUtilsIsImageDataInSyncCompatibleFormat(v18))
+  v45 = [(__CFData *)v18 length];
+  if (v18)
   {
-    v38 = ABOSLogGeneral();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+    if (v45 <= v66)
     {
-      ABImageUtilsCopySyncImageForPerson_cold_4();
-    }
+      IsImageDataInSyncCompatibleFormat = ABImageUtilsIsImageDataInSyncCompatibleFormat(v18);
+      if (IsImageDataInSyncCompatibleFormat)
+      {
+        v48 = ABOSLogGeneral(IsImageDataInSyncCompatibleFormat, v47);
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+        {
+          ABImageUtilsCopySyncImageForPerson_cold_4();
+        }
 
-    v27 = v18;
-    if (v27)
-    {
-      goto LABEL_77;
+        v30 = v18;
+        if (v30)
+        {
+          goto LABEL_77;
+        }
+      }
     }
   }
 
-  v27 = _copyImageDataReducedUpToSize(v18, isrc, &v58, HIDWORD(v55), v55, v52, a5, v51 & 1);
-  if (v27 == 0 && (v51 & 1) != 0)
+  v49 = _copyImageDataReducedUpToSize(v18, isrc, &v72, HIDWORD(v69), v69, v66, v12, v65 & 1);
+  v30 = v49;
+  if (v49 == 0 && (v65 & 1) != 0)
   {
-    v39 = ABOSLogGeneral();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v51 = ABOSLogGeneral(v49, v50);
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B7EFB000, v39, OS_LOG_TYPE_DEFAULT, "[Likeness Update] Scaling failed to reduce to max size, trying again without alpha preservation by allowing JPEG conversion.", buf, 2u);
+      _os_log_impl(&dword_1B7EFB000, v51, OS_LOG_TYPE_DEFAULT, "[Likeness Update] Scaling failed to reduce to max size, trying again without alpha preservation by allowing JPEG conversion.", buf, 2u);
     }
 
-    v27 = _copyImageDataReducedUpToSize(v18, isrc, &v58, HIDWORD(v55), v55, v52, a5, 0);
+    v49 = _copyImageDataReducedUpToSize(v18, isrc, &v72, HIDWORD(v69), v69, v66, v12, 0);
+    v30 = v49;
   }
 
-  if (v27)
+  if (v30)
   {
     goto LABEL_77;
   }
@@ -3237,24 +3354,25 @@ LABEL_95:
     *a3 = 0;
   }
 
-  v40 = ABOSLogGeneral();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+  v52 = ABOSLogGeneral(v49, v50);
+  v53 = os_log_type_enabled(v52, OS_LOG_TYPE_ERROR);
+  if (v53)
   {
-    ABImageUtilsCopySyncImageForPerson_cold_5(v18, v52, v40);
+    ABImageUtilsCopySyncImageForPerson_cold_5(v18, v66, v52);
   }
 
-  v27 = 0;
+  v30 = 0;
 LABEL_98:
-  v44 = ABOSLogGeneral();
-  if (!os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+  v58 = ABOSLogGeneral(v53, v54);
+  if (!os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
   {
     goto LABEL_109;
   }
 
-  v45 = [(__CFData *)v27 length];
+  v59 = [(__CFData *)v30 length];
   if (a6)
   {
-    v46 = *a6;
+    v60 = *a6;
     if (a7)
     {
       goto LABEL_101;
@@ -3263,63 +3381,63 @@ LABEL_98:
 
   else
   {
-    v46 = -1;
+    v60 = -1;
     if (a7)
     {
 LABEL_101:
-      v47 = *a7;
+      v61 = *a7;
       if (a8)
       {
         goto LABEL_102;
       }
 
 LABEL_106:
-      v48 = -1;
+      v62 = -1;
       if (a9)
       {
         goto LABEL_103;
       }
 
 LABEL_107:
-      v49 = -1;
+      v63 = -1;
       goto LABEL_108;
     }
   }
 
-  v47 = -1;
+  v61 = -1;
   if (!a8)
   {
     goto LABEL_106;
   }
 
 LABEL_102:
-  v48 = *a8;
+  v62 = *a8;
   if (!a9)
   {
     goto LABEL_107;
   }
 
 LABEL_103:
-  v49 = *a9;
+  v63 = *a9;
 LABEL_108:
   *buf = 134219008;
-  *v60 = v45;
-  *&v60[8] = 1024;
-  *v61 = v46;
-  *&v61[4] = 1024;
-  *v62 = v47;
-  *&v62[4] = 1024;
-  v63 = v48;
-  v64 = 1024;
-  v65 = v49;
-  _os_log_impl(&dword_1B7EFB000, v44, OS_LOG_TYPE_DEFAULT, "[Likeness Update] Exit ABImageUtilsCopySyncImageForPerson: sync image length = %lu with thumbnail crop rect (%i, %i, %i, %i)", buf, 0x24u);
+  *v74 = v59;
+  *&v74[8] = 1024;
+  *v75 = v60;
+  *&v75[4] = 1024;
+  *v76 = v61;
+  *&v76[4] = 1024;
+  v77 = v62;
+  v78 = 1024;
+  v79 = v63;
+  _os_log_impl(&dword_1B7EFB000, v58, OS_LOG_TYPE_DEFAULT, "[Likeness Update] Exit ABImageUtilsCopySyncImageForPerson: sync image length = %lu with thumbnail crop rect (%i, %i, %i, %i)", buf, 0x24u);
 LABEL_109:
   if (isrc)
   {
     CFRelease(isrc);
   }
 
-  return v27;
+  return v30;
 }
 
 __CFData *_copyImageDataReducedUpToSize(const __CFData *a1, uint64_t a2, double *a3, uint64_t a4, int a5, unsigned int a6, int a7, int a8)
@@ -3587,10 +3705,11 @@ CFDictionaryRef __initializeThumbnailProperties()
   return result;
 }
 
-void OUTLINED_FUNCTION_0_8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 CFArrayRef ABPersonCreatePeopleInSourceWithVCardRepresentation(ABRecordRef source, CFDataRef vCardData)
@@ -3644,7 +3763,7 @@ uint64_t ABChangeHistoryCreateTables(uint64_t a1, int a2)
   return CPSqliteConnectionPerformSQL();
 }
 
-uint64_t ABChangeHistoryMigrateAddingSaveTimestamp()
+uint64_t ABChangeHistoryMigrateAddingSaveTimestamp(uint64_t a1)
 {
   CPSqliteConnectionPerformSQL();
   CPSqliteConnectionPerformSQL();
@@ -3652,12 +3771,12 @@ uint64_t ABChangeHistoryMigrateAddingSaveTimestamp()
   CPSqliteConnectionPerformSQL();
   CPSqliteConnectionPerformSQL();
   CPSqliteConnectionPerformSQL();
-  v0 = CPSqliteConnectionStatementForSQL();
-  if (v0)
+  v1 = CPSqliteConnectionStatementForSQL();
+  if (v1)
   {
-    v1 = *(v0 + 8);
+    v2 = *(v1 + 8);
     Current = CFAbsoluteTimeGetCurrent();
-    sqlite3_bind_double(v1, 1, Current);
+    sqlite3_bind_double(v2, 1, Current);
     CPSqliteStatementPerform();
     CPSqliteStatementReset();
   }
@@ -3750,9 +3869,9 @@ UInt8 *_getCString(const __CFString *a1, _BYTE *a2)
   return CStringPtr;
 }
 
-id ABChangeHistoryCopyAllRegisteredClientIdentifiers()
+id ABChangeHistoryCopyAllRegisteredClientIdentifiers(uint64_t a1)
 {
-  v0 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v1 = objc_alloc_init(MEMORY[0x1E695DF70]);
   CPRecordStoreGetDatabase();
   CPSqliteDatabaseConnectionForWriting();
   if (CPSqliteConnectionStatementForSQL())
@@ -3763,10 +3882,10 @@ id ABChangeHistoryCopyAllRegisteredClientIdentifiers()
 
   if (ABLogChangeHistory() && ABDiagnosticsEnabled())
   {
-    _ABLog2(6, "CFArrayRef ABChangeHistoryCopyAllRegisteredClientIdentifiers(ABAddressBookRef)", 227, 0, @">> clientIdentifiers = %@", v1, v2, v3, v0);
+    _ABLog2(6, "CFArrayRef ABChangeHistoryCopyAllRegisteredClientIdentifiers(ABAddressBookRef)", 227, 0, @">> clientIdentifiers = %@", v2, v3, v4, v1);
   }
 
-  return v0;
+  return v1;
 }
 
 uint64_t _allClientsRowHandler(uint64_t a1, void *a2)
@@ -3780,11 +3899,11 @@ uint64_t _allClientsRowHandler(uint64_t a1, void *a2)
   return 0;
 }
 
-void ABChangeHistoryUnregisterClientForSource(uint64_t a1, const __CFString *a2, ABRecordRef record)
+void ABChangeHistoryUnregisterClientForSource(uint64_t RecordID, const __CFString *a2, ABRecordRef record)
 {
   if (record)
   {
-    RecordID = ABRecordGetRecordID(record);
+    v6 = ABRecordGetRecordID(record);
     if (!a2)
     {
       goto LABEL_12;
@@ -3793,14 +3912,14 @@ void ABChangeHistoryUnregisterClientForSource(uint64_t a1, const __CFString *a2,
 
   else
   {
-    RecordID = -1;
+    v6 = -1;
     if (!a2)
     {
       goto LABEL_12;
     }
   }
 
-  WriterConnection = _getWriterConnection(*(a1 + 16), "void ABChangeHistoryUnregisterClientForSource(ABAddressBookRef, CFStringRef, ABRecordRef)");
+  WriterConnection = _getWriterConnection(*(RecordID + 16), "void ABChangeHistoryUnregisterClientForSource(ABAddressBookRef, CFStringRef, ABRecordRef)");
   if (!WriterConnection)
   {
     return;
@@ -3816,7 +3935,7 @@ void ABChangeHistoryUnregisterClientForSource(uint64_t a1, const __CFString *a2,
     sqlite3_bind_text(*(v10 + 8), 1, CString, -1, 0);
     if (record)
     {
-      sqlite3_bind_int(*(v11 + 8), 2, RecordID);
+      sqlite3_bind_int(*(v11 + 8), 2, v6);
     }
 
     CPSqliteStatementPerform();
@@ -3834,7 +3953,7 @@ LABEL_12:
   {
     if (ABDiagnosticsEnabled())
     {
-      _dumpTable(a1, @"ClientCursor");
+      _dumpTable(RecordID, @"ClientCursor");
       _ABLog2(6, "void ABChangeHistoryUnregisterClientForSource(ABAddressBookRef, CFStringRef, ABRecordRef)", 272, 0, @"clientIdentifier = %@, storeID = %i\n%@", v12, v13, v14, a2);
     }
   }
@@ -3890,10 +4009,10 @@ void ABChangeHistorySetSaveTimestamp(uint64_t a1, double a2)
   }
 }
 
-void ABChangeHistoryAssociateSequenceNumberWithClient(double Current, uint64_t a2, int a3, const __CFString *a4)
+void ABChangeHistoryAssociateSequenceNumberWithClient(uint64_t a1, int a2, const __CFString *a3, double Current)
 {
   v9 = 0;
-  CString = _getCString(a4, &v9);
+  CString = _getCString(a3, &v9);
   if (Current == 0.0)
   {
     Current = CFAbsoluteTimeGetCurrent();
@@ -3904,7 +4023,7 @@ void ABChangeHistoryAssociateSequenceNumberWithClient(double Current, uint64_t a
   {
     v8 = v7;
     sqlite3_bind_text(*(v7 + 8), 1, CString, -1, 0);
-    sqlite3_bind_int(*(v8 + 8), 2, a3);
+    sqlite3_bind_int(*(v8 + 8), 2, a2);
     sqlite3_bind_double(*(v8 + 8), 3, Current);
     CPSqliteStatementPerform();
     CPSqliteStatementReset();
@@ -3917,8 +4036,9 @@ void ABChangeHistoryAssociateSequenceNumberWithClient(double Current, uint64_t a
   }
 }
 
-void *ABChangeHistoryGetEntityChangesSinceSequenceNumberForClient(void *a1, uint64_t a2, void *a3, unsigned int a4, uint64_t a5, uint64_t a6, const __CFString *a7, const void *a8)
+void *ABChangeHistoryGetEntityChangesSinceSequenceNumberForClient(void *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, const __CFString *a7, const void *a8)
 {
+  v12 = a4;
   v18[1] = *MEMORY[0x1E69E9840];
   if (a7)
   {
@@ -3931,7 +4051,7 @@ void *ABChangeHistoryGetEntityChangesSinceSequenceNumberForClient(void *a1, uint
     v16 = 0;
   }
 
-  return ABChangeHistoryGetChanges(a1, a2, a3, a4, a5, a6, a7, v16, a8);
+  return ABChangeHistoryGetChanges(a1, a2, a3, v12, a5, a6, a7, v16, a8);
 }
 
 void *ABChangeHistoryGetChanges(void *a1, uint64_t a2, void *a3, unsigned int a4, uint64_t a5, uint64_t a6, const __CFString *a7, uint64_t a8, const void *a9)
@@ -4477,7 +4597,7 @@ LABEL_116:
   return v35;
 }
 
-uint64_t IsRunningInExchangesyncd()
+uint64_t IsRunningInExchangesyncd(uint64_t a1, uint64_t a2)
 {
   if (IsRunningInExchangesyncd_onceToken != -1)
   {
@@ -4487,7 +4607,7 @@ uint64_t IsRunningInExchangesyncd()
   return IsRunningInExchangesyncd_isRunningInExchangesyncd;
 }
 
-uint64_t __IsRunningInExchangesyncd_block_invoke()
+void *__IsRunningInExchangesyncd_block_invoke()
 {
   result = [@"com.apple.exchangesyncd" isEqualToString:{objc_msgSend(objc_msgSend(MEMORY[0x1E696AAE8], "mainBundle"), "bundleIdentifier")}];
   if (result)
@@ -4741,16 +4861,16 @@ void _clearChangesForClient(uint64_t a1, unsigned int a2, int a3, int a4, const 
   }
 }
 
-void ABChangeHistoryClearChangesUpToSequenceNumberForClient(uint64_t a1, int a2, const __CFString *a3, ABRecordRef record)
+void ABChangeHistoryClearChangesUpToSequenceNumberForClient(uint64_t RecordID, int a2, const __CFString *a3, ABRecordRef record)
 {
   if (record)
   {
-    RecordID = ABRecordGetRecordID(record);
+    v7 = ABRecordGetRecordID(record);
   }
 
   else
   {
-    RecordID = -1;
+    v7 = -1;
   }
 
   if (ABLogChangeHistory() && ABDiagnosticsEnabled())
@@ -4758,19 +4878,19 @@ void ABChangeHistoryClearChangesUpToSequenceNumberForClient(uint64_t a1, int a2,
     _ABLog2(6, "void ABChangeHistoryClearChangesUpToSequenceNumberForClient(ABAddressBookRef, int, CFStringRef, ABRecordRef)", 1044, 0, @"clientIdentifier = %@, storeID = %i, sequenceNumber = %i", v8, v9, v10, a3);
   }
 
-  _clearChangesForClient(a1, 0xFFFFFFFF, a2, -1, a3, RecordID);
+  _clearChangesForClient(RecordID, 0xFFFFFFFF, a2, -1, a3, v7);
 }
 
-void ABChangeHistoryClearEntityChangesUpToSequenceNumberAndRecordIDForClient(uint64_t a1, unsigned int a2, int a3, int a4, const __CFString *a5, ABRecordRef record)
+void ABChangeHistoryClearEntityChangesUpToSequenceNumberAndRecordIDForClient(uint64_t RecordID, unsigned int a2, int a3, int a4, const __CFString *a5, ABRecordRef record)
 {
   if (record)
   {
-    RecordID = ABRecordGetRecordID(record);
+    v11 = ABRecordGetRecordID(record);
   }
 
   else
   {
-    RecordID = -1;
+    v11 = -1;
   }
 
   if (ABLogChangeHistory() && ABDiagnosticsEnabled())
@@ -4778,7 +4898,7 @@ void ABChangeHistoryClearEntityChangesUpToSequenceNumberAndRecordIDForClient(uin
     _ABLog2(6, "void ABChangeHistoryClearEntityChangesUpToSequenceNumberAndRecordIDForClient(ABAddressBookRef, ABChangeHistoryEntityType, int, int, CFStringRef, ABRecordRef)", 1053, 0, @"clientIdentifier = %@, storeID = %i, entityType = %i, sequenceNumber = %i, recordID = %i", v12, v13, v14, a5);
   }
 
-  _clearChangesForClient(a1, a2, a3, a4, a5, RecordID);
+  _clearChangesForClient(RecordID, a2, a3, a4, a5, v11);
 }
 
 uint64_t _latestConsumedSequenceNumberForClient(uint64_t a1, const __CFString *a2, int a3, uint64_t a4)
@@ -4803,7 +4923,7 @@ uint64_t _latestConsumedSequenceNumberForClient(uint64_t a1, const __CFString *a
   return a4;
 }
 
-uint64_t ABChangeHistoryGetLatestConsumedSequenceNumberForClient(int a1, const __CFString *a2, ABRecordRef record)
+uint64_t ABChangeHistoryGetLatestConsumedSequenceNumberForClient(uint64_t a1, const __CFString *a2, ABRecordRef record)
 {
   if (record)
   {
@@ -4826,24 +4946,24 @@ uint64_t ABChangeHistoryGetLatestConsumedSequenceNumberForClient(int a1, const _
   return v6;
 }
 
-void ABChangeHistoryClearEntityChangeTableRowIDsForClient(uint64_t a1, uint64_t a2, const __CFArray *a3, const __CFString *a4, ABRecordRef record)
+void ABChangeHistoryClearEntityChangeTableRowIDsForClient(uint64_t RecordID, uint64_t a2, const __CFArray *a3, const __CFString *a4, ABRecordRef record)
 {
   theArray = a3;
   if (record)
   {
-    RecordID = ABRecordGetRecordID(record);
+    v34 = ABRecordGetRecordID(record);
   }
 
   else
   {
-    RecordID = 0xFFFFFFFFLL;
+    v34 = 0xFFFFFFFFLL;
   }
 
   if (ABLogChangeHistory() && ABDiagnosticsEnabled())
   {
     v29 = a2;
     v30 = ABLogStringForIntArrayPtr(&theArray);
-    v28 = RecordID;
+    v28 = v34;
     _ABLog2(6, "void ABChangeHistoryClearEntityChangeTableRowIDsForClient(ABAddressBookRef, ABChangeHistoryEntityType, CFArrayRef, CFStringRef, ABRecordRef)", 1130, 0, @"clientIdentifier = %@, storeID = %i, entityType = %i, changeTableRowIDs = %@", v9, v10, v11, a4);
   }
 
@@ -4852,7 +4972,7 @@ void ABChangeHistoryClearEntityChangeTableRowIDsForClient(uint64_t a1, uint64_t 
     ABChangeHistoryClearEntityChangeTableRowIDsForClient_cold_1();
   }
 
-  WriterConnection = _getWriterConnection(*(a1 + 16), "void ABChangeHistoryClearEntityChangeTableRowIDsForClient(ABAddressBookRef, ABChangeHistoryEntityType, CFArrayRef, CFStringRef, ABRecordRef)");
+  WriterConnection = _getWriterConnection(*(RecordID + 16), "void ABChangeHistoryClearEntityChangeTableRowIDsForClient(ABAddressBookRef, ABChangeHistoryEntityType, CFArrayRef, CFStringRef, ABRecordRef)");
   if (WriterConnection)
   {
     v13 = WriterConnection;
@@ -4865,7 +4985,7 @@ void ABChangeHistoryClearEntityChangeTableRowIDsForClient(uint64_t a1, uint64_t 
     }
 
     v16 = *v15;
-    v33 = a1;
+    v33 = RecordID;
     if (v16)
     {
       v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*v16];
@@ -4902,7 +5022,7 @@ void ABChangeHistoryClearEntityChangeTableRowIDsForClient(uint64_t a1, uint64_t 
         if (v27 >= 1)
         {
           sqlite3_bind_text(*(v20 + 8), 1, CString, -1, 0);
-          sqlite3_bind_int(*(v20 + 8), 2, RecordID);
+          sqlite3_bind_int(*(v20 + 8), 2, v34);
           sqlite3_bind_int(*(v20 + 8), 3, a2);
           sqlite3_bind_int(*(v20 + 8), 4, ValueAtIndex);
           sqlite3_bind_int(*(v20 + 8), 5, ValueAtIndex);
@@ -4934,8 +5054,9 @@ void ABChangeHistoryClearEntityChangeTableRowIDsForClient(uint64_t a1, uint64_t 
   }
 }
 
-void ABChangeHistoryPurgeIdleClients(uint64_t a1, int a2, double a3)
+void ABChangeHistoryPurgeIdleClients(uint64_t a1, uint64_t a2, double a3)
 {
+  v3 = a2;
   v31 = *MEMORY[0x1E69E9840];
   if (ABLogChangeHistory() && ABDiagnosticsEnabled())
   {
@@ -4952,7 +5073,7 @@ void ABChangeHistoryPurgeIdleClients(uint64_t a1, int a2, double a3)
     {
       v13 = v12;
       sqlite3_bind_double(*(v12 + 8), 1, a3);
-      sqlite3_bind_int(*(v13 + 8), 2, a2);
+      sqlite3_bind_int(*(v13 + 8), 2, v3);
       CPSqliteStatementSendResults();
       CPSqliteStatementReset();
     }
@@ -5006,23 +5127,23 @@ uint64_t _unusedClientRowHandler(uint64_t a1, void *a2)
   return 0;
 }
 
-uint64_t _findSequenceNumberForAgeLimit(double a1)
+uint64_t _findSequenceNumberForAgeLimit(uint64_t a1, double a2)
 {
-  if (a1 <= 0.0)
+  if (a2 <= 0.0)
   {
     return 0;
   }
 
-  v2 = CPSqliteConnectionStatementForSQL();
-  if (!v2)
+  v3 = CPSqliteConnectionStatementForSQL();
+  if (!v3)
   {
     return 0;
   }
 
-  sqlite3_bind_double(*(v2 + 8), 1, a1);
-  v3 = CPSqliteStatementIntegerResult();
+  sqlite3_bind_double(*(v3 + 8), 1, a2);
+  v4 = CPSqliteStatementIntegerResult();
   CPSqliteStatementReset();
-  return v3;
+  return v4;
 }
 
 uint64_t _findSequenceNumberForPersonChangesLimit(uint64_t a1, int a2)
@@ -5044,29 +5165,29 @@ uint64_t _findSequenceNumberForPersonChangesLimit(uint64_t a1, int a2)
   return v4;
 }
 
-uint64_t _findMinConsumedSequenceNumberForDataAccess()
+uint64_t _findMinConsumedSequenceNumberForDataAccess(uint64_t a1)
 {
   if (!CPSqliteConnectionStatementForSQL())
   {
     return 0;
   }
 
-  v0 = CPSqliteStatementIntegerResult();
+  v1 = CPSqliteStatementIntegerResult();
   CPSqliteStatementReset();
-  return v0;
+  return v1;
 }
 
 void ABChangeHistoryUpdatePeakPersonCount(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   PersonCount = ABAddressBookGetPersonCount(a1);
-  if (PersonCount >= 1 && ABAddressBookGetIntegerProperty(a1) < PersonCount)
+  if (PersonCount >= 1 && ABAddressBookGetIntegerProperty(a1, @"PeakContactCount") < PersonCount)
   {
 
     ABAddressBookSetIntegerProperty(a1, @"PeakContactCount", PersonCount, v11, v12, v13, v14, v15, a9);
   }
 }
 
-uint64_t ABChangeHistoryGetPersonChangesLimit(uint64_t a1, unsigned int a2)
+uint64_t ABChangeHistoryGetPersonChangesLimit(uint64_t a1, signed int a2)
 {
   CPRecordStoreGetDatabase();
   CPSqliteDatabaseConnectionForReading();
@@ -5085,17 +5206,17 @@ uint64_t ABChangeHistoryGetPersonChangesLimit(uint64_t a1, unsigned int a2)
 uint64_t ABChangeHistoryGetSequenceNumberForClearingChanges(uint64_t a1)
 {
   v2 = CFAbsoluteTimeGetCurrent() + -2592000.0;
-  PersonChangesLimit = ABChangeHistoryGetPersonChangesLimit(a1, 0x1F4u);
+  PersonChangesLimit = ABChangeHistoryGetPersonChangesLimit(a1, 500);
 
-  return ABChangeHistoryGetSequenceNumberForClearingChangesWithAgeAndChangesLimits(v2, a1, PersonChangesLimit);
+  return ABChangeHistoryGetSequenceNumberForClearingChangesWithAgeAndChangesLimits(a1, PersonChangesLimit, v2);
 }
 
-uint64_t ABChangeHistoryGetSequenceNumberForClearingChangesWithAgeAndChangesLimits(double a1, uint64_t a2, int a3)
+uint64_t ABChangeHistoryGetSequenceNumberForClearingChangesWithAgeAndChangesLimits(uint64_t a1, int a2, double a3)
 {
   CPRecordStoreGetDatabase();
   v5 = CPSqliteDatabaseConnectionForReading();
-  SequenceNumberForAgeLimit = _findSequenceNumberForAgeLimit(a1);
-  SequenceNumberForPersonChangesLimit = _findSequenceNumberForPersonChangesLimit(v5, a3);
+  SequenceNumberForAgeLimit = _findSequenceNumberForAgeLimit(v5, a3);
+  SequenceNumberForPersonChangesLimit = _findSequenceNumberForPersonChangesLimit(v5, a2);
   if (SequenceNumberForAgeLimit <= SequenceNumberForPersonChangesLimit)
   {
     v8 = SequenceNumberForPersonChangesLimit;
@@ -5108,7 +5229,7 @@ uint64_t ABChangeHistoryGetSequenceNumberForClearingChangesWithAgeAndChangesLimi
 
   if (v8 >= 1)
   {
-    MinConsumedSequenceNumberForDataAccess = _findMinConsumedSequenceNumberForDataAccess();
+    MinConsumedSequenceNumberForDataAccess = _findMinConsumedSequenceNumberForDataAccess(v5);
     if (v8 >= MinConsumedSequenceNumberForDataAccess)
     {
       v10 = MinConsumedSequenceNumberForDataAccess;
@@ -5158,7 +5279,7 @@ BOOL _performQueryToClearSequenceNumber(uint64_t a1, uint64_t a2, int a3)
   return v7;
 }
 
-void ABChangeHistoryClearChangesToSequenceNumber(uint64_t a1, int a2)
+void ABChangeHistoryClearChangesToSequenceNumber(void *result, int a2)
 {
   if (a2 >= 1)
   {
@@ -5178,7 +5299,7 @@ void ABChangeHistoryClearChangesToSequenceNumber(uint64_t a1, int a2)
 
 void __ABChangeHistoryClearChangesToSequenceNumber_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = a1 + 40;
+  v3 = (a1 + 40);
   if (!_performQueryToClearSequenceNumber(*(a1 + 32), a2, *(a1 + 40)) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     __ABChangeHistoryClearChangesToSequenceNumber_block_invoke_cold_1(v3, a2, v4, v5, v6, v7, v8, v9);
@@ -5238,9 +5359,9 @@ uint64_t ABChangeHistoryTableCount(uint64_t a1, uint64_t a2)
 
 void ABChangeHistoryInsertUpdatesForRecordsFromBlockWithClientIdentifier(uint64_t a1, uint64_t a2, const __CFString *a3)
 {
-  v52 = *MEMORY[0x1E69E9840];
-  HasPendingTransaction = ABAddressBookHasPendingTransaction();
-  v42 = a1;
+  v56 = *MEMORY[0x1E69E9840];
+  HasPendingTransaction = ABAddressBookHasPendingTransaction(a1);
+  v46 = a1;
   if (HasPendingTransaction)
   {
     CPRecordStoreGetDatabase();
@@ -5256,51 +5377,51 @@ void ABChangeHistoryInsertUpdatesForRecordsFromBlockWithClientIdentifier(uint64_
   if (WriterConnection)
   {
     v9 = (*(a2 + 16))(a2);
-    v43 = CPRecordStoreGetSequenceNumber() + 1;
+    v47 = CPRecordStoreGetSequenceNumber() + 1;
     if (v9)
     {
-      v35 = v8;
-      v36 = a3;
-      v37 = HasPendingTransaction;
+      v39 = v8;
+      v40 = a3;
+      v41 = HasPendingTransaction;
       Count = CFArrayGetCount(v9);
       if (Count >= 1)
       {
         v11 = Count;
         v12 = 0;
-        v41 = kABGroupExternalIdentifierProperty;
-        v40 = kABGroupInternalUUIDProperty;
+        v45 = kABGroupExternalIdentifierProperty;
+        v44 = kABGroupInternalUUIDProperty;
         property = kABPersonExternalIdentifierProperty;
-        v38 = kABPersonInternalUUIDProperty;
+        v42 = kABPersonInternalUUIDProperty;
         do
         {
           ValueAtIndex = CFArrayGetValueAtIndex(v9, v12);
           RecordType = ABRecordGetRecordType(ValueAtIndex);
           if (RecordType == 1)
           {
-            v25 = ABGroupCopySource(ValueAtIndex);
-            if (v25)
+            v27 = ABGroupCopySource(ValueAtIndex);
+            if (v27)
             {
-              v16 = v25;
-              RecordID = ABRecordGetRecordID(v25);
-              v27 = ABRecordGetRecordID(ValueAtIndex);
-              v18 = ABRecordCopyValue(ValueAtIndex, v41);
-              v19 = ABRecordCopyValue(ValueAtIndex, v40);
-              ABChangeHistoryInsertGroupChangeRecord(*(v42 + 16), v27, 1, v43, v18, RecordID, v19);
-              v28 = ABOSLogGeneral();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+              v16 = v27;
+              RecordID = ABRecordGetRecordID(v27);
+              v29 = ABRecordGetRecordID(ValueAtIndex);
+              v18 = ABRecordCopyValue(ValueAtIndex, v45);
+              v19 = ABRecordCopyValue(ValueAtIndex, v44);
+              v30 = ABChangeHistoryInsertGroupChangeRecord(*(v46 + 16), v29, 1, v47, v18, RecordID, v19);
+              v32 = ABOSLogGeneral(v30, v31);
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
               {
                 *buf = 67109890;
-                v45 = v27;
-                v46 = 2114;
-                v47 = v19;
-                v48 = 1024;
-                v49 = RecordID;
-                v50 = 1024;
-                v51 = v43;
-                v23 = v28;
-                v24 = "Inserted change history record for group id %d (guid %{public}@) after moving to store id %d; sequence number = %d\n";
+                v49 = v29;
+                v50 = 2114;
+                v51 = v19;
+                v52 = 1024;
+                v53 = RecordID;
+                v54 = 1024;
+                v55 = v47;
+                v25 = v32;
+                v26 = "Inserted change history record for group id %d (guid %{public}@) after moving to store id %d; sequence number = %d\n";
 LABEL_16:
-                _os_log_impl(&dword_1B7EFB000, v23, OS_LOG_TYPE_INFO, v24, buf, 0x1Eu);
+                _os_log_impl(&dword_1B7EFB000, v25, OS_LOG_TYPE_INFO, v26, buf, 0x1Eu);
               }
 
 LABEL_17:
@@ -5326,23 +5447,23 @@ LABEL_17:
               v16 = v15;
               v17 = ABRecordGetRecordID(v15);
               v18 = ABRecordCopyValue(ValueAtIndex, property);
-              v19 = ABRecordCopyValue(ValueAtIndex, v38);
+              v19 = ABRecordCopyValue(ValueAtIndex, v42);
               IntValue = ABRecordGetIntValue(ValueAtIndex, kABPersonLinkProperty);
               v21 = ABRecordGetRecordID(ValueAtIndex);
-              ABChangeHistoryInsertPersonChangeRecord(*(v42 + 16), v21, 1, v43, 0, v18, v17, IntValue, v19, 0, 0);
-              v22 = ABOSLogGeneral();
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+              v22 = ABChangeHistoryInsertPersonChangeRecord(*(v46 + 16), v21, 1, v47, 0, v18, v17, IntValue, v19, 0, 0);
+              v24 = ABOSLogGeneral(v22, v23);
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
               {
                 *buf = 67109890;
-                v45 = v21;
-                v46 = 2114;
-                v47 = v19;
-                v48 = 1024;
-                v49 = v17;
-                v50 = 1024;
-                v51 = v43;
-                v23 = v22;
-                v24 = "Inserted change history record for person id %d (guid %{public}@) after moving to store id %d; sequence number = %d\n";
+                v49 = v21;
+                v50 = 2114;
+                v51 = v19;
+                v52 = 1024;
+                v53 = v17;
+                v54 = 1024;
+                v55 = v47;
+                v25 = v24;
+                v26 = "Inserted change history record for person id %d (guid %{public}@) after moving to store id %d; sequence number = %d\n";
                 goto LABEL_16;
               }
 
@@ -5357,13 +5478,13 @@ LABEL_17:
       }
 
       CFRelease(v9);
-      HasPendingTransaction = v37;
-      v8 = v35;
-      a3 = v36;
+      HasPendingTransaction = v41;
+      v8 = v39;
+      a3 = v40;
     }
 
-    ABChangeHistoryAssociateSequenceNumberWithClient(0.0, v8, v43, a3);
-    ABAddressBookSetIntegerProperty(v42, @"__CPRecordSequenceNumber", v43, v29, v30, v31, v32, v33, v34);
+    ABChangeHistoryAssociateSequenceNumberWithClient(v8, v47, a3, 0.0);
+    ABAddressBookSetIntegerProperty(v46, @"__CPRecordSequenceNumber", v47, v33, v34, v35, v36, v37, v38);
     if ((HasPendingTransaction & 1) == 0)
     {
       _commitWriterConnection(v8, "void ABChangeHistoryInsertUpdatesForRecordsFromBlockWithClientIdentifier(ABAddressBookRef, CFArrayRef (^)(void), CFStringRef)");
@@ -5371,7 +5492,7 @@ LABEL_17:
   }
 }
 
-BOOL ABChangeHistoryInsertPersonChangeRecordIntoAddressBook(_BOOL8 result, int a2, int a3, int a4, int a5, void *a6, int a7, int a8, void *a9)
+BOOL ABChangeHistoryInsertPersonChangeRecordIntoAddressBook(_BOOL8 result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, void *a9)
 {
   if (result)
   {
@@ -5689,25 +5810,25 @@ void ___filterAndCoalesceChangeResults_block_invoke(uint64_t a1, uint64_t a2, vo
   _Block_object_dispose(v7, 8);
 }
 
-uint64_t ___filterAndCoalesceChangeResults_block_invoke_2(uint64_t result, void *a2)
+void *___filterAndCoalesceChangeResults_block_invoke_2(void *result, void *a2)
 {
-  if (--*(*(*(result + 48) + 8) + 24))
+  if (--*(*(result[6] + 8) + 24))
   {
     v2 = result;
     v3 = [a2 longValue];
-    result = [*(v2 + 32) containsIndex:v3];
+    result = [v2[4] containsIndex:v3];
     if ((result & 1) == 0)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(*(v2 + 56), v3);
-      result = [*(v2 + 40) _cn_take:*(*(*(v2 + 48) + 8) + 24)];
+      ValueAtIndex = CFArrayGetValueAtIndex(v2[7], v3);
+      result = [v2[5] _cn_take:*(*(v2[6] + 8) + 24)];
       if (ValueAtIndex > 4)
       {
         if (ValueAtIndex > 7)
         {
           if (ValueAtIndex == 8)
           {
-            v5 = *(v2 + 56);
-            v6 = *(v2 + 32);
+            v5 = v2[7];
+            v6 = v2[4];
             v7 = &v20;
             v20 = MEMORY[0x1E69E9820];
             v21 = 3221225472;
@@ -5723,8 +5844,8 @@ uint64_t ___filterAndCoalesceChangeResults_block_invoke_2(uint64_t result, void 
               return result;
             }
 
-            v5 = *(v2 + 56);
-            v6 = *(v2 + 32);
+            v5 = v2[7];
+            v6 = v2[4];
             v7 = &v15;
             v15 = MEMORY[0x1E69E9820];
             v16 = 3221225472;
@@ -5743,8 +5864,8 @@ uint64_t ___filterAndCoalesceChangeResults_block_invoke_2(uint64_t result, void 
             return result;
           }
 
-          v5 = *(v2 + 56);
-          v6 = *(v2 + 32);
+          v5 = v2[7];
+          v6 = v2[4];
           v7 = &v9;
           v9 = MEMORY[0x1E69E9820];
           v10 = 3221225472;
@@ -5763,8 +5884,8 @@ uint64_t ___filterAndCoalesceChangeResults_block_invoke_2(uint64_t result, void 
         if (ValueAtIndex == 2)
         {
 LABEL_15:
-          v5 = *(v2 + 56);
-          v6 = *(v2 + 32);
+          v5 = v2[7];
+          v6 = v2[4];
           v7 = &v25;
           v25 = MEMORY[0x1E69E9820];
           v26 = 3221225472;
@@ -5781,14 +5902,14 @@ LABEL_15:
         }
       }
 
-      v6 = *(v2 + 32);
+      v6 = v2[4];
       v7 = &v31;
       v31 = MEMORY[0x1E69E9820];
       v32 = 3221225472;
       v33 = ___filterAndCoalesceChangeResults_block_invoke_3;
       v34 = &unk_1E7CCD010;
-      v5 = *(v2 + 56);
-      v8 = *(v2 + 64);
+      v5 = v2[7];
+      v8 = v2[8];
       v35 = v6;
       v36 = v8;
       v37 = v3;
@@ -5848,7 +5969,7 @@ LABEL_7:
   }
 }
 
-uint64_t ___filterAndCoalesceChangeResults_block_invoke_4(uint64_t a1, uint64_t a2, int a3, _BYTE *a4)
+void *___filterAndCoalesceChangeResults_block_invoke_4(uint64_t a1, uint64_t a2, int a3, _BYTE *a4)
 {
   result = [*(a1 + 32) addIndex:a2];
   if (a3 == 3 || !a3)
@@ -5860,40 +5981,40 @@ uint64_t ___filterAndCoalesceChangeResults_block_invoke_4(uint64_t a1, uint64_t 
   return result;
 }
 
-uint64_t ___filterAndCoalesceChangeResults_block_invoke_5(uint64_t result, uint64_t a2, int a3)
+id *___filterAndCoalesceChangeResults_block_invoke_5(id *result, uint64_t a2, int a3)
 {
   if (a3 == 8)
   {
-    return [*(result + 32) addIndex:a2];
+    return [result[4] addIndex:a2];
   }
 
   return result;
 }
 
-uint64_t ___filterAndCoalesceChangeResults_block_invoke_6(uint64_t result, uint64_t a2, int a3)
+id *___filterAndCoalesceChangeResults_block_invoke_6(id *result, uint64_t a2, int a3)
 {
   if (a3 == 9)
   {
-    return [*(result + 32) addIndex:a2];
+    return [result[4] addIndex:a2];
   }
 
   return result;
 }
 
-uint64_t ___filterAndCoalesceChangeResults_block_invoke_7(uint64_t result, uint64_t a2, int a3, _BYTE *a4)
+id *___filterAndCoalesceChangeResults_block_invoke_7(id *result, uint64_t a2, int a3, _BYTE *a4)
 {
   v4 = result;
   if ((a3 & 0xFFFFFFFE) == 8)
   {
-    v5 = *(result + 32);
+    v5 = result[4];
 
-    return [v5 addIndex:a2];
+    return [v5 addIndex:{a2, a4}];
   }
 
   else if (a3 == 6)
   {
-    [*(result + 32) addIndex:a2];
-    result = [*(v4 + 32) addIndex:*(v4 + 40)];
+    [result[4] addIndex:a2];
+    result = [v4[4] addIndex:v4[5]];
     *a4 = 1;
   }
 
@@ -5929,10 +6050,11 @@ uint64_t ___performBlockWithPreviousIndexes_block_invoke(uint64_t a1, void *a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_1_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 uint64_t _createDictionaryFromFile(const __CFString *a1)
@@ -5946,7 +6068,7 @@ uint64_t _createDictionaryFromFile(const __CFString *a1)
 
 uint64_t socialProfileURLForServiceAndUsername(void *key, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (socialProfileURLForServiceAndUsername_onceToken != -1)
   {
     socialProfileURLForServiceAndUsername_cold_1();
@@ -5978,28 +6100,29 @@ LABEL_11:
   }
 
 LABEL_7:
-  v10 = 0;
+  v12 = 0;
   v6 = [a2 stringByAddingPercentEncodingWithAllowedCharacters:{objc_msgSend(MEMORY[0x1E696AB08], "URLPathAllowedCharacterSet")}];
-  v7 = [MEMORY[0x1E696AEC0] stringWithValidatedFormat:Value validFormatSpecifiers:@"%@" error:&v10, v6];
-  if (v10)
+  v7 = [MEMORY[0x1E696AEC0] stringWithValidatedFormat:Value validFormatSpecifiers:@"%@" error:&v12, v6];
+  v9 = v7;
+  if (v12)
   {
-    v8 = ABOSLogGeneral();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = ABOSLogGeneral(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v12 = Value;
-      v13 = 2114;
-      v14 = a2;
+      v14 = Value;
       v15 = 2114;
-      v16 = v10;
-      _os_log_error_impl(&dword_1B7EFB000, v8, OS_LOG_TYPE_ERROR, "Error creating social profile URL from format = %{public}@, username = %{public}@, error = %{public}@", buf, 0x20u);
+      v16 = a2;
+      v17 = 2114;
+      v18 = v12;
+      _os_log_error_impl(&dword_1B7EFB000, v10, OS_LOG_TYPE_ERROR, "Error creating social profile URL from format = %{public}@, username = %{public}@, error = %{public}@", buf, 0x20u);
     }
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t __socialProfileURLForServiceAndUsername_block_invoke()
+void *__socialProfileURLForServiceAndUsername_block_invoke()
 {
   result = _createDictionaryFromFile(@"SocialServicesURLFormats.plist");
   socialProfileURLForServiceAndUsername_formats = result;
@@ -6123,7 +6246,7 @@ LABEL_24:
   return v28;
 }
 
-uint64_t __socialProfileFromURL_block_invoke()
+void *__socialProfileFromURL_block_invoke()
 {
   result = _createDictionaryFromFile(@"SocialServicesURLRegexes.plist");
   socialProfileFromURL_servicesDict = result;
@@ -6608,7 +6731,7 @@ uint64_t ABCFSmartDialerFTSColumnToABPropertyID(int a1)
   return *v3;
 }
 
-uint64_t ABCFFTSTokenizerCreate(int a1, uint64_t a2, void *a3)
+uint64_t ABCFFTSTokenizerCreate(unsigned int a1, uint64_t a2, void *a3)
 {
   v6 = sqlite3_malloc(64);
   if (!v6)
@@ -6881,7 +7004,7 @@ uint64_t ABCFFTSTokenizerClose(CFTypeRef *a1)
 {
   v2 = *a1;
   CFRelease(a1[1]);
-  CFArrayAppendValue(v2[7], a1[6]);
+  CFArrayAppendValue(*(v2 + 56), a1[6]);
   ABTokenListRemoveAllTokens(a1[6]);
   CFRelease(a1[6]);
   v3 = a1[4];
@@ -6894,7 +7017,7 @@ uint64_t ABCFFTSTokenizerClose(CFTypeRef *a1)
   return 0;
 }
 
-uint64_t ABCFFTSTokenizerNext(uint64_t *a1, void *a2, _DWORD *a3, _DWORD *a4, _DWORD *a5, _DWORD *a6)
+uint64_t ABCFFTSTokenizerNext(uint64_t *a1, const char **a2, _DWORD *a3, _DWORD *a4, _DWORD *a5, _DWORD *a6)
 {
   v11 = *a1;
   *a3 = 0;
@@ -7516,7 +7639,7 @@ void _AddTokenListEntryForRangeInString(uint64_t a1, uint64_t a2, uint64_t a3, c
   }
 }
 
-uint64_t ABTokenListGetCount(uint64_t a1)
+uint64_t ABTokenListGetCount(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -7782,7 +7905,7 @@ LABEL_3:
   return [v10 objectForKey:@"com.apple.unit-testing"];
 }
 
-uint64_t ABAccountStoreGetAccountTypeForSource(void *a1, uint64_t a2)
+void *ABAccountStoreGetAccountTypeForSource(void *a1, uint64_t a2)
 {
   result = ABRecordGetAddressBook();
   if (result)
@@ -7807,7 +7930,7 @@ uint64_t ABAccountAddTypeToCache(uint64_t a1, uint64_t a2)
   return [v4 setObject:a2 forKey:a1];
 }
 
-uint64_t _mergeRecordsIntoSource(const __CFString *a1, const void *a2, const void *a3)
+BOOL _mergeRecordsIntoSource(const __CFString *a1, const void *a2, const void *a3)
 {
   v6 = ABAddressBookCopyArrayOfAllPeopleInSource(a1, a2);
   Count = CFArrayGetCount(v6);
@@ -7840,7 +7963,7 @@ uint64_t _mergeRecordsIntoSource(const __CFString *a1, const void *a2, const voi
           v13 = v14 + 1;
         }
 
-        while (v16);
+        while ((v16 & 1) != 0);
         v17 = v14 < v8;
       }
 
@@ -7885,7 +8008,7 @@ LABEL_18:
   return 1;
 }
 
-BOOL _mergePersonIntoLinkedPeopleFromSource(const void *a1, ABRecordRef person, const void *a3)
+uint64_t _mergePersonIntoLinkedPeopleFromSource(const void *a1, ABRecordRef person, const void *a3)
 {
   v6 = ABPersonCopyArrayOfAllLinkedPeople(person);
   if (v6)
@@ -7971,7 +8094,7 @@ BOOL _mergePersonIntoLinkedPeopleFromSource(const void *a1, ABRecordRef person, 
   return v21;
 }
 
-BOOL _movePicturesFromPersonToPerson(int a1, const void *a2, ABRecordRef person)
+uint64_t _movePicturesFromPersonToPerson(int a1, const void *a2, ABRecordRef person)
 {
   if (ABPersonHasImageData(person))
   {
@@ -8083,7 +8206,7 @@ BOOL _moveRecordsInTableToSource(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   return v10;
 }
 
-uint64_t ABOSLogGeneral()
+uint64_t ABOSLogGeneral(uint64_t a1, uint64_t a2)
 {
   if (ABOSLogGeneral_onceToken != -1)
   {
@@ -8100,7 +8223,7 @@ os_log_t __ABOSLogGeneral_block_invoke()
   return result;
 }
 
-uint64_t ABOSLogMeCardChanges()
+uint64_t ABOSLogMeCardChanges(uint64_t a1, uint64_t a2)
 {
   if (ABOSLogMeCardChanges_onceToken != -1)
   {
@@ -8117,7 +8240,7 @@ os_log_t __ABOSLogMeCardChanges_block_invoke()
   return result;
 }
 
-uint64_t ABOSLogAnalyzeDatabase()
+uint64_t ABOSLogAnalyzeDatabase(uint64_t a1, uint64_t a2)
 {
   if (ABOSLogAnalyzeDatabase_onceToken != -1)
   {
@@ -8134,7 +8257,7 @@ os_log_t __ABOSLogAnalyzeDatabase_block_invoke()
   return result;
 }
 
-uint64_t ABOSLogDatabase()
+uint64_t ABOSLogDatabase(uint64_t a1, uint64_t a2)
 {
   if (ABOSLogDatabase_cn_once_token_1 != -1)
   {
@@ -8452,7 +8575,7 @@ __CFString *ABLogStringForIntArrayPtr(void **a1)
   return v2;
 }
 
-uint64_t ABLogDisplayInternalAlert(uint64_t result)
+const void *ABLogDisplayInternalAlert(const void *result)
 {
   if (__ABAllowInternalAlert == 1)
   {
@@ -8557,7 +8680,7 @@ __CFString *_isMainThread()
   }
 }
 
-uint64_t ABRegulatoryLogDeleteContactsData(uint64_t a1)
+void *ABRegulatoryLogDeleteContactsData(uint64_t a1)
 {
   if ([objc_msgSend(MEMORY[0x1E6996648] "sharedInstance")])
   {
@@ -8575,7 +8698,7 @@ uint64_t ABRegulatoryLogDeleteContactsData(uint64_t a1)
   return result;
 }
 
-uint64_t ABRegulatoryLogModifyContactsData(uint64_t a1)
+void *ABRegulatoryLogModifyContactsData(uint64_t a1)
 {
   result = _shouldRegulatoryLog(a1);
   if (result)
@@ -8955,7 +9078,7 @@ const void *ABAddressBookCopyAccountWithIdentifier(uint64_t a1, uint64_t a2)
   return v13;
 }
 
-void __ABAddressBookCopyAccountWithIdentifier_block_invoke(uint64_t a1, uint64_t a2)
+void __ABAddressBookCopyAccountWithIdentifier_block_invoke(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
@@ -9120,39 +9243,39 @@ uint64_t __ABTCCRequestAccessWithCompletion_block_invoke(uint64_t a1, uint64_t a
   return v6(v4, v5, a3);
 }
 
-CFMutableSetRef ABCopyRecordIDsForOrphanedImages()
+CFMutableSetRef ABCopyRecordIDsForOrphanedImages(uint64_t a1, uint64_t a2)
 {
-  v0 = _copyResultsForQueryWithRecordStore();
-  v1 = _copyResultsForQueryWithRecordStore();
-  v2 = _copyResultsForQueryWithRecordStore();
+  v3 = _copyResultsForQueryWithRecordStore(*(a1 + 16), @"select ROWID from ABPerson;");
+  v4 = _copyResultsForQueryWithRecordStore(a2, @"select record_id from ABFullSizeImage;");
+  v5 = _copyResultsForQueryWithRecordStore(a2, @"select distinct record_id from ABThumbnailImage;");
   Mutable = CFSetCreateMutable(*MEMORY[0x1E695E480], 0, 0);
-  v5[0] = v0;
-  v5[1] = Mutable;
-  CFSetApplyFunction(v1, _subtractSetApplier, v5);
-  CFSetApplyFunction(v2, _subtractSetApplier, v5);
-  CFRelease(v0);
-  CFRelease(v1);
-  CFRelease(v2);
+  v8[0] = v3;
+  v8[1] = Mutable;
+  CFSetApplyFunction(v4, _subtractSetApplier, v8);
+  CFSetApplyFunction(v5, _subtractSetApplier, v8);
+  CFRelease(v3);
+  CFRelease(v4);
+  CFRelease(v5);
   return Mutable;
 }
 
-__CFSet *_copyResultsForQueryWithRecordStore()
+__CFSet *_copyResultsForQueryWithRecordStore(uint64_t a1, uint64_t a2)
 {
   Mutable = CFSetCreateMutable(*MEMORY[0x1E695E480], 0, 0);
   CPRecordStoreGetDatabase();
   CPSqliteDatabaseConnectionForReading();
-  v1 = CPSqliteConnectionStatementForSQL();
-  if (v1)
+  v3 = CPSqliteConnectionStatementForSQL();
+  if (v3)
   {
-    v2 = v1;
-    v3 = *(v1 + 8);
-    if (v3)
+    v4 = v3;
+    v5 = *(v3 + 8);
+    if (v5)
     {
-      while (sqlite3_step(v3) == 100)
+      while (sqlite3_step(v5) == 100)
       {
-        v4 = sqlite3_column_int(*(v2 + 8), 0);
-        CFSetAddValue(Mutable, v4);
-        v3 = *(v2 + 8);
+        v6 = sqlite3_column_int(*(v4 + 8), 0);
+        CFSetAddValue(Mutable, v6);
+        v5 = *(v4 + 8);
       }
 
       CPSqliteStatementReset();
@@ -9172,14 +9295,14 @@ void _subtractSetApplier(void *value, CFSetRef *a2)
   }
 }
 
-void ABDatabaseIntegrityCheckWithAddressBookAndImageStore(const __CFString *a1, uint64_t a2)
+void ABDatabaseIntegrityCheckWithAddressBookAndImageStore(uint64_t a1, uint64_t a2)
 {
-  v4 = _copyResultsForQueryWithRecordStore();
+  v4 = _copyResultsForQueryWithRecordStore(*(a1 + 16), @"select ROWID from ABPerson where StoreID not in (select ROWID from ABStore);");
   Count = CFSetGetCount(v4);
   if (Count >= 1)
   {
     v6 = Count;
-    if (_performQuery())
+    if (_performQuery(a1, @"delete from ABPerson where StoreID not in (select ROWID from ABStore);"))
     {
       ABDiagnosticsEnabled();
       _ABLog2(4, "void ABDatabaseIntegrityCheckWithAddressBookAndImageStore(ABAddressBookRef, CPRecordStoreRef)", 158, 0, @"deleted %ld orphaned people", v7, v8, v9, v6);
@@ -9188,12 +9311,12 @@ void ABDatabaseIntegrityCheckWithAddressBookAndImageStore(const __CFString *a1, 
   }
 
   CFRelease(v4);
-  v10 = _copyResultsForQueryWithRecordStore();
+  v10 = _copyResultsForQueryWithRecordStore(*(a1 + 16), @"select UID from ABMultiValue where record_id not in (select ROWID from ABPerson);");
   v11 = CFSetGetCount(v10);
   if (v11 >= 1)
   {
     v12 = v11;
-    if (_performQuery())
+    if (_performQuery(a1, @"delete from ABMultiValue where record_id not in (select ROWID from ABPerson);"))
     {
       ABDiagnosticsEnabled();
       _ABLog2(4, "void ABDatabaseIntegrityCheckWithAddressBookAndImageStore(ABAddressBookRef, CPRecordStoreRef)", 166, 0, @"deleted %ld orphaned multi-values", v13, v14, v15, v12);
@@ -9202,12 +9325,12 @@ void ABDatabaseIntegrityCheckWithAddressBookAndImageStore(const __CFString *a1, 
   }
 
   CFRelease(v10);
-  v16 = _copyResultsForQueryWithRecordStore();
+  v16 = _copyResultsForQueryWithRecordStore(*(a1 + 16), @"select ROWID from ABMultiValueEntry where parent_id not in (select UID from ABMultiValue);");
   v17 = CFSetGetCount(v16);
   if (v17 >= 1)
   {
     v18 = v17;
-    if (_performQuery())
+    if (_performQuery(a1, @"delete from ABMultiValueEntry where parent_id not in (select UID from ABMultiValue);"))
     {
       ABDiagnosticsEnabled();
       _ABLog2(4, "void ABDatabaseIntegrityCheckWithAddressBookAndImageStore(ABAddressBookRef, CPRecordStoreRef)", 174, 0, @"deleted %ld orphaned multi-value entries", v19, v20, v21, v18);
@@ -9216,12 +9339,12 @@ void ABDatabaseIntegrityCheckWithAddressBookAndImageStore(const __CFString *a1, 
   }
 
   CFRelease(v16);
-  v22 = _copyResultsForQueryWithRecordStore();
+  v22 = _copyResultsForQueryWithRecordStore(*(a1 + 16), @"select multivalue_id from ABPhoneLastFour where multivalue_id not in (select ROWID from ABMultiValue);");
   v23 = CFSetGetCount(v22);
   if (v23 >= 1)
   {
     v24 = v23;
-    if (_performQuery())
+    if (_performQuery(a1, @"delete from ABPhoneLastFour where multivalue_id not in (select ROWID from ABMultiValue);"))
     {
       ABDiagnosticsEnabled();
       _ABLog2(4, "void ABDatabaseIntegrityCheckWithAddressBookAndImageStore(ABAddressBookRef, CPRecordStoreRef)", 182, 0, @"deleted %ld orphaned phone last fours", v25, v26, v27, v24);
@@ -9230,7 +9353,7 @@ void ABDatabaseIntegrityCheckWithAddressBookAndImageStore(const __CFString *a1, 
   }
 
   CFRelease(v22);
-  v28 = ABCopyRecordIDsForOrphanedImages();
+  v28 = ABCopyRecordIDsForOrphanedImages(a1, a2);
   v29 = CFSetGetCount(v28);
   if (v29 >= 1)
   {
@@ -9238,7 +9361,7 @@ void ABDatabaseIntegrityCheckWithAddressBookAndImageStore(const __CFString *a1, 
     v31 = malloc_type_malloc(8 * v29, 0x80040B8603338uLL);
     CFSetGetValues(v28, v31);
     v32 = CFArrayCreate(*MEMORY[0x1E695E480], v31, v30, 0);
-    v33 = ABCImageStoreRemoveImagesForRecordIds(a1, a2, v32, -1);
+    v33 = ABCImageStoreRemoveImagesForRecordIds(a1, a2, v32, 0xFFFFFFFFLL);
     CFRelease(v32);
     free(v31);
     if (v33)
@@ -9281,7 +9404,7 @@ void ABDatabaseIntegrityCheck()
   }
 }
 
-BOOL _performQuery()
+BOOL _performQuery(uint64_t a1, uint64_t a2)
 {
   CPRecordStoreGetDatabase();
   CPSqliteDatabaseConnectionForReading();
@@ -9332,7 +9455,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t ABCRemoveRecordAndOverridePolicy(uint64_t a1, const void *a2, char a3, const void **a4)
+uint64_t ABCRemoveRecordAndOverridePolicy(uint64_t a1, const void *a2, char a3, CFErrorRef *a4)
 {
   result = 0;
   v42 = *MEMORY[0x1E69E9840];
@@ -9392,13 +9515,13 @@ LABEL_37:
           RecordID = ABRecordGetRecordID(a2);
           *(a1 + 384) |= 0x22000u;
           v23 = OUTLINED_FUNCTION_12();
-          ABCPersonClearAddressBookPhoneCacheForPerson(v23);
+          ABCPersonClearAddressBookPhoneCacheForPerson(v23, v24);
           ABCPersonRemoveImageData(a2);
           if (ABLogPersonDelete())
           {
-            v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"will delete %@ recordID=%i, creating simulated crash report", ABRecordCopyCompositeName(a2), RecordID];
-            ABLogSimulateCrashReport(v24);
-            ABLogDisplayInternalAlert(v24);
+            v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"will delete %@ recordID=%i, creating simulated crash report", ABRecordCopyCompositeName(a2), RecordID];
+            ABLogSimulateCrashReport(v25);
+            ABLogDisplayInternalAlert(v25);
           }
 
           if (RecordID == -1)
@@ -9406,18 +9529,18 @@ LABEL_37:
             goto LABEL_37;
           }
 
-          v25 = ABPersonCopySource(a2);
-          v26 = kABSourceMeIdentifierProperty;
-          if (ABRecordGetIntValue(v25, kABSourceMeIdentifierProperty) == RecordID)
+          v26 = ABPersonCopySource(a2);
+          v27 = kABSourceMeIdentifierProperty;
+          if (ABRecordGetIntValue(v26, kABSourceMeIdentifierProperty) == RecordID)
           {
-            ABRecordSetIntValue(v25, v26, -1, 0);
-            ABCDBContextLogChangeForPerson(*(a1 + 16), 0, 0xAu);
+            ABRecordSetIntValue(v26, v27, -1, 0);
+            ABCDBContextLogChangeForPerson(*(a1 + 16), 0, 10);
           }
 
           else
           {
-            v27 = OUTLINED_FUNCTION_12();
-            if (!ABPersonIsLinkedToMe(v27, v28))
+            v28 = OUTLINED_FUNCTION_12();
+            if (!ABPersonIsLinkedToMe(v28, v29))
             {
               goto LABEL_31;
             }
@@ -9425,31 +9548,31 @@ LABEL_37:
 
           *(a1 + 384) |= 0x40000u;
 LABEL_31:
-          CFRelease(v25);
+          CFRelease(v26);
           ABPersonUnlink(a2);
           CPRecordStoreGetDatabase();
           CPSqliteDatabaseConnectionForReading();
           SelectPrefixFromRecordDescriptor = CPRecordStoreCreateSelectPrefixFromRecordDescriptor();
           CFStringAppend(SelectPrefixFromRecordDescriptor, @" WHERE ROWID in (select group_id from ABGroupMembers where member_id = ?)");
-          v30 = CPSqliteConnectionStatementForSQL();
-          sqlite3_bind_int(*(v30 + 8), 1, RecordID);
-          v31 = CPRecordStoreProcessStatement();
+          v31 = CPSqliteConnectionStatementForSQL();
+          sqlite3_bind_int(*(v31 + 8), 1, RecordID);
+          v32 = CPRecordStoreProcessStatement();
           CPSqliteStatementReset();
           CFRelease(SelectPrefixFromRecordDescriptor);
-          if (v31)
+          if (v32)
           {
-            Count = CFArrayGetCount(v31);
+            Count = CFArrayGetCount(v32);
             if (Count >= 1)
             {
-              v33 = Count;
-              for (j = 0; j != v33; ++j)
+              v34 = Count;
+              for (j = 0; j != v34; ++j)
               {
-                ValueAtIndex = CFArrayGetValueAtIndex(v31, j);
-                ABCGroupRemoveMember(ValueAtIndex, a2);
+                CFArrayGetValueAtIndex(v32, j);
+                ABCGroupRemoveMember();
               }
             }
 
-            CFRelease(v31);
+            CFRelease(v32);
           }
 
           goto LABEL_37;
@@ -9574,9 +9697,9 @@ uint64_t ABCInvalidateCachedImages(uint64_t result)
   return result;
 }
 
-uint64_t ABCAddressBookSaveWithConflictPolicy(uint64_t a1, int a2, uint64_t a3)
+uint64_t ABCAddressBookSaveWithConflictPolicy(uint64_t a1, int a2, void *a3)
 {
-  v150 = *MEMORY[0x1E69E9840];
+  v154 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     return 0;
@@ -9587,22 +9710,22 @@ uint64_t ABCAddressBookSaveWithConflictPolicy(uint64_t a1, int a2, uint64_t a3)
   allocator = *MEMORY[0x1E695E480];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   v8 = CPRecordStoreCopyChangedRecords();
-  v140 = v5;
-  v133 = Mutable;
-  HIDWORD(v134) = v6;
+  v144 = v5;
+  v137 = Mutable;
+  HIDWORD(v138) = v6;
   if (v8)
   {
     v9 = v8;
     Count = CFArrayGetCount(v8);
     if (Count >= 1)
     {
-      HIDWORD(v130) = a2;
-      v131 = a3;
+      HIDWORD(v134) = a2;
+      v135 = a3;
       v10 = 0;
       v11 = 0;
       v12 = 0;
       v13 = kABGroupMembersProperty;
-      v135 = v9;
+      v139 = v9;
       do
       {
         ValueAtIndex = CFArrayGetValueAtIndex(v9, v12);
@@ -9611,7 +9734,7 @@ uint64_t ABCAddressBookSaveWithConflictPolicy(uint64_t a1, int a2, uint64_t a3)
         {
           v16 = v15;
           v17 = *(v5 + 256);
-          if (!v17 || (v151.length = CFArrayGetCount(*(v5 + 256)), v151.location = 0, !CFArrayContainsValue(v17, v151, ValueAtIndex)))
+          if (!v17 || (v155.length = CFArrayGetCount(*(v5 + 256)), v155.location = 0, !CFArrayContainsValue(v17, v155, ValueAtIndex)))
           {
             RecordType = ABRecordGetRecordType(ValueAtIndex);
             if (RecordType)
@@ -9619,12 +9742,12 @@ uint64_t ABCAddressBookSaveWithConflictPolicy(uint64_t a1, int a2, uint64_t a3)
               keya = v10;
               if (!v11)
               {
-                v26 = OUTLINED_FUNCTION_0(RecordType, v19, v20, v21, v22, v23, v24, v25, v129, v130, v131, v133, v134, v135, v10, theDict, v140, allocator);
+                v26 = OUTLINED_FUNCTION_0(RecordType, v19, v20, v21, v22, v23, v24, v25, v133, v134, v135, v137, v138, v139, v10, theDict, v144, allocator);
                 v11 = CFDictionaryCreateMutable(v26, v27, v28, MEMORY[0x1E695E9E8]);
               }
 
               v29 = CFArrayGetCount(v16);
-              v37 = OUTLINED_FUNCTION_0(v29, v30, v31, v32, v33, v34, v35, v36, v129, v130, v131, v133, v134, v135, keya, v11, v140, allocator);
+              v37 = OUTLINED_FUNCTION_0(v29, v30, v31, v32, v33, v34, v35, v36, v133, v134, v135, v137, v138, v139, keya, v11, v144, allocator);
               v40 = CFArrayCreateMutable(v37, v38, v39);
               if (v29 >= 1)
               {
@@ -9667,8 +9790,8 @@ LABEL_24:
               v11 = theDict;
               CFDictionarySetValue(theDict, RecordID, v40);
               CFRelease(v40);
-              v5 = v140;
-              v9 = v135;
+              v5 = v144;
+              v9 = v139;
               v10 = key;
             }
 
@@ -9676,7 +9799,7 @@ LABEL_24:
             {
               if (!v10)
               {
-                v49 = OUTLINED_FUNCTION_0(RecordType, v19, v20, v21, v22, v23, v24, v25, v129, v130, v131, v133, v134, v135, key, theDict, v140, allocator);
+                v49 = OUTLINED_FUNCTION_0(RecordType, v19, v20, v21, v22, v23, v24, v25, v133, v134, v135, v137, v138, v139, key, theDict, v144, allocator);
                 v10 = CFDictionaryCreateMutable(v49, v50, v51, MEMORY[0x1E695E9E8]);
               }
 
@@ -9692,18 +9815,18 @@ LABEL_24:
       }
 
       while (v12 != Count);
-      Mutable = v133;
+      Mutable = v137;
       if (v10)
       {
-        CFDictionarySetValue(v133, @"ABChangeCallbackInfoUpdatedPeople", v10);
+        CFDictionarySetValue(v137, @"ABChangeCallbackInfoUpdatedPeople", v10);
         CFRelease(v10);
       }
 
-      a3 = v131;
-      v6 = HIDWORD(v134);
+      a3 = v135;
+      v6 = HIDWORD(v138);
       if (v11)
       {
-        CFDictionarySetValue(v133, @"ABChangeCallbackInfoUpdatedGroups", v11);
+        CFDictionarySetValue(v137, @"ABChangeCallbackInfoUpdatedGroups", v11);
         CFRelease(v11);
       }
     }
@@ -9749,17 +9872,17 @@ LABEL_48:
     v57 = CFArrayCreateMutable(allocator, v55, MEMORY[0x1E695E9C0]);
     if (v54)
     {
-      v152.length = CFArrayGetCount(v54);
-      v152.location = 0;
-      CFArrayAppendArray(v57, v54, v152);
+      v156.length = CFArrayGetCount(v54);
+      v156.location = 0;
+      CFArrayAppendArray(v57, v54, v156);
     }
 
     v58 = *(v5 + 256);
     if (v58)
     {
-      v153.length = CFArrayGetCount(*(v5 + 256));
-      v153.location = 0;
-      CFArrayAppendArray(v57, v58, v153);
+      v157.length = CFArrayGetCount(*(v5 + 256));
+      v157.location = 0;
+      CFArrayAppendArray(v57, v58, v157);
     }
 
     if (v54)
@@ -9770,12 +9893,12 @@ LABEL_48:
 
   if (v57)
   {
-    v143 = CFArrayGetCount(v57);
+    v147 = CFArrayGetCount(v57);
   }
 
   else
   {
-    v143 = 0;
+    v147 = 0;
   }
 
   v59 = CPRecordStoreCopyDeletedRecordIDsOfClass();
@@ -9845,15 +9968,15 @@ LABEL_48:
     }
 
 LABEL_139:
-    v122 = *(v5 + 144);
-    if (v122)
+    v126 = *(v5 + 144);
+    if (v126)
     {
-      if (CFArrayGetCount(v122) >= 1)
+      if (CFArrayGetCount(v126) >= 1)
       {
-        v123 = *(v5 + 384);
-        if ((v123 & 0x80000) == 0)
+        v127 = *(v5 + 384);
+        if ((v127 & 0x80000) == 0)
         {
-          OUTLINED_FUNCTION_2(v123);
+          OUTLINED_FUNCTION_2(v127);
         }
       }
     }
@@ -9884,83 +10007,85 @@ LABEL_139:
   CPRecordStoreLogChanges();
   v71 = CPRecordStoreProcessAddedRecordsOfClassWithPolicyAndTransactionType();
   SequenceNumber = ABAddressBookGetSequenceNumber(v68);
-  v73 = ABOSLogGeneral();
-  if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+  v73 = SequenceNumber;
+  v75 = ABOSLogGeneral(SequenceNumber, v74);
+  if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
   {
-    v74 = *(v140 + 344);
+    v76 = *(v144 + 344);
     *buf = 67109890;
-    *v145 = SequenceNumber + 1;
-    *&v145[4] = 2048;
-    *&v145[6] = v61;
-    v146 = 2048;
-    v147 = v143;
-    v148 = 2114;
-    v149 = v74;
-    _os_log_impl(&dword_1B7EFB000, v73, OS_LOG_TYPE_DEFAULT, "AddressBook preparing save, sequence number = %d, deleted contact count = %ld, added contact count = %ld, change history id = %{public}@", buf, 0x26u);
+    *v149 = v73 + 1;
+    *&v149[4] = 2048;
+    *&v149[6] = v61;
+    v150 = 2048;
+    v151 = v147;
+    v152 = 2114;
+    v153 = v76;
+    _os_log_impl(&dword_1B7EFB000, v75, OS_LOG_TYPE_DEFAULT, "AddressBook preparing save, sequence number = %d, deleted contact count = %ld, added contact count = %ld, change history id = %{public}@", buf, 0x26u);
   }
 
   if (v61 >= 1)
   {
-    v75 = v65;
-    v76 = a3;
-    if (!*(v140 + 368) || ![*(v140 + 368) length])
+    v77 = v65;
+    v78 = a3;
+    if (!*(v144 + 368) || ![*(v144 + 368) length])
     {
       [MEMORY[0x1E6996640] loggingIdentifierForCurrentProcess];
     }
 
-    v77 = os_log_create("com.apple.contacts", "data-loss-triage");
-    if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+    v79 = os_log_create("com.apple.contacts", "data-loss-triage");
+    if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
     {
       OUTLINED_FUNCTION_8();
-      _os_log_impl(&dword_1B7EFB000, v77, OS_LOG_TYPE_DEFAULT, "Deleting %lu people on behalf of client %{public}@", buf, 0x16u);
+      _os_log_impl(&dword_1B7EFB000, v79, OS_LOG_TYPE_DEFAULT, "Deleting %lu people on behalf of client %{public}@", buf, 0x16u);
     }
 
-    if (v61 >= 0xB && os_log_type_enabled(v77, OS_LOG_TYPE_FAULT))
+    if (v61 >= 0xB && os_log_type_enabled(v79, OS_LOG_TYPE_FAULT))
     {
       OUTLINED_FUNCTION_8();
-      _os_log_fault_impl(&dword_1B7EFB000, v77, OS_LOG_TYPE_FAULT, "Possible data loss detected: Deleting %lu people on behalf of client %{public}@", buf, 0x16u);
+      _os_log_fault_impl(&dword_1B7EFB000, v79, OS_LOG_TYPE_FAULT, "Possible data loss detected: Deleting %lu people on behalf of client %{public}@", buf, 0x16u);
     }
 
-    a3 = v76;
-    v65 = v75;
+    a3 = v78;
+    v65 = v77;
   }
 
   OUTLINED_FUNCTION_4();
-  if (v78 == 1)
+  if (v80 == 1)
   {
-    if ((*(v140 + 386) & 0x10) != 0)
+    if ((*(v144 + 386) & 0x10) != 0)
     {
       if (!CPRecordStoreGetCountOfInstancesOfClassWhere())
       {
-        v79 = ABAddressBookCopyLocalSource(v140);
-        if (v79)
+        v81 = ABAddressBookCopyLocalSource(v144);
+        if (v81)
         {
-          v80 = v79;
+          v82 = v81;
           ABDiagnosticsEnabled();
-          _ABLog2(4, "_Bool ABCAddressBookSaveWithConflictPolicy(ABCAddressBookRef, ABConflictPolicy, CFErrorRef *)", 1280, 0, @"Enabling the local source because no sources were enabled", v81, v82, v83, v129);
-          ABRecordSetIntValue(v80, kABSourceEnabledProperty, 1, 0);
-          CFRelease(v80);
+          _ABLog2(4, "_Bool ABCAddressBookSaveWithConflictPolicy(ABCAddressBookRef, ABConflictPolicy, CFErrorRef *)", 1280, 0, @"Enabling the local source because no sources were enabled", v83, v84, v85, v133);
+          ABRecordSetIntValue(v82, kABSourceEnabledProperty, 1, 0);
+          CFRelease(v82);
         }
       }
 
-      *(v140 + 384) &= ~0x100000u;
+      *(v144 + 384) &= ~0x100000u;
     }
 
     v71 = CPRecordStoreSaveWithPreAndPostCallbacksAndTransactionType();
-    if (*(v140 + 24))
+    if (*(v144 + 24))
     {
       OUTLINED_FUNCTION_4();
-      if (v84 == 1)
+      if (v86 == 1)
       {
         v71 = 1;
-        if ((CPRecordStoreSaveWithCallbackAndTransactionType() & 1) == 0)
+        v87 = CPRecordStoreSaveWithCallbackAndTransactionType();
+        if ((v87 & 1) == 0)
         {
-          v85 = ABOSLogGeneral();
-          if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+          v89 = ABOSLogGeneral(v87, v88);
+          if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            *v145 = 0;
-            _os_log_error_impl(&dword_1B7EFB000, v85, OS_LOG_TYPE_ERROR, "AddressBook failed to save: CPRecordStoreSaveWithCallbackAndTransactionType returned error: %{public}@", buf, 0xCu);
+            *v149 = 0;
+            _os_log_error_impl(&dword_1B7EFB000, v89, OS_LOG_TYPE_ERROR, "AddressBook failed to save: CPRecordStoreSaveWithCallbackAndTransactionType returned error: %{public}@", buf, 0xCu);
           }
 
           v71 = 0;
@@ -9968,77 +10093,77 @@ LABEL_139:
       }
     }
 
-    if (v143 >= 1)
+    if (v147 >= 1)
     {
       OUTLINED_FUNCTION_4();
-      if (v86 == 1)
+      if (v90 == 1)
       {
-        v132 = a3;
-        v87 = CFArrayGetCount(v57);
-        v95 = HIDWORD(v134);
-        if (v87 >= 1)
+        v136 = a3;
+        v91 = CFArrayGetCount(v57);
+        v99 = HIDWORD(v138);
+        if (v91 >= 1)
         {
-          v96 = v87;
-          v97 = 0;
-          v98 = 0;
-          v99 = 0;
+          v100 = v91;
+          v101 = 0;
+          v102 = 0;
+          v103 = 0;
           keyb = @"ABChangeCallbackInfoInsertedPeople";
           do
           {
-            v100 = CFArrayGetValueAtIndex(v57, v97);
-            v101 = ABRecordGetRecordType(v100);
-            if (v101)
+            v104 = CFArrayGetValueAtIndex(v57, v101);
+            v105 = ABRecordGetRecordType(v104);
+            if (v105)
             {
-              if (v98)
+              if (v102)
               {
-                v109 = v98;
+                v113 = v102;
               }
 
               else
               {
-                v110 = OUTLINED_FUNCTION_0(v101, v102, v103, v104, v105, v106, v107, v108, v129, v130, v132, v133, v134, v135, keyb, theDict, v140, allocator);
-                v109 = CFArrayCreateMutable(v110, v111, v112);
-                v98 = v109;
+                v114 = OUTLINED_FUNCTION_0(v105, v106, v107, v108, v109, v110, v111, v112, v133, v134, v136, v137, v138, v139, keyb, theDict, v144, allocator);
+                v113 = CFArrayCreateMutable(v114, v115, v116);
+                v102 = v113;
               }
             }
 
-            else if (v99)
+            else if (v103)
             {
-              v109 = v99;
+              v113 = v103;
             }
 
             else
             {
-              v113 = OUTLINED_FUNCTION_0(v101, v102, v103, v104, v105, v106, v107, v108, v129, v130, v132, v133, v134, v135, keyb, theDict, v140, allocator);
-              v109 = CFArrayCreateMutable(v113, v114, v115);
-              v99 = v109;
+              v117 = OUTLINED_FUNCTION_0(v105, v106, v107, v108, v109, v110, v111, v112, v133, v134, v136, v137, v138, v139, keyb, theDict, v144, allocator);
+              v113 = CFArrayCreateMutable(v117, v118, v119);
+              v103 = v113;
             }
 
-            v116 = ABRecordGetRecordID(v100);
-            CFArrayAppendValue(v109, v116);
-            ++v97;
+            v120 = ABRecordGetRecordID(v104);
+            CFArrayAppendValue(v113, v120);
+            ++v101;
           }
 
-          while (v96 != v97);
-          if (v99)
+          while (v100 != v101);
+          if (v103)
           {
-            CFDictionarySetValue(v133, keyb, v99);
-            CFRelease(v99);
+            CFDictionarySetValue(v137, keyb, v103);
+            CFRelease(v103);
           }
 
-          if (v98)
+          if (v102)
           {
-            CFDictionarySetValue(v133, @"ABChangeCallbackInfoInsertedGroups", v98);
-            CFRelease(v98);
+            CFDictionarySetValue(v137, @"ABChangeCallbackInfoInsertedGroups", v102);
+            CFRelease(v102);
           }
         }
 
-        if ((v95 & 0x800000) == 0 && +[ABPersonLinker isAutoLinkingEnabled])
+        if ((v99 & 0x800000) == 0 && +[ABPersonLinker isAutoLinkingEnabled])
         {
-          [ABPersonLinker startAutoLinkingNewPeopleInAddressBook:v140 inProcess:0];
+          [ABPersonLinker startAutoLinkingNewPeopleInAddressBook:v144 inProcess:0];
         }
 
-        ABChangeHistoryUpdatePeakPersonCount(v140, v88, v89, v90, v91, v92, v93, v94, v129);
+        ABChangeHistoryUpdatePeakPersonCount(v144, v92, v93, v94, v95, v96, v97, v98, v133);
         v71 = 1;
       }
     }
@@ -10048,28 +10173,28 @@ LABEL_139:
   [v69 stop];
   if (v71)
   {
-    v5 = v140;
-    Mutable = v133;
-    v117 = *(v140 + 72);
-    v118 = *(v140 + 256);
-    if (v118)
+    v5 = v144;
+    Mutable = v137;
+    v121 = *(v144 + 72);
+    v122 = *(v144 + 256);
+    if (v122)
     {
-      CFRelease(v118);
-      *(v140 + 256) = 0;
+      CFRelease(v122);
+      *(v144 + 256) = 0;
     }
 
     if (v70 == 0.0)
     {
-      *(v140 + 352) = 0;
+      *(v144 + 352) = 0;
     }
 
-    ABRegulatoryLogModifyContactsData(v140);
-    if ((v134 & 0x80000000000000) != 0)
+    ABRegulatoryLogModifyContactsData(v144);
+    if ((v138 & 0x80000000000000) != 0)
     {
       goto LABEL_146;
     }
 
-    if (v117 && (*(v140 + 386) & 8) == 0)
+    if (v121 && (*(v144 + 386) & 8) == 0)
     {
       ABPostDistributedNotification(@"ABDatabaseSavedDistributedNotification");
       pthread_mutex_lock(&stru_1ED646C30);
@@ -10094,13 +10219,13 @@ LABEL_139:
       }
     }
 
-    if ((*(v140 + 386) & 8) == 0)
+    if ((*(v144 + 386) & 8) == 0)
     {
       _ABCPostDatabaseChangedNotification(0, 1);
     }
 
-    v119 = *(v140 + 168);
-    if (!v119 || (*(v140 + 386) & 8) != 0)
+    v123 = *(v144 + 168);
+    if (!v123 || (*(v144 + 386) & 8) != 0)
     {
 LABEL_146:
       v71 = 1;
@@ -10108,10 +10233,10 @@ LABEL_146:
 
     else
     {
-      v120 = CFArrayGetCount(v119);
-      if (v133)
+      v124 = CFArrayGetCount(v123);
+      if (v137)
       {
-        Copy = CFDictionaryCreateCopy(allocator, v133);
+        Copy = CFDictionaryCreateCopy(allocator, v137);
       }
 
       else
@@ -10119,13 +10244,13 @@ LABEL_146:
         Copy = 0;
       }
 
-      if (v120 >= 1)
+      if (v124 >= 1)
       {
-        for (i = 0; i != v120; ++i)
+        for (i = 0; i != v124; ++i)
         {
-          v125 = CFArrayGetValueAtIndex(*(v140 + 176), i);
-          v126 = CFArrayGetValueAtIndex(*(v140 + 168), i);
-          v126(v140, Copy, v125);
+          v129 = CFArrayGetValueAtIndex(*(v144 + 176), i);
+          v130 = CFArrayGetValueAtIndex(*(v144 + 168), i);
+          v130(v144, Copy, v129);
         }
       }
 
@@ -10135,24 +10260,24 @@ LABEL_146:
       }
 
       v71 = 1;
-      Mutable = v133;
+      Mutable = v137;
     }
 
     goto LABEL_156;
   }
 
-  v5 = v140;
-  Mutable = v133;
-  if ((v134 & 0x80000000000000) == 0)
+  v5 = v144;
+  Mutable = v137;
+  if ((v138 & 0x80000000000000) == 0)
   {
     goto LABEL_139;
   }
 
 LABEL_156:
-  v127 = *(v5 + 360);
-  if (v127)
+  v131 = *(v5 + 360);
+  if (v131)
   {
-    CFRelease(v127);
+    CFRelease(v131);
     *(v5 + 360) = 0;
   }
 

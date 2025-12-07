@@ -30,7 +30,7 @@
 - (void)containerViewWillLayoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for RoutePickerPadPresentationController();
+  v5.super_class = type metadata accessor for RoutePickerPadPresentationController(self, a2);
   v2 = v5.receiver;
   [(RoutePickerPadPresentationController *)&v5 containerViewWillLayoutSubviews];
   presentedView = [v2 presentedView];
@@ -45,7 +45,7 @@
 - (void)presentationTransitionWillBegin
 {
   selfCopy = self;
-  sub_1A2258CE4();
+  sub_1A2258CE4(selfCopy, v2);
 }
 
 - (void)backgroundTapHandler
@@ -55,10 +55,11 @@
   v3 = v2();
   if (v3)
   {
-    v4 = v3;
+    v5 = v4;
+    v6 = v3;
     v3();
 
-    sub_1A210F5C0(v4);
+    sub_1A210F5C0(v6, v5);
   }
 
   else
@@ -69,7 +70,7 @@
 - (_TtC13MediaControls36RoutePickerPadPresentationController)initWithPresentedViewController:(id)controller presentingViewController:(id)viewController
 {
   v7 = (&self->super.super.isa + OBJC_IVAR____TtC13MediaControls36RoutePickerPadPresentationController_dismissHandler);
-  v8 = type metadata accessor for RoutePickerPadPresentationController();
+  v8 = type metadata accessor for RoutePickerPadPresentationController(self, a2);
   *v7 = 0;
   v7[1] = 0;
   v10.receiver = self;

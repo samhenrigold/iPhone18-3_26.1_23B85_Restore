@@ -23,35 +23,32 @@
 - (void)dealloc
 {
   ObjectType = swift_getObjectType();
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC12FinanceKitUI22SuggestionsOrderBanner_orderBundle);
   selfCopy = self;
 
   sub_238757BF0();
 
-  v6.receiver = selfCopy;
-  v6.super_class = ObjectType;
-  [(SuggestionsOrderBanner *)&v6 dealloc];
+  v5.receiver = selfCopy;
+  v5.super_class = ObjectType;
+  [(SuggestionsOrderBanner *)&v5 dealloc];
 }
 
 - (NSString)merchantName
 {
   v3 = sub_238757CC0();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(&self->super.isa + OBJC_IVAR____TtC12FinanceKitUI22SuggestionsOrderBanner_orderBundle);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   sub_238759B30();
   sub_238757C60();
-  (*(v4 + 8))(v7, v3);
-  v10 = sub_238757BD0();
+  (*(v4 + 8))(v6, v3);
+  v8 = sub_238757BD0();
 
   sub_2387586A0();
 
-  v11 = sub_23875EA50();
+  v9 = sub_23875EA50();
 
-  return v11;
+  return v9;
 }
 
 - (UIImage)merchantLogo
@@ -64,51 +61,48 @@
 
 - (NSURL)orderDeepLink
 {
-  v22 = sub_23875A710();
-  v3 = *(v22 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v22);
-  v6 = &v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_238757A70();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = sub_23875B940();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v21 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = sub_23875A710();
+  v3 = *(v19 - 8);
+  MEMORY[0x28223BE20](v19);
+  v5 = &v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_238757A70();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = sub_23875B940();
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   sub_238757A20();
   LOBYTE(self) = sub_238757A60();
-  (*(v8 + 8))(v11, v7);
+  (*(v7 + 8))(v9, v6);
   if (self)
   {
     sub_238759A40();
     sub_2387576B0();
 
-    (*(v3 + 8))(v6, v22);
-    v18 = sub_23875B860();
-    (*(v13 + 8))(v16, v12);
-    v19 = v18;
+    (*(v3 + 8))(v5, v19);
+    v15 = sub_23875B860();
+    (*(v11 + 8))(v13, v10);
+    v16 = v15;
   }
 
   else
   {
 
-    v19 = 0;
+    v16 = 0;
   }
 
-  return v19;
+  return v16;
 }
 
 - (NSAttributedString)bannerAttributedSubtitle
 {
   selfCopy = self;
-  v3 = SuggestionsOrderBanner.bannerAttributedSubtitle.getter();
+  v4 = SuggestionsOrderBanner.bannerAttributedSubtitle.getter(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 + (id)walletLogo

@@ -153,7 +153,7 @@
   memset(&cf[1], 0, sizeof(audit_token_t));
   if (entitledCopy)
   {
-    [entitledCopy auditToken];
+    objc_msgSend_auditToken(entitledCopy);
   }
 
   cf[0] = cf[1];

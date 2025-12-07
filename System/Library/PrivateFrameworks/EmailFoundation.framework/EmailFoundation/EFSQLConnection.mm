@@ -2,6 +2,7 @@
 + (BOOL)isSuccessResultCode:(int)code forStep:(BOOL)step error:(id *)error;
 + (BOOL)setFileProtection:(id)protection forDatabaseAtURL:(id)l error:(id *)error;
 + (OS_os_log)log;
+- (BOOL)_isSuccessResultCode:(int)code sqlDB:(sqlite3 *)b error:(id *)error;
 - (BOOL)beginTransaction:(int64_t)transaction error:(id *)error;
 - (BOOL)executeStatementString:(id)string error:(id *)error;
 - (BOOL)finalizeStatementsWithError:(id *)error;
@@ -188,47 +189,47 @@ void __22__EFSQLConnection_log__block_invoke(uint64_t a1)
 
 - (BOOL)finalizeStatementsWithError:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   sqlDB = [(EFSQLConnection *)self sqlDB];
   if (!sqlDB)
   {
 LABEL_15:
     LOBYTE(v12) = 1;
-    goto LABEL_17;
+    return v12;
   }
 
   v6 = sqlDB;
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v7 = self->_preparedStatements;
-  v8 = [(NSHashTable *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSHashTable *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
-    v9 = *v16;
+    v9 = *v15;
     while (2)
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        if (([*(*(&v15 + 1) + 8 * v10) finalizeWithError:{error, v15}] & 1) == 0)
+        if (([*(*(&v14 + 1) + 8 * v10) finalizeWithError:{error, v14}] & 1) == 0)
         {
 
           LOBYTE(v12) = 0;
-          goto LABEL_17;
+          return v12;
         }
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSHashTable *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSHashTable *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         continue;
@@ -255,7 +256,7 @@ LABEL_13:
     v12 = [(EFSQLConnection *)self _isSuccessResultCode:sqlite3_finalize(stmt) sqlDB:v6 error:error];
     if (!v12)
     {
-      break;
+      return v12;
     }
 
     stmt = sqlite3_next_stmt(v6, 0);
@@ -264,10 +265,6 @@ LABEL_13:
       goto LABEL_13;
     }
   }
-
-LABEL_17:
-  v13 = *MEMORY[0x1E69E9840];
-  return v12;
 }
 
 - (BOOL)beginTransaction:(int64_t)transaction error:(id *)error
@@ -353,34 +350,34 @@ LABEL_17:
 
 void __46__EFSQLConnection_test_resultsForQueryString___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_opt_new();
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = [v3 columnNames];
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = [v3 objectForKeyedSubscript:v9];
         v11 = [v10 objectValue];
         [v4 setObject:v11 forKeyedSubscript:v9];
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -389,8 +386,19 @@ void __46__EFSQLConnection_test_resultsForQueryString___block_invoke(uint64_t a1
   v12 = *(a1 + 32);
   v13 = [v4 copy];
   [v12 addObject:v13];
+}
 
-  v14 = *MEMORY[0x1E69E9840];
+- (BOOL)_isSuccessResultCode:(int)code sqlDB:(sqlite3 *)b error:(id *)error
+{
+  v6 = *&code;
+  if (b && code && error)
+  {
+    v6 = sqlite3_extended_errcode(b);
+  }
+
+  v7 = objc_opt_class();
+
+  return [v7 isSuccessResultCode:v6 forStep:0 error:error];
 }
 
 + (BOOL)isSuccessResultCode:(int)code forStep:(BOOL)step error:(id *)error
@@ -435,13 +443,12 @@ LABEL_10:
 
 + (void)setFileProtection:(uint64_t)a1 forDatabaseAtURL:(uint64_t)a2 error:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_debug_impl(&dword_1C6152000, log, OS_LOG_TYPE_DEBUG, "Setting file protection for %{public}@ to %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_debug_impl(&dword_1C6152000, log, OS_LOG_TYPE_DEBUG, "Setting file protection for %{public}@ to %{public}@", &v3, 0x16u);
 }
 
 @end

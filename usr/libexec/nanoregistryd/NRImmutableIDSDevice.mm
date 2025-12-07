@@ -38,7 +38,7 @@
       productVersion = v7->_productVersion;
       v7->_productVersion = productVersion;
 
-      [deviceCopy operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(deviceCopy);
       *&v7->_operatingSystemVersion.majorVersion = v41;
       v7->_operatingSystemVersion.patchVersion = v42;
       productBuildVersion = [deviceCopy productBuildVersion];

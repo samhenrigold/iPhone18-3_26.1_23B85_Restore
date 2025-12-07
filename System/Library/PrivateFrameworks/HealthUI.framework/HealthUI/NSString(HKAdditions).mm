@@ -24,7 +24,7 @@
       v18 = v17;
       [v10 size];
       v20 = v19 + a2;
-      [v10 scale];
+      objc_msgSend_scale(v10);
       v22 = v21;
       v34.width = v18;
       v34.height = v20;

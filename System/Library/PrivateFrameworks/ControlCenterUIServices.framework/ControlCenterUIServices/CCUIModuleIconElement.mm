@@ -1,6 +1,7 @@
 @interface CCUIModuleIconElement
 - (BOOL)isEqual:(id)equal;
 - (CCUIModuleIconElement)init;
+- (CCUIModuleIconElement)initWithModuleIdentifier:(id)identifier containerBundleIdentifier:(id)bundleIdentifier standardSupportedGridSizeClasses:(id)classes expandsGridSizeClassesForAccessibility:(BOOL)accessibility;
 - (CCUIModuleIconElement)initWithUniqueIdentifier:(id)identifier moduleIdentifier:(id)moduleIdentifier containerBundleIdentifier:(id)bundleIdentifier standardSupportedGridSizeClasses:(id)classes expandsGridSizeClassesForAccessibility:(BOOL)accessibility;
 - (NSString)description;
 - (NSString)displayName;
@@ -32,21 +33,20 @@
 
 - (NSString)displayName
 {
-  v2 = (self + OBJC_IVAR___CCUIModuleIconElement_displayName);
+  v2 = self + OBJC_IVAR___CCUIModuleIconElement_displayName;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = sub_2442B4878();
+    v3 = sub_2442B4878();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)setDisplayName:(id)name
@@ -65,7 +65,6 @@
 
   v7 = (self + OBJC_IVAR___CCUIModuleIconElement_displayName);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -88,6 +87,26 @@
 {
   selfCopy = self;
   sub_2442A10A0(category);
+}
+
+- (CCUIModuleIconElement)initWithModuleIdentifier:(id)identifier containerBundleIdentifier:(id)bundleIdentifier standardSupportedGridSizeClasses:(id)classes expandsGridSizeClassesForAccessibility:(BOOL)accessibility
+{
+  accessibilityCopy = accessibility;
+  v11 = sub_2442B4738();
+  v12 = *(v11 - 8);
+  MEMORY[0x28223BE20](v11);
+  v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  identifierCopy = identifier;
+  bundleIdentifierCopy = bundleIdentifier;
+  classesCopy = classes;
+  sub_2442B4728();
+  sub_2442B4718();
+  (*(v12 + 8))(v14, v11);
+  v18 = sub_2442B4878();
+
+  v19 = [(CCUIModuleIconElement *)self initWithUniqueIdentifier:v18 moduleIdentifier:identifierCopy containerBundleIdentifier:bundleIdentifierCopy standardSupportedGridSizeClasses:classesCopy expandsGridSizeClassesForAccessibility:accessibilityCopy];
+
+  return v19;
 }
 
 - (CCUIModuleIconElement)initWithUniqueIdentifier:(id)identifier moduleIdentifier:(id)moduleIdentifier containerBundleIdentifier:(id)bundleIdentifier standardSupportedGridSizeClasses:(id)classes expandsGridSizeClassesForAccessibility:(BOOL)accessibility

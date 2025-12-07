@@ -11,7 +11,7 @@ char *mdns_dns_service_type_description(unsigned int a1)
   }
 }
 
-uint64_t DNSMessageExtractDomainName(unint64_t a1, uint64_t a2, char *__src, char *__dst, void *a5)
+uint64_t DNSMessageExtractDomainName(unint64_t a1, uint64_t a2, char *__src, char *__dst, char **a5)
 {
   if (__dst)
   {
@@ -139,10 +139,10 @@ LABEL_23:
 
 uint64_t DNSMessageExtractDomainNameString(unint64_t a1, uint64_t a2, char *a3, unsigned __int8 *a4, void *a5)
 {
-  v11 = *MEMORY[0x29EDCA608];
-  v9 = 0;
+  v10 = *MEMORY[0x29EDCA608];
+  v8 = 0;
   memset(__dst, 0, sizeof(__dst));
-  result = DNSMessageExtractDomainName(a1, a2, a3, __dst, &v9);
+  result = DNSMessageExtractDomainName(a1, a2, a3, __dst, &v8);
   if (!result)
   {
     result = DomainNameToString(__dst, 0, a4, 0);
@@ -150,16 +150,15 @@ uint64_t DNSMessageExtractDomainNameString(unint64_t a1, uint64_t a2, char *a3, 
     {
       if (!result)
       {
-        *a5 = v9;
+        *a5 = v8;
       }
     }
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t DomainNameToString(_BYTE *a1, unint64_t a2, unsigned __int8 *a3, void *a4)
+uint64_t DomainNameToString(unsigned __int8 *a1, unint64_t a2, unsigned __int8 *a3, void *a4)
 {
   if (a2 && (a2 - a1) < 1)
   {
@@ -285,13 +284,13 @@ uint64_t DNSMessageExtractQuestion(unint64_t a1, uint64_t a2, char *a3, char *a4
 
       if (a6)
       {
-        *a6 = bswap32(v13[1]) >> 16;
+        *a6 = bswap32(*(v13 + 1)) >> 16;
       }
 
       result = 0;
       if (a7)
       {
-        *a7 = v13 + 2;
+        *a7 = v13 + 4;
       }
     }
   }
@@ -372,12 +371,12 @@ uint64_t _DNSMessageExtractRecordEx(unint64_t a1, uint64_t a2, char *a3, char *a
   return result;
 }
 
-uint64_t DNSMessageExtractRData(unint64_t a1, uint64_t a2, char *__src, unint64_t a4, int a5, char *a6, size_t a7, size_t *a8, unint64_t *a9)
+uint64_t DNSMessageExtractRData(unint64_t a1, uint64_t a2, char *__src, size_t a4, int a5, char *a6, size_t a7, size_t *a8, unint64_t *a9)
 {
   v10 = a7;
   v12 = a4;
-  v80 = *MEMORY[0x29EDCA608];
-  v77 = 0;
+  v79 = *MEMORY[0x29EDCA608];
+  v76 = 0;
   memset(__srca, 0, 256);
   memset(__dst, 0, sizeof(__dst));
   v16 = &__src[a4];
@@ -392,10 +391,10 @@ uint64_t DNSMessageExtractRData(unint64_t a1, uint64_t a2, char *__src, unint64_
     case 9:
     case 12:
     case 39:
-      result = DNSMessageExtractDomainName(a1, a2, __src, __srca, &v77);
+      result = DNSMessageExtractDomainName(a1, a2, __src, __srca, &v76);
       if (!result)
       {
-        if (v77 != v16)
+        if (v76 != v16)
         {
           goto LABEL_80;
         }
@@ -428,14 +427,14 @@ uint64_t DNSMessageExtractRData(unint64_t a1, uint64_t a2, char *__src, unint64_
 
       break;
     case 6:
-      result = DNSMessageExtractDomainName(a1, a2, __src, __srca, &v77);
+      result = DNSMessageExtractDomainName(a1, a2, __src, __srca, &v76);
       if (!result)
       {
-        result = DNSMessageExtractDomainName(a1, a2, v77, __dst, &v77);
+        result = DNSMessageExtractDomainName(a1, a2, v76, __dst, &v76);
         if (!result)
         {
-          v59 = v77;
-          if (v16 - v77 != 20)
+          v59 = v76;
+          if (v16 - v76 != 20)
           {
             goto LABEL_80;
           }
@@ -518,13 +517,13 @@ uint64_t DNSMessageExtractRData(unint64_t a1, uint64_t a2, char *__src, unint64_
     case 14:
     case 17:
     case 26:
-      result = DNSMessageExtractDomainName(a1, a2, __src, __srca, &v77);
+      result = DNSMessageExtractDomainName(a1, a2, __src, __srca, &v76);
       if (!result)
       {
-        result = DNSMessageExtractDomainName(a1, a2, v77, __dst, &v77);
+        result = DNSMessageExtractDomainName(a1, a2, v76, __dst, &v76);
         if (!result)
         {
-          if (v77 != v16)
+          if (v76 != v16)
           {
             goto LABEL_80;
           }
@@ -600,10 +599,10 @@ uint64_t DNSMessageExtractRData(unint64_t a1, uint64_t a2, char *__src, unint64_
         goto LABEL_80;
       }
 
-      result = DNSMessageExtractDomainName(a1, a2, __src + 2, __srca, &v77);
+      result = DNSMessageExtractDomainName(a1, a2, __src + 2, __srca, &v76);
       if (!result)
       {
-        if (v77 != v16)
+        if (v76 != v16)
         {
           goto LABEL_80;
         }
@@ -638,10 +637,10 @@ uint64_t DNSMessageExtractRData(unint64_t a1, uint64_t a2, char *__src, unint64_
         goto LABEL_80;
       }
 
-      result = DNSMessageExtractDomainName(a1, a2, __src + 6, __srca, &v77);
+      result = DNSMessageExtractDomainName(a1, a2, __src + 6, __srca, &v76);
       if (!result)
       {
-        if (v77 != v16)
+        if (v76 != v16)
         {
           goto LABEL_80;
         }
@@ -695,11 +694,11 @@ LABEL_16:
 
       break;
     case 47:
-      result = DNSMessageExtractDomainName(a1, a2, __src, __srca, &v77);
+      result = DNSMessageExtractDomainName(a1, a2, __src, __srca, &v76);
       if (!result)
       {
-        v53 = v77;
-        if (v77 <= v16)
+        v53 = v76;
+        if (v76 <= v16)
         {
           v54 = __srca[0];
           v55 = __srca;
@@ -716,8 +715,8 @@ LABEL_16:
             while (v57);
           }
 
-          v58 = v16 - v77;
-          v12 = v55 - __srca + 1 + v16 - v77;
+          v58 = v16 - v76;
+          v12 = v55 - __srca + 1 + v16 - v76;
           if (v55 - __srca + 1 < v10)
           {
             v32 = v55 - __srca + 1;
@@ -777,7 +776,6 @@ LABEL_75:
       break;
   }
 
-  v76 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -830,7 +828,7 @@ uint64_t DNSMessageGetAnswerSection(unint64_t a1, unint64_t a2, char **a3)
         return 4294960546;
       }
 
-      v8 = (v12[0] + 4);
+      v8 = v12[0] + 4;
       if (!--v7)
       {
         goto LABEL_7;
@@ -1083,11 +1081,11 @@ uint64_t DNSMessageWriteQuery(__int16 a1, __int16 a2, _BYTE *__src, __int16 a4, 
   return result;
 }
 
-char *DNSMessageCollapse(unint64_t a1, unint64_t a2, void *a3, char **a4)
+char *DNSMessageCollapse(char *a1, unint64_t a2, void *a3, char **a4)
 {
-  v73 = *MEMORY[0x29EDCA608];
-  v54 = 0;
+  v72 = *MEMORY[0x29EDCA608];
   v53 = 0;
+  v52 = 0;
   memset(__src, 0, 256);
   memset(__dst, 0, sizeof(__dst));
   if (a2 < 0xC)
@@ -1098,10 +1096,10 @@ LABEL_68:
     DomainName = -6743;
   }
 
-  else if (__rev16(*(a1 + 4)) == 1)
+  else if (__rev16(*(a1 + 2)) == 1)
   {
-    v54 = (a1 + 12);
-    DomainName = DNSMessageExtractQuestion(a1, a2, (a1 + 12), __src, &v53 + 1, &v53, &v54);
+    v53 = a1 + 12;
+    DomainName = DNSMessageExtractQuestion(a1, a2, a1 + 12, __src, &v52 + 1, &v52, &v53);
     if (DomainName)
     {
 LABEL_57:
@@ -1110,10 +1108,10 @@ LABEL_57:
       goto LABEL_61;
     }
 
-    if (v53 == 1)
+    if (v52 == 1)
     {
       v9 = __src[0];
-      v39 = a3;
+      v38 = a3;
       v10 = __src;
       if (__src[0])
       {
@@ -1130,61 +1128,61 @@ LABEL_57:
 
       v13 = v10 - __src;
       __n = v10 - __src + 1;
-      v42 = v54;
+      v41 = v53;
       __memcpy_chk();
-      v14 = __rev16(*(a1 + 6));
+      v14 = __rev16(*(a1 + 3));
       if (v14)
       {
         v15 = 0;
-        v44 = -1;
+        v43 = -1;
 LABEL_9:
         v16 = 0;
-        v54 = v42;
+        v53 = v41;
         v17 = 1;
         while (1)
         {
-          v52 = 0;
-          LODWORD(v50) = 0;
-          LOWORD(v49) = 0;
           v51 = 0;
-          v69 = 0u;
-          v70 = 0u;
-          v67 = 0u;
+          LODWORD(v49) = 0;
+          LOWORD(v48) = 0;
+          v50 = 0;
           v68 = 0u;
-          v65 = 0u;
+          v69 = 0u;
           v66 = 0u;
-          v63 = 0u;
+          v67 = 0u;
           v64 = 0u;
-          v61 = 0u;
+          v65 = 0u;
           v62 = 0u;
-          v59 = 0u;
+          v63 = 0u;
           v60 = 0u;
-          v57 = 0u;
+          v61 = 0u;
           v58 = 0u;
-          v55 = 0u;
+          v59 = 0u;
           v56 = 0u;
-          DomainName = _DNSMessageExtractRecordEx(a1, a2, v54, &v55, &v49, &v51, &v50, &v52, 0, 0, 0, 0, 0, &v54);
+          v57 = 0u;
+          v54 = 0u;
+          v55 = 0u;
+          DomainName = _DNSMessageExtractRecordEx(a1, a2, v53, &v54, &v48, &v50, &v49, &v51, 0, 0, 0, 0, 0, &v53);
           if (DomainName)
           {
             goto LABEL_57;
           }
 
-          if (v49 == 5 && v51 == v53 && DomainNameEqual(&v55, __dst))
+          if (v48 == 5 && v50 == v52 && DomainNameEqual(&v54, __dst))
           {
-            DomainName = DNSMessageExtractDomainName(a1, a2, v52, __dst, 0);
+            DomainName = DNSMessageExtractDomainName(a1, a2, v51, __dst, 0);
             if (DomainName)
             {
               goto LABEL_57;
             }
 
             v17 = 0;
-            v18 = v44;
-            if (v44 >= v50)
+            v18 = v43;
+            if (v43 >= v49)
             {
-              v18 = v50;
+              v18 = v49;
             }
 
-            v44 = v18;
+            v43 = v18;
             if (++v16 == v14)
             {
               goto LABEL_22;
@@ -1209,25 +1207,25 @@ LABEL_22:
         }
       }
 
-      v44 = -1;
+      v43 = -1;
 LABEL_25:
-      v40 = a4;
-      v47 = 0;
+      v39 = a4;
+      v46 = 0;
       v19 = 0;
       v20 = 0;
       size = v13 + 17;
       v21 = 1;
-      a4 = &v54;
+      a4 = &v53;
       while (1)
       {
-        v43 = v21;
-        v54 = v42;
+        v42 = v21;
+        v53 = v41;
         if (v14)
         {
           break;
         }
 
-        v46 = 0;
+        v45 = 0;
         if (v20)
         {
           goto LABEL_52;
@@ -1247,7 +1245,7 @@ LABEL_45:
         }
 
         v30 = *a1;
-        *(v29 + 2) = *(a1 + 4);
+        *(v29 + 2) = *(a1 + 2);
         *v29 = v30;
         *(v29 + 6) = 0;
         *(v29 + 5) = 0;
@@ -1260,85 +1258,85 @@ LABEL_45:
         v32 = v29 + 12;
         memcpy(v29 + 12, __src, __n);
         v33 = &v32[__n];
-        v47 = v31;
+        v46 = v31;
         if ((v31 - &v32[__n]) < 4)
         {
           goto LABEL_66;
         }
 
         v21 = 0;
-        v34 = BYTE2(v53);
-        v35 = v53;
-        *v33 = HIBYTE(v53);
+        v34 = BYTE2(v52);
+        v35 = v52;
+        *v33 = HIBYTE(v52);
         v33[1] = v34;
         v33[2] = HIBYTE(v35);
         v33[3] = v35;
         v19 = v33 + 4;
         *(v20 + 2) = 256;
-        if ((v43 & 1) == 0)
+        if ((v42 & 1) == 0)
         {
           goto LABEL_54;
         }
       }
 
-      v46 = 0;
+      v45 = 0;
       v22 = v14;
       do
       {
-        v52 = 0;
-        v50 = 0;
-        v49 = 0;
         v51 = 0;
+        v49 = 0;
         v48 = 0;
-        v69 = 0u;
-        v70 = 0u;
-        v67 = 0u;
+        v50 = 0;
+        v47 = 0;
         v68 = 0u;
-        v65 = 0u;
+        v69 = 0u;
         v66 = 0u;
-        v63 = 0u;
+        v67 = 0u;
         v64 = 0u;
-        v61 = 0u;
+        v65 = 0u;
         v62 = 0u;
-        v59 = 0u;
+        v63 = 0u;
         v60 = 0u;
-        v57 = 0u;
+        v61 = 0u;
         v58 = 0u;
-        v55 = 0u;
+        v59 = 0u;
         v56 = 0u;
-        v23 = v54;
-        DomainName = _DNSMessageExtractRecordEx(a1, a2, v54, &v55, &v51, &v48, &v49, 0, 0, 0, 0, 0, &v50, &v54);
+        v57 = 0u;
+        v54 = 0u;
+        v55 = 0u;
+        v23 = v53;
+        DomainName = _DNSMessageExtractRecordEx(a1, a2, v53, &v54, &v50, &v47, &v48, 0, 0, 0, 0, 0, &v49, &v53);
         if (DomainName)
         {
           goto LABEL_59;
         }
 
-        if (v51 == HIWORD(v53) && v48 == v53 && DomainNameEqual(&v55, __dst))
+        if (v50 == HIWORD(v52) && v47 == v52 && DomainNameEqual(&v54, __dst))
         {
           if (v20)
           {
-            if (v47 - v19 < 2)
+            if (v46 - v19 < 2)
             {
               goto LABEL_58;
             }
 
             *v19 = 3264;
-            if ((v47 - v19 - 2) < 0xA)
+            if ((v46 - v19 - 2) < 0xA)
             {
               goto LABEL_58;
             }
 
-            v24 = v49;
-            if (v49 >= v44)
+            v24 = v48;
+            if (v48 >= v43)
             {
-              v24 = v44;
+              v24 = v43;
             }
 
-            v49 = v24;
-            v25 = v51;
-            v26 = v48;
-            v27 = v50;
-            v19[2] = HIBYTE(v51);
+            v48 = v24;
+            v25 = v50;
+            v26 = v47;
+            v27 = v49;
+            v19[2] = HIBYTE(v50);
             v19[3] = v25;
             v19[4] = HIBYTE(v26);
             v19[5] = v26;
@@ -1349,7 +1347,7 @@ LABEL_45:
             v19[10] = HIBYTE(v27);
             v19[11] = v27;
             v28 = v19 + 12;
-            if (v47 - v28 < v50)
+            if (v46 - v28 < v49)
             {
 LABEL_58:
               DomainName = -6762;
@@ -1358,19 +1356,19 @@ LABEL_59:
               goto LABEL_60;
             }
 
-            DomainName = _DNSMessageExtractRecordEx(a1, a2, v23, 0, 0, 0, 0, 0, 0, v28, v50, &v52, 0, 0);
+            DomainName = _DNSMessageExtractRecordEx(a1, a2, v23, 0, 0, 0, 0, 0, 0, v28, v49, &v51, 0, 0);
             if (DomainName)
             {
               goto LABEL_59;
             }
 
-            v19 = &v52[v28];
-            ++v46;
+            v19 = v51 + v28;
+            ++v45;
           }
 
           else
           {
-            size += v50 + 12;
+            size += v49 + 12;
           }
         }
 
@@ -1386,15 +1384,15 @@ LABEL_59:
 LABEL_52:
       if (size >= 0xC)
       {
-        *(v20 + 3) = bswap32(v46) >> 16;
+        *(v20 + 3) = bswap32(v45) >> 16;
 LABEL_54:
         v36 = v20;
-        a4 = v40;
+        a4 = v39;
         v20 = 0;
         DomainName = 0;
-        if (v39)
+        if (v38)
         {
-          *v39 = v19 - v36;
+          *v38 = v19 - v36;
         }
 
         goto LABEL_61;
@@ -1404,7 +1402,7 @@ LABEL_66:
       v36 = 0;
       DomainName = -6762;
 LABEL_60:
-      a4 = v40;
+      a4 = v39;
     }
 
     else
@@ -1433,7 +1431,6 @@ LABEL_61:
     free(v20);
   }
 
-  v37 = *MEMORY[0x29EDCA608];
   return v36;
 }
 
@@ -1546,10 +1543,10 @@ uint64_t DomainNameAppendString(_BYTE *a1, char *a2, void *a3)
     {
       LOBYTE(v5) = 46;
 LABEL_9:
-      v6 = (a1 + 255);
+      v6 = a1 + 255;
       do
       {
-        if ((v3 + 64) >= v6)
+        if (v3 + 64 >= v6)
         {
           v7 = v6;
         }
@@ -1564,7 +1561,7 @@ LABEL_9:
         v10 = a2;
         do
         {
-          a2 = (v10 + 1);
+          a2 = v10 + 1;
           if (v5 == 92)
           {
             v11 = *a2;
@@ -1574,7 +1571,7 @@ LABEL_9:
             }
 
             LOBYTE(v5) = *a2;
-            a2 = (v10 + 2);
+            a2 = v10 + 2;
             if (v11 - 48 <= 9)
             {
               v12 = *a2;
@@ -1584,7 +1581,7 @@ LABEL_9:
                 if ((v13 - 48) <= 9)
                 {
                   v14 = 100 * v11 + 10 * v12 + v13;
-                  v15 = (v10 + 4);
+                  v15 = v10 + 4;
                   if (v14 < 5584)
                   {
                     a2 = v15;
@@ -2207,44 +2204,44 @@ uint64_t DNSRCodeFromString(const void *a1)
 uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3, uint64_t a4)
 {
   __src[127] = *MEMORY[0x29EDCA608];
-  v116 = 0;
+  v114 = 0;
   if (_GetCUSymAddr_DataBuffer_Init_sOnce != -1)
   {
     dispatch_once(&_GetCUSymAddr_DataBuffer_Init_sOnce, &__block_literal_global);
   }
 
-  v119 = 0;
-  memset(v118, 0, sizeof(v118));
   v117 = 0;
+  memset(v116, 0, sizeof(v116));
   v115 = 0;
-  memset(v129, 0, sizeof(v129));
-  bzero(v128, 0x3F1uLL);
-  memset(v127, 0, 256);
-  memset(v126, 0, sizeof(v126));
+  v113 = 0;
+  memset(v127, 0, sizeof(v127));
+  bzero(v126, 0x3F1uLL);
+  memset(v125, 0, 256);
+  memset(v124, 0, sizeof(v124));
   if (!_GetCUSymAddr_DataBuffer_Init_sAddr)
   {
     goto LABEL_662;
   }
 
-  _GetCUSymAddr_DataBuffer_Init_sAddr(v118, v129, 512, -1);
+  _GetCUSymAddr_DataBuffer_Init_sAddr(v116, v127, 512, -1);
   if (a2 >= 0xC)
   {
-    v102 = a4;
+    v100 = a4;
     v8 = (*(a1 + 2) >> 3) & 0xF;
     v9 = *(a1 + 5);
-    v105 = *(a1 + 4);
-    v10 = v9 | (v105 << 8);
-    v97 = *(a1 + 6);
-    v98 = *(a1 + 7);
-    v104 = _byteswap_ushort(a1[3]);
-    v103 = __rev16(a1[4]);
-    v99 = __rev16(a1[5]);
+    v103 = *(a1 + 4);
+    v10 = v9 | (v103 << 8);
+    v95 = *(a1 + 6);
+    v96 = *(a1 + 7);
+    v102 = _byteswap_ushort(a1[3]);
+    v101 = __rev16(a1[4]);
+    v97 = __rev16(a1[5]);
     v11 = &unk_2999FF422;
-    v111 = a2;
-    v112 = a1;
+    v109 = a2;
+    v110 = a1;
     if ((a3 & 0x20) == 0)
     {
-      v113 = *(a1 + 5);
+      v111 = *(a1 + 5);
       v12 = *(a1 + 2) << 8;
       v13 = a1;
       v14 = *(a1 + 3) | (*(a1 + 2) << 8);
@@ -2268,9 +2265,9 @@ uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3,
           v20 = 82;
         }
 
-        v94 = v14;
-        v95 = v20;
-        v93 = v15;
+        v92 = v14;
+        v93 = v20;
+        v91 = v15;
         v19 = "id: 0x%04X (%u), flags: 0x%04X (%c/";
       }
 
@@ -2286,7 +2283,7 @@ uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3,
           goto LABEL_662;
         }
 
-        CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "ID:               0x%04X (%u)\n", v15, v15);
+        CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "ID:               0x%04X (%u)\n", v15, v15);
         if (CUSymAddr_DataBuffer_AppendF_sAddr)
         {
           goto LABEL_654;
@@ -2309,18 +2306,18 @@ uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3,
           v18 = 82;
         }
 
-        v93 = v18;
+        v91 = v18;
         v19 = "Flags:            0x%04X %c/";
       }
 
-      CUSymAddr_DataBuffer_AppendF_sAddr = v17(v118, v19);
+      CUSymAddr_DataBuffer_AppendF_sAddr = v17(v116, v19);
       if (CUSymAddr_DataBuffer_AppendF_sAddr)
       {
         goto LABEL_654;
       }
 
-      v100 = v8;
-      v96 = v10;
+      v98 = v8;
+      v94 = v10;
       if (v8 > 6 || v8 == 3)
       {
         if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
@@ -2333,12 +2330,11 @@ uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3,
           goto LABEL_662;
         }
 
-        CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "OPCODE%d");
+        CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "OPCODE%d");
       }
 
       else
       {
-        v21 = _DNSOpCodeToString_sNames[v8];
         if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
         {
           dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -2349,7 +2345,7 @@ uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3,
           goto LABEL_662;
         }
 
-        CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%s");
+        CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%s");
       }
 
       if (CUSymAddr_DataBuffer_AppendF_sAddr)
@@ -2357,12 +2353,12 @@ uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3,
         goto LABEL_654;
       }
 
-      v22 = v14 & 0xF;
-      v23 = &word_29F27FFE8;
-      v24 = 7;
+      v21 = v14 & 0xF;
+      v22 = &word_29F27FFE8;
+      v23 = 7;
       do
       {
-        if ((*v23 & v14) != 0)
+        if ((*v22 & v14) != 0)
         {
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
           {
@@ -2374,38 +2370,38 @@ uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3,
             goto LABEL_662;
           }
 
-          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, ", %s", *(v23 - 1));
+          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, ", %s", *(v22 - 1));
           if (CUSymAddr_DataBuffer_AppendF_sAddr)
           {
             goto LABEL_654;
           }
         }
 
-        v23 += 8;
-        --v24;
+        v22 += 8;
+        --v23;
       }
 
-      while (v24);
-      v25 = DNSRCodeToString(v14 & 0xF);
-      if (v25)
+      while (v23);
+      v24 = DNSRCodeToString(v14 & 0xF);
+      if (v24)
       {
-        v26 = v25;
-        a1 = v112;
-        LODWORD(v8) = v100;
-        v10 = v96;
+        v25 = v24;
+        a1 = v110;
+        LODWORD(v8) = v98;
+        v10 = v94;
         if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
         {
           dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
         }
 
-        v9 = v113;
+        v9 = v111;
         if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
         {
           goto LABEL_662;
         }
 
-        CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, ", %s", v26);
-        a2 = v111;
+        CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, ", %s", v25);
+        a2 = v109;
         if (CUSymAddr_DataBuffer_AppendF_sAddr)
         {
           goto LABEL_654;
@@ -2414,9 +2410,9 @@ uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3,
 
       else
       {
-        a1 = v112;
-        LODWORD(v8) = v100;
-        v10 = v96;
+        a1 = v110;
+        LODWORD(v8) = v98;
+        v10 = v94;
         if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
         {
           dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -2427,8 +2423,8 @@ uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3,
           goto LABEL_662;
         }
 
-        CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, ", RCODE%d", v22);
-        v9 = v113;
+        CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, ", RCODE%d", v21);
+        v9 = v111;
         if (CUSymAddr_DataBuffer_AppendF_sAddr)
         {
           goto LABEL_654;
@@ -2447,7 +2443,7 @@ uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3,
           goto LABEL_662;
         }
 
-        CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, ")");
+        CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, ")");
         if (CUSymAddr_DataBuffer_AppendF_sAddr)
         {
           goto LABEL_654;
@@ -2468,7 +2464,7 @@ uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3,
           goto LABEL_662;
         }
 
-        CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, ", counts: %u/%u/%u/%u", v10, v104, v103, v99);
+        CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, ", counts: %u/%u/%u/%u", v10, v102, v101, v97);
         if (CUSymAddr_DataBuffer_AppendF_sAddr)
         {
           goto LABEL_654;
@@ -2498,7 +2494,7 @@ uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3,
         goto LABEL_662;
       }
 
-      CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "\n");
+      CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "\n");
       if (CUSymAddr_DataBuffer_AppendF_sAddr)
       {
         goto LABEL_654;
@@ -2514,7 +2510,7 @@ uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3,
         goto LABEL_662;
       }
 
-      CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "Question count:   %u\n", v10);
+      CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "Question count:   %u\n", v10);
       if (CUSymAddr_DataBuffer_AppendF_sAddr)
       {
         goto LABEL_654;
@@ -2530,7 +2526,7 @@ uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3,
         goto LABEL_662;
       }
 
-      CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "Answer count:     %u\n", v104);
+      CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "Answer count:     %u\n", v102);
       if (CUSymAddr_DataBuffer_AppendF_sAddr)
       {
         goto LABEL_654;
@@ -2546,7 +2542,7 @@ uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3,
         goto LABEL_662;
       }
 
-      CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "Authority count:  %u\n", v103);
+      CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "Authority count:  %u\n", v101);
       if (CUSymAddr_DataBuffer_AppendF_sAddr)
       {
         goto LABEL_654;
@@ -2562,7 +2558,7 @@ uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3,
         goto LABEL_662;
       }
 
-      CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "Additional count: %u\n", v99);
+      CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "Additional count: %u\n", v97);
       if (CUSymAddr_DataBuffer_AppendF_sAddr)
       {
         goto LABEL_654;
@@ -2577,34 +2573,34 @@ uint64_t DNSMessageToString(unsigned __int16 *a1, unint64_t a2, unsigned int a3,
     }
 
 LABEL_76:
-    v109 = v11;
-    v101 = v8;
-    v114 = (a3 >> 3) & 1;
-    v117 = (a1 + 6);
-    v108 = a3;
+    v107 = v11;
+    v99 = v8;
+    v112 = (a3 >> 3) & 1;
+    v115 = (a1 + 6);
+    v106 = a3;
     if (v10)
     {
+      v26 = 0;
       v27 = 0;
-      v28 = 0;
-      v106 = (v105 << 8) + v9;
-      v29 = v127;
+      v104 = (v103 << 8) + v9;
+      v28 = v125;
       while (1)
       {
         LOWORD(__src[0]) = 0;
-        LOWORD(v130[0]) = 0;
-        CUSymAddr_DataBuffer_AppendF_sAddr = DNSMessageExtractQuestion(v112, a2, v117, v29, __src, v130, &v117);
+        LOWORD(v128[0]) = 0;
+        CUSymAddr_DataBuffer_AppendF_sAddr = DNSMessageExtractQuestion(v110, a2, v115, v28, __src, v128, &v115);
         if (CUSymAddr_DataBuffer_AppendF_sAddr)
         {
           break;
         }
 
-        v30 = SLOWORD(v130[0]) < 0;
+        v29 = SLOWORD(v128[0]) < 0;
         if (a3)
         {
-          LOWORD(v130[0]) &= ~0x8000u;
+          LOWORD(v128[0]) &= ~0x8000u;
         }
 
-        v31 = a3 & v30;
+        v30 = a3 & v29;
         if ((a3 & 4) != 0)
         {
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
@@ -2617,27 +2613,27 @@ LABEL_76:
             goto LABEL_662;
           }
 
-          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%s", v109);
+          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%s", v107);
           if (CUSymAddr_DataBuffer_AppendF_sAddr)
           {
             break;
           }
 
-          if (v28 && (DomainNameEqual(v29, v28) & 1) != 0)
+          if (v27 && (DomainNameEqual(v28, v27) & 1) != 0)
           {
-            v32 = v29;
-            v29 = v28;
+            v31 = v28;
+            v28 = v27;
           }
 
           else
           {
-            CUSymAddr_DataBuffer_AppendF_sAddr = DomainNameToString(v29, 0, v128, 0);
+            CUSymAddr_DataBuffer_AppendF_sAddr = DomainNameToString(v28, 0, v126, 0);
             if (CUSymAddr_DataBuffer_AppendF_sAddr)
             {
               break;
             }
 
-            if (v114 && _NameIsPrivate(v128))
+            if (v112 && _NameIsPrivate(v126))
             {
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
@@ -2649,7 +2645,7 @@ LABEL_76:
                 goto LABEL_662;
               }
 
-              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%~s ");
+              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%~s ");
             }
 
             else
@@ -2664,7 +2660,7 @@ LABEL_76:
                 goto LABEL_662;
               }
 
-              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%s ");
+              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%s ");
             }
 
             if (CUSymAddr_DataBuffer_AppendF_sAddr)
@@ -2672,36 +2668,36 @@ LABEL_76:
               break;
             }
 
-            if (v29 == v127)
+            if (v28 == v125)
             {
-              v32 = v126;
+              v31 = v124;
             }
 
             else
             {
-              v32 = v127;
+              v31 = v125;
             }
 
-            *v32 = 0;
+            *v31 = 0;
           }
 
-          v36 = "ANY";
-          if (LOWORD(v130[0]) != 255)
+          v35 = "ANY";
+          if (LOWORD(v128[0]) != 255)
           {
-            v36 = 0;
+            v35 = 0;
           }
 
-          if (LOWORD(v130[0]) == 1)
+          if (LOWORD(v128[0]) == 1)
           {
-            v37 = "IN";
+            v36 = "IN";
           }
 
           else
           {
-            v37 = v36;
+            v36 = v35;
           }
 
-          if (v37)
+          if (v36)
           {
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
@@ -2713,8 +2709,8 @@ LABEL_76:
               goto LABEL_662;
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%s", v37);
-            a3 = v108;
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%s", v36);
+            a3 = v106;
             if (CUSymAddr_DataBuffer_AppendF_sAddr)
             {
               break;
@@ -2728,13 +2724,13 @@ LABEL_76:
               dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
             }
 
-            a3 = v108;
+            a3 = v106;
             if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
             {
               goto LABEL_662;
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "CLASS%u", LOWORD(v130[0]));
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "CLASS%u", LOWORD(v128[0]));
             if (CUSymAddr_DataBuffer_AppendF_sAddr)
             {
               break;
@@ -2753,24 +2749,24 @@ LABEL_76:
               goto LABEL_662;
             }
 
-            v38 = "QM";
-            if (v31)
+            v37 = "QM";
+            if (v30)
             {
-              v38 = "QU";
+              v37 = "QU";
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %s", v38);
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %s", v37);
             if (CUSymAddr_DataBuffer_AppendF_sAddr)
             {
               break;
             }
           }
 
-          v39 = DNSRecordTypeValueToString(LOWORD(__src[0]));
-          if (v39)
+          v38 = DNSRecordTypeValueToString(LOWORD(__src[0]));
+          if (v38)
           {
-            v40 = v39;
-            a2 = v111;
+            v39 = v38;
+            a2 = v109;
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
               dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -2781,13 +2777,13 @@ LABEL_76:
               goto LABEL_662;
             }
 
-            v92 = v40;
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %s?");
+            v90 = v39;
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %s?");
           }
 
           else
           {
-            a2 = v111;
+            a2 = v109;
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
               dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -2798,8 +2794,8 @@ LABEL_76:
               goto LABEL_662;
             }
 
-            v92 = LOWORD(__src[0]);
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " TYPE%u?");
+            v90 = LOWORD(__src[0]);
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " TYPE%u?");
           }
 
           if (CUSymAddr_DataBuffer_AppendF_sAddr)
@@ -2807,13 +2803,13 @@ LABEL_76:
             break;
           }
 
-          v28 = v29;
-          v109 = ", ";
+          v27 = v28;
+          v107 = ", ";
         }
 
         else
         {
-          if (!v27)
+          if (!v26)
           {
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
@@ -2825,20 +2821,20 @@ LABEL_76:
               goto LABEL_662;
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "\nQUESTION SECTION\n");
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "\nQUESTION SECTION\n");
             if (CUSymAddr_DataBuffer_AppendF_sAddr)
             {
               break;
             }
           }
 
-          CUSymAddr_DataBuffer_AppendF_sAddr = DomainNameToString(v29, 0, v128, 0);
+          CUSymAddr_DataBuffer_AppendF_sAddr = DomainNameToString(v28, 0, v126, 0);
           if (CUSymAddr_DataBuffer_AppendF_sAddr)
           {
             break;
           }
 
-          if (v114 && _NameIsPrivate(v128))
+          if (v112 && _NameIsPrivate(v126))
           {
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
@@ -2850,7 +2846,7 @@ LABEL_76:
               goto LABEL_662;
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%~-30s");
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%~-30s");
           }
 
           else
@@ -2865,7 +2861,7 @@ LABEL_76:
               goto LABEL_662;
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%-30s");
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%-30s");
           }
 
           if (CUSymAddr_DataBuffer_AppendF_sAddr)
@@ -2883,41 +2879,41 @@ LABEL_76:
             goto LABEL_662;
           }
 
-          v33 = "QM";
-          if (v31)
+          v32 = "QM";
+          if (v30)
           {
-            v33 = "QU";
+            v32 = "QU";
           }
 
           if ((a3 & 1) == 0)
           {
-            v33 = &unk_2999FF422;
+            v32 = &unk_2999FF422;
           }
 
-          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %2s", v33);
+          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %2s", v32);
           if (CUSymAddr_DataBuffer_AppendF_sAddr)
           {
             break;
           }
 
-          v34 = "ANY";
-          if (LOWORD(v130[0]) != 255)
+          v33 = "ANY";
+          if (LOWORD(v128[0]) != 255)
           {
-            v34 = 0;
+            v33 = 0;
           }
 
-          if (LOWORD(v130[0]) == 1)
+          if (LOWORD(v128[0]) == 1)
           {
-            v35 = "IN";
+            v34 = "IN";
           }
 
           else
           {
-            v35 = v34;
+            v34 = v33;
           }
 
-          a2 = v111;
-          if (v35)
+          a2 = v109;
+          if (v34)
           {
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
@@ -2929,7 +2925,7 @@ LABEL_76:
               goto LABEL_662;
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %s");
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %s");
           }
 
           else
@@ -2944,7 +2940,7 @@ LABEL_76:
               goto LABEL_662;
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " CLASS%u");
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " CLASS%u");
           }
 
           if (CUSymAddr_DataBuffer_AppendF_sAddr)
@@ -2952,10 +2948,10 @@ LABEL_76:
             break;
           }
 
-          v41 = DNSRecordTypeValueToString(LOWORD(__src[0]));
-          if (v41)
+          v40 = DNSRecordTypeValueToString(LOWORD(__src[0]));
+          if (v40)
           {
-            v42 = v41;
+            v41 = v40;
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
               dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -2966,8 +2962,8 @@ LABEL_76:
               goto LABEL_662;
             }
 
-            v92 = v42;
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %-5s\n");
+            v90 = v41;
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %-5s\n");
           }
 
           else
@@ -2982,61 +2978,61 @@ LABEL_76:
               goto LABEL_662;
             }
 
-            v92 = LOWORD(__src[0]);
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " TYPE%u\n");
+            v90 = LOWORD(__src[0]);
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " TYPE%u\n");
           }
 
-          v32 = v29;
+          v31 = v28;
           if (CUSymAddr_DataBuffer_AppendF_sAddr)
           {
             break;
           }
         }
 
-        ++v27;
-        v29 = v32;
-        if (v106 == v27)
+        ++v26;
+        v28 = v31;
+        if (v104 == v26)
         {
           goto LABEL_202;
         }
       }
 
 LABEL_654:
-      v80 = CUSymAddr_DataBuffer_AppendF_sAddr;
+      v79 = CUSymAddr_DataBuffer_AppendF_sAddr;
       goto LABEL_655;
     }
 
-    v28 = 0;
-    v32 = v127;
+    v27 = 0;
+    v31 = v125;
 LABEL_202:
-    if (v99 + v103 + v104)
+    if (v97 + v101 + v102)
     {
-      for (i = 0; i < v99 + v103 + v104; ++i)
+      for (i = 0; i < v97 + v101 + v102; ++i)
       {
         __src[0] = 0;
-        v130[0] = 0;
-        LODWORD(v125) = 0;
-        LOWORD(v124) = 0;
-        LOWORD(v123) = 0;
-        CUSymAddr_DataBuffer_AppendF_sAddr = _DNSMessageExtractRecordEx(v112, a2, v117, v32, &v124, &v123, &v125, __src, v130, 0, 0, 0, 0, &v117);
+        v128[0] = 0;
+        LODWORD(v123) = 0;
+        LOWORD(v122) = 0;
+        LOWORD(v121) = 0;
+        CUSymAddr_DataBuffer_AppendF_sAddr = _DNSMessageExtractRecordEx(v110, a2, v115, v31, &v122, &v121, &v123, __src, v128, 0, 0, 0, 0, &v115);
         if (CUSymAddr_DataBuffer_AppendF_sAddr)
         {
           goto LABEL_654;
         }
 
-        CUSymAddr_DataBuffer_AppendF_sAddr = DomainNameToString(v32, 0, v128, 0);
+        CUSymAddr_DataBuffer_AppendF_sAddr = DomainNameToString(v31, 0, v126, 0);
         if (CUSymAddr_DataBuffer_AppendF_sAddr)
         {
           goto LABEL_654;
         }
 
-        v44 = v123 < 0;
+        v43 = v121 < 0;
         if (a3)
         {
-          LOWORD(v123) = v123 & 0x7FFF;
+          LOWORD(v121) = v121 & 0x7FFF;
         }
 
-        v45 = a3 & v44;
+        v44 = a3 & v43;
         if ((a3 & 4) != 0)
         {
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
@@ -3049,27 +3045,27 @@ LABEL_202:
             goto LABEL_662;
           }
 
-          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%s", v109);
+          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%s", v107);
           if (CUSymAddr_DataBuffer_AppendF_sAddr)
           {
             goto LABEL_654;
           }
 
-          if (v28 && (DomainNameEqual(v32, v28) & 1) != 0)
+          if (v27 && (DomainNameEqual(v31, v27) & 1) != 0)
           {
-            v46 = v32;
-            v32 = v28;
+            v45 = v31;
+            v31 = v27;
           }
 
           else
           {
-            CUSymAddr_DataBuffer_AppendF_sAddr = DomainNameToString(v32, 0, v128, 0);
+            CUSymAddr_DataBuffer_AppendF_sAddr = DomainNameToString(v31, 0, v126, 0);
             if (CUSymAddr_DataBuffer_AppendF_sAddr)
             {
               goto LABEL_654;
             }
 
-            if (v114 && _NameIsPrivate(v128))
+            if (v112 && _NameIsPrivate(v126))
             {
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
@@ -3081,7 +3077,7 @@ LABEL_202:
                 goto LABEL_662;
               }
 
-              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%~s ");
+              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%~s ");
             }
 
             else
@@ -3096,7 +3092,7 @@ LABEL_202:
                 goto LABEL_662;
               }
 
-              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%s ");
+              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%s ");
             }
 
             if (CUSymAddr_DataBuffer_AppendF_sAddr)
@@ -3104,22 +3100,22 @@ LABEL_202:
               goto LABEL_654;
             }
 
-            if (v32 == v127)
+            if (v31 == v125)
             {
-              v46 = v126;
+              v45 = v124;
             }
 
             else
             {
-              v46 = v127;
+              v45 = v125;
             }
 
-            *v46 = 0;
+            *v45 = 0;
           }
 
-          if (v124 == 41)
+          if (v122 == 41)
           {
-            if (v45)
+            if (v44)
             {
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
@@ -3131,7 +3127,7 @@ LABEL_202:
                 goto LABEL_662;
               }
 
-              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "CF ");
+              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "CF ");
               if (CUSymAddr_DataBuffer_AppendF_sAddr)
               {
                 goto LABEL_654;
@@ -3143,19 +3139,19 @@ LABEL_202:
               dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
             }
 
-            a2 = v111;
+            a2 = v109;
             if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
             {
               goto LABEL_662;
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "OPT %u", v123);
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "OPT %u", v121);
             if (CUSymAddr_DataBuffer_AppendF_sAddr)
             {
               goto LABEL_654;
             }
 
-            if (v125)
+            if (v123)
             {
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
@@ -3167,7 +3163,7 @@ LABEL_202:
                 goto LABEL_662;
               }
 
-              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " 0x%08X");
+              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " 0x%08X");
             }
 
             else
@@ -3182,7 +3178,7 @@ LABEL_202:
                 goto LABEL_662;
               }
 
-              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " 0");
+              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " 0");
             }
           }
 
@@ -3198,13 +3194,13 @@ LABEL_202:
               goto LABEL_662;
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%u", v125);
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%u", v123);
             if (CUSymAddr_DataBuffer_AppendF_sAddr)
             {
               goto LABEL_654;
             }
 
-            if (v45)
+            if (v44)
             {
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
@@ -3216,32 +3212,32 @@ LABEL_202:
                 goto LABEL_662;
               }
 
-              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " CF");
+              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " CF");
               if (CUSymAddr_DataBuffer_AppendF_sAddr)
               {
                 goto LABEL_654;
               }
             }
 
-            v47 = "ANY";
-            if (v123 != 255)
+            v46 = "ANY";
+            if (v121 != 255)
             {
-              v47 = 0;
+              v46 = 0;
             }
 
-            if (v123 == 1)
+            if (v121 == 1)
             {
-              v48 = "IN";
+              v47 = "IN";
             }
 
             else
             {
-              v48 = v47;
+              v47 = v46;
             }
 
-            if (v48)
+            if (v47)
             {
-              a2 = v111;
+              a2 = v109;
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
                 dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -3252,8 +3248,8 @@ LABEL_202:
                 goto LABEL_662;
               }
 
-              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %s", v48);
-              a3 = v108;
+              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %s", v47);
+              a3 = v106;
               if (CUSymAddr_DataBuffer_AppendF_sAddr)
               {
                 goto LABEL_654;
@@ -3262,26 +3258,26 @@ LABEL_202:
 
             else
             {
-              a2 = v111;
+              a2 = v109;
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
                 dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
               }
 
-              a3 = v108;
+              a3 = v106;
               if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
               {
                 goto LABEL_662;
               }
 
-              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " CLASS%u", v123);
+              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " CLASS%u", v121);
               if (CUSymAddr_DataBuffer_AppendF_sAddr)
               {
                 goto LABEL_654;
               }
             }
 
-            if (DNSRecordTypeValueToString(v124))
+            if (DNSRecordTypeValueToString(v122))
             {
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
@@ -3293,7 +3289,7 @@ LABEL_202:
                 goto LABEL_662;
               }
 
-              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %s");
+              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %s");
             }
 
             else
@@ -3308,7 +3304,7 @@ LABEL_202:
                 goto LABEL_662;
               }
 
-              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " TYPE%u");
+              CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " TYPE%u");
             }
           }
 
@@ -3317,8 +3313,8 @@ LABEL_202:
             goto LABEL_654;
           }
 
-          v28 = v32;
-          v109 = ", ";
+          v27 = v31;
+          v107 = ", ";
           if ((a3 & 2) == 0)
           {
             goto LABEL_367;
@@ -3327,9 +3323,9 @@ LABEL_202:
           goto LABEL_368;
         }
 
-        if (!v104 || i)
+        if (!v102 || i)
         {
-          if (v103 && ((v97 << 8) + v98) == i)
+          if (v101 && ((v95 << 8) + v96) == i)
           {
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
@@ -3341,12 +3337,12 @@ LABEL_202:
               goto LABEL_662;
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "\nAUTHORITY SECTION\n");
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "\nAUTHORITY SECTION\n");
           }
 
           else
           {
-            if (v103 + v104 != i)
+            if (v101 + v102 != i)
             {
               goto LABEL_285;
             }
@@ -3361,7 +3357,7 @@ LABEL_202:
               goto LABEL_662;
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "\nADDITIONAL SECTION\n");
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "\nADDITIONAL SECTION\n");
           }
         }
 
@@ -3377,7 +3373,7 @@ LABEL_202:
             goto LABEL_662;
           }
 
-          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "\nANSWER SECTION\n");
+          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "\nANSWER SECTION\n");
         }
 
         if (CUSymAddr_DataBuffer_AppendF_sAddr)
@@ -3386,9 +3382,9 @@ LABEL_202:
         }
 
 LABEL_285:
-        if (v124 == 41)
+        if (v122 == 41)
         {
-          if (v114 && _NameIsPrivate(v128))
+          if (v112 && _NameIsPrivate(v126))
           {
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
@@ -3400,7 +3396,7 @@ LABEL_285:
               goto LABEL_662;
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%~s");
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%~s");
           }
 
           else
@@ -3415,7 +3411,98 @@ LABEL_285:
               goto LABEL_662;
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%s");
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%s");
+          }
+
+          if (CUSymAddr_DataBuffer_AppendF_sAddr)
+          {
+            goto LABEL_654;
+          }
+
+          if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+          {
+            dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+          }
+
+          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+          {
+            goto LABEL_662;
+          }
+
+          v48 = &unk_2999FF422;
+          if (v44)
+          {
+            v48 = " CF";
+          }
+
+          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%s OPT %u", v48, v121);
+          if (CUSymAddr_DataBuffer_AppendF_sAddr)
+          {
+            goto LABEL_654;
+          }
+
+          a2 = v109;
+          if (v123)
+          {
+            if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+            {
+              dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+            }
+
+            if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+            {
+              goto LABEL_662;
+            }
+
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " 0x%08X");
+          }
+
+          else
+          {
+            if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+            {
+              dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+            }
+
+            if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+            {
+              goto LABEL_662;
+            }
+
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " 0");
+          }
+        }
+
+        else
+        {
+          if (v112)
+          {
+            if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+            {
+              dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+            }
+
+            if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+            {
+              goto LABEL_662;
+            }
+
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%~-42s");
+          }
+
+          else
+          {
+            if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+            {
+              dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+            }
+
+            if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+            {
+              goto LABEL_662;
+            }
+
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%-42s");
           }
 
           if (CUSymAddr_DataBuffer_AppendF_sAddr)
@@ -3434,52 +3521,35 @@ LABEL_285:
           }
 
           v49 = &unk_2999FF422;
-          if (v45)
+          if (v44)
           {
-            v49 = " CF";
+            v49 = "CF";
           }
 
-          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%s OPT %u", v49, v123);
+          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %6u %2s", v123, v49);
           if (CUSymAddr_DataBuffer_AppendF_sAddr)
           {
             goto LABEL_654;
           }
 
-          a2 = v111;
-          if (v125)
+          v50 = "ANY";
+          if (v121 != 255)
           {
-            if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-            {
-              dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-            }
+            v50 = 0;
+          }
 
-            if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-            {
-              goto LABEL_662;
-            }
-
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " 0x%08X");
+          if (v121 == 1)
+          {
+            v51 = "IN";
           }
 
           else
           {
-            if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-            {
-              dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-            }
-
-            if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-            {
-              goto LABEL_662;
-            }
-
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " 0");
+            v51 = v50;
           }
-        }
 
-        else
-        {
-          if (v114)
+          a2 = v109;
+          if (v51)
           {
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
@@ -3491,82 +3561,8 @@ LABEL_285:
               goto LABEL_662;
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%~-42s");
-          }
-
-          else
-          {
-            if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-            {
-              dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-            }
-
-            if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-            {
-              goto LABEL_662;
-            }
-
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%-42s");
-          }
-
-          if (CUSymAddr_DataBuffer_AppendF_sAddr)
-          {
-            goto LABEL_654;
-          }
-
-          if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-          {
-            dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-          }
-
-          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-          {
-            goto LABEL_662;
-          }
-
-          v50 = &unk_2999FF422;
-          if (v45)
-          {
-            v50 = "CF";
-          }
-
-          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %6u %2s", v125, v50);
-          if (CUSymAddr_DataBuffer_AppendF_sAddr)
-          {
-            goto LABEL_654;
-          }
-
-          v51 = "ANY";
-          if (v123 != 255)
-          {
-            v51 = 0;
-          }
-
-          if (v123 == 1)
-          {
-            v52 = "IN";
-          }
-
-          else
-          {
-            v52 = v51;
-          }
-
-          a2 = v111;
-          if (v52)
-          {
-            if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-            {
-              dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-            }
-
-            if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-            {
-              goto LABEL_662;
-            }
-
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %s", v52);
-            a3 = v108;
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %s", v51);
+            a3 = v106;
             if (CUSymAddr_DataBuffer_AppendF_sAddr)
             {
               goto LABEL_654;
@@ -3580,20 +3576,20 @@ LABEL_285:
               dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
             }
 
-            a3 = v108;
+            a3 = v106;
             if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
             {
               goto LABEL_662;
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " CLASS%u", v123);
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " CLASS%u", v121);
             if (CUSymAddr_DataBuffer_AppendF_sAddr)
             {
               goto LABEL_654;
             }
           }
 
-          if (DNSRecordTypeValueToString(v124))
+          if (DNSRecordTypeValueToString(v122))
           {
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
@@ -3605,7 +3601,7 @@ LABEL_285:
               goto LABEL_662;
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %-5s");
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %-5s");
           }
 
           else
@@ -3620,11 +3616,11 @@ LABEL_285:
               goto LABEL_662;
             }
 
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " TYPE%u");
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " TYPE%u");
           }
         }
 
-        v46 = v32;
+        v45 = v31;
         if (CUSymAddr_DataBuffer_AppendF_sAddr)
         {
           goto LABEL_654;
@@ -3633,11 +3629,11 @@ LABEL_285:
         if ((a3 & 2) == 0)
         {
 LABEL_367:
-          DNSRecordDataToStringEx(__src[0], v130[0], v124, v112, a2, v114, &v116);
+          DNSRecordDataToStringEx(__src[0], v128[0], v122, v110, a2, v112, &v114);
         }
 
 LABEL_368:
-        if (v116)
+        if (v114)
         {
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
           {
@@ -3649,22 +3645,22 @@ LABEL_368:
             goto LABEL_662;
           }
 
-          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %s", v116);
+          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %s", v114);
           if (CUSymAddr_DataBuffer_AppendF_sAddr)
           {
             goto LABEL_654;
           }
 
-          if (v116)
+          if (v114)
           {
-            free(v116);
-            v116 = 0;
+            free(v114);
+            v114 = 0;
           }
         }
 
         else
         {
-          if (v114)
+          if (v112)
           {
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
@@ -3676,8 +3672,8 @@ LABEL_368:
               goto LABEL_662;
             }
 
-            v92 = v130[0];
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " [%zu B]");
+            v90 = v128[0];
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " [%zu B]");
           }
 
           else
@@ -3692,10 +3688,10 @@ LABEL_368:
               goto LABEL_662;
             }
 
-            v93 = v130[0];
-            v94 = v130[0];
-            v92 = __src[0];
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %#H");
+            v91 = v128[0];
+            v92 = v128[0];
+            v90 = __src[0];
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %#H");
           }
 
           if (CUSymAddr_DataBuffer_AppendF_sAddr)
@@ -3706,22 +3702,22 @@ LABEL_368:
 
         if ((a3 & 4) != 0)
         {
-          if (v124 == 5)
+          if (v122 == 5)
           {
-            DomainName = DNSMessageExtractDomainName(v112, a2, __src[0], v46, 0);
-            v54 = v127;
-            if (v46 == v127)
+            DomainName = DNSMessageExtractDomainName(v110, a2, __src[0], v45, 0);
+            v53 = v125;
+            if (v45 == v125)
             {
-              v54 = v126;
+              v53 = v124;
             }
 
             if (!DomainName)
             {
-              v28 = v46;
-              v46 = v54;
+              v27 = v45;
+              v45 = v53;
             }
 
-            *v46 = 0;
+            *v45 = 0;
           }
         }
 
@@ -3737,18 +3733,18 @@ LABEL_368:
             goto LABEL_662;
           }
 
-          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "\n");
+          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "\n");
           if (CUSymAddr_DataBuffer_AppendF_sAddr)
           {
             goto LABEL_654;
           }
         }
 
-        v32 = v46;
+        v31 = v45;
       }
     }
 
-    if (v101 != 6)
+    if (v99 != 6)
     {
       goto LABEL_646;
     }
@@ -3760,56 +3756,56 @@ LABEL_368:
 
     if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
     {
-      CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "[");
+      CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "[");
       if (CUSymAddr_DataBuffer_AppendF_sAddr)
       {
         goto LABEL_654;
       }
 
-      v55 = v112 + a2;
-      v56 = v117;
-      if (v117 < v112 + a2)
+      v54 = v110 + a2;
+      v55 = v115;
+      if (v115 < v110 + a2)
       {
         if ((a3 >> 2))
         {
-          v57 = &unk_2999FF422;
+          v56 = &unk_2999FF422;
         }
 
         else
         {
-          v57 = "\n\t";
+          v56 = "\n\t";
         }
 
         if ((a3 >> 2))
         {
-          v58 = ", ";
+          v57 = ", ";
         }
 
         else
         {
-          v58 = ",\n\t";
+          v57 = ",\n\t";
         }
 
-        v107 = v58;
-        v110 = v112 + a2;
+        v105 = v57;
+        v108 = v110 + a2;
         do
         {
-          if (v56 < v112)
+          if (v55 < v110)
           {
-            v80 = 4294960586;
+            v79 = 4294960586;
             goto LABEL_655;
           }
 
-          if (v55 - v56 < 4 || (v59 = __rev16(*(v56 + 1)), v60 = v56 + 4, (v55 - (v56 + 4)) < v59))
+          if ((v54 - v55) < 4 || (v58 = __rev16(*(v55 + 1)), v59 = v55 + 4, v54 - (v55 + 4) < v58))
           {
 LABEL_663:
-            v80 = 4294960546;
+            v79 = 4294960546;
             goto LABEL_655;
           }
 
-          v61 = *v56;
-          v62 = &v60[v59];
-          v117 = &v60[v59];
+          v60 = *v55;
+          v61 = &v59[v58];
+          v115 = &v59[v58];
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
           {
             dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -3820,73 +3816,73 @@ LABEL_663:
             goto LABEL_662;
           }
 
-          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%s", v57);
+          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%s", v56);
           if (CUSymAddr_DataBuffer_AppendF_sAddr)
           {
             goto LABEL_654;
           }
 
-          v63 = __rev16(v61);
-          if (v63 > 63)
+          v62 = __rev16(v60);
+          if (v62 > 63)
           {
-            a3 = v108;
-            if (v63 <= 65)
+            a3 = v106;
+            if (v62 <= 65)
             {
-              if (v63 == 64)
+              if (v62 == 64)
               {
-                v64 = "SUBSCRIBE";
+                v63 = "SUBSCRIBE";
               }
 
               else
               {
-                v64 = "PUSH";
+                v63 = "PUSH";
               }
 
               goto LABEL_443;
             }
 
-            if (v63 == 66)
+            if (v62 == 66)
             {
-              v64 = "UNSUBSCRIBE";
+              v63 = "UNSUBSCRIBE";
               goto LABEL_443;
             }
 
-            if (v63 == 67)
+            if (v62 == 67)
             {
-              v64 = "RECONFIRM";
+              v63 = "RECONFIRM";
               goto LABEL_443;
             }
           }
 
           else
           {
-            a3 = v108;
-            if (v63 > 1)
+            a3 = v106;
+            if (v62 > 1)
             {
-              if (v63 == 2)
+              if (v62 == 2)
               {
-                v64 = "Retry Delay";
+                v63 = "Retry Delay";
                 goto LABEL_443;
               }
 
-              if (v63 == 3)
+              if (v62 == 3)
               {
-                v64 = "Encryption Padding";
+                v63 = "Encryption Padding";
                 goto LABEL_443;
               }
             }
 
             else
             {
-              v64 = "Reserved";
-              if (!v63)
+              v63 = "Reserved";
+              if (!v62)
               {
                 goto LABEL_443;
               }
 
-              if (v63 == 1)
+              if (v62 == 1)
               {
-                v64 = "KeepAlive";
+                v63 = "KeepAlive";
 LABEL_443:
                 if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                 {
@@ -3898,8 +3894,8 @@ LABEL_443:
                   goto LABEL_662;
                 }
 
-                v92 = v64;
-                CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%s: ");
+                v90 = v63;
+                CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%s: ");
                 goto LABEL_447;
               }
             }
@@ -3915,27 +3911,27 @@ LABEL_443:
             goto LABEL_662;
           }
 
-          v92 = v63;
-          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "DSO-TYPE%u: ");
+          v90 = v62;
+          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "DSO-TYPE%u: ");
 LABEL_447:
           if (CUSymAddr_DataBuffer_AppendF_sAddr)
           {
             goto LABEL_654;
           }
 
-          v124 = 0;
-          v125 = (v56 + 4);
+          v122 = 0;
+          v123 = (v55 + 4);
           bzero(__src, 0x3F1uLL);
-          if (v63 > 65)
+          if (v62 > 65)
           {
-            if (v63 == 66)
+            if (v62 == 66)
             {
-              if (v59 != 2)
+              if (v58 != 2)
               {
                 goto LABEL_665;
               }
 
-              v73 = *(v56 + 2);
+              v72 = *(v55 + 2);
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
                 dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -3943,34 +3939,34 @@ LABEL_447:
 
               if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
               {
-                v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%u", __rev16(v73));
+                v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%u", __rev16(v72));
                 goto LABEL_582;
               }
 
               goto LABEL_633;
             }
 
-            if (v63 != 67)
+            if (v62 != 67)
             {
               goto LABEL_524;
             }
 
-            v65 = DNSMessageExtractDomainNameString(v112, v111, v56 + 4, __src, &v125);
-            if (v65)
+            v64 = DNSMessageExtractDomainNameString(v110, v109, v55 + 4, __src, &v123);
+            if (v64)
             {
               goto LABEL_582;
             }
 
-            v70 = v125;
-            if (v62 - v125 < 4)
+            v69 = v123;
+            if (v61 - v123 < 4)
             {
 LABEL_634:
-              v80 = 4294960546;
+              v79 = 4294960546;
               goto LABEL_628;
             }
 
-            v125 += 4;
-            if (v114 && _NameIsPrivate(__src))
+            v123 += 4;
+            if (v112 && _NameIsPrivate(__src))
             {
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
@@ -3982,8 +3978,8 @@ LABEL_634:
                 goto LABEL_633;
               }
 
-              v92 = __src;
-              v71 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%~s");
+              v90 = __src;
+              v70 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%~s");
             }
 
             else
@@ -3998,44 +3994,44 @@ LABEL_634:
                 goto LABEL_633;
               }
 
-              v92 = __src;
-              v71 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%s");
+              v90 = __src;
+              v70 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%s");
             }
 
-            if (v71)
+            if (v70)
             {
               goto LABEL_638;
             }
 
-            v74 = __rev16(*(v70 + 1));
-            v75 = "ANY";
-            if (v74 != 255)
+            v73 = __rev16(*(v69 + 1));
+            v74 = "ANY";
+            if (v73 != 255)
             {
-              v75 = 0;
+              v74 = 0;
             }
 
-            if (v74 == 1)
+            if (v73 == 1)
             {
-              v76 = "IN";
+              v75 = "IN";
             }
 
             else
             {
-              v76 = v75;
+              v75 = v74;
             }
 
-            if (v76)
+            if (v75)
             {
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
                 dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
               }
 
-              a3 = v108;
+              a3 = v106;
               if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
               {
-                v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %s", v76);
-                if (v65)
+                v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %s", v75);
+                if (v64)
                 {
                   goto LABEL_582;
                 }
@@ -4044,7 +4040,7 @@ LABEL_634:
               }
 
 LABEL_633:
-              v80 = 4294960561;
+              v79 = 4294960561;
               goto LABEL_628;
             }
 
@@ -4055,20 +4051,20 @@ LABEL_633:
 
             if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
             {
-              v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " CLASS%u", v74);
-              a3 = v108;
-              if (v65)
+              v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " CLASS%u", v73);
+              a3 = v106;
+              if (v64)
               {
                 goto LABEL_582;
               }
 
 LABEL_587:
-              v81 = __rev16(*v70);
-              v82 = DNSRecordTypeValueToString(v81);
-              if (v82)
+              v80 = __rev16(*v69);
+              v81 = DNSRecordTypeValueToString(v80);
+              if (v81)
               {
-                v83 = v82;
-                v84 = v111;
+                v82 = v81;
+                v83 = v109;
                 if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                 {
                   dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -4079,13 +4075,13 @@ LABEL_587:
                   goto LABEL_633;
                 }
 
-                v92 = v83;
-                v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %s");
+                v90 = v82;
+                v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %s");
               }
 
               else
               {
-                v84 = v111;
+                v83 = v109;
                 if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                 {
                   dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -4096,19 +4092,19 @@ LABEL_587:
                   goto LABEL_633;
                 }
 
-                v92 = v81;
-                v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " TYPE%u");
+                v90 = v80;
+                v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " TYPE%u");
               }
 
-              if (v65)
+              if (v64)
               {
                 goto LABEL_582;
               }
 
-              v88 = v125;
-              v89 = v62 - v125;
-              DNSRecordDataToStringEx(v125, v62 - v125, v81, v112, v84, v114, &v124);
-              if (v124)
+              v87 = v123;
+              v88 = v61 - v123;
+              DNSRecordDataToStringEx(v123, v61 - v123, v80, v110, v83, v112, &v122);
+              if (v122)
               {
                 if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                 {
@@ -4117,25 +4113,25 @@ LABEL_587:
 
                 if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
                 {
-                  v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %s", v124);
-                  if (v65)
+                  v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %s", v122);
+                  if (v64)
                   {
                     goto LABEL_582;
                   }
 
-                  if (v124)
+                  if (v122)
                   {
-                    free(v124);
-                    v124 = 0;
+                    free(v122);
+                    v122 = 0;
                   }
 
 LABEL_627:
-                  v80 = 0;
+                  v79 = 0;
                   goto LABEL_628;
                 }
               }
 
-              else if (v114)
+              else if (v112)
               {
                 if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                 {
@@ -4144,8 +4140,8 @@ LABEL_627:
 
                 if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
                 {
-                  v92 = v89;
-                  v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " [%zu B]");
+                  v90 = v88;
+                  v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " [%zu B]");
                   goto LABEL_626;
                 }
               }
@@ -4159,10 +4155,10 @@ LABEL_627:
 
                 if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
                 {
-                  v93 = v89;
-                  v94 = v89;
+                  v91 = v88;
                   v92 = v88;
-                  v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " '%H'");
+                  v90 = v87;
+                  v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " '%H'");
                   goto LABEL_626;
                 }
               }
@@ -4173,40 +4169,40 @@ LABEL_627:
 
           else
           {
-            if (v63 != 64)
+            if (v62 != 64)
             {
-              if (v63 == 65)
+              if (v62 == 65)
               {
-                if (v62 <= v60)
+                if (v61 <= v59)
                 {
                   goto LABEL_663;
                 }
 
                 while (1)
                 {
-                  v122 = 0;
-                  v123 = 0;
                   v120 = 0;
                   v121 = 0;
-                  memset(v130, 0, sizeof(v130));
-                  v65 = _DNSMessageExtractRecordEx(v112, v111, v60, v130, &v120 + 1, &v120, &v121, &v123, &v122, 0, 0, 0, 0, &v125);
-                  if (v65)
+                  v118 = 0;
+                  v119 = 0;
+                  memset(v128, 0, sizeof(v128));
+                  v64 = _DNSMessageExtractRecordEx(v110, v109, v59, v128, &v118 + 1, &v118, &v119, &v121, &v120, 0, 0, 0, 0, &v123);
+                  if (v64)
                   {
                     goto LABEL_582;
                   }
 
-                  if (v125 > v62)
+                  if (v123 > v61)
                   {
                     goto LABEL_634;
                   }
 
-                  v65 = DomainNameToString(v130, 0, __src, 0);
-                  if (v65)
+                  v64 = DomainNameToString(v128, 0, __src, 0);
+                  if (v64)
                   {
                     goto LABEL_582;
                   }
 
-                  if (v114 && _NameIsPrivate(__src))
+                  if (v112 && _NameIsPrivate(__src))
                   {
                     if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                     {
@@ -4218,8 +4214,8 @@ LABEL_627:
                       goto LABEL_633;
                     }
 
-                    v92 = __src;
-                    v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%~s");
+                    v90 = __src;
+                    v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%~s");
                   }
 
                   else
@@ -4234,11 +4230,11 @@ LABEL_627:
                       goto LABEL_633;
                     }
 
-                    v92 = __src;
-                    v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%s");
+                    v90 = __src;
+                    v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%s");
                   }
 
-                  if (v65)
+                  if (v64)
                   {
                     goto LABEL_582;
                   }
@@ -4253,30 +4249,69 @@ LABEL_627:
                     goto LABEL_633;
                   }
 
-                  v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " 0x%08X", v121);
-                  if (v65)
+                  v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " 0x%08X", v119);
+                  if (v64)
                   {
                     goto LABEL_582;
                   }
 
-                  v66 = "ANY";
-                  if (v120 != 255)
+                  v65 = "ANY";
+                  if (v118 != 255)
                   {
-                    v66 = 0;
+                    v65 = 0;
                   }
 
-                  if (v120 == 1)
+                  if (v118 == 1)
                   {
-                    v67 = "IN";
+                    v66 = "IN";
                   }
 
                   else
                   {
-                    v67 = v66;
+                    v66 = v65;
                   }
 
+                  if (v66)
+                  {
+                    if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+                    {
+                      dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+                    }
+
+                    if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+                    {
+                      goto LABEL_633;
+                    }
+
+                    v90 = v66;
+                    v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %s");
+                  }
+
+                  else
+                  {
+                    if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+                    {
+                      dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+                    }
+
+                    if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+                    {
+                      goto LABEL_633;
+                    }
+
+                    v90 = v118;
+                    v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " CLASS%u");
+                  }
+
+                  if (v64)
+                  {
+                    goto LABEL_582;
+                  }
+
+                  v67 = DNSRecordTypeValueToString(HIWORD(v118));
                   if (v67)
                   {
+                    v68 = v67;
                     if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                     {
                       dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -4287,8 +4322,8 @@ LABEL_627:
                       goto LABEL_633;
                     }
 
-                    v92 = v67;
-                    v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %s");
+                    v90 = v68;
+                    v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %s");
                   }
 
                   else
@@ -4303,34 +4338,17 @@ LABEL_627:
                       goto LABEL_633;
                     }
 
-                    v92 = v120;
-                    v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " CLASS%u");
+                    v90 = HIWORD(v118);
+                    v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " TYPE%u");
                   }
 
-                  if (v65)
+                  if (v64)
                   {
                     goto LABEL_582;
                   }
 
-                  v68 = DNSRecordTypeValueToString(HIWORD(v120));
-                  if (v68)
-                  {
-                    v69 = v68;
-                    if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-                    {
-                      dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-                    }
-
-                    if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-                    {
-                      goto LABEL_633;
-                    }
-
-                    v92 = v69;
-                    v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %s");
-                  }
-
-                  else
+                  DNSRecordDataToStringEx(v121, v120, HIWORD(v118), v110, v109, v112, &v122);
+                  if (v122)
                   {
                     if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                     {
@@ -4342,44 +4360,22 @@ LABEL_627:
                       goto LABEL_633;
                     }
 
-                    v92 = HIWORD(v120);
-                    v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " TYPE%u");
-                  }
-
-                  if (v65)
-                  {
-                    goto LABEL_582;
-                  }
-
-                  DNSRecordDataToStringEx(v123, v122, HIWORD(v120), v112, v111, v114, &v124);
-                  if (v124)
-                  {
-                    if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-                    {
-                      dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-                    }
-
-                    if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-                    {
-                      goto LABEL_633;
-                    }
-
-                    v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %s", v124);
-                    if (v65)
+                    v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %s", v122);
+                    if (v64)
                     {
                       goto LABEL_582;
                     }
 
-                    if (v124)
+                    if (v122)
                     {
-                      free(v124);
-                      v124 = 0;
+                      free(v122);
+                      v122 = 0;
                     }
                   }
 
                   else
                   {
-                    if (v114)
+                    if (v112)
                     {
                       if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                       {
@@ -4391,8 +4387,8 @@ LABEL_627:
                         goto LABEL_633;
                       }
 
-                      v92 = v122;
-                      v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " [%zu B]");
+                      v90 = v120;
+                      v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " [%zu B]");
                     }
 
                     else
@@ -4407,20 +4403,20 @@ LABEL_627:
                         goto LABEL_633;
                       }
 
-                      v93 = v122;
-                      v94 = v122;
-                      v92 = v123;
-                      v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %#H");
+                      v91 = v120;
+                      v92 = v120;
+                      v90 = v121;
+                      v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %#H");
                     }
 
-                    if (v65)
+                    if (v64)
                     {
                       goto LABEL_582;
                     }
                   }
 
-                  v60 = v125;
-                  if (v125 >= v62)
+                  v59 = v123;
+                  if (v123 >= v61)
                   {
                     goto LABEL_627;
                   }
@@ -4428,7 +4424,7 @@ LABEL_627:
               }
 
 LABEL_524:
-              if (v114)
+              if (v112)
               {
                 if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                 {
@@ -4437,8 +4433,8 @@ LABEL_524:
 
                 if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
                 {
-                  v92 = v59;
-                  v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "[%u B]");
+                  v90 = v58;
+                  v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "[%u B]");
                   goto LABEL_582;
                 }
               }
@@ -4452,12 +4448,12 @@ LABEL_524:
 
                 if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
                 {
-                  v93 = v59;
-                  v94 = v59;
-                  v92 = (v56 + 4);
-                  v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "'%H'");
+                  v91 = v58;
+                  v92 = v58;
+                  v90 = (v55 + 4);
+                  v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "'%H'");
 LABEL_582:
-                  v80 = v65;
+                  v79 = v64;
                   goto LABEL_628;
                 }
               }
@@ -4465,20 +4461,20 @@ LABEL_582:
               goto LABEL_633;
             }
 
-            v65 = DNSMessageExtractDomainNameString(v112, v111, v56 + 4, __src, &v125);
-            if (v65)
+            v64 = DNSMessageExtractDomainNameString(v110, v109, v55 + 4, __src, &v123);
+            if (v64)
             {
               goto LABEL_582;
             }
 
-            v72 = v125;
-            if (v62 - v125 != 4)
+            v71 = v123;
+            if (v61 - v123 != 4)
             {
-              v80 = 4294960553;
+              v79 = 4294960553;
               goto LABEL_628;
             }
 
-            if (v114 && _NameIsPrivate(__src))
+            if (v112 && _NameIsPrivate(__src))
             {
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
@@ -4490,8 +4486,8 @@ LABEL_582:
                 goto LABEL_633;
               }
 
-              v92 = __src;
-              v71 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%~s");
+              v90 = __src;
+              v70 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%~s");
             }
 
             else
@@ -4506,59 +4502,59 @@ LABEL_582:
                 goto LABEL_633;
               }
 
-              v92 = __src;
-              v71 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "%s");
+              v90 = __src;
+              v70 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "%s");
             }
 
-            if (v71)
+            if (v70)
             {
 LABEL_638:
-              v80 = v71;
+              v79 = v70;
               goto LABEL_637;
             }
 
-            v77 = __rev16(*(v72 + 1));
-            v78 = "ANY";
-            if (v77 != 255)
+            v76 = __rev16(*(v71 + 1));
+            v77 = "ANY";
+            if (v76 != 255)
             {
-              v78 = 0;
+              v77 = 0;
             }
 
-            if (v77 == 1)
+            if (v76 == 1)
             {
-              v79 = "IN";
+              v78 = "IN";
             }
 
             else
             {
-              v79 = v78;
+              v78 = v77;
             }
 
-            if (v79)
+            if (v78)
             {
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
                 dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
               }
 
-              a3 = v108;
+              a3 = v106;
               if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
               {
                 goto LABEL_633;
               }
 
-              v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %s", v79);
-              if (v65)
+              v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %s", v78);
+              if (v64)
               {
                 goto LABEL_582;
               }
 
 LABEL_596:
-              v85 = __rev16(*v72);
-              v86 = DNSRecordTypeValueToString(v85);
-              if (v86)
+              v84 = __rev16(*v71);
+              v85 = DNSRecordTypeValueToString(v84);
+              if (v85)
               {
-                v87 = v86;
+                v86 = v85;
                 if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                 {
                   dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -4566,8 +4562,8 @@ LABEL_596:
 
                 if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
                 {
-                  v92 = v87;
-                  v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " %s");
+                  v90 = v86;
+                  v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " %s");
                   goto LABEL_626;
                 }
               }
@@ -4581,10 +4577,10 @@ LABEL_596:
 
                 if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
                 {
-                  v92 = v85;
-                  v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " TYPE%u");
+                  v90 = v84;
+                  v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " TYPE%u");
 LABEL_626:
-                  if (v65)
+                  if (v64)
                   {
                     goto LABEL_582;
                   }
@@ -4603,9 +4599,9 @@ LABEL_626:
 
             if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
             {
-              v65 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, " CLASS%u", v77);
-              a3 = v108;
-              if (v65)
+              v64 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, " CLASS%u", v76);
+              a3 = v106;
+              if (v64)
               {
                 goto LABEL_582;
               }
@@ -4614,26 +4610,26 @@ LABEL_626:
             }
           }
 
-          v80 = 4294960561;
+          v79 = 4294960561;
 LABEL_637:
-          a3 = v108;
+          a3 = v106;
 LABEL_628:
-          if (v124)
+          if (v122)
           {
-            free(v124);
+            free(v122);
           }
 
-          if (v80)
+          if (v79)
           {
             goto LABEL_655;
           }
 
-          v56 = v117;
-          v57 = v107;
-          v55 = v110;
+          v55 = v115;
+          v56 = v105;
+          v54 = v108;
         }
 
-        while (v117 < v110);
+        while (v115 < v108);
       }
 
       if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
@@ -4645,12 +4641,12 @@ LABEL_628:
       {
         if ((a3 >> 2))
         {
-          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "]", v92, v93, v94, v95);
+          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "]", v90, v91, v92, v93);
         }
 
         else
         {
-          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v118, "\n]", v92, v93, v94, v95);
+          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v116, "\n]", v90, v91, v92, v93);
         }
 
         if (CUSymAddr_DataBuffer_AppendF_sAddr)
@@ -4666,7 +4662,7 @@ LABEL_646:
 
         if (_GetCUSymAddr_DataBuffer_Append_sAddr)
         {
-          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_Append_sAddr(v118, &unk_2999FF422, 1);
+          CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_Append_sAddr(v116, &unk_2999FF422, 1);
           if (CUSymAddr_DataBuffer_AppendF_sAddr)
           {
             goto LABEL_654;
@@ -4679,7 +4675,7 @@ LABEL_646:
 
           if (_GetCUSymAddr_DataBuffer_Detach_sAddr)
           {
-            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_Detach_sAddr(v118, v102, &v115);
+            CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_Detach_sAddr(v116, v100, &v113);
             goto LABEL_654;
           }
         }
@@ -4687,16 +4683,16 @@ LABEL_646:
     }
 
 LABEL_662:
-    v80 = 4294960561;
+    v79 = 4294960561;
     goto LABEL_655;
   }
 
 LABEL_665:
-  v80 = 4294960553;
+  v79 = 4294960553;
 LABEL_655:
-  if (v116)
+  if (v114)
   {
-    free(v116);
+    free(v114);
   }
 
   if (_GetCUSymAddr_DataBuffer_Free_sOnce != -1)
@@ -4706,11 +4702,10 @@ LABEL_655:
 
   if (_GetCUSymAddr_DataBuffer_Free_sAddr)
   {
-    _GetCUSymAddr_DataBuffer_Free_sAddr(v118);
+    _GetCUSymAddr_DataBuffer_Free_sAddr(v116);
   }
 
-  v90 = *MEMORY[0x29EDCA608];
-  return v80;
+  return v79;
 }
 
 uint64_t _NameIsPrivate(const char *a1)
@@ -4726,26 +4721,26 @@ uint64_t _NameIsPrivate(const char *a1)
 
 uint64_t DNSRecordDataToStringEx(unsigned __int8 *a1, unint64_t a2, int a3, unint64_t a4, uint64_t a5, int a6, uint64_t a7)
 {
-  v108[127] = *MEMORY[0x29EDCA608];
+  v100[127] = *MEMORY[0x29EDCA608];
   if (_GetCUSymAddr_DataBuffer_Init_sOnce != -1)
   {
     dispatch_once(&_GetCUSymAddr_DataBuffer_Init_sOnce, &__block_literal_global);
   }
 
-  v103 = 0;
-  *v104 = 0;
-  memset(v102, 0, sizeof(v102));
-  v101 = 0;
-  memset(v107, 0, sizeof(v107));
-  bzero(v106, 0x3F1uLL);
+  v95 = 0;
+  *v96 = 0;
+  memset(v94, 0, sizeof(v94));
+  v93 = 0;
+  memset(v99, 0, sizeof(v99));
+  bzero(v98, 0x3F1uLL);
   if (!_GetCUSymAddr_DataBuffer_Init_sAddr)
   {
     goto LABEL_464;
   }
 
-  v96 = a7;
+  v88 = a7;
   v13 = &a1[a2];
-  _GetCUSymAddr_DataBuffer_Init_sAddr(v102, v107, 256, -1);
+  _GetCUSymAddr_DataBuffer_Init_sAddr(v94, v99, 256, -1);
   CUSymAddr_DataBuffer_Append_sAddr = 4294960582;
   if (a3 <= 32)
   {
@@ -4768,7 +4763,7 @@ uint64_t DNSRecordDataToStringEx(unsigned __int8 *a1, unint64_t a2, int a3, unin
 LABEL_84:
           if (a4)
           {
-            DomainNameString = DNSMessageExtractDomainNameString(a4, a5, a1, v106, 0);
+            DomainNameString = DNSMessageExtractDomainNameString(a4, a5, a1, v98, 0);
             if (DomainNameString)
             {
               goto LABEL_441;
@@ -4777,7 +4772,7 @@ LABEL_84:
 
           else
           {
-            DomainNameString = DomainNameToString(a1, &a1[a2], v106, 0);
+            DomainNameString = DomainNameToString(a1, &a1[a2], v98, 0);
             if (DomainNameString)
             {
               goto LABEL_441;
@@ -4785,30 +4780,30 @@ LABEL_84:
           }
 
 LABEL_384:
-          v83 = 0;
+          v82 = 0;
           goto LABEL_432;
         }
 
         if (a4)
         {
-          DomainNameString = DNSMessageExtractDomainNameString(a4, a5, a1, v106, v104);
+          DomainNameString = DNSMessageExtractDomainNameString(a4, a5, a1, v98, v96);
           if (DomainNameString)
           {
             goto LABEL_441;
           }
 
-          if (*v104 >= v13)
+          if (*v96 >= v13)
           {
             goto LABEL_467;
           }
 
-          DomainNameString = _AppendDomainNameStringEx(v102, 0, a6, v106);
+          DomainNameString = _AppendDomainNameStringEx(v94, 0, a6, v98);
           if (DomainNameString)
           {
             goto LABEL_441;
           }
 
-          DomainNameString = DNSMessageExtractDomainNameString(a4, a5, *v104, v106, v104);
+          DomainNameString = DNSMessageExtractDomainNameString(a4, a5, *v96, v98, v96);
           if (DomainNameString)
           {
             goto LABEL_441;
@@ -4817,33 +4812,32 @@ LABEL_384:
 
         else
         {
-          DomainNameString = DomainNameToString(a1, &a1[a2], v106, v104);
+          DomainNameString = DomainNameToString(a1, &a1[a2], v98, v96);
           if (DomainNameString)
           {
             goto LABEL_441;
           }
 
-          DomainNameString = _AppendDomainNameStringEx(v102, 0, a6, v106);
+          DomainNameString = _AppendDomainNameStringEx(v94, 0, a6, v98);
           if (DomainNameString)
           {
             goto LABEL_441;
           }
 
-          DomainNameString = DomainNameToString(*v104, &a1[a2], v106, v104);
+          DomainNameString = DomainNameToString(*v96, &a1[a2], v98, v96);
           if (DomainNameString)
           {
             goto LABEL_441;
           }
         }
 
-        DomainNameString = _AppendDomainNameStringEx(v102, " ", a6, v106);
+        DomainNameString = _AppendDomainNameStringEx(v94, " ", a6, v98);
         if (DomainNameString)
         {
           goto LABEL_441;
         }
 
-        v82 = *v104;
-        if (v13 - *v104 == 20)
+        if (&v13[-*v96] == 20)
         {
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
           {
@@ -4855,12 +4849,7 @@ LABEL_384:
             goto LABEL_464;
           }
 
-          v94 = bswap32(v82[3]);
-          v95 = bswap32(v82[4]);
-          v92 = bswap32(v82[1]);
-          v93 = bswap32(v82[2]);
-          v90 = bswap32(*v82);
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, " %u %u %u %u %u");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %u %u %u %u %u");
           goto LABEL_377;
         }
 
@@ -4884,7 +4873,7 @@ LABEL_467:
         goto LABEL_467;
       }
 
-      DomainNameString = _AppendIPv4Address(v102, 0, a1, a6);
+      DomainNameString = _AppendIPv4Address(v94, 0, a1, a6);
       if (DomainNameString)
       {
         goto LABEL_441;
@@ -4901,7 +4890,7 @@ LABEL_433:
         goto LABEL_464;
       }
 
-      DomainNameString = _GetCUSymAddr_DataBuffer_Append_sAddr(v102, &unk_2999FF422, 1);
+      DomainNameString = _GetCUSymAddr_DataBuffer_Append_sAddr(v94, &unk_2999FF422, 1);
       if (!DomainNameString)
       {
         if (_GetCUSymAddr_DataBuffer_Detach_sOnce != -1)
@@ -4911,7 +4900,7 @@ LABEL_433:
 
         if (_GetCUSymAddr_DataBuffer_Detach_sAddr)
         {
-          DomainNameString = _GetCUSymAddr_DataBuffer_Detach_sAddr(v102, v96, &v101);
+          DomainNameString = _GetCUSymAddr_DataBuffer_Detach_sAddr(v94, v88, &v93);
           goto LABEL_441;
         }
 
@@ -4939,7 +4928,7 @@ LABEL_464:
             goto LABEL_467;
           }
 
-          DomainNameString = _AppendIPv6Address(v102, 0, a1, a6);
+          DomainNameString = _AppendIPv6Address(v94, 0, a1, a6);
           if (DomainNameString)
           {
             goto LABEL_441;
@@ -4964,14 +4953,14 @@ LABEL_227:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%u %u %u", __rev16(*a1), a1[2], a1[3]);
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%u %u %u", __rev16(*a1), a1[2], a1[3]);
         if (DomainNameString)
         {
           goto LABEL_441;
         }
 
-        *v104 = a1 + 4;
-        v108[0] = 0;
+        *v96 = a1 + 4;
+        v100[0] = 0;
         if (_GetCUSymAddr_Base64EncodeCopyEx_sOnce != -1)
         {
           dispatch_once(&_GetCUSymAddr_Base64EncodeCopyEx_sOnce, &__block_literal_global_253);
@@ -4982,7 +4971,7 @@ LABEL_227:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_Base64EncodeCopyEx_sAddr(*v104, v13 - *v104, 0, v108, 0);
+        DomainNameString = _GetCUSymAddr_Base64EncodeCopyEx_sAddr(*v96, &v13[-*v96], 0, v100, 0);
         if (DomainNameString)
         {
           goto LABEL_441;
@@ -5016,7 +5005,7 @@ LABEL_240:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "[%zu B]");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "[%zu B]");
         }
 
         else if (a2 == 1)
@@ -5031,7 +5020,7 @@ LABEL_240:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%#H");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%#H");
         }
 
         else
@@ -5046,7 +5035,7 @@ LABEL_240:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%#{txt}");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%#{txt}");
         }
 
 LABEL_377:
@@ -5081,7 +5070,7 @@ LABEL_377:
     v39 = v41;
     if (a4)
     {
-      DomainNameString = DNSMessageExtractDomainNameString(a4, a5, v40, v106, 0);
+      DomainNameString = DNSMessageExtractDomainNameString(a4, a5, v40, v98, 0);
       if (DomainNameString)
       {
         goto LABEL_441;
@@ -5090,7 +5079,7 @@ LABEL_377:
 
     else
     {
-      DomainNameString = DomainNameToString(v40, v13, v106, 0);
+      DomainNameString = DomainNameToString(v40, v13, v98, 0);
       if (DomainNameString)
       {
         goto LABEL_441;
@@ -5107,13 +5096,13 @@ LABEL_377:
       goto LABEL_464;
     }
 
-    DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%u", __rev16(v39));
+    DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%u", __rev16(v39));
     if (!DomainNameString)
     {
 LABEL_431:
-      v83 = " ";
+      v82 = " ";
 LABEL_432:
-      DomainNameString = _AppendDomainNameStringEx(v102, v83, a6, v106);
+      DomainNameString = _AppendDomainNameStringEx(v94, v82, a6, v98);
       if (DomainNameString)
       {
         goto LABEL_441;
@@ -5135,7 +5124,7 @@ LABEL_441:
       {
         if (a4)
         {
-          DomainNameString = DNSMessageExtractDomainNameString(a4, a5, a1, v106, v104);
+          DomainNameString = DNSMessageExtractDomainNameString(a4, a5, a1, v98, v96);
           if (DomainNameString)
           {
             goto LABEL_441;
@@ -5144,24 +5133,24 @@ LABEL_441:
 
         else
         {
-          DomainNameString = DomainNameToString(a1, &a1[a2], v106, v104);
+          DomainNameString = DomainNameToString(a1, &a1[a2], v98, v96);
           if (DomainNameString)
           {
             goto LABEL_441;
           }
         }
 
-        if (*v104 < v13)
+        if (*v96 < v13)
         {
-          DomainNameString = _AppendDomainNameStringEx(v102, 0, a6, v106);
+          DomainNameString = _AppendDomainNameStringEx(v94, 0, a6, v98);
           if (DomainNameString)
           {
             goto LABEL_441;
           }
 
-          v21 = *v104;
+          v21 = *v96;
 LABEL_371:
-          DomainNameString = _DNSRecordDataAppendTypeBitMap(v102, v21, v13);
+          DomainNameString = _DNSRecordDataAppendTypeBitMap(v94, v21, v13);
           if (DomainNameString)
           {
             goto LABEL_441;
@@ -5198,19 +5187,19 @@ LABEL_371:
         goto LABEL_464;
       }
 
-      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%u %u %u", *a1, a1[1], __rev16(*(a1 + 1)));
+      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%u %u %u", *a1, a1[1], __rev16(*(a1 + 1)));
       if (DomainNameString)
       {
         goto LABEL_441;
       }
 
-      *v104 = a1 + 4;
+      *v96 = a1 + 4;
       if ((a2 - 4) < 1)
       {
         goto LABEL_467;
       }
 
-      *v104 = a1 + 5;
+      *v96 = a1 + 5;
       v16 = a1[4];
       if (a2 - 5 < v16)
       {
@@ -5227,21 +5216,21 @@ LABEL_371:
         goto LABEL_464;
       }
 
-      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, " %.4H", *v104, v16, v16);
+      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %.4H", *v96, v16, v16);
       if (DomainNameString)
       {
         goto LABEL_441;
       }
 
-      v17 = (*v104 + v16);
-      *v104 = v17;
-      if ((v13 - v17) < 1)
+      v17 = (*v96 + v16);
+      *v96 = v17;
+      if (v13 - v17 < 1)
       {
         goto LABEL_467;
       }
 
       v18 = v17 + 1;
-      *v104 = v17 + 1;
+      *v96 = v17 + 1;
       v19 = *v17;
       if (v13 - (v17 + 1) < v19)
       {
@@ -5260,26 +5249,26 @@ LABEL_371:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, " ");
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " ");
         if (DomainNameString)
         {
           goto LABEL_441;
         }
 
-        v18 = *v104;
+        v18 = *v96;
       }
 
       v20 = &v18[v19];
       while (1)
       {
-        v21 = *v104;
-        v22 = &v20[-*v104];
-        if (v20 == *v104)
+        v21 = *v96;
+        v22 = &v20[-*v96];
+        if (v20 == *v96)
         {
           goto LABEL_371;
         }
 
-        v108[0] = 0;
+        v100[0] = 0;
         if (v22 > 2)
         {
           if (v22 == 4)
@@ -5293,11 +5282,11 @@ LABEL_371:
             goto LABEL_61;
           }
 
-          v26 = *(*v104 + 2);
-          v24 = (v26 << 16) | (*(*v104 + 1) << 24);
-          v25 = v24 | (**v104 << 32);
-          *v104 += 3;
-          BYTE4(v108[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[2 * (v26 & 0xF)];
+          v26 = *(*v96 + 2);
+          v24 = (v26 << 16) | (*(*v96 + 1) << 24);
+          v25 = v24 | (**v96 << 32);
+          *v96 += 3;
+          BYTE4(v100[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[2 * (v26 & 0xF)];
           v23 = 5;
         }
 
@@ -5306,20 +5295,20 @@ LABEL_371:
           if (v22 == 1)
           {
             v28 = 0;
-            v25 = **v104 << 32;
-            ++*v104;
+            v25 = **v96 << 32;
+            ++*v96;
             goto LABEL_74;
           }
 
           if (v22 != 2)
           {
 LABEL_61:
-            v27 = *(*v104 + 4);
+            v27 = *(*v96 + 4);
 LABEL_64:
-            v29 = *(*v104 + 3);
+            v29 = *(*v96 + 3);
             v30 = v27 | (v29 << 8);
-            v24 = (*(*v104 + 1) << 24) | (*(*v104 + 2) << 16) | v30;
-            v25 = v24 | (**v104 << 32);
+            v24 = (*(*v96 + 1) << 24) | (*(*v96 + 2) << 16) | v30;
+            v25 = v24 | (**v96 << 32);
             if (v22 >= 5)
             {
               v31 = 5;
@@ -5327,10 +5316,10 @@ LABEL_64:
 
             else
             {
-              v31 = &v20[-*v104];
+              v31 = &v20[-*v96];
             }
 
-            *v104 += v31;
+            *v96 += v31;
             if (v22 == 4)
             {
               v23 = 7;
@@ -5338,26 +5327,26 @@ LABEL_64:
 
             else
             {
-              HIBYTE(v108[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[v27 & 0x1F];
+              HIBYTE(v100[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[v27 & 0x1F];
               v23 = 8;
             }
 
             v32 = DNSRecordDataToStringEx_kBase32ExtendedHex[(v29 >> 2) & 0x1F];
-            BYTE6(v108[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v30 >> 5) & 0x1F];
-            BYTE5(v108[0]) = v32;
-            BYTE4(v108[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v24 >> 15) & 0x1F];
+            BYTE6(v100[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v30 >> 5) & 0x1F];
+            BYTE5(v100[0]) = v32;
+            BYTE4(v100[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v24 >> 15) & 0x1F];
             goto LABEL_71;
           }
 
           v23 = 0;
-          v24 = *(*v104 + 1) << 24;
-          v25 = v24 | (**v104 << 32);
-          *v104 += 2;
+          v24 = *(*v96 + 1) << 24;
+          v25 = v24 | (**v96 << 32);
+          *v96 += 2;
         }
 
 LABEL_71:
-        BYTE3(v108[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v24 >> 20) & 0x1F];
-        BYTE2(v108[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v24 >> 25) & 0x1F];
+        BYTE3(v100[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v24 >> 20) & 0x1F];
+        BYTE2(v100[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v24 >> 25) & 0x1F];
         if (v23)
         {
           v28 = v23;
@@ -5369,8 +5358,8 @@ LABEL_71:
         }
 
 LABEL_74:
-        BYTE1(v108[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v25 >> 30) & 0x1F];
-        LOBYTE(v108[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[v25 >> 35];
+        BYTE1(v100[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v25 >> 30) & 0x1F];
+        LOBYTE(v100[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[v25 >> 35];
         if (_GetCUSymAddr_DataBuffer_Append_sOnce != -1)
         {
           dispatch_once(&_GetCUSymAddr_DataBuffer_Append_sOnce, &__block_literal_global_235);
@@ -5391,7 +5380,7 @@ LABEL_74:
           v33 = 2;
         }
 
-        CUSymAddr_DataBuffer_Append_sAddr = _GetCUSymAddr_DataBuffer_Append_sAddr(v102, v108, v33);
+        CUSymAddr_DataBuffer_Append_sAddr = _GetCUSymAddr_DataBuffer_Append_sAddr(v94, v100, v33);
         if (CUSymAddr_DataBuffer_Append_sAddr)
         {
           goto LABEL_442;
@@ -5424,21 +5413,21 @@ LABEL_74:
       goto LABEL_464;
     }
 
-    DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%u", __rev16(*a1));
+    DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%u", __rev16(*a1));
     if (DomainNameString)
     {
       goto LABEL_441;
     }
 
-    bzero(v108, 0x3F1uLL);
-    *v105 = a1 + 2;
-    DomainNameString = DomainNameToString(a1 + 2, v13, v108, v105);
+    bzero(v100, 0x3F1uLL);
+    *v97 = a1 + 2;
+    DomainNameString = DomainNameToString(a1 + 2, v13, v100, v97);
     if (DomainNameString)
     {
       goto LABEL_441;
     }
 
-    DomainNameString = _AppendDomainNameStringEx(v102, " ", a6, v108);
+    DomainNameString = _AppendDomainNameStringEx(v94, " ", a6, v100);
     if (DomainNameString)
     {
       goto LABEL_441;
@@ -5446,19 +5435,19 @@ LABEL_74:
 
     while (1)
     {
-      v42 = *v105;
-      if (*v105 >= v13)
+      v42 = *v97;
+      if (*v97 >= v13)
       {
         goto LABEL_433;
       }
 
-      if (v13 - *v105 < 4)
+      if (&v13[-*v97] < 4)
       {
         goto LABEL_462;
       }
 
-      v43 = __rev16(**v105);
-      v44 = *(*v105 + 2);
+      v43 = __rev16(**v97);
+      v44 = *(*v97 + 2);
       v45 = _DNSSVCBKeyToString(v43);
       if (v45)
       {
@@ -5473,8 +5462,8 @@ LABEL_74:
           goto LABEL_464;
         }
 
-        v89 = v46;
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, " %s=");
+        v87 = v46;
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %s=");
       }
 
       else
@@ -5489,8 +5478,8 @@ LABEL_74:
           goto LABEL_464;
         }
 
-        v89 = v43;
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, " key%u=");
+        v87 = v43;
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " key%u=");
       }
 
       if (DomainNameString)
@@ -5499,9 +5488,9 @@ LABEL_74:
       }
 
       v47 = __rev16(v44);
-      v48 = v42 + 4;
-      *v105 = v42 + 4;
-      if (v13 - (v42 + 4) < v47)
+      v48 = (v42 + 4);
+      *v97 = v42 + 4;
+      if (&v13[-v42 - 4] < v47)
       {
 LABEL_462:
         CUSymAddr_DataBuffer_Append_sAddr = 4294960546;
@@ -5527,8 +5516,8 @@ LABEL_163:
                 goto LABEL_464;
               }
 
-              v89 = *v105;
-              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%.4H");
+              v87 = *v97;
+              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%.4H");
 LABEL_218:
               if (DomainNameString)
               {
@@ -5551,19 +5540,19 @@ LABEL_213:
                   goto LABEL_464;
                 }
 
-                v89 = v47;
-                DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "<%u redacted bytes>");
+                v87 = v47;
+                DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "<%u redacted bytes>");
                 goto LABEL_218;
               }
 
-              DomainNameString = _AppendEscapedASCIIString(v102, v42 + 4, &v48[v47], "");
+              DomainNameString = _AppendEscapedASCIIString(v94, (v42 + 4), &v48[v47], "");
               if (DomainNameString)
               {
                 goto LABEL_441;
               }
             }
 
-            *v105 += v47;
+            *v97 += v47;
             goto LABEL_220;
           }
 
@@ -5586,13 +5575,13 @@ LABEL_213:
                   goto LABEL_464;
                 }
 
-                DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%s", v68);
+                DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%s", v68);
                 if (DomainNameString)
                 {
                   goto LABEL_441;
                 }
 
-                v48 = *v105;
+                v48 = *v97;
               }
 
               v70 = *v48;
@@ -5608,8 +5597,8 @@ LABEL_213:
                   goto LABEL_464;
                 }
 
-                v89 = v70;
-                DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "sla%u");
+                v87 = v70;
+                DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "sla%u");
               }
 
               else
@@ -5625,8 +5614,8 @@ LABEL_213:
                   goto LABEL_464;
                 }
 
-                v89 = v71;
-                DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%s");
+                v87 = v71;
+                DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%s");
               }
 
               if (DomainNameString)
@@ -5635,8 +5624,8 @@ LABEL_213:
               }
 
               v69 = 0;
-              v48 = (*v105 + 1);
-              *v105 = v48;
+              v48 = (*v97 + 1);
+              *v97 = v48;
               v68 = ",";
             }
 
@@ -5665,17 +5654,17 @@ LABEL_213:
           if (v48 < &v48[v47])
           {
             v56 = &unk_2999FF422;
-            v57 = (v42 + 4);
+            v57 = v42 + 4;
             while (1)
             {
-              CUSymAddr_DataBuffer_Append_sAddr = _AppendIPv6Address(v102, v56, v57, a6);
+              CUSymAddr_DataBuffer_Append_sAddr = _AppendIPv6Address(v94, v56, v57, a6);
               if (CUSymAddr_DataBuffer_Append_sAddr)
               {
                 goto LABEL_442;
               }
 
-              v57 = *v105 + 16;
-              *v105 = v57;
+              v57 = *v97 + 16;
+              *v97 = v57;
               if (v57 >= v55)
               {
                 break;
@@ -5696,8 +5685,8 @@ LABEL_213:
             goto LABEL_467;
           }
 
-          v66 = *(v42 + 2);
-          *v105 = &v48[v47];
+          v66 = *(v42 + 4);
+          *v97 = &v48[v47];
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
           {
             dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -5708,7 +5697,7 @@ LABEL_213:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%u", __rev16(v66));
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%u", __rev16(v66));
           if (DomainNameString)
           {
             goto LABEL_441;
@@ -5729,14 +5718,14 @@ LABEL_213:
             v60 = (v42 + 4);
             while (1)
             {
-              CUSymAddr_DataBuffer_Append_sAddr = _AppendIPv4Address(v102, v59, v60, a6);
+              CUSymAddr_DataBuffer_Append_sAddr = _AppendIPv4Address(v94, v59, v60, a6);
               if (CUSymAddr_DataBuffer_Append_sAddr)
               {
                 goto LABEL_442;
               }
 
-              v60 = (*v105 + 4);
-              *v105 = v60;
+              v60 = (*v97 + 4);
+              *v97 = v60;
               if (v60 >= v58)
               {
                 break;
@@ -5758,11 +5747,11 @@ LABEL_213:
         v49 = 0;
         v50 = &v48[v47];
         v51 = 1;
-        while (*v105 < v50)
+        while (*v97 < v50)
         {
-          v53 = (*v105 + 1);
-          v52 = **v105;
-          if (*v105 + 1 > v50)
+          v53 = (*v97 + 1);
+          v52 = **v97;
+          if (*v97 + 1 > v50)
           {
             goto LABEL_463;
           }
@@ -5773,7 +5762,7 @@ LABEL_213:
           }
 
           v54 = &v53[v52];
-          *v105 = &v53[v52];
+          *v97 = &v53[v52];
           if ((v51 & 1) == 0)
           {
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
@@ -5786,16 +5775,16 @@ LABEL_213:
               goto LABEL_464;
             }
 
-            DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%s", v49);
+            DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%s", v49);
             if (DomainNameString)
             {
               goto LABEL_441;
             }
 
-            v54 = *v105;
+            v54 = *v97;
           }
 
-          DomainNameString = _AppendEscapedASCIIString(v102, v53, v54, ",");
+          DomainNameString = _AppendEscapedASCIIString(v94, v53, v54, ",");
           v51 = 0;
           v49 = ",";
           if (DomainNameString)
@@ -5820,7 +5809,7 @@ LABEL_213:
           do
           {
             v64 = __rev16(*v48);
-            *v105 = v48 + 2;
+            *v97 = v48 + 2;
             v65 = _DNSSVCBKeyToString(v64);
             if ((v63 & 1) == 0)
             {
@@ -5834,7 +5823,7 @@ LABEL_213:
                 goto LABEL_464;
               }
 
-              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%s", v62);
+              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%s", v62);
               if (DomainNameString)
               {
                 goto LABEL_441;
@@ -5853,8 +5842,8 @@ LABEL_213:
                 goto LABEL_464;
               }
 
-              v89 = v65;
-              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%s");
+              v87 = v65;
+              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%s");
             }
 
             else
@@ -5869,8 +5858,8 @@ LABEL_213:
                 goto LABEL_464;
               }
 
-              v89 = v64;
-              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "key%u");
+              v87 = v64;
+              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "key%u");
             }
 
             if (DomainNameString)
@@ -5879,11 +5868,11 @@ LABEL_213:
             }
 
             v63 = 0;
-            v48 = *v105;
+            v48 = *v97;
             v62 = ",";
           }
 
-          while (*v105 < v61);
+          while (*v97 < v61);
         }
       }
 
@@ -5898,7 +5887,7 @@ LABEL_220:
         goto LABEL_464;
       }
 
-      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "", v89);
+      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "", v87);
       if (DomainNameString)
       {
         goto LABEL_441;
@@ -5917,7 +5906,7 @@ LABEL_220:
 
       if (a4)
       {
-        DomainNameString = DNSMessageExtractDomainNameString(a4, a5, a1 + 6, v106, 0);
+        DomainNameString = DNSMessageExtractDomainNameString(a4, a5, a1 + 6, v98, 0);
         if (DomainNameString)
         {
           goto LABEL_441;
@@ -5926,7 +5915,7 @@ LABEL_220:
 
       else
       {
-        DomainNameString = DomainNameToString(a1 + 6, &a1[a2], v106, 0);
+        DomainNameString = DomainNameToString(a1 + 6, &a1[a2], v98, 0);
         if (DomainNameString)
         {
           goto LABEL_441;
@@ -5943,7 +5932,7 @@ LABEL_220:
         goto LABEL_464;
       }
 
-      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%u %u %u ", __rev16(*a1), __rev16(*(a1 + 1)), __rev16(*(a1 + 2)));
+      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%u %u %u ", __rev16(*a1), __rev16(*(a1 + 1)), __rev16(*(a1 + 2)));
       if (!DomainNameString)
       {
         goto LABEL_384;
@@ -5958,22 +5947,22 @@ LABEL_220:
     }
 
     v34 = 1;
-    *v104 = a1;
+    *v96 = a1;
     while (1)
     {
       v35 = v34;
-      if (*v104 > v13)
+      if (*v96 > v13)
       {
         goto LABEL_463;
       }
 
-      if (v13 - *v104 < 2)
+      if (&v13[-*v96] < 2)
       {
         goto LABEL_462;
       }
 
-      v36 = **v104;
-      *v104 += 2;
+      v36 = **v96;
+      *v96 += 2;
       if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
       {
         dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -5995,7 +5984,7 @@ LABEL_220:
         v38 = " ";
       }
 
-      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%s%u", v38, v37);
+      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%s%u", v38, v37);
       if (DomainNameString)
       {
         goto LABEL_441;
@@ -6004,27 +5993,27 @@ LABEL_220:
       v34 = 0;
       if ((v35 & 1) == 0)
       {
-        v86 = 3;
-        while (*v104 <= v13)
+        v84 = 3;
+        while (*v96 <= v13)
         {
-          if (v13 == *v104)
+          if (v13 == *v96)
           {
             goto LABEL_462;
           }
 
-          v88 = (*v104 + 1);
-          v87 = **v104;
-          if (*v104 + 1 > v13)
+          v86 = (*v96 + 1);
+          v85 = **v96;
+          if (*v96 + 1 > v13)
           {
             break;
           }
 
-          if (v13 - v88 < v87)
+          if (v13 - v86 < v85)
           {
             goto LABEL_462;
           }
 
-          *v104 = &v88[v87];
+          *v96 = &v86[v85];
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
           {
             dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -6035,13 +6024,13 @@ LABEL_220:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, " ");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " ");
           if (DomainNameString)
           {
             goto LABEL_441;
           }
 
-          DomainNameString = _AppendEscapedASCIIString(v102, v88, *v104, "");
+          DomainNameString = _AppendEscapedASCIIString(v94, v86, *v96, "");
           if (DomainNameString)
           {
             goto LABEL_441;
@@ -6057,15 +6046,15 @@ LABEL_220:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "");
           if (DomainNameString)
           {
             goto LABEL_441;
           }
 
-          if (!--v86)
+          if (!--v84)
           {
-            DomainNameString = DomainNameToString(*v104, v13, v106, v104);
+            DomainNameString = DomainNameToString(*v96, v13, v98, v96);
             if (DomainNameString)
             {
               goto LABEL_441;
@@ -6092,7 +6081,7 @@ LABEL_220:
           goto LABEL_433;
         }
 
-        if (v13 - a1 < 4)
+        if ((v13 - a1) < 4)
         {
           goto LABEL_462;
         }
@@ -6115,7 +6104,7 @@ LABEL_220:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%s{", v72);
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%s{", v72);
         if (DomainNameString)
         {
           goto LABEL_441;
@@ -6134,7 +6123,7 @@ LABEL_220:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "Padding");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "Padding");
         }
 
         else if (v76 == 15)
@@ -6149,7 +6138,7 @@ LABEL_220:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "EDE");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "EDE");
         }
 
         else
@@ -6164,7 +6153,7 @@ LABEL_220:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "CODE%u");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "CODE%u");
         }
 
         if (DomainNameString)
@@ -6182,7 +6171,7 @@ LABEL_220:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, ", ");
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, ", ");
         if (DomainNameString)
         {
           goto LABEL_441;
@@ -6211,7 +6200,7 @@ LABEL_220:
         }
 
         v79 = __rev16(v78);
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "code: %u", v79);
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "code: %u", v79);
         if (DomainNameString)
         {
           goto LABEL_441;
@@ -6233,7 +6222,7 @@ LABEL_220:
               goto LABEL_464;
             }
 
-            DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, " (%s)", v81);
+            DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " (%s)", v81);
             if (DomainNameString)
             {
               goto LABEL_441;
@@ -6252,7 +6241,7 @@ LABEL_220:
               goto LABEL_464;
             }
 
-            DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, ", extra-text: ");
+            DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, ", extra-text: ");
             if (DomainNameString)
             {
               goto LABEL_441;
@@ -6270,7 +6259,7 @@ LABEL_220:
                 goto LABEL_464;
               }
 
-              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "«REDACTED»");
+              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "«REDACTED»");
             }
 
             else
@@ -6285,7 +6274,7 @@ LABEL_220:
                 goto LABEL_464;
               }
 
-              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "'%.*s'");
+              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "'%.*s'");
             }
 
 LABEL_333:
@@ -6306,7 +6295,7 @@ LABEL_333:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "}");
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "}");
         a1 = v77;
         v72 = ", ";
         if (DomainNameString)
@@ -6327,7 +6316,7 @@ LABEL_333:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "[%u B]");
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "[%u B]");
       }
 
       else if (v76 == 12 && v74 && !*v73 && !memcmp(a1 + 4, a1 + 5, v74 - 1))
@@ -6342,7 +6331,7 @@ LABEL_333:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "<%u zero bytes>");
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "<%u zero bytes>");
       }
 
       else
@@ -6357,7 +6346,7 @@ LABEL_333:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "'%H'");
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "'%H'");
       }
 
       goto LABEL_333;
@@ -6382,7 +6371,7 @@ LABEL_463:
         goto LABEL_464;
       }
 
-      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%u %u %u", __rev16(*a1), a1[2], a1[3]);
+      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%u %u %u", __rev16(*a1), a1[2], a1[3]);
       if (DomainNameString)
       {
         goto LABEL_441;
@@ -6400,7 +6389,7 @@ LABEL_463:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, " %.4H", a1 + 4, a2 - 4, a2 - 4);
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %.4H", a1 + 4, a2 - 4, a2 - 4);
         if (DomainNameString)
         {
           goto LABEL_441;
@@ -6418,10 +6407,10 @@ LABEL_463:
     goto LABEL_442;
   }
 
-  v105[0] = 0;
-  v99 = 0;
-  v100 = 0;
-  v98 = 0;
+  v97[0] = 0;
+  v91 = 0;
+  v92 = 0;
+  v90 = 0;
   if (a2 < 0x13)
   {
     goto LABEL_467;
@@ -6439,7 +6428,7 @@ LABEL_463:
       goto LABEL_464;
     }
 
-    DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "%s");
+    DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%s");
   }
 
   else
@@ -6454,8 +6443,7 @@ LABEL_463:
       goto LABEL_464;
     }
 
-    v91 = __rev16(*a1);
-    DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, "TYPE%u");
+    DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "TYPE%u");
   }
 
   if (DomainNameString)
@@ -6473,16 +6461,16 @@ LABEL_463:
     goto LABEL_464;
   }
 
-  DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, " %u %u %u", a1[2], a1[3], bswap32(*(a1 + 1)));
+  DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %u %u %u", a1[2], a1[3], bswap32(*(a1 + 1)));
   if (DomainNameString)
   {
     goto LABEL_441;
   }
 
-  v105[0] = 0;
-  v99 = 0;
-  v100 = 0;
-  v98 = 0;
+  v97[0] = 0;
+  v91 = 0;
+  v92 = 0;
+  v90 = 0;
   if (_GetCUSymAddr_SecondsToYMD_HMS_sOnce != -1)
   {
     dispatch_once(&_GetCUSymAddr_SecondsToYMD_HMS_sOnce, &__block_literal_global_257);
@@ -6493,7 +6481,7 @@ LABEL_463:
     goto LABEL_464;
   }
 
-  _GetCUSymAddr_SecondsToYMD_HMS_sAddr(bswap32(*(a1 + 2)) + 0xE77934880, v105, &v100 + 4, &v100, &v99 + 4, &v99, &v98);
+  _GetCUSymAddr_SecondsToYMD_HMS_sAddr(bswap32(*(a1 + 2)) + 0xE77934880, v97, &v92 + 4, &v92, &v91 + 4, &v91, &v90);
   if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
   {
     dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -6504,7 +6492,7 @@ LABEL_463:
     goto LABEL_464;
   }
 
-  DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, " %u%02u%02u%02u%02u%02u", v105[0], HIDWORD(v100), v100, HIDWORD(v99), v99, v98);
+  DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %u%02u%02u%02u%02u%02u", v97[0], HIDWORD(v92), v92, HIDWORD(v91), v91, v90);
   if (DomainNameString)
   {
     goto LABEL_441;
@@ -6520,7 +6508,7 @@ LABEL_463:
     goto LABEL_464;
   }
 
-  _GetCUSymAddr_SecondsToYMD_HMS_sAddr(bswap32(*(a1 + 3)) + 0xE77934880, v105, &v100 + 4, &v100, &v99 + 4, &v99, &v98);
+  _GetCUSymAddr_SecondsToYMD_HMS_sAddr(bswap32(*(a1 + 3)) + 0xE77934880, v97, &v92 + 4, &v92, &v91 + 4, &v91, &v90);
   if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
   {
     dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -6531,7 +6519,7 @@ LABEL_463:
     goto LABEL_464;
   }
 
-  DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, " %u%02u%02u%02u%02u%02u", v105[0], HIDWORD(v100), v100, HIDWORD(v99), v99, v98);
+  DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %u%02u%02u%02u%02u%02u", v97[0], HIDWORD(v92), v92, HIDWORD(v91), v91, v90);
   if (DomainNameString)
   {
     goto LABEL_441;
@@ -6547,26 +6535,26 @@ LABEL_463:
     goto LABEL_464;
   }
 
-  DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, " %u", __rev16(*(a1 + 8)));
+  DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %u", __rev16(*(a1 + 8)));
   if (DomainNameString)
   {
     goto LABEL_441;
   }
 
-  *v104 = a1 + 18;
-  DomainNameString = DomainNameToString(a1 + 18, v13, v106, v104);
+  *v96 = a1 + 18;
+  DomainNameString = DomainNameToString(a1 + 18, v13, v98, v96);
   if (DomainNameString)
   {
     goto LABEL_441;
   }
 
-  DomainNameString = _AppendDomainNameStringEx(v102, " ", a6, v106);
+  DomainNameString = _AppendDomainNameStringEx(v94, " ", a6, v98);
   if (DomainNameString)
   {
     goto LABEL_441;
   }
 
-  v108[0] = 0;
+  v100[0] = 0;
   if (_GetCUSymAddr_Base64EncodeCopyEx_sOnce != -1)
   {
     dispatch_once(&_GetCUSymAddr_Base64EncodeCopyEx_sOnce, &__block_literal_global_253);
@@ -6577,7 +6565,7 @@ LABEL_463:
     goto LABEL_464;
   }
 
-  DomainNameString = _GetCUSymAddr_Base64EncodeCopyEx_sAddr(*v104, v13 - *v104, 0, v108, 0);
+  DomainNameString = _GetCUSymAddr_Base64EncodeCopyEx_sAddr(*v96, &v13[-*v96], 0, v100, 0);
   if (DomainNameString)
   {
     goto LABEL_441;
@@ -6591,16 +6579,16 @@ LABEL_463:
   if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
   {
 LABEL_421:
-    CUSymAddr_DataBuffer_Append_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v102, " %s", v108[0]);
+    CUSymAddr_DataBuffer_Append_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %s", v100[0]);
     goto LABEL_422;
   }
 
 LABEL_468:
   CUSymAddr_DataBuffer_Append_sAddr = 4294960561;
 LABEL_422:
-  if (v108[0])
+  if (v100[0])
   {
-    free(v108[0]);
+    free(v100[0]);
   }
 
   if (!CUSymAddr_DataBuffer_Append_sAddr)
@@ -6616,10 +6604,9 @@ LABEL_442:
 
   if (_GetCUSymAddr_DataBuffer_Free_sAddr)
   {
-    _GetCUSymAddr_DataBuffer_Free_sAddr(v102);
+    _GetCUSymAddr_DataBuffer_Free_sAddr(v94);
   }
 
-  v84 = *MEMORY[0x29EDCA608];
   return CUSymAddr_DataBuffer_Append_sAddr;
 }
 
@@ -6674,8 +6661,18 @@ uint64_t _AppendIPv6Address(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
   return _AppendIPAddress(a1, a2, a3, 16, v5);
 }
 
-uint64_t _AppendDomainNameStringEx(uint64_t a1, uint64_t a2, int a3, const char *a4)
+uint64_t _AppendDomainNameStringEx(uint64_t a1, void *a2, int a3, const char *a4)
 {
+  if (a2)
+  {
+    v6 = a2;
+  }
+
+  else
+  {
+    v6 = &unk_2999FF422;
+  }
+
   if (a3 && _NameIsPrivate(a4))
   {
     if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
@@ -6685,8 +6682,7 @@ uint64_t _AppendDomainNameStringEx(uint64_t a1, uint64_t a2, int a3, const char 
 
     if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
     {
-      v5 = "%s%~s";
-      return _GetCUSymAddr_DataBuffer_AppendF_sAddr(a1, v5);
+      return _GetCUSymAddr_DataBuffer_AppendF_sAddr(a1, "%s%~s", v6, a4);
     }
   }
 
@@ -6699,8 +6695,7 @@ uint64_t _AppendDomainNameStringEx(uint64_t a1, uint64_t a2, int a3, const char 
 
     if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
     {
-      v5 = "%s%s";
-      return _GetCUSymAddr_DataBuffer_AppendF_sAddr(a1, v5);
+      return _GetCUSymAddr_DataBuffer_AppendF_sAddr(a1, "%s%s");
     }
   }
 
@@ -6709,20 +6704,31 @@ uint64_t _AppendDomainNameStringEx(uint64_t a1, uint64_t a2, int a3, const char 
 
 uint64_t _DNSRecordDataAppendTypeBitMap(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v3 = a3 - a2;
   if (a3 - a2 >= 1)
   {
     while (2)
     {
-      if (v3 < 3 || (v5 = a2[1], (v5 - 33) < 0xFFFFFFE0) || (v6 = a2 + 2, a3 - (a2 + 2) < v5))
+      if (v3 < 3)
       {
-        result = 4294960554;
-        goto LABEL_18;
+        return 4294960554;
       }
 
-      v14 = a3 - (a2 + 2);
-      v15 = a2[1];
+      v5 = a2[1];
+      if ((v5 - 33) < 0xFFFFFFE0)
+      {
+        return 4294960554;
+      }
+
+      v6 = a2 + 2;
+      if (a3 - (a2 + 2) < v5)
+      {
+        return 4294960554;
+      }
+
+      v13 = a3 - (a2 + 2);
+      v14 = a2[1];
       v7 = 0;
       v8 = 8 * v5;
       v9 = *a2 << 8;
@@ -6732,7 +6738,7 @@ uint64_t _DNSRecordDataAppendTypeBitMap(uint64_t a1, unsigned __int8 *a2, uint64
         if ((v6[v7 >> 3] >> (~v7 & 7)))
         {
           *__str = 0u;
-          v18 = 0u;
+          v17 = 0u;
           v11 = DNSRecordTypeValueToString(v9 + v7);
           if (!v11)
           {
@@ -6747,8 +6753,7 @@ uint64_t _DNSRecordDataAppendTypeBitMap(uint64_t a1, unsigned __int8 *a2, uint64
 
           if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
           {
-            result = 4294960561;
-            goto LABEL_18;
+            return 4294960561;
           }
 
           result = _GetCUSymAddr_DataBuffer_AppendF_sAddr(a1, " %s", v11);
@@ -6761,16 +6766,16 @@ uint64_t _DNSRecordDataAppendTypeBitMap(uint64_t a1, unsigned __int8 *a2, uint64
         v10 = ++v7 < v8;
         if (v8 == v7)
         {
-          v6 += v15;
+          v6 += v14;
           v3 = a3 - v6;
           goto LABEL_16;
         }
       }
 
-      v3 = v14;
+      v3 = v13;
       if (v10)
       {
-        goto LABEL_18;
+        return result;
       }
 
 LABEL_16:
@@ -6784,10 +6789,7 @@ LABEL_16:
     }
   }
 
-  result = 0;
-LABEL_18:
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
 const char *_DNSSVCBKeyToString(int a1)
@@ -6944,11 +6946,10 @@ char *DNSExtendedDNSErrorCodeToString(unsigned int a1)
 
 uint64_t _AppendIPAddress(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   if (a4 != 16 && a4 != 4)
   {
-    result = 4294960553;
-    goto LABEL_17;
+    return 4294960553;
   }
 
   if (!a5)
@@ -6960,15 +6961,14 @@ uint64_t _AppendIPAddress(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, in
 
     if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
     {
-      result = (_GetCUSymAddr_DataBuffer_AppendF_sAddr)(a1, "%s%.*a");
-      goto LABEL_17;
+      return _GetCUSymAddr_DataBuffer_AppendF_sAddr(a1, "%s%.*a");
     }
 
-    goto LABEL_18;
+    return 4294960561;
   }
 
-  v11 = 0;
-  memset(v10, 0, sizeof(v10));
+  v10 = 0;
+  memset(v9, 0, sizeof(v9));
   if (_GetCUSymAddr_SNPrintF_sOnce != -1)
   {
     dispatch_once(&_GetCUSymAddr_SNPrintF_sOnce, &__block_literal_global_264);
@@ -6976,10 +6976,10 @@ uint64_t _AppendIPAddress(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, in
 
   if (!_GetCUSymAddr_SNPrintF_sAddr)
   {
-    goto LABEL_18;
+    return 4294960561;
   }
 
-  result = _GetCUSymAddr_SNPrintF_sAddr(v10, 33, "%.4H", a3, a4, a4);
+  result = _GetCUSymAddr_SNPrintF_sAddr(v9, 33, "%.4H", a3, a4, a4);
   if ((result & 0x80000000) == 0)
   {
     if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
@@ -6989,16 +6989,12 @@ uint64_t _AppendIPAddress(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, in
 
     if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
     {
-      result = (_GetCUSymAddr_DataBuffer_AppendF_sAddr)(a1, "%s%~s");
-      goto LABEL_17;
+      return _GetCUSymAddr_DataBuffer_AppendF_sAddr(a1, "%s%~s");
     }
 
-LABEL_18:
-    result = 4294960561;
+    return 4294960561;
   }
 
-LABEL_17:
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -7042,8 +7038,7 @@ uint64_t DNSMessagePrintObfuscatedString(uint64_t a1, uint64_t a2, const char *a
 
     if (_GetCUSymAddr_SNPrintF_sAddr)
     {
-      v5 = "%~s";
-      return _GetCUSymAddr_SNPrintF_sAddr(a1, a2, v5);
+      return _GetCUSymAddr_SNPrintF_sAddr(a1, a2, "%~s", a3);
     }
   }
 
@@ -7056,8 +7051,7 @@ uint64_t DNSMessagePrintObfuscatedString(uint64_t a1, uint64_t a2, const char *a
 
     if (_GetCUSymAddr_SNPrintF_sAddr)
     {
-      v5 = "%s";
-      return _GetCUSymAddr_SNPrintF_sAddr(a1, a2, v5);
+      return _GetCUSymAddr_SNPrintF_sAddr(a1, a2, "%s");
     }
   }
 
@@ -7091,11 +7085,10 @@ uint64_t DNSMessagePrintObfuscatedIPv4Address(uint64_t a1, uint64_t a2, unsigned
 
 uint64_t _DNSMessagePrintObfuscatedIPAddress(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   if (a4 != 16 && a4 != 4)
   {
-    result = 4294960553;
-    goto LABEL_12;
+    return 4294960553;
   }
 
   if (_GetCUSymAddr_SNPrintF_sOnce != -1)
@@ -7105,12 +7098,12 @@ uint64_t _DNSMessagePrintObfuscatedIPAddress(uint64_t a1, uint64_t a2, uint64_t 
 
   if (!_GetCUSymAddr_SNPrintF_sAddr)
   {
-    goto LABEL_13;
+    return 4294960561;
   }
 
-  v11 = 0;
-  memset(v10, 0, sizeof(v10));
-  result = _GetCUSymAddr_SNPrintF_sAddr(v10, 33, "%.4H", a3, a4, a4);
+  v10 = 0;
+  memset(v9, 0, sizeof(v9));
+  result = _GetCUSymAddr_SNPrintF_sAddr(v9, 33, "%.4H", a3, a4, a4);
   if ((result & 0x80000000) == 0)
   {
     if (_GetCUSymAddr_SNPrintF_sOnce != -1)
@@ -7120,16 +7113,12 @@ uint64_t _DNSMessagePrintObfuscatedIPAddress(uint64_t a1, uint64_t a2, uint64_t 
 
     if (_GetCUSymAddr_SNPrintF_sAddr)
     {
-      result = _GetCUSymAddr_SNPrintF_sAddr(a1, a2, "%~s", v10);
-      goto LABEL_12;
+      return _GetCUSymAddr_SNPrintF_sAddr(a1, a2, "%~s", v9);
     }
 
-LABEL_13:
-    result = 4294960561;
+    return 4294960561;
   }
 
-LABEL_12:
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -7279,7 +7268,7 @@ LABEL_7:
   return result;
 }
 
-unint64_t mdns_parse_printable_ascii_run(unint64_t a1, unint64_t a2, int a3, char *__s)
+uint64_t mdns_parse_printable_ascii_run(unint64_t a1, unint64_t a2, int a3, char *__s)
 {
   if (a1 >= a2)
   {
@@ -7880,7 +7869,7 @@ unsigned __int8 *_log_mdns_format_record_type_data(void *a1)
   if (v1)
   {
     v2 = _log_mdns_create_dns_record_type_string(v9);
-    if (v2 && ((_log_mdns_create_record_data_string(v1, v8, v9), (v3 = objc_claimAutoreleasedReturnValue()) != 0) || (NSPrintF(), (v3 = objc_claimAutoreleasedReturnValue()) != 0)))
+    if (v2 && ((_log_mdns_create_record_data_string(v1, v8, v9), (v3 = objc_claimAutoreleasedReturnValue()) != 0) || (NSPrintF("'%H'", v1, v8, v8), (v3 = objc_claimAutoreleasedReturnValue()) != 0)))
     {
       v4 = v3;
       v5 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"%@ %@", v2, v3];

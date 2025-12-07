@@ -7,9 +7,9 @@
 - (NRBabelLinkFake)initWithName:(id)name
 {
   nameCopy = name;
-  v17.receiver = self;
-  v17.super_class = NRBabelLinkFake;
-  v5 = [(NRBabelLinkFake *)&v17 init];
+  v19.receiver = self;
+  v19.super_class = NRBabelLinkFake;
+  v5 = [(NRBabelLinkFake *)&v19 init];
   if (!v5)
   {
     v12 = sub_1000CB9A8();
@@ -18,14 +18,14 @@
     if (IsLevelEnabled)
     {
       v14 = sub_1000CB9A8();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v14, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRBabelLinkFake initWithName:]"", 3879);
     }
 
-    _os_log_pack_size();
-    v15 = *__error();
-    v16 = _os_log_pack_fill();
-    *v16 = 136446210;
-    *(v16 + 4) = "[NRBabelLinkFake initWithName:]";
+    v15 = _os_log_pack_size();
+    v16 = __error();
+    v17 = _os_log_pack_fill(&v18 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0), v15, *v16, &_mh_execute_header, "%{public}s [super init] failed");
+    *v17 = 136446210;
+    *(v17 + 4) = "[NRBabelLinkFake initWithName:]";
     sub_1000CB9A8();
     _NRLogAbortWithPack();
   }

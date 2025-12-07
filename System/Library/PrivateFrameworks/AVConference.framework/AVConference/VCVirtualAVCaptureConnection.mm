@@ -115,11 +115,13 @@ LABEL_9:
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v4 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v11) = 136315650;
+      *(&v11 + 4) = v4;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v4, v5, " [%s] %s:%d Received nil input port", v6, v7, v8, v9, 2u);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v5, v6, " [%s] %s:%d Received nil input port", v7, v8, v9, v10, v11, DWORD2(v11));
     }
   }
 
@@ -130,11 +132,13 @@ LABEL_9:
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v4 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v11) = 136315650;
+      *(&v11 + 4) = v4;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v4, v5, " [%s] %s:%d Received nil capture output", v6, v7, v8, v9, 2u);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v5, v6, " [%s] %s:%d Received nil capture output", v7, v8, v9, v10, v11, DWORD2(v11));
     }
   }
 

@@ -60,41 +60,38 @@
   v7 = *&transforms.var0.var0;
   v10 = *&transforms.var2.var0;
   v12 = v10;
-  *&v13 = self->_position.var2.var0 + v7[1].f32[0];
-  v14 = *v7;
-  v15 = COERCE_DOUBLE(vadd_f32(*&self->_position.var0.var0, *v7));
-  v25 = v15;
-  v26 = LODWORD(v13);
+  v13 = COERCE_DOUBLE(vadd_f32(*&self->_position.var0.var0, *v7));
   if (v10)
   {
-    objc_msgSend_projectPoint_(v10, v11, v13, v15, *&v14, &v25);
-    v16 = v24;
+    *&v11 = self->_position.var2.var0 + v7[1].f32[0];
+    objc_msgSend_projectPoint_(v10, v11, v13, *v7);
+    v14 = v22;
   }
 
   else
   {
-    v16 = 0;
+    v14 = 0;
   }
 
-  v17 = vadd_f32(v16, self->_offset2D);
+  v15 = vadd_f32(v14, self->_offset2D);
   min = self->_labelBox._min;
   max = self->_labelBox._max;
-  v23 = vcgt_f32(min, max);
-  if ((v23.i32[0] | v23.i32[1]))
+  v21 = vcgt_f32(min, max);
+  if ((v21.i32[0] | v21.i32[1]))
   {
-    v20 = v17;
+    v18 = v15;
   }
 
   else
   {
-    v20 = vadd_f32(v17, max);
-    v17 = vadd_f32(v17, min);
+    v18 = vadd_f32(v15, max);
+    v15 = vadd_f32(v15, min);
   }
 
-  v21 = vcvt_f32_s32(vsub_s32(*(viewport + 8), *viewport));
-  *&retstr->_min.var0.var0 = vdiv_f32(v17, v21);
+  v19 = vcvt_f32_s32(vsub_s32(*(viewport + 8), *viewport));
+  *&retstr->_min.var0.var0 = vdiv_f32(v15, v19);
   retstr->_min.var2.var0 = 0.0;
-  *&retstr->_max.var0.var0 = vdiv_f32(v20, v21);
+  *&retstr->_max.var0.var0 = vdiv_f32(v18, v19);
   retstr->_max.var2.var0 = 0.0;
 
   return result;

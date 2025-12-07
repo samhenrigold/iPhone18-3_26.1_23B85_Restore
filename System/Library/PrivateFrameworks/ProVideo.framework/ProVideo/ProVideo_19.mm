@@ -1,3 +1,39 @@
+void sub_25FB5F280(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+__n128 PCMath::clamp@<Q0>(uint64_t *__return_ptr a1@<X8>, CMTime *this@<X0>, CMTime *a3@<X1>, CMTime *a4@<X2>)
+{
+  v5 = a3;
+  time1 = *this;
+  v9 = *a3;
+  if ((CMTimeCompare(&time1, &v9) & 0x80000000) == 0)
+  {
+    time1 = *this;
+    v9 = *a4;
+    if (CMTimeCompare(&time1, &v9) <= 0)
+    {
+      v5 = this;
+    }
+
+    else
+    {
+      v5 = a4;
+    }
+  }
+
+  result = *&v5->value;
+  *a1 = *&v5->value;
+  a1[2] = v5->epoch;
+  return result;
+}
+
 uint64_t TXSequenceBehavior::getNumObjects(TXSequenceBehavior *this)
 {
   if (*(this + 796) == 1)
@@ -72,29 +108,29 @@ uint64_t TXSequenceBehavior::shuffle(TXSequenceBehavior *this, unsigned int a2, 
   return result;
 }
 
-void TXSequenceBehavior::createInfluenceCache(TXSequenceBehavior *this, const CMTime *a2)
+void TXSequenceBehavior::createInfluenceCache(TXSequenceBehavior *this, const CMTime *a2, int a3)
 {
-  v4 = Li3DEngineScene::sceneManager((this + 544));
-  OZLockingGroup::WriteSentry::WriteSentry(v9, v4);
-  TXSequenceBehavior::getAnimationDuration(this, &time1);
+  v5 = Li3DEngineScene::sceneManager((this + 544));
+  OZLockingGroup::WriteSentry::WriteSentry(&v10, v5);
+  TXSequenceBehavior::getAnimationDuration(&time1.value, this);
   *(this + 772) = time1;
   *(this + 768) = 1;
-  v5 = *(this + 93);
-  v6 = *(this + 94);
-  while (v5 != v6)
+  v6 = *(this + 93);
+  v7 = *(this + 94);
+  while (v6 != v7)
   {
-    v7 = *v5;
-    v8 = *(*v5 + 2);
-    *&time1.value = **v5;
-    time1.epoch = v8;
+    v8 = *v6;
+    v9 = *(*v6 + 2);
+    *&time1.value = **v6;
+    time1.epoch = v9;
     time2 = *a2;
     if (!CMTimeCompare(&time1, &time2))
     {
-      ++*(v7 + 24);
+      ++*(v8 + 24);
       goto LABEL_8;
     }
 
-    ++v5;
+    ++v6;
   }
 
   if (OZChannel::getValueAsInt((this + 29056), MEMORY[0x277CC08F0], 0.0) != 1)
@@ -103,12 +139,12 @@ void TXSequenceBehavior::createInfluenceCache(TXSequenceBehavior *this, const CM
   }
 
 LABEL_8:
-  OZLockingGroup::WriteSentry::~WriteSentry(v9);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v10);
 }
 
-void sub_25FB5F8B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FB5F8B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
@@ -163,9 +199,9 @@ LABEL_10:
   OZLockingGroup::WriteSentry::~WriteSentry(v12);
 }
 
-void sub_25FB5F9FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FB5F9FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
@@ -186,7 +222,7 @@ double TXSequenceBehavior::getInfluence(TXSequenceBehavior *this, CMTime *a2, do
       {
         LODWORD(time2.value) = a3;
         v35[0].value = &time2;
-        v11 = std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v19[1].timescale, &time2)[5];
+        v11 = std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v19[1].timescale, &time2, &std::piecewise_construct, v35)[5];
         return *&v11;
       }
 
@@ -200,8 +236,8 @@ double TXSequenceBehavior::getInfluence(TXSequenceBehavior *this, CMTime *a2, do
   OZChannel::getValueAsDouble((this + 33056), MEMORY[0x277CC08F0], 0.0);
   v13 = v12;
   v14 = (*(*this + 336))(this);
-  OZSceneSettings::getFrameDuration((v14 + 336), &v36);
-  operator*(&v36, &v37, v13);
+  OZSceneSettings::getFrameDuration(v36, (v14 + 336));
+  operator*(v36, &v37, v13);
   v35[0] = *a2;
   time2 = v37;
   v15.n128_f64[0] = PC_CMTimeSaferSubtract(v35, &time2, &v38);
@@ -226,9 +262,9 @@ double TXSequenceBehavior::getInfluence(TXSequenceBehavior *this, CMTime *a2, do
     }
 
     v23 = (*(*this + 712))(this, v21);
-    LOBYTE(v36.value) = 0;
+    LOBYTE(v36[0]) = 0;
     memset(&time2, 0, sizeof(time2));
-    TXSequenceBehavior::getSelection(this, &v38, &time2, &v36);
+    TXSequenceBehavior::getSelection(this, &v38, &time2, v36);
     if (OZChannel::getValueAsInt((this + 32800), MEMORY[0x277CC08F0], 0.0) == 2)
     {
       if (OZChannel::getValueAsInt((this + 35880), MEMORY[0x277CC08F0], 0.0))
@@ -254,10 +290,10 @@ double TXSequenceBehavior::getInfluence(TXSequenceBehavior *this, CMTime *a2, do
     InfluenceForTranscription = 0.0;
     if (time2.value != *&time2.timescale)
     {
-      value_low = LOBYTE(v36.value);
+      v28 = LOBYTE(v36[0]);
       do
       {
-        v29 = TXSequenceBehavior::trapezoid(this, v23, *value, *value + value[1], value[4], value[4], value_low, value[6], value[7], v25);
+        v29 = TXSequenceBehavior::trapezoid(this, v23, *value, *value + value[1], value[4], value[4], v28, value[6], value[7], v25);
         InfluenceForTranscription = v29 * TXSequenceBehavior::trapezoid(this, v23, value[2], value[2] + value[3], 0.0, 0.0, 0, value[6], 1.0, 0) + InfluenceForTranscription;
         value += 8;
       }
@@ -350,7 +386,7 @@ double TXSequenceBehavior::getInfluenceForTranscription(TXSequenceBehavior *this
   {
     ActiveTranscriptionByUnit = TXTranscriptionGenerator::getActiveTranscriptionByUnit(v9, &ValueAsInt, a2);
     memset(&time, 0, sizeof(time));
-    std::vector<TXTranscriptionSegment>::__init_with_size[abi:ne200100]<TXTranscriptionSegment*,TXTranscriptionSegment*>(&time, *ActiveTranscriptionByUnit, ActiveTranscriptionByUnit[1], 0xAAAAAAAAAAAAAAABLL * ((ActiveTranscriptionByUnit[1] - *ActiveTranscriptionByUnit) >> 4));
+    std::vector<TXTranscriptionSegment>::__init_with_size[abi:ne200100]<TXTranscriptionSegment*,TXTranscriptionSegment*>(&time.value, *ActiveTranscriptionByUnit, *(ActiveTranscriptionByUnit + 8), 0xAAAAAAAAAAAAAAABLL * ((*(ActiveTranscriptionByUnit + 8) - *ActiveTranscriptionByUnit) >> 4));
     if (0xAAAAAAAAAAAAAAABLL * ((*&time.timescale - time.value) >> 4) <= v12)
     {
       v13 = 0.0;
@@ -368,7 +404,7 @@ double TXSequenceBehavior::getInfluenceForTranscription(TXSequenceBehavior *this
     v17 = v16;
     memset(&time2, 0, sizeof(time2));
     v18 = (*(*this + 336))(this);
-    OZSceneSettings::getFrameDuration((v18 + 336), &v34);
+    OZSceneSettings::getFrameDuration(&v34, (v18 + 336));
     v19 = OZChannel::getValueAsInt((this + 29208), MEMORY[0x277CC08F0], 0.0);
     operator*(&v34, v19, &time2);
     v34 = time2;
@@ -470,11 +506,11 @@ void sub_25FB60330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t TXSequenceBehavior::getSelection(uint64_t a1, const CMTime *a2, void *a3, BOOL *a4)
+uint64_t TXSequenceBehavior::getSelection(uint64_t a1, CMTime *a2, void *a3, BOOL *a4)
 {
   (*(*a1 + 608))(&v37);
   memset(&v36, 0, sizeof(v36));
-  TXSequenceBehavior::getAnimationDuration(a1, &v36);
+  TXSequenceBehavior::getAnimationDuration(&v36.value, a1);
   v30[0] = v36;
   v8 = MEMORY[0x277CC08F0];
   time2 = **&MEMORY[0x277CC08F0];
@@ -483,7 +519,7 @@ uint64_t TXSequenceBehavior::getSelection(uint64_t a1, const CMTime *a2, void *a
   {
     memset(&v35, 0, sizeof(v35));
     v10 = (*(*a1 + 336))(a1);
-    OZSceneSettings::getFrameDuration((v10 + 336), &v38);
+    OZSceneSettings::getFrameDuration(&v38, (v10 + 336));
     v30[0] = v36;
     time2 = v38;
     PC_CMTimeSaferSubtract(v30, &time2, &v35);
@@ -590,7 +626,7 @@ uint64_t TXSequenceBehavior::getSelection(uint64_t a1, const CMTime *a2, void *a
       if (v17 == 6)
       {
         memset(&v33, 0, sizeof(v33));
-        TXSequenceBehavior::getAnimationDuration(a1, &v33);
+        TXSequenceBehavior::getAnimationDuration(&v33.value, a1);
         memset(&v32, 0, sizeof(v32));
         operator*(&v33, &v32, v26);
         memset(&v31, 0, sizeof(v31));
@@ -732,7 +768,7 @@ void TXSequenceBehavior::computeStartTimeForWord(uint64_t a1, uint64_t a2, uint6
         v17 = MEMORY[0x277CC08F0];
         v18 = OZChannel::getValueAsInt((a1 + 30280), MEMORY[0x277CC08F0], 0.0);
         v19 = (*(*a1 + 336))(a1);
-        OZSceneSettings::getFrameDuration((v19 + 336), &v25);
+        OZSceneSettings::getFrameDuration(&v25, (v19 + 336));
         operator*(&v25, &time, v18);
         CMTimeGetSeconds(&time);
         LineIndex = TXTextLayout::getLineIndex(*(a1 + 808), a3);
@@ -743,7 +779,7 @@ void TXSequenceBehavior::computeStartTimeForWord(uint64_t a1, uint64_t a2, uint6
         (*(**(a1 + 808) + 720))();
         memset(&time, 0, sizeof(time));
         v21 = (*(*a1 + 336))(a1);
-        OZSceneSettings::getFrameDuration((v21 + 336), &v25);
+        OZSceneSettings::getFrameDuration(&v25, (v21 + 336));
         v22 = OZChannel::getValueAsInt((a1 + 29208), v17, 0.0);
         operator*(&v25, v22, &time);
         v25 = time;
@@ -982,7 +1018,7 @@ double TXSequenceBehavior::computeEndTime(TXSequenceBehavior *this, double a2, C
     v15 = v14;
     memset(&v21, 0, sizeof(v21));
     v16 = (*(*this + 336))(this);
-    OZSceneSettings::getFrameDuration((v16 + 336), &v20);
+    OZSceneSettings::getFrameDuration(&v20, (v16 + 336));
     v17 = OZChannel::getValueAsInt((this + 29208), MEMORY[0x277CC08F0], 0.0);
     operator*(&v20, v17, &v21);
     v20 = v21;
@@ -1018,7 +1054,7 @@ double TXSequenceBehavior::getLifespan(void *a1, void *a2, int a3)
   if (ValueAsInt == 1)
   {
     v10 = (*(*a1 + 336))(a1);
-    OZSceneSettings::getFrameDuration((v10 + 336), &v13);
+    OZSceneSettings::getFrameDuration(&v13, (v10 + 336));
     v11 = OZChannel::getValueAsInt((v7 + 64856), MEMORY[0x277CC08F0], 0.0);
     operator*(&v13, v11, &time);
     return CMTimeGetSeconds(&time);
@@ -1062,7 +1098,7 @@ uint64_t TXSequenceBehavior::computeStartTime(uint64_t a1, uint64_t a2, CMTime *
 
   memset(&time, 0, sizeof(time));
   v17 = (*(*a1 + 336))(a1);
-  OZSceneSettings::getFrameDuration((v17 + 336), &v21);
+  OZSceneSettings::getFrameDuration(&v21, (v17 + 336));
   v18 = MEMORY[0x277CC08F0];
   v19 = OZChannel::getValueAsInt((a1 + 29208), MEMORY[0x277CC08F0], 0.0);
   operator*(&v21, v19, &time);
@@ -1234,8 +1270,8 @@ void TXSequenceBehavior::getCustomSpeed(TXSequenceBehavior *this, double a2)
   v11 = CustomSpeedDuration * a2;
   memset(&v15, 0, sizeof(v15));
   v12 = (*(*this + 336))(this);
-  OZSceneSettings::getFrameDuration((v12 + 336), &v13);
-  operator*(&v13, &v14, v11);
+  OZSceneSettings::getFrameDuration(v13, (v12 + 336));
+  operator*(v13, &v14, v11);
   (*(*this + 608))(v16, this);
   v17 = v16[0];
   time = v14;
@@ -1243,7 +1279,7 @@ void TXSequenceBehavior::getCustomSpeed(TXSequenceBehavior *this, double a2)
   OZChannel::getValueAsDouble((this + 32496), &v15, 0.0);
 }
 
-uint64_t TXSequenceBehavior::getSequenceToSelection(uint64_t a1, const CMTime *a2, int a3, void *a4, double a5)
+_OWORD *TXSequenceBehavior::getSequenceToSelection(uint64_t a1, const CMTime *a2, int a3, void *a4, double a5)
 {
   SpreadInPercent = TXSequenceBehavior::getSpreadInPercent(a1);
   v11 = 1.0;
@@ -1275,11 +1311,11 @@ uint64_t TXSequenceBehavior::getSequenceToSelection(uint64_t a1, const CMTime *a
     v15 = -v13;
   }
 
-  TXSequenceBehavior::makeSelection(a1, a2, a5, v14, v15, v11, SpreadInPercent, a3, v17);
+  TXSequenceBehavior::makeSelection(v17, a1, a2, a5, v14, v15, v11, SpreadInPercent, a3);
   return std::vector<OZSequenceSelection>::push_back[abi:ne200100](a4, v17);
 }
 
-uint64_t TXSequenceBehavior::getSequenceFromSelection(uint64_t a1, const CMTime *a2, int a3, void *a4, double a5)
+_OWORD *TXSequenceBehavior::getSequenceFromSelection(uint64_t a1, const CMTime *a2, int a3, void *a4, double a5)
 {
   SpreadInPercent = TXSequenceBehavior::getSpreadInPercent(a1);
   v11 = 1.0;
@@ -1305,11 +1341,11 @@ uint64_t TXSequenceBehavior::getSequenceFromSelection(uint64_t a1, const CMTime 
     v14 = 0.0;
   }
 
-  TXSequenceBehavior::makeSelection(a1, a2, a5, v14, SpreadInPercent + 1.0 - v13 + 0.0001, v11, SpreadInPercent, a3, v16);
+  TXSequenceBehavior::makeSelection(v16, a1, a2, a5, v14, SpreadInPercent + 1.0 - v13 + 0.0001, v11, SpreadInPercent, a3);
   return std::vector<OZSequenceSelection>::push_back[abi:ne200100](a4, v16);
 }
 
-uint64_t TXSequenceBehavior::getSequenceThroughSelection(uint64_t a1, const CMTime *a2, int a3, void *a4, double a5)
+_OWORD *TXSequenceBehavior::getSequenceThroughSelection(uint64_t a1, const CMTime *a2, int a3, void *a4, double a5)
 {
   v10 = MEMORY[0x277CC08F0];
   ValueAsInt = OZChannel::getValueAsInt((a1 + 33208), MEMORY[0x277CC08F0], 0.0);
@@ -1343,7 +1379,7 @@ uint64_t TXSequenceBehavior::getSequenceThroughSelection(uint64_t a1, const CMTi
     v17 = v15 - v13;
   }
 
-  TXSequenceBehavior::makeSelection(a1, a2, a5, v16, SpreadInPercent + v17, v13, SpreadInPercent, a3, v20);
+  TXSequenceBehavior::makeSelection(v20, a1, a2, a5, v16, SpreadInPercent + v17, v13, SpreadInPercent, a3);
   v21[1] = v20[1];
   v21[2] = v20[2];
   v22 = v20[3];
@@ -1351,48 +1387,48 @@ uint64_t TXSequenceBehavior::getSequenceThroughSelection(uint64_t a1, const CMTi
   if (ValueAsInt == 1)
   {
     OZChannel::getValueAsDouble((a1 + 32648), MEMORY[0x277CC08F0], 0.0);
-    *&v22 = v18;
+    v22.n128_u64[0] = v18;
   }
 
   return std::vector<OZSequenceSelection>::push_back[abi:ne200100](a4, v21);
 }
 
-__n128 TXSequenceBehavior::makeSelection@<Q0>(TXSequenceBehavior *this@<X0>, const CMTime *a2@<X1>, double a3@<D0>, double a4@<D1>, double a5@<D2>, double a6@<D3>, double a7@<D4>, int a8@<W2>, uint64_t a9@<X8>)
+__n128 TXSequenceBehavior::makeSelection@<Q0>(__n128 *__return_ptr a1@<X8>, TXSequenceBehavior *this@<X0>, const CMTime *a3@<X1>, double a4@<D0>, double a5@<D1>, double a6@<D2>, double a7@<D3>, double a8@<D4>, int a9@<W2>)
 {
-  if (a8)
+  if (a9)
   {
-    v14 = a5;
+    v14 = a6;
   }
 
   else
   {
-    v14 = a4;
+    v14 = a5;
   }
 
-  if (!a8)
+  if (!a9)
   {
-    a4 = a5;
+    a5 = a6;
   }
 
-  v15 = v14 + (a4 - v14) * a3;
+  v15 = v14 + (a5 - v14) * a4;
   if (OZChannel::getValueAsInt((this + 28368), MEMORY[0x277CC08F0], 0.0) == 5)
   {
-    OZChannel::getValueAsDouble((this + 28624), a2, 0.0);
+    OZChannel::getValueAsDouble((this + 28624), a3, 0.0);
     v15 = v15 + v16;
   }
 
-  *a9 = v15;
-  *(a9 + 8) = a6;
-  *(a9 + 16) = xmmword_260342700;
-  *(a9 + 32) = a7;
-  *(a9 + 40) = 0;
+  a1->n128_f64[0] = v15;
+  a1->n128_f64[1] = a7;
+  a1[1] = xmmword_260342700;
+  a1[2].n128_f64[0] = a8;
+  a1[2].n128_u8[8] = 0;
   __asm { FMOV            V0.2D, #1.0 }
 
-  *(a9 + 48) = result;
+  a1[3] = result;
   return result;
 }
 
-uint64_t std::vector<OZSequenceSelection>::push_back[abi:ne200100](void *a1, _OWORD *a2)
+_OWORD *std::vector<OZSequenceSelection>::push_back[abi:ne200100](void *a1, _OWORD *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -1408,7 +1444,7 @@ uint64_t std::vector<OZSequenceSelection>::push_back[abi:ne200100](void *a1, _OW
     v3[2] = a2[2];
     v3[3] = v5;
     v3[1] = v4;
-    result = (v3 + 4);
+    result = v3 + 4;
   }
 
   a1[1] = result;
@@ -1450,7 +1486,7 @@ LABEL_7:
           TXTextLayout::getTextObject(v3, *(v3 + 19264), &v30);
           v28 = 0uLL;
           v29 = 0;
-          OZScene::getCurrentTime(v4, &v28);
+          OZScene::getCurrentTime(&v28, v4);
           v9 = *(v30 + 264);
           if (v9)
           {
@@ -1528,7 +1564,7 @@ void sub_25FB62B74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *TXSequenceBehavior::finishInitializing(TXSequenceBehavior *this)
+void **TXSequenceBehavior::finishInitializing(TXSequenceBehavior *this)
 {
   OZChannelFolder::finishInitializing((this + 56));
 
@@ -1617,7 +1653,7 @@ uint64_t non-virtual thunk toTXSequenceBehavior::arGetObjectManipulator(TXSequen
   return OZChannelBase::getObjectManipulator(v1);
 }
 
-BOOL TXSequenceBehavior::arHideChannel(TXSequenceBehavior *this, OZChannelBase *a2)
+uint64_t TXSequenceBehavior::arHideChannel(TXSequenceBehavior *this, OZChannelBase *a2)
 {
   if (a2->var3 == 1032)
   {
@@ -1642,10 +1678,10 @@ BOOL TXSequenceBehavior::arHideChannel(TXSequenceBehavior *this, OZChannelBase *
   return (OZFactory::isKindOfClass(var1, &v8) & 1) != 0;
 }
 
-uint64_t TXSequenceBehavior::getLockDependencies(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t TXSequenceBehavior::getLockDependencies(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = result;
-  v8 = result + 544;
+  v8 = (result + 544);
   for (i = *(a4 + 8); i; i = *i)
   {
     v10 = i[4];
@@ -1661,7 +1697,7 @@ uint64_t TXSequenceBehavior::getLockDependencies(uint64_t result, unint64_t a2, 
   }
 
   v13 = (result + 544);
-  std::__tree<OZLocking *>::__emplace_unique_key_args<OZLocking *,OZLocking *>(a4, &v13);
+  std::__tree<OZLocking *>::__emplace_unique_key_args<OZLocking *,OZLocking *>(a4, &v13, &v13);
   if (a2)
   {
     PCDirectedGraph<OZLocking *>::addEdge(a3, a2, v8);
@@ -1671,7 +1707,7 @@ uint64_t TXSequenceBehavior::getLockDependencies(uint64_t result, unint64_t a2, 
   {
     v12 = v8;
     v13 = &v12;
-    std::__tree<std::__value_type<OZLocking *,std::set<OZLocking *>>,std::__map_value_compare<OZLocking *,std::__value_type<OZLocking *,std::set<OZLocking *>>,std::less<OZLocking *>,true>,std::allocator<std::__value_type<OZLocking *,std::set<OZLocking *>>>>::__emplace_unique_key_args<OZLocking *,std::piecewise_construct_t const&,std::tuple<OZLocking * const&>,std::tuple<>>(a3, &v12);
+    std::__tree<std::__value_type<OZLocking *,std::set<OZLocking *>>,std::__map_value_compare<OZLocking *,std::__value_type<OZLocking *,std::set<OZLocking *>>,std::less<OZLocking *>,true>,std::allocator<std::__value_type<OZLocking *,std::set<OZLocking *>>>>::__emplace_unique_key_args<OZLocking *,std::piecewise_construct_t const&,std::tuple<OZLocking * const&>,std::tuple<>>(a3, &v12, &std::piecewise_construct, &v13);
   }
 
   v11 = *(v7 + 808);
@@ -1684,13 +1720,13 @@ uint64_t TXSequenceBehavior::getLockDependencies(uint64_t result, unint64_t a2, 
   return std::__tree<OZLocking *>::__erase_unique<OZLocking *>(a4, &v13);
 }
 
-void *PCDirectedGraph<OZLocking *>::addEdge(uint64_t a1, unint64_t a2, unint64_t a3)
+void *PCDirectedGraph<OZLocking *>::addEdge(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   v5 = a3;
-  v6[0] = a2;
-  v6[2] = v6;
-  v3 = std::__tree<std::__value_type<OZLocking *,std::set<OZLocking *>>,std::__map_value_compare<OZLocking *,std::__value_type<OZLocking *,std::set<OZLocking *>>,std::less<OZLocking *>,true>,std::allocator<std::__value_type<OZLocking *,std::set<OZLocking *>>>>::__emplace_unique_key_args<OZLocking *,std::piecewise_construct_t const&,std::tuple<OZLocking * const&>,std::tuple<>>(a1, v6);
-  return std::__tree<OZLocking *>::__emplace_unique_key_args<OZLocking *,OZLocking *>((v3 + 5), &v5);
+  v6 = a2;
+  v7 = &v6;
+  v3 = std::__tree<std::__value_type<OZLocking *,std::set<OZLocking *>>,std::__map_value_compare<OZLocking *,std::__value_type<OZLocking *,std::set<OZLocking *>>,std::less<OZLocking *>,true>,std::allocator<std::__value_type<OZLocking *,std::set<OZLocking *>>>>::__emplace_unique_key_args<OZLocking *,std::piecewise_construct_t const&,std::tuple<OZLocking * const&>,std::tuple<>>(a1, &v6, &std::piecewise_construct, &v7);
+  return std::__tree<OZLocking *>::__emplace_unique_key_args<OZLocking *,OZLocking *>((v3 + 5), &v5, &v5);
 }
 
 uint64_t TXSequenceBehavior::getLockingGroups(TXSequenceBehavior *this)
@@ -1716,9 +1752,9 @@ uint64_t non-virtual thunk toTXSequenceBehavior::getLockingGroups(TXSequenceBeha
   return result;
 }
 
-void TXSequenceCurveNode::~TXSequenceCurveNode(TXSequenceCurveNode *this)
+void TXSequenceCurveNode::~TXSequenceCurveNode(OZChannelBase *this, const PCString *a2)
 {
-  OZEaseInInterpolator::~OZEaseInInterpolator(this);
+  OZEaseInInterpolator::~OZEaseInInterpolator(this, a2);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -1732,7 +1768,7 @@ void TXSequenceCurveNode::solveNode(TXSequenceCurveNode *this, const CMTime *a2,
 
 void OZChannelUint32::OZChannelUint32(OZChannelUint32 *this, double a2, const PCString *a3, OZChannelFolder *a4, unsigned int a5, int a6, OZChannelImpl *a7, OZChannelInfo *a8)
 {
-  OZChannelUint32_FactoryBase = getOZChannelUint32_FactoryBase();
+  OZChannelUint32_FactoryBase = getOZChannelUint32_FactoryBase(this);
   OZChannel::OZChannel(this, OZChannelUint32_FactoryBase, a3, a4, a5, a6, a7, a8);
   this->var0 = &unk_287246400;
   this->var2 = &unk_287246760;
@@ -1766,7 +1802,7 @@ void OZChannelUint32::OZChannelUint32(OZChannelUint32 *this, double a2, const PC
   OZChannel::setInitialValue(this, a2, 0);
 }
 
-long double PCRandom::noise(PCRandom *this, double a2, double a3, unsigned int a4, int a5, double a6, double a7)
+double PCRandom::noise(PCRandom *this, double a2, double a3, unsigned int a4, int a5, double a6, double a7)
 {
   v7 = a6;
   v8 = -1640531527;
@@ -1818,41 +1854,41 @@ long double PCRandom::noise(PCRandom *this, double a2, double a3, unsigned int a
   return v7 * ((1.0 - v22) * 0.5) + v13 * (1.0 - (1.0 - v22) * 0.5);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -1974,82 +2010,82 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<OZSequenceSelection>>
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__tree<OZLocking *>::__emplace_unique_key_args<OZLocking *,OZLocking *>(uint64_t a1, unint64_t *a2)
+void *std::__tree<OZLocking *>::__emplace_unique_key_args<OZLocking *,OZLocking *>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-void *std::__tree<std::__value_type<OZLocking *,std::set<OZLocking *>>,std::__map_value_compare<OZLocking *,std::__value_type<OZLocking *,std::set<OZLocking *>>,std::less<OZLocking *>,true>,std::allocator<std::__value_type<OZLocking *,std::set<OZLocking *>>>>::__emplace_unique_key_args<OZLocking *,std::piecewise_construct_t const&,std::tuple<OZLocking * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<OZLocking *,std::set<OZLocking *>>,std::__map_value_compare<OZLocking *,std::__value_type<OZLocking *,std::set<OZLocking *>>,std::less<OZLocking *>,true>,std::allocator<std::__value_type<OZLocking *,std::set<OZLocking *>>>>::__emplace_unique_key_args<OZLocking *,std::piecewise_construct_t const&,std::tuple<OZLocking * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -2090,118 +2126,118 @@ uint64_t std::__tree<OZLocking *>::__erase_unique<OZLocking *>(uint64_t **a1, un
   return 1;
 }
 
-void TXHelperFunctions::GetTextObjectContainingCharIndex(TXHelperFunctions *this@<X0>, TXTextLayout *a2@<X1>, int a3@<W2>, unint64_t *a4@<X3>, void *a5@<X8>)
+void TXHelperFunctions::GetTextObjectContainingCharIndex(uint64_t *__return_ptr a1@<X8>, uint64_t **this@<X0>, TXTextLayout *a3@<X1>, int a4@<W2>, unint64_t *a5@<X3>)
 {
-  if (a3 && Li3DEngineScene::sceneManager(this))
+  if (a4 && Li3DEngineScene::sceneManager(this))
   {
-    v11 = Li3DEngineScene::sceneManager(this);
-    OZLockingGroup::acquireReadLocks(v11);
+    v10 = Li3DEngineScene::sceneManager(this);
+    OZLockingGroup::acquireReadLocks(v10);
   }
 
-  *a5 = 0;
-  a5[1] = 0;
-  if (a4)
+  *a1 = 0;
+  a1[1] = 0;
+  if (a5)
   {
-    v12 = *(this + 7353);
-    v13 = *(this + 7354) - v12;
-    if (v13)
+    v11 = this[7353];
+    v12 = this[7354] - v11;
+    if (v12)
     {
-      v14 = v13 >> 4;
-      v15 = *a4;
-      if ((v13 >> 4) <= 1)
+      v13 = v12 >> 4;
+      v14 = *a5;
+      if ((v12 >> 4) <= 1)
       {
-        v16 = 1;
+        v15 = 1;
       }
 
       else
       {
-        v16 = v13 >> 4;
+        v15 = v12 >> 4;
       }
 
-      v17 = v15 + v14;
+      v16 = v14 + v13;
       while (1)
       {
-        v18 = v15 % v14;
-        v19 = *(v12 + 16 * (v15 % v14));
-        v20 = *(v19 + 736);
-        if (v20 <= a2 && (*(v19 + 740) + v20) > a2)
+        v17 = v14 % v13;
+        v18 = v11[2 * (v14 % v13)];
+        v19 = *(v18 + 736);
+        if (v19 <= a3 && (*(v18 + 740) + v19) > a3)
         {
           break;
         }
 
-        v18 = v17 % v14;
-        v19 = *(v12 + 16 * (v17 % v14));
-        v22 = *(v19 + 736);
-        if (v22 <= a2 && (*(v19 + 740) + v22) > a2)
+        v17 = v16 % v13;
+        v18 = v11[2 * (v16 % v13)];
+        v21 = *(v18 + 736);
+        if (v21 <= a3 && (*(v18 + 740) + v21) > a3)
         {
           break;
         }
 
-        ++v15;
-        --v17;
-        if (!--v16)
+        ++v14;
+        --v16;
+        if (!--v15)
         {
           goto LABEL_19;
         }
       }
 
-      v29 = *(v12 + 16 * v18 + 8);
-      if (v29)
+      v28 = v11[2 * v17 + 1];
+      if (v28)
       {
-        atomic_fetch_add_explicit((v29 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v28 + 8), 1uLL, memory_order_relaxed);
       }
 
-      *a5 = v19;
-      a5[1] = v29;
+      *a1 = v18;
+      a1[1] = v28;
       goto LABEL_33;
     }
   }
 
 LABEL_19:
-  v24 = *(this + 7353);
-  v25 = *(this + 7354);
-  if (v24 != v25)
+  v23 = this[7353];
+  v24 = this[7354];
+  if (v23 != v24)
   {
-    v18 = 0;
+    v17 = 0;
     while (1)
     {
-      v26 = *v24;
-      v27 = *(*v24 + 736);
-      if (v27 <= a2 && (*(*v24 + 740) + v27) > a2)
+      v25 = *v23;
+      v26 = *(*v23 + 736);
+      if (v26 <= a3 && (*(*v23 + 740) + v26) > a3)
       {
         break;
       }
 
-      ++v18;
-      v24 += 2;
-      if (v24 == v25)
+      ++v17;
+      v23 += 2;
+      if (v23 == v24)
       {
         goto LABEL_34;
       }
     }
 
-    v30 = v24[1];
-    if (v30)
+    v29 = v23[1];
+    if (v29)
     {
-      atomic_fetch_add_explicit((v30 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v29 + 8), 1uLL, memory_order_relaxed);
     }
 
-    *a5 = v26;
-    a5[1] = v30;
-    if (a4)
+    *a1 = v25;
+    a1[1] = v29;
+    if (a5)
     {
 LABEL_33:
-      *a4 = v18;
+      *a5 = v17;
     }
   }
 
 LABEL_34:
-  if (a3)
+  if (a4)
   {
     if (Li3DEngineScene::sceneManager(this))
     {
-      v31 = Li3DEngineScene::sceneManager(this);
-      OZLockingGroup::releaseReadLocks(v31);
+      v30 = Li3DEngineScene::sceneManager(this);
+      OZLockingGroup::releaseReadLocks(v30);
     }
   }
 }
@@ -2284,11 +2320,11 @@ LABEL_27:
           goto LABEL_14;
         }
 
-        v15 = (*a2 + 24 * v11);
+        v15 = *a2 + 24 * v11;
         __p = 0;
         v24 = 0;
         v25 = 0;
-        std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, *v15, v15[1], (v15[1] - *v15) >> 3);
+        std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, *v15, *(v15 + 8), (*(v15 + 8) - *v15) >> 3);
       }
 
       else
@@ -2300,11 +2336,11 @@ LABEL_14:
           goto LABEL_15;
         }
 
-        v17 = (*a2 + 24 * v12);
+        v17 = *a2 + 24 * v12;
         v24 = 0;
         v25 = 0;
         __p = 0;
-        std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, *v17, v17[1], (v17[1] - *v17) >> 3);
+        std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, *v17, *(v17 + 8), (*(v17 + 8) - *v17) >> 3);
       }
 
       v16 = *(v24 - 1);
@@ -2324,11 +2360,11 @@ LABEL_15:
             goto LABEL_23;
           }
 
-          v18 = (*a2 + 24 * v12);
+          v18 = *a2 + 24 * v12;
           v24 = 0;
           v25 = 0;
           __p = 0;
-          std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, *v18, v18[1], (v18[1] - *v18) >> 3);
+          std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, *v18, *(v18 + 8), (*(v18 + 8) - *v18) >> 3);
         }
 
         else
@@ -2386,9 +2422,9 @@ void sub_25FB64088(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TXTextLayoutBehaviorNode::~TXTextLayoutBehaviorNode(TXTextLayoutBehaviorNode *this)
+void TXTextLayoutBehaviorNode::~TXTextLayoutBehaviorNode(OZChannelBase *this, const PCString *a2)
 {
-  OZEaseInInterpolator::~OZEaseInInterpolator(this);
+  OZEaseInInterpolator::~OZEaseInInterpolator(this, a2);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -2470,13 +2506,13 @@ void TXTextScrollCurveNode::~TXTextScrollCurveNode(TXTextScrollCurveNode *this)
   *this = &unk_2872019D8;
   PCMutex::~PCMutex((this + 48));
 
-  OZEaseInInterpolator::~OZEaseInInterpolator(this);
+  OZEaseInInterpolator::~OZEaseInInterpolator(this, v2);
 }
 
 {
   *this = &unk_2872019D8;
   PCMutex::~PCMutex((this + 48));
-  OZEaseInInterpolator::~OZEaseInInterpolator(this);
+  OZEaseInInterpolator::~OZEaseInInterpolator(this, v2);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -2496,7 +2532,7 @@ double TXTextScrollCurveNode::solveNode(TXTextScrollCurveNode *this, const CMTim
 double TXTextScrollCurveNode::getOffset(TXTextScrollBehavior **this, CMTime *a2)
 {
   v4 = (this + 6);
-  v147 = (this + 6);
+  v147 = this + 6;
   PCMutex::lock((this + 6));
   v148 = 1;
   if (TXTextScrollBehavior::getComputeOffsetForPreInceptionProjects(this[4]))
@@ -2531,7 +2567,7 @@ double TXTextScrollCurveNode::getOffset(TXTextScrollBehavior **this, CMTime *a2)
     v144 = 0uLL;
     v145 = 0;
     v11 = (*(*v8 + 272))(v8);
-    FrameDuration = OZSceneSettings::getFrameDuration((v11 + 336), &v144);
+    FrameDuration = OZSceneSettings::getFrameDuration(&v144, (v11 + 336));
     if (CurrentConversion)
     {
       *&time1.var0.var0 = *(CurrentConversion + 76);
@@ -2639,7 +2675,7 @@ LABEL_77:
 
       OZRenderState::OZRenderState(&time1);
       time1.var0 = v146;
-      TXTextScrollBehavior::getContentBounds(this[4], &time1, &time2);
+      TXTextScrollBehavior::getContentBounds(&time2.value, this[4], &time1);
       v107 = *&time2.timescale;
       v108 = *&time2.value;
       v27 = *&time2.epoch;
@@ -2773,7 +2809,7 @@ LABEL_77:
         OZTransformNode::getShear(v8, &v120, &v120 + 1, &time1);
         v121 = vmulq_n_f64(v121, v111);
         v122 = v111 * v122;
-        v75 = OZRenderState::OZRenderState(&v119, &time1);
+        OZRenderState::OZRenderState(&v119, &time1);
         v118[0] = v111 * v49;
         v118[1] = v111 * InitialValue;
         v118[2] = v111 * v74;
@@ -3050,7 +3086,7 @@ void TXTextScrollCurveNode::solveNode(TXTextScrollBehavior **this, OZCurveNodePa
   }
 }
 
-void TXTextScrollCurveNode::getTransformMatrixForElement(uint64_t a1, __int128 *a2, void *a3, uint64_t a4, double *a5, double *a6, double *a7, uint64_t a8, double *a9, char a10)
+void TXTextScrollCurveNode::getTransformMatrixForElement(uint64_t a1, __int128 *a2, void *a3, uint64_t a4, double *a5, double *a6, double *a7, double *a8, double *a9, char a10)
 {
   v17 = a3[120];
   {
@@ -3078,7 +3114,7 @@ void TXTextScrollCurveNode::getTransformMatrixForElement(uint64_t a1, __int128 *
 
   v23 = *a6;
   v24 = (*(*a3 + 1328))(a3);
-  PCMatrix44Tmpl<double>::setTransformation(a2, 0, 4, *a5, a5[1], a5[2], *a7, a7[1], a7[2], v23 * v24 / v22, a6[1], v25, v26, v27, v28, v29, a6[2], *a8, *(a8 + 8), *a9, a9[1], a9[2], *&v22);
+  PCMatrix44Tmpl<double>::setTransformation(a2, 0, 4, *a5, a5[1], a5[2], *a7, a7[1], a7[2], v23 * v24 / v22, a6[1], v25, v26, v27, v28, v29, a6[2], *a8, a8[1], *a9, a9[1], a9[2], *&v22);
   if (v21)
   {
     if (a10 && *(a4 + 64) == 1)
@@ -3115,7 +3151,7 @@ void TXTextScrollCurveNode::getTransformMatrixForElement(uint64_t a1, __int128 *
   }
 }
 
-double PCMatrix44Tmpl<double>::setTransformation(uint64_t a1, int a2, int a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, double a17, double a18, long double a19, double a20, double a21, double a22, uint64_t a23)
+double PCMatrix44Tmpl<double>::setTransformation(uint64_t a1, int a2, uint64_t a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, double a17, float64_t a18, double a19, double a20, double a21, double a22, uint64_t a23)
 {
   *(a1 + 120) = 0x3FF0000000000000;
   if (a19 == 0.0 && a18 == 0.0 && a9 == 0.0 && a8 == 0.0 && a7 == 0.0 && !a2)
@@ -3149,6 +3185,7 @@ double PCMatrix44Tmpl<double>::setTransformation(uint64_t a1, int a2, int a3, do
   *(a1 + 80) = 0x3FF0000000000000;
   *(a1 + 40) = 0x3FF0000000000000;
   *a1 = 0x3FF0000000000000;
+  v33.n128_u64[1] = 0;
   *(a1 + 8) = 0u;
   *(a1 + 24) = 0u;
   *(a1 + 48) = 0u;
@@ -3160,15 +3197,17 @@ double PCMatrix44Tmpl<double>::setTransformation(uint64_t a1, int a2, int a3, do
     switch(a2)
     {
       case 3:
-        v42 = a9;
-        v43 = a6;
-        PCMatrix44Tmpl<double>::rightRotate(a1, a3, a7, a8, v42);
+        v33.n128_f64[0] = a7;
+        v46 = a9;
+        v47 = a6;
+        v49 = a4;
+        PCMatrix44Tmpl<double>::rightRotate(a1, a3, v33, a8, v46);
         PCMatrix44Tmpl<double>::rightShear(a1, a18, a19);
         PCMatrix44Tmpl<double>::rightScale(a1, a10, a11, a17);
-        v38 = a1;
-        v39 = a4;
-        v40 = a5;
-        v41 = v43;
+        v41 = a1;
+        v42 = v49;
+        v43 = a5;
+        v44 = v47;
         break;
       case 4:
         PCMatrix44Tmpl<double>::rightShear(a1, a18, a19);
@@ -3178,17 +3217,18 @@ double PCMatrix44Tmpl<double>::setTransformation(uint64_t a1, int a2, int a3, do
       case 5:
         PCMatrix44Tmpl<double>::rightShear(a1, a18, a19);
         PCMatrix44Tmpl<double>::rightScale(a1, a10, a11, a17);
-        PCMatrix44Tmpl<double>::rightRotate(a1, a3, a7, a8, a9);
-        v38 = a1;
-        v39 = a4;
-        v40 = a5;
-        v41 = a6;
+        v40.n128_f64[0] = a7;
+        PCMatrix44Tmpl<double>::rightRotate(a1, a3, v40, a8, a9);
+        v41 = a1;
+        v42 = a4;
+        v43 = a5;
+        v44 = a6;
         break;
       default:
         goto LABEL_26;
     }
 
-    PCMatrix44Tmpl<double>::rightTranslate(v38, v39, v40, v41);
+    PCMatrix44Tmpl<double>::rightTranslate(v41, v42, v43, v44);
     goto LABEL_26;
   }
 
@@ -3196,20 +3236,24 @@ double PCMatrix44Tmpl<double>::setTransformation(uint64_t a1, int a2, int a3, do
   {
     case 0:
       PCMatrix44Tmpl<double>::rightTranslate(a1, a4, a5, a6);
-      PCMatrix44Tmpl<double>::rightRotate(a1, a3, a7, a8, a9);
+      v45.n128_f64[0] = a7;
+      PCMatrix44Tmpl<double>::rightRotate(a1, a3, v45, a8, a9);
       goto LABEL_20;
     case 1:
       PCMatrix44Tmpl<double>::rightTranslate(a1, a4, a5, a6);
       PCMatrix44Tmpl<double>::rightShear(a1, a18, a19);
       PCMatrix44Tmpl<double>::rightScale(a1, a10, a11, a17);
 LABEL_25:
-      PCMatrix44Tmpl<double>::rightRotate(a1, a3, a7, a8, a9);
+      v50.n128_f64[0] = a7;
+      PCMatrix44Tmpl<double>::rightRotate(a1, a3, v50, a8, a9);
       break;
     case 2:
-      v32 = a9;
-      v33 = a6;
-      PCMatrix44Tmpl<double>::rightRotate(a1, a3, a7, a8, v32);
-      PCMatrix44Tmpl<double>::rightTranslate(a1, a4, a5, v33);
+      v33.n128_f64[0] = a7;
+      v34 = a9;
+      v35 = a6;
+      v37 = a4;
+      PCMatrix44Tmpl<double>::rightRotate(a1, a3, v33, a8, v34);
+      PCMatrix44Tmpl<double>::rightTranslate(a1, v37, a5, v35);
 LABEL_20:
       PCMatrix44Tmpl<double>::rightShear(a1, a18, a19);
       PCMatrix44Tmpl<double>::rightScale(a1, a10, a11, a17);
@@ -3252,8 +3296,8 @@ double TXTextScrollCurveNode::getOffsetPreInception(TXTextScrollCurveNode *this,
     v9 = (*(**(*(*(this + 4) + 376) + 32) + 336))(&v118);
     CurrentConversion = OZMEChannelTimeConverter::GetCurrentConversion(v9);
     memset(&v117, 0, sizeof(v117));
-    v11 = (*(*v8 + 272))(v8);
-    FrameDuration = OZSceneSettings::getFrameDuration((v11 + 336), &v117);
+    v11 = (*(v8->var0 + 34))(v8);
+    FrameDuration = OZSceneSettings::getFrameDuration(&v117, (v11 + 336));
     if (CurrentConversion)
     {
       *&time1.var0.var0 = *(CurrentConversion + 76);
@@ -3267,7 +3311,7 @@ double TXTextScrollCurveNode::getOffsetPreInception(TXTextScrollCurveNode *this,
       }
     }
 
-    v13 = *((*(*v8 + 272))(v8, FrameDuration) + 368);
+    v13 = *((*(v8->var0 + 34))(v8, FrameDuration) + 368);
     time1.var0 = v118;
     Seconds = CMTimeGetSeconds(&time1);
     time1.var0 = v118;
@@ -3310,14 +3354,14 @@ double TXTextScrollCurveNode::getOffsetPreInception(TXTextScrollCurveNode *this,
       v18 = vabdd_f64(v19, v13 * v15 + -0.5) < 0.1;
     }
 
-    v21 = *(v8 + 120);
+    var6 = v8[6].var6;
     {
       v23 = (*v22 + 1328);
     }
 
     else
     {
-      v23 = (*(*(*v8 + 272))(v8) + 96);
+      v23 = (*(*(v8->var0 + 34))(v8) + 96);
     }
 
     v24 = (*v23)();
@@ -3356,7 +3400,7 @@ double TXTextScrollCurveNode::getOffsetPreInception(TXTextScrollCurveNode *this,
           v90 = 1.0;
           if (*(theApp + 81) == 1)
           {
-            v30 = (*(*v8 + 272))(v8);
+            v30 = (*(v8->var0 + 34))(v8);
             if (v30)
             {
               v90 = OZSceneSettings::getHostAppProjectHeight((v30 + 336)) / *(v30 + 348);
@@ -3364,13 +3408,13 @@ double TXTextScrollCurveNode::getOffsetPreInception(TXTextScrollCurveNode *this,
           }
 
           OZRenderState::OZRenderState(&time1);
-          TXTextScrollBehavior::getContentBounds(*(this + 4), &time1, &v110);
+          TXTextScrollBehavior::getContentBounds(&v110, *(this + 4), &time1);
           v88 = vmulq_n_f64(v110, v90);
           v89 = vmulq_n_f64(v111, v90);
           v110 = v88;
           v111 = v89;
           time1.var0 = v118;
-          v31 = *(*v8 + 272);
+          v31 = *(v8->var0 + 34);
           if (*(this + 10) == 1)
           {
             v32 = *(v31(v8) + 348);
@@ -3485,7 +3529,7 @@ double TXTextScrollCurveNode::getOffsetPreInception(TXTextScrollCurveNode *this,
             v99 = 0uLL;
             v100 = 0.0;
             v98 = 0uLL;
-            (*(*v8 + 1320))(v8, &v116, &time1, 0);
+            (*(v8->var0 + 165))(v8, &v116, &time1, 0);
             if (!v6)
             {
               *&v116.var0 = *&v116.var0 / v24;
@@ -3496,7 +3540,7 @@ double TXTextScrollCurveNode::getOffsetPreInception(TXTextScrollCurveNode *this,
             OZTransformNode::getShear(v8, &v98, &v98 + 1, &time1);
             v99 = vmulq_n_f64(v99, v90);
             v100 = v90 * v100;
-            v66 = OZRenderState::OZRenderState(&v97, &time1);
+            OZRenderState::OZRenderState(&v97, &time1);
             v96[0] = v90 * v87;
             v96[1] = v90 * v63;
             v96[2] = v90 * v65;
@@ -3727,7 +3771,7 @@ void sub_25FB66ED8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-__n128 TXTextScrollBehavior::getContentBounds@<Q0>(TXTextScrollBehavior *this@<X0>, CMTime *a2@<X1>, uint64_t a3@<X8>)
+__n128 TXTextScrollBehavior::getContentBounds@<Q0>(uint64_t *__return_ptr a1@<X8>, TXTextScrollBehavior *this@<X0>, CMTime *a3@<X1>)
 {
   if (*(this + 584) == 1)
   {
@@ -3735,12 +3779,12 @@ __n128 TXTextScrollBehavior::getContentBounds@<Q0>(TXTextScrollBehavior *this@<X
     v7 = (*(*this + 720))(this);
     if (v6)
     {
-      TXTextLayout::getTypographicBounds(v6, this + 552, a2, 1, 0);
+      TXTextLayout::getTypographicBounds(v6, this + 552, a3, 1, 0);
     }
 
     else
     {
-      (*(*v7 + 1520))(v7, this + 552, a2);
+      (*(*v7 + 1520))(v7, this + 552, a3);
     }
 
     *(this + 584) = 0;
@@ -3748,8 +3792,8 @@ __n128 TXTextScrollBehavior::getContentBounds@<Q0>(TXTextScrollBehavior *this@<X
 
   result = *(this + 552);
   v9 = *(this + 568);
-  *a3 = result;
-  *(a3 + 16) = v9;
+  *a1 = result;
+  *(a1 + 1) = v9;
   return result;
 }
 
@@ -4375,15 +4419,15 @@ void TXTextScrollBehavior::~TXTextScrollBehavior(TXTextScrollBehavior *this)
   OZChannelBool::~OZChannelBool((this + 2784));
   OZChannelBool::~OZChannelBool((this + 2632));
   OZChannel::~OZChannel((this + 2480));
-  OZChannelEnum::~OZChannelEnum((this + 2224));
-  OZChannelEnum::~OZChannelEnum((this + 1968));
-  OZChannelEnum::~OZChannelEnum((this + 1712));
+  OZChannelEnum::~OZChannelEnum(this + 278);
+  OZChannelEnum::~OZChannelEnum(this + 246);
+  OZChannelEnum::~OZChannelEnum(this + 214);
   OZChannel::~OZChannel((this + 1560));
   OZChannel::~OZChannel((this + 1408));
   OZChannel::~OZChannel((this + 1256));
   OZChannel::~OZChannel((this + 1104));
-  OZChannelEnum::~OZChannelEnum((this + 848));
-  OZChannelEnum::~OZChannelEnum((this + 592));
+  OZChannelEnum::~OZChannelEnum(this + 106);
+  OZChannelEnum::~OZChannelEnum(this + 74);
 
   OZChannelBehavior::~OZChannelBehavior(this);
 }
@@ -4501,7 +4545,7 @@ uint64_t TXTextBehavior::getPreviewSceneNode(TXTextBehavior *this)
   (*(*v3 + 144))(v3, &v8, &v6);
   PCString::~PCString(&v6);
   TXTextLayout::didFinishInitializing(v3, 1);
-  TXTextLayout::getCurrentStyleForInsertion(v3, &v6);
+  TXTextLayout::getCurrentStyleForInsertion(&v6, v3);
   if (v6.var0)
   {
     v8 = *v4;
@@ -4526,9 +4570,9 @@ void sub_25FB69780(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TXTypeOnCurveNode::~TXTypeOnCurveNode(TXTypeOnCurveNode *this)
+void TXTypeOnCurveNode::~TXTypeOnCurveNode(OZChannelBase *this, const PCString *a2)
 {
-  OZEaseInInterpolator::~OZEaseInInterpolator(this);
+  OZEaseInInterpolator::~OZEaseInInterpolator(this, a2);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -4558,7 +4602,7 @@ double TXTypeOnBehavior::getTypeOn(TXTypeOnBehavior *this, CMTime *a2, double a3
     else
     {
       v6 = (*(*this + 336))(this);
-      OZSceneSettings::getFrameDuration((v6 + 336), &v14);
+      OZSceneSettings::getFrameDuration(&v14, (v6 + 336));
       time1 = v16;
       time2 = v18;
       if (CMTimeCompare(&time1, &time2) <= 0)
@@ -4597,7 +4641,7 @@ double TXTypeOnBehavior::getTypeOn(TXTypeOnBehavior *this, CMTime *a2, double a3
   return a3;
 }
 
-void TXTypeOnCurveNode::solveNode(TXTypeOnCurveNode *this, OZCurveNodeParam *a2)
+void TXTypeOnCurveNode::solveNode(void *this, OZCurveNodeParam *a2)
 {
   v2 = *(a2 + 19);
   v3 = *(a2 + 10);
@@ -4608,7 +4652,7 @@ void TXTypeOnCurveNode::solveNode(TXTypeOnCurveNode *this, OZCurveNodeParam *a2)
     v6 = 0;
     do
     {
-      v7 = *(this + 4);
+      v7 = this[4];
       v11 = v8;
       *(v2 + 8 * v6) = TXTypeOnBehavior::getTypeOn(v7, &v11, *(v3 + 8 * v6));
       v11 = v8;
@@ -4634,14 +4678,14 @@ __n128 TXTypeOnCurveNode::getNeededRange(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void TXFadeOnCurveNode::~TXFadeOnCurveNode(TXFadeOnCurveNode *this)
+void TXFadeOnCurveNode::~TXFadeOnCurveNode(OZChannelBase *this, const PCString *a2)
 {
-  OZEaseInInterpolator::~OZEaseInInterpolator(this);
+  OZEaseInInterpolator::~OZEaseInInterpolator(this, a2);
 
   JUMPOUT(0x2666E9F00);
 }
 
-void TXFadeOnCurveNode::solveNode(TXFadeOnCurveNode *this, OZCurveNodeParam *a2)
+void TXFadeOnCurveNode::solveNode(void *this, OZCurveNodeParam *a2)
 {
   v2 = *(a2 + 19);
   v9 = *(a2 + 5);
@@ -4652,7 +4696,7 @@ void TXFadeOnCurveNode::solveNode(TXFadeOnCurveNode *this, OZCurveNodeParam *a2)
     v6 = MEMORY[0x277CC08F0];
     do
     {
-      if (OZChannel::getValueAsInt((*(this + 4) + 840), v6, 0.0))
+      if (OZChannel::getValueAsInt((this[4] + 840), v6, 0.0))
       {
         v7 = 1.0;
       }
@@ -4850,9 +4894,9 @@ void TXTypeOnBehavior::willRemove(TXTypeOnBehavior *this)
   OZChannelBehavior::willRemove(this);
 }
 
-void TXCrawlCurveNode::~TXCrawlCurveNode(TXCrawlCurveNode *this)
+void TXCrawlCurveNode::~TXCrawlCurveNode(OZChannelBase *this, const PCString *a2)
 {
-  OZEaseInInterpolator::~OZEaseInInterpolator(this);
+  OZEaseInInterpolator::~OZEaseInInterpolator(this, a2);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -4864,7 +4908,7 @@ double TXCrawlCurveNode::solveNode(TXCrawlCurveNode *this, const CMTime *a2, dou
   return (*(*v4 + 680))(v4, &v6) + a4;
 }
 
-void TXCrawlCurveNode::solveNode(TXCrawlCurveNode *this, OZCurveNodeParam *a2)
+void TXCrawlCurveNode::solveNode(void *this, OZCurveNodeParam *a2)
 {
   v2 = *(a2 + 19);
   v3 = *(a2 + 10);
@@ -4876,7 +4920,7 @@ void TXCrawlCurveNode::solveNode(TXCrawlCurveNode *this, OZCurveNodeParam *a2)
     do
     {
       v7 = *(v3 + 8 * v6);
-      v8 = *(this + 4);
+      v8 = this[4];
       v12 = v9;
       *(v2 + 8 * v6) = v7 + (*(*v8 + 680))();
       v12 = v9;
@@ -5050,7 +5094,7 @@ void TXCrawlBehavior::getXOffset(TXCrawlBehavior *this, CMTime *a2)
     memset(&v12, 0, sizeof(v12));
     if (v3)
     {
-      FrameDuration = OZSceneSettings::getFrameDuration((v3 + 336), &v12);
+      FrameDuration = OZSceneSettings::getFrameDuration(&v12, (v3 + 336));
     }
 
     else
@@ -5218,9 +5262,9 @@ double TXCrawlLeftBehavior::getXOffset(TXCrawlLeftBehavior *this, CMTime *a2)
   return v5 - v6;
 }
 
-void TXScrollCurveNode::~TXScrollCurveNode(TXScrollCurveNode *this)
+void TXScrollCurveNode::~TXScrollCurveNode(OZChannelBase *this, const PCString *a2)
 {
-  OZEaseInInterpolator::~OZEaseInInterpolator(this);
+  OZEaseInInterpolator::~OZEaseInInterpolator(this, a2);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -5232,7 +5276,7 @@ double TXScrollCurveNode::solveNode(TXScrollCurveNode *this, const CMTime *a2, d
   return (*(*v4 + 680))(v4, &v6) + a4;
 }
 
-void TXScrollCurveNode::solveNode(TXScrollCurveNode *this, OZCurveNodeParam *a2)
+void TXScrollCurveNode::solveNode(void *this, OZCurveNodeParam *a2)
 {
   v2 = *(a2 + 19);
   v3 = *(a2 + 10);
@@ -5244,7 +5288,7 @@ void TXScrollCurveNode::solveNode(TXScrollCurveNode *this, OZCurveNodeParam *a2)
     do
     {
       v7 = *(v3 + 8 * v6);
-      v8 = *(this + 4);
+      v8 = this[4];
       v12 = v9;
       *(v2 + 8 * v6) = v7 + (*(*v8 + 680))();
       v12 = v9;
@@ -5418,7 +5462,7 @@ void TXScrollBehavior::getYOffset(TXScrollBehavior *this, CMTime *a2)
     memset(&v12, 0, sizeof(v12));
     if (v3)
     {
-      FrameDuration = OZSceneSettings::getFrameDuration((v3 + 336), &v12);
+      FrameDuration = OZSceneSettings::getFrameDuration(&v12, (v3 + 336));
     }
 
     else
@@ -5722,8 +5766,8 @@ char *TXTextTrackingBehavior::didAddToNode(char *this, OZSceneNode *lpsrc)
     if (this)
     {
       v4 = this;
-      *(v3 + 992) = this;
-      *(v3 + 1000) = 1;
+      *(v3 + 124) = this;
+      v3[1000] = 1;
       OZChannel::getValueAsDouble((this + 60520), MEMORY[0x277CC08F0], 0.0);
       v5 = (v3 + 688);
       if (v6 >= 4.0)
@@ -5765,10 +5809,10 @@ void TXTextTrackingBehavior::getMultiplier(TXTextTrackingBehavior *this, CMTime 
     (*(*this + 608))(v13, this, 0.0);
     v15 = v13[0];
     time = v14;
-    v3.n128_f64[0] = PC_CMTimeSaferSubtract(&time, &v15, &v12);
+    v3.n128_f64[0] = PC_CMTimeSaferSubtract(&time, &v15, v12);
     v4 = (*(*this + 336))(this, v3);
-    OZSceneSettings::getFrameDuration((v4 + 336), &v15);
-    operator/(&v12.value, &v15, &time);
+    OZSceneSettings::getFrameDuration(&v15, (v4 + 336));
+    operator/(v12, &v15, &time);
     Seconds = CMTimeGetSeconds(&time);
     time = v13[1];
     CMTimeGetSeconds(&time);
@@ -5777,12 +5821,12 @@ void TXTextTrackingBehavior::getMultiplier(TXTextTrackingBehavior *this, CMTime 
     OZChannel::getValueAsDouble((this + 840), MEMORY[0x277CC08F0], 0.0);
     memset(&time, 0, sizeof(time));
     v7 = (*(*this + 336))(this);
-    OZScene::getCurrentTime(v7, &time);
+    OZScene::getCurrentTime(&time, v7);
     OZChannel::getValueAsDouble((*(this + 124) + 60520), v6, 0.0);
     v9 = v8;
     v10 = (*(*this + 336))(this);
-    OZSceneSettings::getFrameDuration((v10 + 336), &v12);
-    operator*(&v12, &v15, Seconds);
+    OZSceneSettings::getFrameDuration(v12, (v10 + 336));
+    operator*(v12, &v15, Seconds);
     if (v9 >= 4.0)
     {
       v11 = (this + 688);
@@ -5830,9 +5874,9 @@ void TXCollectionEnum::~TXCollectionEnum(PCString *this)
   JUMPOUT(0x2666E9F00);
 }
 
-void TXOldSequenceCurveNode::~TXOldSequenceCurveNode(TXOldSequenceCurveNode *this)
+void TXOldSequenceCurveNode::~TXOldSequenceCurveNode(OZChannelBase *this, const PCString *a2)
 {
-  OZEaseInInterpolator::~OZEaseInInterpolator(this);
+  OZEaseInInterpolator::~OZEaseInInterpolator(this, a2);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -5846,7 +5890,7 @@ void TXOldSequenceCurveNode::solveNode(TXOldSequenceCurveNode *this, const CMTim
     TXSequenceParams::getInfluence((v9 + 27720), a2, a3);
     memset(&time, 0, sizeof(time));
     v15 = *a2;
-    TXSequenceParams::objectLocalToGlobalTime((v9 + 27720), &v15, &time);
+    TXSequenceParams::objectLocalToGlobalTime(&time.value, (v9 + 27720), &v15);
     OZChannel::getValueAsDouble(*(this + 5), &time, 0.0);
   }
 
@@ -5867,7 +5911,7 @@ double TXSequenceParams::getValue(TXSequenceParams *this, Float64 a2, double a3,
 {
   memset(&v46, 0, sizeof(v46));
   v10 = (*(**this + 336))(*this);
-  OZSceneSettings::getFrameDuration((v10 + 336), v45);
+  OZSceneSettings::getFrameDuration(v45, (v10 + 336));
   operator*(v45, &v46, a2);
   v11 = *this;
   v45[0] = v46;
@@ -5906,7 +5950,7 @@ double TXSequenceParams::getValue(TXSequenceParams *this, Float64 a2, double a3,
     v38 = v16;
     NumObjects = TXSequenceParams::getNumObjects(this, v15);
     v18 = (*(**this + 336))();
-    OZSceneSettings::getFrameDuration((v18 + 336), &v47);
+    OZSceneSettings::getFrameDuration(&v47, (v18 + 336));
     operator*(&v47, &time, a2);
     OZChannel::getValueAsDouble((this + 1816), &time, 0.0);
     v20 = -1.0 / (v19 + 1.0) + 1.0;
@@ -5934,8 +5978,8 @@ double TXSequenceParams::getValue(TXSequenceParams *this, Float64 a2, double a3,
 
     v33 = v38 * ((v26 * v32 - v25) / v24);
     v34 = (*(**this + 336))(*this);
-    OZSceneSettings::getFrameDuration((v34 + 336), &v40);
-    operator*(&v40, &v41, v33);
+    OZSceneSettings::getFrameDuration(v40, (v34 + 336));
+    operator*(v40, &v41, v33);
     v47 = v45[0];
     time = v41;
     PC_CMTimeSaferAdd(&time, &v47, &v42);
@@ -5951,7 +5995,7 @@ double TXSequenceParams::getInfluence(TXSequenceParams *this, const CMTime *a2, 
   ObjectManipulator = OZChannelBase::getObjectManipulator((this + 8));
   memset(&v31, 0, sizeof(v31));
   v29 = *a2;
-  TXSequenceParams::objectLocalToGlobalTime(this, &v29, &v31);
+  TXSequenceParams::objectLocalToGlobalTime(&v31.value, this, &v29);
   v7 = *this;
   v29 = v31;
   v8 = 0.0;
@@ -5977,7 +6021,7 @@ double TXSequenceParams::getInfluence(TXSequenceParams *this, const CMTime *a2, 
       else
       {
         v10 = (*(*ObjectManipulator + 264))(ObjectManipulator);
-        OZSceneSettings::getFrameDuration((v10 + 336), &v26);
+        OZSceneSettings::getFrameDuration(&v26, (v10 + 336));
         time1 = v29;
         time2 = v30;
         PC_CMTimeSaferAdd(&time1, &time2, &v32);
@@ -6041,7 +6085,7 @@ LABEL_10:
         }
 
         v11 = (*(*ObjectManipulator + 264))(ObjectManipulator);
-        OZSceneSettings::getFrameDuration((v11 + 336), &v26);
+        OZSceneSettings::getFrameDuration(&v26, (v11 + 336));
         time1 = v29;
         time2 = v30;
         PC_CMTimeSaferAdd(&time1, &time2, &v32);
@@ -6061,20 +6105,20 @@ LABEL_10:
   return v8;
 }
 
-double TXSequenceParams::objectLocalToGlobalTime@<D0>(TXSequenceParams *this@<X0>, CMTime *a2@<X1>, uint64_t a3@<X8>)
+double TXSequenceParams::objectLocalToGlobalTime@<D0>(uint64_t *__return_ptr a1@<X8>, TXSequenceParams *this@<X0>, CMTime *a3@<X1>)
 {
   ObjectManipulator = OZChannelBase::getObjectManipulator((this + 8));
   v6 = *(*(*ObjectManipulator + 232))(ObjectManipulator);
   v7 = *(*(v6 + 640))();
   (*(v7 + 320))(&v9);
-  v11 = *a2;
+  v11 = *a3;
   v10 = v9;
-  return PC_CMTimeSaferAdd(&v11, &v10, a3);
+  return PC_CMTimeSaferAdd(&v11, &v10, a1);
 }
 
-void TXSequenceInfluenceCurveNode::~TXSequenceInfluenceCurveNode(TXSequenceInfluenceCurveNode *this)
+void TXSequenceInfluenceCurveNode::~TXSequenceInfluenceCurveNode(OZChannelBase *this, const PCString *a2)
 {
-  OZEaseInInterpolator::~OZEaseInInterpolator(this);
+  OZEaseInInterpolator::~OZEaseInInterpolator(this, a2);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -6206,17 +6250,17 @@ void TXSequenceParams::~TXSequenceParams(TXSequenceParams *this)
     *(this + 278) = 0;
   }
 
-  OZChannelEnum::~OZChannelEnum((this + 1968));
+  OZChannelEnum::~OZChannelEnum(this + 246);
   OZChannel::~OZChannel((this + 1816));
   OZChannelPercent::~OZChannelPercent((this + 1664));
   OZChannelPercent::~OZChannelPercent((this + 1512));
-  OZChannelEnum::~OZChannelEnum((this + 1256));
-  OZChannelEnum::~OZChannelEnum((this + 1000));
+  OZChannelEnum::~OZChannelEnum(this + 157);
+  OZChannelEnum::~OZChannelEnum(this + 125);
   OZChannel::~OZChannel((this + 848));
   OZChannelBool::~OZChannelBool((this + 696));
   OZChannel::~OZChannel((this + 544));
   OZChannelPercent::~OZChannelPercent((this + 392));
-  OZChannelEnum::~OZChannelEnum((this + 136));
+  OZChannelEnum::~OZChannelEnum(this + 17);
   OZChannelFolder::~OZChannelFolder((this + 8));
 }
 
@@ -6270,14 +6314,14 @@ double TXSequenceParams::getOffset(TXSequenceParams *this, CMTime *a2)
         }
 
         v18 = (*(**this + 336))();
-        OZSceneSettings::getFrameDuration((v18 + 336), &v39);
+        OZSceneSettings::getFrameDuration(&v39, (v18 + 336));
         time1 = v41;
         *&time2.value = v39;
         time2.epoch = v40;
         if (CMTimeCompare(&time1, &time2) >= 1)
         {
           v19 = (*(**this + 336))(*this);
-          OZSceneSettings::getFrameDuration((v19 + 336), &v39);
+          OZSceneSettings::getFrameDuration(&v39, (v19 + 336));
           time1 = v41;
           *&time2.value = v39;
           time2.epoch = v40;
@@ -6286,11 +6330,11 @@ double TXSequenceParams::getOffset(TXSequenceParams *this, CMTime *a2)
 
         v20 = v16 * v13;
         OZChannel::getValueAsDouble((this + 544), a2, 0.0);
-        operator/(&v41.value, &time1, v21);
+        operator/(&v41.value, v21, &time1);
         v41 = time1;
         if (ValueAsInt == 1)
         {
-          operator/(&v41.value, &time1, 2.0);
+          operator/(&v41.value, 2.0, &time1);
           v41 = time1;
         }
 
@@ -6499,7 +6543,7 @@ uint64_t TXSequenceParams::charIndexToSelectionIndex(TXSequenceParams *this, uin
 {
   memset(&v12, 0, sizeof(v12));
   v6 = (*(**this + 336))(*this);
-  OZSceneSettings::getFrameDuration((v6 + 336), &v11);
+  OZSceneSettings::getFrameDuration(&v11, (v6 + 336));
   operator*(&v11, &v12, a3);
   v7 = *(*this + 27704);
   ValueAsInt = OZChannel::getValueAsInt((this + 1256), &v12, 0.0);
@@ -6544,7 +6588,7 @@ double TXSequenceParams::normalizeIndex(TXSequenceParams *this, unsigned int a2,
 {
   memset(&v16, 0, sizeof(v16));
   v6 = (*(**this + 336))(*this);
-  OZSceneSettings::getFrameDuration((v6 + 336), &v15);
+  OZSceneSettings::getFrameDuration(&v15, (v6 + 336));
   operator*(&v15, &v16, a3);
   v7 = *(*this + 27704);
   v8 = 0.0;
@@ -6622,9 +6666,9 @@ void TXTextSequenceBehavior::getKeyframeExtent(TXTextSequenceBehavior *this, dou
               v18 = 0;
             }
 
-            OZChannel::getKeyframeMinTime(v18, &v25);
+            OZChannel::getKeyframeMinTime(&v25.value, v18);
             v28 = v25;
-            OZChannel::getKeyframeMaxTime(v18, &v25);
+            OZChannel::getKeyframeMaxTime(&v25.value, v18);
             v27 = v25;
             v25 = v28;
             Seconds = CMTimeGetSeconds(&v25);
@@ -6687,8 +6731,8 @@ void TXTextSequenceBehavior::getKeyframeExtent(TXTextSequenceBehavior *this, dou
 
       else
       {
-        OZChannel::getKeyframeMinTime(v9, &v28);
-        OZChannel::getKeyframeMaxTime(v9, &v27);
+        OZChannel::getKeyframeMinTime(&v28.value, v9);
+        OZChannel::getKeyframeMaxTime(&v27.value, v9);
         time = v28;
         v10 = CMTimeGetSeconds(&time);
         time = v27;
@@ -6762,7 +6806,7 @@ void TXTextSequenceBehavior::TXTextSequenceBehavior(TXTextSequenceBehavior *this
   v5[2] = &unk_287206100;
   v5[6] = &unk_287206358;
   v5[42] = &unk_2872063B0;
-  TXSequenceChannels::TXSequenceChannels((v5 + 67), (this + 56), 0xCAu);
+  TXSequenceChannels::TXSequenceChannels((v5 + 67), (this + 56));
   *(this + 27704) = 0u;
   TXSequenceParams::TXSequenceParams((this + 27720), (this + 56), 0xC9u, this);
 }
@@ -6950,7 +6994,7 @@ void TXTextSequenceBehavior::willRemove(TXTextSequenceBehavior *this)
 {
   OZChannel::deleteCurveProcessingNode((*(this + 3463) + 24880), *(this + 3464));
   v10 = *(this + 3464);
-  std::list<OZBehaviorCurveNode *>::remove(this + 344, &v10);
+  std::list<OZBehaviorCurveNode *>::remove(this + 43, &v10);
   v2 = *(this + 3463);
   v3 = *(v2 + 25040);
   for (i = *(v2 + 25048); v3 != i; ++v3)
@@ -7092,7 +7136,7 @@ OZChannelFolder *TXTextSequenceBehavior::addSequenceNodes(TXTextSequenceBehavior
 
 char *TXTextSequenceBehavior::removeCurveNodes(char *this, OZChannelBase *a2)
 {
-  v2 = (this + 344);
+  v2 = this + 344;
   v3 = *(this + 44);
   if (v3 != this + 344)
   {
@@ -7100,8 +7144,8 @@ char *TXTextSequenceBehavior::removeCurveNodes(char *this, OZChannelBase *a2)
     do
     {
       v5 = v3 + 8;
-      v3 = *(v3 + 1);
-      this = v5[1];
+      v3 = *(v3 + 8);
+      this = *(v5 + 8);
       if (this)
       {
         if (this)
@@ -7171,7 +7215,7 @@ LABEL_22:
   return this;
 }
 
-double TXTextSequenceBehavior::calcHashForState(uint64_t a1, void *a2, CMTime *a3, uint64_t a4)
+double TXTextSequenceBehavior::calcHashForState(uint64_t a1, void *a2, CMTime *a3, uint64_t **a4)
 {
   OZBehavior::calcHashForState(a1, a2, a3, a4);
   if (!v5)
@@ -7200,7 +7244,7 @@ uint64_t TXTextSequenceBehavior::getPreviewSceneNode(TXTextSequenceBehavior *thi
   (*(*v3 + 144))(v3, &v8, &v6);
   PCString::~PCString(&v6);
   TXTextLayout::didFinishInitializing(v3, 1);
-  TXTextLayout::getCurrentStyleForInsertion(v3, &v6);
+  TXTextLayout::getCurrentStyleForInsertion(&v6, v3);
   if (v6.var0)
   {
     v8 = *v4;
@@ -7323,7 +7367,7 @@ void TXChannelFont::reset(TXChannelFont *this, uint64_t a2)
 {
   OZChannelBase::reset(this, a2);
   ObjectManipulator = OZChannelBase::getObjectManipulator(this);
-  TXTextStylePtrFromObjectManipulator(ObjectManipulator, &v5);
+  TXTextStylePtrFromObjectManipulator(&v5, ObjectManipulator);
   if (v5)
   {
     if (PCString::empty(this + 82))
@@ -7361,7 +7405,7 @@ void TXChannelFont::undoDidReplace(OZChannelFolder *this)
 {
   OZChannelFolder::undoDidReplace(this);
   ObjectManipulator = OZChannelBase::getObjectManipulator(this);
-  TXTextStylePtrFromObjectManipulator(ObjectManipulator, &v3);
+  TXTextStylePtrFromObjectManipulator(&v3, ObjectManipulator);
   if (v3)
   {
     TXTextStyle::clearCachedFontFace(v3);
@@ -7390,9 +7434,9 @@ void *TXChannelFont::didLoadFontName(OZChannelBase *this)
   {
     if (result)
     {
-      v2 = *(*result + 168);
+      v3 = *(*result + 168);
 
-      return v2();
+      return v3(result, &this[5].var11, 1);
     }
   }
 
@@ -7429,7 +7473,7 @@ uint64_t HTextureBlend::GetDOD(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   Input = HGRenderer::GetInput(a2, this, 0);
   DOD = HGRenderer::GetDOD(a2, Input);
   v13 = v12;
-  v14 = HGRenderer::GetInput(a2, this, 1u);
+  v14 = HGRenderer::GetInput(a2, this, 1);
   v15 = HGRenderer::GetDOD(a2, v14);
   if (a3)
   {
@@ -7543,15 +7587,15 @@ uint64_t std::__tree<PCHash128>::__count_unique<PCHash128>(uint64_t a1, const PC
   return 0;
 }
 
-uint64_t std::__tree<PCHash128>::__emplace_unique_key_args<PCHash128,PCHash128 const&>(uint64_t a1, const PCHash128 *a2)
+uint64_t std::__tree<PCHash128>::__emplace_unique_key_args<PCHash128,PCHash128 const&>(uint64_t **a1, const PCHash128 *a2, _OWORD *a3)
 {
-  v2 = *std::__tree<PCHash128>::__find_equal<PCHash128>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<PCHash128>::__find_equal<PCHash128>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<PCHash128>::__find_equal<PCHash128>(uint64_t a1, void *a2, const PCHash128 *a3)
@@ -8729,9 +8773,9 @@ BOOL PCEdgeSegment::operator<(double *a1, double *a2)
   return !v19;
 }
 
-void *PCVertexList::PCVertexList(void *a1, uint64_t *a2)
+__int128 *PCVertexList::PCVertexList(__int128 *a1, uint64_t *a2)
 {
-  a1[2] = 0;
+  *(a1 + 2) = 0;
   v3 = 0uLL;
   *a1 = 0u;
   v4 = a2[1] - *a2;
@@ -8825,7 +8869,7 @@ void sub_25FB73DA4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<PCEdgeVertex>::push_back[abi:ne200100](void *a1, _OWORD *a2)
+_OWORD *std::vector<PCEdgeVertex>::push_back[abi:ne200100](void *a1, _OWORD *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -8838,20 +8882,20 @@ uint64_t std::vector<PCEdgeVertex>::push_back[abi:ne200100](void *a1, _OWORD *a2
     *v3 = *a2;
     v3[1] = a2[1];
     v3[2] = a2[2];
-    result = (v3 + 3);
+    result = v3 + 3;
   }
 
   a1[1] = result;
   return result;
 }
 
-uint64_t PCSweepline::PCSweepline(uint64_t a1, __int128 **a2)
+uint64_t *PCSweepline::PCSweepline(uint64_t *a1, __int128 **a2, double a3, __n128 a4, __n128 a5, __n128 a6)
 {
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   if (a1 != a2)
   {
-    std::vector<PCVector2<double>>::__assign_with_size[abi:ne200100]<PCVector2<double>*,PCVector2<double>*>(a1, *a2, a2[1], a2[1] - *a2);
+    std::vector<PCVector2<double>>::__assign_with_size[abi:ne200100]<PCVector2<double>*,PCVector2<double>*>(a1, *a2, a2[1], a2[1] - *a2, 0, a4, a5, a6);
   }
 
   return a1;
@@ -8881,12 +8925,12 @@ void PCSweepline::~PCSweepline(PCSweepline *this)
   }
 }
 
-uint64_t PCSweepline::addSegment(uint64_t a1, unint64_t *a2)
+uint64_t PCSweepline::addSegment(void *a1, unint64_t *a2)
 {
   v10 = 0u;
   v11 = 0u;
   v9 = *a2;
-  v3 = (*(a1 + 8) - *a1) >> 4;
+  v3 = (a1[1] - *a1) >> 4;
   v4 = *(*a1 + 16 * (v9 % v3));
   v5 = *(*a1 + 16 * ((v9 + 1) % v3));
   if ((vmovn_s64(vcgtq_f64(v4, v5)).u8[0] & 1) != 0 || (v6 = vmovn_s64(vcgtq_f64(v5, v4)), ((v6.i32[0] | v6.i32[1]) & 1) == 0))
@@ -8902,11 +8946,11 @@ uint64_t PCSweepline::addSegment(uint64_t a1, unint64_t *a2)
 
   v10 = v7;
   v11 = v4;
-  PCBinaryTree<PCEdgeSegment>::insertNode((a1 + 24), &v9);
-  return PCBinaryTree<PCEdgeSegment>::findNode(a1 + 24, *(a1 + 24), &v9);
+  PCBinaryTree<PCEdgeSegment>::insertNode(a1 + 3, &v9);
+  return PCBinaryTree<PCEdgeSegment>::findNode((a1 + 3), a1[3], &v9);
 }
 
-uint64_t *PCBinaryTree<PCEdgeSegment>::insertNode(uint64_t **a1, double *a2)
+void *PCBinaryTree<PCEdgeSegment>::insertNode(uint64_t *a1, double *a2)
 {
   v3 = *a1;
   if (!*a1)
@@ -8923,7 +8967,7 @@ uint64_t PCBinaryTree<PCEdgeSegment>::findNode(uint64_t a1, uint64_t a2, double 
   if (a2)
   {
     v5 = *a3;
-    while (*v3 != *&v5)
+    while (*v3 != v5)
     {
       if (PCEdgeSegment::operator<(a3, v3))
       {
@@ -8978,7 +9022,7 @@ BOOL PCSweepline::intersect(void *a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t *PCBinaryTree<PCEdgeSegment>::removeNode(uint64_t **a1, uint64_t a2, double *a3)
+void *PCBinaryTree<PCEdgeSegment>::removeNode(uint64_t *a1, uint64_t a2, double *a3)
 {
   if (!a2)
   {
@@ -9232,75 +9276,75 @@ uint64_t PCSweepline::getSegmentBelowSegment(uint64_t a1, uint64_t a2)
 uint64_t isSimplePolygon(uint64_t *a1)
 {
   PCVertexList::PCVertexList(&__p, a1);
-  PCSweepline::PCSweepline(v16, a1);
-  v2 = __p;
-  if (v19 == __p)
+  PCSweepline::PCSweepline(v20, a1, v2, v3, v4, v5);
+  v6 = __p;
+  if (*(&__p + 1) == __p)
   {
 LABEL_10:
-    v14 = 1;
+    v18 = 1;
     goto LABEL_12;
   }
 
-  v3 = 0;
-  v4 = 0;
+  v7 = 0;
+  v8 = 0;
   while (1)
   {
-    v5 = &v2[v3];
-    if (!*&v2[v3 + 8])
+    v9 = v6 + v7;
+    if (!*(v6 + v7 + 8))
     {
       break;
     }
 
-    v20 = *v5;
-    v22 = *(v5 + 1);
-    v21 = *(v5 + 2);
-    Node = PCBinaryTree<PCEdgeSegment>::findNode(&v17, v17, &v20);
-    v7 = Node;
+    v23 = *v9;
+    v25 = *(v9 + 16);
+    v24 = *(v9 + 32);
+    Node = PCBinaryTree<PCEdgeSegment>::findNode(&v21, v21, &v23);
+    v11 = Node;
     if (Node)
     {
       SegmentAboveSegment = PCSweepline::getSegmentAboveSegment(Node, Node);
-      SegmentBelowSegment = PCSweepline::getSegmentBelowSegment(SegmentAboveSegment, v7);
-      if (PCSweepline::intersect(v16, SegmentAboveSegment, SegmentBelowSegment))
+      SegmentBelowSegment = PCSweepline::getSegmentBelowSegment(SegmentAboveSegment, v11);
+      if (PCSweepline::intersect(v20, SegmentAboveSegment, SegmentBelowSegment))
       {
         goto LABEL_11;
       }
 
-      PCBinaryTree<PCEdgeSegment>::removeNode(&v17, v17, v7);
+      PCBinaryTree<PCEdgeSegment>::removeNode(&v21, v21, v11);
     }
 
 LABEL_9:
-    ++v4;
-    v2 = __p;
-    v3 += 48;
-    if (v4 >= 0xAAAAAAAAAAAAAAABLL * ((v19 - __p) >> 4))
+    ++v8;
+    v6 = __p;
+    v7 += 48;
+    if (v8 >= 0xAAAAAAAAAAAAAAABLL * ((*(&__p + 1) - __p) >> 4))
     {
       goto LABEL_10;
     }
   }
 
-  v10 = PCSweepline::addSegment(v16, v5);
-  v11 = PCSweepline::getSegmentAboveSegment(v10, v10);
-  v12 = PCSweepline::intersect(v16, v10, v11);
-  if (!v12)
+  v14 = PCSweepline::addSegment(v20, v9);
+  v15 = PCSweepline::getSegmentAboveSegment(v14, v14);
+  v16 = PCSweepline::intersect(v20, v14, v15);
+  if (!v16)
   {
-    v13 = PCSweepline::getSegmentBelowSegment(v12, v10);
-    if (!PCSweepline::intersect(v16, v10, v13))
+    v17 = PCSweepline::getSegmentBelowSegment(v16, v14);
+    if (!PCSweepline::intersect(v20, v14, v17))
     {
       goto LABEL_9;
     }
   }
 
 LABEL_11:
-  v14 = 0;
+  v18 = 0;
 LABEL_12:
-  PCSweepline::~PCSweepline(v16);
+  PCSweepline::~PCSweepline(v20);
   if (__p)
   {
-    v19 = __p;
+    *(&__p + 1) = __p;
     operator delete(__p);
   }
 
-  return v14;
+  return v18;
 }
 
 void sub_25FB745B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14)
@@ -9421,19 +9465,19 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<PCEdgeVertex>>(uint64
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(PCEdgeVertex,PCEdgeVertex),PCEdgeVertex*,false>(__int128 *a1, __int128 *a2, unsigned int (**a3)(__int128 *, __int128 *), uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(PCEdgeVertex,PCEdgeVertex),PCEdgeVertex*,false>(__int128 *result, char *a2, unsigned int (**a3)(__int128 *, __int128 *), uint64_t a4, char a5)
 {
 LABEL_1:
-  v9 = a2 - 3;
-  v10 = a1;
+  v9 = a2 - 48;
+  v10 = result;
 LABEL_2:
   v11 = 1 - a4;
   while (1)
   {
-    a1 = v10;
+    result = v10;
     v12 = v11;
     v13 = a2 - v10;
-    v14 = 0xAAAAAAAAAAAAAAABLL * (a2 - v10);
+    v14 = 0xAAAAAAAAAAAAAAABLL * ((a2 - v10) >> 4);
     if (v14 > 2)
     {
       switch(v14)
@@ -9524,16 +9568,16 @@ LABEL_2:
       v18 = &v10[3 * v15 - 3];
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PCEdgeVertex,PCEdgeVertex),PCEdgeVertex*,0>(v10 + 3, v18, a2 - 6, a3);
       v19 = &v10[v17 + 3];
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PCEdgeVertex,PCEdgeVertex),PCEdgeVertex*,0>(a1 + 6, v19, a2 - 9, a3);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PCEdgeVertex,PCEdgeVertex),PCEdgeVertex*,0>(result + 6, v19, a2 - 9, a3);
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PCEdgeVertex,PCEdgeVertex),PCEdgeVertex*,0>(v18, v16, v19, a3);
-      v20 = a1[1];
-      v39 = *a1;
-      v21 = a1[2];
+      v20 = result[1];
+      v39 = *result;
+      v21 = result[2];
       v22 = v16[2];
       v23 = *v16;
-      a1[1] = v16[1];
-      a1[2] = v22;
-      *a1 = v23;
+      result[1] = v16[1];
+      result[2] = v22;
+      *result = v23;
       *v16 = v39;
       v16[1] = v20;
       v16[2] = v21;
@@ -9544,27 +9588,27 @@ LABEL_2:
     }
 
     v24 = *a3;
-    v39 = *(a1 - 3);
-    v40 = *(a1 - 2);
-    v41 = *(a1 - 1);
-    v25 = a1[1];
-    v36 = *a1;
+    v39 = *(result - 3);
+    v40 = *(result - 2);
+    v41 = *(result - 1);
+    v25 = result[1];
+    v36 = *result;
     v37 = v25;
-    v38 = a1[2];
+    v38 = result[2];
     if (((v24)(&v39, &v36) & 1) == 0)
     {
-      v10 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,PCEdgeVertex *,BOOL (*&)(PCEdgeVertex,PCEdgeVertex)>(a1, a2, a3);
+      v10 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,PCEdgeVertex *,BOOL (*&)(PCEdgeVertex,PCEdgeVertex)>(result, a2, a3);
       goto LABEL_22;
     }
 
 LABEL_17:
-    v26 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,PCEdgeVertex *,BOOL (*&)(PCEdgeVertex,PCEdgeVertex)>(a1, a2, a3);
+    v26 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,PCEdgeVertex *,BOOL (*&)(PCEdgeVertex,PCEdgeVertex)>(result, a2, a3);
     if ((v27 & 1) == 0)
     {
       goto LABEL_20;
     }
 
-    v28 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PCEdgeVertex,PCEdgeVertex),PCEdgeVertex*>(a1, v26, a3);
+    v28 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PCEdgeVertex,PCEdgeVertex),PCEdgeVertex*>(result, v26, a3);
     v10 = v26 + 3;
     if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(PCEdgeVertex,PCEdgeVertex),PCEdgeVertex*>(v26 + 3, a2, a3))
     {
@@ -9582,7 +9626,7 @@ LABEL_17:
     if (!v28)
     {
 LABEL_20:
-      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(PCEdgeVertex,PCEdgeVertex),PCEdgeVertex*,false>(a1, v26, a3, -v12, a5 & 1);
+      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(PCEdgeVertex,PCEdgeVertex),PCEdgeVertex*,false>(result, v26, a3, -v12, a5 & 1);
       v10 = v26 + 3;
 LABEL_22:
       a5 = 0;

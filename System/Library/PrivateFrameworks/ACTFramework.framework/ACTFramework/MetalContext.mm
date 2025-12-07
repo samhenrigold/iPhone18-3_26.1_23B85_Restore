@@ -19,9 +19,9 @@
 
 - (MetalContext)init
 {
-  v28.receiver = self;
-  v28.super_class = MetalContext;
-  v2 = [(MetalContext *)&v28 init];
+  v18.receiver = self;
+  v18.super_class = MetalContext;
+  v2 = [(MetalContext *)&v18 init];
   if (!v2)
   {
     goto LABEL_9;
@@ -34,62 +34,60 @@
   v5 = v2->_device;
   if (!v5)
   {
-    sub_23C474170(&v29);
-    if (v29)
+    sub_23C474170(&v19);
+    if (v19)
     {
       goto LABEL_7;
     }
 
 LABEL_9:
-    v24 = v2;
+    v14 = v2;
     goto LABEL_10;
   }
 
-  v6 = MEMORY[0x277CCA8D8];
-  v7 = objc_opt_class();
-  v10 = objc_msgSend_bundleForClass_(v6, v8, v7, v9);
-  v27 = 0;
-  v12 = objc_msgSend_newDefaultLibraryWithBundle_error_(v5, v11, v10, &v27);
-  v13 = v27;
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v17 = 0;
+  v7 = [(MTLDevice *)v5 newDefaultLibraryWithBundle:v6 error:&v17];
+  v8 = v17;
   library = v2->_library;
-  v2->_library = v12;
+  v2->_library = v7;
 
   if (v2->_library)
   {
-    v18 = objc_msgSend_newCommandQueue(v2->_device, v15, v16, v17);
+    newCommandQueue = [(MTLDevice *)v2->_device newCommandQueue];
     commandQueue = v2->_commandQueue;
-    v2->_commandQueue = v18;
+    v2->_commandQueue = newCommandQueue;
 
-    v22 = v2->_commandQueue;
-    if (v22)
+    v12 = v2->_commandQueue;
+    if (v12)
     {
-      objc_msgSend_setBackgroundGPUPriority_(v22, v20, 2, v21);
-      v23 = 0;
+      [(MTLCommandQueue *)v12 setBackgroundGPUPriority:2];
+      v13 = 0;
       goto LABEL_6;
     }
 
-    sub_23C4740B8(&v29);
+    sub_23C4740B8(&v19);
   }
 
   else
   {
-    sub_23C474114(&v29);
+    sub_23C474114(&v19);
   }
 
-  v23 = v29;
+  v13 = v19;
 LABEL_6:
 
-  if (!v23)
+  if (!v13)
   {
     goto LABEL_9;
   }
 
 LABEL_7:
-  v24 = 0;
+  v14 = 0;
 LABEL_10:
-  v25 = v24;
+  v15 = v14;
 
-  return v25;
+  return v15;
 }
 
 - (MetalContext)initWithDevice:(id)device library:(id)library commandQueue:(id)queue
@@ -118,83 +116,83 @@ LABEL_10:
 
 - (BOOL)writeMetalTextureToFile:(const char *)file texture:(id)texture mipmapLevel:(int)level
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   textureCopy = texture;
-  v11 = textureCopy;
-  v12 = 0;
+  v8 = textureCopy;
+  v9 = 0;
   if (!file || !textureCopy || level < 0)
   {
     goto LABEL_9;
   }
 
-  if (objc_msgSend_mipmapLevelCount(textureCopy, v8, v9, v10) <= level)
+  if ([textureCopy mipmapLevelCount] <= level)
   {
-    v12 = 0;
+    v9 = 0;
     goto LABEL_9;
   }
 
-  objc_msgSend_pixelFormat(v11, v13, v14, v15);
+  [v8 pixelFormat];
   MTLPixelFormatGetInfoForDevice();
-  v16 = v33;
-  v20 = objc_msgSend_width(v11, v17, v18, v19) >> level;
-  v24 = objc_msgSend_height(v11, v21, v22, v23) >> level;
-  v12 = malloc_type_malloc(v20 * v33 * v24, 0x100004077774924uLL);
-  memset(v32, 0, sizeof(v32));
-  v33 = v20;
-  v34 = v24;
-  v35 = 1;
-  objc_msgSend_getBytes_bytesPerRow_fromRegion_mipmapLevel_(v11, v25, v12, v20 * v16, v32, level);
-  v26 = fopen(file, "wb");
-  if (!v26)
+  v10 = v20;
+  v11 = [v8 width] >> level;
+  v12 = [v8 height] >> level;
+  v9 = malloc_type_malloc(v11 * v20 * v12, 0x100004077774924uLL);
+  memset(v19, 0, sizeof(v19));
+  v20 = v11;
+  v21 = v12;
+  v22 = 1;
+  [v8 getBytes:v9 bytesPerRow:v11 * v10 fromRegion:v19 mipmapLevel:level];
+  v13 = fopen(file, "wb");
+  if (!v13)
   {
-    v30 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+    v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
 
 LABEL_9:
-    free(v12);
-    v28 = 0;
+    free(v9);
+    v15 = 0;
     goto LABEL_11;
   }
 
-  v27 = v26;
-  v28 = fwrite(v12, v16, v24 * v20, v26) == v24 * v20;
-  if (!v28)
+  v14 = v13;
+  v15 = fwrite(v9, v10, v12 * v11, v13) == v12 * v11;
+  if (!v15)
   {
-    v29 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
+    v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  free(v12);
-  fclose(v27);
+  free(v9);
+  fclose(v14);
 LABEL_11:
 
-  return v28;
+  return v15;
 }
 
 - (int)writeMetalBufferToFile:(const char *)file buffer:(id)buffer
 {
+  v14 = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   v6 = fopen(file, "wb");
   if (v6)
   {
     v7 = v6;
-    v8 = bufferCopy;
-    v12 = objc_msgSend_contents(v8, v9, v10, v11);
-    v16 = objc_msgSend_length(bufferCopy, v13, v14, v15);
-    if (fwrite(v12, 1uLL, v16, v7) == v16)
+    contents = [bufferCopy contents];
+    v9 = [bufferCopy length];
+    if (fwrite(contents, 1uLL, v9, v7) == v9)
     {
-      v17 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+      v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
 
-      v17 = -1;
+      v10 = -1;
     }
 
     fclose(v7);
@@ -202,48 +200,48 @@ LABEL_11:
 
   else
   {
-    v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
 
-    v17 = -1;
+    v10 = -1;
   }
 
-  return v17;
+  return v10;
 }
 
 - (id)newTextureWithPixelFormat:(unint64_t)format width:(int)width height:(int)height
 {
   if (height == 1)
   {
-    v8 = objc_msgSend_textureBufferDescriptorWithPixelFormat_width_resourceOptions_usage_(MEMORY[0x277CD7058], a2, format, width, 0, 19);
+    v6 = [MEMORY[0x277CD7058] textureBufferDescriptorWithPixelFormat:format width:? resourceOptions:? usage:?];
   }
 
   else
   {
-    v8 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], a2, format, width, height, 0);
-    objc_msgSend_setUsage_(v8, v9, 19, v10);
+    v6 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:format width:? height:? mipmapped:?];
+    [v6 setUsage:19];
   }
 
-  v11 = objc_msgSend_newTextureWithDescriptor_(self->_device, v6, v8, v7);
+  v7 = [(MTLDevice *)self->_device newTextureWithDescriptor:v6];
 
-  return v11;
+  return v7;
 }
 
 - (id)newBufferWithPixelFormat:(unint64_t)format width:(int)width data:(const void *)data
 {
-  v8 = objc_msgSend_bytesPerPixelForTextureFormat_(MetalContext, a2, format, *&width) * width;
+  v7 = [MetalContext bytesPerPixelForTextureFormat:format]* width;
   device = self->_device;
   if (data)
   {
 
-    return objc_msgSend_newBufferWithBytes_length_options_(device, v7, data, v8, 0);
+    return [(MTLDevice *)device newBufferWithBytes:data length:v7 options:0];
   }
 
   else
   {
 
-    return objc_msgSend_newBufferWithLength_options_(device, v7, v8, 0);
+    return [(MTLDevice *)device newBufferWithLength:v7 options:0];
   }
 }
 
@@ -251,39 +249,39 @@ LABEL_11:
 {
   v7 = *&height;
   v8 = *&width;
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   widthCopy = width;
-  v12 = objc_msgSend_bytesPerPixelForTextureFormat_(MetalContext, a2, format, *&width) * width;
+  v12 = [MetalContext bytesPerPixelForTextureFormat:format]* width;
   __ptr = malloc_type_malloc(v12 * v7, 0x100004077774924uLL);
   if (__ptr)
   {
     v13 = fopen(file, "rb");
     if (v13)
     {
-      v15 = v13;
-      v16 = objc_msgSend_newTextureWithPixelFormat_width_height_(self, v14, format, v8, v7);
-      fread(__ptr, v12 * v7, 1uLL, v15);
-      memset(v22, 0, 24);
-      v22[3] = widthCopy;
+      v14 = v13;
+      v15 = [(MetalContext *)self newTextureWithPixelFormat:format width:v8 height:v7];
+      fread(__ptr, v12 * v7, 1uLL, v14);
+      memset(v20, 0, 24);
+      v20[3] = widthCopy;
       if (v7 == 1)
       {
-        v23 = vdupq_n_s64(1uLL);
+        v21 = vdupq_n_s64(1uLL);
       }
 
       else
       {
-        v23.i64[0] = v7;
-        v23.i64[1] = 1;
+        v21.i64[0] = v7;
+        v21.i64[1] = 1;
       }
 
-      objc_msgSend_replaceRegion_mipmapLevel_withBytes_bytesPerRow_(v16, v17, v22, 0, __ptr, v12);
+      [v15 replaceRegion:v20 mipmapLevel:0 withBytes:__ptr bytesPerRow:v12];
       free(__ptr);
-      fclose(v15);
+      fclose(v14);
       goto LABEL_10;
     }
 
-    v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+    v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
 
     free(__ptr);
@@ -291,20 +289,21 @@ LABEL_11:
 
   else
   {
-    v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v16 = 0;
+  v15 = 0;
 LABEL_10:
 
-  return v16;
+  return v15;
 }
 
 - (id)readBufferFromFile:(const char *)file width:(int)width pixelFormat:(unint64_t)format
 {
-  v7 = objc_msgSend_bytesPerPixelForTextureFormat_(MetalContext, a2, format, *&width) * width;
+  v16 = *MEMORY[0x277D85DE8];
+  v7 = [MetalContext bytesPerPixelForTextureFormat:format]* width;
   v8 = malloc_type_malloc(v7, 0x100004077774924uLL);
   if (v8)
   {
@@ -314,14 +313,14 @@ LABEL_10:
     {
       v11 = v10;
       fread(v9, v7, 1uLL, v10);
-      v13 = objc_msgSend_newBufferWithBytes_length_options_(self->_device, v12, v9, v7, 0);
+      v12 = [(MTLDevice *)self->_device newBufferWithBytes:v9 length:v7 options:0];
       free(v9);
       fclose(v11);
       goto LABEL_7;
     }
 
-    v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
 
     free(v9);
@@ -329,15 +328,15 @@ LABEL_10:
 
   else
   {
-    v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v13 = 0;
+  v12 = 0;
 LABEL_7:
 
-  return v13;
+  return v12;
 }
 
 - (id)bindPixelBufferToMTL2DTexture:(__CVBuffer *)texture pixelFormat:(unint64_t)format plane:(unint64_t)plane
@@ -347,17 +346,16 @@ LABEL_7:
   {
     v9 = IOSurface;
     WidthOfPlane = IOSurfaceGetWidthOfPlane(IOSurface, plane);
-    HeightOfPlane = IOSurfaceGetHeightOfPlane(v9, plane);
-    v13 = objc_msgSend_bindIOSurfaceToMTL2DTexture_pixelFormat_width_height_plane_(self, v12, v9, format, WidthOfPlane, HeightOfPlane, plane);
+    plane = [(MetalContext *)self bindIOSurfaceToMTL2DTexture:v9 pixelFormat:format width:WidthOfPlane height:IOSurfaceGetHeightOfPlane(v9 plane:plane), plane];
   }
 
   else
   {
     sub_23C47422C();
-    v13 = 0;
+    plane = 0;
   }
 
-  return v13;
+  return plane;
 }
 
 - (id)bindPixelBufferToMTL2DTexture:(__CVBuffer *)texture pixelFormat:(unint64_t)format textureSize:(CGSize)size plane:(unint64_t)plane
@@ -379,7 +377,7 @@ LABEL_7:
     {
       if (height <= HeightOfPlane)
       {
-        v16 = objc_msgSend_bindIOSurfaceToMTL2DTexture_pixelFormat_width_height_plane_(self, v15, v12, format, width, height, plane);
+        v15 = [(MetalContext *)self bindIOSurfaceToMTL2DTexture:v12 pixelFormat:format width:width height:height plane:plane];
         goto LABEL_5;
       }
 
@@ -392,23 +390,23 @@ LABEL_7:
     sub_23C47434C();
   }
 
-  v16 = 0;
+  v15 = 0;
 LABEL_5:
 
-  return v16;
+  return v15;
 }
 
 - (id)bindIOSurfaceToMTL2DTexture:(__IOSurface *)texture pixelFormat:(unint64_t)format width:(unint64_t)width height:(unint64_t)height plane:(unint64_t)plane
 {
-  v10 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], a2, format, width, height, 0);
-  v13 = v10;
-  if (!v10 || (objc_msgSend_setUsage_(v10, v11, 23, v12), (v15 = objc_msgSend_newTextureWithDescriptor_iosurface_plane_(self->_device, v14, v13, texture, plane)) == 0))
+  v10 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:format width:width height:height mipmapped:0];
+  v11 = v10;
+  if (!v10 || ([v10 setUsage:23], (v12 = -[MTLDevice newTextureWithDescriptor:iosurface:plane:](self->_device, "newTextureWithDescriptor:iosurface:plane:", v11, texture, plane)) == 0))
   {
     sub_23C4743AC();
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 - (void)copyMTLBufferToMTLTexture:(id)texture bytesPerRow:(unint64_t)row texture:(id)a5
@@ -416,19 +414,19 @@ LABEL_5:
   commandQueue = self->_commandQueue;
   v8 = a5;
   textureCopy = texture;
-  v13 = objc_msgSend_commandBuffer(commandQueue, v10, v11, v12);
-  v17 = objc_msgSend_blitCommandEncoder(v13, v14, v15, v16);
-  v21 = objc_msgSend_height(v8, v18, v19, v20) * row;
-  v44[0] = objc_msgSend_width(v8, v22, v23, v24);
-  v44[1] = objc_msgSend_height(v8, v25, v26, v27);
-  v44[2] = objc_msgSend_depth(v8, v28, v29, v30);
-  memset(v43, 0, sizeof(v43));
-  objc_msgSend_copyFromBuffer_sourceOffset_sourceBytesPerRow_sourceBytesPerImage_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_(v17, v31, textureCopy, 0, row, v21, v44, v8, 0, 0, v43);
+  commandBuffer = [(MTLCommandQueue *)commandQueue commandBuffer];
+  blitCommandEncoder = [commandBuffer blitCommandEncoder];
+  v12 = [v8 height] * row;
+  v14[0] = [v8 width];
+  v14[1] = [v8 height];
+  v14[2] = [v8 depth];
+  memset(v13, 0, sizeof(v13));
+  [blitCommandEncoder copyFromBuffer:textureCopy sourceOffset:0 sourceBytesPerRow:row sourceBytesPerImage:v12 sourceSize:v14 toTexture:v8 destinationSlice:0 destinationLevel:0 destinationOrigin:v13];
 
-  objc_msgSend_endEncoding(v17, v32, v33, v34);
-  objc_msgSend_addCompletedHandler_(v13, v35, &unk_284F097D0, v36);
-  objc_msgSend_commit(v13, v37, v38, v39);
-  objc_msgSend_waitUntilCompleted(v13, v40, v41, v42);
+  [blitCommandEncoder endEncoding];
+  [commandBuffer addCompletedHandler:&unk_284F097D0];
+  [commandBuffer commit];
+  [commandBuffer waitUntilCompleted];
 }
 
 + (unint64_t)bytesPerPixelForTextureFormat:(unint64_t)format
@@ -477,32 +475,32 @@ LABEL_5:
 - (BOOL)writeMetalTextureToData:(void *)data texture:(id)texture mipmapLevel:(int)level
 {
   textureCopy = texture;
-  v11 = textureCopy;
-  v12 = 0;
+  v8 = textureCopy;
+  v9 = 0;
   if (textureCopy && (level & 0x80000000) == 0)
   {
-    if (objc_msgSend_mipmapLevelCount(textureCopy, v8, v9, v10) <= level)
+    if ([textureCopy mipmapLevelCount] <= level)
     {
-      v12 = 0;
+      v9 = 0;
     }
 
     else
     {
-      objc_msgSend_pixelFormat(v11, v13, v14, v15);
+      [v8 pixelFormat];
       MTLPixelFormatGetInfoForDevice();
-      v19 = objc_msgSend_width(v11, v16, v17, v18) >> level;
-      v23 = objc_msgSend_height(v11, v20, v21, v22);
-      memset(v27, 0, sizeof(v27));
-      v24 = v19 * v28;
-      v28 = v19;
-      v12 = 1;
-      v29 = v23 >> level;
-      v30 = 1;
-      objc_msgSend_getBytes_bytesPerRow_fromRegion_mipmapLevel_(v11, v25, data, v24, v27, level);
+      v10 = [v8 width] >> level;
+      height = [v8 height];
+      memset(v14, 0, sizeof(v14));
+      v12 = v10 * v15;
+      v15 = v10;
+      v9 = 1;
+      v16 = height >> level;
+      v17 = 1;
+      [v8 getBytes:data bytesPerRow:v12 fromRegion:v14 mipmapLevel:level];
     }
   }
 
-  return v12;
+  return v9;
 }
 
 @end

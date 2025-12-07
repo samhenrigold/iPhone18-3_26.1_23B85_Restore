@@ -82,7 +82,7 @@
 
 - (void)_hydrateViewWithApp
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   mapItem = [(MUPlaceSectionController *)self mapItem];
   _preferedAppAdamID = [mapItem _preferedAppAdamID];
   stringValue = [_preferedAppAdamID stringValue];
@@ -95,7 +95,7 @@
     if (v8)
     {
       *buf = 138412290;
-      v26 = stringValue;
+      v25 = stringValue;
       _os_log_impl(&dword_1C5620000, v7, OS_LOG_TYPE_INFO, "Have cached app store app for identifier %@.  Early return.", buf, 0xCu);
     }
 
@@ -107,7 +107,7 @@
     if (v8)
     {
       *buf = 138412290;
-      v26 = stringValue;
+      v25 = stringValue;
       _os_log_impl(&dword_1C5620000, v7, OS_LOG_TYPE_INFO, "Fetching app store app with identifier %@", buf, 0xCu);
     }
 
@@ -116,31 +116,29 @@
     mapItem2 = [(MUPlaceSectionController *)self mapItem];
     _preferedAppAdamID2 = [mapItem2 _preferedAppAdamID];
     stringValue2 = [_preferedAppAdamID2 stringValue];
-    v24 = stringValue2;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+    v23 = stringValue2;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
     +[MUPlaceAppLockupView appIconSize];
     v15 = v14;
     v17 = v16;
     mEMORY[0x1E696F3B8] = [MEMORY[0x1E696F3B8] sharedInstance];
     [mEMORY[0x1E696F3B8] screenScale];
     v20 = v19;
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __53__MUOfficialAppSectionController__hydrateViewWithApp__block_invoke;
-    v22[3] = &unk_1E8219220;
-    objc_copyWeak(&v23, buf);
-    [mEMORY[0x1E696F1A0] appleMediaServicesResultsWithIdentifiers:v13 artworkSize:1 screenScale:4 type:v22 source:v15 completion:{v17, v20}];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __53__MUOfficialAppSectionController__hydrateViewWithApp__block_invoke;
+    v21[3] = &unk_1E8219220;
+    objc_copyWeak(&v22, buf);
+    [mEMORY[0x1E696F1A0] appleMediaServicesResultsWithIdentifiers:v13 artworkSize:1 screenScale:4 type:v21 source:v15 completion:{v17, v20}];
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(buf);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __53__MUOfficialAppSectionController__hydrateViewWithApp__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -153,9 +151,9 @@ void __53__MUOfficialAppSectionController__hydrateViewWithApp__block_invoke(uint
       v13 = MUGetPlaceCardLog();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v15 = 138412290;
-        v16 = v6;
-        _os_log_impl(&dword_1C5620000, v13, OS_LOG_TYPE_ERROR, "Failed to fetch app store app with error %@", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = v6;
+        _os_log_impl(&dword_1C5620000, v13, OS_LOG_TYPE_ERROR, "Failed to fetch app store app with error %@", &v14, 0xCu);
       }
     }
 
@@ -169,17 +167,15 @@ void __53__MUOfficialAppSectionController__hydrateViewWithApp__block_invoke(uint
       v12 = MUGetPlaceCardLog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v15 = 138412290;
-        v16 = v9;
-        _os_log_impl(&dword_1C5620000, v12, OS_LOG_TYPE_INFO, "MUOfficialAppSectionController: Fetched app %@, will tell parent to update", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = v9;
+        _os_log_impl(&dword_1C5620000, v12, OS_LOG_TYPE_INFO, "MUOfficialAppSectionController: Fetched app %@, will tell parent to update", &v14, 0xCu);
       }
 
       v13 = [WeakRetained delegate];
       [v13 placeSectionControllerDidUpdateContent:WeakRetained];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupLockupView

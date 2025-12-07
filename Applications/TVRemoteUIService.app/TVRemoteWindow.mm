@@ -16,7 +16,7 @@
 
   if ([anyObject phase] == 3)
   {
-    v9 = _TVRUIServiceAppLog();
+    v9 = _TVRUIServiceAppLog(3);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       recursiveDescription = [v8 recursiveDescription];

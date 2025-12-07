@@ -21,6 +21,8 @@
 - (void)didLock;
 - (void)reinstallApp;
 - (void)reloadSpecs:(id)specs;
+- (void)removeSpecifier:(id)specifier animated:(BOOL)animated;
+- (void)setEditButtonEnabled:(BOOL)enabled;
 - (void)setEditable:(BOOL)editable;
 - (void)setUIState:(int)state;
 - (void)setupSpecifiers;
@@ -33,6 +35,8 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateHLSSpecs;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation STStorageAppDetailController
@@ -55,6 +59,68 @@
 
   table2 = [(STStorageAppDetailController *)self table];
   [table2 setAllowsMultipleSelectionDuringEditing:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = STStorageAppDetailController;
+  [(STStorageAppDetailController *)&v12 viewWillAppear:appear];
+  if ([(STStorageAppDetailController *)self isMovingToParentViewController])
+  {
+    [(STStorageAppDetailController *)self setEditable:0];
+    v4 = +[LSApplicationWorkspace defaultWorkspace];
+    [v4 addObserver:self];
+
+    v5 = +[NSNotificationCenter defaultCenter];
+    [v5 addObserver:self selector:"reloadSpecs:" name:STNotifyMediaSizesChanged object:0];
+
+    v6 = +[NSNotificationCenter defaultCenter];
+    [v6 addObserver:self selector:"reloadSpecs:" name:STStoragePluginReloadSpecifiersNotification object:0];
+  }
+
+  storageApp = [(STStorageDetailViewController *)self storageApp];
+  -[STStorageAppDetailController setUIState:](self, "setUIState:", [storageApp state]);
+
+  rootController = [(STStorageAppDetailController *)self rootController];
+  if (rootController)
+  {
+    [*(&self->_uiState + 1) setRootController:rootController];
+  }
+
+  else
+  {
+    navigationController = [(STStorageAppDetailController *)self navigationController];
+    [*(&self->_uiState + 1) setRootController:navigationController];
+  }
+
+  v10 = dispatch_get_global_queue(17, 0);
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_5658;
+  block[3] = &unk_AA628;
+  block[4] = self;
+  dispatch_async(v10, block);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  if ([(STStorageAppDetailController *)self isMovingFromParentViewController])
+  {
+    v5 = +[LSApplicationWorkspace defaultWorkspace];
+    [v5 removeObserver:self];
+
+    v6 = +[NSNotificationCenter defaultCenter];
+    [v6 removeObserver:self name:STNotifyMediaSizesChanged object:0];
+
+    v7 = +[NSNotificationCenter defaultCenter];
+    [v7 removeObserver:self name:STStoragePluginReloadSpecifiersNotification object:0];
+  }
+
+  v8.receiver = self;
+  v8.super_class = STStorageAppDetailController;
+  [(STStorageAppDetailController *)&v8 viewWillDisappear:disappearCopy];
 }
 
 - (id)appSizeString:(id)string
@@ -2033,19 +2099,8 @@ LABEL_11:
   pathCopy = path;
   v8 = [(STStorageAppDetailController *)self specifierAtIndexPath:pathCopy];
   v9 = [(STStorageAppDetailController *)self usageIndexPathForSpecifier:v8];
-  if (!v9)
+  if (v9 && (-[STStorageDetailViewController storageApp](self, "storageApp"), v10 = objc_claimAutoreleasedReturnValue(), [v10 usageBundle], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "bundleIdentifier"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isEqualToString:", @"com.apple.mobilesafari"), v12, v11, v10, (v13 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  storageApp = [(STStorageDetailViewController *)self storageApp];
-  usageBundle = [storageApp usageBundle];
-  bundleIdentifier = [usageBundle bundleIdentifier];
-  v13 = [bundleIdentifier isEqualToString:@"com.apple.mobilesafari"];
-
-  if ((v13 & 1) == 0)
-  {
-    v14 = *(&self->_uiState + 1);
     if (objc_opt_respondsToSelector())
     {
       [*(&self->_uiState + 1) tableView:viewCopy didSelectRowAtIndexPath:v9];
@@ -2054,10 +2109,9 @@ LABEL_11:
 
   else
   {
-LABEL_3:
-    v15.receiver = self;
-    v15.super_class = STStorageAppDetailController;
-    [(STStorageAppDetailController *)&v15 tableView:viewCopy didSelectRowAtIndexPath:pathCopy];
+    v14.receiver = self;
+    v14.super_class = STStorageAppDetailController;
+    [(STStorageAppDetailController *)&v14 tableView:viewCopy didSelectRowAtIndexPath:pathCopy];
   }
 }
 
@@ -2069,7 +2123,6 @@ LABEL_3:
   v9 = [(STStorageAppDetailController *)self usageIndexPathForSpecifier:v8];
   if (v9)
   {
-    v10 = *(&self->_uiState + 1);
     if (objc_opt_respondsToSelector())
     {
       [*(&self->_uiState + 1) tableView:viewCopy didDeselectRowAtIndexPath:v9];
@@ -2078,9 +2131,9 @@ LABEL_3:
 
   else
   {
-    v11.receiver = self;
-    v11.super_class = STStorageAppDetailController;
-    [(STStorageAppDetailController *)&v11 tableView:viewCopy didDeselectRowAtIndexPath:pathCopy];
+    v10.receiver = self;
+    v10.super_class = STStorageAppDetailController;
+    [(STStorageAppDetailController *)&v10 tableView:viewCopy didDeselectRowAtIndexPath:pathCopy];
   }
 }
 
@@ -2090,40 +2143,40 @@ LABEL_3:
   v6 = v5;
   if (!*(&self->_uiState + 1))
   {
-    v12 = [v5 propertyForKey:@"stCacheAsset"];
-    if (v12 || ([v6 propertyForKey:STStorageItemURLKey], (v12 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v6, "propertyForKey:", UsageMediaKindKey), (v12 = objc_claimAutoreleasedReturnValue()) != 0))
+    v11 = [v5 propertyForKey:@"stCacheAsset"];
+    if (v11 || ([v6 propertyForKey:STStorageItemURLKey], (v11 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v6, "propertyForKey:", UsageMediaKindKey), (v11 = objc_claimAutoreleasedReturnValue()) != 0))
     {
     }
 
     else
     {
-      v14 = [v6 propertyForKey:@"_stMediaSpecifiers"];
+      v13 = [v6 propertyForKey:@"_stMediaSpecifiers"];
 
-      if (!v14)
+      if (!v13)
       {
         goto LABEL_6;
       }
     }
 
-    v11 = 1;
+    v10 = 1;
     goto LABEL_12;
   }
 
   v7 = [(STStorageAppDetailController *)self usageIndexPathForSpecifier:v5];
-  if (!v7 || (v8 = *(&self->_uiState + 1), (objc_opt_respondsToSelector() & 1) == 0))
+  if (!v7 || (objc_opt_respondsToSelector() & 1) == 0)
   {
 
 LABEL_6:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_12;
   }
 
-  v9 = *(&self->_uiState + 1);
-  table = [v9 table];
-  v11 = [v9 tableView:table canEditRowAtIndexPath:v7];
+  v8 = *(&self->_uiState + 1);
+  table = [v8 table];
+  v10 = [v8 tableView:table canEditRowAtIndexPath:v7];
 
 LABEL_12:
-  return v11;
+  return v10;
 }
 
 - (int64_t)tableView:(id)view editingStyleForRowAtIndexPath:(id)path
@@ -2138,39 +2191,38 @@ LABEL_12:
 
     if (v10)
     {
-      v16 = &dword_0 + 1;
+      v15 = &dword_0 + 1;
       goto LABEL_11;
     }
 
 LABEL_10:
-    v16 = 0;
+    v15 = 0;
     goto LABEL_11;
   }
 
   v11 = [(STStorageAppDetailController *)self usageIndexPathForSpecifier:v9];
-  v12 = *(&self->_uiState + 1);
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
 
     goto LABEL_10;
   }
 
-  v13 = *(&self->_uiState + 1);
-  table = [v13 table];
+  v12 = *(&self->_uiState + 1);
+  table = [v12 table];
   if (v11)
   {
-    v15 = v11;
+    v14 = v11;
   }
 
   else
   {
-    v15 = pathCopy;
+    v14 = pathCopy;
   }
 
-  v16 = [v13 tableView:table editingStyleForRowAtIndexPath:v15];
+  v15 = [v12 tableView:table editingStyleForRowAtIndexPath:v14];
 
 LABEL_11:
-  return v16;
+  return v15;
 }
 
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path
@@ -2183,23 +2235,19 @@ LABEL_11:
     if (*(&self->_uiState + 1))
     {
       v10 = [(STStorageAppDetailController *)self usageIndexPathForSpecifier:v8];
-      if (v10)
+      if (v10 && (objc_opt_respondsToSelector() & 1) != 0)
       {
         v11 = *(&self->_uiState + 1);
-        if (objc_opt_respondsToSelector())
-        {
-          v12 = *(&self->_uiState + 1);
-          table = [v12 table];
-          [v12 tableView:table commitEditingStyle:style forRowAtIndexPath:v10];
+        table = [v11 table];
+        [v11 tableView:table commitEditingStyle:style forRowAtIndexPath:v10];
 
-          v19[0] = _NSConcreteStackBlock;
-          v19[1] = 3221225472;
-          v19[2] = sub_AC5C;
-          v19[3] = &unk_AA650;
-          v19[4] = self;
-          v20 = v9;
-          dispatch_async(&_dispatch_main_q, v19);
-        }
+        v18[0] = _NSConcreteStackBlock;
+        v18[1] = 3221225472;
+        v18[2] = sub_AC5C;
+        v18[3] = &unk_AA650;
+        v18[4] = self;
+        v19 = v9;
+        dispatch_async(&_dispatch_main_q, v18);
       }
 
       goto LABEL_16;
@@ -2207,51 +2255,62 @@ LABEL_11:
 
     if (style == 1)
     {
-      v14 = [v8 propertyForKey:@"stCacheAsset"];
+      v13 = [v8 propertyForKey:@"stCacheAsset"];
 
-      if (v14)
+      if (v13)
       {
-        v23 = v9;
-        v10 = [NSArray arrayWithObjects:&v23 count:1];
+        v22 = v9;
+        v10 = [NSArray arrayWithObjects:&v22 count:1];
         [(STStorageAppDetailController *)self deleteAssets:v10];
 LABEL_16:
 
         goto LABEL_17;
       }
 
-      v15 = [v9 propertyForKey:STStorageItemURLKey];
+      v14 = [v9 propertyForKey:STStorageItemURLKey];
 
-      if (v15)
+      if (v14)
       {
-        v22 = v9;
-        v10 = [NSArray arrayWithObjects:&v22 count:1];
+        v21 = v9;
+        v10 = [NSArray arrayWithObjects:&v21 count:1];
         [(STStorageAppDetailController *)self deleteURLItems:v10];
         goto LABEL_16;
       }
 
-      v16 = [v9 propertyForKey:UsageMediaKindKey];
+      v15 = [v9 propertyForKey:UsageMediaKindKey];
 
-      if (v16)
+      if (v15)
       {
-        v21 = v9;
-        v17 = [NSArray arrayWithObjects:&v21 count:1];
+        v20 = v9;
+        v16 = [NSArray arrayWithObjects:&v20 count:1];
 LABEL_15:
-        v10 = v17;
-        [(STStorageAppDetailController *)self deleteMediaItems:v17];
+        v10 = v16;
+        [(STStorageAppDetailController *)self deleteMediaItems:v16];
         goto LABEL_16;
       }
 
-      v18 = [v9 propertyForKey:@"_stMediaSpecifiers"];
+      v17 = [v9 propertyForKey:@"_stMediaSpecifiers"];
 
-      if (v18)
+      if (v17)
       {
-        v17 = [v9 propertyForKey:@"_stMediaSpecifiers"];
+        v16 = [v9 propertyForKey:@"_stMediaSpecifiers"];
         goto LABEL_15;
       }
     }
 
 LABEL_17:
   }
+}
+
+- (void)removeSpecifier:(id)specifier animated:(BOOL)animated
+{
+  v8.receiver = self;
+  v8.super_class = STStorageAppDetailController;
+  [(STStorageAppDetailController *)&v8 removeSpecifier:specifier animated:animated];
+  table = [(STStorageAppDetailController *)self table];
+  _swipeActionController = [table _swipeActionController];
+  currentSwipeOccurrence = [_swipeActionController currentSwipeOccurrence];
+  [currentSwipeOccurrence endSwipe];
 }
 
 - (id)editButton
@@ -2280,6 +2339,13 @@ LABEL_17:
     [v7 setHeaderButtonTitle:v5];
     [*&self->super.PSEditableListController_opaque[OBJC_IVAR___PSListController__table] setEditing:self->super.PSEditableListController_opaque[v3] animated:1];
   }
+}
+
+- (void)setEditButtonEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  editButton = [(STStorageAppDetailController *)self editButton];
+  [editButton setEnabled:enabledCopy];
 }
 
 - (void)suspend

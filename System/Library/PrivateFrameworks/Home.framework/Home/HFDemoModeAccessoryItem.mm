@@ -222,9 +222,9 @@ LABEL_8:
 - (HMHome)home
 {
   accessory = [(HFDemoModeAccessoryItem *)self accessory];
-  home = [accessory home];
+  v3 = objc_msgSend_home(accessory);
 
-  return home;
+  return v3;
 }
 
 - (id)accessories
@@ -253,17 +253,15 @@ LABEL_8:
 
 void __48__HFDemoModeAccessoryItem_isMediaSystemDemoType__block_invoke()
 {
-  v3[5] = *MEMORY[0x277D85DE8];
-  v3[0] = @"HomePod";
-  v3[1] = @"HomePodMini";
-  v3[2] = @"MediaSystem-HomePod";
-  v3[3] = @"MediaSystem-HomePodMini";
-  v3[4] = @"AppleTV";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:5];
+  v2[5] = *MEMORY[0x277D85DE8];
+  v2[0] = @"HomePod";
+  v2[1] = @"HomePodMini";
+  v2[2] = @"MediaSystem-HomePod";
+  v2[3] = @"MediaSystem-HomePodMini";
+  v2[4] = @"AppleTV";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:5];
   v1 = _MergedGlobals_3_2;
   _MergedGlobals_3_2 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)namingComponentForHomeKitObject

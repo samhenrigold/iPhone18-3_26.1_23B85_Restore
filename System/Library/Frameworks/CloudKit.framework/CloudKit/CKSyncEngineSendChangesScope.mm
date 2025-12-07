@@ -153,7 +153,7 @@ LABEL_8:
 
 - (BOOL)containsZoneOrRecordWithZoneID:(id)d
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v7 = objc_msgSend_excludedZoneIDs(self, v5, v6);
   v9 = objc_msgSend_containsObject_(v7, v8, dCopy);
@@ -177,25 +177,25 @@ LABEL_8:
       v17 = objc_msgSend_recordIDs(self, v14, v15);
       if (objc_msgSend_count(v17, v18, v19))
       {
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
         v32 = 0u;
+        v33 = 0u;
+        v30 = 0u;
+        v31 = 0u;
         v20 = v17;
-        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v31, v35, 16);
+        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v30, v34, 16);
         if (v12)
         {
-          v24 = *v32;
+          v24 = *v31;
           while (2)
           {
             for (i = 0; i != v12; ++i)
             {
-              if (*v32 != v24)
+              if (*v31 != v24)
               {
                 objc_enumerationMutation(v20);
               }
 
-              v26 = objc_msgSend_zoneID(*(*(&v31 + 1) + 8 * i), v22, v23, v31);
+              v26 = objc_msgSend_zoneID(*(*(&v30 + 1) + 8 * i), v22, v23, v30);
               isEqual = objc_msgSend_isEqual_(v26, v27, dCopy);
 
               if (isEqual)
@@ -205,7 +205,7 @@ LABEL_8:
               }
             }
 
-            v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v22, &v31, v35, 16);
+            v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v22, &v30, v34, 16);
             if (v12)
             {
               continue;
@@ -225,7 +225,6 @@ LABEL_16:
     }
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

@@ -1,6 +1,6 @@
 @interface NEAppProxyFlow
 + (CFErrorRef)convertFlowErrorToCFError:(uint64_t)error;
-+ (NSObject)copyRemoteEndpointFromFlow:;
++ (NSObject)copyRemoteEndpointFromFlow:(uint64_t)flow;
 + (id)errorForFlowError:(uint64_t)error;
 - (NEAppProxyFlow)initWithNEFlow:(_NEFlow *)flow queue:(id)queue;
 - (NSData)applicationData;
@@ -13,7 +13,6 @@
 - (void)dealloc;
 - (void)openWithLocalEndpoint:(NWHostEndpoint *)localEndpoint completionHandler:(void *)completionHandler;
 - (void)openWithLocalFlowEndpoint:(id)endpoint completionHandler:(id)handler;
-- (void)setApplicationData:(id)data;
 - (void)setMetadata:(nw_parameters_t)parameters;
 - (void)setNetworkInterface:(nw_interface_t)networkInterface;
 @end
@@ -56,12 +55,6 @@
     }
 
     v10 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInt:nw_interface_get_index(Property)];
-    if (self)
-    {
-      flow = self->_flow;
-    }
-
-    v12 = v10;
     NEFlowSetProperty();
   }
 }
@@ -77,59 +70,35 @@
   return self;
 }
 
-- (void)setApplicationData:(id)data
-{
-  if (self)
-  {
-    flow = self->_flow;
-  }
-
-  NEFlowSetProperty();
-}
-
 - (NSData)applicationData
 {
-  if (self)
-  {
-    flow = self->_flow;
-  }
+  v2 = NEFlowCopyProperty();
 
-  v3 = NEFlowCopyProperty();
-
-  return v3;
+  return v2;
 }
 
 - (void)closeWriteWithError:(NSError *)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = error;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412546;
+    v7 = 138412546;
     selfCopy = self;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "closing write on flow %@ with error %@", &v9, 0x16u);
+    v9 = 2112;
+    v10 = v4;
+    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "closing write on flow %@ with error %@", &v7, 0x16u);
   }
 
   if (v4)
   {
     v6 = [NEAppProxyFlow convertFlowErrorToCFError:v4];
-    if (self)
-    {
-LABEL_5:
-      flow = self->_flow;
-    }
   }
 
   else
   {
     v6 = 0;
-    if (self)
-    {
-      goto LABEL_5;
-    }
   }
 
   NEFlowWriteClose();
@@ -137,8 +106,6 @@ LABEL_5:
   {
     CFRelease(v6);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (CFErrorRef)convertFlowErrorToCFError:(uint64_t)error
@@ -237,35 +204,26 @@ LABEL_21:
 
 - (void)closeReadWithError:(NSError *)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = error;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412546;
+    v7 = 138412546;
     selfCopy = self;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "closing read on flow %@ with error %@", &v9, 0x16u);
+    v9 = 2112;
+    v10 = v4;
+    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "closing read on flow %@ with error %@", &v7, 0x16u);
   }
 
   if (v4)
   {
     v6 = [NEAppProxyFlow convertFlowErrorToCFError:v4];
-    if (self)
-    {
-LABEL_5:
-      flow = self->_flow;
-    }
   }
 
   else
   {
     v6 = 0;
-    if (self)
-    {
-      goto LABEL_5;
-    }
   }
 
   NEFlowReadClose();
@@ -273,8 +231,6 @@ LABEL_5:
   {
     CFRelease(v6);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)openWithLocalEndpoint:(NWHostEndpoint *)localEndpoint completionHandler:(void *)completionHandler
@@ -286,7 +242,7 @@ LABEL_5:
 
 - (void)openWithLocalFlowEndpoint:(id)endpoint completionHandler:(id)handler
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   handlerCopy = handler;
   v8 = ne_log_obj();
@@ -294,151 +250,76 @@ LABEL_5:
   {
     *buf = 138412546;
     selfCopy = self;
-    v56 = 2112;
-    v57 = endpointCopy;
+    v48 = 2112;
+    v49 = endpointCopy;
     _os_log_debug_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEBUG, "opening flow %@ with local %@", buf, 0x16u);
   }
 
   selfCopy2 = self;
   objc_sync_enter(selfCopy2);
-  if (!endpointCopy)
+  if (endpointCopy)
   {
-    goto LABEL_15;
-  }
-
-  address = nw_endpoint_get_address(endpointCopy);
-  if (address)
-  {
-    v11 = [MEMORY[0x1E695DEF0] dataWithBytes:address length:address->sa_len];
-    if (!selfCopy2)
+    address = nw_endpoint_get_address(endpointCopy);
+    if (address)
     {
-      goto LABEL_7;
-    }
-  }
-
-  else
-  {
-    v11 = 0;
-    if (!selfCopy2)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  flow = selfCopy2->_flow;
-LABEL_7:
-  if (!NEFlowSetProperty())
-  {
-
-    goto LABEL_31;
-  }
-
-  if (selfCopy2)
-  {
-    v13 = selfCopy2->_flow;
-  }
-
-  v14 = NEFlowCopyProperty();
-  if (isa_nsnumber(v14))
-  {
-    [v14 unsignedIntValue];
-    v16 = nw_interface_create_with_index();
-    if (selfCopy2)
-    {
-      objc_setProperty_atomic(selfCopy2, v15, v16, 48);
-    }
-  }
-
-LABEL_15:
-  if (selfCopy2)
-  {
-    v17 = selfCopy2->_flow;
-  }
-
-  v48 = MEMORY[0x1E69E9820];
-  v49 = 3221225472;
-  v50 = __62__NEAppProxyFlow_openWithLocalFlowEndpoint_completionHandler___block_invoke;
-  v51 = &unk_1E7F06A38;
-  v18 = handlerCopy;
-  v52 = selfCopy2;
-  v53 = v18;
-  v19 = NEFlowSetEventHandler() == 0;
-
-  if (v19)
-  {
-    goto LABEL_31;
-  }
-
-  if (selfCopy2)
-  {
-    v20 = selfCopy2->_flow;
-  }
-
-  v42 = MEMORY[0x1E69E9820];
-  v43 = 3221225472;
-  v44 = __62__NEAppProxyFlow_openWithLocalFlowEndpoint_completionHandler___block_invoke_2;
-  v45 = &unk_1E7F06A38;
-  v21 = v18;
-  v46 = selfCopy2;
-  v47 = v21;
-  v22 = NEFlowSetEventHandler() == 0;
-
-  if (v22)
-  {
-    goto LABEL_31;
-  }
-
-  if (selfCopy2)
-  {
-    v23 = selfCopy2->_flow;
-  }
-
-  v36 = MEMORY[0x1E69E9820];
-  v37 = 3221225472;
-  v38 = __62__NEAppProxyFlow_openWithLocalFlowEndpoint_completionHandler___block_invoke_3;
-  v39 = &unk_1E7F06A38;
-  v40 = selfCopy2;
-  v41 = v21;
-  v24 = NEFlowSetEventHandler() == 0;
-
-  if (v24)
-  {
-    goto LABEL_31;
-  }
-
-  if (selfCopy2)
-  {
-    v25 = selfCopy2->_flow;
-  }
-
-  if (!NEFlowOpen())
-  {
-LABEL_31:
-    [(NEAppProxyFlow *)selfCopy2 clearEventHandlers];
-    if (selfCopy2)
-    {
-      v26 = selfCopy2->_flow;
+      v11 = [MEMORY[0x1E695DEF0] dataWithBytes:address length:address->sa_len];
     }
 
-    v27 = NEFlowCopyError();
-    v29 = v27;
-    if (v27)
+    else
     {
-      code = [v27 code];
+      v11 = 0;
+    }
+
+    if (!NEFlowSetProperty())
+    {
+
+      goto LABEL_19;
+    }
+
+    v12 = NEFlowCopyProperty();
+    if (isa_nsnumber(v12))
+    {
+      [v12 unsignedIntValue];
+      v14 = nw_interface_create_with_index();
       if (selfCopy2)
       {
-LABEL_35:
-        Property = objc_getProperty(selfCopy2, v28, 40, 1);
-LABEL_36:
-        v33[0] = MEMORY[0x1E69E9820];
-        v33[1] = 3221225472;
-        v33[2] = __62__NEAppProxyFlow_openWithLocalFlowEndpoint_completionHandler___block_invoke_4;
-        v33[3] = &unk_1E7F0AB18;
-        v34 = handlerCopy;
-        v35 = code;
-        dispatch_async(Property, v33);
+        objc_setProperty_atomic(selfCopy2, v13, v14, 48);
+      }
+    }
+  }
 
-        goto LABEL_37;
+  v40 = MEMORY[0x1E69E9820];
+  v41 = 3221225472;
+  v42 = __62__NEAppProxyFlow_openWithLocalFlowEndpoint_completionHandler___block_invoke;
+  v43 = &unk_1E7F06A38;
+  v15 = handlerCopy;
+  v44 = selfCopy2;
+  v45 = v15;
+  v16 = NEFlowSetEventHandler() == 0;
+
+  if (v16 || (v34 = MEMORY[0x1E69E9820], v35 = 3221225472, v36 = __62__NEAppProxyFlow_openWithLocalFlowEndpoint_completionHandler___block_invoke_2, v37 = &unk_1E7F06A38, v17 = v15, v38 = selfCopy2, v39 = v17, v18 = NEFlowSetEventHandler() == 0, v17, v18) || (v28 = MEMORY[0x1E69E9820], v29 = 3221225472, v30 = __62__NEAppProxyFlow_openWithLocalFlowEndpoint_completionHandler___block_invoke_3, v31 = &unk_1E7F06A38, v32 = selfCopy2, v33 = v17, v19 = NEFlowSetEventHandler() == 0, v33, v19) || !NEFlowOpen())
+  {
+LABEL_19:
+    [(NEAppProxyFlow *)selfCopy2 clearEventHandlers];
+    v20 = NEFlowCopyError();
+    v22 = v20;
+    if (v20)
+    {
+      code = [v20 code];
+      if (selfCopy2)
+      {
+LABEL_21:
+        Property = objc_getProperty(selfCopy2, v21, 40, 1);
+LABEL_22:
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = __62__NEAppProxyFlow_openWithLocalFlowEndpoint_completionHandler___block_invoke_4;
+        v25[3] = &unk_1E7F0AB18;
+        v26 = handlerCopy;
+        v27 = code;
+        dispatch_async(Property, v25);
+
+        goto LABEL_23;
       }
     }
 
@@ -447,18 +328,16 @@ LABEL_36:
       code = 0;
       if (selfCopy2)
       {
-        goto LABEL_35;
+        goto LABEL_21;
       }
     }
 
     Property = 0;
-    goto LABEL_36;
+    goto LABEL_22;
   }
 
-LABEL_37:
+LABEL_23:
   objc_sync_exit(selfCopy2);
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __62__NEAppProxyFlow_openWithLocalFlowEndpoint_completionHandler___block_invoke(uint64_t a1)
@@ -495,12 +374,8 @@ uint64_t __62__NEAppProxyFlow_openWithLocalFlowEndpoint_completionHandler___bloc
 {
   if (result)
   {
-    v1 = result;
-    v2 = *(result + 32);
     NEFlowSetEventHandler();
-    v3 = *(v1 + 32);
     NEFlowSetEventHandler();
-    v4 = *(v1 + 32);
 
     return NEFlowSetEventHandler();
   }
@@ -517,7 +392,7 @@ void __62__NEAppProxyFlow_openWithLocalFlowEndpoint_completionHandler___block_in
 
 + (id)errorForFlowError:(uint64_t)error
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   v3 = 0;
   if (a2 <= 4)
@@ -527,18 +402,18 @@ void __62__NEAppProxyFlow_openWithLocalFlowEndpoint_completionHandler___block_in
       v9 = MEMORY[0x1E696ABC0];
       if (a2 == 3)
       {
-        v26 = *MEMORY[0x1E696A578];
-        v27 = @"The destination could host could not be reached";
-        v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+        v25 = *MEMORY[0x1E696A578];
+        v26 = @"The destination could host could not be reached";
+        v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
         v6 = v9;
         v7 = 3;
       }
 
       else
       {
-        v28 = *MEMORY[0x1E696A578];
-        v29 = @"An invalid argument was passed";
-        v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+        v27 = *MEMORY[0x1E696A578];
+        v28 = @"An invalid argument was passed";
+        v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
         v6 = v9;
         v7 = 4;
       }
@@ -547,9 +422,9 @@ void __62__NEAppProxyFlow_openWithLocalFlowEndpoint_completionHandler___block_in
     else if (a2 == 1)
     {
       v11 = MEMORY[0x1E696ABC0];
-      v32 = *MEMORY[0x1E696A578];
-      v33[0] = @"The operation could not be completed because the flow is not connected";
-      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+      v31 = *MEMORY[0x1E696A578];
+      v32[0] = @"The operation could not be completed because the flow is not connected";
+      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
       v6 = v11;
       v7 = 1;
     }
@@ -562,9 +437,9 @@ void __62__NEAppProxyFlow_openWithLocalFlowEndpoint_completionHandler___block_in
       }
 
       v8 = MEMORY[0x1E696ABC0];
-      v30 = *MEMORY[0x1E696A578];
-      v31 = @"The peer closed the flow";
-      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v29 = *MEMORY[0x1E696A578];
+      v30 = @"The peer closed the flow";
+      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
       v6 = v8;
       v7 = 2;
     }
@@ -575,18 +450,18 @@ void __62__NEAppProxyFlow_openWithLocalFlowEndpoint_completionHandler___block_in
     v10 = MEMORY[0x1E696ABC0];
     if (a2 == 5)
     {
-      v20 = *MEMORY[0x1E696A578];
-      v21 = @"The flow was aborted";
-      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      v19 = *MEMORY[0x1E696A578];
+      v20 = @"The flow was aborted";
+      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
       v6 = v10;
       v7 = 5;
     }
 
     else
     {
-      v22 = *MEMORY[0x1E696A578];
-      v23 = @"The flow was refused";
-      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v21 = *MEMORY[0x1E696A578];
+      v22 = @"The flow was refused";
+      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
       v6 = v10;
       v7 = 6;
     }
@@ -598,25 +473,25 @@ void __62__NEAppProxyFlow_openWithLocalFlowEndpoint_completionHandler___block_in
     {
       case 7:
         v12 = MEMORY[0x1E696ABC0];
-        v24 = *MEMORY[0x1E696A578];
-        v25 = @"The flow timed out";
-        v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+        v23 = *MEMORY[0x1E696A578];
+        v24 = @"The flow timed out";
+        v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
         v6 = v12;
         v7 = 7;
         break;
       case 100:
         v13 = MEMORY[0x1E696ABC0];
-        v18 = *MEMORY[0x1E696A578];
-        v19 = @"The datagram was too large";
-        v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+        v17 = *MEMORY[0x1E696A578];
+        v18 = @"The datagram was too large";
+        v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
         v6 = v13;
         v7 = 9;
         break;
       case 101:
         v4 = MEMORY[0x1E696ABC0];
-        v16 = *MEMORY[0x1E696A578];
-        v17 = @"A read operation is already pending";
-        v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+        v15 = *MEMORY[0x1E696A578];
+        v16 = @"A read operation is already pending";
+        v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
         v6 = v4;
         v7 = 10;
         break;
@@ -628,7 +503,6 @@ void __62__NEAppProxyFlow_openWithLocalFlowEndpoint_completionHandler___block_in
   v3 = [v6 errorWithDomain:@"NEAppProxyFlowErrorDomain" code:v7 userInfo:v5];
 
 LABEL_21:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -666,11 +540,11 @@ LABEL_21:
 
 - (NEAppProxyFlow)initWithNEFlow:(_NEFlow *)flow queue:(id)queue
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
-  v43.receiver = self;
-  v43.super_class = NEAppProxyFlow;
-  v8 = [(NEAppProxyFlow *)&v43 init];
+  v39.receiver = self;
+  v39.super_class = NEAppProxyFlow;
+  v8 = [(NEAppProxyFlow *)&v39 init];
   if (!v8)
   {
     goto LABEL_23;
@@ -684,9 +558,9 @@ LABEL_21:
     goto LABEL_6;
   }
 
-  v42 = 0;
-  v10 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:applicationData error:&v42];
-  v11 = v42;
+  v38 = 0;
+  v10 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:applicationData error:&v38];
+  v11 = v38;
   if (v11)
   {
     v12 = ne_log_obj();
@@ -698,38 +572,36 @@ LABEL_6:
       v13 = [NEFlowMetaData alloc];
       if (v13)
       {
-        v44.receiver = v13;
-        v44.super_class = NEFlowMetaData;
-        v14 = [(NEAppProxyFlow *)&v44 init];
+        v40.receiver = v13;
+        v40.super_class = NEFlowMetaData;
+        v14 = [(NEAppProxyFlow *)&v40 init];
         if (v14)
         {
-          v15 = *MEMORY[0x1E69E5880];
-          v16 = NEFlowCopyProperty();
+          v15 = NEFlowCopyProperty();
           remoteHostname = v14->_remoteHostname;
-          v14->_remoteHostname = v16;
+          v14->_remoteHostname = v15;
 
-          v18 = *MEMORY[0x1E69E5888];
-          v19 = NEFlowCopyProperty();
+          v17 = NEFlowCopyProperty();
           metaData = v14->_metaData;
-          v14->_metaData = v19;
+          v14->_metaData = v17;
+
+          v19 = NEFlowCopyProperty();
+          flow = v14->_flow;
+          v14->_flow = v19;
 
           v21 = NEFlowCopyProperty();
-          flow = v14->_flow;
-          v14->_flow = v21;
-
-          v23 = NEFlowCopyProperty();
-          if (isa_nsnumber(v23))
+          if (isa_nsnumber(v21))
           {
-            v14->_isBound = ([v23 unsignedIntValue] & 2) != 0;
-            *(&v14->_isBound + 1) = ([v23 unsignedIntValue] & 4) != 0;
+            v14->_isBound = ([v21 unsignedIntValue] & 2) != 0;
+            *(&v14->_isBound + 1) = ([v21 unsignedIntValue] & 4) != 0;
           }
 
-          v24 = NEFlowCopyProperty();
-          if (isa_nsdata(v24) && [v24 length] == 16)
+          v22 = NEFlowCopyProperty();
+          if (isa_nsdata(v22) && [v22 length] == 16)
           {
-            v25 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:{objc_msgSend(v24, "bytes")}];
+            v23 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:{objc_msgSend(v22, "bytes")}];
             queue = v14->_queue;
-            v14->_queue = v25;
+            v14->_queue = v23;
           }
         }
       }
@@ -739,24 +611,24 @@ LABEL_6:
         v14 = 0;
       }
 
-      v27 = 0;
-      v28 = v8->_metaData;
+      v25 = 0;
+      v26 = v8->_metaData;
       v8->_metaData = v14;
       goto LABEL_15;
     }
 
-    LODWORD(v44.receiver) = 138412290;
-    *(&v44.receiver + 4) = v11;
-    v39 = "Failed to decode the application data: %@";
-    v40 = v12;
-    v41 = 12;
+    LODWORD(v40.receiver) = 138412290;
+    *(&v40.receiver + 4) = v11;
+    v35 = "Failed to decode the application data: %@";
+    v36 = v12;
+    v37 = 12;
 LABEL_29:
-    _os_log_error_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_ERROR, v39, &v44, v41);
+    _os_log_error_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_ERROR, v35, &v40, v37);
     goto LABEL_5;
   }
 
-  v37 = [v10 decodeObjectOfClass:objc_opt_class() forKey:@"MetaData"];
-  if (!v37)
+  v33 = [v10 decodeObjectOfClass:objc_opt_class() forKey:@"MetaData"];
+  if (!v33)
   {
     v12 = ne_log_obj();
     if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -764,57 +636,54 @@ LABEL_29:
       goto LABEL_5;
     }
 
-    LOWORD(v44.receiver) = 0;
-    v39 = "Failed to decode the meta data from the application data";
-    v40 = v12;
-    v41 = 2;
+    LOWORD(v40.receiver) = 0;
+    v35 = "Failed to decode the meta data from the application data";
+    v36 = v12;
+    v37 = 2;
     goto LABEL_29;
   }
 
-  v38 = v37;
+  v34 = v33;
 
-  v27 = v38;
-  v28 = v8->_metaData;
-  v8->_metaData = v27;
+  v25 = v34;
+  v26 = v8->_metaData;
+  v8->_metaData = v25;
 LABEL_15:
 
   NEFlowSetDispatchQueue();
-  v29 = NEFlowCopyProperty();
-  if (isa_nsnumber(v29) && ([v29 unsignedIntValue] & 8) != 0)
+  v27 = NEFlowCopyProperty();
+  if (isa_nsnumber(v27) && ([v27 unsignedIntValue] & 8) != 0)
   {
     [(NEAppProxyFlow *)v8 setIsBound:1];
   }
 
-  v30 = NEFlowCopyProperty();
-  if (isa_nsnumber(v30))
+  v28 = NEFlowCopyProperty();
+  if (isa_nsnumber(v28))
   {
-    [v30 unsignedIntValue];
-    v31 = nw_interface_create_with_index();
-    objc_setProperty_atomic(v8, v32, v31, 48);
+    [v28 unsignedIntValue];
+    v29 = nw_interface_create_with_index();
+    objc_setProperty_atomic(v8, v30, v29, 48);
   }
 
-  v33 = *MEMORY[0x1E69E5898];
-  v34 = NEFlowCopyProperty();
-  if (isa_nsstring(v34))
+  v31 = NEFlowCopyProperty();
+  if (isa_nsstring(v31))
   {
-    objc_storeStrong(&v8->_remoteHostname, v34);
+    objc_storeStrong(&v8->_remoteHostname, v31);
   }
 
 LABEL_23:
-  v35 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
-+ (NSObject)copyRemoteEndpointFromFlow:
++ (NSObject)copyRemoteEndpointFromFlow:(uint64_t)flow
 {
   objc_opt_self();
-  v0 = *MEMORY[0x1E69E5890];
-  v1 = NEFlowCopyProperty();
-  if (isa_nsdata(v1))
+  v2 = NEFlowCopyProperty();
+  if (isa_nsdata(v2))
   {
-    address = nw_endpoint_create_address([v1 bytes]);
-    v3 = nw_endpoint_get_address(address);
-    if (NEIsWildcardAddress(&v3->sa_len))
+    address = nw_endpoint_create_address([v2 bytes]);
+    v4 = nw_endpoint_get_address(address);
+    if (NEIsWildcardAddress(&v4->sa_len))
     {
       nw_endpoint_get_port(address);
     }
@@ -825,7 +694,6 @@ LABEL_23:
     }
   }
 
-  v4 = *MEMORY[0x1E69E5898];
   v5 = NEFlowCopyProperty();
   if (isa_nsstring(v5))
   {

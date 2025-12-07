@@ -126,16 +126,16 @@ LABEL_8:
 
 void __47__CDPDRecoveryKeyController_verifyRecoveryKey___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _CDPLogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109378;
-    v11[1] = a2;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, "Recovery key verification UI flow completed with success: %{BOOL}d - %@", v11, 0x12u);
+    v10[0] = 67109378;
+    v10[1] = a2;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, "Recovery key verification UI flow completed with success: %{BOOL}d - %@", v10, 0x12u);
   }
 
   v7 = *(a1 + 32);
@@ -147,8 +147,6 @@ void __47__CDPDRecoveryKeyController_verifyRecoveryKey___block_invoke(uint64_t a
   v8 = *(*(a1 + 40) + 8);
   v9 = *(v8 + 40);
   *(v8 + 40) = 0;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateNewRecoveryKey:(id)key
@@ -207,15 +205,15 @@ LABEL_8:
 
 void __52__CDPDRecoveryKeyController_generateNewRecoveryKey___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _CDPLogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v26 = a2;
-    v27 = 2112;
-    v28 = v5;
+    v25 = a2;
+    v26 = 2112;
+    v27 = v5;
     _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, "Recovery key UI flow completed with success %{BOOL}d - %@", buf, 0x12u);
   }
 
@@ -230,9 +228,9 @@ void __52__CDPDRecoveryKeyController_generateNewRecoveryKey___block_invoke(uint6
 
     v8 = *(*(a1 + 40) + 40);
     v9 = [*(a1 + 32) recoveryKey];
-    v24 = 0;
-    v10 = [v8 generateVerifierWithRecoveryKey:v9 error:&v24];
-    v11 = v24;
+    v23 = 0;
+    v10 = [v8 generateVerifierWithRecoveryKey:v9 error:&v23];
+    v11 = v23;
 
     if (!v10 || v11)
     {
@@ -244,14 +242,14 @@ void __52__CDPDRecoveryKeyController_generateNewRecoveryKey___block_invoke(uint6
       v12 = *(a1 + 40);
       v13 = *(v12 + 72);
       v14 = *(v12 + 8);
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __52__CDPDRecoveryKeyController_generateNewRecoveryKey___block_invoke_25;
-      v20[3] = &unk_278E254D8;
-      v22 = *(a1 + 48);
-      v23 = a2;
-      v21 = v5;
-      [v13 cdpContext:v14 persistMasterKeyVerifier:v10 completion:v20];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __52__CDPDRecoveryKeyController_generateNewRecoveryKey___block_invoke_25;
+      v19[3] = &unk_278E254D8;
+      v21 = *(a1 + 48);
+      v22 = a2;
+      v20 = v5;
+      [v13 cdpContext:v14 persistMasterKeyVerifier:v10 completion:v19];
     }
   }
 
@@ -273,8 +271,6 @@ void __52__CDPDRecoveryKeyController_generateNewRecoveryKey___block_invoke(uint6
   v17 = *(*(a1 + 56) + 8);
   v18 = *(v17 + 40);
   *(v17 + 40) = 0;
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __52__CDPDRecoveryKeyController_generateNewRecoveryKey___block_invoke_25(uint64_t a1, char a2, void *a3)
@@ -289,8 +285,6 @@ void __52__CDPDRecoveryKeyController_generateNewRecoveryKey___block_invoke_25(ui
     }
   }
 
-  v7 = *(a1 + 48);
-  v8 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -573,7 +567,6 @@ void __55__CDPDRecoveryKeyController_generateRandomRecoveryKey___block_invoke_3(
     }
   }
 
-  v7 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -602,7 +595,7 @@ void __55__CDPDRecoveryKeyController_generateRandomRecoveryKey___block_invoke_3(
 
 void __69__CDPDRecoveryKeyController_recoverDataUsingMasterKeyWithCompletion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2 && ([*(a1 + 32) recoveredInfo], v6 = objc_claimAutoreleasedReturnValue(), v6, v6))
   {
@@ -611,19 +604,19 @@ void __69__CDPDRecoveryKeyController_recoverDataUsingMasterKeyWithCompletion___b
     {
       v8 = *(*(a1 + 40) + 48);
       *buf = 138412290;
-      v19 = v8;
+      v18 = v8;
       _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Prompt for Recovery Key came back with success and recoveredInfo, attempting to cache with proxy %@", buf, 0xCu);
     }
 
     v9 = *(*(a1 + 40) + 48);
     v10 = [*(a1 + 32) recoveryKey];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __69__CDPDRecoveryKeyController_recoverDataUsingMasterKeyWithCompletion___block_invoke_34;
-    v15[3] = &unk_278E25578;
-    v17 = *(a1 + 48);
-    v16 = *(a1 + 32);
-    [v9 cacheRecoveryKey:v10 completionBlock:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __69__CDPDRecoveryKeyController_recoverDataUsingMasterKeyWithCompletion___block_invoke_34;
+    v14[3] = &unk_278E25578;
+    v16 = *(a1 + 48);
+    v15 = *(a1 + 32);
+    [v9 cacheRecoveryKey:v10 completionBlock:v14];
   }
 
   else
@@ -646,8 +639,6 @@ void __69__CDPDRecoveryKeyController_recoverDataUsingMasterKeyWithCompletion___b
       (*(v12 + 16))(v12, 0, v13);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __69__CDPDRecoveryKeyController_recoverDataUsingMasterKeyWithCompletion___block_invoke_34(uint64_t a1)
@@ -659,7 +650,7 @@ void __69__CDPDRecoveryKeyController_recoverDataUsingMasterKeyWithCompletion___b
 
 - (BOOL)anyRecoveryKeysAreOctagonDistrustedWithError:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   context = self->_context;
   if (context)
   {
@@ -700,13 +691,13 @@ LABEL_5:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v32 = v13;
+      v31 = v13;
       _os_log_impl(&dword_24510B000, v16, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: AnyRKAreOctagonDistrusted  enableTelemetry=YES ", buf, 0xCu);
     }
 
-    v30 = 0;
-    v17 = [MEMORY[0x277CDBD48] areRecoveryKeysDistrusted:cliqueConfiguration error:&v30];
-    v18 = v30;
+    v29 = 0;
+    v17 = [MEMORY[0x277CDBD48] areRecoveryKeysDistrusted:cliqueConfiguration error:&v29];
+    v18 = v29;
     Nanoseconds = _CDPSignpostGetNanoseconds();
     v20 = _CDPSignpostLogSystem();
     v21 = v20;
@@ -714,7 +705,7 @@ LABEL_5:
     {
       code = [v18 code];
       *buf = 67240192;
-      LODWORD(v32) = code;
+      LODWORD(v31) = code;
       _os_signpost_emit_with_name_impl(&dword_24510B000, v21, OS_SIGNPOST_INTERVAL_END, v13, "AnyRKAreOctagonDistrusted", " Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 8u);
     }
 
@@ -723,11 +714,11 @@ LABEL_5:
     {
       code2 = [v18 code];
       *buf = 134218496;
-      v32 = v13;
-      v33 = 2048;
-      v34 = Nanoseconds / 1000000000.0;
-      v35 = 1026;
-      v36 = code2;
+      v31 = v13;
+      v32 = 2048;
+      v33 = Nanoseconds / 1000000000.0;
+      v34 = 1026;
+      v35 = code2;
       _os_log_impl(&dword_24510B000, v23, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: AnyRKAreOctagonDistrusted  Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 0x1Cu);
     }
 
@@ -746,8 +737,8 @@ LABEL_5:
 
   else
   {
-    v29 = _CDPLogSystem();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v28 = _CDPLogSystem();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       [CDPDRecoveryKeyController anyRecoveryKeysAreOctagonDistrustedWithError:];
     }
@@ -760,11 +751,10 @@ LABEL_5:
 
     else
     {
-      v17 = 0;
+      return 0;
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -788,11 +778,9 @@ LABEL_5:
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isRecoveryKeyAvailableWithError:.cold.1()
@@ -809,27 +797,11 @@ LABEL_5:
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __52__CDPDRecoveryKeyController_generateNewRecoveryKey___block_invoke_25_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to persist RK verifier: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)authenticateAndGenerateNewRecoveryKeyWithCompletion:.cold.1()
 {
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void __81__CDPDRecoveryKeyController_authenticateAndGenerateNewRecoveryKeyWithCompletion___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)authenticateAndDeleteRecoveryKeyWithCompletion:.cold.1()
@@ -839,62 +811,21 @@ void __81__CDPDRecoveryKeyController_authenticateAndGenerateNewRecoveryKeyWithCo
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __76__CDPDRecoveryKeyController_authenticateAndDeleteRecoveryKeyWithCompletion___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_authenticateAndPerformRecoveryKeyOperation:completion:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_authenticateAndPerformRecoveryKeyOperation:(uint64_t)a3 completion:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, a1, a3, "UI Provider is nil. Cannot proceed. (%s)", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __84__CDPDRecoveryKeyController__authenticateAndPerformRecoveryKeyOperation_completion___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CDPDRecoveryKeyController _authenticateAndPerformRecoveryKeyOperation:completion:]";
+  OUTLINED_FUNCTION_0_0(&dword_24510B000, a1, a3, "UI Provider is nil. Cannot proceed. (%s)", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __84__CDPDRecoveryKeyController__authenticateAndPerformRecoveryKeyOperation_completion___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[CDPDRecoveryKeyController _authenticateAndPerformRecoveryKeyOperation:completion:]_block_invoke";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to get local secret with error (%s): %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __61__CDPDRecoveryKeyController_deleteRecoveryKeyWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to persist verifier: %@", v2, v3, v4, v5, v7);
   v6 = *MEMORY[0x277D85DE8];
-}
-
-void __69__CDPDRecoveryKeyController_recoverDataUsingMasterKeyWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Recovery Key prompt came back with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[CDPDRecoveryKeyController _authenticateAndPerformRecoveryKeyOperation:completion:]_block_invoke";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to get local secret with error (%s): %@", &v2, 0x16u);
 }
 
 - (void)anyRecoveryKeysAreOctagonDistrustedWithError:.cold.1()
@@ -906,13 +837,12 @@ void __69__CDPDRecoveryKeyController_recoverDataUsingMasterKeyWithCompletion___b
 
 - (void)anyRecoveryKeysAreOctagonDistrustedWithError:(os_log_t)log .cold.2(char a1, uint64_t a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109378;
-  v4[1] = a1 & 1;
-  v5 = 2112;
-  v6 = a2;
-  _os_log_debug_impl(&dword_24510B000, log, OS_LOG_TYPE_DEBUG, "Octagon reports hasDistrustedRKs=%{BOOL}d with error: %@", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109378;
+  v3[1] = a1 & 1;
+  v4 = 2112;
+  v5 = a2;
+  _os_log_debug_impl(&dword_24510B000, log, OS_LOG_TYPE_DEBUG, "Octagon reports hasDistrustedRKs=%{BOOL}d with error: %@", v3, 0x12u);
 }
 
 @end

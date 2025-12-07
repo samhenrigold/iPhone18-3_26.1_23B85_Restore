@@ -23,7 +23,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  LibraryViewController.actionDelegate.setter();
+  LibraryViewController.actionDelegate.setter(delegate);
 }
 
 - (void)viewDidLoad

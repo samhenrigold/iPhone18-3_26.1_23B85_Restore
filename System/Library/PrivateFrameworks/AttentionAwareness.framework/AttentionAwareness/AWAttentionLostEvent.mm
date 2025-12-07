@@ -62,37 +62,37 @@
 
 - (AWAttentionLostEvent)initWithCoder:(id)coder
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v16 = 0;
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0;
   coderCopy = coder;
-  v5 = decodeDouble(coderCopy, &v16, @"timestamp");
-  v6 = decodeDouble(coderCopy, &v16, @"attentionLostTimeout");
-  v7 = decodeUInt64(coderCopy, &v16, @"tagIndex");
+  v5 = decodeDouble(coderCopy, &v15, @"timestamp");
+  v6 = decodeDouble(coderCopy, &v15, @"attentionLostTimeout");
+  v7 = decodeUInt64(coderCopy, &v15, @"tagIndex");
 
-  if (v16 == 1)
+  if (v15 == 1)
   {
     if (currentLogLevel >= 3)
     {
       v8 = _AALog();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v12 = absTimeNS();
-        if (v12 == -1)
+        v11 = absTimeNS();
+        if (v11 == -1)
         {
-          v13 = INFINITY;
+          v12 = INFINITY;
         }
 
         else
         {
-          v13 = v12 / 1000000000.0;
+          v12 = v11 / 1000000000.0;
         }
 
-        v14 = objc_opt_class();
-        v15 = NSStringFromClass(v14);
+        v13 = objc_opt_class();
+        v14 = NSStringFromClass(v13);
         *buf = 134218242;
-        v18 = v13;
-        v19 = 2112;
-        v20 = v15;
+        v17 = v12;
+        v18 = 2112;
+        v19 = v14;
         _os_log_error_impl(&dword_1BB2EF000, v8, OS_LOG_TYPE_ERROR, "%13.5f: failed to decode %@", buf, 0x16u);
       }
     }
@@ -105,7 +105,6 @@
     v9 = [[AWAttentionLostEvent alloc] initWithTimestamp:v7 tagIndex:v5 attentionLostTimeout:v6];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

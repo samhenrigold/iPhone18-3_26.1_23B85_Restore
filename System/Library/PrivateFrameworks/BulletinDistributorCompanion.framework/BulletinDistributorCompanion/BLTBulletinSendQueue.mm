@@ -3,6 +3,7 @@
 - (BOOL)handleFileURL:(id)l;
 - (void)_queue_performSend;
 - (void)_queue_queuePending;
+- (void)_queue_sendRequest:(id)request type:(unsigned __int16)type withTimeout:(id)timeout isTrafficRestricted:(BOOL)restricted didSend:(id)send didQueue:(id)queue;
 - (void)_queue_startTimerWithFireDate:(id)date;
 - (void)queuePending;
 - (void)sendNow;
@@ -27,7 +28,7 @@
 - (void)_queue_performSend
 {
   lastItemDate = self->_lastItemDate;
-  v4 = blt_general_log();
+  v4 = blt_general_log(self);
   v5 = os_log_type_enabled(&v4->super.super, OS_LOG_TYPE_INFO);
   if (lastItemDate)
   {
@@ -251,7 +252,7 @@ void __28__BLTBulletinSendQueue_init__block_invoke(uint64_t a1)
     goto LABEL_5;
   }
 
-  v3 = blt_general_log();
+  v3 = blt_general_log(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __28__BLTBulletinSendQueue_init__block_invoke_cold_1(v3);
@@ -266,7 +267,7 @@ LABEL_5:
 
   else
   {
-    v5 = blt_general_log();
+    v5 = blt_general_log(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __28__BLTBulletinSendQueue_init__block_invoke_cold_2(v5);
@@ -301,7 +302,7 @@ LABEL_5:
 
 uint64_t __58__BLTBulletinSendQueue_sendRequest_type_didSend_didQueue___block_invoke(uint64_t a1)
 {
-  v2 = blt_general_log();
+  v2 = blt_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -330,19 +331,17 @@ uint64_t __58__BLTBulletinSendQueue_sendRequest_type_didSend_didQueue___block_in
 
 uint64_t __56__BLTBulletinSendQueue_sendRequest_withTimeout_didSend___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = blt_general_log();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = blt_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) redact];
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_241FB3000, v2, OS_LOG_TYPE_INFO, "Queuing new intelligent summary request %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_241FB3000, v2, OS_LOG_TYPE_INFO, "Queuing new intelligent summary request %@", &v5, 0xCu);
   }
 
-  result = [*(a1 + 40) _queue_sendRequest:*(a1 + 32) type:27 withTimeout:*(a1 + 48) isTrafficRestricted:0 didSend:0 didQueue:0];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _queue_sendRequest:*(a1 + 32) type:27 withTimeout:*(a1 + 48) isTrafficRestricted:0 didSend:0 didQueue:0];
 }
 
 - (void)sendRequest:(id)request withTimeout:(id)timeout isTrafficRestricted:(BOOL)restricted didSend:(id)send
@@ -368,13 +367,13 @@ uint64_t __56__BLTBulletinSendQueue_sendRequest_withTimeout_didSend___block_invo
 
 void __76__BLTBulletinSendQueue_sendRequest_withTimeout_isTrafficRestricted_didSend___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v2 = blt_general_log();
+  v25 = *MEMORY[0x277D85DE8];
+  v2 = blt_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) redact];
     *buf = 138412290;
-    v25 = v3;
+    v24 = v3;
     _os_log_impl(&dword_241FB3000, v2, OS_LOG_TYPE_INFO, "Queuing new add bulletin request %@", buf, 0xCu);
   }
 
@@ -384,26 +383,26 @@ void __76__BLTBulletinSendQueue_sendRequest_withTimeout_isTrafficRestricted_didS
   v7 = [v4 attachmentKey:0];
   [v5 addAttachment:v6 key:v7];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   obj = [v4 additionalAttachments];
-  v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         v13 = *(*(a1 + 40) + 80);
         v14 = [v12 attachmentURLURL];
         v15 = [v12 identifier];
@@ -411,14 +410,111 @@ void __76__BLTBulletinSendQueue_sendRequest_withTimeout_isTrafficRestricted_didS
         [v13 addAttachment:v14 key:v16];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
 
   [*(a1 + 40) _queue_sendRequest:*(a1 + 32) type:1 withTimeout:*(a1 + 48) isTrafficRestricted:*(a1 + 64) didSend:*(a1 + 56) didQueue:0];
-  v17 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_queue_sendRequest:(id)request type:(unsigned __int16)type withTimeout:(id)timeout isTrafficRestricted:(BOOL)restricted didSend:(id)send didQueue:(id)queue
+{
+  restrictedCopy = restricted;
+  typeCopy = type;
+  requestCopy = request;
+  timeoutCopy = timeout;
+  sendCopy = send;
+  queueCopy = queue;
+  dispatch_assert_queue_V2(self->_queue);
+  v20 = MEMORY[0x277CBEAA8];
+  v21 = 0.5;
+  if (restrictedCopy)
+  {
+    v21 = BLTGetTrafficRestrictedBufferTime(v18, v19);
+  }
+
+  v23 = [v20 dateWithTimeIntervalSinceNow:v21];
+  lastItemDate = self->_lastItemDate;
+  if (lastItemDate)
+  {
+    v25 = [(NSDate *)lastItemDate earlierDate:v23];
+
+    [(BLTBulletinSendQueue *)self _queue_queuePending];
+    [(BLTSendQueueSerializer *)self->_queueSerializer add:requestCopy type:typeCopy];
+    v23 = v25;
+    v26 = 0x27EC7C000;
+    if (restrictedCopy)
+    {
+LABEL_5:
+      v27 = [MEMORY[0x277CCABB0] numberWithInteger:5];
+      timeout = self->_timeout;
+      self->_timeout = v27;
+LABEL_13:
+
+      goto LABEL_14;
+    }
+  }
+
+  else
+  {
+    v29 = MEMORY[0x277CBEAA8];
+    v30 = 1.0;
+    if (restrictedCopy)
+    {
+      v30 = BLTGetTrafficRestrictedBufferTime(0, v22);
+    }
+
+    v31 = [v29 dateWithTimeIntervalSinceNow:v30];
+    v32 = self->_lastItemDate;
+    self->_lastItemDate = v31;
+
+    v26 = 0x27EC7C000uLL;
+    objc_storeStrong(&self->_firstRequest, request);
+    self->_firstRequestType = typeCopy;
+    if (restrictedCopy)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  if (timeoutCopy)
+  {
+    v33 = self->_timeout;
+    if (!v33 || [(NSNumber *)v33 compare:timeoutCopy]== NSOrderedAscending)
+    {
+      v34 = timeoutCopy;
+      timeout = self->_timeout;
+      self->_timeout = v34;
+      goto LABEL_13;
+    }
+  }
+
+LABEL_14:
+  if (sendCopy)
+  {
+    completionHandlers = self->_completionHandlers;
+    v36 = [sendCopy copy];
+    [(NSMutableArray *)completionHandlers addObject:v36];
+  }
+
+  if (queueCopy)
+  {
+    queuedBlockHandlers = self->_queuedBlockHandlers;
+    v38 = [queueCopy copy];
+    [(NSMutableArray *)queuedBlockHandlers addObject:v38];
+  }
+
+  if (*(&self->super.super.isa + *(v26 + 2440)) && !restrictedCopy && ((lastQueueSendDate = self->_lastQueueSendDate) == 0 || (-[NSDate timeIntervalSinceNow](lastQueueSendDate, "timeIntervalSinceNow"), v40 < -0.5)) || ([MEMORY[0x277CBEAA8] date], v41 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "earlierDate:", v41), v42 = objc_claimAutoreleasedReturnValue(), v42, v41, v42 == v23))
+  {
+    [(BLTBulletinSendQueue *)self _queue_performSend];
+  }
+
+  else
+  {
+    [(BLTBulletinSendQueue *)self _queue_startTimerWithFireDate:v23];
+  }
 }
 
 - (BOOL)handleFileURL:(id)l
@@ -540,59 +636,57 @@ void __42__BLTBulletinSendQueue__queue_performSend__block_invoke_6(uint64_t a1)
 
 void __42__BLTBulletinSendQueue__queue_performSend__block_invoke_7(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        (*(*(*(&v7 + 1) + 8 * v5) + 16))(*(*(&v7 + 1) + 8 * v5));
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __42__BLTBulletinSendQueue__queue_performSend__block_invoke_8(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
@@ -607,16 +701,14 @@ void __42__BLTBulletinSendQueue__queue_performSend__block_invoke_8(uint64_t a1)
           v7 = 64;
         }
 
-        (*(*(*(&v9 + 1) + 8 * i) + 16))(*(*(&v9 + 1) + 8 * i), (*(*(*(a1 + 48) + 8) + 24) & 1) & *(*(*(a1 + 40) + 8) + 24), *(*(*(a1 + v7) + 8) + 40));
+        (*(*(*(&v8 + 1) + 8 * i) + 16))(*(*(&v8 + 1) + 8 * i), (*(*(*(a1 + 48) + 8) + 24) & 1) & *(*(*(a1 + 40) + 8) + 24), *(*(*(a1 + v7) + 8) + 40));
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_startTimerWithFireDate:(id)date

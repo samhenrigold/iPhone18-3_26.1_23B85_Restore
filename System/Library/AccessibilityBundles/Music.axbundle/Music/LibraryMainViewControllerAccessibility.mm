@@ -1,6 +1,7 @@
 @interface LibraryMainViewControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)viewDidLoad;
 @end
 
@@ -34,6 +35,14 @@
   v3.receiver = self;
   v3.super_class = LibraryMainViewControllerAccessibility;
   [(LibraryMainViewControllerAccessibility *)&v3 viewDidLoad];
+  [(LibraryMainViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  v5.receiver = self;
+  v5.super_class = LibraryMainViewControllerAccessibility;
+  [(LibraryMainViewControllerAccessibility *)&v5 setEditing:editing animated:animated];
   [(LibraryMainViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 

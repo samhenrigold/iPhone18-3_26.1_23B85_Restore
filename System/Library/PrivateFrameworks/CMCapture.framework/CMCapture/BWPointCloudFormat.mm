@@ -139,7 +139,7 @@ LABEL_10:
   if ([supportedDataFormats count] && objc_msgSend(supportedDataFormats2, "count"))
   {
     array = [MEMORY[0x1E695DF70] array];
-    v15 = OUTLINED_FUNCTION_4_2(array, v8, v9, v10, v11, v12, v13, v14, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, 0);
+    v15 = OUTLINED_FUNCTION_4_2(array, v8, v9, v10, v11, v12, v13, v14, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68);
     if (v15)
     {
       v16 = v15;
@@ -161,7 +161,7 @@ LABEL_10:
           }
         }
 
-        v16 = OUTLINED_FUNCTION_4_2(v20, v21, v22, v23, v24, v25, v26, v27, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v70);
+        v16 = OUTLINED_FUNCTION_4_2(v20, v21, v22, v23, v24, v25, v26, v27, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69);
       }
 
       while (v16);

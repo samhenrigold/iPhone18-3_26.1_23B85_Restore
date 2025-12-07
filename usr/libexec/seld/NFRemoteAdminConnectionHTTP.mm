@@ -123,23 +123,23 @@
   headerCopy = header;
   responseCopy = response;
   responseHeaderCopy = responseHeader;
-  v135 = 0;
-  v136 = &v135;
-  v137 = 0x2020000000;
-  v138 = 6;
-  v129 = 0;
-  v130 = &v129;
-  v131 = 0x3032000000;
-  v132 = sub_100039F6C;
-  v133 = sub_100039F7C;
   v134 = 0;
-  v116 = objc_autoreleasePoolPush();
-  *v143 = 0;
-  *v144 = v143;
-  *&v144[8] = 0x3032000000;
-  *&v144[16] = sub_100039F6C;
-  *&v144[24] = sub_100039F7C;
-  *&v144[32] = 0;
+  v135 = &v134;
+  v136 = 0x2020000000;
+  v137 = 6;
+  v128 = 0;
+  v129 = &v128;
+  v130 = 0x3032000000;
+  v131 = sub_100039F6C;
+  v132 = sub_100039F7C;
+  v133 = 0;
+  v115 = objc_autoreleasePoolPush();
+  *v142 = 0;
+  *v143 = v142;
+  *&v143[8] = 0x3032000000;
+  *&v143[16] = sub_100039F6C;
+  *&v143[24] = sub_100039F7C;
+  *&v143[32] = 0;
   v19 = [requestCopy length];
   baseURL = self->_baseURL;
   if (v19)
@@ -155,10 +155,10 @@
   url = self->_url;
   self->_url = v21;
 
-  objc_storeStrong((*v144 + 40), self->_url);
+  objc_storeStrong((*v143 + 40), self->_url);
   if (!bodyCopy)
   {
-    v115 = 0;
+    v114 = 0;
     goto LABEL_9;
   }
 
@@ -201,85 +201,85 @@
       v38 = sel_getName(a2);
       *buf = 67110146;
       *&buf[4] = v36;
-      *v140 = 2082;
-      *&v140[2] = v37;
-      *&v140[10] = 2082;
-      *&v140[12] = v38;
-      *&v140[20] = 1024;
-      *&v140[22] = 277;
-      v141 = 2114;
-      v142 = bodyCopy;
+      *v139 = 2082;
+      *&v139[2] = v37;
+      *&v139[10] = 2082;
+      *&v139[12] = v38;
+      *&v139[20] = 1024;
+      *&v139[22] = 277;
+      v140 = 2114;
+      v141 = bodyCopy;
       _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i JSON serialization failed, invalid body: %{public}@", buf, 0x2Cu);
     }
 
     goto LABEL_67;
   }
 
-  v128 = 0;
-  v23 = [NSJSONSerialization dataWithJSONObject:bodyCopy options:0 error:&v128];
-  v24 = v128;
+  v127 = 0;
+  v23 = [NSJSONSerialization dataWithJSONObject:bodyCopy options:0 error:&v127];
+  v24 = v127;
   v25 = v24;
-  v115 = v23;
+  v114 = v23;
   if (!v23)
   {
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v86 = NFLogGetLogger();
-    if (v86)
+    v85 = NFLogGetLogger();
+    if (v85)
     {
-      v87 = v86;
-      v88 = object_getClass(self);
-      v89 = class_isMetaClass(v88);
-      v99 = object_getClassName(self);
-      v102 = sel_getName(a2);
-      v90 = 45;
-      if (v89)
+      v86 = v85;
+      v87 = object_getClass(self);
+      v88 = class_isMetaClass(v87);
+      v98 = object_getClassName(self);
+      v101 = sel_getName(a2);
+      v89 = 45;
+      if (v88)
       {
-        v90 = 43;
+        v89 = 43;
       }
 
-      v87(3, "%c[%{public}s %{public}s]:%i JSON serialization failed: %{public}@", v90, v99, v102, 273, v25);
+      v86(3, "%c[%{public}s %{public}s]:%i JSON serialization failed: %{public}@", v89, v98, v101, 273, v25);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v91 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
+    v90 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
     {
-      v92 = object_getClass(self);
-      if (class_isMetaClass(v92))
+      v91 = object_getClass(self);
+      if (class_isMetaClass(v91))
       {
-        v93 = 43;
+        v92 = 43;
       }
 
       else
       {
-        v93 = 45;
+        v92 = 45;
       }
 
-      v94 = object_getClassName(self);
-      v95 = sel_getName(a2);
+      v93 = object_getClassName(self);
+      v94 = sel_getName(a2);
       *buf = 67110146;
-      *&buf[4] = v93;
-      *v140 = 2082;
-      *&v140[2] = v94;
-      *&v140[10] = 2082;
-      *&v140[12] = v95;
-      *&v140[20] = 1024;
-      *&v140[22] = 273;
-      v141 = 2114;
-      v142 = v25;
-      _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i JSON serialization failed: %{public}@", buf, 0x2Cu);
+      *&buf[4] = v92;
+      *v139 = 2082;
+      *&v139[2] = v93;
+      *&v139[10] = 2082;
+      *&v139[12] = v94;
+      *&v139[20] = 1024;
+      *&v139[22] = 273;
+      v140 = 2114;
+      v141 = v25;
+      _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i JSON serialization failed: %{public}@", buf, 0x2Cu);
     }
 
 LABEL_67:
-    _Block_object_dispose(v143, 8);
+    _Block_object_dispose(v142, 8);
 
-    objc_autoreleasePoolPop(v116);
-    v85 = 22;
+    objc_autoreleasePoolPop(v115);
+    v84 = 22;
     goto LABEL_68;
   }
 
 LABEL_9:
-  v26 = [NSMutableURLRequest requestWithURL:*(*v144 + 40) cachePolicy:1 timeoutInterval:30.0];
+  v26 = [NSMutableURLRequest requestWithURL:*(*v143 + 40) cachePolicy:1 timeoutInterval:30.0];
   [v26 setHTTPMethod:@"POST"];
   v27 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:{@"application/json", @"Content-Type", 0}];
   v28 = v27;
@@ -288,14 +288,14 @@ LABEL_9:
     [v27 addEntriesFromDictionary:headerCopy];
   }
 
-  v112 = headerCopy;
-  v113 = responseCopy;
+  v111 = headerCopy;
+  v112 = responseCopy;
   if (self->_proprietaryHeaders)
   {
     context = objc_autoreleasePoolPush();
-    v110 = bodyCopy;
-    v111 = requestCopy;
-    v109 = v28;
+    v109 = bodyCopy;
+    v110 = requestCopy;
+    v108 = v28;
     if (NFIsSimulator())
     {
       v29 = @"Simulator";
@@ -306,12 +306,12 @@ LABEL_9:
       v29 = MGCopyAnswer();
     }
 
-    v106 = v29;
-    v107 = MGCopyAnswer();
-    v105 = MGCopyAnswer();
-    v104 = NFBuildVersion();
-    v103 = [[NSString alloc] initWithFormat:@"%@", v29];
-    v104 = [[NSString alloc] initWithFormat:@"%@;%@;%@", v107, v105, v104];
+    v105 = v29;
+    v106 = MGCopyAnswer();
+    v104 = MGCopyAnswer();
+    v103 = NFBuildVersion();
+    v102 = [[NSString alloc] initWithFormat:@"%@", v29];
+    v103 = [[NSString alloc] initWithFormat:@"%@;%@;%@", v106, v104, v103];
     v40 = [NSBundle bundleForClass:objc_opt_class()];
     infoDictionary = [v40 infoDictionary];
     v42 = [infoDictionary objectForKey:kCFBundleVersionKey];
@@ -325,19 +325,19 @@ LABEL_9:
     bundleIdentifier2 = [v43 bundleIdentifier];
     v49 = [v46 initWithFormat:@"%@/%@ (%@/%@)", bundleIdentifier, v42, bundleIdentifier2, v45];
 
-    v50 = [[NSString alloc] initWithFormat:@"<%@> <%@> <%@>", v103, v104, v49];
+    v50 = [[NSString alloc] initWithFormat:@"<%@> <%@> <%@>", v102, v103, v49];
     objc_autoreleasePoolPop(context);
-    v28 = v109;
-    [v109 setObject:v50 forKey:@"X-Apple-Client-Info"];
+    v28 = v108;
+    [v108 setObject:v50 forKey:@"X-Apple-Client-Info"];
 
     objc_autoreleasePoolPop(objc_autoreleasePoolPush());
-    bodyCopy = v110;
-    requestCopy = v111;
-    responseCopy = v113;
+    bodyCopy = v109;
+    requestCopy = v110;
+    responseCopy = v112;
   }
 
   [v26 setAllHTTPHeaderFields:v28];
-  [v26 setHTTPBody:v115];
+  [v26 setHTTPBody:v114];
   if (byte_10005BAB0 == 1)
   {
     v51 = v28;
@@ -348,15 +348,15 @@ LABEL_9:
       v53 = v52;
       v54 = object_getClass(self);
       v55 = class_isMetaClass(v54);
-      v98 = object_getClassName(self);
-      v101 = sel_getName(a2);
+      v97 = object_getClassName(self);
+      v100 = sel_getName(a2);
       v56 = 45;
       if (v55)
       {
         v56 = 43;
       }
 
-      v53(6, "%c[%{public}s %{public}s]:%i [TSM] Request Header: %@", v56, v98, v101, 300, v51);
+      v53(6, "%c[%{public}s %{public}s]:%i [TSM] Request Header: %@", v56, v97, v100, 300, v51);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -378,45 +378,45 @@ LABEL_9:
       v61 = sel_getName(a2);
       *buf = 67110146;
       *&buf[4] = v59;
-      *v140 = 2082;
-      *&v140[2] = v60;
-      *&v140[10] = 2082;
-      *&v140[12] = v61;
-      *&v140[20] = 1024;
-      *&v140[22] = 300;
-      v141 = 2112;
-      v142 = v51;
+      *v139 = 2082;
+      *&v139[2] = v60;
+      *&v139[10] = 2082;
+      *&v139[12] = v61;
+      *&v139[20] = 1024;
+      *&v139[22] = 300;
+      v140 = 2112;
+      v141 = v51;
       _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] Request Header: %@", buf, 0x2Cu);
     }
 
-    responseCopy = v113;
+    responseCopy = v112;
     v28 = v51;
     sub_10002D188("[TSM] Request Body: ", bodyCopy);
   }
 
   v62 = v28;
   *buf = 0;
-  *v140 = buf;
-  *&v140[8] = 0x2020000000;
-  *&v140[16] = 0;
+  *v139 = buf;
+  *&v139[8] = 0x2020000000;
+  *&v139[16] = 0;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   netSession = selfCopy->_netSession;
-  v119[0] = _NSConcreteStackBlock;
-  v119[1] = 3221225472;
-  v119[2] = sub_100039F84;
-  v119[3] = &unk_100055078;
-  v119[4] = selfCopy;
-  v126 = a2;
-  v120 = responseHeaderCopy;
-  v122 = buf;
-  v123 = &v129;
-  v124 = v143;
+  v118[0] = _NSConcreteStackBlock;
+  v118[1] = 3221225472;
+  v118[2] = sub_100039F84;
+  v118[3] = &unk_100055078;
+  v118[4] = selfCopy;
+  v125 = a2;
+  v119 = responseHeaderCopy;
+  v121 = buf;
+  v122 = &v128;
+  v123 = v142;
   statusCopy = status;
-  v125 = &v135;
+  v124 = &v134;
   v65 = responseCopy;
-  v121 = v65;
-  v66 = [(NSURLSession *)netSession dataTaskWithRequest:v26 completionHandler:v119];
+  v120 = v65;
+  v66 = [(NSURLSession *)netSession dataTaskWithRequest:v26 completionHandler:v118];
   netSessionTask = selfCopy->_netSessionTask;
   selfCopy->_netSessionTask = v66;
 
@@ -439,7 +439,6 @@ LABEL_9:
 
   if (duration)
   {
-    v70 = *(*v140 + 24);
     *duration = GetElapsedTimeInMillisecondsFromMachTime() / 1000.0;
   }
 
@@ -450,77 +449,77 @@ LABEL_9:
 
   _Block_object_dispose(buf, 8);
 
-  _Block_object_dispose(v143, 8);
-  objc_autoreleasePoolPop(v116);
-  headerCopy = v112;
+  _Block_object_dispose(v142, 8);
+  objc_autoreleasePoolPop(v115);
+  headerCopy = v111;
   if (error)
   {
-    *error = v130[5];
+    *error = v129[5];
   }
 
-  if (v130[5])
+  if (v129[5])
   {
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v71 = NFLogGetLogger();
-    if (v71)
+    v70 = NFLogGetLogger();
+    if (v70)
     {
-      v72 = v71;
-      v73 = object_getClass(v68);
-      v74 = class_isMetaClass(v73);
-      v75 = object_getClassName(v68);
-      v76 = sel_getName(a2);
-      v77 = [v130[5] description];
-      v78 = 45;
-      if (v74)
+      v71 = v70;
+      v72 = object_getClass(v68);
+      v73 = class_isMetaClass(v72);
+      v74 = object_getClassName(v68);
+      v75 = sel_getName(a2);
+      v76 = [v129[5] description];
+      v77 = 45;
+      if (v73)
       {
-        v78 = 43;
+        v77 = 43;
       }
 
-      v72(3, "%c[%{public}s %{public}s]:%i NetSessionError=%{public}@", v78, v75, v76, 447, v77);
+      v71(3, "%c[%{public}s %{public}s]:%i NetSessionError=%{public}@", v77, v74, v75, 447, v76);
 
-      headerCopy = v112;
+      headerCopy = v111;
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v79 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+    v78 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
     {
-      v80 = object_getClass(v68);
-      if (class_isMetaClass(v80))
+      v79 = object_getClass(v68);
+      if (class_isMetaClass(v79))
       {
-        v81 = 43;
+        v80 = 43;
       }
 
       else
       {
-        v81 = 45;
+        v80 = 45;
       }
 
-      v82 = object_getClassName(v68);
-      v83 = sel_getName(a2);
-      v84 = [v130[5] description];
-      *v143 = 67110146;
-      *&v143[4] = v81;
-      headerCopy = v112;
-      *v144 = 2082;
-      *&v144[2] = v82;
-      *&v144[10] = 2082;
-      *&v144[12] = v83;
-      *&v144[20] = 1024;
-      *&v144[22] = 447;
-      *&v144[26] = 2114;
-      *&v144[28] = v84;
-      _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i NetSessionError=%{public}@", v143, 0x2Cu);
+      v81 = object_getClassName(v68);
+      v82 = sel_getName(a2);
+      v83 = [v129[5] description];
+      *v142 = 67110146;
+      *&v142[4] = v80;
+      headerCopy = v111;
+      *v143 = 2082;
+      *&v143[2] = v81;
+      *&v143[10] = 2082;
+      *&v143[12] = v82;
+      *&v143[20] = 1024;
+      *&v143[22] = 447;
+      *&v143[26] = 2114;
+      *&v143[28] = v83;
+      _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i NetSessionError=%{public}@", v142, 0x2Cu);
     }
   }
 
-  v85 = *(v136 + 6);
-  responseCopy = v113;
+  v84 = *(v135 + 6);
+  responseCopy = v112;
 LABEL_68:
-  _Block_object_dispose(&v129, 8);
+  _Block_object_dispose(&v128, 8);
 
-  _Block_object_dispose(&v135, 8);
-  return v85;
+  _Block_object_dispose(&v134, 8);
+  return v84;
 }
 
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler

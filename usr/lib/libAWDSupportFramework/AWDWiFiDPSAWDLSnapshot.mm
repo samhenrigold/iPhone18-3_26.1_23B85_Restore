@@ -120,7 +120,6 @@ LABEL_5:
   has = self->_has;
   if (has)
   {
-    ts = self->_ts;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -132,7 +131,6 @@ LABEL_3:
       }
 
 LABEL_8:
-      use = self->_use;
       PBDataWriterWriteUint32Field();
       if ((*&self->_has & 4) == 0)
       {
@@ -148,7 +146,6 @@ LABEL_8:
     goto LABEL_3;
   }
 
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -163,7 +160,6 @@ LABEL_4:
   }
 
 LABEL_9:
-  sdb = self->_sdb;
 
   PBDataWriterWriteUint32Field();
 }

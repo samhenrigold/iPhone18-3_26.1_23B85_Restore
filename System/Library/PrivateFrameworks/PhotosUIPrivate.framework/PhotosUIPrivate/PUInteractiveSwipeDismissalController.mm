@@ -192,7 +192,7 @@
   }
 }
 
-uint64_t __69__PUInteractiveSwipeDismissalController__handlePanGestureRecognizer___block_invoke(uint64_t a1)
+unint64_t __69__PUInteractiveSwipeDismissalController__handlePanGestureRecognizer___block_invoke(uint64_t a1)
 {
   v4 = *(a1 + 32);
   if (v4)

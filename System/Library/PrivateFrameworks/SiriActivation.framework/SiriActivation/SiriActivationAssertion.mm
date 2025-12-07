@@ -102,47 +102,43 @@ void __46__SiriActivationAssertion_configureConnection__block_invoke(uint64_t a1
 
 void __46__SiriActivationAssertion_configureConnection__block_invoke_22(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 136315394;
-    v7 = "[SiriActivationAssertion configureConnection]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1C8137000, v2, OS_LOG_TYPE_DEFAULT, "%s #activation Received Invalidation for Assertion - %@, Invalidating…", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SiriActivationAssertion configureConnection]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1C8137000, v2, OS_LOG_TYPE_DEFAULT, "%s #activation Received Invalidation for Assertion - %@, Invalidating…", &v5, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained invalidate];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __46__SiriActivationAssertion_configureConnection__block_invoke_24(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 136315394;
-    v7 = "[SiriActivationAssertion configureConnection]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1C8137000, v2, OS_LOG_TYPE_DEFAULT, "%s #activation Received Interruption for Assertion - %@, Invalidating…", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SiriActivationAssertion configureConnection]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1C8137000, v2, OS_LOG_TYPE_DEFAULT, "%s #activation Received Interruption for Assertion - %@, Invalidating…", &v5, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained invalidate];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __46__SiriActivationAssertion_configureConnection__block_invoke_25(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = MEMORY[0x1E698D0A0];
@@ -150,13 +146,13 @@ void __46__SiriActivationAssertion_configureConnection__block_invoke_25(uint64_t
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v19 = 136315650;
-    v20 = "[SiriActivationAssertion configureConnection]_block_invoke";
-    v21 = 2048;
-    v22 = v7;
-    v23 = 2112;
-    v24 = v3;
-    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation BSServiceConnection Activated for assertion strongSelf=%p connection=%@", &v19, 0x20u);
+    v18 = 136315650;
+    v19 = "[SiriActivationAssertion configureConnection]_block_invoke";
+    v20 = 2048;
+    v21 = v7;
+    v22 = 2112;
+    v23 = v3;
+    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation BSServiceConnection Activated for assertion strongSelf=%p connection=%@", &v18, 0x20u);
   }
 
   if (WeakRetained)
@@ -168,20 +164,20 @@ void __46__SiriActivationAssertion_configureConnection__block_invoke_25(uint64_t
       v10 = v8;
       v11 = [v9 currentThread];
       v12 = [v11 qualityOfService];
-      v19 = 136315394;
-      v20 = "[SiriActivationAssertion configureConnection]_block_invoke";
-      v21 = 2048;
-      v22 = v12;
-      _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy innerStrongSelf->_lock about to lock with qos: %zd", &v19, 0x16u);
+      v18 = 136315394;
+      v19 = "[SiriActivationAssertion configureConnection]_block_invoke";
+      v20 = 2048;
+      v21 = v12;
+      _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy innerStrongSelf->_lock about to lock with qos: %zd", &v18, 0x16u);
     }
 
     os_unfair_lock_lock(WeakRetained + 4);
     v13 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 136315138;
-      v20 = "[SiriActivationAssertion configureConnection]_block_invoke";
-      _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy innerStrongSelf->_lock successfully locked", &v19, 0xCu);
+      v18 = 136315138;
+      v19 = "[SiriActivationAssertion configureConnection]_block_invoke";
+      _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy innerStrongSelf->_lock successfully locked", &v18, 0xCu);
     }
 
     v14 = [v3 remoteTarget];
@@ -193,13 +189,11 @@ void __46__SiriActivationAssertion_configureConnection__block_invoke_25(uint64_t
     v17 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 136315138;
-      v20 = "[SiriActivationAssertion configureConnection]_block_invoke";
-      _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy innerStrongSelf->_lock unlocked", &v19, 0xCu);
+      v18 = 136315138;
+      v19 = "[SiriActivationAssertion configureConnection]_block_invoke";
+      _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy innerStrongSelf->_lock unlocked", &v18, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
@@ -211,19 +205,19 @@ void __46__SiriActivationAssertion_configureConnection__block_invoke_25(uint64_t
 
 - (void)invalidatedAtTimestamp:(double)timestamp
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E698D0A0];
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     connection = self->super._connection;
-    v18 = 136315650;
-    v19 = "[SiriActivationAssertion invalidatedAtTimestamp:]";
-    v20 = 2112;
+    v17 = 136315650;
+    v18 = "[SiriActivationAssertion invalidatedAtTimestamp:]";
+    v19 = 2112;
     selfCopy = self;
-    v22 = 2112;
-    v23 = connection;
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation BSServiceConnection Unregistering & invalidating assertion self=%@ connection=%@", &v18, 0x20u);
+    v21 = 2112;
+    v22 = connection;
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation BSServiceConnection Unregistering & invalidating assertion self=%@ connection=%@", &v17, 0x20u);
   }
 
   v7 = *v4;
@@ -233,20 +227,20 @@ void __46__SiriActivationAssertion_configureConnection__block_invoke_25(uint64_t
     v9 = v7;
     currentThread = [v8 currentThread];
     qualityOfService = [currentThread qualityOfService];
-    v18 = 136315394;
-    v19 = "[SiriActivationAssertion invalidatedAtTimestamp:]";
-    v20 = 2048;
+    v17 = 136315394;
+    v18 = "[SiriActivationAssertion invalidatedAtTimestamp:]";
+    v19 = 2048;
     selfCopy = qualityOfService;
-    _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _lock about to lock with qos: %zd", &v18, 0x16u);
+    _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _lock about to lock with qos: %zd", &v17, 0x16u);
   }
 
   os_unfair_lock_lock(&self->super._lock);
   v12 = *v4;
   if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 136315138;
-    v19 = "[SiriActivationAssertion invalidatedAtTimestamp:]";
-    _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _lock successfully locked", &v18, 0xCu);
+    v17 = 136315138;
+    v18 = "[SiriActivationAssertion invalidatedAtTimestamp:]";
+    _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _lock successfully locked", &v17, 0xCu);
   }
 
   remoteTarget = [(BSServiceConnection *)self->super._connection remoteTarget];
@@ -261,30 +255,27 @@ void __46__SiriActivationAssertion_configureConnection__block_invoke_25(uint64_t
   v16 = *v4;
   if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 136315138;
-    v19 = "[SiriActivationAssertion invalidatedAtTimestamp:]";
-    _os_log_impl(&dword_1C8137000, v16, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _lock unlocked", &v18, 0xCu);
+    v17 = 136315138;
+    v18 = "[SiriActivationAssertion invalidatedAtTimestamp:]";
+    _os_log_impl(&dword_1C8137000, v16, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _lock unlocked", &v17, 0xCu);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[SiriActivationAssertion dealloc]";
+    v6 = "[SiriActivationAssertion dealloc]";
     _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation SiriActivationAssertion got deallocated", buf, 0xCu);
   }
 
   [(SiriActivationAssertion *)self invalidate];
-  v5.receiver = self;
-  v5.super_class = SiriActivationAssertion;
-  [(SiriActivationSource *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = SiriActivationAssertion;
+  [(SiriActivationSource *)&v4 dealloc];
 }
 
 @end

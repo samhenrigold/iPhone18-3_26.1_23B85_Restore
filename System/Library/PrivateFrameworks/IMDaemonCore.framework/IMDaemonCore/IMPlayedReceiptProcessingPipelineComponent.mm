@@ -61,7 +61,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if (IMOSLoggingEnabled())
   {
@@ -70,7 +70,7 @@
     {
       gUID = [inputCopy GUID];
       *buf = 138412290;
-      v68 = gUID;
+      v67 = gUID;
       _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "<IMPlayedReceiptProcessingPipelineComponent> Started processing for Message GUID: %@", buf, 0xCu);
     }
   }
@@ -84,7 +84,7 @@
       {
         gUID2 = [inputCopy GUID];
         *buf = 138412290;
-        v68 = gUID2;
+        v67 = gUID2;
         _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "    Ignoring played receipt for message: %@", buf, 0xCu);
       }
     }
@@ -107,7 +107,7 @@
     else
     {
       gUID4 = [inputCopy GUID];
-      v58 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v57 = objc_alloc_init(MEMORY[0x277CBEB18]);
       pipelineResources = [(IMPlayedReceiptProcessingPipelineComponent *)self pipelineResources];
       messageStore = [pipelineResources messageStore];
       v13 = [messageStore chatsForMessageGUID:gUID4];
@@ -118,32 +118,32 @@
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v68 = gUID4;
-          v69 = 2112;
-          v70 = v13;
+          v67 = gUID4;
+          v68 = 2112;
+          v69 = v13;
           _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Found chats for messageID: %@   chats: %@", buf, 0x16u);
         }
       }
 
-      v64 = 0u;
-      v65 = 0u;
-      v62 = 0u;
       v63 = 0u;
+      v64 = 0u;
+      v61 = 0u;
+      v62 = 0u;
       obj = v13;
-      v15 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
+      v15 = [obj countByEnumeratingWithState:&v61 objects:v65 count:16];
       if (v15)
       {
-        v59 = *v63;
+        v58 = *v62;
         while (2)
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v63 != v59)
+            if (*v62 != v58)
             {
               objc_enumerationMutation(obj);
             }
 
-            v17 = *(*(&v62 + 1) + 8 * i);
+            v17 = *(*(&v61 + 1) + 8 * i);
             v18 = MEMORY[0x277CBEAA8];
             timestamp = [inputCopy timestamp];
             v20 = [v18 __im_iMessageDateFromTimeStamp:timestamp];
@@ -169,9 +169,9 @@
                     idsTrustedData2 = [inputCopy idsTrustedData];
                     fromIdentifier = [idsTrustedData2 fromIdentifier];
                     *buf = 138412546;
-                    v68 = sender;
-                    v69 = 2112;
-                    v70 = fromIdentifier;
+                    v67 = sender;
+                    v68 = 2112;
+                    v69 = fromIdentifier;
                     _os_log_impl(&dword_22B4CC000, v47, OS_LOG_TYPE_INFO, "Invalid receipt sender: played receipts must be sent by self (%@) for messages not from self. However, receipt was sent from (%@). Ignoring played receipt.", buf, 0x16u);
                   }
                 }
@@ -181,7 +181,7 @@
                 goto LABEL_47;
               }
 
-              [v58 addObject:v23];
+              [v57 addObject:v23];
               _account = [(IMPlayedReceiptProcessingPipelineComponent *)self _account];
               session = [_account session];
               [(IMPlayedReceiptProcessingPipelineComponent *)self _markMessageAsPlayedAndNotify:v23 session:session chat:v17 date:v20];
@@ -210,7 +210,7 @@
             }
           }
 
-          v15 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
+          v15 = [obj countByEnumeratingWithState:&v61 objects:v65 count:16];
           if (v15)
           {
             continue;
@@ -220,7 +220,7 @@
         }
       }
 
-      v39 = [v58 count] == 0;
+      v39 = [v57 count] == 0;
       v40 = IMOSLoggingEnabled();
       if (v39)
       {
@@ -231,7 +231,7 @@
           {
             gUID5 = [inputCopy GUID];
             *buf = 138412290;
-            v68 = gUID5;
+            v67 = gUID5;
             _os_log_impl(&dword_22B4CC000, v51, OS_LOG_TYPE_INFO, "Unable to mark message with GUID=%@: message not found", buf, 0xCu);
           }
         }
@@ -250,7 +250,7 @@
           {
             gUID6 = [inputCopy GUID];
             *buf = 138412290;
-            v68 = gUID6;
+            v67 = gUID6;
             _os_log_impl(&dword_22B4CC000, v41, OS_LOG_TYPE_INFO, "Marked message with GUID=%@ as played", buf, 0xCu);
           }
         }
@@ -258,7 +258,7 @@
         firstObject = [obj firstObject];
         [inputCopy setChat:firstObject];
 
-        v44 = [v58 copy];
+        v44 = [v57 copy];
         [inputCopy setMessageItems:v44];
 
         v8 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
@@ -268,14 +268,12 @@ LABEL_47:
     }
   }
 
-  v55 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (void)_markMessageAsPlayedAndNotify:(id)notify session:(id)session chat:(id)chat date:(id)date
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   notifyCopy = notify;
   sessionCopy = session;
   chatCopy = chat;
@@ -286,7 +284,7 @@ LABEL_47:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v51 = notifyCopy;
+      v50 = notifyCopy;
       _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Mark message as played: %@", buf, 0xCu);
     }
   }
@@ -389,13 +387,13 @@ LABEL_47:
       }
 
       *buf = 138413058;
-      v51 = guid;
-      v52 = 2112;
-      v53 = v28;
-      v54 = 2112;
-      v55 = v31;
-      v56 = 2048;
-      v57 = expireState;
+      v50 = guid;
+      v51 = 2112;
+      v52 = v28;
+      v53 = 2112;
+      v54 = v31;
+      v55 = 2048;
+      v56 = expireState;
       _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "message.GUID = %@; isExpirable = %@; isFromMe = %@; expireState = %lld", buf, 0x2Au);
     }
   }
@@ -403,42 +401,42 @@ LABEL_47:
   if ([notifyCopy isExpirable] && (objc_msgSend(notifyCopy, "isFromMe") & 1) == 0 && objc_msgSend(notifyCopy, "expireState") <= 0)
   {
     ShouldAutomaticallySave = IMMessageItemShouldAutomaticallySave();
-    v43 = IMOSLoggingEnabled();
+    v42 = IMOSLoggingEnabled();
     if (ShouldAutomaticallySave)
     {
-      if (v43)
+      if (v42)
       {
-        v44 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+        v43 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
         {
           guid2 = [notifyCopy guid];
           *buf = 138412290;
-          v51 = guid2;
-          _os_log_impl(&dword_22B4CC000, v44, OS_LOG_TYPE_INFO, "Automatically saving received message played on linked device: %@", buf, 0xCu);
+          v50 = guid2;
+          _os_log_impl(&dword_22B4CC000, v43, OS_LOG_TYPE_INFO, "Automatically saving received message played on linked device: %@", buf, 0xCu);
         }
       }
 
-      v46 = 3;
+      v45 = 3;
     }
 
     else
     {
-      if (v43)
+      if (v42)
       {
-        v47 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+        v46 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
         {
           guid3 = [notifyCopy guid];
           *buf = 138412290;
-          v51 = guid3;
-          _os_log_impl(&dword_22B4CC000, v47, OS_LOG_TYPE_INFO, "Expire received message played on linked device: %@", buf, 0xCu);
+          v50 = guid3;
+          _os_log_impl(&dword_22B4CC000, v46, OS_LOG_TYPE_INFO, "Expire received message played on linked device: %@", buf, 0xCu);
         }
       }
 
-      v46 = 1;
+      v45 = 1;
     }
 
-    [notifyCopy setExpireState:v46];
+    [notifyCopy setExpireState:v45];
     v32 = ShouldAutomaticallySave ^ 1;
   }
 
@@ -477,8 +475,6 @@ LABEL_47:
 
     [sessionCopy sendSavedReceiptForMessage:notifyCopy toChatID:0 identifier:roomName style:v41];
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 @end

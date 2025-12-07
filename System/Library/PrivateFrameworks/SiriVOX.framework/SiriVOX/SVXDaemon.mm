@@ -25,29 +25,27 @@
 
 - (void)clientServiceServerConnectionDidInvalidate:(id)invalidate
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   invalidateCopy = invalidate;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[SVXDaemon clientServiceServerConnectionDidInvalidate:]";
-    v13 = 2112;
-    v14 = invalidateCopy;
+    v11 = "[SVXDaemon clientServiceServerConnectionDidInvalidate:]";
+    v12 = 2112;
+    v13 = invalidateCopy;
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s connection = %@", buf, 0x16u);
   }
 
   mainQueuePerformer = self->_mainQueuePerformer;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __56__SVXDaemon_clientServiceServerConnectionDidInvalidate___block_invoke;
-  v9[3] = &unk_279C68FE8;
-  v9[4] = self;
-  v10 = invalidateCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __56__SVXDaemon_clientServiceServerConnectionDidInvalidate___block_invoke;
+  v8[3] = &unk_279C68FE8;
+  v8[4] = self;
+  v9 = invalidateCopy;
   v7 = invalidateCopy;
-  [(SVXQueuePerformer *)mainQueuePerformer performBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)mainQueuePerformer performBlock:v8];
 }
 
 void __56__SVXDaemon_clientServiceServerConnectionDidInvalidate___block_invoke(uint64_t a1)
@@ -69,7 +67,7 @@ void __56__SVXDaemon_clientServiceServerConnectionDidInvalidate___block_invoke_2
 
 - (BOOL)handleClientServiceXPCConnection:(id)connection
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v5 = MEMORY[0x277CEF098];
   v6 = *MEMORY[0x277CEF098];
@@ -80,7 +78,7 @@ void __56__SVXDaemon_clientServiceServerConnectionDidInvalidate___block_invoke_2
     *&buf[12] = 2112;
     *&buf[14] = @"com.apple.SiriVOXService.client";
     *&buf[22] = 2112;
-    v24 = connectionCopy;
+    v23 = connectionCopy;
     _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s Checking entitlement %@ on %@...", buf, 0x20u);
   }
 
@@ -124,46 +122,45 @@ LABEL_16:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v24 = __Block_byref_object_copy__12981;
-  v25 = __Block_byref_object_dispose__12982;
-  v26 = [(SVXClientServiceServerConnectionFactory *)self->_connectionFactory createWithXPCConnection:connectionCopy performer:self->_clientServiceQueuePerformer delegate:self];
+  v23 = __Block_byref_object_copy__12981;
+  v24 = __Block_byref_object_dispose__12982;
+  v25 = [(SVXClientServiceServerConnectionFactory *)self->_connectionFactory createWithXPCConnection:connectionCopy performer:self->_clientServiceQueuePerformer delegate:self];
   v9 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_INFO))
   {
     v10 = *(*&buf[8] + 40);
-    *v19 = 136315394;
-    v20 = "[SVXDaemon handleClientServiceXPCConnection:]";
-    v21 = 2112;
-    v22 = v10;
-    _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_INFO, "%s Connected to %@.", v19, 0x16u);
+    *v18 = 136315394;
+    v19 = "[SVXDaemon handleClientServiceXPCConnection:]";
+    v20 = 2112;
+    v21 = v10;
+    _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_INFO, "%s Connected to %@.", v18, 0x16u);
     v9 = *v5;
   }
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v11 = *(*&buf[8] + 40);
-    *v19 = 136315394;
-    v20 = "[SVXDaemon handleClientServiceXPCConnection:]";
-    v21 = 2112;
-    v22 = v11;
-    _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_INFO, "%s Checking instance info on %@...", v19, 0x16u);
+    *v18 = 136315394;
+    v19 = "[SVXDaemon handleClientServiceXPCConnection:]";
+    v20 = 2112;
+    v21 = v11;
+    _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_INFO, "%s Checking instance info on %@...", v18, 0x16u);
   }
 
   clientServiceQueuePerformer = self->_clientServiceQueuePerformer;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __46__SVXDaemon_handleClientServiceXPCConnection___block_invoke;
-  v18[3] = &unk_279C68B20;
-  v18[4] = self;
-  v18[5] = buf;
-  [(SVXQueuePerformer *)clientServiceQueuePerformer performBlock:v18 withOptions:0];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __46__SVXDaemon_handleClientServiceXPCConnection___block_invoke;
+  v17[3] = &unk_279C68B20;
+  v17[4] = self;
+  v17[5] = buf;
+  [(SVXQueuePerformer *)clientServiceQueuePerformer performBlock:v17 withOptions:0];
   [connectionCopy resume];
   _Block_object_dispose(buf, 8);
 
   v13 = 1;
 LABEL_14:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -182,7 +179,7 @@ uint64_t __46__SVXDaemon_handleClientServiceXPCConnection___block_invoke(uint64_
 
 void __46__SVXDaemon_handleClientServiceXPCConnection___block_invoke_2(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (v3)
@@ -191,37 +188,37 @@ void __46__SVXDaemon_handleClientServiceXPCConnection___block_invoke_2(uint64_t 
     {
       v5 = *(*(*(a1 + 40) + 8) + 40);
       *buf = 136315650;
-      v18 = "[SVXDaemon handleClientServiceXPCConnection:]_block_invoke_2";
-      v19 = 2112;
-      v20 = v5;
-      v21 = 2112;
-      v22 = v3;
+      v17 = "[SVXDaemon handleClientServiceXPCConnection:]_block_invoke_2";
+      v18 = 2112;
+      v19 = v5;
+      v20 = 2112;
+      v21 = v3;
       _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s Instance info on %@ is %@.", buf, 0x20u);
     }
 
     v6 = *(a1 + 32);
     v7 = *(v6 + 16);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __46__SVXDaemon_handleClientServiceXPCConnection___block_invoke_14;
-    v14[3] = &unk_279C68AD0;
-    v14[4] = v6;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __46__SVXDaemon_handleClientServiceXPCConnection___block_invoke_14;
+    v13[3] = &unk_279C68AD0;
+    v13[4] = v6;
     v8 = v3;
     v9 = *(a1 + 40);
-    v15 = v8;
-    v16 = v9;
-    [v7 performBlock:v14];
+    v14 = v8;
+    v15 = v9;
+    [v7 performBlock:v13];
   }
 
   else
   {
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v13 = *(*(*(a1 + 40) + 8) + 40);
+      v12 = *(*(*(a1 + 40) + 8) + 40);
       *buf = 136315394;
-      v18 = "[SVXDaemon handleClientServiceXPCConnection:]_block_invoke";
-      v19 = 2112;
-      v20 = v13;
+      v17 = "[SVXDaemon handleClientServiceXPCConnection:]_block_invoke";
+      v18 = 2112;
+      v19 = v12;
       _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s Instance info on %@ is unavailable. Disconnect now.", buf, 0x16u);
     }
 
@@ -230,8 +227,6 @@ void __46__SVXDaemon_handleClientServiceXPCConnection___block_invoke_2(uint64_t 
     v11 = *(v10 + 40);
     *(v10 + 40) = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__SVXDaemon_handleClientServiceXPCConnection___block_invoke_14(void *a1)
@@ -248,7 +243,7 @@ uint64_t __46__SVXDaemon_handleClientServiceXPCConnection___block_invoke_14(void
 
 void __46__SVXDaemon_handleClientServiceXPCConnection___block_invoke_2_15(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (v3)
@@ -256,13 +251,13 @@ void __46__SVXDaemon_handleClientServiceXPCConnection___block_invoke_2_15(uint64
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       v5 = *(*(*(a1 + 32) + 8) + 40);
-      v11 = 136315650;
-      v12 = "[SVXDaemon handleClientServiceXPCConnection:]_block_invoke_2";
-      v13 = 2112;
-      v14 = v5;
-      v15 = 2112;
-      v16 = v3;
-      _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s Virtual device for %@ is %@.", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "[SVXDaemon handleClientServiceXPCConnection:]_block_invoke_2";
+      v12 = 2112;
+      v13 = v5;
+      v14 = 2112;
+      v15 = v3;
+      _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s Virtual device for %@ is %@.", &v10, 0x20u);
     }
 
     v6 = [v3 clientServiceServer];
@@ -273,12 +268,12 @@ void __46__SVXDaemon_handleClientServiceXPCConnection___block_invoke_2_15(uint64
   {
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v10 = *(*(*(a1 + 32) + 8) + 40);
-      v11 = 136315394;
-      v12 = "[SVXDaemon handleClientServiceXPCConnection:]_block_invoke";
-      v13 = 2112;
-      v14 = v10;
-      _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s Virtual device for %@ is unavailable. Disconnect now.", &v11, 0x16u);
+      v9 = *(*(*(a1 + 32) + 8) + 40);
+      v10 = 136315394;
+      v11 = "[SVXDaemon handleClientServiceXPCConnection:]_block_invoke";
+      v12 = 2112;
+      v13 = v9;
+      _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s Virtual device for %@ is unavailable. Disconnect now.", &v10, 0x16u);
     }
 
     [*(*(*(a1 + 32) + 8) + 40) invalidate];
@@ -287,13 +282,11 @@ void __46__SVXDaemon_handleClientServiceXPCConnection___block_invoke_2_15(uint64
   v7 = *(*(a1 + 32) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = 0;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   if (self->_clientServiceListener == listenerCopy)
@@ -306,21 +299,20 @@ void __46__SVXDaemon_handleClientServiceXPCConnection___block_invoke_2_15(uint64
     v8 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[SVXDaemon listener:shouldAcceptNewConnection:]";
-      _os_log_error_impl(&dword_2695B9000, v8, OS_LOG_TYPE_ERROR, "%s Ignored because the XPC listener is unexpected.", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[SVXDaemon listener:shouldAcceptNewConnection:]";
+      _os_log_error_impl(&dword_2695B9000, v8, OS_LOG_TYPE_ERROR, "%s Ignored because the XPC listener is unexpected.", &v11, 0xCu);
     }
 
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)stop
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
@@ -332,29 +324,28 @@ void __46__SVXDaemon_handleClientServiceXPCConnection___block_invoke_2_15(uint64
     processIdentifier = [processInfo2 processIdentifier];
     v10 = AFBuildVersion();
     *buf = 136315906;
-    v15 = "[SVXDaemon stop]";
-    v16 = 2112;
-    v17 = processName;
-    v18 = 1024;
-    v19 = processIdentifier;
-    v20 = 2112;
-    v21 = v10;
+    v14 = "[SVXDaemon stop]";
+    v15 = 2112;
+    v16 = processName;
+    v17 = 1024;
+    v18 = processIdentifier;
+    v19 = 2112;
+    v20 = v10;
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s Stopping SiriVOX service in %@ (pid=%d) on %@...", buf, 0x26u);
   }
 
   mainQueuePerformer = self->_mainQueuePerformer;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __17__SVXDaemon_stop__block_invoke;
-  v13[3] = &unk_279C68FC0;
-  v13[4] = self;
-  [(SVXQueuePerformer *)mainQueuePerformer performBlock:v13 withOptions:2];
-  v12 = *MEMORY[0x277D85DE8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __17__SVXDaemon_stop__block_invoke;
+  v12[3] = &unk_279C68FC0;
+  v12[4] = self;
+  [(SVXQueuePerformer *)mainQueuePerformer performBlock:v12 withOptions:2];
 }
 
 void __17__SVXDaemon_stop__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([*(*(a1 + 32) + 48) isRunning])
   {
     [*(*(a1 + 32) + 48) setIsRunning:0];
@@ -376,23 +367,21 @@ void __17__SVXDaemon_stop__block_invoke(uint64_t a1)
     v8 = [MEMORY[0x277CCAC38] processInfo];
     v9 = [v8 processIdentifier];
     v10 = AFBuildVersion();
-    v12 = 136315906;
-    v13 = "[SVXDaemon stop]_block_invoke";
-    v14 = 2112;
-    v15 = v7;
-    v16 = 1024;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v10;
-    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s Stopped SiriVOX service in %@ (pid=%d) on %@.", &v12, 0x26u);
+    v11 = 136315906;
+    v12 = "[SVXDaemon stop]_block_invoke";
+    v13 = 2112;
+    v14 = v7;
+    v15 = 1024;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v10;
+    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s Stopped SiriVOX service in %@ (pid=%d) on %@.", &v11, 0x26u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startWithPlatformDependencies:(id)dependencies
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dependenciesCopy = dependencies;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
@@ -405,32 +394,30 @@ void __17__SVXDaemon_stop__block_invoke(uint64_t a1)
     processIdentifier = [processInfo2 processIdentifier];
     v12 = AFBuildVersion();
     *buf = 136315906;
-    v19 = "[SVXDaemon startWithPlatformDependencies:]";
-    v20 = 2112;
-    v21 = processName;
-    v22 = 1024;
-    v23 = processIdentifier;
-    v24 = 2112;
-    v25 = v12;
+    v18 = "[SVXDaemon startWithPlatformDependencies:]";
+    v19 = 2112;
+    v20 = processName;
+    v21 = 1024;
+    v22 = processIdentifier;
+    v23 = 2112;
+    v24 = v12;
     _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_INFO, "%s Starting SiriVOX service in %@ (pid=%d) on %@...", buf, 0x26u);
   }
 
   mainQueuePerformer = self->_mainQueuePerformer;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __43__SVXDaemon_startWithPlatformDependencies___block_invoke;
-  v16[3] = &unk_279C68FE8;
-  v16[4] = self;
-  v17 = dependenciesCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __43__SVXDaemon_startWithPlatformDependencies___block_invoke;
+  v15[3] = &unk_279C68FE8;
+  v15[4] = self;
+  v16 = dependenciesCopy;
   v14 = dependenciesCopy;
-  [(SVXQueuePerformer *)mainQueuePerformer performBlock:v16 withOptions:2];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)mainQueuePerformer performBlock:v15 withOptions:2];
 }
 
 void __43__SVXDaemon_startWithPlatformDependencies___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (([*(*(a1 + 32) + 48) isRunning] & 1) == 0)
   {
     [*(*(a1 + 32) + 48) setIsRunning:1];
@@ -455,18 +442,16 @@ void __43__SVXDaemon_startWithPlatformDependencies___block_invoke(uint64_t a1)
     v10 = [MEMORY[0x277CCAC38] processInfo];
     v11 = [v10 processIdentifier];
     v12 = AFBuildVersion();
-    v14 = 136315906;
-    v15 = "[SVXDaemon startWithPlatformDependencies:]_block_invoke";
-    v16 = 2112;
-    v17 = v9;
-    v18 = 1024;
-    v19 = v11;
-    v20 = 2112;
-    v21 = v12;
-    _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_INFO, "%s Started SiriVOX service in %@ (pid=%d) on %@.", &v14, 0x26u);
+    v13 = 136315906;
+    v14 = "[SVXDaemon startWithPlatformDependencies:]_block_invoke";
+    v15 = 2112;
+    v16 = v9;
+    v17 = 1024;
+    v18 = v11;
+    v19 = 2112;
+    v20 = v12;
+    _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_INFO, "%s Started SiriVOX service in %@ (pid=%d) on %@.", &v13, 0x26u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (SVXDaemon)initWithClientServiceQueuePerformer:(id)performer mainQueuePerformer:(id)queuePerformer clientServiceListener:(id)listener platformDependenciesTracker:(id)tracker virtualDeviceManager:(id)manager runningObserver:(id)observer siriActivationListenerDelegate:(id)delegate remoraVirtualDeviceManager:(id)self0 homeHubManagerObserver:(id)self1 rebootExecutor:(id)self2 connectionFactory:(id)self3

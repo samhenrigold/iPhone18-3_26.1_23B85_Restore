@@ -22,22 +22,22 @@
 
 - (PSUICellularDiagnosticsSpecifier)initWithRadioCache:(id)cache
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   getLogger = [(PSUICellularDiagnosticsSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v20 = "[PSUICellularDiagnosticsSpecifier initWithRadioCache:]";
+    v19 = "[PSUICellularDiagnosticsSpecifier initWithRadioCache:]";
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
   v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v8 = [v7 localizedStringForKey:@"CELLULAR_DIAGNOSTICS_STATUS" value:&stru_287733598 table:@"Cellular"];
   v9 = objc_opt_class();
-  v18.receiver = self;
-  v18.super_class = PSUICellularDiagnosticsSpecifier;
-  v10 = [(PSUICellularDiagnosticsSpecifier *)&v18 initWithName:v8 target:self set:0 get:sel_getDiagnosticsStatusString_ detail:v9 cell:2 edit:0];
+  v17.receiver = self;
+  v17.super_class = PSUICellularDiagnosticsSpecifier;
+  v10 = [(PSUICellularDiagnosticsSpecifier *)&v17 initWithName:v8 target:self set:0 get:sel_getDiagnosticsStatusString_ detail:v9 cell:2 edit:0];
 
   if (v10)
   {
@@ -60,7 +60,6 @@
     [(PSUICellularDiagnosticsSpecifier *)v10 updateBasebandConfigUpdateInfo];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -90,26 +89,24 @@
 
 - (BOOL)cellularIssueFound
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICellularDiagnosticsSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     cellularIssueDetected = self->_cellularIssueDetected;
-    v7 = 136315394;
-    v8 = "[PSUICellularDiagnosticsSpecifier cellularIssueFound]";
-    v9 = 1024;
-    v10 = cellularIssueDetected;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s %d", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "[PSUICellularDiagnosticsSpecifier cellularIssueFound]";
+    v8 = 1024;
+    v9 = cellularIssueDetected;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s %d", &v6, 0x12u);
   }
 
-  result = self->_cellularIssueDetected;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return self->_cellularIssueDetected;
 }
 
 - (void)updateCellularDiagnosticsStatus
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   self->_cellularStatus = [(PSUICoreTelephonyRadioCache *)self->_radioCache checkCellularHealthStatus];
   self->_cellularDiagCode = [(PSUICoreTelephonyRadioCache *)self->_radioCache getCellularHealthDiagnosticsCode];
   self->_cellularDiagSubCode = [(PSUICoreTelephonyRadioCache *)self->_radioCache getCellularHealthDiagnosticsSubCode];
@@ -118,14 +115,12 @@
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     cellularStatus = self->_cellularStatus;
-    v6 = 136315394;
-    v7 = "[PSUICellularDiagnosticsSpecifier updateCellularDiagnosticsStatus]";
-    v8 = 1024;
-    v9 = cellularStatus;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s %d", &v6, 0x12u);
+    v5 = 136315394;
+    v6 = "[PSUICellularDiagnosticsSpecifier updateCellularDiagnosticsStatus]";
+    v7 = 1024;
+    v8 = cellularStatus;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s %d", &v5, 0x12u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getDiagnosticsStatusString:(id)string

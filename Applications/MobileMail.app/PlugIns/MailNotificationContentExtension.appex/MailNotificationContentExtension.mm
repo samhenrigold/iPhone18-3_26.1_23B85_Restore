@@ -224,12 +224,12 @@ void sub_10000B1F4(uint64_t a1, void *a2)
   [WeakRetained _updateHorizontalStatusIndicators:v4];
 }
 
-void sub_10000B528(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, ...)
+void sub_10000B528(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, void *a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   objc_destroyWeak(va);
-  objc_destroyWeak((v20 - 88));
+  objc_destroyWeak((v27 - 88));
 
   _Unwind_Resume(a1);
 }
@@ -327,28 +327,28 @@ void sub_10000C100(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_10000C170(uint64_t a1, void *a2)
+void sub_10000C170(uint64_t a1, void *a2, unint64_t a3)
 {
-  v9 = a2;
-  [v9 setTranslatesAutoresizingMaskIntoConstraints:1];
-  [v9 frame];
-  y = v11.origin.y;
-  width = v11.size.width;
-  height = v11.size.height;
-  CGRectGetWidth(v11);
+  v10 = a2;
+  [v10 setTranslatesAutoresizingMaskIntoConstraints:1];
+  [v10 frame];
+  y = v12.origin.y;
+  width = v12.size.width;
+  height = v12.size.height;
+  CGRectGetWidth(v12);
   UIRoundToViewScale();
-  x = v12.origin.x;
-  v12.origin.y = y;
-  v12.size.width = width;
-  v12.size.height = height;
-  CGRectGetHeight(v12);
+  x = v13.origin.x;
+  v13.origin.y = y;
+  v13.size.width = width;
+  v13.size.height = height;
+  CGRectGetHeight(v13);
   UIRoundToViewScale();
-  [v9 setFrame:{x, v7, width, height}];
-  v8 = [v9 superview];
+  [v10 setFrame:{x, v8, width, height}];
+  v9 = [v10 superview];
 
-  if (!v8)
+  if (!v9)
   {
-    [*(a1 + 32) addSubview:v9];
+    [*(a1 + 32) addSubview:v10];
   }
 }
 

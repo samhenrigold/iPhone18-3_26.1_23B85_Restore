@@ -1,10 +1,44 @@
 @interface CTXPCGetSignalStrengthInfoRequest
 + (id)allowedClassesForArguments;
+- (CTXPCGetSignalStrengthInfoRequest)initWithContext:(id)context forPublic:(BOOL)public;
+- (CTXPCGetSignalStrengthInfoRequest)initWithDescriptor:(id)descriptor forPublic:(BOOL)public;
 - (int)requiredEntitlement;
 - (void)performRequestWithHandler:(id)handler completionHandler:(id)completionHandler;
 @end
 
 @implementation CTXPCGetSignalStrengthInfoRequest
+
+- (CTXPCGetSignalStrengthInfoRequest)initWithContext:(id)context forPublic:(BOOL)public
+{
+  publicCopy = public;
+  v13[1] = *MEMORY[0x1E69E9840];
+  contextCopy = context;
+  v12 = @"public";
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:publicCopy];
+  v13[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11.receiver = self;
+  v11.super_class = CTXPCGetSignalStrengthInfoRequest;
+  v9 = [(CTXPCSubscriptionContextRequest *)&v11 initWithContext:contextCopy namedArguments:v8];
+
+  return v9;
+}
+
+- (CTXPCGetSignalStrengthInfoRequest)initWithDescriptor:(id)descriptor forPublic:(BOOL)public
+{
+  publicCopy = public;
+  v13[1] = *MEMORY[0x1E69E9840];
+  descriptorCopy = descriptor;
+  v12 = @"public";
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:publicCopy];
+  v13[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11.receiver = self;
+  v11.super_class = CTXPCGetSignalStrengthInfoRequest;
+  v9 = [(CTXPCSubscriptionContextRequest *)&v11 initWithDescriptor:descriptorCopy namedArguments:v8];
+
+  return v9;
+}
 
 - (void)performRequestWithHandler:(id)handler completionHandler:(id)completionHandler
 {

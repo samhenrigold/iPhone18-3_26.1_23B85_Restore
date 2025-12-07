@@ -36,14 +36,14 @@
 {
   foregroundCopy = foreground;
   selfCopy = self;
-  sub_10003E35C();
+  sub_10003E35C(selfCopy);
 }
 
 - (void)sceneDidEnterBackground:(id)background
 {
   backgroundCopy = background;
   selfCopy = self;
-  sub_10003E488();
+  sub_10003E488(selfCopy);
 }
 
 - (_TtC13MediaRemoteUI21BackdropSceneDelegate)init

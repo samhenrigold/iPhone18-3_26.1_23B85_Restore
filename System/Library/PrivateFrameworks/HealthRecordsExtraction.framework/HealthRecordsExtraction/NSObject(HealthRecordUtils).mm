@@ -39,13 +39,13 @@
 
 - (id)hd_stringArrayValue
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v2 = [self copy];
-    v6[0] = v2;
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+    v5[0] = v2;
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   }
 
   else
@@ -53,38 +53,36 @@
     v3 = MEMORY[0x277CBEBF8];
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (id)hd_valueForKeyPath:()HealthRecordUtils rootResource:error:
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   v9 = a3;
   v10 = a4;
   objc_opt_class();
-  v86 = v10;
+  v85 = v10;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     [NSObject(HealthRecordUtils) hd_valueForKeyPath:a2 rootResource:self error:?];
   }
 
-  v83 = a5;
-  v84 = v9;
-  v85 = [HDHealthRecordsExtractionRule extractionRuleWithDefinition:v9 error:a5];
-  v11 = v85;
-  if (!v85)
+  v82 = a5;
+  v83 = v9;
+  v84 = [HDHealthRecordsExtractionRule extractionRuleWithDefinition:v9 error:a5];
+  v11 = v84;
+  if (!v84)
   {
     keyPath = 0;
     goto LABEL_47;
   }
 
   selfCopy = self;
-  keyPath = [v85 keyPath];
-  v114 = 0;
-  v14 = [HDHRExtractionRulesKeyPathParser componentsFrom:keyPath error:&v114];
-  v82 = v114;
+  keyPath = [v84 keyPath];
+  v113 = 0;
+  v14 = [HDHRExtractionRulesKeyPathParser componentsFrom:keyPath error:&v113];
+  v81 = v113;
   v15 = [v14 mutableCopy];
 
   if (!v15)
@@ -93,17 +91,17 @@
     v32 = *MEMORY[0x277CCC2C0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
     {
-      [NSObject(HealthRecordUtils) hd_valueForKeyPath:v85 rootResource:v82 error:v32];
+      [NSObject(HealthRecordUtils) hd_valueForKeyPath:v84 rootResource:v81 error:v32];
     }
 
-    v33 = v82;
+    v33 = v81;
     v34 = v33;
     if (v33)
     {
-      if (v83)
+      if (v82)
       {
         v35 = v33;
-        *v83 = v34;
+        *v82 = v34;
       }
 
       else
@@ -126,7 +124,7 @@ LABEL_45:
   {
     if (![v15 count])
     {
-      v36 = [HDHealthRecordsExtractionRuleTransformer transformValue:selfCopy rootResource:v86 extractionRule:v85 error:v83];
+      v36 = [HDHealthRecordsExtractionRuleTransformer transformValue:selfCopy rootResource:v85 extractionRule:v84 error:v82];
 
       selfCopy = v36;
       keyPath = selfCopy;
@@ -138,33 +136,33 @@ LABEL_45:
     [v15 removeObjectAtIndex:0];
     if ([name isEqualToString:@"@contained"])
     {
-      v108 = 0;
-      v109 = &v108;
-      v110 = 0x3032000000;
-      v111 = __Block_byref_object_copy__3;
-      v112 = __Block_byref_object_dispose__3;
-      v113 = 0;
+      v107 = 0;
+      v108 = &v107;
+      v109 = 0x3032000000;
+      v110 = __Block_byref_object_copy__3;
+      v111 = __Block_byref_object_dispose__3;
+      v112 = 0;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v105[0] = MEMORY[0x277D85DD0];
-        v105[1] = 3221225472;
-        v105[2] = __69__NSObject_HealthRecordUtils__hd_valueForKeyPath_rootResource_error___block_invoke;
-        v105[3] = &unk_2796E2C58;
-        v107 = &v108;
-        v106 = v86;
-        jSONObject = [selfCopy hk_map:v105];
+        v104[0] = MEMORY[0x277D85DD0];
+        v104[1] = 3221225472;
+        v104[2] = __69__NSObject_HealthRecordUtils__hd_valueForKeyPath_rootResource_error___block_invoke;
+        v104[3] = &unk_2796E2C58;
+        v106 = &v107;
+        v105 = v85;
+        jSONObject = [selfCopy hk_map:v104];
         v19 = [jSONObject count];
         if (v19 != [selfCopy count])
         {
-          v26 = v109[5];
+          v26 = v108[5];
           v27 = v26;
           if (v26)
           {
-            if (v83)
+            if (v82)
             {
               v28 = v26;
-              *v83 = v27;
+              *v82 = v27;
             }
 
             else
@@ -181,16 +179,16 @@ LABEL_45:
 
       else
       {
-        v24 = (v109 + 5);
-        obj = v109[5];
-        v25 = [HDHealthRecordsExtractionUtilities resourceReferencedBy:selfCopy containedIn:v86 error:&obj];
+        v24 = (v108 + 5);
+        obj = v108[5];
+        v25 = [HDHealthRecordsExtractionUtilities resourceReferencedBy:selfCopy containedIn:v85 error:&obj];
         objc_storeStrong(v24, obj);
         jSONObject = [v25 JSONObject];
 
         if (!jSONObject)
         {
           selfCopy = 0;
-          if (v109[5])
+          if (v108[5])
           {
             v22 = 1;
             keyPath = 0;
@@ -204,16 +202,16 @@ LABEL_45:
       v22 = 6;
       selfCopy = jSONObject;
 LABEL_29:
-      _Block_object_dispose(&v108, 8);
+      _Block_object_dispose(&v107, 8);
 
       goto LABEL_33;
     }
 
     if ([name hasPrefix:@"@extension"])
     {
-      v103 = 0;
-      v20 = [selfCopy hd_handleExtensionComponent:firstObject error:&v103];
-      v21 = v103;
+      v102 = 0;
+      v20 = [selfCopy hd_handleExtensionComponent:firstObject error:&v102];
+      v21 = v102;
 
       if (v20)
       {
@@ -226,10 +224,10 @@ LABEL_29:
         v30 = v29;
         if (v29)
         {
-          if (v83)
+          if (v82)
           {
             v31 = v29;
-            *v83 = v30;
+            *v82 = v30;
           }
 
           else
@@ -269,58 +267,58 @@ LABEL_34:
     }
   }
 
-  v39 = [v15 hk_map:&__block_literal_global_4];
-  v77 = [v39 componentsJoinedByString:@"."];
+  v38 = [v15 hk_map:&__block_literal_global_4];
+  v76 = [v38 componentsJoinedByString:@"."];
 
-  v81 = [v85 definitionBySubstitutingKeyPathWith:v77];
-  v40 = selfCopy;
+  v80 = [v84 definitionBySubstitutingKeyPathWith:v76];
+  v39 = selfCopy;
   if ([name isEqualToString:@"@all"])
   {
-    v41 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v101 = 0u;
-    v102 = 0u;
-    v99 = 0u;
+    v40 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v100 = 0u;
-    v42 = v40;
-    v43 = [v42 countByEnumeratingWithState:&v99 objects:v117 count:16];
-    v80 = v41;
-    hd_stringValue = v42;
-    if (v43)
+    v101 = 0u;
+    v98 = 0u;
+    v99 = 0u;
+    v41 = v39;
+    v42 = [v41 countByEnumeratingWithState:&v98 objects:v116 count:16];
+    v79 = v40;
+    hd_stringValue = v41;
+    if (v42)
     {
-      v45 = *v100;
-      hd_stringValue = v42;
-      v78 = v42;
+      v44 = *v99;
+      hd_stringValue = v41;
+      v77 = v41;
       while (2)
       {
-        v46 = 0;
-        v47 = hd_stringValue;
+        v45 = 0;
+        v46 = hd_stringValue;
         do
         {
-          if (*v100 != v45)
+          if (*v99 != v44)
           {
-            objc_enumerationMutation(v78);
+            objc_enumerationMutation(v77);
           }
 
-          v48 = *(*(&v99 + 1) + 8 * v46);
-          v98 = 0;
-          hd_stringValue = [v48 hd_valueForKeyPath:v81 rootResource:v86 error:&v98];
-          v49 = v98;
+          v47 = *(*(&v98 + 1) + 8 * v45);
+          v97 = 0;
+          hd_stringValue = [v47 hd_valueForKeyPath:v80 rootResource:v85 error:&v97];
+          v48 = v97;
 
           if (hd_stringValue)
           {
-            [v80 addObject:hd_stringValue];
+            [v79 addObject:hd_stringValue];
           }
 
           else
           {
-            v50 = v49;
-            if (v50)
+            v49 = v48;
+            if (v49)
             {
-              v61 = v50;
-              if (v83)
+              v60 = v49;
+              if (v82)
               {
-                v62 = v50;
-                *v83 = v61;
+                v61 = v49;
+                *v82 = v60;
               }
 
               else
@@ -332,14 +330,14 @@ LABEL_34:
             }
           }
 
-          ++v46;
-          v47 = hd_stringValue;
+          ++v45;
+          v46 = hd_stringValue;
         }
 
-        while (v43 != v46);
-        v42 = v78;
-        v43 = [v78 countByEnumeratingWithState:&v99 objects:v117 count:16];
-        if (v43)
+        while (v42 != v45);
+        v41 = v77;
+        v42 = [v77 countByEnumeratingWithState:&v98 objects:v116 count:16];
+        if (v42)
         {
           continue;
         }
@@ -348,8 +346,8 @@ LABEL_34:
       }
     }
 
-    v51 = v80;
-    v52 = v80;
+    v50 = v79;
+    v51 = v79;
     goto LABEL_62;
   }
 
@@ -357,56 +355,56 @@ LABEL_34:
   {
     if (![name isEqualToString:@"@concat"])
     {
-      [MEMORY[0x277CCA9B8] hk_assignError:v83 code:3 format:{@"keypath %@ at key «%@» needs to handle array", v84, name}];
+      [MEMORY[0x277CCA9B8] hk_assignError:v82 code:3 format:{@"keypath %@ at key «%@» needs to handle array", v83, name}];
       keyPath = 0;
-      hd_stringValue = v40;
+      hd_stringValue = v39;
       goto LABEL_107;
     }
 
-    v63 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v90 = 0u;
-    v91 = 0u;
-    v88 = 0u;
+    v62 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v89 = 0u;
-    v64 = v40;
-    v65 = [v64 countByEnumeratingWithState:&v88 objects:v115 count:16];
-    v80 = v63;
-    hd_stringValue = v64;
-    if (v65)
+    v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    v63 = v39;
+    v64 = [v63 countByEnumeratingWithState:&v87 objects:v114 count:16];
+    v79 = v62;
+    hd_stringValue = v63;
+    if (v64)
     {
-      v79 = *v89;
-      hd_stringValue = v64;
-      v76 = v64;
+      v78 = *v88;
+      hd_stringValue = v63;
+      v75 = v63;
       do
       {
-        v66 = 0;
-        v67 = hd_stringValue;
+        v65 = 0;
+        v66 = hd_stringValue;
         do
         {
-          if (*v89 != v79)
+          if (*v88 != v78)
           {
-            objc_enumerationMutation(v76);
+            objc_enumerationMutation(v75);
           }
 
-          v68 = *(*(&v88 + 1) + 8 * v66);
-          v87 = 0;
-          v69 = [v68 hd_valueForKeyPath:v81 rootResource:v86 error:&v87];
-          v70 = v87;
-          hd_stringValue = [v69 hd_stringValue];
+          v67 = *(*(&v87 + 1) + 8 * v65);
+          v86 = 0;
+          v68 = [v67 hd_valueForKeyPath:v80 rootResource:v85 error:&v86];
+          v69 = v86;
+          hd_stringValue = [v68 hd_stringValue];
 
           if (hd_stringValue)
           {
-            [v80 addObject:hd_stringValue];
+            [v79 addObject:hd_stringValue];
           }
 
-          else if (v70)
+          else if (v69)
           {
-            v73 = v70;
-            v74 = v73;
-            if (v83)
+            v72 = v69;
+            v73 = v72;
+            if (v82)
             {
-              v75 = v73;
-              *v83 = v74;
+              v74 = v72;
+              *v82 = v73;
             }
 
             else
@@ -420,92 +418,92 @@ LABEL_95:
             goto LABEL_105;
           }
 
-          ++v66;
-          v67 = hd_stringValue;
+          ++v65;
+          v66 = hd_stringValue;
         }
 
-        while (v65 != v66);
-        v64 = v76;
-        v65 = [v76 countByEnumeratingWithState:&v88 objects:v115 count:16];
+        while (v64 != v65);
+        v63 = v75;
+        v64 = [v75 countByEnumeratingWithState:&v87 objects:v114 count:16];
       }
 
-      while (v65);
+      while (v64);
     }
 
-    v51 = v80;
-    if (![v80 count])
+    v50 = v79;
+    if (![v79 count])
     {
       keyPath = 0;
       goto LABEL_106;
     }
 
-    v52 = [v80 componentsJoinedByString:@"\n\n"];
+    v51 = [v79 componentsJoinedByString:@"\n\n"];
 LABEL_62:
-    keyPath = v52;
+    keyPath = v51;
     goto LABEL_106;
   }
 
-  v97 = 0u;
-  v95 = 0u;
   v96 = 0u;
   v94 = 0u;
-  v51 = v40;
-  v53 = [v51 countByEnumeratingWithState:&v94 objects:v116 count:16];
-  if (!v53)
+  v95 = 0u;
+  v93 = 0u;
+  v50 = v39;
+  v52 = [v50 countByEnumeratingWithState:&v93 objects:v115 count:16];
+  if (!v52)
   {
     keyPath = 0;
-    hd_stringValue = v51;
+    hd_stringValue = v50;
     goto LABEL_106;
   }
 
-  v54 = *v95;
-  keyPath = v51;
-  v80 = v51;
+  v53 = *v94;
+  keyPath = v50;
+  v79 = v50;
   while (2)
   {
-    v55 = 0;
+    v54 = 0;
     while (2)
     {
-      v56 = v53;
-      if (*v95 != v54)
+      v55 = v52;
+      if (*v94 != v53)
       {
-        objc_enumerationMutation(v80);
+        objc_enumerationMutation(v79);
       }
 
-      v57 = *(*(&v94 + 1) + 8 * v55);
-      if ([v77 length])
+      v56 = *(*(&v93 + 1) + 8 * v54);
+      if ([v76 length])
       {
-        v93 = 0;
-        v58 = &v93;
-        [v57 hd_valueForKeyPath:v81 rootResource:v86 error:&v93];
+        v92 = 0;
+        v57 = &v92;
+        [v56 hd_valueForKeyPath:v80 rootResource:v85 error:&v92];
       }
 
       else
       {
-        v92 = 0;
-        v58 = &v92;
-        [HDHealthRecordsExtractionRuleTransformer transformValue:v57 rootResource:v86 extractionRule:v85 error:&v92];
+        v91 = 0;
+        v57 = &v91;
+        [HDHealthRecordsExtractionRuleTransformer transformValue:v56 rootResource:v85 extractionRule:v84 error:&v91];
       }
       hd_stringValue = ;
-      v59 = *v58;
+      v58 = *v57;
 
       if (hd_stringValue)
       {
-        v71 = hd_stringValue;
+        v70 = hd_stringValue;
 LABEL_104:
 
         keyPath = hd_stringValue;
         goto LABEL_105;
       }
 
-      v60 = v59;
-      if (v60)
+      v59 = v58;
+      if (v59)
       {
-        v59 = v60;
-        if (v83)
+        v58 = v59;
+        if (v82)
         {
-          v72 = v60;
-          *v83 = v59;
+          v71 = v59;
+          *v82 = v58;
         }
 
         else
@@ -517,9 +515,9 @@ LABEL_104:
       }
 
       keyPath = 0;
-      ++v55;
-      v53 = v56;
-      if (v56 != v55)
+      ++v54;
+      v52 = v55;
+      if (v55 != v54)
       {
         continue;
       }
@@ -527,9 +525,9 @@ LABEL_104:
       break;
     }
 
-    v53 = [v80 countByEnumeratingWithState:&v94 objects:v116 count:16];
+    v52 = [v79 countByEnumeratingWithState:&v93 objects:v115 count:16];
     keyPath = 0;
-    if (v53)
+    if (v52)
     {
       continue;
     }
@@ -539,17 +537,15 @@ LABEL_104:
 
   hd_stringValue = 0;
 LABEL_105:
-  v51 = v80;
+  v50 = v79;
 LABEL_106:
 
 LABEL_107:
   selfCopy = hd_stringValue;
 LABEL_46:
 
-  v11 = v85;
+  v11 = v84;
 LABEL_47:
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return keyPath;
 }

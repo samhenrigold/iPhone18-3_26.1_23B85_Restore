@@ -15,7 +15,7 @@
   if (v2)
   {
     v3 = [PurchaseHistoryDatabaseStore alloc];
-    v4 = sub_1001C0DF0();
+    v4 = sub_1001C0DF0(Environment);
     v5 = sub_1001C0FB8(v4);
     v6 = [(SQLiteDatabaseStore *)v3 initWithDatabase:v5];
     databaseStore = v2->_databaseStore;
@@ -30,7 +30,7 @@
     bagService = v2->_bagService;
     v2->_bagService = v11;
 
-    v13 = sub_1003BBF50();
+    v13 = sub_1003BBF50(Device);
     LOBYTE(v4) = [v13 isHRNMode];
 
     if ((v4 & 1) == 0)
@@ -53,7 +53,7 @@
       v20 = +[ActiveAccountObserver sharedInstance];
       [v19 addObserver:v2 selector:"_handleAccountChangedNotification" name:@"AccountStorePrimaryAccountDidChange" object:v20];
 
-      v21 = sub_100336524();
+      v21 = sub_100336524(PushService);
       sub_1003367D0(v21, v2, 1);
     }
 

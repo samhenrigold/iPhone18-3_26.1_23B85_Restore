@@ -61,9 +61,9 @@
     goto LABEL_8;
   }
 
-  v9 = [(NSIndexPath *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6);
 
-  if ((v9 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     self->_isUncommitted = 1;

@@ -311,7 +311,7 @@ LABEL_87:
 
   if (([v4 hasTopEdgeContact] & 1) == 0)
   {
-    [matteImage extent];
+    objc_msgSend_extent(matteImage);
     v301 = v50;
     v302 = v48;
     v56 = v55;
@@ -823,7 +823,7 @@ LABEL_49:
 
     [layout imageSize];
     v16 = v15;
-    [v14 extent];
+    objc_msgSend_extent(v14);
     CGAffineTransformMakeScale(&v20, v16 / v17, v16 / v17);
     segmentationMatte = [v14 imageByApplyingTransform:&v20];
 

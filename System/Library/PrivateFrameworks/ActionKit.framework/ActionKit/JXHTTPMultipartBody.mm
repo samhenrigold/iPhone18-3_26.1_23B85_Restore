@@ -5,6 +5,7 @@
 - (int64_t)httpContentLength;
 - (unint64_t)loadMutableData:(id)data withDataInRange:(_NSRange)range;
 - (void)addFile:(id)file forKey:(id)key contentType:(id)type fileName:(id)name;
+- (void)addPartWithType:(int)type forKey:(id)key contentType:(id)contentType fileName:(id)name data:(id)data;
 - (void)addString:(id)string forKey:(id)key;
 - (void)dealloc;
 - (void)httpOperationDidFail:(id)fail;
@@ -55,38 +56,38 @@
 {
   length = range.length;
   location = range.location;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   [dataCopy setLength:0];
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   selfCopy = self;
   partsArray = [(JXHTTPMultipartBody *)self partsArray];
-  v8 = [partsArray countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v8 = [partsArray countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
     v11 = 0;
-    v12 = *v28;
+    v12 = *v27;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v28 != v12)
+        if (*v27 != v12)
         {
           objc_enumerationMutation(partsArray);
         }
 
-        v14 = *(*(&v27 + 1) + 8 * i);
+        v14 = *(*(&v26 + 1) + 8 * i);
         dataLength = [v14 dataLength];
-        v33.location = v11;
-        v33.length = dataLength;
-        v35.location = location;
-        v35.length = length;
-        v16 = NSIntersectionRange(v33, v35);
+        v32.location = v11;
+        v32.length = dataLength;
+        v34.location = location;
+        v34.length = length;
+        v16 = NSIntersectionRange(v32, v34);
         if (v16.length)
         {
           v10 += [v14 loadMutableData:dataCopy withDataInRange:{v16.location - v11, v16.length}];
@@ -95,7 +96,7 @@
         v11 += dataLength;
       }
 
-      v9 = [partsArray countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v9 = [partsArray countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v9);
@@ -110,11 +111,11 @@
   finalBoundaryData = [(JXHTTPMultipartBody *)selfCopy finalBoundaryData];
   v18 = [finalBoundaryData length];
 
-  v34.location = v11;
-  v34.length = v18;
-  v36.location = location;
-  v36.length = length;
-  v19 = NSIntersectionRange(v34, v36);
+  v33.location = v11;
+  v33.length = v18;
+  v35.location = location;
+  v35.length = length;
+  v19 = NSIntersectionRange(v33, v35);
   if (v19.length)
   {
     v20 = v19.location - v11;
@@ -128,7 +129,6 @@
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -200,9 +200,25 @@ LABEL_13:
 LABEL_14:
 }
 
+- (void)addPartWithType:(int)type forKey:(id)key contentType:(id)contentType fileName:(id)name data:(id)data
+{
+  v10 = *&type;
+  dataCopy = data;
+  nameCopy = name;
+  contentTypeCopy = contentType;
+  keyCopy = key;
+  boundaryString = [(JXHTTPMultipartBody *)self boundaryString];
+  v18 = [JXHTTPMultipartPart withMultipartType:v10 key:keyCopy data:dataCopy contentType:contentTypeCopy fileName:nameCopy boundary:boundaryString];
+
+  partsArray = [(JXHTTPMultipartBody *)self partsArray];
+  [partsArray addObject:v18];
+
+  [(JXHTTPMultipartBody *)self setHttpContentLength:-1];
+}
+
 - (void)setPartWithType:(int)type forKey:(id)key contentType:(id)contentType fileName:(id)name data:(id)data
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   contentTypeCopy = contentType;
   nameCopy = name;
@@ -211,26 +227,26 @@ LABEL_14:
   partsArray = [(JXHTTPMultipartBody *)self partsArray];
   v14 = [v12 initWithCapacity:{objc_msgSend(partsArray, "count")}];
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   partsArray2 = [(JXHTTPMultipartBody *)self partsArray];
-  v16 = [partsArray2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v16 = [partsArray2 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v30;
+    v18 = *v29;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v30 != v18)
+        if (*v29 != v18)
         {
           objc_enumerationMutation(partsArray2);
         }
 
-        v20 = *(*(&v29 + 1) + 8 * i);
+        v20 = *(*(&v28 + 1) + 8 * i);
         v21 = [v20 key];
         v22 = [v21 isEqualToString:keyCopy];
 
@@ -240,7 +256,7 @@ LABEL_14:
         }
       }
 
-      v17 = [partsArray2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v17 = [partsArray2 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v17);
@@ -250,7 +266,6 @@ LABEL_14:
   [partsArray3 removeObjectsInArray:v14];
 
   [(JXHTTPMultipartBody *)self addPartWithType:type forKey:keyCopy contentType:contentTypeCopy fileName:nameCopy data:dataCopy];
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleOutputStreamOnThread:(id)thread
@@ -336,34 +351,34 @@ LABEL_14:
 
 - (int64_t)httpContentLength
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   result = self->_httpContentLength;
   if (result == -1)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     partsArray = [(JXHTTPMultipartBody *)self partsArray];
-    v5 = [partsArray countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v5 = [partsArray countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(partsArray);
           }
 
-          v7 += [*(*(&v11 + 1) + 8 * i) dataLength];
+          v7 += [*(*(&v10 + 1) + 8 * i) dataLength];
         }
 
-        v6 = [partsArray countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [partsArray countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v6);
@@ -384,52 +399,50 @@ LABEL_14:
 
 LABEL_13:
     [(JXHTTPMultipartBody *)self setHttpContentLength:v7];
-    result = self->_httpContentLength;
+    return self->_httpContentLength;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (JXHTTPMultipartBody)initWithDictionary:(id)dictionary
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = [(JXHTTPMultipartBody *)self init];
   if (v5)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     allKeys = [dictionaryCopy allKeys];
-    v7 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
+          v11 = *(*(&v14 + 1) + 8 * i);
           v12 = [dictionaryCopy objectForKey:v11];
           [(JXHTTPMultipartBody *)v5 addString:v12 forKey:v11];
         }
 
-        v8 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

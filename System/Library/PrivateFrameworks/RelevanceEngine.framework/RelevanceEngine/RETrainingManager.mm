@@ -1,12 +1,16 @@
 @interface RETrainingManager
 - (RETrainingManager)initWithRelevanceEngine:(id)engine;
 - (void)_performTraining:(BOOL)training completion:(id)completion;
+- (void)_performTrainingForPredictionElement:(id)element isPositiveEvent:(BOOL)event interaction:(id)interaction context:(id)context;
+- (void)_queue_trainElementWithIdentifier:(id)identifier relevanceProviders:(id)providers featureMap:(id)map isPositiveEvent:(BOOL)event interaction:(id)interaction context:(id)context;
 - (void)addTrainingContext:(id)context;
 - (void)dealloc;
 - (void)flushTraining;
 - (void)makeContextCurrent:(id)current;
 - (void)manuallyPerformTrainingWithCompletion:(id)completion;
+- (void)performTrainingForElement:(id)element isPositiveEvent:(BOOL)event interaction:(id)interaction;
 - (void)performTrainingForElement:(id)element isPositiveEvent:(BOOL)event interaction:(id)interaction context:(id)context;
+- (void)performTrainingForElementWithIdentifier:(id)identifier isPositiveEvent:(BOOL)event interaction:(id)interaction;
 - (void)performTrainingForElementWithIdentifier:(id)identifier isPositiveEvent:(BOOL)event interaction:(id)interaction context:(id)context;
 - (void)removeTrainingContext:(id)context;
 @end
@@ -144,6 +148,28 @@ LABEL_7:
   }
 }
 
+- (void)performTrainingForElementWithIdentifier:(id)identifier isPositiveEvent:(BOOL)event interaction:(id)interaction
+{
+  eventCopy = event;
+  interactionCopy = interaction;
+  identifierCopy = identifier;
+  currentTrainingContext = [(RETrainingManager *)self currentTrainingContext];
+  attributeContext = [currentTrainingContext attributeContext];
+
+  [(RETrainingManager *)self performTrainingForElementWithIdentifier:identifierCopy isPositiveEvent:eventCopy interaction:interactionCopy context:attributeContext];
+}
+
+- (void)performTrainingForElement:(id)element isPositiveEvent:(BOOL)event interaction:(id)interaction
+{
+  eventCopy = event;
+  interactionCopy = interaction;
+  elementCopy = element;
+  currentTrainingContext = [(RETrainingManager *)self currentTrainingContext];
+  attributeContext = [currentTrainingContext attributeContext];
+
+  [(RETrainingManager *)self performTrainingForElement:elementCopy isPositiveEvent:eventCopy interaction:interactionCopy context:attributeContext];
+}
+
 - (void)performTrainingForElementWithIdentifier:(id)identifier isPositiveEvent:(BOOL)event interaction:(id)interaction context:(id)context
 {
   identifierCopy = identifier;
@@ -206,6 +232,20 @@ void __83__RETrainingManager_performTrainingForElement_isPositiveEvent_interacti
   [v3 _queue_trainElementWithIdentifier:v4 relevanceProviders:v5 featureMap:v2 isPositiveEvent:*(a1 + 64) interaction:*(a1 + 56) context:*(a1 + 48)];
 }
 
+- (void)_performTrainingForPredictionElement:(id)element isPositiveEvent:(BOOL)event interaction:(id)interaction context:(id)context
+{
+  eventCopy = event;
+  coordinator = self->_coordinator;
+  contextCopy = context;
+  interactionCopy = interaction;
+  elementCopy = element;
+  v16 = [(RELiveElementCoordinator *)coordinator featureMapForElement:elementCopy trainingContext:contextCopy];
+  identifier = [elementCopy identifier];
+  relevanceProviders = [elementCopy relevanceProviders];
+
+  [(RETrainingManager *)self _queue_trainElementWithIdentifier:identifier relevanceProviders:relevanceProviders featureMap:v16 isPositiveEvent:eventCopy interaction:interactionCopy context:contextCopy];
+}
+
 - (void)flushTraining
 {
   dispatch_assert_queue_not_V2(self->_queue);
@@ -214,6 +254,108 @@ void __83__RETrainingManager_performTrainingForElement_isPositiveEvent_interacti
   modelManager = self->_modelManager;
 
   [(REMLModelManager *)modelManager flushTraining];
+}
+
+- (void)_queue_trainElementWithIdentifier:(id)identifier relevanceProviders:(id)providers featureMap:(id)map isPositiveEvent:(BOOL)event interaction:(id)interaction context:(id)context
+{
+  eventCopy = event;
+  v43 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  providersCopy = providers;
+  mapCopy = map;
+  interactionCopy = interaction;
+  contextCopy = context;
+  v16 = RELogForDomain(4);
+  keywords = v16;
+  if (mapCopy)
+  {
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    {
+      v26 = @"negative";
+      *buf = 138412802;
+      v38 = identifierCopy;
+      v39 = 2112;
+      if (eventCopy)
+      {
+        v26 = @"positive";
+      }
+
+      v40 = v26;
+      v41 = 2112;
+      v42 = interactionCopy;
+      _os_log_debug_impl(&dword_22859F000, keywords, OS_LOG_TYPE_DEBUG, "Training for element %@ %@ %@", buf, 0x20u);
+    }
+
+    [(NSMutableArray *)self->_trainingFeatureMaps addObject:mapCopy, contextCopy];
+    trainingEvents = self->_trainingEvents;
+    v19 = [MEMORY[0x277CCABB0] numberWithBool:eventCopy];
+    [(NSMutableArray *)trainingEvents addObject:v19];
+
+    [(NSMutableArray *)self->_interactionTypes addObject:interactionCopy];
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v20 = providersCopy;
+    v21 = [v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    if (v21)
+    {
+      v22 = *v33;
+      keywords = MEMORY[0x277CBEBF8];
+      while (2)
+      {
+        for (i = 0; i != v21; ++i)
+        {
+          if (*v33 != v22)
+          {
+            objc_enumerationMutation(v20);
+          }
+
+          v24 = *(*(&v32 + 1) + 8 * i);
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            keywords = [v24 keywords];
+            goto LABEL_16;
+          }
+        }
+
+        v21 = [v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        if (v21)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    else
+    {
+      keywords = MEMORY[0x277CBEBF8];
+    }
+
+LABEL_16:
+
+    [(NSMutableArray *)self->_trainingContents addObject:keywords];
+    objc_initWeak(buf, self);
+    trainingScheduler = self->_trainingScheduler;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __121__RETrainingManager__queue_trainElementWithIdentifier_relevanceProviders_featureMap_isPositiveEvent_interaction_context___block_invoke;
+    v30[3] = &unk_2785F9A90;
+    objc_copyWeak(&v31, buf);
+    [(RETrainingScheduler *)trainingScheduler performTask:v30];
+    objc_destroyWeak(&v31);
+    objc_destroyWeak(buf);
+  }
+
+  else if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v38 = identifierCopy;
+    _os_log_impl(&dword_22859F000, keywords, OS_LOG_TYPE_DEFAULT, "Dropping training for element %@ because we couldn't get its feature map", buf, 0xCu);
+  }
 }
 
 void __121__RETrainingManager__queue_trainElementWithIdentifier_relevanceProviders_featureMap_isPositiveEvent_interaction_context___block_invoke(uint64_t a1)

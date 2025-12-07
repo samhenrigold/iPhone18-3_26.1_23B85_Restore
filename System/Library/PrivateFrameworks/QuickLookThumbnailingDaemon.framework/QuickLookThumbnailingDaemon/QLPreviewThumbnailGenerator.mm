@@ -50,7 +50,7 @@
 
 - (void)_generateThumbnailWithWillStartBlock:(id)block completionHandler:(id)handler
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   request = self->_request;
   handlerCopy = handler;
   request = [(QLTGeneratorThumbnailRequest *)request request];
@@ -82,32 +82,30 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v15 = +[QLThumbnailExtensionMonitor shared];
-  v16 = [v15 bestExtensionFor:request matching:3];
+  v14 = +[QLThumbnailExtensionMonitor shared];
+  v15 = [v14 bestExtensionFor:request matching:3];
 
-  if (v16)
+  if (v15)
   {
     [(QLPreviewThumbnailGenerator *)self _generateThumbnailFromExtensionAndReplyWith:v8];
   }
 
   else
   {
-    v17 = MEMORY[0x277CDAAE0];
-    v23 = *MEMORY[0x277CCA450];
-    v18 = MEMORY[0x277CCACA8];
+    v16 = MEMORY[0x277CDAAE0];
+    v22 = *MEMORY[0x277CCA450];
+    v17 = MEMORY[0x277CCACA8];
     contentType3 = [(QLThumbnailItem *)self->_item contentType];
-    v20 = [v18 stringWithFormat:@"No extension found for %@", contentType3];
-    v24[0] = v20;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
-    v22 = [v17 errorWithCode:4 request:request additionalUserInfo:v21];
+    v19 = [v17 stringWithFormat:@"No extension found for %@", contentType3];
+    v23[0] = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v21 = [v16 errorWithCode:4 request:request additionalUserInfo:v20];
 
     self->_status = 2;
-    (v8)[2](v8, v22);
+    (v8)[2](v8, v21);
   }
 
 LABEL_7:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateWithCompletionBlock:(id)block
@@ -196,7 +194,7 @@ void __74__QLPreviewThumbnailGenerator_generateWithWillStartBlock_completionBloc
 
 - (void)_replyWithImages:(id)images error:(id)error completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   imagesCopy = images;
   errorCopy = error;
   handlerCopy = handler;
@@ -210,11 +208,11 @@ void __74__QLPreviewThumbnailGenerator_generateWithWillStartBlock_completionBloc
       v14 = [imagesCopy count];
       firstObject = [imagesCopy firstObject];
       *buf = 134218498;
-      v31 = v14;
-      v32 = 2112;
-      v33 = firstObject;
-      v34 = 2112;
-      v35 = item;
+      v30 = v14;
+      v31 = 2112;
+      v32 = firstObject;
+      v33 = 2112;
+      v34 = item;
       _os_log_impl(&dword_2615D3000, v12, OS_LOG_TYPE_INFO, "QLPreviewThumbnailGenerator did generate %lu images: %@ for item: %@.", buf, 0x20u);
     }
 
@@ -223,15 +221,15 @@ void __74__QLPreviewThumbnailGenerator_generateWithWillStartBlock_completionBloc
     block[2] = __72__QLPreviewThumbnailGenerator__replyWithImages_error_completionHandler___block_invoke_11;
     block[3] = &unk_279ADDA20;
     block[4] = self;
-    v26 = handlerCopy;
-    v23 = imagesCopy;
-    v24 = errorCopy;
-    v25 = item;
+    v25 = handlerCopy;
+    v22 = imagesCopy;
+    v23 = errorCopy;
+    v24 = item;
     v16 = errorCopy;
     v17 = handlerCopy;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    v18 = v23;
+    v18 = v22;
   }
 
   else
@@ -239,58 +237,52 @@ void __74__QLPreviewThumbnailGenerator_generateWithWillStartBlock_completionBloc
     if (v13)
     {
       *buf = 138412546;
-      v31 = item;
-      v32 = 2112;
-      v33 = errorCopy;
+      v30 = item;
+      v31 = 2112;
+      v32 = errorCopy;
       _os_log_impl(&dword_2615D3000, v12, OS_LOG_TYPE_INFO, "QLPreviewThumbnailGenerator did not generate an image for item: %@. Error: %@", buf, 0x16u);
     }
 
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __72__QLPreviewThumbnailGenerator__replyWithImages_error_completionHandler___block_invoke;
-    v27[3] = &unk_279ADD9F8;
-    v28 = errorCopy;
-    v29 = handlerCopy;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __72__QLPreviewThumbnailGenerator__replyWithImages_error_completionHandler___block_invoke;
+    v26[3] = &unk_279ADD9F8;
+    v27 = errorCopy;
+    v28 = handlerCopy;
     v19 = errorCopy;
     v20 = handlerCopy;
-    dispatch_async(MEMORY[0x277D85CD0], v27);
+    dispatch_async(MEMORY[0x277D85CD0], v26);
 
-    v18 = v29;
+    v18 = v28;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __72__QLPreviewThumbnailGenerator__replyWithImages_error_completionHandler___block_invoke_11(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) status] == 3)
   {
     v2 = _log_2();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       v3 = *(a1 + 56);
-      v10 = 138412290;
-      v11 = v3;
-      _os_log_impl(&dword_2615D3000, v2, OS_LOG_TYPE_INFO, "Cancelled during generation for %@", &v10, 0xCu);
+      v7 = 138412290;
+      v8 = v3;
+      _os_log_impl(&dword_2615D3000, v2, OS_LOG_TYPE_INFO, "Cancelled during generation for %@", &v7, 0xCu);
     }
 
     v4 = *(a1 + 64);
     v5 = [MEMORY[0x277CDAAE0] errorWithCode:5 request:0 additionalUserInfo:0];
     (*(v4 + 16))(v4, v5);
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     [*(a1 + 32) setThumbnailImages:*(a1 + 40)];
     [*(a1 + 32) setStatus:2];
-    v7 = *(a1 + 48);
-    v8 = *(*(a1 + 64) + 16);
-    v9 = *MEMORY[0x277D85DE8];
+    v6 = *(*(a1 + 64) + 16);
 
-    v8();
+    v6();
   }
 }
 
@@ -507,7 +499,7 @@ void __54__QLPreviewThumbnailGenerator__createThumbnailForPDF___block_invoke(uin
 
 void __54__QLPreviewThumbnailGenerator__createThumbnailForPDF___block_invoke_19(uint64_t a1, CGImage *a2, CGImage *a3, void *a4, void *a5)
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v9 = a4;
   v10 = a5;
   if (a2)
@@ -532,18 +524,18 @@ void __54__QLPreviewThumbnailGenerator__createThumbnailForPDF___block_invoke_19(
     [*(a1 + 40) setGeneratedProperties:v9];
     if (v14)
     {
-      v38[0] = v12;
-      v38[1] = v14;
+      v32[0] = v12;
+      v32[1] = v14;
       v21 = MEMORY[0x277CBEA60];
-      v22 = v38;
+      v22 = v32;
       v23 = 2;
     }
 
     else
     {
-      v37 = v12;
+      v31 = v12;
       v21 = MEMORY[0x277CBEA60];
-      v22 = &v37;
+      v22 = &v31;
       v23 = 1;
     }
 
@@ -571,32 +563,18 @@ void __54__QLPreviewThumbnailGenerator__createThumbnailForPDF___block_invoke_19(
 
     else
     {
-      if (*(a1 + 72) >= *(a1 + 80))
-      {
-        v25 = *(a1 + 72);
-      }
-
-      else
-      {
-        v25 = *(a1 + 80);
-      }
-
       QLAdaptSizeInSize();
-      v26 = *MEMORY[0x277CBF348];
-      v27 = *(MEMORY[0x277CBF348] + 8);
-      v28 = *(a1 + 88);
-      v30 = [*(a1 + 40) _beginContextWithSize:v29 scale:?];
-      v31 = *(a1 + 88);
+      v26 = [*(a1 + 40) _beginContextWithSize:v25 scale:?];
       QLDrawLockIcon();
-      Image = CGBitmapContextCreateImage(v30);
-      CGContextRelease(v30);
+      Image = CGBitmapContextCreateImage(v26);
+      CGContextRelease(v26);
       if (Image)
       {
-        v33 = MEMORY[0x277D43EA8];
+        v28 = MEMORY[0x277D43EA8];
         [*(a1 + 48) scale];
-        v34 = [v33 imageWithCGImage:Image scale:1 orientation:?];
-        v39[0] = v34;
-        v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+        v29 = [v28 imageWithCGImage:Image scale:1 orientation:?];
+        v33[0] = v29;
+        v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
 
         CGImageRelease(Image);
       }
@@ -610,15 +588,15 @@ void __54__QLPreviewThumbnailGenerator__createThumbnailForPDF___block_invoke_19(
       objc_storeStrong((*(a1 + 40) + 64), *(a1 + 56));
       if ([*(a1 + 48) iconMode])
       {
-        v35 = 257;
+        v30 = 257;
       }
 
       else
       {
-        v35 = 0;
+        v30 = 0;
       }
 
-      *(*(a1 + 40) + 44) = v35;
+      *(*(a1 + 40) + 44) = v30;
       v18 = *(a1 + 40);
       v17 = *(a1 + 64);
       v19 = v12;
@@ -627,8 +605,6 @@ void __54__QLPreviewThumbnailGenerator__createThumbnailForPDF___block_invoke_19(
 
     [v18 _replyWithImages:v19 error:v20 completionHandler:v17];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __54__QLPreviewThumbnailGenerator__createThumbnailForPDF___block_invoke_23(uint64_t a1, uint64_t a2, __n128 a3, __n128 a4)
@@ -663,22 +639,9 @@ void __54__QLPreviewThumbnailGenerator__createThumbnailForPDF___block_invoke_23(
 void __54__QLPreviewThumbnailGenerator__createThumbnailForPDF___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v6 = objc_opt_new();
-  [v6 setInlinePreviewMode:3];
-  v5 = *(a1 + 40);
+  v5 = objc_opt_new();
+  [v5 setInlinePreviewMode:3];
   (*(*(a1 + 32) + 16))(*(a1 + 48), *(a1 + 56));
-}
-
-uint64_t __54__QLPreviewThumbnailGenerator__createThumbnailForPDF___block_invoke_3(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 32);
-  if (!a2)
-  {
-    v3 = *MEMORY[0x277CBF3A8];
-    v4 = *(MEMORY[0x277CBF3A8] + 8);
-  }
-
-  return (*(v2 + 16))();
 }
 
 - (double)_minimumDimensionForPDFPageRect:(CGRect)rect requestThumbnailSize:(CGSize)size scale:(double)scale
@@ -726,7 +689,7 @@ uint64_t __54__QLPreviewThumbnailGenerator__createThumbnailForPDF___block_invoke
 
 - (void)_drawRemotePDFPage:(id)page atIndex:(int64_t)index completionHandler:(id)handler
 {
-  v57[6] = *MEMORY[0x277D85DE8];
+  v56[6] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   request = self->_request;
   pageCopy = page;
@@ -759,7 +722,7 @@ uint64_t __54__QLPreviewThumbnailGenerator__createThumbnailForPDF___block_invoke
     }
 
     QLGetDrawRectFromPageRectWithMinimumDimension();
-    v52 = v31;
+    v51 = v31;
     v33 = v32;
     QLGetCGPDFPageProxyRect();
     v35 = v34;
@@ -768,36 +731,36 @@ uint64_t __54__QLPreviewThumbnailGenerator__createThumbnailForPDF___block_invoke
     QLAdaptSizeToRectWithRounding2();
     v38 = MEMORY[0x277CBEC38];
     v39 = *MEMORY[0x277CBF4E8];
-    v56[0] = *MEMORY[0x277CBF4F0];
-    v56[1] = v39;
-    v57[0] = MEMORY[0x277CBEC38];
-    v57[1] = MEMORY[0x277CBEC38];
+    v55[0] = *MEMORY[0x277CBF4F0];
+    v55[1] = v39;
+    v56[0] = MEMORY[0x277CBEC38];
+    v56[1] = MEMORY[0x277CBEC38];
     v40 = *MEMORY[0x277CBF4E0];
-    v57[2] = MEMORY[0x277CBEC38];
+    v56[2] = MEMORY[0x277CBEC38];
     v41 = *MEMORY[0x277CBF500];
-    v56[2] = v40;
-    v56[3] = v41;
-    v55[0] = v42;
-    *&v55[1] = v35 + v37 - v43;
-    v55[2] = v44;
-    *&v55[3] = v43;
-    v45 = [MEMORY[0x277CCAE60] valueWithBytes:v55 objCType:{"{CGRect={CGPoint=dd}{CGSize=dd}}", *&v16}];
+    v55[2] = v40;
+    v55[3] = v41;
+    v54[0] = v42;
+    *&v54[1] = v35 + v37 - v43;
+    v54[2] = v44;
+    *&v54[3] = v43;
+    v45 = [MEMORY[0x277CCAE60] valueWithBytes:v54 objCType:{"{CGRect={CGPoint=dd}{CGSize=dd}}", *&v16}];
     v46 = *MEMORY[0x277CBF508];
-    v57[3] = v45;
-    v57[4] = v38;
+    v56[3] = v45;
+    v56[4] = v38;
     v47 = *MEMORY[0x277CBF4F8];
-    v56[4] = v46;
-    v56[5] = v47;
-    v57[5] = MEMORY[0x277CBEC28];
-    v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:6];
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __76__QLPreviewThumbnailGenerator__drawRemotePDFPage_atIndex_completionHandler___block_invoke;
-    v53[3] = &unk_279ADDB10;
-    v54 = handlerCopy;
-    [v12 drawWithBox:1 size:0 colorSpace:v48 options:v53 completion:{v52, v33}];
+    v55[4] = v46;
+    v55[5] = v47;
+    v56[5] = MEMORY[0x277CBEC28];
+    v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:6];
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __76__QLPreviewThumbnailGenerator__drawRemotePDFPage_atIndex_completionHandler___block_invoke;
+    v52[3] = &unk_279ADDB10;
+    v53 = handlerCopy;
+    [v12 drawWithBox:1 size:0 colorSpace:v48 options:v52 completion:{v51, v33}];
 
-    v49 = v54;
+    v49 = v53;
   }
 
   else
@@ -811,8 +774,6 @@ uint64_t __54__QLPreviewThumbnailGenerator__createThumbnailForPDF___block_invoke
     v49 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CDAB58] code:0 userInfo:0];
     (*(handlerCopy + 2))(handlerCopy, 0, v49, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8));
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 void __76__QLPreviewThumbnailGenerator__drawRemotePDFPage_atIndex_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -839,7 +800,7 @@ void __76__QLPreviewThumbnailGenerator__drawRemotePDFPage_atIndex_completionHand
 
 - (void)_generateThumbnailFromExtensionAndReplyWith:(id)with
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   withCopy = with;
   request = [(QLTGeneratorThumbnailRequest *)self->_request request];
   v6 = _log_2();
@@ -852,9 +813,9 @@ void __76__QLPreviewThumbnailGenerator__drawRemotePDFPage_atIndex_completionHand
     fileURL = [request fileURL];
     uuid = [request uuid];
     *buf = 138412546;
-    v30 = fileURL;
-    v31 = 2112;
-    v32 = uuid;
+    v29 = fileURL;
+    v30 = 2112;
+    v31 = uuid;
     _os_signpost_emit_with_name_impl(&dword_2615D3000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "quicklook.thumbnail.extensionGeneration", "fileURL : %@ UUID: %@", buf, 0x16u);
   }
 
@@ -879,19 +840,17 @@ void __76__QLPreviewThumbnailGenerator__drawRemotePDFPage_atIndex_completionHand
   request = self->_request;
   item = self->_item;
   wantsLowQuality = self->_wantsLowQuality;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __75__QLPreviewThumbnailGenerator__generateThumbnailFromExtensionAndReplyWith___block_invoke;
-  v25[3] = &unk_279ADDB38;
-  v25[4] = self;
-  v26 = v12;
-  v27 = withCopy;
-  v28 = v7;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __75__QLPreviewThumbnailGenerator__generateThumbnailFromExtensionAndReplyWith___block_invoke;
+  v24[3] = &unk_279ADDB38;
+  v24[4] = self;
+  v25 = v12;
+  v26 = withCopy;
+  v27 = v7;
   v22 = v12;
   v23 = withCopy;
-  [(QLThumbnailExtensionGenerator *)v18 generateThumbnailWithThumbnailRequest:request item:item flavor:v15 wantsLowQuality:wantsLowQuality generationData:0 completionHandler:v25];
-
-  v24 = *MEMORY[0x277D85DE8];
+  [(QLThumbnailExtensionGenerator *)v18 generateThumbnailWithThumbnailRequest:request item:item flavor:v15 wantsLowQuality:wantsLowQuality generationData:0 completionHandler:v24];
 }
 
 void __75__QLPreviewThumbnailGenerator__generateThumbnailFromExtensionAndReplyWith___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -960,38 +919,12 @@ void __75__QLPreviewThumbnailGenerator__generateThumbnailFromExtensionAndReplyWi
 
 - (void)_createThumbnailForPDF:(NSObject *)a3 .cold.1(id *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = [*a1 urlWrapper];
   OUTLINED_FUNCTION_3();
-  v8 = 2112;
-  v9 = a2;
-  _os_log_error_impl(&dword_2615D3000, a3, OS_LOG_TYPE_ERROR, "_createThumbnailForPDF failed : cannot load data from %@, error: %@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __54__QLPreviewThumbnailGenerator__createThumbnailForPDF___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "_createThumbnailForPDF failed : could not create PDF document proxy, error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __54__QLPreviewThumbnailGenerator__createThumbnailForPDF___block_invoke_19_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "_createThumbnailForPDF failed : could not draw PDF page (error: %@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_drawRemotePDFPage:atIndex:completionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "_createThumbnailForPDF failed : could not get page at index %ld", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_2615D3000, a3, OS_LOG_TYPE_ERROR, "_createThumbnailForPDF failed : cannot load data from %@, error: %@", v6, 0x16u);
 }
 
 @end

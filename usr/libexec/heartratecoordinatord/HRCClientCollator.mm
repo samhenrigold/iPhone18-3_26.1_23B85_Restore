@@ -126,13 +126,13 @@
 {
   clientCopy = client;
   dispatch_assert_queue_V2(self->_queue);
-  v5 = sub_10000132C();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10000132C(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     processName = [clientCopy processName];
-    v8 = 138543362;
-    v9 = processName;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "adding HRCHeartRateRequestor client for new connection with processName : %{public}@", &v8, 0xCu);
+    v9 = 138543362;
+    v10 = processName;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "adding HRCHeartRateRequestor client for new connection with processName : %{public}@", &v9, 0xCu);
   }
 
   hrRequestorClientList = [(HRCClientCollator *)self hrRequestorClientList];
@@ -143,13 +143,13 @@
 {
   clientCopy = client;
   dispatch_assert_queue_V2(self->_queue);
-  v5 = sub_10000132C();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10000132C(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     processName = [clientCopy processName];
-    v10 = 138543362;
-    v11 = processName;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "removing HRCHeartRateRequestor client with processName : %{public}@", &v10, 0xCu);
+    v11 = 138543362;
+    v12 = processName;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "removing HRCHeartRateRequestor client with processName : %{public}@", &v11, 0xCu);
   }
 
   hrRequestorClientList = [(HRCClientCollator *)self hrRequestorClientList];
@@ -173,26 +173,26 @@
 - (void)_updateTransactionState
 {
   dispatch_assert_queue_V2(self->_queue);
-  v3 = sub_10000132C();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_10000132C(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     hrRequestorClientList = [(HRCClientCollator *)self hrRequestorClientList];
-    v11 = 134217984;
-    v12 = [hrRequestorClientList count];
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "HRCHeartRateRequestor client count : %lu", &v11, 0xCu);
+    v12 = 134217984;
+    v13 = [hrRequestorClientList count];
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "HRCHeartRateRequestor client count : %lu", &v12, 0xCu);
   }
 
   hrRequestorClientList2 = [(HRCClientCollator *)self hrRequestorClientList];
   if ([hrRequestorClientList2 count])
   {
     transaction = [(HRCClientCollator *)self transaction];
-    v7 = transaction == 0;
+    v8 = transaction == 0;
 
-    if (v7)
+    if (v8)
     {
       [@"com.apple.heartratecoordinatord.requestor" UTF8String];
-      v8 = os_transaction_create();
-      [(HRCClientCollator *)self setTransaction:v8];
+      v9 = os_transaction_create();
+      [(HRCClientCollator *)self setTransaction:v9];
 
       return;
     }
@@ -203,9 +203,9 @@
   }
 
   hrRequestorClientList3 = [(HRCClientCollator *)self hrRequestorClientList];
-  v10 = [hrRequestorClientList3 count] == 0;
+  v11 = [hrRequestorClientList3 count] == 0;
 
-  if (v10)
+  if (v11)
   {
     [(HRCClientCollator *)self setTransaction:0];
   }
@@ -294,8 +294,7 @@ LABEL_3:
       self->_assertion = 0;
     }
 
-    [(HRCClientCollator *)self reportCollatedStateSnapshot];
-    v13 = sub_10000132C();
+    v13 = sub_10000132C([(HRCClientCollator *)self reportCollatedStateSnapshot]);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
@@ -351,8 +350,7 @@ LABEL_11:
   if (v4 != [(HRCClientCollator *)self opportunisticMode])
   {
     [(HRCClientCollator *)self setOpportunisticMode:v4];
-    [(HRCClientCollator *)self reportCollatedStateSnapshot];
-    v7 = sub_10000132C();
+    v7 = sub_10000132C([(HRCClientCollator *)self reportCollatedStateSnapshot]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       opportunisticMode = [(HRCClientCollator *)self opportunisticMode];
@@ -368,22 +366,22 @@ LABEL_11:
 
 - (void)reportCollatedStateSnapshot
 {
-  v11[0] = @"streaming-mode";
+  v12[0] = @"streaming-mode";
   v3 = [NSNumber numberWithUnsignedInteger:[(HRCClientCollator *)self streamingMode]];
-  v11[1] = @"opportunistic-mode";
-  v12[0] = v3;
+  v12[1] = @"opportunistic-mode";
+  v13[0] = v3;
   v4 = [NSNumber numberWithBool:[(HRCClientCollator *)self opportunisticMode]];
-  v12[1] = v4;
-  v5 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v13[1] = v4;
+  v5 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:2];
 
-  v6 = sub_10000132C();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = sub_10000132C(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v7 = 134349312;
+    v8 = 134349312;
     streamingMode = [(HRCClientCollator *)self streamingMode];
-    v9 = 1026;
+    v10 = 1026;
     opportunisticMode = [(HRCClientCollator *)self opportunisticMode];
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "power telemetry :: collated snapshot with streaming-mode : %{public}lu , opportunistic-mode : %{public}d", &v7, 0x12u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "power telemetry :: collated snapshot with streaming-mode : %{public}lu , opportunistic-mode : %{public}d", &v8, 0x12u);
   }
 
   if (qword_100048908 != -1)

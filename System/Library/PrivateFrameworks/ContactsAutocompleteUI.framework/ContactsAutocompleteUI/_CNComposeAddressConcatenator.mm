@@ -26,130 +26,133 @@
 - (void)getCommaSeparatedAddressList:(id *)list andListSuffix:(id *)suffix withAddressCount:(unint64_t)count prefixForAddressAtIndex:(id)index stringForAddressAtIndex:(id)atIndex lengthValidationBlock:(id)block
 {
   indexCopy = index;
-  v11 = 0;
   atIndexCopy = atIndex;
-  v35 = 0;
   blockCopy = block;
-  v12 = &stru_1F3002C60;
-  while (v11 < count)
+  v13 = 0;
+  v36 = atIndexCopy;
+  v37 = 0;
+  v38 = blockCopy;
+  v14 = &stru_1F3002C60;
+  while (v13 < count)
   {
     if (indexCopy)
     {
-      v13 = indexCopy[2](indexCopy, v11);
+      blockCopy = indexCopy[2](indexCopy, v13);
+      v15 = blockCopy;
     }
 
     else
     {
-      v13 = 0;
+      v15 = 0;
     }
 
-    if (v11 && !v13)
+    if (v13 && !v15)
     {
-      v13 = CNAUILocalizedAddressSeparator();
+      v15 = CNAUILocalizedAddressSeparator(blockCopy);
     }
 
-    if (v13)
+    if (v15)
     {
-      v14 = [@"‌" stringByAppendingString:v13];
+      v16 = [@"‌" stringByAppendingString:v15];
     }
 
     else
     {
-      v14 = 0;
+      v16 = 0;
     }
 
-    v52 = 0;
-    v53 = &v52;
-    v54 = 0x3032000000;
-    v55 = __Block_byref_object_copy__1;
-    v56 = __Block_byref_object_dispose__1;
-    v57 = 0;
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 3221225472;
-    v46[2] = __163___CNComposeAddressConcatenator_getCommaSeparatedAddressList_andListSuffix_withAddressCount_prefixForAddressAtIndex_stringForAddressAtIndex_lengthValidationBlock___block_invoke;
-    v46[3] = &unk_1E7CD2380;
-    v50 = v11;
+    v54 = 0;
+    v55 = &v54;
+    v56 = 0x3032000000;
+    v57 = __Block_byref_object_copy__1;
+    v58 = __Block_byref_object_dispose__1;
+    v59 = 0;
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = __163___CNComposeAddressConcatenator_getCommaSeparatedAddressList_andListSuffix_withAddressCount_prefixForAddressAtIndex_stringForAddressAtIndex_lengthValidationBlock___block_invoke;
+    v48[3] = &unk_1E7CD2380;
+    v52 = v13;
     countCopy = count;
-    v49 = &v52;
-    v12 = v12;
-    v47 = v12;
-    v15 = v14;
-    v48 = v15;
-    v16 = MEMORY[0x1B8CB9350](v46);
-    v17 = atIndexCopy[2](atIndexCopy, v11);
-    v18 = (v16)[2](v16, v17, self->_andNMoreFormat);
-    v19 = blockCopy[2](blockCopy, v18, v53[5]);
-    v20 = v19;
-    if (v19)
+    v51 = &v54;
+    v14 = v14;
+    v49 = v14;
+    v17 = v16;
+    v50 = v17;
+    v18 = MEMORY[0x1B8CB9350](v48);
+    v19 = v36[2](v36, v13);
+    v20 = (v18)[2](v18, v19, self->_andNMoreFormat);
+    v21 = (v38)[2](v38, v20, v55[5]);
+    v22 = v21;
+    if (v21)
     {
-      v21 = v18;
+      v23 = v20;
 
-      v22 = v53[5];
-      ++v11;
-      v35 = v22;
+      v24 = v55[5];
+      ++v13;
+      v37 = v24;
     }
 
     else
     {
-      if (!-[__CFString length](v12, "length") && self->_truncatedAddressFormat && self->_andNMoreNoEllipsisFormat && [v17 length] >= 2)
+      if (!-[__CFString length](v14, "length") && self->_truncatedAddressFormat && self->_andNMoreNoEllipsisFormat && [v19 length] >= 2)
       {
-        v43[0] = MEMORY[0x1E69E9820];
-        v43[1] = 3221225472;
-        v43[2] = __163___CNComposeAddressConcatenator_getCommaSeparatedAddressList_andListSuffix_withAddressCount_prefixForAddressAtIndex_stringForAddressAtIndex_lengthValidationBlock___block_invoke_2;
-        v43[3] = &unk_1E7CD23A8;
-        v45 = v16;
-        v43[4] = self;
-        v23 = v17;
-        v44 = v23;
-        v30 = MEMORY[0x1B8CB9350](v43);
-        v24 = [v23 length];
-        v39[0] = MEMORY[0x1E69E9820];
-        v39[1] = 3221225472;
-        v39[2] = __163___CNComposeAddressConcatenator_getCommaSeparatedAddressList_andListSuffix_withAddressCount_prefixForAddressAtIndex_stringForAddressAtIndex_lengthValidationBlock___block_invoke_3;
-        v39[3] = &unk_1E7CD23D0;
-        v40 = blockCopy;
-        v31 = v30;
-        v41 = v31;
-        v42 = &v52;
-        if (v24 != 1)
+        v45[0] = MEMORY[0x1E69E9820];
+        v45[1] = 3221225472;
+        v45[2] = __163___CNComposeAddressConcatenator_getCommaSeparatedAddressList_andListSuffix_withAddressCount_prefixForAddressAtIndex_stringForAddressAtIndex_lengthValidationBlock___block_invoke_2;
+        v45[3] = &unk_1E7CD23A8;
+        v47 = v18;
+        v45[4] = self;
+        v25 = v19;
+        v46 = v25;
+        v32 = MEMORY[0x1B8CB9350](v45);
+        v26 = [v25 length];
+        v41[0] = MEMORY[0x1E69E9820];
+        v41[1] = 3221225472;
+        v41[2] = __163___CNComposeAddressConcatenator_getCommaSeparatedAddressList_andListSuffix_withAddressCount_prefixForAddressAtIndex_stringForAddressAtIndex_lengthValidationBlock___block_invoke_3;
+        v41[3] = &unk_1E7CD23D0;
+        v42 = v38;
+        v33 = v32;
+        v43 = v33;
+        v44 = &v54;
+        if (v26 != 1)
         {
-          IndexInRangePassingTest = CNComposeLastIndexInRangePassingTest(0, v24 - 2, v39);
+          IndexInRangePassingTest = CNComposeLastIndexInRangePassingTest(0, v26 - 2, v41);
           if (IndexInRangePassingTest)
           {
             if (IndexInRangePassingTest != 0x7FFFFFFFFFFFFFFFLL)
             {
-              v26 = v31[2]();
+              v28 = v33[2]();
 
-              v27 = v53[5];
-              v35 = v27;
-              v12 = v26;
+              v29 = v55[5];
+              v37 = v29;
+              v14 = v28;
             }
           }
         }
       }
 
-      if ([(__CFString *)v12 length])
+      if ([(__CFString *)v14 length])
       {
         goto LABEL_18;
       }
 
-      v21 = [MEMORY[0x1E696AEC0] localizedStringWithFormat:self->_nAddressesFormat, count];
+      v23 = [MEMORY[0x1E696AEC0] localizedStringWithFormat:self->_nAddressesFormat, count];
     }
 
-    v12 = v21;
+    v14 = v23;
 LABEL_18:
 
-    _Block_object_dispose(&v52, 8);
-    if ((v20 & 1) == 0)
+    _Block_object_dispose(&v54, 8);
+    if ((v22 & 1) == 0)
     {
       break;
     }
   }
 
-  v28 = v12;
-  *list = v12;
-  v29 = v35;
-  *suffix = v29;
+  v30 = v14;
+  *list = v14;
+  v31 = v37;
+  *suffix = v31;
 }
 
 - (id)commaSeparatedAddressListWithAddressCount:(unint64_t)count prefixForAddressAtIndex:(id)index stringForAddressAtIndex:(id)atIndex lengthValidationBlock:(id)block

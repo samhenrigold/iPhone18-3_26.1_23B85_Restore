@@ -725,15 +725,15 @@
   v7 = v4;
   v8 = v5;
   [(UIScrollView *)self->_scrollView bounds];
-  Height = CGRectGetHeight(v17);
+  Height = CGRectGetHeight(v16);
   [(UIScrollView *)self->_scrollView contentSize];
   v11 = v8 + v7 + v10;
-  v12 = _SFOnePixel();
-  v13.n128_u64[0] = v14.n128_u64[0];
-  v14.n128_f64[0] = Height;
-  v15.n128_f64[0] = v11;
+  _SFOnePixel();
+  v12.n128_u64[0] = v13.n128_u64[0];
+  v13.n128_f64[0] = Height;
+  v14.n128_f64[0] = v11;
 
-  return MEMORY[0x1EEE1E530](v12, v14, v15, v13);
+  return MEMORY[0x1EEE1E530](v13, v14, v12);
 }
 
 - (void)_panRecognized:(id)recognized

@@ -13,6 +13,7 @@
 - (id)newAttachWithError:(id *)error;
 - (void)encodeWithCoder:(id)coder;
 - (void)setOnDiskCache:(BOOL)cache;
+- (void)setShouldValidateShadows:(BOOL)shadows;
 - (void)setupDefaults;
 @end
 
@@ -84,7 +85,6 @@
   self->_onDiskCache = cache;
   if (!cache)
   {
-    customCacheURL = self->_customCacheURL;
     self->_customCacheURL = 0;
     _objc_release_x1();
   }
@@ -170,7 +170,7 @@ LABEL_10:
 
   if (isKindOfClass)
   {
-    [(DIBaseParams *)v8 backend];
+    objc_msgSend_backend(v8);
     operator new();
   }
 
@@ -205,6 +205,13 @@ LABEL_5:
   return shouldValidate;
 }
 
+- (void)setShouldValidateShadows:(BOOL)shadows
+{
+  shadowsCopy = shadows;
+  shadowChain = [(DIBaseParams *)self shadowChain];
+  [shadowChain setShouldValidate:shadowsCopy];
+}
+
 - (BOOL)reOpenIfWritableWithError:(id *)error
 {
   inputURL = [(DIBaseParams *)self inputURL];
@@ -229,11 +236,11 @@ LABEL_5:
 
   if (!activeShadowURL)
   {
-    [(DIBaseParams *)self backend];
+    objc_msgSend_backend(self);
     v10 = (*(**buf + 48))(*buf);
-    if (*v43)
+    if (*v50)
     {
-      sub_10000E984(*v43);
+      sub_10000E984(*v50);
     }
 
     if ((v10 & 1) == 0)
@@ -242,51 +249,61 @@ LABEL_5:
       isWritableFormat = [diskImageParamsXPC2 isWritableFormat];
 
       v15 = *__error();
-      if (sub_1000E95F0())
+      v16 = sub_1000E95F0();
+      if (v16)
       {
-        v16 = sub_1000E957C();
-        os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-        v17 = "NO";
-        *buf = 68158210;
-        *&buf[4] = 44;
-        *&v43[2] = "[DIAttachParams reOpenIfWritableWithError:]";
-        *v43 = 2080;
-        if (isWritableFormat)
+        v48 = 0;
+        v18 = sub_1000E957C(v16, v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = "YES";
+          v19 = 3;
         }
 
-        v44 = 2080;
-        v45 = v17;
-        LODWORD(v41) = 28;
-        v40 = buf;
-        v18 = _os_log_send_and_compose_impl();
-
-        if (v18)
+        else
         {
-          fprintf(__stderrp, "%s\n", v18);
-          free(v18);
+          v19 = 2;
+        }
+
+        v20 = "NO";
+        *buf = 68158210;
+        *&buf[4] = 44;
+        *&v50[2] = "[DIAttachParams reOpenIfWritableWithError:]";
+        *v50 = 2080;
+        if (isWritableFormat)
+        {
+          v20 = "YES";
+        }
+
+        v51 = 2080;
+        v52 = v20;
+        LODWORD(v46) = 28;
+        v21 = _os_log_send_and_compose_impl(v19, &v48, 0, 0, &_mh_execute_header, v18, 0, "%.*s: isWritableFormat: %s", buf, v46, v47);
+
+        if (v21)
+        {
+          fprintf(__stderrp, "%s\n", v21);
+          free(v21);
         }
       }
 
       else
       {
-        v19 = sub_1000E957C();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v22 = sub_1000E957C(v16, v17);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = "NO";
+          v23 = "NO";
           *buf = 68158210;
           *&buf[4] = 44;
-          *&v43[2] = "[DIAttachParams reOpenIfWritableWithError:]";
-          *v43 = 2080;
+          *&v50[2] = "[DIAttachParams reOpenIfWritableWithError:]";
+          *v50 = 2080;
           if (isWritableFormat)
           {
-            v20 = "YES";
+            v23 = "YES";
           }
 
-          v44 = 2080;
-          v45 = v20;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%.*s: isWritableFormat: %s", buf, 0x1Cu);
+          v51 = 2080;
+          v52 = v23;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%.*s: isWritableFormat: %s", buf, 0x1Cu);
         }
       }
 
@@ -298,72 +315,84 @@ LABEL_5:
         {
           diskImageParamsXPC3 = [(DIBaseParams *)self diskImageParamsXPC];
           objc_opt_class();
-          v23 = objc_opt_isKindOfClass();
+          v26 = objc_opt_isKindOfClass();
 
-          if (v23)
+          if (v26)
           {
-            v24 = [PluginBackendXPC alloc];
+            v27 = [PluginBackendXPC alloc];
             inputURL2 = [(DIBaseParams *)self inputURL];
-            v26 = [(PluginBackendXPC *)v24 initWithURL:inputURL2 openMode:2];
+            v29 = [(PluginBackendXPC *)v27 initWithURL:inputURL2 openMode:2];
 
-            v27 = v26;
+            v30 = v29;
           }
 
           else
           {
             inputURL3 = [(DIBaseParams *)self inputURL];
-            v29 = [BackendXPC newFileBackendWithURL:inputURL3 fileOpenFlags:2 error:error];
+            v32 = [BackendXPC newFileBackendWithURL:inputURL3 fileOpenFlags:2 error:error];
 
-            v27 = v29;
-            if (!v29)
+            v30 = v32;
+            if (!v32)
             {
               return 0;
             }
           }
 
-          v30 = *__error();
-          if (sub_1000E95F0())
+          v33 = *__error();
+          v34 = sub_1000E95F0();
+          if (v34)
           {
-            v31 = sub_1000E957C();
-            os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
-            v32 = [(DIBaseParams *)self inputURL:v40];
-            path = [v32 path];
+            v48 = 0;
+            v36 = sub_1000E957C(v34, v35);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+            {
+              v37 = 3;
+            }
+
+            else
+            {
+              v37 = 2;
+            }
+
+            inputURL4 = [(DIBaseParams *)self inputURL];
+            path = [inputURL4 path];
             *buf = 68158211;
             *&buf[4] = 44;
-            *v43 = 2080;
-            *&v43[2] = "[DIAttachParams reOpenIfWritableWithError:]";
-            v44 = 2113;
-            v45 = path;
-            v34 = _os_log_send_and_compose_impl();
+            *v50 = 2080;
+            *&v50[2] = "[DIAttachParams reOpenIfWritableWithError:]";
+            v51 = 2113;
+            v52 = path;
+            LODWORD(v46) = 28;
+            v40 = _os_log_send_and_compose_impl(v37, &v48, 0, 0, &_mh_execute_header, v36, 0, "%.*s: Image %{private}@ re-opened with RW permissions", buf, v46);
 
-            if (v34)
+            if (v40)
             {
-              fprintf(__stderrp, "%s\n", v34);
-              free(v34);
+              fprintf(__stderrp, "%s\n", v40);
+              free(v40);
             }
           }
 
           else
           {
-            v35 = sub_1000E957C();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+            v41 = sub_1000E957C(v34, v35);
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
             {
-              inputURL4 = [(DIBaseParams *)self inputURL];
-              path2 = [inputURL4 path];
+              inputURL5 = [(DIBaseParams *)self inputURL];
+              path2 = [inputURL5 path];
               *buf = 68158211;
               *&buf[4] = 44;
-              *v43 = 2080;
-              *&v43[2] = "[DIAttachParams reOpenIfWritableWithError:]";
-              v44 = 2113;
-              v45 = path2;
-              _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%.*s: Image %{private}@ re-opened with RW permissions", buf, 0x1Cu);
+              *v50 = 2080;
+              *&v50[2] = "[DIAttachParams reOpenIfWritableWithError:]";
+              v51 = 2113;
+              v52 = path2;
+              _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "%.*s: Image %{private}@ re-opened with RW permissions", buf, 0x1Cu);
             }
           }
 
-          *__error() = v30;
+          *__error() = v33;
           diskImageParamsXPC4 = [(DIBaseParams *)self diskImageParamsXPC];
           backendXPC = [diskImageParamsXPC4 backendXPC];
-          [backendXPC replaceWithBackendXPC:v27];
+          [backendXPC replaceWithBackendXPC:v30];
         }
       }
 
@@ -384,7 +413,7 @@ LABEL_5:
 
   if (isFileURL)
   {
-    [(DIBaseParams *)self backend];
+    objc_msgSend_backend(self);
     sub_100192CB4(&v17, &v19);
     v7 = sub_100157F90(&v19);
     if (v20)
@@ -457,8 +486,8 @@ LABEL_5:
       v13 = [(DIShadowNode *)v11 initWithURL:customCacheURL2 isCache:1];
 
       shadowChain3 = [(DIBaseParams *)self shadowChain];
-      v47 = v13;
-      v15 = [NSArray arrayWithObjects:&v47 count:1];
+      v48 = v13;
+      v15 = [NSArray arrayWithObjects:&v48 count:1];
       v16 = [shadowChain3 verifyNodes:v15 error:error];
 
       if ((v16 & 1) == 0)
@@ -479,79 +508,87 @@ LABEL_5:
     {
       v21 = objc_alloc_init(DIClient2Controller_XPCHandler);
       v22 = *__error();
-      if (sub_1000E95F0())
+      v23 = sub_1000E95F0();
+      if (v23)
       {
-        v40 = 0;
-        v23 = sub_1000E957C();
-        os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
-        *buf = 68158210;
-        v42 = 37;
-        v43 = 2080;
-        v44 = "[DIAttachParams newAttachWithError:]";
-        v45 = 2114;
-        selfCopy2 = self;
-        LODWORD(v37) = 28;
-        v36 = buf;
-        v24 = _os_log_send_and_compose_impl();
-
-        if (v24)
+        v41 = 0;
+        v25 = sub_1000E957C(v23, v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          fprintf(__stderrp, "%s\n", v24);
-          free(v24);
+          v26 = 3;
+        }
+
+        else
+        {
+          v26 = 2;
+        }
+
+        *buf = 68158210;
+        v43 = 37;
+        v44 = 2080;
+        v45 = "[DIAttachParams newAttachWithError:]";
+        v46 = 2114;
+        selfCopy2 = self;
+        v27 = _os_log_send_and_compose_impl(v26, &v41, 0, 0, &_mh_execute_header, v25, 0, "%.*s: entry: %{public}@", buf, 28);
+
+        if (v27)
+        {
+          fprintf(__stderrp, "%s\n", v27);
+          free(v27);
         }
       }
 
       else
       {
-        v25 = sub_1000E957C();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v28 = sub_1000E957C(v23, v24);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 68158210;
-          v42 = 37;
-          v43 = 2080;
-          v44 = "[DIAttachParams newAttachWithError:]";
-          v45 = 2114;
+          v43 = 37;
+          v44 = 2080;
+          v45 = "[DIAttachParams newAttachWithError:]";
+          v46 = 2114;
           selfCopy2 = self;
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%.*s: entry: %{public}@", buf, 0x1Cu);
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%.*s: entry: %{public}@", buf, 0x1Cu);
         }
       }
 
       *__error() = v22;
       if ([(DIBaseParams *)self RAMdisk]&& [(DIAttachParams *)self fileMode]== 2)
       {
-        v26 = @"Cannot attach RAM disk as a read-only device";
+        v29 = @"Cannot attach RAM disk as a read-only device";
       }
 
       else
       {
-        if (!-[DIBaseParams RAMdisk](self, "RAMdisk", v36, v37) || (-[DIBaseParams shadowChain](self, "shadowChain"), v27 = objc_claimAutoreleasedReturnValue(), v28 = [v27 isEmpty], v27, (v28 & 1) != 0))
+        if (!-[DIBaseParams RAMdisk](self, "RAMdisk") || (-[DIBaseParams shadowChain](self, "shadowChain"), v30 = objc_claimAutoreleasedReturnValue(), v31 = [v30 isEmpty], v30, (v31 & 1) != 0))
         {
           if (![(DIBaseParams *)self requiresRootDaemon])
           {
             if ([(DIClient2Controller_XPCHandler *)v21 connectWithError:error]&& [(DIBaseParams *)self prepareImageWithXpcHandler:v21 fileMode:[(DIAttachParams *)self fileMode] error:error]&& [(DIAttachParams *)self reOpenIfWritableWithError:error]&& [(DIAttachParams *)self updateStatFSWithError:error])
             {
-              v30 = [QuarantineFileHandler alloc];
-              [(DIBaseParams *)self backend];
-              v31 = [(QuarantineFileHandler *)v30 initWithBackend:v38 error:error];
-              if (v39)
+              v33 = [QuarantineFileHandler alloc];
+              objc_msgSend_backend(self);
+              v34 = [(QuarantineFileHandler *)v33 initWithBackend:v39 error:error];
+              if (v40)
               {
-                sub_10000E984(v39);
+                sub_10000E984(v40);
               }
 
-              if (v31)
+              if (v34)
               {
                 if ([(DIAttachParams *)self handleRefCount]&& [(DIAttachParams *)self uniqueDevice])
                 {
-                  v32 = +[NSUUID UUID];
+                  v35 = +[NSUUID UUID];
                   diskImageParamsXPC2 = [(DIBaseParams *)self diskImageParamsXPC];
-                  [diskImageParamsXPC2 setInstanceID:v32];
+                  [diskImageParamsXPC2 setInstanceID:v35];
                 }
 
                 v9 = [(DIClient2Controller_XPCHandler *)v21 newAttachWithParams:self error:error];
-                if (v9 && [(QuarantineFileHandler *)v31 isQuarantined])
+                if (v9 && [(QuarantineFileHandler *)v34 isQuarantined])
                 {
                   bSDName = [v9 BSDName];
-                  [(QuarantineFileHandler *)v31 applyMountPointsWithBSDName:bSDName error:0];
+                  [(QuarantineFileHandler *)v34 applyMountPointsWithBSDName:bSDName error:0];
                 }
               }
 
@@ -566,22 +603,22 @@ LABEL_5:
               v9 = 0;
             }
 
-            goto LABEL_43;
+            goto LABEL_46;
           }
 
-          v29 = [DIError nilWithPOSIXCode:45 verboseInfo:@"Sparsebundles on SMB mounts are not supported on this system" error:error];
-LABEL_42:
-          v9 = v29;
-LABEL_43:
+          v32 = [DIError nilWithPOSIXCode:45 verboseInfo:@"Sparsebundles on SMB mounts are not supported on this system" error:error];
+LABEL_45:
+          v9 = v32;
+LABEL_46:
 
           return v9;
         }
 
-        v26 = @"Cannot attach RAM disk with a shadow or a cache file";
+        v29 = @"Cannot attach RAM disk with a shadow or a cache file";
       }
 
-      v29 = [DIError nilWithPOSIXCode:22 description:v26 error:error, v36];
-      goto LABEL_42;
+      v32 = [DIError nilWithPOSIXCode:22 description:v29 error:error];
+      goto LABEL_45;
     }
 
     return 0;
@@ -627,65 +664,76 @@ LABEL_8:
 
   if (d)
   {
-    sub_100053194(&dCopy, v21);
-    sub_10005320C(v21, "device not found in registry", &v19);
-    sub_10014E0C4(v18, 3, &v19);
-    sub_10014E0D0(v18, &v16);
-    sub_10014E288(v18, &v15);
-    sub_100053760(v26, a5);
-    sub_100053290(&v16, &v15, v26, &v17);
-    sub_1000537F8(v26);
-    IOObjectRelease(HIDWORD(v15));
-    IOObjectRelease(v15);
-    IOObjectRelease(HIDWORD(v16));
-    IOObjectRelease(v16);
-    sub_10014E288(v18, &v14);
-    v8 = sub_10014E068(&v17, &v14);
-    IOObjectRelease(HIDWORD(v14));
-    IOObjectRelease(v14);
-    IOObjectRelease(HIDWORD(v17));
-    IOObjectRelease(v17);
+    sub_100053194(&dCopy, v25);
+    sub_10005320C(v25, "device not found in registry", &v23);
+    sub_10014E0C4(v22, 3, &v23);
+    sub_10014E0D0(v22, &v20);
+    sub_10014E288(v22, &v19);
+    sub_100053760(v30, a5);
+    sub_100053290(&v20, &v19, v30, &v21);
+    sub_1000537F8(v30);
+    IOObjectRelease(HIDWORD(v19));
     IOObjectRelease(v19);
-    if (BYTE6(v23) == 1)
+    IOObjectRelease(HIDWORD(v20));
+    IOObjectRelease(v20);
+    sub_10014E288(v22, &v18);
+    v8 = sub_10014E068(&v21, &v18);
+    IOObjectRelease(HIDWORD(v18));
+    IOObjectRelease(v18);
+    IOObjectRelease(HIDWORD(v21));
+    IOObjectRelease(v21);
+    IOObjectRelease(v23);
+    if (BYTE6(v27) == 1)
     {
-      IOObjectRelease(v21[0]);
+      IOObjectRelease(v25[0]);
     }
   }
 
   else
   {
     v9 = *__error();
-    if (sub_1000E95F0())
+    v10 = sub_1000E95F0();
+    if (v10)
     {
-      *v18 = 0;
-      v10 = sub_1000E957C();
-      os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-      v21[0] = 68158210;
-      v21[1] = 65;
-      v22 = 2080;
-      v23 = "[DIAttachParams isDeviceWithProperty:registryEntryID:predicate:]";
-      v24 = 2080;
-      propertyCopy2 = property;
-      v11 = _os_log_send_and_compose_impl();
-
-      if (v11)
+      *v22 = 0;
+      v12 = sub_1000E957C(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(__stderrp, "%s\n", v11);
-        free(v11);
+        v13 = 3;
+      }
+
+      else
+      {
+        v13 = 2;
+      }
+
+      v25[0] = 68158210;
+      v25[1] = 65;
+      v26 = 2080;
+      v27 = "[DIAttachParams isDeviceWithProperty:registryEntryID:predicate:]";
+      v28 = 2080;
+      propertyCopy2 = property;
+      LODWORD(v17) = 28;
+      v14 = _os_log_send_and_compose_impl(v13, v22, 0, 0, &_mh_execute_header, v12, 0, "%.*s: Registry entry ID is 0, can't check %s property", v25, v17, v18);
+
+      if (v14)
+      {
+        fprintf(__stderrp, "%s\n", v14);
+        free(v14);
       }
     }
 
     else
     {
-      v12 = sub_1000E957C();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_1000E957C(v10, v11);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        *v21 = 0x4104100302;
-        v22 = 2080;
-        v23 = "[DIAttachParams isDeviceWithProperty:registryEntryID:predicate:]";
-        v24 = 2080;
+        *v25 = 0x4104100302;
+        v26 = 2080;
+        v27 = "[DIAttachParams isDeviceWithProperty:registryEntryID:predicate:]";
+        v28 = 2080;
         propertyCopy2 = property;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%.*s: Registry entry ID is 0, can't check %s property", v21, 0x1Cu);
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%.*s: Registry entry ID is 0, can't check %s property", v25, 0x1Cu);
       }
     }
 

@@ -340,7 +340,7 @@ LABEL_12:
 {
   indexesCopy = indexes;
   v5 = objc_opt_new();
-  TSULocker::TSULocker(&v14, self->_lock);
+  TSULocker::TSULocker(v14, self->_lock);
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;
   v11[2] = __41__TSUUUIDSetStore_subsetStoreForIndexes___block_invoke;
@@ -353,7 +353,7 @@ LABEL_12:
   v8 = v13;
   v9 = v7;
 
-  TSULocker::~TSULocker(&v14);
+  TSULocker::~TSULocker(v14);
 
   return v9;
 }
@@ -378,7 +378,7 @@ void __41__TSUUUIDSetStore_subsetStoreForIndexes___block_invoke(uint64_t a1, voi
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_opt_new();
-  TSULocker::TSULocker(&v9, self->_lock);
+  TSULocker::TSULocker(v9, self->_lock);
   v7[0] = MEMORY[0x277D85DD0];
   v7[1] = 3221225472;
   v7[2] = __32__TSUUUIDSetStore_copyWithZone___block_invoke;
@@ -387,7 +387,7 @@ void __41__TSUUUIDSetStore_subsetStoreForIndexes___block_invoke(uint64_t a1, voi
   v8 = v5;
   [(TSUUUIDSetStore *)self _foreachUuidSet:v7];
 
-  TSULocker::~TSULocker(&v9);
+  TSULocker::~TSULocker(v9);
   return v5;
 }
 

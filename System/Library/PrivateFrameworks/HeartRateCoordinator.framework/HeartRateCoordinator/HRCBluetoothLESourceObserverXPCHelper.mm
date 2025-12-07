@@ -12,8 +12,8 @@
 
 - (void)connect
 {
-  v20[2] = *MEMORY[0x277D85DE8];
-  v3 = hws_get_framework_log();
+  v19[2] = *MEMORY[0x277D85DE8];
+  v3 = hws_get_framework_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf) = 0;
@@ -28,9 +28,9 @@
   [v4 setExportedInterface:v6];
 
   v7 = MEMORY[0x277CBEB98];
-  v20[0] = objc_opt_class();
-  v20[1] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[0] = objc_opt_class();
+  v19[1] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   v9 = [v7 setWithArray:v8];
 
   exportedInterface = [v4 exportedInterface];
@@ -38,25 +38,23 @@
 
   [v4 setExportedObject:self];
   objc_initWeak(&buf, self);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __48__HRCBluetoothLESourceObserverXPCHelper_connect__block_invoke;
-  v17[3] = &unk_2796FA868;
-  objc_copyWeak(&v18, &buf);
-  [v4 setInterruptionHandler:v17];
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __48__HRCBluetoothLESourceObserverXPCHelper_connect__block_invoke_54;
-  v15 = &unk_2796FA868;
-  objc_copyWeak(&v16, &buf);
-  [v4 setInvalidationHandler:&v12];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __48__HRCBluetoothLESourceObserverXPCHelper_connect__block_invoke;
+  v16[3] = &unk_2796FA868;
+  objc_copyWeak(&v17, &buf);
+  [v4 setInterruptionHandler:v16];
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __48__HRCBluetoothLESourceObserverXPCHelper_connect__block_invoke_54;
+  v14 = &unk_2796FA868;
+  objc_copyWeak(&v15, &buf);
+  [v4 setInvalidationHandler:&v11];
   objc_storeWeak(&self->_connection, v4);
   [v4 activate];
-  objc_destroyWeak(&v16);
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&buf);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSXPCConnection)connection
@@ -83,7 +81,7 @@
 
 void __48__HRCBluetoothLESourceObserverXPCHelper_connect__block_invoke(uint64_t a1)
 {
-  v2 = hws_get_framework_log();
+  v2 = hws_get_framework_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     __48__HRCBluetoothLESourceObserverXPCHelper_connect__block_invoke_cold_1(v2);
@@ -103,7 +101,7 @@ void __48__HRCBluetoothLESourceObserverXPCHelper_connect__block_invoke(uint64_t 
 
 void __48__HRCBluetoothLESourceObserverXPCHelper_connect__block_invoke_51(uint64_t a1)
 {
-  v2 = hws_get_framework_log();
+  v2 = hws_get_framework_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -118,7 +116,7 @@ void __48__HRCBluetoothLESourceObserverXPCHelper_connect__block_invoke_51(uint64
 
 void __48__HRCBluetoothLESourceObserverXPCHelper_connect__block_invoke_54(uint64_t a1)
 {
-  v2 = hws_get_framework_log();
+  v2 = hws_get_framework_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;

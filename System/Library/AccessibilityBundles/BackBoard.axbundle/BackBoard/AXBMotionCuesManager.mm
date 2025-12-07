@@ -1,5 +1,6 @@
 @interface AXBMotionCuesManager
 + (void)initializeMonitor;
+- (void)setMotionCuesEnabled:(BOOL)enabled;
 - (void)updateSettings;
 @end
 
@@ -30,30 +31,80 @@ uint64_t __41__AXBMotionCuesManager_initializeMonitor__block_invoke()
   return AXPerformBlockAsynchronouslyOnMainThread();
 }
 
-void __45__AXBMotionCuesManager_setMotionCuesEnabled___block_invoke(uint64_t a1, char a2, void *a3)
+- (void)setMotionCuesEnabled:(BOOL)enabled
 {
-  v4 = a3;
-  v5 = AXLogMotionCues();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  enabledCopy = enabled;
+  v19 = *MEMORY[0x29EDCA608];
+  v4 = AXLogMotionCues();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    __45__AXBMotionCuesManager_setMotionCuesEnabled___block_invoke_cold_1(a2);
+    v5 = [MEMORY[0x29EDBA070] numberWithBool:enabledCopy];
+    LODWORD(buf) = 138412290;
+    *(&buf + 4) = v5;
+    _os_log_impl(&dword_29BBBD000, v4, OS_LOG_TYPE_DEFAULT, "Motion Cues monitor requested enable/disable with value: %@", &buf, 0xCu);
+  }
+
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v7 = getAXMotionCuesManagerSymbolLoc_ptr;
+  v14 = getAXMotionCuesManagerSymbolLoc_ptr;
+  if (!getAXMotionCuesManagerSymbolLoc_ptr)
+  {
+    *&buf = MEMORY[0x29EDCA5F8];
+    *(&buf + 1) = 3221225472;
+    v16 = __getAXMotionCuesManagerSymbolLoc_block_invoke;
+    v17 = &unk_29F2A4FB0;
+    v18 = &v11;
+    __getAXMotionCuesManagerSymbolLoc_block_invoke(&buf, v6);
+    v7 = v12[3];
+  }
+
+  _Block_object_dispose(&v11, 8);
+  if (!v7)
+  {
+    [AXBMotionCuesManager setMotionCuesEnabled:];
+  }
+
+  v9 = v7(v8);
+  v10 = v9;
+  if (enabledCopy)
+  {
+    [v9 enableWithCompletionBlock:{&__block_literal_global_291, v11}];
+  }
+
+  else
+  {
+    [v9 disable:{&__block_literal_global_294, v11}];
   }
 }
 
-void __45__AXBMotionCuesManager_setMotionCuesEnabled___block_invoke_292(uint64_t a1, char a2, void *a3)
+void __45__AXBMotionCuesManager_setMotionCuesEnabled___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v4 = a3;
   v5 = AXLogMotionCues();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __45__AXBMotionCuesManager_setMotionCuesEnabled___block_invoke_292_cold_1(a2);
+    __45__AXBMotionCuesManager_setMotionCuesEnabled___block_invoke_cold_1(v3);
+  }
+}
+
+void __45__AXBMotionCuesManager_setMotionCuesEnabled___block_invoke_292(uint64_t a1, uint64_t a2, void *a3)
+{
+  v3 = a2;
+  v4 = a3;
+  v5 = AXLogMotionCues();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  {
+    __45__AXBMotionCuesManager_setMotionCuesEnabled___block_invoke_292_cold_1(v3);
   }
 }
 
 - (void)updateSettings
 {
-  v23 = *MEMORY[0x29EDCA608];
-  if (AXMotionCuesServicesLibraryCore())
+  v21 = *MEMORY[0x29EDCA608];
+  if (AXMotionCuesServicesLibraryCore(0))
   {
     if (AXDeviceSupportsMotionCues())
     {
@@ -72,15 +123,15 @@ void __45__AXBMotionCuesManager_setMotionCuesEnabled___block_invoke_292(uint64_t
           v9 = [MEMORY[0x29EDBA070] numberWithBool:self->_featureEnabled];
           v10 = [MEMORY[0x29EDBA070] numberWithInt:currentMode];
           v11 = [MEMORY[0x29EDBA070] numberWithInt:self->_currentMode];
-          v15 = 138413058;
-          v16 = v8;
+          v13 = 138413058;
+          v14 = v8;
+          v15 = 2112;
+          v16 = v9;
           v17 = 2112;
-          v18 = v9;
+          v18 = v10;
           v19 = 2112;
-          v20 = v10;
-          v21 = 2112;
-          v22 = v11;
-          _os_log_impl(&dword_29BBBD000, v7, OS_LOG_TYPE_DEFAULT, "Motion Cues settings changed (enable: %@ -> %@, mode: %@ -> %@)", &v15, 0x2Au);
+          v20 = v11;
+          _os_log_impl(&dword_29BBBD000, v7, OS_LOG_TYPE_DEFAULT, "Motion Cues settings changed (enable: %@ -> %@, mode: %@ -> %@)", &v13, 0x2Au);
         }
 
         [_SharedManager_1 setMotionCuesEnabled:self->_featureEnabled];
@@ -89,20 +140,17 @@ void __45__AXBMotionCuesManager_setMotionCuesEnabled___block_invoke_292(uint64_t
 
     else
     {
-      v13 = AXLogMotionCues();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v12 = AXLogMotionCues();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&dword_29BBBD000, v13, OS_LOG_TYPE_INFO, "Asked for Motion Cues to enable/disable but feature flag is off, so no", &v15, 2u);
+        LOWORD(v13) = 0;
+        _os_log_impl(&dword_29BBBD000, v12, OS_LOG_TYPE_INFO, "Asked for Motion Cues to enable/disable but feature flag is off, so no", &v13, 2u);
       }
     }
-
-    v14 = *MEMORY[0x29EDCA608];
   }
 
   else
   {
-    v12 = *MEMORY[0x29EDCA608];
 
     _AXAssert();
   }
@@ -119,22 +167,16 @@ void __45__AXBMotionCuesManager_setMotionCuesEnabled___block_invoke_292(uint64_t
 
 void __45__AXBMotionCuesManager_setMotionCuesEnabled___block_invoke_cold_1(char a1)
 {
-  v10 = *MEMORY[0x29EDCA608];
   v1 = [MEMORY[0x29EDBA070] numberWithBool:a1 & 1];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_29BBBD000, v2, v3, "Enable request result for motion cues: %@ %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_1_0(&dword_29BBBD000, v2, v3, "Enable request result for motion cues: %@ %@", v4, v5, v6, v7);
 }
 
 void __45__AXBMotionCuesManager_setMotionCuesEnabled___block_invoke_292_cold_1(char a1)
 {
-  v10 = *MEMORY[0x29EDCA608];
   v1 = [MEMORY[0x29EDBA070] numberWithBool:a1 & 1];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_29BBBD000, v2, v3, "Disable request result for motion cues: %@ %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_1_0(&dword_29BBBD000, v2, v3, "Disable request result for motion cues: %@ %@", v4, v5, v6, v7);
 }
 
 @end

@@ -66,7 +66,7 @@
   if (!self->super._enableSKE || self->super._skeToRemoteComplete)
   {
 LABEL_13:
-    v12 = 0;
+    v21 = 0;
     goto LABEL_14;
   }
 
@@ -78,18 +78,18 @@ LABEL_13:
       v11 = OSLogHandleForTransportCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v15 = 0;
-        _os_log_impl(&dword_1A7AD9000, v11, OS_LOG_TYPE_DEFAULT, "_postProcessAllocbindResponse: SKE data is not ready, delay session connected.", v15, 2u);
+        *v33 = 0;
+        _os_log_impl(&dword_1A7AD9000, v11, OS_LOG_TYPE_DEFAULT, "_postProcessAllocbindResponse: SKE data is not ready, delay session connected.", v33, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"_postProcessAllocbindResponse: SKE data is not ready, delay session connected.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"_postProcessAllocbindResponse: SKE data is not ready, delay session connected.", v12, v13, v14, v15, v16, *v33);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"_postProcessAllocbindResponse: SKE data is not ready, delay session connected.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"_postProcessAllocbindResponse: SKE data is not ready, delay session connected.", v17, v18, v19, v20, *v33);
           }
         }
       }
@@ -98,35 +98,35 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v14 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v23 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A7AD9000, v14, OS_LOG_TYPE_DEFAULT, "_postProcessAllocbindResponse: send SKE data", buf, 2u);
+    _os_log_impl(&dword_1A7AD9000, v23, OS_LOG_TYPE_DEFAULT, "_postProcessAllocbindResponse: send SKE data", buf, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"_postProcessAllocbindResponse: send SKE data");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"_postProcessAllocbindResponse: send SKE data", v24, v25, v26, v27, v28, *v33);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"_postProcessAllocbindResponse: send SKE data");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"_postProcessAllocbindResponse: send SKE data", v29, v30, v31, v32, *v33);
       }
     }
   }
 
   [(IDSGlobalLink *)self _sendSKEDataWithSelectedCandidatePair];
-  v12 = 1;
+  v21 = 1;
 LABEL_14:
 
-  return v12;
+  return v21;
 }
 
 - (void)sendSKEData:(id)data
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (self->super._enableSKE)
   {
@@ -137,7 +137,7 @@ LABEL_14:
       {
         skeData = self->super._skeData;
         *buf = 134217984;
-        v15 = skeData;
+        v54 = skeData;
         _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "already has pending SKE data %p, ignore.", buf, 0xCu);
       }
 
@@ -145,10 +145,10 @@ LABEL_14:
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"already has pending SKE data %p, ignore.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"already has pending SKE data %p, ignore.", v8, v9, v10, v11, v12, self->super._skeData);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"already has pending SKE data %p, ignore.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"already has pending SKE data %p, ignore.", v13, v14, v15, v16, self->super._skeData);
           }
         }
       }
@@ -157,25 +157,23 @@ LABEL_14:
     else
     {
       objc_storeStrong(&self->super._skeData, data);
-      v10 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v30 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = self->super._skeData;
+        v31 = self->super._skeData;
         *buf = 134217984;
-        v15 = v11;
-        _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "add SKE data %p.", buf, 0xCu);
+        v54 = v31;
+        _os_log_impl(&dword_1A7AD9000, v30, OS_LOG_TYPE_DEFAULT, "add SKE data %p.", buf, 0xCu);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          v13 = self->super._skeData;
-          _IDSLogTransport(@"GL", @"IDS", @"add SKE data %p.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"add SKE data %p.", v32, v33, v34, v35, v36, self->super._skeData);
+          if (_IDSShouldLog(0))
           {
-            v13 = self->super._skeData;
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"add SKE data %p.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"add SKE data %p.", v37, v38, v39, v40, self->super._skeData);
           }
         }
       }
@@ -183,21 +181,21 @@ LABEL_14:
       self->super._skeToRemoteComplete = 0;
       if (self->super._delaySessionConnected)
       {
-        v12 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v41 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v12, OS_LOG_TYPE_DEFAULT, "session connected is delayed, send SKE data immediately.", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v41, OS_LOG_TYPE_DEFAULT, "session connected is delayed, send SKE data immediately.", buf, 2u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"session connected is delayed, send SKE data immediately.");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"session connected is delayed, send SKE data immediately.", v42, v43, v44, v45, v46, v51);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"session connected is delayed, send SKE data immediately.");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"session connected is delayed, send SKE data immediately.", v47, v48, v49, v50, v52);
             }
           }
         }
@@ -209,33 +207,41 @@ LABEL_14:
 
   else
   {
-    v8 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v17 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       if (self->super._enableSKE)
       {
-        v9 = @"YES";
+        v18 = @"YES";
       }
 
       else
       {
-        v9 = @"NO";
+        v18 = @"NO";
       }
 
       *buf = 138412290;
-      v15 = v9;
-      _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "send SKE data failed (EnableSKE:%@).", buf, 0xCu);
+      v54 = v18;
+      _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "send SKE data failed (EnableSKE:%@).", buf, 0xCu);
     }
 
-    if (os_log_shim_legacy_logging_enabled())
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
     {
-      if (_IDSShouldLogTransport())
+      v24 = self->super._enableSKE ? @"YES" : @"NO";
+      _IDSLogTransport(@"GL", @"IDS", @"send SKE data failed (EnableSKE:%@).", v19, v20, v21, v22, v23, v24);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogTransport(@"GL", @"IDS", @"send SKE data failed (EnableSKE:%@).");
-        if (_IDSShouldLog())
+        if (self->super._enableSKE)
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"send SKE data failed (EnableSKE:%@).");
+          v29 = @"YES";
         }
+
+        else
+        {
+          v29 = @"NO";
+        }
+
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"send SKE data failed (EnableSKE:%@).", v25, v26, v27, v28, v29);
       }
     }
   }
@@ -244,27 +250,27 @@ LABEL_14:
 - (void)setDefaultUnderlyingLink:(char)link
 {
   linkCopy = link;
-  v15 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (self->super._isInitiator)
   {
     if (link < 0 || self->super._maxLinkID <= link || (v5 = self->super._candidatePairs[link]) == 0)
     {
-      v9 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v18 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v12 = linkCopy;
-        _os_log_impl(&dword_1A7AD9000, v9, OS_LOG_TYPE_DEFAULT, "failed to find candidate pair for linkID:%d.", buf, 8u);
+        v30 = linkCopy;
+        _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEFAULT, "failed to find candidate pair for linkID:%d.", buf, 8u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"failed to find candidate pair for linkID:%d.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"failed to find candidate pair for linkID:%d.", v19, v20, v21, v22, v23, linkCopy);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to find candidate pair for linkID:%d.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to find candidate pair for linkID:%d.", v24, v25, v26, v27, linkCopy);
           }
         }
       }
@@ -272,7 +278,7 @@ LABEL_14:
 
     else
     {
-      v10 = v5;
+      v28 = v5;
       candidatePairToken = [(IDSStunCandidatePair *)v5 candidatePairToken];
       [(IDSGlobalLink *)self _nominateCandidatePair:candidatePairToken];
     }
@@ -294,9 +300,9 @@ LABEL_14:
       }
 
       *buf = 67109378;
-      v12 = linkCopy;
-      v13 = 2112;
-      v14 = v8;
+      v30 = linkCopy;
+      v31 = 2112;
+      v32 = v8;
       _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "set default underlying link (linkID:%d) failed (isInitiator:%@).", buf, 0x12u);
     }
 
@@ -304,10 +310,10 @@ LABEL_14:
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"set default underlying link (linkID:%d) failed (isInitiator:%@).");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"set default underlying link (linkID:%d) failed (isInitiator:%@).", v9, v10, v11, v12, v13, linkCopy);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"set default underlying link (linkID:%d) failed (isInitiator:%@).");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"set default underlying link (linkID:%d) failed (isInitiator:%@).", v14, v15, v16, v17, linkCopy);
         }
       }
     }
@@ -401,7 +407,7 @@ LABEL_21:
   if (self->super._isInitiator)
   {
     v15 = pairCopy;
-    isRelayStunCandidatePair = [pairCopy isRelayStunCandidatePair];
+    isRelayStunCandidatePair = objc_msgSend_isRelayStunCandidatePair(pairCopy);
     v5 = v15;
     if (isRelayStunCandidatePair)
     {

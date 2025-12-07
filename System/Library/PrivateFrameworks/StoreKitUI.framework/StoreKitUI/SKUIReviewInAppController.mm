@@ -546,4 +546,25 @@ void __63__SKUIReviewInAppController__promptForStarRatingDuringCompose___block_i
   sub_215EBD45C(v10, d, sub_215EBE6D0, v12, sub_215EBE730, v13);
 }
 
+- (void)_submitRating:(uint64_t)a3 completion:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_215BAE000, MEMORY[0x277D86220], a3, "%{public}@: Could not submit rating because the storeExternalVersionID is missing", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_submitRating:(uint64_t)a3 completion:(uint64_t)a4 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_215BAE000, MEMORY[0x277D86220], a3, "%{public}@: Could not submit rating because the rating URL is missing.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __54__SKUIReviewInAppController__submitRating_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_215BAE000, MEMORY[0x277D86220], a3, "Failed to set rating: %{public}@.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 @end

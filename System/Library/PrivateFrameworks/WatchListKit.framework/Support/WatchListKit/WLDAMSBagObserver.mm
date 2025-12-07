@@ -54,7 +54,7 @@ void __35__WLDAMSBagObserver_sharedObserver__block_invoke(id a1)
 - (void)_amsBagDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v4 = _BagObserverLog();
+  v4 = _BagObserverLog(notificationCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -79,7 +79,7 @@ void __35__WLDAMSBagObserver_sharedObserver__block_invoke(id a1)
 
 id __50__WLDAMSBagObserver__amsBagDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v2 = _BagObserverLog();
+  v2 = _BagObserverLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

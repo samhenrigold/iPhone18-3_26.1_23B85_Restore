@@ -37,40 +37,40 @@
 
 - (id)dictionaryRepresentationWithContext:()Record
 {
-  v25[7] = *MEMORY[0x277D85DE8];
-  v25[0] = @"DNDModeConfigurationLocationTrigger";
-  v24[0] = @"class";
-  v24[1] = @"latitude";
+  v24[7] = *MEMORY[0x277D85DE8];
+  v24[0] = @"DNDModeConfigurationLocationTrigger";
+  v23[0] = @"class";
+  v23[1] = @"latitude";
   v2 = MEMORY[0x277CCABB0];
   region = [self region];
   [region center];
-  v22 = [v2 numberWithDouble:?];
-  v25[1] = v22;
-  v24[2] = @"longitude";
+  v21 = [v2 numberWithDouble:?];
+  v24[1] = v21;
+  v23[2] = @"longitude";
   v3 = MEMORY[0x277CCABB0];
   region2 = [self region];
   [region2 center];
-  v20 = [v3 numberWithDouble:v4];
-  v25[2] = v20;
-  v24[3] = @"radius";
+  v19 = [v3 numberWithDouble:v4];
+  v24[2] = v19;
+  v23[3] = @"radius";
   v5 = MEMORY[0x277CCABB0];
   region3 = [self region];
   [region3 radius];
   v7 = [v5 numberWithDouble:?];
-  v25[3] = v7;
-  v24[4] = @"referenceFrame";
+  v24[3] = v7;
+  v23[4] = @"referenceFrame";
   v8 = MEMORY[0x277CCABB0];
   region4 = [self region];
   v10 = [v8 numberWithUnsignedInt:{objc_msgSend(region4, "geoReferenceFrame")}];
-  v25[4] = v10;
-  v24[5] = @"identifier";
+  v24[4] = v10;
+  v23[5] = @"identifier";
   region5 = [self region];
   identifier = [region5 identifier];
-  v25[5] = identifier;
-  v24[6] = @"enabledSetting";
+  v24[5] = identifier;
+  v23[6] = @"enabledSetting";
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(self, "enabledSetting")}];
-  v25[6] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:7];
+  v24[6] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:7];
   v15 = [v14 mutableCopy];
 
   detail = [self detail];
@@ -80,8 +80,6 @@
     detail2 = [self detail];
     [v15 setObject:detail2 forKeyedSubscript:@"detail"];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

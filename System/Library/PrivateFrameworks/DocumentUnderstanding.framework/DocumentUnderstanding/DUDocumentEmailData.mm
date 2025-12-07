@@ -13,43 +13,41 @@
 - (NSDate)dateReceived
 {
   v2 = sub_232B124A8(&qword_27DDC6A80, &qword_232CF6D30);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v9 - v4;
-  sub_232B2FB28(&v9 - v4);
-  v6 = sub_232CE8D10();
-  v7 = 0;
-  if (sub_232B12480(v5, 1, v6) != 1)
+  v4 = &v8 - v3;
+  sub_232B2FB28(&v8 - v3);
+  v5 = sub_232CE8D10();
+  v6 = 0;
+  if (sub_232B12480(v4, 1, v5) != 1)
   {
-    v7 = sub_232CE8CD0();
-    (*(*(v6 - 8) + 8))(v5, v6);
+    v6 = sub_232CE8CD0();
+    (*(*(v5 - 8) + 8))(v4, v5);
   }
 
-  return v7;
+  return v6;
 }
 
 - (void)setDateReceived:(id)received
 {
   v5 = sub_232B124A8(&qword_27DDC6A80, &qword_232CF6D30);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v12 - v7;
+  v7 = &v11 - v6;
   if (received)
   {
     sub_232CE8CF0();
-    v9 = sub_232CE8D10();
-    v10 = 0;
+    v8 = sub_232CE8D10();
+    v9 = 0;
   }
 
   else
   {
-    v9 = sub_232CE8D10();
-    v10 = 1;
+    v8 = sub_232CE8D10();
+    v9 = 1;
   }
 
-  sub_232B12504(v8, v10, 1, v9);
+  sub_232B12504(v7, v9, 1, v8);
   selfCopy = self;
-  sub_232B2FC5C(v8);
+  sub_232B2FC5C(v7);
 }
 
 - (NSDictionary)headers
@@ -117,7 +115,7 @@
     selfCopy2 = self;
   }
 
-  sub_232B31308();
+  sub_232B31308(v9);
   v7 = v6;
 
   sub_232B13790(v9, &qword_27DDC68C8, &qword_232CF6210);

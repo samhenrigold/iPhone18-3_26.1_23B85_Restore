@@ -16,6 +16,7 @@
 - (void)startAnchorElementWithHref:(id)href title:(id)title target:(id)target rel:(id)rel;
 - (void)startDocumentWithDocType:(id)type encoding:(unint64_t)encoding;
 - (void)startElement:(id)element idName:(id)name className:(id)className;
+- (void)startElement:(id)element writeInline:(BOOL)inline;
 - (void)startJavascriptElementWithSrc:(id)src;
 - (void)startStyleElementWithType:(id)type;
 - (void)writeHTMLFormat:(id)format;
@@ -45,6 +46,33 @@
 
     [(KSXMLWriter *)self writeString:@">"];
   }
+}
+
+- (void)startElement:(id)element writeInline:(BOOL)inline
+{
+  inlineCopy = inline;
+  elementCopy = element;
+  lowercaseString = [elementCopy lowercaseString];
+  v9 = [elementCopy isEqualToString:lowercaseString];
+
+  if ((v9 & 1) == 0)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"KSHTMLWriter.m" lineNumber:475 description:{@"Attempt to start non-lowercase element: %@", elementCopy}];
+  }
+
+  currentElementClassName = [(KSHTMLWriter *)self currentElementClassName];
+  if (currentElementClassName)
+  {
+    [(NSMutableArray *)self->_classNames removeAllObjects];
+    v13.receiver = self;
+    v13.super_class = KSHTMLWriter;
+    [(KSXMLWriter *)&v13 pushAttribute:@"class" value:currentElementClassName];
+  }
+
+  v12.receiver = self;
+  v12.super_class = KSHTMLWriter;
+  [(KSXMLWriter *)&v12 startElement:elementCopy writeInline:inlineCopy];
 }
 
 - (id)validateAttribute:(id)attribute value:(id)value ofElement:(id)element

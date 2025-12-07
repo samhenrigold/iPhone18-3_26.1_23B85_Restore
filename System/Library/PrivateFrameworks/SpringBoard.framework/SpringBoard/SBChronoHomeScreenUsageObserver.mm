@@ -489,8 +489,7 @@ void __75__SBChronoHomeScreenUsageObserver__rebuildAndTransmitConfiguredWidgetDa
 
         if (v27)
         {
-          [array addObject:v27];
-          v35 = SBLogChronoVerbose();
+          v35 = SBLogChronoVerbose([array addObject:v27]);
           if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;

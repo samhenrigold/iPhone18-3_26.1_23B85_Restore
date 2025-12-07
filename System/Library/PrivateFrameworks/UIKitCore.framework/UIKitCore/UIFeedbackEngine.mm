@@ -65,15 +65,15 @@ uint64_t __44___UIFeedbackEngine__internal_prewarmEngine__block_invoke(uint64_t 
   return [v5 _internal_serviceBlocksForState:2 withSuccess:a2];
 }
 
-uint64_t __55___UIFeedbackEngine__internal_cooldownEngineIfPossible__block_invoke_2(uint64_t result, int a2)
+id *__55___UIFeedbackEngine__internal_cooldownEngineIfPossible__block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    result = [*(result + 32) _state];
+    result = [result[4] _state];
     if (result == 2)
     {
-      v3 = *(v2 + 32);
+      v3 = v2[4];
 
       return [v3 _setState:0];
     }
@@ -116,7 +116,7 @@ void __53___UIFeedbackEngine__activate_andPerformWhenRunning___block_invoke(uint
   dispatch_async(MEMORY[0x1E69E96A0], v3);
 }
 
-uint64_t __62___UIFeedbackEngine__internal_activate_andPerformWhenRunning___block_invoke(uint64_t a1)
+void *__62___UIFeedbackEngine__internal_activate_andPerformWhenRunning___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _state];
   if (result == 2)

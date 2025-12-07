@@ -104,20 +104,19 @@
   v5 = NSStringFromClass(v4);
   v6 = SFAuthenticationTypeToString(self->_type);
   v7 = v6;
-  bundleID = self->_bundleID;
   if (self->_biometricOnly)
   {
-    v9 = @"YES";
+    v8 = @"YES";
   }
 
   else
   {
-    v9 = @"NO";
+    v8 = @"NO";
   }
 
-  v10 = [v3 stringWithFormat:@"<%@: type: %@, idsDeviceID: %@, appName: %@, bundleID: %@, biometricOnly: %@>", v5, v6, *&self->_idsDeviceID, self->_bundleID, v9];
+  v9 = [v3 stringWithFormat:@"<%@: type: %@, idsDeviceID: %@, appName: %@, bundleID: %@, biometricOnly: %@>", v5, v6, *&self->_idsDeviceID, self->_bundleID, v8];
 
-  return v10;
+  return v9;
 }
 
 @end

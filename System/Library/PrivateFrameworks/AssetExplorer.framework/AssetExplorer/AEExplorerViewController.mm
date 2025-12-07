@@ -10,6 +10,7 @@
 - (CGSize)_maximumThumbnailSize;
 - (id)_createNewLayoutForDataSource:(id)source;
 - (id)_currentDataSource;
+- (id)_presentViewControllerAboveKeyboard:(id)keyboard animated:(BOOL)animated;
 - (id)_stagedAssetUUIDs;
 - (id)_thumbnailResourcesIndexSetForAssets:(id)assets;
 - (id)_validateAssetReference:(id)reference forScrollViewPoint:(CGPoint)point;
@@ -26,10 +27,13 @@
 - (void)_computeInitialResourcesIndexSetAsync;
 - (void)_configureReviewControllerWithAssetReference:(id)reference;
 - (void)_dismissReviewScreenViewController;
+- (void)_dismissViewControllerAboveKeyboardAnimated:(BOOL)animated;
+- (void)_handleAttemptedSelectionToggleOfAssetReference:(id)reference cancelIfAlreadySelected:(BOOL)selected suppressLivePhotoContent:(BOOL)content;
 - (void)_handleInProgressPackageGenerator:(id)generator suppressLivePhotoContent:(BOOL)content mediaOrigin:(int64_t)origin completionHandler:(id)handler;
 - (void)_handleTransportStagingUpdateWithDataSource:(id)source;
 - (void)_immediatelyGenerateAndStagePackageFromReviewAsset:(id)asset suppressLivePhoto:(BOOL)photo mediaOrigin:(int64_t)origin;
 - (void)_presentConfidentialityAlertWithConfirmAction:(id)action abortAction:(id)abortAction;
+- (void)_stageAsset:(id)asset withReference:(id)reference suppressLivePhotoContent:(BOOL)content mediaOrigin:(int64_t)origin completionHandler:(id)handler;
 - (void)assetExplorerReviewScreenViewController:(id)controller didPerformCompletionAction:(unint64_t)action withSelectedAssetUUIDs:(id)ds livePhotoDisabledAssetUUIDs:(id)iDs substituteAssetsByUUID:(id)d;
 - (void)assetsScene:(id)scene willTransitionToDataSource:(id)source;
 - (void)associateAsset:(id)asset withTile:(void *)tile;
@@ -40,6 +44,7 @@
 - (void)handleTap:(id)tap;
 - (void)loadView;
 - (void)observable:(id)observable didChange:(unint64_t)change context:(void *)context;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)viewSafeAreaInsetsDidChange;
 - (void)viewWillLayoutSubviews;
@@ -49,7 +54,7 @@
 
 - (BOOL)confirmAsset:(id)asset matchesView:(id)view
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   v6 = viewCopy;
   v7 = 0;
@@ -65,18 +70,17 @@
       v11 = PLAssetExplorerGetLog();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        v14 = 138543874;
-        v15 = uuid;
-        v16 = 2114;
-        v17 = v6;
-        v18 = 2114;
-        v19 = associatedAssetUUID;
-        _os_log_impl(&dword_2411DE000, v11, OS_LOG_TYPE_FAULT, "Outgoing asset mismatch. Tried to confirm asset with UUID %{public}@ but view (=%{public}@)'s associated asset UUID is %{public}@", &v14, 0x20u);
+        v13 = 138543874;
+        v14 = uuid;
+        v15 = 2114;
+        v16 = v6;
+        v17 = 2114;
+        v18 = associatedAssetUUID;
+        _os_log_impl(&dword_2411DE000, v11, OS_LOG_TYPE_FAULT, "Outgoing asset mismatch. Tried to confirm asset with UUID %{public}@ but view (=%{public}@)'s associated asset UUID is %{public}@", &v13, 0x20u);
       }
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -236,7 +240,7 @@
 
 - (void)_attachGestureRecognizersIfNeeded:(void *)needed
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   view = [needed view];
   gestureRecognizers = [view gestureRecognizers];
   v6 = [gestureRecognizers count];
@@ -251,37 +255,35 @@
     [view addGestureRecognizer:v8];
     [view setUserInteractionEnabled:1];
     _clientGestureRecognizers = [(AEExplorerViewController *)self _clientGestureRecognizers];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v10 = [_clientGestureRecognizers countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v10 = [_clientGestureRecognizers countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         v13 = 0;
         do
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(_clientGestureRecognizers);
           }
 
-          [*(*(&v15 + 1) + 8 * v13++) requireGestureRecognizerToFail:v8];
+          [*(*(&v14 + 1) + 8 * v13++) requireGestureRecognizerToFail:v8];
         }
 
         while (v11 != v13);
-        v11 = [_clientGestureRecognizers countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v11 = [_clientGestureRecognizers countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v11);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)tilingController:(id)controller transitionAnimationCoordinatorForChange:(id)change
@@ -652,36 +654,36 @@ LABEL_10:
 
 - (void)_handleTransportStagingUpdateWithDataSource:(id)source
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   [sourceCopy identifier];
-  v20 = sourceCopy;
+  v19 = sourceCopy;
   photosDataSource = [sourceCopy photosDataSource];
   _sceneController = [(AEExplorerViewController *)self _sceneController];
   selectionManager = [_sceneController selectionManager];
 
   _packageTransport = [(AEExplorerViewController *)self _packageTransport];
   orderedStagedIdentifiers = [_packageTransport orderedStagedIdentifiers];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v8 = [orderedStagedIdentifiers countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v8 = [orderedStagedIdentifiers countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
     indexPathSet = 0;
-    v11 = *v27;
+    v11 = *v26;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(orderedStagedIdentifiers);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * i);
+        v13 = *(*(&v25 + 1) + 8 * i);
         indexPathForFirstAsset = [photosDataSource indexPathForFirstAsset];
         v15 = [photosDataSource indexPathForAssetWithUUID:v13 orBurstIdentifier:0 hintIndexPath:indexPathForFirstAsset hintCollection:0];
 
@@ -692,16 +694,16 @@ LABEL_10:
             indexPathSet = [MEMORY[0x277D3CD78] indexPathSet];
           }
 
+          v23 = 0u;
           v24 = 0u;
-          v25 = 0u;
           PXSimpleIndexPathFromIndexPath();
-          v23[0] = v24;
-          v23[1] = v25;
-          [indexPathSet addIndexPath:v23];
+          v22[0] = v23;
+          v22[1] = v24;
+          [indexPathSet addIndexPath:v22];
         }
       }
 
-      v9 = [orderedStagedIdentifiers countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v9 = [orderedStagedIdentifiers countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v9);
@@ -712,15 +714,13 @@ LABEL_10:
     indexPathSet = 0;
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __72__AEExplorerViewController__handleTransportStagingUpdateWithDataSource___block_invoke;
-  v21[3] = &unk_278CC7490;
-  v22 = indexPathSet;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __72__AEExplorerViewController__handleTransportStagingUpdateWithDataSource___block_invoke;
+  v20[3] = &unk_278CC7490;
+  v21 = indexPathSet;
   v16 = indexPathSet;
-  [selectionManager performChanges:v21];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [selectionManager performChanges:v20];
 }
 
 - (id)contentAssetReferenceAtPoint:(CGPoint)point outContentFrame:(CGRect *)frame
@@ -757,40 +757,40 @@ LABEL_10:
   v33 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __73__AEExplorerViewController_contentAssetReferenceAtPoint_outContentFrame___block_invoke;
-  v29[3] = &unk_278CC7468;
-  v29[4] = &v36;
-  if (_tilingController && (v13 = *MEMORY[0x277D3CF88], v14 = *(MEMORY[0x277D3CF88] + 8), v15 = *(MEMORY[0x277D3CF88] + 16), v16 = *(MEMORY[0x277D3CF88] + 24), [_tilingController hitTestTileAtPoint:v29 padding:? passingTest:?], v30))
+  v25 = MEMORY[0x277D85DD0];
+  v26 = 3221225472;
+  v27 = __73__AEExplorerViewController_contentAssetReferenceAtPoint_outContentFrame___block_invoke;
+  v28 = &unk_278CC7468;
+  v29 = &v36;
+  if (_tilingController && (objc_msgSend_hitTestTileAtPoint_padding_passingTest_(_tilingController), v30))
   {
-    v26 = v31;
-    v27 = v32;
+    v22 = v31;
+    v23 = v32;
     currentLayout = [_tilingController currentLayout];
     dataSource = [currentLayout dataSource];
-    v28[0] = v26;
-    v28[1] = v27;
-    v19 = [dataSource assetReferenceAtItemIndexPath:v28];
+    v24[0] = v22;
+    v24[1] = v23;
+    v15 = [dataSource assetReferenceAtItemIndexPath:v24];
     if (frame)
     {
       [contentCoordinateSpace convertRect:scrollView toCoordinateSpace:{v37[4], v37[5], v37[6], v37[7]}];
-      frame->origin.x = v20;
-      frame->origin.y = v21;
-      frame->size.width = v22;
-      frame->size.height = v23;
+      frame->origin.x = v16;
+      frame->origin.y = v17;
+      frame->size.width = v18;
+      frame->size.height = v19;
     }
 
-    v24 = [(AEExplorerViewController *)self _validateAssetReference:v19 forScrollViewPoint:x, y];
+    v20 = [(AEExplorerViewController *)self _validateAssetReference:v15 forScrollViewPoint:x, y];
   }
 
   else
   {
-    v24 = 0;
+    v20 = 0;
   }
 
   _Block_object_dispose(&v36, 8);
 
-  return v24;
+  return v20;
 }
 
 uint64_t __73__AEExplorerViewController_contentAssetReferenceAtPoint_outContentFrame___block_invoke(uint64_t a1, void *a2, uint64_t a3, __int128 *a4)
@@ -927,6 +927,153 @@ uint64_t __73__AEExplorerViewController_contentAssetReferenceAtPoint_outContentF
   }
 }
 
+- (void)_stageAsset:(id)asset withReference:(id)reference suppressLivePhotoContent:(BOOL)content mediaOrigin:(int64_t)origin completionHandler:(id)handler
+{
+  contentCopy = content;
+  assetCopy = asset;
+  referenceCopy = reference;
+  handlerCopy = handler;
+  _packageTransport = [(AEExplorerViewController *)self _packageTransport];
+  mEMORY[0x277D3CC20] = [MEMORY[0x277D3CC20] sharedInstance];
+  maxMessagesAssetLimit = [mEMORY[0x277D3CC20] maxMessagesAssetLimit];
+
+  if ([_packageTransport expectedPackageCount] >= maxMessagesAssetLimit)
+  {
+    v19 = PXLocalizedString();
+    v20 = PXLocalizedString();
+    v21 = PFStringWithValidatedFormat();
+
+    v22 = [MEMORY[0x277D75110] alertControllerWithTitle:v19 message:v21 preferredStyle:{1, maxMessagesAssetLimit}];
+    v23 = MEMORY[0x277D750F8];
+    v24 = PXLocalizedString();
+    v25 = [v23 actionWithTitle:v24 style:1 handler:0];
+    [v22 addAction:v25];
+
+    [(AEExplorerViewController *)self presentViewController:v22 animated:1 completion:0];
+  }
+
+  else
+  {
+    v17 = [AEPhotosAssetPackageGenerator alloc];
+    if (referenceCopy)
+    {
+      v18 = [(AEPhotosAssetPackageGenerator *)v17 initWithAssetReference:referenceCopy];
+    }
+
+    else
+    {
+      v18 = [(AEPhotosAssetPackageGenerator *)v17 initWithAsset:assetCopy];
+    }
+
+    v19 = v18;
+    beginGenerating = [(AEPhotosAssetPackageGenerator *)v18 beginGenerating];
+    [(AEExplorerViewController *)self _handleInProgressPackageGenerator:v19 suppressLivePhotoContent:contentCopy mediaOrigin:origin completionHandler:handlerCopy];
+  }
+}
+
+- (void)_handleAttemptedSelectionToggleOfAssetReference:(id)reference cancelIfAlreadySelected:(BOOL)selected suppressLivePhotoContent:(BOOL)content
+{
+  contentCopy = content;
+  selectedCopy = selected;
+  v35[3] = *MEMORY[0x277D85DE8];
+  referenceCopy = reference;
+  v32 = 0u;
+  v33 = 0u;
+  _currentDataSource = [(AEExplorerViewController *)self _currentDataSource];
+  v10 = _currentDataSource;
+  if (_currentDataSource)
+  {
+    objc_msgSend_indexPathForAssetReference_(_currentDataSource);
+  }
+
+  else
+  {
+    v32 = 0u;
+    v33 = 0u;
+  }
+
+  asset = [referenceCopy asset];
+  if (asset)
+  {
+    _sceneController = [(AEExplorerViewController *)self _sceneController];
+    selectionManager = [_sceneController selectionManager];
+    selectionSnapshot = [selectionManager selectionSnapshot];
+
+    v30 = v32;
+    v31 = v33;
+    if ([selectionSnapshot isIndexPathSelected:&v30])
+    {
+      if (!selectedCopy)
+      {
+LABEL_15:
+
+        goto LABEL_16;
+      }
+
+      uuid = [asset uuid];
+      _packageTransport = [(AEExplorerViewController *)self _packageTransport];
+      [_packageTransport unstagePackageWithIdentifier:uuid];
+    }
+
+    else
+    {
+      _progressModel = [(AEExplorerViewController *)self _progressModel];
+      uuid = [_progressModel progressSnapshot];
+
+      v30 = v32;
+      v31 = v33;
+      if ([uuid hasProgressForIndexPath:&v30])
+      {
+        v30 = v32;
+        v31 = v33;
+        v18 = [uuid progressForIndexPath:&v30];
+        [v18 cancel];
+        _progressModel2 = [(AEExplorerViewController *)self _progressModel];
+        [_progressModel2 setProgress:0 forAssetReference:referenceCopy];
+      }
+
+      else
+      {
+        v20 = MEMORY[0x277CF6EC0];
+        v34[0] = *MEMORY[0x277CF6E20];
+        v21 = objc_opt_class();
+        v22 = NSStringFromClass(v21);
+        v23 = *MEMORY[0x277CF6E18];
+        v35[0] = v22;
+        v35[1] = asset;
+        v34[1] = v23;
+        v34[2] = @"selectedIndex";
+        v24 = [MEMORY[0x277CCABB0] numberWithInteger:v33];
+        v35[2] = v24;
+        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:3];
+        [v20 sendEvent:@"com.apple.photos.CPAnalytics.selectPhotoInAssetExplorer" withPayload:v25];
+
+        if ([MEMORY[0x277D3CC18] confidentialityCheckRequired] && objc_msgSend(MEMORY[0x277D3CC18], "confidentialWarningRequiredForAsset:", asset))
+        {
+          v26[0] = MEMORY[0x277D85DD0];
+          v26[1] = 3221225472;
+          v26[2] = __125__AEExplorerViewController__handleAttemptedSelectionToggleOfAssetReference_cancelIfAlreadySelected_suppressLivePhotoContent___block_invoke;
+          v26[3] = &unk_278CC7440;
+          v26[4] = self;
+          v27 = asset;
+          v28 = referenceCopy;
+          v29 = contentCopy;
+          [(AEExplorerViewController *)self _presentConfidentialityAlertWithConfirmAction:v26 abortAction:0];
+        }
+
+        else
+        {
+          [(AEExplorerViewController *)self _stageAsset:asset withReference:referenceCopy suppressLivePhotoContent:contentCopy mediaOrigin:0 completionHandler:0];
+        }
+      }
+    }
+
+    goto LABEL_15;
+  }
+
+LABEL_16:
+}
+
 - (void)_handleInProgressPackageGenerator:(id)generator suppressLivePhotoContent:(BOOL)content mediaOrigin:(int64_t)origin completionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -962,7 +1109,7 @@ uint64_t __73__AEExplorerViewController_contentAssetReferenceAtPoint_outContentF
 
 void __117__AEExplorerViewController__handleInProgressPackageGenerator_suppressLivePhotoContent_mediaOrigin_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, char a4)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = v8;
@@ -991,12 +1138,12 @@ void __117__AEExplorerViewController__handleInProgressPackageGenerator_suppressL
     [*(a1 + 32) removePendingPackageIdentifier:*(a1 + 40)];
     v10 = [*(a1 + 48) asset];
     v12 = objc_alloc(MEMORY[0x277D3D090]);
-    v21[0] = v9;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    v20[0] = v9;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
     if (v10)
     {
-      v20 = v10;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+      v19 = v10;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
       v15 = [v12 initWithErrors:v13 forAssets:v14 fromSource:2 preparationType:0];
     }
 
@@ -1019,8 +1166,8 @@ LABEL_16:
     v16 = PLAssetExplorerGetLog();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_2411DE000, v16, OS_LOG_TYPE_ERROR, "Nil package returned from package generator with no error!", v19, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_2411DE000, v16, OS_LOG_TYPE_ERROR, "Nil package returned from package generator with no error!", v18, 2u);
     }
 
     [*(a1 + 32) removePendingPackageIdentifier:*(a1 + 40)];
@@ -1028,8 +1175,6 @@ LABEL_16:
 
 LABEL_17:
   [*(a1 + 64) setProgress:0 forAssetReference:*(a1 + 48)];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)scrollView
@@ -1120,6 +1265,30 @@ void *__109__AEExplorerViewController__immediatelyGenerateAndStagePackageFromRev
   return result;
 }
 
+- (void)_dismissViewControllerAboveKeyboardAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  delegate = [(AEExplorerViewController *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate explorerViewController:self dismissViewControllerAnimated:animatedCopy completion:0];
+  }
+}
+
+- (id)_presentViewControllerAboveKeyboard:(id)keyboard animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  keyboardCopy = keyboard;
+  selfCopy = self;
+  delegate = [(AEExplorerViewController *)selfCopy delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate explorerViewController:selfCopy presentViewController:keyboardCopy animated:animatedCopy completion:0];
+  }
+
+  return selfCopy;
+}
+
 - (void)_dismissReviewScreenViewController
 {
   _reviewController = [(AEExplorerViewController *)self _reviewController];
@@ -1134,7 +1303,7 @@ void *__109__AEExplorerViewController__immediatelyGenerateAndStagePackageFromRev
 
 - (void)assetExplorerReviewScreenViewController:(id)controller didPerformCompletionAction:(unint64_t)action withSelectedAssetUUIDs:(id)ds livePhotoDisabledAssetUUIDs:(id)iDs substituteAssetsByUUID:(id)d
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   iDsCopy = iDs;
   dCopy = d;
@@ -1148,35 +1317,35 @@ void *__109__AEExplorerViewController__immediatelyGenerateAndStagePackageFromRev
 
   _packageTransport = [(AEExplorerViewController *)self _packageTransport];
   packagesWithLivePhotoContent = [_packageTransport packagesWithLivePhotoContent];
-  v39 = packagesWithLivePhotoContent;
+  v38 = packagesWithLivePhotoContent;
   if ([packagesWithLivePhotoContent count])
   {
-    v36 = dCopy;
-    v37 = dsCopy;
+    v35 = dCopy;
+    v36 = dsCopy;
     v15 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     v16 = packagesWithLivePhotoContent;
-    v17 = [v16 countByEnumeratingWithState:&v45 objects:v50 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v44 objects:v49 count:16];
     if (!v17)
     {
       goto LABEL_20;
     }
 
     v18 = v17;
-    v19 = *v46;
+    v19 = *v45;
     while (1)
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v46 != v19)
+        if (*v45 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v45 + 1) + 8 * i);
+        v21 = *(*(&v44 + 1) + 8 * i);
         identifier = [v21 identifier];
         v23 = [iDsCopy containsObject:identifier];
         containsSuppressedLivePhoto = [v21 containsSuppressedLivePhoto];
@@ -1211,14 +1380,14 @@ LABEL_15:
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v44 objects:v49 count:16];
       if (!v18)
       {
 LABEL_20:
 
-        dCopy = v36;
-        dsCopy = v37;
-        packagesWithLivePhotoContent = v39;
+        dCopy = v35;
+        dsCopy = v36;
+        packagesWithLivePhotoContent = v38;
         break;
       }
     }
@@ -1226,48 +1395,46 @@ LABEL_20:
 
   if ([dCopy count])
   {
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     allKeys = [dCopy allKeys];
-    v28 = [allKeys countByEnumeratingWithState:&v41 objects:v49 count:16];
+    v28 = [allKeys countByEnumeratingWithState:&v40 objects:v48 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v42;
+      v30 = *v41;
       do
       {
         for (j = 0; j != v29; ++j)
         {
-          if (*v42 != v30)
+          if (*v41 != v30)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v32 = *(*(&v41 + 1) + 8 * j);
+          v32 = *(*(&v40 + 1) + 8 * j);
           v33 = [iDsCopy containsObject:v32];
           v34 = [dCopy objectForKeyedSubscript:v32];
           [(AEExplorerViewController *)self _immediatelyGenerateAndStagePackageFromReviewAsset:v34 suppressLivePhoto:v33 mediaOrigin:0];
         }
 
-        v29 = [allKeys countByEnumeratingWithState:&v41 objects:v49 count:16];
+        v29 = [allKeys countByEnumeratingWithState:&v40 objects:v48 count:16];
       }
 
       while (v29);
     }
 
-    packagesWithLivePhotoContent = v39;
+    packagesWithLivePhotoContent = v38;
   }
 
   [(AEExplorerViewController *)self _dismissReviewScreenViewController];
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentConfidentialityAlertWithConfirmAction:(id)action abortAction:(id)abortAction
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277D750F8];
   abortActionCopy = abortAction;
   actionCopy = action;
@@ -1279,13 +1446,12 @@ LABEL_20:
   v13 = [v11 actionWithTitle:v12 style:0 handler:abortActionCopy];
 
   v14 = MEMORY[0x277D3CC18];
-  v18[0] = v10;
-  v18[1] = v13;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v17[0] = v10;
+  v17[1] = v13;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
   v16 = [v14 confidentialityAlertWithActions:v15];
 
   [(AEExplorerViewController *)self presentViewController:v16 animated:1 completion:0];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureReviewControllerWithAssetReference:(id)reference
@@ -1300,7 +1466,7 @@ LABEL_20:
   v9 = dataSource;
   if (dataSource)
   {
-    [dataSource indexPathForAssetReference:referenceCopy];
+    objc_msgSend_indexPathForAssetReference_(dataSource);
   }
 
   v10 = PXIndexPathFromSimpleIndexPath();
@@ -1397,14 +1563,18 @@ LABEL_20:
   [contentCoordinateSpace convertPoint:scrollView fromCoordinateSpace:{v11, v13}];
   if (_tilingController)
   {
-    v14 = *MEMORY[0x277D3CF88];
-    v15 = *(MEMORY[0x277D3CF88] + 8);
-    v16 = *(MEMORY[0x277D3CF88] + 16);
-    v17 = *(MEMORY[0x277D3CF88] + 24);
-    [_tilingController hitTestTileAtPoint:&__block_literal_global_1092 padding:? passingTest:?];
+    objc_msgSend_hitTestTileAtPoint_padding_passingTest_(_tilingController);
   }
 
   return 0;
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = AEExplorerViewController;
+  [(AEExplorerViewController *)&v3 viewDidDisappear:disappear];
+  PFSharedFigDecodeSessionDiscardCachedBuffers();
 }
 
 - (void)viewWillLayoutSubviews
@@ -1456,10 +1626,10 @@ LABEL_20:
 
 - (void)viewDidLoad
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v38.receiver = self;
-  v38.super_class = AEExplorerViewController;
-  [(AEExplorerViewController *)&v38 viewDidLoad];
+  v41 = *MEMORY[0x277D85DE8];
+  v37.receiver = self;
+  v37.super_class = AEExplorerViewController;
+  [(AEExplorerViewController *)&v37 viewDidLoad];
   _dataSourceManager = [(AEExplorerViewController *)self _dataSourceManager];
   dataSource = [_dataSourceManager dataSource];
 
@@ -1494,14 +1664,14 @@ LABEL_20:
   v19 = v18;
   v21 = v20;
   v22 = PLAssetExplorerGetLog();
-  v33 = _scrollViewController;
+  v32 = _scrollViewController;
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v43.width = v19;
-    v43.height = v21;
-    v23 = NSStringFromCGSize(v43);
+    v42.width = v19;
+    v42.height = v21;
+    v23 = NSStringFromCGSize(v42);
     *buf = 138543362;
-    v41 = v23;
+    v40 = v23;
     _os_log_impl(&dword_2411DE000, v22, OS_LOG_TYPE_DEFAULT, "Setting the maximum image request size to %{public}@", buf, 0xCu);
   }
 
@@ -1513,36 +1683,34 @@ LABEL_20:
   [(AEExplorerViewController *)self _handleTransportStagingUpdateWithDataSource:dataSource];
   view = [(AEExplorerViewController *)self view];
   _clientGestureRecognizers = [(AEExplorerViewController *)self _clientGestureRecognizers];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v28 = [_clientGestureRecognizers countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v28 = [_clientGestureRecognizers countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v35;
+    v30 = *v34;
     do
     {
       v31 = 0;
       do
       {
-        if (*v35 != v30)
+        if (*v34 != v30)
         {
           objc_enumerationMutation(_clientGestureRecognizers);
         }
 
-        [view addGestureRecognizer:*(*(&v34 + 1) + 8 * v31++)];
+        [view addGestureRecognizer:*(*(&v33 + 1) + 8 * v31++)];
       }
 
       while (v29 != v31);
-      v29 = [_clientGestureRecognizers countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v29 = [_clientGestureRecognizers countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v29);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadView

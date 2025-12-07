@@ -28,9 +28,11 @@
 
 uint64_t __37__HPSHeadphoneManager_sharedInstance__block_invoke()
 {
-  sharedInstance__sharedInstance = objc_alloc_init(HPSHeadphoneManager);
+  v0 = objc_alloc_init(HPSHeadphoneManager);
+  v1 = sharedInstance__sharedInstance;
+  sharedInstance__sharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (HPSHeadphoneManager)init
@@ -78,7 +80,7 @@ uint64_t __37__HPSHeadphoneManager_sharedInstance__block_invoke()
 
 - (void)updateHPSDevice:(id)device
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v4 = +[HPSHeadphoneManager allDevicesEverConnected];
   address = [deviceCopy address];
@@ -100,46 +102,45 @@ uint64_t __37__HPSHeadphoneManager_sharedInstance__block_invoke()
   else if (([v7 hasBackend] & 1) == 0)
   {
 
-    v9 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sharedBluetoothSettingsLogComponent(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_251143000, v9, OS_LOG_TYPE_DEFAULT, "Connected Headphones: updateHPSDevice device not conncted", &v19, 2u);
+      LOWORD(v20) = 0;
+      _os_log_impl(&dword_251143000, v10, OS_LOG_TYPE_DEFAULT, "Connected Headphones: updateHPSDevice device not conncted", &v20, 2u);
     }
 
     v7 = 0;
   }
 
   [deviceCopy setHeadphoneDevice:v7];
-  if (_os_feature_enabled_impl())
+  v11 = _os_feature_enabled_impl();
+  if (v11)
   {
     mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
     address2 = [deviceCopy address];
-    v12 = [address2 stringByReplacingOccurrencesOfString:@"-" withString:@":"];
-    v13 = [mEMORY[0x277CF3248] deviceFromAddressString:v12];
+    v14 = [address2 stringByReplacingOccurrencesOfString:@"-" withString:@":"];
+    v15 = [mEMORY[0x277CF3248] deviceFromAddressString:v14];
 
-    if (v13)
+    if (v15)
     {
-      v14 = [BTSDeviceClassic deviceWithDevice:v13];
-      [deviceCopy setBtsDevice:v14];
+      v16 = [BTSDeviceClassic deviceWithDevice:v15];
+      [deviceCopy setBtsDevice:v16];
     }
   }
 
-  v15 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = sharedBluetoothSettingsLogComponent(v11);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = +[HPSHeadphoneManager allDevicesEverConnected];
+    v18 = +[HPSHeadphoneManager allDevicesEverConnected];
     headphoneDevice2 = [deviceCopy headphoneDevice];
-    v19 = 138412802;
-    v20 = v16;
-    v21 = 2112;
-    v22 = v7;
-    v23 = 2112;
-    v24 = headphoneDevice2;
-    _os_log_impl(&dword_251143000, v15, OS_LOG_TYPE_DEFAULT, "Connected Headphones: updateHPSDevice %@ %@ %@", &v19, 0x20u);
+    v20 = 138412802;
+    v21 = v18;
+    v22 = 2112;
+    v23 = v7;
+    v24 = 2112;
+    v25 = headphoneDevice2;
+    _os_log_impl(&dword_251143000, v17, OS_LOG_TYPE_DEFAULT, "Connected Headphones: updateHPSDevice %@ %@ %@", &v20, 0x20u);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)weakHashTblCopy

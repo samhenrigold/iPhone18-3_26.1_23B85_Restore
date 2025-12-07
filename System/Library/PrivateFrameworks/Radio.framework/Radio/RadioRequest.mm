@@ -157,10 +157,7 @@ void __70__RadioRequest__loadRadioStoreBagAndAllowRetry_withCompletionHandler___
 
 uint64_t __46__RadioRequest_setUnparsedResponseDictionary___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 56);
-  *(v3 + 56) = v2;
+  *(*(a1 + 32) + 56) = [*(a1 + 40) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -235,10 +232,7 @@ void *__34__RadioRequest_setRequestContext___block_invoke(uint64_t a1)
   result = *(a1 + 40);
   if (*(v3 + 32) != result)
   {
-    v4 = [result copy];
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 32);
-    *(v5 + 32) = v4;
+    *(*(a1 + 32) + 32) = [result copy];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -320,10 +314,7 @@ double __29__RadioRequest_retryInterval__block_invoke(uint64_t a1)
 
 uint64_t __30__RadioRequest_requestContext__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 32) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 32) copy];
 
   return MEMORY[0x2821F96F8]();
 }

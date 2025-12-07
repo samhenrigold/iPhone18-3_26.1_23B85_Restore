@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_2ECAC();
+  sub_2ECAC(selfCopy);
 }
 
 - (_TtC32DepthComplicationBundleCompanion14DepthGraphView)initWithFrame:(CGRect)frame

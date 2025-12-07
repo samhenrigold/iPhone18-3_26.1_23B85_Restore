@@ -485,7 +485,6 @@ LABEL_11:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x1000) == 0)
@@ -505,7 +504,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  version = self->_version;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -520,7 +518,6 @@ LABEL_4:
   }
 
 LABEL_56:
-  flags = self->_flags;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -535,7 +532,6 @@ LABEL_5:
   }
 
 LABEL_57:
-  available = self->_available;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -550,7 +546,6 @@ LABEL_6:
   }
 
 LABEL_58:
-  reason = self->_reason;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -565,7 +560,6 @@ LABEL_7:
   }
 
 LABEL_59:
-  subreason = self->_subreason;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -580,7 +574,6 @@ LABEL_8:
   }
 
 LABEL_60:
-  deviceIdentifierMap = self->_deviceIdentifierMap;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -595,12 +588,10 @@ LABEL_9:
   }
 
 LABEL_61:
-  eventId = self->_eventId;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_10:
-    minorReason = self->_minorReason;
     PBDataWriterWriteUint32Field();
   }
 
@@ -610,31 +601,28 @@ LABEL_11:
     PBDataWriterWriteStringField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 2) != 0)
+  v5 = self->_has;
+  if ((v5 & 2) != 0)
   {
-    programCounter = self->_programCounter;
     PBDataWriterWriteUint64Field();
-    v6 = self->_has;
+    v5 = self->_has;
   }
 
-  if (v6)
+  if (v5)
   {
-    linkRegister = self->_linkRegister;
     PBDataWriterWriteUint64Field();
   }
 
   if (self->_backTraces.count)
   {
-    v9 = 0;
+    v6 = 0;
     do
     {
-      v10 = self->_backTraces.list[v9];
       PBDataWriterWriteUint64Field();
-      ++v9;
+      ++v6;
     }
 
-    while (v9 < self->_backTraces.count);
+    while (v6 < self->_backTraces.count);
   }
 
   if (self->_fileName)
@@ -649,7 +637,6 @@ LABEL_11:
 
   if ((*&self->_has & 0x80) != 0)
   {
-    lineNumber = self->_lineNumber;
     PBDataWriterWriteUint32Field();
   }
 
@@ -710,7 +697,6 @@ LABEL_11:
 
   if ((*&self->_has & 0x400) != 0)
   {
-    recoveryLatency = self->_recoveryLatency;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1363,7 +1349,6 @@ LABEL_99:
                               wpsConfigMethods = self->_wpsConfigMethods;
                               if (!(wpsConfigMethods | *(equal + 20)) || (IsEqual = [(NSString *)wpsConfigMethods isEqual:?]) != 0)
                               {
-                                v24 = *(equal + 116);
                                 if ((*&self->_has & 0x400) != 0)
                                 {
                                   if ((*(equal + 116) & 0x400) == 0 || self->_recoveryLatency != *(equal + 34))

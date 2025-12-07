@@ -168,7 +168,7 @@
   v18 = 0u;
   v15 = 0u;
   v16 = 0u;
-  [(CKBalloonView *)self balloonDescriptor];
+  objc_msgSend_balloonDescriptor(self);
   v11 = [_TtC7ChatKit12CKBubblePath alloc];
   v14[4] = v19;
   v14[5] = v20;
@@ -280,7 +280,7 @@
 - (NSString)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  [(CKBalloonView *)self balloonDescriptor];
+  objc_msgSend_balloonDescriptor(self, a2);
   v4 = NSStringFromBalloonDescriptor(v11);
   delegate = [(CKBalloonView *)self delegate];
   image = [(CKBalloonImageView *)self image];
@@ -707,7 +707,7 @@ void __61__CKBalloonView_registerForBalloonViewTraitCollectionUpdates__block_inv
 - (void)updateBalloonForTraitCollection:(id)collection
 {
   collectionCopy = collection;
-  v5 = CKBackgroundLevelForTraitCollection();
+  v5 = CKBackgroundLevelForTraitCollection(collectionCopy);
   -[CKBalloonView setUserInterfaceStyle:](self, "setUserInterfaceStyle:", [collectionCopy userInterfaceStyle]);
   [(CKBalloonView *)self setUserInterfaceLevel:v5];
   isTranscriptBackgroundActive = [collectionCopy isTranscriptBackgroundActive];
@@ -765,7 +765,7 @@ void __61__CKBalloonView_registerForBalloonViewTraitCollectionUpdates__block_inv
   *&retstr->var7.blue = 0u;
   *&retstr->var0 = 0u;
   *&retstr->var5 = 0u;
-  [(CKBalloonView *)self balloonDescriptor];
+  objc_msgSend_balloonDescriptor(self, a3);
   highlightOverlayColor = [(CKBalloonView *)self highlightOverlayColor];
   [highlightOverlayColor ck_imColorComponents];
   retstr->var7.red = v5;
@@ -807,7 +807,7 @@ void __55__CKBalloonView_highlightOverlayBalloonTraitCollection__block_invoke(ui
   v11 = 0u;
   v8 = 0u;
   v9 = 0u;
-  [(CKBalloonView *)self highlightOverlayBalloonDescriptor];
+  objc_msgSend_highlightOverlayBalloonDescriptor(self, a2);
   highlightOverlayBalloonTraitCollection = [(CKBalloonView *)self highlightOverlayBalloonTraitCollection];
   v4 = [_TtC7ChatKit14CKBalloonLayer alloc];
   v7[4] = v12;

@@ -12,6 +12,9 @@
 - (void)specifierProvider:(id)provider willBeginLoadingSpecifier:(id)specifier;
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
 - (void)validateDataclassAccessForProvider:(id)provider specifier:(id)specifier completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)willMoveToParentViewController:(id)controller;
 @end
 
@@ -19,7 +22,7 @@
 
 - (id)initForMembers:(id)members options:(id)options
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   membersCopy = members;
   optionsCopy = options;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_7 != -1)
@@ -30,15 +33,15 @@
   v8 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_7;
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_7, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 136315906;
-    v19 = "[TUIKTConversationViewController initForMembers:options:]";
-    v20 = 2114;
-    v21 = membersCopy;
-    v22 = 2114;
-    v23 = optionsCopy;
-    v24 = 2114;
+    v17 = 136315906;
+    v18 = "[TUIKTConversationViewController initForMembers:options:]";
+    v19 = 2114;
+    v20 = membersCopy;
+    v21 = 2114;
+    v22 = optionsCopy;
+    v23 = 2114;
     selfCopy = self;
-    _os_log_impl(&dword_26F50B000, v8, OS_LOG_TYPE_DEFAULT, "%s conversationMembers = %{public}@, options = %{public}@ on %{public}@", &v18, 0x2Au);
+    _os_log_impl(&dword_26F50B000, v8, OS_LOG_TYPE_DEFAULT, "%s conversationMembers = %{public}@, options = %{public}@ on %{public}@", &v17, 0x2Au);
   }
 
   v9 = [(TUIKTConversationViewController *)self init];
@@ -72,14 +75,13 @@ LABEL_8:
   v15 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_7;
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_7, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v18) = 0;
-    _os_log_impl(&dword_26F50B000, v15, OS_LOG_TYPE_ERROR, "Invalid parameter, no conversation members", &v18, 2u);
+    LOWORD(v17) = 0;
+    _os_log_impl(&dword_26F50B000, v15, OS_LOG_TYPE_ERROR, "Invalid parameter, no conversation members", &v17, 2u);
   }
 
   v14 = 0;
 LABEL_14:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -121,7 +123,7 @@ uint64_t __58__TUIKTConversationViewController_initForMembers_options___block_in
 - (void)requestPresentationStyleExpanded:(BOOL)expanded
 {
   expandedCopy = expanded;
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   navigationController = [(TUIKTConversationViewController *)self navigationController];
   presentationController = [navigationController presentationController];
   objc_opt_class();
@@ -142,21 +144,19 @@ uint64_t __58__TUIKTConversationViewController_initForMembers_options___block_in
       [MEMORY[0x277D75A28] mediumDetent];
     }
     v10 = ;
-    v17[0] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v16[0] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
     [presentationController2 setDetents:v11];
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __68__TUIKTConversationViewController_requestPresentationStyleExpanded___block_invoke;
-    v14[3] = &unk_279DDAEC8;
-    v16 = expandedCopy;
-    v15 = presentationController2;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __68__TUIKTConversationViewController_requestPresentationStyleExpanded___block_invoke;
+    v13[3] = &unk_279DDAEC8;
+    v15 = expandedCopy;
+    v14 = presentationController2;
     v12 = presentationController2;
-    [v12 animateChanges:v14];
+    [v12 animateChanges:v13];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __68__TUIKTConversationViewController_requestPresentationStyleExpanded___block_invoke(uint64_t a1)
@@ -176,11 +176,81 @@ uint64_t __68__TUIKTConversationViewController_requestPresentationStyleExpanded_
   return [v2 setSelectedDetentIdentifier:*v3];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = TUIKTConversationViewController;
+  [(TUIKTConversationViewController *)&v8 viewWillAppear:appear];
+  navigationItem = [(TUIKTConversationViewController *)self navigationItem];
+  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v6 = [v5 localizedStringForKey:@"STATIC_IDENTITY_TITLE" value:&stru_287F92480 table:@"Localizable"];
+  [navigationItem setTitle:v6];
+
+  v7 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:0 target:self action:sel__doneButtonTapped];
+  [navigationItem setRightBarButtonItem:v7];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_7 != -1)
+  {
+    [TUIKTConversationViewController viewDidAppear:];
+  }
+
+  if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_7, OS_LOG_TYPE_DEBUG))
+  {
+    [TUIKTConversationViewController viewDidAppear:];
+  }
+
+  v5.receiver = self;
+  v5.super_class = TUIKTConversationViewController;
+  [(TUIKTConversationViewController *)&v5 viewDidAppear:appearCopy];
+  [(TUIAnalytics *)self->_analytics ktInteraction:@"conversationUIDisplayed"];
+}
+
 uint64_t __49__TUIKTConversationViewController_viewDidAppear___block_invoke()
 {
   TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_7 = os_log_create("com.apple.Transparency", "ui");
 
   return MEMORY[0x2821F96F8]();
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_7 != -1)
+  {
+    [TUIKTConversationViewController viewDidDisappear:];
+  }
+
+  if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_7, OS_LOG_TYPE_DEBUG))
+  {
+    [TUIKTConversationViewController viewDidDisappear:];
+  }
+
+  v8.receiver = self;
+  v8.super_class = TUIKTConversationViewController;
+  [(TUIKTConversationViewController *)&v8 viewDidDisappear:disappearCopy];
+  [(TUIStaticIdentityManager *)self->_staticIdentityManager dismissDialog];
+  delegate = [(TUIKTConversationViewController *)self delegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_7 != -1)
+    {
+      [TUIKTConversationViewController viewDidDisappear:];
+    }
+
+    if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_7, OS_LOG_TYPE_DEBUG))
+    {
+      [TUIKTConversationViewController viewDidDisappear:];
+    }
+
+    delegate2 = [(TUIKTConversationViewController *)self delegate];
+    [delegate2 keyTransparencyConversationViewControllerDidDismiss:self];
+  }
 }
 
 uint64_t __52__TUIKTConversationViewController_viewDidDisappear___block_invoke()
@@ -199,10 +269,35 @@ uint64_t __52__TUIKTConversationViewController_viewDidDisappear___block_invoke_7
 
 - (void)_doneButtonTapped
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_7 != -1)
+  {
+    [TUIKTConversationViewController _doneButtonTapped];
+  }
+
+  if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_7, OS_LOG_TYPE_DEBUG))
+  {
+    [TUIKTConversationViewController _doneButtonTapped];
+  }
+
+  [(TUIAnalytics *)self->_analytics ktInteraction:@"conversationUIClosed"];
+  delegate = [(TUIKTConversationViewController *)self delegate];
+  v4 = objc_opt_respondsToSelector();
+
+  if (v4)
+  {
+    if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_7 != -1)
+    {
+      [TUIKTConversationViewController _doneButtonTapped];
+    }
+
+    if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_7, OS_LOG_TYPE_DEBUG))
+    {
+      [TUIKTConversationViewController _doneButtonTapped];
+    }
+
+    delegate2 = [(TUIKTConversationViewController *)self delegate];
+    [delegate2 keyTransparencyConversationViewControllerDidComplete:self];
+  }
 }
 
 uint64_t __52__TUIKTConversationViewController__doneButtonTapped__block_invoke()
@@ -364,7 +459,7 @@ uint64_t __79__TUIKTConversationViewController_specifierProvider_didFinishLoadin
 
 - (void)reloadSpecifiersForProvider:(id)provider oldSpecifiers:(id)specifiers animated:(BOOL)animated
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_7 != -1)
@@ -375,14 +470,12 @@ uint64_t __79__TUIKTConversationViewController_specifierProvider_didFinishLoadin
   v7 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_7;
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = providerCopy;
-    _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_DEBUG, "Reloading specifiers for provider %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = providerCopy;
+    _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_DEBUG, "Reloading specifiers for provider %@", &v8, 0xCu);
   }
 
   [(TUIKTConversationViewController *)self reloadSpecifiers];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __86__TUIKTConversationViewController_reloadSpecifiersForProvider_oldSpecifiers_animated___block_invoke()
@@ -477,9 +570,9 @@ void __80__TUIKTConversationViewController_contactViewController_didCompleteWith
       block[1] = 3221225472;
       block[2] = __80__TUIKTConversationViewController_contactViewController_didCompleteWithContact___block_invoke_105;
       block[3] = &unk_279DDAB28;
-      objc_copyWeak(&v13, location);
+      objc_copyWeak(&v12, location);
       dispatch_async(MEMORY[0x277D85CD0], block);
-      objc_destroyWeak(&v13);
+      objc_destroyWeak(&v12);
       objc_destroyWeak(location);
     }
   }
@@ -499,8 +592,6 @@ void __80__TUIKTConversationViewController_contactViewController_didCompleteWith
       _os_log_impl(&dword_26F50B000, v10, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", location, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __80__TUIKTConversationViewController_contactViewController_didCompleteWithContact___block_invoke_2()
@@ -512,7 +603,7 @@ uint64_t __80__TUIKTConversationViewController_contactViewController_didComplete
 
 void __80__TUIKTConversationViewController_contactViewController_didCompleteWithContact___block_invoke_105(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -530,13 +621,11 @@ void __80__TUIKTConversationViewController_contactViewController_didCompleteWith
     v3 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_7;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_7, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315138;
-      v6 = "[TUIKTConversationViewController contactViewController:didCompleteWithContact:]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v3, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[TUIKTConversationViewController contactViewController:didCompleteWithContact:]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v3, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __80__TUIKTConversationViewController_contactViewController_didCompleteWithContact___block_invoke_2_106()
@@ -573,7 +662,7 @@ uint64_t __80__TUIKTConversationViewController_contactViewController_didComplete
 
 void __65__TUIKTConversationViewController__openWithNavigationController___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -605,13 +694,11 @@ void __65__TUIKTConversationViewController__openWithNavigationController___block
     v7 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_7;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315138;
-      v10 = "[TUIKTConversationViewController _openWithNavigationController:]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[TUIKTConversationViewController _openWithNavigationController:]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v7, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __65__TUIKTConversationViewController__openWithNavigationController___block_invoke_2()
@@ -630,41 +717,28 @@ uint64_t __65__TUIKTConversationViewController__openWithNavigationController___b
 
 - (void)viewDidAppear:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidDisappear:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)viewDidDisappear:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contactViewController:(os_log_t)log didCompleteWithContact:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "[TUIKTConversationViewController contactViewController:didCompleteWithContact:]";
-  v6 = 1024;
-  v7 = a1 != 0;
-  v8 = 2114;
-  v9 = a2;
-  _os_log_debug_impl(&dword_26F50B000, log, OS_LOG_TYPE_DEBUG, "%s contact updated = %d on %{public}@", &v4, 0x1Cu);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "[TUIKTConversationViewController contactViewController:didCompleteWithContact:]";
+  v5 = 1024;
+  v6 = a1 != 0;
+  v7 = 2114;
+  v8 = a2;
+  _os_log_debug_impl(&dword_26F50B000, log, OS_LOG_TYPE_DEBUG, "%s contact updated = %d on %{public}@", &v3, 0x1Cu);
 }
 
 @end

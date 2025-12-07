@@ -9,7 +9,7 @@
 
 + (id)userFriendlyExportURLForCameraName:(id)name withStartDate:(id)date
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CCA968];
   dateCopy = date;
   nameCopy = name;
@@ -30,7 +30,7 @@
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = v15;
+    v22 = v15;
     _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "Attempt to generate export url using string:%@", buf, 0xCu);
   }
 
@@ -38,35 +38,33 @@
   v18 = +[HFUtilities cachesDirectoryURL];
   v19 = [v17 URLWithString:v15 relativeToURL:v18];
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 + (BOOL)hasCachedRecordingForCameraClip:(id)clip
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   v4 = [HFCameraUtilities videoDestinationURLForCameraClip:clipCopy];
   [HFCameraClipExporter durationOfCachedRecordingForCameraClip:clipCopy];
   if (v5 != 0.0)
   {
     v6 = v5;
-    [clipCopy duration];
+    objc_msgSend_duration(clipCopy);
     if (v7 != 0.0)
     {
-      [clipCopy duration];
+      objc_msgSend_duration(clipCopy);
       v9 = v6 / v8;
       v10 = HFLogForCategory(0x12uLL);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        [clipCopy duration];
+        objc_msgSend_duration(clipCopy);
         *buf = 134218496;
-        v22 = v6;
-        v23 = 2048;
-        v24 = v11;
-        v25 = 2048;
-        v26 = v9 * 100.0;
+        v21 = v6;
+        v22 = 2048;
+        v23 = v11;
+        v24 = 2048;
+        v25 = v9 * 100.0;
         _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Cached recording duration (%0.2f/%0.2f) is %0.2f percent downloaded.", buf, 0x20u);
       }
 
@@ -85,9 +83,9 @@
 
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
       path = [v4 path];
-      v20 = 0;
-      [defaultManager removeItemAtPath:path error:&v20];
-      v15 = v20;
+      v19 = 0;
+      [defaultManager removeItemAtPath:path error:&v19];
+      v15 = v19;
 
       if (v15)
       {
@@ -95,9 +93,9 @@
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v22 = *&v15;
-          v23 = 2112;
-          v24 = v4;
+          v21 = *&v15;
+          v22 = 2112;
+          v23 = v4;
           _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "Error:%@ removing file:%@", buf, 0x16u);
         }
       }
@@ -107,7 +105,6 @@
   v17 = 0;
 LABEL_14:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

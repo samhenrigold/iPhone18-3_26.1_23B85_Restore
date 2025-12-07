@@ -50,61 +50,65 @@
 - (CGPoint)_convertPoint:(CGPoint)point toPageView:(id)view
 {
   viewCopy = view;
-  v6 = PDFRectToCGRect([viewCopy boundsForBox:0]);
-  v8 = v7;
-  v10 = v9;
-  rect_8 = v11;
+  [viewCopy boundsForBox:0];
+  PDFRectToCGRect();
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
+  rect_8 = v12;
   WeakRetained = objc_loadWeakRetained(&self->_private->view);
   [viewCopy boundsForBox:{objc_msgSend(WeakRetained, "displayBox")}];
 
-  rect = PDFRectToCGRect(v13);
+  PDFRectToCGRect();
   v15 = v14;
+  rect = v14;
   v17 = v16;
   v19 = v18;
+  v21 = v20;
 
-  v33.origin.x = rect;
-  v33.origin.y = v15;
-  v33.size.width = v17;
-  v33.size.height = v19;
-  MinX = CGRectGetMinX(v33);
-  v34.origin.x = v6;
-  v34.origin.y = v8;
-  v34.size.width = v10;
-  v34.size.height = rect_8;
-  v21 = MinX - CGRectGetMinX(v34);
-  v35.origin.x = v6;
-  v35.origin.y = v8;
-  v35.size.width = v10;
-  v35.size.height = rect_8;
-  v22 = v21 - CGRectGetMinX(v35);
-  v36.origin.x = rect;
-  v36.origin.y = v15;
-  v36.size.width = v17;
-  v36.size.height = v19;
-  MinY = CGRectGetMinY(v36);
-  v37.origin.x = v6;
-  v37.origin.y = v8;
-  v37.size.width = v10;
-  v37.size.height = rect_8;
-  v24 = MinY - CGRectGetMinY(v37);
-  v38.origin.x = v6;
-  v38.origin.y = v8;
-  v38.size.width = v10;
-  v38.size.height = rect_8;
-  v25 = point.y - (v24 - CGRectGetMinY(v38));
+  v28.origin.x = v15;
+  v28.origin.y = v17;
+  v28.size.width = v19;
+  v28.size.height = v21;
+  CGRectGetMinX(v28);
+  v29.origin.x = v7;
+  v29.origin.y = v9;
+  v29.size.width = v11;
+  v29.size.height = rect_8;
+  CGRectGetMinX(v29);
+  v30.origin.x = v7;
+  v30.origin.y = v9;
+  v30.size.width = v11;
+  v30.size.height = rect_8;
+  CGRectGetMinX(v30);
+  v31.origin.x = rect;
+  v31.origin.y = v17;
+  v31.size.width = v19;
+  v31.size.height = v21;
+  CGRectGetMinY(v31);
+  v32.origin.x = v7;
+  v32.origin.y = v9;
+  v32.size.width = v11;
+  v32.size.height = rect_8;
+  CGRectGetMinY(v32);
+  v33.origin.x = v7;
+  v33.origin.y = v9;
+  v33.size.width = v11;
+  v33.size.height = rect_8;
+  CGRectGetMinY(v33);
 
-  v26 = PDFPointMake(point.x - v22, v25);
-  result.y = v27;
-  result.x = v26;
+  PDFPointMake();
+  result.y = v23;
+  result.x = v22;
   return result;
 }
 
 - (PDFViewController)initWithView:(id)view
 {
   viewCopy = view;
-  v20.receiver = self;
-  v20.super_class = PDFViewController;
-  v5 = [(PDFViewController *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = PDFViewController;
+  v5 = [(PDFViewController *)&v21 init];
   if (v5)
   {
     v6 = objc_alloc_init(PDFViewControllerPrivate);
@@ -113,19 +117,20 @@
 
     objc_storeWeak(&v5->_private->view, viewCopy);
     v8 = v5->_private;
-    v8->viewMarquee.origin.x = PDFRectFromCGRect(*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24));
-    v8->viewMarquee.origin.y = v9;
-    v8->viewMarquee.size.width = v10;
-    v8->viewMarquee.size.height = v11;
-    v12 = v5->_private;
-    marqueeEffect = v12->marqueeEffect;
-    v12->marqueeEffect = 0;
+    PDFRectFromCGRect();
+    v8->viewMarquee.origin.x = v9;
+    v8->viewMarquee.origin.y = v10;
+    v8->viewMarquee.size.width = v11;
+    v8->viewMarquee.size.height = v12;
+    v13 = v5->_private;
+    marqueeEffect = v13->marqueeEffect;
+    v13->marqueeEffect = 0;
 
     objc_storeWeak(&v5->_private->activeAnnotation, 0);
-    v14 = [objc_alloc(MEMORY[0x1E69DC9E0]) initWithDelegate:v5];
-    v15 = v5->_private;
-    editMenuInteraction = v15->editMenuInteraction;
-    v15->editMenuInteraction = v14;
+    v15 = [objc_alloc(MEMORY[0x1E69DC9E0]) initWithDelegate:v5];
+    v16 = v5->_private;
+    editMenuInteraction = v16->editMenuInteraction;
+    v16->editMenuInteraction = v15;
 
     [viewCopy addInteraction:v5->_private->editMenuInteraction];
     v5->_private->textSelectionMenu = 0;

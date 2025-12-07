@@ -19,7 +19,7 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"_UIFocusTest.m" lineNumber:26 description:{@"Invalid parameter not satisfying: %@", @"identifier"}];
   }
 
-  if ([identifierCopy isEqualToString:&stru_1EFB14550])
+  if (objc_msgSend_isEqualToString_(identifierCopy))
   {
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"_UIFocusTest.m" lineNumber:27 description:@"Focus tests require a non-empty identifier."];

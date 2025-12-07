@@ -25,11 +25,16 @@
 - (void)_completeHandledThumbnailRequest:(id)request;
 - (void)_downloadThumbnailForRequest:(id)request completionHandler:(id)handler;
 - (void)_installRequestsFinishedWatchdog;
+- (void)_notifyGenerationHandlerOfThumbnailGenerationForRequest:(id)request images:(id)images metadata:(id)metadata contentRect:(CGRect)rect iconFlavor:(int)flavor thumbnailRepresentation:(int64_t)representation clientShouldTakeOwnership:(BOOL)ownership error:(id)self0;
 - (void)_removeRequestFromPendingRequests:(id)requests;
+- (void)_saveLargeThumbnailForDocumentAtURL:(id)l toGenstoreWithImage:(CGImage *)image automaticallyGenerated:(BOOL)generated;
 - (void)_saveLargeThumbnailToGenstoreWithData:(id)data url:(id)url;
 - (void)_updateInformationForProviderAndCallPendingBlocksForProviderDomainID:(id)d withConnection:(id)connection inboxURL:(id)l thumbnailsURL:(id)rL;
+- (void)addImage:(id)image contentRect:(CGRect)rect hasIconModeApplied:(BOOL)applied flavor:(int)flavor extensionBadge:(id)badge metadata:(id)metadata toCacheAndCompleteRequest:(id)request;
 - (void)addImageData:(id)data toCacheForRequest:(id)request withBitmapFormat:(id)format contentRect:(CGRect)rect flavor:(int)flavor metadata:(id)metadata;
 - (void)cancelThumbnailRequests:(id)requests;
+- (void)completeThumbnailRequest:(id)request bitmapData:(id)data metadata:(id)metadata contentRect:(CGRect)rect thumbnailRepresentation:(int64_t)representation iconFlavor:(int)flavor format:(id)format clientShouldTakeOwnership:(BOOL)self0;
+- (void)completeThumbnailRequest:(id)request images:(id)images metadata:(id)metadata contentRect:(CGRect)rect thumbnailRepresentation:(int64_t)representation iconFlavor:(int)flavor clientShouldTakeOwnership:(BOOL)ownership;
 - (void)completeThumbnailRequest:(id)request thumbnailData:(id)data updatedMetadata:(id)metadata;
 - (void)didNotFindLowQualityEntryInCachedForThumbnailRequest:(id)request error:(id)error;
 - (void)downloadThumbnailForRequest:(id)request completionHandler:(id)handler;
@@ -45,6 +50,7 @@
 - (void)generateThumbnailForThumbnailRequest:(id)request shouldUpdateGenstore:(BOOL)genstore completionHandler:(id)handler;
 - (void)getExternalThumbnailCacheConnectionForItem:(id)item atURL:(id)l completionHandler:(id)handler;
 - (void)perform:(id)perform afterDelay:(int64_t)delay;
+- (void)processLargeThumbnailData:(id)data withContentType:(id)type isAppContainer:(BOOL)container forRequest:(id)request fromGenStore:(BOOL)store completionHandler:(id)handler;
 - (void)queueThumbnailRequest:(id)request tryCache:(BOOL)cache tryAdditionsFirst:(BOOL)first;
 - (void)receivedExternalCacheConnection:(id)connection error:(id)error forProviderDomainID:(id)d;
 - (void)removeCachedThumbnailsFromUninstalledFileProvidersWithIdentifiers:(id)identifiers completionHandler:(id)handler;
@@ -176,7 +182,7 @@ void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbna
 
 void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbnailCacheForRequest_item_URL_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _log_3();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
@@ -187,18 +193,16 @@ void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbna
   v5 = MEMORY[0x277CDAAE0];
   v6 = *(a1 + 40);
   v7 = [*(a1 + 32) request];
-  v11 = *MEMORY[0x277CCA7E8];
-  v12[0] = v3;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = *MEMORY[0x277CCA7E8];
+  v11[0] = v3;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v9 = [v5 errorWithCode:0 request:v7 additionalUserInfo:v8];
   (*(v6 + 16))(v6, v9);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbnailCacheForRequest_item_URL_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -206,7 +210,7 @@ void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbna
     v7 = _log_3();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbnailCacheForRequest_item_URL_completionHandler___block_invoke_2_cold_1(v5, a1);
+      __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbnailCacheForRequest_item_URL_completionHandler___block_invoke_2_cold_1();
     }
 
     v8 = CGImageSourceCreateWithURL(v5, 0);
@@ -226,9 +230,9 @@ void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbna
         v31 = *(a1 + 64);
         v32 = MEMORY[0x277CDAAE0];
         v33 = [*(a1 + 40) request];
-        v45 = *MEMORY[0x277CCA068];
-        v46 = v29;
-        v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+        v44 = *MEMORY[0x277CCA068];
+        v45 = v29;
+        v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
         v35 = [v32 errorWithCode:0 request:v33 additionalUserInfo:v34];
         (*(v31 + 16))(v31, v35);
 
@@ -248,7 +252,7 @@ void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbna
         {
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
-            __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbnailCacheForRequest_item_URL_completionHandler___block_invoke_2_cold_2(a1);
+            __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbnailCacheForRequest_item_URL_completionHandler___block_invoke_2_cold_2();
           }
 
           v16 = *(a1 + 56);
@@ -263,16 +267,16 @@ void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbna
         {
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbnailCacheForRequest_item_URL_completionHandler___block_invoke_2_cold_3(v5, a1);
+            __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbnailCacheForRequest_item_URL_completionHandler___block_invoke_2_cold_3();
           }
 
           v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"Could not decode an image from thumbnail data at %@ for %@", v5, *(a1 + 40)];
           v37 = *(a1 + 64);
           v38 = MEMORY[0x277CDAAE0];
           v39 = [*(a1 + 40) request];
-          v43 = *MEMORY[0x277CCA068];
-          v44 = v36;
-          v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+          v42 = *MEMORY[0x277CCA068];
+          v43 = v36;
+          v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
           v41 = [v38 errorWithCode:0 request:v39 additionalUserInfo:v40];
           (*(v37 + 16))(v37, v41);
         }
@@ -293,9 +297,9 @@ void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbna
       v24 = *(a1 + 64);
       v25 = MEMORY[0x277CDAAE0];
       v26 = [*(a1 + 40) request];
-      v47 = *MEMORY[0x277CCA068];
-      v48[0] = v22;
-      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+      v46 = *MEMORY[0x277CCA068];
+      v47[0] = v22;
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
       v28 = [v25 errorWithCode:0 request:v26 additionalUserInfo:v27];
       (*(v24 + 16))(v24, v28);
     }
@@ -309,8 +313,6 @@ void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbna
     v21 = [v19 errorWithCode:0 request:v20 additionalUserInfo:0];
     (*(v18 + 16))(v18, v21);
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedExternalCacheConnection:(id)connection error:(id)error forProviderDomainID:(id)d
@@ -397,17 +399,17 @@ void __91__QLServerThread_ExternalCache__receivedExternalCacheConnection_error_f
 
 - (void)_updateInformationForProviderAndCallPendingBlocksForProviderDomainID:(id)d withConnection:(id)connection inboxURL:(id)l thumbnailsURL:(id)rL
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dCopy = d;
   connectionCopy = connection;
   lCopy = l;
   rLCopy = rL;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__0;
-  v38 = __Block_byref_object_dispose__0;
-  v39 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = __Block_byref_object_copy__0;
+  v37 = __Block_byref_object_dispose__0;
+  v38 = 0;
   queue = [(QLServerThread *)self queue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -415,48 +417,47 @@ void __91__QLServerThread_ExternalCache__receivedExternalCacheConnection_error_f
   block[3] = &unk_279ADD250;
   block[4] = self;
   v15 = dCopy;
-  v29 = v15;
+  v28 = v15;
   v16 = connectionCopy;
-  v30 = v16;
+  v29 = v16;
   v17 = lCopy;
-  v31 = v17;
+  v30 = v17;
   v18 = rLCopy;
-  v32 = v18;
-  v33 = &v34;
+  v31 = v18;
+  v32 = &v33;
   dispatch_sync(queue, block);
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
-  v19 = v35[5];
-  v20 = [v19 countByEnumeratingWithState:&v24 objects:v40 count:16];
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v19 = v34[5];
+  v20 = [v19 countByEnumeratingWithState:&v23 objects:v39 count:16];
   if (v20)
   {
-    v21 = *v25;
+    v21 = *v24;
     do
     {
       v22 = 0;
       do
       {
-        if (*v25 != v21)
+        if (*v24 != v21)
         {
           objc_enumerationMutation(v19);
         }
 
-        (*(*(*(&v24 + 1) + 8 * v22) + 16))(*(*(&v24 + 1) + 8 * v22));
+        (*(*(*(&v23 + 1) + 8 * v22) + 16))(*(*(&v23 + 1) + 8 * v22));
         ++v22;
       }
 
       while (v20 != v22);
-      v20 = [v19 countByEnumeratingWithState:&v24 objects:v40 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v23 objects:v39 count:16];
     }
 
     while (v20);
   }
 
-  _Block_object_dispose(&v34, 8);
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v33, 8);
 }
 
 void __140__QLServerThread_ExternalCache___updateInformationForProviderAndCallPendingBlocksForProviderDomainID_withConnection_inboxURL_thumbnailsURL___block_invoke(uint64_t a1)
@@ -706,7 +707,7 @@ void __82__QLServerThread_ExternalCache__storeImage_inExternalThumbnailCacheForI
 
 void __82__QLServerThread_ExternalCache__storeImage_inExternalThumbnailCacheForItem_atURL___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _log_3();
   v5 = v4;
@@ -714,19 +715,17 @@ void __82__QLServerThread_ExternalCache__storeImage_inExternalThumbnailCacheForI
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __82__QLServerThread_ExternalCache__storeImage_inExternalThumbnailCacheForItem_atURL___block_invoke_3_cold_1(a1);
+      __82__QLServerThread_ExternalCache__storeImage_inExternalThumbnailCacheForItem_atURL___block_invoke_3_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 32);
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_2615D3000, v5, OS_LOG_TYPE_INFO, "Store thumbnail for %@ in external thumbnail cache", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_2615D3000, v5, OS_LOG_TYPE_INFO, "Store thumbnail for %@ in external thumbnail cache", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (QLServerThread)init
@@ -740,11 +739,11 @@ void __82__QLServerThread_ExternalCache__storeImage_inExternalThumbnailCacheForI
 
 - (QLServerThread)initWithCacheSize:(int64_t)size location:(id)location
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   locationCopy = location;
-  v63.receiver = self;
-  v63.super_class = QLServerThread;
-  v7 = [(QLServerThread *)&v63 init];
+  v62.receiver = self;
+  v62.super_class = QLServerThread;
+  v7 = [(QLServerThread *)&v62 init];
   if (v7)
   {
     v8 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -863,15 +862,14 @@ void __82__QLServerThread_ExternalCache__storeImage_inExternalThumbnailCacheForI
 
     v59 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"/"];
     [(NSMutableDictionary *)v7->_volumesToCaches setObject:v7->_cacheThread forKeyedSubscript:v59];
-    memset(&v64, 0, 512);
-    if (!statfs("/", &v64))
+    memset(&v63, 0, 512);
+    if (!statfs("/", &v63))
     {
-      v60 = [MEMORY[0x277CCAE60] valueWithBytes:&v64.f_fsid objCType:"{fsid=[2i]}"];
+      v60 = [MEMORY[0x277CCAE60] valueWithBytes:&v63.f_fsid objCType:"{fsid=[2i]}"];
       [(NSMutableDictionary *)v7->_fsidsToCaches setObject:v7->_cacheThread forKeyedSubscript:v60];
     }
   }
 
-  v61 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -898,7 +896,7 @@ void __32__QLServerThread_sharedInstance__block_invoke(uint64_t a1)
 
 - (id)makeCacheThreadForPersonaString:(id)string containerURL:(id *)l
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   overrideBasePersonaVolumesURLForTesting = [(QLServerThread *)self overrideBasePersonaVolumesURLForTesting];
 
@@ -926,7 +924,7 @@ LABEL_23:
   mEMORY[0x277D77BF8] = [MEMORY[0x277D77BF8] sharedManager];
   currentPersona = [mEMORY[0x277D77BF8] currentPersona];
 
-  v31 = 0;
+  v29 = 0;
   userPersonaUniqueString = [currentPersona userPersonaUniqueString];
   v14 = userPersonaUniqueString;
   if (userPersonaUniqueString == stringCopy || ([userPersonaUniqueString isEqualToString:stringCopy] & 1) != 0 || !voucher_process_can_use_arbitrary_personas())
@@ -936,11 +934,11 @@ LABEL_23:
 
   else
   {
-    v30 = 0;
-    v15 = [currentPersona copyCurrentPersonaContextWithError:&v30];
-    v16 = v30;
-    v17 = v31;
-    v31 = v15;
+    v28 = 0;
+    v15 = [currentPersona copyCurrentPersonaContextWithError:&v28];
+    v16 = v28;
+    v17 = v29;
+    v29 = v15;
 
     if (v16)
     {
@@ -963,7 +961,6 @@ LABEL_23:
     }
   }
 
-  v29 = 0;
   v21 = container_create_or_lookup_path_for_current_user();
   if (v21)
   {
@@ -971,9 +968,9 @@ LABEL_23:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v33 = stringCopy;
-      v34 = 2080;
-      v35 = v21;
+      v31 = stringCopy;
+      v32 = 2080;
+      v33 = v21;
       _os_log_impl(&dword_2615D3000, v22, OS_LOG_TYPE_INFO, "Creating cache for persona %@ in container %s", buf, 0x16u);
     }
 
@@ -986,7 +983,7 @@ LABEL_23:
     v23 = _log_3();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [QLServerThread makeCacheThreadForPersonaString:? containerURL:?];
+      [QLServerThread makeCacheThreadForPersonaString:containerURL:];
     }
 
     v4 = self->_cacheThread;
@@ -1000,8 +997,6 @@ LABEL_23:
   }
 
 LABEL_26:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1068,13 +1063,13 @@ LABEL_14:
 
 - (id)uncachedCacheThreadForFileAtURL:(id)l
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  [lCopy getFileSystemRepresentation:&v60 maxLength:1024];
-  if (v60 != 0x657461766972702FLL || *v61 != 0x7265502F7261762FLL || *&v61[8] != 0x756C6F56616E6F73 || *&v61[11] != 0x73656D756C6F5661)
+  [lCopy getFileSystemRepresentation:&v59 maxLength:1024];
+  if (v59 != 0x657461766972702FLL || *v60 != 0x7265502F7261762FLL || *&v60[8] != 0x756C6F56616E6F73 || *&v60[11] != 0x73656D756C6F5661)
   {
-    v7 = v60 == 0x7265502F7261762FLL && *v61 == 0x756C6F56616E6F73;
-    if (!v7 || *&v61[3] != 0x73656D756C6F5661)
+    v7 = v59 == 0x7265502F7261762FLL && *v60 == 0x756C6F56616E6F73;
+    if (!v7 || *&v60[3] != 0x73656D756C6F5661)
     {
       v9 = self->_cacheThread;
       goto LABEL_56;
@@ -1082,10 +1077,10 @@ LABEL_14:
   }
 
   startAccessingSecurityScopedResource = [lCopy startAccessingSecurityScopedResource];
-  v52 = 0;
+  v51 = 0;
   v11 = *MEMORY[0x277CBEA58];
-  v12 = [lCopy getResourceValue:&v52 forKey:*MEMORY[0x277CBEA58] error:0];
-  v13 = v52;
+  v12 = [lCopy getResourceValue:&v51 forKey:*MEMORY[0x277CBEA58] error:0];
+  v13 = v51;
   if (!v12)
   {
     goto LABEL_25;
@@ -1100,9 +1095,9 @@ LABEL_14:
 LABEL_25:
     selfCopy = self;
     mEMORY[0x277D77BF8] = [MEMORY[0x277D77BF8] sharedManager];
-    v51 = 0;
-    v16 = [mEMORY[0x277D77BF8] listAllPersonaAttributesWithError:&v51];
-    v17 = v51;
+    v50 = 0;
+    v16 = [mEMORY[0x277D77BF8] listAllPersonaAttributesWithError:&v50];
+    v17 = v50;
 
     if (v17)
     {
@@ -1113,43 +1108,43 @@ LABEL_25:
       }
     }
 
-    v39 = v11;
-    v41 = v13;
+    v38 = v11;
+    v40 = v13;
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     v20 = v16;
-    v21 = [v20 countByEnumeratingWithState:&v47 objects:v59 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v46 objects:v58 count:16];
     if (v21)
     {
       v22 = v21;
-      v38 = startAccessingSecurityScopedResource;
-      v23 = *v48;
+      v37 = startAccessingSecurityScopedResource;
+      v23 = *v47;
 LABEL_31:
       v24 = 0;
       while (1)
       {
-        if (*v48 != v23)
+        if (*v47 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v47 + 1) + 8 * v24);
+        v25 = *(*(&v46 + 1) + 8 * v24);
         personaLayoutPathURL = [v25 personaLayoutPathURL];
 
         if (personaLayoutPathURL)
         {
-          v46 = 0;
+          v45 = 0;
           personaLayoutPathURL2 = [v25 personaLayoutPathURL];
-          v45 = v17;
-          v28 = [defaultManager getRelationship:&v46 ofDirectoryAtURL:personaLayoutPathURL2 toItemAtURL:lCopy error:&v45];
-          v29 = v45;
+          v44 = v17;
+          v28 = [defaultManager getRelationship:&v45 ofDirectoryAtURL:personaLayoutPathURL2 toItemAtURL:lCopy error:&v44];
+          v29 = v44;
 
           if (v28)
           {
-            if (!v46)
+            if (!v45)
             {
               userPersonaUniqueString = [v25 userPersonaUniqueString];
 
@@ -1158,12 +1153,12 @@ LABEL_31:
                 goto LABEL_51;
               }
 
-              v44 = 0;
-              v9 = [(QLServerThread *)selfCopy makeCacheThreadForPersonaString:userPersonaUniqueString containerURL:&v44];
-              v33 = v44;
               v43 = 0;
-              v34 = [v33 getResourceValue:&v43 forKey:v39 error:0];
-              v13 = v43;
+              v9 = [(QLServerThread *)selfCopy makeCacheThreadForPersonaString:userPersonaUniqueString containerURL:&v43];
+              v33 = v43;
+              v42 = 0;
+              v34 = [v33 getResourceValue:&v42 forKey:v38 error:0];
+              v13 = v42;
 
               if (v34)
               {
@@ -1172,7 +1167,7 @@ LABEL_31:
                 os_unfair_lock_unlock(&selfCopy->_volumeCacheLock);
               }
 
-              if (v38)
+              if (v37)
               {
                 [lCopy stopAccessingSecurityScopedResource];
               }
@@ -1188,11 +1183,11 @@ LABEL_31:
             {
               personaLayoutPathURL3 = [v25 personaLayoutPathURL];
               *buf = 138412802;
-              v54 = personaLayoutPathURL3;
-              v55 = 2112;
-              v56 = lCopy;
-              v57 = 2112;
-              v58 = v29;
+              v53 = personaLayoutPathURL3;
+              v54 = 2112;
+              v55 = lCopy;
+              v56 = 2112;
+              v57 = v29;
               _os_log_error_impl(&dword_2615D3000, v30, OS_LOG_TYPE_ERROR, "Could not get relationship between %@ and %@, error: %@", buf, 0x20u);
             }
           }
@@ -1202,7 +1197,7 @@ LABEL_31:
 
         if (v22 == ++v24)
         {
-          v22 = [v20 countByEnumeratingWithState:&v47 objects:v59 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v46 objects:v58 count:16];
           if (v22)
           {
             goto LABEL_31;
@@ -1215,7 +1210,7 @@ LABEL_31:
 
     v29 = v17;
 LABEL_51:
-    v13 = v41;
+    v13 = v40;
     v35 = _log_3();
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
@@ -1238,7 +1233,6 @@ LABEL_54:
 LABEL_55:
 
 LABEL_56:
-  v36 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1284,53 +1278,52 @@ LABEL_56:
 
 - (void)generateSuccessiveThumbnailRepresentationsForRequests:(id)requests generationHandler:(id)handler completionHandler:(id)completionHandler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
   v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(requestsCopy, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v12 = requestsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v22;
+    v15 = *v21;
     do
     {
       v16 = 0;
       do
       {
-        if (*v22 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v21 + 1) + 8 * v16);
+        v17 = *(*(&v20 + 1) + 8 * v16);
         v18 = [QLTGeneratorThumbnailRequest alloc];
-        v19 = [(QLTGeneratorThumbnailRequest *)v18 initWithRequest:v17 generationHandler:handlerCopy, v21];
+        v19 = [(QLTGeneratorThumbnailRequest *)v18 initWithRequest:v17 generationHandler:handlerCopy, v20];
         [v11 addObject:v19];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v14);
   }
 
   [(QLServerThread *)self generateSuccessiveThumbnailRepresentationsForGeneratorRequests:v11 completionHandler:completionHandlerCopy];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateSuccessiveThumbnailRepresentationsForGeneratorRequests:(id)requests completionHandler:(id)handler
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   handlerCopy = handler;
   v8 = _log_3();
@@ -1339,27 +1332,27 @@ LABEL_56:
     [QLServerThread generateSuccessiveThumbnailRepresentationsForGeneratorRequests:completionHandler:];
   }
 
-  v35 = 0u;
-  v36 = 0u;
   v34 = 0u;
+  v35 = 0u;
   v33 = 0u;
+  v32 = 0u;
   v9 = requestsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v34;
+    v13 = *v33;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v34 != v13)
+        if (*v33 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        request = [*(*(&v33 + 1) + 8 * i) request];
+        request = [*(*(&v32 + 1) + 8 * i) request];
         v16 = [(QLServerThread *)self cacheThreadForRequest:request];
 
         if (v16 != self->_cacheThread)
@@ -1373,7 +1366,7 @@ LABEL_56:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v11);
@@ -1387,29 +1380,29 @@ LABEL_56:
   [(_QLCacheThread *)self->_cacheThread serverIsWorking];
   if (v12)
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v17 = v12;
-    v18 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v30;
+      v20 = *v29;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v30 != v20)
+          if (*v29 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          [*(*(&v29 + 1) + 8 * j) serverIsWorking];
+          [*(*(&v28 + 1) + 8 * j) serverIsWorking];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
       }
 
       while (v19);
@@ -1422,13 +1415,11 @@ LABEL_56:
   block[2] = __99__QLServerThread_generateSuccessiveThumbnailRepresentationsForGeneratorRequests_completionHandler___block_invoke;
   block[3] = &unk_279ADD6C8;
   block[4] = self;
-  v27 = v9;
-  v28 = handlerCopy;
+  v26 = v9;
+  v27 = handlerCopy;
   v23 = handlerCopy;
   v24 = v9;
   dispatch_sync(queue, block);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __50__QLServerThread__installRequestsFinishedWatchdog__block_invoke(uint64_t a1)
@@ -1462,30 +1453,30 @@ void __50__QLServerThread__installRequestsFinishedWatchdog__block_invoke_2(uint6
 
 - (void)_addThumbnailRequestBatchToQueue:(id)queue completionHandler:(id)handler
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   handlerCopy = handler;
   v7 = dispatch_group_create();
   [(QLServerThread *)self _installRequestsFinishedWatchdog];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = queueCopy;
-  v8 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v8)
   {
-    v9 = *v30;
+    v9 = *v29;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
+        v11 = *(*(&v28 + 1) + 8 * i);
         request = [v11 request];
         dispatch_group_enter(v7);
         kdebug_trace();
@@ -1514,7 +1505,7 @@ void __50__QLServerThread__installRequestsFinishedWatchdog__block_invoke_2(uint6
         os_activity_scope_leave(&state);
       }
 
-      v8 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v8);
@@ -1526,9 +1517,9 @@ void __50__QLServerThread__installRequestsFinishedWatchdog__block_invoke_2(uint6
   block[2] = __69__QLServerThread__addThumbnailRequestBatchToQueue_completionHandler___block_invoke;
   block[3] = &unk_279ADD710;
   block[4] = self;
-  v27 = handlerCopy;
+  v26 = handlerCopy;
   v19 = obj;
-  v26 = v19;
+  v25 = v19;
   v20 = handlerCopy;
   dispatch_group_notify(v7, completionBlocksQueue, block);
   v21 = _log_3();
@@ -1536,30 +1527,26 @@ void __50__QLServerThread__installRequestsFinishedWatchdog__block_invoke_2(uint6
   {
     [QLServerThread _addThumbnailRequestBatchToQueue:completionHandler:];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callCompletionHandler:(id)handler ofThumbnailRequestBatch:(id)batch
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   handlerCopy = handler;
   v9 = _log_3();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = NSStringFromSelector(a2);
-    v12 = 138412546;
-    v13 = v10;
-    v14 = 2112;
-    v15 = batchCopy;
-    _os_log_impl(&dword_2615D3000, v9, OS_LOG_TYPE_INFO, "%@%@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v10;
+    v13 = 2112;
+    v14 = batchCopy;
+    _os_log_impl(&dword_2615D3000, v9, OS_LOG_TYPE_INFO, "%@%@", &v11, 0x16u);
   }
 
   dispatch_assert_queue_V2(self->_completionBlocksQueue);
   handlerCopy[2](handlerCopy);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelThumbnailRequests:(id)requests
@@ -1578,30 +1565,30 @@ void __50__QLServerThread__installRequestsFinishedWatchdog__block_invoke_2(uint6
 
 void __42__QLServerThread_cancelThumbnailRequests___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v17;
+    v6 = *v16;
     *&v4 = 138412290;
-    v15 = v4;
+    v14 = v4;
     do
     {
       v7 = 0;
       do
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * v7);
+        v8 = *(*(&v15 + 1) + 8 * v7);
         v9 = [*(a1 + 40) pendingRequests];
         v10 = [v8 uuid];
         v11 = [v9 objectForKeyedSubscript:v10];
@@ -1612,8 +1599,8 @@ void __42__QLServerThread_cancelThumbnailRequests___block_invoke(uint64_t a1)
         {
           if (v13)
           {
-            *buf = v15;
-            v21 = v11;
+            *buf = v14;
+            v20 = v11;
             _os_log_impl(&dword_2615D3000, v12, OS_LOG_TYPE_INFO, "Cancelling request that is part of the pending requests: %@", buf, 0xCu);
           }
 
@@ -1624,8 +1611,8 @@ void __42__QLServerThread_cancelThumbnailRequests___block_invoke(uint64_t a1)
         {
           if (v13)
           {
-            *buf = v15;
-            v21 = v8;
+            *buf = v14;
+            v20 = v8;
             _os_log_impl(&dword_2615D3000, v12, OS_LOG_TYPE_INFO, "Can't cancel thumbnail request because it was not found in the pending requests: %@", buf, 0xCu);
           }
         }
@@ -1634,19 +1621,17 @@ void __42__QLServerThread_cancelThumbnailRequests___block_invoke(uint64_t a1)
       }
 
       while (v5 != v7);
-      v5 = [v2 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queueThumbnailRequest:(id)request tryCache:(BOOL)cache tryAdditionsFirst:(BOOL)first
 {
   cacheCopy = cache;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   request = [requestCopy request];
   v9 = _log_3();
@@ -1669,13 +1654,13 @@ void __42__QLServerThread_cancelThumbnailRequests___block_invoke(uint64_t a1)
       if (([request isValid] & 1) == 0)
       {
         v17 = dispatch_get_global_queue(0, 0);
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_26;
-        v30[3] = &unk_279ADD200;
-        v31 = requestCopy;
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_26;
+        v29[3] = &unk_279ADD200;
+        v30 = requestCopy;
         selfCopy = self;
-        dispatch_async(v17, v30);
+        dispatch_async(v17, v29);
 
         goto LABEL_18;
       }
@@ -1724,14 +1709,14 @@ void __42__QLServerThread_cancelThumbnailRequests___block_invoke(uint64_t a1)
       os_activity_scope_enter(v20, &buf);
       [requestCopy setActivity:v20];
       v21 = MEMORY[0x277CCA8C8];
-      v24 = MEMORY[0x277D85DD0];
-      v25 = 3221225472;
-      v26 = __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_28;
-      v27 = &unk_279ADD200;
-      v28 = requestCopy;
+      v23 = MEMORY[0x277D85DD0];
+      v24 = 3221225472;
+      v25 = __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_28;
+      v26 = &unk_279ADD200;
+      v27 = requestCopy;
       selfCopy2 = self;
-      v22 = [v21 blockOperationWithBlock:&v24];
-      [(NSOperationQueue *)self->_uncachedThumbnailRetrievalQueue addOperation:v22, v24, v25, v26, v27];
+      v22 = [v21 blockOperationWithBlock:&v23];
+      [(NSOperationQueue *)self->_uncachedThumbnailRetrievalQueue addOperation:v22, v23, v24, v25, v26];
 
       os_activity_scope_leave(&buf);
       goto LABEL_18;
@@ -1742,14 +1727,12 @@ void __42__QLServerThread_cancelThumbnailRequests___block_invoke(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke;
     block[3] = &unk_279ADD200;
-    v34 = requestCopy;
+    v33 = requestCopy;
     selfCopy3 = self;
     dispatch_async(v10, block);
   }
 
 LABEL_18:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke(uint64_t a1)
@@ -1757,7 +1740,7 @@ void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___blo
   v2 = _log_3();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_cold_1(a1);
+    __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_cold_1();
   }
 
   v5 = a1 + 32;
@@ -1772,7 +1755,7 @@ void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___blo
   v2 = _log_3();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_26_cold_1(a1);
+    __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_26_cold_1();
   }
 
   v5 = a1 + 32;
@@ -1798,7 +1781,7 @@ void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___blo
     v4 = _log_3();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_28_cold_1(v2);
+      __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_28_cold_1();
     }
 
     v6 = *(a1 + 32);
@@ -1827,14 +1810,14 @@ void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___blo
 
 void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_29(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = _log_3();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_29_cold_1(a1);
+      __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_29_cold_1();
     }
 
     v6 = *(a1 + 32);
@@ -1855,7 +1838,7 @@ void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___blo
       {
         v12 = *v8;
         *buf = 138412290;
-        v32 = v12;
+        v31 = v12;
         _os_log_impl(&dword_2615D3000, v11, OS_LOG_TYPE_INFO, "%@ is downloaded. Trying to generate a thumbnail locally", buf, 0xCu);
       }
 
@@ -1866,7 +1849,7 @@ void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___blo
         {
           v14 = *v8;
           *buf = 138412290;
-          v32 = v14;
+          v31 = v14;
           _os_log_impl(&dword_2615D3000, v13, OS_LOG_TYPE_INFO, "Before generateThumbnailForThumbnailRequest: thumbnail request %@ cancelled", buf, 0xCu);
         }
 
@@ -1880,15 +1863,15 @@ void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___blo
       {
         v21 = *(a1 + 32);
         v22 = *(a1 + 40);
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_30;
-        v28[3] = &unk_279ADD438;
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_30;
+        v27[3] = &unk_279ADD438;
         v23 = v21;
         v24 = *(a1 + 40);
-        v29 = v23;
-        v30 = v24;
-        [v22 generateThumbnailForThumbnailRequest:v23 shouldUpdateGenstore:0 completionHandler:v28];
+        v28 = v23;
+        v29 = v24;
+        [v22 generateThumbnailForThumbnailRequest:v23 shouldUpdateGenstore:0 completionHandler:v27];
       }
     }
 
@@ -1896,26 +1879,24 @@ void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___blo
     {
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_29_cold_2((a1 + 32));
+        __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_29_cold_2();
       }
 
       v18 = (a1 + 32);
       objc_initWeak(buf, *(a1 + 32));
       v19 = *(a1 + 40);
       v20 = *v18;
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_33;
-      v26[3] = &unk_279ADD738;
-      v26[4] = v19;
-      objc_copyWeak(&v27, buf);
-      [v19 findUncachedThumbnailInGenStoreOrDownload:v20 completionHandler:v26];
-      objc_destroyWeak(&v27);
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_33;
+      v25[3] = &unk_279ADD738;
+      v25[4] = v19;
+      objc_copyWeak(&v26, buf);
+      [v19 findUncachedThumbnailInGenStoreOrDownload:v20 completionHandler:v25];
+      objc_destroyWeak(&v26);
       objc_destroyWeak(buf);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_30(uint64_t a1, void *a2)
@@ -1930,7 +1911,7 @@ void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___blo
     {
       if (v6)
       {
-        __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_30_cold_2((a1 + 32));
+        __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_30_cold_2();
       }
 
       v9 = a1 + 32;
@@ -1944,7 +1925,7 @@ void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___blo
     {
       if (v6)
       {
-        __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_30_cold_1(v3, (a1 + 32));
+        __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_30_cold_1();
       }
 
       objc_initWeak(&location, *(a1 + 32));
@@ -2052,7 +2033,7 @@ LABEL_3:
   v7 = _log_3();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    __78__QLServerThread_findUncachedThumbnailInGenStoreOrDownload_completionHandler___block_invoke_cold_1((a1 + 32));
+    __78__QLServerThread_findUncachedThumbnailInGenStoreOrDownload_completionHandler___block_invoke_cold_1();
   }
 
   v8 = *(a1 + 48);
@@ -2082,7 +2063,7 @@ LABEL_10:
 
 - (id)genStoreThumbnailForRequest:(id)request error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   taggedLogicalURL = [requestCopy taggedLogicalURL];
   v8 = taggedLogicalURL;
@@ -2107,22 +2088,22 @@ LABEL_10:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v24 = v8;
-      v25 = 2112;
-      v26 = v13;
+      v23 = v8;
+      v24 = 2112;
+      v25 = v13;
       _os_log_impl(&dword_2615D3000, v14, OS_LOG_TYPE_INFO, "Trying GenStore for file at URL: %@ (physical: %@).", buf, 0x16u);
     }
 
-    v22 = 0;
-    v15 = [objc_alloc(MEMORY[0x277CDAAC0]) initWithAdditionsPresentOnURL:v13 error:&v22];
-    v16 = v22;
+    v21 = 0;
+    v15 = [objc_alloc(MEMORY[0x277CDAAC0]) initWithAdditionsPresentOnURL:v13 error:&v21];
+    v16 = v21;
     if (v16)
     {
       v17 = _log_3();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v24 = v16;
+        v23 = v16;
         _os_log_impl(&dword_2615D3000, v17, OS_LOG_TYPE_INFO, "Did not retrieve thumbnail from GenStore with error: %@", buf, 0xCu);
       }
     }
@@ -2176,9 +2157,190 @@ LABEL_22:
 
 LABEL_24:
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v18;
+}
+
+- (void)processLargeThumbnailData:(id)data withContentType:(id)type isAppContainer:(BOOL)container forRequest:(id)request fromGenStore:(BOOL)store completionHandler:(id)handler
+{
+  containerCopy = container;
+  v90[1] = *MEMORY[0x277D85DE8];
+  dataCopy = data;
+  typeCopy = type;
+  requestCopy = request;
+  handlerCopy = handler;
+  if (!handlerCopy)
+  {
+    [QLServerThread processLargeThumbnailData:withContentType:isAppContainer:forRequest:fromGenStore:completionHandler:];
+  }
+
+  v18 = handlerCopy;
+  if (!dataCopy)
+  {
+    v37 = _log_3();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    {
+      [QLServerThread processLargeThumbnailData:withContentType:isAppContainer:forRequest:fromGenStore:completionHandler:];
+    }
+
+    v38 = MEMORY[0x277CCACA8];
+    request = [requestCopy request];
+    request6 = [v38 stringWithFormat:@"Could not generate thumbnail: retrieved thumbnail had nil data for thumbnail request %@", request];
+
+    v40 = MEMORY[0x277CDAAE0];
+    request2 = [requestCopy request];
+    v89 = *MEMORY[0x277CCA068];
+    v90[0] = request6;
+    v42 = MEMORY[0x277CBEAC0];
+    v43 = v90;
+    v44 = &v89;
+    goto LABEL_19;
+  }
+
+  v19 = QLThumbnailingImageIOCreateImageSourceFromData();
+  if (!v19)
+  {
+    v45 = _log_3();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412802;
+      v84 = dataCopy;
+      v85 = 2112;
+      v86 = typeCopy;
+      v87 = 2112;
+      v88 = requestCopy;
+      _os_log_error_impl(&dword_2615D3000, v45, OS_LOG_TYPE_ERROR, "Received thumbnail data which ImageIO is unable to read (%@ %@) for %@", buf, 0x20u);
+    }
+
+    v46 = MEMORY[0x277CCACA8];
+    request3 = [requestCopy request];
+    request6 = [v46 stringWithFormat:@"Unable to decode thumbnail image data (of type %@) for thumbnail request %@", typeCopy, request3];
+
+    v40 = MEMORY[0x277CDAAE0];
+    request2 = [requestCopy request];
+    v81 = *MEMORY[0x277CCA068];
+    v82 = request6;
+    v42 = MEMORY[0x277CBEAC0];
+    v43 = &v82;
+    v44 = &v81;
+LABEL_19:
+    v48 = [v42 dictionaryWithObjects:v43 forKeys:v44 count:1];
+    v49 = [v40 errorWithCode:0 request:request2 additionalUserInfo:v48];
+
+LABEL_23:
+    (v18)[2](v18, v49);
+
+    goto LABEL_24;
+  }
+
+  v20 = v19;
+  QLThumbnailingImageIOGetSizeFromImageSourceAtIndex();
+  v23 = v22;
+  v24 = v21;
+  if (v22 == *MEMORY[0x277CBF3A8] && v21 == *(MEMORY[0x277CBF3A8] + 8))
+  {
+    v50 = _log_3();
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+    {
+      [QLServerThread processLargeThumbnailData:withContentType:isAppContainer:forRequest:fromGenStore:completionHandler:];
+    }
+
+    v51 = MEMORY[0x277CCACA8];
+    request4 = [requestCopy request];
+    request6 = [v51 stringWithFormat:@"Unable to decode thumbnail image data (of type %@) for thumbnail request %@", typeCopy, request4];
+
+    v53 = MEMORY[0x277CDAAE0];
+    request5 = [requestCopy request];
+    v79 = *MEMORY[0x277CCA068];
+    v80 = request6;
+    v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+    v49 = [v53 errorWithCode:0 request:request5 additionalUserInfo:v55];
+
+    CFRelease(v20);
+    goto LABEL_23;
+  }
+
+  v67 = typeCopy;
+  request6 = [requestCopy request];
+  [request6 size];
+  QLAdaptSizeInSize();
+  v28 = v27;
+  v30 = v29;
+  [request6 size];
+  [request6 minimumDimension];
+  [request6 scale];
+  v31 = QLThumbnailingImageIOCreateThumbnailOfMinimumSizeWithImageSource();
+  if (v31)
+  {
+    v32 = v31;
+    storeCopy = store;
+    request7 = [requestCopy request];
+    contentTypeUTI = [request7 contentTypeUTI];
+    v66 = QLIconFlavorDefaultFlavorForType();
+
+    v35 = [MEMORY[0x277CDAAB8] imageWithCGImage:v32];
+    v36 = _log_3();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    {
+      [QLServerThread processLargeThumbnailData:withContentType:isAppContainer:forRequest:fromGenStore:completionHandler:];
+    }
+
+    [(QLServerThread *)self addImage:v35 contentRect:containerCopy hasIconModeApplied:v66 flavor:0 extensionBadge:0 metadata:requestCopy toCacheAndCompleteRequest:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+    CGImageRelease(v32);
+
+    if (containerCopy)
+    {
+      CFRelease(v20);
+    }
+
+    else
+    {
+      genstoreCachingQueue = self->_genstoreCachingQueue;
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __117__QLServerThread_processLargeThumbnailData_withContentType_isAppContainer_forRequest_fromGenStore_completionHandler___block_invoke;
+      block[3] = &unk_279ADD7D0;
+      block[4] = self;
+      v69 = dataCopy;
+      v70 = requestCopy;
+      v71 = v20;
+      v72 = v23;
+      v73 = v24;
+      v74 = v28;
+      v75 = v30;
+      v76 = storeCopy;
+      dispatch_async(genstoreCachingQueue, block);
+    }
+
+    typeCopy = v67;
+    v18[2](v18, 0);
+  }
+
+  else
+  {
+    v56 = MEMORY[0x277CCACA8];
+    request8 = [requestCopy request];
+    v58 = [v56 stringWithFormat:@"Unable to decode thumbnail image data (of type %@) for thumbnail request %@", typeCopy, request8];
+
+    v59 = MEMORY[0x277CDAAE0];
+    request9 = [requestCopy request];
+    v77 = *MEMORY[0x277CCA068];
+    v78 = v58;
+    v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+    v62 = [v59 errorWithCode:0 request:request9 additionalUserInfo:v61];
+
+    v63 = _log_3();
+    if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+    {
+      [QLServerThread processLargeThumbnailData:withContentType:isAppContainer:forRequest:fromGenStore:completionHandler:];
+    }
+
+    (v18)[2](v18, v62);
+    CFRelease(v20);
+
+    typeCopy = v67;
+  }
+
+LABEL_24:
 }
 
 uint64_t __117__QLServerThread_processLargeThumbnailData_withContentType_isAppContainer_forRequest_fromGenStore_completionHandler___block_invoke(uint64_t a1)
@@ -2187,12 +2349,11 @@ uint64_t __117__QLServerThread_processLargeThumbnailData_withContentType_isAppCo
   v1 = *(a1 + 40);
   v3 = *(a1 + 48);
   v4 = *(a1 + 56);
-  v5 = *(a1 + 96);
-  v7 = MEMORY[0x277D85DD0];
-  v8 = 3221225472;
-  v9 = __117__QLServerThread_processLargeThumbnailData_withContentType_isAppContainer_forRequest_fromGenStore_completionHandler___block_invoke_2;
-  v10 = &__block_descriptor_40_e17_v16__0__NSError_8l;
-  v11 = v4;
+  v6 = MEMORY[0x277D85DD0];
+  v7 = 3221225472;
+  v8 = __117__QLServerThread_processLargeThumbnailData_withContentType_isAppContainer_forRequest_fromGenStore_completionHandler___block_invoke_2;
+  v9 = &__block_descriptor_40_e17_v16__0__NSError_8l;
+  v10 = v4;
   return [v2 _cacheThumbnailData:v1 forRequest:v3 imageSource:*(a1 + 64) actualSize:*(a1 + 72) resultSize:*(a1 + 80) fromGenStore:*(a1 + 88) completionHandler:?];
 }
 
@@ -2259,7 +2420,7 @@ uint64_t __117__QLServerThread_processLargeThumbnailData_withContentType_isAppCo
 
 void __114__QLServerThread__cacheThumbnailData_forRequest_imageSource_actualSize_resultSize_fromGenStore_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -2267,13 +2428,13 @@ void __114__QLServerThread__cacheThumbnailData_forRequest_imageSource_actualSize
     v7 = _log_3();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v12 = [*(a1 + 32) item];
+      v11 = [*(a1 + 32) item];
       *buf = 138412802;
-      v16 = v12;
-      v17 = 2112;
-      v18 = v5;
-      v19 = 2112;
-      v20 = v6;
+      v15 = v11;
+      v16 = 2112;
+      v17 = v5;
+      v18 = 2112;
+      v19 = v6;
       _os_log_error_impl(&dword_2615D3000, v7, OS_LOG_TYPE_ERROR, "Error fetching URL for item %@ (got %@): %@", buf, 0x20u);
     }
   }
@@ -2282,15 +2443,15 @@ void __114__QLServerThread__cacheThumbnailData_forRequest_imageSource_actualSize
   {
     if (!v5)
     {
-      v9 = *(a1 + 40);
-      v10 = *(a1 + 72);
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __114__QLServerThread__cacheThumbnailData_forRequest_imageSource_actualSize_resultSize_fromGenStore_completionHandler___block_invoke_57;
-      v13[3] = &unk_279ADD038;
-      v11 = *(a1 + 56);
-      v14 = *(a1 + 64);
-      [v9 _addAllThumbnailsSizesToCacheForRequest:v11 withImageSource:v10 imageSize:v13 alreadyCachedSize:*(a1 + 80) completionHandler:{*(a1 + 88), *(a1 + 96), *(a1 + 104)}];
+      v8 = *(a1 + 40);
+      v9 = *(a1 + 72);
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __114__QLServerThread__cacheThumbnailData_forRequest_imageSource_actualSize_resultSize_fromGenStore_completionHandler___block_invoke_57;
+      v12[3] = &unk_279ADD038;
+      v10 = *(a1 + 56);
+      v13 = *(a1 + 64);
+      [v8 _addAllThumbnailsSizesToCacheForRequest:v10 withImageSource:v9 imageSize:v12 alreadyCachedSize:*(a1 + 80) completionHandler:{*(a1 + 88), *(a1 + 96), *(a1 + 104)}];
 
       goto LABEL_6;
     }
@@ -2303,41 +2464,39 @@ void __114__QLServerThread__cacheThumbnailData_forRequest_imageSource_actualSize
 
   (*(*(a1 + 64) + 16))();
 LABEL_6:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_saveLargeThumbnailToGenstoreWithData:(id)data url:(id)url
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   urlCopy = url;
-  v26 = 0;
+  v25 = 0;
   v6 = MEMORY[0x277CBEBC0];
   dataCopy = data;
-  v8 = [v6 _QLTemporaryURLWithExtension:@"jpg" openingFileHandle:&v26 inDirectoryAtURL:0];
+  v8 = [v6 _QLTemporaryURLWithExtension:@"jpg" openingFileHandle:&v25 inDirectoryAtURL:0];
   v9 = objc_alloc(MEMORY[0x277CCA9F8]);
-  v10 = [v9 initWithFileDescriptor:v26 closeOnDealloc:1];
-  v25 = 0;
-  v11 = [v10 writeData:dataCopy error:&v25];
+  v10 = [v9 initWithFileDescriptor:v25 closeOnDealloc:1];
+  v24 = 0;
+  v11 = [v10 writeData:dataCopy error:&v24];
 
-  v12 = v25;
+  v12 = v24;
   if (v11)
   {
-    v24 = 0;
-    v13 = [v10 closeAndReturnError:&v24];
-    v14 = v24;
+    v23 = 0;
+    v13 = [v10 closeAndReturnError:&v23];
+    v14 = v23;
 
     if (v13)
     {
       startAccessingSecurityScopedResource = [urlCopy startAccessingSecurityScopedResource];
       defaultManager = _CFURLPromiseCopyPhysicalURL();
       v17 = MEMORY[0x277CDAAC0];
-      v27 = *MEMORY[0x277CBE788];
-      v28[0] = v8;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-      v23 = v14;
-      v19 = [v17 associateThumbnailImagesDictionary:v18 serializedQuickLookMetadata:0 withDocumentAtURL:defaultManager error:&v23];
-      v12 = v23;
+      v26 = *MEMORY[0x277CBE788];
+      v27[0] = v8;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+      v22 = v14;
+      v19 = [v17 associateThumbnailImagesDictionary:v18 serializedQuickLookMetadata:0 withDocumentAtURL:defaultManager error:&v22];
+      v12 = v22;
 
       if ((v19 & 1) == 0)
       {
@@ -2368,8 +2527,23 @@ LABEL_6:
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   [defaultManager removeItemAtURL:v8 error:0];
 LABEL_13:
+}
 
-  v22 = *MEMORY[0x277D85DE8];
+- (void)_saveLargeThumbnailForDocumentAtURL:(id)l toGenstoreWithImage:(CGImage *)image automaticallyGenerated:(BOOL)generated
+{
+  generatedCopy = generated;
+  lCopy = l;
+  v10 = 0;
+  LOBYTE(image) = [MEMORY[0x277CDAAC0] associateImage:image metadata:0 automaticallyGenerated:generatedCopy withURL:lCopy error:&v10];
+  v8 = v10;
+  if ((image & 1) == 0)
+  {
+    v9 = _log_3();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [QLServerThread _saveLargeThumbnailForDocumentAtURL:toGenstoreWithImage:automaticallyGenerated:];
+    }
+  }
 }
 
 - (void)_addAllThumbnailsSizesToCacheForRequest:(id)request withImageSource:(CGImageSource *)source imageSize:(CGSize)size alreadyCachedSize:(CGSize)cachedSize completionHandler:(id)handler
@@ -2410,71 +2584,64 @@ LABEL_13:
 void __120__QLServerThread__addAllThumbnailsSizesToCacheForRequest_withImageSource_imageSize_alreadyCachedSize_completionHandler___block_invoke(uint64_t a1)
 {
   v2 = 0;
-  v36 = *MEMORY[0x277D85DE8];
-  v34[0] = xmmword_261630540;
-  v34[1] = xmmword_261630550;
-  v35 = 0x4061800000000000;
-  v31[0] = 0;
-  v31[1] = 0;
-  v32 = xmmword_261630560;
-  v33 = 0x4050400000000000;
+  v32 = *MEMORY[0x277D85DE8];
+  v29 = xmmword_261630540;
+  v30 = xmmword_261630550;
+  v31 = 0x4061800000000000;
+  v25 = 0;
+  v26 = 0;
+  v27 = xmmword_261630560;
+  v28 = 0x4050400000000000;
   do
   {
-    v3 = *(v34 + v2 * 8);
-    v4 = *(a1 + 56);
-    v5 = *(a1 + 64);
     QLAdaptSizeInSize();
-    if (v7 != *(a1 + 72) || v6 != *(a1 + 80))
+    if (v4 != *(a1 + 72) || v3 != *(a1 + 80))
     {
-      v9 = v31[v2];
-      v10 = [*(a1 + 32) request];
-      v11 = *(a1 + 88);
-      [v10 scale];
-      [v10 interpolationQuality];
-      v12 = QLThumbnailingImageIOCreateThumbnailOfMinimumSizeWithImageSource();
-      if (v12)
+      v6 = [*(a1 + 32) request];
+      [v6 scale];
+      [v6 interpolationQuality];
+      v7 = QLThumbnailingImageIOCreateThumbnailOfMinimumSizeWithImageSource();
+      if (v7)
       {
-        v13 = v12;
-        v14 = [*(a1 + 32) request];
-        Width = CGImageGetWidth(v13);
-        v16 = [v14 copyWithSize:{Width, CGImageGetHeight(v13)}];
+        v8 = v7;
+        v9 = [*(a1 + 32) request];
+        Width = CGImageGetWidth(v8);
+        v11 = [v9 copyWithSize:{Width, CGImageGetHeight(v8)}];
 
-        v17 = [MEMORY[0x277CDAAB8] imageWithCGImage:v13];
-        CGImageRelease(v13);
-        v18 = *(a1 + 40);
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __120__QLServerThread__addAllThumbnailsSizesToCacheForRequest_withImageSource_imageSize_alreadyCachedSize_completionHandler___block_invoke_2;
-        v25[3] = &unk_279ADD820;
-        v19 = v18;
-        v26 = v19;
-        v27 = v16;
-        v28 = v17;
-        v29 = *(a1 + 32);
-        v30 = v10;
-        v20 = v17;
-        v21 = v16;
-        [v19 enqueueWriting:v25];
+        v12 = [MEMORY[0x277CDAAB8] imageWithCGImage:v8];
+        CGImageRelease(v8);
+        v13 = *(a1 + 40);
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __120__QLServerThread__addAllThumbnailsSizesToCacheForRequest_withImageSource_imageSize_alreadyCachedSize_completionHandler___block_invoke_2;
+        v19[3] = &unk_279ADD820;
+        v14 = v13;
+        v20 = v14;
+        v21 = v11;
+        v22 = v12;
+        v23 = *(a1 + 32);
+        v24 = v6;
+        v15 = v12;
+        v16 = v11;
+        [v14 enqueueWriting:v19];
       }
     }
 
-    ++v2;
+    v2 += 8;
   }
 
-  while (v2 != 5);
-  v22 = *(a1 + 48);
-  if (v22)
+  while (v2 != 40);
+  v17 = *(a1 + 48);
+  if (v17)
   {
-    (*(v22 + 16))();
+    (*(v17 + 16))();
   }
 
-  v23 = *(a1 + 88);
-  if (v23)
+  v18 = *(a1 + 88);
+  if (v18)
   {
-    CFRelease(v23);
+    CFRelease(v18);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __120__QLServerThread__addAllThumbnailsSizesToCacheForRequest_withImageSource_imageSize_alreadyCachedSize_completionHandler___block_invoke_2(uint64_t a1)
@@ -2493,7 +2660,7 @@ uint64_t __120__QLServerThread__addAllThumbnailsSizesToCacheForRequest_withImage
 - (void)generateThumbnailForThumbnailRequest:(id)request shouldUpdateGenstore:(BOOL)genstore completionHandler:(id)handler
 {
   genstoreCopy = genstore;
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   request = [requestCopy request];
@@ -2516,7 +2683,7 @@ uint64_t __120__QLServerThread__addAllThumbnailsSizesToCacheForRequest_withImage
     if (v17)
     {
       *buf = 138412290;
-      v46 = requestCopy;
+      v45 = requestCopy;
       _os_log_impl(&dword_2615D3000, v16, OS_LOG_TYPE_INFO, "About to generate a thumbnail locally for data request: %@", buf, 0xCu);
     }
 
@@ -2530,7 +2697,7 @@ uint64_t __120__QLServerThread__addAllThumbnailsSizesToCacheForRequest_withImage
   if (v17)
   {
     *buf = 138412290;
-    v46 = taggedLogicalURL;
+    v45 = taggedLogicalURL;
     _os_log_impl(&dword_2615D3000, v16, OS_LOG_TYPE_INFO, "About to generate a thumbnail locally from URL: %@", buf, 0xCu);
   }
 
@@ -2562,29 +2729,29 @@ LABEL_14:
     kdebug_trace();
 
     [requestCopy setGenerator:v26];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __94__QLServerThread_generateThumbnailForThumbnailRequest_shouldUpdateGenstore_completionHandler___block_invoke;
-    v43[3] = &unk_279ADD870;
-    v44 = requestCopy;
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __94__QLServerThread_generateThumbnailForThumbnailRequest_shouldUpdateGenstore_completionHandler___block_invoke_2;
-    v32[3] = &unk_279ADD898;
-    v33 = v44;
-    objc_copyWeak(&v39, buf);
-    v40 = needsLowQualityThumbnailGeneration;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __94__QLServerThread_generateThumbnailForThumbnailRequest_shouldUpdateGenstore_completionHandler___block_invoke;
+    v42[3] = &unk_279ADD870;
+    v43 = requestCopy;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __94__QLServerThread_generateThumbnailForThumbnailRequest_shouldUpdateGenstore_completionHandler___block_invoke_2;
+    v31[3] = &unk_279ADD898;
+    v32 = v43;
+    objc_copyWeak(&v38, buf);
+    v39 = needsLowQualityThumbnailGeneration;
     v28 = v26;
-    v34 = v28;
-    v35 = taggedLogicalURL;
-    v38 = handlerCopy;
-    v41 = isDataBased;
-    v36 = v10;
+    v33 = v28;
+    v34 = taggedLogicalURL;
+    v37 = handlerCopy;
+    v40 = isDataBased;
+    v35 = v10;
     selfCopy = self;
-    v42 = genstoreCopy;
-    [(QLPreviewThumbnailGenerator *)v28 generateWithWillStartBlock:v43 completionBlock:v32];
+    v41 = genstoreCopy;
+    [(QLPreviewThumbnailGenerator *)v28 generateWithWillStartBlock:v42 completionBlock:v31];
 
-    objc_destroyWeak(&v39);
+    objc_destroyWeak(&v38);
     objc_destroyWeak(buf);
 
     goto LABEL_18;
@@ -2596,8 +2763,8 @@ LABEL_14:
     goto LABEL_13;
   }
 
-  v30 = _log_3();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+  v29 = _log_3();
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
   {
     [QLServerThread generateThumbnailForThumbnailRequest:shouldUpdateGenstore:completionHandler:];
   }
@@ -2605,8 +2772,6 @@ LABEL_14:
   v21 = generationFailedErrorWithUnderlyingError(requestCopy, 0, @"Item does not have a file URL, cannot generate thumbnail locally");
   (*(handlerCopy + 2))(handlerCopy, v21);
 LABEL_18:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __94__QLServerThread_generateThumbnailForThumbnailRequest_shouldUpdateGenstore_completionHandler___block_invoke(uint64_t a1)
@@ -2619,7 +2784,7 @@ void __94__QLServerThread_generateThumbnailForThumbnailRequest_shouldUpdateGenst
 
 void __94__QLServerThread_generateThumbnailForThumbnailRequest_shouldUpdateGenstore_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = (a1 + 32);
   v5 = [*(a1 + 32) request];
@@ -2650,9 +2815,9 @@ void __94__QLServerThread_generateThumbnailForThumbnailRequest_shouldUpdateGenst
       v17 = *(a1 + 32);
       v18 = *(a1 + 48);
       *buf = 138412546;
-      v79 = v17;
-      v80 = 2112;
-      v81 = v18;
+      v78 = v17;
+      v79 = 2112;
+      v80 = v18;
       _os_log_impl(&dword_2615D3000, v11, OS_LOG_TYPE_INFO, "Failed to generate a thumbnail from a local file with QLPreviewThumbnailGenerator for request: %@ URL: %@.", buf, 0x16u);
     }
 
@@ -2668,9 +2833,9 @@ void __94__QLServerThread_generateThumbnailForThumbnailRequest_shouldUpdateGenst
       v13 = *(a1 + 32);
       v14 = *(a1 + 48);
       *buf = 138412546;
-      v79 = v13;
-      v80 = 2112;
-      v81 = v14;
+      v78 = v13;
+      v79 = 2112;
+      v80 = v14;
       _os_log_impl(&dword_2615D3000, v11, OS_LOG_TYPE_INFO, "Did generate a low quality thumbnail from a local file with QLPreviewThumbnailGenerator for request, but was expecting a full representation thumbnail: %@ URL: %@.", buf, 0x16u);
     }
 
@@ -2687,9 +2852,9 @@ LABEL_12:
     v20 = *(a1 + 32);
     v21 = *(a1 + 48);
     *buf = 138412546;
-    v79 = v20;
-    v80 = 2112;
-    v81 = v21;
+    v78 = v20;
+    v79 = 2112;
+    v80 = v21;
     _os_log_impl(&dword_2615D3000, v11, OS_LOG_TYPE_INFO, "Did generate a thumbnail from a local file with QLPreviewThumbnailGenerator for request: %@ URL: %@.", buf, 0x16u);
   }
 
@@ -2708,7 +2873,7 @@ LABEL_12:
   v26 = v25;
   v28 = v27;
   v30 = v29;
-  v69 = WeakRetained;
+  v68 = WeakRetained;
   if ([*(a1 + 56) iconMode] && (objc_msgSend(*(a1 + 40), "resultHasIconModeApplied") & 1) == 0)
   {
     [*(a1 + 56) size];
@@ -2717,8 +2882,8 @@ LABEL_12:
     [*(a1 + 56) scale];
     v31 = +[QLIconModeRenderer renderIconWithImages:size:scale:flavor:variant:](QLIconModeRenderer, "renderIconWithImages:size:scale:flavor:variant:", v7, [*(a1 + 40) flavor], objc_msgSend(*(a1 + 56), "iconVariant"), v38, v40, v41);
     v42 = [v31 image];
-    v77 = v42;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v77 count:1];
+    v76 = v42;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v76 count:1];
 
     [v31 contentRect];
     v24 = v43;
@@ -2730,38 +2895,38 @@ LABEL_12:
   else
   {
     v19 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v7, "count")}];
+    v71 = 0u;
     v72 = 0u;
     v73 = 0u;
     v74 = 0u;
-    v75 = 0u;
     v31 = v7;
-    v32 = [v31 countByEnumeratingWithState:&v72 objects:v76 count:16];
+    v32 = [v31 countByEnumeratingWithState:&v71 objects:v75 count:16];
     if (v32)
     {
       v33 = v32;
-      v68 = v22;
-      v70 = v3;
-      v34 = *v73;
+      v67 = v22;
+      v69 = v3;
+      v34 = *v72;
       do
       {
         for (i = 0; i != v33; ++i)
         {
-          if (*v73 != v34)
+          if (*v72 != v34)
           {
             objc_enumerationMutation(v31);
           }
 
-          v36 = [MEMORY[0x277CDAAB8] imageWithCGImage:{objc_msgSend(*(*(&v72 + 1) + 8 * i), "CGImage")}];
+          v36 = [MEMORY[0x277CDAAB8] imageWithCGImage:{objc_msgSend(*(*(&v71 + 1) + 8 * i), "CGImage")}];
           [v19 addObject:v36];
         }
 
-        v33 = [v31 countByEnumeratingWithState:&v72 objects:v76 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v71 objects:v75 count:16];
       }
 
       while (v33);
-      WeakRetained = v69;
-      v3 = v70;
-      v22 = v68;
+      WeakRetained = v68;
+      v3 = v69;
+      v22 = v67;
     }
   }
 
@@ -2818,7 +2983,7 @@ LABEL_12:
     {
       v59 = *v4;
       *buf = 138412290;
-      v79 = v59;
+      v78 = v59;
       _os_log_impl(&dword_2615D3000, v58, OS_LOG_TYPE_INFO, "completing thumbnail request %@ after generation without caching", buf, 0xCu);
     }
 
@@ -2831,10 +2996,10 @@ LABEL_12:
     v61 = _log_3();
     if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
     {
-      __94__QLServerThread_generateThumbnailForThumbnailRequest_shouldUpdateGenstore_completionHandler___block_invoke_2_cold_1((a1 + 32));
+      __94__QLServerThread_generateThumbnailForThumbnailRequest_shouldUpdateGenstore_completionHandler___block_invoke_2_cold_1();
     }
 
-    v71 = [v7 firstObject];
+    v70 = [v7 firstObject];
     v62 = *(a1 + 64);
     v63 = [v19 firstObject];
     v64 = [*(a1 + 40) flavor];
@@ -2844,15 +3009,15 @@ LABEL_12:
 
     if (*(a1 + 90) == 1)
     {
-      v60 = v71;
-      [*(a1 + 64) _saveLargeThumbnailForDocumentAtURL:*(a1 + 48) toGenstoreWithImage:objc_msgSend(v71 automaticallyGenerated:{"CGImage"), 1}];
-      WeakRetained = v69;
+      v60 = v70;
+      [*(a1 + 64) _saveLargeThumbnailForDocumentAtURL:*(a1 + 48) toGenstoreWithImage:objc_msgSend(v70 automaticallyGenerated:{"CGImage"), 1}];
+      WeakRetained = v68;
     }
 
     else
     {
-      WeakRetained = v69;
-      v60 = v71;
+      WeakRetained = v68;
+      v60 = v70;
     }
   }
 
@@ -2860,7 +3025,6 @@ LABEL_12:
 LABEL_49:
 
   [*v4 setGenerator:0];
-  v67 = *MEMORY[0x277D85DE8];
 }
 
 - (void)findThumbnailInAddition:(id)addition request:(id)request completionHandler:(id)handler
@@ -2896,7 +3060,7 @@ LABEL_49:
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   requestCopy = request;
   formatCopy = format;
@@ -2910,43 +3074,41 @@ LABEL_49:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v40 = requestCopy;
+      v39 = requestCopy;
       _os_log_impl(&dword_2615D3000, v23, OS_LOG_TYPE_INFO, "Will add image to cache for request: %@.", buf, 0xCu);
     }
 
     request2 = [requestCopy request];
     v25 = [(QLServerThread *)self cacheThreadForRequest:request2];
 
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __94__QLServerThread_addImageData_toCacheForRequest_withBitmapFormat_contentRect_flavor_metadata___block_invoke;
-    v28[3] = &unk_279ADD8C0;
-    v29 = requestCopy;
-    v30 = formatCopy;
-    v31 = dataCopy;
-    v32 = v25;
-    v33 = metadataCopy;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __94__QLServerThread_addImageData_toCacheForRequest_withBitmapFormat_contentRect_flavor_metadata___block_invoke;
+    v27[3] = &unk_279ADD8C0;
+    v28 = requestCopy;
+    v29 = formatCopy;
+    v30 = dataCopy;
+    v31 = v25;
+    v32 = metadataCopy;
     flavorCopy = flavor;
-    v34 = x;
-    v35 = y;
-    v36 = width;
-    v37 = height;
+    v33 = x;
+    v34 = y;
+    v35 = width;
+    v36 = height;
     v26 = v25;
-    [v26 enqueueWriting:v28];
+    [v26 enqueueWriting:v27];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __94__QLServerThread_addImageData_toCacheForRequest_withBitmapFormat_contentRect_flavor_metadata___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = _log_3();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v20 = v3;
+    v19 = v3;
     _os_log_impl(&dword_2615D3000, v2, OS_LOG_TYPE_INFO, "Adding image to cache for request: %@.", buf, 0xCu);
   }
 
@@ -2973,8 +3135,89 @@ uint64_t __94__QLServerThread_addImageData_toCacheForRequest_withBitmapFormat_co
   v15 = [*(a1 + 32) request];
   v16 = [v9 addThumbnailIntoCache:v10 bitmapFormat:v13 bitmapData:v6 metadata:v11 flavor:v12 contentRect:v14 badgeType:*(a1 + 72) externalGeneratorDataHash:*(a1 + 80), *(a1 + 88), *(a1 + 96), objc_msgSend(v15, "externalThumbnailGeneratorDataHash")];
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
+}
+
+- (void)addImage:(id)image contentRect:(CGRect)rect hasIconModeApplied:(BOOL)applied flavor:(int)flavor extensionBadge:(id)badge metadata:(id)metadata toCacheAndCompleteRequest:(id)request
+{
+  v11 = *&flavor;
+  height = rect.size.height;
+  width = rect.size.width;
+  y = rect.origin.y;
+  x = rect.origin.x;
+  v51 = *MEMORY[0x277D85DE8];
+  imageCopy = image;
+  metadataCopy = metadata;
+  requestCopy = request;
+  request = [requestCopy request];
+  v48 = imageCopy;
+  if (![request iconMode] || applied)
+  {
+    image = imageCopy;
+  }
+
+  else
+  {
+    [request size];
+    v22 = v21;
+    v24 = v23;
+    [request scale];
+    v26 = +[QLIconModeRenderer renderIconWithImage:size:scale:flavor:variant:](QLIconModeRenderer, "renderIconWithImage:size:scale:flavor:variant:", imageCopy, v11, [request iconVariant], v22, v24, v25);
+    image = [v26 image];
+    [v26 contentRect];
+    x = v28;
+    y = v29;
+    width = v30;
+    height = v31;
+  }
+
+  if ([request wantsBaseline] && objc_msgSend(metadataCopy, "baseline") == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    format = [image format];
+    [format width];
+    format2 = [image format];
+    [format2 height];
+    format3 = [image format];
+    [format3 bitsPerComponent];
+    format4 = [image format];
+    [format4 bitsPerPixel];
+    format5 = [image format];
+    [format5 bytesPerRow];
+    format6 = [image format];
+    [format6 bitmapInfo];
+    data = [image data];
+    [data bytes];
+    v35 = _QLThumbnailComputeBaselineFromData();
+
+    [metadataCopy setBaseline:v35];
+  }
+
+  if (metadataCopy)
+  {
+    v36 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:metadataCopy requiringSecureCoding:1 error:0];
+  }
+
+  else
+  {
+    v36 = 0;
+  }
+
+  v37 = _log_3();
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    v50 = requestCopy;
+    _os_log_impl(&dword_2615D3000, v37, OS_LOG_TYPE_INFO, "completing thumbnail request %@ in addImageData", buf, 0xCu);
+  }
+
+  data2 = [image data];
+  format7 = [image format];
+  LOBYTE(v42) = 1;
+  [(QLServerThread *)self completeThumbnailRequest:requestCopy bitmapData:data2 metadata:v36 contentRect:2 thumbnailRepresentation:v11 iconFlavor:format7 format:x clientShouldTakeOwnership:y, width, height, v42];
+
+  data3 = [image data];
+  format8 = [image format];
+  [(QLServerThread *)self addImageData:data3 toCacheForRequest:requestCopy withBitmapFormat:format8 contentRect:v11 flavor:v36 metadata:x, y, width, height];
 }
 
 - (void)completeThumbnailRequest:(id)request thumbnailData:(id)data updatedMetadata:(id)metadata
@@ -3015,27 +3258,68 @@ uint64_t __94__QLServerThread_addImageData_toCacheForRequest_withBitmapFormat_co
   }
 }
 
+- (void)completeThumbnailRequest:(id)request bitmapData:(id)data metadata:(id)metadata contentRect:(CGRect)rect thumbnailRepresentation:(int64_t)representation iconFlavor:(int)flavor format:(id)format clientShouldTakeOwnership:(BOOL)self0
+{
+  v11 = *&flavor;
+  height = rect.size.height;
+  width = rect.size.width;
+  y = rect.origin.y;
+  x = rect.origin.x;
+  v25[1] = *MEMORY[0x277D85DE8];
+  v20 = MEMORY[0x277CDAAB8];
+  metadataCopy = metadata;
+  requestCopy = request;
+  v23 = [v20 imageWithFormat:format data:data];
+  v25[0] = v23;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+  [(QLServerThread *)self completeThumbnailRequest:requestCopy images:v24 metadata:metadataCopy contentRect:representation thumbnailRepresentation:v11 iconFlavor:ownership clientShouldTakeOwnership:x, y, width, height];
+}
+
+- (void)completeThumbnailRequest:(id)request images:(id)images metadata:(id)metadata contentRect:(CGRect)rect thumbnailRepresentation:(int64_t)representation iconFlavor:(int)flavor clientShouldTakeOwnership:(BOOL)ownership
+{
+  ownershipCopy = ownership;
+  v10 = *&flavor;
+  height = rect.size.height;
+  width = rect.size.width;
+  y = rect.origin.y;
+  x = rect.origin.x;
+  v27 = *MEMORY[0x277D85DE8];
+  requestCopy = request;
+  queue = self->_queue;
+  metadataCopy = metadata;
+  imagesCopy = images;
+  dispatch_assert_queue_not_V2(queue);
+  v23 = _log_3();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    v26 = requestCopy;
+    _os_log_impl(&dword_2615D3000, v23, OS_LOG_TYPE_INFO, "completeThumbnailRequest -> sendResultForThumbnailRequest %@", buf, 0xCu);
+  }
+
+  LOBYTE(v24) = 1;
+  [(QLServerThread *)self sendResultForThumbnailRequest:requestCopy images:imagesCopy metadata:metadataCopy contentRect:v10 iconFlavor:representation thumbnailRepresentation:ownershipCopy clientShouldTakeOwnership:x reenqueueRequest:y error:width, height, v24, 0];
+}
+
 - (void)thumbnailRequestWasCancelled:(id)cancelled
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   cancelledCopy = cancelled;
   v5 = _log_3();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = cancelledCopy;
-    _os_log_impl(&dword_2615D3000, v5, OS_LOG_TYPE_INFO, "thumbnailRequestWasCancelled %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = cancelledCopy;
+    _os_log_impl(&dword_2615D3000, v5, OS_LOG_TYPE_INFO, "thumbnailRequestWasCancelled %@", &v7, 0xCu);
   }
 
   v6 = cancelledError(cancelledCopy);
   [(QLServerThread *)self failedToCompleteThumbnailRequest:cancelledCopy error:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didNotFindLowQualityEntryInCachedForThumbnailRequest:(id)request error:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   queue = self->_queue;
   errorCopy = error;
@@ -3044,14 +3328,12 @@ uint64_t __94__QLServerThread_addImageData_toCacheForRequest_withBitmapFormat_co
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v13 = requestCopy;
+    v12 = requestCopy;
     _os_log_impl(&dword_2615D3000, v9, OS_LOG_TYPE_INFO, "didNotFindLowQualityEntryInCachedForThumbnailRequest -> sendResultForThumbnailRequest %@", buf, 0xCu);
   }
 
-  LOBYTE(v11) = 0;
-  [(QLServerThread *)self sendResultForThumbnailRequest:requestCopy images:0 metadata:0 contentRect:0 iconFlavor:1 thumbnailRepresentation:0 clientShouldTakeOwnership:*MEMORY[0x277CBF3A0] reenqueueRequest:*(MEMORY[0x277CBF3A0] + 8) error:*(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24), v11, errorCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
+  LOBYTE(v10) = 0;
+  [(QLServerThread *)self sendResultForThumbnailRequest:requestCopy images:0 metadata:0 contentRect:0 iconFlavor:1 thumbnailRepresentation:0 clientShouldTakeOwnership:*MEMORY[0x277CBF3A0] reenqueueRequest:*(MEMORY[0x277CBF3A0] + 8) error:*(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24), v10, errorCopy];
 }
 
 - (void)failedToCompleteThumbnailRequest:(id)request error:(id)error
@@ -3150,7 +3432,7 @@ LABEL_11:
     v15 = _log_3();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      __160__QLServerThread_sendResultForThumbnailRequest_images_metadata_contentRect_iconFlavor_thumbnailRepresentation_clientShouldTakeOwnership_reenqueueRequest_error___block_invoke_cold_2(v2);
+      __160__QLServerThread_sendResultForThumbnailRequest_images_metadata_contentRect_iconFlavor_thumbnailRepresentation_clientShouldTakeOwnership_reenqueueRequest_error___block_invoke_cold_2();
     }
 
     [*(a1 + 56) _notifyGenerationHandlerOfThumbnailGenerationForRequest:*(a1 + 32) images:*(a1 + 40) metadata:*(a1 + 64) contentRect:*(a1 + 112) iconFlavor:*(a1 + 72) thumbnailRepresentation:*(a1 + 116) clientShouldTakeOwnership:*(a1 + 80) error:{*(a1 + 88), *(a1 + 96), *(a1 + 104), v5}];
@@ -3172,7 +3454,7 @@ LABEL_11:
   v16 = _log_3();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    __160__QLServerThread_sendResultForThumbnailRequest_images_metadata_contentRect_iconFlavor_thumbnailRepresentation_clientShouldTakeOwnership_reenqueueRequest_error___block_invoke_cold_1(v2);
+    __160__QLServerThread_sendResultForThumbnailRequest_images_metadata_contentRect_iconFlavor_thumbnailRepresentation_clientShouldTakeOwnership_reenqueueRequest_error___block_invoke_cold_1();
   }
 
   v17 = *(a1 + 56);
@@ -3191,9 +3473,64 @@ LABEL_14:
   os_activity_scope_leave(&state);
 }
 
+- (void)_notifyGenerationHandlerOfThumbnailGenerationForRequest:(id)request images:(id)images metadata:(id)metadata contentRect:(CGRect)rect iconFlavor:(int)flavor thumbnailRepresentation:(int64_t)representation clientShouldTakeOwnership:(BOOL)ownership error:(id)self0
+{
+  ownershipCopy = ownership;
+  v12 = *&flavor;
+  height = rect.size.height;
+  width = rect.size.width;
+  y = rect.origin.y;
+  x = rect.origin.x;
+  requestCopy = request;
+  imagesCopy = images;
+  metadataCopy = metadata;
+  errorCopy = error;
+  request = [requestCopy request];
+  kdebug_trace();
+
+  request2 = [requestCopy request];
+  if (imagesCopy)
+  {
+    generationHandler = [requestCopy generationHandler];
+    uuid = [request2 uuid];
+    [generationHandler didGenerateThumbnailForRequestWithUUID:uuid images:imagesCopy metadata:metadataCopy contentRect:v12 iconFlavor:representation thumbnailType:ownershipCopy clientShouldTakeOwnership:{x, y, width, height}];
+  }
+
+  else
+  {
+    if (!errorCopy)
+    {
+      errorCopy = [requestCopy generationError];
+      successfullyHandldedRequestedTypes = [requestCopy successfullyHandldedRequestedTypes];
+      if (!errorCopy)
+      {
+        if (successfullyHandldedRequestedTypes == *MEMORY[0x277CDAB60])
+        {
+          v28 = _log_3();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          {
+            [QLServerThread _notifyGenerationHandlerOfThumbnailGenerationForRequest:images:metadata:contentRect:iconFlavor:thumbnailRepresentation:clientShouldTakeOwnership:error:];
+          }
+
+          errorCopy = generationFailedError(requestCopy);
+        }
+
+        else
+        {
+          errorCopy = 0;
+        }
+      }
+    }
+
+    generationHandler2 = [requestCopy generationHandler];
+    uuid2 = [request2 uuid];
+    [generationHandler2 failedToGenerateThumbnailOfType:representation forRequestWithUUID:uuid2 error:errorCopy];
+  }
+}
+
 - (BOOL)_saveResultForThumbnailRequest:(id)request withImage:(id)image error:(id *)error
 {
-  v74[1] = *MEMORY[0x277D85DE8];
+  v72[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   queue = self->_queue;
   imageCopy = image;
@@ -3209,9 +3546,9 @@ LABEL_14:
     if (saveURL)
     {
       startAccessingSecurityScopedResource = [saveURL startAccessingSecurityScopedResource];
-      v58 = 0;
-      v16 = [MEMORY[0x277CBEBC0] _QLCreateTemporaryReplacementURLForOriginalFileAtURL:saveURL withExtension:0 temporaryDirectoryURL:&v58];
-      v54 = v58;
+      v56 = 0;
+      v16 = [MEMORY[0x277CBEBC0] _QLCreateTemporaryReplacementURLForOriginalFileAtURL:saveURL withExtension:0 temporaryDirectoryURL:&v56];
+      v52 = v56;
       if (!v16)
       {
         v32 = _log_3();
@@ -3236,9 +3573,9 @@ LABEL_23:
           if (!imageCopy)
           {
 LABEL_28:
-            if (v54)
+            if (v52)
             {
-              [MEMORY[0x277CCAA00] _QLTRemoveTemporaryDirectoryAtURL:v54];
+              [MEMORY[0x277CCAA00] _QLTRemoveTemporaryDirectoryAtURL:v52];
             }
 
             if (startAccessingSecurityScopedResource)
@@ -3277,7 +3614,7 @@ LABEL_27:
       v18 = objc_alloc_init(MEMORY[0x277CBEB28]);
       v17 = CGImageDestinationCreateWithData(v18, identifier, 1uLL, 0);
       startAccessingSecurityScopedResource = 0;
-      v54 = 0;
+      v52 = 0;
       v16 = 0;
       if (!v17)
       {
@@ -3285,10 +3622,10 @@ LABEL_27:
       }
     }
 
-    v53 = identifier;
-    v71 = *MEMORY[0x277CD2D60];
-    v72 = MEMORY[0x277CBEC38];
-    CGImageDestinationAddImage(v17, v15, [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1]);
+    v51 = identifier;
+    v69 = *MEMORY[0x277CD2D60];
+    v70 = MEMORY[0x277CBEC38];
+    CGImageDestinationAddImage(v17, v15, [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1]);
     v22 = CGImageDestinationFinalize(v17);
     CFRelease(v17);
     if (!v22)
@@ -3301,12 +3638,12 @@ LABEL_27:
 
       if (error)
       {
-        v51 = MEMORY[0x277CDAAE0];
-        v69 = *MEMORY[0x277CCA068];
+        v49 = MEMORY[0x277CDAAE0];
+        v67 = *MEMORY[0x277CCA068];
         v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to save thumbnail for %@ to %@", request, saveURL];
-        v70 = v30;
-        v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
-        *error = [v51 errorWithCode:1 request:request additionalUserInfo:v31];
+        v68 = v30;
+        v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+        *error = [v49 errorWithCode:1 request:request additionalUserInfo:v31];
 
         v21 = 0;
       }
@@ -3316,7 +3653,7 @@ LABEL_27:
         v21 = 1;
       }
 
-      identifier = v53;
+      identifier = v51;
       if (!imageCopy)
       {
         goto LABEL_28;
@@ -3328,54 +3665,53 @@ LABEL_27:
     if (!v18)
     {
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v56 = 0;
-      v21 = [defaultManager replaceItemAtURL:saveURL withItemAtURL:v16 backupItemName:0 options:0 resultingItemURL:0 error:&v56];
-      v37 = v56;
+      v54 = 0;
+      v21 = [defaultManager replaceItemAtURL:saveURL withItemAtURL:v16 backupItemName:0 options:0 resultingItemURL:0 error:&v54];
+      v36 = v54;
 
-      identifier = v53;
+      identifier = v51;
       if ((v21 & 1) == 0)
       {
-        v52 = v37;
-        v38 = _log_3();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v50 = v36;
+        v37 = _log_3();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
           [QLServerThread _saveResultForThumbnailRequest:withImage:error:];
         }
 
-        v37 = v52;
+        v36 = v50;
         if (error)
         {
-          v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to save thumbnail for %@ to %@", requestCopy, saveURL];
-          v40 = *MEMORY[0x277CCA068];
-          v49 = v39;
-          if (v52)
+          v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to save thumbnail for %@ to %@", requestCopy, saveURL];
+          v47 = v38;
+          if (v50)
           {
-            v41 = *MEMORY[0x277CCA7E8];
-            v61[0] = *MEMORY[0x277CCA068];
-            v61[1] = v41;
-            v62[0] = v39;
-            v62[1] = v52;
-            v42 = MEMORY[0x277CBEAC0];
-            v43 = v62;
-            v44 = v61;
-            v45 = 2;
+            v39 = *MEMORY[0x277CCA7E8];
+            v59[0] = *MEMORY[0x277CCA068];
+            v59[1] = v39;
+            v60[0] = v38;
+            v60[1] = v50;
+            v40 = MEMORY[0x277CBEAC0];
+            v41 = v60;
+            v42 = v59;
+            v43 = 2;
           }
 
           else
           {
-            v59 = *MEMORY[0x277CCA068];
-            v60 = v39;
-            v42 = MEMORY[0x277CBEAC0];
-            v43 = &v60;
-            v44 = &v59;
-            v45 = 1;
+            v57 = *MEMORY[0x277CCA068];
+            v58 = v38;
+            v40 = MEMORY[0x277CBEAC0];
+            v41 = &v58;
+            v42 = &v57;
+            v43 = 1;
           }
 
-          v48 = [v42 dictionaryWithObjects:v43 forKeys:v44 count:v45];
-          *error = [MEMORY[0x277CDAAE0] errorWithCode:1 request:request additionalUserInfo:v48];
-          v37 = v52;
-          v46 = v52;
-          *error = v52;
+          v46 = [v40 dictionaryWithObjects:v41 forKeys:v42 count:v43];
+          *error = [MEMORY[0x277CDAAE0] errorWithCode:1 request:request additionalUserInfo:v46];
+          v36 = v50;
+          v44 = v50;
+          *error = v50;
         }
       }
 
@@ -3389,15 +3725,15 @@ LABEL_27:
     }
 
     saveFileHandle = [request saveFileHandle];
-    v57 = 0;
-    v24 = [saveFileHandle writeData:v18 error:&v57];
-    v50 = v57;
+    v55 = 0;
+    v24 = [saveFileHandle writeData:v18 error:&v55];
+    v48 = v55;
 
     v25 = _log_3();
     v26 = v25;
     if (v24)
     {
-      identifier = v53;
+      identifier = v51;
       if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_48;
@@ -3406,34 +3742,34 @@ LABEL_27:
       v27 = [(__CFData *)v18 length];
       saveFileHandle2 = [request saveFileHandle];
       *buf = 134218498;
-      v64 = v27;
+      v62 = v27;
+      v63 = 2112;
+      v64 = saveFileHandle2;
       v65 = 2112;
-      v66 = saveFileHandle2;
-      v67 = 2112;
-      v68 = requestCopy;
+      v66 = requestCopy;
       _os_log_debug_impl(&dword_2615D3000, v26, OS_LOG_TYPE_DEBUG, "Successfully wrote data of length %llu to file handle %@ for request %@", buf, 0x20u);
     }
 
     else
     {
-      identifier = v53;
+      identifier = v51;
       if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_48;
       }
 
-      v47 = [(__CFData *)v18 length];
+      v45 = [(__CFData *)v18 length];
       saveFileHandle2 = [request saveFileHandle];
       *buf = 134218498;
-      v64 = v47;
+      v62 = v45;
+      v63 = 2112;
+      v64 = saveFileHandle2;
       v65 = 2112;
-      v66 = saveFileHandle2;
-      v67 = 2112;
-      v68 = v50;
+      v66 = v48;
       _os_log_error_impl(&dword_2615D3000, v26, OS_LOG_TYPE_ERROR, "Could not write saved thumbnail (length: %llu) to file handle %@: %@", buf, 0x20u);
     }
 
-    identifier = v53;
+    identifier = v51;
 LABEL_48:
 
     v21 = 1;
@@ -3459,27 +3795,26 @@ LABEL_48:
 
   v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to decode thumbnail data to save for %@", request];
   v20 = MEMORY[0x277CDAAE0];
-  v73 = *MEMORY[0x277CCA068];
-  v74[0] = v18;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:&v73 count:1];
+  v71 = *MEMORY[0x277CCA068];
+  v72[0] = v18;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:&v71 count:1];
   [v20 errorWithCode:1 request:request additionalUserInfo:v16];
   *error = v21 = 0;
 LABEL_33:
 
 LABEL_34:
-  v34 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (void)_completeHandledThumbnailRequest:(id)request
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = _log_3();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v15 = requestCopy;
+    v14 = requestCopy;
     _os_log_impl(&dword_2615D3000, v5, OS_LOG_TYPE_INFO, "All requested thumbnail types for request %@ have been handled.", buf, 0xCu);
   }
 
@@ -3490,18 +3825,16 @@ LABEL_34:
   block[2] = __51__QLServerThread__completeHandledThumbnailRequest___block_invoke;
   block[3] = &unk_279ADD2A0;
   block[4] = self;
-  v12 = requestCopy;
-  v13 = callStackReturnAddresses;
+  v11 = requestCopy;
+  v12 = callStackReturnAddresses;
   v8 = callStackReturnAddresses;
   v9 = requestCopy;
   dispatch_async(queue, block);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __51__QLServerThread__completeHandledThumbnailRequest___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 40);
   v3 = *(*(a1 + 32) + 128);
   v4 = [*(a1 + 40) request];
@@ -3513,7 +3846,7 @@ void __51__QLServerThread__completeHandledThumbnailRequest___block_invoke(uint64
     v7 = _log_3();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      __51__QLServerThread__completeHandledThumbnailRequest___block_invoke_cold_1(v2);
+      __51__QLServerThread__completeHandledThumbnailRequest___block_invoke_cold_1();
     }
   }
 
@@ -3522,15 +3855,13 @@ void __51__QLServerThread__completeHandledThumbnailRequest___block_invoke(uint64
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = *v2;
-    v12 = 138412290;
-    v13 = v9;
-    _os_log_impl(&dword_2615D3000, v8, OS_LOG_TYPE_INFO, "Leaving group for request %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v9;
+    _os_log_impl(&dword_2615D3000, v8, OS_LOG_TYPE_INFO, "Leaving group for request %@", &v11, 0xCu);
   }
 
   v10 = [*v2 batchDispatchGroup];
   dispatch_group_leave(v10);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeRequestFromPendingRequests:(id)requests
@@ -3557,59 +3888,59 @@ void __51__QLServerThread__completeHandledThumbnailRequest___block_invoke(uint64
 
 - (void)removeCachedThumbnailsFromUninstalledFileProvidersWithRemainingFileProviderIdentifiers:(id)identifiers completionHandler:(id)handler
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   handlerCopy = handler;
   v7 = objc_opt_new();
   os_unfair_lock_lock(&self->_domainCacheLock);
   domainsToCaches = self->_domainsToCaches;
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __123__QLServerThread_removeCachedThumbnailsFromUninstalledFileProvidersWithRemainingFileProviderIdentifiers_completionHandler___block_invoke;
-  v31[3] = &unk_279ADD930;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __123__QLServerThread_removeCachedThumbnailsFromUninstalledFileProvidersWithRemainingFileProviderIdentifiers_completionHandler___block_invoke;
+  v30[3] = &unk_279ADD930;
   v9 = v7;
-  v32 = v9;
-  [(NSMutableDictionary *)domainsToCaches enumerateKeysAndObjectsUsingBlock:v31];
+  v31 = v9;
+  [(NSMutableDictionary *)domainsToCaches enumerateKeysAndObjectsUsingBlock:v30];
   os_unfair_lock_unlock(&self->_domainCacheLock);
   selfCopy = self;
   [v9 addObject:self->_cacheThread];
   v10 = dispatch_group_create();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v11 = v9;
-  v12 = [v11 countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v28;
+    v14 = *v27;
     do
     {
       v15 = 0;
       do
       {
-        if (*v28 != v14)
+        if (*v27 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v27 + 1) + 8 * v15);
+        v16 = *(*(&v26 + 1) + 8 * v15);
         dispatch_group_enter(v10);
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __123__QLServerThread_removeCachedThumbnailsFromUninstalledFileProvidersWithRemainingFileProviderIdentifiers_completionHandler___block_invoke_2;
-        v24[3] = &unk_279ADD958;
-        v24[4] = v16;
-        v25 = identifiersCopy;
-        v26 = v10;
-        [v16 enqueueWriting:v24];
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __123__QLServerThread_removeCachedThumbnailsFromUninstalledFileProvidersWithRemainingFileProviderIdentifiers_completionHandler___block_invoke_2;
+        v23[3] = &unk_279ADD958;
+        v23[4] = v16;
+        v24 = identifiersCopy;
+        v25 = v10;
+        [v16 enqueueWriting:v23];
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v13);
@@ -3620,11 +3951,9 @@ void __51__QLServerThread__completeHandledThumbnailRequest___block_invoke(uint64
   block[1] = 3221225472;
   block[2] = __123__QLServerThread_removeCachedThumbnailsFromUninstalledFileProvidersWithRemainingFileProviderIdentifiers_completionHandler___block_invoke_3;
   block[3] = &unk_279ADD038;
-  v23 = handlerCopy;
+  v22 = handlerCopy;
   v18 = handlerCopy;
   dispatch_group_notify(v10, completionBlocksQueue, block);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __123__QLServerThread_removeCachedThumbnailsFromUninstalledFileProvidersWithRemainingFileProviderIdentifiers_completionHandler___block_invoke_2(uint64_t a1)
@@ -3647,59 +3976,59 @@ uint64_t __123__QLServerThread_removeCachedThumbnailsFromUninstalledFileProvider
 
 - (void)removeCachedThumbnailsFromUninstalledFileProvidersWithIdentifiers:(id)identifiers completionHandler:(id)handler
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   handlerCopy = handler;
   v7 = objc_opt_new();
   os_unfair_lock_lock(&self->_domainCacheLock);
   domainsToCaches = self->_domainsToCaches;
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __102__QLServerThread_removeCachedThumbnailsFromUninstalledFileProvidersWithIdentifiers_completionHandler___block_invoke;
-  v31[3] = &unk_279ADD930;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __102__QLServerThread_removeCachedThumbnailsFromUninstalledFileProvidersWithIdentifiers_completionHandler___block_invoke;
+  v30[3] = &unk_279ADD930;
   v9 = v7;
-  v32 = v9;
-  [(NSMutableDictionary *)domainsToCaches enumerateKeysAndObjectsUsingBlock:v31];
+  v31 = v9;
+  [(NSMutableDictionary *)domainsToCaches enumerateKeysAndObjectsUsingBlock:v30];
   os_unfair_lock_unlock(&self->_domainCacheLock);
   selfCopy = self;
   [v9 addObject:self->_cacheThread];
   v10 = dispatch_group_create();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v11 = v9;
-  v12 = [v11 countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v28;
+    v14 = *v27;
     do
     {
       v15 = 0;
       do
       {
-        if (*v28 != v14)
+        if (*v27 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v27 + 1) + 8 * v15);
+        v16 = *(*(&v26 + 1) + 8 * v15);
         dispatch_group_enter(v10);
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __102__QLServerThread_removeCachedThumbnailsFromUninstalledFileProvidersWithIdentifiers_completionHandler___block_invoke_2;
-        v24[3] = &unk_279ADD958;
-        v24[4] = v16;
-        v25 = identifiersCopy;
-        v26 = v10;
-        [v16 enqueueWriting:v24];
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __102__QLServerThread_removeCachedThumbnailsFromUninstalledFileProvidersWithIdentifiers_completionHandler___block_invoke_2;
+        v23[3] = &unk_279ADD958;
+        v23[4] = v16;
+        v24 = identifiersCopy;
+        v25 = v10;
+        [v16 enqueueWriting:v23];
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v13);
@@ -3710,11 +4039,9 @@ uint64_t __123__QLServerThread_removeCachedThumbnailsFromUninstalledFileProvider
   block[1] = 3221225472;
   block[2] = __102__QLServerThread_removeCachedThumbnailsFromUninstalledFileProvidersWithIdentifiers_completionHandler___block_invoke_3;
   block[3] = &unk_279ADD038;
-  v23 = handlerCopy;
+  v22 = handlerCopy;
   v18 = handlerCopy;
   dispatch_group_notify(v10, completionBlocksQueue, block);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __102__QLServerThread_removeCachedThumbnailsFromUninstalledFileProvidersWithIdentifiers_completionHandler___block_invoke_2(uint64_t a1)
@@ -3737,7 +4064,7 @@ uint64_t __102__QLServerThread_removeCachedThumbnailsFromUninstalledFileProvider
 
 - (BOOL)_canUseAdditionToProvideThumbnail:(id)thumbnail forThumbnailRequest:(id)request taggedLogicalURL:(id)l
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (thumbnail)
   {
@@ -3752,9 +4079,9 @@ uint64_t __102__QLServerThread_removeCachedThumbnailsFromUninstalledFileProvider
     {
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v18 = 138412290;
-        v19 = lCopy;
-        _os_log_impl(&dword_2615D3000, v12, OS_LOG_TYPE_INFO, "not trusting thumbnail in GenStore for %@ because it is not for the right version", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = lCopy;
+        _os_log_impl(&dword_2615D3000, v12, OS_LOG_TYPE_INFO, "not trusting thumbnail in GenStore for %@ because it is not for the right version", &v17, 0xCu);
       }
 
       if (!lCopy || ([MEMORY[0x277CDAB20] contentTypeForURL:lCopy], v13 = objc_claimAutoreleasedReturnValue(), v14 = +[QLPreviewThumbnailGenerator canGenerateThumbnailForContentType:atSize:](QLPreviewThumbnailGenerator, "canGenerateThumbnailForContentType:atSize:", v13, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)), v13, v14))
@@ -3784,7 +4111,6 @@ LABEL_14:
   v15 = 0;
 LABEL_15:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -3927,7 +4253,7 @@ void __37__QLServerThread_forEachCacheThread___block_invoke_2(uint64_t a1, uint6
 
 - (id)failedDownloadErrorForRequest:(id)request underlyingError:(id)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   errorCopy = error;
   item = [requestCopy item];
@@ -3952,19 +4278,17 @@ void __37__QLServerThread_forEachCacheThread___block_invoke_2(uint64_t a1, uint6
 
   v12 = MEMORY[0x277CDAAE0];
   request = [requestCopy request];
-  v18 = v11;
-  v19[0] = v9;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v17 = v11;
+  v18[0] = v9;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
   v15 = [v12 errorWithCode:3 request:request additionalUserInfo:v14];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 - (void)_downloadThumbnailForRequest:(id)request completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   item = [requestCopy item];
@@ -3975,7 +4299,7 @@ void __37__QLServerThread_forEachCacheThread___block_invoke_2(uint64_t a1, uint6
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v29 = requestCopy;
+      v28 = requestCopy;
       _os_log_impl(&dword_2615D3000, v16, OS_LOG_TYPE_INFO, "Item provider doesn't support fetching thumbnails for %@", buf, 0xCu);
     }
 
@@ -3995,7 +4319,7 @@ void __37__QLServerThread_forEachCacheThread___block_invoke_2(uint64_t a1, uint6
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v29 = requestCopy;
+      v28 = requestCopy;
       _os_log_impl(&dword_2615D3000, v12, OS_LOG_TYPE_INFO, "We cached there is no thumbnail on the server for %@, failing", buf, 0xCu);
     }
 
@@ -4012,7 +4336,7 @@ LABEL_12:
   v18 = _log_9();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
-    [QLServerThread(UbiquitousRequests) _downloadThumbnailForRequest:requestCopy completionHandler:self];
+    [QLServerThread(UbiquitousRequests) _downloadThumbnailForRequest:completionHandler:];
   }
 
   generationHandler = [requestCopy generationHandler];
@@ -4025,26 +4349,24 @@ LABEL_12:
   block[1] = 3221225472;
   block[2] = __85__QLServerThread_UbiquitousRequests___downloadThumbnailForRequest_completionHandler___block_invoke;
   block[3] = &unk_279ADD2A0;
-  v25 = requestCopy;
+  v24 = requestCopy;
   selfCopy3 = self;
-  v27 = item;
+  v26 = item;
   dispatch_async(pendingDownloadsQueue, block);
 
-  v17 = v25;
+  v17 = v24;
 LABEL_16:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __85__QLServerThread_UbiquitousRequests___downloadThumbnailForRequest_completionHandler___block_invoke(id *a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] request];
   v3 = _log_9();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v22 = v2;
+    v21 = v2;
     _os_log_impl(&dword_2615D3000, v3, OS_LOG_TYPE_INFO, "Adding thumbnail-download to queue for request: %@", buf, 0xCu);
   }
 
@@ -4089,17 +4411,15 @@ void __85__QLServerThread_UbiquitousRequests___downloadThumbnailForRequest_compl
     v14 = dispatch_time(0, 100000000);
     v15 = a1[5];
     v16 = *(v15 + 2);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __85__QLServerThread_UbiquitousRequests___downloadThumbnailForRequest_completionHandler___block_invoke_18;
-    v19[3] = &unk_279ADD200;
-    v19[4] = v15;
-    v20 = v2;
-    dispatch_after(v14, v16, v19);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __85__QLServerThread_UbiquitousRequests___downloadThumbnailForRequest_completionHandler___block_invoke_18;
+    v18[3] = &unk_279ADD200;
+    v18[4] = v15;
+    v19 = v2;
+    dispatch_after(v14, v16, v18);
     *(a1[5] + 24) = 1;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __85__QLServerThread_UbiquitousRequests___downloadThumbnailForRequest_completionHandler___block_invoke_18(uint64_t a1)
@@ -4108,7 +4428,7 @@ uint64_t __85__QLServerThread_UbiquitousRequests___downloadThumbnailForRequest_c
   v2 = _log_9();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __85__QLServerThread_UbiquitousRequests___downloadThumbnailForRequest_completionHandler___block_invoke_18_cold_1(a1);
+    __85__QLServerThread_UbiquitousRequests___downloadThumbnailForRequest_completionHandler___block_invoke_18_cold_1();
   }
 
   return [*(a1 + 32) drainDownloadsQueueIfNeeded];
@@ -4116,7 +4436,7 @@ uint64_t __85__QLServerThread_UbiquitousRequests___downloadThumbnailForRequest_c
 
 - (void)downloadThumbnailForRequest:(id)request completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   request = [requestCopy request];
@@ -4124,16 +4444,16 @@ uint64_t __85__QLServerThread_UbiquitousRequests___downloadThumbnailForRequest_c
 
   if (isDownloadingAllowed)
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __84__QLServerThread_UbiquitousRequests__downloadThumbnailForRequest_completionHandler___block_invoke;
-    v19[3] = &unk_279ADDFA0;
-    v20 = requestCopy;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __84__QLServerThread_UbiquitousRequests__downloadThumbnailForRequest_completionHandler___block_invoke;
+    v18[3] = &unk_279ADDFA0;
+    v19 = requestCopy;
     selfCopy = self;
-    v22 = handlerCopy;
-    [v20 fetchFPItemWithCompletionHandler:v19];
+    v21 = handlerCopy;
+    [v19 fetchFPItemWithCompletionHandler:v18];
 
-    v10 = v20;
+    v10 = v19;
   }
 
   else
@@ -4142,7 +4462,7 @@ uint64_t __85__QLServerThread_UbiquitousRequests___downloadThumbnailForRequest_c
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v26 = requestCopy;
+      v25 = requestCopy;
       _os_log_impl(&dword_2615D3000, v11, OS_LOG_TYPE_INFO, "Will not add thumbnail-download to queue because downloading is not allowed for request: %@.", buf, 0xCu);
     }
 
@@ -4152,19 +4472,17 @@ uint64_t __85__QLServerThread_UbiquitousRequests___downloadThumbnailForRequest_c
 
     v14 = MEMORY[0x277CDAAE0];
     request3 = [requestCopy request];
-    v23 = *MEMORY[0x277CCA068];
-    v24 = v10;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x277CCA068];
+    v23 = v10;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     v17 = [v14 errorWithCode:0 request:request3 additionalUserInfo:v16];
     (*(handlerCopy + 2))(handlerCopy, v17);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __84__QLServerThread_UbiquitousRequests__downloadThumbnailForRequest_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) item];
 
@@ -4178,7 +4496,7 @@ void __84__QLServerThread_UbiquitousRequests__downloadThumbnailForRequest_comple
     v5 = _log_9();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __84__QLServerThread_UbiquitousRequests__downloadThumbnailForRequest_completionHandler___block_invoke_cold_1((a1 + 32));
+      __84__QLServerThread_UbiquitousRequests__downloadThumbnailForRequest_completionHandler___block_invoke_cold_1();
     }
 
     v6 = MEMORY[0x277CCACA8];
@@ -4186,9 +4504,9 @@ void __84__QLServerThread_UbiquitousRequests__downloadThumbnailForRequest_comple
     v8 = [v6 stringWithFormat:@"Failed to generate a thumbnail for request %@ and could not download thumbnail: no backing ubiquitous item found (%@)", v7, v3];
 
     v9 = MEMORY[0x277CBEB38];
-    v17 = *MEMORY[0x277CCA068];
-    v18[0] = v8;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x277CCA068];
+    v17[0] = v8;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v11 = [v9 dictionaryWithDictionary:v10];
 
     if (v3)
@@ -4202,41 +4520,39 @@ void __84__QLServerThread_UbiquitousRequests__downloadThumbnailForRequest_comple
     v15 = [v13 errorWithCode:0 request:v14 additionalUserInfo:v11];
     (*(v12 + 16))(v12, v15);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)downloadThumbnails:(id)thumbnails forProvider:(id)provider
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   thumbnailsCopy = thumbnails;
   providerCopy = provider;
   dispatch_assert_queue_V2(self->_pendingDownloadsQueue);
   if ([thumbnailsCopy count])
   {
-    v30 = providerCopy;
-    v31 = [(QLServerThread *)self cacheThreadForProviderDomainID:providerCopy];
+    v29 = providerCopy;
+    v30 = [(QLServerThread *)self cacheThreadForProviderDomainID:providerCopy];
     v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(thumbnailsCopy, "count")}];
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
     allValues = [thumbnailsCopy allValues];
-    v10 = [allValues countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v10 = [allValues countByEnumeratingWithState:&v45 objects:v49 count:16];
     if (v10)
     {
-      v11 = *v47;
+      v11 = *v46;
       do
       {
         v12 = 0;
         do
         {
-          if (*v47 != v11)
+          if (*v46 != v11)
           {
             objc_enumerationMutation(allValues);
           }
 
-          anyObject = [*(*(&v46 + 1) + 8 * v12) anyObject];
+          anyObject = [*(*(&v45 + 1) + 8 * v12) anyObject];
           item = [anyObject item];
           [v8 addObject:item];
 
@@ -4244,7 +4560,7 @@ void __84__QLServerThread_UbiquitousRequests__downloadThumbnailForRequest_comple
         }
 
         while (v10 != v12);
-        v10 = [allValues countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v10 = [allValues countByEnumeratingWithState:&v45 objects:v49 count:16];
       }
 
       while (v10);
@@ -4271,43 +4587,42 @@ void __84__QLServerThread_UbiquitousRequests__downloadThumbnailForRequest_comple
     objc_initWeak(&location, self);
     v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_30;
-    v39[3] = &unk_279ADE010;
-    objc_copyWeak(&v44, &location);
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_30;
+    v38[3] = &unk_279ADE010;
+    objc_copyWeak(&v43, &location);
     v22 = thumbnailsCopy;
-    v40 = v22;
+    v39 = v22;
     selfCopy = self;
     v23 = v20;
-    v42 = v23;
+    v41 = v23;
     v24 = v21;
-    v43 = v24;
-    [v19 setPerThumbnailCompletionBlock:v39];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_33;
-    v32[3] = &unk_279ADE088;
-    objc_copyWeak(&v38, &location);
-    v33 = v22;
+    v42 = v24;
+    [v19 setPerThumbnailCompletionBlock:v38];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_33;
+    v31[3] = &unk_279ADE088;
+    objc_copyWeak(&v37, &location);
+    v32 = v22;
     selfCopy2 = self;
-    v25 = v31;
-    v35 = v25;
+    v25 = v30;
+    v34 = v25;
     v26 = v23;
-    v36 = v26;
+    v35 = v26;
     v27 = v24;
-    v37 = v27;
-    [v19 setThumbnailsFetchCompletionBlock:v32];
+    v36 = v27;
+    [v19 setThumbnailsFetchCompletionBlock:v31];
     [(NSOperationQueue *)self->_downloadsOperationQueue addOperation:v19];
 
-    objc_destroyWeak(&v38);
-    objc_destroyWeak(&v44);
+    objc_destroyWeak(&v37);
+    objc_destroyWeak(&v43);
 
     objc_destroyWeak(&location);
-    providerCopy = v30;
+    providerCopy = v29;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -4358,46 +4673,45 @@ void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___b
 
 void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_2(uint64_t a1)
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v55 = *(a1 + 40);
+  v53 = *(a1 + 40);
   WeakRetained = objc_loadWeakRetained((a1 + 96));
   if (WeakRetained)
   {
-    v51 = (a1 + 56);
-    v53 = [*(a1 + 48) objectForKeyedSubscript:*(a1 + 56)];
-    v3 = [v53 anyObject];
-    v52 = [v3 item];
+    v51 = [*(a1 + 48) objectForKeyedSubscript:*(a1 + 56)];
+    v3 = [v51 anyObject];
+    v50 = [v3 item];
 
     v4 = _log_9();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_2_cold_1(v51);
+      __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_2_cold_1();
     }
 
-    if (v53)
+    if (v51)
     {
       if (v2)
       {
-        v71 = 0u;
-        v72 = 0u;
         v69 = 0u;
         v70 = 0u;
-        v5 = [v53 allObjects];
-        v6 = [v5 countByEnumeratingWithState:&v69 objects:v83 count:16];
+        v67 = 0u;
+        v68 = 0u;
+        v5 = [v51 allObjects];
+        v6 = [v5 countByEnumeratingWithState:&v67 objects:v81 count:16];
         if (v6)
         {
-          v7 = *v70;
+          v7 = *v68;
           do
           {
             for (i = 0; i != v6; ++i)
             {
-              if (*v70 != v7)
+              if (*v68 != v7)
               {
                 objc_enumerationMutation(v5);
               }
 
-              v9 = *(*(&v69 + 1) + 8 * i);
+              v9 = *(*(&v67 + 1) + 8 * i);
               *&state[8] = 0;
               *state = 0;
               v10 = [v9 activity];
@@ -4414,61 +4728,61 @@ void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___b
               os_activity_scope_leave(state);
             }
 
-            v6 = [v5 countByEnumeratingWithState:&v69 objects:v83 count:16];
+            v6 = [v5 countByEnumeratingWithState:&v67 objects:v81 count:16];
           }
 
           while (v6);
         }
 
-        v12 = [v52 isContainer];
-        [*(a1 + 88) addObject:v52];
-        if (([v55 isEqualToString:*MEMORY[0x277CC62D8]] & 1) != 0 || objc_msgSend(v55, "isEqualToString:", *MEMORY[0x277CC62E0]))
+        v12 = [v50 isContainer];
+        [*(a1 + 88) addObject:v50];
+        if (([v53 isEqualToString:*MEMORY[0x277CC62D8]] & 1) != 0 || objc_msgSend(v53, "isEqualToString:", *MEMORY[0x277CC62E0]))
         {
-          v13 = [v53 anyObject];
+          v13 = [v51 anyObject];
           v14 = [v13 request];
 
           [v14 size];
           v16 = v15;
           v18 = v17;
           [v14 scale];
-          v20 = [WeakRetained processedPNGAppIconDataForData:v2 ofType:v55 size:v16 scale:{v18, v19}];
+          v20 = [WeakRetained processedPNGAppIconDataForData:v2 ofType:v53 size:v16 scale:{v18, v19}];
 
           v21 = [*MEMORY[0x277CE1E10] identifier];
 
-          v55 = v21;
+          v53 = v21;
           v2 = v20;
         }
 
         if (v2)
         {
-          v67 = 0uLL;
-          v68 = 0uLL;
           v65 = 0uLL;
           v66 = 0uLL;
-          v22 = [v53 allObjects];
-          v23 = [v22 countByEnumeratingWithState:&v65 objects:v82 count:16];
+          v63 = 0uLL;
+          v64 = 0uLL;
+          v22 = [v51 allObjects];
+          v23 = [v22 countByEnumeratingWithState:&v63 objects:v80 count:16];
           if (v23)
           {
-            v24 = *v66;
+            v24 = *v64;
             do
             {
               for (j = 0; j != v23; ++j)
               {
-                if (*v66 != v24)
+                if (*v64 != v24)
                 {
                   objc_enumerationMutation(v22);
                 }
 
-                v26 = *(*(&v65 + 1) + 8 * j);
-                v60 = MEMORY[0x277D85DD0];
-                v61 = 3221225472;
-                v62 = __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_31;
-                v63 = &unk_279ADD318;
-                v64 = v26;
-                [WeakRetained processLargeThumbnailData:v2 withContentType:v55 isAppContainer:v12 forRequest:? fromGenStore:? completionHandler:?];
+                v26 = *(*(&v63 + 1) + 8 * j);
+                v58 = MEMORY[0x277D85DD0];
+                v59 = 3221225472;
+                v60 = __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_31;
+                v61 = &unk_279ADD318;
+                v62 = v26;
+                [WeakRetained processLargeThumbnailData:v2 withContentType:v53 isAppContainer:v12 forRequest:? fromGenStore:? completionHandler:?];
               }
 
-              v23 = [v22 countByEnumeratingWithState:&v65 objects:v82 count:16];
+              v23 = [v22 countByEnumeratingWithState:&v63 objects:v80 count:16];
             }
 
             while (v23);
@@ -4477,25 +4791,25 @@ void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___b
 
         else
         {
-          v58 = 0uLL;
-          v59 = 0uLL;
           v56 = 0uLL;
           v57 = 0uLL;
-          v22 = [v53 allObjects];
-          v2 = [v22 countByEnumeratingWithState:&v56 objects:v81 count:16];
+          v54 = 0uLL;
+          v55 = 0uLL;
+          v22 = [v51 allObjects];
+          v2 = [v22 countByEnumeratingWithState:&v54 objects:v79 count:16];
           if (v2)
           {
-            v36 = *v57;
+            v36 = *v55;
             do
             {
               for (k = 0; k != v2; k = k + 1)
               {
-                if (*v57 != v36)
+                if (*v55 != v36)
                 {
                   objc_enumerationMutation(v22);
                 }
 
-                v38 = *(*(&v56 + 1) + 8 * k);
+                v38 = *(*(&v54 + 1) + 8 * k);
                 *&state[8] = 0;
                 *state = 0;
                 v39 = [v38 activity];
@@ -4515,7 +4829,7 @@ void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___b
                 os_activity_scope_leave(state);
               }
 
-              v2 = [v22 countByEnumeratingWithState:&v56 objects:v81 count:16];
+              v2 = [v22 countByEnumeratingWithState:&v54 objects:v79 count:16];
             }
 
             while (v2);
@@ -4525,25 +4839,25 @@ void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___b
 
       else if (*(a1 + 64))
       {
-        v79 = 0u;
-        v80 = 0u;
         v77 = 0u;
         v78 = 0u;
-        v22 = [v53 allObjects];
-        v2 = [v22 countByEnumeratingWithState:&v77 objects:v87 count:16];
+        v75 = 0u;
+        v76 = 0u;
+        v22 = [v51 allObjects];
+        v2 = [v22 countByEnumeratingWithState:&v75 objects:v85 count:16];
         if (v2)
         {
-          v28 = *v78;
+          v28 = *v76;
           do
           {
             for (m = 0; m != v2; m = m + 1)
             {
-              if (*v78 != v28)
+              if (*v76 != v28)
               {
                 objc_enumerationMutation(v22);
               }
 
-              v30 = *(*(&v77 + 1) + 8 * m);
+              v30 = *(*(&v75 + 1) + 8 * m);
               buf.opaque[1] = 0;
               buf.opaque[0] = 0;
               v31 = [v30 activity];
@@ -4567,7 +4881,7 @@ void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___b
               os_activity_scope_leave(&buf);
             }
 
-            v2 = [v22 countByEnumeratingWithState:&v77 objects:v87 count:16];
+            v2 = [v22 countByEnumeratingWithState:&v75 objects:v85 count:16];
           }
 
           while (v2);
@@ -4576,26 +4890,26 @@ void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___b
 
       else
       {
-        [*(a1 + 80) addObject:v52];
-        v75 = 0u;
-        v76 = 0u;
+        [*(a1 + 80) addObject:v50];
         v73 = 0u;
         v74 = 0u;
-        v22 = [v53 allObjects];
-        v2 = [v22 countByEnumeratingWithState:&v73 objects:v84 count:16];
+        v71 = 0u;
+        v72 = 0u;
+        v22 = [v51 allObjects];
+        v2 = [v22 countByEnumeratingWithState:&v71 objects:v82 count:16];
         if (v2)
         {
-          v42 = *v74;
+          v42 = *v72;
           do
           {
             for (n = 0; n != v2; n = n + 1)
             {
-              if (*v74 != v42)
+              if (*v72 != v42)
               {
                 objc_enumerationMutation(v22);
               }
 
-              v44 = *(*(&v73 + 1) + 8 * n);
+              v44 = *(*(&v71 + 1) + 8 * n);
               *&state[8] = 0;
               *state = 0;
               v45 = [v44 activity];
@@ -4616,7 +4930,7 @@ void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___b
               os_activity_scope_leave(state);
             }
 
-            v2 = [v22 countByEnumeratingWithState:&v73 objects:v84 count:16];
+            v2 = [v22 countByEnumeratingWithState:&v71 objects:v82 count:16];
           }
 
           while (v2);
@@ -4626,7 +4940,7 @@ void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___b
       v49 = _log_9();
       if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
       {
-        __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_2_cold_2(v53, v51);
+        __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_2_cold_2();
       }
 
       [*(a1 + 48) setObject:0 forKeyedSubscript:*(a1 + 56)];
@@ -4637,12 +4951,10 @@ void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___b
       v27 = _log_9();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
       {
-        __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_2_cold_3(v51);
+        __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_2_cold_3();
       }
     }
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_31(uint64_t a1, void *a2)
@@ -4653,7 +4965,7 @@ void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___b
     v4 = _log_9();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_31_cold_1(a1);
+      __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_31_cold_1();
     }
   }
 
@@ -4723,29 +5035,29 @@ uint64_t __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider
 
 void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_35(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v16 = a2;
+  v24 = *MEMORY[0x277D85DE8];
+  v15 = a2;
   v5 = a3;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = [v5 allObjects];
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v7)
   {
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       v9 = 0;
       do
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * v9);
+        v10 = *(*(&v17 + 1) + 8 * v9);
         state.opaque[0] = 0;
         state.opaque[1] = 0;
         v11 = [v10 activity];
@@ -4755,7 +5067,7 @@ void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___b
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v23 = v10;
+          v22 = v10;
           _os_log_error_impl(&dword_2615D3000, v12, OS_LOG_TYPE_ERROR, "Failing %@, which did not get a per-thumbnail download completion block", buf, 0xCu);
         }
 
@@ -4768,13 +5080,11 @@ void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___b
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)drainDownloadsQueueIfNeeded
@@ -4851,32 +5161,30 @@ void __65__QLServerThread_UbiquitousRequests__drainDownloadsQueueIfNeeded__block
 {
   height = size.height;
   width = size.width;
-  v24[1] = *MEMORY[0x277D85DE8];
-  v23 = *MEMORY[0x277CD3648];
-  v24[0] = MEMORY[0x277CBEC38];
+  v23[1] = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277CD3648];
+  v23[0] = MEMORY[0x277CBEC38];
   v8 = MEMORY[0x277CBEAC0];
   dataCopy = data;
-  v10 = [v8 dictionaryWithObjects:v24 forKeys:&v23 count:1];
+  v10 = [v8 dictionaryWithObjects:v23 forKeys:&v22 count:1];
   v11 = CGImageSourceCreateWithData(dataCopy, v10);
 
   if (!v11)
   {
-    goto LABEL_6;
+    return 0;
   }
 
   if (!CGImageSourceGetCount(v11))
   {
     CFRelease(v11);
-    goto LABEL_6;
+    return 0;
   }
 
   ImageAtIndex = CGImageSourceCreateImageAtIndex(v11, 0, v10);
   CFRelease(v11);
   if (!ImageAtIndex)
   {
-LABEL_6:
-    cGImage = 0;
-    goto LABEL_7;
+    return 0;
   }
 
   v13 = [objc_alloc(MEMORY[0x277D1B160]) initWithCGImage:ImageAtIndex scale:1.0];
@@ -4884,8 +5192,8 @@ LABEL_6:
   [v14 setSize:{width, height}];
   [v14 setScale:scale];
   v15 = objc_alloc(MEMORY[0x277D1B1A8]);
-  v22 = v13;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+  v21 = v13;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
   v17 = [v15 initWithImages:v16];
 
   v18 = [v17 prepareImageForDescriptor:v14];
@@ -4893,486 +5201,180 @@ LABEL_6:
   CGImageRetain(cGImage);
   CFRelease(ImageAtIndex);
 
-LABEL_7:
-  v20 = *MEMORY[0x277D85DE8];
   return cGImage;
 }
 
 void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbnailCacheForRequest_item_URL_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_2615D3000, a2, OS_LOG_TYPE_DEBUG, "Got external cache for %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_2615D3000, a2, OS_LOG_TYPE_DEBUG, "Got external cache for %@", &v3, 0xCu);
 }
 
 void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbnailCacheForRequest_item_URL_completionHandler___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "Error while fetching thumbnail from external cache: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "Error while fetching thumbnail from external cache: %@", v2, v3, v4, v5);
 }
 
-void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbnailCacheForRequest_item_URL_completionHandler___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
+void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbnailCacheForRequest_item_URL_completionHandler___block_invoke_2_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 32);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbnailCacheForRequest_item_URL_completionHandler___block_invoke_2_cold_2(uint64_t a1)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
 }
 
-void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbnailCacheForRequest_item_URL_completionHandler___block_invoke_2_cold_3(uint64_t a1, uint64_t a2)
+void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbnailCacheForRequest_item_URL_completionHandler___block_invoke_2_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 40);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v3, v4, OS_LOG_TYPE_ERROR, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbnailCacheForRequest_item_URL_completionHandler___block_invoke_2_cold_4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "Received thumbnail data which ImageIO is unable to read (%@): image size is zero.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __116__QLServerThread_ExternalCache__findUncachedThumbnailInExternalThumbnailCacheForRequest_item_URL_completionHandler___block_invoke_2_cold_5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "Received thumbnail data which ImageIO is unable to read (%@).", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x16u);
 }
 
 void __91__QLServerThread_ExternalCache__receivedExternalCacheConnection_error_forProviderDomainID___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, a2, a3, "Connection to external thumbnail cache was invalidated for: %@.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_2(&dword_2615D3000, a2, a3, "Connection to external thumbnail cache was invalidated for: %@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void __82__QLServerThread_ExternalCache__storeImage_inExternalThumbnailCacheForItem_atURL___block_invoke_3_cold_1(uint64_t a1)
+void __82__QLServerThread_ExternalCache__storeImage_inExternalThumbnailCacheForItem_atURL___block_invoke_3_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_3_0();
-  _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x16u);
 }
 
-- (void)makeCacheThreadForPersonaString:containerURL:.cold.1()
+- (void)makeCacheThreadForPersonaString:containerURL:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "[ERROR] won't restore persona: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)makeCacheThreadForPersonaString:containerURL:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_2(&dword_2615D3000, v0, v1, "[ERROR] Can't adopt persona %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)makeCacheThreadForPersonaString:(uint64_t *)a1 containerURL:.cold.3(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v1, v2, "failed creating container with error %llu", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "failed creating container with error %llu", v2, v3, v4, v5);
 }
 
-- (void)uncachedCacheThreadForProviderDomainID:.cold.1()
+void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_28_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_2(&dword_2615D3000, v0, v1, "Failed to fetch domain for domain ID %@ (%@)");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)uncachedCacheThreadForFileAtURL:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "Could not list persona, error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)uncachedCacheThreadForFileAtURL:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "Could not retrieve container for %s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)generateSuccessiveThumbnailRepresentationsForGeneratorRequests:completionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v0, v1, "generateSuccessiveThumbnailRepresentationsForRequests: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __50__QLServerThread__installRequestsFinishedWatchdog__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "Request %@ has been pending for more than 10 minutes", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_addThumbnailRequestBatchToQueue:completionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v0, v1, "thumbnail requests queued (%@), relinquishing server thread", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)queueThumbnailRequest:tryCache:tryAdditionsFirst:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "failed to queue %@ for cache; falling back", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_cold_1(uint64_t a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v2, v3, "Queuing thumbnail request %@: request is cancelled", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v0, v1, "Beginning uncached retrieval: thumbnail request %@ cancelled", v2, v3, v4, v5);
 }
 
-void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_26_cold_1(uint64_t a1)
+void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_29_cold_2()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v2, v3, "%@ is not ubiquitous, but does not reference a valid file either", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v0, v1, "File for %@ is not downloaded, trying genstore / download of the thumbnail", v2, v3, v4, v5);
 }
 
-void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_28_cold_1(uint64_t *a1)
+void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_30_cold_1()
 {
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v1, v2, "Beginning uncached retrieval: thumbnail request %@ cancelled", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_29_cold_1(uint64_t a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v2, v3, "Could not determine if %@ is for an ubiquitous file", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_29_cold_2(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v1, v2, "File for %@ is not downloaded, trying genstore / download of the thumbnail", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_30_cold_1(uint64_t a1, uint64_t *a2)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
 }
 
-void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_30_cold_2(uint64_t *a1)
+void __67__QLServerThread_queueThumbnailRequest_tryCache_tryAdditionsFirst___block_invoke_30_cold_2()
 {
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
 }
 
-- (void)findUncachedThumbnailInGenStoreOrDownload:completionHandler:.cold.1()
+void __78__QLServerThread_findUncachedThumbnailInGenStoreOrDownload_completionHandler___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v0, v1, "Skipping GenStore because %@ may not be materialized yet", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __78__QLServerThread_findUncachedThumbnailInGenStoreOrDownload_completionHandler___block_invoke_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v1, v2, "findUncachedThumbnailInGenStoreForRequest: thumbnail request %@ cancelled", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)processLargeThumbnailData:withContentType:isAppContainer:forRequest:fromGenStore:completionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v0, v1, "processLargeThumbnailData: adding image data to cache and completing request %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)processLargeThumbnailData:withContentType:isAppContainer:forRequest:fromGenStore:completionHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "Failed to create thumbnail from image source for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)processLargeThumbnailData:withContentType:isAppContainer:forRequest:fromGenStore:completionHandler:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "Thumbnail size could not be determined from thumbnail data for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)processLargeThumbnailData:withContentType:isAppContainer:forRequest:fromGenStore:completionHandler:.cold.4()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_2(&dword_2615D3000, v0, v1, "Could not generate thumbnail for %@ because received nil data (content type: %@)");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveLargeThumbnailToGenstoreWithData:url:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_2(&dword_2615D3000, v0, v1, "Could not save thumbnail data for %@ to genstore: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveLargeThumbnailToGenstoreWithData:url:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_2(&dword_2615D3000, v0, v1, "Could not associate large thumbnail to GS file at URL: %@ (%@)");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveLargeThumbnailForDocumentAtURL:toGenstoreWithImage:automaticallyGenerated:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_2(&dword_2615D3000, v0, v1, "Could not associate existing thumbnail image with the document at URL %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v0, v1, "findUncachedThumbnailInGenStoreForRequest: thumbnail request %@ cancelled", v2, v3, v4, v5);
 }
 
 - (void)generateThumbnailForThumbnailRequest:shouldUpdateGenstore:completionHandler:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_fault_impl(&dword_2615D3000, v0, OS_LOG_TYPE_FAULT, "No URL to generate thumbnail for %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-void __94__QLServerThread_generateThumbnailForThumbnailRequest_shouldUpdateGenstore_completionHandler___block_invoke_2_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v1, v2, "after generation: adding image data to cache and completing request %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)findThumbnailInAddition:request:completionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_2(&dword_2615D3000, v0, v1, "Got error %@ trying to find content type for %@");
   v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3();
+  _os_log_fault_impl(&dword_2615D3000, v0, OS_LOG_TYPE_FAULT, "No URL to generate thumbnail for %@", v1, 0xCu);
+}
+
+void __94__QLServerThread_generateThumbnailForThumbnailRequest_shouldUpdateGenstore_completionHandler___block_invoke_2_cold_1()
+{
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_6_0();
+  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v0, v1, "after generation: adding image data to cache and completing request %@", v2, v3, v4, v5);
 }
 
 - (void)failedToCompleteThumbnailRequest:error:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-void __160__QLServerThread_sendResultForThumbnailRequest_images_metadata_contentRect_iconFlavor_thumbnailRepresentation_clientShouldTakeOwnership_reenqueueRequest_error___block_invoke_cold_1(uint64_t *a1)
+void __160__QLServerThread_sendResultForThumbnailRequest_images_metadata_contentRect_iconFlavor_thumbnailRepresentation_clientShouldTakeOwnership_reenqueueRequest_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v1, v2, "Sending nil thumbnail data to the host for request %@ from pending requests and removing it because saving best representation failed", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v0, v1, "Sending nil thumbnail data to the host for request %@ from pending requests and removing it because saving best representation failed", v2, v3, v4, v5);
 }
 
-void __160__QLServerThread_sendResultForThumbnailRequest_images_metadata_contentRect_iconFlavor_thumbnailRepresentation_clientShouldTakeOwnership_reenqueueRequest_error___block_invoke_cold_2(uint64_t *a1)
+void __160__QLServerThread_sendResultForThumbnailRequest_images_metadata_contentRect_iconFlavor_thumbnailRepresentation_clientShouldTakeOwnership_reenqueueRequest_error___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v1, v2, "Sending thumbnail data to the host for request %@ from pending requests and removing it", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v0, v1, "Sending thumbnail data to the host for request %@ from pending requests and removing it", v2, v3, v4, v5);
 }
 
-- (void)_notifyGenerationHandlerOfThumbnailGenerationForRequest:images:metadata:contentRect:iconFlavor:thumbnailRepresentation:clientShouldTakeOwnership:error:.cold.1()
+void __51__QLServerThread__completeHandledThumbnailRequest___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "Missing error during thumbnail request %@, using a generic error", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveResultForThumbnailRequest:withImage:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_2(&dword_2615D3000, v0, v1, "Could not save thumbnail at URL %@ for request %@: could not create CGImageDestinationRef because could not obtain temporary URL");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveResultForThumbnailRequest:withImage:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "CGImageDestinationFinalize failed to add image to URL: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveResultForThumbnailRequest:withImage:error:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_2(&dword_2615D3000, v0, v1, "Could not save thumbnail at URL: %@. Error: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveResultForThumbnailRequest:withImage:error:.cold.4()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_2(&dword_2615D3000, v0, v1, "Could not save thumbnail at URL %@ for request %@: could not create CGImageDestinationRef");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveResultForThumbnailRequest:withImage:error:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_2(&dword_2615D3000, v0, v1, "Failed to create thumbnail image to save at URL: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __51__QLServerThread__completeHandledThumbnailRequest___block_invoke_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
-  v2 = *(v1 + 48);
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3_0();
-  _os_log_fault_impl(v3, v4, OS_LOG_TYPE_FAULT, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x16u);
 }
 
-- (void)_canUseAdditionToProvideThumbnail:forThumbnailRequest:taggedLogicalURL:.cold.1()
+void __85__QLServerThread_UbiquitousRequests___downloadThumbnailForRequest_completionHandler___block_invoke_18_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v0, v1, "addition from GenStore is valid for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __85__QLServerThread_UbiquitousRequests___downloadThumbnailForRequest_completionHandler___block_invoke_18_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6_0();
-  _os_log_debug_impl(&dword_2615D3000, v2, OS_LOG_TYPE_DEBUG, "Draining the downloads queue because 100ms have elapsed since %@ was enqueued", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2615D3000, v0, OS_LOG_TYPE_DEBUG, "Draining the downloads queue because 100ms have elapsed since %@ was enqueued", v1, 0xCu);
 }
 
-void __84__QLServerThread_UbiquitousRequests__downloadThumbnailForRequest_completionHandler___block_invoke_cold_1(uint64_t *a1)
+void __84__QLServerThread_UbiquitousRequests__downloadThumbnailForRequest_completionHandler___block_invoke_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_1_4();
-  _os_log_error_impl(&dword_2615D3000, v2, OS_LOG_TYPE_ERROR, "Could not fetch FPItem for request: %@ (error: %@)", v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2615D3000, v0, OS_LOG_TYPE_ERROR, "Could not fetch FPItem for request: %@ (error: %@)", v1, 0x16u);
 }
 
 void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = a1;
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = a1;
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_8(&dword_2615D3000, v1, v2, "download: %@ (%@)", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_2615D3000, v1, v2, "download: %@ (%@)", v3, DWORD2(v3));
 }
 
-void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_2_cold_1(uint64_t *a1)
+void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_2_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_8(&dword_2615D3000, v2, v3, "perThumbnailCompletionBlock for %@, associated with requests %@");
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_2615D3000, v0, v1, "perThumbnailCompletionBlock for %@, associated with requests %@");
 }
 
-void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_2_cold_2(uint64_t a1, uint64_t *a2)
+void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_2_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_8(&dword_2615D3000, v3, v4, "clearing generatorRequests %@ for %@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_2_cold_3(uint64_t *a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6_0();
-  _os_log_fault_impl(&dword_2615D3000, v2, OS_LOG_TYPE_FAULT, "perThumbnailCompletionBlock was called for %@, but this identifier wasn't in the requests or already received its perThumbnailCompletionBlock", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2615D3000, v0, OS_LOG_TYPE_FAULT, "perThumbnailCompletionBlock was called for %@, but this identifier wasn't in the requests or already received its perThumbnailCompletionBlock", v1, 0xCu);
 }
 
-void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_31_cold_1(uint64_t a1)
+void __69__QLServerThread_UbiquitousRequests__downloadThumbnails_forProvider___block_invoke_31_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6_0();
-  _os_log_error_impl(&dword_2615D3000, v2, OS_LOG_TYPE_ERROR, "Unable to process thumbnail data for %@", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2615D3000, v0, OS_LOG_TYPE_ERROR, "Unable to process thumbnail data for %@", v1, 0xCu);
 }
 
 @end

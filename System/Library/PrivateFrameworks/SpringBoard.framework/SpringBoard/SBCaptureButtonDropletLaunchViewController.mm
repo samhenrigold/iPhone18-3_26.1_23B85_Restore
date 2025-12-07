@@ -131,7 +131,7 @@
 {
   layer = [(DRPDropletContainerView *)self->_appDropletContainer layer];
   presentationLayer = [layer presentationLayer];
-  [presentationLayer frame];
+  objc_msgSend_frame(presentationLayer);
   v5 = v4;
   v7 = v6;
   v9 = v8;

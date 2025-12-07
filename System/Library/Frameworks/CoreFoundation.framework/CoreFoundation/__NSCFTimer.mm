@@ -18,12 +18,10 @@
 
 - (id)userInfo
 {
-  v5 = *MEMORY[0x1E69E9840];
-  memset(&v4, 0, sizeof(v4));
-  CFRunLoopTimerGetContext(self, &v4);
-  result = *(v4.info + 3);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v4 = *MEMORY[0x1E69E9840];
+  memset(&v3, 0, sizeof(v3));
+  CFRunLoopTimerGetContext(self, &v3);
+  return *(v3.info + 3);
 }
 
 - (BOOL)isEqual:(id)equal
@@ -50,35 +48,33 @@
 
 - (void)fire
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if ([(__NSCFTimer *)self isValid])
   {
     selfCopy = self;
-    memset(&v6, 0, sizeof(v6));
-    CFRunLoopTimerGetContext(self, &v6);
-    __CFFireTimer(self, v6.info);
+    memset(&v5, 0, sizeof(v5));
+    CFRunLoopTimerGetContext(self, &v5);
+    __CFFireTimer(self, v5.info);
     [(__NSCFTimer *)self timeInterval];
     if (v4 == 0.0)
     {
       [(__NSCFTimer *)self invalidate];
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (__NSCFTimer)initWithFireDate:(id)date interval:(double)interval target:(id)target selector:(SEL)selector userInfo:(id)info repeats:(BOOL)repeats
 {
   repeatsCopy = repeats;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v14 = malloc_default_zone();
   v15 = malloc_type_zone_calloc(v14, 1uLL, 0x20uLL, 0x10800406BDE4C18uLL);
   v16 = v15;
-  v21.version = 0;
-  v21.info = v15;
-  v21.retain = _timerRetain;
-  v21.release = _timerRelease;
-  v21.copyDescription = 0;
+  v20.version = 0;
+  v20.info = v15;
+  v20.retain = _timerRetain;
+  v20.release = _timerRelease;
+  v20.copyDescription = 0;
   if (interval <= 0.0)
   {
     interval = 0.0001;
@@ -95,9 +91,7 @@
     intervalCopy = interval;
   }
 
-  result = CFRunLoopTimerCreate(0, v17, intervalCopy, 0, 0, __CFFireTimer, &v21);
-  v20 = *MEMORY[0x1E69E9840];
-  return result;
+  return CFRunLoopTimerCreate(0, v17, intervalCopy, 0, 0, __CFFireTimer, &v20);
 }
 
 @end

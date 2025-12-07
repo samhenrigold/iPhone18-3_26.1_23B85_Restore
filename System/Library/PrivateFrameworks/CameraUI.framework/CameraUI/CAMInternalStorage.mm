@@ -121,7 +121,7 @@
 
 - (void)_setCachedEstimatedSpace:(id *)space
 {
-  [(CAMInternalStorage *)self _cachedEstimatedSpace];
+  objc_msgSend__cachedEstimatedSpace(self, a2);
   v5 = v7[5] == space->var0 && v7[6] == space->var1;
   if (!v5 || v7[7] != space->var2)
   {
@@ -449,7 +449,7 @@ LABEL_9:
       if (v14 == 0.0)
       {
 LABEL_11:
-        [(CAMInternalStorage *)self _setProResMinimumDiskUsageThreshold:v9, *v18, *&v18[16], v19];
+        [(CAMInternalStorage *)self _setProResMinimumDiskUsageThreshold:v9, *v18, *&v18[8], v19];
         goto LABEL_12;
       }
 
@@ -514,7 +514,7 @@ LABEL_12:
 void __57__CAMInternalStorage__updateAvailablePurgeableSpaceAsync__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained _queryQueue_queryAvailableSpaceAndUpdateCachedEstimatesForBytesPerMinute:*(a1 + 40) minimumDiskUsageThreshold:*(a1 + 48)];
+  objc_msgSend__queryQueue_queryAvailableSpaceAndUpdateCachedEstimatesForBytesPerMinute_minimumDiskUsageThreshold_(WeakRetained);
 }
 
 - (int64_t)_fastPurgeThresholdForRequestType:(int64_t)type
@@ -703,25 +703,25 @@ void __117__CAMInternalStorage__purgeFastPurgeableSpaceWithThreshold_calledFromP
   [*(a1 + 32) publish];
 }
 
-uint64_t __117__CAMInternalStorage__purgeFastPurgeableSpaceWithThreshold_calledFromPurgeCompletion_forceStopReason_analyticsEvent___block_invoke_2(uint64_t a1)
+uint64_t __117__CAMInternalStorage__purgeFastPurgeableSpaceWithThreshold_calledFromPurgeCompletion_forceStopReason_analyticsEvent___block_invoke_2(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 _cachedEstimatedSpace];
-    v3 = *(a1 + 32);
+    objc_msgSend__cachedEstimatedSpace(v3, a2);
+    v4 = *(a1 + 32);
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = [v3 graphConfiguration];
-  [v3 availableRecordingTimeInSecondsForGraphConfiguration:v4];
-  v6 = v5;
+  v5 = [v4 graphConfiguration];
+  [v4 availableRecordingTimeInSecondsForGraphConfiguration:v5];
+  v7 = v6;
 
-  [*(a1 + 40) updateForSkippedPurgeOperationWithFreeBytes:objc_msgSend(*(a1 + 32) fastPurgeableBytes:"totalFreeBytes") slowPurgeableBytes:0 maxRecordingTimeSeconds:{0, v6}];
+  [*(a1 + 40) updateForSkippedPurgeOperationWithFreeBytes:objc_msgSend(*(a1 + 32) fastPurgeableBytes:"totalFreeBytes") slowPurgeableBytes:0 maxRecordingTimeSeconds:{0, v7}];
   return [*(a1 + 40) publish];
 }
 
@@ -758,7 +758,7 @@ uint64_t __117__CAMInternalStorage__purgeFastPurgeableSpaceWithThreshold_calledF
   graphConfiguration = [(CAMInternalStorage *)self graphConfiguration];
   v5 = [v3 bytesPerMinuteForGraphConfiguration:graphConfiguration outputToExternalStorage:0];
 
-  [(CAMInternalStorage *)self _cachedEstimatedSpace];
+  objc_msgSend__cachedEstimatedSpace(self);
   return 10 * (v5 / 60) < 0;
 }
 
@@ -845,7 +845,7 @@ LABEL_4:
 
       memset(buf, 0, sizeof(buf));
       v44 = 0;
-      [(CAMInternalStorage *)self _queryQueue_queryAvailableSpaceAndUpdateCachedEstimatesForBytesPerMinute:v14 minimumDiskUsageThreshold:v16];
+      objc_msgSend__queryQueue_queryAvailableSpaceAndUpdateCachedEstimatesForBytesPerMinute_minimumDiskUsageThreshold_(self);
       if (10 * (v14 / 60) >= 0)
       {
         v23 = os_log_create("com.apple.camera", "StorageController");
@@ -958,7 +958,7 @@ void __90__CAMInternalStorage__queryQueue_purgeFastPurgeableResourcesWithThresho
   v3 = *(a1 + 32);
   if (v3)
   {
-    [v3 _queryQueue_queryAvailableSpaceAndUpdateCachedEstimatesForBytesPerMinute:*(a1 + 64) minimumDiskUsageThreshold:*(a1 + 72)];
+    objc_msgSend__queryQueue_queryAvailableSpaceAndUpdateCachedEstimatesForBytesPerMinute_minimumDiskUsageThreshold_(v3);
     v3 = *(a1 + 32);
   }
 

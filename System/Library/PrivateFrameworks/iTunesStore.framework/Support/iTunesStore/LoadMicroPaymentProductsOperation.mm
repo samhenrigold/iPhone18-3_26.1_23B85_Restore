@@ -72,7 +72,7 @@
 
 - (void)run
 {
-  v32 = 0;
+  v35 = 0;
   clientIdentity = [(LoadMicroPaymentProductsOperation *)self clientIdentity];
   if (![(StoreKitClientIdentity *)clientIdentity usesIdentityAttributes])
   {
@@ -87,9 +87,9 @@
     if (v5)
     {
       [(StoreKitClientIdentity *)clientIdentity setValuesWithSoftwareApplicationProxy:v5];
-LABEL_17:
+LABEL_18:
       objc_autoreleasePoolPop(v4);
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
     v7 = +[SSLogConfig sharedDaemonConfig];
@@ -101,155 +101,169 @@ LABEL_17:
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      v33 = 138412546;
-      v34 = objc_opt_class();
-      v35 = 2112;
+      v36 = 138412546;
+      v37 = objc_opt_class();
+      v38 = 2112;
       bundleIdentifier = [(StoreKitClientIdentity *)clientIdentity bundleIdentifier];
-      LODWORD(v31) = 22;
-      v29 = &v33;
-      clientIdentity = _os_log_send_and_compose_impl();
+      clientIdentity = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: No app for ID: %@", &v36, 22);
       if (!clientIdentity)
       {
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
-      v10 = [NSString stringWithCString:clientIdentity encoding:4, &v33, v31];
+      v11 = [NSString stringWithCString:clientIdentity encoding:4];
       free(clientIdentity);
-      v29 = v10;
+      v32 = v11;
       SSFileLog();
     }
 
     clientIdentity = 0;
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
-LABEL_18:
+LABEL_19:
   if (!clientIdentity)
   {
     selfCopy2 = self;
-    v21 = 0;
-LABEL_45:
-    [(LoadMicroPaymentProductsOperation *)selfCopy2 setError:v21, v29];
+    v23 = 0;
+LABEL_48:
+    [(LoadMicroPaymentProductsOperation *)selfCopy2 setError:v23, v32];
     return;
   }
 
-  v11 = [(LoadMicroPaymentProductsOperation *)self _batchSizeForIdentity:clientIdentity error:&v32];
-  if (v11 <= 0)
+  v12 = [(LoadMicroPaymentProductsOperation *)self _batchSizeForIdentity:clientIdentity error:&v35];
+  if (v12 <= 0)
   {
-LABEL_44:
-    v21 = v32;
+LABEL_47:
+    v23 = v35;
     selfCopy2 = self;
-    goto LABEL_45;
+    goto LABEL_48;
   }
 
-  if (![(LoadMicroPaymentProductsOperation *)self _loadResponseForIdentity:clientIdentity batchSize:v11 returningError:&v32])
+  if (![(LoadMicroPaymentProductsOperation *)self _loadResponseForIdentity:clientIdentity batchSize:v12 returningError:&v35])
   {
-    v22 = +[SSLogConfig sharedDaemonConfig];
-    if (!v22)
+    v24 = +[SSLogConfig sharedDaemonConfig];
+    if (!v24)
     {
-      v22 = +[SSLogConfig sharedConfig];
+      v24 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v22 shouldLog];
-    if ([v22 shouldLogToDisk])
+    shouldLog2 = [v24 shouldLog];
+    if ([v24 shouldLogToDisk])
     {
-      v24 = shouldLog2 | 2;
+      LODWORD(v26) = shouldLog2 | 2;
     }
 
     else
     {
-      v24 = shouldLog2;
+      LODWORD(v26) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v22 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [v24 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v24 &= 2u;
+      v26 = v26;
     }
 
-    if (v24)
+    else
     {
-      v25 = objc_opt_class();
-      v33 = 138412546;
-      v34 = v25;
-      v35 = 2112;
-      bundleIdentifier = v32;
-      LODWORD(v31) = 22;
-      v29 = &v33;
-      v26 = _os_log_send_and_compose_impl();
-      if (v26)
+      v26 &= 2u;
+    }
+
+    if (v26)
+    {
+      v28 = objc_opt_class();
+      v36 = 138412546;
+      v37 = v28;
+      v38 = 2112;
+      bundleIdentifier = v35;
+      LODWORD(v34) = 22;
+      v29 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Products load failed/cancelled: %@", &v36, v34);
+      if (v29)
       {
-        v27 = v26;
-        v28 = [NSString stringWithCString:v26 encoding:4, &v33, v31];
-        free(v27);
-        v29 = v28;
+        v30 = v29;
+        v31 = [NSString stringWithCString:v29 encoding:4];
+        free(v30);
+        v32 = v31;
         SSFileLog();
       }
     }
 
-    goto LABEL_44;
+    goto LABEL_47;
   }
 
   if (([(LoadMicroPaymentProductsOperation *)self isCancelled]& 1) == 0)
   {
-    v12 = +[SSLogConfig sharedDaemonConfig];
-    if (!v12)
+    v13 = +[SSLogConfig sharedDaemonConfig];
+    if (!v13)
     {
-      v12 = +[SSLogConfig sharedConfig];
+      v13 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v12 shouldLog];
-    if ([v12 shouldLogToDisk])
+    shouldLog3 = [v13 shouldLog];
+    if ([v13 shouldLogToDisk])
     {
-      v14 = shouldLog3 | 2;
+      LODWORD(v15) = shouldLog3 | 2;
     }
 
     else
     {
-      v14 = shouldLog3;
+      LODWORD(v15) = shouldLog3;
     }
 
-    if (!os_log_type_enabled([v12 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject3 = [v13 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
     {
-      v14 &= 2u;
+      v15 = v15;
     }
 
-    if (v14)
+    else
     {
-      v15 = objc_opt_class();
-      v16 = [(NSArray *)self->_productIdentifiers count];
-      v33 = 138412546;
-      v34 = v15;
-      v35 = 2048;
-      bundleIdentifier = v16;
-      LODWORD(v31) = 22;
-      v30 = &v33;
-      v17 = _os_log_send_and_compose_impl();
-      if (v17)
+      v15 &= 2u;
+    }
+
+    if (v15)
+    {
+      v17 = objc_opt_class();
+      v18 = [(NSArray *)self->_productIdentifiers count];
+      v36 = 138412546;
+      v37 = v17;
+      v38 = 2048;
+      bundleIdentifier = v18;
+      LODWORD(v34) = 22;
+      v19 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Loaded products for %lu identifiers", &v36, v34);
+      if (v19)
       {
-        v18 = v17;
-        v19 = [NSString stringWithCString:v17 encoding:4, &v33, v31];
-        free(v18);
-        v30 = v19;
+        v20 = v19;
+        v21 = [NSString stringWithCString:v19 encoding:4];
+        free(v20);
+        v33 = v21;
         SSFileLog();
       }
     }
 
-    [(LoadMicroPaymentProductsOperation *)self setSuccess:1, v30];
+    [(LoadMicroPaymentProductsOperation *)self setSuccess:1, v33];
   }
 }
 
@@ -278,41 +292,46 @@ LABEL_44:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
 
     if (v11)
     {
-      v12 = objc_opt_class();
+      v13 = objc_opt_class();
       v16 = 138412290;
-      v17 = v12;
-      LODWORD(v14) = 12;
-      result = _os_log_send_and_compose_impl();
+      v17 = v13;
+      result = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Couldn't load bag to get batch size", &v16, 12);
       if (!result)
       {
-        goto LABEL_16;
+        goto LABEL_17;
       }
 
-      v13 = result;
-      [NSString stringWithCString:result encoding:4, &v16, v14];
-      free(v13);
+      v14 = result;
+      [NSString stringWithCString:result encoding:4];
+      free(v14);
       SSFileLog();
     }
 
     result = 0;
   }
 
-LABEL_16:
+LABEL_17:
   if (error)
   {
     *error = v15;
@@ -430,15 +449,21 @@ LABEL_16:
   shouldLog = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v6 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
@@ -451,156 +476,154 @@ LABEL_16:
     v51 = [(NSArray *)v41 count];
     v52 = 2048;
     sizeCopy = size;
-    LODWORD(v37) = 32;
-    v36 = &v48;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Loading products for %lu identifiers with batch size %ld", &v48, 32);
+    if (v10)
     {
-      v10 = v9;
-      v11 = [NSString stringWithCString:v9 encoding:4, &v48, v37];
-      free(v10);
-      v36 = v11;
+      v11 = v10;
+      v12 = [NSString stringWithCString:v10 encoding:4];
+      free(v11);
+      v37 = v12;
       SSFileLog();
     }
   }
 
-  v12 = objc_alloc_init(NSMutableArray);
   v13 = objc_alloc_init(NSMutableArray);
   v14 = objc_alloc_init(NSMutableArray);
-  v15 = [(NSArray *)v41 count];
-  if ((v15 & 0x8000000000000000) == 0)
+  v15 = objc_alloc_init(NSMutableArray);
+  v16 = [(NSArray *)v41 count];
+  if ((v16 & 0x8000000000000000) == 0)
   {
-    v16 = v15;
-    v17 = 0;
+    v17 = v16;
     v18 = 0;
+    v19 = 0;
     while (1)
     {
       if (([(LoadMicroPaymentProductsOperation *)self isCancelled]& 1) != 0)
       {
-        goto LABEL_34;
+        goto LABEL_35;
       }
 
-      if (v17 >= v16)
+      if (v18 >= v17)
       {
         break;
       }
 
-      v19 = [(NSArray *)v41 objectAtIndex:v17];
-      v20 = [v19 length];
-      if (v20 > 0x280)
+      v20 = [(NSArray *)v41 objectAtIndex:v18];
+      v21 = [v20 length];
+      if (v21 > 0x280)
       {
-        goto LABEL_21;
+        goto LABEL_22;
       }
 
-      if (!v19 || [v14 count] == size || v20 + v18 >= 0x281)
+      if (!v20 || [v15 count] == size || v21 + v19 >= 0x281)
       {
-LABEL_23:
-        v22 = [(LoadMicroPaymentProductsOperation *)self _copyResponseForIdentity:identity identifiers:v14 returningError:&v46];
-        v21 = v22 == 0;
-        if (v22)
+LABEL_24:
+        v23 = [(LoadMicroPaymentProductsOperation *)self _copyResponseForIdentity:identity identifiers:v15 returningError:&v46];
+        v22 = v23 == 0;
+        if (v23)
         {
-          v23 = v22;
-          [v12 addObjectsFromArray:{objc_msgSend(v22, "products")}];
-          [v13 addObjectsFromArray:{objc_msgSend(v23, "invalidIdentifiers")}];
+          v24 = v23;
+          [v13 addObjectsFromArray:{objc_msgSend(v23, "products")}];
+          [v14 addObjectsFromArray:{objc_msgSend(v24, "invalidIdentifiers")}];
         }
 
-        [v14 removeAllObjects];
-        v18 = 0;
-        goto LABEL_26;
+        [v15 removeAllObjects];
+        v19 = 0;
+        goto LABEL_27;
       }
 
-LABEL_22:
-      v21 = 0;
-LABEL_26:
-      if (v20 - 1 <= 0x27F)
+LABEL_23:
+      v22 = 0;
+LABEL_27:
+      if (v21 - 1 <= 0x27F)
       {
-        [v14 addObject:v19];
-        v18 += v20;
+        [v15 addObject:v20];
+        v19 += v21;
       }
 
-      v25 = v17++ >= v16 || v21;
-      if (v25)
+      v26 = v18++ >= v17 || v22;
+      if (v26)
       {
 
-        if (!v21)
+        if (!v22)
         {
-          goto LABEL_35;
+          goto LABEL_36;
         }
 
         [(LoadMicroPaymentProductsOperation *)self lock];
 
         self->_response = 0;
         [(LoadMicroPaymentProductsOperation *)self unlock];
-        v26 = 0;
-        goto LABEL_45;
+        v27 = 0;
+        goto LABEL_46;
       }
     }
 
-    v20 = [0 length];
-    v19 = 0;
-    if (v20 < 0x281)
+    v21 = [0 length];
+    v20 = 0;
+    if (v21 < 0x281)
     {
-      goto LABEL_23;
+      goto LABEL_24;
     }
 
-LABEL_21:
-    [v13 addObject:v19];
-    goto LABEL_22;
+LABEL_22:
+    [v14 addObject:v20];
+    goto LABEL_23;
   }
 
-LABEL_34:
-
 LABEL_35:
-  v27 = objc_alloc_init(NSMutableArray);
+
+LABEL_36:
+  v28 = objc_alloc_init(NSMutableArray);
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v28 = [v12 countByEnumeratingWithState:&v42 objects:v47 count:16];
-  if (v28)
+  v29 = [v13 countByEnumeratingWithState:&v42 objects:v47 count:16];
+  if (v29)
   {
-    v29 = v28;
-    v30 = *v43;
+    v30 = v29;
+    v31 = *v43;
     do
     {
-      for (i = 0; i != v29; i = i + 1)
+      for (i = 0; i != v30; i = i + 1)
       {
-        if (*v43 != v30)
+        if (*v43 != v31)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v13);
         }
 
         copyProduct = [*(*(&v42 + 1) + 8 * i) copyProduct];
         if (copyProduct)
         {
-          v33 = copyProduct;
-          [v27 addObject:copyProduct];
+          v34 = copyProduct;
+          [v28 addObject:copyProduct];
         }
       }
 
-      v29 = [v12 countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v30 = [v13 countByEnumeratingWithState:&v42 objects:v47 count:16];
     }
 
-    while (v29);
+    while (v30);
   }
 
   [(LoadMicroPaymentProductsOperation *)self lock];
 
-  v34 = objc_alloc_init(sub_1001FA27C());
-  self->_response = v34;
-  [(SKProductsResponse *)v34 _setInvalidIdentifiers:v13];
-  [(SKProductsResponse *)self->_response _setProducts:v27];
+  v35 = objc_alloc_init(sub_1001FA27C());
+  self->_response = v35;
+  [(SKProductsResponse *)v35 _setInvalidIdentifiers:v14];
+  [(SKProductsResponse *)self->_response _setProducts:v28];
   [(LoadMicroPaymentProductsOperation *)self unlock];
 
-  v26 = 1;
-LABEL_45:
+  v27 = 1;
+LABEL_46:
 
   if (error)
   {
     *error = v46;
   }
 
-  return v26;
+  return v27;
 }
 
 @end

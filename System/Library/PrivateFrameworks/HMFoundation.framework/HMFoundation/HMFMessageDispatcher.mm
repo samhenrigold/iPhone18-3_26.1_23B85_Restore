@@ -30,9 +30,11 @@
 
 uint64_t __35__HMFMessageDispatcher_logCategory__block_invoke()
 {
-  qword_280AFC350 = HMFCreateOSLogHandle(@"Messaging.Dispatcher", @"com.apple.HMFoundation");
+  v0 = HMFCreateOSLogHandle(@"Messaging.Dispatcher", @"com.apple.HMFoundation");
+  v1 = qword_280AFC350;
+  qword_280AFC350 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)logCategory
@@ -108,11 +110,11 @@ uint64_t __64__HMFMessageDispatcher_HMFFuture__sendMessageExpectingResponse___bl
   }
 }
 
-uint64_t __64__HMFMessageDispatcher_HMFFuture__sendMessageExpectingResponse___block_invoke_2(uint64_t result, uint64_t a2)
+id *__64__HMFMessageDispatcher_HMFFuture__sendMessageExpectingResponse___block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) rejectWithError:a2];
+    return [result[4] rejectWithError:a2];
   }
 
   return result;
@@ -178,63 +180,61 @@ uint64_t __64__HMFMessageDispatcher_HMFFuture__sendMessageExpectingResponse___bl
   os_unfair_lock_lock_with_options();
   v6 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v8 = HMFGetOSLogHandle();
-  v9 = 0x280AFA000;
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = HMFGetOSLogHandle(selfCopy, v8);
+  v10 = 0x280AFA000;
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = HMFGetLogIdentifier(selfCopy);
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSMapTable count](selfCopy->_receiverCache, "count")}];
-    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSMapTable count](selfCopy->_msgBindingsCache, "count")}];
+    v11 = HMFGetLogIdentifier(selfCopy);
+    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSMapTable count](selfCopy->_receiverCache, "count")}];
+    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSMapTable count](selfCopy->_msgBindingsCache, "count")}];
     v14 = 138543874;
-    v15 = v10;
+    v15 = v11;
     v16 = 2112;
-    v17 = v11;
+    v17 = v12;
     v18 = 2112;
-    v19 = v12;
-    _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Clearing cache after receiving memory pressure notification: [receiverCache: %@], [msgBindingCache: %@]", &v14, 0x20u);
+    v19 = v13;
+    _os_log_impl(&dword_22ADEC000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Clearing cache after receiving memory pressure notification: [receiverCache: %@], [msgBindingCache: %@]", &v14, 0x20u);
 
-    v9 = 0x280AFA000uLL;
+    v10 = 0x280AFA000uLL;
   }
 
   objc_autoreleasePoolPop(v6);
   [(NSMapTable *)selfCopy->_receiverCache removeAllObjects];
-  [*(&selfCopy->super.super.isa + *(v9 + 1040)) removeAllObjects];
+  [*(&selfCopy->super.super.isa + *(v10 + 1040)) removeAllObjects];
   os_unfair_lock_unlock(&self->_lock.lock);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFilterClasses:(id)classes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   classesCopy = classes;
-  v5 = [classesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [classesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(classesCopy);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         if (![v8 isSubclassOfClass:objc_opt_class()] || v8 == objc_opt_class())
         {
-          [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid filter class '%@', must be subclass of %@", v8, objc_opt_class(), v13];
-          v12 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:objc_claimAutoreleasedReturnValue() userInfo:0];
-          objc_exception_throw(v12);
+          [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid filter class '%@', must be subclass of %@", v8, objc_opt_class(), v12];
+          v11 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:objc_claimAutoreleasedReturnValue() userInfo:0];
+          objc_exception_throw(v11);
         }
       }
 
-      v5 = [classesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [classesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -255,7 +255,6 @@ uint64_t __64__HMFMessageDispatcher_HMFFuture__sendMessageExpectingResponse___bl
   objc_storeStrong(&self->_filterClasses, v9);
 
   os_unfair_lock_unlock(&self->_lock.lock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)resolveHook
@@ -480,20 +479,18 @@ uint64_t __61__HMFMessageDispatcher_messageBindingForReceiver_forMessage___block
   {
     v15 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v17 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v18 = HMFGetOSLogHandle(selfCopy, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      v18 = HMFGetLogIdentifier(selfCopy);
+      v19 = HMFGetLogIdentifier(selfCopy);
       *buf = 138543362;
-      v28 = v18;
-      _os_log_impl(&dword_22ADEC000, v17, OS_LOG_TYPE_FAULT, "%{public}@Requested handlers for nil message", buf, 0xCu);
+      v28 = v19;
+      _os_log_impl(&dword_22ADEC000, v18, OS_LOG_TYPE_FAULT, "%{public}@Requested handlers for nil message", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
     handlers = MEMORY[0x277CBEBF8];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return handlers;
 }
@@ -561,7 +558,7 @@ uint64_t __43__HMFMessageDispatcher_handlersForMessage___block_invoke(uint64_t a
 
 - (void)__registerHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (handlerCopy)
   {
@@ -569,17 +566,18 @@ uint64_t __43__HMFMessageDispatcher_handlersForMessage___block_invoke(uint64_t a
     v5 = [(NSMutableOrderedSet *)self->_handlers indexOfObject:handlerCopy];
     v6 = objc_autoreleasePoolPush();
     selfCopy = self;
+    v9 = selfCopy;
     if (v5 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v8 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v10 = HMFGetOSLogHandle(selfCopy, v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v9 = HMFGetLogIdentifier(selfCopy);
-        v13 = 138543618;
-        v14 = v9;
-        v15 = 2112;
-        v16 = handlerCopy;
-        _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Registering handler: %@", &v13, 0x16u);
+        v11 = HMFGetLogIdentifier(v9);
+        v14 = 138543618;
+        v15 = v11;
+        v16 = 2112;
+        v17 = handlerCopy;
+        _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Registering handler: %@", &v14, 0x16u);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -588,15 +586,15 @@ uint64_t __43__HMFMessageDispatcher_handlersForMessage___block_invoke(uint64_t a
 
     else
     {
-      v10 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v12 = HMFGetOSLogHandle(selfCopy, v8);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v11 = HMFGetLogIdentifier(selfCopy);
-        v13 = 138543618;
-        v14 = v11;
-        v15 = 2112;
-        v16 = handlerCopy;
-        _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Updating handler: %@", &v13, 0x16u);
+        v13 = HMFGetLogIdentifier(v9);
+        v14 = 138543618;
+        v15 = v13;
+        v16 = 2112;
+        v17 = handlerCopy;
+        _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Updating handler: %@", &v14, 0x16u);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -605,13 +603,11 @@ uint64_t __43__HMFMessageDispatcher_handlersForMessage___block_invoke(uint64_t a
 
     os_unfair_lock_unlock(&self->_lock.lock);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deregisterForMessage:(id)message receiver:(id)receiver
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   receiverCopy = receiver;
   if (!messageCopy)
@@ -626,52 +622,50 @@ uint64_t __43__HMFMessageDispatcher_handlersForMessage___block_invoke(uint64_t a
     v9 = objc_autoreleasePoolPush();
     handlers = self->_handlers;
     context = v9;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __54__HMFMessageDispatcher_deregisterForMessage_receiver___block_invoke;
-    v23[3] = &unk_2786E7530;
-    v24 = v8;
-    v25 = messageCopy;
-    v11 = [(NSMutableOrderedSet *)handlers indexesOfObjectsWithOptions:1 passingTest:v23];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __54__HMFMessageDispatcher_deregisterForMessage_receiver___block_invoke;
+    v24[3] = &unk_2786E7530;
+    v25 = v8;
+    v26 = messageCopy;
+    v11 = [(NSMutableOrderedSet *)handlers indexesOfObjectsWithOptions:1 passingTest:v24];
     if (v11)
     {
       v12 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v14 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v15 = HMFGetOSLogHandle(selfCopy, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v15 = HMFGetLogIdentifier(selfCopy);
+        v16 = HMFGetLogIdentifier(selfCopy);
         *buf = 138543618;
-        v27 = v15;
-        v28 = 2112;
-        v29 = v11;
-        _os_log_impl(&dword_22ADEC000, v14, OS_LOG_TYPE_INFO, "%{public}@Removing handlers at indexes: %@", buf, 0x16u);
+        v28 = v16;
+        v29 = 2112;
+        v30 = v11;
+        _os_log_impl(&dword_22ADEC000, v15, OS_LOG_TYPE_INFO, "%{public}@Removing handlers at indexes: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
       [(NSMutableOrderedSet *)self->_handlers removeObjectsAtIndexes:v11];
-      v16 = objc_autoreleasePoolPush();
-      v17 = selfCopy;
-      v18 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v17 = objc_autoreleasePoolPush();
+      v18 = selfCopy;
+      v20 = HMFGetOSLogHandle(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        v19 = HMFGetLogIdentifier(v17);
-        v20 = [(NSMutableOrderedSet *)self->_handlers count];
+        v21 = HMFGetLogIdentifier(v18);
+        v22 = [(NSMutableOrderedSet *)self->_handlers count];
         *buf = 138543618;
-        v27 = v19;
-        v28 = 2048;
-        v29 = v20;
-        _os_log_impl(&dword_22ADEC000, v18, OS_LOG_TYPE_INFO, "%{public}@_handlers: %lu", buf, 0x16u);
+        v28 = v21;
+        v29 = 2048;
+        v30 = v22;
+        _os_log_impl(&dword_22ADEC000, v20, OS_LOG_TYPE_INFO, "%{public}@_handlers: %lu", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v16);
+      objc_autoreleasePoolPop(v17);
     }
 
     objc_autoreleasePoolPop(context);
     os_unfair_lock_unlock(&self->_lock.lock);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__HMFMessageDispatcher_deregisterForMessage_receiver___block_invoke(uint64_t a1, void *a2)
@@ -712,15 +706,15 @@ uint64_t __54__HMFMessageDispatcher_deregisterForMessage_receiver___block_invoke
     {
       v9 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v11 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v12 = HMFGetOSLogHandle(selfCopy, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v12 = HMFGetLogIdentifier(selfCopy);
+        v13 = HMFGetLogIdentifier(selfCopy);
         *buf = 138543618;
-        v22 = v12;
+        v22 = v13;
         v23 = 2112;
         v24 = v8;
-        _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@Removing handlers at indexes: %@", buf, 0x16u);
+        _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_INFO, "%{public}@Removing handlers at indexes: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -732,152 +726,148 @@ uint64_t __54__HMFMessageDispatcher_deregisterForMessage_receiver___block_invoke
     objc_autoreleasePoolPop(contexta);
     os_unfair_lock_unlock(&self->_lock.lock);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)messageRegistrationsForReceiver:(id)receiver name:(id)name policies:(id)policies selector:(SEL)selector
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v6 = [(HMFMessageDispatcher *)self messageHandlerWithReceiver:receiver name:name policies:policies selector:selector];
-  v10[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v7;
 }
 
 - (void)dispatchMessage:(id)message
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v54 = objc_autoreleasePoolPush();
+  v59 = objc_autoreleasePoolPush();
   shortDescription = [messageCopy shortDescription];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v7 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = HMFGetOSLogHandle(selfCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v8 = HMFGetLogIdentifier(selfCopy);
+    v9 = HMFGetLogIdentifier(selfCopy);
     *buf = 138543618;
-    v76 = v8;
-    v77 = 2112;
-    v78 = shortDescription;
-    _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Dispatching message: %@", buf, 0x16u);
+    v81 = v9;
+    v82 = 2112;
+    v83 = shortDescription;
+    _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Dispatching message: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = [(HMFMessageDispatcher *)selfCopy handlersForMessage:messageCopy];
-  if ([v9 count])
+  v10 = [(HMFMessageDispatcher *)selfCopy handlersForMessage:messageCopy];
+  if ([v10 count])
   {
     filterClasses = [(HMFMessageDispatcher *)selfCopy filterClasses];
-    v71 = 0u;
-    v72 = 0u;
-    v73 = 0u;
-    v74 = 0u;
-    v11 = v9;
-    v62 = [v11 countByEnumeratingWithState:&v71 objects:v84 count:16];
-    if (v62)
+    v76 = 0u;
+    v77 = 0u;
+    v78 = 0u;
+    v79 = 0u;
+    v12 = v10;
+    v67 = [v12 countByEnumeratingWithState:&v76 objects:v89 count:16];
+    if (v67)
     {
-      v56 = 0;
-      v60 = 0;
-      v61 = *v72;
-      v65 = selfCopy;
-      v58 = filterClasses;
-      v59 = v9;
-      v57 = v11;
+      v61 = 0;
+      v65 = 0;
+      v66 = *v77;
+      v70 = selfCopy;
+      v63 = filterClasses;
+      v64 = v10;
+      v62 = v12;
       do
       {
-        for (i = 0; i != v62; ++i)
+        for (i = 0; i != v67; ++i)
         {
-          if (*v72 != v61)
+          if (*v77 != v66)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          v13 = *(*(&v71 + 1) + 8 * i);
-          receiver = [v13 receiver];
+          v14 = *(*(&v76 + 1) + 8 * i);
+          receiver = [v14 receiver];
           if (receiver)
           {
-            v63 = receiver;
-            v64 = i;
-            v69 = 0u;
-            v70 = 0u;
-            v67 = 0u;
-            v68 = 0u;
-            v15 = filterClasses;
-            v16 = [v15 countByEnumeratingWithState:&v67 objects:v83 count:16];
-            if (v16)
+            v68 = receiver;
+            v69 = i;
+            v74 = 0u;
+            v75 = 0u;
+            v72 = 0u;
+            v73 = 0u;
+            v16 = filterClasses;
+            v17 = [v16 countByEnumeratingWithState:&v72 objects:v88 count:16];
+            if (v17)
             {
-              v17 = v16;
-              v18 = *v68;
+              v18 = v17;
+              v19 = *v73;
               while (2)
               {
-                for (j = 0; j != v17; ++j)
+                for (j = 0; j != v18; ++j)
                 {
-                  if (*v68 != v18)
+                  if (*v73 != v19)
                   {
-                    objc_enumerationMutation(v15);
+                    objc_enumerationMutation(v16);
                   }
 
-                  v20 = *(*(&v67 + 1) + 8 * j);
-                  policies = [v13 policies];
-                  v66 = 0;
-                  v22 = messageCopy;
-                  v23 = [v20 filterMessage:messageCopy withPolicies:policies dispatcher:selfCopy error:&v66];
-                  v24 = v66;
+                  v21 = *(*(&v72 + 1) + 8 * j);
+                  policies = [v14 policies];
+                  v71 = 0;
+                  v23 = messageCopy;
+                  v24 = [v21 filterMessage:messageCopy withPolicies:policies dispatcher:selfCopy error:&v71];
+                  v25 = v71;
 
-                  if (v23 == -1)
+                  if (v24 == -1)
                   {
-                    v30 = objc_autoreleasePoolPush();
-                    selfCopy = v65;
-                    v31 = v65;
-                    v32 = HMFGetOSLogHandle();
-                    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+                    v32 = objc_autoreleasePoolPush();
+                    selfCopy = v70;
+                    v33 = v70;
+                    v35 = HMFGetOSLogHandle(v33, v34);
+                    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
                     {
-                      v33 = HMFGetLogIdentifier(v31);
-                      v34 = v33;
+                      v36 = HMFGetLogIdentifier(v33);
+                      v37 = v36;
                       *buf = 138544130;
-                      v35 = @"(unspecified error)";
-                      if (v24)
+                      v38 = @"(unspecified error)";
+                      if (v25)
                       {
-                        v35 = v24;
+                        v38 = v25;
                       }
 
-                      v76 = v33;
-                      v77 = 2112;
-                      v78 = shortDescription;
-                      v79 = 2112;
-                      v80 = v20;
-                      v81 = 2112;
-                      v82 = v35;
-                      _os_log_impl(&dword_22ADEC000, v32, OS_LOG_TYPE_DEBUG, "%{public}@Message %@ rejected by %@: %@", buf, 0x2Au);
+                      v81 = v36;
+                      v82 = 2112;
+                      v83 = shortDescription;
+                      v84 = 2112;
+                      v85 = v21;
+                      v86 = 2112;
+                      v87 = v38;
+                      _os_log_impl(&dword_22ADEC000, v35, OS_LOG_TYPE_DEBUG, "%{public}@Message %@ rejected by %@: %@", buf, 0x2Au);
 
-                      selfCopy = v65;
+                      selfCopy = v70;
                     }
 
-                    objc_autoreleasePoolPop(v30);
-                    v36 = v60;
-                    filterClasses = v58;
-                    if (!v60)
+                    objc_autoreleasePoolPop(v32);
+                    v39 = v65;
+                    filterClasses = v63;
+                    if (!v65)
                     {
-                      v36 = v24;
+                      v39 = v25;
                     }
 
-                    v60 = v36;
+                    v65 = v39;
 
-                    messageCopy = v22;
-                    v9 = v59;
+                    messageCopy = v23;
+                    v10 = v64;
                     goto LABEL_28;
                   }
 
-                  messageCopy = v22;
-                  selfCopy = v65;
+                  messageCopy = v23;
+                  selfCopy = v70;
                 }
 
-                v17 = [v15 countByEnumeratingWithState:&v67 objects:v83 count:16];
-                if (v17)
+                v18 = [v16 countByEnumeratingWithState:&v72 objects:v88 count:16];
+                if (v18)
                 {
                   continue;
                 }
@@ -886,56 +876,56 @@ uint64_t __54__HMFMessageDispatcher_deregisterForMessage_receiver___block_invoke
               }
             }
 
-            v25 = objc_autoreleasePoolPush();
-            v26 = selfCopy;
-            v27 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+            v26 = objc_autoreleasePoolPush();
+            v27 = selfCopy;
+            v29 = HMFGetOSLogHandle(v27, v28);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
             {
-              v28 = HMFGetLogIdentifier(v26);
-              shortDescription2 = [v13 shortDescription];
+              v30 = HMFGetLogIdentifier(v27);
+              shortDescription2 = [v14 shortDescription];
               *buf = 138543618;
-              v76 = v28;
-              v77 = 2112;
-              v78 = shortDescription2;
-              _os_log_impl(&dword_22ADEC000, v27, OS_LOG_TYPE_DEBUG, "%{public}@Invoking handler: %@", buf, 0x16u);
+              v81 = v30;
+              v82 = 2112;
+              v83 = shortDescription2;
+              _os_log_impl(&dword_22ADEC000, v29, OS_LOG_TYPE_DEBUG, "%{public}@Invoking handler: %@", buf, 0x16u);
 
-              selfCopy = v65;
+              selfCopy = v70;
             }
 
-            objc_autoreleasePoolPop(v25);
-            v56 |= [v13 invokeWithMessage:messageCopy];
-            filterClasses = v58;
-            v9 = v59;
+            objc_autoreleasePoolPop(v26);
+            v61 |= [v14 invokeWithMessage:messageCopy];
+            filterClasses = v63;
+            v10 = v64;
 LABEL_28:
-            v11 = v57;
-            receiver = v63;
-            i = v64;
+            v12 = v62;
+            receiver = v68;
+            i = v69;
           }
         }
 
-        v62 = [v11 countByEnumeratingWithState:&v71 objects:v84 count:16];
+        v67 = [v12 countByEnumeratingWithState:&v76 objects:v89 count:16];
       }
 
-      while (v62);
+      while (v67);
 
-      if (v56)
+      if (v61)
       {
-        v37 = objc_autoreleasePoolPush();
-        v38 = selfCopy;
-        v39 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+        v40 = objc_autoreleasePoolPush();
+        v41 = selfCopy;
+        v43 = HMFGetOSLogHandle(v41, v42);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
         {
-          v40 = HMFGetLogIdentifier(v38);
+          v44 = HMFGetLogIdentifier(v41);
           *buf = 138543618;
-          v76 = v40;
-          v77 = 2112;
-          v78 = shortDescription;
-          _os_log_impl(&dword_22ADEC000, v39, OS_LOG_TYPE_DEBUG, "%{public}@Successfully dispatched message: %@", buf, 0x16u);
+          v81 = v44;
+          v82 = 2112;
+          v83 = shortDescription;
+          _os_log_impl(&dword_22ADEC000, v43, OS_LOG_TYPE_DEBUG, "%{public}@Successfully dispatched message: %@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v37);
-        v41 = v54;
-        v42 = v60;
+        objc_autoreleasePoolPop(v40);
+        v45 = v59;
+        v46 = v65;
         goto LABEL_45;
       }
     }
@@ -943,65 +933,64 @@ LABEL_28:
     else
     {
 
-      v60 = 0;
+      v65 = 0;
     }
   }
 
   else
   {
-    v43 = objc_autoreleasePoolPush();
-    v44 = selfCopy;
-    v45 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+    v47 = objc_autoreleasePoolPush();
+    v48 = selfCopy;
+    v50 = HMFGetOSLogHandle(v48, v49);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
     {
-      v46 = HMFGetLogIdentifier(v44);
+      v51 = HMFGetLogIdentifier(v48);
       *buf = 138543618;
-      v76 = v46;
-      v77 = 2112;
-      v78 = shortDescription;
-      _os_log_impl(&dword_22ADEC000, v45, OS_LOG_TYPE_DEFAULT, "%{public}@No handlers for message: %@", buf, 0x16u);
+      v81 = v51;
+      v82 = 2112;
+      v83 = shortDescription;
+      _os_log_impl(&dword_22ADEC000, v50, OS_LOG_TYPE_DEFAULT, "%{public}@No handlers for message: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v43);
-    v60 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:14];
+    objc_autoreleasePoolPop(v47);
+    v65 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:14];
   }
 
-  v47 = objc_autoreleasePoolPush();
-  v48 = selfCopy;
-  v49 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+  v52 = objc_autoreleasePoolPush();
+  v53 = selfCopy;
+  v55 = HMFGetOSLogHandle(v53, v54);
+  if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
   {
-    v50 = HMFGetLogIdentifier(v48);
-    shortDescription3 = [(__CFString *)v60 shortDescription];
+    v56 = HMFGetLogIdentifier(v53);
+    shortDescription3 = [(__CFString *)v65 shortDescription];
     *buf = 138543874;
-    v76 = v50;
-    v77 = 2112;
-    v78 = shortDescription;
-    v79 = 2112;
-    v80 = shortDescription3;
-    _os_log_impl(&dword_22ADEC000, v49, OS_LOG_TYPE_DEFAULT, "%{public}@Message %@ was not handled with error: %@", buf, 0x20u);
+    v81 = v56;
+    v82 = 2112;
+    v83 = shortDescription;
+    v84 = 2112;
+    v85 = shortDescription3;
+    _os_log_impl(&dword_22ADEC000, v55, OS_LOG_TYPE_DEFAULT, "%{public}@Message %@ was not handled with error: %@", buf, 0x20u);
   }
 
-  objc_autoreleasePoolPop(v47);
-  v42 = v60;
-  if (v60)
+  objc_autoreleasePoolPop(v52);
+  v46 = v65;
+  if (v65)
   {
-    [messageCopy respondWithError:v60];
+    [messageCopy respondWithError:v65];
   }
 
   else
   {
-    v52 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:14];
-    [messageCopy respondWithError:v52];
+    v58 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:14];
+    [messageCopy respondWithError:v58];
 
-    v42 = 0;
+    v46 = 0;
   }
 
-  v41 = v54;
+  v45 = v59;
 LABEL_45:
 
-  objc_autoreleasePoolPop(v41);
-  v53 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v45);
 }
 
 - (void)sendMessage:(id)message completionHandler:(id)handler
@@ -1020,15 +1009,15 @@ LABEL_45:
     v9 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:8 reason:@"Requested to send nil message"];
     v10 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v12 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v13 = HMFGetOSLogHandle(selfCopy, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      v13 = HMFGetLogIdentifier(selfCopy);
+      v14 = HMFGetLogIdentifier(selfCopy);
       v17 = 138543618;
-      v18 = v13;
+      v18 = v14;
       v19 = 2112;
       v20 = @"Requested to send nil message";
-      _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_FAULT, "%{public}@%@", &v17, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_FAULT, "%{public}@%@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -1047,10 +1036,10 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v15 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:3 reason:@"The dispatcher does not have a valid transport"];
+  v16 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:3 reason:@"The dispatcher does not have a valid transport"];
 
-  v9 = v15;
-  if (!v15)
+  v9 = v16;
+  if (!v16)
   {
     goto LABEL_11;
   }
@@ -1064,7 +1053,6 @@ LABEL_8:
 LABEL_12:
 
   objc_autoreleasePoolPop(v8);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageTransport:(id)transport didReceiveMessage:(id)message
@@ -1100,13 +1088,13 @@ LABEL_12:
   if (handlerCopy && responseHandler)
   {
     v23 = objc_autoreleasePoolPush();
-    v24 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v25 = HMFGetOSLogHandle(0, v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = HMFGetLogIdentifier(0);
+      v26 = HMFGetLogIdentifier(0);
       *buf = 138543362;
-      v38 = v25;
-      _os_log_impl(&dword_22ADEC000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot send with response handler if the message already has a response handler", buf, 0xCu);
+      v38 = v26;
+      _os_log_impl(&dword_22ADEC000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot send with response handler if the message already has a response handler", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v23);
@@ -1130,19 +1118,18 @@ LABEL_12:
     [messageCopy setResponseHandler:responseHandler2];
   }
 
-  v27 = self->_workQueue;
+  v28 = self->_workQueue;
   v31[0] = MEMORY[0x277D85DD0];
   v31[1] = 3221225472;
   v31[2] = __103__HMFMessageDispatcher_Deprecated__sendMessage_target_responseQueue_responseHandler_completionHandler___block_invoke_3;
   v31[3] = &unk_2786E75D0;
-  v28 = completionHandlerCopy;
-  v32 = v27;
-  v33 = v28;
-  v29 = v27;
+  v29 = completionHandlerCopy;
+  v32 = v28;
+  v33 = v29;
+  v30 = v28;
   [(HMFMessageDispatcher *)self sendMessage:messageCopy completionHandler:v31];
 
   objc_autoreleasePoolPop(v17);
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __103__HMFMessageDispatcher_Deprecated__sendMessage_target_responseQueue_responseHandler_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)

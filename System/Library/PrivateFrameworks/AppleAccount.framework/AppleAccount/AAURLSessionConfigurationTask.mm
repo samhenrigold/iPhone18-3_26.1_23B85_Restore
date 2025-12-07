@@ -40,16 +40,17 @@ void __72___AAURLSessionConfigurationTask__initiateSessionTaskWithConfiguration_
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v10 = v9;
   if (v9)
   {
-    v10 = _AALogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _AALogSystem(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __72___AAURLSessionConfigurationTask__initiateSessionTaskWithConfiguration___block_invoke_cold_1(a1, v9, v10);
+      __72___AAURLSessionConfigurationTask__initiateSessionTaskWithConfiguration___block_invoke_cold_1(a1, v10, v11);
     }
   }
 
-  [*(a1 + 32) _invokeCompletionWithData:v7 response:v8 error:v9];
+  [*(a1 + 32) _invokeCompletionWithData:v7 response:v8 error:v10];
 }
 
 void __41___AAURLSessionConfigurationTask_suspend__block_invoke(uint64_t a1)
@@ -109,14 +110,13 @@ __CFString *__45___AAURLSessionConfigurationTask_description__block_invoke(uint6
 
 void __72___AAURLSessionConfigurationTask__initiateSessionTaskWithConfiguration___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(*(a1 + 32) + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1B6F6A000, log, OS_LOG_TYPE_ERROR, "_sessionTask %{public}@ completed with error:%@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1B6F6A000, log, OS_LOG_TYPE_ERROR, "_sessionTask %{public}@ completed with error:%@", &v4, 0x16u);
 }
 
 @end

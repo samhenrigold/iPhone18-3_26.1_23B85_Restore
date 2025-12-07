@@ -167,7 +167,7 @@
     v48 = colorOffsetMatrix2;
     if (colorOffsetMatrix2)
     {
-      [colorOffsetMatrix2 CAColorMatrixValue];
+      objc_msgSend_CAColorMatrixValue(colorOffsetMatrix2);
       v83 = v101;
       v85 = v102;
       v50 = v104;

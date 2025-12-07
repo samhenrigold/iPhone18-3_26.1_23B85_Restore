@@ -44,7 +44,7 @@
   v32 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   identifierCopy = identifier;
-  v8 = _ACDLogSystem();
+  v8 = _ACDLogSystem(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [ACDClientAuthorizationManager authorizationForClient:accountTypeWithIdentifier:];
@@ -55,39 +55,39 @@
 
   if (v10)
   {
-    v14 = _ACDLogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = _ACDLogSystem(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       *&buf[4] = clientCopy;
-      _os_log_impl(&dword_221D2F000, v14, OS_LOG_TYPE_DEFAULT, "%@ has a nil bundle ID. Will not try to find ClientAuthorization.", buf, 0xCu);
+      _os_log_impl(&dword_221D2F000, v15, OS_LOG_TYPE_DEFAULT, "%@ has a nil bundle ID. Will not try to find ClientAuthorization.", buf, 0xCu);
     }
 
-    v15 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v11 = [ACDTCCUtilities TCCStateForClient:clientCopy accountTypeID:identifierCopy];
-    v12 = v11;
-    if (v11)
+    v12 = [ACDTCCUtilities TCCStateForClient:clientCopy accountTypeID:identifierCopy];
+    v13 = v12;
+    if (v12)
     {
-      v13 = v11 == 1;
+      v14 = v12 == 1;
     }
 
     else
     {
-      v16 = _ACDLogSystem();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = _ACDLogSystem(v12);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
         *&buf[4] = clientCopy;
         *&buf[12] = 2112;
         *&buf[14] = identifierCopy;
-        _os_log_impl(&dword_221D2F000, v16, OS_LOG_TYPE_DEFAULT, "No TCC state found: %@, %@", buf, 0x16u);
+        _os_log_impl(&dword_221D2F000, v17, OS_LOG_TYPE_DEFAULT, "No TCC state found: %@, %@", buf, 0x16u);
       }
 
-      v13 = 0;
+      v14 = 0;
     }
 
     *buf = 0;
@@ -105,18 +105,16 @@
     v22 = clientCopy;
     v23 = identifierCopy;
     selfCopy = self;
-    v26 = v12 != 0;
+    v26 = v13 != 0;
     v25 = buf;
-    v27 = v13;
+    v27 = v14;
     [managedObjectContext performBlockAndWait:v21];
 
-    v15 = *(*&buf[8] + 40);
+    v16 = *(*&buf[8] + 40);
     _Block_object_dispose(buf, 8);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v16;
 }
 
 void __82__ACDClientAuthorizationManager_authorizationForClient_accountTypeWithIdentifier___block_invoke(uint64_t a1)
@@ -128,69 +126,69 @@ void __82__ACDClientAuthorizationManager_authorizationForClient_accountTypeWithI
   WeakRetained = objc_loadWeakRetained((*(a1 + 48) + 8));
   v6 = [WeakRetained fetchObjectsForEntityNamed:@"Authorization" withPredicate:v4];
 
-  v7 = _ACDLogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _ACDLogSystem(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    __82__ACDClientAuthorizationManager_authorizationForClient_accountTypeWithIdentifier___block_invoke_cold_1(v6, v7);
+    __82__ACDClientAuthorizationManager_authorizationForClient_accountTypeWithIdentifier___block_invoke_cold_1(v6, v8);
   }
 
-  v8 = [v6 lastObject];
-  if (!v8 && (*(a1 + 64) & 1) == 0)
+  v9 = [v6 lastObject];
+  if (!v9 && (*(a1 + 64) & 1) == 0)
   {
     goto LABEL_11;
   }
 
-  v9 = [[ACDClientAuthorization alloc] initForClient:*(a1 + 32)];
-  v10 = *(*(a1 + 56) + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = v9;
+  v10 = [[ACDClientAuthorization alloc] initForClient:*(a1 + 32)];
+  v11 = *(*(a1 + 56) + 8);
+  v12 = *(v11 + 40);
+  *(v11 + 40) = v10;
 
-  v12 = *(a1 + 48);
-  v13 = [v8 grantedPermissions];
-  v14 = [v12 _setFromCSVString:v13];
-  [*(*(*(a1 + 56) + 8) + 40) setGrantedPermissions:v14];
+  v13 = *(a1 + 48);
+  v14 = [v9 grantedPermissions];
+  v15 = [v13 _setFromCSVString:v14];
+  [*(*(*(a1 + 56) + 8) + 40) setGrantedPermissions:v15];
 
-  v15 = [v8 options];
-  [*(*(*(a1 + 56) + 8) + 40) setOptions:v15];
+  v16 = [v9 options];
+  [*(*(*(a1 + 56) + 8) + 40) setOptions:v16];
 
   if (![ACDTCCUtilities TCCSupportedForAccountTypeID:*(a1 + 40)])
   {
-    v17 = *(*(*(a1 + 56) + 8) + 40);
-    v16 = 1;
+    v18 = *(*(*(a1 + 56) + 8) + 40);
+    v17 = 1;
     goto LABEL_9;
   }
 
   if (*(a1 + 64) != 1)
   {
-    v18 = objc_loadWeakRetained((*(a1 + 48) + 8));
-    [v18 deleteObject:v8];
-
     v19 = objc_loadWeakRetained((*(a1 + 48) + 8));
-    [v19 saveWithError:0];
+    [v19 deleteObject:v9];
+
+    v20 = objc_loadWeakRetained((*(a1 + 48) + 8));
+    [v20 saveWithError:0];
 
 LABEL_11:
-    v20 = *(*(a1 + 56) + 8);
-    v21 = *(v20 + 40);
-    *(v20 + 40) = 0;
+    v21 = *(*(a1 + 56) + 8);
+    v22 = *(v21 + 40);
+    *(v21 + 40) = 0;
 
     goto LABEL_12;
   }
 
-  v16 = *(a1 + 65);
-  v17 = *(*(*(a1 + 56) + 8) + 40);
+  v17 = *(a1 + 65);
+  v18 = *(*(*(a1 + 56) + 8) + 40);
 LABEL_9:
-  [v17 setIsGranted:v16];
+  [v18 setIsGranted:v17];
 LABEL_12:
 }
 
 - (id)setAuthorization:(id)authorization forClient:(id)client onAccountType:(id)type
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   authorizationCopy = authorization;
   clientCopy = client;
   typeCopy = type;
   identifier = [typeCopy identifier];
-  v12 = _ACDLogSystem();
+  v12 = _ACDLogSystem(identifier);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136381699;
@@ -202,7 +200,7 @@ LABEL_12:
     *&buf[28] = 2112;
     *&buf[30] = clientCopy;
     *&buf[38] = 2112;
-    v43 = identifier;
+    v44 = identifier;
     _os_log_debug_impl(&dword_221D2F000, v12, OS_LOG_TYPE_DEBUG, "%{private}s:%{public}d called (%@, %@, %@)", buf, 0x30u);
   }
 
@@ -211,89 +209,92 @@ LABEL_12:
   *&buf[16] = 0x3032000000;
   *&buf[24] = __Block_byref_object_copy__6;
   *&buf[32] = __Block_byref_object_dispose__6;
-  v43 = 0;
+  v44 = 0;
   bundleID = [clientCopy bundleID];
   v14 = bundleID == 0;
 
   if (v14)
   {
-    v25 = _ACDLogSystem();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v27 = _ACDLogSystem(v15);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       [ACDClientAuthorizationManager setAuthorization:forClient:onAccountType:];
     }
 
-    v24 = 0;
+    v26 = 0;
   }
 
   else
   {
-    if (+[ACDTCCUtilities TCCSupportedForAccountTypeID:](ACDTCCUtilities, "TCCSupportedForAccountTypeID:", identifier) && !+[ACDTCCUtilities setTCCStateForClient:accountTypeID:toGranted:](ACDTCCUtilities, "setTCCStateForClient:accountTypeID:toGranted:", clientCopy, identifier, [authorizationCopy isGranted]))
+    v16 = [ACDTCCUtilities TCCSupportedForAccountTypeID:identifier];
+    if (v16)
     {
-      v15 = _ACDLogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = +[ACDTCCUtilities setTCCStateForClient:accountTypeID:toGranted:](ACDTCCUtilities, "setTCCStateForClient:accountTypeID:toGranted:", clientCopy, identifier, [authorizationCopy isGranted]);
+      if ((v16 & 1) == 0)
       {
-        [ACDClientAuthorizationManager setAuthorization:forClient:onAccountType:];
-      }
+        v17 = _ACDLogSystem(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        {
+          [ACDClientAuthorizationManager setAuthorization:forClient:onAccountType:];
+        }
 
-      v16 = MEMORY[0x277CCA9B8];
-      v40 = *MEMORY[0x277CCA450];
-      v41 = @"Setting TCC failed.";
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-      v18 = [v16 errorWithDomain:*MEMORY[0x277CB8DC0] code:1 userInfo:v17];
-      v19 = *(*&buf[8] + 40);
-      *(*&buf[8] + 40) = v18;
+        v18 = MEMORY[0x277CCA9B8];
+        v41 = *MEMORY[0x277CCA450];
+        v42 = @"Setting TCC failed.";
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+        v20 = [v18 errorWithDomain:*MEMORY[0x277CB8DC0] code:1 userInfo:v19];
+        v21 = *(*&buf[8] + 40);
+        *(*&buf[8] + 40) = v20;
+      }
     }
 
     if (!*(*&buf[8] + 40))
     {
-      v38[0] = 0;
-      v38[1] = v38;
-      v38[2] = 0x3032000000;
-      v38[3] = __Block_byref_object_copy__6;
-      v38[4] = __Block_byref_object_dispose__6;
+      v39[0] = 0;
+      v39[1] = v39;
+      v39[2] = 0x3032000000;
+      v39[3] = __Block_byref_object_copy__6;
+      v39[4] = __Block_byref_object_dispose__6;
       options = [authorizationCopy options];
-      v36[0] = 0;
-      v36[1] = v36;
-      v36[2] = 0x3032000000;
-      v36[3] = __Block_byref_object_copy__6;
-      v36[4] = __Block_byref_object_dispose__6;
+      v37[0] = 0;
+      v37[1] = v37;
+      v37[2] = 0x3032000000;
+      v37[3] = __Block_byref_object_copy__6;
+      v37[4] = __Block_byref_object_dispose__6;
       grantedPermissions = [authorizationCopy grantedPermissions];
-      v37 = [(ACDClientAuthorizationManager *)self _csvStringFromSet:grantedPermissions];
+      v38 = [(ACDClientAuthorizationManager *)self _csvStringFromSet:grantedPermissions];
 
       WeakRetained = objc_loadWeakRetained(&self->_databaseConnection);
       managedObjectContext = [WeakRetained managedObjectContext];
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __74__ACDClientAuthorizationManager_setAuthorization_forClient_onAccountType___block_invoke;
-      v28[3] = &unk_27848CE10;
-      v29 = clientCopy;
-      v30 = identifier;
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __74__ACDClientAuthorizationManager_setAuthorization_forClient_onAccountType___block_invoke;
+      v29[3] = &unk_27848CE10;
+      v30 = clientCopy;
+      v31 = identifier;
       selfCopy = self;
-      v32 = typeCopy;
-      v33 = v36;
-      v34 = v38;
-      v35 = buf;
-      [managedObjectContext performBlockAndWait:v28];
+      v33 = typeCopy;
+      v34 = v37;
+      v35 = v39;
+      v36 = buf;
+      [managedObjectContext performBlockAndWait:v29];
 
-      _Block_object_dispose(v36, 8);
-      _Block_object_dispose(v38, 8);
+      _Block_object_dispose(v37, 8);
+      _Block_object_dispose(v39, 8);
     }
 
-    v23 = _ACDLogSystem();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v25 = _ACDLogSystem(v16);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       [ACDClientAuthorizationManager setAuthorization:forClient:onAccountType:];
     }
 
-    v24 = *(*&buf[8] + 40);
+    v26 = *(*&buf[8] + 40);
   }
 
   _Block_object_dispose(buf, 8);
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v26;
 }
 
 void __74__ACDClientAuthorizationManager_setAuthorization_forClient_onAccountType___block_invoke(uint64_t a1)
@@ -336,8 +337,8 @@ void __74__ACDClientAuthorizationManager_setAuthorization_forClient_onAccountTyp
 
   if (*(*(*v14 + 8) + 40))
   {
-    v17 = _ACDLogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = _ACDLogSystem(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       __74__ACDClientAuthorizationManager_setAuthorization_forClient_onAccountType___block_invoke_cold_1(v14);
     }
@@ -358,7 +359,7 @@ void __74__ACDClientAuthorizationManager_setAuthorization_forClient_onAccountTyp
   v32[1] = *MEMORY[0x277D85DE8];
   clientCopy = client;
   identifierCopy = identifier;
-  v8 = _ACDLogSystem();
+  v8 = _ACDLogSystem(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [ACDClientAuthorizationManager removeAuthorizationForClient:accountTypeWithIdentifier:];
@@ -370,21 +371,26 @@ void __74__ACDClientAuthorizationManager_setAuthorization_forClient_onAccountTyp
   v28 = __Block_byref_object_copy__6;
   v29 = __Block_byref_object_dispose__6;
   v30 = 0;
-  if ([ACDTCCUtilities TCCSupportedForAccountTypeID:identifierCopy]&& ![ACDTCCUtilities clearTCCStateForClient:clientCopy accountTypeID:identifierCopy])
+  v9 = [ACDTCCUtilities TCCSupportedForAccountTypeID:identifierCopy];
+  if (v9)
   {
-    v9 = _ACDLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v9 = [ACDTCCUtilities clearTCCStateForClient:clientCopy accountTypeID:identifierCopy];
+    if ((v9 & 1) == 0)
     {
-      [ACDClientAuthorizationManager removeAuthorizationForClient:accountTypeWithIdentifier:];
-    }
+      v10 = _ACDLogSystem(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      {
+        [ACDClientAuthorizationManager removeAuthorizationForClient:accountTypeWithIdentifier:];
+      }
 
-    v10 = MEMORY[0x277CCA9B8];
-    v31 = *MEMORY[0x277CCA450];
-    v32[0] = @"Removing TCC state failed. God knows why.";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
-    v12 = [v10 errorWithDomain:*MEMORY[0x277CB8DC0] code:1 userInfo:v11];
-    v13 = v26[5];
-    v26[5] = v12;
+      v11 = MEMORY[0x277CCA9B8];
+      v31 = *MEMORY[0x277CCA450];
+      v32[0] = @"Removing TCC state failed. God knows why.";
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+      v13 = [v11 errorWithDomain:*MEMORY[0x277CB8DC0] code:1 userInfo:v12];
+      v14 = v26[5];
+      v26[5] = v13;
+    }
   }
 
   if (!v26[5])
@@ -402,18 +408,16 @@ void __74__ACDClientAuthorizationManager_setAuthorization_forClient_onAccountTyp
     [managedObjectContext performBlockAndWait:v20];
   }
 
-  v16 = _ACDLogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v17 = _ACDLogSystem(v9);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     [ACDClientAuthorizationManager removeAuthorizationForClient:accountTypeWithIdentifier:];
   }
 
-  v17 = v26[5];
+  v18 = v26[5];
   _Block_object_dispose(&v25, 8);
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v18;
 }
 
 void __88__ACDClientAuthorizationManager_removeAuthorizationForClient_accountTypeWithIdentifier___block_invoke(uint64_t a1)
@@ -470,14 +474,12 @@ void __88__ACDClientAuthorizationManager_removeAuthorizationForClient_accountTyp
 
   if (*(*(*v15 + 8) + 40))
   {
-    v18 = _ACDLogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = _ACDLogSystem(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       __88__ACDClientAuthorizationManager_removeAuthorizationForClient_accountTypeWithIdentifier___block_invoke_cold_1(v15);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allAuthorizationsForAccountType:(id)type
@@ -492,7 +494,7 @@ void __88__ACDClientAuthorizationManager_removeAuthorizationForClient_accountTyp
 {
   v28 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v5 = _ACDLogSystem();
+  v5 = _ACDLogSystem(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [ACDClientAuthorizationManager allAuthorizationsForAccountTypeWithIdentifier:];
@@ -522,53 +524,52 @@ void __88__ACDClientAuthorizationManager_removeAuthorizationForClient_accountTyp
   v23 = v12;
   [managedObjectContext performBlockAndWait:v19];
 
-  v13 = _ACDLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = _ACDLogSystem(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v12, "count")}];
-    [(ACDClientAuthorizationManager *)v14 allAuthorizationsForAccountTypeWithIdentifier:buf, v10, v13];
+    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v12, "count")}];
+    [(ACDClientAuthorizationManager *)v15 allAuthorizationsForAccountTypeWithIdentifier:buf, v10, v14];
   }
 
-  v15 = v23;
-  v16 = v12;
+  v16 = v23;
+  v17 = v12;
 
   _Block_object_dispose(v25, 8);
-  v17 = *MEMORY[0x277D85DE8];
 
-  return v16;
+  return v17;
 }
 
 void __79__ACDClientAuthorizationManager_allAuthorizationsForAccountTypeWithIdentifier___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAC30] predicateWithFormat:@"accountType.identifier == %@", *(a1 + 32)];
   WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 8));
-  v25 = v2;
+  v24 = v2;
   v4 = [WeakRetained fetchObjectsForEntityNamed:@"Authorization" withPredicate:v2];
   v5 = *(*(a1 + 64) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = *(*(*(a1 + 64) + 8) + 40);
-  v7 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v7 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v28;
+    v9 = *v27;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
+        v11 = *(*(&v26 + 1) + 8 * i);
         v12 = [v11 bundleID];
         v13 = [ACDClientAuthorization alloc];
         v14 = [ACDClient clientWithBundleID:v12];
@@ -583,11 +584,11 @@ void __79__ACDClientAuthorizationManager_allAuthorizationsForAccountTypeWithIden
 
         else
         {
-          v19 = _ACDLogSystem();
+          v19 = _ACDLogSystem(0);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v32 = v12;
+            v31 = v12;
             _os_log_debug_impl(&dword_221D2F000, v19, OS_LOG_TYPE_DEBUG, "No match found in TCC for bundleID: %@ - setting isGranted to TRUE", buf, 0xCu);
           }
 
@@ -606,13 +607,11 @@ void __79__ACDClientAuthorizationManager_allAuthorizationsForAccountTypeWithIden
         [*(a1 + 56) addObject:v15];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v8 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v8);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)removeAllClientAuthorizationsForAccountType:(id)type
@@ -626,41 +625,41 @@ void __79__ACDClientAuthorizationManager_allAuthorizationsForAccountTypeWithIden
 - (id)removeAllClientAuthorizationsForAccountTypeWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = _ACDLogSystem();
+  v5 = _ACDLogSystem(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [ACDClientAuthorizationManager removeAllClientAuthorizationsForAccountTypeWithIdentifier:];
   }
 
   [ACDTCCUtilities clearAllTCCStatesForAccountTypeID:identifierCopy];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__6;
-  v20 = __Block_byref_object_dispose__6;
-  v21 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__6;
+  v21 = __Block_byref_object_dispose__6;
+  v22 = 0;
   WeakRetained = objc_loadWeakRetained(&self->_databaseConnection);
   managedObjectContext = [WeakRetained managedObjectContext];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __91__ACDClientAuthorizationManager_removeAllClientAuthorizationsForAccountTypeWithIdentifier___block_invoke;
-  v12[3] = &unk_27848BF28;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __91__ACDClientAuthorizationManager_removeAllClientAuthorizationsForAccountTypeWithIdentifier___block_invoke;
+  v13[3] = &unk_27848BF28;
   v8 = identifierCopy;
-  v13 = v8;
+  v14 = v8;
   selfCopy = self;
-  v15 = &v16;
-  [managedObjectContext performBlockAndWait:v12];
+  v16 = &v17;
+  [managedObjectContext performBlockAndWait:v13];
 
-  v9 = _ACDLogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = _ACDLogSystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [ACDClientAuthorizationManager removeAllClientAuthorizationsForAccountTypeWithIdentifier:];
   }
 
-  v10 = v17[5];
-  _Block_object_dispose(&v16, 8);
+  v11 = v18[5];
+  _Block_object_dispose(&v17, 8);
 
-  return v10;
+  return v11;
 }
 
 void __91__ACDClientAuthorizationManager_removeAllClientAuthorizationsForAccountTypeWithIdentifier___block_invoke(void *a1)
@@ -706,7 +705,7 @@ void __91__ACDClientAuthorizationManager_removeAllClientAuthorizationsForAccount
 
   v12 = objc_loadWeakRetained((a1[5] + 8));
   v14 = a1[6];
-  v13 = (a1 + 6);
+  v13 = a1 + 6;
   v15 = *(v14 + 8);
   obj = *(v15 + 40);
   [v12 saveWithError:&obj rollbackOnFailure:1];
@@ -714,14 +713,12 @@ void __91__ACDClientAuthorizationManager_removeAllClientAuthorizationsForAccount
 
   if (*(*(*v13 + 8) + 40))
   {
-    v16 = _ACDLogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = _ACDLogSystem(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       __88__ACDClientAuthorizationManager_removeAuthorizationForClient_accountTypeWithIdentifier___block_invoke_cold_1(v13);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_csvStringFromSet:(id)set
@@ -760,105 +757,83 @@ void __91__ACDClientAuthorizationManager_removeAllClientAuthorizationsForAccount
 
 - (void)authorizationForClient:accountTypeWithIdentifier:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136381443;
+  v2 = 136381443;
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_6_4(&dword_221D2F000, v0, v1, "%{private}s:%{public}d called (%@, %@)", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6_4(&dword_221D2F000, v0, v1, "%{private}s:%{public}d called (%@, %@)", v2);
 }
 
 void __82__ACDClientAuthorizationManager_authorizationForClient_accountTypeWithIdentifier___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1, "count")}];
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(&dword_221D2F000, a2, OS_LOG_TYPE_DEBUG, "Found %@ Authorization entities in DB. Taking the last one.", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_221D2F000, a2, OS_LOG_TYPE_DEBUG, "Found %@ Authorization entities in DB. Taking the last one.", v4, 0xCu);
 }
 
 - (void)setAuthorization:forClient:onAccountType:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(&dword_221D2F000, v0, OS_LOG_TYPE_ERROR, "Failed to set TCC state for: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_221D2F000, v0, OS_LOG_TYPE_ERROR, "Failed to set TCC state for: %@", v1, 0xCu);
 }
 
 - (void)setAuthorization:forClient:onAccountType:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAuthorization:forClient:onAccountType:.cold.3()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(&dword_221D2F000, v0, OS_LOG_TYPE_ERROR, "Client (%@) with no bundle ID passed to setAccessGranted! Ignoring...", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_221D2F000, v0, OS_LOG_TYPE_ERROR, "Client (%@) with no bundle ID passed to setAccessGranted! Ignoring...", v1, 0xCu);
 }
 
 void __74__ACDClientAuthorizationManager_setAuthorization_forClient_onAccountType___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_3_3(a1) localizedDescription];
+  v1 = [OUTLINED_FUNCTION_3_3(a1) localizedDescription];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_4_3(&dword_221D2F000, v3, v4, "Could not save new Authorization entity: %@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_221D2F000, v2, v3, "Could not save new Authorization entity: %@", v4, v5, v6, v7);
 }
 
 - (void)removeAuthorizationForClient:accountTypeWithIdentifier:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136381443;
+  v2 = 136381443;
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_6_4(&dword_221D2F000, v0, v1, "%{private}s:%{public}d called (%@, %@)", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6_4(&dword_221D2F000, v0, v1, "%{private}s:%{public}d called (%@, %@)", v2);
 }
 
 - (void)removeAuthorizationForClient:accountTypeWithIdentifier:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAuthorizationForClient:accountTypeWithIdentifier:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __88__ACDClientAuthorizationManager_removeAuthorizationForClient_accountTypeWithIdentifier___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_3_3(a1) localizedDescription];
+  v1 = [OUTLINED_FUNCTION_3_3(a1) localizedDescription];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_4_3(&dword_221D2F000, v3, v4, "Could not delete Authorization entities: %@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_3(&dword_221D2F000, v2, v3, "Could not delete Authorization entities: %@", v4, v5, v6, v7);
 }
 
 - (void)allAuthorizationsForAccountTypeWithIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)allAuthorizationsForAccountTypeWithIdentifier:(uint64_t)a3 .cold.2(void *a1, uint8_t *buf, uint64_t a3, os_log_t log)
@@ -872,21 +847,17 @@ void __88__ACDClientAuthorizationManager_removeAuthorizationForClient_accountTyp
 
 - (void)removeAllClientAuthorizationsForAccountTypeWithIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllClientAuthorizationsForAccountTypeWithIdentifier:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

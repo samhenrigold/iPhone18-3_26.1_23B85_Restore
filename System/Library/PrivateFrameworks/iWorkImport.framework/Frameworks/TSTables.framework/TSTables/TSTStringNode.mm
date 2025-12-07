@@ -38,95 +38,95 @@
   contextCopy = context;
   childrenCopy = children;
   objc_opt_class();
-  v14 = TSUDynamicCast();
-  if (!v14)
+  v13 = TSUDynamicCast();
+  if (!v13)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTStringNode initAsCopyOf:intoContext:children:]", v12, v13);
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStringNode.mm", v18, v19);
-    v22 = @"nil";
+    v14 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTStringNode initAsCopyOf:intoContext:children:]", v12);
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStringNode.mm", v17);
+    v20 = @"nil";
     if (ofCopy)
     {
-      v22 = ofCopy;
+      v20 = ofCopy;
     }
 
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v20, v16, v21, 59, 0, "Unexpected object in initAsCopyOf:... expected TSTStringNode, got %@", v22);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v18, v15, v19, 59, 0, "Unexpected object in initAsCopyOf:... expected TSTStringNode, got %@", v20);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25, v26);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23);
   }
 
-  v30.receiver = self;
-  v30.super_class = TSTStringNode;
-  v27 = [(TSTExpressionNode *)&v30 initAsCopyOf:ofCopy intoContext:contextCopy children:childrenCopy];
-  v28 = v27;
-  if (v27)
+  v27.receiver = self;
+  v27.super_class = TSTStringNode;
+  v24 = [(TSTExpressionNode *)&v27 initAsCopyOf:ofCopy intoContext:contextCopy children:childrenCopy];
+  v25 = v24;
+  if (v24)
   {
-    objc_storeStrong(v27 + 16, v14[16]);
+    objc_storeStrong(v24 + 16, v13[16]);
   }
 
-  return v28;
+  return v25;
 }
 
 - (void)setValue:(id)value
 {
   valueCopy = value;
-  objc_msgSend_willModify(self, v5, v6, v7, v8);
+  objc_msgSend_willModify(self, v5, v6, v7);
   objc_storeStrong(&self->_value, value);
-  v13 = objc_msgSend_tokenAttachment(self, v9, v10, v11, v12);
-  objc_msgSend_invalidate(v13, v14, v15, v16, v17);
+  v11 = objc_msgSend_tokenAttachment(self, v8, v9, v10);
+  objc_msgSend_invalidate(v11, v12, v13, v14);
 }
 
 - (TSTCSENodeData)recordHashesForSubexpressions:(id)subexpressions
 {
   subexpressionsCopy = subexpressions;
-  v9 = objc_msgSend_string(self, v5, v6, v7, v8);
-  v14 = objc_msgSend_hash(v9, v10, v11, v12, v13);
+  v8 = objc_msgSend_string(self, v5, v6, v7);
+  v12 = objc_msgSend_hash(v8, v9, v10, v11);
 
-  objc_msgSend_recordExpression_data_(subexpressionsCopy, v15, self, v14 ^ 0x3000000, 1);
-  v16 = v14 ^ 0x3000000;
-  v17 = 1;
-  result.var1 = v17;
-  result.var0 = v16;
+  objc_msgSend_recordExpression_data_(subexpressionsCopy, v13, self, v12 ^ 0x3000000, 1);
+  v14 = v12 ^ 0x3000000;
+  v15 = 1;
+  result.var1 = v15;
+  result.var0 = v14;
   return result;
 }
 
 - (BOOL)isEqualToExpressionNode:(id)node
 {
   nodeCopy = node;
-  v10 = 1;
+  v9 = 1;
   if (self != nodeCopy)
   {
-    v12.receiver = self;
-    v12.super_class = TSTStringNode;
-    if (![(TSTExpressionNode *)&v12 isEqualToExpressionNode:nodeCopy]|| (value = self->_value, v9 = nodeCopy->_value, value != v9) && !objc_msgSend_isEqualToString_(value, v5, v9, v6, v7))
+    v11.receiver = self;
+    v11.super_class = TSTStringNode;
+    if (![(TSTExpressionNode *)&v11 isEqualToExpressionNode:nodeCopy]|| (value = self->_value, v8 = nodeCopy->_value, value != v8) && !objc_msgSend_isEqualToString_(value, v5, v8, v6))
     {
-      v10 = 0;
+      v9 = 0;
     }
   }
 
-  return v10;
+  return v9;
 }
 
 - (id)string
 {
   value = self->_value;
-  if (value && (value = objc_msgSend_length(value, a2, v2, v3, v4)) != 0)
+  if (value && (value = objc_msgSend_length(value, a2, v2, v3)) != 0)
   {
-    v7 = sub_2214AAEA8(value, a2, v2, v3, v4);
-    v9 = objc_msgSend_localizedStringForKey_value_table_(v7, v8, @"\\U201C%@\\U201D", &stru_2834BADA0, @"TSTables");
+    v6 = sub_2214AAEA8(value, a2, v2, v3);
+    v8 = objc_msgSend_localizedStringForKey_value_table_(v6, v7, @"\\U201C%@\\U201D", &stru_2834BADA0, @"TSTables");
 
-    v13 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v10, v9, v11, v12, self->_value);
+    v11 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v9, v8, v10, self->_value);
   }
 
   else
   {
-    v9 = sub_2214AAEA8(value, a2, v2, v3, v4);
-    v13 = objc_msgSend_localizedStringForKey_value_table_(v9, v14, @"\\U201C\\U2006\\U201D", &stru_2834BADA0, @"TSTables");
+    v8 = sub_2214AAEA8(value, a2, v2, v3);
+    v11 = objc_msgSend_localizedStringForKey_value_table_(v8, v12, @"\\U201C\\U2006\\U201D", &stru_2834BADA0, @"TSTables");
   }
 
-  v15 = v13;
+  v13 = v11;
 
-  return v15;
+  return v13;
 }
 
 - (void)insertFormulaText:(id)text printingOptions:(unsigned int)options
@@ -138,136 +138,136 @@
     sub_2216F76D8();
   }
 
-  v10 = objc_msgSend_children(self, v6, v7, v8, v9);
-  v15 = objc_msgSend_count(v10, v11, v12, v13, v14);
+  v9 = objc_msgSend_children(self, v6, v7, v8);
+  v13 = objc_msgSend_count(v9, v10, v11, v12);
 
-  if (v15)
+  if (v13)
   {
-    v20 = MEMORY[0x277D81150];
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "[TSTStringNode insertFormulaText:printingOptions:]", v18, v19);
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStringNode.mm", v23, v24);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v26, v21, v25, 130, 0, "StringNode shouldn't have any children");
+    v17 = MEMORY[0x277D81150];
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSTStringNode insertFormulaText:printingOptions:]", v16);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStringNode.mm", v20);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v22, v18, v21, 130, 0, "StringNode shouldn't have any children");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25);
   }
 
   if (optionsCopy)
   {
-    v31 = objc_msgSend_whitespaceBefore(self, v16, v17, v18, v19);
+    v26 = objc_msgSend_whitespaceBefore(self, v14, v15, v16);
 
-    if (v31)
+    if (v26)
     {
-      v34 = objc_msgSend_whitespaceBefore(self, v16, v32, v33, v19);
-      objc_msgSend_takeText_(textCopy, v35, v34, v36, v37);
+      v29 = objc_msgSend_whitespaceBefore(self, v14, v27, v28);
+      objc_msgSend_takeText_(textCopy, v30, v29, v31);
     }
   }
 
   if (byte_27CFB44B8 == 1)
   {
-    v38 = [TSTWPTokenAttachment alloc];
-    v43 = objc_msgSend_context(self, v39, v40, v41, v42);
-    v46 = objc_msgSend_initWithContext_expressionNode_(v38, v44, v43, self, v45);
+    v32 = [TSTWPTokenAttachment alloc];
+    v36 = objc_msgSend_context(self, v33, v34, v35);
+    v38 = objc_msgSend_initWithContext_expressionNode_(v32, v37, v36, self);
 
-    objc_msgSend_insertUIGraphicalAttachment_(textCopy, v47, v46, v48, v49);
+    objc_msgSend_insertUIGraphicalAttachment_(textCopy, v39, v38, v40);
   }
 
   else
   {
-    v50 = *MEMORY[0x277D81448];
-    objc_msgSend_takeText_withLanguage_(textCopy, v16, @"", *MEMORY[0x277D81448], v19);
-    v46 = objc_msgSend_tsce_newStringByAddingDoubleQuoteEscapesIfNecessary(self->_value, v51, v52, v53, v54);
+    v41 = *MEMORY[0x277D81448];
+    objc_msgSend_takeText_withLanguage_(textCopy, v14, @"", *MEMORY[0x277D81448]);
+    v38 = objc_msgSend_tsce_newStringByAddingDoubleQuoteEscapesIfNecessary(self->_value, v42, v43, v44);
     if (TSWPGetDefaultParagraphDirection() == 1)
     {
-      objc_msgSend_takeText_withLanguage_(textCopy, v55, v46, @"he", v56);
+      objc_msgSend_takeText_withLanguage_(textCopy, v45, v38, @"he");
     }
 
     else
     {
-      objc_msgSend_takeText_withLanguage_(textCopy, v55, v46, @"en", v56);
+      objc_msgSend_takeText_withLanguage_(textCopy, v45, v38, @"en");
     }
 
-    objc_msgSend_takeText_withLanguage_(textCopy, v57, @"", v50, v58);
+    objc_msgSend_takeText_withLanguage_(textCopy, v46, @"", v41);
   }
 
   if (optionsCopy)
   {
-    v63 = objc_msgSend_whitespaceAfter(self, v59, v60, v61, v62);
+    v50 = objc_msgSend_whitespaceAfter(self, v47, v48, v49);
 
-    if (v63)
+    if (v50)
     {
-      v68 = objc_msgSend_whitespaceAfter(self, v64, v65, v66, v67);
-      objc_msgSend_takeText_(textCopy, v69, v68, v70, v71);
+      v54 = objc_msgSend_whitespaceAfter(self, v51, v52, v53);
+      objc_msgSend_takeText_(textCopy, v55, v54, v56);
     }
   }
 }
 
 - (id)formulaPlainText
 {
-  v6 = &stru_2834BADA0;
-  if (objc_msgSend_length(self->_value, a2, v2, v3, v4))
+  v5 = &stru_2834BADA0;
+  if (objc_msgSend_length(self->_value, a2, v2, v3))
   {
-    v6 = objc_msgSend_tsce_newStringByAddingDoubleQuoteEscapesIfNecessary(self->_value, v7, v8, v9, v10);
+    v5 = objc_msgSend_tsce_newStringByAddingDoubleQuoteEscapesIfNecessary(self->_value, v6, v7, v8);
   }
 
-  v11 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v7, @"%@", v9, v10, v6);
+  v9 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v6, @"%@", v8, v5);
 
-  return v11;
+  return v9;
 }
 
 - (void)fixStorageLanguage:(id)language
 {
   languageCopy = language;
-  Index = objc_msgSend_firstIndex(self, v4, v5, v6, v7);
-  v9 = *MEMORY[0x277D81448];
-  objc_msgSend_setLanguage_forCharRange_undoTransaction_(languageCopy, v10, *MEMORY[0x277D81448], Index, 1, 0);
-  v15 = objc_msgSend_lastIndex(self, v11, v12, v13, v14);
-  objc_msgSend_setLanguage_forCharRange_undoTransaction_(languageCopy, v16, v9, v15, 1, 0);
-  v21 = objc_msgSend_string(self, v17, v18, v19, v20);
-  v22 = TSWPGetDefaultParagraphDirection();
-  v23 = @"en";
-  if (v22 == 1)
+  Index = objc_msgSend_firstIndex(self, v4, v5, v6);
+  v8 = *MEMORY[0x277D81448];
+  objc_msgSend_setLanguage_forCharRange_undoTransaction_(languageCopy, v9, *MEMORY[0x277D81448], Index, 1, 0);
+  v13 = objc_msgSend_lastIndex(self, v10, v11, v12);
+  objc_msgSend_setLanguage_forCharRange_undoTransaction_(languageCopy, v14, v8, v13, 1, 0);
+  v18 = objc_msgSend_string(self, v15, v16, v17);
+  v19 = TSWPGetDefaultParagraphDirection();
+  v20 = @"en";
+  if (v19 == 1)
   {
-    v23 = @"he";
+    v20 = @"he";
   }
 
-  v24 = v23;
+  v21 = v20;
 
-  v29 = objc_msgSend_firstIndex(self, v25, v26, v27, v28);
-  v34 = objc_msgSend_lastIndex(self, v30, v31, v32, v33);
-  v39 = objc_msgSend_firstIndex(self, v35, v36, v37, v38);
-  objc_msgSend_setLanguage_forCharRange_undoTransaction_(languageCopy, v40, v24, v29 + 1, v34 + ~v39, 0);
+  v25 = objc_msgSend_firstIndex(self, v22, v23, v24);
+  v29 = objc_msgSend_lastIndex(self, v26, v27, v28);
+  v33 = objc_msgSend_firstIndex(self, v30, v31, v32);
+  objc_msgSend_setLanguage_forCharRange_undoTransaction_(languageCopy, v34, v21, v25 + 1, v29 + ~v33, 0);
 }
 
 - (void)buildASTNodeArray:(TSCEASTNodeArray *)array hostCell:(TSUCellCoord)cell symbolTable:(void *)table
 {
-  v40 = objc_msgSend_children(self, a2, array, *&cell, table);
-  v11 = objc_msgSend_count(v40, v7, v8, v9, v10);
+  v33 = objc_msgSend_children(self, a2, array, *&cell, table);
+  v10 = objc_msgSend_count(v33, v7, v8, v9);
 
-  if (v11)
+  if (v10)
   {
-    v16 = MEMORY[0x277D81150];
-    v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSTStringNode buildASTNodeArray:hostCell:symbolTable:]", v14, v15);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStringNode.mm", v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v21, v41, v20, 178, 0, "StringNode shouldn't have any children");
+    v14 = MEMORY[0x277D81150];
+    v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTStringNode buildASTNodeArray:hostCell:symbolTable:]", v13);
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTStringNode.mm", v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v18, v34, v17, 178, 0, "StringNode shouldn't have any children");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21);
   }
 
-  TSCEASTStringElement::appendStringElement(array, self->_value, v13);
-  v30 = objc_msgSend_whitespaceBefore(self, v26, v27, v28, v29);
+  TSCEASTStringElement::appendStringElement(array, self->_value, v12);
+  v25 = objc_msgSend_whitespaceBefore(self, v22, v23, v24);
 
-  if (v30)
+  if (v25)
   {
-    v42 = objc_msgSend_whitespaceBefore(self, v31, v32, v33, v34);
-    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v42);
+    v35 = objc_msgSend_whitespaceBefore(self, v26, v27, v28);
+    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v35);
   }
 
-  v35 = objc_msgSend_whitespaceAfter(self, v31, v32, v33, v34);
+  v29 = objc_msgSend_whitespaceAfter(self, v26, v27, v28);
 
-  if (v35)
+  if (v29)
   {
-    v43 = objc_msgSend_whitespaceAfter(self, v36, v37, v38, v39);
-    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v43);
+    v36 = objc_msgSend_whitespaceAfter(self, v30, v31, v32);
+    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v36);
   }
 }
 
@@ -275,18 +275,18 @@
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[204], v5, v6);
+  v6 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[204], v5);
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v8, v7, unarchiverCopy, v9);
+  objc_msgSend_loadFromArchive_unarchiver_(self, v7, v6, unarchiverCopy);
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2212D6310, off_2812E4498[204], v5);
+  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2212D6310, off_2812E4498[204]);
 
-  objc_msgSend_saveToArchive_archiver_(self, v7, v6, archiverCopy, v8);
+  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
 }
 
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver
@@ -302,18 +302,18 @@
     v7 = &TST::_ExpressionNodeArchive_default_instance_;
   }
 
-  v14.receiver = self;
-  v14.super_class = TSTStringNode;
-  [(TSTExpressionNode *)&v14 loadFromArchive:v7 unarchiver:unarchiverCopy];
-  v11 = *(archive + 3) & 0xFFFFFFFFFFFFFFFELL;
-  if (*(v11 + 23) < 0)
+  v13.receiver = self;
+  v13.super_class = TSTStringNode;
+  [(TSTExpressionNode *)&v13 loadFromArchive:v7 unarchiver:unarchiverCopy];
+  v10 = *(archive + 3) & 0xFFFFFFFFFFFFFFFELL;
+  if (*(v10 + 23) < 0)
   {
-    v11 = *v11;
+    v10 = *v10;
   }
 
-  v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v11, v9, v10);
+  v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v10, v9);
   value = self->_value;
-  self->_value = v12;
+  self->_value = v11;
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
@@ -333,11 +333,11 @@
     *(archive + 4) = v7;
   }
 
-  v14.receiver = self;
-  v14.super_class = TSTStringNode;
-  [(TSTExpressionNode *)&v14 saveToArchive:v7 archiver:archiverCopy];
-  v13 = objc_msgSend_UTF8String(self->_value, v9, v10, v11, v12);
-  sub_2212D61D8(archive, v13);
+  v13.receiver = self;
+  v13.super_class = TSTStringNode;
+  [(TSTExpressionNode *)&v13 saveToArchive:v7 archiver:archiverCopy];
+  v12 = objc_msgSend_UTF8String(self->_value, v9, v10, v11);
+  sub_2212D61D8(archive, v12);
 }
 
 @end

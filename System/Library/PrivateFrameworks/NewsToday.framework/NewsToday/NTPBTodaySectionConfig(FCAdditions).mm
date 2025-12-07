@@ -6,16 +6,16 @@
 
 + (id)sectionConfigWithJSONDictionary:()FCAdditions
 {
-  v306 = *MEMORY[0x277D85DE8];
+  v305 = *MEMORY[0x277D85DE8];
   v3 = a3;
-  v251 = v3;
+  v250 = v3;
   if (v3)
   {
     v4 = v3;
-    v253 = [v4 objectForKeyedSubscript:*MEMORY[0x277D308E0]];
-    v5 = [v253 objectForKeyedSubscript:*MEMORY[0x277D308E8]];
-    v252 = v5;
-    if (v253)
+    v252 = [v4 objectForKeyedSubscript:*MEMORY[0x277D308E0]];
+    v5 = [v252 objectForKeyedSubscript:*MEMORY[0x277D308E8]];
+    v251 = v5;
+    if (v252)
     {
       v6 = v5 == 0;
     }
@@ -28,7 +28,7 @@
     if (!v6)
     {
       v7 = [MEMORY[0x277CCA968] dateFormatterWithFormat:@"yyyy-MM-dd'T'HH:mm:ss" forReuse:0];
-      v8 = [v7 dateFromString:v252];
+      v8 = [v7 dateFromString:v251];
 
       if (v8)
       {
@@ -37,7 +37,7 @@
 
         if (v10)
         {
-          v11 = [MEMORY[0x277CBEAC0] fc_dictionaryByAddingEntriesFromDictionary:v253 toDictionary:v4];
+          v11 = [MEMORY[0x277CBEAC0] fc_dictionaryByAddingEntriesFromDictionary:v252 toDictionary:v4];
 
           v4 = v11;
         }
@@ -45,26 +45,26 @@
     }
 
     v12 = objc_opt_new();
-    v279 = 0;
-    v280 = &v279;
-    v281 = 0x2020000000;
-    v282 = 1;
+    v278 = 0;
+    v279 = &v278;
+    v280 = 0x2020000000;
+    v281 = 1;
     v13 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30880]];
     [v12 setIdentifier:v13];
-    v242 = v13;
+    v241 = v13;
     if (!v13)
     {
       v14 = MEMORY[0x277D86220];
       v15 = MEMORY[0x277D86220];
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.1([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires identifier"], v305);
+        +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.1([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires identifier"], v304);
       }
 
       v13 = 0;
     }
 
-    *(v280 + 24) &= v13 != 0;
+    *(v279 + 24) &= v13 != 0;
     v16 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30908]];
     [v12 setSubidentifier:v16];
     v17 = [v4 objectForKeyedSubscript:*MEMORY[0x277D308B0]];
@@ -82,7 +82,7 @@
     }
 
     [v12 setCompactName:v20];
-    v234 = v19;
+    v233 = v19;
     v21 = [v4 objectForKeyedSubscript:*MEMORY[0x277D308D8]];
     v22 = v21;
     if (v21)
@@ -96,25 +96,25 @@
     }
 
     [v12 setReferralBarName:v23];
-    v233 = v22;
+    v232 = v22;
     v24 = [v4 objectForKeyedSubscript:*MEMORY[0x277D308A8]];
     [v12 setNameColorLight:v24];
-    v241 = v24;
+    v240 = v24;
     if (!v24)
     {
       v25 = MEMORY[0x277D86220];
       v26 = MEMORY[0x277D86220];
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.2([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires name color light"], v304);
+        +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.2([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires name color light"], v303);
       }
 
       v24 = 0;
     }
 
-    v231 = v16;
-    v232 = v17;
-    *(v280 + 24) &= v24 != 0;
+    v230 = v16;
+    v231 = v17;
+    *(v279 + 24) &= v24 != 0;
     v27 = [v4 objectForKeyedSubscript:*MEMORY[0x277D308A0]];
     v28 = v27;
     if (v27)
@@ -127,24 +127,24 @@
       v29 = v24;
     }
 
-    v250 = v29;
+    v249 = v29;
 
-    [v12 setNameColorDark:v250];
+    [v12 setNameColorDark:v249];
     v30 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30910]];
-    v240 = v30;
+    v239 = v30;
     if (!v30)
     {
       v31 = MEMORY[0x277D86220];
       v32 = MEMORY[0x277D86220];
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.3([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires a section type"], v303);
+        +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.3([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires a section type"], v302);
       }
 
       v30 = 0;
     }
 
-    *(v280 + 24) &= v30 != 0;
+    *(v279 + 24) &= v30 != 0;
     intValue = [v30 intValue];
     v34 = intValue;
     if (!v30)
@@ -152,7 +152,7 @@
 LABEL_44:
       v38 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30820]];
       v39 = v38;
-      v239 = v38;
+      v238 = v38;
       if (v38)
       {
         [v12 setFallbackOrder:{objc_msgSend(v38, "integerValue")}];
@@ -164,16 +164,16 @@ LABEL_44:
         v41 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
-          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.4([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires fallback order"], v302);
+          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.4([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires fallback order"], v301);
         }
 
         v39 = 0;
       }
 
-      *(v280 + 24) &= v39 != 0;
+      *(v279 + 24) &= v39 != 0;
       v42 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30810]];
       v43 = v42;
-      v238 = v42;
+      v237 = v42;
       if (v42)
       {
         [v12 setCachedResultCutoffTime:{objc_msgSend(v42, "unsignedIntegerValue")}];
@@ -185,13 +185,13 @@ LABEL_44:
         v45 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
-          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.5([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires cached result cutoff time"], v301);
+          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.5([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires cached result cutoff time"], v300);
         }
 
         v43 = 0;
       }
 
-      *(v280 + 24) &= v43 != 0;
+      *(v279 + 24) &= v43 != 0;
       v46 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30890]];
       v47 = v46;
       if (v46)
@@ -229,9 +229,9 @@ LABEL_44:
 
       [v12 setMaximumStoriesAllocation:v53];
       v54 = [v4 objectForKeyedSubscript:*MEMORY[0x277D308D0]];
-      v229 = v47;
-      v230 = v50;
-      v237 = v54;
+      v228 = v47;
+      v229 = v50;
+      v236 = v54;
       if (v54)
       {
         v55 = v54;
@@ -255,15 +255,15 @@ LABEL_44:
         v59 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
         {
-          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.6([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires a read stories filter method"], v300);
+          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.6([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires a read stories filter method"], v299);
         }
 
         v55 = 0;
       }
 
-      *(v280 + 24) &= v55 != 0;
+      *(v279 + 24) &= v55 != 0;
       v60 = [v4 objectForKeyedSubscript:*MEMORY[0x277D308F0]];
-      v228 = v60;
+      v227 = v60;
       if (v60)
       {
         intValue3 = [v60 intValue];
@@ -293,11 +293,11 @@ LABEL_44:
             v68 = MEMORY[0x277D86220];
             if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
             {
-              +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.7([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires seen stories minimum time to filter when seen stories filter method is not none"], v299);
+              +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.7([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires seen stories minimum time to filter when seen stories filter method is not none"], v298);
             }
           }
 
-          *(v280 + 24) &= v64 != 0;
+          *(v279 + 24) &= v64 != 0;
         }
       }
 
@@ -307,14 +307,14 @@ LABEL_44:
         v66 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
         {
-          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.8([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires seen stories filter method"], v299);
+          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.8([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires seen stories filter method"], v298);
         }
 
-        *(v280 + 24) = 0;
+        *(v279 + 24) = 0;
       }
 
       v69 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30838]];
-      v249 = v69;
+      v248 = v69;
       if (v69)
       {
         if ([v69 BOOLValue])
@@ -334,15 +334,15 @@ LABEL_44:
         v72 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
         {
-          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.9([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires a policy around whether to filter duplicate clusters within the section it describes"], v298);
+          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.9([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires a policy around whether to filter duplicate clusters within the section it describes"], v297);
         }
 
         v70 = 1;
       }
 
-      *(v280 + 24) &= v249 != 0;
+      *(v279 + 24) &= v248 != 0;
       v73 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30840]];
-      v248 = v73;
+      v247 = v73;
       if (v73)
       {
         bOOLValue = [v73 BOOLValue];
@@ -361,11 +361,11 @@ LABEL_44:
         v77 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
         {
-          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.10([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires a policy around whether to filter muted channels within the section it describes"], v297);
+          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.10([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires a policy around whether to filter muted channels within the section it describes"], v296);
         }
       }
 
-      *(v280 + 24) &= v248 != 0;
+      *(v279 + 24) &= v247 != 0;
       v78 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30850]];
       v79 = v78;
       v80 = MEMORY[0x277CBEC38];
@@ -374,9 +374,9 @@ LABEL_44:
         v80 = v78;
       }
 
-      v247 = v80;
+      v246 = v80;
 
-      if ([v247 BOOLValue])
+      if ([v246 BOOLValue])
       {
         v81 = [v4 objectForKeyedSubscript:*MEMORY[0x277D308B8]];
         v82 = v81;
@@ -393,7 +393,7 @@ LABEL_44:
       }
 
       v85 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30828]];
-      v246 = v85;
+      v245 = v85;
       if (v85)
       {
         bOOLValue2 = [v85 BOOLValue];
@@ -412,7 +412,7 @@ LABEL_44:
       [v12 setIntraSectionFilteringOptions:v87 | v70];
       v88 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30830]];
       v89 = v88;
-      v236 = v88;
+      v235 = v88;
       if (v88)
       {
         if ([v88 BOOLValue])
@@ -434,13 +434,13 @@ LABEL_44:
         v92 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
         {
-          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.11([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires a policy around whether to filter duplicate clusters across sections for the section it describes"], v296);
+          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.11([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires a policy around whether to filter duplicate clusters across sections for the section it describes"], v295);
         }
 
         v89 = 0;
       }
 
-      *(v280 + 24) &= v89 != 0;
+      *(v279 + 24) &= v89 != 0;
       v93 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30900]];
       v94 = v93;
       if (v93)
@@ -454,39 +454,39 @@ LABEL_44:
         v96 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
         {
-          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.12([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires a policy around whether to shown the section it describes in Favorites-only mode"], v295);
+          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.12([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires a policy around whether to shown the section it describes in Favorites-only mode"], v294);
         }
 
         v94 = 0;
       }
 
-      *(v280 + 24) &= v94 != 0;
+      *(v279 + 24) &= v94 != 0;
       v97 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30848]];
       [v12 setFilterNonSubscribedInFavoritesOnlyMode:{objc_msgSend(v97, "BOOLValue")}];
       [v4 objectForKeyedSubscript:*MEMORY[0x277D308C8]];
-      v226 = v94;
-      v227 = v97;
+      v225 = v94;
+      v226 = v97;
+      v276 = 0u;
       v277 = 0u;
-      v278 = 0u;
-      v275 = 0u;
-      v98 = v276 = 0u;
-      v99 = [v98 countByEnumeratingWithState:&v275 objects:v294 count:16];
+      v274 = 0u;
+      v98 = v275 = 0u;
+      v99 = [v98 countByEnumeratingWithState:&v274 objects:v293 count:16];
       if (v99)
       {
-        v100 = *v276;
+        v100 = *v275;
         do
         {
           for (i = 0; i != v99; ++i)
           {
-            if (*v276 != v100)
+            if (*v275 != v100)
             {
               objc_enumerationMutation(v98);
             }
 
-            [v12 addQueueMembership:{objc_msgSend(*(*(&v275 + 1) + 8 * i), "unsignedIntegerValue")}];
+            [v12 addQueueMembership:{objc_msgSend(*(*(&v274 + 1) + 8 * i), "unsignedIntegerValue")}];
           }
 
-          v99 = [v98 countByEnumeratingWithState:&v275 objects:v294 count:16];
+          v99 = [v98 countByEnumeratingWithState:&v274 objects:v293 count:16];
         }
 
         while (v99);
@@ -499,13 +499,13 @@ LABEL_44:
         v104 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
         {
-          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.13([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires queue memberships"], v293);
+          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.13([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires queue memberships"], v292);
         }
       }
 
-      *(v280 + 24) &= v102 != 0;
+      *(v279 + 24) &= v102 != 0;
       v105 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30858]];
-      v245 = v105;
+      v244 = v105;
       if (v105)
       {
         [v12 setGlanceable:{objc_msgSend(v105, "BOOLValue")}];
@@ -517,11 +517,11 @@ LABEL_44:
         v107 = MEMORY[0x277D86220];
         if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
         {
-          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.14([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires glanceability"], v292);
+          +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.14([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"section config requires glanceability"], v291);
         }
       }
 
-      *(v280 + 24) &= v245 != 0;
+      *(v279 + 24) &= v244 != 0;
       v108 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30860]];
       [v12 setGroupActionTitle:v108];
 
@@ -545,17 +545,17 @@ LABEL_44:
         v115 = v113;
       }
 
-      v244 = v115;
+      v243 = v115;
 
       v116 = objc_opt_new();
-      v272[0] = MEMORY[0x277D85DD0];
-      v272[1] = 3221225472;
-      v272[2] = __71__NTPBTodaySectionConfig_FCAdditions__sectionConfigWithJSONDictionary___block_invoke;
-      v272[3] = &unk_279982B78;
-      v235 = v116;
-      v273 = v235;
-      v274 = &v279;
-      [v244 enumerateObjectsUsingBlock:v272];
+      v271[0] = MEMORY[0x277D85DD0];
+      v271[1] = 3221225472;
+      v271[2] = __71__NTPBTodaySectionConfig_FCAdditions__sectionConfigWithJSONDictionary___block_invoke;
+      v271[3] = &unk_279982B78;
+      v234 = v116;
+      v272 = v234;
+      v273 = &v278;
+      [v243 enumerateObjectsUsingBlock:v271];
       v117 = [v4 objectForKeyedSubscript:*MEMORY[0x277D308C0]];
       v118 = v117;
       v119 = &unk_286D9ECF0;
@@ -564,9 +564,9 @@ LABEL_44:
         v119 = v117;
       }
 
-      v243 = v119;
+      v242 = v119;
 
-      [v12 setPromotionCriterion:{objc_msgSend(v243, "intValue")}];
+      [v12 setPromotionCriterion:{objc_msgSend(v242, "intValue")}];
       v120 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30898]];
       [v12 setMutingTagID:v120];
 
@@ -583,14 +583,14 @@ LABEL_44:
               v131 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
               {
-                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.17([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"personalized section config requires mandatory articles"], v291);
+                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.17([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"personalized section config requires mandatory articles"], v290);
               }
             }
 
-            *(v280 + 24) &= v129 != 0;
-            v267 = 0;
-            v132 = NTPBTodaySectionConfigGenerateArticles(v129, &v267);
-            if (v267)
+            *(v279 + 24) &= v129 != 0;
+            v266 = 0;
+            v132 = NTPBTodaySectionConfigGenerateArticles(v129, &v266);
+            if (v266)
             {
               v133 = 1;
             }
@@ -601,36 +601,36 @@ LABEL_44:
               v142 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
               {
-                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.18([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"personalized section config requires valid mandatory articles"], v290);
+                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.18([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"personalized section config requires valid mandatory articles"], v289);
               }
 
-              v133 = v267;
+              v133 = v266;
             }
 
-            v224 = v129;
-            *(v280 + 24) &= v133;
-            v265 = 0u;
-            v266 = 0u;
-            v263 = 0u;
+            v223 = v129;
+            *(v279 + 24) &= v133;
             v264 = 0u;
+            v265 = 0u;
+            v262 = 0u;
+            v263 = 0u;
             v143 = v132;
-            v144 = [v143 countByEnumeratingWithState:&v263 objects:v286 count:16];
+            v144 = [v143 countByEnumeratingWithState:&v262 objects:v285 count:16];
             if (v144)
             {
-              v145 = *v264;
+              v145 = *v263;
               do
               {
                 for (j = 0; j != v144; ++j)
                 {
-                  if (*v264 != v145)
+                  if (*v263 != v145)
                   {
                     objc_enumerationMutation(v143);
                   }
 
-                  [v121 addMandatoryArticles:*(*(&v263 + 1) + 8 * j)];
+                  [v121 addMandatoryArticles:*(*(&v262 + 1) + 8 * j)];
                 }
 
-                v144 = [v143 countByEnumeratingWithState:&v263 objects:v286 count:16];
+                v144 = [v143 countByEnumeratingWithState:&v262 objects:v285 count:16];
               }
 
               while (v144);
@@ -643,14 +643,14 @@ LABEL_44:
               v149 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v148, OS_LOG_TYPE_ERROR))
               {
-                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.19([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"personalized section config requires personalized articles"], v289);
+                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.19([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"personalized section config requires personalized articles"], v288);
               }
             }
 
-            *(v280 + 24) &= v147 != 0;
-            v262 = 0;
-            v150 = NTPBTodaySectionConfigGenerateArticles(v147, &v262);
-            if (v262)
+            *(v279 + 24) &= v147 != 0;
+            v261 = 0;
+            v150 = NTPBTodaySectionConfigGenerateArticles(v147, &v261);
+            if (v261)
             {
               v151 = 1;
             }
@@ -661,41 +661,41 @@ LABEL_44:
               v167 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v166, OS_LOG_TYPE_ERROR))
               {
-                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.20([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"personalized section config requires valid personalized articles"], v288);
+                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.20([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"personalized section config requires valid personalized articles"], v287);
               }
 
-              v151 = v262;
+              v151 = v261;
             }
 
-            *(v280 + 24) &= v151;
-            v260 = 0u;
-            v261 = 0u;
-            v258 = 0u;
+            *(v279 + 24) &= v151;
             v259 = 0u;
+            v260 = 0u;
+            v257 = 0u;
+            v258 = 0u;
             v168 = v150;
-            v169 = [v168 countByEnumeratingWithState:&v258 objects:v285 count:16];
+            v169 = [v168 countByEnumeratingWithState:&v257 objects:v284 count:16];
             if (v169)
             {
-              v170 = *v259;
+              v170 = *v258;
               do
               {
                 for (k = 0; k != v169; ++k)
                 {
-                  if (*v259 != v170)
+                  if (*v258 != v170)
                   {
                     objc_enumerationMutation(v168);
                   }
 
-                  [v121 addPersonalizedArticles:*(*(&v258 + 1) + 8 * k)];
+                  [v121 addPersonalizedArticles:*(*(&v257 + 1) + 8 * k)];
                 }
 
-                v169 = [v168 countByEnumeratingWithState:&v258 objects:v285 count:16];
+                v169 = [v168 countByEnumeratingWithState:&v257 objects:v284 count:16];
               }
 
               while (v169);
             }
 
-            v128 = v224;
+            v128 = v223;
             v172 = [v4 objectForKeyedSubscript:*MEMORY[0x277D307E8]];
             v173 = v172;
             if (v172)
@@ -708,14 +708,14 @@ LABEL_44:
               v215 = MEMORY[0x277D86220];
               v216 = MEMORY[0x277D86220];
               v217 = v215;
-              v128 = v224;
+              v128 = v223;
               if (os_log_type_enabled(v217, OS_LOG_TYPE_ERROR))
               {
-                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.21([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"personalized section config requires max articles shown"], v284);
+                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.21([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"personalized section config requires max articles shown"], v283);
               }
             }
 
-            *(v280 + 24) &= v173 != 0;
+            *(v279 + 24) &= v173 != 0;
             [v12 setPersonalizedTodaySectionConfig:v121];
 
             goto LABEL_280;
@@ -728,14 +728,14 @@ LABEL_44:
               v138 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v137, OS_LOG_TYPE_ERROR))
               {
-                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.15([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"items section config requires items"], v291);
+                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.15([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"items section config requires items"], v290);
               }
             }
 
-            *(v280 + 24) &= v136 != 0;
-            LOBYTE(v289[0]) = 0;
-            v139 = NTPBTodaySectionConfigGenerateItems(v136, v235, v289);
-            if (v289[0])
+            *(v279 + 24) &= v136 != 0;
+            LOBYTE(v288[0]) = 0;
+            v139 = NTPBTodaySectionConfigGenerateItems(v136, v234, v288);
+            if (v288[0])
             {
               v140 = 1;
             }
@@ -746,36 +746,36 @@ LABEL_44:
               v160 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v159, OS_LOG_TYPE_ERROR))
               {
-                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.16([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"items section config requires valid items"], v290);
+                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.16([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"items section config requires valid items"], v289);
               }
 
-              v140 = v289[0];
+              v140 = v288[0];
             }
 
             v161 = v136;
-            *(v280 + 24) &= v140;
-            v256 = 0u;
-            v257 = 0u;
-            v254 = 0u;
+            *(v279 + 24) &= v140;
             v255 = 0u;
+            v256 = 0u;
+            v253 = 0u;
+            v254 = 0u;
             v162 = v139;
-            v163 = [v162 countByEnumeratingWithState:&v254 objects:v283 count:16];
+            v163 = [v162 countByEnumeratingWithState:&v253 objects:v282 count:16];
             if (v163)
             {
-              v164 = *v255;
+              v164 = *v254;
               do
               {
                 for (m = 0; m != v163; ++m)
                 {
-                  if (*v255 != v164)
+                  if (*v254 != v164)
                   {
                     objc_enumerationMutation(v162);
                   }
 
-                  [v121 addItems:*(*(&v254 + 1) + 8 * m)];
+                  [v121 addItems:*(*(&v253 + 1) + 8 * m)];
                 }
 
-                v163 = [v162 countByEnumeratingWithState:&v254 objects:v283 count:16];
+                v163 = [v162 countByEnumeratingWithState:&v253 objects:v282 count:16];
               }
 
               while (v163);
@@ -800,11 +800,11 @@ LABEL_44:
               v177 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v176, OS_LOG_TYPE_ERROR))
               {
-                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.25([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Tag section config requires cutoff time"], v291);
+                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.25([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Tag section config requires cutoff time"], v290);
               }
             }
 
-            *(v280 + 24) &= v128 != 0;
+            *(v279 + 24) &= v128 != 0;
             v178 = [v4 objectForKeyedSubscript:*MEMORY[0x277D307A8]];
             v179 = v178;
             if (v178)
@@ -828,7 +828,7 @@ LABEL_44:
               v128 = v185;
               if (os_log_type_enabled(v188, OS_LOG_TYPE_ERROR))
               {
-                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.26([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Tag section config requires fetching bin"], v290);
+                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.26([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Tag section config requires fetching bin"], v289);
               }
             }
 
@@ -848,11 +848,11 @@ LABEL_44:
               v128 = v195;
               if (os_log_type_enabled(v198, OS_LOG_TYPE_ERROR))
               {
-                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.27([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Tag section config requires headlines per feed fetch count"], v289);
+                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.27([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Tag section config requires headlines per feed fetch count"], v288);
               }
             }
 
-            *(v280 + 24) &= v190 != 0;
+            *(v279 + 24) &= v190 != 0;
             [v12 setTagTodaySectionConfig:v121];
 
             goto LABEL_280;
@@ -877,11 +877,11 @@ LABEL_44:
               v175 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v174, OS_LOG_TYPE_ERROR))
               {
-                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.24([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"article list section config requires an articleList ID"], v291);
+                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.24([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"article list section config requires an articleList ID"], v290);
               }
             }
 
-            *(v280 + 24) &= v128 != 0;
+            *(v279 + 24) &= v128 != 0;
             [v12 setArticleListTodaySectionConfig:v121];
             goto LABEL_280;
           case 1:
@@ -899,19 +899,19 @@ LABEL_44:
               v183 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v182, OS_LOG_TYPE_ERROR))
               {
-                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.28([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"For You section config requires cutoff time"], v291);
+                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.28([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"For You section config requires cutoff time"], v290);
               }
             }
 
-            *(v280 + 24) &= v135 != 0;
-            v225 = [v4 objectForKeyedSubscript:*MEMORY[0x277D307A8]];
-            if (v225)
+            *(v279 + 24) &= v135 != 0;
+            v224 = [v4 objectForKeyedSubscript:*MEMORY[0x277D307A8]];
+            if (v224)
             {
-              [v121 setMinimumUpdateInterval:{objc_msgSend(v225, "integerValue")}];
+              [v121 setMinimumUpdateInterval:{objc_msgSend(v224, "integerValue")}];
             }
 
             v184 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30780]];
-            v222 = v184;
+            v221 = v184;
             if (v184)
             {
               [v121 setFetchingBin:{objc_msgSend(v184, "intValue")}];
@@ -923,13 +923,13 @@ LABEL_44:
               v192 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v191, OS_LOG_TYPE_ERROR))
               {
-                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.29([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"For You section config requires fetching bin"], v290);
+                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.29([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"For You section config requires fetching bin"], v289);
               }
             }
 
             v193 = [v4 objectForKeyedSubscript:*MEMORY[0x277D307B0]];
             v194 = v193;
-            v223 = v193;
+            v222 = v193;
             if (v193)
             {
               [v121 setSubscriptionsFetchCount:{objc_msgSend(v193, "unsignedIntegerValue")}];
@@ -941,13 +941,13 @@ LABEL_44:
               v200 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v199, OS_LOG_TYPE_ERROR))
               {
-                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.30([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"For You section config requires subscriptions fetch count"], v289);
+                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.30([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"For You section config requires subscriptions fetch count"], v288);
               }
 
               v194 = 0;
             }
 
-            *(v280 + 24) &= v194 != 0;
+            *(v279 + 24) &= v194 != 0;
             v201 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30788]];
             v202 = v201;
             if (v201)
@@ -961,11 +961,11 @@ LABEL_44:
               v204 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v203, OS_LOG_TYPE_ERROR))
               {
-                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.31([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"For You section config requires headlines per feed fetch count"], v288);
+                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.31([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"For You section config requires headlines per feed fetch count"], v287);
               }
             }
 
-            *(v280 + 24) &= v202 != 0;
+            *(v279 + 24) &= v202 != 0;
             v205 = [v4 objectForKeyedSubscript:*MEMORY[0x277D30798]];
             if (v205)
             {
@@ -990,7 +990,7 @@ LABEL_44:
             }
 
             [v121 setFeedItemMaxCount:{objc_msgSend(v208, "unsignedIntegerValue")}];
-            v221 = v202;
+            v220 = v202;
             v209 = [v4 objectForKeyedSubscript:*MEMORY[0x277D307B8]];
             if (v209)
             {
@@ -1031,14 +1031,14 @@ LABEL_44:
               v124 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
               {
-                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.22([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"articleIDs section config requires articles"], v291);
+                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.22([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"articleIDs section config requires articles"], v290);
               }
             }
 
-            *(v280 + 24) &= v122 != 0;
-            LOBYTE(v289[0]) = 0;
-            v125 = NTPBTodaySectionConfigGenerateArticles(v122, v289);
-            if (v289[0])
+            *(v279 + 24) &= v122 != 0;
+            LOBYTE(v288[0]) = 0;
+            v125 = NTPBTodaySectionConfigGenerateArticles(v122, v288);
+            if (v288[0])
             {
               v126 = 1;
             }
@@ -1049,36 +1049,36 @@ LABEL_44:
               v153 = MEMORY[0x277D86220];
               if (os_log_type_enabled(v152, OS_LOG_TYPE_ERROR))
               {
-                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.23([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"articleIDs section config requires valid articles"], v290);
+                +[NTPBTodaySectionConfig(FCAdditions) sectionConfigWithJSONDictionary:].cold.23([objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"articleIDs section config requires valid articles"], v289);
               }
 
-              v126 = v289[0];
+              v126 = v288[0];
             }
 
             v154 = v122;
-            *(v280 + 24) &= v126;
-            v270 = 0u;
-            v271 = 0u;
-            v268 = 0u;
+            *(v279 + 24) &= v126;
             v269 = 0u;
+            v270 = 0u;
+            v267 = 0u;
+            v268 = 0u;
             v155 = v125;
-            v156 = [v155 countByEnumeratingWithState:&v268 objects:v287 count:16];
+            v156 = [v155 countByEnumeratingWithState:&v267 objects:v286 count:16];
             if (v156)
             {
-              v157 = *v269;
+              v157 = *v268;
               do
               {
                 for (n = 0; n != v156; ++n)
                 {
-                  if (*v269 != v157)
+                  if (*v268 != v157)
                   {
                     objc_enumerationMutation(v155);
                   }
 
-                  [v121 addArticles:*(*(&v268 + 1) + 8 * n)];
+                  [v121 addArticles:*(*(&v267 + 1) + 8 * n)];
                 }
 
-                v156 = [v155 countByEnumeratingWithState:&v268 objects:v287 count:16];
+                v156 = [v155 countByEnumeratingWithState:&v267 objects:v286 count:16];
               }
 
               while (v156);
@@ -1092,7 +1092,7 @@ LABEL_280:
         }
       }
 
-      if (*(v280 + 24) == 1)
+      if (*(v279 + 24) == 1)
       {
         v37 = v12;
       }
@@ -1102,7 +1102,7 @@ LABEL_280:
         v37 = 0;
       }
 
-      _Block_object_dispose(&v279, 8);
+      _Block_object_dispose(&v278, 8);
       goto LABEL_285;
     }
 
@@ -1132,7 +1132,7 @@ LABEL_280:
     v35 = intValue;
 LABEL_43:
     [v12 setSectionType:v35];
-    *(v280 + 24) &= v36;
+    *(v279 + 24) &= v36;
     goto LABEL_44;
   }
 
@@ -1145,7 +1145,6 @@ LABEL_43:
 LABEL_285:
   v218 = v37;
 
-  v219 = *MEMORY[0x277D85DE8];
   return v37;
 }
 
@@ -1461,14 +1460,11 @@ LABEL_285:
 
 + (void)sectionConfigWithJSONDictionary:()FCAdditions .cold.32()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "JSONDictionary"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "JSONDictionary", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

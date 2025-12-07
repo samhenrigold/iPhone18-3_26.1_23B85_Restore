@@ -49,10 +49,11 @@ void sub_10000194C(id a1)
   _objc_release_x1();
 }
 
-void sub_100002258(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002258(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100002650(uint64_t a1)
@@ -420,7 +421,7 @@ void sub_100008BE0()
   v0 = SCError();
   SCErrorString(v0);
   sub_100002278();
-  sub_100002258(&_mh_execute_header, v1, v2, "SCPreferencesUnlock failed: %{public}s", v3, v4, v5, v6, v7);
+  sub_100002258(&_mh_execute_header, v1, v2, "SCPreferencesUnlock failed: %{public}s", v3, v4, v5, v6);
 }
 
 void sub_100008C5C()
@@ -428,7 +429,7 @@ void sub_100008C5C()
   v0 = SCError();
   SCErrorString(v0);
   sub_100002278();
-  sub_100002258(&_mh_execute_header, v1, v2, "SCPreferencesApplyChanges failed: %{public}s", v3, v4, v5, v6, v7);
+  sub_100002258(&_mh_execute_header, v1, v2, "SCPreferencesApplyChanges failed: %{public}s", v3, v4, v5, v6);
 }
 
 void sub_100008CD8()
@@ -436,7 +437,7 @@ void sub_100008CD8()
   v0 = SCError();
   SCErrorString(v0);
   sub_100002278();
-  sub_100002258(&_mh_execute_header, v1, v2, "SCPreferencesCommitChanges failed: %{public}s", v3, v4, v5, v6, v7);
+  sub_100002258(&_mh_execute_header, v1, v2, "SCPreferencesCommitChanges failed: %{public}s", v3, v4, v5, v6);
 }
 
 void sub_100008D54()
@@ -444,7 +445,7 @@ void sub_100008D54()
   v0 = SCError();
   SCErrorString(v0);
   sub_100002278();
-  sub_100002258(&_mh_execute_header, v1, v2, "SCPreferencesPathSetValue failed %{public}s", v3, v4, v5, v6, v7);
+  sub_100002258(&_mh_execute_header, v1, v2, "SCPreferencesPathSetValue failed %{public}s", v3, v4, v5, v6);
 }
 
 void sub_100008DD0()
@@ -452,7 +453,7 @@ void sub_100008DD0()
   v0 = SCError();
   SCErrorString(v0);
   sub_100002278();
-  sub_100002258(&_mh_execute_header, v1, v2, "SCPreferencesLock failed: %{public}s", v3, v4, v5, v6, v7);
+  sub_100002258(&_mh_execute_header, v1, v2, "SCPreferencesLock failed: %{public}s", v3, v4, v5, v6);
 }
 
 void sub_100008ED4(uint64_t a1, NSObject *a2)

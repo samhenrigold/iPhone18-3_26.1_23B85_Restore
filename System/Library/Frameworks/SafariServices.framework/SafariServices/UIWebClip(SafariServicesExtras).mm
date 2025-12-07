@@ -9,30 +9,30 @@
 
 - (id)_sf_applicationManifestPath
 {
-  v2 = MEMORY[0x1E695DFF8];
-  v3 = objc_opt_class();
+  v3 = MEMORY[0x1E695DFF8];
+  v4 = objc_opt_class();
   identifier = [self identifier];
-  v5 = [v3 pathForWebClipStorageWithIdentifier:identifier];
-  v6 = [v2 fileURLWithPath:v5 isDirectory:1];
+  v6 = [v4 pathForWebClipStorageWithIdentifier:identifier];
+  v7 = [v3 fileURLWithPath:v6 isDirectory:1];
 
-  uRLByDeletingLastPathComponent = [v6 URLByDeletingLastPathComponent];
-  v8 = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:@"ApplicationManifest" isDirectory:0];
+  uRLByDeletingLastPathComponent = [v7 URLByDeletingLastPathComponent];
+  v9 = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:@"ApplicationManifest" isDirectory:0];
 
-  return v8;
+  return v9;
 }
 
 - (id)_sf_stagedCookiesURL
 {
-  v2 = MEMORY[0x1E695DFF8];
-  v3 = objc_opt_class();
+  v3 = MEMORY[0x1E695DFF8];
+  v4 = objc_opt_class();
   identifier = [self identifier];
-  v5 = [v3 pathForWebClipStorageWithIdentifier:identifier];
-  v6 = [v2 fileURLWithPath:v5 isDirectory:1];
+  v6 = [v4 pathForWebClipStorageWithIdentifier:identifier];
+  v7 = [v3 fileURLWithPath:v6 isDirectory:1];
 
-  uRLByDeletingLastPathComponent = [v6 URLByDeletingLastPathComponent];
-  v8 = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:@"StagedCookies" isDirectory:1];
+  uRLByDeletingLastPathComponent = [v7 URLByDeletingLastPathComponent];
+  v9 = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:@"StagedCookies" isDirectory:1];
 
-  return v8;
+  return v9;
 }
 
 + (id)_sf_webClipWithUUID:()SafariServicesExtras

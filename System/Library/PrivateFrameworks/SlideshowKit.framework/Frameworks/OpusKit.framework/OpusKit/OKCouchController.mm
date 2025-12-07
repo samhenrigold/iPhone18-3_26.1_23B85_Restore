@@ -299,7 +299,7 @@ LABEL_7:
   if (*MEMORY[0x277D62808] >= 7)
   {
     v9 = MEMORY[0x277D627B8];
-    [v7 duration];
+    objc_msgSend_duration(v7);
     [v9 logMessageWithLevel:7 file:"/Library/Caches/com.apple.xbs/Sources/SlideshowKit/OpusKit/Framework/Couch/OKCouchController.m" line:275 andFormat:@"executing couch step script with step duration: %f", v10];
   }
 
@@ -333,7 +333,7 @@ void *__32__OKCouchController__setupTimer__block_invoke(uint64_t a1)
 
 - (void)_executeStep:(id)step forTargetPageViewController:(id)controller
 {
-  [step duration];
+  objc_msgSend_duration(step, a2);
   [(OKCouchController *)self overrideMode:0 andCurrentStepDuration:?];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   self->_currentStepStartTime = v7;

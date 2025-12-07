@@ -103,18 +103,16 @@
 
 + (id)passthroughConfiguration
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   v2 = [_LTDOfflineConfigurationModel alloc];
-  v7[0] = @"config";
-  v7[1] = @"asset_list";
-  v8[0] = &stru_284834138;
-  v8[1] = MEMORY[0x277CBEBF8];
-  v7[2] = @"RequiredCapabilityIdentifier";
-  v8[2] = &unk_284868008;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
+  v6[0] = @"config";
+  v6[1] = @"asset_list";
+  v7[0] = &stru_284834138;
+  v7[1] = MEMORY[0x277CBEBF8];
+  v6[2] = @"RequiredCapabilityIdentifier";
+  v7[2] = &unk_284868008;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
   v4 = [(_LTDOfflineConfigurationModel *)v2 initWithDictionary:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -155,61 +153,60 @@ LABEL_8:
 
 - (NSArray)languageIdentifiers
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   languagePairs = [(_LTDOfflineConfigurationModel *)self languagePairs];
   v3 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(languagePairs, "count")}];
-  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
   v4 = languagePairs;
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v20;
+    v8 = *v21;
     *&v6 = 138543362;
-    v18 = v6;
+    v19 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
-        v11 = [v10 componentsSeparatedByString:{@"-", v18, v19}];
-        if ([v11 count] > 1)
+        v10 = *(*(&v20 + 1) + 8 * i);
+        v11 = [v10 componentsSeparatedByString:{@"-", v19, v20}];
+        v12 = [v11 count];
+        if (v12 > 1)
         {
-          v13 = [v11 objectAtIndexedSubscript:0];
-          [v3 addObject:v13];
-          v14 = [v11 objectAtIndexedSubscript:1];
-          [v3 addObject:v14];
+          v15 = [v11 objectAtIndexedSubscript:0];
+          [v3 addObject:v15];
+          v16 = [v11 objectAtIndexedSubscript:1];
+          [v3 addObject:v16];
         }
 
         else
         {
-          v12 = _LTOSLogAssets();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v14 = _LTOSLogAssets(v12, v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            *buf = v18;
-            v24 = v10;
-            _os_log_error_impl(&dword_232E53000, v12, OS_LOG_TYPE_ERROR, "Offline configuration locale pair with nil source and/or target: %{public}@", buf, 0xCu);
+            *buf = v19;
+            v25 = v10;
+            _os_log_error_impl(&dword_232E53000, v14, OS_LOG_TYPE_ERROR, "Offline configuration locale pair with nil source and/or target: %{public}@", buf, 0xCu);
           }
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v7);
   }
 
   allObjects = [v3 allObjects];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }
@@ -224,7 +221,7 @@ LABEL_8:
 
 - (id)_offlinePairConfigurationWithIdentifier:(id)identifier capability:(int64_t)capability
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if ([objc_opt_class() isPassthroughLocalePairIdentifier:identifierCopy])
   {
@@ -293,26 +290,24 @@ LABEL_8:
           }
 
           v23 = [v12 objectAtIndexedSubscript:v17];
-          v24 = *(v14 + 2752);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v25 = [v12 objectAtIndexedSubscript:v17];
+            v24 = [v12 objectAtIndexedSubscript:v17];
           }
 
           else
           {
-            v26 = *(v14 + 2752);
-            v25 = objc_opt_new();
+            v24 = objc_opt_new();
           }
 
-          v27 = v25;
+          v25 = v24;
 
           ++v17;
-          v16 = v27;
+          v16 = v25;
           if (v17 >= [v12 count])
           {
-            v16 = v27;
+            v16 = v25;
             goto LABEL_26;
           }
         }
@@ -345,19 +340,17 @@ LABEL_26:
 
     else
     {
-      v28 = _LTOSLogAssets();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      v27 = _LTOSLogAssets(0, v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v32 = identifierCopy;
-        _os_log_impl(&dword_232E53000, v28, OS_LOG_TYPE_INFO, "No offline configuration available for language identifier: %{public}@", buf, 0xCu);
+        v30 = identifierCopy;
+        _os_log_impl(&dword_232E53000, v27, OS_LOG_TYPE_INFO, "No offline configuration available for language identifier: %{public}@", buf, 0xCu);
       }
 
       passthroughConfiguration = 0;
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return passthroughConfiguration;
 }

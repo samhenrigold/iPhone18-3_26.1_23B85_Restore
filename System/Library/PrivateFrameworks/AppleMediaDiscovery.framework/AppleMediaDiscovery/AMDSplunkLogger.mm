@@ -87,7 +87,6 @@ LABEL_14:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
@@ -320,7 +319,6 @@ LABEL_29:
   objc_storeStrong(&v55, 0);
   objc_storeStrong(&v56, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -444,7 +442,6 @@ LABEL_29:
 
   objc_storeStrong(&v31, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v8 = v35;
 
   return v8;

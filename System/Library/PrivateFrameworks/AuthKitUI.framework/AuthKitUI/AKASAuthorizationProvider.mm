@@ -197,15 +197,13 @@ void __71__AKASAuthorizationProvider_performAuthorizationWithCompletionHandler__
   {
     if (*(*(a1 + 40) + 24))
     {
-      v1 = *(a1 + 32);
-      v2 = *(a1 + 48);
       (*(*(*(a1 + 40) + 24) + 16))();
     }
 
-    v3 = *(a1 + 40);
-    v4 = *(v3 + 24);
-    *(v3 + 24) = 0;
-    MEMORY[0x277D82BD8](v4);
+    v1 = *(a1 + 40);
+    v2 = *(v1 + 24);
+    *(v1 + 24) = 0;
+    MEMORY[0x277D82BD8](v2);
   }
 
   else
@@ -709,7 +707,6 @@ void __55__AKASAuthorizationProvider__handleAuthorizationError___block_invoke(vo
 
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __78__AKASAuthorizationProvider_passwordAuthenticationCompletedWithResults_error___block_invoke(void *a1, void *a2, void *a3)
@@ -737,19 +734,18 @@ void __78__AKASAuthorizationProvider_passwordAuthenticationCompletedWithResults_
   objc_storeStrong(location, 0);
 }
 
-uint64_t __78__AKASAuthorizationProvider_passwordAuthenticationCompletedWithResults_error___block_invoke_2(void *a1)
+double __78__AKASAuthorizationProvider_passwordAuthenticationCompletedWithResults_error___block_invoke_2(uint64_t a1)
 {
-  if (*(a1[4] + 24))
+  if (*(*(a1 + 32) + 24))
   {
-    v1 = a1[5];
-    v2 = a1[6];
-    (*(*(a1[4] + 24) + 16))();
+    (*(*(*(a1 + 32) + 24) + 16))();
   }
 
-  v3 = a1[4];
-  v4 = *(v3 + 24);
-  *(v3 + 24) = 0;
-  return MEMORY[0x277D82BD8](v4);
+  v1 = *(a1 + 32);
+  v2 = *(v1 + 24);
+  *(v1 + 24) = 0;
+  *&result = MEMORY[0x277D82BD8](v2).n128_u64[0];
+  return result;
 }
 
 - (BOOL)alertHandlerShowAlert:(id)alert primaryAction:(id)action altAction:(id)altAction

@@ -94,7 +94,7 @@
   endpointID = [matterPath4 endpointID];
   [v5 setObject:endpointID forKeyedSubscript:*MEMORY[0x277CCFD10]];
 
-  v15 = [v5 copy];
+  v15 = objc_msgSend_copy(v5);
 
   return v15;
 }
@@ -122,7 +122,7 @@ void __67__HMDMatterAttributeEventBase_handleAttributesChangedNotification___blo
 
 - (void)__handleAttributesChangedNotification:(id)notification
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = [notificationCopy hmf_numberForKey:@"HMDMatterAttributeChangedNotificationEndpointIDKey"];
   v6 = [notificationCopy hmf_numberForKey:@"HMDMatterAttributeChangedNotificationClusterIDKey"];
@@ -145,11 +145,11 @@ void __67__HMDMatterAttributeEventBase_handleAttributesChangedNotification___blo
       {
         v17 = HMFGetLogIdentifier();
         matterPath3 = [(HMDMatterAttributeEventBase *)selfCopy matterPath];
-        v34 = 138543618;
-        v35 = v17;
-        v36 = 2112;
-        v37 = matterPath3;
-        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Received notification that attributes changed state, evaluating if trigger needs to be executed, %@", &v34, 0x16u);
+        v33 = 138543618;
+        v34 = v17;
+        v35 = 2112;
+        v36 = matterPath3;
+        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Received notification that attributes changed state, evaluating if trigger needs to be executed, %@", &v33, 0x16u);
       }
 
       objc_autoreleasePoolPop(v14);
@@ -170,18 +170,18 @@ void __67__HMDMatterAttributeEventBase_handleAttributesChangedNotification___blo
           }
 
           v26 = "is not";
-          v34 = 138543874;
-          v35 = v23;
-          v37 = v25;
-          v36 = 2080;
+          v33 = 138543874;
+          v34 = v23;
+          v36 = v25;
+          v35 = 2080;
           if (isActive)
           {
             v26 = "is";
           }
 
-          v38 = 2080;
-          v39 = v26;
-          _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@%s event because it %s active", &v34, 0x20u);
+          v37 = 2080;
+          v38 = v26;
+          _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@%s event because it %s active", &v33, 0x20u);
         }
 
         objc_autoreleasePoolPop(v20);
@@ -202,29 +202,27 @@ void __67__HMDMatterAttributeEventBase_handleAttributesChangedNotification___blo
     if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
       v32 = HMFGetLogIdentifier();
-      v34 = 138544130;
-      v35 = v32;
-      v36 = 2112;
-      v37 = v5;
-      v38 = 2112;
-      v39 = v6;
-      v40 = 2112;
-      v41 = v8;
-      _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Attribute changed notification did not have endpointID/clusterID/attributeID %@/%@/%@", &v34, 0x2Au);
+      v33 = 138544130;
+      v34 = v32;
+      v35 = 2112;
+      v36 = v5;
+      v37 = 2112;
+      v38 = v6;
+      v39 = 2112;
+      v40 = v8;
+      _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Attribute changed notification did not have endpointID/clusterID/attributeID %@/%@/%@", &v33, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v29);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForMessages
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = HMDMatterAttributeEventBase;
-  [(HMDEvent *)&v12 _registerForMessages];
+  v16 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = HMDMatterAttributeEventBase;
+  [(HMDEvent *)&v11 _registerForMessages];
   matterPath = [(HMDMatterAttributeEventBase *)self matterPath];
   accessory = [matterPath accessory];
 
@@ -244,16 +242,14 @@ void __67__HMDMatterAttributeEventBase_handleAttributesChangedNotification___blo
       v9 = HMFGetLogIdentifier();
       matterPath2 = [(HMDMatterAttributeEventBase *)selfCopy matterPath];
       *buf = 138543618;
-      v14 = v9;
-      v15 = 2112;
-      v16 = matterPath2;
+      v13 = v9;
+      v14 = 2112;
+      v15 = matterPath2;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unable to find accessory on matter path %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMatterPath)matterPath
@@ -338,10 +334,9 @@ void __67__HMDMatterAttributeEventBase_handleAttributesChangedNotification___blo
 
 void __42__HMDMatterAttributeEventBase_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_279125;
-  logCategory__hmf_once_v1_279125 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_279125;
+  logCategory__hmf_once_v1_279125 = v0;
 }
 
 @end

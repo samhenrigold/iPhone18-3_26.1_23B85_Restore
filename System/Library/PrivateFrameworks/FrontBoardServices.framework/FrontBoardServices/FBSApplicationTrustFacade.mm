@@ -40,7 +40,7 @@
   v18 = [(FBSApplicationTrustDataProvider *)self->_modernProvider trustStateForApplication:applicationCopy];
   v19 = [(FBSApplicationTrustDataProvider *)self->_legacyProvider trustStateForApplication:applicationCopy];
   v20 = [(FBSSignatureValidationService *)self->_authoritativeProvider trustStateForApplication:applicationCopy];
-  v21 = FBLogCommon();
+  v21 = FBLogCommon(v20);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     bundleIdentifier2 = [applicationCopy bundleIdentifier];

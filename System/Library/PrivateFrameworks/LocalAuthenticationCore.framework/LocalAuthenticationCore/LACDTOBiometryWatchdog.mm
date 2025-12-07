@@ -104,7 +104,7 @@
 
 - (id)description
 {
-  v23[4] = *MEMORY[0x1E69E9840];
+  v22[4] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = MEMORY[0x1E696AEC0];
@@ -116,24 +116,22 @@
   }
 
   v8 = [v5 stringWithFormat:@"isRunning: %@", v7];
-  v23[0] = v8;
+  v22[0] = v8;
   v9 = MEMORY[0x1E696AEC0];
   [(LACDTOBiometryWatchdog *)self time];
   v11 = [v9 stringWithFormat:@"time: %.2f", v10];
-  v23[1] = v11;
+  v22[1] = v11;
   v12 = MEMORY[0x1E696AEC0];
   [(LACDTOBiometryWatchdog *)self minThreshold];
   v14 = [v12 stringWithFormat:@"minThreshold: %.2f", v13];
-  v23[2] = v14;
+  v22[2] = v14;
   v15 = MEMORY[0x1E696AEC0];
   [(LACDTOBiometryWatchdog *)self maxThreshold];
   v17 = [v15 stringWithFormat:@"maxThreshold: %.2f", v16];
-  v23[3] = v17;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:4];
+  v22[3] = v17;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:4];
   v19 = [v18 componentsJoinedByString:@" "];;
   v20 = [v3 stringWithFormat:@"<%@ %p %@>", v4, self, v19];;
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }

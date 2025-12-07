@@ -13,7 +13,7 @@
 
 - (id)webArchiveData
 {
-  v102 = *MEMORY[0x1E69E9840];
+  v96 = *MEMORY[0x1E69E9840];
   if (self->webArchiveData)
   {
     return self->webArchiveData;
@@ -57,14 +57,14 @@
                 goto LABEL_129;
               }
 
-              v90 = v10;
+              v84 = v10;
               allocator = *MEMORY[0x1E695E480];
               theString = CFStringCreateMutable(*MEMORY[0x1E695E480], 0);
               v13 = 8 * Count;
               v14 = malloc_type_malloc(v13, 0x2004093837F09uLL);
-              v103.location = 0;
-              v103.length = Count;
-              CFArrayGetValues(self->imageNodes, v103, v14);
+              v97.location = 0;
+              v97.length = Count;
+              CFArrayGetValues(self->imageNodes, v97, v14);
               v15 = 0;
               v16 = 0;
               v17 = 0;
@@ -87,7 +87,7 @@
                 {
                   if (v17)
                   {
-                    CGPDFNodeLoadPaths(&v14[v16], v15 - v16);
+                    CGPDFNodeLoadPaths(&v14[v16], (v15 - v16));
                   }
 
                   v16 = v15;
@@ -98,10 +98,10 @@
               }
 
               while (v15 != Count);
-              v92 = v12;
-              v93 = v7;
-              v88 = Count;
-              v89 = v8;
+              v86 = v12;
+              v87 = v7;
+              v82 = Count;
+              v83 = v8;
               CGPDFNodeLoadPaths(&v14[v16], Count - v16);
               v19 = 0;
               while (1)
@@ -126,18 +126,18 @@ LABEL_114:
                 v19 += 8;
                 if (v13 == v19)
                 {
-                  CGPDFNodePurgePaths(v14, v88);
+                  CGPDFNodePurgePaths(v14, v82);
                   free(v14);
                   CFRelease(theString);
-                  v8 = v89;
-                  v10 = v90;
-                  v12 = v92;
+                  v8 = v83;
+                  v10 = v84;
+                  v12 = v86;
 LABEL_129:
-                  v86 = [[v8 alloc] initWithMainResource:v10 subresources:v12 subframeArchives:0];
-                  if (v86)
+                  v80 = [[v8 alloc] initWithMainResource:v10 subresources:v12 subframeArchives:0];
+                  if (v80)
                   {
-                    v87 = v86;
-                    self->webArchiveData = [v86 data];
+                    v81 = v80;
+                    self->webArchiveData = [v80 data];
                   }
 
                   return self->webArchiveData;
@@ -153,7 +153,7 @@ LABEL_129:
                 v24 = CPPDFCreateMaskingColorsFromStream(v22, &valuePtr);
               }
 
-              v98 = 0;
+              v92 = 0;
               PageRotation = CGPDFNodeGetPageRotation(v20);
               x = *(v20 + 64);
               width = *(v20 + 80);
@@ -186,7 +186,7 @@ LABEL_129:
                   {
                     CFRetain(*(v20 + 128));
 LABEL_91:
-                    v69 = 0;
+                    v63 = 0;
                     goto LABEL_92;
                   }
 
@@ -197,8 +197,8 @@ LABEL_91:
                   }
 
                   LODWORD(transform.a) = 0;
-                  v69 = CGPDFStreamCopyData(v22, &transform);
-                  if (!v69)
+                  v63 = CGPDFStreamCopyData(v22, &transform);
+                  if (!v63)
                   {
                     goto LABEL_125;
                   }
@@ -214,11 +214,11 @@ LABEL_91:
                     if (LODWORD(transform.a) == 1)
                     {
                       CFStringReplaceAll(theString, @"image/jpeg");
-                      if (CPPDFCreateJPEGImageFromImageStream(v22, v69, 0, &v98))
+                      if (CPPDFCreateJPEGImageFromImageStream(v22, v63, 0, &v92))
                       {
-                        CFRelease(v69);
+                        CFRelease(v63);
                         Image = 0;
-                        v69 = v98;
+                        v63 = v92;
                         goto LABEL_92;
                       }
 
@@ -233,82 +233,82 @@ LABEL_92:
                       Mutable = CFDataCreateMutable(allocator, 0);
                       if (Mutable)
                       {
-                        v71 = Mutable;
+                        v65 = Mutable;
                         if (CGPDFNodeCreateImageData_predicate != -1)
                         {
                           dispatch_once(&CGPDFNodeCreateImageData_predicate, &__block_literal_global_23067);
                         }
 
-                        ImageData_f = CGPDFNodeCreateImageData_f(v71, @"public.png", 1, 0);
+                        ImageData_f = CGPDFNodeCreateImageData_f(v65, @"public.png", 1, 0);
                         if (ImageData_f)
                         {
-                          v73 = ImageData_f;
-                          v74 = *(v20 + 80) * *(v20 + 88);
-                          v75 = Image[5] * Image[6];
-                          v76 = v74 * 256.0;
-                          v77 = v75 / v74;
-                          if (v75 >= v76)
+                          v67 = ImageData_f;
+                          v68 = *(v20 + 80) * *(v20 + 88);
+                          v69 = Image[5] * Image[6];
+                          v70 = v68 * 256.0;
+                          v71 = v69 / v68;
+                          if (v69 >= v70)
                           {
-                            v77 = 256.0;
+                            v71 = 256.0;
                           }
 
-                          valuePtr = sqrt(v77) * 72.0;
-                          v78 = CFNumberCreate(allocator, kCFNumberCGFloatType, &valuePtr);
+                          valuePtr = sqrt(v71) * 72.0;
+                          v72 = CFNumberCreate(allocator, kCFNumberCGFloatType, &valuePtr);
                           *&transform.a = xmmword_1E6E34230;
-                          values[0] = v78;
-                          values[1] = v78;
-                          v79 = CFDictionaryCreate(allocator, &transform, values, 2, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-                          CFRelease(v78);
+                          values[0] = v72;
+                          values[1] = v72;
+                          v73 = CFDictionaryCreate(allocator, &transform, values, 2, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+                          CFRelease(v72);
                           if (CGPDFNodeCreateImageData_predicate_38 != -1)
                           {
                             dispatch_once(&CGPDFNodeCreateImageData_predicate_38, &__block_literal_global_41_23069);
                           }
 
-                          CGPDFNodeCreateImageData_f_37(v73, Image, v79);
-                          CFRelease(v79);
+                          CGPDFNodeCreateImageData_f_37(v67, Image, v73);
+                          CFRelease(v73);
                           if (CGPDFNodeCreateImageData_predicate_44 != -1)
                           {
                             dispatch_once(&CGPDFNodeCreateImageData_predicate_44, &__block_literal_global_47_23070);
                           }
 
-                          CGPDFNodeCreateImageData_f_43(v73);
-                          CFRelease(v73);
+                          CGPDFNodeCreateImageData_f_43(v67);
+                          CFRelease(v67);
                           CFStringReplaceAll(theString, @"image/png");
                           goto LABEL_106;
                         }
 
-                        CFRelease(v71);
+                        CFRelease(v65);
                       }
 
-                      v71 = v69;
+                      v65 = v63;
 LABEL_106:
                       CFRelease(Image);
-                      v69 = v71;
+                      v63 = v65;
 LABEL_107:
-                      if (v69)
+                      if (v63)
                       {
                         ImageName = CGPDFNodeCreateImageName(v20);
                         if (ImageName)
                         {
-                          v81 = ImageName;
-                          v82 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:CFStringGetLength(ImageName) + 1];
-                          [v82 appendString:@"/"];
-                          [v82 appendString:v81];
-                          v83 = [MEMORY[0x1E695DFF8] fileURLWithPath:v82];
-                          if (v83)
+                          v75 = ImageName;
+                          v76 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:CFStringGetLength(ImageName) + 1];
+                          [v76 appendString:@"/"];
+                          [v76 appendString:v75];
+                          v77 = [MEMORY[0x1E695DFF8] fileURLWithPath:v76];
+                          if (v77)
                           {
-                            v84 = [[v93 alloc] initWithData:v69 URL:v83 MIMEType:theString textEncodingName:0 frameName:0];
-                            if (v84)
+                            v78 = [[v87 alloc] initWithData:v63 URL:v77 MIMEType:theString textEncodingName:0 frameName:0];
+                            if (v78)
                             {
-                              v85 = v84;
-                              [v92 addObject:v84];
+                              v79 = v78;
+                              [v86 addObject:v78];
                             }
                           }
 
-                          CFRelease(v81);
+                          CFRelease(v75);
                         }
 
-                        CFRelease(v69);
+                        CFRelease(v63);
                       }
 
                       goto LABEL_114;
@@ -319,10 +319,10 @@ LABEL_107:
 
                   else
                   {
-                    Image = CPPDFCreateImageFromRawData(v22, v69, 0, 0);
+                    Image = CPPDFCreateImageFromRawData(v22, v63, 0, 0);
                   }
 
-                  CFRelease(v69);
+                  CFRelease(v63);
                   goto LABEL_91;
                 }
 
@@ -388,20 +388,20 @@ LABEL_107:
                   transform.d = v51.__cosval;
                   transform.tx = 0.0;
                   transform.ty = 0.0;
-                  v104.origin.x = x;
-                  v104.origin.y = y;
-                  v104.size.width = width;
-                  v104.size.height = height;
-                  v105 = CGRectApplyAffineTransform(v104, &transform);
-                  x = v105.origin.x;
-                  y = v105.origin.y;
-                  width = v105.size.width;
-                  height = v105.size.height;
+                  v98.origin.x = x;
+                  v98.origin.y = y;
+                  v98.size.width = width;
+                  v98.size.height = height;
+                  v99 = CGRectApplyAffineTransform(v98, &transform);
+                  x = v99.origin.x;
+                  y = v99.origin.y;
+                  width = v99.size.width;
+                  height = v99.size.height;
                 }
 
                 v52 = sqrt(v50);
                 v53 = vcvtpd_u64_f64(v52 * width);
-                v91 = v52;
+                v85 = v52;
                 v54 = vcvtpd_u64_f64(v52 * height);
                 v55 = CGImageGetColorSpace(Image);
                 if (v55 && ((v56 = v55, CGColorSpaceUsesExtendedRange(v55)) || CGColorSpaceIsWideGamutRGB(v56)))
@@ -419,32 +419,32 @@ LABEL_107:
                 v59 = v58;
                 if (v58)
                 {
-                  v106.size.width = v53;
-                  v106.size.height = v54;
-                  v106.origin.x = 0.0;
-                  v106.origin.y = 0.0;
-                  CGContextClearRect(v58, v106);
-                  if (*(v59 + 16) == 1129601108)
+                  v100.size.width = v53;
+                  v100.size.height = v54;
+                  v100.origin.x = 0.0;
+                  v100.origin.y = 0.0;
+                  CGContextClearRect(v58, v100);
+                  if (*(v59 + 4) == 1129601108)
                   {
-                    v66 = *(v59 + 96);
-                    v67 = vmulq_n_f64(*(v66 + 40), v91);
-                    *(v66 + 24) = vmulq_n_f64(*(v66 + 24), v91);
-                    *(v66 + 40) = v67;
+                    v60 = *(v59 + 12);
+                    v61 = vmulq_n_f64(*(v60 + 40), v85);
+                    *(v60 + 24) = vmulq_n_f64(*(v60 + 24), v85);
+                    *(v60 + 40) = v61;
                   }
 
                   else
                   {
-                    handle_invalid_context("CGContextScaleCTM", v59, v60, v61, v62, v63, v64, v65);
+                    handle_invalid_context("CGContextScaleCTM", v59);
                   }
 
-                  if (*(v59 + 16) == 1129601108)
+                  if (*(v59 + 4) == 1129601108)
                   {
-                    *(*(v59 + 96) + 56) = vmlsq_lane_f64(vmlsq_lane_f64(*(*(v59 + 96) + 56), *(*(v59 + 96) + 24), x, 0), *(*(v59 + 96) + 40), y, 0);
+                    *(*(v59 + 12) + 56) = vmlsq_lane_f64(vmlsq_lane_f64(*(*(v59 + 12) + 56), *(*(v59 + 12) + 24), x, 0), *(*(v59 + 12) + 40), y, 0);
                   }
 
                   else
                   {
-                    handle_invalid_context("CGContextTranslateCTM", v59, v60, v61, v62, v63, v64, v65);
+                    handle_invalid_context("CGContextTranslateCTM", v59);
                   }
 
                   if (PageRotation != 0.0)
@@ -460,17 +460,17 @@ LABEL_107:
                   *&transform.tx = *values;
                   CGContextConcatCTM(v59, &transform);
                   CGContextSetAlpha(v59, *(v20 + 184));
-                  v68 = *(v20 + 192);
-                  if (v68)
+                  v62 = *(v20 + 192);
+                  if (v62)
                   {
-                    CGContextSetFillColorWithColor(v59, v68);
+                    CGContextSetFillColorWithColor(v59, v62);
                   }
 
-                  v107.origin.x = 0.0;
-                  v107.origin.y = 0.0;
-                  v107.size.width = 1.0;
-                  v107.size.height = 1.0;
-                  CGContextDrawImage(v59, v107, Image);
+                  v101.origin.x = 0.0;
+                  v101.origin.y = 0.0;
+                  v101.size.width = 1.0;
+                  v101.size.height = 1.0;
+                  CGContextDrawImage(v59, v101, Image);
                   CFRelease(Image);
                   Image = CGBitmapContextCreateImage(v59);
                   CFRelease(v59);

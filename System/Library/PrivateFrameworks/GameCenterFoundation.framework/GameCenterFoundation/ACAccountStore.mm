@@ -59,13 +59,13 @@ void __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_2(u
 
 void __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_78(uint64_t a1, char a2, void *a3)
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
     v6 = [*(a1 + 32) accountsWithAccountType:*(a1 + 40)];
     v7 = [MEMORY[0x277CBEB18] array];
-    v60 = v5;
+    v58 = v5;
     if (![v6 count])
     {
       obj = v6;
@@ -76,33 +76,33 @@ void __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_78(
     v9 = [MEMORY[0x277CBEA60] arrayWithObject:v8];
     v10 = [v6 sortedArrayUsingDescriptors:v9];
 
-    v83 = 0u;
-    v84 = 0u;
     v81 = 0u;
     v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
     v11 = v10;
     obj = v11;
-    v12 = [v11 countByEnumeratingWithState:&v81 objects:v89 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v79 objects:v87 count:16];
     if (v12)
     {
       v13 = v12;
-      v58 = v9;
-      v61 = v8;
+      v56 = v9;
+      v59 = v8;
       v11 = 0;
-      v14 = *v82;
+      v14 = *v80;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v82 != v14)
+          if (*v80 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v81 + 1) + 8 * i);
+          v16 = *(*(&v79 + 1) + 8 * i);
           if (v11)
           {
-            v17 = [*(*(&v81 + 1) + 8 * i) username];
+            v17 = [*(*(&v79 + 1) + 8 * i) username];
             v18 = [v11 username];
             v19 = [v17 isEqual:v18];
 
@@ -115,24 +115,24 @@ void __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_78(
               v23 = *(a1 + 32);
               if (v22 == 1)
               {
-                v79[0] = MEMORY[0x277D85DD0];
-                v79[1] = 3221225472;
-                v79[2] = __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_84;
-                v79[3] = &unk_2785E0848;
-                v80 = v11;
+                v77[0] = MEMORY[0x277D85DD0];
+                v77[1] = 3221225472;
+                v77[2] = __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_84;
+                v77[3] = &unk_2785E0848;
+                v78 = v11;
                 v24 = v11;
-                [v23 removeAccount:v24 withCompletionHandler:v79];
+                [v23 removeAccount:v24 withCompletionHandler:v77];
                 v11 = v16;
               }
 
               else
               {
-                v78[0] = MEMORY[0x277D85DD0];
-                v78[1] = 3221225472;
-                v78[2] = __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_86;
-                v78[3] = &unk_2785E0848;
-                v78[4] = v16;
-                [v23 removeAccount:v16 withCompletionHandler:v78];
+                v76[0] = MEMORY[0x277D85DD0];
+                v76[1] = 3221225472;
+                v76[2] = __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_86;
+                v76[3] = &unk_2785E0848;
+                v76[4] = v16;
+                [v23 removeAccount:v16 withCompletionHandler:v76];
               }
             }
 
@@ -151,13 +151,13 @@ void __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_78(
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v81 objects:v89 count:16];
+        v13 = [obj countByEnumeratingWithState:&v79 objects:v87 count:16];
       }
 
       while (v13);
 
-      v8 = v61;
-      v9 = v58;
+      v8 = v59;
+      v9 = v56;
       if (!v11)
       {
         goto LABEL_20;
@@ -167,35 +167,35 @@ void __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_78(
     }
 
 LABEL_20:
-    v5 = v60;
+    v5 = v58;
 LABEL_26:
     if ([v7 count] >= 2)
     {
       v28 = [MEMORY[0x277CBEB38] dictionary];
-      v63 = objc_alloc_init(MEMORY[0x277CF0178]);
+      v61 = objc_alloc_init(MEMORY[0x277CF0178]);
+      v72 = 0u;
+      v73 = 0u;
       v74 = 0u;
       v75 = 0u;
-      v76 = 0u;
-      v77 = 0u;
-      v59 = v7;
+      v57 = v7;
       v29 = v7;
-      v30 = [v29 countByEnumeratingWithState:&v74 objects:v88 count:16];
+      v30 = [v29 countByEnumeratingWithState:&v72 objects:v86 count:16];
       if (v30)
       {
         v31 = v30;
-        v32 = *v75;
-        v62 = a1;
+        v32 = *v73;
+        v60 = a1;
         do
         {
           for (j = 0; j != v31; ++j)
           {
-            if (*v75 != v32)
+            if (*v73 != v32)
             {
               objc_enumerationMutation(v29);
             }
 
-            v34 = *(*(&v74 + 1) + 8 * j);
-            v35 = [v34 accountPropertyForKey:{@"playerID", v59}];
+            v34 = *(*(&v72 + 1) + 8 * j);
+            v35 = [v34 accountPropertyForKey:{@"playerID", v57}];
             if ([v35 length])
             {
               v36 = [v28 objectForKeyedSubscript:v35];
@@ -236,80 +236,79 @@ LABEL_26:
                   if (os_log_type_enabled(os_log_GKAccount, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412290;
-                    v87 = v37;
+                    v85 = v37;
                     _os_log_debug_impl(&dword_227904000, v45, OS_LOG_TYPE_DEBUG, "GKAuth:telling authkit account is not in use using altDSID:%@", buf, 0xCu);
                   }
                 }
 
-                [v63 setAppleIDWithAltDSID:v37 inUse:0 forService:6];
+                [v61 setAppleIDWithAltDSID:v37 inUse:0 forService:6];
                 v29 = v41;
                 v28 = v40;
                 v32 = v39;
                 v31 = v38;
-                a1 = v62;
+                a1 = v60;
               }
 
               [v29 removeObject:v34];
               v46 = *(a1 + 32);
-              v73[0] = MEMORY[0x277D85DD0];
-              v73[1] = 3221225472;
-              v73[2] = __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_88;
-              v73[3] = &unk_2785E0848;
-              v73[4] = v34;
-              [v46 removeAccount:v34 withCompletionHandler:v73];
+              v71[0] = MEMORY[0x277D85DD0];
+              v71[1] = 3221225472;
+              v71[2] = __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_88;
+              v71[3] = &unk_2785E0848;
+              v71[4] = v34;
+              [v46 removeAccount:v34 withCompletionHandler:v71];
             }
           }
 
-          v31 = [v29 countByEnumeratingWithState:&v74 objects:v88 count:16];
+          v31 = [v29 countByEnumeratingWithState:&v72 objects:v86 count:16];
         }
 
         while (v31);
       }
 
-      v69[0] = MEMORY[0x277D85DD0];
-      v69[1] = 3221225472;
-      v69[2] = __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_89;
-      v69[3] = &unk_2785E0870;
-      v70 = v63;
+      v67[0] = MEMORY[0x277D85DD0];
+      v67[1] = 3221225472;
+      v67[2] = __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_89;
+      v67[3] = &unk_2785E0870;
+      v68 = v61;
       v47 = v29;
       v48 = *(a1 + 32);
-      v71 = v47;
-      v72 = v48;
-      v49 = v63;
-      [v28 enumerateKeysAndObjectsUsingBlock:v69];
+      v69 = v47;
+      v70 = v48;
+      v49 = v61;
+      [v28 enumerateKeysAndObjectsUsingBlock:v67];
 
-      v7 = v59;
-      v5 = v60;
+      v7 = v57;
+      v5 = v58;
     }
 
-    v67 = 0u;
-    v68 = 0u;
     v65 = 0u;
     v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     v50 = v7;
-    v51 = [v50 countByEnumeratingWithState:&v65 objects:v85 count:16];
+    v51 = [v50 countByEnumeratingWithState:&v63 objects:v83 count:16];
     if (v51)
     {
       v52 = v51;
-      v53 = *v66;
+      v53 = *v64;
       do
       {
         for (k = 0; k != v52; ++k)
         {
-          if (*v66 != v53)
+          if (*v64 != v53)
           {
             objc_enumerationMutation(v50);
           }
 
-          v55 = *(*(&v65 + 1) + 8 * k);
-          v56 = (*(*(a1 + 56) + 16))();
-          if ([v56 count])
+          v55 = (*(*(a1 + 56) + 16))();
+          if ([v55 count])
           {
-            [*(a1 + 48) addObjectsFromArray:v56];
+            [*(a1 + 48) addObjectsFromArray:v55];
           }
         }
 
-        v52 = [v50 countByEnumeratingWithState:&v65 objects:v85 count:16];
+        v52 = [v50 countByEnumeratingWithState:&v63 objects:v83 count:16];
       }
 
       while (v52);
@@ -332,13 +331,11 @@ LABEL_26:
 
 LABEL_57:
   (*(*(a1 + 64) + 16))();
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 void __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_84(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = +[GKPreferences shared];
   v7 = [v6 isInternalBuild];
@@ -353,23 +350,21 @@ void __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_84(
     v9 = os_log_GKAccount;
     if (os_log_type_enabled(os_log_GKAccount, OS_LOG_TYPE_DEBUG))
     {
-      v11 = *(a1 + 32);
-      v12 = 138412802;
-      v13 = v11;
-      v14 = 1024;
-      v15 = a2;
-      v16 = 2112;
-      v17 = v5;
-      _os_log_debug_impl(&dword_227904000, v9, OS_LOG_TYPE_DEBUG, "DELETE ACCOUNT(%@): success:%d error:%@", &v12, 0x1Cu);
+      v10 = *(a1 + 32);
+      v11 = 138412802;
+      v12 = v10;
+      v13 = 1024;
+      v14 = a2;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_debug_impl(&dword_227904000, v9, OS_LOG_TYPE_DEBUG, "DELETE ACCOUNT(%@): success:%d error:%@", &v11, 0x1Cu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_86(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = +[GKPreferences shared];
   v7 = [v6 isInternalBuild];
@@ -384,66 +379,64 @@ void __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_86(
     v9 = os_log_GKAccount;
     if (os_log_type_enabled(os_log_GKAccount, OS_LOG_TYPE_DEBUG))
     {
-      v11 = *(a1 + 32);
-      v12 = 138412802;
-      v13 = v11;
-      v14 = 1024;
-      v15 = a2;
-      v16 = 2112;
-      v17 = v5;
-      _os_log_debug_impl(&dword_227904000, v9, OS_LOG_TYPE_DEBUG, "DELETE ACCOUNT(%@): success:%d error:%@", &v12, 0x1Cu);
+      v10 = *(a1 + 32);
+      v11 = 138412802;
+      v12 = v10;
+      v13 = 1024;
+      v14 = a2;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_debug_impl(&dword_227904000, v9, OS_LOG_TYPE_DEBUG, "DELETE ACCOUNT(%@): success:%d error:%@", &v11, 0x1Cu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_88(uint64_t a1)
 {
-  v2 = +[GKPreferences shared];
-  v3 = [v2 isInternalBuild];
+  v1 = +[GKPreferences shared];
+  v2 = [v1 isInternalBuild];
 
-  if (v3)
+  if (v2)
   {
     if (!os_log_GKGeneral)
     {
-      v4 = GKOSLoggers();
+      v3 = GKOSLoggers();
     }
 
     if (os_log_type_enabled(os_log_GKAccount, OS_LOG_TYPE_DEBUG))
     {
-      __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_88_cold_1(a1);
+      __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_88_cold_1();
     }
   }
 }
 
 void __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_89(uint64_t a1, uint64_t a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([v4 count] >= 2)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
-    v17 = v4;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v16 = v4;
     obj = v4;
-    v5 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
+    v5 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v21;
+      v7 = *v20;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v21 != v7)
+          if (*v20 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v20 + 1) + 8 * i);
+          v9 = *(*(&v19 + 1) + 8 * i);
           v10 = [v9 accountPropertyForKey:@"altDSID"];
           if (v10)
           {
@@ -461,7 +454,7 @@ void __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_89(
               if (os_log_type_enabled(os_log_GKAccount, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v25 = v10;
+                v24 = v10;
                 _os_log_debug_impl(&dword_227904000, v14, OS_LOG_TYPE_DEBUG, "GKAuth:telling authkit account is not in use using altDSID:%@", buf, 0xCu);
               }
             }
@@ -471,41 +464,39 @@ void __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_89(
 
           [*(a1 + 40) removeObject:v9];
           v15 = *(a1 + 48);
-          v19[0] = MEMORY[0x277D85DD0];
-          v19[1] = 3221225472;
-          v19[2] = __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_90;
-          v19[3] = &unk_2785E0848;
-          v19[4] = v9;
-          [v15 removeAccount:v9 withCompletionHandler:v19];
+          v18[0] = MEMORY[0x277D85DD0];
+          v18[1] = 3221225472;
+          v18[2] = __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_90;
+          v18[3] = &unk_2785E0848;
+          v18[4] = v9;
+          [v15 removeAccount:v9 withCompletionHandler:v18];
         }
 
-        v6 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
+        v6 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
       }
 
       while (v6);
     }
 
-    v4 = v17;
+    v4 = v16;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_90(uint64_t a1)
 {
-  v2 = +[GKPreferences shared];
-  v3 = [v2 isInternalBuild];
+  v1 = +[GKPreferences shared];
+  v2 = [v1 isInternalBuild];
 
-  if (v3)
+  if (v2)
   {
     if (!os_log_GKGeneral)
     {
-      v4 = GKOSLoggers();
+      v3 = GKOSLoggers();
     }
 
     if (os_log_type_enabled(os_log_GKAccount, OS_LOG_TYPE_DEBUG))
     {
-      __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_90_cold_1(a1);
+      __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_90_cold_1();
     }
   }
 }
@@ -556,23 +547,21 @@ void __65__ACAccountStore_GameCenter___gkPrimaryCredentialForEnvironment___block
 
 id __51__ACAccountStore_GameCenter___gkAccountForAppleID___block_invoke(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 username];
   LODWORD(a1) = [v4 isEqual:*(a1 + 32)];
 
   if (a1)
   {
-    v8[0] = v3;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v3;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -634,33 +623,33 @@ void __81__ACAccountStore_GameCenter___getAltDSIDFromIDMSForCredential_completio
 
 uint64_t __81__ACAccountStore_GameCenter___getAltDSIDFromIDMSForCredential_completionHandler___block_invoke_104(uint64_t a1, char a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setResult:0];
   if (a2)
   {
     v4 = [*(a1 + 40) accountsWithAccountType:*(a1 + 48)];
     if ([v4 count])
     {
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       v5 = v4;
-      v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v19;
+        v8 = *v18;
         while (2)
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v19 != v8)
+            if (*v18 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v18 + 1) + 8 * i);
+            v10 = *(*(&v17 + 1) + 8 * i);
             v11 = [v10 username];
             v12 = [*(a1 + 56) accountName];
             v13 = [v11 isEqualToString:v12];
@@ -674,7 +663,7 @@ uint64_t __81__ACAccountStore_GameCenter___getAltDSIDFromIDMSForCredential_compl
             }
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
           if (v7)
           {
             continue;
@@ -701,9 +690,7 @@ LABEL_17:
     }
   }
 
-  result = (*(*(a1 + 64) + 16))();
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 64) + 16))();
 }
 
 void __81__ACAccountStore_GameCenter___getAltDSIDFromIDMSForCredential_completionHandler___block_invoke_105(uint64_t a1)
@@ -716,25 +703,23 @@ void __81__ACAccountStore_GameCenter___getAltDSIDFromIDMSForCredential_completio
 
 void __78__ACAccountStore_GameCenter___gkRenewCredentialForUsername_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) _gkAccountForAppleID:*(a1 + 40)];
-  v12[0] = *MEMORY[0x277CB9098];
-  v12[1] = @"AARenewShouldPostFollowUp";
-  v13[0] = MEMORY[0x277CBEC38];
-  v13[1] = MEMORY[0x277CBEC38];
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[0] = *MEMORY[0x277CB9098];
+  v11[1] = @"AARenewShouldPostFollowUp";
+  v12[0] = MEMORY[0x277CBEC38];
+  v12[1] = MEMORY[0x277CBEC38];
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
   v6 = *(a1 + 32);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __78__ACAccountStore_GameCenter___gkRenewCredentialForUsername_completionHandler___block_invoke_2;
-  v9[3] = &unk_2785DEDB0;
-  v10 = *(a1 + 48);
-  v11 = v3;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __78__ACAccountStore_GameCenter___gkRenewCredentialForUsername_completionHandler___block_invoke_2;
+  v8[3] = &unk_2785DEDB0;
+  v9 = *(a1 + 48);
+  v10 = v3;
   v7 = v3;
-  [v6 renewCredentialsForAccount:v4 options:v5 completion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 renewCredentialsForAccount:v4 options:v5 completion:v8];
 }
 
 uint64_t __78__ACAccountStore_GameCenter___gkRenewCredentialForUsername_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -750,7 +735,7 @@ uint64_t __78__ACAccountStore_GameCenter___gkRenewCredentialForUsername_completi
 
 void __78__ACAccountStore_GameCenter___gkRenewCredentialForUsername_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) error];
 
@@ -772,7 +757,7 @@ void __78__ACAccountStore_GameCenter___gkRenewCredentialForUsername_completionHa
 
     if (os_log_type_enabled(os_log_GKAccount, OS_LOG_TYPE_DEBUG))
     {
-      __78__ACAccountStore_GameCenter___gkRenewCredentialForUsername_completionHandler___block_invoke_3_cold_2(a1);
+      __78__ACAccountStore_GameCenter___gkRenewCredentialForUsername_completionHandler___block_invoke_3_cold_2();
       if (!v9)
       {
         goto LABEL_14;
@@ -802,10 +787,10 @@ LABEL_12:
 
 LABEL_14:
     v15 = MEMORY[0x277CCA9B8];
-    v20 = @"GKCredentialRenewResult";
+    v19 = @"GKCredentialRenewResult";
     v16 = [*(a1 + 32) result];
-    v21 = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v20 = v16;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     v18 = [v15 errorWithDomain:@"GKInternalErrorDomain" code:104 userInfo:v17];
 
     (*(*(a1 + 48) + 16))();
@@ -824,18 +809,16 @@ LABEL_14:
   }
 
   v6 = MEMORY[0x277CCA9B8];
-  v22 = *MEMORY[0x277CCA7E8];
+  v21 = *MEMORY[0x277CCA7E8];
   v7 = [*(a1 + 32) error];
-  v23[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+  v22[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
   v9 = [v6 errorWithDomain:@"GKInternalErrorDomain" code:104 userInfo:v8];
 
   v10 = *(*(a1 + 48) + 16);
 LABEL_7:
   v10();
 LABEL_15:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __66__ACAccountStore_GameCenter___gkSaveCredential_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -856,7 +839,7 @@ void __66__ACAccountStore_GameCenter___gkSaveCredential_completionHandler___bloc
 
 void __66__ACAccountStore_GameCenter___gkSaveCredential_completionHandler___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -876,20 +859,18 @@ void __66__ACAccountStore_GameCenter___gkSaveCredential_completionHandler___bloc
     v9 = os_log_GKAccount;
     if (os_log_type_enabled(os_log_GKAccount, OS_LOG_TYPE_DEBUG))
     {
-      v11 = *(a1 + 40);
-      v12 = 138412802;
-      v13 = v11;
-      v14 = 1024;
-      v15 = a2;
-      v16 = 2112;
-      v17 = v5;
-      _os_log_debug_impl(&dword_227904000, v9, OS_LOG_TYPE_DEBUG, "SAVED ACCOUNT: %@ success:%d error:%@", &v12, 0x1Cu);
+      v10 = *(a1 + 40);
+      v11 = 138412802;
+      v12 = v10;
+      v13 = 1024;
+      v14 = a2;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_debug_impl(&dword_227904000, v9, OS_LOG_TYPE_DEBUG, "SAVED ACCOUNT: %@ success:%d error:%@", &v11, 0x1Cu);
     }
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __66__ACAccountStore_GameCenter___gkSaveCredential_completionHandler___block_invoke_120(uint64_t a1)
@@ -948,7 +929,7 @@ void __69__ACAccountStore_GameCenter___gkDeleteCredentials_completionHandler___b
 
 void __69__ACAccountStore_GameCenter___gkDeleteCredentials_completionHandler___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -968,24 +949,22 @@ void __69__ACAccountStore_GameCenter___gkDeleteCredentials_completionHandler___b
     v9 = os_log_GKAccount;
     if (os_log_type_enabled(os_log_GKAccount, OS_LOG_TYPE_DEBUG))
     {
-      v11 = *(a1 + 40);
-      v12 = v9;
-      v13 = [v11 username];
-      v14 = 138413058;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v13;
-      v18 = 1024;
-      v19 = a2;
-      v20 = 2112;
-      v21 = v5;
-      _os_log_debug_impl(&dword_227904000, v12, OS_LOG_TYPE_DEBUG, "DELETE ACCOUNT(%@): REMOVED:%@ success:%d error:%@", &v14, 0x26u);
+      v10 = *(a1 + 40);
+      v11 = v9;
+      v12 = [v10 username];
+      v13 = 138413058;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v12;
+      v17 = 1024;
+      v18 = a2;
+      v19 = 2112;
+      v20 = v5;
+      _os_log_debug_impl(&dword_227904000, v11, OS_LOG_TYPE_DEBUG, "DELETE ACCOUNT(%@): REMOVED:%@ success:%d error:%@", &v13, 0x26u);
     }
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __69__ACAccountStore_GameCenter___gkDeleteCredentials_completionHandler___block_invoke_123(uint64_t a1)
@@ -995,74 +974,40 @@ void __69__ACAccountStore_GameCenter___gkDeleteCredentials_completionHandler___b
   (*(v1 + 16))(v1, v2);
 }
 
-void __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_88_cold_1(uint64_t a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_0_6(&dword_227904000, v2, v3, "GKAuth:removed malformed legacy account(%@)- it will be automatically re-added with correct format", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __54__ACAccountStore_GameCenter___gkMapAccountsWithBlock___block_invoke_90_cold_1(uint64_t a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_0_6(&dword_227904000, v2, v3, "GKAuth:removed duplicate account(%@)", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
 void __74__ACAccountStore_GameCenter___gkSetScope_forCredential_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 48);
-  v6 = a2;
-  v7 = NSStringFromSelector(v5);
-  v8 = *(a1 + 32);
+  v13 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 48);
+  v5 = a2;
+  v6 = NSStringFromSelector(v4);
   OUTLINED_FUNCTION_0();
-  v12 = 2112;
-  v13 = v9;
-  v14 = 2112;
-  v15 = a3;
-  _os_log_error_impl(&dword_227904000, v6, OS_LOG_TYPE_ERROR, "%@: Failed to save credential %@ (%@)", v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = 2112;
+  v10 = v7;
+  v11 = 2112;
+  v12 = a3;
+  _os_log_error_impl(&dword_227904000, v5, OS_LOG_TYPE_ERROR, "%@: Failed to save credential %@ (%@)", v8, 0x20u);
 }
 
 void __78__ACAccountStore_GameCenter___gkRenewCredentialForUsername_completionHandler___block_invoke_3_cold_1(uint64_t a1, void **a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 40);
   v4 = *a2;
   v5 = a3;
   v6 = [v4 error];
-  v9 = 138412546;
-  v10 = v3;
+  v8 = 138412546;
+  v9 = v3;
   OUTLINED_FUNCTION_6();
-  v11 = v7;
-  _os_log_error_impl(&dword_227904000, v5, OS_LOG_TYPE_ERROR, "Received error while attempting to renew user: %@, error: %@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = v7;
+  _os_log_error_impl(&dword_227904000, v5, OS_LOG_TYPE_ERROR, "Received error while attempting to renew user: %@, error: %@", &v8, 0x16u);
 }
 
-void __78__ACAccountStore_GameCenter___gkRenewCredentialForUsername_completionHandler___block_invoke_3_cold_2(uint64_t a1)
+void __78__ACAccountStore_GameCenter___gkRenewCredentialForUsername_completionHandler___block_invoke_3_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __69__ACAccountStore_GameCenter___gkDeleteCredentials_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_6(&dword_227904000, v0, v1, "DELETE ACCOUNT: account %@ doesn't exist, ignoring", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

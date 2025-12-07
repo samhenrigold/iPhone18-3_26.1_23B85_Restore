@@ -130,29 +130,27 @@ id __32__IXOwnedDataPromise_stagedPath__block_invoke(uint64_t a1)
 
 void __32__IXOwnedDataPromise_stagedPath__block_invoke_6(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
     v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "[IXOwnedDataPromise stagedPath]_block_invoke";
-      v9 = 2112;
-      v10 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to get staged path: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[IXOwnedDataPromise stagedPath]_block_invoke";
+      v8 = 2112;
+      v9 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to get staged path: %@", &v6, 0x16u);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __32__IXOwnedDataPromise_stagedPath__block_invoke_7(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   if (v7)
@@ -160,11 +158,11 @@ void __32__IXOwnedDataPromise_stagedPath__block_invoke_7(uint64_t a1, void *a2, 
     v8 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315394;
-      v13 = "[IXOwnedDataPromise stagedPath]_block_invoke";
-      v14 = 2112;
-      v15 = v7;
-      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Failed to get staged path: %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[IXOwnedDataPromise stagedPath]_block_invoke";
+      v13 = 2112;
+      v14 = v7;
+      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Failed to get staged path: %@", &v11, 0x16u);
     }
 
     v9 = (*(*(a1 + 40) + 8) + 40);
@@ -178,8 +176,6 @@ void __32__IXOwnedDataPromise_stagedPath__block_invoke_7(uint64_t a1, void *a2, 
   }
 
   objc_storeStrong(v9, v10);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setStagedPath:(id)path
@@ -194,19 +190,17 @@ void __32__IXOwnedDataPromise_stagedPath__block_invoke_7(uint64_t a1, void *a2, 
 
 void __36__IXOwnedDataPromise_setStagedPath___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[IXOwnedDataPromise setStagedPath:]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: Failed to set staged item path: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[IXOwnedDataPromise setStagedPath:]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: Failed to set staged item path: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (NSURL)stagingBaseDir
@@ -368,7 +362,7 @@ void __55__IXOwnedDataPromise_setTargetLastPathComponent_error___block_invoke(ui
     v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __55__IXOwnedDataPromise_setTargetLastPathComponent_error___block_invoke_cold_1(a1);
+      __55__IXOwnedDataPromise_setTargetLastPathComponent_error___block_invoke_cold_1();
     }
 
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
@@ -383,7 +377,7 @@ void __55__IXOwnedDataPromise_setTargetLastPathComponent_error___block_invoke_19
     v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __55__IXOwnedDataPromise_setTargetLastPathComponent_error___block_invoke_cold_1(a1);
+      __55__IXOwnedDataPromise_setTargetLastPathComponent_error___block_invoke_cold_1();
     }
 
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
@@ -461,7 +455,7 @@ void __55__IXOwnedDataPromise_targetLastPathComponentWithError___block_invoke(ui
     v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __55__IXOwnedDataPromise_targetLastPathComponentWithError___block_invoke_cold_1(a1);
+      __55__IXOwnedDataPromise_targetLastPathComponentWithError___block_invoke_cold_1();
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
@@ -509,10 +503,9 @@ void __55__IXOwnedDataPromise_targetLastPathComponentWithError___block_invoke_20
 
 - (void)releaseSandboxExtension
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: Failed to release sandbox extension: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: Failed to release sandbox extension: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)dealloc
@@ -542,71 +535,63 @@ void __55__IXOwnedDataPromise_targetLastPathComponentWithError___block_invoke_20
 
 - (void)consumeSandboxExtensionWithError:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = [a1 seed];
   v6 = [v5 stagingBaseDir];
   v7 = [v6 path];
-  v10[0] = 136315650;
+  v9[0] = 136315650;
   OUTLINED_FUNCTION_0_1();
-  v11 = v8;
-  v12 = a2;
-  _os_log_error_impl(&dword_1DA47A000, a3, OS_LOG_TYPE_ERROR, "%s: Failed to get access to installcoordinationd's staging directory at %@ : %@", v10, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = v8;
+  v11 = a2;
+  _os_log_error_impl(&dword_1DA47A000, a3, OS_LOG_TYPE_ERROR, "%s: Failed to get access to installcoordinationd's staging directory at %@ : %@", v9, 0x20u);
 }
 
 - (void)consumeSandboxExtensionWithError:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_fault_impl(&dword_1DA47A000, v0, OS_LOG_TYPE_FAULT, "%s: Attempting to consume a sandbox extension while already holding one for %@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1DA47A000, v0, OS_LOG_TYPE_FAULT, "%s: Attempting to consume a sandbox extension while already holding one for %@", v1, 0x16u);
 }
 
 - (void)consumeSandboxExtensionWithError:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3[0] = 136315650;
+  v5 = *MEMORY[0x1E69E9840];
+  v2[0] = 136315650;
   OUTLINED_FUNCTION_0_1();
-  v4 = v0;
-  v5 = 0;
-  _os_log_error_impl(&dword_1DA47A000, v1, OS_LOG_TYPE_ERROR, "%s: Attempting to consume a sandbox extension while already holding one for %@ : %@", v3, 0x20u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  v4 = 0;
+  _os_log_error_impl(&dword_1DA47A000, v1, OS_LOG_TYPE_ERROR, "%s: Attempting to consume a sandbox extension while already holding one for %@ : %@", v2, 0x20u);
 }
 
 - (void)consumeSandboxExtensionWithError:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, a1, a3, "%s: Attempting to consume a sandbox extension but don't have a sandbox extension token issued : %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  *v8 = 136315394;
+  *&v8[4] = "[IXOwnedDataPromise consumeSandboxExtensionWithError:]";
+  *&v8[12] = 2112;
+  *&v8[14] = 0;
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, a1, a3, "%s: Attempting to consume a sandbox extension but don't have a sandbox extension token issued : %@", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x1E69E9840]);
 }
 
-void __55__IXOwnedDataPromise_setTargetLastPathComponent_error___block_invoke_cold_1(uint64_t a1)
+void __55__IXOwnedDataPromise_setTargetLastPathComponent_error___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v5 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_6_0(&dword_1DA47A000, v2, v3, "%s: Failed to set target last path component to %@ : %@", v5);
-  v4 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_0(&dword_1DA47A000, v0, v1, "%s: Failed to set target last path component to %@ : %@", v2);
 }
 
-void __55__IXOwnedDataPromise_targetLastPathComponentWithError___block_invoke_cold_1(uint64_t a1)
+void __55__IXOwnedDataPromise_targetLastPathComponentWithError___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(*(*(a1 + 32) + 8) + 40);
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v2, v3, "%s: Failed to get target last path component : %@", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: Failed to get target last path component : %@", v2, v3, v4, v5, v6);
 }
 
 void __55__IXOwnedDataPromise_targetLastPathComponentWithError___block_invoke_20_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: Failed to get target last path component : %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: Failed to get target last path component : %@", v2, v3, v4, v5, v6);
 }
 
 @end

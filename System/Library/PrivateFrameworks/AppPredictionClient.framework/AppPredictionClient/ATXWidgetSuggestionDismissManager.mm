@@ -20,7 +20,7 @@
 
   else
   {
-    v5 = __atxlog_handle_home_screen();
+    v5 = __atxlog_handle_home_screen(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(ATXWidgetSuggestionDismissManager *)v5 init];

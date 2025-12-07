@@ -1946,14 +1946,14 @@ LABEL_27:
 {
   v1 = [*a1 sf_error];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1B9E4B000, v2, v3, "SFAirDropTransferProgressStateFailed with error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&dword_1B9E4B000, v2, v3, "SFAirDropTransferProgressStateFailed with error: %@", v4, v5, v6, v7);
 }
 
 - (void)handleKVOUpdateForProgress:(uint64_t)a1 keyPath:.cold.2(uint64_t a1)
 {
   v1 = [*(a1 + 656) displayName];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1B9E4B000, v2, v3, "SFAirDropTransferProgressStateCanceled by: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&dword_1B9E4B000, v2, v3, "SFAirDropTransferProgressStateCanceled by: %@", v4, v5, v6, v7);
 }
 
 @end

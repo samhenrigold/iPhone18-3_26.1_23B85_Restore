@@ -35,7 +35,7 @@
     v9 = v8;
     if (v8)
     {
-      [v8 auditToken];
+      objc_msgSend_auditToken(v8);
     }
 
     else

@@ -84,7 +84,7 @@
     {
       if (v12 == currentDocument[18])
       {
-        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((currentDocument + 14), v12 + 1);
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve(currentDocument + 14, v12 + 1);
       }
 
       google::protobuf::internal::GenericTypeHandler<CRDT::Document_DocObject>::New();
@@ -278,7 +278,7 @@
   {
     if (v6 == currentCustomObjectForEncoding[14])
     {
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((currentCustomObjectForEncoding + 10), v6 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(currentCustomObjectForEncoding + 10, v6 + 1);
     }
 
     google::protobuf::internal::GenericTypeHandler<CRDT::Document_CustomObject_MapEntry>::New();

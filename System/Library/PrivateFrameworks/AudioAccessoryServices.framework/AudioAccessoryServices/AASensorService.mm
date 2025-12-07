@@ -3,6 +3,7 @@
 - (AASensorService)initWithCoder:(id)coder;
 - (id)_ensureXPCStarted;
 - (id)description;
+- (void)_activate:(BOOL)_activate;
 - (void)_activateXPC:(id)c reactivate:(BOOL)reactivate;
 - (void)_broadcastAACPAvailabilities;
 - (void)_interrupted;
@@ -62,9 +63,11 @@
 - (id)description
 {
   clientID = self->_clientID;
-  NSAppendPrintF();
+  v5 = 0;
+  NSAppendPrintF(&v5, "AASensorService, CID 0x%X", clientID);
+  v2 = v5;
 
-  return 0;
+  return v2;
 }
 
 - (AASensorService)init
@@ -107,8 +110,7 @@ void __42__AASensorService_activateWithCompletion___block_invoke(uint64_t a1)
   v2 = *(a1 + 32);
   if (*(v2 + 16) == 1)
   {
-    v3 = *MEMORY[0x277CCA590];
-    v8 = NSErrorF();
+    v7 = NSErrorF(*MEMORY[0x277CCA590], 4294960575, "Activate already called");
     if (gLogCategory_AASensorService_0 <= 90 && (gLogCategory_AASensorService_0 != -1 || _LogCategory_Initialize()))
     {
       __42__AASensorService_activateWithCompletion___block_invoke_cold_1();
@@ -120,14 +122,63 @@ void __42__AASensorService_activateWithCompletion___block_invoke(uint64_t a1)
   else
   {
     *(v2 + 16) = 1;
-    v4 = MEMORY[0x245CE9060](*(a1 + 40));
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 24);
-    *(v5 + 24) = v4;
+    v3 = MEMORY[0x245CE9060](*(a1 + 40));
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 24);
+    *(v4 + 24) = v3;
 
-    v7 = *(a1 + 32);
+    v6 = *(a1 + 32);
 
-    [v7 _activate:0];
+    [v6 _activate:0];
+  }
+}
+
+- (void)_activate:(BOOL)_activate
+{
+  if (!self->_invalidateCalled)
+  {
+    _activateCopy = _activate;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __29__AASensorService__activate___block_invoke;
+    v9[3] = &unk_278CDD660;
+    v9[4] = self;
+    _activateCopy2 = _activate;
+    v5 = MEMORY[0x245CE9060](v9, a2);
+    if (_activateCopy)
+    {
+      if (gLogCategory_AASensorService_0 > 30 || gLogCategory_AASensorService_0 == -1 && !_LogCategory_Initialize())
+      {
+        goto LABEL_13;
+      }
+    }
+
+    else if (gLogCategory_AASensorService_0 > 30 || gLogCategory_AASensorService_0 == -1 && !_LogCategory_Initialize())
+    {
+      goto LABEL_13;
+    }
+
+    [AASensorService _activate:];
+LABEL_13:
+    [(AASensorService *)self _activateXPC:v5 reactivate:_activateCopy];
+    [(AASensorService *)self _broadcastAACPAvailabilities];
+
+    return;
+  }
+
+  v8 = NSErrorF(*MEMORY[0x277CCA590], 4294896148, "Activate after invalidate");
+  if (gLogCategory_AASensorService_0 <= 90 && (gLogCategory_AASensorService_0 != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF();
+  }
+
+  v6 = MEMORY[0x245CE9060](self->_activateCompletion);
+  activateCompletion = self->_activateCompletion;
+  self->_activateCompletion = 0;
+
+  if (v6)
+  {
+    (v6)[2](v6, v8);
   }
 }
 
@@ -164,7 +215,7 @@ void __29__AASensorService__activate___block_invoke(uint64_t a1, void *a2)
     goto LABEL_14;
   }
 
-  __29__AASensorService__activate___block_invoke_cold_2(a1);
+  __29__AASensorService__activate___block_invoke_cold_2();
 LABEL_14:
   v6 = MEMORY[0x245CE9060](*(*(a1 + 32) + 24));
   v7 = *(a1 + 32);
@@ -184,7 +235,7 @@ LABEL_17:
   cCopy = c;
   if (gLogCategory_AASensorService_0 <= 30 && (gLogCategory_AASensorService_0 != -1 || _LogCategory_Initialize()))
   {
-    [AASensorService _activateXPC:? reactivate:?];
+    [AASensorService _activateXPC:reactivate:];
   }
 
   _ensureXPCStarted = [(AASensorService *)self _ensureXPCStarted];
@@ -295,8 +346,8 @@ uint64_t __36__AASensorService__ensureXPCStarted__block_invoke_2(uint64_t a1)
     [AASensorService _interrupted];
   }
 
-  v3 = BTErrorF();
-  [(AASensorService *)self _reportError:v3];
+  v9 = BTErrorF(4294960596, "XPC interrupted", v3, v4, v5, v6, v7, v8, v13);
+  [(AASensorService *)self _reportError:v9];
 
   activateCompletion = self->_activateCompletion;
   self->_activateCompletion = 0;
@@ -304,9 +355,9 @@ uint64_t __36__AASensorService__ensureXPCStarted__block_invoke_2(uint64_t a1)
   interruptionHandler = self->_interruptionHandler;
   if (interruptionHandler)
   {
-    v6 = *(interruptionHandler + 2);
+    v12 = *(interruptionHandler + 2);
 
-    v6();
+    v12();
   }
 }
 
@@ -340,15 +391,15 @@ void __29__AASensorService_invalidate__block_invoke(uint64_t a1)
       v4 = *(a1 + 32);
     }
 
-    v9 = MEMORY[0x245CE9060](*(v4 + 24));
+    v16 = MEMORY[0x245CE9060](*(v4 + 24));
     v6 = *(a1 + 32);
     v7 = *(v6 + 24);
     *(v6 + 24) = 0;
 
-    if (v9)
+    if (v16)
     {
-      v8 = BTErrorF();
-      v9[2](v9, v8);
+      v14 = BTErrorF(4294896148, "Invalidate called", v8, v9, v10, v11, v12, v13, v15);
+      v16[2](v16, v14);
     }
 
     [*(a1 + 32) _invalidated];
@@ -366,23 +417,23 @@ void __29__AASensorService_invalidate__block_invoke(uint64_t a1)
 
     if (!self->_xpcCnx)
     {
-      v11 = MEMORY[0x245CE9060](self->_activateCompletion, a2);
+      v18 = MEMORY[0x245CE9060](self->_activateCompletion, a2);
       activateCompletion = self->_activateCompletion;
       self->_activateCompletion = 0;
 
-      if (v11)
+      if (v18)
       {
-        v4 = BTErrorF();
-        v11[2](v11, v4);
+        v10 = BTErrorF(4294896148, "Unexpectedly invalidated", v4, v5, v6, v7, v8, v9, v17);
+        v18[2](v18, v10);
       }
 
-      v5 = MEMORY[0x245CE9060](self->_invalidationHandler);
+      v11 = MEMORY[0x245CE9060](self->_invalidationHandler);
       invalidationHandler = self->_invalidationHandler;
       self->_invalidationHandler = 0;
 
-      if (v5)
+      if (v11)
       {
-        v5[2](v5);
+        v11[2](v11);
       }
 
       [(NSMutableDictionary *)self->_requestedSensorRates removeAllObjects];
@@ -437,7 +488,7 @@ void __29__AASensorService_invalidate__block_invoke(uint64_t a1)
 
   else if (gLogCategory_AASensorService_0 <= 10 && (gLogCategory_AASensorService_0 != -1 || _LogCategory_Initialize()))
   {
-    [AASensorService sensorServiceReportSensorInfo:?];
+    [AASensorService sensorServiceReportSensorInfo:];
   }
 }
 

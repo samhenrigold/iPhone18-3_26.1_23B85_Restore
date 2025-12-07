@@ -36,32 +36,31 @@
 
   else
   {
-    memset(v11, 0, sizeof(v11));
+    memset(v10, 0, sizeof(v10));
   }
 
   swift_getObjCClassMetadata();
-  sub_1B1E0BF2C(v11, v12);
-  sub_1B1E0CB70(v11, &qword_1EB783FC8, &unk_1B1F2A690);
-  v3 = v13;
-  if (v13)
+  sub_1B1E0BF2C(v10, v11);
+  sub_1B1E0CB70(v10, &qword_1EB783FC8, &unk_1B1F2A690);
+  v3 = v12;
+  if (v12)
   {
-    v4 = __swift_project_boxed_opaque_existential_0(v12, v13);
+    v4 = __swift_project_boxed_opaque_existential_0(v11, v12);
     v5 = *(v3 - 8);
-    v6 = *(v5 + 64);
     MEMORY[0x1EEE9AC00](v4);
-    v8 = v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v5 + 16))(v8);
-    v9 = sub_1B1F1B500();
-    (*(v5 + 8))(v8, v3);
-    __swift_destroy_boxed_opaque_existential_1(v12);
+    v7 = v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v5 + 16))(v7);
+    v8 = sub_1B1F1B500();
+    (*(v5 + 8))(v7, v3);
+    __swift_destroy_boxed_opaque_existential_1(v11);
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 @end

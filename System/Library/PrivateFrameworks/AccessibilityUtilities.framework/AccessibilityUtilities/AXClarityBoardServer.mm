@@ -55,9 +55,11 @@
 
 uint64_t __30__AXClarityBoardServer_server__block_invoke()
 {
-  server_Server_5 = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = server_Server_5;
+  server_Server_5 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (int64_t)activeInterfaceOrientation

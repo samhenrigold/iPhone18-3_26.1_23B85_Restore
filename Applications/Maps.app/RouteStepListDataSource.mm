@@ -118,7 +118,7 @@
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Calculating items for route %@ (%@) with steps %lu", buf, 0x20u);
   }
 
-  if (([(RouteStepListDataSource *)self options]& 1) != 0)
+  if (objc_msgSend_options(self))
   {
     route2 = [(RouteStepListDataSource *)self route];
     origin = [route2 origin];
@@ -149,7 +149,7 @@
       steps2 = [(GEOComposedRoute *)v73 steps];
       v23 = [steps2 objectAtIndexedSubscript:v21];
 
-      if (v21 || (-[RouteStepListDataSource options](self, "options") & 8) != 0 || [v23 maneuverType] != 17 || (objc_msgSend(v23, "geoStep"), v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "instructionSet"), v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v25, "hasDrivingWalkingListInstruction"), v25, v24, (v26 & 1) != 0))
+      if (v21 || (objc_msgSend_options(self) & 8) != 0 || [v23 maneuverType] != 17 || (objc_msgSend(v23, "geoStep"), v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "instructionSet"), v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v25, "hasDrivingWalkingListInstruction"), v25, v24, (v26 & 1) != 0))
       {
         if (v21 - 1 >= v20)
         {
@@ -162,7 +162,7 @@
           excludedStepIndices2 = [steps3 objectAtIndexedSubscript:v21 - 1];
         }
 
-        if ((([excludedStepIndices2 isEVChargerStep] & 1) != 0 || (-[RouteStepListDataSource options](self, "options") & 0x40) != 0) && objc_msgSend(v23, "maneuverType") == 85 || (objc_msgSend(v23, "geoStep"), v29 = objc_claimAutoreleasedReturnValue(), v29, !v29) || (-[RouteStepListDataSource allowedStepIndices](self, "allowedStepIndices"), (v30 = objc_claimAutoreleasedReturnValue()) != 0) && (v31 = v30, -[RouteStepListDataSource allowedStepIndices](self, "allowedStepIndices"), v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v32, "containsIndex:", v21), v32, v31, (v33 & 1) == 0))
+        if ((([excludedStepIndices2 isEVChargerStep] & 1) != 0 || (objc_msgSend_options(self) & 0x40) != 0) && objc_msgSend(v23, "maneuverType") == 85 || (objc_msgSend(v23, "geoStep"), v29 = objc_claimAutoreleasedReturnValue(), v29, !v29) || (-[RouteStepListDataSource allowedStepIndices](self, "allowedStepIndices"), (v30 = objc_claimAutoreleasedReturnValue()) != 0) && (v31 = v30, -[RouteStepListDataSource allowedStepIndices](self, "allowedStepIndices"), v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v32, "containsIndex:", v21), v32, v31, (v33 & 1) == 0))
         {
           excludedStepIndices = [(RouteStepListDataSource *)self excludedStepIndices];
           [(RouteStepManeuverItem *)excludedStepIndices addIndex:v21];
@@ -170,7 +170,7 @@
 
         else
         {
-          if (([(RouteStepListDataSource *)self options]& 2) != 0)
+          if ((objc_msgSend_options(self) & 2) != 0)
           {
             v72 = sub_100F5C4B8(v23, v73);
             legs = [(GEOComposedRoute *)v73 legs];
@@ -233,7 +233,7 @@ LABEL_35:
     while (v20 != v21);
   }
 
-  if (([(RouteStepListDataSource *)self options]& 4) != 0)
+  if ((objc_msgSend_options(self) & 4) != 0)
   {
     route3 = [(RouteStepListDataSource *)self route];
     destination2 = [route3 destination];
@@ -253,7 +253,7 @@ LABEL_35:
     }
   }
 
-  if (([(RouteStepListDataSource *)self options]& 0x20) != 0)
+  if ((objc_msgSend_options(self) & 0x20) != 0)
   {
     route5 = [(RouteStepListDataSource *)self route];
     isMultipointRoute = [route5 isMultipointRoute];
@@ -745,7 +745,7 @@ LABEL_16:
 
 - (unint64_t)_firstDisplayedStepIndex
 {
-  if (([(RouteStepListDataSource *)self options]& 8) != 0)
+  if ((objc_msgSend_options(self, a2) & 8) != 0)
   {
     return 0;
   }

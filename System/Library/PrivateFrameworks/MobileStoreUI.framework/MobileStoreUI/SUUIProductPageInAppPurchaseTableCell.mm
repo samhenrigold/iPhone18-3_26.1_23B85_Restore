@@ -44,10 +44,10 @@
     }
 
     nameLabel = self->_nameLabel;
-    primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v13 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v13)
     {
-      [(UILabel *)nameLabel setTextColor:primaryTextColor];
+      [(UILabel *)nameLabel setTextColor:v13];
     }
 
     else
@@ -64,7 +64,7 @@
 {
   stringCopy = string;
   indexString = [(SUUIProductPageInAppPurchaseTableCell *)self indexString];
-  if (indexString != stringCopy && ([indexString isEqualToString:stringCopy] & 1) == 0)
+  if (indexString != stringCopy && (objc_msgSend_isEqualToString_(indexString) & 1) == 0)
   {
     v5 = [stringCopy length];
     indexLabel = self->_indexLabel;
@@ -122,7 +122,7 @@
 {
   stringCopy = string;
   priceString = [(SUUIProductPageInAppPurchaseTableCell *)self priceString];
-  if (priceString != stringCopy && ([priceString isEqualToString:stringCopy] & 1) == 0)
+  if (priceString != stringCopy && (objc_msgSend_isEqualToString_(priceString) & 1) == 0)
   {
     v5 = [stringCopy length];
     priceLabel = self->_priceLabel;
@@ -180,7 +180,7 @@
 {
   nameCopy = name;
   productName = [(SUUIProductPageInAppPurchaseTableCell *)self productName];
-  if (productName != nameCopy && ([productName isEqualToString:nameCopy] & 1) == 0)
+  if (productName != nameCopy && (objc_msgSend_isEqualToString_(productName) & 1) == 0)
   {
     v5 = [nameCopy length];
     nameLabel = self->_nameLabel;
@@ -201,10 +201,10 @@
         [(UILabel *)v11 setFont:v12];
 
         v13 = self->_nameLabel;
-        primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-        if (primaryTextColor)
+        v14 = objc_msgSend_primaryTextColor(self->_colorScheme);
+        if (v14)
         {
-          [(UILabel *)v13 setTextColor:primaryTextColor];
+          [(UILabel *)v13 setTextColor:v14];
         }
 
         else

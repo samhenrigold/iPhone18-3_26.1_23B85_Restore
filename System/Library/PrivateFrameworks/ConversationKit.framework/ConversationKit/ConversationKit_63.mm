@@ -168,7 +168,7 @@ LABEL_63:
                 outlined init with copy of ConversationControlsType(&v110, v107);
                 v75 = specialized >> prefix<A>(_:)(v107);
                 v77 = v76;
-                outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v107, &_s15ConversationKit0A12ControlsTypeOSgMd);
+                outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v107, &_s15ConversationKit0A12ControlsTypeOSgMd, &_s15ConversationKit0A12ControlsTypeOSgMR);
                 outlined destroy of ConversationControlsType(&v110);
                 v78 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v75, v77, &v108);
 
@@ -177,7 +177,7 @@ LABEL_63:
                 ConversationControlsType.associatedNotice.getter(v107);
                 v79 = specialized >> prefix<A>(_:)(v107);
                 v81 = v80;
-                outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v107, &_s15ConversationKit6Notice_pSgMd);
+                outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v107, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
                 outlined destroy of ConversationControlsType(v109);
                 v82 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v79, v81, &v108);
 
@@ -268,7 +268,7 @@ LABEL_62:
               goto LABEL_63;
             }
 
-            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v110, &_s15ConversationKit6Notice_pSgMd);
+            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v110, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
 LABEL_61:
             v49 = 0;
             goto LABEL_62;
@@ -279,7 +279,7 @@ LABEL_61:
 
     else
     {
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v110, &_s15ConversationKit6Notice_pSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v110, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
     }
 
     if (!v38)
@@ -380,7 +380,7 @@ LABEL_46:
     v57 = v22;
   }
 
-  if (!v53 || (v110 = v53, __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd), (swift_dynamicCast() & 1) == 0))
+  if (!v53 || (v110 = v53, __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR), (swift_dynamicCast() & 1) == 0))
   {
     *v57 = 12;
   }
@@ -444,7 +444,7 @@ uint64_t BannerPresentationManager.updatePresentedBanner(type:)(uint64_t a1)
       outlined init with copy of ConversationControlsType(v25, v22);
       v11 = specialized >> prefix<A>(_:)(v22);
       v13 = v12;
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v22, &_s15ConversationKit0A12ControlsTypeOSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v22, &_s15ConversationKit0A12ControlsTypeOSgMd, &_s15ConversationKit0A12ControlsTypeOSgMR);
       outlined destroy of ConversationControlsType(v25);
       v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v13, &v23);
 
@@ -453,7 +453,7 @@ uint64_t BannerPresentationManager.updatePresentedBanner(type:)(uint64_t a1)
       ConversationControlsType.associatedNotice.getter(v22);
       v15 = specialized >> prefix<A>(_:)(v22);
       v17 = v16;
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v22, &_s15ConversationKit6Notice_pSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v22, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
       outlined destroy of ConversationControlsType(v24);
       v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v17, &v23);
 
@@ -495,8 +495,8 @@ void BannerPresentationManager.requestKeyboardFocus(wantsKeyboardFocus:)(char a1
     v5 = [objc_opt_self() sharedApplication];
     v6 = [v5 connectedScenes];
 
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIScene);
-    lazy protocol witness table accessor for type TUConversationInvitationPreference and conformance NSObject(&lazy protocol witness table cache variable for type UIScene and conformance NSObject, &lazy cache variable for type metadata for UIScene);
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIScene, 0x1E69DCE70);
+    lazy protocol witness table accessor for type TUConversationInvitationPreference and conformance NSObject(&lazy protocol witness table cache variable for type UIScene and conformance NSObject, &lazy cache variable for type metadata for UIScene, 0x1E69DCE70);
     OUTLINED_FUNCTION_247();
     v7 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
@@ -601,7 +601,7 @@ LABEL_15:
 
 LABEL_27:
 
-        outlined consume of Set<TUHandle>.Iterator._Variant();
+        outlined consume of Set<TUHandle>.Iterator._Variant(v23);
 
         objc_opt_self();
         v31 = swift_dynamicCastObjCClass();
@@ -619,7 +619,7 @@ LABEL_27:
       else
       {
 LABEL_24:
-        outlined consume of Set<TUHandle>.Iterator._Variant();
+        outlined consume of Set<TUHandle>.Iterator._Variant(v7);
       }
     }
 
@@ -778,7 +778,7 @@ void closure #1 in BannerPresentationManager.dismissPresentedBanner(forReason:an
 
     else
     {
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v41, &_s15ConversationKit6Notice_pSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v41, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
       if (one-time initialization token for banners != -1)
       {
         swift_once();
@@ -836,30 +836,30 @@ Swift::Void __swiftcall BannerPresentationManager.dismissPresentedBanner(matchin
   }
 }
 
-double BannerPresentationManager.getConversationControlsTypeForPresentedBanner()@<D0>(uint64_t a1@<X8>)
+double BannerPresentationManager.getConversationControlsTypeForPresentedBanner()@<D0>(uint64_t a2@<X8>)
 {
   OUTLINED_FUNCTION_67_12();
-  v3 = (*(v2 + 488))();
-  if (v3)
+  v4 = (*(v3 + 488))();
+  if (v4)
   {
-    v4 = v3;
+    v5 = v4;
     OUTLINED_FUNCTION_26_40();
-    (*(v5 + 496))(&v8);
+    (*(v6 + 496))(&v9);
 
-    v6 = v9[0];
-    *a1 = v8;
-    *(a1 + 16) = v6;
-    result = *(v9 + 9);
-    *(a1 + 25) = *(v9 + 9);
+    v7 = v10[0];
+    *a2 = v9;
+    *(a2 + 16) = v7;
+    result = *(v10 + 9);
+    *(a2 + 25) = *(v10 + 9);
   }
 
   else
   {
-    *(a1 + 32) = 0;
+    *(a2 + 32) = 0;
     result = 0.0;
-    *a1 = 0u;
-    *(a1 + 16) = 0u;
-    *(a1 + 40) = 7;
+    *a2 = 0u;
+    *(a2 + 16) = 0u;
+    *(a2 + 40) = 7;
   }
 
   return result;
@@ -990,7 +990,7 @@ uint64_t canUpdateBanner #1 (to:) in BannerPresentationManager._updatePresentedH
       outlined init with copy of ConversationControlsType(v26, v24);
       v10 = specialized >> prefix<A>(_:)(v24);
       v12 = v11;
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v24, &_s15ConversationKit0A12ControlsTypeOSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v24, &_s15ConversationKit0A12ControlsTypeOSgMd, &_s15ConversationKit0A12ControlsTypeOSgMR);
       outlined destroy of ConversationControlsType(v26);
       v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v12, &v25);
 
@@ -1031,7 +1031,7 @@ uint64_t canUpdateBanner #1 (to:) in BannerPresentationManager._updatePresentedH
       outlined init with copy of ConversationControlsType(v26, v24);
       v19 = specialized >> prefix<A>(_:)(v24);
       v21 = v20;
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v24, &_s15ConversationKit0A12ControlsTypeOSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v24, &_s15ConversationKit0A12ControlsTypeOSgMd, &_s15ConversationKit0A12ControlsTypeOSgMR);
       outlined destroy of ConversationControlsType(v26);
       v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v21, &v25);
 
@@ -1068,7 +1068,7 @@ Swift::Void __swiftcall BannerPresentationManager.updatePresentedHUDCornerRadius
 Swift::Void __swiftcall BannerPresentationManager.bannerDismissedBySpringBoard()()
 {
   v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   OUTLINED_FUNCTION_22(v2);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v3);
@@ -1077,7 +1077,7 @@ Swift::Void __swiftcall BannerPresentationManager.bannerDismissedBySpringBoard()
   {
     if (one-time initialization token for banners != -1)
     {
-      OUTLINED_FUNCTION_0_178();
+      OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
     }
 
     v4 = type metadata accessor for Logger();
@@ -1276,7 +1276,7 @@ LABEL_14:
   if (a2)
   {
     v12 = a2;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     v13 = String.init<A>(reflecting:)();
     v15 = v14;
   }
@@ -1298,7 +1298,7 @@ LABEL_14:
 
 Swift::Void __swiftcall BannerPresentationManager.didRequestAVLessDowngrade()()
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   OUTLINED_FUNCTION_22(v3);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v4);
@@ -1313,10 +1313,10 @@ Swift::Void __swiftcall BannerPresentationManager.didRequestAVLessDowngrade()()
   OUTLINED_FUNCTION_57(v2);
   if (v9)
   {
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v2, &_s10Foundation4UUIDVSgMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v2, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
     if (one-time initialization token for banners != -1)
     {
-      OUTLINED_FUNCTION_0_178();
+      OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
     }
 
     v10 = type metadata accessor for Logger();
@@ -1335,7 +1335,7 @@ Swift::Void __swiftcall BannerPresentationManager.didRequestAVLessDowngrade()()
       v15 = v11;
       OUTLINED_FUNCTION_145_5();
       _os_log_impl(v16, v17, v18, v19, v20, 0xCu);
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v14, &_sSo8NSObjectCSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v14, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       OUTLINED_FUNCTION_4_4();
       OUTLINED_FUNCTION_18();
     }
@@ -1406,7 +1406,7 @@ Swift::Void __swiftcall BannerPresentationManager.requestEphemeralSystemAperture
   {
     if (one-time initialization token for banners != -1)
     {
-      OUTLINED_FUNCTION_0_178();
+      OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
     }
 
     v7 = type metadata accessor for Logger();
@@ -1445,7 +1445,7 @@ Swift::Void __swiftcall BannerPresentationManager.requestPersistentSystemApertur
   {
     if (one-time initialization token for banners != -1)
     {
-      OUTLINED_FUNCTION_0_178();
+      OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
     }
 
     v7 = type metadata accessor for Logger();
@@ -1484,7 +1484,7 @@ Swift::Void __swiftcall BannerPresentationManager.invalidatePersistentSystemAper
   {
     if (one-time initialization token for banners != -1)
     {
-      OUTLINED_FUNCTION_0_178();
+      OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
     }
 
     v7 = type metadata accessor for Logger();
@@ -1503,10 +1503,6 @@ Swift::Void __swiftcall BannerPresentationManager.invalidatePersistentSystemAper
 
 void BannerPresentationManager.presentShareCardViewController(_:)()
 {
-  BannerPresentationManager.presentShareCardViewController(_:)();
-}
-
-{
   OUTLINED_FUNCTION_55();
   OUTLINED_FUNCTION_153();
   v2 = (*(v1 + 488))();
@@ -1518,7 +1514,7 @@ void BannerPresentationManager.presentShareCardViewController(_:)()
 
     if (v6)
     {
-      type metadata accessor for ConversationHUDViewController();
+      type metadata accessor for ConversationHUDViewController(0);
       if (swift_dynamicCastClass())
       {
         v5 = OUTLINED_FUNCTION_6_4();
@@ -1560,7 +1556,7 @@ LABEL_3:
 
 Swift::Void __swiftcall BannerPresentationManager.dismissHoldDetectedActivityIfNeeded()()
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   OUTLINED_FUNCTION_22(v0);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v1);
@@ -1720,7 +1716,7 @@ void BannerPresentationManager.didDismiss(_:reason:)(void *a1, uint64_t a2)
   if (v11)
   {
     v12 = v11;
-    type metadata accessor for SystemBannerHostViewController();
+    type metadata accessor for SystemBannerHostViewController(0);
     v13 = a1;
     v14 = static NSObject.== infix(_:_:)();
 
@@ -1823,7 +1819,7 @@ LABEL_9:
   {
     if (one-time initialization token for banners != -1)
     {
-      OUTLINED_FUNCTION_0_178();
+      OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
     }
 
     v8 = type metadata accessor for Logger();
@@ -1909,12 +1905,12 @@ void closure #1 in BannerPresentationManager.invalidateAndReschedulePresentedBan
           if (*(&v41 + 1))
           {
 
-            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v40, &_s15ConversationKit6Notice_pSgMd);
+            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v40, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
           }
 
           else
           {
-            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v40, &_s15ConversationKit6Notice_pSgMd);
+            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v40, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
             v35 = MEMORY[0x1BFB209B0](0xD000000000000023, 0x80000001BC517230);
             [v9 dismissPresentedBannerForReason:v35 animated:1];
           }
@@ -1932,7 +1928,7 @@ void closure #1 in BannerPresentationManager.invalidateAndReschedulePresentedBan
         v41 = 0u;
       }
 
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v40, &_s15ConversationKit6Notice_pSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v40, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
     }
 
     v29 = MEMORY[0x1BFB209B0](0xD000000000000023, 0x80000001BC517230);
@@ -2038,7 +2034,7 @@ LABEL_11:
         v18(&v43);
         v25 = specialized >> prefix<A>(_:)(&v43);
         v27 = v26;
-        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v43, &_s15ConversationKit0A12ControlsTypeOSgMd);
+        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v43, &_s15ConversationKit0A12ControlsTypeOSgMd, &_s15ConversationKit0A12ControlsTypeOSgMR);
         v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v27, &v40);
 
         *(v23 + 4) = v28;
@@ -2072,7 +2068,7 @@ LABEL_32:
             v44 = 0u;
             v45 = 0u;
             v46 = 7;
-            BannerPresentationManager.presentBanner(as:type:reply:)(3);
+            BannerPresentationManager.presentBanner(as:type:reply:)();
 
             outlined destroy of ConversationControlsType(&v43);
             return;
@@ -2087,13 +2083,13 @@ LABEL_32:
   }
 }
 
-void closure #1 in BannerPresentationManager.invalidateAndRescheduleSystemApertureTimer(reschedule:)()
+void closure #1 in BannerPresentationManager.invalidateAndRescheduleSystemApertureTimer(reschedule:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     BannerPresentationManager.systemApertureElementDismissalTimerFired()();
   }
 }
@@ -2110,7 +2106,7 @@ Swift::Void __swiftcall BannerPresentationManager.systemApertureElementDismissal
     {
       if (one-time initialization token for banners != -1)
       {
-        OUTLINED_FUNCTION_0_178();
+        OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
       }
 
       v3 = type metadata accessor for Logger();
@@ -2169,7 +2165,7 @@ uint64_t BannerPresentationManager.wantsBannerWithoutScene.getter()
 
     if (one-time initialization token for shared != -1)
     {
-      OUTLINED_FUNCTION_0_9();
+      OUTLINED_FUNCTION_0_9(&one-time initialization token for shared);
     }
 
     OUTLINED_FUNCTION_0_1();
@@ -2275,7 +2271,7 @@ uint64_t closure #1 in closure #1 in BannerPresentationManager.handleCallStatusD
 
   if (one-time initialization token for banners != -1)
   {
-    OUTLINED_FUNCTION_0_178();
+    OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
   }
 
   v3 = type metadata accessor for Logger();
@@ -2316,7 +2312,7 @@ uint64_t closure #2 in closure #1 in BannerPresentationManager.handleCallStatusD
   BannerPresentationManager.waitOnHoldHUDActivity.setter(v1);
   if (one-time initialization token for banners != -1)
   {
-    OUTLINED_FUNCTION_0_178();
+    OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
   }
 
   v2 = type metadata accessor for Logger();
@@ -2336,45 +2332,45 @@ uint64_t closure #2 in closure #1 in BannerPresentationManager.handleCallStatusD
   return v8();
 }
 
-void closure #3 in closure #1 in BannerPresentationManager.handleCallStatusDidChange(_:)(int a1, id a2)
+void closure #3 in closure #1 in BannerPresentationManager.handleCallStatusDidChange(_:)(int a1, id a2, uint64_t a3)
 {
   if (a2)
   {
-    v3 = a2;
+    v4 = a2;
     if (one-time initialization token for banners != -1)
     {
       swift_once();
     }
 
-    v4 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v4, static Logger.banners);
-    v5 = a2;
-    v6 = Logger.logObject.getter();
-    v7 = static os_log_type_t.default.getter();
+    v5 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v5, static Logger.banners);
+    v6 = a2;
+    v7 = Logger.logObject.getter();
+    v8 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v6, v7))
+    if (os_log_type_enabled(v7, v8))
     {
-      v8 = swift_slowAlloc();
       v9 = swift_slowAlloc();
-      v16[0] = v9;
-      *v8 = 136315138;
-      v10 = a2;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-      v11 = String.init<A>(reflecting:)();
-      v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, v16);
+      v10 = swift_slowAlloc();
+      v17[0] = v10;
+      *v9 = 136315138;
+      v11 = a2;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+      v12 = String.init<A>(reflecting:)();
+      v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v13, v17);
 
-      *(v8 + 4) = v13;
-      _os_log_impl(&dword_1BBC58000, v6, v7, "Failed to present handoff completed banner with error %s", v8, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1(v9);
+      *(v9 + 4) = v14;
+      _os_log_impl(&dword_1BBC58000, v7, v8, "Failed to present handoff completed banner with error %s", v9, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1(v10);
+      MEMORY[0x1BFB23DF0](v10, -1, -1);
       MEMORY[0x1BFB23DF0](v9, -1, -1);
-      MEMORY[0x1BFB23DF0](v8, -1, -1);
     }
 
     swift_beginAccess();
     Strong = swift_unknownObjectWeakLoadStrong();
     if (Strong)
     {
-      v15 = Strong;
+      v16 = Strong;
       (*((*MEMORY[0x1E69E7D40] & *Strong) + 0x178))(0);
     }
 
@@ -2444,54 +2440,54 @@ void BannerPresentationManager.handleSecondaryPillWantsHUDDismissal(_:)()
   MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_140_0();
-  v16 = type metadata accessor for DispatchQoS();
+  v17 = type metadata accessor for DispatchQoS();
   OUTLINED_FUNCTION_1();
   v3 = v2;
   MEMORY[0x1EEE9AC00](v4);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_101();
-  v5 = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  v5 = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x1E69E9610);
   v6 = static OS_dispatch_queue.main.getter();
   OUTLINED_FUNCTION_20();
   v7 = swift_allocObject();
   OUTLINED_FUNCTION_278(v7);
   swift_unknownObjectWeakInit();
-  v17[4] = partial apply for closure #1 in BannerPresentationManager.handleSecondaryPillWantsHUDDismissal(_:);
-  v17[5] = v5;
+  v18[4] = partial apply for closure #1 in BannerPresentationManager.handleSecondaryPillWantsHUDDismissal(_:);
+  v18[5] = v5;
   OUTLINED_FUNCTION_5_73();
-  v17[1] = 1107296256;
+  v18[1] = 1107296256;
   OUTLINED_FUNCTION_6_5();
-  v17[2] = v8;
-  v17[3] = &block_descriptor_56_1;
-  v9 = _Block_copy(v17);
+  v18[2] = v8;
+  v18[3] = &block_descriptor_56_1;
+  v9 = _Block_copy(v18);
 
   static DispatchQoS.unspecified.getter();
-  v17[0] = MEMORY[0x1E69E7CC0];
+  v18[0] = MEMORY[0x1E69E7CC0];
   OUTLINED_FUNCTION_12_85();
   _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(v10, v11);
   v12 = OUTLINED_FUNCTION_334();
-  __swift_instantiateConcreteTypeFromMangledNameV2(v12);
+  __swift_instantiateConcreteTypeFromMangledNameV2(v12, v13);
   OUTLINED_FUNCTION_3_8();
-  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(v13, &_sSay8Dispatch0A13WorkItemFlagsVGMd);
+  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(v14, &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OUTLINED_FUNCTION_11_70();
   _Block_release(v9);
 
-  v14 = OUTLINED_FUNCTION_309();
-  v15(v14);
-  (*(v3 + 8))(v0, v16);
+  v15 = OUTLINED_FUNCTION_309();
+  v16(v15);
+  (*(v3 + 8))(v0, v17);
   OUTLINED_FUNCTION_30_0();
 }
 
-void closure #1 in BannerPresentationManager.handleSecondaryPillWantsHUDDismissal(_:)()
+void closure #1 in BannerPresentationManager.handleSecondaryPillWantsHUDDismissal(_:)(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = MEMORY[0x1BFB209B0](0xD00000000000002ELL, 0x80000001BC517200);
-    [v1 dismissPresentedBannerForReason:v2 animated:1];
+    v2 = Strong;
+    v3 = MEMORY[0x1BFB209B0](0xD00000000000002ELL, 0x80000001BC517200);
+    [v2 dismissPresentedBannerForReason:v3 animated:1];
   }
 }
 
@@ -2526,7 +2522,7 @@ void closure #1 in BannerPresentationManager.presentNewBanner(as:type:activityUU
       v30 = v17;
       *v16 = 136315394;
       v18 = v11;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
       v19 = String.init<A>(describing:)();
       v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v20, &v30);
 
@@ -2603,18 +2599,18 @@ Swift::Void __swiftcall BannerPresentationManager.didUpdatePresentationModeToFul
   {
     if (one-time initialization token for banners != -1)
     {
-      OUTLINED_FUNCTION_0_178();
+      OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
     }
 
     v9 = type metadata accessor for Logger();
     OUTLINED_FUNCTION_52(v9, static Logger.banners);
-    v40 = Logger.logObject.getter();
+    v41 = Logger.logObject.getter();
     v10 = static os_log_type_t.default.getter();
-    if (OUTLINED_FUNCTION_15_29(v10, v11, v12, v13, v14, v15, v16, v17, v37, v40))
+    if (OUTLINED_FUNCTION_15_29(v10, v11, v12, v13, v14, v15, v16, v17, v38, v41))
     {
       v18 = OUTLINED_FUNCTION_33();
       OUTLINED_FUNCTION_21_24(v18);
-      OUTLINED_FUNCTION_7_14(&dword_1BBC58000, v19, v20, "Ignore request to invalidate alerting assertion since no presentedSystemApertureElement.", v21, v22, v23, v24, v38, v39);
+      OUTLINED_FUNCTION_7_14(&dword_1BBC58000, v19, v20, "Ignore request to invalidate alerting assertion since no presentedSystemApertureElement.", v21, v22, v23, v24, v39, v40);
       OUTLINED_FUNCTION_3_83();
     }
 
@@ -2627,7 +2623,7 @@ Swift::Void __swiftcall BannerPresentationManager.didUpdatePresentationModeToFul
   {
     if (one-time initialization token for banners != -1)
     {
-      OUTLINED_FUNCTION_0_178();
+      OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
     }
 
     v3 = type metadata accessor for Logger();
@@ -2659,12 +2655,12 @@ LABEL_12:
       if ([v27 isEmergency] && objc_msgSend(v27, sel_isActive))
       {
         OUTLINED_FUNCTION_28_48();
-        BannerPresentationManager.updatePresentedSystemApertureElement(type:sizeClass:dismissPresentedBannerReason:)(v41, 0, 1, 0, 0, &v42);
-        outlined destroy of ConversationControlsType(v41);
-        v28 = v42;
+        BannerPresentationManager.updatePresentedSystemApertureElement(type:sizeClass:dismissPresentedBannerReason:)(v42, 0, 1, 0, 0, &v43);
+        outlined destroy of ConversationControlsType(v42);
+        v28 = v43;
         if (one-time initialization token for banners != -1)
         {
-          OUTLINED_FUNCTION_0_178();
+          OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
         }
 
         v29 = type metadata accessor for Logger();
@@ -2684,9 +2680,9 @@ LABEL_12:
 
           else
           {
-            lazy protocol witness table accessor for type BannerPresentationError and conformance BannerPresentationError();
-            OUTLINED_FUNCTION_19_6();
-            *v35 = v28;
+            v35 = lazy protocol witness table accessor for type BannerPresentationError and conformance BannerPresentationError();
+            OUTLINED_FUNCTION_19_6(&type metadata for BannerPresentationError, v35);
+            *v36 = v28;
             v33 = _swift_stdlib_bridgeErrorToNSError();
             v34 = v33;
           }
@@ -2694,7 +2690,7 @@ LABEL_12:
           *(v0 + 4) = v33;
           *v32 = v34;
           _os_log_impl(&dword_1BBC58000, v30, v31, "EnhancedEmergency: entered full screen, update jindo back to in call controls, error = %@", v0, 0xCu);
-          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v32, &_sSo8NSObjectCSgMd);
+          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v32, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
           OUTLINED_FUNCTION_2_2();
           OUTLINED_FUNCTION_18();
         }
@@ -2703,7 +2699,7 @@ LABEL_12:
   }
 
   OUTLINED_FUNCTION_5_18();
-  (*(v36 + 360))();
+  (*(v37 + 360))();
 }
 
 Swift::Void __swiftcall BannerPresentationManager.handleLockScreenStatusChanged()()
@@ -2732,7 +2728,7 @@ Swift::Void __swiftcall BannerPresentationManager.presentHUDForCurrentContext()(
     swift_unknownObjectRelease();
     if (one-time initialization token for banners != -1)
     {
-      OUTLINED_FUNCTION_0_178();
+      OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
     }
 
     v13 = type metadata accessor for Logger();
@@ -2748,7 +2744,7 @@ Swift::Void __swiftcall BannerPresentationManager.presentHUDForCurrentContext()(
       *v16 = 136315138;
       outlined init with copy of ConversationControlsType(v25, v23);
       specialized >> prefix<A>(_:)(v23);
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v23, &_s15ConversationKit0A12ControlsTypeOSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v23, &_s15ConversationKit0A12ControlsTypeOSgMd, &_s15ConversationKit0A12ControlsTypeOSgMR);
       outlined destroy of ControlsHUDUpdate(v25);
       v18 = OUTLINED_FUNCTION_43_0();
       v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v19, v20);
@@ -2817,7 +2813,7 @@ Swift::Void __swiftcall BannerPresentationManager.showWaitOnHoldHUD()()
 LABEL_5:
     if (one-time initialization token for banners != -1)
     {
-      OUTLINED_FUNCTION_0_178();
+      OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
     }
 
     v6 = type metadata accessor for Logger();
@@ -2837,7 +2833,7 @@ LABEL_5:
 
   if (one-time initialization token for banners != -1)
   {
-    OUTLINED_FUNCTION_0_178();
+    OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
   }
 
   v22 = type metadata accessor for Logger();
@@ -2861,7 +2857,7 @@ LABEL_5:
 
 uint64_t BannerPresentationManager.displayWaitOnHoldActivity(type:)(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v13[-1] - v3;
   v5 = type metadata accessor for TaskPriority();
@@ -2893,7 +2889,7 @@ uint64_t BannerPresentationManager.handleCallSmartHoldingSessionChanged(_:)()
   v3 = v2;
   v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   OUTLINED_FUNCTION_22(v7);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v8);
@@ -2944,11 +2940,11 @@ uint64_t closure #1 in BannerPresentationManager.handleCallSmartHoldingSessionCh
     if (!*(v0 + 40))
     {
 
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v0 + 16, &_sypSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v0 + 16, &_sypSgMd, &_sypSgMR);
       goto LABEL_31;
     }
 
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUCall);
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUCall, 0x1E69D8A40);
     if ((swift_dynamicCast() & 1) == 0)
     {
       goto LABEL_30;
@@ -2994,7 +2990,7 @@ LABEL_16:
 LABEL_17:
       if (one-time initialization token for banners != -1)
       {
-        OUTLINED_FUNCTION_0_178();
+        OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
       }
 
       v19 = type metadata accessor for Logger();
@@ -3020,14 +3016,14 @@ LABEL_17:
       BannerPresentationManager.waitOnHoldHUDActivity.setter(v27);
       if (one-time initialization token for shared != -1)
       {
-        OUTLINED_FUNCTION_0();
+        OUTLINED_FUNCTION_0(&one-time initialization token for shared);
       }
 
       if (SBUIIsSystemApertureEnabled())
       {
         if (one-time initialization token for shared != -1)
         {
-          OUTLINED_FUNCTION_20_57();
+          OUTLINED_FUNCTION_20_57(&one-time initialization token for shared);
         }
 
         OUTLINED_FUNCTION_1_57();
@@ -3065,7 +3061,7 @@ LABEL_36:
     {
       if (one-time initialization token for banners != -1)
       {
-        OUTLINED_FUNCTION_0_178();
+        OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
       }
 
       v32 = type metadata accessor for Logger();
@@ -3097,7 +3093,7 @@ LABEL_36:
       {
         if (one-time initialization token for banners != -1)
         {
-          OUTLINED_FUNCTION_0_178();
+          OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
         }
 
         v41 = type metadata accessor for Logger();
@@ -3270,14 +3266,14 @@ LABEL_18:
     *(v12 + v13[12]) = 0;
     if (one-time initialization token for shared != -1)
     {
-      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_0(&one-time initialization token for shared);
     }
 
     if (SBUIIsSystemApertureEnabled())
     {
       if (one-time initialization token for shared != -1)
       {
-        OUTLINED_FUNCTION_20_57();
+        OUTLINED_FUNCTION_20_57(&one-time initialization token for shared);
       }
 
       v18 = v0[23];
@@ -3288,7 +3284,7 @@ LABEL_18:
 
     if (one-time initialization token for shared != -1)
     {
-      OUTLINED_FUNCTION_32_27();
+      OUTLINED_FUNCTION_32_27(&one-time initialization token for shared);
     }
 
     OUTLINED_FUNCTION_64_16();
@@ -3377,7 +3373,7 @@ Swift::Void __swiftcall BannerPresentationManager.showEnhancedEmergencyMediaUplo
   {
     if (one-time initialization token for banners != -1)
     {
-      OUTLINED_FUNCTION_0_178();
+      OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
     }
 
     v1 = type metadata accessor for Logger();
@@ -3422,7 +3418,7 @@ Swift::Void __swiftcall BannerPresentationManager.showLagunaPullConversationHUD(
 {
   if (one-time initialization token for shared != -1)
   {
-    OUTLINED_FUNCTION_0_9();
+    OUTLINED_FUNCTION_0_9(&one-time initialization token for shared);
   }
 
   OUTLINED_FUNCTION_0_1();
@@ -3439,7 +3435,7 @@ Swift::Void __swiftcall BannerPresentationManager.showLagunaPullConversationHUD(
 
         if (one-time initialization token for banners != -1)
         {
-          OUTLINED_FUNCTION_0_178();
+          OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
         }
 
         v6 = type metadata accessor for Logger();
@@ -3474,7 +3470,7 @@ Swift::Void __swiftcall BannerPresentationManager.showLagunaPullConversationHUD(
         v37 = v36;
         if (one-time initialization token for banners != -1)
         {
-          OUTLINED_FUNCTION_0_178();
+          OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
         }
 
         v38 = type metadata accessor for Logger();
@@ -3500,7 +3496,7 @@ LABEL_33:
 
     if (one-time initialization token for banners != -1)
     {
-      OUTLINED_FUNCTION_0_178();
+      OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
     }
 
     v43 = type metadata accessor for Logger();
@@ -3526,7 +3522,7 @@ LABEL_33:
 
   if (one-time initialization token for banners != -1)
   {
-    OUTLINED_FUNCTION_0_178();
+    OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
   }
 
   v17 = type metadata accessor for Logger();
@@ -3577,11 +3573,11 @@ Swift::Void __swiftcall BannerPresentationManager.presentReminderNotice()()
           OUTLINED_FUNCTION_10_0();
           __swift_storeEnumTagSinglePayload(v22, v23, v24, v25);
           v26 = (v11 + v7[6]);
-          v26[3] = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUConversation);
+          v26[3] = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUConversation, 0x1E69D8B20);
           v26[4] = &protocol witness table for TUConversation;
           *v26 = v35;
           v27 = (v11 + v7[7]);
-          v27[3] = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUConversationActivitySession);
+          v27[3] = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUConversationActivitySession, 0x1E69D8B58);
           v27[4] = &protocol witness table for TUConversationActivitySession;
           *v27 = v19;
           UUID.init()();
@@ -3648,12 +3644,12 @@ void BannerPresentationManager.conversationManager(_:stateChangedFor:fromOldConv
   MEMORY[0x1EEE9AC00](v8);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_101();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSg_ADtMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v10);
   OUTLINED_FUNCTION_159();
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   v12 = OUTLINED_FUNCTION_22(v11);
   MEMORY[0x1EEE9AC00](v12);
   OUTLINED_FUNCTION_4();
@@ -3678,7 +3674,7 @@ void BannerPresentationManager.conversationManager(_:stateChangedFor:fromOldConv
           {
             if (one-time initialization token for banners != -1)
             {
-              OUTLINED_FUNCTION_0_178();
+              OUTLINED_FUNCTION_0_178(&one-time initialization token for banners);
             }
 
             v32 = type metadata accessor for Logger();
@@ -3698,7 +3694,7 @@ void BannerPresentationManager.conversationManager(_:stateChangedFor:fromOldConv
               v36 = v60;
               v64 = v60;
               v65 = v35;
-              v56 = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUConversation);
+              v56 = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUConversation, 0x1E69D8B20);
               v37 = v36;
               v38 = String.init<A>(reflecting:)();
               v60 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v38, v39, &v65);
@@ -3766,13 +3762,13 @@ void BannerPresentationManager.conversationManager(_:stateChangedFor:fromOldConv
 
           __swift_storeEnumTagSinglePayload(v16, 0, 1, v6);
           v43 = *(v9 + 48);
-          outlined init with copy of Notice?(v19, v0, &_s10Foundation4UUIDVSgMd);
-          outlined init with copy of Notice?(v16, v0 + v43, &_s10Foundation4UUIDVSgMd);
+          outlined init with copy of Notice?(v19, v0, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+          outlined init with copy of Notice?(v16, v0 + v43, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
           OUTLINED_FUNCTION_57(v0);
           if (!v47)
           {
             v46 = v62;
-            outlined init with copy of Notice?(v0, v62, &_s10Foundation4UUIDVSgMd);
+            outlined init with copy of Notice?(v0, v62, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
             OUTLINED_FUNCTION_57(v0 + v43);
             if (!v47)
             {
@@ -3784,10 +3780,10 @@ void BannerPresentationManager.conversationManager(_:stateChangedFor:fromOldConv
               v54 = *(v50 + 8);
               v55 = OUTLINED_FUNCTION_309();
               v54(v55);
-              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v16, &_s10Foundation4UUIDVSgMd);
-              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v19, &_s10Foundation4UUIDVSgMd);
+              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v16, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v19, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
               (v54)(v46, v6);
-              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v0, &_s10Foundation4UUIDVSgMd);
+              outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v0, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
               if ((v53 & 1) == 0)
               {
                 goto LABEL_31;
@@ -3796,27 +3792,27 @@ void BannerPresentationManager.conversationManager(_:stateChangedFor:fromOldConv
               goto LABEL_30;
             }
 
-            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v16, &_s10Foundation4UUIDVSgMd);
+            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v16, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
             v48 = OUTLINED_FUNCTION_170_0();
-            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v48, v49);
+            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v48, v49, &_s10Foundation4UUIDVSgMR);
             (*(v63 + 8))(v46, v6);
 LABEL_28:
-            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v0, &_s10Foundation4UUIDVSg_ADtMd);
+            outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v0, &_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
 LABEL_31:
 
             goto LABEL_32;
           }
 
-          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v16, &_s10Foundation4UUIDVSgMd);
+          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v16, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
           v44 = OUTLINED_FUNCTION_170_0();
-          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v44, v45);
+          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v44, v45, &_s10Foundation4UUIDVSgMR);
           OUTLINED_FUNCTION_57(v0 + v43);
           if (!v47)
           {
             goto LABEL_28;
           }
 
-          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v0, &_s10Foundation4UUIDVSgMd);
+          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v0, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
         }
 
 LABEL_30:
@@ -3847,7 +3843,7 @@ id BannerPresentationManager.conversationForHandoffCompleted()()
 
 id outlined bridged method (mnnbgnnn) of @objc BNBannerSource.post(_:options:userInfo:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo14NSSecureCoding_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo14NSSecureCoding_pMd, &_sSo14NSSecureCoding_pMR);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
   v10 = [a5 postPresentable:a1 options:a2 userInfo:isa error:a4];
 
@@ -3884,40 +3880,40 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
   outlined init with copy of FaceIDUnavailableNotice(v9, v8);
   if (one-time initialization token for conversationControls != -1)
   {
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(&one-time initialization token for conversationControls);
   }
 
   v10 = type metadata accessor for Logger();
   OUTLINED_FUNCTION_52(v10, &static Logger.conversationControls);
-  OUTLINED_FUNCTION_171_2();
-  v11 = OUTLINED_FUNCTION_204_1();
-  v12 = static os_log_type_t.default.getter();
-  if (OUTLINED_FUNCTION_170_3(v12))
+  v11 = OUTLINED_FUNCTION_171_2();
+  v12 = OUTLINED_FUNCTION_204_1(v11);
+  v13 = static os_log_type_t.default.getter();
+  if (OUTLINED_FUNCTION_170_3(v13))
   {
     OUTLINED_FUNCTION_30_1();
     OUTLINED_FUNCTION_57_17();
     OUTLINED_FUNCTION_144_3();
-    v87[0] = v13;
+    v93[0] = v14;
     *v1 = 136315394;
     OUTLINED_FUNCTION_11();
-    *(v1 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002BLL, v14, v87);
+    *(v1 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002BLL, v15, v93);
     *(v1 + 12) = 2080;
-    __swift_project_boxed_opaque_existential_1(v88, v88[3]);
-    v15 = OUTLINED_FUNCTION_154_3();
-    v16(v15);
+    __swift_project_boxed_opaque_existential_1(v94, v94[3]);
+    v16 = OUTLINED_FUNCTION_154_3();
+    v17(v16);
     OUTLINED_FUNCTION_2_153();
-    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(v17, v18);
-    v19 = OUTLINED_FUNCTION_132_2();
-    v21 = v20;
+    v20 = _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(v18, v19);
+    v21 = OUTLINED_FUNCTION_132_2(v20);
+    v23 = v22;
     v4 += 8;
-    v22 = OUTLINED_FUNCTION_157();
-    v23(v22);
-    __swift_destroy_boxed_opaque_existential_1(v88);
-    getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v21, v87);
+    v24 = OUTLINED_FUNCTION_157();
+    v25(v24);
+    __swift_destroy_boxed_opaque_existential_1(v94);
+    getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v23, v93);
     OUTLINED_FUNCTION_28_0();
 
-    *(v1 + 14) = v19;
-    OUTLINED_FUNCTION_122_1(&dword_1BBC58000, v24, v25, "> Adding to queue, notice: %s, uuid: %s");
+    *(v1 + 14) = v21;
+    OUTLINED_FUNCTION_122_1(&dword_1BBC58000, v26, v27, "> Adding to queue, notice: %s, uuid: %s");
     OUTLINED_FUNCTION_168_2();
     OUTLINED_FUNCTION_98_4();
     OUTLINED_FUNCTION_59_14();
@@ -3926,67 +3922,67 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
   else
   {
 
-    __swift_destroy_boxed_opaque_existential_1(v88);
+    __swift_destroy_boxed_opaque_existential_1(v94);
   }
 
-  v26 = *(v8 + *(v7 + 28));
+  v28 = *(v8 + *(v7 + 28));
   OUTLINED_FUNCTION_135_2();
   OUTLINED_FUNCTION_49_19();
   specialized Dictionary.subscript.modify();
   OUTLINED_FUNCTION_178_0();
   if (v4)
   {
-    OUTLINED_FUNCTION_134_2(v27, v28);
-    v29 = OUTLINED_FUNCTION_29_37();
-    v30(v29);
+    OUTLINED_FUNCTION_134_2(v29, v30);
+    v31 = OUTLINED_FUNCTION_29_37();
+    v32(v31);
   }
 
-  v31 = OUTLINED_FUNCTION_161_3();
-  (v7)(v31);
-  v32 = OUTLINED_FUNCTION_164_1();
-  (v8)(v32);
+  v33 = OUTLINED_FUNCTION_161_3();
+  (v7)(v33);
+  v34 = OUTLINED_FUNCTION_164_1();
+  (v8)(v34);
   OUTLINED_FUNCTION_19_48();
   OUTLINED_FUNCTION_187_4();
-  v33();
-  if (v87[3])
+  v35();
+  if (v93[3])
   {
     OUTLINED_FUNCTION_87_8();
-    ConversationControlsNoticeCoordinator.peek()(v34);
-    if (v86[3])
+    ConversationControlsNoticeCoordinator.peek()(v36);
+    if (v92[3])
     {
-      v35 = OUTLINED_FUNCTION_10_83();
-      if (v36(v35))
+      v37 = OUTLINED_FUNCTION_10_83();
+      if (v38(v37))
       {
         OUTLINED_FUNCTION_202_1();
         OUTLINED_FUNCTION_91_0();
-        if (v37)
+        if (v39)
         {
           OUTLINED_FUNCTION_42_28();
-          v38 = OUTLINED_FUNCTION_17_63();
-          if (v39(v38))
+          v40 = OUTLINED_FUNCTION_17_63();
+          if (v41(v40))
           {
-            OUTLINED_FUNCTION_139_6();
-            v40 = OUTLINED_FUNCTION_119();
-            v41 = static os_log_type_t.default.getter();
-            if (OUTLINED_FUNCTION_75_12(v41))
+            v42 = OUTLINED_FUNCTION_139_6();
+            v43 = OUTLINED_FUNCTION_119(v42);
+            v44 = static os_log_type_t.default.getter();
+            if (OUTLINED_FUNCTION_75_12(v44))
             {
               OUTLINED_FUNCTION_30_1();
-              v42 = OUTLINED_FUNCTION_10_40();
-              OUTLINED_FUNCTION_35_26(v42);
-              v43 = OUTLINED_FUNCTION_1_161(4.8151e-34);
-              v45 = v44(v43);
-              OUTLINED_FUNCTION_18_59(v45, v46);
+              v45 = OUTLINED_FUNCTION_10_40();
+              OUTLINED_FUNCTION_35_26(v45);
+              v46 = OUTLINED_FUNCTION_1_161(4.8151e-34);
+              v48 = v47(v46);
+              OUTLINED_FUNCTION_18_59(v48, v49);
               OUTLINED_FUNCTION_247();
 
               OUTLINED_FUNCTION_36_34();
-              v47 = OUTLINED_FUNCTION_3_145(v88);
-              v49 = v48(v47);
-              OUTLINED_FUNCTION_196_4(v49, v50);
+              v50 = OUTLINED_FUNCTION_3_145(v94);
+              v52 = v51(v50);
+              OUTLINED_FUNCTION_196_4(v52, v53);
               OUTLINED_FUNCTION_28_0();
 
               *(v7 + 14) = v1;
               OUTLINED_FUNCTION_67_0();
-              _os_log_impl(v51, v52, v53, v54, v55, 0x16u);
+              _os_log_impl(v54, v55, v56, v57, v58, 0x16u);
               OUTLINED_FUNCTION_136_4();
               OUTLINED_FUNCTION_2_2();
               OUTLINED_FUNCTION_18();
@@ -3995,32 +3991,32 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
             else
             {
 
-              __swift_destroy_boxed_opaque_existential_1(v85);
+              __swift_destroy_boxed_opaque_existential_1(v91);
             }
 
             OUTLINED_FUNCTION_3_0();
             swift_beginAccess();
-            v82 = v88;
+            v88 = v94;
           }
 
           else
           {
-            OUTLINED_FUNCTION_139_6();
-            v69 = OUTLINED_FUNCTION_119();
-            v70 = static os_log_type_t.default.getter();
-            if (OUTLINED_FUNCTION_75_12(v70))
+            v74 = OUTLINED_FUNCTION_139_6();
+            v75 = OUTLINED_FUNCTION_119(v74);
+            v76 = static os_log_type_t.default.getter();
+            if (OUTLINED_FUNCTION_75_12(v76))
             {
-              v71 = OUTLINED_FUNCTION_42();
-              v72 = OUTLINED_FUNCTION_23();
-              OUTLINED_FUNCTION_35_26(v72);
-              v73 = OUTLINED_FUNCTION_1_161(4.8149e-34);
-              v75 = v74(v73);
-              OUTLINED_FUNCTION_18_59(v75, v76);
+              v77 = OUTLINED_FUNCTION_42();
+              v78 = OUTLINED_FUNCTION_23();
+              OUTLINED_FUNCTION_35_26(v78);
+              v79 = OUTLINED_FUNCTION_1_161(4.8149e-34);
+              v81 = v80(v79);
+              OUTLINED_FUNCTION_18_59(v81, v82);
               OUTLINED_FUNCTION_247();
 
-              *(v71 + 4) = v26;
+              *(v77 + 4) = v28;
               OUTLINED_FUNCTION_67_0();
-              _os_log_impl(v77, v78, v79, v80, v81, 0xCu);
+              _os_log_impl(v83, v84, v85, v86, v87, 0xCu);
               __swift_destroy_boxed_opaque_existential_1(v2);
               OUTLINED_FUNCTION_2_2();
               OUTLINED_FUNCTION_18();
@@ -4029,69 +4025,69 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
             else
             {
 
-              __swift_destroy_boxed_opaque_existential_1(v85);
+              __swift_destroy_boxed_opaque_existential_1(v91);
             }
 
-            v82 = v86;
+            v88 = v92;
           }
 
-          outlined init with copy of IDSLookupManager(v82, v85);
+          outlined init with copy of IDSLookupManager(v88, v91);
           OUTLINED_FUNCTION_11_96();
-          v83 = OUTLINED_FUNCTION_182_4();
-          v84(v83);
-          __swift_destroy_boxed_opaque_existential_1(v86);
+          v89 = OUTLINED_FUNCTION_182_4();
+          v90(v89);
+          __swift_destroy_boxed_opaque_existential_1(v92);
         }
 
         else
         {
-          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v85, &_s15ConversationKit6Notice_pSgMd);
-          v62 = OUTLINED_FUNCTION_119();
-          v63 = static os_log_type_t.error.getter();
-          if (OUTLINED_FUNCTION_163(v63))
+          v66 = outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v91, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
+          v67 = OUTLINED_FUNCTION_119(v66);
+          v68 = static os_log_type_t.error.getter();
+          if (OUTLINED_FUNCTION_163(v68))
           {
-            v64 = OUTLINED_FUNCTION_33();
-            OUTLINED_FUNCTION_25_31(v64);
-            OUTLINED_FUNCTION_12_8(&dword_1BBC58000, v65, v66, "Tried to pop next notice but there wasn't a notice to pop");
+            v69 = OUTLINED_FUNCTION_33();
+            OUTLINED_FUNCTION_25_31(v69);
+            OUTLINED_FUNCTION_12_8(&dword_1BBC58000, v70, v71, "Tried to pop next notice but there wasn't a notice to pop");
             OUTLINED_FUNCTION_239();
           }
 
           OUTLINED_FUNCTION_68_9();
           OUTLINED_FUNCTION_11_96();
-          v67 = OUTLINED_FUNCTION_183_3();
-          v68(v67);
+          v72 = OUTLINED_FUNCTION_183_3();
+          v73(v72);
         }
       }
 
-      __swift_destroy_boxed_opaque_existential_1(v87);
+      __swift_destroy_boxed_opaque_existential_1(v93);
     }
 
     else
     {
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v86, &_s15ConversationKit6Notice_pSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v92, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
     }
 
-    __swift_destroy_boxed_opaque_existential_1(v88);
+    __swift_destroy_boxed_opaque_existential_1(v94);
   }
 
   else
   {
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v87, &_s15ConversationKit6Notice_pSgMd);
-    v56 = OUTLINED_FUNCTION_119();
-    v57 = static os_log_type_t.default.getter();
-    if (OUTLINED_FUNCTION_163(v57))
+    v59 = outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v93, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
+    v60 = OUTLINED_FUNCTION_119(v59);
+    v61 = static os_log_type_t.default.getter();
+    if (OUTLINED_FUNCTION_163(v61))
     {
-      v58 = OUTLINED_FUNCTION_33();
-      OUTLINED_FUNCTION_25_31(v58);
-      OUTLINED_FUNCTION_12_8(&dword_1BBC58000, v59, v60, "> No active notice, present just pushed notice");
+      v62 = OUTLINED_FUNCTION_33();
+      OUTLINED_FUNCTION_25_31(v62);
+      OUTLINED_FUNCTION_12_8(&dword_1BBC58000, v63, v64, "> No active notice, present just pushed notice");
       OUTLINED_FUNCTION_239();
     }
 
     OUTLINED_FUNCTION_201_2();
     OUTLINED_FUNCTION_11_96();
-    (*(v61 + 144))(v88);
+    (*(v65 + 144))(v94);
   }
 
-  __swift_destroy_boxed_opaque_existential_1(&v89);
+  __swift_destroy_boxed_opaque_existential_1(&v95);
   OUTLINED_FUNCTION_30_0();
 }
 
@@ -4111,44 +4107,44 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
   outlined init with copy of FaceIDUnavailableNotice(v9, v8);
   if (one-time initialization token for conversationControls != -1)
   {
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(&one-time initialization token for conversationControls);
   }
 
   v10 = type metadata accessor for Logger();
   OUTLINED_FUNCTION_52(v10, &static Logger.conversationControls);
   OUTLINED_FUNCTION_171_2();
-  OUTLINED_FUNCTION_199_2();
-  v11 = OUTLINED_FUNCTION_204_1();
-  v12 = static os_log_type_t.default.getter();
-  if (OUTLINED_FUNCTION_170_3(v12))
+  v11 = OUTLINED_FUNCTION_199_2();
+  v12 = OUTLINED_FUNCTION_204_1(v11);
+  v13 = static os_log_type_t.default.getter();
+  if (OUTLINED_FUNCTION_170_3(v13))
   {
     OUTLINED_FUNCTION_30_1();
     OUTLINED_FUNCTION_57_17();
     OUTLINED_FUNCTION_144_3();
-    v87[0] = v13;
+    v93[0] = v14;
     *v1 = 136315394;
     OUTLINED_FUNCTION_131_3();
-    v14 = AppLaunchNotice.description.getter();
-    OUTLINED_FUNCTION_99_4(v14, v15);
+    v15 = AppLaunchNotice.description.getter();
+    OUTLINED_FUNCTION_99_4(v15, v16);
     OUTLINED_FUNCTION_28_0();
 
     OUTLINED_FUNCTION_97_7();
-    v16 = OUTLINED_FUNCTION_154_3();
-    v17(v16);
+    v17 = OUTLINED_FUNCTION_154_3();
+    v18(v17);
     OUTLINED_FUNCTION_2_153();
-    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(v18, v19);
-    OUTLINED_FUNCTION_132_2();
+    v21 = _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(v19, v20);
+    OUTLINED_FUNCTION_132_2(v21);
     OUTLINED_FUNCTION_305();
     v4 += 8;
-    v20 = OUTLINED_FUNCTION_157();
-    v21(v20);
+    v22 = OUTLINED_FUNCTION_157();
+    v23(v22);
     OUTLINED_FUNCTION_203_3();
-    v22 = OUTLINED_FUNCTION_46();
-    getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, v24);
+    v24 = OUTLINED_FUNCTION_46();
+    getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v25, v26);
     OUTLINED_FUNCTION_247();
 
     *(v1 + 14) = &unk_1BC4BB000;
-    OUTLINED_FUNCTION_122_1(&dword_1BBC58000, v25, v26, "> Adding to queue, notice: %s, uuid: %s");
+    OUTLINED_FUNCTION_122_1(&dword_1BBC58000, v27, v28, "> Adding to queue, notice: %s, uuid: %s");
     OUTLINED_FUNCTION_168_2();
     OUTLINED_FUNCTION_98_4();
     OUTLINED_FUNCTION_59_14();
@@ -4160,64 +4156,64 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
     OUTLINED_FUNCTION_162_3();
   }
 
-  v27 = *(v8 + *(v7 + 24));
+  v29 = *(v8 + *(v7 + 24));
   OUTLINED_FUNCTION_135_2();
   OUTLINED_FUNCTION_49_19();
   specialized Dictionary.subscript.modify();
   OUTLINED_FUNCTION_178_0();
   if (v8)
   {
-    OUTLINED_FUNCTION_134_2(v28, v29);
-    v30 = OUTLINED_FUNCTION_29_37();
-    v31(v30);
+    OUTLINED_FUNCTION_134_2(v30, v31);
+    v32 = OUTLINED_FUNCTION_29_37();
+    v33(v32);
   }
 
-  v32 = OUTLINED_FUNCTION_161_3();
-  (v4)(v32);
-  v33 = OUTLINED_FUNCTION_164_1();
-  (v7)(v33);
+  v34 = OUTLINED_FUNCTION_161_3();
+  (v4)(v34);
+  v35 = OUTLINED_FUNCTION_164_1();
+  (v7)(v35);
   OUTLINED_FUNCTION_19_48();
   OUTLINED_FUNCTION_187_4();
-  v34();
-  if (v88[3])
+  v36();
+  if (v94[3])
   {
     OUTLINED_FUNCTION_87_8();
-    ConversationControlsNoticeCoordinator.peek()(v35);
-    if (v87[3])
+    ConversationControlsNoticeCoordinator.peek()(v37);
+    if (v93[3])
     {
-      v36 = OUTLINED_FUNCTION_10_83();
-      if (v37(v36))
+      v38 = OUTLINED_FUNCTION_10_83();
+      if (v39(v38))
       {
         OUTLINED_FUNCTION_202_1();
         OUTLINED_FUNCTION_91_0();
-        if (v38)
+        if (v40)
         {
           OUTLINED_FUNCTION_42_28();
-          v39 = OUTLINED_FUNCTION_17_63();
-          if (v40(v39))
+          v41 = OUTLINED_FUNCTION_17_63();
+          if (v42(v41))
           {
-            OUTLINED_FUNCTION_139_6();
-            v41 = OUTLINED_FUNCTION_119();
-            v42 = static os_log_type_t.default.getter();
-            if (OUTLINED_FUNCTION_75_12(v42))
+            v43 = OUTLINED_FUNCTION_139_6();
+            v44 = OUTLINED_FUNCTION_119(v43);
+            v45 = static os_log_type_t.default.getter();
+            if (OUTLINED_FUNCTION_75_12(v45))
             {
               OUTLINED_FUNCTION_30_1();
-              v43 = OUTLINED_FUNCTION_10_40();
-              OUTLINED_FUNCTION_35_26(v43);
-              v44 = OUTLINED_FUNCTION_1_161(4.8151e-34);
-              v46 = v45(v44);
-              OUTLINED_FUNCTION_18_59(v46, v47);
+              v46 = OUTLINED_FUNCTION_10_40();
+              OUTLINED_FUNCTION_35_26(v46);
+              v47 = OUTLINED_FUNCTION_1_161(4.8151e-34);
+              v49 = v48(v47);
+              OUTLINED_FUNCTION_18_59(v49, v50);
               OUTLINED_FUNCTION_247();
 
               OUTLINED_FUNCTION_36_34();
-              v48 = OUTLINED_FUNCTION_3_145(v89);
-              v50 = v49(v48);
-              OUTLINED_FUNCTION_196_4(v50, v51);
+              v51 = OUTLINED_FUNCTION_3_145(v95);
+              v53 = v52(v51);
+              OUTLINED_FUNCTION_196_4(v53, v54);
               OUTLINED_FUNCTION_28_0();
 
               *(v4 + 14) = v1;
               OUTLINED_FUNCTION_67_0();
-              _os_log_impl(v52, v53, v54, v55, v56, 0x16u);
+              _os_log_impl(v55, v56, v57, v58, v59, 0x16u);
               OUTLINED_FUNCTION_136_4();
               OUTLINED_FUNCTION_2_2();
               OUTLINED_FUNCTION_18();
@@ -4226,32 +4222,32 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
             else
             {
 
-              __swift_destroy_boxed_opaque_existential_1(v86);
+              __swift_destroy_boxed_opaque_existential_1(v92);
             }
 
             OUTLINED_FUNCTION_3_0();
             swift_beginAccess();
-            v83 = v89;
+            v89 = v95;
           }
 
           else
           {
-            OUTLINED_FUNCTION_139_6();
-            v70 = OUTLINED_FUNCTION_119();
-            v71 = static os_log_type_t.default.getter();
-            if (OUTLINED_FUNCTION_75_12(v71))
+            v75 = OUTLINED_FUNCTION_139_6();
+            v76 = OUTLINED_FUNCTION_119(v75);
+            v77 = static os_log_type_t.default.getter();
+            if (OUTLINED_FUNCTION_75_12(v77))
             {
-              v72 = OUTLINED_FUNCTION_42();
-              v73 = OUTLINED_FUNCTION_23();
-              OUTLINED_FUNCTION_35_26(v73);
-              v74 = OUTLINED_FUNCTION_1_161(4.8149e-34);
-              v76 = v75(v74);
-              OUTLINED_FUNCTION_18_59(v76, v77);
+              v78 = OUTLINED_FUNCTION_42();
+              v79 = OUTLINED_FUNCTION_23();
+              OUTLINED_FUNCTION_35_26(v79);
+              v80 = OUTLINED_FUNCTION_1_161(4.8149e-34);
+              v82 = v81(v80);
+              OUTLINED_FUNCTION_18_59(v82, v83);
               OUTLINED_FUNCTION_247();
 
-              *(v72 + 4) = v27;
+              *(v78 + 4) = v29;
               OUTLINED_FUNCTION_67_0();
-              _os_log_impl(v78, v79, v80, v81, v82, 0xCu);
+              _os_log_impl(v84, v85, v86, v87, v88, 0xCu);
               __swift_destroy_boxed_opaque_existential_1(v2);
               OUTLINED_FUNCTION_2_2();
               OUTLINED_FUNCTION_18();
@@ -4260,278 +4256,23 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
             else
             {
 
-              __swift_destroy_boxed_opaque_existential_1(v86);
-            }
-
-            v83 = v87;
-          }
-
-          outlined init with copy of IDSLookupManager(v83, v86);
-          OUTLINED_FUNCTION_11_96();
-          v84 = OUTLINED_FUNCTION_182_4();
-          v85(v84);
-          __swift_destroy_boxed_opaque_existential_1(v87);
-        }
-
-        else
-        {
-          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v86, &_s15ConversationKit6Notice_pSgMd);
-          v63 = OUTLINED_FUNCTION_119();
-          v64 = static os_log_type_t.error.getter();
-          if (OUTLINED_FUNCTION_163(v64))
-          {
-            v65 = OUTLINED_FUNCTION_33();
-            OUTLINED_FUNCTION_25_31(v65);
-            OUTLINED_FUNCTION_12_8(&dword_1BBC58000, v66, v67, "Tried to pop next notice but there wasn't a notice to pop");
-            OUTLINED_FUNCTION_239();
-          }
-
-          OUTLINED_FUNCTION_68_9();
-          OUTLINED_FUNCTION_11_96();
-          v68 = OUTLINED_FUNCTION_183_3();
-          v69(v68);
-        }
-      }
-
-      __swift_destroy_boxed_opaque_existential_1(v88);
-    }
-
-    else
-    {
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v87, &_s15ConversationKit6Notice_pSgMd);
-    }
-
-    __swift_destroy_boxed_opaque_existential_1(v89);
-  }
-
-  else
-  {
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v88, &_s15ConversationKit6Notice_pSgMd);
-    v57 = OUTLINED_FUNCTION_119();
-    v58 = static os_log_type_t.default.getter();
-    if (OUTLINED_FUNCTION_163(v58))
-    {
-      v59 = OUTLINED_FUNCTION_33();
-      OUTLINED_FUNCTION_25_31(v59);
-      OUTLINED_FUNCTION_12_8(&dword_1BBC58000, v60, v61, "> No active notice, present just pushed notice");
-      OUTLINED_FUNCTION_239();
-    }
-
-    OUTLINED_FUNCTION_201_2();
-    OUTLINED_FUNCTION_11_96();
-    (*(v62 + 144))(v89);
-  }
-
-  __swift_destroy_boxed_opaque_existential_1(&v90);
-  OUTLINED_FUNCTION_30_0();
-}
-
-{
-  specialized ConversationControlsNoticeCoordinator.post(notice:)();
-}
-
-{
-  specialized ConversationControlsNoticeCoordinator.post(notice:)();
-}
-
-{
-  OUTLINED_FUNCTION_29();
-  v1 = v0;
-  OUTLINED_FUNCTION_24_1();
-  v2 = type metadata accessor for UUID();
-  OUTLINED_FUNCTION_1();
-  v4 = v3;
-  MEMORY[0x1EEE9AC00](v5);
-  OUTLINED_FUNCTION_8();
-  v8 = v7 - v6;
-  v9 = type metadata accessor for SessionActionNotice(0);
-  v10 = OUTLINED_FUNCTION_205_4(v9, &protocol witness table for SessionActionNotice);
-  v11 = OUTLINED_FUNCTION_177_4();
-  outlined init with copy of FaceIDUnavailableNotice(v11, v10);
-  if (one-time initialization token for conversationControls != -1)
-  {
-    OUTLINED_FUNCTION_0_0();
-  }
-
-  v12 = type metadata accessor for Logger();
-  OUTLINED_FUNCTION_52(v12, &static Logger.conversationControls);
-  OUTLINED_FUNCTION_171_2();
-  OUTLINED_FUNCTION_199_2();
-  v13 = OUTLINED_FUNCTION_204_1();
-  v14 = static os_log_type_t.default.getter();
-  v15 = &unk_1BC4BB000;
-  if (os_log_type_enabled(v13, v14))
-  {
-    OUTLINED_FUNCTION_30_1();
-    v91 = OUTLINED_FUNCTION_57_17();
-    v93[0] = v91;
-    *v1 = 136315394;
-    OUTLINED_FUNCTION_131_3();
-    v16 = SessionActionNotice.description.getter();
-    OUTLINED_FUNCTION_99_4(v16, v17);
-    OUTLINED_FUNCTION_28_0();
-
-    v18 = OUTLINED_FUNCTION_97_7();
-    (*(v4 + 16))(v8, &v18[*(v9 + 40)], v2);
-    OUTLINED_FUNCTION_2_153();
-    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(v19, v20);
-    dispatch thunk of CustomStringConvertible.description.getter();
-    OUTLINED_FUNCTION_305();
-    v21 = *(v4 + 8);
-    v4 += 8;
-    v21(v8, v2);
-    OUTLINED_FUNCTION_203_3();
-    v22 = OUTLINED_FUNCTION_46();
-    getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, v24);
-    OUTLINED_FUNCTION_247();
-
-    *(v1 + 14) = &unk_1BC4BB000;
-    _os_log_impl(&dword_1BBC58000, v13, v14, "> Adding to queue, notice: %s, uuid: %s", v1, 0x16u);
-    v15 = v91;
-    swift_arrayDestroy();
-    OUTLINED_FUNCTION_239();
-    OUTLINED_FUNCTION_59_14();
-  }
-
-  else
-  {
-
-    OUTLINED_FUNCTION_162_3();
-  }
-
-  v25 = v10[2];
-  if (v25 >> 62 == 3)
-  {
-    v26 = v10[3];
-    v28 = *v10;
-    v27 = v10[1];
-    if (v25 == 0xC000000000000000 && !(v26 | v28 | v27) || !v26 && (v25 == 0xC000000000000000 ? (v29 = v28 == 1) : (v29 = 0), v29 && !v27) || !v26 && (v25 == 0xC000000000000000 ? (v30 = v28 == 7) : (v30 = 0), v30 && !v27) || (v31 = 5, !v26) && (v25 == 0xC000000000000000 ? (v32 = v28 == 10) : (v32 = 0), v32 && !v27))
-    {
-      v31 = 4;
-    }
-  }
-
-  else
-  {
-    v31 = 5;
-  }
-
-  OUTLINED_FUNCTION_135_2();
-  OUTLINED_FUNCTION_49_19();
-  specialized Dictionary.subscript.modify();
-  OUTLINED_FUNCTION_178_0();
-  if (v2)
-  {
-    OUTLINED_FUNCTION_134_2(v33, v34);
-    v35 = OUTLINED_FUNCTION_29_37();
-    v36(v35);
-  }
-
-  v37 = OUTLINED_FUNCTION_161_3();
-  (v31)(v37);
-  v38 = OUTLINED_FUNCTION_164_1();
-  (v4)(v38);
-  OUTLINED_FUNCTION_19_48();
-  OUTLINED_FUNCTION_187_4();
-  v39();
-  if (v94[3])
-  {
-    OUTLINED_FUNCTION_87_8();
-    ConversationControlsNoticeCoordinator.peek()(v40);
-    if (v93[3])
-    {
-      v41 = OUTLINED_FUNCTION_10_83();
-      if (v42(v41))
-      {
-        OUTLINED_FUNCTION_202_1();
-        OUTLINED_FUNCTION_91_0();
-        if (v43)
-        {
-          OUTLINED_FUNCTION_42_28();
-          v44 = OUTLINED_FUNCTION_17_63();
-          if (v45(v44))
-          {
-            OUTLINED_FUNCTION_139_6();
-            v46 = OUTLINED_FUNCTION_119();
-            v47 = static os_log_type_t.default.getter();
-            if (OUTLINED_FUNCTION_75_12(v47))
-            {
-              OUTLINED_FUNCTION_30_1();
-              v48 = OUTLINED_FUNCTION_10_40();
-              OUTLINED_FUNCTION_35_26(v48);
-              v49 = OUTLINED_FUNCTION_1_161(4.8151e-34);
-              v51 = v50(v49);
-              OUTLINED_FUNCTION_18_59(v51, v52);
-              OUTLINED_FUNCTION_247();
-
-              OUTLINED_FUNCTION_36_34();
-              v53 = OUTLINED_FUNCTION_3_145(v95);
-              v55 = v54(v53);
-              OUTLINED_FUNCTION_196_4(v55, v56);
-              OUTLINED_FUNCTION_28_0();
-
-              *(v31 + 14) = v1;
-              OUTLINED_FUNCTION_67_0();
-              _os_log_impl(v57, v58, v59, v60, v61, 0x16u);
-              OUTLINED_FUNCTION_136_4();
-              OUTLINED_FUNCTION_2_2();
-              OUTLINED_FUNCTION_18();
-            }
-
-            else
-            {
-
               __swift_destroy_boxed_opaque_existential_1(v92);
             }
 
-            OUTLINED_FUNCTION_3_0();
-            swift_beginAccess();
-            v88 = v95;
+            v89 = v93;
           }
 
-          else
-          {
-            OUTLINED_FUNCTION_139_6();
-            v75 = OUTLINED_FUNCTION_119();
-            v76 = static os_log_type_t.default.getter();
-            if (OUTLINED_FUNCTION_75_12(v76))
-            {
-              v77 = OUTLINED_FUNCTION_42();
-              v78 = OUTLINED_FUNCTION_23();
-              OUTLINED_FUNCTION_35_26(v78);
-              v79 = OUTLINED_FUNCTION_1_161(4.8149e-34);
-              v81 = v80(v79);
-              OUTLINED_FUNCTION_18_59(v81, v82);
-              OUTLINED_FUNCTION_247();
-
-              *(v77 + 4) = v15;
-              OUTLINED_FUNCTION_67_0();
-              _os_log_impl(v83, v84, v85, v86, v87, 0xCu);
-              __swift_destroy_boxed_opaque_existential_1(v8);
-              OUTLINED_FUNCTION_2_2();
-              OUTLINED_FUNCTION_18();
-            }
-
-            else
-            {
-
-              __swift_destroy_boxed_opaque_existential_1(v92);
-            }
-
-            v88 = v93;
-          }
-
-          outlined init with copy of IDSLookupManager(v88, v92);
+          outlined init with copy of IDSLookupManager(v89, v92);
           OUTLINED_FUNCTION_11_96();
-          v89 = OUTLINED_FUNCTION_182_4();
-          v90(v89);
+          v90 = OUTLINED_FUNCTION_182_4();
+          v91(v90);
           __swift_destroy_boxed_opaque_existential_1(v93);
         }
 
         else
         {
-          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v92, &_s15ConversationKit6Notice_pSgMd);
-          v68 = OUTLINED_FUNCTION_119();
+          v67 = outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v92, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
+          v68 = OUTLINED_FUNCTION_119(v67);
           v69 = static os_log_type_t.error.getter();
           if (OUTLINED_FUNCTION_163(v69))
           {
@@ -4553,7 +4294,7 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
 
     else
     {
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v93, &_s15ConversationKit6Notice_pSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v93, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
     }
 
     __swift_destroy_boxed_opaque_existential_1(v95);
@@ -4561,23 +4302,270 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
 
   else
   {
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v94, &_s15ConversationKit6Notice_pSgMd);
-    v62 = OUTLINED_FUNCTION_119();
-    v63 = static os_log_type_t.default.getter();
-    if (OUTLINED_FUNCTION_163(v63))
+    v60 = outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v94, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
+    v61 = OUTLINED_FUNCTION_119(v60);
+    v62 = static os_log_type_t.default.getter();
+    if (OUTLINED_FUNCTION_163(v62))
     {
-      v64 = OUTLINED_FUNCTION_33();
-      OUTLINED_FUNCTION_25_31(v64);
-      OUTLINED_FUNCTION_12_8(&dword_1BBC58000, v65, v66, "> No active notice, present just pushed notice");
+      v63 = OUTLINED_FUNCTION_33();
+      OUTLINED_FUNCTION_25_31(v63);
+      OUTLINED_FUNCTION_12_8(&dword_1BBC58000, v64, v65, "> No active notice, present just pushed notice");
       OUTLINED_FUNCTION_239();
     }
 
     OUTLINED_FUNCTION_201_2();
     OUTLINED_FUNCTION_11_96();
-    (*(v67 + 144))(v95);
+    (*(v66 + 144))(v95);
   }
 
   __swift_destroy_boxed_opaque_existential_1(&v96);
+  OUTLINED_FUNCTION_30_0();
+}
+
+{
+  OUTLINED_FUNCTION_29();
+  v1 = v0;
+  OUTLINED_FUNCTION_24_1();
+  v2 = type metadata accessor for UUID();
+  OUTLINED_FUNCTION_1();
+  v4 = v3;
+  MEMORY[0x1EEE9AC00](v5);
+  OUTLINED_FUNCTION_8();
+  v8 = (v7 - v6);
+  v9 = type metadata accessor for SessionActionNotice(0);
+  v10 = OUTLINED_FUNCTION_205_4(v9, &protocol witness table for SessionActionNotice);
+  v11 = OUTLINED_FUNCTION_177_4();
+  outlined init with copy of FaceIDUnavailableNotice(v11, v10);
+  if (one-time initialization token for conversationControls != -1)
+  {
+    OUTLINED_FUNCTION_0_0(&one-time initialization token for conversationControls);
+  }
+
+  v12 = type metadata accessor for Logger();
+  OUTLINED_FUNCTION_52(v12, &static Logger.conversationControls);
+  OUTLINED_FUNCTION_171_2();
+  v13 = OUTLINED_FUNCTION_199_2();
+  v14 = OUTLINED_FUNCTION_204_1(v13);
+  v15 = static os_log_type_t.default.getter();
+  v16 = &unk_1BC4BB000;
+  if (os_log_type_enabled(v14, v15))
+  {
+    OUTLINED_FUNCTION_30_1();
+    v96 = OUTLINED_FUNCTION_57_17();
+    v98[0] = v96;
+    *v1 = 136315394;
+    OUTLINED_FUNCTION_131_3();
+    v17 = SessionActionNotice.description.getter();
+    OUTLINED_FUNCTION_99_4(v17, v18);
+    OUTLINED_FUNCTION_28_0();
+
+    v19 = OUTLINED_FUNCTION_97_7();
+    (*(v4 + 16))(v8, &v19[*(v9 + 40)], v2);
+    OUTLINED_FUNCTION_2_153();
+    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(v20, v21);
+    dispatch thunk of CustomStringConvertible.description.getter();
+    OUTLINED_FUNCTION_305();
+    v22 = *(v4 + 8);
+    v4 += 8;
+    v22(v8, v2);
+    OUTLINED_FUNCTION_203_3();
+    v23 = OUTLINED_FUNCTION_46();
+    getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v24, v25);
+    OUTLINED_FUNCTION_247();
+
+    *(v1 + 14) = &unk_1BC4BB000;
+    _os_log_impl(&dword_1BBC58000, v14, v15, "> Adding to queue, notice: %s, uuid: %s", v1, 0x16u);
+    v16 = v96;
+    swift_arrayDestroy();
+    OUTLINED_FUNCTION_239();
+    OUTLINED_FUNCTION_59_14();
+  }
+
+  else
+  {
+
+    OUTLINED_FUNCTION_162_3();
+  }
+
+  v26 = v10[2];
+  if (v26 >> 62 == 3)
+  {
+    v27 = v10[3];
+    v29 = *v10;
+    v28 = v10[1];
+    if (v26 == 0xC000000000000000 && !(v27 | v29 | v28) || !v27 && (v26 == 0xC000000000000000 ? (v30 = v29 == 1) : (v30 = 0), v30 && !v28) || !v27 && (v26 == 0xC000000000000000 ? (v31 = v29 == 7) : (v31 = 0), v31 && !v28) || (v32 = 5, !v27) && (v26 == 0xC000000000000000 ? (v33 = v29 == 10) : (v33 = 0), v33 && !v28))
+    {
+      v32 = 4;
+    }
+  }
+
+  else
+  {
+    v32 = 5;
+  }
+
+  OUTLINED_FUNCTION_135_2();
+  OUTLINED_FUNCTION_49_19();
+  specialized Dictionary.subscript.modify();
+  OUTLINED_FUNCTION_178_0();
+  if (v2)
+  {
+    OUTLINED_FUNCTION_134_2(v34, v35);
+    v36 = OUTLINED_FUNCTION_29_37();
+    v37(v36);
+  }
+
+  v38 = OUTLINED_FUNCTION_161_3();
+  (v32)(v38);
+  v39 = OUTLINED_FUNCTION_164_1();
+  (v4)(v39);
+  OUTLINED_FUNCTION_19_48();
+  OUTLINED_FUNCTION_187_4();
+  v40();
+  if (v99[3])
+  {
+    OUTLINED_FUNCTION_87_8();
+    ConversationControlsNoticeCoordinator.peek()(v41);
+    if (v98[3])
+    {
+      v42 = OUTLINED_FUNCTION_10_83();
+      if (v43(v42))
+      {
+        OUTLINED_FUNCTION_202_1();
+        OUTLINED_FUNCTION_91_0();
+        if (v44)
+        {
+          OUTLINED_FUNCTION_42_28();
+          v45 = OUTLINED_FUNCTION_17_63();
+          if (v46(v45))
+          {
+            v47 = OUTLINED_FUNCTION_139_6();
+            v48 = OUTLINED_FUNCTION_119(v47);
+            v49 = static os_log_type_t.default.getter();
+            if (OUTLINED_FUNCTION_75_12(v49))
+            {
+              OUTLINED_FUNCTION_30_1();
+              v50 = OUTLINED_FUNCTION_10_40();
+              OUTLINED_FUNCTION_35_26(v50);
+              v51 = OUTLINED_FUNCTION_1_161(4.8151e-34);
+              v53 = v52(v51);
+              OUTLINED_FUNCTION_18_59(v53, v54);
+              OUTLINED_FUNCTION_247();
+
+              OUTLINED_FUNCTION_36_34();
+              v55 = OUTLINED_FUNCTION_3_145(v100);
+              v57 = v56(v55);
+              OUTLINED_FUNCTION_196_4(v57, v58);
+              OUTLINED_FUNCTION_28_0();
+
+              *(v32 + 14) = v1;
+              OUTLINED_FUNCTION_67_0();
+              _os_log_impl(v59, v60, v61, v62, v63, 0x16u);
+              OUTLINED_FUNCTION_136_4();
+              OUTLINED_FUNCTION_2_2();
+              OUTLINED_FUNCTION_18();
+            }
+
+            else
+            {
+
+              __swift_destroy_boxed_opaque_existential_1(v97);
+            }
+
+            OUTLINED_FUNCTION_3_0();
+            swift_beginAccess();
+            v93 = v100;
+          }
+
+          else
+          {
+            v79 = OUTLINED_FUNCTION_139_6();
+            v80 = OUTLINED_FUNCTION_119(v79);
+            v81 = static os_log_type_t.default.getter();
+            if (OUTLINED_FUNCTION_75_12(v81))
+            {
+              v82 = OUTLINED_FUNCTION_42();
+              v83 = OUTLINED_FUNCTION_23();
+              OUTLINED_FUNCTION_35_26(v83);
+              v84 = OUTLINED_FUNCTION_1_161(4.8149e-34);
+              v86 = v85(v84);
+              OUTLINED_FUNCTION_18_59(v86, v87);
+              OUTLINED_FUNCTION_247();
+
+              *(v82 + 4) = v16;
+              OUTLINED_FUNCTION_67_0();
+              _os_log_impl(v88, v89, v90, v91, v92, 0xCu);
+              __swift_destroy_boxed_opaque_existential_1(v8);
+              OUTLINED_FUNCTION_2_2();
+              OUTLINED_FUNCTION_18();
+            }
+
+            else
+            {
+
+              __swift_destroy_boxed_opaque_existential_1(v97);
+            }
+
+            v93 = v98;
+          }
+
+          outlined init with copy of IDSLookupManager(v93, v97);
+          OUTLINED_FUNCTION_11_96();
+          v94 = OUTLINED_FUNCTION_182_4();
+          v95(v94);
+          __swift_destroy_boxed_opaque_existential_1(v98);
+        }
+
+        else
+        {
+          v71 = outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v97, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
+          v72 = OUTLINED_FUNCTION_119(v71);
+          v73 = static os_log_type_t.error.getter();
+          if (OUTLINED_FUNCTION_163(v73))
+          {
+            v74 = OUTLINED_FUNCTION_33();
+            OUTLINED_FUNCTION_25_31(v74);
+            OUTLINED_FUNCTION_12_8(&dword_1BBC58000, v75, v76, "Tried to pop next notice but there wasn't a notice to pop");
+            OUTLINED_FUNCTION_239();
+          }
+
+          OUTLINED_FUNCTION_68_9();
+          OUTLINED_FUNCTION_11_96();
+          v77 = OUTLINED_FUNCTION_183_3();
+          v78(v77);
+        }
+      }
+
+      __swift_destroy_boxed_opaque_existential_1(v99);
+    }
+
+    else
+    {
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v98, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
+    }
+
+    __swift_destroy_boxed_opaque_existential_1(v100);
+  }
+
+  else
+  {
+    v64 = outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v99, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
+    v65 = OUTLINED_FUNCTION_119(v64);
+    v66 = static os_log_type_t.default.getter();
+    if (OUTLINED_FUNCTION_163(v66))
+    {
+      v67 = OUTLINED_FUNCTION_33();
+      OUTLINED_FUNCTION_25_31(v67);
+      OUTLINED_FUNCTION_12_8(&dword_1BBC58000, v68, v69, "> No active notice, present just pushed notice");
+      OUTLINED_FUNCTION_239();
+    }
+
+    OUTLINED_FUNCTION_201_2();
+    OUTLINED_FUNCTION_11_96();
+    (*(v70 + 144))(v100);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1(&v101);
   OUTLINED_FUNCTION_30_0();
 }
 
@@ -4597,44 +4585,44 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
   outlined init with copy of FaceIDUnavailableNotice(v9, v8);
   if (one-time initialization token for conversationControls != -1)
   {
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(&one-time initialization token for conversationControls);
   }
 
   v10 = type metadata accessor for Logger();
   OUTLINED_FUNCTION_52(v10, &static Logger.conversationControls);
   OUTLINED_FUNCTION_171_2();
-  OUTLINED_FUNCTION_199_2();
-  v11 = OUTLINED_FUNCTION_204_1();
-  v12 = static os_log_type_t.default.getter();
-  if (OUTLINED_FUNCTION_170_3(v12))
+  v11 = OUTLINED_FUNCTION_199_2();
+  v12 = OUTLINED_FUNCTION_204_1(v11);
+  v13 = static os_log_type_t.default.getter();
+  if (OUTLINED_FUNCTION_170_3(v13))
   {
     OUTLINED_FUNCTION_30_1();
     OUTLINED_FUNCTION_57_17();
     OUTLINED_FUNCTION_144_3();
-    v87[0] = v13;
+    v93[0] = v14;
     *v1 = 136315394;
     OUTLINED_FUNCTION_131_3();
-    v14 = PushToTalkNotice.description.getter();
-    OUTLINED_FUNCTION_99_4(v14, v15);
+    v15 = PushToTalkNotice.description.getter();
+    OUTLINED_FUNCTION_99_4(v15, v16);
     OUTLINED_FUNCTION_28_0();
 
     OUTLINED_FUNCTION_97_7();
-    v16 = OUTLINED_FUNCTION_154_3();
-    v17(v16);
+    v17 = OUTLINED_FUNCTION_154_3();
+    v18(v17);
     OUTLINED_FUNCTION_2_153();
-    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(v18, v19);
-    OUTLINED_FUNCTION_132_2();
+    v21 = _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(v19, v20);
+    OUTLINED_FUNCTION_132_2(v21);
     OUTLINED_FUNCTION_305();
     v4 += 8;
-    v20 = OUTLINED_FUNCTION_157();
-    v21(v20);
+    v22 = OUTLINED_FUNCTION_157();
+    v23(v22);
     OUTLINED_FUNCTION_203_3();
-    v22 = OUTLINED_FUNCTION_46();
-    getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, v24);
+    v24 = OUTLINED_FUNCTION_46();
+    getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v25, v26);
     OUTLINED_FUNCTION_247();
 
     *(v1 + 14) = &unk_1BC4BB000;
-    OUTLINED_FUNCTION_122_1(&dword_1BBC58000, v25, v26, "> Adding to queue, notice: %s, uuid: %s");
+    OUTLINED_FUNCTION_122_1(&dword_1BBC58000, v27, v28, "> Adding to queue, notice: %s, uuid: %s");
     OUTLINED_FUNCTION_168_2();
     OUTLINED_FUNCTION_98_4();
     OUTLINED_FUNCTION_59_14();
@@ -4646,64 +4634,64 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
     OUTLINED_FUNCTION_162_3();
   }
 
-  v27 = *(v8 + *(v7 + 28));
+  v29 = *(v8 + *(v7 + 28));
   OUTLINED_FUNCTION_135_2();
   OUTLINED_FUNCTION_49_19();
   specialized Dictionary.subscript.modify();
   OUTLINED_FUNCTION_178_0();
   if (v8)
   {
-    OUTLINED_FUNCTION_134_2(v28, v29);
-    v30 = OUTLINED_FUNCTION_29_37();
-    v31(v30);
+    OUTLINED_FUNCTION_134_2(v30, v31);
+    v32 = OUTLINED_FUNCTION_29_37();
+    v33(v32);
   }
 
-  v32 = OUTLINED_FUNCTION_161_3();
-  (v4)(v32);
-  v33 = OUTLINED_FUNCTION_164_1();
-  (v7)(v33);
+  v34 = OUTLINED_FUNCTION_161_3();
+  (v4)(v34);
+  v35 = OUTLINED_FUNCTION_164_1();
+  (v7)(v35);
   OUTLINED_FUNCTION_19_48();
   OUTLINED_FUNCTION_187_4();
-  v34();
-  if (v88[3])
+  v36();
+  if (v94[3])
   {
     OUTLINED_FUNCTION_87_8();
-    ConversationControlsNoticeCoordinator.peek()(v35);
-    if (v87[3])
+    ConversationControlsNoticeCoordinator.peek()(v37);
+    if (v93[3])
     {
-      v36 = OUTLINED_FUNCTION_10_83();
-      if (v37(v36))
+      v38 = OUTLINED_FUNCTION_10_83();
+      if (v39(v38))
       {
         OUTLINED_FUNCTION_202_1();
         OUTLINED_FUNCTION_91_0();
-        if (v38)
+        if (v40)
         {
           OUTLINED_FUNCTION_42_28();
-          v39 = OUTLINED_FUNCTION_17_63();
-          if (v40(v39))
+          v41 = OUTLINED_FUNCTION_17_63();
+          if (v42(v41))
           {
-            OUTLINED_FUNCTION_139_6();
-            v41 = OUTLINED_FUNCTION_119();
-            v42 = static os_log_type_t.default.getter();
-            if (OUTLINED_FUNCTION_75_12(v42))
+            v43 = OUTLINED_FUNCTION_139_6();
+            v44 = OUTLINED_FUNCTION_119(v43);
+            v45 = static os_log_type_t.default.getter();
+            if (OUTLINED_FUNCTION_75_12(v45))
             {
               OUTLINED_FUNCTION_30_1();
-              v43 = OUTLINED_FUNCTION_10_40();
-              OUTLINED_FUNCTION_35_26(v43);
-              v44 = OUTLINED_FUNCTION_1_161(4.8151e-34);
-              v46 = v45(v44);
-              OUTLINED_FUNCTION_18_59(v46, v47);
+              v46 = OUTLINED_FUNCTION_10_40();
+              OUTLINED_FUNCTION_35_26(v46);
+              v47 = OUTLINED_FUNCTION_1_161(4.8151e-34);
+              v49 = v48(v47);
+              OUTLINED_FUNCTION_18_59(v49, v50);
               OUTLINED_FUNCTION_247();
 
               OUTLINED_FUNCTION_36_34();
-              v48 = OUTLINED_FUNCTION_3_145(v89);
-              v50 = v49(v48);
-              OUTLINED_FUNCTION_196_4(v50, v51);
+              v51 = OUTLINED_FUNCTION_3_145(v95);
+              v53 = v52(v51);
+              OUTLINED_FUNCTION_196_4(v53, v54);
               OUTLINED_FUNCTION_28_0();
 
               *(v4 + 14) = v1;
               OUTLINED_FUNCTION_67_0();
-              _os_log_impl(v52, v53, v54, v55, v56, 0x16u);
+              _os_log_impl(v55, v56, v57, v58, v59, 0x16u);
               OUTLINED_FUNCTION_136_4();
               OUTLINED_FUNCTION_2_2();
               OUTLINED_FUNCTION_18();
@@ -4712,32 +4700,32 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
             else
             {
 
-              __swift_destroy_boxed_opaque_existential_1(v86);
+              __swift_destroy_boxed_opaque_existential_1(v92);
             }
 
             OUTLINED_FUNCTION_3_0();
             swift_beginAccess();
-            v83 = v89;
+            v89 = v95;
           }
 
           else
           {
-            OUTLINED_FUNCTION_139_6();
-            v70 = OUTLINED_FUNCTION_119();
-            v71 = static os_log_type_t.default.getter();
-            if (OUTLINED_FUNCTION_75_12(v71))
+            v75 = OUTLINED_FUNCTION_139_6();
+            v76 = OUTLINED_FUNCTION_119(v75);
+            v77 = static os_log_type_t.default.getter();
+            if (OUTLINED_FUNCTION_75_12(v77))
             {
-              v72 = OUTLINED_FUNCTION_42();
-              v73 = OUTLINED_FUNCTION_23();
-              OUTLINED_FUNCTION_35_26(v73);
-              v74 = OUTLINED_FUNCTION_1_161(4.8149e-34);
-              v76 = v75(v74);
-              OUTLINED_FUNCTION_18_59(v76, v77);
+              v78 = OUTLINED_FUNCTION_42();
+              v79 = OUTLINED_FUNCTION_23();
+              OUTLINED_FUNCTION_35_26(v79);
+              v80 = OUTLINED_FUNCTION_1_161(4.8149e-34);
+              v82 = v81(v80);
+              OUTLINED_FUNCTION_18_59(v82, v83);
               OUTLINED_FUNCTION_247();
 
-              *(v72 + 4) = v27;
+              *(v78 + 4) = v29;
               OUTLINED_FUNCTION_67_0();
-              _os_log_impl(v78, v79, v80, v81, v82, 0xCu);
+              _os_log_impl(v84, v85, v86, v87, v88, 0xCu);
               __swift_destroy_boxed_opaque_existential_1(v2);
               OUTLINED_FUNCTION_2_2();
               OUTLINED_FUNCTION_18();
@@ -4746,74 +4734,70 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
             else
             {
 
-              __swift_destroy_boxed_opaque_existential_1(v86);
+              __swift_destroy_boxed_opaque_existential_1(v92);
             }
 
-            v83 = v87;
+            v89 = v93;
           }
 
-          outlined init with copy of IDSLookupManager(v83, v86);
+          outlined init with copy of IDSLookupManager(v89, v92);
           OUTLINED_FUNCTION_11_96();
-          v84 = OUTLINED_FUNCTION_182_4();
-          v85(v84);
-          __swift_destroy_boxed_opaque_existential_1(v87);
+          v90 = OUTLINED_FUNCTION_182_4();
+          v91(v90);
+          __swift_destroy_boxed_opaque_existential_1(v93);
         }
 
         else
         {
-          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v86, &_s15ConversationKit6Notice_pSgMd);
-          v63 = OUTLINED_FUNCTION_119();
-          v64 = static os_log_type_t.error.getter();
-          if (OUTLINED_FUNCTION_163(v64))
+          v67 = outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v92, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
+          v68 = OUTLINED_FUNCTION_119(v67);
+          v69 = static os_log_type_t.error.getter();
+          if (OUTLINED_FUNCTION_163(v69))
           {
-            v65 = OUTLINED_FUNCTION_33();
-            OUTLINED_FUNCTION_25_31(v65);
-            OUTLINED_FUNCTION_12_8(&dword_1BBC58000, v66, v67, "Tried to pop next notice but there wasn't a notice to pop");
+            v70 = OUTLINED_FUNCTION_33();
+            OUTLINED_FUNCTION_25_31(v70);
+            OUTLINED_FUNCTION_12_8(&dword_1BBC58000, v71, v72, "Tried to pop next notice but there wasn't a notice to pop");
             OUTLINED_FUNCTION_239();
           }
 
           OUTLINED_FUNCTION_68_9();
           OUTLINED_FUNCTION_11_96();
-          v68 = OUTLINED_FUNCTION_183_3();
-          v69(v68);
+          v73 = OUTLINED_FUNCTION_183_3();
+          v74(v73);
         }
       }
 
-      __swift_destroy_boxed_opaque_existential_1(v88);
+      __swift_destroy_boxed_opaque_existential_1(v94);
     }
 
     else
     {
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v87, &_s15ConversationKit6Notice_pSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v93, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
     }
 
-    __swift_destroy_boxed_opaque_existential_1(v89);
+    __swift_destroy_boxed_opaque_existential_1(v95);
   }
 
   else
   {
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v88, &_s15ConversationKit6Notice_pSgMd);
-    v57 = OUTLINED_FUNCTION_119();
-    v58 = static os_log_type_t.default.getter();
-    if (OUTLINED_FUNCTION_163(v58))
+    v60 = outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v94, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
+    v61 = OUTLINED_FUNCTION_119(v60);
+    v62 = static os_log_type_t.default.getter();
+    if (OUTLINED_FUNCTION_163(v62))
     {
-      v59 = OUTLINED_FUNCTION_33();
-      OUTLINED_FUNCTION_25_31(v59);
-      OUTLINED_FUNCTION_12_8(&dword_1BBC58000, v60, v61, "> No active notice, present just pushed notice");
+      v63 = OUTLINED_FUNCTION_33();
+      OUTLINED_FUNCTION_25_31(v63);
+      OUTLINED_FUNCTION_12_8(&dword_1BBC58000, v64, v65, "> No active notice, present just pushed notice");
       OUTLINED_FUNCTION_239();
     }
 
     OUTLINED_FUNCTION_201_2();
     OUTLINED_FUNCTION_11_96();
-    (*(v62 + 144))(v89);
+    (*(v66 + 144))(v95);
   }
 
-  __swift_destroy_boxed_opaque_existential_1(&v90);
+  __swift_destroy_boxed_opaque_existential_1(&v96);
   OUTLINED_FUNCTION_30_0();
-}
-
-{
-  specialized ConversationControlsNoticeCoordinator.post(notice:)();
 }
 
 {
@@ -4827,13 +4811,13 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
   MEMORY[0x1EEE9AC00](v8);
   OUTLINED_FUNCTION_8();
   v9 = OUTLINED_FUNCTION_101_4();
-  v88[3] = v5(v9);
-  v88[4] = v3;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v88);
+  v89[3] = v5(v9);
+  v89[4] = v3;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v89);
   outlined init with copy of FaceIDUnavailableNotice(v7, boxed_opaque_existential_1);
   if (one-time initialization token for conversationControls != -1)
   {
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(&one-time initialization token for conversationControls);
   }
 
   v10 = type metadata accessor for Logger();
@@ -4848,29 +4832,29 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
   {
     v15 = OUTLINED_FUNCTION_30_1();
     v14 = OUTLINED_FUNCTION_29_7();
-    v84[0] = v14;
+    v85[0] = v14;
     *v15 = 136315394;
     v16 = OUTLINED_FUNCTION_131_3();
     v1(v16);
-    __swift_destroy_boxed_opaque_existential_1(v87);
+    __swift_destroy_boxed_opaque_existential_1(v88);
     v17 = OUTLINED_FUNCTION_334();
     v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v18, v19);
 
     *(v15 + 4) = v20;
     *(v15 + 12) = 2080;
-    __swift_project_boxed_opaque_existential_1(v85, v86);
+    __swift_project_boxed_opaque_existential_1(v86, v87);
     v21 = OUTLINED_FUNCTION_154_3();
     v22(v21);
     OUTLINED_FUNCTION_2_153();
-    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(v23, v24);
-    OUTLINED_FUNCTION_132_2();
-    v25 = OUTLINED_FUNCTION_157();
-    v26(v25);
+    v25 = _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(v23, v24);
+    OUTLINED_FUNCTION_132_2(v25);
+    v26 = OUTLINED_FUNCTION_157();
+    v27(v26);
     OUTLINED_FUNCTION_203_3();
-    v27 = OUTLINED_FUNCTION_334();
-    v30 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v27, v28, v29);
+    v28 = OUTLINED_FUNCTION_334();
+    v31 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v28, v29, v30);
 
-    *(v15 + 14) = v30;
+    *(v15 + 14) = v31;
     _os_log_impl(&dword_1BBC58000, v11, v12, "> Adding to queue, notice: %s, uuid: %s", v15, 0x16u);
     swift_arrayDestroy();
     OUTLINED_FUNCTION_239();
@@ -4880,68 +4864,68 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
   else
   {
 
-    __swift_destroy_boxed_opaque_existential_1(v85);
-    __swift_destroy_boxed_opaque_existential_1(v87);
+    __swift_destroy_boxed_opaque_existential_1(v86);
+    __swift_destroy_boxed_opaque_existential_1(v88);
   }
 
-  ConversationControlsNoticeCoordinator.noticeQueue.modify(v87);
+  ConversationControlsNoticeCoordinator.noticeQueue.modify(v88);
   OUTLINED_FUNCTION_305();
-  v32 = specialized Dictionary.subscript.modify();
-  v33 = *(v31 + 24);
-  if (v33)
+  v33 = specialized Dictionary.subscript.modify();
+  v34 = *(v32 + 24);
+  if (v34)
   {
-    v34 = *(v31 + 32);
-    __swift_mutable_project_boxed_opaque_existential_1(v31, *(v31 + 24));
-    (*(v34 + 16))(v88, v33, v34);
+    v35 = *(v32 + 32);
+    __swift_mutable_project_boxed_opaque_existential_1(v32, *(v32 + 24));
+    (*(v35 + 16))(v89, v34, v35);
   }
 
-  v35 = OUTLINED_FUNCTION_161_3();
-  (v32)(v35);
-  v36 = OUTLINED_FUNCTION_164_1();
-  v14(v36);
+  v36 = OUTLINED_FUNCTION_161_3();
+  (v33)(v36);
+  v37 = OUTLINED_FUNCTION_164_1();
+  v14(v37);
   OUTLINED_FUNCTION_53_1();
-  (*(v37 + 136))(v85);
-  if (v86)
+  (*(v38 + 136))(v86);
+  if (v87)
   {
     OUTLINED_FUNCTION_87_8();
-    ConversationControlsNoticeCoordinator.peek()(v38);
-    if (v84[3])
+    ConversationControlsNoticeCoordinator.peek()(v39);
+    if (v85[3])
     {
-      v39 = OUTLINED_FUNCTION_10_83();
-      if (v40(v39))
+      v40 = OUTLINED_FUNCTION_10_83();
+      if (v41(v40))
       {
         ConversationControlsNoticeCoordinator.pop()();
         OUTLINED_FUNCTION_91_0();
-        if (v41)
+        if (v42)
         {
           OUTLINED_FUNCTION_42_28();
-          v42 = OUTLINED_FUNCTION_17_63();
-          if (v43(v42))
+          v43 = OUTLINED_FUNCTION_17_63();
+          if (v44(v43))
           {
             OUTLINED_FUNCTION_139_6();
-            v44 = OUTLINED_FUNCTION_195_0();
-            v45 = static os_log_type_t.default.getter();
-            if (os_log_type_enabled(v44, v45))
+            v45 = OUTLINED_FUNCTION_195_0();
+            v46 = static os_log_type_t.default.getter();
+            if (os_log_type_enabled(v45, v46))
             {
-              v46 = OUTLINED_FUNCTION_30_1();
-              v81 = OUTLINED_FUNCTION_29_7();
-              *v46 = 136315394;
-              OUTLINED_FUNCTION_16_64(v82, v83);
-              v47 = OUTLINED_FUNCTION_43_0();
-              v49 = v48(v47);
-              v51 = OUTLINED_FUNCTION_185_4(v49, v50);
+              v47 = OUTLINED_FUNCTION_30_1();
+              v82 = OUTLINED_FUNCTION_29_7();
+              *v47 = 136315394;
+              OUTLINED_FUNCTION_16_64(v83, v84);
+              v48 = OUTLINED_FUNCTION_43_0();
+              v50 = v49(v48);
+              v52 = OUTLINED_FUNCTION_185_4(v50, v51);
 
-              *(v46 + 4) = v51;
-              *(v46 + 12) = 2080;
+              *(v47 + 4) = v52;
+              *(v47 + 12) = 2080;
               OUTLINED_FUNCTION_3_0();
               swift_beginAccess();
-              OUTLINED_FUNCTION_16_64(v87, v87[3]);
-              v52 = OUTLINED_FUNCTION_43_0();
-              v54 = v53(v52);
-              v56 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v54, v55, &v81);
+              OUTLINED_FUNCTION_16_64(v88, v88[3]);
+              v53 = OUTLINED_FUNCTION_43_0();
+              v55 = v54(v53);
+              v57 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v55, v56, &v82);
 
-              *(v46 + 14) = v56;
-              _os_log_impl(&dword_1BBC58000, v44, v45, "> Coalescing active notice with notice: %s, result: %s", v46, 0x16u);
+              *(v47 + 14) = v57;
+              _os_log_impl(&dword_1BBC58000, v45, v46, "> Coalescing active notice with notice: %s, result: %s", v47, 0x16u);
               swift_arrayDestroy();
               OUTLINED_FUNCTION_4_4();
               OUTLINED_FUNCTION_239();
@@ -4950,33 +4934,33 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
             else
             {
 
-              __swift_destroy_boxed_opaque_existential_1(v82);
+              __swift_destroy_boxed_opaque_existential_1(v83);
             }
 
             OUTLINED_FUNCTION_3_0();
             swift_beginAccess();
-            v78 = v87;
+            v79 = v88;
           }
 
           else
           {
             OUTLINED_FUNCTION_139_6();
-            v69 = OUTLINED_FUNCTION_195_0();
-            v70 = static os_log_type_t.default.getter();
-            if (os_log_type_enabled(v69, v70))
+            v70 = OUTLINED_FUNCTION_195_0();
+            v71 = static os_log_type_t.default.getter();
+            if (os_log_type_enabled(v70, v71))
             {
-              v71 = OUTLINED_FUNCTION_42();
-              v72 = OUTLINED_FUNCTION_23();
-              v81 = v72;
-              *v71 = 136315138;
-              OUTLINED_FUNCTION_16_64(v82, v83);
-              v73 = OUTLINED_FUNCTION_43_0();
-              v75 = v74(v73);
-              v77 = OUTLINED_FUNCTION_185_4(v75, v76);
+              v72 = OUTLINED_FUNCTION_42();
+              v73 = OUTLINED_FUNCTION_23();
+              v82 = v73;
+              *v72 = 136315138;
+              OUTLINED_FUNCTION_16_64(v83, v84);
+              v74 = OUTLINED_FUNCTION_43_0();
+              v76 = v75(v74);
+              v78 = OUTLINED_FUNCTION_185_4(v76, v77);
 
-              *(v71 + 4) = v77;
-              _os_log_impl(&dword_1BBC58000, v69, v70, "> Replacing active notice with notice: %s", v71, 0xCu);
-              __swift_destroy_boxed_opaque_existential_1(v72);
+              *(v72 + 4) = v78;
+              _os_log_impl(&dword_1BBC58000, v70, v71, "> Replacing active notice with notice: %s", v72, 0xCu);
+              __swift_destroy_boxed_opaque_existential_1(v73);
               OUTLINED_FUNCTION_4_4();
               OUTLINED_FUNCTION_26();
             }
@@ -4984,67 +4968,67 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
             else
             {
 
-              __swift_destroy_boxed_opaque_existential_1(v82);
+              __swift_destroy_boxed_opaque_existential_1(v83);
             }
 
-            v78 = v84;
+            v79 = v85;
           }
 
-          outlined init with copy of IDSLookupManager(v78, v82);
+          outlined init with copy of IDSLookupManager(v79, v83);
           OUTLINED_FUNCTION_53_1();
-          (*(v79 + 144))(v82);
-          __swift_destroy_boxed_opaque_existential_1(v84);
+          (*(v80 + 144))(v83);
+          __swift_destroy_boxed_opaque_existential_1(v85);
         }
 
         else
         {
-          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v82, &_s15ConversationKit6Notice_pSgMd);
-          v63 = OUTLINED_FUNCTION_195_0();
-          v64 = static os_log_type_t.error.getter();
-          if (OUTLINED_FUNCTION_25(v64))
+          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v83, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
+          v64 = OUTLINED_FUNCTION_195_0();
+          v65 = static os_log_type_t.error.getter();
+          if (OUTLINED_FUNCTION_25(v65))
           {
-            v65 = OUTLINED_FUNCTION_33();
-            OUTLINED_FUNCTION_50_0(v65);
-            OUTLINED_FUNCTION_7_4(&dword_1BBC58000, v66, v67, "Tried to pop next notice but there wasn't a notice to pop");
+            v66 = OUTLINED_FUNCTION_33();
+            OUTLINED_FUNCTION_50_0(v66);
+            OUTLINED_FUNCTION_7_4(&dword_1BBC58000, v67, v68, "Tried to pop next notice but there wasn't a notice to pop");
             OUTLINED_FUNCTION_26();
           }
 
           OUTLINED_FUNCTION_68_9();
           OUTLINED_FUNCTION_53_1();
-          (*(v68 + 144))(v84);
+          (*(v69 + 144))(v85);
         }
       }
 
-      __swift_destroy_boxed_opaque_existential_1(v85);
+      __swift_destroy_boxed_opaque_existential_1(v86);
     }
 
     else
     {
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v84, &_s15ConversationKit6Notice_pSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v85, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
     }
 
-    __swift_destroy_boxed_opaque_existential_1(v87);
+    __swift_destroy_boxed_opaque_existential_1(v88);
   }
 
   else
   {
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v85, &_s15ConversationKit6Notice_pSgMd);
-    v57 = OUTLINED_FUNCTION_195_0();
-    v58 = static os_log_type_t.default.getter();
-    if (OUTLINED_FUNCTION_25(v58))
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v86, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
+    v58 = OUTLINED_FUNCTION_195_0();
+    v59 = static os_log_type_t.default.getter();
+    if (OUTLINED_FUNCTION_25(v59))
     {
-      v59 = OUTLINED_FUNCTION_33();
-      OUTLINED_FUNCTION_50_0(v59);
-      OUTLINED_FUNCTION_7_4(&dword_1BBC58000, v60, v61, "> No active notice, present just pushed notice");
+      v60 = OUTLINED_FUNCTION_33();
+      OUTLINED_FUNCTION_50_0(v60);
+      OUTLINED_FUNCTION_7_4(&dword_1BBC58000, v61, v62, "> No active notice, present just pushed notice");
       OUTLINED_FUNCTION_26();
     }
 
     ConversationControlsNoticeCoordinator.pop()();
     OUTLINED_FUNCTION_53_1();
-    (*(v62 + 144))(v87);
+    (*(v63 + 144))(v88);
   }
 
-  __swift_destroy_boxed_opaque_existential_1(v88);
+  __swift_destroy_boxed_opaque_existential_1(v89);
   OUTLINED_FUNCTION_30_0();
 }
 
@@ -5055,48 +5039,48 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
   v5 = v4;
   v6 = type metadata accessor for UUID();
   OUTLINED_FUNCTION_1();
-  v69 = v7;
+  v73 = v7;
   MEMORY[0x1EEE9AC00](v8);
   OUTLINED_FUNCTION_8();
   v11 = v10 - v9;
-  v82[3] = v3;
-  v82[4] = v1;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v82);
+  v86[3] = v3;
+  v86[4] = v1;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v86);
   (*(*(v3 - 8) + 16))(boxed_opaque_existential_1, v5, v3);
   if (one-time initialization token for conversationControls != -1)
   {
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(&one-time initialization token for conversationControls);
   }
 
   v13 = type metadata accessor for Logger();
   OUTLINED_FUNCTION_52(v13, &static Logger.conversationControls);
-  outlined init with copy of IDSLookupManager(v82, v79);
-  outlined init with copy of IDSLookupManager(v82, &v76);
+  outlined init with copy of IDSLookupManager(v86, v83);
+  outlined init with copy of IDSLookupManager(v86, &v80);
   v14 = Logger.logObject.getter();
   v15 = static os_log_type_t.default.getter();
   if (os_log_type_enabled(v14, v15))
   {
     v16 = OUTLINED_FUNCTION_30_1();
     v5 = OUTLINED_FUNCTION_29_7();
-    *&v73 = v5;
+    *&v77 = v5;
     *v16 = 136315394;
-    __swift_project_boxed_opaque_existential_1(v79, v80);
+    __swift_project_boxed_opaque_existential_1(v83, v84);
     v17 = OUTLINED_FUNCTION_182();
     v19 = v18(v17, v1);
-    v20 = __swift_destroy_boxed_opaque_existential_1(v79);
-    OUTLINED_FUNCTION_22_48(v20, v21, &v73);
+    v20 = __swift_destroy_boxed_opaque_existential_1(v83);
+    OUTLINED_FUNCTION_22_48(v20, v21, &v77);
     OUTLINED_FUNCTION_75_0();
 
     *(v16 + 4) = v19;
     *(v16 + 12) = 2080;
-    __swift_project_boxed_opaque_existential_1(&v76, v77);
+    __swift_project_boxed_opaque_existential_1(&v80, v81);
     v22 = OUTLINED_FUNCTION_182();
     v23(v22, v1);
-    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID);
+    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695E0]);
     v24 = dispatch thunk of CustomStringConvertible.description.getter();
-    (*(v69 + 8))(v11, v6);
-    v25 = __swift_destroy_boxed_opaque_existential_1(&v76);
-    OUTLINED_FUNCTION_22_48(v25, v26, &v73);
+    (*(v73 + 8))(v11, v6);
+    v25 = __swift_destroy_boxed_opaque_existential_1(&v80);
+    OUTLINED_FUNCTION_22_48(v25, v26, &v77);
     OUTLINED_FUNCTION_75_0();
 
     *(v16 + 14) = v24;
@@ -5109,12 +5093,12 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
   else
   {
 
-    __swift_destroy_boxed_opaque_existential_1(&v76);
-    __swift_destroy_boxed_opaque_existential_1(v79);
+    __swift_destroy_boxed_opaque_existential_1(&v80);
+    __swift_destroy_boxed_opaque_existential_1(v83);
   }
 
-  (*(v1 + 56))(&v73, v3, v1);
-  ConversationControlsNoticeCoordinator.noticeQueue.modify(v79);
+  (*(v1 + 56))(&v77, v3, v1);
+  ConversationControlsNoticeCoordinator.noticeQueue.modify(v83);
   OUTLINED_FUNCTION_305();
   v28 = specialized Dictionary.subscript.modify();
   if (*(v27 + 24))
@@ -5124,56 +5108,56 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
     v29();
   }
 
-  (v28)(&v76, 0);
-  v5(v79, 0);
+  (v28)(&v80, 0);
+  v5(v83, 0);
   OUTLINED_FUNCTION_6_114();
-  (*(v30 + 136))(&v76);
-  if (v77)
+  (*(v30 + 136))(&v80);
+  if (v81)
   {
-    outlined init with take of TapInteractionHandler(&v76, v79);
-    ConversationControlsNoticeCoordinator.peek()(&v73);
-    if (*(&v74 + 1))
+    outlined init with take of TapInteractionHandler(&v80, v83);
+    ConversationControlsNoticeCoordinator.peek()(&v77);
+    if (*(&v78 + 1))
     {
-      outlined init with take of TapInteractionHandler(&v73, &v76);
-      v31 = v77;
-      v32 = v78;
-      __swift_project_boxed_opaque_existential_1(&v76, v77);
-      if ((*(v32 + 216))(v79, v31, v32))
+      outlined init with take of TapInteractionHandler(&v77, &v80);
+      v31 = v81;
+      v32 = v82;
+      __swift_project_boxed_opaque_existential_1(&v80, v81);
+      if ((*(v32 + 216))(v83, v31, v32))
       {
         ConversationControlsNoticeCoordinator.pop()();
-        if (v72)
+        if (v76)
         {
-          outlined init with take of TapInteractionHandler(&v71, &v73);
-          v33 = v80;
-          v34 = v81;
-          __swift_mutable_project_boxed_opaque_existential_1(v79, v80);
-          if ((*(v34 + 208))(&v73, v33, v34))
+          outlined init with take of TapInteractionHandler(&v75, &v77);
+          v33 = v84;
+          v34 = v85;
+          __swift_mutable_project_boxed_opaque_existential_1(v83, v84);
+          if ((*(v34 + 208))(&v77, v33, v34))
           {
-            outlined init with copy of IDSLookupManager(&v73, &v71);
-            v35 = OUTLINED_FUNCTION_119();
-            v36 = static os_log_type_t.default.getter();
-            if (os_log_type_enabled(v35, v36))
+            v35 = outlined init with copy of IDSLookupManager(&v77, &v75);
+            v36 = OUTLINED_FUNCTION_119(v35);
+            v37 = static os_log_type_t.default.getter();
+            if (os_log_type_enabled(v36, v37))
             {
-              v37 = OUTLINED_FUNCTION_30_1();
-              v70[0] = OUTLINED_FUNCTION_29_7();
-              *v37 = 136315394;
-              __swift_project_boxed_opaque_existential_1(&v71, v72);
-              v38 = OUTLINED_FUNCTION_3_147();
-              v40 = v39(v38);
-              v41 = __swift_destroy_boxed_opaque_existential_1(&v71);
-              OUTLINED_FUNCTION_22_48(v41, v42, v70);
+              v38 = OUTLINED_FUNCTION_30_1();
+              v74[0] = OUTLINED_FUNCTION_29_7();
+              *v38 = 136315394;
+              __swift_project_boxed_opaque_existential_1(&v75, v76);
+              v39 = OUTLINED_FUNCTION_3_147();
+              v41 = v40(v39);
+              v42 = __swift_destroy_boxed_opaque_existential_1(&v75);
+              OUTLINED_FUNCTION_22_48(v42, v43, v74);
               OUTLINED_FUNCTION_75_0();
 
-              *(v37 + 4) = v40;
-              *(v37 + 12) = 2080;
+              *(v38 + 4) = v41;
+              *(v38 + 12) = 2080;
               swift_beginAccess();
-              __swift_project_boxed_opaque_existential_1(v79, v80);
-              v43 = OUTLINED_FUNCTION_3_147();
-              v45 = v44(v43);
-              v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v45, v46, v70);
+              __swift_project_boxed_opaque_existential_1(v83, v84);
+              v44 = OUTLINED_FUNCTION_3_147();
+              v46 = v45(v44);
+              v48 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v46, v47, v74);
 
-              *(v37 + 14) = v47;
-              _os_log_impl(&dword_1BBC58000, v35, v36, "> Coalescing active notice with notice: %s, result: %s", v37, 0x16u);
+              *(v38 + 14) = v48;
+              _os_log_impl(&dword_1BBC58000, v36, v37, "> Coalescing active notice with notice: %s, result: %s", v38, 0x16u);
               swift_arrayDestroy();
               OUTLINED_FUNCTION_27();
               OUTLINED_FUNCTION_239();
@@ -5182,34 +5166,34 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
             else
             {
 
-              __swift_destroy_boxed_opaque_existential_1(&v71);
+              __swift_destroy_boxed_opaque_existential_1(&v75);
             }
 
             swift_beginAccess();
-            v67 = v79;
+            v71 = v83;
           }
 
           else
           {
-            outlined init with copy of IDSLookupManager(&v73, &v71);
-            v58 = OUTLINED_FUNCTION_119();
-            v59 = static os_log_type_t.default.getter();
-            if (os_log_type_enabled(v58, v59))
+            v61 = outlined init with copy of IDSLookupManager(&v77, &v75);
+            v62 = OUTLINED_FUNCTION_119(v61);
+            v63 = static os_log_type_t.default.getter();
+            if (os_log_type_enabled(v62, v63))
             {
-              v60 = OUTLINED_FUNCTION_42();
-              v61 = OUTLINED_FUNCTION_23();
-              v70[0] = v61;
-              *v60 = 136315138;
-              __swift_project_boxed_opaque_existential_1(&v71, v72);
-              v62 = OUTLINED_FUNCTION_3_147();
-              v64 = v63(v62);
-              v65 = __swift_destroy_boxed_opaque_existential_1(&v71);
-              OUTLINED_FUNCTION_22_48(v65, v66, v70);
+              v64 = OUTLINED_FUNCTION_42();
+              v65 = OUTLINED_FUNCTION_23();
+              v74[0] = v65;
+              *v64 = 136315138;
+              __swift_project_boxed_opaque_existential_1(&v75, v76);
+              v66 = OUTLINED_FUNCTION_3_147();
+              v68 = v67(v66);
+              v69 = __swift_destroy_boxed_opaque_existential_1(&v75);
+              OUTLINED_FUNCTION_22_48(v69, v70, v74);
               OUTLINED_FUNCTION_75_0();
 
-              *(v60 + 4) = v64;
-              _os_log_impl(&dword_1BBC58000, v58, v59, "> Replacing active notice with notice: %s", v60, 0xCu);
-              __swift_destroy_boxed_opaque_existential_1(v61);
+              *(v64 + 4) = v68;
+              _os_log_impl(&dword_1BBC58000, v62, v63, "> Replacing active notice with notice: %s", v64, 0xCu);
+              __swift_destroy_boxed_opaque_existential_1(v65);
               OUTLINED_FUNCTION_27();
               OUTLINED_FUNCTION_26();
             }
@@ -5217,68 +5201,81 @@ void specialized ConversationControlsNoticeCoordinator.post(notice:)()
             else
             {
 
-              __swift_destroy_boxed_opaque_existential_1(&v71);
+              __swift_destroy_boxed_opaque_existential_1(&v75);
             }
 
-            v67 = &v73;
+            v71 = &v77;
           }
 
-          outlined init with copy of IDSLookupManager(v67, &v71);
+          outlined init with copy of IDSLookupManager(v71, &v75);
           OUTLINED_FUNCTION_6_114();
-          (*(v68 + 144))(&v71);
-          __swift_destroy_boxed_opaque_existential_1(&v73);
+          (*(v72 + 144))(&v75);
+          __swift_destroy_boxed_opaque_existential_1(&v77);
         }
 
         else
         {
-          outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v71, &_s15ConversationKit6Notice_pSgMd);
-          v53 = OUTLINED_FUNCTION_119();
-          v54 = static os_log_type_t.error.getter();
-          if (os_log_type_enabled(v53, v54))
+          v55 = outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v75, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
+          v56 = OUTLINED_FUNCTION_119(v55);
+          v57 = static os_log_type_t.error.getter();
+          if (os_log_type_enabled(v56, v57))
           {
             *swift_slowAlloc() = 0;
-            OUTLINED_FUNCTION_7_4(&dword_1BBC58000, v55, v56, "Tried to pop next notice but there wasn't a notice to pop");
+            OUTLINED_FUNCTION_7_4(&dword_1BBC58000, v58, v59, "Tried to pop next notice but there wasn't a notice to pop");
             OUTLINED_FUNCTION_26();
           }
 
-          v75 = 0;
-          v73 = 0u;
-          v74 = 0u;
+          v79 = 0;
+          v77 = 0u;
+          v78 = 0u;
           OUTLINED_FUNCTION_6_114();
-          (*(v57 + 144))(&v73);
+          (*(v60 + 144))(&v77);
         }
       }
 
-      __swift_destroy_boxed_opaque_existential_1(&v76);
+      __swift_destroy_boxed_opaque_existential_1(&v80);
     }
 
     else
     {
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v73, &_s15ConversationKit6Notice_pSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v77, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
     }
 
-    __swift_destroy_boxed_opaque_existential_1(v79);
+    __swift_destroy_boxed_opaque_existential_1(v83);
   }
 
   else
   {
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v76, &_s15ConversationKit6Notice_pSgMd);
-    v48 = OUTLINED_FUNCTION_119();
-    v49 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v48, v49))
+    v49 = outlined destroy of ConversationControlsMoreMenuButtonDelegate?(&v80, &_s15ConversationKit6Notice_pSgMd, &_s15ConversationKit6Notice_pSgMR);
+    v50 = OUTLINED_FUNCTION_119(v49);
+    v51 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v50, v51))
     {
       *swift_slowAlloc() = 0;
-      OUTLINED_FUNCTION_7_4(&dword_1BBC58000, v50, v51, "> No active notice, present just pushed notice");
+      OUTLINED_FUNCTION_7_4(&dword_1BBC58000, v52, v53, "> No active notice, present just pushed notice");
       OUTLINED_FUNCTION_26();
     }
 
     ConversationControlsNoticeCoordinator.pop()();
     OUTLINED_FUNCTION_6_114();
-    (*(v52 + 144))(v79);
+    (*(v54 + 144))(v83);
   }
 
-  __swift_destroy_boxed_opaque_existential_1(v82);
+  __swift_destroy_boxed_opaque_existential_1(v86);
   OUTLINED_FUNCTION_30_0();
+}
+
+void specialized ConversationControlsNoticeCoordinator.post(notice:)(uint64_t a1, uint64_t a2)
+{
+  specialized ConversationControlsNoticeCoordinator.post(notice:)();
+}
+
+{
+  specialized ConversationControlsNoticeCoordinator.post(notice:)();
+}
+
+{
+  specialized ConversationControlsNoticeCoordinator.post(notice:)();
 }
 
 char *specialized SystemBannerHostViewController.init(controlsManager:sizeClass:type:delegate:isSystemAperturePresentation:requesterIdentifier:destination:layoutDescription:defaults:features:notificationCenter:activityUUID:fromActivityManager:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned __int8 a9, void *a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, unsigned __int8 a15, _BYTE *a16)
@@ -5296,52 +5293,52 @@ char *specialized SystemBannerHostViewController.init(controlsManager:sizeClass:
   v116 = a10;
   v118 = a13;
   v117 = a12;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMd);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMd, &_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMR);
   MEMORY[0x1EEE9AC00](v18 - 8);
   v142 = &v109 - v19;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9NSRunLoopC10FoundationE17SchedulerTimeTypeV6StrideVSgMd);
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9NSRunLoopC10FoundationE17SchedulerTimeTypeV6StrideVSgMd, "$X\b");
   MEMORY[0x1EEE9AC00](v20 - 8);
   v137 = &v109 - v21;
-  v138 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO3MapVy_AC8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAKy_AMy8Dispatch0K8WorkItemCSgAOGGGSo9NSRunLoopCGAUGMd);
+  v138 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO3MapVy_AC8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAKy_AMy8Dispatch0K8WorkItemCSgAOGGGSo9NSRunLoopCGAUGMd, "$X\b");
   v136 = *(v138 - 8);
   MEMORY[0x1EEE9AC00](v138);
   v135 = &v109 - v22;
-  v141 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO5DelayVy_AC3MapVy_AC8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAMy_AOy8Dispatch0L8WorkItemCSgAQGGGSo9NSRunLoopCGAWGA0_GMd);
+  v141 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO5DelayVy_AC3MapVy_AC8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAMy_AOy8Dispatch0L8WorkItemCSgAQGGGSo9NSRunLoopCGAWGA0_GMd, "lX\b");
   v140 = *(v141 - 8);
   MEMORY[0x1EEE9AC00](v141);
   v139 = &v109 - v23;
-  v145 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AC5DelayVy_AC3MapVy_AC8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAOy_AQy8Dispatch0N8WorkItemCSgASGGGSo9NSRunLoopCGAYGA2_GSo17OS_dispatch_queueCGMd);
+  v145 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AC5DelayVy_AC3MapVy_AC8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAOy_AQy8Dispatch0N8WorkItemCSgASGGGSo9NSRunLoopCGAYGA2_GSo17OS_dispatch_queueCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AC5DelayVy_AC3MapVy_AC8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAOy_AQy8Dispatch0N8WorkItemCSgASGGGSo9NSRunLoopCGAYGA2_GSo17OS_dispatch_queueCGMR);
   v144 = *(v145 - 8);
   MEMORY[0x1EEE9AC00](v145);
   v143 = &v109 - v24;
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
   MEMORY[0x1EEE9AC00](v25 - 8);
   v131 = &v109 - v26;
   v133 = type metadata accessor for NSRunLoop.SchedulerTimeType.Stride();
   v132 = *(v133 - 8);
   MEMORY[0x1EEE9AC00](v133);
   v130 = &v109 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v125 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO6FilterVy_AA19CurrentValueSubjectCy8Dispatch0G8WorkItemCSgs5NeverOGGMd);
+  v125 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO6FilterVy_AA19CurrentValueSubjectCy8Dispatch0G8WorkItemCSgs5NeverOGGMd, &_s7Combine10PublishersO6FilterVy_AA19CurrentValueSubjectCy8Dispatch0G8WorkItemCSgs5NeverOGGMR);
   v124 = *(v125 - 1);
   MEMORY[0x1EEE9AC00](v125);
   v123 = &v109 - v28;
-  v122 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGMd);
+  v122 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGMd, &_s7Combine10PublishersO6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGMR);
   v121 = *(v122 - 8);
   MEMORY[0x1EEE9AC00](v122);
   v120 = &v109 - v29;
-  v129 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAGy_AIy8Dispatch0I8WorkItemCSgAKGGGMd);
+  v129 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAGy_AIy8Dispatch0I8WorkItemCSgAKGGGMd, &_s7Combine10PublishersO3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAGy_AIy8Dispatch0I8WorkItemCSgAKGGGMR);
   v128 = *(v129 - 8);
   MEMORY[0x1EEE9AC00](v129);
   v127 = &v109 - v30;
-  v147 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAIy_AKy8Dispatch0J8WorkItemCSgAMGGGSo9NSRunLoopCGMd);
+  v147 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAIy_AKy8Dispatch0J8WorkItemCSgAMGGGSo9NSRunLoopCGMd, &_s7Combine10PublishersO8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAIy_AKy8Dispatch0J8WorkItemCSgAMGGGSo9NSRunLoopCGMR);
   v134 = *(v147 - 8);
   MEMORY[0x1EEE9AC00](v147);
   v146 = &v109 - v31;
   swift_unknownObjectWeakInit();
   v32 = &a16[OBJC_IVAR____TtC15ConversationKit30SystemBannerHostViewController_notice];
-  *(v32 + 32) = 0;
+  *(v32 + 4) = 0;
   *v32 = 0u;
-  *(v32 + 16) = 0u;
+  *(v32 + 1) = 0u;
   v33 = &a16[OBJC_IVAR____TtC15ConversationKit30SystemBannerHostViewController_captureGroupName];
   *v33 = 0xD00000000000001ALL;
   v33[1] = 0x80000001BC5103D0;
@@ -5349,7 +5346,7 @@ char *specialized SystemBannerHostViewController.init(controlsManager:sizeClass:
   *&a16[OBJC_IVAR____TtC15ConversationKit30SystemBannerHostViewController_shadowView] = 0;
   v34 = OBJC_IVAR____TtC15ConversationKit30SystemBannerHostViewController_invalidationTaskSubject;
   v156 = 0;
-  v115 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine19CurrentValueSubjectCy8Dispatch0E8WorkItemCSgs5NeverOGMd);
+  v115 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine19CurrentValueSubjectCy8Dispatch0E8WorkItemCSgs5NeverOGMd, _s7Combine19CurrentValueSubjectCy8Dispatch0E8WorkItemCSgs5NeverOGMR);
   swift_allocObject();
   *&a16[v34] = CurrentValueSubject.init(_:)();
   *&a16[OBJC_IVAR____TtC15ConversationKit30SystemBannerHostViewController_invalidationCancellable] = 0;
@@ -5465,7 +5462,7 @@ char *specialized SystemBannerHostViewController.init(controlsManager:sizeClass:
   v71 = &a16[OBJC_IVAR____TtC15ConversationKit30SystemBannerHostViewController_destination];
   *v71 = v113;
   v71[8] = v112 & 1;
-  v72 = type metadata accessor for SystemBannerHostViewController();
+  v72 = type metadata accessor for SystemBannerHostViewController(0);
   v153.receiver = a16;
   v153.super_class = v72;
   v73 = objc_msgSendSuper2(&v153, sel_initWithNibName_bundle_, 0, 0);
@@ -5508,19 +5505,19 @@ char *specialized SystemBannerHostViewController.init(controlsManager:sizeClass:
   v84 = *(v83(v82) + OBJC_IVAR____TtC15ConversationKit29SystemApertureAlertingManager_invalidationInProgressSubject);
 
   v152 = v84;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine19CurrentValueSubjectCySbs5NeverOGMd);
-  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type CurrentValueSubject<Bool, Never> and conformance CurrentValueSubject<A, B>, &_s7Combine19CurrentValueSubjectCySbs5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine19CurrentValueSubjectCySbs5NeverOGMd, &_s7Combine19CurrentValueSubjectCySbs5NeverOGMR);
+  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type CurrentValueSubject<Bool, Never> and conformance CurrentValueSubject<A, B>, &_s7Combine19CurrentValueSubjectCySbs5NeverOGMd, &_s7Combine19CurrentValueSubjectCySbs5NeverOGMR);
   v85 = v120;
   Publisher.filter(_:)();
 
   v152 = *(v81 + OBJC_IVAR____TtC15ConversationKit30SystemBannerHostViewController_invalidationTaskSubject);
-  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type CurrentValueSubject<DispatchWorkItem?, Never> and conformance CurrentValueSubject<A, B>, &_s7Combine19CurrentValueSubjectCy8Dispatch0E8WorkItemCSgs5NeverOGMd);
+  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type CurrentValueSubject<DispatchWorkItem?, Never> and conformance CurrentValueSubject<A, B>, &_s7Combine19CurrentValueSubjectCy8Dispatch0E8WorkItemCSgs5NeverOGMd, _s7Combine19CurrentValueSubjectCy8Dispatch0E8WorkItemCSgs5NeverOGMR);
 
   v86 = v123;
   Publisher.filter(_:)();
 
-  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.Filter<CurrentValueSubject<Bool, Never>> and conformance Publishers.Filter<A>, &_s7Combine10PublishersO6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGMd);
-  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.Filter<CurrentValueSubject<DispatchWorkItem?, Never>> and conformance Publishers.Filter<A>, &_s7Combine10PublishersO6FilterVy_AA19CurrentValueSubjectCy8Dispatch0G8WorkItemCSgs5NeverOGGMd);
+  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.Filter<CurrentValueSubject<Bool, Never>> and conformance Publishers.Filter<A>, &_s7Combine10PublishersO6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGMd, &_s7Combine10PublishersO6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGMR);
+  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.Filter<CurrentValueSubject<DispatchWorkItem?, Never>> and conformance Publishers.Filter<A>, &_s7Combine10PublishersO6FilterVy_AA19CurrentValueSubjectCy8Dispatch0G8WorkItemCSgs5NeverOGGMd, &_s7Combine10PublishersO6FilterVy_AA19CurrentValueSubjectCy8Dispatch0G8WorkItemCSgs5NeverOGGMR);
   v87 = v127;
   v88 = v122;
   v89 = v125;
@@ -5536,19 +5533,19 @@ char *specialized SystemBannerHostViewController.init(controlsManager:sizeClass:
   v125 = v58;
   v92 = v131;
   __swift_storeEnumTagSinglePayload(v131, 1, 1, v123);
-  v122 = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSRunLoop);
-  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.Zip<Publishers.Filter<CurrentValueSubject<Bool, Never>>, Publishers.Filter<CurrentValueSubject<DispatchWorkItem?, Never>>> and conformance Publishers.Zip<A, B>, &_s7Combine10PublishersO3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAGy_AIy8Dispatch0I8WorkItemCSgAKGGGMd);
-  v121 = lazy protocol witness table accessor for type TUConversationInvitationPreference and conformance NSObject(&lazy protocol witness table cache variable for type NSRunLoop and conformance NSRunLoop, &lazy cache variable for type metadata for NSRunLoop);
+  v122 = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSRunLoop, 0x1E695DFD0);
+  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.Zip<Publishers.Filter<CurrentValueSubject<Bool, Never>>, Publishers.Filter<CurrentValueSubject<DispatchWorkItem?, Never>>> and conformance Publishers.Zip<A, B>, &_s7Combine10PublishersO3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAGy_AIy8Dispatch0I8WorkItemCSgAKGGGMd, &_s7Combine10PublishersO3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAGy_AIy8Dispatch0I8WorkItemCSgAKGGGMR);
+  v121 = lazy protocol witness table accessor for type TUConversationInvitationPreference and conformance NSObject(&lazy protocol witness table cache variable for type NSRunLoop and conformance NSRunLoop, &lazy cache variable for type metadata for NSRunLoop, 0x1E695DFD0);
   v93 = v129;
   Publisher.debounce<A>(for:scheduler:options:)();
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v92, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v92, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
   v132 = *(v132 + 8);
   v94 = v133;
   (v132)(v90, v133);
   (*(v128 + 8))(v87, v93);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Dispatch0A8WorkItemCSgMd);
-  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.Debounce<Publishers.Zip<Publishers.Filter<CurrentValueSubject<Bool, Never>>, Publishers.Filter<CurrentValueSubject<DispatchWorkItem?, Never>>>, NSRunLoop> and conformance Publishers.Debounce<A, B>, &_s7Combine10PublishersO8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAIy_AKy8Dispatch0J8WorkItemCSgAMGGGSo9NSRunLoopCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Dispatch0A8WorkItemCSgMd, &_s8Dispatch0A8WorkItemCSgMR);
+  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.Debounce<Publishers.Zip<Publishers.Filter<CurrentValueSubject<Bool, Never>>, Publishers.Filter<CurrentValueSubject<DispatchWorkItem?, Never>>>, NSRunLoop> and conformance Publishers.Debounce<A, B>, &_s7Combine10PublishersO8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAIy_AKy8Dispatch0J8WorkItemCSgAMGGGSo9NSRunLoopCGMd, &_s7Combine10PublishersO8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAIy_AKy8Dispatch0J8WorkItemCSgAMGGGSo9NSRunLoopCGMR);
   v95 = v135;
   Publisher.map<A>(_:)();
   NSRunLoop.SchedulerTimeType.Stride.init(floatLiteral:)();
@@ -5557,33 +5554,33 @@ char *specialized SystemBannerHostViewController.init(controlsManager:sizeClass:
   v97 = [v124 mainRunLoop];
   v152 = v97;
   __swift_storeEnumTagSinglePayload(v92, 1, 1, v123);
-  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.Map<Publishers.Debounce<Publishers.Zip<Publishers.Filter<CurrentValueSubject<Bool, Never>>, Publishers.Filter<CurrentValueSubject<DispatchWorkItem?, Never>>>, NSRunLoop>, DispatchWorkItem?> and conformance Publishers.Map<A, B>, &_s7Combine10PublishersO3MapVy_AC8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAKy_AMy8Dispatch0K8WorkItemCSgAOGGGSo9NSRunLoopCGAUGMd);
+  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.Map<Publishers.Debounce<Publishers.Zip<Publishers.Filter<CurrentValueSubject<Bool, Never>>, Publishers.Filter<CurrentValueSubject<DispatchWorkItem?, Never>>>, NSRunLoop>, DispatchWorkItem?> and conformance Publishers.Map<A, B>, &_s7Combine10PublishersO3MapVy_AC8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAKy_AMy8Dispatch0K8WorkItemCSgAOGGGSo9NSRunLoopCGAUGMd, "$X\b");
   v98 = v139;
   v99 = v138;
   Publisher.delay<A>(for:tolerance:scheduler:options:)();
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v92, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v92, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v96, &_sSo9NSRunLoopC10FoundationE17SchedulerTimeTypeV6StrideVSgMd);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v96, &_sSo9NSRunLoopC10FoundationE17SchedulerTimeTypeV6StrideVSgMd, "$X\b");
   (v132)(v90, v94);
   (*(v136 + 8))(v95, v99);
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x1E69E9610);
   v100 = static OS_dispatch_queue.main.getter();
   v152 = v100;
   v101 = type metadata accessor for OS_dispatch_queue.SchedulerOptions();
   v102 = v142;
   __swift_storeEnumTagSinglePayload(v142, 1, 1, v101);
-  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.Delay<Publishers.Map<Publishers.Debounce<Publishers.Zip<Publishers.Filter<CurrentValueSubject<Bool, Never>>, Publishers.Filter<CurrentValueSubject<DispatchWorkItem?, Never>>>, NSRunLoop>, DispatchWorkItem?>, NSRunLoop> and conformance Publishers.Delay<A, B>, &_s7Combine10PublishersO5DelayVy_AC3MapVy_AC8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAMy_AOy8Dispatch0L8WorkItemCSgAQGGGSo9NSRunLoopCGAWGA0_GMd);
-  lazy protocol witness table accessor for type TUConversationInvitationPreference and conformance NSObject(&lazy protocol witness table cache variable for type OS_dispatch_queue and conformance OS_dispatch_queue, &lazy cache variable for type metadata for OS_dispatch_queue);
+  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.Delay<Publishers.Map<Publishers.Debounce<Publishers.Zip<Publishers.Filter<CurrentValueSubject<Bool, Never>>, Publishers.Filter<CurrentValueSubject<DispatchWorkItem?, Never>>>, NSRunLoop>, DispatchWorkItem?>, NSRunLoop> and conformance Publishers.Delay<A, B>, &_s7Combine10PublishersO5DelayVy_AC3MapVy_AC8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAMy_AOy8Dispatch0L8WorkItemCSgAQGGGSo9NSRunLoopCGAWGA0_GMd, "lX\b");
+  lazy protocol witness table accessor for type TUConversationInvitationPreference and conformance NSObject(&lazy protocol witness table cache variable for type OS_dispatch_queue and conformance OS_dispatch_queue, &lazy cache variable for type metadata for OS_dispatch_queue, 0x1E69E9610);
   v103 = v143;
   v104 = v141;
   Publisher.receive<A>(on:options:)();
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v102, &_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMd);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v102, &_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMd, &_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMR);
 
   (*(v140 + 8))(v98, v104);
   swift_allocObject();
   v105 = v114;
   swift_unknownObjectWeakInit();
-  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<Publishers.Delay<Publishers.Map<Publishers.Debounce<Publishers.Zip<Publishers.Filter<CurrentValueSubject<Bool, Never>>, Publishers.Filter<CurrentValueSubject<DispatchWorkItem?, Never>>>, NSRunLoop>, DispatchWorkItem?>, NSRunLoop>, OS_dispatch_queue> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AC5DelayVy_AC3MapVy_AC8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAOy_AQy8Dispatch0N8WorkItemCSgASGGGSo9NSRunLoopCGAYGA2_GSo17OS_dispatch_queueCGMd);
+  lazy protocol witness table accessor for type NSObject.KeyValueObservingPublisher<UICollectionView, CGPoint> and conformance NSObject.KeyValueObservingPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<Publishers.Delay<Publishers.Map<Publishers.Debounce<Publishers.Zip<Publishers.Filter<CurrentValueSubject<Bool, Never>>, Publishers.Filter<CurrentValueSubject<DispatchWorkItem?, Never>>>, NSRunLoop>, DispatchWorkItem?>, NSRunLoop>, OS_dispatch_queue> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AC5DelayVy_AC3MapVy_AC8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAOy_AQy8Dispatch0N8WorkItemCSgASGGGSo9NSRunLoopCGAYGA2_GSo17OS_dispatch_queueCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AC5DelayVy_AC3MapVy_AC8DebounceVy_AC3ZipVy_AC6FilterVy_AA19CurrentValueSubjectCySbs5NeverOGGAOy_AQy8Dispatch0N8WorkItemCSgASGGGSo9NSRunLoopCGAYGA2_GSo17OS_dispatch_queueCGMR);
   v106 = v145;
   v107 = Publisher<>.sink(receiveValue:)();
 
@@ -5892,9 +5889,9 @@ uint64_t outlined init with copy of FaceIDUnavailableNotice(uint64_t a1, uint64_
   return a2;
 }
 
-unint64_t OUTLINED_FUNCTION_99_4(uint64_t a1, unint64_t a2)
+uint64_t OUTLINED_FUNCTION_99_4(uint64_t a1, unint64_t a2)
 {
-  __swift_destroy_boxed_opaque_existential_1(v2 - 168);
+  __swift_destroy_boxed_opaque_existential_1((v2 - 168));
 
   return getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, (v2 - 256));
 }
@@ -5947,13 +5944,13 @@ uint64_t ParticipantViewRepresentableViewModel.isVideoEnabled.getter()
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (!EnumCaseMultiPayload)
   {
-    v9 = v3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c5VideoD0C0dE0VtMd) + 48);
+    v9 = v3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c5VideoD0C0dE0VtMd, &_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c5VideoD0C0dE0VtMR) + 48);
     goto LABEL_5;
   }
 
   if (EnumCaseMultiPayload == 1)
   {
-    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c5VideoD0C0dE0VAA0cg7OverlayD0CAHOtMd);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c5VideoD0C0dE0VAA0cg7OverlayD0CAHOtMd, &_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c5VideoD0C0dE0VAA0cg7OverlayD0CAHOtMR);
     v8 = *(v7 + 48);
     outlined destroy of ParticipantVideoOverlayView.ViewModel(v3 + *(v7 + 64));
     v9 = v3 + v8;
@@ -5964,7 +5961,7 @@ LABEL_5:
     return 1;
   }
 
-  v12 = v3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c8MonogramD0C0dE0VtMd) + 48);
+  v12 = v3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c8MonogramD0C0dE0VtMd, &_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c8MonogramD0C0dE0VtMR) + 48);
   v13 = *v12;
   v14 = *(v12 + 72);
   v15 = *(v12 + 80);
@@ -5996,7 +5993,7 @@ uint64_t ParticipantViewRepresentableViewModel.displayName.getter()
   {
     if (EnumCaseMultiPayload != 1)
     {
-      v17 = v3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c8MonogramD0C0dE0VtMd) + 48);
+      v17 = v3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c8MonogramD0C0dE0VtMd, &_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c8MonogramD0C0dE0VtMR) + 48);
       v18 = *v17;
       v19 = *(v17 + 72);
       v20 = *(v17 + 80);
@@ -6009,7 +6006,7 @@ uint64_t ParticipantViewRepresentableViewModel.displayName.getter()
       goto LABEL_7;
     }
 
-    v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c5VideoD0C0dE0VAA0cg7OverlayD0CAHOtMd);
+    v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c5VideoD0C0dE0VAA0cg7OverlayD0CAHOtMd, &_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c5VideoD0C0dE0VAA0cg7OverlayD0CAHOtMR);
     v15 = *(v14 + 48);
     v16 = *(v14 + 64);
     OUTLINED_FUNCTION_0_198();
@@ -6019,7 +6016,7 @@ uint64_t ParticipantViewRepresentableViewModel.displayName.getter()
 
   else
   {
-    v15 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c5VideoD0C0dE0VtMd) + 48);
+    v15 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c5VideoD0C0dE0VtMd, &_s15ConversationKit20ParticipantViewModelO0C7DetailsV_AA0c5VideoD0C0dE0VtMR) + 48);
     OUTLINED_FUNCTION_0_198();
     _s15ConversationKit20ParticipantViewModelO0C7DetailsVWObTm_0(v3, v7);
   }
@@ -6257,7 +6254,7 @@ uint64_t ParticipantViewRepresentable.init(viewModel:isInRoster:)@<X0>(uint64_t 
 char *ParticipantViewRepresentable.makeUIView(context:)()
 {
   v1 = *(v0 + *(type metadata accessor for ParticipantViewRepresentableViewModel(0) + 20));
-  v2 = objc_allocWithZone(type metadata accessor for ParticipantView());
+  v2 = objc_allocWithZone(type metadata accessor for ParticipantView(0));
   return ParticipantView.init(frame:localParticipant:)(v1);
 }
 
@@ -6272,21 +6269,21 @@ uint64_t ParticipantViewRepresentable.updateUIView(_:context:)()
 
 uint64_t protocol witness for static View._makeView(view:inputs:) in conformance ParticipantViewRepresentable(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = _s10Foundation4UUIDVACSHAAWlTm_8(&lazy protocol witness table cache variable for type ParticipantViewRepresentable and conformance ParticipantViewRepresentable, type metadata accessor for ParticipantViewRepresentable);
+  v6 = _s10Foundation4UUIDVACSHAAWlTm_8(&lazy protocol witness table cache variable for type ParticipantViewRepresentable and conformance ParticipantViewRepresentable, type metadata accessor for ParticipantViewRepresentable, &protocol conformance descriptor for ParticipantViewRepresentable);
 
   return MEMORY[0x1EEDDAA28](a1, a2, a3, v6);
 }
 
 uint64_t protocol witness for static View._makeViewList(view:inputs:) in conformance ParticipantViewRepresentable(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = _s10Foundation4UUIDVACSHAAWlTm_8(&lazy protocol witness table cache variable for type ParticipantViewRepresentable and conformance ParticipantViewRepresentable, type metadata accessor for ParticipantViewRepresentable);
+  v6 = _s10Foundation4UUIDVACSHAAWlTm_8(&lazy protocol witness table cache variable for type ParticipantViewRepresentable and conformance ParticipantViewRepresentable, type metadata accessor for ParticipantViewRepresentable, &protocol conformance descriptor for ParticipantViewRepresentable);
 
   return MEMORY[0x1EEDDA9B8](a1, a2, a3, v6);
 }
 
-void protocol witness for View.body.getter in conformance ParticipantViewRepresentable()
+void protocol witness for View.body.getter in conformance ParticipantViewRepresentable(uint64_t a1)
 {
-  _s10Foundation4UUIDVACSHAAWlTm_8(&lazy protocol witness table cache variable for type ParticipantViewRepresentable and conformance ParticipantViewRepresentable, type metadata accessor for ParticipantViewRepresentable);
+  _s10Foundation4UUIDVACSHAAWlTm_8(&lazy protocol witness table cache variable for type ParticipantViewRepresentable and conformance ParticipantViewRepresentable, type metadata accessor for ParticipantViewRepresentable, &protocol conformance descriptor for ParticipantViewRepresentable);
   UIViewRepresentable.body.getter();
   __break(1u);
 }
@@ -6298,7 +6295,7 @@ uint64_t outlined assign with take of ParticipantViewRepresentableViewModel(uint
   return a2;
 }
 
-uint64_t _s10Foundation4UUIDVACSHAAWlTm_8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t _s10Foundation4UUIDVACSHAAWlTm_8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6311,16 +6308,16 @@ uint64_t _s10Foundation4UUIDVACSHAAWlTm_8(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-void type metadata completion function for ParticipantViewRepresentableViewModel()
+void type metadata completion function for ParticipantViewRepresentableViewModel(uint64_t a1)
 {
   type metadata accessor for Participant(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for ParticipantViewModel(319);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for CNKDeviceOrientation(319);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -6328,10 +6325,10 @@ void type metadata completion function for ParticipantViewRepresentableViewModel
   }
 }
 
-uint64_t type metadata completion function for ParticipantViewRepresentable()
+uint64_t type metadata completion function for ParticipantViewRepresentable(uint64_t a1)
 {
   result = type metadata accessor for ParticipantViewRepresentableViewModel(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -6352,10 +6349,10 @@ uint64_t ScreenSharingSpectatorViewModel.__allocating_init(serverBag:interaction
 
 uint64_t key path setter for ScreenSharingSpectatorViewModel.broadcastingParticipant : ScreenSharingSpectatorViewModel(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v8 - v5;
-  outlined init with copy of (CGFloat, AutoplayCandidate)(a1, &v8 - v5, &_s15ConversationKit11ParticipantVSgMd);
+  outlined init with copy of (CGFloat, AutoplayCandidate)(a1, &v8 - v5, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   return (*(**a2 + 224))(v6);
 }
 
@@ -6368,12 +6365,12 @@ uint64_t ScreenSharingSpectatorViewModel.broadcastingParticipant.getter@<X0>(uin
   v4 = OBJC_IVAR____TtC15ConversationKit31ScreenSharingSpectatorViewModel__broadcastingParticipant;
   OUTLINED_FUNCTION_3_0();
   swift_beginAccess();
-  return outlined init with copy of (CGFloat, AutoplayCandidate)(v1 + v4, a1, &_s15ConversationKit11ParticipantVSgMd);
+  return outlined init with copy of (CGFloat, AutoplayCandidate)(v1 + v4, a1, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
 }
 
 uint64_t ScreenSharingSpectatorViewModel.broadcastingParticipant.setter(uint64_t a1)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   OUTLINED_FUNCTION_22(v4);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v5);
@@ -6381,10 +6378,10 @@ uint64_t ScreenSharingSpectatorViewModel.broadcastingParticipant.setter(uint64_t
   v6 = OBJC_IVAR____TtC15ConversationKit31ScreenSharingSpectatorViewModel__broadcastingParticipant;
   OUTLINED_FUNCTION_3_0();
   swift_beginAccess();
-  outlined init with copy of (CGFloat, AutoplayCandidate)(v1 + v6, v2, &_s15ConversationKit11ParticipantVSgMd);
+  outlined init with copy of (CGFloat, AutoplayCandidate)(v1 + v6, v2, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   v7 = OUTLINED_FUNCTION_45_1();
   v9 = specialized ScreenSharingSpectatorViewModel.shouldNotifyObservers<A>(_:_:)(v7, v8);
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v2, &_s15ConversationKit11ParticipantVSgMd);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v2, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   if (v9)
   {
     swift_getKeyPath();
@@ -6399,13 +6396,13 @@ uint64_t ScreenSharingSpectatorViewModel.broadcastingParticipant.setter(uint64_t
 
   else
   {
-    outlined init with copy of (CGFloat, AutoplayCandidate)(a1, v2, &_s15ConversationKit11ParticipantVSgMd);
+    outlined init with copy of (CGFloat, AutoplayCandidate)(a1, v2, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
     swift_beginAccess();
     outlined assign with take of Participant?(v2, v1 + v6);
     swift_endAccess();
   }
 
-  return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(a1, &_s15ConversationKit11ParticipantVSgMd);
+  return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(a1, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
 }
 
 uint64_t closure #1 in ScreenSharingSpectatorViewModel.broadcastingParticipant.setter(uint64_t a1, uint64_t a2)
@@ -6416,7 +6413,7 @@ uint64_t closure #1 in ScreenSharingSpectatorViewModel.broadcastingParticipant.s
   return swift_endAccess();
 }
 
-void (*ScreenSharingSpectatorViewModel.broadcastingParticipant.modify())(void *a1)
+uint64_t (*ScreenSharingSpectatorViewModel.broadcastingParticipant.modify())()
 {
   v1 = OUTLINED_FUNCTION_23_7();
   v2 = __swift_coroFrameAllocStub(v1);
@@ -6425,10 +6422,10 @@ void (*ScreenSharingSpectatorViewModel.broadcastingParticipant.modify())(void *a
   OUTLINED_FUNCTION_27_1();
   (*(v3 + 912))();
 
-  OUTLINED_FUNCTION_43_9();
+  OUTLINED_FUNCTION_43_9(v4, v5);
   OUTLINED_FUNCTION_0_199();
-  v6 = _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v4, v5);
-  OUTLINED_FUNCTION_19_17(v6);
+  v8 = _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v6, v7, &protocol conformance descriptor for ScreenSharingSpectatorViewModel);
+  OUTLINED_FUNCTION_19_17(v8);
 
   OUTLINED_FUNCTION_57_0();
   *(v0 + 56) = ScreenSharingSpectatorViewModel._broadcastingParticipant.modify();
@@ -6442,15 +6439,14 @@ uint64_t key path getter for ScreenSharingSpectatorViewModel.isZoomEnabled : Scr
   return result;
 }
 
-uint64_t closure #1 in ScreenSharingSpectatorViewModel.isZoomEnabled.setter(uint64_t a1, char a2)
+void closure #1 in ScreenSharingSpectatorViewModel.isZoomEnabled.setter(uint64_t a1, char a2)
 {
   v4 = OBJC_IVAR____TtC15ConversationKit31ScreenSharingSpectatorViewModel__isZoomEnabled;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(a1 + v4) = a2;
-  return result;
 }
 
-void (*ScreenSharingSpectatorViewModel.isZoomEnabled.modify())(void *a1)
+uint64_t (*ScreenSharingSpectatorViewModel.isZoomEnabled.modify())()
 {
   v1 = OUTLINED_FUNCTION_23_7();
   v2 = __swift_coroFrameAllocStub(v1);
@@ -6459,10 +6455,10 @@ void (*ScreenSharingSpectatorViewModel.isZoomEnabled.modify())(void *a1)
   OUTLINED_FUNCTION_27_1();
   (*(v3 + 912))();
 
-  OUTLINED_FUNCTION_43_9();
+  OUTLINED_FUNCTION_43_9(v4, v5);
   OUTLINED_FUNCTION_0_199();
-  v6 = _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v4, v5);
-  OUTLINED_FUNCTION_19_17(v6);
+  v8 = _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v6, v7, &protocol conformance descriptor for ScreenSharingSpectatorViewModel);
+  OUTLINED_FUNCTION_19_17(v8);
 
   OUTLINED_FUNCTION_57_0();
   *(v0 + 56) = ScreenSharingSpectatorViewModel._isZoomEnabled.modify();
@@ -6476,15 +6472,14 @@ uint64_t key path getter for ScreenSharingSpectatorViewModel.isPipped : ScreenSh
   return result;
 }
 
-uint64_t closure #1 in ScreenSharingSpectatorViewModel.isPipped.setter(uint64_t a1, char a2)
+void closure #1 in ScreenSharingSpectatorViewModel.isPipped.setter(uint64_t a1, char a2)
 {
   v4 = OBJC_IVAR____TtC15ConversationKit31ScreenSharingSpectatorViewModel__isPipped;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(a1 + v4) = a2;
-  return result;
 }
 
-void (*ScreenSharingSpectatorViewModel.isPipped.modify())(void *a1)
+uint64_t (*ScreenSharingSpectatorViewModel.isPipped.modify())()
 {
   v1 = OUTLINED_FUNCTION_23_7();
   v2 = __swift_coroFrameAllocStub(v1);
@@ -6493,10 +6488,10 @@ void (*ScreenSharingSpectatorViewModel.isPipped.modify())(void *a1)
   OUTLINED_FUNCTION_27_1();
   (*(v3 + 912))();
 
-  OUTLINED_FUNCTION_43_9();
+  OUTLINED_FUNCTION_43_9(v4, v5);
   OUTLINED_FUNCTION_0_199();
-  v6 = _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v4, v5);
-  OUTLINED_FUNCTION_19_17(v6);
+  v8 = _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v6, v7, &protocol conformance descriptor for ScreenSharingSpectatorViewModel);
+  OUTLINED_FUNCTION_19_17(v8);
 
   OUTLINED_FUNCTION_57_0();
   *(v0 + 56) = ScreenSharingSpectatorViewModel._isPipped.modify();
@@ -6522,14 +6517,14 @@ uint64_t ScreenSharingSpectatorViewModel.isZoomEnabled.getter(uint64_t a1, uint6
   return *(v2 + v5);
 }
 
-uint64_t ScreenSharingSpectatorViewModel.isZoomEnabled.setter(char a1, uint64_t *a2)
+void ScreenSharingSpectatorViewModel.isZoomEnabled.setter(char a1, uint64_t *a2, uint64_t a3)
 {
-  v3 = a1 & 1;
-  v4 = *a2;
-  result = swift_beginAccess();
-  if (*(v2 + v4) == v3)
+  v4 = a1 & 1;
+  v5 = *a2;
+  swift_beginAccess();
+  if (*(v3 + v5) == v4)
   {
-    *(v2 + v4) = v3;
+    *(v3 + v5) = v4;
   }
 
   else
@@ -6537,23 +6532,20 @@ uint64_t ScreenSharingSpectatorViewModel.isZoomEnabled.setter(char a1, uint64_t 
     KeyPath = swift_getKeyPath();
     MEMORY[0x1EEE9AC00](KeyPath);
     OUTLINED_FUNCTION_91();
-    *(v7 - 16) = v2;
-    *(v7 - 8) = v3;
-    (*(*v2 + 920))();
+    *(v7 - 16) = v3;
+    *(v7 - 8) = v4;
+    (*(*v3 + 920))();
   }
-
-  return result;
 }
 
-uint64_t closure #1 in ScreenSharingSpectatorViewModel.disableRequestButton.setter(uint64_t a1, char a2)
+void closure #1 in ScreenSharingSpectatorViewModel.disableRequestButton.setter(uint64_t a1, char a2)
 {
   v4 = OBJC_IVAR____TtC15ConversationKit31ScreenSharingSpectatorViewModel__disableRequestButton;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(a1 + v4) = a2;
-  return result;
 }
 
-void (*ScreenSharingSpectatorViewModel.disableRequestButton.modify())(void *a1)
+uint64_t (*ScreenSharingSpectatorViewModel.disableRequestButton.modify())()
 {
   v1 = OUTLINED_FUNCTION_23_7();
   v2 = __swift_coroFrameAllocStub(v1);
@@ -6562,10 +6554,10 @@ void (*ScreenSharingSpectatorViewModel.disableRequestButton.modify())(void *a1)
   OUTLINED_FUNCTION_27_1();
   (*(v3 + 912))();
 
-  OUTLINED_FUNCTION_43_9();
+  OUTLINED_FUNCTION_43_9(v4, v5);
   OUTLINED_FUNCTION_0_199();
-  v6 = _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v4, v5);
-  OUTLINED_FUNCTION_19_17(v6);
+  v8 = _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v6, v7, &protocol conformance descriptor for ScreenSharingSpectatorViewModel);
+  OUTLINED_FUNCTION_19_17(v8);
 
   OUTLINED_FUNCTION_57_0();
   *(v0 + 56) = ScreenSharingSpectatorViewModel._disableRequestButton.modify();
@@ -6586,21 +6578,7 @@ uint64_t key path setter for ScreenSharingSpectatorViewModel.activeParticipantOb
   return v2(v3);
 }
 
-uint64_t ScreenSharingSpectatorViewModel.activeParticipantObserver.getter()
-{
-  return ScreenSharingSpectatorViewModel.activeParticipantObserver.getter();
-}
-
-{
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_0_1();
-  (*(v0 + 912))();
-
-  OUTLINED_FUNCTION_3_0();
-  swift_beginAccess();
-}
-
-void (*ScreenSharingSpectatorViewModel.activeParticipantObserver.modify())(void *a1)
+uint64_t (*ScreenSharingSpectatorViewModel.activeParticipantObserver.modify())()
 {
   v1 = OUTLINED_FUNCTION_23_7();
   v2 = __swift_coroFrameAllocStub(v1);
@@ -6609,10 +6587,10 @@ void (*ScreenSharingSpectatorViewModel.activeParticipantObserver.modify())(void 
   OUTLINED_FUNCTION_27_1();
   (*(v3 + 912))();
 
-  OUTLINED_FUNCTION_43_9();
+  OUTLINED_FUNCTION_43_9(v4, v5);
   OUTLINED_FUNCTION_0_199();
-  v6 = _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v4, v5);
-  OUTLINED_FUNCTION_19_17(v6);
+  v8 = _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v6, v7, &protocol conformance descriptor for ScreenSharingSpectatorViewModel);
+  OUTLINED_FUNCTION_19_17(v8);
 
   OUTLINED_FUNCTION_57_0();
   *(v0 + 56) = ScreenSharingSpectatorViewModel._activeParticipantObserver.modify();
@@ -6633,27 +6611,37 @@ uint64_t key path setter for ScreenSharingSpectatorViewModel.sessionObserver : S
   return v2(v3);
 }
 
-uint64_t ScreenSharingSpectatorViewModel.activeParticipantObserver.setter(uint64_t a1, uint64_t *a2)
+uint64_t ScreenSharingSpectatorViewModel.activeParticipantObserver.getter(uint64_t a1)
 {
-  v4 = *a2;
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_0_1();
+  (*(v1 + 912))();
+
+  OUTLINED_FUNCTION_3_0();
+  swift_beginAccess();
+}
+
+uint64_t ScreenSharingSpectatorViewModel.activeParticipantObserver.setter(uint64_t a1, uint64_t *a2, uint64_t a3)
+{
+  v5 = *a2;
   swift_beginAccess();
 
-  v6 = specialized ScreenSharingSpectatorViewModel.shouldNotifyObservers<A>(_:_:)(v5, a1);
+  v7 = specialized ScreenSharingSpectatorViewModel.shouldNotifyObservers<A>(_:_:)(v6, a1);
 
-  if (v6)
+  if (v7)
   {
     swift_getKeyPath();
     OUTLINED_FUNCTION_31();
-    MEMORY[0x1EEE9AC00](v7);
+    MEMORY[0x1EEE9AC00](v8);
     OUTLINED_FUNCTION_91();
-    *(v8 - 16) = v2;
-    *(v8 - 8) = a1;
-    (*(*v2 + 920))();
+    *(v9 - 16) = v3;
+    *(v9 - 8) = a1;
+    (*(*v3 + 920))();
   }
 
   else
   {
-    *(v2 + v4) = a1;
+    *(v3 + v5) = a1;
   }
 }
 
@@ -6664,7 +6652,7 @@ uint64_t closure #1 in ScreenSharingSpectatorViewModel.activeParticipantObserver
   *(a1 + v5) = a2;
 }
 
-void (*ScreenSharingSpectatorViewModel.sessionObserver.modify())(void *a1)
+uint64_t (*ScreenSharingSpectatorViewModel.sessionObserver.modify())()
 {
   v1 = OUTLINED_FUNCTION_23_7();
   v2 = __swift_coroFrameAllocStub(v1);
@@ -6673,10 +6661,10 @@ void (*ScreenSharingSpectatorViewModel.sessionObserver.modify())(void *a1)
   OUTLINED_FUNCTION_27_1();
   (*(v3 + 912))();
 
-  OUTLINED_FUNCTION_43_9();
+  OUTLINED_FUNCTION_43_9(v4, v5);
   OUTLINED_FUNCTION_0_199();
-  v6 = _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v4, v5);
-  OUTLINED_FUNCTION_19_17(v6);
+  v8 = _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v6, v7, &protocol conformance descriptor for ScreenSharingSpectatorViewModel);
+  OUTLINED_FUNCTION_19_17(v8);
 
   OUTLINED_FUNCTION_57_0();
   *(v0 + 56) = ScreenSharingSpectatorViewModel._sessionObserver.modify();
@@ -6797,7 +6785,7 @@ uint64_t ScreenSharingSpectatorViewModel.remoteControlStateTransitionTime.setter
 uint64_t ScreenSharingSpectatorViewModel._remoteControlState.didset(unint64_t *a1)
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v24 - v5;
   v7 = *a1;
@@ -6858,7 +6846,7 @@ LABEL_18:
   if (v16)
   {
     v17 = v16;
-    v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+    v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     MEMORY[0x1BFB21000](v17, MEMORY[0x1E69E7CA8] + 8, v18, MEMORY[0x1E69E7288]);
   }
 
@@ -7036,7 +7024,7 @@ void ScreenSharingSpectatorViewModel._remoteControlRequirements.didset()
 {
   if (one-time initialization token for screenSharing != -1)
   {
-    OUTLINED_FUNCTION_0_7();
+    OUTLINED_FUNCTION_0_7(&one-time initialization token for screenSharing);
   }
 
   v2 = type metadata accessor for Logger();
@@ -7116,7 +7104,7 @@ uint64_t ScreenSharingSpectatorViewModel.init(serverBag:interactionController:sc
 
 uint64_t closure #1 in ScreenSharingSpectatorViewModel.init(serverBag:interactionController:screenSharingStateMonitor:)(uint64_t a1, void *a2)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   OUTLINED_FUNCTION_22(v3);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v4);
@@ -7191,7 +7179,7 @@ void closure #2 in ScreenSharingSpectatorViewModel.init(serverBag:interactionCon
   OUTLINED_FUNCTION_29();
   v2 = v1;
   v4 = v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVyShy15GroupActivities11ParticipantVG_GMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVyShy15GroupActivities11ParticipantVG_GMd, &_s7Combine9PublishedV9PublisherVyShy15GroupActivities11ParticipantVG_GMR);
   OUTLINED_FUNCTION_1();
   v36 = v6;
   OUTLINED_FUNCTION_21();
@@ -7200,7 +7188,7 @@ void closure #2 in ScreenSharingSpectatorViewModel.init(serverBag:interactionCon
   v10 = *v4;
   if (one-time initialization token for screenSharing != -1)
   {
-    OUTLINED_FUNCTION_0_7();
+    OUTLINED_FUNCTION_0_7(&one-time initialization token for screenSharing);
   }
 
   v11 = type metadata accessor for Logger();
@@ -7252,7 +7240,7 @@ void closure #2 in ScreenSharingSpectatorViewModel.init(serverBag:interactionCon
       v38[0] = v2;
       swift_getKeyPath();
       OUTLINED_FUNCTION_0_199();
-      _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v22, v23);
+      _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v22, v23, &protocol conformance descriptor for ScreenSharingSpectatorViewModel);
       OUTLINED_FUNCTION_49_20();
       ObservationRegistrar.willSet<A, B>(_:keyPath:)();
 
@@ -7276,7 +7264,7 @@ void closure #2 in ScreenSharingSpectatorViewModel.init(serverBag:interactionCon
     v38[0] = v2;
     swift_getKeyPath();
     OUTLINED_FUNCTION_0_199();
-    _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v26, v27);
+    _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v26, v27, &protocol conformance descriptor for ScreenSharingSpectatorViewModel);
     OUTLINED_FUNCTION_49_20();
     ObservationRegistrar.willSet<A, B>(_:keyPath:)();
 
@@ -7296,7 +7284,7 @@ void closure #2 in ScreenSharingSpectatorViewModel.init(serverBag:interactionCon
     v29 = swift_allocObject();
     *(v29 + 16) = v2;
     *(v29 + 24) = v10;
-    lazy protocol witness table accessor for type Published<Bool>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Set<Participant>>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVyShy15GroupActivities11ParticipantVG_GMd);
+    lazy protocol witness table accessor for type Published<Bool>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Set<Participant>>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVyShy15GroupActivities11ParticipantVG_GMd, &_s7Combine9PublishedV9PublisherVyShy15GroupActivities11ParticipantVG_GMR);
 
     v30 = Publisher<>.sink(receiveValue:)();
 
@@ -7326,7 +7314,7 @@ uint64_t closure #1 in closure #2 in ScreenSharingSpectatorViewModel.init(server
   (*(*a1 + 912))();
 
   swift_getKeyPath();
-  _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type ScreenSharingSpectatorViewModel and conformance ScreenSharingSpectatorViewModel, type metadata accessor for ScreenSharingSpectatorViewModel);
+  _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type ScreenSharingSpectatorViewModel and conformance ScreenSharingSpectatorViewModel, type metadata accessor for ScreenSharingSpectatorViewModel, &protocol conformance descriptor for ScreenSharingSpectatorViewModel);
   ObservationRegistrar.willSet<A, B>(_:keyPath:)();
 
   v4 = *(a1 + OBJC_IVAR____TtC15ConversationKit31ScreenSharingSpectatorViewModel__remoteControlRequirements);
@@ -7356,7 +7344,7 @@ uint64_t closure #2 in closure #2 in ScreenSharingSpectatorViewModel.init(server
   os_unfair_lock_unlock(v0 + 4);
 }
 
-uint64_t closure #1 in closure #2 in closure #2 in ScreenSharingSpectatorViewModel.init(serverBag:interactionController:screenSharingStateMonitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t closure #1 in closure #2 in closure #2 in ScreenSharingSpectatorViewModel.init(serverBag:interactionController:screenSharingStateMonitor:)(uint64_t a1, uint64_t a2, void *a3)
 {
   if (one-time initialization token for screenSharing != -1)
   {
@@ -7402,7 +7390,7 @@ uint64_t closure #1 in closure #2 in closure #2 in ScreenSharingSpectatorViewMod
   {
     v20 = a3;
     swift_getKeyPath();
-    _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type ScreenSharingSpectatorViewModel and conformance ScreenSharingSpectatorViewModel, type metadata accessor for ScreenSharingSpectatorViewModel);
+    _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type ScreenSharingSpectatorViewModel and conformance ScreenSharingSpectatorViewModel, type metadata accessor for ScreenSharingSpectatorViewModel, &protocol conformance descriptor for ScreenSharingSpectatorViewModel);
     ObservationRegistrar.willSet<A, B>(_:keyPath:)();
 
     v15 = OBJC_IVAR____TtC15ConversationKit31ScreenSharingSpectatorViewModel__remoteControlRequirements;
@@ -7419,7 +7407,7 @@ LABEL_11:
   {
     v20 = a3;
     swift_getKeyPath();
-    _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type ScreenSharingSpectatorViewModel and conformance ScreenSharingSpectatorViewModel, type metadata accessor for ScreenSharingSpectatorViewModel);
+    _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type ScreenSharingSpectatorViewModel and conformance ScreenSharingSpectatorViewModel, type metadata accessor for ScreenSharingSpectatorViewModel, &protocol conformance descriptor for ScreenSharingSpectatorViewModel);
     ObservationRegistrar.willSet<A, B>(_:keyPath:)();
 
     v15 = OBJC_IVAR____TtC15ConversationKit31ScreenSharingSpectatorViewModel__remoteControlRequirements;
@@ -7462,7 +7450,7 @@ uint64_t ScreenSharingSpectatorViewModel.activeControlParticipant.getter@<X0>(ch
 void ScreenSharingSpectatorViewModel.statusText.getter()
 {
   OUTLINED_FUNCTION_29();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   OUTLINED_FUNCTION_22(v3);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v4);
@@ -7514,7 +7502,7 @@ LABEL_35:
         v27.super.isa = v26;
         OUTLINED_FUNCTION_17_0(0xD000000000000020, 0x80000001BC517470, v28, v29, v27);
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
         v30 = swift_allocObject();
         *(v30 + 16) = xmmword_1BC4BA940;
         OUTLINED_FUNCTION_63_13();
@@ -7572,7 +7560,7 @@ LABEL_14:
       Participant.screenInfo.getter();
       if (v68 == 1)
       {
-        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v67, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd);
+        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v67, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMR);
       }
 
       else if (v71)
@@ -7594,7 +7582,7 @@ LABEL_14:
           v42.super.isa = v41;
           OUTLINED_FUNCTION_17_0(v43, 0x80000001BC5173C0, v44, v45, v42);
 
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
           v46 = swift_allocObject();
           *(v46 + 16) = xmmword_1BC4BAA20;
           Participant.contactDetails.getter();
@@ -7621,7 +7609,7 @@ LABEL_34:
       Participant.screenInfo.getter();
       if (v68 == 1)
       {
-        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v67, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd);
+        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v67, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMR);
         v49 = 0;
         v50 = 1;
       }
@@ -7649,7 +7637,7 @@ LABEL_34:
       v55.super.isa = v54;
       OUTLINED_FUNCTION_17_0(v51, v53, v56, v57, v55);
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
       v58 = swift_allocObject();
       *(v58 + 16) = xmmword_1BC4BA940;
       OUTLINED_FUNCTION_63_13();
@@ -7674,12 +7662,12 @@ LABEL_34:
     goto LABEL_18;
   }
 
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v2, &_s15ConversationKit11ParticipantVSgMd);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v2, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
 LABEL_36:
   OUTLINED_FUNCTION_30_0();
 }
 
-uint64_t ScreenSharingSpectatorViewModel.isContentTransformEnabled.getter()
+BOOL ScreenSharingSpectatorViewModel.isContentTransformEnabled.getter()
 {
   if (static Platform.current.getter())
   {
@@ -7700,7 +7688,7 @@ uint64_t ScreenSharingSpectatorViewModel.contentOrientation.getter()
   MEMORY[0x1EEE9AC00](v3);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_66_0();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   OUTLINED_FUNCTION_22(v4);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v5);
@@ -7716,14 +7704,14 @@ uint64_t ScreenSharingSpectatorViewModel.contentOrientation.getter()
   v8 = OUTLINED_FUNCTION_60_16();
   if (__swift_getEnumTagSinglePayload(v8, v9, v2))
   {
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v1, &_s15ConversationKit11ParticipantVSgMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v1, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
     return 0;
   }
 
   else
   {
     _s15ConversationKit11ParticipantVWOcTm_14(v1, v0, type metadata accessor for Participant);
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v1, &_s15ConversationKit11ParticipantVSgMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v1, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
     v10 = Participant.deviceOrientation.getter();
     _s15ConversationKit11ParticipantVWOhTm_14(v0, type metadata accessor for Participant);
   }
@@ -7733,7 +7721,7 @@ uint64_t ScreenSharingSpectatorViewModel.contentOrientation.getter()
 
 uint64_t ScreenSharingSpectatorViewModel.contentSize.getter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   v2 = OUTLINED_FUNCTION_22(v1);
   MEMORY[0x1EEE9AC00](v2);
   OUTLINED_FUNCTION_17();
@@ -7751,7 +7739,7 @@ uint64_t ScreenSharingSpectatorViewModel.contentSize.getter()
   (*(v17 + 216))();
   if (__swift_getEnumTagSinglePayload(v8, 1, v9) == 1)
   {
-    return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v8, &_s15ConversationKit11ParticipantVSgMd);
+    return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v8, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   }
 
   outlined init with take of Participant(v8, v16);
@@ -7781,7 +7769,7 @@ LABEL_14:
 
   if (one-time initialization token for conversationKit != -1)
   {
-    OUTLINED_FUNCTION_2_9();
+    OUTLINED_FUNCTION_2_9(&one-time initialization token for conversationKit);
   }
 
   v21 = type metadata accessor for Logger();
@@ -7801,7 +7789,7 @@ LABEL_14:
     specialized >> prefix<A>(_:)();
     v27 = v26;
     v29 = v28;
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v5, &_s15ConversationKit11ParticipantVSgMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v5, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
     _s15ConversationKit11ParticipantVWOhTm_14(v13, type metadata accessor for Participant);
     v30 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v27, v29, &v34);
 
@@ -7823,7 +7811,7 @@ LABEL_14:
 
 uint64_t ScreenSharingSpectatorViewModel.contentScale.getter()
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   OUTLINED_FUNCTION_22(v2);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v3);
@@ -7837,7 +7825,7 @@ uint64_t ScreenSharingSpectatorViewModel.contentScale.getter()
   (*(v6 + 216))();
   if (__swift_getEnumTagSinglePayload(v1, 1, v4) == 1)
   {
-    return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v1, &_s15ConversationKit11ParticipantVSgMd);
+    return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v1, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   }
 
   v8 = OUTLINED_FUNCTION_45_1();
@@ -7845,7 +7833,7 @@ uint64_t ScreenSharingSpectatorViewModel.contentScale.getter()
   Participant.screenInfo.getter();
   if (v12 == 1)
   {
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v11, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v11, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMR);
   }
 
   else
@@ -7858,7 +7846,7 @@ uint64_t ScreenSharingSpectatorViewModel.contentScale.getter()
   _s15ConversationKit11ParticipantVWOhTm_14(v0, v10);
   if (v12 == 1)
   {
-    return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v11, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd);
+    return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v11, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMR);
   }
 
   else
@@ -7869,7 +7857,7 @@ uint64_t ScreenSharingSpectatorViewModel.contentScale.getter()
 
 uint64_t ScreenSharingSpectatorViewModel.cornerRadius.getter()
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   OUTLINED_FUNCTION_22(v2);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v3);
@@ -7884,14 +7872,14 @@ uint64_t ScreenSharingSpectatorViewModel.cornerRadius.getter()
   v7 = OUTLINED_FUNCTION_60_16();
   if (__swift_getEnumTagSinglePayload(v7, v8, v4) == 1)
   {
-    return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v1, &_s15ConversationKit11ParticipantVSgMd);
+    return outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v1, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   }
 
   outlined init with take of Participant(v1, v0);
   Participant.screenInfo.getter();
   if (v14 == 1)
   {
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v13, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v13, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMR);
     if (one-time initialization token for shared != -1)
     {
       swift_once();
@@ -7926,7 +7914,7 @@ LABEL_11:
       static UIView.screenScale.getter();
       goto LABEL_10;
     default:
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo25TUScreenShareDeviceFamilyVSgMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo25TUScreenShareDeviceFamilyVSgMd, &_sSo25TUScreenShareDeviceFamilyVSgMR);
       result = _diagnoseUnexpectedEnumCase<A>(type:)();
       __break(1u);
       break;
@@ -7950,12 +7938,12 @@ uint64_t ScreenSharingSpectatorViewModel.bezelEffects.getter()
     OUTLINED_FUNCTION_13_38();
     if (((*(v2 + 312))() & 1) == 0)
     {
-      specialized Set._Variant.insert(_:)(&v8, 1u);
+      specialized Set._Variant.insert(_:)(&v8, 1);
       OUTLINED_FUNCTION_87_0();
       (*(v3 + 784))(&v7);
       if (v7 == 1)
       {
-        specialized Set._Variant.insert(_:)(&v6, 2u);
+        specialized Set._Variant.insert(_:)(&v6, 2);
       }
     }
   }
@@ -8039,15 +8027,15 @@ BOOL ScreenSharingSpectatorViewModel.shouldShowHomeButton.getter()
   MEMORY[0x1EEE9AC00](v3);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_66_0();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   OUTLINED_FUNCTION_22(v4);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v5);
   OUTLINED_FUNCTION_34();
   OUTLINED_FUNCTION_38_4();
-  (*(v6 + 648))(v15);
-  v7 = (v15[0] >> 61) - 2;
-  outlined consume of RemoteControlState(v15[0]);
+  (*(v6 + 648))(v16);
+  v7 = (v16[0] >> 61) - 2;
+  outlined consume of RemoteControlState(v16[0]);
   if (v7 > 2)
   {
     return 0;
@@ -8059,31 +8047,33 @@ BOOL ScreenSharingSpectatorViewModel.shouldShowHomeButton.getter()
   if (__swift_getEnumTagSinglePayload(v9, v10, v2))
   {
     v11 = &_s15ConversationKit11ParticipantVSgMd;
-    v12 = v1;
+    v12 = &_s15ConversationKit11ParticipantVSgMR;
+    v13 = v1;
 LABEL_6:
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v12, v11);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v13, v11, v12);
     return 0;
   }
 
   _s15ConversationKit11ParticipantVWOcTm_14(v1, v0, type metadata accessor for Participant);
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v1, &_s15ConversationKit11ParticipantVSgMd);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v1, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   Participant.screenInfo.getter();
   _s15ConversationKit11ParticipantVWOhTm_14(v0, type metadata accessor for Participant);
-  if (v15[3] == 1)
+  if (v16[3] == 1)
   {
     v11 = &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd;
-    v12 = v15;
+    v12 = &_s15ConversationKit11ParticipantV10ScreenInfoVSgMR;
+    v13 = v16;
     goto LABEL_6;
   }
 
-  if ((v16 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    v14 = v15[24];
-    outlined destroy of Participant.ScreenInfo(v15);
-    return v14 - 1 < 2;
+    v15 = v16[24];
+    outlined destroy of Participant.ScreenInfo(v16);
+    return v15 - 1 < 2;
   }
 
-  outlined destroy of Participant.ScreenInfo(v15);
+  outlined destroy of Participant.ScreenInfo(v16);
   return 0;
 }
 
@@ -8107,7 +8097,7 @@ Swift::Void __swiftcall ScreenSharingSpectatorViewModel.handleHomeButtonTapped()
     {
       if (one-time initialization token for screenSharing != -1)
       {
-        OUTLINED_FUNCTION_0_7();
+        OUTLINED_FUNCTION_0_7(&one-time initialization token for screenSharing);
       }
 
       v10 = type metadata accessor for Logger();
@@ -8189,7 +8179,7 @@ Swift::Void __swiftcall ScreenSharingSpectatorViewModel.requestOrEndRemoteContro
 
   if (one-time initialization token for screenSharing != -1)
   {
-    OUTLINED_FUNCTION_0_7();
+    OUTLINED_FUNCTION_0_7(&one-time initialization token for screenSharing);
   }
 
   v5 = type metadata accessor for Logger();
@@ -8225,7 +8215,7 @@ LABEL_16:
 
 Swift::Void __swiftcall ScreenSharingSpectatorViewModel.requestRemoteControl()()
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   OUTLINED_FUNCTION_22(v0);
   OUTLINED_FUNCTION_21();
   MEMORY[0x1EEE9AC00](v1);
@@ -8242,75 +8232,13 @@ Swift::Void __swiftcall ScreenSharingSpectatorViewModel.requestRemoteControl()()
 
 uint64_t closure #1 in ScreenSharingSpectatorViewModel.requestRemoteControl()()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit20RemoteControlRequestVSgMd, &_s15ConversationKit20RemoteControlRequestVSgMR);
   v0[3] = swift_task_alloc();
   v0[4] = type metadata accessor for RemoteControlRequest(0);
   v0[5] = swift_task_alloc();
   v0[6] = swift_task_alloc();
 
   return MEMORY[0x1EEE6DFA0](closure #1 in ScreenSharingSpectatorViewModel.requestRemoteControl(), 0, 0);
-}
-
-{
-  v22 = v0;
-  UUID.init()();
-  Date.init()();
-  if (one-time initialization token for screenSharing != -1)
-  {
-    OUTLINED_FUNCTION_0_7();
-  }
-
-  v1 = v0[5];
-  v2 = v0[6];
-  v3 = type metadata accessor for Logger();
-  v0[7] = __swift_project_value_buffer(v3, &static Log.screenSharing);
-  _s15ConversationKit11ParticipantVWOcTm_14(v2, v1, type metadata accessor for RemoteControlRequest);
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.default.getter();
-  v6 = OUTLINED_FUNCTION_18_0(v5);
-  v7 = v0[5];
-  if (v6)
-  {
-    v9 = v0[3];
-    v8 = v0[4];
-    v10 = OUTLINED_FUNCTION_42();
-    v21 = OUTLINED_FUNCTION_23();
-    *v10 = 136446210;
-    _s15ConversationKit11ParticipantVWOcTm_14(v7, v9, type metadata accessor for RemoteControlRequest);
-    __swift_storeEnumTagSinglePayload(v9, 0, 1, v8);
-    specialized >> prefix<A>(_:)();
-    v12 = v11;
-    v14 = v13;
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v9, &_s15ConversationKit20RemoteControlRequestVSgMd);
-    _s15ConversationKit11ParticipantVWOhTm_14(v7, type metadata accessor for RemoteControlRequest);
-    v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v14, &v21);
-
-    *(v10 + 4) = v15;
-    _os_log_impl(&dword_1BBC58000, v4, v5, "Sending remote control request %{public}s", v10, 0xCu);
-    OUTLINED_FUNCTION_9_7();
-    OUTLINED_FUNCTION_27();
-  }
-
-  else
-  {
-
-    OUTLINED_FUNCTION_7_97();
-    _s15ConversationKit11ParticipantVWOhTm_14(v7, v16);
-  }
-
-  if (one-time initialization token for shared != -1)
-  {
-    swift_once();
-  }
-
-  OUTLINED_FUNCTION_5_18();
-  v20 = (*(v17 + 552) + **(v17 + 552));
-  v18 = swift_task_alloc();
-  v0[8] = v18;
-  *v18 = v0;
-  v18[1] = closure #1 in ScreenSharingSpectatorViewModel.requestRemoteControl();
-
-  return v20();
 }
 
 {
@@ -8362,7 +8290,7 @@ uint64_t closure #1 in ScreenSharingSpectatorViewModel.requestRemoteControl()()
     *v8 = 136315138;
     *(v1 + 16) = v7;
     v10 = v7;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     v11 = String.init<A>(reflecting:)();
     v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, &v17);
 
@@ -8381,6 +8309,69 @@ uint64_t closure #1 in ScreenSharingSpectatorViewModel.requestRemoteControl()()
   OUTLINED_FUNCTION_13();
 
   return v15();
+}
+
+uint64_t closure #1 in ScreenSharingSpectatorViewModel.requestRemoteControl()(uint64_t a1)
+{
+  v23 = v1;
+  UUID.init()();
+  Date.init()();
+  if (one-time initialization token for screenSharing != -1)
+  {
+    OUTLINED_FUNCTION_0_7(&one-time initialization token for screenSharing);
+  }
+
+  v2 = v1[5];
+  v3 = v1[6];
+  v4 = type metadata accessor for Logger();
+  v1[7] = __swift_project_value_buffer(v4, &static Log.screenSharing);
+  _s15ConversationKit11ParticipantVWOcTm_14(v3, v2, type metadata accessor for RemoteControlRequest);
+  v5 = Logger.logObject.getter();
+  v6 = static os_log_type_t.default.getter();
+  v7 = OUTLINED_FUNCTION_18_0(v6);
+  v8 = v1[5];
+  if (v7)
+  {
+    v10 = v1[3];
+    v9 = v1[4];
+    v11 = OUTLINED_FUNCTION_42();
+    v22 = OUTLINED_FUNCTION_23();
+    *v11 = 136446210;
+    _s15ConversationKit11ParticipantVWOcTm_14(v8, v10, type metadata accessor for RemoteControlRequest);
+    __swift_storeEnumTagSinglePayload(v10, 0, 1, v9);
+    specialized >> prefix<A>(_:)();
+    v13 = v12;
+    v15 = v14;
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v10, &_s15ConversationKit20RemoteControlRequestVSgMd, &_s15ConversationKit20RemoteControlRequestVSgMR);
+    _s15ConversationKit11ParticipantVWOhTm_14(v8, type metadata accessor for RemoteControlRequest);
+    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v15, &v22);
+
+    *(v11 + 4) = v16;
+    _os_log_impl(&dword_1BBC58000, v5, v6, "Sending remote control request %{public}s", v11, 0xCu);
+    OUTLINED_FUNCTION_9_7();
+    OUTLINED_FUNCTION_27();
+  }
+
+  else
+  {
+
+    OUTLINED_FUNCTION_7_97();
+    _s15ConversationKit11ParticipantVWOhTm_14(v8, v17);
+  }
+
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  OUTLINED_FUNCTION_5_18();
+  v21 = (*(v18 + 552) + **(v18 + 552));
+  v19 = swift_task_alloc();
+  v1[8] = v19;
+  *v19 = v1;
+  v19[1] = closure #1 in ScreenSharingSpectatorViewModel.requestRemoteControl();
+
+  return v21();
 }
 
 Swift::Void __swiftcall ScreenSharingSpectatorViewModel.endRemoteControl()()
@@ -8423,7 +8414,7 @@ Swift::Void __swiftcall ScreenSharingSpectatorViewModel.cancelOrEndRemoteControl
 LABEL_3:
       if (one-time initialization token for screenSharing != -1)
       {
-        OUTLINED_FUNCTION_0_7();
+        OUTLINED_FUNCTION_0_7(&one-time initialization token for screenSharing);
       }
 
       v4 = type metadata accessor for Logger();
@@ -8462,17 +8453,17 @@ LABEL_14:
   }
 }
 
-uint64_t ScreenSharingSpectatorViewModel.access<A>(keyPath:)()
+uint64_t ScreenSharingSpectatorViewModel.access<A>(keyPath:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_0_199();
-  _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v0, v1);
+  _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v1, v2, &protocol conformance descriptor for ScreenSharingSpectatorViewModel);
   return ObservationRegistrar.access<A, B>(_:keyPath:)();
 }
 
-uint64_t ScreenSharingSpectatorViewModel.withMutation<A, B>(keyPath:_:)()
+uint64_t ScreenSharingSpectatorViewModel.withMutation<A, B>(keyPath:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   OUTLINED_FUNCTION_0_199();
-  _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v0, v1);
+  _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(v4, v5, &protocol conformance descriptor for ScreenSharingSpectatorViewModel);
   OUTLINED_FUNCTION_49_20();
   return ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 }
@@ -8484,7 +8475,7 @@ BOOL specialized ScreenSharingSpectatorViewModel.shouldNotifyObservers<A>(_:_:)(
     if (a2)
     {
       type metadata accessor for AnyCancellable();
-      _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type AnyCancellable and conformance AnyCancellable, MEMORY[0x1E695BF10]);
+      _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type AnyCancellable and conformance AnyCancellable, MEMORY[0x1E695BF10], MEMORY[0x1E695BF20]);
 
       v2 = dispatch thunk of static Equatable.== infix(_:_:)();
     }
@@ -8507,18 +8498,18 @@ BOOL specialized ScreenSharingSpectatorViewModel.shouldNotifyObservers<A>(_:_:)(
   v4 = type metadata accessor for Participant(0);
   MEMORY[0x1EEE9AC00](v4);
   v6 = &v42 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v42 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSg_ADtMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSg_ADtMd, &_s15ConversationKit11ParticipantVSg_ADtMR);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v12 = &v42 - v11;
   v14 = *(v13 + 56);
-  outlined init with copy of (CGFloat, AutoplayCandidate)(a1, &v42 - v11, &_s15ConversationKit11ParticipantVSgMd);
-  outlined init with copy of (CGFloat, AutoplayCandidate)(a2, &v12[v14], &_s15ConversationKit11ParticipantVSgMd);
+  outlined init with copy of (CGFloat, AutoplayCandidate)(a1, &v42 - v11, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
+  outlined init with copy of (CGFloat, AutoplayCandidate)(a2, &v12[v14], &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   if (__swift_getEnumTagSinglePayload(v12, 1, v4) != 1)
   {
-    outlined init with copy of (CGFloat, AutoplayCandidate)(v12, v9, &_s15ConversationKit11ParticipantVSgMd);
+    outlined init with copy of (CGFloat, AutoplayCandidate)(v12, v9, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
     if (__swift_getEnumTagSinglePayload(&v12[v14], 1, v4) == 1)
     {
       _s15ConversationKit11ParticipantVWOhTm_14(v9, type metadata accessor for Participant);
@@ -8638,18 +8629,18 @@ LABEL_11:
 LABEL_36:
     _s15ConversationKit11ParticipantVWOhTm_14(v6, type metadata accessor for Participant);
     _s15ConversationKit11ParticipantVWOhTm_14(v9, type metadata accessor for Participant);
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v12, &_s15ConversationKit11ParticipantVSgMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v12, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
     return v15;
   }
 
   if (__swift_getEnumTagSinglePayload(&v12[v14], 1, v4) != 1)
   {
 LABEL_6:
-    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v12, &_s15ConversationKit11ParticipantVSg_ADtMd);
+    outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v12, &_s15ConversationKit11ParticipantVSg_ADtMd, &_s15ConversationKit11ParticipantVSg_ADtMR);
     return 1;
   }
 
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v12, &_s15ConversationKit11ParticipantVSgMd);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v12, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   return 0;
 }
 
@@ -8662,7 +8653,7 @@ BOOL specialized ScreenSharingSpectatorViewModel.shouldNotifyObservers<A>(_:_:)(
 
 uint64_t ScreenSharingSpectatorViewModel.deinit()
 {
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v0 + OBJC_IVAR____TtC15ConversationKit31ScreenSharingSpectatorViewModel__broadcastingParticipant, &_s15ConversationKit11ParticipantVSgMd);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v0 + OBJC_IVAR____TtC15ConversationKit31ScreenSharingSpectatorViewModel__broadcastingParticipant, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
 
   outlined consume of RemoteControlState(*(v0 + OBJC_IVAR____TtC15ConversationKit31ScreenSharingSpectatorViewModel__remoteControlState));
 
@@ -8685,19 +8676,19 @@ void ScreenSharingSpectatorViewModel.screenSharingStateMonitorDidUpdateScreenInf
 {
   OUTLINED_FUNCTION_29();
   v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   v3 = OUTLINED_FUNCTION_22(v2);
   MEMORY[0x1EEE9AC00](v3);
   OUTLINED_FUNCTION_17();
   v6 = v4 - v5;
   MEMORY[0x1EEE9AC00](v7);
-  v9 = &v66 - v8;
+  v9 = &v67 - v8;
   v10 = type metadata accessor for Participant(0);
   OUTLINED_FUNCTION_7_0();
   MEMORY[0x1EEE9AC00](v11);
   OUTLINED_FUNCTION_8();
   v14 = v13 - v12;
-  type metadata accessor for ScreenSharingStateMonitor();
+  type metadata accessor for ScreenSharingStateMonitor(0);
   v15 = swift_dynamicCastClass();
   if (v15)
   {
@@ -8706,10 +8697,10 @@ void ScreenSharingSpectatorViewModel.screenSharingStateMonitorDidUpdateScreenInf
     v16(v17);
     if (__swift_getEnumTagSinglePayload(v9, 1, v10) == 1)
     {
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v9, &_s15ConversationKit11ParticipantVSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v9, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
       if (one-time initialization token for conversationKit != -1)
       {
-        OUTLINED_FUNCTION_2_9();
+        OUTLINED_FUNCTION_2_9(&one-time initialization token for conversationKit);
       }
 
       v18 = type metadata accessor for Logger();
@@ -8738,26 +8729,27 @@ void ScreenSharingSpectatorViewModel.screenSharingStateMonitorDidUpdateScreenInf
     else
     {
       Participant.screenProvider.getter();
-      if (!v70[3])
+      if (!v71[3])
       {
         OUTLINED_FUNCTION_1_163();
         _s15ConversationKit11ParticipantVWOhTm_14(v14, v46);
         swift_unknownObjectRelease();
         v47 = &_s15ConversationKit24ParticipantVideoProvider_pSgMd;
-        v48 = v70;
+        v48 = _s15ConversationKit24ParticipantVideoProvider_pSgMR;
+        v49 = v71;
 LABEL_34:
-        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v48, v47);
+        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v49, v47, v48);
         goto LABEL_23;
       }
 
-      v28 = outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v70, &_s15ConversationKit24ParticipantVideoProvider_pSgMd);
+      v28 = outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v71, &_s15ConversationKit24ParticipantVideoProvider_pSgMd, _s15ConversationKit24ParticipantVideoProvider_pSgMR);
       (*(v0->isa + 27))(v28);
       v29 = Participant.requiresScreenInfoUpdate(from:)();
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v6, &_s15ConversationKit11ParticipantVSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v6, &_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
       if ((v29 & 1) == 0)
       {
         OUTLINED_FUNCTION_1_163();
-        _s15ConversationKit11ParticipantVWOhTm_14(v14, v49);
+        _s15ConversationKit11ParticipantVWOhTm_14(v14, v50);
 LABEL_8:
         swift_unknownObjectRelease();
 LABEL_23:
@@ -8773,25 +8765,25 @@ LABEL_23:
       Participant.screenInfo.getter();
       if (one-time initialization token for screenSharing != -1)
       {
-        OUTLINED_FUNCTION_0_7();
+        OUTLINED_FUNCTION_0_7(&one-time initialization token for screenSharing);
       }
 
       v33 = type metadata accessor for Logger();
       v34 = __swift_project_value_buffer(v33, &static Log.screenSharing);
-      outlined init with copy of (CGFloat, AutoplayCandidate)(v70, v68, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd);
-      v66 = v34;
+      outlined init with copy of (CGFloat, AutoplayCandidate)(v71, v69, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMR);
+      v67 = v34;
       v35 = Logger.logObject.getter();
       v36 = static os_log_type_t.default.getter();
       if (os_log_type_enabled(v35, v36))
       {
         v37 = OUTLINED_FUNCTION_42();
         v38 = OUTLINED_FUNCTION_23();
-        v67 = v38;
+        v68 = v38;
         *v37 = 136315138;
-        v39 = specialized >> prefix<A>(_:)(v68);
+        v39 = specialized >> prefix<A>(_:)(v69);
         v41 = v40;
-        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v68, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd);
-        v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v39, v41, &v67);
+        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v69, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMR);
+        v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v39, v41, &v68);
 
         *(v37 + 4) = v42;
         _os_log_impl(&dword_1BBC58000, v35, v36, "Received broadcaster screen info %s", v37, 0xCu);
@@ -8803,68 +8795,69 @@ LABEL_23:
       else
       {
 
-        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v68, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd);
+        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v69, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMR);
       }
 
-      v50 = Logger.logObject.getter();
-      v51 = static os_log_type_t.default.getter();
-      if (OUTLINED_FUNCTION_18_0(v51))
+      v51 = Logger.logObject.getter();
+      v52 = static os_log_type_t.default.getter();
+      if (OUTLINED_FUNCTION_18_0(v52))
       {
         OUTLINED_FUNCTION_42();
-        v52 = OUTLINED_FUNCTION_38_32();
-        v68[0] = v52;
+        v53 = OUTLINED_FUNCTION_38_32();
+        v69[0] = v53;
         *v36 = 136315138;
-        v67 = [objc_opt_self() currentDeviceFamily];
+        v68 = [objc_opt_self() currentDeviceFamily];
         type metadata accessor for TUScreenShareDeviceFamily(0);
-        v53 = String.init<A>(reflecting:)();
-        v55 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v53, v54, v68);
+        v54 = String.init<A>(reflecting:)();
+        v56 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v54, v55, v69);
 
-        *(v36 + 4) = v55;
-        OUTLINED_FUNCTION_4_63(&dword_1BBC58000, v56, v57, "Local user device type is %s");
-        __swift_destroy_boxed_opaque_existential_1(v52);
+        *(v36 + 4) = v56;
+        OUTLINED_FUNCTION_4_63(&dword_1BBC58000, v57, v58, "Local user device type is %s");
+        __swift_destroy_boxed_opaque_existential_1(v53);
         OUTLINED_FUNCTION_27();
         OUTLINED_FUNCTION_27();
       }
 
-      outlined init with copy of (CGFloat, AutoplayCandidate)(v70, v68, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd);
-      if (v68[3] == 1)
+      outlined init with copy of (CGFloat, AutoplayCandidate)(v71, v69, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMR);
+      if (v69[3] == 1)
       {
         swift_unknownObjectRelease();
-        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v70, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd);
+        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v71, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMR);
         OUTLINED_FUNCTION_1_163();
-        _s15ConversationKit11ParticipantVWOhTm_14(v14, v58);
-        v48 = v68;
+        _s15ConversationKit11ParticipantVWOhTm_14(v14, v59);
+        v49 = v69;
         v47 = &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd;
+        v48 = &_s15ConversationKit11ParticipantV10ScreenInfoVSgMR;
         goto LABEL_34;
       }
 
-      if (v69)
+      if (v70)
       {
         swift_unknownObjectRelease();
-        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v70, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd);
+        outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v71, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMR);
         OUTLINED_FUNCTION_1_163();
-        _s15ConversationKit11ParticipantVWOhTm_14(v14, v59);
-        outlined destroy of Participant.ScreenInfo(v68);
+        _s15ConversationKit11ParticipantVWOhTm_14(v14, v60);
+        outlined destroy of Participant.ScreenInfo(v69);
         goto LABEL_23;
       }
 
-      v60 = v68[23];
-      outlined destroy of Participant.ScreenInfo(v68);
-      v61 = [objc_opt_self() currentDeviceFamily];
-      v62 = ScreenSharingSpectatorViewModel.requirmentsLock.getter();
-      MEMORY[0x1EEE9AC00](v62);
-      *(&v66 - 4) = v61;
-      *(&v66 - 3) = v60;
-      *(&v66 - 2) = v1;
+      v61 = v69[23];
+      outlined destroy of Participant.ScreenInfo(v69);
+      v62 = [objc_opt_self() currentDeviceFamily];
+      v63 = ScreenSharingSpectatorViewModel.requirmentsLock.getter();
       MEMORY[0x1EEE9AC00](v63);
-      *(&v66 - 2) = partial apply for closure #1 in ScreenSharingSpectatorViewModel.screenSharingStateMonitorDidUpdateScreenInfoForParticipant(_:);
-      *(&v66 - 1) = v64;
-      os_unfair_lock_lock(v65 + 4);
+      *(&v67 - 4) = v62;
+      *(&v67 - 3) = v61;
+      *(&v67 - 2) = v1;
+      MEMORY[0x1EEE9AC00](v64);
+      *(&v67 - 2) = partial apply for closure #1 in ScreenSharingSpectatorViewModel.screenSharingStateMonitorDidUpdateScreenInfoForParticipant(_:);
+      *(&v67 - 1) = v65;
+      os_unfair_lock_lock(v66 + 4);
       partial apply for specialized closure #1 in OSAllocatedUnfairLock<A>.withLock<A>(_:)();
-      os_unfair_lock_unlock(v62 + 4);
+      os_unfair_lock_unlock(v63 + 4);
 
       swift_unknownObjectRelease();
-      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v70, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd);
+      outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v71, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMd, &_s15ConversationKit11ParticipantV10ScreenInfoVSgMR);
     }
 
     OUTLINED_FUNCTION_1_163();
@@ -8874,26 +8867,26 @@ LABEL_23:
 
   if (one-time initialization token for conversationKit != -1)
   {
-    OUTLINED_FUNCTION_2_9();
+    OUTLINED_FUNCTION_2_9(&one-time initialization token for conversationKit);
   }
 
   v22 = type metadata accessor for Logger();
   __swift_project_value_buffer(v22, static Logger.conversationKit);
   swift_unknownObjectRetain();
-  v66 = Logger.logObject.getter();
+  v67 = Logger.logObject.getter();
   v23 = static os_log_type_t.fault.getter();
   swift_unknownObjectRelease();
-  if (os_log_type_enabled(v66, v23))
+  if (os_log_type_enabled(v67, v23))
   {
     v24 = OUTLINED_FUNCTION_42();
-    v70[0] = OUTLINED_FUNCTION_23();
+    v71[0] = OUTLINED_FUNCTION_23();
     *v24 = 136315138;
     swift_getObjectType();
     v25 = _typeName(_:qualified:)();
-    v27 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v26, v70);
+    v27 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v26, v71);
 
     *(v24 + 4) = v27;
-    _os_log_impl(&dword_1BBC58000, v66, v23, "screenSharingStateMonitorDidUpdateScreenInfoForParticipant(_:) was unexpectedly passed a %s", v24, 0xCu);
+    _os_log_impl(&dword_1BBC58000, v67, v23, "screenSharingStateMonitorDidUpdateScreenInfoForParticipant(_:) was unexpectedly passed a %s", v24, 0xCu);
     OUTLINED_FUNCTION_9_7();
     OUTLINED_FUNCTION_27();
 
@@ -8928,7 +8921,7 @@ LABEL_14:
     (*(*a3 + 912))();
 
     swift_getKeyPath();
-    _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type ScreenSharingSpectatorViewModel and conformance ScreenSharingSpectatorViewModel, type metadata accessor for ScreenSharingSpectatorViewModel);
+    _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type ScreenSharingSpectatorViewModel and conformance ScreenSharingSpectatorViewModel, type metadata accessor for ScreenSharingSpectatorViewModel, &protocol conformance descriptor for ScreenSharingSpectatorViewModel);
     ObservationRegistrar.willSet<A, B>(_:keyPath:)();
 
     v5 = OBJC_IVAR____TtC15ConversationKit31ScreenSharingSpectatorViewModel__remoteControlRequirements;
@@ -8946,7 +8939,7 @@ LABEL_14:
   (*(*a3 + 912))();
 
   swift_getKeyPath();
-  _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type ScreenSharingSpectatorViewModel and conformance ScreenSharingSpectatorViewModel, type metadata accessor for ScreenSharingSpectatorViewModel);
+  _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type ScreenSharingSpectatorViewModel and conformance ScreenSharingSpectatorViewModel, type metadata accessor for ScreenSharingSpectatorViewModel, &protocol conformance descriptor for ScreenSharingSpectatorViewModel);
   ObservationRegistrar.willSet<A, B>(_:keyPath:)();
 
   v5 = OBJC_IVAR____TtC15ConversationKit31ScreenSharingSpectatorViewModel__remoteControlRequirements;
@@ -8990,9 +8983,9 @@ uint64_t specialized Clock.sleep(for:tolerance:)()
 {
   v1 = v0[9];
   v2 = type metadata accessor for ContinuousClock();
-  v3 = _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type ContinuousClock and conformance ContinuousClock, MEMORY[0x1E69E8820]);
+  v3 = _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type ContinuousClock and conformance ContinuousClock, MEMORY[0x1E69E8820], MEMORY[0x1E69E8828]);
   dispatch thunk of Clock.now.getter();
-  _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type ContinuousClock.Instant and conformance ContinuousClock.Instant, MEMORY[0x1E69E87E8]);
+  _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type ContinuousClock.Instant and conformance ContinuousClock.Instant, MEMORY[0x1E69E87E8], MEMORY[0x1E69E8818]);
   dispatch thunk of InstantProtocol.advanced(by:)();
   v0[12] = *(v1 + 8);
   v0[13] = (v1 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
@@ -9045,7 +9038,7 @@ uint64_t specialized Clock.sleep(for:tolerance:)()
 
 void *specialized closure #1 in OSAllocatedUnfairLock<A>.withLock<A>(_:)(uint64_t a1, void *(*a2)(uint64_t *__return_ptr))
 {
-  result = a2(&v4);
+  result = (a2)(&v4, a1);
   if (!v2)
   {
     return v4;
@@ -9068,12 +9061,12 @@ void *specialized closure #1 in OSAllocatedUnfairLock<A>.withLock<A>(_:)@<X0>(ui
 
 uint64_t outlined init with take of Participant?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15ConversationKit11ParticipantVSgMd, &_s15ConversationKit11ParticipantVSgMR);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
-uint64_t type metadata accessor for ScreenSharingSpectatorViewModel()
+uint64_t type metadata accessor for ScreenSharingSpectatorViewModel(uint64_t a1)
 {
   result = type metadata singleton initialization cache for ScreenSharingSpectatorViewModel;
   if (!type metadata singleton initialization cache for ScreenSharingSpectatorViewModel)
@@ -9139,13 +9132,13 @@ unint64_t lazy protocol witness table accessor for type RemoteControlRequirement
   return result;
 }
 
-void type metadata completion function for ScreenSharingSpectatorViewModel()
+void type metadata completion function for ScreenSharingSpectatorViewModel(uint64_t a1)
 {
-  type metadata accessor for Participant?();
-  if (v0 <= 0x3F)
+  type metadata accessor for Participant?(319);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for ObservationRegistrar();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_updateClassMetadata2();
     }
@@ -9171,7 +9164,7 @@ __n128 partial apply for closure #1 in ScreenSharingSpectatorViewModel.remoteCon
   return result;
 }
 
-uint64_t _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t _s15ConversationKit31ScreenSharingSpectatorViewModelCAC11Observation10ObservableAAWlTm_0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9204,27 +9197,27 @@ void OUTLINED_FUNCTION_67_13()
   _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5();
 }
 
-uint64_t CNKBannerPresentationManager.presentationDelegate.getter()
+uint64_t CNKBannerPresentationManager.presentationDelegate.getter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_19_1();
+  OUTLINED_FUNCTION_19_1(a1);
   OUTLINED_FUNCTION_5_130();
   OUTLINED_FUNCTION_4_137();
-  v1 = *(v0 + 272);
-  v3 = v2;
-  v4 = v1();
+  v2 = *(v1 + 272);
+  v4 = v3;
+  v5 = v2();
 
-  return v4;
+  return v5;
 }
 
-void CNKBannerPresentationManager.presentationDelegate.setter()
+void CNKBannerPresentationManager.presentationDelegate.setter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_9_67();
+  OUTLINED_FUNCTION_9_67(a1);
   OUTLINED_FUNCTION_7_98();
   OUTLINED_FUNCTION_4_137();
-  v2 = *(v1 + 280);
-  v4 = v3;
-  v5 = OUTLINED_FUNCTION_28_0();
-  v2(v5);
+  v3 = *(v2 + 280);
+  v5 = v4;
+  v6 = OUTLINED_FUNCTION_28_0();
+  v3(v6);
 }
 
 id key path getter for CNKBannerPresentationManager.presentationDelegate : CNKBannerPresentationManager@<X0>(id *a1@<X0>, void *a2@<X8>)
@@ -9234,27 +9227,27 @@ id key path getter for CNKBannerPresentationManager.presentationDelegate : CNKBa
   return result;
 }
 
-uint64_t CNKBannerPresentationManager.audioRoutingDelegate.getter()
+uint64_t CNKBannerPresentationManager.audioRoutingDelegate.getter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_19_1();
+  OUTLINED_FUNCTION_19_1(a1);
   OUTLINED_FUNCTION_5_130();
   OUTLINED_FUNCTION_4_137();
-  v1 = *(v0 + 296);
-  v3 = v2;
-  v4 = v1();
+  v2 = *(v1 + 296);
+  v4 = v3;
+  v5 = v2();
 
-  return v4;
+  return v5;
 }
 
-void CNKBannerPresentationManager.audioRoutingDelegate.setter()
+void CNKBannerPresentationManager.audioRoutingDelegate.setter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_9_67();
+  OUTLINED_FUNCTION_9_67(a1);
   OUTLINED_FUNCTION_7_98();
   OUTLINED_FUNCTION_4_137();
-  v2 = *(v1 + 304);
-  v4 = v3;
-  v5 = OUTLINED_FUNCTION_28_0();
-  v2(v5);
+  v3 = *(v2 + 304);
+  v5 = v4;
+  v6 = OUTLINED_FUNCTION_28_0();
+  v3(v6);
 }
 
 id key path getter for CNKBannerPresentationManager.audioRoutingDelegate : CNKBannerPresentationManager@<X0>(id *a1@<X0>, void *a2@<X8>)
@@ -9264,27 +9257,27 @@ id key path getter for CNKBannerPresentationManager.audioRoutingDelegate : CNKBa
   return result;
 }
 
-uint64_t CNKBannerPresentationManager.handedOffCall.getter()
+uint64_t CNKBannerPresentationManager.handedOffCall.getter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_19_1();
+  OUTLINED_FUNCTION_19_1(a1);
   OUTLINED_FUNCTION_5_130();
   OUTLINED_FUNCTION_4_137();
-  v1 = *(v0 + 368);
-  v3 = v2;
-  v4 = v1();
+  v2 = *(v1 + 368);
+  v4 = v3;
+  v5 = v2();
 
-  return v4;
+  return v5;
 }
 
-void CNKBannerPresentationManager.handedOffCall.setter()
+void CNKBannerPresentationManager.handedOffCall.setter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_9_67();
+  OUTLINED_FUNCTION_9_67(a1);
   OUTLINED_FUNCTION_7_98();
   OUTLINED_FUNCTION_4_137();
-  v2 = *(v1 + 376);
-  v4 = v3;
-  v5 = OUTLINED_FUNCTION_28_0();
-  v2(v5);
+  v3 = *(v2 + 376);
+  v5 = v4;
+  v6 = OUTLINED_FUNCTION_28_0();
+  v3(v6);
 }
 
 id key path getter for CNKBannerPresentationManager.handedOffCall : CNKBannerPresentationManager@<X0>(id *a1@<X0>, void *a2@<X8>)
@@ -9294,34 +9287,34 @@ id key path getter for CNKBannerPresentationManager.handedOffCall : CNKBannerPre
   return result;
 }
 
-uint64_t CNKBannerPresentationManager.inCallControlsVisible.getter()
+uint64_t CNKBannerPresentationManager.inCallControlsVisible.getter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_19_1();
+  OUTLINED_FUNCTION_19_1(a1);
   OUTLINED_FUNCTION_5_130();
   OUTLINED_FUNCTION_4_137();
-  v1 = *(v0 + 656);
-  v3 = v2;
-  v4 = v1();
+  v2 = *(v1 + 656);
+  v4 = v3;
+  v5 = v2();
 
-  return v4 & 1;
+  return v5 & 1;
 }
 
 void CNKBannerPresentationManager.localAudioTogglingDelegate.getter()
 {
   OUTLINED_FUNCTION_11_97();
   v0 = OBJC_IVAR___CNKBannerPresentationManager_value;
-  OUTLINED_FUNCTION_19_1();
+  OUTLINED_FUNCTION_19_1(v1);
   OUTLINED_FUNCTION_5_130();
   OUTLINED_FUNCTION_4_137();
-  v2 = *(v1 + 472);
-  v4 = v3;
+  v3 = *(v2 + 472);
+  v5 = v4;
   OUTLINED_FUNCTION_9_97();
-  v5 = v2();
+  v6 = v3();
 
-  if (v5)
+  if (v6)
   {
     OUTLINED_FUNCTION_2_20();
-    (*(v6 + 1328))();
+    (*(v7 + 1328))();
   }
 
   OUTLINED_FUNCTION_10_84();
@@ -9331,7 +9324,7 @@ void CNKBannerPresentationManager.localAudioTogglingDelegate.setter()
 {
   OUTLINED_FUNCTION_11_97();
   v1 = v0;
-  OUTLINED_FUNCTION_9_67();
+  OUTLINED_FUNCTION_9_67(v0);
   OUTLINED_FUNCTION_7_98();
   OUTLINED_FUNCTION_4_137();
   v3 = *(v2 + 472);
@@ -9359,17 +9352,17 @@ id key path getter for CNKBannerPresentationManager.localAudioTogglingDelegate :
   return result;
 }
 
-void CNKBannerPresentationManager.placeholderCallGroupUUID.getter(uint64_t a1@<X8>)
+void CNKBannerPresentationManager.placeholderCallGroupUUID.getter(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = OBJC_IVAR___CNKBannerPresentationManager_value;
-  OUTLINED_FUNCTION_9_67();
-  v4 = *(v1 + v3);
-  BannerPresentationManager.placeholderCallGroupUUID.getter(a1);
+  v4 = OBJC_IVAR___CNKBannerPresentationManager_value;
+  OUTLINED_FUNCTION_9_67(a1);
+  v5 = *(v2 + v4);
+  BannerPresentationManager.placeholderCallGroupUUID.getter(a2);
 }
 
 Class @objc CNKBannerPresentationManager.placeholderCallGroupUUID.getter(void *a1, uint64_t a2, void (*a3)(void))
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v12 - v6;
   v8 = a1;
@@ -9390,28 +9383,28 @@ void CNKBannerPresentationManager.callUUID.getter()
 {
   OUTLINED_FUNCTION_11_97();
   v1 = v0;
-  OUTLINED_FUNCTION_9_67();
+  OUTLINED_FUNCTION_9_67(v2);
   OUTLINED_FUNCTION_7_98();
   OUTLINED_FUNCTION_4_137();
-  v3 = *(v2 + 472);
-  v5 = v4;
-  v6 = v3();
+  v4 = *(v3 + 472);
+  v6 = v5;
+  v7 = v4();
 
-  if (v6)
+  if (v7)
   {
     OUTLINED_FUNCTION_6_112();
-    (*(v7 + 680))();
+    (*(v8 + 680))();
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = 1;
+    v9 = 1;
   }
 
-  v9 = type metadata accessor for UUID();
-  __swift_storeEnumTagSinglePayload(v1, v8, 1, v9);
+  v10 = type metadata accessor for UUID();
+  __swift_storeEnumTagSinglePayload(v1, v9, 1, v10);
   OUTLINED_FUNCTION_10_84();
 }
 
@@ -9419,18 +9412,18 @@ void CNKBannerPresentationManager.shouldShowCallDetailsWhenReady.getter()
 {
   OUTLINED_FUNCTION_11_97();
   v0 = OBJC_IVAR___CNKBannerPresentationManager_value;
-  OUTLINED_FUNCTION_19_1();
+  OUTLINED_FUNCTION_19_1(v1);
   OUTLINED_FUNCTION_5_130();
   OUTLINED_FUNCTION_4_137();
-  v2 = *(v1 + 472);
-  v4 = v3;
+  v3 = *(v2 + 472);
+  v5 = v4;
   OUTLINED_FUNCTION_9_97();
-  v5 = v2();
+  v6 = v3();
 
-  if (v5)
+  if (v6)
   {
     OUTLINED_FUNCTION_2_20();
-    (*(v6 + 912))();
+    (*(v7 + 912))();
   }
 
   OUTLINED_FUNCTION_10_84();
@@ -9440,18 +9433,18 @@ void CNKBannerPresentationManager.applicationState.getter()
 {
   OUTLINED_FUNCTION_11_97();
   v0 = OBJC_IVAR___CNKBannerPresentationManager_value;
-  OUTLINED_FUNCTION_19_1();
+  OUTLINED_FUNCTION_19_1(v1);
   OUTLINED_FUNCTION_5_130();
   OUTLINED_FUNCTION_4_137();
-  v2 = *(v1 + 472);
-  v4 = v3;
+  v3 = *(v2 + 472);
+  v5 = v4;
   OUTLINED_FUNCTION_9_97();
-  v5 = v2();
+  v6 = v3();
 
-  if (v5)
+  if (v6)
   {
     OUTLINED_FUNCTION_2_20();
-    (*(v6 + 2536))();
+    (*(v7 + 2536))();
   }
 
   OUTLINED_FUNCTION_10_84();
@@ -9461,7 +9454,7 @@ void CNKBannerPresentationManager.applicationState.setter()
 {
   OUTLINED_FUNCTION_11_97();
   v1 = v0;
-  OUTLINED_FUNCTION_9_67();
+  OUTLINED_FUNCTION_9_67(v0);
   OUTLINED_FUNCTION_7_98();
   OUTLINED_FUNCTION_4_137();
   v3 = *(v2 + 472);
@@ -9477,55 +9470,55 @@ void CNKBannerPresentationManager.applicationState.setter()
   OUTLINED_FUNCTION_10_84();
 }
 
-uint64_t CNKBannerPresentationManager.activeCall.getter()
+uint64_t CNKBannerPresentationManager.activeCall.getter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_19_1();
+  OUTLINED_FUNCTION_19_1(a1);
   OUTLINED_FUNCTION_5_130();
   OUTLINED_FUNCTION_4_137();
-  v1 = *(v0 + 392);
-  v3 = v2;
-  v4 = v1();
+  v2 = *(v1 + 392);
+  v4 = v3;
+  v5 = v2();
 
-  return v4;
+  return v5;
 }
 
-BOOL CNKBannerPresentationManager.hasAssociatedCall.getter()
+BOOL CNKBannerPresentationManager.hasAssociatedCall.getter(uint64_t a1)
 {
-  v1 = OBJC_IVAR___CNKBannerPresentationManager_value;
-  OUTLINED_FUNCTION_19_1();
-  v2 = *(v0 + v1);
-  v3 = BannerPresentationManager.associatedCall.getter();
+  v2 = OBJC_IVAR___CNKBannerPresentationManager_value;
+  OUTLINED_FUNCTION_19_1(a1);
+  v3 = *(v1 + v2);
+  v4 = BannerPresentationManager.associatedCall.getter();
 
-  if (v3)
+  if (v4)
   {
     swift_unknownObjectRelease();
   }
 
-  return v3 != 0;
+  return v4 != 0;
 }
 
 char *CNKBannerPresentationManager.gameControllerManager.getter()
 {
-  type metadata accessor for CNKGameControllerManager(0);
-  v1 = OBJC_IVAR___CNKBannerPresentationManager_value;
-  OUTLINED_FUNCTION_9_67();
-  return CNKGameControllerManager.init(value:)(*(*(v0 + v1) + OBJC_IVAR____TtC15ConversationKit25BannerPresentationManager_gameControllerManager));
+  v1 = type metadata accessor for CNKGameControllerManager(0);
+  v2 = OBJC_IVAR___CNKBannerPresentationManager_value;
+  OUTLINED_FUNCTION_9_67(v1);
+  return CNKGameControllerManager.init(value:)(*(*(v0 + v2) + OBJC_IVAR____TtC15ConversationKit25BannerPresentationManager_gameControllerManager));
 }
 
 Swift::Void __swiftcall CNKBannerPresentationManager.refreshShareableContentWithBundleIdentifier(_:)(Swift::String_optional a1)
 {
   object = a1.value._object;
   countAndFlagsBits = a1.value._countAndFlagsBits;
-  OUTLINED_FUNCTION_4_5();
-  v3 = MEMORY[0x1E69E7D40];
+  OUTLINED_FUNCTION_4_5(v1 + OBJC_IVAR___CNKBannerPresentationManager_value, a1.value._object);
+  v4 = MEMORY[0x1E69E7D40];
   OUTLINED_FUNCTION_4_137();
-  v5 = *(v4 + 472);
-  v7 = v6;
-  v8 = v5();
+  v6 = *(v5 + 472);
+  v8 = v7;
+  v9 = v6();
 
-  if (v8)
+  if (v9)
   {
-    (*((*v3 & *v8) + 0x890))(countAndFlagsBits, object);
+    (*((*v4 & *v9) + 0x890))(countAndFlagsBits, object);
   }
 }
 
@@ -9536,7 +9529,7 @@ Swift::Void __swiftcall CNKBannerPresentationManager.dismissPresentedBanner(forR
   v6 = v5;
   v8 = v7;
   v9 = OBJC_IVAR___CNKBannerPresentationManager_value;
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(v2 + OBJC_IVAR___CNKBannerPresentationManager_value, v5);
   v10 = *(v2 + v9);
   v11 = MEMORY[0x1BFB209B0](v8, v6);
   [v10 dismissPresentedBannerForReason:v11 animated:v4 & 1];
@@ -9547,7 +9540,7 @@ Swift::Void __swiftcall CNKBannerPresentationManager.dismissPresentedBanner(forR
 Swift::Void __swiftcall CNKBannerPresentationManager.gameControllerDidRequestFocus(_:)(Swift::Bool a1)
 {
   v3 = OBJC_IVAR___CNKBannerPresentationManager_value;
-  OUTLINED_FUNCTION_9_67();
+  OUTLINED_FUNCTION_9_67(a1);
   v4 = *(v1 + v3);
   BannerPresentationManager.requestKeyboardFocus(wantsKeyboardFocus:)(a1);
 }
@@ -9557,7 +9550,7 @@ Swift::Void __swiftcall CNKBannerPresentationManager.invalidatePersistentSystemA
   object = reason._object;
   countAndFlagsBits = reason._countAndFlagsBits;
   v4 = OBJC_IVAR___CNKBannerPresentationManager_value;
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(v1 + OBJC_IVAR___CNKBannerPresentationManager_value, reason._object);
   v5 = *(v1 + v4);
   v6 = MEMORY[0x1BFB209B0](countAndFlagsBits, object);
   [v5 invalidatePersistentSystemApertureAlertWithReason_];
@@ -9566,41 +9559,41 @@ Swift::Void __swiftcall CNKBannerPresentationManager.invalidatePersistentSystemA
 id CNKBannerPresentationManager.didUpdatePresentationModeToFullScreen()(SEL *a1)
 {
   v3 = OBJC_IVAR___CNKBannerPresentationManager_value;
-  OUTLINED_FUNCTION_9_67();
+  OUTLINED_FUNCTION_9_67(a1);
   return [*(v1 + v3) *a1];
 }
 
-uint64_t CNKBannerPresentationManager.makeSystemApertureElementProvider()()
+uint64_t CNKBannerPresentationManager.makeSystemApertureElementProvider()(uint64_t a1)
 {
-  OUTLINED_FUNCTION_19_1();
+  OUTLINED_FUNCTION_19_1(a1);
   OUTLINED_FUNCTION_5_130();
   OUTLINED_FUNCTION_4_137();
-  v1 = *(v0 + 592);
-  v3 = v2;
-  v4 = v1();
+  v2 = *(v1 + 592);
+  v4 = v3;
+  v5 = v2();
 
-  return v4;
+  return v5;
 }
 
-uint64_t CNKBannerPresentationManager.conversationControlsManager.getter()
+uint64_t CNKBannerPresentationManager.conversationControlsManager.getter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_19_1();
+  OUTLINED_FUNCTION_19_1(a1);
   OUTLINED_FUNCTION_5_130();
   OUTLINED_FUNCTION_4_137();
-  v1 = *(v0 + 472);
-  v3 = v2;
-  v4 = v1();
+  v2 = *(v1 + 472);
+  v4 = v3;
+  v5 = v2();
 
-  return v4;
+  return v5;
 }
 
-id CNKBannerPresentationManager.value.getter()
+id CNKBannerPresentationManager.value.getter(uint64_t a1)
 {
-  v1 = OBJC_IVAR___CNKBannerPresentationManager_value;
-  OUTLINED_FUNCTION_19_1();
-  v2 = *(v0 + v1);
+  v2 = OBJC_IVAR___CNKBannerPresentationManager_value;
+  OUTLINED_FUNCTION_19_1(a1);
+  v3 = *(v1 + v2);
 
-  return v2;
+  return v3;
 }
 
 void CNKBannerPresentationManager.value.setter(uint64_t a1)
@@ -9638,14 +9631,14 @@ uint64_t CNKBannerPresentationManager.init(delegate:)(uint64_t a1)
 void CNKBannerPresentationManager.init(delegate:)()
 {
   OUTLINED_FUNCTION_11_97();
-  [v0 init];
-  v1 = OBJC_IVAR___CNKBannerPresentationManager_value;
-  OUTLINED_FUNCTION_4_5();
+  v1 = [v0 init];
+  v2 = OBJC_IVAR___CNKBannerPresentationManager_value;
+  OUTLINED_FUNCTION_4_5(v1 + OBJC_IVAR___CNKBannerPresentationManager_value, v3);
   OUTLINED_FUNCTION_4_137();
-  v3 = *(v2 + 280);
-  v5 = v4;
-  v6 = OUTLINED_FUNCTION_28_0();
-  v3(v6);
+  v5 = *(v4 + 280);
+  v7 = v6;
+  v8 = OUTLINED_FUNCTION_28_0();
+  v5(v8);
 
   OUTLINED_FUNCTION_10_84();
 }
@@ -9709,7 +9702,7 @@ id PushToTalkTalkButtonGestureRecognizer.init(interval:maximumVerticalVelocity:t
 {
   *&v4[OBJC_IVAR____TtC15ConversationKit37PushToTalkTalkButtonGestureRecognizer_timer] = 0;
   v9 = OBJC_IVAR____TtC15ConversationKit37PushToTalkTalkButtonGestureRecognizer_previous;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7CGPointV8location_10Foundation4DateV4timetMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7CGPointV8location_10Foundation4DateV4timetMd, &_sSo7CGPointV8location_10Foundation4DateV4timetMR);
   __swift_storeEnumTagSinglePayload(&v4[v9], 1, 1, v10);
   *&v4[OBJC_IVAR____TtC15ConversationKit37PushToTalkTalkButtonGestureRecognizer_recognizedGestureWorkItem] = 0;
   v11 = OBJC_IVAR____TtC15ConversationKit37PushToTalkTalkButtonGestureRecognizer_interval;
@@ -9717,7 +9710,7 @@ id PushToTalkTalkButtonGestureRecognizer.init(interval:maximumVerticalVelocity:t
   v13 = *(v12 - 8);
   (*(v13 + 16))(&v4[v11], a1, v12);
   *&v4[OBJC_IVAR____TtC15ConversationKit37PushToTalkTalkButtonGestureRecognizer_maximumVerticalVelocity] = a4;
-  outlined init with copy of (CGFloat, AutoplayCandidate)(a2, v29, &_sypSgMd);
+  outlined init with copy of (CGFloat, AutoplayCandidate)(a2, v29, &_sypSgMd, &_sypSgMR);
   v14 = v30;
   if (v30)
   {
@@ -9743,12 +9736,12 @@ id PushToTalkTalkButtonGestureRecognizer.init(interval:maximumVerticalVelocity:t
     v23 = 0;
   }
 
-  v24 = type metadata accessor for PushToTalkTalkButtonGestureRecognizer();
+  v24 = type metadata accessor for PushToTalkTalkButtonGestureRecognizer(0);
   v28.receiver = v4;
   v28.super_class = v24;
   v25 = objc_msgSendSuper2(&v28, sel_initWithTarget_action_, v23, a3);
   swift_unknownObjectRelease();
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(a2, &_sypSgMd);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(a2, &_sypSgMd, &_sypSgMR);
   (*(v13 + 8))(a1, v12);
   return v25;
 }

@@ -456,7 +456,6 @@ LABEL_5:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -476,12 +475,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    minRsrpDbm = self->_minRsrpDbm;
     PBDataWriterWriteSint32Field();
   }
 
@@ -491,15 +488,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_rsrp0s.count)
     {
-      v7 = 0;
+      v6 = 0;
       do
       {
-        v8 = self->_rsrp0s.list[v7];
         PBDataWriterWriteUint32Field();
-        ++v7;
+        ++v6;
       }
 
-      while (v7 < self->_rsrp0s.count);
+      while (v6 < self->_rsrp0s.count);
     }
 
     PBDataWriterRecallMark();
@@ -510,15 +506,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_rsrp1s.count)
     {
-      v9 = 0;
+      v7 = 0;
       do
       {
-        v10 = self->_rsrp1s.list[v9];
         PBDataWriterWriteUint32Field();
-        ++v9;
+        ++v7;
       }
 
-      while (v9 < self->_rsrp1s.count);
+      while (v7 < self->_rsrp1s.count);
     }
 
     PBDataWriterRecallMark();
@@ -526,7 +521,6 @@ LABEL_5:
 
   if ((*&self->_has & 8) != 0)
   {
-    minRsrqDb = self->_minRsrqDb;
     PBDataWriterWriteSint32Field();
   }
 
@@ -535,15 +529,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_rsrq0s.count)
     {
-      v12 = 0;
+      v8 = 0;
       do
       {
-        v13 = self->_rsrq0s.list[v12];
         PBDataWriterWriteUint32Field();
-        ++v12;
+        ++v8;
       }
 
-      while (v12 < self->_rsrq0s.count);
+      while (v8 < self->_rsrq0s.count);
     }
 
     PBDataWriterRecallMark();
@@ -554,15 +547,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_rsrq1s.count)
     {
-      v14 = 0;
+      v9 = 0;
       do
       {
-        v15 = self->_rsrq1s.list[v14];
         PBDataWriterWriteUint32Field();
-        ++v14;
+        ++v9;
       }
 
-      while (v14 < self->_rsrq1s.count);
+      while (v9 < self->_rsrq1s.count);
     }
 
     PBDataWriterRecallMark();
@@ -570,7 +562,6 @@ LABEL_5:
 
   if ((*&self->_has & 0x10) != 0)
   {
-    minSinrDbx2 = self->_minSinrDbx2;
     PBDataWriterWriteSint32Field();
   }
 
@@ -579,15 +570,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_sinr0s.count)
     {
-      v17 = 0;
+      v10 = 0;
       do
       {
-        v18 = self->_sinr0s.list[v17];
         PBDataWriterWriteUint32Field();
-        ++v17;
+        ++v10;
       }
 
-      while (v17 < self->_sinr0s.count);
+      while (v10 < self->_sinr0s.count);
     }
 
     PBDataWriterRecallMark();
@@ -598,15 +588,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_sinr1s.count)
     {
-      v19 = 0;
+      v11 = 0;
       do
       {
-        v20 = self->_sinr1s.list[v19];
         PBDataWriterWriteUint32Field();
-        ++v19;
+        ++v11;
       }
 
-      while (v19 < self->_sinr1s.count);
+      while (v11 < self->_sinr1s.count);
     }
 
     PBDataWriterRecallMark();
@@ -614,7 +603,6 @@ LABEL_5:
 
   if ((*&self->_has & 0x80000000) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 
@@ -623,15 +611,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_rsrp2s.count)
     {
-      v22 = 0;
+      v12 = 0;
       do
       {
-        v23 = self->_rsrp2s.list[v22];
         PBDataWriterWriteUint32Field();
-        ++v22;
+        ++v12;
       }
 
-      while (v22 < self->_rsrp2s.count);
+      while (v12 < self->_rsrp2s.count);
     }
 
     PBDataWriterRecallMark();
@@ -642,15 +629,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_rsrp3s.count)
     {
-      v24 = 0;
+      v13 = 0;
       do
       {
-        v25 = self->_rsrp3s.list[v24];
         PBDataWriterWriteUint32Field();
-        ++v24;
+        ++v13;
       }
 
-      while (v24 < self->_rsrp3s.count);
+      while (v13 < self->_rsrp3s.count);
     }
 
     PBDataWriterRecallMark();
@@ -661,15 +647,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_rsrq2s.count)
     {
-      v26 = 0;
+      v14 = 0;
       do
       {
-        v27 = self->_rsrq2s.list[v26];
         PBDataWriterWriteUint32Field();
-        ++v26;
+        ++v14;
       }
 
-      while (v26 < self->_rsrq2s.count);
+      while (v14 < self->_rsrq2s.count);
     }
 
     PBDataWriterRecallMark();
@@ -680,15 +665,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_rsrq3s.count)
     {
-      v28 = 0;
+      v15 = 0;
       do
       {
-        v29 = self->_rsrq3s.list[v28];
         PBDataWriterWriteUint32Field();
-        ++v28;
+        ++v15;
       }
 
-      while (v28 < self->_rsrq3s.count);
+      while (v15 < self->_rsrq3s.count);
     }
 
     PBDataWriterRecallMark();
@@ -699,15 +683,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_sinr2s.count)
     {
-      v30 = 0;
+      v16 = 0;
       do
       {
-        v31 = self->_sinr2s.list[v30];
         PBDataWriterWriteUint32Field();
-        ++v30;
+        ++v16;
       }
 
-      while (v30 < self->_sinr2s.count);
+      while (v16 < self->_sinr2s.count);
     }
 
     PBDataWriterRecallMark();
@@ -718,31 +701,28 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_sinr3s.count)
     {
-      v32 = 0;
+      v17 = 0;
       do
       {
-        v33 = self->_sinr3s.list[v32];
         PBDataWriterWriteUint32Field();
-        ++v32;
+        ++v17;
       }
 
-      while (v32 < self->_sinr3s.count);
+      while (v17 < self->_sinr3s.count);
     }
 
     PBDataWriterRecallMark();
   }
 
-  v34 = self->_has;
-  if ((v34 & 0x20) != 0)
+  v18 = self->_has;
+  if ((v18 & 0x20) != 0)
   {
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
-    v34 = self->_has;
+    v18 = self->_has;
   }
 
-  if ((v34 & 0x40) != 0)
+  if ((v18 & 0x40) != 0)
   {
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1096,7 +1076,6 @@ LABEL_5:
     goto LABEL_46;
   }
 
-  v5 = equalCopy[344];
   if (*&self->_has)
   {
     if ((equalCopy[344] & 1) == 0 || self->_timestamp != *(equalCopy + 37))
@@ -1141,7 +1120,6 @@ LABEL_5:
     goto LABEL_46;
   }
 
-  v6 = equalCopy[344];
   if ((*&self->_has & 8) != 0)
   {
     if ((equalCopy[344] & 8) == 0 || self->_minRsrqDb != *(equalCopy + 78))
@@ -1160,7 +1138,6 @@ LABEL_5:
     goto LABEL_46;
   }
 
-  v7 = equalCopy[344];
   if ((*&self->_has & 0x10) != 0)
   {
     if ((equalCopy[344] & 0x10) == 0 || self->_minSinrDbx2 != *(equalCopy + 79))
@@ -1179,16 +1156,16 @@ LABEL_5:
     goto LABEL_46;
   }
 
-  v8 = equalCopy[344];
+  v5 = equalCopy[344];
   if ((*&self->_has & 0x80000000) != 0)
   {
-    if ((v8 & 0x80000000) == 0 || self->_subsId != *(equalCopy + 85))
+    if ((v5 & 0x80000000) == 0 || self->_subsId != *(equalCopy + 85))
     {
       goto LABEL_46;
     }
   }
 
-  else if (v8 < 0)
+  else if (v5 < 0)
   {
     goto LABEL_46;
   }
@@ -1198,7 +1175,6 @@ LABEL_5:
     goto LABEL_46;
   }
 
-  v9 = equalCopy[344];
   if ((*&self->_has & 0x20) != 0)
   {
     if ((equalCopy[344] & 0x20) == 0 || self->_numSubs != *(equalCopy + 80))
@@ -1220,7 +1196,7 @@ LABEL_5:
     }
 
 LABEL_46:
-    v10 = 0;
+    v6 = 0;
     goto LABEL_47;
   }
 
@@ -1233,17 +1209,17 @@ LABEL_55:
   plmn = self->_plmn;
   if (plmn | *(equalCopy + 41))
   {
-    v10 = [(NSData *)plmn isEqual:?];
+    v6 = [(NSData *)plmn isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v6 = 1;
   }
 
 LABEL_47:
 
-  return v10;
+  return v6;
 }
 
 - (unint64_t)hash

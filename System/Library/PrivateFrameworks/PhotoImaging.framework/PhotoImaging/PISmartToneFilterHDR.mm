@@ -256,7 +256,7 @@
     if (v31 >= 0.0)
     {
       _kernelBpos = [(PISmartToneFilterHDR *)self _kernelBpos];
-      [imageByUnpremultiplyingAlpha extent];
+      objc_msgSend_extent(imageByUnpremultiplyingAlpha);
       v47 = v56;
       v49 = v57;
       v51 = v58;
@@ -270,7 +270,7 @@
     else
     {
       _kernelBpos = [(PISmartToneFilterHDR *)self _kernelBneg];
-      [imageByUnpremultiplyingAlpha extent];
+      objc_msgSend_extent(imageByUnpremultiplyingAlpha);
       v47 = v46;
       v49 = v48;
       v51 = v50;
@@ -357,7 +357,7 @@ LABEL_20:
       }
 
       v76 = [(PISmartToneFilterHDR *)self _kernelRH:0xBFDCCCCCCCCCCCCDLL];
-      [(CIImage *)v3 extent];
+      objc_msgSend_extent(v3);
       v78 = v77;
       v79 = v42;
       v81 = v80;
@@ -390,7 +390,7 @@ LABEL_20:
     }
 
     _kernelH = [(PISmartToneFilterHDR *)self _kernelH];
-    [v74 extent];
+    objc_msgSend_extent(v74);
     v90 = v89;
     v92 = v91;
     v94 = v93;
@@ -422,7 +422,7 @@ LABEL_20:
 
 LABEL_42:
     _kernelC_hdr = [(PISmartToneFilterHDR *)self _kernelC_hdr];
-    [(CIImage *)v3 extent];
+    objc_msgSend_extent(v3);
     v102 = v101;
     v104 = v103;
     v106 = v105;

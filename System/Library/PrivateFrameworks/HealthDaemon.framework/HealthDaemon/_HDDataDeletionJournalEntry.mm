@@ -26,18 +26,18 @@
 
 + (void)applyEntries:(id)entries withProfile:(id)profile
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   profileCopy = profile;
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v47 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v46 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   obj = entriesCopy;
-  v7 = [obj countByEnumeratingWithState:&v54 objects:v63 count:16];
-  v46 = v6;
+  v7 = [obj countByEnumeratingWithState:&v53 objects:v62 count:16];
+  v45 = v6;
   if (!v7)
   {
     v9 = 0;
@@ -46,18 +46,18 @@
 
   v8 = v7;
   v9 = 0;
-  v10 = *v55;
+  v10 = *v54;
   while (2)
   {
     v11 = 0;
     do
     {
-      if (*v55 != v10)
+      if (*v54 != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v54 + 1) + 8 * v11);
+      v12 = *(*(&v53 + 1) + 8 * v11);
       if (!v12 || *(v12 + 8) != 1)
       {
         string = [MEMORY[0x277CCACA8] string];
@@ -88,24 +88,24 @@ LABEL_14:
       v13 = *(v12 + 16);
       string = [v13 _sourceBundleIdentifier];
 
-      v15 = [v47 objectForKeyedSubscript:string];
+      v15 = [v46 objectForKeyedSubscript:string];
       if (v15)
       {
         v16 = v15;
 LABEL_13:
-        v6 = v46;
+        v6 = v45;
 
         goto LABEL_14;
       }
 
       sourceManager = [profileCopy sourceManager];
-      v53 = v9;
-      v16 = [sourceManager localSourceForBundleIdentifier:string copyIfNecessary:1 error:&v53];
-      v18 = v53;
+      v52 = v9;
+      v16 = [sourceManager localSourceForBundleIdentifier:string copyIfNecessary:1 error:&v52];
+      v18 = v52;
 
       if (v16)
       {
-        [v47 setObject:v16 forKeyedSubscript:string];
+        [v46 setObject:v16 forKeyedSubscript:string];
         v9 = v18;
         goto LABEL_13;
       }
@@ -115,9 +115,9 @@ LABEL_13:
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v60 = string;
-        v61 = 2114;
-        v62 = v18;
+        v59 = string;
+        v60 = 2114;
+        v61 = v18;
         _os_log_error_impl(&dword_228986000, v22, OS_LOG_TYPE_ERROR, "Missing source for %{public}@, skipping: %{public}@", buf, 0x16u);
       }
 
@@ -136,14 +136,14 @@ LABEL_29:
       [autoBugCaptureReporter reportJournalFailureWithErrorDescription:v19 provenance:0 error:v18];
 
       v9 = v18;
-      v6 = v46;
+      v6 = v45;
 LABEL_19:
 
       ++v11;
     }
 
     while (v8 != v11);
-    v24 = [obj countByEnumeratingWithState:&v54 objects:v63 count:16];
+    v24 = [obj countByEnumeratingWithState:&v53 objects:v62 count:16];
     v8 = v24;
     if (v24)
     {
@@ -155,45 +155,45 @@ LABEL_19:
 
 LABEL_32:
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   allKeys = [v6 allKeys];
-  v25 = [allKeys countByEnumeratingWithState:&v49 objects:v58 count:16];
+  v25 = [allKeys countByEnumeratingWithState:&v48 objects:v57 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v50;
+    v27 = *v49;
     do
     {
       v28 = 0;
       v29 = v9;
       do
       {
-        if (*v50 != v27)
+        if (*v49 != v27)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v30 = *(*(&v49 + 1) + 8 * v28);
+        v30 = *(*(&v48 + 1) + 8 * v28);
         _HKInitializeLogging();
         v31 = *MEMORY[0x277CCC2A0];
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEBUG))
         {
           v39 = v31;
-          v40 = [v46 objectForKeyedSubscript:v30];
+          v40 = [v45 objectForKeyedSubscript:v30];
           v41 = [v40 count];
           *buf = 134218242;
-          v60 = v41;
-          v61 = 2112;
-          v62 = v30;
+          v59 = v41;
+          v60 = 2112;
+          v61 = v30;
           _os_log_debug_impl(&dword_228986000, v39, OS_LOG_TYPE_DEBUG, "Deleting %ld objects for source: %@", buf, 0x16u);
         }
 
-        string = [v47 objectForKeyedSubscript:v30];
+        string = [v46 objectForKeyedSubscript:v30];
         dataManager = [profileCopy dataManager];
-        v33 = [v46 objectForKeyedSubscript:v30];
+        v33 = [v45 objectForKeyedSubscript:v30];
         if (string)
         {
           v6 = [MEMORY[0x277CBEB98] setWithObject:string];
@@ -205,9 +205,9 @@ LABEL_32:
           v34 = 0;
         }
 
-        v48 = v29;
-        [dataManager deleteDataObjects:v33 restrictedSourceEntities:v34 failIfNotFound:0 recursiveDeleteAuthorizationBlock:0 error:&v48];
-        v9 = v48;
+        v47 = v29;
+        [dataManager deleteDataObjects:v33 restrictedSourceEntities:v34 failIfNotFound:0 recursiveDeleteAuthorizationBlock:0 error:&v47];
+        v9 = v47;
 
         if (string)
         {
@@ -220,9 +220,9 @@ LABEL_32:
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v60 = v30;
-            v61 = 2114;
-            v62 = v9;
+            v59 = v30;
+            v60 = 2114;
+            v61 = v9;
             _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "Failed to apply for source: %@: %{public}@", buf, 0x16u);
           }
 
@@ -242,15 +242,13 @@ LABEL_32:
       }
 
       while (v26 != v28);
-      v26 = [allKeys countByEnumeratingWithState:&v49 objects:v58 count:16];
+      v26 = [allKeys countByEnumeratingWithState:&v48 objects:v57 count:16];
     }
 
     while (v26);
 LABEL_30:
-    v6 = v46;
+    v6 = v45;
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (_HDDataDeletionJournalEntry)initWithCoder:(id)coder

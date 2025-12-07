@@ -261,7 +261,7 @@ LABEL_9:
 
 - (unint64_t)_bEncodeToHeaderData:(id)data currentLineLength:(unint64_t)length
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v7 = 76 - length;
   if (76 - length >= 0x4B)
@@ -312,42 +312,42 @@ LABEL_9:
   selfCopy2 = self;
   stringEncoding = [(ECEncodedWordEncoder *)self stringEncoding];
   v13 = [string2 length];
-  *&v63 = 0;
-  *(&v63 + 1) = v13;
+  *&v62 = 0;
+  *(&v62 + 1) = v13;
   if (v8 >= v10 + 6)
   {
-    v57 = (v8 - v10 - 2) >> 2;
-    [v11 setLength:3 * v57];
-    v62 = 0;
+    v56 = (v8 - v10 - 2) >> 2;
+    [v11 setLength:3 * v56];
+    v61 = 0;
     v14 = v11;
     mutableBytes = [v11 mutableBytes];
-    v61 = xmmword_22D0EE210;
-    v16 = v63;
+    v60 = xmmword_22D0EE210;
+    v16 = v62;
     v17 = string2;
-    if ([v17 getBytes:mutableBytes maxLength:3 * v57 usedLength:&v62 encoding:stringEncoding options:2 range:v63 remainingRange:&v61])
+    if ([v17 getBytes:mutableBytes maxLength:3 * v56 usedLength:&v61 encoding:stringEncoding options:2 range:v62 remainingRange:&v60])
     {
-      if (!*(&v61 + 1))
+      if (!*(&v60 + 1))
       {
         goto LABEL_14;
       }
 
-      v18 = [v17 rangeOfComposedCharacterSequenceAtIndex:v61];
-      if (v18 >= v61)
+      v18 = [v17 rangeOfComposedCharacterSequenceAtIndex:v60];
+      if (v18 >= v60)
       {
         goto LABEL_14;
       }
 
       if (v18 > v16)
       {
-        v64 = xmmword_22D0EE210;
-        if ([v17 getBytes:mutableBytes maxLength:3 * v57 usedLength:&v62 encoding:stringEncoding options:2 range:v16 remainingRange:{v18 - v16, &v64}])
+        v63 = xmmword_22D0EE210;
+        if ([v17 getBytes:mutableBytes maxLength:3 * v56 usedLength:&v61 encoding:stringEncoding options:2 range:v16 remainingRange:{v18 - v16, &v63}])
         {
-          v19 = v61 - v64 + *(&v61 + 1);
-          *&v61 = v64;
-          *(&v61 + 1) = v19;
+          v19 = v60 - v63 + *(&v60 + 1);
+          *&v60 = v63;
+          *(&v60 + 1) = v19;
 LABEL_14:
 
-          [v11 setLength:v62];
+          [v11 setLength:v61];
           currentHandler2 = [v11 base64EncodedDataWithOptions:0];
           v21 = [currentHandler2 length];
           v22 = [dataCopy length];
@@ -358,7 +358,7 @@ LABEL_14:
           v25 = &v24[v10];
           [currentHandler2 getBytes:v25 length:v21];
           *&v25[v21] = 15679;
-          v63 = v61;
+          v62 = v60;
           goto LABEL_15;
         }
 
@@ -366,13 +366,13 @@ LABEL_14:
         v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL getBytesFromStringWithoutSplittingComposedCharacters(NSString * _Nonnull __strong, void * _Nonnull, NSUInteger, NSUInteger * _Nonnull, NSStringEncoding, NSRange, NSRangePointer _Nonnull, BOOL * _Nonnull)"}];
         [currentHandler handleFailureInFunction:v38 file:@"ECEncodedWord.m" lineNumber:745 description:@"Failed to get bytes from string"];
 
-        v39 = v61 - v64 + *(&v61 + 1);
-        *&v61 = v64;
-        *(&v61 + 1) = v39;
+        v39 = v60 - v63 + *(&v60 + 1);
+        *&v60 = v63;
+        *(&v60 + 1) = v39;
       }
     }
 
-    if (v57 < (73 - v10) >> 2)
+    if (v56 < (73 - v10) >> 2)
     {
       goto LABEL_21;
     }
@@ -382,7 +382,7 @@ LABEL_14:
 LABEL_15:
 
 LABEL_21:
-    v13 = *(&v63 + 1);
+    v13 = *(&v62 + 1);
   }
 
   if (v13)
@@ -390,23 +390,23 @@ LABEL_21:
     while (1)
     {
       [v11 setLength:3 * ((73 - v10) >> 2)];
-      *&v61 = 0;
+      *&v60 = 0;
       v40 = v11;
       mutableBytes2 = [v11 mutableBytes];
-      v42 = v63;
+      v42 = v62;
       currentHandler3 = string2;
-      if (![currentHandler3 getBytes:mutableBytes2 maxLength:3 * ((73 - v10) >> 2) usedLength:&v61 encoding:stringEncoding options:2 range:v42 remainingRange:&v63])
+      if (![currentHandler3 getBytes:mutableBytes2 maxLength:3 * ((73 - v10) >> 2) usedLength:&v60 encoding:stringEncoding options:2 range:v42 remainingRange:&v62])
       {
         goto LABEL_31;
       }
 
-      if (!*(&v63 + 1))
+      if (!*(&v62 + 1))
       {
         goto LABEL_32;
       }
 
-      v44 = [currentHandler3 rangeOfComposedCharacterSequenceAtIndex:v63];
-      if (v44 >= v63)
+      v44 = [currentHandler3 rangeOfComposedCharacterSequenceAtIndex:v62];
+      if (v44 >= v62)
       {
         goto LABEL_32;
       }
@@ -420,16 +420,16 @@ LABEL_21:
 
       else
       {
-        v64 = xmmword_22D0EE210;
-        if (([currentHandler3 getBytes:mutableBytes2 maxLength:3 * ((73 - v10) >> 2) usedLength:&v61 encoding:stringEncoding options:2 range:v42 remainingRange:{v44 - v42, &v64}] & 1) == 0)
+        v63 = xmmword_22D0EE210;
+        if (([currentHandler3 getBytes:mutableBytes2 maxLength:3 * ((73 - v10) >> 2) usedLength:&v60 encoding:stringEncoding options:2 range:v42 remainingRange:{v44 - v42, &v63}] & 1) == 0)
         {
           currentHandler4 = [MEMORY[0x277CCA890] currentHandler];
           v47 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL getBytesFromStringWithoutSplittingComposedCharacters(NSString * _Nonnull __strong, void * _Nonnull, NSUInteger, NSUInteger * _Nonnull, NSStringEncoding, NSRange, NSRangePointer _Nonnull, BOOL * _Nonnull)"}];
           [currentHandler4 handleFailureInFunction:v47 file:@"ECEncodedWord.m" lineNumber:745 description:@"Failed to get bytes from string"];
 
-          v48 = v63 - v64 + *(&v63 + 1);
-          *&v63 = v64;
-          *(&v63 + 1) = v48;
+          v48 = v62 - v63 + *(&v62 + 1);
+          *&v62 = v63;
+          *(&v62 + 1) = v48;
 LABEL_31:
 
           currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
@@ -437,14 +437,14 @@ LABEL_31:
           goto LABEL_32;
         }
 
-        v45 = v63 - v64 + *(&v63 + 1);
-        *&v63 = v64;
-        *(&v63 + 1) = v45;
+        v45 = v62 - v63 + *(&v62 + 1);
+        *&v62 = v63;
+        *(&v62 + 1) = v45;
       }
 
 LABEL_32:
 
-      [v11 setLength:v61];
+      [v11 setLength:v60];
       v49 = [v11 base64EncodedDataWithOptions:0];
       v50 = [v49 length];
       v51 = [dataCopy length];
@@ -457,7 +457,7 @@ LABEL_32:
       [v49 getBytes:v54 length:v50];
       *&v54[v50] = 15679;
 
-      if (!*(&v63 + 1))
+      if (!*(&v62 + 1))
       {
         v36 = v10 + v50 + 3;
         goto LABEL_35;
@@ -469,13 +469,12 @@ LABEL_32:
 LABEL_35:
 
 LABEL_36:
-  v55 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
 - (unint64_t)_qEncodeToHeaderData:(id)data currentLineLength:(unint64_t)length
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v8 = 76 - length;
   if (76 - length >= 0x4B)
@@ -507,104 +506,104 @@ LABEL_36:
 
   else
   {
-    v43 = a2;
+    v42 = a2;
     memset(__src, 0, 75);
     v11 = [(ECEncodedWordEncoder *)self _writeEncodedWordPreambleToBuffer:__src length:75];
-    v44 = &v42;
+    v43 = &v41;
     v12 = 73 - v11;
     v13 = MEMORY[0x28223BE20]();
-    v15 = &v42 - v14;
+    v15 = &v41 - v14;
     if (v13 != 73)
     {
-      memset(&v42 - v14, 170, v12);
+      memset(&v41 - v14, 170, v12);
     }
 
-    v52 = 0;
-    v53 = 0;
-    v50 = 0;
     v51 = 0;
+    v52 = 0;
+    v49 = 0;
+    v50 = 0;
     string = [(ECEncodedWordEncoder *)self string];
     stringEncoding = [(ECEncodedWordEncoder *)self stringEncoding];
     v17 = [string length];
-    *&v49 = 0;
-    *(&v49 + 1) = v17;
-    v45 = v11 + 3;
+    *&v48 = 0;
+    *(&v48 + 1) = v17;
+    v44 = v11 + 3;
     if (v9 >= v11 + 3)
     {
       v18 = v9 - v11 - 2;
-      v48 = xmmword_22D0EE210;
-      v47 = 0;
-      if (![(ECEncodedWordEncoder *)self _getBytesWithoutSplittingComposedCharacters:v15 targetQEncodedTextLength:v18 usedLength:&v53 splitComposedCharacterSequence:&v47 usedQEncodedTextLength:&v51 extraLength:&v52 extraQEncodedTextLength:&v50 fromString:string stringEncoding:stringEncoding range:0 remainingRange:v17, &v48]|| (v47 & 1) != 0 || v51 > v18)
+      v47 = xmmword_22D0EE210;
+      v46 = 0;
+      if (![(ECEncodedWordEncoder *)self _getBytesWithoutSplittingComposedCharacters:v15 targetQEncodedTextLength:v18 usedLength:&v52 splitComposedCharacterSequence:&v46 usedQEncodedTextLength:&v50 extraLength:&v51 extraQEncodedTextLength:&v49 fromString:string stringEncoding:stringEncoding range:0 remainingRange:v17, &v47]|| (v46 & 1) != 0 || v50 > v18)
       {
         if (v18 >= v12)
         {
           currentHandler = [MEMORY[0x277CCA890] currentHandler];
-          [currentHandler handleFailureInMethod:v43 object:self file:@"ECEncodedWord.m" lineNumber:830 description:@"Failed to get bytes from string"];
+          [currentHandler handleFailureInMethod:v42 object:self file:@"ECEncodedWord.m" lineNumber:830 description:@"Failed to get bytes from string"];
         }
 
-        v52 = 0;
-        v50 = 0;
+        v51 = 0;
+        v49 = 0;
       }
 
       else
       {
         v19 = [dataCopy length];
-        [dataCopy increaseLengthBy:v11 + v51 + 2];
+        [dataCopy increaseLengthBy:v11 + v50 + 2];
         v20 = dataCopy;
         v21 = ([dataCopy mutableBytes] + v19);
         memcpy(v21, __src, v11);
-        [(ECEncodedWordEncoder *)self _writeQEncodedTextAndEndSequenceToHeaderBytes:&v21[v11] fromDecodedBytes:v15 length:v53];
-        v49 = v48;
-        if (v52)
+        [(ECEncodedWordEncoder *)self _writeQEncodedTextAndEndSequenceToHeaderBytes:&v21[v11] fromDecodedBytes:v15 length:v52];
+        v48 = v47;
+        if (v51)
         {
-          memmove(v15, &v15[v53], v52);
+          memmove(v15, &v15[v52], v51);
         }
       }
 
-      v17 = *(&v49 + 1);
+      v17 = *(&v48 + 1);
     }
 
     if (v17)
     {
       do
       {
-        LOBYTE(v48) = 0;
-        if (![(ECEncodedWordEncoder *)self _getBytesWithoutSplittingComposedCharacters:v15 targetQEncodedTextLength:v12 usedLength:&v53 splitComposedCharacterSequence:&v48 usedQEncodedTextLength:&v51 extraLength:&v52 extraQEncodedTextLength:&v50 fromString:string stringEncoding:stringEncoding range:v49 remainingRange:v17, &v49])
+        LOBYTE(v47) = 0;
+        if (![(ECEncodedWordEncoder *)self _getBytesWithoutSplittingComposedCharacters:v15 targetQEncodedTextLength:v12 usedLength:&v52 splitComposedCharacterSequence:&v47 usedQEncodedTextLength:&v50 extraLength:&v51 extraQEncodedTextLength:&v49 fromString:string stringEncoding:stringEncoding range:v48 remainingRange:v17, &v48])
         {
           currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-          [currentHandler2 handleFailureInMethod:v43 object:self file:@"ECEncodedWord.m" lineNumber:843 description:@"Failed to get bytes from string"];
+          [currentHandler2 handleFailureInMethod:v42 object:self file:@"ECEncodedWord.m" lineNumber:843 description:@"Failed to get bytes from string"];
         }
 
-        if (v48 == 1)
+        if (v47 == 1)
         {
           currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
-          [currentHandler3 handleFailureInMethod:v43 object:self file:@"ECEncodedWord.m" lineNumber:844 description:@"Can't make encoded-word without splitting a composed character sequence"];
+          [currentHandler3 handleFailureInMethod:v42 object:self file:@"ECEncodedWord.m" lineNumber:844 description:@"Can't make encoded-word without splitting a composed character sequence"];
         }
 
-        if (v51 > v12)
+        if (v50 > v12)
         {
           currentHandler4 = [MEMORY[0x277CCA890] currentHandler];
-          [currentHandler4 handleFailureInMethod:v43 object:self file:@"ECEncodedWord.m" lineNumber:845 description:@"Can't make encoded-word without splitting a composed character sequence"];
+          [currentHandler4 handleFailureInMethod:v42 object:self file:@"ECEncodedWord.m" lineNumber:845 description:@"Can't make encoded-word without splitting a composed character sequence"];
         }
 
         v27 = [dataCopy length];
-        [dataCopy increaseLengthBy:v11 + 4 + v51];
-        v28 = v51;
+        [dataCopy increaseLengthBy:v11 + 4 + v50];
+        v28 = v50;
         v29 = dataCopy;
         v30 = ([dataCopy mutableBytes] + v27);
         *v30++ = 8202;
         memcpy(v30, __src, v11);
-        [(ECEncodedWordEncoder *)self _writeQEncodedTextAndEndSequenceToHeaderBytes:v30 + v11 fromDecodedBytes:v15 length:v53];
-        if (v52)
+        [(ECEncodedWordEncoder *)self _writeQEncodedTextAndEndSequenceToHeaderBytes:v30 + v11 fromDecodedBytes:v15 length:v52];
+        if (v51)
         {
-          memmove(v15, &v15[v53], v52);
+          memmove(v15, &v15[v52], v51);
         }
 
-        v17 = *(&v49 + 1);
+        v17 = *(&v48 + 1);
       }
 
-      while (*(&v49 + 1));
-      v26 = v45 + v28;
+      while (*(&v48 + 1));
+      v26 = v44 + v28;
     }
 
     else
@@ -612,27 +611,26 @@ LABEL_36:
       v26 = 0;
     }
 
-    if (v52)
+    if (v51)
     {
-      if (v50 > v12)
+      if (v49 > v12)
       {
         currentHandler5 = [MEMORY[0x277CCA890] currentHandler];
-        [currentHandler5 handleFailureInMethod:v43 object:self file:@"ECEncodedWord.m" lineNumber:868 description:@"Can't make encoded-word without splitting a composed character sequence"];
+        [currentHandler5 handleFailureInMethod:v42 object:self file:@"ECEncodedWord.m" lineNumber:868 description:@"Can't make encoded-word without splitting a composed character sequence"];
       }
 
       v34 = [dataCopy length];
-      [dataCopy increaseLengthBy:v11 + v50 + 4];
-      v35 = v50;
+      [dataCopy increaseLengthBy:v11 + v49 + 4];
+      v35 = v49;
       v36 = dataCopy;
       v37 = ([dataCopy mutableBytes] + v34);
       *v37++ = 8202;
       memcpy(v37, __src, v11);
-      [(ECEncodedWordEncoder *)self _writeQEncodedTextAndEndSequenceToHeaderBytes:v37 + v11 fromDecodedBytes:v15 length:v52];
-      v26 = v45 + v35;
+      [(ECEncodedWordEncoder *)self _writeQEncodedTextAndEndSequenceToHeaderBytes:v37 + v11 fromDecodedBytes:v15 length:v51];
+      v26 = v44 + v35;
     }
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -684,7 +682,7 @@ LABEL_36:
   return v20;
 }
 
-uint64_t __241__ECEncodedWordEncoder__getBytesWithoutSplittingComposedCharacters_targetQEncodedTextLength_usedLength_splitComposedCharacterSequence_usedQEncodedTextLength_extraLength_extraQEncodedTextLength_fromString_stringEncoding_range_remainingRange___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+char *__241__ECEncodedWordEncoder__getBytesWithoutSplittingComposedCharacters_targetQEncodedTextLength_usedLength_splitComposedCharacterSequence_usedQEncodedTextLength_extraLength_extraQEncodedTextLength_fromString_stringEncoding_range_remainingRange___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
   v9 = a3;
   v11 = *(*(*(a1 + 48) + 8) + 24);
@@ -707,7 +705,7 @@ LABEL_5:
   *(*(*(a1 + 56) + 8) + 24) = 1;
   **(a1 + 96) = v15 != 0;
   result = [*(a1 + 40) _lengthOfQEncodedTextForBytes:v12 + v11 length:v23];
-  v18 = *(*(*(a1 + 64) + 8) + 24) + result;
+  v18 = &result[*(*(*(a1 + 64) + 8) + 24)];
   v19 = *(*(a1 + 48) + 8);
   v20 = *(v19 + 24);
   if (v18 > *(a1 + 80) && v20)
@@ -762,7 +760,7 @@ LABEL_5:
 - (void)_writeQEncodedTextAndEndSequenceToHeaderBytes:(char *)bytes fromDecodedBytes:(const char *)decodedBytes length:(unint64_t)length
 {
   decodedBytesCopy = decodedBytes;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v8 = &decodedBytes[length];
   0x4645444342413938 = [(ECEncodedWordEncoder *)self _findNextByteThatNeedsQEncodingBetweenStartByte:decodedBytes endByte:&decodedBytes[length], 0x3736353433323130, 0x4645444342413938];
   if (0x4645444342413938)
@@ -785,8 +783,8 @@ LABEL_5:
       else
       {
         *bytes = 61;
-        bytes[1] = *(&v14 | (*v10 >> 4));
-        bytes[2] = *(&v14 | *v10 & 0xF);
+        bytes[1] = *(&v13 | (*v10 >> 4));
+        bytes[2] = *(&v13 | *v10 & 0xF);
         v11 = 3;
       }
 
@@ -806,7 +804,6 @@ LABEL_5:
   }
 
   *bytes = 15679;
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (const)_findNextByteThatNeedsQEncodingBetweenStartByte:(const char *)byte endByte:(const char *)endByte

@@ -121,8 +121,8 @@
   [view addSubview:headerView7];
 
   headerView8 = [(CNContactOrbHeaderViewController *)self headerView];
-  contacts = [(CNContactOrbHeaderViewController *)self contacts];
-  [headerView8 updateWithContacts:contacts];
+  v15 = objc_msgSend_contacts(self);
+  [headerView8 updateWithContacts:v15];
 
   headerView9 = [(CNContactOrbHeaderViewController *)self headerView];
   topAnchor = [headerView9 topAnchor];

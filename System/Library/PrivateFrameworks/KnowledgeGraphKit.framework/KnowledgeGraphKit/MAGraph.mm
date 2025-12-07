@@ -4,6 +4,7 @@
 + (BOOL)scanGraphElementString:(id)string type:(unint64_t *)type optionalName:(id *)name label:(id *)label optionalDomains:(id *)domains optionalProperties:(id *)properties error:(id *)error;
 + (BOOL)scanMatchString:(id)string definitions:(id *)definitions constraints:(id *)constraints forCreation:(BOOL)creation error:(id *)error;
 + (MAGraph)graphWithDefinitions:(id)definitions constraints:(id)constraints error:(id *)error;
++ (MAGraph)graphWithMergedGraphs:(id)graphs strictNodes:(BOOL)nodes strictEdges:(BOOL)edges;
 + (MAGraph)graphWithVisualString:(id)string error:(id *)error;
 + (id)defaultSpecification;
 + (id)graph;
@@ -37,16 +38,28 @@
 - (MAGraph)initWithSpecification:(id)specification dataURL:(id)l error:(id *)error;
 - (MAGraph)initWithSpecification:(id)specification persistenceStoreURL:(id)l error:(id *)error;
 - (NSUUID)identifier;
+- (id)_addEdgeWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
+- (id)_addNodeWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
+- (id)_anyEdgeWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
 - (id)_constraintAbstractEdgesFromAbstractNode:(id)node inConstraints:(id *)constraints;
+- (id)_edgeIdentifiersWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties;
 - (id)_graphDictionary;
 - (id)_graphJSONDictionary;
 - (id)_instantiateGraphWithStoreAtURL:(id)l error:(id *)error;
+- (id)_nodeIdentifiersWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties;
 - (id)abstractEdges;
 - (id)addEdgeFromBase:(id)base sourceNode:(id)node targetNode:(id)targetNode;
+- (id)addEdgeWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
 - (id)addNodeFromBase:(id)base;
+- (id)addNodeWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
+- (id)addUniqueEdgeWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
+- (id)addUniqueNodeWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties didCreate:(BOOL *)create;
+- (id)addUniquelyIdentifiedNodeWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties didCreate:(BOOL *)create;
 - (id)adjacencyWithEndNodeIdentifiers:(id)identifiers edgeFilter:(id)filter edgeType:(unint64_t)type;
 - (id)adjacencyWithStartNodeIdentifiers:(id)identifiers edgeFilter:(id)filter edgeType:(unint64_t)type;
 - (id)anyEdgeMatchingFilter:(id)filter;
+- (id)anyNodeForLabel:(id)label domain:(unsigned __int16)domain;
+- (id)anyNodeForLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties;
 - (id)anyNodeMatchingFilter:(id)filter;
 - (id)databaseURL;
 - (id)edgeFromFetchedRowWithIdentifier:(int)identifier domain:(signed __int16)domain label:(id)label weight:(float)weight properties:(id)properties sourceNodeIdentifier:(int)nodeIdentifier targetNodeIdentifier:(int)targetNodeIdentifier;
@@ -55,26 +68,34 @@
 - (id)edgeIdentifiersOfType:(unint64_t)type betweenNodesForIdentifiers:(id)identifiers andNodesForIdentifiers:(id)forIdentifiers matchingFilter:(id)filter;
 - (id)edgeIdentifiersOfType:(unint64_t)type onNodesForIdentifiers:(id)identifiers matchingFilter:(id)filter;
 - (id)edgeIdentifiersOfType:(unint64_t)type sourceNodeIdentifier:(unint64_t)identifier targetNodeIdentifier:(unint64_t)nodeIdentifier;
+- (id)edgeSchemeWithLabel:(id)label domain:(unsigned __int16)domain sourceNode:(id)node targetNode:(id)targetNode;
 - (id)edgesDomains;
 - (id)edgesForIdentifiers:(id)identifiers;
+- (id)edgesForLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties;
 - (id)edgesLabels;
 - (id)graphNode;
+- (id)labelsForLabel:(id)label domain:(unsigned __int16)domain;
 - (id)matchWithDefinitions:(id)definitions constraints:(id)constraints error:(id *)error;
 - (id)matchWithVisualFormat:(id)format elements:(id)elements error:(id *)error;
+- (id)mergeWithGraph:(id)graph strictNodes:(BOOL)nodes strictEdges:(BOOL)edges saveToDatabase:(BOOL)database;
 - (id)neighborNodeIdentifiersWithStartNodeIdentifiers:(id)identifiers edgeType:(unint64_t)type edgeFilter:(id)filter;
 - (id)nodeFromFetchedRowWithIdentifier:(int)identifier domain:(signed __int16)domain label:(id)label weight:(float)weight properties:(id)properties;
 - (id)nodeIdentifiersMatchingFilter:(id)filter;
 - (id)nodeIdentifiersMatchingFilter:(id)filter intersectingIdentifiers:(id)identifiers;
 - (id)nodeIdentifiersRelatedToSourceNodeIdentifiers:(id)identifiers relation:(id)relation;
+- (id)nodeSchemeWithLabel:(id)label domain:(unsigned __int16)domain;
 - (id)nodesDomains;
 - (id)nodesForIdentifiers:(id)identifiers;
+- (id)nodesForLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties;
 - (id)nodesLabels;
 - (id)orphanNodes;
 - (id)schema:(id)schema;
 - (id)selectBestRootNodeForPath:(id)path withDefinitions:(id)definitions;
 - (id)shortestPathFromNode:(id)node toNode:(id)toNode directed:(BOOL)directed;
 - (id)transitiveClosureNeighborNodeIdentifiersWithStartNodeIdentifiers:(id)identifiers edgeType:(unint64_t)type edgeFilter:(id)filter;
+- (unint64_t)edgesCountForLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties;
 - (unint64_t)hash;
+- (unint64_t)nodesCountForLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties;
 - (unint64_t)numberOfEdgesMatchingFilter:(id)filter;
 - (unint64_t)numberOfNodesMatchingFilter:(id)filter;
 - (unint64_t)version;
@@ -89,13 +110,19 @@
 - (void)enumerateDoublePropertyValuesForKey:(id)key ofNodesWithIdentifiers:(id)identifiers usingBlock:(id)block;
 - (void)enumerateEdgesMatchingFilter:(id)filter usingBlock:(id)block;
 - (void)enumerateEdgesWithIdentifiers:(id)identifiers usingBlock:(id)block;
+- (void)enumerateEdgesWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties usingBlock:(id)block;
 - (void)enumerateIntegerPropertyValuesForKey:(id)key ofEdgesWithIdentifiers:(id)identifiers usingBlock:(id)block;
 - (void)enumerateIntegerPropertyValuesForKey:(id)key ofNodesWithIdentifiers:(id)identifiers usingBlock:(id)block;
+- (void)enumerateNodeIdentifiers:(id)identifiers sortedByDoublePropertyForName:(id)name ascending:(BOOL)ascending usingBlock:(id)block;
+- (void)enumerateNodeIdentifiers:(id)identifiers sortedByIntegerPropertyForName:(id)name ascending:(BOOL)ascending usingBlock:(id)block;
+- (void)enumerateNodeIdentifiers:(id)identifiers sortedByStringPropertyForName:(id)name ascending:(BOOL)ascending usingBlock:(id)block;
+- (void)enumerateNodeIdentifiers:(id)identifiers sortedByUnsignedIntegerPropertyForName:(id)name ascending:(BOOL)ascending usingBlock:(id)block;
 - (void)enumerateNodesMatchingFilter:(id)filter usingBlock:(id)block;
 - (void)enumerateNodesWithIdentifiers:(id)identifiers sortedByFloatPropertyForName:(id)name usingBlock:(id)block;
 - (void)enumerateNodesWithIdentifiers:(id)identifiers sortedByIntegerPropertyForName:(id)name usingBlock:(id)block;
 - (void)enumerateNodesWithIdentifiers:(id)identifiers sortedByStringPropertyForName:(id)name usingBlock:(id)block;
 - (void)enumerateNodesWithIdentifiers:(id)identifiers usingBlock:(id)block;
+- (void)enumerateNodesWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties usingBlock:(id)block;
 - (void)enumeratePropertyValuesForKey:(id)key ofEdgesWithIdentifiers:(id)identifiers usingBlock:(id)block;
 - (void)enumeratePropertyValuesForKey:(id)key ofNodesWithIdentifiers:(id)identifiers usingBlock:(id)block;
 - (void)enumerateStringPropertyValuesForKey:(id)key ofEdgesWithIdentifiers:(id)identifiers usingBlock:(id)block;
@@ -414,13 +441,13 @@ void __82__MAGraph_enumerateIntegerPropertyValuesForKey_ofEdgesWithIdentifiers_u
 
 uint64_t __75__MAGraph_enumeratePropertyValuesForKey_ofEdgesWithIdentifiers_usingBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  [a3 kgPropertyValue];
-  if (objc_claimAutoreleasedReturnValue())
+  v4 = [a3 kgPropertyValue];
+  if (v4)
   {
-    (*(*(a1 + 32) + 16))();
+    v4 = (*(*(a1 + 32) + 16))();
   }
 
-  return MEMORY[0x2821F9730]();
+  return MEMORY[0x2821F9730](v4);
 }
 
 - (void)enumerateUnsignedLongLongPropertyValuesForKey:(id)key ofNodesWithIdentifiers:(id)identifiers usingBlock:(id)block
@@ -548,13 +575,13 @@ void __82__MAGraph_enumerateIntegerPropertyValuesForKey_ofNodesWithIdentifiers_u
 
 uint64_t __75__MAGraph_enumeratePropertyValuesForKey_ofNodesWithIdentifiers_usingBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  [a3 kgPropertyValue];
-  if (objc_claimAutoreleasedReturnValue())
+  v4 = [a3 kgPropertyValue];
+  if (v4)
   {
-    (*(*(a1 + 32) + 16))();
+    v4 = (*(*(a1 + 32) + 16))();
   }
 
-  return MEMORY[0x2821F9730]();
+  return MEMORY[0x2821F9730](v4);
 }
 
 - (id)abstractEdges
@@ -605,6 +632,17 @@ void __24__MAGraph_abstractEdges__block_invoke(uint64_t a1, void *a2)
   }
 }
 
+- (void)enumerateEdgesWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties usingBlock:(id)block
+{
+  domainCopy = domain;
+  blockCopy = block;
+  propertiesCopy = properties;
+  labelCopy = label;
+  v13 = [(MAElementFilter *)[MAEdgeFilter alloc] initWithLabel:labelCopy domain:domainCopy properties:propertiesCopy];
+
+  [(MAGraph *)self enumerateEdgesMatchingFilter:v13 usingBlock:blockCopy];
+}
+
 - (void)enumerateEdgesMatchingFilter:(id)filter usingBlock:(id)block
 {
   blockCopy = block;
@@ -623,43 +661,49 @@ void __24__MAGraph_abstractEdges__block_invoke(uint64_t a1, void *a2)
   objc_autoreleasePoolPop(v7);
 }
 
+- (unint64_t)edgesCountForLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties
+{
+  v5 = [(MAGraph *)self _edgeIdentifiersWithLabel:label domain:domain properties:properties];
+  v6 = [v5 count];
+
+  return v6;
+}
+
 - (id)edgesDomains
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   edgeLabels = [(KGGraph *)self->_graph edgeLabels];
   v3 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF beginswith 'domain'"];
   v4 = [edgeLabels filteredSetUsingPredicate:v3];
   v5 = objc_alloc_init(MEMORY[0x277CCAB58]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * i) substringFromIndex:{7, v14}];
+        v11 = [*(*(&v13 + 1) + 8 * i) substringFromIndex:{7, v13}];
         [v5 addIndex:{objc_msgSend(v11, "integerValue")}];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -671,6 +715,115 @@ void __24__MAGraph_abstractEdges__block_invoke(uint64_t a1, void *a2)
   v4 = [edgeLabels filteredSetUsingPredicate:v3];
 
   return v4;
+}
+
+- (id)addUniqueEdgeWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  labelCopy = label;
+  nodeCopy = node;
+  targetNodeCopy = targetNode;
+  propertiesCopy = properties;
+  v18 = objc_autoreleasePoolPush();
+  *&v19 = weight;
+  v20 = [(MAGraph *)self _anyEdgeWithLabel:labelCopy sourceNode:nodeCopy targetNode:targetNodeCopy domain:domainCopy weight:propertiesCopy properties:v19];
+  if (!v20)
+  {
+    if (propertiesCopy)
+    {
+      v22 = propertiesCopy;
+    }
+
+    else
+    {
+      v22 = MEMORY[0x277CBEC10];
+    }
+
+    *&v21 = weight;
+    v20 = [(MAGraph *)self _addEdgeWithLabel:labelCopy sourceNode:nodeCopy targetNode:targetNodeCopy domain:domainCopy weight:v22 properties:v21];
+  }
+
+  objc_autoreleasePoolPop(v18);
+
+  return v20;
+}
+
+- (id)_anyEdgeWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  labelCopy = label;
+  targetNodeCopy = targetNode;
+  propertiesCopy = properties;
+  nodeCopy = node;
+  v17 = [KGElementIdentifierSet alloc];
+  identifier = [nodeCopy identifier];
+
+  v19 = [(KGElementIdentifierSet *)v17 initWithElementIdentifier:identifier];
+  v20 = [(KGGraph *)self->_graph edgeIdentifiersWithStartNodeIdentifiers:v19 edgeDirection:2];
+  if ([(KGElementIdentifierSet *)v19 isEmpty])
+  {
+    v21 = 0;
+  }
+
+  else
+  {
+    v22 = -[KGElementIdentifierSet initWithElementIdentifier:]([KGElementIdentifierSet alloc], "initWithElementIdentifier:", [targetNodeCopy identifier]);
+    v23 = [(KGGraph *)self->_graph edgeIdentifiersWithStartNodeIdentifiers:v22 edgeDirection:1];
+    if ([(KGElementIdentifierSet *)v22 isEmpty])
+    {
+      v21 = 0;
+    }
+
+    else
+    {
+      v24 = [v23 identifierSetByIntersectingIdentifierSet:v20];
+      if ([v24 isEmpty])
+      {
+        v21 = 0;
+      }
+
+      else
+      {
+        v27 = [(MAElementFilter *)[MAEdgeFilter alloc] initWithLabel:labelCopy domain:domainCopy properties:propertiesCopy];
+        v25 = [(MAGraph *)self edgeIdentifiersMatchingFilter:v27 intersectingIdentifiers:v24];
+        v21 = -[KGGraph edgeForIdentifier:](self->_graph, "edgeForIdentifier:", [v25 firstElement]);
+      }
+    }
+  }
+
+  return v21;
+}
+
+- (id)edgesForLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties
+{
+  v6 = [(MAGraph *)self _edgeIdentifiersWithLabel:label domain:domain properties:properties];
+  v7 = [(KGGraph *)self->_graph edgesForIdentifiers:v6];
+  v8 = [v7 set];
+
+  return v8;
+}
+
+- (id)_edgeIdentifiersWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties
+{
+  domainCopy = domain;
+  propertiesCopy = properties;
+  labelCopy = label;
+  v10 = [MAEdgeFilter alloc];
+  if (propertiesCopy)
+  {
+    v11 = propertiesCopy;
+  }
+
+  else
+  {
+    v11 = MEMORY[0x277CBEC10];
+  }
+
+  v12 = [(MAElementFilter *)v10 initWithLabel:labelCopy domain:domainCopy properties:v11];
+
+  v13 = [(MAGraph *)self edgeIdentifiersMatchingFilter:v12];
+
+  return v13;
 }
 
 - (unint64_t)numberOfEdgesMatchingFilter:(id)filter
@@ -747,6 +900,77 @@ void __24__MAGraph_abstractEdges__block_invoke(uint64_t a1, void *a2)
   return v17;
 }
 
+- (id)addEdgeWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  labelCopy = label;
+  nodeCopy = node;
+  targetNodeCopy = targetNode;
+  propertiesCopy = properties;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  if (propertiesCopy)
+  {
+    v20 = propertiesCopy;
+  }
+
+  else
+  {
+    v20 = MEMORY[0x277CBEC10];
+  }
+
+  *&v19 = weight;
+  v21 = [(MAGraph *)selfCopy _addEdgeWithLabel:labelCopy sourceNode:nodeCopy targetNode:targetNodeCopy domain:domainCopy weight:v20 properties:v19];
+  objc_sync_exit(selfCopy);
+
+  return v21;
+}
+
+- (id)_addEdgeWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  v32 = *MEMORY[0x277D85DE8];
+  propertiesCopy = properties;
+  targetNodeCopy = targetNode;
+  nodeCopy = node;
+  labelCopy = label;
+  specification = [(MAGraph *)self specification];
+  v19 = [specification edgeClassWithLabel:labelCopy domain:domainCopy];
+
+  v20 = [v19 alloc];
+  *&v21 = weight;
+  v22 = [v20 initWithLabel:labelCopy sourceNode:nodeCopy targetNode:targetNodeCopy domain:domainCopy weight:propertiesCopy properties:v21];
+
+  graphReference = [(MAGraph *)self graphReference];
+  [v22 setGraphReference:graphReference];
+
+  v24 = objc_alloc_init(KGGraphChangeRequest);
+  [(KGGraphChangeRequest *)v24 insertEdge:v22];
+  graph = self->_graph;
+  v29 = 0;
+  LOBYTE(labelCopy) = [(KGMutableGraph *)graph performChangesAndWait:v24 error:&v29];
+  v26 = v29;
+  if (labelCopy)
+  {
+    v27 = v22;
+  }
+
+  else
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v31 = v26;
+      _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error adding edge: %@", buf, 0xCu);
+    }
+
+    [(MAGraph *)self setHadFatalError];
+    v27 = 0;
+  }
+
+  return v27;
+}
+
 - (id)graphNode
 {
   v3 = [MAAbstractNode alloc];
@@ -805,11 +1029,74 @@ void __22__MAGraph_orphanNodes__block_invoke(uint64_t a1, void *a2)
   return v10;
 }
 
+- (void)enumerateNodesWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties usingBlock:(id)block
+{
+  domainCopy = domain;
+  blockCopy = block;
+  propertiesCopy = properties;
+  labelCopy = label;
+  v13 = [(MAElementFilter *)[MANodeFilter alloc] initWithLabel:labelCopy domain:domainCopy properties:propertiesCopy];
+
+  [(MAGraph *)self enumerateNodesMatchingFilter:v13 usingBlock:blockCopy];
+}
+
 - (void)enumerateNodesMatchingFilter:(id)filter usingBlock:(id)block
 {
   blockCopy = block;
   v7 = [(MAGraph *)self nodeIdentifiersMatchingFilter:filter];
   [(MAGraph *)self enumerateNodesWithIdentifiers:v7 usingBlock:blockCopy];
+}
+
+- (void)enumerateNodeIdentifiers:(id)identifiers sortedByUnsignedIntegerPropertyForName:(id)name ascending:(BOOL)ascending usingBlock:(id)block
+{
+  ascendingCopy = ascending;
+  identifiersCopy = identifiers;
+  nameCopy = name;
+  blockCopy = block;
+  v12 = objc_autoreleasePoolPush();
+  v13 = [(KGGraph *)self->_graph nodesForIdentifiers:identifiersCopy];
+  [v13 enumerateIdentifiersSortedByUnsignedIntegerPropertyForName:nameCopy ascending:ascendingCopy usingBlock:blockCopy];
+
+  objc_autoreleasePoolPop(v12);
+}
+
+- (void)enumerateNodeIdentifiers:(id)identifiers sortedByDoublePropertyForName:(id)name ascending:(BOOL)ascending usingBlock:(id)block
+{
+  ascendingCopy = ascending;
+  identifiersCopy = identifiers;
+  nameCopy = name;
+  blockCopy = block;
+  v12 = objc_autoreleasePoolPush();
+  v13 = [(KGGraph *)self->_graph nodesForIdentifiers:identifiersCopy];
+  [v13 enumerateIdentifiersSortedByDoublePropertyForName:nameCopy ascending:ascendingCopy usingBlock:blockCopy];
+
+  objc_autoreleasePoolPop(v12);
+}
+
+- (void)enumerateNodeIdentifiers:(id)identifiers sortedByIntegerPropertyForName:(id)name ascending:(BOOL)ascending usingBlock:(id)block
+{
+  ascendingCopy = ascending;
+  identifiersCopy = identifiers;
+  nameCopy = name;
+  blockCopy = block;
+  v12 = objc_autoreleasePoolPush();
+  v13 = [(KGGraph *)self->_graph nodesForIdentifiers:identifiersCopy];
+  [v13 enumerateIdentifiersSortedByIntegerPropertyForName:nameCopy ascending:ascendingCopy usingBlock:blockCopy];
+
+  objc_autoreleasePoolPop(v12);
+}
+
+- (void)enumerateNodeIdentifiers:(id)identifiers sortedByStringPropertyForName:(id)name ascending:(BOOL)ascending usingBlock:(id)block
+{
+  ascendingCopy = ascending;
+  identifiersCopy = identifiers;
+  nameCopy = name;
+  blockCopy = block;
+  v12 = objc_autoreleasePoolPush();
+  v13 = [(KGGraph *)self->_graph nodesForIdentifiers:identifiersCopy];
+  [v13 enumerateIdentifiersSortedByStringPropertyForName:nameCopy ascending:ascendingCopy usingBlock:blockCopy];
+
+  objc_autoreleasePoolPop(v12);
 }
 
 - (void)enumerateNodesWithIdentifiers:(id)identifiers sortedByFloatPropertyForName:(id)name usingBlock:(id)block
@@ -929,84 +1216,88 @@ void __22__MAGraph_orphanNodes__block_invoke(uint64_t a1, void *a2)
 
 - (id)nodesDomains
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB58]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   nodeLabels = [(KGGraph *)self->_graph nodeLabels];
-  v5 = [nodeLabels countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [nodeLabels countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(nodeLabels);
         }
 
-        v9 = [MAKGDomainConversion maDomainForKGLabel:*(*(&v12 + 1) + 8 * i)];
+        v9 = [MAKGDomainConversion maDomainForKGLabel:*(*(&v11 + 1) + 8 * i)];
         if (v9 != 0xFFFF)
         {
           [v3 addIndex:v9];
         }
       }
 
-      v6 = [nodeLabels countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [nodeLabels countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)nodesLabels
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   nodeLabels = [(KGGraph *)self->_graph nodeLabels];
-  v5 = [nodeLabels countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [nodeLabels countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(nodeLabels);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if ([MAKGDomainConversion maDomainForKGLabel:v9]== 0xFFFF)
         {
           [v3 addObject:v9];
         }
       }
 
-      v6 = [nodeLabels countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [nodeLabels countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v3;
+}
+
+- (unint64_t)nodesCountForLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties
+{
+  v5 = [(MAGraph *)self _nodeIdentifiersWithLabel:label domain:domain properties:properties];
+  v6 = [v5 count];
+
+  return v6;
 }
 
 - (unint64_t)numberOfNodesMatchingFilter:(id)filter
@@ -1017,12 +1308,64 @@ void __22__MAGraph_orphanNodes__block_invoke(uint64_t a1, void *a2)
   return v4;
 }
 
+- (id)nodesForLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties
+{
+  v6 = [(MAGraph *)self _nodeIdentifiersWithLabel:label domain:domain properties:properties];
+  v7 = [(KGGraph *)self->_graph nodesForIdentifiers:v6];
+  v8 = [v7 set];
+
+  return v8;
+}
+
+- (id)anyNodeForLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties
+{
+  domainCopy = domain;
+  propertiesCopy = properties;
+  labelCopy = label;
+  v10 = [(MAElementFilter *)[MANodeFilter alloc] initWithLabel:labelCopy domain:domainCopy properties:propertiesCopy];
+
+  v11 = [(MAGraph *)self anyNodeMatchingFilter:v10];
+
+  return v11;
+}
+
 - (id)anyNodeMatchingFilter:(id)filter
 {
   v4 = [(MAGraph *)self nodeIdentifiersMatchingFilter:filter];
   v5 = -[KGGraph nodeForIdentifier:](self->_graph, "nodeForIdentifier:", [v4 firstElement]);
 
   return v5;
+}
+
+- (id)_nodeIdentifiersWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties
+{
+  domainCopy = domain;
+  propertiesCopy = properties;
+  labelCopy = label;
+  v10 = [MANodeFilter alloc];
+  if (propertiesCopy)
+  {
+    v11 = propertiesCopy;
+  }
+
+  else
+  {
+    v11 = MEMORY[0x277CBEC10];
+  }
+
+  v12 = [(MAElementFilter *)v10 initWithLabel:labelCopy domain:domainCopy properties:v11];
+
+  v13 = [(MAGraph *)self nodeIdentifiersMatchingFilter:v12];
+
+  return v13;
+}
+
+- (id)anyNodeForLabel:(id)label domain:(unsigned __int16)domain
+{
+  v4 = [(MAGraph *)self nodesForLabel:label domain:domain];
+  anyObject = [v4 anyObject];
+
+  return anyObject;
 }
 
 - (id)nodeIdentifiersMatchingFilter:(id)filter intersectingIdentifiers:(id)identifiers
@@ -1074,6 +1417,77 @@ void __22__MAGraph_orphanNodes__block_invoke(uint64_t a1, void *a2)
   [(MAGraph *)self executeGraphChangeRequest:v5];
 }
 
+- (id)addUniquelyIdentifiedNodeWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties didCreate:(BOOL *)create
+{
+  domainCopy = domain;
+  labelCopy = label;
+  propertiesCopy = properties;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy_;
+  v38 = __Block_byref_object_dispose_;
+  v39 = 0;
+  v14 = objc_autoreleasePoolPush();
+  v15 = [(MAGraph *)self nodesForLabel:labelCopy domain:domainCopy properties:MEMORY[0x277CBEC10]];
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_didCreate___block_invoke;
+  v31[3] = &unk_2797FDB60;
+  v16 = propertiesCopy;
+  v32 = v16;
+  v33 = &v34;
+  [v15 enumerateObjectsUsingBlock:v31];
+  v18 = v35[5];
+  if (v18)
+  {
+    v19 = [v35[5] changingPropertiesWithProperties:v16];
+    if ([v19 count])
+    {
+      identifier = [v35[5] identifier];
+      [(MAGraph *)self persistModelProperties:v19 forNodeWithIdentifier:identifier clobberExisting:0];
+      v29 = v14;
+      graphReference = [v35[5] graphReference];
+      propertyDictionary = [v35[5] propertyDictionary];
+      v22 = [propertyDictionary mutableCopy];
+
+      [v22 addEntriesFromDictionary:v19];
+      v23 = objc_alloc(objc_opt_class());
+      label = [v35[5] label];
+      *&v25 = weight;
+      v26 = [v23 initWithLabel:label domain:domainCopy weight:v22 properties:v25];
+      v27 = v35[5];
+      v35[5] = v26;
+
+      [v35[5] setIdentifier:identifier];
+      [v35[5] setGraphReference:graphReference];
+
+      v14 = v29;
+    }
+  }
+
+  else
+  {
+    if (create)
+    {
+      *create = 1;
+    }
+
+    *&v17 = weight;
+    domainCopy = [(MAGraph *)self _addNodeWithLabel:labelCopy domain:domainCopy weight:v16 properties:v17];
+  }
+
+  objc_autoreleasePoolPop(v14);
+  if (v18)
+  {
+    domainCopy = v35[5];
+  }
+
+  _Block_object_dispose(&v34, 8);
+
+  return domainCopy;
+}
+
 void __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_didCreate___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v6 = a2;
@@ -1084,9 +1498,48 @@ void __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_d
   }
 }
 
+- (id)addUniqueNodeWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties didCreate:(BOOL *)create
+{
+  domainCopy = domain;
+  labelCopy = label;
+  propertiesCopy = properties;
+  v14 = [(MAGraph *)self nodesForLabel:labelCopy domain:domainCopy properties:propertiesCopy];
+  anyObject = [v14 anyObject];
+
+  if (anyObject)
+  {
+    v17 = anyObject;
+  }
+
+  else
+  {
+    if (create)
+    {
+      *create = 1;
+    }
+
+    if (propertiesCopy)
+    {
+      v18 = propertiesCopy;
+    }
+
+    else
+    {
+      v18 = MEMORY[0x277CBEC10];
+    }
+
+    *&v16 = weight;
+    v17 = [(MAGraph *)self _addNodeWithLabel:labelCopy domain:domainCopy weight:v18 properties:v16];
+  }
+
+  v19 = v17;
+
+  return v19;
+}
+
 - (BOOL)findAndResolveUniqueEdge:(id)edge
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   edgeCopy = edge;
   v5 = objc_autoreleasePoolPush();
   sourceNode = [edgeCopy sourceNode];
@@ -1112,11 +1565,11 @@ void __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_d
         v17 = KGLoggingConnection();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
         {
-          v21 = 134218242;
-          v22 = v16;
-          v23 = 2112;
-          v24 = uniquelyIdentifyingFilter;
-          _os_log_fault_impl(&dword_255870000, v17, OS_LOG_TYPE_FAULT, "(%lu) edges found for unique insert with filter %@", &v21, 0x16u);
+          v20 = 134218242;
+          v21 = v16;
+          v22 = 2112;
+          v23 = uniquelyIdentifyingFilter;
+          _os_log_fault_impl(&dword_255870000, v17, OS_LOG_TYPE_FAULT, "(%lu) edges found for unique insert with filter %@", &v20, 0x16u);
         }
       }
 
@@ -1129,7 +1582,6 @@ void __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_d
 
   objc_autoreleasePoolPop(v5);
 
-  v19 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1152,7 +1604,7 @@ void __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_d
 
 - (BOOL)findAndResolveUniqueNode:(id)node
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   uniquelyIdentifyingFilter = [nodeCopy uniquelyIdentifyingFilter];
   v6 = [(MAGraph *)self nodeIdentifiersMatchingFilter:uniquelyIdentifyingFilter];
@@ -1165,11 +1617,11 @@ void __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_d
       v9 = KGLoggingConnection();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
-        v13 = 134218242;
-        v14 = v8;
-        v15 = 2112;
-        v16 = uniquelyIdentifyingFilter;
-        _os_log_fault_impl(&dword_255870000, v9, OS_LOG_TYPE_FAULT, "(%lu) nodes found for unique insert with filter %@", &v13, 0x16u);
+        v12 = 134218242;
+        v13 = v8;
+        v14 = 2112;
+        v15 = uniquelyIdentifyingFilter;
+        _os_log_fault_impl(&dword_255870000, v9, OS_LOG_TYPE_FAULT, "(%lu) nodes found for unique insert with filter %@", &v12, 0x16u);
       }
     }
 
@@ -1179,7 +1631,6 @@ void __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_d
     [nodeCopy resolveIdentifier:{objc_msgSend(v6, "firstElement")}];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8 != 0;
 }
 
@@ -1198,72 +1649,104 @@ void __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_d
   return v11;
 }
 
+- (id)addNodeWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  if (!properties)
+  {
+    properties = MEMORY[0x277CBEC10];
+  }
+
+  return [(MAGraph *)self _addNodeWithLabel:label domain:domain weight:properties properties:?];
+}
+
+- (id)_addNodeWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  propertiesCopy = properties;
+  labelCopy = label;
+  specification = [(MAGraph *)self specification];
+  v13 = [specification nodeClassWithLabel:labelCopy domain:domainCopy];
+
+  v14 = [v13 alloc];
+  *&v15 = weight;
+  v16 = [v14 initWithLabel:labelCopy domain:domainCopy weight:propertiesCopy properties:v15];
+
+  graphReference = [(MAGraph *)self graphReference];
+  [v16 setGraphReference:graphReference];
+
+  v18 = objc_alloc_init(MAGraphChangeRequest);
+  [(MAGraphChangeRequest *)v18 addNode:v16];
+  [(MAGraph *)self executeGraphChangeRequest:v18];
+
+  return v16;
+}
+
 - (void)executeGraphChangeRequest:(id)request
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = objc_alloc_init(KGGraphChangeRequest);
   if ([requestCopy numberOfChanges])
   {
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     nodesToInsert = [requestCopy nodesToInsert];
-    v7 = [nodesToInsert countByEnumeratingWithState:&v33 objects:v40 count:16];
+    v7 = [nodesToInsert countByEnumeratingWithState:&v32 objects:v39 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v34;
+      v9 = *v33;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v34 != v9)
+          if (*v33 != v9)
           {
             objc_enumerationMutation(nodesToInsert);
           }
 
-          v11 = *(*(&v33 + 1) + 8 * i);
+          v11 = *(*(&v32 + 1) + 8 * i);
           [(KGGraphChangeRequest *)v5 insertNode:v11];
           specification = [(MAGraph *)self specification];
           rootGraphReference = [specification rootGraphReference];
           [v11 setGraphReference:rootGraphReference];
         }
 
-        v8 = [nodesToInsert countByEnumeratingWithState:&v33 objects:v40 count:16];
+        v8 = [nodesToInsert countByEnumeratingWithState:&v32 objects:v39 count:16];
       }
 
       while (v8);
     }
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     edgesToInsert = [requestCopy edgesToInsert];
-    v15 = [edgesToInsert countByEnumeratingWithState:&v29 objects:v39 count:16];
+    v15 = [edgesToInsert countByEnumeratingWithState:&v28 objects:v38 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v30;
+      v17 = *v29;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v30 != v17)
+          if (*v29 != v17)
           {
             objc_enumerationMutation(edgesToInsert);
           }
 
-          v19 = *(*(&v29 + 1) + 8 * j);
+          v19 = *(*(&v28 + 1) + 8 * j);
           [(KGGraphChangeRequest *)v5 insertEdge:v19];
           specification2 = [(MAGraph *)self specification];
           rootGraphReference2 = [specification2 rootGraphReference];
           [v19 setGraphReference:rootGraphReference2];
         }
 
-        v16 = [edgesToInsert countByEnumeratingWithState:&v29 objects:v39 count:16];
+        v16 = [edgesToInsert countByEnumeratingWithState:&v28 objects:v38 count:16];
       }
 
       while (v16);
@@ -1282,23 +1765,21 @@ void __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_d
     }
 
     graph = self->_graph;
-    v28 = 0;
-    v25 = [(KGMutableGraph *)graph performChangesAndWait:v5 error:&v28];
-    v26 = v28;
+    v27 = 0;
+    v25 = [(KGMutableGraph *)graph performChangesAndWait:v5 error:&v27];
+    v26 = v27;
     if (!v25)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v38 = v26;
+        v37 = v26;
         _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error executing request: %@", buf, 0xCu);
       }
 
       [(MAGraph *)self setHadFatalError];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)usesClassCDataProtection
@@ -1335,11 +1816,11 @@ void __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_d
 
 - (void)rollbackBatch
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   store = [(KGStoredGraph *)self->_graph store];
-  v7 = 0;
-  v4 = [store rollbackTransactionWithError:&v7];
-  v5 = v7;
+  v6 = 0;
+  v4 = [store rollbackTransactionWithError:&v6];
+  v5 = v6;
 
   if ((v4 & 1) == 0)
   {
@@ -1347,25 +1828,23 @@ void __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_d
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v9 = v5;
+      v8 = v5;
       _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error rolling back transaction: %@", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)leaveBatch
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   noFatalError = [(MAGraph *)self noFatalError];
   store = [(KGStoredGraph *)self->_graph store];
   v5 = store;
   if (noFatalError)
   {
-    v10 = 0;
-    v6 = [store commitTransactionWithError:&v10];
-    v7 = v10;
+    v9 = 0;
+    v6 = [store commitTransactionWithError:&v9];
+    v7 = v9;
 
     if ((v6 & 1) == 0)
     {
@@ -1373,7 +1852,7 @@ void __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_d
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v12 = v7;
+        v11 = v7;
         _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error committing transaction: %@", buf, 0xCu);
       }
     }
@@ -1381,21 +1860,19 @@ void __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_d
 
   else
   {
-    v9 = 0;
-    [store rollbackTransactionWithError:&v9];
-    v7 = v9;
+    v8 = 0;
+    [store rollbackTransactionWithError:&v8];
+    v7 = v8;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enterBatch
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   store = [(KGStoredGraph *)self->_graph store];
-  v7 = 0;
-  v4 = [store beginTransactionWithError:&v7];
-  v5 = v7;
+  v6 = 0;
+  v4 = [store beginTransactionWithError:&v6];
+  v5 = v6;
 
   if ((v4 & 1) == 0)
   {
@@ -1403,12 +1880,10 @@ void __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_d
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v9 = v5;
+      v8 = v5;
       _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error beginning transaction: %@", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSUUID)identifier
@@ -1436,30 +1911,30 @@ void __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_d
 - (void)labelAndDomainFromLabels:(id)labels outLabel:(id *)label outDomain:(unsigned __int16 *)domain
 {
   labelCopy = label;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   labelsCopy = labels;
   os_unfair_lock_lock(&self->_labelMapLock);
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v7 = labelsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         labelCopy = [(NSMutableDictionary *)self->_domainByLabel objectForKeyedSubscript:v13, labelCopy];
         if (labelCopy)
         {
@@ -1487,7 +1962,7 @@ void __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_d
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v9);
@@ -1510,8 +1985,35 @@ void __81__MAGraph_addUniquelyIdentifiedNodeWithLabel_domain_weight_properties_d
   {
     *domain = unsignedShortValue;
   }
+}
 
-  v19 = *MEMORY[0x277D85DE8];
+- (id)labelsForLabel:(id)label domain:(unsigned __int16)domain
+{
+  domainCopy = domain;
+  labelCopy = label;
+  v7 = [MEMORY[0x277CBEB58] setWithCapacity:2];
+  if (domainCopy >= 2)
+  {
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:domainCopy];
+    os_unfair_lock_lock(&self->_labelMapLock);
+    v9 = [(NSMutableDictionary *)self->_labelByDomain objectForKeyedSubscript:v8];
+    if (!v9)
+    {
+      v9 = [MAKGDomainConversion kgLabelForMADomain:domainCopy];
+      [(NSMutableDictionary *)self->_labelByDomain setObject:v9 forKeyedSubscript:v8];
+      [(NSMutableDictionary *)self->_domainByLabel setObject:v8 forKeyedSubscript:v9];
+    }
+
+    os_unfair_lock_unlock(&self->_labelMapLock);
+    [v7 addObject:v9];
+  }
+
+  if ([labelCopy length])
+  {
+    [v7 addObject:labelCopy];
+  }
+
+  return v7;
 }
 
 - (BOOL)noFatalError
@@ -1819,118 +2321,159 @@ void __106__MAGraph_Merge_Private__mergeWithGraph_strictNodes_strictEdges_saveTo
   *a3 = 1;
 }
 
+- (id)mergeWithGraph:(id)graph strictNodes:(BOOL)nodes strictEdges:(BOOL)edges saveToDatabase:(BOOL)database
+{
+  v8 = 0;
+  [(MAGraph *)self mergeWithGraph:graph strictNodes:nodes strictEdges:edges saveToDatabase:database createdNodes:&v8 createdEdges:0];
+  v6 = v8;
+
+  return v6;
+}
+
++ (MAGraph)graphWithMergedGraphs:(id)graphs strictNodes:(BOOL)nodes strictEdges:(BOOL)edges
+{
+  edgesCopy = edges;
+  nodesCopy = nodes;
+  v22 = *MEMORY[0x277D85DE8];
+  graphsCopy = graphs;
+  graph = [self graph];
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v10 = graphsCopy;
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v18;
+    do
+    {
+      for (i = 0; i != v12; ++i)
+      {
+        if (*v18 != v13)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        v15 = [graph mergeWithGraph:*(*(&v17 + 1) + 8 * i) strictNodes:nodesCopy strictEdges:{edgesCopy, v17}];
+      }
+
+      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    }
+
+    while (v12);
+  }
+
+  return graph;
+}
+
 - (void)persistWeight:(float)weight forEdgeWithIdentifier:(unint64_t)identifier
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v6 = [(KGGraph *)self->_graph edgeForIdentifier:identifier];
   [v6 weight];
   v8 = v7;
   v9 = objc_alloc_init(KGGraphChangeRequest);
-  v28 = @"__weight";
+  v27 = @"__weight";
   weightCopy = weight;
   v11 = [[KGDoublePropertyValue alloc] initWithValue:weightCopy];
-  v29[0] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+  v28[0] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
   [(KGGraphChangeRequest *)v9 updateEdge:v6 newProperties:v12];
 
   graph = self->_graph;
-  v17 = 0;
-  LOBYTE(v12) = [(KGMutableGraph *)graph performChangesAndWait:v9 error:&v17];
-  v14 = v17;
+  v16 = 0;
+  LOBYTE(v12) = [(KGMutableGraph *)graph performChangesAndWait:v9 error:&v16];
+  v14 = v16;
   if ((v12 & 1) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       identifier = [v6 identifier];
       *buf = 138413314;
-      v19 = v6;
-      v20 = 2048;
-      v21 = identifier;
-      v22 = 2048;
-      v23 = v8;
-      v24 = 2048;
-      v25 = weightCopy;
-      v26 = 2112;
-      v27 = v14;
+      v18 = v6;
+      v19 = 2048;
+      v20 = identifier;
+      v21 = 2048;
+      v22 = v8;
+      v23 = 2048;
+      v24 = weightCopy;
+      v25 = 2112;
+      v26 = v14;
       _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error persisting weight for edge(%@) identifier(%lu) old weight(%f) new weight(%f) error(%@)", buf, 0x34u);
     }
 
     [(MAGraph *)self setHadFatalError];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)persistWeight:(float)weight forNodeWithIdentifier:(unint64_t)identifier
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v6 = [(KGGraph *)self->_graph nodeForIdentifier:identifier];
   [v6 weight];
   v8 = v7;
   v9 = objc_alloc_init(KGGraphChangeRequest);
-  v28 = @"__weight";
+  v27 = @"__weight";
   weightCopy = weight;
   v11 = [[KGDoublePropertyValue alloc] initWithValue:weightCopy];
-  v29[0] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+  v28[0] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
   [(KGGraphChangeRequest *)v9 updateNode:v6 newProperties:v12];
 
   graph = self->_graph;
-  v17 = 0;
-  LOBYTE(v12) = [(KGMutableGraph *)graph performChangesAndWait:v9 error:&v17];
-  v14 = v17;
+  v16 = 0;
+  LOBYTE(v12) = [(KGMutableGraph *)graph performChangesAndWait:v9 error:&v16];
+  v14 = v16;
   if ((v12 & 1) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       identifier = [v6 identifier];
       *buf = 138413314;
-      v19 = v6;
-      v20 = 2048;
-      v21 = identifier;
-      v22 = 2048;
-      v23 = v8;
-      v24 = 2048;
-      v25 = weightCopy;
-      v26 = 2112;
-      v27 = v14;
+      v18 = v6;
+      v19 = 2048;
+      v20 = identifier;
+      v21 = 2048;
+      v22 = v8;
+      v23 = 2048;
+      v24 = weightCopy;
+      v25 = 2112;
+      v26 = v14;
       _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error persisting weight for node(%@) identifier(%lu) old weight(%f) new weight(%f) error(%@)", buf, 0x34u);
     }
 
     [(MAGraph *)self setHadFatalError];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeModelPropertiesForEdgeWithIdentifier:(unint64_t)identifier
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = [(KGGraph *)self->_graph edgeForIdentifier:identifier];
   v5 = objc_alloc_init(KGGraphChangeRequest);
   [(KGGraphChangeRequest *)v5 updateEdge:v4 newProperties:MEMORY[0x277CBEC10]];
   graph = self->_graph;
-  v10 = 0;
-  v7 = [(KGMutableGraph *)graph performChangesAndWait:v5 error:&v10];
-  v8 = v10;
+  v9 = 0;
+  v7 = [(KGMutableGraph *)graph performChangesAndWait:v5 error:&v9];
+  v8 = v9;
   if (!v7)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v4;
+      v11 = v4;
       _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error persisting node properties for edge %@", buf, 0xCu);
     }
 
     [(MAGraph *)self setHadFatalError];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeModelPropertyForKey:(id)key forEdgeWithIdentifier:(unint64_t)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   graph = self->_graph;
   keyCopy = key;
   v8 = [(KGGraph *)graph edgeForIdentifier:identifier];
@@ -1941,27 +2484,25 @@ void __106__MAGraph_Merge_Private__mergeWithGraph_strictNodes_strictEdges_saveTo
   v11 = objc_alloc_init(KGGraphChangeRequest);
   [(KGGraphChangeRequest *)v11 updateEdge:v8 newProperties:v10];
   v12 = self->_graph;
-  v16 = 0;
-  v13 = [(KGMutableGraph *)v12 performChangesAndWait:v11 error:&v16];
-  v14 = v16;
+  v15 = 0;
+  v13 = [(KGMutableGraph *)v12 performChangesAndWait:v11 error:&v15];
+  v14 = v15;
   if (!v13)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v8;
+      v17 = v8;
       _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error persisting edge properties for node %@", buf, 0xCu);
     }
 
     [(MAGraph *)self setHadFatalError];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)persistModelProperties:(id)properties forEdgeWithIdentifier:(unint64_t)identifier clobberExisting:(BOOL)existing
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v8 = [KGPropertyValue kgPropertiesWithMAProperties:properties];
   if (v8)
   {
@@ -1980,44 +2521,39 @@ void __106__MAGraph_Merge_Private__mergeWithGraph_strictNodes_strictEdges_saveTo
     v14 = objc_alloc_init(KGGraphChangeRequest);
     [(KGGraphChangeRequest *)v14 updateEdge:v11 newProperties:v9];
     graph = self->_graph;
-    v19 = 0;
-    v16 = [(KGMutableGraph *)graph performChangesAndWait:v14 error:&v19];
-    v17 = v19;
+    v18 = 0;
+    v16 = [(KGMutableGraph *)graph performChangesAndWait:v14 error:&v18];
+    v17 = v18;
     if (!v16)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v21 = v11;
+        v20 = v11;
         _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error persisting edge properties for edge %@", buf, 0xCu);
       }
 
       [(MAGraph *)self setHadFatalError];
     }
+
+    goto LABEL_9;
   }
 
-  else
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_11;
-    }
-
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:identifier];
     *buf = 138412546;
-    v21 = 0;
-    v22 = 2112;
-    v23 = v9;
+    v20 = 0;
+    v21 = 2112;
+    v22 = v9;
     _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error persisting edge properties %@ for edge with identifier %@", buf, 0x16u);
+LABEL_9:
   }
-
-LABEL_11:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)persistModelProperty:(id)property forKey:(id)key forEdgeWithIdentifier:(unint64_t)identifier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   keyCopy = key;
   v10 = [KGPropertyValue kgPropertyValueWithMAPropertyValue:propertyCopy];
@@ -2031,15 +2567,15 @@ LABEL_11:
     v14 = objc_alloc_init(KGGraphChangeRequest);
     [(KGGraphChangeRequest *)v14 updateEdge:v11 newProperties:v13];
     graph = self->_graph;
-    v20 = 0;
-    v16 = [(KGMutableGraph *)graph performChangesAndWait:v14 error:&v20];
-    v17 = v20;
+    v19 = 0;
+    v16 = [(KGMutableGraph *)graph performChangesAndWait:v14 error:&v19];
+    v17 = v19;
     if (!v16)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v22 = v11;
+        v21 = v11;
         _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error persisting edge property for edge %@", buf, 0xCu);
       }
 
@@ -2049,45 +2585,41 @@ LABEL_11:
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:identifier];
+    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:identifier];
     *buf = 138412546;
-    v22 = propertyCopy;
-    v23 = 2112;
-    v24 = v19;
+    v21 = propertyCopy;
+    v22 = 2112;
+    v23 = v18;
     _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error persisting edge property %@ for edge with identifier %@", buf, 0x16u);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeModelPropertiesForNodeWithIdentifier:(unint64_t)identifier
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = [(KGGraph *)self->_graph nodeForIdentifier:identifier];
   v5 = objc_alloc_init(KGGraphChangeRequest);
   [(KGGraphChangeRequest *)v5 updateNode:v4 newProperties:MEMORY[0x277CBEC10]];
   graph = self->_graph;
-  v10 = 0;
-  v7 = [(KGMutableGraph *)graph performChangesAndWait:v5 error:&v10];
-  v8 = v10;
+  v9 = 0;
+  v7 = [(KGMutableGraph *)graph performChangesAndWait:v5 error:&v9];
+  v8 = v9;
   if (!v7)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v4;
+      v11 = v4;
       _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error removing node properties for node %@", buf, 0xCu);
     }
 
     [(MAGraph *)self setHadFatalError];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeModelPropertyForKey:(id)key forNodeWithIdentifier:(unint64_t)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   graph = self->_graph;
   keyCopy = key;
   v8 = [(KGGraph *)graph nodeForIdentifier:identifier];
@@ -2098,27 +2630,25 @@ LABEL_11:
   v11 = objc_alloc_init(KGGraphChangeRequest);
   [(KGGraphChangeRequest *)v11 updateNode:v8 newProperties:v10];
   v12 = self->_graph;
-  v16 = 0;
-  v13 = [(KGMutableGraph *)v12 performChangesAndWait:v11 error:&v16];
-  v14 = v16;
+  v15 = 0;
+  v13 = [(KGMutableGraph *)v12 performChangesAndWait:v11 error:&v15];
+  v14 = v15;
   if (!v13)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v8;
+      v17 = v8;
       _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error removing node property for node %@", buf, 0xCu);
     }
 
     [(MAGraph *)self setHadFatalError];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)persistModelProperties:(id)properties forNodeWithIdentifier:(unint64_t)identifier clobberExisting:(BOOL)existing
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v8 = [KGPropertyValue kgPropertiesWithMAProperties:properties];
   if (v8)
   {
@@ -2137,44 +2667,39 @@ LABEL_11:
     v14 = objc_alloc_init(KGGraphChangeRequest);
     [(KGGraphChangeRequest *)v14 updateNode:v11 newProperties:v9];
     graph = self->_graph;
-    v19 = 0;
-    v16 = [(KGMutableGraph *)graph performChangesAndWait:v14 error:&v19];
-    v17 = v19;
+    v18 = 0;
+    v16 = [(KGMutableGraph *)graph performChangesAndWait:v14 error:&v18];
+    v17 = v18;
     if (!v16)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v21 = v11;
+        v20 = v11;
         _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error persisting node properties for node %@", buf, 0xCu);
       }
 
       [(MAGraph *)self setHadFatalError];
     }
+
+    goto LABEL_9;
   }
 
-  else
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_11;
-    }
-
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:identifier];
     *buf = 138412546;
-    v21 = 0;
-    v22 = 2112;
-    v23 = v9;
+    v20 = 0;
+    v21 = 2112;
+    v22 = v9;
     _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error persisting node properties %@ for node with identifier %@", buf, 0x16u);
+LABEL_9:
   }
-
-LABEL_11:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)persistModelProperty:(id)property forKey:(id)key forNodeWithIdentifier:(unint64_t)identifier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   keyCopy = key;
   v10 = [KGPropertyValue kgPropertyValueWithMAPropertyValue:propertyCopy];
@@ -2188,15 +2713,15 @@ LABEL_11:
     v14 = objc_alloc_init(KGGraphChangeRequest);
     [(KGGraphChangeRequest *)v14 updateNode:v11 newProperties:v13];
     graph = self->_graph;
-    v20 = 0;
-    v16 = [(KGMutableGraph *)graph performChangesAndWait:v14 error:&v20];
-    v17 = v20;
+    v19 = 0;
+    v16 = [(KGMutableGraph *)graph performChangesAndWait:v14 error:&v19];
+    v17 = v19;
     if (!v16)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v22 = v11;
+        v21 = v11;
         _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error persisting node property for node %@", buf, 0xCu);
       }
 
@@ -2206,15 +2731,13 @@ LABEL_11:
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:identifier];
+    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:identifier];
     *buf = 138412546;
-    v22 = propertyCopy;
-    v23 = 2112;
-    v24 = v19;
+    v21 = propertyCopy;
+    v22 = 2112;
+    v23 = v18;
     _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error persisting node property %@ for node with identifier %@", buf, 0x16u);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)copyPersistentStoreToURL:(id)l error:(id *)error
@@ -2327,7 +2850,7 @@ LABEL_11:
 
 - (id)_instantiateGraphWithStoreAtURL:(id)l error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v7 = [MAKGEntityFactory alloc];
   specification = [(MAGraph *)self specification];
@@ -2369,9 +2892,9 @@ LABEL_11:
     v12 = v11;
   }
 
-  v20 = 0;
-  v13 = [(KGDegasGraphStore *)v10 openWithMode:v12 error:&v20];
-  v14 = v20;
+  v19 = 0;
+  v13 = [(KGDegasGraphStore *)v10 openWithMode:v12 error:&v19];
+  v14 = v19;
   if (v13)
   {
     v15 = [[KGStoredGraph alloc] initGraphWithStore:v10 entityFactory:v9];
@@ -2383,7 +2906,7 @@ LABEL_11:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v22 = v14;
+      v21 = v14;
       _os_log_error_impl(&dword_255870000, v16, OS_LOG_TYPE_ERROR, "Opening graph store failed: %@", buf, 0xCu);
     }
 
@@ -2400,8 +2923,6 @@ LABEL_11:
       v15 = 0;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -2656,30 +3177,30 @@ LABEL_10:
 
 - (void)_loadWithGraphDictionary:(id)dictionary
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
-  v44 = dictionaryCopy;
+  v43 = dictionaryCopy;
   obj = [dictionaryCopy objectForKey:@"nodes"];
-  v6 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+  v6 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v53;
+    v8 = *v52;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v53 != v8)
+        if (*v52 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v52 + 1) + 8 * i);
+        v10 = *(*(&v51 + 1) + 8 * i);
         v11 = [v10 objectForKey:@"label"];
         v12 = [v10 objectForKey:@"domain"];
         unsignedIntegerValue = [v12 unsignedIntegerValue];
@@ -2696,32 +3217,32 @@ LABEL_10:
         [v5 setObject:v20 forKeyedSubscript:v21];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+      v7 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
     }
 
     while (v7);
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
-  v45 = [v44 objectForKey:@"edges"];
-  v22 = [v45 countByEnumeratingWithState:&v48 objects:v56 count:16];
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v44 = [v43 objectForKey:@"edges"];
+  v22 = [v44 countByEnumeratingWithState:&v47 objects:v55 count:16];
   if (v22)
   {
     v23 = v22;
-    obja = *v49;
+    obja = *v48;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v49 != obja)
+        if (*v48 != obja)
         {
-          objc_enumerationMutation(v45);
+          objc_enumerationMutation(v44);
         }
 
-        v25 = *(*(&v48 + 1) + 8 * j);
+        v25 = *(*(&v47 + 1) + 8 * j);
         v26 = [v25 objectForKey:@"sourceNodeIdentifier"];
         v27 = [v5 objectForKeyedSubscript:v26];
         unsignedIntegerValue2 = [v27 unsignedIntegerValue];
@@ -2745,13 +3266,11 @@ LABEL_10:
         v42 = [(MAGraph *)self addEdgeWithLabel:v32 sourceNode:v39 targetNode:v40 domain:unsignedIntegerValue4 weight:v38 properties:v41];
       }
 
-      v23 = [v45 countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v23 = [v44 countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
     while (v23);
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)writeDataToURL:(id)l error:(id *)error
@@ -2810,7 +3329,7 @@ LABEL_10:
 
 - (id)_graphDictionary
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   identifier = [(MAGraph *)self identifier];
   uUIDString = [identifier UUIDString];
@@ -2820,31 +3339,29 @@ LABEL_10:
   [v3 setObject:v6 forKey:@"version"];
 
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __41__MAGraph_File_Private___graphDictionary__block_invoke;
-  v22[3] = &unk_2797FF670;
-  v23 = v7;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __41__MAGraph_File_Private___graphDictionary__block_invoke;
+  v21[3] = &unk_2797FF670;
+  v22 = v7;
   v8 = v7;
-  [(MAGraph *)self enumerateNodesWithBlock:v22];
+  [(MAGraph *)self enumerateNodesWithBlock:v21];
   v9 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"identifier" ascending:1];
-  v24[0] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23[0] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
 
   v11 = [v8 sortedArrayUsingDescriptors:v10];
   [v3 setObject:v11 forKey:@"nodes"];
   v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 3221225472;
-  v19 = __41__MAGraph_File_Private___graphDictionary__block_invoke_2;
-  v20 = &unk_2797FFB60;
-  v21 = v12;
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __41__MAGraph_File_Private___graphDictionary__block_invoke_2;
+  v19 = &unk_2797FFB60;
+  v20 = v12;
   v13 = v12;
-  [(MAGraph *)self enumerateEdgesWithBlock:&v17];
-  v14 = [v13 sortedArrayUsingDescriptors:{v10, v17, v18, v19, v20}];
+  [(MAGraph *)self enumerateEdgesWithBlock:&v16];
+  v14 = [v13 sortedArrayUsingDescriptors:{v10, v16, v17, v18, v19}];
   [v3 setObject:v14 forKey:@"edges"];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -2963,104 +3480,104 @@ void __41__MAGraph_File_Private___graphDictionary__block_invoke_2(uint64_t a1, v
 
 void __34__MAGraph_Schema_Private__schema___block_invoke(uint64_t a1, void *a2)
 {
-  v111 = *MEMORY[0x277D85DE8];
-  v78 = a2;
-  v71 = [*(a1 + 32) edgesForLabel:?];
-  [v71 valueForKeyPath:@"domain"];
+  v110 = *MEMORY[0x277D85DE8];
+  v77 = a2;
+  v70 = [*(a1 + 32) edgesForLabel:?];
+  [v70 valueForKeyPath:@"domain"];
+  v94 = 0u;
   v95 = 0u;
   v96 = 0u;
-  v97 = 0u;
-  obj = v98 = 0u;
-  v72 = [obj countByEnumeratingWithState:&v95 objects:v110 count:16];
-  if (v72)
+  obj = v97 = 0u;
+  v71 = [obj countByEnumeratingWithState:&v94 objects:v109 count:16];
+  if (v71)
   {
-    v70 = *v96;
+    v69 = *v95;
     do
     {
       v3 = 0;
       do
       {
-        if (*v96 != v70)
+        if (*v95 != v69)
         {
           objc_enumerationMutation(obj);
         }
 
-        v73 = v3;
-        v4 = *(*(&v95 + 1) + 8 * v3);
-        v94[0] = MEMORY[0x277D85DD0];
-        v94[1] = 3221225472;
-        v94[2] = __34__MAGraph_Schema_Private__schema___block_invoke_2;
-        v94[3] = &unk_2797FF980;
-        v80 = v4;
-        v94[4] = v4;
-        v5 = [MEMORY[0x277CCAC30] predicateWithBlock:v94];
-        v6 = [v71 filteredSetUsingPredicate:v5];
+        v72 = v3;
+        v4 = *(*(&v94 + 1) + 8 * v3);
+        v93[0] = MEMORY[0x277D85DD0];
+        v93[1] = 3221225472;
+        v93[2] = __34__MAGraph_Schema_Private__schema___block_invoke_2;
+        v93[3] = &unk_2797FF980;
+        v79 = v4;
+        v93[4] = v4;
+        v5 = [MEMORY[0x277CCAC30] predicateWithBlock:v93];
+        v6 = [v70 filteredSetUsingPredicate:v5];
 
-        v84 = [MEMORY[0x277CBEB58] set];
+        v83 = [MEMORY[0x277CBEB58] set];
+        v89 = 0u;
         v90 = 0u;
         v91 = 0u;
         v92 = 0u;
-        v93 = 0u;
-        v76 = v6;
-        v7 = [v76 countByEnumeratingWithState:&v90 objects:v109 count:16];
+        v75 = v6;
+        v7 = [v75 countByEnumeratingWithState:&v89 objects:v108 count:16];
         if (v7)
         {
           v8 = v7;
-          v82 = *v91;
+          v81 = *v90;
           do
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v91 != v82)
+              if (*v90 != v81)
               {
-                objc_enumerationMutation(v76);
+                objc_enumerationMutation(v75);
               }
 
-              v10 = *(*(&v90 + 1) + 8 * i);
+              v10 = *(*(&v89 + 1) + 8 * i);
               v11 = [v10 sourceNode];
               v12 = [v10 targetNode];
               v13 = [v11 label];
-              v108[0] = v13;
+              v107[0] = v13;
               v14 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(v11, "domain")}];
-              v108[1] = v14;
+              v107[1] = v14;
               v15 = [v12 label];
-              v108[2] = v15;
+              v107[2] = v15;
               v16 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(v12, "domain")}];
-              v108[3] = v16;
-              v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v108 count:4];
-              [v84 addObject:v17];
+              v107[3] = v16;
+              v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v107 count:4];
+              [v83 addObject:v17];
             }
 
-            v8 = [v76 countByEnumeratingWithState:&v90 objects:v109 count:16];
+            v8 = [v75 countByEnumeratingWithState:&v89 objects:v108 count:16];
           }
 
           while (v8);
         }
 
-        v88 = 0u;
-        v89 = 0u;
-        v86 = 0u;
         v87 = 0u;
-        v75 = v84;
-        v81 = [v75 countByEnumeratingWithState:&v86 objects:v107 count:16];
-        if (v81)
+        v88 = 0u;
+        v85 = 0u;
+        v86 = 0u;
+        v74 = v83;
+        v80 = [v74 countByEnumeratingWithState:&v85 objects:v106 count:16];
+        if (v80)
         {
-          v79 = *v87;
+          v78 = *v86;
           do
           {
-            for (j = 0; j != v81; ++j)
+            for (j = 0; j != v80; ++j)
             {
-              if (*v87 != v79)
+              if (*v86 != v78)
               {
-                objc_enumerationMutation(v75);
+                objc_enumerationMutation(v74);
               }
 
-              v19 = *(*(&v86 + 1) + 8 * j);
+              v19 = *(*(&v85 + 1) + 8 * j);
               v20 = [v19 objectAtIndexedSubscript:0];
               v21 = [v19 objectAtIndexedSubscript:1];
               v22 = [v21 unsignedShortValue];
 
-              v85 = [v19 objectAtIndexedSubscript:2];
+              v84 = [v19 objectAtIndexedSubscript:2];
               v23 = [v19 objectAtIndexedSubscript:3];
               v24 = [v23 unsignedShortValue];
 
@@ -3094,10 +3611,10 @@ void __34__MAGraph_Schema_Private__schema___block_invoke(uint64_t a1, void *a2)
                 {
                   v34 = [v33 nodesCountForLabel:0 domain:v22 properties:MEMORY[0x277CBEC10]];
                   v35 = *(a1 + 56);
-                  v105 = @"cid";
+                  v104 = @"cid";
                   v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v34];
-                  v106 = v36;
-                  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
+                  v105 = v36;
+                  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
                   LODWORD(v38) = 1.0;
                   [v35 addUniqueNodeWithLabel:0 domain:v22 weight:v37 properties:0 didCreate:v38];
                 }
@@ -3106,10 +3623,10 @@ void __34__MAGraph_Schema_Private__schema___block_invoke(uint64_t a1, void *a2)
                 {
                   v39 = [v33 nodesCountForLabel:v20 domain:v22 properties:MEMORY[0x277CBEC10]];
                   v40 = *(a1 + 56);
-                  v103 = @"cid";
+                  v102 = @"cid";
                   v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v39];
-                  v104 = v36;
-                  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
+                  v103 = v36;
+                  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
                   LODWORD(v41) = 1.0;
                   [v40 addNodeWithLabel:v20 domain:v22 weight:v37 properties:v41];
                 }
@@ -3118,8 +3635,8 @@ void __34__MAGraph_Schema_Private__schema___block_invoke(uint64_t a1, void *a2)
                 [*(a1 + 48) setObject:v32 forKey:v25];
               }
 
-              v83 = v25;
-              v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"NODE %@ %u", v85, v24];
+              v82 = v25;
+              v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"NODE %@ %u", v84, v24];
               v43 = *(a1 + 40);
               if (v43 && ([v43 containsIndex:v24] & 1) != 0)
               {
@@ -3146,7 +3663,7 @@ void __34__MAGraph_Schema_Private__schema___block_invoke(uint64_t a1, void *a2)
 
               v50 = v22;
               v51 = [*(a1 + 48) objectForKey:v42];
-              v52 = [v20 isEqualToString:v85];
+              v52 = [v20 isEqualToString:v84];
               if (v50 == v24)
               {
                 v53 = v52;
@@ -3159,110 +3676,108 @@ void __34__MAGraph_Schema_Private__schema___block_invoke(uint64_t a1, void *a2)
 
               if (!v51 || v53)
               {
-                v77 = v20;
+                v76 = v20;
                 v56 = *(a1 + 56);
                 if ((v44 | v53))
                 {
-                  v57 = [v56 nodesCountForLabel:v85 domain:v24 properties:MEMORY[0x277CBEC10]];
-                  v74 = *(a1 + 56);
-                  v99 = @"cid";
+                  v57 = [v56 nodesCountForLabel:v84 domain:v24 properties:MEMORY[0x277CBEC10]];
+                  v73 = *(a1 + 56);
+                  v98 = @"cid";
                   v58 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v57];
-                  v100 = v58;
-                  v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
+                  v99 = v58;
+                  v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
                   LODWORD(v60) = 1.0;
-                  [v74 addNodeWithLabel:v85 domain:v24 weight:v59 properties:v60];
+                  [v73 addNodeWithLabel:v84 domain:v24 weight:v59 properties:v60];
                 }
 
                 else
                 {
                   v61 = [v56 nodesCountForLabel:0 domain:v24 properties:MEMORY[0x277CBEC10]];
                   v62 = *(a1 + 56);
-                  v101 = @"cid";
+                  v100 = @"cid";
                   v58 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v61];
-                  v102 = v58;
-                  v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
+                  v101 = v58;
+                  v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
                   LODWORD(v63) = 1.0;
                   [v62 addUniqueNodeWithLabel:0 domain:v24 weight:v59 properties:0 didCreate:v63];
                 }
                 v54 = ;
 
-                v55 = v83;
+                v55 = v82;
                 if ((v53 & 1) == 0)
                 {
                   [*(a1 + 48) setObject:v54 forKey:v42];
                 }
 
-                v20 = v77;
+                v20 = v76;
               }
 
               else
               {
                 v54 = v51;
-                v55 = v83;
+                v55 = v82;
               }
 
               v64 = *(a1 + 56);
-              v65 = [v80 intValue];
+              v65 = [v79 intValue];
               LODWORD(v66) = 1.0;
-              v67 = [v64 addUniqueEdgeWithLabel:v78 sourceNode:v32 targetNode:v54 domain:v65 weight:MEMORY[0x277CBEC10] properties:v66];
+              v67 = [v64 addUniqueEdgeWithLabel:v77 sourceNode:v32 targetNode:v54 domain:v65 weight:MEMORY[0x277CBEC10] properties:v66];
             }
 
-            v81 = [v75 countByEnumeratingWithState:&v86 objects:v107 count:16];
+            v80 = [v74 countByEnumeratingWithState:&v85 objects:v106 count:16];
           }
 
-          while (v81);
+          while (v80);
         }
 
-        v3 = v73 + 1;
+        v3 = v72 + 1;
       }
 
-      while (v73 + 1 != v72);
-      v72 = [obj countByEnumeratingWithState:&v95 objects:v110 count:16];
+      while (v72 + 1 != v71);
+      v71 = [obj countByEnumeratingWithState:&v94 objects:v109 count:16];
     }
 
-    while (v72);
+    while (v71);
   }
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)conformsToGraphSchema:(id)schema
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   schemaCopy = schema;
   array = [MEMORY[0x277CBEB18] array];
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 1;
-  v13 = MEMORY[0x277D85DD0];
-  v14 = 3221225472;
-  v15 = __49__MAGraph_Schema_Private__conformsToGraphSchema___block_invoke;
-  v16 = &unk_2797FF958;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 1;
+  v12 = MEMORY[0x277D85DD0];
+  v13 = 3221225472;
+  v14 = __49__MAGraph_Schema_Private__conformsToGraphSchema___block_invoke;
+  v15 = &unk_2797FF958;
   v6 = schemaCopy;
-  v17 = v6;
-  v19 = &v21;
-  v20 = &v25;
+  v16 = v6;
+  v18 = &v20;
+  v19 = &v24;
   v7 = array;
-  v18 = v7;
-  [(MAGraph *)self enumerateNodesWithBlock:&v13];
+  v17 = v7;
+  [(MAGraph *)self enumerateNodesWithBlock:&v12];
   v8 = [v7 count];
   if (v8 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v30 = v7;
+    v29 = v7;
     _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Not verified nodes:%@\n", buf, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v9 = v26[3];
+    v9 = v25[3];
     *buf = 134217984;
-    v30 = v9;
+    v29 = v9;
     _os_log_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Verified %lu nodes", buf, 0xCu);
   }
 
@@ -3273,21 +3788,20 @@ void __34__MAGraph_Schema_Private__schema___block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    v10 = *(v22 + 24);
+    v10 = *(v21 + 24);
   }
 
-  *(v22 + 24) = v10;
+  *(v21 + 24) = v10;
 
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v24, 8);
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 void __49__MAGraph_Schema_Private__conformsToGraphSchema___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = *(a1 + 32);
   v7 = [v5 label];
@@ -3327,21 +3841,51 @@ LABEL_2:
   {
     v10 = nodePrintableSchema(v5, @"REAL_NODE");
     v11 = nodePrintableSchema(v9, @"DEFINITION_NODE");
-    v16 = 138412546;
-    v17 = v10;
-    v18 = 2112;
-    v19 = v11;
-    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to verify:\n%@\n%@\n", &v16, 0x16u);
+    v15 = 138412546;
+    v16 = v10;
+    v17 = 2112;
+    v18 = v11;
+    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to verify:\n%@\n%@\n", &v15, 0x16u);
   }
 
 LABEL_10:
+}
 
-  v15 = *MEMORY[0x277D85DE8];
+- (id)edgeSchemeWithLabel:(id)label domain:(unsigned __int16)domain sourceNode:(id)node targetNode:(id)targetNode
+{
+  domainCopy = domain;
+  labelCopy = label;
+  if (!labelCopy)
+  {
+    labelCopy = @"*";
+    v12 = @"*";
+  }
+
+  LODWORD(v11) = 1.0;
+  v13 = [(MAGraph *)self addUniqueEdgeWithLabel:labelCopy sourceNode:node targetNode:targetNode domain:domainCopy weight:MEMORY[0x277CBEC10] properties:v11];
+
+  return v13;
+}
+
+- (id)nodeSchemeWithLabel:(id)label domain:(unsigned __int16)domain
+{
+  domainCopy = domain;
+  labelCopy = label;
+  if (!labelCopy)
+  {
+    labelCopy = @"*";
+    v8 = @"*";
+  }
+
+  LODWORD(v7) = 1.0;
+  v9 = [(MAGraph *)self addUniqueNodeWithLabel:labelCopy domain:domainCopy weight:MEMORY[0x277CBEC10] properties:0 didCreate:v7];
+
+  return v9;
 }
 
 - (id)matchWithDefinitions:(id)definitions constraints:(id)constraints error:(id *)error
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   definitionsCopy = definitions;
   constraintsCopy = constraints;
   if ([definitionsCopy count])
@@ -3352,10 +3896,10 @@ LABEL_10:
       v9 = [MASubGraph subGraphWithGraph:self];
       if ([v8 count])
       {
-        v52 = v8;
-        v53 = definitionsCopy;
-        v47 = constraintsCopy;
-        v54 = v9;
+        v51 = v8;
+        v52 = definitionsCopy;
+        v46 = constraintsCopy;
+        v53 = v9;
         while (1)
         {
           firstObject = [v8 firstObject];
@@ -3382,28 +3926,28 @@ LABEL_39:
             break;
           }
 
-          v48 = v11;
+          v47 = v11;
           v16 = [MEMORY[0x277CBEB58] set];
+          v59 = 0u;
           v60 = 0u;
           v61 = 0u;
           v62 = 0u;
-          v63 = 0u;
           obj = v15;
-          v17 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
+          v17 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
           if (v17)
           {
             v18 = v17;
-            v19 = *v61;
+            v19 = *v60;
             do
             {
               for (i = 0; i != v18; ++i)
               {
-                if (*v61 != v19)
+                if (*v60 != v19)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v21 = *(*(&v60 + 1) + 8 * i);
+                v21 = *(*(&v59 + 1) + 8 * i);
                 v22 = -[MAGraph nodeForIdentifier:](self, "nodeForIdentifier:", [v21 identifier]);
                 if ([v22 isEqualToNode:v21] && (v23 = objc_msgSend(v22, "edgesCount"), v23 == objc_msgSend(v21, "edgesCount")))
                 {
@@ -3427,51 +3971,51 @@ LABEL_39:
                 [v16 unionSet:v24];
               }
 
-              v18 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
+              v18 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
             }
 
             while (v18);
           }
 
           v28 = [MEMORY[0x277CBEB58] set];
+          v55 = 0u;
           v56 = 0u;
           v57 = 0u;
           v58 = 0u;
-          v59 = 0u;
-          v49 = v16;
-          v29 = [v49 countByEnumeratingWithState:&v56 objects:v68 count:16];
+          v48 = v16;
+          v29 = [v48 countByEnumeratingWithState:&v55 objects:v67 count:16];
           if (v29)
           {
             v30 = v29;
-            v51 = *v57;
+            v50 = *v56;
             do
             {
               for (j = 0; j != v30; ++j)
               {
-                if (*v57 != v51)
+                if (*v56 != v50)
                 {
-                  objc_enumerationMutation(v49);
+                  objc_enumerationMutation(v48);
                 }
 
-                v32 = *(*(&v56 + 1) + 8 * j);
+                v32 = *(*(&v55 + 1) + 8 * j);
                 v33 = objc_autoreleasePoolPush();
                 v34 = [MEMORY[0x277CBEB58] set];
                 v35 = MEMORY[0x277CBEB18];
-                v66[0] = @"node";
-                v66[1] = @"label";
-                v67[0] = v32;
+                v65[0] = @"node";
+                v65[1] = @"label";
+                v66[0] = v32;
                 label3 = [v13 label];
-                v67[1] = label3;
-                v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:2];
+                v66[1] = label3;
+                v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:2];
                 v38 = [v35 arrayWithObject:v37];
 
-                array = [v52 array];
-                LODWORD(v37) = [(MAGraph *)self _matchNode:v32 usingAbstractNode:v13 fromEdge:0 atIteration:0 withDefinitions:v53 constraints:array unusedConstraints:v34 andSubGraph:v54 matchingNodeQueue:v38];
+                array = [v51 array];
+                LODWORD(v37) = [(MAGraph *)self _matchNode:v32 usingAbstractNode:v13 fromEdge:0 atIteration:0 withDefinitions:v52 constraints:array unusedConstraints:v34 andSubGraph:v53 matchingNodeQueue:v38];
 
                 if (v37)
                 {
                   label4 = [v13 label];
-                  [v54 _addNode:v32 withName:label4];
+                  [v53 _addNode:v32 withName:label4];
                 }
 
                 if ([v28 count])
@@ -3487,19 +4031,19 @@ LABEL_39:
                 objc_autoreleasePoolPop(v33);
               }
 
-              v30 = [v49 countByEnumeratingWithState:&v56 objects:v68 count:16];
+              v30 = [v48 countByEnumeratingWithState:&v55 objects:v67 count:16];
             }
 
             while (v30);
           }
 
-          v8 = v52;
-          [v52 intersectSet:v28];
+          v8 = v51;
+          [v51 intersectSet:v28];
 
-          definitionsCopy = v53;
-          v9 = v54;
-          constraintsCopy = v47;
-          if (![v52 count])
+          definitionsCopy = v52;
+          v9 = v53;
+          constraintsCopy = v46;
+          if (![v51 count])
           {
             goto LABEL_35;
           }
@@ -3518,15 +4062,15 @@ LABEL_35:
     else
     {
       v42 = [MASubGraph subGraphWithGraph:self];
-      v64[0] = MEMORY[0x277D85DD0];
-      v64[1] = 3221225472;
-      v64[2] = __65__MAGraph_QueryInternal__matchWithDefinitions_constraints_error___block_invoke;
-      v64[3] = &unk_2797FFAC0;
-      v64[4] = self;
+      v63[0] = MEMORY[0x277D85DD0];
+      v63[1] = 3221225472;
+      v63[2] = __65__MAGraph_QueryInternal__matchWithDefinitions_constraints_error___block_invoke;
+      v63[3] = &unk_2797FFAC0;
+      v63[4] = self;
       v43 = v42;
-      v65 = v43;
-      [definitionsCopy enumerateKeysAndObjectsUsingBlock:v64];
-      v44 = v65;
+      v64 = v43;
+      [definitionsCopy enumerateKeysAndObjectsUsingBlock:v63];
+      v44 = v64;
       v8 = v43;
 
       v41 = v8;
@@ -3538,35 +4082,33 @@ LABEL_35:
     v41 = 0;
   }
 
-  v45 = *MEMORY[0x277D85DE8];
-
   return v41;
 }
 
 void __65__MAGraph_QueryInternal__matchWithDefinitions_constraints_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = a3;
-  v6 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v6 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v32;
+    v8 = *v31;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v32 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * i);
+        v10 = *(*(&v30 + 1) + 8 * i);
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
         objc_opt_class();
@@ -3584,15 +4126,15 @@ void __65__MAGraph_QueryInternal__matchWithDefinitions_constraints_error___block
           v15 = *(a1 + 32);
           v16 = [v13 domain];
           v17 = [v13 propertyDictionary];
-          v28[0] = MEMORY[0x277D85DD0];
-          v28[1] = 3221225472;
-          v28[2] = __65__MAGraph_QueryInternal__matchWithDefinitions_constraints_error___block_invoke_2;
-          v28[3] = &unk_2797FFA70;
-          v29 = *(a1 + 40);
-          v30 = v5;
-          [v15 enumerateNodesWithLabel:v14 domain:v16 properties:v17 usingBlock:v28];
-          v19 = &v30;
-          v18 = &v29;
+          v27[0] = MEMORY[0x277D85DD0];
+          v27[1] = 3221225472;
+          v27[2] = __65__MAGraph_QueryInternal__matchWithDefinitions_constraints_error___block_invoke_2;
+          v27[3] = &unk_2797FFA70;
+          v28 = *(a1 + 40);
+          v29 = v5;
+          [v15 enumerateNodesWithLabel:v14 domain:v16 properties:v17 usingBlock:v27];
+          v19 = &v29;
+          v18 = &v28;
         }
 
         else
@@ -3613,81 +4155,79 @@ void __65__MAGraph_QueryInternal__matchWithDefinitions_constraints_error___block
           v21 = *(a1 + 32);
           v22 = [v20 domain];
           v17 = [v20 propertyDictionary];
-          v25[0] = MEMORY[0x277D85DD0];
-          v25[1] = 3221225472;
-          v25[2] = __65__MAGraph_QueryInternal__matchWithDefinitions_constraints_error___block_invoke_3;
-          v25[3] = &unk_2797FFA98;
-          v26 = *(a1 + 40);
-          v27 = v5;
-          [v21 enumerateEdgesWithLabel:v14 domain:v22 properties:v17 usingBlock:v25];
-          v19 = &v27;
-          v18 = &v26;
+          v24[0] = MEMORY[0x277D85DD0];
+          v24[1] = 3221225472;
+          v24[2] = __65__MAGraph_QueryInternal__matchWithDefinitions_constraints_error___block_invoke_3;
+          v24[3] = &unk_2797FFA98;
+          v25 = *(a1 + 40);
+          v26 = v5;
+          [v21 enumerateEdgesWithLabel:v14 domain:v22 properties:v17 usingBlock:v24];
+          v19 = &v26;
+          v18 = &v25;
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v7 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v7);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)matchWithVisualFormat:(id)format elements:(id)elements error:(id *)error
 {
   selfCopy = self;
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   formatCopy = format;
   elementsCopy = elements;
-  v27 = objc_autoreleasePoolPush();
+  v26 = objc_autoreleasePoolPush();
   v7 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(elementsCopy, "count")}];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   allKeys = [elementsCopy allKeys];
-  v9 = [allKeys countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v9 = [allKeys countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v35;
+    v11 = *v34;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v35 != v11)
+        if (*v34 != v11)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v13 = *(*(&v34 + 1) + 8 * i);
+        v13 = *(*(&v33 + 1) + 8 * i);
         v14 = [elementsCopy objectForKeyedSubscript:{v13, selfCopy}];
-        v38 = v14;
-        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+        v37 = v14;
+        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
         [v7 setObject:v15 forKey:v13];
       }
 
-      v10 = [allKeys countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v10 = [allKeys countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v10);
   }
 
-  v32 = 0;
-  v33 = v7;
   v31 = 0;
-  v16 = [objc_opt_class() scanMatchString:formatCopy definitions:&v33 constraints:&v32 forCreation:0 error:&v31];
-  v17 = v33;
+  v32 = v7;
+  v30 = 0;
+  v16 = [objc_opt_class() scanMatchString:formatCopy definitions:&v32 constraints:&v31 forCreation:0 error:&v30];
+  v17 = v32;
 
-  v18 = v32;
-  v19 = v31;
+  v18 = v31;
+  v19 = v30;
   v20 = v19;
   if (v16)
   {
-    v30 = v19;
-    v21 = [(MAGraph *)selfCopy matchWithDefinitions:v17 constraints:v18 error:&v30];
-    v22 = v30;
+    v29 = v19;
+    v21 = [(MAGraph *)selfCopy matchWithDefinitions:v17 constraints:v18 error:&v29];
+    v22 = v29;
 
     v20 = v22;
   }
@@ -3697,60 +4237,58 @@ void __65__MAGraph_QueryInternal__matchWithDefinitions_constraints_error___block
     v21 = 0;
   }
 
-  objc_autoreleasePoolPop(v27);
+  objc_autoreleasePoolPop(v26);
   if (error)
   {
     v23 = v20;
     *error = v20;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 - (id)selectBestRootNodeForPath:(id)path withDefinitions:(id)definitions
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   definitionsCopy = definitions;
   sourceNode = [pathCopy sourceNode];
   label = [sourceNode label];
   v10 = [definitionsCopy objectForKey:label];
 
-  v46 = pathCopy;
+  v45 = pathCopy;
   targetNode = [pathCopy targetNode];
   label2 = [targetNode label];
-  v45 = definitionsCopy;
-  v50 = [definitionsCopy objectForKey:label2];
+  v44 = definitionsCopy;
+  v49 = [definitionsCopy objectForKey:label2];
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   obj = v10;
-  v13 = [obj countByEnumeratingWithState:&v57 objects:v62 count:16];
+  v13 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
   if (!v13)
   {
     v15 = 0;
-    v52 = 0;
+    v51 = 0;
     goto LABEL_20;
   }
 
   v14 = v13;
   v15 = 0;
-  v52 = 0;
-  v16 = *v58;
+  v51 = 0;
+  v16 = *v57;
   do
   {
     for (i = 0; i != v14; ++i)
     {
-      if (*v58 != v16)
+      if (*v57 != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v57 + 1) + 8 * i);
+      v18 = *(*(&v56 + 1) + 8 * i);
       edgesCount = [v18 edgesCount];
       graphReference = [v18 graphReference];
 
@@ -3773,7 +4311,7 @@ LABEL_13:
 
         domain = [v18 domain];
         propertyDictionary = [v18 propertyDictionary];
-        v52 += [(MAGraph *)self nodesCountForLabel:label3 domain:domain properties:propertyDictionary];
+        v51 += [(MAGraph *)self nodesCountForLabel:label3 domain:domain properties:propertyDictionary];
 
         goto LABEL_16;
       }
@@ -3781,13 +4319,13 @@ LABEL_13:
       edgesCount2 = [v21 edgesCount];
       edgesCount3 = [v18 edgesCount];
 
-      v24 = v52;
+      v24 = v51;
       if (edgesCount2 == edgesCount3)
       {
-        v24 = v52 + 1;
+        v24 = v51 + 1;
       }
 
-      v52 = v24;
+      v51 = v24;
       if (edgesCount2 != edgesCount3)
       {
         goto LABEL_13;
@@ -3797,33 +4335,33 @@ LABEL_16:
       v15 += edgesCount;
     }
 
-    v14 = [obj countByEnumeratingWithState:&v57 objects:v62 count:16];
+    v14 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
   }
 
   while (v14);
 LABEL_20:
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
-  v47 = v50;
-  v51 = [v47 countByEnumeratingWithState:&v53 objects:v61 count:16];
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v46 = v49;
+  v50 = [v46 countByEnumeratingWithState:&v52 objects:v60 count:16];
   v28 = 0;
   v29 = 0;
-  if (v51)
+  if (v50)
   {
-    v49 = *v54;
+    v48 = *v53;
     do
     {
-      for (j = 0; j != v51; ++j)
+      for (j = 0; j != v50; ++j)
       {
-        if (*v54 != v49)
+        if (*v53 != v48)
         {
-          objc_enumerationMutation(v47);
+          objc_enumerationMutation(v46);
         }
 
-        v31 = *(*(&v53 + 1) + 8 * j);
+        v31 = *(*(&v52 + 1) + 8 * j);
         edgesCount4 = [v31 edgesCount];
         graphReference2 = [v31 graphReference];
 
@@ -3862,34 +4400,32 @@ LABEL_33:
         v29 += edgesCount4;
       }
 
-      v51 = [v47 countByEnumeratingWithState:&v53 objects:v61 count:16];
+      v50 = [v46 countByEnumeratingWithState:&v52 objects:v60 count:16];
     }
 
-    while (v51);
+    while (v50);
   }
 
-  if (v52 > v28 || v52 >= v28 && v15 >= v29)
+  if (v51 > v28 || v51 >= v28 && v15 >= v29)
   {
-    v40 = v46;
-    targetNode2 = [v46 targetNode];
+    v40 = v45;
+    targetNode2 = [v45 targetNode];
   }
 
   else
   {
-    v40 = v46;
-    targetNode2 = [v46 sourceNode];
+    v40 = v45;
+    targetNode2 = [v45 sourceNode];
   }
 
   v42 = targetNode2;
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return v42;
 }
 
 - (BOOL)_matchNode:(id)node usingAbstractNode:(id)abstractNode fromEdge:(id)edge atIteration:(unint64_t)iteration withDefinitions:(id)definitions constraints:(id)constraints unusedConstraints:(id)unusedConstraints andSubGraph:(id)self0 matchingNodeQueue:(id)self1
 {
-  v258 = *MEMORY[0x277D85DE8];
+  v257 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   abstractNodeCopy = abstractNode;
   edgeCopy = edge;
@@ -3898,14 +4434,14 @@ LABEL_33:
   unusedConstraintsCopy = unusedConstraints;
   graphCopy = graph;
   queueCopy = queue;
-  v243 = constraintsCopy;
+  v242 = constraintsCopy;
   v21 = constraintsCopy;
   selfCopy = self;
-  v22 = [(MAGraph *)self _constraintAbstractEdgesFromAbstractNode:abstractNodeCopy inConstraints:&v243];
-  v153 = v243;
+  v22 = [(MAGraph *)self _constraintAbstractEdgesFromAbstractNode:abstractNodeCopy inConstraints:&v242];
+  v152 = v242;
 
-  v167 = abstractNodeCopy;
-  v126 = v21;
+  v166 = abstractNodeCopy;
+  v125 = v21;
   if (![v22 count])
   {
     [unusedConstraintsCopy addObjectsFromArray:v21];
@@ -3913,33 +4449,33 @@ LABEL_33:
     v115 = [definitionsCopy objectForKey:label];
 
     hasProperties = [abstractNodeCopy hasProperties];
+    v238 = 0u;
     v239 = 0u;
     v240 = 0u;
     v241 = 0u;
-    v242 = 0u;
     v113 = v115;
-    v117 = [v113 countByEnumeratingWithState:&v239 objects:v257 count:16];
+    v117 = [v113 countByEnumeratingWithState:&v238 objects:v256 count:16];
     if (v117)
     {
       v118 = v117;
-      v119 = *v240;
+      v119 = *v239;
       while (2)
       {
         for (i = 0; i != v118; ++i)
         {
-          if (*v240 != v119)
+          if (*v239 != v119)
           {
             objc_enumerationMutation(v113);
           }
 
-          if ([nodeCopy matchesNode:*(*(&v239 + 1) + 8 * i) includingProperties:hasProperties])
+          if ([nodeCopy matchesNode:*(*(&v238 + 1) + 8 * i) includingProperties:hasProperties])
           {
             LOBYTE(v62) = 1;
             goto LABEL_148;
           }
         }
 
-        v118 = [v113 countByEnumeratingWithState:&v239 objects:v257 count:16];
+        v118 = [v113 countByEnumeratingWithState:&v238 objects:v256 count:16];
         if (v118)
         {
           continue;
@@ -3950,55 +4486,55 @@ LABEL_33:
 
       LOBYTE(v62) = 0;
 LABEL_148:
-      v132 = v113;
-      abstractNodeCopy = v167;
+      v131 = v113;
+      abstractNodeCopy = v166;
     }
 
     else
     {
       LOBYTE(v62) = 0;
-      v132 = v113;
+      v131 = v113;
     }
 
     goto LABEL_153;
   }
 
-  v132 = objc_opt_new();
+  v131 = objc_opt_new();
+  v234 = 0u;
   v235 = 0u;
   v236 = 0u;
   v237 = 0u;
-  v238 = 0u;
   obj = v22;
-  v131 = [obj countByEnumeratingWithState:&v235 objects:v256 count:16];
-  if (v131)
+  v130 = [obj countByEnumeratingWithState:&v234 objects:v255 count:16];
+  if (v130)
   {
-    v128 = 0;
-    v136 = iteration + 1;
-    v130 = *v236;
-    v124 = v209;
-    v158 = definitionsCopy;
-    v159 = unusedConstraintsCopy;
-    v152 = v22;
+    v127 = 0;
+    v135 = iteration + 1;
+    v129 = *v235;
+    v123 = v208;
+    v157 = definitionsCopy;
+    v158 = unusedConstraintsCopy;
+    v151 = v22;
 LABEL_4:
     v23 = 0;
     while (1)
     {
-      if (*v236 != v130)
+      if (*v235 != v129)
       {
         objc_enumerationMutation(obj);
       }
 
-      v133 = v23;
-      v24 = *(*(&v235 + 1) + 8 * v23);
-      v134 = objc_autoreleasePoolPush();
-      v161 = [MASubGraph subGraphWithGraph:selfCopy];
-      [v132 addObject:?];
+      v132 = v23;
+      v24 = *(*(&v234 + 1) + 8 * v23);
+      v133 = objc_autoreleasePoolPush();
+      v160 = [MASubGraph subGraphWithGraph:selfCopy];
+      [v131 addObject:?];
       v25 = [v24 oppositeNode:abstractNodeCopy];
-      v173 = v24;
+      v172 = v24;
       label2 = [v24 label];
       v27 = [definitionsCopy objectForKey:label2];
 
-      v135 = v27;
+      v134 = v27;
       if (![v27 count])
       {
         v62 = 0;
@@ -4008,7 +4544,7 @@ LABEL_4:
       label3 = [v25 label];
       v29 = [definitionsCopy objectForKey:label3];
 
-      v148 = v29;
+      v147 = v29;
       if ([v29 count])
       {
         break;
@@ -4018,18 +4554,18 @@ LABEL_4:
 LABEL_126:
 
 LABEL_127:
-      objc_autoreleasePoolPop(v134);
+      objc_autoreleasePoolPop(v133);
       if (!v62)
       {
         v113 = obj;
         goto LABEL_153;
       }
 
-      v23 = v133 + 1;
-      if (v133 + 1 == v131)
+      v23 = v132 + 1;
+      if (v132 + 1 == v130)
       {
-        v112 = [obj countByEnumeratingWithState:&v235 objects:v256 count:16];
-        v131 = v112;
+        v112 = [obj countByEnumeratingWithState:&v234 objects:v255 count:16];
+        v130 = v112;
         if (!v112)
         {
           goto LABEL_144;
@@ -4039,42 +4575,42 @@ LABEL_127:
       }
     }
 
-    minimum = [v173 minimum];
-    maximum = [v173 maximum];
-    isDirected = [v173 isDirected];
+    minimum = [v172 minimum];
+    maximum = [v172 maximum];
+    isDirected = [v172 isDirected];
     v32 = [MEMORY[0x277CBEB58] set];
-    v33 = v136;
-    v137 = maximum;
-    v162 = v25;
-    v166 = v32;
-    if (v136 >= maximum)
+    v33 = v135;
+    v136 = maximum;
+    v161 = v25;
+    v165 = v32;
+    if (v135 >= maximum)
     {
       v63 = 0;
     }
 
     else
     {
-      v127 = minimum;
-      v234 = 0u;
+      v126 = minimum;
       v233 = 0u;
       v232 = 0u;
       v231 = 0u;
-      v169 = v135;
-      v34 = [v169 countByEnumeratingWithState:&v231 objects:v255 count:16];
+      v230 = 0u;
+      v168 = v134;
+      v34 = [v168 countByEnumeratingWithState:&v230 objects:v254 count:16];
       if (v34)
       {
         v35 = v34;
-        v36 = *v232;
+        v36 = *v231;
         do
         {
           for (j = 0; j != v35; ++j)
           {
-            if (*v232 != v36)
+            if (*v231 != v36)
             {
-              objc_enumerationMutation(v169);
+              objc_enumerationMutation(v168);
             }
 
-            v38 = *(*(&v231 + 1) + 8 * j);
+            v38 = *(*(&v230 + 1) + 8 * j);
             v39 = objc_autoreleasePoolPush();
             label4 = [v38 label];
             if ([label4 isEqualToString:@"*"])
@@ -4083,21 +4619,21 @@ LABEL_127:
               label4 = 0;
             }
 
-            v230 = 0;
+            v229 = 0;
             propertyDictionary = [v38 propertyDictionary];
-            if ([v167 hasEdge:v173 isIn:&v230])
+            if ([v166 hasEdge:v172 isIn:&v229])
             {
               aBlock[0] = MEMORY[0x277D85DD0];
               aBlock[1] = 3221225472;
               aBlock[2] = __144__MAGraph_Query___matchNode_usingAbstractNode_fromEdge_atIteration_withDefinitions_constraints_unusedConstraints_andSubGraph_matchingNodeQueue___block_invoke;
               aBlock[3] = &unk_2797FF9F8;
-              v224 = edgeCopy;
-              v225 = propertyDictionary;
+              v223 = edgeCopy;
+              v224 = propertyDictionary;
               v42 = nodeCopy;
-              v226 = v42;
-              v228 = isDirected;
-              v229 = v230;
-              v227 = v166;
+              v225 = v42;
+              v227 = isDirected;
+              v228 = v229;
+              v226 = v165;
               v43 = _Block_copy(aBlock);
               [v42 enumerateEdgesWithLabel:label4 domain:objc_msgSend(v38 usingBlock:{"domain"), v43}];
             }
@@ -4105,116 +4641,116 @@ LABEL_127:
             objc_autoreleasePoolPop(v39);
           }
 
-          v35 = [v169 countByEnumeratingWithState:&v231 objects:v255 count:16];
+          v35 = [v168 countByEnumeratingWithState:&v230 objects:v254 count:16];
         }
 
         while (v35);
       }
 
-      if (![v166 count])
+      if (![v165 count])
       {
         v62 = 0;
-        v32 = v166;
-        abstractNodeCopy = v167;
-        definitionsCopy = v158;
-        unusedConstraintsCopy = v159;
-        v25 = v162;
+        v32 = v165;
+        abstractNodeCopy = v166;
+        definitionsCopy = v157;
+        unusedConstraintsCopy = v158;
+        v25 = v161;
 LABEL_125:
 
         goto LABEL_126;
       }
 
       context = [MEMORY[0x277CBEB18] array];
+      v218 = 0u;
       v219 = 0u;
       v220 = 0u;
       v221 = 0u;
-      v222 = 0u;
-      v44 = v126;
-      v45 = [v44 countByEnumeratingWithState:&v219 objects:v254 count:16];
-      definitionsCopy = v158;
-      unusedConstraintsCopy = v159;
-      v25 = v162;
+      v44 = v125;
+      v45 = [v44 countByEnumeratingWithState:&v218 objects:v253 count:16];
+      definitionsCopy = v157;
+      unusedConstraintsCopy = v158;
+      v25 = v161;
       if (v45)
       {
         v46 = v45;
-        v47 = *v220;
+        v47 = *v219;
         do
         {
           for (k = 0; k != v46; ++k)
           {
-            if (*v220 != v47)
+            if (*v219 != v47)
             {
               objc_enumerationMutation(v44);
             }
 
-            v49 = *(*(&v219 + 1) + 8 * k);
-            if ([v49 containsEdge:v173])
+            v49 = *(*(&v218 + 1) + 8 * k);
+            if ([v49 containsEdge:v172])
             {
               [context addObject:v49];
             }
           }
 
-          v46 = [v44 countByEnumeratingWithState:&v219 objects:v254 count:16];
+          v46 = [v44 countByEnumeratingWithState:&v218 objects:v253 count:16];
         }
 
         while (v46);
       }
 
       array = [MEMORY[0x277CBEB18] array];
+      v214 = 0u;
       v215 = 0u;
       v216 = 0u;
       v217 = 0u;
-      v218 = 0u;
-      v142 = v166;
-      v170 = [v142 countByEnumeratingWithState:&v215 objects:v253 count:16];
-      if (v170)
+      v141 = v165;
+      v169 = [v141 countByEnumeratingWithState:&v214 objects:v252 count:16];
+      if (v169)
       {
-        v140 = 0;
-        v155 = *v216;
+        v139 = 0;
+        v154 = *v215;
         do
         {
-          for (m = 0; m != v170; m = m + 1)
+          for (m = 0; m != v169; m = m + 1)
           {
-            if (*v216 != v155)
+            if (*v215 != v154)
             {
-              objc_enumerationMutation(v142);
+              objc_enumerationMutation(v141);
             }
 
-            v51 = *(*(&v215 + 1) + 8 * m);
+            v51 = *(*(&v214 + 1) + 8 * m);
             v52 = objc_autoreleasePoolPush();
             v53 = [v51 oppositeNode:nodeCopy];
+            v210 = 0u;
             v211 = 0u;
             v212 = 0u;
             v213 = 0u;
-            v214 = 0u;
             v54 = queueCopy;
-            v55 = [v54 countByEnumeratingWithState:&v211 objects:v252 count:16];
+            v55 = [v54 countByEnumeratingWithState:&v210 objects:v251 count:16];
             if (v55)
             {
               v56 = v55;
-              v57 = *v212;
+              v57 = *v211;
               while (2)
               {
                 for (n = 0; n != v56; ++n)
                 {
-                  if (*v212 != v57)
+                  if (*v211 != v57)
                   {
                     objc_enumerationMutation(v54);
                   }
 
-                  v59 = [*(*(&v211 + 1) + 8 * n) objectForKeyedSubscript:@"node"];
+                  v59 = [*(*(&v210 + 1) + 8 * n) objectForKeyedSubscript:@"node"];
                   v60 = [v59 isEqual:v53];
 
                   if (v60)
                   {
 
-                    definitionsCopy = v158;
-                    unusedConstraintsCopy = v159;
+                    definitionsCopy = v157;
+                    unusedConstraintsCopy = v158;
                     goto LABEL_47;
                   }
                 }
 
-                v56 = [v54 countByEnumeratingWithState:&v211 objects:v252 count:16];
+                v56 = [v54 countByEnumeratingWithState:&v210 objects:v251 count:16];
                 if (v56)
                 {
                   continue;
@@ -4224,14 +4760,14 @@ LABEL_125:
               }
             }
 
-            v123 = v54;
-            definitionsCopy = v158;
-            unusedConstraintsCopy = v159;
-            if ([(MAGraph *)selfCopy _matchNode:v53 usingAbstractNode:v167 fromEdge:v51 atIteration:v136 withDefinitions:v158 constraints:context unusedConstraints:v159 andSubGraph:v161 matchingNodeQueue:v123, v124])
+            v122 = v54;
+            definitionsCopy = v157;
+            unusedConstraintsCopy = v158;
+            if ([(MAGraph *)selfCopy _matchNode:v53 usingAbstractNode:v166 fromEdge:v51 atIteration:v135 withDefinitions:v157 constraints:context unusedConstraints:v158 andSubGraph:v160 matchingNodeQueue:v122, v123])
             {
-              ++v140;
-              label5 = [v173 label];
-              [v161 _addEdge:v51 withName:label5];
+              ++v139;
+              label5 = [v172 label];
+              [v160 _addEdge:v51 withName:label5];
             }
 
             else
@@ -4240,76 +4776,76 @@ LABEL_47:
               [array addObject:v51];
             }
 
-            v22 = v152;
-            v25 = v162;
+            v22 = v151;
+            v25 = v161;
 
             objc_autoreleasePoolPop(v52);
           }
 
-          v170 = [v142 countByEnumeratingWithState:&v215 objects:v253 count:16];
+          v169 = [v141 countByEnumeratingWithState:&v214 objects:v252 count:16];
         }
 
-        while (v170);
+        while (v169);
       }
 
       else
       {
-        v140 = 0;
+        v139 = 0;
       }
 
-      v208[0] = MEMORY[0x277D85DD0];
-      v208[1] = 3221225472;
-      v209[0] = __144__MAGraph_Query___matchNode_usingAbstractNode_fromEdge_atIteration_withDefinitions_constraints_unusedConstraints_andSubGraph_matchingNodeQueue___block_invoke_2;
-      v209[1] = &unk_2797FFA20;
-      v210 = v142;
-      [array enumerateObjectsUsingBlock:v208];
+      v207[0] = MEMORY[0x277D85DD0];
+      v207[1] = 3221225472;
+      v208[0] = __144__MAGraph_Query___matchNode_usingAbstractNode_fromEdge_atIteration_withDefinitions_constraints_unusedConstraints_andSubGraph_matchingNodeQueue___block_invoke_2;
+      v208[1] = &unk_2797FFA20;
+      v209 = v141;
+      [array enumerateObjectsUsingBlock:v207];
 
-      v32 = v166;
-      abstractNodeCopy = v167;
-      v33 = v136;
-      v63 = v140;
-      minimum = v127;
+      v32 = v165;
+      abstractNodeCopy = v166;
+      v33 = v135;
+      v63 = v139;
+      minimum = v126;
     }
 
-    if (v33 < minimum || v33 > v137)
+    if (v33 < minimum || v33 > v136)
     {
 LABEL_122:
       v62 = v63 != 0;
-      v111 = v128;
+      v111 = v127;
       if (v63)
       {
-        v111 = v128 + 1;
+        v111 = v127 + 1;
       }
 
-      v128 = v111;
+      v127 = v111;
     }
 
     else
     {
-      v141 = v63;
-      v206 = 0u;
-      v207 = 0u;
-      v204 = 0u;
+      v140 = v63;
       v205 = 0u;
-      v138 = v135;
-      v146 = [v138 countByEnumeratingWithState:&v204 objects:v251 count:16];
-      if (v146)
+      v206 = 0u;
+      v203 = 0u;
+      v204 = 0u;
+      v137 = v134;
+      v145 = [v137 countByEnumeratingWithState:&v203 objects:v250 count:16];
+      if (v145)
       {
-        v143 = *v205;
+        v142 = *v204;
         do
         {
           v64 = 0;
           do
           {
-            if (*v205 != v143)
+            if (*v204 != v142)
             {
-              objc_enumerationMutation(v138);
+              objc_enumerationMutation(v137);
             }
 
-            v65 = *(*(&v204 + 1) + 8 * v64);
+            v65 = *(*(&v203 + 1) + 8 * v64);
             v66 = objc_autoreleasePoolPush();
             label6 = [v65 label];
-            v156 = v64;
+            v155 = v64;
             contexta = v66;
             if ([label6 isEqualToString:@"*"])
             {
@@ -4317,28 +4853,28 @@ LABEL_122:
               label6 = 0;
             }
 
-            v202 = 0u;
-            v203 = 0u;
-            v200 = 0u;
             v201 = 0u;
-            v171 = v148;
-            v68 = [v171 countByEnumeratingWithState:&v200 objects:v250 count:16];
+            v202 = 0u;
+            v199 = 0u;
+            v200 = 0u;
+            v170 = v147;
+            v68 = [v170 countByEnumeratingWithState:&v199 objects:v249 count:16];
             if (v68)
             {
               v69 = v68;
-              v70 = *v201;
+              v70 = *v200;
               do
               {
                 for (ii = 0; ii != v69; ++ii)
                 {
-                  if (*v201 != v70)
+                  if (*v200 != v70)
                   {
-                    objc_enumerationMutation(v171);
+                    objc_enumerationMutation(v170);
                   }
 
-                  v72 = *(*(&v200 + 1) + 8 * ii);
-                  v230 = 0;
-                  if ([abstractNodeCopy hasEdge:v173 isIn:&v230])
+                  v72 = *(*(&v199 + 1) + 8 * ii);
+                  v229 = 0;
+                  if ([abstractNodeCopy hasEdge:v172 isIn:&v229])
                   {
                     v73 = label6;
                     propertyDictionary2 = [v65 propertyDictionary];
@@ -4355,101 +4891,101 @@ LABEL_122:
                       hasProperties2 = [v72 hasProperties];
                     }
 
-                    v190[0] = MEMORY[0x277D85DD0];
-                    v190[1] = 3221225472;
-                    v190[2] = __144__MAGraph_Query___matchNode_usingAbstractNode_fromEdge_atIteration_withDefinitions_constraints_unusedConstraints_andSubGraph_matchingNodeQueue___block_invoke_3;
-                    v190[3] = &unk_2797FFA48;
-                    v191 = edgeCopy;
-                    v192 = propertyDictionary2;
+                    v189[0] = MEMORY[0x277D85DD0];
+                    v189[1] = 3221225472;
+                    v189[2] = __144__MAGraph_Query___matchNode_usingAbstractNode_fromEdge_atIteration_withDefinitions_constraints_unusedConstraints_andSubGraph_matchingNodeQueue___block_invoke_3;
+                    v189[3] = &unk_2797FFA48;
+                    v190 = edgeCopy;
+                    v191 = propertyDictionary2;
                     v78 = nodeCopy;
-                    v196 = isDirected;
-                    v197 = v230;
-                    v198 = v76;
-                    v193 = v78;
-                    v194 = v72;
-                    v199 = hasProperties2;
-                    v195 = v166;
+                    v195 = isDirected;
+                    v196 = v229;
+                    v197 = v76;
+                    v192 = v78;
+                    v193 = v72;
+                    v198 = hasProperties2;
+                    v194 = v165;
                     v79 = propertyDictionary2;
-                    v80 = _Block_copy(v190);
+                    v80 = _Block_copy(v189);
                     label6 = v73;
                     [v78 enumerateEdgesWithLabel:v73 domain:objc_msgSend(v65 usingBlock:{"domain"), v80}];
 
-                    abstractNodeCopy = v167;
+                    abstractNodeCopy = v166;
                   }
                 }
 
-                v69 = [v171 countByEnumeratingWithState:&v200 objects:v250 count:16];
+                v69 = [v170 countByEnumeratingWithState:&v199 objects:v249 count:16];
               }
 
               while (v69);
             }
 
             objc_autoreleasePoolPop(contexta);
-            v64 = v156 + 1;
-            unusedConstraintsCopy = v159;
-            v22 = v152;
+            v64 = v155 + 1;
+            unusedConstraintsCopy = v158;
+            v22 = v151;
           }
 
-          while (v156 + 1 != v146);
-          v146 = [v138 countByEnumeratingWithState:&v204 objects:v251 count:16];
+          while (v155 + 1 != v145);
+          v145 = [v137 countByEnumeratingWithState:&v203 objects:v250 count:16];
         }
 
-        while (v146);
+        while (v145);
       }
 
-      if ([v166 count])
+      if ([v165 count])
       {
-        v188 = 0u;
-        v189 = 0u;
-        v186 = 0u;
         v187 = 0u;
-        v139 = v166;
-        definitionsCopy = v158;
-        v25 = v162;
-        v147 = [v139 countByEnumeratingWithState:&v186 objects:v249 count:16];
-        if (!v147)
+        v188 = 0u;
+        v185 = 0u;
+        v186 = 0u;
+        v138 = v165;
+        definitionsCopy = v157;
+        v25 = v161;
+        v146 = [v138 countByEnumeratingWithState:&v185 objects:v248 count:16];
+        if (!v146)
         {
           goto LABEL_121;
         }
 
-        v144 = *v187;
+        v143 = *v186;
         while (1)
         {
-          for (jj = 0; jj != v147; jj = jj + 1)
+          for (jj = 0; jj != v146; jj = jj + 1)
           {
-            if (*v187 != v144)
+            if (*v186 != v143)
             {
-              objc_enumerationMutation(v139);
+              objc_enumerationMutation(v138);
             }
 
-            v157 = *(*(&v186 + 1) + 8 * jj);
-            v82 = [v157 oppositeNode:nodeCopy];
+            v156 = *(*(&v185 + 1) + 8 * jj);
+            v82 = [v156 oppositeNode:nodeCopy];
+            v181 = 0u;
             v182 = 0u;
             v183 = 0u;
             v184 = 0u;
-            v185 = 0u;
-            v165 = v148;
-            v83 = [v165 countByEnumeratingWithState:&v182 objects:v248 count:16];
+            v164 = v147;
+            v83 = [v164 countByEnumeratingWithState:&v181 objects:v247 count:16];
             if (!v83)
             {
-              definitionsCopy = v158;
-              v25 = v162;
+              definitionsCopy = v157;
+              v25 = v161;
               goto LABEL_119;
             }
 
             v84 = v83;
             contextb = jj;
-            v85 = *v183;
+            v85 = *v182;
             while (2)
             {
               for (kk = 0; kk != v84; ++kk)
               {
-                if (*v183 != v85)
+                if (*v182 != v85)
                 {
-                  objc_enumerationMutation(v165);
+                  objc_enumerationMutation(v164);
                 }
 
-                v87 = *(*(&v182 + 1) + 8 * kk);
+                v87 = *(*(&v181 + 1) + 8 * kk);
                 v88 = objc_autoreleasePoolPush();
                 graphReference2 = [v87 graphReference];
 
@@ -4466,40 +5002,40 @@ LABEL_122:
                   goto LABEL_106;
                 }
 
-                v172 = v88;
+                v171 = v88;
                 v90 = v84;
-                v180 = 0u;
-                v181 = 0u;
-                v178 = 0u;
                 v179 = 0u;
+                v180 = 0u;
+                v177 = 0u;
+                v178 = 0u;
                 v91 = queueCopy;
-                v92 = [v91 countByEnumeratingWithState:&v178 objects:v247 count:16];
+                v92 = [v91 countByEnumeratingWithState:&v177 objects:v246 count:16];
                 if (v92)
                 {
                   v93 = v92;
-                  v94 = *v179;
+                  v94 = *v178;
                   while (2)
                   {
                     for (mm = 0; mm != v93; ++mm)
                     {
-                      if (*v179 != v94)
+                      if (*v178 != v94)
                       {
                         objc_enumerationMutation(v91);
                       }
 
-                      v96 = [*(*(&v178 + 1) + 8 * mm) objectForKeyedSubscript:@"node"];
+                      v96 = [*(*(&v177 + 1) + 8 * mm) objectForKeyedSubscript:@"node"];
                       v97 = [v96 isEqual:v82];
 
                       if (v97)
                       {
 
                         v84 = v90;
-                        v88 = v172;
+                        v88 = v171;
                         goto LABEL_106;
                       }
                     }
 
-                    v93 = [v91 countByEnumeratingWithState:&v178 objects:v247 count:16];
+                    v93 = [v91 countByEnumeratingWithState:&v177 objects:v246 count:16];
                     if (v93)
                     {
                       continue;
@@ -4509,66 +5045,66 @@ LABEL_122:
                   }
                 }
 
-                v246[0] = v82;
-                v245[0] = @"node";
-                v245[1] = @"label";
-                label7 = [v162 label];
-                v246[1] = label7;
-                v99 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v246 forKeys:v245 count:2];
+                v245[0] = v82;
+                v244[0] = @"node";
+                v244[1] = @"label";
+                label7 = [v161 label];
+                v245[1] = label7;
+                v99 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v245 forKeys:v244 count:2];
                 [v91 addObject:v99];
 
-                LODWORD(label7) = [(MAGraph *)selfCopy _matchNode:v82 usingAbstractNode:v162 fromEdge:v157 atIteration:0 withDefinitions:v158 constraints:v153 unusedConstraints:v159 andSubGraph:v161 matchingNodeQueue:v91];
+                LODWORD(label7) = [(MAGraph *)selfCopy _matchNode:v82 usingAbstractNode:v161 fromEdge:v156 atIteration:0 withDefinitions:v157 constraints:v152 unusedConstraints:v158 andSubGraph:v160 matchingNodeQueue:v91];
                 [v91 removeLastObject];
                 v84 = v90;
-                v88 = v172;
+                v88 = v171;
                 if (label7)
                 {
-                  v176 = 0u;
-                  v177 = 0u;
-                  v174 = 0u;
                   v175 = 0u;
+                  v176 = 0u;
+                  v173 = 0u;
+                  v174 = 0u;
                   v100 = v91;
-                  v101 = [v100 countByEnumeratingWithState:&v174 objects:v244 count:16];
+                  v101 = [v100 countByEnumeratingWithState:&v173 objects:v243 count:16];
                   if (v101)
                   {
                     v102 = v101;
-                    v103 = *v175;
+                    v103 = *v174;
                     do
                     {
                       for (nn = 0; nn != v102; ++nn)
                       {
-                        if (*v175 != v103)
+                        if (*v174 != v103)
                         {
                           objc_enumerationMutation(v100);
                         }
 
-                        v105 = *(*(&v174 + 1) + 8 * nn);
+                        v105 = *(*(&v173 + 1) + 8 * nn);
                         v106 = [v105 objectForKeyedSubscript:@"node"];
                         v107 = [v105 objectForKeyedSubscript:@"label"];
-                        [v161 _addNode:v106 withName:v107 forKeyNode:v82];
-                        label8 = [v162 label];
-                        [v161 _addNode:v82 withName:label8 forKeyNode:v106];
+                        [v160 _addNode:v106 withName:v107 forKeyNode:v82];
+                        label8 = [v161 label];
+                        [v160 _addNode:v82 withName:label8 forKeyNode:v106];
                       }
 
-                      v102 = [v100 countByEnumeratingWithState:&v174 objects:v244 count:16];
+                      v102 = [v100 countByEnumeratingWithState:&v173 objects:v243 count:16];
                     }
 
                     while (v102);
                   }
 
-                  ++v141;
+                  ++v140;
 
-                  v25 = v162;
-                  label9 = [v162 label];
-                  [v161 _addNode:v82 withName:label9];
+                  v25 = v161;
+                  label9 = [v161 label];
+                  [v160 _addNode:v82 withName:label9];
 
-                  label10 = [v173 label];
-                  [v161 _addEdge:v157 withName:label10];
+                  label10 = [v172 label];
+                  [v160 _addEdge:v156 withName:label10];
 
-                  objc_autoreleasePoolPop(v172);
-                  abstractNodeCopy = v167;
-                  v22 = v152;
-                  definitionsCopy = v158;
+                  objc_autoreleasePoolPop(v171);
+                  abstractNodeCopy = v166;
+                  v22 = v151;
+                  definitionsCopy = v157;
                   goto LABEL_117;
                 }
 
@@ -4576,7 +5112,7 @@ LABEL_106:
                 objc_autoreleasePoolPop(v88);
               }
 
-              v84 = [v165 countByEnumeratingWithState:&v182 objects:v248 count:16];
+              v84 = [v164 countByEnumeratingWithState:&v181 objects:v247 count:16];
               if (v84)
               {
                 continue;
@@ -4585,50 +5121,50 @@ LABEL_106:
               break;
             }
 
-            abstractNodeCopy = v167;
-            definitionsCopy = v158;
-            v22 = v152;
-            v25 = v162;
+            abstractNodeCopy = v166;
+            definitionsCopy = v157;
+            v22 = v151;
+            v25 = v161;
 LABEL_117:
             jj = contextb;
 LABEL_119:
           }
 
-          v147 = [v139 countByEnumeratingWithState:&v186 objects:v249 count:16];
-          if (!v147)
+          v146 = [v138 countByEnumeratingWithState:&v185 objects:v248 count:16];
+          if (!v146)
           {
 LABEL_121:
 
-            unusedConstraintsCopy = v159;
-            v32 = v166;
-            v63 = v141;
+            unusedConstraintsCopy = v158;
+            v32 = v165;
+            v63 = v140;
             goto LABEL_122;
           }
         }
       }
 
       v62 = 0;
-      definitionsCopy = v158;
-      v25 = v162;
-      v32 = v166;
+      definitionsCopy = v157;
+      v25 = v161;
+      v32 = v165;
     }
 
     goto LABEL_125;
   }
 
-  v128 = 0;
+  v127 = 0;
 LABEL_144:
 
-  if (v128 == [obj count])
+  if (v127 == [obj count])
   {
-    if ([v132 count] == 1)
+    if ([v131 count] == 1)
     {
-      [v132 firstObject];
+      [v131 firstObject];
     }
 
     else
     {
-      [MASubGraph subGraphIntersectionsWithSubGraphs:v132];
+      [MASubGraph subGraphIntersectionsWithSubGraphs:v131];
     }
     v113 = ;
     [graphCopy mergeWithSubGraph:v113];
@@ -4641,7 +5177,6 @@ LABEL_153:
   LOBYTE(v62) = 0;
 LABEL_154:
 
-  v121 = *MEMORY[0x277D85DE8];
   return v62;
 }
 
@@ -4735,31 +5270,31 @@ LABEL_20:
 
 - (id)_constraintAbstractEdgesFromAbstractNode:(id)node inConstraints:(id *)constraints
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   array = [MEMORY[0x277CBEB18] array];
   [MEMORY[0x277CBEB58] set];
-  v26 = v25 = constraints;
+  v25 = v24 = constraints;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = *constraints;
-  v30 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
-  if (v30)
+  v29 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+  if (v29)
   {
-    v29 = *v32;
+    v28 = *v31;
     do
     {
       v6 = 0;
       do
       {
-        if (*v32 != v29)
+        if (*v31 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v31 + 1) + 8 * v6);
+        v7 = *(*(&v30 + 1) + 8 * v6);
         hasProperties = [nodeCopy hasProperties];
         nodesCount = [v7 nodesCount];
         if (!nodesCount)
@@ -4802,7 +5337,7 @@ LABEL_19:
         if (v11)
         {
           v16 = [v7 edgeAtIndex:v11 - 1];
-          [v26 addObject:v16];
+          [v25 addObject:v16];
 
           v17 = [v7 copy];
           if (v11 < v10)
@@ -4832,7 +5367,7 @@ LABEL_19:
         if (v11 < v10 - 1)
         {
           v19 = [v7 edgeAtIndex:v18];
-          [v26 addObject:v19];
+          [v25 addObject:v19];
 
           v20 = [v7 copy];
           do
@@ -4853,20 +5388,18 @@ LABEL_20:
         ++v6;
       }
 
-      while (v6 != v30);
-      v21 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
-      v30 = v21;
+      while (v6 != v29);
+      v21 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v29 = v21;
     }
 
     while (v21);
   }
 
   v22 = array;
-  *v25 = v22;
+  *v24 = v22;
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v25;
 }
 
 - (BOOL)updateGraphWithVisualString:(id)string
@@ -4899,11 +5432,11 @@ LABEL_20:
 
 + (BOOL)scanGraphElementOptionsString:(id)string minimum:(unint64_t *)minimum maximum:(unint64_t *)maximum error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   stringCopy = string;
-  v32 = 0;
-  v9 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"[\\w\\d\\ options:\\-\\ \\:\\{\\'\\\\}\\#\\%\\+\\$\\^\\/\\(\\)\\?\\=]+\\](?:\\*(\\d+)\\.\\.(\\d+))?" error:{0, &v32}];;
-  v10 = v32;
+  v31 = 0;
+  v9 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"[\\w\\d\\ options:\\-\\ \\:\\{\\'\\\\}\\#\\%\\+\\$\\^\\/\\(\\)\\?\\=]+\\](?:\\*(\\d+)\\.\\.(\\d+))?" error:{0, &v31}];;
+  v10 = v31;
   v11 = v10;
   *minimum = 1;
   *maximum = 1;
@@ -4923,12 +5456,12 @@ LABEL_20:
     v15 = v14;
     if (v14)
     {
-      memset(v31, 0, sizeof(v31));
-      v17 = [v14 countByEnumeratingWithState:v31 objects:v33 count:16];
+      memset(v30, 0, sizeof(v30));
+      v17 = [v14 countByEnumeratingWithState:v30 objects:v32 count:16];
       if (v17)
       {
-        v18 = **(&v31[0] + 1);
-        if ([**(&v31[0] + 1) numberOfRanges] == 3)
+        v18 = **(&v30[0] + 1);
+        if ([**(&v30[0] + 1) numberOfRanges] == 3)
         {
           v19 = [v18 rangeAtIndex:1];
           v21 = v20;
@@ -4977,20 +5510,19 @@ LABEL_20:
     v13 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 + (id)scanGraphConstraintString:(id)string error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if ([stringCopy hasPrefix:{@"(", "hasSuffix:", @")"}])
   {
     v5 = objc_opt_new();
-    v30 = 0;
-    v6 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(\\(|<?-\\[)([\\w\\d\\ options:\\-\\ \\:\\{\\'\\\\}\\#\\%\\+\\$\\^\\/\\(\\)\\?\\=]+)(\\)|\\](?:\\*\\d+\\.\\.\\d+)?->?)" error:{0, &v30}];;
-    v7 = v30;
+    v29 = 0;
+    v6 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(\\(|<?-\\[)([\\w\\d\\ options:\\-\\ \\:\\{\\'\\\\}\\#\\%\\+\\$\\^\\/\\(\\)\\?\\=]+)(\\)|\\](?:\\*\\d+\\.\\.\\d+)?->?)" error:{0, &v29}];;
+    v7 = v29;
     v8 = v7;
     v9 = 0;
     if (v6 && !v7)
@@ -4999,32 +5531,32 @@ LABEL_20:
       v11 = v10;
       if (v10)
       {
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
         v27 = 0u;
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
         v12 = v10;
-        v13 = [v12 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v25 objects:v30 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v27;
-          v25 = v11;
+          v15 = *v26;
+          v24 = v11;
           while (2)
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v27 != v15)
+              if (*v26 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              v17 = *(*(&v26 + 1) + 8 * i);
+              v17 = *(*(&v25 + 1) + 8 * i);
               if ([v17 numberOfRanges] != 4 || ((v18 = objc_msgSend(v17, "rangeAtIndex:", 0), v18 != 0x7FFFFFFFFFFFFFFFLL) ? (v20 = v19 == 0) : (v20 = 1), v20))
               {
 
                 v9 = 0;
-                v11 = v25;
+                v11 = v24;
                 goto LABEL_25;
               }
 
@@ -5032,8 +5564,8 @@ LABEL_20:
               [v5 addObject:v21];
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v26 objects:v31 count:16];
-            v11 = v25;
+            v14 = [v12 countByEnumeratingWithState:&v25 objects:v30 count:16];
+            v11 = v24;
             if (v14)
             {
               continue;
@@ -5070,14 +5602,12 @@ LABEL_25:
     v9 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (BOOL)scanGraphElementString:(id)string type:(unint64_t *)type optionalName:(id *)name label:(id *)label optionalDomains:(id *)domains optionalProperties:(id *)properties error:(id *)error
 {
-  v77[2] = *MEMORY[0x277D85DE8];
+  v76[2] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v14 = [MEMORY[0x277CCAC80] scannerWithString:stringCopy];
   alphanumericCharacterSet = [MEMORY[0x277CCAB50] alphanumericCharacterSet];
@@ -5088,7 +5618,7 @@ LABEL_25:
   [alphanumericCharacterSet2 removeCharactersInString:@"[{';}]"];
   if ([v14 scanString:@"(" intoString:{0) && objc_msgSend(v14, "scanLocation") == 1}]
   {
-    v64 = 0;
+    v63 = 0;
     v17 = 1;
     v18 = 1;
   }
@@ -5097,9 +5627,9 @@ LABEL_25:
   {
     if (![v14 scanString:@"[" intoString:0])
     {
-      v69 = 0;
+      v68 = 0;
       dictionary = 0;
-      v67 = 0;
+      v66 = 0;
       v19 = 0;
       v23 = 0;
       v17 = 0;
@@ -5109,39 +5639,39 @@ LABEL_25:
     v17 = 0;
     if ([v14 scanLocation] != 1)
     {
-      v69 = 0;
+      v68 = 0;
       dictionary = 0;
-      v67 = 0;
+      v66 = 0;
       v19 = 0;
       v23 = 0;
       goto LABEL_79;
     }
 
-    v64 = 1;
+    v63 = 1;
     v18 = 2;
   }
 
-  v66 = v18;
-  v75 = 0;
-  [v14 scanCharactersFromSet:alphanumericCharacterSet intoString:&v75];
-  v19 = v75;
+  v65 = v18;
+  v74 = 0;
+  [v14 scanCharactersFromSet:alphanumericCharacterSet intoString:&v74];
+  v19 = v74;
   if ([v14 scanString:@":" intoString:0])
   {
-    v74 = 0;
-    [v14 scanCharactersFromSet:alphanumericCharacterSet intoString:&v74];
-    v20 = v74;
+    v73 = 0;
+    [v14 scanCharactersFromSet:alphanumericCharacterSet intoString:&v73];
+    v20 = v73;
     v21 = @"*";
     if (v20)
     {
       v21 = v20;
     }
 
-    v69 = v21;
+    v68 = v21;
     nameCopy = name;
-    v63 = v19;
+    v62 = v19;
     if (![v14 scanString:@":" intoString:0])
     {
-      v67 = [MEMORY[0x277CCAA78] indexSetWithIndex:0];
+      v66 = [MEMORY[0x277CCAA78] indexSetWithIndex:0];
 LABEL_26:
       dictionary = 0;
       if ([v14 scanString:@"{" intoString:0])
@@ -5149,16 +5679,16 @@ LABEL_26:
         labelCopy = label;
         domainsCopy = domains;
         propertiesCopy = properties;
-        v61 = stringCopy;
+        v60 = stringCopy;
         dictionary = [MEMORY[0x277CBEB38] dictionary];
         v25 = 0;
         v26 = 0;
         while (1)
         {
           v27 = v25;
-          v72 = v25;
-          v28 = [v14 scanCharactersFromSet:alphanumericCharacterSet intoString:&v72];
-          v25 = v72;
+          v71 = v25;
+          v28 = [v14 scanCharactersFromSet:alphanumericCharacterSet intoString:&v71];
+          v25 = v71;
 
           if (!v28 || ([v14 scanString:@":" intoString:0] & 1) == 0 && !objc_msgSend(v14, "scanUpToString:intoString:", @":", 0) || (objc_msgSend(v14, "scanString:intoString:", @"'", 0) & 1) == 0 && !objc_msgSend(v14, "scanUpToString:intoString:", @"'", 0))
           {
@@ -5166,10 +5696,10 @@ LABEL_26:
           }
 
           v29 = alphanumericCharacterSet;
-          v71 = v26;
+          v70 = v26;
           v30 = alphanumericCharacterSet2;
-          v31 = [v14 scanCharactersFromSet:alphanumericCharacterSet2 intoString:&v71];
-          v32 = v71;
+          v31 = [v14 scanCharactersFromSet:alphanumericCharacterSet2 intoString:&v70];
+          v32 = v70;
 
           if (!v31 || ![v14 scanString:@"'" intoString:0])
           {
@@ -5177,7 +5707,7 @@ LABEL_26:
             alphanumericCharacterSet2 = v30;
             alphanumericCharacterSet = v29;
 LABEL_59:
-            v19 = v63;
+            v19 = v62;
             goto LABEL_60;
           }
 
@@ -5207,7 +5737,7 @@ LABEL_59:
           if ([v32 hasPrefix:@">="] & 1) != 0 || (v34 = @"<=", (objc_msgSend(v32, "hasPrefix:", @"<=")))
           {
             v35 = 2;
-            v65 = v34;
+            v64 = v34;
           }
 
           else
@@ -5223,13 +5753,13 @@ LABEL_59:
               v35 = 1;
               if (![v32 hasPrefix:@"<"])
               {
-                v65 = 0;
+                v64 = 0;
                 v26 = v32;
                 goto LABEL_41;
               }
             }
 
-            v65 = v33;
+            v64 = v33;
           }
 
           v26 = [v32 substringFromIndex:v35];
@@ -5247,11 +5777,11 @@ LABEL_41:
 
           else
           {
-            v76[0] = @"operator";
-            v76[1] = @"value";
-            v77[0] = v65;
-            v77[1] = v37;
-            v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:2];
+            v75[0] = @"operator";
+            v75[1] = @"value";
+            v76[0] = v64;
+            v76[1] = v37;
+            v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:v75 count:2];
             [dictionary setObject:v39 forKey:v25];
           }
 
@@ -5261,12 +5791,12 @@ LABEL_49:
           if (([v14 scanString:@";" intoString:0] & 1) == 0)
           {
             v43 = [v14 scanString:@"}" intoString:0];
-            v19 = v63;
+            v19 = v62;
             if (v43)
             {
 
               properties = propertiesCopy;
-              stringCopy = v61;
+              stringCopy = v60;
               label = labelCopy;
               domains = domainsCopy;
               name = nameCopy;
@@ -5277,7 +5807,7 @@ LABEL_60:
 
             v17 = 0;
             properties = propertiesCopy;
-            stringCopy = v61;
+            stringCopy = v60;
             label = labelCopy;
             domains = domainsCopy;
             name = nameCopy;
@@ -5288,7 +5818,7 @@ LABEL_60:
 
       if (!v17 || [v14 scanString:@"" intoString:?], 0))
       {
-        if (!v64 || [v14 scanString:@"]" intoString:0])
+        if (!v63 || [v14 scanString:@"]" intoString:0])
         {
           v44 = v19;
           scanLocation = [v14 scanLocation];
@@ -5307,47 +5837,47 @@ LABEL_77:
       goto LABEL_79;
     }
 
-    v73 = 0;
-    [v14 scanInteger:&v73];
-    v22 = [MEMORY[0x277CCAB58] indexSetWithIndex:v73];
+    v72 = 0;
+    [v14 scanInteger:&v72];
+    v22 = [MEMORY[0x277CCAB58] indexSetWithIndex:v72];
     if ([v14 scanString:@" intoString:{", 0}])
     {
       do
       {
-        [v14 scanInteger:&v73];
-        [v22 addIndex:v73];
+        [v14 scanInteger:&v72];
+        [v22 addIndex:v72];
       }
 
       while (([v14 scanString:@" intoString:{", 0}] & 1) != 0);
     }
 
-    if ([v22 count] < 2 || -[__CFString isEqualToString:](v69, "isEqualToString:", @"*"))
+    if ([v22 count] < 2 || -[__CFString isEqualToString:](v68, "isEqualToString:", @"*"))
     {
-      v67 = [v22 copy];
+      v66 = [v22 copy];
 
-      v19 = v63;
+      v19 = v62;
       goto LABEL_26;
     }
 
     dictionary = 0;
-    v67 = 0;
+    v66 = 0;
     v17 = 0;
 LABEL_63:
     typeCopy3 = type;
-    v19 = v63;
+    v19 = v62;
     goto LABEL_75;
   }
 
   if (!v19)
   {
-    v69 = 0;
+    v68 = 0;
     dictionary = 0;
-    v67 = 0;
+    v66 = 0;
     v17 = 0;
 LABEL_74:
     typeCopy3 = type;
 LABEL_75:
-    v23 = v66;
+    v23 = v65;
     if (!typeCopy3)
     {
       goto LABEL_83;
@@ -5361,41 +5891,41 @@ LABEL_75:
     goto LABEL_22;
   }
 
-  if (!v64)
+  if (!v63)
   {
-    v69 = 0;
+    v68 = 0;
     dictionary = 0;
-    v67 = 0;
+    v66 = 0;
     goto LABEL_77;
   }
 
   if ([v14 scanString:@"]" intoString:0])
   {
 LABEL_22:
-    v63 = v19;
+    v62 = v19;
     scanLocation2 = [v14 scanLocation];
     if (scanLocation2 == [stringCopy length])
     {
-      v67 = [MEMORY[0x277CCAA78] indexSetWithIndex:0];
-      v69 = 0;
+      v66 = [MEMORY[0x277CCAA78] indexSetWithIndex:0];
+      v68 = 0;
       dictionary = 0;
       v17 = 1;
     }
 
     else
     {
-      v69 = 0;
+      v68 = 0;
       dictionary = 0;
-      v67 = 0;
+      v66 = 0;
       v17 = 0;
     }
 
     goto LABEL_63;
   }
 
-  v69 = 0;
+  v68 = 0;
   dictionary = 0;
-  v67 = 0;
+  v66 = 0;
 LABEL_78:
   v17 = 0;
   v23 = 2;
@@ -5433,7 +5963,7 @@ LABEL_83:
   {
     if (v17)
     {
-      v48 = v69;
+      v48 = v68;
     }
 
     else
@@ -5448,7 +5978,7 @@ LABEL_83:
   {
     if (v17)
     {
-      v49 = v67;
+      v49 = v66;
     }
 
     else
@@ -5502,13 +6032,12 @@ LABEL_83:
     *error = [v55 errorWithDescription:stringCopy];
   }
 
-  v56 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 + (BOOL)scanMatchString:(id)string definitions:(id *)definitions constraints:(id *)constraints forCreation:(BOOL)creation error:(id *)error
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if (definitions && *definitions)
   {
@@ -5533,42 +6062,42 @@ LABEL_83:
     {
       definitionsCopy = definitions;
       constraintsCopy = constraints;
-      v70 = v14;
-      v71 = array2;
-      v75 = v12;
-      v108 = 0u;
-      v109 = 0u;
-      v106 = 0u;
-      v107 = 0u;
-      v69 = v15;
+      v69 = v14;
+      v70 = array2;
+      v74 = v12;
+      v104 = 0u;
+      v105 = 0u;
+      v102 = 0u;
+      v103 = 0u;
+      v68 = v15;
       obj = v15;
-      v73 = [obj countByEnumeratingWithState:&v106 objects:v111 count:16];
-      if (v73)
+      v72 = [obj countByEnumeratingWithState:&v102 objects:v107 count:16];
+      if (v72)
       {
         v17 = 0x2797FD000uLL;
-        v74 = *v107;
+        v73 = *v103;
         v18 = 1;
-        v78 = stringCopy;
-        v80 = v11;
+        v77 = stringCopy;
+        v79 = v11;
         do
         {
           v19 = 0;
           errorCopy4 = error;
           do
           {
-            if (*v107 != v74)
+            if (*v103 != v73)
             {
               v21 = v19;
               objc_enumerationMutation(obj);
               v19 = v21;
             }
 
-            v76 = v19;
-            v22 = *(*(&v106 + 1) + 8 * v19);
+            v75 = v19;
+            v22 = *(*(&v102 + 1) + 8 * v19);
             if ([v22 numberOfRanges] >= 2)
             {
               v23 = 1;
-              v81 = v22;
+              v80 = v22;
               while (2)
               {
                 if ([v22 rangeAtIndex:v23] == 0x7FFFFFFFFFFFFFFFLL || !v24)
@@ -5578,41 +6107,41 @@ LABEL_83:
 
                 v25 = [v22 rangeAtIndex:v23];
                 v27 = [stringCopy substringWithRange:{v25, v26}];
-                v104 = 0;
-                v105 = 0;
-                v102 = 0;
-                v103 = 0;
+                v100 = 0;
                 v101 = 0;
-                v82 = v27;
+                v98 = 0;
+                v99 = 0;
+                v97 = 0;
+                v81 = v27;
                 v28 = [self scanGraphElementString:0 type:? optionalName:? label:? optionalDomains:? optionalProperties:? error:?];
-                v94 = v104;
-                v29 = v103;
-                v92 = v102;
-                v89 = v101;
-                v90 = v29;
+                v93 = v100;
+                v29 = v99;
+                v91 = v98;
+                v88 = v97;
+                v89 = v29;
                 if (v28 && v29)
                 {
-                  if (v105 != 2)
+                  if (v101 != 2)
                   {
-                    if (v105 == 1)
+                    if (v101 == 1)
                     {
-                      v30 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v92, "count")}];
-                      firstIndex = [v92 firstIndex];
+                      v30 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v91, "count")}];
+                      firstIndex = [v91 firstIndex];
                       while (firstIndex != 0xFFFF)
                       {
                         v32 = v30;
                         v33 = [MAAbstractNode alloc];
                         LODWORD(v34) = 1.0;
-                        v35 = [(MAAbstractNode *)v33 initWithLabel:v90 domain:firstIndex weight:v89 properties:v34];
+                        v35 = [(MAAbstractNode *)v33 initWithLabel:v89 domain:firstIndex weight:v88 properties:v34];
                         [(MANode *)v35 setIdentifier:v18];
-                        v36 = v94;
-                        if (!v94)
+                        v36 = v93;
+                        if (!v93)
                         {
                           v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"#NodeID%ld", -[MANode identifier](v35, "identifier")];
                         }
 
                         ++v18;
-                        v94 = v36;
+                        v93 = v36;
                         v37 = [v11 objectForKey:v36];
 
                         if (v37)
@@ -5623,13 +6152,13 @@ LABEL_83:
                           }
 
                           v61 = MEMORY[0x277CCA9B8];
-                          [MEMORY[0x277CCACA8] stringWithFormat:@"Query string malformed, node named '%@' has no matching definition.", v94];
+                          [MEMORY[0x277CCACA8] stringWithFormat:@"Query string malformed, node named '%@' has no matching definition.", v93];
                           goto LABEL_66;
                         }
 
                         v30 = v32;
                         [v32 addObject:v35];
-                        firstIndex = [v92 indexGreaterThanIndex:firstIndex];
+                        firstIndex = [v91 indexGreaterThanIndex:firstIndex];
                       }
 
                       goto LABEL_48;
@@ -5638,7 +6167,7 @@ LABEL_83:
                     if (errorCopy4)
                     {
                       v60 = MEMORY[0x277CCA9B8];
-                      v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"Query string malformed, element '%@' doesn't match any type.", v82];
+                      v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"Query string malformed, element '%@' doesn't match any type.", v81];
                       [v60 errorWithDescription:v30];
                       *errorCopy4 = v54 = 0;
                       goto LABEL_69;
@@ -5650,15 +6179,15 @@ LABEL_70:
                     if (!v54)
                     {
 
-                      v12 = v75;
-                      array2 = v71;
+                      v12 = v74;
+                      array2 = v70;
                       goto LABEL_87;
                     }
 
 LABEL_71:
                     ++v23;
-                    v22 = v81;
-                    if (v23 >= [v81 numberOfRanges])
+                    v22 = v80;
+                    if (v23 >= [v80 numberOfRanges])
                     {
                       goto LABEL_72;
                     }
@@ -5666,23 +6195,23 @@ LABEL_71:
                     continue;
                   }
 
-                  v30 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v92, "count")}];
-                  firstIndex2 = [v92 firstIndex];
+                  v30 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v91, "count")}];
+                  firstIndex2 = [v91 firstIndex];
                   while (firstIndex2 != 0xFFFF)
                   {
                     v32 = v30;
                     v56 = objc_alloc(*(v17 + 432));
                     LODWORD(v57) = 1.0;
-                    v35 = [v56 initWithLabel:v90 domain:firstIndex2 weight:v89 properties:v57];
+                    v35 = [v56 initWithLabel:v89 domain:firstIndex2 weight:v88 properties:v57];
                     [(MANode *)v35 setIdentifier:v18];
-                    v58 = v94;
-                    if (!v94)
+                    v58 = v93;
+                    if (!v93)
                     {
                       v58 = [MEMORY[0x277CCACA8] stringWithFormat:@"#EdgeID%ld", -[MANode identifier](v35, "identifier")];
                     }
 
                     ++v18;
-                    v94 = v58;
+                    v93 = v58;
                     v59 = [v11 objectForKey:v58];
 
                     if (v59)
@@ -5690,7 +6219,7 @@ LABEL_71:
                       if (errorCopy4)
                       {
                         v61 = MEMORY[0x277CCA9B8];
-                        [MEMORY[0x277CCACA8] stringWithFormat:@"Query string malformed, edge named '%@' has no matching definition.", v94];
+                        [MEMORY[0x277CCACA8] stringWithFormat:@"Query string malformed, edge named '%@' has no matching definition.", v93];
                         v62 = LABEL_66:;
                         *errorCopy4 = [v61 errorWithDescription:v62];
                       }
@@ -5704,14 +6233,14 @@ LABEL_67:
 
                     v30 = v32;
                     [v32 addObject:v35];
-                    firstIndex2 = [v92 indexGreaterThanIndex:firstIndex2];
+                    firstIndex2 = [v91 indexGreaterThanIndex:firstIndex2];
                   }
 
 LABEL_48:
-                  [v11 setObject:v30 forKey:v94];
+                  [v11 setObject:v30 forKey:v93];
                   v54 = 1;
 LABEL_68:
-                  stringCopy = v78;
+                  stringCopy = v77;
 LABEL_69:
 
                   goto LABEL_70;
@@ -5720,24 +6249,19 @@ LABEL_69:
                 break;
               }
 
-              v38 = [self scanGraphConstraintString:v82 error:errorCopy4];
-              v79 = objc_opt_new();
+              v38 = [self scanGraphConstraintString:v81 error:errorCopy4];
+              v78 = objc_opt_new();
               v39 = +[MAPath path];
-              v99 = 1;
-              v100 = 1;
-              v95 = 0u;
-              v96 = 0u;
-              v97 = 0u;
-              v98 = 0u;
+              v95 = 1;
+              v96 = 1;
+              memset(v94, 0, sizeof(v94));
               v30 = v38;
-              if ([v30 countByEnumeratingWithState:&v95 objects:v110 count:16])
+              if ([v30 countByEnumeratingWithState:v94 objects:v106 count:16])
               {
-                v84 = v30;
-                v85 = v23;
-                v83 = v39;
-                *v96;
-                *v96;
-                v40 = **(&v95 + 1);
+                v83 = v30;
+                v84 = v23;
+                v82 = v39;
+                v40 = **(&v94[0] + 1);
                 v41 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(\\(|\\[)([\\w\\d\\ options:\\-\\ \\:\\{\\'\\\\}\\#\\%\\+\\$\\^\\/\\(\\)\\?\\=]+)(\\)|\\])" error:{0, errorCopy4}];;
                 if (v41)
                 {
@@ -5749,13 +6273,13 @@ LABEL_69:
                     if ([firstObject numberOfRanges] == 4)
                     {
                       v45 = [firstObject rangeAtIndex:0];
-                      v88 = [v40 substringWithRange:{v45, v46}];
+                      v87 = [v40 substringWithRange:{v45, v46}];
                       v47 = [self scanGraphElementString:errorCopy4 type:? optionalName:? label:? optionalDomains:? optionalProperties:? error:?];
                       v48 = 0;
                       v49 = 0;
-                      v93 = 0;
+                      v92 = 0;
                       v50 = 0;
-                      v91 = v49;
+                      v90 = v49;
                       if (v47)
                       {
                         if (v49 | v48)
@@ -5765,19 +6289,19 @@ LABEL_69:
                           {
                             v51 = MEMORY[0x277CCA9B8];
                             v52 = v50;
-                            v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"Query string malformed, element '%@' has no matching type.", v88];
+                            v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"Query string malformed, element '%@' has no matching type.", v87];
                             *error = [v51 errorWithDescription:v53];
 
                             v50 = v52;
                             errorCopy4 = error;
                           }
 
-                          v23 = v85;
+                          v23 = v84;
 LABEL_35:
 
-                          v11 = v80;
-                          v30 = v84;
-                          v39 = v83;
+                          v11 = v79;
+                          v30 = v83;
+                          v39 = v82;
 LABEL_59:
 
                           v54 = 0;
@@ -5789,7 +6313,7 @@ LABEL_60:
                         v48 = 0;
                       }
 
-                      v23 = v85;
+                      v23 = v84;
                       errorCopy4 = error;
                       goto LABEL_35;
                     }
@@ -5799,15 +6323,15 @@ LABEL_60:
                       *errorCopy4 = [MEMORY[0x277CCA9B8] errorWithDescription:{@"Query string malformed, constraint result has wrong number of ranges."}];
                     }
 
-                    v11 = v80;
-                    v23 = v85;
-                    v39 = v83;
+                    v11 = v79;
+                    v23 = v84;
+                    v39 = v82;
                   }
 
                   else
                   {
-                    v11 = v80;
-                    v23 = v85;
+                    v11 = v79;
+                    v23 = v84;
                     if (errorCopy4)
                     {
                       *errorCopy4 = [MEMORY[0x277CCA9B8] errorWithDescription:{@"Query string malformed, constraintString should match exactly once."}];
@@ -5817,34 +6341,34 @@ LABEL_60:
 
                 else
                 {
-                  v11 = v80;
-                  v23 = v85;
+                  v11 = v79;
+                  v23 = v84;
                 }
 
-                v30 = v84;
+                v30 = v83;
                 goto LABEL_59;
               }
 
-              [array addObject:v79];
+              [array addObject:v78];
               if (([v39 isEmpty] & 1) == 0)
               {
-                [v71 addObject:v39];
+                [v70 addObject:v39];
               }
 
               v54 = 1;
-              v11 = v80;
+              v11 = v79;
               goto LABEL_60;
             }
 
 LABEL_72:
-            v19 = v76 + 1;
+            v19 = v75 + 1;
           }
 
-          while (v76 + 1 != v73);
-          v73 = [obj countByEnumeratingWithState:&v106 objects:v111 count:16];
+          while (v75 + 1 != v72);
+          v72 = [obj countByEnumeratingWithState:&v102 objects:v107 count:16];
         }
 
-        while (v73);
+        while (v72);
       }
 
       if (definitionsCopy)
@@ -5862,13 +6386,13 @@ LABEL_72:
         *definitionsCopy = v63;
       }
 
-      v12 = v75;
-      array2 = v71;
+      v12 = v74;
+      array2 = v70;
       if (constraintsCopy)
       {
-        if ([v71 count])
+        if ([v70 count])
         {
-          v64 = v71;
+          v64 = v70;
         }
 
         else
@@ -5881,8 +6405,8 @@ LABEL_72:
 
       LOBYTE(v54) = 1;
 LABEL_87:
-      v16 = v69;
-      v14 = v70;
+      v16 = v68;
+      v14 = v69;
     }
 
     else if (error)
@@ -5902,35 +6426,34 @@ LABEL_87:
     LOBYTE(v54) = 0;
   }
 
-  v65 = *MEMORY[0x277D85DE8];
   return v54;
 }
 
 + (id)visualStringWithFormat:(id)format elements:(id)elements
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   elementsCopy = elements;
   v6 = [MEMORY[0x277CCAB68] stringWithString:format];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = [elementsCopy allKeys];
-  v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         v12 = [elementsCopy objectForKeyedSubscript:v11];
         visualString = [v12 visualString];
         objc_opt_class();
@@ -5945,13 +6468,11 @@ LABEL_87:
         [v6 replaceOccurrencesOfString:v15 withString:visualString options:0 range:{0, objc_msgSend(v6, "length")}];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -5978,57 +6499,57 @@ LABEL_87:
 
 + (BOOL)populateGraph:(id)graph withDefinitions:(id)definitions constraints:(id)constraints error:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   definitionsCopy = definitions;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 1;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 1;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = constraints;
-  v8 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v8 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v8)
   {
-    v9 = *v30;
+    v9 = *v29;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __66__MAGraph_Query__populateGraph_withDefinitions_constraints_error___block_invoke;
-        v25[3] = &unk_2797FF9D0;
+        v11 = *(*(&v28 + 1) + 8 * i);
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __66__MAGraph_Query__populateGraph_withDefinitions_constraints_error___block_invoke;
+        v24[3] = &unk_2797FF9D0;
         v12 = definitionsCopy;
-        v26 = v12;
-        v28 = &v33;
+        v25 = v12;
+        v27 = &v32;
         v13 = graphCopy;
-        v27 = v13;
-        [v11 enumerateWithBlock:v25];
-        if (!*(v34 + 24))
+        v26 = v13;
+        [v11 enumerateWithBlock:v24];
+        if (!*(v33 + 24))
         {
 
           goto LABEL_12;
         }
 
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __66__MAGraph_Query__populateGraph_withDefinitions_constraints_error___block_invoke_2;
-        v21[3] = &unk_2797FF9D0;
-        v22 = v12;
-        v24 = &v33;
-        v23 = v13;
-        [v11 enumerateWithBlock:v21];
-        v14 = *(v34 + 24) == 0;
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __66__MAGraph_Query__populateGraph_withDefinitions_constraints_error___block_invoke_2;
+        v20[3] = &unk_2797FF9D0;
+        v21 = v12;
+        v23 = &v32;
+        v22 = v13;
+        [v11 enumerateWithBlock:v20];
+        v14 = *(v33 + 24) == 0;
 
         if (v14)
         {
@@ -6036,7 +6557,7 @@ LABEL_87:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v8 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
       if (v8)
       {
         continue;
@@ -6048,16 +6569,15 @@ LABEL_87:
 
 LABEL_12:
 
-  v15 = *(v34 + 24);
-  _Block_object_dispose(&v33, 8);
+  v15 = *(v33 + 24);
+  _Block_object_dispose(&v32, 8);
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
 void __66__MAGraph_Query__populateGraph_withDefinitions_constraints_error___block_invoke(void *a1, void *a2, void *a3, _BYTE *a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   if (v7)
@@ -6068,29 +6588,29 @@ void __66__MAGraph_Query__populateGraph_withDefinitions_constraints_error___bloc
 
     if ([v11 count])
     {
-      v25 = a4;
-      v26 = v8;
-      v27 = v7;
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
+      v24 = a4;
+      v25 = v8;
+      v26 = v7;
       v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
       v12 = v11;
-      v13 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v29;
+        v15 = *v28;
         while (2)
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v29 != v15)
+            if (*v28 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v28 + 1) + 8 * i);
+            v17 = *(*(&v27 + 1) + 8 * i);
             v18 = a1[5];
             v19 = [v17 label];
             v20 = [v17 domain];
@@ -6101,12 +6621,12 @@ void __66__MAGraph_Query__populateGraph_withDefinitions_constraints_error___bloc
             if (!v23)
             {
               *(*(a1[6] + 8) + 24) = 0;
-              *v25 = 1;
+              *v24 = 1;
               goto LABEL_13;
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
           if (v14)
           {
             continue;
@@ -6118,8 +6638,8 @@ void __66__MAGraph_Query__populateGraph_withDefinitions_constraints_error___bloc
 
 LABEL_13:
 
-      v8 = v26;
-      v7 = v27;
+      v8 = v25;
+      v7 = v26;
     }
 
     else
@@ -6128,13 +6648,11 @@ LABEL_13:
       *a4 = 1;
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __66__MAGraph_Query__populateGraph_withDefinitions_constraints_error___block_invoke_2(void *a1, void *a2, void *a3, _BYTE *a4)
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = v8;
@@ -6148,79 +6666,79 @@ void __66__MAGraph_Query__populateGraph_withDefinitions_constraints_error___bloc
     v14 = [v9 targetNode];
     if ([v12 count])
     {
-      v69 = a4;
-      v72 = a1;
-      v83 = 0u;
-      v84 = 0u;
-      v81 = 0u;
+      v68 = a4;
+      v71 = a1;
       v82 = 0u;
+      v83 = 0u;
+      v80 = 0u;
+      v81 = 0u;
       v15 = v12;
-      v16 = [v15 countByEnumeratingWithState:&v81 objects:v87 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v80 objects:v86 count:16];
       if (!v16)
       {
         goto LABEL_36;
       }
 
       v17 = v16;
-      v18 = *v82;
+      v18 = *v81;
       while (1)
       {
         v19 = 0;
         do
         {
-          if (*v82 != v18)
+          if (*v81 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v64 = v19;
-          v20 = *(*(&v81 + 1) + 8 * v19);
-          v21 = v72[4];
+          v63 = v19;
+          v20 = *(*(&v80 + 1) + 8 * v19);
+          v21 = v71[4];
           v22 = [v13 label];
           v23 = [v21 objectForKey:v22];
 
           if (![v23 count])
           {
-            *(*(v72[6] + 8) + 24) = 0;
-            *v69 = 1;
+            *(*(v71[6] + 8) + 24) = 0;
+            *v68 = 1;
             goto LABEL_35;
           }
 
-          v79 = 0u;
-          v80 = 0u;
-          v77 = 0u;
           v78 = 0u;
+          v79 = 0u;
+          v76 = 0u;
+          v77 = 0u;
           v24 = v23;
-          v25 = [v24 countByEnumeratingWithState:&v77 objects:v86 count:16];
+          v25 = [v24 countByEnumeratingWithState:&v76 objects:v85 count:16];
           if (!v25)
           {
             goto LABEL_27;
           }
 
-          v26 = *v78;
-          v65 = v14;
-          v66 = v13;
-          v67 = v24;
-          v68 = v15;
-          v58 = v17;
-          v59 = v18;
-          v57 = *v78;
+          v26 = *v77;
+          v64 = v14;
+          v65 = v13;
+          v66 = v24;
+          v67 = v15;
+          v57 = v17;
+          v58 = v18;
+          v56 = *v77;
           do
           {
             v27 = 0;
-            v60 = v25;
+            v59 = v25;
             do
             {
-              if (*v78 != v26)
+              if (*v77 != v26)
               {
                 v28 = v27;
                 objc_enumerationMutation(v24);
                 v27 = v28;
               }
 
-              v61 = v27;
-              v29 = *(*(&v77 + 1) + 8 * v27);
-              v30 = v72[5];
+              v60 = v27;
+              v29 = *(*(&v76 + 1) + 8 * v27);
+              v30 = v71[5];
               v31 = [v29 label];
               v32 = [v29 domain];
               v33 = [v29 propertyDictionary];
@@ -6228,57 +6746,57 @@ void __66__MAGraph_Query__populateGraph_withDefinitions_constraints_error___bloc
 
               if ([v34 count] != 1)
               {
-                *(*(v72[6] + 8) + 24) = 0;
-                *v69 = 1;
+                *(*(v71[6] + 8) + 24) = 0;
+                *v68 = 1;
                 goto LABEL_34;
               }
 
-              v71 = [v34 anyObject];
-              v35 = v72[4];
+              v70 = [v34 anyObject];
+              v35 = v71[4];
               v36 = [v14 label];
               v37 = [v35 objectForKey:v36];
 
               if (![v37 count])
               {
-                *(*(v72[6] + 8) + 24) = 0;
-                *v69 = 1;
+                *(*(v71[6] + 8) + 24) = 0;
+                *v68 = 1;
 
 LABEL_34:
-                v23 = v67;
-                v15 = v68;
+                v23 = v66;
+                v15 = v67;
 
 LABEL_35:
                 goto LABEL_36;
               }
 
-              v75 = 0u;
-              v76 = 0u;
-              v73 = 0u;
               v74 = 0u;
+              v75 = 0u;
+              v72 = 0u;
+              v73 = 0u;
               obj = v37;
-              v38 = [obj countByEnumeratingWithState:&v73 objects:v85 count:16];
+              v38 = [obj countByEnumeratingWithState:&v72 objects:v84 count:16];
               if (!v38)
               {
                 goto LABEL_25;
               }
 
               v39 = v38;
-              v40 = *v74;
-              v41 = v72;
-              v62 = v9;
-              v63 = v7;
+              v40 = *v73;
+              v41 = v71;
+              v61 = v9;
+              v62 = v7;
               while (2)
               {
                 v42 = 0;
                 v43 = v34;
                 do
                 {
-                  if (*v74 != v40)
+                  if (*v73 != v40)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v44 = *(*(&v73 + 1) + 8 * v42);
+                  v44 = *(*(&v72 + 1) + 8 * v42);
                   v45 = v41[5];
                   v46 = [v44 label];
                   v47 = [v44 domain];
@@ -6288,13 +6806,13 @@ LABEL_35:
                   if ([v34 count] != 1)
                   {
                     *(*(v41[6] + 8) + 24) = 0;
-                    *v69 = 1;
+                    *v68 = 1;
 LABEL_33:
 
-                    v9 = v62;
-                    v7 = v63;
-                    v14 = v65;
-                    v13 = v66;
+                    v9 = v61;
+                    v7 = v62;
+                    v14 = v64;
+                    v13 = v65;
                     goto LABEL_34;
                   }
 
@@ -6304,25 +6822,25 @@ LABEL_33:
                   v52 = [v20 domain];
                   v53 = [v20 propertyDictionary];
                   LODWORD(v54) = 1.0;
-                  v55 = [v50 addUniqueEdgeWithLabel:v51 sourceNode:v71 targetNode:v49 domain:v52 weight:v53 properties:v54];
+                  v55 = [v50 addUniqueEdgeWithLabel:v51 sourceNode:v70 targetNode:v49 domain:v52 weight:v53 properties:v54];
 
                   if (!v55)
                   {
-                    *(*(v72[6] + 8) + 24) = 0;
-                    *v69 = 1;
+                    *(*(v71[6] + 8) + 24) = 0;
+                    *v68 = 1;
 
                     goto LABEL_33;
                   }
 
                   ++v42;
                   v43 = v34;
-                  v41 = v72;
+                  v41 = v71;
                 }
 
                 while (v39 != v42);
-                v39 = [obj countByEnumeratingWithState:&v73 objects:v85 count:16];
-                v9 = v62;
-                v7 = v63;
+                v39 = [obj countByEnumeratingWithState:&v72 objects:v84 count:16];
+                v9 = v61;
+                v7 = v62;
                 if (v39)
                 {
                   continue;
@@ -6333,28 +6851,28 @@ LABEL_33:
 
 LABEL_25:
 
-              v27 = v61 + 1;
-              v14 = v65;
-              v13 = v66;
-              v24 = v67;
-              v15 = v68;
-              v17 = v58;
-              v18 = v59;
-              v26 = v57;
+              v27 = v60 + 1;
+              v14 = v64;
+              v13 = v65;
+              v24 = v66;
+              v15 = v67;
+              v17 = v57;
+              v18 = v58;
+              v26 = v56;
             }
 
-            while (v61 + 1 != v60);
-            v25 = [v67 countByEnumeratingWithState:&v77 objects:v86 count:16];
+            while (v60 + 1 != v59);
+            v25 = [v66 countByEnumeratingWithState:&v76 objects:v85 count:16];
           }
 
           while (v25);
 LABEL_27:
 
-          v19 = v64 + 1;
+          v19 = v63 + 1;
         }
 
-        while (v64 + 1 != v17);
-        v17 = [v15 countByEnumeratingWithState:&v81 objects:v87 count:16];
+        while (v63 + 1 != v17);
+        v17 = [v15 countByEnumeratingWithState:&v80 objects:v86 count:16];
         if (!v17)
         {
 LABEL_36:
@@ -6369,8 +6887,6 @@ LABEL_36:
   }
 
 LABEL_37:
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 + (MAGraph)graphWithVisualString:(id)string error:(id *)error

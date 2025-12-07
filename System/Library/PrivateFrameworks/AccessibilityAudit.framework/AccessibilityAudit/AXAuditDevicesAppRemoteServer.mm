@@ -55,14 +55,14 @@
 
 void __51__AXAuditDevicesAppRemoteServer_initWithTransport___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ([a2 errorStatus] == 2)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v7 = 136315138;
-      v8 = "[AXAuditDevicesAppRemoteServer initWithTransport:]_block_invoke";
-      _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: DTXMessageErrorStatus_ConnectionInterrupted", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[AXAuditDevicesAppRemoteServer initWithTransport:]_block_invoke";
+      _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: DTXMessageErrorStatus_ConnectionInterrupted", &v6, 0xCu);
     }
 
     [*(a1 + 32) connectionInterrupted];
@@ -73,8 +73,6 @@ void __51__AXAuditDevicesAppRemoteServer_initWithTransport___block_invoke(uint64
     v5 = *(v4 + 16);
     *(v4 + 16) = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __51__AXAuditDevicesAppRemoteServer_initWithTransport___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
@@ -99,51 +97,47 @@ void __51__AXAuditDevicesAppRemoteServer_initWithTransport___block_invoke_2(uint
 
 - (void)dealloc
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v6 = "[AXAuditDevicesAppRemoteServer dealloc]";
+    v5 = "[AXAuditDevicesAppRemoteServer dealloc]";
     _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
-  v4.receiver = self;
-  v4.super_class = AXAuditDevicesAppRemoteServer;
-  [(AXAuditDevicesAppRemoteServer *)&v4 dealloc];
-  v3 = *MEMORY[0x277D85DE8];
+  v3.receiver = self;
+  v3.super_class = AXAuditDevicesAppRemoteServer;
+  [(AXAuditDevicesAppRemoteServer *)&v3 dealloc];
 }
 
 - (void)cancel
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[AXAuditDevicesAppRemoteServer cancel]";
-    _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AXAuditDevicesAppRemoteServer cancel]";
+    _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s", &v4, 0xCu);
   }
 
   connection = [(AXAuditDevicesAppRemoteServer *)self connection];
   [connection cancel];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resume
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[AXAuditDevicesAppRemoteServer resume]";
-    _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AXAuditDevicesAppRemoteServer resume]";
+    _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s", &v4, 0xCu);
   }
 
   connection = [(AXAuditDevicesAppRemoteServer *)self connection];
   [connection resume];
 
   [(AXAuditDevicesAppRemoteServer *)self requestHostAPIVersion];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMaxConnectionEnqueue:(unint64_t)enqueue
@@ -154,15 +148,13 @@ void __51__AXAuditDevicesAppRemoteServer_initWithTransport___block_invoke_2(uint
 
 - (void)connectionInterrupted
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v3 = 136315138;
-    v4 = "[AXAuditDevicesAppRemoteServer connectionInterrupted]";
-    _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s", &v3, 0xCu);
+    v2 = 136315138;
+    v3 = "[AXAuditDevicesAppRemoteServer connectionInterrupted]";
+    _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestHostAPIVersion
@@ -253,16 +245,16 @@ void __93__AXAuditDevicesAppRemoteServer_accessibilityTranslationTransportSendDa
 
 - (void)clientNeedsAccessibility:(id)accessibility
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   accessibilityCopy = accessibility;
   bOOLValue = [accessibilityCopy BOOLValue];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v13 = 136315394;
-    v14 = "[AXAuditDevicesAppRemoteServer clientNeedsAccessibility:]";
-    v15 = 2112;
-    v16 = accessibilityCopy;
-    _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s, needsAX: %@", &v13, 0x16u);
+    v12 = 136315394;
+    v13 = "[AXAuditDevicesAppRemoteServer clientNeedsAccessibility:]";
+    v14 = 2112;
+    v15 = accessibilityCopy;
+    _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s, needsAX: %@", &v12, 0x16u);
   }
 
   if (bOOLValue)
@@ -296,8 +288,6 @@ void __93__AXAuditDevicesAppRemoteServer_accessibilityTranslationTransportSendDa
     [(AXAuditDevicesAppRemoteServer *)self setRemoteCacheManager:0];
     [(AXAuditDevicesAppRemoteServer *)self cancel];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processDataFromHost:(id)host
@@ -330,20 +320,18 @@ void __53__AXAuditDevicesAppRemoteServer_processDataFromHost___block_invoke(uint
 
 void __51__AXAuditDevicesAppRemoteServer_initWithTransport___block_invoke_2_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_error_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not create service named %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_error_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not create service named %@", &v1, 0xCu);
 }
 
 - (void)processDataFromHost:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = 136315138;
-  v2 = "[AXAuditDevicesAppRemoteServer processDataFromHost:]";
-  _os_log_error_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: axpTransportDataHandler is nil!", &v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v0 = 136315138;
+  v1 = "[AXAuditDevicesAppRemoteServer processDataFromHost:]";
+  _os_log_error_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: axpTransportDataHandler is nil!", &v0, 0xCu);
 }
 
 @end

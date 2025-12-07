@@ -48,9 +48,8 @@
   requestType = self->_requestType;
   coderCopy = coder;
   [coderCopy encodeInteger:requestType forKey:@"requestType"];
-  intent = self->_intent;
-  v6 = INIntentWithTypedIntent();
-  [coderCopy encodeObject:v6 forKey:@"intent"];
+  v5 = INIntentWithTypedIntent();
+  [coderCopy encodeObject:v5 forKey:@"intent"];
 
   [coderCopy encodeObject:self->_actionIdentifier forKey:@"actionIdentifier"];
   [coderCopy encodeObject:self->_serializedParameters forKey:@"serializedParameters"];
@@ -83,21 +82,10 @@
 
 - (Class)responseClass
 {
-  requestType = [(WFRemoteWidgetConfigurationRequest *)self requestType];
-  if (requestType > 4)
-  {
-    v3 = off_1E836F0E0;
-  }
+  [(WFRemoteWidgetConfigurationRequest *)self requestType];
+  v2 = objc_opt_class();
 
-  else
-  {
-    v3 = off_1E8376FF8[requestType];
-  }
-
-  v4 = *v3;
-  v5 = objc_opt_class();
-
-  return v5;
+  return v2;
 }
 
 - (WFRemoteWidgetConfigurationRequest)initWithRequestType:(int64_t)type intent:(id)intent actionIdentifier:(id)identifier serializedParameters:(id)parameters parameterName:(id)name searchTerm:(id)term

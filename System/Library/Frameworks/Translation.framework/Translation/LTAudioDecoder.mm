@@ -39,7 +39,7 @@ uint64_t __40___LTAudioDecoder_decodeChunk_outError___block_invoke(uint64_t a1, 
     else
     {
       v9 = 1752524863;
-      v14 = _LTOSLogTTS();
+      v14 = _LTOSLogTTS(a1, a2);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         __40___LTAudioDecoder_decodeChunk_outError___block_invoke_cold_1(a2, v14);
@@ -67,12 +67,11 @@ uint64_t __40___LTAudioDecoder_decodeChunk_outError___block_invoke(uint64_t a1, 
 
 void __40___LTAudioDecoder_decodeChunk_outError___block_invoke_cold_1(unsigned int *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_error_impl(&dword_23AAF5000, a2, OS_LOG_TYPE_ERROR, "Only expecting to get 1 packet at a time, not %lu", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_error_impl(&dword_23AAF5000, a2, OS_LOG_TYPE_ERROR, "Only expecting to get 1 packet at a time, not %lu", &v3, 0xCu);
 }
 
 @end

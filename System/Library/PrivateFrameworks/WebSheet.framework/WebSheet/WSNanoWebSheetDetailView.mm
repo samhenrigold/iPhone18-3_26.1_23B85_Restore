@@ -9,12 +9,12 @@
 - (WSNanoWebSheetDetailView)initWithURL:(id)l ssid:(id)ssid isSecure:(BOOL)secure hasEVCert:(BOOL)cert
 {
   secureCopy = secure;
-  v56[8] = *MEMORY[0x277D85DE8];
-  v55.receiver = self;
-  v55.super_class = WSNanoWebSheetDetailView;
+  v55[8] = *MEMORY[0x277D85DE8];
+  v54.receiver = self;
+  v54.super_class = WSNanoWebSheetDetailView;
   ssidCopy = ssid;
   lCopy = l;
-  v8 = [(WSNanoWebSheetDetailView *)&v55 init];
+  v8 = [(WSNanoWebSheetDetailView *)&v54 init];
   v8->_hasEVCert = cert;
   systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
   [(WSNanoWebSheetDetailView *)v8 setBackgroundColor:systemBackgroundColor];
@@ -33,9 +33,9 @@
   labelColor2 = [MEMORY[0x277D75348] labelColor];
   [(UILabel *)v8->_ssidLabel setTintColor:labelColor2];
 
-  v51 = [MEMORY[0x277D755D0] configurationWithScale:1];
-  v50 = [MEMORY[0x277D755B8] systemImageNamed:@"lock.fill" withConfiguration:v51];
-  v16 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v50];
+  v50 = [MEMORY[0x277D755D0] configurationWithScale:1];
+  v49 = [MEMORY[0x277D755B8] systemImageNamed:@"lock.fill" withConfiguration:v50];
+  v16 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v49];
   padlockImageView = v8->_padlockImageView;
   v8->_padlockImageView = v16;
 
@@ -48,45 +48,45 @@
   [(UILabel *)v8->_ssidLabel setTextAlignment:0];
   [(UILabel *)v8->_urlLabel setTextAlignment:0];
   [(WSNanoWebSheetDetailView *)v8 addSubview:v8->_padlockImageView];
-  v38 = MEMORY[0x277CCAAD0];
+  v37 = MEMORY[0x277CCAAD0];
   topAnchor = [(UILabel *)v8->_urlLabel topAnchor];
   layoutMarginsGuide = [(WSNanoWebSheetDetailView *)v8 layoutMarginsGuide];
   topAnchor2 = [layoutMarginsGuide topAnchor];
-  v46 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v56[0] = v46;
+  v45 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v55[0] = v45;
   widthAnchor = [(UILabel *)v8->_urlLabel widthAnchor];
   layoutMarginsGuide2 = [(WSNanoWebSheetDetailView *)v8 layoutMarginsGuide];
   widthAnchor2 = [layoutMarginsGuide2 widthAnchor];
-  v42 = [widthAnchor constraintEqualToAnchor:widthAnchor2 constant:-10.0];
-  v56[1] = v42;
+  v41 = [widthAnchor constraintEqualToAnchor:widthAnchor2 constant:-10.0];
+  v55[1] = v41;
   topAnchor3 = [(UILabel *)v8->_ssidLabel topAnchor];
   bottomAnchor = [(UILabel *)v8->_urlLabel bottomAnchor];
-  v39 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:10.0];
-  v56[2] = v39;
+  v38 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:10.0];
+  v55[2] = v38;
   leadingAnchor = [(UILabel *)v8->_ssidLabel leadingAnchor];
   leadingAnchor2 = [(UILabel *)v8->_urlLabel leadingAnchor];
-  v35 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v56[3] = v35;
+  v34 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v55[3] = v34;
   widthAnchor3 = [(UILabel *)v8->_ssidLabel widthAnchor];
   layoutMarginsGuide3 = [(WSNanoWebSheetDetailView *)v8 layoutMarginsGuide];
   widthAnchor4 = [layoutMarginsGuide3 widthAnchor];
-  v31 = [widthAnchor3 constraintEqualToAnchor:widthAnchor4 constant:-10.0];
-  v56[4] = v31;
+  v30 = [widthAnchor3 constraintEqualToAnchor:widthAnchor4 constant:-10.0];
+  v55[4] = v30;
   firstBaselineAnchor = [(UIImageView *)v8->_padlockImageView firstBaselineAnchor];
   firstBaselineAnchor2 = [(UILabel *)v8->_urlLabel firstBaselineAnchor];
-  v28 = [firstBaselineAnchor constraintEqualToAnchor:firstBaselineAnchor2];
-  v56[5] = v28;
+  v27 = [firstBaselineAnchor constraintEqualToAnchor:firstBaselineAnchor2];
+  v55[5] = v27;
   trailingAnchor = [(UIImageView *)v8->_padlockImageView trailingAnchor];
   leadingAnchor3 = [(UILabel *)v8->_urlLabel leadingAnchor];
   v19 = [trailingAnchor constraintEqualToAnchor:leadingAnchor3 constant:-2.0];
-  v56[6] = v19;
+  v55[6] = v19;
   leadingAnchor4 = [(UIImageView *)v8->_padlockImageView leadingAnchor];
   layoutMarginsGuide4 = [(WSNanoWebSheetDetailView *)v8 layoutMarginsGuide];
   leadingAnchor5 = [layoutMarginsGuide4 leadingAnchor];
   v23 = [leadingAnchor4 constraintGreaterThanOrEqualToAnchor:leadingAnchor5];
-  v56[7] = v23;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:8];
-  [v38 activateConstraints:v24];
+  v55[7] = v23;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:8];
+  [v37 activateConstraints:v24];
 
   [(UIImageView *)v8->_padlockImageView setHidden:!secureCopy];
   [(UILabel *)v8->_urlLabel setNumberOfLines:0];
@@ -100,7 +100,6 @@
   [(UILabel *)v8->_ssidLabel setText:ssidCopy];
 
   [(UILabel *)v8->_ssidLabel sizeToFit];
-  v25 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

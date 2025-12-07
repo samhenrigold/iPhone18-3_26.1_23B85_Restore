@@ -111,7 +111,7 @@ uint64_t __32__FIUIActivityDataProvider_init__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __39__FIUIActivityDataProvider_sharedModel__block_invoke()
+uint64_t __39__FIUIActivityDataProvider_sharedModel__block_invoke(uint64_t a1, uint64_t a2)
 {
   sharedModel___sharedModel = objc_opt_new();
 

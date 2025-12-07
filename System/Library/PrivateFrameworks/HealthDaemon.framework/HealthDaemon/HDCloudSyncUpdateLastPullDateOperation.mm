@@ -27,7 +27,7 @@
 
 - (BOOL)performWithProfile:(id)profile transaction:(id)transaction error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   v8 = HDCloudSyncKeyValueDomainWithProfile(profileCopy);
   _HKInitializeLogging();
@@ -42,9 +42,9 @@
 
   pullCompleteDate = self->_pullCompleteDate;
   lastSuccessfulPullKey = self->_lastSuccessfulPullKey;
-  v20 = 0;
-  v13 = [v8 setDate:pullCompleteDate forKey:lastSuccessfulPullKey error:&v20];
-  v14 = v20;
+  v19 = 0;
+  v13 = [v8 setDate:pullCompleteDate forKey:lastSuccessfulPullKey error:&v19];
+  v14 = v19;
   if (v13)
   {
     cloudSyncManager = [profileCopy cloudSyncManager];
@@ -78,7 +78,6 @@
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -105,10 +104,9 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  pullCompleteDate = self->_pullCompleteDate;
-  v7 = [v3 stringWithFormat:@"<%@: %p> { pullCompleteDate: %@, lastSuccessfulPullKey: %@ }", v5, self, pullCompleteDate, self->_lastSuccessfulPullKey];
+  v6 = [v3 stringWithFormat:@"<%@: %p> { pullCompleteDate: %@, lastSuccessfulPullKey: %@ }", v5, self, self->_pullCompleteDate, self->_lastSuccessfulPullKey];
 
-  return v7;
+  return v6;
 }
 
 @end

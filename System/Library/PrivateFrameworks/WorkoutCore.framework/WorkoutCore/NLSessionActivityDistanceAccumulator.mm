@@ -33,7 +33,6 @@
     v5 = _HKWorkoutDistanceTypeForActivityType();
     expectedDistanceType = selfCopy->_expectedDistanceType;
     selfCopy->_expectedDistanceType = v5;
-    MEMORY[0x277D82BD8](expectedDistanceType);
     meterUnit = [MEMORY[0x277CCDAB0] meterUnit];
     meterUnit = selfCopy->_meterUnit;
     selfCopy->_meterUnit = meterUnit;
@@ -78,38 +77,38 @@
 
 - (void)updateDistanceWithStatistics:(id)statistics
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, statistics);
-  v14 = +[WOCoreTrackRunningCoordinator shared];
-  v15 = 0;
-  if ([(WOCoreTrackRunningCoordinator *)v14 trackModeEnabledLocal])
+  v15 = +[WOCoreTrackRunningCoordinator shared];
+  v16 = 0;
+  if ([(WOCoreTrackRunningCoordinator *)v15 trackModeEnabledLocal])
   {
-    v15 = selfCopy->_trackProximity == 4;
+    v16 = selfCopy->_trackProximity == 4;
   }
 
-  MEMORY[0x277D82BD8](v14);
-  if (v15)
+  *&v3 = MEMORY[0x277D82BD8](v15).n128_u64[0];
+  if (v16)
   {
     _HKInitializeLogging();
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_INFO))
     {
-      v26 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
-      v25 = 1;
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v27 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
+      v26 = 1;
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
-        log = v26;
-        type = v25;
-        __os_log_helper_16_0_0(v24);
-        _os_log_impl(&dword_20AEA4000, log, type, "[trackRunning] updateDistanceWithStatistics discarding statistics update while on a track.", v24, 2u);
+        log = v27;
+        type = v26;
+        __os_log_helper_16_0_0(v25);
+        _os_log_impl(&dword_20AEA4000, log, type, "[trackRunning] updateDistanceWithStatistics discarding statistics update while on a track.", v25, 2u);
       }
 
-      objc_storeStrong(&v26, 0);
+      objc_storeStrong(&v27, 0);
     }
 
-    v23 = 1;
+    v24 = 1;
   }
 
   else
@@ -120,34 +119,34 @@
       sumQuantity = [location[0] sumQuantity];
       meterUnit = [MEMORY[0x277CCDAB0] meterUnit];
       [sumQuantity doubleValueForUnit:?];
-      v10 = v3;
+      v11 = v4;
       MEMORY[0x277D82BD8](meterUnit);
       MEMORY[0x277D82BD8](sumQuantity);
-      v21 = v10;
+      v22 = v11;
       mostRecentQuantityDateInterval = [location[0] mostRecentQuantityDateInterval];
       endDate = [mostRecentQuantityDateInterval endDate];
       MEMORY[0x277D82BD8](mostRecentQuantityDateInterval);
       if (!endDate)
       {
         _HKInitializeLogging();
-        v19 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
-        v18 = 16;
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v20 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
+        v19 = 16;
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          v6 = v19;
-          v7 = v18;
-          __os_log_helper_16_0_0(v17);
-          _os_log_error_impl(&dword_20AEA4000, v6, v7, "Distance statistics most recent quantity end date is nil, defaulting to now", v17, 2u);
+          v7 = v20;
+          v8 = v19;
+          __os_log_helper_16_0_0(v18);
+          _os_log_error_impl(&dword_20AEA4000, v7, v8, "Distance statistics most recent quantity end date is nil, defaulting to now", v18, 2u);
         }
 
-        objc_storeStrong(&v19, 0);
+        objc_storeStrong(&v20, 0);
         date = [MEMORY[0x277CBEAA8] date];
-        v5 = endDate;
+        v6 = endDate;
         endDate = date;
-        MEMORY[0x277D82BD8](v5);
+        MEMORY[0x277D82BD8](v6);
       }
 
-      [(NLSessionActivityDistanceAccumulator *)selfCopy updateDistance:endDate distanceEndDate:v21];
+      [(NLSessionActivityDistanceAccumulator *)selfCopy updateDistance:endDate distanceEndDate:v22];
       objc_storeStrong(&endDate, 0);
     }
 
@@ -157,8 +156,8 @@
       oslog = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_2_2_8_64_8_64(v29, quantityType, selfCopy->_expectedDistanceType);
-        _os_log_error_impl(&dword_20AEA4000, oslog, OS_LOG_TYPE_ERROR, "Received distance quantity type %@, expected %@", v29, 0x16u);
+        __os_log_helper_16_2_2_8_64_8_64(v30, quantityType, selfCopy->_expectedDistanceType);
+        _os_log_error_impl(&dword_20AEA4000, oslog, OS_LOG_TYPE_ERROR, "Received distance quantity type %@, expected %@", v30, 0x16u);
       }
 
       objc_storeStrong(&oslog, 0);
@@ -166,11 +165,10 @@
 
     [(NLSessionActivityBuilderAccumulator *)selfCopy update];
     objc_storeStrong(&quantityType, 0);
-    v23 = 0;
+    v24 = 0;
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (double)distance
@@ -202,7 +200,6 @@
 
   objc_storeStrong(&oslog, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)locationDidFailWithError:(id)error locationManager:(id)manager
@@ -232,7 +229,6 @@
   objc_storeStrong(&v10, 0);
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)locationDidUpdateWithLocations:(id)locations locationManager:(id)manager
@@ -241,36 +237,36 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, locations);
-  v19 = 0;
-  objc_storeStrong(&v19, manager);
-  v8 = +[WOCoreTrackRunningCoordinator shared];
-  trackModeEnabledLocal = [(WOCoreTrackRunningCoordinator *)v8 trackModeEnabledLocal];
-  MEMORY[0x277D82BD8](v8);
+  v20 = 0;
+  objc_storeStrong(&v20, manager);
+  v9 = +[WOCoreTrackRunningCoordinator shared];
+  trackModeEnabledLocal = [(WOCoreTrackRunningCoordinator *)v9 trackModeEnabledLocal];
+  *&v4 = MEMORY[0x277D82BD8](v9).n128_u64[0];
   if (trackModeEnabledLocal)
   {
     lastObject = [location[0] lastObject];
     if (lastObject)
     {
+      v6 = MEMORY[0x277D85CD0];
       v5 = MEMORY[0x277D85CD0];
-      v4 = MEMORY[0x277D85CD0];
-      queue = v5;
-      v10 = MEMORY[0x277D85DD0];
-      v11 = -1073741824;
-      v12 = 0;
-      v13 = __87__NLSessionActivityDistanceAccumulator_locationDidUpdateWithLocations_locationManager___block_invoke;
-      v14 = &unk_277D88998;
-      v15 = MEMORY[0x277D82BE0](lastObject);
-      v16 = MEMORY[0x277D82BE0](selfCopy);
-      dispatch_async(queue, &v10);
+      queue = v6;
+      v11 = MEMORY[0x277D85DD0];
+      v12 = -1073741824;
+      v13 = 0;
+      v14 = __87__NLSessionActivityDistanceAccumulator_locationDidUpdateWithLocations_locationManager___block_invoke;
+      v15 = &unk_277D88998;
+      v16 = MEMORY[0x277D82BE0](lastObject);
+      v17 = MEMORY[0x277D82BE0](selfCopy);
+      dispatch_async(queue, &v11);
       MEMORY[0x277D82BD8](queue);
+      objc_storeStrong(&v17, 0);
       objc_storeStrong(&v16, 0);
-      objc_storeStrong(&v15, 0);
-      v18 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v18 = 1;
+      v19 = 1;
     }
 
     objc_storeStrong(&lastObject, 0);
@@ -278,26 +274,24 @@
 
   else
   {
-    v18 = 1;
+    v19 = 1;
   }
 
-  objc_storeStrong(&v19, 0);
+  objc_storeStrong(&v20, 0);
   objc_storeStrong(location, 0);
 }
 
-uint64_t __87__NLSessionActivityDistanceAccumulator_locationDidUpdateWithLocations_locationManager___block_invoke(uint64_t a1)
+void __87__NLSessionActivityDistanceAccumulator_locationDidUpdateWithLocations_locationManager___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v17 = a1;
-  v16 = a1;
-  v6 = [*(a1 + 32) trackRunInfo];
-  v7 = [v6 trackProximity];
-  MEMORY[0x277D82BD8](v6);
-  v15 = v7;
-  v9 = [*(a1 + 32) trackRunInfo];
-  if (v9)
+  v18 = *MEMORY[0x277D85DE8];
+  v15 = a1;
+  v14 = a1;
+  v5 = [*(a1 + 32) trackRunInfo];
+  v13 = [v5 trackProximity];
+  v7 = [*(a1 + 32) trackRunInfo];
+  if (v7)
   {
-    [v9 lapInfo];
+    objc_msgSend_lapInfo(v7);
   }
 
   else
@@ -305,57 +299,53 @@ uint64_t __87__NLSessionActivityDistanceAccumulator_locationDidUpdateWithLocatio
     memset(&oslog[1], 0, 0x50uLL);
   }
 
-  v5 = oslog[10];
-  result = MEMORY[0x277D82BD8](v9);
-  v14 = v5;
-  if (*(*(a1 + 40) + 56) != v15)
+  v4 = oslog[10];
+  MEMORY[0x277D82BD8](v7);
+  v12 = v4;
+  if (*(*(a1 + 40) + 56) != v13)
   {
-    *(*(a1 + 40) + 56) = v15;
-    if (v15 == 4)
+    *(*(a1 + 40) + 56) = v13;
+    if (v13 == 4)
     {
-      *(*(a1 + 40) + 48) = *(*(a1 + 40) + 64) - *&v14;
+      *(*(a1 + 40) + 48) = *(*(a1 + 40) + 64) - *&v12;
     }
   }
 
-  if (v15 == 4)
+  if (v13 == 4)
   {
-    if (*&v14 == 0.0 && *(*(a1 + 40) + 64) > 0.0)
+    if (*&v12 == 0.0 && *(*(a1 + 40) + 64) > 0.0)
     {
       _HKInitializeLogging();
       oslog[0] = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
       type = OS_LOG_TYPE_DEFAULT;
       if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_2_8_0_8_0(v19, v14, *(*(a1 + 40) + 64));
-        _os_log_impl(&dword_20AEA4000, oslog[0], type, "[trackRunning] Received a CL based distance update to %f when we were at %f, potentially recovering from a healthd crash.", v19, 0x16u);
+        __os_log_helper_16_0_2_8_0_8_0(v17, v12, *(*(a1 + 40) + 64));
+        _os_log_impl(&dword_20AEA4000, oslog[0], type, "[trackRunning] Received a CL based distance update to %f when we were at %f, potentially recovering from a healthd crash.", v17, 0x16u);
       }
 
       objc_storeStrong(oslog, 0);
       *(*(a1 + 40) + 48) = *(*(a1 + 40) + 64);
     }
 
-    *&v11 = *&v14 + *(*(a1 + 40) + 48);
+    *&v9 = *&v12 + *(*(a1 + 40) + 48);
     if ([MEMORY[0x277CCDD30] isAppleInternalInstall])
     {
       _HKInitializeLogging();
-      v10 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v8 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_1_8_0(v18, v11);
-        _os_log_impl(&dword_20AEA4000, v10, OS_LOG_TYPE_DEFAULT, "[trackRunning] Received a CL based distance update to %f", v18, 0xCu);
+        __os_log_helper_16_0_1_8_0(v16, v9);
+        _os_log_impl(&dword_20AEA4000, v8, OS_LOG_TYPE_DEFAULT, "[trackRunning] Received a CL based distance update to %f", v16, 0xCu);
       }
 
-      objc_storeStrong(&v10, 0);
+      objc_storeStrong(&v8, 0);
     }
 
-    v4 = [*(a1 + 32) timestamp];
-    [v3 updateDistance:v2 distanceEndDate:?];
-    MEMORY[0x277D82BD8](v4);
-    result = [*(a1 + 40) update];
+    v3 = [*(a1 + 32) timestamp];
+    [v2 updateDistance:v1 distanceEndDate:?];
+    [*(a1 + 40) update];
   }
-
-  *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)updateDistance:(double)distance distanceEndDate:(id)date
@@ -436,7 +426,6 @@ uint64_t __87__NLSessionActivityDistanceAccumulator_locationDidUpdateWithLocatio
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManagerStateDidChangeWithState:(int64_t)state locationManager:(id)manager
@@ -457,7 +446,6 @@ uint64_t __87__NLSessionActivityDistanceAccumulator_locationDidUpdateWithLocatio
 
   objc_storeStrong(&oslog, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

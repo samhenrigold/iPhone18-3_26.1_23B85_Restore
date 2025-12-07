@@ -105,7 +105,7 @@
 
 void __70__TRIAggregateFetchRecordsProgress_registerRecordId_withExpectedSize___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3[1] objectForKeyedSubscript:*(a1 + 32)];
 
@@ -114,10 +114,10 @@ void __70__TRIAggregateFetchRecordsProgress_registerRecordId_withExpectedSize___
     v5 = TRILogCategory_Server();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = 138412290;
-      v10 = v8;
-      _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "Registering duplicate progress for CKRecordID %@", &v9, 0xCu);
+      v7 = *(a1 + 32);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "Registering duplicate progress for CKRecordID %@", &v8, 0xCu);
     }
   }
 
@@ -129,8 +129,6 @@ void __70__TRIAggregateFetchRecordsProgress_registerRecordId_withExpectedSize___
     v3[3] = v3[3] + *(a1 + 48);
     [*(a1 + 40) _issueCurrentProgressWithGuardedData:v3];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterRecordId:(id)id
@@ -178,7 +176,7 @@ void __55__TRIAggregateFetchRecordsProgress_unregisterRecordId___block_invoke(ui
 
 void __69__TRIAggregateFetchRecordsProgress_setFractionCompleted_forRecordId___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3[1] objectForKeyedSubscript:*(a1 + 32)];
   v5 = v4;
@@ -196,14 +194,12 @@ void __69__TRIAggregateFetchRecordsProgress_setFractionCompleted_forRecordId___b
     v6 = TRILogCategory_Server();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = 138412290;
-      v10 = v8;
-      _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Unable to set progress for unexpected CKRecordID %@", &v9, 0xCu);
+      v7 = *(a1 + 32);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Unable to set progress for unexpected CKRecordID %@", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerMAAsset:(id)asset withExpectedSize:(unint64_t)size
@@ -223,7 +219,7 @@ void __69__TRIAggregateFetchRecordsProgress_setFractionCompleted_forRecordId___b
 
 void __69__TRIAggregateFetchRecordsProgress_registerMAAsset_withExpectedSize___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3[2] objectForKeyedSubscript:*(a1 + 32)];
 
@@ -232,10 +228,10 @@ void __69__TRIAggregateFetchRecordsProgress_registerMAAsset_withExpectedSize___b
     v5 = TRILogCategory_Server();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = 138412290;
-      v10 = v8;
-      _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "Registering duplicate progress for MA asset ID %@", &v9, 0xCu);
+      v7 = *(a1 + 32);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "Registering duplicate progress for MA asset ID %@", &v8, 0xCu);
     }
   }
 
@@ -247,8 +243,6 @@ void __69__TRIAggregateFetchRecordsProgress_registerMAAsset_withExpectedSize___b
     v3[3] = v3[3] + *(a1 + 48);
     [*(a1 + 40) _issueCurrentProgressWithGuardedData:v3];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterMAAsset:(id)asset
@@ -296,7 +290,7 @@ void __54__TRIAggregateFetchRecordsProgress_unregisterMAAsset___block_invoke(uin
 
 void __68__TRIAggregateFetchRecordsProgress_setFractionCompleted_forMAAsset___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3[2] objectForKeyedSubscript:*(a1 + 32)];
   v5 = v4;
@@ -314,14 +308,12 @@ void __68__TRIAggregateFetchRecordsProgress_setFractionCompleted_forMAAsset___bl
     v6 = TRILogCategory_Server();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = 138412290;
-      v10 = v8;
-      _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Unable to set progress for unexpected MA asset ID %@", &v9, 0xCu);
+      v7 = *(a1 + 32);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Unable to set progress for unexpected MA asset ID %@", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setComplete
@@ -354,7 +346,7 @@ void __68__TRIAggregateFetchRecordsProgress_setFractionCompleted_forMAAsset___bl
   return v3;
 }
 
-uint64_t __53__TRIAggregateFetchRecordsProgress_fractionCompleted__block_invoke(uint64_t a1, uint64_t a2)
+void *__53__TRIAggregateFetchRecordsProgress_fractionCompleted__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) _fractionCompletedWithGuardedData:a2];
   *(*(*(a1 + 40) + 8) + 24) = v4;

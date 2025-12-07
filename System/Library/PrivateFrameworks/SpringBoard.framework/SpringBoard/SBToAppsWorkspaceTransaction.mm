@@ -130,7 +130,7 @@ LABEL_13:
     [v26 minusSet:v23];
     if (![v26 count])
     {
-      v27 = SBLogAppSwitcher();
+      v27 = SBLogAppSwitcher(0);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
@@ -713,7 +713,7 @@ LABEL_14:
   }
 }
 
-uint64_t __54__SBToAppsWorkspaceTransaction__noteAnimationFinished__block_invoke(uint64_t a1)
+void *__54__SBToAppsWorkspaceTransaction__noteAnimationFinished__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 256) count];
   if (!result)
@@ -1540,7 +1540,7 @@ void __44__SBToAppsWorkspaceTransaction__didComplete__block_invoke_2()
   if (self->_appRepairTransaction != completeCopy)
   {
     allLayoutTransactions = [(SBToAppsWorkspaceTransaction *)self allLayoutTransactions];
-    v7 = [allLayoutTransactions containsObject:v5];
+    v7 = objc_msgSend_containsObject_(allLayoutTransactions);
 
     if (v7)
     {
@@ -1825,7 +1825,7 @@ LABEL_35:
 - (void)transactionWillBeginLayoutTransition:(id)transition
 {
   transitionCopy = transition;
-  if (![(NSSet *)self->_ancillaryLayoutTransactions containsObject:transitionCopy])
+  if ((objc_msgSend_containsObject_(self->_ancillaryLayoutTransactions) & 1) == 0)
   {
     if ([(SBToAppsWorkspaceTransaction *)self isAuditHistoryEnabled])
     {
@@ -1849,58 +1849,58 @@ LABEL_35:
     }
 
     [(SBToAppsWorkspaceTransaction *)self _captureApplicationState];
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x2020000000;
-    v42 = 0;
+    v40 = 0;
+    v41 = &v40;
+    v42 = 0x2020000000;
+    v43 = 0;
     toApplicationSceneEntities = [(SBToAppsWorkspaceTransaction *)self toApplicationSceneEntities];
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __69__SBToAppsWorkspaceTransaction_transactionWillBeginLayoutTransition___block_invoke;
-    v38[3] = &unk_2783A9D88;
-    v38[4] = &v39;
-    [toApplicationSceneEntities enumerateObjectsUsingBlock:v38];
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __69__SBToAppsWorkspaceTransaction_transactionWillBeginLayoutTransition___block_invoke;
+    v39[3] = &unk_2783A9D88;
+    v39[4] = &v40;
+    [toApplicationSceneEntities enumerateObjectsUsingBlock:v39];
 
-    v11.n128_u64[0] = v40[3];
+    v11.n128_u64[0] = v41[3];
     v11.n128_f32[0] = v11.n128_f64[0];
-    SBSetMinimumBrightnessLevel(1, v11, v12);
-    v13 = objc_opt_class();
+    SBSetMinimumBrightnessLevel(1, v12, v11, v13);
+    v14 = objc_opt_class();
     layoutState2 = [transitionContext layoutState];
-    v15 = SBSafeCast(v13, layoutState2);
+    v16 = SBSafeCast(v14, layoutState2);
 
-    v16 = objc_opt_class();
+    v17 = objc_opt_class();
     previousLayoutState2 = [transitionContext previousLayoutState];
-    v18 = SBSafeCast(v16, previousLayoutState2);
+    v19 = SBSafeCast(v17, previousLayoutState2);
 
-    elements = [v15 elements];
-    elements2 = [v18 elements];
-    v21 = BSEqualObjects();
-    v37 = elements;
-    unlockedEnvironmentMode = [v15 unlockedEnvironmentMode];
-    if (unlockedEnvironmentMode == [v18 unlockedEnvironmentMode])
+    elements = [v16 elements];
+    elements2 = [v19 elements];
+    v22 = BSEqualObjects();
+    v38 = elements;
+    unlockedEnvironmentMode = [v16 unlockedEnvironmentMode];
+    if (unlockedEnvironmentMode == [v19 unlockedEnvironmentMode])
     {
-      v23 = v21;
+      v24 = v22;
     }
 
     else
     {
-      v23 = 0;
+      v24 = 0;
     }
 
     toApplicationSceneEntities2 = [(SBToAppsWorkspaceTransaction *)self toApplicationSceneEntities];
-    v25 = [toApplicationSceneEntities2 count];
+    v26 = [toApplicationSceneEntities2 count];
 
-    if (v25 && !self->_underLockScreenInForeground && !self->_gestureInitiated && ((self->_touchCancellationDisabled | v23) & 1) == 0)
+    if (v26 && !self->_underLockScreenInForeground && !self->_gestureInitiated && ((self->_touchCancellationDisabled | v24) & 1) == 0)
     {
-      v26 = dispatch_get_global_queue(0, 0);
-      dispatch_async(v26, &__block_literal_global_183);
+      v27 = dispatch_get_global_queue(0, 0);
+      dispatch_async(v27, &__block_literal_global_183);
     }
 
-    v27 = v37;
-    if ([v15 unlockedEnvironmentMode] == 3 && objc_msgSend(v18, "unlockedEnvironmentMode") == 3)
+    v28 = v38;
+    if ([v16 unlockedEnvironmentMode] == 3 && objc_msgSend(v19, "unlockedEnvironmentMode") == 3)
     {
-      interfaceOrientation = [v15 interfaceOrientation];
-      interfaceOrientation2 = [v18 interfaceOrientation];
+      interfaceOrientation = [v16 interfaceOrientation];
+      interfaceOrientation2 = [v19 interfaceOrientation];
     }
 
     else
@@ -1909,25 +1909,25 @@ LABEL_35:
       interfaceOrientation2 = [SBApp interfaceOrientationForCurrentDeviceOrientation:0];
     }
 
-    if (!(v21 & 1 | (interfaceOrientation == interfaceOrientation2)))
+    if (!(v22 & 1 | (interfaceOrientation == interfaceOrientation2)))
     {
       floatingDockBehaviorAssertion = [(SBToAppsWorkspaceTransaction *)self floatingDockBehaviorAssertion];
       [floatingDockBehaviorAssertion invalidate];
 
       windowScene = [(SBWorkspaceTransaction *)self windowScene];
       floatingDockController = [windowScene floatingDockController];
-      v33 = [SBFloatingDockBehaviorAssertion alloc];
-      v34 = objc_opt_class();
-      v35 = NSStringFromClass(v34);
-      v36 = [(SBFloatingDockBehaviorAssertion *)v33 initWithFloatingDockController:floatingDockController visibleProgress:1 animated:0 gesturePossible:10 atLevel:v35 reason:0 withCompletion:0.0];
+      v34 = [SBFloatingDockBehaviorAssertion alloc];
+      v35 = objc_opt_class();
+      v36 = NSStringFromClass(v35);
+      v37 = [(SBFloatingDockBehaviorAssertion *)v34 initWithFloatingDockController:floatingDockController visibleProgress:1 animated:0 gesturePossible:10 atLevel:v36 reason:0 withCompletion:0.0];
 
-      [(SBToAppsWorkspaceTransaction *)self setFloatingDockBehaviorAssertion:v36];
-      v27 = v37;
+      [(SBToAppsWorkspaceTransaction *)self setFloatingDockBehaviorAssertion:v37];
+      v28 = v38;
     }
 
     [(SBToAppsWorkspaceTransaction *)self _beginTransition];
 
-    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v40, 8);
   }
 }
 
@@ -1950,7 +1950,7 @@ void __69__SBToAppsWorkspaceTransaction_transactionWillBeginLayoutTransition___b
     [(SBToAppsWorkspaceTransaction *)self _addAuditHistoryItem:@"Performing layout transition now."];
   }
 
-  v8 = [(NSSet *)self->_ancillaryLayoutTransactions containsObject:transactionCopy];
+  v8 = objc_msgSend_containsObject_(self->_ancillaryLayoutTransactions);
   layoutTransitionCompletions = self->_layoutTransitionCompletions;
   if (v8)
   {
@@ -2138,7 +2138,7 @@ id __76__SBToAppsWorkspaceTransaction_transaction_performTransitionWithCompletio
   v55 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   continuationCopy = continuation;
-  if ([(NSSet *)self->_ancillaryLayoutTransactions containsObject:transactionCopy])
+  if (objc_msgSend_containsObject_(self->_ancillaryLayoutTransactions))
   {
     if (continuationCopy)
     {
@@ -2494,7 +2494,7 @@ void __47__SBToAppsWorkspaceTransaction_shouldWatchdog___block_invoke(uint64_t a
 {
   commitCopy = commit;
   allLayoutTransactions = [(SBToAppsWorkspaceTransaction *)self allLayoutTransactions];
-  v5 = [allLayoutTransactions containsObject:commitCopy];
+  v5 = objc_msgSend_containsObject_(allLayoutTransactions);
 
   if (v5)
   {

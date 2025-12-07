@@ -148,7 +148,7 @@
 
 + (BOOL)exportDeleteWithObjectID:(id)d modelID:(id)iD additionalUpdates:(id)updates context:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   updatesCopy = updates;
@@ -160,25 +160,24 @@
   {
     v17 = HMFGetLogIdentifier();
     hmd_debugIdentifier = [dCopy hmd_debugIdentifier];
-    v21 = 138544130;
-    v22 = v17;
-    v23 = 2112;
-    v24 = hmd_debugIdentifier;
-    v25 = 2160;
-    v26 = 1752392040;
-    v27 = 2112;
-    v28 = iDCopy;
-    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Local model deleted: %@::%{mask.hash}@", &v21, 0x2Au);
+    v20 = 138544130;
+    v21 = v17;
+    v22 = 2112;
+    v23 = hmd_debugIdentifier;
+    v24 = 2160;
+    v25 = 1752392040;
+    v26 = 2112;
+    v27 = iDCopy;
+    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Local model deleted: %@::%{mask.hash}@", &v20, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v14);
-  v19 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 + (BOOL)exportUpdateWithObjectID:(id)d updatedProperties:(id)properties additionalUpdates:(id)updates context:(id)context
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   dCopy = d;
   propertiesCopy = properties;
   updatesCopy = updates;
@@ -189,7 +188,7 @@
   v17 = v16;
   if (!v16)
   {
-    v39 = v15;
+    v38 = v15;
     v19 = objc_autoreleasePoolPush();
     selfCopy = self;
     v22 = HMFGetOSLogHandle();
@@ -197,11 +196,11 @@
     {
       v33 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v41 = v33;
-      v42 = 2112;
-      v43 = v14;
-      v44 = 2114;
-      v45 = v39;
+      v40 = v33;
+      v41 = 2112;
+      v42 = v14;
+      v43 = 2114;
+      v44 = v38;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Local model updated but no cloud model exists: %@ (%{public}@)", buf, 0x20u);
     }
 
@@ -210,8 +209,8 @@
 
   if ([v16 exportFromLocalModel:v14 updatedProperties:propertiesCopy context:contextCopy])
   {
-    v38 = updatesCopy;
-    v39 = v15;
+    v37 = updatesCopy;
+    v38 = v15;
     hasPersistentChangedValues = [v17 hasPersistentChangedValues];
     v19 = objc_autoreleasePoolPush();
     selfCopy2 = self;
@@ -223,11 +222,11 @@
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v41 = v23;
-        v42 = 2112;
-        v43 = v17;
-        v44 = 2114;
-        v45 = v39;
+        v40 = v23;
+        v41 = 2112;
+        v42 = v17;
+        v43 = 2114;
+        v44 = v38;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@Updated model during export: %@ (%{public}@)", buf, 0x20u);
       }
 
@@ -238,15 +237,15 @@
       if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v27 = v37 = v24;
+        v27 = v36 = v24;
         v28 = [v17 debugDescription];
         *buf = 138543618;
-        v41 = v27;
-        v42 = 2112;
-        v43 = v28;
+        v40 = v27;
+        v41 = 2112;
+        v42 = v28;
         _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@%@", buf, 0x16u);
 
-        v24 = v37;
+        v24 = v36;
       }
 
       objc_autoreleasePoolPop(v24);
@@ -261,9 +260,9 @@
       v30 = HMFGetLogIdentifier();
       v31 = [v14 debugDescription];
       *buf = 138543618;
-      v41 = v30;
-      v42 = 2112;
-      v43 = v31;
+      v40 = v30;
+      v41 = 2112;
+      v42 = v31;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEBUG, "%{public}@%@", buf, 0x16u);
     }
 
@@ -272,20 +271,20 @@
       if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
 LABEL_16:
-        updatesCopy = v38;
+        updatesCopy = v37;
 LABEL_17:
 
         objc_autoreleasePoolPop(v19);
         v34 = 1;
-        v15 = v39;
+        v15 = v38;
         goto LABEL_18;
       }
 
       v30 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v41 = v30;
-      v42 = 2112;
-      v43 = v17;
+      v40 = v30;
+      v41 = 2112;
+      v42 = v17;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEBUG, "%{public}@No changes to model during export: %@", buf, 0x16u);
     }
 
@@ -295,13 +294,12 @@ LABEL_17:
   v34 = 0;
 LABEL_18:
 
-  v35 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
 + (BOOL)exportInsertWithObjectID:(id)d additionalUpdates:(id)updates context:(id)context
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   updatesCopy = updates;
   contextCopy = context;
@@ -312,21 +310,20 @@ LABEL_18:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     v15 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v15;
-    v20 = 2112;
-    v21 = v11;
-    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Local model inserted, waiting for home update to insert cloud model: %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v15;
+    v19 = 2112;
+    v20 = v11;
+    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Local model inserted, waiting for home update to insert cloud model: %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v12);
-  v16 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 + (BOOL)importDeleteWithObjectID:(id)d modelID:(id)iD additionalUpdates:(id)updates context:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   updatesCopy = updates;
@@ -338,25 +335,24 @@ LABEL_18:
   {
     v17 = HMFGetLogIdentifier();
     hmd_debugIdentifier = [dCopy hmd_debugIdentifier];
-    v21 = 138544130;
-    v22 = v17;
-    v23 = 2112;
-    v24 = hmd_debugIdentifier;
-    v25 = 2160;
-    v26 = 1752392040;
-    v27 = 2112;
-    v28 = iDCopy;
-    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Cloud model deleted: %@::%{mask.hash}@", &v21, 0x2Au);
+    v20 = 138544130;
+    v21 = v17;
+    v22 = 2112;
+    v23 = hmd_debugIdentifier;
+    v24 = 2160;
+    v25 = 1752392040;
+    v26 = 2112;
+    v27 = iDCopy;
+    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Cloud model deleted: %@::%{mask.hash}@", &v20, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v14);
-  v19 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 + (BOOL)importUpdateWithObjectID:(id)d updatedProperties:(id)properties additionalUpdates:(id)updates context:(id)context
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   dCopy = d;
   propertiesCopy = properties;
   updatesCopy = updates;
@@ -366,7 +362,7 @@ LABEL_18:
   v16 = [v14 fetchLocalModelWithContext:contextCopy];
   if (!v16)
   {
-    v38 = v15;
+    v37 = v15;
     v18 = objc_autoreleasePoolPush();
     selfCopy = self;
     v21 = HMFGetOSLogHandle();
@@ -374,11 +370,11 @@ LABEL_18:
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v40 = v32;
-      v41 = 2112;
-      v42 = v14;
-      v43 = 2114;
-      v44 = v38;
+      v39 = v32;
+      v40 = 2112;
+      v41 = v14;
+      v42 = 2114;
+      v43 = v37;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Cloud model updated, waiting for home update to insert local model: %@ (%{public}@)", buf, 0x20u);
     }
 
@@ -387,8 +383,8 @@ LABEL_18:
 
   if ([v14 importIntoLocalModel:v16 updatedProperties:propertiesCopy context:contextCopy])
   {
-    v37 = updatesCopy;
-    v38 = v15;
+    v36 = updatesCopy;
+    v37 = v15;
     hasPersistentChangedValues = [v16 hasPersistentChangedValues];
     v18 = objc_autoreleasePoolPush();
     selfCopy2 = self;
@@ -400,11 +396,11 @@ LABEL_18:
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v40 = v22;
-        v41 = 2112;
-        v42 = v16;
-        v43 = 2114;
-        v44 = v38;
+        v39 = v22;
+        v40 = 2112;
+        v41 = v16;
+        v42 = 2114;
+        v43 = v37;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@Updated model during import: %@ (%{public}@)", buf, 0x20u);
       }
 
@@ -415,15 +411,15 @@ LABEL_18:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v26 = v36 = v23;
+        v26 = v35 = v23;
         v27 = [v16 debugDescription];
         *buf = 138543618;
-        v40 = v26;
-        v41 = 2112;
-        v42 = v27;
+        v39 = v26;
+        v40 = 2112;
+        v41 = v27;
         _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@%@", buf, 0x16u);
 
-        v23 = v36;
+        v23 = v35;
       }
 
       objc_autoreleasePoolPop(v23);
@@ -438,9 +434,9 @@ LABEL_18:
       v29 = HMFGetLogIdentifier();
       v30 = [v14 debugDescription];
       *buf = 138543618;
-      v40 = v29;
-      v41 = 2112;
-      v42 = v30;
+      v39 = v29;
+      v40 = 2112;
+      v41 = v30;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEBUG, "%{public}@%@", buf, 0x16u);
     }
 
@@ -449,20 +445,20 @@ LABEL_18:
       if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
 LABEL_16:
-        updatesCopy = v37;
+        updatesCopy = v36;
 LABEL_17:
 
         objc_autoreleasePoolPop(v18);
         v33 = 1;
-        v15 = v38;
+        v15 = v37;
         goto LABEL_18;
       }
 
       v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v40 = v29;
-      v41 = 2112;
-      v42 = v16;
+      v39 = v29;
+      v40 = 2112;
+      v41 = v16;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEBUG, "%{public}@No changes to model during import: %@", buf, 0x16u);
     }
 
@@ -472,13 +468,12 @@ LABEL_17:
   v33 = 0;
 LABEL_18:
 
-  v34 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
 + (BOOL)importInsertWithObjectID:(id)d additionalUpdates:(id)updates context:(id)context
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   updatesCopy = updates;
   contextCopy = context;
@@ -489,95 +484,96 @@ LABEL_18:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     v15 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v15;
-    v20 = 2112;
-    v21 = v11;
-    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Cloud model inserted, waiting for home update to insert local model: %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v15;
+    v19 = 2112;
+    v20 = v11;
+    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Cloud model inserted, waiting for home update to insert local model: %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v12);
-  v16 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)validateHomeModelID:(id *)d error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (-[MKFCKModel shouldSkipValidationDuringImport](self, "shouldSkipValidationDuringImport") || !*d || ([objc_opt_class() hmd_validateUUID:*d key:@"homeModelID" error:error] & 1) != 0)
   {
-    result = 1;
+    return 1;
   }
 
-  else
+  v8 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v10 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v9 = objc_autoreleasePoolPush();
-    selfCopy = self;
-    v11 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      v12 = HMFGetLogIdentifier();
-      v13 = *d;
-      v16 = 138543874;
-      v17 = v12;
-      v18 = 2114;
-      v19 = @"homeModelID";
-      v20 = 2112;
-      v21 = v13;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Invalid value for %{public}@: %@", &v16, 0x20u);
-    }
-
-    objc_autoreleasePoolPop(v9);
-    v14 = [objc_opt_class() hmd_errorForInvalidValue:*d key:@"homeModelID"];
-    v15 = v14;
-    result = 0;
-    *error = v14;
+    v11 = HMFGetLogIdentifier();
+    v12 = *d;
+    v15 = 138543874;
+    v16 = v11;
+    v17 = 2114;
+    v18 = @"homeModelID";
+    v19 = 2112;
+    v20 = v12;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Invalid value for %{public}@: %@", &v15, 0x20u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v8);
+  v13 = [objc_opt_class() hmd_errorForInvalidValue:*d key:@"homeModelID"];
+  v14 = v13;
+  result = 0;
+  *error = v13;
   return result;
 }
 
 - (BOOL)validateHome:(id *)home error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
-  if ([(MKFCKModel *)self shouldSkipValidationDuringImport]|| (v7 = *home, objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v7, (isKindOfClass & 1) != 0) && v7)
+  v23 = *MEMORY[0x277D85DE8];
+  if ([(MKFCKModel *)self shouldSkipValidationDuringImport])
   {
-    result = 1;
+    return 1;
   }
 
-  else
+  v7 = *home;
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
   {
-    v10 = objc_autoreleasePoolPush();
-    selfCopy = self;
-    v12 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (v7)
     {
-      v13 = HMFGetLogIdentifier();
-      v14 = *home;
-      v18 = 138543874;
-      v19 = v13;
-      v20 = 2114;
-      v21 = @"home";
-      v22 = 2112;
-      v23 = v14;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Invalid value for %{public}@: %@", &v18, 0x20u);
+      return 1;
     }
-
-    objc_autoreleasePoolPop(v10);
-    v15 = [objc_opt_class() hmd_errorForInvalidValue:*home key:@"home"];
-    v16 = v15;
-    result = 0;
-    *error = v15;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
+  v10 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v12 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  {
+    v13 = HMFGetLogIdentifier();
+    v14 = *home;
+    v17 = 138543874;
+    v18 = v13;
+    v19 = 2114;
+    v20 = @"home";
+    v21 = 2112;
+    v22 = v14;
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Invalid value for %{public}@: %@", &v17, 0x20u);
+  }
+
+  objc_autoreleasePoolPop(v10);
+  v15 = [objc_opt_class() hmd_errorForInvalidValue:*home key:@"home"];
+  v16 = v15;
+  result = 0;
+  *error = v15;
   return result;
 }
 
 - (id)_accessoryWithModelID:(void *)d context:
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   dCopy = d;
   if (self)
@@ -588,9 +584,9 @@ LABEL_18:
     v10 = [v8 predicateWithFormat:@"%K == %@ && %K == %@", @"home", home, @"modelID", v5];
     [v7 setPredicate:v10];
 
-    v19 = 0;
-    v11 = [dCopy executeFetchRequest:v7 error:&v19];
-    v12 = v19;
+    v18 = 0;
+    v11 = [dCopy executeFetchRequest:v7 error:&v18];
+    v12 = v18;
     if (v11)
     {
       self = [v11 firstObject];
@@ -605,13 +601,13 @@ LABEL_18:
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v21 = v16;
-        v22 = 2160;
-        v23 = 1752392040;
-        v24 = 2112;
-        v25 = v5;
-        v26 = 2114;
-        v27 = v12;
+        v20 = v16;
+        v21 = 2160;
+        v22 = 1752392040;
+        v23 = 2112;
+        v24 = v5;
+        v25 = 2114;
+        v26 = v12;
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch accessories for modelID %{mask.hash}@: %{public}@", buf, 0x2Au);
       }
 
@@ -619,8 +615,6 @@ LABEL_18:
       self = 0;
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return self;
 }
@@ -695,7 +689,7 @@ void __105__MKFCKHomeObject__importSiblingRelationshipsIntoLocalModel_localRelat
 
 void __105__MKFCKHomeObject__importSiblingRelationshipsIntoLocalModel_localRelationship_cloudRelationship_context___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 modelID];
   [*(a1 + 32) setObject:0 forKeyedSubscript:v4];
@@ -716,17 +710,15 @@ void __105__MKFCKHomeObject__importSiblingRelationshipsIntoLocalModel_localRelat
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@No local sibling found, home import will fix it later: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@No local sibling found, home import will fix it later: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __105__MKFCKHomeObject__importSiblingRelationshipsIntoLocalModel_localRelationship_cloudRelationship_context___block_invoke_11(uint64_t a1, uint64_t a2, void *a3)
@@ -748,7 +740,7 @@ void __98__MKFCKHomeObject__importRelationshipsIntoLocalModel_localRelationship_
 
 void __98__MKFCKHomeObject__importRelationshipsIntoLocalModel_localRelationship_cloudRelationship_context___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (![v5 isDeletedLocallyWithContext:*(a1 + 32)])
   {
@@ -790,9 +782,9 @@ LABEL_29:
         {
           v41 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v45 = v41;
-          v46 = 2112;
-          v47 = v12;
+          v44 = v41;
+          v45 = 2112;
+          v46 = v12;
           _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEBUG, "%{public}@No changes to model during import: %@", buf, 0x16u);
         }
 
@@ -802,15 +794,15 @@ LABEL_29:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         v20 = HMFGetLogIdentifier();
-        v43 = [v12 changedValues];
-        v21 = [v43 allKeys];
+        v42 = [v12 changedValues];
+        v21 = [v42 allKeys];
         v22 = [v21 sortedArrayUsingSelector:sel_compare_];
         *buf = 138543874;
-        v45 = v20;
-        v46 = 2112;
-        v47 = v12;
-        v48 = 2114;
-        v49 = v22;
+        v44 = v20;
+        v45 = 2112;
+        v46 = v12;
+        v47 = 2114;
+        v48 = v22;
         _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Updated model during import: %@ (%{public}@)", buf, 0x20u);
       }
 
@@ -823,9 +815,9 @@ LABEL_29:
         v26 = HMFGetLogIdentifier();
         v27 = [v12 debugDescription];
         *buf = 138543618;
-        v45 = v26;
-        v46 = 2112;
-        v47 = v27;
+        v44 = v26;
+        v45 = 2112;
+        v46 = v27;
         _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@%@", buf, 0x16u);
       }
 
@@ -852,9 +844,9 @@ LABEL_28:
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v45 = v33;
-        v46 = 2112;
-        v47 = v12;
+        v44 = v33;
+        v45 = 2112;
+        v46 = v12;
         _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@Created new model during import: %@", buf, 0x16u);
       }
 
@@ -867,9 +859,9 @@ LABEL_28:
         v37 = HMFGetLogIdentifier();
         v38 = [v12 debugDescription];
         *buf = 138543618;
-        v45 = v37;
-        v46 = 2112;
-        v47 = v38;
+        v44 = v37;
+        v45 = 2112;
+        v46 = v38;
         _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@%@", buf, 0x16u);
       }
 
@@ -886,9 +878,9 @@ LABEL_28:
     v39 = HMFGetLogIdentifier();
     v40 = [v5 debugDescription];
     *buf = 138543618;
-    v45 = v39;
-    v46 = 2112;
-    v47 = v40;
+    v44 = v39;
+    v45 = 2112;
+    v46 = v40;
     _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_DEBUG, "%{public}@%@", buf, 0x16u);
 
     goto LABEL_24;
@@ -901,16 +893,14 @@ LABEL_28:
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v45 = v9;
-    v46 = 2112;
-    v47 = v5;
+    v44 = v9;
+    v45 = 2112;
+    v46 = v5;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Skip create/update since model is already deleted locally: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
 LABEL_30:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_exportSiblingRelationshipsFromLocalModel:(void *)model localRelationship:(void *)relationship context:
@@ -983,7 +973,7 @@ void __105__MKFCKHomeObject__exportSiblingRelationshipsFromLocalModel_localRelat
 
 void __105__MKFCKHomeObject__exportSiblingRelationshipsFromLocalModel_localRelationship_cloudRelationship_context___block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 entity];
   v5 = [HMDCoreDataCloudTransform exportTransformableClassFromEntity:v4];
@@ -1007,17 +997,15 @@ void __105__MKFCKHomeObject__exportSiblingRelationshipsFromLocalModel_localRelat
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v3;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@No cloud sibling found, home export will fix it later: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v3;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@No cloud sibling found, home export will fix it later: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __105__MKFCKHomeObject__exportSiblingRelationshipsFromLocalModel_localRelationship_cloudRelationship_context___block_invoke_15(uint64_t a1, uint64_t a2, void *a3)

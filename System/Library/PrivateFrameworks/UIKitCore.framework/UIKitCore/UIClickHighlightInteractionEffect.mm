@@ -106,7 +106,7 @@ void __71___UIClickHighlightInteractionEffect_interaction_didChangeWithContext__
   v27 = v26;
   if (v26)
   {
-    [v26 transform];
+    objc_msgSend_transform(v26);
   }
 
   else
@@ -123,7 +123,7 @@ void __71___UIClickHighlightInteractionEffect_interaction_didChangeWithContext__
   [v28 setTransform:&v30];
 }
 
-uint64_t __71___UIClickHighlightInteractionEffect_interaction_didChangeWithContext___block_invoke_2(uint64_t a1)
+void *__71___UIClickHighlightInteractionEffect_interaction_didChangeWithContext___block_invoke_2(uint64_t a1)
 {
   --*(*(a1 + 32) + 16);
   has_internal_diagnostics = os_variant_has_internal_diagnostics();
@@ -152,7 +152,7 @@ uint64_t __71___UIClickHighlightInteractionEffect_interaction_didChangeWithConte
   }
 
   result = *(a1 + 32);
-  if (!*(result + 16) && (*(result + 24) & 1) == 0)
+  if (!*(result + 2) && (*(result + 24) & 1) == 0)
   {
     return [result _completeHighlightEffect];
   }

@@ -89,7 +89,7 @@
 
 + (id)noteFor:(id)for
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5B090);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5B090, &qword_2154BE0D0);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v11 - v5;
   if (for)
@@ -106,7 +106,7 @@
   }
 
   v9 = _s11NotesEditor04LinkB10ControllerC4note3forSo6ICNoteCSg10Foundation3URLVSg_tFZ_0(v6);
-  sub_2151ADCD8(v6, &unk_27CA5B090);
+  sub_2151ADCD8(v6, &unk_27CA5B090, &qword_2154BE0D0);
 
   return v9;
 }
@@ -119,13 +119,14 @@
 
 - (id)sanitizedWithString:(id)string
 {
-  sub_2154A1D6C();
+  v4 = sub_2154A1D6C();
+  v6 = v5;
   selfCopy = self;
-  sub_21536BD88();
+  sub_21536BD88(v4, v6);
 
-  v5 = sub_2154A1D2C();
+  v8 = sub_2154A1D2C();
 
-  return v5;
+  return v8;
 }
 
 - (void)insertAndDismissWithCompletion:(id)completion
@@ -147,7 +148,7 @@
 
   selfCopy = self;
   sub_215368D40(v7, v6);
-  sub_21532594C(v7);
+  sub_21532594C(v7, v6);
 }
 
 - (void)insertTokenizedNoteLinkWithNoteSelection:(id)selection
@@ -210,7 +211,7 @@
 
 - (void)selectedURLWithSelection:(id)selection
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5B090);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5B090, &qword_2154BE0D0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v11 - v6;
   if (selection)
@@ -229,7 +230,7 @@
   selfCopy = self;
   sub_21536A384(v7);
 
-  sub_2151ADCD8(v7, &unk_27CA5B090);
+  sub_2151ADCD8(v7, &unk_27CA5B090, &qword_2154BE0D0);
 }
 
 - (void)validateSelection
@@ -309,13 +310,14 @@
   swift_beginAccess();
   selfCopy = self;
 
-  sub_21549F65C();
+  v4 = sub_21549F65C();
+  v6 = v5;
 
-  sub_21536BD88();
+  sub_21536BD88(v4, v6);
 
-  v4 = sub_2154A1D2C();
+  v7 = sub_2154A1D2C();
 
-  return v4;
+  return v7;
 }
 
 - (void)didSelectNoteSuggestionWithIdentifier:(id)identifier title:(id)title

@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    controllerID = self->_controllerID;
     PBDataWriterWriteUint64Field();
   }
 }

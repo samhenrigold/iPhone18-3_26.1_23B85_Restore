@@ -168,41 +168,41 @@ LABEL_10:
 
 + (BOOL)migrateAttachmentRelatedFilesInContext:(id)context error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v7 = [objc_alloc(MEMORY[0x277CBE428]) initWithEntityName:@"NoteAttachment"];
   v8 = [contextCopy executeFetchRequest:v7 error:error];
   v9 = v8;
   if (v8)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v19 + 1) + 8 * i);
-          if (![self migrateFileForAttachment:v15 toCurrentAttachmentPathWithError:{error, v19}] || !objc_msgSend(self, "applyFileAttributesForAttachment:error:", v15, error))
+          v15 = *(*(&v18 + 1) + 8 * i);
+          if (![self migrateFileForAttachment:v15 toCurrentAttachmentPathWithError:{error, v18}] || !objc_msgSend(self, "applyFileAttributesForAttachment:error:", v15, error))
           {
             v16 = 0;
             goto LABEL_15;
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
         v16 = 1;
         if (v12)
         {
@@ -226,7 +226,6 @@ LABEL_15:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

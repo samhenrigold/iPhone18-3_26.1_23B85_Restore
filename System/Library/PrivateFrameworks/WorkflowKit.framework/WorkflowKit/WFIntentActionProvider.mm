@@ -12,6 +12,7 @@
 - (id)createAllAvailableActions;
 - (id)schemaForBundleIdentifier:(id)identifier ignoreCache:(BOOL)cache;
 - (id)schemasByBundleIdentifier;
+- (void)createActionsForRequests:(id)requests forceLocalActionsOnly:(BOOL)only;
 - (void)handleApplicationDidChangeNotification:(id)notification;
 - (void)installedApplicationsDidChange:(id)change;
 - (void)observeInstalledApplicationsChangesIfNeeded;
@@ -30,7 +31,7 @@
 
 - (void)handleApplicationDidChangeNotification:(id)notification
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   queue = [(WFIntentActionProvider *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -45,126 +46,120 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v46 = "[WFIntentActionProvider handleApplicationDidChangeNotification:]";
-      v47 = 2114;
-      v48 = v8;
+      v42 = "[WFIntentActionProvider handleApplicationDidChangeNotification:]";
+      v43 = 2114;
+      v44 = v8;
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_INFO, "%s Installed applications changed: %{public}@", buf, 0x16u);
     }
 
     cachedSchemasByBundleIdentifier = [(WFIntentActionProvider *)self cachedSchemasByBundleIdentifier];
     v11 = [cachedSchemasByBundleIdentifier mutableCopy];
 
-    v40 = v11;
+    v36 = v11;
     if (v11)
     {
-      v33 = notificationCopy;
-      v38 = objc_opt_new();
-      v37 = objc_opt_new();
-      v39 = objc_opt_new();
-      v41 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v44 = 0u;
-      v32 = v8;
+      v29 = notificationCopy;
+      v34 = objc_opt_new();
+      v33 = objc_opt_new();
+      v35 = objc_opt_new();
+      v37 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      v28 = v8;
       obj = v8;
-      v12 = [obj countByEnumeratingWithState:&v41 objects:v53 count:16];
+      v12 = [obj countByEnumeratingWithState:&v37 objects:v49 count:16];
       if (v12)
       {
         v13 = v12;
-        v35 = *v42;
+        v31 = *v38;
         selfCopy = self;
-        v14 = 0x1E695D000uLL;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v42 != v35)
+            if (*v38 != v31)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v41 + 1) + 8 * i);
-            v17 = *(v14 + 4056);
-            v18 = objc_opt_new();
-            v19 = [v40 objectForKey:v16];
+            v15 = *(*(&v37 + 1) + 8 * i);
+            v16 = objc_opt_new();
+            v17 = [v36 objectForKey:v15];
+            if (v17)
+            {
+              v18 = [(WFIntentActionProvider *)self actionIdentifiersForBundleIdentifier:v15 schema:v17];
+
+              v16 = v18;
+            }
+
+            v19 = [(WFIntentActionProvider *)self schemaForBundleIdentifier:v15 ignoreCache:1];
+            v20 = objc_opt_new();
             if (v19)
             {
-              v20 = [(WFIntentActionProvider *)self actionIdentifiersForBundleIdentifier:v16 schema:v19];
+              v21 = [(WFIntentActionProvider *)self actionIdentifiersForBundleIdentifier:v15 schema:v19];
 
-              v18 = v20;
+              v20 = v21;
             }
 
-            v21 = [(WFIntentActionProvider *)self schemaForBundleIdentifier:v16 ignoreCache:1];
-            v22 = *(v14 + 4056);
-            v23 = objc_opt_new();
-            if (v21)
-            {
-              v24 = [(WFIntentActionProvider *)self actionIdentifiersForBundleIdentifier:v16 schema:v21];
-
-              v23 = v24;
-            }
-
-            v25 = [v18 mutableCopy];
-            [v25 minusSet:v23];
-            v26 = [v23 mutableCopy];
-            [v26 minusSet:v18];
-            v27 = [v23 mutableCopy];
-            [v27 intersectSet:v18];
-            [v38 unionSet:v25];
-            [v37 unionSet:v26];
-            [v39 unionSet:v27];
-            [v40 setValue:v21 forKey:v16];
+            v22 = [v16 mutableCopy];
+            [v22 minusSet:v20];
+            v23 = [v20 mutableCopy];
+            [v23 minusSet:v16];
+            v24 = [v20 mutableCopy];
+            [v24 intersectSet:v16];
+            [v34 unionSet:v22];
+            [v33 unionSet:v23];
+            [v35 unionSet:v24];
+            [v36 setValue:v19 forKey:v15];
 
             self = selfCopy;
-            v14 = 0x1E695D000;
           }
 
-          v13 = [obj countByEnumeratingWithState:&v41 objects:v53 count:16];
+          v13 = [obj countByEnumeratingWithState:&v37 objects:v49 count:16];
         }
 
         while (v13);
       }
 
-      [(WFIntentActionProvider *)self setCachedSchemasByBundleIdentifier:v40];
-      v28 = getWFActionRegistryLogObject();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      [(WFIntentActionProvider *)self setCachedSchemasByBundleIdentifier:v36];
+      v25 = getWFActionRegistryLogObject();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         *buf = 136315906;
-        v46 = "[WFIntentActionProvider handleApplicationDidChangeNotification:]";
+        v42 = "[WFIntentActionProvider handleApplicationDidChangeNotification:]";
+        v43 = 2114;
+        v44 = v35;
+        v45 = 2114;
+        v46 = v33;
         v47 = 2114;
-        v48 = v39;
-        v49 = 2114;
-        v50 = v37;
-        v51 = 2114;
-        v52 = v38;
-        _os_log_impl(&dword_1CA256000, v28, OS_LOG_TYPE_INFO, "%s Updated: %{public}@, Added: %{public}@, Removed: %{public}@", buf, 0x2Au);
+        v48 = v34;
+        _os_log_impl(&dword_1CA256000, v25, OS_LOG_TYPE_INFO, "%s Updated: %{public}@, Added: %{public}@, Removed: %{public}@", buf, 0x2Au);
       }
 
-      v8 = v32;
-      notificationCopy = v33;
-      if ([v38 count] || objc_msgSend(v37, "count") || -[NSObject count](v39, "count"))
+      v8 = v28;
+      notificationCopy = v29;
+      if ([v34 count] || objc_msgSend(v33, "count") || -[NSObject count](v35, "count"))
       {
         delegate = [(WFActionProvider *)self delegate];
-        [delegate actionProviderDidChange:self updatedActions:v39 removedActions:v38 addedActions:v37];
+        [delegate actionProviderDidChange:self updatedActions:v35 removedActions:v34 addedActions:v33];
       }
     }
 
-    v30 = v8;
+    v27 = v8;
   }
 
   else
   {
 
-    v30 = getWFActionRegistryLogObject();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+    v27 = getWFActionRegistryLogObject();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v46 = "[WFIntentActionProvider handleApplicationDidChangeNotification:]";
-      _os_log_impl(&dword_1CA256000, v30, OS_LOG_TYPE_FAULT, "%s Got an application did change notification, but couldn't extract bundle identifiers out of it", buf, 0xCu);
+      v42 = "[WFIntentActionProvider handleApplicationDidChangeNotification:]";
+      _os_log_impl(&dword_1CA256000, v27, OS_LOG_TYPE_FAULT, "%s Got an application did change notification, but couldn't extract bundle identifiers out of it", buf, 0xCu);
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)installedApplicationsDidChange:(id)change
@@ -198,37 +193,8 @@
   identifierCopy = identifier;
   bundleIdentifierCopy = bundleIdentifier;
   schemaCopy = schema;
-  if ([identifierCopy isEqualToString:@"com.apple.mobilemail.MSGetMailIntent"])
+  if (objc_msgSend_isEqualToString_(identifierCopy) & 1) != 0 || ![identifierCopy hasSuffix:@"Intent"] || (objc_msgSend_isEqualToString_(bundleIdentifierCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(bundleIdentifierCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(bundleIdentifierCopy) & 1) != 0 || (objc_msgSend(MEMORY[0x1E698B0D0], "applicationWithBundleIdentifier:", bundleIdentifierCopy), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isHidden"), v14, (v15) || (-[WFIntentActionProvider actionIdentifiersRequiringBundledActionProvider](self, "actionIdentifiersRequiringBundledActionProvider"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "containsObject:", identifierCopy), v16, (v17))
   {
-    goto LABEL_8;
-  }
-
-  if (![identifierCopy hasSuffix:@"Intent"])
-  {
-    goto LABEL_8;
-  }
-
-  if ([bundleIdentifierCopy isEqualToString:@"com.apple.WorkflowKit.ShortcutsIntents"])
-  {
-    goto LABEL_8;
-  }
-
-  if ([bundleIdentifierCopy isEqualToString:@"com.apple.ActionKit.BundledIntentHandler"])
-  {
-    goto LABEL_8;
-  }
-
-  if ([bundleIdentifierCopy isEqualToString:@"com.apple.shortcuts"])
-  {
-    goto LABEL_8;
-  }
-
-  v14 = [MEMORY[0x1E698B0D0] applicationWithBundleIdentifier:bundleIdentifierCopy];
-  isHidden = [v14 isHidden];
-
-  if (isHidden & 1) != 0 || (-[WFIntentActionProvider actionIdentifiersRequiringBundledActionProvider](self, "actionIdentifiersRequiringBundledActionProvider"), v16 = objc_claimAutoreleasedReturnValue(), v17 = [v16 containsObject:identifierCopy], v16, (v17))
-  {
-LABEL_8:
     v18 = 0;
   }
 
@@ -289,48 +255,46 @@ LABEL_8:
 
 void __73__WFIntentActionProvider_actionIdentifiersRequiringBundledActionProvider__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
   v3 = actionIdentifiersRequiringBundledActionProvider_actionIdentifiersRequiringBundledActionProvider;
   actionIdentifiersRequiringBundledActionProvider_actionIdentifiersRequiringBundledActionProvider = v2;
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = [*(a1 + 32) actionIdentifiersRequiringBundledActionProviderMappedByApp];
   v5 = [v4 allValues];
 
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
         v10 = actionIdentifiersRequiringBundledActionProvider_actionIdentifiersRequiringBundledActionProvider;
-        v11 = [*(*(&v13 + 1) + 8 * v9) allKeys];
+        v11 = [*(*(&v12 + 1) + 8 * v9) allKeys];
         [v10 addObjectsFromArray:v11];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)actionIdentifiersRequiringBundledActionProviderMappedByApp
@@ -353,46 +317,44 @@ void __84__WFIntentActionProvider_actionIdentifiersRequiringBundledActionProvide
 
 - (id)actionIdentifiersForBundleIdentifier:(id)identifier schema:(id)schema
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   schemaCopy = schema;
-  v16 = objc_opt_new();
+  v15 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = [schemaCopy _classNamesForClass:objc_opt_class()];
-  v8 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", identifierCopy, v12];
         if ([(WFIntentActionProvider *)self shouldCreateActionForIntentClassName:v12 actionIdentifier:v13 bundleIdentifier:identifierCopy inSchema:schemaCopy])
         {
-          [v16 addObject:v13];
+          [v15 addObject:v13];
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v16;
+  return v15;
 }
 
 - (NSSet)cachedSystemIntentActions
@@ -468,32 +430,32 @@ void __84__WFIntentActionProvider_actionIdentifiersRequiringBundledActionProvide
 
 void __59__WFIntentActionProvider_createActionsForBundleIdentifier___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) schemaForBundleIdentifier:*(a1 + 40) ignoreCache:0];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = [v2 _classNamesForClass:objc_opt_class()];
-  v3 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v3 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v23;
+    v5 = *v22;
     v6 = 0x1E696A000uLL;
-    v19 = *v23;
+    v18 = *v22;
     do
     {
       v7 = 0;
-      v20 = v4;
+      v19 = v4;
       do
       {
-        if (*v23 != v5)
+        if (*v22 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v22 + 1) + 8 * v7);
+        v8 = *(*(&v21 + 1) + 8 * v7);
         v9 = objc_autoreleasePoolPush();
         v10 = [*(v6 + 3776) stringWithFormat:@"%@.%@", *(a1 + 40), v8];
         if ([*(a1 + 32) shouldCreateActionForIntentClassName:v8 actionIdentifier:v10 bundleIdentifier:*(a1 + 40) inSchema:v2])
@@ -503,17 +465,17 @@ void __59__WFIntentActionProvider_createActionsForBundleIdentifier___block_invok
           v13 = v2;
           v14 = *(a1 + 40);
           v15 = [*(a1 + 32) stringLocalizer];
-          v18 = v14;
+          v17 = v14;
           v2 = v13;
-          v16 = [(WFHandleCustomIntentAction *)v11 initWithIdentifier:v10 definition:v12 serializedParameters:0 schema:v13 intent:0 className:v8 bundleIdentifier:v18 stringLocalizer:v15];
+          v16 = [(WFHandleCustomIntentAction *)v11 initWithIdentifier:v10 definition:v12 serializedParameters:0 schema:v13 intent:0 className:v8 bundleIdentifier:v17 stringLocalizer:v15];
 
           if (v16)
           {
             [*(a1 + 48) addObject:v16];
           }
 
-          v5 = v19;
-          v4 = v20;
+          v5 = v18;
+          v4 = v19;
           v6 = 0x1E696A000;
         }
 
@@ -522,36 +484,44 @@ void __59__WFIntentActionProvider_createActionsForBundleIdentifier___block_invok
       }
 
       while (v4 != v7);
-      v4 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v4);
   }
+}
 
-  v17 = *MEMORY[0x1E69E9840];
+- (void)createActionsForRequests:(id)requests forceLocalActionsOnly:(BOOL)only
+{
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __73__WFIntentActionProvider_createActionsForRequests_forceLocalActionsOnly___block_invoke;
+  v4[3] = &unk_1E837C260;
+  v4[4] = self;
+  [requests enumerateObjectsUsingBlock:{v4, only}];
 }
 
 void __73__WFIntentActionProvider_createActionsForRequests_forceLocalActionsOnly___block_invoke(uint64_t a1, void *a2)
 {
-  v62 = *MEMORY[0x1E69E9840];
-  v43 = a2;
-  v3 = [v43 actionIdentifier];
-  v44 = [v3 componentsSeparatedByString:@"."];
-  v4 = v44;
-  if ([v44 count] >= 2)
+  v61 = *MEMORY[0x1E69E9840];
+  v42 = a2;
+  v3 = [v42 actionIdentifier];
+  v43 = [v3 componentsSeparatedByString:@"."];
+  v4 = v43;
+  if ([v43 count] >= 2)
   {
-    v5 = [v44 subarrayWithRange:{0, objc_msgSend(v44, "count") - 1}];
-    v40 = [v5 componentsJoinedByString:@"."];
+    v5 = [v43 subarrayWithRange:{0, objc_msgSend(v43, "count") - 1}];
+    v39 = [v5 componentsJoinedByString:@"."];
 
-    v45 = [v44 lastObject];
-    if ([*(a1 + 32) shouldConsiderSystemIntents] && (WFSupportedSystemIntentClasses(), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "containsObject:", v45), v6, v7) && (WFGetSystemIntentActionForBundleIdentifierAndIntentClassName(v40, v45, *(a1 + 32)), (v8 = objc_claimAutoreleasedReturnValue()) != 0))
+    v44 = [v43 lastObject];
+    if ([*(a1 + 32) shouldConsiderSystemIntents] && (WFSupportedSystemIntentClasses(), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "containsObject:", v44), v6, v7) && (WFGetSystemIntentActionForBundleIdentifierAndIntentClassName(v39, v44, *(a1 + 32)), (v8 = objc_claimAutoreleasedReturnValue()) != 0))
     {
-      [v43 setResult:v8];
+      [v42 setResult:v8];
     }
 
-    else if ([v45 hasSuffix:@"Intent"])
+    else if ([v44 hasSuffix:@"Intent"])
     {
-      v9 = [v43 serializedParameters];
+      v9 = [v42 serializedParameters];
       if (v9)
       {
         objc_opt_class();
@@ -573,101 +543,101 @@ void __73__WFIntentActionProvider_createActionsForRequests_forceLocalActionsOnly
 
       v11 = v10;
 
-      v38 = v11;
+      v37 = v11;
       v12 = [v11 objectForKey:@"AppIntentDescriptor"];
 
       if (!v12)
       {
-        v13 = [v43 serializedParameters];
-        v37 = [v13 objectForKey:@"SerializedIntentDescriptor"];
+        v13 = [v42 serializedParameters];
+        v36 = [v13 objectForKey:@"SerializedIntentDescriptor"];
 
-        if (v37 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+        if (v36 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          v14 = [objc_alloc(MEMORY[0x1E696E890]) initWithSerializedRepresentation:v37];
+          v14 = [objc_alloc(MEMORY[0x1E696E890]) initWithSerializedRepresentation:v36];
         }
 
         else
         {
 
-          v14 = [objc_alloc(MEMORY[0x1E696E890]) initWithIntentClassName:v45 launchableAppBundleId:v40];
-          v37 = 0;
+          v14 = [objc_alloc(MEMORY[0x1E696E890]) initWithIntentClassName:v44 launchableAppBundleId:v39];
+          v36 = 0;
         }
 
         v15 = [MEMORY[0x1E696E748] sharedResolver];
-        v39 = [v15 resolvedIntentMatchingDescriptor:v14];
+        v38 = [v15 resolvedIntentMatchingDescriptor:v14];
 
         v16 = objc_opt_new();
-        v17 = [v39 extensionBundleIdentifier];
+        v17 = [v38 extensionBundleIdentifier];
 
         if (v17)
         {
-          v18 = [v39 extensionBundleIdentifier];
+          v18 = [v38 extensionBundleIdentifier];
           [v16 addObject:v18];
         }
 
-        v19 = [v39 bundleIdentifier];
+        v19 = [v38 bundleIdentifier];
 
         if (v19)
         {
-          v20 = [v39 bundleIdentifier];
+          v20 = [v38 bundleIdentifier];
           [v16 addObject:v20];
         }
 
-        v21 = [v39 intentClassName];
+        v21 = [v38 intentClassName];
         v22 = [v21 length];
 
         if (v22)
         {
-          v23 = [v39 intentClassName];
+          v23 = [v38 intentClassName];
 
-          v45 = v23;
+          v44 = v23;
         }
 
-        [v16 addObject:v40];
-        v59 = 0u;
-        v60 = 0u;
-        v57 = 0u;
+        [v16 addObject:v39];
         v58 = 0u;
+        v59 = 0u;
+        v56 = 0u;
+        v57 = 0u;
         obj = v16;
-        v24 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
+        v24 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
         if (!v24)
         {
 
           v26 = 0;
-          v42 = 0;
+          v41 = 0;
           goto LABEL_40;
         }
 
-        v42 = 0;
+        v41 = 0;
         v25 = 0;
         v26 = 0;
-        v27 = *v58;
+        v27 = *v57;
 LABEL_25:
         v28 = 0;
         while (1)
         {
-          if (*v58 != v27)
+          if (*v57 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v29 = *(*(&v57 + 1) + 8 * v28);
+          v29 = *(*(&v56 + 1) + 8 * v28);
           v30 = [*(a1 + 32) schemaForBundleIdentifier:v29 ignoreCache:0];
 
           v26 = v30;
-          if ([*(a1 + 32) shouldCreateActionForIntentClassName:v45 actionIdentifier:v3 bundleIdentifier:v29 inSchema:v30])
+          if ([*(a1 + 32) shouldCreateActionForIntentClassName:v44 actionIdentifier:v3 bundleIdentifier:v29 inSchema:v30])
           {
             if (v30)
             {
               v31 = v29;
 
-              v42 = v31;
+              v41 = v31;
               goto LABEL_38;
             }
 
-            if (!v42)
+            if (!v41)
             {
-              v42 = v29;
+              v41 = v29;
             }
 
             v25 = 1;
@@ -675,7 +645,7 @@ LABEL_25:
 
           if (v24 == ++v28)
           {
-            v24 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
+            v24 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
             if (v24)
             {
               goto LABEL_25;
@@ -689,31 +659,31 @@ LABEL_40:
             }
 
 LABEL_38:
-            v51 = 0;
-            v52 = &v51;
-            v53 = 0x3032000000;
-            v54 = __Block_byref_object_copy__56969;
-            v55 = __Block_byref_object_dispose__56970;
-            v56 = 0;
+            v50 = 0;
+            v51 = &v50;
+            v52 = 0x3032000000;
+            v53 = __Block_byref_object_copy__56969;
+            v54 = __Block_byref_object_dispose__56970;
+            v55 = 0;
             v32 = [MEMORY[0x1E696E878] sharedConnection];
-            v33 = [MEMORY[0x1E695DFD8] setWithObject:v42];
-            v46[0] = MEMORY[0x1E69E9820];
-            v46[1] = 3221225472;
-            v46[2] = __73__WFIntentActionProvider_createActionsForRequests_forceLocalActionsOnly___block_invoke_186;
-            v46[3] = &unk_1E837C238;
-            v50 = &v51;
+            v33 = [MEMORY[0x1E695DFD8] setWithObject:v41];
+            v45[0] = MEMORY[0x1E69E9820];
+            v45[1] = 3221225472;
+            v45[2] = __73__WFIntentActionProvider_createActionsForRequests_forceLocalActionsOnly___block_invoke_186;
+            v45[3] = &unk_1E837C238;
+            v49 = &v50;
             v34 = *(a1 + 32);
-            v46[4] = v3;
-            v46[5] = v34;
-            v35 = v43;
-            v47 = v35;
+            v45[4] = v3;
+            v45[5] = v34;
+            v35 = v42;
+            v46 = v35;
             v26 = v30;
-            v48 = v26;
-            v49 = v39;
-            [v32 wf_accessBundleContentForBundleIdentifiers:v33 withBlock:v46];
+            v47 = v26;
+            v48 = v38;
+            [v32 wf_accessBundleContentForBundleIdentifiers:v33 withBlock:v45];
 
-            [v35 setResult:v52[5]];
-            _Block_object_dispose(&v51, 8);
+            [v35 setResult:v51[5]];
+            _Block_object_dispose(&v50, 8);
 
             goto LABEL_40;
           }
@@ -721,10 +691,8 @@ LABEL_38:
       }
     }
 
-    v4 = v44;
+    v4 = v43;
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __73__WFIntentActionProvider_createActionsForRequests_forceLocalActionsOnly___block_invoke_186(uint64_t a1)
@@ -824,33 +792,33 @@ uint64_t __51__WFIntentActionProvider_createAllAvailableActions__block_invoke(ui
 
 void __51__WFIntentActionProvider_createAllAvailableActions__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v23 = a2;
+  v28 = *MEMORY[0x1E69E9840];
+  v22 = a2;
   v5 = a3;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = [v5 _classNamesForClass:objc_opt_class()];
-  v22 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
-  if (v22)
+  v21 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (v21)
   {
-    v6 = *v25;
+    v6 = *v24;
     v7 = 0x1E696A000uLL;
     do
     {
       v8 = 0;
       do
       {
-        if (*v25 != v6)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * v8);
+        v9 = *(*(&v23 + 1) + 8 * v8);
         v10 = objc_autoreleasePoolPush();
-        v11 = [*(v7 + 3776) stringWithFormat:@"%@.%@", v23, v9];
-        if ([*(a1 + 32) shouldCreateActionForIntentClassName:v9 actionIdentifier:v11 bundleIdentifier:v23 inSchema:v5])
+        v11 = [*(v7 + 3776) stringWithFormat:@"%@.%@", v22, v9];
+        if ([*(a1 + 32) shouldCreateActionForIntentClassName:v9 actionIdentifier:v11 bundleIdentifier:v22 inSchema:v5])
         {
           v12 = v6;
           v13 = v5;
@@ -860,7 +828,7 @@ void __51__WFIntentActionProvider_createAllAvailableActions__block_invoke_2(uint
           v17 = v16 = a1;
           v18 = v14;
           v5 = v13;
-          v19 = [(WFHandleCustomIntentAction *)v18 initWithIdentifier:v11 definition:v15 serializedParameters:0 schema:v13 intent:0 className:v9 bundleIdentifier:v23 stringLocalizer:v17];
+          v19 = [(WFHandleCustomIntentAction *)v18 initWithIdentifier:v11 definition:v15 serializedParameters:0 schema:v13 intent:0 className:v9 bundleIdentifier:v22 stringLocalizer:v17];
 
           a1 = v16;
           if (v19)
@@ -876,14 +844,12 @@ void __51__WFIntentActionProvider_createAllAvailableActions__block_invoke_2(uint
         ++v8;
       }
 
-      while (v22 != v8);
-      v22 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      while (v21 != v8);
+      v21 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (WFIntentActionProvider)initWithOptions:(unint64_t)options
@@ -908,7 +874,7 @@ void __51__WFIntentActionProvider_createAllAvailableActions__block_invoke_2(uint
 
 + (id)disabledPlatformsForIntentWithTypeName:(id)name
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v4 = nameCopy;
   if (nameCopy == @"sirikit.intents.custom.com.apple.mobilecal.EKUICreateEventIntent")
@@ -918,39 +884,37 @@ void __51__WFIntentActionProvider_createAllAvailableActions__block_invoke_2(uint
 
   if (nameCopy)
   {
-    v5 = [(__CFString *)nameCopy isEqualToString:@"sirikit.intents.custom.com.apple.mobilecal.EKUICreateEventIntent"];
+    isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
 
-    if ((v5 & 1) != 0 || (v6 = v4, v6 == @"sirikit.intents.custom.com.apple.mobilesafari.OpenURLsIntent") || (v7 = v6, v8 = [(__CFString *)v6 isEqualToString:@"sirikit.intents.custom.com.apple.mobilesafari.OpenURLsIntent"], v7, v8))
+    if ((isEqualToString & 1) != 0 || (v6 = v4, v6 == @"sirikit.intents.custom.com.apple.mobilesafari.OpenURLsIntent") || (v7 = v6, v8 = objc_msgSend_isEqualToString_(v6), v7, v8))
     {
 LABEL_6:
-      v21 = @"Watch";
-      v9 = &v21;
+      v20 = @"Watch";
+      v9 = &v20;
 LABEL_7:
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:{1, v19, v20, v21, v22}];
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:{1, v18, v19, v20, v21}];
       goto LABEL_15;
     }
 
     v11 = v7;
-    if (v11 == @"sirikit.intents.custom.com.apple.weather.WeatherIntent" || (v12 = v11, v13 = [(__CFString *)v11 isEqualToString:@"sirikit.intents.custom.com.apple.weather.WeatherIntent"], v12, v13))
+    if (v11 == @"sirikit.intents.custom.com.apple.weather.WeatherIntent" || (v12 = v11, v13 = objc_msgSend_isEqualToString_(v11), v12, v13))
     {
-      v20 = @"Watch";
-      v9 = &v20;
+      v19 = @"Watch";
+      v9 = &v19;
       goto LABEL_7;
     }
 
     v14 = v12;
-    if (v14 == @"sirikit.intent.payments.SendPaymentIntent" || (v15 = v14, v16 = [(__CFString *)v14 isEqualToString:@"sirikit.intent.payments.SendPaymentIntent"], v15, v16))
+    if (v14 == @"sirikit.intent.payments.SendPaymentIntent" || (v15 = v14, v16 = objc_msgSend_isEqualToString_(v14), v15, v16))
     {
-      v19 = @"Desktop";
-      v9 = &v19;
+      v18 = @"Desktop";
+      v9 = &v18;
       goto LABEL_7;
     }
   }
 
   v10 = MEMORY[0x1E695E0F0];
 LABEL_15:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

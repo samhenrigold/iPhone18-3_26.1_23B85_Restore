@@ -378,9 +378,10 @@ void __70__EDAppDelegate_scene_didUpdateWithDiff_transitionContext_completion___
     v5 = 0;
   }
 
+  v6 = self->_hidePointerAssertion;
   self->_hidePointerAssertion = v5;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v5, v6);
 }
 
 - (CGPoint)_startingPointForWindow:(id)window

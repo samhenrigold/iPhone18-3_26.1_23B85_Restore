@@ -22,15 +22,13 @@
 
 + (void)initialize
 {
-  v7[3] = *MEMORY[0x1E69E9840];
+  v6[3] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
-  v7[0] = objc_opt_class();
-  v7[1] = objc_opt_class();
-  v7[2] = objc_opt_class();
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v7, 3);
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v6, 3);
   sub_1886CEE50(self, v3, v5, 0, 0);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_initWithSubscriptionID:(id)d subscriptionType:(int64_t)type recordType:(id)recordType zoneID:(id)iD
@@ -251,7 +249,7 @@
 
 - (CKSubscription)initWithZoneID:(id)d options:(unint64_t)options
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (ck_log_initialization_predicate != -1)
   {
@@ -261,24 +259,23 @@
   v7 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_FAULT))
   {
-    v14 = v7;
-    v15 = NSStringFromSelector(a2);
-    v16 = 138543362;
-    v17 = v15;
-    _os_log_fault_impl(&dword_1883EA000, v14, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.  Please move to CKRecordZoneSubscription", &v16, 0xCu);
+    v13 = v7;
+    v14 = NSStringFromSelector(a2);
+    v15 = 138543362;
+    v16 = v14;
+    _os_log_fault_impl(&dword_1883EA000, v13, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.  Please move to CKRecordZoneSubscription", &v15, 0xCu);
   }
 
   v8 = [CKRecordZoneSubscription alloc];
   v9 = CKCreateGUID();
   v11 = objc_msgSend_initWithZoneID_subscriptionID_(v8, v10, dCopy, v9);
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (CKSubscription)initWithZoneID:(id)d subscriptionID:(id)iD options:(unint64_t)options
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   if (ck_log_initialization_predicate != -1)
@@ -289,23 +286,22 @@
   v10 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_FAULT))
   {
-    v16 = v10;
-    v17 = NSStringFromSelector(a2);
-    v18 = 138543362;
-    v19 = v17;
-    _os_log_fault_impl(&dword_1883EA000, v16, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.  Please move to CKRecordZoneSubscription", &v18, 0xCu);
+    v15 = v10;
+    v16 = NSStringFromSelector(a2);
+    v17 = 138543362;
+    v18 = v16;
+    _os_log_fault_impl(&dword_1883EA000, v15, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.  Please move to CKRecordZoneSubscription", &v17, 0xCu);
   }
 
   v11 = [CKRecordZoneSubscription alloc];
   v13 = objc_msgSend_initWithZoneID_subscriptionID_(v11, v12, dCopy, iDCopy);
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (CKSubscription)initWithRecordType:(id)type predicate:(id)predicate options:(unint64_t)options
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   predicateCopy = predicate;
   if (ck_log_initialization_predicate != -1)
@@ -316,24 +312,23 @@
   v11 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_FAULT))
   {
-    v18 = v11;
-    v19 = NSStringFromSelector(a2);
-    v20 = 138543362;
-    v21 = v19;
-    _os_log_fault_impl(&dword_1883EA000, v18, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.  Please move to CKQuerySubscription", &v20, 0xCu);
+    v17 = v11;
+    v18 = NSStringFromSelector(a2);
+    v19 = 138543362;
+    v20 = v18;
+    _os_log_fault_impl(&dword_1883EA000, v17, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.  Please move to CKQuerySubscription", &v19, 0xCu);
   }
 
   v12 = [CKQuerySubscription alloc];
   v13 = CKCreateGUID();
   v15 = objc_msgSend_initWithRecordType_predicate_subscriptionID_options_(v12, v14, typeCopy, predicateCopy, v13, options);
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (CKSubscription)initWithRecordType:(id)type predicate:(id)predicate subscriptionID:(id)d options:(unint64_t)options
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   predicateCopy = predicate;
   dCopy = d;
@@ -345,21 +340,50 @@
   v14 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_FAULT))
   {
-    v20 = v14;
-    v21 = NSStringFromSelector(a2);
-    v22 = 138543362;
-    v23 = v21;
-    _os_log_fault_impl(&dword_1883EA000, v20, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.  Please move to CKQuerySubscription", &v22, 0xCu);
+    v19 = v14;
+    v20 = NSStringFromSelector(a2);
+    v21 = 138543362;
+    v22 = v20;
+    _os_log_fault_impl(&dword_1883EA000, v19, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.  Please move to CKQuerySubscription", &v21, 0xCu);
   }
 
   v15 = [CKQuerySubscription alloc];
   v17 = objc_msgSend_initWithRecordType_predicate_subscriptionID_options_(v15, v16, typeCopy, predicateCopy, dCopy, options);
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (unint64_t)subscriptionOptions
+{
+  v12 = *MEMORY[0x1E69E9840];
+  if (ck_log_initialization_predicate != -1)
+  {
+    dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
+  }
+
+  v4 = ck_log_facility_ck;
+  if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_FAULT))
+  {
+    v8 = v4;
+    v9 = NSStringFromSelector(a2);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_fault_impl(&dword_1883EA000, v8, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.  Please move to querySubscriptionOptions", &v10, 0xCu);
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    return objc_msgSend_querySubscriptionOptions(self, v5, v6);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+- (id)predicate
 {
   v13 = *MEMORY[0x1E69E9840];
   if (ck_log_initialization_predicate != -1)
@@ -374,40 +398,7 @@
     v10 = NSStringFromSelector(a2);
     v11 = 138543362;
     v12 = v10;
-    _os_log_fault_impl(&dword_1883EA000, v9, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.  Please move to querySubscriptionOptions", &v11, 0xCu);
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    result = objc_msgSend_querySubscriptionOptions(self, v5, v6);
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (id)predicate
-{
-  v14 = *MEMORY[0x1E69E9840];
-  if (ck_log_initialization_predicate != -1)
-  {
-    dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
-  }
-
-  v4 = ck_log_facility_ck;
-  if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_FAULT))
-  {
-    v10 = v4;
-    v11 = NSStringFromSelector(a2);
-    v12 = 138543362;
-    v13 = v11;
-    _os_log_fault_impl(&dword_1883EA000, v10, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.  Please move to CKQuerySubscription", &v12, 0xCu);
+    _os_log_fault_impl(&dword_1883EA000, v9, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.  Please move to CKQuerySubscription", &v11, 0xCu);
   }
 
   objc_opt_class();
@@ -420,8 +411,6 @@
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

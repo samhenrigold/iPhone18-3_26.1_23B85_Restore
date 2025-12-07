@@ -103,12 +103,13 @@
 
 - (int64_t)filterStatusForAddresses:(id)addresses withBundleIdentifier:(id)identifier
 {
-  static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
   selfCopy = self;
-  v6 = sub_10045F144();
+  v10 = sub_10045F144(v5, v6, v8);
 
-  return v6;
+  return v10;
 }
 
 - (BOOL)willRestrictAddresses:(id)addresses forBundleIdentifier:(id)identifier

@@ -16,6 +16,7 @@
 - (void)fixURLWithBoolean:(BOOL)boolean;
 - (void)readObjectWithJavaIoObjectInputStream:(id)stream;
 - (void)setWithNSString:(id)string withNSString:(id)sString withInt:(int)int withNSString:(id)nSString withNSString:(id)withNSString;
+- (void)setWithNSString:(id)string withNSString:(id)sString withInt:(int)int withNSString:(id)nSString withNSString:(id)withNSString withNSString:(id)a8 withNSString:(id)a9 withNSString:(id)self0;
 - (void)setupStreamHandler;
 - (void)writeObjectWithJavaIoObjectOutputStream:(id)stream;
 @end
@@ -34,7 +35,6 @@
       JreStrongAssign(&self->authority_, self->host_);
       if (self->port_ != -1)
       {
-        port = self->port_;
         v14 = JreStrcat("$CI", v7, v8, v9, v10, v11, v12, v13, self->authority_);
         JreStrongAssign(&self->authority_, v14);
       }
@@ -180,35 +180,34 @@
     }
   }
 
-  PropertyWithNSString = JavaLangSystem_getPropertyWithNSString_(@"java.protocol.handler.pkgs");
-  v4 = JavaLangThread_currentThread();
-  if (!v4)
+  PropertyWithNSString = JavaLangSystem_getPropertyWithNSString_(@"java.protocol.handler.pkgs", v3);
+  v6 = JavaLangThread_currentThread(PropertyWithNSString, v5);
+  if (!v6)
   {
     goto LABEL_29;
   }
 
-  getContextClassLoader = [(JavaLangThread *)v4 getContextClassLoader];
+  getContextClassLoader = [(JavaLangThread *)v6 getContextClassLoader];
   if (PropertyWithNSString)
   {
-    v6 = getContextClassLoader;
+    v8 = getContextClassLoader;
     if (getContextClassLoader)
     {
-      v7 = [PropertyWithNSString split:@"\\|"];
-      if (!v7)
+      v9 = [PropertyWithNSString split:@"\\|"];
+      if (!v9)
       {
         goto LABEL_29;
       }
 
-      if (v7 + 3 < &v7[*(v7 + 2) + 3])
+      if (v9 + 3 < &v9[*(v9 + 2) + 3])
       {
-        protocol = self->protocol_;
-        v15 = [v6 loadClassWithNSString:{JreStrcat("$C$$", v8, v9, v10, v11, v12, v13, v14, v7[3])}];
-        if (!v15)
+        v17 = [v8 loadClassWithNSString:{JreStrcat("$C$$", v10, v11, v12, v13, v14, v15, v16, v9[3])}];
+        if (!v17)
         {
           JreThrowNullPointerException();
         }
 
-        newInstance = [v15 newInstance];
+        newInstance = [v17 newInstance];
         objc_opt_class();
         if (newInstance && (objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -226,38 +225,38 @@
     }
   }
 
-  v17 = self->protocol_;
-  if (!v17)
+  protocol = self->protocol_;
+  if (!protocol)
   {
 LABEL_29:
     JreThrowNullPointerException();
   }
 
-  if ([(NSString *)v17 isEqual:@"file"])
+  if ([(NSString *)protocol isEqual:@"file"])
   {
-    v18 = new_LibcoreNetUrlFileHandler_init();
-    JreStrongAssignAndConsume(&self->streamHandler_, v18);
+    v20 = new_LibcoreNetUrlFileHandler_init();
+    JreStrongAssignAndConsume(&self->streamHandler_, v20);
   }
 
   else if ([(NSString *)self->protocol_ isEqual:@"http"])
   {
-    v19 = new_ComGoogleJ2objcNetIosHttpHandler_init();
-    JreStrongAssignAndConsume(&self->streamHandler_, v19);
+    v21 = new_ComGoogleJ2objcNetIosHttpHandler_init();
+    JreStrongAssignAndConsume(&self->streamHandler_, v21);
   }
 
   else if ([(NSString *)self->protocol_ isEqual:@"https"])
   {
-    v20 = new_ComGoogleJ2objcNetIosHttpsHandler_init();
-    JreStrongAssignAndConsume(&self->streamHandler_, v20);
+    v22 = new_ComGoogleJ2objcNetIosHttpsHandler_init();
+    JreStrongAssignAndConsume(&self->streamHandler_, v22);
   }
 
   if (self->streamHandler_)
   {
 LABEL_26:
-    v21 = qword_1005570A0;
-    v22 = self->protocol_;
+    v23 = qword_1005570A0;
+    v24 = self->protocol_;
 
-    [v21 putWithId:v22 withId:?];
+    [v23 putWithId:v24 withId:?];
   }
 }
 
@@ -346,19 +345,12 @@ LABEL_26:
 - (id)toExternalForm
 {
   streamHandler = self->streamHandler_;
-  if (streamHandler)
+  if (!streamHandler)
   {
-
-    return [(JavaNetURLStreamHandler *)streamHandler toExternalFormWithJavaNetURL:self];
-  }
-
-  else
-  {
-    host = self->host_;
-    file = self->file_;
-    protocol = self->protocol_;
     return JreStrcat("$$$$$", a2, self, v2, v3, v4, v5, v6, @"unknown protocol(");
   }
+
+  return [(JavaNetURLStreamHandler *)streamHandler toExternalFormWithJavaNetURL:self];
 }
 
 - (void)readObjectWithJavaIoObjectInputStream:(id)stream
@@ -413,7 +405,6 @@ LABEL_13:
   [(JavaNetURL *)self setupStreamHandler];
   if (!self->streamHandler_)
   {
-    protocol = self->protocol_;
     v17 = JreStrcat("$$", v10, v11, v12, v13, v14, v15, v16, @"Unknown protocol: ");
     v18 = new_JavaIoIOException_initWithNSString_(v17);
     objc_exception_throw(v18);
@@ -441,6 +432,29 @@ LABEL_13:
   }
 
   return [(JavaNetURLStreamHandler *)streamHandler getDefaultPort];
+}
+
+- (void)setWithNSString:(id)string withNSString:(id)sString withInt:(int)int withNSString:(id)nSString withNSString:(id)withNSString withNSString:(id)a8 withNSString:(id)a9 withNSString:(id)self0
+{
+  v13 = *&int;
+  v24 = a8;
+  v17 = a8;
+  if (a9)
+  {
+    isEmpty = [a9 isEmpty];
+    v17 = a8;
+    if ((isEmpty & 1) == 0)
+    {
+      JreStrAppendStrong(&v24, "C$", v19, v20, v21, a8, v22, v23, 63);
+      v17 = v24;
+    }
+  }
+
+  [(JavaNetURL *)self setWithNSString:string withNSString:sString withInt:v13 withNSString:v17 withNSString:a10];
+  JreStrongAssign(&self->authority_, nSString);
+  JreStrongAssign(&self->userInfo_, withNSString);
+  JreStrongAssign(&self->path_, a8);
+  JreStrongAssign(&self->query_, a9);
 }
 
 - (void)dealloc

@@ -334,7 +334,8 @@ uint64_t __120__BWVideoProcessingInferenceProvider_submitForSampleBuffer_usingSt
   }
 
   [provider customInferenceIdentifier];
-  if (![OUTLINED_FUNCTION_8() isEqualToString:?])
+  v6 = OUTLINED_FUNCTION_8();
+  if (!objc_msgSend_isEqualToString_(v6))
   {
     return -31783;
   }
@@ -375,20 +376,20 @@ uint64_t __120__BWVideoProcessingInferenceProvider_submitForSampleBuffer_usingSt
   if (v11)
   {
     v12 = v11;
-    memset(&v75, 0, sizeof(v75));
-    CMSampleBufferGetPresentationTimeStamp(&v75, buffer);
     memset(&v74, 0, sizeof(v74));
-    CMSampleBufferGetDuration(&v74, buffer);
+    CMSampleBufferGetPresentationTimeStamp(&v74, buffer);
+    memset(&v73, 0, sizeof(v73));
+    CMSampleBufferGetDuration(&v73, buffer);
     vcpSession = self->_vcpSession;
-    v72 = v75;
-    v73 = 0;
     v71 = v74;
-    v14 = [(VCPCaptureAnalysisSession *)vcpSession analyzePixelBuffer:v12 withTimestamp:&v72 andDuration:&v71 properties:0 error:&v73];
+    v72 = 0;
+    v70 = v73;
+    v14 = [(VCPCaptureAnalysisSession *)vcpSession analyzePixelBuffer:v12 withTimestamp:&v71 andDuration:&v70 properties:0 error:&v72];
     if (v14)
     {
       v22 = v14;
       outputMetadataRequirements = self->_outputMetadataRequirements;
-      v24 = OUTLINED_FUNCTION_2_90(v14, v15, v16, v17, v18, v19, v20, v21, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, 0);
+      v24 = OUTLINED_FUNCTION_2_90(v14, v15, v16, v17, v18, v19, v20, v21, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68);
       if (v24)
       {
         v25 = v24;
@@ -405,7 +406,7 @@ uint64_t __120__BWVideoProcessingInferenceProvider_submitForSampleBuffer_usingSt
             v28 = [storage setDictionary:v22 forMetadataRequirement:*(8 * i)];
           }
 
-          v25 = OUTLINED_FUNCTION_2_90(v28, v29, v30, v31, v32, v33, v34, v35, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v70);
+          v25 = OUTLINED_FUNCTION_2_90(v28, v29, v30, v31, v32, v33, v34, v35, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69);
         }
 
         while (v25);

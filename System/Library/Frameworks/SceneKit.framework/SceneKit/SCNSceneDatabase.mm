@@ -54,23 +54,24 @@
 
 - (SCNSceneDatabase)initWithCoder:(id)coder
 {
-  v7.receiver = self;
-  v7.super_class = SCNSceneDatabase;
-  v4 = [(SCNSceneDatabase *)&v7 init];
+  v9.receiver = self;
+  v9.super_class = SCNSceneDatabase;
+  v4 = [(SCNSceneDatabase *)&v9 init];
   if (v4)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && [coder lookUpKey])
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) != 0 && (isKindOfClass = [coder lookUpKey]) != 0)
     {
-      [coder setLookUpFoundInstance:{objc_msgSend(coder, "decodeObjectOfClasses:forKey:", SCNUserInfoClasses(), objc_msgSend(coder, "lookUpKey"))}];
+      [coder setLookUpFoundInstance:{objc_msgSend(coder, "decodeObjectOfClasses:forKey:", SCNUserInfoClasses(isKindOfClass, v6), objc_msgSend(coder, "lookUpKey"))}];
     }
 
     else
     {
-      v5 = scn_default_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = scn_default_log(isKindOfClass, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        [SCNSceneDatabase initWithCoder:v5];
+        [SCNSceneDatabase initWithCoder:v7];
       }
     }
   }

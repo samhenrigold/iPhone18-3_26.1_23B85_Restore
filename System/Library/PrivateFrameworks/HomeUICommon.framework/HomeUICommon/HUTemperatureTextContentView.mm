@@ -2,6 +2,7 @@
 - (HUTemperatureTextContentView)initWithFrame:(CGRect)frame;
 - (void)configureLabel;
 - (void)layoutSubviews;
+- (void)updateWithIconDescriptor:(id)descriptor displayStyle:(unint64_t)style animated:(BOOL)animated;
 @end
 
 @implementation HUTemperatureTextContentView
@@ -21,6 +22,39 @@
   }
 
   return v3;
+}
+
+- (void)updateWithIconDescriptor:(id)descriptor displayStyle:(unint64_t)style animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  descriptorCopy = descriptor;
+  v12.receiver = self;
+  v12.super_class = HUTemperatureTextContentView;
+  [(HUIconContentView *)&v12 updateWithIconDescriptor:descriptorCopy displayStyle:style animated:animatedCopy];
+  objc_opt_class();
+  v9 = descriptorCopy;
+  if (objc_opt_isKindOfClass())
+  {
+    v10 = v9;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  v11 = v10;
+
+  if (v11)
+  {
+    [(HUTemperatureTextContentView *)self configureLabel];
+    [(HUTemperatureTextContentView *)self setNeedsLayout];
+  }
+
+  else
+  {
+    NSLog(&cfstr_NoTemperatureI.isa);
+  }
 }
 
 - (void)configureLabel

@@ -499,7 +499,7 @@ LABEL_24:
     v7 = qword_1000B6968;
     if (os_log_type_enabled(qword_1000B6968, OS_LOG_TYPE_DEBUG))
     {
-      sub_10005A24C(v7, v8, v9, v10, v11, v12, v13, v14);
+      sub_10005A24C(v7, v8, v9, v10, v11, v12, v13, v14, v6);
     }
 
     (handlerCopy[2])(handlerCopy, v6);
@@ -629,7 +629,7 @@ LABEL_5:
 
   if (os_log_type_enabled(qword_1000B6968, OS_LOG_TYPE_DEBUG))
   {
-    sub_10005A404(&v22 + 1, &v22);
+    sub_10005A404();
   }
 
   if (![OSIntelligenceUtilities isInputDateInTimeRange:dateCopy withEarlyTimeOfDay:SHIDWORD(v22) andLateTimeOfDay:v22])
@@ -902,7 +902,7 @@ LABEL_8:
   {
     if (os_log_type_enabled(qword_1000B6968, OS_LOG_TYPE_ERROR))
     {
-      sub_10005A680(hour, toHour);
+      sub_10005A680();
     }
 
     goto LABEL_8;
@@ -995,21 +995,11 @@ LABEL_9:
 
       v19 = +[_OSInactivityPredictor predictor];
       v7 = v19;
-      if (!v19)
-      {
-        goto LABEL_15;
-      }
-
-      predictorType2 = [v19 predictorType];
-      predictor3 = [(OSInactivityPredictionService *)self predictor];
-      predictorType3 = [predictor3 predictorType];
-      v23 = [predictorType2 isEqualToString:predictorType3];
-
-      if (!v23)
+      if (v19 && (-[NSObject predictorType](v19, "predictorType"), v20 = objc_claimAutoreleasedReturnValue(), -[OSInactivityPredictionService predictor](self, "predictor"), v21 = objc_claimAutoreleasedReturnValue(), [v21 predictorType], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v20, "isEqualToString:", v22), v22, v21, v20, !v23))
       {
         [(OSInactivityPredictionService *)self setPredictor:v7];
-        predictor4 = [(OSInactivityPredictionService *)self predictor];
-        requireEnoughHistory2 = [predictor4 requireEnoughHistory];
+        predictor3 = [(OSInactivityPredictionService *)self predictor];
+        requireEnoughHistory2 = [predictor3 requireEnoughHistory];
 
         v29 = qword_1000B6968;
         if (requireEnoughHistory2)
@@ -1021,10 +1011,10 @@ LABEL_9:
           }
 
           predictorType = v29;
-          predictor5 = [(OSInactivityPredictionService *)self predictor];
-          predictorType4 = [predictor5 predictorType];
+          predictor4 = [(OSInactivityPredictionService *)self predictor];
+          predictorType2 = [predictor4 predictorType];
           v33 = 138412290;
-          v34 = predictorType4;
+          v34 = predictorType2;
           _os_log_impl(&_mh_execute_header, predictorType, OS_LOG_TYPE_INFO, "Successfully upgraded the model to: %@", &v33, 0xCu);
 
 LABEL_4:
@@ -1041,14 +1031,13 @@ LABEL_23:
 
       else
       {
-LABEL_15:
         v24 = qword_1000B6968;
         if (os_log_type_enabled(qword_1000B6968, OS_LOG_TYPE_INFO))
         {
           v25 = v24;
-          predictorType5 = [v7 predictorType];
+          predictorType3 = [v7 predictorType];
           v33 = 138412290;
-          v34 = predictorType5;
+          v34 = predictorType3;
           _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "New predictor is nil or type remains the same as old model: %@. Upgrade aborted.", &v33, 0xCu);
         }
       }

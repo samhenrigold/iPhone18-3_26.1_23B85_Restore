@@ -52,44 +52,43 @@
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
   selfCopy = self;
-  sub_100072478(sub_100079304, v5);
+  sub_100072478(sub_100079304, v5, v7);
 }
 
 - (void)flushMetrics
 {
   selfCopy = self;
-  sub_100072D90();
+  sub_100072D90(selfCopy, v2, v3);
 }
 
 - (void)createActivityFor:(id)for type:(int64_t)type scheduledDate:(id)date completion:(id)completion
 {
   v10 = sub_100003998(&qword_1000DC5A0, &unk_1000AB0E0);
-  v11 = *(*(v10 - 8) + 64);
   __chkstk_darwin(v10 - 8);
-  v13 = &v21 - v12;
-  v14 = _Block_copy(completion);
-  v15 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v17 = v16;
+  v12 = &v20 - v11;
+  v13 = _Block_copy(completion);
+  v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v16 = v15;
   if (date)
   {
     static Date._unconditionallyBridgeFromObjectiveC(_:)();
-    v18 = type metadata accessor for Date();
-    v19 = 0;
+    v17 = type metadata accessor for Date();
+    v18 = 0;
   }
 
   else
   {
-    v18 = type metadata accessor for Date();
-    v19 = 1;
+    v17 = type metadata accessor for Date();
+    v18 = 1;
   }
 
-  sub_100008E2C(v13, v19, 1, v18);
-  _Block_copy(v14);
+  sub_100008E2C(v12, v18, 1, v17);
+  _Block_copy(v13);
   selfCopy = self;
-  sub_100072E38(v15, v17, type, v13, selfCopy, v14);
-  _Block_release(v14);
+  sub_100072E38(v14, v16, type, v12, selfCopy, v13);
+  _Block_release(v13);
 
-  sub_10000A7A8(v13, &qword_1000DC5A0, &unk_1000AB0E0);
+  sub_10000A7A8(v12, &qword_1000DC5A0, &unk_1000AB0E0);
 }
 
 - (void)liveActivitiesEnabledWithCompletion:(id)completion
@@ -97,7 +96,7 @@
   v4 = _Block_copy(completion);
   _Block_copy(v4);
   selfCopy = self;
-  sub_10007647C(selfCopy, v4);
+  sub_10007647C(selfCopy, v4, v5);
   _Block_release(v4);
 }
 

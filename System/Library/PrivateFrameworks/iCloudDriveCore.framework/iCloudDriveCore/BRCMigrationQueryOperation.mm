@@ -16,18 +16,16 @@
 
 + (id)allMigrationKeysOrdered
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   documentSharesMigrationKey = [self documentSharesMigrationKey];
-  v10[0] = documentSharesMigrationKey;
+  v9[0] = documentSharesMigrationKey;
   folderSharesMigrationKey = [self folderSharesMigrationKey];
-  v10[1] = folderSharesMigrationKey;
+  v9[1] = folderSharesMigrationKey;
   folderShareAliasesMigrationKey = [self folderShareAliasesMigrationKey];
-  v10[2] = folderShareAliasesMigrationKey;
+  v9[2] = folderShareAliasesMigrationKey;
   refetchExistingSharesMigrationKey = [self refetchExistingSharesMigrationKey];
-  v10[3] = refetchExistingSharesMigrationKey;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[3] = refetchExistingSharesMigrationKey;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
 
   return v7;
 }
@@ -65,50 +63,50 @@
 
 - (BOOL)_saveFetchedRecords:(id)records cursor:(id)cursor error:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   cursorCopy = cursor;
   session = [(BRCServerZone *)self->super._serverZone session];
   serverState = [session serverState];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
   v12 = [objc_alloc(MEMORY[0x277CBEB58]) initWithObjects:{self->super._serverZone, 0}];
   serverDB = [session serverDB];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __63__BRCMigrationQueryOperation__saveFetchedRecords_cursor_error___block_invoke;
-  v31[3] = &unk_278504918;
-  v31[4] = self;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __63__BRCMigrationQueryOperation__saveFetchedRecords_cursor_error___block_invoke;
+  v30[3] = &unk_278504918;
+  v30[4] = self;
   v14 = recordsCopy;
-  v32 = v14;
+  v31 = v14;
   v15 = v12;
-  v33 = v15;
+  v32 = v15;
   errorCopy = error;
   v16 = serverState;
-  v34 = v16;
+  v33 = v16;
   v17 = cursorCopy;
-  v35 = v17;
-  v37 = &v39;
+  v34 = v17;
+  v36 = &v38;
   v18 = session;
-  v36 = v18;
-  [serverDB performWithFlags:9 action:v31];
+  v35 = v18;
+  [serverDB performWithFlags:9 action:v30];
 
-  v19 = v40[3];
+  v19 = v39[3];
   if (v19)
   {
     clientDB = [v18 clientDB];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __63__BRCMigrationQueryOperation__saveFetchedRecords_cursor_error___block_invoke_53;
-    v27[3] = &unk_278503AD8;
-    v28 = v15;
-    v29 = v18;
-    v30 = &v39;
-    [clientDB performWithFlags:37 action:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __63__BRCMigrationQueryOperation__saveFetchedRecords_cursor_error___block_invoke_53;
+    v26[3] = &unk_278503AD8;
+    v27 = v15;
+    v28 = v18;
+    v29 = &v38;
+    [clientDB performWithFlags:37 action:v26];
 
-    brc_errorSyncBlocked = v28;
+    brc_errorSyncBlocked = v27;
   }
 
   else
@@ -120,20 +118,20 @@
       v23 = brc_default_log();
       if (os_log_type_enabled(v23, 0x90u))
       {
-        v26 = "(passed to caller)";
+        v25 = "(passed to caller)";
         *buf = 136315906;
-        v44 = "[BRCMigrationQueryOperation _saveFetchedRecords:cursor:error:]";
-        v45 = 2080;
+        v43 = "[BRCMigrationQueryOperation _saveFetchedRecords:cursor:error:]";
+        v44 = 2080;
         if (!error)
         {
-          v26 = "(ignored by caller)";
+          v25 = "(ignored by caller)";
         }
 
-        v46 = v26;
-        v47 = 2112;
-        v48 = brc_errorSyncBlocked;
-        v49 = 2112;
-        v50 = v22;
+        v45 = v25;
+        v46 = 2112;
+        v47 = brc_errorSyncBlocked;
+        v48 = 2112;
+        v49 = v22;
         _os_log_error_impl(&dword_223E7A000, v23, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -144,21 +142,20 @@
     }
   }
 
-  _Block_object_dispose(&v39, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v38, 8);
   return v19 != 0;
 }
 
 uint64_t __63__BRCMigrationQueryOperation__saveFetchedRecords_cursor_error___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   v3 = *(*(a1 + 32) + 504);
   v4 = *(a1 + 48);
-  v28 = 0;
-  v5 = [v3 saveQueryRecords:v2 zonesNeedingAllocRanks:v4 error:&v28];
-  v6 = v28;
-  v7 = v28;
+  v27 = 0;
+  v5 = [v3 saveQueryRecords:v2 zonesNeedingAllocRanks:v4 error:&v27];
+  v6 = v27;
+  v7 = v27;
   v8 = v7;
   if ((v5 & 1) == 0)
   {
@@ -169,21 +166,21 @@ uint64_t __63__BRCMigrationQueryOperation__saveFetchedRecords_cursor_error___blo
       v18 = brc_default_log();
       if (os_log_type_enabled(v18, 0x90u))
       {
-        v22 = "(passed to caller)";
-        v23 = *(a1 + 88);
+        v21 = "(passed to caller)";
+        v22 = *(a1 + 88);
         *buf = 136315906;
-        v31 = "[BRCMigrationQueryOperation _saveFetchedRecords:cursor:error:]_block_invoke";
-        if (!v23)
+        v30 = "[BRCMigrationQueryOperation _saveFetchedRecords:cursor:error:]_block_invoke";
+        if (!v22)
         {
-          v22 = "(ignored by caller)";
+          v21 = "(ignored by caller)";
         }
 
-        v32 = 2080;
-        v33 = v22;
-        v34 = 2112;
-        v35 = v11;
-        v36 = 2112;
-        v37 = v17;
+        v31 = 2080;
+        v32 = v21;
+        v33 = 2112;
+        v34 = v11;
+        v35 = 2112;
+        v36 = v17;
         _os_log_error_impl(&dword_223E7A000, v18, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -203,33 +200,33 @@ LABEL_16:
   v10 = [*(*(a1 + 32) + 504) mangledID];
   [v9 migrationQueryForMangledID:v10 key:*(*(a1 + 32) + 520) didUpdateWithCursor:*(a1 + 64)];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v11 = *(a1 + 48);
-  v12 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v25;
+    v14 = *v24;
 LABEL_4:
     v15 = 0;
     while (1)
     {
-      if (*v25 != v14)
+      if (*v24 != v14)
       {
         objc_enumerationMutation(v11);
       }
 
-      if (![*(*(&v24 + 1) + 8 * v15) allocateRanksWhenCaughtUp:{0, v24}])
+      if (![*(*(&v23 + 1) + 8 * v15) allocateRanksWhenCaughtUp:{0, v23}])
       {
         goto LABEL_16;
       }
 
       if (v13 == ++v15)
       {
-        v13 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
         if (v13)
         {
           goto LABEL_4;
@@ -245,34 +242,33 @@ LABEL_4:
   v16 = [v11 saveServerZone:*(*(a1 + 32) + 504)];
 LABEL_17:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 uint64_t __63__BRCMigrationQueryOperation__saveFetchedRecords_cursor_error___block_invoke_53(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * v6);
+        v7 = *(*(&v10 + 1) + 8 * v6);
         v8 = [*(a1 + 40) applyScheduler];
         [v8 generatedRanksForZone:v7 upToRank:*(*(*(a1 + 48) + 8) + 24)];
 
@@ -280,20 +276,19 @@ uint64_t __63__BRCMigrationQueryOperation__saveFetchedRecords_cursor_error___blo
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)_updatedContinuationCursor:(id)cursor parentOperation:(id)operation fetchedRecords:(id)records alreadyOnServerTruth:(BOOL)truth reply:(id)reply
 {
   truthCopy = truth;
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   cursorCopy = cursor;
   objc_initWeak(&location, operation);
   recordsCopy = records;
@@ -306,40 +301,40 @@ uint64_t __63__BRCMigrationQueryOperation__saveFetchedRecords_cursor_error___blo
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     zoneName = [(BRCServerZone *)self->super._serverZone zoneName];
-    v25 = prettyPrintMigrationCursor(self->_continuationCursor);
-    v26 = prettyPrintMigrationCursor(cursorCopy);
+    v24 = prettyPrintMigrationCursor(self->_continuationCursor);
+    v25 = prettyPrintMigrationCursor(cursorCopy);
     *buf = 138413058;
-    v44 = zoneName;
-    v45 = 2112;
-    v46 = v25;
-    v47 = 2112;
-    v27 = v26;
-    v48 = v26;
-    v49 = 2112;
-    v50 = v17;
+    v43 = zoneName;
+    v44 = 2112;
+    v45 = v24;
+    v46 = 2112;
+    v26 = v25;
+    v47 = v25;
+    v48 = 2112;
+    v49 = v17;
     _os_log_debug_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] share-query for zone %@ progressed from cursor:%@ to cursor:%@%@", buf, 0x2Au);
   }
 
   if ([(NSMutableArray *)self->_shareIDsToFetch count])
   {
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __115__BRCMigrationQueryOperation__updatedContinuationCursor_parentOperation_fetchedRecords_alreadyOnServerTruth_reply___block_invoke_2;
-    v35[3] = &unk_2785014D0;
-    v35[4] = self;
-    v36 = replyCopy;
-    v19 = MEMORY[0x22AA4A310](v35);
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __115__BRCMigrationQueryOperation__updatedContinuationCursor_parentOperation_fetchedRecords_alreadyOnServerTruth_reply___block_invoke_2;
+    v34[3] = &unk_2785014D0;
+    v34[4] = self;
+    v35 = replyCopy;
+    v19 = MEMORY[0x22AA4A310](v34);
     v20 = [objc_alloc(MEMORY[0x277CBC3E0]) initWithRecordIDs:self->_shareIDsToFetch];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __115__BRCMigrationQueryOperation__updatedContinuationCursor_parentOperation_fetchedRecords_alreadyOnServerTruth_reply___block_invoke_3;
-    v30[3] = &unk_278504968;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __115__BRCMigrationQueryOperation__updatedContinuationCursor_parentOperation_fetchedRecords_alreadyOnServerTruth_reply___block_invoke_3;
+    v29[3] = &unk_278504968;
     v21 = v19;
-    v34 = v21;
-    v31 = recordsCopy;
+    v33 = v21;
+    v30 = recordsCopy;
     selfCopy = self;
-    v33 = cursorCopy;
-    [v20 setFetchRecordsCompletionBlock:v30];
+    v32 = cursorCopy;
+    [v20 setFetchRecordsCompletionBlock:v29];
     v22 = objc_loadWeakRetained(&location);
     [(_BRCOperation *)self addSubOperation:v20 asCompletionOf:v22];
   }
@@ -347,21 +342,20 @@ uint64_t __63__BRCMigrationQueryOperation__saveFetchedRecords_cursor_error___blo
   else
   {
     serverDB = [session serverDB];
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __115__BRCMigrationQueryOperation__updatedContinuationCursor_parentOperation_fetchedRecords_alreadyOnServerTruth_reply___block_invoke;
-    v37[3] = &unk_278504940;
-    v38 = serverState;
-    v39 = v15;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __115__BRCMigrationQueryOperation__updatedContinuationCursor_parentOperation_fetchedRecords_alreadyOnServerTruth_reply___block_invoke;
+    v36[3] = &unk_278504940;
+    v37 = serverState;
+    v38 = v15;
     selfCopy2 = self;
-    v41 = cursorCopy;
-    [serverDB performWithFlags:!truthCopy action:v37];
+    v40 = cursorCopy;
+    [serverDB performWithFlags:!truthCopy action:v36];
 
     (*(replyCopy + 2))(replyCopy, 0);
   }
 
   objc_destroyWeak(&location);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __115__BRCMigrationQueryOperation__updatedContinuationCursor_parentOperation_fetchedRecords_alreadyOnServerTruth_reply___block_invoke(uint64_t a1)
@@ -385,29 +379,28 @@ void __115__BRCMigrationQueryOperation__updatedContinuationCursor_parentOperatio
 {
   if (a3)
   {
-    v4 = *(a1 + 56);
-    v5 = *(*(a1 + 56) + 16);
+    v4 = *(*(a1 + 56) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
     if (*(a1 + 32))
     {
-      v6 = *(a1 + 32);
+      v5 = *(a1 + 32);
     }
 
     else
     {
-      v6 = MEMORY[0x277CBEBF8];
+      v5 = MEMORY[0x277CBEBF8];
     }
 
-    v7 = [a2 allValues];
-    v8 = [v6 arrayByAddingObjectsFromArray:v7];
+    v6 = [a2 allValues];
+    v7 = [v5 arrayByAddingObjectsFromArray:v6];
 
-    if (([*(a1 + 40) _saveFetchedRecords:v8 cursor:*(a1 + 48) error:&v9] & 1) == 0)
+    if (([*(a1 + 40) _saveFetchedRecords:v7 cursor:*(a1 + 48) error:&v8] & 1) == 0)
     {
       (*(*(a1 + 56) + 16))();
     }
@@ -418,7 +411,7 @@ void __115__BRCMigrationQueryOperation__updatedContinuationCursor_parentOperatio
 
 - (void)__performQuery:(id)query recordFetchedBlock:(id)block cursorUpdatedBlock:(id)updatedBlock desiredKeys:(id)keys asContinuationOf:(id)of completion:(id)completion
 {
-  v60[2] = *MEMORY[0x277D85DE8];
+  v59[2] = *MEMORY[0x277D85DE8];
   queryCopy = query;
   blockCopy = block;
   updatedBlockCopy = updatedBlock;
@@ -429,22 +422,22 @@ void __115__BRCMigrationQueryOperation__updatedContinuationCursor_parentOperatio
   v17 = [BRCUserDefaults defaultsForMangledID:mangledID];
 
   maxRecordCountInQuerySharedRecordsOperation = [v17 maxRecordCountInQuerySharedRecordsOperation];
-  memset(v54, 0, sizeof(v54));
-  __brc_create_section(0, "[BRCMigrationQueryOperation __performQuery:recordFetchedBlock:cursorUpdatedBlock:desiredKeys:asContinuationOf:completion:]", 255, 0, v54);
+  memset(v53, 0, sizeof(v53));
+  __brc_create_section(0, "[BRCMigrationQueryOperation __performQuery:recordFetchedBlock:cursorUpdatedBlock:desiredKeys:asContinuationOf:completion:]", 255, 0, v53);
   v19 = brc_bread_crumbs();
   v20 = brc_default_log();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    v35 = v54[0];
+    v34 = v53[0];
     zoneName = [(BRCServerZone *)self->super._serverZone zoneName];
     *buf = 134218754;
-    v56 = v35;
-    v57 = 2112;
-    v58 = zoneName;
-    v59 = 1024;
-    LODWORD(v60[0]) = maxRecordCountInQuerySharedRecordsOperation;
-    WORD2(v60[0]) = 2112;
-    *(v60 + 6) = v19;
+    v55 = v34;
+    v56 = 2112;
+    v57 = zoneName;
+    v58 = 1024;
+    LODWORD(v59[0]) = maxRecordCountInQuerySharedRecordsOperation;
+    WORD2(v59[0]) = 2112;
+    *(v59 + 6) = v19;
     _os_log_debug_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx query for %@ starting with batchSize:%u%@", buf, 0x26u);
   }
 
@@ -461,12 +454,12 @@ void __115__BRCMigrationQueryOperation__updatedContinuationCursor_parentOperatio
       operationID = [v23 operationID];
       v26 = prettyPrintMigrationCursor(self->_continuationCursor);
       *buf = 138412802;
-      v56 = operationID;
-      v57 = 2112;
-      v38 = v26;
-      v58 = v26;
-      v59 = 2112;
-      v60[0] = v24;
+      v55 = operationID;
+      v56 = 2112;
+      v37 = v26;
+      v57 = v26;
+      v58 = 2112;
+      v59[0] = v24;
       _os_log_debug_impl(&dword_223E7A000, v25, OS_LOG_TYPE_DEBUG, "[DEBUG] created query %@ from cursor:%@%@", buf, 0x20u);
     }
   }
@@ -480,11 +473,11 @@ void __115__BRCMigrationQueryOperation__updatedContinuationCursor_parentOperatio
     {
       operationID2 = [v23 operationID];
       *buf = 138412802;
-      v56 = operationID2;
-      v57 = 2112;
-      v58 = queryCopy;
-      v59 = 2112;
-      v60[0] = v24;
+      v55 = operationID2;
+      v56 = 2112;
+      v57 = queryCopy;
+      v58 = 2112;
+      v59[0] = v24;
       _os_log_debug_impl(&dword_223E7A000, v25, OS_LOG_TYPE_DEBUG, "[DEBUG] created query %@ from query:%@%@", buf, 0x20u);
     }
   }
@@ -495,35 +488,34 @@ void __115__BRCMigrationQueryOperation__updatedContinuationCursor_parentOperatio
   [v23 setZoneID:zoneID];
 
   [v23 setShouldFetchAssetContent:0];
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __123__BRCMigrationQueryOperation___performQuery_recordFetchedBlock_cursorUpdatedBlock_desiredKeys_asContinuationOf_completion___block_invoke;
-  v51[3] = &unk_278504990;
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __123__BRCMigrationQueryOperation___performQuery_recordFetchedBlock_cursorUpdatedBlock_desiredKeys_asContinuationOf_completion___block_invoke;
+  v50[3] = &unk_278504990;
   v28 = blockCopy;
-  v52 = v28;
-  v53 = v23;
-  [v23 setRecordMatchedBlock:v51];
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __123__BRCMigrationQueryOperation___performQuery_recordFetchedBlock_cursorUpdatedBlock_desiredKeys_asContinuationOf_completion___block_invoke_2;
-  v44[3] = &unk_2785049E0;
-  v50 = v23;
-  v44[4] = self;
+  v51 = v28;
+  v52 = v23;
+  [v23 setRecordMatchedBlock:v50];
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __123__BRCMigrationQueryOperation___performQuery_recordFetchedBlock_cursorUpdatedBlock_desiredKeys_asContinuationOf_completion___block_invoke_2;
+  v43[3] = &unk_2785049E0;
+  v49 = v23;
+  v43[4] = self;
   v29 = completionCopy;
-  v47 = v29;
+  v46 = v29;
   v30 = updatedBlockCopy;
-  v48 = v30;
+  v47 = v30;
   v31 = queryCopy;
-  v45 = v31;
+  v44 = v31;
   v32 = v28;
-  v49 = v32;
+  v48 = v32;
   v33 = keysCopy;
-  v46 = v33;
-  [v23 setQueryCompletionBlock:v44];
+  v45 = v33;
+  [v23 setQueryCompletionBlock:v43];
   [(_BRCOperation *)self addSubOperation:v23 asCompletionOf:ofCopy];
 
-  __brc_leave_section(v54);
-  v34 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v53);
 }
 
 uint64_t __123__BRCMigrationQueryOperation___performQuery_recordFetchedBlock_cursorUpdatedBlock_desiredKeys_asContinuationOf_completion___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
@@ -538,26 +530,26 @@ uint64_t __123__BRCMigrationQueryOperation___performQuery_recordFetchedBlock_cur
 
 void __123__BRCMigrationQueryOperation___performQuery_recordFetchedBlock_cursorUpdatedBlock_desiredKeys_asContinuationOf_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  memset(v28, 0, sizeof(v28));
-  __brc_create_section(0, "[BRCMigrationQueryOperation __performQuery:recordFetchedBlock:cursorUpdatedBlock:desiredKeys:asContinuationOf:completion:]_block_invoke_2", 279, 0, v28);
+  memset(v25, 0, sizeof(v25));
+  __brc_create_section(0, "[BRCMigrationQueryOperation __performQuery:recordFetchedBlock:cursorUpdatedBlock:desiredKeys:asContinuationOf:completion:]_block_invoke_2", 279, 0, v25);
   v7 = brc_bread_crumbs();
   v8 = brc_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v20 = *(a1 + 80);
+    v17 = *(a1 + 80);
     *buf = 134219010;
-    v30 = v28[0];
-    v31 = 2112;
-    v32 = v20;
-    v33 = 2112;
-    v34 = v6;
-    v35 = 2112;
-    v36 = v5;
-    v37 = 2112;
-    v38 = v7;
+    v27 = v25[0];
+    v28 = 2112;
+    v29 = v17;
+    v30 = 2112;
+    v31 = v6;
+    v32 = 2112;
+    v33 = v5;
+    v34 = 2112;
+    v35 = v7;
     _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx handling result of %@: error: %@, cursor: %@%@", buf, 0x34u);
   }
 
@@ -568,8 +560,6 @@ void __123__BRCMigrationQueryOperation___performQuery_recordFetchedBlock_cursorU
 
   if (!v5 || v6)
   {
-    v17 = *(a1 + 32);
-    v18 = *(a1 + 80);
     (*(*(a1 + 56) + 16))();
   }
 
@@ -577,26 +567,24 @@ void __123__BRCMigrationQueryOperation___performQuery_recordFetchedBlock_cursorU
   {
     v12 = *(a1 + 64);
     v13 = *(a1 + 80);
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __123__BRCMigrationQueryOperation___performQuery_recordFetchedBlock_cursorUpdatedBlock_desiredKeys_asContinuationOf_completion___block_invoke_63;
-    v21[3] = &unk_2785049B8;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __123__BRCMigrationQueryOperation___performQuery_recordFetchedBlock_cursorUpdatedBlock_desiredKeys_asContinuationOf_completion___block_invoke_63;
+    v18[3] = &unk_2785049B8;
     v14 = *(a1 + 40);
-    v21[4] = *(a1 + 32);
-    v22 = v14;
-    v24 = *(a1 + 72);
-    v25 = *(a1 + 64);
+    v18[4] = *(a1 + 32);
+    v19 = v14;
+    v21 = *(a1 + 72);
+    v22 = *(a1 + 64);
     v15 = *(a1 + 48);
     v16 = *(a1 + 80);
-    v23 = v15;
-    v27 = v16;
-    v26 = *(a1 + 56);
-    (*(v12 + 16))(v12, v13, v5, v21);
+    v20 = v15;
+    v24 = v16;
+    v23 = *(a1 + 56);
+    (*(v12 + 16))(v12, v13, v5, v18);
   }
 
-  __brc_leave_section(v28);
-
-  v19 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v25);
 }
 
 uint64_t __123__BRCMigrationQueryOperation___performQuery_recordFetchedBlock_cursorUpdatedBlock_desiredKeys_asContinuationOf_completion___block_invoke_63(uint64_t a1, uint64_t a2)
@@ -750,29 +738,28 @@ void __66__BRCMigrationQueryOperation__performAfterFetchingNextShareBatch___bloc
 
 void __81__BRCMigrationQueryOperation__performAfterQueryingForShareAliasesWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = brc_bread_crumbs();
   v8 = brc_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = [v6 recordID];
-    v11 = [v6 etag];
-    v12 = [v5 operationID];
-    v13 = 138413058;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v11;
-    v17 = 2112;
-    v18 = v12;
-    v19 = 2112;
-    v20 = v7;
-    _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] fetched share alias record %@ with etag:%@ in query %@%@", &v13, 0x2Au);
+    v9 = [v6 recordID];
+    v10 = [v6 etag];
+    v11 = [v5 operationID];
+    v12 = 138413058;
+    v13 = v9;
+    v14 = 2112;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v11;
+    v18 = 2112;
+    v19 = v7;
+    _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] fetched share alias record %@ with etag:%@ in query %@%@", &v12, 0x2Au);
   }
 
   [*(a1 + 32) addObject:v6];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __81__BRCMigrationQueryOperation__performAfterQueryingForShareAliasesWithCompletion___block_invoke_88(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -863,7 +850,7 @@ void __81__BRCMigrationQueryOperation__performAfterQueryingForShareAliasesWithCo
 
 void __83__BRCMigrationQueryOperation__performAfterQueryingForShareIDsOfFolders_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v6 recordID];
@@ -878,18 +865,18 @@ void __83__BRCMigrationQueryOperation__performAfterQueryingForShareIDsOfFolders_
     v12 = brc_default_log();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v18 = [v6 recordID];
-      v19 = [v6 etag];
-      v20 = [v5 operationID];
-      v22 = 138413058;
-      v23 = v18;
-      v24 = 2112;
-      v25 = v19;
-      v26 = 2112;
-      v27 = v20;
-      v28 = 2112;
-      v29 = v11;
-      _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] fetched shared record %@ with etag:%@ in query %@%@", &v22, 0x2Au);
+      v17 = [v6 recordID];
+      v18 = [v6 etag];
+      v19 = [v5 operationID];
+      v21 = 138413058;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v18;
+      v25 = 2112;
+      v26 = v19;
+      v27 = 2112;
+      v28 = v11;
+      _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] fetched shared record %@ with etag:%@ in query %@%@", &v21, 0x2Au);
     }
 
     v13 = objc_alloc(MEMORY[0x277CBC5D0]);
@@ -905,18 +892,16 @@ void __83__BRCMigrationQueryOperation__performAfterQueryingForShareIDsOfFolders_
     v16 = brc_default_log();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      v21 = [v5 operationID];
-      v22 = 138412802;
-      v23 = v7;
-      v24 = 2112;
-      v25 = v21;
-      v26 = 2112;
-      v27 = v15;
-      _os_log_fault_impl(&dword_223E7A000, v16, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: unable to parse itemID from %@ in query %@%@", &v22, 0x20u);
+      v20 = [v5 operationID];
+      v21 = 138412802;
+      v22 = v7;
+      v23 = 2112;
+      v24 = v20;
+      v25 = 2112;
+      v26 = v15;
+      _os_log_fault_impl(&dword_223E7A000, v16, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: unable to parse itemID from %@ in query %@%@", &v21, 0x20u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __83__BRCMigrationQueryOperation__performAfterQueryingForShareIDsOfFolders_completion___block_invoke_95(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1022,26 +1007,26 @@ uint64_t __83__BRCMigrationQueryOperation__performAfterQueryingForShareIDsOfFold
 
 - (void)finishWithResult:(id)result error:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
-  memset(v19, 0, sizeof(v19));
-  __brc_create_section(0, "[BRCMigrationQueryOperation finishWithResult:error:]", 462, 0, v19);
+  memset(v18, 0, sizeof(v18));
+  __brc_create_section(0, "[BRCMigrationQueryOperation finishWithResult:error:]", 462, 0, v18);
   v8 = brc_bread_crumbs();
   v9 = brc_default_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v14 = v19[0];
+    v13 = v18[0];
     migrationKey = self->_migrationKey;
     operationID = [(_BRCOperation *)self operationID];
     *buf = 134218754;
-    v21 = v14;
-    v22 = 2112;
-    v23 = migrationKey;
-    v24 = 2112;
-    v25 = operationID;
-    v26 = 2112;
-    v27 = v8;
+    v20 = v13;
+    v21 = 2112;
+    v22 = migrationKey;
+    v23 = 2112;
+    v24 = operationID;
+    v25 = 2112;
+    v26 = v8;
     _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx migration-query '%@' %@ completed%@", buf, 0x2Au);
   }
 
@@ -1064,12 +1049,10 @@ uint64_t __83__BRCMigrationQueryOperation__performAfterQueryingForShareIDsOfFold
     dispatch_sync(serialQueue, block);
   }
 
-  v17.receiver = self;
-  v17.super_class = BRCMigrationQueryOperation;
-  [(BRCSyncDownOperation *)&v17 finishWithResult:0 error:errorCopy];
-  __brc_leave_section(v19);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = BRCMigrationQueryOperation;
+  [(BRCSyncDownOperation *)&v16 finishWithResult:0 error:errorCopy];
+  __brc_leave_section(v18);
 }
 
 void __53__BRCMigrationQueryOperation_finishWithResult_error___block_invoke(uint64_t a1)

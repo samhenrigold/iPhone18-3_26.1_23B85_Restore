@@ -25,144 +25,98 @@
 
 + (id)forDeviceConfig:(id)config withManager:(id)manager
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   configCopy = config;
   managerCopy = manager;
   asdtFactorySubclass = [configCopy asdtFactorySubclass];
-  if (([(objc_class *)asdtFactorySubclass isSubclassOfClass:objc_opt_class()]& 1) != 0)
+  v8 = [asdtFactorySubclass isSubclassOfClass:objc_opt_class()];
+  if (v8)
   {
-    v8 = [[asdtFactorySubclass alloc] initForDeviceConfig:configCopy withManager:managerCopy];
+    v10 = [[asdtFactorySubclass alloc] initForDeviceConfig:configCopy withManager:managerCopy];
   }
 
   else
   {
-    v9 = ASDTBaseLogType();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = ASDTBaseLogType(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v10 = [configCopy objectForKeyedSubscript:@"FactorySubclass"];
-      v11 = [configCopy objectForKeyedSubscript:@"Subclass"];
-      [(ASDTAudioDeviceFactory *)v10 forDeviceConfig:v11 withManager:v14, v9];
+      v12 = [configCopy objectForKeyedSubscript:@"FactorySubclass"];
+      v13 = [configCopy objectForKeyedSubscript:@"Subclass"];
+      [(ASDTAudioDeviceFactory *)v12 forDeviceConfig:v13 withManager:v15, v11];
     }
 
-    v8 = 0;
+    v10 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v10;
 }
 
 - (id)initForDeviceConfig:(id)config withManager:(id)manager
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   configCopy = config;
   managerCopy = manager;
   asdtDeviceUID = [configCopy asdtDeviceUID];
-  v10 = asdtDeviceUID;
+  v11 = asdtDeviceUID;
   if (!managerCopy || !configCopy || !asdtDeviceUID)
   {
-    v11 = ASDTBaseLogType();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = ASDTBaseLogType(asdtDeviceUID, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [ASDTAudioDeviceFactory initForDeviceConfig:v11 withManager:?];
+      [ASDTAudioDeviceFactory initForDeviceConfig:v12 withManager:?];
     }
 
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"ASDTAudioDeviceFactory.mm" lineNumber:68 description:@"Bad arguments."];
   }
 
-  v24.receiver = self;
-  v24.super_class = ASDTAudioDeviceFactory;
-  v13 = [(ASDTAudioDeviceFactory *)&v24 init];
-  v14 = v13;
-  if (v13)
+  v25.receiver = self;
+  v25.super_class = ASDTAudioDeviceFactory;
+  v14 = [(ASDTAudioDeviceFactory *)&v25 init];
+  if (v14)
   {
-    ASDTTime::machAbsoluteTime(v13, buf);
-    *&v14->_initTime.nsec = *buf;
-    *&v14->_initTime.hostFrac = *&buf[16];
-    [(ASDTAudioDeviceFactory *)v14 setDeviceUID:v10];
-    [(ASDTAudioDeviceFactory *)v14 setConfig:configCopy];
-    [(ASDTAudioDeviceFactory *)v14 setManager:managerCopy];
-    config = [(ASDTAudioDeviceFactory *)v14 config];
+    ASDTTime::machAbsoluteTime(buf);
+    *(v14 + 72) = *buf;
+    *(v14 + 11) = *&buf[16];
+    [v14 setDeviceUID:v11];
+    [v14 setConfig:configCopy];
+    [v14 setManager:managerCopy];
+    config = [v14 config];
     asdtUnderlyingDeviceUID = [config asdtUnderlyingDeviceUID];
-    [(ASDTAudioDeviceFactory *)v14 setUnderlyingDeviceUID:asdtUnderlyingDeviceUID];
+    [v14 setUnderlyingDeviceUID:asdtUnderlyingDeviceUID];
 
     underlyingDeviceUIDs = [managerCopy underlyingDeviceUIDs];
-    -[ASDTAudioDeviceFactory setDeviceIsUnderlying:](v14, "setDeviceIsUnderlying:", [underlyingDeviceUIDs containsObject:v10]);
+    [v14 setDeviceIsUnderlying:{objc_msgSend(underlyingDeviceUIDs, "containsObject:", v11)}];
 
-    underlyingDeviceUID = [(ASDTAudioDeviceFactory *)v14 underlyingDeviceUID];
+    underlyingDeviceUID = [v14 underlyingDeviceUID];
     LOBYTE(asdtUnderlyingDeviceUID) = underlyingDeviceUID == 0;
 
     if ((asdtUnderlyingDeviceUID & 1) == 0)
     {
-      v19 = ASDTBaseLogType();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v21 = ASDTBaseLogType(v19, v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        deviceUID = [(ASDTAudioDeviceFactory *)v14 deviceUID];
-        underlyingDeviceUID2 = [(ASDTAudioDeviceFactory *)v14 underlyingDeviceUID];
+        deviceUID = [v14 deviceUID];
+        underlyingDeviceUID2 = [v14 underlyingDeviceUID];
         *buf = 138412546;
         *&buf[4] = deviceUID;
         *&buf[12] = 2112;
         *&buf[14] = underlyingDeviceUID2;
-        _os_log_impl(&dword_241659000, v19, OS_LOG_TYPE_DEFAULT, "%@: Requires underling device with UID: %@", buf, 0x16u);
+        _os_log_impl(&dword_241659000, v21, OS_LOG_TYPE_DEFAULT, "%@: Requires underling device with UID: %@", buf, 0x16u);
       }
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  ioServiceDependencies = [(ASDTAudioDeviceFactory *)self ioServiceDependencies];
-  v4 = [ioServiceDependencies countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v4)
-  {
-    v5 = *v11;
-    do
-    {
-      v6 = 0;
-      do
-      {
-        if (*v11 != v5)
-        {
-          objc_enumerationMutation(ioServiceDependencies);
-        }
-
-        ioServiceManager = [*(*(&v10 + 1) + 8 * v6) ioServiceManager];
-        [ioServiceManager removeDelegate:self];
-
-        ++v6;
-      }
-
-      while (v4 != v6);
-      v4 = [ioServiceDependencies countByEnumeratingWithState:&v10 objects:v14 count:16];
-    }
-
-    while (v4);
-  }
-
-  v9.receiver = self;
-  v9.super_class = ASDTAudioDeviceFactory;
-  [(ASDTAudioDeviceFactory *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cleanup
-{
   v14 = *MEMORY[0x277D85DE8];
-  [(ASDTAudioDeviceFactory *)self setManager:0];
-  [(ASDTAudioDeviceFactory *)self setDevice:0];
-  v11 = 0u;
-  v12 = 0u;
   v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   ioServiceDependencies = [(ASDTAudioDeviceFactory *)self ioServiceDependencies];
   v4 = [ioServiceDependencies countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
@@ -191,13 +145,54 @@
     while (v4);
   }
 
+  v8.receiver = self;
+  v8.super_class = ASDTAudioDeviceFactory;
+  [(ASDTAudioDeviceFactory *)&v8 dealloc];
+}
+
+- (void)cleanup
+{
+  v13 = *MEMORY[0x277D85DE8];
+  [(ASDTAudioDeviceFactory *)self setManager:0];
+  [(ASDTAudioDeviceFactory *)self setDevice:0];
+  v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  ioServiceDependencies = [(ASDTAudioDeviceFactory *)self ioServiceDependencies];
+  v4 = [ioServiceDependencies countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v4)
+  {
+    v5 = *v9;
+    do
+    {
+      v6 = 0;
+      do
+      {
+        if (*v9 != v5)
+        {
+          objc_enumerationMutation(ioServiceDependencies);
+        }
+
+        ioServiceManager = [*(*(&v8 + 1) + 8 * v6) ioServiceManager];
+        [ioServiceManager removeDelegate:self];
+
+        ++v6;
+      }
+
+      while (v4 != v6);
+      v4 = [ioServiceDependencies countByEnumeratingWithState:&v8 objects:v12 count:16];
+    }
+
+    while (v4);
+  }
+
   [(ASDTAudioDeviceFactory *)self setIoServiceDependencies:0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)checkIOServiceDependencies
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   if (![(ASDTAudioDeviceFactory *)self ioServiceDependenciesDiscovered])
   {
     v3 = objc_opt_class();
@@ -215,166 +210,162 @@
       ioServiceDependencies2 = [(ASDTAudioDeviceFactory *)self ioServiceDependencies];
       v10 = [v8 setWithCapacity:{objc_msgSend(ioServiceDependencies2, "count")}];
 
-      v46 = 0u;
       v47 = 0u;
-      v44 = 0u;
+      v48 = 0u;
       v45 = 0u;
+      v46 = 0u;
       ioServiceDependencies3 = [(ASDTAudioDeviceFactory *)self ioServiceDependencies];
-      v12 = [ioServiceDependencies3 countByEnumeratingWithState:&v44 objects:v54 count:16];
+      v12 = [ioServiceDependencies3 countByEnumeratingWithState:&v45 objects:v55 count:16];
       if (v12)
       {
-        v13 = *v45;
+        v13 = *v46;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v45 != v13)
+            if (*v46 != v13)
             {
               objc_enumerationMutation(ioServiceDependencies3);
             }
 
-            v15 = [*(*(&v44 + 1) + 8 * i) description];
+            v15 = [*(*(&v45 + 1) + 8 * i) description];
             [v10 addObject:v15];
           }
 
-          v12 = [ioServiceDependencies3 countByEnumeratingWithState:&v44 objects:v54 count:16];
+          v12 = [ioServiceDependencies3 countByEnumeratingWithState:&v45 objects:v55 count:16];
         }
 
         while (v12);
       }
 
-      v16 = ASDTBaseLogType();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = ASDTBaseLogType(v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         deviceUID = [(ASDTAudioDeviceFactory *)self deviceUID];
         *buf = 138412546;
-        v51 = deviceUID;
-        v52 = 2112;
-        v53 = v10;
-        _os_log_impl(&dword_241659000, v16, OS_LOG_TYPE_DEFAULT, "%@: Dependent on IOServices: %@", buf, 0x16u);
+        v52 = deviceUID;
+        v53 = 2112;
+        v54 = v10;
+        _os_log_impl(&dword_241659000, v18, OS_LOG_TYPE_DEFAULT, "%@: Dependent on IOServices: %@", buf, 0x16u);
       }
     }
   }
 
   ioServiceDependencies4 = [(ASDTAudioDeviceFactory *)self ioServiceDependencies];
-  v19 = [ioServiceDependencies4 count] == 0;
+  v21 = [ioServiceDependencies4 count] == 0;
 
-  if (v19)
+  if (v21)
   {
-    v33 = 1;
+    return 1;
   }
 
-  else
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  ioServiceDependencies5 = [(ASDTAudioDeviceFactory *)self ioServiceDependencies];
+  v23 = [ioServiceDependencies5 countByEnumeratingWithState:&v41 objects:v50 count:16];
+  if (v23)
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    ioServiceDependencies5 = [(ASDTAudioDeviceFactory *)self ioServiceDependencies];
-    v21 = [ioServiceDependencies5 countByEnumeratingWithState:&v40 objects:v49 count:16];
-    if (v21)
+    v24 = *v42;
+    do
     {
-      v22 = *v41;
-      do
+      for (j = 0; j != v23; ++j)
       {
-        for (j = 0; j != v21; ++j)
+        if (*v42 != v24)
         {
-          if (*v41 != v22)
-          {
-            objc_enumerationMutation(ioServiceDependencies5);
-          }
-
-          v24 = *(*(&v40 + 1) + 8 * j);
-          ioServiceManager = [v24 ioServiceManager];
-          v26 = ioServiceManager == 0;
-
-          if (v26)
-          {
-            [v24 addManagerDelegate:self];
-          }
+          objc_enumerationMutation(ioServiceDependencies5);
         }
 
-        v21 = [ioServiceDependencies5 countByEnumeratingWithState:&v40 objects:v49 count:16];
-      }
+        v26 = *(*(&v41 + 1) + 8 * j);
+        ioServiceManager = [v26 ioServiceManager];
+        v28 = ioServiceManager == 0;
 
-      while (v21);
-    }
-
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    ioServiceDependencies6 = [(ASDTAudioDeviceFactory *)self ioServiceDependencies];
-    v28 = [ioServiceDependencies6 countByEnumeratingWithState:&v36 objects:v48 count:16];
-    if (v28)
-    {
-      v29 = *v37;
-      while (2)
-      {
-        for (k = 0; k != v28; ++k)
-        {
-          if (*v37 != v29)
-          {
-            objc_enumerationMutation(ioServiceDependencies6);
-          }
-
-          ioService = [*(*(&v36 + 1) + 8 * k) ioService];
-          v32 = ioService == 0;
-
-          if (v32)
-          {
-            v33 = 0;
-            goto LABEL_33;
-          }
-        }
-
-        v28 = [ioServiceDependencies6 countByEnumeratingWithState:&v36 objects:v48 count:16];
         if (v28)
         {
-          continue;
+          [v26 addManagerDelegate:self];
         }
-
-        break;
       }
+
+      v23 = [ioServiceDependencies5 countByEnumeratingWithState:&v41 objects:v50 count:16];
     }
 
-    v33 = 1;
-LABEL_33:
+    while (v23);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
-  return v33;
+  v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  ioServiceDependencies6 = [(ASDTAudioDeviceFactory *)self ioServiceDependencies];
+  v30 = [ioServiceDependencies6 countByEnumeratingWithState:&v37 objects:v49 count:16];
+  if (v30)
+  {
+    v31 = *v38;
+    while (2)
+    {
+      for (k = 0; k != v30; ++k)
+      {
+        if (*v38 != v31)
+        {
+          objc_enumerationMutation(ioServiceDependencies6);
+        }
+
+        ioService = [*(*(&v37 + 1) + 8 * k) ioService];
+        v34 = ioService == 0;
+
+        if (v34)
+        {
+          v35 = 0;
+          goto LABEL_33;
+        }
+      }
+
+      v30 = [ioServiceDependencies6 countByEnumeratingWithState:&v37 objects:v49 count:16];
+      if (v30)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v35 = 1;
+LABEL_33:
+
+  return v35;
 }
 
 - (void)ioServiceAvailable:(id)available withManager:(id)manager
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   availableCopy = available;
   managerCopy = manager;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   ioServiceDependencies = [(ASDTAudioDeviceFactory *)self ioServiceDependencies];
-  v9 = [ioServiceDependencies countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [ioServiceDependencies countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(ioServiceDependencies);
         }
 
-        [*(*(&v14 + 1) + 8 * v11++) ioServiceAvailable:availableCopy withManager:managerCopy];
+        [*(*(&v13 + 1) + 8 * v11++) ioServiceAvailable:availableCopy withManager:managerCopy];
       }
 
       while (v9 != v11);
-      v9 = [ioServiceDependencies countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [ioServiceDependencies countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
@@ -385,8 +376,6 @@ LABEL_33:
     manager = [(ASDTAudioDeviceFactory *)self manager];
     [manager resourcesAvailableForDevice:self];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)checkUnderlyingDeviceDependency
@@ -432,7 +421,7 @@ LABEL_33:
 
 - (BOOL)buildDevice
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   checkDependencies = [(ASDTAudioDeviceFactory *)self checkDependencies];
   if (checkDependencies)
   {
@@ -452,8 +441,8 @@ LABEL_33:
 
     else
     {
-      v10 = ASDTBaseLogType();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = ASDTBaseLogType(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         deviceUID = [(ASDTAudioDeviceFactory *)self deviceUID];
         [(ASDTAudioDeviceFactory *)deviceUID buildDevice];
@@ -463,7 +452,6 @@ LABEL_33:
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return checkDependencies;
 }
 
@@ -497,7 +485,7 @@ LABEL_33:
   return completeInitialization;
 }
 
-uint64_t __42__ASDTAudioDeviceFactory_initializeDevice__block_invoke(uint64_t a1)
+void *__42__ASDTAudioDeviceFactory_initializeDevice__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) userIsActive];
   if (result)
@@ -540,39 +528,37 @@ uint64_t __42__ASDTAudioDeviceFactory_initializeDevice__block_invoke(uint64_t a1
 
 + (void)addDependenciesFromConfigArray:(id)array toArray:(id)toArray
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   toArrayCopy = toArray;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v8 = arrayCopy;
-  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v9)
   {
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        [self addDependenciesFromConfig:*(*(&v13 + 1) + 8 * v11++) toArray:{toArrayCopy, v13}];
+        [self addDependenciesFromConfig:*(*(&v12 + 1) + 8 * v11++) toArray:{toArrayCopy, v12}];
       }
 
       while (v9 != v11);
-      v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)ioServiceDependenciesForConfig:(id)config
@@ -607,27 +593,27 @@ uint64_t __42__ASDTAudioDeviceFactory_initializeDevice__block_invoke(uint64_t a1
 
 + (id)factoryWithUID:(id)d fromList:(id)list
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   listCopy = list;
-  v7 = [listCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [listCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(listCopy);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         deviceUID = [v10 deviceUID];
         v12 = [deviceUID isEqualToString:dCopy];
 
@@ -638,7 +624,7 @@ uint64_t __42__ASDTAudioDeviceFactory_initializeDevice__block_invoke(uint64_t a1
         }
       }
 
-      v7 = [listCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [listCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -649,8 +635,6 @@ uint64_t __42__ASDTAudioDeviceFactory_initializeDevice__block_invoke(uint64_t a1
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

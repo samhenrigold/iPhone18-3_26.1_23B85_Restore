@@ -6,7 +6,7 @@
 + (BOOL)enumerateDeletedSamplesWithTypes:(id)types profile:(id)profile restrictedSourceEntities:(id)entities limit:(unint64_t)limit anchor:(int64_t)anchor error:(id *)error handler:(id)handler;
 + (BOOL)enumerateEntitiesForSyncWithProperties:(id)properties predicate:(id)predicate session:(id)session syncAnchorRange:(HDSyncAnchorRange)range limit:(unint64_t)limit lastSyncAnchor:(int64_t *)anchor healthDatabase:(id)database error:(id *)self0 block:(id)self1;
 + (BOOL)insertCodableDeletedSamples:(id)samples provenance:(id)provenance profile:(id)profile error:(id *)error;
-+ (id)_externalSyncMetadataForRow:;
++ (id)_externalSyncMetadataForRow:(uint64_t)row;
 + (id)entityEncoderForProfile:(id)profile transaction:(id)transaction purpose:(int64_t)purpose encodingOptions:(id)options authorizationFilter:(id)filter;
 + (id)insertDeletedObject:(id)object dataType:(id)type provenanceIdentifier:(id)identifier deletionDate:(id)date persistStartAndEndDates:(BOOL)dates startTimestamp:(double)timestamp endTimestamp:(double)endTimestamp inDatabase:(id)self0 error:(id *)self1;
 + (uint64_t)_deletedSamplesInProfile:(void *)profile queryStringBlock:(void *)block bindingBlock:(uint64_t)bindingBlock limit:(uint64_t)limit error:(void *)error handler:;
@@ -107,12 +107,12 @@ uint64_t __157__HDDeletedSampleEntity_insertDeletedObject_dataType_provenanceIde
 
 + (BOOL)enumerateDeletedSamplesWithTypes:(id)types profile:(id)profile restrictedSourceEntities:(id)entities limit:(unint64_t)limit anchor:(int64_t)anchor error:(id *)error handler:(id)handler
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   typesCopy = types;
   profileCopy = profile;
   entitiesCopy = entities;
   handlerCopy = handler;
-  v40 = typesCopy;
+  v39 = typesCopy;
   if (handlerCopy)
   {
     errorCopy = error;
@@ -150,20 +150,20 @@ uint64_t __157__HDDeletedSampleEntity_insertDeletedObject_dataType_provenanceIde
     [v30 setLimitCount:limit];
     [v30 setPredicate:v20];
     v31 = [objc_alloc(MEMORY[0x277D10B68]) initWithExpression:@"data_id" ascending:1];
-    v45[0] = v31;
-    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:1];
+    v44[0] = v31;
+    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:1];
     [v30 setOrderingTerms:v32];
 
     database = [profileCopy database];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __118__HDDeletedSampleEntity_enumerateDeletedSamplesWithTypes_profile_restrictedSourceEntities_limit_anchor_error_handler___block_invoke;
-    v41[3] = &unk_27861B6E8;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __118__HDDeletedSampleEntity_enumerateDeletedSamplesWithTypes_profile_restrictedSourceEntities_limit_anchor_error_handler___block_invoke;
+    v40[3] = &unk_27861B6E8;
     selfCopy = self;
-    v42 = v30;
-    v43 = handlerCopy;
+    v41 = v30;
+    v42 = handlerCopy;
     v34 = v30;
-    v35 = [self performReadTransactionWithHealthDatabase:database error:errorCopy block:v41];
+    v35 = [self performReadTransactionWithHealthDatabase:database error:errorCopy block:v40];
   }
 
   else
@@ -174,32 +174,30 @@ uint64_t __157__HDDeletedSampleEntity_insertDeletedObject_dataType_provenanceIde
     v35 = 1;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v35;
 }
 
 uint64_t __118__HDDeletedSampleEntity_enumerateDeletedSamplesWithTypes_profile_restrictedSourceEntities_limit_anchor_error_handler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16[4] = *MEMORY[0x277D85DE8];
+  v15[4] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D10B78];
   v6 = a2;
   v7 = [v5 alloc];
   v8 = [v6 databaseForEntityClass:*(a1 + 48)];
 
   v9 = [v7 initWithDatabase:v8 descriptor:*(a1 + 32)];
-  v16[0] = @"data_id";
-  v16[1] = @"uuid";
-  v16[2] = @"external_sync_ids.sid";
-  v16[3] = @"external_sync_ids.version";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:4];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __118__HDDeletedSampleEntity_enumerateDeletedSamplesWithTypes_profile_restrictedSourceEntities_limit_anchor_error_handler___block_invoke_2;
-  v14[3] = &unk_278616A78;
-  v15 = *(a1 + 40);
-  v11 = [v9 enumeratePersistentIDsAndProperties:v10 error:a3 enumerationHandler:v14];
+  v15[0] = @"data_id";
+  v15[1] = @"uuid";
+  v15[2] = @"external_sync_ids.sid";
+  v15[3] = @"external_sync_ids.version";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:4];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __118__HDDeletedSampleEntity_enumerateDeletedSamplesWithTypes_profile_restrictedSourceEntities_limit_anchor_error_handler___block_invoke_2;
+  v13[3] = &unk_278616A78;
+  v14 = *(a1 + 40);
+  v11 = [v9 enumeratePersistentIDsAndProperties:v10 error:a3 enumerationHandler:v13];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -207,21 +205,21 @@ uint64_t __118__HDDeletedSampleEntity_enumerateDeletedSamplesWithTypes_profile_r
 {
   HDSQLiteColumnAsInt64();
   v6 = MEMORY[0x22AAC6CA0](a4, 1);
-  v7 = +[HDDeletedSampleEntity _externalSyncMetadataForRow:];
+  v7 = [HDDeletedSampleEntity _externalSyncMetadataForRow:a4];
   v8 = [MEMORY[0x277CCD2E0] _deletedObjectWithUUID:v6 metadata:v7];
   (*(*(a1 + 32) + 16))();
 
   return 1;
 }
 
-+ (id)_externalSyncMetadataForRow:
++ (id)_externalSyncMetadataForRow:(uint64_t)row
 {
   objc_opt_self();
-  v0 = HDSQLiteColumnWithNameAsString();
-  v1 = HDSQLiteColumnWithNameAsNumber();
-  v2 = [MEMORY[0x277CCD2E0] _metadataWithSyncIdentifier:v0 syncVersion:v1];
+  v2 = HDSQLiteColumnWithNameAsString();
+  v3 = HDSQLiteColumnWithNameAsNumber();
+  v4 = [MEMORY[0x277CCD2E0] _metadataWithSyncIdentifier:v2 syncVersion:v3];
 
-  return v2;
+  return v4;
 }
 
 + (BOOL)deletedSampleInProfile:(id)profile sampleUUID:(id)d error:(id *)error handler:(id)handler
@@ -243,12 +241,11 @@ uint64_t __118__HDDeletedSampleEntity_enumerateDeletedSamplesWithTypes_profile_r
 
 uint64_t __73__HDDeletedSampleEntity_deletedSampleInProfile_sampleUUID_error_handler___block_invoke_2(uint64_t a1, sqlite3_stmt *a2, int a3)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v7[0] = 0;
-  v7[1] = 0;
-  [*(a1 + 32) getUUIDBytes:v7];
-  sqlite3_bind_blob(a2, a3, v7, 16, 0xFFFFFFFFFFFFFFFFLL);
-  v5 = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
+  v6[0] = 0;
+  v6[1] = 0;
+  [*(a1 + 32) getUUIDBytes:v6];
+  sqlite3_bind_blob(a2, a3, v6, 16, 0xFFFFFFFFFFFFFFFFLL);
   return (a3 + 1);
 }
 
@@ -496,7 +493,7 @@ uint64_t __100__HDDeletedSampleEntity__deletedSamplesInProfile_queryStringBlock_
 
 + (BOOL)enumerateEntitiesForSyncWithProperties:(id)properties predicate:(id)predicate session:(id)session syncAnchorRange:(HDSyncAnchorRange)range limit:(unint64_t)limit lastSyncAnchor:(int64_t *)anchor healthDatabase:(id)database error:(id *)self0 block:(id)self1
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v14 = MEMORY[0x277D10B68];
   v15 = *MEMORY[0x277D10A40];
   blockCopy = block;
@@ -505,12 +502,11 @@ uint64_t __100__HDDeletedSampleEntity__deletedSamplesInProfile_queryStringBlock_
   predicateCopy = predicate;
   propertiesCopy = properties;
   v21 = [v14 orderingTermWithProperty:v15 entityClass:objc_opt_class() ascending:1];
-  v28[0] = v21;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
-  LOBYTE(v25) = 0;
-  LOBYTE(v15) = [(HDHealthEntity *)HDSampleEntity enumerateEntitiesForSyncWithProperties:propertiesCopy predicate:predicateCopy syncEntityClass:0 session:sessionCopy syncAnchorRange:range.start orderingTerms:range.end limit:v22 lastSyncAnchor:limit distinct:anchor healthDatabase:v25 error:databaseCopy block:error, blockCopy];
+  v27[0] = v21;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  LOBYTE(v24) = 0;
+  LOBYTE(v15) = [(HDHealthEntity *)HDSampleEntity enumerateEntitiesForSyncWithProperties:propertiesCopy predicate:predicateCopy syncEntityClass:0 session:sessionCopy syncAnchorRange:range.start orderingTerms:range.end limit:v22 lastSyncAnchor:limit distinct:anchor healthDatabase:v24 error:databaseCopy block:error, blockCopy];
 
-  v23 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -555,57 +551,57 @@ uint64_t __100__HDDeletedSampleEntity__deletedSamplesInProfile_queryStringBlock_
 
 uint64_t __78__HDDeletedSampleEntity_insertCodableDeletedSamples_provenance_profile_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v60 = *MEMORY[0x277D85DE8];
-  v18 = a2;
-  v22 = [v18 databaseForEntityClass:*(a1 + 56)];
+  v58 = *MEMORY[0x277D85DE8];
+  v17 = a2;
+  v21 = [v17 databaseForEntityClass:*(a1 + 56)];
   v5 = [*(a1 + 32) dataProvenanceManager];
-  v23 = [v5 provenanceEntityForProvenance:*(a1 + 40) error:a3];
+  v22 = [v5 provenanceEntityForProvenance:*(a1 + 40) error:a3];
 
-  if (v23)
+  if (v22)
   {
-    v49 = MEMORY[0x277D85DD0];
-    v50 = 3221225472;
-    v51 = __78__HDDeletedSampleEntity_insertCodableDeletedSamples_provenance_profile_error___block_invoke_2;
-    v52 = &unk_278620C68;
-    v53 = *(a1 + 32);
-    v54 = *(a1 + 48);
+    v47 = MEMORY[0x277D85DD0];
+    v48 = 3221225472;
+    v49 = __78__HDDeletedSampleEntity_insertCodableDeletedSamples_provenance_profile_error___block_invoke_2;
+    v50 = &unk_278620C68;
+    v51 = *(a1 + 32);
+    v52 = *(a1 + 48);
     if (HKWithAutoreleasePool())
     {
-      v21 = objc_alloc_init(MEMORY[0x277CCD2D8]);
-      v20 = objc_alloc_init(MEMORY[0x277CBEB58]);
-      v43 = 0;
-      v44 = &v43;
-      v45 = 0x3032000000;
-      v46 = __Block_byref_object_copy__178;
-      v47 = __Block_byref_object_dispose__178;
-      v48 = 0;
-      v39 = 0;
-      v40 = &v39;
-      v41 = 0x2020000000;
-      v42 = 0;
-      v35 = 0;
-      v36 = &v35;
-      v37 = 0x2020000000;
-      v38 = 0;
+      v20 = objc_alloc_init(MEMORY[0x277CCD2D8]);
+      v19 = objc_alloc_init(MEMORY[0x277CBEB58]);
+      v41 = 0;
+      v42 = &v41;
+      v43 = 0x3032000000;
+      v44 = __Block_byref_object_copy__178;
+      v45 = __Block_byref_object_dispose__178;
+      v46 = 0;
+      v37 = 0;
+      v38 = &v37;
+      v39 = 0x2020000000;
+      v40 = 0;
+      v33 = 0;
+      v34 = &v33;
+      v35 = 0x2020000000;
+      v36 = 0;
+      v29 = 0u;
+      v30 = 0u;
       v31 = 0u;
       v32 = 0u;
-      v33 = 0u;
-      v34 = 0u;
       obj = *(a1 + 48);
-      v6 = [obj countByEnumeratingWithState:&v31 objects:v59 count:16];
+      v6 = [obj countByEnumeratingWithState:&v29 objects:v57 count:16];
       if (v6)
       {
-        v7 = *v32;
+        v7 = *v30;
         while (2)
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v32 != v7)
+            if (*v30 != v7)
             {
               objc_enumerationMutation(obj);
             }
 
-            if (*(v36 + 24) == 1)
+            if (*(v34 + 24) == 1)
             {
               v14 = [MEMORY[0x277CCA9B8] hk_transactionInterruptedError];
               v12 = v14;
@@ -627,17 +623,16 @@ uint64_t __78__HDDeletedSampleEntity_insertCodableDeletedSamples_provenance_prof
               goto LABEL_25;
             }
 
-            v24 = *(*(&v31 + 1) + 8 * i);
-            v25 = v20;
-            v26 = v23;
-            v27 = v22;
-            v28 = v21;
-            v29 = *(a1 + 32);
-            v30 = *(a1 + 40);
+            v23 = v19;
+            v24 = v22;
+            v25 = v21;
+            v26 = v20;
+            v27 = *(a1 + 32);
+            v28 = *(a1 + 40);
             HKWithAutoreleasePool();
           }
 
-          v6 = [obj countByEnumeratingWithState:&v31 objects:v59 count:16];
+          v6 = [obj countByEnumeratingWithState:&v29 objects:v57 count:16];
           if (v6)
           {
             continue;
@@ -647,27 +642,27 @@ uint64_t __78__HDDeletedSampleEntity_insertCodableDeletedSamples_provenance_prof
         }
       }
 
-      if (v40[3] >= 1)
+      if (v38[3] >= 1)
       {
         _HKInitializeLogging();
         v9 = *MEMORY[0x277CCC328];
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = v40[3];
+          v10 = v38[3];
           v11 = [*(a1 + 48) count];
           *buf = 134218240;
-          v56 = v10;
-          v57 = 2048;
-          v58 = v11;
+          v54 = v10;
+          v55 = 2048;
+          v56 = v11;
           _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "Encountered %ld constraint violations while inserting %ld deleted objects", buf, 0x16u);
         }
       }
 
-      if (v44[5])
+      if (v42[5])
       {
         obj = [*(a1 + 32) dataManager];
-        v12 = [v20 allObjects];
-        [obj shouldNotifyForDeletedSamplesOfTypes:v12 intervals:v21 userRequested:0 transaction:v18 anchor:v44[5]];
+        v12 = [v19 allObjects];
+        [obj shouldNotifyForDeletedSamplesOfTypes:v12 intervals:v20 userRequested:0 transaction:v17 anchor:v42[5]];
         v13 = 1;
 LABEL_25:
       }
@@ -677,9 +672,9 @@ LABEL_25:
         v13 = 1;
       }
 
-      _Block_object_dispose(&v35, 8);
-      _Block_object_dispose(&v39, 8);
-      _Block_object_dispose(&v43, 8);
+      _Block_object_dispose(&v33, 8);
+      _Block_object_dispose(&v37, 8);
+      _Block_object_dispose(&v41, 8);
     }
 
     else
@@ -693,7 +688,6 @@ LABEL_25:
     v13 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -711,7 +705,7 @@ uint64_t __78__HDDeletedSampleEntity_insertCodableDeletedSamples_provenance_prof
 
 uint64_t __78__HDDeletedSampleEntity_insertCodableDeletedSamples_provenance_profile_error___block_invoke_3(uint64_t a1)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
   v3 = *(v2 + 4);
   v4 = *(v2 + 1);
@@ -723,28 +717,28 @@ uint64_t __78__HDDeletedSampleEntity_insertCodableDeletedSamples_provenance_prof
       v6 = v5;
       [*(a1 + 40) addObject:v5];
       v7 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v3[1]];
-      v44 = v3;
-      v43 = [MEMORY[0x277CCAD78] hk_UUIDWithData:*(v3 + 5)];
+      v43 = v3;
+      v42 = [MEMORY[0x277CCAD78] hk_UUIDWithData:*(v3 + 5)];
       v8 = [MEMORY[0x277CCD2E0] _deletedObjectWithUUID:? metadata:?];
       v9 = *(v2 + 40) & 6;
       v10 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(*(a1 + 48), "persistentID")}];
       v11 = *(v2 + 3);
       v12 = *(v2 + 2);
       v13 = *(a1 + 56);
-      v48 = 0;
+      v47 = 0;
       v14 = v8;
-      v45 = v6;
-      v46 = v7;
-      v15 = [HDDeletedSampleEntity insertDeletedObject:v8 dataType:v6 provenanceIdentifier:v10 deletionDate:v7 persistStartAndEndDates:v9 == 6 startTimestamp:v13 endTimestamp:v11 inDatabase:v12 error:&v48];
-      v16 = v48;
+      v44 = v6;
+      v45 = v7;
+      v15 = [HDDeletedSampleEntity insertDeletedObject:v8 dataType:v6 provenanceIdentifier:v10 deletionDate:v7 persistStartAndEndDates:v9 == 6 startTimestamp:v13 endTimestamp:v11 inDatabase:v12 error:&v47];
+      v16 = v47;
 
       if (!v15)
       {
         if ([v16 hd_isConstraintViolation])
         {
           ++*(*(*(a1 + 88) + 8) + 24);
-          v19 = v43;
-          v3 = v44;
+          v19 = v42;
+          v3 = v43;
         }
 
         else if ([v16 hk_isTransactionInterruptedError])
@@ -752,14 +746,14 @@ uint64_t __78__HDDeletedSampleEntity_insertCodableDeletedSamples_provenance_prof
           *(*(*(a1 + 96) + 8) + 24) = 1;
           _HKInitializeLogging();
           v31 = *MEMORY[0x277CCC328];
-          v19 = v43;
-          v3 = v44;
+          v19 = v42;
+          v3 = v43;
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_INFO))
           {
             *buf = 138543618;
-            v50 = v14;
-            v51 = 2114;
-            v52 = v16;
+            v49 = v14;
+            v50 = 2114;
+            v51 = v16;
             _os_log_impl(&dword_228986000, v31, OS_LOG_TYPE_INFO, "Transaction interrupted inserting deleted object %{public}@: %{public}@", buf, 0x16u);
           }
         }
@@ -767,16 +761,16 @@ uint64_t __78__HDDeletedSampleEntity_insertCodableDeletedSamples_provenance_prof
         else
         {
           _HKInitializeLogging();
-          v35 = *MEMORY[0x277CCC328];
-          v19 = v43;
-          v3 = v44;
+          v34 = *MEMORY[0x277CCC328];
+          v19 = v42;
+          v3 = v43;
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v50 = v14;
-            v51 = 2114;
-            v52 = v16;
-            _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "Failed to insert deleted object %{public}@: %{public}@", buf, 0x16u);
+            v49 = v14;
+            v50 = 2114;
+            v51 = v16;
+            _os_log_error_impl(&dword_228986000, v34, OS_LOG_TYPE_ERROR, "Failed to insert deleted object %{public}@: %{public}@", buf, 0x16u);
           }
         }
 
@@ -789,10 +783,10 @@ uint64_t __78__HDDeletedSampleEntity_insertCodableDeletedSamples_provenance_prof
         [*(a1 + 64) insertIntervalWithStartTime:*(v2 + 3) endTime:*(v2 + 2)];
       }
 
-      v3 = v44;
-      v17 = [MEMORY[0x277CBEAC0] hk_dictionaryWithCodableMetadata:*(v44 + 3)];
+      v3 = v43;
+      v17 = [MEMORY[0x277CBEAC0] hk_dictionaryWithCodableMetadata:*(v43 + 3)];
       v18 = v17;
-      v19 = v43;
+      v19 = v42;
       if (!v17)
       {
         v27 = v16;
@@ -804,26 +798,26 @@ LABEL_29:
         goto LABEL_30;
       }
 
-      v42 = v15;
+      v41 = v15;
       v20 = *MEMORY[0x277CCC520];
       v21 = [v17 objectForKeyedSubscript:*MEMORY[0x277CCC520]];
 
       if (v21)
       {
-        v22 = *(v44 + 2);
-        if ([v44 hasExternalSyncObjectCode])
+        v22 = *(v43 + 2);
+        if ([v43 hasExternalSyncObjectCode])
         {
-          v41 = [v18 objectForKeyedSubscript:v20];
+          v40 = [v18 objectForKeyedSubscript:v20];
           v23 = [v18 objectForKeyedSubscript:*MEMORY[0x277CCC528]];
-          v40 = *(a1 + 72);
-          v39 = *(a1 + 56);
-          v24 = [v42 longLongValue];
+          v39 = *(a1 + 72);
+          v38 = *(a1 + 56);
+          v24 = [v41 longLongValue];
           [*(a1 + 80) sourceID];
           v26 = v25 = v22;
-          v47 = v16;
-          LOBYTE(v38) = 1;
-          LOBYTE(v24) = +[HDDataExternalSyncIdentifierEntity insertSyncIdentifierWithProfile:database:objectID:localSourceID:externalSyncObjectCode:syncIdentifier:syncVersion:deleted:errorOut:](HDDataExternalSyncIdentifierEntity, "insertSyncIdentifierWithProfile:database:objectID:localSourceID:externalSyncObjectCode:syncIdentifier:syncVersion:deleted:errorOut:", v40, v39, v24, [v26 longLongValue], v25, v41, v23, v38, &v47);
-          v27 = v47;
+          v46 = v16;
+          LOBYTE(v37) = 1;
+          LOBYTE(v24) = +[HDDataExternalSyncIdentifierEntity insertSyncIdentifierWithProfile:database:objectID:localSourceID:externalSyncObjectCode:syncIdentifier:syncVersion:deleted:errorOut:](HDDataExternalSyncIdentifierEntity, "insertSyncIdentifierWithProfile:database:objectID:localSourceID:externalSyncObjectCode:syncIdentifier:syncVersion:deleted:errorOut:", v39, v38, v24, [v26 longLongValue], v25, v40, v23, v37, &v46);
+          v27 = v46;
 
           if ((v24 & 1) == 0)
           {
@@ -832,11 +826,11 @@ LABEL_29:
             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
             {
               *buf = 138543874;
-              v50 = v41;
-              v51 = 2114;
-              v52 = v23;
-              v53 = 2114;
-              v54 = v27;
+              v49 = v40;
+              v50 = 2114;
+              v51 = v23;
+              v52 = 2114;
+              v53 = v27;
               _os_log_error_impl(&dword_228986000, v28, OS_LOG_TYPE_ERROR, "Failed to insert external sync identifier (%{public}@, version %{public}@): %{public}@", buf, 0x20u);
             }
           }
@@ -848,17 +842,17 @@ LABEL_29:
         v32 = *MEMORY[0x277CCC328];
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
         {
-          v36 = v32;
-          v37 = [v43 UUIDString];
+          v35 = v32;
+          v36 = [v42 UUIDString];
           *buf = 138543362;
-          v50 = v37;
-          _os_log_error_impl(&dword_228986000, v36, OS_LOG_TYPE_ERROR, "HDCodableDeletedSample (%{public}@) with external sync metadata does not contain an external sync object code", buf, 0xCu);
+          v49 = v36;
+          _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "HDCodableDeletedSample (%{public}@) with external sync metadata does not contain an external sync object code", buf, 0xCu);
         }
       }
 
       v27 = v16;
 LABEL_27:
-      v15 = v42;
+      v15 = v41;
       goto LABEL_28;
     }
 
@@ -867,7 +861,7 @@ LABEL_27:
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v50 = v4;
+      v49 = v4;
       v30 = "unable to look up sample type %ld when inserting codable deleted samples.";
       goto LABEL_17;
     }
@@ -880,7 +874,7 @@ LABEL_27:
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v50 = v4;
+      v49 = v4;
       v30 = "invalid data type code %ld when inserting codable deleted samples.";
 LABEL_17:
       _os_log_error_impl(&dword_228986000, v29, OS_LOG_TYPE_ERROR, v30, buf, 0xCu);
@@ -889,7 +883,6 @@ LABEL_17:
 
 LABEL_30:
 
-  v33 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -906,11 +899,11 @@ uint64_t __78__HDDeletedSampleEntity_insertCodableDeletedSamples_provenance_prof
     v5 = objc_msgSendSuper2(&v16, sel_init);
     if (v5)
     {
-      v9 = [v7 copy];
+      v9 = objc_msgSend_copy(v7);
       samples = v5->_samples;
       v5->_samples = v9;
 
-      v11 = [v8 copy];
+      v11 = objc_msgSend_copy(v8);
       provenance = v5->_provenance;
       v5->_provenance = v11;
     }

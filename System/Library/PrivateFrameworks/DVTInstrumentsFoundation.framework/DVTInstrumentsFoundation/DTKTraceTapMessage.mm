@@ -13,6 +13,7 @@
 - (void)setLogicalProcessorCore:(unint64_t)core;
 - (void)setRecordCount:(unint64_t)count;
 - (void)setSessionMetadata:(id)metadata;
+- (void)setTapVersion:(unsigned int)version;
 - (void)setTriggerCount:(unint64_t)count;
 - (void)setTriggerIndex:(unint64_t)index;
 - (void)setTriggerMetadata:(id)metadata;
@@ -27,6 +28,14 @@
   unsignedIntValue = [v3 unsignedIntValue];
 
   return unsignedIntValue;
+}
+
+- (void)setTapVersion:(unsigned int)version
+{
+  v3 = *&version;
+  plist = [(DTTapMessage *)self plist];
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  [plist setObject:v4 forKey:@"tv"];
 }
 
 - (NSDictionary)sessionMetadata

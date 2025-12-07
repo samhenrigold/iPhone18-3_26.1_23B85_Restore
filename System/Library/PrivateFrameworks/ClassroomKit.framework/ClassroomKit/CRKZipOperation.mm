@@ -194,10 +194,11 @@ LABEL_7:
 {
   v5 = archive_write_new();
   archive_write_set_format_zip();
-  if (archive_write_set_options())
+  v6 = archive_write_set_options();
+  if (v6)
   {
-    v6 = _CRKLogGeneral_0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _CRKLogGeneral_0(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(CRKZipOperation *)self makeArchiveWithError:v5];
     }
@@ -205,9 +206,9 @@ LABEL_7:
 
   destinationZipFileURL = [(CRKZipOperation *)self destinationZipFileURL];
   [destinationZipFileURL fileSystemRepresentation];
-  v8 = archive_write_open_filename();
+  v9 = archive_write_open_filename();
 
-  if (v8)
+  if (v9)
   {
     if (error)
     {
@@ -223,10 +224,11 @@ LABEL_7:
 
 - (void)finalizeArchive:(archive *)archive
 {
-  if (archive_write_free())
+  v5 = archive_write_free();
+  if (v5)
   {
-    v5 = _CRKLogGeneral_0();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _CRKLogGeneral_0(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(CRKZipOperation *)self finalizeArchive:archive];
     }
@@ -238,10 +240,11 @@ LABEL_7:
   disk_new = archive_read_disk_new();
   archive_read_disk_set_standard_lookup();
   v8 = [(CRKZipOperation *)self populateArchive:archive usingDisk:disk_new error:error];
-  if (archive_read_free())
+  free = archive_read_free();
+  if (free)
   {
-    v9 = _CRKLogGeneral_0();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _CRKLogGeneral_0(free);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [CRKZipOperation populateArchive:disk_new error:?];
     }
@@ -374,7 +377,7 @@ LABEL_12:
   v15 = 0u;
   if (entryCopy)
   {
-    [entryCopy stat];
+    objc_msgSend_stat(entryCopy, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   }
 
   if (!archive_read_disk_entry_from_file())
@@ -427,7 +430,7 @@ LABEL_10:
   v7 = *&descriptor;
   if (entry)
   {
-    [entry stat];
+    objc_msgSend_stat(entry, a2);
   }
 
   else
@@ -554,21 +557,27 @@ LABEL_8:
 - (void)makeArchiveWithError:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
   v2 = [a1 errorFromArchive:a2];
-  OUTLINED_FUNCTION_0_3(&dword_243550000, v3, v4, "Failed to set compression type to deflate: %{public}@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138543362;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_3(&dword_243550000, v3, v4, "Failed to set compression type to deflate: %{public}@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)finalizeArchive:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
   v2 = [a1 errorFromArchive:a2];
   v3 = [v2 verboseDescription];
-  OUTLINED_FUNCTION_0_3(&dword_243550000, v4, v5, "Failed to finalize archive: %{public}@", v6, v7, v8, v9, 2u);
+  LODWORD(v10) = 138543362;
+  *(&v10 + 4) = v3;
+  OUTLINED_FUNCTION_0_3(&dword_243550000, v4, v5, "Failed to finalize archive: %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)populateArchive:(void *)a1 error:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
 {
   v2 = [a1 errorFromArchive:a2];
   v3 = [v2 verboseDescription];
-  OUTLINED_FUNCTION_0_3(&dword_243550000, v4, v5, "Failed to close disk archive: %{public}@", v6, v7, v8, v9, 2u);
+  LODWORD(v10) = 138543362;
+  *(&v10 + 4) = v3;
+  OUTLINED_FUNCTION_0_3(&dword_243550000, v4, v5, "Failed to close disk archive: %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 @end

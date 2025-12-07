@@ -64,7 +64,7 @@
   return v3;
 }
 
-id __35__AMSAccountDeviceInfoTask_perform__block_invoke(uint64_t a1)
+AMSMutablePromise *__35__AMSAccountDeviceInfoTask_perform__block_invoke(uint64_t a1)
 {
   v40 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();

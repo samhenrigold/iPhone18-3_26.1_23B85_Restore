@@ -173,17 +173,16 @@
 - (void)dealloc
 {
   selfCopy = self;
-  v4 = a2;
+  v3 = a2;
   if (self->_sandboxExtensionHandle != -1)
   {
-    sandboxExtensionHandle = selfCopy->_sandboxExtensionHandle;
     sandbox_extension_release();
     selfCopy->_sandboxExtensionHandle = -1;
   }
 
-  v3.receiver = selfCopy;
-  v3.super_class = UARPSandboxExtension;
-  [(UARPSandboxExtension *)&v3 dealloc];
+  v2.receiver = selfCopy;
+  v2.super_class = UARPSandboxExtension;
+  [(UARPSandboxExtension *)&v2 dealloc];
 }
 
 @end

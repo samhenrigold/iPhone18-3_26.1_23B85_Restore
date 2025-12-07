@@ -33,9 +33,9 @@
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = AuthorizationRequestOverrides.hash.getter();
+  v4 = AuthorizationRequestOverrides.hash.getter(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (CPAuthorizationRequestOverrides)initWithCoder:(id)coder

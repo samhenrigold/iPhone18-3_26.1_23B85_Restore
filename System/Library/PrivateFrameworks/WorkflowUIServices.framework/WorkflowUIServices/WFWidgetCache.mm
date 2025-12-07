@@ -784,7 +784,7 @@ void __46__WFWidgetCache_widgetWorkflowWithIdentifier___block_invoke(uint64_t a1
   return v3;
 }
 
-uint64_t __28__WFWidgetCache_sharedCache__block_invoke()
+uint64_t __28__WFWidgetCache_sharedCache__block_invoke(uint64_t a1, uint64_t a2)
 {
   sharedCache_cache = objc_opt_new();
 

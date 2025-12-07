@@ -50,10 +50,10 @@ void __47___FBSDisplayLayoutService_addObserver_forKey___block_invoke(void *a1)
     {
       if (!a1[7])
       {
-        v7 = FBLogCommon();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = FBLogCommon(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          __47___FBSDisplayLayoutService_addObserver_forKey___block_invoke_cold_1(v2, v7);
+          __47___FBSDisplayLayoutService_addObserver_forKey___block_invoke_cold_1(v2, v8);
         }
       }
 

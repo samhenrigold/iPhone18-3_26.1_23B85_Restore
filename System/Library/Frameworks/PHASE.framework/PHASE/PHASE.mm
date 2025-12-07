@@ -277,7 +277,7 @@ std::logic_error *std::invalid_argument::invalid_argument[abi:ne200100](std::log
   return result;
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -299,7 +299,7 @@ void sub_23A303F18(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -458,7 +458,7 @@ double Phase::ActionTreeServerCallbackInterface::ClearBuffer(Phase::ActionTreeSe
   return result;
 }
 
-uint64_t Phase::ActionTreeServerCommandProcessor::ActionTreeServerCommandProcessor(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t Phase::ActionTreeServerCommandProcessor::ActionTreeServerCommandProcessor(uint64_t a1, Phase::Controller::TaskManager *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v22 = *MEMORY[0x277D85DE8];
   *a1 = &unk_284D2EF48;
@@ -494,11 +494,11 @@ uint64_t Phase::ActionTreeServerCommandProcessor::ActionTreeServerCommandProcess
   *(a1 + 200) = 0;
   *(a1 + 208) = v15;
   *(a1 + 216) = a1 + 168;
-  v18 = &unk_284D2EFF8;
-  v19 = Phase::Dispatch::sMessageWriterCallback;
-  v21 = &v18;
-  std::function<void ()(Phase::MessageWriteBuffer &,Phase::MessageWriteBuffer &,unsigned long)>::operator=((a1 + 224), &v18);
-  std::__function::__value_func<void ()(Phase::MessageWriteBuffer &,Phase::MessageWriteBuffer &,unsigned long)>::~__value_func[abi:ne200100](&v18);
+  *&v19 = &unk_284D2EFF8;
+  *(&v19 + 1) = Phase::Dispatch::sMessageWriterCallback;
+  v21 = &v19;
+  std::function<void ()(Phase::MessageWriteBuffer &,Phase::MessageWriteBuffer &,unsigned long)>::operator=((a1 + 224), &v19);
+  std::__function::__value_func<void ()(Phase::MessageWriteBuffer &,Phase::MessageWriteBuffer &,unsigned long)>::~__value_func[abi:ne200100](&v19);
   *(a1 + 256) = 0;
   *(a1 + 264) = 0;
   if (!*(a1 + 144))
@@ -513,90 +513,111 @@ uint64_t Phase::ActionTreeServerCommandProcessor::ActionTreeServerCommandProcess
   }
 
   *(a1 + 256) = v16;
-  v18 = Phase::ActionTreeServerCommandProcessor::SleepGeneratorHandler;
-  v19 = 0;
+  v18 = 1;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::SleepGeneratorHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 1);
-  v18 = Phase::ActionTreeServerCommandProcessor::WakeGeneratorHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 1, &v18, &v19);
+  v18 = 2;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::WakeGeneratorHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 2);
-  v18 = Phase::ActionTreeServerCommandProcessor::StopGeneratorHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 2, &v18, &v19);
+  v18 = 3;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::StopGeneratorHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 3);
-  v18 = Phase::ActionTreeServerCommandProcessor::PauseGeneratorHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 3, &v18, &v19);
+  v18 = 4;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::PauseGeneratorHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 4);
-  v18 = Phase::ActionTreeServerCommandProcessor::ResumeGeneratorHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 4, &v18, &v19);
+  v18 = 5;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::ResumeGeneratorHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 5);
-  v18 = Phase::ActionTreeServerCommandProcessor::SeekGeneratorHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 5, &v18, &v19);
+  v18 = 6;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::SeekGeneratorHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 6);
-  v18 = Phase::ActionTreeServerCommandProcessor::PrepareSamplerHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 6, &v18, &v19);
+  v18 = 7;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::PrepareSamplerHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 7);
-  v18 = Phase::ActionTreeServerCommandProcessor::PrepareProcedureHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 7, &v18, &v19);
+  v18 = 8;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::PrepareProcedureHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 8);
-  v18 = Phase::ActionTreeServerCommandProcessor::SetGeneratorParameterHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 8, &v18, &v19);
+  v18 = 9;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::SetGeneratorParameterHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 9);
-  v18 = Phase::ActionTreeServerCommandProcessor::SetGeneratorUpdateParametersHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 9, &v18, &v19);
+  v18 = 10;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::SetGeneratorUpdateParametersHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 10);
-  v18 = Phase::ActionTreeServerCommandProcessor::PlayGeneratorHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 10, &v18, &v19);
+  v18 = 11;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::PlayGeneratorHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 11);
-  v18 = Phase::ActionTreeServerCommandProcessor::EnqueueGeneratorBufferHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 11, &v18, &v19);
+  v18 = 12;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::EnqueueGeneratorBufferHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 12);
-  v18 = Phase::ActionTreeServerCommandProcessor::SetSpatialCategorySendLevelHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 12, &v18, &v19);
+  v18 = 13;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::SetSpatialCategorySendLevelHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 13);
-  v18 = Phase::ActionTreeServerCommandProcessor::SetSpatialCategoryParameterHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 13, &v18, &v19);
+  v18 = 14;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::SetSpatialCategoryParameterHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 14);
-  v18 = Phase::ActionTreeServerCommandProcessor::CreateSpatialSubmixHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 14, &v18, &v19);
+  v18 = 15;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::CreateSpatialSubmixHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 15);
-  v18 = Phase::ActionTreeServerCommandProcessor::CreateAmbientSubmixHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 15, &v18, &v19);
+  v18 = 16;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::CreateAmbientSubmixHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 16);
-  v18 = Phase::ActionTreeServerCommandProcessor::CreateChannelSubmixHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 16, &v18, &v19);
+  v18 = 17;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::CreateChannelSubmixHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 17);
-  v18 = Phase::ActionTreeServerCommandProcessor::SetSubmixParameterHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 17, &v18, &v19);
+  v18 = 18;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::SetSubmixParameterHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 18);
-  v18 = Phase::ActionTreeServerCommandProcessor::SetAmbientSubmixOrientationHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 18, &v18, &v19);
+  v18 = 19;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::SetAmbientSubmixOrientationHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 19);
-  v18 = Phase::ActionTreeServerCommandProcessor::DestroySubmixHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 19, &v18, &v19);
+  v18 = 20;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::DestroySubmixHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 20);
-  v18 = Phase::ActionTreeServerCommandProcessor::GeoQueryHandler;
-  v19 = 0;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 20, &v18, &v19);
+  v18 = 21;
+  *&v19 = Phase::ActionTreeServerCommandProcessor::GeoQueryHandler;
+  *(&v19 + 1) = 0;
   v20 = a1;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 21);
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(v11, 21, &v18, &v19);
   return a1;
 }
 
@@ -630,24 +651,24 @@ void sub_23A304AFC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23A304BE0(uint64_t a1, ...)
+void sub_23A304BE0(uint64_t a1, uint64_t a2, ...)
 {
-  va_start(va, a1);
+  va_start(va, a2);
   std::__function::__value_func<void ()(Phase::MessageWriteBuffer &,Phase::MessageWriteBuffer &,unsigned long)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(Phase::MessageWriteBuffer &,Phase::MessageWriteBuffer &,unsigned long)>::~__value_func[abi:ne200100](v1 + 224);
-  v2 = *(v1 + 168);
-  if (v2)
+  std::__function::__value_func<void ()(Phase::MessageWriteBuffer &,Phase::MessageWriteBuffer &,unsigned long)>::~__value_func[abi:ne200100](v2 + 224);
+  v3 = *(v2 + 168);
+  if (v3)
   {
-    *(v1 + 176) = v2;
-    operator delete(v2);
+    *(v2 + 176) = v3;
+    operator delete(v3);
   }
 
   JUMPOUT(0x23A304B98);
 }
 
-void Phase::ActionTreeServerCommandProcessor::SleepGeneratorHandler(Phase::ActionTreeServerCommandProcessor *this, uint64_t *a2)
+void Phase::ActionTreeServerCommandProcessor::SleepGeneratorHandler(int8x8_t ***this, uint64_t *a2)
 {
-  v4 = Phase::Controller::VoiceManager::Implementation::SleepGenerator(**(this + 11), *a2, a2[1]);
+  v4 = Phase::Controller::VoiceManager::Implementation::SleepGenerator(*this[11], *a2, a2[1]);
   if (HIDWORD(v4))
   {
     v5 = 1;
@@ -665,9 +686,9 @@ void Phase::ActionTreeServerCommandProcessor::SleepGeneratorHandler(Phase::Actio
   }
 }
 
-void Phase::ActionTreeServerCommandProcessor::WakeGeneratorHandler(Phase::ActionTreeServerCommandProcessor *this, uint64_t *a2)
+void Phase::ActionTreeServerCommandProcessor::WakeGeneratorHandler(int8x8_t ***this, uint64_t *a2)
 {
-  v4 = Phase::Controller::VoiceManager::Implementation::WakeGenerator(**(this + 11), *a2, a2[1]);
+  v4 = Phase::Controller::VoiceManager::Implementation::WakeGenerator(*this[11], *a2, a2[1]);
   if (HIDWORD(v4))
   {
     v5 = 1;
@@ -685,9 +706,9 @@ void Phase::ActionTreeServerCommandProcessor::WakeGeneratorHandler(Phase::Action
   }
 }
 
-void Phase::ActionTreeServerCommandProcessor::StopGeneratorHandler(Phase::ActionTreeServerCommandProcessor *this, uint64_t *a2)
+void Phase::ActionTreeServerCommandProcessor::StopGeneratorHandler(int8x8_t ***this, uint64_t *a2)
 {
-  v4 = Phase::Controller::VoiceManager::Implementation::StopGenerator(**(this + 11), *a2, a2[1], 0.0);
+  v4 = Phase::Controller::VoiceManager::Implementation::StopGenerator(*this[11], *a2, a2[1], 0.0);
   if (HIDWORD(v4))
   {
     v5 = 1;
@@ -705,9 +726,9 @@ void Phase::ActionTreeServerCommandProcessor::StopGeneratorHandler(Phase::Action
   }
 }
 
-void Phase::ActionTreeServerCommandProcessor::PauseGeneratorHandler(Phase::ActionTreeServerCommandProcessor *this, uint64_t *a2)
+void Phase::ActionTreeServerCommandProcessor::PauseGeneratorHandler(int8x8_t ***this, uint64_t *a2)
 {
-  v4 = Phase::Controller::VoiceManager::Implementation::PauseGenerator(**(this + 11), *a2, a2[1]);
+  v4 = Phase::Controller::VoiceManager::Implementation::PauseGenerator(*this[11], *a2, a2[1]);
   if (HIDWORD(v4))
   {
     v5 = 1;
@@ -720,7 +741,7 @@ void Phase::ActionTreeServerCommandProcessor::PauseGeneratorHandler(Phase::Actio
 
   if (v5)
   {
-    v6 = *(**(this + 19) + 16);
+    v6 = (*this[19])[2];
 
     v6();
   }
@@ -732,9 +753,9 @@ void Phase::ActionTreeServerCommandProcessor::PauseGeneratorHandler(Phase::Actio
   }
 }
 
-void Phase::ActionTreeServerCommandProcessor::ResumeGeneratorHandler(Phase::ActionTreeServerCommandProcessor *this, uint64_t *a2)
+void Phase::ActionTreeServerCommandProcessor::ResumeGeneratorHandler(int8x8_t ***this, uint64_t *a2)
 {
-  v4 = Phase::Controller::VoiceManager::Implementation::ResumeGenerator(**(this + 11), *a2, a2[1]);
+  v4 = Phase::Controller::VoiceManager::Implementation::ResumeGenerator(*this[11], *a2, a2[1]);
   if (HIDWORD(v4))
   {
     v5 = 1;
@@ -747,7 +768,7 @@ void Phase::ActionTreeServerCommandProcessor::ResumeGeneratorHandler(Phase::Acti
 
   if (v5)
   {
-    v6 = *(**(this + 19) + 16);
+    v6 = (*this[19])[2];
 
     v6();
   }
@@ -759,9 +780,9 @@ void Phase::ActionTreeServerCommandProcessor::ResumeGeneratorHandler(Phase::Acti
   }
 }
 
-void Phase::ActionTreeServerCommandProcessor::SeekGeneratorHandler(Phase::ActionTreeServerCommandProcessor *this, __int128 *a2)
+void Phase::ActionTreeServerCommandProcessor::SeekGeneratorHandler(int8x8_t ***this, char *a2)
 {
-  v4 = Phase::Controller::VoiceManager::Implementation::SeekGeneratorTime(**(this + 11), *a2, *(a2 + 1), *(a2 + 2));
+  v4 = Phase::Controller::VoiceManager::Implementation::SeekGeneratorTime(*this[11], *a2, *(a2 + 1), *(a2 + 2));
   if (HIDWORD(v4))
   {
     v5 = 1;
@@ -886,7 +907,7 @@ LABEL_12:
     v24 = (*(**(this + 19) + 32))(*(this + 19), a2);
     if (v24)
     {
-      v25 = Phase::Controller::VoiceManager::Implementation::PrepareGenerator(**(this + 11), *a2, *(a2 + 1), *(a2 + 2), *(a2 + 3), &v31);
+      v25 = Phase::Controller::VoiceManager::Implementation::PrepareGenerator(**(this + 11), *a2, *(a2 + 1), *(a2 + 2), *(a2 + 3), &v31, this + 160);
       if (HIDWORD(v25) || !v25)
       {
         return;
@@ -917,9 +938,9 @@ LABEL_12:
   }
 }
 
-void Phase::ActionTreeServerCommandProcessor::PrepareProcedureHandler(Phase::ActionTreeServerCommandProcessor *this, __int128 *a2)
+void Phase::ActionTreeServerCommandProcessor::PrepareProcedureHandler(int8x8_t ***this, _BYTE *a2)
 {
-  v4 = *(a2 + 48);
+  v4 = a2[48];
   v10 = 1;
   v17 = v4;
   v15 = *(a2 + 8);
@@ -932,10 +953,10 @@ void Phase::ActionTreeServerCommandProcessor::PrepareProcedureHandler(Phase::Act
   v7 = *(a2 + 5);
   v12 = v6;
   v13 = v7;
-  v18 = a2[5];
+  v18 = *(a2 + 5);
   v19 = *(a2 + 24);
   v20 = *(a2 + 13);
-  v8 = Phase::Controller::VoiceManager::Implementation::PrepareGenerator(**(this + 11), *a2, *(a2 + 1), *(a2 + 2), *(a2 + 3), &v9);
+  v8 = Phase::Controller::VoiceManager::Implementation::PrepareGenerator(*this[11], *a2, *(a2 + 1), *(a2 + 2), *(a2 + 3), &v9, (this + 20));
   if (!HIDWORD(v8))
   {
     if (v8)
@@ -946,9 +967,9 @@ void Phase::ActionTreeServerCommandProcessor::PrepareProcedureHandler(Phase::Act
   }
 }
 
-void Phase::ActionTreeServerCommandProcessor::SetGeneratorParameterHandler(Phase::ActionTreeServerCommandProcessor *this, __int128 *a2)
+void Phase::ActionTreeServerCommandProcessor::SetGeneratorParameterHandler(int8x8_t ***this, double *a2)
 {
-  v4 = Phase::Controller::VoiceManager::Implementation::SetGeneratorParameter(**(this + 11), *a2, *(a2 + 1), *(a2 + 2), *(a2 + 3));
+  v4 = Phase::Controller::VoiceManager::Implementation::SetGeneratorParameter(*this[11], *a2, *(a2 + 1), *(a2 + 2), a2[3]);
   if (HIDWORD(v4))
   {
     v5 = 1;
@@ -966,9 +987,9 @@ void Phase::ActionTreeServerCommandProcessor::SetGeneratorParameterHandler(Phase
   }
 }
 
-void Phase::ActionTreeServerCommandProcessor::SetGeneratorUpdateParametersHandler(Phase::ActionTreeServerCommandProcessor *this, __int128 *a2)
+void Phase::ActionTreeServerCommandProcessor::SetGeneratorUpdateParametersHandler(int8x8_t ***this, double *a2)
 {
-  v4 = Phase::Controller::VoiceManager::Implementation::SetGeneratorParameter(**(this + 11), *a2, *(a2 + 1), 0xB5767F7E05AD941ELL, *(a2 + 2));
+  v4 = Phase::Controller::VoiceManager::Implementation::SetGeneratorParameter(*this[11], *a2, *(a2 + 1), 0xB5767F7E05AD941ELL, a2[2]);
   if (HIDWORD(v4))
   {
     v5 = 1;
@@ -979,14 +1000,14 @@ void Phase::ActionTreeServerCommandProcessor::SetGeneratorUpdateParametersHandle
     v5 = v4 == 0;
   }
 
-  if (!v5 || ((v6 = Phase::Controller::VoiceManager::Implementation::SetGeneratorParameter(**(this + 11), *a2, *(a2 + 1), 0x8119B92FBF50030uLL, *(a2 + 3)), !HIDWORD(v6)) ? (v7 = v6 == 0) : (v7 = 1), !v7 || ((v8 = Phase::Controller::VoiceManager::Implementation::SetGeneratorParameter(**(this + 11), *a2, *(a2 + 1), 0x81FBB92FC0173ECuLL, *(a2 + 4)), !HIDWORD(v8)) ? (v9 = v8 == 0) : (v9 = 1), !v9 || ((v10 = Phase::Controller::VoiceManager::Implementation::SetGeneratorParameter(**(this + 11), *a2, *(a2 + 1), 0x981F232BD33EC927, *(a2 + 5)), !HIDWORD(v10)) ? (v11 = v10 == 0) : (v11 = 1), !v11))))
+  if (!v5 || ((v6 = Phase::Controller::VoiceManager::Implementation::SetGeneratorParameter(*this[11], *a2, *(a2 + 1), 0x8119B92FBF50030uLL, a2[3]), !HIDWORD(v6)) ? (v7 = v6 == 0) : (v7 = 1), !v7 || ((v8 = Phase::Controller::VoiceManager::Implementation::SetGeneratorParameter(*this[11], *a2, *(a2 + 1), 0x81FBB92FC0173ECuLL, a2[4]), !HIDWORD(v8)) ? (v9 = v8 == 0) : (v9 = 1), !v9 || ((v10 = Phase::Controller::VoiceManager::Implementation::SetGeneratorParameter(*this[11], *a2, *(a2 + 1), 0x981F232BD33EC927, a2[5]), !HIDWORD(v10)) ? (v11 = v10 == 0) : (v11 = 1), !v11))))
   {
     v12 = *a2;
     Phase::MessagePipeWriter<Phase::ActionTreeClientCommand>::WriteMessage(this + 24, 7u, &v12, 0x10uLL);
   }
 }
 
-void Phase::ActionTreeServerCommandProcessor::PlayGeneratorHandler(uint64_t **this, uint64_t *a2)
+void Phase::ActionTreeServerCommandProcessor::PlayGeneratorHandler(int8x8_t ***this, uint64_t *a2)
 {
   Instance = Phase::Logger::GetInstance(this);
   v5 = os_signpost_id_generate(**(Instance + 704));
@@ -1015,7 +1036,7 @@ void Phase::ActionTreeServerCommandProcessor::PlayGeneratorHandler(uint64_t **th
 
   if (v10)
   {
-    v11 = (*(*this[19] + 16))(this[19], *a2, a2[1], 1);
+    v11 = ((*this[19])[2])(this[19], *a2, a2[1], 1);
   }
 
   else
@@ -1075,9 +1096,9 @@ void Phase::ActionTreeServerCommandProcessor::EnqueueGeneratorBufferHandler(Phas
   }
 }
 
-void Phase::ActionTreeServerCommandProcessor::SetSpatialCategorySendLevelHandler(Phase::ActionTreeServerCommandProcessor *this, unsigned int *a2)
+void Phase::ActionTreeServerCommandProcessor::SetSpatialCategorySendLevelHandler(int8x8_t ***this, unsigned int *a2)
 {
-  v4 = Phase::Controller::VoiceManager::Implementation::SetSpatialCategorySendLevel(**(this + 11), *a2, *(a2 + 1), a2[4], *(a2 + 3));
+  v4 = Phase::Controller::VoiceManager::Implementation::SetSpatialCategorySendLevel(*this[11], *a2, *(a2 + 1), a2[4], *(a2 + 3));
   if (HIDWORD(v4))
   {
     v5 = 1;
@@ -1095,9 +1116,9 @@ void Phase::ActionTreeServerCommandProcessor::SetSpatialCategorySendLevelHandler
   }
 }
 
-void Phase::ActionTreeServerCommandProcessor::SetSpatialCategoryParameterHandler(Phase::ActionTreeServerCommandProcessor *this, unsigned int *a2)
+void Phase::ActionTreeServerCommandProcessor::SetSpatialCategoryParameterHandler(int8x8_t ***this, unsigned int *a2)
 {
-  v4 = Phase::Controller::VoiceManager::Implementation::SetSpatialCategoryParameter(**(this + 11), *a2, *(a2 + 1), a2[4], *(a2 + 3), *(a2 + 4));
+  v4 = Phase::Controller::VoiceManager::Implementation::SetSpatialCategoryParameter(*this[11], *a2, *(a2 + 1), a2[4], *(a2 + 3), *(a2 + 4));
   if (HIDWORD(v4))
   {
     v5 = 1;
@@ -1226,9 +1247,9 @@ uint64_t Phase::ActionTreeServerCommandProcessor::CreateSpatialSubmixHandler(Pha
   return std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(v23);
 }
 
-void sub_23A305FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23A305FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
 
   Phase::Controller::CreateSpatialSubmixParameters::~CreateSpatialSubmixParameters(va);
   _Unwind_Resume(a1);
@@ -1238,8 +1259,8 @@ void Phase::ActionTreeServerCommandProcessor::CreateAmbientSubmixHandler(Phase::
 {
   v9 = 0;
   v11 = xmmword_23A554920;
-  v8[0] = 0;
-  std::vector<char>::vector[abi:ne200100](&__p, 32);
+  LOBYTE(v8[0]) = 0;
+  std::vector<char>::vector[abi:ne200100](&__p, 32, v8);
   v4 = __p;
   *__p = 0;
   v4[2] = 0;
@@ -1250,20 +1271,20 @@ void Phase::ActionTreeServerCommandProcessor::CreateAmbientSubmixHandler(Phase::
   v11 = *(a2 + 24);
   v5 = *(a2 + 10);
   v16 = 0;
-  std::vector<char>::vector[abi:ne200100](v8, 32);
-  v6 = *v8;
-  *(*v8 + 4) = 0;
+  std::vector<char>::vector[abi:ne200100](v8, 32, &v16);
+  v6 = v8[0];
+  *(v8[0] + 4) = 0;
   v6[2] = 0;
   *v6 = v5;
   if (__p)
   {
     *&v13 = __p;
     operator delete(__p);
-    v6 = *v8;
+    v6 = v8[0];
   }
 
   __p = v6;
-  v13 = *&v8[8];
+  v13 = *&v8[1];
   v7 = Phase::Controller::VoiceManager::Implementation::CreateAmbientSubmix(*this[11], &v9);
   if (HIDWORD(v7) || !v7)
   {
@@ -1291,8 +1312,8 @@ void sub_23A30615C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void Phase::ActionTreeServerCommandProcessor::CreateChannelSubmixHandler(Phase::ActionTreeServerCommandProcessor *this, char *a2)
 {
-  v8[0] = 0;
-  std::vector<char>::vector[abi:ne200100](&__p, 32);
+  LOBYTE(v8[0]) = 0;
+  std::vector<char>::vector[abi:ne200100](&__p, 32, v8);
   v4 = __p;
   *__p = 0;
   v4[2] = 0;
@@ -1301,20 +1322,20 @@ void Phase::ActionTreeServerCommandProcessor::CreateChannelSubmixHandler(Phase::
   v9 = *a2;
   v5 = *(a2 + 4);
   v14 = 0;
-  std::vector<char>::vector[abi:ne200100](v8, 32);
-  v6 = *v8;
-  *(*v8 + 4) = 0;
+  std::vector<char>::vector[abi:ne200100](v8, 32, &v14);
+  v6 = v8[0];
+  *(v8[0] + 4) = 0;
   v6[2] = 0;
   *v6 = v5;
   if (__p)
   {
     *&v11 = __p;
     operator delete(__p);
-    v6 = *v8;
+    v6 = v8[0];
   }
 
   __p = v6;
-  v11 = *&v8[8];
+  v11 = *&v8[1];
   ChannelSubmix = Phase::Controller::VoiceManager::Implementation::CreateChannelSubmix(**(this + 11), &v9);
   if (HIDWORD(ChannelSubmix) || !ChannelSubmix)
   {
@@ -1340,9 +1361,9 @@ void sub_23A3062AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void Phase::ActionTreeServerCommandProcessor::SetSubmixParameterHandler(Phase::ActionTreeServerCommandProcessor *this, __int128 *a2)
+void Phase::ActionTreeServerCommandProcessor::SetSubmixParameterHandler(int8x8_t ***this, double *a2)
 {
-  v4 = Phase::Controller::VoiceManager::Implementation::SetSubmixParameter(**(this + 11), *a2, *(a2 + 1), *(a2 + 2), *(a2 + 3));
+  v4 = Phase::Controller::VoiceManager::Implementation::SetSubmixParameter(*this[11], *a2, *(a2 + 1), *(a2 + 2), a2[3]);
   if (HIDWORD(v4))
   {
     v5 = 1;
@@ -1360,9 +1381,9 @@ void Phase::ActionTreeServerCommandProcessor::SetSubmixParameterHandler(Phase::A
   }
 }
 
-void Phase::ActionTreeServerCommandProcessor::SetAmbientSubmixOrientationHandler(Phase::ActionTreeServerCommandProcessor *this, uint64_t *a2)
+void Phase::ActionTreeServerCommandProcessor::SetAmbientSubmixOrientationHandler(int8x8_t ***this, uint64_t *a2)
 {
-  v4 = Phase::Controller::VoiceManager::Implementation::SetSubmixParameterData(**(this + 11), *a2, a2[1], 0xB11F8D5B5762E28DLL, (a2 + 2), 16);
+  v4 = Phase::Controller::VoiceManager::Implementation::SetSubmixParameterData(*this[11], *a2, a2[1], 0xB11F8D5B5762E28DLL, (a2 + 2), 16);
   if (HIDWORD(v4))
   {
     v5 = 1;
@@ -1380,9 +1401,9 @@ void Phase::ActionTreeServerCommandProcessor::SetAmbientSubmixOrientationHandler
   }
 }
 
-void Phase::ActionTreeServerCommandProcessor::DestroySubmixHandler(Phase::ActionTreeServerCommandProcessor *this, uint64_t *a2)
+void Phase::ActionTreeServerCommandProcessor::DestroySubmixHandler(int8x8_t ***this, uint64_t *a2)
 {
-  v4 = Phase::Controller::VoiceManager::Implementation::DestroySubmix(**(this + 11), *a2, a2[1]);
+  v4 = Phase::Controller::VoiceManager::Implementation::DestroySubmix(*this[11], *a2, a2[1]);
   if (HIDWORD(v4))
   {
     v5 = 1;
@@ -1395,11 +1416,11 @@ void Phase::ActionTreeServerCommandProcessor::DestroySubmixHandler(Phase::Action
 
   if (v5)
   {
-    i = *(this + 33);
+    i = this[33];
     if (i)
     {
       v7 = 0;
-      v8 = (this + 264);
+      v8 = (this + 33);
       v9 = *a2;
       v10 = a2[1];
       do
@@ -1469,9 +1490,9 @@ void Phase::ActionTreeServerCommandProcessor::DestroySubmixHandler(Phase::Action
   }
 }
 
-void Phase::ActionTreeServerCommandProcessor::GeoQueryHandler(Phase::Logger ***this, void *a2)
+void Phase::ActionTreeServerCommandProcessor::GeoQueryHandler(Phase::Geometry::System **this, void *a2)
 {
-  Phase::Geometry::System::GetCurrentState(this[12], &v8);
+  Phase::Geometry::System::GetCurrentState(&v8, this[12]);
   v4 = v8;
   v5 = v9;
   if (v9)
@@ -1590,7 +1611,7 @@ void Phase::ActionTreeServerCommandProcessor::~ActionTreeServerCommandProcessor(
 
 id Phase::Controller::TaskManager::GetObjCService<ExternalStreamManager>(Phase::Logger *a1, int a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 6);
   if (a2 >= ((*(a1 + 7) - v3) >> 5))
   {
@@ -1598,9 +1619,9 @@ id Phase::Controller::TaskManager::GetObjCService<ExternalStreamManager>(Phase::
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v15 = "TaskManager.hpp";
-      v16 = 1024;
-      v17 = 140;
+      v16 = "TaskManager.hpp";
+      v17 = 1024;
+      v18 = 140;
       _os_log_impl(&dword_23A302000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: pId < mServiceRegistry.size() is false.", buf, 0x12u);
     }
 
@@ -1617,13 +1638,13 @@ id Phase::Controller::TaskManager::GetObjCService<ExternalStreamManager>(Phase::
       Phase::GetBacktraceFrame<1ul>(&__p);
       v11 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
       *buf = 136315906;
-      v15 = "TaskManager.hpp";
-      v16 = 1024;
-      v17 = 149;
-      v18 = 1024;
-      v19 = a2;
-      v20 = 2080;
-      v21 = v11;
+      v16 = "TaskManager.hpp";
+      v17 = 1024;
+      v18 = 149;
+      v19 = 1024;
+      v20 = a2;
+      v21 = 2080;
+      v22 = v11;
       _os_log_impl(&dword_23A302000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::domain_error) [not lService.has_value() is true]: No service registered for Id %i, in call \\n%s", buf, 0x22u);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -1632,7 +1653,7 @@ id Phase::Controller::TaskManager::GetObjCService<ExternalStreamManager>(Phase::
     }
 
     v12 = __cxa_allocate_exception(0x10uLL);
-    std::domain_error::domain_error[abi:ne200100](v12, "No service registered for Id %i, in call \n%s");
+    std::domain_error::domain_error[abi:ne200100](v12, "No service registered for Id %i, in call \n%s", v13, __p.__r_.__value_.__l.__data_);
   }
 
   v5 = std::any_cast[abi:ne200100]<ExternalStreamManager * const {__strong}>(v4);
@@ -1678,14 +1699,46 @@ Phase::ActionTreeClientCommandProcessor *Phase::ActionTreeClientCommandProcessor
 
   *this = &unk_284D2EF20;
   *(this + 10) = a2;
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 1);
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 2);
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 3);
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 4);
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 5);
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 6);
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 7);
-  std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 8);
+  v10 = 1;
+  *&v8 = Phase::ActionTreeClientCommandProcessor::SubmitGeneratorPreparedResultHandler;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 1, &v10, &v8);
+  v10 = 2;
+  *&v8 = Phase::ActionTreeClientCommandProcessor::SubmitGeneratorCompletedResultHandler;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 2, &v10, &v8);
+  v10 = 3;
+  *&v8 = Phase::ActionTreeClientCommandProcessor::SubmitGeneratorSeekCompletedResultHandler;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 3, &v10, &v8);
+  v10 = 4;
+  *&v8 = Phase::ActionTreeClientCommandProcessor::SubmitGeneratorBufferCompletedResultHandler;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 4, &v10, &v8);
+  v10 = 5;
+  *&v8 = Phase::ActionTreeClientCommandProcessor::SubmitGeneratorPlayStateChangedHandler;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 5, &v10, &v8);
+  v10 = 6;
+  *&v8 = Phase::ActionTreeClientCommandProcessor::GeoQueryResponseHandler;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 6, &v10, &v8);
+  v10 = 7;
+  *&v8 = Phase::ActionTreeClientCommandProcessor::GeneratorResponseHandler;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 7, &v10, &v8);
+  v10 = 8;
+  *&v8 = Phase::ActionTreeClientCommandProcessor::SubmixResponseHandler;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 8, &v10, &v8);
   return this;
 }
 
@@ -1865,7 +1918,7 @@ void Phase::Dispatch::TransactionExecutor<Phase::ActionTreeServerCommand>::~Tran
   JUMPOUT(0x23EE864A0);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -1879,13 +1932,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -1942,29 +1995,17 @@ uint64_t std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::
   return a1;
 }
 
-void *std::vector<char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<char>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_23A3076D4(_Unwind_Exception *exception_object)
@@ -1979,7 +2020,7 @@ void sub_23A3076D4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -2401,32 +2442,32 @@ void std::__throw_bad_function_call[abi:ne200100]()
   *exception = MEMORY[0x277D82888] + 16;
 }
 
-void *std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(void *result, int a2)
+float *std::__hash_table<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeServerCommand>,std::equal_to<Phase::ActionTreeServerCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeServerCommand,std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeServerCommand>,std::hash<Phase::ActionTreeServerCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeServerCommand,Phase::ActionTreeServerCommand,std::__bind<void (Phase::ActionTreeServerCommandProcessor::*)(void const*),Phase::ActionTreeServerCommandProcessor*,std::placeholders::__ph<1> const&>>(float *result, int a2, _DWORD *a3, __int128 *a4)
 {
-  v2 = result[1];
-  if (!v2)
+  v4 = *(result + 1);
+  if (!v4)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v6 = a2;
+    if (v4 <= a2)
     {
-      v4 = a2 % v2;
+      v6 = a2 % v4;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v6 = (v4 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v7 = *(*result + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -2434,39 +2475,39 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v9 = v8[1];
+    if (v9 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v9 >= v4)
       {
-        v7 %= v2;
+        v9 %= v4;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v9 &= v4 - 1;
     }
 
-    if (v7 != v4)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v8 + 4) != a2)
   {
     goto LABEL_17;
   }
@@ -2474,9 +2515,9 @@ LABEL_17:
   return result;
 }
 
-void sub_23A3086E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3086E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2520,7 +2561,7 @@ uint64_t std::__function::__func<std::__bind<void (Phase::ActionTreeServerComman
   return v3(v4, *a2);
 }
 
-std::logic_error *std::domain_error::domain_error[abi:ne200100](std::logic_error *a1, const char *a2)
+std::logic_error *std::domain_error::domain_error[abi:ne200100](std::logic_error *a1, const char *a2, ...)
 {
   result = std::logic_error::logic_error(a1, a2);
   result->__vftable = (MEMORY[0x277D828D8] + 16);
@@ -2597,30 +2638,31 @@ void Phase::GetBacktraceFrame<1ul>(std::string *a1@<X8>)
   }
 }
 
-void sub_23A308B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *__p, uint64_t a6, int a7, __int16 a8, char a9, char a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+void sub_23A308B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *__p, uint64_t a6, int a7, __int16 a8, char a9, char a10, char a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  va_start(va, a26);
-  *(v26 - 56) = &a2;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v26 - 56));
-  if (a10 < 0)
+  va_start(va, a32);
+  *(v32 - 56) = &a9;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v32 - 56));
+  if (SHIBYTE(a16) < 0)
   {
-    operator delete(__p);
+    operator delete(a14);
   }
 
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a11, MEMORY[0x277D82818]);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a17, MEMORY[0x277D82818]);
   MEMORY[0x23EE863B0](va);
-  v28 = *(v26 - 88);
-  if (v28)
+  v34 = *(v32 - 88);
+  if (v34)
   {
-    *(v26 - 80) = v28;
-    operator delete(v28);
+    *(v32 - 80) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](uint64_t *a1, __int128 *a2, int a3)
+uint64_t *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](uint64_t *a1, __int128 *a2, uint64_t a3)
 {
+  v3 = a3;
   a1[22] = 0;
   v6 = MEMORY[0x277D82890] + 104;
   a1[16] = MEMORY[0x277D82890] + 104;
@@ -2648,7 +2690,7 @@ uint64_t *std::basic_stringstream<char,std::char_traits<char>,std::allocator<cha
   *a1 = v13;
   a1[16] = v6;
   a1[2] = v8;
-  std::stringbuf::basic_stringbuf[abi:ne200100]((a1 + 3), a2, a3);
+  std::stringbuf::basic_stringbuf[abi:ne200100]((a1 + 3), a2, v3);
   return a1;
 }
 
@@ -2677,34 +2719,34 @@ std::__split_buffer<std::string>::pointer std::vector<std::string>::push_back[ab
   return result;
 }
 
-void std::vector<void *>::resize(void *a1, unint64_t a2)
+void std::vector<void *>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<void *>::__append(a1, a2 - v2);
+    std::vector<void *>::__append(result, a2 - v2);
   }
 }
 
-void *std::vector<void *>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<void *>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<void *>::__vallocate[abi:ne200100](result, a2);
+    std::vector<void *>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23A308F64(_Unwind_Exception *exception_object)
@@ -2719,7 +2761,7 @@ void sub_23A308F64(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<void *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<void *>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -2805,8 +2847,7 @@ void std::vector<void *>::__append(uint64_t a1, unint64_t a2)
 void applesauce::backtrace::detail::symbolicate_snapshot(uint64_t a1@<X0>, int a2@<W1>, std::string *a3@<X8>)
 {
   v43 = *MEMORY[0x277D85DE8];
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
+  *&a3->__r_.__value_.__l.__data_ = 0uLL;
   a3->__r_.__value_.__r.__words[2] = 0;
   v5 = *a1;
   v7 = *(a1 + 8) - v5;
@@ -3507,7 +3548,7 @@ std::bad_cast *std::bad_any_cast::bad_any_cast(std::bad_any_cast *this)
   return result;
 }
 
-void std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -3523,7 +3564,7 @@ void std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Cont
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -3531,7 +3572,7 @@ void std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Cont
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -3555,7 +3596,7 @@ void std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Cont
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -3582,32 +3623,32 @@ void std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Cont
   *(a1 + 8) = 0;
 }
 
-void *std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(void *result, int a2)
+float *std::__hash_table<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::hash<Phase::ActionTreeClientCommand>,std::equal_to<Phase::ActionTreeClientCommand>,true>,std::__unordered_map_equal<Phase::ActionTreeClientCommand,std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>,std::equal_to<Phase::ActionTreeClientCommand>,std::hash<Phase::ActionTreeClientCommand>,true>,std::allocator<std::__hash_value_type<Phase::ActionTreeClientCommand,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::ActionTreeClientCommand,Phase::ActionTreeClientCommand,std::__bind<void (Phase::ActionTreeClientCommandProcessor::*)(void const*),Phase::ActionTreeClientCommandProcessor*,std::placeholders::__ph<1> const&>>(float *result, int a2, _DWORD *a3, __int128 *a4)
 {
-  v2 = result[1];
-  if (!v2)
+  v4 = *(result + 1);
+  if (!v4)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v6 = a2;
+    if (v4 <= a2)
     {
-      v4 = a2 % v2;
+      v6 = a2 % v4;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v6 = (v4 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v7 = *(*result + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3615,39 +3656,39 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v9 = v8[1];
+    if (v9 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v9 >= v4)
       {
-        v7 %= v2;
+        v9 %= v4;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v9 &= v4 - 1;
     }
 
-    if (v7 != v4)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v8 + 4) != a2)
   {
     goto LABEL_17;
   }
@@ -3655,9 +3696,9 @@ LABEL_17:
   return result;
 }
 
-void sub_23A30A644(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A30A644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3964,7 +4005,7 @@ uint64_t Phase::ActionTreeIOManager::PrepareGenerator(Phase::Logger *a1, uint64_
   return 0;
 }
 
-uint64_t Phase::ActionTreeIOManager::GetResidentBufferForGenerator@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t *Phase::ActionTreeIOManager::GetResidentBufferForGenerator@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v15 = *MEMORY[0x277D85DE8];
   *v12 = a2;
@@ -3980,7 +4021,7 @@ uint64_t Phase::ActionTreeIOManager::GetResidentBufferForGenerator@<X0>(uint64_t
     *(a4 + 48) = 0;
     *(a4 + 56) = 0;
     *(a4 + 40) = 0;
-    result = std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(a4 + 40, *(v7 + 48), *(v7 + 56), *(v7 + 56) - *(v7 + 48));
+    result = std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>((a4 + 40), *(v7 + 48), *(v7 + 56), *(v7 + 56) - *(v7 + 48));
     *(a4 + 64) = *(v7 + 72);
   }
 
@@ -4004,7 +4045,7 @@ uint64_t Phase::ActionTreeIOManager::GetResidentBufferForGenerator@<X0>(uint64_t
     *a4 = 0u;
     *(a4 + 16) = 0u;
     v12[0] = 0;
-    result = std::vector<char>::vector[abi:ne200100]((a4 + 40), 8);
+    result = std::vector<char>::vector[abi:ne200100]((a4 + 40), 8, v12);
     **(a4 + 40) = 0;
     *(a4 + 64) = 0;
   }
@@ -4245,7 +4286,7 @@ void sub_23A30B258(_Unwind_Exception *a1)
 
 uint64_t Phase::Controller::TaskManager::GetService<Phase::ActionTreeManager>(Phase::Logger *a1, int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 6);
   if (a2 >= ((*(a1 + 7) - v3) >> 5))
   {
@@ -4253,9 +4294,9 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::ActionTreeManager>(Ph
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "TaskManager.hpp";
-      v15 = 1024;
-      v16 = 112;
+      v15 = "TaskManager.hpp";
+      v16 = 1024;
+      v17 = 112;
       _os_log_impl(&dword_23A302000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: pId < mServiceRegistry.size() is false.", buf, 0x12u);
     }
 
@@ -4272,13 +4313,13 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::ActionTreeManager>(Ph
       Phase::GetBacktraceFrame<1ul>(&__p);
       v10 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
       *buf = 136315906;
-      v14 = "TaskManager.hpp";
-      v15 = 1024;
-      v16 = 121;
-      v17 = 1024;
-      v18 = a2;
-      v19 = 2080;
-      v20 = v10;
+      v15 = "TaskManager.hpp";
+      v16 = 1024;
+      v17 = 121;
+      v18 = 1024;
+      v19 = a2;
+      v20 = 2080;
+      v21 = v10;
       _os_log_impl(&dword_23A302000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::domain_error) [not lService.has_value() is true]: No service registered for Id %i, in call \\n%s", buf, 0x22u);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -4287,7 +4328,7 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::ActionTreeManager>(Ph
     }
 
     v11 = __cxa_allocate_exception(0x10uLL);
-    std::domain_error::domain_error[abi:ne200100](v11, "No service registered for Id %i, in call \n%s");
+    std::domain_error::domain_error[abi:ne200100](v11, "No service registered for Id %i, in call \n%s", v12, __p.__r_.__value_.__l.__data_);
   }
 
   v5 = std::any_cast[abi:ne200100]<Phase::ActionTreeManager * const>(v4);
@@ -4368,7 +4409,7 @@ BOOL Phase::ActionTreeDirectIOManager::PrepareResidentBufferGenerator(uint64_t a
 
 id Phase::Controller::TaskManager::GetObjCService<PHASEAssetRegistry>(Phase::Logger *a1, int a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 6);
   if (a2 >= ((*(a1 + 7) - v3) >> 5))
   {
@@ -4376,9 +4417,9 @@ id Phase::Controller::TaskManager::GetObjCService<PHASEAssetRegistry>(Phase::Log
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v15 = "TaskManager.hpp";
-      v16 = 1024;
-      v17 = 140;
+      v16 = "TaskManager.hpp";
+      v17 = 1024;
+      v18 = 140;
       _os_log_impl(&dword_23A302000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: pId < mServiceRegistry.size() is false.", buf, 0x12u);
     }
 
@@ -4395,13 +4436,13 @@ id Phase::Controller::TaskManager::GetObjCService<PHASEAssetRegistry>(Phase::Log
       Phase::GetBacktraceFrame<1ul>(&__p);
       v11 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
       *buf = 136315906;
-      v15 = "TaskManager.hpp";
-      v16 = 1024;
-      v17 = 149;
-      v18 = 1024;
-      v19 = a2;
-      v20 = 2080;
-      v21 = v11;
+      v16 = "TaskManager.hpp";
+      v17 = 1024;
+      v18 = 149;
+      v19 = 1024;
+      v20 = a2;
+      v21 = 2080;
+      v22 = v11;
       _os_log_impl(&dword_23A302000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::domain_error) [not lService.has_value() is true]: No service registered for Id %i, in call \\n%s", buf, 0x22u);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -4410,7 +4451,7 @@ id Phase::Controller::TaskManager::GetObjCService<PHASEAssetRegistry>(Phase::Log
     }
 
     v12 = __cxa_allocate_exception(0x10uLL);
-    std::domain_error::domain_error[abi:ne200100](v12, "No service registered for Id %i, in call \n%s");
+    std::domain_error::domain_error[abi:ne200100](v12, "No service registered for Id %i, in call \n%s", v13, __p.__r_.__value_.__l.__data_);
   }
 
   v5 = std::any_cast[abi:ne200100]<PHASEAssetRegistry * const {__strong}>(v4);
@@ -4434,15 +4475,15 @@ void sub_23A30C15C(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void Phase::ActionTreeDirectIOManager::~ActionTreeDirectIOManager(Phase::ActionTreeDirectIOManager *this)
+void Phase::ActionTreeDirectIOManager::~ActionTreeDirectIOManager(void **this)
 {
   *this = &unk_284D2F148;
-  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>>>::~__hash_table(this + 24);
+  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>>>::~__hash_table(this + 3);
 }
 
 {
   *this = &unk_284D2F148;
-  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>>>::~__hash_table(this + 24);
+  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>>>::~__hash_table(this + 3);
 
   JUMPOUT(0x23EE864A0);
 }
@@ -4485,51 +4526,43 @@ void *std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique
     return 0;
   }
 
-  result = *v7;
-  if (*v7)
+  for (result = *v7; result; result = *result)
   {
-    do
+    v9 = result[1];
+    if (v3 == v9)
     {
-      v9 = result[1];
-      if (v3 == v9)
+      if (result[2] == *a2 && result[3] == a2[1])
       {
-        if (result[2] == *a2 && result[3] == a2[1])
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v5.u32[0] > 1uLL)
+      {
+        if (v9 >= *&v4)
         {
-          return result;
+          v9 %= *&v4;
         }
       }
 
       else
       {
-        if (v5.u32[0] > 1uLL)
-        {
-          if (v9 >= *&v4)
-          {
-            v9 %= *&v4;
-          }
-        }
-
-        else
-        {
-          v9 &= *&v4 - 1;
-        }
-
-        if (v9 != v6)
-        {
-          return 0;
-        }
+        v9 &= *&v4 - 1;
       }
 
-      result = *result;
+      if (v9 != v6)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-uint64_t std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4551,6 +4584,19 @@ void sub_23A30C3F4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
+uint64_t *std::vector<char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<char>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_23A30C468(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -4563,9 +4609,9 @@ void sub_23A30C468(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -5101,9 +5147,9 @@ uint64_t Phase::Fader<double>::SetDefaultValue(uint64_t a1, double a2)
   return std::__function::__value_func<double ()(double)>::~__value_func[abi:ne200100](v3);
 }
 
-void sub_23A30D1A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A30D1A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<double ()(double)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5121,7 +5167,7 @@ const char *Phase::sGetActionTreeObjectRunStateString(unsigned int a1)
   }
 }
 
-void Phase::ActionTreeObject::SetRunState(char *a1, unsigned int a2)
+void Phase::ActionTreeObject::SetRunState(Phase::Logger *a1, unsigned int a2)
 {
   v18 = *MEMORY[0x277D85DE8];
   Instance = Phase::Logger::GetInstance(a1);
@@ -5131,7 +5177,7 @@ void Phase::ActionTreeObject::SetRunState(char *a1, unsigned int a2)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *a1;
-      ActionTreeObjectRunStateString = Phase::sGetActionTreeObjectRunStateString(a1[144]);
+      ActionTreeObjectRunStateString = Phase::sGetActionTreeObjectRunStateString(*(a1 + 144));
       v8 = 136316162;
       v9 = "ActionTreeManager.mm";
       v10 = 1024;
@@ -5146,10 +5192,10 @@ void Phase::ActionTreeObject::SetRunState(char *a1, unsigned int a2)
     }
   }
 
-  a1[144] = a2;
+  *(a1 + 144) = a2;
 }
 
-void Phase::ActionTreeObject::SetSeekState(unsigned __int8 *a1, int a2)
+void Phase::ActionTreeObject::SetSeekState(Phase::Logger *a1, int a2)
 {
   v21 = *MEMORY[0x277D85DE8];
   Instance = Phase::Logger::GetInstance(a1);
@@ -5159,7 +5205,7 @@ void Phase::ActionTreeObject::SetSeekState(unsigned __int8 *a1, int a2)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *a1;
-      v7 = a1[145];
+      v7 = *(a1 + 145);
       v8 = "<not found>";
       if (v7 == 1)
       {
@@ -5205,7 +5251,7 @@ void Phase::ActionTreeObject::SetSeekState(unsigned __int8 *a1, int a2)
     }
   }
 
-  a1[145] = a2;
+  *(a1 + 145) = a2;
 }
 
 uint64_t Phase::ActionTreeObject::LeafNodeInfo::Configure(char *a1, void *a2, char *a3, void *a4, void *a5, _OWORD *a6)
@@ -5633,7 +5679,7 @@ void sub_23A30DFA4(_Unwind_Exception *a1)
 
 uint64_t Phase::Controller::TaskManager::GetService<Phase::Controller::GroupManager>(Phase::Logger *a1, int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 6);
   if (a2 >= ((*(a1 + 7) - v3) >> 5))
   {
@@ -5641,9 +5687,9 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::Controller::GroupMana
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "TaskManager.hpp";
-      v15 = 1024;
-      v16 = 112;
+      v15 = "TaskManager.hpp";
+      v16 = 1024;
+      v17 = 112;
       _os_log_impl(&dword_23A302000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: pId < mServiceRegistry.size() is false.", buf, 0x12u);
     }
 
@@ -5660,13 +5706,13 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::Controller::GroupMana
       Phase::GetBacktraceFrame<1ul>(&__p);
       v10 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
       *buf = 136315906;
-      v14 = "TaskManager.hpp";
-      v15 = 1024;
-      v16 = 121;
-      v17 = 1024;
-      v18 = a2;
-      v19 = 2080;
-      v20 = v10;
+      v15 = "TaskManager.hpp";
+      v16 = 1024;
+      v17 = 121;
+      v18 = 1024;
+      v19 = a2;
+      v20 = 2080;
+      v21 = v10;
       _os_log_impl(&dword_23A302000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::domain_error) [not lService.has_value() is true]: No service registered for Id %i, in call \\n%s", buf, 0x22u);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -5675,7 +5721,7 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::Controller::GroupMana
     }
 
     v11 = __cxa_allocate_exception(0x10uLL);
-    std::domain_error::domain_error[abi:ne200100](v11, "No service registered for Id %i, in call \n%s");
+    std::domain_error::domain_error[abi:ne200100](v11, "No service registered for Id %i, in call \n%s", v12, __p.__r_.__value_.__l.__data_);
   }
 
   v5 = std::any_cast[abi:ne200100]<Phase::Controller::GroupManager * const>(v4);
@@ -5726,7 +5772,7 @@ void *Phase::Commandable<128,Phase::LockFreeQueueMPSC>::~Commandable(void *a1)
 
 uint64_t Phase::Controller::TaskManager::GetService<Phase::GlobalMetaParameterManager>(Phase::Logger *a1, int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 6);
   if (a2 >= ((*(a1 + 7) - v3) >> 5))
   {
@@ -5734,9 +5780,9 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::GlobalMetaParameterMa
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "TaskManager.hpp";
-      v15 = 1024;
-      v16 = 112;
+      v15 = "TaskManager.hpp";
+      v16 = 1024;
+      v17 = 112;
       _os_log_impl(&dword_23A302000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: pId < mServiceRegistry.size() is false.", buf, 0x12u);
     }
 
@@ -5753,13 +5799,13 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::GlobalMetaParameterMa
       Phase::GetBacktraceFrame<1ul>(&__p);
       v10 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
       *buf = 136315906;
-      v14 = "TaskManager.hpp";
-      v15 = 1024;
-      v16 = 121;
-      v17 = 1024;
-      v18 = a2;
-      v19 = 2080;
-      v20 = v10;
+      v15 = "TaskManager.hpp";
+      v16 = 1024;
+      v17 = 121;
+      v18 = 1024;
+      v19 = a2;
+      v20 = 2080;
+      v21 = v10;
       _os_log_impl(&dword_23A302000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::domain_error) [not lService.has_value() is true]: No service registered for Id %i, in call \\n%s", buf, 0x22u);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -5768,7 +5814,7 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::GlobalMetaParameterMa
     }
 
     v11 = __cxa_allocate_exception(0x10uLL);
-    std::domain_error::domain_error[abi:ne200100](v11, "No service registered for Id %i, in call \n%s");
+    std::domain_error::domain_error[abi:ne200100](v11, "No service registered for Id %i, in call \n%s", v12, __p.__r_.__value_.__l.__data_);
   }
 
   v5 = std::any_cast[abi:ne200100]<Phase::GlobalMetaParameterManager * const>(v4);
@@ -5910,7 +5956,7 @@ LABEL_14:
   v25 = *(param + 2);
   if (v25 == 2)
   {
-    a3->fltVal = Phase::EvaluateEnvelopeDef(param + 56, v32);
+    a3->fltVal = Phase::EvaluateEnvelopeDef(param + 56, v32.fltVal);
     goto LABEL_42;
   }
 
@@ -5943,7 +5989,7 @@ LABEL_32:
   v28 = param + 64;
   while (v27 == 1)
   {
-    if (*v28 == v32)
+    if (*v28 == v32.fltVal)
     {
       goto LABEL_40;
     }
@@ -5956,7 +6002,7 @@ LABEL_31:
     }
   }
 
-  if (v27 != 2 || *v28 != *&v32)
+  if (v27 != 2 || *v28 != v32.stringVal)
   {
     goto LABEL_31;
   }
@@ -5976,9 +6022,9 @@ LABEL_15:
   return v19;
 }
 
-void sub_23A30EC70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23A30EC70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6006,9 +6052,9 @@ double Phase::EvaluateEnvelopeDef(uint64_t a1, double a2)
   return v4;
 }
 
-void sub_23A30EE78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_23A30EE78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::vector<Phase::Envelope<double>::Segment,std::allocator<Phase::Envelope<double>::Segment>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6039,7 +6085,7 @@ Phase::Logger **Phase::ActionTreeManager::UpdateGeoQueries(Phase::Logger **resul
               std::terminate();
             }
 
-            Phase::Geometry::System::GetCurrentState(v11, &v13);
+            Phase::Geometry::System::GetCurrentState(&v13, v11);
             v12 = Phase::DistanceBetweenListenerAndSource<double>(v13, *(a2[5].mStorage[0] + v7 + 32), *(a2[5].mStorage[0] + v7 + 24));
             if (v14)
             {
@@ -6084,7 +6130,7 @@ void sub_23A30EFF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t Phase::Controller::TaskManager::GetService<Phase::Geometry::System>(Phase::Logger *a1, int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 6);
   if (a2 >= ((*(a1 + 7) - v3) >> 5))
   {
@@ -6092,9 +6138,9 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::Geometry::System>(Pha
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "TaskManager.hpp";
-      v15 = 1024;
-      v16 = 112;
+      v15 = "TaskManager.hpp";
+      v16 = 1024;
+      v17 = 112;
       _os_log_impl(&dword_23A302000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: pId < mServiceRegistry.size() is false.", buf, 0x12u);
     }
 
@@ -6111,13 +6157,13 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::Geometry::System>(Pha
       Phase::GetBacktraceFrame<1ul>(&__p);
       v10 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
       *buf = 136315906;
-      v14 = "TaskManager.hpp";
-      v15 = 1024;
-      v16 = 121;
-      v17 = 1024;
-      v18 = a2;
-      v19 = 2080;
-      v20 = v10;
+      v15 = "TaskManager.hpp";
+      v16 = 1024;
+      v17 = 121;
+      v18 = 1024;
+      v19 = a2;
+      v20 = 2080;
+      v21 = v10;
       _os_log_impl(&dword_23A302000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::domain_error) [not lService.has_value() is true]: No service registered for Id %i, in call \\n%s", buf, 0x22u);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -6126,7 +6172,7 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::Geometry::System>(Pha
     }
 
     v11 = __cxa_allocate_exception(0x10uLL);
-    std::domain_error::domain_error[abi:ne200100](v11, "No service registered for Id %i, in call \n%s");
+    std::domain_error::domain_error[abi:ne200100](v11, "No service registered for Id %i, in call \n%s", v12, __p.__r_.__value_.__l.__data_);
   }
 
   v5 = std::any_cast[abi:ne200100]<Phase::Geometry::System * const>(v4);
@@ -6489,7 +6535,7 @@ uint64_t Phase::ActionTreeObject::FindSubmixIdFromHashName(Phase::ActionTreeObje
   return *(*(this + 10) + v4 + 8);
 }
 
-void *std::shared_ptr<Phase::Controller::StreamRenderer>::operator=[abi:ne200100]<Phase::Controller::StreamRenderer,std::default_delete<Phase::Controller::StreamRenderer>,0>(void *a1, void *a2)
+void *std::shared_ptr<Phase::Controller::StreamRenderer>::operator=[abi:ne200100]<Phase::Controller::StreamRenderer,std::default_delete<Phase::Controller::StreamRenderer>,0>(void *a1, uint64_t *a2)
 {
   if (*a2)
   {
@@ -6590,7 +6636,7 @@ BOOL Phase::ActionTreeManager::StartVoice(uint64_t a1, uint64_t a2, void *a3)
   v8 = *(a1 + 200);
   if (v8)
   {
-    [v8 audioTimeStamp];
+    objc_msgSend_audioTimeStamp(v8, v16[0]);
   }
 
   else
@@ -6801,11 +6847,11 @@ uint64_t Phase::ActionTreeManager::SetFloatParam(Phase::ActionTreeManager *this,
 
 uint64_t Phase::ActionTreeManager::ProcessNodes(uint64_t a1, int8x8_t *this, uint64_t a3, void *a4)
 {
-  v402[5] = *MEMORY[0x277D85DE8];
+  v401[5] = *MEMORY[0x277D85DE8];
   result = 1;
-  v386[0] = 1;
-  v388 = 0;
-  v387 = 1065353216;
+  v385[0] = 1;
+  v387 = 0;
+  v386 = 1065353216;
   v6 = this[3];
   v7 = *(*&v6 + 80);
   if (!v7)
@@ -6814,18 +6860,18 @@ uint64_t Phase::ActionTreeManager::ProcessNodes(uint64_t a1, int8x8_t *this, uin
   }
 
   v8 = this;
-  v361 = a1;
+  v360 = a1;
   v9 = 0;
   v10 = 0;
-  v371 = 0;
-  v372 = *(*&v6 + 88);
-  v360 = this + 15;
-  v11 = v386;
-  v369 = *(*&v6 + 80);
+  v370 = 0;
+  v371 = *(*&v6 + 88);
+  v359 = this + 15;
+  v11 = v385;
+  v368 = *(*&v6 + 80);
   while (2)
   {
-    v12 = v372 + v10;
-    v13 = *(v372 + v10);
+    v12 = v371 + v10;
+    v13 = *(v371 + v10);
     v10 += 8;
     switch(v13)
     {
@@ -6833,23 +6879,23 @@ uint64_t Phase::ActionTreeManager::ProcessNodes(uint64_t a1, int8x8_t *this, uin
         v51 = *(v8 + 3);
         if (*(v51 + 40) <= v9)
         {
-          v319 = **(Phase::Logger::GetInstance(result) + 704);
-          v318 = v319;
-          if (os_log_type_enabled(v319, OS_LOG_TYPE_ERROR))
+          v318 = **(Phase::Logger::GetInstance(result) + 704);
+          v317 = v318;
+          if (os_log_type_enabled(v318, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
             *&buf[4] = "ActionTreeManager.mm";
             *&buf[12] = 1024;
             *&buf[14] = 1483;
-            v315 = "%25s:%-5d Fatal Sound Event data error: Encountered more leafnodes than is allowed";
+            v314 = "%25s:%-5d Fatal Sound Event data error: Encountered more leafnodes than is allowed";
             goto LABEL_526;
           }
 
           return 0;
         }
 
-        v52 = (v372 + v10);
-        v364 = v9;
+        v52 = (v371 + v10);
+        v363 = v9;
         v53 = *(v8 + 7) + 160 * v9;
         v54 = *(v53 + 24);
         if (*v11)
@@ -6860,8 +6906,8 @@ uint64_t Phase::ActionTreeManager::ProcessNodes(uint64_t a1, int8x8_t *this, uin
             {
               if (v54 == 4)
               {
-                result = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v361, v8, v364, (v52 + 2), a3, a4, *(v11 + 1));
-                v7 = v369;
+                result = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v360, v8, v363, (v52 + 2), a3, a4, *(v11 + 1));
+                v7 = v368;
                 v8 = this;
                 if ((result & 1) == 0)
                 {
@@ -6877,7 +6923,7 @@ uint64_t Phase::ActionTreeManager::ProcessNodes(uint64_t a1, int8x8_t *this, uin
               }
 
 LABEL_446:
-              LODWORD(v9) = v364;
+              LODWORD(v9) = v363;
 LABEL_447:
               v9 = (v9 + 1);
 LABEL_448:
@@ -6891,30 +6937,30 @@ LABEL_170:
               goto LABEL_446;
             }
 
-            v122 = Phase::Controller::TaskManager::GetObjCService<PHASEAssetRegistry>(*(v361 + 192), 1);
+            v122 = Phase::Controller::TaskManager::GetObjCService<PHASEAssetRegistry>(*(v360 + 192), 1);
             v123 = this;
             v124 = [v122 getSoundAssetInfo:v52[1]];
             if (!v124)
             {
-              v329 = **(Phase::Logger::GetInstance(0) + 704);
-              v330 = v329;
-              if (os_log_type_enabled(v329, OS_LOG_TYPE_ERROR))
+              v328 = **(Phase::Logger::GetInstance(0) + 704);
+              v329 = v328;
+              if (os_log_type_enabled(v328, OS_LOG_TYPE_ERROR))
               {
-                v331 = v52[1];
+                v330 = v52[1];
                 *buf = 136315650;
                 *&buf[4] = "ActionTreeManager.mm";
                 *&buf[12] = 1024;
                 *&buf[14] = 1534;
                 *&buf[18] = 2048;
-                *&buf[20] = v331;
-                _os_log_impl(&dword_23A302000, v329, OS_LOG_TYPE_ERROR, "%25s:%-5d Fatal Sound Event data error: did not find asset info for assetId %llu", buf, 0x1Cu);
+                *&buf[20] = v330;
+                _os_log_impl(&dword_23A302000, v328, OS_LOG_TYPE_ERROR, "%25s:%-5d Fatal Sound Event data error: did not find asset info for assetId %llu", buf, 0x1Cu);
               }
 
               goto LABEL_532;
             }
 
             *(v53 + 8) = 0;
-            v358 = (v53 + 8);
+            v357 = (v53 + 8);
             *(v53 + 16) = 0;
             Phase::ActionTreeObject::LeafNodeInfo::SetLeafNodeState(v53, 1u);
             Phase::ActionTreeObject::LeafNodeInfo::SetLeafNodeSeekState(v53, 0);
@@ -6958,7 +7004,7 @@ LABEL_170:
             }
 
             MEMORY[0x23EE87040](buf);
-            v377 = *buf;
+            v376 = *buf;
             if (v124[1])
             {
               v132 = 2;
@@ -6969,22 +7015,22 @@ LABEL_170:
               v132 = 1;
             }
 
-            LOBYTE(v385) = v132;
-            v133 = Phase::ActionTreeObject::LeafNodeInfo::Configure(v53, &v377, &v385, v52 + 9, (v361 + 232), v123);
+            LOBYTE(v384) = v132;
+            v133 = Phase::ActionTreeObject::LeafNodeInfo::Configure(v53, &v376, &v384, v52 + 9, (v360 + 232), v123);
             if ((v133 & 1) == 0)
             {
-              v332 = **(Phase::Logger::GetInstance(v133) + 704);
-              v333 = v332;
-              if (os_log_type_enabled(v332, OS_LOG_TYPE_ERROR))
+              v331 = **(Phase::Logger::GetInstance(v133) + 704);
+              v332 = v331;
+              if (os_log_type_enabled(v331, OS_LOG_TYPE_ERROR))
               {
-                v334 = v52[1];
+                v333 = v52[1];
                 *buf = 136315650;
                 *&buf[4] = "ActionTreeManager.mm";
                 *&buf[12] = 1024;
                 *&buf[14] = 1550;
                 *&buf[18] = 2048;
-                *&buf[20] = v334;
-                v335 = "%25s:%-5d Fatal Sound Event data error: could not configure leaf node for assetId %llu";
+                *&buf[20] = v333;
+                v334 = "%25s:%-5d Fatal Sound Event data error: could not configure leaf node for assetId %llu";
                 goto LABEL_537;
               }
 
@@ -7001,41 +7047,41 @@ LABEL_532:
             v134 = v52[2];
             *(v53 + 80) = v52[1];
             *(v53 + 96) = v52[6];
-            v355 = v52 + 2;
+            v354 = v52 + 2;
             *(v53 + 56) = v52[8];
             SubmixIdFromHashName = Phase::ActionTreeObject::FindSubmixIdFromHashName(v123, v134);
             if (!(SubmixIdFromHashName | v136))
             {
-              v332 = **(Phase::Logger::GetInstance(SubmixIdFromHashName) + 704);
-              v336 = v332;
-              if (os_log_type_enabled(v332, OS_LOG_TYPE_ERROR))
+              v331 = **(Phase::Logger::GetInstance(SubmixIdFromHashName) + 704);
+              v335 = v331;
+              if (os_log_type_enabled(v331, OS_LOG_TYPE_ERROR))
               {
-                v337 = *v355;
+                v336 = *v354;
                 *buf = 136315650;
                 *&buf[4] = "ActionTreeManager.mm";
                 *&buf[12] = 1024;
                 *&buf[14] = 1636;
                 *&buf[18] = 2048;
-                *&buf[20] = v337;
-                v335 = "%25s:%-5d Fatal Sound Event data error: Submix %llx not registered.";
+                *&buf[20] = v336;
+                v334 = "%25s:%-5d Fatal Sound Event data error: Submix %llx not registered.";
 LABEL_537:
-                _os_log_impl(&dword_23A302000, v332, OS_LOG_TYPE_ERROR, v335, buf, 0x1Cu);
+                _os_log_impl(&dword_23A302000, v331, OS_LOG_TYPE_ERROR, v334, buf, 0x1Cu);
               }
 
               goto LABEL_532;
             }
 
             *&buf[32] = 6553601;
-            v393 = 0xC028000000000000;
+            v392 = 0xC028000000000000;
+            v393 = 0;
             v394 = 0;
             v395 = 0;
-            v396 = 0;
-            v400 = 0;
-            v401 = 0x3FF0000000000000;
-            memset(v402, 0, 40);
+            v399 = 0;
+            v400 = 0x3FF0000000000000;
+            memset(v401, 0, 40);
             v137 = v124[1];
-            v351 = SubmixIdFromHashName;
-            v353 = v136;
+            v350 = SubmixIdFromHashName;
+            v352 = v136;
             if (v137 != 1)
             {
               if (!v137)
@@ -7049,22 +7095,22 @@ LABEL_537:
 
                 v139 = v138;
                 v140 = *(v138 + 48);
-                v394 = 0;
+                v393 = 0;
                 v141 = [v140 format];
                 v142 = [v141 streamDescription];
-                v397 = *v142;
-                v398 = *(v142 + 16);
-                v399 = *(v142 + 32);
+                v396 = *v142;
+                v397 = *(v142 + 16);
+                v398 = *(v142 + 32);
 
                 v143 = [v140 format];
                 v144 = [v143 channelLayout];
                 *&buf[32] = [v144 layoutTag];
 
 LABEL_422:
-                v400 = v52[3];
-                v401 = v52[4];
-                v402[0] = *(v139 + 24);
-                v393 = *(v139 + 40);
+                v399 = v52[3];
+                v400 = v52[4];
+                v401[0] = *(v139 + 24);
+                v392 = *(v139 + 40);
 
                 v270 = *(v53 + 112);
                 if (v270 != v52[9])
@@ -7072,20 +7118,20 @@ LABEL_422:
                   goto LABEL_545;
                 }
 
-                *buf = *v358;
-                *&buf[16] = v351;
-                *&buf[24] = v353;
-                v395 = 0;
-                v396 = v52[1];
-                v402[3] = v52[8];
-                v402[4] = v270;
+                *buf = *v357;
+                *&buf[16] = v350;
+                *&buf[24] = v352;
+                v394 = 0;
+                v395 = v52[1];
+                v401[3] = v52[8];
+                v401[4] = v270;
                 v271 = this;
                 if (!Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 7u, buf, 0xA8uLL))
                 {
                   goto LABEL_532;
                 }
 
-                v272 = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v361, this, v364, v355, a3, a4, *(v11 + 1));
+                v272 = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v360, this, v363, v354, a3, a4, *(v11 + 1));
                 if ((v272 & 1) == 0)
                 {
                   goto LABEL_532;
@@ -7096,8 +7142,8 @@ LABEL_422:
                 {
                   v274 = **(Phase::Logger::GetInstance(v273) + 704);
                   v275 = v274;
-                  v276 = *v358;
-                  if ((*v358 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v274))
+                  v276 = *v357;
+                  if ((*v357 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v274))
                   {
                     *__src = 134217984;
                     *&__src[4] = v276;
@@ -7151,8 +7197,8 @@ LABEL_438:
                 {
                   v280 = **(Phase::Logger::GetInstance(v279) + 704);
                   v281 = v280;
-                  v282 = *v358;
-                  if ((*v358 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v280))
+                  v282 = *v357;
+                  if ((*v357 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v280))
                   {
                     *__src = 134217984;
                     *&__src[4] = v282;
@@ -7163,25 +7209,25 @@ LABEL_438:
                 goto LABEL_444;
               }
 
-              v338 = **(Phase::Logger::GetInstance(SubmixIdFromHashName) + 704);
-              v339 = v338;
-              if (!os_log_type_enabled(v338, OS_LOG_TYPE_ERROR))
+              v337 = **(Phase::Logger::GetInstance(SubmixIdFromHashName) + 704);
+              v338 = v337;
+              if (!os_log_type_enabled(v337, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_532;
               }
 
-              v340 = v124[1];
+              v339 = v124[1];
               *__src = 136315650;
               *&__src[4] = "ActionTreeManager.mm";
               *&__src[12] = 1024;
               *&__src[14] = 1837;
               *&__src[18] = 1024;
-              *&__src[20] = v340;
-              v341 = "%25s:%-5d Unhandled AssetType %d for Sampler!";
-              v342 = v338;
-              v343 = 24;
+              *&__src[20] = v339;
+              v340 = "%25s:%-5d Unhandled AssetType %d for Sampler!";
+              v341 = v337;
+              v342 = 24;
 LABEL_549:
-              _os_log_impl(&dword_23A302000, v342, OS_LOG_TYPE_ERROR, v341, __src, v343);
+              _os_log_impl(&dword_23A302000, v341, OS_LOG_TYPE_ERROR, v340, __src, v342);
               goto LABEL_532;
             }
 
@@ -7220,36 +7266,36 @@ LABEL_549:
               v212 = 0x4000;
             }
 
-            Phase::Controller::StreamedSoundAssetInfo::CreateStreamRenderer(v206, &cfstr_Mpegdefault12l.isa, (v212 + 1) & 0xFFFFFFFE, __src);
+            Phase::Controller::StreamedSoundAssetInfo::CreateStreamRenderer(__src, v206, &cfstr_Mpegdefault12l.isa, (v212 + 1) & 0xFFFFFFFE);
             std::shared_ptr<Phase::Controller::StreamRenderer>::operator=[abi:ne200100]<Phase::Controller::StreamRenderer,std::default_delete<Phase::Controller::StreamRenderer>,0>((v53 + 32), __src);
             std::unique_ptr<Phase::Controller::StreamRenderer>::~unique_ptr[abi:ne200100](__src);
 
             if (!*v125)
             {
-              v344 = **(Phase::Logger::GetInstance(v213) + 704);
-              v345 = v344;
-              if (os_log_type_enabled(v344, OS_LOG_TYPE_ERROR))
+              v343 = **(Phase::Logger::GetInstance(v213) + 704);
+              v344 = v343;
+              if (os_log_type_enabled(v343, OS_LOG_TYPE_ERROR))
               {
-                v346 = v52[1];
+                v345 = v52[1];
                 *__src = 136315650;
                 *&__src[4] = "ActionTreeManager.mm";
                 *&__src[12] = 1024;
                 *&__src[14] = 1712;
                 *&__src[18] = 2048;
-                *&__src[20] = v346;
-                v341 = "%25s:%-5d Failed to create stream renderer for streaming assetId %llu";
+                *&__src[20] = v345;
+                v340 = "%25s:%-5d Failed to create stream renderer for streaming assetId %llu";
                 goto LABEL_548;
               }
 
               goto LABEL_532;
             }
 
-            caulk::concurrent::guarded_lookup_hash_table<Phase::UniqueObjectId,Phase::Controller::StreamRenderer *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<Phase::UniqueObjectId>>::_addOrReplace(v361 + 80, *(v53 + 8), *(v53 + 16), *v125);
+            caulk::concurrent::guarded_lookup_hash_table<Phase::UniqueObjectId,Phase::Controller::StreamRenderer *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<Phase::UniqueObjectId>>::_addOrReplace(v360 + 80, *(v53 + 8), *(v53 + 16), *v125);
             if (*(v53 + 48) == 1)
             {
               v214 = *(v53 + 72);
-              v215 = Phase::ActionTreeObject::LeafNodeInfo::GeneratorStreamSeek(v53, *(v361 + 192));
-              Phase::ActionTreeManager::SubmitGeneratorSeekCompletedResult(v361, *(v53 + 8), *(v53 + 16), v215);
+              v215 = Phase::ActionTreeObject::LeafNodeInfo::GeneratorStreamSeek(v53, *(v360 + 192));
+              Phase::ActionTreeManager::SubmitGeneratorSeekCompletedResult(v360, *(v53 + 8), *(v53 + 16), v215);
               if (*(v53 + 48) == 1)
               {
                 goto LABEL_545;
@@ -7261,7 +7307,7 @@ LABEL_549:
                 v218 = v217;
                 if (os_log_type_enabled(v217, OS_LOG_TYPE_DEFAULT))
                 {
-                  v219 = *v358;
+                  v219 = *v357;
                   *__src = 136316162;
                   *&__src[4] = "ActionTreeManager.mm";
                   *&__src[12] = 1024;
@@ -7270,12 +7316,12 @@ LABEL_549:
                   *&__src[20] = v219;
                   *&__src[28] = 2048;
                   *&__src[30] = v214;
-                  v390 = 1024;
-                  v391 = v215;
+                  v389 = 1024;
+                  v390 = v215;
                   _os_log_impl(&dword_23A302000, v217, OS_LOG_TYPE_DEFAULT, "%25s:%-5d generatorId %llu: seeking to time %.2fs before preparing, result %d, aborting prepare, stopping", __src, 0x2Cu);
                 }
 
-                Phase::ActionTreeManager::LeafNodeCompleted(v361, *(v53 + 8), *(v53 + 16), (v53 + 128));
+                Phase::ActionTreeManager::LeafNodeCompleted(v360, *(v53 + 8), *(v53 + 16), (v53 + 128));
 
                 goto LABEL_445;
               }
@@ -7291,34 +7337,34 @@ LABEL_549:
 
               else
               {
-                *&v373 = MEMORY[0x277D85DD0];
-                *(&v373 + 1) = 3321888768;
-                v374 = ___ZN5Phase17ActionTreeManager18ProcessSamplerNodeEPKNS_10SamplerMsgEPNS_10ParamStackEiPNS_16ActionTreeObjectERNS_24ActionTreeGatheredParamsERNS_17MessagePipeWriterINS_23ActionTreeServerCommandEEE_block_invoke;
-                v375 = &__block_descriptor_40_ea8_32c203_ZTSKZN5Phase17ActionTreeManager18ProcessSamplerNodeEPKNS_10SamplerMsgEPNS_10ParamStackEiPNS_16ActionTreeObjectERNS_24ActionTreeGatheredParamsERNS_17MessagePipeWriterINS_23ActionTreeServerCommandEEEE3__0_e8_v16__0q8l;
-                v376 = v53;
-                v242 = Phase::Controller::StreamedSoundAssetInfo::ScheduleFile(v139, v241, 0, 0, 0, &v373);
+                *&v372 = MEMORY[0x277D85DD0];
+                *(&v372 + 1) = 3321888768;
+                v373 = ___ZN5Phase17ActionTreeManager18ProcessSamplerNodeEPKNS_10SamplerMsgEPNS_10ParamStackEiPNS_16ActionTreeObjectERNS_24ActionTreeGatheredParamsERNS_17MessagePipeWriterINS_23ActionTreeServerCommandEEE_block_invoke;
+                v374 = &__block_descriptor_40_ea8_32c203_ZTSKZN5Phase17ActionTreeManager18ProcessSamplerNodeEPKNS_10SamplerMsgEPNS_10ParamStackEiPNS_16ActionTreeObjectERNS_24ActionTreeGatheredParamsERNS_17MessagePipeWriterINS_23ActionTreeServerCommandEEEE3__0_e8_v16__0q8l;
+                v375 = v53;
+                v242 = Phase::Controller::StreamedSoundAssetInfo::ScheduleFile(v139, v241, 0, 0, 0, &v372);
               }
 
               if ((v242 & 1) == 0)
               {
-                v344 = **(Phase::Logger::GetInstance(v242) + 704);
-                v349 = v344;
-                if (!os_log_type_enabled(v344, OS_LOG_TYPE_ERROR))
+                v343 = **(Phase::Logger::GetInstance(v242) + 704);
+                v348 = v343;
+                if (!os_log_type_enabled(v343, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_532;
                 }
 
-                v350 = v52[1];
+                v349 = v52[1];
                 *__src = 136315650;
                 *&__src[4] = "ActionTreeManager.mm";
                 *&__src[12] = 1024;
                 *&__src[14] = 1778;
                 *&__src[18] = 2048;
-                *&__src[20] = v350;
-                v341 = "%25s:%-5d Failed to schedule streaming assetId %llu on stream renderer";
+                *&__src[20] = v349;
+                v340 = "%25s:%-5d Failed to schedule streaming assetId %llu on stream renderer";
 LABEL_548:
-                v342 = v344;
-                v343 = 28;
+                v341 = v343;
+                v342 = 28;
                 goto LABEL_549;
               }
             }
@@ -7326,32 +7372,32 @@ LABEL_548:
             v268 = Phase::Controller::StreamRenderer::Start(*v125);
             if (v268)
             {
-              v394 = 2;
+              v393 = 2;
               v140 = *(v139 + 64);
               v269 = [v140 streamDescription];
-              v397 = *v269;
-              v398 = *(v269 + 16);
-              v399 = *(v269 + 32);
+              v396 = *v269;
+              v397 = *(v269 + 16);
+              v398 = *(v269 + 32);
               v143 = [v140 channelLayout];
               *&buf[32] = [v143 layoutTag];
               goto LABEL_422;
             }
 
-            v344 = **(Phase::Logger::GetInstance(v268) + 704);
-            v347 = v344;
-            if (!os_log_type_enabled(v344, OS_LOG_TYPE_ERROR))
+            v343 = **(Phase::Logger::GetInstance(v268) + 704);
+            v346 = v343;
+            if (!os_log_type_enabled(v343, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_532;
             }
 
-            v348 = v52[1];
+            v347 = v52[1];
             *__src = 136315650;
             *&__src[4] = "ActionTreeManager.mm";
             *&__src[12] = 1024;
             *&__src[14] = 1787;
             *&__src[18] = 2048;
-            *&__src[20] = v348;
-            v341 = "%25s:%-5d Failed to start stream renderer for streaming assetId %llu";
+            *&__src[20] = v347;
+            v340 = "%25s:%-5d Failed to start stream renderer for streaming assetId %llu";
             goto LABEL_548;
           }
 
@@ -7359,7 +7405,7 @@ LABEL_548:
           {
             if ((v52[8] - 1) <= 2)
             {
-              if (!Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v361, v8, v364, (v52 + 2), a3, a4, *(v11 + 1)))
+              if (!Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v360, v8, v363, (v52 + 2), a3, a4, *(v11 + 1)))
               {
                 return 0;
               }
@@ -7415,7 +7461,7 @@ LABEL_548:
               *buf = *(v53 + 8);
               result = Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 1u, buf, 0x10uLL);
 LABEL_445:
-              v7 = v369;
+              v7 = v368;
               v8 = this;
               goto LABEL_446;
             }
@@ -7437,33 +7483,33 @@ LABEL_352:
         result = Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 3u, buf, 0x18uLL);
         goto LABEL_445;
       case 1:
-        if (v371 >= 15)
+        if (v370 >= 15)
         {
-          v319 = **(Phase::Logger::GetInstance(result) + 704);
-          result = os_log_type_enabled(v319, OS_LOG_TYPE_ERROR);
+          v318 = **(Phase::Logger::GetInstance(result) + 704);
+          result = os_log_type_enabled(v318, OS_LOG_TYPE_ERROR);
           if (result)
           {
             *buf = 136315394;
             *&buf[4] = "ActionTreeManager.mm";
             *&buf[12] = 1024;
             *&buf[14] = 3454;
-            v315 = "%25s:%-5d Fatal Sound Event data error: Failed to push blend stack";
+            v314 = "%25s:%-5d Fatal Sound Event data error: Failed to push blend stack";
             goto LABEL_526;
           }
 
           return result;
         }
 
-        v27 = v371 + 1;
-        v11 = &v386[16 * v27];
-        *v11 = *&v386[16 * v371];
+        v27 = v370 + 1;
+        v11 = &v385[16 * v27];
+        *v11 = *&v385[16 * v370];
         if (!*v11)
         {
           goto LABEL_316;
         }
 
-        v55 = v372 + v10;
-        v56 = *(v372 + v10 + 8);
+        v55 = v371 + v10;
+        v56 = *(v371 + v10 + 8);
         if (v56 == -2)
         {
           v57 = *(v8 + 3);
@@ -7471,17 +7517,17 @@ LABEL_352:
           if (!v58)
           {
 LABEL_489:
-            v316 = **(Phase::Logger::GetInstance(result) + 704);
-            if (os_log_type_enabled(v316, OS_LOG_TYPE_ERROR))
+            v315 = **(Phase::Logger::GetInstance(result) + 704);
+            if (os_log_type_enabled(v315, OS_LOG_TYPE_ERROR))
             {
-              v317 = [*&this[2] getString:*(v55 + 424)];
+              v316 = [*&this[2] getString:*(v55 + 424)];
               *buf = 136315650;
               *&buf[4] = "ActionTreeManager.mm";
               *&buf[12] = 1024;
               *&buf[14] = 3483;
               *&buf[18] = 2080;
-              *&buf[20] = v317;
-              _os_log_impl(&dword_23A302000, v316, OS_LOG_TYPE_ERROR, "%25s:%-5d Fatal Sound Event data error: Submix %s not found for distance tracking", buf, 0x1Cu);
+              *&buf[20] = v316;
+              _os_log_impl(&dword_23A302000, v315, OS_LOG_TYPE_ERROR, "%25s:%-5d Fatal Sound Event data error: Submix %s not found for distance tracking", buf, 0x1Cu);
             }
 
             return 0;
@@ -7507,15 +7553,15 @@ LABEL_489:
         {
           if ((v56 & 0x80000000) != 0 || *(*(v8 + 3) + 8) <= v56)
           {
-            v319 = **(Phase::Logger::GetInstance(result) + 704);
-            result = os_log_type_enabled(v319, OS_LOG_TYPE_ERROR);
+            v318 = **(Phase::Logger::GetInstance(result) + 704);
+            result = os_log_type_enabled(v318, OS_LOG_TYPE_ERROR);
             if (result)
             {
               *buf = 136315394;
               *&buf[4] = "ActionTreeManager.mm";
               *&buf[12] = 1024;
               *&buf[14] = 3491;
-              v315 = "%25s:%-5d Fatal Sound Event data error: blend parameter invalid";
+              v314 = "%25s:%-5d Fatal Sound Event data error: blend parameter invalid";
               goto LABEL_526;
             }
 
@@ -7523,27 +7569,27 @@ LABEL_489:
           }
 
           v97 = *(a3 + 8);
-          if (*(v372 + v10 + 8) >= ((*(a3 + 16) - v97) >> 3))
+          if (*(v371 + v10 + 8) >= ((*(a3 + 16) - v97) >> 3))
           {
             Phase::ActionTreeManager::HandleParamError(0, v8, v56);
             return 0;
           }
 
           v98 = *(a3 + 32);
-          if (*(v372 + v10 + 8) >= ((*(a3 + 40) - v98) >> 2))
+          if (*(v371 + v10 + 8) >= ((*(a3 + 40) - v98) >> 2))
           {
-            Phase::ActionTreeManager::HandleParamError(0, v8, *(v372 + v10 + 8));
+            Phase::ActionTreeManager::HandleParamError(0, v8, *(v371 + v10 + 8));
             return 0;
           }
 
-          if (*(v98 + 4 * *(v372 + v10 + 8)) != 1)
+          if (*(v98 + 4 * *(v371 + v10 + 8)) != 1)
           {
             v30 = 0;
             v147 = 0.0;
             goto LABEL_314;
           }
 
-          v99 = (v97 + 8 * *(v372 + v10 + 8));
+          v99 = (v97 + 8 * *(v371 + v10 + 8));
         }
 
         v146 = *(v55 + 32);
@@ -7557,7 +7603,7 @@ LABEL_489:
         {
           v147 = Phase::EvaluateEnvelopeDef(v55 + 16, v148);
           v30 = 1;
-          v7 = v369;
+          v7 = v368;
           v8 = this;
         }
 
@@ -7566,70 +7612,70 @@ LABEL_314:
         goto LABEL_315;
       case 2:
       case 4:
-        v371 -= v371 > 0;
-        v11 = &v386[16 * v371];
+        v370 -= v370 > 0;
+        v11 = &v385[16 * v370];
         goto LABEL_448;
       case 3:
-        if (v371 >= 15)
+        if (v370 >= 15)
         {
-          v319 = **(Phase::Logger::GetInstance(result) + 704);
-          result = os_log_type_enabled(v319, OS_LOG_TYPE_ERROR);
+          v318 = **(Phase::Logger::GetInstance(result) + 704);
+          result = os_log_type_enabled(v318, OS_LOG_TYPE_ERROR);
           if (result)
           {
             *buf = 136315394;
             *&buf[4] = "ActionTreeManager.mm";
             *&buf[12] = 1024;
             *&buf[14] = 3527;
-            v315 = "%25s:%-5d Fatal Sound Event data error: Failed to push switch stack";
+            v314 = "%25s:%-5d Fatal Sound Event data error: Failed to push switch stack";
             goto LABEL_526;
           }
 
           return result;
         }
 
-        v27 = v371 + 1;
-        v11 = &v386[16 * v27];
-        *v11 = *&v386[16 * v371];
+        v27 = v370 + 1;
+        v11 = &v385[16 * v27];
+        *v11 = *&v385[16 * v370];
         if (!*v11)
         {
           goto LABEL_316;
         }
 
-        v28 = *(v372 + v10 + 8);
+        v28 = *(v371 + v10 + 8);
         if ((v28 & 0x8000000000000000) != 0 || (v29 = *(a3 + 8), v28 >= (*(a3 + 16) - v29) >> 3))
         {
-          v321 = 0;
+          v320 = 0;
         }
 
         else
         {
           if (*(*(a3 + 32) + 4 * v28) == 2)
           {
-            v30 = *(v29 + 8 * v28) == *(v372 + v10 + 16);
+            v30 = *(v29 + 8 * v28) == *(v371 + v10 + 16);
 LABEL_315:
             *v11 = v30;
 LABEL_316:
             v10 += *(v12 + 4);
-            v371 = v27;
+            v370 = v27;
             goto LABEL_449;
           }
 
-          v321 = 1;
+          v320 = 1;
         }
 
-        Phase::ActionTreeManager::HandleParamError(v321, v8, v28);
+        Phase::ActionTreeManager::HandleParamError(v320, v8, v28);
         return 0;
       case 5:
-        v365 = v9;
-        v66 = (v372 + v10);
+        v364 = v9;
+        v66 = (v371 + v10);
         v67 = *(v12 + 4);
         v68 = v8;
         v69 = *v11;
-        result = std::__hash_table<std::__hash_value_type<unsigned long long,int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,int>>>::find<unsigned long long>(v68 + 13, (v372 + v10));
+        result = std::__hash_table<std::__hash_value_type<unsigned long long,int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,int>>>::find<unsigned long long>(v68 + 13, (v371 + v10));
         v10 += v67;
         if (!v69)
         {
-          v7 = v369;
+          v7 = v368;
           v8 = this;
           v9 = v9;
           if (!result)
@@ -7666,7 +7712,7 @@ LABEL_249:
           }
 
           while (v119 != result);
-          if (v120 == v360)
+          if (v120 == v359)
           {
             goto LABEL_238;
           }
@@ -7749,7 +7795,7 @@ LABEL_242:
           goto LABEL_248;
         }
 
-        v7 = v369;
+        v7 = v368;
         v9 = v9;
         if (result)
         {
@@ -7761,9 +7807,9 @@ LABEL_242:
           {
             while (1)
             {
-              v71 = (v372 + v10);
-              v10 += *(v372 + v10 + 4) + 8;
-              if (v10 >= v369 || *v71 != 6)
+              v71 = (v371 + v10);
+              v10 += *(v371 + v10 + 4) + 8;
+              if (v10 >= v368 || *v71 != 6)
               {
                 break;
               }
@@ -7774,15 +7820,15 @@ LABEL_242:
               }
             }
 
-            v319 = **(Phase::Logger::GetInstance(result) + 704);
-            result = os_log_type_enabled(v319, OS_LOG_TYPE_ERROR);
+            v318 = **(Phase::Logger::GetInstance(result) + 704);
+            result = os_log_type_enabled(v318, OS_LOG_TYPE_ERROR);
             if (result)
             {
               *buf = 136315394;
               *&buf[4] = "ActionTreeManager.mm";
               *&buf[12] = 1024;
               *&buf[14] = 3573;
-              v315 = "%25s:%-5d Fatal Sound Event data error: Failed to process random weights";
+              v314 = "%25s:%-5d Fatal Sound Event data error: Failed to process random weights";
               goto LABEL_526;
             }
 
@@ -7812,27 +7858,27 @@ LABEL_242:
           v155 = 0.0;
           do
           {
-            v156 = (v372 + v10);
+            v156 = (v371 + v10);
             v157 = v10 + 8;
-            v10 += 8 + *(v372 + v10 + 4);
-            if (v10 >= v369 || *v156 != 6)
+            v10 += 8 + *(v371 + v10 + 4);
+            if (v10 >= v368 || *v156 != 6)
             {
-              v319 = **(Phase::Logger::GetInstance(result) + 704);
-              result = os_log_type_enabled(v319, OS_LOG_TYPE_ERROR);
+              v318 = **(Phase::Logger::GetInstance(result) + 704);
+              result = os_log_type_enabled(v318, OS_LOG_TYPE_ERROR);
               if (result)
               {
                 *buf = 136315394;
                 *&buf[4] = "ActionTreeManager.mm";
                 *&buf[12] = 1024;
                 *&buf[14] = 3596;
-                v315 = "%25s:%-5d Fatal Sound Event data error: Failed to process random weights";
+                v314 = "%25s:%-5d Fatal Sound Event data error: Failed to process random weights";
                 goto LABEL_526;
               }
 
               return result;
             }
 
-            v158 = *(v372 + v157);
+            v158 = *(v371 + v157);
             if (v116)
             {
               v159 = v116[4];
@@ -7846,7 +7892,7 @@ LABEL_242:
 
               else
               {
-                v163 = (*v162 + 4 * (v116[4] & 0x3FFLL));
+                v163 = (*v162 + 4 * (v116[4] & 0x3FF));
               }
 
 LABEL_218:
@@ -7876,11 +7922,11 @@ LABEL_218:
             }
 
             v155 = v155 + v158;
-            v167 = *(v361 + 216);
-            v168 = *(v361 + 208) ^ (*(v361 + 208) << 23);
+            v167 = *(v360 + 216);
+            v168 = *(v360 + 208) ^ (*(v360 + 208) << 23);
             v169 = (v167 >> 26) ^ (v168 >> 17) ^ v167 ^ v168;
-            *(v361 + 208) = v167;
-            *(v361 + 216) = v169;
+            *(v360 + 208) = v167;
+            *(v360 + 216) = v169;
             if (v155 * (vcvtd_n_f64_u64(v169 + v167, 0x40uLL) * 10000.0 + 0.0) < v158 * 10001.0)
             {
               v153 = v154;
@@ -8014,8 +8060,8 @@ LABEL_329:
 
             v116[4] = v247 - 1024;
             *buf = *v244;
-            v116[1] = v244 + 1;
-            result = std::__split_buffer<int *>::emplace_back<int *&>(v116, buf);
+            v116[1] = (v244 + 1);
+            std::__split_buffer<int *>::emplace_back<int *&>(v116, buf);
             v244 = v116[1];
             v247 = v116[4];
             v246 = v116[5];
@@ -8026,10 +8072,10 @@ LABEL_329:
           v116[5] = v246 + 1;
           if (v246 + 1 > *(v66 + 2))
           {
-            v311 = v247 + 1;
-            v116[4] = v311;
+            v310 = v247 + 1;
+            v116[4] = v310;
             v116[5] = v246;
-            if (v311 >= 0x800)
+            if (v310 >= 0x800)
             {
               operator delete(*v244);
               v116[1] += 8;
@@ -8038,18 +8084,18 @@ LABEL_329:
           }
         }
 
-        v7 = v369;
-        if (v10 >= v369)
+        v7 = v368;
+        if (v10 >= v368)
         {
-          v319 = **(Phase::Logger::GetInstance(result) + 704);
-          result = os_log_type_enabled(v319, OS_LOG_TYPE_ERROR);
+          v318 = **(Phase::Logger::GetInstance(result) + 704);
+          result = os_log_type_enabled(v318, OS_LOG_TYPE_ERROR);
           if (result)
           {
             *buf = 136315394;
             *&buf[4] = "ActionTreeManager.mm";
             *&buf[12] = 1024;
             *&buf[14] = 3644;
-            v315 = "%25s:%-5d Fatal Sound Event data error: Unexpected end of node message stream";
+            v314 = "%25s:%-5d Fatal Sound Event data error: Unexpected end of node message stream";
             goto LABEL_526;
           }
 
@@ -8057,8 +8103,8 @@ LABEL_329:
         }
 
         v8 = this;
-        v9 = v365;
-        if (*(v372 + v10) == 7)
+        v9 = v364;
+        if (*(v371 + v10) == 7)
         {
 LABEL_449:
           if (v10 >= v7)
@@ -8069,20 +8115,20 @@ LABEL_449:
           continue;
         }
 
-        v319 = **(Phase::Logger::GetInstance(result) + 704);
-        result = os_log_type_enabled(v319, OS_LOG_TYPE_ERROR);
+        v318 = **(Phase::Logger::GetInstance(result) + 704);
+        result = os_log_type_enabled(v318, OS_LOG_TYPE_ERROR);
         if (result)
         {
           *buf = 136315394;
           *&buf[4] = "ActionTreeManager.mm";
           *&buf[12] = 1024;
           *&buf[14] = 3652;
-          v315 = "%25s:%-5d Fatal Sound Event data error: Unexpected message processing subtree";
+          v314 = "%25s:%-5d Fatal Sound Event data error: Unexpected message processing subtree";
 LABEL_526:
-          v326 = v319;
-          v327 = 18;
+          v325 = v318;
+          v326 = 18;
 LABEL_527:
-          _os_log_impl(&dword_23A302000, v326, OS_LOG_TYPE_ERROR, v315, buf, v327);
+          _os_log_impl(&dword_23A302000, v325, OS_LOG_TYPE_ERROR, v314, buf, v326);
           return 0;
         }
 
@@ -8093,8 +8139,8 @@ LABEL_527:
           goto LABEL_448;
         }
 
-        v319 = **(Phase::Logger::GetInstance(result) + 704);
-        result = os_log_type_enabled(v319, OS_LOG_TYPE_ERROR);
+        v318 = **(Phase::Logger::GetInstance(result) + 704);
+        result = os_log_type_enabled(v318, OS_LOG_TYPE_ERROR);
         if (!result)
         {
           return result;
@@ -8104,20 +8150,20 @@ LABEL_527:
         *&buf[4] = "ActionTreeManager.mm";
         *&buf[12] = 1024;
         *&buf[14] = 3672;
-        v315 = "%25s:%-5d Fatal Sound Event data error: Bad randomweight message encountered";
+        v314 = "%25s:%-5d Fatal Sound Event data error: Bad randomweight message encountered";
         goto LABEL_526;
       case 7:
-        if (v371 >= 15)
+        if (v370 >= 15)
         {
-          v319 = **(Phase::Logger::GetInstance(result) + 704);
-          result = os_log_type_enabled(v319, OS_LOG_TYPE_ERROR);
+          v318 = **(Phase::Logger::GetInstance(result) + 704);
+          result = os_log_type_enabled(v318, OS_LOG_TYPE_ERROR);
           if (result)
           {
             *buf = 136315394;
             *&buf[4] = "ActionTreeManager.mm";
             *&buf[12] = 1024;
             *&buf[14] = 3687;
-            v315 = "%25s:%-5d Fatal Sound Event data error: Failed to push random stack";
+            v314 = "%25s:%-5d Fatal Sound Event data error: Failed to push random stack";
             goto LABEL_526;
           }
 
@@ -8126,8 +8172,8 @@ LABEL_527:
 
         v62 = *(v11 + 2);
         v63 = *(v11 + 3);
-        v11 = &v386[16 * v371 + 16];
-        *v11 = *&v386[16 * v371];
+        v11 = &v385[16 * v370 + 16];
+        *v11 = *&v385[16 * v370];
         v64 = v63 == v62;
         v65 = *v11;
         if (!v64)
@@ -8137,11 +8183,11 @@ LABEL_527:
 
         *v11 = v65;
         v10 += *(v12 + 4);
-        ++v371;
+        ++v370;
         goto LABEL_449;
       case 8:
-        v371 -= v371 > 0;
-        v11 = &v386[16 * v371];
+        v370 -= v370 > 0;
+        v11 = &v385[16 * v370];
         ++*(v11 + 3);
         goto LABEL_448;
       case 9:
@@ -8181,7 +8227,7 @@ LABEL_527:
           goto LABEL_267;
         }
 
-        v43 = (v372 + v10);
+        v43 = (v371 + v10);
         if (v42 != 4)
         {
           if (v42 != 1)
@@ -8244,30 +8290,30 @@ LABEL_312:
           }
 
           *&buf[32] = 6553601;
-          v402[1] = 0;
-          v402[2] = 0;
+          v401[1] = 0;
+          v401[2] = 0;
           *buf = *(v31 + 8);
           *&buf[16] = v44;
           *&buf[24] = v45;
-          v394 = 1;
+          v393 = 1;
+          v394 = 0;
           v395 = 0;
-          v396 = 0;
-          v400 = v43[2];
-          v401 = v43[3];
-          v402[0] = *(v43 + 56);
-          v393 = v43[8];
-          *&v402[3] = xmmword_23A554A00;
+          v399 = v43[2];
+          v400 = v43[3];
+          v401[0] = *(v43 + 56);
+          v392 = v43[8];
+          *&v401[3] = xmmword_23A554A00;
           v251 = *(*(v31 + 32) + 104);
           v252 = [v251 channelLayout];
           *&buf[32] = [v252 layoutTag];
 
           v253 = [v251 streamDescription];
           v254 = this;
-          v397 = *v253;
-          v398 = *(v253 + 16);
-          v399 = *(v253 + 32);
+          v396 = *v253;
+          v397 = *(v253 + 16);
+          v398 = *(v253 + 32);
           Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 7u, buf, 0xA8uLL);
-          v255 = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v361, this, v9, (v43 + 1), a3, a4, *(v11 + 1));
+          v255 = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v360, this, v9, (v43 + 1), a3, a4, *(v11 + 1));
           if (v255)
           {
             v256 = Phase::Logger::GetInstance(v255);
@@ -8286,7 +8332,7 @@ LABEL_312:
               v254 = this;
             }
 
-            caulk::concurrent::guarded_lookup_hash_table<Phase::UniqueObjectId,Phase::Controller::StreamRenderer *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<Phase::UniqueObjectId>>::_addOrReplace(v361 + 80, *(v31 + 8), *(v31 + 16), *(v31 + 32));
+            caulk::concurrent::guarded_lookup_hash_table<Phase::UniqueObjectId,Phase::Controller::StreamRenderer *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<Phase::UniqueObjectId>>::_addOrReplace(v360 + 80, *(v31 + 8), *(v31 + 16), *(v31 + 32));
             Phase::ActionTreeObject::LeafNodeInfo::SetLeafNodeState(v31, 2u);
             v260 = *(v254 + 144);
             if ((v260 - 2) < 2)
@@ -8335,9 +8381,9 @@ LABEL_413:
         }
 
         v178 = v9;
-        result = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v361, v8, v9, (v43 + 1), a3, a4, *(v11 + 1));
+        result = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v360, v8, v9, (v43 + 1), a3, a4, *(v11 + 1));
 LABEL_265:
-        v7 = v369;
+        v7 = v368;
         v8 = this;
         v9 = v178;
         if ((result & 1) == 0)
@@ -8349,16 +8395,16 @@ LABEL_265:
       case 10:
         if (*(*(v8 + 3) + 40) <= v9)
         {
-          v319 = **(Phase::Logger::GetInstance(result) + 704);
-          v320 = v319;
-          result = os_log_type_enabled(v319, OS_LOG_TYPE_ERROR);
+          v318 = **(Phase::Logger::GetInstance(result) + 704);
+          v319 = v318;
+          result = os_log_type_enabled(v318, OS_LOG_TYPE_ERROR);
           if (result)
           {
             *buf = 136315394;
             *&buf[4] = "ActionTreeManager.mm";
             *&buf[12] = 1024;
             *&buf[14] = 2818;
-            v315 = "%25s:%-5d Fatal Sound Event data error: Encountered more leafnodes than is allowed";
+            v314 = "%25s:%-5d Fatal Sound Event data error: Encountered more leafnodes than is allowed";
             goto LABEL_526;
           }
 
@@ -8366,7 +8412,7 @@ LABEL_265:
         }
 
         v72 = v9;
-        v73 = v372 + v10;
+        v73 = v371 + v10;
         v74 = v72;
         v75 = *(v8 + 7) + 160 * v72;
         v76 = *(v75 + 24);
@@ -8407,16 +8453,16 @@ LABEL_265:
             goto LABEL_145;
           }
 
-          v7 = v369;
+          v7 = v368;
           if (v76 == 4)
           {
-            result = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v361, v8, v72, v73 + 8, a3, a4, *(v11 + 1));
+            result = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v360, v8, v72, v73 + 8, a3, a4, *(v11 + 1));
             if (!result)
             {
               return result;
             }
 
-            v7 = v369;
+            v7 = v368;
             v8 = this;
             if (*(v73 + 88) == 1)
             {
@@ -8434,7 +8480,7 @@ LABEL_265:
                 *&buf[16] = 0xD5446B03D63B0AC2;
                 *&buf[24] = *__src;
                 Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 9u, buf, 0x20uLL);
-                v7 = v369;
+                v7 = v368;
                 v8 = this;
               }
 
@@ -8452,7 +8498,7 @@ LABEL_265:
                 *&buf[16] = 0x689B3C6AD0C10930;
                 *&buf[24] = *__src;
                 Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 9u, buf, 0x20uLL);
-                v7 = v369;
+                v7 = v368;
                 v8 = this;
               }
 
@@ -8470,7 +8516,7 @@ LABEL_265:
                 *&buf[16] = 0x6256579BE092E3DDLL;
                 *&buf[24] = *__src;
                 Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 9u, buf, 0x20uLL);
-                v7 = v369;
+                v7 = v368;
                 v8 = this;
               }
 
@@ -8488,7 +8534,7 @@ LABEL_265:
                 *&buf[16] = 0x1EF815B19E7DFB31;
                 *&buf[24] = *__src;
                 Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 9u, buf, 0x20uLL);
-                v7 = v369;
+                v7 = v368;
                 v8 = this;
               }
 
@@ -8506,7 +8552,7 @@ LABEL_265:
                 *&buf[16] = 0xF12C986EFB9BD1AELL;
                 *&buf[24] = *__src;
                 Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 9u, buf, 0x20uLL);
-                v7 = v369;
+                v7 = v368;
                 v8 = this;
               }
 
@@ -8524,7 +8570,7 @@ LABEL_265:
                 *&buf[16] = 0x1F3CFA678783F49FLL;
                 *&buf[24] = *__src;
                 Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 9u, buf, 0x20uLL);
-                v7 = v369;
+                v7 = v368;
                 v8 = this;
               }
 
@@ -8542,7 +8588,7 @@ LABEL_265:
                 *&buf[16] = 0x321AF1D82F39218ALL;
                 *&buf[24] = *__src;
                 Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 9u, buf, 0x20uLL);
-                v7 = v369;
+                v7 = v368;
                 v8 = this;
               }
 
@@ -8560,7 +8606,7 @@ LABEL_265:
                 *&buf[16] = 0x10483E0F24E3A555;
                 *&buf[24] = *__src;
                 Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 9u, buf, 0x20uLL);
-                v7 = v369;
+                v7 = v368;
                 v8 = this;
               }
 
@@ -8590,7 +8636,7 @@ LABEL_309:
 
         if ((*(v73 + 56) - 1) <= 2)
         {
-          result = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v361, v8, v72, v73 + 8, a3, a4, *(v11 + 1));
+          result = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v360, v8, v72, v73 + 8, a3, a4, *(v11 + 1));
           if (!result)
           {
             return result;
@@ -8606,15 +8652,15 @@ LABEL_307:
 
 LABEL_145:
         MEMORY[0x23EE87040](buf);
-        v366 = *buf;
-        v373 = *buf;
+        v365 = *buf;
+        v372 = *buf;
         buf[0] = 6;
-        v100 = Phase::ActionTreeObject::LeafNodeInfo::Configure(v75, &v373, buf, (v73 + 64), (v361 + 232), this);
+        v100 = Phase::ActionTreeObject::LeafNodeInfo::Configure(v75, &v372, buf, (v73 + 64), (v360 + 232), this);
         if ((v100 & 1) == 0)
         {
-          v322 = **(Phase::Logger::GetInstance(v100) + 704);
-          v323 = v322;
-          if (!os_log_type_enabled(v322, OS_LOG_TYPE_ERROR))
+          v321 = **(Phase::Logger::GetInstance(v100) + 704);
+          v322 = v321;
+          if (!os_log_type_enabled(v321, OS_LOG_TYPE_ERROR))
           {
             return 0;
           }
@@ -8624,8 +8670,8 @@ LABEL_145:
           *&buf[12] = 1024;
           *&buf[14] = 2864;
           *&buf[18] = 2048;
-          *&buf[20] = v366;
-          v315 = "%25s:%-5d Fatal Sound Event data error: could not configure procedure leaf node %llu";
+          *&buf[20] = v365;
+          v314 = "%25s:%-5d Fatal Sound Event data error: could not configure procedure leaf node %llu";
           goto LABEL_519;
         }
 
@@ -8639,24 +8685,24 @@ LABEL_145:
         v104 = v103;
         if (!(v101 | v103))
         {
-          v322 = **(Phase::Logger::GetInstance(v101) + 704);
-          v324 = v322;
-          if (!os_log_type_enabled(v322, OS_LOG_TYPE_ERROR))
+          v321 = **(Phase::Logger::GetInstance(v101) + 704);
+          v323 = v321;
+          if (!os_log_type_enabled(v321, OS_LOG_TYPE_ERROR))
           {
             return 0;
           }
 
-          v325 = *(v73 + 8);
+          v324 = *(v73 + 8);
           *buf = 136315650;
           *&buf[4] = "ActionTreeManager.mm";
           *&buf[12] = 1024;
           *&buf[14] = 2873;
           *&buf[18] = 2048;
-          *&buf[20] = v325;
-          v315 = "%25s:%-5d Fatal Sound Event data error: Submix %llx not registered.";
+          *&buf[20] = v324;
+          v314 = "%25s:%-5d Fatal Sound Event data error: Submix %llx not registered.";
 LABEL_519:
-          v326 = v322;
-          v327 = 28;
+          v325 = v321;
+          v326 = 28;
           goto LABEL_527;
         }
 
@@ -8671,36 +8717,36 @@ LABEL_519:
         *(v75 + 56) = v106;
         if (*(v73 + 88) != 1)
         {
-          v319 = **(Phase::Logger::GetInstance(v105) + 704);
-          v328 = v319;
-          if (os_log_type_enabled(v319, OS_LOG_TYPE_ERROR))
+          v318 = **(Phase::Logger::GetInstance(v105) + 704);
+          v327 = v318;
+          if (os_log_type_enabled(v318, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
             *&buf[4] = "ActionTreeManager.mm";
             *&buf[12] = 1024;
             *&buf[14] = 2890;
-            v315 = "%25s:%-5d Fatal Sound Event data error: Procedure Type is set to None.";
+            v314 = "%25s:%-5d Fatal Sound Event data error: Procedure Type is set to None.";
             goto LABEL_526;
           }
 
           return 0;
         }
 
-        *&v397 = 0;
+        *&v396 = 0;
         *buf = *(v75 + 8);
         *&buf[16] = v102;
         *&buf[24] = v104;
         *&buf[32] = 6553601;
-        v394 = 1;
-        v395 = *(v73 + 16);
-        v396 = *(v73 + 24);
-        v393 = 0xC028000000000000;
-        *(&v397 + 1) = v106;
-        *&v398 = *(v73 + 64);
-        DWORD2(v398) = *(v73 + 72);
-        v399 = *(v73 + 80);
+        v393 = 1;
+        v394 = *(v73 + 16);
+        v395 = *(v73 + 24);
+        v392 = 0xC028000000000000;
+        *(&v396 + 1) = v106;
+        *&v397 = *(v73 + 64);
+        DWORD2(v397) = *(v73 + 72);
+        v398 = *(v73 + 80);
         Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 8u, buf, 0x70uLL);
-        v107 = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v361, this, v74, v73 + 8, a3, a4, *(v11 + 1));
+        v107 = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v360, this, v74, v73 + 8, a3, a4, *(v11 + 1));
         if (!v107)
         {
           return 0;
@@ -8720,17 +8766,17 @@ LABEL_519:
           }
         }
 
-        *&v377 = 0;
+        *&v376 = 0;
         v113 = *(v73 + 168);
         if (v113 == -1)
         {
-          *&v377 = *(v73 + 96);
+          *&v376 = *(v73 + 96);
           v115 = this;
         }
 
         else
         {
-          v114 = Phase::ActionTreeManager::SetFloatParam(v113, &v377, a3, this, v109);
+          v114 = Phase::ActionTreeManager::SetFloatParam(v113, &v376, a3, this, v109);
           v115 = this;
           if ((v114 & 1) == 0)
           {
@@ -8738,16 +8784,16 @@ LABEL_519:
           }
         }
 
-        v385 = 0;
+        v384 = 0;
         v174 = *(v73 + 169);
         if (v174 == -1)
         {
-          v385 = *(v73 + 104);
+          v384 = *(v73 + 104);
         }
 
         else
         {
-          v175 = Phase::ActionTreeManager::SetFloatParam(v174, &v385, a3, v115, v109);
+          v175 = Phase::ActionTreeManager::SetFloatParam(v174, &v384, a3, v115, v109);
           v115 = this;
           if ((v175 & 1) == 0)
           {
@@ -8755,16 +8801,16 @@ LABEL_519:
           }
         }
 
-        v384 = 0;
+        v383 = 0;
         v176 = *(v73 + 170);
         if (v176 == -1)
         {
-          v384 = *(v73 + 112);
+          v383 = *(v73 + 112);
         }
 
         else
         {
-          v177 = Phase::ActionTreeManager::SetFloatParam(v176, &v384, a3, v115, v109);
+          v177 = Phase::ActionTreeManager::SetFloatParam(v176, &v383, a3, v115, v109);
           v115 = this;
           if ((v177 & 1) == 0)
           {
@@ -8772,16 +8818,16 @@ LABEL_519:
           }
         }
 
-        v383 = 0;
+        v382 = 0;
         v179 = *(v73 + 171);
         if (v179 == -1)
         {
-          v383 = *(v73 + 120);
+          v382 = *(v73 + 120);
         }
 
         else
         {
-          v180 = Phase::ActionTreeManager::SetFloatParam(v179, &v383, a3, v115, v109);
+          v180 = Phase::ActionTreeManager::SetFloatParam(v179, &v382, a3, v115, v109);
           v115 = this;
           if ((v180 & 1) == 0)
           {
@@ -8789,16 +8835,16 @@ LABEL_519:
           }
         }
 
-        v382 = 0;
+        v381 = 0;
         v181 = *(v73 + 172);
         if (v181 == -1)
         {
-          v382 = *(v73 + 128);
+          v381 = *(v73 + 128);
         }
 
         else
         {
-          v182 = Phase::ActionTreeManager::SetFloatParam(v181, &v382, a3, v115, v109);
+          v182 = Phase::ActionTreeManager::SetFloatParam(v181, &v381, a3, v115, v109);
           v115 = this;
           if ((v182 & 1) == 0)
           {
@@ -8806,16 +8852,16 @@ LABEL_519:
           }
         }
 
-        v381 = 0;
+        v380 = 0;
         v183 = *(v73 + 173);
         if (v183 == -1)
         {
-          v381 = *(v73 + 136);
+          v380 = *(v73 + 136);
         }
 
         else
         {
-          v184 = Phase::ActionTreeManager::SetFloatParam(v183, &v381, a3, v115, v109);
+          v184 = Phase::ActionTreeManager::SetFloatParam(v183, &v380, a3, v115, v109);
           v115 = this;
           if ((v184 & 1) == 0)
           {
@@ -8823,16 +8869,16 @@ LABEL_519:
           }
         }
 
-        v380 = 0;
+        v379 = 0;
         v185 = *(v73 + 174);
         if (v185 == -1)
         {
-          v380 = *(v73 + 144);
+          v379 = *(v73 + 144);
         }
 
         else
         {
-          v186 = Phase::ActionTreeManager::SetFloatParam(v185, &v380, a3, v115, v109);
+          v186 = Phase::ActionTreeManager::SetFloatParam(v185, &v379, a3, v115, v109);
           v115 = this;
           if ((v186 & 1) == 0)
           {
@@ -8840,16 +8886,16 @@ LABEL_519:
           }
         }
 
-        v379 = 0;
+        v378 = 0;
         v187 = *(v73 + 175);
         if (v187 == -1)
         {
-          v379 = *(v73 + 152);
+          v378 = *(v73 + 152);
         }
 
         else
         {
-          v188 = Phase::ActionTreeManager::SetFloatParam(v187, &v379, a3, v115, v109);
+          v188 = Phase::ActionTreeManager::SetFloatParam(v187, &v378, a3, v115, v109);
           v115 = this;
           if ((v188 & 1) == 0)
           {
@@ -8857,7 +8903,7 @@ LABEL_519:
           }
         }
 
-        v378 = 0;
+        v377 = 0;
         v189 = *(v73 + 176);
         if (v189 == -1)
         {
@@ -8866,39 +8912,39 @@ LABEL_519:
 
         else
         {
-          if ((Phase::ActionTreeManager::SetFloatParam(v189, &v378, a3, v115, v109) & 1) == 0)
+          if ((Phase::ActionTreeManager::SetFloatParam(v189, &v377, a3, v115, v109) & 1) == 0)
           {
             return 0;
           }
 
-          v190 = &v378;
+          v190 = &v377;
         }
 
         v191 = *v190;
         *__src = *(v75 + 8);
         *&__src[16] = 0xD5446B03D63B0AC2;
-        *&__src[24] = v377;
+        *&__src[24] = v376;
         Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 9u, __src, 0x20uLL);
         *&__src[16] = 0x689B3C6AD0C10930;
-        *&__src[24] = v385;
-        Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 9u, __src, 0x20uLL);
-        *&__src[16] = 0x6256579BE092E3DDLL;
         *&__src[24] = v384;
         Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 9u, __src, 0x20uLL);
-        *&__src[16] = 0x1EF815B19E7DFB31;
+        *&__src[16] = 0x6256579BE092E3DDLL;
         *&__src[24] = v383;
         Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 9u, __src, 0x20uLL);
-        *&__src[16] = 0xF12C986EFB9BD1AELL;
+        *&__src[16] = 0x1EF815B19E7DFB31;
         *&__src[24] = v382;
         Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 9u, __src, 0x20uLL);
-        *&__src[16] = 0x1F3CFA678783F49FLL;
+        *&__src[16] = 0xF12C986EFB9BD1AELL;
         *&__src[24] = v381;
         Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 9u, __src, 0x20uLL);
-        *&__src[16] = 0x321AF1D82F39218ALL;
+        *&__src[16] = 0x1F3CFA678783F49FLL;
         *&__src[24] = v380;
         Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 9u, __src, 0x20uLL);
-        *&__src[16] = 0x10483E0F24E3A555;
+        *&__src[16] = 0x321AF1D82F39218ALL;
         *&__src[24] = v379;
+        Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 9u, __src, 0x20uLL);
+        *&__src[16] = 0x10483E0F24E3A555;
+        *&__src[24] = v378;
         Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 9u, __src, 0x20uLL);
         *&__src[16] = 0xA19D398D00200576;
         *&__src[24] = v191;
@@ -8949,7 +8995,7 @@ LABEL_301:
         }
 
 LABEL_308:
-        v7 = v369;
+        v7 = v368;
         goto LABEL_309;
       case 11:
         if (*(*(v8 + 3) + 40) <= v9)
@@ -8990,10 +9036,10 @@ LABEL_260:
           goto LABEL_260;
         }
 
-        v16 = (v372 + v10);
+        v16 = (v371 + v10);
         if (v15 == 4)
         {
-          result = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v361, v8, v9, (v16 + 3), a3, a4, *(v11 + 1));
+          result = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v360, v8, v9, (v16 + 3), a3, a4, *(v11 + 1));
           v8 = this;
           if ((result & 1) == 0)
           {
@@ -9009,11 +9055,11 @@ LABEL_260:
         }
 
         MEMORY[0x23EE87040](buf);
-        v363 = *buf;
-        v373 = *buf;
+        v362 = *buf;
+        v372 = *buf;
         __src[0] = 5;
         *buf = 1;
-        v17 = Phase::ActionTreeObject::LeafNodeInfo::Configure(v14, &v373, __src, buf, (v361 + 232), this);
+        v17 = Phase::ActionTreeObject::LeafNodeInfo::Configure(v14, &v372, __src, buf, (v360 + 232), this);
         if ((v17 & 1) == 0)
         {
           v203 = **(Phase::Logger::GetInstance(v17) + 704);
@@ -9026,7 +9072,7 @@ LABEL_260:
             *&buf[12] = 1024;
             *&buf[14] = 2340;
             *&buf[18] = 2048;
-            *&buf[20] = v363;
+            *&buf[20] = v362;
             v25 = v203;
             v26 = "%25s:%-5d Fatal Sound Event data error: could not configure pull stream leaf node %llu";
             goto LABEL_333;
@@ -9035,7 +9081,7 @@ LABEL_260:
 LABEL_334:
           v8 = this;
 LABEL_262:
-          v7 = v369;
+          v7 = v368;
           goto LABEL_449;
         }
 
@@ -9083,67 +9129,67 @@ LABEL_545:
         *buf = *(v14 + 8);
         *&buf[16] = v19;
         *&buf[24] = v21;
-        v394 = 3;
+        v393 = 3;
+        v394 = 0;
         v395 = 0;
-        v396 = 0;
-        v400 = v16[4];
-        v401 = v16[5];
-        v402[0] = *(v16 + 72);
-        v393 = v16[10];
-        *&v402[1] = *(v16 + 1);
-        *&v402[3] = xmmword_23A554A00;
+        v399 = v16[4];
+        v400 = v16[5];
+        v401[0] = *(v16 + 72);
+        v392 = v16[10];
+        *&v401[1] = *(v16 + 1);
+        *&v401[3] = xmmword_23A554A00;
         v236 = *(v16 + 22);
         *&buf[32] = *(v16 + 22);
+        v396 = 0u;
         v397 = 0u;
-        v398 = 0u;
-        v399 = 0;
-        if (*(v361 + 232))
+        v398 = 0;
+        if (*(v360 + 232))
         {
           goto LABEL_375;
         }
 
-        v283 = Phase::Controller::TaskManager::GetObjCService<ExternalStreamManager>(*(v361 + 192), 15);
+        v283 = Phase::Controller::TaskManager::GetObjCService<ExternalStreamManager>(*(v360 + 192), 15);
         v284 = Phase::UniqueObjectId::CreateNSUUID((v16 + 1));
-        *&v377 = 0;
-        v359 = v284;
+        *&v376 = 0;
+        v358 = v284;
         v285 = [v283 formatForStream:? error:?];
-        v286 = v377;
-        v367 = v286;
+        v286 = v376;
+        v366 = v286;
         if (!v285)
         {
-          v296 = **(Phase::Logger::GetInstance(v286) + 704);
-          v297 = v296;
-          if (os_log_type_enabled(v296, OS_LOG_TYPE_ERROR))
+          v295 = **(Phase::Logger::GetInstance(v286) + 704);
+          v296 = v295;
+          if (os_log_type_enabled(v295, OS_LOG_TYPE_ERROR))
           {
             *__src = 136315906;
             *&__src[4] = "ActionTreeManager.mm";
             *&__src[12] = 1024;
             *&__src[14] = 2399;
             *&__src[18] = 2112;
-            *&__src[20] = v359;
+            *&__src[20] = v358;
             *&__src[28] = 2112;
-            *&__src[30] = v367;
-            _os_log_impl(&dword_23A302000, v296, OS_LOG_TYPE_ERROR, "%25s:%-5d Fatal Sound Event data error: could not get stream format for stream uuid %@ (%@)", __src, 0x26u);
-            v298 = v359;
+            *&__src[30] = v366;
+            _os_log_impl(&dword_23A302000, v295, OS_LOG_TYPE_ERROR, "%25s:%-5d Fatal Sound Event data error: could not get stream format for stream uuid %@ (%@)", __src, 0x26u);
+            v297 = v358;
 LABEL_478:
 
             goto LABEL_334;
           }
 
 LABEL_477:
-          v298 = v359;
+          v297 = v358;
           goto LABEL_478;
         }
 
-        v356 = v285;
-        v354 = [objc_alloc(MEMORY[0x277CB8368]) initWithLayoutTag:v236];
+        v355 = v285;
+        v353 = [objc_alloc(MEMORY[0x277CB8368]) initWithLayoutTag:v236];
         v287 = objc_alloc(MEMORY[0x277CB83A8]);
-        [v356 sampleRate];
-        v352 = [v287 initStandardFormatWithSampleRate:v354 channelLayout:?];
-        v288 = [v352 streamDescription];
-        v397 = *v288;
-        v398 = *(v288 + 16);
-        v399 = *(v288 + 32);
+        [v355 sampleRate];
+        v351 = [v287 initStandardFormatWithSampleRate:v353 channelLayout:?];
+        v288 = [v351 streamDescription];
+        v396 = *v288;
+        v397 = *(v288 + 16);
+        v398 = *(v288 + 32);
         if (*(v14 + 32))
         {
           v289 = **(Phase::Logger::GetInstance(v288) + 704);
@@ -9161,30 +9207,29 @@ LABEL_477:
           }
         }
 
-        v292 = *(v16 + 72);
-        v293 = *(v16 + 10);
-        v385 = v367;
+        v292 = *(v16 + 10);
+        v384 = v366;
         if (v283)
         {
-          [v283 createRendererForStream:v359 outputChannelLayout:v236 normalize:v292 targetLKFS:&v385 error:v293];
-          v294 = v385;
+          objc_msgSend_createRendererForStream_outputChannelLayout_normalize_targetLKFS_error_(v283, v292);
+          v293 = v384;
 
-          v295 = *__src;
-          v367 = v294;
+          v294 = *__src;
+          v366 = v293;
         }
 
         else
         {
-          v295 = 0uLL;
+          v294 = 0uLL;
         }
 
         *&__src[8] = 0;
         *__src = 0;
-        v299 = *(v14 + 40);
-        *(v14 + 32) = v295;
-        if (v299)
+        v298 = *(v14 + 40);
+        *(v14 + 32) = v294;
+        if (v298)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v299);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v298);
         }
 
         if (*&__src[8])
@@ -9192,24 +9237,24 @@ LABEL_477:
           std::__shared_weak_count::__release_shared[abi:ne200100](*&__src[8]);
         }
 
-        v300 = *(v14 + 32);
-        if (v300)
+        v299 = *(v14 + 32);
+        if (v299)
         {
-          v301 = Phase::Controller::StreamRenderer::Prepare(v300);
-          if (v301)
+          v300 = Phase::Controller::StreamRenderer::Prepare(v299);
+          if (v300)
           {
-            v301 = *(v14 + 32);
-            if (*(v301 + 48))
+            v300 = *(v14 + 32);
+            if (*(v300 + 48))
             {
-              if (*(v301 + 136))
+              if (*(v300 + 136))
               {
-                v302 = Phase::Controller::StreamRenderer::Start(v301);
-                if (v302)
+                v301 = Phase::Controller::StreamRenderer::Start(v300);
+                if (v301)
                 {
 
 LABEL_375:
                   Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 7u, buf, 0xA8uLL);
-                  result = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v361, this, v9, (v16 + 3), a3, a4, *(v11 + 1));
+                  result = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v360, this, v9, (v16 + 3), a3, a4, *(v11 + 1));
                   if (!result)
                   {
                     goto LABEL_334;
@@ -9218,7 +9263,7 @@ LABEL_375:
                   v237 = *(v14 + 32);
                   if (v237)
                   {
-                    caulk::concurrent::guarded_lookup_hash_table<Phase::UniqueObjectId,Phase::Controller::StreamRenderer *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<Phase::UniqueObjectId>>::_addOrReplace(v361 + 80, *(v14 + 8), *(v14 + 16), v237);
+                    caulk::concurrent::guarded_lookup_hash_table<Phase::UniqueObjectId,Phase::Controller::StreamRenderer *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<Phase::UniqueObjectId>>::_addOrReplace(v360 + 80, *(v14 + 8), *(v14 + 16), v237);
                   }
 
                   result = Phase::Logger::GetInstance(result);
@@ -9242,62 +9287,62 @@ LABEL_261:
                   goto LABEL_262;
                 }
 
-                v312 = **(Phase::Logger::GetInstance(v302) + 704);
-                v313 = v312;
-                if (!os_log_type_enabled(v312, OS_LOG_TYPE_ERROR))
+                v311 = **(Phase::Logger::GetInstance(v301) + 704);
+                v312 = v311;
+                if (!os_log_type_enabled(v311, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_476;
                 }
 
-                v314 = *v16;
+                v313 = *v16;
                 *__src = 136315650;
                 *&__src[4] = "ActionTreeManager.mm";
                 *&__src[12] = 1024;
                 *&__src[14] = 2447;
                 *&__src[18] = 2048;
-                *&__src[20] = v314;
-                v305 = v312;
-                v306 = "%25s:%-5d Failed to start stream renderer for pull stream %llu";
-                v307 = 28;
+                *&__src[20] = v313;
+                v304 = v311;
+                v305 = "%25s:%-5d Failed to start stream renderer for pull stream %llu";
+                v306 = 28;
                 goto LABEL_475;
               }
             }
           }
 
-          v303 = **(Phase::Logger::GetInstance(v301) + 704);
-          v304 = v303;
-          if (os_log_type_enabled(v303, OS_LOG_TYPE_ERROR))
+          v302 = **(Phase::Logger::GetInstance(v300) + 704);
+          v303 = v302;
+          if (os_log_type_enabled(v302, OS_LOG_TYPE_ERROR))
           {
             *__src = 136315394;
             *&__src[4] = "ActionTreeManager.mm";
             *&__src[12] = 1024;
             *&__src[14] = 2439;
-            v305 = v303;
-            v306 = "%25s:%-5d Failed to prepare stream renderer!";
-            v307 = 18;
+            v304 = v302;
+            v305 = "%25s:%-5d Failed to prepare stream renderer!";
+            v306 = 18;
 LABEL_475:
-            _os_log_impl(&dword_23A302000, v305, OS_LOG_TYPE_ERROR, v306, __src, v307);
+            _os_log_impl(&dword_23A302000, v304, OS_LOG_TYPE_ERROR, v305, __src, v306);
           }
         }
 
         else
         {
-          v308 = **(Phase::Logger::GetInstance(0) + 704);
-          v309 = v308;
-          if (os_log_type_enabled(v308, OS_LOG_TYPE_ERROR))
+          v307 = **(Phase::Logger::GetInstance(0) + 704);
+          v308 = v307;
+          if (os_log_type_enabled(v307, OS_LOG_TYPE_ERROR))
           {
-            v310 = *v16;
+            v309 = *v16;
             *__src = 136315906;
             *&__src[4] = "ActionTreeManager.mm";
             *&__src[12] = 1024;
             *&__src[14] = 2431;
             *&__src[18] = 2048;
-            *&__src[20] = v310;
+            *&__src[20] = v309;
             *&__src[28] = 2112;
-            *&__src[30] = v367;
-            v305 = v308;
-            v306 = "%25s:%-5d Failed to create stream renderer for pull stream %llu (%@)";
-            v307 = 38;
+            *&__src[30] = v366;
+            v304 = v307;
+            v305 = "%25s:%-5d Failed to create stream renderer for pull stream %llu (%@)";
+            v306 = 38;
             goto LABEL_475;
           }
         }
@@ -9344,7 +9389,7 @@ LABEL_267:
           *buf = *(v31 + 8);
           result = Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 3u, buf, 0x18uLL);
 LABEL_268:
-          v7 = v369;
+          v7 = v368;
           v8 = this;
           goto LABEL_447;
         }
@@ -9354,11 +9399,11 @@ LABEL_268:
           goto LABEL_267;
         }
 
-        v33 = v372 + v10;
+        v33 = v371 + v10;
         if (v32 == 4)
         {
           v178 = v9;
-          result = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v361, v8, v9, v33 + 8, a3, a4, *(v11 + 1));
+          result = Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v360, v8, v9, v33 + 8, a3, a4, *(v11 + 1));
           goto LABEL_265;
         }
 
@@ -9367,13 +9412,13 @@ LABEL_268:
           goto LABEL_447;
         }
 
-        v364 = v9;
-        v357 = [MEMORY[0x277CCACA8] stringWithCString:objc_msgSend(*(v8 + 2) encoding:{"getString:", *v33), 4}];
+        v363 = v9;
+        v356 = [MEMORY[0x277CCACA8] stringWithCString:objc_msgSend(*(v8 + 2) encoding:{"getString:", *v33), 4}];
         WeakRetained = objc_loadWeakRetained(&this[38]);
         v35 = [WeakRetained pullStreamNodes];
-        v36 = [v35 objectForKeyedSubscript:v357];
+        v36 = [v35 objectForKeyedSubscript:v356];
 
-        if ((Phase::ActionTreeManager::ConfigureStreamNode(v361, this, v31, v36, 4) & 1) == 0)
+        if ((Phase::ActionTreeManager::ConfigureStreamNode(v360, this, v31, v36, 4) & 1) == 0)
         {
           goto LABEL_395;
         }
@@ -9401,36 +9446,36 @@ LABEL_268:
         *(v31 + 96) = *(v33 + 40);
         *(v31 + 56) = 4;
         *&buf[32] = 6553601;
-        v402[1] = 0;
-        v402[2] = 0;
+        v401[1] = 0;
+        v401[2] = 0;
         *buf = *(v31 + 8);
         *&buf[16] = v37;
         *&buf[24] = v38;
-        v394 = 4;
+        v393 = 4;
+        v394 = 0;
         v395 = 0;
-        v396 = 0;
-        v400 = *(v33 + 16);
-        v401 = *(v33 + 24);
-        v402[0] = *(v33 + 56);
-        v393 = *(v33 + 64);
-        *&v402[3] = xmmword_23A554A00;
+        v399 = *(v33 + 16);
+        v400 = *(v33 + 24);
+        v401[0] = *(v33 + 56);
+        v392 = *(v33 + 64);
+        *&v401[3] = xmmword_23A554A00;
         v220 = [v36 format];
         v221 = [v220 channelLayout];
         *&buf[32] = [v221 layoutTag];
 
         v222 = [v36 format];
         v223 = [v222 streamDescription];
-        v397 = *v223;
-        v398 = *(v223 + 16);
-        v399 = *(v223 + 32);
+        v396 = *v223;
+        v397 = *(v223 + 16);
+        v398 = *(v223 + 32);
 
         Phase::MessagePipeWriter<Phase::ActionTreeServerCommand>::WriteMessage(a4, 7u, buf, 0xA8uLL);
         v224 = this;
-        if ((Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v361, this, v9, v33 + 8, a3, a4, *(v11 + 1)) & 1) == 0)
+        if ((Phase::ActionTreeManager::WriteLeafNodeUpdateParameters(v360, this, v9, v33 + 8, a3, a4, *(v11 + 1)) & 1) == 0)
         {
 LABEL_395:
 
-          v7 = v369;
+          v7 = v368;
           v8 = this;
           v9 = v9;
           goto LABEL_449;
@@ -9453,7 +9498,7 @@ LABEL_395:
           v224 = this;
         }
 
-        caulk::concurrent::guarded_lookup_hash_table<Phase::UniqueObjectId,Phase::Controller::StreamRenderer *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<Phase::UniqueObjectId>>::_addOrReplace(v361 + 80, *(v31 + 8), *(v31 + 16), *(v31 + 32));
+        caulk::concurrent::guarded_lookup_hash_table<Phase::UniqueObjectId,Phase::Controller::StreamRenderer *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<Phase::UniqueObjectId>>::_addOrReplace(v360 + 80, *(v31 + 8), *(v31 + 16), *(v31 + 32));
         v230 = *(v224 + 144);
         if ((v230 - 2) < 2)
         {
@@ -9498,8 +9543,8 @@ LABEL_370:
 
         goto LABEL_395;
       default:
-        v319 = **(Phase::Logger::GetInstance(result) + 704);
-        result = os_log_type_enabled(v319, OS_LOG_TYPE_ERROR);
+        v318 = **(Phase::Logger::GetInstance(result) + 704);
+        result = os_log_type_enabled(v318, OS_LOG_TYPE_ERROR);
         if (!result)
         {
           return result;
@@ -9509,7 +9554,7 @@ LABEL_370:
         *&buf[4] = "ActionTreeManager.mm";
         *&buf[12] = 1024;
         *&buf[14] = 3724;
-        v315 = "%25s:%-5d Fatal Sound Event data error: bad message encountered in message stream";
+        v314 = "%25s:%-5d Fatal Sound Event data error: bad message encountered in message stream";
         goto LABEL_526;
     }
   }

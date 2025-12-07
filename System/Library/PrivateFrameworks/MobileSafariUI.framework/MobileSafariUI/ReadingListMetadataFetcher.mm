@@ -154,7 +154,7 @@ void __51__ReadingListMetadataFetcher_sharedMetadataFetcher__block_invoke(uint64
   dispatch_async(metadataSynchronizationQueue, block);
 }
 
-uint64_t __79__ReadingListMetadataFetcher_fetchMetadataForReadingListBookmark_withProvider___block_invoke(uint64_t a1)
+_BYTE *__79__ReadingListMetadataFetcher_fetchMetadataForReadingListBookmark_withProvider___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue:*(*(a1 + 32) + 24) containsBookmark:*(a1 + 40)];
   if ((result & 1) == 0)
@@ -164,7 +164,7 @@ uint64_t __79__ReadingListMetadataFetcher_fetchMetadataForReadingListBookmark_wi
     [v3 addObject:v4];
 
     result = *(a1 + 32);
-    if ((*(result + 32) & 1) == 0)
+    if ((result[32] & 1) == 0)
     {
 
       return [result _fetchNextItemMetadata];
@@ -191,7 +191,7 @@ uint64_t __79__ReadingListMetadataFetcher_fetchMetadataForReadingListBookmark_wi
   dispatch_async(metadataSynchronizationQueue, block);
 }
 
-uint64_t __80__ReadingListMetadataFetcher_fetchThumbnailForReadingListBookmark_withProvider___block_invoke(uint64_t a1)
+_BYTE *__80__ReadingListMetadataFetcher_fetchThumbnailForReadingListBookmark_withProvider___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue:*(*(a1 + 32) + 40) containsBookmark:*(a1 + 40)];
   if ((result & 1) == 0)
@@ -204,7 +204,7 @@ uint64_t __80__ReadingListMetadataFetcher_fetchThumbnailForReadingListBookmark_w
       [v3 addObject:v4];
 
       result = *(a1 + 32);
-      if ((*(result + 56) & 1) == 0)
+      if ((result[56] & 1) == 0)
       {
 
         return [result _fetchNextItemThumbnail];
@@ -217,31 +217,31 @@ uint64_t __80__ReadingListMetadataFetcher_fetchThumbnailForReadingListBookmark_w
 
 - (void)_fetchMetadataForPendingItem:(id)item
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   self->_isFetchingMetadata = 1;
   provider = [itemCopy provider];
-  if (provider && (objc_opt_respondsToSelector() & 1) != 0)
+  if (provider && (v6 = objc_opt_respondsToSelector(), (v6 & 1) != 0))
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXReadingList();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v8 = WBS_LOG_CHANNEL_PREFIXReadingList(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v7 = v6;
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v9 = v8;
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
       *buf = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_INFO, "Begin fetching metadata for Reading List item with provider %{public}@", buf, 0xCu);
+      v16 = v11;
+      _os_log_impl(&dword_215819000, v9, OS_LOG_TYPE_INFO, "Begin fetching metadata for Reading List item with provider %{public}@", buf, 0xCu);
     }
 
     bookmark = [itemCopy bookmark];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __59__ReadingListMetadataFetcher__fetchMetadataForPendingItem___block_invoke;
-    v11[3] = &unk_2781D7D10;
-    v11[4] = self;
-    v12 = itemCopy;
-    [provider fetchMetadataForBookmark:bookmark completion:v11];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __59__ReadingListMetadataFetcher__fetchMetadataForPendingItem___block_invoke;
+    v13[3] = &unk_2781D7D10;
+    v13[4] = self;
+    v14 = itemCopy;
+    [provider fetchMetadataForBookmark:bookmark completion:v13];
   }
 
   else
@@ -288,10 +288,10 @@ void __59__ReadingListMetadataFetcher__fetchMetadataForPendingItem___block_invok
   }
 }
 
-uint64_t __59__ReadingListMetadataFetcher__fetchMetadataForPendingItem___block_invoke_2(uint64_t a1)
+uint64_t __59__ReadingListMetadataFetcher__fetchMetadataForPendingItem___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXReadingList();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXReadingList(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __59__ReadingListMetadataFetcher__fetchMetadataForPendingItem___block_invoke_2_cold_1();
   }
@@ -299,49 +299,49 @@ uint64_t __59__ReadingListMetadataFetcher__fetchMetadataForPendingItem___block_i
   return [*(a1 + 32) _fetchMetadataWithDefaultProviderForPendingItem:*(a1 + 40)];
 }
 
-void __59__ReadingListMetadataFetcher__fetchMetadataForPendingItem___block_invoke_84(uint64_t a1)
+void __59__ReadingListMetadataFetcher__fetchMetadataForPendingItem___block_invoke_84(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXReadingList();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = WBS_LOG_CHANNEL_PREFIXReadingList(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_215819000, v2, OS_LOG_TYPE_INFO, "Successfully fetched metadata for Reading List item", buf, 2u);
+    _os_log_impl(&dword_215819000, v3, OS_LOG_TYPE_INFO, "Successfully fetched metadata for Reading List item", buf, 2u);
   }
 
   [*(a1 + 32) _setTitle:*(a1 + 40) previewText:*(a1 + 48) thumbnailURLString:*(a1 + 56) thumbnailImage:*(a1 + 64) forItem:*(a1 + 72)];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 16);
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __59__ReadingListMetadataFetcher__fetchMetadataForPendingItem___block_invoke_85;
-  v5[3] = &unk_2781D4C88;
-  v5[4] = v3;
-  v6 = *(a1 + 72);
-  dispatch_async(v4, v5);
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 16);
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __59__ReadingListMetadataFetcher__fetchMetadataForPendingItem___block_invoke_85;
+  v6[3] = &unk_2781D4C88;
+  v6[4] = v4;
+  v7 = *(a1 + 72);
+  dispatch_async(v5, v6);
 }
 
 - (void)_fetchMetadataWithDefaultProviderForPendingItem:(id)item
 {
   itemCopy = item;
-  v5 = WBS_LOG_CHANNEL_PREFIXReadingList();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = WBS_LOG_CHANNEL_PREFIXReadingList(itemCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_INFO, "Begin fetching metadata for Reading List item with default provider", buf, 2u);
+    _os_log_impl(&dword_215819000, v6, OS_LOG_TYPE_INFO, "Begin fetching metadata for Reading List item with default provider", buf, 2u);
   }
 
   bookmark = [itemCopy bookmark];
-  v7 = objc_alloc_init(ReadingListMetadataProvider);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __78__ReadingListMetadataFetcher__fetchMetadataWithDefaultProviderForPendingItem___block_invoke;
-  v10[3] = &unk_2781D7D60;
-  v10[4] = self;
-  v11 = itemCopy;
-  v12 = bookmark;
-  v8 = bookmark;
-  v9 = itemCopy;
-  [(ReadingListMetadataProvider *)v7 fetchMetadataForBookmark:v8 completion:v10];
+  v8 = objc_alloc_init(ReadingListMetadataProvider);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __78__ReadingListMetadataFetcher__fetchMetadataWithDefaultProviderForPendingItem___block_invoke;
+  v11[3] = &unk_2781D7D60;
+  v11[4] = self;
+  v12 = itemCopy;
+  v13 = bookmark;
+  v9 = bookmark;
+  v10 = itemCopy;
+  [(ReadingListMetadataProvider *)v8 fetchMetadataForBookmark:v9 completion:v11];
 }
 
 void __78__ReadingListMetadataFetcher__fetchMetadataWithDefaultProviderForPendingItem___block_invoke(uint64_t a1, char a2, void *a3, void *a4, void *a5, void *a6)
@@ -370,15 +370,15 @@ void __78__ReadingListMetadataFetcher__fetchMetadataWithDefaultProviderForPendin
   dispatch_async(MEMORY[0x277D85CD0], v20);
 }
 
-void __78__ReadingListMetadataFetcher__fetchMetadataWithDefaultProviderForPendingItem___block_invoke_2(uint64_t a1)
+void __78__ReadingListMetadataFetcher__fetchMetadataWithDefaultProviderForPendingItem___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 88) == 1)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXReadingList();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = WBS_LOG_CHANNEL_PREFIXReadingList(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_215819000, v2, OS_LOG_TYPE_INFO, "Successfully fetched metadata for Reading List item with default provider", buf, 2u);
+      _os_log_impl(&dword_215819000, v3, OS_LOG_TYPE_INFO, "Successfully fetched metadata for Reading List item with default provider", buf, 2u);
     }
 
     [*(a1 + 32) _setTitle:*(a1 + 40) previewText:*(a1 + 48) thumbnailURLString:*(a1 + 56) thumbnailImage:*(a1 + 64) forItem:*(a1 + 72)];
@@ -389,45 +389,45 @@ void __78__ReadingListMetadataFetcher__fetchMetadataWithDefaultProviderForPendin
     [*(a1 + 32) _didFailMetadataFetchForBookmarkWithID:{objc_msgSend(*(a1 + 80), "identifier")}];
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 16);
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __78__ReadingListMetadataFetcher__fetchMetadataWithDefaultProviderForPendingItem___block_invoke_88;
-  v5[3] = &unk_2781D4C88;
-  v5[4] = v3;
-  v6 = *(a1 + 72);
-  dispatch_async(v4, v5);
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 16);
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __78__ReadingListMetadataFetcher__fetchMetadataWithDefaultProviderForPendingItem___block_invoke_88;
+  v6[3] = &unk_2781D4C88;
+  v6[4] = v4;
+  v7 = *(a1 + 72);
+  dispatch_async(v5, v6);
 }
 
 - (void)_fetchThumbnailForPendingItem:(id)item
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   self->_isFetchingThumbnail = 1;
   bookmark = [itemCopy bookmark];
   provider = [itemCopy provider];
-  if (provider && (objc_opt_respondsToSelector() & 1) != 0)
+  if (provider && (v7 = objc_opt_respondsToSelector(), (v7 & 1) != 0))
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXReadingList();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = WBS_LOG_CHANNEL_PREFIXReadingList(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v8 = v7;
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
+      v10 = v9;
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       *buf = 138543362;
-      v15 = v10;
-      _os_log_impl(&dword_215819000, v8, OS_LOG_TYPE_INFO, "Begin fetching thumbnail for Reading List item with provider %{public}@", buf, 0xCu);
+      v17 = v12;
+      _os_log_impl(&dword_215819000, v10, OS_LOG_TYPE_INFO, "Begin fetching thumbnail for Reading List item with provider %{public}@", buf, 0xCu);
     }
 
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __60__ReadingListMetadataFetcher__fetchThumbnailForPendingItem___block_invoke;
-    v11[3] = &unk_2781D7DB0;
-    v11[4] = self;
-    v12 = itemCopy;
-    v13 = bookmark;
-    [provider fetchThumbnailForBookmark:v13 completion:v11];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __60__ReadingListMetadataFetcher__fetchThumbnailForPendingItem___block_invoke;
+    v13[3] = &unk_2781D7DB0;
+    v13[4] = self;
+    v14 = itemCopy;
+    v15 = bookmark;
+    [provider fetchThumbnailForBookmark:v15 completion:v13];
   }
 
   else
@@ -472,10 +472,10 @@ void __60__ReadingListMetadataFetcher__fetchThumbnailForPendingItem___block_invo
   }
 }
 
-uint64_t __60__ReadingListMetadataFetcher__fetchThumbnailForPendingItem___block_invoke_2(uint64_t a1)
+uint64_t __60__ReadingListMetadataFetcher__fetchThumbnailForPendingItem___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXReadingList();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXReadingList(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __60__ReadingListMetadataFetcher__fetchThumbnailForPendingItem___block_invoke_2_cold_1();
   }
@@ -483,30 +483,31 @@ uint64_t __60__ReadingListMetadataFetcher__fetchThumbnailForPendingItem___block_
   return [*(a1 + 32) _fetchThumbnailWithDefaultProviderForPendingItem:*(a1 + 40)];
 }
 
-void __60__ReadingListMetadataFetcher__fetchThumbnailForPendingItem___block_invoke_90(uint64_t a1)
+void __60__ReadingListMetadataFetcher__fetchThumbnailForPendingItem___block_invoke_90(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXReadingList();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = WBS_LOG_CHANNEL_PREFIXReadingList(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_215819000, v2, OS_LOG_TYPE_INFO, "Successfully fetched thumbnail for Reading List item", buf, 2u);
+    _os_log_impl(&dword_215819000, v3, OS_LOG_TYPE_INFO, "Successfully fetched thumbnail for Reading List item", buf, 2u);
   }
 
   [*(a1 + 32) _setThumbnailImage:*(a1 + 40) fromURL:*(a1 + 48) forBookmarkWithID:{objc_msgSend(*(a1 + 56), "identifier")}];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 16);
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __60__ReadingListMetadataFetcher__fetchThumbnailForPendingItem___block_invoke_91;
-  v5[3] = &unk_2781D4C88;
-  v5[4] = v3;
-  v6 = *(a1 + 64);
-  dispatch_async(v4, v5);
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 16);
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __60__ReadingListMetadataFetcher__fetchThumbnailForPendingItem___block_invoke_91;
+  v6[3] = &unk_2781D4C88;
+  v6[4] = v4;
+  v7 = *(a1 + 64);
+  dispatch_async(v5, v6);
 }
 
 - (void)_fetchThumbnailWithDefaultProviderForPendingItem:(id)item
 {
   itemCopy = item;
+  v6 = itemCopy;
   if (!self->_defaultThumbnailProvider)
   {
     mEMORY[0x277D4A778] = [MEMORY[0x277D4A778] sharedManager];
@@ -514,26 +515,26 @@ void __60__ReadingListMetadataFetcher__fetchThumbnailForPendingItem___block_invo
     self->_defaultThumbnailProvider = mEMORY[0x277D4A778];
   }
 
-  v7 = WBS_LOG_CHANNEL_PREFIXReadingList();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v9 = WBS_LOG_CHANNEL_PREFIXReadingList(itemCopy, v5);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_INFO, "Begin fetching thumbnail for Reading List item with default provider", buf, 2u);
+    _os_log_impl(&dword_215819000, v9, OS_LOG_TYPE_INFO, "Begin fetching thumbnail for Reading List item with default provider", buf, 2u);
   }
 
-  bookmark = [itemCopy bookmark];
-  v9 = self->_defaultThumbnailProvider;
-  bookmark2 = [itemCopy bookmark];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __79__ReadingListMetadataFetcher__fetchThumbnailWithDefaultProviderForPendingItem___block_invoke;
-  v13[3] = &unk_2781D7DB0;
-  v14 = bookmark;
+  bookmark = [v6 bookmark];
+  v11 = self->_defaultThumbnailProvider;
+  bookmark2 = [v6 bookmark];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __79__ReadingListMetadataFetcher__fetchThumbnailWithDefaultProviderForPendingItem___block_invoke;
+  v15[3] = &unk_2781D7DB0;
+  v16 = bookmark;
   selfCopy = self;
-  v16 = itemCopy;
-  v11 = itemCopy;
-  v12 = bookmark;
-  [(ReadingListMetadataProvider *)v9 fetchThumbnailForBookmark:bookmark2 completion:v13];
+  v18 = v6;
+  v13 = v6;
+  v14 = bookmark;
+  [(ReadingListMetadataProvider *)v11 fetchThumbnailForBookmark:bookmark2 completion:v15];
 }
 
 void __79__ReadingListMetadataFetcher__fetchThumbnailWithDefaultProviderForPendingItem___block_invoke(uint64_t a1, char a2, void *a3, void *a4)
@@ -561,16 +562,17 @@ void __79__ReadingListMetadataFetcher__fetchThumbnailWithDefaultProviderForPendi
 void __79__ReadingListMetadataFetcher__fetchThumbnailWithDefaultProviderForPendingItem___block_invoke_2(uint64_t a1)
 {
   v2 = [*(a1 + 32) identifier];
+  v4 = v2;
   if (*(a1 + 72) == 1)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXReadingList();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v5 = WBS_LOG_CHANNEL_PREFIXReadingList(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_215819000, v3, OS_LOG_TYPE_INFO, "Successfully fetched thumbnail for Reading List item", buf, 2u);
+      _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_INFO, "Successfully fetched thumbnail for Reading List item", buf, 2u);
     }
 
-    [*(a1 + 40) _setThumbnailImage:*(a1 + 48) fromURL:*(a1 + 56) forBookmarkWithID:v2];
+    [*(a1 + 40) _setThumbnailImage:*(a1 + 48) fromURL:*(a1 + 56) forBookmarkWithID:v4];
   }
 
   else
@@ -578,15 +580,15 @@ void __79__ReadingListMetadataFetcher__fetchThumbnailWithDefaultProviderForPendi
     [*(a1 + 40) _didFailMetadataFetchForBookmarkWithID:v2];
   }
 
-  v4 = *(a1 + 40);
-  v5 = *(v4 + 16);
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __79__ReadingListMetadataFetcher__fetchThumbnailWithDefaultProviderForPendingItem___block_invoke_94;
-  v6[3] = &unk_2781D4C88;
-  v6[4] = v4;
-  v7 = *(a1 + 64);
-  dispatch_async(v5, v6);
+  v6 = *(a1 + 40);
+  v7 = *(v6 + 16);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __79__ReadingListMetadataFetcher__fetchThumbnailWithDefaultProviderForPendingItem___block_invoke_94;
+  v8[3] = &unk_2781D4C88;
+  v8[4] = v6;
+  v9 = *(a1 + 64);
+  dispatch_async(v7, v8);
 }
 
 - (void)_setTitle:(id)title previewText:(id)text thumbnailURLString:(id)string thumbnailImage:(id)image forItem:(id)item
@@ -700,7 +702,7 @@ LABEL_25:
 - (void)_didFailMetadataFetchForBookmarkWithID:(int)d
 {
   v3 = *&d;
-  v5 = WBS_LOG_CHANNEL_PREFIXReadingList();
+  v5 = WBS_LOG_CHANNEL_PREFIXReadingList(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [ReadingListMetadataFetcher _didFailMetadataFetchForBookmarkWithID:];

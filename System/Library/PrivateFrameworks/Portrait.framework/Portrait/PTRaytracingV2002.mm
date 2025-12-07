@@ -10,401 +10,402 @@
   v9 = *&quality;
   height = disparitySize.height;
   width = disparitySize.width;
-  v238 = size.height;
-  v239 = size.width;
+  v256 = size.height;
+  v257 = size.width;
   contextCopy = context;
   optionsCopy = options;
-  v245.receiver = self;
-  v245.super_class = PTRaytracingV2002;
-  v18 = [(PTRaytracingV2002 *)&v245 init];
+  v263.receiver = self;
+  v263.super_class = PTRaytracingV2002;
+  v18 = [(PTRaytracingV2002 *)&v263 init];
+  v20 = v18;
   if (!v18)
   {
     goto LABEL_56;
   }
 
-  PTKTraceInit();
-  objc_storeStrong(v18 + 5, context);
-  *(v18 + 4) = rendering;
-  objc_storeStrong(v18 + 1, options);
-  v19 = [PTQualitySettings createWithQuality:v9 options:optionsCopy];
-  v20 = *(v18 + 9);
-  *(v18 + 9) = v19;
+  PTKTraceInit(v18, v19);
+  objc_storeStrong(&v20->_metalContext, context);
+  v20->_debugRendering = rendering;
+  objc_storeStrong(&v20->_options, options);
+  v21 = [PTQualitySettings createWithQuality:v9 options:optionsCopy];
+  qualitySettings = v20->_qualitySettings;
+  v20->_qualitySettings = v21;
 
-  if (*(v18 + 9))
+  if (v20->_qualitySettings)
   {
     +[PTRaytracingUtilsV2 createFocusEdge];
-    *(v18 + 13) = v21;
-    *(v18 + 14) = v22;
-    *(v18 + 15) = v23;
-    *(v18 + 16) = v24;
-    v244 = [*(v18 + 9) quality] < 100;
-    v25 = [optionsCopy objectForKeyedSubscript:&unk_2837F2E00];
-    v18[48] = v25 != 0;
+    v20->_focusEdge.width = v24;
+    v20->_focusEdge.gradientThreshold = v25;
+    v20->_focusEdge.gradientWeight = v26;
+    v20->_focusEdge.minMaxThreshold = v27;
+    v262 = [(PTQualitySettings *)v20->_qualitySettings quality]< 100;
+    v28 = [optionsCopy objectForKeyedSubscript:&unk_2837F2E00];
+    v20->_injectedRGBAPyramid = v28 != 0;
 
-    if (v18[48] == 1)
+    if (v20->_injectedRGBAPyramid)
     {
-      v26 = [optionsCopy objectForKeyedSubscript:&unk_2837F2E00];
-      v27 = *(v18 + 2);
-      *(v18 + 2) = v26;
+      v29 = [optionsCopy objectForKeyedSubscript:&unk_2837F2E00];
+      rgbaPyramid = v20->_rgbaPyramid;
+      v20->_rgbaPyramid = v29;
 
       goto LABEL_8;
     }
 
-    v36 = -[PTPyramid initWithMetalContext:colorSize:pixelFormat:skipFullSizeLayer:doFirstLevelGaussianDownsample:mipmapLevelCount:]([PTPyramid alloc], "initWithMetalContext:colorSize:pixelFormat:skipFullSizeLayer:doFirstLevelGaussianDownsample:mipmapLevelCount:", *(v18 + 5), 115, v244, [*(v18 + 9) doFirstLevelGaussianDownsample], 4, v239, v238);
-    v37 = *(v18 + 2);
-    *(v18 + 2) = v36;
+    v256 = [[PTPyramid alloc] initWithMetalContext:v20->_metalContext colorSize:115 pixelFormat:v262 skipFullSizeLayer:[(PTQualitySettings *)v20->_qualitySettings doFirstLevelGaussianDownsample] doFirstLevelGaussianDownsample:4 mipmapLevelCount:v257, v256];
+    v40 = v20->_rgbaPyramid;
+    v20->_rgbaPyramid = v256;
 
-    if (*(v18 + 2))
+    if (v20->_rgbaPyramid)
     {
 LABEL_8:
-      v38 = [[PTRaytracingUtilsV2 alloc] initWithMetalContext:*(v18 + 5)];
-      v39 = *(v18 + 10);
-      *(v18 + 10) = v38;
+      v42 = [[PTRaytracingUtilsV2 alloc] initWithMetalContext:v20->_metalContext];
+      raytracingUtils = v20->_raytracingUtils;
+      v20->_raytracingUtils = v42;
 
-      if (*(v18 + 10))
+      if (v20->_raytracingUtils)
       {
-        v40 = -[PTRaytracingInterpolateResultV2 initWithMetalContext:useExportQualityNoise:]([PTRaytracingInterpolateResultV2 alloc], "initWithMetalContext:useExportQualityNoise:", *(v18 + 5), [*(v18 + 9) useExportQualityNoise]);
-        v41 = *(v18 + 11);
-        *(v18 + 11) = v40;
+        v45 = [[PTRaytracingInterpolateResultV2 alloc] initWithMetalContext:v20->_metalContext useExportQualityNoise:[(PTQualitySettings *)v20->_qualitySettings useExportQualityNoise]];
+        raytracingInterpolateResult = v20->_raytracingInterpolateResult;
+        v20->_raytracingInterpolateResult = v45;
 
-        if (*(v18 + 11))
+        if (v20->_raytracingInterpolateResult)
         {
-          v42 = +[PTPrecomputeRandom computeUnitDiskPoints:numberOfPatternCircles:](PTPrecomputeRandom, "computeUnitDiskPoints:numberOfPatternCircles:", *(v18 + 5), [*(v18 + 9) numberOfPatternCircles]);
-          v44 = v43;
-          v45 = *(v18 + 14);
-          *(v18 + 14) = v42;
+          v48 = [PTPrecomputeRandom computeUnitDiskPoints:v20->_metalContext numberOfPatternCircles:[(PTQualitySettings *)v20->_qualitySettings numberOfPatternCircles]];
+          v50 = v49;
+          xy = v20->_aperturePoints.xy;
+          v20->_aperturePoints.xy = v48;
 
-          *(v18 + 62) = WORD2(v44);
-          *(v18 + 30) = v44;
-          if (*(v18 + 14))
+          *(&v20->_aperturePoints.rayCount + 2) = WORD2(v50);
+          v20->_aperturePoints.rayCount = v50;
+          if (v20->_aperturePoints.xy)
           {
-            v46 = [PTPrecomputeRandom computeRandomUChars:*(v18 + 5) rayCount:v44];
-            v47 = *(v18 + 16);
-            *(v18 + 16) = v46;
+            v53 = [PTPrecomputeRandom computeRandomUChars:v20->_metalContext rayCount:v50];
+            randomUChars = v20->_randomUChars;
+            v20->_randomUChars = v53;
 
-            if (*(v18 + 16))
+            if (v20->_randomUChars)
             {
-              *(v18 + 55) = *(v18 + 30);
-              v18[216] = 0;
-              _H0 = *(v18 + 62);
+              v20->_kRayCount = v20->_aperturePoints.rayCount;
+              v20->_doVisualization = 0;
+              _H0 = *(&v20->_aperturePoints.rayCount + 2);
               __asm { FCVT            S10, H0 }
 
-              v54.f64[0] = v239;
-              v54.f64[1] = v238;
-              *(v18 + 28) = vcvt_f32_f64(v54);
-              *(v18 + 232) = xmmword_2244A55E0;
-              rayMarch = [*(v18 + 9) rayMarch];
-              [*(v18 + 9) renderDownscale];
-              v55 = 3.0;
-              if (v56 <= 3.0)
+              v62.f64[0] = v257;
+              v62.f64[1] = v256;
+              *v20->_colorSize = vcvt_f32_f64(v62);
+              *&v20->_kPyramidSamplingFraction = xmmword_2244A55E0;
+              rayMarch = [(PTQualitySettings *)v20->_qualitySettings rayMarch];
+              [(PTQualitySettings *)v20->_qualitySettings renderDownscale];
+              v63 = 3.0;
+              if (v64 <= 3.0)
               {
-                [*(v18 + 9) renderDownscale];
-                v55 = 1.0;
-                if (v57 >= 2.0)
+                [(PTQualitySettings *)v20->_qualitySettings renderDownscale];
+                v63 = 1.0;
+                if (v65 >= 2.0)
                 {
-                  v55 = 2.0;
+                  v63 = 2.0;
                 }
               }
 
-              [*(v18 + 9) renderDownscale];
-              v59 = fmaxf(v58, 2.0) + 0.5;
-              *&v60 = 1.0 / (0.5 - v59);
-              *(&v60 + 1) = -v59;
-              v237 = v60;
-              v61 = objc_opt_new();
-              [v61 setConstantValue:v18 + 220 type:29 withName:@"kRaycount"];
-              [v61 setConstantValue:&rayMarch type:53 withName:@"kRayMarch"];
-              [v61 setConstantValue:&v244 type:53 withName:@"kSkipFullSizeLayer"];
-              LODWORD(v62) = _S10;
-              [v61 setConstantFloat:@"kRadiusLocal_float" withName:v62];
-              LODWORD(v63) = 0.25;
-              [v61 setConstantFloat:@"kRadiusLocalFraction_float" withName:v63];
-              *&v64 = v55;
-              [v61 setConstantFloat:@"kDiameterCoverageLimit_float" withName:v64];
-              [v61 setConstantFloat2:@"kFocusBlendCoefficients_float2" withName:v237];
-              LODWORD(v65) = *(v18 + 58);
-              [v61 setConstantFloat:@"kPyramidSamplingFraction_float" withName:v65];
-              LODWORD(v66) = 6.0;
-              [v61 setConstantFloat:@"kRayMarchDisparityRadiusTolerance_float" withName:v66];
-              v67 = [*(v18 + 5) computePipelineStateFor:@"raytracingV2002" withConstants:v61];
-              v68 = *(v18 + 31);
-              *(v18 + 31) = v67;
+              [(PTQualitySettings *)v20->_qualitySettings renderDownscale];
+              v67 = fmaxf(v66, 2.0) + 0.5;
+              *&v68 = 1.0 / (0.5 - v67);
+              *(&v68 + 1) = -v67;
+              v255 = v68;
+              v69 = objc_opt_new();
+              [v69 setConstantValue:&v20->_kRayCount type:29 withName:@"kRaycount"];
+              [v69 setConstantValue:&rayMarch type:53 withName:@"kRayMarch"];
+              [v69 setConstantValue:&v262 type:53 withName:@"kSkipFullSizeLayer"];
+              LODWORD(v70) = _S10;
+              [v69 setConstantFloat:@"kRadiusLocal_float" withName:v70];
+              LODWORD(v71) = 0.25;
+              [v69 setConstantFloat:@"kRadiusLocalFraction_float" withName:v71];
+              *&v72 = v63;
+              [v69 setConstantFloat:@"kDiameterCoverageLimit_float" withName:v72];
+              [v69 setConstantFloat2:@"kFocusBlendCoefficients_float2" withName:v255];
+              *&v73 = v20->_kPyramidSamplingFraction;
+              [v69 setConstantFloat:@"kPyramidSamplingFraction_float" withName:v73];
+              LODWORD(v74) = 6.0;
+              [v69 setConstantFloat:@"kRayMarchDisparityRadiusTolerance_float" withName:v74];
+              v75 = [(PTMetalContext *)v20->_metalContext computePipelineStateFor:@"raytracingV2002" withConstants:v69];
+              raytracingSDOF = v20->_raytracingSDOF;
+              v20->_raytracingSDOF = v75;
 
-              if (!*(v18 + 31))
+              if (!v20->_raytracingSDOF)
               {
-                v122 = _PTLogSystem();
-                if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+                v140 = _PTLogSystem(v77);
+                if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
                 {
-                  [(PTRaytracingV2002 *)v122 initWithMetalContext:v160 colorSize:v161 disparitySize:v162 debugRendering:v163 verbose:v164 options:v165 quality:v166];
+                  [(PTRaytracingV2002 *)v140 initWithMetalContext:v178 colorSize:v179 disparitySize:v180 debugRendering:v181 verbose:v182 options:v183 quality:v184];
                 }
 
                 goto LABEL_80;
               }
 
-              if ([*(v18 + 9) rayMarch])
+              if ([(PTQualitySettings *)v20->_qualitySettings rayMarch])
               {
-                height = [[PTGlobalReduction alloc] initWithMetalContext:*(v18 + 5) textureSize:width, height];
-                v70 = *(v18 + 12);
-                *(v18 + 12) = height;
+                height = [[PTGlobalReduction alloc] initWithMetalContext:v20->_metalContext textureSize:width, height];
+                globalReduction = v20->_globalReduction;
+                v20->_globalReduction = height;
 
-                if (!*(v18 + 12))
+                if (!v20->_globalReduction)
                 {
-                  v122 = _PTLogSystem();
-                  if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+                  v140 = _PTLogSystem(v80);
+                  if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
                   {
-                    [(PTRaytracingV2002 *)v122 initWithMetalContext:v167 colorSize:v168 disparitySize:v169 debugRendering:v170 verbose:v171 options:v172 quality:v173];
+                    [(PTRaytracingV2002 *)v140 initWithMetalContext:v185 colorSize:v186 disparitySize:v187 debugRendering:v188 verbose:v189 options:v190 quality:v191];
                   }
 
                   goto LABEL_80;
                 }
 
-                device = [*(v18 + 5) device];
-                v72 = [device newBufferWithLength:8 options:0];
-                v73 = *(v18 + 17);
-                *(v18 + 17) = v72;
+                v81 = objc_msgSend_device(v20->_metalContext);
+                v82 = [v81 newBufferWithLength:8 options:0];
+                disparityDiffGlobalMinMax = v20->_disparityDiffGlobalMinMax;
+                v20->_disparityDiffGlobalMinMax = v82;
 
-                if (!*(v18 + 17))
+                if (!v20->_disparityDiffGlobalMinMax)
                 {
-                  v122 = _PTLogSystem();
-                  if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+                  v140 = _PTLogSystem(v84);
+                  if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
                   {
-                    [(PTRaytracingV2002 *)v122 initWithMetalContext:v174 colorSize:v175 disparitySize:v176 debugRendering:v177 verbose:v178 options:v179 quality:v180];
+                    [(PTRaytracingV2002 *)v140 initWithMetalContext:v192 colorSize:v193 disparitySize:v194 debugRendering:v195 verbose:v196 options:v197 quality:v198];
                   }
 
                   goto LABEL_80;
                 }
 
-                textureUtil = [*(v18 + 5) textureUtil];
+                textureUtil = [(PTMetalContext *)v20->_metalContext textureUtil];
                 height2 = [textureUtil createWithSize:10 pixelFormat:width, height];
-                v76 = *(v18 + 18);
-                *(v18 + 18) = height2;
+                disparityEdges = v20->_disparityEdges;
+                v20->_disparityEdges = height2;
 
-                if (!*(v18 + 18))
+                if (!v20->_disparityEdges)
                 {
-                  v122 = _PTLogSystem();
-                  if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+                  v140 = _PTLogSystem(v88);
+                  if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
                   {
-                    [(PTRaytracingV2002 *)v122 initWithMetalContext:v202 colorSize:v203 disparitySize:v204 debugRendering:v205 verbose:v206 options:v207 quality:v208];
+                    [(PTRaytracingV2002 *)v140 initWithMetalContext:v220 colorSize:v221 disparitySize:v222 debugRendering:v223 verbose:v224 options:v225 quality:v226];
                   }
 
                   goto LABEL_80;
                 }
 
-                textureUtil2 = [*(v18 + 5) textureUtil];
+                textureUtil2 = [(PTMetalContext *)v20->_metalContext textureUtil];
                 height3 = [textureUtil2 createWithSize:10 pixelFormat:width, height];
-                v79 = *(v18 + 19);
-                *(v18 + 19) = height3;
+                disparityEdgesTemp = v20->_disparityEdgesTemp;
+                v20->_disparityEdgesTemp = height3;
 
-                if (!*(v18 + 19))
+                if (!v20->_disparityEdgesTemp)
                 {
-                  v122 = _PTLogSystem();
-                  if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+                  v140 = _PTLogSystem(v92);
+                  if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
                   {
-                    [(PTRaytracingV2002 *)v122 initWithMetalContext:v223 colorSize:v224 disparitySize:v225 debugRendering:v226 verbose:v227 options:v228 quality:v229];
+                    [(PTRaytracingV2002 *)v140 initWithMetalContext:v241 colorSize:v242 disparitySize:v243 debugRendering:v244 verbose:v245 options:v246 quality:v247];
                   }
 
                   goto LABEL_80;
                 }
               }
 
-              [*(v18 + 9) disparityUpsampleFactor];
-              v81 = width * v80;
-              [*(v18 + 9) disparityUpsampleFactor];
-              v83 = height * v82;
-              [*(v18 + 9) disparityUpsampleFactor];
-              if (v84 > 1.0 && v81 < v239 && v83 < v238)
+              [(PTQualitySettings *)v20->_qualitySettings disparityUpsampleFactor];
+              v94 = width * v93;
+              [(PTQualitySettings *)v20->_qualitySettings disparityUpsampleFactor];
+              v96 = height * v95;
+              [(PTQualitySettings *)v20->_qualitySettings disparityUpsampleFactor];
+              if (v97 > 1.0 && v94 < v257 && v96 < v256)
               {
-                v85 = [PTGuidedFilter alloc];
-                v86 = *(v18 + 5);
-                v240 = width;
-                v241 = height;
-                v242 = 1;
-                LODWORD(v87) = 1028443341;
-                v88 = [(PTGuidedFilter *)v85 initWithMetalContext:v86 inputSize:&v240 epsilon:v87];
-                v89 = *(v18 + 13);
-                *(v18 + 13) = v88;
+                v98 = [PTGuidedFilter alloc];
+                metalContext = v20->_metalContext;
+                v258 = width;
+                v259 = height;
+                v260 = 1;
+                LODWORD(v100) = 1028443341;
+                v101 = [(PTGuidedFilter *)v98 initWithMetalContext:metalContext inputSize:&v258 epsilon:v100];
+                guidedFilter = v20->_guidedFilter;
+                v20->_guidedFilter = v101;
 
-                if (!*(v18 + 13))
+                if (!v20->_guidedFilter)
                 {
-                  v122 = _PTLogSystem();
-                  if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+                  v140 = _PTLogSystem(v103);
+                  if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
                   {
-                    [(PTRaytracingV2002 *)v122 initWithMetalContext:v181 colorSize:v182 disparitySize:v183 debugRendering:v184 verbose:v185 options:v186 quality:v187];
+                    [(PTRaytracingV2002 *)v140 initWithMetalContext:v199 colorSize:v200 disparitySize:v201 debugRendering:v202 verbose:v203 options:v204 quality:v205];
                   }
 
                   goto LABEL_80;
                 }
 
-                textureUtil3 = [*(v18 + 5) textureUtil];
-                v91 = [textureUtil3 createWithSize:25 pixelFormat:v81, v83];
-                v92 = *(v18 + 21);
-                *(v18 + 21) = v91;
+                textureUtil3 = [(PTMetalContext *)v20->_metalContext textureUtil];
+                v105 = [textureUtil3 createWithSize:25 pixelFormat:v94, v96];
+                disparityDiffUpscaled = v20->_disparityDiffUpscaled;
+                v20->_disparityDiffUpscaled = v105;
 
-                v93 = *(v18 + 21);
-                if (!v93)
+                v107 = v20->_disparityDiffUpscaled;
+                if (!v107)
                 {
-                  v122 = _PTLogSystem();
-                  if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+                  v140 = _PTLogSystem(0);
+                  if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
                   {
-                    [(PTRaytracingV2002 *)v122 initWithMetalContext:v209 colorSize:v210 disparitySize:v211 debugRendering:v212 verbose:v213 options:v214 quality:v215];
+                    [(PTRaytracingV2002 *)v140 initWithMetalContext:v227 colorSize:v228 disparitySize:v229 debugRendering:v230 verbose:v231 options:v232 quality:v233];
                   }
 
                   goto LABEL_80;
                 }
 
-                v94 = *(v18 + 2);
-                width = [v93 width];
-                height4 = [*(v18 + 21) height];
-                v240 = width;
-                v241 = height4;
-                v242 = 1;
-                v97 = [v94 findMipmapLevelLargerThan:&v240];
-                v98 = *(v18 + 26);
-                *(v18 + 26) = v97;
+                v108 = v20->_rgbaPyramid;
+                width = [(MTLTexture *)v107 width];
+                height4 = [(MTLTexture *)v20->_disparityDiffUpscaled height];
+                v258 = width;
+                v259 = height4;
+                v260 = 1;
+                v111 = [(PTPyramid *)v108 findMipmapLevelLargerThan:&v258];
+                guideRGBAUpscale = v20->_guideRGBAUpscale;
+                v20->_guideRGBAUpscale = v111;
 
-                v99 = *(v18 + 2);
-                v240 = width;
-                v241 = height;
-                v242 = 1;
-                v100 = [v99 findMipmapLevelLargerThan:&v240];
-                v101 = *(v18 + 25);
-                *(v18 + 25) = v100;
+                v113 = v20->_rgbaPyramid;
+                v258 = width;
+                v259 = height;
+                v260 = 1;
+                v114 = [(PTPyramid *)v113 findMipmapLevelLargerThan:&v258];
+                guideRGBACoefficients = v20->_guideRGBACoefficients;
+                v20->_guideRGBACoefficients = v114;
               }
 
-              if ([*(v18 + 9) doCenterDisparity] && (objc_msgSend(*(v18 + 5), "textureUtil"), v102 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v102, "createWithSize:pixelFormat:", 25, width, height), v103 = objc_claimAutoreleasedReturnValue(), v104 = *(v18 + 20), *(v18 + 20) = v103, v104, v102, !*(v18 + 20)))
+              if (-[PTQualitySettings doCenterDisparity](v20->_qualitySettings, "doCenterDisparity") && (-[PTMetalContext textureUtil](v20->_metalContext, "textureUtil"), v116 = objc_claimAutoreleasedReturnValue(), [v116 createWithSize:25 pixelFormat:width, height], v117 = objc_claimAutoreleasedReturnValue(), disparityDiff = v20->_disparityDiff, v20->_disparityDiff = v117, disparityDiff, v116, !v20->_disparityDiff))
               {
-                v122 = _PTLogSystem();
-                if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+                v140 = _PTLogSystem(v119);
+                if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
                 {
-                  [(PTRaytracingV2002 *)v122 initWithMetalContext:v195 colorSize:v196 disparitySize:v197 debugRendering:v198 verbose:v199 options:v200 quality:v201];
+                  [(PTRaytracingV2002 *)v140 initWithMetalContext:v213 colorSize:v214 disparitySize:v215 debugRendering:v216 verbose:v217 options:v218 quality:v219];
                 }
               }
 
-              else if ([*(v18 + 9) doFocusEdgeMask] && ((objc_msgSend(*(v18 + 5), "textureUtil"), v105 = objc_claimAutoreleasedReturnValue(), v106 = v105, (v107 = *(v18 + 21)) != 0) ? (v108 = v83) : (v108 = height), v107 ? (v109 = v81) : (v109 = width), objc_msgSend(v105, "createWithSize:pixelFormat:", 25, v109, v108), v110 = objc_claimAutoreleasedReturnValue(), v111 = *(v18 + 22), *(v18 + 22) = v110, v111, v106, !*(v18 + 22)))
+              else if (-[PTQualitySettings doFocusEdgeMask](v20->_qualitySettings, "doFocusEdgeMask") && ((-[PTMetalContext textureUtil](v20->_metalContext, "textureUtil"), v120 = objc_claimAutoreleasedReturnValue(), v121 = v120, (v122 = v20->_disparityDiffUpscaled) != 0) ? (v123 = v96) : (v123 = height), v122 ? (v124 = v94) : (v124 = width), [v120 createWithSize:25 pixelFormat:v124, v123], v125 = objc_claimAutoreleasedReturnValue(), focusEdgeMask = v20->_focusEdgeMask, v20->_focusEdgeMask = v125, focusEdgeMask, v121, !v20->_focusEdgeMask))
               {
-                v122 = _PTLogSystem();
-                if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+                v140 = _PTLogSystem(v127);
+                if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
                 {
-                  [(PTRaytracingUtils *)v122 initWithMetalContext:v216, v217, v218, v219, v220, v221, v222];
+                  [(PTRaytracingUtils *)v140 initWithMetalContext:v234, v235, v236, v237, v238, v239, v240];
                 }
               }
 
               else
               {
-                textureUtil4 = [*(v18 + 5) textureUtil];
-                [*(v18 + 9) renderDownscale];
-                v114 = (v239 / v113);
-                [*(v18 + 9) renderDownscale];
-                v116 = [textureUtil4 createWithWidth:v114 height:(v238 / v115) pixelFormat:objc_msgSend(*(v18 + 9), "intermediatePixelFormat")];
-                v117 = *(v18 + 23);
-                *(v18 + 23) = v116;
+                textureUtil4 = [(PTMetalContext *)v20->_metalContext textureUtil];
+                [(PTQualitySettings *)v20->_qualitySettings renderDownscale];
+                v130 = (v257 / v129);
+                [(PTQualitySettings *)v20->_qualitySettings renderDownscale];
+                v132 = [textureUtil4 createWithWidth:v130 height:(v256 / v131) pixelFormat:-[PTQualitySettings intermediatePixelFormat](v20->_qualitySettings, "intermediatePixelFormat")];
+                raytracedRGBWeight = v20->_raytracedRGBWeight;
+                v20->_raytracedRGBWeight = v132;
 
-                if (*(v18 + 23))
+                if (v20->_raytracedRGBWeight)
                 {
-                  if (![*(v18 + 9) doIntermediate2XUpscale] || (objc_msgSend(*(v18 + 5), "textureUtil"), v118 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v118, "createWithWidth:height:pixelFormat:", 2 * objc_msgSend(*(v18 + 23), "width"), 2 * objc_msgSend(*(v18 + 23), "height"), objc_msgSend(*(v18 + 9), "intermediatePixelFormat")), v119 = objc_claimAutoreleasedReturnValue(), v120 = *(v18 + 24), *(v18 + 24) = v119, v120, v118, *(v18 + 24)))
+                  if (!-[PTQualitySettings doIntermediate2XUpscale](v20->_qualitySettings, "doIntermediate2XUpscale") || (-[PTMetalContext textureUtil](v20->_metalContext, "textureUtil"), v135 = objc_claimAutoreleasedReturnValue(), [v135 createWithWidth:2 * -[MTLTexture width](v20->_raytracedRGBWeight height:"width") pixelFormat:2 * -[MTLTexture height](v20->_raytracedRGBWeight, "height"), -[PTQualitySettings intermediatePixelFormat](v20->_qualitySettings, "intermediatePixelFormat")], v136 = objc_claimAutoreleasedReturnValue(), raytracedRGBWeightUpscaled = v20->_raytracedRGBWeightUpscaled, v20->_raytracedRGBWeightUpscaled = v136, raytracedRGBWeightUpscaled, v135, v20->_raytracedRGBWeightUpscaled))
                   {
-                    v121 = [MEMORY[0x277CBEB18] arrayWithObjects:{*(v18 + 23), *(v18 + 18), *(v18 + 19), 0}];
-                    v122 = v121;
-                    if (*(v18 + 21))
+                    v139 = [MEMORY[0x277CBEB18] arrayWithObjects:{v20->_raytracedRGBWeight, v20->_disparityEdges, v20->_disparityEdgesTemp, 0}];
+                    v140 = v139;
+                    if (v20->_disparityDiffUpscaled)
                     {
-                      [v121 addObject:?];
+                      [v139 addObject:?];
                     }
 
-                    if (*(v18 + 22))
+                    if (v20->_focusEdgeMask)
                     {
-                      [v122 addObject:?];
+                      [v140 addObject:?];
                     }
 
-                    v123 = v18;
+                    v141 = v20;
                     goto LABEL_81;
                   }
 
-                  v122 = _PTLogSystem();
-                  if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+                  v140 = _PTLogSystem(v138);
+                  if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
                   {
-                    [(PTRaytracingV2002 *)v122 initWithMetalContext:v230 colorSize:v231 disparitySize:v232 debugRendering:v233 verbose:v234 options:v235 quality:v236];
+                    [(PTRaytracingV2002 *)v140 initWithMetalContext:v248 colorSize:v249 disparitySize:v250 debugRendering:v251 verbose:v252 options:v253 quality:v254];
                   }
                 }
 
                 else
                 {
-                  v122 = _PTLogSystem();
-                  if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+                  v140 = _PTLogSystem(v134);
+                  if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
                   {
-                    [(PTRaytracingV2002 *)v122 initWithMetalContext:v188 colorSize:v189 disparitySize:v190 debugRendering:v191 verbose:v192 options:v193 quality:v194];
+                    [(PTRaytracingV2002 *)v140 initWithMetalContext:v206 colorSize:v207 disparitySize:v208 debugRendering:v209 verbose:v210 options:v211 quality:v212];
                   }
                 }
               }
 
 LABEL_80:
-              v123 = 0;
+              v141 = 0;
 LABEL_81:
 
               goto LABEL_57;
             }
 
-            v28 = _PTLogSystem();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            v31 = _PTLogSystem(v55);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
-              [(PTRaytracingV2002 *)v28 initWithMetalContext:v152 colorSize:v153 disparitySize:v154 debugRendering:v155 verbose:v156 options:v157 quality:v158];
+              [(PTRaytracingV2002 *)v31 initWithMetalContext:v170 colorSize:v171 disparitySize:v172 debugRendering:v173 verbose:v174 options:v175 quality:v176];
             }
           }
 
           else
           {
-            v28 = _PTLogSystem();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            v31 = _PTLogSystem(v52);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
-              [(PTRaytracingV2002 *)v28 initWithMetalContext:v145 colorSize:v146 disparitySize:v147 debugRendering:v148 verbose:v149 options:v150 quality:v151];
+              [(PTRaytracingV2002 *)v31 initWithMetalContext:v163 colorSize:v164 disparitySize:v165 debugRendering:v166 verbose:v167 options:v168 quality:v169];
             }
           }
         }
 
         else
         {
-          v28 = _PTLogSystem();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          v31 = _PTLogSystem(v47);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
-            [(PTRaytracingV2002 *)v28 initWithMetalContext:v131 colorSize:v132 disparitySize:v133 debugRendering:v134 verbose:v135 options:v136 quality:v137];
+            [(PTRaytracingV2002 *)v31 initWithMetalContext:v149 colorSize:v150 disparitySize:v151 debugRendering:v152 verbose:v153 options:v154 quality:v155];
           }
         }
       }
 
       else
       {
-        v28 = _PTLogSystem();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v31 = _PTLogSystem(v44);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
-          [(PTRaytracingV2002 *)v28 initWithMetalContext:v124 colorSize:v125 disparitySize:v126 debugRendering:v127 verbose:v128 options:v129 quality:v130];
+          [(PTRaytracingV2002 *)v31 initWithMetalContext:v142 colorSize:v143 disparitySize:v144 debugRendering:v145 verbose:v146 options:v147 quality:v148];
         }
       }
 
       goto LABEL_55;
     }
 
-    v28 = _PTLogSystem();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v31 = _PTLogSystem(v41);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      [(PTRaytracingV2002 *)v28 initWithMetalContext:v138 colorSize:v139 disparitySize:v140 debugRendering:v141 verbose:v142 options:v143 quality:v144];
+      [(PTRaytracingV2002 *)v31 initWithMetalContext:v156 colorSize:v157 disparitySize:v158 debugRendering:v159 verbose:v160 options:v161 quality:v162];
     }
   }
 
   else
   {
-    v28 = _PTLogSystem();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v31 = _PTLogSystem(v23);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      [(PTRaytracingV2002 *)v28 initWithMetalContext:v29 colorSize:v30 disparitySize:v31 debugRendering:v32 verbose:v33 options:v34 quality:v35];
+      [(PTRaytracingV2002 *)v31 initWithMetalContext:v32 colorSize:v33 disparitySize:v34 debugRendering:v35 verbose:v36 options:v37 quality:v38];
     }
   }
 
 LABEL_55:
 
 LABEL_56:
-  v123 = 0;
+  v141 = 0;
 LABEL_57:
 
-  return v123;
+  return v141;
 }
 
 - (int)renderContinuousWithSource:(id)source renderRequest:(id)request
@@ -418,22 +419,21 @@ LABEL_57:
   [requestCopy alphaLowLight];
   kdebug_trace();
 
-  v92 = 0u;
-  v93 = 0u;
   v91 = 0u;
+  v92 = 0u;
+  v90 = 0u;
   kPyramidSamplingFraction = self->_kPyramidSamplingFraction;
   anamorphicFactor = self->_anamorphicFactor;
-  kRayCount = self->_kRayCount;
-  v12 = *self->_colorSize;
-  doMacroApertureLimit = [(PTQualitySettings *)self->_qualitySettings doMacroApertureLimit];
-  *&v14 = kPyramidSamplingFraction;
-  *&v15 = anamorphicFactor;
-  [PTRaytracingUtilsV2 createFocusObject:requestCopy pyramidSamplingFraction:kRayCount anamorphicFactor:doMacroApertureLimit rayCount:v14 colorSize:v15 doMacroApertureLimit:v12];
+  v11 = *self->_colorSize;
+  [(PTQualitySettings *)self->_qualitySettings doMacroApertureLimit];
+  *&v12 = kPyramidSamplingFraction;
+  *&v13 = anamorphicFactor;
+  objc_msgSend_createFocusObject_pyramidSamplingFraction_anamorphicFactor_rayCount_colorSize_doMacroApertureLimit_(PTRaytracingUtilsV2, v12, v13, v11);
+  v88 = 0u;
   v89 = 0u;
-  v90 = 0u;
   if (requestCopy)
   {
-    [requestCopy scissorRect];
+    objc_msgSend_scissorRect(requestCopy);
   }
 
   if (!self->_injectedRGBAPyramid)
@@ -448,11 +448,11 @@ LABEL_57:
     raytracingUtils = self->_raytracingUtils;
     sourceDisparity = [requestCopy sourceDisparity];
     disparityDiff = self->_disparityDiff;
-    *&v21 = self->_foregroundBlurLimitingFactor;
+    *&v19 = self->_foregroundBlurLimitingFactor;
+    v85 = v90;
     v86 = v91;
     v87 = v92;
-    v88 = v93;
-    [(PTRaytracingUtilsV2 *)raytracingUtils centerDisparityOnFocus:sourceCopy inDisparity:sourceDisparity outDisparity:disparityDiff focusObject:&v86 foregroundBlurLimitingFactor:v21];
+    [(PTRaytracingUtilsV2 *)raytracingUtils centerDisparityOnFocus:sourceCopy inDisparity:sourceDisparity outDisparity:disparityDiff focusObject:&v85 foregroundBlurLimitingFactor:v19];
 
     sourceDisparity2 = self->_disparityDiff;
   }
@@ -462,20 +462,20 @@ LABEL_57:
     sourceDisparity2 = [requestCopy sourceDisparity];
   }
 
-  v25 = sourceDisparity2;
+  v23 = sourceDisparity2;
   globalReduction = self->_globalReduction;
   if (globalReduction)
   {
-    [(PTGlobalReduction *)globalReduction parallelReductionMinMax:sourceCopy inTexture:v25 globalMinMaxBuffer:self->_disparityDiffGlobalMinMax];
-    v27 = self->_raytracingUtils;
+    [(PTGlobalReduction *)globalReduction parallelReductionMinMax:sourceCopy inTexture:v23 globalMinMaxBuffer:self->_disparityDiffGlobalMinMax];
+    v25 = self->_raytracingUtils;
     disparityEdges = self->_disparityEdges;
     disparityEdgesTemp = self->_disparityEdgesTemp;
     disparityDiffGlobalMinMax = self->_disparityDiffGlobalMinMax;
-    *&v31 = self->_edgeTolerance;
+    *&v29 = self->_edgeTolerance;
+    v85 = v90;
     v86 = v91;
     v87 = v92;
-    v88 = v93;
-    [(PTRaytracingUtilsV2 *)v27 detectDilatedEdges:sourceCopy inDisparity:v25 tempEdges:disparityEdgesTemp outEdges:disparityEdges focusObject:&v86 disparityDiffMinMax:disparityDiffGlobalMinMax edgeTolerance:v31];
+    [(PTRaytracingUtilsV2 *)v25 detectDilatedEdges:sourceCopy inDisparity:v23 tempEdges:disparityEdgesTemp outEdges:disparityEdges focusObject:&v85 disparityDiffMinMax:disparityDiffGlobalMinMax edgeTolerance:v29];
   }
 
   guidedFilter = self->_guidedFilter;
@@ -485,61 +485,61 @@ LABEL_57:
     guideRGBAUpscale = self->_guideRGBAUpscale;
     disparityDiffUpscaled = self->_disparityDiffUpscaled;
     renderState2 = [requestCopy renderState];
-    -[PTGuidedFilter guidedFilter:image:guideRGBACoefficients:guideRGBAUpscale:upscaledImage:sourceColorBitDepth:postModifierPtr:](guidedFilter, "guidedFilter:image:guideRGBACoefficients:guideRGBAUpscale:upscaledImage:sourceColorBitDepth:postModifierPtr:", sourceCopy, v25, guideRGBACoefficients, guideRGBAUpscale, disparityDiffUpscaled, [renderState2 sourceColorBitDepth], 0);
+    -[PTGuidedFilter guidedFilter:image:guideRGBACoefficients:guideRGBAUpscale:upscaledImage:sourceColorBitDepth:postModifierPtr:](guidedFilter, "guidedFilter:image:guideRGBACoefficients:guideRGBAUpscale:upscaledImage:sourceColorBitDepth:postModifierPtr:", sourceCopy, v23, guideRGBACoefficients, guideRGBAUpscale, disparityDiffUpscaled, [renderState2 sourceColorBitDepth], 0);
 
-    v37 = self->_disparityDiffUpscaled;
-    v25 = v37;
+    v35 = self->_disparityDiffUpscaled;
+    v23 = v35;
   }
 
   if (self->_focusEdgeMask)
   {
-    v38 = self->_raytracingUtils;
-    HIDWORD(v39) = DWORD1(v92);
+    v36 = self->_raytracingUtils;
+    HIDWORD(v37) = DWORD1(v91);
+    v85 = v90;
     v86 = v91;
+    HIDWORD(v38) = DWORD1(v92);
     v87 = v92;
-    HIDWORD(v40) = DWORD1(v93);
-    v88 = v93;
-    *&v40 = self->_focusEdge.width;
-    *&v39 = self->_focusEdge.gradientThreshold;
-    *&v23 = self->_focusEdge.gradientWeight;
-    *&v24 = self->_focusEdge.minMaxThreshold;
-    [(PTRaytracingUtilsV2 *)v38 focusEdgeMask:sourceCopy inDisparityDiff:v25 focusObject:&v86 focusEdge:v40 outFocusEdgeMask:v39, v23, v24];
+    *&v38 = self->_focusEdge.width;
+    *&v37 = self->_focusEdge.gradientThreshold;
+    *&v21 = self->_focusEdge.gradientWeight;
+    *&v22 = self->_focusEdge.minMaxThreshold;
+    [(PTRaytracingUtilsV2 *)v36 focusEdgeMask:sourceCopy inDisparityDiff:v23 focusObject:&v85 focusEdge:v38 outFocusEdgeMask:v37, v21, v22];
   }
 
   sourceDisparity3 = [requestCopy sourceDisparity];
   width = [sourceDisparity3 width];
   sourceDisparity4 = [requestCopy sourceDisparity];
   height = [sourceDisparity4 height];
-  *v44.i32 = width;
-  *&v44.i32[1] = height;
-  v80 = v44;
+  *v42.i32 = width;
+  *&v42.i32[1] = height;
+  v79 = v42;
 
-  v45 = v80;
-  v85 = v80;
-  v45.i16[0] = v89;
-  v78 = v45;
+  v43 = v79;
+  v84 = v79;
+  v43.i16[0] = v88;
+  v77 = v43;
   [(PTQualitySettings *)self->_qualitySettings renderDownscale];
-  v80.i32[0] = v46;
-  v47 = v78;
-  v47.i16[2] = WORD4(v89);
-  v48 = vcvt_f32_u32(vand_s8(v47, 0xFFFF0000FFFFLL));
+  v79.i32[0] = v44;
+  v45 = v77;
+  v45.i16[2] = WORD4(v88);
+  v46 = vcvt_f32_u32(vand_s8(v45, 0xFFFF0000FFFFLL));
   [(PTQualitySettings *)self->_qualitySettings renderDownscale];
-  v50 = vcvt_s32_f32(vdiv_f32(v48, __PAIR64__(v49, v80.u32[0])));
-  v84[1] = v50.i16[2];
-  v84[0] = v50.i16[0];
-  v48.f32[0] = v90;
+  v48 = vcvt_s32_f32(vdiv_f32(v46, __PAIR64__(v47, v79.u32[0])));
+  v83[1] = v48.i16[2];
+  v83[0] = v48.i16[0];
+  v46.f32[0] = v89;
   [(PTQualitySettings *)self->_qualitySettings renderDownscale];
-  v52 = vcvtps_u32_f32(v48.f32[0] / v51);
-  v48.f32[0] = *(&v90 + 1);
+  v50 = vcvtps_u32_f32(v46.f32[0] / v49);
+  v46.f32[0] = *(&v89 + 1);
   [(PTQualitySettings *)self->_qualitySettings renderDownscale];
-  v54 = vcvtps_u32_f32(v48.f32[0] / v53);
+  v52 = vcvtps_u32_f32(v46.f32[0] / v51);
   computeCommandEncoder = [sourceCopy computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v56 = _PTLogSystem();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+    v54 = _PTLogSystem(0);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
     {
-      [(PTRaytracingUtils *)v56 disparityApplyPostModifier:v57 inDisparity:v58 outDisparity:v59 postModifier:v60, v61, v62, v63];
+      [(PTRaytracingUtils *)v54 disparityApplyPostModifier:v55 inDisparity:v56 outDisparity:v57 postModifier:v58, v59, v60, v61];
     }
   }
 
@@ -547,54 +547,54 @@ LABEL_57:
   mipmapTexture = [(PTPyramid *)self->_rgbaPyramid mipmapTexture];
   [computeCommandEncoder setTexture:mipmapTexture atIndex:0];
 
-  [computeCommandEncoder setTexture:v25 atIndex:1];
+  [computeCommandEncoder setTexture:v23 atIndex:1];
   [computeCommandEncoder setTexture:self->_disparityEdges atIndex:2];
   [computeCommandEncoder setTexture:self->_raytracedRGBWeight atIndex:3];
   [computeCommandEncoder setTexture:self->_focusEdgeMask atIndex:4];
-  [computeCommandEncoder setBytes:&v91 length:48 atIndex:0];
+  [computeCommandEncoder setBytes:&v90 length:48 atIndex:0];
   [computeCommandEncoder setBuffer:self->_aperturePoints.xy offset:0 atIndex:1];
   [computeCommandEncoder setBuffer:self->_randomUChars offset:0 atIndex:2];
   [computeCommandEncoder setBuffer:self->_disparityDiffGlobalMinMax offset:0 atIndex:3];
-  [computeCommandEncoder setBytes:&v85 length:8 atIndex:4];
-  [computeCommandEncoder setBytes:v84 length:4 atIndex:5];
-  *&v86 = v52;
-  *(&v86 + 1) = v54;
-  *&v87 = 1;
-  v82 = vdupq_n_s64(8uLL);
-  v83 = 1;
-  [computeCommandEncoder dispatchThreads:&v86 threadsPerThreadgroup:&v82];
+  [computeCommandEncoder setBytes:&v84 length:8 atIndex:4];
+  [computeCommandEncoder setBytes:v83 length:4 atIndex:5];
+  *&v85 = v50;
+  *(&v85 + 1) = v52;
+  *&v86 = 1;
+  v81 = vdupq_n_s64(8uLL);
+  v82 = 1;
+  [computeCommandEncoder dispatchThreads:&v85 threadsPerThreadgroup:&v81];
   [computeCommandEncoder endEncoding];
-  v65 = self->_raytracedRGBWeight;
+  v63 = self->_raytracedRGBWeight;
   if (self->_raytracedRGBWeightUpscaled)
   {
     textureUtil = [(PTMetalContext *)self->_metalContext textureUtil];
     [textureUtil copy:sourceCopy inTex:self->_raytracedRGBWeight outTex:self->_raytracedRGBWeightUpscaled];
 
-    v67 = self->_raytracedRGBWeightUpscaled;
-    v65 = v67;
+    v65 = self->_raytracedRGBWeightUpscaled;
+    v63 = v65;
   }
 
   computeCommandEncoder2 = [sourceCopy computeCommandEncoder];
 
   if (!computeCommandEncoder2)
   {
-    v69 = _PTLogSystem();
-    if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+    v68 = _PTLogSystem(v67);
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
     {
-      [(PTRaytracingUtils *)v69 disparityApplyPostModifier:v70 inDisparity:v71 outDisparity:v72 postModifier:v73, v74, v75, v76];
+      [(PTRaytracingUtils *)v68 disparityApplyPostModifier:v69 inDisparity:v70 outDisparity:v71 postModifier:v72, v73, v74, v75];
     }
   }
 
-  [(PTRaytracingInterpolateResultV2 *)self->_raytracingInterpolateResult interpolateRGBWeightUsingSourceToDest:computeCommandEncoder2 renderRequest:requestCopy inRGBWeight:v65];
+  [(PTRaytracingInterpolateResultV2 *)self->_raytracingInterpolateResult interpolateRGBWeightUsingSourceToDest:computeCommandEncoder2 renderRequest:requestCopy inRGBWeight:v63];
   [computeCommandEncoder2 endEncoding];
   if (kdebug_is_enabled())
   {
-    v81[0] = MEMORY[0x277D85DD0];
-    v81[1] = 3221225472;
-    v81[2] = __62__PTRaytracingV2002_renderContinuousWithSource_renderRequest___block_invoke;
-    v81[3] = &unk_278522E68;
-    v81[4] = self;
-    [sourceCopy addCompletedHandler:v81];
+    v80[0] = MEMORY[0x277D85DD0];
+    v80[1] = 3221225472;
+    v80[2] = __62__PTRaytracingV2002_renderContinuousWithSource_renderRequest___block_invoke;
+    v80[3] = &unk_278522E68;
+    v80[4] = self;
+    [sourceCopy addCompletedHandler:v80];
   }
 
   return 0;
@@ -605,23 +605,137 @@ void __62__PTRaytracingV2002_renderContinuousWithSource_renderRequest___block_in
   v3 = a2;
   [*(*(a1 + 32) + 72) renderDownscale];
   kdebug_trace();
-  if ([v3 status] != 4)
+  v4 = [v3 status];
+  if (v4 != 4)
   {
-    v4 = _PTLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _PTLogSystem(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __62__PTRaytracingV4001_renderContinuousWithSource_renderRequest___block_invoke_cold_1(v3, v4);
+      __62__PTRaytracingV4001_renderContinuousWithSource_renderRequest___block_invoke_cold_1(v3, v5);
     }
 
-    if ([v3 status] != 4)
+    v6 = [v3 status];
+    if (v6 != 4)
     {
-      v5 = _PTLogSystem();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = _PTLogSystem(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __62__PTRaytracingV4001_renderContinuousWithSource_renderRequest___block_invoke_cold_2(v3, v5);
+        __62__PTRaytracingV4001_renderContinuousWithSource_renderRequest___block_invoke_cold_2(v3, v7);
       }
     }
   }
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 debugRendering:(uint64_t)a6 verbose:(uint64_t)a7 options:(uint64_t)a8 quality:.cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_rgbaPyramid";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 debugRendering:(uint64_t)a6 verbose:(uint64_t)a7 options:(uint64_t)a8 quality:.cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_raytracedRGBWeightUpscaled";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 debugRendering:(uint64_t)a6 verbose:(uint64_t)a7 options:(uint64_t)a8 quality:.cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_raytracedRGBWeight";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 debugRendering:(uint64_t)a6 verbose:(uint64_t)a7 options:(uint64_t)a8 quality:.cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_disparityDiff";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 debugRendering:(uint64_t)a6 verbose:(uint64_t)a7 options:(uint64_t)a8 quality:.cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_disparityDiffUpscaled";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 debugRendering:(uint64_t)a6 verbose:(uint64_t)a7 options:(uint64_t)a8 quality:.cold.7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_guidedFilter";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 debugRendering:(uint64_t)a6 verbose:(uint64_t)a7 options:(uint64_t)a8 quality:.cold.8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_disparityEdgesTemp";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 debugRendering:(uint64_t)a6 verbose:(uint64_t)a7 options:(uint64_t)a8 quality:.cold.9(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_disparityEdges";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 debugRendering:(uint64_t)a6 verbose:(uint64_t)a7 options:(uint64_t)a8 quality:.cold.10(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_disparityDiffGlobalMinMax";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 debugRendering:(uint64_t)a6 verbose:(uint64_t)a7 options:(uint64_t)a8 quality:.cold.11(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_globalReduction";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 debugRendering:(uint64_t)a6 verbose:(uint64_t)a7 options:(uint64_t)a8 quality:.cold.12(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_raytracingSDOF";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 debugRendering:(uint64_t)a6 verbose:(uint64_t)a7 options:(uint64_t)a8 quality:.cold.13(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_randomUChars";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 debugRendering:(uint64_t)a6 verbose:(uint64_t)a7 options:(uint64_t)a8 quality:.cold.14(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_aperturePoints.xy";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 debugRendering:(uint64_t)a6 verbose:(uint64_t)a7 options:(uint64_t)a8 quality:.cold.15(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_raytracingInterpolateResult";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 debugRendering:(uint64_t)a6 verbose:(uint64_t)a7 options:(uint64_t)a8 quality:.cold.16(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_raytracingUtils";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 colorSize:(uint64_t)a4 disparitySize:(uint64_t)a5 debugRendering:(uint64_t)a6 verbose:(uint64_t)a7 options:(uint64_t)a8 quality:.cold.17(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_qualitySettings";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

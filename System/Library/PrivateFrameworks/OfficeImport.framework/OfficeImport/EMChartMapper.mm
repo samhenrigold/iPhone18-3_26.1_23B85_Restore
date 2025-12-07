@@ -1167,7 +1167,7 @@ LABEL_83:
   v62 = lastCachedName;
   if (lastCachedName && CsLeReadSInt32([lastCachedName value]) == 3)
   {
-    v63 = EDValue::EDValue(&v131, [v62 value]);
+    EDValue::EDValue(&v131, [v62 value]);
     v64 = EDValue::nsStringValue(v63);
     [dictionary setValue:v64 forKey:*MEMORY[0x277D43D20]];
 

@@ -291,7 +291,7 @@ LABEL_7:
   [(UIView *)&v12 updateConstraints];
   text = [(UILabel *)self->_titleLabel text];
   text2 = [(UILabel *)self->_urlLabel text];
-  if ([text isEqualToString:text2])
+  if (objc_msgSend_isEqualToString_(text))
   {
   }
 
@@ -299,9 +299,9 @@ LABEL_7:
   {
     text3 = [(UILabel *)self->_titleLabel text];
     absoluteString = [(NSURL *)self->_url absoluteString];
-    v7 = [text3 isEqualToString:absoluteString];
+    isEqualToString = objc_msgSend_isEqualToString_(text3);
 
-    if (!v7)
+    if (!isEqualToString)
     {
       goto LABEL_5;
     }

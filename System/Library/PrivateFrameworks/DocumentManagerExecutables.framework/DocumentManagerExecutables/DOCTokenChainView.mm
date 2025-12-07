@@ -23,19 +23,19 @@
 - (BOOL)becomeFirstResponder
 {
   selfCopy = self;
-  DOCTokenChainView.becomeFirstResponder()();
-  v4 = v3;
+  DOCTokenChainView.becomeFirstResponder()(v3);
+  v5 = v4;
 
-  return v4 & 1;
+  return v5 & 1;
 }
 
 - (BOOL)resignFirstResponder
 {
   selfCopy = self;
-  DOCTokenChainView.resignFirstResponder()();
-  v4 = v3;
+  DOCTokenChainView.resignFirstResponder()(v3);
+  v5 = v4;
 
-  return v4 & 1;
+  return v5 & 1;
 }
 
 - (BOOL)hasText
@@ -56,7 +56,7 @@
 - (void)deleteBackward
 {
   selfCopy = self;
-  DOCTokenChainView.deleteSelectedTokens()();
+  DOCTokenChainView.deleteSelectedTokens()(v2);
 }
 
 - (void)directionKeyCommand:(id)command
@@ -94,7 +94,7 @@
 
 - (id)selectionRectsForRange:(id)range
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UITextSelectionRect);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UITextSelectionRect, 0x277D75C30);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

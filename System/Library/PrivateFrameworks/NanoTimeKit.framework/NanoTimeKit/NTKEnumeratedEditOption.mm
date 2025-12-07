@@ -205,8 +205,8 @@ uint64_t __58__NTKEnumeratedEditOption_legacyOptionWithName_forDevice___block_in
 
 + (id)_orderedValuesForDevice:(id)device
 {
-  OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_5();
+  v3 = OUTLINED_FUNCTION_1_6(self);
+  OUTLINED_FUNCTION_0_5(v3);
   return 0;
 }
 

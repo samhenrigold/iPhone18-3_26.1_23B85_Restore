@@ -9,9 +9,9 @@
 
 - (EKUIAvailabilityTimelineView)init
 {
-  v17.receiver = self;
-  v17.super_class = EKUIAvailabilityTimelineView;
-  v2 = [(EKUIAvailabilityTimelineView *)&v17 init];
+  v18.receiver = self;
+  v18.super_class = EKUIAvailabilityTimelineView;
+  v2 = [(EKUIAvailabilityTimelineView *)&v18 init];
   if (v2)
   {
     v3 = 23;
@@ -26,17 +26,17 @@
     do
     {
       v10 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v6, v7, v8, v9}];
-      if (CalInterfaceIsLeftToRight())
+      if (CalInterfaceIsLeftToRight(v10, v11))
       {
-        v11 = 2;
+        v12 = 2;
       }
 
       else
       {
-        v11 = 0;
+        v12 = 0;
       }
 
-      [v10 setTextAlignment:v11];
+      [v10 setTextAlignment:v12];
       [(EKUIAvailabilityTimelineView *)v2 addSubview:v10];
       [(NSMutableArray *)v2->_labels addObject:v10];
 
@@ -45,13 +45,13 @@
 
     while (v3);
     [(EKUIAvailabilityTimelineView *)v2 setLabels];
-    v12 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v6, v7, v8, v9}];
+    v13 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v6, v7, v8, v9}];
     bottomPixelBorder = v2->_bottomPixelBorder;
-    v2->_bottomPixelBorder = v12;
+    v2->_bottomPixelBorder = v13;
 
-    v14 = v2->_bottomPixelBorder;
+    v15 = v2->_bottomPixelBorder;
     separatorColor = [MEMORY[0x1E69DC888] separatorColor];
-    [(UIView *)v14 setBackgroundColor:separatorColor];
+    [(UIView *)v15 setBackgroundColor:separatorColor];
 
     [(EKUIAvailabilityTimelineView *)v2 addSubview:v2->_bottomPixelBorder];
   }
@@ -133,21 +133,21 @@ void __48__EKUIAvailabilityTimelineView_setContentWidth___block_invoke(uint64_t 
 {
   v4 = (a3 + 1) / 24.0 * *(a1 + 40);
   v5 = a2;
-  if ((CalTimeDirectionIsLeftToRight() & 1) == 0)
+  if ((CalTimeDirectionIsLeftToRight(v5, v6) & 1) == 0)
   {
     v4 = *(a1 + 40) - v4;
   }
 
-  v6 = [v5 attributedText];
-  [v6 size];
-  v8 = v7;
-  v10 = v9;
+  v7 = [v5 attributedText];
+  [v7 size];
+  v9 = v8;
+  v11 = v10;
 
-  [v5 setFrame:{v4 + v8 * -0.5, *(a1 + 48) - v10 + -11.0, v8, v10}];
-  v11 = *(a1 + 32);
-  if (v8 > *(v11 + 2176))
+  [v5 setFrame:{v4 + v9 * -0.5, *(a1 + 48) - v11 + -11.0, v9, v11}];
+  v12 = *(a1 + 32);
+  if (v9 > *(v12 + 2176))
   {
-    *(v11 + 2176) = v8;
+    *(v12 + 2176) = v9;
   }
 }
 

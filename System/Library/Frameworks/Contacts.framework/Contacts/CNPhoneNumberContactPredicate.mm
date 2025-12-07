@@ -393,12 +393,12 @@
 
 - (id)initWithPhoneNumber:(void *)number prefixHint:(uint64_t)hint returnMultipleResults:
 {
-  if (result)
+  if (self)
   {
-    return OUTLINED_FUNCTION_3_5(result, a2, number, hint, hint);
+    return OUTLINED_FUNCTION_3_5(self, a2, number, hint, hint);
   }
 
-  return result;
+  return self;
 }
 
 - (void)initWithDigits:(void *)digits countryCode:(char)code returnMultipleResults:

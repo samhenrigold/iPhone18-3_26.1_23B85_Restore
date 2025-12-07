@@ -57,7 +57,7 @@
   }
 
   v15.receiver = self;
-  v15.super_class = type metadata accessor for SleepApneaNotificationTipViewController();
+  v15.super_class = type metadata accessor for SleepApneaNotificationTipViewController(0);
   v13 = [(SleepApneaNotificationTipViewController *)&v15 initWithNibName:v12 bundle:bundle];
 
   return v13;
@@ -82,7 +82,7 @@
   (*(*(v7 - 8) + 56))(self + v6, 1, 1, v7);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC20SleepHealthAppPlugin39SleepApneaNotificationTipViewController____lazy_storage___tileView) = 0;
   v11.receiver = self;
-  v11.super_class = type metadata accessor for SleepApneaNotificationTipViewController();
+  v11.super_class = type metadata accessor for SleepApneaNotificationTipViewController(0);
   coderCopy = coder;
   v9 = [(SleepApneaNotificationTipViewController *)&v11 initWithCoder:coderCopy];
 

@@ -231,8 +231,8 @@ void sub_24D826CEC(uint64_t a1, unsigned int a2, unsigned int a3, char a4)
     else
     {
       *v11 = a3;
-      v11[1] = v8;
-      v12 = (v11 + 2);
+      *(v11 + 1) = v8;
+      v12 = (v11 + 8);
     }
 
     v9[1] = v12;
@@ -4636,7 +4636,7 @@ LABEL_240:
   }
 }
 
-uint64_t sub_24D82BF90(uint64_t result, uint64_t a2, uint64_t *a3, _BYTE *a4)
+uint64_t sub_24D82BF90(uint64_t result, uint64_t a2, unint64_t *a3, _BYTE *a4)
 {
   *(result + 96) = 0;
   *(result + 64) = 0u;
@@ -9575,7 +9575,7 @@ LABEL_10:
     v48 = 218;
     __p[3] = &unk_2860BB4B8;
     LOBYTE(v46) = 0;
-    v12 = sub_24D79714C(__p, 218);
+    v12 = sub_24D79714C(__p, 218, &v46);
     v13 = *(a2 + 8);
     if (v13)
     {

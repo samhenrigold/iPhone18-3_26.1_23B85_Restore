@@ -51,9 +51,7 @@
 
 - (void)msv_setUserInfo:(id)info
 {
-  v4 = [info copy];
-  userInfo = self->_userInfo;
-  self->_userInfo = v4;
+  self->_userInfo = [info copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -214,7 +212,7 @@ LABEL_8:
 
 - (id)_decodeOPACKObject:(id)object ofClasses:(id)classes
 {
-  v95 = *MEMORY[0x1E69E9840];
+  v94 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   classesCopy = classes;
   if (!objectCopy)
@@ -229,30 +227,30 @@ LABEL_8:
     {
       v9 = objectCopy;
       v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v9, "count")}];
+      v86 = 0u;
       v87 = 0u;
       v88 = 0u;
       v89 = 0u;
-      v90 = 0u;
       v11 = v9;
-      v12 = [v11 countByEnumeratingWithState:&v87 objects:v94 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v86 objects:v93 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v88;
+        v14 = *v87;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v88 != v14)
+            if (*v87 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = [(MSVOPACKDecoder *)self _decodeOPACKObject:*(*(&v87 + 1) + 8 * i) ofClasses:classesCopy];
+            v16 = [(MSVOPACKDecoder *)self _decodeOPACKObject:*(*(&v86 + 1) + 8 * i) ofClasses:classesCopy];
             [v10 addObject:v16];
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v87 objects:v94 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v86 objects:v93 count:16];
         }
 
         while (v13);
@@ -320,30 +318,30 @@ LABEL_8:
       {
         v32 = [v11 objectForKeyedSubscript:&unk_1F215CAB8];
         v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v32, "count")}];
+        v82 = 0u;
         v83 = 0u;
         v84 = 0u;
         v85 = 0u;
-        v86 = 0u;
         v23 = v32;
-        v33 = [v23 countByEnumeratingWithState:&v83 objects:v93 count:16];
+        v33 = [v23 countByEnumeratingWithState:&v82 objects:v92 count:16];
         if (v33)
         {
           v34 = v33;
-          v35 = *v84;
+          v35 = *v83;
           do
           {
             for (j = 0; j != v34; ++j)
             {
-              if (*v84 != v35)
+              if (*v83 != v35)
               {
                 objc_enumerationMutation(v23);
               }
 
-              v37 = [(MSVOPACKDecoder *)self _decodeOPACKObject:*(*(&v83 + 1) + 8 * j) ofClasses:classesCopy];
+              v37 = [(MSVOPACKDecoder *)self _decodeOPACKObject:*(*(&v82 + 1) + 8 * j) ofClasses:classesCopy];
               [v10 addObject:v37];
             }
 
-            v34 = [v23 countByEnumeratingWithState:&v83 objects:v93 count:16];
+            v34 = [v23 countByEnumeratingWithState:&v82 objects:v92 count:16];
           }
 
           while (v34);
@@ -374,16 +372,16 @@ LABEL_14:
       {
         v23 = [v11 objectForKeyedSubscript:&unk_1F215CAE8];
         v40 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v23, "count")}];
-        v80[0] = MEMORY[0x1E69E9820];
-        v80[1] = 3221225472;
-        v80[2] = __48__MSVOPACKDecoder__decodeOPACKObject_ofClasses___block_invoke;
-        v80[3] = &unk_1E79820A8;
-        v80[4] = self;
+        v79[0] = MEMORY[0x1E69E9820];
+        v79[1] = 3221225472;
+        v79[2] = __48__MSVOPACKDecoder__decodeOPACKObject_ofClasses___block_invoke;
+        v79[3] = &unk_1E79820A8;
+        v79[4] = self;
         v41 = classesCopy;
-        v81 = v41;
-        v82 = v40;
+        v80 = v41;
+        v81 = v40;
         v42 = v40;
-        [v23 enumerateKeysAndObjectsUsingBlock:v80];
+        [v23 enumerateKeysAndObjectsUsingBlock:v79];
         [(MSVOPACKDecoder *)self _validateClass:objc_opt_class() fromSupportedClasses:v41];
         v10 = [v42 copy];
 
@@ -396,18 +394,18 @@ LABEL_14:
       {
         v23 = [v11 objectForKeyedSubscript:&unk_1F215CB00];
         v44 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v23, "count")}];
-        v77[0] = MEMORY[0x1E69E9820];
-        v77[1] = 3221225472;
-        v77[2] = __48__MSVOPACKDecoder__decodeOPACKObject_ofClasses___block_invoke_40;
-        v77[3] = &unk_1E79820A8;
-        v77[4] = self;
+        v76[0] = MEMORY[0x1E69E9820];
+        v76[1] = 3221225472;
+        v76[2] = __48__MSVOPACKDecoder__decodeOPACKObject_ofClasses___block_invoke_40;
+        v76[3] = &unk_1E79820A8;
+        v76[4] = self;
         v45 = classesCopy;
-        v78 = v45;
+        v77 = v45;
         v46 = v44;
-        v79 = v46;
-        [v23 enumerateKeysAndObjectsUsingBlock:v77];
+        v78 = v46;
+        [v23 enumerateKeysAndObjectsUsingBlock:v76];
         [(MSVOPACKDecoder *)self _validateClass:objc_opt_class() fromSupportedClasses:v45];
-        v47 = v79;
+        v47 = v78;
         v10 = v46;
 
         goto LABEL_39;
@@ -419,30 +417,30 @@ LABEL_14:
       {
         v49 = [v11 objectForKeyedSubscript:&unk_1F215CB18];
         v50 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v49, "count")}];
+        v72 = 0u;
         v73 = 0u;
         v74 = 0u;
         v75 = 0u;
-        v76 = 0u;
         v51 = v49;
-        v52 = [v51 countByEnumeratingWithState:&v73 objects:v92 count:16];
+        v52 = [v51 countByEnumeratingWithState:&v72 objects:v91 count:16];
         if (v52)
         {
           v53 = v52;
-          v54 = *v74;
+          v54 = *v73;
           do
           {
             for (k = 0; k != v53; ++k)
             {
-              if (*v74 != v54)
+              if (*v73 != v54)
               {
                 objc_enumerationMutation(v51);
               }
 
-              v56 = [(MSVOPACKDecoder *)self _decodeOPACKObject:*(*(&v73 + 1) + 8 * k) ofClasses:classesCopy];
+              v56 = [(MSVOPACKDecoder *)self _decodeOPACKObject:*(*(&v72 + 1) + 8 * k) ofClasses:classesCopy];
               [v50 addObject:v56];
             }
 
-            v53 = [v51 countByEnumeratingWithState:&v73 objects:v92 count:16];
+            v53 = [v51 countByEnumeratingWithState:&v72 objects:v91 count:16];
           }
 
           while (v53);
@@ -460,30 +458,30 @@ LABEL_14:
       {
         v58 = [v11 objectForKeyedSubscript:&unk_1F215CB30];
         v10 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v58, "count")}];
+        v68 = 0u;
         v69 = 0u;
         v70 = 0u;
         v71 = 0u;
-        v72 = 0u;
         v23 = v58;
-        v59 = [v23 countByEnumeratingWithState:&v69 objects:v91 count:16];
+        v59 = [v23 countByEnumeratingWithState:&v68 objects:v90 count:16];
         if (v59)
         {
           v60 = v59;
-          v61 = *v70;
+          v61 = *v69;
           do
           {
             for (m = 0; m != v60; ++m)
             {
-              if (*v70 != v61)
+              if (*v69 != v61)
               {
                 objc_enumerationMutation(v23);
               }
 
-              v63 = [(MSVOPACKDecoder *)self _decodeOPACKObject:*(*(&v69 + 1) + 8 * m) ofClasses:classesCopy, v69];
+              v63 = [(MSVOPACKDecoder *)self _decodeOPACKObject:*(*(&v68 + 1) + 8 * m) ofClasses:classesCopy, v68];
               [v10 addObject:v63];
             }
 
-            v60 = [v23 countByEnumeratingWithState:&v69 objects:v91 count:16];
+            v60 = [v23 countByEnumeratingWithState:&v68 objects:v90 count:16];
           }
 
           while (v60);
@@ -517,8 +515,6 @@ LABEL_66:
 
   [(MSVOPACKDecoder *)self _validateClass:objc_opt_class() fromSupportedClasses:classesCopy];
 LABEL_67:
-
-  v66 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -593,62 +589,33 @@ void __48__MSVOPACKDecoder__decodeOPACKObject_ofClasses___block_invoke_40(uint64
 
 - (id)initForReadingFromData:(id)data userInfo:(id)info error:(id *)error
 {
-  v31[3] = *MEMORY[0x1E69E9840];
+  v29[3] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   infoCopy = info;
-  v29.receiver = self;
-  v29.super_class = MSVOPACKDecoder;
-  v10 = [(MSVOPACKDecoder *)&v29 init];
-  if (!v10)
-  {
-    goto LABEL_6;
-  }
-
-  v11 = [infoCopy copy];
-  v12 = v11;
-  v13 = (v11 ? v11 : MEMORY[0x1E695E0F8]);
-  objc_storeStrong(&v10->_userInfo, v13);
-
-  v14 = OPACKDecodeData();
-  objects = v10->_objects;
-  v10->_objects = v14;
-
-  v16 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:1282 valueOptions:0];
-  objectLookupTable = v10->_objectLookupTable;
-  v10->_objectLookupTable = v16;
-
-  array = [MEMORY[0x1E695DF70] array];
-  wrapperStack = v10->_wrapperStack;
-  v10->_wrapperStack = array;
-
-  array2 = [MEMORY[0x1E695DF70] array];
-  allowedClassesStack = v10->_allowedClassesStack;
-  v10->_allowedClassesStack = array2;
-
-  v22 = v10->_objects;
-  if ((_NSIsNSArray() & 1) == 0)
+  v27.receiver = self;
+  v27.super_class = MSVOPACKDecoder;
+  v10 = [(MSVOPACKDecoder *)&v27 init];
+  if (v10 && ((v11 = [infoCopy copy], (v12 = v11) != 0) ? (v13 = v11) : (v13 = MEMORY[0x1E695E0F8]), objc_storeStrong(&v10->_userInfo, v13), v12, v14 = OPACKDecodeData(), objects = v10->_objects, v10->_objects = v14, objects, objc_msgSend(MEMORY[0x1E696AD18], "mapTableWithKeyOptions:valueOptions:", 1282, 0), v16 = objc_claimAutoreleasedReturnValue(), objectLookupTable = v10->_objectLookupTable, v10->_objectLookupTable = v16, objectLookupTable, objc_msgSend(MEMORY[0x1E695DF70], "array"), v18 = objc_claimAutoreleasedReturnValue(), wrapperStack = v10->_wrapperStack, v10->_wrapperStack = v18, wrapperStack, objc_msgSend(MEMORY[0x1E695DF70], "array"), v20 = objc_claimAutoreleasedReturnValue(), allowedClassesStack = v10->_allowedClassesStack, v10->_allowedClassesStack = v20, allowedClassesStack, (_NSIsNSArray() & 1) == 0))
   {
     if (error)
     {
-      v24 = MEMORY[0x1E696ABC0];
-      v25 = MSVOPACKDecoderErrorDomain;
-      v30 = *MEMORY[0x1E696A278];
-      v31[0] = @"Decoded OPACK data did not contain an array as the root object.";
-      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-      *error = [v24 errorWithDomain:v25 code:1 userInfo:v26];
+      v23 = MEMORY[0x1E696ABC0];
+      v24 = MSVOPACKDecoderErrorDomain;
+      v28 = *MEMORY[0x1E696A278];
+      v29[0] = @"Decoded OPACK data did not contain an array as the root object.";
+      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      *error = [v23 errorWithDomain:v24 code:1 userInfo:v25];
     }
 
-    v23 = 0;
+    v22 = 0;
   }
 
   else
   {
-LABEL_6:
-    v23 = v10;
+    v22 = v10;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-  return v23;
+  return v22;
 }
 
 + (id)decodedObjectOfClasses:(id)classes fromData:(id)data userInfo:(id)info error:(id *)error

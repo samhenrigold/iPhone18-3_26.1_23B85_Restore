@@ -89,35 +89,26 @@ void __53__RMTimedDispatch_initAfterInterval_completionBlock___block_invoke(uint
 
 - (void)cancel
 {
-  v8 = *MEMORY[0x1E69E9840];
   timerID = [self timerID];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_6();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initAfterInterval:(void *)a1 completionBlock:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 timerID];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_6();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __53__RMTimedDispatch_initAfterInterval_completionBlock___block_invoke_cold_1(id *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*a1 timerID];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_6();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

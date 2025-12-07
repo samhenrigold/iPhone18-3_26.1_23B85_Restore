@@ -44,7 +44,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1B3844734();
+  sub_1B3844734(selfCopy);
 }
 
 - (void)didTapGlassTitleSubtitleView

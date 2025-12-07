@@ -1,15 +1,15 @@
 @interface ETQuadCurvePointFIFO
 - (ETQuadCurvePointFIFO)initWithFIFO:(id)o;
-- (char)setControlPoints:(char *)points;
-- (char)setPoints:(char *)points;
-- (char)setPrevPoints:(char *)points;
 - (id).cxx_construct;
-- (uint64_t)controlPoints;
-- (uint64_t)points;
-- (uint64_t)prevPoints;
+- (uint64_t)setControlPoints:(char *)points;
+- (uint64_t)setPoints:(char *)points;
+- (uint64_t)setPrevPoints:(char *)points;
 - (void)addPoints:(ETQuadCurvePointFIFO *)self count:(SEL)count;
 - (void)clear;
+- (void)controlPoints;
 - (void)flush;
+- (void)points;
+- (void)prevPoints;
 @end
 
 @implementation ETQuadCurvePointFIFO
@@ -201,7 +201,7 @@
   [(ETPointFIFO *)&v2 clear];
 }
 
-- (uint64_t)prevPoints
+- (void)prevPoints
 {
   a2[1] = 0;
   a2[2] = 0;
@@ -209,9 +209,9 @@
   return _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(a2, *(self + 40), *(self + 48), (*(self + 48) - *(self + 40)) >> 3);
 }
 
-- (char)setPrevPoints:(char *)points
+- (uint64_t)setPrevPoints:(char *)points
 {
-  result = (self + 40);
+  result = self + 40;
   if (result != points)
   {
     return _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(result, *points, points[1], (points[1] - *points) >> 3);
@@ -220,7 +220,7 @@
   return result;
 }
 
-- (uint64_t)points
+- (void)points
 {
   a2[1] = 0;
   a2[2] = 0;
@@ -228,9 +228,9 @@
   return _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(a2, *(self + 64), *(self + 72), (*(self + 72) - *(self + 64)) >> 3);
 }
 
-- (char)setPoints:(char *)points
+- (uint64_t)setPoints:(char *)points
 {
-  result = (self + 64);
+  result = self + 64;
   if (result != points)
   {
     return _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(result, *points, points[1], (points[1] - *points) >> 3);
@@ -239,7 +239,7 @@
   return result;
 }
 
-- (uint64_t)controlPoints
+- (void)controlPoints
 {
   a2[1] = 0;
   a2[2] = 0;
@@ -247,9 +247,9 @@
   return _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(a2, *(self + 88), *(self + 96), (*(self + 96) - *(self + 88)) >> 3);
 }
 
-- (char)setControlPoints:(char *)points
+- (uint64_t)setControlPoints:(char *)points
 {
-  result = (self + 88);
+  result = self + 88;
   if (result != points)
   {
     return _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(result, *points, points[1], (points[1] - *points) >> 3);

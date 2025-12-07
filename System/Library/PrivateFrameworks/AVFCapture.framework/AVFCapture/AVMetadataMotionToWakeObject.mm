@@ -38,7 +38,7 @@
   detectedMotion = [object detectedMotion];
   if (object)
   {
-    [object time];
+    objc_msgSend_time(object);
   }
 
   else

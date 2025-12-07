@@ -119,7 +119,7 @@ LABEL_17:
 - (void)invalidate
 {
   v14 = *MEMORY[0x1E69E9840];
-  VCRemoteImageQueue_Destroy(&self->_lastTransitTime);
+  VCRemoteImageQueue_Destroy(&self->_lastTransitTime, a2);
   streamInputQueue = self->_streamInputQueue;
   if (streamInputQueue)
   {
@@ -229,12 +229,13 @@ void __27__VCStreamInput_invalidate__block_invoke_3(uint64_t a1)
   return 1;
 }
 
-void __42__VCStreamInput_createRemoteReceiveQueue___block_invoke(uint64_t a1, int a2, uint64_t a3)
+void __42__VCStreamInput_createRemoteReceiveQueue___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v9 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 32);
   [*(v5 + 184) unsignedIntValue];
-  if (a2)
+  if (v4)
   {
     __42__VCStreamInput_createRemoteReceiveQueue___block_invoke_cold_1();
   }

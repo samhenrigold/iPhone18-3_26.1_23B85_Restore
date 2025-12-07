@@ -75,28 +75,29 @@
 uint64_t __45__PADVNSerialRequestsScheduler_processFrame___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if (WeakRetained && !WeakRetained[4] && (v4 = WeakRetained, [WeakRetained shouldProcessFrame:*(a1 + 32)]))
+  if (WeakRetained && !WeakRetained[4] && (v4 = WeakRetained, WeakRetained = [WeakRetained shouldProcessFrame:*(a1 + 32)], WeakRetained))
   {
-    [v4 _dispatchVisionRequestForFrame:*(a1 + 32)];
+    WeakRetained = [v4 _dispatchVisionRequestForFrame:*(a1 + 32)];
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](WeakRetained);
 }
 
 - (void)waitForCurrentFrameProcessingWithCompletion:(id)completion
 {
   if (self->_isProcessingFrame)
   {
-    self->_currentFrameProcessingCompletion = _Block_copy(completion);
+    v5 = _Block_copy(completion);
+    self->_currentFrameProcessingCompletion = v5;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v5);
   }
 
   else
   {
-    v4 = *(completion + 2);
+    v6 = *(completion + 2);
 
-    v4(completion);
+    v6(completion);
   }
 }
 

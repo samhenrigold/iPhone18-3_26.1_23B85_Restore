@@ -12,7 +12,7 @@
 + (id)defaultImage
 {
   v2 = MEMORY[0x1E69DCAB8];
-  v3 = CNContactsUICoreBundle();
+  v3 = CNContactsUICoreBundle(self);
   v4 = [v2 imageNamed:@"MapTilePlaceholder" inBundle:v3];
 
   return v4;
@@ -115,10 +115,10 @@ id __32__CNUICoreMapTileGenerator_init__block_invoke_2(uint64_t a1, void *a2)
   return v22;
 }
 
-id __44__CNUICoreMapTileGenerator_tilesForAddress___block_invoke(uint64_t a1, void *a2)
+id __44__CNUICoreMapTileGenerator_tilesForAddress___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = [objc_opt_class() mapTileImagesForPlacemark:v3 snapshotterProvider:*(a1 + 48) scheduler:*(a1 + 40)];
+  v4 = [objc_opt_class() mapTileImagesForPlacemark:v3 snapshotterProvider:a1[6] scheduler:a1[5]];
 
   return v4;
 }
@@ -294,7 +294,7 @@ id __84__CNUICoreMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_
 
 void __84__CNUICoreMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_scheduler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) location];
   [v4 coordinate];
@@ -303,40 +303,40 @@ void __84__CNUICoreMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvide
 
   v9 = objc_alloc_init(getMKMapSnapshotOptionsClass());
   [v9 setRegion:{v6, v8, 0.0075, 0.0075}];
-  [v9 setSize:{91.0, 91.0}];
-  v10 = objc_alloc(getMKMapSnapshotFeatureAnnotationClass());
-  v11 = [*(a1 + 32) location];
-  [v11 coordinate];
-  v12 = [v10 initWithCoordinate:0 title:1 representation:?];
+  v10 = [v9 setSize:{91.0, 91.0}];
+  v11 = objc_alloc(getMKMapSnapshotFeatureAnnotationClass(v10));
+  v12 = [*(a1 + 32) location];
+  [v12 coordinate];
+  v13 = [v11 initWithCoordinate:0 title:1 representation:?];
 
-  v31[0] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
-  [v9 _setCustomFeatureAnnotations:v13];
+  v32[0] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
+  [v9 _setCustomFeatureAnnotations:v14];
 
-  v14 = (*(*(a1 + 56) + 16))();
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __84__CNUICoreMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_scheduler___block_invoke_3;
-  v28[3] = &unk_1E76E7F60;
-  v29 = *(a1 + 40);
-  v15 = v14;
-  v30 = v15;
-  [v3 addCancelationBlock:v28];
-  v16 = +[CNUICoreLogProvider contact_card_os_log];
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v15 = (*(*(a1 + 56) + 16))();
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __84__CNUICoreMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_scheduler___block_invoke_3;
+  v29[3] = &unk_1E76E7F60;
+  v30 = *(a1 + 40);
+  v16 = v15;
+  v31 = v16;
+  [v3 addCancelationBlock:v29];
+  v17 = +[CNUICoreLogProvider contact_card_os_log];
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    __84__CNUICoreMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_scheduler___block_invoke_2_cold_1(a1 + 32, v16, v17, v18, v19, v20, v21, v22);
+    __84__CNUICoreMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_scheduler___block_invoke_2_cold_1((a1 + 32), v17, v18, v19, v20, v21, v22, v23);
   }
 
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __84__CNUICoreMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_scheduler___block_invoke_34;
-  v24[3] = &unk_1E76E7F88;
-  v25 = *(a1 + 40);
-  v26 = *(a1 + 48);
-  v27 = v3;
-  v23 = v3;
-  [v15 startWithCompletionHandler:v24];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __84__CNUICoreMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_scheduler___block_invoke_34;
+  v25[3] = &unk_1E76E7F88;
+  v26 = *(a1 + 40);
+  v27 = *(a1 + 48);
+  v28 = v3;
+  v24 = v3;
+  [v16 startWithCompletionHandler:v25];
 }
 
 void __84__CNUICoreMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_scheduler___block_invoke_3(uint64_t a1)
@@ -401,6 +401,27 @@ void __84__CNUICoreMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvide
   v5 = 2112;
   v6 = a2;
   _os_log_debug_impl(&dword_1A31E6000, log, OS_LOG_TYPE_DEBUG, "Geocoding tilesForAddress with %@ and placemark %@…", &v3, 0x16u);
+}
+
+void __75__CNUICoreMapTileGenerator_placemarkForAddress_geocoderProvider_scheduler___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0(&dword_1A31E6000, a2, a3, "Geocoding %@…", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __75__CNUICoreMapTileGenerator_placemarkForAddress_geocoderProvider_scheduler___block_invoke_2_28_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1A31E6000, a2, a3, "Geocoding: got placemark %@!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __84__CNUICoreMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_scheduler___block_invoke_2_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_1A31E6000, a2, a3, "Snapshotting %@…", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __84__CNUICoreMapTileGenerator_mapTileImagesForPlacemark_snapshotterProvider_scheduler___block_invoke_2_35_cold_2(uint64_t a1, NSObject *a2)

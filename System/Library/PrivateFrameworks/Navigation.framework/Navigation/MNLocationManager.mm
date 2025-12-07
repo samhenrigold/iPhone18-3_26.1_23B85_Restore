@@ -15,6 +15,7 @@
 - (void)stopMonitoringFor:(id)for;
 - (void)stopUpdatingHeading;
 - (void)stopUpdatingLocation;
+- (void)updateDeviceOrientation:(int)orientation;
 - (void)useGPSLocationProviderWithCLParameters:(id)parameters;
 - (void)useHybridLocationProvider;
 @end
@@ -31,6 +32,15 @@
   v3 = qword_1EC75BF70;
 
   return v3;
+}
+
+- (void)updateDeviceOrientation:(int)orientation
+{
+  v3 = *(self + OBJC_IVAR___MNLocationManager__locationProvider);
+  if (v3)
+  {
+    [v3 setHeadingOrientation_];
+  }
 }
 
 - (void)useGPSLocationProviderWithCLParameters:(id)parameters
@@ -110,24 +120,21 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1D316EA24(v7);
+  sub_1D316EA24(v7, v8);
 }
 
 - (MNLocationRecorder)locationRecorder
 {
-  v3 = OBJC_IVAR___MNLocationManager_locationRecorder;
   swift_beginAccess();
-  v4 = *(self + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setLocationRecorder:(id)recorder
 {
   v5 = OBJC_IVAR___MNLocationManager_locationRecorder;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = recorder;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();

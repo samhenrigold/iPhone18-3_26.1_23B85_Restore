@@ -50,7 +50,7 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKOneTimeCodeDigitFieldView *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   result.height = v4;
   result.width = v3;
   return result;
@@ -62,7 +62,7 @@
   v3.super_class = PKOneTimeCodeDigitFieldView;
   [(PKOneTimeCodeDigitFieldView *)&v3 layoutSubviews];
   [(PKOneTimeCodeDigitFieldView *)self bounds];
-  [(PKOneTimeCodeDigitFieldView *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)_layoutWithBounds:(CGRect)bounds isTemplateLayout:(BOOL)layout

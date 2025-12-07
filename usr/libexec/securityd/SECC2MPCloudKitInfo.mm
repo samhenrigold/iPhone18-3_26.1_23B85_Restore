@@ -248,7 +248,6 @@ LABEL_11:
       goto LABEL_43;
     }
 
-    v12 = *(equalCopy + 88);
     if (self->_anonymous)
     {
       if ((*(equalCopy + 88) & 1) == 0)
@@ -317,7 +316,7 @@ LABEL_11:
     }
 
 LABEL_43:
-    v14 = 0;
+    v13 = 0;
     goto LABEL_44;
   }
 
@@ -335,7 +334,7 @@ LABEL_34:
     goto LABEL_43;
   }
 
-  v14 = (v10 & 2) == 0;
+  v13 = (v10 & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((v10 & 2) == 0 || self->_reportClientOperationFrequencyBase != *(equalCopy + 2))
@@ -343,12 +342,12 @@ LABEL_34:
       goto LABEL_43;
     }
 
-    v14 = 1;
+    v13 = 1;
   }
 
 LABEL_44:
 
-  return v14;
+  return v13;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -583,93 +582,86 @@ LABEL_44:
 
   if ((*&self->_has & 0x10) != 0)
   {
-    anonymous = self->_anonymous;
     PBDataWriterWriteBOOLField();
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v6 = self->_operationGroups;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v28 objects:v33 count:16];
-  if (v7)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v5 = self->_operationGroups;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v29;
+    v7 = v6;
+    v8 = *v22;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v29 != v9)
+        if (*v22 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    reportOperationGroupFrequency = self->_reportOperationGroupFrequency;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    reportOperationGroupFrequencyBase = self->_reportOperationGroupFrequencyBase;
     PBDataWriterWriteUint64Field();
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v15 = self->_clientOperations;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
-  if (v16)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v11 = self->_clientOperations;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v12)
   {
-    v17 = v16;
-    v18 = *v25;
+    v13 = v12;
+    v14 = *v18;
     do
     {
-      for (j = 0; j != v17; j = j + 1)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v25 != v18)
+        if (*v18 != v14)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v11);
         }
 
-        v20 = *(*(&v24 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v17);
+    while (v13);
   }
 
-  v21 = self->_has;
-  if (v21)
+  v16 = self->_has;
+  if (v16)
   {
-    reportClientOperationFrequency = self->_reportClientOperationFrequency;
     PBDataWriterWriteUint64Field();
-    v21 = self->_has;
+    v16 = self->_has;
   }
 
-  if ((v21 & 2) != 0)
+  if ((v16 & 2) != 0)
   {
-    reportClientOperationFrequencyBase = self->_reportClientOperationFrequencyBase;
     PBDataWriterWriteUint64Field();
   }
 }

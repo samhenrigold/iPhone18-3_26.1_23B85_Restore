@@ -159,7 +159,6 @@ LABEL_28:
   objc_storeStrong(&v8, 0);
   objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_showAlertForInvalidContextWithCompletion:(id)completion
@@ -1187,7 +1186,6 @@ void __67__AKAlertHandler__showAlertForManagedAccount_error_withCompletion___blo
   objc_storeStrong(&v28, 0);
   objc_storeStrong(&v29, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v31 & 1;
 }
 
@@ -1222,47 +1220,45 @@ void __65__AKAlertHandler_showAlert_primaryAction_altAction_cancelAction___block
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, title);
-  v19 = 0;
-  objc_storeStrong(&v19, message);
-  v18 = 0;
-  objc_storeStrong(&v18, button);
   v17 = 0;
-  objc_storeStrong(&v17, alternateButton);
-  v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  objc_storeStrong(&v17, message);
+  v16 = 0;
+  objc_storeStrong(&v16, button);
+  v15 = 0;
+  objc_storeStrong(&v15, alternateButton);
+  v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (location[0])
   {
-    [v16 setObject:location[0] forKeyedSubscript:*MEMORY[0x1E695EE58]];
+    [v14 setObject:location[0] forKeyedSubscript:*MEMORY[0x1E695EE58]];
   }
 
-  [v16 setObject:v19 forKeyedSubscript:*MEMORY[0x1E695EE60]];
-  if (v17)
+  [v14 setObject:v17 forKeyedSubscript:*MEMORY[0x1E695EE60]];
+  if (v15)
   {
-    [v16 setObject:v17 forKeyedSubscript:*MEMORY[0x1E695EE70]];
+    [v14 setObject:v15 forKeyedSubscript:*MEMORY[0x1E695EE70]];
   }
 
-  if (v18)
+  if (v16)
   {
-    [v16 setObject:v18 forKeyedSubscript:*MEMORY[0x1E695EE78]];
+    [v14 setObject:v16 forKeyedSubscript:*MEMORY[0x1E695EE78]];
   }
 
-  v6 = *MEMORY[0x1E695EE68];
-  [v16 setObject:MEMORY[0x1E695E118] forKeyedSubscript:?];
-  [v16 setObject:v9 forKeyedSubscript:*MEMORY[0x1E69D44E8]];
-  [v16 setObject:v9 forKeyedSubscript:*MEMORY[0x1E69D4488]];
-  v11 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  resourceURL = [v11 resourceURL];
-  v7 = *MEMORY[0x1E695EE90];
-  [v16 setObject:? forKeyedSubscript:?];
+  [v14 setObject:MEMORY[0x1E695E118] forKeyedSubscript:?];
+  [v14 setObject:v7 forKeyedSubscript:*MEMORY[0x1E69D44E8]];
+  [v14 setObject:v7 forKeyedSubscript:*MEMORY[0x1E69D4488]];
+  v9 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  resourceURL = [v9 resourceURL];
+  [v14 setObject:? forKeyedSubscript:?];
   MEMORY[0x1E69E5920](resourceURL);
-  MEMORY[0x1E69E5920](v11);
-  v12 = MEMORY[0x1E69E5928](v16);
+  MEMORY[0x1E69E5920](v9);
+  v10 = MEMORY[0x1E69E5928](v14);
+  objc_storeStrong(&v14, 0);
+  objc_storeStrong(&v15, 0);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&v17, 0);
-  objc_storeStrong(&v18, 0);
-  objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
 
-  return v12;
+  return v10;
 }
 
 - (void)_openSpyglass
@@ -1309,7 +1305,6 @@ void __65__AKAlertHandler_showAlert_primaryAction_altAction_cancelAction___block
   MEMORY[0x1E69E5920](defaultWorkspace);
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)_URLWithString:(id)string byAppendingParameters:(id)parameters
@@ -1362,7 +1357,6 @@ void __65__AKAlertHandler_showAlert_primaryAction_altAction_cancelAction___block
   objc_storeStrong(&v18, 0);
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v5;
 }

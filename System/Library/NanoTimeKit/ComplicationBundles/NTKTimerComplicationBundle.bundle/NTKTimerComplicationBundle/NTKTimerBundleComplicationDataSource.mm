@@ -222,19 +222,17 @@
 
 - (Class)richComplicationDisplayViewClassForDevice:(id)device
 {
-  family = [(NTKTimerBundleComplicationDataSource *)self family];
-  if ((family - 9) > 3)
+  if ([(NTKTimerBundleComplicationDataSource *)self family]- 9 > &dword_0 + 3)
   {
-    v5 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v4 = *off_C558[(family - 9)];
-    v5 = objc_opt_class();
+    v3 = objc_opt_class();
   }
 
-  return v5;
+  return v3;
 }
 
 + (double)_fallbackDurationWithComplicationDuration:(double)result

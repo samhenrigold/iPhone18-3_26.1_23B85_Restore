@@ -3,7 +3,6 @@
 - (BOOL)_web_isEmpty;
 - (id)_webkit_canonicalize_with_wtf;
 - (uint64_t)_web_URLCString;
-- (uint64_t)_webkit_URLFromURLOrSchemelessFileURL;
 - (uint64_t)_webkit_isFileURL;
 - (uint64_t)_webkit_isJavaScriptURL;
 - (uint64_t)_webkit_scriptIfJavaScriptURL;
@@ -11,6 +10,7 @@
 - (void)_web_hostData;
 - (void)_web_hostString;
 - (void)_web_originalDataAsString;
+- (void)_webkit_URLFromURLOrSchemelessFileURL;
 @end
 
 @implementation NSURL(WebNSURLExtras)
@@ -156,7 +156,7 @@
   return result;
 }
 
-- (uint64_t)_webkit_URLFromURLOrSchemelessFileURL
+- (void)_webkit_URLFromURLOrSchemelessFileURL
 {
   if ([self scheme])
   {

@@ -37,61 +37,26 @@
 - (CSQueuedTrack)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v18.receiver = self;
-  v18.super_class = CSQueuedTrack;
-  v5 = [(CSQueuedTrack *)&v18 init];
-  if (!v5)
+  v19.receiver = self;
+  v19.super_class = CSQueuedTrack;
+  v5 = [(CSQueuedTrack *)&v19 init];
+  if (!v5 || (CFStringGetTypeID(), CFDictionaryGetTypedValue(), v6 = objc_claimAutoreleasedReturnValue(), songTitle = v5->_songTitle, v5->_songTitle = v6, songTitle, CFStringGetTypeID(), CFDictionaryGetTypedValue(), v8 = objc_claimAutoreleasedReturnValue(), artistName = v5->_artistName, v5->_artistName = v8, artistName, CFStringGetTypeID(), CFDictionaryGetTypedValue(), v10 = objc_claimAutoreleasedReturnValue(), catalogID = v5->_catalogID, v5->_catalogID = v10, catalogID, CFDataGetTypeID(), CFDictionaryGetTypedValue(), v12 = objc_claimAutoreleasedReturnValue(), artworkThumbnailImage = v5->_artworkThumbnailImage, v5->_artworkThumbnailImage = v12, artworkThumbnailImage, NSDictionaryGetNSNumber(), v14 = objc_claimAutoreleasedReturnValue(), v5->_trackType = [v14 integerValue], v14, v5->_songTitle) && v5->_artistName)
   {
-    goto LABEL_4;
-  }
-
-  CFStringGetTypeID();
-  v6 = CFDictionaryGetTypedValue();
-  songTitle = v5->_songTitle;
-  v5->_songTitle = v6;
-
-  CFStringGetTypeID();
-  v8 = CFDictionaryGetTypedValue();
-  artistName = v5->_artistName;
-  v5->_artistName = v8;
-
-  CFStringGetTypeID();
-  v10 = CFDictionaryGetTypedValue();
-  catalogID = v5->_catalogID;
-  v5->_catalogID = v10;
-
-  CFDataGetTypeID();
-  v12 = CFDictionaryGetTypedValue();
-  artworkThumbnailImage = v5->_artworkThumbnailImage;
-  v5->_artworkThumbnailImage = v12;
-
-  v14 = NSDictionaryGetNSNumber();
-  v5->_trackType = [v14 integerValue];
-
-  if (!v5->_songTitle)
-  {
-    goto LABEL_5;
-  }
-
-  if (v5->_artistName)
-  {
-LABEL_4:
-    v15 = v5;
+    v16 = v5;
   }
 
   else
   {
-LABEL_5:
-    v16 = ContinuitySingLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = ContinuitySingLog(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(CSQueuedTrack *)dictionaryCopy initWithDictionary:v16];
+      [(CSQueuedTrack *)dictionaryCopy initWithDictionary:v17];
     }
 
-    v15 = 0;
+    v16 = 0;
   }
 
-  return v15;
+  return v16;
 }
 
 - (NSDictionary)dictionaryRepresentation

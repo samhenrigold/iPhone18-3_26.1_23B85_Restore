@@ -148,7 +148,7 @@ void __97__LACUISceneHostingControllerAuthorization_authenticatorServiceDidObtai
 
 void __68__LACUISceneHostingControllerAuthorization_handleAction_completion___block_invoke(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = LACLogUI();
   v5 = v4;
@@ -164,15 +164,14 @@ void __68__LACUISceneHostingControllerAuthorization_handleAction_completion___bl
   {
     v6 = a1[4];
     v7 = a1[5];
-    v9 = 138412546;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_256063000, v5, OS_LOG_TYPE_DEFAULT, "%@ handled action: %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_256063000, v5, OS_LOG_TYPE_DEFAULT, "%@ handled action: %@", &v8, 0x16u);
   }
 
   (*(a1[6] + 16))();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (LACUIAuthenticatorUIDelegate)delegate

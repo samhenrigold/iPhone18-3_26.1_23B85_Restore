@@ -8,8 +8,8 @@
 {
   uUID = [objc_opt_self() UUID];
   uUIDString = [uUID UUIDString];
-  v2 = [uUIDString componentsSeparatedByString:@"-"];
-  firstObject = [v2 firstObject];
+  v3 = [uUIDString componentsSeparatedByString:@"-"];
+  firstObject = [v3 firstObject];
 
   return firstObject;
 }

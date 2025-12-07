@@ -126,8 +126,8 @@
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "[self finishedSubTest:@navLookAround]", buf, 2u);
     }
 
-    options = [(MapsAppTest *)self options];
-    _maptest_lookAroundNavigationTaps = [options _maptest_lookAroundNavigationTaps];
+    v20 = objc_msgSend_options(self);
+    _maptest_lookAroundNavigationTaps = [v20 _maptest_lookAroundNavigationTaps];
 
     if (_maptest_lookAroundNavigationTaps >= 1)
     {
@@ -242,8 +242,8 @@
 {
   completionCopy = completion;
   viewCopy = view;
-  options = [(MapsAppTest *)self options];
-  [viewCopy setPresentationYaw:1 animated:{objc_msgSend(options, "_maptest_lookAroundNavigationAmountToTurnInDegrees")}];
+  v8 = objc_msgSend_options(self);
+  [viewCopy setPresentationYaw:1 animated:{objc_msgSend(v8, "_maptest_lookAroundNavigationAmountToTurnInDegrees")}];
 
   v9 = dispatch_time(0, 3000000000);
   block[0] = _NSConcreteStackBlock;
@@ -386,10 +386,10 @@
   }
 
   [(MapsAppTest *)self startedTest];
-  options = [(MapsAppTest *)self options];
-  v7 = [options objectForKeyedSubscript:@"searchString"];
-  options2 = [(MapsAppTest *)self options];
-  v9 = [options2 objectForKeyedSubscript:@"resultShortAddress"];
+  v6 = objc_msgSend_options(self);
+  v7 = [v6 objectForKeyedSubscript:@"searchString"];
+  v8 = objc_msgSend_options(self);
+  v9 = [v8 objectForKeyedSubscript:@"resultShortAddress"];
   v11[0] = _NSConcreteStackBlock;
   v11[1] = 3221225472;
   v11[2] = sub_100786598;
@@ -559,22 +559,22 @@
   {
     coordCopy = coord;
     [(MapsAppTest *)self setupForVKTest];
-    options = [(MapsAppTest *)self options];
-    [options _mapstest_jumpPoint];
+    v5 = objc_msgSend_options(self);
+    [v5 _mapstest_jumpPoint];
     v7 = v6;
     v9 = v8;
     v11 = v10;
 
-    options2 = [(MapsAppTest *)self options];
-    [options2 _mapstest_pitch];
+    v12 = objc_msgSend_options(self);
+    [v12 _mapstest_pitch];
     v14 = v13;
 
-    options3 = [(MapsAppTest *)self options];
-    [options3 _mapstest_yaw];
+    v15 = objc_msgSend_options(self);
+    [v15 _mapstest_yaw];
     v17 = v16;
 
-    options4 = [(MapsAppTest *)self options];
-    _mapstest_mapType = [options4 _mapstest_mapType];
+    v18 = objc_msgSend_options(self);
+    _mapstest_mapType = [v18 _mapstest_mapType];
 
     v20 = sub_100798614();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))

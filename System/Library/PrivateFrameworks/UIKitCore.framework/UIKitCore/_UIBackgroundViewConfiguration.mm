@@ -1,6 +1,7 @@
 @interface _UIBackgroundViewConfiguration
 + (_UIBackgroundViewConfiguration)defaultGroupedListCellConfigurationForState:(void *)state traitCollection:;
-+ (_UIBackgroundViewConfiguration)defaultGroupedListHeaderFooterConfigurationForState:traitCollection:;
++ (_UIBackgroundViewConfiguration)defaultGroupedListHeaderFooterConfigurationForState:(uint64_t)state traitCollection:;
++ (_UIBackgroundViewConfiguration)defaultInsetGroupedListHeaderFooterConfigurationForState:(uint64_t)state traitCollection:(void *)collection;
 + (_UIBackgroundViewConfiguration)defaultOutlineCellConfigurationForState:(void *)state traitCollection:;
 + (_UIBackgroundViewConfiguration)defaultOutlineRootParentCellConfigurationForState:(void *)state traitCollection:;
 + (_UIBackgroundViewConfiguration)defaultPlainListCellConfigurationForState:(void *)state traitCollection:;
@@ -9,7 +10,6 @@
 + (id)defaultGroupedListHeaderFooterConfigurationForState:(unint64_t)state;
 + (id)defaultInsetGroupedListCellConfigurationForState:(unint64_t)state;
 + (id)defaultInsetGroupedListCellConfigurationForState:(void *)state traitCollection:;
-+ (id)defaultInsetGroupedListHeaderFooterConfigurationForState:(uint64_t)state traitCollection:(void *)collection;
 + (id)defaultInsetGroupedListHeaderFooterConfigurationForState:(unint64_t)state;
 + (id)defaultOutlineCellConfigurationForState:(unint64_t)state;
 + (id)defaultOutlineParentCellConfigurationForState:(unint64_t)state;
@@ -58,7 +58,7 @@
   memset(v10, 0, sizeof(v10));
   if (v5)
   {
-    [v5 defaultCellBackgroundPropertiesForTableViewStyle:0 state:v7 traitCollection:stateCopy];
+    objc_msgSend_defaultCellBackgroundPropertiesForTableViewStyle_state_traitCollection_(v5);
   }
 
   __copy_constructor_8_8_t0w8_s8_s16_s24_t32w41_s80_t88w48(v9, v10);
@@ -92,7 +92,7 @@
   memset(v10, 0, sizeof(v10));
   if (v5)
   {
-    [v5 defaultHeaderFooterBackgroundPropertiesForTableViewStyle:0 cellConfigurationState:v7 traitCollection:stateCopy floating:(a2 >> 11) & 1];
+    objc_msgSend_defaultHeaderFooterBackgroundPropertiesForTableViewStyle_cellConfigurationState_traitCollection_floating_(v5);
   }
 
   __copy_constructor_8_8_t0w8_s8_s16_s24_t32w41_s80_t88w48(v9, v10);
@@ -126,7 +126,7 @@
   memset(v10, 0, sizeof(v10));
   if (v5)
   {
-    [v5 defaultCellBackgroundPropertiesForTableViewStyle:1 state:v7 traitCollection:stateCopy];
+    objc_msgSend_defaultCellBackgroundPropertiesForTableViewStyle_state_traitCollection_(v5);
   }
 
   __copy_constructor_8_8_t0w8_s8_s16_s24_t32w41_s80_t88w48(v9, v10);
@@ -166,46 +166,46 @@
   return v5;
 }
 
-+ (id)defaultInsetGroupedListHeaderFooterConfigurationForState:(uint64_t)state traitCollection:(void *)collection
++ (_UIBackgroundViewConfiguration)defaultInsetGroupedListHeaderFooterConfigurationForState:(uint64_t)state traitCollection:(void *)collection
 {
   collectionCopy = collection;
-  objc_opt_self();
+  v3 = objc_opt_self();
   if ([collectionCopy userInterfaceIdiom] == 6)
   {
-    v3 = objc_alloc_init(_UIBackgroundViewConfiguration);
-    v4 = v3;
-    if (v3)
+    v4 = objc_alloc_init(_UIBackgroundViewConfiguration);
+    v5 = v4;
+    if (v4)
     {
-      v3->_defaultStyle = 8;
+      v4->_defaultStyle = 8;
     }
   }
 
   else
   {
-    v4 = +[_UIBackgroundViewConfiguration defaultGroupedListHeaderFooterConfigurationForState:traitCollection:];
+    v5 = [_UIBackgroundViewConfiguration defaultGroupedListHeaderFooterConfigurationForState:v3 traitCollection:?];
   }
 
-  return v4;
+  return v5;
 }
 
-+ (_UIBackgroundViewConfiguration)defaultGroupedListHeaderFooterConfigurationForState:traitCollection:
++ (_UIBackgroundViewConfiguration)defaultGroupedListHeaderFooterConfigurationForState:(uint64_t)state traitCollection:
 {
   objc_opt_self();
-  v0 = objc_alloc_init(_UIBackgroundViewConfiguration);
-  if (v0)
+  v1 = objc_alloc_init(_UIBackgroundViewConfiguration);
+  if (v1)
   {
-    v0->_defaultStyle = 4;
+    v1->_defaultStyle = 4;
   }
 
-  return v0;
+  return v1;
 }
 
 + (id)defaultGroupedListHeaderFooterConfigurationForState:(unint64_t)state
 {
-  v3 = +[UITraitCollection _fallbackTraitCollection];
-  v4 = +[_UIBackgroundViewConfiguration defaultGroupedListHeaderFooterConfigurationForState:traitCollection:];
+  v4 = +[UITraitCollection _fallbackTraitCollection];
+  v5 = [_UIBackgroundViewConfiguration defaultGroupedListHeaderFooterConfigurationForState:self traitCollection:?];
 
-  return v4;
+  return v5;
 }
 
 + (id)defaultOutlineParentCellConfigurationForState:(unint64_t)state
@@ -235,7 +235,7 @@
   v8 = v7;
   if (v7)
   {
-    [v7 defaultSidebarHeaderBackgroundPropertiesWithState:v6 traitCollection:stateCopy];
+    objc_msgSend_defaultSidebarHeaderBackgroundPropertiesWithState_traitCollection_(v7);
   }
 
   else
@@ -275,58 +275,48 @@
 {
   stateCopy = state;
   objc_opt_self();
-  _splitViewControllerContext = [stateCopy _splitViewControllerContext];
-  v6 = objc_alloc_init(_UIBackgroundViewConfiguration);
-  v7 = [UICellConfigurationState _readonlyCellStateFromViewConfigurationState:a2];
-  v21 = 0;
-  v19 = 0u;
-  v20 = 0u;
+  [stateCopy _splitViewControllerContext];
+  v5 = objc_alloc_init(_UIBackgroundViewConfiguration);
+  v6 = [UICellConfigurationState _readonlyCellStateFromViewConfigurationState:a2];
+  v19 = 0;
   v17 = 0u;
   v18 = 0u;
   v15 = 0u;
   v16 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v8 = _UITableConstantsForTraitCollection(stateCopy);
-  v9 = v8;
-  if (v8)
+  v11 = 0u;
+  v12 = 0u;
+  v7 = _UITableConstantsForTraitCollection(stateCopy);
+  v8 = v7;
+  if (v7)
   {
-    if (_splitViewControllerContext == 2)
-    {
-      v10 = 2;
-    }
-
-    else
-    {
-      v10 = 1;
-    }
-
-    [v8 defaultSidebarCellBackgroundPropertiesForStyle:v10 state:v7 traitCollection:stateCopy];
+    objc_msgSend_defaultSidebarCellBackgroundPropertiesForStyle_state_traitCollection_(v7);
   }
 
   else
   {
-    v21 = 0;
-    v19 = 0u;
-    v20 = 0u;
+    v19 = 0;
     v17 = 0u;
     v18 = 0u;
     v15 = 0u;
     v16 = 0u;
     v13 = 0u;
     v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
   }
 
-  __copy_constructor_8_8_t0w8_s8_s16_s24_t32w41_s80_t88w48(v12, &v13);
-  _UIBackgroundViewConfigurationApplyProperties(v6, v12, stateCopy);
-  if (v6)
+  __copy_constructor_8_8_t0w8_s8_s16_s24_t32w41_s80_t88w48(v10, &v11);
+  _UIBackgroundViewConfigurationApplyProperties(v5, v10, stateCopy);
+  if (v5)
   {
-    v6->_defaultStyle = 5;
+    v5->_defaultStyle = 5;
   }
 
-  __destructor_8_s8_s16_s24_s80(&v13);
+  __destructor_8_s8_s16_s24_s80(&v11);
 
-  return v6;
+  return v5;
 }
 
 - (id)updatedConfigurationForState:(unint64_t)state traitCollection:(id)collection
@@ -672,7 +662,7 @@ LABEL_68:
 
       else
       {
-        +[_UIBackgroundViewConfiguration defaultGroupedListHeaderFooterConfigurationForState:traitCollection:];
+        [_UIBackgroundViewConfiguration defaultGroupedListHeaderFooterConfigurationForState:v10 traitCollection:?];
       }
     }
     v11 = ;
@@ -1307,9 +1297,9 @@ LABEL_21:
         goto LABEL_18;
       }
 
-      v17 = [(UIVisualEffect *)v12 isEqual:v13];
+      isEqual = objc_msgSend_isEqual_(v12);
 
-      if (!v17)
+      if (!isEqual)
       {
         goto LABEL_19;
       }
@@ -1330,7 +1320,7 @@ LABEL_16:
 
     if (v15 && v21)
     {
-      v22 = [(UIVisualEffect *)v15 isEqual:v21];
+      v22 = objc_msgSend_isEqual_(v15);
 
       if ((v22 & 1) == 0)
       {

@@ -52,8 +52,7 @@
     v2 = @"YES";
   }
 
-  category = self->_category;
-  return [MEMORY[0x1E696AEC0] stringWithFormat:@"muid, %lu, applePaySupport, %@, category, %@, nearbyPOICount, %lu", self->_muid, v2, category, self->_nearbyPoiCount];
+  return [MEMORY[0x1E696AEC0] stringWithFormat:@"muid, %lu, applePaySupport, %@, category, %@, nearbyPOICount, %lu", self->_muid, v2, self->_category, self->_nearbyPoiCount];
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -140,11 +140,11 @@
 
 - (id)description
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAB68];
-  v22.receiver = self;
-  v22.super_class = ASResolveRecipientsCertificatesItem;
-  v4 = [(ASResolveRecipientsCertificatesItem *)&v22 description];
+  v21.receiver = self;
+  v21.super_class = ASResolveRecipientsCertificatesItem;
+  v4 = [(ASResolveRecipientsCertificatesItem *)&v21 description];
   certCount = [(ASResolveRecipientsCertificatesItem *)self certCount];
   recipientCount = [(ASResolveRecipientsCertificatesItem *)self recipientCount];
   easStatus = [(ASResolveRecipientsCertificatesItem *)self easStatus];
@@ -158,35 +158,33 @@
     [v8 appendString:@" certificates "];
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   certificates2 = [(ASResolveRecipientsCertificatesItem *)self certificates];
-  v12 = [certificates2 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v12 = [certificates2 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(certificates2);
         }
 
-        [v8 appendFormat:@"<cert string length %ld hash %ld> ", objc_msgSend(*(*(&v18 + 1) + 8 * i), "length"), objc_msgSend(*(*(&v18 + 1) + 8 * i), "hash")];
+        [v8 appendFormat:@"<cert string length %ld hash %ld> ", objc_msgSend(*(*(&v17 + 1) + 8 * i), "length"), objc_msgSend(*(*(&v17 + 1) + 8 * i), "hash")];
       }
 
-      v13 = [certificates2 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v13 = [certificates2 countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

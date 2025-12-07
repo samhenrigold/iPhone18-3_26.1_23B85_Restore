@@ -2,6 +2,7 @@
 - (SFContinuityRemoteSession)init;
 - (void)_cleanup;
 - (void)_run;
+- (void)_sendCommand:(int)command options:(id)options;
 - (void)_sendQueuedMesssages;
 - (void)_sfSessionStart;
 - (void)activateWithCompletion:(id)completion;
@@ -15,25 +16,24 @@
 
 - (SFContinuityRemoteSession)init
 {
-  v7.receiver = self;
-  v7.super_class = SFContinuityRemoteSession;
-  v2 = [(SFContinuityRemoteSession *)&v7 init];
-  v3 = v2;
+  v6.receiver = self;
+  v6.super_class = SFContinuityRemoteSession;
+  v2 = [(SFContinuityRemoteSession *)&v6 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)dealloc
 {
   if (self->_activateCalled && !self->_invalidateCalled)
   {
-    v3 = [SFRemoteAutoFillService dealloc];
+    [SFRemoteAutoFillService dealloc];
     [(SFContinuityRemoteSession *)v3 _cleanup];
   }
 
@@ -72,22 +72,26 @@
   dispatch_async(dispatchQueue, v7);
 }
 
-uint64_t __52__SFContinuityRemoteSession_activateWithCompletion___block_invoke(uint64_t a1)
+uint64_t __52__SFContinuityRemoteSession_activateWithCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFContinuityRemoteSession <= 30 && (gLogCategory_SFContinuityRemoteSession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFContinuityRemoteSession <= 30)
   {
-    __52__SFContinuityRemoteSession_activateWithCompletion___block_invoke_cold_1();
+    if (gLogCategory_SFContinuityRemoteSession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __52__SFContinuityRemoteSession_activateWithCompletion___block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 8) = 1;
-  v2 = _Block_copy(*(a1 + 40));
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 16);
-  *(v3 + 16) = v2;
+  *(*(v3 + 32) + 8) = 1;
+  v4 = _Block_copy(*(v3 + 40));
+  v5 = *(v3 + 32);
+  v6 = *(v5 + 16);
+  *(v5 + 16) = v4;
 
-  v5 = *(a1 + 32);
+  v7 = *(v3 + 32);
 
-  return [v5 _run];
+  return [v7 _run];
 }
 
 - (void)invalidate
@@ -101,61 +105,63 @@ uint64_t __52__SFContinuityRemoteSession_activateWithCompletion___block_invoke(u
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __39__SFContinuityRemoteSession_invalidate__block_invoke(uint64_t a1)
+uint64_t __39__SFContinuityRemoteSession_invalidate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
-  if ((*(*(a1 + 32) + 24) & 1) == 0 && gLogCategory_SFContinuityRemoteSession <= 30 && (gLogCategory_SFContinuityRemoteSession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  v18[1] = *MEMORY[0x1E69E9840];
+  if ((*(*(a1 + 32) + 24) & 1) == 0 && gLogCategory_SFContinuityRemoteSession <= 30)
   {
-    __39__SFContinuityRemoteSession_invalidate__block_invoke_cold_1();
+    if (gLogCategory_SFContinuityRemoteSession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __39__SFContinuityRemoteSession_invalidate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 24) = 1;
-  [*(*(a1 + 32) + 48) invalidate];
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 48);
-  *(v2 + 48) = 0;
+  *(*(v3 + 32) + 24) = 1;
+  [*(*(v3 + 32) + 48) invalidate];
+  v4 = *(v3 + 32);
+  v5 = *(v4 + 48);
+  *(v4 + 48) = 0;
 
-  *(*(a1 + 32) + 56) = 0;
-  v4 = *(a1 + 32);
-  v5 = v4[2];
-  if (v5)
+  *(*(v3 + 32) + 56) = 0;
+  v6 = *(v3 + 32);
+  v7 = v6[2];
+  if (v7)
   {
-    v6 = MEMORY[0x1E696ABC0];
-    v7 = *MEMORY[0x1E696A768];
-    v16 = *MEMORY[0x1E696A578];
-    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
-    v9 = v8;
-    v10 = @"?";
-    if (v8)
+    v8 = MEMORY[0x1E696ABC0];
+    v9 = *MEMORY[0x1E696A768];
+    v17 = *MEMORY[0x1E696A578];
+    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
+    v11 = v10;
+    v12 = @"?";
+    if (v10)
     {
-      v10 = v8;
+      v12 = v10;
     }
 
-    v17[0] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
-    v12 = [v6 errorWithDomain:v7 code:-6723 userInfo:v11];
-    (*(v5 + 16))(v5, v12);
+    v18[0] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v14 = [v8 errorWithDomain:v9 code:-6723 userInfo:v13];
+    (*(v7 + 16))(v7, v14);
 
-    v4 = *(a1 + 32);
+    v6 = *(v3 + 32);
   }
 
-  v13 = v4[10];
-  if (v13)
+  v15 = v6[10];
+  if (v15)
   {
-    (*(v13 + 16))(v4[10]);
-    v4 = *(a1 + 32);
+    (*(v15 + 16))(v6[10]);
+    v6 = *(v3 + 32);
   }
 
-  result = [v4 _cleanup];
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v6 _cleanup];
 }
 
 - (void)_run
 {
   if (gLogCategory_SFContinuityRemoteSession <= 30 && (gLogCategory_SFContinuityRemoteSession != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_2_1();
+    OUTLINED_FUNCTION_2_1(&gLogCategory_SFContinuityRemoteSession, "[SFContinuityRemoteSession _run]", a3, "PairVerify not done yet\n");
   }
 }
 
@@ -185,40 +191,44 @@ void __33__SFContinuityRemoteSession__run__block_invoke(uint64_t a1, void *a2)
 
 - (void)_sfSessionStart
 {
-  if (gLogCategory_SFContinuityRemoteSession <= 30 && (gLogCategory_SFContinuityRemoteSession != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFContinuityRemoteSession <= 30)
   {
-    [SFContinuityRemoteSession _sfSessionStart];
+    if (gLogCategory_SFContinuityRemoteSession != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFContinuityRemoteSession *)self _sfSessionStart];
+    }
   }
 
-  [(SFSession *)self->_sfSession invalidate];
-  v3 = objc_alloc_init(SFSession);
-  sfSession = self->_sfSession;
-  self->_sfSession = v3;
+  [(SFSession *)selfCopy->_sfSession invalidate];
+  v4 = objc_alloc_init(SFSession);
+  sfSession = selfCopy->_sfSession;
+  selfCopy->_sfSession = v4;
 
-  [(SFSession *)self->_sfSession setDispatchQueue:self->_dispatchQueue];
-  [(SFSession *)self->_sfSession setPeerDevice:self->_peerDevice];
-  [(SFSession *)self->_sfSession setServiceIdentifier:@"com.apple.sharing.ContinuityRemote"];
-  [(SFSession *)self->_sfSession setReceivedObjectHandler:&__block_literal_global_38];
-  v5 = self->_sfSession;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __44__SFContinuityRemoteSession__sfSessionStart__block_invoke_2;
-  v6[3] = &unk_1E788B238;
-  v6[4] = self;
-  [(SFSession *)v5 activateWithCompletion:v6];
+  [(SFSession *)selfCopy->_sfSession setDispatchQueue:selfCopy->_dispatchQueue];
+  [(SFSession *)selfCopy->_sfSession setPeerDevice:selfCopy->_peerDevice];
+  [(SFSession *)selfCopy->_sfSession setServiceIdentifier:@"com.apple.sharing.ContinuityRemote"];
+  [(SFSession *)selfCopy->_sfSession setReceivedObjectHandler:&__block_literal_global_38];
+  v6 = selfCopy->_sfSession;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __44__SFContinuityRemoteSession__sfSessionStart__block_invoke_2;
+  v7[3] = &unk_1E788B238;
+  v7[4] = selfCopy;
+  [(SFSession *)v6 activateWithCompletion:v7];
 }
 
 void __44__SFContinuityRemoteSession__sfSessionStart__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v3 = a3;
-  v4 = v3;
+  v4 = a3;
+  v5 = v4;
   if (gLogCategory_SFContinuityRemoteSession <= 30)
   {
-    v6 = v3;
-    if (gLogCategory_SFContinuityRemoteSession != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
+    v7 = v4;
+    if (gLogCategory_SFContinuityRemoteSession != -1 || (v6 = _LogCategory_Initialize(), v5 = v7, v6))
     {
-      __44__SFContinuityRemoteSession__sfSessionStart__block_invoke_cold_1(v4);
-      v4 = v6;
+      __44__SFContinuityRemoteSession__sfSessionStart__block_invoke_cold_1(v5, a2);
+      v5 = v7;
     }
   }
 }
@@ -226,13 +236,16 @@ void __44__SFContinuityRemoteSession__sfSessionStart__block_invoke(uint64_t a1, 
 void __44__SFContinuityRemoteSession__sfSessionStart__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = v3;
+  v5 = v3;
   if (!v3)
   {
-    v6 = 0;
-    if (gLogCategory_SFContinuityRemoteSession <= 30 && (gLogCategory_SFContinuityRemoteSession != -1 || _LogCategory_Initialize()))
+    v7 = 0;
+    if (gLogCategory_SFContinuityRemoteSession <= 30)
     {
-      __44__SFContinuityRemoteSession__sfSessionStart__block_invoke_2_cold_2();
+      if (gLogCategory_SFContinuityRemoteSession != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        __44__SFContinuityRemoteSession__sfSessionStart__block_invoke_2_cold_2(v3, v5, v4);
+      }
     }
 
     *(*(a1 + 32) + 56) = 1;
@@ -242,12 +255,12 @@ void __44__SFContinuityRemoteSession__sfSessionStart__block_invoke_2(uint64_t a1
 
   if (gLogCategory_SFContinuityRemoteSession <= 90)
   {
-    v6 = v3;
-    if (gLogCategory_SFContinuityRemoteSession != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
+    v7 = v3;
+    if (gLogCategory_SFContinuityRemoteSession != -1 || (v6 = _LogCategory_Initialize(), v5 = v7, v6))
     {
-      __44__SFContinuityRemoteSession__sfSessionStart__block_invoke_2_cold_1();
+      __44__SFContinuityRemoteSession__sfSessionStart__block_invoke_2_cold_1(v5);
 LABEL_10:
-      v4 = v6;
+      v5 = v7;
     }
   }
 }
@@ -277,6 +290,33 @@ LABEL_10:
   v10 = optionsCopy;
   v8 = optionsCopy;
   dispatch_async(dispatchQueue, block);
+}
+
+- (void)_sendCommand:(int)command options:(id)options
+{
+  v4 = *&command;
+  v6 = [options mutableCopy];
+  if (!v6)
+  {
+    v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  }
+
+  v11 = v6;
+  v7 = [MEMORY[0x1E696AD98] numberWithInt:v4];
+  [v11 setObject:v7 forKeyedSubscript:@"c"];
+
+  messageQueue = self->_messageQueue;
+  if (!messageQueue)
+  {
+    v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v10 = self->_messageQueue;
+    self->_messageQueue = v9;
+
+    messageQueue = self->_messageQueue;
+  }
+
+  [(NSMutableArray *)messageQueue addObject:v11];
+  [(SFContinuityRemoteSession *)self _sendQueuedMesssages];
 }
 
 - (void)_sendQueuedMesssages

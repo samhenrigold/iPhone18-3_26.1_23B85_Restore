@@ -35,12 +35,11 @@
 
 - (id)propertyDictionary
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   personLocalIdentifier = self->_personLocalIdentifier;
-  v6 = @"identifier";
-  v7[0] = personLocalIdentifier;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = @"identifier";
+  v6[0] = personLocalIdentifier;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -102,17 +101,16 @@
 
 + (id)filterWithPersonLocalIdentifiers:(id)identifiers label:(id)label
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D22C78];
   labelCopy = label;
   identifiersCopy = identifiers;
   v8 = [v5 alloc];
-  v13 = @"identifier";
-  v14[0] = identifiersCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = @"identifier";
+  v13[0] = identifiersCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
 
   v10 = [v8 initWithLabel:labelCopy domain:701 properties:v9];
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

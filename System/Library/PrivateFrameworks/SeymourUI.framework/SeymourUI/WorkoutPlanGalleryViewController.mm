@@ -48,11 +48,11 @@
   [(WorkoutPlanGalleryViewController *)&v12 viewDidAppear:appearCopy];
   v11[1] = selfCopy;
   (*(v7 + 16))(v9, *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI32WorkoutPlanGalleryViewController_dataProvider) + OBJC_IVAR____TtC9SeymourUI30WorkoutPlanGalleryDataProvider_metricPage, v6);
-  sub_20BC5F1B4(&unk_27C76C960);
+  sub_20BC5F1B4(&unk_27C76C960, &unk_20C174BA0);
   sub_20C138C54();
   (*(v7 + 8))(v9, v6);
-  sub_20BC5F1B4(&unk_27C76C940);
-  sub_20BC5F1B4(&unk_27C76C950);
+  sub_20BC5F1B4(&unk_27C76C940, &unk_20C174BE0);
+  sub_20BC5F1B4(&unk_27C76C950, &unk_20C174B58);
   sub_20C139364();
 }
 
@@ -69,8 +69,8 @@
   v5.super_class = swift_getObjectType();
   v4 = v5.receiver;
   [(WorkoutPlanGalleryViewController *)&v5 viewDidDisappear:disappearCopy];
-  sub_20BC5F1B4(&unk_27C76C940);
-  sub_20BC5F1B4(&unk_27C76C950);
+  sub_20BC5F1B4(&unk_27C76C940, &unk_20C174BE0);
+  sub_20BC5F1B4(&unk_27C76C950, &unk_20C174B58);
   sub_20C139374();
 }
 

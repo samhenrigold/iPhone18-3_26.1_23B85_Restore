@@ -2,6 +2,7 @@
 - (SagaCloudAddPlaylistOperation)initWithClientIdentity:(id)identity playlistGlobalID:(id)d;
 - (SagaCloudAddPlaylistOperation)initWithCoder:(id)coder;
 - (SagaCloudAddPlaylistOperation)initWithConfiguration:(id)configuration clientIdentity:(id)identity playlistGlobalID:(id)d;
+- (id)cloudAddRequestWithDatabaseID:(unsigned int)d;
 - (void)encodeWithCoder:(id)coder;
 - (void)logCloudAddRequestDescription;
 - (void)processAddedItems:(id)items;
@@ -96,6 +97,15 @@ LABEL_10:
     v6 = v4;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Cloud-add request for playlist global ID = %{public}@", &v5, 0xCu);
   }
+}
+
+- (id)cloudAddRequestWithDatabaseID:(unsigned int)d
+{
+  v3 = *&d;
+  currentDatabaseRevision = [(SagaCloudAddOperation *)self currentDatabaseRevision];
+  v6 = *(&self->super._updateRequired + 1);
+
+  return [ICAddToLibraryRequest requestWithDatabaseID:v3 databaseRevision:currentDatabaseRevision playlistGlobalID:v6];
 }
 
 - (void)encodeWithCoder:(id)coder

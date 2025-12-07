@@ -4,6 +4,7 @@
 - (_MLCANEWeightOps)init;
 - (id)queryConstantTensor:(id)tensor;
 - (unint64_t)addWeightData:(id)data hash:(id)hash;
+- (unint64_t)addWeightData:(id)data weightDataType:(int)type;
 - (void)reset;
 @end
 
@@ -11,7 +12,7 @@
 
 + (id)hexStringForData:(id)data
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   CC_SHA256([dataCopy bytes], objc_msgSend(dataCopy, "length"), md);
   v4 = objc_autoreleasePoolPush();
@@ -23,17 +24,15 @@
 
   objc_autoreleasePoolPop(v4);
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (_MLCANEWeightOps)init
 {
-  v22[1] = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = _MLCANEWeightOps;
-  v2 = [(_MLCANEWeightOps *)&v20 init];
+  v21[1] = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = _MLCANEWeightOps;
+  v2 = [(_MLCANEWeightOps *)&v19 init];
   if (v2)
   {
     v3 = MEMORY[0x277CBEC10];
@@ -51,10 +50,10 @@
 
     v10 = [(NSMutableDictionary *)v2->_weights count];
     v11 = [kMLCANEWeightFileNamePrefix stringByAppendingFormat:@"%lu", v10];
-    v21 = v11;
+    v20 = v11;
     data = [MEMORY[0x277CBEA90] data];
-    v22[0] = data;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v21[0] = data;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v14 = v2->_weights;
     v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v10];
     [(NSMutableDictionary *)v14 setObject:v13 forKeyedSubscript:v15];
@@ -65,7 +64,6 @@
     v2->_constantTensorMap = v16;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -128,13 +126,13 @@ LABEL_4:
 
 - (unint64_t)addWeightData:(id)data hash:(id)hash
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   hashCopy = hash;
-  v25[0] = hashCopy;
+  v24[0] = hashCopy;
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(dataCopy, "length")}];
-  v25[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+  v24[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
 
   weightFileIndexMap = [(_MLCANEWeightOps *)self weightFileIndexMap];
   v11 = [weightFileIndexMap objectForKeyedSubscript:v9];
@@ -156,9 +154,9 @@ LABEL_4:
     weightFileIndexMap3 = [(_MLCANEWeightOps *)self weightFileIndexMap];
     [weightFileIndexMap3 setObject:v16 forKeyedSubscript:v9];
 
-    v23 = weightFileIndexMap2;
-    v24 = dataCopy;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v22 = weightFileIndexMap2;
+    v23 = dataCopy;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     weights2 = [(_MLCANEWeightOps *)self weights];
     v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
     [weights2 setObject:v18 forKeyedSubscript:v20];
@@ -167,28 +165,53 @@ LABEL_4:
     [weightFiles addObject:weightFileIndexMap2];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return unsignedIntegerValue;
+}
+
+- (unint64_t)addWeightData:(id)data weightDataType:(int)type
+{
+  v12 = 0;
+  v13 = 0;
+  v6 = [(_MLCANEWeightOps *)self convertAndComputHashWithWeightData:data weightDataType:*&type hash:&v13 convertedData:&v12];
+  v7 = v13;
+  v8 = v12;
+  if (v6)
+  {
+    v9 = [(_MLCANEWeightOps *)self addWeightData:v8 hash:v7];
+  }
+
+  else
+  {
+    v10 = +[MLCLog framework];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      [_MLCANEWeightOps addWeightData:a2 weightDataType:?];
+    }
+
+    v9 = -1;
+  }
+
+  return v9;
 }
 
 - (id)queryConstantTensor:(id)tensor
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   tensorCopy = tensor;
   data = [tensorCopy data];
   descriptor = [tensorCopy descriptor];
+  v21 = 0;
   v22 = 0;
-  v23 = 0;
-  v8 = -[_MLCANEWeightOps convertAndComputHashWithWeightData:weightDataType:hash:convertedData:](self, "convertAndComputHashWithWeightData:weightDataType:hash:convertedData:", data, [descriptor dataType], &v23, &v22);
-  v9 = v23;
-  v10 = v22;
+  v8 = -[_MLCANEWeightOps convertAndComputHashWithWeightData:weightDataType:hash:convertedData:](self, "convertAndComputHashWithWeightData:weightDataType:hash:convertedData:", data, [descriptor dataType], &v22, &v21);
+  v9 = v22;
+  v10 = v21;
 
   if (v8)
   {
-    v25[0] = v9;
+    v24[0] = v9;
     descriptor2 = [tensorCopy descriptor];
-    v25[1] = descriptor2;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+    v24[1] = descriptor2;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
 
     constantTensorMap = [(_MLCANEWeightOps *)self constantTensorMap];
     v14 = [constantTensorMap objectForKeyedSubscript:v12];
@@ -204,9 +227,9 @@ LABEL_4:
     {
       [constantTensorMap2 setObject:tensorCopy forKeyedSubscript:v12];
 
-      v24[0] = v9;
-      v24[1] = v10;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+      v23[0] = v9;
+      v23[1] = v10;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
       deviceMemory = [tensorCopy deviceMemory];
       [deviceMemory setObject:v18 atIndexedSubscript:{objc_msgSend(tensorCopy, "deviceIndex")}];
 
@@ -224,8 +247,6 @@ LABEL_4:
 
     v17 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -250,46 +271,34 @@ LABEL_4:
 
 - (void)convertAndComputHashWithWeightData:(const char *)a1 weightDataType:hash:convertedData:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertAndComputHashWithWeightData:(const char *)a1 weightDataType:hash:convertedData:.cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addWeightData:(const char *)a1 weightDataType:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queryConstantTensor:(const char *)a1 .cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

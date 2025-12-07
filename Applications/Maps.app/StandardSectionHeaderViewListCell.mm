@@ -29,7 +29,7 @@
   *v8 = v7;
   v8[1] = v6;
   selfCopy = self;
-  sub_1000CD9D4(v7);
+  sub_1000CD9D4(v7, v6);
   sub_1000D3B90(v9, v10);
   sub_100505488();
 

@@ -64,7 +64,7 @@
     v7->_deliveryType = 0;
   }
 
-  v18 = SRLogCategoryAssets();
+  v18 = SRLogCategoryAssets(v6);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     [SRAssertion initWithAssertionID:];
@@ -107,14 +107,6 @@ LABEL_9:
   v3 = [assertionID hash];
 
   return v3;
-}
-
-- (void)initWithAssertionID:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "Malformed assertionID %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

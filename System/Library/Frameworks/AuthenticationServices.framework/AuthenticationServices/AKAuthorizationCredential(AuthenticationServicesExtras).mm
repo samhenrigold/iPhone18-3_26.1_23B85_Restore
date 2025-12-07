@@ -62,33 +62,33 @@
 
 - (id)_credentialScopes
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E695DF70]);
   authorizedScopes = [self authorizedScopes];
   v4 = [v2 initWithCapacity:{objc_msgSend(authorizedScopes, "count")}];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   authorizedScopes2 = [self authorizedScopes];
-  v6 = [authorizedScopes2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [authorizedScopes2 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     v9 = *MEMORY[0x1E698DC00];
     v10 = *MEMORY[0x1E698DBF8];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(authorizedScopes2);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         v13 = [v12 isEqualToString:v9];
         v14 = @"full_name";
         if ((v13 & 1) == 0)
@@ -104,14 +104,13 @@
         [v4 addObject:v14];
       }
 
-      v7 = [authorizedScopes2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [authorizedScopes2 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
 
   v16 = [v4 copy];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

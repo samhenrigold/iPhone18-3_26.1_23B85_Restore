@@ -100,10 +100,10 @@ uint64_t __44__QLThumbnailGenerationQueue_sharedInstance__block_invoke(uint64_t 
 void __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocumentAtURL_atBackgroundPriority_completionHandler___block_invoke(id *a1)
 {
   v1 = a1;
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v2 = [a1[4] queuedURLs];
-  v3 = v1 + 40;
-  v4 = [v2 objectForKeyedSubscript:*(v1 + 5)];
+  v3 = v1 + 5;
+  v4 = [v2 objectForKeyedSubscript:v1[5]];
 
   v5 = qltLogHandles[0];
   if (!v4)
@@ -119,18 +119,18 @@ void __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocu
       __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocumentAtURL_atBackgroundPriority_completionHandler___block_invoke_cold_2(v5);
     }
 
-    v7 = [[QLThumbnailStoreRetrievalOperation alloc] initWithDocumentAtURL:*(v1 + 5)];
-    [(QLThumbnailStoreRetrievalOperation *)v7 setGenerateThumbnailsAtBackgroundPriority:v1[56]];
+    v7 = [[QLThumbnailStoreRetrievalOperation alloc] initWithDocumentAtURL:v1[5]];
+    [(QLThumbnailStoreRetrievalOperation *)v7 setGenerateThumbnailsAtBackgroundPriority:*(v1 + 56)];
     objc_initWeak(&location, v7);
-    v15 = MEMORY[0x1E69E9820];
-    v16 = 3221225472;
-    v17 = __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocumentAtURL_atBackgroundPriority_completionHandler___block_invoke_5;
-    v18 = &unk_1E836A918;
-    objc_copyWeak(&v21, &location);
-    v19 = *(v1 + 4);
-    v20 = *(v1 + 5);
-    [(QLThumbnailStoreRetrievalOperation *)v7 setCompletionBlock:&v15];
-    if (v1[56])
+    v14 = MEMORY[0x1E69E9820];
+    v15 = 3221225472;
+    v16 = __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocumentAtURL_atBackgroundPriority_completionHandler___block_invoke_5;
+    v17 = &unk_1E836A918;
+    objc_copyWeak(&v20, &location);
+    v18 = v1[4];
+    v19 = v1[5];
+    [(QLThumbnailStoreRetrievalOperation *)v7 setCompletionBlock:&v14];
+    if (*(v1 + 56))
     {
       v9 = 9;
     }
@@ -140,17 +140,17 @@ void __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocu
       v9 = 25;
     }
 
-    [(QLThumbnailStoreRetrievalOperation *)v7 setQualityOfService:v9, v15, v16, v17, v18, v19];
-    v10 = [*(v1 + 4) queue];
+    [(QLThumbnailStoreRetrievalOperation *)v7 setQualityOfService:v9, v14, v15, v16, v17, v18];
+    v10 = [v1[4] queue];
     [v10 addOperation:v7];
 
-    v11 = [*(v1 + 4) queuedURLs];
-    v12 = *(v1 + 6);
+    v11 = [v1[4] queuedURLs];
+    v12 = v1[6];
     if (v12)
     {
-      v1 = _Block_copy(*(v1 + 6));
-      v23[0] = v1;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+      v1 = _Block_copy(v1[6]);
+      v22[0] = v1;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
     }
 
     else
@@ -163,7 +163,7 @@ void __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocu
     {
     }
 
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
     goto LABEL_21;
   }
@@ -179,17 +179,15 @@ void __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocu
     __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocumentAtURL_atBackgroundPriority_completionHandler___block_invoke_cold_1(v1 + 5, v5);
   }
 
-  v6 = *(v1 + 6);
+  v6 = v1[6];
   if (v6)
   {
     v7 = _Block_copy(v6);
     v8 = [v4 arrayByAddingObject:v7];
-    [*(*(v1 + 4) + 16) setObject:v8 forKeyedSubscript:*(v1 + 5)];
+    [*(v1[4] + 2) setObject:v8 forKeyedSubscript:v1[5]];
 
 LABEL_21:
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocumentAtURL_atBackgroundPriority_completionHandler___block_invoke_5(uint64_t a1)
@@ -213,7 +211,7 @@ void __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocu
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocumentAtURL_atBackgroundPriority_completionHandler___block_invoke_5_cold_1(v9, (a1 + 48));
+    __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocumentAtURL_atBackgroundPriority_completionHandler___block_invoke_5_cold_1(v9, (a1 + 48), v3);
   }
 
   v10 = [*(a1 + 32) queue];
@@ -233,46 +231,41 @@ void __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocu
 
 void __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocumentAtURL_atBackgroundPriority_completionHandler___block_invoke_6(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v2 = [*(a1 + 32) queuedURLs];
   v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
 
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(a1 + 64);
-        v10 = *(a1 + 48);
-        v9 = *(a1 + 56);
-        (*(*(*(&v13 + 1) + 8 * v7++) + 16))();
+        (*(*(*(&v9 + 1) + 8 * v7++) + 16))();
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v11 = [*(a1 + 32) queuedURLs];
-  [v11 removeObjectForKey:*(a1 + 40)];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v8 = [*(a1 + 32) queuedURLs];
+  [v8 removeObjectForKey:*(a1 + 40)];
 }
 
 - (void)noteThumbnailGenerationQueuedExternallyForDocumentAtURL:(id)l
@@ -305,32 +298,33 @@ void __86__QLThumbnailGenerationQueue_noteThumbnailGenerationQueuedExternallyFor
 
 - (void)enqueueThumbnailGenerationIfNeededForDocumentAtURL:(uint64_t)a1 atBackgroundPriority:(void *)a2 completionHandler:(const void *)a3 .cold.1(uint64_t a1, void *a2, const void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v4 = a2;
-  v12 = _Block_copy(a3);
-  OUTLINED_FUNCTION_0_6(&dword_1CA1E7000, v5, v6, "Will queue for %@ and completion block %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  v5 = a2;
+  v6 = _Block_copy(a3);
+  *v13 = 138412546;
+  *&v13[4] = a1;
+  *&v13[12] = 2112;
+  *&v13[14] = v6;
+  OUTLINED_FUNCTION_0_6(&dword_1CA1E7000, v7, v8, "Will queue for %@ and completion block %@", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16]);
 }
 
 void __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocumentAtURL_atBackgroundPriority_completionHandler___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_DEBUG, "%@ already queued, adding completion block", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_DEBUG, "%@ already queued, adding completion block", &v3, 0xCu);
 }
 
-void __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocumentAtURL_atBackgroundPriority_completionHandler___block_invoke_5_cold_1(void *a1, id *a2)
+void __120__QLThumbnailGenerationQueue_enqueueThumbnailGenerationIfNeededForDocumentAtURL_atBackgroundPriority_completionHandler___block_invoke_5_cold_1(void *a1, id *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = a1;
+  v5 = a1;
   WeakRetained = objc_loadWeakRetained(a2);
-  OUTLINED_FUNCTION_0_6(&dword_1CA1E7000, v5, v6, "Retrieval operation %@ finished with error %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  *v13 = 138412546;
+  *&v13[4] = WeakRetained;
+  *&v13[12] = 2112;
+  *&v13[14] = a3;
+  OUTLINED_FUNCTION_0_6(&dword_1CA1E7000, v7, v8, "Retrieval operation %@ finished with error %@", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16]);
 }
 
 @end

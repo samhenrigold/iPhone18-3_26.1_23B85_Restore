@@ -41,7 +41,7 @@
       metalCommandQueue = [(PTEffectDescriptor *)v8 metalCommandQueue];
       if (metalCommandQueue == metalCommandQueue || (v11 = self->_metalCommandQueue, [(PTEffectDescriptor *)v8 metalCommandQueue], v4 = objc_claimAutoreleasedReturnValue(), [(MTLCommandQueue *)v11 isEqual:v4]))
       {
-        if ((!initCopy || (syncInitialization = self->_syncInitialization, syncInitialization == [(PTEffectDescriptor *)v8 syncInitialization])) && (width = self->_colorSize.width, height = self->_colorSize.height, [(PTEffectDescriptor *)v8 colorSize], width == v18) && height == v17 && (v20 = self->_externalDisparitySize.width, v19 = self->_externalDisparitySize.height, [(PTEffectDescriptor *)v8 externalDisparitySize], v20 == v22) && v19 == v21 && (availableEffectTypes = self->_availableEffectTypes, availableEffectTypes == [(PTEffectDescriptor *)v8 availableEffectTypes]) && (activeEffectType = self->_activeEffectType, activeEffectType == [(PTEffectDescriptor *)v8 activeEffectType]) && (effectQuality = self->_effectQuality, effectQuality == [(PTEffectDescriptor *)v8 effectQuality]) && (prewarmOnly = self->_prewarmOnly, prewarmOnly == [(PTEffectDescriptor *)v8 prewarmOnly]) && (laguna = self->_laguna, laguna == [(PTEffectDescriptor *)v8 laguna]) && (externalHandDetectionsEnabled = self->_externalHandDetectionsEnabled, externalHandDetectionsEnabled == [(PTEffectDescriptor *)v8 externalHandDetectionsEnabled]) && (allowSkipOutColorBufferWrite = self->_allowSkipOutColorBufferWrite, allowSkipOutColorBufferWrite == [(PTEffectDescriptor *)v8 allowSkipOutColorBufferWrite]))
+        if ((!initCopy || (syncInitialization = self->_syncInitialization, syncInitialization == [(PTEffectDescriptor *)v8 syncInitialization])) && (width = self->_colorSize.width, height = self->_colorSize.height, objc_msgSend_colorSize(v8), width == v18) && height == v17 && (v20 = self->_externalDisparitySize.width, v19 = self->_externalDisparitySize.height, [(PTEffectDescriptor *)v8 externalDisparitySize], v20 == v22) && v19 == v21 && (availableEffectTypes = self->_availableEffectTypes, availableEffectTypes == [(PTEffectDescriptor *)v8 availableEffectTypes]) && (activeEffectType = self->_activeEffectType, activeEffectType == [(PTEffectDescriptor *)v8 activeEffectType]) && (effectQuality = self->_effectQuality, effectQuality == [(PTEffectDescriptor *)v8 effectQuality]) && (prewarmOnly = self->_prewarmOnly, prewarmOnly == [(PTEffectDescriptor *)v8 prewarmOnly]) && (laguna = self->_laguna, laguna == [(PTEffectDescriptor *)v8 laguna]) && (externalHandDetectionsEnabled = self->_externalHandDetectionsEnabled, externalHandDetectionsEnabled == [(PTEffectDescriptor *)v8 externalHandDetectionsEnabled]) && (allowSkipOutColorBufferWrite = self->_allowSkipOutColorBufferWrite, allowSkipOutColorBufferWrite == [(PTEffectDescriptor *)v8 allowSkipOutColorBufferWrite]))
         {
           externalCamera = self->_externalCamera;
           v12 = externalCamera == [(PTEffectDescriptor *)v8 externalCamera];
@@ -85,7 +85,7 @@ LABEL_26:
   metalCommandQueue = [(PTEffectDescriptor *)self metalCommandQueue];
   [v4 setMetalCommandQueue:metalCommandQueue];
 
-  [(PTEffectDescriptor *)self colorSize];
+  objc_msgSend_colorSize(self);
   [v4 setColorSize:?];
   [(PTEffectDescriptor *)self externalDisparitySize];
   [v4 setExternalDisparitySize:?];

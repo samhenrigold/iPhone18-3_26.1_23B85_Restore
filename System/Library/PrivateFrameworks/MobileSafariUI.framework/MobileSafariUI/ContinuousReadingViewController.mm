@@ -447,7 +447,7 @@ LABEL_8:
     v9 = WeakRetained;
     if (WeakRetained)
     {
-      [WeakRetained transform];
+      objc_msgSend_transform(WeakRetained);
     }
 
     else

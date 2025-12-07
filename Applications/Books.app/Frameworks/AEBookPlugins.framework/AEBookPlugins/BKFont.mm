@@ -233,61 +233,62 @@ LABEL_11:
     fileExtension = [(BKFont *)self fileExtension];
     v6 = [v4 URLsForResourcesWithExtension:fileExtension subdirectory:0];
 
-    v23 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
+    v23 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v21 objects:v27 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v22 objects:v28 count:16];
     if (v8)
     {
       v10 = v8;
-      v11 = *v22;
+      v11 = *v23;
       *&v9 = 138543362;
-      v20 = v9;
+      v21 = v9;
       do
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v22 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * i);
+          v13 = *(*(&v22 + 1) + 8 * i);
           lastPathComponent = [v13 lastPathComponent];
           fileNamePrefix = [(BKFont *)self fileNamePrefix];
           v16 = [lastPathComponent hasPrefix:fileNamePrefix];
 
           if (v16)
           {
-            if (CTFontManagerRegisterFontsForURL(v13, kCTFontManagerScopeProcess, 0))
+            v17 = CTFontManagerRegisterFontsForURL(v13, kCTFontManagerScopeProcess, 0);
+            if (v17)
             {
               [v3 addObject:v13];
             }
 
             else
             {
-              v17 = _AEBookPluginsFontCacheLog();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+              v18 = _AEBookPluginsFontCacheLog(v17);
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
               {
-                *buf = v20;
-                v26 = v13;
-                _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "[BKFont registerFiles:] could not register %{public}@", buf, 0xCu);
+                *buf = v21;
+                v27 = v13;
+                _os_log_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "[BKFont registerFiles:] could not register %{public}@", buf, 0xCu);
               }
             }
           }
         }
 
-        v10 = [v7 countByEnumeratingWithState:&v21 objects:v27 count:16];
+        v10 = [v7 countByEnumeratingWithState:&v22 objects:v28 count:16];
       }
 
       while (v10);
     }
 
-    v18 = [v3 copy];
+    v19 = [v3 copy];
     registeredFiles = self->_registeredFiles;
-    self->_registeredFiles = v18;
+    self->_registeredFiles = v19;
   }
 }
 

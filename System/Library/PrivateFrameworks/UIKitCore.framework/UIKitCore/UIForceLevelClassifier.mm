@@ -3,7 +3,7 @@
 
 @implementation UIForceLevelClassifier
 
-uint64_t __48___UIForceLevelClassifier_receiveObservedValue___block_invoke(uint64_t a1, void *a2)
+void *__48___UIForceLevelClassifier_receiveObservedValue___block_invoke(uint64_t a1, void *a2)
 {
   if (![a2 shouldFilterDueToSystemGestures] || (result = objc_msgSend(*(a1 + 32), "respectsSystemGestureTouchFiltering"), (result & 1) == 0))
   {

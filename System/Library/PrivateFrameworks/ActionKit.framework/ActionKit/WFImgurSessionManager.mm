@@ -73,7 +73,7 @@
 
 void __64__WFImgurSessionManager_sendRequest_progress_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   v8 = [*(a1 + 32) progressTable];
@@ -87,9 +87,9 @@ void __64__WFImgurSessionManager_sendRequest_progress_completionHandler___block_
 
   if ([v6 length])
   {
-    v32 = v7;
-    v13 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:0 error:&v32];
-    v14 = v32;
+    v31 = v7;
+    v13 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:0 error:&v31];
+    v14 = v31;
 
     if (v13)
     {
@@ -119,13 +119,13 @@ void __64__WFImgurSessionManager_sendRequest_progress_completionHandler___block_
             {
               v26 = objc_opt_class();
               *buf = 136315906;
-              v36 = "WFEnforceClass";
-              v37 = 2114;
-              v38 = v24;
-              v39 = 2114;
-              v40 = v26;
-              v41 = 2114;
-              v42 = v23;
+              v35 = "WFEnforceClass";
+              v36 = 2114;
+              v37 = v24;
+              v38 = 2114;
+              v39 = v26;
+              v40 = 2114;
+              v41 = v23;
               v27 = v26;
               _os_log_impl(&dword_23DE30000, v25, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", buf, 0x2Au);
             }
@@ -153,9 +153,9 @@ void __64__WFImgurSessionManager_sendRequest_progress_completionHandler___block_
       {
         if (v17)
         {
-          v33 = *MEMORY[0x277CCA470];
-          v34 = v17;
-          v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+          v32 = *MEMORY[0x277CCA470];
+          v33 = v17;
+          v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
         }
 
         else
@@ -193,8 +193,6 @@ void __64__WFImgurSessionManager_sendRequest_progress_completionHandler___block_
       (*(v19 + 16))(v19, 0, v7);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAlbumLinkFromID:(id)d completionHandler:(id)handler

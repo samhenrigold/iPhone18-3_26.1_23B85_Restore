@@ -8,34 +8,30 @@
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   model = [(HMDHomeMigrationEvent *)self model];
   v5 = [v3 initWithName:@"model" value:model];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   reason = [(HMDHomeMigrationEvent *)self reason];
   v8 = [v6 initWithName:@"reason" value:reason];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"modelClass";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"modelClass";
   model = [(HMDHomeMigrationEvent *)self model];
-  v8[1] = @"reason";
-  v9[0] = model;
+  v7[1] = @"reason";
+  v8[0] = model;
   reason = [(HMDHomeMigrationEvent *)self reason];
-  v9[1] = reason;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = reason;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }

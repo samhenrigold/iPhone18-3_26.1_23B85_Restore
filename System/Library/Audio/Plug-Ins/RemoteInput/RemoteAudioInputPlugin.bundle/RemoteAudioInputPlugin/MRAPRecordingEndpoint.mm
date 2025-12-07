@@ -2,6 +2,9 @@
 + (id)sharedEndpoint;
 - (MRAPRecordingEndpoint)init;
 - (NSArray)delegates;
+- (void)_inputDeviceConnectedWithDeviceID:(unsigned int)d;
+- (void)_inputDeviceDisconnectedWithDeviceID:(unsigned int)d;
+- (void)_voiceDataReceivedForDeviceWithID:(unsigned int)d withBuffer:(void *)buffer time:(id)time gain:(float)gain;
 - (void)addDelegate:(id)delegate;
 - (void)dealloc;
 - (void)removeAllDelegates;
@@ -112,6 +115,126 @@
   block[3] = &unk_82D0;
   block[4] = self;
   dispatch_sync(serialQueue, block);
+}
+
+- (void)_inputDeviceConnectedWithDeviceID:(unsigned int)d
+{
+  v3 = *&d;
+  v5 = _MRLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    sub_2F50(v3, v5);
+  }
+
+  delegates = [(MRAPRecordingEndpoint *)self delegates];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v7 = [delegates countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(delegates);
+        }
+
+        [*(*(&v11 + 1) + 8 * v10) recordingEndpoint:self inputDeviceConnectedWithID:v3];
+        v10 = v10 + 1;
+      }
+
+      while (v8 != v10);
+      v8 = [delegates countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
+  }
+}
+
+- (void)_inputDeviceDisconnectedWithDeviceID:(unsigned int)d
+{
+  v3 = *&d;
+  v5 = _MRLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    sub_2FC8(v3, v5);
+  }
+
+  delegates = [(MRAPRecordingEndpoint *)self delegates];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v7 = [delegates countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(delegates);
+        }
+
+        [*(*(&v11 + 1) + 8 * v10) recordingEndpoint:self inputDeviceDisconnectedWithID:v3];
+        v10 = v10 + 1;
+      }
+
+      while (v8 != v10);
+      v8 = [delegates countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
+  }
+}
+
+- (void)_voiceDataReceivedForDeviceWithID:(unsigned int)d withBuffer:(void *)buffer time:(id)time gain:(float)gain
+{
+  var1 = time.var1;
+  var0 = time.var0;
+  v10 = *&d;
+  delegates = [(MRAPRecordingEndpoint *)self delegates];
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v13 = [delegates countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v13)
+  {
+    v15 = v13;
+    v16 = *v19;
+    do
+    {
+      v17 = 0;
+      do
+      {
+        if (*v19 != v16)
+        {
+          objc_enumerationMutation(delegates);
+        }
+
+        *&v14 = gain;
+        [*(*(&v18 + 1) + 8 * v17) recordingEndpoint:self inputDeviceWithID:v10 receivedAudioBuffer:buffer withTime:var0 gain:{var1, v14}];
+        v17 = v17 + 1;
+      }
+
+      while (v15 != v17);
+      v15 = [delegates countByEnumeratingWithState:&v18 objects:v22 count:16];
+    }
+
+    while (v15);
+  }
 }
 
 @end

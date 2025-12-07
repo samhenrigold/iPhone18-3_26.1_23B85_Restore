@@ -165,10 +165,10 @@ LABEL_9:
     v23.f64[0] = 0.0;
     v24.f64[0] = 0.0;
     v25.f64[0] = 1.0;
-    v28 = NTKFindCubicBezierPoint(fraction, v23, 0.0, v24, 0.0, v25, 0.0, v15, v16, v17, v18, v19, v20, v21, v22, v26);
+    v28 = NTKFindCubicBezierPoint(fraction, v23, 0.0, v24, 0.0, v25, 0.0, v15, v16, v17, v18, v19, v20, v21, v22, v26, 0x3FF0000000000000uLL);
     v29 = self->_toTransitionImageView;
     CGAffineTransformMakeScale(&v34, (1.0 - v28) * -0.1 + 1.0, (1.0 - v28) * -0.1 + 1.0);
-    [(UIImageView *)v29 setTransform:&v34, 0x3FF0000000000000, 0];
+    [(UIImageView *)v29 setTransform:&v34];
     [(NTKEditOptionTransitioningView *)self setFromEditOption:optionCopy];
     v30 = self->_fromTransitionImageView;
     [(NTKEditOptionTransitioningView *)self bounds];

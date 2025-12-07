@@ -30,7 +30,7 @@
   observation = [(PILongExposureRegistrationJob *)self observation];
   [(_PILongExposureRegistrationResult *)v3 setObservation:observation];
 
-  [(PILongExposureRegistrationJob *)self guideExtent];
+  objc_msgSend_guideExtent(self);
   v6[0] = v6[2];
   v6[1] = v6[3];
   [(_PILongExposureRegistrationResult *)v3 setExtent:v6];
@@ -108,7 +108,7 @@
 
     v101 = 0u;
     v102 = 0u;
-    [(PILongExposureRegistrationJob *)self guideExtent];
+    objc_msgSend_guideExtent(self);
     v14 = +[PIAutoLoopKernels rgbToLumaKernel];
     sRGBColorSpace = [MEMORY[0x1E69B3A10] sRGBColorSpace];
     memset(&v106, 0, 32);
@@ -439,7 +439,7 @@ LABEL_23:
           v21 = registrationRequest;
           if (registrationRequest)
           {
-            [registrationRequest cleanAperture];
+            objc_msgSend_cleanAperture(registrationRequest);
           }
 
           else

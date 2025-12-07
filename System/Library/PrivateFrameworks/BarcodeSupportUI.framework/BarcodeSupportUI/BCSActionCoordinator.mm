@@ -118,49 +118,49 @@ void __44__BCSActionCoordinator_actionForVisualCode___block_invoke(void *a1)
   dispatch_assert_queue_V2(self->_parsingQueue);
   if (!self->_qrCodeParser)
   {
-    v5 = objc_alloc_init(MEMORY[0x277CF0B10]);
+    v7 = objc_alloc_init(MEMORY[0x277CF0B10]);
     qrCodeParser = self->_qrCodeParser;
-    self->_qrCodeParser = v5;
+    self->_qrCodeParser = v7;
   }
 
-  v7 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner();
-  v8 = v7;
-  if (codeCopy + 1 >= 2 && os_signpost_enabled(v7))
+  v9 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner(v5, v6);
+  v10 = v9;
+  if (codeCopy + 1 >= 2 && os_signpost_enabled(v9))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2419E7000, v8, OS_SIGNPOST_INTERVAL_BEGIN, codeCopy, "Parsing", "start parsing", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2419E7000, v10, OS_SIGNPOST_INTERVAL_BEGIN, codeCopy, "Parsing", "start parsing", buf, 2u);
   }
 
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __41__BCSActionCoordinator__parseVisualCode___block_invoke;
-  v19 = &unk_278D02220;
-  v9 = codeCopy;
-  v20 = v9;
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __41__BCSActionCoordinator__parseVisualCode___block_invoke;
+  v21 = &unk_278D02220;
+  v11 = codeCopy;
+  v22 = v11;
   selfCopy = self;
-  v10 = _Block_copy(&v16);
-  if ([v9 codeType] == 1 && (objc_msgSend(v9, "rawPayload"), (v11 = objc_claimAutoreleasedReturnValue()) != 0))
+  v12 = _Block_copy(&v18);
+  if ([v11 codeType] == 1 && (objc_msgSend(v11, "rawPayload"), (v13 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    payloadString = v11;
+    payloadString = v13;
     appClipCodeURLDecoder = self->_appClipCodeURLDecoder;
     if (!appClipCodeURLDecoder)
     {
-      v14 = objc_alloc_init(MEMORY[0x277CF0B00]);
-      v15 = self->_appClipCodeURLDecoder;
-      self->_appClipCodeURLDecoder = v14;
+      v16 = objc_alloc_init(MEMORY[0x277CF0B00]);
+      v17 = self->_appClipCodeURLDecoder;
+      self->_appClipCodeURLDecoder = v16;
 
       appClipCodeURLDecoder = self->_appClipCodeURLDecoder;
     }
 
-    -[BCSAppClipCodeURLDecoder parseEncodedURLData:version:completion:](appClipCodeURLDecoder, "parseEncodedURLData:version:completion:", payloadString, [v9 codeVersion], v10);
+    -[BCSAppClipCodeURLDecoder parseEncodedURLData:version:completion:](appClipCodeURLDecoder, "parseEncodedURLData:version:completion:", payloadString, [v11 codeVersion], v12);
   }
 
   else
   {
-    payloadString = [v9 payloadString];
+    payloadString = [v11 payloadString];
     if (payloadString)
     {
-      [(BCSQRCodeParser *)self->_qrCodeParser parseCodeFromString:payloadString completionHandler:v10];
+      [(BCSQRCodeParser *)self->_qrCodeParser parseCodeFromString:payloadString completionHandler:v12];
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -174,62 +174,62 @@ void __41__BCSActionCoordinator__parseVisualCode___block_invoke(uint64_t a1, voi
 {
   v5 = a2;
   v6 = a3;
-  v7 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner();
-  v8 = v7;
-  v9 = *(a1 + 32);
-  if (v9 + 1 >= 2 && os_signpost_enabled(v7))
+  v8 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner(v6, v7);
+  v9 = v8;
+  v10 = *(a1 + 32);
+  if (v10 + 1 >= 2 && os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2419E7000, v8, OS_SIGNPOST_INTERVAL_END, v9, "Parsing", "end parsing", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2419E7000, v9, OS_SIGNPOST_INTERVAL_END, v10, "Parsing", "end parsing", buf, 2u);
   }
 
-  v10 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner();
-  if (os_signpost_enabled(v10))
+  v13 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner(v11, v12);
+  if (os_signpost_enabled(v13))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2419E7000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "parsedQRCode", "parsed visual code payload", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2419E7000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "parsedQRCode", "parsed visual code payload", buf, 2u);
   }
 
   if (!v6)
   {
-    v11 = *(a1 + 40);
-    v12 = *(v11 + 16);
+    v14 = *(a1 + 40);
+    v15 = *(v14 + 16);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __41__BCSActionCoordinator__parseVisualCode___block_invoke_33;
     block[3] = &unk_278D01C68;
-    block[4] = v11;
-    v13 = v5;
-    v21 = v13;
-    dispatch_async(v12, block);
+    block[4] = v14;
+    v16 = v5;
+    v24 = v16;
+    dispatch_async(v15, block);
     WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 80));
-    [WeakRetained actionCoordinator:*(a1 + 40) didParseCode:*(a1 + 32) withAction:v13];
+    [WeakRetained actionCoordinator:*(a1 + 40) didParseCode:*(a1 + 32) withAction:v16];
 
-    v15 = [v13 defaultActionTargetApplicationBundleIdentifier];
-    if ([v15 isEqualToString:@"com.apple.mobilesafari"] && !SBSGetScreenLockStatus())
+    v18 = [v16 defaultActionTargetApplicationBundleIdentifier];
+    if ([v18 isEqualToString:@"com.apple.mobilesafari"] && !SBSGetScreenLockStatus())
     {
-      v16 = [v13 isApplePayInitiateAction];
+      v19 = [v16 isApplePayInitiateAction];
 
-      if (v16)
+      if (v19)
       {
         goto LABEL_10;
       }
 
-      v15 = [v13 urlThatCanBeOpened];
-      if ([v15 _bcs_isHTTPFamilyURL])
+      v18 = [v16 urlThatCanBeOpened];
+      if ([v18 _bcs_isHTTPFamilyURL])
       {
-        v17 = [v13 clipMetadataRequest];
+        v20 = [v16 clipMetadataRequest];
 
-        if (!v17)
+        if (!v20)
         {
-          v18[0] = MEMORY[0x277D85DD0];
-          v18[1] = 3221225472;
-          v18[2] = __41__BCSActionCoordinator__parseVisualCode___block_invoke_2;
-          v18[3] = &unk_278D01C68;
-          v18[4] = *(a1 + 40);
-          v15 = v15;
-          v19 = v15;
-          dispatch_async(MEMORY[0x277D85CD0], v18);
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __41__BCSActionCoordinator__parseVisualCode___block_invoke_2;
+          v21[3] = &unk_278D01C68;
+          v21[4] = *(a1 + 40);
+          v18 = v18;
+          v22 = v18;
+          dispatch_async(MEMORY[0x277D85CD0], v21);
         }
       }
     }
@@ -280,10 +280,7 @@ LABEL_11:
 
 uint64_t __59__BCSActionCoordinator__updateParsedActionWithURL_appLink___block_invoke(void *a1)
 {
-  v2 = [[BCSShadowAction alloc] initWithURL:a1[4] appLink:a1[5] originalAction:*(a1[6] + 24)];
-  v3 = a1[6];
-  v4 = *(v3 + 24);
-  *(v3 + 24) = v2;
+  *(a1[6] + 24) = [[BCSShadowAction alloc] initWithURL:a1[4] appLink:a1[5] originalAction:*(a1[6] + 24)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -405,7 +402,7 @@ void __66__BCSActionCoordinator_showFirstTimePromptIfNecessary_completion___bloc
 
 void __50__BCSActionCoordinator__resolveRedirectionForURL___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -424,11 +421,11 @@ void __50__BCSActionCoordinator__resolveRedirectionForURL___block_invoke(uint64_
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        v14 = 138478083;
-        v15 = v7;
-        v16 = 2113;
-        v17 = v8;
-        _os_log_impl(&dword_2419E7000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSActionCoordinator: resolved redirection to %{private}@. apps: %{private}@", &v14, 0x16u);
+        v13 = 138478083;
+        v14 = v7;
+        v15 = 2113;
+        v16 = v8;
+        _os_log_impl(&dword_2419E7000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSActionCoordinator: resolved redirection to %{private}@. apps: %{private}@", &v13, 0x16u);
       }
 
       [*(a1 + 32) _updateParsedActionWithURL:v7 appLink:v8];
@@ -437,8 +434,6 @@ void __50__BCSActionCoordinator__resolveRedirectionForURL___block_invoke(uint64_
       *(v11 + 56) = 0;
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showItemsWithAction:(id)action completion:(id)completion
@@ -971,7 +966,6 @@ void __66__BCSActionCoordinator_requestDeviceUnlockIfNeededWithCompletion___bloc
 
 uint64_t __66__BCSActionCoordinator_requestDeviceUnlockIfNeededWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 48);
   result = (*(*(a1 + 40) + 16))();
   *(*(a1 + 32) + 72) = 0;
   return result;
@@ -1063,13 +1057,13 @@ uint64_t __66__BCSActionCoordinator_requestDeviceUnlockIfNeededWithCompletion___
 
 void __43__BCSActionCoordinator__handleContactInfo___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
     v6 = MEMORY[0x277CBDAC8];
-    v15[0] = *(a1 + 32);
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = *(a1 + 32);
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     v8 = [v6 dataWithContacts:v7 error:0];
 
     v9 = [*(a1 + 40) _tempVCardFileURL];
@@ -1113,8 +1107,6 @@ LABEL_11:
   }
 
 LABEL_13:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_handleActionPickerItemIfHomeAction:(id)action
@@ -1200,34 +1192,34 @@ LABEL_13:
 
 void __49__BCSActionCoordinator__handleCalendarICSString___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   v4 = a3;
   v6 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v28[0] = @"ICS";
-  v28[1] = @"NotificationStyle";
-  v29[0] = v5;
-  v29[1] = MEMORY[0x277CBEC38];
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+  v27[0] = @"ICS";
+  v27[1] = @"NotificationStyle";
+  v28[0] = v5;
+  v28[1] = MEMORY[0x277CBEC38];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
   v8 = v6;
   v9 = v7;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
   v10 = getDDUIEventForResultsSymbolLoc_ptr_0;
-  v27 = getDDUIEventForResultsSymbolLoc_ptr_0;
+  v26 = getDDUIEventForResultsSymbolLoc_ptr_0;
   if (!getDDUIEventForResultsSymbolLoc_ptr_0)
   {
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __getDDUIEventForResultsSymbolLoc_block_invoke_0;
-    v23[3] = &unk_278D021A8;
-    v23[4] = &v24;
-    __getDDUIEventForResultsSymbolLoc_block_invoke_0(v23);
-    v10 = v25[3];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __getDDUIEventForResultsSymbolLoc_block_invoke_0;
+    v22[3] = &unk_278D021A8;
+    v22[4] = &v23;
+    __getDDUIEventForResultsSymbolLoc_block_invoke_0(v22);
+    v10 = v24[3];
   }
 
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v23, 8);
   if (!v10)
   {
     [BCSAlertController _createPreviewControllerForDataDetectionActionPickerItem:];
@@ -1236,9 +1228,9 @@ void __49__BCSActionCoordinator__handleCalendarICSString___block_invoke(uint64_t
   v11 = v10(v8, 0, v9);
 
   v12 = *(a1 + 32);
-  v22 = 0;
-  v13 = [v12 saveEvent:v11 span:0 error:&v22];
-  v14 = v22;
+  v21 = 0;
+  v13 = [v12 saveEvent:v11 span:0 error:&v21];
+  v14 = v21;
   if (v14)
   {
     v15 = v13;
@@ -1254,9 +1246,9 @@ void __49__BCSActionCoordinator__handleCalendarICSString___block_invoke(uint64_t
     [v11 reset];
     v16 = [MEMORY[0x277CC1E80] defaultWorkspace];
     v17 = [v11 externalURL];
-    v21 = 0;
-    v18 = [v16 openSensitiveURL:v17 withOptions:0 error:&v21];
-    v19 = v21;
+    v20 = 0;
+    v18 = [v16 openSensitiveURL:v17 withOptions:0 error:&v20];
+    v19 = v20;
 
     if ((v18 & 1) == 0)
     {
@@ -1273,8 +1265,6 @@ void __49__BCSActionCoordinator__handleCalendarICSString___block_invoke(uint64_t
   {
     __49__BCSActionCoordinator__handleCalendarICSString___block_invoke_cold_1(v14);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_launchBarcodeScannerAppFromLockscreenWithQueryOptions:(id)options completionBlock:(id)block
@@ -1456,35 +1446,26 @@ void __95__BCSActionCoordinator__launchBarcodeScannerAppFromLockscreenWithQueryO
 
 void __41__BCSActionCoordinator__parseVisualCode___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 _bcs_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __66__BCSActionCoordinator_showFirstTimePromptIfNecessary_completion___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 _bcs_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __50__BCSActionCoordinator__resolveRedirectionForURL___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 _bcs_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_calendarAppIcon
@@ -1498,33 +1479,25 @@ void __50__BCSActionCoordinator__resolveRedirectionForURL___block_invoke_cold_1(
 
 - (void)_tempVCardFileURL
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __43__BCSActionCoordinator__handleContactInfo___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 _bcs_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __49__BCSActionCoordinator__handleCalendarICSString___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 _bcs_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_launchBarcodeScannerAppFromLockscreenWithQueryOptions:completionBlock:.cold.1()
@@ -1547,13 +1520,10 @@ void __49__BCSActionCoordinator__handleCalendarICSString___block_invoke_cold_1(v
 
 void __95__BCSActionCoordinator__launchBarcodeScannerAppFromLockscreenWithQueryOptions_completionBlock___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 _bcs_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

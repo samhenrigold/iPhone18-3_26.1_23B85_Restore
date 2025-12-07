@@ -22,7 +22,7 @@
 
 - (NSData)data
 {
-  [(_WKWebPushMessage *)self _protectedMessage];
+  objc_msgSend__protectedMessage(self, a2);
   std::__optional_copy_base<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,false>::__optional_copy_base[abi:sn200100](&v12, v11 + 16);
   v3 = v11;
   v11 = 0;

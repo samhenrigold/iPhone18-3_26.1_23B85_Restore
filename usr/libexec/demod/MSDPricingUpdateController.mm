@@ -51,11 +51,11 @@
   objc_sync_exit(v10);
 
   xpc_connection_send_message(requestCopy, reply);
-  v12 = sub_100063A54();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100063A54(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 0;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Received Pricing update request.", v13, 2u);
+    *v14 = 0;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Received Pricing update request.", v14, 2u);
   }
 
   [(MSDPricingUpdateController *)self setState:1];
@@ -85,11 +85,11 @@
   xpc_dictionary_set_string(reply, "MSDResult", "YES");
   xpc_connection_send_message(beatCopy, reply);
 
-  v10 = sub_100063A54();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100063A54(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Received Pricing heart beat.", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Received Pricing heart beat.", v12, 2u);
   }
 
   if (([v8 mode] == 2 || objc_msgSend(v8, "mode") == 4) && -[MSDPricingUpdateController state](self, "state") <= 1)
@@ -113,11 +113,11 @@
   xpc_dictionary_set_string(reply, "MSDResult", "YES");
   xpc_connection_send_message(noticeCopy, reply);
 
-  v10 = sub_100063A54();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100063A54(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Received Pricing completion notice.", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Received Pricing completion notice.", v12, 2u);
   }
 
   [(MSDPricingUpdateController *)self stopMonitor];
@@ -145,7 +145,7 @@
 - (BOOL)completed
 {
   state = [(MSDPricingUpdateController *)self state];
-  if (state - 2 < 2)
+  if ((state - 2) < 2)
   {
     return 1;
   }
@@ -157,7 +157,7 @@
 
   if (state)
   {
-    v7 = sub_100063A54();
+    v7 = sub_100063A54(state);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 0;
@@ -204,23 +204,22 @@
 
 - (void)pricingUpdateTimeOut:(id)out
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13) = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Heart beat monitor timer triggered.", &v13, 2u);
+    LOWORD(v14) = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Heart beat monitor timer triggered.", &v14, 2u);
   }
 
   [(MSDPricingUpdateController *)self stopMonitor];
   if ([(MSDPricingUpdateController *)self state]<= 1)
   {
-    [(MSDPricingUpdateController *)self setState:3];
-    v5 = sub_100063A54();
+    v5 = sub_100063A54([(MSDPricingUpdateController *)self setState:3]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 67109120;
-      v14 = 120;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "No XPC message from Pricing app for %d seconds.", &v13, 8u);
+      v14 = 67109120;
+      v15 = 120;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "No XPC message from Pricing app for %d seconds.", &v14, 8u);
     }
 
     v6 = [NSError errorDomainMSDWithCode:3727741024 message:@"Pricing app stopped."];
@@ -235,12 +234,12 @@
 
     if (timeShowingFatalError)
     {
-      v10 = sub_100063A54();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100063A54(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 67109120;
-        v14 = timeShowingFatalError;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Override MSDTimeShowingFatalError timeout: %u", &v13, 8u);
+        v14 = 67109120;
+        v15 = timeShowingFatalError;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Override MSDTimeShowingFatalError timeout: %u", &v14, 8u);
       }
     }
 
@@ -249,8 +248,8 @@
       timeShowingFatalError = 900;
     }
 
-    v11 = +[MSDDemoUpdateTimeKeeper sharedInstance];
-    v12 = [v11 setCompletionTimeForFatalError:timeShowingFatalError];
+    v12 = +[MSDDemoUpdateTimeKeeper sharedInstance];
+    v13 = [v12 setCompletionTimeForFatalError:timeShowingFatalError];
   }
 }
 

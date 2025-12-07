@@ -26,11 +26,10 @@
 
 - (void)prepareForReuse
 {
-  v4.receiver = self;
-  v4.super_class = swift_getObjectType();
-  v2 = v4.receiver;
-  [(ContactSearchViewCell *)&v4 prepareForReuse];
-  v3 = *&v2[OBJC_IVAR____TtC11CallsSearch21ContactSearchViewCell_idsStatusSubscription];
+  v3.receiver = self;
+  v3.super_class = swift_getObjectType();
+  v2 = v3.receiver;
+  [(ContactSearchViewCell *)&v3 prepareForReuse];
   *&v2[OBJC_IVAR____TtC11CallsSearch21ContactSearchViewCell_idsStatusSubscription] = 0;
 }
 
@@ -49,32 +48,31 @@
 - (void)handleContentSizeCategoryDidChange:(id)change
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4EC720, &qword_1CFB92190);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v15 - v7;
+  v7 = &v14 - v6;
   if (change)
   {
     sub_1CFB8F5F0();
-    v9 = sub_1CFB8F600();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_1CFB8F600();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_1CFB8F600();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_1CFB8F600();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
-  v11 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC11CallsSearch21ContactSearchViewCell_avatarView);
+  v10 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC11CallsSearch21ContactSearchViewCell_avatarView);
   selfCopy = self;
   traitCollection = [(ContactSearchViewCell *)selfCopy traitCollection];
   preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
 
   LOBYTE(traitCollection) = sub_1CFB8FDE0();
-  [v11 setHidden_];
+  [v10 setHidden_];
   sub_1CFB6F71C();
 
-  sub_1CFB5DDDC(v8, &qword_1EC4EC720, &qword_1CFB92190);
+  sub_1CFB5DDDC(v7, &qword_1EC4EC720, &qword_1CFB92190);
 }
 
 @end

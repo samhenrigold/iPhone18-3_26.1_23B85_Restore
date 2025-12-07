@@ -169,27 +169,27 @@ void __50__VCLinkProbingHandler_startActiveProbingOnLinks___block_invoke(uint64_
 {
   if (![*(*(a1 + 32) + 184) count])
   {
-    *(*(a1 + 32) + 200) = micro();
+    *(*(a1 + 32) + 200) = micro(0, v2);
   }
 
   [*(*(a1 + 32) + 184) addObjectsFromArray:*(a1 + 40)];
-  v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v2 = [*(*(a1 + 32) + 184) allObjects];
-  [v6 setObject:v2 forKeyedSubscript:*MEMORY[0x1E69A4AB8]];
-  v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(*(a1 + 32) + 76)];
-  [v6 setObject:v3 forKeyedSubscript:*MEMORY[0x1E69A4AB0]];
-  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(*(a1 + 32) + 80)];
-  [v6 setObject:v4 forKeyedSubscript:*MEMORY[0x1E69A4AC8]];
+  v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v3 = [*(*(a1 + 32) + 184) allObjects];
+  [v7 setObject:v3 forKeyedSubscript:*MEMORY[0x1E69A4AB8]];
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(*(a1 + 32) + 76)];
+  [v7 setObject:v4 forKeyedSubscript:*MEMORY[0x1E69A4AB0]];
+  v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(*(a1 + 32) + 80)];
+  [v7 setObject:v5 forKeyedSubscript:*MEMORY[0x1E69A4AC8]];
   if ([*(a1 + 32) linkProbingHandlerDelegate])
   {
     [objc_msgSend(*(a1 + 32) "linkProbingHandlerDelegate")];
   }
 
   [*(a1 + 32) setLinkProbingResultConfig];
-  v5 = *(a1 + 32);
-  if (!*(v5 + 92))
+  v6 = *(a1 + 32);
+  if (!*(v6 + 92))
   {
-    [*(v5 + 16) start];
+    [*(v6 + 16) start];
     *(*(a1 + 32) + 92) = 1;
   }
 }
@@ -822,7 +822,7 @@ void __47__VCLinkProbingHandler_stopActiveProbingQRLink__block_invoke(uint64_t a
 - (void)queryProbingResults
 {
   v19 = *MEMORY[0x1E69E9840];
-  v3 = micro();
+  v3 = micro(self, a2);
   if (self->_linkProbingState == 1)
   {
     v5 = v3;
@@ -901,7 +901,7 @@ void __43__VCLinkProbingHandler_queryProbingResults__block_invoke(uint64_t a1)
 - (void)updateLinkPreferenceOrder
 {
   v17 = *MEMORY[0x1E69E9840];
-  v3 = micro();
+  v3 = micro(self, a2);
   v4 = [(NSMutableDictionary *)self->_aggregatedProbingResults keysSortedByValueUsingComparator:&__block_literal_global_104];
   if ([v4 count] && -[NSArray count](self->_linkPreferenceOrder, "count") && objc_msgSend(objc_msgSend(v4, "objectAtIndexedSubscript:", 0), "isEqualToNumber:", -[NSArray objectAtIndexedSubscript:](self->_linkPreferenceOrder, "objectAtIndexedSubscript:", 0)))
   {
@@ -1054,12 +1054,12 @@ uint64_t __53__VCLinkProbingHandler_resetAggregatedProbingResults__block_invoke(
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: requestStats failed: Invalid linkID", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: requestStats failed: Invalid linkID", v2, v3, v4, v5);
 }
 
 void __36__VCLinkProbingHandler_requestStats__block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
   [v2 setObject:*(*(a1 + 32) + 264) forKeyedSubscript:*MEMORY[0x1E69A4A40]];
   v3 = MEMORY[0x1E696AD98];
@@ -1079,15 +1079,15 @@ void __36__VCLinkProbingHandler_requestStats__block_invoke(uint64_t a1)
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           v9 = *(*(a1 + 32) + 240);
-          v17 = 136315906;
-          v18 = v7;
-          v19 = 2080;
-          v20 = "[VCLinkProbingHandler requestStats]_block_invoke";
-          v21 = 1024;
-          v22 = 485;
+          v19 = 136315906;
+          v20 = v7;
+          v21 = 2080;
+          v22 = "[VCLinkProbingHandler requestStats]_block_invoke";
           v23 = 1024;
-          LODWORD(v24) = v9;
-          _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d LinkProbing: Request count reached max=%d", &v17, 0x22u);
+          v24 = 485;
+          v25 = 1024;
+          LODWORD(v26) = v9;
+          _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d LinkProbing: Request count reached max=%d", &v19, 0x22u);
         }
       }
 
@@ -1095,32 +1095,32 @@ void __36__VCLinkProbingHandler_requestStats__block_invoke(uint64_t a1)
       v6 = *(a1 + 32);
     }
 
-    [objc_msgSend(v6 "linkProbingHandlerDelegate")];
-    v10 = micro();
-    v11 = [MEMORY[0x1E696AD98] numberWithDouble:?];
-    [*(*(a1 + 32) + 280) setObject:v11 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", *(*(a1 + 32) + 272))}];
+    v10 = [objc_msgSend(v6 "linkProbingHandlerDelegate")];
+    v12 = micro(v10, v11);
+    v13 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+    [*(*(a1 + 32) + 280) setObject:v13 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", *(*(a1 + 32) + 272))}];
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v12 = VRTraceErrorLogLevelToCSTR();
-      v13 = *MEMORY[0x1E6986650];
+      v14 = VRTraceErrorLogLevelToCSTR();
+      v15 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v14 = *(a1 + 32);
-        v15 = *(v14 + 272);
-        v16 = [*(v14 + 280) count];
-        v17 = 136316418;
-        v18 = v12;
-        v19 = 2080;
-        v20 = "[VCLinkProbingHandler requestStats]_block_invoke";
-        v21 = 1024;
-        v22 = 491;
-        v23 = 2048;
-        v24 = v15;
+        v16 = *(a1 + 32);
+        v17 = *(v16 + 272);
+        v18 = [*(v16 + 280) count];
+        v19 = 136316418;
+        v20 = v14;
+        v21 = 2080;
+        v22 = "[VCLinkProbingHandler requestStats]_block_invoke";
+        v23 = 1024;
+        v24 = 491;
         v25 = 2048;
-        v26 = v10;
+        v26 = v17;
         v27 = 2048;
-        v28 = v16;
-        _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d LinkProbing: Requesting stats with statsId=%llu at time=%f requestCount=%lu", &v17, 0x3Au);
+        v28 = v12;
+        v29 = 2048;
+        v30 = v18;
+        _os_log_impl(&dword_1DB56E000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d LinkProbing: Requesting stats with statsId=%llu at time=%f requestCount=%lu", &v19, 0x3Au);
       }
     }
   }
@@ -1278,7 +1278,7 @@ double *__56__VCLinkProbingHandler_dispatchedUpdateQRProbingResult___block_invok
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: startActiveProbing failed: Invalid linkID list", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: startActiveProbing failed: Invalid linkID list", v2, v3, v4, v5);
 }
 
 - (void)startActiveProbingOnLinks:.cold.2()
@@ -1294,49 +1294,49 @@ void __60__VCLinkProbingHandler_stopActiveProbingOnLinks_resetStats___block_invo
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: stopActiveProbing failed: Link probing not in progress", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: stopActiveProbing failed: Link probing not in progress", v2, v3, v4, v5);
 }
 
 void __60__VCLinkProbingHandler_stopActiveProbingOnLinks_resetStats___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: stopActiveProbing failed: Invalid linkID list", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: stopActiveProbing failed: Invalid linkID list", v2, v3, v4, v5);
 }
 
 void __36__VCLinkProbingHandler_setQRLinkID___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: setQRLinkID failed: Invalid linkID", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: setQRLinkID failed: Invalid linkID", v2, v3, v4, v5);
 }
 
 void __48__VCLinkProbingHandler_startActiveProbingQRLink__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: startActiveProbingQRLink failed: linkID is not set", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: startActiveProbingQRLink failed: linkID is not set", v2, v3, v4, v5);
 }
 
 void __47__VCLinkProbingHandler_stopActiveProbingQRLink__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: stopActiveProbingQRLink failed: QR link probing not in progress", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: stopActiveProbingQRLink failed: QR link probing not in progress", v2, v3, v4, v5);
 }
 
 void __43__VCLinkProbingHandler_queryProbingResults__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: queryProbingResults failed: Link probing not in progress", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: queryProbingResults failed: Link probing not in progress", v2, v3, v4, v5);
 }
 
 void __43__VCLinkProbingHandler_queryProbingResults__block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: queryProbingResults failed: No links are currently being probed", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d LinkProbing: queryProbingResults failed: No links are currently being probed", v2, v3, v4, v5);
 }
 
 @end

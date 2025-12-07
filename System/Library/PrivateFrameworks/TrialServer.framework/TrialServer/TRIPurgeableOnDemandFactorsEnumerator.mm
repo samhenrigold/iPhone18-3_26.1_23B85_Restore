@@ -28,76 +28,69 @@
 
 - (void)enumerateRolloutOnDemandFactorsPurgeCandidatesFromNamespaceNames:(id)names purgeableFactorFilterBlock:(id)block block:(id)a5
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   blockCopy = block;
-  v23 = a5;
-  v27 = objc_opt_new();
+  v22 = a5;
+  v26 = objc_opt_new();
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   obj = namesCopy;
-  v9 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+  v9 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
   if (v9)
   {
-    v24 = *v43;
+    v23 = *v42;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v43 != v24)
+      if (*v42 != v23)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v42 + 1) + 8 * v10);
+      v11 = *(*(&v41 + 1) + 8 * v10);
       v12 = objc_autoreleasePoolPush();
       v13 = objc_opt_new();
-      v36 = 0;
-      v37 = &v36;
-      v38 = 0x3032000000;
-      v39 = __Block_byref_object_copy__5;
-      v40 = __Block_byref_object_dispose__5;
-      v41 = 0;
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __139__TRIPurgeableOnDemandFactorsEnumerator_enumerateRolloutOnDemandFactorsPurgeCandidatesFromNamespaceNames_purgeableFactorFilterBlock_block___block_invoke;
-      v29[3] = &unk_279DDFFB8;
-      v33 = blockCopy;
-      v34 = &v36;
-      v29[4] = v11;
+      v35 = 0;
+      v36 = &v35;
+      v37 = 0x3032000000;
+      v38 = __Block_byref_object_copy__5;
+      v39 = __Block_byref_object_dispose__5;
+      v40 = 0;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __139__TRIPurgeableOnDemandFactorsEnumerator_enumerateRolloutOnDemandFactorsPurgeCandidatesFromNamespaceNames_purgeableFactorFilterBlock_block___block_invoke;
+      v28[3] = &unk_279DDFFB8;
+      v32 = blockCopy;
+      v33 = &v35;
+      v28[4] = v11;
       v14 = v13;
-      v30 = v14;
-      v15 = v27;
-      v35 = a2;
-      v31 = v15;
+      v29 = v14;
+      v15 = v26;
+      v34 = a2;
+      v30 = v15;
       selfCopy = self;
-      v16 = MEMORY[0x2743948D0](v29);
+      v16 = MEMORY[0x2743948D0](v28);
       [(TRIPurgeableOnDemandFactorsEnumerator *)self _enumerateRolloutOnDemandFactorsWithNamespaceName:v11 block:v16];
-      if (!v37[5])
+      v20 = 1;
+      if (v36[5])
       {
-        goto LABEL_9;
+        v27 = 0;
+        v17 = [TRIPurgeableConstruct alloc];
+        v18 = [(TRIPurgeableConstruct *)v17 initWithFactorPackId:v36[5] treatmentId:0 namespaceName:v11 purgeableAssetFactorNames:v14];
+        v22[2](v22, v18, v15, &v27);
+        v19 = v27;
+
+        if (v19)
+        {
+          v20 = 0;
+        }
       }
 
-      v28 = 0;
-      v17 = [TRIPurgeableConstruct alloc];
-      v18 = [(TRIPurgeableConstruct *)v17 initWithFactorPackId:v37[5] treatmentId:0 namespaceName:v11 purgeableAssetFactorNames:v14];
-      v23[2](v23, v18, v15, &v28);
-      v19 = v28;
-
-      if (v19)
-      {
-        v20 = 0;
-      }
-
-      else
-      {
-LABEL_9:
-        v20 = 1;
-      }
-
-      _Block_object_dispose(&v36, 8);
+      _Block_object_dispose(&v35, 8);
       objc_autoreleasePoolPop(v12);
       if (!v20)
       {
@@ -106,7 +99,7 @@ LABEL_9:
 
       if (v9 == ++v10)
       {
-        v9 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+        v9 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -116,13 +109,11 @@ LABEL_9:
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __139__TRIPurgeableOnDemandFactorsEnumerator_enumerateRolloutOnDemandFactorsPurgeCandidatesFromNamespaceNames_purgeableFactorFilterBlock_block___block_invoke(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   v5 = *(a1 + 64);
@@ -170,8 +161,8 @@ void __139__TRIPurgeableOnDemandFactorsEnumerator_enumerateRolloutOnDemandFactor
 
       if (!*(*(*(a1 + 72) + 8) + 40))
       {
-        v35 = [MEMORY[0x277CCA890] currentHandler];
-        [v35 handleFailureInMethod:*(a1 + 80) object:*(a1 + 56) file:@"TRIPurgeableOnDemandFactorsEnumerator.m" lineNumber:62 description:@"Expected a valid factorPackId."];
+        v34 = [MEMORY[0x277CCA890] currentHandler];
+        [v34 handleFailureInMethod:*(a1 + 80) object:*(a1 + 56) file:@"TRIPurgeableOnDemandFactorsEnumerator.m" lineNumber:62 description:@"Expected a valid factorPackId."];
       }
 
       v21 = [[TRIFactorPackStorage alloc] initWithPaths:*(*(a1 + 56) + 8)];
@@ -198,13 +189,13 @@ void __139__TRIPurgeableOnDemandFactorsEnumerator_enumerateRolloutOnDemandFactor
             v27 = TRILogCategory_Server();
             if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
             {
-              v34 = *(*(*(a1 + 72) + 8) + 40);
+              v33 = *(*(*(a1 + 72) + 8) + 40);
               *buf = 138543874;
-              v38 = v25;
-              v39 = 2114;
-              v40 = v23;
-              v41 = 2114;
-              v42 = v34;
+              v37 = v25;
+              v38 = 2114;
+              v39 = v23;
+              v40 = 2114;
+              v41 = v33;
               _os_log_error_impl(&dword_26F567000, v27, OS_LOG_TYPE_ERROR, "Legacy path from flatbuffers: %{public}@ does not match path from protobuf: %{public}@ for factor pack id: %{public}@", buf, 0x20u);
             }
           }
@@ -212,10 +203,10 @@ void __139__TRIPurgeableOnDemandFactorsEnumerator_enumerateRolloutOnDemandFactor
 
         v28 = [v14 lastPathComponent];
         v29 = MEMORY[0x277CCACA8];
-        v36[0] = v23;
-        v36[1] = @"assets";
-        v36[2] = v28;
-        v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:3];
+        v35[0] = v23;
+        v35[1] = @"assets";
+        v35[2] = v28;
+        v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:3];
         v31 = [v29 pathWithComponents:v30];
 
         v32 = [*(a1 + 48) objectForKeyedSubscript:v17];
@@ -223,89 +214,80 @@ void __139__TRIPurgeableOnDemandFactorsEnumerator_enumerateRolloutOnDemandFactor
       }
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateExperimentOnDemandFactorsPurgeCandidatesFromNamespaceNames:(id)names purgeableFactorFilterBlock:(id)block block:(id)a5
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   blockCopy = block;
-  v22 = a5;
-  v25 = objc_opt_new();
+  v21 = a5;
+  v24 = objc_opt_new();
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   obj = namesCopy;
-  v26 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+  if (v25)
   {
-    v23 = *v48;
+    v22 = *v47;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v48 != v23)
+      if (*v47 != v22)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v47 + 1) + 8 * v9);
+      v19 = 1;
+      v10 = *(*(&v46 + 1) + 8 * v9);
       v11 = objc_autoreleasePoolPush();
       v12 = objc_opt_new();
-      v41 = 0;
-      v42 = &v41;
-      v43 = 0x3032000000;
-      v44 = __Block_byref_object_copy__5;
-      v45 = __Block_byref_object_dispose__5;
-      v46 = 0;
-      v35 = 0;
-      v36 = &v35;
-      v37 = 0x3032000000;
-      v38 = __Block_byref_object_copy__5;
-      v39 = __Block_byref_object_dispose__5;
       v40 = 0;
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __142__TRIPurgeableOnDemandFactorsEnumerator_enumerateExperimentOnDemandFactorsPurgeCandidatesFromNamespaceNames_purgeableFactorFilterBlock_block___block_invoke;
-      v28[3] = &unk_279DDFFE0;
-      v32 = blockCopy;
-      v33 = &v41;
-      v28[4] = v10;
-      v34 = &v35;
+      v41 = &v40;
+      v42 = 0x3032000000;
+      v43 = __Block_byref_object_copy__5;
+      v44 = __Block_byref_object_dispose__5;
+      v45 = 0;
+      v34 = 0;
+      v35 = &v34;
+      v36 = 0x3032000000;
+      v37 = __Block_byref_object_copy__5;
+      v38 = __Block_byref_object_dispose__5;
+      v39 = 0;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __142__TRIPurgeableOnDemandFactorsEnumerator_enumerateExperimentOnDemandFactorsPurgeCandidatesFromNamespaceNames_purgeableFactorFilterBlock_block___block_invoke;
+      v27[3] = &unk_279DDFFE0;
+      v31 = blockCopy;
+      v32 = &v40;
+      v27[4] = v10;
+      v33 = &v34;
       v13 = v12;
-      v29 = v13;
-      v14 = v25;
-      v30 = v14;
+      v28 = v13;
+      v14 = v24;
+      v29 = v14;
       selfCopy = self;
-      v15 = MEMORY[0x2743948D0](v28);
+      v15 = MEMORY[0x2743948D0](v27);
       [(TRIPurgeableOnDemandFactorsEnumerator *)self _enumerateExperimentOnDemandFactorsWithNamespaceName:v10 block:v15];
-      if (!v42[5] && !v36[5])
+      if (v41[5] || v35[5])
       {
-        goto LABEL_10;
+        v26 = 0;
+        v16 = [TRIPurgeableConstruct alloc];
+        v17 = [(TRIPurgeableConstruct *)v16 initWithFactorPackId:v41[5] treatmentId:v35[5] namespaceName:v10 purgeableAssetFactorNames:v13];
+        v21[2](v21, v17, v14, &v26);
+        v18 = v26;
+
+        if (v18)
+        {
+          v19 = 0;
+        }
       }
 
-      v27 = 0;
-      v16 = [TRIPurgeableConstruct alloc];
-      v17 = [(TRIPurgeableConstruct *)v16 initWithFactorPackId:v42[5] treatmentId:v36[5] namespaceName:v10 purgeableAssetFactorNames:v13];
-      v22[2](v22, v17, v14, &v27);
-      v18 = v27;
-
-      if (v18)
-      {
-        v19 = 0;
-      }
-
-      else
-      {
-LABEL_10:
-        v19 = 1;
-      }
-
-      _Block_object_dispose(&v35, 8);
-      _Block_object_dispose(&v41, 8);
+      _Block_object_dispose(&v34, 8);
+      _Block_object_dispose(&v40, 8);
 
       objc_autoreleasePoolPop(v11);
       if (!v19)
@@ -313,10 +295,10 @@ LABEL_10:
         break;
       }
 
-      if (v26 == ++v9)
+      if (v25 == ++v9)
       {
-        v26 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
-        if (v26)
+        v25 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+        if (v25)
         {
           goto LABEL_3;
         }
@@ -325,13 +307,11 @@ LABEL_10:
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __142__TRIPurgeableOnDemandFactorsEnumerator_enumerateExperimentOnDemandFactorsPurgeCandidatesFromNamespaceNames_purgeableFactorFilterBlock_block___block_invoke(uint64_t a1, void *a2)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   v5 = *(a1 + 64);
@@ -425,13 +405,13 @@ void __142__TRIPurgeableOnDemandFactorsEnumerator_enumerateExperimentOnDemandFac
               v35 = TRILogCategory_Server();
               if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
               {
-                v42 = *(*(*(a1 + 72) + 8) + 40);
+                v41 = *(*(*(a1 + 72) + 8) + 40);
                 *buf = 138543874;
-                v45 = v33;
-                v46 = 2114;
-                v47 = v30;
-                v48 = 2114;
-                v49 = v42;
+                v44 = v33;
+                v45 = 2114;
+                v46 = v30;
+                v47 = 2114;
+                v48 = v41;
                 _os_log_error_impl(&dword_26F567000, v35, OS_LOG_TYPE_ERROR, "Legacy path from flatbuffers: %{public}@ does not match path from protobuf: %{public}@ for factor pack id: %{public}@", buf, 0x20u);
               }
             }
@@ -439,10 +419,10 @@ void __142__TRIPurgeableOnDemandFactorsEnumerator_enumerateExperimentOnDemandFac
 
           v36 = [v20 lastPathComponent];
           v37 = MEMORY[0x277CCACA8];
-          v43[0] = v30;
-          v43[1] = @"assets";
-          v43[2] = v36;
-          v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
+          v42[0] = v30;
+          v42[1] = @"assets";
+          v42[2] = v36;
+          v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
           v39 = [v37 pathWithComponents:v38];
 
           v40 = [*(a1 + 48) objectForKeyedSubscript:v23];
@@ -451,35 +431,33 @@ void __142__TRIPurgeableOnDemandFactorsEnumerator_enumerateExperimentOnDemandFac
       }
     }
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enumerateRolloutOnDemandFactorsWithNamespaceName:(id)name block:(id)block
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   blockCopy = block;
   v8 = objc_autoreleasePoolPush();
   v9 = [MEMORY[0x277D73760] factorProviderWithPaths:self->_paths namespaceName:nameCopy resolver:self->_namespaceResolver faultOnMissingInstalledFactors:0];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __97__TRIPurgeableOnDemandFactorsEnumerator__enumerateRolloutOnDemandFactorsWithNamespaceName_block___block_invoke;
-  v20[3] = &unk_279DDEEE0;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __97__TRIPurgeableOnDemandFactorsEnumerator__enumerateRolloutOnDemandFactorsWithNamespaceName_block___block_invoke;
+  v19[3] = &unk_279DDEEE0;
   v10 = v9;
-  v21 = v10;
-  v11 = MEMORY[0x2743948D0](v20);
+  v20 = v10;
+  v11 = MEMORY[0x2743948D0](v19);
   if ([v10 hasAnyTreatmentInLayers:2])
   {
     v12 = [v10 providerForTreatmentLayer:2];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v19 = v12;
-      factorPackId = [v19 factorPackId];
-      if (factorPackId && ([v19 factorPackId], v14 = objc_claimAutoreleasedReturnValue(), TRIValidateFactorPackId(), v15 = objc_claimAutoreleasedReturnValue(), v14, factorPackId, v15))
+      v18 = v12;
+      factorPackId = [v18 factorPackId];
+      if (factorPackId && ([v18 factorPackId], v14 = objc_claimAutoreleasedReturnValue(), TRIValidateFactorPackId(), v15 = objc_claimAutoreleasedReturnValue(), v14, factorPackId, v15))
       {
-        factorLevels = [v19 factorLevels];
+        factorLevels = [v18 factorLevels];
         [(TRIPurgeableOnDemandFactorsEnumerator *)self _filterOndemandAssetsForFactorLevels:factorLevels forFactorPackId:v15 treatmentId:0 block:blockCopy];
       }
 
@@ -488,11 +466,11 @@ void __142__TRIPurgeableOnDemandFactorsEnumerator_enumerateExperimentOnDemandFac
         v15 = TRILogCategory_Server();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          rolloutId = [v19 rolloutId];
+          rolloutId = [v18 rolloutId];
           *buf = 138543618;
-          v23 = nameCopy;
-          v24 = 2114;
-          v25 = rolloutId;
+          v22 = nameCopy;
+          v23 = 2114;
+          v24 = rolloutId;
           _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "Found invalid factor pack ID for namespace %{public}@ from rollout provider with rolloutId %{public}@", buf, 0x16u);
         }
       }
@@ -505,23 +483,22 @@ void __142__TRIPurgeableOnDemandFactorsEnumerator_enumerateExperimentOnDemandFac
   }
 
   objc_autoreleasePoolPop(v8);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enumerateExperimentOnDemandFactorsWithNamespaceName:(id)name block:(id)block
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   blockCopy = block;
   context = objc_autoreleasePoolPush();
   v8 = [MEMORY[0x277D73760] factorProviderWithPaths:self->_paths namespaceName:nameCopy resolver:self->_namespaceResolver faultOnMissingInstalledFactors:0];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __100__TRIPurgeableOnDemandFactorsEnumerator__enumerateExperimentOnDemandFactorsWithNamespaceName_block___block_invoke;
-  v24[3] = &unk_279DDEEE0;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __100__TRIPurgeableOnDemandFactorsEnumerator__enumerateExperimentOnDemandFactorsWithNamespaceName_block___block_invoke;
+  v23[3] = &unk_279DDEEE0;
   v9 = v8;
-  v25 = v9;
-  v10 = MEMORY[0x2743948D0](v24);
+  v24 = v9;
+  v10 = MEMORY[0x2743948D0](v23);
   if ([v9 hasAnyTreatmentInLayers:32])
   {
     v11 = [v9 providerForTreatmentLayer:32];
@@ -543,9 +520,9 @@ void __142__TRIPurgeableOnDemandFactorsEnumerator_enumerateExperimentOnDemandFac
         {
           experimentId = [v12 experimentId];
           *buf = 138543618;
-          v27 = nameCopy;
-          v28 = 2114;
-          v29 = experimentId;
+          v26 = nameCopy;
+          v27 = 2114;
+          v28 = experimentId;
           _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "Found invalid treatmentID or factorPackId for namespace %{public}@ from experiment provider with experiment %{public}@", buf, 0x16u);
         }
       }
@@ -569,9 +546,9 @@ void __142__TRIPurgeableOnDemandFactorsEnumerator_enumerateExperimentOnDemandFac
       {
         experimentId2 = [v17 experimentId];
         *buf = 138543618;
-        v27 = nameCopy;
-        v28 = 2114;
-        v29 = experimentId2;
+        v26 = nameCopy;
+        v27 = 2114;
+        v28 = experimentId2;
         _os_log_error_impl(&dword_26F567000, factorLevels2, OS_LOG_TYPE_ERROR, "Found invalid treatmentID for namespace %{public}@ from experiment provider with experiment %{public}@", buf, 0x16u);
       }
     }
@@ -583,36 +560,35 @@ void __142__TRIPurgeableOnDemandFactorsEnumerator_enumerateExperimentOnDemandFac
   }
 
   objc_autoreleasePoolPop(context);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_filterOndemandAssetsForFactorLevels:(id)levels forFactorPackId:(id)id treatmentId:(id)treatmentId block:(id)block
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   levelsCopy = levels;
   idCopy = id;
   treatmentIdCopy = treatmentId;
   blockCopy = block;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v10 = [levelsCopy countByEnumeratingWithState:&v33 objects:v39 count:16];
+  v10 = [levelsCopy countByEnumeratingWithState:&v32 objects:v38 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v34;
-    v29 = (blockCopy + 2);
+    v12 = *v33;
+    v28 = (blockCopy + 2);
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v34 != v12)
+        if (*v33 != v12)
         {
           objc_enumerationMutation(levelsCopy);
         }
 
-        v14 = *(*(&v33 + 1) + 8 * i);
+        v14 = *(*(&v32 + 1) + 8 * i);
         factor = [v14 factor];
         name = [factor name];
 
@@ -649,7 +625,7 @@ void __142__TRIPurgeableOnDemandFactorsEnumerator_enumerateExperimentOnDemandFac
                   if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138543362;
-                    v38 = v19;
+                    v37 = v19;
                     _os_log_error_impl(&dword_26F567000, v27, OS_LOG_TYPE_ERROR, "Invalid asset id for fileLevel %{public}@", buf, 0xCu);
                   }
                 }
@@ -664,19 +640,17 @@ void __142__TRIPurgeableOnDemandFactorsEnumerator_enumerateExperimentOnDemandFac
           if (os_log_type_enabled(level, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v38 = v14;
+            v37 = v14;
             _os_log_impl(&dword_26F567000, level, OS_LOG_TYPE_DEFAULT, "Got nil factorName for factorLevel %{public}@", buf, 0xCu);
           }
         }
       }
 
-      v11 = [levelsCopy countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v11 = [levelsCopy countByEnumeratingWithState:&v32 objects:v38 count:16];
     }
 
     while (v11);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

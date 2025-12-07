@@ -26,10 +26,12 @@
 
 - (void)startProvisioningWithCredentials:(id)credentials
 {
-  sub_1BD0E5E8C(0, &unk_1EBD56E00);
+  sub_1BD0E5E8C(0, &unk_1EBD56E00, 0x1E69B8E78);
   v4 = sub_1BE052744();
   selfCopy = self;
   sub_1BD89945C(v4);
+
+  v4, v6, v7, v8, v9, v10, v11, v12;
 }
 
 - (void)continueProvisioning

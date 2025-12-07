@@ -19,7 +19,7 @@
   *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC20JournalNotifications14VideoAssetView_playerView) = 0;
 
   v5.receiver = selfCopy;
-  v5.super_class = type metadata accessor for VideoAssetView();
+  v5.super_class = type metadata accessor for VideoAssetView(0);
   [(VideoAssetView *)&v5 dealloc];
 }
 
@@ -41,11 +41,12 @@
   v3 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC20JournalNotifications14VideoAssetView_finishPlayingAction);
   if (v3)
   {
+    v4 = *&self->super.fallbackView[OBJC_IVAR____TtC20JournalNotifications14VideoAssetView_finishPlayingAction];
     selfCopy = self;
-    v5 = sub_28E30(v3);
-    v3(v5);
+    v6 = sub_28E30(v3, v4);
+    v3(v6);
 
-    sub_2881C(v3);
+    sub_2881C(v3, v4);
   }
 }
 

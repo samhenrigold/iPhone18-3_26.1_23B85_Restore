@@ -93,7 +93,7 @@
   v15 = v13 + 0.2 + 0.5;
   self->_referenceMediaTime = v16;
   self->_emptyFramesToLeaveInInputBuffer = (self->_sampleRate * 0.5);
-  VMAudio::ICRingBuffer<float>::allocate(&self->_ringBuffer, (sampleRate * v15), 1, 0);
+  VMAudio::ICRingBuffer<float>::allocate(&self->_ringBuffer, (sampleRate * v15), 1u, 0);
   v17 = objc_alloc_init(ICAmplitudeAnalyzer);
   mainQueueAmplitudeAnalyzer = self->_mainQueueAmplitudeAnalyzer;
   self->_mainQueueAmplitudeAnalyzer = v17;

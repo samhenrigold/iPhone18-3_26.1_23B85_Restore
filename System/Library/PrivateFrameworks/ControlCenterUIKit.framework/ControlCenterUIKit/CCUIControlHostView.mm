@@ -169,7 +169,7 @@
 
   if (v3)
   {
-    sub_1D168EE64(0, &unk_1EC640B20);
+    sub_1D168EE64(0, &unk_1EC640B20, 0x1E69DCC78);
     v4 = sub_1D16CC4E4();
   }
 

@@ -164,22 +164,20 @@ LABEL_19:
 
 - (id)dictionaryRepresentation
 {
-  v11[3] = *MEMORY[0x277D85DE8];
-  v10[0] = @"Source";
+  v10[3] = *MEMORY[0x277D85DE8];
+  v9[0] = @"Source";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HFCroppedWallpaperInfo source](self, "source")}];
-  v11[0] = v3;
-  v10[1] = @"Center";
+  v10[0] = v3;
+  v9[1] = @"Center";
   [(HFCroppedWallpaperInfo *)self center];
-  v4 = NSStringFromCGPoint(v13);
-  v11[1] = v4;
-  v10[2] = @"Scale";
+  v4 = NSStringFromCGPoint(v12);
+  v10[1] = v4;
+  v9[2] = @"Scale";
   v5 = MEMORY[0x277CCABB0];
   [(HFCroppedWallpaperInfo *)self scale];
   v6 = [v5 numberWithDouble:?];
-  v11[2] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[2] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
   return v7;
 }

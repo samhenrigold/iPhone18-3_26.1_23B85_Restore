@@ -3,13 +3,16 @@
 - (BOOL)_updateOnDemandReferenceCountsForUser:(id)user atGlobalPath:(id)path addingFactors:(id)factors removingFactors:(id)removingFactors newlyUnreferencedFactors:(id *)unreferencedFactors;
 - (TRIInternalAgentToSystemServiceRequestHandler)initWithEntitlementWitness:(id)witness;
 - (void)addSymlinkFromAssetWithIdentifier:(id)identifier toPath:(id)path flockWitness:(TRIFlockWitness_ *)witness completion:(id)completion;
+- (void)collectGarbageOlderThanNumScans:(unsigned int)scans deletedAssetSize:(unint64_t *)size ignoreRecentlyCreatedAssets:(BOOL)assets dryRun:(BOOL)run includedCacheDeletableAssetIds:(id)ids completion:(id)completion;
 - (void)fixFileProtectionForAssetStoreWithCompletion:(id)completion;
 - (void)getOnDemandReferenceCountsPerUserAtGlobalPath:(id)path completion:(id)completion;
 - (void)logSystemCovariates;
 - (void)migrateToGlobalAssetStoreIfNeededFromLocalStore:(id)store sourceExtension:(id)extension completion:(id)completion;
 - (void)overwriteGlobalActiveFactorProvidersWithNamespaceMap:(id)map factorPackMap:(id)packMap rolloutDeploymentMap:(id)deploymentMap completion:(id)completion;
+- (void)referenceMAAutoAssetWithId:(id)id futurePath:(id)path currentPath:(id)currentPath isFileFactor:(BOOL)factor sourceExtension:(id)extension completion:(id)completion;
 - (void)removeAssetWithIdentifier:(id)identifier completion:(id)completion;
 - (void)removeUnreferencedGlobalFactorPacksWithCompletion:(id)completion;
+- (void)saveAssetWithIdentifier:(id)identifier sourcePath:(id)path flockWitness:(TRIFlockWitness_ *)witness removeSourceOnFailure:(BOOL)failure sourceExtension:(id)extension completion:(id)completion;
 - (void)saveFactorPackForUserId:(id)id toGlobalPath:(id)path fromTemporaryPath:(id)temporaryPath factors:(id)factors sourceExtension:(id)extension completion:(id)completion;
 - (void)updateFactorPackForUserId:(id)id atGlobalPath:(id)path deletingFactors:(id)factors completion:(id)completion;
 - (void)updateFactorPackForUserId:(id)id atGlobalPath:(id)path populatingFactors:(id)factors completion:(id)completion;
@@ -47,42 +50,96 @@
   return v7;
 }
 
+- (void)saveAssetWithIdentifier:(id)identifier sourcePath:(id)path flockWitness:(TRIFlockWitness_ *)witness removeSourceOnFailure:(BOOL)failure sourceExtension:(id)extension completion:(id)completion
+{
+  failureCopy = failure;
+  identifierCopy = identifier;
+  pathCopy = path;
+  extensionCopy = extension;
+  completionCopy = completion;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __146__TRIInternalAgentToSystemServiceRequestHandler_saveAssetWithIdentifier_sourcePath_flockWitness_removeSourceOnFailure_sourceExtension_completion___block_invoke;
+  v29[3] = &unk_279DE0370;
+  v29[4] = self;
+  v17 = identifierCopy;
+  v30 = v17;
+  v18 = pathCopy;
+  v31 = v18;
+  v32 = failureCopy;
+  v19 = MEMORY[0x2743948D0](v29);
+  v19[2](v19, 0);
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __146__TRIInternalAgentToSystemServiceRequestHandler_saveAssetWithIdentifier_sourcePath_flockWitness_removeSourceOnFailure_sourceExtension_completion___block_invoke_43;
+  v27[3] = &unk_279DE0398;
+  v20 = v19;
+  v28 = v20;
+  v21 = MEMORY[0x2743948D0](v27);
+  [extensionCopy UTF8String];
+  v22 = sandbox_extension_consume();
+  v23 = TRILogCategory_Server();
+  v24 = v23;
+  if (v22 == -1)
+  {
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_26F567000, v24, OS_LOG_TYPE_ERROR, "Failed to consume a sandbox extension", buf, 2u);
+    }
+  }
+
+  else if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    _os_log_debug_impl(&dword_26F567000, v24, OS_LOG_TYPE_DEBUG, "Successfully consumed save asset extension.", buf, 2u);
+  }
+
+  completionCopy[2](completionCopy, [(TRIAssetStoreOperator *)self->_operator saveAssetWithIdentifier:v17 sourcePath:v18 flockWitness:witness removeSourceOnFailure:failureCopy]);
+  if (v22 != -1)
+  {
+    sandbox_extension_release();
+  }
+
+  if (v21)
+  {
+    v21[2](v21);
+  }
+}
+
 void __146__TRIInternalAgentToSystemServiceRequestHandler_saveAssetWithIdentifier_sourcePath_flockWitness_removeSourceOnFailure_sourceExtension_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = v7;
-    v9 = "end";
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40);
-    v12 = *(a1 + 48);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = v6;
+    v8 = "end";
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 40);
+    v11 = *(a1 + 48);
     if (!a2)
     {
-      v9 = "begin";
+      v8 = "begin";
     }
 
-    v13 = *(a1 + 56);
-    v15 = 138544642;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v10;
-    v19 = 2080;
-    v20 = v9;
+    v12 = *(a1 + 56);
+    v13 = 138544642;
+    v14 = v6;
+    v15 = 2048;
+    v16 = v9;
+    v17 = 2080;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v10;
     v21 = 2112;
     v22 = v11;
-    v23 = 2112;
+    v23 = 1024;
     v24 = v12;
-    v25 = 1024;
-    v26 = v13;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s saveAssetWithIdentifier:%@ sourcePath:%@ removeSourceOnFailure:%d", &v15, 0x3Au);
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s saveAssetWithIdentifier:%@ sourcePath:%@ removeSourceOnFailure:%d", &v13, 0x3Au);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAssetWithIdentifier:(id)identifier completion:(id)completion
@@ -99,83 +156,167 @@ void __146__TRIInternalAgentToSystemServiceRequestHandler_saveAssetWithIdentifie
   completionCopy[2](completionCopy, [(TRIAssetStoreOperator *)operator addSymlinkFromAssetWithIdentifier:identifier toPath:path flockWitness:witness]);
 }
 
+- (void)referenceMAAutoAssetWithId:(id)id futurePath:(id)path currentPath:(id)currentPath isFileFactor:(BOOL)factor sourceExtension:(id)extension completion:(id)completion
+{
+  factorCopy = factor;
+  idCopy = id;
+  pathCopy = path;
+  currentPathCopy = currentPath;
+  extensionCopy = extension;
+  completionCopy = completion;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __139__TRIInternalAgentToSystemServiceRequestHandler_referenceMAAutoAssetWithId_futurePath_currentPath_isFileFactor_sourceExtension_completion___block_invoke;
+  v32[3] = &unk_279DE03C0;
+  v32[4] = self;
+  v19 = idCopy;
+  v33 = v19;
+  v20 = pathCopy;
+  v34 = v20;
+  v21 = currentPathCopy;
+  v35 = v21;
+  v36 = factorCopy;
+  v22 = MEMORY[0x2743948D0](v32);
+  v22[2](v22, 0);
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __139__TRIInternalAgentToSystemServiceRequestHandler_referenceMAAutoAssetWithId_futurePath_currentPath_isFileFactor_sourceExtension_completion___block_invoke_45;
+  v30[3] = &unk_279DE0398;
+  v23 = v22;
+  v31 = v23;
+  v24 = MEMORY[0x2743948D0](v30);
+  v28 = extensionCopy;
+  [extensionCopy UTF8String];
+  v25 = sandbox_extension_consume();
+  if (v25 == -1)
+  {
+    v26 = TRILogCategory_Server();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_26F567000, v26, OS_LOG_TYPE_ERROR, "failed to consume a sandbox extension", buf, 2u);
+    }
+  }
+
+  v27 = [(TRIAssetStoreOperator *)self->_operator referenceMAAutoAssetWithId:v19 futurePath:v20 currentPath:v21 isFileFactor:factorCopy];
+  completionCopy[2](completionCopy, v27);
+
+  if (v25 != -1)
+  {
+    sandbox_extension_release();
+  }
+
+  if (v24)
+  {
+    v24[2](v24);
+  }
+}
+
 void __139__TRIInternalAgentToSystemServiceRequestHandler_referenceMAAutoAssetWithId_futurePath_currentPath_isFileFactor_sourceExtension_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = v7;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = v6;
+    v8 = "end";
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 40);
+    if (!a2)
+    {
+      v8 = "begin";
+    }
+
+    v11 = *(a1 + 48);
+    v12 = *(a1 + 56);
+    v13 = *(a1 + 64);
+    v14 = 138544898;
+    v15 = v6;
+    v16 = 2048;
+    v17 = v9;
+    v18 = 2080;
+    v19 = v8;
+    v20 = 2112;
+    v21 = v10;
+    v22 = 2112;
+    v23 = v11;
+    v24 = 2112;
+    v25 = v12;
+    v26 = 1024;
+    v27 = v13;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s referenceMAAutoAssetWithId:%@ futurePath:%@ currentPath:%@ isFileFactor:%d", &v14, 0x44u);
+  }
+}
+
+- (void)collectGarbageOlderThanNumScans:(unsigned int)scans deletedAssetSize:(unint64_t *)size ignoreRecentlyCreatedAssets:(BOOL)assets dryRun:(BOOL)run includedCacheDeletableAssetIds:(id)ids completion:(id)completion
+{
+  runCopy = run;
+  assetsCopy = assets;
+  v12 = *&scans;
+  idsCopy = ids;
+  completionCopy = completion;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __175__TRIInternalAgentToSystemServiceRequestHandler_collectGarbageOlderThanNumScans_deletedAssetSize_ignoreRecentlyCreatedAssets_dryRun_includedCacheDeletableAssetIds_completion___block_invoke;
+  v23[3] = &unk_279DE03E8;
+  v23[4] = self;
+  v24 = v12;
+  v25 = assetsCopy;
+  v26 = runCopy;
+  v16 = MEMORY[0x2743948D0](v23);
+  v16[2](v16, 0);
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __175__TRIInternalAgentToSystemServiceRequestHandler_collectGarbageOlderThanNumScans_deletedAssetSize_ignoreRecentlyCreatedAssets_dryRun_includedCacheDeletableAssetIds_completion___block_invoke_46;
+  v21[3] = &unk_279DE0398;
+  v17 = v16;
+  v22 = v17;
+  v18 = MEMORY[0x2743948D0](v21);
+  v20 = objc_opt_new();
+  v19 = [(TRIAssetStoreOperator *)self->_operator collectGarbageOlderThanNumScans:v12 deletedAssetSize:size ignoreRecentlyCreatedAssets:assetsCopy dryRun:runCopy includedCacheDeletableAssetIds:idsCopy deletedAssetIds:&v20];
+  completionCopy[2](completionCopy, v19, v20);
+
+  if (v18)
+  {
+    v18[2](v18);
+  }
+}
+
+void __175__TRIInternalAgentToSystemServiceRequestHandler_collectGarbageOlderThanNumScans_deletedAssetSize_ignoreRecentlyCreatedAssets_dryRun_includedCacheDeletableAssetIds_completion___block_invoke(uint64_t a1, uint64_t a2)
+{
+  v25 = *MEMORY[0x277D85DE8];
+  v4 = TRILogCategory_Server();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = v6;
+    v8 = *(a1 + 32);
     v9 = "end";
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40);
+    v10 = *(a1 + 40);
+    v11 = *(a1 + 44);
     if (!a2)
     {
       v9 = "begin";
     }
 
-    v12 = *(a1 + 48);
-    v13 = *(a1 + 56);
-    v14 = *(a1 + 64);
-    v16 = 138544898;
-    v17 = v7;
-    v18 = 2048;
-    v19 = v10;
-    v20 = 2080;
-    v21 = v9;
-    v22 = 2112;
-    v23 = v11;
-    v24 = 2112;
-    v25 = v12;
-    v26 = 2112;
-    v27 = v13;
-    v28 = 1024;
-    v29 = v14;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s referenceMAAutoAssetWithId:%@ futurePath:%@ currentPath:%@ isFileFactor:%d", &v16, 0x44u);
-  }
-
-  v15 = *MEMORY[0x277D85DE8];
-}
-
-void __175__TRIInternalAgentToSystemServiceRequestHandler_collectGarbageOlderThanNumScans_deletedAssetSize_ignoreRecentlyCreatedAssets_dryRun_includedCacheDeletableAssetIds_completion___block_invoke(uint64_t a1, uint64_t a2)
-{
-  v27 = *MEMORY[0x277D85DE8];
-  v4 = TRILogCategory_Server();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = v7;
-    v9 = *(a1 + 32);
-    v10 = "end";
-    v11 = *(a1 + 40);
-    v12 = *(a1 + 44);
-    if (!a2)
-    {
-      v10 = "begin";
-    }
-
-    v13 = *(a1 + 45);
-    v15 = 138544642;
-    v16 = v7;
-    v17 = 2048;
+    v12 = *(a1 + 45);
+    v13 = 138544642;
+    v14 = v6;
+    v15 = 2048;
+    v16 = v8;
+    v17 = 2080;
     v18 = v9;
-    v19 = 2080;
+    v19 = 1024;
     v20 = v10;
     v21 = 1024;
     v22 = v11;
     v23 = 1024;
     v24 = v12;
-    v25 = 1024;
-    v26 = v13;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s collectGarbageOlderThanNumScans:%d ignoreRecentlyCreatedAssets:%d dryRun:%d", &v15, 0x32u);
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s collectGarbageOlderThanNumScans:%d ignoreRecentlyCreatedAssets:%d dryRun:%d", &v13, 0x32u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fixFileProtectionForAssetStoreWithCompletion:(id)completion
@@ -187,36 +328,36 @@ void __175__TRIInternalAgentToSystemServiceRequestHandler_collectGarbageOlderTha
 
 - (void)saveFactorPackForUserId:(id)id toGlobalPath:(id)path fromTemporaryPath:(id)temporaryPath factors:(id)factors sourceExtension:(id)extension completion:(id)completion
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   idCopy = id;
   pathCopy = path;
   temporaryPathCopy = temporaryPath;
   factorsCopy = factors;
   extensionCopy = extension;
   completionCopy = completion;
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __139__TRIInternalAgentToSystemServiceRequestHandler_saveFactorPackForUserId_toGlobalPath_fromTemporaryPath_factors_sourceExtension_completion___block_invoke;
-  v52[3] = &unk_279DE0410;
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __139__TRIInternalAgentToSystemServiceRequestHandler_saveFactorPackForUserId_toGlobalPath_fromTemporaryPath_factors_sourceExtension_completion___block_invoke;
+  v51[3] = &unk_279DE0410;
   selfCopy = self;
-  v52[4] = self;
-  v46 = idCopy;
-  v53 = v46;
+  v51[4] = self;
+  v45 = idCopy;
+  v52 = v45;
   v18 = pathCopy;
-  v54 = v18;
+  v53 = v18;
   v19 = temporaryPathCopy;
-  v55 = v19;
-  v47 = factorsCopy;
-  v56 = v47;
-  v20 = MEMORY[0x2743948D0](v52);
+  v54 = v19;
+  v46 = factorsCopy;
+  v55 = v46;
+  v20 = MEMORY[0x2743948D0](v51);
   v20[2](v20, 0);
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __139__TRIInternalAgentToSystemServiceRequestHandler_saveFactorPackForUserId_toGlobalPath_fromTemporaryPath_factors_sourceExtension_completion___block_invoke_48;
-  v50[3] = &unk_279DE0398;
-  v45 = v20;
-  v51 = v45;
-  v21 = MEMORY[0x2743948D0](v50);
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __139__TRIInternalAgentToSystemServiceRequestHandler_saveFactorPackForUserId_toGlobalPath_fromTemporaryPath_factors_sourceExtension_completion___block_invoke_48;
+  v49[3] = &unk_279DE0398;
+  v44 = v20;
+  v50 = v44;
+  v21 = MEMORY[0x2743948D0](v49);
   mEMORY[0x277D737E0] = [MEMORY[0x277D737E0] sharedPaths];
   v23 = [mEMORY[0x277D737E0] treatmentsDirUsingGlobal:1];
   LOBYTE(extension) = [v18 hasPrefix:v23];
@@ -248,7 +389,7 @@ void __175__TRIInternalAgentToSystemServiceRequestHandler_collectGarbageOlderTha
         _os_log_impl(&dword_26F567000, v36, OS_LOG_TYPE_DEFAULT, "Factor pack already exists in the global directory. Updating the factorpack instead.", buf, 2u);
       }
 
-      [(TRIInternalAgentToSystemServiceRequestHandler *)selfCopy updateFactorPackForUserId:v46 atGlobalPath:v18 populatingFactors:v47 completion:completionCopy];
+      [(TRIInternalAgentToSystemServiceRequestHandler *)selfCopy updateFactorPackForUserId:v45 atGlobalPath:v18 populatingFactors:v46 completion:completionCopy];
     }
 
     else
@@ -269,7 +410,7 @@ void __175__TRIInternalAgentToSystemServiceRequestHandler_collectGarbageOlderTha
       stringByDeletingLastPathComponent = [v18 stringByDeletingLastPathComponent];
       if ([MEMORY[0x277CCAA00] triIdempotentCreateDirectoryOrFaultWithPath:stringByDeletingLastPathComponent])
       {
-        completionCopy[2](completionCopy, [MEMORY[0x277CCAA00] triForceRenameWithSourcePath:v19 destPath:v18] & objc_msgSend(v44, "_updateOnDemandReferenceCountsForUser:atGlobalPath:addingFactors:removingFactors:newlyUnreferencedFactors:", v46, v18, v47, 0, 0));
+        completionCopy[2](completionCopy, [MEMORY[0x277CCAA00] triForceRenameWithSourcePath:v19 destPath:v18] & objc_msgSend(v43, "_updateOnDemandReferenceCountsForUser:atGlobalPath:addingFactors:removingFactors:newlyUnreferencedFactors:", v45, v18, v46, 0, 0));
       }
 
       else
@@ -290,9 +431,9 @@ void __175__TRIInternalAgentToSystemServiceRequestHandler_collectGarbageOlderTha
     if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v58 = v19;
-      v59 = 2112;
-      v60 = v18;
+      v57 = v19;
+      v58 = 2112;
+      v59 = v18;
       _os_log_error_impl(&dword_26F567000, v37, OS_LOG_TYPE_ERROR, "Asked to save factor pack at %@ to non-treatment directory location: %@", buf, 0x16u);
     }
 
@@ -303,78 +444,73 @@ void __175__TRIInternalAgentToSystemServiceRequestHandler_collectGarbageOlderTha
   {
     v21[2](v21);
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __139__TRIInternalAgentToSystemServiceRequestHandler_saveFactorPackForUserId_toGlobalPath_fromTemporaryPath_factors_sourceExtension_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = a1[4];
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = v7;
-    v9 = "end";
-    v10 = a1[4];
-    v11 = a1[5];
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = v6;
+    v8 = "end";
+    v9 = a1[4];
+    v10 = a1[5];
     if (!a2)
     {
-      v9 = "begin";
+      v8 = "begin";
     }
 
-    v12 = a1[6];
-    v13 = a1[7];
-    v14 = a1[8];
-    v16 = 138544898;
-    v17 = v7;
-    v18 = 2048;
-    v19 = v10;
-    v20 = 2080;
-    v21 = v9;
+    v11 = a1[6];
+    v12 = a1[7];
+    v13 = a1[8];
+    v14 = 138544898;
+    v15 = v6;
+    v16 = 2048;
+    v17 = v9;
+    v18 = 2080;
+    v19 = v8;
+    v20 = 2112;
+    v21 = v10;
     v22 = 2112;
     v23 = v11;
     v24 = 2112;
     v25 = v12;
     v26 = 2112;
     v27 = v13;
-    v28 = 2112;
-    v29 = v14;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s saveFactorPackForUserId:%@ toGlobalPath:%@ fromTemporaryPath:%@ factors:%@", &v16, 0x48u);
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s saveFactorPackForUserId:%@ toGlobalPath:%@ fromTemporaryPath:%@ factors:%@", &v14, 0x48u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateFactorPackForUserId:(id)id atGlobalPath:(id)path populatingFactors:(id)factors completion:(id)completion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   idCopy = id;
   pathCopy = path;
   factorsCopy = factors;
   completionCopy = completion;
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __117__TRIInternalAgentToSystemServiceRequestHandler_updateFactorPackForUserId_atGlobalPath_populatingFactors_completion___block_invoke;
-  v34[3] = &unk_279DE0438;
-  v34[4] = self;
-  v31 = idCopy;
-  v35 = v31;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __117__TRIInternalAgentToSystemServiceRequestHandler_updateFactorPackForUserId_atGlobalPath_populatingFactors_completion___block_invoke;
+  v33[3] = &unk_279DE0438;
+  v33[4] = self;
+  v30 = idCopy;
+  v34 = v30;
   v14 = pathCopy;
-  v36 = v14;
+  v35 = v14;
   v15 = factorsCopy;
-  v37 = v15;
-  v16 = MEMORY[0x2743948D0](v34);
+  v36 = v15;
+  v16 = MEMORY[0x2743948D0](v33);
   v16[2](v16, 0);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __117__TRIInternalAgentToSystemServiceRequestHandler_updateFactorPackForUserId_atGlobalPath_populatingFactors_completion___block_invoke_56;
-  v32[3] = &unk_279DE0398;
-  v30 = v16;
-  v33 = v30;
-  v17 = MEMORY[0x2743948D0](v32);
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __117__TRIInternalAgentToSystemServiceRequestHandler_updateFactorPackForUserId_atGlobalPath_populatingFactors_completion___block_invoke_56;
+  v31[3] = &unk_279DE0398;
+  v29 = v16;
+  v32 = v29;
+  v17 = MEMORY[0x2743948D0](v31);
   mEMORY[0x277D737E0] = [MEMORY[0x277D737E0] sharedPaths];
   v19 = [mEMORY[0x277D737E0] treatmentsDirUsingGlobal:1];
   v20 = [v14 hasPrefix:v19];
@@ -396,7 +532,7 @@ void __139__TRIInternalAgentToSystemServiceRequestHandler_saveFactorPackForUserI
       v24 &= mEMORY[0x277D737E0]3;
     }
 
-    completionCopy[2](completionCopy, v24 & [(TRIInternalAgentToSystemServiceRequestHandler *)self _updateOnDemandReferenceCountsForUser:v31 atGlobalPath:v14 addingFactors:v15 removingFactors:0 newlyUnreferencedFactors:0, self]);
+    completionCopy[2](completionCopy, v24 & [(TRIInternalAgentToSystemServiceRequestHandler *)self _updateOnDemandReferenceCountsForUser:v30 atGlobalPath:v14 addingFactors:v15 removingFactors:0 newlyUnreferencedFactors:0, self]);
   }
 
   else
@@ -405,7 +541,7 @@ void __139__TRIInternalAgentToSystemServiceRequestHandler_saveFactorPackForUserI
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v39 = v14;
+      v38 = v14;
       _os_log_error_impl(&dword_26F567000, v28, OS_LOG_TYPE_ERROR, "Asked to update factor pack at non-global or non-treatment directory location: %@", buf, 0xCu);
     }
 
@@ -416,75 +552,70 @@ void __139__TRIInternalAgentToSystemServiceRequestHandler_saveFactorPackForUserI
   {
     v17[2](v17);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __117__TRIInternalAgentToSystemServiceRequestHandler_updateFactorPackForUserId_atGlobalPath_populatingFactors_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = a1[4];
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = v7;
-    v9 = "end";
-    v10 = a1[4];
-    v11 = a1[5];
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = v6;
+    v8 = "end";
+    v9 = a1[4];
+    v10 = a1[5];
     if (!a2)
     {
-      v9 = "begin";
+      v8 = "begin";
     }
 
-    v12 = a1[6];
-    v13 = a1[7];
-    v15 = 138544642;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v10;
-    v19 = 2080;
-    v20 = v9;
+    v11 = a1[6];
+    v12 = a1[7];
+    v13 = 138544642;
+    v14 = v6;
+    v15 = 2048;
+    v16 = v9;
+    v17 = 2080;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v10;
     v21 = 2112;
     v22 = v11;
     v23 = 2112;
     v24 = v12;
-    v25 = 2112;
-    v26 = v13;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s updateFactorPackForUserId:%@ atGlobalPath:%@ populatingFactors:%@", &v15, 0x3Eu);
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s updateFactorPackForUserId:%@ atGlobalPath:%@ populatingFactors:%@", &v13, 0x3Eu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateFactorPackForUserId:(id)id atGlobalPath:(id)path deletingFactors:(id)factors completion:(id)completion
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   idCopy = id;
   pathCopy = path;
   factorsCopy = factors;
   completionCopy = completion;
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __115__TRIInternalAgentToSystemServiceRequestHandler_updateFactorPackForUserId_atGlobalPath_deletingFactors_completion___block_invoke;
-  v37[3] = &unk_279DE0438;
-  v37[4] = self;
-  v34 = idCopy;
-  v38 = v34;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __115__TRIInternalAgentToSystemServiceRequestHandler_updateFactorPackForUserId_atGlobalPath_deletingFactors_completion___block_invoke;
+  v36[3] = &unk_279DE0438;
+  v36[4] = self;
+  v33 = idCopy;
+  v37 = v33;
   v14 = pathCopy;
-  v39 = v14;
+  v38 = v14;
   v15 = factorsCopy;
-  v40 = v15;
-  v16 = MEMORY[0x2743948D0](v37);
+  v39 = v15;
+  v16 = MEMORY[0x2743948D0](v36);
   v16[2](v16, 0);
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __115__TRIInternalAgentToSystemServiceRequestHandler_updateFactorPackForUserId_atGlobalPath_deletingFactors_completion___block_invoke_61;
-  v35[3] = &unk_279DE0398;
-  v33 = v16;
-  v36 = v33;
-  v17 = MEMORY[0x2743948D0](v35);
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __115__TRIInternalAgentToSystemServiceRequestHandler_updateFactorPackForUserId_atGlobalPath_deletingFactors_completion___block_invoke_61;
+  v34[3] = &unk_279DE0398;
+  v32 = v16;
+  v35 = v32;
+  v17 = MEMORY[0x2743948D0](v34);
   mEMORY[0x277D737E0] = [MEMORY[0x277D737E0] sharedPaths];
   v19 = [mEMORY[0x277D737E0] treatmentsDirUsingGlobal:1];
   v20 = [v14 hasPrefix:v19];
@@ -496,7 +627,7 @@ void __117__TRIInternalAgentToSystemServiceRequestHandler_updateFactorPackForUse
     mEMORY[0x277D737E0]2 = [MEMORY[0x277D737E0] sharedPaths];
     v23 = [(TRIFactorPackStorage *)v21 initWithPaths:mEMORY[0x277D737E0]2];
 
-    v24 = [(TRIInternalAgentToSystemServiceRequestHandler *)self _updateOnDemandReferenceCountsForUser:v34 atGlobalPath:v14 addingFactors:0 removingFactors:v15 newlyUnreferencedFactors:buf];
+    v24 = [(TRIInternalAgentToSystemServiceRequestHandler *)self _updateOnDemandReferenceCountsForUser:v33 atGlobalPath:v14 addingFactors:0 removingFactors:v15 newlyUnreferencedFactors:buf];
     v25 = *buf;
     if (!v24)
     {
@@ -535,46 +666,41 @@ void __117__TRIInternalAgentToSystemServiceRequestHandler_updateFactorPackForUse
   {
     v17[2](v17);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __115__TRIInternalAgentToSystemServiceRequestHandler_updateFactorPackForUserId_atGlobalPath_deletingFactors_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = a1[4];
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = v7;
-    v9 = "end";
-    v10 = a1[4];
-    v11 = a1[5];
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = v6;
+    v8 = "end";
+    v9 = a1[4];
+    v10 = a1[5];
     if (!a2)
     {
-      v9 = "begin";
+      v8 = "begin";
     }
 
-    v12 = a1[6];
-    v13 = a1[7];
-    v15 = 138544642;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v10;
-    v19 = 2080;
-    v20 = v9;
+    v11 = a1[6];
+    v12 = a1[7];
+    v13 = 138544642;
+    v14 = v6;
+    v15 = 2048;
+    v16 = v9;
+    v17 = 2080;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v10;
     v21 = 2112;
     v22 = v11;
     v23 = 2112;
     v24 = v12;
-    v25 = 2112;
-    v26 = v13;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s updateFactorPackForUserId:%@ atGlobalPath:%@ deletingFactors:%@", &v15, 0x3Eu);
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s updateFactorPackForUserId:%@ atGlobalPath:%@ deletingFactors:%@", &v13, 0x3Eu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeUnreferencedGlobalFactorPacksWithCompletion:(id)completion
@@ -610,30 +736,27 @@ void __115__TRIInternalAgentToSystemServiceRequestHandler_updateFactorPackForUse
 
 void __99__TRIInternalAgentToSystemServiceRequestHandler_removeUnreferencedGlobalFactorPacksWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = *(a1 + 32);
-    v9 = "end";
-    v11 = 138543874;
-    v12 = v7;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = *(a1 + 32);
+    v8 = "end";
+    v9 = 138543874;
+    v10 = v6;
     if (!a2)
     {
-      v9 = "begin";
+      v8 = "begin";
     }
 
-    v13 = 2048;
+    v11 = 2048;
+    v12 = v7;
+    v13 = 2080;
     v14 = v8;
-    v15 = 2080;
-    v16 = v9;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s removeUnreferencedGlobalFactorPacksWithCompletion", &v11, 0x20u);
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s removeUnreferencedGlobalFactorPacksWithCompletion", &v9, 0x20u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)overwriteGlobalActiveFactorProvidersWithNamespaceMap:(id)map factorPackMap:(id)packMap rolloutDeploymentMap:(id)deploymentMap completion:(id)completion
@@ -675,45 +798,42 @@ void __99__TRIInternalAgentToSystemServiceRequestHandler_removeUnreferencedGloba
 
 void __148__TRIInternalAgentToSystemServiceRequestHandler_overwriteGlobalActiveFactorProvidersWithNamespaceMap_factorPackMap_rolloutDeploymentMap_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = a1[4];
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = v7;
-    v9 = "end";
-    v10 = a1[4];
-    v11 = a1[5];
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = v6;
+    v8 = "end";
+    v9 = a1[4];
+    v10 = a1[5];
     if (!a2)
     {
-      v9 = "begin";
+      v8 = "begin";
     }
 
-    v12 = a1[6];
-    v13 = a1[7];
-    v15 = 138544642;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v10;
-    v19 = 2080;
-    v20 = v9;
+    v11 = a1[6];
+    v12 = a1[7];
+    v13 = 138544642;
+    v14 = v6;
+    v15 = 2048;
+    v16 = v9;
+    v17 = 2080;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v10;
     v21 = 2112;
     v22 = v11;
     v23 = 2112;
     v24 = v12;
-    v25 = 2112;
-    v26 = v13;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s overwriteGlobalActiveFactorProvidersWithNamespaceMap:%@ factorPackMap:%@ rolloutDeploymentMap:%@", &v15, 0x3Eu);
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s overwriteGlobalActiveFactorProvidersWithNamespaceMap:%@ factorPackMap:%@ rolloutDeploymentMap:%@", &v13, 0x3Eu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_getOnDemandReferenceCountsAtGlobalPath:(id)path onDemandFactorsPerUser:(id *)user error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   mEMORY[0x277D737E0] = [MEMORY[0x277D737E0] sharedPaths];
   v9 = [mEMORY[0x277D737E0] treatmentsDirUsingGlobal:1];
@@ -728,9 +848,9 @@ void __148__TRIInternalAgentToSystemServiceRequestHandler_overwriteGlobalActiveF
 
     if (v14)
     {
-      v27 = 0;
-      v15 = [MEMORY[0x277D425D8] dictionaryWithPath:v11 error:&v27];
-      v16 = v27;
+      v26 = 0;
+      v15 = [MEMORY[0x277D425D8] dictionaryWithPath:v11 error:&v26];
+      v16 = v26;
       v17 = TRILogCategory_Server();
       v18 = v17;
       if (v16)
@@ -739,9 +859,9 @@ void __148__TRIInternalAgentToSystemServiceRequestHandler_overwriteGlobalActiveF
         {
           localizedDescription = [v16 localizedDescription];
           *buf = 138543618;
-          v29 = localizedDescription;
-          v30 = 2112;
-          v31 = v11;
+          v28 = localizedDescription;
+          v29 = 2112;
+          v30 = v11;
           _os_log_error_impl(&dword_26F567000, v18, OS_LOG_TYPE_ERROR, "Failed to open users per factors file with error %{public}@ at path %@", buf, 0x16u);
         }
 
@@ -761,12 +881,12 @@ void __148__TRIInternalAgentToSystemServiceRequestHandler_overwriteGlobalActiveF
         _os_log_impl(&dword_26F567000, v18, OS_LOG_TYPE_INFO, "Successfully opened the users per factors file.", buf, 2u);
       }
 
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __118__TRIInternalAgentToSystemServiceRequestHandler__getOnDemandReferenceCountsAtGlobalPath_onDemandFactorsPerUser_error___block_invoke;
-      v25[3] = &unk_279DE0488;
-      v26 = v12;
-      [v15 enumerateKeysAndObjectsUsingBlock:v25];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __118__TRIInternalAgentToSystemServiceRequestHandler__getOnDemandReferenceCountsAtGlobalPath_onDemandFactorsPerUser_error___block_invoke;
+      v24[3] = &unk_279DE0488;
+      v25 = v12;
+      [v15 enumerateKeysAndObjectsUsingBlock:v24];
     }
 
     else
@@ -791,14 +911,13 @@ LABEL_18:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v29 = pathCopy;
+    v28 = pathCopy;
     _os_log_error_impl(&dword_26F567000, v11, OS_LOG_TYPE_ERROR, "Asked to update ref count at non-global or non-treatment directory location: %@", buf, 0xCu);
   }
 
   v20 = 0;
 LABEL_19:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -812,43 +931,43 @@ void __118__TRIInternalAgentToSystemServiceRequestHandler__getOnDemandReferenceC
 
 - (BOOL)_updateOnDemandReferenceCountsForUser:(id)user atGlobalPath:(id)path addingFactors:(id)factors removingFactors:(id)removingFactors newlyUnreferencedFactors:(id *)unreferencedFactors
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   userCopy = user;
   pathCopy = path;
   factorsCopy = factors;
   removingFactorsCopy = removingFactors;
-  v61 = [pathCopy stringByAppendingPathComponent:@"onDemandFactorsSubscribedUserMap.plplist"];
+  v60 = [pathCopy stringByAppendingPathComponent:@"onDemandFactorsSubscribedUserMap.plplist"];
   v16 = objc_opt_new();
-  v72 = v16;
-  LOBYTE(factors) = [(TRIInternalAgentToSystemServiceRequestHandler *)self _getOnDemandReferenceCountsAtGlobalPath:pathCopy onDemandFactorsPerUser:&v72 error:0];
-  v17 = v72;
+  v71 = v16;
+  LOBYTE(factors) = [(TRIInternalAgentToSystemServiceRequestHandler *)self _getOnDemandReferenceCountsAtGlobalPath:pathCopy onDemandFactorsPerUser:&v71 error:0];
+  v17 = v71;
 
   if (factors)
   {
     unreferencedFactorsCopy = unreferencedFactors;
-    v58 = factorsCopy;
-    v59 = pathCopy;
-    v60 = removingFactorsCopy;
-    v70 = 0u;
-    v71 = 0u;
-    v68 = 0u;
+    v57 = factorsCopy;
+    v58 = pathCopy;
+    v59 = removingFactorsCopy;
     v69 = 0u;
+    v70 = 0u;
+    v67 = 0u;
+    v68 = 0u;
     v18 = factorsCopy;
-    v19 = [v18 countByEnumeratingWithState:&v68 objects:v80 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v67 objects:v79 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v69;
+      v21 = *v68;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v69 != v21)
+          if (*v68 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v68 + 1) + 8 * i);
+          v23 = *(*(&v67 + 1) + 8 * i);
           v24 = [v17 objectForKeyedSubscript:{v23, unreferencedFactorsCopy}];
           if (v24)
           {
@@ -871,33 +990,33 @@ void __118__TRIInternalAgentToSystemServiceRequestHandler__getOnDemandReferenceC
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v68 objects:v80 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v67 objects:v79 count:16];
       }
 
       while (v20);
     }
 
     log = objc_opt_new();
+    v63 = 0u;
     v64 = 0u;
     v65 = 0u;
     v66 = 0u;
-    v67 = 0u;
-    v29 = v60;
-    v30 = [v29 countByEnumeratingWithState:&v64 objects:v79 count:16];
+    v29 = v59;
+    v30 = [v29 countByEnumeratingWithState:&v63 objects:v78 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v65;
+      v32 = *v64;
       do
       {
         for (j = 0; j != v31; ++j)
         {
-          if (*v65 != v32)
+          if (*v64 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          v34 = *(*(&v64 + 1) + 8 * j);
+          v34 = *(*(&v63 + 1) + 8 * j);
           v35 = [v17 objectForKeyedSubscript:{v34, unreferencedFactorsCopy}];
 
           if (v35)
@@ -919,7 +1038,7 @@ void __118__TRIInternalAgentToSystemServiceRequestHandler__getOnDemandReferenceC
             if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v74 = v34;
+              v73 = v34;
               v40 = v39;
               v41 = "Factor %@ is now unreferenced by all users.";
 LABEL_25:
@@ -933,7 +1052,7 @@ LABEL_25:
             if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v74 = v34;
+              v73 = v34;
               v40 = v39;
               v41 = "Attempting to remove factor %@ that was not referenced.";
               goto LABEL_25;
@@ -941,16 +1060,16 @@ LABEL_25:
           }
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v64 objects:v79 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v63 objects:v78 count:16];
       }
 
       while (v31);
     }
 
-    v63 = 0;
-    v42 = v61;
-    v43 = [MEMORY[0x277D425D8] fileBackedDataWithPropertyList:v17 writtenToPath:v61 error:&v63];
-    v44 = v63;
+    v62 = 0;
+    v42 = v60;
+    v43 = [MEMORY[0x277D425D8] fileBackedDataWithPropertyList:v17 writtenToPath:v60 error:&v62];
+    v44 = v62;
     v45 = v44;
     if (v43)
     {
@@ -967,24 +1086,24 @@ LABEL_25:
     v49 = v48;
     if (v47)
     {
-      pathCopy = v59;
+      pathCopy = v58;
       if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         v50 = [v18 count];
         v51 = [v29 count];
         v52 = [log count];
         *buf = 134218496;
-        v74 = v50;
-        v42 = v61;
-        v75 = 2048;
-        v76 = v51;
-        v77 = 2048;
-        v78 = v52;
+        v73 = v50;
+        v42 = v60;
+        v74 = 2048;
+        v75 = v51;
+        v76 = 2048;
+        v77 = v52;
         _os_log_impl(&dword_26F567000, v49, OS_LOG_TYPE_DEFAULT, "Successfully referenced %lu assets and unreferenced %lu assets for current user. %lu assets are to be deleted as they are not referenced by any users.", buf, 0x20u);
       }
 
-      factorsCopy = v58;
-      removingFactorsCopy = v60;
+      factorsCopy = v57;
+      removingFactorsCopy = v59;
       if (!unreferencedFactorsCopy)
       {
         goto LABEL_47;
@@ -1001,15 +1120,15 @@ LABEL_25:
       {
         localizedDescription = [v45 localizedDescription];
         *buf = 138543362;
-        v74 = localizedDescription;
+        v73 = localizedDescription;
         _os_log_error_impl(&dword_26F567000, v49, OS_LOG_TYPE_ERROR, "Failed to write users per factor file to temp path with error: %{public}@", buf, 0xCu);
 
-        v42 = v61;
+        v42 = v60;
       }
 
-      factorsCopy = v58;
-      pathCopy = v59;
-      removingFactorsCopy = v60;
+      factorsCopy = v57;
+      pathCopy = v58;
+      removingFactorsCopy = v59;
     }
 
 LABEL_47:
@@ -1024,125 +1143,119 @@ LABEL_47:
   }
 
   v47 = 0;
-  v42 = v61;
+  v42 = v60;
 LABEL_48:
 
-  v54 = *MEMORY[0x277D85DE8];
   return v47;
 }
 
 - (void)getOnDemandReferenceCountsPerUserAtGlobalPath:(id)path completion:(id)completion
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   completionCopy = completion;
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __106__TRIInternalAgentToSystemServiceRequestHandler_getOnDemandReferenceCountsPerUserAtGlobalPath_completion___block_invoke;
-  v34[3] = &unk_279DE0208;
-  v34[4] = self;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __106__TRIInternalAgentToSystemServiceRequestHandler_getOnDemandReferenceCountsPerUserAtGlobalPath_completion___block_invoke;
+  v33[3] = &unk_279DE0208;
+  v33[4] = self;
   v8 = pathCopy;
-  v35 = v8;
-  v9 = MEMORY[0x2743948D0](v34);
+  v34 = v8;
+  v9 = MEMORY[0x2743948D0](v33);
   v9[2](v9, 0);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __106__TRIInternalAgentToSystemServiceRequestHandler_getOnDemandReferenceCountsPerUserAtGlobalPath_completion___block_invoke_70;
-  v32[3] = &unk_279DE0398;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __106__TRIInternalAgentToSystemServiceRequestHandler_getOnDemandReferenceCountsPerUserAtGlobalPath_completion___block_invoke_70;
+  v31[3] = &unk_279DE0398;
   v10 = v9;
-  v33 = v10;
-  v11 = MEMORY[0x2743948D0](v32);
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__8;
-  v30 = __Block_byref_object_dispose__8;
-  v31 = 0;
+  v32 = v10;
+  v11 = MEMORY[0x2743948D0](v31);
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__8;
+  v29 = __Block_byref_object_dispose__8;
+  v30 = 0;
   v12 = [MEMORY[0x277D73728] arrayFromDirectory:v8];
   if (v12)
   {
     v13 = objc_opt_new();
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __106__TRIInternalAgentToSystemServiceRequestHandler_getOnDemandReferenceCountsPerUserAtGlobalPath_completion___block_invoke_77;
-    v22[3] = &unk_279DE04B0;
-    v25 = &v26;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __106__TRIInternalAgentToSystemServiceRequestHandler_getOnDemandReferenceCountsPerUserAtGlobalPath_completion___block_invoke_77;
+    v21[3] = &unk_279DE04B0;
+    v24 = &v25;
     v14 = completionCopy;
-    v24 = v14;
-    v22[4] = self;
+    v23 = v14;
+    v21[4] = self;
     v15 = v13;
-    v23 = v15;
-    if (([v12 enumerateStringsWithBlock:v22] & 1) == 0)
+    v22 = v15;
+    if (([v12 enumerateStringsWithBlock:v21] & 1) == 0)
     {
       v16 = TRILogCategory_Server();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v37 = v8;
+        v36 = v8;
         _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Could not iterate through namespaces in %@", buf, 0xCu);
       }
     }
 
-    (*(v14 + 2))(v14, v15, v27[5]);
+    (*(v14 + 2))(v14, v15, v26[5]);
   }
 
   else
   {
     v17 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v38 = *MEMORY[0x277CCA450];
-    v39[0] = @"Unable to iterate through the list of namespaces";
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+    v37 = *MEMORY[0x277CCA450];
+    v38[0] = @"Unable to iterate through the list of namespaces";
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
     v19 = [v17 initWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:v18];
-    v20 = v27[5];
-    v27[5] = v19;
+    v20 = v26[5];
+    v26[5] = v19;
 
-    (*(completionCopy + 2))(completionCopy, 0, v27[5]);
+    (*(completionCopy + 2))(completionCopy, 0, v26[5]);
   }
 
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v25, 8);
   if (v11)
   {
     v11[2](v11);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __106__TRIInternalAgentToSystemServiceRequestHandler_getOnDemandReferenceCountsPerUserAtGlobalPath_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = v7;
-    v9 = "end";
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40);
-    v13 = 138544130;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = v6;
+    v8 = "end";
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 40);
+    v11 = 138544130;
     if (!a2)
     {
-      v9 = "begin";
+      v8 = "begin";
     }
 
-    v14 = v7;
-    v15 = 2048;
-    v16 = v10;
-    v17 = 2080;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v11;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s getOnDemandReferenceCountsPerUserAtGlobalPath:%@", &v13, 0x2Au);
+    v12 = v6;
+    v13 = 2048;
+    v14 = v9;
+    v15 = 2080;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v10;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s getOnDemandReferenceCountsPerUserAtGlobalPath:%@", &v11, 0x2Au);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __106__TRIInternalAgentToSystemServiceRequestHandler_getOnDemandReferenceCountsPerUserAtGlobalPath_completion___block_invoke_77(uint64_t a1, void *a2)
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 lastPathComponent];
   v5 = objc_autoreleasePoolPush();
@@ -1152,41 +1265,40 @@ void __106__TRIInternalAgentToSystemServiceRequestHandler_getOnDemandReferenceCo
   if (v7)
   {
     v8 = objc_opt_new();
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __106__TRIInternalAgentToSystemServiceRequestHandler_getOnDemandReferenceCountsPerUserAtGlobalPath_completion___block_invoke_2;
-    v26[3] = &unk_279DE04B0;
-    v26[4] = *(a1 + 32);
-    v25 = *(a1 + 48);
-    v9 = v25;
-    v28 = v25;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __106__TRIInternalAgentToSystemServiceRequestHandler_getOnDemandReferenceCountsPerUserAtGlobalPath_completion___block_invoke_2;
+    v23[3] = &unk_279DE04B0;
+    v23[4] = *(a1 + 32);
+    v22 = *(a1 + 48);
+    v9 = v22;
+    v25 = v22;
     v10 = v8;
-    v27 = v10;
-    if ([v7 enumerateStringsWithBlock:v26])
+    v24 = v10;
+    if ([v7 enumerateStringsWithBlock:v23])
     {
       [*(a1 + 40) setValue:v10 forKey:v4];
     }
 
     else
     {
-      v17 = TRILogCategory_Server();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v16 = TRILogCategory_Server();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v32 = v4;
-        _os_log_error_impl(&dword_26F567000, v17, OS_LOG_TYPE_ERROR, "Could not iterate through factor packs for namespace %@", buf, 0xCu);
+        v29 = v4;
+        _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Could not iterate through factor packs for namespace %@", buf, 0xCu);
       }
 
-      v18 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v29 = *MEMORY[0x277CCA450];
-      v30 = @"Failed to iterate through the list of factor packs";
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-      v20 = [v18 initWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:v19];
-      v21 = *(*(a1 + 56) + 8);
-      v22 = *(v21 + 40);
-      *(v21 + 40) = v20;
+      v17 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v26 = *MEMORY[0x277CCA450];
+      v27 = @"Failed to iterate through the list of factor packs";
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+      v19 = [v17 initWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:v18];
+      v20 = *(*(a1 + 56) + 8);
+      v21 = *(v20 + 40);
+      *(v20 + 40) = v19;
 
-      v23 = *(*(*(a1 + 56) + 8) + 40);
       (*(*(a1 + 48) + 16))();
     }
   }
@@ -1194,33 +1306,30 @@ void __106__TRIInternalAgentToSystemServiceRequestHandler_getOnDemandReferenceCo
   else
   {
     v11 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v33 = *MEMORY[0x277CCA450];
-    v34[0] = @"Unable to iterate through the list of factor packs";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v30 = *MEMORY[0x277CCA450];
+    v31[0] = @"Unable to iterate through the list of factor packs";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
     v13 = [v11 initWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:v12];
     v14 = *(*(a1 + 56) + 8);
     v15 = *(v14 + 40);
     *(v14 + 40) = v13;
 
-    v16 = *(*(*(a1 + 56) + 8) + 40);
     (*(*(a1 + 48) + 16))();
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __106__TRIInternalAgentToSystemServiceRequestHandler_getOnDemandReferenceCountsPerUserAtGlobalPath_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 lastPathComponent];
   v5 = objc_opt_new();
   v6 = *(a1 + 32);
   v7 = *(*(a1 + 56) + 8);
   obj = *(v7 + 40);
-  v14 = v5;
-  v8 = [v6 _getOnDemandReferenceCountsAtGlobalPath:v3 onDemandFactorsPerUser:&v14 error:&obj];
-  v9 = v14;
+  v12 = v5;
+  v8 = [v6 _getOnDemandReferenceCountsAtGlobalPath:v3 onDemandFactorsPerUser:&v12 error:&obj];
+  v9 = v12;
 
   objc_storeStrong((v7 + 40), obj);
   if (v8)
@@ -1234,15 +1343,12 @@ void __106__TRIInternalAgentToSystemServiceRequestHandler_getOnDemandReferenceCo
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v3;
+      v14 = v3;
       _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "Could not get onDemandReferenceCounts for %@", buf, 0xCu);
     }
 
-    v11 = *(*(*(a1 + 56) + 8) + 40);
     (*(*(a1 + 48) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)migrateToGlobalAssetStoreIfNeededFromLocalStore:(id)store sourceExtension:(id)extension completion:(id)completion
@@ -1293,39 +1399,36 @@ void __106__TRIInternalAgentToSystemServiceRequestHandler_getOnDemandReferenceCo
 
 void __124__TRIInternalAgentToSystemServiceRequestHandler_migrateToGlobalAssetStoreIfNeededFromLocalStore_sourceExtension_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = v7;
-    v9 = "end";
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40);
-    v13 = 138544130;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = v6;
+    v8 = "end";
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 40);
+    v11 = 138544130;
     if (!a2)
     {
-      v9 = "begin";
+      v8 = "begin";
     }
 
-    v14 = v7;
-    v15 = 2048;
-    v16 = v10;
-    v17 = 2080;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v11;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s migrateToGlobalAssetStoreIfNeededFromLocalStore:%@", &v13, 0x2Au);
+    v12 = v6;
+    v13 = 2048;
+    v14 = v9;
+    v15 = 2080;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v10;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s migrateToGlobalAssetStoreIfNeededFromLocalStore:%@", &v11, 0x2Au);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logSystemCovariates
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [TRISystemCovariates alloc];
   mEMORY[0x277D737E0] = [MEMORY[0x277D737E0] sharedPaths];
   v4 = [(TRISystemCovariates *)v2 initWithPaths:mEMORY[0x277D737E0]];
@@ -1334,12 +1437,10 @@ void __124__TRIInternalAgentToSystemServiceRequestHandler_migrateToGlobalAssetSt
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     dictionary = [(TRISystemCovariates *)v4 dictionary];
-    v8 = 138412290;
-    v9 = dictionary;
-    _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "System covariates at the time of sysdiagnose: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = dictionary;
+    _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "System covariates at the time of sysdiagnose: %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

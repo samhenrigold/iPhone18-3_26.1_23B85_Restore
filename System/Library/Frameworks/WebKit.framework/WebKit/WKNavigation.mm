@@ -81,7 +81,7 @@ LABEL_18:
     return selfCopy;
   }
 
-  WebKit::FrameInfoData::FrameInfoData(&v16, &selfCopy[54]);
+  WebKit::FrameInfoData::FrameInfoData(v16, &selfCopy[54]);
   if (!v4)
   {
     goto LABEL_10;
@@ -109,12 +109,12 @@ LABEL_10:
 LABEL_11:
   v15 = v5;
   v7 = API::Object::newObject(0x180uLL, 59);
-  selfCopy = *(API::FrameInfo::FrameInfo(v7, &v16, &v15) + 8);
+  selfCopy = *(API::FrameInfo::FrameInfo(v7, v16, &v15) + 8);
   if (!selfCopy)
   {
-    v10 = 0;
+    var1 = 0;
 LABEL_15:
-    CFRelease(v10);
+    CFRelease(var1);
     if (v15)
     {
       CFRelease(*(v15 + 8));
@@ -135,7 +135,7 @@ LABEL_15:
   {
     v8 = selfCopy;
     v9 = selfCopy;
-    v10 = *(v7 + 8);
+    var1 = v7->var1;
     goto LABEL_15;
   }
 

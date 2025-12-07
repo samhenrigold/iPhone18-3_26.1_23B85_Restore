@@ -128,11 +128,12 @@ void __42__VSAMSRequestOperation_executionDidBegin__block_invoke_2(uint64_t a1, 
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = WeakRetained;
   if (v6)
   {
-    v8 = v6;
-    v9 = VSErrorLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v9 = v6;
+    v10 = VSErrorLogObject(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __42__VSAMSRequestOperation_executionDidBegin__block_invoke_2_cold_1();
     }
@@ -142,88 +143,89 @@ void __42__VSAMSRequestOperation_executionDidBegin__block_invoke_2(uint64_t a1, 
   {
     if (v5)
     {
-      v8 = v5;
-      v12 = [*(a1 + 32) dataTaskPromiseWithRequest:v8];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __42__VSAMSRequestOperation_executionDidBegin__block_invoke_17;
-      v14[3] = &unk_278B73210;
-      objc_copyWeak(&v15, (a1 + 40));
-      [v12 addFinishBlock:v14];
-      objc_destroyWeak(&v15);
+      v9 = v5;
+      v13 = [*(a1 + 32) dataTaskPromiseWithRequest:v9];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __42__VSAMSRequestOperation_executionDidBegin__block_invoke_17;
+      v15[3] = &unk_278B73210;
+      objc_copyWeak(&v16, (a1 + 40));
+      [v13 addFinishBlock:v15];
+      objc_destroyWeak(&v16);
 
       goto LABEL_8;
     }
 
-    v13 = VSErrorLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = VSErrorLogObject(WeakRetained);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __42__VSAMSRequestOperation_executionDidBegin__block_invoke_2_cold_2(WeakRetained, v13);
+      __42__VSAMSRequestOperation_executionDidBegin__block_invoke_2_cold_2(v8, v14);
     }
 
-    v8 = VSPrivateErrorWithRecoverySuggestion(-25, 0, 0);
+    v9 = VSPrivateErrorWithRecoverySuggestion(-25, 0, 0);
   }
 
-  v10 = [VSFailable failableWithError:v8];
-  v11 = [VSOptional optionalWithObject:v10];
-  [WeakRetained setResult:v11];
+  v11 = [VSFailable failableWithError:v9];
+  v12 = [VSOptional optionalWithObject:v11];
+  [v8 setResult:v12];
 
-  [WeakRetained finishExecutionIfPossible];
+  [v8 finishExecutionIfPossible];
 LABEL_8:
 }
 
 void __42__VSAMSRequestOperation_executionDidBegin__block_invoke_17(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v8 = WeakRetained;
   if (v6)
   {
-    v8 = v6;
-    v9 = VSErrorLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v9 = v6;
+    v10 = VSErrorLogObject(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __42__VSAMSRequestOperation_executionDidBegin__block_invoke_17_cold_1();
     }
 
 LABEL_5:
-    v10 = [VSFailable failableWithError:v8];
-    v11 = [VSOptional optionalWithObject:v10];
-    [WeakRetained setResult:v11];
+    v11 = [VSFailable failableWithError:v9];
+    v12 = [VSOptional optionalWithObject:v11];
+    [v8 setResult:v12];
     goto LABEL_10;
   }
 
   if (!v5)
   {
-    v14 = VSErrorLogObject();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = VSErrorLogObject(WeakRetained);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __42__VSAMSRequestOperation_executionDidBegin__block_invoke_17_cold_2(WeakRetained, v14);
+      __42__VSAMSRequestOperation_executionDidBegin__block_invoke_17_cold_2(v8, v15);
     }
 
-    v8 = VSPrivateErrorWithRecoverySuggestion(-25, 0, 0);
+    v9 = VSPrivateErrorWithRecoverySuggestion(-25, 0, 0);
     goto LABEL_5;
   }
 
-  v8 = v5;
-  v12 = VSDefaultLogObject();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v9 = v5;
+  v13 = VSDefaultLogObject(v9);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412546;
-    v16 = WeakRetained;
-    v17 = 2112;
-    v18 = v8;
-    _os_log_impl(&dword_23AB8E000, v12, OS_LOG_TYPE_DEFAULT, "AMS request %@ returned result %@", &v15, 0x16u);
+    v16 = 138412546;
+    v17 = v8;
+    v18 = 2112;
+    v19 = v9;
+    _os_log_impl(&dword_23AB8E000, v13, OS_LOG_TYPE_DEFAULT, "AMS request %@ returned result %@", &v16, 0x16u);
   }
 
-  v10 = [v8 data];
-  v11 = [VSFailable failableWithObject:v10];
-  v13 = [VSOptional optionalWithObject:v11];
-  [WeakRetained setResult:v13];
+  v11 = [v9 data];
+  v12 = [VSFailable failableWithObject:v11];
+  v14 = [VSOptional optionalWithObject:v12];
+  [v8 setResult:v14];
 
 LABEL_10:
-  [WeakRetained finishExecutionIfPossible];
+  [v8 finishExecutionIfPossible];
 }
 
 - (void)cancel

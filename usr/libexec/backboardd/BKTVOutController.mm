@@ -3,6 +3,7 @@
 - (BOOL)displayIsConnected:(id)connected;
 - (BOOL)supportCloningToDisplay:(id)display;
 - (NSArray)windowServerDisplays;
+- (id)windowServerDisplayForDisplayIdentifier:(unsigned int)identifier;
 - (void)_handleIapServerConnectionDied;
 - (void)dealloc;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
@@ -224,6 +225,15 @@ LABEL_12:
   v14 = [availableModes count] != 0;
 
   return v14;
+}
+
+- (id)windowServerDisplayForDisplayIdentifier:(unsigned int)identifier
+{
+  v3 = *&identifier;
+  v4 = +[CAWindowServer serverIfRunning];
+  v5 = [v4 displayWithDisplayId:v3];
+
+  return v5;
 }
 
 - (NSArray)windowServerDisplays

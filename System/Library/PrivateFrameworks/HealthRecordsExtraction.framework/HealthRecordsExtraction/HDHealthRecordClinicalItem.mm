@@ -52,12 +52,12 @@
   if (!self->_extractedMedicalRecord)
   {
     [MEMORY[0x277CCA9B8] hk_assignError:error code:3 description:@"can only determine corresponding clinical types after medical record extraction has produced a medical record"];
-    v6 = 0;
+    v5 = 0;
     goto LABEL_21;
   }
 
   type = [(HDHealthRecordClinicalType *)self->_clinicalType type];
-  v6 = 0;
+  v5 = 0;
   if (type <= 4)
   {
     if (type <= 1)
@@ -104,7 +104,7 @@
   {
     clinicalNoteRecordType = [MEMORY[0x277CCD118] medicationRecordType];
 LABEL_20:
-    v6 = clinicalNoteRecordType;
+    v5 = clinicalNoteRecordType;
     goto LABEL_21;
   }
 
@@ -119,21 +119,20 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  extractedMedicalRecord = self->_extractedMedicalRecord;
   objc_opt_class();
-  v10 = HKSafeObject();
-  v11 = 0;
-  v12 = v11;
-  if (!v10)
+  v8 = HKSafeObject();
+  v9 = 0;
+  v10 = v9;
+  if (!v8)
   {
-    v14 = v11;
-    if (v14)
+    v12 = v9;
+    if (v12)
     {
       if (error)
       {
-        v18 = v14;
-        v6 = 0;
-        *error = v14;
+        v16 = v12;
+        v5 = 0;
+        *error = v12;
         goto LABEL_34;
       }
 
@@ -141,28 +140,28 @@ LABEL_20:
     }
 
 LABEL_33:
-    v6 = 0;
+    v5 = 0;
     goto LABEL_34;
   }
 
-  category = [v10 category];
-  v14 = HKDiagnosticTestResultCategoryFromNSString();
+  category = [v8 category];
+  v12 = HKDiagnosticTestResultCategoryFromNSString();
 
-  if (!v14 || (HKClinicalTypeForDiagnosticTestResultCategory(), (v15 = objc_claimAutoreleasedReturnValue()) == 0))
+  if (!v12 || (HKClinicalTypeForDiagnosticTestResultCategory(), (v13 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v16 = MEMORY[0x277CCA9B8];
-    category2 = [v10 category];
-    [v16 hk_assignError:error code:3 format:{@"unsupported Observation category: %@", category2}];
+    v14 = MEMORY[0x277CCA9B8];
+    category2 = [v8 category];
+    [v14 hk_assignError:error code:3 format:{@"unsupported Observation category: %@", category2}];
 
     goto LABEL_33;
   }
 
-  v6 = v15;
+  v5 = v13;
 LABEL_34:
 
 LABEL_21:
 
-  return v6;
+  return v5;
 }
 
 - (void)assignExtractedMedicalRecord:(id)record
@@ -174,7 +173,7 @@ LABEL_21:
     v5 = *MEMORY[0x277CCC2C0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
     {
-      [HDHealthRecordClinicalItem assignExtractedMedicalRecord:v5];
+      [(HDHealthRecordClinicalItem *)v5 assignExtractedMedicalRecord:?];
     }
   }
 
@@ -183,7 +182,7 @@ LABEL_21:
 
 - (id)_medicalRecordPropertyFromKey:(id)key expectedClass:(Class)class error:(id *)error
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v9 = [(NSMutableDictionary *)self->_medicalRecordProperties objectForKeyedSubscript:keyCopy];
   if (v9)
@@ -197,11 +196,11 @@ LABEL_21:
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"expected %@ but found %@", class, objc_opt_class()];
     v12 = MEMORY[0x277CCA9B8];
     v13 = *MEMORY[0x277CCA450];
-    v20[0] = @"propertyName";
-    v20[1] = v13;
-    v21[0] = keyCopy;
-    v21[1] = v11;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v19[0] = @"propertyName";
+    v19[1] = v13;
+    v20[0] = keyCopy;
+    v20[1] = v11;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
     v15 = [v12 errorWithDomain:@"HDHealthRecordsServiceErrorDomain" code:202 userInfo:v14];
 
     v16 = v15;
@@ -223,14 +222,12 @@ LABEL_21:
   v10 = 0;
 LABEL_10:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)_medicalRecordPropertyArrayFromKey:(id)key expectedClass:(Class)class error:(id *)error
 {
-  v40[2] = *MEMORY[0x277D85DE8];
+  v38[2] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v9 = [(NSMutableDictionary *)self->_medicalRecordProperties objectForKeyedSubscript:keyCopy];
   if (v9)
@@ -241,45 +238,44 @@ LABEL_10:
       v10 = v9;
       if ([v10 count])
       {
-        v34 = 0u;
-        v35 = 0u;
         v32 = 0u;
         v33 = 0u;
+        v30 = 0u;
+        v31 = 0u;
         v11 = v10;
-        v12 = [v11 countByEnumeratingWithState:&v32 objects:v38 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v30 objects:v36 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v33;
+          v14 = *v31;
           while (2)
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v33 != v14)
+              if (*v31 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v32 + 1) + 8 * i);
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
-                v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"array contents expected %@ but found %@", class, objc_opt_class(), v32];
-                v24 = MEMORY[0x277CCA9B8];
-                v25 = *MEMORY[0x277CCA450];
-                v36[0] = @"propertyName";
-                v36[1] = v25;
-                v37[0] = keyCopy;
-                v37[1] = v23;
-                v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
-                v27 = [v24 errorWithDomain:@"HDHealthRecordsServiceErrorDomain" code:203 userInfo:v26];
+                v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"array contents expected %@ but found %@", class, objc_opt_class(), v30];
+                v23 = MEMORY[0x277CCA9B8];
+                v24 = *MEMORY[0x277CCA450];
+                v34[0] = @"propertyName";
+                v34[1] = v24;
+                v35[0] = keyCopy;
+                v35[1] = v22;
+                v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
+                v26 = [v23 errorWithDomain:@"HDHealthRecordsServiceErrorDomain" code:203 userInfo:v25];
 
-                v28 = v27;
-                if (v28)
+                v27 = v26;
+                if (v27)
                 {
                   if (error)
                   {
-                    v29 = v28;
-                    *error = v28;
+                    v28 = v27;
+                    *error = v27;
                   }
 
                   else
@@ -292,7 +288,7 @@ LABEL_10:
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v32 objects:v38 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v30 objects:v36 count:16];
             if (v13)
             {
               continue;
@@ -302,33 +298,33 @@ LABEL_10:
           }
         }
 
-        v17 = v11;
+        v16 = v11;
       }
 
       else
       {
-        v17 = MEMORY[0x277CBEBF8];
+        v16 = MEMORY[0x277CBEBF8];
       }
     }
 
     else
     {
       v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"expected array but found %@", objc_opt_class()];
-      v18 = MEMORY[0x277CCA9B8];
-      v19 = *MEMORY[0x277CCA450];
-      v39[0] = @"propertyName";
-      v39[1] = v19;
-      v40[0] = keyCopy;
-      v40[1] = v10;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
-      v21 = [v18 errorWithDomain:@"HDHealthRecordsServiceErrorDomain" code:202 userInfo:v20];
+      v17 = MEMORY[0x277CCA9B8];
+      v18 = *MEMORY[0x277CCA450];
+      v37[0] = @"propertyName";
+      v37[1] = v18;
+      v38[0] = keyCopy;
+      v38[1] = v10;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
+      v20 = [v17 errorWithDomain:@"HDHealthRecordsServiceErrorDomain" code:202 userInfo:v19];
 
-      v11 = v21;
+      v11 = v20;
       if (v11)
       {
         if (error)
         {
-          v22 = v11;
+          v21 = v11;
           *error = v11;
         }
 
@@ -339,18 +335,16 @@ LABEL_10:
       }
 
 LABEL_25:
-      v17 = 0;
+      v16 = 0;
     }
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v16;
 }
 
 - (id)medicalRecordPropertyValueForKey:(id)key expectedClass:(Class)class isArray:(BOOL)array error:(id *)error

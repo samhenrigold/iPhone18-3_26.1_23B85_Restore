@@ -25,8 +25,9 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_20B881704(highlighted);
+  sub_20B881704(highlightedCopy, selfCopy);
 }
 
 - (void)handleTouchDown:(id)down

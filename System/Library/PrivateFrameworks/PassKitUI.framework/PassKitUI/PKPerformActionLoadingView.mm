@@ -43,28 +43,29 @@
 
 - (void)layoutSubviews
 {
-  v17.receiver = self;
-  v17.super_class = PKPerformActionLoadingView;
-  [(PKPerformActionLoadingView *)&v17 layoutSubviews];
+  v20.receiver = self;
+  v20.super_class = PKPerformActionLoadingView;
+  [(PKPerformActionLoadingView *)&v20 layoutSubviews];
   [(PKPerformActionLoadingView *)self bounds];
-  PKFloatRoundToPixel();
+  v4.n128_f64[0] = v3 * 0.5;
+  PKFloatRoundToPixel(v4, v5);
   [(UIActivityIndicatorView *)self->_spinner setCenter:?];
   [(UILabel *)self->_loadingLabel sizeToFit];
   [(UIActivityIndicatorView *)self->_spinner frame];
-  v4 = v3;
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
+  v13 = v12;
   [(UILabel *)self->_loadingLabel frame];
   UIRectCenteredXInRect();
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v18.origin.x = v4;
-  v18.origin.y = v6;
-  v18.size.width = v8;
-  v18.size.height = v10;
-  [(UILabel *)self->_loadingLabel setFrame:v12, CGRectGetMaxY(v18) + 10.0, v14, v16];
+  v15 = v14;
+  v17 = v16;
+  v19 = v18;
+  v21.origin.x = v7;
+  v21.origin.y = v9;
+  v21.size.width = v11;
+  v21.size.height = v13;
+  [(UILabel *)self->_loadingLabel setFrame:v15, CGRectGetMaxY(v21) + 10.0, v17, v19];
 }
 
 @end

@@ -10,44 +10,34 @@ uint64_t sub_1000010D8(uint64_t a1, uint64_t a2)
   v2[7] = swift_task_alloc();
   v5 = sub_10000302C();
   v2[8] = v5;
-  v6 = *(v5 - 8);
-  v2[9] = v6;
-  v7 = *(v6 + 64) + 15;
+  v2[9] = *(v5 - 8);
   v2[10] = swift_task_alloc();
-  v8 = *(*(sub_100002F6C() - 8) + 64) + 15;
+  sub_100002F6C();
   v2[11] = swift_task_alloc();
-  v9 = sub_100002F7C();
-  v2[12] = v9;
-  v10 = *(v9 - 8);
-  v2[13] = v10;
-  v11 = *(v10 + 64) + 15;
+  v6 = sub_100002F7C();
+  v2[12] = v6;
+  v2[13] = *(v6 - 8);
   v2[14] = swift_task_alloc();
-  v12 = async function pointer to ThumbnailRequest.data.getter[1];
-  v13 = swift_task_alloc();
-  v2[15] = v13;
-  *v13 = v2;
-  v13[1] = sub_1000012B8;
+  v7 = swift_task_alloc();
+  v2[15] = v7;
+  *v7 = v2;
+  v7[1] = sub_1000012B8;
 
   return ThumbnailRequest.data.getter();
 }
 
 uint64_t sub_1000012B8(uint64_t a1, uint64_t a2)
 {
-  v4 = *(*v3 + 120);
-  v5 = *v3;
-  v5[16] = a1;
-  v5[17] = a2;
+  v4 = *v3;
+  v4[16] = a1;
+  v4[17] = a2;
 
   if (v2)
   {
-    v6 = v5[14];
-    v8 = v5[10];
-    v7 = v5[11];
-    v9 = v5[7];
 
-    v10 = v5[1];
+    v5 = v4[1];
 
-    return v10();
+    return v5();
   }
 
   else
@@ -59,120 +49,110 @@ uint64_t sub_1000012B8(uint64_t a1, uint64_t a2)
 
 uint64_t sub_100001420()
 {
-  v1 = v0[16];
-  v2 = v0[17];
   isa = sub_100002F9C().super.isa;
   FontDescriptorsFromData = CTFontManagerCreateFontDescriptorsFromData(isa);
 
   MutableCopy = CFArrayCreateMutableCopy(0, 0, FontDescriptorsFromData);
   if (MutableCopy)
   {
-    v6 = MutableCopy;
-    v27.length = CFArrayGetCount(v6);
-    v27.location = 0;
-    CFArraySortValues(v6, v27, &CTFontManagerCompareFontDescriptors, 0);
+    v4 = MutableCopy;
+    v19.length = CFArrayGetCount(v4);
+    v19.location = 0;
+    CFArraySortValues(v4, v19, &CTFontManagerCompareFontDescriptors, 0);
 
     objc_opt_self();
     if (swift_dynamicCastObjCClass())
     {
       type metadata accessor for CTFontDescriptor(0);
-      v7 = v6;
+      v5 = v4;
       sub_1000030CC();
     }
 
-    v15 = v0[16];
-    v14 = v0[17];
-    v17 = v0[13];
-    v16 = v0[14];
-    v18 = v0[11];
-    v19 = v0[12];
+    v12 = v0[16];
+    v11 = v0[17];
+    v14 = v0[13];
+    v13 = v0[14];
+    v15 = v0[12];
     sub_100002F5C();
     sub_100002594(&_swiftEmptyArrayStorage);
-    sub_1000020E4(&qword_100008090, &type metadata accessor for CocoaError);
+    sub_1000020E4(&qword_100008090, &type metadata accessor for CocoaError, &protocol conformance descriptor for CocoaError);
     sub_100002F8C();
     sub_100002F4C();
-    (*(v17 + 8))(v16, v19);
+    (*(v14 + 8))(v13, v15);
     swift_willThrow();
-    sub_1000026A4(v15, v14);
+    sub_1000026A4(v12, v11);
   }
 
   else
   {
-    v9 = v0[16];
-    v8 = v0[17];
-    v11 = v0[13];
-    v10 = v0[14];
-    v12 = v0[11];
-    v13 = v0[12];
+    v7 = v0[16];
+    v6 = v0[17];
+    v9 = v0[13];
+    v8 = v0[14];
+    v10 = v0[12];
     sub_100002F5C();
     sub_100002594(&_swiftEmptyArrayStorage);
-    sub_1000020E4(&qword_100008090, &type metadata accessor for CocoaError);
+    sub_1000020E4(&qword_100008090, &type metadata accessor for CocoaError, &protocol conformance descriptor for CocoaError);
     sub_100002F8C();
     sub_100002F4C();
-    (*(v11 + 8))(v10, v13);
+    (*(v9 + 8))(v8, v10);
     swift_willThrow();
-    sub_1000026A4(v9, v8);
+    sub_1000026A4(v7, v6);
   }
 
-  v20 = v0[14];
-  v22 = v0[10];
-  v21 = v0[11];
-  v23 = v0[7];
+  v16 = v0[1];
 
-  v24 = v0[1];
-
-  return v24();
+  return v16();
 }
 
 void sub_100001984(CGContext *a1, CGFloat a2, double a3, double a4, double a5, double a6, uint64_t a7, const __CTLine *a8)
 {
   v15 = sub_10000302C();
   v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = (__chkstk_darwin)();
-  v20 = &v34 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v18);
-  v22 = &v34 - v21;
+  v17 = __chkstk_darwin(v15);
+  v19 = &v33 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v17);
+  v21 = &v33 - v20;
   sub_10000303C();
   sub_10000301C();
-  v24 = v23;
-  v25 = *(v16 + 8);
-  v25(v22, v15);
+  v23 = v22;
+  v24 = *(v16 + 8);
+  v24(v21, v15);
   sub_10000303C();
   sub_10000301C();
-  v27 = v26;
-  v25(v20, v15);
-  CGContextScaleCTM(a1, v24, v27);
+  v26 = v25;
+  v24(v19, v15);
+  CGContextScaleCTM(a1, v23, v26);
   CGContextSetGrayFillColor(a1, 1.0, 1.0);
   sub_100002C08(&qword_100008098, &qword_100003610);
-  v28._rawValue = swift_allocObject();
+  v27._rawValue = swift_allocObject();
   origin = CGRectInfinite.origin;
   size = CGRectInfinite.size;
-  *(v28._rawValue + 1) = xmmword_100003550;
-  *(v28._rawValue + 2) = origin;
-  *(v28._rawValue + 3) = size;
-  sub_1000030EC(v28);
+  *(v27._rawValue + 1) = xmmword_100003550;
+  *(v27._rawValue + 2) = origin;
+  *(v27._rawValue + 3) = size;
+  sub_1000030EC(v27);
 
   CGContextTranslateCTM(a1, a2, a2);
   CGContextSetGrayStrokeColor(a1, 0.4, 1.0);
   sub_10000303C();
   sub_10000301C();
-  v32 = v31;
-  v25(v22, v15);
-  CGContextSetLineWidth(a1, 1.0 / v32);
+  v31 = v30;
+  v24(v21, v15);
+  CGContextSetLineWidth(a1, 1.0 / v31);
   CGContextSetShouldAntialias(a1, 0);
   sub_100002C08(&qword_1000080A0, &qword_100003618);
-  v33._rawValue = swift_allocObject();
-  *(v33._rawValue + 1) = xmmword_100003560;
-  *(v33._rawValue + 4) = -a2;
-  *(v33._rawValue + 5) = -a4;
-  *(v33._rawValue + 6) = a5;
-  *(v33._rawValue + 7) = -a4;
-  *(v33._rawValue + 8) = -a2;
-  *(v33._rawValue + 9) = a6 - a4;
-  *(v33._rawValue + 10) = a5;
-  *(v33._rawValue + 11) = a6 - a4;
-  sub_1000030DC(v33);
+  v32._rawValue = swift_allocObject();
+  *(v32._rawValue + 1) = xmmword_100003560;
+  *(v32._rawValue + 4) = -a2;
+  *(v32._rawValue + 5) = -a4;
+  *(v32._rawValue + 6) = a5;
+  *(v32._rawValue + 7) = -a4;
+  *(v32._rawValue + 8) = -a2;
+  *(v32._rawValue + 9) = a6 - a4;
+  *(v32._rawValue + 10) = a5;
+  *(v32._rawValue + 11) = a6 - a4;
+  sub_1000030DC(v32);
 
   CGContextSetShouldAntialias(a1, 1);
   CGContextTranslateCTM(a1, -a3, -a4);
@@ -189,7 +169,7 @@ uint64_t sub_100001C58@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_100001CC0(uint64_t a1)
 {
-  v2 = sub_1000020E4(&qword_100008088, type metadata accessor for FontThumbnailExtension);
+  v2 = sub_1000020E4(&qword_100008088, type metadata accessor for FontThumbnailExtension, &unk_100003598);
 
   return ThumbnailExtension.configuration.getter(a1, v2);
 }
@@ -197,7 +177,6 @@ uint64_t sub_100001CC0(uint64_t a1)
 uint64_t sub_100001D3C()
 {
   v0 = sub_10000309C();
-  v1 = *(*(v0 - 8) + 64);
   __chkstk_darwin(v0 - 8);
   sub_10000308C();
   return sub_10000305C();
@@ -205,13 +184,13 @@ uint64_t sub_100001D3C()
 
 int main(int argc, const char **argv, const char **envp)
 {
-  type metadata accessor for FontThumbnailExtension();
-  sub_1000020E4(&qword_100008000, type metadata accessor for FontThumbnailExtension);
+  type metadata accessor for FontThumbnailExtension(0);
+  sub_1000020E4(&qword_100008000, type metadata accessor for FontThumbnailExtension, &unk_1000035C8);
   sub_100002FDC();
   return 0;
 }
 
-uint64_t type metadata accessor for FontThumbnailExtension()
+uint64_t type metadata accessor for FontThumbnailExtension(uint64_t a1)
 {
   result = qword_100008120;
   if (!qword_100008120)
@@ -238,10 +217,10 @@ uint64_t sub_100001F40(uint64_t a1, uint64_t a2)
   return v5(a1, a2, a2, v4);
 }
 
-uint64_t sub_100001FB0()
+uint64_t sub_100001FB0(uint64_t a1)
 {
   result = sub_10000306C();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -250,7 +229,7 @@ uint64_t sub_100001FB0()
   return result;
 }
 
-uint64_t sub_1000020E4(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1000020E4(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -263,33 +242,16 @@ uint64_t sub_1000020E4(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_10000212C()
-{
-  v1 = *v0;
-  swift_getWitnessTable();
-  return sub_100002FCC();
-}
-
-uint64_t sub_100002178()
-{
-  v1 = *v0;
-  swift_getWitnessTable();
-  return sub_100002FBC();
-}
-
-Swift::Int sub_1000021D0()
+Swift::Int sub_1000021D0(uint64_t a1, uint64_t a2)
 {
   sub_10000313C();
-  v1 = *v0;
   swift_getWitnessTable();
   sub_100002FBC();
   return sub_10000314C();
 }
 
-uint64_t sub_100002238(uint64_t *a1, uint64_t *a2)
+uint64_t sub_100002238(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  v2 = *a1;
-  v3 = *a2;
   swift_getWitnessTable();
 
   return sub_100002FAC();
@@ -297,12 +259,11 @@ uint64_t sub_100002238(uint64_t *a1, uint64_t *a2)
 
 unint64_t sub_1000022A4(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_10000313C();
   sub_1000030BC();
-  v6 = sub_10000314C();
+  v4 = sub_10000314C();
 
-  return sub_10000231C(a1, a2, v6);
+  return sub_10000231C(a1, a2, v4);
 }
 
 unint64_t sub_10000231C(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -336,14 +297,13 @@ unint64_t sub_10000231C(uint64_t a1, uint64_t a2, uint64_t a3)
 
 unint64_t sub_1000023D4(uint64_t a1)
 {
-  v3 = *(v1 + 40);
   sub_10000313C();
   type metadata accessor for CFString(0);
-  sub_1000020E4(&qword_1000080C8, type metadata accessor for CFString);
+  sub_1000020E4(&qword_1000080C8, type metadata accessor for CFString, &unk_100003758);
   sub_100002FBC();
-  v4 = sub_10000314C();
+  v2 = sub_10000314C();
 
-  return sub_100002488(a1, v4);
+  return sub_100002488(a1, v2);
 }
 
 unint64_t sub_100002488(uint64_t a1, uint64_t a2)
@@ -354,7 +314,7 @@ unint64_t sub_100002488(uint64_t a1, uint64_t a2)
   {
     v5 = ~v3;
     type metadata accessor for CFString(0);
-    sub_1000020E4(&qword_1000080C8, type metadata accessor for CFString);
+    sub_1000020E4(&qword_1000080C8, type metadata accessor for CFString, &unk_100003758);
     do
     {
       v6 = *(*(v2 + 48) + 8 * v4);
@@ -429,13 +389,13 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_1000026A4(uint64_t a1, unint64_t a2)
+uint64_t sub_1000026A4(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -491,9 +451,9 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_100002804(const __CTFontDescriptor *a1, double a2, double a3)
+uint64_t sub_100002804(double a1, double a2, const __CTFontDescriptor *a3)
 {
-  v6 = sub_100002C50(a1, 100.0);
+  v6 = sub_100002C50(a3, 100.0);
   v7 = CTFontCopySampleString();
   sub_100002C08(&qword_1000080A8, &qword_100003620);
   inited = swift_initStackObject();
@@ -507,7 +467,7 @@ uint64_t sub_100002804(const __CTFontDescriptor *a1, double a2, double a3)
   sub_100002C58(inited + 32);
   type metadata accessor for CFString(0);
   type metadata accessor for CTFont(0);
-  sub_1000020E4(&qword_1000080B8, type metadata accessor for CFString);
+  sub_1000020E4(&qword_1000080B8, type metadata accessor for CFString, &unk_100003784);
   isa = sub_1000030AC().super.isa;
 
   v12 = CTLineCreateWithString();
@@ -528,17 +488,17 @@ uint64_t sub_100002804(const __CTFontDescriptor *a1, double a2, double a3)
     v18 = v17;
   }
 
-  if (a3 >= a2)
+  if (a2 >= a1)
   {
-    v19 = a2;
+    v19 = a1;
   }
 
   else
   {
-    v19 = a3;
+    v19 = a2;
   }
 
-  v20 = sub_100002C50(a1, v19 * (100.0 / v18));
+  v20 = sub_100002C50(a3, v19 * (100.0 / v18));
   v21 = swift_initStackObject();
   *(v21 + 16) = xmmword_100003550;
   *(v21 + 32) = v9;
@@ -580,7 +540,6 @@ uint64_t sub_100002C08(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -710,12 +669,12 @@ uint64_t sub_100002E28(uint64_t result, int a2, int a3)
   return result;
 }
 
-void sub_100002E68(uint64_t a1, unint64_t *a2)
+void sub_100002E68(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }

@@ -12,7 +12,7 @@
   *(&self->super.super.super.isa + OBJC_IVAR___PXImportAssetActionManager_importItem) = item;
   *(&self->super.super.super.isa + OBJC_IVAR___PXImportAssetActionManager_importController) = controller;
   v9.receiver = self;
-  v9.super_class = type metadata accessor for ImportAssetActionManager();
+  v9.super_class = type metadata accessor for ImportAssetActionManager(self, a2);
   itemCopy = item;
   controllerCopy = controller;
   return [(PXImportAssetActionManager *)&v9 initWithSelectionManager:0];

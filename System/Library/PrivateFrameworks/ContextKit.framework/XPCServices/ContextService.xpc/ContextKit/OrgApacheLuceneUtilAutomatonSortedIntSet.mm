@@ -5,9 +5,239 @@
 - (void)computeHash;
 - (void)dealloc;
 - (void)decrWithInt:(int)int;
+- (void)incrWithInt:(int)int;
 @end
 
 @implementation OrgApacheLuceneUtilAutomatonSortedIntSet
+
+- (void)incrWithInt:(int)int
+{
+  if (self->useTreeMap_)
+  {
+    v10 = JavaLangInteger_valueOfWithInt_(int);
+    map = self->map_;
+    if (map)
+    {
+      v12 = [(JavaUtilMap *)map getWithId:v10];
+      v13 = self->map_;
+      if (v12)
+      {
+        v14 = [v12 intValue] + 1;
+      }
+
+      else
+      {
+        v14 = 1;
+      }
+
+      v42 = JavaLangInteger_valueOfWithInt_(v14);
+
+      [(JavaUtilMap *)v13 putWithId:v10 withId:v42];
+      return;
+    }
+
+    goto LABEL_61;
+  }
+
+  p_values = &self->values_;
+  values = self->values_;
+  if (!values)
+  {
+    goto LABEL_61;
+  }
+
+  upto = self->upto_;
+  if (upto == values[2])
+  {
+    v18 = OrgApacheLuceneUtilArrayUtil_growWithIntArray_withInt_(values, upto + 1, *&int, v3, v4, v5, v6, v7);
+    JreStrongAssign(&self->values_, v18);
+    v25 = OrgApacheLuceneUtilArrayUtil_growWithIntArray_withInt_(self->counts_, self->upto_ + 1, v19, v20, v21, v22, v23, v24);
+    JreStrongAssign(&self->counts_, v25);
+    upto = self->upto_;
+  }
+
+  if (upto < 1)
+  {
+LABEL_19:
+    v30 = *p_values;
+    if (*p_values)
+    {
+      size = v30->super.size_;
+      if ((upto & 0x80000000) != 0 || upto >= size)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(size, upto);
+      }
+
+      *(&v30->super.size_ + upto + 1) = int;
+      counts = self->counts_;
+      if (counts)
+      {
+        v33 = self->upto_;
+        v34 = counts->super.size_;
+        if (v33 < 0 || v33 >= v34)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v34, v33);
+        }
+
+        *(&counts->super.size_ + v33 + 1) = 1;
+        v35 = self->upto_ + 1;
+        self->upto_ = v35;
+        if (v35 != 30)
+        {
+          return;
+        }
+
+        v36 = 0;
+        self->useTreeMap_ = 1;
+        while (1)
+        {
+          v37 = self->map_;
+          if (!v37)
+          {
+            break;
+          }
+
+          v38 = (*p_values)->super.size_;
+          if (v36 >= v38)
+          {
+            IOSArray_throwOutOfBoundsWithMsg(v38, v36);
+          }
+
+          v39 = JavaLangInteger_valueOfWithInt_(*(&(*p_values)->super.size_ + v36 + 1));
+          v40 = self->counts_;
+          v41 = v40->super.size_;
+          if (v36 >= v41)
+          {
+            IOSArray_throwOutOfBoundsWithMsg(v41, v36);
+          }
+
+          [(JavaUtilMap *)v37 putWithId:v39 withId:JavaLangInteger_valueOfWithInt_(*(&v40->super.size_ + ++v36))];
+          if (v36 >= self->upto_)
+          {
+            return;
+          }
+        }
+      }
+    }
+
+    goto LABEL_61;
+  }
+
+  v26 = 0;
+  while (1)
+  {
+    v27 = *p_values;
+    if (!*p_values)
+    {
+      goto LABEL_61;
+    }
+
+    v28 = v27->super.size_;
+    if (v26 >= v28)
+    {
+      IOSArray_throwOutOfBoundsWithMsg(v28, v26);
+    }
+
+    if (*(&v27->super.size_ + v26 + 1) == int)
+    {
+      break;
+    }
+
+    v29 = (*p_values)->super.size_;
+    if (v26 >= v29)
+    {
+      IOSArray_throwOutOfBoundsWithMsg(v29, v26);
+    }
+
+    if (*(&(*p_values)->super.size_ + v26 + 1) > int)
+    {
+      v45 = self->upto_;
+      if (v45 - 1 >= v26)
+      {
+        v50 = v45 - 1;
+        do
+        {
+          v51 = (*p_values)->super.size_;
+          if (v50 >= v51)
+          {
+            IOSArray_throwOutOfBoundsWithMsg(v51, (v45 - 1));
+          }
+
+          if ((v45 & 0x80000000) != 0 || v45 >= v51)
+          {
+            IOSArray_throwOutOfBoundsWithMsg(v51, v45);
+          }
+
+          *(&(*p_values)->super.size_ + v45 + 1) = *(&(*p_values)->super.size_ + v50 + 1);
+          v52 = self->counts_;
+          v53 = v52->super.size_;
+          v54 = v52;
+          if (v50 >= v53)
+          {
+            IOSArray_throwOutOfBoundsWithMsg(v53, (v45 - 1));
+          }
+
+          v55 = *(&v52->super.size_ + v50 + 1);
+          v56 = v54->super.size_;
+          if ((v45 & 0x80000000) != 0 || v45 >= v56)
+          {
+            IOSArray_throwOutOfBoundsWithMsg(v56, v45);
+          }
+
+          *(&v54->super.size_ + v45 + 1) = v55;
+          v45 = (v45 - 1);
+        }
+
+        while (v50-- > v26);
+      }
+
+      v46 = *p_values;
+      v47 = v46->super.size_;
+      if (v26 >= v47)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v47, v26);
+      }
+
+      *(&v46->super.size_ + v26 + 1) = int;
+      v48 = self->counts_;
+      if (v48)
+      {
+        v49 = v48->super.size_;
+        if (v26 >= v49)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v49, v26);
+        }
+
+        *(&v48->super.size_ + v26 + 1) = 1;
+        ++self->upto_;
+        return;
+      }
+
+LABEL_61:
+      JreThrowNullPointerException();
+    }
+
+    upto = self->upto_;
+    if (++v26 >= upto)
+    {
+      goto LABEL_19;
+    }
+  }
+
+  v43 = self->counts_;
+  if (!v43)
+  {
+    goto LABEL_61;
+  }
+
+  v44 = v43->super.size_;
+  if (v26 >= v44)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v44, v26);
+  }
+
+  ++*(&v43->super.size_ + v26 + 1);
+}
 
 - (void)decrWithInt:(int)int
 {

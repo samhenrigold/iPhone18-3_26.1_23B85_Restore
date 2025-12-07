@@ -74,7 +74,7 @@
       _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:CLC: Enable CLRouteListener when already enabled, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Positioning/Transit/CLRouteListener.mm", 84, "[CLRouteListener enable]");
   }
 
   [(GEONavigationListener *)self->_geoNavListener setDelegate:self];
@@ -526,27 +526,23 @@ LABEL_22:
 
 - (void)logTransitRoute:(id)route
 {
-  v52 = 0u;
-  v53 = 0u;
-  v54 = 0u;
-  v55 = 0u;
   possibleStops = [route possibleStops];
-  v4 = [possibleStops countByEnumeratingWithState:&v52 objects:v59 count:16];
+  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(possibleStops);
   if (v4)
   {
     v5 = v4;
-    v6 = *v53;
+    v6 = MEMORY[0];
     do
     {
       v7 = 0;
       do
       {
-        if (*v53 != v6)
+        if (MEMORY[0] != v6)
         {
           objc_enumerationMutation(possibleStops);
         }
 
-        v8 = *(*(&v52 + 1) + 8 * v7);
+        v8 = *(8 * v7);
         if (qword_1025D4600 != -1)
         {
           sub_101925AEC();
@@ -576,7 +572,7 @@ LABEL_22:
           {
             stopID = [v8 stopID];
             *buf = 134283521;
-            v58 = stopID;
+            v49 = stopID;
             _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEBUG, "CLC:     ID  : %{private}llu", buf, 0xCu);
           }
 
@@ -599,7 +595,7 @@ LABEL_22:
           {
             [coordinate lat];
             *buf = 134545665;
-            v58 = v14;
+            v49 = v14;
             _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEBUG, "CLC:     LAT : %{sensitive}lf", buf, 0xCu);
           }
 
@@ -618,7 +614,7 @@ LABEL_22:
           {
             [coordinate lng];
             *buf = 134545665;
-            v58 = v16;
+            v49 = v16;
             _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_DEBUG, "CLC:     LON : %{sensitive}lf", buf, 0xCu);
           }
 
@@ -632,34 +628,30 @@ LABEL_22:
       }
 
       while (v5 != v7);
-      v5 = [possibleStops countByEnumeratingWithState:&v52 objects:v59 count:16];
+      v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(possibleStops);
     }
 
     while (v5);
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
-  v49 = 0u;
   obj = [route scheduledLinks];
-  v17 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
+  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj);
   if (v17)
   {
     v18 = v17;
-    v19 = *v49;
+    v19 = MEMORY[0];
     v46 = 134545665;
     do
     {
       v20 = 0;
       do
       {
-        if (*v49 != v19)
+        if (MEMORY[0] != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v48 + 1) + 8 * v20);
+        v21 = *(8 * v20);
         if (qword_1025D4600 != -1)
         {
           sub_101925AEC();
@@ -689,7 +681,7 @@ LABEL_22:
           {
             lineID = [v21 lineID];
             *buf = 134283521;
-            v58 = lineID;
+            v49 = lineID;
             _os_log_impl(dword_100000000, v23, OS_LOG_TYPE_DEBUG, "CLC:     ID  : %{private}llu", buf, 0xCu);
           }
 
@@ -711,7 +703,7 @@ LABEL_22:
           {
             [v21 scheduledDeparture];
             *buf = 134283521;
-            v58 = v26;
+            v49 = v26;
             _os_log_impl(dword_100000000, v25, OS_LOG_TYPE_DEBUG, "CLC:     DEP : %{private}lf", buf, 0xCu);
           }
 
@@ -733,7 +725,7 @@ LABEL_22:
           {
             [v21 scheduledArrival];
             *buf = 134283521;
-            v58 = v28;
+            v49 = v28;
             _os_log_impl(dword_100000000, v27, OS_LOG_TYPE_DEBUG, "CLC:     ARR : %{private}lf", buf, 0xCu);
           }
 
@@ -774,7 +766,7 @@ LABEL_22:
             {
               v31 = [objc_msgSend(v21 "stopFrom")];
               *buf = 134283521;
-              v58 = v31;
+              v49 = v31;
               _os_log_impl(dword_100000000, v30, OS_LOG_TYPE_DEBUG, "CLC:         ID  : %{private}llu", buf, 0xCu);
             }
 
@@ -797,7 +789,7 @@ LABEL_22:
             {
               [v32 lat];
               *buf = v46;
-              v58 = v34;
+              v49 = v34;
               _os_log_impl(dword_100000000, v33, OS_LOG_TYPE_DEBUG, "CLC:         LAT : %{sensitive}lf", buf, 0xCu);
             }
 
@@ -816,7 +808,7 @@ LABEL_22:
             {
               [v32 lng];
               *buf = v46;
-              v58 = v36;
+              v49 = v36;
               _os_log_impl(dword_100000000, v35, OS_LOG_TYPE_DEBUG, "CLC:         LON : %{sensitive}lf", buf, 0xCu);
             }
 
@@ -858,7 +850,7 @@ LABEL_22:
             {
               v39 = [objc_msgSend(v21 "stopTo")];
               *buf = 134283521;
-              v58 = v39;
+              v49 = v39;
               _os_log_impl(dword_100000000, v38, OS_LOG_TYPE_DEBUG, "CLC:         ID  : %{private}llu", buf, 0xCu);
             }
 
@@ -881,7 +873,7 @@ LABEL_22:
             {
               [v40 lat];
               *buf = v46;
-              v58 = v42;
+              v49 = v42;
               _os_log_impl(dword_100000000, v41, OS_LOG_TYPE_DEBUG, "CLC:         LAT : %{sensitive}lf", buf, 0xCu);
             }
 
@@ -900,7 +892,7 @@ LABEL_22:
             {
               [v40 lng];
               *buf = v46;
-              v58 = v44;
+              v49 = v44;
               _os_log_impl(dword_100000000, v43, OS_LOG_TYPE_DEBUG, "CLC:         LON : %{sensitive}lf", buf, 0xCu);
             }
 
@@ -915,7 +907,7 @@ LABEL_22:
       }
 
       while (v18 != v20);
-      v18 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj);
     }
 
     while (v18);

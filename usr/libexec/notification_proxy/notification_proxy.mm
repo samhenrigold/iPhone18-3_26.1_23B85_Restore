@@ -1,50 +1,48 @@
 void sub_100000F38(uint64_t a1)
 {
   v1 = (a1 + 32);
-  v2 = *(*(a1 + 32) + 8);
-  v3 = v1[1];
-  v4 = lockdown_send_message();
-  v5 = qword_10000C768;
-  if (v4)
-  {
-    if (os_log_type_enabled(qword_10000C768, OS_LOG_TYPE_DEFAULT))
-    {
-      v6 = v1[1];
-      v7 = *v1;
-      v8 = 138412546;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v7;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "lockdown_send_message error, message: %@, connection: %@", &v8, 0x16u);
-    }
-  }
-
-  else if (os_log_type_enabled(qword_10000C768, OS_LOG_TYPE_DEBUG))
-  {
-    sub_100003748(v1 + 1, v1);
-  }
-}
-
-id sub_1000010AC(uint64_t a1)
-{
-  v1 = (a1 + 32);
-  v2 = *(*(a1 + 32) + 8);
+  v2 = (a1 + 40);
   v3 = lockdown_send_message();
   v4 = qword_10000C768;
   if (v3)
   {
     if (os_log_type_enabled(qword_10000C768, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *v1;
-      v7 = 138412290;
+      v5 = *v2;
+      v6 = *v1;
+      v7 = 138412546;
       v8 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "shutdown error, connection: %@", &v7, 0xCu);
+      v9 = 2112;
+      v10 = v6;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "lockdown_send_message error, message: %@, connection: %@", &v7, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(qword_10000C768, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000037BC(v1);
+    sub_100003748();
+  }
+}
+
+id sub_1000010AC(uint64_t a1)
+{
+  v1 = (a1 + 32);
+  v2 = lockdown_send_message();
+  v3 = qword_10000C768;
+  if (v2)
+  {
+    if (os_log_type_enabled(qword_10000C768, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = *v1;
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "shutdown error, connection: %@", &v6, 0xCu);
+    }
+  }
+
+  else if (os_log_type_enabled(qword_10000C768, OS_LOG_TYPE_DEBUG))
+  {
+    sub_1000037BC();
   }
 
   return [*v1 cancel];
@@ -53,34 +51,33 @@ id sub_1000010AC(uint64_t a1)
 void sub_1000013A8(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = *(*(a1 + 32) + 8);
-  v4 = lockdown_receive_message();
-  if (!v4)
+  v3 = lockdown_receive_message();
+  if (!v3)
   {
-    v10 = qword_10000C768;
+    v9 = qword_10000C768;
     if (!os_log_type_enabled(qword_10000C768, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_5;
     }
 
     *buf = 0;
-    v7 = "lockdown_receive_message returned NULL";
-    v8 = v10;
-    v9 = 2;
+    v6 = "lockdown_receive_message returned NULL";
+    v7 = v9;
+    v8 = 2;
     goto LABEL_4;
   }
 
-  v5 = v4;
-  v6 = qword_10000C768;
+  v4 = v3;
+  v5 = qword_10000C768;
   if (os_log_type_enabled(qword_10000C768, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v12) = v5;
-    v7 = "lockdown_receive_message error: %d";
-    v8 = v6;
-    v9 = 8;
+    LODWORD(v11) = v4;
+    v6 = "lockdown_receive_message error: %d";
+    v7 = v5;
+    v8 = 8;
 LABEL_4:
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v7, buf, v9);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, v6, buf, v8);
   }
 
 LABEL_5:
@@ -288,9 +285,9 @@ void sub_100001E0C(uint64_t a1, void *a2)
       v14 = qword_10000C768;
       if (os_log_type_enabled(qword_10000C768, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 136446210;
-        v20 = v13;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Unexpected RemoteXPC error: %{public}s", &v19, 0xCu);
+        v18 = 136446210;
+        v19 = v13;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Unexpected RemoteXPC error: %{public}s", &v18, 0xCu);
       }
 
       if (v13)
@@ -300,7 +297,6 @@ void sub_100001E0C(uint64_t a1, void *a2)
     }
 
     sub_100001990(WeakRetained);
-    v18 = *(*(a1 + 32) + 8);
     xpc_remote_connection_cancel();
   }
 
@@ -336,7 +332,7 @@ LABEL_21:
           goto LABEL_21;
         }
 
-        LOWORD(v19) = 0;
+        LOWORD(v18) = 0;
         v17 = "Failed to read name.";
       }
 
@@ -348,19 +344,19 @@ LABEL_21:
           goto LABEL_21;
         }
 
-        LOWORD(v19) = 0;
+        LOWORD(v18) = 0;
         v17 = "Failed to read command.";
       }
 
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, v17, &v19, 2u);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, v17, &v18, 2u);
       goto LABEL_21;
     }
 
     v15 = qword_10000C768;
     if (os_log_type_enabled(qword_10000C768, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Failed to create dictionary.", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Failed to create dictionary.", &v18, 2u);
     }
   }
 
@@ -954,7 +950,7 @@ void sub_100003568(uint64_t a1, void *a2)
   v3 = a2;
   if (os_log_type_enabled(qword_10000C768, OS_LOG_TYPE_DEBUG))
   {
-    sub_100003A50(a1);
+    sub_100003A50();
   }
 
   v4 = [qword_10000C798 objectForKeyedSubscript:v3];
@@ -979,14 +975,14 @@ void sub_100003568(uint64_t a1, void *a2)
 
 void sub_100003694(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   if (os_log_type_enabled(qword_10000C768, OS_LOG_TYPE_DEBUG))
   {
-    sub_100003AC0(a1);
+    sub_100003AC0();
   }
 
   DistributedCenter = CFNotificationCenterGetDistributedCenter();
-  CFNotificationCenterRemoveObserver(DistributedCenter, 0, v3, 0);
+  CFNotificationCenterRemoveObserver(DistributedCenter, 0, v2, 0);
 }
 
 void sub_10000371C(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -994,21 +990,6 @@ void sub_10000371C(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   va_start(va, a4);
 
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
-}
-
-void sub_100003748(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  sub_100003708();
-  sub_10000371C(&_mh_execute_header, v4, v5, "  Sent the notification %@ to the host via connection: %@");
-}
-
-void sub_1000037BC(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_10000373C();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_10000399C(void *a1, void *a2, uint64_t a3)
@@ -1019,18 +1000,4 @@ void sub_10000399C(void *a1, void *a2, uint64_t a3)
   v8 = 2112;
   v9 = a3;
   _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "%ld watchers for %@", &v6, 0x16u);
-}
-
-void sub_100003A50(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_100003708();
-  sub_10000371C(&_mh_execute_header, v2, v3, "%@ - no more watchers for BSDNote %@, cancelling notification");
-}
-
-void sub_100003AC0(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_100003708();
-  sub_10000371C(&_mh_execute_header, v2, v3, "%@ - no more watchers for NSNote %@, removing observer");
 }

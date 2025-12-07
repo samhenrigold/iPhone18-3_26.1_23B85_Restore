@@ -9,17 +9,18 @@
 - (void)viewDidDisappear:(BOOL)disappear
 {
   disappearCopy = disappear;
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for PlatformAlertController();
-  v4 = v7.receiver;
-  [(PlatformAlertController *)&v7 viewDidDisappear:disappearCopy];
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for PlatformAlertController();
+  v4 = v8.receiver;
+  [(PlatformAlertController *)&v8 viewDidDisappear:disappearCopy];
   v5 = *&v4[OBJC_IVAR____TtC7SwiftUI23PlatformAlertController_onDismissAction];
   if (v5)
   {
+    v6 = *&v4[OBJC_IVAR____TtC7SwiftUI23PlatformAlertController_onDismissAction + 8];
 
-    v5(v6);
+    v5(v7);
 
-    outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v5);
+    outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v5, v6);
   }
 
   else

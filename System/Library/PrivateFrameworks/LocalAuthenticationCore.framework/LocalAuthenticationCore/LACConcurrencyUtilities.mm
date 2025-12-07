@@ -25,9 +25,11 @@
 
 uint64_t __38__LACConcurrencyUtilities_daemonQueue__block_invoke(uint64_t a1)
 {
-  daemonQueue__queue = [*(a1 + 32) createUserInitiatedSerialQueueWithIdentifier:@"daemon-serial-queue"];
+  v1 = [*(a1 + 32) createUserInitiatedSerialQueueWithIdentifier:@"daemon-serial-queue"];
+  v2 = daemonQueue__queue;
+  daemonQueue__queue = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (id)createDefaultQueueWithIdentifier:(id)identifier concurrencyAttribute:(id)attribute

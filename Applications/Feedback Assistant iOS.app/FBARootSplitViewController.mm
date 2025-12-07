@@ -5,6 +5,7 @@
 - (void)clearBlockingUI;
 - (void)createAndShowNonParticipantView;
 - (void)dealloc;
+- (void)dismissSecondaryOrShowEmptyViewControllerAnimated:(BOOL)animated;
 - (void)displayLoginSplash;
 - (void)displayNonParticipant;
 - (void)drainAndPresentConsentsWithCompletion:(id)completion;
@@ -13,10 +14,12 @@
 - (void)presentConnectionErrorUI;
 - (void)presentStartupUI:(unint64_t)i;
 - (void)presentVersionOutdatedUI;
+- (void)resetViewControllers:(BOOL)controllers;
 - (void)signOutHandler;
 - (void)unwindToNonParticipant:(id)participant;
 - (void)unwindToOutdatedVersion:(id)version;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation FBARootSplitViewController
@@ -60,6 +63,22 @@
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = FBARootSplitViewController;
+  [(FBARootSplitViewController *)&v6 viewWillAppear:appear];
+  performOnAppear = [(FBARootSplitViewController *)self performOnAppear];
+
+  if (performOnAppear)
+  {
+    performOnAppear2 = [(FBARootSplitViewController *)self performOnAppear];
+    performOnAppear2[2]();
+
+    [(FBARootSplitViewController *)self setPerformOnAppear:0];
+  }
+}
+
 - (void)dealloc
 {
   v3 = +[FBKData sharedInstance];
@@ -72,6 +91,51 @@
   v6.receiver = self;
   v6.super_class = FBARootSplitViewController;
   [(FBARootSplitViewController *)&v6 dealloc];
+}
+
+- (void)resetViewControllers:(BOOL)controllers
+{
+  controllersCopy = controllers;
+  if (([(FBARootSplitViewController *)self isCollapsed]& 1) != 0)
+  {
+    viewControllers = [(FBARootSplitViewController *)self viewControllers];
+    v11 = [viewControllers objectAtIndexedSubscript:0];
+
+    v6 = [v11 popToRootViewControllerAnimated:controllersCopy];
+  }
+
+  else
+  {
+    storyboard = [(FBARootSplitViewController *)self storyboard];
+    v11 = [storyboard instantiateViewControllerWithIdentifier:@"FBAEmptyStack"];
+
+    viewControllers2 = [(FBARootSplitViewController *)self viewControllers];
+    v9 = [viewControllers2 objectAtIndexedSubscript:0];
+
+    v10 = [v9 popToRootViewControllerAnimated:controllersCopy];
+    [(FBARootSplitViewController *)self setViewController:v9 forColumn:0];
+    [(FBARootSplitViewController *)self setViewController:v11 forColumn:2];
+  }
+}
+
+- (void)dismissSecondaryOrShowEmptyViewControllerAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  if ([(FBARootSplitViewController *)self isCollapsed])
+  {
+    viewControllers = [(FBARootSplitViewController *)self viewControllers];
+    firstObject = [viewControllers firstObject];
+
+    v6 = [firstObject popViewControllerAnimated:animatedCopy];
+  }
+
+  else
+  {
+    storyboard = [(FBARootSplitViewController *)self storyboard];
+    firstObject = [storyboard instantiateViewControllerWithIdentifier:@"FBAEmptyStack"];
+
+    [(FBARootSplitViewController *)self showDetailViewController:firstObject sender:0];
+  }
 }
 
 - (void)performSegueWithIdentifier:(id)identifier sender:(id)sender
@@ -279,7 +343,7 @@
 
   selfCopy = self;
   sub_10006C304(v7, v6);
-  sub_10004BA44(v7);
+  sub_10004BA44(v7, v6);
 }
 
 @end

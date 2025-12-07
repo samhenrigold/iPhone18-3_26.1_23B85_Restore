@@ -77,14 +77,14 @@
   dispatch_sync(syncQueue, v4);
 }
 
-uint64_t __40__MTPeriodicQueue_setFlushTimeInterval___block_invoke(uint64_t result)
+double *__40__MTPeriodicQueue_setFlushTimeInterval___block_invoke(double *result)
 {
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v1 = *(result + 4);
+  v2 = result[5];
   if (*(v1 + 16) != v2)
   {
     *(v1 + 16) = v2;
-    result = *(result + 32);
+    result = *(result + 4);
     if (*(result + 8) == 1)
     {
       return [result __beginFlushTimer];
@@ -106,15 +106,15 @@ uint64_t __40__MTPeriodicQueue_setFlushTimeInterval___block_invoke(uint64_t resu
   dispatch_sync(syncQueue, v4);
 }
 
-uint64_t __40__MTPeriodicQueue_setFlushTimerEnabled___block_invoke(uint64_t result)
+void *__40__MTPeriodicQueue_setFlushTimerEnabled___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   v2 = *(result + 40);
   if (*(v1 + 8) != v2)
   {
     *(v1 + 8) = v2;
     v3 = *(result + 40);
-    v4 = *(result + 32);
+    v4 = result[4];
     if (v3 == 1)
     {
       return [v4 __beginFlushTimer];
@@ -141,19 +141,19 @@ uint64_t __40__MTPeriodicQueue_setFlushTimerEnabled___block_invoke(uint64_t resu
   dispatch_sync(syncQueue, v4);
 }
 
-unint64_t __39__MTPeriodicQueue_setMaximumBatchSize___block_invoke(unint64_t result)
+void *__39__MTPeriodicQueue_setMaximumBatchSize___block_invoke(void *result)
 {
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v1 = result[4];
+  v2 = result[5];
   if (*(v1 + 24) != v2)
   {
     v3 = result;
     *(v1 + 24) = v2;
-    v4 = *(result + 40);
-    result = [*(*(result + 32) + 48) count];
+    v4 = result[5];
+    result = [*(result[4] + 48) count];
     if (v4 <= result)
     {
-      v5 = *(v3 + 32);
+      v5 = v3[4];
 
       return [v5 __flushObjects];
     }

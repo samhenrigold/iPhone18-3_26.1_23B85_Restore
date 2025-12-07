@@ -37,16 +37,16 @@
 
 - (void)passesDataSourceDidReloadPasses:(id)passes
 {
-  v4 = pk_General_log();
+  v4 = pk_General_log(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_General_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_General_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: VAS automatic selection coordinator got reloaded passes", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: VAS automatic selection coordinator got reloaded passes", v8, 2u);
     }
   }
 
@@ -55,16 +55,16 @@
 
 - (void)passesDataSource:(id)source didAddPasses:(id)passes
 {
-  v5 = pk_General_log();
+  v5 = pk_General_log(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: VAS automatic selection coordinator got added passes", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: VAS automatic selection coordinator got added passes", v9, 2u);
     }
   }
 
@@ -73,16 +73,16 @@
 
 - (void)passesDataSource:(id)source didUpdatePasses:(id)passes
 {
-  v5 = pk_General_log();
+  v5 = pk_General_log(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: VAS automatic selection coordinator got updated passes", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: VAS automatic selection coordinator got updated passes", v9, 2u);
     }
   }
 
@@ -91,16 +91,16 @@
 
 - (void)passesDataSource:(id)source didRemovePasses:(id)passes
 {
-  v5 = pk_General_log();
+  v5 = pk_General_log(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: VAS automatic selection coordinator got removed passes", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: VAS automatic selection coordinator got removed passes", v9, 2u);
     }
   }
 
@@ -109,16 +109,16 @@
 
 - (void)passesDataSourceDidReorderPasses:(id)passes
 {
-  v4 = pk_General_log();
+  v4 = pk_General_log(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_General_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_General_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: VAS automatic selection coordinator got reordered passes", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: VAS automatic selection coordinator got reordered passes", v8, 2u);
     }
   }
 
@@ -129,38 +129,36 @@
 {
   v13 = *MEMORY[0x277D85DE8];
   passCopy = pass;
-  v6 = pk_General_log();
+  v6 = pk_General_log(passCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_General_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_General_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID = [passCopy uniqueID];
       v11 = 138412290;
       v12 = uniqueID;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: VAS automatic selection coordinator got updated settings for pass %@", &v11, 0xCu);
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: VAS automatic selection coordinator got updated settings for pass %@", &v11, 0xCu);
     }
   }
 
   [(NPKValueAddedServiceAutomaticSelectionCoordinator *)self _updateAutomaticSelectionPasses];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleWalletPreferencesChanged:(id)changed
 {
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Wallet preferences changed", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Wallet preferences changed", v8, 2u);
     }
   }
 
@@ -169,33 +167,33 @@
 
 - (void)_updateAutomaticSelectionPasses
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   WeakRetained = objc_loadWeakRetained(&self->_dataSource);
   passes = [WeakRetained passes];
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
-  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
   v5 = passes;
-  v6 = [v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
+    v8 = *v30;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v29 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * i);
+        v10 = *(*(&v29 + 1) + 8 * i);
         if (NPKIsValidVASPass(v10) && ([v10 hasStoredValue] & 1) == 0 && (objc_msgSend(v10, "settings") & 0x10) != 0)
         {
           passTypeIdentifier = [v10 passTypeIdentifier];
@@ -230,31 +228,29 @@ LABEL_12:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v7);
   }
 
-  v20 = pk_General_log();
-  v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+  v21 = pk_General_log(v20);
+  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
 
-  if (v21)
+  if (v22)
   {
-    v22 = pk_General_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v24 = pk_General_log(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = [dictionary2 count];
+      v25 = [dictionary2 count];
       *buf = 67109120;
-      v33 = v23;
-      _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Notice: Found %d VAS passes for automatic selection", buf, 8u);
+      v34 = v25;
+      _os_log_impl(&dword_25B300000, v24, OS_LOG_TYPE_DEFAULT, "Notice: Found %d VAS passes for automatic selection", buf, 8u);
     }
   }
 
-  v24 = objc_loadWeakRetained(&selfCopy->_delegate);
-  [v24 valueAddedServiceAutomaticSelectionCoordinator:selfCopy didUpdatePasses:dictionary2];
-
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = objc_loadWeakRetained(&selfCopy->_delegate);
+  [v26 valueAddedServiceAutomaticSelectionCoordinator:selfCopy didUpdatePasses:dictionary2];
 }
 
 - (NPKValueAddedServiceAutomaticSelectionCoordinatorDelegate)delegate

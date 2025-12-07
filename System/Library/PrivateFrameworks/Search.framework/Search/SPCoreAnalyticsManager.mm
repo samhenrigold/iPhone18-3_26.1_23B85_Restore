@@ -27,7 +27,7 @@ LABEL_5:
 
   v7 = 0;
 LABEL_7:
-  AnalyticsAddValueIfNonNull(v7);
+  AnalyticsAddValueIfNonNull(v7, 1);
 }
 
 + (id)aggdLogIdentifierFromItem:(id)item type:(int)type baseType:(id *)baseType
@@ -321,7 +321,7 @@ LABEL_29:
 
 + (void)computeEngagementMatrixForEngagedItem:(id)item topAnalyticsItemsPerSection:(id)section
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   sectionCopy = section;
   sectionBundleIdentifier = [itemCopy sectionBundleIdentifier];
@@ -342,29 +342,29 @@ LABEL_29:
     }
   }
 
-  v40 = itemCopy;
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
+  v39 = itemCopy;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   obj = sectionCopy;
-  v10 = [obj countByEnumeratingWithState:&v47 objects:v56 count:16];
-  v39 = v9;
+  v10 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
+  v38 = v9;
   if (v10)
   {
     v11 = v10;
+    v41 = 0;
     v42 = 0;
     v43 = 0;
-    v44 = 0;
     sectionBundleIdentifier2 = 0;
-    v13 = *v48;
+    v13 = *v47;
     v14 = @"com.apple.searchd.eng.parsec.engaged.top.%d.bundle";
     if (v9)
     {
       v14 = @"com.apple.searchd.eng.local.engaged.top.%d.bundle";
     }
 
-    v41 = v14;
+    v40 = v14;
     v15 = 1;
     v16 = 1;
     do
@@ -372,12 +372,12 @@ LABEL_29:
       for (i = 0; i != v11; ++i)
       {
         v18 = sectionBundleIdentifier2;
-        if (*v48 != v13)
+        if (*v47 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v47 + 1) + 8 * i);
+        v19 = *(*(&v46 + 1) + 8 * i);
         sectionBundleIdentifier2 = [v19 sectionBundleIdentifier];
 
         if (([sectionBundleIdentifier2 isEqualToString:@"com.apple.searchd.suggestions"] & 1) == 0 && (objc_msgSend(sectionBundleIdentifier2, "isEqualToString:", @"com.apple.searchd.zkw.apps") & 1) == 0 && (objc_msgSend(sectionBundleIdentifier2, "isEqualToString:", @"com.apple.spotlightui.search-through") & 1) == 0)
@@ -386,7 +386,7 @@ LABEL_29:
           {
             v20 = v19;
 
-            v44 = v20;
+            v43 = v20;
           }
 
           if ([sectionBundleIdentifier2 isEqualToString:sectionBundleIdentifier])
@@ -402,13 +402,23 @@ LABEL_29:
           if (v21)
           {
             v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.searchd.eng.any.engaged.top.%d.bundle", v16];
-            AnalyticsAddValueIfNonNull(v22);
+            AnalyticsAddValueIfNonNull(v22, 1);
 
-            v23 = [MEMORY[0x1E696AEC0] stringWithFormat:v41, v16];
-            AnalyticsAddValueIfNonNull(v23);
+            v23 = [MEMORY[0x1E696AEC0] stringWithFormat:v40, v16];
+            AnalyticsAddValueIfNonNull(v23, 1);
           }
 
           if ([v19 type] == 1)
+          {
+            v24 = v41;
+            if (!v41)
+            {
+              v24 = objc_opt_new();
+              v41 = v24;
+            }
+          }
+
+          else
           {
             v24 = v42;
             if (!v42)
@@ -418,23 +428,13 @@ LABEL_29:
             }
           }
 
-          else
-          {
-            v24 = v43;
-            if (!v43)
-            {
-              v24 = objc_opt_new();
-              v43 = v24;
-            }
-          }
-
           [v24 addObject:v19];
           v15 = 0;
           v16 = (v16 + 1);
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v47 objects:v56 count:16];
+      v11 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
     }
 
     while (v11);
@@ -442,53 +442,53 @@ LABEL_29:
 
   else
   {
+    v41 = 0;
     v42 = 0;
     v43 = 0;
-    v44 = 0;
     sectionBundleIdentifier2 = 0;
   }
 
-  if (v39)
-  {
-    v26 = v43;
-  }
-
-  else
+  if (v38)
   {
     v26 = v42;
   }
 
+  else
+  {
+    v26 = v41;
+  }
+
   v27 = [v26 objectAtIndexedSubscript:0];
-  sectionBundleIdentifier3 = [v44 sectionBundleIdentifier];
+  sectionBundleIdentifier3 = [v43 sectionBundleIdentifier];
   if ([sectionBundleIdentifier isEqualToString:sectionBundleIdentifier3])
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __AnalyticsAddValueIfNonNull_block_invoke;
-    v54 = &__block_descriptor_40_e19___NSDictionary_8__0l;
-    v55 = 1;
+    v50 = MEMORY[0x1E69E9820];
+    v51 = 3221225472;
+    v52 = __AnalyticsAddValueIfNonNull_block_invoke;
+    v53 = &__block_descriptor_40_e19___NSDictionary_8__0l;
+    v54 = 1;
     AnalyticsSendEventLazy();
-    if (v39)
+    if (v38)
     {
-      v51 = MEMORY[0x1E69E9820];
-      v52 = 3221225472;
-      v53 = __AnalyticsAddValueIfNonNull_block_invoke;
-      v54 = &__block_descriptor_40_e19___NSDictionary_8__0l;
-      v55 = 1;
+      v50 = MEMORY[0x1E69E9820];
+      v51 = 3221225472;
+      v52 = __AnalyticsAddValueIfNonNull_block_invoke;
+      v53 = &__block_descriptor_40_e19___NSDictionary_8__0l;
+      v54 = 1;
 LABEL_50:
       AnalyticsSendEventLazy();
       goto LABEL_51;
     }
 
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __AnalyticsAddValueIfNonNull_block_invoke;
-    v54 = &__block_descriptor_40_e19___NSDictionary_8__0l;
-    v55 = 1;
+    v50 = MEMORY[0x1E69E9820];
+    v51 = 3221225472;
+    v52 = __AnalyticsAddValueIfNonNull_block_invoke;
+    v53 = &__block_descriptor_40_e19___NSDictionary_8__0l;
+    v54 = 1;
     AnalyticsSendEventLazy();
   }
 
-  else if (v39)
+  else if (v38)
   {
     goto LABEL_51;
   }
@@ -498,21 +498,21 @@ LABEL_50:
 
   if (v30)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __AnalyticsAddValueIfNonNull_block_invoke;
-    v54 = &__block_descriptor_40_e19___NSDictionary_8__0l;
-    v55 = 1;
+    v50 = MEMORY[0x1E69E9820];
+    v51 = 3221225472;
+    v52 = __AnalyticsAddValueIfNonNull_block_invoke;
+    v53 = &__block_descriptor_40_e19___NSDictionary_8__0l;
+    v54 = 1;
     AnalyticsSendEventLazy();
   }
 
   if ([sectionBundleIdentifier isEqualToString:sectionBundleIdentifier3])
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __AnalyticsAddValueIfNonNull_block_invoke;
-    v54 = &__block_descriptor_40_e19___NSDictionary_8__0l;
-    v55 = 1;
+    v50 = MEMORY[0x1E69E9820];
+    v51 = 3221225472;
+    v52 = __AnalyticsAddValueIfNonNull_block_invoke;
+    v53 = &__block_descriptor_40_e19___NSDictionary_8__0l;
+    v54 = 1;
     goto LABEL_50;
   }
 
@@ -521,7 +521,7 @@ LABEL_51:
   if ([sectionBundleIdentifier isEqualToString:sectionBundleIdentifier5])
   {
 
-    v32 = v40;
+    v32 = v39;
   }
 
   else
@@ -529,7 +529,7 @@ LABEL_51:
     sectionBundleIdentifier6 = [v27 sectionBundleIdentifier];
     v34 = [sectionBundleIdentifier6 isEqualToString:@"com.apple.spotlight.tophits"];
 
-    v32 = v40;
+    v32 = v39;
     if (!v34)
     {
       goto LABEL_56;
@@ -542,17 +542,15 @@ LABEL_51:
 
   if (v37)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = __AnalyticsAddValueIfNonNull_block_invoke;
-    v54 = &__block_descriptor_40_e19___NSDictionary_8__0l;
-    v55 = 1;
+    v50 = MEMORY[0x1E69E9820];
+    v51 = 3221225472;
+    v52 = __AnalyticsAddValueIfNonNull_block_invoke;
+    v53 = &__block_descriptor_40_e19___NSDictionary_8__0l;
+    v54 = 1;
     AnalyticsSendEventLazy();
   }
 
 LABEL_56:
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 + (void)logEngagementWithItem:(id)item atPosition:(unint64_t)position forEvent:(unint64_t)event
@@ -564,7 +562,7 @@ LABEL_56:
     v25 = 0;
     v10 = [self aggdLogIdentifierFromItem:itemCopy type:1 baseType:&v25];
     v11 = v25;
-    AnalyticsAddValueIfNonNull(v10);
+    AnalyticsAddValueIfNonNull(v10, 1);
 
     if (v11)
     {
@@ -584,7 +582,7 @@ LABEL_56:
       v24 = 0;
       v12 = [self aggdLogIdentifierFromItem:v9 type:2 baseType:&v24];
       v13 = v24;
-      AnalyticsAddValueIfNonNull(v12);
+      AnalyticsAddValueIfNonNull(v12, 1);
 
       if (v13)
       {
@@ -608,7 +606,7 @@ LABEL_56:
       v14 = [self aggdLogIdentifierFromItem:v9 type:3 baseType:&v23];
       v15 = v23;
 
-      AnalyticsAddValueIfNonNull(v14);
+      AnalyticsAddValueIfNonNull(v14, 1);
       if (v15)
       {
         v26 = MEMORY[0x1E69E9820];
@@ -630,7 +628,7 @@ LABEL_56:
     v16 = [self aggdLogIdentifierFromItem:v9 type:0 baseType:&v22];
     v11 = v22;
 
-    AnalyticsAddValueIfNonNull(v16);
+    AnalyticsAddValueIfNonNull(v16, 1);
     if (v11)
     {
       v26 = MEMORY[0x1E69E9820];
@@ -646,21 +644,21 @@ LABEL_56:
       if ([v9 isLocalShortcut])
       {
         v17 = [self aggdLogIdentifierFromItem:v9 type:6 baseType:0];
-        AnalyticsAddValueIfNonNull(v17);
+        AnalyticsAddValueIfNonNull(v17, 1);
       }
 
       v21 = v11;
       v18 = [self aggdLogIdentifierFromItem:v9 type:4 baseType:&v21];
       v19 = v21;
 
-      AnalyticsAddValueIfNonNull(v18);
+      AnalyticsAddValueIfNonNull(v18, 1);
       v11 = v19;
     }
 
     if (position != 0x7FFFFFFFFFFFFFFFLL)
     {
       v20 = [self aggdLogIdentifierFromItem:v9 type:5 baseType:0];
-      AnalyticsAddValueIfNonNull(v20);
+      AnalyticsAddValueIfNonNull(v20, position);
     }
   }
 }

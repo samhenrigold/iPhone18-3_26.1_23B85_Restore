@@ -30,8 +30,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_257EB2190(appear);
+  sub_257EB2190(appearCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear

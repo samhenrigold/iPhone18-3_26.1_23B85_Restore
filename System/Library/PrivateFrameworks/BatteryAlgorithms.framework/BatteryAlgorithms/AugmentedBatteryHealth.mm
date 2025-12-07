@@ -770,7 +770,7 @@ uint64_t __44__AugmentedBatteryHealth_algorithmWithData___block_invoke(uint64_t 
     {
       v23 = [v38 objectForKeyedSubscript:@"AlgoChemID"];
       v24 = [v19 objectForKeyedSubscript:v23];
-      BACore::CommonSerialization::getCppStringFromNSString(v24, &v40);
+      BACore::CommonSerialization::getCppStringFromNSString(&v40, v24);
       __str = v40;
       *(&v40.__r_.__value_.__s + 23) = 0;
       v40.__r_.__value_.__s.__data_[0] = 0;
@@ -784,59 +784,57 @@ uint64_t __44__AugmentedBatteryHealth_algorithmWithData___block_invoke(uint64_t 
 - (int)runWithData:(id)data
 {
   dataCopy = data;
-  [(AugmentedBatteryHealth *)self program_code];
+  objc_msgSend_program_code(self);
   ACAMUtility::ACAMParameterPack::ACAMParameterPack(v8, &__p, v5);
 }
 
 - (id)output
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   bdc_output_ready = [(AugmentedBatteryHealth *)self bdc_output_ready];
   v4 = MEMORY[0x277CBEC10];
   v5 = MEMORY[0x277CBEC10];
   if (bdc_output_ready)
   {
-    v19 = @"Weekly";
-    [(AugmentedBatteryHealth *)self bdc_output_cache];
-    v6 = AugmentedBatteryHealthLib::Serialization::createBDCWeekly(&v11);
-    v18 = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
-    v20[0] = v7;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = @"Weekly";
+    objc_msgSend_bdc_output_cache(self);
+    v6 = AugmentedBatteryHealthLib::Serialization::createBDCWeekly(&v10);
+    v17 = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+    v19[0] = v7;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
 
     if (__p)
     {
-      v15 = __p;
+      v14 = __p;
       operator delete(__p);
     }
 
-    if (v12)
+    if (v11)
     {
-      v13 = v12;
-      operator delete(v12);
+      v12 = v11;
+      operator delete(v11);
     }
 
     [(AugmentedBatteryHealth *)self setBdc_output_ready:0];
   }
 
-  v16[0] = @"savedAlgoState";
-  v16[1] = @"kBDCOutputData";
-  v17[0] = v4;
-  v17[1] = v5;
-  v16[2] = @"kPowerLogData";
-  v16[3] = @"kCoreAnalyticsData";
-  v17[2] = v4;
-  v17[3] = v4;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v15[0] = @"savedAlgoState";
+  v15[1] = @"kBDCOutputData";
+  v16[0] = v4;
+  v16[1] = v5;
+  v15[2] = @"kPowerLogData";
+  v15[3] = @"kCoreAnalyticsData";
+  v16[2] = v4;
+  v16[3] = v4;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
 
   return v8;
 }
 
 - (id)preRun:(id)run
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   runCopy = run;
   v4 = [runCopy objectForKeyedSubscript:@"streamLastRunDate"];
   v5 = [runCopy objectForKeyedSubscript:@"streamCurrentDate"];
@@ -875,13 +873,13 @@ uint64_t __44__AugmentedBatteryHealth_algorithmWithData___block_invoke(uint64_t 
     if (!v4)
     {
 LABEL_10:
-      v20[0] = @"streamDateStart";
-      v20[1] = @"streamDateEnd";
-      v21[0] = v13;
-      v21[1] = v8;
-      v20[2] = @"streamRequest";
-      v21[2] = &unk_2853A8248;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
+      v19[0] = @"streamDateStart";
+      v19[1] = @"streamDateEnd";
+      v20[0] = v13;
+      v20[1] = v8;
+      v19[2] = @"streamRequest";
+      v20[2] = &unk_2853A8248;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
       goto LABEL_11;
     }
   }
@@ -902,8 +900,6 @@ LABEL_10:
 
   v17 = &unk_2853A8220;
 LABEL_11:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -935,9 +931,9 @@ LABEL_11:
 
   else
   {
-    std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&self->_bdc_output_cache.deltaRdc.__begin_, bdc_output_cache->deltaRdc.__begin_, bdc_output_cache->deltaRdc.__end_, bdc_output_cache->deltaRdc.__end_ - bdc_output_cache->deltaRdc.__begin_);
+    std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&self->_bdc_output_cache.deltaRdc, bdc_output_cache->deltaRdc.__begin_, bdc_output_cache->deltaRdc.__end_, bdc_output_cache->deltaRdc.__end_ - bdc_output_cache->deltaRdc.__begin_);
     *&self->_bdc_output_cache.deltaNCC = *&bdc_output_cache->deltaNCC;
-    std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&self->_bdc_output_cache.augmentedRdc.__begin_, bdc_output_cache->augmentedRdc.__begin_, bdc_output_cache->augmentedRdc.__end_, bdc_output_cache->augmentedRdc.__end_ - bdc_output_cache->augmentedRdc.__begin_);
+    std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&self->_bdc_output_cache.augmentedRdc, bdc_output_cache->augmentedRdc.__begin_, bdc_output_cache->augmentedRdc.__end_, bdc_output_cache->augmentedRdc.__end_ - bdc_output_cache->augmentedRdc.__begin_);
   }
 
   self->_bdc_output_cache.augmentedNCC = bdc_output_cache->augmentedNCC;

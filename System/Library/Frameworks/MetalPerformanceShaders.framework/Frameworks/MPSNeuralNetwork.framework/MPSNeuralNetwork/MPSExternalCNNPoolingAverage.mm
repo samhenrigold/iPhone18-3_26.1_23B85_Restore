@@ -11,11 +11,11 @@
   if (v13)
   {
     v21 = objc_opt_class();
-    v23 = NSStringFromClass(v21);
-    MTLReportFailure();
+    v27 = NSStringFromClass(v21);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Plugin/MPSCNNKernelPlugin.mm", 0x1C4, @"[%@ encodeToCommandBuffer:computeCommandEncoder:options:sourceTexture:sourceInfo:destinationTexture:destinationInfo:zeroPadSizeX:zeroPadSizeY:]  Error: The device driver has failed to override this method\n", v22, v23, v24, v25);
   }
 
-  objc_msgSend_doesNotRecognizeSelector_(*(&self->super.super.super.isa + v20), v14, a2, v15, v16, v17, v18, v19, v23);
+  objc_msgSend_doesNotRecognizeSelector_(*(&self->super.super.super.isa + v20), v14, a2, v15, v16, v17, v18, v19, v27);
   return 0;
 }
 

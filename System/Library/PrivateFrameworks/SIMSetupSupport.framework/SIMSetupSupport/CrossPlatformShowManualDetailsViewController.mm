@@ -4,8 +4,10 @@
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
 - (void)dealloc;
 - (void)updateText;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CrossPlatformShowManualDetailsViewController
@@ -83,19 +85,19 @@
 
 - (void)updateText
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = +[DCTCodeManager shared];
   code = [v3 code];
 
-  v15[0] = @"s";
+  v14[0] = @"s";
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v6 = [v5 localizedStringForKey:@"SESSION_ID_CELL_TITLE" value:&stru_28753DF48 table:@"Localizable"];
-  v15[1] = @"p";
-  v16[0] = v6;
+  v14[1] = @"p";
+  v15[0] = v6;
   v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v8 = [v7 localizedStringForKey:@"PASSCODE_CELL_TITLE" value:&stru_28753DF48 table:@"Localizable"];
-  v16[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v15[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
   queryParamToTitle = self->_queryParamToTitle;
   self->_queryParamToTitle = v9;
 
@@ -105,8 +107,6 @@
 
   tableView = [(OBTableWelcomeController *)self tableView];
   [tableView reloadData];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidLayoutSubviews
@@ -120,6 +120,20 @@
   v4.receiver = self;
   v4.super_class = CrossPlatformShowManualDetailsViewController;
   [(OBTableWelcomeController *)&v4 viewDidLayoutSubviews];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = CrossPlatformShowManualDetailsViewController;
+  [(OBTableWelcomeController *)&v3 viewWillAppear:appear];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = CrossPlatformShowManualDetailsViewController;
+  [(OBBaseWelcomeController *)&v3 viewDidAppear:appear];
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

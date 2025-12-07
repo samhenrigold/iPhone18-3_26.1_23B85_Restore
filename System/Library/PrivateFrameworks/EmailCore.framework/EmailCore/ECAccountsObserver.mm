@@ -65,14 +65,14 @@ void __25__ECAccountsObserver_log__block_invoke(uint64_t a1)
 
 - (void)_accountStoreDidChange:(id)change
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = +[ECAccountsObserver log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = changeCopy;
-    _os_log_impl(&dword_22D092000, v5, OS_LOG_TYPE_DEFAULT, "Received account store did change notification: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = changeCopy;
+    _os_log_impl(&dword_22D092000, v5, OS_LOG_TYPE_DEFAULT, "Received account store did change notification: %{public}@", &v8, 0xCu);
   }
 
   if ([(ECAccountsObserver *)self _shouldNotifyOnAccountChangeForNotification:changeCopy])
@@ -82,20 +82,18 @@ void __25__ECAccountsObserver_log__block_invoke(uint64_t a1)
 
     [(ECAccountsObserver *)self handleAccountStoreChangeForAccountIdentifier:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_credentialsDidChange:(id)change
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = +[ECAccountsObserver log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = changeCopy;
-    _os_log_impl(&dword_22D092000, v5, OS_LOG_TYPE_DEFAULT, "Received account credentials did change notification: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = changeCopy;
+    _os_log_impl(&dword_22D092000, v5, OS_LOG_TYPE_DEFAULT, "Received account credentials did change notification: %{public}@", &v8, 0xCu);
   }
 
   if ([(ECAccountsObserver *)self _shouldNotifyOnAccountChangeForNotification:changeCopy])
@@ -105,20 +103,18 @@ void __25__ECAccountsObserver_log__block_invoke(uint64_t a1)
 
     [(ECAccountsObserver *)self handleCredentialChangeForAccountIdentifier:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_mailAccountsChanged:(id)changed
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = +[ECAccountsObserver log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = changedCopy;
-    _os_log_impl(&dword_22D092000, v5, OS_LOG_TYPE_DEFAULT, "Received accounts did change notification: %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = changedCopy;
+    _os_log_impl(&dword_22D092000, v5, OS_LOG_TYPE_DEFAULT, "Received accounts did change notification: %{public}@", &v10, 0xCu);
   }
 
   object = [changedCopy object];
@@ -127,7 +123,6 @@ void __25__ECAccountsObserver_log__block_invoke(uint64_t a1)
   bOOLValue = [v8 BOOLValue];
 
   [(ECAccountsObserver *)self handleMailAccountsHaveChanged:object accountsNeedInitialization:bOOLValue];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldNotifyOnAccountChangeForNotification:(id)notification
@@ -163,33 +158,31 @@ void __25__ECAccountsObserver_log__block_invoke(uint64_t a1)
 
 void __42__ECAccountsObserver_observedAccountTypes__block_invoke()
 {
-  v10[14] = *MEMORY[0x277D85DE8];
+  v9[14] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CB8C68];
-  v10[0] = *MEMORY[0x277CB8C60];
-  v10[1] = v0;
+  v9[0] = *MEMORY[0x277CB8C60];
+  v9[1] = v0;
   v1 = *MEMORY[0x277CB8CD8];
-  v10[2] = *MEMORY[0x277CB8C00];
-  v10[3] = v1;
+  v9[2] = *MEMORY[0x277CB8C00];
+  v9[3] = v1;
   v2 = *MEMORY[0x277CB8CD0];
-  v10[4] = *MEMORY[0x277CB8CF8];
-  v10[5] = v2;
+  v9[4] = *MEMORY[0x277CB8CF8];
+  v9[5] = v2;
   v3 = *MEMORY[0x277CB8BA0];
-  v10[6] = *MEMORY[0x277CB8B98];
-  v10[7] = v3;
+  v9[6] = *MEMORY[0x277CB8B98];
+  v9[7] = v3;
   v4 = *MEMORY[0x277CB8C40];
-  v10[8] = *MEMORY[0x277CB8D38];
-  v10[9] = v4;
+  v9[8] = *MEMORY[0x277CB8D38];
+  v9[9] = v4;
   v5 = *MEMORY[0x277CB8B80];
-  v10[10] = *MEMORY[0x277CB8C50];
-  v10[11] = v5;
+  v9[10] = *MEMORY[0x277CB8C50];
+  v9[11] = v5;
   v6 = *MEMORY[0x277CB8CE8];
-  v10[12] = *MEMORY[0x277CB8B88];
-  v10[13] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:14];
+  v9[12] = *MEMORY[0x277CB8B88];
+  v9[13] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:14];
   v8 = observedAccountTypes_sObservedAccountTypes;
   observedAccountTypes_sObservedAccountTypes = v7;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccountStoreChangeForAccountIdentifier:(id)identifier

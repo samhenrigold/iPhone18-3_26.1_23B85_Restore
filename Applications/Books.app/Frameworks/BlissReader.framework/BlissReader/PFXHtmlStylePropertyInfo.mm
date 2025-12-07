@@ -9,7 +9,7 @@
 
 + (void)propertyInfos
 {
-  if ((atomic_load_explicit(&qword_567988, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_567988, memory_order_acquire) & 1) == 0)
   {
     sub_1ECAEC();
   }
@@ -19,9 +19,9 @@
 
 + (void)addInfoForProperty:(const char *)property isInherited:(BOOL)inherited
 {
-  v4[0] = property;
-  v4[2] = v4;
-  *(sub_1ECA04([self propertyInfos], v4) + 40) = inherited;
+  propertyCopy = property;
+  v5 = &propertyCopy;
+  *(sub_1ECA04([self propertyInfos], &propertyCopy, &std::piecewise_construct, &v5) + 40) = inherited;
 }
 
 + (void)initialize

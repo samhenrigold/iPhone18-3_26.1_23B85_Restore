@@ -21,26 +21,26 @@
 
 + (void)prefetchSensitiveContentPolicy:(id)policy
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5E8F30);
-  MEMORY[0x1EEE9AC00]();
-  v6 = &v12 - v5;
-  v7 = _Block_copy(policy);
-  v8 = swift_allocObject();
-  *(v8 + 16) = v7;
-  *(v8 + 24) = self;
-  v9 = sub_1AEAF982C();
-  (*(*(v9 - 8) + 56))(v6, 1, 1, v9);
-  v10 = swift_allocObject();
-  v10[2] = 0;
-  v10[3] = 0;
-  v10[4] = &unk_1AEB02720;
-  v10[5] = v8;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5E8F30, &unk_1AEAFC780);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v13 - v6;
+  v8 = _Block_copy(policy);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1AEAF982C();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
   v11 = swift_allocObject();
   v11[2] = 0;
   v11[3] = 0;
-  v11[4] = &unk_1AEB02730;
-  v11[5] = v10;
-  sub_1AEAC1C28(0, 0, v6, &unk_1AEB02740, v11);
+  v11[4] = &unk_1AEB02720;
+  v11[5] = v9;
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &unk_1AEB02730;
+  v12[5] = v11;
+  sub_1AEAC1C28(0, 0, v7, &unk_1AEB02740, v12);
 }
 
 - (SCSensitivityAnalysis)initWithNudityDetectionValue:(BOOL)value
@@ -86,7 +86,7 @@
 
   v6 = SCSensitivityAnalysis.isEqual(_:)(v8);
 
-  sub_1AEA41FAC(v8, &unk_1EB5E9680);
+  sub_1AEA41FAC(v8, &unk_1EB5E9680, &qword_1AEAFD9E0);
   return v6;
 }
 
@@ -99,7 +99,7 @@
 
 + (id)subscribeToSensitiveContentPolicyChangeNotifications:(id)notifications
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5E8F30);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5E8F30, &unk_1AEAFC780);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v18 - v5;
   v7 = _Block_copy(notifications);
@@ -117,7 +117,7 @@
   v11[4] = sub_1AEA89E34;
   v11[5] = v8;
   v13 = sub_1AEA5E2A0(0, 0, v6, &unk_1AEB02710, v11);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5E9690);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5E9690, &qword_1AEB01E18);
   v15 = objc_allocWithZone(v14);
   *&v15[qword_1EB5E9698] = v13;
   v18.receiver = v15;
@@ -134,7 +134,7 @@
   selfCopy = self;
   v5 = swift_slowAlloc();
   *v5 = (v3 << 16) | (v2 << 32) | 0x100000000000000;
-  v6 = sub_1AEADBD18(v5, 8);
+  v6 = sub_1AEADBD18(v5, 8uLL);
   v8 = v7;
   MEMORY[0x1B270E620](v5, -1, -1);
 
@@ -166,13 +166,13 @@
 {
   v3 = sub_1AEAF95BC();
   v5 = v4;
-  sub_1AEA49EF8(0, &qword_1EB5E96F8);
+  sub_1AEA49EF8(0, &qword_1EB5E96F8, 0x1E696AE18);
   if (qword_1EB5F00A0 != -1)
   {
     swift_once();
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5E9700);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5E9700, &unk_1AEB01E48);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_1AEAFCC40;
   v7 = MEMORY[0x1E69E6158];
@@ -233,7 +233,7 @@
 
 - (SCSensitivityAnalysis)initWithAnalysisResults:(id)results error:(id *)error
 {
-  sub_1AEA49EF8(0, &unk_1EB5E9718);
+  sub_1AEA49EF8(0, &unk_1EB5E9718, 0x1E69CA700);
   v4 = sub_1AEAF96EC();
   return sub_1AEADAD44(v4);
 }

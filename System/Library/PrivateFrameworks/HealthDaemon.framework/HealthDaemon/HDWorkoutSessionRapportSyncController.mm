@@ -45,12 +45,12 @@
 
 - (HDWorkoutSessionRapportSyncController)initWithRapportMessenger:(id)messenger sessionServer:(id)server
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   messengerCopy = messenger;
   serverCopy = server;
-  v21.receiver = self;
-  v21.super_class = HDWorkoutSessionRapportSyncController;
-  v9 = [(HDWorkoutSessionRapportSyncController *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = HDWorkoutSessionRapportSyncController;
+  v9 = [(HDWorkoutSessionRapportSyncController *)&v20 init];
   v10 = v9;
   if (v9)
   {
@@ -76,19 +76,18 @@
       v15 = *MEMORY[0x277CCC330];
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
       {
-        v18 = v15;
-        v19 = objc_opt_class();
+        v17 = v15;
+        v18 = objc_opt_class();
         *buf = 138543362;
-        v23 = v19;
-        v20 = v19;
-        _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Session was previously mirroring, resume heartbeats", buf, 0xCu);
+        v22 = v18;
+        v19 = v18;
+        _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Session was previously mirroring, resume heartbeats", buf, 0xCu);
       }
 
       [(HDWorkoutSessionRapportSyncController *)v10 _scheduleHeartbeat];
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -203,7 +202,7 @@ void __81__HDWorkoutSessionRapportSyncController_sendMirroringStartRequestWithCo
 
 - (void)receivedRecoveryRequestWithResponseHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   WeakRetained = objc_loadWeakRetained(&self->_sessionServer);
   if (([WeakRetained isMirroring] & 1) == 0)
@@ -228,11 +227,11 @@ LABEL_7:
   {
     v9 = v8;
     v10 = objc_loadWeakRetained(&self->_sessionServer);
-    v24 = 138543618;
+    v23 = 138543618;
     selfCopy = self;
-    v26 = 2114;
-    v27 = v10;
-    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@ Active mirroring session. Replying to recover request with workout %{public}@", &v24, 0x16u);
+    v25 = 2114;
+    v26 = v10;
+    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@ Active mirroring session. Replying to recover request with workout %{public}@", &v23, 0x16u);
   }
 
   v11 = objc_alloc_init(HDCodableWorkoutSessionSyncTransaction);
@@ -258,7 +257,6 @@ LABEL_7:
   [v22 remoteSessionDidRecover];
 
 LABEL_8:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (double)heartbeatInterval
@@ -337,7 +335,7 @@ void __59__HDWorkoutSessionRapportSyncController__scheduleHeartbeat__block_invok
 
 void __55__HDWorkoutSessionRapportSyncController__sendHeartbeat__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -345,20 +343,17 @@ void __55__HDWorkoutSessionRapportSyncController__sendHeartbeat__block_invoke(ui
     v6 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      *v11 = 138543618;
-      *&v11[4] = objc_opt_class();
-      *&v11[12] = 2114;
-      *&v11[14] = v5;
-      v10 = *&v11[4];
-      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Heartbeat failed with error %{public}@", v11, 0x16u);
+      v7 = v6;
+      *v9 = 138543618;
+      *&v9[4] = objc_opt_class();
+      *&v9[12] = 2114;
+      *&v9[14] = v5;
+      v8 = *&v9[4];
+      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Heartbeat failed with error %{public}@", v9, 0x16u);
     }
   }
 
   [*(a1 + 32) _scheduleHeartbeat];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleSendHeartbeatTimeout
@@ -391,17 +386,16 @@ void __55__HDWorkoutSessionRapportSyncController__sendHeartbeat__block_invoke(ui
 
 void __70__HDWorkoutSessionRapportSyncController__scheduleSendHeartbeatTimeout__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = v2;
-    v9 = 138543362;
-    v10 = objc_opt_class();
-    v8 = v10;
-    _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Heartbeat timed out. Retrying now.", &v9, 0xCu);
+    v5 = v2;
+    v7 = 138543362;
+    v8 = objc_opt_class();
+    v6 = v8;
+    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Heartbeat timed out. Retrying now.", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
@@ -409,8 +403,6 @@ void __70__HDWorkoutSessionRapportSyncController__scheduleSendHeartbeatTimeout__
 
   v4 = objc_loadWeakRetained((a1 + 40));
   [v4 _sendHeartbeat];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelSendHeartbeat
@@ -523,25 +515,23 @@ void __73__HDWorkoutSessionRapportSyncController__scheduleReceiveHeartbeatTimeou
 
 - (void)_receiveHeartbeatDidTimeout
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v7 = v3;
+    v6 = v3;
     [(HDWorkoutSessionRapportSyncController *)self heartbeatReceiveTimeout];
-    v9 = 138543618;
+    v8 = 138543618;
     selfCopy = self;
-    v11 = 2048;
-    v12 = v8;
-    _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: No heartbeat received in the last %f seconds, marking session as disconnected.", &v9, 0x16u);
+    v10 = 2048;
+    v11 = v7;
+    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: No heartbeat received in the last %f seconds, marking session as disconnected.", &v8, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_sessionServer);
   v5 = [MEMORY[0x277CCA9B8] hk_error:554 format:@"Primary session is unreachable."];
   [WeakRetained didDisconnectFromRemoteWithError:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendDataToRemoteWorkoutSession:(id)session completion:(id)completion
@@ -593,15 +583,14 @@ void __83__HDWorkoutSessionRapportSyncController_sendDataToRemoteWorkoutSession_
 
 - (void)receivedDataFromRemoteWorkoutSession:(id)session completion:(id)completion
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   sessionCopy = session;
   WeakRetained = objc_loadWeakRetained(&self->_sessionServer);
-  v11[0] = sessionCopy;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = sessionCopy;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
 
   [WeakRetained didReceiveDataFromRemoteWorkoutSession:v9 completion:completionCopy];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendStateEvent:(int64_t)event date:(id)date completion:(id)completion
@@ -633,7 +622,7 @@ void __72__HDWorkoutSessionRapportSyncController_sendStateEvent_date_completion_
 
 - (void)receivedStateEvent:(id)event completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   completionCopy = completion;
   if ([eventCopy hasSessionStateEventDate])
@@ -652,16 +641,14 @@ void __72__HDWorkoutSessionRapportSyncController_sendStateEvent_date_completion_
     v10 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v13 = 138543362;
+      v12 = 138543362;
       selfCopy = self;
-      _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Session event does not have an associated date", &v13, 0xCu);
+      _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Session event does not have an associated date", &v12, 0xCu);
     }
 
     v11 = [MEMORY[0x277CCA9B8] hk_error:3 format:@"Session event does not have an associated date"];
     (completionCopy)[2](completionCopy, 0, v11);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendStateUpdate:(int64_t)update date:(id)date completion:(id)completion
@@ -693,7 +680,7 @@ void __72__HDWorkoutSessionRapportSyncController_sendStateEvent_date_completion_
 
 - (void)receivedStateUpdate:(id)update completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   completionCopy = completion;
   if ([updateCopy hasSessionStateChangeDate])
@@ -710,40 +697,36 @@ void __72__HDWorkoutSessionRapportSyncController_sendStateEvent_date_completion_
     v10 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v13 = 138543362;
+      v12 = 138543362;
       selfCopy = self;
-      _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Session state does not have an associated date", &v13, 0xCu);
+      _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "[mirroring] %{public}@: Session state does not have an associated date", &v12, 0xCu);
     }
 
     v11 = [MEMORY[0x277CCA9B8] hk_error:3 format:@"Session state does not have an associated date"];
     (*(completionCopy + 2))(completionCopy, 0, v11);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendEventUpdate:(id)update completion:(id)completion
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   updateCopy = update;
   v8 = objc_alloc_init(HDCodableWorkoutSessionGlobalState);
   codableRepresentationForSync = [updateCopy codableRepresentationForSync];
 
-  v16[0] = codableRepresentationForSync;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = codableRepresentationForSync;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v11 = [v10 mutableCopy];
   [(HDCodableWorkoutSessionGlobalState *)v8 setEvents:v11];
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __68__HDWorkoutSessionRapportSyncController_sendEventUpdate_completion___block_invoke;
-  v14[3] = &unk_27861EE38;
-  v15 = v8;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __68__HDWorkoutSessionRapportSyncController_sendEventUpdate_completion___block_invoke;
+  v13[3] = &unk_27861EE38;
+  v14 = v8;
   v12 = v8;
-  [(HDWorkoutSessionRapportSyncController *)self sendRequest:@"eventUpdate" transaction:v14 completion:completionCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [(HDWorkoutSessionRapportSyncController *)self sendRequest:@"eventUpdate" transaction:v13 completion:completionCopy];
 }
 
 - (void)receivedEventUpdate:(id)update completion:(id)completion
@@ -790,7 +773,7 @@ void __72__HDWorkoutSessionRapportSyncController_sendStateEvent_date_completion_
 
 - (void)rapportMessenger:(id)messenger didReceiveRequest:(id)request data:(id)data responseHandler:(id)handler
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   dataCopy = data;
   handlerCopy = handler;
@@ -800,9 +783,9 @@ void __72__HDWorkoutSessionRapportSyncController_sendStateEvent_date_completion_
 
   if (!v13)
   {
-    v60 = 0;
-    v14 = [objc_opt_class() _decodedTransactionWithData:dataCopy error:&v60];
-    v15 = v60;
+    v59 = 0;
+    v14 = [objc_opt_class() _decodedTransactionWithData:dataCopy error:&v59];
+    v15 = v59;
     if (!v14)
     {
       handlerCopy[2](handlerCopy, 0, v15);
@@ -827,19 +810,19 @@ LABEL_27:
       {
         v29 = v28;
         v30 = objc_opt_class();
-        v57 = v30;
+        v56 = v30;
         v31 = objc_loadWeakRetained(&self->_sessionServer);
         [v31 identifier];
         v32 = v15;
         v34 = v33 = v18;
         *buf = 138544130;
-        v62 = v30;
-        v63 = 2114;
-        v64 = requestCopy;
-        v65 = 2114;
-        v66 = v33;
-        v67 = 2114;
-        v68 = v34;
+        v61 = v30;
+        v62 = 2114;
+        v63 = requestCopy;
+        v64 = 2114;
+        v65 = v33;
+        v66 = 2114;
+        v67 = v34;
         _os_log_impl(&dword_228986000, v29, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Ignoring incoming request %{public}@ because session UUID is different. Request UUID: %{public}@, local UUID: %{public}@", buf, 0x2Au);
 
         v18 = v33;
@@ -849,13 +832,13 @@ LABEL_27:
       goto LABEL_26;
     }
 
-    v56 = v18;
+    v55 = v18;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __97__HDWorkoutSessionRapportSyncController_rapportMessenger_didReceiveRequest_data_responseHandler___block_invoke;
     aBlock[3] = &unk_2786130D8;
     v22 = handlerCopy;
-    v59 = v22;
+    v58 = v22;
     v23 = _Block_copy(aBlock);
     name2 = [requestCopy name];
     v25 = [name2 isEqualToString:@"startMirroring"];
@@ -864,7 +847,7 @@ LABEL_27:
     {
 LABEL_25:
 
-      v18 = v56;
+      v18 = v55;
 LABEL_26:
 
       goto LABEL_27;
@@ -939,26 +922,26 @@ LABEL_26:
             if (!v48)
             {
               name10 = [requestCopy name];
-              v51 = [name10 isEqualToString:@"backgroundRuntime"];
+              v50 = [name10 isEqualToString:@"backgroundRuntime"];
 
-              if (v51)
+              if (v50)
               {
                 [(HDWorkoutSessionRapportSyncController *)self receivedBackgroundRuntimeRequestWithCompletion:v23];
                 goto LABEL_25;
               }
 
               _HKInitializeLogging();
-              v52 = *MEMORY[0x277CCC330];
+              v51 = *MEMORY[0x277CCC330];
               if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
               {
-                v53 = v52;
-                v54 = objc_opt_class();
+                v52 = v51;
+                v53 = objc_opt_class();
                 *buf = 138543618;
-                v62 = v54;
-                v63 = 2114;
-                v64 = requestCopy;
-                v55 = v54;
-                _os_log_error_impl(&dword_228986000, v53, OS_LOG_TYPE_ERROR, " [mirroring] %{public}@: No handler available for request %{public}@", buf, 0x16u);
+                v61 = v53;
+                v62 = 2114;
+                v63 = requestCopy;
+                v54 = v53;
+                _os_log_error_impl(&dword_228986000, v52, OS_LOG_TYPE_ERROR, " [mirroring] %{public}@: No handler available for request %{public}@", buf, 0x16u);
               }
 
               arbitraryData = [MEMORY[0x277CCA9B8] hk_error:3 description:@"Unknown request"];
@@ -981,8 +964,6 @@ LABEL_24:
 
   [(HDWorkoutSessionRapportSyncController *)self receivedRecoveryRequestWithResponseHandler:handlerCopy];
 LABEL_28:
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendRequest:(id)request transaction:(id)transaction completion:(id)completion
@@ -1049,13 +1030,13 @@ LABEL_28:
 
 void __81__HDWorkoutSessionRapportSyncController_sendRequest_transaction_responseHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v6)
   {
-    if ([v6 hk_isObjectNotFoundError])
+    if (objc_msgSend_hk_isObjectNotFoundError(v6))
     {
       WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
       v9 = [WeakRetained sessionType];
@@ -1080,7 +1061,7 @@ LABEL_12:
       {
         v12 = *(a1 + 32);
         *buf = 138543362;
-        v20 = v12;
+        v18 = v12;
         _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Stopping mirroring due to another session started on companion", buf, 0xCu);
       }
 
@@ -1104,19 +1085,17 @@ LABEL_12:
     }
   }
 
-  v14 = *(a1 + 32);
-  v18 = 0;
-  v15 = [objc_opt_class() _decodedTransactionWithData:v5 error:&v18];
-  v16 = v18;
+  v16 = 0;
+  v14 = [objc_opt_class() _decodedTransactionWithData:v5 error:&v16];
+  v15 = v16;
   (*(*(a1 + 56) + 16))();
 
 LABEL_13:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __81__HDWorkoutSessionRapportSyncController_sendRequest_transaction_responseHandler___block_invoke_354(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
@@ -1124,18 +1103,16 @@ void __81__HDWorkoutSessionRapportSyncController_sendRequest_transaction_respons
     v5 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543362;
-      v8 = v4;
-      _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[mirroring] Failed to stop mirroring with error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v4;
+      _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[mirroring] Failed to stop mirroring with error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_decodedTransactionWithData:(id)data error:(id *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v6 = [[HDCodableWorkoutSessionSyncTransaction alloc] initWithData:dataCopy];
   if (!v6)
@@ -1145,15 +1122,15 @@ void __81__HDWorkoutSessionRapportSyncController_sendRequest_transaction_respons
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
     {
       v8 = v7;
-      *v14 = 138543618;
-      *&v14[4] = objc_opt_class();
-      *&v14[12] = 2114;
-      *&v14[14] = dataCopy;
-      v9 = *&v14[4];
-      _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Unable to decode incoming request transaction with data: %{public}@", v14, 0x16u);
+      *v13 = 138543618;
+      *&v13[4] = objc_opt_class();
+      *&v13[12] = 2114;
+      *&v13[14] = dataCopy;
+      v9 = *&v13[4];
+      _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Unable to decode incoming request transaction with data: %{public}@", v13, 0x16u);
     }
 
-    v10 = [MEMORY[0x277CCA9B8] hk_error:100 description:{@"Unable to decode incoming request.", *v14, *&v14[16], v15}];
+    v10 = [MEMORY[0x277CCA9B8] hk_error:100 description:{@"Unable to decode incoming request.", *v13, *&v13[8], v14}];
     if (v10)
     {
       if (error)
@@ -1168,8 +1145,6 @@ void __81__HDWorkoutSessionRapportSyncController_sendRequest_transaction_respons
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1203,7 +1178,7 @@ void __81__HDWorkoutSessionRapportSyncController_sendRequest_transaction_respons
 
 - (void)_enqueueTransaction:(id)transaction requestName:(id)name
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   nameCopy = name;
   WeakRetained = objc_loadWeakRetained(&self->_sessionServer);
@@ -1216,12 +1191,12 @@ void __81__HDWorkoutSessionRapportSyncController_sendRequest_transaction_respons
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
     {
       v11 = v10;
-      *v20 = 138543618;
-      *&v20[4] = objc_opt_class();
-      *&v20[12] = 2114;
-      *&v20[14] = transactionCopy;
-      v12 = *&v20[4];
-      _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Will enqueue failed transaction: %{public}@", v20, 0x16u);
+      *v19 = 138543618;
+      *&v19[4] = objc_opt_class();
+      *&v19[12] = 2114;
+      *&v19[14] = transactionCopy;
+      v12 = *&v19[4];
+      _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Will enqueue failed transaction: %{public}@", v19, 0x16u);
     }
 
     os_unfair_lock_lock(&self->_lock);
@@ -1239,12 +1214,10 @@ void __81__HDWorkoutSessionRapportSyncController_sendRequest_transaction_respons
 
     else
     {
-      [(NSMutableDictionary *)self->_lock_pendingTransactionsByRequest setObject:transactionCopy forKeyedSubscript:nameCopy, *v20, *&v20[16], v21];
+      [(NSMutableDictionary *)self->_lock_pendingTransactionsByRequest setObject:transactionCopy forKeyedSubscript:nameCopy, *v19, *&v19[8], v20];
       os_unfair_lock_unlock(&self->_lock);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendPendingTransactions
@@ -1255,7 +1228,7 @@ void __81__HDWorkoutSessionRapportSyncController_sendRequest_transaction_respons
   if (!sessionType)
   {
     os_unfair_lock_lock(&self->_lock);
-    v5 = [(NSMutableDictionary *)self->_lock_pendingTransactionsByRequest copy];
+    v5 = objc_msgSend_copy(self->_lock_pendingTransactionsByRequest);
     [(NSMutableDictionary *)self->_lock_pendingTransactionsByRequest removeAllObjects];
     os_unfair_lock_unlock(&self->_lock);
     v6[0] = MEMORY[0x277D85DD0];
@@ -1269,33 +1242,30 @@ void __81__HDWorkoutSessionRapportSyncController_sendRequest_transaction_respons
 
 void __65__HDWorkoutSessionRapportSyncController__sendPendingTransactions__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = v7;
+    v8 = v7;
     *buf = 138543618;
-    v17 = objc_opt_class();
-    v18 = 2114;
-    v19 = v5;
-    v10 = v17;
-    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Will send pending transaction: %{public}@", buf, 0x16u);
+    v15 = objc_opt_class();
+    v16 = 2114;
+    v17 = v5;
+    v9 = v15;
+    _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[mirroring] %{public}@: Will send pending transaction: %{public}@", buf, 0x16u);
   }
 
-  v11 = *(a1 + 32);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __65__HDWorkoutSessionRapportSyncController__sendPendingTransactions__block_invoke_362;
-  v14[3] = &unk_27861EE38;
-  v15 = v5;
-  v12 = v5;
-  [v11 sendRequest:v6 transaction:v14 completion:&__block_literal_global_364_0];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *(a1 + 32);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __65__HDWorkoutSessionRapportSyncController__sendPendingTransactions__block_invoke_362;
+  v12[3] = &unk_27861EE38;
+  v13 = v5;
+  v11 = v5;
+  [v10 sendRequest:v6 transaction:v12 completion:&__block_literal_global_364_0];
 }
 
 void __65__HDWorkoutSessionRapportSyncController__sendPendingTransactions__block_invoke_362(uint64_t a1, void *a2)

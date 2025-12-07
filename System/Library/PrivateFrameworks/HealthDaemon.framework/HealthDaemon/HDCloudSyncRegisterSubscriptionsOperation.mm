@@ -25,7 +25,7 @@
   v13 = [(HDCloudSyncOperation *)&v17 initWithConfiguration:configuration cloudState:state];
   if (v13)
   {
-    v14 = [subscriptionsCopy copy];
+    v14 = objc_msgSend_copy(subscriptionsCopy);
     subscriptions = v13->_subscriptions;
     v13->_subscriptions = v14;
 
@@ -37,7 +37,7 @@
 
 - (void)main
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([(NSDictionary *)self->_subscriptions count])
   {
     v3 = objc_alloc(MEMORY[0x277CBC418]);
@@ -50,15 +50,15 @@
     profileIdentifier = [repository profileIdentifier];
     v10 = HDDatabaseForContainer(container, profileIdentifier);
 
-    v16 = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __49__HDCloudSyncRegisterSubscriptionsOperation_main__block_invoke;
-    v19 = &unk_27862A7F8;
+    v15 = MEMORY[0x277D85DD0];
+    v16 = 3221225472;
+    v17 = __49__HDCloudSyncRegisterSubscriptionsOperation_main__block_invoke;
+    v18 = &unk_27862A7F8;
     selfCopy = self;
-    v21 = v10;
+    v20 = v10;
     v11 = v10;
-    [v5 setFetchSubscriptionCompletionBlock:&v16];
-    v12 = [(HDCloudSyncOperation *)self configuration:v16];
+    [v5 setFetchSubscriptionCompletionBlock:&v15];
+    v12 = [(HDCloudSyncOperation *)self configuration:v15];
     operationGroup = [v12 operationGroup];
     [v5 setGroup:operationGroup];
 
@@ -78,13 +78,11 @@
 
     [(HDCloudSyncOperation *)self finishWithSuccess:1 error:0];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __49__HDCloudSyncRegisterSubscriptionsOperation_main__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -94,9 +92,9 @@ void __49__HDCloudSyncRegisterSubscriptionsOperation_main__block_invoke(uint64_t
     v22 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v24 = *(a1 + 32);
+      v23 = *(a1 + 32);
       *buf = 138543618;
-      *&buf[4] = v24;
+      *&buf[4] = v23;
       *&buf[12] = 2114;
       *&buf[14] = v7;
       _os_log_error_impl(&dword_228986000, v22, OS_LOG_TYPE_ERROR, "%{public}@: Failed to look up subscriptions: %{public}@", buf, 0x16u);
@@ -108,12 +106,12 @@ void __49__HDCloudSyncRegisterSubscriptionsOperation_main__block_invoke(uint64_t
   else
   {
     v8 = [*(*(a1 + 32) + 104) allKeys];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __49__HDCloudSyncRegisterSubscriptionsOperation_main__block_invoke_296;
-    v25[3] = &unk_27862A7D0;
-    v26 = v5;
-    v9 = [v8 hk_filter:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __49__HDCloudSyncRegisterSubscriptionsOperation_main__block_invoke_296;
+    v24[3] = &unk_27862A7D0;
+    v25 = v5;
+    v9 = [v8 hk_filter:v24];
 
     if ([v9 count])
     {
@@ -130,7 +128,7 @@ void __49__HDCloudSyncRegisterSubscriptionsOperation_main__block_invoke(uint64_t
         *&buf[12] = 2048;
         *&buf[14] = v13;
         *&buf[22] = 2112;
-        v30 = v14;
+        v29 = v14;
         _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Missing %ld subscriptions: %@", buf, 0x20u);
       }
 
@@ -141,19 +139,19 @@ void __49__HDCloudSyncRegisterSubscriptionsOperation_main__block_invoke(uint64_t
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __90__HDCloudSyncRegisterSubscriptionsOperation__registerSubscriptionsWithIdentifer_database___block_invoke;
-        v30 = &unk_27862A820;
-        v31 = v15;
-        v32 = sel__registerSubscriptionsWithIdentifer_database_;
+        v29 = &unk_27862A820;
+        v30 = v15;
+        v31 = sel__registerSubscriptionsWithIdentifer_database_;
         v17 = [v9 hk_map:buf];
         v18 = [objc_alloc(MEMORY[0x277CBC4B0]) initWithSubscriptionsToSave:v17 subscriptionIDsToDelete:0];
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __90__HDCloudSyncRegisterSubscriptionsOperation__registerSubscriptionsWithIdentifer_database___block_invoke_2;
-        v27[3] = &unk_27862A848;
-        v27[4] = v15;
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __90__HDCloudSyncRegisterSubscriptionsOperation__registerSubscriptionsWithIdentifer_database___block_invoke_2;
+        v26[3] = &unk_27862A848;
+        v26[4] = v15;
         v19 = v16;
-        v28 = v19;
-        [v18 setModifySubscriptionsCompletionBlock:v27];
+        v27 = v19;
+        [v18 setModifySubscriptionsCompletionBlock:v26];
         v20 = [v15 configuration];
         v21 = [v20 operationGroup];
         [v18 setGroup:v21];
@@ -167,8 +165,6 @@ void __49__HDCloudSyncRegisterSubscriptionsOperation_main__block_invoke(uint64_t
       [*(a1 + 32) finishWithSuccess:1 error:0];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __49__HDCloudSyncRegisterSubscriptionsOperation_main__block_invoke_296(uint64_t a1, uint64_t a2)
@@ -240,7 +236,7 @@ LABEL_8:
 
 void __90__HDCloudSyncRegisterSubscriptionsOperation__registerSubscriptionsWithIdentifer_database___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a4;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC328];
@@ -249,15 +245,15 @@ void __90__HDCloudSyncRegisterSubscriptionsOperation__registerSubscriptionsWithI
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v14 = *(a1 + 32);
-      v15 = *(a1 + 40);
-      v16 = 138543874;
-      v17 = v14;
-      v18 = 2114;
-      v19 = v15;
-      v20 = 2114;
-      v21 = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Error saving subscriptions in database %{public}@, error: %{public}@", &v16, 0x20u);
+      v13 = *(a1 + 32);
+      v14 = *(a1 + 40);
+      v15 = 138543874;
+      v16 = v13;
+      v17 = 2114;
+      v18 = v14;
+      v19 = 2114;
+      v20 = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@ Error saving subscriptions in database %{public}@, error: %{public}@", &v15, 0x20u);
     }
 
     v8 = *(a1 + 32);
@@ -271,11 +267,11 @@ void __90__HDCloudSyncRegisterSubscriptionsOperation__registerSubscriptionsWithI
     {
       v11 = *(a1 + 32);
       v12 = *(a1 + 40);
-      v16 = 138543618;
-      v17 = v11;
-      v18 = 2114;
-      v19 = v12;
-      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Successfully saved subscriptions in database %{public}@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v11;
+      v17 = 2114;
+      v18 = v12;
+      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Successfully saved subscriptions in database %{public}@", &v15, 0x16u);
     }
 
     v8 = *(a1 + 32);
@@ -284,8 +280,6 @@ void __90__HDCloudSyncRegisterSubscriptionsOperation__registerSubscriptionsWithI
   }
 
   [v8 finishWithSuccess:v9 error:v10];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

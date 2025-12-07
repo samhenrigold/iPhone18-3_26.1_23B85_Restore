@@ -44,25 +44,8 @@ uint64_t ___FCPromoteAccessibleHeadline_block_invoke_2(uint64_t a1, void *a2)
 
         v22 = v14;
         v23 = v16;
-        if (!v23)
+        if (!v23 || ([v22 bundleSubscription], v34 = v23, v24 = objc_claimAutoreleasedReturnValue(), objc_getAssociatedObject(v24, (v24 + 1)), v32 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v32, "unsignedIntegerValue"), v26 = v25, objc_getAssociatedObject(v24, ~v25), v35 = v22, v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "unsignedIntegerValue") ^ v26, v27, v22 = v35, v32, v24, v23 = v34, (v28 & 1) == 0))
         {
-          goto LABEL_15;
-        }
-
-        [v22 bundleSubscription];
-        v24 = v34 = v23;
-        v32 = objc_getAssociatedObject(v24, (v24 + 1));
-        v25 = [v32 unsignedIntegerValue];
-        v26 = v25;
-        objc_getAssociatedObject(v24, ~v25);
-        v27 = v35 = v22;
-        v28 = [v27 unsignedIntegerValue] ^ v26;
-
-        v22 = v35;
-        v23 = v34;
-        if ((v28 & 1) == 0)
-        {
-LABEL_15:
 
 LABEL_16:
           v17 = 0;

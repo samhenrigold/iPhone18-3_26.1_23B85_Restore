@@ -3,7 +3,7 @@
 
 @implementation UIHyperplane
 
-uint64_t __30___UIHyperplane_copyWithZone___block_invoke(uint64_t a1)
+uint64_t __30___UIHyperplane_copyWithZone___block_invoke(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) _point];
   [*(a1 + 32) _dimensions];
@@ -11,7 +11,7 @@ uint64_t __30___UIHyperplane_copyWithZone___block_invoke(uint64_t a1)
   return cblas_dcopy_NEWLAPACK();
 }
 
-uint64_t __30___UIHyperplane_copyWithZone___block_invoke_2(uint64_t a1)
+uint64_t __30___UIHyperplane_copyWithZone___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) _normal];
   [*(a1 + 32) _dimensions];

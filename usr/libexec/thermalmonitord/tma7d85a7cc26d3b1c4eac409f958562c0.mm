@@ -102,7 +102,7 @@
   sub_10000533C(53, (v65 + self->_filteredMaxRadioTemp * -0.05));
   sub_10000533C(54, 3000);
   sub_10000533C(55, 3000);
-  v25 = unk_1000AB8E8;
+  v25 = dword_1000AB8E8;
   v26 = [(CommonProduct *)self findComponent:19];
   v27 = v25 / 100.0;
   *&v28 = v27;

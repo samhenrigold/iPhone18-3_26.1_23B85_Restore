@@ -20,7 +20,7 @@
 - (id)_revealSpring;
 - (id)_zoomSpring;
 - (id)initOpening:(BOOL)opening;
-- (uint64_t)_frameOfContentWithAspectRatio:thatFitsCoverOfAspectRatio:withFrame:insetsContentToCover:;
+- (uint64_t)_frameOfContentWithAspectRatio:(double)ratio thatFitsCoverOfAspectRatio:(double)aspectRatio withFrame:(double)frame insetsContentToCover:(double)cover;
 - (void)_adjustShadowForCurrentCoverBounds;
 - (void)_animateRevealForClosingWithCompletion:(id)completion;
 - (void)_animateRevealForOpeningWithCompletion:(id)completion;
@@ -175,6 +175,8 @@
   width = containerSize.width;
   v9 = coverSize.height;
   v10 = coverSize.width;
+  v11 = size.height;
+  v12 = size.width;
   if ([(BKBookBloomOpenAnimator *)self _contentViewIsShowingCover])
   {
     CGRectMakeWithSize();
@@ -183,66 +185,70 @@
   else
   {
     CGRectMakeWithSize();
-    [BKBookBloomOpenAnimator zoomedFrameForCoverWithSize:compactCopy isCompact:v10 containerViewBounds:v9, v11, v12, v13, v14];
-    v19 = v18;
-    v20 = v15;
-    v21 = v16;
+    [BKBookBloomOpenAnimator zoomedFrameForCoverWithSize:compactCopy isCompact:v10 containerViewBounds:v9, v13, v14, v15, v16];
+    v21 = v20;
     v22 = v17;
-    v23 = 0.1;
+    v23 = v18;
+    v24 = v19;
+    v25 = 0.1;
     if (!compactCopy)
     {
-      v23 = 0.0;
+      v25 = 0.0;
     }
 
+    v42 = v11;
     if (width <= height)
     {
-      v24 = v23;
+      v26 = v25;
     }
 
     else
     {
-      v24 = -0.3;
+      v26 = -0.3;
     }
 
-    v25 = v19;
-    v26 = v24 * CGRectGetWidth(*(&v15 - 1));
-    v40.origin.x = v19;
-    v40.origin.y = v20;
-    v40.size.width = v21;
-    v40.size.height = v22;
-    v41 = CGRectInset(v40, v26, 0.0);
-    x = v41.origin.x;
-    v38 = v41.size.width;
-    y = v41.origin.y;
-    v37 = v41.size.height;
+    v27 = v21;
+    v28 = v26 * CGRectGetWidth(*(&v17 - 1));
+    v44.origin.x = v21;
+    v44.origin.y = v22;
+    v44.size.width = v23;
+    v44.size.height = v24;
+    v45 = CGRectInset(v44, v28, 0.0);
+    x = v45.origin.x;
+    v40 = v45.size.width;
+    v41 = v12;
+    y = v45.origin.y;
+    v39 = v45.size.height;
     CGRectMakeWithSize();
     [BKBookBloomOpenAnimator _availableRectForFittingZoomedCoverInContainerViewBounds:compactCopy isCompact:?];
-    v44.origin.x = v29;
-    v44.origin.y = v30;
-    v44.size.width = v31;
-    v44.size.height = v32;
-    v42.origin.x = x;
-    v42.origin.y = y;
-    v42.size.height = v37;
-    v42.size.width = v38;
-    CGRectIntersection(v42, v44);
+    v48.origin.x = v31;
+    v48.origin.y = v32;
+    v48.size.width = v33;
+    v48.size.height = v34;
+    v46.origin.x = x;
+    v46.origin.y = y;
+    v12 = v41;
+    v11 = v42;
+    v46.size.height = v39;
+    v46.size.width = v40;
+    CGRectIntersection(v46, v48);
   }
 
-  sub_100083BBC();
+  sub_100083BBC(v12, v11);
 
   BCNormalizedInsetsForRects();
-  result.right = v36;
-  result.bottom = v35;
-  result.left = v34;
-  result.top = v33;
+  result.right = v38;
+  result.bottom = v37;
+  result.left = v36;
+  result.top = v35;
   return result;
 }
 
-- (uint64_t)_frameOfContentWithAspectRatio:thatFitsCoverOfAspectRatio:withFrame:insetsContentToCover:
+- (uint64_t)_frameOfContentWithAspectRatio:(double)ratio thatFitsCoverOfAspectRatio:(double)aspectRatio withFrame:(double)frame insetsContentToCover:(double)cover
 {
-  v0 = sub_100083BBC();
+  v4 = sub_100083BBC(frame, cover);
 
-  return _BCRectByUnapplyingNormalizedInsets(v0);
+  return _BCRectByUnapplyingNormalizedInsets(v4);
 }
 
 - (CGRect)zoomedCoverFrame
@@ -475,7 +481,7 @@
   v7 = coverContainerView;
   if (coverContainerView)
   {
-    [coverContainerView transform];
+    objc_msgSend_transform(coverContainerView);
   }
 
   else
@@ -1471,13 +1477,15 @@
 
 + (CGRect)zoomedFrameForCoverWithSize:(CGSize)size isCompact:(BOOL)compact containerViewBounds:(CGRect)bounds
 {
+  height = size.height;
+  width = size.width;
   [self _availableRectForFittingZoomedCoverInContainerViewBounds:compact isCompact:{bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height}];
 
-  sub_100083BBC();
-  result.size.height = v8;
-  result.size.width = v7;
-  result.origin.y = v6;
-  result.origin.x = v5;
+  sub_100083BBC(width, height);
+  result.size.height = v10;
+  result.size.width = v9;
+  result.origin.y = v8;
+  result.origin.x = v7;
   return result;
 }
 

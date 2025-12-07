@@ -12,35 +12,33 @@
 
 - (void)toggleAssertion
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if ([(MSPowerAssertionManager *)self isAssertingPowerAssertion])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v4 = 138543362;
+      v3 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Toggling process power assertion off then on.", &v4, 0xCu);
+      _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Toggling process power assertion off then on.", &v3, 0xCu);
     }
 
     [(MSPowerAssertionManager *)self _deassertPowerAssertion];
     [(MSPowerAssertionManager *)self _assertPowerAssertion];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_recomputePowerAssertion
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if ([(MSPowerAssertionManager *)self busyCount]< 1 || [(MSPowerAssertionManager *)self UIBusyCount])
   {
     if ([(MSPowerAssertionManager *)self isAssertingPowerAssertion])
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        v4 = 138543362;
+        v3 = 138543362;
         selfCopy2 = self;
-        _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Releasing process power assertion.", &v4, 0xCu);
+        _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Releasing process power assertion.", &v3, 0xCu);
       }
 
       [(MSPowerAssertionManager *)self setIsAssertingPowerAssertion:0];
@@ -52,92 +50,86 @@
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v4 = 138543362;
+      v3 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Retaining process power assertion.", &v4, 0xCu);
+      _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Retaining process power assertion.", &v3, 0xCu);
     }
 
     [(MSPowerAssertionManager *)self setIsAssertingPowerAssertion:1];
     [(MSPowerAssertionManager *)self _assertPowerAssertion];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)releaseUIBusy
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   --self->_UIBusyCount;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v4 = 138543874;
+    v3 = 138543874;
     selfCopy = self;
-    v6 = 1024;
+    v5 = 1024;
     busyCount = [(MSPowerAssertionManager *)self busyCount];
-    v8 = 1024;
+    v7 = 1024;
     uIBusyCount = [(MSPowerAssertionManager *)self UIBusyCount];
-    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Releasing process UI busy. New busy: %d, UI busy: %d", &v4, 0x18u);
+    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Releasing process UI busy. New busy: %d, UI busy: %d", &v3, 0x18u);
   }
 
   [(MSPowerAssertionManager *)self _recomputePowerAssertion];
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retainUIBusy
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   ++self->_UIBusyCount;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v4 = 138543874;
+    v3 = 138543874;
     selfCopy = self;
-    v6 = 1024;
+    v5 = 1024;
     busyCount = [(MSPowerAssertionManager *)self busyCount];
-    v8 = 1024;
+    v7 = 1024;
     uIBusyCount = [(MSPowerAssertionManager *)self UIBusyCount];
-    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Retaining process UI busy. New busy: %d, UI busy: %d", &v4, 0x18u);
+    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Retaining process UI busy. New busy: %d, UI busy: %d", &v3, 0x18u);
   }
 
   [(MSPowerAssertionManager *)self _recomputePowerAssertion];
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)releaseBusy
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   --self->_busyCount;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v4 = 138543874;
+    v3 = 138543874;
     selfCopy = self;
-    v6 = 1024;
+    v5 = 1024;
     busyCount = [(MSPowerAssertionManager *)self busyCount];
-    v8 = 1024;
+    v7 = 1024;
     uIBusyCount = [(MSPowerAssertionManager *)self UIBusyCount];
-    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Releasing process busy. New busy: %d, UI busy: %d", &v4, 0x18u);
+    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Releasing process busy. New busy: %d, UI busy: %d", &v3, 0x18u);
   }
 
   [(MSPowerAssertionManager *)self _recomputePowerAssertion];
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retainBusy
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   ++self->_busyCount;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v4 = 138543874;
+    v3 = 138543874;
     selfCopy = self;
-    v6 = 1024;
+    v5 = 1024;
     busyCount = [(MSPowerAssertionManager *)self busyCount];
-    v8 = 1024;
+    v7 = 1024;
     uIBusyCount = [(MSPowerAssertionManager *)self UIBusyCount];
-    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Retaining process busy. New busy: %d, UI busy: %d", &v4, 0x18u);
+    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Retaining process busy. New busy: %d, UI busy: %d", &v3, 0x18u);
   }
 
   [(MSPowerAssertionManager *)self _recomputePowerAssertion];
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedManager

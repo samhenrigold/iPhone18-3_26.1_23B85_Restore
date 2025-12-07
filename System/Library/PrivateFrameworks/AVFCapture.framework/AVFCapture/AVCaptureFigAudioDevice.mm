@@ -43,7 +43,7 @@
 
 + (id)_newFigCaptureSources
 {
-  if (AVCaptureIsRunningInMediaserverd())
+  if (AVCaptureIsRunningInMediaserverd(self, a2))
   {
 
     return FigCaptureSourceCopySources();
@@ -109,7 +109,7 @@ LABEL_6:
 
 - (BOOL)isWindNoiseRemovalSupported
 {
-  v2 = [(NSDictionary *)self->_attributes objectForKeyedSubscript:*MEMORY[0x1E69902E8]];
+  v2 = objc_msgSend_objectForKeyedSubscript_(self->_attributes, a2, *MEMORY[0x1E69902E8]);
 
   return [v2 BOOLValue];
 }
@@ -131,59 +131,58 @@ LABEL_6:
 + (id)_devicesWithPriorRegisteredDevices:(id)devices
 {
   array = [MEMORY[0x1E695DF70] array];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = +[AVCaptureFigAudioDevice _newFigCaptureSources];
-  v4 = [obj countByEnumeratingWithState:&v30 objects:v29 count:16];
+  v4 = [obj countByEnumeratingWithState:&v29 objects:v28 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v31;
+    v6 = *v30;
     v19 = *MEMORY[0x1E69905E0];
     v18 = *MEMORY[0x1E695E480];
-    v21 = *MEMORY[0x1E6990298];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v31 != v6)
+        if (*v30 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v30 + 1) + 8 * i);
+        v8 = *(*(&v29 + 1) + 8 * i);
         if ([devices count])
         {
-          v28 = 0;
+          v27 = 0;
           v9 = *(*(CMBaseObjectGetVTable() + 8) + 48);
           if (v9)
           {
-            v9(v8, v19, v18, &v28);
+            v9(v8, v19, v18, &v27);
           }
 
-          v10 = [v28 objectForKeyedSubscript:v21];
+          v10 = objc_msgSend_objectForKeyedSubscript_(v27);
 
-          v26 = 0u;
-          v27 = 0u;
-          v24 = 0u;
           v25 = 0u;
-          v11 = [devices countByEnumeratingWithState:&v24 objects:v23 count:16];
+          v26 = 0u;
+          v23 = 0u;
+          v24 = 0u;
+          v11 = [devices countByEnumeratingWithState:&v23 objects:v22 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v25;
+            v13 = *v24;
 LABEL_11:
             v14 = 0;
             while (1)
             {
-              if (*v25 != v13)
+              if (*v24 != v13)
               {
                 objc_enumerationMutation(devices);
               }
 
-              v15 = *(*(&v24 + 1) + 8 * v14);
+              v15 = *(*(&v23 + 1) + 8 * v14);
               if ([objc_msgSend(v15 "uniqueID")])
               {
                 break;
@@ -191,7 +190,7 @@ LABEL_11:
 
               if (v12 == ++v14)
               {
-                v12 = [devices countByEnumeratingWithState:&v24 objects:v23 count:16];
+                v12 = [devices countByEnumeratingWithState:&v23 objects:v22 count:16];
                 if (v12)
                 {
                   goto LABEL_11;
@@ -220,7 +219,7 @@ LABEL_20:
         [array addObject:v16];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v30 objects:v29 count:16];
+      v5 = [obj countByEnumeratingWithState:&v29 objects:v28 count:16];
     }
 
     while (v5);
@@ -231,7 +230,7 @@ LABEL_20:
 
 + (void)_reconnectDevices:(id)devices
 {
-  if (AVCaptureIsRunningInMediaserverd())
+  if (AVCaptureIsRunningInMediaserverd(self, a2))
   {
     v4 = FigCaptureSourceCopySources();
   }
@@ -242,69 +241,68 @@ LABEL_20:
   }
 
   v5 = v4;
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
-  v6 = [v4 countByEnumeratingWithState:&v29 objects:v28 count:16];
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v6 = [v4 countByEnumeratingWithState:&v28 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v21 = *v30;
-    v19 = *MEMORY[0x1E69905E0];
-    v18 = *MEMORY[0x1E695E480];
-    v8 = *MEMORY[0x1E6990298];
+    v20 = *v29;
+    v18 = *MEMORY[0x1E69905E0];
+    v17 = *MEMORY[0x1E695E480];
     obj = v5;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v21)
+        if (*v29 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v29 + 1) + 8 * i);
-        v27 = 0;
-        v11 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-        if (v11)
+        v9 = *(*(&v28 + 1) + 8 * i);
+        v26 = 0;
+        v10 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+        if (v10)
         {
-          v11(v10, v19, v18, &v27);
+          v10(v9, v18, v17, &v26);
         }
 
-        v12 = [v27 objectForKeyedSubscript:{v8, v18, v19}];
+        v11 = objc_msgSend_objectForKeyedSubscript_(v26, v17, v18);
 
-        v25 = 0u;
-        v26 = 0u;
-        v23 = 0u;
         v24 = 0u;
-        v13 = [devices countByEnumeratingWithState:&v23 objects:v22 count:16];
-        if (v13)
+        v25 = 0u;
+        v22 = 0u;
+        v23 = 0u;
+        v12 = [devices countByEnumeratingWithState:&v22 objects:v21 count:16];
+        if (v12)
         {
-          v14 = v13;
-          v15 = *v24;
+          v13 = v12;
+          v14 = *v23;
           while (2)
           {
-            for (j = 0; j != v14; ++j)
+            for (j = 0; j != v13; ++j)
             {
-              if (*v24 != v15)
+              if (*v23 != v14)
               {
                 objc_enumerationMutation(devices);
               }
 
-              if (v12)
+              if (v11)
               {
-                v17 = *(*(&v23 + 1) + 8 * j);
-                if ([objc_msgSend(v17 "uniqueID")])
+                v16 = *(*(&v22 + 1) + 8 * j);
+                if ([objc_msgSend(v16 "uniqueID")])
                 {
-                  [v17 _reconnectToFigCaptureSource:v10];
+                  [v16 _reconnectToFigCaptureSource:v9];
                   goto LABEL_22;
                 }
               }
             }
 
-            v14 = [devices countByEnumeratingWithState:&v23 objects:v22 count:16];
-            if (v14)
+            v13 = [devices countByEnumeratingWithState:&v22 objects:v21 count:16];
+            if (v13)
             {
               continue;
             }
@@ -317,7 +315,7 @@ LABEL_22:
       }
 
       v5 = obj;
-      v7 = [obj countByEnumeratingWithState:&v29 objects:v28 count:16];
+      v7 = [obj countByEnumeratingWithState:&v28 objects:v27 count:16];
     }
 
     while (v7);
@@ -440,60 +438,60 @@ void __53__AVCaptureFigAudioDevice__initWithFigCaptureSource___block_invoke(uint
   dispatch_sync(fcsQueue, v4);
 }
 
-void *__48__AVCaptureFigAudioDevice__setFigCaptureSource___block_invoke(void *result)
+void *__48__AVCaptureFigAudioDevice__setFigCaptureSource___block_invoke(void *result, uint64_t a2)
 {
-  v1 = result[5];
-  v2 = *(result[4] + 48);
-  if (v1 != v2)
+  v2 = result[5];
+  v3 = *(result[4] + 48);
+  if (v2 != v3)
   {
-    v3 = result;
-    if (v2)
+    v4 = result;
+    if (v3)
     {
-      if (v1 && (AVCaptureIsRunningInMediaserverd() & 1) == 0)
+      if (v2 && (AVCaptureIsRunningInMediaserverd(result, a2) & 1) == 0)
       {
-        v12 = 0;
-        v4 = *(v3[4] + 48);
-        v5 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-        if (v5)
+        v13 = 0;
+        v5 = *(v4[4] + 48);
+        v6 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+        if (v6)
         {
-          if (!v5(v4, *MEMORY[0x1E6990880], *MEMORY[0x1E695E480], &v12) && v12 != 0)
+          if (!v6(v5, *MEMORY[0x1E6990880], *MEMORY[0x1E695E480], &v13) && v13 != 0)
           {
-            v7 = [v12 intValue];
-            if (v7 >= 1)
+            v8 = [v13 intValue];
+            if (v8 >= 1)
             {
-              v8 = v7;
+              v9 = v8;
               do
               {
-                v9 = v3[5];
-                v10 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-                if (v10)
+                v10 = v4[5];
+                v11 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+                if (v11)
                 {
-                  v10(v9);
+                  v11(v10);
                 }
 
-                --v8;
+                --v9;
               }
 
-              while (v8);
+              while (v9);
             }
           }
         }
       }
 
-      [objc_msgSend(MEMORY[0x1E6987F48] notificationDispatcherForCMNotificationCenter:{CMNotificationCenterGetDefaultLocalCenter()), "removeListenerWithWeakReference:callback:name:object:", *(v3[4] + 152), fad_figCaptureSourceNotificationHandler, 0, *(v3[4] + 48)}];
-      v11 = *(v3[4] + 48);
-      if (v11)
+      [objc_msgSend(MEMORY[0x1E6987F48] notificationDispatcherForCMNotificationCenter:{CMNotificationCenterGetDefaultLocalCenter()), "removeListenerWithWeakReference:callback:name:object:", *(v4[4] + 152), fad_figCaptureSourceNotificationHandler, 0, *(v4[4] + 48)}];
+      v12 = *(v4[4] + 48);
+      if (v12)
       {
-        CFRelease(v11);
-        *(v3[4] + 48) = 0;
+        CFRelease(v12);
+        *(v4[4] + 48) = 0;
       }
     }
 
-    result = v3[5];
+    result = v4[5];
     if (result)
     {
-      *(v3[4] + 48) = CFRetain(result);
-      return [objc_msgSend(MEMORY[0x1E6987F48] notificationDispatcherForCMNotificationCenter:{CMNotificationCenterGetDefaultLocalCenter()), "addListenerWithWeakReference:callback:name:object:flags:", *(v3[4] + 152), fad_figCaptureSourceNotificationHandler, 0, v3[5], 0}];
+      *(v4[4] + 48) = CFRetain(result);
+      return [objc_msgSend(MEMORY[0x1E6987F48] notificationDispatcherForCMNotificationCenter:{CMNotificationCenterGetDefaultLocalCenter()), "addListenerWithWeakReference:callback:name:object:flags:", *(v4[4] + 152), fad_figCaptureSourceNotificationHandler, 0, v4[5], 0}];
     }
   }
 
@@ -502,14 +500,14 @@ void *__48__AVCaptureFigAudioDevice__setFigCaptureSource___block_invoke(void *re
 
 - (id)figCaptureSourceAudioSettingsForSessionPreset:(id)preset
 {
-  v4 = [(NSDictionary *)self->_attributes objectForKeyedSubscript:*MEMORY[0x1E69900A8]];
+  v3 = objc_msgSend_objectForKeyedSubscript_(self->_attributes, a2, *MEMORY[0x1E69900A8]);
 
-  return [v4 objectForKeyedSubscript:preset];
+  return objc_msgSend_objectForKeyedSubscript_(v3);
 }
 
 - (BOOL)isBuiltInStereoAudioCaptureSupported
 {
-  v2 = [(NSDictionary *)self->_attributes objectForKeyedSubscript:*MEMORY[0x1E69900D8]];
+  v2 = objc_msgSend_objectForKeyedSubscript_(self->_attributes, a2, *MEMORY[0x1E69900D8]);
 
   return [v2 BOOLValue];
 }
@@ -518,16 +516,16 @@ void *__48__AVCaptureFigAudioDevice__setFigCaptureSource___block_invoke(void *re
 {
   if (supported > 3)
   {
-    v5 = supported == 6 || supported == 7;
-    v6 = supported == 4 || supported == 5;
+    v4 = supported == 6 || supported == 7;
+    v5 = supported == 4 || supported == 5;
     if (supported <= 5)
     {
-      return v6;
+      return v5;
     }
 
     else
     {
-      return v5;
+      return v4;
     }
   }
 
@@ -540,8 +538,7 @@ void *__48__AVCaptureFigAudioDevice__setFigCaptureSource___block_invoke(void *re
         return 1;
       }
 
-      attributes = self->_attributes;
-      v4 = MEMORY[0x1E69900F0];
+      v3 = objc_msgSend_objectForKeyedSubscript_(self->_attributes, a2, *MEMORY[0x1E69900F0]);
     }
 
     else
@@ -556,13 +553,10 @@ void *__48__AVCaptureFigAudioDevice__setFigCaptureSource___block_invoke(void *re
         return 0;
       }
 
-      attributes = self->_attributes;
-      v4 = MEMORY[0x1E69900D8];
+      v3 = objc_msgSend_objectForKeyedSubscript_(self->_attributes, a2, *MEMORY[0x1E69900D8]);
     }
 
-    v8 = [(NSDictionary *)attributes objectForKeyedSubscript:*v4];
-
-    return [v8 BOOLValue];
+    return [v3 BOOLValue];
   }
 }
 
@@ -573,6 +567,8 @@ void *__48__AVCaptureFigAudioDevice__setFigCaptureSource___block_invoke(void *re
   {
     if (dword_1ED806960)
     {
+      v7 = 0;
+      v6 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -605,22 +601,22 @@ void *__48__AVCaptureFigAudioDevice__setFigCaptureSource___block_invoke(void *re
   dispatch_async(audioRoutesInfoUpdateQueue, v4);
 }
 
-uint64_t __66__AVCaptureFigAudioDevice_setAllowsBluetoothHighQualityRecording___block_invoke(uint64_t result)
+void *__66__AVCaptureFigAudioDevice_setAllowsBluetoothHighQualityRecording___block_invoke(void *result)
 {
   v1 = *(result + 40);
-  v2 = *(result + 32);
+  v2 = result[4];
   if (v1 != *(v2 + 192))
   {
     v3 = result;
     if (dword_1ED806960)
     {
-      v10 = 0;
-      v9 = 0;
+      v8 = 0;
+      v7 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
       LOBYTE(v1) = *(v3 + 40);
-      v2 = *(v3 + 32);
+      v2 = v3[4];
     }
 
     *(v2 + 192) = v1;
@@ -634,11 +630,11 @@ uint64_t __66__AVCaptureFigAudioDevice_setAllowsBluetoothHighQualityRecording___
       v5 = 0;
     }
 
-    [*(*(v3 + 32) + 80) setCategory:*MEMORY[0x1E6958060] withOptions:v5 error:{0, v7, v8}];
+    [*(v3[4] + 80) setCategory:*MEMORY[0x1E6958060] withOptions:v5 error:0];
     result = [objc_msgSend(MEMORY[0x1E6958460] "sharedInstance")];
-    if ((result & 1) == 0 && (*(v3 + 40) & 1) == 0)
+    if ((result & 1) == 0 && (v3[5] & 1) == 0)
     {
-      v6 = *(*(v3 + 32) + 88);
+      v6 = *(v3[4] + 88);
       result = [v6 deviceType];
       if (!result)
       {
@@ -649,8 +645,8 @@ uint64_t __66__AVCaptureFigAudioDevice_setAllowsBluetoothHighQualityRecording___
           if (result)
           {
 
-            *(*(v3 + 32) + 88) = 0;
-            return [*(v3 + 32) _updateStateForInputDevice:0];
+            *(v3[4] + 88) = 0;
+            return [v3[4] _updateStateForInputDevice:0];
           }
         }
       }
@@ -847,65 +843,65 @@ LABEL_16:
 
   if (dword_1ED806960)
   {
-    v60 = 0;
-    v59 = OS_LOG_TYPE_DEFAULT;
+    v62 = 0;
+    v61 = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v5 = [(AVInputDeviceDiscoverySession *)self->_inputDeviceDiscoverySession availableInputDevices:v34];
-  v55 = 0u;
+  availableInputDevices = [(AVInputDeviceDiscoverySession *)self->_inputDeviceDiscoverySession availableInputDevices];
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  obj = v5;
-  v6 = [v5 countByEnumeratingWithState:&v55 objects:v54 count:16];
+  v59 = 0u;
+  obj = availableInputDevices;
+  v6 = [availableInputDevices countByEnumeratingWithState:&v56 objects:v55 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v56;
+    v9 = *v57;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v56 != v9)
+        if (*v57 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
         if (dword_1ED806960)
         {
-          v11 = *(*(&v55 + 1) + 8 * i);
-          v60 = 0;
-          v59 = OS_LOG_TYPE_DEFAULT;
+          v11 = *(*(&v56 + 1) + 8 * i);
+          v62 = 0;
+          v61 = OS_LOG_TYPE_DEFAULT;
           v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v13 = v60;
-          if (os_log_type_enabled(v12, v59))
+          v13 = v62;
+          v14 = v61;
+          if (os_log_type_enabled(v12, v61))
           {
-            v14 = v13;
+            v15 = v13;
           }
 
           else
           {
-            v14 = v13 & 0xFFFFFFFE;
+            v15 = v13 & 0xFFFFFFFE;
           }
 
-          if (v14)
+          if (v15)
           {
-            v15 = _inputDeviceString(v11);
-            v48 = 136315906;
-            v49 = "[AVCaptureFigAudioDevice _updateStateForInputDevice:]";
-            v50 = 2048;
-            selfCopy3 = self;
-            v52 = 1024;
-            v53[0] = v8;
-            LOWORD(v53[1]) = 2112;
-            *(&v53[1] + 2) = v15;
-            LODWORD(v37) = 38;
-            v35 = &v48;
-            _os_log_send_and_compose_impl();
+            v16 = _inputDeviceString(v11);
+            v49 = 136315906;
+            v50 = "[AVCaptureFigAudioDevice _updateStateForInputDevice:]";
+            v51 = 2048;
+            selfCopy4 = self;
+            v53 = 1024;
+            v54[0] = v8;
+            LOWORD(v54[1]) = 2112;
+            *(&v54[1] + 2) = v16;
+            LODWORD(v38) = 38;
+            _os_log_send_and_compose_impl(v15, 0, v60, 128, &dword_1A917C000, v12, v14, "<<<< AVCaptureFigAudioDevice >>>> %s: [Routing] %p discoverySession:[%d] %@", &v49, v38);
             ++v8;
           }
 
@@ -913,7 +909,7 @@ LABEL_16:
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v55 objects:v54 count:16];
+      v7 = [obj countByEnumeratingWithState:&v56 objects:v55 count:16];
     }
 
     while (v7);
@@ -925,49 +921,51 @@ LABEL_16:
     goto LABEL_20;
   }
 
-  v46 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v21 = [obj countByEnumeratingWithState:&v44 objects:v43 count:16];
-  if (v21)
+  v46 = 0u;
+  v22 = [obj countByEnumeratingWithState:&v45 objects:v44 count:16];
+  if (v22)
   {
-    v22 = v21;
-    v23 = *v45;
+    v23 = v22;
+    v24 = *v46;
     while (2)
     {
-      for (j = 0; j != v22; ++j)
+      for (j = 0; j != v23; ++j)
       {
-        if (*v45 != v23)
+        if (*v46 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        if ([(AVInputDevice *)self->_committedInputDevice isEqualToInputDevice:*(*(&v44 + 1) + 8 * j), v35, v37])
+        if ([(AVInputDevice *)self->_committedInputDevice isEqualToInputDevice:*(*(&v45 + 1) + 8 * j)])
         {
           if (dword_1ED806960)
           {
-            v60 = 0;
-            v59 = OS_LOG_TYPE_DEFAULT;
-            v28 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            v29 = v60;
-            if (os_log_type_enabled(v28, v59))
+            v62 = 0;
+            v61 = OS_LOG_TYPE_DEFAULT;
+            v30 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            v31 = v62;
+            v32 = v61;
+            if (os_log_type_enabled(v30, v61))
             {
-              v30 = v29;
+              v33 = v31;
             }
 
             else
             {
-              v30 = v29 & 0xFFFFFFFE;
+              v33 = v31 & 0xFFFFFFFE;
             }
 
-            if (v30)
+            if (v33)
             {
-              v48 = 136315394;
-              v49 = "[AVCaptureFigAudioDevice _updateStateForInputDevice:]";
-              v50 = 2048;
-              selfCopy3 = self;
-              _os_log_send_and_compose_impl();
+              v49 = 136315394;
+              v50 = "[AVCaptureFigAudioDevice _updateStateForInputDevice:]";
+              v51 = 2048;
+              selfCopy4 = self;
+              LODWORD(v38) = 22;
+              _os_log_send_and_compose_impl(v33, 0, v60, 128, &dword_1A917C000, v30, v32, "<<<< AVCaptureFigAudioDevice >>>> %s: [Routing] %p Input device changed to nil, found last committed in DS available inputs, so keeping it", &v49, v38);
             }
 
             fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -977,8 +975,8 @@ LABEL_16:
         }
       }
 
-      v22 = [obj countByEnumeratingWithState:&v44 objects:v43 count:16];
-      if (v22)
+      v23 = [obj countByEnumeratingWithState:&v45 objects:v44 count:16];
+      if (v23)
       {
         continue;
       }
@@ -991,66 +989,72 @@ LABEL_16:
   {
     if (dword_1ED806960)
     {
-      v60 = 0;
-      v59 = OS_LOG_TYPE_DEFAULT;
-      v25 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v26 = v60;
-      if (os_log_type_enabled(v25, v59))
+      v62 = 0;
+      v61 = OS_LOG_TYPE_DEFAULT;
+      v26 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v27 = v62;
+      v28 = v61;
+      if (os_log_type_enabled(v26, v61))
       {
-        v27 = v26;
+        v29 = v27;
       }
 
       else
       {
-        v27 = v26 & 0xFFFFFFFE;
+        v29 = v27 & 0xFFFFFFFE;
       }
 
-      if (!v27)
+      if (v29)
       {
-        goto LABEL_51;
+        v49 = 136315394;
+        v50 = "[AVCaptureFigAudioDevice _updateStateForInputDevice:]";
+        v51 = 2048;
+        selfCopy4 = self;
+        LODWORD(v38) = 22;
+        _os_log_send_and_compose_impl(v29, 0, v60, 128, &dword_1A917C000, v26, v28, "<<<< AVCaptureFigAudioDevice >>>> %s: [Routing] %p Input device changed to nil, and last committed wasn't found in discovery session available inputs, so we're forgetting it", &v49, v38);
       }
 
-      goto LABEL_49;
+LABEL_51:
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
+      deviceCopy = 0;
     }
   }
 
   else if (dword_1ED806960)
   {
-    v60 = 0;
-    v59 = OS_LOG_TYPE_DEFAULT;
-    v31 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v32 = v60;
-    if (os_log_type_enabled(v31, v59))
+    v62 = 0;
+    v61 = OS_LOG_TYPE_DEFAULT;
+    v34 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v35 = v62;
+    v36 = v61;
+    if (os_log_type_enabled(v34, v61))
     {
-      v33 = v32;
+      v37 = v35;
     }
 
     else
     {
-      v33 = v32 & 0xFFFFFFFE;
+      v37 = v35 & 0xFFFFFFFE;
     }
 
-    if (!v33)
+    if (v37)
     {
-      goto LABEL_51;
+      v49 = 136315394;
+      v50 = "[AVCaptureFigAudioDevice _updateStateForInputDevice:]";
+      v51 = 2048;
+      selfCopy4 = self;
+      LODWORD(v38) = 22;
+      _os_log_send_and_compose_impl(v37, 0, v60, 128, &dword_1A917C000, v34, v36, "<<<< AVCaptureFigAudioDevice >>>> %s: [Routing] %p Input device changed to nil, DS available inputs count is 0, so we're *forgetting* last committed", &v49, v38);
     }
 
-LABEL_49:
-    v48 = 136315394;
-    v49 = "[AVCaptureFigAudioDevice _updateStateForInputDevice:]";
-    v50 = 2048;
-    selfCopy3 = self;
-    _os_log_send_and_compose_impl();
-LABEL_51:
-    fig_log_call_emit_and_clean_up_after_send_and_compose();
-    deviceCopy = 0;
+    goto LABEL_51;
   }
 
 LABEL_20:
-  v17 = deviceCopy;
+  v18 = deviceCopy;
 
   self->_committedInputDevice = deviceCopy;
-  v18 = [(AVCaptureFigAudioDevice *)self _currentAudioInputDeviceLocalizedName:self->_attributes];
+  v19 = [(AVCaptureFigAudioDevice *)self _currentAudioInputDeviceLocalizedName:self->_attributes];
   _currentAudioInputRouteIsBuiltInMic = [(AVCaptureFigAudioDevice *)self _currentAudioInputRouteIsBuiltInMic];
   _systemHasAudioInputDevice = [(AVCaptureFigAudioDevice *)self _systemHasAudioInputDevice];
   block[0] = MEMORY[0x1E69E9820];
@@ -1058,26 +1062,26 @@ LABEL_20:
   block[2] = __54__AVCaptureFigAudioDevice__updateStateForInputDevice___block_invoke;
   block[3] = &unk_1E7876628;
   block[4] = self;
-  block[5] = v18;
-  v41 = _currentAudioInputRouteIsBuiltInMic;
-  v42 = _systemHasAudioInputDevice;
+  block[5] = v19;
+  v42 = _currentAudioInputRouteIsBuiltInMic;
+  v43 = _systemHasAudioInputDevice;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __54__AVCaptureFigAudioDevice__updateStateForInputDevice___block_invoke(uint64_t a1)
+void *__54__AVCaptureFigAudioDevice__updateStateForInputDevice___block_invoke(uint64_t a1)
 {
   if (([objc_msgSend(*(a1 + 32) "localizedName")] & 1) == 0)
   {
     if (dword_1ED806960)
     {
-      v21 = 0;
-      v20 = OS_LOG_TYPE_DEFAULT;
+      v24 = 0;
+      v23 = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [*(a1 + 32) willChangeValueForKey:{@"localizedName", v13, v14}];
+    [*(a1 + 32) willChangeValueForKey:@"localizedName"];
     os_unfair_lock_lock((*(a1 + 32) + 108));
     v3 = *(a1 + 40);
 
@@ -1090,14 +1094,14 @@ uint64_t __54__AVCaptureFigAudioDevice__updateStateForInputDevice___block_invoke
   {
     if (dword_1ED806960)
     {
-      v21 = 0;
-      v20 = OS_LOG_TYPE_DEFAULT;
+      v24 = 0;
+      v23 = OS_LOG_TYPE_DEFAULT;
       v4 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [*(a1 + 32) willChangeValueForKey:{@"audioInputRouteIsBuiltInMic", v13, v14, *v15}];
+    [*(a1 + 32) willChangeValueForKey:@"audioInputRouteIsBuiltInMic"];
     os_unfair_lock_lock((*(a1 + 32) + 128));
     *(*(a1 + 32) + 144) = *(a1 + 48);
     os_unfair_lock_unlock((*(a1 + 32) + 128));
@@ -1110,35 +1114,34 @@ uint64_t __54__AVCaptureFigAudioDevice__updateStateForInputDevice___block_invoke
     if (dword_1ED806960)
     {
       v6 = result;
-      v21 = 0;
-      v20 = OS_LOG_TYPE_DEFAULT;
+      v24 = 0;
+      v23 = OS_LOG_TYPE_DEFAULT;
       v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v8 = v21;
-      if (os_log_type_enabled(v7, v20))
+      v8 = v24;
+      v9 = v23;
+      if (os_log_type_enabled(v7, v23))
       {
-        v9 = v8;
+        v10 = v8;
       }
 
       else
       {
-        v9 = v8 & 0xFFFFFFFE;
+        v10 = v8 & 0xFFFFFFFE;
       }
 
-      if (v9)
+      if (v10)
       {
-        v10 = *(a1 + 32);
-        v11 = *(a1 + 49);
-        *v15 = 136315906;
-        *&v15[4] = "[AVCaptureFigAudioDevice _updateStateForInputDevice:]_block_invoke";
-        *&v15[12] = 2048;
-        *&v15[14] = v10;
-        v16 = 1024;
-        v17 = v6;
+        v11 = *(a1 + 32);
+        v12 = *(a1 + 49);
+        v14 = 136315906;
+        v15 = "[AVCaptureFigAudioDevice _updateStateForInputDevice:]_block_invoke";
+        v16 = 2048;
+        v17 = v11;
         v18 = 1024;
-        v19 = v11;
-        LODWORD(v14) = 34;
-        v13 = v15;
-        _os_log_send_and_compose_impl();
+        v19 = v6;
+        v20 = 1024;
+        v21 = v12;
+        _os_log_send_and_compose_impl(v10, 0, v22, 128, &dword_1A917C000, v7, v9, "<<<< AVCaptureFigAudioDevice >>>> %s: [Routing] %p Changing isConnected from %d to %d", &v14, 34);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1151,14 +1154,14 @@ uint64_t __54__AVCaptureFigAudioDevice__updateStateForInputDevice___block_invoke
     else if (*(a1 + 49))
     {
 LABEL_19:
-      v12 = @"AVCaptureDeviceWasConnectedNotification";
+      v13 = @"AVCaptureDeviceWasConnectedNotification";
       *(*(a1 + 32) + 105) = 0;
       goto LABEL_20;
     }
 
-    v12 = @"AVCaptureDeviceWasDisconnectedNotification";
+    v13 = @"AVCaptureDeviceWasDisconnectedNotification";
 LABEL_20:
-    [*(a1 + 32) willChangeValueForKey:{@"connected", v13, v14}];
+    [*(a1 + 32) willChangeValueForKey:@"connected"];
     os_unfair_lock_lock((*(a1 + 32) + 100));
     *(*(a1 + 32) + 104) = *(a1 + 49);
     os_unfair_lock_unlock((*(a1 + 32) + 100));
@@ -1180,7 +1183,7 @@ LABEL_20:
   dispatch_async(audioRoutesInfoUpdateQueue, block);
 }
 
-uint64_t __57__AVCaptureFigAudioDevice_audioServicesWereResetHandler___block_invoke(uint64_t a1)
+double __57__AVCaptureFigAudioDevice_audioServicesWereResetHandler___block_invoke(uint64_t a1)
 {
   if (dword_1ED806960)
   {
@@ -1202,28 +1205,28 @@ uint64_t __57__AVCaptureFigAudioDevice_audioServicesWereResetHandler___block_inv
     v4 = 0;
   }
 
-  [*(v3 + 80) setCategory:*MEMORY[0x1E6958060] withOptions:v4 error:{0, v21, v23}];
+  [*(v3 + 80) setCategory:*MEMORY[0x1E6958060] withOptions:v4 error:0];
   [*(*(a1 + 32) + 64) setAudioSessionID:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", objc_msgSend(*(*(a1 + 32) + 80), "opaqueSessionID"))}];
   v5 = [*(*(a1 + 32) + 64) availableInputDevices];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v32 objects:v31 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v31 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v33;
+    v8 = *v32;
 LABEL_8:
     v9 = 0;
     while (1)
     {
-      if (*v33 != v8)
+      if (*v32 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v32 + 1) + 8 * v9);
+      v10 = *(*(&v31 + 1) + 8 * v9);
       if ([v10 deviceType] == 2 && objc_msgSend(v10, "deviceSubType") == 1)
       {
         break;
@@ -1231,7 +1234,7 @@ LABEL_8:
 
       if (v7 == ++v9)
       {
-        v7 = [v5 countByEnumeratingWithState:&v32 objects:v31 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v31 objects:v30 count:16];
         if (v7)
         {
           goto LABEL_8;
@@ -1243,83 +1246,89 @@ LABEL_8:
 
     if (v10)
     {
-      return [*(a1 + 32) _updateStateForInputDevice:{v10, v22, v24}];
+      goto LABEL_26;
     }
+  }
+
+  if (![v5 count])
+  {
+    goto LABEL_27;
   }
 
 LABEL_17:
-  result = [v5 count];
-  if (result)
-  {
-    result = [v5 objectAtIndexedSubscript:0];
-    v10 = result;
-    if (dword_1ED806960)
-    {
-      v37 = 0;
-      v36 = OS_LOG_TYPE_DEFAULT;
-      v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v13 = v37;
-      if (os_log_type_enabled(v12, v36))
-      {
-        v14 = v13;
-      }
-
-      else
-      {
-        v14 = v13 & 0xFFFFFFFE;
-      }
-
-      if (v14)
-      {
-        v15 = *(a1 + 32);
-        v16 = _inputDeviceString(v10);
-        v25 = 136315650;
-        v26 = "[AVCaptureFigAudioDevice audioServicesWereResetHandler:]_block_invoke";
-        v27 = 2048;
-        v28 = v15;
-        v29 = 2112;
-        v30 = v16;
-        LODWORD(v24) = 32;
-        v22 = &v25;
-        _os_log_send_and_compose_impl();
-      }
-
-      result = fig_log_call_emit_and_clean_up_after_send_and_compose();
-    }
-
-    if (v10)
-    {
-      return [*(a1 + 32) _updateStateForInputDevice:{v10, v22, v24}];
-    }
-  }
-
+  v10 = [v5 objectAtIndexedSubscript:0];
   if (dword_1ED806960)
   {
     v37 = 0;
     v36 = OS_LOG_TYPE_DEFAULT;
-    v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v18 = v37;
-    if (os_log_type_enabled(v17, v36))
+    v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v13 = v37;
+    v14 = v36;
+    if (os_log_type_enabled(v12, v36))
     {
-      v19 = v18;
+      v15 = v13;
     }
 
     else
     {
-      v19 = v18 & 0xFFFFFFFE;
+      v15 = v13 & 0xFFFFFFFE;
     }
 
-    if (v19)
+    if (v15)
     {
-      v20 = *(a1 + 32);
-      v25 = 136315394;
-      v26 = "[AVCaptureFigAudioDevice audioServicesWereResetHandler:]_block_invoke";
-      v27 = 2048;
-      v28 = v20;
-      _os_log_send_and_compose_impl();
+      v16 = *(a1 + 32);
+      v17 = _inputDeviceString(v10);
+      v24 = 136315650;
+      v25 = "[AVCaptureFigAudioDevice audioServicesWereResetHandler:]_block_invoke";
+      v26 = 2048;
+      v27 = v16;
+      v28 = 2112;
+      v29 = v17;
+      _os_log_send_and_compose_impl(v15, 0, v35, 128, &dword_1A917C000, v12, v14, "<<<< AVCaptureFigAudioDevice >>>> %s: [Routing] %p After audiomxd crash, no built-in mic detected, so setting current mic to %@", &v24, 32);
     }
 
-    return fig_log_call_emit_and_clean_up_after_send_and_compose();
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+
+  if (v10)
+  {
+LABEL_26:
+    [*(a1 + 32) _updateStateForInputDevice:v10];
+  }
+
+  else
+  {
+LABEL_27:
+    if (dword_1ED806960)
+    {
+      v37 = 0;
+      v36 = OS_LOG_TYPE_DEFAULT;
+      v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v19 = v37;
+      v20 = v36;
+      if (os_log_type_enabled(v18, v36))
+      {
+        v21 = v19;
+      }
+
+      else
+      {
+        v21 = v19 & 0xFFFFFFFE;
+      }
+
+      if (v21)
+      {
+        v22 = *(a1 + 32);
+        v24 = 136315394;
+        v25 = "[AVCaptureFigAudioDevice audioServicesWereResetHandler:]_block_invoke";
+        v26 = 2048;
+        v27 = v22;
+        LODWORD(v23) = 22;
+        _os_log_send_and_compose_impl(v21, 0, v35, 128, &dword_1A917C000, v18, v20, "<<<< AVCaptureFigAudioDevice >>>> %s: [Routing] %p After audiomxd crash, no available input devices reported by AVIDDS", &v24, v23);
+      }
+
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
+    }
   }
 
   return result;

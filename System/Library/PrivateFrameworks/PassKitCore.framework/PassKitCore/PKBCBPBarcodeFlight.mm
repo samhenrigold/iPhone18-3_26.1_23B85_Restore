@@ -77,7 +77,7 @@
   v46[4] = &v52;
   v44 = _Block_copy(v46);
   v40 = v4[2](v4, 1);
-  if (([v40 isEqualToString:@"M"]& 1) != 0)
+  if (objc_msgSend_isEqualToString_(v40))
   {
     v5 = v4[2](v4, 1);
     if (v5)
@@ -179,7 +179,7 @@ LABEL_31:
           if (v19 != [v42 length])
           {
             v20 = v4[2](v4, 1);
-            if (([v20 isEqualToString:@"^"]& 1) == 0)
+            if ((objc_msgSend_isEqualToString_(v20) & 1) == 0)
             {
               v21 = PKLogFacilityTypeGetObject(0);
               if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -348,9 +348,9 @@ LABEL_18:
             goto LABEL_19;
           }
 
-          v11 = [(NSString *)v8 isEqualToString:v9];
+          isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-          if (!v11)
+          if (!isEqualToString)
           {
             goto LABEL_16;
           }
